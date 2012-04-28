@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<info>
+	<id>apptemplate</id>
+	<name>AppTemplate</name>
+	<description>Just an example application as a starting point for new developers</description>
+	<version>1.0</version>
+	<licence>AGPL</licence>
+	<author>Frank Karlitschek</author>
+	<require>2</require>
+</info>
