@@ -22,25 +22,24 @@
 
 
 class StatusFlag{
-	const Unread = 0x02;
+	const Unread    = 0x02;
 	const Important = 0x04;
-	const Deleted = 0x08;
-	const Updated = 0x16;
+	const Deleted   = 0x08;
+	const Updated   = 0x16;
 }
 
 /*
-* This class models an item
+* This class models an item.
 *
-* It wraps a SimplePie item and adds a status flag to it
+* It extends the SimplePie_Item class by adding a status flag to it
 */
-class OC_News_Item{
+class OC_News_Item extends SimplePie_Item {
 
-	private $spitem; //the SimplePie item 
 	private $status; //a bit-field set with status flags
 
-	public function __construct($spitem){
-		$this->spitem = $spitem;
+	public function __construct($feed, $data){
 		$this->status |= StatusFlag::Unread; 
+		parent::__construct($feed, $data);
 	}
 
 	public function setRead(){
