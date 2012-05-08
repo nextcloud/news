@@ -1,5 +1,4 @@
 <?php
-
 /**
 * ownCloud - News app
 *
@@ -21,23 +20,38 @@
 * 
 */
 
-// this is temporary.
-//TODO: change it once the new app system is complete
-require_once('../owncloud/lib/base.php');
 
-// load SimplePie library
-require_once('3rdparty/SimplePie/SimplePieAutoloader.php');
+class StatusFlag{
+	const Unread = 0x02;
+	const Important = 0x04;
+	const Deleted = 0x08;
+	const Updated = 0x16;
+}
 
-// Check if we are a user
-OCP\User::checkLoggedIn();
+/*
+* This class models an item
+*
+* It wraps a SimplePie item and adds a status flag to it
+*/
+class OC_News_Item{
 
-OCP\App::checkAppEnabled('news');
-OCP\App::setActiveNavigationEntry('news');
+	private $spitem; //the SimplePie item 
+	private $status; //a bit-field set with status flags
 
-//OCP\Util::addscript('news','news');
-//OCP\Util::addStyle('news', 'news');
+	public function __construct($spitem){
+		$this->spitem = $spitem;
+		$this->status |= StatusFlag::Unread; 
+	}
 
-$tmpl = new OCP\Template( 'news', 'main', 'user' );
-$tmpl->printPage();
+	public function setRead(){
+		$this->status |= ~StatusFlag::Unread; 
+	}
 
-?>
+	public function setUnread(){
+		$this->status |= StatusFlag::Unread; 
+	}
+
+	public function isRead(){
+		return ($this->status & ~StatusFlag::Unread);
+	}
+}

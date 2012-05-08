@@ -21,9 +21,11 @@
 * 
 */
 
-OC_APP::registerAdmin('news','settings');
+OC::$CLASSPATH['OC_News_Item'] = 'apps/news/lib/item.php';
 
-OC_App::register( array( 'order' => 70, 'id' => 'news', 'name' => 'News' ));
+$l = new OC_l10n('news');
 
-OC_App::addNavigationEntry( array( 'id' => 'news', 'order' => 74, 'href' => OC_Helper::linkTo( 'news', 'index.php' ), 'icon' => OC_Helper::imagePath( 'news', 'example.png' ), 'name' => 'News'));
+OCP\App::registerAdmin('news','settings');
+OCP\App::register( array( 'order' => 70, 'id' => 'news', 'name' => 'News' ));
+OCP\App::addNavigationEntry( array( 'id' => 'news', 'order' => 74, 'href' => OC_Helper::linkTo( 'news', 'index.php' ), 'icon' => OC_Helper::imagePath( 'news', 'example.png' ), 'name' => 'News'));
 
