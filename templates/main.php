@@ -1,3 +1,32 @@
+<?php 
+
+$feed = new SimplePie_Core(); 
+$feed->set_feed_url( 'http://algorithmsforthekitchen.com/blog/?feed=rss2' );
+$feed->enable_cache( false );
+$feed->init();
+$feed->handle_content_type();
+
+$item = new OC_News_Item($feed->get_item(1));
+
+if ($item->isRead())
+	echo $l->t('Read');
+else
+	echo $l->t('Unread');
+
+$item->setRead();
+$item->setUnread();
+$item->setRead();
+
+echo "<br>";
+
+if ($item->isRead())
+	echo $l->t('Read');
+else
+	echo $l->t('Unread');
+
+?>
+
+<?php /* this is from apptemplate
 
 <h1>This is an example app template</h1>
 
@@ -5,6 +34,4 @@
 :"
 <?php echo $_['somesetting']; ?>
 "
-
-
-
+*/ ?>
