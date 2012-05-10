@@ -54,11 +54,11 @@ class OC_News_Feed extends SimplePie_Core{
 		//FIXME: Detect when user adds a known feed
 		$query = OCP\DB::prepare("
 			INSERT INTO *PREFIX*news_feeds
-			(url, title, userid, added, lastmodified)
+			(url, title, user_id, added, lastmodified)
 			VALUES (?, ?, ?, $_ut, $_ut)
 			");
 		
-		$title = $this->sp->get_title();
+		$title = $this->get_title();
 
 		if(empty($title)) {
 			$l = OC_L10N::get('news');
