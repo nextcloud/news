@@ -3,7 +3,7 @@
 	<id>news</id>
 	<name>News</name>
 	<description>An RSS/Atom feed reader</description>
-	<version>0.2</version>
+	<version>0.2.1</version>
 	<licence>AGPL</licence>
 	<author>Alessandro Cosentino</author>
 	<require>3</require>

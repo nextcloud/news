@@ -5,6 +5,48 @@
 	<overwrite>false</overwrite>
 	<charset>latin1</charset>
 	<table>
+		<name>*dbprefix*news_folders</name>
+		<declaration>
+			<field>
+				<name>id</name>
+				<type>integer</type>
+				<default>0</default>
+				<notnull>true</notnull>
+    				<autoincrement>1</autoincrement>
+				<length>4</length>
+			</field>
+			<field>
+				<name>parentid</name>
+				<type>integer</type>
+				<notnull>false</notnull>
+				<length>4</length>
+			</field>
+			<field>
+				<name>name</name>
+				<type>text</type>
+				<notnull>true</notnull>
+				<length>100</length>
+			</field>
+			<field>
+				<name>userid</name>
+				<type>text</type>
+				<default></default>
+				<notnull>true</notnull>
+				<length>64</length>
+			</field>
+			
+			<index>
+				<name>id</name>
+				<unique>true</unique>
+				<field>
+					<name>id</name>
+					<sorting>descending</sorting>
+				</field>
+			</index>
+		</declaration>
+	</table>
+	
+	<table>
 		<name>*dbprefix*news_feeds</name>
 		<declaration>
 			<field>
@@ -28,13 +70,6 @@
 				<length>100</length>
 			</field>
 			<field>
-				<name>user_id</name>
-				<type>text</type>
-				<default></default>
-				<notnull>true</notnull>
-				<length>64</length>
-			</field>
-			<field>
 				<name>added</name>
 				<type>integer</type>
 				<default></default>
@@ -48,6 +83,53 @@
 				<default></default>
 				<notnull>false</notnull>
 				<unsigned>true</unsigned>
+				<length>4</length>
+			</field>
+			<field>
+				<name>folderid</name>
+				<type>integer</type>
+				<notnull>true</notnull>
+				<length>4</length>
+			</field>
+			
+			<index>
+				<name>id</name>
+				<unique>true</unique>
+				<field>
+					<name>id</name>
+					<sorting>descending</sorting>
+				</field>
+			</index>
+		</declaration>
+	</table>
+	
+	<table>
+		<name>*dbprefix*news_items</name>
+		<declaration>
+			<field>
+				<name>id</name>
+				<type>integer</type>
+				<default>0</default>
+				<notnull>true</notnull>
+				<autoincrement>1</autoincrement>
+				<length>4</length>
+			</field>
+			<field>
+				<name>url</name>
+				<type>text</type>
+				<notnull>true</notnull>
+				<length>100</length>
+			</field>
+			<field>
+				<name>title</name>
+				<type>text</type>
+				<notnull>true</notnull>
+				<length>100</length>
+			</field>
+			<field>
+				<name>feedid</name>
+				<type>integer</type>
+				<notnull>true</notnull>
 				<length>4</length>
 			</field>
 			
