@@ -1,9 +1,14 @@
 <?php 
 
 $feed = new OC_News_Feed( 'http://algorithmsforthekitchen.com/blog/?feed=rss2' );
-$feed->saveToDB();
+$mapper = new OC_News_FeedMapper();
+$feed_id = $mapper->insert($feed);
 
+echo "<br>" . $feed->getTitle() . "<br>";
+
+/*
 $item = $feed->get_item(1);
+
 
 if ($item->isRead()) {
 	echo $l->t('Read');
@@ -24,3 +29,4 @@ if ($item->isRead()) {
 else {
 	echo $l->t('Unread');
 }
+*/

@@ -20,60 +20,31 @@
 * 
 */
 
-
 /**
  * This class models a feed.
  */
-class OC_News_Feed extends SimplePie_Core{
+class OC_News_Feed {
 
 	private $url;
-	private $feed_id;
+	private $spfeed; //we encapsulate a SimplePie_Core object
 
 	public function __construct($url){
-		parent::__construct();
 		$this->url = $url;
-		$this->set_item_class('OC_News_Item');
-		$this->set_feed_url( $url );
-		$this->enable_cache( false );
+		$this->spfeed = new SimplePie_Core();
+		$this->spfeed->set_item_class('OC_News_Item');
+		$this->spfeed->set_feed_url( $url );
+		$this->spfeed->enable_cache( false );
 
 		//FIXME: figure out if constructor is the right place for these
-		$this->init();
-		$this->handle_content_type();
+		$this->spfeed->init();
+		$this->spfeed->handle_content_type();
 	}
-	
-	public function saveToDB() {
-		$CONFIG_DBTYPE = OCP\Config::getSystemValue( "dbtype", "sqlite" );
-		if( $CONFIG_DBTYPE == 'sqlite' or $CONFIG_DBTYPE == 'sqlite3' ){
-			$_ut = "strftime('%s','now')";
-		} elseif($CONFIG_DBTYPE == 'pgsql') {
-			$_ut = 'date_part(\'epoch\',now())::integer';
-		} else {
-			$_ut = "UNIX_TIMESTAMP()";
-		}
-		
-		//FIXME: Detect when user adds a known feed
-		$query = OCP\DB::prepare("
-			INSERT INTO *PREFIX*news_feeds
-			(url, title, user_id, added, lastmodified)
-			VALUES (?, ?, ?, $_ut, $_ut)
-			");
-		
-		$title = $this->get_title();
 
-		if(empty($title)) {
-			$l = OC_L10N::get('news');
-			$title = $l->t('no title');
-		}
+	public function getUrl(){
+		return $this->url;
+	}
 
-		$params=array(
-		htmlspecialchars_decode($this->url),
-		htmlspecialchars_decode($title),
-		OCP\USER::getUser()
-		);
-		$query->execute($params);
-		
-		$feed_id = OCP\DB::insertid('*PREFIX*news_feeds');
-		
-		return $feed_id;
+	public function getTitle(){
+		return $this->spfeed->get_title();
 	}
 }
