@@ -21,32 +21,32 @@
 */
 
 /**
- * This class maps a feed to an entry in the feeds table of the database.
- * It follows the Data Mapper pattern (see http://martinfowler.com/eaaCatalog/dataMapper.html).
+ * This class models a folder that contains feeds.
  */
-class OC_News_FeedMapper {
+class OC_News_Folder {
 
-	private $tableName = '*PREFIX*news_feeds';
+	private $name;
+	private $feed_id;
 
-	/**
-	 * @brief Retrieve a feed from the database
-	 * @param id The id of the feed in the database table.
-	 */
-	public function find($id){
-		$stmt = OCP\DB::prepare('SELECT * FROM ' . $this->tableName . ' WHERE id = ?');
-		$result = $stmt->execute(array($id));
-		$row = $result->fetchRow();
-
-		$url = $row['url'];
-		$title = $row['title'];
-
+	public function __construct($name){
+		$this->name = $name;
 	}
 
+	public function getName(){
+		return $this->name;
+	}
+
+	public function setName($name){
+		$this->name = $name;
+	}
+
+
+
 	/**
-	 * @brief Save the feed and all its items into the database
+	 * @brief Save the folder into the database
 	 * @returns The id of the feed in the database table.
 	 */
-	public function insert(OC_News_Feed $feed){
+	public function saveToDB() {
 		$CONFIG_DBTYPE = OCP\Config::getSystemValue( "dbtype", "sqlite" );
 		if( $CONFIG_DBTYPE == 'sqlite' or $CONFIG_DBTYPE == 'sqlite3' ){
 			$_ut = "strftime('%s','now')";
@@ -58,13 +58,13 @@ class OC_News_FeedMapper {
 		
 		//FIXME: Detect when user adds a known feed
 		//FIXME: specify folder where you want to add
-		$query = OCP\DB::prepare('
-			INSERT INTO ' . $this->tableName .
-			'(url, title, added, lastmodified)
+		$query = OCP\DB::prepare("
+			INSERT INTO *PREFIX*news_feeds
+			(url, title, added, lastmodified)
 			VALUES (?, ?, $_ut, $_ut)
-			');
+			");
 		
-		$title = $feed->getTitle();
+		$title = $this->get_title();
 
 		if(empty($title)) {
 			$l = OC_L10N::get('news');
@@ -72,7 +72,7 @@ class OC_News_FeedMapper {
 		}
 
 		$params=array(
-		htmlspecialchars_decode($feed->getUrl()),
+		htmlspecialchars_decode($this->url),
 		htmlspecialchars_decode($title)
 		
 		//FIXME: user_id is going to move to the folder properties
@@ -80,15 +80,8 @@ class OC_News_FeedMapper {
 		);
 		$query->execute($params);
 		
-		$feedid = OCP\DB::insertid($this->tableName);
-		$feed->setId($feedid);
-
-		$itemMapper = new OC_News_ItemMapper($feed);
+		$feed_id = OCP\DB::insertid('*PREFIX*news_feeds');
 		
-		$items = $feed->getItems();
-		foreach($items as $item){
-			$itemMapper->insert($item);
-		}
-		return $feedid;
+		return $feed_id;
 	}
 }

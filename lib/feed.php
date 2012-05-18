@@ -26,18 +26,35 @@
 class OC_News_Feed {
 
 	private $url;
-	private $spfeed; //we encapsulate a SimplePie_Core object
+	private $feedid; //id of the feed in the database
+	private $spfeed; //encapsulate a SimplePie_Core object
+	private $items; //array that contains all the items of the feed
+	private $fetched;
 
 	public function __construct($url){
 		$this->url = $url;
 		$this->spfeed = new SimplePie_Core();
-		$this->spfeed->set_item_class('OC_News_Item');
 		$this->spfeed->set_feed_url( $url );
 		$this->spfeed->enable_cache( false );
+		$this->fetched = false;
+	}
 
-		//FIXME: figure out if constructor is the right place for these
+	public function fetch(){
 		$this->spfeed->init();
 		$this->spfeed->handle_content_type();
+		$this->fetched = true;
+	}
+
+	public function isFetched(){
+		return $this->fetched;
+	}
+ 
+	public function getId(){
+		return $this->feedid;
+	}
+
+	public function setId($id){
+		$this->feedid = $id;
 	}
 
 	public function getUrl(){
@@ -45,6 +62,13 @@ class OC_News_Feed {
 	}
 
 	public function getTitle(){
+		if (!$this->isFetched()) {
+			$this->fetch();
+		}
 		return $this->spfeed->get_title();
+	}
+
+	public function getItems(){
+		return $this->items;
 	}
 }

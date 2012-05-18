@@ -21,19 +21,24 @@
 */
 
 /**
- * This class maps a feed to an entry in the feeds table of the database.
+ * This class maps an item to a row of the items table in the database.
  * It follows the Data Mapper pattern (see http://martinfowler.com/eaaCatalog/dataMapper.html).
  */
-class OC_News_FeedMapper {
+class OC_News_ItemMapper {
 
-	private $tableName = '*PREFIX*news_feeds';
+	private $tableName = '*PREFIX*news_items';
+	private $feed;
+
+	public function __construct(OC_News_Feed $feed){
+		$this->feed = $feed;
+	}
 
 	/**
 	 * @brief Retrieve a feed from the database
 	 * @param id The id of the feed in the database table.
 	 */
 	public function find($id){
-		$stmt = OCP\DB::prepare('SELECT * FROM ' . $this->tableName . ' WHERE id = ?');
+		$stmt = OCP\DB::prepare('SELECT * FROM ' . $this->feedTableName . ' WHERE id = ?');
 		$result = $stmt->execute(array($id));
 		$row = $result->fetchRow();
 
@@ -46,26 +51,18 @@ class OC_News_FeedMapper {
 	 * @brief Save the feed and all its items into the database
 	 * @returns The id of the feed in the database table.
 	 */
-	public function insert(OC_News_Feed $feed){
-		$CONFIG_DBTYPE = OCP\Config::getSystemValue( "dbtype", "sqlite" );
-		if( $CONFIG_DBTYPE == 'sqlite' or $CONFIG_DBTYPE == 'sqlite3' ){
-			$_ut = "strftime('%s','now')";
-		} elseif($CONFIG_DBTYPE == 'pgsql') {
-			$_ut = 'date_part(\'epoch\',now())::integer';
-		} else {
-			$_ut = "UNIX_TIMESTAMP()";
-		}
+	public function insert(OC_News_Item $item){
 		
-		//FIXME: Detect when user adds a known feed
-		//FIXME: specify folder where you want to add
+		$feedid = $this->feed->getId();
+
 		$query = OCP\DB::prepare('
 			INSERT INTO ' . $this->tableName .
-			'(url, title, added, lastmodified)
-			VALUES (?, ?, $_ut, $_ut)
+			'(url, title, feedid)
+			VALUES (?, ?, $feedid)
 			');
-		
-		$title = $feed->getTitle();
 
+		$title = $item->getTitle();
+echo $title;
 		if(empty($title)) {
 			$l = OC_L10N::get('news');
 			$title = $l->t('no title');
@@ -74,21 +71,11 @@ class OC_News_FeedMapper {
 		$params=array(
 		htmlspecialchars_decode($feed->getUrl()),
 		htmlspecialchars_decode($title)
-		
-		//FIXME: user_id is going to move to the folder properties
-		//OCP\USER::getUser()
 		);
 		$query->execute($params);
 		
-		$feedid = OCP\DB::insertid($this->tableName);
-		$feed->setId($feedid);
-
-		$itemMapper = new OC_News_ItemMapper($feed);
-		
-		$items = $feed->getItems();
-		foreach($items as $item){
-			$itemMapper->insert($item);
-		}
-		return $feedid;
+		$itemid = OCP\DB::insertid($this->tableName);
+		$item->setId($itemid);
+		return $itemid;
 	}
 }

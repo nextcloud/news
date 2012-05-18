@@ -31,15 +31,25 @@ class StatusFlag{
 /*
 * This class models an item.
 *
-* It extends the SimplePie_Item class by adding a status flag to it
+* It encapsulate a SimplePie_Item object and adds a status flag to it
 */
 class OC_News_Item extends SimplePie_Item {
 
 	private $status; //a bit-field set with status flags
+	private $spitem; //encapsulate a SimplePie_Item object
+	private $itemid;
 
-	public function __construct($feed, $data){
+	public function __construct($spitem){
 		$this->status |= StatusFlag::Unread; 
-		parent::__construct($feed, $data);
+		$this->spitem = $spitem;
+	}
+
+	public function getId(){
+		return $this->itemid;
+	}
+
+	public function setId($id){
+		$this->itemid = $id;
 	}
 
 	public function setRead(){
@@ -53,4 +63,7 @@ class OC_News_Item extends SimplePie_Item {
 	public function isRead(){
 		return ($this->status & ~StatusFlag::Unread);
 	}
+
+
+
 }
