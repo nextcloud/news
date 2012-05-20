@@ -26,7 +26,7 @@
  */
 class OC_News_ItemMapper {
 
-	private $tableName = '*PREFIX*news_items';
+	const tableName = '*PREFIX*news_items';
 	private $feed;
 
 	public function __construct(OC_News_Feed $feed){
@@ -34,11 +34,11 @@ class OC_News_ItemMapper {
 	}
 
 	/**
-	 * @brief Retrieve a feed from the database
+	 * @brief Retrieve an item from the database
 	 * @param id The id of the feed in the database table.
 	 */
 	public function find($id){
-		$stmt = OCP\DB::prepare('SELECT * FROM ' . $this->feedTableName . ' WHERE id = ?');
+		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE id = ?');
 		$result = $stmt->execute(array($id));
 		$row = $result->fetchRow();
 
@@ -56,25 +56,25 @@ class OC_News_ItemMapper {
 		$feedid = $this->feed->getId();
 
 		$query = OCP\DB::prepare('
-			INSERT INTO ' . $this->tableName .
+			INSERT INTO ' . self::tableName .
 			'(url, title, feedid)
 			VALUES (?, ?, $feedid)
 			');
 
 		$title = $item->getTitle();
-echo $title;
+echo $title . '<br>';
 		if(empty($title)) {
 			$l = OC_L10N::get('news');
 			$title = $l->t('no title');
 		}
 
 		$params=array(
-		htmlspecialchars_decode($feed->getUrl()),
+		htmlspecialchars_decode($item->getUrl()),
 		htmlspecialchars_decode($title)
 		);
 		$query->execute($params);
 		
-		$itemid = OCP\DB::insertid($this->tableName);
+		$itemid = OCP\DB::insertid(self::tableName);
 		$item->setId($itemid);
 		return $itemid;
 	}

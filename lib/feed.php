@@ -28,7 +28,7 @@ class OC_News_Feed {
 	private $url;
 	private $feedid; //id of the feed in the database
 	private $spfeed; //encapsulate a SimplePie_Core object
-	private $items; //array that contains all the items of the feed
+	private $items;  //array that contains all the items of the feed
 	private $fetched;
 
 	public function __construct($url){
@@ -69,6 +69,16 @@ class OC_News_Feed {
 	}
 
 	public function getItems(){
+		if (!isset($this->items)){
+			if (!$this->isFetched()) {
+				$this->fetch();
+			}
+			$spitems = $this->spfeed->get_items();
+			$this->items = array();
+			foreach($spitems as $spitem) { //FIXME: maybe we can avoid this loop
+				$this->items[] = new OC_News_Item($spitem); 
+			}
+		}
 		return $this->items;
 	}
 }

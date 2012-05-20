@@ -26,24 +26,43 @@
  */
 class OC_News_FeedMapper {
 
-	private $tableName = '*PREFIX*news_feeds';
+	const tableName = '*PREFIX*news_feeds';
 
 	/**
 	 * @brief Retrieve a feed from the database
 	 * @param id The id of the feed in the database table.
+	 * @returns  
 	 */
 	public function find($id){
-		$stmt = OCP\DB::prepare('SELECT * FROM ' . $this->tableName . ' WHERE id = ?');
+		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE id = ?');
 		$result = $stmt->execute(array($id));
 		$row = $result->fetchRow();
 
 		$url = $row['url'];
-		$title = $row['title'];
+		$feed = new OC_News_Feed($url);
 
+		return $feed;
+	}
+
+	/**
+	 * @brief Retrieve a feed and all its items from the database
+	 * @param id The id of the feed in the database table.
+	 * @returns 
+	 */
+	public function findAllItems($id){
+		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE id = ?');
+		$result = $stmt->execute(array($id));
+		$row = $result->fetchRow();
+
+		$url = $row['url'];
+		$feed = new OC_News_Feed($url);
+
+		return $feed;
 	}
 
 	/**
 	 * @brief Save the feed and all its items into the database
+	 * @param feed the feed to be saved
 	 * @returns The id of the feed in the database table.
 	 */
 	public function insert(OC_News_Feed $feed){
@@ -59,7 +78,7 @@ class OC_News_FeedMapper {
 		//FIXME: Detect when user adds a known feed
 		//FIXME: specify folder where you want to add
 		$query = OCP\DB::prepare('
-			INSERT INTO ' . $this->tableName .
+			INSERT INTO ' . self::tableName .
 			'(url, title, added, lastmodified)
 			VALUES (?, ?, $_ut, $_ut)
 			');
@@ -80,7 +99,7 @@ class OC_News_FeedMapper {
 		);
 		$query->execute($params);
 		
-		$feedid = OCP\DB::insertid($this->tableName);
+		$feedid = OCP\DB::insertid(self::tableName);
 		$feed->setId($feedid);
 
 		$itemMapper = new OC_News_ItemMapper($feed);

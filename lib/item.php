@@ -33,15 +33,19 @@ class StatusFlag{
 *
 * It encapsulate a SimplePie_Item object and adds a status flag to it
 */
-class OC_News_Item extends SimplePie_Item {
+class OC_News_Item {
 
 	private $status; //a bit-field set with status flags
 	private $spitem; //encapsulate a SimplePie_Item object
 	private $itemid;
+	private $title;
+	private $url;
 
-	public function __construct($spitem){
+	public function __construct(SimplePie_Item $spitem){
 		$this->status |= StatusFlag::Unread; 
 		$this->spitem = $spitem;
+		$this->title = $spitem->get_title();
+		$this->url = $spitem->get_permalink();
 	}
 
 	public function getId(){
@@ -64,6 +68,11 @@ class OC_News_Item extends SimplePie_Item {
 		return ($this->status & ~StatusFlag::Unread);
 	}
 
+	public function getTitle(){
+		return $this->title;
+	}
 
-
+	public function getUrl(){
+		return $this->url;
+	}
 }

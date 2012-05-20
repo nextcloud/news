@@ -3,8 +3,10 @@
 $feed = new OC_News_Feed( 'http://algorithmsforthekitchen.com/blog/?feed=rss2' );
 $mapper = new OC_News_FeedMapper();
 $mapper->insert($feed);
-$mapper->find($feed->getId());
+$feed = $mapper->find($feed->getId());
 echo "<br>" . $feed->getTitle() . "<br>";
+$items = $feed->getItems();
+
 
 /*
 $item = $feed->get_item(1);
