@@ -58,11 +58,11 @@ class OC_News_ItemMapper {
 		$query = OCP\DB::prepare('
 			INSERT INTO ' . self::tableName .
 			'(url, title, feedid)
-			VALUES (?, ?, $feedid)
+			VALUES (?, ?, ?)
 			');
 
 		$title = $item->getTitle();
-echo $title . '<br>';
+
 		if(empty($title)) {
 			$l = OC_L10N::get('news');
 			$title = $l->t('no title');
@@ -70,8 +70,10 @@ echo $title . '<br>';
 
 		$params=array(
 		htmlspecialchars_decode($item->getUrl()),
-		htmlspecialchars_decode($title)
+		htmlspecialchars_decode($title),
+		$feedid
 		);
+		
 		$query->execute($params);
 		
 		$itemid = OCP\DB::insertid(self::tableName);
