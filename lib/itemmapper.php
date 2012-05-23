@@ -37,14 +37,19 @@ class OC_News_ItemMapper {
 	 * @brief Retrieve an item from the database
 	 * @param id The id of the feed in the database table.
 	 */
-	public function find($id){
-		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE id = ?');
-		$result = $stmt->execute(array($id));
-		$row = $result->fetchRow();
+	public function findAll(){
+		$feedid = $this->feed->getId();
+		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE feedid = ?');
+		$result = $stmt->execute(array($feedid));
+	
+		$items = array();
+		while ($row = $result->fetchRow()) {
+			$url = $row['url'];
+			$title = $row['title'];
+			$items[] = new OC_News_Item($spitem);
+		}
 
-		$url = $row['url'];
-		$title = $row['title'];
-
+		return $items;
 	}
 
 	/**
@@ -80,4 +85,19 @@ class OC_News_ItemMapper {
 		$item->setId($itemid);
 		return $itemid;
 	}
+
+	/**
+	 * @brief Retrieve an item from the database
+	 * @param id The id of the feed in the database table.
+	 */
+	public static function find($id){
+		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE id = ?');
+		$result = $stmt->execute(array($id));
+		$row = $result->fetchRow();
+
+		$url = $row['url'];
+		$title = $row['title'];
+
+	}
+
 }

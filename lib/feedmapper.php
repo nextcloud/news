@@ -39,7 +39,7 @@ class OC_News_FeedMapper {
 		$row = $result->fetchRow();
 
 		$url = $row['url'];
-		$feed = new OC_News_Feed($url);
+		$feed = new OC_News_Feed($url, $id);
 
 		return $feed;
 	}
@@ -49,14 +49,18 @@ class OC_News_FeedMapper {
 	 * @param id The id of the feed in the database table.
 	 * @returns 
 	 */
-	public function findAllItems($id){
+	public function findWithItems($id){
 		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE id = ?');
 		$result = $stmt->execute(array($id));
 		$row = $result->fetchRow();
 
 		$url = $row['url'];
-		$feed = new OC_News_Feed($url);
+		$feed = new OC_News_Feed($url, $id);
 
+		$itemMapper = new OC_News_ItemMapper($feed);
+		$items = $itemMapper->findAll();
+		$feed->setItems($items);
+		
 		return $feed;
 	}
 

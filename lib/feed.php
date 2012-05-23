@@ -26,22 +26,26 @@
 class OC_News_Feed {
 
 	private $url;
-	private $feedid; //id of the feed in the database
+	private $id;     //id of the feed in the database
 	private $spfeed; //encapsulate a SimplePie_Core object
 	private $items;  //array that contains all the items of the feed
 	private $fetched;
 
-	public function __construct($url){
+	public function __construct($url, $id = null){
 		$this->url = $url;
 		$this->spfeed = new SimplePie_Core();
 		$this->spfeed->set_feed_url( $url );
 		$this->spfeed->enable_cache( false );
 		$this->fetched = false;
+		if ($id !== null){
+			self::setId($id);
+		}
 	}
 
 	public function fetch(){
 		$this->spfeed->init();
 		$this->spfeed->handle_content_type();
+
 		$this->fetched = true;
 	}
 
@@ -50,11 +54,11 @@ class OC_News_Feed {
 	}
  
 	public function getId(){
-		return $this->feedid;
+		return $this->id;
 	}
 
 	public function setId($id){
-		$this->feedid = $id;
+		$this->id = $id;
 	}
 
 	public function getUrl(){
@@ -66,6 +70,10 @@ class OC_News_Feed {
 			$this->fetch();
 		}
 		return $this->spfeed->get_title();
+	}
+
+	public function setItems($items){
+		$this->items = $items;
 	}
 
 	public function getItems(){

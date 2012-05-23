@@ -7,6 +7,9 @@ $feed = $mapper->find($feed->getId());
 echo "<br>" . $feed->getTitle() . "<br>";
 $items = $feed->getItems();
 
+$feed2 = $mapper->findWithItems(45);
+echo "<br>" . $feed2->getTitle() . "<br>";
+
 
 /*
 $item = $feed->get_item(1);
