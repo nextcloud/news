@@ -35,25 +35,24 @@ class StatusFlag{
 */
 class OC_News_Item {
 
-	private $status; //a bit-field set with status flags
-	private $spitem; //encapsulate a SimplePie_Item object
-	private $itemid;
-	private $title;
 	private $url;
+	private $title;
+	private $body;
+	private $status;  //a bit-field set with status flags
+	private $id;      //id of the item in the database table
 
-	public function __construct(SimplePie_Item $spitem){
+	public function __construct($url, $title, $id = null){
+		$this->title = $title;
+		$this->url = $url;
 		$this->status |= StatusFlag::Unread; 
-		$this->spitem = $spitem;
-		$this->title = $spitem->get_title();
-		$this->url = $spitem->get_permalink();
 	}
 
 	public function getId(){
-		return $this->itemid;
+		return $this->$id;;
 	}
 
 	public function setId($id){
-		$this->itemid = $id;
+		$this->$id = $id;
 	}
 
 	public function setRead(){
@@ -72,7 +71,15 @@ class OC_News_Item {
 		return $this->title;
 	}
 
+	public function setTitle($title){
+		$this->title = $title;
+	}
+
 	public function getUrl(){
 		return $this->url;
+	}
+
+	public function setUrl($url){
+		$this->url = $url;
 	}
 }

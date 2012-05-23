@@ -46,7 +46,7 @@ class OC_News_ItemMapper {
 		while ($row = $result->fetchRow()) {
 			$url = $row['url'];
 			$title = $row['title'];
-			$items[] = new OC_News_Item($spitem);
+			$items[] = new OC_News_Item($url, $title);
 		}
 
 		return $items;

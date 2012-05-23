@@ -22,11 +22,35 @@
 
 /**
  * This class maps a feed to an entry in the feeds table of the database.
- * It follows the Data Mapper pattern (see http://martinfowler.com/eaaCatalog/dataMapper.html).
  */
 class OC_News_FeedMapper {
 
 	const tableName = '*PREFIX*news_feeds';
+
+	/**
+	 * @brief Fetch a feed from remote
+	 * @param url remote url of the feed 
+	 * @returns 
+	 */
+	public function fetch($url){
+		$spfeed = new SimplePie_Core();
+		$spfeed->set_feed_url( $url );
+		$spfeed->enable_cache( false );
+		$spfeed->init();
+		$spfeed->handle_content_type();
+		$title = $spfeed->get_title();
+		
+		$spitems = $spfeed->get_items();
+		$items = array();
+		foreach($spitems as $spitem) { //FIXME: maybe we can avoid this loop
+			$itemUrl = $spitem->get_permalink();
+			$itemTitle = $spitem->get_title();
+			$items[] = new OC_News_Item($itemUrl, $itemTitle); 
+		}
+
+		$feed = new OC_News_Feed($url, $title, $items);
+		return $feed;
+	}
 
 	/**
 	 * @brief Retrieve a feed from the database
@@ -37,10 +61,9 @@ class OC_News_FeedMapper {
 		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE id = ?');
 		$result = $stmt->execute(array($id));
 		$row = $result->fetchRow();
-
 		$url = $row['url'];
-		$feed = new OC_News_Feed($url, $id);
-
+		$title = $row['title'];
+		$feed = new OC_News_Feed($url, $title, null, $id);
 		return $feed;
 	}
 
@@ -53,9 +76,9 @@ class OC_News_FeedMapper {
 		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE id = ?');
 		$result = $stmt->execute(array($id));
 		$row = $result->fetchRow();
-
 		$url = $row['url'];
-		$feed = new OC_News_Feed($url, $id);
+		$title = $row['title'];
+		$feed = new OC_News_Feed($url, $title, null,$id);
 
 		$itemMapper = new OC_News_ItemMapper($feed);
 		$items = $itemMapper->findAll();

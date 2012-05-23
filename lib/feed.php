@@ -29,28 +29,14 @@ class OC_News_Feed {
 	private $id;     //id of the feed in the database
 	private $spfeed; //encapsulate a SimplePie_Core object
 	private $items;  //array that contains all the items of the feed
-	private $fetched;
 
-	public function __construct($url, $id = null){
+	public function __construct($url, $title, $items, $id = null){
 		$this->url = $url;
-		$this->spfeed = new SimplePie_Core();
-		$this->spfeed->set_feed_url( $url );
-		$this->spfeed->enable_cache( false );
-		$this->fetched = false;
+		$this->title = $title;
+		$this->items = $items;
 		if ($id !== null){
-			self::setId($id);
+			$this->id = $id;
 		}
-	}
-
-	public function fetch(){
-		$this->spfeed->init();
-		$this->spfeed->handle_content_type();
-
-		$this->fetched = true;
-	}
-
-	public function isFetched(){
-		return $this->fetched;
 	}
  
 	public function getId(){
@@ -66,10 +52,7 @@ class OC_News_Feed {
 	}
 
 	public function getTitle(){
-		if (!$this->isFetched()) {
-			$this->fetch();
-		}
-		return $this->spfeed->get_title();
+		return $this->title;
 	}
 
 	public function setItems($items){
@@ -77,16 +60,6 @@ class OC_News_Feed {
 	}
 
 	public function getItems(){
-		if (!isset($this->items)){
-			if (!$this->isFetched()) {
-				$this->fetch();
-			}
-			$spitems = $this->spfeed->get_items();
-			$this->items = array();
-			foreach($spitems as $spitem) { //FIXME: maybe we can avoid this loop
-				$this->items[] = new OC_News_Item($spitem); 
-			}
-		}
 		return $this->items;
 	}
 }
