@@ -30,6 +30,18 @@ OC::$CLASSPATH['OC_News_ItemMapper'] = 'apps/news/lib/itemmapper.php';
 $l = new OC_l10n('news');
 
 OCP\App::registerAdmin('news','settings');
-OCP\App::register( array( 'order' => 70, 'id' => 'news', 'name' => 'News' ));
-OCP\App::addNavigationEntry( array( 'id' => 'news', 'order' => 74, 'href' => OC_Helper::linkTo( 'news', 'index.php' ), 'icon' => OC_Helper::imagePath( 'news', 'example.png' ), 'name' => 'News'));
+
+OCP\App::register( array( 
+  'order' => 70, 
+  'id' => 'news', 
+  'name' => 'News' 
+));
+
+OCP\App::addNavigationEntry( array( 
+  'id' => 'news', 
+  'order' => 74, 
+  'href' => OC_Helper::linkTo( 'news', 'index.php' ), 
+  'icon' => OC_Helper::imagePath( 'news', 'icon.svg' ), 
+  'name' => $l->t('News')
+));
 
