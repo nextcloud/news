@@ -2,31 +2,108 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   version="1.1"
-   width="16"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   sodipodi:docname="icon.svg"
+   inkscape:version="0.47 r22583"
+   id="svg2839"
    height="16"
-   id="svg2839">
+   width="16"
+   version="1.1"
+   inkscape:export-filename="/var/www/apps/news/img/icon.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1280"
+     inkscape:window-height="728"
+     id="namedview9"
+     showgrid="false"
+     inkscape:zoom="14.75"
+     inkscape:cx="-7.6610169"
+     inkscape:cy="8"
+     inkscape:window-x="-4"
+     inkscape:window-y="-3"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer3" />
+  <metadata
+     id="metadata11">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
   <defs
-     id="defs2841" />
+     id="defs2841">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 8 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="16 : 8 : 1"
+       inkscape:persp3d-origin="8 : 5.3333333 : 1"
+       id="perspective13" />
+  </defs>
   <g
-     id="layer1">
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Layer2"
+     style="opacity:0.6">
     <path
-       d="M 0,1 0,2 8.0000002,2 16,2 16,1.142856 16,0 8.0000002,0 0,0 0,1.142856 z"
-       id="path2821"
-       style="fill:#000000;fill-opacity:0.70588235" />
+       d="M0.0 2.0L0.0 3.0L8.0000002 3.0L16.0 3.0L16.0 2.142856L16.0 1.0L8.0000002 1.0L0.0 1.0L0.0 2.142856Z"
+       id="path3857"
+       style="fill:#ffffff;fill-opacity:1"
+       transform="matrix(1.000000,0.000000,0.000000,1.000000,0.000000,0.000000)" />
     <path
-       d="M 0,6 0,7 5.818182,7 12,7 12,5.714283 12,5 5.818182,5 0,5 0,6 z"
-       id="path2818"
-       style="fill:#000000;fill-opacity:0.70588235" />
+       d="M0.0 6.0L0.0 7.0L5.818182 7.0L12.0 7.0L12.0 5.714283L12.0 5.0L5.818182 5.0L0.0 5.0L0.0 6.0Z"
+       id="path3859"
+       style="fill:#ffffff;fill-opacity:1"
+       transform="matrix(1.000000,0.000000,0.000000,1.000000,0.000000,0.000000)" />
     <path
-       d="M 0,10 0,11 7.2727278,11 15,11 15,10.285714 15,9 7.2727278,9 0,9 0,10 z"
-       id="path2816"
-       style="fill:#000000;fill-opacity:0.70588235" />
+       d="M0.0 11.0L0.0 12.0L7.2727278 12.0L15.0 12.0L15.0 11.285714L15.0 10.0L7.2727278 10.0L0.0 10.0L0.0 11.0Z"
+       id="path3861"
+       style="fill:#ffffff;fill-opacity:1"
+       transform="matrix(1.000000,0.000000,0.000000,1.000000,0.000000,0.000000)" />
     <path
-       d="M 0,15 0,16 4.727272,16 9,16 9,14.857143 9,14 4.727272,14 0,14 0,15 z"
-       id="path2820"
-       style="fill:#000000;fill-opacity:0.70588235" />
+       d="M0.0 15.0L0.0 16.0L4.727272 16.0L9.0 16.0L9.0 14.857143L9.0 14.0L4.727272 14.0L0.0 14.0L0.0 15.0Z"
+       id="path3863"
+       style="fill:#ffffff;fill-opacity:1"
+       transform="matrix(1.000000,0.000000,0.000000,1.000000,0.000000,0.000000)" />
   </g>
+  <path
+     transform="matrix(1.000000,0.000000,0.000000,1.000000,0.000000,0.000000)"
+     style="fill:#4d4d4d;fill-opacity:1"
+     id="path2821"
+     d="M0.0 1.0L0.0 2.0L8.0000002 2.0L16.0 2.0L16.0 1.142856L16.0 0.0L8.0000002 0.0L0.0 0.0L0.0 1.142856Z" />
+  <path
+     transform="matrix(1.000000,0.000000,0.000000,1.000000,0.000000,0.000000)"
+     style="fill:#4d4d4d;fill-opacity:1"
+     id="path2818"
+     d="M0.0 5.0L0.0 6.0L5.818182 6.0L12.0 6.0L12.0 4.714283L12.0 4.0L5.818182 4.0L0.0 4.0L0.0 5.0Z" />
+  <path
+     transform="matrix(1.000000,0.000000,0.000000,1.000000,0.000000,0.000000)"
+     style="fill:#4d4d4d;fill-opacity:1"
+     id="path2816"
+     d="M0.0 10.0L0.0 11.0L7.2727278 11.0L15.0 11.0L15.0 10.285714L15.0 9.0L7.2727278 9.0L0.0 9.0L0.0 10.0Z" />
+  <path
+     transform="matrix(1.000000,0.000000,0.000000,1.000000,0.000000,0.000000)"
+     style="fill:#4d4d4d;fill-opacity:1"
+     id="path2820"
+     d="M0.0 14.0L0.0 15.0L4.727272 15.0L9.0 15.0L9.0 13.857143L9.0 13.0L4.727272 13.0L0.0 13.0L0.0 14.0Z" />
 </svg>
