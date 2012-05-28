@@ -23,9 +23,9 @@
 /**
  * This class maps a feed to an entry in the feeds table of the database.
  */
-class OC_News_FeedMapper {
+class OC_News_FolderMapper {
 
-	const tableName = '*PREFIX*news_feeds';
+	const tableName = '*PREFIX*news_folders';
 
 	/**
 	 * @brief Retrieve a feed from the database
@@ -112,4 +112,3 @@ class OC_News_FeedMapper {
 		}
 		return $feedid;
 	}
-}

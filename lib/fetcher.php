@@ -20,41 +20,31 @@
 * 
 */
 
-/**
- * This class models a folder that contains feeds.
- */
-class OC_News_Folder {
 
-	private $name;
-	private $id;
-	private $feeds;
-	private $children;
-	private $parent;
+class OC_News_Utils {
 
-	public function __construct($name, $parent = null){
-		$this->name = $name;
-		$this->parent = $parent;
-		$this->feeds = array();
-	}
+	/**
+	 * @brief Fetch a feed from remote
+	 * @param url remote url of the feed 
+	 * @returns 
+	 */
+	public static function fetch($url){
+		$spfeed = new SimplePie_Core();
+		$spfeed->set_feed_url( $url );
+		$spfeed->enable_cache( false );
+		$spfeed->init();
+		$spfeed->handle_content_type();
+		$title = $spfeed->get_title();
+		
+		$spitems = $spfeed->get_items();
+		$items = array();
+		foreach($spitems as $spitem) { //FIXME: maybe we can avoid this loop
+			$itemUrl = $spitem->get_permalink();
+			$itemTitle = $spitem->get_title();
+			$items[] = new OC_News_Item($itemUrl, $itemTitle); 
+		}
 
-	public function getName(){
-		return $this->name;
+		$feed = new OC_News_Feed($url, $title, $items);
+		return $feed;
 	}
-
-	public function setName($name){
-		$this->name = $name;
-	}
-
-	public function getId(){
-		return $this->id;
-	}
-	
-	public function setId($id){
-		$this->$id = $id;
-	}
-	
-	public function addFeed(OC_News_Feed $feed){
-		$this->feeds[] = $feed;
-	}
-
 }
