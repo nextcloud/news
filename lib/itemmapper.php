@@ -20,25 +20,19 @@
 * 
 */
 
-/**
+/**e 49 
  * This class maps an item to a row of the items table in the database.
  * It follows the Data Mapper pattern (see http://martinfowler.com/eaaCatalog/dataMapper.html).
  */
 class OC_News_ItemMapper {
 
 	const tableName = '*PREFIX*news_items';
-	private $feed;
-
-	public function __construct(OC_News_Feed $feed){
-		$this->feed = $feed;
-	}
 
 	/**
-	 * @brief Retrieve an item from the database
-	 * @param id The id of the feed in the database table.
+	 * @brief Retrieve all the item corresponding to a feed from the database
+	 * @param feedid The id of the feed in the database table.
 	 */
-	public function findAll(){
-		$feedid = $this->feed->getId();
+	public function findAll($feedid){
 		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE feedid = ?');
 		$result = $stmt->execute(array($feedid));
 	
@@ -46,7 +40,8 @@ class OC_News_ItemMapper {
 		while ($row = $result->fetchRow()) {
 			$url = $row['url'];
 			$title = $row['title'];
-			$items[] = new OC_News_Item($url, $title);
+			$guid = $row['guid'];
+			$items[] = new OC_News_Item($url, $title, $guid);
 		}
 
 		return $items;
@@ -56,17 +51,15 @@ class OC_News_ItemMapper {
 	 * @brief Save the feed and all its items into the database
 	 * @returns The id of the feed in the database table.
 	 */
-	public function insert(OC_News_Item $item){
-		
-		$feedid = $this->feed->getId();
+	public function insert(OC_News_Item $item, $feedid){
+		$guid = $item->getGuid();
+		$title = $item->getTitle();
 
 		$query = OCP\DB::prepare('
 			INSERT INTO ' . self::tableName .
-			'(url, title, feedid)
-			VALUES (?, ?, ?)
+			'(url, title, guid, feedid)
+			VALUES (?, ?, ?, ?)
 			');
-
-		$title = $item->getTitle();
 
 		if(empty($title)) {
 			$l = OC_L10N::get('news');
@@ -76,6 +69,7 @@ class OC_News_ItemMapper {
 		$params=array(
 		htmlspecialchars_decode($item->getUrl()),
 		htmlspecialchars_decode($title),
+		$guid,
 		$feedid
 		);
 		

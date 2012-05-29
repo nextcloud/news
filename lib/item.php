@@ -37,22 +37,32 @@ class OC_News_Item {
 
 	private $url;
 	private $title;
+	private $guid;
 	private $body;
 	private $status;  //a bit-field set with status flags
 	private $id;      //id of the item in the database table
 
-	public function __construct($url, $title, $id = null){
+	public function __construct($url, $title, $guid, $id = null){
 		$this->title = $title;
 		$this->url = $url;
+		$this->guid = $guid;
 		$this->status |= StatusFlag::Unread; 
 	}
 
+	public function getGuid(){
+		return $this->guid;
+	}
+
+	public function setGuid($guid){
+		$this->guid = $guid;
+	}
+
 	public function getId(){
-		return $this->$id;;
+		return $this->id;
 	}
 
 	public function setId($id){
-		$this->$id = $id;
+		$this->id = $id;
 	}
 
 	public function setRead(){

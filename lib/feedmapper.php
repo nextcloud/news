@@ -55,8 +55,8 @@ class OC_News_FeedMapper {
 		$title = $row['title'];
 		$feed = new OC_News_Feed($url, $title, null,$id);
 
-		$itemMapper = new OC_News_ItemMapper($feed);
-		$items = $itemMapper->findAll();
+		$itemMapper = new OC_News_ItemMapper();
+		$items = $itemMapper->findAll($id);
 		$feed->setItems($items);
 		
 		return $feed;
@@ -103,7 +103,6 @@ class OC_News_FeedMapper {
 		}
 
 		//FIXME: Detect when feed contains already a database id
-
 		$feedid =  $this->findIdFromUrl($url);
 		if ($feedid == null){
 			$query = OCP\DB::prepare('
@@ -125,11 +124,11 @@ class OC_News_FeedMapper {
 		}
 		$feed->setId($feedid);
 
-		$itemMapper = new OC_News_ItemMapper($feed);
+		$itemMapper = new OC_News_ItemMapper();
 		
 		$items = $feed->getItems();
 		foreach($items as $item){
-			$itemMapper->insert($item);
+			$itemMapper->insert($item, $feedid);
 		}
 		return $feedid;
 	}

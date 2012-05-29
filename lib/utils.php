@@ -41,7 +41,8 @@ class OC_News_Utils {
 		foreach($spitems as $spitem) { //FIXME: maybe we can avoid this loop
 			$itemUrl = $spitem->get_permalink();
 			$itemTitle = $spitem->get_title();
-			$items[] = new OC_News_Item($itemUrl, $itemTitle); 
+			$itemGUID = $spitem->get_id();
+			$items[] = new OC_News_Item($itemUrl, $itemTitle, $itemGUID); 
 		}
 
 		$feed = new OC_News_Feed($url, $title, $items);
