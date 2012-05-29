@@ -63,52 +63,42 @@ class OC_News_FolderMapper {
 	}
 
 	/**
-	 * @brief Save the feed and all its items into the database
-	 * @param feed the feed to be saved
-	 * @returns The id of the feed in the database table.
+	 * @brief Store the folder and all its feeds into the database
+	 * @param folder the folder to be saved
+	 * @returns The id of the folder in the database table.
 	 */
-	public function insert(OC_News_Feed $feed){
-		$CONFIG_DBTYPE = OCP\Config::getSystemValue( "dbtype", "sqlite" );
-		if( $CONFIG_DBTYPE == 'sqlite' or $CONFIG_DBTYPE == 'sqlite3' ){
-			$_ut = "strftime('%s','now')";
-		} elseif($CONFIG_DBTYPE == 'pgsql') {
-			$_ut = 'date_part(\'epoch\',now())::integer';
-		} else {
-			$_ut = "UNIX_TIMESTAMP()";
-		}
-		
-		//FIXME: Detect when user adds a known feed
-		//FIXME: specify folder where you want to add
+	public function insert(OC_News_Folder $folder){
 		$query = OCP\DB::prepare('
 			INSERT INTO ' . self::tableName .
-			'(url, title, added, lastmodified)
-			VALUES (?, ?, $_ut, $_ut)
+			'(name, parentid, userid)
+			VALUES (?, ?, ?)
 			');
 		
-		$title = $feed->getTitle();
+		$name = $folder->getName();
 
-		if(empty($title)) {
+		if(empty($name)) {
 			$l = OC_L10N::get('news');
-			$title = $l->t('no title');
+			$name = $l->t('no name');
 		}
+
+		$parentid = $folder->getParentId();
 
 		$params=array(
-		htmlspecialchars_decode($feed->getUrl()),
-		htmlspecialchars_decode($title)
-		
-		//FIXME: user_id is going to move to the folder properties
-		//OCP\USER::getUser()
+		htmlspecialchars_decode($name),
+		$parentid,
+		OCP\USER::getUser()
 		);
 		$query->execute($params);
-		
-		$feedid = OCP\DB::insertid(self::tableName);
-		$feed->setId($feedid);
+		$folderid = OCP\DB::insertid(self::tableName);
 
-		$itemMapper = new OC_News_ItemMapper($feed);
-		
-		$items = $feed->getItems();
-		foreach($items as $item){
-			$itemMapper->insert($item);
-		}
-		return $feedid;
+		$folder->setId($folderid);
+
+//		$folder->getFeeds();
+// 		$feedMapper = new OC_News_FeedMapper($feed);
+// 		$items = $feed->getItems();
+// 		foreach($items as $item){
+// 			$itemMapper->insert($item);
+// 		}
+//		return $folderid;
 	}
+}

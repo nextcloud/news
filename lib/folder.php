@@ -35,6 +35,7 @@ class OC_News_Folder {
 		$this->name = $name;
 		$this->parent = $parent;
 		$this->feeds = array();
+		$this->id = 0;
 	}
 
 	public function getName(){
@@ -50,7 +51,14 @@ class OC_News_Folder {
 	}
 	
 	public function setId($id){
-		$this->$id = $id;
+		$this->id = $id;
+	}
+
+	public function getParentId(){
+		if ($this->parent == null){
+			return 0;
+		}
+		return $this->parent->getId();
 	}
 	
 	public function addFeed(OC_News_Feed $feed){
