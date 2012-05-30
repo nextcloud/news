@@ -33,7 +33,7 @@ class OC_News_ItemMapper {
 	 * @param feedid The id of the feed in the database table.
 	 */
 	public function findAll($feedid){
-		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE feedid = ?');
+		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE feed_id = ?');
 		$result = $stmt->execute(array($feedid));
 	
 		$items = array();
@@ -51,7 +51,7 @@ class OC_News_ItemMapper {
 		$stmt = OCP\DB::prepare('
 				SELECT * FROM ' . self::tableName . ' 
 				WHERE guid = ?
-				AND feedid = ?
+				AND feed_id = ?
 				');
 		$result = $stmt->execute(array($guid, $feedid));
 		$row = $result->fetchRow();
@@ -76,7 +76,7 @@ class OC_News_ItemMapper {
 
 			$query = OCP\DB::prepare('
 				INSERT INTO ' . self::tableName .
-				'(url, title, guid, feedid)
+				'(url, title, guid, feed_id)
 				VALUES (?, ?, ?, ?)
 				');
 

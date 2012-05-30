@@ -36,7 +36,7 @@
 			</field>
 			
 			<index>
-				<name>id</name>
+				<name>folder_id</name>
 				<unique>true</unique>
 				<field>
 					<name>id</name>

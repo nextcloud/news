@@ -107,7 +107,7 @@ class OC_News_FeedMapper {
 		if ($feedid == null){
 			$query = OCP\DB::prepare('
 				INSERT INTO ' . self::tableName .
-				'(url, title, folderid, added, lastmodified)
+				'(url, title, folder_id, added, lastmodified)
 				VALUES (?, ?, ?, ?, ?)
 				');
 

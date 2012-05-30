@@ -70,7 +70,7 @@ class OC_News_FolderMapper {
 	public function insert(OC_News_Folder $folder){
 		$query = OCP\DB::prepare('
 			INSERT INTO ' . self::tableName .
-			'(name, parentid, userid)
+			'(name, parent_id, user_id)
 			VALUES (?, ?, ?)
 			');
 		
