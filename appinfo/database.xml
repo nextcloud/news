@@ -130,8 +130,7 @@
 				<autoincrement>1</autoincrement>
 				<length>4</length>
 			</field>
-			<field></field>
-				
+			<field>
 				<name>guid</name>
 				<type>text</type>
 				<notnull>true</notnull>
@@ -148,7 +147,7 @@
 				<length>100</length>
 			</field>
 			<field>
-				<name>feedid</name>
+				<name>feed_id</name>
 				<type>integer</type>
 				<notnull>true</notnull>
 				<length>4</length>
