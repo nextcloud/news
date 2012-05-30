@@ -23,8 +23,13 @@
 
 OC::$CLASSPATH['OC_News_Item'] = 'apps/news/lib/item.php';
 OC::$CLASSPATH['OC_News_Feed'] = 'apps/news/lib/feed.php';
+OC::$CLASSPATH['OC_News_Folder'] = 'apps/news/lib/folder.php';
+
 OC::$CLASSPATH['OC_News_FeedMapper'] = 'apps/news/lib/feedmapper.php';
 OC::$CLASSPATH['OC_News_ItemMapper'] = 'apps/news/lib/itemmapper.php';
+OC::$CLASSPATH['OC_News_FolderMapper'] = 'apps/news/lib/foldermapper.php';
+
+OC::$CLASSPATH['OC_News_Utils'] = 'apps/news/lib/utils.php';
 
 
 $l = new OC_l10n('news');
