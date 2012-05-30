@@ -47,35 +47,55 @@ class OC_News_ItemMapper {
 		return $items;
 	}
 
+	public function findIdFromGuid($guid, $feedid){
+		$stmt = OCP\DB::prepare('
+				SELECT * FROM ' . self::tableName . ' 
+				WHERE guid = ?
+				AND feedid = ?
+				');
+		$result = $stmt->execute(array($guid, $feedid));
+		$row = $result->fetchRow();
+		$id = null;
+		if ($row != null){
+			$id = $row['id'];
+		}
+		return $id;
+	}
+
 	/**
 	 * @brief Save the feed and all its items into the database
 	 * @returns The id of the feed in the database table.
 	 */
 	public function insert(OC_News_Item $item, $feedid){
 		$guid = $item->getGuid();
-		$title = $item->getTitle();
 
-		$query = OCP\DB::prepare('
-			INSERT INTO ' . self::tableName .
-			'(url, title, guid, feedid)
-			VALUES (?, ?, ?, ?)
-			');
+		$itemid =  $this->findIdFromGuid($guid, $feedid);
+		
+		if ($itemid == null){
+			$title = $item->getTitle();
 
-		if(empty($title)) {
-			$l = OC_L10N::get('news');
-			$title = $l->t('no title');
+			$query = OCP\DB::prepare('
+				INSERT INTO ' . self::tableName .
+				'(url, title, guid, feedid)
+				VALUES (?, ?, ?, ?)
+				');
+
+			if(empty($title)) {
+				$l = OC_L10N::get('news');
+				$title = $l->t('no title');
+			}
+
+			$params=array(
+			htmlspecialchars_decode($item->getUrl()),
+			htmlspecialchars_decode($title),
+			$guid,
+			$feedid
+			);
+			
+			$query->execute($params);
+			
+			$itemid = OCP\DB::insertid(self::tableName);
 		}
-
-		$params=array(
-		htmlspecialchars_decode($item->getUrl()),
-		htmlspecialchars_decode($title),
-		$guid,
-		$feedid
-		);
-		
-		$query->execute($params);
-		
-		$itemid = OCP\DB::insertid(self::tableName);
 		$item->setId($itemid);
 		return $itemid;
 	}

@@ -16,7 +16,7 @@
 				<length>4</length>
 			</field>
 			<field>
-				<name>parentid</name>
+				<name>parent_id</name>
 				<type>integer</type>
 				<notnull>false</notnull>
 				<length>4</length>
@@ -28,7 +28,7 @@
 				<length>100</length>
 			</field>
 			<field>
-				<name>userid</name>
+				<name>user_id</name>
 				<type>text</type>
 				<default></default>
 				<notnull>true</notnull>
@@ -41,6 +41,12 @@
 				<field>
 					<name>id</name>
 					<sorting>descending</sorting>
+				</field>
+			</index>
+			<index>
+				<name>user_id</name>
+				<field>
+					<name>user_id</name>
 				</field>
 			</index>
 		</declaration>
@@ -86,7 +92,7 @@
 				<length>4</length>
 			</field>
 			<field>
-				<name>folderid</name>
+				<name>folder_id</name>
 				<type>integer</type>
 				<notnull>true</notnull>
 				<length>4</length>
@@ -124,7 +130,8 @@
 				<autoincrement>1</autoincrement>
 				<length>4</length>
 			</field>
-			<field>
+			<field></field>
+				
 				<name>guid</name>
 				<type>text</type>
 				<notnull>true</notnull>
@@ -151,6 +158,11 @@
 				<type>text</type>
 				<length>4000</length>			
 			</field>
+			<field>
+				<name>status</name>
+				<type>integer</type>
+				<length>1<length>
+			</field>
 			
 			<index>
 				<name>item_id</name>
@@ -165,7 +177,9 @@
 				<unique>true</unique>
 				<field>
 					<name>guid</name>
-					<sorting>descending</sorting>
+				</field>
+				<field>
+					<name>feed_id</name>
 				</field>
 			</index>
 		</declaration>
