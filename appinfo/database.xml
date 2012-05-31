@@ -160,7 +160,7 @@
 			<field>
 				<name>status</name>
 				<type>integer</type>
-				<length>1<length>
+				<length>1</length>
 			</field>
 			
 			<index>
