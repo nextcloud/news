@@ -41,7 +41,8 @@ class OC_News_ItemMapper {
 			$url = $row['url'];
 			$title = $row['title'];
 			$guid = $row['guid'];
-			$items[] = new OC_News_Item($url, $title, $guid);
+			$item = new OC_News_Item($url, $title, $guid);
+			$items[] = $item;
 		}
 
 		return $items;
@@ -73,11 +74,12 @@ class OC_News_ItemMapper {
 		
 		if ($itemid == null){
 			$title = $item->getTitle();
-
+			$status = $item->getStatus();
+			
 			$query = OCP\DB::prepare('
 				INSERT INTO ' . self::tableName .
-				'(url, title, guid, feed_id)
-				VALUES (?, ?, ?, ?)
+				'(url, title, guid, feed_id, status)
+				VALUES (?, ?, ?, ?, ?)
 				');
 
 			if(empty($title)) {
@@ -89,7 +91,8 @@ class OC_News_ItemMapper {
 			htmlspecialchars_decode($item->getUrl()),
 			htmlspecialchars_decode($title),
 			$guid,
-			$feedid
+			$feedid,
+			$status
 			);
 			
 			$query->execute($params);
@@ -104,7 +107,7 @@ class OC_News_ItemMapper {
 	 * @brief Retrieve an item from the database
 	 * @param id The id of the feed in the database table.
 	 */
-	public static function find($id){
+	public function find($id){
 		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE id = ?');
 		$result = $stmt->execute(array($id));
 		$row = $result->fetchRow();
@@ -114,4 +117,24 @@ class OC_News_ItemMapper {
 
 	}
 
+	//TODO: the delete of an item should mark an item as deleted, not actually delete from the db
+	public function markAsDelete($id){
+	}
+	
+	/**
+	 * @brief Permanently delete all items belonging to a feed from the database
+	 * @param feedid The id of the feed that we wish to delete
+	 * @return 
+	 */
+	public function deleteAll($feedid){
+		
+		$stmt = OCP\DB::prepare("
+			DELETE FROM " . self::tableName . 
+			"WHERE feedid = $id
+			");
+
+		$result = $stmt->execute();
+		
+		return $result;
+	}
 }

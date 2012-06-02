@@ -66,7 +66,7 @@ class OC_News_FeedMapper {
 	 * @brief Find the id of a feed and all its items from the database
 	 * @param url url of the feed
 	 * @return id of the feed corresponding to the url passed as parameters 
-		   null - if there is no such feed 
+	 *	null - if there is no such feed 
 	 */
 	public function findIdFromUrl($url){
 		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE url = ?');
@@ -84,6 +84,7 @@ class OC_News_FeedMapper {
 	 * @param feed the feed to be saved
 	 * @returns The id of the feed in the database table.
 	 */
+	 //TODO: handle error case
 	public function insert(OC_News_Feed $feed, $folderid){
 		$CONFIG_DBTYPE = OCP\Config::getSystemValue( "dbtype", "sqlite" );
 		if( $CONFIG_DBTYPE == 'sqlite' or $CONFIG_DBTYPE == 'sqlite3' ){
@@ -131,5 +132,24 @@ class OC_News_FeedMapper {
 			$itemMapper->insert($item, $feedid);
 		}
 		return $feedid;
+	}
+	
+	public function delete(OC_News_Feed $feed){
+	
+		$id = $feed->getId();
+	
+		$stmt = OCP\DB::prepare("
+			DELETE FROM " . self::tableName . 
+			"WHERE id = $id
+			");
+
+		$result = $stmt->execute();
+		
+		$itemMapper = new OC_News_ItemMapper();
+		//TODO: handle the value that the execute returns
+		$itemMapper->deleteAll($id);
+		
+		return true;
+		
 	}
 }

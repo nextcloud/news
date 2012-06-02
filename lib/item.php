@@ -28,11 +28,11 @@ class StatusFlag{
 	const Updated   = 0x16;
 }
 
-/*
-* This class models an item.
-*
-* It encapsulate a SimplePie_Item object and adds a status flag to it
-*/
+/**
+ * This class models an item.
+ *
+ * It encapsulate a SimplePie_Item object and adds a status flag to it
+ */
 class OC_News_Item {
 
 	private $url;
@@ -75,6 +75,18 @@ class OC_News_Item {
 
 	public function isRead(){
 		return ($this->status & ~StatusFlag::Unread);
+	}
+	
+	public function isImportant(){
+		return ($this->status & StatusFlag::Important);
+	}
+	
+	/**
+	 * NOTE: this is needed to store items in the database, otherwise 
+	 * the status of an item should be retrieved with methods: isRead(), isImportant(), ...
+	 */
+	public function getStatus(){
+		return $this->status;
 	}
 
 	public function getTitle(){

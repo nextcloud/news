@@ -16,11 +16,20 @@ echo '<br>' . $feed->getTitle() . '<br>';
 $items = $feed->getItems();
 
 foreach($items as $item) {
-	echo $item->getTitle();
+	$item->setRead();
+	if ($item->isRead()) {
+		echo $l->t('Read');
+	}
+	else {
+		echo $l->t('Unread');
+	}
+	
+	echo '<br>' . $item->getTitle() . '<br>';
 }
 
 $feed2 = $feedmapper->findWithItems(45);
 echo '<br>' . $feed2->getTitle() . '<br>';
+
 
 /*
 $item = $feed->get_item(1);
