@@ -41,7 +41,9 @@ class OC_News_ItemMapper {
 			$url = $row['url'];
 			$title = $row['title'];
 			$guid = $row['guid'];
+			$status = $row['status'];
 			$item = new OC_News_Item($url, $title, $guid);
+			$item->setStatus($status);
 			$items[] = $item;
 		}
 

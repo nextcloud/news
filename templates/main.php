@@ -1,11 +1,5 @@
 <?php 
 
-$att = 0;
-$prova = 0x2;
-$att &= ~0x2;
-print($att);
-
-
 $feedmapper = new OC_News_FeedMapper();
 $foldermapper = new OC_News_FolderMapper();
 
@@ -33,6 +27,18 @@ foreach($items as $item) {
 	echo '<br>';
 	$item->setRead();
 }
+
+foreach($items as $item) {
+	echo $item->getTitle() . ' - ';
+	if ($item->isRead()) {
+		echo $l->t('Read');
+	}
+	else {
+		echo $l->t('Unread');
+	}
+	echo '<br>';
+}
+
 
 foreach($items as $item) {
 	echo $item->getStatus();

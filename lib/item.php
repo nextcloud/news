@@ -46,21 +46,11 @@ class OC_News_Item {
 		$this->title = $title;
 		$this->url = $url;
 		$this->guid = $guid;
-		$this->status |= StatusFlag::Unread; 
+		$this->status |= StatusFlag::Unread;
 	}
 
 	public function getGuid(){
 		return $this->guid;
-	echo $item->getTitle() . ' - ';
-	if ($item->isRead()) {
-		echo $l->t('Read');
-	}
-	else {
-		echo $l->t('Unread');
-	}
-	echo '<br>';
-	$item->setRead();
-
 	}
 
 	public function setGuid($guid){
@@ -76,7 +66,7 @@ class OC_News_Item {
 	}
 
 	public function setRead(){
-		$this->status |= ~StatusFlag::Unread;
+		$this->status &= ~StatusFlag::Unread;
 	}
 
 	public function setUnread(){
@@ -84,23 +74,27 @@ class OC_News_Item {
 	}
 
 	public function isRead(){
-		return ($this->status & ~StatusFlag::Unread);
-	}
-	
-	public function isImportant(){
-		return ($this->status & StatusFlag::Important);
+		return !($this->status & StatusFlag::Unread);
 	}
 	
 	public function setImportant(){
 		$this->status |= StatusFlag::Important; 
 	}
 	
+	public function isImportant(){
+		return ($this->status & StatusFlag::Important);
+	}
+		
 	/**
 	 * NOTE: this is needed to store items in the database, otherwise 
 	 * the status of an item should be retrieved with methods: isRead(), isImportant(), ...
 	 */
 	public function getStatus(){
 		return $this->status;
+	}
+	
+	public function setStatus($status){
+		$this->status = $status;
 	}
 
 	public function getTitle(){
