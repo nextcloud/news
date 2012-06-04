@@ -20,7 +20,7 @@
 * 
 */
 
-/**e 49 
+/**
  * This class maps an item to a row of the items table in the database.
  * It follows the Data Mapper pattern (see http://martinfowler.com/eaaCatalog/dataMapper.html).
  */
@@ -67,16 +67,17 @@ class OC_News_ItemMapper {
 	 * @brief Save the feed and all its items into the database
 	 * @returns The id of the feed in the database table.
 	 */
-	public function insert(OC_News_Item $item, $feedid){
+	public function save(OC_News_Item $item, $feedid){
 		$guid = $item->getGuid();
-
+		$status = $item->getStatus();
+		echo $status;
+		
 		$itemid =  $this->findIdFromGuid($guid, $feedid);
 		
 		if ($itemid == null){
 			$title = $item->getTitle();
-			$status = $item->getStatus();
 			
-			$query = OCP\DB::prepare('
+			$stmt = OCP\DB::prepare('
 				INSERT INTO ' . self::tableName .
 				'(url, title, guid, feed_id, status)
 				VALUES (?, ?, ?, ?, ?)
@@ -88,16 +89,31 @@ class OC_News_ItemMapper {
 			}
 
 			$params=array(
-			htmlspecialchars_decode($item->getUrl()),
-			htmlspecialchars_decode($title),
-			$guid,
-			$feedid,
-			$status
+				htmlspecialchars_decode($item->getUrl()),
+				htmlspecialchars_decode($title),
+				$guid,
+				$feedid,
+				$status
 			);
 			
-			$query->execute($params);
+			$stmt->execute($params);
 			
 			$itemid = OCP\DB::insertid(self::tableName);
+		}
+		// update item: its status might have changed
+		// TODO: maybe make this a new function
+		else {
+			$stmt = OCP\DB::prepare('
+				UPDATE ' . self::tableName .
+				' SET status = ?
+				WHERE id = ?
+				');
+			
+			$params=array(
+				$status,
+				$itemid
+			);
+			$stmt->execute($params);
 		}
 		$item->setId($itemid);
 		return $itemid;
@@ -117,9 +133,6 @@ class OC_News_ItemMapper {
 
 	}
 
-	//TODO: the delete of an item should mark an item as deleted, not actually delete from the db
-	public function markAsDelete($id){
-	}
 	
 	/**
 	 * @brief Permanently delete all items belonging to a feed from the database

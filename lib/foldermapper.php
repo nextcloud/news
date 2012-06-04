@@ -67,7 +67,7 @@ class OC_News_FolderMapper {
 	 * @param folder the folder to be saved
 	 * @returns The id of the folder in the database table.
 	 */
-	public function insert(OC_News_Folder $folder){
+	public function save(OC_News_Folder $folder){
 		$query = OCP\DB::prepare('
 			INSERT INTO ' . self::tableName .
 			'(name, parent_id, user_id)
@@ -93,12 +93,5 @@ class OC_News_FolderMapper {
 
 		$folder->setId($folderid);
 
-//		$folder->getFeeds();
-// 		$feedMapper = new OC_News_FeedMapper($feed);
-// 		$items = $feed->getItems();
-// 		foreach($items as $item){
-// 			$itemMapper->insert($item);
-// 		}
-//		return $folderid;
 	}
 }

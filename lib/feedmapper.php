@@ -32,7 +32,7 @@ class OC_News_FeedMapper {
 	 * @param id The id of the feed in the database table.
 	 * @returns  
 	 */
-	public function find($id){
+	public function findById($id){
 		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE id = ?');
 		$result = $stmt->execute(array($id));
 		$row = $result->fetchRow();
@@ -85,7 +85,7 @@ class OC_News_FeedMapper {
 	 * @returns The id of the feed in the database table.
 	 */
 	 //TODO: handle error case
-	public function insert(OC_News_Feed $feed, $folderid){
+	public function save(OC_News_Feed $feed, $folderid){
 		$CONFIG_DBTYPE = OCP\Config::getSystemValue( "dbtype", "sqlite" );
 		if( $CONFIG_DBTYPE == 'sqlite' or $CONFIG_DBTYPE == 'sqlite3' ){
 			$_ut = "strftime('%s','now')";
@@ -129,8 +129,9 @@ class OC_News_FeedMapper {
 		
 		$items = $feed->getItems();
 		foreach($items as $item){
-			$itemMapper->insert($item, $feedid);
+			$itemMapper->save($item, $feedid);
 		}
+		
 		return $feedid;
 	}
 	

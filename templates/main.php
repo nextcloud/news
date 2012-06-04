@@ -1,57 +1,61 @@
 <?php 
 
+$att = 0;
+$prova = 0x2;
+$att &= ~0x2;
+print($att);
+
+
 $feedmapper = new OC_News_FeedMapper();
 $foldermapper = new OC_News_FolderMapper();
 
 $folder = new OC_News_Folder( 'Friends' );
-$folderid = $foldermapper->insert($folder);
+$folderid = $foldermapper->save($folder);
 
 $feed = OC_News_Utils::fetch( 'http://algorithmsforthekitchen.com/blog/?feed=rss2' );
 echo '<br>' . $feed->getTitle() . '<br>';
 
-$feedmapper->insert($feed, $folder->getId());
+$feedmapper->save($feed, $folder->getId());
 
 $feed = $feedmapper->findWithItems($feed->getId());
 echo '<br>' . $feed->getTitle() . '<br>';
 $items = $feed->getItems();
 
 foreach($items as $item) {
-	$item->setRead();
+
+	echo $item->getTitle() . ' - ';
 	if ($item->isRead()) {
 		echo $l->t('Read');
 	}
 	else {
 		echo $l->t('Unread');
 	}
-	
-	echo '<br>' . $item->getTitle() . '<br>';
+	echo '<br>';
+	$item->setRead();
 }
 
-$feed2 = $feedmapper->findWithItems(45);
-echo '<br>' . $feed2->getTitle() . '<br>';
-
-
-/*
-$item = $feed->get_item(1);
-
-
-if ($item->isRead()) {
-	echo $l->t('Read');
-}
-else {
-	echo $l->t('Unread');
+foreach($items as $item) {
+	echo $item->getStatus();
 }
 
-$item->setRead();
-$item->setUnread();
-$item->setRead();
+echo '<br>';
 
-echo "<br>" . $item->get_title() . "<br>";
+$feedmapper->save($feed, $folder->getId());
 
-if ($item->isRead()) {
-	echo $l->t('Read');
+echo '<br>...after saving and reloading';
+
+$feed = $feedmapper->findWithItems($feed->getId());
+echo '<br>' . $feed->getTitle() . '<br>';
+$items = $feed->getItems();
+
+foreach($items as &$item) {
+
+	echo $item->getTitle() . ' - ';
+	if ($item->isRead()) {
+		echo $l->t('Read');
+	}
+	else {
+		echo $l->t('Unread');
+	}
+	echo '<br>';
 }
-else {
-	echo $l->t('Unread');
-}
-*/

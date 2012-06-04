@@ -51,6 +51,16 @@ class OC_News_Item {
 
 	public function getGuid(){
 		return $this->guid;
+	echo $item->getTitle() . ' - ';
+	if ($item->isRead()) {
+		echo $l->t('Read');
+	}
+	else {
+		echo $l->t('Unread');
+	}
+	echo '<br>';
+	$item->setRead();
+
 	}
 
 	public function setGuid($guid){
@@ -66,7 +76,7 @@ class OC_News_Item {
 	}
 
 	public function setRead(){
-		$this->status |= ~StatusFlag::Unread; 
+		$this->status |= ~StatusFlag::Unread;
 	}
 
 	public function setUnread(){
@@ -79,6 +89,10 @@ class OC_News_Item {
 	
 	public function isImportant(){
 		return ($this->status & StatusFlag::Important);
+	}
+	
+	public function setImportant(){
+		$this->status |= StatusFlag::Important; 
 	}
 	
 	/**
