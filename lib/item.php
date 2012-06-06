@@ -81,6 +81,10 @@ class OC_News_Item {
 		$this->status |= StatusFlag::Important; 
 	}
 	
+	public function setUnimportant(){
+		$this->status &= ~StatusFlag::Important;
+	}
+	
 	public function isImportant(){
 		return ($this->status & StatusFlag::Important);
 	}

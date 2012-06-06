@@ -94,4 +94,23 @@ class OC_News_FolderMapper {
 		$folder->setId($folderid);
 
 	}
+	
+	//TODO: replace it with a DELETE INNER JOIN operation
+	public function delete(OC_News_Folder $folder){
+		$id = $folder->getId();
+	
+		$stmt = OCP\DB::prepare("
+			DELETE FROM " . self::tableName . 
+			"WHERE id = $id
+			");
+
+		$result = $stmt->execute();
+		
+		$feedMapper = new OC_News_FeedMapper();
+		//TODO: handle the value that the execute returns
+		$feedMapper->deleteAll($id);
+		
+		return true;
+	}
+	
 }

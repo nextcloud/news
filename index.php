@@ -35,7 +35,7 @@ OCP\App::checkAppEnabled('news');
 OCP\App::setActiveNavigationEntry('news');
 
 //OCP\Util::addscript('news','news');
-//OCP\Util::addStyle('news', 'news');
+OCP\Util::addStyle('news', 'news');
 
 $tmpl = new OCP\Template( 'news', 'main', 'user' );
 $tmpl->printPage();

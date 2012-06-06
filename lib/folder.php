@@ -35,7 +35,6 @@ class OC_News_Folder {
 		$this->name = $name;
 		$this->parent = $parent;
 		$this->feeds = array();
-		$this->id = 0;
 	}
 
 	public function getName(){

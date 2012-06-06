@@ -72,7 +72,6 @@ class OC_News_ItemMapper {
 	public function save(OC_News_Item $item, $feedid){
 		$guid = $item->getGuid();
 		$status = $item->getStatus();
-		echo $status;
 		
 		$itemid =  $this->findIdFromGuid($guid, $feedid);
 		
@@ -120,7 +119,7 @@ class OC_News_ItemMapper {
 		$item->setId($itemid);
 		return $itemid;
 	}
-
+	
 	/**
 	 * @brief Retrieve an item from the database
 	 * @param id The id of the feed in the database table.
@@ -142,7 +141,6 @@ class OC_News_ItemMapper {
 	 * @return 
 	 */
 	public function deleteAll($feedid){
-		
 		$stmt = OCP\DB::prepare("
 			DELETE FROM " . self::tableName . 
 			"WHERE feedid = $id

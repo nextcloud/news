@@ -136,7 +136,6 @@ class OC_News_FeedMapper {
 	}
 	
 	public function delete(OC_News_Feed $feed){
-	
 		$id = $feed->getId();
 	
 		$stmt = OCP\DB::prepare("
@@ -151,6 +150,22 @@ class OC_News_FeedMapper {
 		$itemMapper->deleteAll($id);
 		
 		return true;
+	}
+	
+	public function deleteAll($folderdid){
+		$id = $feed->getId();
+	
+		$stmt = OCP\DB::prepare("
+			DELETE FROM " . self::tableName . 
+			"WHERE id = $id
+			");
+
+		$result = $stmt->execute();
 		
+		$itemMapper = new OC_News_ItemMapper();
+		//TODO: handle the value that the execute returns
+		$itemMapper->deleteAll($id);
+		
+		return true;
 	}
 }
