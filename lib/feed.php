@@ -23,10 +23,9 @@
 /**
  * This class models a feed.
  */
-class OC_News_Feed {
+class OC_News_Feed extends OC_News_Collection {
 
 	private $url;
-	private $id;     //id of the feed in the database
 	private $spfeed; //encapsulate a SimplePie_Core object
 	private $items;  //array that contains all the items of the feed
 
@@ -39,14 +38,6 @@ class OC_News_Feed {
 		}
 	}
  
-	public function getId(){
-		return $this->id;
-	}
-
-	public function setId($id){
-		$this->id = $id;
-	}
-
 	public function getUrl(){
 		return $this->url;
 	}

@@ -37,7 +37,13 @@ OCP\App::setActiveNavigationEntry('news');
 //OCP\Util::addscript('news','news');
 OCP\Util::addStyle('news', 'news');
 
+$foldermapper = new OC_News_FolderMapper();
+
+//this is the root folder, which contains all sub-folders and feeds
+$allfeeds = null;
+
 $tmpl = new OCP\Template( 'news', 'main', 'user' );
+$tmpl->assign('allfeeds', $allfeeds);
 $tmpl->printPage();
 
 ?>

@@ -23,18 +23,18 @@
 /**
  * This class models a folder that contains feeds.
  */
-class OC_News_Folder {
+class OC_News_Folder extends OC_News_Collection {
 
 	private $name;
-	private $id;
-	private $feeds;
 	private $children;
 	private $parent;
 
 	public function __construct($name, $parent = null){
 		$this->name = $name;
-		$this->parent = $parent;
-		$this->feeds = array();
+		$this->children = array();
+		if ($parent !== null){
+			$this->parent = $parent;
+		}
 	}
 
 	public function getName(){
@@ -45,23 +45,15 @@ class OC_News_Folder {
 		$this->name = $name;
 	}
 
-	public function getId(){
-		return $this->id;
-	}
-	
-	public function setId($id){
-		$this->id = $id;
-	}
-
 	public function getParentId(){
-		if ($this->parent == null){
+		if ($this->parent === null){
 			return 0;
 		}
 		return $this->parent->getId();
 	}
 	
-	public function addFeed(OC_News_Feed $feed){
-		$this->feeds[] = $feed;
+	public function addChild(OC_News_Collection $child){
+		$this->children[] = $child;
 	}
 
 }

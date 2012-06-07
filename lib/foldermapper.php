@@ -27,19 +27,18 @@ class OC_News_FolderMapper {
 
 	const tableName = '*PREFIX*news_folders';
 
+	public function root(){
+		$root = new OC_News_Folder('All feeds');
+		
+		return $root;
+	}
+	
 	/**
 	 * @brief Retrieve a feed from the database
 	 * @param id The id of the feed in the database table.
 	 * @returns  
 	 */
 	public function find($id){
-		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE id = ?');
-		$result = $stmt->execute(array($id));
-		$row = $result->fetchRow();
-		$url = $row['url'];
-		$title = $row['title'];
-		$feed = new OC_News_Feed($url, $title, null, $id);
-		return $feed;
 	}
 
 	/**

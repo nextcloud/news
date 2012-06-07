@@ -1,6 +1,6 @@
 <div id="leftcontent" class="leftcontent">
 	<ul id="feeds">
-		<?php echo $this->inc("test"); ?>
+		<?php echo $this->inc("part.feeds"); ?>
 	</ul>
 </div>
 <div id="bottomcontrols">
