@@ -31,7 +31,7 @@ class OC_News_FolderMapper {
 		$result = $stmt->execute(array($this->userid, 0));
 		
 		while( $row = $result->fetchRow()){
-			$child = new OC_News_Folder($row['id'], $row['name']);
+			$child = new OC_News_Folder($row['name'], $row['id']);
 			$root->addChild($child);
 		}
 

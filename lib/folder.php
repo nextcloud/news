@@ -50,7 +50,7 @@ class OC_News_Folder extends OC_News_Collection {
 	}
 	
 	public function getChildren(){
-		return $children;
+		return $this->children;
 	}
 
 }
