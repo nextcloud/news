@@ -3,20 +3,10 @@
 * ownCloud - News app
 *
 * @author Alessandro Cosentino
-* @copyright 2012 Alessandro Cosentino cosenal@gmail.com
+* Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
 * 
-* This library is free software; you can redistribute it and/or
-* modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
-* License as published by the Free Software Foundation; either 
-* version 3 of the License, or any later version.
-* 
-* This library is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU AFFERO GENERAL PUBLIC LICENSE for more details.
-*  
-* You should have received a copy of the GNU Lesser General Public 
-* License along with this library.  If not, see <http://www.gnu.org/licenses/>.
+* This file is licensed under the Affero General Public License version 3 or later.
+* See the COPYING-README file
 * 
 */
 
@@ -26,10 +16,25 @@
 class OC_News_FolderMapper {
 
 	const tableName = '*PREFIX*news_folders';
+	
+	private $userid;
 
+	public function __construct($userid){
+		$this->userid = $userid;
+	}
+	
 	public function root(){
 		$root = new OC_News_Folder('All feeds');
+		$stmt = OCP\DB::prepare('SELECT * 
+					FROM ' . self::tableName . 
+					' WHERE user_id = ? AND parent_id = ?');
+		$result = $stmt->execute(array($this->userid, 0));
 		
+		while( $row = $result->fetchRow()){
+			$child = new OC_News_Folder($row['id'], $row['name']);
+			$root->addChild($child);
+		}
+
 		return $root;
 	}
 	
