@@ -5,21 +5,20 @@
 </div>
 
 <div id="bottomcontrols">
-<div id="addmenu"> 
-	<ul>
-	<li>
 	<form>
-		<button class="svg" id="add" title="<?php echo $l->t('Add Feed/Folder'); ?>"><img class="svg" src="<?php echo OCP\Util::linkTo('news', 'img/add.svg'); ?>" alt="<?php echo $l->t('Add Feed/Folder'); ?>"   /></button>
-	</form>
+	<ul class="controls">
+		<li><button class="svg" id="addfeedfolder" title="<?php echo $l->t('Add Feed/Folder'); ?>"><img class="svg" src="<?php echo OCP\Util::linkTo('news', 'img/add.svg'); ?>" alt="<?php echo $l->t('Add Feed/Folder'); ?>"   /></button></li>
+		<li><button class="svg" title="<?php echo $l->t('Change View'); ?>">Eye</button></li>
+		<li><button class="svg" title="<?php echo $l->t('Settings'); ?>">Settings</button></li>
 	<ul>
-	<li><a href="p1.html">Feed</a></li>
-	<li><a href="p2.hmtl">Folder</a></li>
-	</li>
-	</ul>
+	</form>
 </div>
-</div>
-
+	
 <div id="rightcontent" class="rightcontent">
 	<?php ?>
 </div>
+
+<!-- Dialogs -->
+<div id="dialog_holder"></div>
+<!-- End of Dialogs -->
 

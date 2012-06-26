@@ -24,7 +24,7 @@ OCP\User::checkLoggedIn();
 OCP\App::checkAppEnabled('news');
 OCP\App::setActiveNavigationEntry('news');
 
-//OCP\Util::addscript('news','news');
+OCP\Util::addscript('news','news');
 OCP\Util::addStyle('news', 'news');
 
 $foldermapper = new OC_News_FolderMapper(OCP\USER::getUser());

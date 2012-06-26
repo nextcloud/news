@@ -1,13 +1,8 @@
 <?php
 
-OC_Util::checkAdminUser();
+//OCP\Util::addscript( "news", "admin" );
 
-OC_Util::addScript( "news", "admin" );
-
-$tmpl = new OC_Template( 'news', 'settings');
-
-$tmpl->assign('url',OC_Config::getValue( "somesetting", '' ));
+$tmpl = new OCP\Template( 'news', 'settings');
 
 return $tmpl->fetchPage();
 
-?>

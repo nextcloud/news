@@ -24,7 +24,7 @@ OC::$CLASSPATH['OC_News_Utils'] = 'apps/news/lib/utils.php';
 
 $l = new OC_l10n('news');
 
-OCP\App::registerAdmin('news','settings');
+OCP\App::registerPersonal('news', 'settings');
 
 OCP\App::register( array( 
   'order' => 70, 

@@ -1,10 +1,8 @@
 <form id="news">
 	<fieldset class="personalblock">
-		<strong>App Template</strong><br />
-		<input type="text" name="somesetting" id="somesetting" value="<?php echo $_['url']; ?>" placeholder="<?php echo $l->t('Some Setting');?>" />
+		<strong>News</strong><br />
+		<input type="text" name="opml_file" id="opml_file" placeholder="<?php echo $l->t('.opml file');?>" />
                 <br />
 
-
-<span class="msg"></span>
 	</fieldset>
 </form>
