@@ -90,7 +90,7 @@ class OC_News_FolderMapper {
 		$params=array(
 		htmlspecialchars_decode($name),
 		$parentid,
-		OCP\USER::getUser()
+		$this->userid
 		);
 		$query->execute($params);
 		$folderid = OCP\DB::insertid(self::tableName);

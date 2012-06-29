@@ -28,7 +28,7 @@
 	<input type="text" id="folder_add_name" placeholder="<?php echo $l->t('Folder name'); ?>" class="news_input" />
 	</td>
 	<td>
-	<input type="submit" value="<?php echo $l->t('Add folder'); ?>" id="folder_add_submit" />
+	<input type="submit" value="<?php echo $l->t('Add folder'); ?>" onclick="News.Feeds.submit(this)" id="folder_add_submit" />
 	</td>
 </tr>
 </table>
