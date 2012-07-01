@@ -48,5 +48,10 @@ $(document).ready(function(){
       
 	$('#addfeedfolder').click(News.UI.overview);
 	$('#addfeedfolder').keydown(News.UI.overview);
-	 
+	
+	$('.collapsable').click(function(){ 
+		$(this).parent().children().toggle();
+		$(this).toggle();
+	});
+ 
 });  

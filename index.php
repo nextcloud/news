@@ -11,10 +11,6 @@
 * 
 */
 
-// this is temporary.
-//TODO: change it once the new app system is complete
-require_once('../owncloud/lib/base.php');
-
 // load SimplePie library
 require_once('3rdparty/SimplePie/SimplePieAutoloader.php');
 
@@ -29,7 +25,6 @@ OCP\Util::addStyle('news', 'news');
 
 $foldermapper = new OC_News_FolderMapper(OCP\USER::getUser());
 
-//this is the root folder, which contains all sub-folders and feeds
 $allfeeds = $foldermapper->root();
 
 $tmpl = new OCP\Template( 'news', 'main', 'user' );

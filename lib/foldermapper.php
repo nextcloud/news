@@ -39,11 +39,22 @@ class OC_News_FolderMapper {
 	}
 	
 	/**
-	 * @brief Retrieve a feed from the database
-	 * @param id The id of the feed in the database table.
-	 * @returns  
+	 * @brief Retrieve a folder from the database
+	 * @param id The id of the folder in the database table.
+	 * @returns  an instance of OC_News_Folder
 	 */
 	public function find($id){
+		$stmt = OCP\DB::prepare('SELECT * 
+					FROM ' . self::tableName . 
+					' WHERE user_id = ? AND id = ?');
+		$result = $stmt->execute(array($this->userid, 0));
+		
+		while( $row = $result->fetchRow()){
+			$child = new OC_News_Folder($row['name'], $row['id']);
+			$root->addChild($child);
+		}
+
+		return $root;
 	}
 
 	/**
