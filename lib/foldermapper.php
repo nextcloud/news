@@ -34,7 +34,13 @@ class OC_News_FolderMapper {
 			$child = new OC_News_Folder($row['name'], $row['id']);
 			$root->addChild($child);
 		}
-
+		
+		$feedmapper = new OC_News_FeedMapper();
+		$feeds = $feedmapper->findByFolderId(0);
+		foreach ($feeds as $feed){
+			$root->addChild($feed);
+		}
+		
 		return $root;
 	}
 	

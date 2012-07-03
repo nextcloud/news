@@ -11,9 +11,6 @@
 * 
 */
 
-// load SimplePie library
-require_once('3rdparty/SimplePie/SimplePieAutoloader.php');
-
 // Check if we are a user
 OCP\User::checkLoggedIn();
 
@@ -21,14 +18,17 @@ OCP\App::checkAppEnabled('news');
 OCP\App::setActiveNavigationEntry('news');
 
 OCP\Util::addscript('news','news');
-OCP\Util::addStyle('news', 'news');
+OCP\Util::addStyle('news','news');
 
 $foldermapper = new OC_News_FolderMapper(OCP\USER::getUser());
 
 $allfeeds = $foldermapper->root();
 
+$feedid = isset( $_GET['feedid'] ) ? $_GET['feedid'] : null;
+
 $tmpl = new OCP\Template( 'news', 'main', 'user' );
 $tmpl->assign('allfeeds', $allfeeds);
+$tmpl->assign('feedid', $feedid);
 $tmpl->printPage();
 
 ?>

@@ -24,10 +24,10 @@ class OC_News_Feed extends OC_News_Collection {
 		$this->title = $title;
 		$this->items = $items;
 		if ($id !== null){
-			$this->id = $id;
+			parent::__construct($id);
 		}
 	}
- 
+	
 	public function getUrl(){
 		return $this->url;
 	}

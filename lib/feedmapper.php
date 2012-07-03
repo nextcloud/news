@@ -16,7 +16,7 @@
 class OC_News_FeedMapper {
 
 	const tableName = '*PREFIX*news_feeds';
-
+	
 	/**
 	 * @brief Retrieve a feed from the database
 	 * @param id The id of the feed in the database table.
@@ -32,6 +32,26 @@ class OC_News_FeedMapper {
 		return $feed;
 	}
 
+	/**
+	 * @brief Retrieve a feed from the database
+	 * @param id The id of the feed in the database table.
+	 * @returns  
+	 */
+	public function findByFolderId($folderid){
+		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE folder_id = ?');
+		$result = $stmt->execute(array($folderid));
+		$feeds = array();
+		while ($row = $result->fetchRow()) {
+			$url = $row['url'];
+			$title = $row['title'];
+			$id = $row['id'];
+			$feed = new OC_News_Feed($url, $title, null, $id);
+			$feeds[] = $feed;
+		}
+		return $feeds;
+	}
+
+	
 	/**
 	 * @brief Retrieve a feed and all its items from the database
 	 * @param id The id of the feed in the database table.

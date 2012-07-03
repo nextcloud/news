@@ -9,13 +9,17 @@
 			if ($child instanceOf OC_News_Folder){
 				print_folder($child, $depth+1);
 			}
-			else { //print all feeds contained in the folder
-				echo '<li>' . $child->getTitle(). '</li>';
+			elseif ($child instanceOf OC_News_Feed) {
+?>
+				<li><a href="index.php?feedid=<?php echo $child->getId(); ?>"><?php echo $child->getTitle(); ?></a></li>
+<?php
+			}
+			else {
+			//TODO:handle error in this case
 			}
 		}
 		echo '</ul></li></ul>';
 	}
 	
 	print_folder($_['allfeeds'], 0);
-
 ?>

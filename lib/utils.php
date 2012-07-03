@@ -10,6 +10,10 @@
 * 
 */
 
+// load SimplePie library
+//TODO: is this file a suitable place for the following require?
+require_once(OC::$APPSROOT . '/apps/news/3rdparty/SimplePie/SimplePieAutoloader.php');
+
 class OC_News_Utils {
 
 	/**
@@ -18,6 +22,7 @@ class OC_News_Utils {
 	 * @returns 
 	 */
 	public static function fetch($url){
+	//TODO: handle the case where fetching of the feed fails
 		$spfeed = new SimplePie_Core();
 		$spfeed->set_feed_url( $url );
 		$spfeed->enable_cache( false );
