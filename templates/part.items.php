@@ -1,5 +1,6 @@
 <?php
-$feedid = isset($_['id']) ? $_['id'] : '';
+
+$feedid = isset($_['feedid']) ? $_['feedid'] : '';
 
 $itemmapper = new OC_News_ItemMapper();
 
@@ -10,5 +11,3 @@ foreach($items as $item) {
 	echo '<li>' . $item->getTitle() . '</li>';
 }
 echo '</ul>';
-
-?>
