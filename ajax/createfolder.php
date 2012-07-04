@@ -27,8 +27,8 @@ $l = OC_L10N::get('news');
 if(!$folderid) {
 	OCP\JSON::error(array('data' => array('message' => $l->t('Error adding folder.'))));
 	OCP\Util::writeLog('news','ajax/createfolder.php: Error adding folder: '.$_POST['name'], OCP\Util::ERROR);
-	exit();
 }
-
-//TODO: replace the following with the success case. see contact/ajax/createaddressbook.php for inspirations
-OCP\JSON::error(array('data' => array('message' => $l->t('Error adding folder.'))));
+else {
+	//TODO: replace the following with a real success case. see contact/ajax/createaddressbook.php for inspirations
+	OCP\JSON::success(array('data' => array('message' => $l->t('Folder added!'))));
+}

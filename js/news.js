@@ -35,7 +35,8 @@ News={
 				$.post(url, { name: displayname },
 					function(jsondata){
 						if(jsondata.status == 'success'){
-							$(button).closest('tr').prev().html(jsondata.page).show().next().remove();
+							//$(button).closest('tr').prev().html(jsondata.page).show().next().remove();
+							OC.dialogs.alert(jsondata.data.message, t('news', 'Success!'));
 						} else {
 							OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
 						}
@@ -57,7 +58,8 @@ News={
 				$.post(url, { feedurl: feedurl },
 					function(jsondata){
 						if(jsondata.status == 'success'){
-							$(button).closest('tr').prev().html(jsondata.page).show().next().remove();
+							//$(button).closest('tr').prev().html(jsondata.page).show().next().remove();
+							OC.dialogs.alert(jsondata.data.message, t('news', 'Success!'));
 						} else {
 							OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
 						}

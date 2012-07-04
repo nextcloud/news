@@ -17,10 +17,10 @@
 <div id="rightcontent" class="rightcontent" data-id="<?php echo $_['feedid']; ?>">
 	<?php
 		if ($_['feedid']){
-			echo $this->inc('part.items');
+			echo $this->inc("part.items");
 		}
 		else {
-			echo $this->inc('part.nofeeds');
+			echo $this->inc("part.nofeeds");
 		}
 	?>
 </div>

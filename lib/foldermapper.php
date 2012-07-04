@@ -113,7 +113,7 @@ class OC_News_FolderMapper {
 		$folderid = OCP\DB::insertid(self::tableName);
 
 		$folder->setId($folderid);
-
+		return $folderid;
 	}
 	
 	//TODO: replace it with a DELETE INNER JOIN operation

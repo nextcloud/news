@@ -31,6 +31,6 @@ if(!$feedid) {
 	exit();
 }
 
-//TODO: replace the following with the success case. see contact/ajax/createaddressbook.php for inspirations
-OCP\JSON::error(array('data' => array('message' => $l->t('Error adding feed.'))));
+//TODO: replace the following with a real success case. see contact/ajax/createaddressbook.php for inspirations
+OCP\JSON::success(array('data' => array('message' => $l->t('Feed added!'))));
 

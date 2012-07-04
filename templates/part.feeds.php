@@ -10,9 +10,7 @@
 				print_folder($child, $depth+1);
 			}
 			elseif ($child instanceOf OC_News_Feed) {
-?>
-				<li><a href="index.php?feedid=<?php echo $child->getId(); ?>"><?php echo $child->getTitle(); ?></a></li>
-<?php
+				echo '<li><a href="' . OCP\Util::linkTo('news', 'index.php'). '?feedid=' . $child->getId() . '">' . $child->getTitle() .'</a></li>';
 			}
 			else {
 			//TODO:handle error in this case
