@@ -32,7 +32,8 @@ class OC_News_ItemMapper {
 			$title = $row['title'];
 			$guid = $row['guid'];
 			$status = $row['status'];
-			$item = new OC_News_Item($url, $title, $guid);
+			$body = $row['body'];
+			$item = new OC_News_Item($url, $title, $guid, $body);
 			$item->setStatus($status);
 			$items[] = $item;
 		}
@@ -62,16 +63,17 @@ class OC_News_ItemMapper {
 	public function save(OC_News_Item $item, $feedid){
 		$guid = $item->getGuid();
 		$status = $item->getStatus();
-		
+
 		$itemid =  $this->findIdFromGuid($guid, $feedid);
 		
 		if ($itemid == null){
 			$title = $item->getTitle();
-			
+			$body = $item->getBody();
+
 			$stmt = OCP\DB::prepare('
 				INSERT INTO ' . self::tableName .
-				'(url, title, guid, feed_id, status)
-				VALUES (?, ?, ?, ?, ?)
+				'(url, title, body, guid, feed_id, status)
+				VALUES (?, ?, ?, ?, ?, ?)
 				');
 
 			if(empty($title)) {
@@ -79,9 +81,15 @@ class OC_News_ItemMapper {
 				$title = $l->t('no title');
 			}
 
+			if(empty($body)) {
+				$l = OC_L10N::get('news');
+				$body = $l->t('no body');
+			}
+
 			$params=array(
 				htmlspecialchars_decode($item->getUrl()),
 				htmlspecialchars_decode($title),
+				$body,
 				$guid,
 				$feedid,
 				$status

@@ -36,7 +36,8 @@ class OC_News_Utils {
 			$itemUrl = $spitem->get_permalink();
 			$itemTitle = $spitem->get_title();
 			$itemGUID = $spitem->get_id();
-			$items[] = new OC_News_Item($itemUrl, $itemTitle, $itemGUID); 
+			$itemBody = $spitem->get_content();
+			$items[] = new OC_News_Item($itemUrl, $itemTitle, $itemGUID, $itemBody); 
 		}
 
 		$feed = new OC_News_Feed($url, $title, $items);

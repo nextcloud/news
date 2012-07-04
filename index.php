@@ -24,7 +24,15 @@ $foldermapper = new OC_News_FolderMapper(OCP\USER::getUser());
 
 $allfeeds = $foldermapper->root();
 
-$feedid = isset( $_GET['feedid'] ) ? $_GET['feedid'] : null;
+if ($allfeeds) {
+	$feedid = isset( $_GET['feedid'] ) ? $_GET['feedid'] : null;
+	if ($feedid == null) {
+		
+	}
+} 
+else {
+	$feedid = 0;
+}
 
 $tmpl = new OCP\Template( 'news', 'main', 'user' );
 $tmpl->assign('allfeeds', $allfeeds);

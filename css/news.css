@@ -9,3 +9,5 @@
 .news_input { float:left; font-size:12px; padding:4px 2px; border:solid 1px #aacfe4; width:200px; }
 
 ul.controls li { float: left; }
+
+.accordion .title { background: #DCDCDC; font-size: 12px; border-bottom:1px solid #ccc; font-weight:bold;}

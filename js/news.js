@@ -77,5 +77,10 @@ $(document).ready(function(){
 		$(this).parent().children().toggle();
 		$(this).toggle();
 	});
+	
+	$('.accordion .title').click(function() {
+		$(this).next().toggle();
+		return false;
+	}).next().hide();
  
 });  

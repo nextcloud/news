@@ -6,8 +6,9 @@ $itemmapper = new OC_News_ItemMapper();
 
 $items = $itemmapper->findAll($feedid);
 
-echo '<ul>';
+echo '<ul class="accordion">';
 foreach($items as $item) {
-	echo '<li>' . $item->getTitle() . '</li>';
+	echo '<li><div class="title">' . $item->getTitle() . '</div>';
+	echo '<div class="body">' . $item->getBody() . '</div></li>';
 }
 echo '</ul>';
