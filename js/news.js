@@ -41,9 +41,26 @@ News={
 							OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
 						}
 				});
+		},
+		delete:function(folderid) {
+			$('#feeds_delete').tipsy('hide');
+			OC.dialogs.confirm(t('news', 'Are you sure you want to delete this folder and all its feeds?'), t('news', 'Warning'), function(answer) {
+				if(answer == true) {
+					$.post(OC.filePath('news', 'ajax', 'deletefolder.php'),{'folderid':folderid},function(jsondata){
+						if(jsondata.status == 'success'){
+							alert('removed!');
+						}
+						else{
+							OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
+						}
+					});
+				}
+			});
+			return false;
 		}
 	},
 	Feed: {
+		id:'',
 		submit:function(button){
 				var feedurl = $("#feed_add_url").val().trim();
 				
@@ -65,44 +82,16 @@ News={
 						}
 				});
 		},
-		doDelete:function() {
+		delete:function(feedid) {
 			$('#feeds_delete').tipsy('hide');
 			OC.dialogs.confirm(t('news', 'Are you sure you want to delete this feed?'), t('news', 'Warning'), function(answer) {
 				if(answer == true) {
-					$.post(OC.filePath('contacts', 'ajax', 'deletefeed.php'),{'id':Contacts.UI.Card.id},function(jsondata){
+					$.post(OC.filePath('news', 'ajax', 'deletefeed.php'),{'feedid':feedid},function(jsondata){
 						if(jsondata.status == 'success'){
-							var newid = '';
-							var curlistitem = $('#leftcontent [data-id="'+jsondata.data.id+'"]');
-							var newlistitem = curlistitem.prev();
-							if(newlistitem == undefined) {
-								newlistitem = curlistitem.next();
-							}
-							curlistitem.remove();
-							if(newlistitem != undefined) {
-								newid = newlistitem.data('id');
-							}
-							$('#rightcontent').data('id',newid);
-							this.id = this.fn = this.fullname = this.shortname = this.famname = this.givname = this.addname = this.honpre = this.honsuf = '';
-							this.data = undefined;
-							
-							if($('#contacts li').length > 0) { // Load first in list.
-								Contacts.UI.Card.update(newid);
-							} else {
-								// load intro page
-								$.getJSON(OC.filePath('contacts', 'ajax', 'loadintro.php'),{},function(jsondata){
-									if(jsondata.status == 'success'){
-										id = '';
-										$('#rightcontent').data('id','');
-										$('#rightcontent').html(jsondata.data.page);
-									}
-									else{
-										OC.dialogs.alert(jsondata.data.message, t('contacts', 'Error'));
-									}
-								});
-							}
+							alert('removed!');
 						}
 						else{
-							OC.dialogs.alert(jsondata.data.message, t('contacts', 'Error'));
+							OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
 						}
 					});
 				}
@@ -126,6 +115,4 @@ $(document).ready(function(){
 		return false;
 	}).next().hide();
 	
-	$('#feeds_delete').click( function() { News.Feed.doDelete(); return false;} );
-
 });  

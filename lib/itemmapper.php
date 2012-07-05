@@ -139,12 +139,12 @@ class OC_News_ItemMapper {
 	 * @return 
 	 */
 	public function deleteAll($feedid){
-		$stmt = OCP\DB::prepare("
-			DELETE FROM " . self::tableName . 
-			"WHERE feedid = $id
-			");
+		if ($feedid == null) {
+			return false;
+		}
+		$stmt = OCP\DB::prepare('DELETE FROM ' . self::tableName .' WHERE feed_id = ?');
 
-		$result = $stmt->execute();
+		$result = $stmt->execute(array($feedid));
 		
 		return $result;
 	}

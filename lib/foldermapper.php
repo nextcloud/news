@@ -116,20 +116,24 @@ class OC_News_FolderMapper {
 		return $folderid;
 	}
 	
-	//TODO: replace it with a DELETE INNER JOIN operation
 	public function delete(OC_News_Folder $folder){
-		$id = $folder->getId();
-	
-		$stmt = OCP\DB::prepare("
-			DELETE FROM " . self::tableName . 
-			"WHERE id = $id
-			");
+		$folderid = $folder->getId();
+		return deleteById(folderid);
+	}
+  
+	//TODO: replace it with a DELETE INNER JOIN operation
+	public function deleteById($folderid){
+		if ($folderid == null){
+			return false;
+		}
 
-		$result = $stmt->execute();
+		$stmt = OCP\DB::prepare('DELETE FROM ' . self::tableName .' WHERE id = ?');
+
+		$result = $stmt->execute(array($folderid));
 		
 		$feedMapper = new OC_News_FeedMapper();
 		//TODO: handle the value that the execute returns
-		$feedMapper->deleteAll($id);
+		$feedMapper->deleteAll($folderid);
 		
 		return true;
 	}

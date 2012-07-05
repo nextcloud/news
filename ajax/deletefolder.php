@@ -17,17 +17,17 @@ OCP\JSON::callCheck();
 
 $userid = OCP\USER::getUser();
 
-$feedid = trim($_POST['feedid']);
+$folderid = trim($_POST['folderid']);
 
-$feedmapper = new OC_News_FeedMapper();
-$success = $feedmapper->deleteById($feedid);
+$foldermapper = new OC_News_FolderMapper();
+$success = $foldermapper->deleteById($folderid);
 
 $l = OC_L10N::get('news');
 
 if(!$success) {
-	OCP\JSON::error(array('data' => array('message' => $l->t('Error removing feed.'))));
-	OCP\Util::writeLog('news','ajax/deletefeed.php: Error removing feed: '.$_POST['feedid'], OCP\Util::ERROR);
+	OCP\JSON::error(array('data' => array('message' => $l->t('Error removing folder.'))));
+	OCP\Util::writeLog('news','ajax/deletefolder.php: Error removing folder: '.$_POST['folderid'], OCP\Util::ERROR);
 	exit();
 }
 
-OCP\JSON::success(array('data' => array( 'feedid' => $feedid )));
+OCP\JSON::success(array('data' => array( 'folderid' => $folderid )));

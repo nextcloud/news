@@ -145,21 +145,23 @@ class OC_News_FeedMapper {
 		return $feedid;
 	}
 	
-	public function delete(OC_News_Feed $feed){
-		$id = $feed->getId();
-	
-		$stmt = OCP\DB::prepare("
-			DELETE FROM " . self::tableName . 
-			"WHERE id = $id
-			");
+	public function deleteById($id){
+		if ($id == null) {
+			return false;
+		}
+		$stmt = OCP\DB::prepare('DELETE FROM ' . self::tableName .' WHERE id = ?');
 
-		$result = $stmt->execute();
+		$result = $stmt->execute(array($id));
 		
 		$itemMapper = new OC_News_ItemMapper();
 		//TODO: handle the value that the execute returns
 		$itemMapper->deleteAll($id);
 		
 		return true;
+	}
+	public function delete(OC_News_Feed $feed){
+		$id = $feed->getId();
+		return deleteById($id);
 	}
 	
 	public function deleteAll($folderdid){
