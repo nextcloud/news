@@ -164,15 +164,14 @@ class OC_News_FeedMapper {
 		return deleteById($id);
 	}
 	
-	public function deleteAll($folderdid){
-		$id = $feed->getId();
-	
-		$stmt = OCP\DB::prepare("
-			DELETE FROM " . self::tableName . 
-			"WHERE id = $id
-			");
+	//it's more complicated tan this...recursive delete, or delete with a join
+	public function deleteAll($folderdid){	
+		if ($folderid == null) {
+			return false;
+		}
+		$stmt = OCP\DB::prepare('DELETE FROM ' . self::tableName .' WHERE folder_id = ?');
 
-		$result = $stmt->execute();
+		$result = $stmt->execute(array($folderid));
 		
 		$itemMapper = new OC_News_ItemMapper();
 		//TODO: handle the value that the execute returns

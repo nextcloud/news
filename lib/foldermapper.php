@@ -19,8 +19,11 @@ class OC_News_FolderMapper {
 	
 	private $userid;
 
-	public function __construct($userid){
-		$this->userid = $userid;
+	public function __construct($userid = null){
+		if ($userid !== null) {
+			$this->userid = $userid;
+		}
+		$userid = OCP\USER::getUser();
 	}
 	
 	public function root(){

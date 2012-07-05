@@ -115,4 +115,8 @@ $(document).ready(function(){
 		return false;
 	}).next().hide();
 	
+	$('.feeds_list').hover(function() {
+		$(this).find('#feeds_delete').toggle();
+		return false;
+	}).find('#feeds_delete').hide();
 });  
