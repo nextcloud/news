@@ -12,4 +12,5 @@
 
 ul.controls li { float: left; }
 
-.accordion .title { background: #DCDCDC; font-size: 12px; border-bottom:1px solid #ccc; font-weight:bold;}
+.accordion .title_unread { background: #DCDCDC; font-size: 12px; border-bottom:1px solid #ccc; font-weight:bold;}
+.accordion .title_read { background: #DCDCDC; font-size: 12px; border-bottom:1px solid #ccc;}
