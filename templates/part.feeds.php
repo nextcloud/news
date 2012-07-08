@@ -1,15 +1,11 @@
 <?php
 	function print_folder(OC_News_Folder $folder, $depth){
 		$l = new OC_l10n('news');
-		
-		echo '<ul style="margin-left:' . 10*$depth . 'px;"> <li style="background-image:url(' . 
-			OC_Helper::imagePath('core', 'filetypes/folder.png') . '); background-repeat:no-repeat; background-position:0px 8px; padding-left: 20px; ">' . 
-			'<span class="collapsable">' . $folder->getName() . '</span>';
-/*		
-		if ($depth != 0) {
-			echo '<button class="svg action" id="feeds_delete" onClick="(News.Folder.delete(' . $folder->getId(). '))" title="' . $l->t('Delete folder') . '"></button>';
-		}
-*/		
+
+		echo '<ul style="margin-left:' . 10*$depth . 'px;"> <li class="folder_list" >' .
+			'<div class="collapsable" >' . strtoupper($folder->getName()) .
+                        ( ($depth != 0) ? '<button class="svg action" id="feeds_delete" onClick="(News.Folder.delete(' . $folder->getId(). '))" title="' . $l->t('Delete folder') . '">' : '' ) . '</button>' .
+                        '</div>';
 		echo '<ul>';
 		$children = $folder->getChildren();
 		foreach($children as $child) {
@@ -29,6 +25,6 @@
 		}
 		echo '</ul></li></ul>';
 	}
-	
+
 	print_folder($_['allfeeds'], 0);
 ?>
