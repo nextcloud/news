@@ -118,6 +118,16 @@ News={
 				}
 			});
 			return false;
+		},
+		markItem:function(itemid) {
+			$.post(OC.filePath('news', 'ajax', 'markitem.php'),{'itemid':itemid},function(jsondata){
+				if(jsondata.status == 'success'){
+
+				}
+				else{
+					OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
+				}
+			});
 		}
 	}
 }
@@ -131,9 +141,20 @@ $(document).ready(function(){
 		$(this).toggle();
 	});
 
-	$('.accordion .title').click(function() {
+	$('.accordion .title_unread').click(function() {
+
 		$(this).next().toggle();
+
 		return false;
+
+	}).next().hide();
+
+	$('.accordion .title_read').click(function() {
+
+		$(this).next().toggle();
+
+		return false;
+
 	}).next().hide();
 
 	var list = $('.collapsable,.feeds_list').hover(function() {
@@ -142,6 +163,7 @@ $(document).ready(function(){
 			elem.css('display', 'inline');
 		else
 			elem.css('display', 'none');
+
 		return false;
 	});
 	list.find('#feeds_delete').hide();

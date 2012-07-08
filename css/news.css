@@ -1,6 +1,5 @@
 li { padding-right: 0px !important; }
 
-.accordion .title { background: #DCDCDC; font-size: 12px; border-bottom:1px solid #ccc; font-weight:bold;}
 .collapsable { background: url('%webroot%/core/img/places/folder.svg') no-repeat left center; padding-left: 20px;}
 .news_input { float:left; font-size:12px; padding:4px 2px; border:solid 1px #aacfe4; width:200px; }
 .svg { border: inherit; background: inherit; }
@@ -22,5 +21,6 @@ li.folder_list:hover { color: rgb(0, 0, 0) !important; background: none !importa
 li.feeds_list:hover { background: none repeat scroll 0% 0% rgb(221, 221, 221) !important; }
 div.collapsable:hover { background-color: rgb(221, 221, 221); }
 
-
+.accordion .title_unread { background: #DCDCDC; font-size: 12px; border-bottom:1px solid #ccc; font-weight:bold;}
+.accordion .title_read { background: #DCDCDC; font-size: 12px; border-bottom:1px solid #ccc;}
 

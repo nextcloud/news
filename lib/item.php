@@ -36,7 +36,12 @@ class OC_News_Item {
 		$this->url = $url;
 		$this->guid = $guid;
 		$this->body = $body;
-		$this->status |= StatusFlag::Unread;
+		if ($id == null) {
+			$this->status |= StatusFlag::Unread;
+		}
+		else {
+			$this->id = $id;
+		}
 	}
 
 	public function getGuid(){

@@ -17,7 +17,7 @@ OCP\JSON::callCheck();
 
 $userid = OCP\USER::getUser();
 
-$feedid = trim($_POST['feedid']);
+$feedid = $_POST['feedid'];
 
 $feedmapper = new OC_News_FeedMapper();
 $success = $feedmapper->deleteById($feedid);

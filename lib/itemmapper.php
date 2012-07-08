@@ -18,6 +18,19 @@ class OC_News_ItemMapper {
 
 	const tableName = '*PREFIX*news_items';
 
+	public function fromRow($row){
+		$url = $row['url'];
+		$title = $row['title'];
+		$guid = $row['guid'];
+		$status = $row['status'];
+		$body = $row['body'];
+		$id = $row['id'];
+		$item = new OC_News_Item($url, $title, $guid, $body, $id);
+		$item->setStatus($status);
+		
+		return $item;
+	}
+	
 	/**
 	 * @brief Retrieve all the item corresponding to a feed from the database
 	 * @param feedid The id of the feed in the database table.
@@ -28,13 +41,7 @@ class OC_News_ItemMapper {
 	
 		$items = array();
 		while ($row = $result->fetchRow()) {
-			$url = $row['url'];
-			$title = $row['title'];
-			$guid = $row['guid'];
-			$status = $row['status'];
-			$body = $row['body'];
-			$item = new OC_News_Item($url, $title, $guid, $body);
-			$item->setStatus($status);
+			$item = $this->fromRow($row);
 			$items[] = $item;
 		}
 
@@ -56,6 +63,30 @@ class OC_News_ItemMapper {
 		return $id;
 	}
 
+	/**
+	 * @brief Update the item after its status has changed
+	 * @returns The item whose status has changed.
+	 */
+	public function update(OC_News_Item $item){
+		
+		$itemid = $item->getId();
+		$status = $item->getStatus();
+		
+		$stmt = OCP\DB::prepare('
+				UPDATE ' . self::tableName .
+				' SET status = ?
+				WHERE id = ?
+				');
+			
+		$params=array(
+			$status,
+			$itemid
+			);
+		$stmt->execute($params);
+		
+		return true;
+	}
+	
 	/**
 	 * @brief Save the feed and all its items into the database
 	 * @returns The id of the feed in the database table.
@@ -99,20 +130,8 @@ class OC_News_ItemMapper {
 			
 			$itemid = OCP\DB::insertid(self::tableName);
 		}
-		// update item: its status might have changed
-		// TODO: maybe make this a new function
 		else {
-			$stmt = OCP\DB::prepare('
-				UPDATE ' . self::tableName .
-				' SET status = ?
-				WHERE id = ?
-				');
-			
-			$params=array(
-				$status,
-				$itemid
-			);
-			$stmt->execute($params);
+			update($item);
 		}
 		$item->setId($itemid);
 		return $itemid;
@@ -127,8 +146,9 @@ class OC_News_ItemMapper {
 		$result = $stmt->execute(array($id));
 		$row = $result->fetchRow();
 
-		$url = $row['url'];
-		$title = $row['title'];
+		$item = $this->fromRow($row);
+		
+		return $item;
 
 	}
 
