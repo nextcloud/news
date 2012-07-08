@@ -5,10 +5,10 @@
 *
 * @author Alessandro Cosentino
 * Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
-* 
+*
 * This file is licensed under the Affero General Public License version 3 or later.
 * See the COPYING-README file
-* 
+*
 */
 
 // Check if we are a user
@@ -22,14 +22,14 @@ OCP\Util::addStyle('news','news');
 
 $foldermapper = new OC_News_FolderMapper(OCP\USER::getUser());
 
-$allfeeds = $foldermapper->root();
+$allfeeds = $foldermapper->populate('All Feeds', 0);
 
 if ($allfeeds) {
 	$feedid = isset( $_GET['feedid'] ) ? $_GET['feedid'] : null;
 	if ($feedid == null) {
-		
+
 	}
-} 
+}
 else {
 	$feedid = 0;
 }

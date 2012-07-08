@@ -1,7 +1,24 @@
 News={
-	UI:{
+	DropDownMenu: {
+		show:function(button){
+			var list = $(button).parent().find('ul.dropdown');
+			if (list.css('display') == 'none')
+				list.slideDown('fast').show();
+			else
+				list.slideUp('fast');
+
+			return false;
+		},
+		selectItem:function(item, folderid){
+			var parent = $(item).parent().parent();
+			parent.find('#dropdownBtn').text($(item).text());
+			parent.find(':input[name="folderid"]').val(folderid);
+			parent.find('ul.dropdown').slideUp('fast');
+		}
+	},
+	UI: {
 		overview:function(){
-			if($('#addfeedfolder_dialog').dialog('isOpen') == true){
+		    	if($('#addfeedfolder_dialog').dialog('isOpen') == true){
 				$('#addfeedfolder_dialog').dialog('moveToTop');
 			}else{
 				$('#dialog_holder').load(OC.filePath('news', 'ajax', 'addfeedfolder.php'), function(jsondata){
@@ -19,28 +36,30 @@ News={
 			}
 			return false;
 		}
-	},	
+	},
 	Folder: {
 		submit:function(button){
-				var displayname = $("#folder_add_name").val().trim();
-				
-				if(displayname.length == 0) {
-					OC.dialogs.alert(t('news', 'Displayname cannot be empty.'), t('news', 'Error'));
-					return false;
-				}
-				
-				var url;
-				url = OC.filePath('news', 'ajax', 'createfolder.php');
-				
-				$.post(url, { name: displayname },
-					function(jsondata){
-						if(jsondata.status == 'success'){
-							//$(button).closest('tr').prev().html(jsondata.page).show().next().remove();
-							OC.dialogs.alert(jsondata.data.message, t('news', 'Success!'));
-						} else {
-							OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
-						}
-				});
+			var displayname = $("#folder_add_name").val().trim();
+
+			if(displayname.length == 0) {
+				OC.dialogs.alert(t('news', 'Displayname cannot be empty.'), t('news', 'Error'));
+				return false;
+			}
+
+			var folderid = $('#folder_parentfolder').find(':input[name="folderid"]').val();
+
+			var url;
+			url = OC.filePath('news', 'ajax', 'createfolder.php');
+
+			$.post(url, { name: displayname, parentid: folderid },
+				function(jsondata){
+					if(jsondata.status == 'success'){
+						//$(button).closest('tr').prev().html(jsondata.page).show().next().remove();
+						OC.dialogs.alert(jsondata.data.message, t('news', 'Success!'));
+					} else {
+						OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
+					}
+			});
 		},
 		delete:function(folderid) {
 			$('#feeds_delete').tipsy('hide');
@@ -62,25 +81,27 @@ News={
 	Feed: {
 		id:'',
 		submit:function(button){
-				var feedurl = $("#feed_add_url").val().trim();
-				
-				if(feedurl.length == 0) {
-					OC.dialogs.alert(t('news', 'URL cannot be empty.'), t('news', 'Error'));
-					return false;
-				}
-				
-				var url;
-				url = OC.filePath('news', 'ajax', 'newfeed.php');
-				
-				$.post(url, { feedurl: feedurl },
-					function(jsondata){
-						if(jsondata.status == 'success'){
-							//$(button).closest('tr').prev().html(jsondata.page).show().next().remove();
-							OC.dialogs.alert(jsondata.data.message, t('news', 'Success!'));
-						} else {
-							OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
-						}
-				});
+			var feedurl = $("#feed_add_url").val().trim();
+
+			if(feedurl.length == 0) {
+				OC.dialogs.alert(t('news', 'URL cannot be empty.'), t('news', 'Error'));
+				return false;
+			}
+
+			var folderid = $('#feed_parentfolder').find(':input[name="folderid"]').val();
+
+			var url;
+			url = OC.filePath('news', 'ajax', 'createfeed.php');
+
+			$.post(url, { feedurl: feedurl, folderid: folderid },
+				function(jsondata){
+					if(jsondata.status == 'success'){
+						//$(button).closest('tr').prev().html(jsondata.page).show().next().remove();
+						OC.dialogs.alert(jsondata.data.message, t('news', 'Success!'));
+					} else {
+						OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
+					}
+			});
 		},
 		delete:function(feedid) {
 			$('#feeds_delete').tipsy('hide');
@@ -101,22 +122,28 @@ News={
 	}
 }
 
-$(document).ready(function(){  
-      
+$(document).ready(function(){
+
 	$('#addfeedfolder').click(News.UI.overview);
-	
-	$('.collapsable').click(function(){ 
+
+	$('.collapsable').click(function(){
 		$(this).parent().children().toggle();
 		$(this).toggle();
 	});
-	
+
 	$('.accordion .title').click(function() {
 		$(this).next().toggle();
 		return false;
 	}).next().hide();
-	
-	$('.feeds_list').hover(function() {
-		$(this).find('#feeds_delete').toggle();
+
+	var list = $('.collapsable,.feeds_list').hover(function() {
+		var elem = $(this).find('#feeds_delete,#feeds_edit');
+		if(elem.css('display') == 'none')
+			elem.css('display', 'inline');
+		else
+			elem.css('display', 'none');
 		return false;
-	}).find('#feeds_delete').hide();
-});  
+	});
+	list.find('#feeds_delete').hide();
+	list.find('#feeds_edit').hide();
+});
