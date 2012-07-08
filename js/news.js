@@ -122,7 +122,7 @@ News={
 		markItem:function(itemid) {
 			$.post(OC.filePath('news', 'ajax', 'markitem.php'),{'itemid':itemid},function(jsondata){
 				if(jsondata.status == 'success'){
-					
+
 				}
 				else{
 					OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
@@ -151,16 +151,18 @@ $(document).ready(function(){
 		return false;
 	}).next().hide();
 
-	
+
 	$('.feeds_list').hover(function() {
 		$(this).find('#feeds_delete').toggle();
 
 		var list = $('.collapsable,.feeds_list').hover(function() {
+
 		var elem = $(this).find('#feeds_delete,#feeds_edit');
 		if(elem.css('display') == 'none')
 			elem.css('display', 'inline');
 		else
 			elem.css('display', 'none');
+
 		return false;
 	});
 

@@ -1,6 +1,5 @@
 li { padding-right: 0px !important; }
 
-.accordion .title { background: #DCDCDC; font-size: 12px; border-bottom:1px solid #ccc; font-weight:bold;}
 .collapsable { background: url('%webroot%/core/img/places/folder.svg') no-repeat left center; padding-left: 20px;}
 .news_input { float:left; font-size:12px; padding:4px 2px; border:solid 1px #aacfe4; width:200px; }
 .svg { border: inherit; background: inherit; }
