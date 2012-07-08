@@ -151,21 +151,15 @@ $(document).ready(function(){
 		return false;
 	}).next().hide();
 
+        var list = $('.collapsable,.feeds_list').hover(function() {
+                var elem = $(this).find('#feeds_delete,#feeds_edit');
+                if(elem.css('display') == 'none')
+                        elem.css('display', 'inline');
+                else
+                        elem.css('display', 'none');
 
-	$('.feeds_list').hover(function() {
-		$(this).find('#feeds_delete').toggle();
-
-		var list = $('.collapsable,.feeds_list').hover(function() {
-
-		var elem = $(this).find('#feeds_delete,#feeds_edit');
-		if(elem.css('display') == 'none')
-			elem.css('display', 'inline');
-		else
-			elem.css('display', 'none');
-
-		return false;
-	});
-
-	list.find('#feeds_delete').hide();
-	list.find('#feeds_edit').hide();
+                return false;
+        });
+        list.find('#feeds_delete').hide();
+        list.find('#feeds_edit').hide();
 });
