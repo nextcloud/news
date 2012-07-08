@@ -15,20 +15,21 @@ OCP\JSON::checkLoggedIn();
 OCP\JSON::checkAppEnabled('news');
 OCP\JSON::callCheck();
 
-$itemid = trim($_POST['itemid']);
+$itemid = $_POST['itemid'];
 
 $itemmapper = new OC_News_ItemMapper();
 $item = $itemmapper->find($itemid);
-$feedid = $itemmapper->save($feed, 0);
+$item->setRead();
+$success = $itemmapper->update($item);
 
 $l = OC_L10N::get('news');
 
-if(!$feedid) {
-	OCP\JSON::error(array('data' => array('message' => $l->t('Error adding folder.'))));
-	OCP\Util::writeLog('news','ajax/newfeed.php: Error adding feed: '.$_POST['feedurl'], OCP\Util::ERROR);
+if(!$success) {
+	OCP\JSON::error(array('data' => array('message' => $l->t('Error marking item as read.'))));
+	OCP\Util::writeLog('news','ajax/markitem.php: Error marking item as read: '.$_POST['itemid'], OCP\Util::ERROR);
 	exit();
 }
 
 //TODO: replace the following with a real success case. see contact/ajax/createaddressbook.php for inspirations
-OCP\JSON::success(array('data' => array('message' => $l->t('Feed added!'))));
+OCP\JSON::success(array('data' => array('message' => $l->t('Item updated!'))));
 
