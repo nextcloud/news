@@ -5,7 +5,7 @@
 		echo '<ul style="margin-left:' . 10*$depth . 'px;"> <li class="folder_list" >' .
 			'<div class="collapsable" >' . strtoupper($folder->getName()) .
                         ( ($depth != 0) ? '<button class="svg action" id="feeds_delete" onClick="(News.Folder.delete(' . $folder->getId(). '))" title="' . $l->t('Delete folder') . '">' : '' ) . '</button>' .
-                        '<button class="svg action" id="feeds_edit" title="' . $l->t('Edit feed') . '"></button>' .
+                        '<button class="svg action" id="feeds_edit" title="' . $l->t('Rename folder') . '"></button>' .
                         '</div>';
 		echo '<ul>';
 		$children = $folder->getChildren();

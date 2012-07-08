@@ -14,6 +14,7 @@ li { padding-right: 0px !important; }
 
 /* #dropdownBtn { background: url('%webroot%/core/img/actions/triangle-s.svg') no-repeat right center; } */
 #dropdownBtn { width: 9em; padding-right:20px; background: url('%webroot%/core/img/actions/triangle-s.svg') no-repeat right center; }
+
 ul.controls li { float: left; }
 
 .accordion .title_unread { background: #DCDCDC; font-size: 12px; border-bottom:1px solid #ccc; font-weight:bold;}
