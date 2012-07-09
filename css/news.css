@@ -13,18 +13,20 @@ li { padding-right: 0px !important; }
 #feeds_edit { position: absolute; right: 1.6em; background: url('%webroot%/core/img/actions/rename.svg') no-repeat center; display: inline; }
 
 /* #dropdownBtn { background: url('%webroot%/core/img/actions/triangle-s.svg') no-repeat right center; } */
-#dropdownBtn { width: 9em; padding-right:20px; background: url('%webroot%/core/img/actions/triangle-s.svg') no-repeat right center; }
+#dropdownBtn { width: 9em; padding-left: 0; padding-right:20px; background: url('%webroot%/core/img/actions/triangle-s.svg') no-repeat right center; }
 
 ul.controls li { float: left; }
 
 .accordion .title_unread { background: #DCDCDC; font-size: 12px; border-bottom:1px solid #ccc; font-weight:bold;}
 .accordion .title_read { background: #DCDCDC; font-size: 12px; border-bottom:1px solid #ccc;}
 
-ul.dropdown { position: absolute; display: none; background-color: #FEFEFE;
+ul.dropdown { position: absolute; z-index:100; left: 0; margin-left: 0.3em; display: none; background-color: #FEFEFE;
 	box-shadow: 0px 0px 10px rgb(0, 0, 0); border-radius: 0.5em 0.5em 0.5em 0.5em; }
+li.dropdown { margin: 0 0.3em; }
 
 li.folder_list:hover { color: rgb(0, 0, 0) !important; background: none !important; }
 li.feeds_list:hover { background: none repeat scroll 0% 0% rgb(221, 221, 221) !important; }
 div.collapsable:hover { background-color: rgb(221, 221, 221); }
+div.add_parentfolder { position: relative; }
 
 div.dialog { overflow: visible; }

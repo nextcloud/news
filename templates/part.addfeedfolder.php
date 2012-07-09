@@ -1,7 +1,7 @@
 
 <?php
 	function print_folder(OC_News_Folder $folder, $depth){
-		echo '<li onclick="News.DropDownMenu.selectItem(this, ' . $folder->getId() . ')">' . strtoupper($folder->getName()) . '</li>';
+		echo '<li class="dropdown" onclick="News.DropDownMenu.selectItem(this, ' . $folder->getId() . ')">' . strtoupper($folder->getName()) . '</li>';
 		$children = $folder->getChildren();
 		foreach($children as $child) {
 			if ($child instanceOf OC_News_Folder){
@@ -16,7 +16,7 @@
 <tr>
 	<td>Add new feed</td>
 	<td>
-		<div id="feed_parentfolder">
+		<div class="add_parentfolder">
 			<button id="dropdownBtn" onclick="News.DropDownMenu.show(this)">
 			    <?php echo $l->t('ALL FEEDS'); ?>
 			</button>
@@ -33,7 +33,7 @@
 </tr>
 	<td>Add new folder</td>
 	<td>
-		<div id="folder_parentfolder">
+		<div class="add_parentfolder">
 			<button id="dropdownBtn" onclick="News.DropDownMenu.show(this)">
 			    <?php echo $l->t('ALL FEEDS'); ?>
 			</button>
