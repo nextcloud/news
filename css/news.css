@@ -20,10 +20,11 @@ ul.controls li { float: left; }
 .accordion .title_unread { background: #DCDCDC; font-size: 12px; border-bottom:1px solid #ccc; font-weight:bold;}
 .accordion .title_read { background: #DCDCDC; font-size: 12px; border-bottom:1px solid #ccc;}
 
-ul.dropdown { position: absolute;  display: none; background-color: #FEFEFE;
+ul.dropdown { position: absolute; display: none; background-color: #FEFEFE;
 	box-shadow: 0px 0px 10px rgb(0, 0, 0); border-radius: 0.5em 0.5em 0.5em 0.5em; }
 
 li.folder_list:hover { color: rgb(0, 0, 0) !important; background: none !important; }
 li.feeds_list:hover { background: none repeat scroll 0% 0% rgb(221, 221, 221) !important; }
 div.collapsable:hover { background-color: rgb(221, 221, 221); }
 
+div.dialog { overflow: visible; }

@@ -24,6 +24,7 @@ News={
 				$('#dialog_holder').load(OC.filePath('news', 'ajax', 'addfeedfolder.php'), function(jsondata){
 					if(jsondata.status != 'error'){
 						$('#addfeedfolder_dialog').dialog({
+							dialogClass:'dialog',
 							minWidth: 600,
 							close: function(event, ui) {
 								$(this).dialog('destroy').remove();
