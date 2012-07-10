@@ -131,7 +131,7 @@ class OC_News_ItemMapper {
 			$itemid = OCP\DB::insertid(self::tableName);
 		}
 		else {
-			update($item);
+			$this->update($item);
 		}
 		$item->setId($itemid);
 		return $itemid;

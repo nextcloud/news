@@ -10,12 +10,14 @@ echo '<ul class="accordion">';
 foreach($items as $item) {
 	$title = $item->getTitle();
 	echo '<li>';
+	echo '<div data-id="' . $item->getId() . '"';
 	if ($item->isRead()) {
-		echo '<div class="title_read">' . $title . '</div>';
+		echo ' class="title_read">';
 	}
 	else {
-		echo '<div class="title_unread" onClick="News.Feed.markItem(' . $item->getId() . ')">' . $title . '</div>';
+		echo ' class="title_unread" onClick="News.Feed.markItem(' . $item->getId() . ')">';
 	}
-	echo '<div class="body">' . $item->getBody() . '</div></li>';
+	echo $title . '</div><div class="body">' . $item->getBody() . '</div>';
+	echo '</li>';
 }
 echo '</ul>';

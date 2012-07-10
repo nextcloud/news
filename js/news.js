@@ -110,7 +110,8 @@ News={
 				if(answer == true) {
 					$.post(OC.filePath('news', 'ajax', 'deletefeed.php'),{'feedid':feedid},function(jsondata){
 						if(jsondata.status == 'success'){
-							alert('removed!');
+							$('#leftcontent [data-id="'+jsondata.data.feedid+'"]').remove();
+							//change the right view too (maybe a message to subscribe, like in Google Reader?)
 						}
 						else{
 							OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
@@ -123,7 +124,10 @@ News={
 		markItem:function(itemid) {
 			$.post(OC.filePath('news', 'ajax', 'markitem.php'),{'itemid':itemid},function(jsondata){
 				if(jsondata.status == 'success'){
-
+					var $currentitem = $('#rightcontent [data-id="'+jsondata.data.itemid+'"]');
+					$currentitem.removeClass('title_unread');
+					$currentitem.addClass('title_read');
+					//set a timeout for this
 				}
 				else{
 					OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
