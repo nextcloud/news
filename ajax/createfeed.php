@@ -28,7 +28,7 @@ $l = OC_L10N::get('news');
 
 if(!$feedid) {
 	OCP\JSON::error(array('data' => array('message' => $l->t('Error adding folder.'))));
-	OCP\Util::writeLog('news','ajax/newfeed.php: Error adding feed: '.$_POST['feedurl'], OCP\Util::ERROR);
+	OCP\Util::writeLog('news','ajax/createfeed.php: Error adding feed: '.$_POST['feedurl'], OCP\Util::ERROR);
 	exit();
 }
 
