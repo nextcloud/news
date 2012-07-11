@@ -4,10 +4,10 @@
 *
 * @author Alessandro Cosentino
 * Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
-* 
+*
 * This file is licensed under the Affero General Public License version 3 or later.
 * See the COPYING-README file
-* 
+*
 */
 
 /**
@@ -19,7 +19,7 @@ class OC_News_Folder extends OC_News_Collection {
 	private $children;
 	private $parent;
 
-	public function __construct($name, $id = null, $parent = null){
+	public function __construct($name, $id = null, OC_News_Collection $parent = null){
 		$this->name = $name;
 		if ($id !== null){
 			parent::__construct($id);
@@ -44,11 +44,11 @@ class OC_News_Folder extends OC_News_Collection {
 		}
 		return $this->parent->getId();
 	}
-	
+
 	public function addChild(OC_News_Collection $child){
 		$this->children[] = $child;
 	}
-	
+
 	public function getChildren(){
 		return $this->children;
 	}

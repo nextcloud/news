@@ -18,11 +18,11 @@ OCP\JSON::callCheck();
 $userid = OCP\USER::getUser();
 
 $feedurl = trim($_POST['feedurl']);
-//$folderid = trim($_POST['folderid']);
+$folderid = trim($_POST['folderid']);
 
 $feed = OC_News_Utils::fetch($feedurl);
 $feedmapper = new OC_News_FeedMapper();
-$feedid = $feedmapper->save($feed, 0); //$folderid);
+$feedid = $feedmapper->save($feed, $folderid);
 
 $l = OC_L10N::get('news');
 

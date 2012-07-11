@@ -55,7 +55,7 @@ News={
 			//translation here!!!
 			$(button).prop('value', 'Adding...');
 
-			var folderid = $('#folder_parentfolder').find(':input[name="folderid"]').val();
+			var folderid = $('#inputfolderid:input[name="folderid"]').val();
 
 			var url;
 			url = OC.filePath('news', 'ajax', 'createfolder.php');
@@ -105,7 +105,7 @@ News={
 			//translation here!!!
 			$(button).prop('value', 'Adding...');
 
-			var folderid = $('#feed_parentfolder').find(':input[name="folderid"]').val();
+			var folderid = $('#inputfolderid:input[name="folderid"]').val();
 
 			var url;
 			url = OC.filePath('news', 'ajax', 'createfeed.php');
