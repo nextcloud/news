@@ -22,7 +22,7 @@ News={
 			var parent = $(item).parent().parent();
 			parent.find('#dropdownBtn').text($(item).text());
 			parent.find(':input[name="folderid"]').val(folderid);
-			parent.find('ul#dropdown').slideUp('fast');
+			parent.find('ul#dropdownmenu').slideUp('fast');
 		}
 	},
 	UI: {
@@ -59,7 +59,7 @@ News={
 			$(button).attr("disabled", true);
 			//translation here!!!
 			$(button).prop('value', 'Adding...');
-			
+
 			var folderid = $('#folder_parentfolder').find(':input[name="folderid"]').val();
 
 			var url;
@@ -109,7 +109,7 @@ News={
 			$(button).attr("disabled", true);
 			//translation here!!!
 			$(button).prop('value', 'Adding...');
-			
+
 			var folderid = $('#feed_parentfolder').find(':input[name="folderid"]').val();
 
 			var url;
@@ -126,7 +126,7 @@ News={
 				$(button).attr("disabled", false);
 				//translation here!!!
 				$(button).prop('value', 'Add feed');
-			});			
+			});
 		},
 		delete:function(feedid) {
 			$('#feeds_delete').tipsy('hide');
