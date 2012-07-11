@@ -1,7 +1,16 @@
 News={
 	DropDownMenu: {
-		show:function(button){
-			var list = $(button).parent().find('ul.dropdown');
+		fade:function(button){
+			var list = $(button).parent().find('ul#fademenu');
+			if (list.css('display') == 'none')
+				list.fadeIn();
+			else
+				list.fadeOut();
+
+			return false;
+		},
+		dropdown:function(button){
+			var list = $(button).parent().find('ul#dropdownmenu');
 			if (list.css('display') == 'none')
 				list.slideDown('fast').show();
 			else
@@ -13,17 +22,17 @@ News={
 			var parent = $(item).parent().parent();
 			parent.find('#dropdownBtn').text($(item).text());
 			parent.find(':input[name="folderid"]').val(folderid);
-			parent.find('ul.dropdown').slideUp('fast');
+			parent.find('ul#dropdown').slideUp('fast');
 		}
 	},
 	UI: {
-		overview:function(){
-		    	if($('#addfeedfolder_dialog').dialog('isOpen') == true){
-				$('#addfeedfolder_dialog').dialog('moveToTop');
+		overview:function(dialogtype, dialogfile){
+		    	if($(dialogtype).dialog('isOpen') == true){
+				$(dialogtype).dialog('moveToTop');
 			}else{
-				$('#dialog_holder').load(OC.filePath('news', 'ajax', 'addfeedfolder.php'), function(jsondata){
+				$('#dialog_holder').load(OC.filePath('news', 'ajax', dialogfile), function(jsondata){
 					if(jsondata.status != 'error'){
-						$('#addfeedfolder_dialog').dialog({
+						$(dialogtype).dialog({
 							dialogClass:'dialog',
 							minWidth: 600,
 							close: function(event, ui) {
@@ -139,7 +148,12 @@ News={
 
 $(document).ready(function(){
 
-	$('#addfeedfolder').click(News.UI.overview);
+	$('#addfeed').click(function() {
+		News.UI.overview('#addfeed_dialog','feeddialog.php');
+	});
+	$('#addfolder').click(function() {
+		News.UI.overview('#addfolder_dialog','folderdialog.php');
+	});
 
 	$('.collapsable').click(function(){
 		$(this).parent().children().toggle();

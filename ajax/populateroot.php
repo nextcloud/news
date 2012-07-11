@@ -16,7 +16,3 @@ if ($allfeeds) {
 else {
 	$feedid = 0;
 }
-
-$output = new OCP\Template("news", "part.addfeedfolder");
-$output -> assign('allfeeds', $allfeeds);
-$output -> printpage();

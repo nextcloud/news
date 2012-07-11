@@ -8,7 +8,7 @@ li { padding-right: 0px !important; }
 #rightcontent { top: 3.5em !important; padding-top: 5px; }
 #feeds { background: #fff; width: 20em; left: 12.5em; top: 3.7em; bottom:3em; position: fixed; overflow: auto; padding: 0; margin: 0; }
 /* #feeds a { height: 23px; display: block; margin: 0 0 0 0; padding: 0 0 0 25px; } */
-#bottomcontrols { padding: 0; bottom:0px; height:2.8em; width: 20em; margin:0; background:#eee; border-top:1px solid #ccc; position:fixed; -moz-box-shadow: 0 -3px 3px -3px #000; -webkit-box-shadow: 0 -3px 3px -3px #000; box-shadow: 0 -3px 3px -3px #000;}
+#bottomcontrols { padding: 0; bottom:0px; overflow:visible; height:2.8em; width: 20em; margin:0; background:#eee; border-top:1px solid #ccc; position:fixed; -moz-box-shadow: 0 -3px 3px -3px #000; -webkit-box-shadow: 0 -3px 3px -3px #000; box-shadow: 0 -3px 3px -3px #000;}
 #feeds_delete { position: absolute; right: 0px; background: url('%webroot%/core/img/actions/delete.svg') no-repeat center; display: inline; }
 #feeds_edit { position: absolute; right: 1.6em; background: url('%webroot%/core/img/actions/rename.svg') no-repeat center; display: inline; }
 
@@ -20,9 +20,35 @@ ul.controls li { float: left; }
 .accordion .title_unread { background: #DCDCDC; font-size: 12px; border-bottom:1px solid #ccc; font-weight:bold;}
 .accordion .title_read { background: #DCDCDC; font-size: 12px; border-bottom:1px solid #ccc;}
 
-ul.dropdown { position: absolute; z-index:100; left: 0; margin-left: 0.3em; display: none; background-color: #FEFEFE;
-	box-shadow: 0px 0px 10px rgb(0, 0, 0); border-radius: 0.5em 0.5em 0.5em 0.5em; }
-li.dropdown { margin: 0 0.3em; }
+ul.menu { position: absolute; z-index:100; margin-left: 0.3em;
+	box-shadow: 0px 0px 10px rgb(0, 0, 0); display: none;
+	background:#FEFEFE; /* default background for browsers without gradient support */
+	/* css3 */
+	background:-webkit-gradient(linear, 0 0, 0 100%, from(#FEFEFE), to(#D3F6FE));
+	background:-moz-linear-gradient(#FEFEFE, #E7E7E7);
+	background:-o-linear-gradient(#FEFEFE, #E7E7E7);
+	background:linear-gradient(#FEFEFE, #E7E7E7);
+	-webkit-border-radius:10px;
+	-moz-border-radius:10px;
+	border-radius:10px; }
+
+ul#dropdownmenu { left: 0em; }
+
+ul#fademenu { left: -0.3em; margin-left: 0.3em; top: -4.5em; }
+
+ul#fademenu :after {
+	content:"";
+	position:absolute;
+	bottom:-1em; /* value = - border-top-width - border-bottom-width */
+	left:10%; /* controls horizontal position */
+	border-width:1em 1em 0; /* vary these values to change the angle of the vertex */
+	border-style:solid;
+	border-color:#E7E7E7 transparent;
+	display:block;
+	width:0;
+}
+
+li.menuItem { margin-left:0.7em; margin-right:0.7em; float: none !important; text-align: center; }
 
 li.folder_list:hover { color: rgb(0, 0, 0) !important; background: none !important; }
 li.feeds_list:hover { background: none repeat scroll 0% 0% rgb(221, 221, 221) !important; }
@@ -30,3 +56,4 @@ div.collapsable:hover { background-color: rgb(221, 221, 221); }
 div.add_parentfolder { position: relative; }
 
 div.dialog { overflow: visible; }
+
