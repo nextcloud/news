@@ -15,6 +15,9 @@ li { padding-right: 0px !important; }
 /* #dropdownBtn { background: url('%webroot%/core/img/actions/triangle-s.svg') no-repeat right center; } */
 #dropdownBtn { width: 9em; padding-left: 0; padding-right:20px; background: url('%webroot%/core/img/actions/triangle-s.svg') no-repeat right center; }
 
+#addfolder { background: url('%webroot%/core/img/places/folder.svg') no-repeat left center; padding-left: 20px; }
+#addfeed { background: url('%appswebroot%/apps/news/img/rss.svg') no-repeat left center; padding-left: 20px; }
+
 ul.controls li { float: left; }
 
 .accordion .title_unread { background: #DCDCDC; font-size: 12px; border-bottom:1px solid #ccc; font-weight:bold;}
@@ -37,6 +40,7 @@ ul#dropdownmenu { left: 0em; }
 ul#fademenu { left: -0.3em; margin-left: 0.3em; top: -4.5em; }
 
 ul#fademenu :after {
+  text-align:left;
 	content:"";
 	position:absolute;
 	bottom:-1em; /* value = - border-top-width - border-bottom-width */
