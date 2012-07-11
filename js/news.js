@@ -1,12 +1,7 @@
 News={
 	DropDownMenu: {
 		fade:function(button){
-			var list = $(button).parent().find('ul#fademenu');
-			if (list.css('display') == 'none')
-				list.fadeIn();
-			else
-				list.fadeOut();
-
+			var list = $(button).parent().find('ul#fademenu').toggle();
 			return false;
 		},
 		dropdown:function(button){
@@ -165,9 +160,11 @@ $(document).ready(function(){
 
 	$('#addfeed').click(function() {
 		News.UI.overview('#addfeed_dialog','feeddialog.php');
+		$(this).parent().toggle();
 	});
 	$('#addfolder').click(function() {
 		News.UI.overview('#addfolder_dialog','folderdialog.php');
+		$(this).parent().toggle();
 	});
 
 	$('.collapsable').click(function(){
