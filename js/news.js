@@ -56,6 +56,10 @@ News={
 				return false;
 			}
 
+			$(button).attr("disabled", true);
+			//translation here!!!
+			$(button).prop('value', 'Adding...');
+			
 			var folderid = $('#folder_parentfolder').find(':input[name="folderid"]').val();
 
 			var url;
@@ -69,6 +73,10 @@ News={
 					} else {
 						OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
 					}
+					$("#folder_add_name").val('');
+					$(button).attr("disabled", false);
+					//translation here!!!
+					$(button).prop('value', 'Add folder');
 			});
 		},
 		delete:function(folderid) {
@@ -98,6 +106,10 @@ News={
 				return false;
 			}
 
+			$(button).attr("disabled", true);
+			//translation here!!!
+			$(button).prop('value', 'Adding...');
+			
 			var folderid = $('#feed_parentfolder').find(':input[name="folderid"]').val();
 
 			var url;
@@ -106,12 +118,15 @@ News={
 			$.post(url, { feedurl: feedurl, folderid: folderid },
 				function(jsondata){
 					if(jsondata.status == 'success'){
-						//$(button).closest('tr').prev().html(jsondata.page).show().next().remove();
 						OC.dialogs.alert(jsondata.data.message, t('news', 'Success!'));
 					} else {
 						OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
 					}
-			});
+				$("#feed_add_url").val('');
+				$(button).attr("disabled", false);
+				//translation here!!!
+				$(button).prop('value', 'Add feed');
+			});			
 		},
 		delete:function(feedid) {
 			$('#feeds_delete').tipsy('hide');
