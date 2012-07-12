@@ -1,7 +1,7 @@
 News={
 	DropDownMenu: {
-		fade:function(button){
-			var list = $(button).parent().find('ul#fademenu').toggle();
+		fade:function(menu){
+			var list = $(menu).toggle();
 			return false;
 		},
 		dropdown:function(button){

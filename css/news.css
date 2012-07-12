@@ -12,7 +12,6 @@ li { padding-right: 0px !important; }
 #feeds_delete { position: absolute; right: 0px; background: url('%webroot%/core/img/actions/delete.svg') no-repeat center; display: inline; }
 #feeds_edit { position: absolute; right: 1.6em; background: url('%webroot%/core/img/actions/rename.svg') no-repeat center; display: inline; }
 
-/* #dropdownBtn { background: url('%webroot%/core/img/actions/triangle-s.svg') no-repeat right center; } */
 #dropdownBtn { width: 9em; padding-left: 0; padding-right:20px; background: url('%webroot%/core/img/actions/triangle-s.svg') no-repeat right center; }
 
 #addfolder { background: url('%webroot%/core/img/places/folder.svg') no-repeat left center; padding-left: 20px; }
@@ -24,36 +23,23 @@ ul.controls li { float: left; }
 .accordion .title_read { background: #DCDCDC; font-size: 12px; border-bottom:1px solid #ccc;}
 
 ul.menu { position: absolute; z-index:100; margin-left: 0.3em;
-	box-shadow: 0px 0px 10px rgb(0, 0, 0); display: none;
-	background:#FEFEFE; /* default background for browsers without gradient support */
+	display: none;
+	background:#EEEEEE; /* default background for browsers without gradient support */
 	/* css3 */
-	background:-webkit-gradient(linear, 0 0, 0 100%, from(#FEFEFE), to(#D3F6FE));
-	background:-moz-linear-gradient(#FEFEFE, #E7E7E7);
-	background:-o-linear-gradient(#FEFEFE, #E7E7E7);
-	background:linear-gradient(#FEFEFE, #E7E7E7);
+	background:-webkit-gradient(linear, 0 0, 0 100%, from(#DCDCDC), to(#EEEEEE));
+	background:-moz-linear-gradient(#DCDCDC, #EEEEEE);
+	background:-o-linear-gradient(#DCDCDC, #EEEEEE);
+	background:linear-gradient(#DCDCDC, #EEEEEE);
 	/*
 	-webkit-border-radius:10px;
 	-moz-border-radius:10px;
-	border-radius:10px; 
+	border-radius:10px;
 	*/
 }
 
-ul#dropdownmenu { left: 0em; }
+ul#dropdownmenu { left: 0em; box-shadow: 0px 0px 10px rgb(0, 0, 0); }
 
-ul#fademenu { left: -0.3em; margin-left: 0.3em; top: -4.5em; }
-
-ul#fademenu :after {
-  text-align:left;
-	content:"";
-	position:absolute;
-	bottom:-1em; /* value = - border-top-width - border-bottom-width */
-	left:10%; /* controls horizontal position */
-	border-width:1em 1em 0; /* vary these values to change the angle of the vertex */
-	border-style:solid;
-	border-color:#E7E7E7 transparent;
-	display:block;
-	width:0;
-}
+ul#feedfoldermenu { position:fixed; margin-left: 0; bottom: 2.8em; border-left:1px solid #ccc; border-top:1px solid #ccc; border-right:1px solid #ccc; -moz-box-shadow: 0 -3px 3px -3px #000; -webkit-box-shadow: 0 -3px 3px -3px #000; box-shadow: 0 -3px 3px -3px #000;}
 
 li.menuItem { margin-left:0.7em; margin-right:0.7em; float: none !important; text-align: left; }
 
