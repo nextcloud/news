@@ -74,7 +74,7 @@ News={
 					$(button).prop('value', 'Add folder');
 			});
 		},
-		delete:function(folderid) {
+		'delete':function(folderid) {
 			$('#feeds_delete').tipsy('hide');
 			OC.dialogs.confirm(t('news', 'Are you sure you want to delete this folder and all its feeds?'), t('news', 'Warning'), function(answer) {
 				if(answer == true) {
@@ -123,7 +123,7 @@ News={
 				$(button).prop('value', 'Add feed');
 			});
 		},
-		delete:function(feedid) {
+		'delete':function(feedid) {
 			$('#feeds_delete').tipsy('hide');
 			OC.dialogs.confirm(t('news', 'Are you sure you want to delete this feed?'), t('news', 'Warning'), function(answer) {
 				if(answer == true) {
