@@ -1,7 +1,7 @@
 News={
 	DropDownMenu: {
 		fade:function(menu){
-			var list = $(menu).toggle();
+			$(menu).toggle();
 			return false;
 		},
 		dropdown:function(button){
@@ -47,13 +47,12 @@ News={
 			var displayname = $("#folder_add_name").val().trim();
 
 			if(displayname.length == 0) {
-				OC.dialogs.alert(t('news', 'Displayname cannot be empty.'), t('news', 'Error'));
+				OC.dialogs.alert(t('news', 'Name of the folder cannot be empty.'), t('news', 'Error'));
 				return false;
 			}
 
 			$(button).attr("disabled", true);
-			//translation here!!!
-			$(button).prop('value', 'Adding...');
+			$(button).prop('value', t('news', 'Adding...'));
 
 			var folderid = $('#inputfolderid:input[name="folderid"]').val();
 
@@ -70,8 +69,7 @@ News={
 					}
 					$("#folder_add_name").val('');
 					$(button).attr("disabled", false);
-					//translation here!!!
-					$(button).prop('value', 'Add folder');
+					$(button).prop('value', t('news','Add folder'));
 			});
 		},
 		'delete':function(folderid) {
@@ -80,6 +78,7 @@ News={
 				if(answer == true) {
 					$.post(OC.filePath('news', 'ajax', 'deletefolder.php'),{'folderid':folderid},function(jsondata){
 						if(jsondata.status == 'success'){
+							//change this with actually removing the folder in the view instead of the alert msg
 							alert('removed!');
 						}
 						else{
@@ -102,8 +101,7 @@ News={
 			}
 
 			$(button).attr("disabled", true);
-			//translation here!!!
-			$(button).prop('value', 'Adding...');
+			$(button).prop('value', t('news', 'Adding...'));
 
 			var folderid = $('#inputfolderid:input[name="folderid"]').val();
 
@@ -119,8 +117,7 @@ News={
 					}
 				$("#feed_add_url").val('');
 				$(button).attr("disabled", false);
-				//translation here!!!
-				$(button).prop('value', 'Add feed');
+				$(button).prop('value', t('news', 'Add feed'));
 			});
 		},
 		'delete':function(feedid) {
@@ -160,11 +157,9 @@ $(document).ready(function(){
 
 	$('#addfeed').click(function() {
 		News.UI.overview('#addfeed_dialog','feeddialog.php');
-		$(this).parent().toggle();
 	});
 	$('#addfolder').click(function() {
 		News.UI.overview('#addfolder_dialog','folderdialog.php');
-		$(this).parent().toggle();
 	});
 
 	$('.collapsable').click(function(){
@@ -193,4 +188,14 @@ $(document).ready(function(){
         });
         list.find('#feeds_delete').hide();
         list.find('#feeds_edit').hide();
+	
+	$('#addfeedfolder').click(function(e) {
+	      e.stopPropagation();
+	});
+	  
 });
+
+$(document).click(function(e) {
+	$('#fademenu').hide();
+});
+
