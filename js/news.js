@@ -196,6 +196,6 @@ $(document).ready(function(){
 });
 
 $(document).click(function(e) {
-	$('#fademenu').hide();
+	$('#feedfoldermenu').hide();
 });
 
