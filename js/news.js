@@ -189,13 +189,13 @@ $(document).ready(function(){
         list.find('#feeds_delete').hide();
         list.find('#feeds_edit').hide();
 	
-	$('#addfeedfolder').click(function(e) {
-	      e.stopPropagation();
+	$('#addfeedfolder').click(function(event) {
+	      event.stopPropagation();
 	});
-	  
+	
 });
 
-$(document).click(function(e) {
+$(document).click(function(event) {
 	$('#feedfoldermenu').hide();
 });
 

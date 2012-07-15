@@ -1,6 +1,6 @@
 <?php
 
-//OCP\Util::addscript( "news", "admin" );
+OCP\Util::addScript( 'news', 'settings');
 
 $tmpl = new OCP\Template( 'news', 'settings');
 
