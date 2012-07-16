@@ -16,6 +16,8 @@
 #addfolder { background: url('%webroot%/core/img/places/folder.svg') no-repeat left center; padding-left: 20px !important; }
 #addfeed { background: url('%appswebroot%/apps/news/img/rss.svg') no-repeat left center; padding-left: 20px !important; }
 
+#unreaditemcounter { position: relative; background: #5E5E5E; border-radius: 5px; padding: 0 5px; height: 90%; margin-top: auto; margin-bottom: auto; color: white; text-align: center; }
+
 ul.controls li { float: left; }
 
 .accordion .title_unread { background: #DCDCDC; font-size: 12px; border-bottom:1px solid #ccc; font-weight:bold;}
