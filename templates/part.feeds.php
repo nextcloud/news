@@ -14,7 +14,8 @@
 				print_folder($child, $depth+1);
 			}
 			elseif ($child instanceOf OC_News_Feed) { //onhover $(element).attr('id', 'newID');
-				echo '<li class="feeds_list" data-id="' . $child->getId() . '"><a href="' . OCP\Util::linkTo('news', 'index.php'). '?feedid=' . $child->getId() . '">' . $child->getTitle() .'</a>';
+				$favicon = $child->getFavicon();
+				echo '<li style="background: url(' . $favicon . ') left center no-repeat; background-size:16px 16px;" class="feeds_list" data-id="' . $child->getId() . '"><a href="' . OCP\Util::linkTo('news', 'index.php'). '?feedid=' . $child->getId() . '">' . $child->getTitle() .'</a>';
 				countUnreadItems($child->getId());
 				echo '<button class="svg action" id="feeds_delete" onClick="(News.Feed.delete(' . $child->getId(). '))" title="' . $l->t('Delete feed') . '"></button>';
 				echo '<button class="svg action" id="feeds_edit" title="' . $l->t('Edit feed') . '"></button>';

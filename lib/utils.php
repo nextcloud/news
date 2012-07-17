@@ -41,6 +41,14 @@ class OC_News_Utils {
 		}
 
 		$feed = new OC_News_Feed($url, $title, $items);
+		
+		$favicon = $spfeed->get_image_url();
+		if ($favicon == null) {
+			$favicon = $url . "favicon.ico";
+			//check if this file exists
+		}
+		$feed->setFavicon($favicon);
+		
 		return $feed;
 	}
 }

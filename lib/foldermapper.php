@@ -40,7 +40,7 @@ class OC_News_FolderMapper {
 		$result = $stmt->execute(array($this->userid, $id));
 
 		while( $row = $result->fetchRow()){
-			$child = OC_News_FolderMapper::populate($row['name'], $row['id']);
+			$child = self::populate($row['name'], $row['id']);
 			$root->addChild($child);
 		}
 

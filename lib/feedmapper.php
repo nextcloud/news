@@ -46,6 +46,8 @@ class OC_News_FeedMapper {
 			$title = $row['title'];
 			$id = $row['id'];
 			$feed = new OC_News_Feed($url, $title, null, $id);
+			$favicon = $row['favicon_link'];
+			$feed->setFavicon($favicon);  
 			$feeds[] = $feed;
 		}
 		return $feeds;
@@ -64,7 +66,8 @@ class OC_News_FeedMapper {
 		$url = $row['url'];
 		$title = $row['title'];
 		$feed = new OC_News_Feed($url, $title, null,$id);
-
+		$favicon = $row['favicon_link'];
+		$feed->setFavicon($favicon); 
 		$itemMapper = new OC_News_ItemMapper();
 		$items = $itemMapper->findAll($id);
 		$feed->setItems($items);
@@ -118,16 +121,17 @@ class OC_News_FeedMapper {
 		if ($feedid == null){
 			$query = OCP\DB::prepare('
 				INSERT INTO ' . self::tableName .
-				'(url, title, folder_id, added, lastmodified)
-				VALUES (?, ?, ?, ?, ?)
+				'(url, title, favicon_link, folder_id, added, lastmodified)
+				VALUES (?, ?, ?, ?, ?, ?)
 				');
 
 			$params=array(
 				$url,
 				htmlspecialchars_decode($title),
+				$feed->getFavicon(),
 				$folderid,
 				$_ut, 
-				$_ut
+				$_ut,
 			);
 			$query->execute($params);
 			

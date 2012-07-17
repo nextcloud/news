@@ -18,6 +18,7 @@ class OC_News_Feed extends OC_News_Collection {
 	private $url;
 	private $spfeed; //encapsulate a SimplePie_Core object
 	private $items;  //array that contains all the items of the feed
+	private $favicon;
 
 	public function __construct($url, $title, $items, $id = null){
 		$this->url = $url;
@@ -36,6 +37,14 @@ class OC_News_Feed extends OC_News_Collection {
 		return $this->title;
 	}
 
+	public function getFavicon(){
+		return $this->favicon;
+	}
+
+	public function setFavicon($favicon){
+		$this->favicon = $favicon;
+	}
+
 	public function setItems($items){
 		$this->items = $items;
 	}
@@ -43,4 +52,5 @@ class OC_News_Feed extends OC_News_Collection {
 	public function getItems(){
 		return $this->items;
 	}
+
 }
