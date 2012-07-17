@@ -16,7 +16,7 @@
 #addfolder { background: url('%webroot%/core/img/places/folder.svg') no-repeat left center; padding-left: 20px !important; }
 #addfeed { background: url('%appswebroot%/apps/news/img/rss.svg') no-repeat left center; padding-left: 20px !important; }
 
-#unreaditemcounter { position: relative; background: #5E5E5E; border-radius: 5px; padding: 0 5px; height: 90%; margin-top: auto; margin-bottom: auto; color: white; text-align: center; }
+#unreaditemcounter { position: relative; background: #5E5E5E; border-radius: 5px; padding: 0 5px; color: white; text-align: center; margin-right: 0.3em; }
 
 ul.controls li { float: left; }
 
@@ -44,7 +44,7 @@ ul#feedfoldermenu { position:fixed; margin-left: 0; bottom: 2.8em; border-left:1
 
 li { padding: 0px !important; }
 li.menuItem { margin-left:0.7em; margin-right:0.7em; float: none !important; text-align: left; }
-li.feeds_list { margin-left: 20px !important; }
+li.feeds_list { margin-left: 20px !important; text-align: right; }
 
 li.folder_list:hover { color: rgb(0, 0, 0) !important; background: none !important; }
 li.feeds_list:hover { background: none repeat scroll 0% 0% rgb(221, 221, 221) !important; }
