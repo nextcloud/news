@@ -153,7 +153,7 @@ News={
 		updateAll:function() {
 			$.post(OC.filePath('news', 'ajax', 'feedlist.php'),function(jsondata){
 				if(jsondata.status == 'success'){
-					  
+
 				}
 				else{
 					OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
@@ -196,24 +196,29 @@ $(document).ready(function(){
 	}).next().hide();
 
         var list = $('.collapsable,.feeds_list').hover(function() {
-                var elem = $(this).find('#feeds_delete,#feeds_edit');
-                if(elem.css('display') == 'none')
-                        elem.css('display', 'inline');
-                else
-                        elem.css('display', 'none');
+		var counter = $(this).find('#unreaditemcounter');
+		var elem = $(this).find('#feeds_delete,#feeds_edit');
+		if(elem.css('display') == 'none') {
+			elem.css('display', 'inline');
+			counter.css('display', 'none');
+		}
+		else {
+			elem.css('display', 'none');
+			counter.css('display', 'inline');
+		}
 
                 return false;
         });
         list.find('#feeds_delete').hide();
         list.find('#feeds_edit').hide();
-	
+
 	$('#addfeedfolder').click(function(event) {
 	      event.stopPropagation();
 	});
-	
-	var updateInterval = 20000; //how often the feeds should update (in msec)
+
+	var updateInterval = 200000; //how often the feeds should update (in msec)
 	setInterval('News.Feed.updateAll()', updateInterval);
-	
+
 });
 
 $(document).click(function(event) {

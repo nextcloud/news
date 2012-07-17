@@ -12,7 +12,7 @@
 
 // load SimplePie library
 //TODO: is this file a suitable place for the following require?
- require_once('news/3rdparty/SimplePie/SimplePieAutoloader.php');
+ require_once('news/3rdparty/SimplePie/autoloader.php');
 
 class OC_News_Utils {
 
