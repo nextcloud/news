@@ -1,5 +1,5 @@
 
-.collapsable { background: url('%webroot%/core/img/places/folder.svg') no-repeat left center; padding: 0.3em 0.8em 0.3em 20px; }
+.collapsable { background: url('%webroot%/core/img/places/folder.svg') no-repeat left center; padding: 0.3em 0.8em 0.3em 19px; }
 .news_input { float:left; font-size:12px; padding:4px 2px; border:solid 1px #aacfe4; width:200px; }
 .svg { border: inherit; background: inherit; }
 
@@ -44,7 +44,8 @@ ul#feedfoldermenu { position:fixed; margin-left: 0; bottom: 2.8em; border-left:1
 
 li { padding: 0px !important; }
 li.menuItem { margin-left:0.7em; margin-right:0.7em; float: none !important; text-align: left; }
-li.feeds_list { text-align: right; padding-left: 20px; }
+li.feeds_list { text-align: right; padding-left: 19px; }
+li.feeds_list a { margin-left: 19px !important; overflow: hidden; text-overflow: ellipsis; width: 13em; text-align: left; }
 
 li.folder_list:hover { color: rgb(0, 0, 0) !important; background: none !important; }
 li.feeds_list:hover { background: none repeat scroll 0% 0% rgb(221, 221, 221) !important; }
