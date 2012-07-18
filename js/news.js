@@ -153,18 +153,23 @@ News={
 		updateAll:function() {
 			$.post(OC.filePath('news', 'ajax', 'feedlist.php'),function(jsondata){
 				if(jsondata.status == 'success'){
-
+					var feeds = jsondata.data;
+					for (var i = 0; i < feeds.length; i++) {
+						News.Feed.updateFeed(feeds[i]['id'], feeds[i]['url'], feeds[i]['folderid']);
+					}
 				}
-				else{
-					OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
+				else {
+					//TODO:handle error case
 				}
 			});
 		},
-		updateFeed:function(feedid) {
-			$.post(OC.filePath('news', 'ajax', 'updatefeed.php'),{'feedid':feedid},function(jsondata){
+		updateFeed:function(feedid, feedurl, folderid) {
+			$.post(OC.filePath('news', 'ajax', 'updatefeed.php'),{'feedid':feedid, 'feedurl':feedurl, 'folderid':folderid},function(jsondata){
 				if(jsondata.status == 'success'){
+					
 				}
 				else{
+					//TODO:handle error case
 				}
 			});
 		}
@@ -216,7 +221,7 @@ $(document).ready(function(){
 	      event.stopPropagation();
 	});
 
-	var updateInterval = 200000; //how often the feeds should update (in msec)
+	var updateInterval = 10000; //how often the feeds should update (in msec)
 	setInterval('News.Feed.updateAll()', updateInterval);
 
 });

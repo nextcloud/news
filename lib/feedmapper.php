@@ -16,6 +16,27 @@
 class OC_News_FeedMapper {
 
 	const tableName = '*PREFIX*news_feeds';
+
+	/**
+	 * @brief 
+	 * @param userid 
+	 * @returns  
+	 */
+	public function findAll($userid){
+		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . 
+					' JOIN ' . OC_News_FolderMapper::tableName . 
+					' ON ' . self::tableName. '.folder_id=' . OC_News_FolderMapper::tableName . '.id' .
+					' WHERE user_id = ?');
+		$result = $stmt->execute(array($userid));
+		$feeds = array();
+		while ($row = $result->fetchRow()) {
+			$url = $row['url'];
+			$id = $row['id'];
+			$folderid = $row['folder_id'];
+			$feeds[] = array("url" => $url, "id" => $id, "folderid" => $folderid);
+		}
+		return $feeds;
+	}
 	
 	/**
 	 * @brief Retrieve a feed from the database

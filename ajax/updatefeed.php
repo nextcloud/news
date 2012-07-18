@@ -17,21 +17,23 @@ OCP\JSON::callCheck();
 
 $userid = OCP\USER::getUser();
 
-$feedurl = trim($_POST['feedurl']);
-$folderid = trim($_POST['folderid']);
+$feedid = $_POST['feedid'];
+$feedurl = $_POST['feedurl'];
+$folderid = $_POST['folderid'];
 
-$feed = OC_News_Utils::fetch($feedurl);
+$newfeed = OC_News_Utils::fetch($feedurl);
+
 $feedmapper = new OC_News_FeedMapper();
-$feedid = $feedmapper->save($feed, $folderid);
+$newfeedid = $feedmapper->save($newfeed, $folderid);
 
 $l = OC_L10N::get('news');
 
-if(!$feedid) {
-	OCP\JSON::error(array('data' => array('message' => $l->t('Error adding folder.'))));
-	OCP\Util::writeLog('news','ajax/createfeed.php: Error adding feed: '.$_POST['feedurl'], OCP\Util::ERROR);
+if(!$newfeedid) {
+	OCP\JSON::error(array('data' => array('message' => $l->t('Error updating feed.'))));
+	OCP\Util::writeLog('news','ajax/updatefeed.php: Error updating feed: '.$_POST['feedid'], OCP\Util::ERROR);
 	exit();
 }
 
 //TODO: replace the following with a real success case. see contact/ajax/createaddressbook.php for inspirations
-OCP\JSON::success(array('data' => array('message' => $l->t('Feed added!'))));
+OCP\JSON::success(array('data' => array('message' => $l->t('Feed updated!'))));
 

@@ -18,15 +18,15 @@ OCP\JSON::callCheck();
 $userid = OCP\USER::getUser();
 
 $feedmapper = new OC_News_FeedMapper();
+$feeds = $feedmapper->findAll($userid);
 
 $l = OC_L10N::get('news');
 
-if(!$feedid) {
+if($feeds == null) {
 	OCP\JSON::error(array('data' => array('message' => $l->t('Error adding folder.'))));
-	OCP\Util::writeLog('news','ajax/feedlist.php: Error adding feed: '.$_POST['feedurl'], OCP\Util::ERROR);
+	OCP\Util::writeLog('news','ajax/feedlist.php: Error updating feeds: '.$_POST['feedurl'], OCP\Util::ERROR);
 	exit();
 }
 
-//TODO: replace the following with a real success case. see contact/ajax/createaddressbook.php for inspirations
-OCP\JSON::success(array('data' => array('message' => $l->t('Feed added!'))));
+OCP\JSON::success(array('data' => $feeds));
 
