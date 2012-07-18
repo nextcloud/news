@@ -24,6 +24,7 @@ $l = OC_L10N::get('news');
 
 if($feeds == null) {
 	OCP\JSON::error(array('data' => array('message' => $l->t('Error adding folder.'))));
+// 	FIXME undefinded index feedurl
 	OCP\Util::writeLog('news','ajax/feedlist.php: Error updating feeds: '.$_POST['feedurl'], OCP\Util::ERROR);
 	exit();
 }

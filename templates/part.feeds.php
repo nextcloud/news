@@ -27,7 +27,7 @@
 		}
 		echo '</ul></li></ul>';
 	}
-
-	$this->inc("part.itemcounter");
-	print_folder($_['allfeeds'], 0);
+	include("populateroot.php");
+	include("part.itemcounter.php");
+	print_folder($allfeeds, 0);
 ?>

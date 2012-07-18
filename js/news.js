@@ -119,6 +119,14 @@ News={
 				$(button).attr("disabled", false);
 				$(button).prop('value', t('news', 'Add feed'));
 			});
+			$('#feeds > ul').remove();
+
+			$.post(OC.filePath('news', 'templates', 'part.feeds.php'),
+				function(data) {
+					$('#feeds').append(data);
+					setupFeedList();
+				}
+			);
 		},
 		'delete':function(feedid) {
 			$('#feeds_delete').tipsy('hide');
@@ -166,7 +174,7 @@ News={
 		updateFeed:function(feedid, feedurl, folderid) {
 			$.post(OC.filePath('news', 'ajax', 'updatefeed.php'),{'feedid':feedid, 'feedurl':feedurl, 'folderid':folderid},function(jsondata){
 				if(jsondata.status == 'success'){
-					
+
 				}
 				else{
 					//TODO:handle error case
@@ -176,6 +184,27 @@ News={
 	}
 }
 
+function setupFeedList() {
+    	$('.collapsable').click(function(){
+		$(this).parent().children().toggle();
+		$(this).toggle();
+	});
+
+	var list = $('.collapsable,.feeds_list').hover(
+		function() {
+			$(this).find('#feeds_delete,#feeds_edit').css('display', 'inline');
+			$(this).find('#unreaditemcounter').css('display', 'none');
+		},
+		function() {
+			$(this).find('#feeds_delete,#feeds_edit').css('display', 'none');
+			$(this).find('#unreaditemcounter').css('display', 'inline');
+		}
+	);
+	list.find('#feeds_delete').hide();
+	list.find('#feeds_edit').hide();
+	list.find('#unreaditemcounter').show();
+}
+
 $(document).ready(function(){
 
 	$('#addfeed').click(function() {
@@ -183,11 +212,6 @@ $(document).ready(function(){
 	});
 	$('#addfolder').click(function() {
 		News.UI.overview('#addfolder_dialog','folderdialog.php');
-	});
-
-	$('.collapsable').click(function(){
-		$(this).parent().children().toggle();
-		$(this).toggle();
 	});
 
 	$('.accordion .title_unread').click(function() {
@@ -200,26 +224,11 @@ $(document).ready(function(){
 		return false;
 	}).next().hide();
 
-        var list = $('.collapsable,.feeds_list').hover(function() {
-		var counter = $(this).find('#unreaditemcounter');
-		var elem = $(this).find('#feeds_delete,#feeds_edit');
-		if(elem.css('display') == 'none') {
-			elem.css('display', 'inline');
-			counter.css('display', 'none');
-		}
-		else {
-			elem.css('display', 'none');
-			counter.css('display', 'inline');
-		}
-
-                return false;
-        });
-        list.find('#feeds_delete').hide();
-        list.find('#feeds_edit').hide();
-
 	$('#addfeedfolder').click(function(event) {
 	      event.stopPropagation();
 	});
+
+	setupFeedList();
 
 	var updateInterval = 10000; //how often the feeds should update (in msec)
 	setInterval('News.Feed.updateAll()', updateInterval);
