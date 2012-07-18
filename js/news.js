@@ -105,10 +105,7 @@ News={
 
 			var folderid = $('#inputfolderid:input[name="folderid"]').val();
 
-			var url;
-			url = OC.filePath('news', 'ajax', 'createfeed.php');
-
-			$.post(url, { feedurl: feedurl, folderid: folderid },
+			$.post(OC.filePath('news', 'ajax', 'createfeed.php'), { feedurl: feedurl, folderid: folderid },
 				function(jsondata){
 					if(jsondata.status == 'success'){
 						OC.dialogs.alert(jsondata.data.message, t('news', 'Success!'));
@@ -119,14 +116,7 @@ News={
 				$(button).attr("disabled", false);
 				$(button).prop('value', t('news', 'Add feed'));
 			});
-			$('#feeds > ul').remove();
-
-			$.post(OC.filePath('news', 'templates', 'part.feeds.php'),
-				function(data) {
-					$('#feeds').append(data);
-					setupFeedList();
-				}
-			);
+			
 		},
 		'delete':function(feedid) {
 			$('#feeds_delete').tipsy('hide');

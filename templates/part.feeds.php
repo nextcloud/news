@@ -27,7 +27,7 @@
 		}
 		echo '</ul></li></ul>';
 	}
-	include("populateroot.php");
+
 	include("part.itemcounter.php");
-	print_folder($allfeeds, 0);
+	print_folder($_['allfeeds'], 0);
 ?>

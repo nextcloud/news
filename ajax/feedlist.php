@@ -23,9 +23,9 @@ $feeds = $feedmapper->findAll($userid);
 $l = OC_L10N::get('news');
 
 if($feeds == null) {
-	OCP\JSON::error(array('data' => array('message' => $l->t('Error adding folder.'))));
-// 	FIXME undefinded index feedurl
-	OCP\Util::writeLog('news','ajax/feedlist.php: Error updating feeds: '.$_POST['feedurl'], OCP\Util::ERROR);
+	//TODO: handle error better here
+	OCP\JSON::error(array('data' => array('message' => $l->t('Error updating feeds.'))));
+	OCP\Util::writeLog('news','ajax/feedlist.php: Error updating feeds', OCP\Util::ERROR);
 	exit();
 }
 
