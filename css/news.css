@@ -48,7 +48,7 @@ li.feeds_list { margin-left: 10px !important; text-align: right; }
 li.feeds_list a { margin-left: 20px !important; overflow: hidden; text-overflow: ellipsis; width: 13em; text-align: left; }
 
 li.folder_list:hover { color: rgb(0, 0, 0) !important; background: none !important; }
-li.feeds_list:hover { background: none repeat scroll 0% 0% rgb(221, 221, 221) !important; }
+li.feeds_list:hover { background-color: rgb(221, 221, 221) !important; }
 
 div.collapsable:hover { background-color: rgb(221, 221, 221); }
 div.add_parentfolder { position: relative; }
