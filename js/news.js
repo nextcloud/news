@@ -116,7 +116,7 @@ News={
 				$(button).attr("disabled", false);
 				$(button).prop('value', t('news', 'Add feed'));
 			});
-			
+
 		},
 		'delete':function(feedid) {
 			$('#feeds_delete').tipsy('hide');
