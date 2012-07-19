@@ -9,7 +9,9 @@ function countUnreadItems($feedid) {
 		if(!$item->isRead())
 			++$counter;
 	}
-	echo '<span id="unreaditemcounter">' . $counter . '</span>';
+	if ($counter > 0) {
+		echo '<span id="unreaditemcounter">' . $counter . '</span>';
+	}
 }
 
 ?>
