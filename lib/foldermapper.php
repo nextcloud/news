@@ -23,7 +23,7 @@ class OC_News_FolderMapper {
 		if ($userid !== null) {
 			$this->userid = $userid;
 		}
-		$userid = OCP\USER::getUser();
+		$this->userid = OCP\USER::getUser();
 	}
 
 	/**

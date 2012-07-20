@@ -16,18 +16,31 @@
 class OC_News_FeedMapper {
 
 	const tableName = '*PREFIX*news_feeds';
+	private $userid;
+
+	public function __construct($userid = null){
+		if ($userid !== null) {
+			$this->userid = $userid;
+		}
+		$this->userid = OCP\USER::getUser();
+	}
+
+	/**
+	 * @brief 
+	 * @param row a row from the feeds table of the database
+	 * @returns an object of the class OC_News_Feed
+	 */
+	public function fromRow($row){
+	}
 
 	/**
 	 * @brief 
 	 * @param userid 
 	 * @returns  
 	 */
-	public function findAll($userid){
-		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . 
-					' JOIN ' . OC_News_FolderMapper::tableName . 
-					' ON ' . self::tableName. '.folder_id=' . OC_News_FolderMapper::tableName . '.id' .
-					' WHERE user_id = ?');
-		$result = $stmt->execute(array($userid));
+	public function findAll(){
+		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE user_id = ?');
+		$result = $stmt->execute(array($this->userid));
 		$feeds = array();
 		while ($row = $result->fetchRow()) {
 			$url = $row['url'];
@@ -142,8 +155,8 @@ class OC_News_FeedMapper {
 		if ($feedid == null){
 			$query = OCP\DB::prepare('
 				INSERT INTO ' . self::tableName .
-				'(url, title, favicon_link, folder_id, added, lastmodified)
-				VALUES (?, ?, ?, ?, ?, ?)
+				'(url, title, favicon_link, folder_id, added, lastmodified, user_id)
+				VALUES (?, ?, ?, ?, ?, ?, ?)
 				');
 
 			$params=array(
@@ -153,6 +166,7 @@ class OC_News_FeedMapper {
 				$folderid,
 				$_ut, 
 				$_ut,
+				$this->userid
 			);
 			$query->execute($params);
 			

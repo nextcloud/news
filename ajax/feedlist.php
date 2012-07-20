@@ -17,8 +17,8 @@ OCP\JSON::callCheck();
 
 $userid = OCP\USER::getUser();
 
-$feedmapper = new OC_News_FeedMapper();
-$feeds = $feedmapper->findAll($userid);
+$feedmapper = new OC_News_FeedMapper($userid);
+$feeds = $feedmapper->findAll();
 
 $l = OC_L10N::get('news');
 

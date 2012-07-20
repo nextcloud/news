@@ -18,6 +18,11 @@ class OC_News_ItemMapper {
 
 	const tableName = '*PREFIX*news_items';
 
+	/**
+	 * @brief 
+	 * @param row a row from the items table of the database
+	 * @returns an object of the class OC_News_Item
+	 */
 	public function fromRow($row){
 		$url = $row['url'];
 		$title = $row['title'];
