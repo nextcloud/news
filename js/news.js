@@ -175,7 +175,7 @@ News={
 }
 
 function setupFeedList() {
-    	$('.collapsable').click(function(){
+    	$('.collapsable_container').click(function(){
 		$(this).parent().children().toggle();
 		$(this).toggle();
 	});

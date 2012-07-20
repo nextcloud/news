@@ -56,14 +56,14 @@ li { padding: 0px !important; }
 li.menuItem { margin-left:0.7em; margin-right:0.7em; float: none !important; text-align: left; }
 li.feeds_list { margin-left: 16px !important; text-align: right; border-radius: 5px; padding-left: 5px !important; }
 li.feeds_list a { padding: 0 0 0 20px !important; overflow: hidden; text-overflow: ellipsis; text-align: left; width: 13em; }
-div.folder_container { padding-left: 5px !important; border-radius: 5px; }
+div.collapsable_container { padding-left: 5px !important; border-radius: 5px; }
 
 ul.folders { margin-left: 16px !important; }
 
 li.folder_list:hover { color: rgb(0, 0, 0) !important; background: none !important; }
 li.feeds_list:hover { background-color: rgb(221, 221, 221) !important; }
 
-div.folder_container:hover { background-color: rgb(221, 221, 221); }
+div.collapsable_container:hover { background-color: rgb(221, 221, 221); }
 div.add_parentfolder { position: relative; }
 
 div.dialog { overflow: visible; }
