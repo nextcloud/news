@@ -4,10 +4,10 @@
 *
 * @author Alessandro Cosentino
 * Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
-* 
+*
 * This file is licensed under the Affero General Public License version 3 or later.
 * See the COPYING-README file
-* 
+*
 */
 
 // load SimplePie library
@@ -18,8 +18,8 @@ class OC_News_Utils {
 
 	/**
 	 * @brief Fetch a feed from remote
-	 * @param url remote url of the feed 
-	 * @returns 
+	 * @param url remote url of the feed
+	 * @returns
 	 */
 	public static function fetch($url){
 	//TODO: handle the case where fetching of the feed fails
@@ -29,7 +29,7 @@ class OC_News_Utils {
 		$spfeed->init();
 		$spfeed->handle_content_type();
 		$title = $spfeed->get_title();
-		
+
 		$spitems = $spfeed->get_items();
 		$items = array();
 		foreach($spitems as $spitem) { //FIXME: maybe we can avoid this loop
@@ -37,18 +37,19 @@ class OC_News_Utils {
 			$itemTitle = $spitem->get_title();
 			$itemGUID = $spitem->get_id();
 			$itemBody = $spitem->get_content();
-			$items[] = new OC_News_Item($itemUrl, $itemTitle, $itemGUID, $itemBody); 
+			$items[] = new OC_News_Item($itemUrl, $itemTitle, $itemGUID, $itemBody);
 		}
 
 		$feed = new OC_News_Feed($url, $title, $items);
-		
+
 		$favicon = $spfeed->get_image_url();
 		if ($favicon == null) {
-			$favicon = $url . "favicon.ico";
+			// fallback icon
+			$favicon = OCP\Util::imagePath('news', 'rss.svg');
 			//check if this file exists
 		}
 		$feed->setFavicon($favicon);
-		
+
 		return $feed;
 	}
 }
