@@ -44,11 +44,16 @@ class OC_News_Utils {
 
 		$favicon = $spfeed->get_image_url();
 		//check if this file exists and the size with getimagesize()
-		
+
 		if ($favicon == null) {
 			//handle favicon detection
+			$favicon = SimplePie_Misc::absolutize_url('/favicon.ico', $url);
+
+			// FIXME check if file exists and is valid
+			if (false === file_get_contents($favicon, 0, null, 0, 1))
+				$favicon = null;
 		}
-		
+
 		$feed->setFavicon($favicon);
 
 		return $feed;
