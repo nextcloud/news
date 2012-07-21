@@ -43,11 +43,12 @@ class OC_News_Utils {
 		$feed = new OC_News_Feed($url, $title, $items);
 
 		$favicon = $spfeed->get_image_url();
+		//check if this file exists and the size with getimagesize()
+		
 		if ($favicon == null) {
-			// fallback icon
-			$favicon = OCP\Util::imagePath('news', 'rss.svg');
-			//check if this file exists
+			//handle favicon detection
 		}
+		
 		$feed->setFavicon($favicon);
 
 		return $feed;

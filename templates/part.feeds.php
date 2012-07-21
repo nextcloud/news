@@ -17,6 +17,9 @@
 			}
 			elseif ($child instanceOf OC_News_Feed) { //onhover $(element).attr('id', 'newID');
 				$favicon = $child->getFavicon();
+				if ($favicon == null) {
+					$favicon = OCP\Util::imagePath('news', 'rss.svg');
+				}
 				echo '<li class="feeds_list" data-id="' . $child->getId() . '"><a href="' . OCP\Util::linkTo('news', 'index.php'). '?feedid=' . $child->getId() . '" style="background: url(' . $favicon . ') left center no-repeat; background-size:16px 16px;">' . $child->getTitle() .'</a>';
 				countUnreadItems($child->getId());
 				echo '<button class="svg action" id="feeds_delete" onClick="(News.Feed.delete(' . $child->getId(). '))" title="' . $l->t('Delete feed') . '"></button>';
