@@ -48,9 +48,11 @@ class OC_News_Utils {
 		if ($favicon == null) {
 			//handle favicon detection
 			$favicon = SimplePie_Misc::absolutize_url('/favicon.ico', $url);
-
-			// FIXME check if file exists and is valid
-			if (false === file_get_contents($favicon, 0, null, 0, 1))
+			// get file
+			$file = new SimplePie_File($favicon);
+			$sniffer = new SimplePie_Content_Type_Sniffer($file);
+			// check file
+			if(substr($sniffer->get_type(), 0, 6) !== 'image/')
 				$favicon = null;
 		}
 
