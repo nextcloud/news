@@ -57,9 +57,10 @@ class OC_News_Utils {
 
 	public static function checkFavicon($favicon) {
 		$file = new SimplePie_File($favicon);
+		// size in bytes
+		$filesize = strlen($file->body);
 
-		//TODO additional checks? getimagesize()?
-		if($file->success && strlen($file->body) > 0) {
+		if($file->success && $filesize > 0 && $filesize < 50000) {
 			$sniffer = new SimplePie_Content_Type_Sniffer($file);
 			if(substr($sniffer->get_type(), 0, 6) === 'image/') {
 				return true;
