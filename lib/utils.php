@@ -43,15 +43,14 @@ class OC_News_Utils {
 		$feed = new OC_News_Feed($url, $title, $items);
 
 		$favicon = $spfeed->get_image_url();
-		//check if this file exists and the size with getimagesize()
 
-		if ($favicon == null) { //try really hard to find a favicon
-			if( null !== ($webFavicon = OC_News_Utils::discoverFavicon($url)) )
-				$feed->setFavicon($webFavicon);
-		}
-		else { //use favicon from feed
+		if ($favicon !== null) { // use favicon from feed
 			if(OC_News_Utils::checkFavicon($favicon))
 				$feed->setFavicon($favicon);
+		}
+		else { // try really hard to find a favicon
+			if( null !== ($webFavicon = OC_News_Utils::discoverFavicon($url)) )
+				$feed->setFavicon($webFavicon);
 		}
 		return $feed;
 	}
@@ -59,7 +58,7 @@ class OC_News_Utils {
 	public static function checkFavicon($favicon) {
 		$file = new SimplePie_File($favicon);
 
-		//TODO additional checks?
+		//TODO additional checks? getimagesize()?
 		if($file->success && strlen($file->body) > 0) {
 			$sniffer = new SimplePie_Content_Type_Sniffer($file);
 			if(substr($sniffer->get_type(), 0, 6) === 'image/') {
@@ -77,8 +76,10 @@ class OC_News_Utils {
 			return $favicon;
 
 		//try to extract favicon from web page
+		$absoluteUrl = SimplePie_Misc::absolutize_url('/', $url);
+
 		$handle = curl_init ( );
-		curl_setopt ( $handle, CURLOPT_URL, $url );
+		curl_setopt ( $handle, CURLOPT_URL, $absoluteUrl );
 		curl_setopt ( $handle, CURLOPT_RETURNTRANSFER, 1 );
 		curl_setopt ( $handle, CURLOPT_FOLLOWLOCATION, TRUE );
 		curl_setopt ( $handle, CURLOPT_MAXREDIRS, 10 );
