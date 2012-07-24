@@ -15,7 +15,7 @@
 			<button class="svg" id="addfeedfolder" title="<?php echo $l->t('Add Feed/Folder'); ?>" onclick="News.DropDownMenu.fade('ul#feedfoldermenu')"><img class="svg" src="<?php echo OCP\Util::linkTo('news', 'img/add.svg'); ?>" alt="<?php echo $l->t('Add Feed/Folder'); ?>"   /></button>
 		</li>
 		<li><button class="svg" title="<?php echo $l->t('Change View'); ?>">Eye</button></li>
-		<li><button class="svg" title="<?php echo $l->t('Settings'); ?>">Settings</button></li>
+		<li><button class="svg" id="settingsbtn" title="<?php echo $l->t('Settings'); ?>">Settings</button></li>
 	<ul>
 </div>
 

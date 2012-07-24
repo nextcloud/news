@@ -218,6 +218,10 @@ $(document).ready(function(){
 	      event.stopPropagation();
 	});
 
+	$('#settingsbtn').click(function() {
+		News.UI.overview('#import_dialog', 'importdialog.php');
+	});
+	
 	setupFeedList();
 
 	var updateInterval = 10000; //how often the feeds should update (in msec)

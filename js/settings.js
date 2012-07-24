@@ -36,7 +36,7 @@ NewsSettings={
 }
 $(document).ready(function(){
   
-	$('#opml_file').click(function() {
+	$('#settings').click(function() {
 		NewsSettings.UI.overview('#import_dialog', 'importdialog.php');
 	});
 	
