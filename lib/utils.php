@@ -43,21 +43,75 @@ class OC_News_Utils {
 		$feed = new OC_News_Feed($url, $title, $items);
 
 		$favicon = $spfeed->get_image_url();
-		//check if this file exists and the size with getimagesize()
 
-		if ($favicon == null) {
-			//handle favicon detection
-			$favicon = SimplePie_Misc::absolutize_url('/favicon.ico', $url);
-			// get file
-			$file = new SimplePie_File($favicon);
-			$sniffer = new SimplePie_Content_Type_Sniffer($file);
-			// check file
-			if(substr($sniffer->get_type(), 0, 6) !== 'image/')
-				$favicon = null;
+		if ($favicon !== null) { // use favicon from feed
+			if(OC_News_Utils::checkFavicon($favicon))
+				$feed->setFavicon($favicon);
 		}
-
-		$feed->setFavicon($favicon);
-
+		else { // try really hard to find a favicon
+			if( null !== ($webFavicon = OC_News_Utils::discoverFavicon($url)) )
+				$feed->setFavicon($webFavicon);
+		}
 		return $feed;
+	}
+
+	public static function checkFavicon($favicon) {
+		$file = new SimplePie_File($favicon);
+		// size in bytes
+		$filesize = strlen($file->body);
+
+		if($file->success && $filesize > 0 && $filesize < 50000) {
+			$sniffer = new SimplePie_Content_Type_Sniffer($file);
+			if(substr($sniffer->get_type(), 0, 6) === 'image/') {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static function discoverFavicon($url) {
+		//try webroot favicon
+		$favicon = SimplePie_Misc::absolutize_url('/favicon.ico', $url);
+
+		if(OC_News_Utils::checkFavicon($favicon))
+			return $favicon;
+
+		//try to extract favicon from web page
+		$absoluteUrl = SimplePie_Misc::absolutize_url('/', $url);
+
+		$handle = curl_init ( );
+		curl_setopt ( $handle, CURLOPT_URL, $absoluteUrl );
+		curl_setopt ( $handle, CURLOPT_RETURNTRANSFER, 1 );
+		curl_setopt ( $handle, CURLOPT_FOLLOWLOCATION, TRUE );
+		curl_setopt ( $handle, CURLOPT_MAXREDIRS, 10 );
+
+		if ( FALSE!==($page=curl_exec($handle)) ) {
+			preg_match ( '/<[^>]*link[^>]*(rel=["\']icon["\']|rel=["\']shortcut icon["\']) .*href=["\']([^>]*)["\'].*>/iU', $page, $match );
+			if (1<sizeof($match)) {
+				// the specified uri might be an url, an absolute or a relative path
+				// we have to turn it into an url to be able to display it out of context
+				$favicon = htmlspecialchars_decode ( $match[2] );
+				// test for an url
+				if (parse_url($favicon,PHP_URL_SCHEME)) {
+					if(OC_News_Utils::checkFavicon($favicon))
+						return $favicon;
+				}
+				// test for an absolute path
+				elseif ( 0===strpos(parse_url($favicon,PHP_URL_PATH),'/') ) {
+					$url_token = parse_url($meta['final']);
+					sprintf( '%s://%s/%s', $url_token['scheme'], $url_token['host'], $favicon );
+					if(OC_News_Utils::checkFavicon($favicon))
+						return $favicon;
+				}
+				// so it appears to be a relative path
+				else {
+					$url_token = parse_url($meta['final']);
+					sprintf( '%s://%s%s%s', $url_token['scheme'], $url_token['host'], dirname($url_token['path']), $favicon );
+					if(OC_News_Utils::checkFavicon($favicon))
+						return $favicon;
+				}
+			}
+		}
+		return null;
 	}
 }
