@@ -40,6 +40,18 @@ News={
 				});
 			}
 			return false;
+		},
+		cloudFileSelected:function(path){
+			$.getJSON(OC.filePath('contacts', 'ajax', 'oc_photo.php'),{'path':path,'id':Contacts.UI.Card.id},function(jsondata){
+				if(jsondata.status == 'success'){
+					//alert(jsondata.data.page);
+					Contacts.UI.Card.editPhoto(jsondata.data.id, jsondata.data.tmp)
+					$('#edit_photo_dialog_img').html(jsondata.data.page);
+				}
+				else{
+					OC.dialogs.alert(jsondata.data.message, t('contacts', 'Error'));
+				}
+			});
 		}
 	},
 	Folder: {
@@ -222,9 +234,13 @@ $(document).ready(function(){
 		News.UI.overview('#import_dialog', 'importdialog.php');
 	});
 	
+	$('#cloudbtn').click(function() {
+		OC.dialogs.filepicker(t('news', 'Select file'), News.UI.cloudFileSelected, false, '', true);
+	});
+	
 	setupFeedList();
 
-	var updateInterval = 10000; //how often the feeds should update (in msec)
+	var updateInterval = 500000; //how often the feeds should update (in msec)
 	setInterval('News.Feed.updateAll()', updateInterval);
 
 });
