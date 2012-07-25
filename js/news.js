@@ -27,6 +27,11 @@ News={
 			}else{
 				$('#dialog_holder').load(OC.filePath('news', 'ajax', dialogfile), function(jsondata){
 					if(jsondata.status != 'error'){
+						if(dialogtype == '#import_dialog') {
+							$('#cloudbtn').click(function() {
+								OC.dialogs.filepicker(t('news', 'Select file'), News.UI.cloudFileSelected, false, '', true);
+							});
+						}
 						$(dialogtype).dialog({
 							dialogClass:'dialog',
 							minWidth: 600,
@@ -233,11 +238,7 @@ $(document).ready(function(){
 	$('#settingsbtn').click(function() {
 		News.UI.overview('#import_dialog', 'importdialog.php');
 	});
-	
-	$('#cloudbtn').click(function() {
-		OC.dialogs.filepicker(t('news', 'Select file'), News.UI.cloudFileSelected, false, '', true);
-	});
-	
+
 	setupFeedList();
 
 	var updateInterval = 500000; //how often the feeds should update (in msec)
