@@ -53,7 +53,8 @@ News={
 		cloudFileSelected:function(path){
 			$.getJSON(OC.filePath('news', 'ajax', 'selectfromcloud.php'),{'path':path},function(jsondata){
 				if(jsondata.status == 'success'){
-					alert(jsondata.data.page);
+					$("#opml_file").prop('value', jsondata.data.tmp);
+					
 				}
 				else{
 					OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
@@ -172,7 +173,7 @@ News={
 				if(jsondata.status == 'success'){
 					var feeds = jsondata.data;
 					for (var i = 0; i < feeds.length; i++) {
-						News.Feed.updateFeed(feeds[i]['id'], feeds[i]['url'], feeds[i]['folderid']);
+						News.Feed.update(feeds[i]['id'], feeds[i]['url'], feeds[i]['folderid']);
 					}
 				}
 				else {
@@ -180,14 +181,26 @@ News={
 				}
 			});
 		},
-		updateFeed:function(feedid, feedurl, folderid) {
+		update:function(feedid, feedurl, folderid) {
+			var counterplace = $('.feeds_list[data-id="'+feedid+'"]').find('#unreaditemcounter');
+			var oldcount = counterplace.html();
+			counterplace.removeClass('nonzero').addClass('zero');
+			counterplace.html('<img src="' + OC.imagePath('core','loader.gif') + '" alt="refresh" />');
 			$.post(OC.filePath('news', 'ajax', 'updatefeed.php'),{'feedid':feedid, 'feedurl':feedurl, 'folderid':folderid},function(jsondata){
 				if(jsondata.status == 'success'){
-
+					var newcount = oldcount;
+					if (newcount > 0) { 
+						counterplace.addClass('nonzero');
+					}
+					counterplace.html(newcount);
 				}
 				else{
-					//TODO:handle error case
+				  	if (oldcount > 0) { 
+						counterplace.addClass('nonzero');
+						counterplace.html(oldcount);
+					}
 				}
+				
 			});
 		}
 	}
@@ -242,8 +255,9 @@ $(document).ready(function(){
 	});
 
 	setupFeedList();
-
-	var updateInterval = 500000; //how often the feeds should update (in msec)
+	
+	News.Feed.updateAll();
+	var updateInterval = 20000; //how often the feeds should update (in msec)
 	setInterval('News.Feed.updateAll()', updateInterval);
 
 });
