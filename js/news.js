@@ -29,6 +29,10 @@ News={
 					if(jsondata.status != 'error'){
 						if(dialogtype == '#import_dialog') {
 							$('#cloudbtn').click(function() {
+								/* 
+								 * it needs to be filtered by MIME type, but there are too many MIME types corresponding to opml
+								 * and filepicker doesn't support multiple MIME types filter.
+								*/
 								OC.dialogs.filepicker(t('news', 'Select file'), News.UI.cloudFileSelected, false, '', true);
 							});
 						}
@@ -47,14 +51,12 @@ News={
 			return false;
 		},
 		cloudFileSelected:function(path){
-			$.getJSON(OC.filePath('contacts', 'ajax', 'oc_photo.php'),{'path':path,'id':Contacts.UI.Card.id},function(jsondata){
+			$.getJSON(OC.filePath('news', 'ajax', 'selectfromcloud.php'),{'path':path},function(jsondata){
 				if(jsondata.status == 'success'){
-					//alert(jsondata.data.page);
-					Contacts.UI.Card.editPhoto(jsondata.data.id, jsondata.data.tmp)
-					$('#edit_photo_dialog_img').html(jsondata.data.page);
+					alert(jsondata.data.page);
 				}
 				else{
-					OC.dialogs.alert(jsondata.data.message, t('contacts', 'Error'));
+					OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
 				}
 			});
 		}
