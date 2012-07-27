@@ -33,7 +33,16 @@ if(!$newfeedid) {
 	OCP\Util::writeLog('news','ajax/updatefeed.php: Error updating feed: '.$_POST['feedid'], OCP\Util::ERROR);
 	exit();
 }
+else {
+	//TODO: maybe make this more efficient by coding it into OC_News_FeedMapper->save()
+	$itemmapper = new OC_News_ItemMapper();
+	$items = $itemmapper->findAll($newfeedid);
+	$unreadcounter = 0;
+	foreach($items as $item) {
+		if(!$item->isRead())
+			++$unreadcounter;
+	}
 
-//TODO: replace the following with a real success case. see contact/ajax/createaddressbook.php for inspirations
-OCP\JSON::success(array('data' => array('message' => $l->t('Feed updated!'))));
-
+	OCP\JSON::success(array('data' => array('message' => $l->t('Feed updated!'), 'unreadcount' => $unreadcounter)));
+	exit();
+}

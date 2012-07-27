@@ -188,11 +188,14 @@ News={
 			counterplace.html('<img src="' + OC.imagePath('core','loader.gif') + '" alt="refresh" />');
 			$.post(OC.filePath('news', 'ajax', 'updatefeed.php'),{'feedid':feedid, 'feedurl':feedurl, 'folderid':folderid},function(jsondata){
 				if(jsondata.status == 'success'){
-					var newcount = oldcount;
+					var newcount = jsondata.data.unreadcount;
 					if (newcount > 0) { 
 						counterplace.addClass('nonzero');
+						counterplace.html(newcount);
 					}
-					counterplace.html(newcount);
+					else {
+						counterplace.html('');
+					}
 				}
 				else{
 				  	if (oldcount > 0) { 
@@ -257,7 +260,7 @@ $(document).ready(function(){
 	setupFeedList();
 	
 	News.Feed.updateAll();
-	var updateInterval = 20000; //how often the feeds should update (in msec)
+	var updateInterval = 200000; //how often the feeds should update (in msec)
 	setInterval('News.Feed.updateAll()', updateInterval);
 
 });
