@@ -17,7 +17,7 @@
 #addfeed { background: url('%appswebroot%/apps/news/img/rss.svg') no-repeat left center; padding-left: 20px !important; }
 
 #unreaditemcounter.nonzero { position: relative; background: #5E5E5E; border-radius: 5px; padding: 0 5px; color: white; text-align: center; margin: 0 0.3em 0 0.3em;}
-#unreaditemcounter.zero { position: relative; margin: 0 0.3em 0 0;}
+#unreaditemcounter.zero { position: relative; margin: 0 0.3em 0 0; }
 
 ul.controls li { float: left; }
 

@@ -29,7 +29,7 @@ News={
 					if(jsondata.status != 'error'){
 						if(dialogtype == '#import_dialog') {
 							$('#cloudbtn').click(function() {
-								/* 
+								/*
 								 * it needs to be filtered by MIME type, but there are too many MIME types corresponding to opml
 								 * and filepicker doesn't support multiple MIME types filter.
 								*/
@@ -60,7 +60,7 @@ News={
 			$.getJSON(OC.filePath('news', 'ajax', 'selectfromcloud.php'),{'path':path},function(jsondata){
 				if(jsondata.status == 'success'){
 					$("#opml_file").prop('value', jsondata.data.tmp);
-					
+
 				}
 				else{
 					OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
@@ -199,11 +199,11 @@ News={
 			var counterplace = $('.feeds_list[data-id="'+feedid+'"]').find('#unreaditemcounter');
 			var oldcount = counterplace.html();
 			counterplace.removeClass('nonzero').addClass('zero');
-			counterplace.html('<img src="' + OC.imagePath('core','loader.gif') + '" alt="refresh" />');
+			counterplace.html('<img style="vertical-align: middle;" src="' + OC.imagePath('core','loader.gif') + '" alt="refresh" />');
 			$.post(OC.filePath('news', 'ajax', 'updatefeed.php'),{'feedid':feedid, 'feedurl':feedurl, 'folderid':folderid},function(jsondata){
 				if(jsondata.status == 'success'){
 					var newcount = jsondata.data.unreadcount;
-					if (newcount > 0) { 
+					if (newcount > 0) {
 						counterplace.addClass('nonzero');
 						counterplace.html(newcount);
 					}
@@ -212,12 +212,12 @@ News={
 					}
 				}
 				else{
-				  	if (oldcount > 0) { 
+				  	if (oldcount > 0) {
 						counterplace.addClass('nonzero');
 						counterplace.html(oldcount);
 					}
 				}
-				
+
 			});
 		}
 	}
@@ -272,7 +272,7 @@ $(document).ready(function(){
 	});
 
 	setupFeedList();
-	
+
 	News.Feed.updateAll();
 	var updateInterval = 200000; //how often the feeds should update (in msec)
 	setInterval('News.Feed.updateAll()', updateInterval);
