@@ -35,6 +35,12 @@ News={
 								*/
 								OC.dialogs.filepicker(t('news', 'Select file'), News.UI.cloudFileSelected, false, '', true);
 							});
+							$('#browsebtn,#opml_file').click(function() {
+								$('#file_upload_start').trigger('click');
+							});
+							$('#file_upload_start').change(function() {
+								News.UI.browseFile(this.files);
+							});
 						}
 						$(dialogtype).dialog({
 							dialogClass:'dialog',
@@ -60,6 +66,14 @@ News={
 					OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
 				}
 			});
+		},
+		browseFile:function(filelist){
+			if(!filelist) {
+				OC.dialogs.alert(t('news','No files selected.'), t('news', 'Error'));
+				return;
+			}
+			var file = filelist[0];
+			$("#opml_file").prop('value', file.name);
 		}
 	},
 	Folder: {
