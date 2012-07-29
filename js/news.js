@@ -28,15 +28,10 @@ News={
 				$('#dialog_holder').load(OC.filePath('news', 'ajax', dialogfile), function(jsondata){
 					if(jsondata.status != 'error'){
 						if(dialogtype == '#import_dialog') {
-<<<<<<< HEAD
 							//TODO: group all the following calls in a method
 							$('#browsebtn, #cloudbtn, #importbtn').hide();
 							$('#cloudbtn, #cloudlink').click(function() {
-								/* 
-=======
-							$('#cloudbtn').click(function() {
 								/*
->>>>>>> 5992965d402f487f484e700ecf2cc31a3821dfdb
 								 * it needs to be filtered by MIME type, but there are too many MIME types corresponding to opml
 								 * and filepicker doesn't support multiple MIME types filter.
 								*/
