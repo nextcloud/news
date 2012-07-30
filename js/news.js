@@ -91,20 +91,20 @@ News={
 		import:function(button){
 			$(button).attr("disabled", true);
 			$(button).prop('value', t('news', 'Importing...'));
-			
+
 			var path = '';
 			if (News.Opml.importkind == 'cloud') {
 				path = News.Opml.importpath;
 			} else {
-				
+
 			}
 
 			$.post(OC.filePath('news', 'ajax', 'importopml.php'), { path: path }, function(jsondata){
 				if (jsondata.status == 'success') {
 					alert(jsondata.data.title);
 				}
-			}); 
-			
+			});
+
 		}
 	},
 	Folder: {
@@ -200,18 +200,31 @@ News={
 			});
 			return false;
 		},
-		markItem:function(itemid) {
-			$.post(OC.filePath('news', 'ajax', 'markitem.php'),{'itemid':itemid},function(jsondata){
-				if(jsondata.status == 'success'){
-					var $currentitem = $('#rightcontent [data-id="'+jsondata.data.itemid+'"]');
-					$currentitem.removeClass('title_unread');
-					$currentitem.addClass('title_read');
-					//set a timeout for this
-				}
-				else{
-					OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
-				}
-			});
+		markItem:function(itemid, feedid) {
+			var currentitem = $('#rightcontent [data-id="' + itemid + '"]');
+			if (currentitem.hasClass('title_unread')) {
+				$.post(OC.filePath('news', 'ajax', 'markitem.php'),{'itemid':itemid},function(jsondata){
+					if(jsondata.status == 'success'){
+						currentitem.removeClass('title_unread');
+						currentitem.addClass('title_read');
+
+						// decrement counter
+						var counterplace = $('.feeds_list[data-id="'+feedid+'"]').find('#unreaditemcounter');
+						var oldcount = counterplace.html();
+						counterplace.empty();
+						if (--oldcount <= 0) {
+							counterplace.removeClass('nonzero').addClass('zero');
+						}
+						else {
+							counterplace.append(--oldcount);
+						}
+						//set a timeout for this
+					}
+					else{
+						OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
+					}
+				})
+			};
 		},
 		updateAll:function() {
 			$.post(OC.filePath('news', 'ajax', 'feedlist.php'),function(jsondata){

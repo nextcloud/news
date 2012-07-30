@@ -15,7 +15,7 @@ foreach($items as $item) {
 		echo ' class="title_read">';
 	}
 	else {
-		echo ' class="title_unread" onClick="News.Feed.markItem(' . $item->getId() . ')">';
+		echo ' class="title_unread" onClick="News.Feed.markItem(' . $item->getId() . ',' . $feedid . ')">';
 	}
 	echo $title . '</div><div class="body">' . $item->getBody() . '</div>';
 	echo '</li>';
