@@ -212,7 +212,7 @@ News={
 						var counterplace = $('.feeds_list[data-id="'+feedid+'"]').find('#unreaditemcounter');
 						var oldcount = counterplace.html();
 						counterplace.empty();
-						if (--oldcount <= 0) {
+						if (oldcount <= 1) {
 							counterplace.removeClass('nonzero').addClass('zero');
 						}
 						else {
