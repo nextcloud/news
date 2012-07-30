@@ -20,36 +20,40 @@ class OC_News_Feed extends OC_News_Collection {
 	private $items;  //array that contains all the items of the feed
 	private $favicon;
 
-	public function __construct($url, $title, $items, $id = null){
+	public function __construct($url, $title, $items, $id = null) {
 		$this->url = $url;
 		$this->title = $title;
 		$this->items = $items;
-		if ($id !== null){
+		if ($id !== null) {
 			parent::__construct($id);
 		}
 	}
 	
-	public function getUrl(){
+	public function getUrl() {
 		return $this->url;
 	}
 
-	public function getTitle(){
+	public function getTitle() {
 		return $this->title;
 	}
+	
+	public function setTitle($title) {
+		$this->title = $title;
+	}
 
-	public function getFavicon(){
+	public function getFavicon() {
 		return $this->favicon;
 	}
 
-	public function setFavicon($favicon){
+	public function setFavicon($favicon) {
 		$this->favicon = $favicon;
 	}
 
-	public function setItems($items){
+	public function setItems($items) {
 		$this->items = $items;
 	}
 
-	public function getItems(){
+	public function getItems() {
 		return $this->items;
 	}
 

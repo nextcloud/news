@@ -22,12 +22,17 @@ class OC_News_Utils {
 	 * @returns
 	 */
 	public static function fetch($url){
-	//TODO: handle the case where fetching of the feed fails
 		$spfeed = new SimplePie_Core();
 		$spfeed->set_feed_url( $url );
 		$spfeed->enable_cache( false );
-		$spfeed->init();
-		$spfeed->handle_content_type();
+	
+		if (!$spfeed->init()) {
+			return null;
+		}
+		
+		if (!$spfeed->handle_content_type()) {
+			return null;
+		}
 		$title = $spfeed->get_title();
 
 		$spitems = $spfeed->get_items();
@@ -53,6 +58,7 @@ class OC_News_Utils {
 				$feed->setFavicon($webFavicon);
 		}
 		return $feed;
+		
 	}
 
 	public static function checkFavicon($favicon) {

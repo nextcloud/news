@@ -15,13 +15,11 @@ class OPMLParser {
 
 	private $raw;
 	private $body;
-	private $data;
 	private $title;
 	private $error;
 
 	public function __construct($raw) {
 		$this->raw = $raw;
-		$this->data = array();
 		try {
 			$xml_parser = new SimpleXMLElement($this->raw, LIBXML_NOERROR);
 			$this->title = (string)$xml_parser->head->title;
@@ -34,12 +32,38 @@ class OPMLParser {
 	}
 	
 	public function parse(){
-		
+		return self::parseFolder($this->body);
 	}
 	
-	//TODO: implement an iterator to get data in a fancier way
-	public function getData() {
-		return $this->data;
+	private function parseFolder($rawfolder) {
+		$list = array();
+		foreach ($rawfolder->outline as $rawcollection) {
+			if ($rawcollection['type'] == 'rss') {
+				$collection = self::parseFeed($rawcollection);
+			}
+			else {
+				$name = (string)$rawcollection['text'];
+				$children = self::parseFolder($rawcollection);
+				$collection = new OC_News_Folder($name);
+				$collection->addChildren($children);
+			}
+			if ($collection !== null) {
+				$list[] = $collection;
+			}
+		}
+		return $list;
+	}
+	
+	private function parseFeed($rawfeed) {
+		$url = (string)$rawfeed['xmlUrl'];
+		
+		$feed = OC_News_Utils::fetch($url);
+		if ($feed !== null) {
+			$title = $rawfeed['title'];
+			$feed->setTitle($title);
+		}
+		
+		return $feed;
 	}
 	
 	public function getTitle() {

@@ -99,7 +99,7 @@ News={
 				
 			}
 
-			$.getJSON(OC.filePath('news', 'ajax', 'importopml.php'), { path: path }, function(jsondata){
+			$.post(OC.filePath('news', 'ajax', 'importopml.php'), { path: path }, function(jsondata){
 				if (jsondata.status == 'success') {
 					alert(jsondata.data.title);
 				}

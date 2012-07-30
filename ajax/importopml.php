@@ -27,30 +27,18 @@ function debug($msg) {
 	OCP\Util::writeLog('news','ajax/importopml.php: '.$msg, OCP\Util::DEBUG);
 }
 
-if(!isset($_GET['path'])) {
+if(!isset($_POST['path'])) {
 	bailOut($l->t('No file path was submitted.'));
 } 
 
 require_once('news/opmlparser.php');
 
-$raw = file_get_contents($_GET['path']);
+$raw = file_get_contents($_POST['path']);
 
 $parser = new OPMLParser($raw);
 $title = $parser->getTitle();
+$data = $parser->parse();
 $count = 0; //number of feeds imported 
 
 OCP\JSON::success(array('data' => array('title'=>$title, 'count'=>$count)));
 
-/*
-$localpath = OC_Filesystem::getLocalFile($_GET['path']);
-$tmpfname = tempnam(get_temp_dir(), "occOrig");
-
-if(!file_exists($localpath)) {
-	bailOut($l->t('File doesn\'t exist:').$localpath);
-}
-
-if (file_put_contents($tmpfname, file_get_contents($localpath))) {
-	OCP\JSON::success(array('data' => array('tmp'=>$tmpfname, 'path'=>$localpath)));
-} else {
-	bailOut(bailOut('Couldn\'t save temporary image: '.$tmpfname));
-}*/

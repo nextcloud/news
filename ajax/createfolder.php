@@ -22,10 +22,11 @@ $parentid = trim($_POST['parentid']);
 
 $foldermapper = new OC_News_FolderMapper($userid);
 
-if($parentid != 0)
+if($parentid != 0) {
     $folder = new OC_News_Folder($name, NULL, $foldermapper->find($parentid));
-else
+} else {
     $folder = new OC_News_Folder($name);
+}
 
 $folderid = $foldermapper->save($folder);
 

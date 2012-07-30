@@ -48,7 +48,11 @@ class OC_News_Folder extends OC_News_Collection {
 	public function addChild(OC_News_Collection $child){
 		$this->children[] = $child;
 	}
-
+	
+	public function addChildren($children){
+		$this->children = $children;
+	}
+	
 	public function getChildren(){
 		return $this->children;
 	}

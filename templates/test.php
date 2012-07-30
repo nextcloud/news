@@ -1,85 +1,18 @@
 <?php 
 
-$feedmapper = new OC_News_FeedMapper();
-$foldermapper = new OC_News_FolderMapper();
-$itemmapper = new OC_News_ItemMapper();
+$content = file_get_contents('/var/www/apps/news/prova.opml');
 
-$folder = new OC_News_Folder( 'Friends' );
-$folderid = $foldermapper->save($folder);
+require_once('news/opmlparser.php');
 
-$feed = OC_News_Utils::fetch( 'http://www.dabacon.org/newpontiff/?feed=rss2' );
+$parser = new OPMLParser($content);
+$title = $parser->getTitle();
+$data = $parser->parse();
 
-$feedmapper->save($feed, $folder->getId());
-
-$feed = $feedmapper->findWithItems($feed->getId());
-echo '<br>' . $feed->getTitle() . '<br>';
-$items = $feed->getItems();
-
-foreach($items as $item) {
-
-	echo $item->getTitle() . ' - ';
-	if ($item->isRead()) {
-		echo $l->t('Read');
+foreach ($data as $collection) {
+	if ($collection instanceof OC_News_Feed) {
+		echo $collection->getTitle() . '\n';
+	} else {
+		echo 'NO\n';
 	}
-	else {
-		echo $l->t('Unread');
-	}
-	echo ' - ';
-	if ($item->isImportant()) {
-		echo $l->t('Important');
-	}
-	else {
-		echo $l->t('Not important');
-	}
-	echo '<br>';
-	$item->setImportant();
 }
-
-echo '<br>...after changing status';
-echo '<br>' . $feed->getTitle() . '<br>';
-
-foreach($items as $item) {
-	echo $item->getTitle() . ' - ';
-	if ($item->isRead()) {
-		echo $l->t('Read');
-	}
-	else {
-		echo $l->t('Unread');
-	}
-	echo ' - ';
-	if ($item->isImportant()) {
-		echo $l->t('Important');
-	}
-	else {
-		echo $l->t('Not important');
-	}
-	echo '<br>';
-	$item->setUnimportant();
-}
-
-$feedmapper->save($feed, $folder->getId());
-
-echo '<br>...after saving and reloading';
-
-$feed = $feedmapper->findWithItems($feed->getId());
-echo '<br>' . $feed->getTitle() . '<br>';
-$items = $feed->getItems();
-
-foreach($items as &$item) {
-
-	echo $item->getTitle() . ' - ';
-	if ($item->isRead()) {
-		echo $l->t('Read');
-	}
-	else {
-		echo $l->t('Unread');
-	}
-	echo ' - ';
-	if ($item->isImportant()) {
-		echo $l->t('Important');
-	}
-	else {
-		echo $l->t('Not important');
-	}
-	echo '<br>';
-}
+echo $title;
