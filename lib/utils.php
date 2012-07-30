@@ -30,21 +30,20 @@ class OC_News_Utils {
 			return null;
 		}
 		
-		if (!$spfeed->handle_content_type()) {
-			return null;
-		}
+		$spfeed->handle_content_type();
 		$title = $spfeed->get_title();
-
-		$spitems = $spfeed->get_items();
+		
 		$items = array();
-		foreach($spitems as $spitem) { //FIXME: maybe we can avoid this loop
-			$itemUrl = $spitem->get_permalink();
-			$itemTitle = $spitem->get_title();
-			$itemGUID = $spitem->get_id();
-			$itemBody = $spitem->get_content();
-			$items[] = new OC_News_Item($itemUrl, $itemTitle, $itemGUID, $itemBody);
+		if ($spitems = $spfeed->get_items()) {
+			foreach($spitems as $spitem) { //FIXME: maybe we can avoid this loop
+				$itemUrl = $spitem->get_permalink();
+				$itemTitle = $spitem->get_title();
+				$itemGUID = $spitem->get_id();
+				$itemBody = $spitem->get_content();
+				$items[] = new OC_News_Item($itemUrl, $itemTitle, $itemGUID, $itemBody);
+			}
 		}
-
+		
 		$feed = new OC_News_Feed($url, $title, $items);
 
 		$favicon = $spfeed->get_image_url();

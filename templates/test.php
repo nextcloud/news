@@ -1,6 +1,6 @@
 <?php 
 
-$content = file_get_contents('/var/www/apps/news/prova.opml');
+$content = file_get_contents('/tmp/occOrigzvXqKO');
 
 require_once('news/opmlparser.php');
 

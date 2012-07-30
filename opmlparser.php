@@ -62,7 +62,7 @@ class OPMLParser {
 			$title = $rawfeed['title'];
 			$feed->setTitle($title);
 		}
-		
+		echo $url;
 		return $feed;
 	}
 	

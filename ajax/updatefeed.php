@@ -23,8 +23,12 @@ $folderid = $_POST['folderid'];
 
 $newfeed = OC_News_Utils::fetch($feedurl);
 
-$feedmapper = new OC_News_FeedMapper();
-$newfeedid = $feedmapper->save($newfeed, $folderid);
+$newfeedid = false;
+
+if ($newfeed !== null) {
+      $feedmapper = new OC_News_FeedMapper();
+      $newfeedid = $feedmapper->save($newfeed, $folderid);
+}
 
 $l = OC_L10N::get('news');
 

@@ -21,15 +21,7 @@ OC::$CLASSPATH['OC_News_FolderMapper'] = 'apps/news/lib/foldermapper.php';
 
 OC::$CLASSPATH['OC_News_Utils'] = 'apps/news/lib/utils.php';
 
-
 $l = new OC_l10n('news');
-
-
-OCP\App::register( array( 
-  'order' => 70, 
-  'id' => 'news', 
-  'name' => 'News' 
-));
 
 OCP\App::addNavigationEntry( array( 
   'id' => 'news', 
