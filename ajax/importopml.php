@@ -22,17 +22,25 @@ function bailOut($msg) {
 	OCP\Util::writeLog('news','ajax/importopml.php: '.$msg, OCP\Util::ERROR);
 	exit();
 }
+
 function debug($msg) {
 	OCP\Util::writeLog('news','ajax/importopml.php: '.$msg, OCP\Util::DEBUG);
 }
 
 if(!isset($_GET['path'])) {
 	bailOut($l->t('No file path was submitted.'));
-}
+} 
 
 require_once('news/opmlparser.php');
 
-$parser = new OPMLParser();
+$raw = file_get_contents($_GET['path']);
+
+$parser = new OPMLParser($raw);
+$title = $parser->getTitle();
+$count = 0; //number of feeds imported 
+
+OCP\JSON::success(array('data' => array('title'=>$title, 'count'=>$count)));
+
 /*
 $localpath = OC_Filesystem::getLocalFile($_GET['path']);
 $tmpfname = tempnam(get_temp_dir(), "occOrig");

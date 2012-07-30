@@ -98,9 +98,11 @@ News={
 			} else {
 				
 			}
-			
-			$.post(OC.filePath('news', 'ajax', 'importopml.php'), { path: path}, function(jsondata){
-				OC.dialogs.alert(jsondata.data.message, t('news', 'Success!'));
+
+			$.getJSON(OC.filePath('news', 'ajax', 'importopml.php'), { path: path }, function(jsondata){
+				if (jsondata.status == 'success') {
+					alert(jsondata.data.title);
+				}
 			}); 
 			
 		}
