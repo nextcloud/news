@@ -1,4 +1,5 @@
-News = News || News={
+News = News || {}
+News.Settings={
 	Settings: {
 		importpath:'',
 		importkind:'',
