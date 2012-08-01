@@ -47,6 +47,7 @@ News={
 }
 
 $('#browsebtn, #cloudbtn, #importbtn').hide();
+
 $('#cloudbtn, #cloudlink').click(function() {
 	/*
 	  * it needs to be filtered by MIME type, but there are too many MIME types corresponding to opml
@@ -54,12 +55,15 @@ $('#cloudbtn, #cloudlink').click(function() {
 	  */
 	OC.dialogs.filepicker(t('news', 'Select file'), News.Settings.cloudFileSelected, false, '', true);
 });
+
 $('#browsebtn, #browselink').click(function() {
 	$('#file_upload_start').trigger('click');
 });
+
 $('#file_upload_start').change(function() {
 	News.Settings.browseFile(this.files);
 });
+
 $('#importbtn').click(function() {
 	News.Settings.import(this);
 });

@@ -19,6 +19,7 @@ OCP\App::setActiveNavigationEntry('news');
 
 OCP\Util::addScript('news','news');
 OCP\Util::addStyle('news','news');
+OCP\Util::addStyle('news','settings');
 
 $l = OC_L10N::get('news');
 

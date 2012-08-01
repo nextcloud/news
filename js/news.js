@@ -247,7 +247,11 @@ $(document).ready(function(){
 	});
 	
 	$('#settingsbtn').on('click keydown', function() {
-		OC.appSettings({appid:'news', loadJS:true});
+		try {
+			OC.appSettings({appid:'news', loadJS:true});
+		} catch(e) {
+			alert(e);
+		} 
 	});
 
 	setupFeedList();
