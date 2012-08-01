@@ -1,4 +1,4 @@
-News={
+News = News || News={
 	Settings: {
 		importpath:'',
 		importkind:'',
