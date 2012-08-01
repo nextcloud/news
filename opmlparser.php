@@ -56,13 +56,14 @@ class OPMLParser {
 	
 	private function parseFeed($rawfeed) {
 		$url = (string)$rawfeed['xmlUrl'];
-		
+		echo $url;
+
 		$feed = OC_News_Utils::fetch($url);
-		if ($feed !== null) {
+
+		if ($feed != null) {
 			$title = $rawfeed['title'];
 			$feed->setTitle($title);
 		}
-		echo $url;
 		return $feed;
 	}
 	

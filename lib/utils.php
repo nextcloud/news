@@ -30,6 +30,8 @@ class OC_News_Utils {
 			return null;
 		}
 		
+	   //I understand this try-catch sucks, but SimplePie gives weird errors sometimes
+	   try {
 		$spfeed->handle_content_type();
 		$title = $spfeed->get_title();
 		
@@ -57,7 +59,10 @@ class OC_News_Utils {
 				$feed->setFavicon($webFavicon);
 		}
 		return $feed;
-		
+		}
+	   catch (Exception $e) {
+		return null;
+	   }
 	}
 
 	public static function checkFavicon($favicon) {

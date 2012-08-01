@@ -14,8 +14,10 @@
 		<li>
 			<button class="svg" id="addfeedfolder" title="<?php echo $l->t('Add Feed/Folder'); ?>" onclick="News.DropDownMenu.fade('ul#feedfoldermenu')"><img class="svg" src="<?php echo OCP\Util::linkTo('news', 'img/add.svg'); ?>" alt="<?php echo $l->t('Add Feed/Folder'); ?>"   /></button>
 		</li>
-		<li><button class="svg" title="<?php echo $l->t('Change View'); ?>">Eye</button></li>
 		<li>
+			<button class="svg" title="<?php echo $l->t('Change View'); ?>">Eye</button>
+		</li>
+		<li style="float: right">
 			<button class="svg" id="settingsbtn" title="<?php echo $l->t('Settings'); ?>"><img class="svg" src="<?php echo OCP\Util::imagePath('core','actions/settings.png'); ?>" alt="<?php echo $l->t('Settings'); ?>"   /></button>
 		</li>
 	<ul>
@@ -30,6 +32,7 @@
 			echo $this->inc("part.nofeeds");
 		}
 	?>
+	<div id="appsettings" class="popup bottomleft hidden"></div>
 </div>
 
 <!-- Dialogs -->

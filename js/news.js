@@ -27,26 +27,6 @@ News={
 			}else{
 				$('#dialog_holder').load(OC.filePath('news', 'ajax', dialogfile), function(jsondata){
 					if(jsondata.status != 'error'){
-						if(dialogtype == '#import_dialog') {
-							//TODO: group all the following calls in a method
-							$('#browsebtn, #cloudbtn, #importbtn').hide();
-							$('#cloudbtn, #cloudlink').click(function() {
-								/*
-								 * it needs to be filtered by MIME type, but there are too many MIME types corresponding to opml
-								 * and filepicker doesn't support multiple MIME types filter.
-								*/
-								OC.dialogs.filepicker(t('news', 'Select file'), News.Opml.cloudFileSelected, false, '', true);
-							});
-							$('#browsebtn, #browselink').click(function() {
-								$('#file_upload_start').trigger('click');
-							});
-							$('#file_upload_start').change(function() {
-								News.Opml.browseFile(this.files);
-							});
-							$('#importbtn').click(function() {
-								News.Opml.import(this);
-							});
-						}
 						$(dialogtype).dialog({
 							dialogClass:'dialog',
 							minWidth: 600,
@@ -60,51 +40,6 @@ News={
 				});
 			}
 			return false;
-		}
-	},
-	Opml: {
-		importpath:'',
-		importkind:'',
-		cloudFileSelected:function(path){
-			$.getJSON(OC.filePath('news', 'ajax', 'selectfromcloud.php'),{'path':path},function(jsondata){
-				if(jsondata.status == 'success'){
-					$('#browsebtn, #cloudbtn, #importbtn').show();
-					$("#opml_file").text(t('news', 'File ') + path + t('news', ' loaded from cloud.'));
-					News.Opml.importkind = 'cloud';
-					News.Opml.importpath = jsondata.data.tmp;
-				}
-				else{
-					OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
-				}
-			});
-		},
-		browseFile:function(filelist){
-			if(!filelist) {
-				OC.dialogs.alert(t('news','No files selected.'), t('news', 'Error'));
-				return;
-			}
-			var file = filelist[0];
-			$("#browsebtn, #cloudbtn, #importbtn").show();
-			$("#opml_file").text(t('news', 'File ') + file.name + t('news', ' loaded from local filesystem.'));
-			$("#opml_file").prop('value', file.name);
-		},
-		import:function(button){
-			$(button).attr("disabled", true);
-			$(button).prop('value', t('news', 'Importing...'));
-
-			var path = '';
-			if (News.Opml.importkind == 'cloud') {
-				path = News.Opml.importpath;
-			} else {
-
-			}
-
-			$.post(OC.filePath('news', 'ajax', 'importopml.php'), { path: path }, function(jsondata){
-				if (jsondata.status == 'success') {
-					alert(jsondata.data.title);
-				}
-			});
-
 		}
 	},
 	Folder: {
@@ -310,9 +245,9 @@ $(document).ready(function(){
 	$('#addfeedfolder').click(function(event) {
 	      event.stopPropagation();
 	});
-
-	$('#settingsbtn').click(function() {
-		News.UI.overview('#import_dialog', 'importdialog.php');
+	
+	$('#settingsbtn').on('click keydown', function() {
+		OC.appSettings({appid:'news', loadJS:true});
 	});
 
 	setupFeedList();
