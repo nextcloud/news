@@ -19,22 +19,22 @@ class OC_News_Utils {
 	/**
 	 * @brief Fetch a feed from remote
 	 * @param url remote url of the feed
-	 * @returns
+	 * @returns an instance of OC_News_Feed
 	 */
 	public static function fetch($url){
 		$spfeed = new SimplePie_Core();
 		$spfeed->set_feed_url( $url );
 		$spfeed->enable_cache( false );
-	
+
 		if (!$spfeed->init()) {
 			return null;
 		}
-		
+
 	   //I understand this try-catch sucks, but SimplePie gives weird errors sometimes
 	   try {
 		$spfeed->handle_content_type();
 		$title = $spfeed->get_title();
-		
+
 		$items = array();
 		if ($spitems = $spfeed->get_items()) {
 			foreach($spitems as $spitem) { //FIXME: maybe we can avoid this loop
@@ -45,7 +45,7 @@ class OC_News_Utils {
 				$items[] = new OC_News_Item($itemUrl, $itemTitle, $itemGUID, $itemBody);
 			}
 		}
-		
+
 		$feed = new OC_News_Feed($url, $title, $items);
 
 		$favicon = $spfeed->get_image_url();

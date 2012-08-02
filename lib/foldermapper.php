@@ -34,6 +34,15 @@ class OC_News_FolderMapper {
 	 */
 	public function populate($name, $id){
 		$root = new OC_News_Folder($name, $id);
+
+		// first add child feeds
+		$feedmapper = new OC_News_FeedMapper();
+		$feeds = $feedmapper->findByFolderId($id);
+		foreach ($feeds as $feed){
+			$root->addChild($feed);
+		}
+
+		// and second child folders
 		$stmt = OCP\DB::prepare('SELECT *
 					FROM ' . self::tableName .
 					' WHERE user_id = ? AND parent_id = ?');
@@ -42,12 +51,6 @@ class OC_News_FolderMapper {
 		while( $row = $result->fetchRow()){
 			$child = self::populate($row['name'], $row['id']);
 			$root->addChild($child);
-		}
-
-		$feedmapper = new OC_News_FeedMapper();
-		$feeds = $feedmapper->findByFolderId($id);
-		foreach ($feeds as $feed){
-			$root->addChild($feed);
 		}
 
 		return $root;

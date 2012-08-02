@@ -32,6 +32,10 @@ if(!$feedid) {
 	exit();
 }
 
+$tmpl = new OCP\Template("news", "part.listfeed");
+$tmpl->assign('child', $feed);
+$listitem = $tmpl->fetchPage();
+
 //TODO: replace the following with a real success case. see contact/ajax/createaddressbook.php for inspirations
-OCP\JSON::success(array('data' => array('message' => $l->t('Feed added!'))));
+OCP\JSON::success(array('data' => array('message' => $l->t('Feed added!'), 'listitem' => $listitem)));
 

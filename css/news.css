@@ -1,5 +1,4 @@
 
-.collapsable { background: url('%webroot%/core/img/places/folder.svg') no-repeat left center; padding: 0 0 0 20px; }
 .news_input { float:left; font-size:12px; padding:4px 2px; border:solid 1px #aacfe4; width:200px; }
 .svg { border: inherit; background: inherit; }
 
@@ -8,8 +7,8 @@
 #feeds { background: #fff; width: 19.7em; left: 12.5em; top: 3.7em; bottom:3em; position: fixed; overflow: auto; padding: 0; margin: 0 0 0 0.3em;}
 /* #feeds a { height: 23px; display: block; margin: 0 0 0 0; padding: 0 0 0 25px; } */
 #bottomcontrols { padding: 0; bottom:0px; overflow:visible; height:2.8em; width: 20em; margin:0; background:#eee; border-top:1px solid #ccc; position:fixed; -moz-box-shadow: 0 -3px 3px -3px #000; -webkit-box-shadow: 0 -3px 3px -3px #000; box-shadow: 0 -3px 3px -3px #000;}
-#feeds_delete { position: absolute; right: 0px; background: url('%webroot%/core/img/actions/delete.svg') no-repeat center; display: inline; }
-#feeds_edit { position: absolute; right: 1.6em; background: url('%webroot%/core/img/actions/rename.svg') no-repeat center; display: inline; }
+#feeds_delete { position: absolute; right: 0px; background: url('%webroot%/core/img/actions/delete.svg') no-repeat center; display: none; }
+#feeds_edit { position: absolute; right: 1.6em; background: url('%webroot%/core/img/actions/rename.svg') no-repeat center; display: none; }
 
 #dropdownBtn { width: 9em; padding-left: 0; padding-right:20px; background: url('%webroot%/core/img/actions/triangle-s.svg') no-repeat right center; }
 
@@ -58,14 +57,14 @@ li.menuItem { margin-left:0.7em; margin-right:0.7em; float: none !important; tex
 li.feeds_list { margin-left: 16px !important; text-align: right; border-radius: 5px; padding-left: 5px !important; background-color: rgb(255,255,255) !important; }
 li.feeds_list a { padding: 0 0 0 20px !important; overflow: hidden; text-overflow: ellipsis; text-align: left; width: 65%; }
 li.folder_list { background-color: rgb(255,255,255) !important; }
-div.collapsable_container { padding-left: 5px !important; border-radius: 5px; }
+div.collapsable { background: url('%webroot%/core/img/places/folder.svg') no-repeat 5px; padding: 0 0 0 25px; border-radius: 5px; }
 
 ul.folders { margin-left: 16px !important; }
 
 li.folder_list:hover { color: rgb(0, 0, 0) !important; background-color: rgb(255,255,255) !important; }
 
 li.feeds_list:hover { background-color: rgb(221, 221, 221) !important; }
-div.collapsable_container:hover { background-color: rgb(221, 221, 221); }
+div.collapsable:hover { background-color: rgb(221, 221, 221); }
 
 div.add_parentfolder { position: relative; }
 div.dialog { overflow: visible; }

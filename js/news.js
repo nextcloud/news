@@ -108,6 +108,8 @@ News={
 			$.post(OC.filePath('news', 'ajax', 'createfeed.php'), { feedurl: feedurl, folderid: folderid },
 				function(jsondata){
 					if(jsondata.status == 'success'){
+						$('div[data-id="' + folderid + '"] > ul').before(jsondata.data.listitem);
+						setupFeedList();
 						OC.dialogs.alert(jsondata.data.message, t('news', 'Success!'));
 					} else {
 						OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
@@ -203,9 +205,8 @@ News={
 }
 
 function setupFeedList() {
-    	$('.collapsable_container').click(function(){
-		$(this).parent().children().toggle();
-		$(this).toggle();
+	$('.collapsable').click(function(){
+		$(this).parent().children('ul').toggle();
 	});
 
 	var list = $('.collapsable,.feeds_list').hover(
@@ -228,6 +229,7 @@ $(document).ready(function(){
 	$('#addfeed').click(function() {
 		News.UI.overview('#addfeed_dialog','feeddialog.php');
 	});
+
 	$('#addfolder').click(function() {
 		News.UI.overview('#addfolder_dialog','folderdialog.php');
 	});
@@ -245,13 +247,13 @@ $(document).ready(function(){
 	$('#addfeedfolder').click(function(event) {
 	      event.stopPropagation();
 	});
-	
+
 	$('#settingsbtn').on('click keydown', function() {
 		try {
 			OC.appSettings({appid:'news', loadJS:true});
 		} catch(e) {
 			alert(e);
-		} 
+		}
 	});
 
 	setupFeedList();
@@ -259,7 +261,6 @@ $(document).ready(function(){
 	News.Feed.updateAll();
 	var updateInterval = 200000; //how often the feeds should update (in msec)
 	setInterval('News.Feed.updateAll()', updateInterval);
-
 });
 
 $(document).click(function(event) {
