@@ -109,8 +109,12 @@ News={
 				function(jsondata){
 					if(jsondata.status == 'success'){
 						$('div[data-id="' + folderid + '"] > ul').append(jsondata.data.listfeed);
-						//setupFeedList();
-						OC.dialogs.alert(jsondata.data.message, t('news', 'Success!'));
+						setupFeedList();
+						OC.dialogs.confirm(t('news', 'Do you want to add another feed?'), t('news', 'Feed added!'), function(answer) {
+							if(!answer) {
+								$('#addfeed_dialog').dialog('destroy').remove();
+							}
+						});  
 					} else {
 						OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
 					}
