@@ -21,21 +21,23 @@ $feedurl = trim($_POST['feedurl']);
 $folderid = trim($_POST['folderid']);
 
 $feed = OC_News_Utils::fetch($feedurl);
-$feedmapper = new OC_News_FeedMapper();
-$feedid = $feedmapper->save($feed, $folderid);
+
+if ($feed != null) {
+      $feedmapper = new OC_News_FeedMapper();
+      $feedid = $feedmapper->save($feed, $folderid);
+}
 
 $l = OC_L10N::get('news');
 
-if(!$feedid) {
-	OCP\JSON::error(array('data' => array('message' => $l->t('Error adding folder.'))));
+if($feed == null || !$feedid) {
+	OCP\JSON::error(array('data' => array('message' => $l->t('Error adding feed.'))));
 	OCP\Util::writeLog('news','ajax/createfeed.php: Error adding feed: '.$_POST['feedurl'], OCP\Util::ERROR);
 	exit();
 }
 
 $tmpl = new OCP\Template("news", "part.listfeed");
 $tmpl->assign('child', $feed);
-$listitem = $tmpl->fetchPage();
+$listfeed = $tmpl->fetchPage();
 
-//TODO: replace the following with a real success case. see contact/ajax/createaddressbook.php for inspirations
-OCP\JSON::success(array('data' => array('message' => $l->t('Feed added!'), 'listitem' => $listitem)));
+OCP\JSON::success(array('data' => array('message' => $l->t('Feed added!'), 'listfeed' => $listfeed)));
 

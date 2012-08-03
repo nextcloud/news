@@ -9,9 +9,8 @@
 				'<button class="svg action" id="feeds_delete" onClick="(News.Folder.delete(' . $folder->getId(). '))" title="' . $l->t('Delete folder') . '"></button>' .
 				'<button class="svg action" id="feeds_edit" title="' . $l->t('Rename folder') . '"></button>'
 				: '' ) .
-				
-			'</div>' .
-		'<ul>';
+				'</div>' .
+				'<ul>';
 
 		$children = $folder->getChildren();
 		foreach($children as $child) {
@@ -29,5 +28,6 @@
 		}
 		echo '</ul></div></li></ul>';
 	}
+	
 	print_folder($_['allfeeds'], 0);
 ?>

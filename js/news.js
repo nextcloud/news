@@ -108,8 +108,8 @@ News={
 			$.post(OC.filePath('news', 'ajax', 'createfeed.php'), { feedurl: feedurl, folderid: folderid },
 				function(jsondata){
 					if(jsondata.status == 'success'){
-						$('div[data-id="' + folderid + '"] > ul').before(jsondata.data.listitem);
-						setupFeedList();
+						$('div[data-id="' + folderid + '"] > ul').append(jsondata.data.listfeed);
+						//setupFeedList();
 						OC.dialogs.alert(jsondata.data.message, t('news', 'Success!'));
 					} else {
 						OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));

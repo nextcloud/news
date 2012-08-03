@@ -23,14 +23,17 @@ OCP\Util::addStyle('news','settings');
 
 $l = OC_L10N::get('news');
 
-$foldermapper = new OC_News_FolderMapper(OCP\USER::getUser());
+$userid = OCP\USER::getUser();
+
+$foldermapper = new OC_News_FolderMapper($userid);
 
 $allfeeds = $foldermapper->populate($l->t('Everything'), 0);
 
 if ($allfeeds) {
 	$feedid = isset( $_GET['feedid'] ) ? $_GET['feedid'] : null;
 	if ($feedid == null) {
-		
+		$feedmapper = new OC_News_FeedMapper(OCP\USER::getUser($userid));
+		$feedid =  $feedmapper->mostRecent();
 	}
 }
 else {

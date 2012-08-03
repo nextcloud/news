@@ -16,5 +16,3 @@ function countUnreadItems($feedid) {
 		echo '<span id="unreaditemcounter" class="zero"></span>';
 	}
 }
-
-?>

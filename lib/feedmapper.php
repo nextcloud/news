@@ -125,6 +125,18 @@ class OC_News_FeedMapper {
 		}
 		return $id;
 	}
+	
+	public function mostRecent(){
+		//FIXME: does something like SELECT TOP 1 * exists in pear/mdb2 ??
+		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' ORDER BY lastmodified');
+		$result = $stmt->execute();
+		$row = $result->fetchRow();
+		$id = null;
+		if ($row != null){
+			$id = $row['id'];
+		}
+		return $id;
+	}
 
 	/**
 	 * @brief Save the feed and all its items into the database
@@ -153,19 +165,17 @@ class OC_News_FeedMapper {
 		//FIXME: Detect when feed contains already a database id
 		$feedid =  $this->findIdFromUrl($url);
 		if ($feedid == null){
-			$query = OCP\DB::prepare('
-				INSERT INTO ' . self::tableName .
-				'(url, title, favicon_link, folder_id, added, lastmodified, user_id)
-				VALUES (?, ?, ?, ?, ?, ?, ?)
-				');
+			$query = OCP\DB::prepare("
+				INSERT INTO " . self::tableName .
+				"(url, title, favicon_link, folder_id, user_id, added, lastmodified)
+				VALUES (?, ?, ?, ?, ?, $_ut, $_ut)
+				");
 
 			$params=array(
 				$url,
 				htmlspecialchars_decode($title),
 				$feed->getFavicon(),
 				$folderid,
-				$_ut, 
-				$_ut,
 				$this->userid
 			);
 			$query->execute($params);
