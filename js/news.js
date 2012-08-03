@@ -185,7 +185,7 @@ News={
 		update:function(feedid, feedurl, folderid) {
 			var counterplace = $('.feeds_list[data-id="'+feedid+'"]').find('#unreaditemcounter');
 			var oldcount = counterplace.html();
-			counterplace.removeClass('nonzero').addClass('zero');
+			counterplace.removeClass();
 			counterplace.html('<img style="vertical-align: middle;" src="' + OC.imagePath('core','loader.gif') + '" alt="refresh" />');
 			$.post(OC.filePath('news', 'ajax', 'updatefeed.php'),{'feedid':feedid, 'feedurl':feedurl, 'folderid':folderid},function(jsondata){
 				if(jsondata.status == 'success'){
@@ -195,6 +195,7 @@ News={
 						counterplace.html(newcount);
 					}
 					else {
+						counterplace.addClass('zero');
 						counterplace.html('');
 					}
 				}
