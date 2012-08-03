@@ -3,6 +3,8 @@
 // FIXME: somehow gets included twice
 include_once("part.itemcounter.php");
 
+$l = new OC_l10n('news');
+
 $child = isset($_['child']) ? $_['child'] : null;
 $favicon = $child->getFavicon();
 if ($favicon == null) {

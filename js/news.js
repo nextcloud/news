@@ -63,6 +63,8 @@ News={
 				function(jsondata){
 					if(jsondata.status == 'success'){
 						//$(button).closest('tr').prev().html(jsondata.page).show().next().remove();
+						$('div[data-id="' + folderid + '"] > ul').append(jsondata.data.listfolder);
+						setupFeedList();
 						OC.dialogs.alert(jsondata.data.message, t('news', 'Success!'));
 					} else {
 						OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
@@ -114,7 +116,7 @@ News={
 							if(!answer) {
 								$('#addfeed_dialog').dialog('destroy').remove();
 							}
-						});  
+						});
 					} else {
 						OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
 					}
