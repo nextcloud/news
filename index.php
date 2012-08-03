@@ -27,7 +27,9 @@ $userid = OCP\USER::getUser();
 
 $foldermapper = new OC_News_FolderMapper($userid);
 
-$allfeeds = $foldermapper->populate($l->t('Everything'), 0);
+$folder = new OC_News_Folder($l->t('Everything'), 0);
+
+$allfeeds = $foldermapper->populate($folder);
 
 if ($allfeeds) {
 	$feedid = isset( $_GET['feedid'] ) ? $_GET['feedid'] : null;

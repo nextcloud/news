@@ -28,32 +28,30 @@ class OC_News_FolderMapper {
 
 	/**
 	 * @brief Create a folder and populate with children from the database
-	 * @param id The id of the folder.
-	 * @param name The name of the folder.
+	 * @param folder The folder to be populated.
 	 * @returns  an instance of OC_News_Folder
 	 */
-	public function populate($name, $id){
-		$root = new OC_News_Folder($name, $id);
-
+	public function populate($folder){
 		// first add child feeds
 		$feedmapper = new OC_News_FeedMapper();
-		$feeds = $feedmapper->findByFolderId($id);
+		$feeds = $feedmapper->findByFolderId($folder->getId());
 		foreach ($feeds as $feed){
-			$root->addChild($feed);
+			$folder->addChild($feed);
 		}
 
 		// and second child folders
 		$stmt = OCP\DB::prepare('SELECT *
 					FROM ' . self::tableName .
 					' WHERE user_id = ? AND parent_id = ?');
-		$result = $stmt->execute(array($this->userid, $id));
+		$result = $stmt->execute(array($this->userid, $folder->getId()));
 
 		while( $row = $result->fetchRow()){
-			$child = self::populate($row['name'], $row['id']);
-			$root->addChild($child);
+			$unpopfolder = new OC_News_Folder($row['name'], $row['id']);
+			$popfolder = self::populate($unpopfolder);
+			$folder->addChild($popfolder);
 		}
 
-		return $root;
+		return $folder;
 	}
 
 	/**
@@ -132,6 +130,9 @@ class OC_News_FolderMapper {
 	}
 
 	//TODO: replace it with a DELETE INNER JOIN operation
+	//Note Brumm: probably not possible, I've tried:
+	// 	'DELETE FROM ' . self::tableName .' INNER JOIN ' . OC_News_FeedMapper::tableName .
+	// 			' ON (' . self::tableName . '.id = ' . OC_News_FeedMapper::tableName . '.folder_id )')
 	public function deleteById($folderid){
 		if ($folderid == null){
 			return false;

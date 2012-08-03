@@ -15,19 +15,31 @@ OCP\JSON::checkLoggedIn();
 OCP\JSON::checkAppEnabled('news');
 OCP\JSON::callCheck();
 
+function printError() {
+	OCP\JSON::error(array('data' => array('message' => $l->t('Error removing folder.'))));
+	OCP\Util::writeLog('news','ajax/deletefolder.php: Error removing folder: '.$_POST['folderid'], OCP\Util::ERROR);
+	exit();
+}
+
 $userid = OCP\USER::getUser();
 
 $folderid = trim($_POST['folderid']);
 
 $foldermapper = new OC_News_FolderMapper();
-$success = $foldermapper->deleteById($folderid);
 
-$l = OC_L10N::get('news');
+$folder = $foldermapper->find($folderid);
+$popfolder = $foldermapper->populate($folder);
 
-if(!$success) {
-	OCP\JSON::error(array('data' => array('message' => $l->t('Error removing folder.'))));
-	OCP\Util::writeLog('news','ajax/deletefolder.php: Error removing folder: '.$_POST['folderid'], OCP\Util::ERROR);
-	exit();
+// delete child folder
+$children = $popfolder->getChildren();
+foreach ($children as $child) {
+	if ($child instanceOf OC_News_Folder) {
+		if(!$foldermapper->deleteById($child->getId()))
+			printError();
+	}
 }
+
+if(!$foldermapper->deleteById($folderid))
+	printError();
 
 OCP\JSON::success(array('data' => array( 'folderid' => $folderid )));

@@ -84,8 +84,7 @@ News={
 				if(answer == true) {
 					$.post(OC.filePath('news', 'ajax', 'deletefolder.php'),{'folderid':folderid},function(jsondata){
 						if(jsondata.status == 'success'){
-							//change this with actually removing the folder in the view instead of the alert msg
-							alert('removed!');
+							$('div.collapsable_container[data-id="' + jsondata.data.folderid + '"]').remove();
 						}
 						else{
 							OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
@@ -136,7 +135,7 @@ News={
 				if(answer == true) {
 					$.post(OC.filePath('news', 'ajax', 'deletefeed.php'),{'feedid':feedid},function(jsondata){
 						if(jsondata.status == 'success'){
-							$('#leftcontent [data-id="'+jsondata.data.feedid+'"]').remove();
+							$('li.feeds_list[data-id="'+jsondata.data.feedid+'"]').remove();
 							//change the right view too (maybe a message to subscribe, like in Google Reader?)
 						}
 						else{

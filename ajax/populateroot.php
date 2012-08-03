@@ -4,8 +4,11 @@ OCP\JSON::checkLoggedIn();
 OCP\JSON::checkAppEnabled('news');
 
 $foldermapper = new OC_News_FolderMapper(OCP\USER::getUser());
+$l = new OC_l10n('news');
 
-$allfeeds = $foldermapper->populate('Everything', 0);
+$folder = new OC_News_Folder($l->t('Everything'), 0);
+
+$allfeeds = $foldermapper->populate($folder);
 
 if ($allfeeds) {
 	$feedid = isset( $_GET['feedid'] ) ? $_GET['feedid'] : null;

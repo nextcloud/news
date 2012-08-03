@@ -4,10 +4,10 @@
 *
 * @author Alessandro Cosentino
 * Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
-* 
+*
 * This file is licensed under the Affero General Public License version 3 or later.
 * See the COPYING-README file
-* 
+*
 */
 
 /**
@@ -26,7 +26,7 @@ class OC_News_FeedMapper {
 	}
 
 	/**
-	 * @brief 
+	 * @brief
 	 * @param row a row from the feeds table of the database
 	 * @returns an object of the class OC_News_Feed
 	 */
@@ -34,9 +34,9 @@ class OC_News_FeedMapper {
 	}
 
 	/**
-	 * @brief 
-	 * @param userid 
-	 * @returns  
+	 * @brief
+	 * @param userid
+	 * @returns
 	 */
 	public function findAll(){
 		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE user_id = ?');
@@ -50,11 +50,11 @@ class OC_News_FeedMapper {
 		}
 		return $feeds;
 	}
-	
+
 	/**
 	 * @brief Retrieve a feed from the database
 	 * @param id The id of the feed in the database table.
-	 * @returns  
+	 * @returns
 	 */
 	public function findById($id){
 		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE id = ?');
@@ -69,7 +69,7 @@ class OC_News_FeedMapper {
 	/**
 	 * @brief Retrieve a feed from the database
 	 * @param id The id of the feed in the database table.
-	 * @returns  
+	 * @returns
 	 */
 	public function findByFolderId($folderid){
 		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE folder_id = ?');
@@ -81,17 +81,17 @@ class OC_News_FeedMapper {
 			$id = $row['id'];
 			$feed = new OC_News_Feed($url, $title, null, $id);
 			$favicon = $row['favicon_link'];
-			$feed->setFavicon($favicon);  
+			$feed->setFavicon($favicon);
 			$feeds[] = $feed;
 		}
 		return $feeds;
 	}
 
-	
+
 	/**
 	 * @brief Retrieve a feed and all its items from the database
 	 * @param id The id of the feed in the database table.
-	 * @returns 
+	 * @returns
 	 */
 	public function findWithItems($id){
 		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE id = ?');
@@ -101,19 +101,19 @@ class OC_News_FeedMapper {
 		$title = $row['title'];
 		$feed = new OC_News_Feed($url, $title, null,$id);
 		$favicon = $row['favicon_link'];
-		$feed->setFavicon($favicon); 
+		$feed->setFavicon($favicon);
 		$itemMapper = new OC_News_ItemMapper();
 		$items = $itemMapper->findAll($id);
 		$feed->setItems($items);
-		
+
 		return $feed;
 	}
 
 	/**
 	 * @brief Find the id of a feed and all its items from the database
 	 * @param url url of the feed
-	 * @return id of the feed corresponding to the url passed as parameters 
-	 *	null - if there is no such feed 
+	 * @return id of the feed corresponding to the url passed as parameters
+	 *	null - if there is no such feed
 	 */
 	public function findIdFromUrl($url){
 		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE url = ?');
@@ -125,7 +125,7 @@ class OC_News_FeedMapper {
 		}
 		return $id;
 	}
-	
+
 	public function mostRecent(){
 		//FIXME: does something like SELECT TOP 1 * exists in pear/mdb2 ??
 		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' ORDER BY lastmodified');
@@ -179,21 +179,21 @@ class OC_News_FeedMapper {
 				$this->userid
 			);
 			$query->execute($params);
-			
+
 			$feedid = OCP\DB::insertid(self::tableName);
 		}
 		$feed->setId($feedid);
 
 		$itemMapper = new OC_News_ItemMapper();
-		
+
 		$items = $feed->getItems();
 		foreach($items as $item){
 			$itemMapper->save($item, $feedid);
 		}
-		
+
 		return $feedid;
 	}
-	
+
 	public function deleteById($id){
 		if ($id == null) {
 			return false;
@@ -201,31 +201,31 @@ class OC_News_FeedMapper {
 		$stmt = OCP\DB::prepare('DELETE FROM ' . self::tableName .' WHERE id = ?');
 
 		$result = $stmt->execute(array($id));
-		
+
 		$itemMapper = new OC_News_ItemMapper();
 		//TODO: handle the value that the execute returns
 		$itemMapper->deleteAll($id);
-		
+
 		return true;
 	}
 	public function delete(OC_News_Feed $feed){
 		$id = $feed->getId();
 		return deleteById($id);
 	}
-	
+
 	//it's more complicated tan this...recursive delete, or delete with a join
-	public function deleteAll($folderdid){	
+	public function deleteAll($folderid){
 		if ($folderid == null) {
 			return false;
 		}
 		$stmt = OCP\DB::prepare('DELETE FROM ' . self::tableName .' WHERE folder_id = ?');
 
 		$result = $stmt->execute(array($folderid));
-		
+
 		$itemMapper = new OC_News_ItemMapper();
 		//TODO: handle the value that the execute returns
-		$itemMapper->deleteAll($id);
-		
+		$itemMapper->deleteAll($folderid);
+
 		return true;
 	}
 }
