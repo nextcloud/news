@@ -69,7 +69,7 @@ class OC_News_FeedMapper {
 	/**
 	 * @brief Retrieve a feed from the database
 	 * @param id The id of the feed in the database table.
-	 * @returns
+	 * @returns an instance of OC_News_Feed
 	 */
 	public function findByFolderId($folderid){
 		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE folder_id = ?');
@@ -91,7 +91,7 @@ class OC_News_FeedMapper {
 	/**
 	 * @brief Retrieve a feed and all its items from the database
 	 * @param id The id of the feed in the database table.
-	 * @returns
+	 * @returns an instance of OC_News_Feed
 	 */
 	public function findWithItems($id){
 		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE id = ?');
@@ -218,13 +218,21 @@ class OC_News_FeedMapper {
 		if ($folderid == null) {
 			return false;
 		}
-		$stmt = OCP\DB::prepare('DELETE FROM ' . self::tableName .' WHERE folder_id = ?');
+
+		// delete items
+		$itemMapper = new OC_News_ItemMapper();
+		$stmt = OCP\DB::prepare('SELECT ' . self::tableName . '.id FROM ' . self::tableName .' INNER JOIN ' . OC_News_ItemMapper::tableName .
+			' ON ' . self::tableName . '.id = ' . OC_News_ItemMapper::tableName . '.feed_id WHERE folder_id = ?');
 
 		$result = $stmt->execute(array($folderid));
+		while ($row = $result->fetchRow()) {
+			$itemMapper->deleteAll($row['id']);
+		}
 
-		$itemMapper = new OC_News_ItemMapper();
+		// delete feeds
+		$stmt = OCP\DB::prepare('DELETE FROM ' . self::tableName .' WHERE folder_id = ?');
+		$result = $stmt->execute(array($folderid));
 		//TODO: handle the value that the execute returns
-		$itemMapper->deleteAll($folderid);
 
 		return true;
 	}
