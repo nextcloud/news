@@ -65,7 +65,11 @@ News={
 						//$(button).closest('tr').prev().html(jsondata.page).show().next().remove();
 						$('div[data-id="' + folderid + '"] > ul').append(jsondata.data.listfolder);
 						setupFeedList();
-						OC.dialogs.alert(jsondata.data.message, t('news', 'Success!'));
+						OC.dialogs.confirm(t('news', 'Do you want to add another feed?'), t('news', 'Feed added!'), function(answer) {
+							if(!answer) {
+								$('#addfolder_dialog').dialog('destroy').remove();
+							}
+						});
 					} else {
 						OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
 					}
