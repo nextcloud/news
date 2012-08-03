@@ -20,14 +20,23 @@ $userid = OCP\USER::getUser();
 $feedurl = trim($_POST['feedurl']);
 $folderid = trim($_POST['folderid']);
 
-$feed = OC_News_Utils::fetch($feedurl);
-
-if ($feed != null) {
-      $feedmapper = new OC_News_FeedMapper();
-      $feedid = $feedmapper->save($feed, $folderid);
-}
+$feedmapper = new OC_News_FeedMapper();
+$feedid = $feedmapper->findIdFromUrl($feedurl);
 
 $l = OC_L10N::get('news');
+
+if ($feedid == null) {
+	$feed = OC_News_Utils::fetch($feedurl);
+
+	if ($feed != null) {
+	      $feedid = $feedmapper->save($feed, $folderid);
+	}
+}
+else {
+	OCP\JSON::error(array('data' => array('message' => $l->t('Feed already exists.'))));
+	OCP\Util::writeLog('news','ajax/createfeed.php: Error adding feed: '.$_POST['feedurl'], OCP\Util::ERROR);
+	exit();
+}
 
 if($feed == null || !$feedid) {
 	OCP\JSON::error(array('data' => array('message' => $l->t('Error adding feed.'))));
