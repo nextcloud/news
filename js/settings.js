@@ -1,15 +1,14 @@
 News = News || {}
 News.Settings={
-	Settings: {
-		importpath:'',
-		importkind:'',
+		IMPORTCLOUD:'cloud',
+		IMPORTLOCAL:'local',
 		cloudFileSelected:function(path){
 			$.getJSON(OC.filePath('news', 'ajax', 'selectfromcloud.php'),{'path':path},function(jsondata){
 				if(jsondata.status == 'success'){
 					$('#browsebtn, #cloudbtn, #importbtn').show();
 					$('#opml_file').text(t('news', 'File ') + path + t('news', ' loaded from cloud.'));
-					News.Settings.importkind = 'cloud';
-					News.Settings.importpath = jsondata.data.tmp;
+					this.importkind = this.IMPORTCLOUD;
+					this.importpath = jsondata.data.tmp;
 				}
 				else{
 					OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
@@ -31,10 +30,14 @@ News.Settings={
 			$(button).prop('value', t('news', 'Importing...'));
 
 			var path = '';
-			if (News.Settings.importkind == 'cloud') {
-				path = News.Settings.importpath;
-			} else {
-
+			alert(this.importkind);
+			if (this.importkind == this.IMPORTCLOUD) {
+				path = this.importpath;
+				alert(this.IMPORTCLOUD);
+			} else if (this.importkind == this.IMPORTLOCAL) {
+			}
+			else {
+				OC.dialogs.alert(t('news','Import kind not specified'), t('news', 'Error'));
 			}
 
 			$.post(OC.filePath('news', 'ajax', 'importopml.php'), { path: path }, function(jsondata){
@@ -42,9 +45,11 @@ News.Settings={
 					alert(jsondata.data.title);
 				}
 			});
+			
+			$(button).prop('value', t('news', 'Import'));
+			$(button).attr("disabled", false);
 
 		}
-	}
 }
 
 $('#browsebtn, #cloudbtn, #importbtn').hide();

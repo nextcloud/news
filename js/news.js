@@ -65,7 +65,7 @@ News={
 						//$(button).closest('tr').prev().html(jsondata.page).show().next().remove();
 						$('div[data-id="' + folderid + '"] > ul').append(jsondata.data.listfolder);
 						setupFeedList();
-						OC.dialogs.confirm(t('news', 'Do you want to add another feed?'), t('news', 'Feed added!'), function(answer) {
+						OC.dialogs.confirm(t('news', 'Do you want to add another folder?'), t('news', 'Folder added!'), function(answer) {
 							if(!answer) {
 								$('#addfolder_dialog').dialog('destroy').remove();
 							}
