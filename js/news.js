@@ -64,11 +64,11 @@ News={
 					if(jsondata.status == 'success'){
 						$('div[data-id="' + folderid + '"] > ul').append(jsondata.data.listfolder);
 						setupFeedList();
-						OC.dialogs.confirm(t('news', 'Do you want to add another folder?'), t('news', 'Folder added!'), function(answer) {
-							if(!answer) {
+						//OC.dialogs.confirm(t('news', 'Do you want to add another folder?'), t('news', 'Folder added!'), function(answer) {
+						//	if(!answer) {
 								$('#addfolder_dialog').dialog('destroy').remove();
-							}
-						});
+						//	}
+						//});
 					} else {
 						OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
 					}
