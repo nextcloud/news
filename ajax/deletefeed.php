@@ -4,10 +4,10 @@
 *
 * @author Alessandro Cosentino
 * Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
-* 
+*
 * This file is licensed under the Affero General Public License version 3 or later.
 * See the COPYING-README file
-* 
+*
 */
 
 // Check if we are a user
@@ -30,4 +30,7 @@ if(!$success) {
 	exit();
 }
 
-OCP\JSON::success(array('data' => array( 'feedid' => $feedid )));
+$tmpl = new OCP\Template("news", "part.items.deleted");
+$part_items = $tmpl->fetchPage();
+
+OCP\JSON::success(array('data' => array( 'feedid' => $feedid, 'part_items' => $part_items )));

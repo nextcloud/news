@@ -59,7 +59,9 @@ class OC_News_FeedMapper {
 	public function findById($id){
 		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE id = ?');
 		$result = $stmt->execute(array($id));
-		$row = $result->fetchRow();
+		if(!$row = $result->fetchRow())
+			return null;
+
 		$url = $row['url'];
 		$title = $row['title'];
 		$feed = new OC_News_Feed($url, $title, null, $id);

@@ -44,9 +44,13 @@ if($feed == null || !$feedid) {
 	exit();
 }
 
-$tmpl = new OCP\Template("news", "part.listfeed");
-$tmpl->assign('child', $feed);
-$listfeed = $tmpl->fetchPage();
+$tmpl_listfeed = new OCP\Template("news", "part.listfeed");
+$tmpl_listfeed->assign('child', $feed);
+$listfeed = $tmpl_listfeed->fetchPage();
 
-OCP\JSON::success(array('data' => array('message' => $l->t('Feed added!'), 'listfeed' => $listfeed)));
+$tmpl_items = new OCP\Template("news", "part.items");
+$tmpl_items->assign('feedid', $feedid);
+$part_items = $tmpl_items->fetchPage();
+
+OCP\JSON::success(array('data' => array( 'message' => $l->t('Feed added!'), 'listfeed' => $listfeed, 'part_items' => $part_items )));
 

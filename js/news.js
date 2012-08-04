@@ -62,7 +62,6 @@ News={
 			$.post(url, { name: displayname, parentid: folderid },
 				function(jsondata){
 					if(jsondata.status == 'success'){
-						//$(button).closest('tr').prev().html(jsondata.page).show().next().remove();
 						$('div[data-id="' + folderid + '"] > ul').append(jsondata.data.listfolder);
 						setupFeedList();
 						OC.dialogs.confirm(t('news', 'Do you want to add another feed?'), t('news', 'Feed added!'), function(answer) {
@@ -82,9 +81,15 @@ News={
 			$('#feeds_delete').tipsy('hide');
 			OC.dialogs.confirm(t('news', 'Are you sure you want to delete this folder and all its feeds?'), t('news', 'Warning'), function(answer) {
 				if(answer == true) {
-					$.post(OC.filePath('news', 'ajax', 'deletefolder.php'),{'folderid':folderid},function(jsondata){
+					var rightcontent = $('div.rightcontent');
+					var shownfeedid = rightcontent.attr('data-id');
+					$.post(OC.filePath('news', 'ajax', 'deletefolder.php'),{'folderid':folderid, 'shownfeedid':shownfeedid},function(jsondata){
 						if(jsondata.status == 'success'){
 							$('div.collapsable_container[data-id="' + jsondata.data.folderid + '"]').remove();
+							if(jsondata.data.part_items) {
+								rightcontent.empty();
+								rightcontent.html(jsondata.data.part_items);
+							}
 						}
 						else{
 							OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
@@ -118,6 +123,10 @@ News={
 						OC.dialogs.confirm(t('news', 'Do you want to add another feed?'), t('news', 'Feed added!'), function(answer) {
 							if(!answer) {
 								$('#addfeed_dialog').dialog('destroy').remove();
+								var rightcontent = $('div.rightcontent');
+								rightcontent.empty();
+								rightcontent.html(jsondata.data.part_items);
+								setupRightContent();
 							}
 						});
 					} else {
@@ -136,7 +145,11 @@ News={
 					$.post(OC.filePath('news', 'ajax', 'deletefeed.php'),{'feedid':feedid},function(jsondata){
 						if(jsondata.status == 'success'){
 							$('li.feeds_list[data-id="'+jsondata.data.feedid+'"]').remove();
-							//change the right view too (maybe a message to subscribe, like in Google Reader?)
+							var rightcontent = $('div.rightcontent');
+							if(rightcontent.attr('data-id') == feedid) {
+								rightcontent.empty();
+								rightcontent.html(jsondata.data.part_items);
+							}
 						}
 						else{
 							OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
@@ -234,16 +247,7 @@ function setupFeedList() {
 	list.find('#unreaditemcounter').show();
 }
 
-$(document).ready(function(){
-
-	$('#addfeed').click(function() {
-		News.UI.overview('#addfeed_dialog','feeddialog.php');
-	});
-
-	$('#addfolder').click(function() {
-		News.UI.overview('#addfolder_dialog','folderdialog.php');
-	});
-
+function setupRightContent() {
 	$('.accordion .title_unread').click(function() {
 		$(this).next().toggle();
 		return false;
@@ -253,6 +257,17 @@ $(document).ready(function(){
 		$(this).next().toggle();
 		return false;
 	}).next().hide();
+}
+
+$(document).ready(function(){
+
+	$('#addfeed').click(function() {
+		News.UI.overview('#addfeed_dialog','feeddialog.php');
+	});
+
+	$('#addfolder').click(function() {
+		News.UI.overview('#addfolder_dialog','folderdialog.php');
+	});
 
 	$('#addfeedfolder').click(function(event) {
 	      event.stopPropagation();
@@ -267,6 +282,7 @@ $(document).ready(function(){
 	});
 
 	setupFeedList();
+	setupRightContent();
 
 	News.Feed.updateAll();
 	var updateInterval = 200000; //how often the feeds should update (in msec)

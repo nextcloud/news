@@ -18,6 +18,8 @@ OCP\JSON::callCheck();
 $userid = OCP\USER::getUser();
 
 $folderid = trim($_POST['folderid']);
+$shownfeedid = trim($_POST['shownfeedid']);
+$part_items = false;
 
 $foldermapper = new OC_News_FolderMapper();
 
@@ -27,4 +29,13 @@ if(!$foldermapper->deleteById($folderid)) {
 	exit();
 }
 
-OCP\JSON::success(array('data' => array( 'folderid' => $folderid )));
+// lets check if the currently shown feed is among the deleted feeds
+if ($shownfeedid != null) {
+	$feedmapper = new OC_News_FeedMapper();
+	if (!$feedmapper->findById($shownfeedid)) {
+		$tmpl = new OCP\Template("news", "part.items.deleted");
+		$part_items = $tmpl->fetchPage();
+	}
+}
+
+OCP\JSON::success(array('data' => array( 'folderid' => $folderid, 'part_items' => $part_items )));
