@@ -213,26 +213,18 @@ class OC_News_FeedMapper {
 		return deleteById($id);
 	}
 
-	//it's more complicated tan this...recursive delete, or delete with a join
 	public function deleteAll($folderid){
 		if ($folderid == null) {
 			return false;
 		}
 
-		// delete items
-		$itemMapper = new OC_News_ItemMapper();
-		$stmt = OCP\DB::prepare('SELECT ' . self::tableName . '.id FROM ' . self::tableName .' INNER JOIN ' . OC_News_ItemMapper::tableName .
-			' ON ' . self::tableName . '.id = ' . OC_News_ItemMapper::tableName . '.feed_id WHERE folder_id = ?');
+		$stmt = OCP\DB::prepare('SELECT id FROM ' . self::tableName . ' WHERE folder_id = ?');
 
 		$result = $stmt->execute(array($folderid));
 		while ($row = $result->fetchRow()) {
-			$itemMapper->deleteAll($row['id']);
+			if(!self::deleteById($row['id']))
+				return false;
 		}
-
-		// delete feeds
-		$stmt = OCP\DB::prepare('DELETE FROM ' . self::tableName .' WHERE folder_id = ?');
-		$result = $stmt->execute(array($folderid));
-		//TODO: handle the value that the execute returns
 
 		return true;
 	}

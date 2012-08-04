@@ -129,22 +129,26 @@ class OC_News_FolderMapper {
 		return deleteById(folderid);
 	}
 
-	//TODO: replace it with a DELETE INNER JOIN operation
-	//Note Brumm: probably not possible, I've tried:
-	// 	'DELETE FROM ' . self::tableName .' INNER JOIN ' . OC_News_FeedMapper::tableName .
-	// 			' ON (' . self::tableName . '.id = ' . OC_News_FeedMapper::tableName . '.folder_id )')
 	public function deleteById($folderid){
 		if ($folderid == null){
 			return false;
 		}
 
-		$stmt = OCP\DB::prepare('DELETE FROM ' . self::tableName .' WHERE id = ?');
+		// delete child folders
+		$stmt = OCP\DB::prepare('SELECT id FROM ' . self::tableName .' WHERE parent_id = ?');
+		$result = $stmt->execute(array($folderid));
+		while ($row = $result->fetchRow()) {
+			if (!self::deleteById($row['id']))
+				return false;
+		}
 
+		$stmt = OCP\DB::prepare('DELETE FROM ' . self::tableName .' WHERE id = ?');
 		$result = $stmt->execute(array($folderid));
 
 		$feedMapper = new OC_News_FeedMapper();
 		//TODO: handle the value that the execute returns
-		$feedMapper->deleteAll($folderid);
+		if(!$feedMapper->deleteAll($folderid))
+			return false;
 
 		return true;
 	}
