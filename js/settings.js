@@ -1,5 +1,7 @@
 News = News || {}
 News.Settings={
+		importkind: '',
+		importpath: '',
 		IMPORTCLOUD:'cloud',
 		IMPORTLOCAL:'local',
 		cloudFileSelected:function(path){
@@ -7,8 +9,8 @@ News.Settings={
 				if(jsondata.status == 'success'){
 					$('#browsebtn, #cloudbtn, #importbtn').show();
 					$('#opml_file').text(t('news', 'File ') + path + t('news', ' loaded from cloud.'));
-					this.importkind = this.IMPORTCLOUD;
-					this.importpath = jsondata.data.tmp;
+					News.Settings.importkind = News.Settings.IMPORTCLOUD;
+					News.Settings.importpath = jsondata.data.tmp;
 				}
 				else{
 					OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
@@ -30,10 +32,8 @@ News.Settings={
 			$(button).prop('value', t('news', 'Importing...'));
 
 			var path = '';
-			alert(this.importkind);
-			if (this.importkind == this.IMPORTCLOUD) {
-				path = this.importpath;
-				alert(this.IMPORTCLOUD);
+			if (News.Settings.importkind == News.Settings.IMPORTCLOUD) {
+				path = News.Settings.importpath;
 			} else if (this.importkind == this.IMPORTLOCAL) {
 			}
 			else {
@@ -43,7 +43,9 @@ News.Settings={
 			$.post(OC.filePath('news', 'ajax', 'importopml.php'), { path: path }, function(jsondata){
 				if (jsondata.status == 'success') {
 					alert(jsondata.data.title);
-				}
+				} else {
+					OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
+				} 
 			});
 			
 			$(button).prop('value', t('news', 'Import'));

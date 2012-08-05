@@ -13,37 +13,38 @@
 
 class OPMLParser {
 
-	private $raw;
-	private $body;
 	private $title;
-	private $error;
+	private $body;
+	private $data;
+	private $count;
+	
+	private function __construct() {
+		$this->data = array();
+		$this->count = 0;
+	}
 
-	public function __construct($raw) {
-		$this->raw = $raw;
-		try {
-			$xml_parser = new SimpleXMLElement($this->raw, LIBXML_NOERROR);
-			$this->title = (string)$xml_parser->head->title;
-			$this->body = $xml_parser->body;
-		}
-		catch (Exception $e) {
-			$this->error = $e->getMessage();
-			return;
-		}
+	public function getTitle() {
+		return $this->title;
+	}
+
+	public function getData() {
+		return $this->data;
 	}
 	
-	public function parse(){
-		return self::parseFolder($this->body);
+	public function getCount() {
+		return $this->count;
 	}
 	
-	private function parseFolder($rawfolder) {
+	private static function parseFolder($rawfolder, &$count) {
 		$list = array();
 		foreach ($rawfolder->outline as $rawcollection) {
 			if ($rawcollection['type'] == 'rss') {
 				$collection = self::parseFeed($rawcollection);
+				$count++;
 			}
 			else {
 				$name = (string)$rawcollection['text'];
-				$children = self::parseFolder($rawcollection);
+				$children = self::parseFolder($rawcollection, $count);
 				$collection = new OC_News_Folder($name);
 				$collection->addChildren($children);
 			}
@@ -54,24 +55,33 @@ class OPMLParser {
 		return $list;
 	}
 	
-	private function parseFeed($rawfeed) {
+	private static function parseFeed($rawfeed) {
 		$url = (string)$rawfeed['xmlUrl'];
-		echo $url;
+		$title = (string)$rawfeed['title'];
 
-		$feed = OC_News_Utils::fetch($url);
-
-		if ($feed != null) {
-			$title = $rawfeed['title'];
-			$feed->setTitle($title);
-		}
+		$feed = new OC_News_Feed($url, $title);
 		return $feed;
 	}
 	
-	public function getTitle() {
-		return $this->title;
+	/**
+	 * @param $raw the XML string to be parsed
+	 * @return an object of the OPMLParser class itself
+	 *	or null if the parsing failed
+	 * @throws 
+	 */
+	public static function parse($raw){
+		$parsed = new OPMLParser();
+		
+		$xml_parser = new SimpleXMLElement($raw, LIBXML_NOERROR);
+		$parsed->title = (string)$xml_parser->head->title;
+		$parsed->body = $xml_parser->body;
+		
+		if ($parsed->body != null) {
+			$parsed->data =  self::parseFolder($parsed->body, $parsed->count);
+			return $parsed;
+		} else {
+			return null;
+		}
 	}
-	
-	public function getError() {
-		return $this->error;
-	}
+
 }

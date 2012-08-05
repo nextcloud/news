@@ -20,10 +20,14 @@ class OC_News_Feed extends OC_News_Collection {
 	private $items;  //array that contains all the items of the feed
 	private $favicon;
 
-	public function __construct($url, $title, $items, $id = null) {
+	// if $items = null, it means that feed has not been fetched yet
+	// if $id = null, it means that the feed has not been stored in the db yet
+	public function __construct($url, $title, $items = null, $id = null) {
 		$this->url = $url;
 		$this->title = $title;
-		$this->items = $items;
+		if ($items !== null) {
+			$this->items = $items;
+		}
 		if ($id !== null) {
 			parent::__construct($id);
 		}

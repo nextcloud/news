@@ -23,10 +23,6 @@ function bailOut($msg) {
 	exit();
 }
 
-function debug($msg) {
-	OCP\Util::writeLog('news','ajax/importopml.php: '.$msg, OCP\Util::DEBUG);
-}
-
 if(!isset($_POST['path'])) {
 	bailOut($l->t('No file path was submitted.'));
 } 
@@ -35,10 +31,15 @@ require_once('news/opmlparser.php');
 
 $raw = file_get_contents($_POST['path']);
 
-$parser = new OPMLParser($raw);
-$title = $parser->getTitle();
-$data = $parser->parse();
-$count = 0; //number of feeds imported 
+try {
+	$parsed = OPMLParser::parse($raw);
+} catch (Exception $e) {
+	bailOut($e->getMessage());
+}
 
-OCP\JSON::success(array('data' => array('title'=>$title, 'count'=>$count)));
+if ($parsed == null) {
+	bailOut($l->t('An error occurred while parsing the file.'));	
+}
+
+OCP\JSON::success(array('data' => array('title'=>$parsed->getTitle(), 'count'=>$parsed->getCount())));
 
