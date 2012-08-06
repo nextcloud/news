@@ -64,6 +64,7 @@ News={
 					if(jsondata.status == 'success'){
 						$('div[data-id="' + folderid + '"] > ul').append(jsondata.data.listfolder);
 						setupFeedList();
+						transformCollapsableTrigger();
 						//OC.dialogs.confirm(t('news', 'Do you want to add another folder?'), t('news', 'Folder added!'), function(answer) {
 						//	if(!answer) {
 								$('#addfolder_dialog').dialog('destroy').remove();
@@ -85,11 +86,13 @@ News={
 					var shownfeedid = rightcontent.attr('data-id');
 					$.post(OC.filePath('news', 'ajax', 'deletefolder.php'),{'folderid':folderid, 'shownfeedid':shownfeedid},function(jsondata){
 						if(jsondata.status == 'success'){
-							$('div.collapsable_container[data-id="' + jsondata.data.folderid + '"]').remove();
+							var deletedfolder = $('div.collapsable_container[data-id="' + jsondata.data.folderid + '"]');
+							deletedfolder.parent().parent('.folders').remove();
 							if(jsondata.data.part_items) {
 								rightcontent.empty();
 								rightcontent.html(jsondata.data.part_items);
 							}
+							transformCollapsableTrigger();
 						}
 						else{
 							OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
@@ -129,6 +132,7 @@ News={
 								rightcontent.html(jsondata.data.part_items);
 								rightcontent.find('ul.accordion').before(jsondata.data.part_newfeed);
 								setupRightContent();
+								transformCollapsableTrigger();
 							}
 						});
 					} else {
@@ -151,6 +155,7 @@ News={
 							if(rightcontent.attr('data-id') == feedid) {
 								rightcontent.find('div#feedadded').remove();
 								rightcontent.find('ul.accordion').before(jsondata.data.part_items);
+								transformCollapsableTrigger();
 							}
 						}
 						else{
@@ -229,48 +234,55 @@ News={
 	}
 }
 
-function collapsable_trigger(trigger, items) {
-	var triggericon = OC.imagePath('core', 'actions/triangle-s.svg');
-	trigger.css('background-image', 'url(' + triggericon + ')');
-	if (items.css('display') == 'block') {
-		trigger.css('-moz-transform', 'none');
-		trigger.css('transform', 'none');
-	}
-	else {
-		trigger.css('-moz-transform', 'rotate(-90deg)');
-		trigger.css('transform', 'rotate(-90deg)');
-	}
-}
-
-function setupFeedList() {
+function transformCollapsableTrigger() {
+	// we need this here to detect and toggle new children instantly
+	$('.collapsable_trigger').unbind();
 	$('.collapsable_trigger').click(function(){
 		var items = $(this).parent().parent().children('ul');
 		items.toggle();
-		collapsable_trigger($(this),items);
+		transformCollapsableTrigger();
 	});
 
+	var triggericon = OC.imagePath('core', 'actions/triangle-s.svg');
+	var foldericon = OC.imagePath('core', 'places/folder.svg');
+
+	$('.collapsable_trigger').each(
+		function() {
+			var items = $(this).parent().parent().children('ul');
+			if (items.html()) {
+				$(this).css('background-image', 'url(' + triggericon + ')');
+				if (items.css('display') == 'block') {
+					$(this).css('-moz-transform', 'none');
+					$(this).css('transform', 'none');
+				}
+				else {
+					$(this).css('-moz-transform', 'rotate(-90deg)');
+					$(this).css('transform', 'rotate(-90deg)');
+				}
+			}
+			else {
+				$(this).css('background-image', 'url(' + foldericon + ')');
+			}
+		}
+	);
+}
+
+function setupFeedList() {
 	var list = $('.collapsable,.feeds_list').hover(
 		function() {
 			$(this).find('#feeds_delete,#feeds_edit').css('display', 'inline');
 			$(this).find('#unreaditemcounter').css('display', 'none');
-
-			var trigger = $(this).find('.collapsable_trigger');
-			var items = trigger.parent().parent().children('ul');
-			collapsable_trigger(trigger, items);
 		},
 		function() {
 			$(this).find('#feeds_delete,#feeds_edit').css('display', 'none');
 			$(this).find('#unreaditemcounter').css('display', 'inline');
-			var foldericon = OC.imagePath('core', 'places/folder.svg');
-			var trigger = $(this).find('.collapsable_trigger');
-			trigger.css('background-image', 'url(' + foldericon + ')');
-			trigger.css('-moz-transform', 'none');
-			trigger.css('transform', 'none');
 		}
 	);
 	list.find('#feeds_delete').hide();
 	list.find('#feeds_edit').hide();
 	list.find('#unreaditemcounter').show();
+
+	transformCollapsableTrigger();
 }
 
 function setupRightContent() {
