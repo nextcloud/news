@@ -1,4 +1,4 @@
-<div id="items_deleted">
+<div class="rightcontentmsg" id="feeddeleted">
 <!-- 	TODO: this message is a stub, maybe mimic google reader etc... -->
-	<?php echo $l->t('You have just deleted this feed') ?>
+	<?php echo $l->t('You have just deleted this feed!') ?>
 </div>

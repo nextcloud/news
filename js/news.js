@@ -125,7 +125,9 @@ News={
 								$('#addfeed_dialog').dialog('destroy').remove();
 								var rightcontent = $('div.rightcontent');
 								rightcontent.empty();
+								rightcontent.attr('data-id', jsondata.data.feedid);
 								rightcontent.html(jsondata.data.part_items);
+								rightcontent.find('ul.accordion').before(jsondata.data.part_newfeed);
 								setupRightContent();
 							}
 						});
@@ -147,8 +149,8 @@ News={
 							$('li.feeds_list[data-id="'+jsondata.data.feedid+'"]').remove();
 							var rightcontent = $('div.rightcontent');
 							if(rightcontent.attr('data-id') == feedid) {
-								rightcontent.empty();
-								rightcontent.html(jsondata.data.part_items);
+								rightcontent.find('div#feedadded').remove();
+								rightcontent.find('ul.accordion').before(jsondata.data.part_items);
 							}
 						}
 						else{

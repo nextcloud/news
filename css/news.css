@@ -72,6 +72,8 @@ div.collapsable:hover { background-color: rgb(221, 221, 221); }
 div.add_parentfolder { position: relative; }
 div.dialog { overflow: visible; }
 
+div.rightcontentmsg { padding-left: 10px; background-color: yellow; }
+
 #file_upload_start { -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; filter:alpha(opacity=0); opacity:0; z-index:1001; width:0; height:0;}
 
 

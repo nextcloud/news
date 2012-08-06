@@ -44,13 +44,22 @@ if($feed == null || !$feedid) {
 	exit();
 }
 
+// FIXME: assign counter
 $tmpl_listfeed = new OCP\Template("news", "part.listfeed");
 $tmpl_listfeed->assign('child', $feed);
 $listfeed = $tmpl_listfeed->fetchPage();
+
+$tmpl_newfeed = new OCP\Template("news", "part.items.new");
+$tmpl_newfeed->assign('title', $feed->getTitle());
+$part_newfeed = $tmpl_newfeed->fetchPage();
 
 $tmpl_items = new OCP\Template("news", "part.items");
 $tmpl_items->assign('feedid', $feedid);
 $part_items = $tmpl_items->fetchPage();
 
-OCP\JSON::success(array('data' => array( 'message' => $l->t('Feed added!'), 'listfeed' => $listfeed, 'part_items' => $part_items )));
+OCP\JSON::success(array('data' => array( 'message' => $l->t('Feed added!'),
+										'feedid' => $feedid,
+										'listfeed' => $listfeed,
+										'part_items' => $part_items,
+										'part_newfeed' => $part_newfeed )));
 
