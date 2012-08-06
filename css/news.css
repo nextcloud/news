@@ -57,7 +57,12 @@ li.menuItem { margin-left:0.7em; margin-right:0.7em; float: none !important; tex
 li.feeds_list { margin-left: 16px !important; text-align: right; border-radius: 5px; padding-left: 5px !important; background-color: rgb(255,255,255) !important; }
 li.feeds_list a { padding: 0 0 0 20px !important; overflow: hidden; text-overflow: ellipsis; text-align: left; width: 65%; }
 li.folder_list { background-color: rgb(255,255,255) !important; }
-div.collapsable { background: url('%webroot%/core/img/places/folder.svg') no-repeat 5px; padding: 0 0 0 25px; border-radius: 5px; }
+div.collapsable { position: relative; border-radius: 5px; }
+.collapsable_trigger { border: none ; margin: 0 0 0 5px; padding: 0; border-radius: 0; box-shadow: none; vertical-align: middle !important; background: url('%webroot%/core/img/places/folder.svg') no-repeat; height:16px; width:16px; }
+.collapsable_trigger_s:hover { background: url('%webroot%/core/img/actions/triangle-s.svg') no-repeat; }
+.collapsable_trigger_n:hover { background: url('%webroot%/core/img/actions/triangle-n.svg') no-repeat; }
+
+.collapsable_title { padding-left: 0.2em; text-transform: uppercase; }
 
 ul.folders { margin-left: 16px !important; }
 

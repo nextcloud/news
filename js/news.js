@@ -228,8 +228,16 @@ News={
 }
 
 function setupFeedList() {
-	$('.collapsable').click(function(){
-		$(this).parent().children('ul').toggle();
+	$('.collapsable_trigger').click(function(){
+		var items = $(this).parent().parent().children('ul').toggle();
+		if (items.css('display') == 'block') {
+			items.show();
+			$(this).removeClass('collapsable_trigger_n').addClass('collapsable_trigger_s');
+		}
+		else {
+			items.hide();
+			$(this).removeClass('collapsable_trigger_s').addClass('collapsable_trigger_n');
+		}
 	});
 
 	var list = $('.collapsable,.feeds_list').hover(
@@ -245,6 +253,7 @@ function setupFeedList() {
 	list.find('#feeds_delete').hide();
 	list.find('#feeds_edit').hide();
 	list.find('#unreaditemcounter').show();
+	list.find('.collapsable_trigger').addClass('collapsable_trigger_s');
 }
 
 function setupRightContent() {
