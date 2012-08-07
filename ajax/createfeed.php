@@ -10,6 +10,21 @@
 *
 */
 
+register_shutdown_function("shutdown");
+
+/* handle the case of fatal error */
+function shutdown() {
+	$l = OC_L10N::get('news');
+	$error = error_get_last();
+	if($error['type'] & (E_ERROR | E_COMPILE_ERROR | E_CORE_ERROR)) { //all fatal errors
+		if (strpos($error['message'], 'get_uri')) { 
+			//handle a fatal error caused by a SimplePie bug (https://github.com/simplepie/simplepie/issues/214)
+			OCP\Util::writeLog('news','ajax/createfeed.php: Fatal error:' . $error['message'] , OCP\Util::ERROR);
+			exit();
+		}
+	}
+}
+
 // Check if we are a user
 OCP\JSON::checkLoggedIn();
 OCP\JSON::checkAppEnabled('news');
