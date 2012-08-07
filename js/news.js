@@ -152,14 +152,6 @@ News={
 					$("#feed_add_url").val('');
 					$(button).attr("disabled", false);
 					$(button).prop('value', t('news', 'Add feed'));
-				},
-				statusCode: {
-					500: function() {
-						OC.dialogs.alert(t('news', 'Error while parsing the feed'), t('news', 'Fatal Error'));
-						$("#feed_add_url").val('');
-						$(button).attr("disabled", false);
-						$(button).prop('value', t('news', 'Add feed'));
-					}
 				}
 			});
 			

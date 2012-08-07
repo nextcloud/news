@@ -46,8 +46,7 @@ if ($feedid == null) {
 	if ($feed != null) {
 	      $feedid = $feedmapper->save($feed, $folderid);
 	}
-}
-else {
+} else {
 	OCP\JSON::error(array('data' => array('message' => $l->t('Feed already exists.'))));
 	OCP\Util::writeLog('news','ajax/createfeed.php: Error adding feed: '.$_POST['feedurl'], OCP\Util::ERROR);
 	exit();
