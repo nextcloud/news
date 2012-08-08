@@ -23,18 +23,33 @@ class OPMLParser {
 		$this->count = 0;
 	}
 
+	/**
+	 * @brief
+	 * @returns the title element from the head section of the OPML file
+	 */
 	public function getTitle() {
 		return $this->title;
 	}
 
+	/**
+	 * @brief
+	 * @returns the number of feeds found in the OPML file
+	 */
 	public function getData() {
 		return $this->data;
 	}
 	
+	/**
+	 * @brief
+	 * @returns the number of feeds found in the file
+	 */
 	public function getCount() {
 		return $this->count;
 	}
 	
+	/**
+	 * @brief This is used as a utility private function by the method OPMLParser::parse
+	 */
 	private static function parseFolder($rawfolder, &$count) {
 		$list = array();
 		foreach ($rawfolder->outline as $rawcollection) {
@@ -64,6 +79,7 @@ class OPMLParser {
 	}
 	
 	/**
+	 * @brief 
 	 * @param $raw the XML string to be parsed
 	 * @return an object of the OPMLParser class itself
 	 *	or null if the parsing failed

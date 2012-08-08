@@ -150,32 +150,6 @@ News={
 					$(button).prop('value', t('news', 'Add feed'));
 				}
 			});
-
-// 			$.post(OC.filePath('news', 'ajax', 'createfeed.php'), { feedurl: feedurl, folderid: folderid },
-// 				function(jsondata){
-// 					if(jsondata.status == 'success'){
-// 						$('div[data-id="' + folderid + '"] > ul').append(jsondata.data.listfeed);
-// 						setupFeedList();
-// 						OC.dialogs.confirm(t('news', 'Do you want to add another feed?'), t('news', 'Feed added!'), function(answer) {
-// 							if(!answer) {
-// 								$('#addfeed_dialog').dialog('destroy').remove();
-// 								var rightcontent = $('div.rightcontent');
-// 								rightcontent.empty();
-// 								rightcontent.attr('data-id', jsondata.data.feedid);
-// 								rightcontent.html(jsondata.data.part_items);
-// 								rightcontent.find('ul.accordion').before(jsondata.data.part_newfeed);
-// 								setupRightContent();
-// 								transformCollapsableTrigger();
-// 							}
-// 						});
-// 					} else {
-// 						OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
-// 					}
-// 				$("#feed_add_url").val('');
-// 				$(button).attr("disabled", false);
-// 				$(button).prop('value', t('news', 'Add feed'));
-// 			});
-
 		},
 		'delete':function(feedid) {
 			$('#feeds_delete').tipsy('hide');
