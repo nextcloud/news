@@ -32,9 +32,9 @@
 			echo $this->inc("part.nofeeds");
 		}
 	?>
-	
+
 	<div id="appsettings" class="popup bottomleft hidden"></div>
-	
+
 </div>
 
 <!-- Dialogs -->

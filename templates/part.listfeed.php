@@ -9,8 +9,8 @@ if ($favicon == null) {
         $favicon = OCP\Util::imagePath('news', 'rss.svg');
 }
 
-echo '<li class="feeds_list" data-id="' . $child->getId() . '">';
-echo '<a href="' . OCP\Util::linkTo('news', 'index.php'). '?feedid=' . $child->getId() . '" style="background: url(' . $favicon . ') left center no-repeat; background-size:16px 16px;">' . $child->getTitle() .'</a>';
+echo '<li class="feed" data-id="' . $child->getId() . '">';
+echo '<a href="#" style="background: url(' . $favicon . ') left center no-repeat; background-size:16px 16px;">' . $child->getTitle() .'</a>';
 if ($unreadItems > 0) {
 	echo '<span id="unreaditemcounter" class="nonzero">' . $unreadItems . '</span>';
 }

@@ -106,7 +106,7 @@ News={
 	Feed: {
 		id:'',
 		submit:function(button){
-			
+
 			var feedurl = $("#feed_add_url").val().trim();
 
 			if(feedurl.length == 0) {
@@ -116,9 +116,9 @@ News={
 
 			$(button).attr("disabled", true);
 			$(button).prop('value', t('news', 'Adding...'));
-			
+
 			var folderid = $('#inputfolderid:input[name="folderid"]').val();
-						
+
 			$.ajax({
 				type: "POST",
 				url: OC.filePath('news', 'ajax', 'createfeed.php'),
@@ -128,16 +128,12 @@ News={
 					if(jsondata.status == 'success'){
 						$('div[data-id="' + folderid + '"] > ul').append(jsondata.data.listfeed);
 						setupFeedList();
+						News.Feed.load(jsondata.data.feedid);
+
 						OC.dialogs.confirm(t('news', 'Do you want to add another feed?'), t('news', 'Feed added!'), function(answer) {
 							if(!answer) {
 								$('#addfeed_dialog').dialog('destroy').remove();
-								var rightcontent = $('div.rightcontent');
-								rightcontent.empty();
-								rightcontent.attr('data-id', jsondata.data.feedid);
-								rightcontent.html(jsondata.data.part_items);
-								rightcontent.find('ul.accordion').before(jsondata.data.part_newfeed);
-								setupRightContent();
-								transformCollapsableTrigger();
+								$('ul.accordion').before(jsondata.data.part_newfeed);
 							}
 						});
 					} else {
@@ -154,7 +150,7 @@ News={
 					$(button).prop('value', t('news', 'Add feed'));
 				}
 			});
-			
+
 // 			$.post(OC.filePath('news', 'ajax', 'createfeed.php'), { feedurl: feedurl, folderid: folderid },
 // 				function(jsondata){
 // 					if(jsondata.status == 'success'){
@@ -187,7 +183,7 @@ News={
 				if(answer == true) {
 					$.post(OC.filePath('news', 'ajax', 'deletefeed.php'),{'feedid':feedid},function(jsondata){
 						if(jsondata.status == 'success'){
-							$('li.feeds_list[data-id="'+jsondata.data.feedid+'"]').remove();
+							$('li.feed[data-id="'+jsondata.data.feedid+'"]').remove();
 							var rightcontent = $('div.rightcontent');
 							if(rightcontent.attr('data-id') == feedid) {
 								rightcontent.find('div#feedadded').remove();
@@ -212,7 +208,7 @@ News={
 						currentitem.addClass('title_read');
 
 						// decrement counter
-						var counterplace = $('.feeds_list[data-id="'+feedid+'"]').find('#unreaditemcounter');
+						var counterplace = $('.feed[data-id="'+feedid+'"]').find('#unreaditemcounter');
 						var oldcount = counterplace.html();
 						counterplace.empty();
 						if (oldcount <= 1) {
@@ -229,6 +225,25 @@ News={
 				})
 			};
 		},
+		load:function(feedid) {
+			$.post(OC.filePath('news', 'ajax', 'loadfeed.php'),{'feedid':feedid},function(jsondata) {
+				if(jsondata.status == 'success'){
+					var rightcontent = $('div.rightcontent');
+					rightcontent.empty();
+					rightcontent.attr('data-id', feedid);
+					rightcontent.html(jsondata.data.part_items);
+
+					$('li#selected_feed').attr('id', '');
+					$('li.feed[data-id="' + feedid + '"]').attr('id', 'selected_feed');
+
+					setupRightContent();
+					transformCollapsableTrigger();
+				}
+				else {
+					OC.dialogs.alert(t('news', 'Error while loading the feed'), t('news', 'Error'));
+				}
+			});
+		},
 		updateAll:function() {
 			$.post(OC.filePath('news', 'ajax', 'feedlist.php'),function(jsondata){
 				if(jsondata.status == 'success'){
@@ -243,7 +258,7 @@ News={
 			});
 		},
 		update:function(feedid, feedurl, folderid) {
-			var counterplace = $('.feeds_list[data-id="'+feedid+'"]').find('#unreaditemcounter');
+			var counterplace = $('.feed[data-id="'+feedid+'"]').find('#unreaditemcounter');
 			var oldcount = counterplace.html();
 			counterplace.removeClass();
 			counterplace.html('<img style="vertical-align: middle;" src="' + OC.imagePath('core','loader.gif') + '" alt="refresh" />');
@@ -305,7 +320,7 @@ function transformCollapsableTrigger() {
 }
 
 function setupFeedList() {
-	var list = $('.collapsable,.feeds_list').hover(
+	var list = $('.collapsable,.feed').hover(
 		function() {
 			$(this).find('#feeds_delete,#feeds_edit').css('display', 'inline');
 			$(this).find('#unreaditemcounter').css('display', 'none');
@@ -318,6 +333,14 @@ function setupFeedList() {
 	list.find('#feeds_delete').hide();
 	list.find('#feeds_edit').hide();
 	list.find('#unreaditemcounter').show();
+
+	$('.feed').click(function() {
+		News.Feed.load($(this).attr('data-id'));
+	});
+
+	// select initial loaded feed
+	var loadedfeed = $('div.rightcontent').attr('data-id');
+	$('li.feed[data-id="' + loadedfeed + '"]').attr('id', 'selected_feed');
 
 	transformCollapsableTrigger();
 }
@@ -362,7 +385,7 @@ $(document).ready(function(){
 	News.Feed.updateAll();
 	var updateInterval = 200000; //how often the feeds should update (in msec)
 	setInterval('News.Feed.updateAll()', updateInterval);
- 
+
 });
 
 $(document).click(function(event) {

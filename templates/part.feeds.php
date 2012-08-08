@@ -31,5 +31,6 @@
 		echo '</ul></div></li></ul>';
 	}
 
-	print_folder($_['allfeeds']);
+	$allfeeds = isset($_['allfeeds']) ? $_['allfeeds'] : '';
+	print_folder($allfeeds);
 ?>

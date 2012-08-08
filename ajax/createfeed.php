@@ -17,7 +17,7 @@ function shutdown() {
 	$l = OC_L10N::get('news');
 	$error = error_get_last();
 	if($error['type'] & (E_ERROR | E_COMPILE_ERROR | E_CORE_ERROR)) { //all fatal errors
-		if (strpos($error['message'], 'get_uri')) { 
+		if (strpos($error['message'], 'get_uri')) {
 			//handle a fatal error caused by a SimplePie bug (https://github.com/simplepie/simplepie/issues/214)
 			OCP\Util::writeLog('news','ajax/createfeed.php: Fatal error:' . $error['message'] , OCP\Util::ERROR);
 			exit();
@@ -67,13 +67,8 @@ $tmpl_newfeed = new OCP\Template("news", "part.items.new");
 $tmpl_newfeed->assign('title', $feed->getTitle());
 $part_newfeed = $tmpl_newfeed->fetchPage();
 
-$tmpl_items = new OCP\Template("news", "part.items");
-$tmpl_items->assign('feedid', $feedid);
-$part_items = $tmpl_items->fetchPage();
-
 OCP\JSON::success(array('data' => array( 'message' => $l->t('Feed added!'),
 										'feedid' => $feedid,
 										'listfeed' => $listfeed,
-										'part_items' => $part_items,
 										'part_newfeed' => $part_newfeed )));
 
