@@ -181,11 +181,13 @@ News={
 						currentitem.addClass('title_read');
 
 						// decrement counter
-						var counterplace = $('.feed[data-id="'+feedid+'"]').find('.unreaditemcounter');
+						var counterplace = $('li.feed[data-id="'+feedid+'"]').find('.unreaditemcounter');
+						var title = $('li.feed[data-id="'+feedid+'"] > a');
 						var oldcount = counterplace.html();
 						counterplace.empty();
 						if (oldcount <= 1) {
 							counterplace.removeClass('nonzero').addClass('zero');
+							title.removeClass('nonzero').addClass('zero');
 						}
 						else {
 							counterplace.append(--oldcount);

@@ -10,7 +10,8 @@ if ($favicon == null) {
 }
 
 echo '<li class="feed" data-id="' . $child->getId() . '">';
-echo '<a href="#" style="background: url(' . $favicon . ') left center no-repeat; background-size:16px 16px;">' . $child->getTitle() .'</a>';
+echo '<a href="#" style="background: url(' . $favicon . ') left center no-repeat; background-size:16px 16px;" class="' . 
+      (($unreadItems > 0) ? 'nonzero' : 'zero') . '">' . $child->getTitle() .'</a>';
 if ($unreadItems > 0) {
 	echo '<span class="unreaditemcounter nonzero">' . $unreadItems . '</span>';
 }
