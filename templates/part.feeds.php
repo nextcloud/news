@@ -28,7 +28,7 @@
 			//TODO:handle error in this case
 			}
 		}
-		echo '</ul></div></li></ul>';
+		echo '</ul></li>';
 	}
 
 	$allfeeds = isset($_['allfeeds']) ? $_['allfeeds'] : '';

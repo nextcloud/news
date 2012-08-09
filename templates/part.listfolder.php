@@ -5,8 +5,7 @@ $is_root = ($folder->getId() == 0);
 
 $l = new OC_l10n('news');
 
-echo '<ul class="folders"' . (($is_root) ? 'style="margin-left: 0px !important;"' : '') .'> <li class="folder_list" >' .
-	'<div class="collapsable_container" data-id="' . $folder->getId() . '">' .
+echo '<li class="collapsable_container" data-id="' . $folder->getId() . '"' . (($is_root) ? 'style="margin-left: 0px !important;"' : '') . '>' .
 		'<div class="collapsable" >' .
 			'<button class="collapsable_trigger" title="' . $folder->getName() . '"></button>' .
 			'<span class="collapsable_title">' .

@@ -62,7 +62,7 @@ News={
 			$.post(url, { name: displayname, parentid: folderid },
 				function(jsondata){
 					if(jsondata.status == 'success'){
-						$('div[data-id="' + folderid + '"] > ul').append(jsondata.data.listfolder);
+						$('.collapsable_container[data-id="' + folderid + '"] > ul').append(jsondata.data.listfolder);
 						setupFeedList();
 						transformCollapsableTrigger();
 						//OC.dialogs.confirm(t('news', 'Do you want to add another folder?'), t('news', 'Folder added!'), function(answer) {
@@ -86,8 +86,7 @@ News={
 					var shownfeedid = rightcontent.attr('data-id');
 					$.post(OC.filePath('news', 'ajax', 'deletefolder.php'),{'folderid':folderid, 'shownfeedid':shownfeedid},function(jsondata){
 						if(jsondata.status == 'success'){
-							var deletedfolder = $('div.collapsable_container[data-id="' + jsondata.data.folderid + '"]');
-							deletedfolder.parent().parent('.folders').remove();
+							$('.collapsable_container[data-id="' + jsondata.data.folderid + '"]').remove();
 							if(jsondata.data.part_items) {
 								rightcontent.empty();
 								rightcontent.html(jsondata.data.part_items);
@@ -126,7 +125,7 @@ News={
 				dataType: "json",
 				success: function(jsondata){
 					if(jsondata.status == 'success'){
-						$('div[data-id="' + folderid + '"] > ul').append(jsondata.data.listfeed);
+						$('.collapsable_container[data-id="' + folderid + '"] > ul').append(jsondata.data.listfeed);
 						setupFeedList();
 						News.Feed.load(jsondata.data.feedid);
 
@@ -312,7 +311,7 @@ function setupFeedList() {
 		News.Feed.load($(this).attr('data-id'));
 	});
 
-	// select initial loaded feed
+	// select initially loaded feed
 	var loadedfeed = $('div.rightcontent').attr('data-id');
 	$('li.feed[data-id="' + loadedfeed + '"]').attr('id', 'selected_feed');
 
