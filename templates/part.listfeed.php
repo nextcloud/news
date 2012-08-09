@@ -12,11 +12,11 @@ if ($favicon == null) {
 echo '<li class="feed" data-id="' . $child->getId() . '">';
 echo '<a href="#" style="background: url(' . $favicon . ') left center no-repeat; background-size:16px 16px;">' . $child->getTitle() .'</a>';
 if ($unreadItems > 0) {
-	echo '<span id="unreaditemcounter" class="nonzero">' . $unreadItems . '</span>';
+	echo '<span class="unreaditemcounter nonzero">' . $unreadItems . '</span>';
 }
 else {
-	echo '<span id="unreaditemcounter" class="zero"></span>';
+	echo '<span class="unreaditemcounter zero"></span>';
 }
-echo '<button class="svg action" id="feeds_edit" title="' . $l->t('Edit feed') . '"></button>';
-echo '<button class="svg action" id="feeds_delete" onClick="(News.Feed.delete(' . $child->getId(). '))" title="' . $l->t('Delete feed') . '"></button>';
+echo '<button class="svg action feeds_edit" title="' . $l->t('Edit feed') . '"></button>';
+echo '<button class="svg action feeds_delete" onClick="(News.Feed.delete(' . $child->getId(). '))" title="' . $l->t('Delete feed') . '"></button>';
 echo '</li>';

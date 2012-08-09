@@ -20,7 +20,7 @@
 		<li style="float: right">
 			<button class="svg" id="settingsbtn" title="<?php echo $l->t('Settings'); ?>"><img class="svg" src="<?php echo OCP\Util::imagePath('core','actions/settings.png'); ?>" alt="<?php echo $l->t('Settings'); ?>"   /></button>
 		</li>
-	<ul>
+	</ul>
 </div>
 
 <div id="rightcontent" class="rightcontent" data-id="<?php echo $_['feedid']; ?>">

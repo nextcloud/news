@@ -79,7 +79,7 @@ News={
 			});
 		},
 		'delete':function(folderid) {
-			$('#feeds_delete').tipsy('hide');
+			$('.feeds_delete').tipsy('hide');
 			OC.dialogs.confirm(t('news', 'Are you sure you want to delete this folder and all its feeds?'), t('news', 'Warning'), function(answer) {
 				if(answer == true) {
 					var rightcontent = $('div.rightcontent');
@@ -151,7 +151,7 @@ News={
 			});
 		},
 		'delete':function(feedid) {
-			$('#feeds_delete').tipsy('hide');
+			$('.feeds_delete').tipsy('hide');
 			OC.dialogs.confirm(t('news', 'Are you sure you want to delete this feed?'), t('news', 'Warning'), function(answer) {
 				if(answer == true) {
 					$.post(OC.filePath('news', 'ajax', 'deletefeed.php'),{'feedid':feedid},function(jsondata){
@@ -181,7 +181,7 @@ News={
 						currentitem.addClass('title_read');
 
 						// decrement counter
-						var counterplace = $('.feed[data-id="'+feedid+'"]').find('#unreaditemcounter');
+						var counterplace = $('.feed[data-id="'+feedid+'"]').find('.unreaditemcounter');
 						var oldcount = counterplace.html();
 						counterplace.empty();
 						if (oldcount <= 1) {
@@ -231,9 +231,9 @@ News={
 			});
 		},
 		update:function(feedid, feedurl, folderid) {
-			var counterplace = $('.feed[data-id="'+feedid+'"]').find('#unreaditemcounter');
+			var counterplace = $('.feed[data-id="'+feedid+'"]').find('.unreaditemcounter');
 			var oldcount = counterplace.html();
-			counterplace.removeClass();
+			counterplace.removeClass('zero nonzero');
 			counterplace.html('<img style="vertical-align: middle;" src="' + OC.imagePath('core','loader.gif') + '" alt="refresh" />');
 			$.post(OC.filePath('news', 'ajax', 'updatefeed.php'),{'feedid':feedid, 'feedurl':feedurl, 'folderid':folderid},function(jsondata){
 				if(jsondata.status == 'success'){
@@ -295,17 +295,17 @@ function transformCollapsableTrigger() {
 function setupFeedList() {
 	var list = $('.collapsable,.feed').hover(
 		function() {
-			$(this).find('#feeds_delete,#feeds_edit').css('display', 'inline');
-			$(this).find('#unreaditemcounter').css('display', 'none');
+			$(this).find('.feeds_delete,.feeds_edit').css('display', 'inline');
+			$(this).find('.unreaditemcounter').css('display', 'none');
 		},
 		function() {
-			$(this).find('#feeds_delete,#feeds_edit').css('display', 'none');
-			$(this).find('#unreaditemcounter').css('display', 'inline');
+			$(this).find('.feeds_delete,.feeds_edit').css('display', 'none');
+			$(this).find('.unreaditemcounter').css('display', 'inline');
 		}
 	);
-	list.find('#feeds_delete').hide();
-	list.find('#feeds_edit').hide();
-	list.find('#unreaditemcounter').show();
+	list.find('.feeds_delete').hide();
+	list.find('.feeds_edit').hide();
+	list.find('.unreaditemcounter').show();
 
 	$('.feed').click(function() {
 		News.Feed.load($(this).attr('data-id'));
