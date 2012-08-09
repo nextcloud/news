@@ -42,7 +42,7 @@ class OC_News_FeedMapper {
 		$query = 'SELECT * FROM ' . self::tableName;
 		$params = array();
 		if( $this->userid ){
-			$query = $query + ' WHERE user_id = ?'
+			$query = $query.' WHERE user_id = ?';
 			$params[] = $this->userid;
 		}
 

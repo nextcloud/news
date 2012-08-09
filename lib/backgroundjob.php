@@ -59,7 +59,7 @@ class Backgroundjob {
 	
 	static private function webStep(){
 		// Iterate over all users
-		$lastid = OCP\Config::getAppValue('news', 'backgroundjob_lastid',0);
+		$lastid = \OCP\Config::getAppValue('news', 'backgroundjob_lastid',0);
 		
 		$feedmapper = new \OC_News_FeedMapper();
 		$feeds = $feedmapper->findAll();
@@ -67,16 +67,16 @@ class Backgroundjob {
 		
 		$done = false;
 		foreach( $feeds as $feed ){
-			if( $feeds['id'] > $lastid ){
+			if( $feed['id'] > $lastid ){
 				// set lastid BEFORE updating feed!
-				OCP\Config::setAppValue('news', 'backgroundjob_lastid',$lastid);
+				\OCP\Config::setAppValue('news', 'backgroundjob_lastid',$feed['id']);
 				$done = true;
 				self::updateFeed( $feedmapper, $feed );
 			}
 		}
 		
 		if( !$done ){
-			OCP\Config::setAppValue('news', 'backgroundjob_lastid',0);
+			\OCP\Config::setAppValue('news', 'backgroundjob_lastid',0);
 		}
 	}
 		
