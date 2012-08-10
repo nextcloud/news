@@ -26,6 +26,7 @@
 <div id="rightcontent" class="rightcontent" data-id="<?php echo $_['feedid']; ?>">
 	<?php
 		if ($_['feedid']){
+			echo $this->inc("part.items.header");
 			echo $this->inc("part.items");
 		}
 		else {

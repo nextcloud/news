@@ -3,7 +3,6 @@
 $feedid = isset($_['feedid']) ? $_['feedid'] : '';
 
 $itemmapper = new OC_News_ItemMapper();
-
 $items = $itemmapper->findAll($feedid);
 
 echo '<ul>';
@@ -15,7 +14,7 @@ foreach($items as $item) {
 	}
 
 	echo '<li class="news_item ' . $readClass .'" data-id="' . $item->getId() . '" data-feedid="' . $feedid . '">';
-	echo '<h1><a href="' . $item->getUrl() . '">' . $item->getTitle() . '</a></h1>';
+	echo '<h1 class="item_title"><a href="' . $item->getUrl() . '">' . $item->getTitle() . '</a></h1>';
 	echo '<div class="body">' . $item->getBody() . '</div>';
 	echo '</li>';
 

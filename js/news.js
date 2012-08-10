@@ -211,7 +211,6 @@ News={
 					$('li#selected_feed').attr('id', '');
 					$('li.feed[data-id="' + feedid + '"]').attr('id', 'selected_feed');
 
-					setupRightContent();
 					transformCollapsableTrigger();
 				}
 				else {
@@ -320,18 +319,6 @@ function setupFeedList() {
 	transformCollapsableTrigger();
 }
 
-function setupRightContent() {
-	$('.accordion .title_unread').click(function() {
-		$(this).next().toggle();
-		return false;
-	}).next().hide();
-
-	$('.accordion .title_read').click(function() {
-		$(this).next().toggle();
-		return false;
-	}).next().hide();
-}
-
 $(document).ready(function(){
 
 	$('#addfeed').click(function() {
@@ -355,7 +342,6 @@ $(document).ready(function(){
 	});
 
 	setupFeedList();
-	setupRightContent();
 
 	News.Feed.updateAll();
 	var updateInterval = 200000; //how often the feeds should update (in msec)
