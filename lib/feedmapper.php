@@ -63,7 +63,7 @@ class OC_News_FeedMapper {
 			return null;
 
 		$url = $row['url'];
-		$title = $row['title'];
+		$title = htmlspecialchars_decode($row['title']);
 		$feed = new OC_News_Feed($url, $title, null, $id);
 		return $feed;
 	}
@@ -79,7 +79,7 @@ class OC_News_FeedMapper {
 		$feeds = array();
 		while ($row = $result->fetchRow()) {
 			$url = $row['url'];
-			$title = $row['title'];
+			$title = htmlspecialchars_decode($row['title']);
 			$id = $row['id'];
 			$feed = new OC_News_Feed($url, $title, null, $id);
 			$favicon = $row['favicon_link'];
@@ -100,7 +100,7 @@ class OC_News_FeedMapper {
 		$result = $stmt->execute(array($id));
 		$row = $result->fetchRow();
 		$url = $row['url'];
-		$title = $row['title'];
+		$title = htmlspecialchars_decode($row['title']);
 		$feed = new OC_News_Feed($url, $title, null,$id);
 		$favicon = $row['favicon_link'];
 		$feed->setFavicon($favicon);
@@ -175,7 +175,7 @@ class OC_News_FeedMapper {
 
 			$params=array(
 				$url,
-				htmlspecialchars_decode($title),
+				$title,
 				$feed->getFavicon(),
 				$folderid,
 				$this->userid

@@ -126,7 +126,7 @@ class OC_News_ItemMapper {
 				htmlspecialchars_decode($item->getUrl()),
 				htmlspecialchars_decode($title),
 				$body,
-				$guid,
+				htmlspecialchars_decode($guid),
 				$feedid,
 				$status
 			);

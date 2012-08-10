@@ -1,57 +1,57 @@
 News = News || {}
 News.Settings={
-		importkind: '',
-		importpath: '',
-		IMPORTCLOUD:'cloud',
-		IMPORTLOCAL:'local',
-		cloudFileSelected:function(path){
-			$.getJSON(OC.filePath('news', 'ajax', 'selectfromcloud.php'),{'path':path},function(jsondata){
-				if(jsondata.status == 'success'){
-					$('#browsebtn, #cloudbtn, #importbtn').show();
-					$('#opml_file').text(t('news', 'File ') + path + t('news', ' loaded from cloud.'));
-					News.Settings.importkind = News.Settings.IMPORTCLOUD;
-					News.Settings.importpath = jsondata.data.tmp;
-				}
-				else{
-					OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
-				}
-			});
-		},
-		browseFile:function(filelist){
-			if(!filelist) {
-				OC.dialogs.alert(t('news','No files selected.'), t('news', 'Error'));
-				return;
+	importkind: '',
+	importpath: '',
+	IMPORTCLOUD:'cloud',
+	IMPORTLOCAL:'local',
+	cloudFileSelected:function(path){
+		$.getJSON(OC.filePath('news', 'ajax', 'selectfromcloud.php'),{'path':path},function(jsondata){
+			if(jsondata.status == 'success'){
+				$('#browsebtn, #cloudbtn, #importbtn').show();
+				$('#opml_file').text(t('news', 'File ') + path + t('news', ' loaded from cloud.'));
+				News.Settings.importkind = News.Settings.IMPORTCLOUD;
+				News.Settings.importpath = jsondata.data.tmp;
 			}
-			var file = filelist[0];
-			$('#browsebtn, #cloudbtn, #importbtn').show();
-			$('#opml_file').text(t('news', 'File ') + file.name + t('news', ' loaded from local filesystem.'));
-			$('#opml_file').prop('value', file.name);
-		},
-		import:function(button){
-			$(button).attr("disabled", true);
-			$(button).prop('value', t('news', 'Importing...'));
+			else{
+				OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
+			}
+		});
+	},
+	browseFile:function(filelist){
+		if(!filelist) {
+			OC.dialogs.alert(t('news','No files selected.'), t('news', 'Error'));
+			return;
+		}
+		var file = filelist[0];
+		$('#browsebtn, #cloudbtn, #importbtn').show();
+		$('#opml_file').text(t('news', 'File ') + file.name + t('news', ' loaded from local filesystem.'));
+		$('#opml_file').prop('value', file.name);
+	},
+	import:function(button){
+		$(button).attr("disabled", true);
+		$(button).prop('value', t('news', 'Importing...'));
 
-			var path = '';
-			if (News.Settings.importkind == News.Settings.IMPORTCLOUD) {
-				path = News.Settings.importpath;
-			} else if (this.importkind == this.IMPORTLOCAL) {
-			}
-			else {
-				OC.dialogs.alert(t('news','Import kind not specified'), t('news', 'Error'));
-			}
+		var path = '';
+		if (News.Settings.importkind == News.Settings.IMPORTCLOUD) {
+			path = News.Settings.importpath;
+		} else if (this.importkind == this.IMPORTLOCAL) {
+		}
+		else {
+			OC.dialogs.alert(t('news','Import kind not specified'), t('news', 'Error'));
+		}
 
-			$.post(OC.filePath('news', 'ajax', 'importopml.php'), { path: path }, function(jsondata){
-				if (jsondata.status == 'success') {
-					alert(jsondata.data.title);
-				} else {
-					OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
-				} 
-			});
-			
+		$.post(OC.filePath('news', 'ajax', 'importopml.php'), { path: path }, function(jsondata){
+			if (jsondata.status == 'success') {
+				var message = jsondata.data.countsuccess + t('news', ' out of ') + jsondata.data.count + 
+					t('news', ' feeds imported successfully from ') + jsondata.data.title;   
+				OC.dialogs.alert(message, t('news', 'Success'));
+			} else {
+				OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
+			}
 			$(button).prop('value', t('news', 'Import'));
 			$(button).attr("disabled", false);
-
-		}
+		});
+	}
 }
 
 $('#browsebtn, #cloudbtn, #importbtn').hide();

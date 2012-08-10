@@ -10,7 +10,7 @@
 *
 */
 
-register_shutdown_function("shutdown");
+//register_shutdown_function("shutdown");
 
 /* handle the case of fatal error */
 function shutdown() {
@@ -40,10 +40,10 @@ $feedid = $feedmapper->findIdFromUrl($feedurl);
 
 $l = OC_L10N::get('news');
 
-if ($feedid == null) {
+if ($feedid === null) {
 	$feed = OC_News_Utils::fetch($feedurl);
 
-	if ($feed != null) {
+	if ($feed !== null) {
 	      $feedid = $feedmapper->save($feed, $folderid);
 	}
 } else {
@@ -52,7 +52,7 @@ if ($feedid == null) {
 	exit();
 }
 
-if($feed == null || !$feedid) {
+if($feed === null || !$feedid) {
 	OCP\JSON::error(array('data' => array('message' => $l->t('Error adding feed.'))));
 	OCP\Util::writeLog('news','ajax/createfeed.php: Error adding feed: '.$_POST['feedurl'], OCP\Util::ERROR);
 	exit();

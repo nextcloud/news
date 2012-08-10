@@ -41,38 +41,87 @@ if ($parsed == null) {
 	bailOut($l->t('An error occurred while parsing the file.'));	
 }
 
-// $ch is the handler for the curl connection
-function addFeed($feedurl, $folderid, $ch) {
-
-	$data = array('feedurl' => $feedurl, 'folderid' => $folderid);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-	$result = curl_exec($ch);
-
-	if($result === false) {
-		bailOut(curl_error($ch));
-	} else {
-		bailOut($result);      
-	}
-}
 
 $data = $parsed->getData();
-$url = OCP\Util::linkToAbsolute('news', 'ajax/createfeed.php');
-$ch = curl_init($url);
-curl_setopt($ch, CURLOPT_POST, TRUE);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 
+function createFeed($feedurl, $folderid) {
+	$feedmapper = new OC_News_FeedMapper();
+	$feedid = $feedmapper->findIdFromUrl($feedurl);
+
+	$l = OC_L10N::get('news');
+
+	if ($feedid === null) {
+		$feed = OC_News_Utils::fetch($feedurl);
+
+		if ($feed !== null) {
+		      $feedid = $feedmapper->save($feed, $folderid);
+		}
+	} else {
+		OCP\Util::writeLog('news','ajax/createfeed.php: Error adding feed: '. $feedurl, OCP\Util::ERROR);
+		return false;
+	}
+
+	if($feed === null || !$feedid) {
+		OCP\Util::writeLog('news','ajax/createfeed.php: Error adding feed: '. $feedurl, OCP\Util::ERROR);
+		return false;
+	}
+	
+	return true;
+}
+
+$countadded = 0;
 foreach($data as $collection) {
 	if ($collection instanceOf OC_News_Feed) {
 		$feedurl = $collection->getUrl(); 
 		$folderid = 0;
-		addFeed($feedurl, $folderid, $ch);
+		if (createFeed($feedurl, $folderid)) {
+			$countadded++;
+		}
 	}
 }
 
-addFeed(null, null, $ch);
-$result = curl_exec($ch);
 
-curl_close($ch);
-	
-OCP\JSON::success(array('data' => array('title'=>$parsed->getTitle(), 'count'=>$parsed->getCount())));
+// // $ch is the handler for the curl connection
+// function addFeed($feedurl, $folderid, $ch) {
+// 
+// 	$data = array('feedurl' => $feedurl, 'folderid' => $folderid);
+// 	curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+// 	$result = curl_exec($ch);
+// 	$status = curl_getinfo($ch);
+// 
+// 	if($result === false) {
+// 		bailOut(curl_error($ch));
+// 	} else {
+// 		bailOut($status['http_code'] . $status['url']);
+// 	}
+// }
+
+// $url = OCP\Util::linkToAbsolute('news', 'ajax/createfeed.php');
+// $ch = curl_init($url);
+// if ($ch != false) {
+// 	curl_setopt($ch, CURLOPT_POST, TRUE);
+// 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+// 	curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+// 	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+// 	curl_setopt($ch, CURLOPT_USERPWD, 'acosenti:nopass');
+// 
+// 
+// 	foreach($data as $collection) {
+// 		if ($collection instanceOf OC_News_Feed) {
+// 			$feedurl = $collection->getUrl(); 
+// 			$folderid = 0;
+// 			addFeed($feedurl, $folderid, $ch);
+// 		}
+// 	}
+// 
+// 	addFeed(null, null, $ch);
+// 	$result = curl_exec($ch);
+// 
+// 	curl_close($ch);
+// } else {
+// 	bailOut($l->t('An error occurred while adding the feeds.'));
+// }
+
+OCP\JSON::success(array('data' => array('title'=>$parsed->getTitle(), 'count'=>$parsed->getCount(), 
+	'countsuccess'=>$countadded)));
 

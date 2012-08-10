@@ -147,17 +147,17 @@
 				<name>guid</name>
 				<type>text</type>
 				<notnull>true</notnull>
-				<length>100</length>
+				<length>300</length>
 			</field>
 			<field>
 				<name>url</name>
 				<type>text</type>
-				<length>100</length>
+				<length>300</length>
 			</field>
 			<field>
 				<name>title</name>
 				<type>text</type>
-				<length>100</length>
+				<length>300</length>
 			</field>
 			<field>
 				<name>feed_id</name>

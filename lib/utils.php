@@ -37,7 +37,7 @@ class OC_News_Utils {
 
 		$items = array();
 		if ($spitems = $spfeed->get_items()) {
-			foreach($spitems as $spitem) { //FIXME: maybe we can avoid this loop
+			foreach($spitems as $spitem) {
 				$itemUrl = $spitem->get_permalink();
 				$itemTitle = $spitem->get_title();
 				$itemGUID = $spitem->get_id();

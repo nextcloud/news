@@ -348,7 +348,7 @@ $(document).ready(function(){
 
 	$('#settingsbtn').on('click keydown', function() {
 		try {
-			OC.appSettings({appid:'news', loadJS:true});
+			OC.appSettings({appid:'news', loadJS:true, cache:false});
 		} catch(e) {
 			alert(e);
 		}
