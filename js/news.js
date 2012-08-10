@@ -157,11 +157,14 @@ News={
 					$.post(OC.filePath('news', 'ajax', 'deletefeed.php'),{'feedid':feedid},function(jsondata){
 						if(jsondata.status == 'success'){
 							$('li.feed[data-id="'+jsondata.data.feedid+'"]').remove();
+
 							var rightcontent = $('div.rightcontent');
 							if(rightcontent.attr('data-id') == feedid) {
 								rightcontent.find('div#feedadded').remove();
 								rightcontent.find('ul.accordion').before(jsondata.data.part_items);
 								transformCollapsableTrigger();
+								// if the deleted feed is the current feed, reload the page
+								window.location.reload();
 							}
 						}
 						else{

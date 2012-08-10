@@ -49,11 +49,11 @@ ul.controls li { float: left; }
 
 #rightcontent div.feed_controls { box-sizing: border-box; -moz-box-sizing: border-box; background: none repeat scroll 0 0 #FFFFFF; border-bottom: 1px solid #ccc; box-shadow: 0 3px 3px -3px #000000; text-align: right; overflow: hidden; position: fixed; left: 32.5em; right: 0; top: 3.5em; }
 #rightcontent div.feed_controls div.feed_title { float: left; padding-left: 10px; }
-#rightcontent div.feed_controls div.feed_title h1 { font-size: 16pt; color: #444; padding-top: .5em; }
+#rightcontent div.feed_controls div.feed_title h1 { font-size: 16pt; color: #444; padding-top: .4em; }
 
 #rightcontent ul { box-sizing: border-box; -moz-box-sizing: border-box; overflow: auto; height: 100%; }
 
-#rightcontent div.body { padding: 10px 25px; }
+#rightcontent div.body { padding: 15px 25px 10px 25px; }
 #rightcontent div.body p { line-height: 1.5; margin: 10px 0; }
 #rightcontent div.body a { color: #0000ff; text-decoration: underline; }
 #rightcontent div.body ul { padding-left: 15px; list-style-type: disc; }
