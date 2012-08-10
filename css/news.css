@@ -53,7 +53,7 @@ ul.controls li { float: left; }
 
 #rightcontent ul { box-sizing: border-box; -moz-box-sizing: border-box; overflow: auto; height: 100%; }
 
-#rightcontent div.body { padding: 25px; }
+#rightcontent div.body { padding: 10px 25px; }
 #rightcontent div.body p { line-height: 1.5; margin: 10px 0; }
 #rightcontent div.body a { color: #0000ff; text-decoration: underline; }
 #rightcontent div.body ul { padding-left: 15px; list-style-type: disc; }
