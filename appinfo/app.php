@@ -21,6 +21,9 @@ OC::$CLASSPATH['OC_News_FolderMapper'] = 'apps/news/lib/foldermapper.php';
 
 OC::$CLASSPATH['OC_News_Utils'] = 'apps/news/lib/utils.php';
 
+OC::$CLASSPATH['OCA\News\Backgroundjob'] = 'apps/news/lib/backgroundjob.php';
+OCP\Backgroundjob::addRegularTask( 'OCA\News\Backgroundjob', 'run' );
+
 $l = new OC_l10n('news');
 
 OCP\App::addNavigationEntry( array( 

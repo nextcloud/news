@@ -39,15 +39,24 @@ class OC_News_FeedMapper {
 	 * @returns
 	 */
 	public function findAll(){
-		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE user_id = ?');
-		$result = $stmt->execute(array($this->userid));
+		$query = 'SELECT * FROM ' . self::tableName;
+		$params = array();
+		if( $this->userid ){
+			$query = $query.' WHERE user_id = ?';
+			$params[] = $this->userid;
+		}
+
+		$stmt = OCP\DB::prepare( $query );
+		$result = $stmt->execute( $params );
 		$feeds = array();
 		while ($row = $result->fetchRow()) {
 			$url = $row['url'];
 			$id = $row['id'];
 			$folderid = $row['folder_id'];
-			$feeds[] = array("url" => $url, "id" => $id, "folderid" => $folderid);
+			$userid = $row['user_id'];
+			$feeds[] = array("url" => $url, "id" => $id, "folderid" => $folderid, 'userid' => $userid );
 		}
+
 		return $feeds;
 	}
 
