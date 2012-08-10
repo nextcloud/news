@@ -206,7 +206,7 @@ News={
 					var rightcontent = $('div.rightcontent');
 					rightcontent.empty();
 					rightcontent.attr('data-id', feedid);
-					rightcontent.html(jsondata.data.part_items);
+					rightcontent.html(jsondata.data.items_header + jsondata.data.part_items);
 
 					$('li#selected_feed').attr('id', '');
 					$('li.feed[data-id="' + feedid + '"]').attr('id', 'selected_feed');
