@@ -75,3 +75,4 @@ $('#file_upload_start').change(function() {
 $('#importbtn').click(function() {
 	News.Settings.import(this);
 });
+

@@ -47,21 +47,67 @@ ul.controls li { float: left; }
 /* item view */
 #rightcontent { top: 3.5em !important; padding: 0 0 0 5px; }
 
-.title_read + div.body { border-bottom:2px solid #5E5E5E !important; }
-
-.accordion .title_unread, .accordion .title_read {
-    padding-left: 10px;
-    font-size: 12px;
-    border-bottom:1px solid #5E5E5E;
-    border-top:1px solid #5E5E5E;
-    border-left:1px solid #5E5E5E;
-    background: linear-gradient(to bottom, #DCDCDC 0%,#EEEEEE 80%);
-    background: -moz-linear-gradient(top, #DCDCDC 0%, #EEEEEE 80%);
-    box-shadow: -0px 0px 5px rgb(0, 0, 0);
+#rightcontent div.body { 
+    padding: 10px 15px 25px 15px;
 }
-.accordion .title_unread { font-weight:bold;}
 
-div.rightcontentmsg { padding-left: 10px; background-color: yellow; }
+#rightcontent div.body p {
+    line-height: 1.5;
+    margin: 10px 0;
+}
+
+#rightcontent div.body a {
+    color: #0000ff;
+    text-decoration: underline;
+}
+
+#rightcontent div.body ul {
+    padding-left: 15px;
+    list-style-type: disc;
+ }
+
+#rightcontent div.body ul li {
+    cursor: default;
+}
+
+#rightcontent li:active {
+    background: none;
+}
+
+
+#rightcontent div.body pre {
+    padding: 5px;
+}
+
+#rightcontent div.body pre code {
+    font-family: monospace;
+    font-size: 14px;
+}
+
+#rightcontent .title_unread h1, #rightcontent .title_read h1 {
+    padding: 5px 10px;
+    font-size: 14px;    
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    background: linear-gradient(to bottom, #eee 0%,#f1f1f1 80%);
+    background: -moz-linear-gradient(top, #eee 0%, #f1f1f1 80%);
+}
+
+#rightcontent .title_unread h1 { 
+    font-weight: bold;
+}
+
+#rightcontent .title_unread h1 a {
+    
+}
+
+#rightcontent .title_read h1 {
+    font-weight: normal;
+}
+
+#rightcontent .title_read a:hover, #rightcontent .title_unread a:hover { text-decoration: underline; }
+
+#rightcontent div.rightcontentmsg { padding-left: 10px; background-color: yellow; }
 
 
 /* dialog/menues */

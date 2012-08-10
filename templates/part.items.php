@@ -6,18 +6,18 @@ $itemmapper = new OC_News_ItemMapper();
 
 $items = $itemmapper->findAll($feedid);
 
-echo '<ul class="accordion">';
+echo '<ul>';
 foreach($items as $item) {
-	$title = $item->getTitle();
-	echo '<li>';
-	echo '<div data-id="' . $item->getId() . '"';
-	if ($item->isRead()) {
-		echo ' class="title_read">';
+	if($item->isRead()){
+		$readClass = "title_read";
+	} else {
+		$readClass = "title_unread";
 	}
-	else {
-		echo ' class="title_unread" onClick="News.Feed.markItem(' . $item->getId() . ',' . $feedid . ')">';
-	}
-	echo $title . '</div><div class="body">' . $item->getBody() . '</div>';
+
+	echo '<li class="news_item ' . $readClass .'" data-id="' . $item->getId() . '" data-feedid="' . $feedid . '">';
+	echo '<h1><a href="' . $item->getUrl() . '">' . $item->getTitle() . '</a></h1>';
+	echo '<div class="body">' . $item->getBody() . '</div>';
 	echo '</li>';
-}
+
+	}
 echo '</ul>';

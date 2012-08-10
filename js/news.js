@@ -361,6 +361,12 @@ $(document).ready(function(){
 	var updateInterval = 200000; //how often the feeds should update (in msec)
 	setInterval('News.Feed.updateAll()', updateInterval);
 
+	$('.title_unread').live('mouseenter', function(){
+		var itemId = $(this).data('id');
+        var feedId = $(this).data('feedid');
+		News.Feed.markItem(itemId, feedId);
+	});
+
 });
 
 $(document).click(function(event) {
