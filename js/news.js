@@ -176,7 +176,7 @@ News={
 			return false;
 		},
 		markItem:function(itemid, feedid) {
-			var currentitem = $('#rightcontent [data-id="' + itemid + '"]');
+			var currentitem = $('#feed_items [data-id="' + itemid + '"][data-feedid="' + feedid + '"]');
 			if (currentitem.hasClass('title_unread')) {
 				$.post(OC.filePath('news', 'ajax', 'markitem.php'),{'itemid':itemid},function(jsondata){
 					if(jsondata.status == 'success'){
@@ -203,6 +203,13 @@ News={
 				})
 			};
 		},
+		markAllItems:function() {
+			$("#feed_items li.title_unread").each(function(){
+				var itemId = $(this).data('id');
+		        var feedId = $(this).data('feedid');
+				News.Feed.markItem(itemId, feedId);
+			});
+		},
 		load:function(feedid) {
 			$.post(OC.filePath('news', 'ajax', 'loadfeed.php'),{'feedid':feedid},function(jsondata) {
 				if(jsondata.status == 'success'){
@@ -215,6 +222,7 @@ News={
 					$('li.feed[data-id="' + feedid + '"]').attr('id', 'selected_feed');
 
 					transformCollapsableTrigger();
+					bindItemEventListeners();
 				}
 				else {
 					OC.dialogs.alert(t('news', 'Error while loading the feed'), t('news', 'Error'));
@@ -259,6 +267,20 @@ News={
 				}
 
 			});
+		}, 
+		filter:function(value){
+			// TODO: safe this on the server
+			switch(value){
+				case 'all':
+					$("#feed_items li").show();
+					break;
+				case 'newest':
+					$("#feed_items li.title_read").hide();
+					break;
+				default:
+					break;
+			}
+			
 		}
 	}
 }
@@ -322,6 +344,50 @@ function setupFeedList() {
 	transformCollapsableTrigger();
 }
 
+
+/**
+ * Binds a listener on the feed item list to detect scrolling and mark previous
+ * items as read
+ */
+function bindItemEventListeners(){
+
+	// mark items whose title was hid under the top edge as read
+	// when the bottom is reached, mark all items as read
+	$('#feed_items').scroll(function(){
+		var boxHeight = $(this).height();
+		var scrollHeight = $(this).prop('scrollHeight');
+		var scrolled = $(this).scrollTop() + boxHeight;
+
+		$(this).children('ul').children('li.title_unread').each(function(){
+			var itemOffset = $(this).position().top;
+			if(itemOffset <= 0 || scrolled >= scrollHeight){
+				var itemId = $(this).data('id');
+        		var feedId = $(this).data('feedid');
+				News.Feed.markItem(itemId, feedId);
+			}
+		})
+	});
+
+	// single click on item should mark it as read too
+	$('#feed_items ul li').click(function(){
+		var itemId = $(this).data('id');
+        var feedId = $(this).data('feedid');
+		News.Feed.markItem(itemId, feedId);
+	})
+
+	// bind the mark all as read button
+	$('#mark_all_as_read').click(function(){
+		News.Feed.markAllItems();
+	});
+
+	// filter for newest or all items
+	$('#feed_filter').change(function(){
+		News.Feed.filter($(this).val());
+	});
+
+}
+
+
 $(document).ready(function(){
 
 	$('#addfeed').click(function() {
@@ -350,11 +416,7 @@ $(document).ready(function(){
 	var updateInterval = 200000; //how often the feeds should update (in msec)
 	setInterval('News.Feed.updateAll()', updateInterval);
 
-	$('.title_unread').live('mouseenter', function(){
-		var itemId = $(this).data('id');
-        var feedId = $(this).data('feedid');
-		News.Feed.markItem(itemId, feedId);
-	});
+	bindItemEventListeners();
 
 });
 

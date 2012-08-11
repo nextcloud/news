@@ -1,4 +1,5 @@
 <?php
+
 	function print_folder(OCA\News\Folder $folder, $depth){
 		echo '<li style="margin-left:' . 10*$depth . 'px;" class="menuItem" onclick="News.DropDownMenu.selectItem(this, ' . $folder->getId() . ')">' . $folder->getName() . '</li>';
 		$children = $folder->getChildren();

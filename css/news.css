@@ -49,9 +49,17 @@ ul.controls li { float: left; }
 
 #rightcontent div.feed_controls { box-sizing: border-box; -moz-box-sizing: border-box; background: none repeat scroll 0 0 #FFFFFF; border-bottom: 1px solid #ccc; box-shadow: 0 3px 3px -3px #000000; text-align: right; overflow: hidden; position: fixed; left: 32.5em; right: 0; top: 3.5em; }
 #rightcontent div.feed_controls div.feed_title { float: left; padding-left: 10px; }
-#rightcontent div.feed_controls div.feed_title h1 { font-size: 16pt; color: #444; padding-top: .4em; }
+#rightcontent div.feed_controls div.feed_title h1 { font-size: 1.7em; color: #444; padding-top: .5em; }
 
-#rightcontent ul { box-sizing: border-box; -moz-box-sizing: border-box; overflow: auto; height: 100%; }
+#rightcontent #feed_items {
+    box-sizing: border-box; 
+    -moz-box-sizing: border-box; 
+    overflow: auto;
+    height: 100%;
+}
+
+
+#rightcontent ul {  }
 
 #rightcontent div.body { padding: 15px 25px 10px 25px; }
 #rightcontent div.body p { line-height: 1.5; margin: 10px 0; }
@@ -60,10 +68,10 @@ ul.controls li { float: left; }
 #rightcontent div.body ul li { cursor: default; }
 #rightcontent li:active { background: none; }
 #rightcontent div.body pre { padding: 5px; background-color: #dadada; border: 1px solid #ccc; }
-#rightcontent div.body pre code { font-family: monospace; font-size: 14px; }
+#rightcontent div.body pre code { font-family: monospace; font-size: 1.5em; }
 
 #rightcontent .title_unread h1.item_title, 
-#rightcontent .title_read h1.item_title { padding: 15px 10px 10px 10px; font-size: 14pt; }
+#rightcontent .title_read h1.item_title { padding: 15px 10px 10px 10px; font-size: 1.5em; }
 
 #rightcontent .title_unread h1.item_title { font-weight: bold; border-bottom: 1px solid #222; }
 
@@ -80,7 +88,7 @@ ul.controls li { float: left; }
 /* dialog/menues */
 div.dialog { overflow: visible; }
 
-#dropdownBtn { width: 9em; padding-left: 0; padding-right:20px; background: url('%webroot%/core/img/actions/triangle-s.svg') no-repeat right center; }
+#dropdownBtn { width: 20em; padding-left: 0; padding-right:20px; background: url('%webroot%/core/img/actions/triangle-s.svg') no-repeat right center; text-align: left; overflow: hidden;}
 ul#dropdownmenu { left: 0em; box-shadow: 0px 0px 10px rgb(0, 0, 0); }
 
 ul#feedfoldermenu { position:fixed; margin-left: 0; bottom: 2.8em; border-left:1px solid #ccc; border-top:1px solid #ccc; border-right:1px solid #ccc; -moz-box-shadow: 0 -3px 3px -3px #000; -webkit-box-shadow: 0 -3px 3px -3px #000; box-shadow: 0 -3px 3px -3px #000;}

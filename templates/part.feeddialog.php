@@ -6,7 +6,7 @@
 	<td>
 		<div class="add_parentfolder">
 			<button id="dropdownBtn" onclick="News.DropDownMenu.dropdown(this)">
-			    <?php echo $l->t('EVERYTHING'); ?>
+			    <?php echo $l->t('Subscriptions'); ?>
 			</button>
 			<input id="inputfolderid" type="hidden" name="folderid" value="0" />
 			<ul class="menu" id="dropdownmenu">
