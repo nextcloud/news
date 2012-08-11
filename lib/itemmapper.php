@@ -54,6 +54,26 @@ class ItemMapper {
 
 		return $items;
 	}
+	
+	/**
+	 * @brief Retrieve all the items corresponding to a feed from the database with a particular status
+	 * @param feedid The id of the feed in the database table.
+	 * @param status one of the constants defined in OCA\News\StatusFlag
+	 */
+	public function findAllStatus($feedid, $status){
+		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' 
+				WHERE feed_id = ?
+				AND (status & ?)');
+		$result = $stmt->execute(array($feedid, $status));
+	
+		$items = array();
+		while ($row = $result->fetchRow()) {
+			$item = $this->fromRow($row);
+			$items[] = $item;
+		}
+
+		return $items;
+	}
 
 	public function findIdFromGuid($guid, $feedid){
 		$stmt = \OCP\DB::prepare('
