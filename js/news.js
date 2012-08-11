@@ -203,6 +203,9 @@ News={
 				})
 			};
 		},
+		markAllItems:function(feedid) {
+
+		},
 		load:function(feedid) {
 			$.post(OC.filePath('news', 'ajax', 'loadfeed.php'),{'feedid':feedid},function(jsondata) {
 				if(jsondata.status == 'success'){
@@ -215,6 +218,7 @@ News={
 					$('li.feed[data-id="' + feedid + '"]').attr('id', 'selected_feed');
 
 					transformCollapsableTrigger();
+					bindItemEventListeners();
 				}
 				else {
 					OC.dialogs.alert(t('news', 'Error while loading the feed'), t('news', 'Error'));
@@ -322,6 +326,40 @@ function setupFeedList() {
 	transformCollapsableTrigger();
 }
 
+
+/**
+ * Binds a listener on the feed item list to detect scrolling and mark previous
+ * items as read
+ */
+function bindItemEventListeners(){
+
+	// mark items whose title was hid under the top edge as read
+	// when the bottom is reached, mark all items as read
+	$('#feed_items').scroll(function(){
+		var boxHeight = $(this).height();
+		var scrollHeight = $(this).prop('scrollHeight');
+		var scrolled = $(this).scrollTop() + boxHeight;
+
+		$(this).children('ul').children('li.title_unread').each(function(){
+			var itemOffset = $(this).position().top;
+			if(itemOffset <= 0 || scrolled >= scrollHeight){
+				var itemId = $(this).data('id');
+        		var feedId = $(this).data('feedid');
+				News.Feed.markItem(itemId, feedId);
+			}
+		})
+	});
+
+	// single click on item should mark it as read too
+	$('#feed_items ul li').click(function(){
+		var itemId = $(this).data('id');
+        var feedId = $(this).data('feedid');
+		News.Feed.markItem(itemId, feedId);
+	})
+
+}
+
+
 $(document).ready(function(){
 
 	$('#addfeed').click(function() {
@@ -350,11 +388,7 @@ $(document).ready(function(){
 	var updateInterval = 200000; //how often the feeds should update (in msec)
 	setInterval('News.Feed.updateAll()', updateInterval);
 
-	$('.title_unread').live('mouseenter', function(){
-		var itemId = $(this).data('id');
-        var feedId = $(this).data('feedid');
-		News.Feed.markItem(itemId, feedId);
-	});
+	bindItemEventListeners();
 
 });
 

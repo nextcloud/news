@@ -51,7 +51,15 @@ ul.controls li { float: left; }
 #rightcontent div.feed_controls div.feed_title { float: left; padding-left: 10px; }
 #rightcontent div.feed_controls div.feed_title h1 { font-size: 1.7em; color: #444; padding-top: .5em; }
 
-#rightcontent ul { box-sizing: border-box; -moz-box-sizing: border-box; overflow: auto; height: 100%; }
+#rightcontent #feed_items {
+    box-sizing: border-box; 
+    -moz-box-sizing: border-box; 
+    overflow: auto;
+    height: 100%;
+}
+
+
+#rightcontent ul {  }
 
 #rightcontent div.body { padding: 15px 25px 10px 25px; }
 #rightcontent div.body p { line-height: 1.5; margin: 10px 0; }

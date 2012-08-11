@@ -5,6 +5,7 @@ $feedid = isset($_['feedid']) ? $_['feedid'] : '';
 $itemmapper = new OC_News_ItemMapper();
 $items = $itemmapper->findAll($feedid);
 
+echo '<div id="feed_items">';
 echo '<ul>';
 foreach($items as $item) {
 	if($item->isRead()){
@@ -20,3 +21,4 @@ foreach($items as $item) {
 
 	}
 echo '</ul>';
+echo '</div>';
