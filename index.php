@@ -27,7 +27,7 @@ $userid = OCP\USER::getUser();
 
 $foldermapper = new OC_News_FolderMapper($userid);
 
-$folder = new OC_News_Folder($l->t('Everything'), 0);
+$folder = new OC_News_Folder($l->t('Subscriptions'), 0);
 
 $allfeeds = $foldermapper->populate($folder);
 
