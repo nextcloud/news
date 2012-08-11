@@ -267,6 +267,20 @@ News={
 				}
 
 			});
+		}, 
+		filter:function(value){
+			// TODO: safe this on the server
+			switch(value){
+				case 'all':
+					$("#feed_items li").show();
+					break;
+				case 'newest':
+					$("#feed_items li.title_read").hide();
+					break;
+				default:
+					break;
+			}
+			
 		}
 	}
 }
@@ -364,6 +378,11 @@ function bindItemEventListeners(){
 	// bind the mark all as read button
 	$('#mark_all_as_read').click(function(){
 		News.Feed.markAllItems();
+	});
+
+	// filter for newest or all items
+	$('#feed_filter').change(function(){
+		News.Feed.filter($(this).val());
 	});
 
 }
