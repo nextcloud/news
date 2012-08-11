@@ -53,7 +53,7 @@ class Utils {
 		$favicon = $spfeed->get_image_url();
 
 		if ($favicon !== null) { // use favicon from feed
-			if(checkFavicon($favicon))
+			if(self::checkFavicon($favicon))
 				$feed->setFavicon($favicon);
 		}
 		else { // try really hard to find a favicon
@@ -105,7 +105,7 @@ class Utils {
 				$favicon = htmlspecialchars_decode ( $match[2] );
 				// test for an url
 				if (parse_url($favicon,PHP_URL_SCHEME)) {
-					if(checkFavicon($favicon))
+					if(self::checkFavicon($favicon))
 						return $favicon;
 				}
 				// test for an absolute path
