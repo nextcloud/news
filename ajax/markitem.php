@@ -17,7 +17,7 @@ OCP\JSON::callCheck();
 
 $itemid = $_POST['itemid'];
 
-$itemmapper = new OC_News_ItemMapper();
+$itemmapper = new OCA\News\ItemMapper();
 $item = $itemmapper->find($itemid);
 $item->setRead();
 $success = $itemmapper->update($item);

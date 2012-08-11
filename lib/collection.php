@@ -10,10 +10,12 @@
 * 
 */
 
+namespace OCA\News;
+
 /**
  * This class models a collection, which is either a feed or a folder.
  */
-class OC_News_Collection {
+class Collection {
 	
 	private $id;
 	

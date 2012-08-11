@@ -21,7 +21,7 @@ $folderid = trim($_POST['folderid']);
 $shownfeedid = trim($_POST['shownfeedid']);
 $part_items = false;
 
-$foldermapper = new OC_News_FolderMapper();
+$foldermapper = new OCA\News\FolderMapper();
 
 if(!$foldermapper->deleteById($folderid)) {
 	OCP\JSON::error(array('data' => array('message' => $l->t('Error removing folder.'))));

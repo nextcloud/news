@@ -10,6 +10,8 @@
 * 
 */
 
+namespace OCA\News;
+
 class StatusFlag{
 	const Unread    = 0x02;
 	const Important = 0x04;
@@ -22,7 +24,7 @@ class StatusFlag{
  *
  * It encapsulate a SimplePie_Item object and adds a status flag to it
  */
-class OC_News_Item {
+class Item {
 
 	private $url;
 	private $title;

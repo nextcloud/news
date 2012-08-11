@@ -10,7 +10,7 @@
 *
 */
 
-//register_shutdown_function("shutdown");
+register_shutdown_function("shutdown");
 
 /* handle the case of fatal error */
 function shutdown() {
@@ -35,13 +35,13 @@ $userid = OCP\USER::getUser();
 $feedurl = trim($_POST['feedurl']);
 $folderid = trim($_POST['folderid']);
 
-$feedmapper = new OC_News_FeedMapper();
+$feedmapper = new FeedMapper();
 $feedid = $feedmapper->findIdFromUrl($feedurl);
 
 $l = OC_L10N::get('news');
 
 if ($feedid === null) {
-	$feed = OC_News_Utils::fetch($feedurl);
+	$feed = OCA\News\Utils::fetch($feedurl);
 
 	if ($feed !== null) {
 	      $feedid = $feedmapper->save($feed, $folderid);

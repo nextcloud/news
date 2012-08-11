@@ -14,7 +14,9 @@
 //TODO: is this file a suitable place for the following require?
  require_once('news/3rdparty/SimplePie/autoloader.php');
 
-class OC_News_Utils {
+namespace OCA\News;
+
+class Utils {
 
 	/**
 	 * @brief Fetch a feed from remote
@@ -42,20 +44,20 @@ class OC_News_Utils {
 				$itemTitle = $spitem->get_title();
 				$itemGUID = $spitem->get_id();
 				$itemBody = $spitem->get_content();
-				$items[] = new OC_News_Item($itemUrl, $itemTitle, $itemGUID, $itemBody);
+				$items[] = new Item($itemUrl, $itemTitle, $itemGUID, $itemBody);
 			}
 		}
 
-		$feed = new OC_News_Feed($url, $title, $items);
+		$feed = new Feed($url, $title, $items);
 
 		$favicon = $spfeed->get_image_url();
 
 		if ($favicon !== null) { // use favicon from feed
-			if(OC_News_Utils::checkFavicon($favicon))
+			if(checkFavicon($favicon))
 				$feed->setFavicon($favicon);
 		}
 		else { // try really hard to find a favicon
-			if( null !== ($webFavicon = OC_News_Utils::discoverFavicon($url)) )
+			if( null !== ($webFavicon = discoverFavicon($url)) )
 				$feed->setFavicon($webFavicon);
 		}
 		return $feed;
@@ -83,7 +85,7 @@ class OC_News_Utils {
 		//try webroot favicon
 		$favicon = SimplePie_Misc::absolutize_url('/favicon.ico', $url);
 
-		if(OC_News_Utils::checkFavicon($favicon))
+		if(checkFavicon($favicon))
 			return $favicon;
 
 		//try to extract favicon from web page
@@ -103,21 +105,21 @@ class OC_News_Utils {
 				$favicon = htmlspecialchars_decode ( $match[2] );
 				// test for an url
 				if (parse_url($favicon,PHP_URL_SCHEME)) {
-					if(OC_News_Utils::checkFavicon($favicon))
+					if(checkFavicon($favicon))
 						return $favicon;
 				}
 				// test for an absolute path
 				elseif ( 0===strpos(parse_url($favicon,PHP_URL_PATH),'/') ) {
 					$url_token = parse_url($meta['final']);
 					sprintf( '%s://%s/%s', $url_token['scheme'], $url_token['host'], $favicon );
-					if(OC_News_Utils::checkFavicon($favicon))
+					if(checkFavicon($favicon))
 						return $favicon;
 				}
 				// so it appears to be a relative path
 				else {
 					$url_token = parse_url($meta['final']);
 					sprintf( '%s://%s%s%s', $url_token['scheme'], $url_token['host'], dirname($url_token['path']), $favicon );
-					if(OC_News_Utils::checkFavicon($favicon))
+					if(checkFavicon($favicon))
 						return $favicon;
 				}
 			}

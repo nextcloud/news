@@ -10,16 +10,18 @@
 *
 */
 
+namespace OCA\News;
+
 /**
  * This class models a folder that contains feeds.
  */
-class OC_News_Folder extends OC_News_Collection {
+class Folder extends Collection {
 
 	private $name;
 	private $children;
 	private $parent;
 
-	public function __construct($name, $id = null, OC_News_Collection $parent = null){
+	public function __construct($name, $id = null, Collection $parent = null){
 		$this->name = $name;
 		if ($id !== null){
 			parent::__construct($id);
@@ -45,7 +47,7 @@ class OC_News_Folder extends OC_News_Collection {
 		return $this->parent->getId();
 	}
 
-	public function addChild(OC_News_Collection $child){
+	public function addChild(Collection $child){
 		$this->children[] = $child;
 	}
 	

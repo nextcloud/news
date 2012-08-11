@@ -10,10 +10,12 @@
 * 
 */
 
+namespace OCA\News;
+
 /**
  * This class models a feed.
  */
-class OC_News_Feed extends OC_News_Collection {
+class Feed extends Collection {
 
 	private $url;
 	private $spfeed; //encapsulate a SimplePie_Core object

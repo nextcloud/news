@@ -1,7 +1,7 @@
 <?php 
 
 if(isset($_['feedid'])){
-    $feedmapper = new OC_News_FeedMapper();
+    $feedmapper = new OCA\News\FeedMapper();
     $feed = $feedmapper->findById($_['feedid']);
     $feedTitle = $feed->getTitle();
 } else {

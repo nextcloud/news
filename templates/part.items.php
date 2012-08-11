@@ -2,7 +2,7 @@
 
 $feedid = isset($_['feedid']) ? $_['feedid'] : '';
 
-$itemmapper = new OC_News_ItemMapper();
+$itemmapper = new OCA\News\ItemMapper();
 $items = $itemmapper->findAll($feedid);
 
 echo '<ul>';

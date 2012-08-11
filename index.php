@@ -25,16 +25,16 @@ $l = OC_L10N::get('news');
 
 $userid = OCP\USER::getUser();
 
-$foldermapper = new OC_News_FolderMapper($userid);
+$foldermapper = new OCA\News\FolderMapper($userid);
 
-$folder = new OC_News_Folder($l->t('Everything'), 0);
+$folder = new OCA\News\Folder($l->t('Everything'), 0);
 
 $allfeeds = $foldermapper->populate($folder);
 
 if ($allfeeds) {
 	$feedid = isset( $_GET['feedid'] ) ? $_GET['feedid'] : null;
 	if ($feedid == null) {
-		$feedmapper = new OC_News_FeedMapper(OCP\USER::getUser($userid));
+		$feedmapper = new OCA\News\FeedMapper(OCP\USER::getUser($userid));
 		$feedid =  $feedmapper->mostRecent();
 	}
 }

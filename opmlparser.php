@@ -60,7 +60,7 @@ class OPMLParser {
 			else {
 				$name = (string)$rawcollection['text'];
 				$children = self::parseFolder($rawcollection, $count);
-				$collection = new OC_News_Folder($name);
+				$collection = new OCA\News\Folder($name);
 				$collection->addChildren($children);
 			}
 			if ($collection !== null) {
@@ -74,7 +74,7 @@ class OPMLParser {
 		$url = (string)$rawfeed['xmlUrl'];
 		$title = (string)$rawfeed['title'];
 
-		$feed = new OC_News_Feed($url, $title);
+		$feed = new OCA\News\Feed($url, $title);
 		return $feed;
 	}
 	

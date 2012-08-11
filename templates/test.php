@@ -9,7 +9,7 @@ $title = $parser->getTitle();
 $data = $parser->parse();
 
 foreach ($data as $collection) {
-	if ($collection instanceof OC_News_Feed) {
+	if ($collection instanceof OCA\News\Feed) {
 		echo $collection->getTitle() . '\n';
 	} else {
 		echo 'NO\n';

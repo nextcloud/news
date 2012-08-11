@@ -21,12 +21,12 @@ $feedid = $_POST['feedid'];
 $feedurl = $_POST['feedurl'];
 $folderid = $_POST['folderid'];
 
-$newfeed = OC_News_Utils::fetch($feedurl);
+$newfeed = OCA\News\Utils::fetch($feedurl);
 
 $newfeedid = false;
 
 if ($newfeed !== null) {
-      $feedmapper = new OC_News_FeedMapper();
+      $feedmapper = new OCA\News\FeedMapper();
       $newfeedid = $feedmapper->save($newfeed, $folderid);
 }
 
@@ -39,7 +39,7 @@ if(!$newfeedid) {
 }
 else {
 	//TODO: maybe make this more efficient by coding it into OC_News_FeedMapper->save()
-	$itemmapper = new OC_News_ItemMapper();
+	$itemmapper = new OCA\News\ItemMapper();
 	$items = $itemmapper->findAll($newfeedid);
 	$unreadcounter = 0;
 	foreach($items as $item) {

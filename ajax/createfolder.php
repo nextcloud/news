@@ -20,12 +20,12 @@ $userid = OCP\USER::getUser();
 $name = trim($_POST['name']);
 $parentid = trim($_POST['parentid']);
 
-$foldermapper = new OC_News_FolderMapper($userid);
+$foldermapper = new OCA\News\FolderMapper($userid);
 
 if($parentid != 0) {
-    $folder = new OC_News_Folder($name, NULL, $foldermapper->find($parentid));
+    $folder = new OCA\News\Folder($name, NULL, $foldermapper->find($parentid));
 } else {
-    $folder = new OC_News_Folder($name);
+    $folder = new OCA\News\Folder($name);
 }
 
 $folderid = $foldermapper->save($folder);

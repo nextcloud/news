@@ -10,11 +10,13 @@
 * 
 */
 
+namespace OCA\News;
+
 /**
  * This class maps an item to a row of the items table in the database.
  * It follows the Data Mapper pattern (see http://martinfowler.com/eaaCatalog/dataMapper.html).
  */
-class OC_News_ItemMapper {
+class ItemMapper {
 
 	const tableName = '*PREFIX*news_items';
 
@@ -30,7 +32,7 @@ class OC_News_ItemMapper {
 		$status = $row['status'];
 		$body = $row['body'];
 		$id = $row['id'];
-		$item = new OC_News_Item($url, $title, $guid, $body, $id);
+		$item = new Item($url, $title, $guid, $body, $id);
 		$item->setStatus($status);
 		
 		return $item;
@@ -41,7 +43,7 @@ class OC_News_ItemMapper {
 	 * @param feedid The id of the feed in the database table.
 	 */
 	public function findAll($feedid){
-		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE feed_id = ?');
+		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE feed_id = ?');
 		$result = $stmt->execute(array($feedid));
 	
 		$items = array();
@@ -54,7 +56,7 @@ class OC_News_ItemMapper {
 	}
 
 	public function findIdFromGuid($guid, $feedid){
-		$stmt = OCP\DB::prepare('
+		$stmt = \OCP\DB::prepare('
 				SELECT * FROM ' . self::tableName . ' 
 				WHERE guid = ?
 				AND feed_id = ?
@@ -72,12 +74,12 @@ class OC_News_ItemMapper {
 	 * @brief Update the item after its status has changed
 	 * @returns The item whose status has changed.
 	 */
-	public function update(OC_News_Item $item){
+	public function update(Item $item){
 		
 		$itemid = $item->getId();
 		$status = $item->getStatus();
 		
-		$stmt = OCP\DB::prepare('
+		$stmt = \OCP\DB::prepare('
 				UPDATE ' . self::tableName .
 				' SET status = ?
 				WHERE id = ?
@@ -96,7 +98,7 @@ class OC_News_ItemMapper {
 	 * @brief Save the feed and all its items into the database
 	 * @returns The id of the feed in the database table.
 	 */
-	public function save(OC_News_Item $item, $feedid){
+	public function save(Item $item, $feedid){
 		$guid = $item->getGuid();
 		$status = $item->getStatus();
 
@@ -106,19 +108,19 @@ class OC_News_ItemMapper {
 			$title = $item->getTitle();
 			$body = $item->getBody();
 
-			$stmt = OCP\DB::prepare('
+			$stmt = \OCP\DB::prepare('
 				INSERT INTO ' . self::tableName .
 				'(url, title, body, guid, feed_id, status)
 				VALUES (?, ?, ?, ?, ?, ?)
 				');
 
 			if(empty($title)) {
-				$l = OC_L10N::get('news');
+				$l = \OC_L10N::get('news');
 				$title = $l->t('no title');
 			}
 
 			if(empty($body)) {
-				$l = OC_L10N::get('news');
+				$l = \OC_L10N::get('news');
 				$body = $l->t('no body');
 			}
 
@@ -133,7 +135,7 @@ class OC_News_ItemMapper {
 			
 			$stmt->execute($params);
 			
-			$itemid = OCP\DB::insertid(self::tableName);
+			$itemid = \OCP\DB::insertid(self::tableName);
 		}
 		else {
 			$this->update($item);
@@ -147,7 +149,7 @@ class OC_News_ItemMapper {
 	 * @param id The id of the feed in the database table.
 	 */
 	public function find($id){
-		$stmt = OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE id = ?');
+		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE id = ?');
 		$result = $stmt->execute(array($id));
 		$row = $result->fetchRow();
 
@@ -167,7 +169,7 @@ class OC_News_ItemMapper {
 		if ($feedid == null) {
 			return false;
 		}
-		$stmt = OCP\DB::prepare('DELETE FROM ' . self::tableName .' WHERE feed_id = ?');
+		$stmt = \OCP\DB::prepare('DELETE FROM ' . self::tableName .' WHERE feed_id = ?');
 
 		$result = $stmt->execute(array($feedid));
 		
