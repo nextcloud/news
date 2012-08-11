@@ -35,7 +35,7 @@ $userid = OCP\USER::getUser();
 $feedurl = trim($_POST['feedurl']);
 $folderid = trim($_POST['folderid']);
 
-$feedmapper = new FeedMapper();
+$feedmapper = new OCA\News\FeedMapper();
 $feedid = $feedmapper->findIdFromUrl($feedurl);
 
 $l = OC_L10N::get('news');

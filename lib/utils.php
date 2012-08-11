@@ -10,11 +10,11 @@
 *
 */
 
+namespace OCA\News;
+
 // load SimplePie library
 //TODO: is this file a suitable place for the following require?
  require_once('news/3rdparty/SimplePie/autoloader.php');
-
-namespace OCA\News;
 
 class Utils {
 
@@ -24,7 +24,7 @@ class Utils {
 	 * @returns an instance of OC_News_Feed
 	 */
 	public static function fetch($url){
-		$spfeed = new SimplePie_Core();
+		$spfeed = new \SimplePie_Core();
 		$spfeed->set_feed_url( $url );
 		$spfeed->enable_cache( false );
 
@@ -57,7 +57,7 @@ class Utils {
 				$feed->setFavicon($favicon);
 		}
 		else { // try really hard to find a favicon
-			if( null !== ($webFavicon = discoverFavicon($url)) )
+			if( null !== ($webFavicon = self::discoverFavicon($url)) )
 				$feed->setFavicon($webFavicon);
 		}
 		return $feed;
@@ -68,12 +68,12 @@ class Utils {
 	}
 
 	public static function checkFavicon($favicon) {
-		$file = new SimplePie_File($favicon);
+		$file = new \SimplePie_File($favicon);
 		// size in bytes
 		$filesize = strlen($file->body);
 
 		if($file->success && $filesize > 0 && $filesize < 50000) {
-			$sniffer = new SimplePie_Content_Type_Sniffer($file);
+			$sniffer = new \SimplePie_Content_Type_Sniffer($file);
 			if(substr($sniffer->get_type(), 0, 6) === 'image/') {
 				return true;
 			}
@@ -83,13 +83,13 @@ class Utils {
 
 	public static function discoverFavicon($url) {
 		//try webroot favicon
-		$favicon = SimplePie_Misc::absolutize_url('/favicon.ico', $url);
+		$favicon = \SimplePie_Misc::absolutize_url('/favicon.ico', $url);
 
-		if(checkFavicon($favicon))
+		if(self::checkFavicon($favicon))
 			return $favicon;
 
 		//try to extract favicon from web page
-		$absoluteUrl = SimplePie_Misc::absolutize_url('/', $url);
+		$absoluteUrl = \SimplePie_Misc::absolutize_url('/', $url);
 
 		$handle = curl_init ( );
 		curl_setopt ( $handle, CURLOPT_URL, $absoluteUrl );
@@ -112,14 +112,14 @@ class Utils {
 				elseif ( 0===strpos(parse_url($favicon,PHP_URL_PATH),'/') ) {
 					$url_token = parse_url($meta['final']);
 					sprintf( '%s://%s/%s', $url_token['scheme'], $url_token['host'], $favicon );
-					if(checkFavicon($favicon))
+					if(self::checkFavicon($favicon))
 						return $favicon;
 				}
 				// so it appears to be a relative path
 				else {
 					$url_token = parse_url($meta['final']);
 					sprintf( '%s://%s%s%s', $url_token['scheme'], $url_token['host'], dirname($url_token['path']), $favicon );
-					if(checkFavicon($favicon))
+					if(self::checkFavicon($favicon))
 						return $favicon;
 				}
 			}
