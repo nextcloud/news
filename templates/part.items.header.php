@@ -17,6 +17,6 @@ if(isset($_['feedid'])){
     <input type="button" value="<?php echo $l->t('Mark all as read'); ?>" id="mark_all_as_read" />
     <select id="feed_filter">
         <option value="all"><?php echo $l->t('Show all articles'); ?></option>
-        <option value="newest"><?php echo $l->t('Show newest articles'); ?></option>
+        <option value="newest"><?php echo $l->t('Show only unread articles'); ?></option>
     </select>
 </div>

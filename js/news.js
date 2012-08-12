@@ -210,6 +210,26 @@ News={
 				News.Feed.markItem(itemId, feedId);
 			});
 		},
+		setImportant:function(isImportant, itemId, feedId){
+			var $currentItem = $('#feed_items [data-id="' + itemId + '"][data-feedid="' + feedId + '"]');
+			var $currentStar = $currentItem.children('.item_utils').children('ul').children('li.star');
+			data = {
+				isImportant: isImportant,
+				itemId: itemId,
+				feedId: feedId
+			};
+			$.post(OC.filePath('news', 'ajax', 'importantitem.php'), data, function(jsondata){
+				if(jsondata.status == 'success'){
+					if(isImportant){
+						$currentStar.removeClass('important');	
+					} else {
+						$currentStar.addClass('important');
+					}
+				} else{
+					OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
+				}
+			});
+		},
 		load:function(feedid) {
 			$.post(OC.filePath('news', 'ajax', 'loadfeed.php'),{'feedid':feedid},function(jsondata) {
 				if(jsondata.status == 'success'){
@@ -368,11 +388,21 @@ function bindItemEventListeners(){
 		})
 	});
 
-	// single click on item should mark it as read too
-	$('#feed_items ul li').click(function(){
-		var itemId = $(this).data('id');
-        var feedId = $(this).data('feedid');
+	// single hover on item should mark it as read too
+	$('#feed_items h1.item_title a').click(function(){
+		var $item = $(this).parent().parent('.news_item');
+		var itemId = $item.data('id');
+        var feedId = $item.data('feedid');
 		News.Feed.markItem(itemId, feedId);
+	})
+
+	// mark or unmark as important
+	$('#feed_items li.star').click(function(){
+		var important = $(this).hasClass('important');
+		var $item = $(this).parent().parent().parent('.news_item');
+		var itemId = $item.data('id');
+        var feedId = $item.data('feedid');
+		News.Feed.setImportant(important, itemId, feedId);
 	})
 
 	// bind the mark all as read button
