@@ -60,7 +60,7 @@ if($feed === null || !$feedid) {
 
 // FIXME: assign counter
 $tmpl_listfeed = new OCP\Template("news", "part.listfeed");
-$tmpl_listfeed->assign('child', $feed);
+$tmpl_listfeed->assign('feed', $feed);
 $listfeed = $tmpl_listfeed->fetchPage();
 
 $tmpl_newfeed = new OCP\Template("news", "part.items.new");

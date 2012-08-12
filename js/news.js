@@ -419,8 +419,7 @@ function bindItemEventListeners(){
 
 
 $(document).ready(function(){
-
-	$('#addfeed').click(function() {
+	$('#addfeed, #addfeedbtn').click(function() {
 		News.UI.overview('#addfeed_dialog','feeddialog.php');
 	});
 
