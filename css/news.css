@@ -61,27 +61,56 @@ ul.controls li { float: left; }
     height: 100%;
 }
 
-#feed_items h1.item_title { }
-#feed_items .title_unread h1.item_title { font-weight: bold; border-bottom: 1px solid #222; }
-#feed_items .title_unread h1.item_title a { color: #222; }
-#feed_items .title_unread h1.item_title, 
-#feed_items .title_read h1.item_title { padding: 15px 10px 10px 10px; font-size: 1.5em; }
-#feed_items .title_read h1.item_title { font-weight: normal; border-bottom: 1px solid #ccc; }
-#feed_items .title_read h1.item_title a { color: #888; }
-#feed_items .title_read a:hover, #feed_items .title_unread a:hover { text-decoration: underline; }
+#feed_items h1.item_title { 
+    clear: both;
+    font-size: 1.5em;
+    padding: 0 0 0 10px;
+}
+#feed_items .title_unread h1.item_title { 
+    font-weight: bold;
+}
+#feed_items h1.item_title a { color: #222; }
+#feed_items h1.item_title a:hover { color: #222; text-decoration: underline; }
+#feed_items .read h1.item_title { font-weight: normal;}
+#feed_items .read h1.item_title a { color: #888; }
 
 #feed_items .item_utils {
-    float: left;
-    padding: 15px 10px 10px;
+    border-top: 1px solid #ccc;
+    padding: 10px 0 5px 10px;
+    height: 1.8em;
+    width: 100%;
 }
-#feed_items .item_utils ul {}
-#feed_items .item_utils ul li { display: inline-block; }
+#feed_items .item_utils ul li { 
+    display: inline-block; 
+    line-height: 1.5em;
+    font-size: 1em;
+    color: #aaa;
+    float: left;
+    margin-left: 10px;
+    cursor: default;
+}
+#feed_items .item_utils ul li input[type=checkbox]{ 
+    margin-left: .8em;
+}
+#feed_items .item_utils ul.hidden_item_utils {
+    display: none;
+    float: right;
+    margin-right: 30px;
+}
+#feed_items .news_item:hover .item_utils ul.hidden_item_utils {
+    display: block;
+}
+#feed_items .news_item:hover .item_utils ul.hidden_item_utils li.keep_unread {
+    cursor: pointer;
+}
+#feed_items .item_utils ul li:first-child { margin: 0}
 #feed_items .item_utils ul li.star { 
     background-image: url('%appswebroot%/news/img/inactive_star.svg');
     background-repeat: no-repeat;
     background-size: 100%;
-    height: 1.5em;
     width: 1.5em;
+    height: 1.5em;
+    cursor: pointer;
 }
 #feed_items .item_utils ul li.star.important,
 #feed_items .item_utils ul li.star:hover {
@@ -89,7 +118,7 @@ ul.controls li { float: left; }
 }
 
 
-#feed_items div.body { padding: 15px 25px 10px 25px; }
+#feed_items div.body { padding: 15px 25px 20px 25px; }
 #feed_items div.body p { line-height: 1.5; margin: 10px 0; }
 #feed_items div.body a { color: #0000ff; text-decoration: underline; }
 #feed_items div.body ul { padding-left: 15px; list-style-type: disc; }

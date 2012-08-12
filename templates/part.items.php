@@ -10,9 +10,9 @@ echo '<ul>';
 foreach($items as $item) {
 	
 	if($item->isRead()){
-		$newsItemClass = "title_read";
+		$newsItemClass = "read";
 	} else {
-		$newsItemClass = "title_unread";
+		$newsItemClass = "";
 	}
 	
 	if($item->isImportant()){
@@ -24,9 +24,15 @@ foreach($items as $item) {
 	}
 
 	echo '<li class="news_item ' . $newsItemClass .'" data-id="' . $item->getId() . '" data-feedid="' . $feedid . '">';
-		echo '<div class="item_utils"><ul>';
-			echo '<li class="star ' . $starClass . '" title="' . $startTitle . '"></li>';
-		echo '</ul></div>';
+		echo '<div class="item_utils">';
+			echo '<ul>';
+				echo '<li class="star ' . $starClass . '" title="' . $startTitle . '"></li>';
+				echo '<li>' . parse_url($item->getUrl())['host'] . '</li>';
+			echo '</ul>';
+			echo '<ul class="hidden_item_utils">';
+				echo '<li class="keep_unread">' . $l->t('Keep unread') . '<input type="checkbox" /></li>';
+			echo '</ul>';
+		echo '</div>';
 		echo '<h1 class="item_title"><a target="_blank" href="' . $item->getUrl() . '">' . $item->getTitle() . '</a></h1>';
 		echo '<div class="body">' . $item->getBody() . '</div>';
 	echo '</li>';
