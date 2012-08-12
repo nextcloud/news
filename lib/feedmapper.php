@@ -80,13 +80,13 @@ class FeedMapper {
 	}
 
 	/**
-	 * @brief Retrieve a feed from the database
-	 * @param id The id of the feed in the database table.
-	 * @returns an instance of OC_News_Feed
+	 * @brief Retrieve all the feeds contained in the folder $folderid
+	 * @param folderid The id of the folder in the database table.
+	 * @returns a list of feeds
 	 */
 	public function findByFolderId($folderid){
-		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE folder_id = ?');
-		$result = $stmt->execute(array($folderid));
+		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE user_id = ? AND folder_id = ?');
+		$result = $stmt->execute(array($this->userid, $folderid));
 		$feeds = array();
 		while ($row = $result->fetchRow()) {
 			$url = $row['url'];

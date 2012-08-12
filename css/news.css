@@ -34,6 +34,9 @@ div.collapsable:hover { background-color: rgb(221, 221, 221); }
 .unreaditemcounter.nonzero { position: relative; background: #5E5E5E; border-radius: 5px; padding: 0 5px; color: white; text-align: center; margin: 0 0.3em 0 0.3em;}
 .unreaditemcounter.zero { position: relative; margin: 0 0.3em 0 0; }
 
+/* when there are no feeds in the db */
+#firstrun { width: 100%; position: absolute; top: 5em; left: 0; text-align: center; font-weight:bold; font-size:1.5em; color:#777; }
+#firstrun #selections { font-size:0.8em; margin: 2em auto auto auto; clear: both; }
 
 /* feed controls */
 #addfolder { background: url('%webroot%/core/img/places/folder.svg') no-repeat left center; padding-left: 20px !important; }

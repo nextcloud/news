@@ -99,5 +99,4 @@ class OPMLParser {
 			return null;
 		}
 	}
-
 }

@@ -10,6 +10,7 @@
 * 
 */
 
+OC::$CLASSPATH['OCA\News\StatusFlag'] = 'apps/news/lib/item.php';
 OC::$CLASSPATH['OCA\News\Item'] = 'apps/news/lib/item.php';
 OC::$CLASSPATH['OCA\News\Collection'] = 'apps/news/lib/collection.php';
 OC::$CLASSPATH['OCA\News\Feed'] = 'apps/news/lib/feed.php';
