@@ -27,9 +27,8 @@ $userid = OCP\USER::getUser();
 
 $foldermapper = new OCA\News\FolderMapper($userid);
 
-$folder = new OCA\News\Folder($l->t('Everything'), 0);
-
-$allfeeds = $foldermapper->populate($folder);
+$allfeeds = $foldermapper->childrenOfWithFeeds(0); //$foldermapper->populate($folder);
+$folderforest = $foldermapper->childrenOf(0); //retrieve all the folders
 
 if ($allfeeds) {
 	$feedid = isset( $_GET['feedid'] ) ? $_GET['feedid'] : null;
@@ -44,6 +43,7 @@ else {
 
 $tmpl = new OCP\Template( 'news', 'main', 'user' );
 $tmpl->assign('allfeeds', $allfeeds);
+$tmpl->assign('folderforest', $folderforest);
 $tmpl->assign('feedid', $feedid);
 $tmpl->printPage();
 

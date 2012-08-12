@@ -1,18 +1,9 @@
 <?php 
 
-$content = file_get_contents('/tmp/occOrigzvXqKO');
+$itemmapper = new OCA\News\ItemMapper();
 
-require_once('news/opmlparser.php');
+$items = $itemmapper->findAllStatus(155, OCA\News\StatusFlag::Unread);
 
-$parser = new OPMLParser($content);
-$title = $parser->getTitle();
-$data = $parser->parse();
-
-foreach ($data as $collection) {
-	if ($collection instanceof OCA\News\Feed) {
-		echo $collection->getTitle() . '\n';
-	} else {
-		echo 'NO\n';
-	}
+foreach ($items as $item) {
+	echo $item->getTitle();
 }
-echo $title;

@@ -29,33 +29,54 @@ class FolderMapper {
 	}
 
 	/**
-	 * @brief Create a folder and populate with children from the database
-	 * @param folder The folder to be populated.
-	 * @returns  an instance of OC_News_Folder
+	 * @brief Returns the forest (list of trees) of folders children of $parentid
+	 * @param 
+	 * @returns 
 	 */
-	public function populate($folder){
-		// first add child feeds
-		$feedmapper = new FeedMapper();
-		$feeds = $feedmapper->findByFolderId($folder->getId());
-		foreach ($feeds as $feed){
-			$folder->addChild($feed);
-		}
-
-		// and second child folders
-		$stmt = \OCP\DB::prepare('SELECT *
-					FROM ' . self::tableName .
+	public function childrenOf($parentid) {
+		$folderlist = array(); 
+		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName .
 					' WHERE user_id = ? AND parent_id = ?');
-		$result = $stmt->execute(array($this->userid, $folder->getId()));
-
+		$result = $stmt->execute(array($this->userid, $parentid));
+		
 		while( $row = $result->fetchRow()){
-			$unpopfolder = new Folder($row['name'], $row['id']);
-			$popfolder = self::populate($unpopfolder);
-			$folder->addChild($popfolder);
+			$folderid = $row['id'];
+			$folder = new Folder($row['name'], $folderid);
+			$children = self::childrenOf($folderid);
+			$folder->addChildren($children);
+			$folderlist[] = $folder;
 		}
-
-		return $folder;
+		
+		return $folderlist;
 	}
 
+	/**
+	 * @brief Returns the forest (list of trees) of folders children of $parentid, 
+	 *		 including the feeds that they contain
+	 * @param 
+	 * @returns 
+	 */
+	public function childrenOfWithFeeds($parentid) {
+		
+		$feedmapper = new FeedMapper();
+		$collectionlist = $feedmapper->findByFolderId($parentid);
+				
+		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName .
+					' WHERE user_id = ? AND parent_id = ?');
+		$result = $stmt->execute(array($this->userid, $parentid));
+		
+		while( $row = $result->fetchRow()){
+			$folderid = $row['id'];
+			$folder = new Folder($row['name'], $folderid);
+			$children = self::childrenOf($folderid);
+			$folder->addChildren($children);
+			$collectionlist[] = $folder;
+		}
+		
+		return $collectionlist;
+	}
+
+	
 	/**
 	 * @brief Retrieve a folder from the database
 	 * @param id The id of the folder in the database table.
@@ -71,26 +92,6 @@ class FolderMapper {
 		$folder = new Folder($row['name'], $row['id']);
 
 		return $folder;
-	}
-
-	/**
-	 * @brief Retrieve a feed and all its items from the database
-	 * @param id The id of the feed in the database table.
-	 * @returns
-	 */
-	public function findWithItems($id){
-		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE id = ?');
-		$result = $stmt->execute(array($id));
-		$row = $result->fetchRow();
-		$url = $row['url'];
-		$title = $row['title'];
-		$feed = new Feed($url, $title, null,$id);
-
-		$itemMapper = new ItemMapper($feed);
-		$items = $itemMapper->findAll();
-		$feed->setItems($items);
-
-		return $feed;
 	}
 
 	/**

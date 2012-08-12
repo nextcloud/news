@@ -1,3 +1,11 @@
+<!-- Dialogs -->
+<div id="dialog_holder"></div>
+<!-- End of Dialogs -->
+
+<?php
+if ($_['feedid']){
+?>
+
 <div id="leftcontent" class="leftcontent">
 	<ul id="feeds">
 		<?php echo $this->inc("part.feeds"); ?>
@@ -26,20 +34,16 @@
 
 <div id="rightcontent" class="rightcontent" data-id="<?php echo $_['feedid']; ?>">
 	<?php
-		if ($_['feedid']){
 			echo $this->inc("part.items.header");
 			echo $this->inc("part.items");
-		}
-		else {
-			echo $this->inc("part.nofeeds");
-		}
 	?>
 
 	<div id="appsettings" class="popup bottomleft hidden"></div>
 
 </div>
 
-<!-- Dialogs -->
-<div id="dialog_holder"></div>
-<!-- End of Dialogs -->
-
+<?php
+	} else {
+		echo $this->inc("part.nofeeds");
+	}
+?>
