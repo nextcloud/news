@@ -30,13 +30,21 @@ class FeedMapper {
 	/**
 	 * @brief
 	 * @param row a row from the feeds table of the database
-	 * @returns an object of the class OC_News_Feed
+	 * @returns an object of the class OCA\News\Feed
 	 */
 	public function fromRow($row){
+		$url = $row['url'];
+		$title = htmlspecialchars_decode($row['title']);
+		$id = $row['id'];
+		$feed = new Feed($url, $title, null, $id);
+		$favicon = $row['favicon_link'];
+		$feed->setFavicon($favicon);
+		
+		return $feed;
 	}
 
 	/**
-	 * @brief
+	 * @brief as a list that can be easily parsed using JSON
 	 * @param userid
 	 * @returns
 	 */
@@ -72,10 +80,7 @@ class FeedMapper {
 		$result = $stmt->execute(array($id));
 		if(!$row = $result->fetchRow())
 			return null;
-
-		$url = $row['url'];
-		$title = htmlspecialchars_decode($row['title']);
-		$feed = new Feed($url, $title, null, $id);
+		$feed = self::fromRow($row);
 		return $feed;
 	}
 
@@ -89,12 +94,7 @@ class FeedMapper {
 		$result = $stmt->execute(array($this->userid, $folderid));
 		$feeds = array();
 		while ($row = $result->fetchRow()) {
-			$url = $row['url'];
-			$title = htmlspecialchars_decode($row['title']);
-			$id = $row['id'];
-			$feed = new Feed($url, $title, null, $id);
-			$favicon = $row['favicon_link'];
-			$feed->setFavicon($favicon);
+			$feed = self::fromRow($row);
 			$feeds[] = $feed;
 		}
 		return $feeds;
@@ -104,17 +104,14 @@ class FeedMapper {
 	/**
 	 * @brief Retrieve a feed and all its items from the database
 	 * @param id The id of the feed in the database table.
-	 * @returns an instance of OC_News_Feed
+	 * @returns an instance of OCA\News\Feed
 	 */
 	public function findWithItems($id){
 		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE id = ?');
 		$result = $stmt->execute(array($id));
 		$row = $result->fetchRow();
-		$url = $row['url'];
-		$title = htmlspecialchars_decode($row['title']);
-		$feed = new Feed($url, $title, null,$id);
-		$favicon = $row['favicon_link'];
-		$feed->setFavicon($favicon);
+		
+		$feed = self::fromRow($row);
 		$itemMapper = new ItemMapper();
 		$items = $itemMapper->findAll($id);
 		$feed->setItems($items);
@@ -129,8 +126,9 @@ class FeedMapper {
 	 *	null - if there is no such feed
 	 */
 	public function findIdFromUrl($url){
-		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE url = ?');
-		$result = $stmt->execute(array($url));
+		$url_hash = md5($url);
+		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE url_hash = ?');
+		$result = $stmt->execute(array($url_hash));
 		$row = $result->fetchRow();
 		$id = null;
 		if ($row != null){
@@ -168,7 +166,8 @@ class FeedMapper {
 		}
 
 		$title = $feed->getTitle();
-		$url = htmlspecialchars_decode($feed->getUrl());
+		$url = $feed->getUrl();
+		$url_hash = md5($url);
 
 		if(empty($title)) {
 			$l = \OC_L10N::get('news');
@@ -180,12 +179,13 @@ class FeedMapper {
 		if ($feedid == null){
 			$query = \OCP\DB::prepare("
 				INSERT INTO " . self::tableName .
-				"(url, title, favicon_link, folder_id, user_id, added, lastmodified)
-				VALUES (?, ?, ?, ?, ?, $_ut, $_ut)
+				"(url, url_hash, title, favicon_link, folder_id, user_id, added, lastmodified)
+				VALUES (?, ?, ?, ?, ?, ?, $_ut, $_ut)
 				");
 
 			$params=array(
 				$url,
+				$url_hash,
 				$title,
 				$feed->getFavicon(),
 				$folderid,
@@ -221,6 +221,7 @@ class FeedMapper {
 
 		return true;
 	}
+	
 	public function delete(Feed $feed){
 		$id = $feed->getId();
 		return deleteById($id);

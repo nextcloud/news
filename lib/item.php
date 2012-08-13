@@ -32,6 +32,7 @@ class Item {
 	private $body;
 	private $status;  //a bit-field set with status flags
 	private $id;      //id of the item in the database table
+	private $author;
 
 	public function __construct($url, $title, $guid, $body, $id = null){
 		$this->title = $title;
@@ -120,5 +121,13 @@ class Item {
 
 	public function setBody($body){
 		$this->body = $body;
+	}
+	
+	public function getAuthor(){
+		return $this->author;
+	}
+
+	public function setAuthor($author){
+		$this->author = $author;
 	}
 }
