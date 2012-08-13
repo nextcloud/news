@@ -175,23 +175,35 @@ News={
 			});
 			return false;
 		},
-		setAllItemsRead:function() {
-			$("#feed_items li:not(.read)").each(function(){
-				var itemId = $(this).data('id');
-				var handler = new News.ItemStatusHandler(itemId);
-				handler.setRead(true);
+		setAllItemsRead:function(feedId) {
+			$.post(OC.filePath('news', 'ajax', 'setallitemsread.php'), { 'feedId' : feedId }, function(jsonData) {
+				if(jsonData.status == 'success'){
+					// mark ui items as read
+					$("#feed_items .feed_item:not(.read)").each(function(){
+						$(this).addClass('read');
+					});
+
+					var $feedItemCounter = $('li.feed[data-id="'+feedId+'"]').find('.unreaditemcounter');
+					$feedItemCounter.removeClass('nonzero').addClass('zero');
+					$feedItemCounter.empty();
+				} else {
+					OC.dialogs.alert(t('news', 'Error while loading the feed'), t('news', 'Error'));
+				}
 			});
 		},
-		load:function(feedid) {
-			$.post(OC.filePath('news', 'ajax', 'loadfeed.php'),{'feedid':feedid},function(jsondata) {
-				if(jsondata.status == 'success'){
-					var rightcontent = $('div.rightcontent');
-					rightcontent.empty();
-					rightcontent.attr('data-id', feedid);
-					rightcontent.html(jsondata.data.items_header + jsondata.data.part_items);
+		load:function(feedId) {
+			$.post(OC.filePath('news', 'ajax', 'loadfeed.php'), { 'feedId' : feedId }, function(jsonData) {
+				if(jsonData.status == 'success'){
+					var $rightContent = $(".rightcontent");
+					$rightContent.attr('data-id', feedId);
+					var $feedItems = $('#feed_items');
+					$feedItems.empty();
+					$feedItems.html(jsonData.data.feedItems);
+					var $feedTitle = $(".feed_controls .feed_title h1");
+					$feedTitle.html('» ' + jsonData.data.feedTitle);
 
 					$('li#selected_feed').attr('id', '');
-					$('li.feed[data-id="' + feedid + '"]').attr('id', 'selected_feed');
+					$('li.feed[data-id="' + feedId + '"]').attr('id', 'selected_feed');
 
 					transformCollapsableTrigger();
 					bindItemEventListeners();
@@ -244,10 +256,10 @@ News={
 			// TODO: safe this on the server
 			switch(value){
 				case 'all':
-					$("#feed_items li").show();
+					$("#feed_items .feed_item").show();
 					break;
 				case 'newest':
-					$("#feed_items li.title_read").hide();
+					$("#feed_items .feed_item.read").hide();
 					break;
 				default:
 					break;
@@ -259,8 +271,8 @@ News={
 	ItemStatusHandler: function(itemId){
 		var _itemId = itemId;
 		var _$currentItem = $('#feed_items li[data-id="' + itemId + '"]');
-		var _$currentItemStar = _$currentItem.children('.item_utils').children('ul').children('.star');
-		var _$currentItemKeepUnread = _$currentItem.children('.item_utils').children('.hidden_item_utils').children('.keep_unread').children('input[type=checkbox]');
+		var _$currentItemStar = _$currentItem.children('.utils').children('.primary_item_utils').children('.star');
+		var _$currentItemKeepUnread = _$currentItem.children('.utils').children('.secondary_item_utils').children('.keep_unread').children('input[type=checkbox]');
 		var _feedId = _$currentItem.data('feedid');
 		var _read = _$currentItem.hasClass('read');
 		var _important = _$currentItemStar.hasClass('important');
@@ -342,18 +354,17 @@ News={
 						if (oldcount <= 1) {
 							counterplace.removeClass('nonzero').addClass('zero');
 							title.removeClass('nonzero').addClass('zero');
-						}
-						else {
-							counterplace.append(--oldcount);
+						} else {
+							counterplace.html(--oldcount);
 						}
 					} else {
 						_$currentItem.removeClass('read');
-						if (oldcount >= 1) {
+						if (oldcount === '') {
 							counterplace.removeClass('zero').addClass('nonzero');
 							title.removeClass('zero').addClass('nonzero');
-						}
-						else {
-							counterplace.append(--oldcount);
+							counterplace.html(1);
+						} else {
+							counterplace.html(++oldcount);
 						}
 					}
 
@@ -439,26 +450,9 @@ function setupFeedList() {
  */
 function bindItemEventListeners(){
 
-	// mark items whose title was hid under the top edge as read
-	// when the bottom is reached, mark all items as read
-	$('#feed_items').scroll(function(){
-		var boxHeight = $(this).height();
-		var scrollHeight = $(this).prop('scrollHeight');
-		var scrolled = $(this).scrollTop() + boxHeight;
-
-		$(this).children('ul').children('li:not(.read)').each(function(){
-			var itemOffset = $(this).position().top;
-			if(itemOffset <= 0 || scrolled >= scrollHeight){
-				var itemId = $(this).data('id');
-				var handler = new News.ItemStatusHandler(itemId);
-				handler.setRead(true);
-			}
-		})
-	});
-
 	// single hover on item should mark it as read too
 	$('#feed_items h1.item_title a').click(function(){
-		var $item = $(this).parent().parent('.news_item');
+		var $item = $(this).parent().parent('.feed_item');
 		var itemId = $item.data('id');
 		var handler = new News.ItemStatusHandler(itemId);
 		handler.setRead(true);
@@ -466,7 +460,7 @@ function bindItemEventListeners(){
 
 	// mark or unmark as important
 	$('#feed_items li.star').click(function(){
-		var $item = $(this).parent().parent().parent('.news_item');
+		var $item = $(this).parent().parent().parent('.feed_item');
 		var itemId = $item.data('id');
         var handler = new News.ItemStatusHandler(itemId);
 		handler.toggleImportant();
@@ -474,7 +468,7 @@ function bindItemEventListeners(){
 
 	// toggle logic for the keep unread handler
 	$('#feed_items .keep_unread').click(function(){
-		var $item = $(this).parent().parent().parent('.news_item');
+		var $item = $(this).parent().parent().parent('.feed_item');
 		var itemId = $item.data('id');
         var handler = new News.ItemStatusHandler(itemId);
 		handler.toggleKeepUnread();
@@ -482,12 +476,8 @@ function bindItemEventListeners(){
 
 	// bind the mark all as read button
 	$('#mark_all_as_read').click(function(){
-		News.Feed.setAllItemsRead();
-	});
-
-	// filter for newest or all items
-	$('#feed_filter').change(function(){
-		News.Feed.filter($(this).val());
+		var feedId = $('.rightcontent').data('id');
+		News.Feed.setAllItemsRead(feedId);
 	});
 
 }
@@ -522,6 +512,28 @@ $(document).ready(function(){
 	setInterval('News.Feed.updateAll()', updateInterval);
 
 	bindItemEventListeners();
+
+	// filter for newest or all items
+	$('#feed_filter').change(function(){
+		News.Feed.filter($(this).val());
+	});
+
+	// mark items whose title was hid under the top edge as read
+	// when the bottom is reached, mark all items as read
+	$('#feed_items').scroll(function(){
+		var boxHeight = $(this).height();
+		var scrollHeight = $(this).prop('scrollHeight');
+		var scrolled = $(this).scrollTop() + boxHeight;
+
+		$(this).children('ul').children('.feed_item:not(.read)').each(function(){
+			var itemOffset = $(this).position().top;
+			if(itemOffset <= 0 || scrolled >= scrollHeight){
+				var itemId = $(this).data('id');
+				var handler = new News.ItemStatusHandler(itemId);
+				handler.setRead(true);
+			}
+		})
+	});
 
 });
 

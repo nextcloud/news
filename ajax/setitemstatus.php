@@ -44,7 +44,7 @@ $l = OC_L10N::get('news');
 
 if(!$success) {
 	OCP\JSON::error(array('data' => array('message' => $l->t('Error marking item as read.'))));
-	OCP\Util::writeLog('news','ajax/markitem.php: Error setting itemstatus to '. $status .': '.$_POST['itemid'], OCP\Util::ERROR);
+	OCP\Util::writeLog('news','ajax/setitemstatus.php: Error setting itemstatus to '. $status .': '.$_POST['itemid'], OCP\Util::ERROR);
 	exit();
 }
 

@@ -35,7 +35,9 @@ if ($_['feedid']){
 <div id="rightcontent" class="rightcontent" data-id="<?php echo $_['feedid']; ?>">
 	<?php
 			echo $this->inc("part.items.header");
-			echo $this->inc("part.items");
+			echo '<div id="feed_items">';
+				echo $this->inc("part.items");
+			echo '</div>';
 	?>
 
 	<div id="appsettings" class="popup bottomleft hidden"></div>
