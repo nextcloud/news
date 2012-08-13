@@ -242,8 +242,7 @@ News={
 						counterplace.addClass('zero');
 						counterplace.html('');
 					}
-				}
-				else{
+				} else {
 				  	if (oldcount > 0) {
 						counterplace.addClass('nonzero');
 						counterplace.html(oldcount);
@@ -346,25 +345,24 @@ News={
 				if(jsonData.status == 'success'){
 					var counterplace = $('li.feed[data-id="'+_feedId+'"]').find('.unreaditemcounter');
 					var title = $('li.feed[data-id="'+_feedId+'"] > a');
-					var oldcount = counterplace.html();
-					counterplace.empty();
+					var unreadCount = $('.feed_item:not(.read)').length;
 
-					if(read){
+					if(!_$currentItem.hasClass('read') && read){
 						_$currentItem.addClass('read');
-						if (oldcount !== '' && parseInt(oldcount) <= 1) {
+						if (unreadCount === 0) {
 							counterplace.removeClass('nonzero').addClass('zero');
 							title.removeClass('nonzero').addClass('zero');
 						} else {
-							counterplace.html(parseInt(oldcount)-1);
+							counterplace.html(unreadCount-1);
 						}
-					} else {
+					} else if(_$currentItem.hasClass('read') && !read){
 						_$currentItem.removeClass('read');
-						if (oldcount === '') {
+						if (unreadCount === 0) {
 							counterplace.removeClass('zero').addClass('nonzero');
 							title.removeClass('zero').addClass('nonzero');
 							counterplace.html(1);
 						} else {
-							counterplace.html(parseInt(oldcount)+1);
+							counterplace.html(unreadCount+1);
 						}
 					}
 
@@ -538,6 +536,7 @@ $(document).ready(function(){
 				handler.setRead(true);
 			}
 		})
+
 	});
 
 });
