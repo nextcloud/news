@@ -349,9 +349,10 @@ News={
 
 					if(!_$currentItem.hasClass('read') && read){
 						_$currentItem.addClass('read');
-						if (unreadCount === 0) {
+						if (unreadCount <= 1) {
 							counterplace.removeClass('nonzero').addClass('zero');
 							title.removeClass('nonzero').addClass('zero');
+							counterplace.html('');
 						} else {
 							counterplace.html(unreadCount-1);
 						}
