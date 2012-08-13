@@ -97,7 +97,7 @@ div.feed_controls {
 #leftcontent { 
     width: 23.2em; 
     top: 3.5em !important; 
-    padding: 0; 
+    padding: 0 0 3em 0; 
     margin: 0; 
     z-index: 0;
     overflow: hidden;
@@ -109,7 +109,6 @@ div.feed_controls {
     position: relative; 
     overflow: auto; 
     height: 100%;
-    padding: 0 0 7em 0;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
 }
