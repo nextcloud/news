@@ -50,64 +50,210 @@ ul.controls li { float: left; }
 
 
 /* item view */
-#rightcontent { top: 3.5em !important; padding: 0 0 0 5px; box-sizing: border-box; -moz-box-sizing: border-box; margin-top: 3.5em;}
-
-#rightcontent div.feed_controls { box-sizing: border-box; -moz-box-sizing: border-box; background: none repeat scroll 0 0 #FFFFFF; border-bottom: 1px solid #ccc; box-shadow: 0 3px 3px -3px #000000; text-align: right; overflow: hidden; position: fixed; left: 32.5em; right: 0; top: 3.5em; }
-#rightcontent div.feed_controls div.feed_title { float: left; padding-left: 10px; }
-#rightcontent div.feed_controls div.feed_title h1 { font-size: 1.7em; color: #444; padding-top: .5em; }
-
-#rightcontent #feed_items {
+#rightcontent { 
+    top: 3.5em !important; 
+    padding: 0 0 0 5px; 
     box-sizing: border-box; 
     -moz-box-sizing: border-box; 
-    overflow: auto;
-    height: 100%;
+    margin-top: 3.5em;
 }
 
-#feed_items h1.item_title { }
-#feed_items .title_unread h1.item_title { font-weight: bold; border-bottom: 1px solid #222; }
-#feed_items .title_unread h1.item_title a { color: #222; }
-#feed_items .title_unread h1.item_title, 
-#feed_items .title_read h1.item_title { padding: 15px 10px 10px 10px; font-size: 1.5em; }
-#feed_items .title_read h1.item_title { font-weight: normal; border-bottom: 1px solid #ccc; }
-#feed_items .title_read h1.item_title a { color: #888; }
-#feed_items .title_read a:hover, #feed_items .title_unread a:hover { text-decoration: underline; }
+    /**
+     * View above the feeds which shows the feed title
+     * and the controls
+     */
+    #rightcontent div.feed_controls { 
+        box-sizing: border-box; 
+        -moz-box-sizing: border-box; 
+        background: none repeat scroll 0 0 #FFFFFF; 
+        border-bottom: 1px solid #ccc; 
+        box-shadow: 0 3px 3px -3px #000000; 
+        text-align: right; overflow: hidden; 
+        position: fixed; 
+        left: 32.5em; 
+        right: 0; 
+        top: 3.5em; 
+    }
+        
+        #rightcontent div.feed_controls div.feed_title { 
+            float: left; 
+            padding-left: 10px; 
+        }
+        
+            #rightcontent div.feed_controls div.feed_title h1 { 
+                font-size: 1.7em;
+                color: #444; 
+                padding-top: .5em; 
+            }
 
-#feed_items .item_utils {
-    float: left;
-    padding: 15px 10px 10px;
-}
-#feed_items .item_utils ul {}
-#feed_items .item_utils ul li { display: inline-block; }
-#feed_items .item_utils ul li.star { 
-    background-image: url('%appswebroot%/news/img/inactive_star.svg');
-    background-repeat: no-repeat;
-    background-size: 100%;
-    height: 1.5em;
-    width: 1.5em;
-}
-#feed_items .item_utils ul li.star.important,
-#feed_items .item_utils ul li.star:hover {
-    background-image: url('%appswebroot%/news/img/active_star.svg');
-}
+    /**
+     * Area below the feed title and controls
+     */
+    #rightcontent #feed_items {
+        box-sizing: border-box; 
+        -moz-box-sizing: border-box; 
+        overflow: auto;
+        height: 100%;
+    }
+
+        #rightcontent #feed_items li:active { 
+            background: none; 
+        }
+
+        /**
+         * Rules for a single feed item
+         */
+        .feed_item {
+            border-top: 1px solid #ccc;
+            min-height: 100px;
+        }
+
+            /**
+             * Utils panel
+             */
+            .utils {
+                height: 2em;
+                margin: 0;
+                padding: 0.6em 0.5em 0.5em 0.5em;
+                background-image: linear-gradient(top, rgb(238,238,238) 0%, rgb(255,255,255) 100%);
+                background-image: -o-linear-gradient(top, rgb(238,238,238) 0%, rgb(255,255,255) 100%);
+                background-image: -moz-linear-gradient(top, rgb(238,238,238) 0%, rgb(255,255,255) 100%);
+                background-image: -webkit-linear-gradient(top, rgb(238,238,238) 0%, rgb(255,255,255) 100%);
+                background-image: -ms-linear-gradient(top, rgb(238,238,238) 0%, rgb(255,255,255) 100%);
+            }
+
+            /**
+             * Primary feed utils which are always shown
+             */
+            .feed_item .primary_item_utils {
+                float: left;
+            }
+
+                .feed_item .primary_item_utils li { 
+                    display: inline-block; 
+                    line-height: 1.5em;
+                    font-size: 1em;
+                    color: #aaa;
+                    float: left;
+                    margin-left: ;
+                    cursor: default;
+                }
+
+                .feed_item .primary_item_utils li:first-child { margin: 0}
+                .feed_item .primary_item_utils li.star { 
+                    background-image: url('%appswebroot%/news/img/inactive_star.svg');
+                    background-repeat: no-repeat;
+                    background-size: 100%;
+                    width: 1.5em;
+                    height: 1.5em;
+                    cursor: pointer;
+                }
+
+                .feed_item .primary_item_utils li.star.important,
+                .feed_item .primary_item_utils li.star:hover {
+                    background-image: url('%appswebroot%/news/img/active_star.svg');
+                }
+
+            /**
+             * Secondary feed items which are only shown on hover
+             */
+            .feed_item .secondary_item_utils {
+                float: right;
+                color: #aaa;
+            }
+            /*
+            .feed_item:hover .secondary_item_utils {
+                display: block;
+            }*/
+
+                .feed_item:hover .secondary_item_utils li.keep_unread {
+                    cursor: pointer;
+                }
+
+                .feed_item .secondary_item_utils li input[type=checkbox]{ 
+                    margin-left: .8em;
+                }
+
+            /**
+             * Feed title
+             */
+            .feed_item h1.item_title { 
+                font-size: 1.5em;
+                margin: 0 0 0 1.6em;
+                font-weight: bold;
+            }
+
+                .feed_item h1.item_title a { 
+                    color: #222; 
+                }
+                    .feed_item h1.item_title a:hover { 
+                        color: #222; 
+                        text-decoration: underline; 
+                    }
+            
+            /**
+             * Feed title when read
+             */
+            .feed_item.read h1.item_title { 
+                font-weight: normal;
+            }
+
+                .feed_item.read h1.item_title a { 
+                    color: #888; 
+                }
+
+            /**
+             * Author of the feed
+             */
+            .feed_item h2.item_author {
+                color: #aaa;
+                margin-left: 2.5em;
+            }
 
 
-#feed_items div.body { padding: 15px 25px 10px 25px; }
-#feed_items div.body p { line-height: 1.5; margin: 10px 0; }
-#feed_items div.body a { color: #0000ff; text-decoration: underline; }
-#feed_items div.body ul { padding-left: 15px; list-style-type: disc; }
-#feed_items div.body ul li { cursor: default; }
-#feed_items li:active { background: none; }
-#feed_items div.body pre { padding: 5px; background-color: #dadada; border: 1px solid #ccc; }
-#feed_items div.body pre code { font-family: monospace; font-size: 1.5em; }
+            /**
+             * Body of the feed item
+             */
+            .feed_item div.body { 
+                padding: .5em 2.5em 2em 2.5em; 
+            }
 
+                .feed_item div.body p { 
+                    line-height: 1.5; 
+                    margin: 10px 0; 
+                }
+                
+                .feed_item div.body a { 
+                    color: #0000ff; 
+                    text-decoration: underline; 
+                }
+                
+                .feed_item div.body ul { 
+                    padding-left: 15px; 
+                    list-style-type: disc; 
+                }
 
-#feed_items div.rightcontentmsg { padding-left: 10px; background-color: yellow; }
+                    .feed_item div.body ul li { 
+                        cursor: default; 
+                    }
+            
+                .feed_item div.body pre { 
+                    padding: 5px; 
+                    background-color: #dadada; 
+                    border: 1px solid #ccc; 
+                }
+                
+                    .feed_item div.body pre code { 
+                        font-family: monospace; 
+                        font-size: 1.5em;
+                    }
+                
 
 
 /* dialog/menues */
 div.dialog { overflow: visible; }
 
-#dropdownBtn { width: 20em; padding-left: 0; padding-right:20px; background: url('%webroot%/core/img/actions/triangle-s.svg') no-repeat right center; text-align: left; overflow: hidden;}
+#dropdownBtn { width: 12.5em; padding-left: 0; padding-right:20px; background: url('%webroot%/core/img/actions/triangle-s.svg') no-repeat right center; text-align: left; overflow: hidden;}
 ul#dropdownmenu { left: 0em; box-shadow: 0px 0px 10px rgb(0, 0, 0); }
 
 ul#feedfoldermenu { position:fixed; margin-left: 0; bottom: 2.8em; border-left:1px solid #ccc; border-top:1px solid #ccc; border-right:1px solid #ccc; -moz-box-shadow: 0 -3px 3px -3px #000; -webkit-box-shadow: 0 -3px 3px -3px #000; box-shadow: 0 -3px 3px -3px #000;}

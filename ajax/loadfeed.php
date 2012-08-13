@@ -17,19 +17,19 @@ OCP\JSON::callCheck();
 
 $userid = OCP\USER::getUser();
 
-$feedid = trim($_POST['feedid']);
+$feedId = trim($_POST['feedId']);
 
 $l = OC_L10N::get('news');
 
-$tmpl_items = new OCP\Template("news", "part.items");
-$tmpl_items->assign('feedid', $feedid);
-$part_items = $tmpl_items->fetchPage();
+$itemsTpl = new OCP\Template("news", "part.items");
+$itemsTpl->assign('feedid', $feedId);
+$feedItems = $itemsTpl->fetchPage();
 
-$tmpl_items_header = new OCP\Template("news", "part.items.header");
-$tmpl_items_header->assign('feedid', $feedid);
-$items_header = $tmpl_items_header->fetchPage();
+$feedMapper = new OCA\News\FeedMapper();
+$feed = $feedMapper->findById($feedId);
+$feedTitle = $feed->getTitle();
 
 OCP\JSON::success(array('data' => array( 'message' => $l->t('Feed loaded!'),
-                                        'items_header' => $items_header,
-										'part_items' => $part_items )));
+                                        'feedTitle' => $feedTitle,
+										'feedItems' => $feedItems )));
 
