@@ -456,7 +456,7 @@ function bindItemEventListeners(){
 		var itemId = $item.data('id');
 		var handler = new News.ItemStatusHandler(itemId);
 		handler.setRead(true);
-	})
+	});
 
 	// mark or unmark as important
 	$('#feed_items li.star').click(function(){
@@ -464,7 +464,7 @@ function bindItemEventListeners(){
 		var itemId = $item.data('id');
         var handler = new News.ItemStatusHandler(itemId);
 		handler.toggleImportant();
-	})
+	});
 
 	// toggle logic for the keep unread handler
 	$('#feed_items .keep_unread').click(function(){
@@ -472,7 +472,13 @@ function bindItemEventListeners(){
 		var itemId = $item.data('id');
         var handler = new News.ItemStatusHandler(itemId);
 		handler.toggleKeepUnread();
-	})
+	});
+	$('#feed_items .keep_unread input[type=checkbox]').click(function(){
+		var $item = $(this).parent().parent().parent().parent('.feed_item');
+		var itemId = $item.data('id');
+        var handler = new News.ItemStatusHandler(itemId);
+		handler.toggleKeepUnread();
+	});
 
 	// bind the mark all as read button
 	$('#mark_all_as_read').click(function(){

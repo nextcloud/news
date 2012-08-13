@@ -345,13 +345,14 @@ ul.controls li {
              * Secondary feed items which are only shown on hover
              */
             .feed_item .secondary_item_utils {
+                display: none;
                 float: right;
                 color: #aaa;
             }
-            /*
+            
             .feed_item:hover .secondary_item_utils {
                 display: block;
-            }*/
+            }
 
                 .feed_item:hover .secondary_item_utils li.keep_unread {
                     cursor: pointer;
