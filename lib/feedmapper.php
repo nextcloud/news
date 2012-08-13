@@ -211,9 +211,9 @@ class FeedMapper {
 		if ($id == null) {
 			return false;
 		}
-		$stmt = \OCP\DB::prepare('DELETE FROM ' . self::tableName .' WHERE id = ?');
+		$stmt = \OCP\DB::prepare('DELETE FROM ' . self::tableName .' WHERE id = ? AND user_id = ?');
 
-		$result = $stmt->execute(array($id));
+		$result = $stmt->execute(array($id, $this->userid));
 
 		$itemMapper = new ItemMapper();
 		//TODO: handle the value that the execute returns
@@ -231,9 +231,9 @@ class FeedMapper {
 			return false;
 		}
 
-		$stmt = \OCP\DB::prepare('SELECT id FROM ' . self::tableName . ' WHERE folder_id = ?');
+		$stmt = \OCP\DB::prepare('SELECT id FROM ' . self::tableName . ' WHERE folder_id = ? AND user_id = ?');
 
-		$result = $stmt->execute(array($folderid));
+		$result = $stmt->execute(array($folderid, $this->userid));
 		while ($row = $result->fetchRow()) {
 			if(!self::deleteById($row['id']))
 				return false;

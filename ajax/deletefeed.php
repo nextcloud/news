@@ -19,7 +19,7 @@ $userid = OCP\USER::getUser();
 
 $feedid = $_POST['feedid'];
 
-$feedmapper = new OCA\News\FeedMapper();
+$feedmapper = new OCA\News\FeedMapper($userid);
 $success = $feedmapper->deleteById($feedid);
 
 $l = OC_L10N::get('news');
