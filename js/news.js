@@ -351,11 +351,11 @@ News={
 
 					if(read){
 						_$currentItem.addClass('read');
-						if (oldcount <= 1) {
+						if (oldcount !== '' && parseInt(oldcount) <= 1) {
 							counterplace.removeClass('nonzero').addClass('zero');
 							title.removeClass('nonzero').addClass('zero');
 						} else {
-							counterplace.html(--oldcount);
+							counterplace.html(parseInt(oldcount)-1);
 						}
 					} else {
 						_$currentItem.removeClass('read');
@@ -364,7 +364,7 @@ News={
 							title.removeClass('zero').addClass('nonzero');
 							counterplace.html(1);
 						} else {
-							counterplace.html(++oldcount);
+							counterplace.html(parseInt(oldcount)+1);
 						}
 					}
 
