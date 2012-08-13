@@ -34,6 +34,9 @@ class ItemMapper {
 		$id = $row['id'];
 		$item = new Item($url, $title, $guid, $body, $id);
 		$item->setStatus($status);
+		$date = $row['date'];
+		$author = $row['author'];
+		$item->setAuthor($author);
 		
 		return $item;
 	}
@@ -75,13 +78,14 @@ class ItemMapper {
 		return $items;
 	}
 
-	public function findIdFromGuid($guid, $feedid){
+	public function findIdFromGuid($guid_hash, $guid, $feedid){
 		$stmt = \OCP\DB::prepare('
 				SELECT * FROM ' . self::tableName . ' 
-				WHERE guid = ?
+				WHERE guid_hash = ?
 				AND feed_id = ?
 				');
-		$result = $stmt->execute(array($guid, $feedid));
+		$result = $stmt->execute(array($guid_hash, $feedid));
+		//TODO: if there is more than one row, falling back to comparing $guid
 		$row = $result->fetchRow();
 		$id = null;
 		if ($row != null){
@@ -120,9 +124,11 @@ class ItemMapper {
 	 */
 	public function save(Item $item, $feedid){
 		$guid = $item->getGuid();
+		$guid_hash = md5($guid);
+		
 		$status = $item->getStatus();
 
-		$itemid =  $this->findIdFromGuid($guid, $feedid);
+		$itemid =  $this->findIdFromGuid($guid_hash, $guid, $feedid);
 		
 		if ($itemid == null){
 			$title = $item->getTitle();
@@ -130,8 +136,8 @@ class ItemMapper {
 
 			$stmt = \OCP\DB::prepare('
 				INSERT INTO ' . self::tableName .
-				'(url, title, body, guid, feed_id, status)
-				VALUES (?, ?, ?, ?, ?, ?)
+				'(url, title, body, guid, guid_hash, feed_id, status)
+				VALUES (?, ?, ?, ?, ?, ?, ?)
 				');
 
 			if(empty($title)) {
@@ -143,12 +149,13 @@ class ItemMapper {
 				$l = \OC_L10N::get('news');
 				$body = $l->t('no body');
 			}
-
+			
 			$params=array(
-				htmlspecialchars_decode($item->getUrl()),
-				htmlspecialchars_decode($title),
+				$item->getUrl(),
+				$title,
 				$body,
-				htmlspecialchars_decode($guid),
+				$guid,
+				$guid_hash,
 				$feedid,
 				$status
 			);

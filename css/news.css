@@ -219,7 +219,9 @@ div.feed_controls {
             margin: 0 0.3em 0 0; 
         }
 
-/* feed controls */
+
+
+/* feed settings */
 #addfolder { 
     background: url('%webroot%/core/img/places/folder.svg') no-repeat left center; 
     padding-left: 20px !important; 
@@ -228,6 +230,16 @@ div.feed_controls {
 #addfeed { 
     background: url('%appswebroot%/news/img/rss.svg') no-repeat left center; 
     padding-left: 20px !important; 
+}
+
+#addfeedbtn { 
+    background: url('%appswebroot%/news/img/rss.svg') no-repeat left; 
+    padding-left: 20px; 
+}
+
+#importopmlbtn { 
+    background: url('%appswebroot%/news/img/opml-icon.svg') no-repeat left center; 
+    padding-left: 20px; 
 }
 
 #feed_settings { 
@@ -432,7 +444,7 @@ div.dialog {
 }
 
 #dropdownBtn { 
-    width: 20em; 
+    width: 12.5em; 
     padding-left: 0; 
     padding-right:20px; 
     background: url('%webroot%/core/img/actions/triangle-s.svg') no-repeat right center; 

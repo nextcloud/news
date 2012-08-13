@@ -17,8 +17,8 @@ namespace OCA\News;
  */
 class Feed extends Collection {
 
+	private $title;
 	private $url;
-	private $spfeed; //encapsulate a SimplePie_Core object
 	private $items;  //array that contains all the items of the feed
 	private $favicon;
 

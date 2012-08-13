@@ -138,17 +138,17 @@ class FolderMapper {
 		}
 
 		// delete child folders
-		$stmt = \OCP\DB::prepare('SELECT id FROM ' . self::tableName .' WHERE parent_id = ?');
-		$result = $stmt->execute(array($folderid));
+		$stmt = \OCP\DB::prepare('SELECT id FROM ' . self::tableName .' WHERE parent_id = ? AND user_id = ?');
+		$result = $stmt->execute(array($folderid, $this->userid));
 		while ($row = $result->fetchRow()) {
 			if (!self::deleteById($row['id']))
 				return false;
 		}
 
-		$stmt = \OCP\DB::prepare('DELETE FROM ' . self::tableName .' WHERE id = ?');
-		$result = $stmt->execute(array($folderid));
+		$stmt = \OCP\DB::prepare('DELETE FROM ' . self::tableName .' WHERE id = ? AND user_id = ?');
+		$result = $stmt->execute(array($folderid, $this->userid));
 
-		$feedMapper = new FeedMapper();
+		$feedMapper = new FeedMapper($this->userid);
 		//TODO: handle the value that the execute returns
 		if(!$feedMapper->deleteAll($folderid))
 			return false;
