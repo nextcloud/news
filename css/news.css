@@ -57,7 +57,7 @@ div.feed_controls {
     box-shadow: 0 4px 4px -3px #ccc; 
     overflow: hidden; 
     position: fixed; 
-    left: 35.8em; 
+    left: 34.1em; 
     right: 0; 
     top: 3.5em; 
     z-index: 1;
@@ -95,7 +95,7 @@ div.feed_controls {
 
 /* feed/folder list */
 #leftcontent { 
-    width: 23.2em; 
+    width: 21.5em; 
     top: 3.5em !important; 
     padding: 0 0 3em 0; 
     margin: 0; 
@@ -246,7 +246,7 @@ div.feed_controls {
     bottom:0px; 
     overflow:visible; 
     height:2.8em; 
-    width: 23.2em; 
+    width: 21.5em; 
     margin:0; 
     background:#eee; 
     border-top:1px 
@@ -265,7 +265,7 @@ ul.controls li {
     box-sizing: border-box; 
     -moz-box-sizing: border-box; 
     margin-top: 3.5em;
-    left: 35.8em;
+    left: 34.1em;
 }
 
     /**
