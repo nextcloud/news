@@ -4,6 +4,9 @@
 
 <?php
 if ($_['feedid']){
+
+echo $this->inc("part.items.header");
+
 ?>
 
 <div id="leftcontent" class="leftcontent">
@@ -12,13 +15,13 @@ if ($_['feedid']){
 	</ul>
 </div>
 
-<div id="feedcontrols">
+<div id="feed_settings">
 	<ul class="controls">
 		<li>
-			<button class="svg" id="addfeedfolder" title="<?php echo $l->t('Add Feed/Folder'); ?>" onclick="News.DropDownMenu.fade('ul#feedfoldermenu')"><img class="svg" src="<?php echo OCP\Util::linkTo('news', 'img/add.svg'); ?>" alt="<?php echo $l->t('Add Feed/Folder'); ?>"   /></button>
+			<button class="svg" id="addfeedfolder" title="$l->t('Change View');" onclick="News.DropDownMenu.fade('ul#feedfoldermenu')"><img class="svg" src="<?php echo OCP\Util::linkTo('news', 'img/add.svg'); ?>" alt="<?php echo $l->t('Add Feed/Folder'); ?>"   /></button>
 		</li>
 		<li>
-			<button class="svg" title="<?php echo $l->t('Change View'); ?>">Eye</button>
+			<button class="svg" title="$l->t('Change View');">Eye</button>
 		</li>
 		<li style="float: right">
 			<button class="svg" id="settingsbtn" title="<?php echo $l->t('Settings'); ?>"><img class="svg" src="<?php echo OCP\Util::imagePath('core','actions/settings.png'); ?>" alt="<?php echo $l->t('Settings'); ?>"   /></button>
@@ -34,7 +37,6 @@ if ($_['feedid']){
 
 <div id="rightcontent" class="rightcontent" data-id="<?php echo $_['feedid']; ?>">
 	<?php
-			echo $this->inc("part.items.header");
 			echo '<div id="feed_items">';
 				echo $this->inc("part.items");
 			echo '</div>';

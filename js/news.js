@@ -200,7 +200,7 @@ News={
 					$feedItems.empty();
 					$feedItems.html(jsonData.data.feedItems);
 					var $feedTitle = $(".feed_controls .feed_title h1");
-					$feedTitle.html('» ' + jsonData.data.feedTitle);
+					$feedTitle.html(jsonData.data.feedTitle);
 
 					$('li#selected_feed').attr('id', '');
 					$('li.feed[data-id="' + feedId + '"]').attr('id', 'selected_feed');
