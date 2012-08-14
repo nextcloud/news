@@ -241,17 +241,14 @@ News={
 			});
 		}, 
 		filter:function(value){
-			// TODO: safe this on the server
 			var data;
 			switch(value){
 				case 'all':
-					$("#feed_items .feed_item").show();
 					data = {
 						show: 'all'
 					};
 					break;
 				case 'unread':
-					$("#feed_items .feed_item.read").hide();
 					data = {
 						show: 'unread'
 					};
