@@ -59,7 +59,6 @@ News={
 			var url;
 			url = OC.filePath('news', 'ajax', 'createfolder.php');
 
-			console.log(folderid);
 			$.post(url, { name: displayname, parentid: folderid },
 				function(jsondata){
 					if(jsondata.status == 'success'){
