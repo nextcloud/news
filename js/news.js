@@ -22,7 +22,7 @@ News={
 	},
 	UI: {
 		overview:function(dialogtype, dialogfile){
-		    	if($(dialogtype).dialog('isOpen') == true){
+		    if($(dialogtype).dialog('isOpen') == true){
 				$(dialogtype).dialog('moveToTop');
 			}else{
 				$('#dialog_holder').load(OC.filePath('news', 'ajax', dialogfile), function(jsondata){
@@ -65,11 +65,7 @@ News={
 						$('.collapsable_container[data-id="' + folderid + '"] > ul').append(jsondata.data.listfolder);
 						setupFeedList();
 						transformCollapsableTrigger();
-						//OC.dialogs.confirm(t('news', 'Do you want to add another folder?'), t('news', 'Folder added!'), function(answer) {
-						//	if(!answer) {
-								$('#addfolder_dialog').dialog('destroy').remove();
-						//	}
-						//});
+						$('#addfolder_dialog').dialog('destroy').remove();
 					} else {
 						OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
 					}
@@ -124,23 +120,27 @@ News={
 				data: { 'feedurl': feedurl, 'folderid': folderid },
 				dataType: "json",
 				success: function(jsondata){
-					if(jsondata.status == 'success'){
-						$('.collapsable_container[data-id="' + folderid + '"] > ul').append(jsondata.data.listfeed);
-						setupFeedList();
-						News.Feed.load(jsondata.data.feedid);
-
-						OC.dialogs.confirm(t('news', 'Do you want to add another feed?'), t('news', 'Feed added!'), function(answer) {
-							if(!answer) {
-								$('#addfeed_dialog').dialog('destroy').remove();
-								$('ul.accordion').before(jsondata.data.part_newfeed);
-							}
-						});
+					if($('#firstrun').length > 0){
+						window.location.reload(); 
 					} else {
-						OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
+						if(jsondata.status == 'success'){
+							$('.collapsable_container[data-id="' + folderid + '"] > ul').append(jsondata.data.listfeed);
+							setupFeedList();
+							News.Feed.load(jsondata.data.feedid);
+
+							OC.dialogs.confirm(t('news', 'Do you want to add another feed?'), t('news', 'Feed added!'), function(answer) {
+								if(!answer) {
+									$('#addfeed_dialog').dialog('destroy').remove();
+									$('ul.accordion').before(jsondata.data.part_newfeed);
+								}
+							});
+						} else {
+							OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
+						}
+						$("#feed_add_url").val('');
+						$(button).attr("disabled", false);
+						$(button).prop('value', t('news', 'Add feed'));
 					}
-					$("#feed_add_url").val('');
-					$(button).attr("disabled", false);
-					$(button).prop('value', t('news', 'Add feed'));
 				},
 				error: function(xhr) {
 					OC.dialogs.alert(t('news', 'Error while parsing the feed'), t('news', 'Fatal Error'));
