@@ -265,7 +265,10 @@ News={
 					//TODO 
 				}
 			});
-		}
+		},
+		// this array is used to store ids to prevent sending too
+		// many posts when scrolling. the structure is: feed_id: boolean
+		processing:{},
 	},
 
 	/**
@@ -353,19 +356,17 @@ News={
 	 * This handler handles changes in the ui when the itemstatus changes
 	 */
 	ItemStatusHandler: function(itemId){
-		var _itemId = itemId;
+		var _itemId = parseInt(itemId);
 		var _$currentItem = $('#feed_items li[data-id="' + itemId + '"]');
-		var _$currentItemStar = _$currentItem.children('.utils').children('.primary_item_utils').children('.star');
-		var _$currentItemKeepUnread = _$currentItem.children('.utils').children('.secondary_item_utils').children('.keep_unread').children('input[type=checkbox]');
 		var _feedId = _$currentItem.data('feedid');
 		var _read = _$currentItem.hasClass('read');
-		var _important = _$currentItemStar.hasClass('important');
-		var _keepUnread = _$currentItemKeepUnread.prop('checked');
 
 		/**
 		 * Switches important items to unimportant and vice versa
 		 */
 		var _toggleImportant = function(){
+			var _$currentItemStar = _$currentItem.children('.utils').children('.primary_item_utils').children('.star');
+			var _important = _$currentItemStar.hasClass('important');
 			if(_important){
 				status = 'unimportant';
 			} else {
@@ -373,7 +374,7 @@ News={
 			}
 
 			var data = {
-				itemId: itemId,
+				itemId: _itemId,
 				status: status
 			};
 
@@ -391,14 +392,25 @@ News={
 		};
 
 		/**
+		 * Checks the state of the keep read checkbox
+		 * @return true if its checked, otherwise false
+		 */
+		var _isKeptRead = function(){
+			var _$currentItemKeepUnread = _$currentItem.children('.utils').children('.secondary_item_utils').children('.keep_unread').children('input[type=checkbox]');
+			return _$currentItemKeepUnread.prop('checked');
+		}
+
+		/**
 		 * Toggles an item as "keep unread". This prevents all handlers to mark it as unread
 		 * except the current one
 		 */
 		var _toggleKeepUnread = function(){
-			if(_keepUnread){
+			var _$currentItemKeepUnread = _$currentItem.children('.utils').children('.secondary_item_utils').children('.keep_unread').children('input[type=checkbox]');
+			if(_isKeptRead()){
 				_$currentItemKeepUnread.prop("checked", false);
 			} else {
 				_$currentItemKeepUnread.prop("checked", true);
+				News.Feed.processing[_itemId] = true;
 				_setRead(false);
 			}
 		};
@@ -411,9 +423,15 @@ News={
 			var status;
 
 			// if we already have the status, do nothing
-			if(read === _read) return;
+			if(read === _read){
+				News.Feed.processing[_itemId] = false;
+				return;
+			}
 			// check if the keep unread flag was set
-			if(read && _keepUnread) return;
+			if(read && _isKeptRead()){
+				News.Feed.processing[_itemId] = false;
+				return;	
+			} 
 
 			if(read){
 				status = 'read';
@@ -422,7 +440,7 @@ News={
 			}
 
 			var data = {
-				itemId: itemId,
+				itemId: _itemId,
 				status: status
 			};
 
@@ -439,7 +457,7 @@ News={
 				} else {
 					OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
 				}
-				_$currentItem.data('processing', 'false');
+				News.Feed.processing[_itemId] = false;
 			})
 			
 		};
@@ -602,10 +620,10 @@ $(document).ready(function(){
 		$(this).children('ul').children('.feed_item:not(.read)').each(function(){
 			var itemOffset = $(this).position().top;
 			if(itemOffset <= 0 || scrolled >= scrollHeight){
-				var itemId = $(this).data('id');
-				if($(this).data('processing') != true){
+				var itemId = parseInt($(this).data('id'));
+				if(News.Feed.processing[itemId] === undefined || News.Feed.processing[itemId] === false){
 					// mark item as processing to prevent unecessary post requests	
-					$(this).data('processing', 'true');
+					News.Feed.processing[itemId] = true;
 					var handler = new News.ItemStatusHandler(itemId);
 					handler.setRead(true);	
 				}

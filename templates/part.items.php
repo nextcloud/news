@@ -28,7 +28,7 @@ foreach($items as $item) {
 		$startTitle = $l->t('Mark as important');
 	}
 
-	echo '<li class="feed_item ' . $newsItemClass .'" data-id="' . $item->getId() . '" data-feedid="' . $feedId . '" data-processing="false">';
+	echo '<li class="feed_item ' . $newsItemClass .'" data-id="' . $item->getId() . '" data-feedid="' . $feedId . '">';
 
 		echo '<div class="utils">';
 			echo '<ul class="primary_item_utils">';
