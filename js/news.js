@@ -554,6 +554,14 @@ function bindItemEventListeners(){
 		handler.setRead(true);
 	});
 
+	// single hover on item should mark it as read too
+	$('#feed_items .body').click(function(){
+		var $item = $(this).parent('.feed_item');
+		var itemId = $item.data('id');
+		var handler = new News.ItemStatusHandler(itemId);
+		handler.setRead(true);
+	});
+
 	// mark or unmark as important
 	$('#feed_items li.star').click(function(){
 		var $item = $(this).parent().parent().parent('.feed_item');
