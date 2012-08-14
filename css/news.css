@@ -78,7 +78,7 @@ div.feed_controls {
     }
         
         div.feed_controls div.feed_title h1 {
-            width: 450px;   
+            max-width: 450px;   
             overflow: hidden;
             text-overflow: ellipsis; 
             white-space: nowrap;
