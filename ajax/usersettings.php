@@ -16,3 +16,6 @@ OCP\JSON::checkAppEnabled('news');
 OCP\JSON::callCheck();
 
 // TODO: receive and save user settings
+
+
+OCP\JSON::success();
