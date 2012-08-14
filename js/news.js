@@ -251,6 +251,7 @@ News={
 					var $feedItems = $('#feed_items');
 					$feedItems.empty();
 					$feedItems.html(jsonData.data.feedItems);
+					$feedItems.scrollTop(0);
 					var $feedTitle = $(".feed_controls .feed_title h1");
 					$feedTitle.html(jsonData.data.feedTitle);
 
