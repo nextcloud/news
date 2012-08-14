@@ -59,10 +59,16 @@ News={
 			var url;
 			url = OC.filePath('news', 'ajax', 'createfolder.php');
 
+			console.log(folderid);
 			$.post(url, { name: displayname, parentid: folderid },
 				function(jsondata){
 					if(jsondata.status == 'success'){
-						$('.collapsable_container[data-id="' + folderid + '"] > ul').append(jsondata.data.listfolder);
+						// if we got a parent folder
+						if(folderid > 0){
+							$('.collapsable_container[data-id="' + folderid + '"] > ul').append(jsondata.data.listfolder);
+						} else {
+							$('#feeds').append(jsondata.data.listfolder);
+						}
 						setupFeedList();
 						transformCollapsableTrigger();
 						$('#addfolder_dialog').dialog('destroy').remove();
@@ -124,7 +130,11 @@ News={
 						window.location.reload(); 
 					} else {
 						if(jsondata.status == 'success'){
-							$('.collapsable_container[data-id="' + folderid + '"] > ul').append(jsondata.data.listfeed);
+							if(folderid > 0){
+								$('.collapsable_container[data-id="' + folderid + '"] > ul').append(jsondata.data.listfeed);	
+							} else {
+								$('#feeds').append(jsondata.data.listfeed);
+							}
 							setupFeedList();
 							News.Feed.load(jsondata.data.feedid);
 
