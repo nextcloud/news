@@ -13,7 +13,7 @@
 namespace OCA\News;
 
 // load SimplePie library
-//TODO: is this file a suitable place for the following require?
+//TODO: is this a suitable place for the following require?
  require_once('news/3rdparty/SimplePie/autoloader.php');
 
 class Utils {
@@ -44,7 +44,10 @@ class Utils {
 				$itemTitle = $spitem->get_title();
 				$itemGUID = $spitem->get_id();
 				$itemBody = $spitem->get_content();
-				$items[] = new Item($itemUrl, $itemTitle, $itemGUID, $itemBody);
+				$itemAuthor = $spitem->get_author();
+				$item = new Item($itemUrl, $itemTitle, $itemGUID, $itemBody);
+				$item->setAuthor($itemAuthor->get_name());
+				$items[] = $item;
 			}
 		}
 
