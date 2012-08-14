@@ -182,10 +182,8 @@ News={
 					$("#feed_items .feed_item:not(.read)").each(function(){
 						$(this).addClass('read');
 					});
-
-					var $feedItemCounter = $('li.feed[data-id="'+feedId+'"]').find('.unreaditemcounter');
-					$feedItemCounter.removeClass('nonzero').addClass('zero');
-					$feedItemCounter.empty();
+					var feedHandler = new News.FeedStatusHandler(feedId);
+					feedHandler.setUnreadCount(0);
 				} else {
 					OC.dialogs.alert(t('news', 'Error while loading the feed'), t('news', 'Error'));
 				}
@@ -226,47 +224,137 @@ News={
 				}
 			});
 		},
-		update:function(feedid, feedurl, folderid) {
-			var counterplace = $('.feed[data-id="'+feedid+'"]').find('.unreaditemcounter');
-			var oldcount = counterplace.html();
-			counterplace.removeClass('zero nonzero');
-			counterplace.html('<img style="vertical-align: middle;" src="' + OC.imagePath('core','loader.gif') + '" alt="refresh" />');
-			$.post(OC.filePath('news', 'ajax', 'updatefeed.php'),{'feedid':feedid, 'feedurl':feedurl, 'folderid':folderid},function(jsondata){
+		update:function(feedId, feedurl, folderid) {
+			var feedHandler = new News.FeedStatusHandler(feedId);
+			feedHandler.setUpdating(true);
+			data = {
+				'feedid':feedId, 
+				'feedurl':feedurl, 
+				'folderid':folderid
+			};
+			$.post(OC.filePath('news', 'ajax', 'updatefeed.php'), data, function(jsondata){
 				if(jsondata.status == 'success'){
-					var newcount = jsondata.data.unreadcount;
-					if (newcount > 0) {
-						counterplace.addClass('nonzero');
-						counterplace.html(newcount);
-					}
-					else {
-						counterplace.addClass('zero');
-						counterplace.html('');
-					}
-				} else {
-				  	if (oldcount > 0) {
-						counterplace.addClass('nonzero');
-						counterplace.html(oldcount);
-					}
+					var newUnreadCount = jsondata.data.unreadcount;
+					feedHandler.setUnreadCount(newUnreadCount);
 				}
-
+				feedHandler.setUpdating(false);
 			});
 		}, 
 		filter:function(value){
 			// TODO: safe this on the server
+			var data;
 			switch(value){
 				case 'all':
 					$("#feed_items .feed_item").show();
+					data = {
+						show: 'all'
+					};
 					break;
-				case 'newest':
+				case 'unread':
 					$("#feed_items .feed_item.read").hide();
+					data = {
+						show: 'unread'
+					};
 					break;
 				default:
 					break;
 			}
-			
+			$.post(OC.filePath('news', 'ajax', 'usersettings.php'), data, function(jsondata){
+				if(jsondata.status == 'success'){
+					// TODO
+					var currentFeed = rightcontent.attr('data-id');
+					News.Feed.load(currentFeed);
+				} else {
+					//TODO 
+				}
+			});
 		}
 	},
-	// this handler handles changes in the ui when the itemstatus changes
+
+	/**
+	 * This class is responsible for setting and updating items
+	 * in the feedlist
+	 */
+	FeedStatusHandler: function(feedId){
+		var _feedId = feedId;
+		var _$feed = $('li.feed[data-id="'+feedId+'"]');
+		var _$feedUnreadCounter = _$feed.find('.unreaditemcounter');
+		var _$feedLink = _$feed.children('a');
+		
+		/**
+		 * Returns the current unread count
+		 * @return the number of unread items
+		 */
+		var _getUnreadCount = function(){
+			var unreadContent = _$feedUnreadCounter.html();
+			if(unreadContent === ''){
+				return 0;
+			} else {
+				return parseInt(unreadContent);
+			}
+		};
+
+		/**
+		 * Decreases the current unread count by 1
+		 */
+		var _decrrementUnreadCount = function(){
+			_setUnreadCount(_getUnreadCount() - 1);
+		};
+
+		/**
+		 * Increases the current unread count by 1
+		 */
+		var _incrementUnreadCount = function(){
+			_setUnreadCount(_getUnreadCount() + 1);
+		};
+
+		/**
+		 * Show an icon and hide the unread count
+		 * @param isUpdating if true show the icon and hide count, otherwise
+		 * hide the icon and show the unread count
+		 */
+		var _setUpdating = function(isUpdating){
+			if(isUpdating){
+				_$feed.addClass('updating');
+				_$feedUnreadCounter.hide();
+			} else {
+				_$feed.removeClass('updating');
+				_$feedUnreadCounter.show();
+			}
+		};
+
+		/**
+		 * Set the unread count to a number
+		 * @param count the unread count that will be set
+		 */
+		var _setUnreadCount = function(count){
+			// dont allow setting the count below 0
+			if(count < 0){
+				count = 0;
+			} 
+			if(count === 0){
+				_$feedLink.addClass('all_read');
+				_$feedUnreadCounter.addClass('all_read');
+			} else {
+				var currentCount = _getUnreadCount();
+				if(currentCount === 0){
+					_$feedLink.removeClass('all_read');
+					_$feedUnreadCounter.removeClass('all_read');
+				}
+			}
+			_$feedUnreadCounter.html(count);
+		};
+
+		// public
+		this.decrrementUnreadCount = function(){ return _decrrementUnreadCount(); };
+		this.incrementUnreadCount = function(){ return _incrementUnreadCount(); };
+		this.setUpdating = function(isUpdating){ return _setUpdating(isUpdating); };
+		this.setUnreadCount = function(count){ return _setUnreadCount(count); };
+	},
+
+	/**
+	 * This handler handles changes in the ui when the itemstatus changes
+	 */
 	ItemStatusHandler: function(itemId){
 		var _itemId = itemId;
 		var _$currentItem = $('#feed_items li[data-id="' + itemId + '"]');
@@ -343,42 +431,27 @@ News={
 
 			$.post(OC.filePath('news', 'ajax', 'setitemstatus.php'), data, function(jsonData){
 				if(jsonData.status == 'success'){
-					var counterplace = $('li.feed[data-id="'+_feedId+'"]').find('.unreaditemcounter');
-					var title = $('li.feed[data-id="'+_feedId+'"] > a');
-					var unreadCount = $('.feed_item:not(.read)').length;
-
+					var feedHandler = new News.FeedStatusHandler(_feedId);
 					if(!_$currentItem.hasClass('read') && read){
 						_$currentItem.addClass('read');
-						if (unreadCount <= 1) {
-							counterplace.removeClass('nonzero').addClass('zero');
-							title.removeClass('nonzero').addClass('zero');
-							counterplace.html('');
-						} else {
-							counterplace.html(unreadCount-1);
-						}
+						feedHandler.decrrementUnreadCount();
 					} else if(_$currentItem.hasClass('read') && !read){
 						_$currentItem.removeClass('read');
-						if (unreadCount === 0) {
-							counterplace.removeClass('zero').addClass('nonzero');
-							title.removeClass('zero').addClass('nonzero');
-							counterplace.html(1);
-						} else {
-							counterplace.html(unreadCount+1);
-						}
+						feedHandler.incrementUnreadCount();
 					}
-
 				} else {
 					OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
 				}
+				_$currentItem.data('processing', 'false');
 			})
 			
 		};
 
 		// set public methods
-		this.setRead = function(read){ _setRead(read); }
-		this.isRead = function(){ return _read; }
-		this.toggleImportant = function(){ _toggleImportant(); }
-		this.toggleKeepUnread = function(){ _toggleKeepUnread(); }
+		this.setRead = function(read){ _setRead(read); };
+		this.isRead = function(){ return _read; };
+		this.toggleImportant = function(){ _toggleImportant(); };
+		this.toggleKeepUnread = function(){ _toggleKeepUnread(); };
 	},
 
 }
@@ -533,8 +606,12 @@ $(document).ready(function(){
 			var itemOffset = $(this).position().top;
 			if(itemOffset <= 0 || scrolled >= scrollHeight){
 				var itemId = $(this).data('id');
-				var handler = new News.ItemStatusHandler(itemId);
-				handler.setRead(true);
+				if($(this).data('processing') != true){
+					// mark item as processing to prevent unecessary post requests	
+					$(this).data('processing', 'true');
+					var handler = new News.ItemStatusHandler(itemId);
+					handler.setRead(true);	
+				}
 			}
 		})
 

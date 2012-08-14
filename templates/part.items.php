@@ -1,9 +1,15 @@
 <?php
 
-$feedid = isset($_['feedid']) ? $_['feedid'] : '';
+$feedId = isset($_['feedid']) ? $_['feedid'] : '';
 
-$itemmapper = new OCA\News\ItemMapper();
-$items = $itemmapper->findAll($feedid);
+$itemMapper = new OCA\News\ItemMapper();
+
+$showOnlyUnread = true; // FIXME: get this from the settings db
+if($showOnlyUnread){
+	$items = $itemMapper->findAllStatus($feedId, OCA\News\StatusFlag::Unread);
+} else {
+	$items = $itemMapper->findAll($feedId);
+}
 
 echo '<ul>';
 foreach($items as $item) {
@@ -22,7 +28,7 @@ foreach($items as $item) {
 		$startTitle = $l->t('Mark as important');
 	}
 
-	echo '<li class="feed_item ' . $newsItemClass .'" data-id="' . $item->getId() . '" data-feedid="' . $feedid . '">';
+	echo '<li class="feed_item ' . $newsItemClass .'" data-id="' . $item->getId() . '" data-feedid="' . $feedId . '" data-processing="false">';
 
 		echo '<div class="utils">';
 			echo '<ul class="primary_item_utils">';

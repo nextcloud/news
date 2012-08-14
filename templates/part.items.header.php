@@ -8,6 +8,9 @@ if(isset($_['feedid'])){
     $feedTitle = '';
 }
 
+// FIXME: get this setting from the database
+$showOnlyUnread = true;
+
 ?>
 
 <div class="feed_controls">
@@ -18,8 +21,8 @@ if(isset($_['feedid'])){
     <div class="controls">
         <input type="button" value="<?php echo $l->t('Mark all as read'); ?>" id="mark_all_as_read" />
         <select id="feed_filter">
-            <option value="all"><?php echo $l->t('Show read/unread articles'); ?></option>
-            <option value="newest"><?php echo $l->t('Show only unread articles'); ?></option>
+            <option value="unread" <?php if($showOnlyUnread){ echo 'selected="selected"'; }; ?>><?php echo $l->t('Show only unread articles'); ?></option>
+            <option value="all" <?php if(!$showOnlyUnread){ echo 'selected="selected"'; }; ?>><?php echo $l->t('Show read/unread articles'); ?></option>
         </select>
     </div>
 </div>
