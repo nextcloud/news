@@ -61,6 +61,7 @@ div.feed_controls {
     right: 0; 
     top: 3.5em; 
     z-index: 1;
+    height: 3.3em;
 }
     div.feed_controls div.subscriptions_title {
         display: inline-block;
@@ -150,7 +151,10 @@ div.feed_controls {
             background-image: url('%webroot%/core/img/loader.gif');
             background-size: 16px 16px;
             background-repeat: no-repeat;
-            background-position: 20em center;
+            background-position: right center;
+            /* uncomment if webkit supports this
+            background-position: right 5px center;
+            */
         }
         
         #feeds li.feed:hover { 
