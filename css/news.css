@@ -30,21 +30,23 @@ div.add_parentfolder {
 #firstrun { 
     width: 100%; 
     position: absolute; 
-    top: 5em; 
+    top: 3em; 
     left: 0; 
     text-align: center; 
     font-weight:bold; 
     font-size:1.5em; 
     color:#777; 
 }
+    #firstrun small { display: block; font-weight: normal; font-size: 0.8em; margin-bottom: 1em; }
+    #firstrun .button { font-size: 0.7em; }
 
     #firstrun #selections { 
         font-size:0.8em; 
-        margin: 2em auto auto auto; 
+        margin: 2em auto 2em auto; 
         clear: both; 
     }
 
-
+    
 /**
  * View above the feeds which shows the feed title
  * and the controls

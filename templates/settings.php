@@ -7,7 +7,10 @@
 	    <?php echo $l->t(' or '); ?><a href='#' class="settings" id="cloudlink"><?php echo $l->t('cloud');?></a>.
 	    </span>
 	    <input type="file" id="file_upload_start" name="files[]" />
-	    <input style="float: right" id="importbtn" type="submit" value="<?php echo $l->t('Import');?>" /></dd>
+	    <input style="float: right" id="importbtn" type="submit" value="<?php echo $l->t('Import');?>" />
+	</dd>
 	<dt><?php echo $l->t('Export feeds'); ?></dt>
-	<dd></dd>
+	<dd>
+	    <button id="exportbtn" title="<?php echo $l->t('Download OPML'); ?>">Download OPML</button>
+	</dd>
 </dl>

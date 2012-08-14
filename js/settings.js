@@ -27,7 +27,7 @@ News.Settings={
 		$('#opml_file').text(t('news', 'File ') + file.name + t('news', ' loaded from local filesystem.'));
 		$('#opml_file').prop('value', file.name);
 	},
-	import:function(button){
+	importOpml:function(button){
 		$(button).attr("disabled", true);
 		$(button).prop('value', t('news', 'Importing...'));
 
@@ -51,6 +51,10 @@ News.Settings={
 			$(button).prop('value', t('news', 'Import'));
 			$(button).attr("disabled", false);
 		});
+	},
+	exportOpml:function(button){
+	//TODO
+		alert("test");
 	}
 }
 
@@ -73,6 +77,9 @@ $('#file_upload_start').change(function() {
 });
 
 $('#importbtn').click(function() {
-	News.Settings.import(this);
+	News.Settings.importOpml(this);
 });
 
+$('#exportbtn').click(function() {
+	News.Settings.exportOpml(this);
+});

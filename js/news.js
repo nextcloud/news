@@ -150,6 +150,51 @@ News={
 				}
 			});
 		},
+		submitFirstRun:function(button){
+
+			var feedurl = $("#feed_add_url").val().trim();
+
+			if(feedurl.length == 0) {
+				OC.dialogs.alert(t('news', 'URL cannot be empty.'), t('news', 'Error'));
+				return false;
+			}
+
+			$(button).attr("disabled", true);
+			$(button).prop('value', t('news', 'Adding...'));
+
+			$.ajax({
+				type: "POST",
+				url: OC.filePath('news', 'ajax', 'createfeed.php'),
+				data: { 'feedurl': feedurl, 'folderid': folderid },
+				dataType: "json",
+				success: function(jsondata){
+					if(jsondata.status == 'success'){
+						$('.collapsable_container[data-id="' + folderid + '"] > ul').append(jsondata.data.listfeed);
+						setupFeedList();
+						News.Feed.load(jsondata.data.feedid);
+						window.reload();
+
+						OC.dialogs.confirm(t('news', 'Do you want to add another feed?'), t('news', 'Feed added!'), function(answer) {
+							if(!answer) {
+								$('#addfeed_dialog').dialog('destroy').remove();
+								$('ul.accordion').before(jsondata.data.part_newfeed);
+							}
+						});
+					} else {
+						OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
+					}
+					$("#feed_add_url").val('');
+					$(button).attr("disabled", false);
+					$(button).prop('value', t('news', 'Add feed'));
+				},
+				error: function(xhr) {
+					OC.dialogs.alert(t('news', 'Error while parsing the feed'), t('news', 'Fatal Error'));
+					$("#feed_add_url").val('');
+					$(button).attr("disabled", false);
+					$(button).prop('value', t('news', 'Add feed'));
+				}
+			});
+		},
 		'delete':function(feedid) {
 			$('.feeds_delete').tipsy('hide');
 			OC.dialogs.confirm(t('news', 'Are you sure you want to delete this feed?'), t('news', 'Warning'), function(answer) {
