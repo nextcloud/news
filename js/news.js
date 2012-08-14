@@ -679,23 +679,41 @@ $(document).ready(function(){
 		var boxHeight = $(this).height();
 		var scrollHeight = $(this).prop('scrollHeight');
 		var scrolled = $(this).scrollTop() + boxHeight;
-
+		var scrollArea = this;
 		$(this).children('ul').children('.feed_item:not(.read)').each(function(){
+			var item = this;
 			var itemOffset = $(this).position().top;
 			if(itemOffset <= 0 || scrolled >= scrollHeight){
-				var itemId = parseInt($(this).data('id'));
-				if(News.Feed.processing[itemId] === undefined || News.Feed.processing[itemId] === false){
-					// mark item as processing to prevent unecessary post requests	
-					News.Feed.processing[itemId] = true;
-					var handler = new News.ItemStatusHandler(itemId);
-					handler.setRead(true);	
-				}
+				setTimeout(function(){ markItemAsRead(scrollArea, item);}, 1000);
 			}
 		})
 
 	});
+	
+	$('#feed_items').scrollTop(0);
 
 });
+
+/**
+ * Marks an item as read
+ * @param item the dom item
+ */
+function markItemAsRead(scrollArea, item){
+	var itemId = parseInt($(item).data('id'));
+	var itemOffset = $(item).position().top;
+	var boxHeight = $(scrollArea).height();
+	var scrollHeight = $(scrollArea).prop('scrollHeight');
+	var scrolled = $(scrollArea).scrollTop() + boxHeight;
+	if(itemOffset < 0 || scrolled >= scrollHeight){
+		console.log(itemOffset);
+		if(News.Feed.processing[itemId] === undefined || News.Feed.processing[itemId] === false){
+			// mark item as processing to prevent unecessary post requests	
+			News.Feed.processing[itemId] = true;
+			var handler = new News.ItemStatusHandler(itemId);
+			handler.setRead(true);	
+		}
+	} 
+}
 
 $(document).click(function(event) {
 	$('#feedfoldermenu').hide();
