@@ -65,6 +65,25 @@ div.feed_controls {
     z-index: 1;
     height: 3.3em;
 }
+
+    div.feed_controls .unreaditemcounter {
+        background: #5E5E5E; 
+        border-radius: 5px; 
+        padding: 2px 5px; 
+        color: white; 
+        text-align: center; 
+        font-weight: normal;
+        margin: .7em 0 0 .6em;
+        display: block;
+        float: left;
+        min-width: 1.2em;
+    }
+
+        div.feed_controls .unreaditemcounter.all_read {
+            display: none;
+        }
+
+
     div.feed_controls div.subscriptions_title {
         display: inline-block;
         padding-left: .8em;
@@ -151,29 +170,33 @@ div.feed_controls {
     }
     
     #feeds li { 
-        padding: 0px !important; 
     }
 
     #feeds li.feed { 
         position: relative; 
         text-align: right; 
-        padding-left: 5px !important; 
         box-sizing: border-box;
         -moz-box-sizing: border-box;
+        border-bottom: 1px solid #ccc;
+        padding: 0 0 0 5px;
+        -moz-transition: background-color 200ms ease 0s;
+        transition: background-color 200ms ease 0s;
+        background-color: #f1f1f1;
     }
     
         #feeds li.feed a { 
-            padding: 0 0 0 20px !important; 
+            background-size:16px 16px;
+            background-repeat: no-repeat;
+            background-position: 3px center;
+            padding: 0 0 0 25px !important; 
+            line-height: 2.2em;
             overflow: hidden; 
             text-overflow: ellipsis; 
             text-align: left; 
             width: 75%; 
-        }
-        
-        #feeds li.feed a { 
             font-weight: bold; 
         }
-        
+                
         #feeds li.feed a.all_read { 
             font-weight: normal; 
         }
@@ -188,50 +211,27 @@ div.feed_controls {
             background-size: 16px 16px;
             background-repeat: no-repeat;
             background-position: right center;
-            /* uncomment if webkit supports this
-            background-position: right 5px center;
-            */
         }
         
         #feeds li.feed:hover { 
-            background-color: rgb(221, 221, 221) !important; 
+            background-color: #ddd;
         }
 
-        #feeds li.collapsable_container { 
-        }
-        
-        #feeds li.collapsable_container:hover { 
-            color: #000 !important; 
-            background-color: #f8f8f8 !important; 
-        }
-        
-        #feeds li.collapsable_container > ul { 
-            margin: 0 0 0.1em 16px; 
-        }
+            #feeds li.feed .feeds_delete, 
+            #feeds li.feed .feeds_edit {
+                display: none;
+            }
 
-        #feeds div.collapsable { 
-            position: relative; 
-            border-radius: 5px; 
-        }
-        
-        #feeds .collapsable_trigger { 
-            border: none ; 
-            margin: 0 0 0 5px; 
-            padding: 0; 
-            border-radius: 0; 
-            box-shadow: none; 
-            vertical-align: middle !important; 
-            background: url('%webroot%/core/img/places/folder.svg') no-repeat; 
-            opacity: 1; 
-        }
-        
-        #feeds .collapsable_title { 
-            padding-left: 0.2em; 
-        }
-        
-        #feeds div.collapsable:hover { 
-            background-color: rgb(221, 221, 221); 
-        }
+            #feeds li.feed:hover .unreaditemcounter {
+                display: none;
+            }
+
+            #feeds li.feed:hover .feeds_delete, 
+            #feeds li.feed:hover .feeds_edit, 
+            #feeds .collapsable:hover .feeds_delete, 
+            #feeds .collapsable:hover .feeds_edit {
+                display: inline-block;
+            }
 
         #feeds .feeds_delete { 
             position: absolute; 
@@ -255,18 +255,106 @@ div.feed_controls {
 
         #feeds .unreaditemcounter { 
             position: relative; 
+            top: .3em;
+            right: .3em;
             background: #5E5E5E; 
             border-radius: 5px; 
-            padding: 0 5px; 
+            padding: 2px 5px; 
             color: white; 
             text-align: center; 
-            margin: 0 0.3em 0 0.3em;
+            font-weight: normal;
+            margin: 0;
+            display: none;
         }
         
             #feeds .unreaditemcounter.all_read { 
                 display: none !important;
             }
 
+        #feeds li.collapsable_container { 
+            background-color: #dfdfdf;
+            font-weight: bold;
+            padding: 0;
+            border: 0;
+            border-bottom: 1px solid #bbb;
+        }
+
+        #feeds li.collapsable_container.open { 
+            background-image: linear-gradient(bottom, rgb(208,208,208) 0%, rgb(222,222,222) 100%);
+            background-image: -o-linear-gradient(bottom, rgb(208,208,208) 0%, rgb(222,222,222) 100%);
+            background-image: -moz-linear-gradient(bottom, rgb(208,208,208) 0%, rgb(222,222,222) 100%);
+            background-image: -webkit-linear-gradient(bottom, rgb(208,208,208) 0%, rgb(222,222,222) 100%);
+            background-image: -ms-linear-gradient(bottom, rgb(208,208,208) 0%, rgb(222,222,222) 100%);
+            font-weight: bold;
+            padding: 0;
+            border: 0;
+            border-bottom: 1px solid #bbb;
+            border-top: 1px solid #bbb;
+            -webkit-box-shadow: inset 0 0 5px -1px #bbb;
+            box-shadow: inset 0 0 5px -1px #bbb; 
+        }
+
+            #feeds li.collapsable_container:hover { 
+                background-color: #d0d0d0;
+                -moz-transition: background-color 200ms ease 0s;
+                transition: background-color 200ms ease 0s;
+            }
+        
+
+
+        #feeds li.collapsable_container.open > ul { 
+            margin: 0 8px 8px 8px; 
+        }
+
+            #feeds li.collapsable_container > ul > li {
+                border: 1px solid #ccc;
+                border-bottom: 0;
+            }
+
+            #feeds li.collapsable_container > ul > li:last-child {
+                border: 1px solid #ccc;
+            }            
+
+        #feeds div.collapsable { 
+            position: relative; 
+            border-radius: 5px; 
+        }
+
+            #feeds div.collapsable:hover {
+                background-image: none;
+            }
+        
+        #feeds .collapsable_trigger { 
+            border: none ; 
+            margin: 0 0 0 1em; 
+            padding: 0; 
+            border-radius: 0; 
+            box-shadow: none; 
+            vertical-align: middle !important; 
+            background: url('%webroot%/core/img/places/folder.svg') no-repeat; 
+            outline: none;
+            opacity: 1; 
+        }
+
+        #feeds .collapsable_container:hover .collapsable_trigger.triggerable {
+            background-image: url('%webroot%/core/img/actions/triangle-s.svg');
+            -moz-transform: none;
+            transform: none;
+        }
+
+        #feeds .collapsable_container:hover .collapsable_trigger.triggered {
+            background-image: url('%webroot%/core/img/actions/triangle-s.svg');
+            -moz-transform: rotate(-90deg);
+            transform: rotate(-90deg);
+        }
+        
+        #feeds .collapsable_title { 
+            padding: .5em 0 .5em .5em; 
+            line-height: 1.5em;
+            float: none;
+            display: inline-block;
+            position: relative;
+        }
 
 
 /* feed settings */

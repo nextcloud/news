@@ -69,7 +69,6 @@ News={
 							$('#feeds > ul').append(jsondata.data.listfolder);
 						}
 						setupFeedList();
-						transformCollapsableTrigger();
 						$('#addfolder_dialog').dialog('destroy').remove();
 					} else {
 						OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
@@ -137,7 +136,7 @@ News={
 							setupFeedList();
 							News.Feed.load(jsondata.data.feedid);
 
-							$('#ui-dialog-title-addfeed_dialog').html('Feed added. Do you want to add another feed?')
+							//$('#ui-dialog-title-addfeed_dialog').html('Feed added. Do you want to add another feed?')
 
 							/*
 							OC.dialogs.confirm(t('news', ), t('news', 'Feed added!'), function(answer) {
@@ -249,19 +248,27 @@ News={
 		load:function(feedId) {
 			$.post(OC.filePath('news', 'ajax', 'loadfeed.php'), { 'feedId' : feedId }, function(jsonData) {
 				if(jsonData.status == 'success'){
+					// set active id
 					var $rightContent = $(".rightcontent");
 					$rightContent.attr('data-id', feedId);
+					News.Feed.activeFeedId = parseInt(feedId);
+					// load in new items
 					var $feedItems = $('#feed_items');
 					$feedItems.empty();
 					$feedItems.html(jsonData.data.feedItems);
+					// scroll to the top position
 					$feedItems.scrollTop(0);
+					// set title
 					var $feedTitle = $(".feed_controls .feed_title h1");
 					$feedTitle.html(jsonData.data.feedTitle);
 					$feedTitle.attr('title', jsonData.data.feedTitle);
-
+					// update unread count
+					$feedHandler = new News.FeedStatusHandler(feedId);
+					$feedHandler.setUnreadCount(jsonData.data.unreadItemCount);
+					// select new feed
 					$('li#selected_feed').attr('id', '');
 					$('li.feed[data-id="' + feedId + '"]').attr('id', 'selected_feed');
-
+					// refresh callbacks
 					transformCollapsableTrigger();
 					bindItemEventListeners();
 				}
@@ -328,6 +335,7 @@ News={
 		// this array is used to store ids to prevent sending too
 		// many posts when scrolling. the structure is: feed_id: boolean
 		processing:{},
+		activeFeedId: parseInt($('#rightcontent').data('id')),
 	},
 
 	/**
@@ -336,8 +344,10 @@ News={
 	 */
 	FeedStatusHandler: function(feedId){
 		var _feedId = feedId;
+		var _activeFeedId = News.Feed.activeFeedId;
 		var _$feed = $('li.feed[data-id="'+feedId+'"]');
 		var _$feedUnreadCounter = _$feed.find('.unreaditemcounter');
+		var _$feedUnreadCounterUtil = $('.feed_controls .unreaditemcounter');
 		var _$feedLink = _$feed.children('a');
 		
 		/**
@@ -352,6 +362,14 @@ News={
 				return parseInt(unreadContent);
 			}
 		};
+
+
+		/**
+		 * Writes the current value into all fields
+		 */
+		var _refresh = function(){
+			_setUnreadCount(_getUnreadCount);
+		}
 
 		/**
 		 * Decreases the current unread count by 1
@@ -389,21 +407,33 @@ News={
 		 * @param count the unread count that will be set
 		 */
 		var _setUnreadCount = function(count){
+			count = parseInt(count);
 			// dont allow setting the count below 0
 			if(count < 0){
 				count = 0;
 			} 
+			// if the count is 0 we have to add special classes
 			if(count === 0){
 				_$feedLink.addClass('all_read');
 				_$feedUnreadCounter.addClass('all_read');
+				if(_activeFeedId == _feedId){ 
+					_$feedUnreadCounterUtil.addClass('all_read');
+				}
 			} else {
 				var currentCount = _getUnreadCount();
+				// if the previous count was 0 we need to remove certain classes
 				if(currentCount === 0){
 					_$feedLink.removeClass('all_read');
 					_$feedUnreadCounter.removeClass('all_read');
+					if(_activeFeedId == _feedId){ 
+						_$feedUnreadCounterUtil.removeClass('all_read');
+					}
 				}
 			}
 			_$feedUnreadCounter.html(count);
+			if(_activeFeedId == _feedId){ 
+				_$feedUnreadCounterUtil.html(count);
+			}
 		};
 
 		// public
@@ -411,6 +441,7 @@ News={
 		this.incrementUnreadCount = function(){ return _incrementUnreadCount(); };
 		this.setUpdating = function(isUpdating){ return _setUpdating(isUpdating); };
 		this.setUnreadCount = function(count){ return _setUnreadCount(count); };
+		this.refresh = function(){ return _refresh(); };
 	},
 
 	/**
@@ -535,50 +566,25 @@ News={
 function transformCollapsableTrigger() {
 	// we need this here to detect and toggle new children instantly
 	$('.collapsable_trigger').unbind();
-	$('.collapsable_trigger').click(function(){
-		var items = $(this).parent().parent().children('ul');
-		items.toggle();
-		transformCollapsableTrigger();
-	});
-
-	var triggericon = OC.imagePath('core', 'actions/triangle-s.svg');
-	var foldericon = OC.imagePath('core', 'places/folder.svg');
-
-	$('.collapsable_trigger').each(
-		function() {
-			var items = $(this).parent().parent().children('ul');
-			if (items.html()) {
-				$(this).css('background-image', 'url(' + triggericon + ')');
-				if (items.css('display') == 'block') {
-					$(this).css('-moz-transform', 'none');
-					$(this).css('transform', 'none');
-				}
-				else {
-					$(this).css('-moz-transform', 'rotate(-90deg)');
-					$(this).css('transform', 'rotate(-90deg)');
-				}
-			}
-			else {
-				$(this).css('background-image', 'url(' + foldericon + ')');
-			}
+	$('.collapsable_trigger').each(function(){
+		$container = $(this).parent().parent();
+		$sublist = $container.children('ul');
+		if($sublist.children('li').length > 0){
+			$(this).addClass('triggerable');
+			$container.addClass('open');
 		}
-	);
+	});
+	$('.collapsable_trigger').click(function(){
+		$(this).toggleClass('triggerable');
+		$(this).toggleClass('triggered');
+		$sublist = $(this).parent().parent().children('ul');
+		$sublist.toggle();
+		$container = $(this).parent().parent();
+		$container.toggleClass('open');
+	});
 }
 
 function setupFeedList() {
-	var list = $('.collapsable,.feed').hover(
-		function() {
-			$(this).find('.feeds_delete,.feeds_edit').css('display', 'inline');
-			$(this).find('.unreaditemcounter').css('display', 'none');
-		},
-		function() {
-			$(this).find('.feeds_delete,.feeds_edit').css('display', 'none');
-			$(this).find('.unreaditemcounter').css('display', 'inline');
-		}
-	);
-	list.find('.feeds_delete').hide();
-	list.find('.feeds_edit').hide();
-	list.find('.unreaditemcounter').show();
 
 	$('.feed').click(function() {
 		News.Feed.load($(this).attr('data-id'));
@@ -713,7 +719,6 @@ function markItemAsRead(scrollArea, item){
 	var scrollHeight = $(scrollArea).prop('scrollHeight');
 	var scrolled = $(scrollArea).scrollTop() + boxHeight;
 	if(itemOffset < 0 || scrolled >= scrollHeight){
-		console.log(itemOffset);
 		if(News.Feed.processing[itemId] === undefined || News.Feed.processing[itemId] === false){
 			// mark item as processing to prevent unecessary post requests	
 			News.Feed.processing[itemId] = true;

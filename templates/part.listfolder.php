@@ -8,9 +8,9 @@ $l = new OC_l10n('news');
 echo '<li class="collapsable_container" data-id="' . $folder->getId() . '"' . (($is_root) ? 'style="margin-left: 0px !important;"' : '') . '>' .
 		'<div class="collapsable" >' .
 			'<button class="collapsable_trigger action" title="' . $folder->getName() . '"></button>' .
-			'<span class="collapsable_title">' .
+			'<a href="#" class="collapsable_title">' .
 				$folder->getName() .
-			'</span>' .
+			'</a>' .
 			( ($is_root) ?
 			''
 			:

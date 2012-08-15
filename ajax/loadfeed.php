@@ -29,7 +29,11 @@ $feedMapper = new OCA\News\FeedMapper();
 $feed = $feedMapper->findById($feedId);
 $feedTitle = $feed->getTitle();
 
+$itemMapper = new OCA\News\ItemMapper();
+$unreadItemCount = $itemMapper->countAllStatus($feedId, OCA\News\StatusFlag::UNREAD);
+
 OCP\JSON::success(array('data' => array( 'message' => $l->t('Feed loaded!'),
                                         'feedTitle' => $feedTitle,
-					'feedItems' => $feedItems )));
+					                   'feedItems' => $feedItems,
+                                       'unreadItemCount' => $unreadItemCount )));
 

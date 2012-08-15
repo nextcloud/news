@@ -17,7 +17,7 @@ if($unreadItemsCount == 0){
 }
 
 echo '<li class="feed" data-id="' . $feed->getId() . '">';
-echo '<a href="#" style="background: url(' . $favicon . ') left center no-repeat; background-size:16px 16px;" class="' . $allReadClass . '">' . $feed->getTitle() .'</a>';
+echo '<a href="#" style="background-image: url(' . $favicon . '); " class="' . $allReadClass . '">' . $feed->getTitle() .'</a>';
 	echo '<span class="unreaditemcounter ' . $allReadClass . '">' . $unreadItemsCount . '</span>';
 echo '<button class="svg action feeds_edit" title="' . $l->t('Edit feed') . '"></button>';
 echo '<button class="svg action feeds_delete" onClick="(News.Feed.delete(' . $feed->getId(). '))" title="' . $l->t('Delete feed') . '"></button>';

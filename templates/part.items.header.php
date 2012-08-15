@@ -1,11 +1,20 @@
 <?php 
 
 if(isset($_['feedid'])){
-    $feedmapper = new OCA\News\FeedMapper();
-    $feed = $feedmapper->findById($_['feedid']);
+    $feedMapper = new OCA\News\FeedMapper();
+    $feed = $feedMapper->findById($_['feedid']);
     $feedTitle = $feed->getTitle();
+    
+    $itemMapper = new OCA\News\ItemMapper();
+    $unreadItemsCount = $itemMapper->countAllStatus($_['feedid'], OCA\News\StatusFlag::UNREAD);
+    if($unreadItemsCount > 0){
+        $readClass = '';
+    } else {
+        $readClass = 'all_read';
+    }
 } else {
     $feedTitle = '';
+    $unreadItemsCount = 0;
 }
 
 // FIXME: get this setting from the database
@@ -14,7 +23,7 @@ $showOnlyUnread = true;
 ?>
 
 <div class="feed_controls">
-   
+   <span class="unreaditemcounter <?php echo $readClass; ?>"><?php echo $unreadItemsCount; ?></span>
     <div class="feed_title">
         <h1 title="<?php echo $feedTitle; ?>"><?php echo $feedTitle; ?></h1>
     </div>
