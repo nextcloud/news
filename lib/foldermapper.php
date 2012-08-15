@@ -68,7 +68,7 @@ class FolderMapper {
 		while( $row = $result->fetchRow()){
 			$folderid = $row['id'];
 			$folder = new Folder($row['name'], $folderid);
-			$children = self::childrenOf($folderid);
+			$children = self::childrenOfWithFeeds($folderid);
 			$folder->addChildren($children);
 			$collectionlist[] = $folder;
 		}

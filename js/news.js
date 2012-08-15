@@ -66,7 +66,7 @@ News={
 						if(folderid > 0){
 							$('.collapsable_container[data-id="' + folderid + '"] > ul').append(jsondata.data.listfolder);
 						} else {
-							$('#feeds').append(jsondata.data.listfolder);
+							$('#feeds > ul').append(jsondata.data.listfolder);
 						}
 						setupFeedList();
 						transformCollapsableTrigger();
@@ -132,7 +132,7 @@ News={
 							if(folderid > 0){
 								$('.collapsable_container[data-id="' + folderid + '"] > ul').append(jsondata.data.listfeed);	
 							} else {
-								$('#feeds').append(jsondata.data.listfeed);
+								$('#feeds > ul').append(jsondata.data.listfeed);
 							}
 							setupFeedList();
 							News.Feed.load(jsondata.data.feedid);
