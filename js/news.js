@@ -137,12 +137,15 @@ News={
 							setupFeedList();
 							News.Feed.load(jsondata.data.feedid);
 
-							OC.dialogs.confirm(t('news', 'Do you want to add another feed?'), t('news', 'Feed added!'), function(answer) {
+							$('#ui-dialog-title-addfeed_dialog').html('Feed added. Do you want to add another feed?')
+
+							/*
+							OC.dialogs.confirm(t('news', ), t('news', 'Feed added!'), function(answer) {
 								if(!answer) {
 									$('#addfeed_dialog').dialog('destroy').remove();
 									$('ul.accordion').before(jsondata.data.part_newfeed);
 								}
-							});
+							});*/
 						} else {
 							OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
 						}
