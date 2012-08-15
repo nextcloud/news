@@ -237,19 +237,16 @@ div.feed_controls {
 
 /* feed settings */
 #addfeedfolder {
-
+    cursor: pointer;
+    outline: medium none;
+    width: 7em;
+    height: 2.8em;
+    background-size: 100%;
+    background: url('%appswebroot%/news/img/add.svg') no-repeat 1em center; 
 }
 
     #addfeedfolder img {
-        border-radius: 0.5em 0.5em 0.5em 0.5em;
-        color: #555555;
-        cursor: pointer;
-        font-weight: bold;
-        padding: 0.7em 5em .7em 1em;
-        text-shadow: 0 1px 0 #FFFFFF;
-        font-size: 1em;
-        outline: medium none;
-        width: auto;
+
     }
 
     #addfeedfolder:hover ul#feedfoldermenu{

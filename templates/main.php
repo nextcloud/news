@@ -18,7 +18,6 @@ echo $this->inc("part.items.header");
 <div id="feed_settings">
 	<ul class="controls">
 		<li id="addfeedfolder" title="<?php echo $l->t('Add feed or folder'); ?>" >
-			<img class="svg" src="<?php echo OCP\Util::linkTo('news', 'img/add.svg'); ?>" alt="<?php echo $l->t('Add Feed/Folder'); ?>" />
 			<ul class="menu" id="feedfoldermenu">
 				<li class="menuItem" id="addfeed"><?php echo $l->t('Feed'); ?></li>
 				<li class="menuItem" id="addfolder"><?php echo $l->t('Folder'); ?></li>
