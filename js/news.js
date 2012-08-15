@@ -684,6 +684,7 @@ $(document).ready(function(){
 			var item = this;
 			var itemOffset = $(this).position().top;
 			if(itemOffset <= 0 || scrolled >= scrollHeight){
+				// wait and check if the item is still under the top edge
 				setTimeout(function(){ markItemAsRead(scrollArea, item);}, 1000);
 			}
 		})
@@ -695,7 +696,7 @@ $(document).ready(function(){
 });
 
 /**
- * Marks an item as read
+ * Marks an item as read which is called by the timeout
  * @param item the dom item
  */
 function markItemAsRead(scrollArea, item){

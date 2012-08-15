@@ -493,7 +493,7 @@ li.menuItem {
 
 ul.menu { 
     position: absolute; 
-    z-index:100; 
+    z-index:1; 
     margin-left: 0.3em; 
     display: none; 
     background:#EEEEEE; 
