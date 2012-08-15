@@ -35,8 +35,9 @@ $userid = OCP\USER::getUser();
 $feedurl = trim($_POST['feedurl']);
 $folderid = trim($_POST['folderid']);
 
-$feedmapper = new OCA\News\FeedMapper();
+$feedmapper = new OCA\News\FeedMapper($userid);
 $feedid = $feedmapper->findIdFromUrl($feedurl);
+
 
 $l = OC_L10N::get('news');
 
@@ -58,9 +59,12 @@ if($feed === null || !$feedid) {
 	exit();
 }
 
-// FIXME: assign counter
+$itemmapper = new OCA\News\ItemMapper($userid);
+$unreadItemsCount = $itemmapper->countAllStatus($feedid, OCA\News\StatusFlag::UNREAD);
+
 $tmpl_listfeed = new OCP\Template("news", "part.listfeed");
 $tmpl_listfeed->assign('feed', $feed);
+$tmpl_listfeed->assign('unreadItemsCount', $unreadItemsCount);
 $listfeed = $tmpl_listfeed->fetchPage();
 
 $tmpl_newfeed = new OCP\Template("news", "part.items.new");

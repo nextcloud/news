@@ -31,7 +31,7 @@ if(!$foldermapper->deleteById($folderid)) {
 
 // lets check if the currently shown feed is among the deleted feeds
 if ($shownfeedid != null) {
-	$feedmapper = new OC_News_FeedMapper();
+	$feedmapper = new OCA\News\FeedMapper();
 	if (!$feedmapper->findById($shownfeedid)) {
 		$tmpl = new OCP\Template("news", "part.items.deleted");
 		$part_items = $tmpl->fetchPage();

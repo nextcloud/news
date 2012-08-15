@@ -18,7 +18,7 @@ OCP\JSON::callCheck();
 $feedId = $_POST['feedId'];
 
 $itemMapper = new OCA\News\ItemMapper();
-$items = $itemMapper->findAllStatus($feedId, OCA\News\StatusFlag::Unread);
+$items = $itemMapper->findAllStatus($feedId, OCA\News\StatusFlag::UNREAD);
 
 // FIXME: maybe there is a way to set all items read in the
 // FeedMapper instead of iterating through every item and updating as 

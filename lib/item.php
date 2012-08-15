@@ -13,10 +13,10 @@
 namespace OCA\News;
 
 class StatusFlag{
-	const Unread    = 0x02;
-	const Important = 0x04;
-	const Deleted   = 0x08;
-	const Updated   = 0x16;
+	const UNREAD    = 0x02;
+	const IMPORTANT = 0x04;
+	const DELETED   = 0x08;
+	const UPDATED   = 0x16;
 }
 
 /**
@@ -40,7 +40,7 @@ class Item {
 		$this->guid = $guid;
 		$this->body = $body;
 		if ($id == null) {
-			$this->status |= StatusFlag::Unread;
+			$this->status |= StatusFlag::UNREAD;
 		}
 		else {
 			$this->id = $id;
@@ -64,27 +64,27 @@ class Item {
 	}
 
 	public function setRead(){
-		$this->status &= ~StatusFlag::Unread;
+		$this->status &= ~StatusFlag::UNREAD;
 	}
 
 	public function setUnread(){
-		$this->status |= StatusFlag::Unread; 
+		$this->status |= StatusFlag::UNREAD; 
 	}
 
 	public function isRead(){
-		return !($this->status & StatusFlag::Unread);
+		return !($this->status & StatusFlag::UNREAD);
 	}
 	
 	public function setImportant(){
-		$this->status |= StatusFlag::Important; 
+		$this->status |= StatusFlag::IMPORTANT; 
 	}
 	
 	public function setUnimportant(){
-		$this->status &= ~StatusFlag::Important;
+		$this->status &= ~StatusFlag::IMPORTANT;
 	}
 	
 	public function isImportant(){
-		return ($this->status & StatusFlag::Important);
+		return ($this->status & StatusFlag::IMPORTANT);
 	}
 		
 	/**
