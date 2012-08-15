@@ -20,8 +20,8 @@ echo $this->inc("part.items.header");
 		<li id="addfeedfolder" title="<?php echo $l->t('Add feed or folder'); ?>">
 			<button class="svg"><img class="svg" src="<?php echo OCP\Util::linkTo('news', 'img/add.svg'); ?>" alt="<?php echo $l->t('Add Feed/Folder'); ?>"   /></button>
 			<ul class="menu" id="feedfoldermenu">
-				<li class="menuItem" id="addfeed"><?php echo $l->t('Feed'); ?></li>
-				<li class="menuItem" id="addfolder"><?php echo $l->t('Folder'); ?></li>
+				<li id="addfeed"><?php echo $l->t('Feed'); ?></li>
+				<li id="addfolder"><?php echo $l->t('Folder'); ?></li>
 			</ul>
 		</li>
 		<li style="float: right">
