@@ -23,7 +23,7 @@ $showOnlyUnread = true;
 ?>
 
 <div class="feed_controls">
-   <span class="unreaditemcounter <?php echo $readClass; ?>"><?php echo $unreadItemsCount; ?></span>
+   <span title="<?php echo $l->t('Unread items'); ?>" class="unreaditemcounter <?php echo $readClass; ?>"><?php echo $unreadItemsCount; ?></span>
     <div class="feed_title">
         <h1 title="<?php echo $feedTitle; ?>"><?php echo $feedTitle; ?></h1>
     </div>

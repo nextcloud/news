@@ -246,6 +246,9 @@ News={
 			});
 		},
 		load:function(feedId) {
+			var $feedItems = $('#feed_items');
+			$feedItems.empty();
+			$feedItems.addClass('loading');
 			$.post(OC.filePath('news', 'ajax', 'loadfeed.php'), { 'feedId' : feedId }, function(jsonData) {
 				if(jsonData.status == 'success'){
 					// set active id
@@ -253,8 +256,6 @@ News={
 					$rightContent.attr('data-id', feedId);
 					News.Feed.activeFeedId = parseInt(feedId);
 					// load in new items
-					var $feedItems = $('#feed_items');
-					$feedItems.empty();
 					$feedItems.html(jsonData.data.feedItems);
 					// scroll to the top position
 					$feedItems.scrollTop(0);
@@ -275,6 +276,7 @@ News={
 				else {
 					OC.dialogs.alert(t('news', 'Error while loading the feed'), t('news', 'Error'));
 				}
+				$feedItems.removeClass('loading');
 			});
 		},
 		updateAll:function() {
