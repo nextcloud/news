@@ -140,6 +140,7 @@ div.feed_controls {
     bottom: 0;
 }
 
+    /*
     #leftcontent h1 {
         background-color: #DBDBDB;
         border-bottom: 1px solid #CCCCCC;
@@ -152,12 +153,12 @@ div.feed_controls {
         padding: 0 0.8em;
         text-shadow: 0 1px 0 #F8F8F8;
         line-height: 2.6em;
-    }
+    }*/
 
 #feeds { 
     background-color: #f8f8f8; 
     position: absolute;
-    top: 3.3em;
+    top: 0;
     bottom: 2.8em;
     left: 0;
     right: 0;
@@ -170,8 +171,33 @@ div.feed_controls {
         overflow: auto;     
     }
     
-    #feeds li { 
+
+    #feeds .subscriptions, #feeds .subscriptions:hover {
+        background-image: url('%appswebroot%/news/img/icon.svg'); 
+        background-repeat: no-repeat;
+        background-size: 16px 16px;
+        background-position: .8em center;
     }
+
+    #feeds .starred, #feeds .starred:hover {
+        background-image: url('%appswebroot%/news/img/starred.svg'); 
+        background-repeat: no-repeat;
+        background-size: 16px 16px;
+        background-position: .8em center;
+        
+    }
+
+    #feeds .folder:hover {
+        background-color: #d0d0d0;
+        -moz-transition: background-color 200ms ease 0s;
+        transition: background-color 200ms ease 0s;    
+    }
+
+        #feeds .subscriptions a, #feeds .starred a {
+            margin-left: 2em;
+            display: inline-block;
+            width: 75%;
+        }
 
     #feeds li.feed { 
         position: relative; 
@@ -272,7 +298,7 @@ div.feed_controls {
                 display: none !important;
             }
 
-        #feeds li.collapsable_container { 
+        #feeds li.collapsable_container, #feeds .folder { 
             background-color: #dfdfdf;
             font-weight: bold;
             padding: 0;
@@ -321,9 +347,6 @@ div.feed_controls {
             border-radius: 5px; 
         }
 
-            #feeds div.collapsable:hover {
-                background-image: none;
-            }
         
         #feeds .collapsable_trigger { 
             border: none ; 
@@ -349,7 +372,7 @@ div.feed_controls {
             transform: rotate(-90deg);
         }
         
-        #feeds .collapsable_title { 
+        #feeds .collapsable_title, #feeds .folder a { 
             padding: .5em 0 .5em .5em; 
             line-height: 1.5em;
             float: none;
