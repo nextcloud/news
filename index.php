@@ -28,7 +28,7 @@ $userid = OCP\USER::getUser();
 $foldermapper = new OCA\News\FolderMapper($userid);
 
 $allfeeds = $foldermapper->childrenOfWithFeeds(0); //$foldermapper->populate($folder);
-$folderforest = $foldermapper->getFoldersOfUser(0); //retrieve all the folders
+$folderforest = $foldermapper->childrenOf(0); //retrieve all the folders
 
 if ($allfeeds) {
 	$feedid = isset( $_GET['feedid'] ) ? $_GET['feedid'] : null;

@@ -28,28 +28,6 @@ class FolderMapper {
 		$this->userid = \OCP\USER::getUser();
 	}
 
-	/**
-	 * Returns all folders of a user
-	 * @param $userid
-	 * @return
-	 */
-	public function getFoldersOfUser($parentid, $userid = null){
-		if($userid === null){
-			$userid = $this->userid;
-		}
-		$folderlist = array(); 
-		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName .
-					' WHERE user_id = ? AND parent_id = ?');
-		$result = $stmt->execute(array($this->userid, $parentid));
-		
-		while( $row = $result->fetchRow()){
-			$folderid = $row['id'];
-			$folder = new Folder($row['name'], $folderid);
-			$folderlist[] = $folder;
-		}
-		
-		return $folderlist;		
-	}
 
 	/**
 	 * @brief Returns the forest (list of trees) of folders children of $parentid
