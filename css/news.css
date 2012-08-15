@@ -79,10 +79,25 @@ div.feed_controls {
     }
         
         div.feed_controls div.feed_title h1 {
-            max-width: 450px;   
             overflow: hidden;
             text-overflow: ellipsis; 
             white-space: nowrap;
+        }
+
+        @media all and (min-width: 1280px){
+            div.feed_controls div.feed_title h1 { max-width: 450px; }
+        }
+
+        @media all and (max-width: 1279px) and (min-width: 1024px){
+            div.feed_controls div.feed_title h1 { max-width: 230px; }
+        }
+
+        @media all and (max-width: 1023px) and (min-width: 950px){
+            div.feed_controls div.feed_title h1 { max-width: 130px; }
+        }
+
+        @media all and (max-width: 949px){
+            div.feed_controls div.feed_title h1 { display: none; }
         }
 
     div.feed_controls h1 { 

@@ -16,7 +16,7 @@ $showOnlyUnread = true;
 <div class="feed_controls">
    
     <div class="feed_title">
-        <h1><?php echo $feedTitle; ?></h1>
+        <h1 title="<?php echo $feedTitle; ?>"><?php echo $feedTitle; ?></h1>
     </div>
     <div class="controls">
         <input type="button" value="<?php echo $l->t('Mark all as read'); ?>" id="mark_all_as_read" />

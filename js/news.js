@@ -254,6 +254,7 @@ News={
 					$feedItems.scrollTop(0);
 					var $feedTitle = $(".feed_controls .feed_title h1");
 					$feedTitle.html(jsonData.data.feedTitle);
+					$feedTitle.attr('title', jsonData.data.feedTitle);
 
 					$('li#selected_feed').attr('id', '');
 					$('li.feed[data-id="' + feedId + '"]').attr('id', 'selected_feed');
