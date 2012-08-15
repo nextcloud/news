@@ -42,7 +42,12 @@ foreach($items as $item) {
 
 		echo '<h1 class="item_title"><a target="_blank" href="' . $item->getUrl() . '">' . $item->getTitle() . '</a></h1>';	
 
-		echo '<h2 class="item_author">' . $l->t('from') . ' ' . parse_url($item->getUrl(), PHP_URL_HOST) . '</h2>';
+		if(trim($item->getAuthor()) == ''){
+			$from = $l->t('from') . ' ' . parse_url($item->getUrl(), PHP_URL_HOST);
+		} else {
+			$from = $l->t('from') . ' ' . $item->getAuthor();
+		}
+		echo '<h2 class="item_author">' . $from . '</h2>';
 
 		echo '<div class="body">' . $item->getBody() . '</div>';
 
