@@ -46,7 +46,9 @@ class Utils {
 				$itemBody = $spitem->get_content();
 				$itemAuthor = $spitem->get_author();
 				$item = new Item($itemUrl, $itemTitle, $itemGUID, $itemBody);
-				$item->setAuthor($itemAuthor->get_name());
+				if ($itemAuthor !== null) {
+					$item->setAuthor($itemAuthor->get_name());
+				}
 				$items[] = $item;
 			}
 		}
