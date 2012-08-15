@@ -17,11 +17,12 @@ echo $this->inc("part.items.header");
 
 <div id="feed_settings">
 	<ul class="controls">
-		<li>
-			<button class="svg" id="addfeedfolder" title="$l->t('Change View');" onclick="News.DropDownMenu.fade('ul#feedfoldermenu')"><img class="svg" src="<?php echo OCP\Util::linkTo('news', 'img/add.svg'); ?>" alt="<?php echo $l->t('Add Feed/Folder'); ?>"   /></button>
-		</li>
-		<li>
-			<button class="svg" title="$l->t('Change View');">Eye</button>
+		<li id="addfeedfolder" title="<?php echo $l->t('Add feed or folder'); ?>" >
+			<img class="svg" src="<?php echo OCP\Util::linkTo('news', 'img/add.svg'); ?>" alt="<?php echo $l->t('Add Feed/Folder'); ?>" />
+			<ul class="menu" id="feedfoldermenu">
+				<li class="menuItem" id="addfeed"><?php echo $l->t('Feed'); ?></li>
+				<li class="menuItem" id="addfolder"><?php echo $l->t('Folder'); ?></li>
+			</ul>
 		</li>
 		<li style="float: right">
 			<button class="svg" id="settingsbtn" title="<?php echo $l->t('Settings'); ?>"><img class="svg" src="<?php echo OCP\Util::imagePath('core','actions/settings.png'); ?>" alt="<?php echo $l->t('Settings'); ?>"   /></button>
@@ -29,10 +30,7 @@ echo $this->inc("part.items.header");
 	</ul>
 </div>
 
-<ul class="menu" id="feedfoldermenu">
-	<li class="menuItem" id="addfeed"><?php echo $l->t('Feed'); ?></li>
-	<li class="menuItem" id="addfolder"><?php echo $l->t('Folder'); ?></li>
-</ul>
+
 
 
 <div id="rightcontent" class="rightcontent" data-id="<?php echo $_['feedid']; ?>">
