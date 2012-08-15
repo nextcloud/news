@@ -6,7 +6,7 @@ $itemMapper = new OCA\News\ItemMapper();
 
 $showOnlyUnread = true; // FIXME: get this from the settings db
 if($showOnlyUnread){
-	$items = $itemMapper->findAllStatus($feedId, OCA\News\StatusFlag::Unread);
+	$items = $itemMapper->findAllStatus($feedId, OCA\News\StatusFlag::UNREAD);
 } else {
 	$items = $itemMapper->findAll($feedId);
 }

@@ -19,6 +19,14 @@ namespace OCA\News;
 class ItemMapper {
 
 	const tableName = '*PREFIX*news_items';
+	private $userid;
+
+	public function __construct($userid = null){
+		if ($userid !== null) {
+			$this->userid = $userid;
+		}
+		$this->userid = \OCP\USER::getUser();
+	}
 
 	/**
 	 * @brief 
@@ -77,6 +85,15 @@ class ItemMapper {
 
 		return $items;
 	}
+	
+	public function countAllStatus($feedid, $status){
+		$stmt = \OCP\DB::prepare('SELECT COUNT(*) as size FROM ' . self::tableName . ' 
+				WHERE feed_id = ?
+				AND (status & ?)');
+		$result=$stmt->execute(array($feedid, $status))->fetchRow();
+		return $result['size'];
+	}
+	
 
 	public function findIdFromGuid($guid_hash, $guid, $feedid){
 		$stmt = \OCP\DB::prepare('

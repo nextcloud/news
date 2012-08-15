@@ -665,7 +665,7 @@ $(document).ready(function(){
 	setupFeedList();
 
 	News.Feed.updateAll();
-	var updateInterval = 200000; //how often the feeds should update (in msec)
+	var updateInterval = 20000; //how often the feeds should update (in msec)
 	setInterval('News.Feed.updateAll()', updateInterval);
 
 	bindItemEventListeners();

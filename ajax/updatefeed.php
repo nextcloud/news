@@ -38,15 +38,9 @@ if(!$newfeedid) {
 	exit();
 }
 else {
-	//TODO: maybe make this more efficient by coding it into OC_News_FeedMapper->save()
-	$itemmapper = new OCA\News\ItemMapper();
-	$items = $itemmapper->findAll($newfeedid);
-	$unreadcounter = 0;
-	foreach($items as $item) {
-		if(!$item->isRead())
-			++$unreadcounter;
-	}
-
+	$itemmapper = new OCA\News\ItemMapper($userid);
+	$unreadcounter = $itemmapper->countAllStatus($newfeedid, OCA\News\StatusFlag::UNREAD);
+	
 	OCP\JSON::success(array('data' => array('message' => $l->t('Feed updated!'), 'unreadcount' => $unreadcounter)));
 	exit();
 }
