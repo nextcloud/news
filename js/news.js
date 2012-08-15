@@ -370,6 +370,8 @@ News={
 		 * hide the icon and show the unread count
 		 */
 		var _setUpdating = function(isUpdating){
+			// we dont use this anymore
+			return;
 			if(isUpdating){
 				_$feed.addClass('updating');
 				_$feedUnreadCounter.hide();
