@@ -114,23 +114,45 @@ div.feed_controls {
 /* feed/folder list */
 #leftcontent { 
     width: 21.5em; 
-    top: 3.5em !important; 
-    padding: 0 0 3em 0; 
     margin: 0; 
     z-index: 0;
+    position: relative;
     overflow: hidden;
+    top: 0;
+    bottom: 0;
 }
+
+    #leftcontent h3 {
+        background-color: #DBDBDB;
+        border-bottom: 1px solid #CCCCCC;
+        border-top: 1px solid #D4D4D4;
+        color: #333333;
+        font-weight: bold;
+        display: block;
+        font-size: 1.2em;
+        max-width: 100%;
+        padding: 0 0.8em;
+        text-shadow: 0 1px 0 #F8F8F8;
+        line-height: 2.6em;
+    }
 
 #feeds { 
     clear: both;
     background-color: #f8f8f8; 
-    position: relative; 
-    overflow: auto; 
-    height: 100%;
+    position: absolute;
+    top: 3.3em;
+    bottom: 2.8em;
+    left: 0;
+    right: 0;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
 }
 
+    #feeds ul {
+        height: 100%;
+        overflow: auto;     
+    }
+    
     #feeds li { 
         padding: 0px !important; 
     }
