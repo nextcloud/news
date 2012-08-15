@@ -236,14 +236,35 @@ div.feed_controls {
 
 
 /* feed settings */
+ul#feedfoldermenu { 
+    position:fixed; 
+    margin-left: 0; 
+    bottom: 2.8em; 
+    border-left:1px solid #ccc; 
+    border-top:1px solid #ccc; 
+    border-right:1px solid #ccc; 
+    -moz-box-shadow: 0 -3px 3px -3px #000; 
+    -webkit-box-shadow: 0 -3px 3px -3px #000; 
+    box-shadow: 0 -3px 3px -3px #000;
+}
+
+li.menuItem { 
+    padding: 0 1em 0 2.5em; 
+    float: none !important; 
+    text-align: left; 
+}
+
+    li.menuItem:hover {
+        background-color: #ccc !important;
+    }
+
+
 #addfolder { 
-    background: url('%webroot%/core/img/places/folder.svg') no-repeat left center; 
-    padding-left: 20px !important; 
+    background: url('%webroot%/core/img/places/folder.svg') no-repeat 10px center; 
 }
 
 #addfeed { 
-    background: url('%appswebroot%/news/img/rss.svg') no-repeat left center; 
-    padding-left: 20px !important; 
+    background: url('%appswebroot%/news/img/rss.svg') no-repeat 10px center; 
 }
 
 #addfeedbtn { 
@@ -472,24 +493,6 @@ ul#dropdownmenu {
     box-shadow: 0px 0px 10px #000; 
 }
 
-ul#feedfoldermenu { 
-    position:fixed; 
-    margin-left: 0; 
-    bottom: 2.8em; 
-    border-left:1px solid #ccc; 
-    border-top:1px solid #ccc; 
-    border-right:1px solid #ccc; 
-    -moz-box-shadow: 0 -3px 3px -3px #000; 
-    -webkit-box-shadow: 0 -3px 3px -3px #000; 
-    box-shadow: 0 -3px 3px -3px #000;
-}
-
-li.menuItem { 
-    margin-left:0.7em; 
-    margin-right:0.7em; 
-    float: none !important; 
-    text-align: left; 
-}
 
 ul.menu { 
     position: absolute; 
