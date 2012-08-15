@@ -12,7 +12,7 @@ echo $this->inc("part.items.header");
 <div id="leftcontent" class="leftcontent">
 	<div id="feeds">
 		<ul>
-			<li data-id="-2" class="subscriptions folder"><a href="#" ><?php echo $l->t('Subscriptions'); ?></a></li>
+			<li data-id="-2" class="subscriptions folder"><a href="#" ><?php echo $l->t('New articles'); ?></a></li>
 			<li data-id="-1" class="starred folder"><a href="#" ><?php echo $l->t('Starred'); ?></a></li>
 			<?php echo $this->inc("part.feeds"); ?>
 		</ul>
