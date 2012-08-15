@@ -10,7 +10,7 @@ echo $this->inc("part.items.header");
 ?>
 
 <div id="leftcontent" class="leftcontent">
-	<h3><?php echo $l->t('Subscriptions'); ?></h3>
+	<h1><?php echo $l->t('Subscriptions'); ?></h1>
 	<div id="feeds">
 		<ul>
 			<?php echo $this->inc("part.feeds"); ?>

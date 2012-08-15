@@ -82,6 +82,10 @@ div.feed_controls {
             overflow: hidden;
             text-overflow: ellipsis; 
             white-space: nowrap;
+            font-size: 1.2em;
+            line-height: 2.6em;
+            font-weight: bold;
+            color: #333;
         }
 
         @media all and (min-width: 1280px){
@@ -100,12 +104,6 @@ div.feed_controls {
             div.feed_controls div.feed_title h1 { display: none; }
         }
 
-    div.feed_controls h1 { 
-        font-size: 1.5em;
-        color: #444; 
-        padding-top: .5em; 
-    }
-
     div.feed_controls .controls {
         float: right;
     }
@@ -122,7 +120,7 @@ div.feed_controls {
     bottom: 0;
 }
 
-    #leftcontent h3 {
+    #leftcontent h1 {
         background-color: #DBDBDB;
         border-bottom: 1px solid #CCCCCC;
         border-top: 1px solid #D4D4D4;
@@ -134,11 +132,9 @@ div.feed_controls {
         padding: 0 0.8em;
         text-shadow: 0 1px 0 #F8F8F8;
         line-height: 2.6em;
-        height: 3.3em;
     }
 
 #feeds { 
-    clear: both;
     background-color: #f8f8f8; 
     position: absolute;
     top: 3.3em;
