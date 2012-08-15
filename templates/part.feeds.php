@@ -21,7 +21,7 @@
 				}
 				$tmpl_feed = new OCP\Template("news", "part.listfeed");
 				$tmpl_feed->assign('feed', $collection);
-				$tmpl_feed->assign('unreadItems',$counter);
+				$tmpl_feed->assign('unreadItemsCount',$counter);
 				$tmpl_feed->printpage();
 			}
 			else {

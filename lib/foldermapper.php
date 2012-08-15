@@ -68,7 +68,7 @@ class FolderMapper {
 		while( $row = $result->fetchRow()){
 			$folderid = $row['id'];
 			$folder = new Folder($row['name'], $folderid);
-			$children = self::childrenOf($folderid);
+			$children = self::childrenOfWithFeeds($folderid);
 			$folder->addChildren($children);
 			$collectionlist[] = $folder;
 		}
@@ -127,11 +127,21 @@ class FolderMapper {
 		return $folderid;
 	}
 
+	/**
+	 * @brief Delete the folder and all its feeds from the database
+	 * @param folder the folder to be deleted (an instance of OCA\News\Folder)
+	 * @returns true if the folder has been deleted, false if an error occurred
+	 */
 	public function delete(Folder $folder){
 		$folderid = $folder->getId();
 		return deleteById(folderid);
 	}
 
+	/**
+	 * @brief Delete the folder and all its feeds from the database
+	 * @param folder the folder to be deleted (an instance of OCA\News\Folder)
+	 * @returns true if the folder has been deleted, false if an error occurred
+	 */
 	public function deleteById($folderid){
 		if ($folderid == null){
 			return false;
