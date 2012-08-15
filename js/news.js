@@ -649,7 +649,8 @@ $(document).ready(function(){
 	});
 
 	$('#addfeedfolder').click(function(event) {
-	      event.stopPropagation();
+		News.DropDownMenu.fade($(this).children('ul'));
+	    event.stopPropagation();
 	});
 
 	$('#settingsbtn').on('click keydown', function() {
