@@ -167,7 +167,7 @@ div.feed_controls {
             overflow: hidden; 
             text-overflow: ellipsis; 
             text-align: left; 
-            width: 65%; 
+            width: 75%; 
         }
         
         #feeds li.feed a { 
