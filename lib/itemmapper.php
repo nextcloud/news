@@ -87,8 +87,7 @@ class ItemMapper {
 	}
 	
 	/*
-	 * @brief Retrieve all the items corresponding to a feed from the database with a particular status
-	 * @param feedid The id of the feed in the database table.
+	 * @brief Retrieve all the items from the database with a particular status
 	 * @param status one of the constants defined in OCA\News\StatusFlag
 	 */
 	public function findEveryItemByStatus($status){
@@ -117,6 +116,10 @@ class ItemMapper {
 		return $result['size'];
 	}
 	
+	/**
+	 * @brief Count all the items from the database with a particular status
+	 * @param status one of the constants defined in OCA\News\StatusFlag
+	 */
 	public function countEveryItemByStatus($status){
 		$stmt = \OCP\DB::prepare('SELECT COUNT(*) as size FROM ' . self::tableName . ' 
 				JOIN '. FeedMapper::tableName .' ON
