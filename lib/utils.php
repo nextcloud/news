@@ -17,7 +17,27 @@ namespace OCA\News;
  require_once('news/3rdparty/SimplePie/autoloader.php');
 
 class Utils {
-
+	
+	/**
+	 * @brief Transform a date from UNIX timestamp format to MDB2 timestamp format
+	 * @param dbtimestamp 
+	 * @returns 
+	 */	
+	public static function unixtimeToDbtimestamp($unixtime) {
+		$dt = \DateTime::createFromFormat('U', $unixtime);
+		return $dt->format('Y-m-d H:i:s');
+	}
+	
+	/**
+	 * @brief Transform a date from MDB2 timestamp format to UNIX timestamp format
+	 * @param dbtimestamp 
+	 * @returns 
+	 */
+	public static function dbtimestampToUnixtime($dbtimestamp) {
+		$dt = \DateTime::createFromFormat('Y-m-d H:i:s', $dbtimestamp);
+		return $dt->format('U');
+	}
+	
 	/**
 	 * @brief Fetch a feed from remote
 	 * @param url remote url of the feed
@@ -32,7 +52,7 @@ class Utils {
 			return null;
 		}
 
-	   //I understand this try-catch sucks, but SimplePie gives weird errors sometimes
+	   //temporary try-catch to bypass SimplePie bugs
 	   try {
 		$spfeed->handle_content_type();
 		$title = $spfeed->get_title();
@@ -44,11 +64,17 @@ class Utils {
 				$itemTitle = $spitem->get_title();
 				$itemGUID = $spitem->get_id();
 				$itemBody = $spitem->get_content();
-				$itemAuthor = $spitem->get_author();
 				$item = new Item($itemUrl, $itemTitle, $itemGUID, $itemBody);
+
+				$itemAuthor = $spitem->get_author();
 				if ($itemAuthor !== null) {
 					$item->setAuthor($itemAuthor->get_name());
 				}
+				
+				//date in Item is stored in UNIX timestamp format
+				$itemDate = $spitem->get_date('U');
+				$item->setDate($itemDate);
+				
 				$items[] = $item;
 			}
 		}

@@ -33,7 +33,8 @@ class Item {
 	private $status;  //a bit-field set with status flags
 	private $id;      //id of the item in the database table
 	private $author;
-
+	private $date; //date is stored in the Unix format
+	
 	public function __construct($url, $title, $guid, $body, $id = null){
 		$this->title = $title;
 		$this->url = $url;
@@ -98,6 +99,10 @@ class Item {
 	public function setStatus($status){
 		$this->status = $status;
 	}
+	
+	/* change the following method with set/get magic methods 
+	 * http://www.php.net/manual/en/language.oop5.overloading.php#object.get
+	 */
 
 	public function getTitle(){
 		return $this->title;
@@ -129,5 +134,14 @@ class Item {
 
 	public function setAuthor($author){
 		$this->author = $author;
+	}
+
+	public function getDate(){
+		return $this->date;
+	}
+	
+	//TODO: check if the parameter is in the Unix format
+	public function setDate($date){
+		$this->date = $date;
 	}
 }

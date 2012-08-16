@@ -162,11 +162,10 @@
                 <notnull>false</notnull>
             </field>
             <field>
-                <name>date</name>
-                <type>integer</type>
-                <default></default>
-                <notnull>false</notnull>
-                <unsigned>true</unsigned>
+                <name>pub_date</name>
+		<type>timestamp</type>
+		<default>0000-00-00 00:00:00</default>
+		<notnull>false</notnull>
             </field>
             <field>
                 <name>body</name>

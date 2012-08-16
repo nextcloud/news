@@ -18,6 +18,8 @@ OCP\App::checkAppEnabled('news');
 OCP\App::setActiveNavigationEntry('news');
 
 OCP\Util::addScript('news','news');
+OCP\Util::addScript('news','jquery.timeago');
+
 OCP\Util::addStyle('news','news');
 OCP\Util::addStyle('news','settings');
 
