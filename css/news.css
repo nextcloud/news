@@ -172,8 +172,14 @@ div.feed_controls {
     }
     
     .dnd_over {
-            background-color: #ffcc00 !important;
-            background-image: none !important;
+        -moz-transition: background-color 200ms ease 0s;
+        transition: background-color 200ms ease 0s; 
+        background-color: #d0d0d0! important;
+    }
+    .dnd_over > ul {
+        padding-bottom: 2.5em;
+        -moz-transition: padding-bottom 500ms ease 0s;
+        transition: padding-bottom 500ms ease 0s; 
     }
 
     #feeds .subscriptions, #feeds .subscriptions:hover {
