@@ -569,7 +569,7 @@ div.feed_controls {
                 .feed_item .primary_item_utils li.star { 
                     background-image: url('%appswebroot%/news/img/inactive_star.svg');
                     background-repeat: no-repeat;
-                    background-size: 100%;
+                    background-size: 1.5em 1.5em;
                     width: 1.5em;
                     height: 1.5em;
                     cursor: pointer;
