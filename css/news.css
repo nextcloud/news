@@ -185,7 +185,7 @@ div.feed_controls {
     #feeds .folder {
         box-sizing: border-box;
         -moz-box-sizing: border-box;
-        padding: 0 0 0 2em !important;
+        padding: .5em 0 .5em 2.5em !important;
         background-color: #dfdfdf !important;
         font-weight: bold ;
         border-bottom: 1px solid #bbb !important;
@@ -194,8 +194,6 @@ div.feed_controls {
     }
 
         #feeds .folder a {
-            padding: .5em 0 .5em .5em; 
-            line-height: 1.5em !important;;
             float: none;
             display: inline-block;
             position: relative;
@@ -232,7 +230,6 @@ div.feed_controls {
         box-sizing: border-box;
         -moz-box-sizing: border-box;
         border-bottom: 1px solid #ccc;
-        line-height: 1.5em;
         padding-left: 2.5em;
         -moz-transition: background-color 200ms ease 0s;
         transition: background-color 200ms ease 0s;
