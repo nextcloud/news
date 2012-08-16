@@ -40,6 +40,11 @@ div.add_parentfolder {
     font-size:1.5em; 
     color:#777; 
 }
+    
+    #firstrun table {
+        margin: auto;
+    }
+
     #firstrun small { display: block; font-weight: normal; font-size: 0.8em; margin: .5em 0 1em 0; }
     #firstrun .button { font-size: 0.7em; }
 
