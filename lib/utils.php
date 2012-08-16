@@ -17,27 +17,27 @@ namespace OCA\News;
  require_once('news/3rdparty/SimplePie/autoloader.php');
 
 class Utils {
-	
+
 	/**
 	 * @brief Transform a date from UNIX timestamp format to MDB2 timestamp format
-	 * @param dbtimestamp 
-	 * @returns 
-	 */	
+	 * @param dbtimestamp
+	 * @returns
+	 */
 	public static function unixtimeToDbtimestamp($unixtime) {
 		$dt = \DateTime::createFromFormat('U', $unixtime);
 		return $dt->format('Y-m-d H:i:s');
 	}
-	
+
 	/**
 	 * @brief Transform a date from MDB2 timestamp format to UNIX timestamp format
-	 * @param dbtimestamp 
-	 * @returns 
+	 * @param dbtimestamp
+	 * @returns
 	 */
 	public static function dbtimestampToUnixtime($dbtimestamp) {
 		$dt = \DateTime::createFromFormat('Y-m-d H:i:s', $dbtimestamp);
 		return $dt->format('U');
 	}
-	
+
 	/**
 	 * @brief Fetch a feed from remote
 	 * @param url remote url of the feed
@@ -70,11 +70,11 @@ class Utils {
 				if ($itemAuthor !== null) {
 					$item->setAuthor($itemAuthor->get_name());
 				}
-				
+
 				//date in Item is stored in UNIX timestamp format
 				$itemDate = $spitem->get_date('U');
 				$item->setDate($itemDate);
-				
+
 				$items[] = $item;
 			}
 		}
@@ -136,20 +136,6 @@ class Utils {
 				$favicon = htmlspecialchars_decode ( $match[2] );
 				// test for an url
 				if (parse_url($favicon,PHP_URL_SCHEME)) {
-					if(self::checkFavicon($favicon))
-						return $favicon;
-				}
-				// test for an absolute path
-				elseif ( 0===strpos(parse_url($favicon,PHP_URL_PATH),'/') ) {
-					$url_token = parse_url($meta['final']);
-					sprintf( '%s://%s/%s', $url_token['scheme'], $url_token['host'], $favicon );
-					if(self::checkFavicon($favicon))
-						return $favicon;
-				}
-				// so it appears to be a relative path
-				else {
-					$url_token = parse_url($meta['final']);
-					sprintf( '%s://%s%s%s', $url_token['scheme'], $url_token['host'], dirname($url_token['path']), $favicon );
 					if(self::checkFavicon($favicon))
 						return $favicon;
 				}
