@@ -336,9 +336,7 @@ News={
 			}
 			$.post(OC.filePath('news', 'ajax', 'usersettings.php'), data, function(jsondata){
 				if(jsondata.status == 'success'){
-					// TODO
-					var currentFeed = $('#rightcontent').data('id');
-					News.Feed.load(currentFeed);
+					News.Feed.load(News.Feed.activeFeedId);
 				} else {
 					//TODO 
 				}

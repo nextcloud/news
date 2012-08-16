@@ -4,11 +4,12 @@ $feedId = isset($_['feedid']) ? $_['feedid'] : '';
 
 $itemMapper = new OCA\News\ItemMapper();
 
-$showOnlyUnread = true; // FIXME: get this from the settings db
-if($showOnlyUnread){
-	$items = $itemMapper->findAllStatus($feedId, OCA\News\StatusFlag::UNREAD);
-} else {
+$showAll = OCP\Config::getUserValue(OCP\USER::getUser(), 'news', 'showAll'); 
+
+if($showAll){
 	$items = $itemMapper->findAll($feedId);
+} else {
+	$items = $itemMapper->findAllStatus($feedId, OCA\News\StatusFlag::UNREAD);
 }
 
 echo '<ul>';

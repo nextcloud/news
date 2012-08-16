@@ -54,6 +54,21 @@ div.add_parentfolder {
         clear: both; 
     }
 
+
+    #addfeedbtn { 
+        background-image: url('%appswebroot%/news/img/rss.svg'); 
+        background-position: .5em center;
+        background-repeat: no-repeat;
+        padding-left: 1.8em; 
+    }
+
+    #importopmlbtn { 
+        background-image: url('%appswebroot%/news/img/opml-icon.svg'); 
+        background-position: .5em center;
+        background-repeat: no-repeat;
+        padding-left: 1.8em; 
+    }
+
     
 /**
  * View above the feeds which shows the feed title
@@ -487,20 +502,6 @@ div.feed_controls {
                 }
 
 
-#addfeedbtn { 
-    background-image: url('%appswebroot%/news/img/rss.svg'); 
-    background-position: .5em center;
-    background-repeat: no-repeat;
-    padding-left: 1.8em; 
-}
-
-#importopmlbtn { 
-    background-image: url('%appswebroot%/news/img/opml-icon.svg'); 
-    background-position: .5em center;
-    background-repeat: no-repeat;
-    padding-left: 1.8em; 
-}
-
 
 
 /* item view */
@@ -682,8 +683,9 @@ div.feed_controls {
          */        
         .bottom_utils {
             width: 100%;
-            padding: 0 2.5em;
             height: 2.5em;
+            margin: 0;
+            padding: 0 0.5em .5em 0;
             box-sizing: border-box; 
             -moz-box-sizing: border-box; 
         }
@@ -699,16 +701,13 @@ div.feed_controls {
             
             .feed_item:hover .secondary_item_utils {
                 display: block;
-                height: 2.5em;
             }
 
                 .feed_item:hover .secondary_item_utils li.keep_unread {
                     cursor: pointer;
-                    line-height: 2.5em;
                 }
 
                 .feed_item .secondary_item_utils li input[type=checkbox]{ 
-                    margin-right: 1em;
                 }
 
 /* dialog/menues */

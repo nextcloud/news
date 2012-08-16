@@ -14,7 +14,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.3.1 r9886"
-   sodipodi:docname="active_star.svg">
+   sodipodi:docname="inactive_star.svg">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -25,8 +25,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8"
-     inkscape:cx="44.591479"
-     inkscape:cy="134.37797"
+     inkscape:cx="116.4202"
+     inkscape:cy="165.53453"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -47,7 +47,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -64,13 +64,13 @@
        sodipodi:cx="330"
        sodipodi:cy="1027.7194"
        sodipodi:r1="169.28609"
-       sodipodi:r2="84.643051"
+       sodipodi:r2="75.090069"
        sodipodi:arg1="-1.5686866"
-       sodipodi:arg2="-0.94036809"
+       sodipodi:arg2="-0.95344865"
        inkscape:flatsided="false"
        inkscape:rounded="0"
        inkscape:randomized="0"
-       d="m 330.35715,858.43365 49.53914,100.91316 111.21435,16.40006 -80.66568,78.29843 18.76975,110.839 -99.39328,-52.5221 -99.61401,52.1023 19.23725,-110.7589 -80.33458,-78.63807 111.28255,-15.93065 z"
+       d="m 330.35715,858.43365 43.11057,108.05601 117.64292,9.25721 -89.44547,74.39173 27.54954,114.7457 -98.39092,-62.0794 -100.61637,61.6596 28.63654,-112.759 -89.73387,-76.63797 116.08927,-7.60945 z"
        inkscape:transform-center-x="-0.11036321"
        inkscape:transform-center-y="-16.060386"
        transform="translate(-21.071429,-112.5)" />

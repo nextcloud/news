@@ -17,8 +17,7 @@ if(isset($_['feedid'])){
     $unreadItemsCount = 0;
 }
 
-// FIXME: get this setting from the database
-$showOnlyUnread = true;
+$showAll = OCP\Config::getUserValue(OCP\USER::getUser(), 'news', 'showAll'); 
 
 ?>
 
@@ -30,8 +29,8 @@ $showOnlyUnread = true;
     <div class="controls">
         <input type="button" value="<?php echo $l->t('Mark all read'); ?>" id="mark_all_as_read" />
         <select id="feed_filter">
-            <option value="unread" <?php if($showOnlyUnread){ echo 'selected="selected"'; }; ?>><?php echo $l->t('Show only unread articles'); ?></option>
-            <option value="all" <?php if(!$showOnlyUnread){ echo 'selected="selected"'; }; ?>><?php echo $l->t('Show read/unread articles'); ?></option>
+            <option value="unread" <?php if(!$showAll){ echo 'selected="selected"'; }; ?>><?php echo $l->t('Show only unread articles'); ?></option>
+            <option value="all" <?php if($showAll){ echo 'selected="selected"'; }; ?>><?php echo $l->t('Show read/unread articles'); ?></option>
         </select>
     </div>
 </div>
