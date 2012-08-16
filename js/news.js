@@ -232,7 +232,17 @@ News={
 			return false;
 		},
 		setAllItemsRead:function(feedId) {
-			$.post(OC.filePath('news', 'ajax', 'setallitemsread.php'), { 'feedId' : feedId }, function(jsonData) {
+			$items = $('.feed_item');
+			// dont execute if there are not read 
+			if($items.length <= 0){
+				return;
+			} 
+			// get the first items id to set lower ids as read
+			data = {
+				'feedId' : feedId,
+				'mostRecentItemId': $('.feed_item:first').data('id'),
+			};
+			$.post(OC.filePath('news', 'ajax', 'setallitemsread.php'), data, function(jsonData) {
 				if(jsonData.status == 'success'){
 					// mark ui items as read
 					$("#feed_items .feed_item:not(.read)").each(function(){

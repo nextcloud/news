@@ -16,6 +16,7 @@ OCP\JSON::checkAppEnabled('news');
 OCP\JSON::callCheck();
 
 $feedId = $_POST['feedId'];
+$mostRecentItemId = $_POST['mostRecentItemId'];
 
 $itemMapper = new OCA\News\ItemMapper();
 $items = $itemMapper->findAllStatus($feedId, OCA\News\StatusFlag::UNREAD);
@@ -24,8 +25,10 @@ $items = $itemMapper->findAllStatus($feedId, OCA\News\StatusFlag::UNREAD);
 // FeedMapper instead of iterating through every item and updating as 
 // necessary
 foreach($items as $item){
-    $item->setRead();
-    $success = $itemMapper->update($item);
+    if($item->getId() <= $mostRecentItemId){
+        $item->setRead();
+        $success = $itemMapper->update($item);    
+    }
 }
 
 $l = OC_L10N::get('news');
