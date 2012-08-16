@@ -21,7 +21,20 @@ $mostRecentItemId = (int)$_POST['mostRecentItemId'];
 $itemMapper = new OCA\News\ItemMapper();
 $mostRecentItem = $itemMapper->find($mostRecentItemId);
 //echo $mostRecentItem->getDate();
-$items = $itemMapper->findAllStatus($feedId, OCA\News\StatusFlag::UNREAD);
+switch ($feedId) {
+    case -2:
+        $items = $itemMapper->findEveryItemByStatus(OCA\News\StatusFlag::UNREAD);
+        break;
+    
+    case -1:
+        $items = $itemMapper->findEveryItemByStatus(OCA\News\StatusFlag::UNREAD | OCA\News\StatusFlag::IMPORTANT);
+        break;
+
+    default:
+        $items = $itemMapper->findAllStatus($feedId, OCA\News\StatusFlag::UNREAD);        
+        break;
+}
+
 
 // FIXME: maybe there is a way to set all items read in the
 // FeedMapper instead of iterating through every item and updating as 
