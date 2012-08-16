@@ -705,6 +705,9 @@ function bindItemEventListeners(){
 
 $(document).ready(function(){
 	News.Feed.activeFeedId = parseInt($('#rightcontent').data('id'));
+	$('#feeds .subscriptions,#feeds .starred').click(function() {
+		News.Feed.load($(this).attr('data-id'));
+	});
 
 	$('#addfeed_dialog_firstrun').hide();
 

@@ -64,6 +64,7 @@ class ItemMapper {
 		return $items;
 	}
 	
+
 	/**
 	 * @brief Retrieve all the items corresponding to a feed from the database with a particular status
 	 * @param feedid The id of the feed in the database table.
@@ -72,7 +73,8 @@ class ItemMapper {
 	public function findAllStatus($feedid, $status){
 		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' 
 				WHERE feed_id = ?
-				AND (status & ?)');
+				AND (status & ?) 
+				ORDER BY pub_date DESC');
 		$result = $stmt->execute(array($feedid, $status));
 	
 		$items = array();
@@ -84,6 +86,29 @@ class ItemMapper {
 		return $items;
 	}
 	
+	/*
+	 * @brief Retrieve all the items corresponding to a feed from the database with a particular status
+	 * @param feedid The id of the feed in the database table.
+	 * @param status one of the constants defined in OCA\News\StatusFlag
+	 */
+	public function findEveryItemByStatus($status){
+		$stmt = \OCP\DB::prepare('SELECT ' . self::tableName . '.* FROM ' . self::tableName . ' 
+				JOIN '. FeedMapper::tableName .' ON
+				'. FeedMapper::tableName .'.id = ' . self::tableName . '.feed_id
+				WHERE '. FeedMapper::tableName .'.user_id = ?
+				AND (' . self::tableName . '.status & ?)
+				ORDER BY ' . self::tableName . '.pub_date DESC');
+		$result = $stmt->execute(array($this->userid, $status));
+	
+		$items = array();
+		while ($row = $result->fetchRow()) {
+			$item = $this->fromRow($row);
+			$items[] = $item;
+		}
+
+		return $items;
+	}
+
 	public function countAllStatus($feedid, $status){
 		$stmt = \OCP\DB::prepare('SELECT COUNT(*) as size FROM ' . self::tableName . ' 
 				WHERE feed_id = ?
@@ -92,6 +117,16 @@ class ItemMapper {
 		return $result['size'];
 	}
 	
+	public function countEveryItemByStatus($status){
+		$stmt = \OCP\DB::prepare('SELECT COUNT(*) as size FROM ' . self::tableName . ' 
+				JOIN '. FeedMapper::tableName .' ON
+				'. FeedMapper::tableName .'.id = ' . self::tableName . '.feed_id
+				WHERE '. FeedMapper::tableName .'.user_id = ?
+				AND (' . self::tableName . '.status & ?)');
+		$result = $stmt->execute(array($this->userid, $status))->fetchRow();;
+
+		return $result['size'];
+	}
 
 	public function findIdFromGuid($guid_hash, $guid, $feedid){
 		$stmt = \OCP\DB::prepare('

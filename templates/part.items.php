@@ -6,10 +6,24 @@ $itemMapper = new OCA\News\ItemMapper();
 
 $showAll = OCP\Config::getUserValue(OCP\USER::getUser(), 'news', 'showAll'); 
 
-if($showAll){
-	$items = $itemMapper->findAll($feedId);
-} else {
-	$items = $itemMapper->findAllStatus($feedId, OCA\News\StatusFlag::UNREAD);
+// select items by feed id and by preference
+switch ($feedId) {
+    case -1:
+    	$feedMapper = new OCA\News\FeedMapper();
+    	$items = $itemMapper->findEveryItemByStatus(OCA\News\StatusFlag::IMPORTANT);
+        break;
+
+    case -2:
+        $items = $itemMapper->findEveryItemByStatus(OCA\News\StatusFlag::UNREAD);
+        break;
+    
+    default:
+    	if($showAll){
+    		$items = $itemMapper->findAll($feedId);
+        } else {
+        	$items = $itemMapper->findAllStatus($feedId, OCA\News\StatusFlag::UNREAD);
+        }
+        break;
 }
 
 echo '<ul>';
