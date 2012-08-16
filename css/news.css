@@ -166,11 +166,15 @@ div.feed_controls {
     -moz-box-sizing: border-box;
 }
 
-    #feeds ul {
+    #feeds > ul {
         height: 100%;
         overflow: auto;     
     }
     
+    .dnd_over {
+            background-color: #ffcc00 !important;
+            background-image: none !important;
+    }
 
     #feeds .subscriptions, #feeds .subscriptions:hover {
         background-image: url('%appswebroot%/news/img/icon.svg'); 
@@ -209,6 +213,7 @@ div.feed_controls {
         -moz-transition: background-color 200ms ease 0s;
         transition: background-color 200ms ease 0s;
         background-color: #f1f1f1;
+        z-index: 1;
     }
     
         #feeds li.feed a { 
@@ -304,6 +309,8 @@ div.feed_controls {
             padding: 0;
             border: 0;
             border-bottom: 1px solid #bbb;
+            position: relative;
+            z-index: 1;
         }
 
         #feeds li.collapsable_container.open { 
@@ -331,6 +338,8 @@ div.feed_controls {
 
         #feeds li.collapsable_container.open > ul { 
             margin: 0 8px 8px 8px; 
+            position: relative;
+            z-index: 1;
         }
 
             #feeds li.collapsable_container > ul > li {
@@ -343,7 +352,8 @@ div.feed_controls {
             }            
 
         #feeds div.collapsable { 
-            position: relative; 
+            position: relative;
+            z-index: 1; 
             border-radius: 5px; 
         }
 

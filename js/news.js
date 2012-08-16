@@ -334,6 +334,33 @@ News={
 				}
 			});
 		},
+		moveToFolder:function(folder, item){
+			var folderId = $(folder).data('id');
+			var itemId = $(item).data('id');
+			if($(item).parent().parent().data('id') == folderId){
+				// FIXME uncomment the return and remove the following lines
+				// in the if part to prevent dropping in the same folder
+				// return;
+				folderId = 0;
+				$('#feeds > ul').append(item);
+			} else {
+				$(folder).children('ul').append(item);
+			}
+			
+			transformCollapsableTrigger();
+
+			data = {
+				folderId: folderId,
+				itemId: itemId
+			};
+			$.post(OC.filePath('news', 'ajax', 'movefeedtofolder.php'), data, function(jsondata){
+				if(jsondata.status != 'success'){
+					OC.dialogs.alert(t('news', 'Error while saving the item in a folder'), t('news', 'Error'));
+					window.location.reload();
+				}
+			});
+			return false;
+		},
 		// this array is used to store ids to prevent sending too
 		// many posts when scrolling. the structure is: feed_id: boolean
 		processing:{},
@@ -587,7 +614,19 @@ function transformCollapsableTrigger() {
 }
 
 function setupFeedList() {
-
+	$('.feed').draggable({ 
+			revert: true,
+			stack: '> li',
+			zIndex: 1000,
+			axis: 'y',
+	});
+	$('.collapsable_container').droppable({
+		accept: '.feed',
+		hoverClass: 'dnd_over',
+		drop: function(event, ui){
+			return News.Feed.moveToFolder(this, ui.draggable);
+		}
+	});
 	$('.feed').click(function() {
 		News.Feed.load($(this).attr('data-id'));
 	});
