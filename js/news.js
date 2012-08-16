@@ -698,6 +698,8 @@ function bindItemEventListeners(){
 		News.Feed.setAllItemsRead(feedId);
 	});
 
+	$("time.timeago").timeago();
+
 }
 
 
@@ -764,7 +766,6 @@ $(document).ready(function(){
 	});
 	
 	$('#feed_items').scrollTop(0);
-	$("time.timeago").timeago();
 
 });
 
