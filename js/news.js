@@ -703,10 +703,17 @@ function bindItemEventListeners(){
 
 
 $(document).ready(function(){
-	$('#addfeed, #addfeedbtn').click(function() {
+	$('#addfeed_dialog_firstrun').hide();
+
+	$('#addfeed').click(function() {
 		News.UI.overview('#addfeed_dialog','feeddialog.php');
 	});
-
+	
+	$('#addfeedbtn').click(function() {
+		$(this).hide();
+		$('#addfeed_dialog_firstrun').show();
+	});
+	
 	$('#addfolder').click(function() {
 		News.UI.overview('#addfolder_dialog','folderdialog.php');
 	});
@@ -756,6 +763,7 @@ $(document).ready(function(){
 	});
 	
 	$('#feed_items').scrollTop(0);
+	$("time.timeago").timeago();
 
 });
 

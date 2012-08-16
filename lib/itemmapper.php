@@ -37,14 +37,12 @@ class ItemMapper {
 		$url = $row['url'];
 		$title = $row['title'];
 		$guid = $row['guid'];
-		$status = $row['status'];
 		$body = $row['body'];
 		$id = $row['id'];
 		$item = new Item($url, $title, $guid, $body, $id);
-		$item->setStatus($status);
-		$date = $row['date'];
-		$author = $row['author'];
-		$item->setAuthor($author);
+		$item->setStatus($row['status']);
+		$item->setAuthor($row['author']);
+		$item->setDate(Utils::dbtimestampToUnixtime($row['pub_date']));
 		
 		return $item;
 	}
@@ -54,7 +52,7 @@ class ItemMapper {
 	 * @param feedid The id of the feed in the database table.
 	 */
 	public function findAll($feedid){
-		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE feed_id = ?');
+		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE feed_id = ? ORDER BY pub_date DESC');
 		$result = $stmt->execute(array($feedid));
 	
 		$items = array();
@@ -153,8 +151,8 @@ class ItemMapper {
 
 			$stmt = \OCP\DB::prepare('
 				INSERT INTO ' . self::tableName .
-				'(url, title, body, guid, guid_hash, feed_id, status)
-				VALUES (?, ?, ?, ?, ?, ?, ?)
+				'(url, title, body, guid, guid_hash, pub_date, feed_id, status)
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?)
 				');
 
 			if(empty($title)) {
@@ -167,12 +165,15 @@ class ItemMapper {
 				$body = $l->t('no body');
 			}
 			
+			$pub_date = Utils::unixtimeToDbtimestamp($item->getDate());
+			
 			$params=array(
 				$item->getUrl(),
 				$title,
 				$body,
 				$guid,
 				$guid_hash,
+				$pub_date,
 				$feedid,
 				$status
 			);

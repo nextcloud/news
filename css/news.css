@@ -592,7 +592,7 @@ div.feed_controls {
              */
             .feed_item h1.item_title { 
                 font-size: 1.5em;
-                margin: 0 0 0 1.6em;
+                margin: 0 13em 0 1.6em;
                 font-weight: bold;
             }
 
@@ -623,6 +623,14 @@ div.feed_controls {
                 margin-left: 2.5em;
             }
 
+            /**
+             * Feed timestamp
+             */
+            .timeago {
+                float: right; 
+                color: #aaa;
+                margin-right: 1em;
+            }
 
             /**
              * Body of the feed item

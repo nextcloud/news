@@ -40,6 +40,9 @@ foreach($items as $item) {
 			echo '</ul>';
 		echo '</div>';
 
+		echo '<h2 class="item_date"><time class="timeago" datetime="' . 
+			date('c', $item->getDate()) . '">' . date('F j, Y, g:i a', $item->getDate()) .  '</time>' . '</h2>';
+
 		echo '<h1 class="item_title"><a target="_blank" href="' . $item->getUrl() . '">' . $item->getTitle() . '</a></h1>';	
 
 		if(trim($item->getAuthor()) == ''){
