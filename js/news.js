@@ -527,7 +527,7 @@ News={
 		 * @return true if its checked, otherwise false
 		 */
 		var _isKeptRead = function(){
-			var _$currentItemKeepUnread = _$currentItem.children('.utils').children('.secondary_item_utils').children('.keep_unread').children('input[type=checkbox]');
+			var _$currentItemKeepUnread = _$currentItem.children('.bottom_utils').children('.secondary_item_utils').children('.keep_unread').children('input[type=checkbox]');
 			return _$currentItemKeepUnread.prop('checked');
 		}
 
@@ -536,7 +536,7 @@ News={
 		 * except the current one
 		 */
 		var _toggleKeepUnread = function(){
-			var _$currentItemKeepUnread = _$currentItem.children('.utils').children('.secondary_item_utils').children('.keep_unread').children('input[type=checkbox]');
+			var _$currentItemKeepUnread = _$currentItem.children('.bottom_utils').children('.secondary_item_utils').children('.keep_unread').children('input[type=checkbox]');
 			if(_isKeptRead()){
 				_$currentItemKeepUnread.prop("checked", false);
 			} else {

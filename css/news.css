@@ -593,27 +593,6 @@ div.feed_controls {
                 }
 
             /**
-             * Secondary feed items which are only shown on hover
-             */
-            .feed_item .secondary_item_utils {
-                display: none;
-                float: right;
-                color: #aaa;
-            }
-            
-            .feed_item:hover .secondary_item_utils {
-                display: block;
-            }
-
-                .feed_item:hover .secondary_item_utils li.keep_unread {
-                    cursor: pointer;
-                }
-
-                .feed_item .secondary_item_utils li input[type=checkbox]{ 
-                    margin-left: .8em;
-                }
-
-            /**
              * Feed title
              */
             .feed_item h1.item_title { 
@@ -664,7 +643,7 @@ div.feed_controls {
              * Body of the feed item
              */
             .feed_item div.body { 
-                padding: .5em 2.5em 2em 2.5em; 
+                padding: .5em 2.5em 0 2.5em; 
             }
 
                 .feed_item div.body p { 
@@ -696,8 +675,41 @@ div.feed_controls {
                         font-family: monospace; 
                         font-size: 1.5em;
                     }
-                
+        
 
+        /**
+         * Line with utils at the bottom
+         */        
+        .bottom_utils {
+            width: 100%;
+            padding: 0 2.5em;
+            height: 2.5em;
+            box-sizing: border-box; 
+            -moz-box-sizing: border-box; 
+        }
+
+            /**
+             * Secondary feed items which are only shown on hover
+             */
+            .feed_item .secondary_item_utils {
+                display: none;
+                color: #aaa;
+                float: right;
+            }
+            
+            .feed_item:hover .secondary_item_utils {
+                display: block;
+                height: 2.5em;
+            }
+
+                .feed_item:hover .secondary_item_utils li.keep_unread {
+                    cursor: pointer;
+                    line-height: 2.5em;
+                }
+
+                .feed_item .secondary_item_utils li input[type=checkbox]{ 
+                    margin-right: 1em;
+                }
 
 /* dialog/menues */
 div.dialog { 

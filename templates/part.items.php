@@ -37,10 +37,6 @@ foreach($items as $item) {
 			echo '<ul class="primary_item_utils">';
 				echo '<li class="star ' . $starClass . '" title="' . $startTitle . '"></li>';
 			echo '</ul>';
-
-			echo '<ul class="secondary_item_utils">';
-				echo '<li class="keep_unread">' . $l->t('Keep unread') . '<input type="checkbox" /></li>';
-			echo '</ul>';
 		echo '</div>';
 
 		echo '<h1 class="item_title"><a target="_blank" href="' . $item->getUrl() . '">' . $item->getTitle() . '</a></h1>';	
@@ -53,6 +49,12 @@ foreach($items as $item) {
 		echo '<h2 class="item_author">' . $from . '</h2>';
 
 		echo '<div class="body">' . $item->getBody() . '</div>';
+
+		echo '<div class="bottom_utils">';
+			echo '<ul class="secondary_item_utils">';
+				echo '<li class="keep_unread">' . $l->t('Keep unread') . '<input type="checkbox" /></li>';
+			echo '</ul>';
+		echo '</div>';
 
 	echo '</li>';
 
