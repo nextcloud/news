@@ -16,16 +16,20 @@ OCP\JSON::checkAppEnabled('news');
 OCP\JSON::callCheck();
 
 $feedId = $_POST['feedId'];
-$mostRecentItemId = $_POST['mostRecentItemId'];
+$mostRecentItemId = (int)$_POST['mostRecentItemId'];
 
 $itemMapper = new OCA\News\ItemMapper();
+$mostRecentItem = $itemMapper->find($mostRecentItemId);
+//echo $mostRecentItem->getDate();
 $items = $itemMapper->findAllStatus($feedId, OCA\News\StatusFlag::UNREAD);
 
 // FIXME: maybe there is a way to set all items read in the
 // FeedMapper instead of iterating through every item and updating as 
 // necessary
+$success = false;
 foreach($items as $item){
-    if($item->getId() <= $mostRecentItemId){
+    // FIXME: this should compare the modified date
+    if($item->getDate() <= $mostRecentItem->getDate()){
         $item->setRead();
         $success = $itemMapper->update($item);    
     }

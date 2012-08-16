@@ -372,7 +372,7 @@ News={
 		// this array is used to store ids to prevent sending too
 		// many posts when scrolling. the structure is: feed_id: boolean
 		processing:{},
-		activeFeedId: parseInt($('#rightcontent').data('id')),
+		activeFeedId: -1000,
 	},
 
 	/**
@@ -692,8 +692,9 @@ function bindItemEventListeners(){
 	});
 
 	// bind the mark all as read button
+	$('#mark_all_as_read').unbind();
 	$('#mark_all_as_read').click(function(){
-		var feedId = $('.rightcontent').data('id');
+		var feedId = News.Feed.activeFeedId;
 		News.Feed.setAllItemsRead(feedId);
 	});
 
@@ -701,6 +702,8 @@ function bindItemEventListeners(){
 
 
 $(document).ready(function(){
+	News.Feed.activeFeedId = parseInt($('#rightcontent').data('id'));
+
 	$('#addfeed_dialog_firstrun').hide();
 
 	$('#addfeed').click(function() {
