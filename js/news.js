@@ -344,28 +344,28 @@ News={
 				}
 			});
 		},
-		moveToFolder:function(folder, item){
+		moveToFolder:function(folder, feed){
 			var folderId = $(folder).data('id');
-			var itemId = $(item).data('id');
-			if($(item).parent().parent().data('id') == folderId){
+			var feedId = $(feed).data('id');
+			if($(feed).parent().parent().data('id') == folderId){
 				// FIXME uncomment the return and remove the following lines
 				// in the if part to prevent dropping in the same folder
 				// return;
 				folderId = 0;
-				$('#feeds > ul').append(item);
+				$('#feeds > ul').append(feed);
 			} else {
-				$(folder).children('ul').append(item);
+				$(folder).children('ul').append(feed);
 			}
 			
 			transformCollapsableTrigger();
 
 			data = {
 				folderId: folderId,
-				itemId: itemId
+				feedId: feedId
 			};
 			$.post(OC.filePath('news', 'ajax', 'movefeedtofolder.php'), data, function(jsondata){
 				if(jsondata.status != 'success'){
-					OC.dialogs.alert(t('news', 'Error while saving the item in a folder'), t('news', 'Error'));
+					OC.dialogs.alert(t('news', 'Error while saving the feed in a folder'), t('news', 'Error'));
 					window.location.reload();
 				}
 			});

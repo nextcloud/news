@@ -16,8 +16,23 @@ OCP\JSON::checkAppEnabled('news');
 OCP\JSON::callCheck();
 
 $folderId = $_POST['folderId'];
-$itemId = $_POST['itemId'];
+$feedId = $_POST['feedId'];
 
-// TODO: save
+
+$feedMapper = new OCA\News\FeedMapper();
+$feed = $feedMapper->findById($feedId);
+
+// FIXME: check if we're allowed to perform this action
+//$feed->setFolder($folderId);
+//$success = $feedMapper->update($feed);
+$success = true;
+
+$l = OC_L10N::get('news');
+
+if(!$success) {
+    OCP\JSON::error(array('data' => array('message' => $l->t('Error moving feed into folder.'))));
+    OCP\Util::writeLog('news','ajax/setallitemsread.php: Error moving feed ' . $feedId . ' into folder '. $folderId, OCP\Util::ERROR);
+    exit();
+}
 
 OCP\JSON::success();
