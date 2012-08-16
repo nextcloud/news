@@ -28,16 +28,19 @@ div.add_parentfolder {
  * when there are no feeds in the db 
  */
 #firstrun { 
-    width: 100%; 
-    position: absolute; 
-    top: 3em; 
-    left: 0; 
+    position: relative;
+    top: 50%;
+    left: 50%;
+    margin-left: -25em;
+    margin-top: -10em;
+    width: 50em; 
+    height: 20em;
     text-align: center; 
     font-weight:bold; 
     font-size:1.5em; 
     color:#777; 
 }
-    #firstrun small { display: block; font-weight: normal; font-size: 0.8em; margin-bottom: 1em; }
+    #firstrun small { display: block; font-weight: normal; font-size: 0.8em; margin: .5em 0 1em 0; }
     #firstrun .button { font-size: 0.7em; }
 
     #firstrun #selections { 
@@ -480,13 +483,17 @@ div.feed_controls {
 
 
 #addfeedbtn { 
-    background: url('%appswebroot%/news/img/rss.svg') no-repeat left; 
-    padding-left: 20px; 
+    background-image: url('%appswebroot%/news/img/rss.svg'); 
+    background-position: .5em center;
+    background-repeat: no-repeat;
+    padding-left: 1.8em; 
 }
 
 #importopmlbtn { 
-    background: url('%appswebroot%/news/img/opml-icon.svg') no-repeat left center; 
-    padding-left: 20px; 
+    background-image: url('%appswebroot%/news/img/opml-icon.svg'); 
+    background-position: .5em center;
+    background-repeat: no-repeat;
+    padding-left: 1.8em; 
 }
 
 

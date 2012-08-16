@@ -1,6 +1,6 @@
 <div id="appsettings" class="popup bottomleft hidden"></div>
 <div id="firstrun">
-	<?php echo $l->t('You have no feeds in your reader.') ?>
+	<h1><?php echo $l->t('You have no feeds in your reader.') ?></h1>
 	<div id="selections">
 		<div id="addfeed_dialog_firstrun">
 		<table width="200px" style="border: 2px;">
@@ -30,7 +30,7 @@
 	<div>
 	<?php
 	require_once(OC_App::getAppPath('news') .'/templates/bookmarklet.php');
-	echo $l->t('Or... ');
+	echo '<h1>' . $l->t('Or...') . '</h1>';
 	?>
 	<div>
 	<?php createBookmarklet(); ?>
