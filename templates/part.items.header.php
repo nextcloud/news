@@ -1,20 +1,35 @@
 <?php 
 
 if(isset($_['feedid'])){
-    $feedMapper = new OCA\News\FeedMapper();
-    $feed = $feedMapper->findById($_['feedid']);
-    $feedTitle = $feed->getTitle();
-    
+    $feedId = $_['feedid'];
     $itemMapper = new OCA\News\ItemMapper();
-    $unreadItemsCount = $itemMapper->countAllStatus($_['feedid'], OCA\News\StatusFlag::UNREAD);
-    if($unreadItemsCount > 0){
+    switch ($feedId) {
+        case -1:
+            $feedTitle = $l->t('Starred');
+            $unreadItemCount = $itemMapper->countAllStatus($feedId, OCA\News\StatusFlag::IMPORTANT);
+            break;
+
+        case -2:
+            $feedTitle = $l->t('New articles');
+            $unreadItemCount = $itemMapper->countEveryItemByStatus(OCA\News\StatusFlag::UNREAD);
+            break;
+        
+        default:
+            $feedMapper = new OCA\News\FeedMapper();
+            $feed = $feedMapper->findById($feedId);
+            $feedTitle = $feed->getTitle();
+            $unreadItemCount = $itemMapper->countAllStatus($feedId, OCA\News\StatusFlag::UNREAD);
+            break;
+    }
+
+    if($unreadItemCount > 0){
         $readClass = '';
     } else {
         $readClass = 'all_read';
     }
 } else {
     $feedTitle = '';
-    $unreadItemsCount = 0;
+    $unreadItemCount = 0;
 }
 
 $showAll = OCP\Config::getUserValue(OCP\USER::getUser(), 'news', 'showAll'); 
@@ -22,7 +37,7 @@ $showAll = OCP\Config::getUserValue(OCP\USER::getUser(), 'news', 'showAll');
 ?>
 
 <div class="feed_controls">
-   <span title="<?php echo $l->t('Unread items'); ?>" class="unreaditemcounter <?php echo $readClass; ?>"><?php echo $unreadItemsCount; ?></span>
+   <span title="<?php echo $l->t('Unread items'); ?>" class="unreaditemcounter <?php echo $readClass; ?>"><?php echo $unreadItemCount; ?></span>
     <div class="feed_title">
         <h1 title="<?php echo $feedTitle; ?>"><?php echo $feedTitle; ?></h1>
     </div>

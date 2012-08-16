@@ -16,7 +16,7 @@
 	</td>
 </tr>
 <tr>
-	<td><input type="text" id="feed_add_url" placeholder="<?php echo $l->t('Link'); ?>" class="news_input" /></td>
+	<td><input type="text" id="feed_add_url" placeholder="<?php echo $l->t('Address'); ?>" class="news_input" /></td>
 	<td><input type="submit" value="<?php echo $l->t('Add'); ?>" onclick="News.Feed.submit(this)" id="feed_add_submit" /></td>
 </tr>
 </table>

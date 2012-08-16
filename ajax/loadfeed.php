@@ -18,6 +18,8 @@ OCP\JSON::callCheck();
 $userid = OCP\USER::getUser();
 
 $feedId = trim($_POST['feedId']);
+OCP\Config::setUserValue(OCP\USER::getUser(), 'news', 'lastViewedFeed', $feedId); 
+
 
 $l = OC_L10N::get('news');
 

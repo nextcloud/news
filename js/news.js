@@ -278,7 +278,11 @@ News={
 					$feedHandler.setUnreadCount(jsonData.data.unreadItemCount);
 					// select new feed
 					$('li#selected_feed').attr('id', '');
-					$('li.feed[data-id="' + feedId + '"]').attr('id', 'selected_feed');
+					if(feedId < 0){
+						$('li[data-id="' + feedId + '"]').attr('id', 'selected_feed');
+					} else {
+						$('li.feed[data-id="' + feedId + '"]').attr('id', 'selected_feed');
+					}
 					// refresh callbacks
 					transformCollapsableTrigger();
 					bindItemEventListeners();
