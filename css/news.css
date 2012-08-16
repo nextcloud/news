@@ -272,7 +272,7 @@ div.feed_controls {
             font-weight: bold; 
         }
                 
-        #feeds li.feed a.all_read { 
+        #feeds li.feed a.all_read, #feeds .all_read { 
             font-weight: normal; 
         }
 
