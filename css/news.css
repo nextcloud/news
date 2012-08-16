@@ -182,6 +182,31 @@ div.feed_controls {
         transition: padding-bottom 500ms ease 0s; 
     }
 
+    #feeds .folder {
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        padding: 0 0 0 2em !important;
+        background-color: #dfdfdf !important;
+        font-weight: bold ;
+        border-bottom: 1px solid #bbb !important;
+        position: relative;
+        z-index: 1;
+    }
+
+        #feeds .folder a {
+            padding: .5em 0 .5em .5em; 
+            line-height: 1.5em !important;;
+            float: none;
+            display: inline-block;
+            position: relative;
+        }
+
+        #feeds .folder:hover {
+            background-color: #d0d0d0 !important;
+            -moz-transition: background-color 200ms ease 0s;
+            transition: background-color 200ms ease 0s;    
+        }
+
     #feeds .subscriptions, #feeds .subscriptions:hover {
         background-image: url('%appswebroot%/news/img/icon.svg'); 
         background-repeat: no-repeat;
@@ -197,37 +222,29 @@ div.feed_controls {
         
     }
 
-    #feeds .folder:hover {
-        background-color: #d0d0d0;
-        -moz-transition: background-color 200ms ease 0s;
-        transition: background-color 200ms ease 0s;    
-    }
-
         #feeds .subscriptions a, #feeds .starred a {
-            margin-left: 2em;
             display: inline-block;
             width: 75%;
         }
 
     #feeds li.feed { 
         position: relative; 
-        text-align: right; 
         box-sizing: border-box;
         -moz-box-sizing: border-box;
         border-bottom: 1px solid #ccc;
-        padding: 0 0 0 5px;
+        line-height: 1.5em;
+        padding-left: 2.5em;
         -moz-transition: background-color 200ms ease 0s;
         transition: background-color 200ms ease 0s;
         background-color: #f1f1f1;
         z-index: 1;
+        background-size:16px 16px;
+        background-repeat: no-repeat;
+        background-position: .8em center;
     }
     
         #feeds li.feed a { 
-            background-size:16px 16px;
-            background-repeat: no-repeat;
-            background-position: 3px center;
-            padding: 0 0 0 25px !important; 
-            line-height: 2.2em;
+            display: inline-block;
             overflow: hidden; 
             text-overflow: ellipsis; 
             text-align: left; 
@@ -309,7 +326,7 @@ div.feed_controls {
                 display: none !important;
             }
 
-        #feeds li.collapsable_container, #feeds .folder { 
+        #feeds li.collapsable_container { 
             background-color: #dfdfdf;
             font-weight: bold;
             padding: 0;
@@ -366,7 +383,7 @@ div.feed_controls {
         
         #feeds .collapsable_trigger { 
             border: none ; 
-            margin: 0 0 0 1em; 
+            margin: 0 0 0 .8em; 
             padding: 0; 
             border-radius: 0; 
             box-shadow: none; 
@@ -388,7 +405,7 @@ div.feed_controls {
             transform: rotate(-90deg);
         }
         
-        #feeds .collapsable_title, #feeds .folder a { 
+        #feeds .collapsable_title { 
             padding: .5em 0 .5em .5em; 
             line-height: 1.5em;
             float: none;
@@ -629,7 +646,9 @@ div.feed_controls {
             .timeago {
                 float: right; 
                 color: #aaa;
-                margin-right: 1em;
+                margin: .6em 1.2em 0 0;
+                line-height: 1.5em;
+                font-size: 1em;
             }
 
             /**

@@ -30,6 +30,9 @@ foreach($items as $item) {
 
 	echo '<li class="feed_item ' . $newsItemClass .'" data-id="' . $item->getId() . '" data-feedid="' . $feedId . '">';
 
+		echo '<h2 class="item_date"><time class="timeago" datetime="' . 
+			date('c', $item->getDate()) . '">' . date('F j, Y, g:i a', $item->getDate()) .  '</time>' . '</h2>';
+
 		echo '<div class="utils">';
 			echo '<ul class="primary_item_utils">';
 				echo '<li class="star ' . $starClass . '" title="' . $startTitle . '"></li>';
@@ -39,9 +42,6 @@ foreach($items as $item) {
 				echo '<li class="keep_unread">' . $l->t('Keep unread') . '<input type="checkbox" /></li>';
 			echo '</ul>';
 		echo '</div>';
-
-		echo '<h2 class="item_date"><time class="timeago" datetime="' . 
-			date('c', $item->getDate()) . '">' . date('F j, Y, g:i a', $item->getDate()) .  '</time>' . '</h2>';
 
 		echo '<h1 class="item_title"><a target="_blank" href="' . $item->getUrl() . '">' . $item->getTitle() . '</a></h1>';	
 
