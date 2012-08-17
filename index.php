@@ -35,11 +35,15 @@ $folderforest = $foldermapper->childrenOf(0); //retrieve all the folders
 if ($allfeeds) {
 	$feedid = isset( $_GET['feedid'] ) ? $_GET['feedid'] : null;
 	if ($feedid == null) {
+        $feedmapper = new OCA\News\FeedMapper(OCP\USER::getUser($userid));
         if(OCP\Config::getUserValue(OCP\USER::getUser(), 'news', 'lastViewedFeed') == null){
-            $feedmapper = new OCA\News\FeedMapper(OCP\USER::getUser($userid));
-            $feedid =  $feedmapper->mostRecent();    
+            $feedid =  $feedmapper->mostRecent();
         } else {
             $feedid = OCP\Config::getUserValue(OCP\USER::getUser(), 'news', 'lastViewedFeed');
+            // check if feed exists in table
+            if($feedmapper->findById($feedid) === null){
+                $feedid =  $feedmapper->mostRecent();
+            }
         }
 	}
 }
