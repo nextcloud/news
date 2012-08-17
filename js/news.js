@@ -626,6 +626,7 @@ function transformCollapsableTrigger() {
 }
 
 function setupFeedList() {
+	/*
 	$('.feed').draggable({ 
 			revert: true,
 			stack: '> li',
@@ -638,7 +639,7 @@ function setupFeedList() {
 		drop: function(event, ui){
 			return News.Feed.moveToFolder(this, ui.draggable);
 		}
-	});
+	});*/
 	$('.feed').click(function() {
 		News.Feed.load($(this).attr('data-id'));
 	});
