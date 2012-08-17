@@ -598,7 +598,7 @@ div.feed_controls {
              */
             .feed_item h1.item_title { 
                 font-size: 1.5em;
-                margin: 0 13em 0 1.6em;
+                margin: 0 13em 0 1.75em;
                 font-weight: bold;
             }
 
@@ -626,7 +626,7 @@ div.feed_controls {
              */
             .feed_item h2.item_author {
                 color: #aaa;
-                margin-left: 2.5em;
+                margin-left: 2.7em;
             }
 
             /**
@@ -644,7 +644,10 @@ div.feed_controls {
              * Body of the feed item
              */
             .feed_item div.body { 
+                overflow-y: hidden;
                 padding: .5em 2.5em 0 2.5em; 
+                max-width: 55em;
+                font-size: 1.1em;
             }
 
                 .feed_item div.body p { 
