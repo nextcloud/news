@@ -41,10 +41,9 @@ if ($parsed == null) {
 	bailOut($l->t('An error occurred while parsing the file.'));	
 }
 
-
 $data = $parsed->getData();
 
-function createFeed($feedurl, $folderid) {
+function importFeed($feedurl, $folderid) {
 	$feedmapper = new OCA\News\FeedMapper();
 	$feedid = $feedmapper->findIdFromUrl($feedurl);
 
@@ -57,71 +56,64 @@ function createFeed($feedurl, $folderid) {
 		      $feedid = $feedmapper->save($feed, $folderid);
 		}
 	} else {
-		OCP\Util::writeLog('news','ajax/createfeed.php: Error adding feed: '. $feedurl, OCP\Util::ERROR);
+		OCP\Util::writeLog('news','ajax/importopml.php: Error adding feed: '. $feedurl, OCP\Util::ERROR);
 		return false;
 	}
 
 	if($feed === null || !$feedid) {
-		OCP\Util::writeLog('news','ajax/createfeed.php: Error adding feed: '. $feedurl, OCP\Util::ERROR);
+		OCP\Util::writeLog('news','ajax/importopml.php: Error adding feed: '. $feedurl, OCP\Util::ERROR);
 		return false;
 	}
 	
 	return true;
 }
 
-$countadded = 0;
-foreach($data as $collection) {
-	if ($collection instanceOf Feed) {
-		$feedurl = $collection->getUrl(); 
-		$folderid = 0;
-		if (createFeed($feedurl, $folderid)) {
-			$countadded++;
-		}
+function importFolder($name, $parentid) {
+	$foldermapper = new OCA\News\FolderMapper();
+
+	if($parentid != 0) {
+	    $folder = new OCA\News\Folder($name, NULL, $foldermapper->find($parentid));
+	} else {
+	    $folder = new OCA\News\Folder($name);
 	}
+
+	$folderid = $foldermapper->save($folder);
+
+	$l = OC_L10N::get('news');
+
+	if(!$folderid) {
+		OCP\Util::writeLog('news','ajax/importopml.php: Error adding folder' . $name, OCP\Util::ERROR);
+		return null;
+	}
+	
+	return $folderid;
 }
 
+function importList($data, $parentid) {
+	$countsuccess = 0;
+	foreach($data as $collection) {
+		if ($collection instanceOf OCA\News\Feed) {
+			$feedurl = $collection->getUrl(); 
+			if (importFeed($feedurl, $parentid)) {
+				$countsuccess++;
+			}
+		} 
+		else if ($collection instanceOf OCA\News\Folder) {
+			$folderid = importFolder($collection->getName(), $parentid);
+			if ($folderid) {
+				$children = $collection->getChildren();
+				$countsuccess += importList($children, $folderid);
+			}
+		}
+		else {
+			OCP\Util::writeLog('news','ajax/importopml.php: Error importing OPML',OCP\Util::ERROR);
+		}
+	}
+	return $countsuccess;
+}
 
-// // $ch is the handler for the curl connection
-// function addFeed($feedurl, $folderid, $ch) {
-// 
-// 	$data = array('feedurl' => $feedurl, 'folderid' => $folderid);
-// 	curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-// 	$result = curl_exec($ch);
-// 	$status = curl_getinfo($ch);
-// 
-// 	if($result === false) {
-// 		bailOut(curl_error($ch));
-// 	} else {
-// 		bailOut($status['http_code'] . $status['url']);
-// 	}
-// }
-
-// $url = OCP\Util::linkToAbsolute('news', 'ajax/createfeed.php');
-// $ch = curl_init($url);
-// if ($ch != false) {
-// 	curl_setopt($ch, CURLOPT_POST, TRUE);
-// 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-// 	curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-// 	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
-// 	curl_setopt($ch, CURLOPT_USERPWD, 'acosenti:nopass');
-// 
-// 
-// 	foreach($data as $collection) {
-// 		if ($collection instanceOf OC_News_Feed) {
-// 			$feedurl = $collection->getUrl(); 
-// 			$folderid = 0;
-// 			addFeed($feedurl, $folderid, $ch);
-// 		}
-// 	}
-// 
-// 	addFeed(null, null, $ch);
-// 	$result = curl_exec($ch);
-// 
-// 	curl_close($ch);
-// } else {
-// 	bailOut($l->t('An error occurred while adding the feeds.'));
-// }
+$countsuccess = importList($data, 0);
 
 OCP\JSON::success(array('data' => array('title'=>$parsed->getTitle(), 'count'=>$parsed->getCount(), 
-	'countsuccess'=>$countadded)));
+	'countsuccess'=>$countsuccess)));
 

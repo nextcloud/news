@@ -768,31 +768,27 @@ class SimplePie_IRI
 	 */
 	public function is_valid()
 	{
+		$isauthority = $this->iuserinfo !== null || $this->ihost !== null || $this->port !== null;
+		if ($this->ipath !== '' &&
+			(
+				$isauthority && (
+					$this->ipath[0] !== '/' ||
+					substr($this->ipath, 0, 2) === '//'
+				) ||
+				(
+					$this->scheme === null &&
+					!$isauthority &&
+					strpos($this->ipath, ':') !== false &&
+					(strpos($this->ipath, '/') === false ? true : strpos($this->ipath, ':') < strpos($this->ipath, '/'))
+				)
+			)
+		)
+		{
+			return false;
+		}
+
 		return true;
 	}
-// NOTE: this is temporary commented out to bypass issue #214: https://github.com/simplepie/simplepie/issues/214
-//
-// 		$isauthority = $this->iuserinfo !== null || $this->ihost !== null || $this->port !== null;
-// 		if ($this->ipath !== '' &&
-// 			(
-// 				$isauthority && (
-// 					$this->ipath[0] !== '/' ||
-// 					substr($this->ipath, 0, 2) === '//'
-// 				) ||
-// 				(
-// 					$this->scheme === null &&
-// 					!$isauthority &&
-// 					strpos($this->ipath, ':') !== false &&
-// 					(strpos($this->ipath, '/') === false ? true : strpos($this->ipath, ':') < strpos($this->ipath, '/'))
-// 				)
-// 			)
-// 		)
-// 		{
-// 			return false;
-// 		}
-// 
-// 		return true;
-// 	}
 
 	/**
 	 * Set the entire IRI. Returns true on success, false on failure (if there
