@@ -100,7 +100,6 @@ div.feed_controls {
         display: block;
         float: left;
         min-width: 1.2em;
-        display: none;
     }
 
         div.feed_controls .unreaditemcounter.all_read {
