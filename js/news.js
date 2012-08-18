@@ -388,7 +388,6 @@ News={
 		var _activeFeedId = News.Feed.activeFeedId;
 		var _$feed = $('li.feed[data-id="'+feedId+'"]');
 		var _$feedUnreadCounter = _$feed.find('.unreaditemcounter');
-		var _$feedUnreadCounterUtil = $('.feed_controls .unreaditemcounter');
 		var _$feedLink = _$feed.children('a');
 		
 		/**
@@ -457,24 +456,15 @@ News={
 			if(count === 0){
 				_$feedLink.addClass('all_read');
 				_$feedUnreadCounter.addClass('all_read');
-				if(_activeFeedId == _feedId){ 
-					_$feedUnreadCounterUtil.addClass('all_read');
-				}
 			} else {
 				var currentCount = _getUnreadCount();
 				// if the previous count was 0 we need to remove certain classes
 				if(currentCount === 0){
 					_$feedLink.removeClass('all_read');
 					_$feedUnreadCounter.removeClass('all_read');
-					if(_activeFeedId == _feedId){ 
-						_$feedUnreadCounterUtil.removeClass('all_read');
-					}
 				}
 			}
 			_$feedUnreadCounter.html(count);
-			if(_activeFeedId == _feedId){ 
-				_$feedUnreadCounterUtil.html(count);
-			}
 		};
 
 		// public
@@ -751,8 +741,16 @@ $(document).ready(function(){
 	bindItemEventListeners();
 
 	// filter for newest or all items
-	$('#feed_filter').change(function(){
-		News.Feed.filter($(this).val());
+	$('#view').click(function(){
+		var term;
+		if($(this).hasClass('show_all')){
+			term = 'unread';
+			$(this).addClass('show_unread').removeClass('show_all');
+		} else {
+			term = 'all';
+			$(this).addClass('show_all').removeClass('show_unread');
+		}
+		News.Feed.filter(term);
 	});
 
 	// mark items whose title was hid under the top edge as read

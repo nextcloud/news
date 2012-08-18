@@ -69,88 +69,6 @@ div.add_parentfolder {
         padding-left: 1.8em; 
     }
 
-    
-/**
- * View above the feeds which shows the feed title
- * and the controls
- */
-div.feed_controls { 
-    box-sizing: border-box; 
-    -moz-box-sizing: border-box; 
-    background: none repeat scroll 0 0 #f7f7f7; 
-    border-bottom: 1px solid #ccc; 
-    box-shadow: 0 4px 4px -3px #ccc; 
-    overflow: hidden; 
-    position: fixed; 
-    left: 34.1em; 
-    right: 0; 
-    top: 3.5em; 
-    z-index: 1;
-    height: 3.3em;
-}
-
-    div.feed_controls .unreaditemcounter {
-        background: #5E5E5E; 
-        border-radius: 5px; 
-        padding: 2px 5px; 
-        color: white; 
-        text-align: center; 
-        font-weight: normal;
-        margin: .7em 0 0 .6em;
-        display: block;
-        float: left;
-        min-width: 1.2em;
-        display: none;
-    }
-
-        div.feed_controls .unreaditemcounter.all_read {
-            display: none;
-        }
-
-
-    div.feed_controls div.subscriptions_title {
-        display: inline-block;
-        padding-left: .8em;
-        padding-bottom: .6em;
-        width: 22.4em;
-        border-right: 1px solid #ddd;
-    }
-
-    div.feed_controls div.feed_title { 
-        padding-left: 10px; 
-        display: inline-block;
-    }
-        
-        div.feed_controls div.feed_title h1 {
-            overflow: hidden;
-            text-overflow: ellipsis; 
-            white-space: nowrap;
-            font-size: 1.2em;
-            line-height: 2.6em;
-            font-weight: bold;
-            color: #333;
-        }
-
-        @media all and (min-width: 1280px){
-            div.feed_controls div.feed_title h1 { max-width: 450px; }
-        }
-
-        @media all and (max-width: 1279px) and (min-width: 1024px){
-            div.feed_controls div.feed_title h1 { max-width: 230px; }
-        }
-
-        @media all and (max-width: 1023px) and (min-width: 950px){
-            div.feed_controls div.feed_title h1 { max-width: 130px; }
-        }
-
-        @media all and (max-width: 949px){
-            div.feed_controls div.feed_title h1 { display: none; }
-        }
-
-    div.feed_controls .controls {
-        float: right;
-    }
-
 
 /* feed/folder list */
 #leftcontent { 
@@ -163,20 +81,6 @@ div.feed_controls {
     bottom: 0;
 }
 
-    /*
-    #leftcontent h1 {
-        background-color: #DBDBDB;
-        border-bottom: 1px solid #CCCCCC;
-        border-top: 1px solid #D4D4D4;
-        color: #333333;
-        font-weight: bold;
-        display: block;
-        font-size: 1.2em;
-        max-width: 100%;
-        padding: 0 0.8em;
-        text-shadow: 0 1px 0 #F8F8F8;
-        line-height: 2.6em;
-    }*/
 
 #feeds { 
     background-color: #f8f8f8; 
@@ -453,10 +357,31 @@ div.feed_controls {
         width: 100%;
     }
 
+    #feed_settings .controls > li {
+        display: inline-block;
+        float: left;
+        width: 3em;
+    }
+
+    #feed_settings #view button {
+        width: 3em;
+        height: 2.5em;
+        padding-top: .2em;
+        background-size: 80%;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    #feed_settings #view.show_all button {
+        background-image: url('%appswebroot%/news/img/eye_all.svg'); 
+    }
+
+    #feed_settings #view.show_unread button {
+        background-image: url('%appswebroot%/news/img/eye_unread.svg'); 
+    }
+
     #feed_settings #addfeedfolder {
         margin: 0 .3em .3em .3em;
-        float: left;
-        
     }
 
         #feed_settings #addfeedfolder #addfolder { 
@@ -509,7 +434,6 @@ div.feed_controls {
     top: 3.5em !important; 
     box-sizing: border-box; 
     -moz-box-sizing: border-box; 
-    margin-top: 3.5em;
     left: 34.1em;
 }
 
@@ -540,6 +464,11 @@ div.feed_controls {
         .feed_item {
             border-top: 1px solid #ccc;
             min-height: 100px;
+            background-image: linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
+            background-image: -o-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
+            background-image: -moz-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
+            background-image: -webkit-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
+            background-image: -ms-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
         }
 
         .feed_item:first-child {
@@ -552,13 +481,8 @@ div.feed_controls {
             .utils {
                 height: 2em;
                 margin: 0;
-                padding: 0.6em 0.5em 0.5em 0.5em;
-                background-color: #f8f8f8;
-                background-image: linear-gradient(top, rgb(248,248,248) 0%, rgb(255,255,255) 100%);
-                background-image: -o-linear-gradient(top, rgb(248,248,248) 0%, rgb(255,255,255) 100%);
-                background-image: -moz-linear-gradient(top, rgb(248,248,248) 0%, rgb(255,255,255) 100%);
-                background-image: -webkit-linear-gradient(top, rgb(248,248,248) 0%, rgb(255,255,255) 100%);
-                background-image: -ms-linear-gradient(top, rgb(248,248,248) 0%, rgb(255,255,255) 100%);
+                padding: 1.1em 0.5em 0.5em 0.5em;
+                float: left;
             }
 
             /**
@@ -598,8 +522,9 @@ div.feed_controls {
              */
             .feed_item h1.item_title { 
                 font-size: 1.5em;
-                margin: 0 13em 0 1.6em;
+                margin: 0 13em 0 1.75em;
                 font-weight: bold;
+                padding-top: .8em;
             }
 
                 .feed_item h1.item_title a { 
@@ -626,7 +551,7 @@ div.feed_controls {
              */
             .feed_item h2.item_author {
                 color: #aaa;
-                margin-left: 2.5em;
+                margin-left: 2.7em;
             }
 
             /**
@@ -635,7 +560,7 @@ div.feed_controls {
             .timeago {
                 float: right; 
                 color: #aaa;
-                margin: .6em 1.2em 0 0;
+                margin: 1em 1.2em 0 0;
                 line-height: 1.5em;
                 font-size: 1em;
             }
@@ -644,7 +569,10 @@ div.feed_controls {
              * Body of the feed item
              */
             .feed_item div.body { 
+                overflow-y: hidden;
                 padding: .5em 2.5em 0 2.5em; 
+                max-width: 55em;
+                font-size: 1.1em;
             }
 
                 .feed_item div.body p { 
