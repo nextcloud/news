@@ -464,6 +464,11 @@ div.add_parentfolder {
         .feed_item {
             border-top: 1px solid #ccc;
             min-height: 100px;
+            background-image: linear-gradient(top, rgb(240,240,240) 0, rgb(255,255,255) 5em);
+            background-image: -o-linear-gradient(top, rgb(240,240,240) 0, rgb(255,255,255) 5em);
+            background-image: -moz-linear-gradient(top, rgb(240,240,240) 0, rgb(255,255,255) 5em);
+            background-image: -webkit-linear-gradient(top, rgb(240,240,240) 0, rgb(255,255,255) 5em);
+            background-image: -ms-linear-gradient(top, rgb(240,240,240) 0, rgb(255,255,255) 5em);
         }
 
         .feed_item:first-child {
@@ -478,12 +483,6 @@ div.add_parentfolder {
                 margin: 0;
                 padding: 1.1em 0.5em 0.5em 0.5em;
                 float: left;
-                background-color: #f8f8f8;
-                background-image: linear-gradient(top, rgb(248,248,248) 0%, rgb(255,255,255) 100%);
-                background-image: -o-linear-gradient(top, rgb(248,248,248) 0%, rgb(255,255,255) 100%);
-                background-image: -moz-linear-gradient(top, rgb(248,248,248) 0%, rgb(255,255,255) 100%);
-                background-image: -webkit-linear-gradient(top, rgb(248,248,248) 0%, rgb(255,255,255) 100%);
-                background-image: -ms-linear-gradient(top, rgb(248,248,248) 0%, rgb(255,255,255) 100%);
             }
 
             /**
