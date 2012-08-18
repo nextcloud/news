@@ -1,17 +1,3 @@
-/**
-* ownCloud - News app
-*
-* @author Alessandro Cosentino
-* Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
-*
-* @author Bernhard Posselt
-* Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
-*
-* This file is licensed under the Affero General Public License version 3 or later.
-* See the COPYING-README file
-*
-*/
-
 News={
 	DropDownMenu: {
 		fade:function(menu){
@@ -101,10 +87,6 @@ News={
 					$.post(OC.filePath('news', 'ajax', 'deletefolder.php'),{'folderid':folderid, 'shownfeedid':shownfeedid},function(jsondata){
 						if(jsondata.status == 'success'){
 							$('.collapsable_container[data-id="' + jsondata.data.folderid + '"]').remove();
-							if(jsondata.data.part_items) {
-								rightcontent.empty();
-								rightcontent.html(jsondata.data.part_items);
-							}
 							transformCollapsableTrigger();
 						}
 						else{

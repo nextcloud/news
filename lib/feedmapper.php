@@ -173,10 +173,12 @@ class FeedMapper {
 			$l = \OC_L10N::get('news');
 			$title = $l->t('no title');
 		}
-
+		
+		$favicon = $feed->getFavicon();
+		
 		//FIXME: Detect when feed contains already a database id
 		$feedid =  $this->findIdFromUrl($url);
-		if ($feedid == null){
+		if ($feedid === null){
 			$query = \OCP\DB::prepare("
 				INSERT INTO " . self::tableName .
 				"(url, url_hash, title, favicon_link, folder_id, user_id, added, lastmodified)
@@ -187,7 +189,7 @@ class FeedMapper {
 				$url,
 				$url_hash,
 				$title,
-				$feed->getFavicon(),
+				$favicon,
 				$folderid,
 				$this->userid
 			);
@@ -195,17 +197,35 @@ class FeedMapper {
 
 			$feedid = \OCP\DB::insertid(self::tableName);
 		}
+		else { 
+		//update the db. it needs to be done, since it might be the first save after a full fetch
+			$stmt = \OCP\DB::prepare('
+					UPDATE ' . self::tableName .
+					' SET favicon_link = ? , lastmodified = ? 
+					WHERE id = ?
+					');
+				
+			$params=array(
+				$favicon,
+				$_ut,
+				$feedid
+				);
+			$stmt->execute($params);		
+		}
 		$feed->setId($feedid);
 
 		$itemMapper = new ItemMapper();
 
 		$items = $feed->getItems();
-		foreach($items as $item){
-			$itemMapper->save($item, $feedid);
+		if ($items !== null) {
+			foreach($items as $item){
+				$itemMapper->save($item, $feedid);
+			}
 		}
-
+		
 		return $feedid;
 	}
+	
 
 	public function deleteById($id){
 		if ($id == null) {

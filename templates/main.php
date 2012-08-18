@@ -30,14 +30,14 @@ if($showAll){
 <div id="feed_settings">
 	<ul class="controls">
 		<li id="addfeedfolder" title="<?php echo $l->t('Add feed or folder'); ?>">
-			<button class="svg"><img class="svg" src="<?php echo OCP\Util::linkTo('news', 'img/add.svg'); ?>" alt="<?php echo $l->t('Add Feed/Folder'); ?>" /></button>
+			<button><img class="svg" src="<?php echo OCP\Util::linkTo('news', 'img/add.svg'); ?>" alt="<?php echo $l->t('Add Feed/Folder'); ?>" /></button>
 			<ul class="menu" id="feedfoldermenu">
 				<li id="addfeed"><?php echo $l->t('Feed'); ?></li>
 				<li id="addfolder"><?php echo $l->t('Folder'); ?></li>
 			</ul>
 		</li>
 		<li id="view" title="<?php echo $viewButtonTitle; ?>" class="<?php echo $viewButtonClass; ?>">
-			<button class="svg"></button>
+			<button></button>
 		</li>
 		<li style="float: right">
 			<button id="settingsbtn" title="<?php echo $l->t('Settings'); ?>"><img class="svg" src="<?php echo OCP\Util::imagePath('core','actions/settings.png'); ?>" alt="<?php echo $l->t('Settings'); ?>"   /></button>

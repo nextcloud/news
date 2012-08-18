@@ -20,7 +20,7 @@
 	$l = OC_L10N::get('news');
 
 	if ($feedid === null) {
-		$feed = OCA\News\Utils::fetch($feedurl);
+		$feed = OCA\News\Utils::slimFetch($feedurl);
 
 		if ($feed !== null) {
 		      $feedid = $feedmapper->save($feed, 0); //adds in the root folder
@@ -29,7 +29,7 @@
 		if($feed === null || !$feedid) {
 			echo $l->t('An error occurred');
 		} else {
-			echo $l->t('Nice! You have subcribed to ') . $feed->getTitle() . '.';
+			echo $l->t('Nice! You have subscribed to ') . $feed->getTitle() . '.';
 		}	
 	}
 	else {

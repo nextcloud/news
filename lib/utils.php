@@ -98,6 +98,36 @@ class Utils {
 	   }
 	}
 
+	/**
+	 * Perform a "slim" fetch of a feed from remote. 
+	 * Differently from Utils::fetch(), it doesn't retrieve items nor a favicon
+	 * 	
+	 * @param url remote url of the feed
+	 * @returns an instance of OC_News_Feed
+	 */
+	public static function slimFetch($url){
+		$spfeed = new \SimplePie_Core();
+		$spfeed->set_feed_url( $url );
+		$spfeed->enable_cache( false );
+		$spfeed->set_stupidly_fast( true );
+
+		if (!$spfeed->init()) {
+			return null;
+		}
+
+	   //temporary try-catch to bypass SimplePie bugs
+	   try {
+		$title = $spfeed->get_title();
+
+		$feed = new Feed($url, $title);
+		
+		return $feed;
+		}
+	   catch (Exception $e) {
+		return null;
+	   }
+	}
+
 	public static function checkFavicon($favicon) {
 		$file = new \SimplePie_File($favicon);
 		// size in bytes
