@@ -464,11 +464,11 @@ div.add_parentfolder {
         .feed_item {
             border-top: 1px solid #ccc;
             min-height: 100px;
-            background-image: linear-gradient(top, rgb(245,245,245) 0, rgb(255,255,255) 6em);
-            background-image: -o-linear-gradient(top, rgb(245,245,245) 0, rgb(255,255,255) 6em);
-            background-image: -moz-linear-gradient(top, rgb(245,245,245) 0, rgb(255,255,255) 6em);
-            background-image: -webkit-linear-gradient(top, rgb(245,245,245) 0, rgb(255,255,255) 6em);
-            background-image: -ms-linear-gradient(top, rgb(245,245,245) 0, rgb(255,255,255) 6em);
+            background-image: linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
+            background-image: -o-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
+            background-image: -moz-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
+            background-image: -webkit-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
+            background-image: -ms-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
         }
 
         .feed_item:first-child {
