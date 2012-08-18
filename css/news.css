@@ -357,10 +357,31 @@ div.add_parentfolder {
         width: 100%;
     }
 
+    #feed_settings .controls > li {
+        display: inline-block;
+        float: left;
+        width: 3em;
+    }
+
+    #feed_settings #view button {
+        width: 3em;
+        height: 2.5em;
+        padding-top: .2em;
+        background-size: 80%;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    #feed_settings #view.show_all button {
+        background-image: url('%appswebroot%/news/img/eye_all.svg'); 
+    }
+
+    #feed_settings #view.show_unread button {
+        background-image: url('%appswebroot%/news/img/eye_unread.svg'); 
+    }
+
     #feed_settings #addfeedfolder {
         margin: 0 .3em .3em .3em;
-        float: left;
-        
     }
 
         #feed_settings #addfeedfolder #addfolder { 

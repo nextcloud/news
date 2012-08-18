@@ -5,6 +5,18 @@
 <?php
 if ($_['feedid']){
 
+$showAll = OCP\Config::getUserValue(OCP\USER::getUser(), 'news', 'showAll'); 
+
+if($showAll){
+	$viewButtonImg = 'eye_all.svg';
+	$viewButtonTitle = $l->t('Show everything');
+	$viewButtonClass = 'show_all';
+} else {
+	$viewButtonImg = 'eye_unread.svg';
+	$viewButtonTitle = $l->t('Show only unread');
+	$viewButtonClass = 'show_unread';
+}
+
 ?>
 
 <div id="leftcontent" class="leftcontent">
@@ -18,11 +30,14 @@ if ($_['feedid']){
 <div id="feed_settings">
 	<ul class="controls">
 		<li id="addfeedfolder" title="<?php echo $l->t('Add feed or folder'); ?>">
-			<button class="svg"><img class="svg" src="<?php echo OCP\Util::linkTo('news', 'img/add.svg'); ?>" alt="<?php echo $l->t('Add Feed/Folder'); ?>"   /></button>
+			<button class="svg"><img class="svg" src="<?php echo OCP\Util::linkTo('news', 'img/add.svg'); ?>" alt="<?php echo $l->t('Add Feed/Folder'); ?>" /></button>
 			<ul class="menu" id="feedfoldermenu">
 				<li id="addfeed"><?php echo $l->t('Feed'); ?></li>
 				<li id="addfolder"><?php echo $l->t('Folder'); ?></li>
 			</ul>
+		</li>
+		<li id="view" title="<?php echo $viewButtonTitle; ?>" class="<?php echo $viewButtonClass; ?>">
+			<button class="svg"></button>
 		</li>
 		<li style="float: right">
 			<button class="svg" id="settingsbtn" title="<?php echo $l->t('Settings'); ?>"><img class="svg" src="<?php echo OCP\Util::imagePath('core','actions/settings.png'); ?>" alt="<?php echo $l->t('Settings'); ?>"   /></button>

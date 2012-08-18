@@ -741,8 +741,16 @@ $(document).ready(function(){
 	bindItemEventListeners();
 
 	// filter for newest or all items
-	$('#feed_filter').change(function(){
-		News.Feed.filter($(this).val());
+	$('#view').click(function(){
+		var term;
+		if($(this).hasClass('show_all')){
+			term = 'unread';
+			$(this).addClass('show_unread').removeClass('show_all');
+		} else {
+			term = 'all';
+			$(this).addClass('show_all').removeClass('show_unread');
+		}
+		News.Feed.filter(term);
 	});
 
 	// mark items whose title was hid under the top edge as read
