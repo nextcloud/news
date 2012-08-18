@@ -586,14 +586,14 @@ div.add_parentfolder {
 
                 .feed_item div.body p { 
                     line-height: 1.5; 
-                    margin: .5em 0;
+                    margin: .5em 0 1em 0;
                 }
 
                 .feed_item div.body img {
                     max-width: 55em;
                 }
 
-                .feed_item div.body h2 {
+                .feed_item div.body h1, .feed_item div.body h2 {
                     font-size: 1.25em;
                     font-weight: bold;
                     color: #222;
@@ -621,6 +621,11 @@ div.add_parentfolder {
                     margin: .5em 0;
                     padding-left: 1em; 
                     list-style-type: disc; 
+                }
+
+                .feed_item div.body ol {
+                    margin: .5em 0;
+                    padding-left: 1.5em; 
                 }
 
                     .feed_item div.body ul li { 
