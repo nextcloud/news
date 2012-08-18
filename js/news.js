@@ -388,7 +388,6 @@ News={
 		var _activeFeedId = News.Feed.activeFeedId;
 		var _$feed = $('li.feed[data-id="'+feedId+'"]');
 		var _$feedUnreadCounter = _$feed.find('.unreaditemcounter');
-		var _$feedUnreadCounterUtil = $('.feed_controls .unreaditemcounter');
 		var _$feedLink = _$feed.children('a');
 		
 		/**
@@ -457,24 +456,15 @@ News={
 			if(count === 0){
 				_$feedLink.addClass('all_read');
 				_$feedUnreadCounter.addClass('all_read');
-				if(_activeFeedId == _feedId){ 
-					_$feedUnreadCounterUtil.addClass('all_read');
-				}
 			} else {
 				var currentCount = _getUnreadCount();
 				// if the previous count was 0 we need to remove certain classes
 				if(currentCount === 0){
 					_$feedLink.removeClass('all_read');
 					_$feedUnreadCounter.removeClass('all_read');
-					if(_activeFeedId == _feedId){ 
-						_$feedUnreadCounterUtil.removeClass('all_read');
-					}
 				}
 			}
 			_$feedUnreadCounter.html(count);
-			if(_activeFeedId == _feedId){ 
-				_$feedUnreadCounterUtil.html(count);
-			}
 		};
 
 		// public

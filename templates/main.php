@@ -5,8 +5,6 @@
 <?php
 if ($_['feedid']){
 
-echo $this->inc("part.items.header");
-
 ?>
 
 <div id="leftcontent" class="leftcontent">
