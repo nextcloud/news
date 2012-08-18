@@ -479,6 +479,7 @@ div.add_parentfolder {
             background-image: -moz-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
             background-image: -webkit-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
             background-image: -ms-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
+            padding: 2.5em 0 0 0;
         }
 
         .feed_item:first-child {
@@ -490,8 +491,7 @@ div.add_parentfolder {
              */
             .utils {
                 height: 2em;
-                margin: 0;
-                padding: 1.1em 0.5em 0.5em 0.5em;
+                margin: 0 0 0 1em;
                 float: left;
             }
 
@@ -532,9 +532,8 @@ div.add_parentfolder {
              */
             .feed_item h1.item_title { 
                 font-size: 1.5em;
-                margin: 0 13em 0 1.75em;
+                margin: 0 13em 0 2.1em;
                 font-weight: bold;
-                padding-top: .8em;
             }
 
                 .feed_item h1.item_title a { 
@@ -561,7 +560,8 @@ div.add_parentfolder {
              */
             .feed_item h2.item_author {
                 color: #aaa;
-                margin-left: 2.7em;
+                font-size: 1.1em;
+                margin-left: 3em;
             }
 
             /**
@@ -570,9 +570,8 @@ div.add_parentfolder {
             .timeago {
                 float: right; 
                 color: #aaa;
-                margin: 1em 1.2em 0 0;
-                line-height: 1.5em;
-                font-size: 1em;
+                margin: 0 1.2em 0 0;
+                font-size: 1.1em;
             }
 
             /**
@@ -580,7 +579,7 @@ div.add_parentfolder {
              */
             .feed_item div.body { 
                 overflow-y: hidden;
-                padding: .5em 2.5em 0 2.5em; 
+                padding: .5em 3em 0 3em; 
                 max-width: 55em;
                 font-size: 1.1em;
             }
@@ -623,7 +622,7 @@ div.add_parentfolder {
             width: 100%;
             height: 2.5em;
             margin: 0;
-            padding: 0 0.5em .5em 0;
+            padding: 0;
             box-sizing: border-box; 
             -moz-box-sizing: border-box; 
         }
@@ -635,6 +634,7 @@ div.add_parentfolder {
                 display: none;
                 color: #aaa;
                 float: right;
+                margin: 0 1.2em;
             }
             
             .feed_item:hover .secondary_item_utils {
@@ -643,6 +643,7 @@ div.add_parentfolder {
 
                 .feed_item:hover .secondary_item_utils li.keep_unread {
                     cursor: pointer;
+                   
                 }
 
                 .feed_item .secondary_item_utils li input[type=checkbox]{ 
