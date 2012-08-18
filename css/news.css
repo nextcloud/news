@@ -586,7 +586,30 @@ div.add_parentfolder {
 
                 .feed_item div.body p { 
                     line-height: 1.5; 
-                    margin: 10px 0; 
+                    margin: .5em 0;
+                }
+
+                .feed_item div.body img {
+                    max-width: 55em;
+                }
+
+                .feed_item div.body h2 {
+                    font-size: 1.25em;
+                    font-weight: bold;
+                    color: #222;
+                    margin: 1.5em 0 0 0;
+                }
+
+                .feed_item div.body h3 {
+                    font-size: 1.1em;
+                    font-weight: bold;
+                    color: #222;
+                    margin: 1.5em 0 0 0;
+                    text-decoration: underline;
+                }
+
+                .feed_item div.body > div {
+                    margin: .5em 0;
                 }
                 
                 .feed_item div.body a { 
@@ -595,25 +618,36 @@ div.add_parentfolder {
                 }
                 
                 .feed_item div.body ul { 
-                    padding-left: 15px; 
+                    margin: .5em 0;
+                    padding-left: 1em; 
                     list-style-type: disc; 
                 }
 
                     .feed_item div.body ul li { 
                         cursor: default; 
+                        line-height: 1.5em;
                     }
             
                 .feed_item div.body pre { 
-                    padding: 5px; 
+                    padding: .5em .5em .5em 1em; 
                     background-color: #dadada; 
                     border: 1px solid #ccc; 
+                    margin: .5em 0;
+                    background-image: linear-gradient(top, rgb(215,215,215) 0%, rgb(220,220,220) 100%);
+                    background-image: -o-linear-gradient(top, rgb(215,215,215) 0%, rgb(220,220,220) 100%);
+                    background-image: -moz-linear-gradient(top, rgb(215,215,215) 0%, rgb(220,220,220) 100%);
+                    background-image: -webkit-linear-gradient(top, rgb(215,215,215) 0%, rgb(220,220,220) 100%);
+                    background-image: -ms-linear-gradient(top, rgb(215,215,215) 0%, rgb(220,220,220) 100%);
+                    overflow: auto;
                 }
                 
                     .feed_item div.body pre code { 
                         font-family: monospace; 
                         font-size: 1.5em;
                     }
-        
+            .feed_item div.body > *:last-child {
+                margin-bottom: 0;
+            }
 
         /**
          * Line with utils at the bottom
