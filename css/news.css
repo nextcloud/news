@@ -54,7 +54,6 @@ div.add_parentfolder {
         clear: both; 
     }
 
-
     #addfeedbtn { 
         background-image: url('%appswebroot%/news/img/rss.svg'); 
         background-position: .5em center;
@@ -133,7 +132,7 @@ div.add_parentfolder {
         }
 
     #feeds .subscriptions, #feeds .subscriptions:hover {
-        background-image: url('%appswebroot%/news/img/icon.svg'); 
+        background-image: url('%appswebroot%/news/img/rss.svg'); 
         background-repeat: no-repeat;
         background-size: 16px 16px;
         background-position: .8em center;

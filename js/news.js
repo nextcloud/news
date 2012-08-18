@@ -1,3 +1,17 @@
+/**
+* ownCloud - News app
+*
+* @author Alessandro Cosentino
+* Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
+*
+* @author Bernhard Posselt
+* Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
+*
+* This file is licensed under the Affero General Public License version 3 or later.
+* See the COPYING-README file
+*
+*/
+
 News={
 	DropDownMenu: {
 		fade:function(menu){
@@ -115,8 +129,11 @@ News={
 
 			$(button).attr("disabled", true);
 			$(button).prop('value', t('news', 'Adding...'));
-
-			var folderid = $('#inputfolderid:input[name="folderid"]').val();
+			
+			var folderid = 0;
+			if($('#firstrun').length == 0){
+				folderid = $('#inputfolderid:input[name="folderid"]').val();
+			}
 
 			$.ajax({
 				type: "POST",
@@ -152,51 +169,6 @@ News={
 						$(button).attr("disabled", false);
 						$(button).prop('value', t('news', 'Add feed'));
 					}
-				},
-				error: function(xhr) {
-					OC.dialogs.alert(t('news', 'Error while parsing the feed'), t('news', 'Fatal Error'));
-					$("#feed_add_url").val('');
-					$(button).attr("disabled", false);
-					$(button).prop('value', t('news', 'Add feed'));
-				}
-			});
-		},
-		submitFirstRun:function(button){
-
-			var feedurl = $("#feed_add_url").val().trim();
-
-			if(feedurl.length == 0) {
-				OC.dialogs.alert(t('news', 'URL cannot be empty.'), t('news', 'Error'));
-				return false;
-			}
-
-			$(button).attr("disabled", true);
-			$(button).prop('value', t('news', 'Adding...'));
-
-			$.ajax({
-				type: "POST",
-				url: OC.filePath('news', 'ajax', 'createfeed.php'),
-				data: { 'feedurl': feedurl, 'folderid': folderid },
-				dataType: "json",
-				success: function(jsondata){
-					if(jsondata.status == 'success'){
-						$('.collapsable_container[data-id="' + folderid + '"] > ul').append(jsondata.data.listfeed);
-						setupFeedList();
-						News.Feed.load(jsondata.data.feedid);
-						window.reload();
-
-						OC.dialogs.confirm(t('news', 'Do you want to add another feed?'), t('news', 'Feed added!'), function(answer) {
-							if(!answer) {
-								$('#addfeed_dialog').dialog('destroy').remove();
-								$('ul.accordion').before(jsondata.data.part_newfeed);
-							}
-						});
-					} else {
-						OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
-					}
-					$("#feed_add_url").val('');
-					$(button).attr("disabled", false);
-					$(button).prop('value', t('news', 'Add feed'));
 				},
 				error: function(xhr) {
 					OC.dialogs.alert(t('news', 'Error while parsing the feed'), t('news', 'Fatal Error'));
@@ -721,7 +693,7 @@ $(document).ready(function(){
 
 	$('#addfeedfolder').click(function(event) {
 		News.DropDownMenu.fade($(this).children('ul'));
-	    event.stopPropagation();
+		event.stopPropagation();
 	});
 
 	$('#settingsbtn').on('click keydown', function() {

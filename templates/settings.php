@@ -19,7 +19,5 @@
 		require_once(OC_App::getAppPath('news') .'/templates/subscribelet.php');
 		createSubscribelet();
 	    ?>
-	<div>
-	<?php  ?>
 	</dd>
 </dl>
