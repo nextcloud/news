@@ -359,12 +359,23 @@ div.add_parentfolder {
     #feed_settings .controls > li {
         display: inline-block;
         float: left;
-        width: 3em;
+        margin: 0;
+        padding: 0;
+
+    }
+
+    #feed_settings button {
+        height: 2.4em;
+        width: 2.4em;
+        padding: .2em .1em 0 .1em;
+        margin: .15em 0 0 .15em;
+    }
+
+    #feed_settings .controls > li:last-child button {
+        margin-right: .3em;
     }
 
     #feed_settings #view button {
-        width: 3em;
-        height: 2.5em;
         padding-top: .2em;
         background-size: 80%;
         background-position: center;
