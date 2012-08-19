@@ -82,14 +82,15 @@ class Utils {
 		$feed = new Feed($url, $title, $items);
 
 		$favicon = $spfeed->get_image_url();
-
-		if ($favicon !== null) { // use favicon from feed
-			if(self::checkFavicon($favicon))
-				$feed->setFavicon($favicon);
+		
+		if ($favicon !== null && self::checkFavicon($favicon)) { // use favicon from feed
+			$feed->setFavicon($favicon);
 		}
 		else { // try really hard to find a favicon
-			if( null !== ($webFavicon = self::discoverFavicon($url)) )
+			$webFavicon = self::discoverFavicon($url);
+			if ($webFavicon !== null) {
 				$feed->setFavicon($webFavicon);
+			}
 		}
 		return $feed;
 		}
@@ -129,14 +130,18 @@ class Utils {
 	}
 
 	public static function checkFavicon($favicon) {
+		var_dump($favicon);
 		$file = new \SimplePie_File($favicon);
 		// size in bytes
 		$filesize = strlen($file->body);
 
-		if($file->success && $filesize > 0 && $filesize < 50000) {
+		if($file->success && $filesize > 0 && $filesize < 50000) { //bigger files are not considered favicons
 			$sniffer = new \SimplePie_Content_Type_Sniffer($file);
 			if(substr($sniffer->get_type(), 0, 6) === 'image/') {
-				return true;
+				$imgsize = getimagesize($favicon);
+				if ($imgsize['0'] <= 32 && $imgsize['1'] <= 32) { //bigger images are not considered favicons
+					return true;
+				}
 			}
 		}
 		return false;

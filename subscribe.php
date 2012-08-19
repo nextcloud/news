@@ -29,7 +29,7 @@
 		if($feed === null || !$feedid) {
 			echo $l->t('An error occurred');
 		} else {
-			echo $l->t('Nice! You have subscribed to ') . $feed->getTitle() . '.';
+			echo $l->t('Nice! You have subscribed to ') . $feed->getTitle();
 		}	
 	}
 	else {
