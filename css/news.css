@@ -449,6 +449,7 @@ div.add_parentfolder {
     box-sizing: border-box; 
     -moz-box-sizing: border-box; 
     left: 34.1em;
+    overflow: hidden;
 }
 
     /**
@@ -457,6 +458,7 @@ div.add_parentfolder {
     #rightcontent #feed_items {
         box-sizing: border-box; 
         -moz-box-sizing: border-box; 
+        overflow: auto;
         height: 100%;
     }
 
