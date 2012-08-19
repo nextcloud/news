@@ -369,8 +369,11 @@ div.add_parentfolder {
         width: 2.4em;
         padding: .2em .1em 0 .1em;
         margin: .15em 0 0 .15em;
-        border: none;
     }
+
+        #feed_settings button img {
+            border: none;
+        }
 
     #feed_settings .controls > li:last-child button {
         margin-right: .3em;
