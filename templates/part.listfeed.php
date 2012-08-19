@@ -7,7 +7,7 @@ $unreadItemsCount = isset($_['unreadItemsCount']) ? $_['unreadItemsCount'] : nul
 
 $favicon = $feed->getFavicon();
 if ($favicon == null) {
-    $favicon = OCP\Util::imagePath('news', 'rss.svg');
+    $favicon = OCP\Util::imagePath('core', 'actions/public.svg');
 }
 
 if($unreadItemsCount == 0){

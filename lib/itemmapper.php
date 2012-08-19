@@ -186,11 +186,12 @@ class ItemMapper {
 		if ($itemid == null){
 			$title = $item->getTitle();
 			$body = $item->getBody();
+			$author = $item->getAuthor();
 
 			$stmt = \OCP\DB::prepare('
 				INSERT INTO ' . self::tableName .
-				'(url, title, body, guid, guid_hash, pub_date, feed_id, status)
-				VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+				'(url, title, body, author, guid, guid_hash, pub_date, feed_id, status)
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
 				');
 
 			if(empty($title)) {
@@ -209,6 +210,7 @@ class ItemMapper {
 				$item->getUrl(),
 				$title,
 				$body,
+				$author,
 				$guid,
 				$guid_hash,
 				$pub_date,

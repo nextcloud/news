@@ -34,7 +34,7 @@ class FeedMapper {
 	 */
 	public function fromRow($row){
 		$url = $row['url'];
-		$title = htmlspecialchars_decode($row['title']);
+		$title = $row['title'];
 		$id = $row['id'];
 		$feed = new Feed($url, $title, null, $id);
 		$favicon = $row['favicon_link'];

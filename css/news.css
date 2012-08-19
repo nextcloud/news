@@ -561,7 +561,16 @@ div.add_parentfolder {
                 }
 
             /**
-             * Author of the feed
+             * Title of the feed to which the item belongs
+             */
+            .feed_item h2.item_feed_title {
+                color: #aaa;
+                font-size: 1.1em;
+                margin-left: 3em;
+            }
+            
+            /**
+             * Author of the item
              */
             .feed_item h2.item_author {
                 color: #aaa;

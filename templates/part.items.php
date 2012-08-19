@@ -4,26 +4,21 @@ $feedId = isset($_['feedid']) ? $_['feedid'] : '';
 
 $itemMapper = new OCA\News\ItemMapper();
 
-$showAll = OCP\Config::getUserValue(OCP\USER::getUser(), 'news', 'showAll'); 
+$showAll = OCP\Config::getUserValue(OCP\USER::getUser(), 'news', 'showAll');
 
-// select items by feed id and by preference
-switch ($feedId) {
-    case -1:
-    	$feedMapper = new OCA\News\FeedMapper();
-    	$items = $itemMapper->findEveryItemByStatus(OCA\News\StatusFlag::IMPORTANT);
-        break;
+$specialfeed = false;
 
-    case -2:
-        $items = $itemMapper->findEveryItemByStatus(OCA\News\StatusFlag::UNREAD);
-        break;
-    
-    default:
-    	if($showAll){
-    		$items = $itemMapper->findAll($feedId);
+if ($feedId == -1 || $feedId == -2) { //TODO: change this values, too obscure
+	$specialfeed = true;
+	$status = ($feedId == -1) ? OCA\News\StatusFlag::IMPORTANT : OCA\News\StatusFlag::UNREAD;
+	$items = $itemMapper->findEveryItemByStatus($status);
+}
+else {
+	if($showAll){
+		$items = $itemMapper->findAll($feedId);
         } else {
         	$items = $itemMapper->findAllStatus($feedId, OCA\News\StatusFlag::UNREAD);
         }
-        break;
 }
 
 echo '<ul>';
@@ -55,14 +50,16 @@ foreach($items as $item) {
 		echo '</div>';
 
 		echo '<h1 class="item_title"><a target="_blank" href="' . $item->getUrl() . '">' . $item->getTitle() . '</a></h1>';	
-
-		if(trim($item->getAuthor()) == ''){
+		
+		if ($specialfeed) {
 			$from = $l->t('from') . ' ' . parse_url($item->getUrl(), PHP_URL_HOST);
-		} else {
-			$from = $l->t('from') . ' ' . $item->getAuthor();
+			echo '<h2 class="item_feed_title">' . $from .'</h2>';
 		}
-		echo '<h2 class="item_author">' . $from . '</h2>';
-
+		
+		if(($item->getAuthor() !== null) && (trim($item->getAuthor()) != '')){
+			echo '<h2 class="item_author">'. $l->t('by') . ' ' . $item->getAuthor() . '</h2>';
+		}
+		
 		echo '<div class="body">' . $item->getBody() . '</div>';
 
 		echo '<div class="bottom_utils">';

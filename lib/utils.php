@@ -66,9 +66,9 @@ class Utils {
 				$itemBody = $spitem->get_content();
 				$item = new Item($itemUrl, $itemTitle, $itemGUID, $itemBody);
 
-				$itemAuthor = $spitem->get_author();
-				if ($itemAuthor !== null) {
-					$item->setAuthor($itemAuthor->get_name());
+				$spAuthor = $spitem->get_author();
+				if ($spAuthor !== null) {
+					$item->setAuthor($spAuthor->get_name());
 				}
 
 				//date in Item is stored in UNIX timestamp format
