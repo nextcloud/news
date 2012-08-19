@@ -371,6 +371,10 @@ div.add_parentfolder {
         margin: .15em 0 0 .15em;
     }
 
+        #feed_settings button img {
+            border: none;
+        }
+
     #feed_settings .controls > li:last-child button {
         margin-right: .3em;
     }
@@ -445,6 +449,7 @@ div.add_parentfolder {
     box-sizing: border-box; 
     -moz-box-sizing: border-box; 
     left: 34.1em;
+    overflow: hidden;
 }
 
     /**
@@ -578,7 +583,7 @@ div.add_parentfolder {
              * Body of the feed item
              */
             .feed_item div.body { 
-                overflow-y: hidden;
+                overflow: hidden;
                 padding: .5em 3em 0 3em; 
                 max-width: 55em;
                 font-size: 1.1em;
@@ -643,7 +648,7 @@ div.add_parentfolder {
                     background-image: -moz-linear-gradient(top, rgb(215,215,215) 0%, rgb(220,220,220) 100%);
                     background-image: -webkit-linear-gradient(top, rgb(215,215,215) 0%, rgb(220,220,220) 100%);
                     background-image: -ms-linear-gradient(top, rgb(215,215,215) 0%, rgb(220,220,220) 100%);
-                    overflow: auto;
+                    overflow-y: auto;
                 }
                 
                     .feed_item div.body pre code { 
