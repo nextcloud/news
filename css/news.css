@@ -457,7 +457,6 @@ div.add_parentfolder {
     #rightcontent #feed_items {
         box-sizing: border-box; 
         -moz-box-sizing: border-box; 
-        overflow: auto;
         height: 100%;
     }
 
@@ -582,7 +581,7 @@ div.add_parentfolder {
              * Body of the feed item
              */
             .feed_item div.body { 
-                overflow-y: hidden;
+                overflow: hidden;
                 padding: .5em 3em 0 3em; 
                 max-width: 55em;
                 font-size: 1.1em;
@@ -647,7 +646,7 @@ div.add_parentfolder {
                     background-image: -moz-linear-gradient(top, rgb(215,215,215) 0%, rgb(220,220,220) 100%);
                     background-image: -webkit-linear-gradient(top, rgb(215,215,215) 0%, rgb(220,220,220) 100%);
                     background-image: -ms-linear-gradient(top, rgb(215,215,215) 0%, rgb(220,220,220) 100%);
-                    overflow: auto;
+                    overflow-y: auto;
                 }
                 
                     .feed_item div.body pre code { 
