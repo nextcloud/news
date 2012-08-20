@@ -71,7 +71,7 @@ div.add_parentfolder {
 
 /* feed/folder list */
 #leftcontent { 
-    width: 21.5em; 
+    width: 20em; 
     margin: 0; 
     z-index: 0;
     position: relative;
@@ -171,7 +171,7 @@ div.add_parentfolder {
             overflow: hidden; 
             text-overflow: ellipsis; 
             text-align: left; 
-            width: 75%; 
+            width: 85%; 
             font-weight: bold; 
         }
                 
@@ -180,7 +180,7 @@ div.add_parentfolder {
         }
 
         #feeds li#selected_feed { 
-            background-color: #FF9933 !important; 
+            background-color: #ffffff !important;
         }
 
         #feeds li.feed.updating {
@@ -343,7 +343,7 @@ div.add_parentfolder {
     bottom: 0px; 
     overflow:visible; 
     height:2.8em; 
-    width: 21.5em; 
+    width: 20em; 
     margin:0; 
     background:#eee; 
     border-top:1px 
@@ -448,7 +448,7 @@ div.add_parentfolder {
     top: 3.5em !important; 
     box-sizing: border-box; 
     -moz-box-sizing: border-box; 
-    left: 34.1em;
+    left: 32.6em;
     overflow: hidden;
 }
 
@@ -744,7 +744,7 @@ ul.menu {
         }
 
 .popup.bottomleft {
-    left: 34.8em;
+    left: 33.3em;
     /*left: 3.8em;*/
 }
 

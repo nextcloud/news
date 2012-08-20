@@ -174,7 +174,7 @@ News={
 								rightcontent.find('ul.accordion').before(jsondata.data.part_items);
 								transformCollapsableTrigger();
 								// if the deleted feed is the current feed, reload the page
-								window.location.reload();
+								// window.location.reload();
 							}
 						}
 						else{

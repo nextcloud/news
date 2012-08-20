@@ -82,7 +82,7 @@ class Utils {
 		$feed = new Feed($url, $title, $items);
 
 		$favicon = $spfeed->get_image_url();
-		
+
 		if ($favicon !== null && self::checkFavicon($favicon)) { // use favicon from feed
 			$feed->setFavicon($favicon);
 		}
@@ -130,7 +130,9 @@ class Utils {
 	}
 
 	public static function checkFavicon($favicon) {
-		var_dump($favicon);
+		if ($favicon === null || $favicon == false) 
+			return false;
+
 		$file = new \SimplePie_File($favicon);
 		// size in bytes
 		$filesize = strlen($file->body);
@@ -156,7 +158,7 @@ class Utils {
 
 		//try to extract favicon from web page
 		$absoluteUrl = \SimplePie_Misc::absolutize_url('/', $url);
-
+		
 		$handle = curl_init ( );
 		curl_setopt ( $handle, CURLOPT_URL, $absoluteUrl );
 		curl_setopt ( $handle, CURLOPT_RETURNTRANSFER, 1 );
