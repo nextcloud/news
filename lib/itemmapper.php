@@ -73,7 +73,7 @@ class ItemMapper {
 	public function findAllStatus($feedid, $status){
 		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' 
 				WHERE feed_id = ?
-				AND (status & ?) 
+				AND ((status & ?) > 0) 
 				ORDER BY pub_date DESC');
 		$result = $stmt->execute(array($feedid, $status));
 	
@@ -95,7 +95,7 @@ class ItemMapper {
 				JOIN '. FeedMapper::tableName .' ON
 				'. FeedMapper::tableName .'.id = ' . self::tableName . '.feed_id
 				WHERE '. FeedMapper::tableName .'.user_id = ?
-				AND (' . self::tableName . '.status & ?)
+				AND ((' . self::tableName . '.status & ?) > 0)
 				ORDER BY ' . self::tableName . '.pub_date DESC');
 		$result = $stmt->execute(array($this->userid, $status));
 	
@@ -111,7 +111,7 @@ class ItemMapper {
 	public function countAllStatus($feedid, $status){
 		$stmt = \OCP\DB::prepare('SELECT COUNT(*) as size FROM ' . self::tableName . ' 
 				WHERE feed_id = ?
-				AND (status & ?)');
+				AND ((status & ?) > 0)');
 		$result=$stmt->execute(array($feedid, $status))->fetchRow();
 		return $result['size'];
 	}
@@ -125,7 +125,7 @@ class ItemMapper {
 				JOIN '. FeedMapper::tableName .' ON
 				'. FeedMapper::tableName .'.id = ' . self::tableName . '.feed_id
 				WHERE '. FeedMapper::tableName .'.user_id = ?
-				AND (' . self::tableName . '.status & ?)');
+				AND ((' . self::tableName . '.status & ?) > 0)');
 		$result = $stmt->execute(array($this->userid, $status))->fetchRow();;
 
 		return $result['size'];
