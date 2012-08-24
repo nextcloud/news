@@ -485,6 +485,7 @@ div.add_parentfolder {
             background-image: -webkit-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
             background-image: -ms-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
             padding: 2.5em 0 0 0;
+	    cursor: default;
         }
 
         .feed_item:first-child {
@@ -601,6 +602,7 @@ div.add_parentfolder {
                 .feed_item div.body p { 
                     line-height: 1.5; 
                     margin: .5em 0 1em 0;
+		    cursor: text;
                 }
 
                 .feed_item div.body img {
