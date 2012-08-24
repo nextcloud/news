@@ -602,7 +602,6 @@ div.add_parentfolder {
                 .feed_item div.body p { 
                     line-height: 1.5; 
                     margin: .5em 0 1em 0;
-		    cursor: text;
                 }
 
                 .feed_item div.body img {
