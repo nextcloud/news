@@ -622,7 +622,7 @@ function bindItemEventListeners(){
 	$('#feed_items li.star').click(function(){
 		var $item = $(this).parent().parent().parent('.feed_item');
 		var itemId = $item.data('id');
-        var handler = new News.ItemStatusHandler(itemId);
+		var handler = new News.ItemStatusHandler(itemId);
 		handler.toggleImportant();
 	});
 
@@ -630,13 +630,13 @@ function bindItemEventListeners(){
 	$('#feed_items .keep_unread').click(function(){
 		var $item = $(this).parent().parent().parent('.feed_item');
 		var itemId = $item.data('id');
-        var handler = new News.ItemStatusHandler(itemId);
+		var handler = new News.ItemStatusHandler(itemId);
 		handler.toggleKeepUnread();
 	});
 	$('#feed_items .keep_unread input[type=checkbox]').click(function(){
 		var $item = $(this).parent().parent().parent().parent('.feed_item');
 		var itemId = $item.data('id');
-        var handler = new News.ItemStatusHandler(itemId);
+		var handler = new News.ItemStatusHandler(itemId);
 		handler.toggleKeepUnread();
 	});
 
@@ -726,7 +726,12 @@ $(document).ready(function(){
 	});
 	
 	$('#feed_items').scrollTop(0);
-
+	
+	$(document).keydown(function(e) {
+		if ((e.keyCode || e.which) == 74) { // 'j' key shortcut
+			
+		}
+	}); 
 });
 
 /**

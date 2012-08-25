@@ -53,8 +53,11 @@ News.Settings={
 		});
 	},
 	exportOpml:function(button){
-	//TODO
-		alert("test");
+		$(button).attr("disabled", true);
+		$(button).prop('value', t('news', 'Downloading...'));
+		document.location.href = OC.linkTo('news', 'opmlexporter.php');
+		$(button).prop('value', t('news', 'Download'));
+		$(button).attr("disabled", false);
 	}
 }
 

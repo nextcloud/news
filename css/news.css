@@ -181,6 +181,7 @@ div.add_parentfolder {
 
         #feeds li#selected_feed { 
             background-color: #ffffff !important;
+	    font-style: oblique;
         }
 
         #feeds li.feed.updating {
@@ -198,6 +199,7 @@ div.add_parentfolder {
             #feeds li.feed .feeds_delete, 
             #feeds li.feed .feeds_edit {
                 display: none;
+		border: none;
             }
 
             #feeds li.feed:hover .unreaditemcounter {
@@ -213,7 +215,7 @@ div.add_parentfolder {
 
         #feeds .feeds_delete { 
             position: absolute; 
-            right: 0.1em; 
+            right: 0.2em; 
             background: url('%webroot%/core/img/actions/delete.svg') no-repeat center; 
             display: none; 
             padding: 0; 
