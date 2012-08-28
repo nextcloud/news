@@ -1,0 +1,22 @@
+<?php $TRANSLATIONS = array(
+"News" => "Naujienos",
+"Error" => "Klaida",
+"Adding..." => "PRodedama...",
+"Add folder" => "Pridėti katalogą",
+"Warning" => "Įspėjimas",
+"File " => "Failas",
+"Importing..." => "Importuojama...",
+"Downloading..." => "Atsiunčiama...",
+"Download" => "Atsisiųsti",
+"Settings" => "Nustatymai",
+"Choose folder" => "Pasirinkite katalogą",
+"Address" => "Adresas",
+"Add" => "Pridėti",
+"Add Folder" => "Pridėti katalogą",
+"Folder name" => "Katalogo pavadinimas",
+"Rename folder" => "Pervadinti katalogą",
+"Delete folder" => "Ištrinti katalogą",
+"Import OPML" => "Importuoti OPML",
+"Download OPML" => "Atsisiųsti OPML",
+"Subscribe" => "Prenumeruoti"
+);

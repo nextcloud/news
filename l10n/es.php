@@ -1,0 +1,23 @@
+<?php $TRANSLATIONS = array(
+"Feed already exists." => "La fuente ya existe.",
+"Error adding feed." => "Error agregando la fuente.",
+"Feed added!" => "¡Fuente agregada!",
+"Error adding folder." => "Error agregando la carpeta.",
+"Folder added!" => "¡Carpeta agregada!",
+"Error removing feed." => "Error al borrar la fuente.",
+"Error removing folder." => "Error al borrar la carpeta.",
+"Error" => "Error",
+"Add folder" => "Añadir carpeta",
+" loaded from local filesystem." => "cargado desde un sistema de archivos local.",
+"Importing..." => "Importando...",
+"Import kind not specified" => "Tipo de importación no especificado",
+"Downloading..." => "Descargando...",
+"Download" => "Descargar",
+"Select file" => "Seleccionar archivo",
+"no title" => "sin título",
+"no name" => "sin nombre",
+"no body" => "sin cuerpo",
+"subscriptions in ownCloud - News" => "suscripciones en ownCloud - Noticias",
+"An error occurred" => "Ocurrió un error",
+"Nice! You have subscribed to " => "¡Bien! Te has suscribido a"
+);
