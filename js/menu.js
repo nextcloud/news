@@ -307,8 +307,8 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
      * @param $elem the element that should be set droppable
      */
     Menu.prototype._bindDroppable = function($elem){
-        var self = this;
         var root = this._getRoot();
+
         $elem.droppable({
             accept: '.feed',
             hoverClass: 'dnd_over',
@@ -326,7 +326,15 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
 
                 folder._addChildNode(feed);
 
-                $dropped.append($dragged[0]);
+                // to also be able to drop this on a folder entry or the top menu
+                // we have to check if we use a folder and append to a different
+                // item
+                if($elem.hasClass('folder')){
+                    $dropped.children('ul').append($dragged[0]);
+                } else {
+                    $dropped.append($dragged[0]);
+                }
+                
                 console.log('Moved elem with id ' +  feedId + ' to folder with id ' + folderId);
                 // TODO: notify server
             }
@@ -433,6 +441,8 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
                 $elem.append($editButton);
                 $elem.append($deleteButton);
                 $elem.addClass('folder');
+                this._bindDroppable($elem);
+                $elem.attr('data-id', this._id);
                 break;
 
             case MenuNodeType.Starred:
@@ -450,8 +460,6 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
             var node = this._children[i];
             $subList.append(node.render());
         }
-        this._bindDroppable($subList);
-        $subList.attr('data-id', this._id);
         $elem.append($subList); 
 
         return $elem;
