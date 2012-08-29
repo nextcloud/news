@@ -158,7 +158,7 @@ test('Adding a new node should create the correct dom', function(){
 test('Removing a feed node should remove the correct dom', function(){
     equal(NewsTests.$popMenuDomElem.children().length, 3);
 
-    var child = NewsTests.popMenu.removeNode(News.MenuNodeType.Feed, 2);
+    var child = NewsTests.popMenu.removeNode(News.MenuNodeType.Feed, 2, true);
     ok(child !== undefined);
 
     // top length should stay the same
@@ -170,7 +170,7 @@ test('Removing a feed node should remove the correct dom', function(){
 });
 
 test('Removing a non existent node should not change anything', function(){
-    var child = NewsTests.popMenu.removeNode(News.MenuNodeType.Feed, 12);
+    var child = NewsTests.popMenu.removeNode(News.MenuNodeType.Feed, 12, true);
     ok(child === undefined);
 
     // top length should stay the same
@@ -181,7 +181,7 @@ test('Removing a non existent node should not change anything', function(){
 });
 
 test('Removing a parent node should remove its children', function(){
-    var child = NewsTests.popMenu.removeNode(News.MenuNodeType.Folder, 1);
+    var child = NewsTests.popMenu.removeNode(News.MenuNodeType.Folder, 1, true);
     ok(child !== undefined);
     equal(NewsTests.$popMenuDomElem.children().length, 2);
     equal(NewsTests.popMenu._children.length, 2);

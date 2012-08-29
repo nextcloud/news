@@ -57,6 +57,8 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         this._rendered = false;
         this._id = 0;
         this._$htmlElement = $('<ul>');
+        this._$htmlElement.attr('data-id', this._id);
+        this._bindDroppable(this._$htmlElement);
         this._selectedNode = undefined;
         this._showAll = false;
     }
@@ -86,17 +88,21 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
      * from the datastructure
      * @param type the type of the node (MenuNodeType)
      * @param id the id of the node
+     * @param removeDom if true, also remove the dom
      * @return the childelemnt or undefined if not found
      */
-    Menu.prototype.removeNode = function(type, id){
+    Menu.prototype.removeNode = function(type, id, removeDom){
         var nodeIndex;
+        removeDom = removeDom || false;
         for(var i=0; i<this._children.length; i++){
             var child = this._children[i];
             if(child._type === type && child._id === id){
                 var nodeIndex = i;
                 // if we have children, we need to remove their 
                 // html from the dom first then we need to 
-                child._$htmlElement.remove();
+                if(removeDom){
+                    child._$htmlElement.remove();
+                }
                 this._children.splice(nodeIndex, 1);
                 return child;
             } else {
@@ -251,10 +257,13 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
      * Recursively traverse the menu and returns the 
      * Node element matching the type and id
      * @param type the type of the node (MenuNodeType)
-     * @param id the id of the node
+     * @param id the id of the node, 0 returns the menu
      * @return the node element or undefined
      */
     Menu.prototype._findNode = function(type, id){
+        if(id === 0){
+            return this;
+        }
         for(var i=0; i<this._children.length; i++){
             var child = this._children[i];
             if(child._type === type && child._id === id){
@@ -269,6 +278,17 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         return undefined;
     }
 
+    /**
+     * Returns the root element
+     * @return the root element
+     */
+    Menu.prototype._getRoot = function(){
+        if(this._parent === false){
+            return this;
+        } else {
+            return this._parent._getRoot();
+        }
+    }
 
     /**
      * Sets a node selected and removes the class from the previous node
@@ -280,6 +300,37 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         }
         node._$htmlElement.addClass('selected');
         this._selectedNode = this;
+    }
+
+    /**
+     * Binds a droppable on the element
+     * @param $elem the element that should be set droppable
+     */
+    Menu.prototype._bindDroppable = function($elem){
+        var self = this;
+        var root = this._getRoot();
+        $elem.droppable({
+            accept: '.feed',
+            hoverClass: 'dnd_over',
+            greedy: true,
+            drop: function(event, ui){
+                var $dropped = $(this);
+                var $dragged = $(ui.draggable);
+
+                // fix object structure
+                var feedId = parseInt($dragged.data('id'));
+                var feed = root.removeNode(News.MenuNodeType.Feed, feedId, false);
+
+                var folderId = parseInt($dropped.data('id'));
+                var folder = root._findNode(News.MenuNodeType.Folder, folderId);
+
+                folder._addChildNode(feed);
+
+                $dropped.append($dragged[0]);
+                console.log('Moved elem with id ' +  feedId + ' to folder with id ' + folderId);
+                // TODO: notify server
+            }
+        });
     }
 
 
@@ -366,6 +417,14 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
                 $elem.append($title);
                 $elem.append($deleteButton);
                 $elem.addClass('feed');
+                // bind dragging
+                $elem.draggable({ 
+                    revert: true,
+                    stack: '> li',
+                    zIndex: 1000,
+                    axis: 'y',
+                });
+                $elem.data('id', this._id);
                 break;
 
             case MenuNodeType.Folder:
@@ -386,15 +445,15 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         }
 
         // recursively append children
-        var $subNode = $('<ul>');
+        var $subList = $('<ul>');
         for(var i=0; i<this._children.length; i++){
             var node = this._children[i];
-            $subNode.append(node.render());
+            $subList.append(node.render());
         }
-        if(this._children.length > 0){
-            $elem.append($subNode);   
-        }
-        
+        this._bindDroppable($subList);
+        $subList.attr('data-id', this._id);
+        $elem.append($subList); 
+
         return $elem;
     }
 
@@ -431,9 +490,9 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
      */
     MenuNode.prototype._expandClick = function(){
         this._$htmlElement.children('.collapsable').toggleClass('triggered');
-        var $sublist = this._$htmlElement.children('ul');
-        if($sublist.length > 0){
-            $sublist.toggle();
+        var $subList = this._$htmlElement.children('ul');
+        if($subList.length > 0){
+            $subList.toggle();
         }
     }
 
