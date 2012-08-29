@@ -189,3 +189,31 @@ test('Removing a parent node should remove its children', function(){
     equal(NewsTests.popMenu.getSize(), 2);
 
 });
+
+
+/**
+ * Unread count tests
+ */
+test('Setting an unread count of 0 should add the all_read class', function(){
+    NewsTests.popMenu.updateNode(News.MenuNodeType.Folder, 1, {unreadCount: 0});
+    var node = NewsTests.popMenu._findNode(News.MenuNodeType.Folder, 1);
+    equal(node._unreadCount, 0);
+    ok(node._$htmlElement.hasClass('all_read'));
+});
+
+test('Setting an unread count of 0 and then 12 should remove the all_read and hidden class', function(){
+    NewsTests.popMenu.updateNode(News.MenuNodeType.Folder, 1, {unreadCount: 0});
+    NewsTests.popMenu.triggerHideRead();
+    NewsTests.popMenu.updateNode(News.MenuNodeType.Folder, 1, {unreadCount: 12});
+    var node = NewsTests.popMenu._findNode(News.MenuNodeType.Folder, 1);
+    equal(node._unreadCount, 12);
+    ok(!node._$htmlElement.hasClass('all_read'));
+    ok(!node._$htmlElement.hasClass('hidden'));
+});
+
+test('Setting an unread count of 0 and triggering the hiding of read feeds should add the hidden class', function(){
+    NewsTests.popMenu.updateNode(News.MenuNodeType.Folder, 1, {unreadCount: 0});
+    NewsTests.popMenu.triggerHideRead();
+    var node = NewsTests.popMenu._findNode(News.MenuNodeType.Folder, 1);
+    ok(node._$htmlElement.hasClass('hidden'));
+});

@@ -11,12 +11,17 @@
 
 /**
  * This file includes objects for creating and accessing the feed menu
+ * BEWARE: Recursion ahead!
  */
 
 var News = News || {};
+var t = t || function(app, string){ return string; }; // mock translation for local testing
 
 (function(){
 
+    /*##########################################################################
+     * MenuNodeType
+     *#########################################################################/
     /**
      * Enumeration for menu items
      */
@@ -29,6 +34,9 @@ var News = News || {};
     News.MenuNodeType = MenuNodeType; 
 
 
+    /*##########################################################################
+     * Menu
+     *#########################################################################/
     /**
      * This is the basic menu used to construct and maintain the menu
      * @param cls the css class of the element
@@ -40,6 +48,7 @@ var News = News || {};
         this._rendered = false;
         this._id = 0;
         this._$htmlElement = $('<ul>');
+        this._selectedNode = undefined;
     }
 
     News.Menu = Menu;
@@ -91,7 +100,8 @@ var News = News || {};
     }
 
     /**
-     * Updates a node in the menu
+     * Updates a node in the menu and returns it
+     * @return the updated node
      */
     Menu.prototype.updateNode = function(type, id, data){
         var node = this._findNode(type, id);
@@ -165,9 +175,34 @@ var News = News || {};
         return size;
     }
 
+    /**
+     * Shortcut for intially setting the selected node
+     * @param type the type of the node
+     * @param id the id of the node
+     */
+    Menu.prototype.setSelected = function(type, id){
+        this._setSelected(this._findNode(type, id));
+    }
 
-    // private
+    /**
+     * Elements should only be set as hidden if the user clicked on a new entry
+     * Then all all_read entries should be marked as hidden
+     * This function is used to hide all the read ones
+     */
+    Menu.prototype.triggerHideRead = function(){
+        // only trigger in the root menu
+        if(this._parent === false){
+            $(this._$htmlElement).find('.all_read').each(function(){
+                if(!$(this).hasClass('hidden')){
+                    $(this).addClass('hidden');
+                }
+            })
+        }
+    }
 
+
+    /* #### private #### */
+    
     /**
      * Adds a node to the current one
      * @param node the node which we want to add to the menu
@@ -200,6 +235,22 @@ var News = News || {};
     }
 
 
+    /**
+     * Sets a node selected and removes the class from the previous node
+     * @param node the node which should be set as selected
+     */
+    Menu.prototype._setSelected = function(node){
+        if(this._selectedNode !== undefined){
+            this._selectedNode._$htmlElement.removeClass('selected');
+        }
+        node._$htmlElement.addClass('selected');
+        this._selectedNode = this;
+    }
+
+
+    /*##########################################################################
+     * MenuNode
+     *#########################################################################/
     /**
      * Items which are in the menu
      * @param type the type of the node, a MenuNodeType
@@ -238,45 +289,115 @@ var News = News || {};
         }
     }
 
+    /**
+     * This function creates the html of the node and its children
+     * @return the html of the node and its children
+     */
     MenuNode.prototype.render = function(){
+        var self = this;
         var $elem = this._$htmlElement;
+
+        var $title = $('<a>').addClass('title').html(this._title).attr('href', '#');
+        $title.attr('title', t('news', 'Load feed'));
+        $title.click(function(){
+            self._click();
+        });
+
+        // buttons
+        var $deleteButton = $('<button>').addClass('svg action feeds_delete');
+        $deleteButton.attr('title', t('news', 'Delete'));
+        $deleteButton.click(function(){
+            self._deleteClick();
+        });
+
+        var $expandButton = $('<button>').addClass('action collapsable');
+        $expandButton.attr('title', t('news', 'Expand/Collapse'));
+        $deleteButton.click(function(){
+            self._expandClick();
+        });
+
+        var $editButton = $('<button>').addClass('svg action feeds_edit');
+        $editButton.attr('title', t('news', 'Edit'));
+        $deleteButton.click(function(){
+            self._editClick();
+        });
 
         // set the type class
         switch(this._type){
             case MenuNodeType.Feed:
+                $elem.append($title);
+                $elem.append($deleteButton);
                 $elem.addClass('feed');
                 break;
 
             case MenuNodeType.Folder:
+                $elem.append($expandButton);
+                $elem.append($title);
+                $elem.append($editButton);
+                $elem.append($deleteButton);
                 $elem.addClass('folder');
                 break;
 
             case MenuNodeType.Filter:
+                $elem.append($title);
                 $elem.addClass('filter');
                 break;
 
             default:
                 break;
         }
-        
-        var $title = $('<a>').addClass('title').html(this._title).attr('href', '#');
-        $elem.append($title);
-        
+
+        // recursively append children
         var $subNode = $('<ul>');
-        
         for(var i=0; i<this._children.length; i++){
             var node = this._children[i];
             $subNode.append(node.render());
         }
-        
         if(this._children.length > 0){
             $elem.append($subNode);   
         }
         
         return $elem;
-    } 
+    }
 
-    // private
+    /* #### private #### */
+
+    /**
+     * Handles every important change that has to be made if the link was
+     * clicked
+     */
+    MenuNode.prototype._click = function(){
+        this._setSelected(this);
+        // TODO: load new items
+    }
+
+    /**
+     * Handles every important change that has to be made if the delete button was
+     * clicked
+     */
+    MenuNode.prototype._deleteClick = function(){
+        // TODO: send delete event
+    }
+
+    /**
+     * Handles every important change that has to be made if the edit button was
+     * clicked
+     */
+    MenuNode.prototype._editClick = function(){
+        // TODO: show edit window
+    }
+
+    /**
+     * Handles every important change that has to be made if the expand button
+     * was clicked
+     */
+    MenuNode.prototype._expandClick = function(){
+        this._$htmlElement.children('.collapsable').toggleClass('triggered');
+        var $sublist = this._$htmlElement.children('ul');
+        if($sublist.length > 0){
+            $sublist.toggle();
+        }
+    }
 
     /**
      * Sets the unread count and handles the appropriate css
@@ -291,17 +412,11 @@ var News = News || {};
 
         if(this._unreadCount !== undefined && this._unreadCount === 0
             && unreadCount > 0){
-            this._$htmlElement.removeClass('all_read');  
+            this._$htmlElement.removeClass('all_read hidden');  
         }
 
         this._unreadCount = unreadCount;
     }
 
-    /**
-     * Toggles the selection class
-     */
-    MenuNode.prototype._toggleSelected = function(){
-        this._$htmlElement.toggle('selected');
-    }
 
 })();
