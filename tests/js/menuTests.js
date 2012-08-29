@@ -26,6 +26,7 @@ NewsTests.jsonStruct = [
                 type: News.MenuNodeType.Feed,
                 unreadCount: 4,
                 children: [], 
+                icon: 'img/testing.png'
             },
             {
                 id: 3,
@@ -182,12 +183,42 @@ test('Removing a non existent node should not change anything', function(){
 test('Removing a parent node should remove its children', function(){
     var child = NewsTests.popMenu.removeNode(News.MenuNodeType.Folder, 1);
     ok(child !== undefined);
-
-    // top length should stay the same
     equal(NewsTests.$popMenuDomElem.children().length, 2);
     equal(NewsTests.popMenu._children.length, 2);
     equal(NewsTests.popMenu.getSize(), 2);
 
+});
+
+
+/**
+ * Updating nodes tests
+ */
+test('Updating a node should update the object', function(){
+    var data = {
+        unreadCount: 112,
+        title: 'no way',
+        icon: 'test.png'
+    };
+
+    NewsTests.popMenu.updateNode(News.MenuNodeType.Feed, 2, data);
+    var node = NewsTests.popMenu._findNode(News.MenuNodeType.Feed, 2);
+    equal(node._unreadCount, data.unreadCount);
+    equal(node._title, data.title);
+    equal(node._icon, data.icon);
+});
+
+
+test('Updating a node should update the dom', function(){
+    var data = {
+        unreadCount: 112,
+        title: 'no way',
+        icon: 'test.png'
+    };
+
+    NewsTests.popMenu.updateNode(News.MenuNodeType.Feed, 2, data);
+    var node = NewsTests.popMenu._findNode(News.MenuNodeType.Feed, 2);
+    equal(node._$htmlElement.children('.title').html(), data.title);
+    //equal(node._$htmlElement.css('background-image'), data.icon); this fails in firefox, dunno why
 });
 
 

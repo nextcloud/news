@@ -49,6 +49,7 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         this._id = 0;
         this._$htmlElement = $('<ul>');
         this._selectedNode = undefined;
+        this._showAll = false;
     }
 
     News.Menu = Menu;
@@ -74,7 +75,7 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
     /**
      * Recursively remove all occurences of the node from the dom and
      * from the datastructure
-     * @param type the type of the node
+     * @param type the type of the node (MenuNodeType)
      * @param id the id of the node
      * @return the childelemnt or undefined if not found
      */
@@ -177,7 +178,7 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
 
     /**
      * Shortcut for intially setting the selected node
-     * @param type the type of the node
+     * @param type the type of the node (MenuNodeType)
      * @param id the id of the node
      */
     Menu.prototype.setSelected = function(type, id){
@@ -187,22 +188,47 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
     /**
      * Elements should only be set as hidden if the user clicked on a new entry
      * Then all all_read entries should be marked as hidden
-     * This function is used to hide all the read ones
+     * This function is used to hide all the read ones if showAll is false,
+     * otherwise shows all
      */
     Menu.prototype.triggerHideRead = function(){
         // only trigger in the root menu
         if(this._parent === false){
-            $(this._$htmlElement).find('.all_read').each(function(){
-                if(!$(this).hasClass('hidden')){
-                    $(this).addClass('hidden');
-                }
-            })
+            if(this._showAll){
+                $(this._$htmlElement).find('.hidden').each(function(){
+                    $(this).removeClass('hidden');
+                });
+            } else {
+                $(this._$htmlElement).find('.all_read').each(function(){
+                    if(!$(this).hasClass('hidden')){
+                        $(this).addClass('hidden');
+                    }
+                });                
+            }
+            
         }
+    }
+
+    /**
+     * Sets the showAll value
+     * @param showAll if true, all read folders and feeds are being shown
+     * if false only unread ones are shown
+     */
+    Menu.prototype.setShowAll = function(showAll){
+        this._showAll = showAll;
+        this.triggerHideRead();
+    }
+
+    /**
+     * Shortcut for toggling show all
+     */
+    Menu.prototype.toggleShowAll = function(){
+        this.setShowAll(!this._showAll);
     }
 
 
     /* #### private #### */
-    
+
     /**
      * Adds a node to the current one
      * @param node the node which we want to add to the menu
@@ -253,9 +279,9 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
      *#########################################################################/
     /**
      * Items which are in the menu
-     * @param type the type of the node, a MenuNodeType
+     * @param type the type of the node (MenuNodeType)
      * @param id the id of the node. id and type must be unique!
-     * @param data the data array containing title, icon and unreadCount
+     * @param data the data array like {title: 'title', unreadCount: 1, icon: 'path/icon.png'}
      */
     MenuNode = function(type, id, data){
         this._type = type;
@@ -270,18 +296,20 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
 
     /**
      * Updates the given values of a node
-     * @param data the array with the data, if parts are undefined, theyre not 
-     * updated
+     * @param data the data array like {title: 'title', unreadCount: 1, icon: 'path/icon.png'}
      */
     MenuNode.prototype.update = function(data){
         if(data.title !== undefined){
             this._title = data.title;
-            this._$htmlElement.children('.title').html(this._title);
+            this._$htmlElement.children('.title').html(data.title);
         }
 
         if(data.icon !== undefined){
             this._icon = data.icon;
-            this._$htmlElement.css('background-image', this._icon);
+            var iconCss = 'url("' + data.icon + '")';
+            console.log(iconCss);
+            this._$htmlElement.css('background-image', iconCss);
+            console.log(this._$htmlElement);
         }
 
         if(data.unreadCount !== undefined){
