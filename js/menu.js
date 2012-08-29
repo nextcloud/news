@@ -28,7 +28,16 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
     MenuNodeType = {
         'Feed': 0,
         'Folder': 1,
-        'Filter': 2 // used for starred items or new items
+        'Starred': 2,
+        'New': 3
+    }
+
+    // TODO: set paths for icons
+    MenuNodeTypeDefaultIcon = {
+        'Feed': '',
+        'Folder': '',
+        'Starred': '',
+        'New': ''
     }
 
     News.MenuNodeType = MenuNodeType; 
@@ -307,9 +316,10 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         if(data.icon !== undefined){
             this._icon = data.icon;
             var iconCss = 'url("' + data.icon + '")';
-            console.log(iconCss);
             this._$htmlElement.css('background-image', iconCss);
-            console.log(this._$htmlElement);
+        } else {
+            // if undefined, we check for default icons
+            this._icon = MenuNodeTypeDefaultIcon[this._type];
         }
 
         if(data.unreadCount !== undefined){
@@ -340,13 +350,13 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
 
         var $expandButton = $('<button>').addClass('action collapsable');
         $expandButton.attr('title', t('news', 'Expand/Collapse'));
-        $deleteButton.click(function(){
+        $expandButton.click(function(){
             self._expandClick();
         });
 
         var $editButton = $('<button>').addClass('svg action feeds_edit');
         $editButton.attr('title', t('news', 'Edit'));
-        $deleteButton.click(function(){
+        $editButton.click(function(){
             self._editClick();
         });
 
@@ -366,7 +376,7 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
                 $elem.addClass('folder');
                 break;
 
-            case MenuNodeType.Filter:
+            case MenuNodeType.Starred:
                 $elem.append($title);
                 $elem.addClass('filter');
                 break;
