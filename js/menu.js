@@ -25,53 +25,51 @@ var News = News || {};
         'Folder': 1,
         'Filter': 2 // used for starred items or new items
     }
- 
+
     News.MenuNodeType = MenuNodeType; 
 
 
     /**
      * This is the basic menu used to construct and maintain the menu
      * @param cls the css class of the element
-     * @param id the id of the element
      */
-    Menu = function(cls, id){
+    Menu = function(cls){
         this._class = cls;
         this._children = [];
         this._parent = false;
-        this._id = id;
+        this._rendered = false;
+        this._id = 0;
         this._$htmlElement = $('<ul>');
     }
 
-    Menu.prototype.addChild = function(node){
-        node.setParent(this);
-        this._children.push(node);
-    }
+    News.Menu = Menu;
 
-    Menu.prototype.setParent = function(node){
-        this._parent = node;
-    }
-    
     /**
-     * Recursively traverse the menu and returns the 
-     * Node element matching the type and id
-     * @return the node element
+     * Attaches a MenuNode to a node and renders it in the dom
+     * @param parentType the type of the parent node
+     * @param parentId the id of the parent node, if 0 the top menu is used
+     * @param node the MenuNode that should be created
      */
-    Menu.prototype.findNode = function(id, type){
-        for(var i=0; i<this._children.length; i++){
-            var child = this._children[i];
-            if(child._type === type && child._id === id){
-                return child;
-            } else {
-                return child.findNode(type, id);
-            }
+    Menu.prototype.createNode = function(parentType, parentId, node){
+        // if we pass the parentId 0 we assume the parent is the menu
+        var parentNode;
+        if(parentId === 0){
+            parentNode = this;
+        } else {
+            parentNode = this._findNode(parentType, parentId);
         }
+        parentNode._addChildNode(node);
+        parentNode._$htmlElement.append(node.render());
     }
 
     /**
      * Recursively remove all occurences of the node from the dom and
      * from the datastructure
+     * @param type the type of the node
+     * @param id the id of the node
+     * @return the childelemnt or undefined if not found
      */
-    Menu.prototype.removeNode = function(id, type){
+    Menu.prototype.removeNode = function(type, id){
         var nodeIndex;
         for(var i=0; i<this._children.length; i++){
             var child = this._children[i];
@@ -79,12 +77,25 @@ var News = News || {};
                 var nodeIndex = i;
                 // if we have children, we need to remove their 
                 // html from the dom first then we need to 
-                this._$htmlElement.remove(child);
+                child._$htmlElement.remove();
                 this._children.splice(nodeIndex, 1);
+                return child;
             } else {
-                child.removeNode(type, id);
+                var child = child.removeNode(type, id);
+                if(child !== undefined){
+                    return child;
+                }
             }
         }
+        return undefined;
+    }
+
+    /**
+     * Updates a node in the menu
+     */
+    Menu.prototype.updateNode = function(type, id, data){
+        var node = this._findNode(type, id);
+        node.update(data);
     }
 
     /**
@@ -118,35 +129,16 @@ var News = News || {};
     Menu.prototype.populateFromJSON = function(json, attachToNode){
         for(var i=0; i<json.length; i++){
             var nodeInfo = json[i];
-            var node = new MenuNode(nodeInfo.title, nodeInfo.id, 
-                nodeInfo.type, nodeInfo.icon, nodeInfo.unreadCount);
-            attachToNode.addChild(node);
+            var nodeData = {
+                title: nodeInfo.title,
+                icon: nodeInfo.icon,
+                unreadCount: nodeInfo.unreadCount
+            };
+            var node = new MenuNode(nodeInfo.type, nodeInfo.id, nodeData);
+            attachToNode._addChildNode(node);
             this.populateFromJSON(nodeInfo.children, node);
         }
     }
-
-    /**
-     * Sets the unreadcount for all items from json markup
-     * format of json is: 
-     [ 
-          { 
-            id: '1',
-            type: 1,
-            unreadCount: 39
-          }, 
-          {
-            ...
-          }
-     ]
-     */
-    Menu.prototype.setUnreadCountFromJSON = function(json){
-        for(var i=0; i<json.length; i++){
-            var element = json[i];
-            var node = this.findNode(element.id, element.type);
-            node.setUnreadCount(element.unreadCount);
-        }
-    }
-
 
     Menu.prototype.render = function(){
         var $html = this._$htmlElement.addClass(this._class).data('id', this._id);
@@ -155,76 +147,95 @@ var News = News || {};
             var childHTML = child.render();
             $html.append(childHTML);
         }
+        this._rendered = true;
+
         return $html;
     }
 
-    News.Menu = Menu;
+
+    /**
+     * Returns the number of elements in the menu
+     * @return the number of all children
+     */
+    Menu.prototype.getSize = function(){
+        var size = this._children.length;
+        for(var i=0; i<this._children.length; i++){
+            size += this._children[i].getSize();
+        }
+        return size;
+    }
+
+
+    // private
+
+    /**
+     * Adds a node to the current one
+     * @param node the node which we want to add to the menu
+     */
+    Menu.prototype._addChildNode = function(node){
+        node._parent = this;
+        this._children.push(node);
+    }
+    
+    /**
+     * Recursively traverse the menu and returns the 
+     * Node element matching the type and id
+     * @param type the type of the node (MenuNodeType)
+     * @param id the id of the node
+     * @return the node element or undefined
+     */
+    Menu.prototype._findNode = function(type, id){
+        for(var i=0; i<this._children.length; i++){
+            var child = this._children[i];
+            if(child._type === type && child._id === id){
+                return child;
+            } else {
+                var childNode = child._findNode(type, id);
+                if(childNode !== undefined){
+                    return childNode;
+                }
+            }
+        }
+        return undefined;
+    }
 
 
     /**
      * Items which are in the menu
-     * @param title the caption of the menu item
      * @param type the type of the node, a MenuNodeType
      * @param id the id of the node. id and type must be unique!
-     * @param icon is the little image that appears left of the caption
-     * @param unreadCount the current count of unread items
+     * @param data the data array containing title, icon and unreadCount
      */
-    MenuNode = function(title, id, type, icon, unreadCount){
+    MenuNode = function(type, id, data){
         this._type = type;
         this._id = id;
-        this._title = title;
         this._$htmlElement = $('<li>');
         this._children = [];
-        this.setUnreadCount(unreadCount);
-        this.setIcon(icon);
+        this.update(data);
     }
 
     MenuNode.prototype = Object.create(Menu.prototype);
+    News.MenuNode = MenuNode;
 
     /**
-     * Sets the unread count and handles the appropriate css
-     * classes
+     * Updates the given values of a node
+     * @param data the array with the data, if parts are undefined, theyre not 
+     * updated
      */
-    MenuNode.prototype.setUnreadCount = function(unreadCount){
-        unreadCount = parseInt(unreadCount);
-
-        if(unreadCount === 0){
-            this._$htmlElement.addClass('all_read');
-        } 
-
-        if(this._unreadCount !== undefined && this._unreadCount === 0
-            && unreadCount > 0){
-            this._$htmlElement.removeClass('all_read');  
+    MenuNode.prototype.update = function(data){
+        if(data.title !== undefined){
+            this._title = data.title;
+            this._$htmlElement.children('.title').html(this._title);
         }
 
-        this._unreadCount = unreadCount;
-    }
-
-    MenuNode.prototype.increaseUnreadCount = function(by){
-        this._unreadCount += parseInt(by);
-    }
-
-    MenuNode.prototype.decreaseUnreadCount = function(by){
-        this._unreadCount -= parseInt(by);
-    }
-
-    MenuNode.prototype.changeTitle = function(title){
-        this._title = title;
-        this._$htmlElement.children('.title').html(this._title);
-    }
-
-    MenuNode.prototype.setIcon = function(icon){
-        if(icon !== undefined){
-            this._icon = icon;
+        if(data.icon !== undefined){
+            this._icon = data.icon;
             this._$htmlElement.css('background-image', this._icon);
         }
-    }
 
-    /**
-     * Toggles the selection class
-     */
-    MenuNode.prototype.toggleSelected = function(){
-        this._$htmlElement.toggle('selected');
+        if(data.unreadCount !== undefined){
+            this._setUnreadCount(data.unreadCount);
+        }
     }
 
     MenuNode.prototype.render = function(){
@@ -248,7 +259,7 @@ var News = News || {};
                 break;
         }
         
-        var $title = $('<span>').addClass('title').html(this._title);
+        var $title = $('<a>').addClass('title').html(this._title).attr('href', '#');
         $elem.append($title);
         
         var $subNode = $('<ul>');
@@ -263,8 +274,34 @@ var News = News || {};
         }
         
         return $elem;
+    } 
+
+    // private
+
+    /**
+     * Sets the unread count and handles the appropriate css
+     * classes
+     */
+    MenuNode.prototype._setUnreadCount = function(unreadCount){
+        unreadCount = parseInt(unreadCount);
+
+        if(unreadCount === 0){
+            this._$htmlElement.addClass('all_read');
+        } 
+
+        if(this._unreadCount !== undefined && this._unreadCount === 0
+            && unreadCount > 0){
+            this._$htmlElement.removeClass('all_read');  
+        }
+
+        this._unreadCount = unreadCount;
     }
-    
-    News.MenuNode = MenuNode; 
+
+    /**
+     * Toggles the selection class
+     */
+    MenuNode.prototype._toggleSelected = function(){
+        this._$htmlElement.toggle('selected');
+    }
 
 })();
