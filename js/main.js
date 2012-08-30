@@ -19,14 +19,12 @@ $(document).ready(function(){
     News.Objects.Menu = new News.Menu($('#view').hasClass('show_all'));
     News.Objects.Items = new News.Items();
 
-    News.Objects.Menu.bindOn('#feeds ul');
+    News.Objects.Menu.bindOn('#feeds > ul');
 
     // basic setup
     News.Feed.updateAll();
     var updateInterval = 200000; //how often the feeds should update (in msec)
     setInterval('News.Feed.updateAll()', updateInterval);
-
-    // bind listeners on the menu
     
 
 

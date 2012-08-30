@@ -46,7 +46,11 @@ Creating nodes:
     var parentId = 0;
     var nodeType = News.MenuNodeType.Feed;
     var nodeId = 6;
-    var nodeData = "<some>html</some>";
+    var nodeData = {
+        title: 'hi',
+        icon: 'some/icon.png',
+        unreadCount: 3
+    };
     menu.addNode(parentId, nodeType, nodeId, nodeData);
 
 
@@ -123,33 +127,58 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
      * @param parentId the id of the parent folder, 0 for root
      * @param type the type (MenuNodeType)
      * @param id the id
-     * @param data the html of the node
+     * @param data a json array with the data for the element:
+     *   {title: '', icon: 'img/png.png', 'unreadCount': 3}
      */
     Menu.prototype.addNode = function(parentId, type, id, data){
         var $parentNode;
-        if(id === 0){
+        if(parseInt(parentId) === 0){
             $parentNode = this._$root;
         } else {
-            $parentNode = $('.' + this._menuNodeTypeToClass(MenuNodeType.Folder) + '[data-id="' + parentId + '"]');
+            $parentNode = $('.' + this._menuNodeTypeToClass(MenuNodeType.Folder) + '[data-id="' + parentId + '"] ul');
+            // every folder we add to should be opened again
+            $parentNode.parent().addClass('open');
+            $parentNode.show();
         }
 
-        $parentNode.append(data);
+        var $html;
+        var icon = 'url("' + data.icon + '")';
+        switch(type){
+            case MenuNodeType.Feed:
+                $html = this._$mockFeed.clone();
+                break;
+            case MenuNodeType.Folder:
+                $html = this._$mockFolder.clone();
+                break;
+            default:
+                console.log('Can only create folders or feeds');
+                break;
+        }   
+
+        $html.children('.title').html(data.title);
+        $html.children('.title').css('background-image', icon);
+        $html.children('.unread_items_counter').html(data.unreadCount);
+        $html.attr('data-id', id);
+        $html.children('ul').attr('data-id', id);
 
         switch(type){
             case MenuNodeType.Feed:
-                this._bindFeed(data);
+                this._bindFeed($html);
                 break;
             case MenuNodeType.Folder:
-                this._bindFolder(data);
+                this._bindFolder($html);
                 break;
-        }   
+        }
+
+        $parentNode.append($html);
+        this._resetOpenFolders();
     };
 
     /**
      * Updates the title and/or unread count of a node
      * @param type the type (MenuNodeType)
      * @param id the id
-     * @param data a json array with the data for the node
+     * @param data a json array with the data for the node {title: '', 'unreadCount': 3}
      */
     Menu.prototype.updateNode = function(type, id, data){
         var $node = $('.' + this._menuNodeTypeToClass(type) + '[data-id="' + id + '"]');
@@ -223,6 +252,13 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
      */
     Menu.prototype.bindOn = function(cssSelector){
         var self = this;
+        // remove mock elements
+        this._$mockFolder = $('.mock.folder').detach();
+        this._$mockFolder.removeClass('mock open');
+        this._$mockFeed = $('.mock.feed').detach();
+        this._$mockFeed.removeClass('mock');
+
+        // bind menu
         this._$root = $(cssSelector);
         this._id = this._$root.data('id');
         this._$root.children('li').each(function(){
@@ -232,6 +268,7 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         this._$activeFeed = $('#feeds .active');
         this._activeFeedId = this._$activeFeed.data('id');
         this._activeFeedType = this._listItemToMenuNodeType(this._$activeFeed);
+        
     };
 
     /**

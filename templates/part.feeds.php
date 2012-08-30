@@ -56,4 +56,13 @@ $starredCount = $itemMapper->countEveryItemByStatus(OCA\News\StatusFlag::IMPORTA
 </li>
 
 <?php
+	// provide mock feed and folder elements for js menu
+	$mockFolder = new OCP\Template("news", "part.listfolder");
+	$mockFolder->assign('mock', true);
+	$mockFolder->printpage();
+
+	$mockFolder = new OCP\Template("news", "part.listfeed");
+	$mockFolder->assign('mock', true);
+	$mockFolder->printpage();
+
 	print_collection_list($allfeeds);
