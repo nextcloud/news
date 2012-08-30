@@ -658,16 +658,15 @@ $(document).ready(function(){
 		News.Feed.load($(this).attr('data-id'));
 	});
 
-	$('#addfeed_dialog_firstrun').hide();
+	/* first run script begins */
+	$('#browsebtn_firstrun, #cloudbtn_firstrun, #importbtn_firstrun').hide();
+	
+	/* first run script ends */
 
 	$('#addfeed').click(function() {
 		News.UI.overview('#addfeed_dialog','feeddialog.php');
 	});
 	
-	$('#addfeedbtn').click(function() {
-		$(this).hide();
-		$('#addfeed_dialog_firstrun').show();
-	});
 	
 	$('#addfolder').click(function() {
 		News.UI.overview('#addfolder_dialog','folderdialog.php');

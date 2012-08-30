@@ -40,34 +40,23 @@ div.add_parentfolder {
     font-size:1.5em; 
     color:#777; 
 }
-    
-    #firstrun table {
-        margin: auto;
-    }
 
     #firstrun small { display: block; font-weight: normal; font-size: 0.8em; margin: .5em 0 1em 0; }
     #firstrun .button { font-size: 0.7em; }
 
     #firstrun #selections { 
         font-size:0.8em; 
-        margin: 2em auto 2em auto; 
+        margin: 2em auto 2em 10em; 
         clear: both; 
     }
-
-    #addfeedbtn { 
-        background-image: url('%appswebroot%/news/img/rss.svg'); 
-        background-position: .5em center;
-        background-repeat: no-repeat;
-        padding-left: 1.8em; 
+    
+    #firstrun #selections #addfeed_dialog_firstrun, #firstrun #selections #importopml_dialog_firstrun {
+	width:40em;
+	border:1px solid;
+	border-color: gray;
+	border-radius:10px;
+	-moz-border-radius:10px; /* Firefox 3.6 and earlier */
     }
-
-    #importopmlbtn { 
-        background-image: url('%appswebroot%/news/img/opml-icon.svg'); 
-        background-position: .5em center;
-        background-repeat: no-repeat;
-        padding-left: 1.8em; 
-    }
-
 
 /* feed/folder list */
 #leftcontent { 

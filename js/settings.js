@@ -35,9 +35,7 @@ News.Settings={
 		if (News.Settings.importkind == News.Settings.IMPORTCLOUD) {
 			path = News.Settings.importpath;
 		} else if (this.importkind == this.IMPORTLOCAL) {
-		}
-		else {
-			OC.dialogs.alert(t('news','Import kind not specified'), t('news', 'Error'));
+			
 		}
 
 		$.post(OC.filePath('news', 'ajax', 'importopml.php'), { path: path }, function(jsondata){
