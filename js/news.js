@@ -652,43 +652,6 @@ function bindItemEventListeners(){
 }
 
 
-<<<<<<< HEAD
-$(document).ready(function(){
-	News.Feed.activeFeedId = parseInt($('#rightcontent').data('id'));
-	$('#feeds .subscriptions,#feeds .starred').click(function() {
-		News.Feed.load($(this).attr('data-id'));
-	});
-
-	/* first run script begins */
-	$('#browsebtn_firstrun, #cloudbtn_firstrun, #importbtn_firstrun').hide();
-	
-	/* first run script ends */
-
-	$('#addfeed').click(function() {
-		News.UI.overview('#addfeed_dialog','feeddialog.php');
-	});
-	
-	
-	$('#addfolder').click(function() {
-		News.UI.overview('#addfolder_dialog','folderdialog.php');
-	});
-
-	$('#addfeedfolder').click(function(event) {
-		News.DropDownMenu.fade($(this).children('ul'));
-		event.stopPropagation();
-	});
-
-	$('#settingsbtn').on('click keydown', function() {
-		try {
-			OC.appSettings({appid:'news', loadJS:true, cache:false});
-		} catch(e) {
-			alert(e);
-		}
-	});
-=======
->>>>>>> reduced html in menu, restyled it, used new menu.js to bind events on menu and provide methods, made drag and drop work
-
-
 /**
  * Marks an item as read which is called by the timeout
  * @param item the dom item

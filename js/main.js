@@ -14,14 +14,20 @@ var News = News || {};
 
 $(document).ready(function(){
 
+    // global object array for accessing instances
+    News.Objects = {};
+    News.Objects.Menu = new News.Menu($('#view').hasClass('show_all'));
+    News.Objects.Items = new News.Items();
+
+    News.Objects.Menu.bindOn('#feeds ul');
+
     // basic setup
     News.Feed.updateAll();
     var updateInterval = 200000; //how often the feeds should update (in msec)
     setInterval('News.Feed.updateAll()', updateInterval);
 
     // bind listeners on the menu
-    var menu = new News.Menu(false);
-    menu.bindOn('#feeds ul');
+    
 
 
     /* first run script begins */

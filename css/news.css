@@ -525,6 +525,7 @@ div.add_parentfolder {
                 padding: .5em 3em 0 3em; 
                 max-width: 55em;
                 font-size: 1.1em;
+                clear: both;
             }
 
                 .feed_item div.body p { 

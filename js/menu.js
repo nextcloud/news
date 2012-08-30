@@ -10,8 +10,7 @@
 */
 
 /**
- * This file includes objects for creating and accessing the feed menu
- * BEWARE: Recursion ahead!
+ * This file includes objects for binding and accessing the feed menu
  */
 
 /**
@@ -26,38 +25,29 @@ all the items:
 
 Updating nodes (you dont have to set all values in data):
 
+    var nodeType = News.MenuNodeType.Feed;
+    var nodeId = 2;
     var nodeData = {
-        icon: 'some/icon.png',
         unreadCount: 4,
         title: 'The verge'
     }
-    var nodeType = News.MenuNodeType.Feed;
-    var nodeId = 2;
     menu.updateNode(nodeType, nodeId, nodeData);
 
 
 Deleting nodes:
 
     var id = 2;
-    var removeDom = true;
     var type = News.MenuNodeType.Feed;
-    var removedObject = menu.removeNode(type, id, removeDom);
+    var removedObject = menu.removeNode(type, id);
 
 
 Creating nodes:
     
+    var parentId = 0;
     var nodeType = News.MenuNodeType.Feed;
     var nodeId = 6;
-    var nodeData = {
-        icon: 'some/icon.png',
-        unreadCount: 4,
-        title: 'The verge'
-    }
-    var node = new News.MenuNode(nodeType, nodeId, nodeData);
-
-    var parentType = News.MenuNodeType.Folder;
-    var parentId = 0;
-    menu.createNode(parentType, parentId, node);
+    var nodeData = "<some>html</some>";
+    menu.addNode(parentId, nodeType, nodeId, nodeData);
 
 
 If you want to show all feeds, also feeds which contain only read items, use
@@ -97,7 +87,7 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         'Folder': 1,
         'Starred': 2,
         'Subscriptions': 3
-    }
+    };
 
     // map css classes to MenuNodeTypes
     MenuNodeTypeClass = {};
@@ -124,30 +114,64 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
             Starred: 0,
             Subscriptions: 0
         };
-    }
+    };
 
     News.Menu = Menu;
 
     /**
-     * 
+     * Removes a node and its subnodes from the menu
+     * @param type the type (MenuNodeType)
+     * @param id the id     
      */
     Menu.prototype.removeNode = function(type, id){
-
-    }
+        var $node = $('.' + this._menuNodeTypeToClass(type) + '[data-id="' + id + '"]');
+        $node.remove();
+    };
 
     /**
-     * A node can only be added to a folder or to the root
+     * Adds a node to the menu. A node can only be added to a folder or to the root
+     * @param parentId the id of the parent folder, 0 for root
+     * @param type the type (MenuNodeType)
+     * @param id the id
+     * @param data the html of the node
      */
     Menu.prototype.addNode = function(parentId, type, id, data){
+        var $parentNode;
+        if(id === 0){
+            $parentNode = this._$root;
+        } else {
+            $parentNode = $('.' + this._menuNodeTypeToClass(MenuNodeType.Folder) + '[data-id="' + parentId + '"]');
+        }
 
-    }
+        $parentNode.append(data);
+
+        switch(type){
+            case MenuNodeType.Feed:
+                this._bindFeed(data);
+                break;
+            case MenuNodeType.Folder:
+                this._bindFolder(data);
+                break;
+        }   
+    };
 
     /**
-     * 
+     * Updates the title and/or unread count of a node
+     * @param type the type (MenuNodeType)
+     * @param id the id
+     * @param data a json array with the data for the node
      */
     Menu.prototype.updateNode = function(type, id, data){
+        var $node = $('.' + this._menuNodeTypeToClass(type) + '[data-id="' + id + '"]');
+        
+        if(data.title !== undefined){
+            $node.children('.title').html(data.title);
+        }
 
-    }
+        if(data.undreadCount !== undefined){
+            this._setUnreadCount(type, id, data.unreadCount);
+        }
+    };
 
     /**
      * Binds the menu on an existing menu
@@ -161,7 +185,10 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
             self._bindMenuItem($(this));
         });
         this._bindDroppable(this._$root);
-    }
+        this._$activeFeed = $('#feeds .active');
+        this._activeFeedId = this._$activeFeed.data('id');
+        this._activeFeedType = this._listItemToMenuNodeType(this._$activeFeed);
+    };
 
     /**
      * Binds the according handlers and reads in the meta data for each node
@@ -186,7 +213,7 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
                 console.log($listItem);
                 break;
         }
-    }
+    };
 
     /**
      * Returns the MenuNodeType of a list item
@@ -203,7 +230,7 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         } else if($listItem.hasClass(this._menuNodeTypeToClass(MenuNodeType.Subscriptions))){
             return MenuNodeType.Subscriptions;
         }
-    }
+    };
 
     /**
      * Returns the classname of the MenuNodeType
@@ -212,7 +239,7 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
      */
     Menu.prototype._menuNodeTypeToClass = function(menuNodeType){
         return MenuNodeTypeClass[menuNodeType];
-    }
+    };
 
     /**
      * Binds event listeners to the folder and its subcontents
@@ -221,6 +248,8 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
     Menu.prototype._bindFolder = function($listItem){
         var self = this;
         var id = $listItem.data('id');
+        var $children = $listItem.children('ul').children('li');
+        
         this._setUnreadCount(MenuNodeType.Folder, id, 
             this._getAndRemoveUnreadCount($listItem));
 
@@ -255,17 +284,20 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         $listItem.children('.feeds_markread').click(function(){
             self._markRead(MenuNodeType.Folder, id);
         });
-    }
+    };
 
+    /**
+     * Binds the callbacks for a normal feed
+     * @param $listItem the jquery list element
+     */
     Menu.prototype._bindFeed = function($listItem){
         var self = this;
         var id = $listItem.data('id');
         this._setUnreadCount(MenuNodeType.Feed, id, 
             this._getAndRemoveUnreadCount($listItem));
 
-        // bind click listeners
         $listItem.children('.title').click(function(){
-            self._load(MenuNodeType.Folder, id);
+            self._load(MenuNodeType.Feed, id);
             return false;
         });
 
@@ -277,86 +309,154 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
             self._markRead(MenuNodeType.Folder, id);
         });
 
-        // bind draggable
         $listItem.draggable({ 
             revert: true,
             stack: '> li',   
             zIndex: 1000,
             axis: 'y',
         });
-    }
+    };
 
+    /**
+     * Binds the callbacks for the starred articles feed
+     * @param $listItem the jquery list element
+     */
     Menu.prototype._bindStarred = function($listItem){
         this._setUnreadCount(MenuNodeType.Starred, 0, 
             this._getAndRemoveUnreadCount($listItem));
 
-        // bind click listeners
         $listItem.children('.title').click(function(){
             self._load(MenuNodeType.Folder, id);
             return false;
         });
-    }
+    };
 
+    /**
+     * Binds the callbacks for the new articles feed
+     * @param $listItem the jquery list element
+     */
     Menu.prototype._bindSubscriptions = function($listItem){
         this._setUnreadCount(MenuNodeType.Subscriptions, 0, 
             this._getAndRemoveUnreadCount($listItem));
 
-        // bind click listeners
         $listItem.children('.title').click(function(){
             self._load(MenuNodeType.Folder, id);
             return false;
         });
-    }
+    };
 
+    /**
+     * When feeds are moved to different folders and in the beginning, we 
+     * have to check for folders with children and add the appropriate 
+     * collapsable classes to give access to the collapasable button
+     */
     Menu.prototype._resetOpenFolders = function(){
-        $folders = $('.folder');
+        var $folders = $('.folder');
         $folders.each(function(){
-            $children = $(this).children('ul').children('li');
+            var $children = $(this).children('ul').children('li');
             if($children.length > 0){
                 $(this).addClass('collapsable');
             } else {
                 $(this).removeClass('collapsable');
             }
         });
-    }
+    };
 
     Menu.prototype._load = function(type, id){
+        // set the item to the currently selected one
+        this._setActiveFeed(type, id);
+        // TODO:
+    };
 
-    }
+    /**
+     * Sets the active feed to a new feed or folder
+     * @param type the type (MenuNodeType)
+     * @param id the id
+     */
+    Menu.prototype._setActiveFeed = function(type, id){
+        var $oldFeed = this._$activeFeed;
+        var $newFeed = $('.' + this._menuNodeTypeToClass(type) + '[data-id="' + id + '"]');
+        $oldFeed.removeClass('.active');
+        $newFeed.addClass('.active');
+        this._$activeFeed = $newFeed;
+        this._activeFeedId = id;
+        this._activeFeedType = type;
+    };
 
+    /**
+     * Toggles the child ul of a listitem
+     * @param $listItem the jquery list element
+     */
     Menu.prototype._toggleCollapse = function($listItem){
         $listItem.toggleClass('open');
         $listItem.children('.collapsable_trigger').toggleClass('triggered');
         $listItem.children('ul').toggle();
-    }
+    };
 
+    /**
+     * Used when iterating over the menu. The unread count is being extracted,
+     * the dom element is removed and the count is being returned
+     * @param $listItem the jquery list element
+     * @return the count of unread items
+     */
     Menu.prototype._getAndRemoveUnreadCount = function($listItem){
         var $unreadCounter = $listItem.children('.unread_items_counter');
         var unreadCount = parseInt($unreadCounter.html());
         $unreadCounter.remove();
         return unreadCount;
-    }
+    };
 
     /**
-     * Sets the unread count and handles the appropriate css
-     * classes
+     * Sets the unread count and handles the appropriate css classes
+     * @param type the type (MenuNodeType)
+     * @param id the id
      * @param unreadCount the count of unread items
      */
     Menu.prototype._setUnreadCount = function(type, id, unreadCount){
-        /**
-        if(unreadCount === 0){
-            this._$htmlElement.addClass('all_read');
-        } 
+        var $node;
+        var currentUnreadCount;
 
-        if(this._unreadCount !== undefined && this._unreadCount === 0
-            && unreadCount > 0){
-            this._$htmlElement.removeClass('all_read hidden');  
+        // get the node and the storred values
+        switch(type){
+            case MenuNodeType.Feed:
+                $node = $('.' + this._menuNodeTypeToClass(type) + '[data-id="' + id + '"]');
+                currentUnreadCount = this._unreadCount.Feed[id];
+                this._unreadCount.Feed[id] = unreadCount;
+                break;
+
+            case MenuNodeType.Folder:
+                $node = $('.' + this._menuNodeTypeToClass(type) + '[data-id="' + id + '"]');
+                currentUnreadCount = this._unreadCount.Folder[id];
+                this._unreadCount.Folder[id] = unreadCount;
+                break;
+
+            case MenuNodeType.Starred:
+                $node = $('.' + this._menuNodeTypeToClass(type));
+                currentUnreadCount = this._unreadCount.Starred;
+                this._unreadCount.Starred = unreadCount;
+                break;
+
+            case MenuNodeType.Subscriptions:
+                $node = $('.' + this._menuNodeTypeToClass(type));
+                currentUnreadCount = this._unreadCount.Subscriptions;
+                this._unreadCount.Subscriptions = unreadCount;
+                break;
+
+            default:
+                console.log('Found unknown MenuNodeType');
+                break;
         }
 
-        this._unreadCount = unreadCount;
-        */
-        //this._unreadCount[type] 
-    }
+        if(unreadCount === 0){
+            $node.addClass('all_read');
+        } 
+
+        if(currentUnreadCount !== undefined && currentUnreadCount === 0
+            && unreadCount > 0){
+            $node.removeClass('all_read hidden');  
+        }
+
+    };
 
     /**
      * Binds a droppable on the element
@@ -375,9 +475,6 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
                 var feedId = parseInt($dragged.data('id'));
                 var folderId = parseInt($dropped.data('id'));
 
-                // to also be able to drop this on a folder entry or the top menu
-                // we have to check if we use a folder and append to a different
-                // item
                 if($dropped.hasClass(self._menuNodeTypeToClass(MenuNodeType.Folder))){
                     $dropped.children('ul').append($dragged[0]);
                 } else {
@@ -385,15 +482,10 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
                 }
 
                 self._resetOpenFolders();
-                self._moveItemToFolder(feedId, folderId);
+                //self._moveItemToFolder(feedId, folderId);
             }
         });
-    }
-
-
-    Menu.prototype._moveItemToFolder = function(feedId, folderId){
-        // TODO
-    }
+    };
 
     /**
      * Elements should only be set as hidden if the user clicked on a new entry
@@ -402,22 +494,18 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
      * otherwise shows all
      */
     Menu.prototype.triggerHideRead = function(){
-        // only trigger in the root menu
-        if(this._parent === false){
-            if(this._showAll){
-                $(this._$htmlElement).find('.hidden').each(function(){
-                    $(this).removeClass('hidden');
-                });
-            } else {
-                $(this._$htmlElement).find('.all_read').each(function(){
-                    if(!$(this).hasClass('hidden')){
-                        $(this).addClass('hidden');
-                    }
-                });                
-            }
-            
+        if(this._showAll){
+            $(this._$root).find('.hidden').each(function(){
+                $(this).removeClass('hidden');
+            });
+        } else {
+            $(this._$root).find('.all_read').each(function(){
+                if(!$(this).hasClass('hidden')){
+                    $(this).addClass('hidden');
+                }
+            });                
         }
-    }
+    };
 
     /**
      * Sets the showAll value
@@ -427,14 +515,13 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
     Menu.prototype.setShowAll = function(showAll){
         this._showAll = showAll;
         this.triggerHideRead();
-    }
+    };
 
     /**
      * Shortcut for toggling show all
      */
     Menu.prototype.toggleShowAll = function(){
         this.setShowAll(!this._showAll);
-    }
-
+    };
 
 })();

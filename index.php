@@ -20,6 +20,7 @@ OCP\App::setActiveNavigationEntry('news');
 OCP\Util::addScript('news','main');
 OCP\Util::addScript('news','news');
 OCP\Util::addScript('news','menu');
+OCP\Util::addScript('news','items');
 OCP\Util::addScript('news','jquery.timeago');
 OCP\Util::addScript('news','jquery.onscreen');
 
