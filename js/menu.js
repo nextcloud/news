@@ -14,6 +14,141 @@
  * BEWARE: Recursion ahead!
  */
 
+/**
+ * HOWTO
+ *
+
+We create a new instance of the menu. The first argument is its class. 
+
+    var menu = new News.Menu('feedlist');
+
+
+To fill it with items we use JSON. Hint: If no icons are given, default icons 
+are being used. A typical JSON array would look like this:
+
+    var menuStructure = [
+        {
+            id: 1,
+            title: 'New Articles',
+            type: News.MenuNodeType.New,                     
+            children: [],
+            unreadCount: 4,
+        },
+        {
+            id: 1,
+            title: 'Starred',
+            type: News.MenuNodeType.Starred,                     
+            children: [],
+            unreadCount: 1,
+        },
+        {
+            id: 1,
+            title: 'hi',
+            type: News.MenuNodeType.Folder,        
+            unreadCount: 7,
+            children: [
+                {
+                    id: 2,
+                    title: 'hi too',
+                    type: News.MenuNodeType.Feed,
+                    unreadCount: 4,
+                    children: [], 
+                    icon: '/test/test.png'
+                },
+                {
+                    id: 2,
+                    title: 'hi 3',
+                    type: News.MenuNodeType.Feed,    
+                    children: [],                 
+                    unreadCount: 3,
+                },
+            ]
+        }, 
+        {
+            id: 4,
+            title: 'hi 4',
+            type: News.MenuNodeType.Feed,                     
+            children: [],
+            unreadCount: 1,
+        },
+        {
+            id: 114,
+            title: 'hi 3',
+            type: News.MenuNodeType.Folder,                     
+            children: [],
+            unreadCount: 1,
+        },
+    ];
+
+    menu.populateFromJSON(menuStructure, menu);
+
+
+Now that the menu is populated, we can render, append it into the place we'd
+like to and select the current selected item
+
+    $('#leftcontent').append(menu.render());
+    var selectedType = News.MenuNodeType.Feed;
+    var selectedId = 3;
+    menu.setSelected(selectedType, selectedId);
+
+
+Updating nodes (you dont have to set all values in data):
+
+    var nodeData = {
+        icon: 'some/icon.png',
+        unreadCount: 4,
+        title: 'The verge'
+    }
+    var nodeType = News.MenuNodeType.Feed;
+    var nodeId = 2;
+    menu.updateNode(nodeType, nodeId, nodeData);
+
+
+Deleting nodes:
+
+    var id = 2;
+    var removeDom = true;
+    var type = News.MenuNodeType.Feed;
+    var removedObject = menu.removeNode(type, id, removeDom);
+
+
+Creating nodes:
+    
+    var nodeType = News.MenuNodeType.Feed;
+    var nodeId = 6;
+    var nodeData = {
+        icon: 'some/icon.png',
+        unreadCount: 4,
+        title: 'The verge'
+    }
+    var node = new News.MenuNode(nodeType, nodeId, nodeData);
+
+    var parentType = News.MenuNodeType.Folder;
+    var parentId = 0;
+    menu.createNode(parentType, parentId, node);
+
+
+If you want to show all feeds, also feeds which contain only read items, use
+
+    menu.setShowAll(true);
+
+If you want to hide feeds and folders with only read items, use
+
+    menu.setShowAll(false);
+
+The default value is false. If you want to toggle this behaviour, theres a shortcut
+
+    menu.toggleShowAll();
+
+
+To hide all articles with read feeds, the setShowAll has to be set to false. The 
+hiding is only triggered after a new feed/folder was being loaded. If you wish to
+trigger this manually, use:
+
+    menu.triggerHideRead();
+
+*/
+
 var News = News || {};
 var t = t || function(app, string){ return string; }; // mock translation for local testing
 
@@ -300,6 +435,7 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         }
         node._$htmlElement.addClass('selected');
         this._selectedNode = this;
+        // TODO: load feeds from server
     }
 
     /**
@@ -473,7 +609,6 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
      */
     MenuNode.prototype._click = function(){
         this._setSelected(this);
-        // TODO: load new items
     }
 
     /**
