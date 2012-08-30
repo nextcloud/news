@@ -189,7 +189,6 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         this._class = cls;
         this._children = [];
         this._parent = false;
-        this._rendered = false;
         this._id = 0;
         this._$htmlElement = $('<ul>');
         this._$htmlElement.attr('data-id', this._id);
@@ -251,8 +250,10 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
     }
 
     /**
-     * Updates a node in the menu and returns it
-     * @return the updated node
+     * Updates a node in the menu
+     * @param type the type of the node (MenuNodeType)
+     * @param id the id of the node
+     * @param data the data array like {title: 'title', unreadCount: 1, icon: 'path/icon.png'}
      */
     Menu.prototype.updateNode = function(type, id, data){
         var node = this._findNode(type, id);
@@ -301,6 +302,10 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         }
     }
 
+    /**
+     * This function creates the html of the menu and its children
+     * @return the menu of the node and its children
+     */
     Menu.prototype.render = function(){
         var $html = this._$htmlElement.addClass(this._class).data('id', this._id);
         for(var i=0; i<this._children.length; i++){
@@ -312,7 +317,6 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
 
         return $html;
     }
-
 
     /**
      * Returns the number of elements in the menu
@@ -642,6 +646,7 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
     /**
      * Sets the unread count and handles the appropriate css
      * classes
+     * @param unreadCount the count of unread items
      */
     MenuNode.prototype._setUnreadCount = function(unreadCount){
         unreadCount = parseInt(unreadCount);
