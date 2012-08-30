@@ -76,7 +76,6 @@ trigger this manually, use:
 */
 
 var News = News || {};
-var t = t || function(app, string){ return string; }; // mock translation for local testing
 
 (function(){
 
@@ -139,6 +138,7 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
             // every folder we add to should be opened again
             $parentNode.parent().addClass('open');
             $parentNode.show();
+            $parentNode.siblings('.collapsable_trigger').removeClass('triggered');
         }
 
         var $html;
