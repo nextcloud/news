@@ -19,11 +19,13 @@ if($showAll){
 
 ?>
 
-<div id="leftcontent" class="leftcontent">
-	<div id="feeds">
-		<ul data-id="0">
-			<?php echo $this->inc("part.feeds"); ?>
-		</ul>
+<div id="leftcontent_news" class="leftcontent_news">
+	<div id="feed_wrapper">
+		<div id="feeds">
+			<ul data-id="0">
+				<?php echo $this->inc("part.feeds"); ?>
+			</ul>
+		</div>
 	</div>
 </div>
 

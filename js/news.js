@@ -652,6 +652,7 @@ function bindItemEventListeners(){
 }
 
 
+<<<<<<< HEAD
 $(document).ready(function(){
 	News.Feed.activeFeedId = parseInt($('#rightcontent').data('id'));
 	$('#feeds .subscriptions,#feeds .starred').click(function() {
@@ -684,54 +685,9 @@ $(document).ready(function(){
 			alert(e);
 		}
 	});
+=======
+>>>>>>> reduced html in menu, restyled it, used new menu.js to bind events on menu and provide methods, made drag and drop work
 
-	setupFeedList();
-
-	News.Feed.updateAll();
-	var updateInterval = 200000; //how often the feeds should update (in msec)
-	setInterval('News.Feed.updateAll()', updateInterval);
-
-	bindItemEventListeners();
-
-	// filter for newest or all items
-	$('#view').click(function(){
-		var term;
-		if($(this).hasClass('show_all')){
-			term = 'unread';
-			$(this).addClass('show_unread').removeClass('show_all');
-		} else {
-			term = 'all';
-			$(this).addClass('show_all').removeClass('show_unread');
-		}
-		News.Feed.filter(term);
-	});
-
-	// mark items whose title was hid under the top edge as read
-	// when the bottom is reached, mark all items as read
-	$('#feed_items').scroll(function(){
-		var boxHeight = $(this).height();
-		var scrollHeight = $(this).prop('scrollHeight');
-		var scrolled = $(this).scrollTop() + boxHeight;
-		var scrollArea = this;
-		$(this).children('ul').children('.feed_item:not(.read)').each(function(){
-			var item = this;
-			var itemOffset = $(this).position().top;
-			if(itemOffset <= 0 || scrolled >= scrollHeight){
-				// wait and check if the item is still under the top edge
-				setTimeout(function(){ markItemAsRead(scrollArea, item);}, 1000);
-			}
-		})
-
-	});
-	
-	$('#feed_items').scrollTop(0);
-	
-	$(document).keydown(function(e) {
-		if ((e.keyCode || e.which) == 74) { // 'j' key shortcut
-			
-		}
-	}); 
-});
 
 /**
  * Marks an item as read which is called by the timeout

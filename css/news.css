@@ -59,286 +59,222 @@ div.add_parentfolder {
     }
 
 /* feed/folder list */
-#leftcontent { 
+#leftcontent_news { 
     width: 20em; 
     margin: 0; 
-    z-index: 0;
+    height: 100%;
     position: relative;
     overflow: hidden;
-    top: 0;
-    bottom: 0;
-}
-
-
-#feeds { 
-    background-color: #f8f8f8; 
-    position: absolute;
-    top: 0;
-    bottom: 2.8em;
-    left: 0;
-    right: 0;
+    border-right: 1px solid #ccc;
+    background-color: #f8f8f8;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
 }
 
+
+#feed_wrapper { 
+    background-color: #f8f8f8; 
+    position: relative;
+    top: 0;
+    height: 100%;
+    padding-bottom: 2.8em;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+#feeds {
+    height: 100%;
+    overflow: auto;
+}
+
     #feeds > ul {
         height: 100%;
-        overflow: auto;     
+        overflow-x: hidden;
+    }
+
+    .dnd_over {
+        -moz-transition: padding-bottom 500ms ease 0s;
+        transition: padding-bottom 500ms ease 0s;         
     }
     
-    .dnd_over {
-        -moz-transition: background-color 200ms ease 0s;
-        transition: background-color 200ms ease 0s; 
-        background-color: #d0d0d0! important;
+    #feeds > ul.dnd_over {
+
     }
     .dnd_over > ul {
-        padding-bottom: 2.5em;
-        -moz-transition: padding-bottom 500ms ease 0s;
-        transition: padding-bottom 500ms ease 0s; 
+        padding-bottom: 2.5em! important;
+
+    }
+    #feeds > ul ul.dnd_over {
+        padding-bottom: 2.5em !important;
+    }    
+
+    .all_read {
+        font-weight: normal;
+    }
+
+
+    #feeds .buttons {
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        display: none;
+    }
+
+        #feeds .buttons button {
+            margin: .65em .3em 0 0;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        #feeds li:hover > .buttons {
+            display: block;
+        }
+
+        #feeds .buttons button.feeds_delete {
+            background-image: url('%webroot%/core/img/actions/delete.svg'); 
+        }
+
+        #feeds .buttons button.feeds_edit {
+            background-image: url('%webroot%/core/img/actions/rename.svg'); 
+        }
+
+        #feeds .buttons button.feeds_markread {
+            background-image: url('%appswebroot%/news/img/mark_read.svg'); 
+        }
+
+    #feeds button.collapsable_trigger {
+        position: absolute;
+        left: .5em;
+        top: .4em;
+        background: none;
+        background-image: url('%webroot%/core/img/actions/triangle-s.svg'); 
+        border: none;
+        border-radius: 0;
+        outline: none !important;
+        box-shadow: none;
+        -moz-box-shadow: none;
+        display: none;
+    }
+
+    #feeds button.collapsable_trigger.triggered {
+        -moz-transform: rotate(-90deg);
+        transform: rotate(-90deg);
+    }
+
+        #feeds .folder.collapsable:hover button.collapsable_trigger {
+            display: block;
+        }
+
+    #feeds li {
+        border-bottom: 1px solid #bbb;
+        padding: 0 .5em;
+        background-color: #dfdfdf;
+        font-weight: bold ;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        width: 100%;
+        position: relative;
+    }
+
+    #feeds li#selected_feed { 
+        background-color: #ffffff !important;
+        font-style: oblique;
+    }
+
+        #feeds li a.title {
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            width: 100%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            display: block;
+            padding-left: 2em;
+            background-size: 16px 16px;
+            background-repeat: no-repeat;
+            background-position: .2em center;
+            line-height: 2.5em;
+        }
+
+            #feeds li:hover > a.title {
+                width: 75%;
+            }
+
+        #feeds .starred a.title {
+            background-image: url('%appswebroot%/news/img/starred.svg'); 
+        }
+
+        #feeds .subscriptions a.title {
+            background-image: url('%appswebroot%/news/img/rss.svg'); 
+        }
+
+    #feeds .feed {
+        border-bottom: 1px solid #ccc;
+        background-color: #f1f1f1;
+    }
+
+    #feeds .feed:hover {
+        background-color: #ddd;
     }
 
     #feeds .folder {
-        box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        padding: .5em 0 .5em 2.5em !important;
-        background-color: #dfdfdf !important;
-        font-weight: bold ;
-        border-bottom: 1px solid #bbb !important;
-        position: relative;
-        z-index: 1;
+        padding: 0 .5em;
     }
 
-        #feeds .folder a {
-            float: none;
-            display: inline-block;
-            position: relative;
+        #feeds .folder:hover, #feeds .starred:hover, #feeds .subscriptions:hover {
+            background-color: #d0d0d0;
         }
 
-        #feeds .folder:hover {
-            background-color: #d0d0d0 !important;
-            -moz-transition: background-color 200ms ease 0s;
-            transition: background-color 200ms ease 0s;    
+        #feeds .folder a.title {
+            background-image: url('%webroot%/core/img/places/folder.svg');
         }
 
-    #feeds .subscriptions, #feeds .subscriptions:hover {
-        background-image: url('%appswebroot%/news/img/rss.svg'); 
-        background-repeat: no-repeat;
-        background-size: 16px 16px;
-        background-position: .8em center;
+        #feeds .folder.collapsable:hover a {
+            background-image: none;
+        }
+
+    #feeds .folder.collapsable.open {
+        background-image: linear-gradient(bottom, rgb(208,208,208) 0%, rgb(222,222,222) 100%),
+            background-image: url('%webroot%/core/img/places/folder.svg');
+        background-image: -o-linear-gradient(bottom, rgb(208,208,208) 0%, rgb(222,222,222) 100%),
+            background-image: url('%webroot%/core/img/places/folder.svg');
+        background-image: -moz-linear-gradient(bottom, rgb(208,208,208) 0%, rgb(222,222,222) 100%),
+            background-image: url('%webroot%/core/img/places/folder.svg');
+        background-image: -webkit-linear-gradient(bottom, rgb(208,208,208) 0%, rgb(222,222,222) 100%),
+            background-image: url('%webroot%/core/img/places/folder.svg');
+        background-image: -ms-linear-gradient(bottom, rgb(208,208,208) 0%, rgb(222,222,222) 100%),
+            background-image: url('%webroot%/core/img/places/folder.svg');
+        border-bottom: 1px solid #bbb;
+        border-top: 1px solid #bbb;
+        -webkit-box-shadow: inset 0 0 5px -1px #bbb;
+        box-shadow: inset 0 0 5px -1px #bbb; 
+        padding-bottom: .5em;
     }
 
-    #feeds .starred, #feeds .starred:hover {
-        background-image: url('%appswebroot%/news/img/starred.svg'); 
-        background-repeat: no-repeat;
-        background-size: 16px 16px;
-        background-position: .8em center;
-        
-    }
-
-        #feeds .subscriptions a, #feeds .starred a {
-            display: inline-block;
-            width: 75%;
+        #feeds .folder.collapsable.open ul {
+            border: 1px solid #ccc;
         }
 
-    #feeds li.feed { 
-        position: relative; 
-        box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        border-bottom: 1px solid #ccc;
-        padding-left: 2.5em;
-        -moz-transition: background-color 200ms ease 0s;
-        transition: background-color 200ms ease 0s;
-        background-color: #f1f1f1;
-        z-index: 1;
-        background-size:16px 16px;
-        background-repeat: no-repeat;
-        background-position: .8em center;
-    }
-    
-        #feeds li.feed a { 
-            display: inline-block;
-            overflow: hidden; 
-            text-overflow: ellipsis; 
-            text-align: left; 
-            width: 85%; 
-            font-weight: bold; 
-        }
-                
-        #feeds li.feed a.all_read, #feeds .all_read { 
-            font-weight: normal; 
-        }
-
-        #feeds li#selected_feed { 
-            background-color: #ffffff !important;
-	    font-style: oblique;
-        }
-
-        #feeds li.feed.updating {
-            padding-right: 21px;
-            background-image: url('%webroot%/core/img/loader.gif');
-            background-size: 16px 16px;
-            background-repeat: no-repeat;
-            background-position: right center;
-        }
-        
-        #feeds li.feed:hover { 
-            background-color: #ddd;
-        }
-
-            #feeds li.feed .feeds_delete, 
-            #feeds li.feed .feeds_edit {
-                display: none;
-		border: none;
-            }
-
-            #feeds li.feed:hover .unreaditemcounter {
-                display: none;
-            }
-
-            #feeds li.feed:hover .feeds_delete, 
-            #feeds li.feed:hover .feeds_edit, 
-            #feeds .collapsable:hover .feeds_delete, 
-            #feeds .collapsable:hover .feeds_edit {
-                display: inline-block;
-            }
-
-        #feeds .feeds_delete { 
-            position: absolute; 
-            right: 0.2em; 
-            background: url('%webroot%/core/img/actions/delete.svg') no-repeat center; 
-            display: none; 
-            padding: 0; 
-            margin: -8px 0 0 0; 
-            top: 50%; 
-        }
-        
-        #feeds .feeds_edit { 
-            position: absolute; 
-            right: 1.6em; 
-            background: url('%webroot%/core/img/actions/rename.svg') no-repeat center; 
-            display: none; 
-            padding: 0; 
-            margin: -8px 0 0 0; 
-            top: 50%; 
-        }
-
-        #feeds .unreaditemcounter { 
-            position: relative; 
-            top: .3em;
-            right: .3em;
-            background: #5E5E5E; 
-            border-radius: 5px; 
-            padding: 2px 5px; 
-            color: white; 
-            text-align: center; 
-            font-weight: normal;
-            margin: 0;
-            display: none;
-        }
-        
-            #feeds .unreaditemcounter.all_read { 
-                display: none !important;
-            }
-
-        #feeds li.collapsable_container { 
-            background-color: #dfdfdf;
-            font-weight: bold;
-            padding: 0;
-            border: 0;
-            border-bottom: 1px solid #bbb;
-            position: relative;
-            z-index: 1;
-        }
-
-        #feeds li.collapsable_container.open { 
-            background-image: linear-gradient(bottom, rgb(208,208,208) 0%, rgb(222,222,222) 100%);
-            background-image: -o-linear-gradient(bottom, rgb(208,208,208) 0%, rgb(222,222,222) 100%);
-            background-image: -moz-linear-gradient(bottom, rgb(208,208,208) 0%, rgb(222,222,222) 100%);
-            background-image: -webkit-linear-gradient(bottom, rgb(208,208,208) 0%, rgb(222,222,222) 100%);
-            background-image: -ms-linear-gradient(bottom, rgb(208,208,208) 0%, rgb(222,222,222) 100%);
-            font-weight: bold;
-            padding: 0;
-            border: 0;
-            border-bottom: 1px solid #bbb;
-            border-top: 1px solid #bbb;
-            -webkit-box-shadow: inset 0 0 5px -1px #bbb;
-            box-shadow: inset 0 0 5px -1px #bbb; 
-        }
-
-            #feeds li.collapsable_container:hover { 
-                background-color: #d0d0d0;
-                -moz-transition: background-color 200ms ease 0s;
-                transition: background-color 200ms ease 0s;
-            }
-        
-
-
-        #feeds li.collapsable_container.open > ul { 
-            margin: 0 8px 8px 8px; 
-            position: relative;
-            z-index: 1;
-        }
-
-            #feeds li.collapsable_container > ul > li {
-                border: 1px solid #ccc;
-                border-bottom: 0;
-            }
-
-            #feeds li.collapsable_container > ul > li:last-child {
-                border: 1px solid #ccc;
-            }            
-
-        #feeds div.collapsable { 
-            position: relative;
-            z-index: 1; 
-            border-radius: 5px; 
-        }
-
-        
-        #feeds .collapsable_trigger { 
-            border: none ; 
-            margin: 0 0 0 .8em; 
-            padding: 0; 
-            border-radius: 0; 
-            box-shadow: none; 
-            vertical-align: middle !important; 
-            background: url('%webroot%/core/img/places/folder.svg') no-repeat; 
-            outline: none;
-            opacity: 1; 
-        }
-
-        #feeds .collapsable_container:hover .collapsable_trigger.triggerable {
-            background-image: url('%webroot%/core/img/actions/triangle-s.svg');
-            -moz-transform: none;
-            transform: none;
-        }
-
-        #feeds .collapsable_container:hover .collapsable_trigger.triggered {
-            background-image: url('%webroot%/core/img/actions/triangle-s.svg');
-            -moz-transform: rotate(-90deg);
-            transform: rotate(-90deg);
-        }
-        
-        #feeds .collapsable_title { 
-            padding: .5em 0 .5em .5em; 
-            line-height: 1.5em;
-            float: none;
-            display: inline-block;
-            position: relative;
+        #feeds .folder.open ul li:last-child {
+            border-bottom: 0;
         }
 
 
 /* feed settings */
 #feed_settings { 
     padding: 0; 
-    bottom: 0px; 
+    bottom: 0; 
     overflow:visible; 
     height:2.8em; 
     width: 20em; 
     margin:0; 
+    z-index: 2;
     background:#eee; 
-    border-top:1px 
-    solid #ccc; 
+    border-top: 1px solid #ccc; 
+    border-right: 1px solid #ccc; 
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
     position:fixed; 
 }
     
@@ -410,6 +346,7 @@ div.add_parentfolder {
             background:-o-linear-gradient(#DCDCDC, #EEEEEE); 
             background:linear-gradient(#DCDCDC, #EEEEEE); 
             position:fixed; 
+            z-index: 6;
             margin-left: 0; 
             bottom: 2.8em; 
             border-left:1px solid #ccc; 

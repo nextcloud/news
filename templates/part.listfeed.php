@@ -10,14 +10,11 @@ if ($favicon == null) {
     $favicon = OCP\Util::imagePath('core', 'actions/public.svg');
 }
 
-if($unreadItemsCount == 0){
-    $allReadClass = 'all_read';
-} else {
-    $allReadClass = '';
-}
-
-echo '<li class="feed" data-id="' . $feed->getId() . '" style="background-image: url(' . $favicon . ');">';
-echo '<a href="#" " class="' . $allReadClass . '">' . htmlspecialchars_decode($feed->getTitle()) .'</a>';
-	echo '<span class="unreaditemcounter ' . $allReadClass . '">' . $unreadItemsCount . '</span>';
-echo '<button class="svg action feeds_delete" onClick="(News.Feed.delete(' . $feed->getId(). '))" title="' . $l->t('Delete feed') . '"></button>';
+echo '<li class="feed" data-id="' . $feed->getId() . '">';
+    echo '<a style="background-image: url(' . $favicon . ');" href="#" class="title">' . htmlspecialchars_decode($feed->getTitle()) .'</a>';
+	echo '<span class="unread_items_counter">' . $unreadItemsCount . '</span>';
+    echo '<span class="buttons">';
+        echo '<button class="svg action feeds_delete" title="' . $l->t('Delete feed') . '"></button>';
+        echo '<button class="svg action feeds_markread" title="' . $l->t('Mark all read') . '"></button>';
+    echo '</span>';
 echo '</li>';
