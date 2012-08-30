@@ -119,16 +119,6 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
     News.Menu = Menu;
 
     /**
-     * Removes a node and its subnodes from the menu
-     * @param type the type (MenuNodeType)
-     * @param id the id     
-     */
-    Menu.prototype.removeNode = function(type, id){
-        var $node = $('.' + this._menuNodeTypeToClass(type) + '[data-id="' + id + '"]');
-        $node.remove();
-    };
-
-    /**
      * Adds a node to the menu. A node can only be added to a folder or to the root
      * @param parentId the id of the parent folder, 0 for root
      * @param type the type (MenuNodeType)
@@ -174,6 +164,60 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
     };
 
     /**
+     * Removes a node and its subnodes from the menu
+     * @param type the type (MenuNodeType)
+     * @param id the id     
+     */
+    Menu.prototype.removeNode = function(type, id){
+        var $node = $('.' + this._menuNodeTypeToClass(type) + '[data-id="' + id + '"]');
+        $node.remove();
+    };
+
+    /**
+     * Elements should only be set as hidden if the user clicked on a new entry
+     * Then all all_read entries should be marked as hidden
+     * This function is used to hide all the read ones if showAll is false,
+     * otherwise shows all
+     */
+    Menu.prototype.triggerHideRead = function(){
+        if(this._showAll){
+            $(this._$root).find('.hidden').each(function(){
+                $(this).removeClass('hidden');
+            });
+        } else {
+            $(this._$root).find('.all_read').each(function(){
+                if(!$(this).hasClass('hidden')){
+                    $(this).addClass('hidden');
+                }
+            });                
+        }
+    };
+
+    /**
+     * Marks the current feed as all read
+     */
+    Menu.prototype.markCurrentFeedRead = function(){
+        this._markRead(this._activeFeedType, this._activeFeedType);
+    }
+
+    /**
+     * Sets the showAll value
+     * @param showAll if true, all read folders and feeds are being shown
+     * if false only unread ones are shown
+     */
+    Menu.prototype.setShowAll = function(showAll){
+        this._showAll = showAll;
+        this.triggerHideRead();
+    };
+
+    /**
+     * Shortcut for toggling show all
+     */
+    Menu.prototype.toggleShowAll = function(){
+        this.setShowAll(!this._showAll);
+    };
+
+    /**
      * Binds the menu on an existing menu
      * @param css Selector the selector to get the element with jquery
      */
@@ -216,32 +260,6 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
     };
 
     /**
-     * Returns the MenuNodeType of a list item
-     * @param $listItem the jquery list element
-     * @return the MenuNodeType of the jquery element
-     */
-    Menu.prototype._listItemToMenuNodeType = function($listItem){
-        if($listItem.hasClass(this._menuNodeTypeToClass(MenuNodeType.Feed))){
-            return MenuNodeType.Feed;
-        } else if($listItem.hasClass(this._menuNodeTypeToClass(MenuNodeType.Folder))){
-            return MenuNodeType.Folder;
-        } else if($listItem.hasClass(this._menuNodeTypeToClass(MenuNodeType.Starred))){
-            return MenuNodeType.Starred;
-        } else if($listItem.hasClass(this._menuNodeTypeToClass(MenuNodeType.Subscriptions))){
-            return MenuNodeType.Subscriptions;
-        }
-    };
-
-    /**
-     * Returns the classname of the MenuNodeType
-     * @param menuNodeType the type of the menu node
-     * @return the class of the MenuNodeType
-     */
-    Menu.prototype._menuNodeTypeToClass = function(menuNodeType){
-        return MenuNodeTypeClass[menuNodeType];
-    };
-
-    /**
      * Binds event listeners to the folder and its subcontents
      * @param $listItem the jquery list element
      */
@@ -249,7 +267,7 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         var self = this;
         var id = $listItem.data('id');
         var $children = $listItem.children('ul').children('li');
-        
+
         this._setUnreadCount(MenuNodeType.Folder, id, 
             this._getAndRemoveUnreadCount($listItem));
 
@@ -346,26 +364,51 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
     };
 
     /**
-     * When feeds are moved to different folders and in the beginning, we 
-     * have to check for folders with children and add the appropriate 
-     * collapsable classes to give access to the collapasable button
+     * Loads a new feed into the right content
+     * @param type the type (MenuNodeType)
+     * @param id the id
      */
-    Menu.prototype._resetOpenFolders = function(){
-        var $folders = $('.folder');
-        $folders.each(function(){
-            var $children = $(this).children('ul').children('li');
-            if($children.length > 0){
-                $(this).addClass('collapsable');
-            } else {
-                $(this).removeClass('collapsable');
-            }
-        });
-    };
-
     Menu.prototype._load = function(type, id){
         // set the item to the currently selected one
         this._setActiveFeed(type, id);
         // TODO:
+    };
+
+    /**
+     * Deletes a feed
+     * @param type the type (MenuNodeType)
+     * @param id the id
+     */
+    Menu.prototype._delete = function(type, id){
+        // TODO:
+    };
+
+    /**
+     * Shows the edit window for a feed
+     * @param type the type (MenuNodeType)
+     * @param id the id
+     */
+    Menu.prototype._edit = function(type, id){
+        // TODO:
+    };
+
+    /**
+     * Marks all items of a feed as read
+     * @param type the type (MenuNodeType)
+     * @param id the id
+     */
+    Menu.prototype._markRead = function(type, id){
+        // TODO:
+    };
+
+    /**
+     * Toggles the child ul of a listitem
+     * @param $listItem the jquery list element
+     */
+    Menu.prototype._toggleCollapse = function($listItem){
+        $listItem.toggleClass('open');
+        $listItem.children('.collapsable_trigger').toggleClass('triggered');
+        $listItem.children('ul').toggle();
     };
 
     /**
@@ -383,15 +426,6 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         this._activeFeedType = type;
     };
 
-    /**
-     * Toggles the child ul of a listitem
-     * @param $listItem the jquery list element
-     */
-    Menu.prototype._toggleCollapse = function($listItem){
-        $listItem.toggleClass('open');
-        $listItem.children('.collapsable_trigger').toggleClass('triggered');
-        $listItem.children('ul').toggle();
-    };
 
     /**
      * Used when iterating over the menu. The unread count is being extracted,
@@ -404,6 +438,49 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         var unreadCount = parseInt($unreadCounter.html());
         $unreadCounter.remove();
         return unreadCount;
+    };
+
+    /**
+     * Returns the MenuNodeType of a list item
+     * @param $listItem the jquery list element
+     * @return the MenuNodeType of the jquery element
+     */
+    Menu.prototype._listItemToMenuNodeType = function($listItem){
+        if($listItem.hasClass(this._menuNodeTypeToClass(MenuNodeType.Feed))){
+            return MenuNodeType.Feed;
+        } else if($listItem.hasClass(this._menuNodeTypeToClass(MenuNodeType.Folder))){
+            return MenuNodeType.Folder;
+        } else if($listItem.hasClass(this._menuNodeTypeToClass(MenuNodeType.Starred))){
+            return MenuNodeType.Starred;
+        } else if($listItem.hasClass(this._menuNodeTypeToClass(MenuNodeType.Subscriptions))){
+            return MenuNodeType.Subscriptions;
+        }
+    };
+
+    /**
+     * Returns the classname of the MenuNodeType
+     * @param menuNodeType the type of the menu node
+     * @return the class of the MenuNodeType
+     */
+    Menu.prototype._menuNodeTypeToClass = function(menuNodeType){
+        return MenuNodeTypeClass[menuNodeType];
+    };
+
+    /**
+     * When feeds are moved to different folders and in the beginning, we 
+     * have to check for folders with children and add the appropriate 
+     * collapsable classes to give access to the collapasable button
+     */
+    Menu.prototype._resetOpenFolders = function(){
+        var $folders = $('.folder');
+        $folders.each(function(){
+            var $children = $(this).children('ul').children('li');
+            if($children.length > 0){
+                $(this).addClass('collapsable');
+            } else {
+                $(this).removeClass('collapsable');
+            }
+        });
     };
 
     /**
@@ -482,46 +559,19 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
                 }
 
                 self._resetOpenFolders();
-                //self._moveItemToFolder(feedId, folderId);
+                self._moveItemToFolder(feedId, folderId);
             }
         });
     };
 
     /**
-     * Elements should only be set as hidden if the user clicked on a new entry
-     * Then all all_read entries should be marked as hidden
-     * This function is used to hide all the read ones if showAll is false,
-     * otherwise shows all
+     * Marks all items of a feed as read
+     * @param feedId the feed that should be moved (can only be a feed)
+     * @param id the id of the folder where it should be moved, 0 for root
      */
-    Menu.prototype.triggerHideRead = function(){
-        if(this._showAll){
-            $(this._$root).find('.hidden').each(function(){
-                $(this).removeClass('hidden');
-            });
-        } else {
-            $(this._$root).find('.all_read').each(function(){
-                if(!$(this).hasClass('hidden')){
-                    $(this).addClass('hidden');
-                }
-            });                
-        }
+    Menu.prototype._moveItemToFolder = function(feedId, folderId){
+        // TODO:
     };
 
-    /**
-     * Sets the showAll value
-     * @param showAll if true, all read folders and feeds are being shown
-     * if false only unread ones are shown
-     */
-    Menu.prototype.setShowAll = function(showAll){
-        this._showAll = showAll;
-        this.triggerHideRead();
-    };
-
-    /**
-     * Shortcut for toggling show all
-     */
-    Menu.prototype.toggleShowAll = function(){
-        this.setShowAll(!this._showAll);
-    };
 
 })();
