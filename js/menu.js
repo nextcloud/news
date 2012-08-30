@@ -206,13 +206,7 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
      * @param node the MenuNode that should be created
      */
     Menu.prototype.createNode = function(parentType, parentId, node){
-        // if we pass the parentId 0 we assume the parent is the menu
-        var parentNode;
-        if(parentId === 0){
-            parentNode = this;
-        } else {
-            parentNode = this._findNode(parentType, parentId);
-        }
+        var parentNode = this._findNode(parentType, parentId);
         parentNode._addChildNode(node);
         parentNode._$htmlElement.append(node.render());
     }
@@ -226,8 +220,6 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
      * @return the childelemnt or undefined if not found
      */
     Menu.prototype.removeNode = function(type, id, removeDom){
-        var nodeIndex;
-        removeDom = removeDom || false;
         for(var i=0; i<this._children.length; i++){
             var child = this._children[i];
             if(child._type === type && child._id === id){
