@@ -51,6 +51,8 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
                 }
             })
         });
+
+        this._itemCache.populate(this._$articleList.children('ul'));
     }
 
     /**
@@ -105,6 +107,13 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
             }
             self._$articleList.removeClass('loading');
         });
+    };
+
+    /**
+     * Empties the item cache
+     */
+    Items.prototype.emptyItemCache = function() {
+        this._itemCache.empty();
     };
 
     /**
@@ -183,6 +192,14 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
             self._feeds[item.getFeedId()] = self._feeds[item.getFeedId()] || {};
             self._feeds[item.getFeedId()][item.getId()] = item;
         });
+    };
+
+    /**
+     * Empties the cache
+     */
+    ItemCache.prototype.empty = function() {
+        this._items = {};
+        this._feeds = {};
     };
 
     /**
@@ -329,7 +346,7 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         var self = this;
 
         // single hover on item should mark it as read too
-        $('#feed_items h1.item_title a').click(function(){
+        this._$html.find('#h1.item_title a').click(function(){
             var $item = $(this).parent().parent('.feed_item');
             var itemId = $item.data('id');
             var handler = new News.ItemStatusHandler(itemId);
@@ -337,7 +354,7 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         });
 
         // single hover on item should mark it as read too
-        $('#feed_items .body').click(function(){
+        this._$html.find('.body').click(function(){
             var $item = $(this).parent('.feed_item');
             var itemId = $item.data('id');
             var handler = new News.ItemStatusHandler(itemId);
@@ -345,34 +362,28 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         });
 
         // mark or unmark as important
-        $('#feed_items li.star').click(function(){
+        this._$html.find('li.star').click(function(){
             var $item = $(this).parent().parent().parent('.feed_item');
             var itemId = $item.data('id');
             self._toggleImportant(itemId);
         });
 
         // toggle logic for the keep unread handler
-        $('#feed_items .keep_unread').click(function(){
+        this._$html.find('.keep_unread').click(function(){
             var $item = $(this).parent().parent().parent('.feed_item');
             var itemId = $item.data('id');
             var handler = new News.ItemStatusHandler(itemId);
             handler.toggleKeepUnread();
         });
-        $('#feed_items .keep_unread input[type=checkbox]').click(function(){
+
+        this._$html.find('.keep_unread input[type=checkbox]').click(function(){
             var $item = $(this).parent().parent().parent().parent('.feed_item');
             var itemId = $item.data('id');
             var handler = new News.ItemStatusHandler(itemId);
             handler.toggleKeepUnread();
         });
 
-        // bind the mark all as read button
-        $('#mark_all_as_read').unbind();
-        $('#mark_all_as_read').click(function(){
-            var feedId = News.Feed.activeFeedId;
-            News.Feed.setAllItemsRead(feedId);
-        });
-
-        $("time.timeago").timeago();
+        this._$html.find('time.timeago').timeago();
     };
 
 })();

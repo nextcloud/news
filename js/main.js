@@ -19,7 +19,8 @@ $(document).ready(function(){
 
     // global object array for accessing instances
     News.Objects = {};
-    News.Objects.Menu = new News.Menu(menuUpdateIntervalMiliseconds);
+    News.Objects.Items = new News.Items('#feed_items');
+    News.Objects.Menu = new News.Menu(menuUpdateIntervalMiliseconds, News.Objects.Items);
     News.Objects.Menu.bindOn('#feeds > ul');
 
     /* first run script begins */

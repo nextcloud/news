@@ -21,7 +21,8 @@ We create a new instance of the menu. Then we need to bind it on an ul which con
 all the items:
     
     var updateIntervalMiliseconds = 2000;
-    var menu = new News.Menu(updateIntervalMiliseconds);
+    var items = new News.Items('#feed_items');
+    var menu = new News.Menu(updateIntervalMiliseconds, items);
     menu.bindOn('#feeds ul');
 
 Updating nodes (you dont have to set all values in data):
@@ -115,8 +116,9 @@ var News = News || {};
     /**
      * This is the basic menu used to construct and maintain the menu
      * @param updateIntervalMiliseconds how often the menu should refresh
+     * @param items the items object
      */
-    Menu = function(updateIntervalMiliseconds){
+    Menu = function(updateIntervalMiliseconds, items){
         var self = this;
 
         this._updateInterval = updateIntervalMiliseconds;
@@ -124,7 +126,7 @@ var News = News || {};
             self._updateUnreadCountAll();
         }, self._updateInterval);
 
-        this._items = new News.Items('#feed_items');
+        this._items = items;
         this._showAll = $('#view').hasClass('show_all');
 
         this._unreadCount = {
@@ -263,6 +265,9 @@ var News = News || {};
     Menu.prototype.setShowAll = function(showAll){
         this._showAll = showAll;
         this.triggerHideRead();
+        // needed because we have items that are older
+        // but not yet cached. We cache by remembering the newest item id
+        this._items.emptyItemCache(); 
         this.load(this._activeFeedType, this._activeFeedId);
     };
 
