@@ -381,7 +381,7 @@ var News = News || {};
             this._getAndRemoveUnreadCount($listItem));
 
         $listItem.children('.title').click(function(){
-            self._load(MenuNodeType.Folder, id);
+            self._load(MenuNodeType.Starred, id);
             return false;
         });
     };
@@ -395,7 +395,7 @@ var News = News || {};
             this._getAndRemoveUnreadCount($listItem));
 
         $listItem.children('.title').click(function(){
-            self._load(MenuNodeType.Folder, id);
+            self._load(MenuNodeType.Subscriptions, id);
             return false;
         });
     };
