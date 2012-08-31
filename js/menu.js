@@ -306,6 +306,48 @@ var News = News || {};
     };
 
     /**
+     * Increments the unreadcount of a folder by 1
+     * @param type the type (MenuNodeType)
+     * @param id the id
+     */
+    Menu.prototype.incrementUnreadCount = function(type, id) {
+        var unreadCount;
+        switch(type){
+            case MenuNodeType.Feed:
+                unreadCount = this._unreadCount.Feed[id];
+                break;
+            case MenuNodeType.Starred:
+                unreadCount = this._unreadCount.Starred;
+                break;
+            default:
+                console.log('Can only set unreadcount of starred items or feeds');
+                break;
+        }   
+        this._setUnreadCount(type, id, unreadCount+1);
+    };
+
+     /**
+     * Decrements the unreadcount of a folder by 1
+     * @param type the type (MenuNodeType)
+     * @param id the id
+     */
+    Menu.prototype.decrementUnreadCount = function(type, id) {
+        var unreadCount;
+        switch(type){
+            case MenuNodeType.Feed:
+                unreadCount = this._unreadCount.Feed[id];
+                break;
+            case MenuNodeType.Starred:
+                unreadCount = this._unreadCount.Starred;
+                break;
+            default:
+                console.log('Can only set unreadcount of starred items or feeds');
+                break;
+        }   
+        this._setUnreadCount(type, id, unreadCount-1);
+    };
+
+    /**
      * Binds the menu on an existing menu
      * @param css Selector the selector to get the element with jquery
      */
@@ -735,6 +777,9 @@ var News = News || {};
      */
     Menu.prototype._setUnreadCount = function(type, id, unreadCount){
         unreadCount = parseInt(unreadCount);
+        if(unreadCount < 0){
+            unreadCount = 0;
+        }
 
         var $node = this._getNodeFromTypeAndId(type, id);
 
@@ -752,15 +797,6 @@ var News = News || {};
                 console.log('Invalid or unknown MenuNodeType');
                 break;
         }
-
-        // update subscriptions
-        var subscriptionsUnreadCount = 0;
-        for(key in this._unreadCount.Feed){
-            subscriptionsUnreadCount += this._unreadCount.Feed[key];
-        }
-        this._unreadCount.Subscriptions = subscriptionsUnreadCount;
-        this._applyUnreadCountStyle(MenuNodeType.Subscriptions, 0, 
-            subscriptionsUnreadCount);
 
         // check if we got a parent folder and update its unread count
         if(type === MenuNodeType.Feed){
@@ -780,9 +816,17 @@ var News = News || {};
             }
         }
 
+        // update subscriptions
+        var subscriptionsUnreadCount = 0;
+        $.each(this._unreadCount.Feed, function(key, value){
+            subscriptionsUnreadCount += value;
+        });
+        this._unreadCount.Subscriptions = subscriptionsUnreadCount;
+        this._applyUnreadCountStyle(MenuNodeType.Subscriptions, 0, 
+            subscriptionsUnreadCount);
+
         // lastly apply the new style to the feed
         this._applyUnreadCountStyle(type, id, unreadCount);
-
     };
 
     /**

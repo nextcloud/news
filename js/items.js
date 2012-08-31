@@ -498,11 +498,11 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
                 if(!self._$html.hasClass('read') && read){
                     self._$html.addClass('read');
                     self._read = true;
-                    // notify feedlist
+                    News.Objects.Menu.decrementUnreadCount(News.MenuNodeType.Feed, self._feedId);
                 } else if(self._$html.hasClass('read') && !read){
                     self._$html.removeClass('read');
                     self._read = false;
-                    // notify feedlist
+                    News.Objects.Menu.incrementUnreadCount(News.MenuNodeType.Feed, self._feedId);
                 }
             } else {
                 OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
@@ -535,8 +535,10 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
             if(jsondata.status == 'success'){
                 if(self._important){
                     $star.removeClass('important');
+                    News.Objects.Menu.decrementUnreadCount(News.MenuNodeType.Starred, self._feedId);
                 } else {
                     $star.addClass('important');
+                    News.Objects.Menu.incrementUnreadCount(News.MenuNodeType.Starred, self._feedId);
                 }
                 self._important = !self._important;
             } else{
