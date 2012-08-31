@@ -344,15 +344,15 @@ var News = News || {};
             self._toggleCollapse($listItem);
         });
 
-        $listItem.children('.feeds_delete').click(function(){
+        $listItem.children('.buttons').children('.feeds_delete').click(function(){
             self._delete(MenuNodeType.Folder, id);
         });
 
-        $listItem.children('.feeds_edit').click(function(){
+        $listItem.children('.buttons').children('.feeds_edit').click(function(){
             self._edit(MenuNodeType.Folder, id);
         });
 
-        $listItem.children('.feeds_markread').click(function(){
+        $listItem.children('.buttons').children('.feeds_markread').click(function(){
             self._markRead(MenuNodeType.Folder, id);
         });
     };
@@ -377,11 +377,11 @@ var News = News || {};
             return false;
         });
 
-        $listItem.children('.feeds_delete').click(function(){
+        $listItem.children('.buttons').children('.feeds_delete').click(function(){
             self._delete(MenuNodeType.Folder, id);
         });
 
-        $listItem.children('.feeds_markread').click(function(){
+        $listItem.children('.buttons').children('.feeds_markread').click(function(){
             self._markRead(MenuNodeType.Folder, id);
         });
 
