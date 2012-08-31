@@ -112,7 +112,13 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         this._itemCache.empty();
     };
 
-
+    /**
+     * Marks all items of a feed as read
+     * @param feedId the id of the feed which should be marked as read
+     */
+    Items.prototype.markAllRead = function(feedId) {
+        this._itemCache.markAllRead(feedId);
+    };
 
     /**
      * Returns the most recent id of a feed from the cache
@@ -183,6 +189,19 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
     ItemCache.prototype.getItem = function(itemId) {
         itemId = parseInt(itemId);
         return this._items[itemId];
+    };
+
+
+    /**
+     * Marks all items of a feed as read
+     * @param feedId the id of the feed which should be marked as read
+     */
+    Items.prototype.markAllRead = function(feedId) {
+        if(this._feeds[feedId] !== undefined){
+            $.each(this._feeds[feedId], function(key, value){
+                value.addReadClass();
+            });
+        }
     };
 
     /**
@@ -395,6 +414,13 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
      */
     Item.prototype.isLocked = function() {
         return this._locked;
+    };
+
+    /**
+     * Adds only the read class, used for marking all read
+     */
+    Item.prototype.addReadClass = function() {
+        this._$html.addClass('read');
     };
 
     /**

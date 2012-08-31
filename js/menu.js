@@ -248,6 +248,7 @@ var News = News || {};
                 }
             });                
         }
+        this._resetOpenFolders();
     };
 
     /**
@@ -760,7 +761,12 @@ var News = News || {};
     Menu.prototype._resetOpenFolders = function(){
         var $folders = $('.folder');
         $folders.each(function(){
-            var $children = $(this).children('ul').children('li');
+            var $children;
+            if(this._showAll){
+                $children = $(this).children('ul').children('li');
+            } else {
+                $children = $(this).children('ul').children('li.feed:not(.hidden)');
+            }
             if($children.length > 0){
                 $(this).addClass('collapsable');
             } else {
