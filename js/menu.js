@@ -74,6 +74,12 @@ trigger this manually, use:
 
     menu.triggerHideRead();
 
+If you want to load a feed or folder directly, use
+
+    var id = 2;
+    var type = News.MenuNodeType.Folder;
+    menu.load(type, id);
+
 */
 
 var News = News || {};
@@ -140,11 +146,14 @@ var News = News || {};
      *   {title: '', icon: 'img/png.png', 'unreadCount': 3}
      */
     Menu.prototype.addNode = function(parentId, type, id, data){
+        parentId = parseInt(parentId);
+        id = parseInt(id);
+
         var $parentNode;
         if(parseInt(parentId) === 0){
             $parentNode = this._$root;
         } else {
-            $parentNode = this._getNodeFromTypeAndId(type, id).children('ul');
+            $parentNode = this._getNodeFromTypeAndId(MenuNodeType.Folder, parentId).children('ul');
             // every folder we add to should be opened again
             $parentNode.parent().addClass('open');
             $parentNode.show();
@@ -195,6 +204,7 @@ var News = News || {};
      */
     Menu.prototype.updateNode = function(type, id, data){
         var $node = this._getNodeFromTypeAndId(type, id);
+        id = parseInt(id);
         
         if(data.title !== undefined){
             $node.children('.title').html(data.title);
@@ -211,6 +221,7 @@ var News = News || {};
      * @param id the id     
      */
     Menu.prototype.removeNode = function(type, id){
+        id = parseInt(id);
         var $node = this._getNodeFromTypeAndId(type, id);
         $node.remove();
     };
@@ -252,7 +263,7 @@ var News = News || {};
     Menu.prototype.setShowAll = function(showAll){
         this._showAll = showAll;
         this.triggerHideRead();
-        this._load(this._activeFeedType, this._activeFeedId);
+        this.load(this._activeFeedType, this._activeFeedId);
     };
 
     /**
@@ -260,6 +271,19 @@ var News = News || {};
      */
     Menu.prototype.toggleShowAll = function(){
         this.setShowAll(!this._showAll);
+    };
+
+    /**
+     * Loads a new feed into the right content
+     * @param type the type (MenuNodeType)
+     * @param id the id
+     */
+    Menu.prototype.load = function(type, id){
+        var self = this;
+        this._items.load(type, id, function(){
+            self._setActiveFeed(type, id);
+            self.triggerHideRead();
+        });
     };
 
     /**
@@ -340,7 +364,7 @@ var News = News || {};
         this._bindDroppable($listItem.children('ul'));
 
         $listItem.children('.title').click(function(){
-            self._load(MenuNodeType.Folder, id);
+            self.load(MenuNodeType.Folder, id);
             return false;
         });
 
@@ -376,7 +400,7 @@ var News = News || {};
             if($(this).hasClass('noclick')){
                 $(this).removeClass('noclick');
             } else {
-                self._load(MenuNodeType.Feed, id);    
+                self.load(MenuNodeType.Feed, id);    
             }
             return false;
         });
@@ -410,7 +434,7 @@ var News = News || {};
             this._getAndRemoveUnreadCount($listItem));
 
         $listItem.children('.title').click(function(){
-            self._load(MenuNodeType.Starred, -1);
+            self.load(MenuNodeType.Starred, -1);
             return false;
         });
 
@@ -423,25 +447,12 @@ var News = News || {};
     Menu.prototype._bindSubscriptions = function($listItem){
         var self = this;
         $listItem.children('.title').click(function(){
-            self._load(MenuNodeType.Subscriptions, -2);
+            self.load(MenuNodeType.Subscriptions, -2);
             return false;
         });
 
         $listItem.children('.feeds_markread').click(function(){
             self._markRead(MenuNodeType.Subscriptions, 0);
-        });
-    };
-
-    /**
-     * Loads a new feed into the right content
-     * @param type the type (MenuNodeType)
-     * @param id the id
-     */
-    Menu.prototype._load = function(type, id){
-        var self = this;
-        this._items.load(type, id, function(){
-            self._setActiveFeed(type, id);
-            self.triggerHideRead();
         });
     };
 

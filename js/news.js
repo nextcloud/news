@@ -112,7 +112,8 @@ News = {
 							// FIXME: this should receive json by default
 							var $feed = $(jsondata.data.listfeed);
 							var title = $feed.children('.title').html();
-							var icon = $feed.css('background-image').replace(/url\(|\)$/ig, "");
+							var icon = $feed.children('.title').css('background-image').replace(/"/g,"").replace(/url\(|\)$/ig, "");;
+							console.log(icon);
 							var unreadCount = $feed.children('.unread_items_count').html();
 							var id = $feed.data('id');
 							var data = { 
@@ -121,7 +122,7 @@ News = {
 								icon: icon
 							};
 							News.Objects.Menu.addNode(folderid, News.MenuNodeType.Feed, id, data);
-							News.Objects.Menu._load(News.MenuNodeType.Feed, jsondata.data.feedid);
+							News.Objects.Menu.load(News.MenuNodeType.Feed, jsondata.data.feedid);
 
 							$('#addfeed_dialog').dialog('destroy').remove();
 						} else {
