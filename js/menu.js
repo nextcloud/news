@@ -595,7 +595,7 @@ var News = News || {};
     /**
      * Returns the MenuNodeType of a list item
      * @param $listItem the jquery list element
-     * @return the MenuNodeType of the jquery element
+     * @return the MenuNodeType of the jquery element or -1 for invalid
      */
     Menu.prototype._listItemToMenuNodeType = function($listItem){
         if($listItem.hasClass(this._menuNodeTypeToClass(MenuNodeType.Feed))){
@@ -606,6 +606,8 @@ var News = News || {};
             return MenuNodeType.Starred;
         } else if($listItem.hasClass(this._menuNodeTypeToClass(MenuNodeType.Subscriptions))){
             return MenuNodeType.Subscriptions;
+        } else {
+            return -1;
         }
     };
 
@@ -637,50 +639,76 @@ var News = News || {};
 
     /**
      * Sets the unread count and handles the appropriate css classes
-     * @param type the type (MenuNodeType)
+     * @param type the type (MenuNodeType) (folder and subscriptions udpate automatically)
      * @param id the id
      * @param unreadCount the count of unread items
      */
     Menu.prototype._setUnreadCount = function(type, id, unreadCount){
         var $node = this._getNodeFromTypeAndId(type, id);
-        var currentUnreadCount;
 
-        // get the node and the storred values
+        // store the new unreadcount for starred and feeds
         switch(type){
             case MenuNodeType.Feed:
-                currentUnreadCount = this._unreadCount.Feed[id];
                 this._unreadCount.Feed[id] = unreadCount;
                 break;
 
-            case MenuNodeType.Folder:
-                currentUnreadCount = this._unreadCount.Folder[id];
-                this._unreadCount.Folder[id] = unreadCount;
-                break;
-
             case MenuNodeType.Starred:
-                currentUnreadCount = this._unreadCount.Starred;
-                this._unreadCount.Starred = unreadCount;
-                break;
-
-            case MenuNodeType.Subscriptions:
-                currentUnreadCount = this._unreadCount.Subscriptions;
                 this._unreadCount.Subscriptions = unreadCount;
                 break;
 
             default:
-                console.log('Found unknown MenuNodeType');
+                console.log('Invalid or unknown MenuNodeType');
                 break;
         }
 
-        if(unreadCount === 0){
-            $node.addClass('all_read');
-        } 
+        // update subscriptions
+        var subscriptionsUnreadCount = 0;
 
-        if(currentUnreadCount !== undefined && currentUnreadCount === 0
-            && unreadCount > 0){
-            $node.removeClass('all_read hidden');  
+        for(var i=0; i<this._unreadCount.Feed; i++){
+            subscriptionsUnreadCount += this._unreadCount.Feed[i];
         }
 
+        this._unreadCount.Subscriptions = subscriptionsUnreadCount;
+        this._applyUnreadCountStyle(MenuNodeType.Subscriptions, 0, 
+            subscriptionsUnreadCount);
+
+        // check if we got a parent folder and update its unread count
+        if(type === MenuNodeType.Feed){
+            var $folder = $node.parent().parent();
+            var folderData = $(this._getIdAndTypeFromNode($folder));
+
+            if(folderData.type === MenuNodeType.Folder){
+                var folderUnreadCount = 0;
+                $node.siblings('li').each(function(){
+                    var feedData = $(this._getIdAndTypeFromNode($(this)));   
+                    if(feedData.type === MenuNodeType.Feed){
+                        folderUnreadCount += this._unreadCount.Feed[feedData.id];
+                    }     
+                });
+                this._applyUnreadCountStyle(MenuNodeType.Folder, folderData.id, 
+                    folderUnreadCount);
+            }
+        }
+
+        // lastly update the feed
+        this._applyUnreadCountStyle(type, id, unreadCount);
+
+    };
+
+    /**
+     * Apply a style on a listitem based on its previous unreadcount and new 
+     * unreadcount
+     * @param type the type (MenuNodeType)
+     * @param id the id
+     * @param unreadCount the new count of unread items
+     */
+    Menu.prototype._applyUnreadCountStyle = function(type, id, unreadCount) {
+        var $node = this._getNodeFromTypeAndId(type, id);
+        if(unreadCount === 0){
+            $node.addClass('all_read');
+        } else {
+            $node.removeClass('all_read hidden');  
+        }    
     };
 
     /**
