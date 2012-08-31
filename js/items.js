@@ -56,7 +56,7 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
                 onSuccessCallback();
             } else {
                 OC.dialogs.alert(t('news', 'Error while loading the feed'), t('news', 'Error'));
-                this._$articleList.children('ul').show();
+                self._$articleList.children('ul').show();
             }
             self._$articleList.removeClass('loading');
         });

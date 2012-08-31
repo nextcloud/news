@@ -62,13 +62,14 @@ News = {
 			$.post(url, { name: displayname, parentid: folderid },
 				function(jsondata){
 					if(jsondata.status == 'success'){
-						// if we got a parent folder
-						if(folderid > 0){
-							$('.collapsable_container[data-id="' + folderid + '"] > ul').append(jsondata.data.listfolder);
-						} else {
-							$('#feeds > ul').append(jsondata.data.listfolder);
-						}
-						setupFeedList();
+						// FIXME: this should receive json by default
+						var $folder = $(jsondata.data.listfolder);
+						var title = $folder.children('.title').html();
+						var id = $folder.data('id');
+						var data = { 
+							title: title
+						};
+						News.Objects.Menu.addNode(0, News.MenuNodeType.Folder, id, data);
 						$('#addfolder_dialog').dialog('destroy').remove();
 					} else {
 						OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
@@ -107,24 +108,22 @@ News = {
 					if($('#firstrun').length > 0){
 						window.location.reload(); 
 					} else {
-						if(jsondata.status == 'success'){
-							if(folderid > 0){
-								$('.collapsable_container[data-id="' + folderid + '"] > ul').append(jsondata.data.listfeed);	
-							} else {
-								$('#feeds > ul').append(jsondata.data.listfeed);
-							}
-							setupFeedList();
-							News.Feed.load(jsondata.data.feedid);
+						if(jsondata.status == 'success'){						
+							// FIXME: this should receive json by default
+							var $feed = $(jsondata.data.listfeed);
+							var title = $feed.children('.title').html();
+							var icon = $feed.css('background-image').replace(/url\(|\)$/ig, "");
+							var unreadCount = $feed.children('.unread_items_count').html();
+							var id = $feed.data('id');
+							var data = { 
+								title: title,
+								unreadCount: unreadCount,
+								icon: icon
+							};
+							News.Objects.Menu.addNode(folderid, News.MenuNodeType.Feed, id, data);
+							News.Objects.Menu._load(News.MenuNodeType.Feed, jsondata.data.feedid);
 
-							//$('#ui-dialog-title-addfeed_dialog').html('Feed added. Do you want to add another feed?')
-
-							/*
-							OC.dialogs.confirm(t('news', ), t('news', 'Feed added!'), function(answer) {
-								if(!answer) {
-									$('#addfeed_dialog').dialog('destroy').remove();
-									$('ul.accordion').before(jsondata.data.part_newfeed);
-								}
-							});*/
+							$('#addfeed_dialog').dialog('destroy').remove();
 						} else {
 							OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
 						}
@@ -141,15 +140,8 @@ News = {
 				}
 			});
 		},
-		load:function(feedId) {
-
-		},
-
-
 		
 	},
-
-
 
 }
 

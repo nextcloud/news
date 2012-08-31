@@ -152,7 +152,8 @@ var News = News || {};
         }
 
         var $html;
-        var icon = 'url("' + data.icon + '")';
+        var icon;
+        
         switch(type){
             case MenuNodeType.Feed:
                 $html = this._$mockFeed.clone();
@@ -166,7 +167,9 @@ var News = News || {};
         }   
 
         $html.children('.title').html(data.title);
-        $html.children('.title').css('background-image', icon);
+        if(data.icon !== undefined){
+            $html.children('.title').css('background-image', 'url("' + data.icon + '")');
+        }
         $html.children('.unread_items_counter').html(data.unreadCount);
         $html.attr('data-id', id);
         $html.children('ul').attr('data-id', id);
@@ -249,6 +252,7 @@ var News = News || {};
     Menu.prototype.setShowAll = function(showAll){
         this._showAll = showAll;
         this.triggerHideRead();
+        this._load(this._activeFeedType, this._activeFeedId);
     };
 
     /**
@@ -378,11 +382,11 @@ var News = News || {};
         });
 
         $listItem.children('.buttons').children('.feeds_delete').click(function(){
-            self._delete(MenuNodeType.Folder, id);
+            self._delete(MenuNodeType.Feed, id);
         });
 
         $listItem.children('.buttons').children('.feeds_markread').click(function(){
-            self._markRead(MenuNodeType.Folder, id);
+            self._markRead(MenuNodeType.Feed, id);
         });
 
         $listItem.draggable({ 
@@ -401,11 +405,12 @@ var News = News || {};
      * @param $listItem the jquery list element
      */
     Menu.prototype._bindStarred = function($listItem){
+        var self = this;
         this._setUnreadCount(MenuNodeType.Starred, 0, 
             this._getAndRemoveUnreadCount($listItem));
 
         $listItem.children('.title').click(function(){
-            self._load(MenuNodeType.Starred, id);
+            self._load(MenuNodeType.Starred, -1);
             return false;
         });
 
@@ -416,13 +421,14 @@ var News = News || {};
      * @param $listItem the jquery list element
      */
     Menu.prototype._bindSubscriptions = function($listItem){
+        var self = this;
         $listItem.children('.title').click(function(){
-            self._load(MenuNodeType.Subscriptions, id);
+            self._load(MenuNodeType.Subscriptions, -2);
             return false;
         });
 
         $listItem.children('.feeds_markread').click(function(){
-            self._markRead(MenuNodeType.Folder, id);
+            self._markRead(MenuNodeType.Subscriptions, 0);
         });
     };
 
@@ -477,6 +483,7 @@ var News = News || {};
                         if(type === self._activeFeedType && id === self._activeFeedId){
                             window.location.reload();
                         }
+                        self._resetOpenFolders();
                     } else{
                         OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
                     }
