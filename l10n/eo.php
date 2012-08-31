@@ -67,18 +67,17 @@
 "Rename folder" => "Alinomigi dosierujon",
 "Delete folder" => "Forigi dosierujon",
 "You don't have any feed in your reader." => "Vi havas neniun fluon en via legilo.",
+"Subscribe" => "Aboni",
 "Import OPML" => "Enporti OPML-on",
-"Or..." => "Aŭ...",
-"Import feeds" => "Enporti fluojn",
 "Upload file from desktop" => "Alŝuti dosieron el la labortablo",
 "Upload" => "Alŝuti",
 "Select file from ownCloud" => "Elekti dosieron el ownCloud",
 "Select" => "Elekti",
-"No file selected. Select file from " => "Neniu dosiero elektita. Elekti dosieron el",
 "local filesystem" => "loka dosiersistemo",
 " or " => "aŭ",
 "cloud" => "nubo",
+"Or..." => "Aŭ...",
+"Import feeds" => "Enporti fluojn",
 "Export feeds" => "Malenporti fluojn",
-"Download OPML" => "Elŝuti OPML-on",
-"Subscribe" => "Aboni"
+"Download OPML" => "Elŝuti OPML-on"
 );

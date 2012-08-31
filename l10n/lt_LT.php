@@ -16,7 +16,7 @@
 "Folder name" => "Katalogo pavadinimas",
 "Rename folder" => "Pervadinti katalogą",
 "Delete folder" => "Ištrinti katalogą",
+"Subscribe" => "Prenumeruoti",
 "Import OPML" => "Importuoti OPML",
-"Download OPML" => "Atsisiųsti OPML",
-"Subscribe" => "Prenumeruoti"
+"Download OPML" => "Atsisiųsti OPML"
 );

@@ -55,18 +55,17 @@
 "Delete feed" => "Poista syöte",
 "Rename folder" => "Muuta kansion nimeä",
 "Delete folder" => "Poista kansio",
+"Subscribe" => "Tilaa",
 "Import OPML" => "Tuo OPML",
-"Or..." => "Tai...",
-"Import feeds" => "Tuo syötteitä",
 "Upload file from desktop" => "Lähetä tiedosto työpöydältä",
 "Upload" => "Lähetä",
 "Select file from ownCloud" => "Valitse tiedosto ownCloudista",
 "Select" => "Valitse",
-"No file selected. Select file from " => "Tiedostoa ei ole valittu. Valitse tiedosto",
 "local filesystem" => "paikallisesta tiedostojärjestelmästä",
 " or " => "tai",
 "cloud" => "pilvestä",
+"Or..." => "Tai...",
+"Import feeds" => "Tuo syötteitä",
 "Export feeds" => "Vie syötteet",
-"Download OPML" => "Lataa OPML",
-"Subscribe" => "Tilaa"
+"Download OPML" => "Lataa OPML"
 );

@@ -64,17 +64,16 @@
 "Delete feed" => "Slett nyhetskilden",
 "Rename folder" => "Gi mappen nytt navn",
 "Delete folder" => "Slett mappe",
-"Or..." => "Eller...",
-"Import feeds" => "Importer nyhetskilder",
+"Subscribe" => "Abonner",
 "Upload file from desktop" => "Last opp fil fra skrivebord",
 "Upload" => "Last opp",
 "Select file from ownCloud" => "Velg fil fra ownCloud",
 "Select" => "Velg",
-"No file selected. Select file from " => "Ingen filer valgt. Velg fil fra",
 "local filesystem" => "lokalt filsystem",
 " or " => "eller",
 "cloud" => "skyen",
+"Or..." => "Eller...",
+"Import feeds" => "Importer nyhetskilder",
 "Export feeds" => "Eksporter nyhetskilder",
-"Download OPML" => "Last ned OPML",
-"Subscribe" => "Abonner"
+"Download OPML" => "Last ned OPML"
 );

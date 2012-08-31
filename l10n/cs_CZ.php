@@ -37,7 +37,6 @@
 "No files selected." => "Nejsou vybrány soubory.",
 " loaded from local filesystem." => "staženo z lokálního souborového systému.",
 "Importing..." => "Importuje se...",
-"Import kind not specified" => "Typ importu neni specifikován",
 " out of " => "z celkem",
 " feeds imported successfully from " => "příspěvky importovány úspěšně z",
 "Success" => "Úspěch",
