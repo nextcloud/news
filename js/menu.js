@@ -227,7 +227,7 @@ var News = News || {};
             $(this._$root).find('.all_read').each(function(){
                 // dont hide folders with the currently selected feed
                 // or the currently selected feed
-                if(!$(this).hasClass('active') && $(this).find('.active').length !== 0){
+                if(!$(this).hasClass('active') && $(this).find('.active').length === 0){
                     $(this).addClass('hidden');
                 }
             });                
@@ -287,6 +287,7 @@ var News = News || {};
             self._updateUnreadCountAll();
         }, 1000);
         
+        this.triggerHideRead();
     };
 
     /**
@@ -400,7 +401,6 @@ var News = News || {};
             return false;
         });
 
-        this.triggerHideRead();
     };
 
     /**
