@@ -14,19 +14,13 @@ var News = News || {};
 
 $(document).ready(function(){
 
+    // config values
+    var menuUpdateIntervalMiliseconds = 200000;
+
     // global object array for accessing instances
     News.Objects = {};
-    News.Objects.Menu = new News.Menu($('#view').hasClass('show_all'));
-    News.Objects.Items = new News.Items();
-
+    News.Objects.Menu = new News.Menu(menuUpdateIntervalMiliseconds);
     News.Objects.Menu.bindOn('#feeds > ul');
-
-    // basic setup
-    News.Feed.updateAll();
-    var updateInterval = 200000; //how often the feeds should update (in msec)
-    setInterval('News.Feed.updateAll()', updateInterval);
-    
-
 
     /* first run script begins */
     $('#browsebtn_firstrun, #cloudbtn_firstrun, #importbtn_firstrun').hide();
@@ -60,41 +54,33 @@ $(document).ready(function(){
     });
 
     $('#view').click(function(){
-        var term;
+        var data = {};
         if($(this).hasClass('show_all')){
-            term = 'unread';
+            data.show = 'unread';
             $(this).addClass('show_unread').removeClass('show_all');
         } else {
-            term = 'all';
+            data.show  = 'all';
             $(this).addClass('show_all').removeClass('show_unread');
         }
-        News.Feed.filter(term);
-    });
 
-    // mark items whose title was hid under the top edge as read
-    // when the bottom is reached, mark all items as read
-    $('#feed_items').scroll(function(){
-        var boxHeight = $(this).height();
-        var scrollHeight = $(this).prop('scrollHeight');
-        var scrolled = $(this).scrollTop() + boxHeight;
-        var scrollArea = this;
-        $(this).children('ul').children('.feed_item:not(.read)').each(function(){
-            var item = this;
-            var itemOffset = $(this).position().top;
-            if(itemOffset <= 0 || scrolled >= scrollHeight){
-                // wait and check if the item is still under the top edge
-                setTimeout(function(){ markItemAsRead(scrollArea, item);}, 1000);
+        $.post(OC.filePath('news', 'ajax', 'usersettings.php'), data, function(jsondata){
+            if(jsondata.status == 'success'){
+                var showAll;
+                if(data.show === 'all'){
+                    showAll = true;
+                } else {
+                    showAll = false;
+                }
+                News.Objects.Menu.setShowAll(showAll);
+            } else {
+                OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
             }
-        })
-
-    });
-    
-    $('#feed_items').scrollTop(0);
-    
-    $(document).keydown(function(e) {
-        if ((e.keyCode || e.which) == 74) { // 'j' key shortcut
-            
-        }
+        });
     }); 
+    
+    $(document).click(function(event) {
+        $('#feedfoldermenu').hide();
+    });
 
 });
+

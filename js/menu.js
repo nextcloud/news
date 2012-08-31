@@ -19,8 +19,9 @@
 
 We create a new instance of the menu. Then we need to bind it on an ul which contains
 all the items:
-
-    var menu = new News.Menu();
+    
+    var updateIntervalMiliseconds = 2000;
+    var menu = new News.Menu(updateIntervalMiliseconds);
     menu.bindOn('#feeds ul');
 
 Updating nodes (you dont have to set all values in data):
@@ -107,10 +108,19 @@ var News = News || {};
      *#########################################################################/
     /**
      * This is the basic menu used to construct and maintain the menu
-     * @param showAll if all items should be shown by default
+     * @param updateIntervalMiliseconds how often the menu should refresh
      */
-    Menu = function(showAll){
-        this._showAll = showAll;
+    Menu = function(updateIntervalMiliseconds){
+        var self = this;
+
+        this._updateInterval = updateIntervalMiliseconds;
+        setInterval(function(){
+            self._updateUnreadCountAll();
+        }, self._updateInterval);
+
+        this._items = new News.Items('#feed_items');
+        this._showAll = $('#view').hasClass('show_all');
+
         this._unreadCount = {
             Feed: {},
             Folder: {},
@@ -134,7 +144,7 @@ var News = News || {};
         if(parseInt(parentId) === 0){
             $parentNode = this._$root;
         } else {
-            $parentNode = $('.' + this._menuNodeTypeToClass(MenuNodeType.Folder) + '[data-id="' + parentId + '"] ul');
+            $parentNode = this._getNodeFromTypeAndId(type, id).children('ul');
             // every folder we add to should be opened again
             $parentNode.parent().addClass('open');
             $parentNode.show();
@@ -181,7 +191,7 @@ var News = News || {};
      * @param data a json array with the data for the node {title: '', 'unreadCount': 3}
      */
     Menu.prototype.updateNode = function(type, id, data){
-        var $node = $('.' + this._menuNodeTypeToClass(type) + '[data-id="' + id + '"]');
+        var $node = this._getNodeFromTypeAndId(type, id);
         
         if(data.title !== undefined){
             $node.children('.title').html(data.title);
@@ -198,7 +208,7 @@ var News = News || {};
      * @param id the id     
      */
     Menu.prototype.removeNode = function(type, id){
-        var $node = $('.' + this._menuNodeTypeToClass(type) + '[data-id="' + id + '"]');
+        var $node = this._getNodeFromTypeAndId(type, id);
         $node.remove();
     };
 
@@ -269,6 +279,7 @@ var News = News || {};
         this._activeFeedId = this._$activeFeed.data('id');
         this._activeFeedType = this._listItemToMenuNodeType(this._$activeFeed);
         
+        this._updateUnreadCountAll();
     };
 
     /**
@@ -304,9 +315,6 @@ var News = News || {};
         var self = this;
         var id = $listItem.data('id');
         var $children = $listItem.children('ul').children('li');
-
-        this._setUnreadCount(MenuNodeType.Folder, id, 
-            this._getAndRemoveUnreadCount($listItem));
 
         this._resetOpenFolders();
 
@@ -398,6 +406,10 @@ var News = News || {};
             self._load(MenuNodeType.Subscriptions, id);
             return false;
         });
+
+        $listItem.children('.feeds_markread').click(function(){
+            self._markRead(MenuNodeType.Folder, id);
+        });
     };
 
     /**
@@ -406,9 +418,8 @@ var News = News || {};
      * @param id the id
      */
     Menu.prototype._load = function(type, id){
-        // set the item to the currently selected one
         this._setActiveFeed(type, id);
-        // TODO:
+        this._items.load(type, id);
     };
 
     /**
@@ -435,7 +446,81 @@ var News = News || {};
      * @param id the id
      */
     Menu.prototype._markRead = function(type, id){
-        // TODO:
+        // make sure only feeds get past
+        switch(type){
+
+            case MenuNodeType.Folder:
+                var $folder = this._getNodeFromTypeAndId(type, id);
+                $folder.children('ul').children('li').each(function(){
+                    var childData = this._getIdAndTypeFromNode($(this));
+                    this._markRead(childData.type, childData.id);
+                });
+                break;
+
+            case MenuNodeType.Subscriptions:
+                this._root.children('li').each(function(){
+                    var childData = this._getIdAndTypeFromNode($(this));
+                    this._markRead(childData.type, childData.id);
+                });
+                break;
+
+            case MenuNodeType.Feed:
+                var data = {
+                    feedId: id,
+                    mostRecentItemId: this._items.getMostRecentItemId(id)
+                };
+
+                $.post(OC.filePath('news', 'ajax', 'setallitemsread.php'), data, function(jsonData) {
+                    if(jsonData.status == 'success'){
+                        this._items.markAllRead(type, id);
+                        this._updateUnreadCountAll();
+                    } else {
+                        OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
+                    }
+                });
+                break;
+        }
+    };
+
+    /**
+     * Requests an update for unreadCount for all feeds and folders
+     */
+    Menu.prototype._updateUnreadCountAll = function() {
+        var self = this;
+        $.post(OC.filePath('news', 'ajax', 'feedlist.php'),function(jsonData){
+            if(jsonData.status == 'success'){
+                var feeds = jsonData.data;
+                for (var i = 0; i<feeds.length; i++) {
+                    self._updateUnreadCount(feeds[i]['id'], feeds[i]['url'], feeds[i]['folderid']);
+                }
+            } else {
+                OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
+            }
+        });
+    };
+
+    /**
+     * Request unreadCount for one feed
+     * @param feedId the id of the feed
+     * @param feedUrl the url of the feed that should be updated
+     * @param folderId the folderId fo the folder the feed is in
+     */
+    Menu.prototype._updateUnreadCount = function(feedId, feedUrl, folderId) {
+        var self = this;
+        var data = {
+            'feedid':feedId, 
+            'feedurl':feedUrl, 
+            'folderid':folderId
+        };
+        $.post(OC.filePath('news', 'ajax', 'updatefeed.php'), data, function(jsondata){
+            if(jsondata.status == 'success'){
+                var newUnreadCount = jsondata.data.unreadcount;
+                // FIXME: starred items should also be set
+                self._setUnreadCount(MenuNodeType.Feed, feedId, newUnreadCount);
+            } else {
+                OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
+            }
+        });
     };
 
     /**
@@ -455,7 +540,7 @@ var News = News || {};
      */
     Menu.prototype._setActiveFeed = function(type, id){
         var $oldFeed = this._$activeFeed;
-        var $newFeed = $('.' + this._menuNodeTypeToClass(type) + '[data-id="' + id + '"]');
+        var $newFeed = this._getNodeFromTypeAndId(type, id);
         $oldFeed.removeClass('.active');
         $newFeed.addClass('.active');
         this._$activeFeed = $newFeed;
@@ -475,6 +560,36 @@ var News = News || {};
         var unreadCount = parseInt($unreadCounter.html());
         $unreadCounter.remove();
         return unreadCount;
+    };
+
+    /**
+     * Returns the jquery element for a type and an id
+     * @param type the type (MenuNodeType)
+     * @param id the id
+     * @return the jquery node
+     */
+    Menu.prototype._getNodeFromTypeAndId = function(type, id) {
+        if(id === 0){
+            return this._$root;
+        }
+
+        if(type === MenuNodeType.Starred || type === MenuNodeType.Subscriptions){
+            return $('.' + this._menuNodeTypeToClass(type));
+        } else {
+            return $('.' + this._menuNodeTypeToClass(type) + '[data-id="' + id + '"]');
+        }
+    };
+
+    /**
+     * Returns id and type from a listnode
+     * @param $listItem the list item
+     * @return a json array with the id and type for instance { id: 1, type: MenuNodeType.Feed}
+     */
+    Menu.prototype._getIdAndTypeFromNode = function($listItem) {
+        return {
+            id: $listItem.data('id'),
+            type: this._listItemToMenuNodeType($listItem),
+        };
     };
 
     /**
@@ -527,31 +642,27 @@ var News = News || {};
      * @param unreadCount the count of unread items
      */
     Menu.prototype._setUnreadCount = function(type, id, unreadCount){
-        var $node;
+        var $node = this._getNodeFromTypeAndId(type, id);
         var currentUnreadCount;
 
         // get the node and the storred values
         switch(type){
             case MenuNodeType.Feed:
-                $node = $('.' + this._menuNodeTypeToClass(type) + '[data-id="' + id + '"]');
                 currentUnreadCount = this._unreadCount.Feed[id];
                 this._unreadCount.Feed[id] = unreadCount;
                 break;
 
             case MenuNodeType.Folder:
-                $node = $('.' + this._menuNodeTypeToClass(type) + '[data-id="' + id + '"]');
                 currentUnreadCount = this._unreadCount.Folder[id];
                 this._unreadCount.Folder[id] = unreadCount;
                 break;
 
             case MenuNodeType.Starred:
-                $node = $('.' + this._menuNodeTypeToClass(type));
                 currentUnreadCount = this._unreadCount.Starred;
                 this._unreadCount.Starred = unreadCount;
                 break;
 
             case MenuNodeType.Subscriptions:
-                $node = $('.' + this._menuNodeTypeToClass(type));
                 currentUnreadCount = this._unreadCount.Subscriptions;
                 this._unreadCount.Subscriptions = unreadCount;
                 break;
@@ -596,18 +707,27 @@ var News = News || {};
                 }
 
                 self._resetOpenFolders();
-                self._moveItemToFolder(feedId, folderId);
+                self._moveFeedToFolder(feedId, folderId);
             }
         });
     };
 
     /**
-     * Marks all items of a feed as read
+     * Moves a feed to a folder
      * @param feedId the feed that should be moved (can only be a feed)
      * @param id the id of the folder where it should be moved, 0 for root
      */
-    Menu.prototype._moveItemToFolder = function(feedId, folderId){
-        // TODO:
+    Menu.prototype._moveFeedToFolder = function(feedId, folderId){
+        data = {
+            feedId: feedId,
+            folderId: folderId
+        };
+
+        $.post(OC.filePath('news', 'ajax', 'movefeedtofolder.php'), data, function(jsonData) {
+            if(jsonData.status !== 'success'){
+                OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
+            }
+        });
     };
 
 

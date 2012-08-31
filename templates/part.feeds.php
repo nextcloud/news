@@ -50,9 +50,6 @@ $starredCount = $itemMapper->countEveryItemByStatus(OCA\News\StatusFlag::IMPORTA
 <li class="starred <?php if($feedId === -1){ echo "selected_feed"; }; ?>">
 	<a class="title" href="#" ><?php echo $l->t('Starred'); ?></a>
 	<span class="unread_items_counter"><?php echo $starredCount ?></span>
-	<span class="buttons">
-    	<button class="svg action feeds_markread" title="<?php echo $l->t('Mark all read'); ?>"></button>
-    </span>
 </li>
 
 <?php
