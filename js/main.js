@@ -82,5 +82,11 @@ $(document).ready(function(){
         $('#feedfoldermenu').hide();
     });
 
+    $(document).keydown(function(e) {
+        if ((e.keyCode || e.which) == 74) { // 'j' key shortcut
+
+        }
+    });
+
 });
 

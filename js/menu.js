@@ -88,7 +88,7 @@ var News = News || {};
 
     /*##########################################################################
      * MenuNodeType
-     *#########################################################################/
+     *########################################################################*/
     /**
      * Enumeration for menu items
      */
@@ -111,7 +111,7 @@ var News = News || {};
 
     /*##########################################################################
      * Menu
-     *#########################################################################/
+     *########################################################################*/
     /**
      * This is the basic menu used to construct and maintain the menu
      * @param updateIntervalMiliseconds how often the menu should refresh
@@ -287,6 +287,20 @@ var News = News || {};
     };
 
     /**
+     * Returns the ids of all feeds from a folder
+     * @param folderId the id of the folder
+     * @return an array with all the feed ids
+     */
+    Menu.prototype.getFeedIdsOfFolder = function(folderId) {
+        $folder = this._getNodeFromTypeAndId(MenuNodeType.Folder, folderId);
+        var ids = new Array();
+        $folder.children('ul').children('li').each(function(){
+            ids.push(parseInt($(this).data('id')));
+        });
+        return ids;
+    };
+
+    /**
      * Binds the menu on an existing menu
      * @param css Selector the selector to get the element with jquery
      */
@@ -312,7 +326,7 @@ var News = News || {};
         // set timeout to avoid racecondition error
         var self = this;
         setTimeout(function(){
-            self._updateUnreadCountAll();
+            //self._updateUnreadCountAll();
         }, 1000);
         
         this.triggerHideRead();
@@ -518,34 +532,35 @@ var News = News || {};
      * @param id the id
      */
     Menu.prototype._markRead = function(type, id){
+        var self = this;
         // make sure only feeds get past
         switch(type){
 
             case MenuNodeType.Folder:
                 var $folder = this._getNodeFromTypeAndId(type, id);
                 $folder.children('ul').children('li').each(function(){
-                    var childData = this._getIdAndTypeFromNode($(this));
-                    this._markRead(childData.type, childData.id);
+                    var childData = self._getIdAndTypeFromNode($(this));
+                    self._markRead(childData.type, childData.id);
                 });
                 break;
 
             case MenuNodeType.Subscriptions:
                 this._root.children('li').each(function(){
-                    var childData = this._getIdAndTypeFromNode($(this));
-                    this._markRead(childData.type, childData.id);
+                    var childData = self._getIdAndTypeFromNode($(this));
+                    self._markRead(childData.type, childData.id);
                 });
                 break;
 
             case MenuNodeType.Feed:
                 var data = {
                     feedId: id,
-                    mostRecentItemId: this._items.getMostRecentItemId(id)
+                    mostRecentItemId: this._items.getMostRecentItemId(type, id)
                 };
 
                 $.post(OC.filePath('news', 'ajax', 'setallitemsread.php'), data, function(jsonData) {
                     if(jsonData.status == 'success'){
-                        this._items.markAllRead(type, id);
-                        this._updateUnreadCountAll();
+                        self._items.markAllRead(type, id);
+                        self._updateUnreadCountAll();
                     } else {
                         OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
                     }
