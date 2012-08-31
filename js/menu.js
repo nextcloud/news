@@ -225,7 +225,9 @@ var News = News || {};
             });
         } else {
             $(this._$root).find('.all_read').each(function(){
-                if(!$(this).hasClass('hidden')){
+                // dont hide folders with the currently selected feed
+                // or the currently selected feed
+                if(!$(this).hasClass('active') && $(this).find('.active').length !== 0){
                     $(this).addClass('hidden');
                 }
             });                
@@ -279,7 +281,12 @@ var News = News || {};
         this._activeFeedId = this._$activeFeed.data('id');
         this._activeFeedType = this._listItemToMenuNodeType(this._$activeFeed);
         
-        this._updateUnreadCountAll();
+        // set timeout to avoid racecondition error
+        var self = this;
+        setTimeout(function(){
+            self._updateUnreadCountAll();
+        }, 1000);
+        
     };
 
     /**
@@ -392,6 +399,8 @@ var News = News || {};
             self._load(MenuNodeType.Starred, id);
             return false;
         });
+
+        this.triggerHideRead();
     };
 
     /**
@@ -399,9 +408,6 @@ var News = News || {};
      * @param $listItem the jquery list element
      */
     Menu.prototype._bindSubscriptions = function($listItem){
-        this._setUnreadCount(MenuNodeType.Subscriptions, 0, 
-            this._getAndRemoveUnreadCount($listItem));
-
         $listItem.children('.title').click(function(){
             self._load(MenuNodeType.Subscriptions, id);
             return false;
@@ -541,8 +547,8 @@ var News = News || {};
     Menu.prototype._setActiveFeed = function(type, id){
         var $oldFeed = this._$activeFeed;
         var $newFeed = this._getNodeFromTypeAndId(type, id);
-        $oldFeed.removeClass('.active');
-        $newFeed.addClass('.active');
+        $oldFeed.removeClass('active');
+        $newFeed.addClass('active');
         this._$activeFeed = $newFeed;
         this._activeFeedId = id;
         this._activeFeedType = type;
@@ -569,12 +575,10 @@ var News = News || {};
      * @return the jquery node
      */
     Menu.prototype._getNodeFromTypeAndId = function(type, id) {
-        if(id === 0){
-            return this._$root;
-        }
-
         if(type === MenuNodeType.Starred || type === MenuNodeType.Subscriptions){
             return $('.' + this._menuNodeTypeToClass(type));
+        } else if(id === 0){
+            return this._$root;
         } else {
             return $('.' + this._menuNodeTypeToClass(type) + '[data-id="' + id + '"]');
         }
@@ -587,7 +591,7 @@ var News = News || {};
      */
     Menu.prototype._getIdAndTypeFromNode = function($listItem) {
         return {
-            id: $listItem.data('id'),
+            id: parseInt($listItem.data('id')),
             type: this._listItemToMenuNodeType($listItem),
         };
     };
@@ -644,6 +648,8 @@ var News = News || {};
      * @param unreadCount the count of unread items
      */
     Menu.prototype._setUnreadCount = function(type, id, unreadCount){
+        unreadCount = parseInt(unreadCount);
+
         var $node = this._getNodeFromTypeAndId(type, id);
 
         // store the new unreadcount for starred and feeds
@@ -663,11 +669,9 @@ var News = News || {};
 
         // update subscriptions
         var subscriptionsUnreadCount = 0;
-
-        for(var i=0; i<this._unreadCount.Feed; i++){
-            subscriptionsUnreadCount += this._unreadCount.Feed[i];
+        for(key in this._unreadCount.Feed){
+            subscriptionsUnreadCount += this._unreadCount.Feed[key];
         }
-
         this._unreadCount.Subscriptions = subscriptionsUnreadCount;
         this._applyUnreadCountStyle(MenuNodeType.Subscriptions, 0, 
             subscriptionsUnreadCount);
@@ -690,7 +694,7 @@ var News = News || {};
             }
         }
 
-        // lastly update the feed
+        // lastly apply the new style to the feed
         this._applyUnreadCountStyle(type, id, unreadCount);
 
     };

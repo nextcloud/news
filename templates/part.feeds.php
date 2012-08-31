@@ -35,14 +35,12 @@ $allfeeds = isset($_['allfeeds']) ? $_['allfeeds'] : '';
 $feedId = $_['feedid'];
 
 $itemMapper = new OCA\News\ItemMapper();
-$unreadItemCountAll = $itemMapper->countEveryItemByStatus(OCA\News\StatusFlag::UNREAD);
 $starredCount = $itemMapper->countEveryItemByStatus(OCA\News\StatusFlag::IMPORTANT);
 
 ?>
 
 <li class="subscriptions <?php if($feedId === -2){ echo "selected_feed"; }; ?>">
 	<a class="title" href="#" ><?php echo $l->t('New articles'); ?></a>
-	<span class="unread_items_counter"><?php echo $unreadItemCountAll ?></span>
 	<span class="buttons">
     	<button class="svg action feeds_markread" title="<?php echo $l->t('Mark all read'); ?>"></button>
     </span>
