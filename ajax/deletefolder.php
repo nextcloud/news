@@ -18,7 +18,6 @@ OCP\JSON::callCheck();
 $userid = OCP\USER::getUser();
 
 $folderid = trim($_POST['folderid']);
-$shownfeedid = trim($_POST['shownfeedid']);
 $part_items = false;
 
 $foldermapper = new OCA\News\FolderMapper($userid);

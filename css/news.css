@@ -109,7 +109,7 @@ div.add_parentfolder {
     }    
 
     .all_read {
-        font-weight: normal;
+        font-weight: normal !important;
     }
 
 
@@ -177,7 +177,7 @@ div.add_parentfolder {
         position: relative;
     }
 
-    #feeds li#selected_feed { 
+    #feeds li.active { 
         background-color: #ffffff !important;
         font-style: oblique;
     }

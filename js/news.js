@@ -1,4 +1,4 @@
-News={
+News = {
 	DropDownMenu: {
 		fade:function(menu){
 			$(menu).toggle();
@@ -78,25 +78,6 @@ News={
 					$(button).prop('value', t('news','Add folder'));
 			});
 		},
-		'delete':function(folderid) {
-			$('.feeds_delete').tipsy('hide');
-			OC.dialogs.confirm(t('news', 'Are you sure you want to delete this folder and all its feeds?'), t('news', 'Warning'), function(answer) {
-				if(answer == true) {
-					var rightcontent = $('div.rightcontent');
-					var shownfeedid = rightcontent.attr('data-id');
-					$.post(OC.filePath('news', 'ajax', 'deletefolder.php'),{'folderid':folderid, 'shownfeedid':shownfeedid},function(jsondata){
-						if(jsondata.status == 'success'){
-							$('.collapsable_container[data-id="' + jsondata.data.folderid + '"]').remove();
-							transformCollapsableTrigger();
-						}
-						else{
-							OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
-						}
-					});
-				}
-			});
-			return false;
-		}
 	},
 	Feed: {
 		id:'',
@@ -160,75 +141,12 @@ News={
 				}
 			});
 		},
-		'delete':function(feedid) {
-			$('.feeds_delete').tipsy('hide');
-			OC.dialogs.confirm(t('news', 'Are you sure you want to delete this feed?'), t('news', 'Warning'), function(answer) {
-				if(answer == true) {
-					$.post(OC.filePath('news', 'ajax', 'deletefeed.php'),{'feedid':feedid},function(jsondata){
-						if(jsondata.status == 'success'){
-							$('li.feed[data-id="'+jsondata.data.feedid+'"]').remove();
-
-							var rightcontent = $('div.rightcontent');
-							if(rightcontent.attr('data-id') == feedid) {
-								rightcontent.find('div#feedadded').remove();
-								rightcontent.find('ul.accordion').before(jsondata.data.part_items);
-								transformCollapsableTrigger();
-								// if the deleted feed is the current feed, reload the page
-								// window.location.reload();
-							}
-						}
-						else{
-							OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
-						}
-					});
-				}
-			});
-			return false;
-		},
 		load:function(feedId) {
-			var $feedItems = $('#feed_items');
-			$feedItems.empty();
-			$feedItems.addClass('loading');
-			$.post(OC.filePath('news', 'ajax', 'loadfeed.php'), { 'feedId' : feedId }, function(jsonData) {
-				if(jsonData.status == 'success'){
-					// set active id
-					var $rightContent = $(".rightcontent");
-					$rightContent.attr('data-id', feedId);
-					News.Feed.activeFeedId = parseInt(feedId);
-					// load in new items
-					$feedItems.html(jsonData.data.feedItems);
-					// scroll to the top position
-					$feedItems.scrollTop(0);
-					// set title
-					var $feedTitle = $(".feed_controls .feed_title h1");
-					$feedTitle.html(jsonData.data.feedTitle);
-					$feedTitle.attr('title', jsonData.data.feedTitle);
-					// update unread count
-					$feedHandler = new News.FeedStatusHandler(feedId);
-					$feedHandler.setUnreadCount(jsonData.data.unreadItemCount);
-					// select new feed
-					$('li#selected_feed').attr('id', '');
-					if(feedId < 0){
-						$('li[data-id="' + feedId + '"]').attr('id', 'selected_feed');
-					} else {
-						$('li.feed[data-id="' + feedId + '"]').attr('id', 'selected_feed');
-					}
-					// refresh callbacks
-					transformCollapsableTrigger();
-					bindItemEventListeners();
-				}
-				else {
-					OC.dialogs.alert(t('news', 'Error while loading the feed'), t('news', 'Error'));
-				}
-				$feedItems.removeClass('loading');
-			});
+
 		},
 
 
-		// this array is used to store ids to prevent sending too
-		// many posts when scrolling. the structure is: feed_id: boolean
-		processing:{},
-		activeFeedId: -1000,
+		
 	},
 
 

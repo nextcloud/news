@@ -18,10 +18,105 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
 
 (function(){
 
+    /**
+     * Creates a new item instance and tells it to put the items into
+     * the selected div
+     * @param cssSelector the selector of the div which holds the ul for the feeds
+     */
     var Items = function(cssSelector){
         this._$articleList = $(cssSelector);
         this._$articleList.scrollTop(0);
+        // this array is used to store ids to prevent sending too
+        // many posts when scrolling. the structure is: feed_id: boolean
+        this._processing = {};
     }
+
+    /**
+     * Loads the feeds into the righ view
+     * @param type the type (MenuNodeType)
+     * @param id the id
+     * @param onSuccessCallback a callback that is executed when the loading succeeded
+     */
+    Items.prototype.load = function(type, id, onSuccessCallback) {
+        var self = this;
+        var data = {
+            feedId: id,
+            feedType: type
+        };
+
+        this._$articleList.addClass('loading');
+        this._$articleList.children('ul').hide();
+
+        $.post(OC.filePath('news', 'ajax', 'loadfeed.php'), data, function(jsonData) {
+            if(jsonData.status == 'success'){
+                // FIXME: caching? split whole html into single articles
+                self._$articleList.empty().html(jsonData.data.feedItems)
+                self._bindItemEventListeners();    
+                self._$articleList.scrollTop(0);
+                onSuccessCallback();
+            } else {
+                OC.dialogs.alert(t('news', 'Error while loading the feed'), t('news', 'Error'));
+                this._$articleList.children('ul').show();
+            }
+            self._$articleList.removeClass('loading');
+        });
+    };
+
+
+    // FIXME
+    /**
+     * Binds a listener on the feed item list to detect scrolling and mark previous
+     * items as read
+     */
+    Items.prototype._bindItemEventListeners = function() {
+        // single hover on item should mark it as read too
+        $('#feed_items h1.item_title a').click(function(){
+            var $item = $(this).parent().parent('.feed_item');
+            var itemId = $item.data('id');
+            var handler = new News.ItemStatusHandler(itemId);
+            handler.setRead(true);
+        });
+
+        // single hover on item should mark it as read too
+        $('#feed_items .body').click(function(){
+            var $item = $(this).parent('.feed_item');
+            var itemId = $item.data('id');
+            var handler = new News.ItemStatusHandler(itemId);
+            handler.setRead(true);
+        });
+
+        // mark or unmark as important
+        $('#feed_items li.star').click(function(){
+            var $item = $(this).parent().parent().parent('.feed_item');
+            var itemId = $item.data('id');
+            var handler = new News.ItemStatusHandler(itemId);
+            handler.toggleImportant();
+        });
+
+        // toggle logic for the keep unread handler
+        $('#feed_items .keep_unread').click(function(){
+            var $item = $(this).parent().parent().parent('.feed_item');
+            var itemId = $item.data('id');
+            var handler = new News.ItemStatusHandler(itemId);
+            handler.toggleKeepUnread();
+        });
+        $('#feed_items .keep_unread input[type=checkbox]').click(function(){
+            var $item = $(this).parent().parent().parent().parent('.feed_item');
+            var itemId = $item.data('id');
+            var handler = new News.ItemStatusHandler(itemId);
+            handler.toggleKeepUnread();
+        });
+
+        // bind the mark all as read button
+        $('#mark_all_as_read').unbind();
+        $('#mark_all_as_read').click(function(){
+            var feedId = News.Feed.activeFeedId;
+            News.Feed.setAllItemsRead(feedId);
+        });
+
+        $("time.timeago").timeago();
+    };
+
 
     Items.prototype.length = function(type, id) {
         return 0;
@@ -38,81 +133,29 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
 
 
 // TODO: integrate This
-/**
- * Binds a listener on the feed item list to detect scrolling and mark previous
- * items as read
- */
-function bindItemEventListeners(){
-
-    // single hover on item should mark it as read too
-    $('#feed_items h1.item_title a').click(function(){
-        var $item = $(this).parent().parent('.feed_item');
-        var itemId = $item.data('id');
-        var handler = new News.ItemStatusHandler(itemId);
-        handler.setRead(true);
-    });
-
-    // single hover on item should mark it as read too
-    $('#feed_items .body').click(function(){
-        var $item = $(this).parent('.feed_item');
-        var itemId = $item.data('id');
-        var handler = new News.ItemStatusHandler(itemId);
-        handler.setRead(true);
-    });
-
-    // mark or unmark as important
-    $('#feed_items li.star').click(function(){
-        var $item = $(this).parent().parent().parent('.feed_item');
-        var itemId = $item.data('id');
-        var handler = new News.ItemStatusHandler(itemId);
-        handler.toggleImportant();
-    });
-
-    // toggle logic for the keep unread handler
-    $('#feed_items .keep_unread').click(function(){
-        var $item = $(this).parent().parent().parent('.feed_item');
-        var itemId = $item.data('id');
-        var handler = new News.ItemStatusHandler(itemId);
-        handler.toggleKeepUnread();
-    });
-    $('#feed_items .keep_unread input[type=checkbox]').click(function(){
-        var $item = $(this).parent().parent().parent().parent('.feed_item');
-        var itemId = $item.data('id');
-        var handler = new News.ItemStatusHandler(itemId);
-        handler.toggleKeepUnread();
-    });
-
-    // bind the mark all as read button
-    $('#mark_all_as_read').unbind();
-    $('#mark_all_as_read').click(function(){
-        var feedId = News.Feed.activeFeedId;
-        News.Feed.setAllItemsRead(feedId);
-    });
-
-    $("time.timeago").timeago();
-
-}
 
 
-/**
- * Marks an item as read which is called by the timeout
- * @param item the dom item
- */
-function markItemAsRead(scrollArea, item){
-    var itemId = parseInt($(item).data('id'));
-    var itemOffset = $(item).position().top;
-    var boxHeight = $(scrollArea).height();
-    var scrollHeight = $(scrollArea).prop('scrollHeight');
-    var scrolled = $(scrollArea).scrollTop() + boxHeight;
-    if(itemOffset < 0 || scrolled >= scrollHeight){
-        if(News.Feed.processing[itemId] === undefined || News.Feed.processing[itemId] === false){
-            // mark item as processing to prevent unecessary post requests  
-            News.Feed.processing[itemId] = true;
-            var handler = new News.ItemStatusHandler(itemId);
-            handler.setRead(true);  
-        }
-    } 
-}
+
+
+    /**
+     * Marks an item as read which is called by the timeout
+     * @param item the dom item
+     */
+    function markItemAsRead(scrollArea, item){
+        var itemId = parseInt($(item).data('id'));
+        var itemOffset = $(item).position().top;
+        var boxHeight = $(scrollArea).height();
+        var scrollHeight = $(scrollArea).prop('scrollHeight');
+        var scrolled = $(scrollArea).scrollTop() + boxHeight;
+        if(itemOffset < 0 || scrolled >= scrollHeight){
+            if(News.Feed.processing[itemId] === undefined || News.Feed.processing[itemId] === false){
+                // mark item as processing to prevent unecessary post requests  
+                News.Feed.processing[itemId] = true;
+                var handler = new News.ItemStatusHandler(itemId);
+                handler.setRead(true);  
+            }
+        } 
+    }
 
     /**
      * This handler handles changes in the ui when the itemstatus changes

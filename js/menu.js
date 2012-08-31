@@ -368,7 +368,12 @@ var News = News || {};
             this._getAndRemoveUnreadCount($listItem));
 
         $listItem.children('.title').click(function(){
-            self._load(MenuNodeType.Feed, id);
+            // prevent loading when dragging
+            if($(this).hasClass('noclick')){
+                $(this).removeClass('noclick');
+            } else {
+                self._load(MenuNodeType.Feed, id);    
+            }
             return false;
         });
 
@@ -385,6 +390,9 @@ var News = News || {};
             stack: '> li',   
             zIndex: 1000,
             axis: 'y',
+            start: function(event, ui){
+                $(this).children('.title').addClass('noclick');
+            }
         });
     };
 
@@ -424,8 +432,11 @@ var News = News || {};
      * @param id the id
      */
     Menu.prototype._load = function(type, id){
-        this._setActiveFeed(type, id);
-        this._items.load(type, id);
+        var self = this;
+        this._items.load(type, id, function(){
+            self._setActiveFeed(type, id);
+            self.triggerHideRead();
+        });
     };
 
     /**
@@ -434,7 +445,44 @@ var News = News || {};
      * @param id the id
      */
     Menu.prototype._delete = function(type, id){
-        // TODO:
+        var self = this;
+        var confirmMessage;
+        var url;
+        var data;
+
+        switch(type){
+            case MenuNodeType.Feed:
+                confirmMessage = t('news', 'Are you sure you want to delete this feed?');
+                url = 'deletefeed.php';
+                data = { 
+                    feedid: id
+                };
+                break;
+
+            case MenuNodeType.Folder:
+                confirmMessage = t('news', 'Are you sure you want to delete this folder and all its feeds?');
+                url = 'deletefolder.php';
+                data = { 
+                    folderid: id
+                };
+                break;
+        }
+
+        OC.dialogs.confirm(confirmMessage, t('news', 'Warning'), function(answer) {
+            if(answer == true) {
+                $.post(OC.filePath('news', 'ajax', url), data,function(jsonData){
+                    if(jsonData.status == 'success'){
+                        self.removeNode(type, id);
+                        // if we move the current feed or folder, reload page
+                        if(type === self._activeFeedType && id === self._activeFeedId){
+                            window.location.reload();
+                        }
+                    } else{
+                        OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
+                    }
+                });
+            }
+        });
     };
 
     /**
@@ -740,6 +788,10 @@ var News = News || {};
 
                 self._resetOpenFolders();
                 self._moveFeedToFolder(feedId, folderId);
+
+                event.stopImmediatePropagation();
+                event.stopPropagation();
+                return false;
             }
         });
     };
