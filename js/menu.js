@@ -807,9 +807,8 @@ var News = News || {};
                 self._resetOpenFolders();
                 self._moveFeedToFolder(feedId, folderId);
 
-                event.stopImmediatePropagation();
-                event.stopPropagation();
-                return false;
+                // in case jquery ui did something weird
+                $('.dnd_over').removeClass('dnd_over');
             }
         });
     };
