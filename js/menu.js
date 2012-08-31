@@ -513,7 +513,7 @@ var News = News || {};
             return false;
         });
 
-        $listItem.children('.feeds_markread').click(function(){
+        $listItem.children('.buttons').children('.feeds_markread').click(function(){
             self._markRead(MenuNodeType.Subscriptions, 0);
         });
     };
@@ -593,9 +593,12 @@ var News = News || {};
                 break;
 
             case MenuNodeType.Subscriptions:
-                this._root.children('li').each(function(){
+                this._$root.children('li').each(function(){
                     var childData = self._getIdAndTypeFromNode($(this));
-                    self._markRead(childData.type, childData.id);
+                    if(childData.type === MenuNodeType.Folder || 
+                        childData.type === MenuNodeType.Feed){
+                        self._markRead(childData.type, childData.id);    
+                    }
                 });
                 break;
 

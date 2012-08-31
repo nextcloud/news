@@ -196,7 +196,7 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
      * Marks all items of a feed as read
      * @param feedId the id of the feed which should be marked as read
      */
-    Items.prototype.markAllRead = function(feedId) {
+    ItemCache.prototype.markAllRead = function(feedId) {
         if(this._feeds[feedId] !== undefined){
             $.each(this._feeds[feedId], function(key, value){
                 value.addReadClass();
