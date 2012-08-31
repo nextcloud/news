@@ -120,7 +120,7 @@ var News = News || {};
      */
     Menu = function(updateIntervalMiliseconds, items){
         var self = this;
-
+        this._updatingCount = 0;
         this._updateInterval = updateIntervalMiliseconds;
         setInterval(function(){
             self._updateUnreadCountAll();
@@ -374,7 +374,7 @@ var News = News || {};
         // set timeout to avoid racecondition error
         var self = this;
         setTimeout(function(){
-            //self._updateUnreadCountAll();
+            self._updateUnreadCountAll();
         }, 1000);
         
         this.triggerHideRead();
@@ -625,16 +625,19 @@ var News = News || {};
      */
     Menu.prototype._updateUnreadCountAll = function() {
         var self = this;
-        $.post(OC.filePath('news', 'ajax', 'feedlist.php'),function(jsonData){
-            if(jsonData.status == 'success'){
-                var feeds = jsonData.data;
-                for (var i = 0; i<feeds.length; i++) {
-                    self._updateUnreadCount(feeds[i]['id'], feeds[i]['url'], feeds[i]['folderid']);
+        // prevent to fast firing updates
+        if(this._updatingCount === 0){
+            $.post(OC.filePath('news', 'ajax', 'feedlist.php'),function(jsonData){
+                if(jsonData.status == 'success'){
+                    var feeds = jsonData.data;
+                    for (var i = 0; i<feeds.length; i++) {
+                        self._updateUnreadCount(feeds[i]['id'], feeds[i]['url'], feeds[i]['folderid']);
+                    }
+                } else {
+                    OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
                 }
-            } else {
-                OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
-            }
-        });
+            });
+        }
     };
 
     /**
@@ -644,6 +647,7 @@ var News = News || {};
      * @param folderId the folderId fo the folder the feed is in
      */
     Menu.prototype._updateUnreadCount = function(feedId, feedUrl, folderId) {
+        this._updatingCount += 1;
         var self = this;
         var data = {
             'feedid':feedId, 
@@ -658,6 +662,7 @@ var News = News || {};
             } else {
                 OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
             }
+            self._updatingCount -= 1;
         });
     };
 
