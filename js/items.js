@@ -315,7 +315,6 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         this._bindItemEventListeners();
         this._id = parseInt(this._$html.data('id'));
         this._feedId = parseInt(this._$html.data('feedid'));
-        this._keepUnread = false;
         this._read = this._$html.hasClass('read');
         this._locked = false;
         this._important = this._$html.find('li.star').hasClass('important');
@@ -329,6 +328,8 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
      * @return the html for the item
      */
     Item.prototype.render = function() {
+        // remove kept unread
+        this._$html.removeClass('keep_unread');
         return this._$html[0];
     };
 
@@ -444,17 +445,72 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
      */
     Item.prototype._toggleKeepUnread = function() {
         var checkBox = this._$html.find('.keep_unread input[type=checkbox]');
-
-        if(this._keepUnread){
+        if(this._isKeptUnread()){
+            this._$html.removeClass('keep_unread');    
             checkBox.prop("checked", false);
         } else {
             this.setRead(false);
             checkBox.prop("checked", true);
+            this._$html.addClass('keep_unread');
+        }
+    };
+
+    /**
+     * @return true if kept unread
+     */
+    Item.prototype._isKeptUnread = function() {
+        return this._$html.hasClass('keep_unread');
+    };
+
+
+    /**
+     * Marks the item read
+     * @param read true marks it read, false unread
+     */
+    Item.prototype.setRead = function(read) {
+        var status;
+        var self = this;
+
+        // if we already have the status, do nothing
+        if(read === this._read){
+            this.setLocked(false);
+            return;
+        }
+        // check if the keep unread flag was set
+        if(read && this._isKeptUnread()){
+            this.setLocked(false);
+            return; 
+        } 
+
+        if(read){
+            status = 'read';
+        } else {
+            status = 'unread';
         }
 
-        this._$html.toggleClass('keep_unread');
-        this._keepUnread = !this._keepUnread;
+        var data = {
+            itemId: this._id,
+            status: status
+        };
+
+        $.post(OC.filePath('news', 'ajax', 'setitemstatus.php'), data, function(jsonData){
+            if(jsonData.status == 'success'){
+                if(!self._$html.hasClass('read') && read){
+                    self._$html.addClass('read');
+                    self._read = true;
+                    // notify feedlist
+                } else if(self._$html.hasClass('read') && !read){
+                    self._$html.removeClass('read');
+                    self._read = false;
+                    // notify feedlist
+                }
+            } else {
+                OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
+            }
+            self.setLocked(false);
+        });
     };
+
 
     /**
      * Toggles the important state
@@ -490,50 +546,5 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
     };
 
 
-    /**
-     * Marks the item read
-     * @param read true marks it read, false unread
-     */
-    Item.prototype.setRead = function(read) {
-        var status;
-        var self = this;
-
-        // if we already have the status, do nothing
-        if(read === this._read){
-            this.setLocked(false);
-            return;
-        }
-        // check if the keep unread flag was set
-        if(read && this._keepUnread){
-            this.setLocked(false);
-            return; 
-        } 
-
-        if(read){
-            status = 'read';
-        } else {
-            status = 'unread';
-        }
-
-        var data = {
-            itemId: this._id,
-            status: status
-        };
-
-        $.post(OC.filePath('news', 'ajax', 'setitemstatus.php'), data, function(jsonData){
-            if(jsonData.status == 'success'){
-                if(!self._$html.hasClass('read') && read){
-                    self._$html.addClass('read');
-                    // notify feedlist
-                } else if(self._$html.hasClass('read') && !read){
-                    self._$html.removeClass('read');
-                    // notify feedlist
-                }
-            } else {
-                OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
-            }
-            self.setLocked(false);
-        });
-    };
 
 })();
