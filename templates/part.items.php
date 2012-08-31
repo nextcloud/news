@@ -39,7 +39,7 @@ foreach($items as $item) {
 	}
 
 	echo '<li class="feed_item ' . $newsItemClass .'" data-id="' . $item->getId() . '" data-feedid="' . $feedId . '">';
-
+		echo '<span class="timestamp">' . $item->getDate() . '</span>';
 		echo '<h2 class="item_date"><time class="timeago" datetime="' . 
 			date('c', $item->getDate()) . '">' . date('F j, Y, g:i a', $item->getDate()) .  '</time>' . '</h2>';
 

@@ -208,26 +208,21 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         this._feeds = {};
     };
 
-    /**
-     * Returns all the ids of feeds for a type sorted by id ascending
-     * @param type the type (MenuNodeType)
-     * @param id the id
-     * @return all the ids of feeds for a type sorted by id ascending
-     */
-    ItemCache.prototype._getSortedItemIds = function(type, id) {
-        var itemIds = new Array();
+
+    ItemCache.prototype._getItemIdTimestampPairs = function(type, id) {
+        var pairs = new Array();
         if(Object.keys(this._feeds).length === 0 || Object.keys(this._items).length === 0){
-            return itemIds;
+            return pairs;
         }
 
         switch(type){
 
             case MenuNodeType.Feed:
                 if(this._feeds[id] === undefined){
-                    return itemIds;
+                    return pairs;
                 }
                 $.each(this._feeds[id], function(key, value){
-                    itemIds.push(value.getId());
+                    pairs.push({key: value.getId(), value: value.getTimeStamp()});
                 });
                 break;
 
@@ -235,25 +230,45 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
                 // this is a bit of a hack and not that beautiful^^
                 var feedIds = News.Objects.Menu.getFeedIdsOfFolder(id);
                 for(var i=0; i<feedIds.length; i++){
-                    itemIds.concat(this._getSortedItemIds(MenuNodeType.Feed, feedIds[i]));
+                    pairs.concat(this._getItemIdTimestampPairs(MenuNodeType.Feed, feedIds[i]));
                 }
                 break;
 
             case MenuNodeType.Subscriptions:
                 $.each(this._items, function(key, value){
-                    itemIds.push(value.getId());
+                    pairs.push({key: value.getId(), value: value.getTimeStamp()});
                 });
                 break;
 
             case MenuNodeType.Starred:
                 $.each(this._items, function(key, value){
-                    if(value.isStarred()){
-                        itemIds.push(value.getId());
+                    if(value.isImportant()){
+                        pairs.push({key: value.getId(), value: value.getTimeStamp()});
                     }
                 });
                 break;
         }
-        return itemIds.sort();
+        return pairs;
+    };
+
+    /**
+     * Returns all the ids of feeds for a type sorted by timestamp ascending
+     * @param type the type (MenuNodeType)
+     * @param id the id
+     * @return all the ids of feeds for a type sorted by timestamp ascending
+     */
+    ItemCache.prototype._getSortedItemIds = function(type, id) {
+        var pairs = this._getItemIdTimestampPairs(type, id);
+        
+        var sorted = pairs.slice(0).sort(function(a, b) {
+           return a.value - b.value;
+        });
+
+        var itemIds = [];
+        for (var i = 0, len = sorted.length; i < len; ++i) {
+            itemIds[i] = sorted[i].key;
+        }
+        return itemIds;
     };
 
     /**
@@ -303,6 +318,10 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         this._keepUnread = false;
         this._read = this._$html.hasClass('read');
         this._locked = false;
+        this._important = this._$html.find('li.star').hasClass('important');
+        var $stamp = this._$html.find('.timestamp');
+        this._timestamp = parseInt($stamp.html());
+        $stamp.remove();
      }
 
     /**
@@ -339,11 +358,18 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
     };
 
     /**
-     * Returns true if an item is starred
+     * @return a unix timestamp when the articles was published
+     */
+    Item.prototype.getTimeStamp = function() {
+        return this._timestamp;
+    };
+
+    /**
+     * Returns true if an item is important
      * @return true if starred, otherwise false
      */
-    Item.prototype.isStarred = function() {
-        return this._starred;
+    Item.prototype.isImportant = function() {
+        return this._important;
     };
 
         /**
@@ -354,10 +380,18 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         return this._read;
     };
 
+    /**
+     * Locks the class for mark read request
+     * @param locked true will lock, false unlock
+     */
     Item.prototype.setLocked = function(locked) {
         this._locked = locked;
     };
 
+    /**
+     * Returns true if locked, otherwise false
+     * @return true if locked, otherwise false
+     */
     Item.prototype.isLocked = function() {
         return this._locked;
     };
@@ -405,6 +439,9 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         this._$html.find('time.timeago').timeago();
     };
 
+    /**
+     * Toggles the keep unread state
+     */
     Item.prototype._toggleKeepUnread = function() {
         var checkBox = this._$html.find('.keep_unread input[type=checkbox]');
 
@@ -418,6 +455,40 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         this._$html.toggleClass('keep_unread');
         this._keepUnread = !this._keepUnread;
     };
+
+    /**
+     * Toggles the important state
+     */
+    Item.prototype._toggleImportant = function() {
+        var status;
+        var self = this;
+        var $star = this._$html.find('li.star');
+
+        if(this._important){
+            status = 'unimportant';
+        } else {
+            status = 'important';
+        }
+
+        var data = {
+            itemId: this._id,
+            status: status
+        };
+
+        $.post(OC.filePath('news', 'ajax', 'setitemstatus.php'), data, function(jsondata){
+            if(jsondata.status == 'success'){
+                if(self._important){
+                    $star.removeClass('important');
+                } else {
+                    $star.addClass('important');
+                }
+                self._important = !self._important;
+            } else{
+                OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
+            }
+        });
+    };
+
 
     /**
      * Marks the item read
