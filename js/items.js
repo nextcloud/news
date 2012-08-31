@@ -31,10 +31,6 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         this._$articleList = $(cssSelector);
         this._$articleList.scrollTop(0);
         this._itemCache = new ItemCache();
-
-        // this array is used to store ids to prevent sending too
-        // many posts when scrolling. the structure is: feed_id: boolean
-        this._processing = {};
         
         // mark items whose title was hid under the top edge as read
         // when the bottom is reached, mark all items as read
@@ -65,12 +61,12 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         var boxHeight = this._$articleList.height();
         var scrollHeight = this._$articleList.prop('scrollHeight');
         var scrolled = this._$articleList.scrollTop() + boxHeight;
+        var item = this._itemCache.getItem(itemId);
         if(itemOffset < 0 || scrolled >= scrollHeight){
-            if(this._processing[itemId] === undefined || this._processing[itemId] === false){
-                // mark item as processing to prevent unecessary post requests  
-                this._processing[itemId] = true;
-                var handler = new News.ItemStatusHandler(itemId);
-                handler.setRead(true);  
+            if(!item.isLocked()){
+                // lock item to prevent massive request when scrolling
+                item.setLocked(true);
+                item.setRead(true);
             }
         } 
     };
@@ -115,6 +111,8 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
     Items.prototype.emptyItemCache = function() {
         this._itemCache.empty();
     };
+
+
 
     /**
      * Returns the most recent id of a feed from the cache
@@ -178,6 +176,14 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         this._items = {};
         this._feeds = {};
     }
+
+    /**
+     * Returns an item from the cache
+     */
+    ItemCache.prototype.getItem = function(itemId) {
+        itemId = parseInt(itemId);
+        return this._items[itemId];
+    };
 
     /**
      * Adds Html elements to the cache
@@ -294,6 +300,9 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         this._bindItemEventListeners();
         this._id = parseInt(this._$html.data('id'));
         this._feedId = parseInt(this._$html.data('feedid'));
+        this._keepUnread = false;
+        this._read = this._$html.hasClass('read');
+        this._locked = false;
      }
 
     /**
@@ -337,10 +346,24 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         return this._starred;
     };
 
-        // FIXME
+        /**
+     * Returns true if an item is starred
+     * @return true if starred, otherwise false
+     */
+    Item.prototype.isRead = function() {
+        return this._read;
+    };
+
+    Item.prototype.setLocked = function(locked) {
+        this._locked = locked;
+    };
+
+    Item.prototype.isLocked = function() {
+        return this._locked;
+    };
+
     /**
-     * Binds a listener on the feed item list to detect scrolling and mark previous
-     * items as read
+     * Binds listeners on the feed item
      */
     Item.prototype._bindItemEventListeners = function() {
         var self = this;
@@ -349,16 +372,14 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         this._$html.find('#h1.item_title a').click(function(){
             var $item = $(this).parent().parent('.feed_item');
             var itemId = $item.data('id');
-            var handler = new News.ItemStatusHandler(itemId);
-            handler.setRead(true);
+            self.setRead(true);
         });
 
         // single hover on item should mark it as read too
         this._$html.find('.body').click(function(){
             var $item = $(this).parent('.feed_item');
             var itemId = $item.data('id');
-            var handler = new News.ItemStatusHandler(itemId);
-            handler.setRead(true);
+            self.setRead(true);
         });
 
         // mark or unmark as important
@@ -372,120 +393,76 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         this._$html.find('.keep_unread').click(function(){
             var $item = $(this).parent().parent().parent('.feed_item');
             var itemId = $item.data('id');
-            var handler = new News.ItemStatusHandler(itemId);
-            handler.toggleKeepUnread();
+            self._toggleKeepUnread();
         });
 
         this._$html.find('.keep_unread input[type=checkbox]').click(function(){
             var $item = $(this).parent().parent().parent().parent('.feed_item');
             var itemId = $item.data('id');
-            var handler = new News.ItemStatusHandler(itemId);
-            handler.toggleKeepUnread();
+            self._toggleKeepUnread();
         });
 
         this._$html.find('time.timeago').timeago();
     };
 
-})();
+    Item.prototype._toggleKeepUnread = function() {
+        var checkBox = this._$html.find('.keep_unread input[type=checkbox]');
 
-
-
-
-// TODO: integrate This
-
-    /**
-     * This handler handles changes in the ui when the itemstatus changes
-     */
-    News.ItemStatusHandler = function(itemId){
-        var _itemId = parseInt(itemId);
-        
-        var _feedId = _$currentItem.data('feedid');
-        var _read = _$currentItem.hasClass('read');
-
-        /**
-         * Switches important items to unimportant and vice versa
-         */
-        var _toggleImportant = function(){
-
-        };
-
-        /**
-         * Checks the state of the keep read checkbox
-         * @return true if its checked, otherwise false
-         */
-        var _isKeptRead = function(){
-            var _$currentItemKeepUnread = _$currentItem.children('.bottom_utils').children('.secondary_item_utils').children('.keep_unread').children('input[type=checkbox]');
-            return _$currentItemKeepUnread.prop('checked');
+        if(this._keepUnread){
+            checkBox.prop("checked", false);
+        } else {
+            this.setRead(false);
+            checkBox.prop("checked", true);
         }
 
-        /**
-         * Toggles an item as "keep unread". This prevents all handlers to mark it as unread
-         * except the current one
-         */
-        var _toggleKeepUnread = function(){
-            var _$currentItemKeepUnread = _$currentItem.children('.bottom_utils').children('.secondary_item_utils').children('.keep_unread').children('input[type=checkbox]');
-            if(_isKeptRead()){
-                _$currentItemKeepUnread.prop("checked", false);
-            } else {
-                _$currentItemKeepUnread.prop("checked", true);
-                News.Feed.processing[_itemId] = true;
-                _setRead(false);
-            }
-        };
-
-        /**
-         * Sets the current item as read or unread
-         * @param read true sets the item to read, false to unread
-         */
-        var _setRead = function(read){
-            var status;
-
-            // if we already have the status, do nothing
-            if(read === _read){
-                News.Feed.processing[_itemId] = false;
-                return;
-            }
-            // check if the keep unread flag was set
-            if(read && _isKeptRead()){
-                News.Feed.processing[_itemId] = false;
-                return; 
-            } 
-
-            if(read){
-                status = 'read';
-            } else {
-                status = 'unread';
-            }
-
-            var data = {
-                itemId: _itemId,
-                status: status
-            };
-
-            $.post(OC.filePath('news', 'ajax', 'setitemstatus.php'), data, function(jsonData){
-                if(jsonData.status == 'success'){
-                    var feedHandler = new News.FeedStatusHandler(_feedId);
-                    if(!_$currentItem.hasClass('read') && read){
-                        _$currentItem.addClass('read');
-                        feedHandler.decrrementUnreadCount();
-                    } else if(_$currentItem.hasClass('read') && !read){
-                        _$currentItem.removeClass('read');
-                        feedHandler.incrementUnreadCount();
-                    }
-                } else {
-                    OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
-                }
-                News.Feed.processing[_itemId] = false;
-            })
-            
-        };
-
-        // set public methods
-        this.setRead = function(read){ _setRead(read); };
-        this.isRead = function(){ return _read; };
-        this.toggleImportant = function(){ _toggleImportant(); };
-        this.toggleKeepUnread = function(){ _toggleKeepUnread(); };
+        this._$html.toggleClass('keep_unread');
+        this._keepUnread = !this._keepUnread;
     };
 
+    /**
+     * Marks the item read
+     * @param read true marks it read, false unread
+     */
+    Item.prototype.setRead = function(read) {
+        var status;
+        var self = this;
 
+        // if we already have the status, do nothing
+        if(read === this._read){
+            this.setLocked(false);
+            return;
+        }
+        // check if the keep unread flag was set
+        if(read && this._keepUnread){
+            this.setLocked(false);
+            return; 
+        } 
 
+        if(read){
+            status = 'read';
+        } else {
+            status = 'unread';
+        }
+
+        var data = {
+            itemId: this._id,
+            status: status
+        };
+
+        $.post(OC.filePath('news', 'ajax', 'setitemstatus.php'), data, function(jsonData){
+            if(jsonData.status == 'success'){
+                if(!self._$html.hasClass('read') && read){
+                    self._$html.addClass('read');
+                    // notify feedlist
+                } else if(self._$html.hasClass('read') && !read){
+                    self._$html.removeClass('read');
+                    // notify feedlist
+                }
+            } else {
+                OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
+            }
+            self.setLocked(false);
+        });
+    };
+
+})();
