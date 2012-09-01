@@ -156,15 +156,6 @@ class FeedMapper {
 	 */
 	 //TODO: handle error case
 	public function save(Feed $feed, $folderid){
-		$CONFIG_DBTYPE = \OCP\Config::getSystemValue( "dbtype", "sqlite" );
-		if( $CONFIG_DBTYPE == 'sqlite' or $CONFIG_DBTYPE == 'sqlite3' ){
-			$_ut = "strftime('%s','now')";
-		} elseif($CONFIG_DBTYPE == 'pgsql') {
-			$_ut = 'date_part(\'epoch\',now())::integer';
-		} else {
-			$_ut = "UNIX_TIMESTAMP()";
-		}
-
 		$title = $feed->getTitle();
 		$url = $feed->getUrl();
 		$url_hash = md5($url);
@@ -182,7 +173,7 @@ class FeedMapper {
 			$query = \OCP\DB::prepare("
 				INSERT INTO " . self::tableName .
 				"(url, url_hash, title, favicon_link, folder_id, user_id, added, lastmodified)
-				VALUES (?, ?, ?, ?, ?, ?, $_ut, $_ut)
+				VALUES (?, ?, ?, ?, ?, ?, UNIX_TIMESTAMP(), UNIX_TIMESTAMP())
 				");
 
 			$params=array(
@@ -201,13 +192,12 @@ class FeedMapper {
 		//update the db. it needs to be done, since it might be the first save after a full fetch
 			$stmt = \OCP\DB::prepare('
 					UPDATE ' . self::tableName .
-					' SET favicon_link = ? , lastmodified = ? , folder_id = ?
+					' SET favicon_link = ? , lastmodified = UNIX_TIMESTAMP() , folder_id = ?
 					WHERE id = ?
 					');
 				
 			$params=array(
 				$favicon,
-				$_ut,
 				$folderid,
 				$feedid
 				);
