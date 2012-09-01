@@ -273,6 +273,14 @@ var News = News || {};
     };
 
     /**
+     * Returns the value of show all
+     * @return true if show all
+     */
+    Menu.prototype.isShowAll = function() {
+        return this._showAll;
+    };
+
+    /**
      * Shortcut for toggling show all
      */
     Menu.prototype.toggleShowAll = function(){
@@ -286,8 +294,9 @@ var News = News || {};
      */
     Menu.prototype.load = function(type, id){
         var self = this;
-        this._items.load(type, id, function(){
-            self._setActiveFeed(type, id);
+        self._setActiveFeed(type, id);
+
+        this._items.load(type, id, function(){    
             self.triggerHideRead();
         });
     };
@@ -373,9 +382,11 @@ var News = News || {};
         
         // set timeout to avoid racecondition error
         var self = this;
-        setTimeout(function(){
+
+        // this is very annoying on start, do we need it?
+        /*setTimeout(function(){
             self._updateUnreadCountAll();
-        }, 1000);
+        }, 1000);*/
         
         this.triggerHideRead();
     };
@@ -608,14 +619,16 @@ var News = News || {};
                     mostRecentItemId: this._items.getMostRecentItemId(type, id)
                 };
 
+                self._items.markAllRead(type, id);
+
                 $.post(OC.filePath('news', 'ajax', 'setallitemsread.php'), data, function(jsonData) {
                     if(jsonData.status == 'success'){
-                        self._items.markAllRead(type, id);
                         self._updateUnreadCountAll();
                     } else {
                         OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
                     }
                 });
+                
                 break;
         }
     };

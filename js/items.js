@@ -114,10 +114,11 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
 
     /**
      * Marks all items of a feed as read
-     * @param feedId the id of the feed which should be marked as read
+     * @param type the type (MenuNodeType)
+     * @param id the id
      */
-    Items.prototype.markAllRead = function(feedId) {
-        this._itemCache.markAllRead(feedId);
+    Items.prototype.markAllRead = function(type, id) {
+        this._itemCache.markAllRead(type, id);
     };
 
     /**
@@ -140,34 +141,6 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         return this._$articleList.find('.feed_item[data-id="' + id + '"]');
     };
 
-
-    Items.prototype._toggleImportant = function(itemId) {
-        var $currentItem = $()
-        var $currentItemStar = $currentItem.children('.utils').children('.primary_item_utils').children('.star');
-        var important = $currentItemStar.hasClass('important');
-        if(_important){
-            status = 'unimportant';
-        } else {
-            status = 'important';
-        }
-
-        var data = {
-            itemId: _itemId,
-            status: status
-        };
-
-        $.post(OC.filePath('news', 'ajax', 'setitemstatus.php'), data, function(jsondata){
-            if(jsondata.status == 'success'){
-                if(_important){
-                    _$currentItemStar.removeClass('important'); 
-                } else {
-                    _$currentItemStar.addClass('important');
-                }
-            } else{
-                OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
-            }
-        });
-    };
 
     News.Items = Items;
 
@@ -194,13 +167,14 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
 
     /**
      * Marks all items of a feed as read
-     * @param feedId the id of the feed which should be marked as read
+     * @param type the type (MenuNodeType)
+     * @param id the id
      */
-    ItemCache.prototype.markAllRead = function(feedId) {
-        if(this._feeds[feedId] !== undefined){
-            $.each(this._feeds[feedId], function(key, value){
-                value.addReadClass();
-            });
+    ItemCache.prototype.markAllRead = function(type, id) {
+        var ids = this._getItemIdTimestampPairs(type, id);
+        for(var i=0; i<ids.length; i++){
+            var id = ids[i].key;
+            this._items[id].setReadLocally();
         }
     };
 
@@ -316,7 +290,10 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         itemIds.reverse(); // reverse for showing newest item first
         var $html = $('<ul>');
         for(var i=0; i<itemIds.length; i++){
-            $html.append(this._items[itemIds[i]].getHtml());
+            var item = this._items[itemIds[i]];
+            if(News.Objects.Menu.isShowAll() || !item.isRead()){
+                $html.append(item.getHtml());
+            }
         }
         return $html;
     };
@@ -490,6 +467,14 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
 
 
     /**
+     * Marks the item as read only locally without telling the server
+     */
+    Item.prototype.setReadLocally = function() {
+        this._read = true;
+        this._$html.addClass('read');
+    };
+
+    /**
      * Marks the item read
      * @param read true marks it read, false unread
      */
@@ -510,8 +495,10 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
 
         if(read){
             status = 'read';
+            self._$html.addClass('read');
         } else {
             status = 'unread';
+            self._$html.removeClass('read');
         }
 
         var data = {
@@ -521,16 +508,22 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
 
         $.post(OC.filePath('news', 'ajax', 'setitemstatus.php'), data, function(jsonData){
             if(jsonData.status == 'success'){
-                if(!self._$html.hasClass('read') && read){
+                if(read){
                     self._$html.addClass('read');
                     self._read = true;
                     News.Objects.Menu.decrementUnreadCount(News.MenuNodeType.Feed, self._feedId);
-                } else if(self._$html.hasClass('read') && !read){
+                } else {
                     self._$html.removeClass('read');
                     self._read = false;
                     News.Objects.Menu.incrementUnreadCount(News.MenuNodeType.Feed, self._feedId);
                 }
             } else {
+                // roll back on error
+                if(read){
+                    self._$html.removeClass('read');
+                } else {
+                    self._$html.addClass('read');
+                }
                 OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
             }
             self.setLocked(false);
@@ -543,13 +536,16 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
      */
     Item.prototype._toggleImportant = function() {
         var status;
+        var important = !this._important; // remember, we toggle important
         var self = this;
         var $star = this._$html.find('li.star');
 
-        if(this._important){
-            status = 'unimportant';
-        } else {
+        if(important){
             status = 'important';
+            $star.addClass('important');
+        } else {
+            status = 'unimportant';
+            $star.removeClass('important');
         }
 
         var data = {
@@ -559,15 +555,21 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
 
         $.post(OC.filePath('news', 'ajax', 'setitemstatus.php'), data, function(jsondata){
             if(jsondata.status == 'success'){
-                if(self._important){
-                    $star.removeClass('important');
-                    News.Objects.Menu.decrementUnreadCount(News.MenuNodeType.Starred, self._feedId);
-                } else {
+               if(important){
                     $star.addClass('important');
                     News.Objects.Menu.incrementUnreadCount(News.MenuNodeType.Starred, self._feedId);
+                } else {
+                    $star.removeClass('important');
+                    News.Objects.Menu.decrementUnreadCount(News.MenuNodeType.Starred, self._feedId);
                 }
                 self._important = !self._important;
             } else{
+                // rollback on error
+                if(important){
+                    $star.addClass('important');
+                } else {
+                    $star.removeClass('important');
+                }
                 OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
             }
         });
