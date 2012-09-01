@@ -875,6 +875,12 @@ var News = News || {};
 
                 var feedId = parseInt($dragged.data('id'));
                 var folderId = parseInt($dropped.data('id'));
+                var fromFolderId = parseInt($dragged.parent().data('id'));
+
+                // ignore when dragged to the same folder
+                if(folderId === fromFolderId){
+                    return;
+                }
 
                 if($dropped.hasClass(self._menuNodeTypeToClass(MenuNodeType.Folder))){
                     $dropped.children('ul').append($dragged[0]);

@@ -101,10 +101,14 @@ div.add_parentfolder {
 
     }
     .dnd_over > ul {
+        -moz-transition: padding-bottom 500ms ease 0s;
+        transition: padding-bottom 500ms ease 0s;
         padding-bottom: 2.5em! important;
 
     }
     #feeds > ul ul.dnd_over {
+        -moz-transition: padding-bottom 500ms ease 0s;
+        transition: padding-bottom 500ms ease 0s;
         padding-bottom: 2.5em !important;
     }    
 
