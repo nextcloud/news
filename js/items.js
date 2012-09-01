@@ -430,7 +430,7 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         var self = this;
 
         // single hover on item should mark it as read too
-        this._$html.find('#h1.item_title a').click(function(){
+        this._$html.find('.item_title a').click(function(){
             var $item = $(this).parent().parent('.feed_item');
             var itemId = $item.data('id');
             self.setRead(true);
