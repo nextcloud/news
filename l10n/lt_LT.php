@@ -1,9 +1,9 @@
 <?php $TRANSLATIONS = array(
 "News" => "Naujienos",
 "Error" => "Klaida",
+"Warning" => "Įspėjimas",
 "Adding..." => "PRodedama...",
 "Add folder" => "Pridėti katalogą",
-"Warning" => "Įspėjimas",
 "File " => "Failas",
 "Importing..." => "Importuojama...",
 "Downloading..." => "Atsiunčiama...",
@@ -14,8 +14,8 @@
 "Add" => "Pridėti",
 "Add Folder" => "Pridėti katalogą",
 "Folder name" => "Katalogo pavadinimas",
-"Rename folder" => "Pervadinti katalogą",
 "Delete folder" => "Ištrinti katalogą",
+"Rename folder" => "Pervadinti katalogą",
 "Subscribe" => "Prenumeruoti",
 "Import OPML" => "Importuoti OPML",
 "Download OPML" => "Atsisiųsti OPML"
