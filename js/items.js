@@ -80,9 +80,9 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
     Items.prototype.load = function(type, id, onSuccessCallback) {
         var self = this;
         var data = {
-            feedId: id,
-            feedType: type,
-            getMostRecentItemId: this._itemCache.getMostRecentItemId(type, id)
+            id: id,
+            type: type,
+            mostRecentItemId: this._itemCache.getMostRecentItemId(type, id)
         };
 
         this._$articleList.addClass('loading');
