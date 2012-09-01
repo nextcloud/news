@@ -98,7 +98,7 @@ News = {
 			if($('#firstrun').length == 0){
 				folderid = $('#inputfolderid:input[name="folderid"]').val();
 			}
-
+			console.log(folderid);
 			$.ajax({
 				type: "POST",
 				url: OC.filePath('news', 'ajax', 'createfeed.php'),

@@ -25,8 +25,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8"
-     inkscape:cx="116.4202"
-     inkscape:cy="165.53453"
+     inkscape:cx="52.491629"
+     inkscape:cy="122.67739"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -71,8 +71,8 @@
        inkscape:rounded="0"
        inkscape:randomized="0"
        d="m 330.35715,858.43365 43.11057,108.05601 117.64292,9.25721 -89.44547,74.39173 27.54954,114.7457 -98.39092,-62.0794 -100.61637,61.6596 28.63654,-112.759 -89.73387,-76.63797 116.08927,-7.60945 z"
-       inkscape:transform-center-x="-0.11036321"
        inkscape:transform-center-y="-16.060386"
-       transform="translate(-21.071429,-112.5)" />
+       transform="translate(-21.071429,-112.5)"
+       inkscape:transform-center-x="-0.11036321" />
   </g>
 </svg>

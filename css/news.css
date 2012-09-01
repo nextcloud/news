@@ -87,6 +87,10 @@ div.add_parentfolder {
     overflow: auto;
 }
 
+    #feeds .unread_items_counter {
+        display: none;
+    }
+
     #feeds > ul {
         height: 100%;
         overflow-x: hidden;

@@ -10,6 +10,7 @@
 			</button>
 			<input id="inputfolderid" type="hidden" name="folderid" value="0" />
 			<ul class="menu" id="dropdownmenu">
+				<li style="margin-left: 0;" class="menuItem" onclick="News.DropDownMenu.selectItem(this, 0)"><b><?php echo $l->t('None'); ?></b></li>
 				<?php echo $this->inc("part.folderlist"); ?>
 			</ul>
 		</div>
