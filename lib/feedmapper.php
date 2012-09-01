@@ -201,13 +201,14 @@ class FeedMapper {
 		//update the db. it needs to be done, since it might be the first save after a full fetch
 			$stmt = \OCP\DB::prepare('
 					UPDATE ' . self::tableName .
-					' SET favicon_link = ? , lastmodified = ? 
+					' SET favicon_link = ? , lastmodified = ? , folder_id = ?
 					WHERE id = ?
 					');
 				
 			$params=array(
 				$favicon,
 				$_ut,
+				$folderid,
 				$feedid
 				);
 			$stmt->execute($params);		

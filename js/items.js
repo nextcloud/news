@@ -90,7 +90,7 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
 
         $.post(OC.filePath('news', 'ajax', 'loadfeed.php'), data, function(jsonData) {
             if(jsonData.status == 'success'){
-                self._$articleList.empty()
+                self._$articleList.empty() // FIXME: does this also removed cached items?
                 self._itemCache.populate(jsonData.data.feedItems);
 
                 var $items = self._itemCache.getFeedHtml(type, id);

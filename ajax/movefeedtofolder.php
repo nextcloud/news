@@ -15,17 +15,20 @@ OCP\JSON::checkLoggedIn();
 OCP\JSON::checkAppEnabled('news');
 OCP\JSON::callCheck();
 
-$folderId = $_POST['folderId'];
+$folderId = (int)$_POST['folderId'];
 $feedId = $_POST['feedId'];
 
 
 $feedMapper = new OCA\News\FeedMapper();
 $feed = $feedMapper->findById($feedId);
 
-// FIXME: check if we're allowed to perform this action
-//$feed->setFolder($folderId);
-//$success = $feedMapper->update($feed);
-$success = true;
+if($folderId === 0){
+    $success = $feedMapper->save($feed, $folderId);
+} else {
+    $folderMapper = new OCA\News\FolderMapper();
+    $folder = $folderMapper->find($folderId);
+    $success = $feedMapper->save($feed, $folder->getId());
+}
 
 $l = OC_L10N::get('news');
 
