@@ -649,6 +649,10 @@ div.dialog {
     overflow: visible; 
 }
 
+.ui-dialog tbody tr:hover, .ui-dialog tr:active {
+    background: none !important;
+}
+
 .dropdownBtn { 
     width: 12.5em; 
     padding-left: 0; 
