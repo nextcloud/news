@@ -50,6 +50,36 @@ News = {
 					$(button).prop('value', t('news','Add folder'));
 			});
 		},
+		changeName:function(button){
+			var folderName = $("#changefolder_dialog input[type=text]").val().trim();
+			var folderId = parseInt($('#changefolder_dialog input[type=hidden]').val().trim());
+
+			if(folderName.length == 0) {
+				OC.dialogs.alert(t('news', 'Name of the folder cannot be empty.'), t('news', 'Error'));
+				return false;
+			}
+
+			$(button).attr("disabled", true);
+			$(button).prop('value', t('news', 'Changing...'));
+
+			var	url = OC.filePath('news', 'ajax', 'changefoldername.php');
+			var data = { 
+				folderName: folderName, 
+				folderId: folderId 
+			};
+
+			$.post(url, data, function(jsonData){
+				if(jsonData.status == 'success'){
+					folderName = $('<div>').text(folderName).html();
+					News.Objects.Menu.updateNode(News.MenuNodeType.Folder, folderId, {title: folderName});
+					$('#changefolder_dialog').dialog('close');
+				} else {
+					OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
+				}
+				$(button).attr("disabled", false);
+				$(button).prop('value', t('news','Change folder name'));
+			});
+		}
 	},
 	Feed: {
 		id:'',

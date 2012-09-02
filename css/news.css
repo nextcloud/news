@@ -645,8 +645,8 @@ div.add_parentfolder {
                 }
 
 /* dialog/menues */
-div.dialog { 
-    overflow: visible; 
+#addfolder_dialog, #addfeed_dialog, #changefolder_dialog {
+    display: none;
 }
 
 .ui-dialog tbody tr:hover, .ui-dialog tr:active {

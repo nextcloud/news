@@ -77,11 +77,15 @@ $(document).ready(function(){
         }
     });
 
-    $('#addfolder_dialog,#addfeed_dialog').dialog({
+    $('#addfolder_dialog,#addfeed_dialog,#changefolder_dialog').dialog({
         dialogClass:'dialog',
         minWidth: 600,
         autoOpen: false
-    }).css('overflow','visible');
+    });
+
+    $('#changefolder_dialog input[type=submit]').click(function(){
+        News.Folder.changeName(this);
+    });    
 
     $('#folder_add_submit').click(function(){
         News.Folder.submit(this);

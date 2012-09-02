@@ -61,40 +61,7 @@ if($showAll){
 	} else {
 		echo $this->inc("part.nofeeds");
 	}
+
+	echo $this->inc("part.dialogues");
 ?>
 
-<div id="addfolder_dialog" title="<?php echo $l->t("Add Folder"); ?>">
-	<table width="100%" style="border: 0;">
-	<tr>
-		<td>Add new folder</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td><input type="text" id="folder_add_name" placeholder="<?php echo $l->t('Folder name'); ?>" class="news_input" /></td>
-		<td><input type="submit" value="<?php echo $l->t('Add folder'); ?>" id="folder_add_submit" /></td>
-	</tr>
-	</table>
-</div>
-
-
-<div id="addfeed_dialog" title="<?php echo $l->t("Add Subscription"); ?>">
-	<table width="100%" style="border: 0;">
-	<tr>
-		<td>Add new feed</td>
-		<td>
-			<div class="add_parentfolder">
-				<button class="dropdownBtn">
-				    <?php echo $l->t('Choose folder'); ?>
-				</button>
-				<input class="inputfolderid" type="hidden" name="folderid" value="0" />
-				<ul class="menu dropdownmenu">
-				</ul>
-			</div>
-		</td>
-	</tr>
-	<tr>
-		<td><input type="text" id="feed_add_url" placeholder="<?php echo $l->t('Address'); ?>" class="news_input" /></td>
-		<td><input type="submit" value="<?php echo $l->t('Add'); ?>" id="feed_add_submit" /></td>
-	</tr>
-	</table>
-</div>

@@ -546,7 +546,12 @@ var News = News || {};
      * @param id the id
      */
     Menu.prototype._edit = function(type, id){
-        // TODO:
+        var $node = this._getNodeFromTypeAndId(type, id);
+        var name = $node.children('.title').html();
+        var id = $node.data('id');
+        $('#changefolder_dialog').find('input[type=text]').val(name);
+        $('#changefolder_dialog').find('input[type=hidden]').val(id);
+        $('#changefolder_dialog').dialog('open');
     };
 
     /**

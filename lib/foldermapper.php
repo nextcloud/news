@@ -128,6 +128,20 @@ class FolderMapper {
 		return $folderid;
 	}
 
+
+	/**
+	 * @brief Updates the folder
+	 * @param folder the folder to be updated
+	 */
+	public function update(Folder $folder){
+		$query = \OCP\DB::prepare('UPDATE ' . self::tableName 
+			. ' SET name = ? ' . ' WHERE id = ?');
+
+		$params = array(htmlspecialchars_decode($folder->getName()), $folder->getId());
+		$query->execute($params);
+		return true;
+	}
+
 	/**
 	 * @brief Delete the folder and all its feeds from the database
 	 * @param folder the folder to be deleted (an instance of OCA\News\Folder)
