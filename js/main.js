@@ -103,12 +103,10 @@ $(document).ready(function(){
         var data = {};
         var showAll;
         if($(this).hasClass('show_all')){
-            data.show = 'unread';
-            showAll = false;
+            data.showAll = false;
             $(this).addClass('show_unread').removeClass('show_all');
         } else {
-            data.show  = 'all';
-            showAll = true;
+            data.showAll = true;
             $(this).addClass('show_all').removeClass('show_unread');
         }
         
@@ -116,7 +114,7 @@ $(document).ready(function(){
         
         $.post(OC.filePath('news', 'ajax', 'usersettings.php'), data, function(jsondata){
             if(jsondata.status == 'success'){
-                News.Objects.Menu.setShowAll(showAll);
+                News.Objects.Menu.setShowAll(data.showAll);
             } else {
                 OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
             }

@@ -15,16 +15,8 @@ OCP\JSON::checkLoggedIn();
 OCP\JSON::checkAppEnabled('news');
 OCP\JSON::callCheck();
 
-switch($_POST['show']){
-    case 'all':
-        $showAll = true;
-        break;
-    default:
-        $showAll = false;
-        break;
+if(isset($_POST['showAll'])){
+    OCP\Config::setUserValue(OCP\USER::getUser(), 'news', 'showAll', $_POST['showAll']);     
 }
-
-// TODO: receive and save user settings
-OCP\Config::setUserValue(OCP\USER::getUser(), 'news', 'showAll', $showAll); 
 
 OCP\JSON::success();
