@@ -210,7 +210,7 @@ div.add_parentfolder {
             }
 
         #feeds .starred a.title {
-            background-image: url('%appswebroot%/news/img/starred.svg'); 
+            background-image: url('%appswebroot%/news/img/starred.png'); 
         }
 
         #feeds .subscriptions a.title {
