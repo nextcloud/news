@@ -127,7 +127,7 @@ $(document).ready(function(){
         $('#feedfoldermenu').hide();
     });
 
-    $(document).keydown(function(e) {
+    $(document).keyup(function(e) {
         if ((e.keyCode || e.which) == 74 || (e.keyCode || e.which) == 39) { // 'j' key shortcut
             if(!$('.dialog').is(':visible')){
                 News.Objects.Items.jumpToNext();
