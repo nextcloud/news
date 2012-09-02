@@ -129,9 +129,17 @@ $(document).ready(function(){
 
     $(document).keydown(function(e) {
         if ((e.keyCode || e.which) == 74) { // 'j' key shortcut
-
+            if(!$('.dialog').is(':visible')){
+                News.Objects.Items.jumpToNext();
+            }
+        }
+        if ((e.keyCode || e.which) == 75) { // 'k' key shortcut
+            if(!$('.dialog').is(':visible')){
+                News.Objects.Items.jumpToPrevious();
+            }
         }
     });
+
 
 });
 

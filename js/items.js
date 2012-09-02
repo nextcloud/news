@@ -106,6 +106,56 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
     };
 
     /**
+     * Jumps to the next visible element
+     */
+    Items.prototype.jumpToNext = function() {
+        var self = this;
+        var notJumped = true;
+        $('.feed_item').each(function(){
+            if(notJumped && $(this).position().top > 1){
+                console.log(this);
+                self._jumpToElemenId($(this).data('id'));
+                notJumped = false;
+            }
+        });
+    };
+
+    /**
+     * Jumps to the previous visible element
+     */
+    Items.prototype.jumpToPrevious = function() {
+        var self = this;
+        var notJumped = true;
+        $('.feed_item').each(function(){
+            if(notJumped && $(this).position().top >= 0){
+                var previous = $(this).prev();
+                if(previous.length > 0){
+                    self._jumpToElemenId(previous.data('id'));
+                }
+                notJumped = false;
+            }
+        });
+    };
+
+    /**
+     * Jump to the next element in the list
+     * @param $elem the jquery elem to which we want to jump
+     */
+    Items.prototype._getNextJump = function($elem){
+        return $elem.position().top > 1;
+    }
+
+    /**
+     * Jumps to an element in the article list
+     * @param number the number of the item starting with 0
+     */
+    Items.prototype._jumpToElemenId = function(id) {
+        this._$articleList.scrollTop(
+            $('.feed_item[data-id=' + id + ']').offset().top - 
+                this._$articleList.offset().top + this._$articleList.scrollTop());
+    };
+
+    /**
      * Empties the item cache
      */
     Items.prototype.emptyItemCache = function() {

@@ -1,4 +1,4 @@
-<div id="addfolder_dialog" title="<?php echo $l->t('Add Folder'); ?>">
+<div id="addfolder_dialog" title="<?php echo $l->t('Add Folder'); ?>" class="dialog">
     <table>
     <tr>
         <td><?php echo $l->t('Add new folder'); ?></td>
@@ -11,7 +11,7 @@
     </table>
 </div>
 
-<div id="addfeed_dialog" title="<?php echo $l->t('Add Subscription'); ?>">
+<div id="addfeed_dialog" title="<?php echo $l->t('Add Subscription'); ?>" class="dialog">
     <table>
     <tr>
         <td><?php echo $l->t('Add new feed'); ?></td>
@@ -31,7 +31,7 @@
     </table>
 </div>
 
-<div id="changefolder_dialog" title="<?php echo $l->t('Change folder name'); ?>">
+<div id="changefolder_dialog" title="<?php echo $l->t('Change folder name'); ?>" class="dialog">
     <input class="inputfolderid" type="hidden" name="folderid" value="" />
     <table>
     <tr>
