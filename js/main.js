@@ -100,11 +100,11 @@ $(document).ready(function(){
         var showAll;
         if($(this).hasClass('show_all')){
             data.show = 'unread';
-            showAll = true;
+            showAll = false;
             $(this).addClass('show_unread').removeClass('show_all');
         } else {
             data.show  = 'all';
-            showAll = false;
+            showAll = true;
             $(this).addClass('show_all').removeClass('show_unread');
         }
         News.Objects.Menu.setShowAll(showAll);
