@@ -113,7 +113,6 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         var notJumped = true;
         $('.feed_item').each(function(){
             if(notJumped && $(this).position().top > 1){
-                console.log(this);
                 self._jumpToElemenId($(this).data('id'));
                 notJumped = false;
             }
