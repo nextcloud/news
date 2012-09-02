@@ -97,23 +97,21 @@ $(document).ready(function(){
 
     $('#view').click(function(){
         var data = {};
+        var showAll;
         if($(this).hasClass('show_all')){
             data.show = 'unread';
+            showAll = true;
             $(this).addClass('show_unread').removeClass('show_all');
         } else {
             data.show  = 'all';
+            showAll = false;
             $(this).addClass('show_all').removeClass('show_unread');
         }
+        News.Objects.Menu.setShowAll(showAll);
 
         $.post(OC.filePath('news', 'ajax', 'usersettings.php'), data, function(jsondata){
             if(jsondata.status == 'success'){
-                var showAll;
-                if(data.show === 'all'){
-                    showAll = true;
-                } else {
-                    showAll = false;
-                }
-                News.Objects.Menu.setShowAll(showAll);
+
             } else {
                 OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
             }

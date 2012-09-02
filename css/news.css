@@ -317,16 +317,16 @@ div.add_parentfolder {
     #feed_settings #view button {
         padding-top: .2em;
         background-size: 80%;
-        background-position: center;
+        background-position: center center;
         background-repeat: no-repeat;
     }
 
     #feed_settings #view.show_all button {
-        background-image: url('%appswebroot%/news/img/eye_all.svg'); 
+        background-image: url('%appswebroot%/news/img/eye_all.png'); 
     }
 
     #feed_settings #view.show_unread button {
-        background-image: url('%appswebroot%/news/img/eye_unread.svg'); 
+        background-image: url('%appswebroot%/news/img/eye_unread.png'); 
     }
 
     #feed_settings #addfeedfolder {
