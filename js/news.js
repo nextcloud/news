@@ -5,7 +5,7 @@ News = {
 			return false;
 		},
 		dropdown:function(button){
-			var list = $(button).parent().find('ul#dropdownmenu');
+			var list = $(button).parent().find('ul.dropdownmenu');
 			if (list.css('display') == 'none')
 				list.slideDown('fast').show();
 			else
@@ -15,31 +15,9 @@ News = {
 		},
 		selectItem:function(item, folderid){
 			var parent = $(item).parent().parent();
-			parent.find('#dropdownBtn').text($(item).text());
+			parent.find('.dropdownBtn').text($(item).text());
 			parent.find(':input[name="folderid"]').val(folderid);
-			parent.find('ul#dropdownmenu').slideUp('fast');
-		}
-	},
-	UI: {
-		overview:function(dialogtype, dialogfile){
-		    if($(dialogtype).dialog('isOpen') == true){
-				$(dialogtype).dialog('moveToTop');
-			}else{
-				$('#dialog_holder').load(OC.filePath('news', 'ajax', dialogfile), function(jsondata){
-					if(jsondata.status != 'error'){
-						$(dialogtype).dialog({
-							dialogClass:'dialog',
-							minWidth: 600,
-							close: function(event, ui) {
-								$(this).dialog('destroy').remove();
-							}
-						}).css('overflow','visible');
-					} else {
-						alert(jsondata.data.message);
-					}
-				});
-			}
-			return false;
+			parent.find('ul.dropdownmenu').slideUp('fast');
 		}
 	},
 	Folder: {
@@ -54,7 +32,7 @@ News = {
 			$(button).attr("disabled", true);
 			$(button).prop('value', t('news', 'Adding...'));
 
-			var folderid = $('#inputfolderid:input[name="folderid"]').val();
+			var folderid = 0;
 
 			var url;
 			url = OC.filePath('news', 'ajax', 'createfolder.php');
@@ -70,7 +48,7 @@ News = {
 							title: title
 						};
 						News.Objects.Menu.addNode(0, News.MenuNodeType.Folder, id, data);
-						$('#addfolder_dialog').dialog('destroy').remove();
+						$('#addfolder_dialog').dialog('close');
 					} else {
 						OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
 					}
@@ -96,9 +74,9 @@ News = {
 			
 			var folderid = 0;
 			if($('#firstrun').length == 0){
-				folderid = $('#inputfolderid:input[name="folderid"]').val();
+				folderid = $('#addfeed_dialog .inputfolderid').val();
 			}
-			console.log(folderid);
+
 			$.ajax({
 				type: "POST",
 				url: OC.filePath('news', 'ajax', 'createfeed.php'),
@@ -113,7 +91,6 @@ News = {
 							var $feed = $(jsondata.data.listfeed);
 							var title = $feed.children('.title').html();
 							var icon = $feed.children('.title').css('background-image').replace(/"/g,"").replace(/url\(|\)$/ig, "");;
-							console.log(icon);
 							var unreadCount = $feed.children('.unread_items_count').html();
 							var id = $feed.data('id');
 							var data = { 
@@ -124,7 +101,7 @@ News = {
 							News.Objects.Menu.addNode(folderid, News.MenuNodeType.Feed, id, data);
 							News.Objects.Menu.load(News.MenuNodeType.Feed, jsondata.data.feedid);
 
-							$('#addfeed_dialog').dialog('destroy').remove();
+							$('#addfeed_dialog').dialog('close');
 						} else {
 							OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
 						}

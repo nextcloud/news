@@ -29,16 +29,39 @@ $(document).ready(function(){
     /* first run script ends */
 
     $('#addfeed').click(function() {
-        News.UI.overview('#addfeed_dialog','feeddialog.php');
-    });
-    
-    $('#addfeedbtn').click(function() {
-        $(this).hide();
-        $('#addfeed_dialog_firstrun').show();
+        $('#addfeed_dialog').dialog('open');
+        $('#feed_add_url').html('');
+
+        // populate folderlist
+        $('#addfeed_dialog .menu').empty();
+        
+        // http://9gag.com/trending
+
+        var $rootFolder = $('<li>').addClass('menuItem').html($('<b>').html(t('News', 'None')));
+        $rootFolder.click(function(){
+            News.DropDownMenu.selectItem(this, 0);
+        });
+        $('#addfeed_dialog .menu').append($rootFolder);        
+
+        $('#feeds .folder').each(function(){
+            var title = $(this).children('.title').html();
+            var id = parseInt($(this).data('id'));
+            var $folder = $('<li>').addClass('menuItem').html(title);
+            $folder.click(function(){
+                News.DropDownMenu.selectItem(this, id);
+            });
+            $('#addfeed_dialog .menu').append($folder);
+        });
     });
     
     $('#addfolder').click(function() {
-        News.UI.overview('#addfolder_dialog','folderdialog.php');
+        $('#addfolder_dialog').dialog('open');
+        $('#folder_add_name').val('');
+    });
+
+    $('#addfeedbtn').click(function() {
+        $(this).hide();
+        $('#addfeed_dialog_firstrun').show();
     });
 
     $('#addfeedfolder').click(function(event) {
@@ -52,6 +75,24 @@ $(document).ready(function(){
         } catch(e) {
             alert(e);
         }
+    });
+
+    $('#addfolder_dialog,#addfeed_dialog').dialog({
+        dialogClass:'dialog',
+        minWidth: 600,
+        autoOpen: false
+    }).css('overflow','visible');
+
+    $('#folder_add_submit').click(function(){
+        News.Folder.submit(this);
+    });
+
+    $('.dropdownBtn').click(function(){
+        News.DropDownMenu.dropdown(this);
+    });
+
+    $('#feed_add_submit').click(function(){
+        News.Feed.submit(this);
     });
 
     $('#view').click(function(){

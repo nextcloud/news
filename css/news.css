@@ -77,7 +77,7 @@ div.add_parentfolder {
     position: relative;
     top: 0;
     height: 100%;
-    padding-bottom: 2.8em;
+    padding-bottom: 3em;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
 }
@@ -515,6 +515,10 @@ div.add_parentfolder {
                 margin-left: 3em;
             }
 
+            .timestamp {
+                display: none;
+            }
+
             /**
              * Feed timestamp
              */
@@ -645,7 +649,7 @@ div.dialog {
     overflow: visible; 
 }
 
-#dropdownBtn { 
+.dropdownBtn { 
     width: 12.5em; 
     padding-left: 0; 
     padding-right:20px; 
@@ -654,7 +658,7 @@ div.dialog {
     overflow: hidden;
 }
 
-ul#dropdownmenu { 
+ul.dropdownmenu { 
     left: 0em; 
 }
 
