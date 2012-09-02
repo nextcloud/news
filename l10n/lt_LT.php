@@ -1,7 +1,6 @@
 <?php $TRANSLATIONS = array(
 "News" => "Naujienos",
 "Error" => "Klaida",
-"Warning" => "Įspėjimas",
 "Adding..." => "PRodedama...",
 "Add folder" => "Pridėti katalogą",
 "File " => "Failas",
