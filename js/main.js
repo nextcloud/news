@@ -107,11 +107,12 @@ $(document).ready(function(){
             showAll = true;
             $(this).addClass('show_all').removeClass('show_unread');
         }
-        News.Objects.Menu.setShowAll(showAll);
-
+        
+        News.Objects.Menu.triggerHideRead();
+        
         $.post(OC.filePath('news', 'ajax', 'usersettings.php'), data, function(jsondata){
             if(jsondata.status == 'success'){
-
+                News.Objects.Menu.setShowAll(showAll);
             } else {
                 OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
             }
