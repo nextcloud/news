@@ -46,7 +46,7 @@ if($showAll){
 	</div>
 </div>
 
-<div id="rightcontent" class="rightcontent" data-id="<?php echo $_['feedid']; ?>">
+<div id="rightcontent" class="rightcontent">
 	<?php
 			echo '<div id="feed_items">';
 				echo $this->inc("part.items");

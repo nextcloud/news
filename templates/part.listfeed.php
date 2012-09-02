@@ -18,9 +18,7 @@ if(isset($_['mock'])){
     }
 }
 
-$mockClass = isset($_['mock']) ? 'mock' : '';
-
-echo '<li class="feed ' . $mockClass . '" data-id="' . $feedId . '">';
+echo '<li class="feed" data-id="' . $feedId . '">';
     echo '<a style="background-image: url(' . $favicon . ');" href="#" class="title">' . $feedTitle .'</a>';
 	echo '<span class="unread_items_counter">' . $unreadItemsCount . '</span>';
     echo '<span class="buttons">';

@@ -46,14 +46,8 @@ Deleting nodes:
 Creating nodes:
     
     var parentId = 0;
-    var nodeType = News.MenuNodeType.Feed;
-    var nodeId = 6;
-    var nodeData = {
-        title: 'hi',
-        icon: 'some/icon.png',
-        unreadCount: 3
-    };
-    menu.addNode(parentId, nodeType, nodeId, nodeData);
+    var html = '<nodehtml>';
+    menu.addNode(parentId, html);
 
 
 If you want to show all feeds, also feeds which contain only read items, use
@@ -142,17 +136,16 @@ var News = News || {};
     /**
      * Adds a node to the menu. A node can only be added to a folder or to the root
      * @param parentId the id of the parent folder, 0 for root
-     * @param type the type (MenuNodeType)
-     * @param id the id
-     * @param data a json array with the data for the element:
-     *   {title: '', icon: 'img/png.png', 'unreadCount': 3}
+     * @param html the html to add
      */
-    Menu.prototype.addNode = function(parentId, type, id, data){
+    Menu.prototype.addNode = function(parentId, html){
         parentId = parseInt(parentId);
-        id = parseInt(id);
-
         var $parentNode;
-        if(parseInt(parentId) === 0){
+        var $html = $(html);
+
+        console.log($html);
+
+        if(parentId === 0){
             $parentNode = this._$root;
         } else {
             $parentNode = this._getNodeFromTypeAndId(MenuNodeType.Folder, parentId).children('ul');
@@ -162,30 +155,7 @@ var News = News || {};
             $parentNode.siblings('.collapsable_trigger').removeClass('triggered');
         }
 
-        var $html;
-        var icon;
-        
-        switch(type){
-            case MenuNodeType.Feed:
-                $html = this._$mockFeed.clone();
-                break;
-            case MenuNodeType.Folder:
-                $html = this._$mockFolder.clone();
-                break;
-            default:
-                console.log('Can only create folders or feeds');
-                break;
-        }   
-
-        $html.children('.title').html(data.title);
-        if(data.icon !== undefined){
-            $html.children('.title').css('background-image', 'url("' + data.icon + '")');
-        }
-        $html.children('.unread_items_counter').html(data.unreadCount);
-        $html.attr('data-id', id);
-        $html.children('ul').attr('data-id', id);
-
-        switch(type){
+        switch(this._getIdAndTypeFromNode($html).type){
             case MenuNodeType.Feed:
                 this._bindFeed($html);
                 break;
@@ -363,12 +333,6 @@ var News = News || {};
      */
     Menu.prototype.bindOn = function(cssSelector){
         var self = this;
-        // remove mock elements
-        this._$mockFolder = $('.mock.folder').detach();
-        this._$mockFolder.removeClass('mock open');
-        this._$mockFeed = $('.mock.feed').detach();
-        this._$mockFeed.removeClass('mock');
-
         // bind menu
         this._$root = $(cssSelector);
         this._id = this._$root.data('id');

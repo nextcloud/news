@@ -11,9 +11,7 @@ if(isset($_['mock'])){
 	$folderName = $folder->getName();
 }
 
-$mockClass = isset($_['mock']) ? 'mock' : '';
-
-echo '<li class="folder open ' . $mockClass . '" data-id="' . $folderId . '">';
+echo '<li class="folder open" data-id="' . $folderId . '">';
 	echo '<button class="collapsable_trigger" title="' . $l->t('Collapse') . '"></button>';
 	echo '<a href="#" class="title">' . $folderName .	'</a>';
 	echo '<span class="buttons">';

@@ -33,31 +33,23 @@ function print_collection_list($list) {
 
 $allfeeds = isset($_['allfeeds']) ? $_['allfeeds'] : '';
 $feedId = $_['feedid'];
+$feedType = $_['feedtype'];
 
 $itemMapper = new OCA\News\ItemMapper();
 $starredCount = $itemMapper->countEveryItemByStatus(OCA\News\StatusFlag::IMPORTANT);
 
 ?>
 
-<li class="subscriptions <?php if($feedId === -2){ echo "selected_feed"; }; ?>">
+<li class="subscriptions <?php if($feedType == OCA\News\FeedType::SUBSCRIPTIONS){ echo "active"; }; ?>">
 	<a class="title" href="#" ><?php echo $l->t('New articles'); ?></a>
 	<span class="buttons">
     	<button class="svg action feeds_markread" title="<?php echo $l->t('Mark all read'); ?>"></button>
     </span>
 </li>
-<li class="starred <?php if($feedId === -1){ echo "selected_feed"; }; ?>">
+<li class="starred <?php if($feedType == OCA\News\FeedType::STARRED){ echo "active"; }; ?>">
 	<a class="title" href="#" ><?php echo $l->t('Starred'); ?></a>
 	<span class="unread_items_counter"><?php echo $starredCount ?></span>
 </li>
 
 <?php
-	// provide mock feed and folder elements for js menu
-	$mockFolder = new OCP\Template("news", "part.listfolder");
-	$mockFolder->assign('mock', true);
-	$mockFolder->printpage();
-
-	$mockFolder = new OCP\Template("news", "part.listfeed");
-	$mockFolder->assign('mock', true);
-	$mockFolder->printpage();
-
 	print_collection_list($allfeeds);

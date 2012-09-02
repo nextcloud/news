@@ -40,14 +40,7 @@ News = {
 			$.post(url, { name: displayname, parentid: folderid },
 				function(jsondata){
 					if(jsondata.status == 'success'){
-						// FIXME: this should receive json by default
-						var $folder = $(jsondata.data.listfolder);
-						var title = $folder.children('.title').html();
-						var id = $folder.data('id');
-						var data = { 
-							title: title
-						};
-						News.Objects.Menu.addNode(0, News.MenuNodeType.Folder, id, data);
+						News.Objects.Menu.addNode(0, jsondata.data.listfolder);
 						$('#addfolder_dialog').dialog('close');
 					} else {
 						OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
@@ -82,28 +75,16 @@ News = {
 				url: OC.filePath('news', 'ajax', 'createfeed.php'),
 				data: { 'feedurl': feedurl, 'folderid': folderid },
 				dataType: "json",
-				success: function(jsondata){
+				success: function(jsonData){
 					if($('#firstrun').length > 0){
 						window.location.reload(); 
 					} else {
-						if(jsondata.status == 'success'){						
-							// FIXME: this should receive json by default
-							var $feed = $(jsondata.data.listfeed);
-							var title = $feed.children('.title').html();
-							var icon = $feed.children('.title').css('background-image').replace(/"/g,"").replace(/url\(|\)$/ig, "");;
-							var unreadCount = $feed.children('.unread_items_count').html();
-							var id = $feed.data('id');
-							var data = { 
-								title: title,
-								unreadCount: unreadCount,
-								icon: icon
-							};
-							News.Objects.Menu.addNode(folderid, News.MenuNodeType.Feed, id, data);
-							News.Objects.Menu.load(News.MenuNodeType.Feed, jsondata.data.feedid);
-
+						if(jsonData.status == 'success'){		
+							News.Objects.Menu.addNode(folderid, jsonData.data.listfeed);
+							News.Objects.Menu.load(News.MenuNodeType.Feed, jsonData.data.feedid);
 							$('#addfeed_dialog').dialog('close');
 						} else {
-							OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
+							OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
 						}
 						$("#feed_add_url").val('');
 						$(button).attr("disabled", false);

@@ -67,12 +67,7 @@ $tmpl_listfeed->assign('feed', $feed);
 $tmpl_listfeed->assign('unreadItemsCount', $unreadItemsCount);
 $listfeed = $tmpl_listfeed->fetchPage();
 
-$tmpl_newfeed = new OCP\Template("news", "part.items.new");
-$tmpl_newfeed->assign('title', $feed->getTitle());
-$part_newfeed = $tmpl_newfeed->fetchPage();
-
 OCP\JSON::success(array('data' => array( 'message' => $l->t('Feed added!'),
 										'feedid' => $feedid,
-										'listfeed' => $listfeed,
-										'part_newfeed' => $part_newfeed )));
+										'listfeed' => $listfeed)));
 
