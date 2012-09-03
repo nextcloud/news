@@ -47,7 +47,7 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
             $(this).children('ul').children('.feed_item:not(.read)').each(function(){
                 var item = this;
                 var itemOffset = $(this).position().top;
-                if(itemOffset <= 0 || scrolled >= scrollHeight){
+                if(itemOffset <= 0){
                     // wait and check if the item is still under the top edge
                     setTimeout(function(){ self._markItemAsReadTimeout(item);}, 1000);
                 }
