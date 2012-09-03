@@ -116,7 +116,7 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         $('.viewed').removeClass('viewed');
         var notFound = true;
         $('.feed_item').each(function(){
-            if(notFound && ($(this).position().top + $(this).outerHeight()) >= 0){
+            if(notFound && ($(this).position().top + $(this).outerHeight()) > 1){
                 $(this).addClass('viewed');
                 notFound = false;
             }
@@ -131,7 +131,8 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         var notJumped = true;
         $('.feed_item').each(function(){
             if(notJumped && $(this).position().top > 1){
-                self._jumpToElemenId($(this).data('id'));
+                var id = parseInt($(this).data('id'));
+                self._jumpToElemenId(id);
                 notJumped = false;
             }
         });
@@ -147,7 +148,8 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
             if(notJumped && $(this).position().top >= 0){
                 var previous = $(this).prev();
                 if(previous.length > 0){
-                    self._jumpToElemenId(previous.data('id'));
+                    var id = parseInt(previous.data('id'));
+                    self._jumpToElemenId(id);
                 }
                 notJumped = false;
             }
@@ -159,9 +161,10 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
      * @param number the number of the item starting with 0
      */
     Items.prototype._jumpToElemenId = function(id) {
+        $elem = $('.feed_item[data-id=' + id + ']');
         this._$articleList.scrollTop(
-            $('.feed_item[data-id=' + id + ']').offset().top - 
-                this._$articleList.offset().top + this._$articleList.scrollTop());
+            $elem.offset().top - this._$articleList.offset().top + this._$articleList.scrollTop());
+        this._markCurrentlyViewed();
     };
 
     /**
