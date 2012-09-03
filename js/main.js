@@ -138,6 +138,12 @@ $(document).ready(function(){
         }
     });
 
+    $('.dialog input[type=text]').keyup(function(e){
+        if((e.keyCode || e.which) == 13) { // 'enter' key shortcut
+            $(this).parent().parent().find('input[type=submit]').trigger('click');
+        }
+    });
+
 
 });
 
