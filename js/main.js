@@ -144,6 +144,12 @@ $(document).ready(function(){
         }
     });
 
+    $('#addfeed_dialog_firstrun input[type=text]').keyup(function(e){
+        if((e.keyCode || e.which) == 13) { // 'enter' key shortcut
+            $(this).siblings('input[type=submit]').trigger('click');
+        }
+    });
+
 
 });
 
