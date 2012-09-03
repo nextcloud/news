@@ -14,7 +14,6 @@
  */
 
 var News = News || {};
-var t = t || function(app, string){ return string; }; // mock translation for local testing
 
 (function(){
 
@@ -132,7 +131,7 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         var notFound = true;
         $('.feed_item').each(function(){
             var visiblePx = Math.ceil($(this).position().top + $(this).outerHeight());
-            if(notFound && visiblePx > 2){
+            if(notFound && visiblePx > 90){
                 $(this).addClass('viewed');
                 notFound = false;
             }
