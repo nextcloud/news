@@ -31,6 +31,7 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         this._$articleList = $(cssSelector);
         this._$articleList.scrollTop(0);
         this._itemCache = new ItemCache();
+        this._$articleList.children('ul').children('.feed_item:eq(0)').addClass('viewed');
         
         // mark items whose title was hid under the top edge as read
         // when the bottom is reached, mark all items as read
@@ -45,7 +46,9 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
                     // wait and check if the item is still under the top edge
                     setTimeout(function(){ self._markItemAsReadTimeout(item);}, 1000);
                 }
-            })
+            });
+            // mark item with current class
+            self._markCurrentlyViewed();
         });
 
         this._itemCache.populate(this._$articleList.children('ul'));
@@ -106,6 +109,21 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
     };
 
     /**
+     * Marks the currently viewed element as viewed
+     */
+    Items.prototype._markCurrentlyViewed = function() {
+        var self = this;
+        $('.viewed').removeClass('viewed');
+        var notFound = true;
+        $('.feed_item').each(function(){
+            if(notFound && ($(this).position().top + $(this).outerHeight()) >= 0){
+                $(this).addClass('viewed');
+                notFound = false;
+            }
+        });
+    };
+
+    /**
      * Jumps to the next visible element
      */
     Items.prototype.jumpToNext = function() {
@@ -135,14 +153,6 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
             }
         });
     };
-
-    /**
-     * Jump to the next element in the list
-     * @param $elem the jquery elem to which we want to jump
-     */
-    Items.prototype._getNextJump = function($elem){
-        return $elem.position().top > 1;
-    }
 
     /**
      * Jumps to an element in the article list
@@ -340,6 +350,9 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         var $html = $('<ul>');
         for(var i=0; i<itemIds.length; i++){
             var item = this._items[itemIds[i]];
+            if(i === 0){
+                item.setViewed(true);
+            }
             if(News.Objects.Menu.isShowAll() || !item.isRead()){
                 $html.append(item.getHtml());
             }
@@ -432,6 +445,18 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
      */
     Item.prototype.setLocked = function(locked) {
         this._locked = locked;
+    };
+
+    /**
+     * Adds the viewed class to the item
+     * @param viewed true will add the class, false remove
+     */
+    Item.prototype.setViewed = function(viewed) {
+        if(viewed){
+            this._$html.addClass('viewed');
+        } else {
+            this._$html.removeClass('viewed');
+        }
     };
 
     /**
