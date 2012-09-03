@@ -179,7 +179,9 @@ var News = News || {};
         id = parseInt(id);
         
         if(data.title !== undefined){
-            $node.children('.title').html(data.title);
+            // prevent xss
+            var title = $('<div>').text(data.title).html();
+            $node.children('.title').html(title);
         }
 
         if(data.undreadCount !== undefined){

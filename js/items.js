@@ -40,20 +40,29 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         
         // mark items whose title was hid under the top edge as read
         // when the bottom is reached, mark all items as read
+        this._scrollTimeoutMiliSecs = 100;
+        this._markReadTimeoutMiliSecs = 1000;
+        this._isScrolling = false;
         this._$articleList.scroll(function(){
-            var boxHeight = $(this).height();
-            var scrollHeight = $(this).prop('scrollHeight');
-            var scrolled = $(this).scrollTop() + boxHeight;
-            $(this).children('ul').children('.feed_item:not(.read)').each(function(){
-                var item = this;
-                var itemOffset = $(this).position().top;
-                if(itemOffset <= 0){
-                    // wait and check if the item is still under the top edge
-                    setTimeout(function(){ self._markItemAsReadTimeout(item);}, 1000);
-                }
-            });
-            // mark item with current class
-            self._markCurrentlyViewed();
+            // prevent too many scroll requests;
+            if(!self._isScrolling){
+                self._isScrolling = true;
+                setTimeout(function(){
+                    self._isScrolling = false;
+                }, self._scrollTimeoutMiliSecs);
+
+                $(this).children('ul').children('.feed_item:not(.read)').each(function(){
+                    var item = this;
+                    var itemOffset = $(item).position().top;
+                    if(itemOffset <= 0){
+                        setTimeout(function(){ 
+                            self._markItemAsReadTimeout(item);
+                        }, self._markReadTimeoutMiliSecs);
+                    }
+                });
+                // mark item with current class
+                self._markCurrentlyViewed();
+            }
         });
 
         this._itemCache.populate(this._$articleList.children('ul'));
@@ -123,7 +132,6 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         var notFound = true;
         $('.feed_item').each(function(){
             var visiblePx = Math.ceil($(this).position().top + $(this).outerHeight());
-            console.log(visiblePx);
             if(notFound && visiblePx > 2){
                 $(this).addClass('viewed');
                 notFound = false;

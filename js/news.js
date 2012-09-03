@@ -70,7 +70,6 @@ News = {
 
 			$.post(url, data, function(jsonData){
 				if(jsonData.status == 'success'){
-					folderName = $('<div>').text(folderName).html();
 					News.Objects.Menu.updateNode(News.MenuNodeType.Folder, folderId, {title: folderName});
 					$('#changefolder_dialog').dialog('close');
 				} else {
