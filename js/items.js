@@ -32,6 +32,11 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         this._$articleList.scrollTop(0);
         this._itemCache = new ItemCache();
         this._$articleList.children('ul').children('.feed_item:eq(0)').addClass('viewed');
+
+        this._setScrollBottom();
+        $(window).resize(function(){
+            self._setScrollBottom();
+        });
         
         // mark items whose title was hid under the top edge as read
         // when the bottom is reached, mark all items as read
@@ -105,6 +110,7 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
                 self._$articleList.children('ul').show();
             }
             self._$articleList.removeClass('loading');
+            self._setScrollBottom();
         });
     };
 
@@ -165,6 +171,16 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         this._$articleList.scrollTop(
             $elem.offset().top - this._$articleList.offset().top + this._$articleList.scrollTop());
         this._markCurrentlyViewed();
+    };
+
+    /** 
+     * Adds padding to the bottom to be able to scroll the last element beyond
+     * the top area
+     */
+    Items.prototype._setScrollBottom = function() {
+        var padding = this._$articleList.height();
+        console.log(padding);
+        this._$articleList.children('ul').css('padding-bottom', padding + 'px');
     };
 
     /**

@@ -16,7 +16,13 @@ OCP\JSON::checkAppEnabled('news');
 OCP\JSON::callCheck();
 
 if(isset($_POST['showAll'])){
-    OCP\Config::setUserValue(OCP\USER::getUser(), 'news', 'showAll', $_POST['showAll']);     
+    if($_POST['showAll'] === 'false'){
+        $showAll = false;
+    } else {
+        $showAll = true;
+    }
+    OCP\Config::setUserValue(OCP\USER::getUser(), 'news', 'showAll', $showAll);     
 }
 
-OCP\JSON::success();
+OCP\JSON::success();    
+
