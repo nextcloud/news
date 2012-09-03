@@ -122,7 +122,9 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
         $('.viewed').removeClass('viewed');
         var notFound = true;
         $('.feed_item').each(function(){
-            if(notFound && ($(this).position().top + $(this).outerHeight()) > 1){
+            var visiblePx = Math.ceil($(this).position().top + $(this).outerHeight());
+            console.log(visiblePx);
+            if(notFound && visiblePx > 2){
                 $(this).addClass('viewed');
                 notFound = false;
             }
@@ -160,6 +162,15 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
                 notJumped = false;
             }
         });
+        // in case we scroll more than the last element, just jump back to the
+        // last one
+        if(notJumped){
+            var $items = $('.feed_item');
+            if($items.length > 0){
+                var id = parseInt($items.last().data('id'));
+                self._jumpToElemenId(id);    
+            }
+        }
     };
 
     /**
@@ -178,8 +189,7 @@ var t = t || function(app, string){ return string; }; // mock translation for lo
      * the top area
      */
     Items.prototype._setScrollBottom = function() {
-        var padding = this._$articleList.height();
-        console.log(padding);
+        var padding = this._$articleList.height() - 80; 
         this._$articleList.children('ul').css('padding-bottom', padding + 'px');
     };
 
