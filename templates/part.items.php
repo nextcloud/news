@@ -51,11 +51,6 @@ foreach($items as $item) {
 
 		echo '<h1 class="item_title"><a target="_blank" href="' . $item->getUrl() . '">' . $item->getTitle() . '</a></h1>';	
 		
-		if ($specialfeed) {
-			$from = $l->t('from') . ' ' . parse_url($item->getUrl(), PHP_URL_HOST);
-			echo '<h2 class="item_feed_title">' . $from .'</h2>';
-		}
-		
 		if(($item->getAuthor() !== null) && (trim($item->getAuthor()) != '')){
 			echo '<h2 class="item_author">'. $l->t('by') . ' ' . $item->getAuthor() . '</h2>';
 		}

@@ -77,7 +77,7 @@ div.add_parentfolder {
     position: relative;
     top: 0;
     height: 100%;
-    padding-bottom: 3em;
+    padding-bottom: 2.8em;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
 }
@@ -85,6 +85,10 @@ div.add_parentfolder {
 #feeds {
     height: 100%;
     overflow: auto;
+    background-color: #eee;
+    color: #333;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
 }
 
     #feeds .unread_items_counter {
@@ -180,9 +184,9 @@ div.add_parentfolder {
         }
 
     #feeds li {
-        border-bottom: 1px solid #bbb;
+        border-bottom: 1px solid #ddd;
+        border-top: 1px solid #fff;
         padding: 0 .5em;
-        background-color: #dfdfdf;
         font-weight: bold ;
         box-sizing: border-box;
         -moz-box-sizing: border-box;
@@ -191,11 +195,15 @@ div.add_parentfolder {
     }
 
     #feeds li.active { 
-        background-color: #FF9933 !important;
+        background: none !important;
+        background-color: #d0d0d0 !important;
+        border-bottom: 1px solid #ccc;
+        border-top: 1px solid #ddd;
         font-style: oblique;
     }
 
         #feeds li a.title {
+            color: #333;
             box-sizing: border-box;
             -moz-box-sizing: border-box;
             width: 100%;
@@ -207,7 +215,7 @@ div.add_parentfolder {
             background-size: 16px 16px;
             background-repeat: no-repeat;
             background-position: .2em center;
-            line-height: 2.5em;
+            line-height: 2.8em;
         }
 
             #feeds li:hover > a.title {
@@ -224,11 +232,12 @@ div.add_parentfolder {
 
     #feeds .feed {
         border-bottom: 1px solid #ccc;
-        background-color: #f1f1f1;
     }
 
-    #feeds .feed:hover {
+    #feeds li:hover {
         background-color: #ddd;
+        border-bottom: 1px solid #ccc;
+        border-top: 1px solid #d4d4d4;
     }
 
     #feeds .folder {
@@ -248,23 +257,31 @@ div.add_parentfolder {
         }
 
     #feeds .folder.collapsable.open {
-        background-image: linear-gradient(top, rgb(213,213,213) 0%, rgb(223,223,223) 100%),
-                url('%webroot%/core/img/places/folder.svg');
-        background-image: -o-linear-gradient(top, rgb(213,213,213) 0%, rgb(223,223,223) 100%),
-                url('%webroot%/core/img/places/folder.svg');
-        background-image: -moz-linear-gradient(top, rgb(213,213,213) 0%, rgb(223,223,223) 100%),
-                url('%webroot%/core/img/places/folder.svg');
-        background-image: -webkit-linear-gradient(top, rgb(213,213,213) 0%, rgb(223,223,223) 100%),
-                url('%webroot%/core/img/places/folder.svg');
-        background-image: -ms-linear-gradient(top, rgb(213,213,213) 0%, rgb(223,223,223) 100%),
-                url('%webroot%/core/img/places/folder.svg');
-        border-bottom: 1px solid #bbb;
-        padding-bottom: .5em;
+        padding: 0;
+        background-image: linear-gradient(top, rgb(238,238,238) 0%, rgb(245,245,245) 100%);
+        background-image: -o-linear-gradient(top, rgb(238,238,238) 0%, rgb(245,245,245) 100%);
+        background-image: -moz-linear-gradient(top, rgb(238,238,238) 0%, rgb(245,245,245) 100%);
+        background-image: -webkit-linear-gradient(top, rgb(238,238,238) 0%, rgb(245,245,245) 100%);
+        background-image: -ms-linear-gradient(top, rgb(238,238,238) 0%, rgb(245,245,245) 100%);
     }
 
+        #feeds .folder.collapsable.open a.title {
+            margin: 0 .5em;
+        }
 
-        #feeds .folder.collapsable.open ul {
-            border: 1px solid #ccc;
+        #feeds .folder.open ul li {
+            padding-left: 1.7em;
+            border: 0;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+        }
+
+            #feeds .folder.open ul li a.title {
+                padding-right: .5em;
+            }
+
+        #feeds .folder.open ul li:first-child {
+            border-top: 0 solid #ddd;
         }
 
         #feeds .folder.open ul li:last-child {
