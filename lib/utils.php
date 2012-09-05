@@ -14,7 +14,7 @@ namespace OCA\News;
 
 // load SimplePie library
 //TODO: is this a suitable place for the following require?
- require_once('news/3rdparty/SimplePie/autoloader.php');
+ require_once 'news/3rdparty/SimplePie/autoloader.php';
 
 class Utils {
 

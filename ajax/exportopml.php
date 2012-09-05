@@ -27,7 +27,7 @@ if(!isset($_POST['path'])) {
 	bailOut($l->t('No file path was submitted.'));
 } 
 
-require_once('news/opmlparser.php');
+require_once 'news/opmlparser.php';
 
 $raw = file_get_contents($_POST['path']);
 

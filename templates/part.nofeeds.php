@@ -22,7 +22,7 @@
 	</div>
 	<div>
 	<?php
-	require_once(OC_App::getAppPath('news') .'/templates/subscribelet.php');
+	require_once OC_App::getAppPath('news') .'/templates/subscribelet.php';
 	echo '<h1>' . $l->t('Or...') . '</h1>';
 	?>
 	<?php createSubscribelet(); ?>

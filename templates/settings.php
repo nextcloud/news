@@ -16,7 +16,7 @@
 	<dt><?php echo $l->t('Subscribelet'); ?></dt>
 	<dd>
 	    <?php
-		require_once(OC_App::getAppPath('news') .'/templates/subscribelet.php');
+		require_once OC_App::getAppPath('news') .'/templates/subscribelet.php';
 		createSubscribelet();
 	    ?>
 	</dd>
