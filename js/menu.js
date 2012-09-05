@@ -866,10 +866,21 @@ var News = News || {};
                     return;
                 }
 
+                // adjust unreadcount for the old folder
+                var feedUnreadCount = self._unreadCount[feedId];
+                if(fromFolderId !== 0){
+                    self._setUnreadCount(MenuNodeType.Feed, feedId, 0);
+                }
+
                 if($dropped.hasClass(self._menuNodeTypeToClass(MenuNodeType.Folder))){
                     $dropped.children('ul').append($dragged[0]);
                 } else {
                     $dropped.append($dragged[0]);
+                }
+
+                // adjust unreadcount for the new folder
+                if(folderId !== 0){
+                    self._setUnreadCount(MenuNodeType.Feed, feedId, feedUnreadCount);
                 }
 
                 self._resetOpenFolders();
