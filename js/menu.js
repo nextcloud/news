@@ -799,14 +799,14 @@ var News = News || {};
         // check if we got a parent folder and update its unread count
         if(type === MenuNodeType.Feed){
             var $folder = $node.parent().parent();
-            var folderData = $(this._getIdAndTypeFromNode($folder));
-
+            var folderData = this._getIdAndTypeFromNode($folder);
             if(folderData.type === MenuNodeType.Folder){
                 var folderUnreadCount = 0;
-                $node.siblings('li').each(function(){
-                    var feedData = $(this._getIdAndTypeFromNode($(this)));   
+                var self = this;
+                $folder.children('ul').children('li').each(function(){
+                    var feedData = self._getIdAndTypeFromNode($(this));   
                     if(feedData.type === MenuNodeType.Feed){
-                        folderUnreadCount += this._unreadCount.Feed[feedData.id];
+                        folderUnreadCount += self._unreadCount.Feed[feedData.id];
                     }     
                 });
                 this._applyUnreadCountStyle(MenuNodeType.Folder, folderData.id, 

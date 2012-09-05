@@ -122,21 +122,6 @@ var News = News || {};
         });
     };
 
-    /**
-     * Marks the currently viewed element as viewed
-     */
-    Items.prototype._markCurrentlyViewed = function() {
-        var self = this;
-        $('.viewed').removeClass('viewed');
-        var notFound = true;
-        $('.feed_item').each(function(){
-            var visiblePx = Math.ceil($(this).position().top + $(this).outerHeight());
-            if(notFound && visiblePx > 90){
-                $(this).addClass('viewed');
-                notFound = false;
-            }
-        });
-    };
 
     /**
      * Jumps to the next visible element
@@ -181,26 +166,6 @@ var News = News || {};
     };
 
     /**
-     * Jumps to an element in the article list
-     * @param number the number of the item starting with 0
-     */
-    Items.prototype._jumpToElemenId = function(id) {
-        $elem = $('.feed_item[data-id=' + id + ']');
-        this._$articleList.scrollTop(
-            $elem.offset().top - this._$articleList.offset().top + this._$articleList.scrollTop());
-        this._markCurrentlyViewed();
-    };
-
-    /** 
-     * Adds padding to the bottom to be able to scroll the last element beyond
-     * the top area
-     */
-    Items.prototype._setScrollBottom = function() {
-        var padding = this._$articleList.height() - 80; 
-        this._$articleList.children('ul').css('padding-bottom', padding + 'px');
-    };
-
-    /**
      * Empties the item cache
      */
     Items.prototype.emptyItemCache = function() {
@@ -227,6 +192,27 @@ var News = News || {};
     };
 
     /**
+     * Jumps to an element in the article list
+     * @param number the number of the item starting with 0
+     */
+    Items.prototype._jumpToElemenId = function(id) {
+        $elem = $('.feed_item[data-id=' + id + ']');
+        this._$articleList.scrollTop(
+            $elem.offset().top - this._$articleList.offset().top + this._$articleList.scrollTop());
+        this._markCurrentlyViewed();
+    };
+
+    /** 
+     * Adds padding to the bottom to be able to scroll the last element beyond
+     * the top area
+     */
+    Items.prototype._setScrollBottom = function() {
+        var padding = this._$articleList.height() - 80; 
+        this._$articleList.children('ul').css('padding-bottom', padding + 'px');
+    };
+
+
+    /**
      * Returns a jquery node by searching for its id
      * @param id the id of the node
      * @return the jquery node
@@ -236,6 +222,21 @@ var News = News || {};
         return this._$articleList.find('.feed_item[data-id="' + id + '"]');
     };
 
+    /**
+     * Marks the currently viewed element as viewed
+     */
+    Items.prototype._markCurrentlyViewed = function() {
+        var self = this;
+        $('.viewed').removeClass('viewed');
+        var notFound = true;
+        $('.feed_item').each(function(){
+            var visiblePx = Math.ceil($(this).position().top + $(this).outerHeight());
+            if(notFound && visiblePx > 90){
+                $(this).addClass('viewed');
+                notFound = false;
+            }
+        });
+    };
 
     News.Items = Items;
 
@@ -544,11 +545,7 @@ var News = News || {};
             self._toggleKeepUnread();
         });
 
-        this._$html.find('.keep_unread input[type=checkbox]').click(function(){
-            var $item = $(this).parent().parent().parent().parent('.feed_item');
-            var itemId = $item.data('id');
-            self._toggleKeepUnread();
-        });
+
 
         this._$html.find('time.timeago').timeago();
     };
