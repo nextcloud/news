@@ -234,7 +234,7 @@ div.add_parentfolder {
             background-color: #d0d0d0;
         }
 
-        #feeds .folder a.title {
+        #feeds .folder > a.title {
             background-image: url('%webroot%/core/img/places/folder.svg');
         }
 
@@ -254,11 +254,10 @@ div.add_parentfolder {
         background-image: -ms-linear-gradient(bottom, rgb(208,208,208) 0%, rgb(222,222,222) 100%),
             background-image: url('%webroot%/core/img/places/folder.svg');
         border-bottom: 1px solid #bbb;
-        border-top: 1px solid #bbb;
-        -webkit-box-shadow: inset 0 0 5px -1px #bbb;
-        box-shadow: inset 0 0 5px -1px #bbb; 
         padding-bottom: .5em;
+        background-position: 
     }
+
 
         #feeds .folder.collapsable.open ul {
             border: 1px solid #ccc;
