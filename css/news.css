@@ -557,6 +557,11 @@ div.add_parentfolder {
                     max-width: 55em;
                 }
 
+                .feed_item div.body img.thumbnail {
+                    padding: 0 1em 0 0;
+                    float: left;
+                }
+
                 .feed_item div.body h1, .feed_item div.body h2 {
                     font-size: 1.25em;
                     font-weight: bold;
