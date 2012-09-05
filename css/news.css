@@ -243,19 +243,18 @@ div.add_parentfolder {
         }
 
     #feeds .folder.collapsable.open {
-        background-image: linear-gradient(bottom, rgb(208,208,208) 0%, rgb(222,222,222) 100%),
-            background-image: url('%webroot%/core/img/places/folder.svg');
-        background-image: -o-linear-gradient(bottom, rgb(208,208,208) 0%, rgb(222,222,222) 100%),
-            background-image: url('%webroot%/core/img/places/folder.svg');
-        background-image: -moz-linear-gradient(bottom, rgb(208,208,208) 0%, rgb(222,222,222) 100%),
-            background-image: url('%webroot%/core/img/places/folder.svg');
-        background-image: -webkit-linear-gradient(bottom, rgb(208,208,208) 0%, rgb(222,222,222) 100%),
-            background-image: url('%webroot%/core/img/places/folder.svg');
-        background-image: -ms-linear-gradient(bottom, rgb(208,208,208) 0%, rgb(222,222,222) 100%),
-            background-image: url('%webroot%/core/img/places/folder.svg');
+        background-image: linear-gradient(top, rgb(210,210,210) 0%, rgb(220,220,220) 100%),
+                url('%webroot%/core/img/places/folder.svg');
+        background-image: -o-linear-gradient(top, rgb(210,210,210) 0%, rgb(220,220,220) 100%),
+                url('%webroot%/core/img/places/folder.svg');
+        background-image: -moz-linear-gradient(top, rgb(210,210,210) 0%, rgb(220,220,220) 100%),
+                url('%webroot%/core/img/places/folder.svg');
+        background-image: -webkit-linear-gradient(top, rgb(210,210,210) 0%, rgb(220,220,220) 100%),
+                url('%webroot%/core/img/places/folder.svg');
+        background-image: -ms-linear-gradient(top, rgb(210,210,210) 0%, rgb(220,220,220) 100%),
+                url('%webroot%/core/img/places/folder.svg');
         border-bottom: 1px solid #bbb;
         padding-bottom: .5em;
-        background-position: 
     }
 
 
