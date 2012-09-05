@@ -520,7 +520,7 @@ div.add_parentfolder {
             .feed_item h2.item_author {
                 color: #aaa;
                 font-size: 1.1em;
-                margin-left: 3em;
+                margin: .2em 0 0 3em;
             }
 
             .timestamp {
