@@ -871,7 +871,6 @@ var News = News || {};
                 if(fromFolderId !== 0){
                     self._setUnreadCount(MenuNodeType.Feed, feedId, 0);
                 }
-                console.log(feedUnreadCount);
 
                 if($dropped.hasClass(self._menuNodeTypeToClass(MenuNodeType.Folder))){
                     $dropped.children('ul').append($dragged[0]);
