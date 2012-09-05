@@ -867,10 +867,11 @@ var News = News || {};
                 }
 
                 // adjust unreadcount for the old folder
-                var feedUnreadCount = self._unreadCount[feedId];
+                var feedUnreadCount = self._unreadCount.Feed[feedId];
                 if(fromFolderId !== 0){
                     self._setUnreadCount(MenuNodeType.Feed, feedId, 0);
                 }
+                console.log(feedUnreadCount);
 
                 if($dropped.hasClass(self._menuNodeTypeToClass(MenuNodeType.Folder))){
                     $dropped.children('ul').append($dragged[0]);

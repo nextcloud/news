@@ -29,8 +29,8 @@ var News = News || {};
         var self = this;
         this._$articleList = $(cssSelector);
         this._$articleList.scrollTop(0);
-        this._itemCache = new ItemCache();
         this._$articleList.children('ul').children('.feed_item:eq(0)').addClass('viewed');
+        this._itemCache = new ItemCache();
 
         this._setScrollBottom();
         $(window).resize(function(){
@@ -38,7 +38,6 @@ var News = News || {};
         });
         
         // mark items whose title was hid under the top edge as read
-        // when the bottom is reached, mark all items as read
         this._scrollTimeoutMiliSecs = 100;
         this._markReadTimeoutMiliSecs = 1000;
         this._isScrolling = false;
@@ -59,7 +58,6 @@ var News = News || {};
                         }, self._markReadTimeoutMiliSecs);
                     }
                 });
-                // mark item with current class
                 self._markCurrentlyViewed();
             }
         });
@@ -74,11 +72,8 @@ var News = News || {};
     Items.prototype._markItemAsReadTimeout = function(item) {
         var itemId = parseInt($(item).data('id'));
         var itemOffset = $(item).position().top;
-        var boxHeight = this._$articleList.height();
-        var scrollHeight = this._$articleList.prop('scrollHeight');
-        var scrolled = this._$articleList.scrollTop() + boxHeight;
         var item = this._itemCache.getItem(itemId);
-        if(itemOffset < 0 || scrolled >= scrollHeight){
+        if(itemOffset < 0){
             if(!item.isLocked()){
                 // lock item to prevent massive request when scrolling
                 item.setLocked(true);
@@ -391,7 +386,9 @@ var News = News || {};
                 item.setViewed(true);
             }
             if(News.Objects.Menu.isShowAll() || !item.isRead()){
-                $html.append(item.getHtml());
+                var $itemHtml = item.getHtml();
+                $itemHtml.removeClass('keep_unread');
+                $html.append($itemHtml);
             }
         }
         return $html;
@@ -407,7 +404,6 @@ var News = News || {};
      var Item = function(html){
         this._starred = false;
         this._$html = $(html);
-        this._bindItemEventListeners();
         this._id = parseInt(this._$html.data('id'));
         this._feedId = parseInt(this._$html.data('feedid'));
         this._read = this._$html.hasClass('read');
@@ -416,20 +412,10 @@ var News = News || {};
         var $stamp = this._$html.find('.timestamp');
         this._timestamp = parseInt($stamp.html());
         $stamp.remove();
+        this._bindItemEventListeners();
      }
 
     /**
-     * Returns the html code for the element
-     * @return the html for the item
-     */
-    Item.prototype.render = function() {
-        // remove kept unread
-        this._$html.removeClass('keep_unread');
-        return this._$html[0];
-    };
-
-    /**
-     * Returns the id of an item
      * @return the id of the item
      */
     Item.prototype.getId = function() {
@@ -438,7 +424,6 @@ var News = News || {};
 
 
     /**
-     * Returns the feedid of an item
      * @return the feeid of the item
      */
     Item.prototype.getFeedId = function() {
@@ -446,7 +431,6 @@ var News = News || {};
     };
 
     /**
-     * Returns the html of an item
      * @return the jquery html of the item
      */
     Item.prototype.getHtml = function() {
@@ -461,15 +445,13 @@ var News = News || {};
     };
 
     /**
-     * Returns true if an item is important
      * @return true if starred, otherwise false
      */
     Item.prototype.isImportant = function() {
         return this._important;
     };
 
-        /**
-     * Returns true if an item is starred
+    /**
      * @return true if starred, otherwise false
      */
     Item.prototype.isRead = function() {
@@ -477,7 +459,6 @@ var News = News || {};
     };
 
     /**
-     * Locks the class for mark read request
      * @param locked true will lock, false unlock
      */
     Item.prototype.setLocked = function(locked) {
@@ -485,8 +466,7 @@ var News = News || {};
     };
 
     /**
-     * Adds the viewed class to the item
-     * @param viewed true will add the class, false remove
+     * @param viewed true will add the viewed class, false remove
      */
     Item.prototype.setViewed = function(viewed) {
         if(viewed){
@@ -497,7 +477,6 @@ var News = News || {};
     };
 
     /**
-     * Returns true if locked, otherwise false
      * @return true if locked, otherwise false
      */
     Item.prototype.isLocked = function() {
@@ -509,6 +488,68 @@ var News = News || {};
      */
     Item.prototype.addReadClass = function() {
         this._$html.addClass('read');
+    };
+
+    /**
+     * Marks the item as read only locally without telling the server
+     */
+    Item.prototype.setReadLocally = function() {
+        this._read = true;
+        this._$html.addClass('read');
+    };
+
+    /**
+     * Marks the item read
+     * @param read true marks it read, false unread
+     */
+    Item.prototype.setRead = function(read) {
+        var status;
+        var self = this;
+
+        if(read === this._read){
+            this.setLocked(false);
+            return;
+        }
+
+        if(read && this._isKeptUnread()){
+            this.setLocked(false);
+            return; 
+        } 
+
+        if(read){
+            status = 'read';
+            self._$html.addClass('read');
+        } else {
+            status = 'unread';
+            self._$html.removeClass('read');
+        }
+
+        var data = {
+            itemId: this._id,
+            status: status
+        };
+
+        $.post(OC.filePath('news', 'ajax', 'setitemstatus.php'), data, function(jsonData){
+            if(jsonData.status == 'success'){
+                if(read){
+                    self._$html.addClass('read');
+                    self._read = true;
+                    News.Objects.Menu.decrementUnreadCount(News.MenuNodeType.Feed, self._feedId);
+                } else {
+                    self._$html.removeClass('read');
+                    self._read = false;
+                    News.Objects.Menu.incrementUnreadCount(News.MenuNodeType.Feed, self._feedId);
+                }
+            } else {
+                if(read){
+                    self._$html.removeClass('read');
+                } else {
+                    self._$html.addClass('read');
+                }
+                OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
+            }
+            self.setLocked(false);
+        });
     };
 
     /**
@@ -545,8 +586,6 @@ var News = News || {};
             self._toggleKeepUnread();
         });
 
-
-
         this._$html.find('time.timeago').timeago();
     };
 
@@ -570,71 +609,6 @@ var News = News || {};
      */
     Item.prototype._isKeptUnread = function() {
         return this._$html.hasClass('keep_unread');
-    };
-
-
-    /**
-     * Marks the item as read only locally without telling the server
-     */
-    Item.prototype.setReadLocally = function() {
-        this._read = true;
-        this._$html.addClass('read');
-    };
-
-    /**
-     * Marks the item read
-     * @param read true marks it read, false unread
-     */
-    Item.prototype.setRead = function(read) {
-        var status;
-        var self = this;
-
-        // if we already have the status, do nothing
-        if(read === this._read){
-            this.setLocked(false);
-            return;
-        }
-        // check if the keep unread flag was set
-        if(read && this._isKeptUnread()){
-            this.setLocked(false);
-            return; 
-        } 
-
-        if(read){
-            status = 'read';
-            self._$html.addClass('read');
-        } else {
-            status = 'unread';
-            self._$html.removeClass('read');
-        }
-
-        var data = {
-            itemId: this._id,
-            status: status
-        };
-
-        $.post(OC.filePath('news', 'ajax', 'setitemstatus.php'), data, function(jsonData){
-            if(jsonData.status == 'success'){
-                if(read){
-                    self._$html.addClass('read');
-                    self._read = true;
-                    News.Objects.Menu.decrementUnreadCount(News.MenuNodeType.Feed, self._feedId);
-                } else {
-                    self._$html.removeClass('read');
-                    self._read = false;
-                    News.Objects.Menu.incrementUnreadCount(News.MenuNodeType.Feed, self._feedId);
-                }
-            } else {
-                // roll back on error
-                if(read){
-                    self._$html.removeClass('read');
-                } else {
-                    self._$html.addClass('read');
-                }
-                OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
-            }
-            self.setLocked(false);
-        });
     };
 
 
@@ -681,7 +655,5 @@ var News = News || {};
             }
         });
     };
-
-
 
 })();
