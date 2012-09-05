@@ -409,8 +409,6 @@ var News = News || {};
         this._read = this._$html.hasClass('read');
         this._locked = false;
         this._important = this._$html.find('li.star').hasClass('important');
-        this._$html.children('.body').children('img:first-child').addClass('thumbnail');
-
         var $stamp = this._$html.find('.timestamp');
         this._timestamp = parseInt($stamp.html());
         $stamp.remove();

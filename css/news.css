@@ -557,7 +557,7 @@ div.add_parentfolder {
                     max-width: 55em;
                 }
 
-                .feed_item div.body img.thumbnail {
+                .feed_item div.body > img:first-child {
                     padding: 0 1em 0 0;
                     float: left;
                 }
