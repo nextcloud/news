@@ -157,6 +157,10 @@ div.add_parentfolder {
         top: .4em;
         background: none;
         background-image: url('%webroot%/core/img/actions/triangle-s.svg'); 
+        background-repeat: no-repeat;
+        background-size: 16px 16px;
+        height: 16px;
+        width: 16px;
         border: none;
         border-radius: 0;
         outline: none !important;
@@ -167,6 +171,7 @@ div.add_parentfolder {
 
     #feeds button.collapsable_trigger.triggered {
         -moz-transform: rotate(-90deg);
+        -webkit-transform: rotate(-90deg);
         transform: rotate(-90deg);
     }
 
