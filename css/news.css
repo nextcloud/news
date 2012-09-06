@@ -134,7 +134,7 @@ div.add_parentfolder {
     }
 
         #feeds .buttons button {
-            margin: .65em .3em 0 0;
+            margin: .8em .3em 0 0;
             background-position: center;
             background-repeat: no-repeat;
         }
@@ -244,10 +244,6 @@ div.add_parentfolder {
         padding: 0 .5em;
     }
 
-        #feeds .folder:hover, #feeds .starred:hover, #feeds .subscriptions:hover {
-            background-color: #d0d0d0;
-        }
-
         #feeds .folder > a.title {
             background-image: url('%webroot%/core/img/places/folder.svg');
         }
@@ -264,6 +260,11 @@ div.add_parentfolder {
         background-image: -webkit-linear-gradient(top, rgb(238,238,238) 0%, rgb(245,245,245) 100%);
         background-image: -ms-linear-gradient(top, rgb(238,238,238) 0%, rgb(245,245,245) 100%);
     }
+
+        #feeds .folder.collapsable.open:hover {
+            -webkit-box-shadow: inset 1px 1px 5px -1px #cccccc;
+box-shadow: inset 1px 1px 5px -1px #cccccc;
+        }
 
         #feeds .folder.collapsable.open a.title {
             margin: 0 .5em;
@@ -404,7 +405,7 @@ div.add_parentfolder {
     top: 3.5em !important; 
     box-sizing: border-box; 
     -moz-box-sizing: border-box; 
-    left: 32.6em;
+    left: 32.5em;
     overflow: hidden;
 }
 
@@ -445,7 +446,7 @@ div.add_parentfolder {
         }
 
         .feed_item.viewed {
-            border-right: 5px solid #FF9933;
+            border-right: 5px solid #F28627;
         }
 
 
