@@ -176,6 +176,8 @@ div.add_parentfolder {
     #feeds button.collapsable_trigger.triggered {
         -moz-transform: rotate(-90deg);
         -webkit-transform: rotate(-90deg);
+        -ms-transform:rotate(-90deg);
+        -o-transform:rotate(-90deg);
         transform: rotate(-90deg);
     }
 
