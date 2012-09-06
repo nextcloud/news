@@ -575,7 +575,7 @@ div.add_parentfolder {
                 }
 
                 .feed_item div.body img {
-                    max-width: 55em;
+                    max-width: 100%;
                 }
 
                 .feed_item div.body > img:first-child {
