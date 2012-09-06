@@ -560,7 +560,7 @@ box-shadow: inset 1px 1px 5px -1px #cccccc;
              */
             .feed_item div.body { 
                 overflow: hidden;
-                padding: .5em 3em 0 3em; 
+                padding: .75em 3em 0 3em; 
                 max-width: 55em;
                 font-size: 1.1em;
                 clear: both;
@@ -624,7 +624,7 @@ box-shadow: inset 1px 1px 5px -1px #cccccc;
                     padding: .5em .5em .5em 1em; 
                     background-color: #dadada; 
                     border: 1px solid #ccc; 
-                    margin: .5em 0;
+                    margin: .5em 0 1em 0;
                     background-image: linear-gradient(top, rgb(215,215,215) 0%, rgb(220,220,220) 100%);
                     background-image: -o-linear-gradient(top, rgb(215,215,215) 0%, rgb(220,220,220) 100%);
                     background-image: -moz-linear-gradient(top, rgb(215,215,215) 0%, rgb(220,220,220) 100%);

@@ -117,7 +117,7 @@ class FolderMapper {
 		$parentid = $folder->getParentId();
 
 		$params=array(
-		htmlspecialchars_decode($name),
+		$name,
 		$parentid,
 		$this->userid
 		);
@@ -137,7 +137,7 @@ class FolderMapper {
 		$query = \OCP\DB::prepare('UPDATE ' . self::tableName 
 			. ' SET name = ? ' . ' WHERE id = ?');
 
-		$params = array(htmlspecialchars_decode($folder->getName()), $folder->getId());
+		$params = array($folder->getName(), $folder->getId());
 		$query->execute($params);
 		return true;
 	}
