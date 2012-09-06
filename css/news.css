@@ -271,14 +271,15 @@ div.add_parentfolder {
         }
 
         #feeds .folder.open ul li {
-            padding-left: 1.7em;
             border: 0;
             box-sizing: border-box;
             -moz-box-sizing: border-box;
         }
 
             #feeds .folder.open ul li a.title {
+                padding-left: 3.2em;
                 padding-right: .5em;
+                background-position: 1.4em center;
             }
 
         #feeds .folder.open ul li:first-child {
