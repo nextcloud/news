@@ -262,8 +262,8 @@ div.add_parentfolder {
     }
 
         #feeds .folder.collapsable.open:hover {
-            -webkit-box-shadow: inset 1px 1px 5px -1px #cccccc;
-box-shadow: inset 1px 1px 5px -1px #cccccc;
+            -webkit-box-shadow: inset 0 0 3px #cccccc;
+            box-shadow: inset 0 0 3px #cccccc;
         }
 
         #feeds .folder.collapsable.open a.title {
