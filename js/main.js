@@ -105,9 +105,11 @@ $(document).ready(function(){
         if($(this).hasClass('show_all')){
             data.showAll = false;
             $(this).addClass('show_unread').removeClass('show_all');
+            $(this).attr('title', t('news', 'Show only unread'));
         } else {
             data.showAll = true;
             $(this).addClass('show_all').removeClass('show_unread');
+            $(this).attr('title', t('news', 'Show everything'));
         }
         
         News.Objects.Menu.triggerHideRead();
