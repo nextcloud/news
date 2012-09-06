@@ -67,7 +67,6 @@
 "Mark all read" => "Merkitse kaikki luetuksi",
 "Mark as unimportant" => "Merkitse ei-tärkeäksi",
 "Mark as important" => "Merkitse tärkeäksi",
-"from" => "lähettäjältä",
 "by" => "kirjoittajalta",
 "Keep unread" => "Pidä ei-luettuna",
 "Delete feed" => "Poista syöte",

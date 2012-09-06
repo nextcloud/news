@@ -66,7 +66,6 @@
 "Mark all read" => "Markatu guztiak irakurrita",
 "Mark as unimportant" => "Markatu garrantzigabekoa",
 "Mark as important" => "Markatu garrantzitsua",
-"from" => "lekua",
 "by" => "egilea",
 "Keep unread" => "Mantendu irakurri gabea",
 "Delete feed" => "Ezabatu iturburua",

@@ -67,7 +67,6 @@
 "Mark all read" => "Marcar como leido",
 "Mark as unimportant" => "Marcar como no importante",
 "Mark as important" => "Marcar como importante",
-"from" => "de",
 "by" => "por",
 "Keep unread" => "Dejar como no leido",
 "Delete feed" => "Eliminar fuente",

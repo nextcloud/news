@@ -54,7 +54,6 @@
 "Add" => "Legg til",
 "Mark as unimportant" => "Merk som uviktig",
 "Mark as important" => "Merk som viktig",
-"from" => "fra",
 "by" => "av",
 "Keep unread" => "Merk som ulest",
 "Delete feed" => "Slett nyhetskilden",

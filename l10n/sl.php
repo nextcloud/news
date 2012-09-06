@@ -67,7 +67,6 @@
 "Mark all read" => "Označi vse kot prebrano",
 "Mark as unimportant" => "Označi kot nepomembno",
 "Mark as important" => "Označi kot pomembno",
-"from" => "od",
 "by" => "od",
 "Keep unread" => "Obdrži neprebrano",
 "Delete feed" => "Izbriši vir",

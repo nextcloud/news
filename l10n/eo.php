@@ -56,7 +56,6 @@
 "Add" => "Aldoni",
 "Mark as unimportant" => "Marki kiel negrava",
 "Mark as important" => "Marki kiel grava",
-"from" => "el",
 "by" => "de",
 "Keep unread" => "Lasi legota",
 "Delete feed" => "Forigi fluon",

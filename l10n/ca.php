@@ -67,7 +67,6 @@
 "Mark all read" => "Marca-ho tot com a llegit",
 "Mark as unimportant" => "Marca com a no important",
 "Mark as important" => "Marca com a important",
-"from" => "des de",
 "by" => "per",
 "Keep unread" => "Mantén com a sense llegir",
 "Delete feed" => "Elimina font",

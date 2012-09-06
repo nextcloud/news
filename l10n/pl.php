@@ -67,7 +67,6 @@
 "Mark all read" => "Oznacz wszystkie jako przeczytane",
 "Mark as unimportant" => "Oznacz jako nieważne",
 "Mark as important" => "Oznacz jako ważne",
-"from" => "od",
 "by" => "przez",
 "Keep unread" => "Pozostaw nieprzeczytane",
 "Delete feed" => "Usuń feed",

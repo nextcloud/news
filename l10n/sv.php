@@ -67,7 +67,6 @@
 "Mark all read" => "Markera alla som lästa",
 "Mark as unimportant" => "Markera som oviktigt",
 "Mark as important" => "Markera som viktigt",
-"from" => "från",
 "by" => "av",
 "Keep unread" => "Behåll som oläst",
 "Delete feed" => "Ta bort flöde",
