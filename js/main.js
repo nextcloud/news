@@ -128,12 +128,12 @@ $(document).ready(function(){
     });
 
     $(document).keyup(function(e) {
-        if ((e.keyCode || e.which) == 74 || (e.keyCode || e.which) == 39) { // 'j' key shortcut
+        if ((e.keyCode || e.which) == 74) { // 'j' key shortcut
             if(!$('.dialog').is(':visible')){
                 News.Objects.Items.jumpToNext();
             }
         }
-        if ((e.keyCode || e.which) == 75 || (e.keyCode || e.which) == 37) { // 'k' key shortcut
+        if ((e.keyCode || e.which) == 75) { // 'k' key shortcut
             if(!$('.dialog').is(':visible')){
                 News.Objects.Items.jumpToPrevious();
             }
