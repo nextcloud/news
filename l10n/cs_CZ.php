@@ -7,9 +7,9 @@
 "Folder added!" => "Adresář byl přidán!",
 "Error removing feed." => "Chyba při odstraňování příspěvku.",
 "Error removing folder." => "Chyba při odstraňování složky.",
+"Error updating feeds." => "Chyba při aktualizaci kanálů.",
 "No file path was submitted." => "Neuvedena cesta k souboru.",
 "An error occurred while parsing the file." => "Nastala chyba při zpracování souboru.",
-"Error updating feeds." => "Chyba při aktualizaci kanálů.",
 "Starred" => "S hvězdičkou",
 "New articles" => "Nové články",
 "Feed loaded!" => "Kanály načteny.",
@@ -88,5 +88,6 @@
 "Import feeds" => "Importovat kanály",
 "Export feeds" => "Exportovat kanály",
 "Download OPML" => "Stáhnout OPML",
+"Subscribelet" => "Subscribelet",
 "Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "Přetáhněte do Vašeho prohlížeče a klikněte, pokud si přejete rychle odebírat stránku:"
 );
