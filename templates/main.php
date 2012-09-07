@@ -63,5 +63,3 @@ if($showAll){
 	}
 
 	echo $this->inc("part.dialogues");
-?>
-

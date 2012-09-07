@@ -64,4 +64,3 @@ $tmpl->assign('feedid', $feedid);
 $tmpl->assign('feedtype', $feedtype);
 $tmpl->printPage();
 
-?>
