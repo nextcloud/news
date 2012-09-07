@@ -50,6 +50,8 @@ div.add_parentfolder {
         clear: both; 
     }
     
+    #firstrun #feed_add_url { width:20em; }
+    
     #firstrun #selections #addfeed_dialog_firstrun, #firstrun #selections #importopml_dialog_firstrun {
 	width:40em;
 	border:1px solid;
@@ -57,7 +59,15 @@ div.add_parentfolder {
 	border-radius:10px;
 	-moz-border-radius:10px; /* Firefox 3.6 and earlier */
     }
-
+    
+    #firstrun #selections #addfeed_dialog_firstrun {
+    	height:5em;
+    }
+    
+    #firstrun #selections #importopml_dialog_firstrun {
+    	height:4em;
+    }
+    
 /* feed/folder list */
 #leftcontent_news { 
     width: 20em; 

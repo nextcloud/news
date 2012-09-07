@@ -13,8 +13,7 @@
 			<button class="svg" id="browsebtn_firstrun" title="<?php echo $l->t('Upload file from desktop'); ?>" onclick="News.DropDownMenu.fade('ul#feedfoldermenu')"><img class="svg" src="<?php echo OCP\Util::imagePath('core','actions/upload.svg'); ?>" alt="<?php echo $l->t('Upload'); ?>"   /></button>
 			<button class="svg" id="cloudbtn_firstrun" title="<?php echo $l->t('Select file from ownCloud'); ?>"><img class="svg" src="<?php echo OCP\Util::imagePath('core','actions/upload.svg'); ?>" alt="<?php echo $l->t('Select'); ?>"   /></button>
 			<span id="opml_file">
-			<?php echo $l->t('Select file from') . ' '; ?><a href='#' class="settings" id="browselink"><?php echo $l->t('local filesystem');?></a>
-			<?php echo $l->t(' or '); ?><a href='#' class="settings" id="cloudlink"><?php echo $l->t('cloud');?></a>.
+			<?php echo $l->t('Select file from <a href="#" class="settings" id="browselink">local filesystem</a> or <a href="#" class="settings" id="cloudlink">cloud</a>'); ?>
 			</span>
 			<input type="file" id="file_upload_start" name="files[]" />
 			<input style="float: right" id="importbtn_firstrun" type="submit" value="<?php echo $l->t('Import');?>" />
