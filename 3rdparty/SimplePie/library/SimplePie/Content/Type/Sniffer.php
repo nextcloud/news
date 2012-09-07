@@ -329,4 +329,3 @@ class SimplePie_Content_Type_Sniffer
 		return 'text/html';
 	}
 }
-

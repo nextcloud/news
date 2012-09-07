@@ -2961,4 +2961,3 @@ class SimplePie_Item
 		}
 	}
 }
-

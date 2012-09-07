@@ -154,4 +154,3 @@ class SimplePie_Author
 		}
 	}
 }
-

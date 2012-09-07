@@ -116,4 +116,3 @@ $countsuccess = importList($data, 0);
 
 OCP\JSON::success(array('data' => array('title'=>$parsed->getTitle(), 'count'=>$parsed->getCount(), 
 	'countsuccess'=>$countsuccess)));
-

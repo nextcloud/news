@@ -980,4 +980,3 @@ class SimplePie_Parse_Date
 		}
 	}
 }
-

@@ -61,4 +61,3 @@ if(!$success) {
 
 //TODO: replace the following with a real success case. see contact/ajax/createaddressbook.php for inspirations
 OCP\JSON::success(array('data' => array('feedId' => $feedId )));
-

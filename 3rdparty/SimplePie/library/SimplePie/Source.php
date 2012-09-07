@@ -608,4 +608,3 @@ class SimplePie_Source
 		}
 	}
 }
-

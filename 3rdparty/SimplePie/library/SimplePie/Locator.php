@@ -335,4 +335,3 @@ class SimplePie_Locator
 		return null;
 	}
 }
-

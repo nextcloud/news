@@ -70,4 +70,3 @@ $listfeed = $tmpl_listfeed->fetchPage();
 OCP\JSON::success(array('data' => array( 'message' => $l->t('Feed added!'),
 										'feedid' => $feedid,
 										'listfeed' => $listfeed)));
-

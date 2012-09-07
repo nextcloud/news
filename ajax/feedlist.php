@@ -30,4 +30,3 @@ if($feeds == null) {
 }
 
 OCP\JSON::success(array('data' => $feeds));
-

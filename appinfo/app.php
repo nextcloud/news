@@ -34,4 +34,3 @@ OCP\App::addNavigationEntry( array(
   'icon' => OC_Helper::imagePath( 'news', 'icon.svg' ), 
   'name' => $l->t('News')
 ));
-

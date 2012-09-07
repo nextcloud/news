@@ -207,4 +207,3 @@ class SimplePie_Caption
 		}
 	}
 }
-

@@ -54,4 +54,3 @@ OCP\JSON::success(array('data' => array( 'message' => $l->t('Feed loaded!'),
                                         'feedTitle' => $feedTitle,
 					                   'feedItems' => $feedItems,
                                        'unreadItemCount' => $unreadItemCount )));
-

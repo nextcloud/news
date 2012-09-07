@@ -25,4 +25,3 @@ if(isset($_POST['showAll'])){
 }
 
 OCP\JSON::success();    
-

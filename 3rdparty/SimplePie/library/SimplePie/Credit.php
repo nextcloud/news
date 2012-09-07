@@ -153,4 +153,3 @@ class SimplePie_Credit
 		}
 	}
 }
-

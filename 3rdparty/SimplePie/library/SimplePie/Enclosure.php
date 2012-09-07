@@ -1377,4 +1377,3 @@ class SimplePie_Enclosure
 		}
 	}
 }
-
