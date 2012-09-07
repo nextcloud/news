@@ -22,7 +22,7 @@ $feedId = $_POST['feedId'];
 $feedMapper = new OCA\News\FeedMapper();
 $feed = $feedMapper->findById($feedId);
 
-if($folderId === 0){
+if($folderId === 0) {
     $success = $feedMapper->save($feed, $folderId);
 } else {
     $folderMapper = new OCA\News\FolderMapper();

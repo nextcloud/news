@@ -43,7 +43,7 @@ class Utils {
 	 * @param url remote url of the feed
 	 * @returns an instance of OC_News_Feed
 	 */
-	public static function fetch($url){
+	public static function fetch($url) {
 		$spfeed = new \SimplePie_Core();
 		$spfeed->set_feed_url( $url );
 		$spfeed->enable_cache( false );
@@ -106,7 +106,7 @@ class Utils {
 	 * @param url remote url of the feed
 	 * @returns an instance of OC_News_Feed
 	 */
-	public static function slimFetch($url){
+	public static function slimFetch($url) {
 		$spfeed = new \SimplePie_Core();
 		$spfeed->set_feed_url( $url );
 		$spfeed->enable_cache( false );

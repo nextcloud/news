@@ -40,12 +40,12 @@ switch ($feedId) {
 // FeedMapper instead of iterating through every item and updating as 
 // necessary
 $success = false;
-if($mostRecentItemId !== 0){
+if($mostRecentItemId !== 0) {
     $mostRecentItem = $itemMapper->find($mostRecentItemId);
 }
-foreach($items as $item){
+foreach($items as $item) {
     // FIXME: this should compare the modified date
-    if($mostRecentItemId === 0 || $item->getDate() <= $mostRecentItem->getDate()){
+    if($mostRecentItemId === 0 || $item->getDate() <= $mostRecentItem->getDate()) {
         $item->setRead();
         $success = $itemMapper->update($item);    
     }

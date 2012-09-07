@@ -35,7 +35,7 @@ class Item {
 	private $author;
 	private $date; //date is stored in the Unix format
 	
-	public function __construct($url, $title, $guid, $body, $id = null){
+	public function __construct($url, $title, $guid, $body, $id = null) {
 		$this->title = $title;
 		$this->url = $url;
 		$this->guid = $guid;
@@ -48,43 +48,43 @@ class Item {
 		}
 	}
 
-	public function getGuid(){
+	public function getGuid() {
 		return $this->guid;
 	}
 
-	public function setGuid($guid){
+	public function setGuid($guid) {
 		$this->guid = $guid;
 	}
 
-	public function getId(){
+	public function getId() {
 		return $this->id;
 	}
 
-	public function setId($id){
+	public function setId($id) {
 		$this->id = $id;
 	}
 
-	public function setRead(){
+	public function setRead() {
 		$this->status &= ~StatusFlag::UNREAD;
 	}
 
-	public function setUnread(){
+	public function setUnread() {
 		$this->status |= StatusFlag::UNREAD; 
 	}
 
-	public function isRead(){
+	public function isRead() {
 		return !($this->status & StatusFlag::UNREAD);
 	}
 	
-	public function setImportant(){
+	public function setImportant() {
 		$this->status |= StatusFlag::IMPORTANT; 
 	}
 	
-	public function setUnimportant(){
+	public function setUnimportant() {
 		$this->status &= ~StatusFlag::IMPORTANT;
 	}
 	
-	public function isImportant(){
+	public function isImportant() {
 		return ($this->status & StatusFlag::IMPORTANT);
 	}
 		
@@ -92,11 +92,11 @@ class Item {
 	 * NOTE: this is needed to store items in the database, otherwise 
 	 * the status of an item should be retrieved with methods: isRead(), isImportant(), ...
 	 */
-	public function getStatus(){
+	public function getStatus() {
 		return $this->status;
 	}
 	
-	public function setStatus($status){
+	public function setStatus($status) {
 		$this->status = $status;
 	}
 	
@@ -104,44 +104,44 @@ class Item {
 	 * http://www.php.net/manual/en/language.oop5.overloading.php#object.get
 	 */
 
-	public function getTitle(){
+	public function getTitle() {
 		return $this->title;
 	}
 
-	public function setTitle($title){
+	public function setTitle($title) {
 		$this->title = $title;
 	}
 
-	public function getUrl(){
+	public function getUrl() {
 		return $this->url;
 	}
 
-	public function setUrl($url){
+	public function setUrl($url) {
 		$this->url = $url;
 	}
 
-	public function getBody(){
+	public function getBody() {
 		return $this->body;
 	}
 
-	public function setBody($body){
+	public function setBody($body) {
 		$this->body = $body;
 	}
 	
-	public function getAuthor(){
+	public function getAuthor() {
 		return $this->author;
 	}
 
-	public function setAuthor($author){
+	public function setAuthor($author) {
 		$this->author = $author;
 	}
 
-	public function getDate(){
+	public function getDate() {
 		return $this->date;
 	}
 	
 	//TODO: check if the parameter is in the Unix format
-	public function setDate($date){
+	public function setDate($date) {
 		$this->date = $date;
 	}
 }

@@ -21,41 +21,41 @@ class Folder extends Collection {
 	private $children;
 	private $parent;
 
-	public function __construct($name, $id = null, Collection $parent = null){
+	public function __construct($name, $id = null, Collection $parent = null) {
 		$this->name = $name;
-		if ($id !== null){
+		if ($id !== null) {
 			parent::__construct($id);
 		}
 		$this->children = array();
-		if ($parent !== null){
+		if ($parent !== null) {
 			$this->parent = $parent;
 		}
 	}
 
-	public function getName(){
+	public function getName() {
 		return $this->name;
 	}
 
-	public function setName($name){
+	public function setName($name) {
 		$this->name = $name;
 	}
 
-	public function getParentId(){
-		if ($this->parent === null){
+	public function getParentId() {
+		if ($this->parent === null) {
 			return 0;
 		}
 		return $this->parent->getId();
 	}
 
-	public function addChild(Collection $child){
+	public function addChild(Collection $child) {
 		$this->children[] = $child;
 	}
 	
-	public function addChildren($children){
+	public function addChildren($children) {
 		$this->children = $children;
 	}
 	
-	public function getChildren(){
+	public function getChildren() {
 		return $this->children;
 	}
 

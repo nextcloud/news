@@ -2,7 +2,7 @@
 
 $l = new OC_l10n('news');
 
-if(isset($_['mock'])){
+if(isset($_['mock'])) {
 	$folderId = -1;
 	$folderName = '';
 } else {

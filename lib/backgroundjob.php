@@ -26,11 +26,11 @@ namespace OCA\News;
  * This class maps a feed to an entry in the feeds table of the database.
  */
 class Backgroundjob {
-	static public function sortFeeds( $a, $b ){
-		if( $a['id'] == $b['id'] ){
+	static public function sortFeeds( $a, $b ) {
+		if( $a['id'] == $b['id'] ) {
 			return 0;
 		}
-		elseif( $a['id'] < $b['id'] ){
+		elseif( $a['id'] < $b['id'] ) {
 			return -1;
 		}
 		else{
@@ -38,8 +38,8 @@ class Backgroundjob {
 		}
 	}
 	
-	static public function run(){
-		if( \OC::$CLI ){
+	static public function run() {
+		if( \OC::$CLI ) {
 			self::cliStep();
 		}
 		else{
@@ -47,17 +47,17 @@ class Backgroundjob {
 		}
 	}
 	
-	static private function cliStep(){
+	static private function cliStep() {
 		$feedmapper = new FeedMapper();
 		
 		// Iterate over all feeds
 		$feeds = $feedmapper->findAll();
-		foreach( $feeds as $feed ){
+		foreach( $feeds as $feed ) {
 			self::updateFeed( $feedmapper, $feed );
 		}
 	}
 	
-	static private function webStep(){
+	static private function webStep() {
 		// Iterate over all users
 		$lastid = \OCP\Config::getAppValue('news', 'backgroundjob_lastid',0);
 		
@@ -66,8 +66,8 @@ class Backgroundjob {
 		usort( $feeds, array( 'OCA\News\Backgroundjob', 'sortFeeds' ));
 		
 		$done = false;
-		foreach( $feeds as $feed ){
-			if( $feed['id'] > $lastid ){
+		foreach( $feeds as $feed ) {
+			if( $feed['id'] > $lastid ) {
 				// set lastid BEFORE updating feed!
 				\OCP\Config::setAppValue('news', 'backgroundjob_lastid',$feed['id']);
 				$done = true;
@@ -75,15 +75,15 @@ class Backgroundjob {
 			}
 		}
 		
-		if( !$done ){
+		if( !$done ) {
 			\OCP\Config::setAppValue('news', 'backgroundjob_lastid',0);
 		}
 	}
 		
-	static private function updateFeed( $feedmapper, $feed ){
+	static private function updateFeed( $feedmapper, $feed ) {
 		$newfeed = null;
 		$newfeed = Utils::fetch( $feed['url'] );
-		if( $newfeed !== null ){
+		if( $newfeed !== null ) {
 			$feedmapper = new FeedMapper();
 			$newfeedid = $feedmapper->save($newfeed, $feed['folderid'] );
 		}

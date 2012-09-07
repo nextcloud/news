@@ -21,7 +21,7 @@ class ItemMapper {
 	const tableName = '*PREFIX*news_items';
 	private $userid;
 
-	public function __construct($userid = null){
+	public function __construct($userid = null) {
 		if ($userid !== null) {
 			$this->userid = $userid;
 		}
@@ -33,7 +33,7 @@ class ItemMapper {
 	 * @param row a row from the items table of the database
 	 * @returns an object of the class OC_News_Item
 	 */
-	public function fromRow($row){
+	public function fromRow($row) {
 		$url = $row['url'];
 		$title = $row['title'];
 		$guid = $row['guid'];
@@ -51,7 +51,7 @@ class ItemMapper {
 	 * @brief Retrieve all the item corresponding to a feed from the database
 	 * @param feedid The id of the feed in the database table.
 	 */
-	public function findAll($feedid){
+	public function findAll($feedid) {
 		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE feed_id = ? ORDER BY pub_date DESC');
 		$result = $stmt->execute(array($feedid));
 	
@@ -70,7 +70,7 @@ class ItemMapper {
 	 * @param feedid The id of the feed in the database table.
 	 * @param status one of the constants defined in OCA\News\StatusFlag
 	 */
-	public function findAllStatus($feedid, $status){
+	public function findAllStatus($feedid, $status) {
 		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' 
 				WHERE feed_id = ?
 				AND ((status & ?) > 0) 
@@ -90,7 +90,7 @@ class ItemMapper {
 	 * @brief Retrieve all the items from the database with a particular status
 	 * @param status one of the constants defined in OCA\News\StatusFlag
 	 */
-	public function findEveryItemByStatus($status){
+	public function findEveryItemByStatus($status) {
 		$stmt = \OCP\DB::prepare('SELECT ' . self::tableName . '.* FROM ' . self::tableName . ' 
 				JOIN '. FeedMapper::tableName .' ON
 				'. FeedMapper::tableName .'.id = ' . self::tableName . '.feed_id
@@ -108,7 +108,7 @@ class ItemMapper {
 		return $items;
 	}
 
-	public function countAllStatus($feedid, $status){
+	public function countAllStatus($feedid, $status) {
 		$stmt = \OCP\DB::prepare('SELECT COUNT(*) as size FROM ' . self::tableName . ' 
 				WHERE feed_id = ?
 				AND ((status & ?) > 0)');
@@ -120,7 +120,7 @@ class ItemMapper {
 	 * @brief Count all the items from the database with a particular status
 	 * @param status one of the constants defined in OCA\News\StatusFlag
 	 */
-	public function countEveryItemByStatus($status){
+	public function countEveryItemByStatus($status) {
 		$stmt = \OCP\DB::prepare('SELECT COUNT(*) as size FROM ' . self::tableName . ' 
 				JOIN '. FeedMapper::tableName .' ON
 				'. FeedMapper::tableName .'.id = ' . self::tableName . '.feed_id
@@ -131,7 +131,7 @@ class ItemMapper {
 		return $result['size'];
 	}
 
-	public function findIdFromGuid($guid_hash, $guid, $feedid){
+	public function findIdFromGuid($guid_hash, $guid, $feedid) {
 		$stmt = \OCP\DB::prepare('
 				SELECT * FROM ' . self::tableName . ' 
 				WHERE guid_hash = ?
@@ -141,7 +141,7 @@ class ItemMapper {
 		//TODO: if there is more than one row, falling back to comparing $guid
 		$row = $result->fetchRow();
 		$id = null;
-		if ($row != null){
+		if ($row != null) {
 			$id = $row['id'];
 		}
 		return $id;
@@ -151,7 +151,7 @@ class ItemMapper {
 	 * @brief Update the item after its status has changed
 	 * @returns The item whose status has changed.
 	 */
-	public function update(Item $item){
+	public function update(Item $item) {
 		
 		$itemid = $item->getId();
 		$status = $item->getStatus();
@@ -175,7 +175,7 @@ class ItemMapper {
 	 * @brief Save the feed and all its items into the database
 	 * @returns The id of the feed in the database table.
 	 */
-	public function save(Item $item, $feedid){
+	public function save(Item $item, $feedid) {
 		$guid = $item->getGuid();
 		$guid_hash = md5($guid);
 		
@@ -183,7 +183,7 @@ class ItemMapper {
 
 		$itemid =  $this->findIdFromGuid($guid_hash, $guid, $feedid);
 		
-		if ($itemid == null){
+		if ($itemid == null) {
 			$title = $item->getTitle();
 			$body = $item->getBody();
 			$author = $item->getAuthor();
@@ -233,7 +233,7 @@ class ItemMapper {
 	 * @brief Retrieve an item from the database
 	 * @param id The id of the feed in the database table.
 	 */
-	public function find($id){
+	public function find($id) {
 		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE id = ?');
 		$result = $stmt->execute(array($id));
 		$row = $result->fetchRow();
@@ -250,7 +250,7 @@ class ItemMapper {
 	 * @param feedid The id of the feed that we wish to delete
 	 * @return 
 	 */
-	public function deleteAll($feedid){
+	public function deleteAll($feedid) {
 		if ($feedid == null) {
 			return false;
 		}

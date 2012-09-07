@@ -44,13 +44,13 @@ if ($allfeeds) {
 		$feedmapper = new OCA\News\FeedMapper(OCP\USER::getUser($userid));
 		$lastViewedId = OCP\Config::getUserValue($userid, 'news', 'lastViewedFeed');
 		$lastViewedType = OCP\Config::getUserValue($userid, 'news', 'lastViewedFeedType');
-		if( $lastViewedId == null || $lastViewedType == null){
+		if( $lastViewedId == null || $lastViewedType == null) {
 		    $feedid =  $feedmapper->mostRecent();
 		} else {
 		    $feedid = $lastViewedId;
 		    $feedtype = $lastViewedType;
 		    // check if feed exists in table
-		    if($feedmapper->findById($feedid) === null){
+		    if($feedmapper->findById($feedid) === null) {
 				$feedid =  $feedmapper->mostRecent();
 		    }
 		}

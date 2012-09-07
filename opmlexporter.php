@@ -11,11 +11,11 @@
 *
 */
 
-function feedsToXML($data, $xml_el, $dom){
+function feedsToXML($data, $xml_el, $dom) {
 
 	foreach($data as $collection) {
 		$outline_el = $dom->createElement('outline');
-		if ($collection instanceOf OCA\News\Folder){
+		if ($collection instanceOf OCA\News\Folder) {
 			$outline_el->setAttribute('title', $collection->getName());
 			$outline_el->setAttribute('text', $collection->getName());
 			feedsToXML($collection->getChildren(), $outline_el, $dom);

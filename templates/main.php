@@ -3,11 +3,11 @@
 <!-- End of Dialogs -->
 
 <?php
-if ($_['feedid']){
+if ($_['feedid']) {
 
 $showAll = OCP\Config::getUserValue(OCP\USER::getUser(), 'news', 'showAll'); 
 
-if($showAll){
+if($showAll) {
 	$viewButtonImg = 'eye_all.svg';
 	$viewButtonTitle = $l->t('Show everything');
 	$viewButtonClass = 'show_all';

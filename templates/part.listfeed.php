@@ -2,7 +2,7 @@
 
 $l = new OC_l10n('news');
 
-if(isset($_['mock'])){
+if(isset($_['mock'])) {
     $feedTitle = '';
     $feedId = -1;
     $unreadItemsCount = -1;

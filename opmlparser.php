@@ -85,7 +85,7 @@ class OPMLParser {
 	 *	or null if the parsing failed
 	 * @throws 
 	 */
-	public static function parse($raw){
+	public static function parse($raw) {
 		$parsed = new OPMLParser();
 		
 		$xml_parser = new SimpleXMLElement($raw, LIBXML_NOERROR);
