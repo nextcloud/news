@@ -297,6 +297,8 @@ div.add_parentfolder {
 
         #feeds .folder.open ul li {
             border: 0;
+            border-top: 1px solid rgba(0,0,0,0);
+            border-bottom: 1px solid rgba(0,0,0,0);
             box-sizing: border-box;
             -moz-box-sizing: border-box;
         }
@@ -307,13 +309,6 @@ div.add_parentfolder {
                 background-position: 1.4em center;
             }
 
-        #feeds .folder.open ul li:first-child {
-            border-top: 0 solid #ddd;
-        }
-
-        #feeds .folder.open ul li:last-child {
-            border-bottom: 0;
-        }
 
 
 /* feed settings */
