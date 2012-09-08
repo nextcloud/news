@@ -576,6 +576,7 @@ div.add_parentfolder {
                 max-width: 55em;
                 font-size: 1.1em;
                 clear: both;
+                overflow: auto;
             }
 
                 .feed_item div.body p { 
