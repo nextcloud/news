@@ -2,16 +2,17 @@
 
 $l = new OC_l10n('news');
 
-if(isset($_['mock'])) {
-	$folderId = -1;
-	$folderName = '';
+
+$folder = isset($_['folder']) ? $_['folder'] : null;	
+$folderId = $folder->getId();
+$folderName = $folder->getName();
+if($folder->getOpened()){
+	$openedClass = 'open';
 } else {
-	$folder = isset($_['folder']) ? $_['folder'] : null;	
-	$folderId = $folder->getId();
-	$folderName = $folder->getName();
+	$openedClass = 'collapsed';
 }
 
-echo '<li class="folder open all_read" data-id="' . $folderId . '">';
+echo '<li class="folder ' . $openedClass . ' all_read" data-id="' . $folderId . '">';
 	echo '<button class="collapsable_trigger" title="' . $l->t('Collapse') . '"></button>';
 	echo '<a href="#" class="title">' . htmlspecialchars($folderName, ENT_QUOTES, 'UTF-8') .	'</a>';
 	echo '<span class="buttons">';

@@ -656,8 +656,18 @@ var News = News || {};
      */
     Menu.prototype._toggleCollapse = function($listItem){
         $listItem.toggleClass('open');
-        $listItem.children('.collapsable_trigger').toggleClass('triggered');
-        $listItem.children('ul').toggle();
+        
+        var folderId = this._getIdAndTypeFromNode($listItem).id;
+        var data = {
+            'folderId': folderId, 
+            'opened': $listItem.hasClass('open')
+        };
+        
+        $.post(OC.filePath('news', 'ajax', 'collapsefolder.php'), data, function(jsondata){
+            if(jsondata.status != 'success'){
+                OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
+            }
+        });
     };
 
     /**

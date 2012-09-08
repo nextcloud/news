@@ -43,6 +43,7 @@ class FolderMapper {
 		while( $row = $result->fetchRow()) {
 			$folderid = $row['id'];
 			$folder = new Folder($row['name'], $folderid);
+			$folder->setOpened($row['opened']);
 			$children = self::childrenOf($folderid);
 			$folder->addChildren($children);
 			$folderlist[] = $folder;
@@ -69,6 +70,7 @@ class FolderMapper {
 		while( $row = $result->fetchRow()) {
 			$folderid = $row['id'];
 			$folder = new Folder($row['name'], $folderid);
+			$folder->setOpened($row['opened']);
 			$children = self::childrenOfWithFeeds($folderid);
 			$folder->addChildren($children);
 			$collectionlist[] = $folder;
@@ -91,6 +93,7 @@ class FolderMapper {
 
 		$row = $result->fetchRow();
 		$folder = new Folder($row['name'], $row['id']);
+		$folder->setOpened($row['opened']);
 
 		return $folder;
 	}
@@ -103,8 +106,8 @@ class FolderMapper {
 	public function save(Folder $folder) {
 		$query = \OCP\DB::prepare('
 			INSERT INTO ' . self::tableName .
-			'(name, parent_id, user_id)
-			VALUES (?, ?, ?)
+			'(name, parent_id, user_id, opened)
+			VALUES (?, ?, ?, ?)
 			');
 
 		$name = $folder->getName();
@@ -117,9 +120,10 @@ class FolderMapper {
 		$parentid = $folder->getParentId();
 
 		$params=array(
-		$name,
-		$parentid,
-		$this->userid
+			$name,
+			$parentid,
+			$this->userid,
+			$folder->getOpened()
 		);
 		$query->execute($params);
 		$folderid = \OCP\DB::insertid(self::tableName);
@@ -135,9 +139,9 @@ class FolderMapper {
 	 */
 	public function update(Folder $folder) {
 		$query = \OCP\DB::prepare('UPDATE ' . self::tableName 
-			. ' SET name = ? ' . ' WHERE id = ?');
+			. ' SET name = ?, opened = ?' . ' WHERE id = ?');
 
-		$params = array($folder->getName(), $folder->getId());
+		$params = array($folder->getName(), $folder->getOpened(), $folder->getId());
 		$query->execute($params);
 		return true;
 	}

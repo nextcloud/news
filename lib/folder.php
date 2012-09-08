@@ -20,6 +20,7 @@ class Folder extends Collection {
 	private $name;
 	private $children;
 	private $parent;
+	private $opened;
 
 	public function __construct($name, $id = null, Collection $parent = null) {
 		$this->name = $name;
@@ -30,6 +31,9 @@ class Folder extends Collection {
 		if ($parent !== null) {
 			$this->parent = $parent;
 		}
+		if($this->opened === null){
+			$this->opened = true;
+		}
 	}
 
 	public function getName() {
@@ -38,6 +42,14 @@ class Folder extends Collection {
 
 	public function setName($name) {
 		$this->name = $name;
+	}
+
+	public function getOpened() {
+		return $this->opened;
+	}
+
+	public function setOpened($opened) {
+		$this->opened = $opened;
 	}
 
 	public function getParentId() {
@@ -58,5 +70,7 @@ class Folder extends Collection {
 	public function getChildren() {
 		return $this->children;
 	}
+
+
 
 }

@@ -30,7 +30,13 @@
                 <notnull>true</notnull>
                 <length>64</length>
             </field>
-            
+            <field>
+                <name>opened</name>
+                <type>boolean</type>
+                <default>true</default>
+                <notnull>true</notnull>
+            </field>
+
             <index>
                 <name>PRIMARY</name>
                 <unique>true</unique>
