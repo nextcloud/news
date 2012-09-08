@@ -572,7 +572,6 @@ div.add_parentfolder {
              * Body of the feed item
              */
             .feed_item div.body { 
-                overflow: hidden;
                 padding: .75em 3em 0 3em; 
                 max-width: 55em;
                 font-size: 1.1em;
@@ -584,8 +583,11 @@ div.add_parentfolder {
                     margin: .5em 0 1em 0;
                 }
 
-                .feed_item div.body img {
+                .feed_item div.body img, .feed_item div.body table {
                     max-width: 100%;
+                    height: auto;
+                    overflow: auto;
+                    word-wrap: break-word;
                 }
 
                 .feed_item div.body > img:first-child {
