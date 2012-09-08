@@ -6,9 +6,9 @@
 "Folder added!" => "Mappen er tilføjet!",
 "Error removing feed." => "Der opstod en fejl under fjernelsen af feedet.",
 "Error removing folder." => "Der opstod en fejl under fjernelsen af mappen.",
+"Error updating feeds." => "Der opstod en fejl under opdateringen af feedene.",
 "No file path was submitted." => "Der var ingen sti til filen i forespørgslen.",
 "An error occurred while parsing the file." => "Der opstod en fejl under læsningen af filen.",
-"Error updating feeds." => "Der opstod en fejl under opdateringen af feedene.",
 "Starred" => "Markéret",
 "New articles" => "Nye artikler",
 "Feed loaded!" => "Feeds indlæst!",
@@ -73,7 +73,6 @@
 "Upload" => "Upload",
 "Select file from ownCloud" => "Vælg fil fra ownCloud",
 "Select" => "Vælg",
-" or " => "eller",
 "Or..." => "Eller...",
 "Import feeds" => "Importer feeds",
 "Export feeds" => "Eksporter feeds"

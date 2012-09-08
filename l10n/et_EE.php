@@ -31,9 +31,6 @@
 "no name" => "nime pole",
 "no body" => "sisu pole",
 "Subscribe" => "Telli",
-"local filesystem" => "kohalik failisüsteem",
-" or " => "või",
-"cloud" => "pilv",
 "Export feeds" => "Ekspordi uudisvood",
 "Download OPML" => "Laadi OPMLfail alla"
 );
