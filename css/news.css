@@ -251,10 +251,10 @@ div.add_parentfolder {
         border-bottom: 1px solid #ccc;
     }
 
-    #feeds li:hover {
+    #feeds li:hover, #feeds li:active, .ui-draggable-dragging {
         background-color: #ddd;
-        border-bottom: 1px solid #ccc;
-        border-top: 1px solid #d4d4d4;
+        border-bottom: 1px solid #ccc !important;
+        border-top: 1px solid #d4d4d4 !important;
     }
 
     #feeds .folder {
