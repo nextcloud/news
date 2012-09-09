@@ -80,6 +80,7 @@
 "Upload" => "Ladda upp",
 "Select file from ownCloud" => "Välj fil från ownCloud",
 "Select" => "Välj",
+"Select file from <a href=\"#\" class=\"settings\" id=\"browselink\">local filesystem</a> or <a href=\"#\" class=\"settings\" id=\"cloudlink\">cloud</a>" => "Välj fil från <a href=\"#\" class=\"settings\" id=\"browselink\">lokalt filsystem</a> eller <a href=\"#\" class=\"settings\" id=\"cloudlink\">molnet</a>",
 "Or..." => "Eller...",
 "Import feeds" => "Importera flöden",
 "Export feeds" => "Exportera flöden",

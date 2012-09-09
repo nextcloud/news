@@ -79,6 +79,7 @@
 "Upload" => "Igo",
 "Select file from ownCloud" => "ownCloudeko fitxategia hautatu",
 "Select" => "hautatu",
+"Select file from <a href=\"#\" class=\"settings\" id=\"browselink\">local filesystem</a> or <a href=\"#\" class=\"settings\" id=\"cloudlink\">cloud</a>" => "Hautatu fitxategi bat <a href=\"#\" class=\"settings\" id=\"browselink\">bertako fitxategi sistematik</a> edo <a href=\"#\" class=\"settings\" id=\"cloudlink\">hodeiatik</a>",
 "Or..." => "edo...",
 "Import feeds" => "Inportatu iturburuak",
 "Export feeds" => "Exportatu iturburuak",

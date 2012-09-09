@@ -80,6 +80,7 @@
 "Upload" => "Carica",
 "Select file from ownCloud" => "Seleziona file da ownCloud",
 "Select" => "Seleziona",
+"Select file from <a href=\"#\" class=\"settings\" id=\"browselink\">local filesystem</a> or <a href=\"#\" class=\"settings\" id=\"cloudlink\">cloud</a>" => "Seleziona file da <a href=\"#\" class=\"settings\" id=\"browselink\">filesystem locale</a> o <a href=\"#\" class=\"settings\" id=\"cloudlink\">nuvola</a>",
 "Or..." => "O...",
 "Import feeds" => "Importa fonti",
 "Export feeds" => "Esporta fonti",

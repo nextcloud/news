@@ -80,6 +80,7 @@
 "Upload" => "Naloži",
 "Select file from ownCloud" => "Izberi datoteko iz ownCloud",
 "Select" => "Izberi",
+"Select file from <a href=\"#\" class=\"settings\" id=\"browselink\">local filesystem</a> or <a href=\"#\" class=\"settings\" id=\"cloudlink\">cloud</a>" => "Izberite datoteko iz <a href=\"#\" class=\"settings\" id=\"browselink\">lokalnega datotečnega sistema</a> ali <a href=\"#\" class=\"settings\" id=\"cloudlink\">oblaka</a>",
 "Or..." => "Ali...",
 "Import feeds" => "Uvozi vire",
 "Export feeds" => "Izvozi vire",

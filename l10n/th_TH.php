@@ -80,6 +80,7 @@
 "Upload" => "อัพโหลด",
 "Select file from ownCloud" => "เลือกไฟล์จาก ownCloud",
 "Select" => "เลือก",
+"Select file from <a href=\"#\" class=\"settings\" id=\"browselink\">local filesystem</a> or <a href=\"#\" class=\"settings\" id=\"cloudlink\">cloud</a>" => "เลือกไฟล์จาก <a href=\"#\" class=\"settings\" id=\"browselink\">ระบบไฟล์ภายในเครื่อง</a> หรือ <a href=\"#\" class=\"settings\" id=\"cloudlink\">บนกลุ่มเมฆ</a>",
 "Or..." => "หรือ...",
 "Import feeds" => "นำเข้า feed",
 "Export feeds" => "ส่งออก feed",

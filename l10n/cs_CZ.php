@@ -80,6 +80,7 @@
 "Upload" => "Odeslat",
 "Select file from ownCloud" => "Vybrat soubor z ownCloud",
 "Select" => "Vybrat",
+"Select file from <a href=\"#\" class=\"settings\" id=\"browselink\">local filesystem</a> or <a href=\"#\" class=\"settings\" id=\"cloudlink\">cloud</a>" => "Vyberte soubor z <a href=\"#\" class=\"settings\" id=\"browselink\">místního souborového systému</a>, nebo <a href=\"#\" class=\"settings\" id=\"cloudlink\">cloudu</a>",
 "Or..." => "Nebo...",
 "Import feeds" => "Importovat kanály",
 "Export feeds" => "Exportovat kanály",

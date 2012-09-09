@@ -80,6 +80,7 @@
 "Upload" => "Lähetä",
 "Select file from ownCloud" => "Valitse tiedosto ownCloudista",
 "Select" => "Valitse",
+"Select file from <a href=\"#\" class=\"settings\" id=\"browselink\">local filesystem</a> or <a href=\"#\" class=\"settings\" id=\"cloudlink\">cloud</a>" => "Valitse tiedosto <a href=\"#\" class=\"settings\" id=\"browselink\">paikallisesta tiedostojärjestelmästä</a> tai <a href=\"#\" class=\"settings\" id=\"cloudlink\">pilvestä</a>",
 "Or..." => "Tai...",
 "Import feeds" => "Tuo syötteitä",
 "Export feeds" => "Vie syötteet",
