@@ -1,5 +1,6 @@
 <?php $TRANSLATIONS = array(
 "Error changing name of folder " => "Error cambiando el nombre de la carpeta",
+"Error collapsing folder." => "Error al colapsar carpeta.",
 "Feed already exists." => "La fuente ya existe.",
 "Error adding feed." => "Error agregando la fuente.",
 "Feed added!" => "¡Fuente agregada!",
@@ -80,6 +81,7 @@
 "Upload" => "Subir",
 "Select file from ownCloud" => "Seleccionar fichero desde ownCloud",
 "Select" => "Seleccionar",
+"Select file from <a href=\"#\" class=\"settings\" id=\"browselink\">local filesystem</a> or <a href=\"#\" class=\"settings\" id=\"cloudlink\">cloud</a>" => "Seleccionar archivo desde <a href=\"#\" class=\"settings\" id=\"browselink\">sistema de archivo local</a> o <a href=\"#\" class=\"settings\" id=\"cloudlink\">nube</a>",
 "Or..." => "O...",
 "Import feeds" => "Importar fuentes",
 "Export feeds" => "Exportar fuente",

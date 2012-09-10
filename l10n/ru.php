@@ -1,5 +1,6 @@
 <?php $TRANSLATIONS = array(
 "Error changing name of folder " => "Ошибка при изменении имени папки",
+"Error collapsing folder." => "Ошибка при сворачивании папки.",
 "Feed already exists." => "Лента уже существует.",
 "Error adding feed." => "Ошибка добавления ленты.",
 "Feed added!" => "Лента добавлена!",

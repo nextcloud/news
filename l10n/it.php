@@ -1,5 +1,6 @@
 <?php $TRANSLATIONS = array(
 "Error changing name of folder " => "Errore durante la modifica del nome della cartella",
+"Error collapsing folder." => "Errore durante la contrazione della cartella.",
 "Feed already exists." => "La fonte esiste già.",
 "Error adding feed." => "Errore durante l'aggiunta della fonte.",
 "Feed added!" => "Fonte aggiunta!",

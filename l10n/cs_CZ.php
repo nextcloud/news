@@ -1,5 +1,6 @@
 <?php $TRANSLATIONS = array(
 "Error changing name of folder " => "Chyba při změně názvu složky ",
+"Error collapsing folder." => "Chyba při sbalení složky.",
 "Feed already exists." => "Kanál již existuje.",
 "Error adding feed." => "Chyba při přidávání kanálu.",
 "Feed added!" => "Kanál byl přidán.",

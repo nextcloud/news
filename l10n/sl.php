@@ -1,5 +1,6 @@
 <?php $TRANSLATIONS = array(
 "Error changing name of folder " => "Napaka pri spreminjanju imena mape",
+"Error collapsing folder." => "Napaka pri zapiranju mape.",
 "Feed already exists." => "Vir že obstaja.",
 "Error adding feed." => "Napaka pri dodajanju vira.",
 "Feed added!" => "Vir je bil dodan!",
