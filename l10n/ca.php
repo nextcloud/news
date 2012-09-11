@@ -1,5 +1,6 @@
 <?php $TRANSLATIONS = array(
 "Error changing name of folder " => "Error en canviar el nom de la carpeta",
+"Error collapsing folder." => "Error en col·lapsar la carpeta.",
 "Feed already exists." => "La font ja existeix",
 "Error adding feed." => "Error en afegir la font",
 "Feed added!" => "S'ha afegit la font!",
@@ -80,6 +81,7 @@
 "Upload" => "Puja",
 "Select file from ownCloud" => "Selecciona un fitxer des de ownCloud",
 "Select" => "Selecciona",
+"Select file from <a href=\"#\" class=\"settings\" id=\"browselink\">local filesystem</a> or <a href=\"#\" class=\"settings\" id=\"cloudlink\">cloud</a>" => "Seleccioneu un fitxer del <a href=\"#\" class=\"settings\" id=\"browselink\">sistema de fitxers local</a> o <a href=\"#\" class=\"settings\" id=\"cloudlink\">del núvol</a>",
 "Or..." => "o...",
 "Import feeds" => "Importa fonts",
 "Export feeds" => "Exporta fonts",

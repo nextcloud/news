@@ -1,5 +1,6 @@
 <?php $TRANSLATIONS = array(
 "Error changing name of folder " => "Fel vid namnbyte av mapp",
+"Error collapsing folder." => "Kunde inte minimera mapp.",
 "Feed already exists." => "Flödet existerar redan.",
 "Error adding feed." => "Problem med att lägga till flöde.",
 "Feed added!" => "Flöde tillagt!",
