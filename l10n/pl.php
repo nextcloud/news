@@ -1,5 +1,6 @@
 <?php $TRANSLATIONS = array(
 "Error changing name of folder " => "Błąd zmiany nazwy folderu",
+"Error collapsing folder." => "Błąd folderu.",
 "Feed already exists." => "Feed już istnieje",
 "Error adding feed." => "Błąd dodawania kanału.",
 "Feed added!" => "Feed dodany!",
@@ -80,6 +81,7 @@
 "Upload" => "Załaduj",
 "Select file from ownCloud" => "Wybierz plik z ownCloud",
 "Select" => "Wybierz",
+"Select file from <a href=\"#\" class=\"settings\" id=\"browselink\">local filesystem</a> or <a href=\"#\" class=\"settings\" id=\"cloudlink\">cloud</a>" => "Wybierz plik z <a href=\"#\" class=\"settings\" id=\"browselink\">lokalnego systemu plików </a> or <a href=\"#\" class=\"settings\" id=\"cloudlink\">chmury</a>",
 "Or..." => "lub...",
 "Import feeds" => "Importuj kanały",
 "Export feeds" => "Eksportuj kanały",
