@@ -25,7 +25,9 @@ class FolderMapper {
 		if ($userid !== null) {
 			$this->userid = $userid;
 		}
-		$this->userid = \OCP\USER::getUser();
+		else {
+			$this->userid = \OCP\USER::getUser();
+		}
 	}
 
 

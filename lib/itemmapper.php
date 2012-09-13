@@ -25,7 +25,9 @@ class ItemMapper {
 		if ($userid !== null) {
 			$this->userid = $userid;
 		}
-		$this->userid = \OCP\USER::getUser();
+		else {
+			$this->userid = \OCP\USER::getUser();
+		}
 	}
 
 	/**
@@ -51,7 +53,7 @@ class ItemMapper {
 	 * @brief Retrieve all the item corresponding to a feed from the database
 	 * @param feedid The id of the feed in the database table.
 	 */
-	public function findAll($feedid) {
+	public function findByFeedId($feedid) {
 		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE feed_id = ? ORDER BY pub_date DESC');
 		$result = $stmt->execute(array($feedid));
 	
@@ -233,7 +235,7 @@ class ItemMapper {
 	 * @brief Retrieve an item from the database
 	 * @param id The id of the feed in the database table.
 	 */
-	public function find($id) {
+	public function findById($id) {
 		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE id = ?');
 		$result = $stmt->execute(array($id));
 		$row = $result->fetchRow();

@@ -13,7 +13,7 @@ function print_collection_list($list) {
 		elseif ($collection instanceOf OCA\News\Feed) { //onhover $(element).attr('id', 'newID');
 			$itemmapper = new OCA\News\ItemMapper();
 
-			$items = $itemmapper->findAll($collection->getId());
+			$items = $itemmapper->findByFeedId($collection->getId());
 			$counter = 0;
 			foreach($items as $item) {
 				if(!$item->isRead())

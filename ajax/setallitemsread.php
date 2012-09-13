@@ -41,7 +41,7 @@ switch ($feedId) {
 // necessary
 $success = false;
 if($mostRecentItemId !== 0) {
-    $mostRecentItem = $itemMapper->find($mostRecentItemId);
+    $mostRecentItem = $itemMapper->findById($mostRecentItemId);
 }
 foreach($items as $item) {
     // FIXME: this should compare the modified date

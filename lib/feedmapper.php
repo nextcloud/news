@@ -24,7 +24,9 @@ class FeedMapper {
 		if ($userid !== null) {
 			$this->userid = $userid;
 		}
-		$this->userid = \OCP\USER::getUser();
+		else {
+			$this->userid = \OCP\USER::getUser();
+		}
 	}
 
 	/**
@@ -113,7 +115,7 @@ class FeedMapper {
 		
 		$feed = self::fromRow($row);
 		$itemMapper = new ItemMapper();
-		$items = $itemMapper->findAll($id);
+		$items = $itemMapper->findById($id);
 		$feed->setItems($items);
 
 		return $feed;

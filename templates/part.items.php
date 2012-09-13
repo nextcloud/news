@@ -15,7 +15,7 @@ if ($feedId == -1 || $feedId == -2) { //TODO: change this values, too obscure
 }
 else {
 	if($showAll) {
-		$items = $itemMapper->findAll($feedId);
+		$items = $itemMapper->findByFeedId($feedId);
         } else {
         	$items = $itemMapper->findAllStatus($feedId, OCA\News\StatusFlag::UNREAD);
         }
