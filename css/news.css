@@ -94,19 +94,23 @@ div.add_parentfolder {
 
 #feeds {
     height: 100%;
-    overflow: auto;
+    overflow: none;
     background-color: #eee;
     color: #333;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
 }
 
+    #feeds:hover {
+        overflow: auto;
+    }
+
     #feeds .unread_items_counter {
         display: none;
     }
 
     #feeds > ul {
-        height: 100%;
+        min-height: 100%;
         overflow-x: hidden;
     }
 
