@@ -63,7 +63,7 @@ The default value is false. If you want to toggle this behaviour, theres a short
     menu.toggleShowAll();
 
 
-To hide all articles with read feeds, the setShowAll has to be set to false. The 
+To hide all articles with read feeds, the setShowAll has to be set to false. The
 hiding is only triggered after a new feed/folder was being loaded. If you wish to
 trigger this manually, use:
 
@@ -101,7 +101,7 @@ var News = News || {};
     MenuNodeTypeClass[MenuNodeType.Starred] = 'starred';
     MenuNodeTypeClass[MenuNodeType.Subscriptions] = 'subscriptions';
 
-    News.MenuNodeType = MenuNodeType; 
+    News.MenuNodeType = MenuNodeType;
 
 
     /*##########################################################################
@@ -218,7 +218,7 @@ var News = News || {};
                 if(!$(this).hasClass('active') && $(this).find('.active').length === 0){
                     $(this).addClass('hidden');
                 }
-            });                
+            });
         }
         this._resetOpenFolders();
     };
@@ -228,7 +228,7 @@ var News = News || {};
      */
     Menu.prototype.markCurrentFeedRead = function(){
         this._markRead(this._activeFeedType, this._activeFeedType);
-    }
+    };
 
     /**
      * Sets the showAll value
@@ -240,7 +240,7 @@ var News = News || {};
         this.triggerHideRead();
         // needed because we have items that are older
         // but not yet cached. We cache by remembering the newest item id
-        this._items.emptyItemCache(); 
+        this._items.emptyItemCache();
         this.load(this._activeFeedType, this._activeFeedId);
     };
 
@@ -268,7 +268,7 @@ var News = News || {};
         var self = this;
         self._setActiveFeed(type, id);
 
-        this._items.load(type, id, function(){    
+        this._items.load(type, id, function(){
             self.triggerHideRead();
         });
     };
@@ -304,7 +304,7 @@ var News = News || {};
             default:
                 console.log('Can only set unreadcount of starred items or feeds');
                 break;
-        }   
+        }
         this._setUnreadCount(type, id, unreadCount+1);
     };
 
@@ -325,7 +325,7 @@ var News = News || {};
             default:
                 console.log('Can only set unreadcount of starred items or feeds');
                 break;
-        }   
+        }
         this._setUnreadCount(type, id, unreadCount-1);
     };
 
@@ -347,8 +347,6 @@ var News = News || {};
         this._activeFeedType = this._listItemToMenuNodeType(this._$activeFeed);
         
         // set timeout to avoid racecondition error
-        var self = this;
-
         // this is very annoying on start, do we need it?
         /*setTimeout(function(){
             self._updateUnreadCountAll();
@@ -361,7 +359,7 @@ var News = News || {};
      * Binds the according handlers and reads in the meta data for each node
      * @param $listItem the jquery list element
      */
-    Menu.prototype._bindMenuItem = function($listItem){        
+    Menu.prototype._bindMenuItem = function($listItem){
         switch(this._listItemToMenuNodeType($listItem)){
             case MenuNodeType.Feed:
                 this._bindFeed($listItem);
@@ -431,7 +429,7 @@ var News = News || {};
     Menu.prototype._bindFeed = function($listItem){
         var self = this;
         var id = $listItem.data('id');
-        this._setUnreadCount(MenuNodeType.Feed, id, 
+        this._setUnreadCount(MenuNodeType.Feed, id,
             this._getAndRemoveUnreadCount($listItem));
 
         $listItem.children('.title').click(function(){
@@ -439,7 +437,7 @@ var News = News || {};
             if($(this).hasClass('noclick')){
                 $(this).removeClass('noclick');
             } else {
-                self.load(MenuNodeType.Feed, id);    
+                self.load(MenuNodeType.Feed, id);
             }
             return false;
         });
@@ -452,9 +450,9 @@ var News = News || {};
             self._markRead(MenuNodeType.Feed, id);
         });
 
-        $listItem.draggable({ 
+        $listItem.draggable({
             revert: true,
-            stack: '> li',   
+            stack: '> li',
             zIndex: 1000,
             axis: 'y',
             start: function(event, ui){
@@ -469,7 +467,7 @@ var News = News || {};
      */
     Menu.prototype._bindStarred = function($listItem){
         var self = this;
-        this._setUnreadCount(MenuNodeType.Starred, 0, 
+        this._setUnreadCount(MenuNodeType.Starred, 0,
             this._getAndRemoveUnreadCount($listItem));
 
         $listItem.children('.title').click(function(){
@@ -510,7 +508,7 @@ var News = News || {};
             case MenuNodeType.Feed:
                 confirmMessage = t('news', 'Are you sure you want to delete this feed?');
                 url = 'deletefeed.php';
-                data = { 
+                data = {
                     feedid: id
                 };
                 break;
@@ -518,7 +516,7 @@ var News = News || {};
             case MenuNodeType.Folder:
                 confirmMessage = t('news', 'Are you sure you want to delete this folder and all its feeds?');
                 url = 'deletefolder.php';
-                data = { 
+                data = {
                     folderid: id
                 };
                 break;
@@ -577,9 +575,9 @@ var News = News || {};
             case MenuNodeType.Subscriptions:
                 this._$root.children('li').each(function(){
                     var childData = self._getIdAndTypeFromNode($(this));
-                    if(childData.type === MenuNodeType.Folder || 
+                    if(childData.type === MenuNodeType.Folder ||
                         childData.type === MenuNodeType.Feed){
-                        self._markRead(childData.type, childData.id);    
+                        self._markRead(childData.type, childData.id);
                     }
                 });
                 break;
@@ -634,8 +632,8 @@ var News = News || {};
         this._updatingCount += 1;
         var self = this;
         var data = {
-            'feedid':feedId, 
-            'feedurl':feedUrl, 
+            'feedid':feedId,
+            'feedurl':feedUrl,
             'folderid':folderId
         };
         $.post(OC.filePath('news', 'ajax', 'updatefeed.php'), data, function(jsondata){
@@ -659,7 +657,7 @@ var News = News || {};
         
         var folderId = this._getIdAndTypeFromNode($listItem).id;
         var data = {
-            'folderId': folderId, 
+            'folderId': folderId,
             'opened': $listItem.hasClass('open')
         };
         
@@ -723,7 +721,7 @@ var News = News || {};
     Menu.prototype._getIdAndTypeFromNode = function($listItem) {
         return {
             id: parseInt($listItem.data('id')),
-            type: this._listItemToMenuNodeType($listItem),
+            type: this._listItemToMenuNodeType($listItem)
         };
     };
 
@@ -756,8 +754,8 @@ var News = News || {};
     };
 
     /**
-     * When feeds are moved to different folders and in the beginning, we 
-     * have to check for folders with children and add the appropriate 
+     * When feeds are moved to different folders and in the beginning, we
+     * have to check for folders with children and add the appropriate
      * collapsable classes to give access to the collapasable button
      */
     Menu.prototype._resetOpenFolders = function(){
@@ -814,12 +812,12 @@ var News = News || {};
                 var folderUnreadCount = 0;
                 var self = this;
                 $folder.children('ul').children('li').each(function(){
-                    var feedData = self._getIdAndTypeFromNode($(this));   
+                    var feedData = self._getIdAndTypeFromNode($(this));
                     if(feedData.type === MenuNodeType.Feed){
                         folderUnreadCount += self._unreadCount.Feed[feedData.id];
-                    }     
+                    }
                 });
-                this._applyUnreadCountStyle(MenuNodeType.Folder, folderData.id, 
+                this._applyUnreadCountStyle(MenuNodeType.Folder, folderData.id,
                     folderUnreadCount);
             }
         }
@@ -830,7 +828,7 @@ var News = News || {};
             subscriptionsUnreadCount += value;
         });
         this._unreadCount.Subscriptions = subscriptionsUnreadCount;
-        this._applyUnreadCountStyle(MenuNodeType.Subscriptions, 0, 
+        this._applyUnreadCountStyle(MenuNodeType.Subscriptions, 0,
             subscriptionsUnreadCount);
 
         // lastly apply the new style to the feed
@@ -838,7 +836,7 @@ var News = News || {};
     };
 
     /**
-     * Apply a style on a listitem based on its previous unreadcount and new 
+     * Apply a style on a listitem based on its previous unreadcount and new
      * unreadcount
      * @param type the type (MenuNodeType)
      * @param id the id
@@ -849,8 +847,8 @@ var News = News || {};
         if(unreadCount === 0){
             $node.addClass('all_read');
         } else {
-            $node.removeClass('all_read hidden');  
-        }    
+            $node.removeClass('all_read hidden');
+        }
     };
 
     /**

@@ -112,7 +112,10 @@ div.add_parentfolder {
 
     .dnd_over {
         -moz-transition: padding-bottom 500ms ease 0s;
-        transition: padding-bottom 500ms ease 0s;         
+        -o-transition: padding-bottom 500ms ease 0s;
+        -webkit-transition: padding-bottom 500ms ease 0s;
+        -ms-transition: padding-bottom 500ms ease 0s;
+        transition: padding-bottom 500ms ease 0s;    
     }
     
     #feeds > ul.dnd_over {
@@ -120,12 +123,18 @@ div.add_parentfolder {
     }
     .dnd_over > ul {
         -moz-transition: padding-bottom 500ms ease 0s;
+        -o-transition: padding-bottom 500ms ease 0s;
+        -webkit-transition: padding-bottom 500ms ease 0s;
+        -ms-transition: padding-bottom 500ms ease 0s;
         transition: padding-bottom 500ms ease 0s;
         padding-bottom: 2.5em! important;
 
     }
     #feeds > ul ul.dnd_over {
         -moz-transition: padding-bottom 500ms ease 0s;
+        -o-transition: padding-bottom 500ms ease 0s;
+        -webkit-transition: padding-bottom 500ms ease 0s;
+        -ms-transition: padding-bottom 500ms ease 0s;
         transition: padding-bottom 500ms ease 0s;
         padding-bottom: 2.5em !important;
     }    
@@ -144,7 +153,7 @@ div.add_parentfolder {
     }
 
         #feeds .buttons button {
-            margin: .8em .3em 0 0;
+            margin: .6em .3em 0 0;
             background-position: center;
             background-repeat: no-repeat;
         }
@@ -232,7 +241,7 @@ div.add_parentfolder {
             background-size: 16px 16px;
             background-repeat: no-repeat;
             background-position: .2em center;
-            line-height: 2.8em;
+            line-height: 2.5em;
         }
 
             #feeds li:hover > a.title {

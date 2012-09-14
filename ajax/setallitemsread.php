@@ -53,6 +53,8 @@ foreach($items as $item) {
 
 $l = OC_L10N::get('news');
 
+// FIXME: when we have no items we to mark read we shouldnt throw an error
+$success = true;
 if(!$success) {
     OCP\JSON::error(array('data' => array('message' => $l->t('Error setting all items as read.'))));
     OCP\Util::writeLog('news','ajax/setallitemsread.php: Error setting all items as read of feed '. $feedId, OCP\Util::ERROR);
