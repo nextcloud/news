@@ -15,7 +15,7 @@ var News = News || {};
 $(document).ready(function(){
 
     // config values
-    var menuUpdateIntervalMiliseconds = 30000;
+    var menuUpdateIntervalMiliseconds = 60000;
 
     // global object array for accessing instances
     News.Objects = {};
