@@ -346,11 +346,9 @@ var News = News || {};
         this._activeFeedId = this._$activeFeed.data('id');
         this._activeFeedType = this._listItemToMenuNodeType(this._$activeFeed);
         
-        // set timeout to avoid racecondition error
-        // this is very annoying on start, do we need it?
-        /*setTimeout(function(){
+        setTimeout(function(){
             self._updateUnreadCountAll();
-        }, 1000);*/
+        }, 3000);
         
         this.triggerHideRead();
     };
@@ -636,9 +634,10 @@ var News = News || {};
             'feedurl':feedUrl,
             'folderid':folderId
         };
-        $.post(OC.filePath('news', 'ajax', 'updatefeed.php'), data, function(jsondata){
-            if(jsondata.status == 'success'){
-                var newUnreadCount = jsondata.data.unreadcount;
+        $.post(OC.filePath('news', 'ajax', 'updatefeed.php'), data, function(jsonData){
+            console.log(jsonData);
+            if(jsonData.status == 'success'){
+                var newUnreadCount = jsonData.data.unreadcount;
                 // FIXME: starred items should also be set
                 self._setUnreadCount(MenuNodeType.Feed, feedId, newUnreadCount);
             } else {
