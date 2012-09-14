@@ -14,6 +14,7 @@
 OCP\JSON::checkLoggedIn();
 OCP\JSON::checkAppEnabled('news');
 OCP\JSON::callCheck();
+session_write_close();
 
 if(isset($_POST['showAll'])) {
     if($_POST['showAll'] === 'false') {
