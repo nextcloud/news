@@ -15,7 +15,7 @@ var News = News || {};
 $(document).ready(function(){
 
     // config values
-    var menuUpdateIntervalMiliseconds = 200000;
+    var menuUpdateIntervalMiliseconds = 30000;
 
     // global object array for accessing instances
     News.Objects = {};
@@ -41,7 +41,7 @@ $(document).ready(function(){
         $rootFolder.click(function(){
             News.DropDownMenu.selectItem(this, 0);
         });
-        $('#addfeed_dialog .menu').append($rootFolder);        
+        $('#addfeed_dialog .menu').append($rootFolder);
 
         $('#feeds .folder').each(function(){
             var title = $(this).children('.title').html();
@@ -85,7 +85,7 @@ $(document).ready(function(){
 
     $('#changefolder_dialog input[type=submit]').click(function(){
         News.Folder.changeName(this);
-    });    
+    });
 
     $('#folder_add_submit').click(function(){
         News.Folder.submit(this);
@@ -121,7 +121,7 @@ $(document).ready(function(){
                 OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
             }
         });
-    }); 
+    });
     
     $(document).click(function(event) {
         $('#feedfoldermenu').hide();

@@ -116,10 +116,6 @@ var News = News || {};
         var self = this;
         this._updatingCount = 0;
         this._updateInterval = updateIntervalMiliseconds;
-        setInterval(function(){
-            self._updateUnreadCountAll();
-        }, self._updateInterval);
-
         this._items = items;
         this._showAll = $('#view').hasClass('show_all');
 
@@ -350,6 +346,10 @@ var News = News || {};
             self._updateUnreadCountAll();
         }, 3000);
         
+        setInterval(function(){
+            self._updateUnreadCountAll();
+        }, self._updateInterval);
+
         this.triggerHideRead();
     };
 
@@ -635,13 +635,14 @@ var News = News || {};
             'folderid':folderId
         };
         $.post(OC.filePath('news', 'ajax', 'updatefeed.php'), data, function(jsonData){
-            console.log(jsonData);
-            if(jsonData.status == 'success'){
-                var newUnreadCount = jsonData.data.unreadcount;
-                // FIXME: starred items should also be set
-                self._setUnreadCount(MenuNodeType.Feed, feedId, newUnreadCount);
-            } else {
-                OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
+            if(jsonData.data !== undefined){ // FIXME: temporary fix
+                if(jsonData.status == 'success'){
+                    var newUnreadCount = jsonData.data.unreadcount;
+                    // FIXME: starred items should also be set
+                    self._setUnreadCount(MenuNodeType.Feed, feedId, newUnreadCount);
+                } else {
+                    OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
+                }
             }
             self._updatingCount -= 1;
         });
