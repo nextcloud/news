@@ -89,6 +89,9 @@ var News = News || {};
      * @param onSuccessCallback a callback that is executed when the loading succeeded
      */
     Items.prototype.load = function(type, id, onSuccessCallback) {
+        this._lastActiveFeedId = id;
+        this._lastActiveFeedType = type;
+
         var self = this;
         var data = {
             id: id,
@@ -100,20 +103,24 @@ var News = News || {};
         this._$articleList.children('ul').hide();
 
         $.post(OC.filePath('news', 'ajax', 'loadfeed.php'), data, function(jsonData) {
-            if(jsonData.status == 'success'){
-                self._$articleList.empty() // FIXME: does this also removed cached items?
-                self._itemCache.populate(jsonData.data.feedItems);
+            // prevent loading in selected feeds that are not active any more when
+            // the post finishes later
+            if(self._lastActiveFeedType === type && self._lastActiveFeedId === id){
+                if(jsonData.status == 'success'){
+                    self._$articleList.empty() // FIXME: does this also removed cached items?
+                    self._itemCache.populate(jsonData.data.feedItems);
 
-                var $items = self._itemCache.getFeedHtml(type, id);
-                self._$articleList.append($items);
-                self._$articleList.scrollTop(0);
-                onSuccessCallback();
-            } else {
-                OC.dialogs.alert(t('news', 'Error while loading the feed'), t('news', 'Error'));
-                self._$articleList.children('ul').show();
+                    var $items = self._itemCache.getFeedHtml(type, id);
+                    self._$articleList.append($items);
+                    self._$articleList.scrollTop(0);
+                    onSuccessCallback();
+                } else {
+                    OC.dialogs.alert(t('news', 'Error while loading the feed'), t('news', 'Error'));
+                    self._$articleList.children('ul').show();
+                }
+                self._$articleList.removeClass('loading');
+                self._setScrollBottom();
             }
-            self._$articleList.removeClass('loading');
-            self._setScrollBottom();
         });
     };
 
