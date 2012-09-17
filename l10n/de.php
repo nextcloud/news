@@ -21,6 +21,9 @@
 "Error updating feed." => "Fehler bei der Aktualisierung der Feeds.",
 "Feed updated!" => "Feed aktualisiert!",
 "News" => "Nachrichten",
+"Are you sure you want to delete this feed?" => "Wollen Sie diesen Feed wirklich löschen?",
+"Are you sure you want to delete this folder and all its feeds?" => "Wollen Sie wirklich diesen Ordner mit allen Feeds löschen?",
+"Warning" => "Warnung",
 "Error" => "Fehler",
 "Name of the folder cannot be empty." => "Der Name des Ordners darf nicht leer sein.",
 "Adding..." => "Füge hinzu...",
@@ -45,7 +48,7 @@
 "Select file" => "Datei auswählen",
 "no title" => "kein Titel",
 "no name" => "kein Name",
-"no body" => "keinen Nachrichtentext",
+"no body" => "kein Nachrichtentext",
 "subscriptions in ownCloud - News" => "Abonnements in ownCloud - Nachrichten",
 "An error occurred" => "Es ist ein Fehler aufgetreten",
 "Nice! You have subscribed to " => "Gratulation! Sie haben Folgendes abonniert:",
@@ -87,5 +90,5 @@
 "Export feeds" => "Feeds exportieren",
 "Download OPML" => "OPML herunterladen",
 "Subscribelet" => "Subscribelet",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "Legen Sie dies bei Ihren Lesezeichen ab und klicken Sie darauf, wann immer sie schnellstmöglich eine Seite abonnieren wollen:"
+"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "Legen Sie dies bei Ihren Lesezeichen ab und klicken Sie darauf, wann immer Sie schnellstmöglich eine Seite abonnieren wollen:"
 );
