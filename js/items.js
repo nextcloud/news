@@ -39,7 +39,7 @@ var News = News || {};
         
         // mark items whose title was hid under the top edge as read
         this._scrollTimeoutMiliSecs = 100;
-        this._markReadTimeoutMiliSecs = 1000;
+        this._markReadTimeoutMiliSecs = 500;
         this._isScrolling = false;
         this._$articleList.scroll(function(){
             // prevent too many scroll requests;
