@@ -44,11 +44,14 @@ $success = false;
 if($mostRecentItemId !== 0) {
     $mostRecentItem = $itemMapper->findById($mostRecentItemId);
 }
+
+$unreadCount = count($items);
 foreach($items as $item) {
     // FIXME: this should compare the modified date
     if($mostRecentItemId === 0 || $item->getDate() <= $mostRecentItem->getDate()) {
         $item->setRead();
-        $success = $itemMapper->update($item);    
+        $success = $itemMapper->update($item);  
+        $unreadCount--;  
     }
 }
 
@@ -63,4 +66,4 @@ if(!$success) {
 }
 
 //TODO: replace the following with a real success case. see contact/ajax/createaddressbook.php for inspirations
-OCP\JSON::success(array('data' => array('feedId' => $feedId )));
+OCP\JSON::success(array('data' => array('feedId' => $feedId, 'unreadCount' => $unreadCount)));

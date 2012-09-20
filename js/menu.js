@@ -590,7 +590,7 @@ var News = News || {};
 
                 $.post(OC.filePath('news', 'ajax', 'setallitemsread.php'), data, function(jsonData) {
                     if(jsonData.status == 'success'){
-                        self._updateUnreadCountAll();
+                        self._setUnreadCount(type, id, parseInt(jsonData.data.unreadCount));
                     } else {
                         OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
                     }
