@@ -15,9 +15,11 @@
 "Error updating feed." => "Eroare la actualizarea fluxului.",
 "Feed updated!" => "Fluxul a fost actualizat!",
 "News" => "Noutăți",
+"Error" => "Eroare",
+"Show only unread" => "Arată doar necitite",
+"Show everything" => "Arată tot",
 "Are you sure you want to delete this folder and all its feeds?" => "Sigur vrei să ștergi acest director și toate fluxurile din el?",
 "Warning" => "Atenție",
-"Error" => "Eroare",
 "Name of the folder cannot be empty." => "Numele directorului nu poate rămâne gol.",
 "Adding..." => "Se adaugă...",
 "Add folder" => "Adăugare director",
@@ -38,7 +40,5 @@
 "no name" => "nici un nume",
 "no body" => "nici un conținut",
 "An error occurred" => "A apărut o eroare",
-"You had already subcribed to this feed!" => "Ești deja abonat la acest flux!",
-"Show everything" => "Arată tot",
-"Show only unread" => "Arată doar necitite"
+"You had already subcribed to this feed!" => "Ești deja abonat la acest flux!"
 );
