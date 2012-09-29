@@ -21,6 +21,7 @@
 "Error updating feed." => "Error actualizando la fuente.",
 "Feed updated!" => "Fuentes actualizadas!",
 "News" => "Noticias",
+"Error while loading the feed" => "Error cargando la fuente",
 "Error" => "Error",
 "Show only unread" => "Mostrar solo no leidos",
 "Show everything" => "Mostrar todo",
