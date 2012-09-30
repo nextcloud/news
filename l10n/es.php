@@ -23,6 +23,7 @@
 "News" => "Noticias",
 "Error while loading the feed" => "Error cargando la fuente",
 "Error" => "Error",
+"None" => "Ninguno",
 "Show only unread" => "Mostrar solo no leidos",
 "Show everything" => "Mostrar todo",
 "Are you sure you want to delete this feed?" => "¿Está seguro de que desea borrar esta fuente?",
