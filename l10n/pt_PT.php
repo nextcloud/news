@@ -1,0 +1,20 @@
+<?php $TRANSLATIONS = array(
+"New articles" => "Novos artigos",
+"File doesn't exist:" => "Ficheiro não existe:",
+"News" => "Noticias",
+"Error" => "Erro",
+"Show only unread" => "Mostrar apenas não lidas",
+"Show everything" => "Mostrar tudo",
+"URL cannot be empty." => "O URL não pode estar vazio.",
+"Fatal Error" => "Erro Grave",
+"File " => "Ficheiro",
+"No files selected." => "Nenhum ficheiro seleccionado.",
+"Importing..." => "A importar...",
+"Success" => "Sucesso",
+"Import" => "Importar",
+"Downloading..." => "A descarregar...",
+"Download" => "Descarregar",
+"Select file" => "Escolher ficheiro",
+"no title" => "sem titulo",
+"An error occurred" => "Ocorreu um erro"
+);
