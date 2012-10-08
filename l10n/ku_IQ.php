@@ -92,5 +92,5 @@
 "Export feeds" => "هاناردنی خورده‌",
 "Download OPML" => "داگرتنی OPML",
 "Subscribelet" => "به‌شداربوون",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "رابکێشه بۆ گه‌ڕۆکی دڵخوازه‌کانت وه کرته‌ بکه‌ له‌سه‌ری هه‌رکاتێك ویستت به‌شداربیت له‌ ماڵپه‌ڕێك به‌خێرایی:"
+"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "رابکێشه‌ ئه‌مه بۆ دڵخوازه‌کان له‌ وێبگه‌ڕه‌که‌ت وه کرته‌ بکه‌ له‌سه‌ری هه‌رکاتێك ویستت به‌شداربیت له‌ ماڵپه‌ڕێك به‌خێرایی:"
 );
