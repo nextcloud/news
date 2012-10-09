@@ -66,9 +66,12 @@ if ($allfeeds) {
 }
 else {
 
-	OCP\Util::addScript('news','firstrun');
+	OCP\Util::addScript('news','main');
+	OCP\Util::addScript('news','news');
+	OCP\Util::addScript('news','menu');
+	OCP\Util::addScript('news','items');
 	
-	OCP\Util::addStyle('news','news');
+	OCP\Util::addStyle('news','firstrun');
 
 	$tmpl = new OCP\Template( 'news', 'firstrun', 'user' );
 	$tmpl->printPage();
