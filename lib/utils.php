@@ -159,11 +159,11 @@ class Utils {
 		//try to extract favicon from web page
 		$absoluteUrl = \SimplePie_Misc::absolutize_url('/', $url);
 		
-		$handle = curl_init ( );
-		curl_setopt ( $handle, CURLOPT_URL, $absoluteUrl );
-		curl_setopt ( $handle, CURLOPT_RETURNTRANSFER, 1 );
-		curl_setopt ( $handle, CURLOPT_FOLLOWLOCATION, TRUE );
-		curl_setopt ( $handle, CURLOPT_MAXREDIRS, 10 );
+		$handle = \curl_init ( );
+		\curl_setopt ( $handle, CURLOPT_URL, $absoluteUrl );
+		\curl_setopt ( $handle, CURLOPT_RETURNTRANSFER, 1 );
+		\curl_setopt ( $handle, CURLOPT_FOLLOWLOCATION, TRUE );
+		\curl_setopt ( $handle, CURLOPT_MAXREDIRS, 10 );
 
 		if ( FALSE!==($page=curl_exec($handle)) ) {
 			preg_match ( '/<[^>]*link[^>]*(rel=["\']icon["\']|rel=["\']shortcut icon["\']) .*href=["\']([^>]*)["\'].*>/iU', $page, $match );

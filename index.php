@@ -17,15 +17,6 @@ OCP\User::checkLoggedIn();
 OCP\App::checkAppEnabled('news');
 OCP\App::setActiveNavigationEntry('news');
 
-OCP\Util::addScript('news','main');
-OCP\Util::addScript('news','news');
-OCP\Util::addScript('news','menu');
-OCP\Util::addScript('news','items');
-OCP\Util::addScript('news','jquery.timeago');
-
-OCP\Util::addStyle('news','news');
-OCP\Util::addStyle('news','settings');
-
 $l = OC_L10N::get('news');
 
 $userid = OCP\USER::getUser();
@@ -39,6 +30,16 @@ $feedid = 0;
 $feedtype = 0;
 
 if ($allfeeds) {
+
+	OCP\Util::addScript('news','main');
+	OCP\Util::addScript('news','news');
+	OCP\Util::addScript('news','menu');
+	OCP\Util::addScript('news','items');
+	OCP\Util::addScript('news','jquery.timeago');
+	
+	OCP\Util::addStyle('news','news');
+	OCP\Util::addStyle('news','settings');
+
 	$feedid = isset( $_GET['feedid'] ) ? $_GET['feedid'] : null;
 	if ($feedid == null) {
 		$feedmapper = new OCA\News\FeedMapper(OCP\USER::getUser($userid));
@@ -55,11 +56,23 @@ if ($allfeeds) {
 		    }
 		}
 	}
+	$tmpl = new OCP\Template( 'news', 'main', 'user' );
+	$tmpl->assign('allfeeds', $allfeeds);
+	$tmpl->assign('folderforest', $folderforest);
+	$tmpl->assign('feedid', $feedid);
+	$tmpl->assign('feedtype', $feedtype);
+	$tmpl->printPage();
+
+}
+else {
+
+	OCP\Util::addScript('news','firstrun');
+	
+	OCP\Util::addStyle('news','news');
+
+	$tmpl = new OCP\Template( 'news', 'firstrun', 'user' );
+	$tmpl->printPage();
+
 }
 
-$tmpl = new OCP\Template( 'news', 'main', 'user' );
-$tmpl->assign('allfeeds', $allfeeds);
-$tmpl->assign('folderforest', $folderforest);
-$tmpl->assign('feedid', $feedid);
-$tmpl->assign('feedtype', $feedtype);
-$tmpl->printPage();
+

@@ -34,8 +34,6 @@ $(document).ready(function(){
 
         // populate folderlist
         $('#addfeed_dialog .menu').empty();
-        
-        // http://9gag.com/trending
 
         var $rootFolder = $('<li>').addClass('menuItem').html($('<b>').html(t('News', 'None')));
         $rootFolder.click(function(){

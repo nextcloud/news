@@ -3,7 +3,6 @@
 <!-- End of Dialogs -->
 
 <?php
-if ($_['feedid']) {
 
 $showAll = OCP\Config::getUserValue(OCP\USER::getUser(), 'news', 'showAll'); 
 
@@ -16,6 +15,8 @@ if($showAll) {
 	$viewButtonTitle = $l->t('Show only unread');
 	$viewButtonClass = 'show_unread';
 }
+
+echo $this->inc("part.dialogues");
 
 ?>
 
@@ -57,9 +58,3 @@ if($showAll) {
 
 </div>
 
-<?php
-	} else {
-		echo $this->inc("part.nofeeds");
-	}
-
-	echo $this->inc("part.dialogues");
