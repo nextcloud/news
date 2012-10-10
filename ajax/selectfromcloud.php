@@ -31,7 +31,7 @@ if(!isset($_GET['path'])) {
 	bailOut($l->t('No file path was submitted.'));
 }
 
-$localpath = OC_Filesystem::getLocalFile($_GET['path']);
+$localpath = \OC\Files\Filesystem::getLocalFile($_GET['path']);
 $tmpfname = tempnam(get_temp_dir(), "occOrig");
 
 if(!file_exists($localpath)) {
