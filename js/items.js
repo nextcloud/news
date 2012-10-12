@@ -70,7 +70,7 @@ var News = News || {};
      * @param item the dom item
      */
     Items.prototype._markItemAsReadTimeout = function(item) {
-        var itemId = parseInt($(item).data('id'));
+        var itemId = parseInt($(item).data('id'), 10);
         var itemOffset = $(item).position().top;
         var cachedItem = this._itemCache.getItem(itemId);
         if(itemOffset < 0){
@@ -96,7 +96,8 @@ var News = News || {};
         var data = {
             id: id,
             type: type,
-            mostRecentItemId: this._itemCache.getMostRecentItemId(type, id)
+            mostRecentItemId: this._itemCache.getMostRecentItemId(),
+            mostRecentItemTimestamp: this._itemCache.getMostRecentItemTimestamp()
         };
 
         this._$articleList.addClass('loading');
@@ -133,7 +134,7 @@ var News = News || {};
         var notJumped = true;
         $('.feed_item').each(function(){
             if(notJumped && $(this).position().top > 1){
-                var id = parseInt($(this).data('id'));
+                var id = parseInt($(this).data('id'), 10);
                 self._jumpToElemenId(id);
                 notJumped = false;
             }
@@ -150,7 +151,7 @@ var News = News || {};
             if(notJumped && $(this).position().top >= 0){
                 var previous = $(this).prev();
                 if(previous.length > 0){
-                    var id = parseInt(previous.data('id'));
+                    var id = parseInt(previous.data('id'), 10);
                     self._jumpToElemenId(id);
                 }
                 notJumped = false;
@@ -161,7 +162,7 @@ var News = News || {};
         if(notJumped){
             var $items = $('.feed_item');
             if($items.length > 0){
-                var id = parseInt($items.last().data('id'));
+                var id = parseInt($items.last().data('id'), 10);
                 self._jumpToElemenId(id);
             }
         }
@@ -220,7 +221,7 @@ var News = News || {};
      * @return the jquery node
      */
     Items.prototype._findNodeById = function(id) {
-        id = parseInt(id);
+        id = parseInt(id, 10);
         return this._$articleList.find('.feed_item[data-id="' + id + '"]');
     };
 
@@ -252,13 +253,15 @@ var News = News || {};
     var ItemCache = function() {
         this._items = {};
         this._feeds = {};
+        this._itemIds = [];
+        this._itemTimestamps = [];
     };
 
     /**
      * Returns an item from the cache
      */
     ItemCache.prototype.getItem = function(itemId) {
-        itemId = parseInt(itemId);
+        itemId = parseInt(itemId, 10);
         return this._items[itemId];
     };
 
@@ -289,6 +292,8 @@ var News = News || {};
             self._items[item.getId()] = item;
             self._feeds[item.getFeedId()] = self._feeds[item.getFeedId()] || {};
             self._feeds[item.getFeedId()][item.getId()] = item;
+            self._itemIds.push(item.getId());
+            self._itemTimestamps.push(item.getTimeStamp());
         });
     };
 
@@ -298,6 +303,8 @@ var News = News || {};
     ItemCache.prototype.empty = function() {
         this._items = {};
         this._feeds = {};
+        this._itemIds = [];
+        this._itemTimestamps = [];
     };
 
 
@@ -343,12 +350,13 @@ var News = News || {};
         return pairs;
     };
 
+
     /**
-     * Returns all the ids of feeds for a type sorted by timestamp ascending
-     * @param type the type (MenuNodeType)
-     * @param id the id
-     * @return all the ids of feeds for a type sorted by timestamp ascending
-     */
+    * Returns all the ids of feeds for a type sorted by timestamp ascending
+    * @param type the type (MenuNodeType)
+    * @param id the id
+    * @return all the ids of feeds for a type sorted by timestamp ascending
+    */
     ItemCache.prototype._getSortedItemIds = function(type, id) {
         var pairs = this._getItemIdTimestampPairs(type, id);
         
@@ -363,20 +371,31 @@ var News = News || {};
         return itemIds;
     };
 
+
     /**
-     * Returns the most recent id of a feed
-     * @param type the type (MenuNodeType)
-     * @param id the id
-     * @return the most recent id that is loaded on the page or 0
+     * @return the most recent id that is loaded on the page or 0 if no ids are there
      */
-    ItemCache.prototype.getMostRecentItemId = function(type, id) {
-        var itemIds = this._getSortedItemIds(type, id);
-        if(itemIds.length === 0){
+    ItemCache.prototype.getMostRecentItemId = function() {
+        if(this._itemIds.length === 0){
             return 0;
         } else {
-            return itemIds[itemIds.length-1];
+            this.itemIds = this._itemIds.sort();
+            return this.itemIds[this.itemIds.length-1];
         }
     };
+
+    /**
+     * @return the most recent timestamp that is loaded on the page or 0 if no ids are there
+     */
+    ItemCache.prototype.getMostRecentItemTimestamp = function() {
+        if(this._itemTimestamps.length === 0){
+            return 0;
+        } else {
+            this._itemTimestamps = this._itemTimestamps.sort();
+            return this._itemTimestamps[this._itemTimestamps.length-1];
+        }
+    };
+
 
     /**
      * Returns the html for a specific feed
@@ -412,14 +431,14 @@ var News = News || {};
      var Item = function(html){
         this._starred = false;
         this._$html = $(html);
-        this._id = parseInt(this._$html.data('id'));
-        this._feedId = parseInt(this._$html.data('feedid'));
+        this._id = parseInt(this._$html.data('id'), 10);
+        this._feedId = parseInt(this._$html.data('feedid'), 10);
         this._read = this._$html.hasClass('read');
         this._locked = false;
         this._important = this._$html.find('li.star').hasClass('important');
         // get timestamp for sorting
         var $stamp = this._$html.find('.timestamp');
-        this._timestamp = parseInt($stamp.html());
+        this._timestamp = parseInt($stamp.html(), 10);
         $stamp.remove();
         // open all links in new tabs
         this._$html.find('.body a').attr('target', '_blank');

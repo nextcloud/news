@@ -20,6 +20,10 @@ $userid = OCP\USER::getUser();
 
 $feedId = $_POST['id'];
 $feedType = $_POST['type'];
+$mostRecentItemId = $_POST['mostRecentItemId'];
+$mostRecentItemTimestamp = $_POST['mostRecentItemTimestamp'];
+
+
 OCP\Config::setUserValue(OCP\USER::getUser(), 'news', 'lastViewedFeed', $feedId); 
 OCP\Config::setUserValue(OCP\USER::getUser(), 'news', 'lastViewedFeedType', $feedType); 
 
