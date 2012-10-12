@@ -135,7 +135,7 @@ var News = News || {};
      * @param html the html to add
      */
     Menu.prototype.addNode = function(parentId, html){
-        parentId = parseInt(parentId, 10);
+        parentId = parseInt(parentId);
         var $parentNode;
         var $html = $(html);
 
@@ -172,7 +172,7 @@ var News = News || {};
      */
     Menu.prototype.updateNode = function(type, id, data){
         var $node = this._getNodeFromTypeAndId(type, id);
-        id = parseInt(id, 10);
+        id = parseInt(id);
         
         if(data.title !== undefined){
             // prevent xss
@@ -188,10 +188,10 @@ var News = News || {};
     /**
      * Removes a node and its subnodes from the menu
      * @param type the type (MenuNodeType)
-     * @param id the id
+     * @param id the id     
      */
     Menu.prototype.removeNode = function(type, id){
-        id = parseInt(id, 10);
+        id = parseInt(id);
         var $node = this._getNodeFromTypeAndId(type, id);
         $node.remove();
     };
@@ -276,9 +276,9 @@ var News = News || {};
      */
     Menu.prototype.getFeedIdsOfFolder = function(folderId) {
         $folder = this._getNodeFromTypeAndId(MenuNodeType.Folder, folderId);
-        var ids = [];
+        var ids = new Array();
         $folder.children('ul').children('li').each(function(){
-            ids.push(parseInt($(this).data('id'), 10));
+            ids.push(parseInt($(this).data('id')));
         });
         return ids;
     };
@@ -546,6 +546,7 @@ var News = News || {};
     Menu.prototype._edit = function(type, id){
         var $node = this._getNodeFromTypeAndId(type, id);
         var name = $node.children('.title').html();
+        var id = $node.data('id');
         $('#changefolder_dialog').find('input[type=text]').val(name);
         $('#changefolder_dialog').find('input[type=hidden]').val(id);
         $('#changefolder_dialog').dialog('open');
@@ -589,7 +590,7 @@ var News = News || {};
 
                 $.post(OC.filePath('news', 'ajax', 'setallitemsread.php'), data, function(jsonData) {
                     if(jsonData.status == 'success'){
-                        self._setUnreadCount(type, id, parseInt(jsonData.data.unreadCount, 10));
+                        self._setUnreadCount(type, id, parseInt(jsonData.data.unreadCount));
                     } else {
                         OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
                     }
@@ -691,7 +692,7 @@ var News = News || {};
      */
     Menu.prototype._getAndRemoveUnreadCount = function($listItem){
         var $unreadCounter = $listItem.children('.unread_items_counter');
-        var unreadCount = parseInt($unreadCounter.html(), 10);
+        var unreadCount = parseInt($unreadCounter.html());
         $unreadCounter.remove();
         return unreadCount;
     };
@@ -719,7 +720,7 @@ var News = News || {};
      */
     Menu.prototype._getIdAndTypeFromNode = function($listItem) {
         return {
-            id: parseInt($listItem.data('id'), 10),
+            id: parseInt($listItem.data('id')),
             type: this._listItemToMenuNodeType($listItem)
         };
     };
@@ -781,7 +782,7 @@ var News = News || {};
      * @param unreadCount the count of unread items
      */
     Menu.prototype._setUnreadCount = function(type, id, unreadCount){
-        unreadCount = parseInt(unreadCount, 10);
+        unreadCount = parseInt(unreadCount);
         if(unreadCount < 0){
             unreadCount = 0;
         }
@@ -864,9 +865,9 @@ var News = News || {};
                 var $dropped = $(this);
                 var $dragged = $(ui.draggable);
 
-                var feedId = parseInt($dragged.data('id'), 10);
-                var folderId = parseInt($dropped.data('id'), 10);
-                var fromFolderId = parseInt($dragged.parent().data('id'), 10);
+                var feedId = parseInt($dragged.data('id'));
+                var folderId = parseInt($dropped.data('id'));
+                var fromFolderId = parseInt($dragged.parent().data('id'));
 
                 // ignore when dragged to the same folder
                 if(folderId === fromFolderId){
