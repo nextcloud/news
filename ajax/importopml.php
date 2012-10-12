@@ -73,7 +73,7 @@ function importFolder($name, $parentid) {
 	$foldermapper = new OCA\News\FolderMapper();
 
 	if($parentid != 0) {
-	    $folder = new OCA\News\Folder($name, NULL, $foldermapper->find($parentid));
+	    $folder = new OCA\News\Folder($name, null, $foldermapper->find($parentid));
 	} else {
 	    $folder = new OCA\News\Folder($name);
 	}
