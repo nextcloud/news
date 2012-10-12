@@ -23,11 +23,6 @@ $(document).ready(function(){
     News.Objects.Menu = new News.Menu(menuUpdateIntervalMiliseconds, News.Objects.Items);
     News.Objects.Menu.bindOn('#feeds > ul');
 
-    /* first run script begins */
-    $('#browsebtn_firstrun, #cloudbtn_firstrun, #importbtn_firstrun').hide();
-    
-    /* first run script ends */
-
     $('#addfeed').click(function() {
         $('#addfeed_dialog').dialog('open');
         $('#feed_add_url').html('');
