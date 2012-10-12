@@ -65,11 +65,9 @@ if ($allfeeds) {
 
 }
 else {
-
-	OCP\Util::addScript('news','main');
+	
 	OCP\Util::addScript('news','news');
-	OCP\Util::addScript('news','menu');
-	OCP\Util::addScript('news','items');
+	OCP\Util::addScript('news','firstrun');
 	
 	OCP\Util::addStyle('news','firstrun');
 

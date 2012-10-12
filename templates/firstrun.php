@@ -1,4 +1,3 @@
-<div id="appsettings" class="popup bottomleft hidden"></div>
 <div id="firstrun">
 	<h1><?php echo $l->t("You don't have any feed in your reader.") ?></h1>
 	<div id="selections">
