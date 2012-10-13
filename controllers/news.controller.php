@@ -106,7 +106,7 @@ class NewsController extends Controller {
         $itemMapper = new ItemMapper($this->userId);
 
         // starred or subscriptions
-        if ($feedType == FeedType::STARRED || $feedId == FeedType::SUBSCRIPTIONS) { 
+        if ($feedType === FeedType::STARRED || $feedId === FeedType::SUBSCRIPTIONS) { 
 
             if($feedType === FeedType::STARRED){
                 $statusFlag = StatusFlag::IMPORTANT;
@@ -116,7 +116,7 @@ class NewsController extends Controller {
                 $statusFlag = StatusFlag::UNREAD;   
             }
 
-            $items = $itemMapper->findEveryItemByStatus($status);
+            $items = $itemMapper->findEveryItemByStatus($statusFlag);
 
         // feed
         } elseif ($feedType === FeedType::FEED){
