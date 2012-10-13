@@ -16,7 +16,8 @@ if ($favicon == null) {
 
 $lastViewedFeedId = isset($_['lastViewedFeedId']) ? $_['lastViewedFeedId'] : null;
 $lastViewedFeedType = isset($_['lastViewedFeedType']) ? $_['lastViewedFeedType'] : null;
-if ($lastViewedFeedType === OCA\News\FeedType::FEED && $lastViewedFeedId === $feedId){
+
+if ($lastViewedFeedType == OCA\News\FeedType::FEED && $lastViewedFeedId == $feedId){
     $activeClass = 'active';
 } else {
     $activeClass = '';

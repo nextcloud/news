@@ -16,7 +16,7 @@ if($folder->getOpened()){
 
 $lastViewedFeedId = isset($_['lastViewedFeedId']) ? $_['lastViewedFeedId'] : null;
 $lastViewedFeedType = isset($_['lastViewedFeedType']) ? $_['lastViewedFeedType'] : null;
-if ($lastViewedFeedType === OCA\News\FeedType::FOLDER && $lastViewedFeedId === $feedId){
+if ($lastViewedFeedType == OCA\News\FeedType::FOLDER && $lastViewedFeedId == $folderId){
     $activeClass = 'active';
 } else {
     $activeClass = '';

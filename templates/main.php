@@ -5,6 +5,9 @@
 <?php
 
 $l = $_['trans'];
+$lastViewedFeedId = $_['lastViewedFeedId'];
+$lastViewedFeedType = $_['lastViewedFeedType'];
+
 
 if($_['showAll']) {
 	$viewButtonImg = 'eye_all.svg';

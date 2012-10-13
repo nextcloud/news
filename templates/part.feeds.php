@@ -1,13 +1,16 @@
 <?php
 
-function print_collection_list($list) {
+function print_collection_list($list, $lastViewedFeedId, $lastViewedFeedType) {
 	
 	foreach($list as $collection) {
 		if ($collection instanceOf OCA\News\Folder) {
 			$tmpl_folder = new OCP\Template("news", "part.listfolder");
 			$tmpl_folder->assign('folder', $collection);
+			$tmpl_folder->assign('lastViewedFeedId', $lastViewedFeedId);
+			$tmpl_folder->assign('lastViewedFeedType', $lastViewedFeedType);
 			$tmpl_folder->printpage();
-			print_collection_list($collection->getChildren());
+			print_collection_list($collection->getChildren(), $lastViewedFeedId, 
+									$lastViewedFeedType);
 			echo '</ul></li>';
 		}
 		elseif ($collection instanceOf OCA\News\Feed) { //onhover $(element).attr('id', 'newID');
@@ -22,6 +25,8 @@ function print_collection_list($list) {
 			$tmpl_feed = new OCP\Template("news", "part.listfeed");
 			$tmpl_feed->assign('feed', $collection);
 			$tmpl_feed->assign('unreadItemsCount',$counter);
+			$tmpl_feed->assign('lastViewedFeedId', $lastViewedFeedId);
+			$tmpl_feed->assign('lastViewedFeedType', $lastViewedFeedType);
 			$tmpl_feed->printpage();
 		}
 		else {
@@ -34,7 +39,7 @@ function print_collection_list($list) {
 $allfeeds = isset($_['allfeeds']) ? $_['allfeeds'] : '';
 $lastViewedFeedId = $_['lastViewedFeedId'];
 $lastViewedFeedType = $_['lastViewedFeedType'];
-$starredCount = $_['starredCount']
+$starredCount = $_['starredCount'];
 
 ?>
 
@@ -50,4 +55,4 @@ $starredCount = $_['starredCount']
 </li>
 
 <?php
-	print_collection_list($allfeeds);
+	print_collection_list($allfeeds, $lastViewedFeedId, $lastViewedFeedType);
