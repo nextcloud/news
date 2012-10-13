@@ -20,7 +20,6 @@ if($_['showAll']) {
 }
 
 echo $this->inc("part.dialogues");
-
 ?>
 
 <div id="leftcontent_news" class="leftcontent_news">

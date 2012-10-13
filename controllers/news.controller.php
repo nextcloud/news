@@ -61,8 +61,8 @@ class NewsController extends Controller {
         $itemMapper = new ItemMapper($this->userId);
 
         // always show the last viewed feed on reload
-        $lastViewedFeedId = $this->getUserValue('lastViewedFeed');
-        $lastViewedFeedType = $this->getUserValue('lastViewedFeedType');
+        $lastViewedFeedId = (int)$this->getUserValue('lastViewedFeed');
+        $lastViewedFeedType = (int)$this->getUserValue('lastViewedFeedType');
         $showAll = $this->getUserValue('showAll'); 
 
         if( $lastViewedFeedId === null || $lastViewedFeedType === null) {
@@ -84,6 +84,7 @@ class NewsController extends Controller {
         $feeds = $folderMapper->childrenOfWithFeeds(0);
         $folderForest = $folderMapper->childrenOf(0); //retrieve all the folders
         $starredCount = $itemMapper->countEveryItemByStatus(StatusFlag::IMPORTANT);
+        $items = $this->getItems($lastViewedFeedType, $lastViewedFeedId, $showAll);
 
         $params = array(
             'allfeeds' => $feeds,
@@ -92,11 +93,99 @@ class NewsController extends Controller {
             'lastViewedFeedId' => $lastViewedFeedId,
             'lastViewedFeedType' => $lastViewedFeedType,
             'starredCount' => $starredCount,
+            'items' => $items
         );
 
-        $this->render('main', $params);
+        $this->render('main', $params, array('items' => true));
     }
 
+
+    /**
+     * Returns all items
+     * @param $feedType the type of the feed
+     * @param $feedId the id of the feed or folder
+     * @param $showAll if true, it will also include unread items
+     * @return an array with all items
+     */
+    public function getItems($feedType, $feedId, $showAll){
+        $items = array();
+        $itemMapper = new ItemMapper($this->userId);
+
+        // starred or subscriptions
+        if ($feedType == FeedType::STARRED || $feedId == FeedType::SUBSCRIPTIONS) { 
+
+            if($feedType === FeedType::STARRED){
+                $statusFlag = StatusFlag::IMPORTANT;
+            }
+
+            if($feedType === FeedType::SUBSCRIPTIONS){
+                $statusFlag = StatusFlag::UNREAD;   
+            }
+
+            $items = $itemMapper->findEveryItemByStatus($status);
+
+        // feed
+        } elseif ($feedType === FeedType::FEED){
+
+            if($showAll) {
+                $items = $itemMapper->findByFeedId($feedId);
+            } else {
+                $items = $itemMapper->findAllStatus($feedId, StatusFlag::UNREAD);
+            }    
+
+        // folder
+        } elseif ($feedType === FeedType::FOLDER){
+            $feedMapper = new FeedMapper($this->userId);
+            $feeds = $feedMapper->findByFolderId($feedId);
+
+            foreach($feeds as $feed){
+                if($showAll) {
+                    $items = array_merge($items, $itemMapper->findByFeedId($feed->getId()));
+                } else {
+                    $items = array_merge($items, 
+                        $itemMapper->findAllStatus($feed->getId(), StatusFlag::UNREAD));
+                }
+            }
+        }
+
+        return $items;
+    }
+
+
+    /**
+     * Returns the unread count
+     * @param $feedType the type of the feed
+     * @param $feedId the id of the feed or folder
+     * @return the unread count
+     */
+    public function getItemUnreadCount($feedType, $feedId){
+        $unreadCount = 0;
+        $itemMapper = new ItemMapper($this->userId);
+
+        switch ($feedType) {
+            case FeedType::STARRED:
+                $unreadCount = $itemMapper->countAllStatus($feedId, StatusFlag::IMPORTANT);
+                break;
+
+            case FeedType::SUBSCRIPTIONS:
+                $unreadCount = $itemMapper->countEveryItemByStatus(StatusFlag::UNREAD);
+                break;
+            
+            case FeedType::FOLDER:
+                $feedMapper = new FeedMapper($this->userId);
+                $feeds = $feedMapper->findByFolderId($feedId);
+                foreach($feeds as $feed){
+                    $unreadCount += $itemMapper->countAllStatus($feed->getId(), StatusFlag::UNREAD);
+                }
+                break;
+
+            case FeedType::FEED:
+                $unreadCount = $itemMapper->countAllStatus($feedId, StatusFlag::UNREAD);
+                break;
+        }
+
+        return $unreadCount;
+    }
 
     public function javascriptTests(){
         $this->add3rdPartyScript('jasmine-1.2.0/jasmine.js');

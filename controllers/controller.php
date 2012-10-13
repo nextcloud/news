@@ -16,11 +16,12 @@ class Controller {
 
     protected $userId;
     protected $trans;
-
+    
     
     public function __construct(){
         $this->userId = \OCP\USER::getUser();
         $this->trans = \OC_L10N::get('news');
+        $this->safeParams = array();
     }
 
 
@@ -68,10 +69,12 @@ class Controller {
      * The following values are always assigned: userId, trans
      * @param $arguments an array with arguments in $templateVar => $content
      * @param $template the name of the template
+     * @param $safeParams template parameters which should not be escaped
      * @param $fullPage if true, it will render a full page, otherwise only a part
      *                  defaults to true
      */
-    protected function render($template, $arguments=array(), $fullPage=true){
+    protected function render($template, $arguments=array(), $safeParams=array(), 
+                              $fullPage=true){
         
         if($fullPage){
             $template = new \OCP\Template('news', $template, 'user');
@@ -80,13 +83,19 @@ class Controller {
         }
         
         foreach($arguments as $key => $value){
-            $template->assign($key, $value);
+            if(array_key_exists($key, $safeParams)) {
+                $template->assign($key, $value, false);    
+            } else {
+                $template->assign($key, $value, false);
+            }
+            
         }
 
         $template->assign('userId', $this->userId);
         $template->assign('trans', $this->trans);
         $template->printPage();
     }
+
 
 }
 

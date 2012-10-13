@@ -1,25 +1,6 @@
 <?php
 
-$feedId = isset($_['lastViewedFeedId']) ? $_['lastViewedFeedId'] : '';
-
-$itemMapper = new OCA\News\ItemMapper();
-
-$showAll = OCP\Config::getUserValue(OCP\USER::getUser(), 'news', 'showAll');
-
-$specialfeed = false;
-
-if ($feedId == -1 || $feedId == -2) { //TODO: change this values, too obscure
-	$specialfeed = true;
-	$status = ($feedId == -1) ? OCA\News\StatusFlag::IMPORTANT : OCA\News\StatusFlag::UNREAD;
-	$items = $itemMapper->findEveryItemByStatus($status);
-}
-else {
-	if($showAll) {
-		$items = $itemMapper->findByFeedId($feedId);
-        } else {
-        	$items = $itemMapper->findAllStatus($feedId, OCA\News\StatusFlag::UNREAD);
-        }
-}
+$items = isset($_['items']) ? $_['items'] : '';
 
 echo '<ul>';
 foreach($items as $item) {
@@ -38,7 +19,7 @@ foreach($items as $item) {
 		$startTitle = $l->t('Mark as important');
 	}
 
-	echo '<li class="feed_item ' . $newsItemClass .'" data-id="' . $item->getId() . '" data-feedid="' . $feedId . '">';
+	echo '<li class="feed_item ' . $newsItemClass .'" data-id="' . $item->getId() . '" data-feedid="' . $item->getFeedId() . '">';
 		echo '<span class="timestamp">' . $item->getDate() . '</span>';
 		echo '<h2 class="item_date"><time class="timeago" datetime="' . 
 			date('c', $item->getDate()) . '">' . date('F j, Y, g:i a', $item->getDate()) .  '</time>' . '</h2>';

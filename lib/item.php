@@ -48,6 +48,14 @@ class Item {
 		}
 	}
 
+	public function getFeedId() {
+		return $this->feedId;
+	}
+
+	public function setFeedId($feedId) {
+		$this->feedId = $feedId;
+	}
+
 	public function getGuid() {
 		return $this->guid;
 	}

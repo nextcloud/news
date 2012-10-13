@@ -44,6 +44,7 @@ class ItemMapper {
 		$item = new Item($url, $title, $guid, $body, $id);
 		$item->setStatus($row['status']);
 		$item->setAuthor($row['author']);
+		$item->setFeedId($row['feed_id']);
 		$item->setDate(Utils::dbtimestampToUnixtime($row['pub_date']));
 		
 		return $item;

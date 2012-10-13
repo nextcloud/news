@@ -70,7 +70,7 @@ var News = News || {};
      * @param item the dom item
      */
     Items.prototype._markItemAsReadTimeout = function(item) {
-        var itemId = parseInt($(item).data('id'));
+        var itemId = parseInt($(item).data('id'), 10);
         var itemOffset = $(item).position().top;
         var cachedItem = this._itemCache.getItem(itemId);
         if(itemOffset < 0){
@@ -133,7 +133,7 @@ var News = News || {};
         var notJumped = true;
         $('.feed_item').each(function(){
             if(notJumped && $(this).position().top > 1){
-                var id = parseInt($(this).data('id'));
+                var id = parseInt($(this).data('id'), 10);
                 self._jumpToElemenId(id);
                 notJumped = false;
             }
@@ -150,7 +150,7 @@ var News = News || {};
             if(notJumped && $(this).position().top >= 0){
                 var previous = $(this).prev();
                 if(previous.length > 0){
-                    var id = parseInt(previous.data('id'));
+                    var id = parseInt(previous.data('id'), 10);
                     self._jumpToElemenId(id);
                 }
                 notJumped = false;
@@ -161,7 +161,7 @@ var News = News || {};
         if(notJumped){
             var $items = $('.feed_item');
             if($items.length > 0){
-                var id = parseInt($items.last().data('id'));
+                var id = parseInt($items.last().data('id'), 10);
                 self._jumpToElemenId(id);
             }
         }
@@ -220,7 +220,7 @@ var News = News || {};
      * @return the jquery node
      */
     Items.prototype._findNodeById = function(id) {
-        id = parseInt(id);
+        id = parseInt(id, 10);
         return this._$articleList.find('.feed_item[data-id="' + id + '"]');
     };
 
@@ -258,7 +258,7 @@ var News = News || {};
      * Returns an item from the cache
      */
     ItemCache.prototype.getItem = function(itemId) {
-        itemId = parseInt(itemId);
+        itemId = parseInt(itemId, 10);
         return this._items[itemId];
     };
 
@@ -309,7 +309,7 @@ var News = News || {};
 
         switch(type){
 
-            case MenuNodeType.Feed:
+            case News.MenuNodeType.Feed:
                 if(this._feeds[id] === undefined){
                     return pairs;
                 }
@@ -318,21 +318,24 @@ var News = News || {};
                 });
                 break;
 
-            case MenuNodeType.Folder:
+            case News.MenuNodeType.Folder:
                 // this is a bit of a hack and not that beautiful^^
                 var feedIds = News.Objects.Menu.getFeedIdsOfFolder(id);
                 for(var i=0; i<feedIds.length; i++){
-                    pairs.concat(this._getItemIdTimestampPairs(MenuNodeType.Feed, feedIds[i]));
+                    var feedPairs = this._getItemIdTimestampPairs(News.MenuNodeType.Feed, feedIds[i]);
+                    for(var j=0; j<feedPairs.length; j++){
+                        pairs.push(feedPairs[j]);
+                    }
                 }
                 break;
 
-            case MenuNodeType.Subscriptions:
+            case News.MenuNodeType.Subscriptions:
                 $.each(this._items, function(key, value){
                     pairs.push({key: value.getId(), value: value.getTimeStamp()});
                 });
                 break;
 
-            case MenuNodeType.Starred:
+            case News.MenuNodeType.Starred:
                 $.each(this._items, function(key, value){
                     if(value.isImportant()){
                         pairs.push({key: value.getId(), value: value.getTimeStamp()});
@@ -412,14 +415,14 @@ var News = News || {};
      var Item = function(html){
         this._starred = false;
         this._$html = $(html);
-        this._id = parseInt(this._$html.data('id'));
-        this._feedId = parseInt(this._$html.data('feedid'));
+        this._id = parseInt(this._$html.data('id'), 10);
+        this._feedId = parseInt(this._$html.data('feedid'), 10);
         this._read = this._$html.hasClass('read');
         this._locked = false;
         this._important = this._$html.find('li.star').hasClass('important');
         // get timestamp for sorting
         var $stamp = this._$html.find('.timestamp');
-        this._timestamp = parseInt($stamp.html());
+        this._timestamp = parseInt($stamp.html(), 10);
         $stamp.remove();
         // open all links in new tabs
         this._$html.find('.body a').attr('target', '_blank');
