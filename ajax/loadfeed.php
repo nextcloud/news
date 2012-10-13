@@ -16,8 +16,9 @@ OCP\JSON::checkAppEnabled('news');
 OCP\JSON::callCheck();
 session_write_close();
 
-require_once('news/controllers/controller.php');
-require_once('news/controllers/news.controller.php');
+require_once(OC_App::getAppPath('news') . '/lib/feedtypes.php');
+require_once(OC_App::getAppPath('news') . '/controllers/controller.php');
+require_once(OC_App::getAppPath('news') . '/controllers/news.controller.php');
 
 $userid = OCP\USER::getUser();
 

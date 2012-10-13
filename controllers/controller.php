@@ -86,7 +86,7 @@ class Controller {
             if(array_key_exists($key, $safeParams)) {
                 $template->assign($key, $value, false);    
             } else {
-                $template->assign($key, $value, false);
+                $template->assign($key, $value);
             }
             
         }

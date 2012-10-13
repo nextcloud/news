@@ -5,7 +5,7 @@ function print_collection_list($list, $lastViewedFeedId, $lastViewedFeedType) {
 	foreach($list as $collection) {
 		if ($collection instanceOf OCA\News\Folder) {
 			$tmpl_folder = new OCP\Template("news", "part.listfolder");
-			$tmpl_folder->assign('folder', $collection);
+			$tmpl_folder->assign('folder', $collection, false);
 			$tmpl_folder->assign('lastViewedFeedId', $lastViewedFeedId);
 			$tmpl_folder->assign('lastViewedFeedType', $lastViewedFeedType);
 			$tmpl_folder->printpage();
@@ -23,7 +23,7 @@ function print_collection_list($list, $lastViewedFeedId, $lastViewedFeedType) {
 					++$counter;
 			}
 			$tmpl_feed = new OCP\Template("news", "part.listfeed");
-			$tmpl_feed->assign('feed', $collection);
+			$tmpl_feed->assign('feed', $collection, false);
 			$tmpl_feed->assign('unreadItemsCount',$counter);
 			$tmpl_feed->assign('lastViewedFeedId', $lastViewedFeedId);
 			$tmpl_feed->assign('lastViewedFeedType', $lastViewedFeedType);
