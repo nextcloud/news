@@ -1,6 +1,6 @@
 <?php
 
-$feedId = isset($_['feedid']) ? $_['feedid'] : '';
+$feedId = isset($_['lastViewedFeedId']) ? $_['lastViewedFeedId'] : '';
 
 $itemMapper = new OCA\News\ItemMapper();
 

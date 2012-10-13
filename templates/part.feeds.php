@@ -32,21 +32,19 @@ function print_collection_list($list) {
 }
 
 $allfeeds = isset($_['allfeeds']) ? $_['allfeeds'] : '';
-$feedId = $_['feedid'];
-$feedType = $_['feedtype'];
-
-$itemMapper = new OCA\News\ItemMapper();
-$starredCount = $itemMapper->countEveryItemByStatus(OCA\News\StatusFlag::IMPORTANT);
+$lastViewedFeedId = $_['lastViewedFeedId'];
+$lastViewedFeedType = $_['lastViewedFeedType'];
+$starredCount = $_['starredCount']
 
 ?>
 
-<li class="subscriptions <?php if($feedType == OCA\News\FeedType::SUBSCRIPTIONS) { echo "active"; }; ?>">
+<li class="subscriptions <?php if($lastViewedFeedType == OCA\News\FeedType::SUBSCRIPTIONS) { echo "active"; }; ?>">
 	<a class="title" href="#" ><?php echo $l->t('New articles'); ?></a>
 	<span class="buttons">
     	<button class="svg action feeds_markread" title="<?php echo $l->t('Mark all read'); ?>"></button>
     </span>
 </li>
-<li class="starred <?php if($feedType == OCA\News\FeedType::STARRED) { echo "active"; }; ?>">
+<li class="starred <?php if($lastViewedFeedType == OCA\News\FeedType::STARRED) { echo "active"; }; ?>">
 	<a class="title" href="#" ><?php echo $l->t('Starred'); ?></a>
 	<span class="unread_items_counter"><?php echo $starredCount ?></span>
 </li>

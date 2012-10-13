@@ -58,40 +58,40 @@ class NewsController extends Controller {
 
         $folderMapper = new FolderMapper($this->userId);
         $feedMapper = new FeedMapper($this->userId);
+        $itemMapper = new ItemMapper($this->userId);
 
         // always show the last viewed feed on reload
-        $lastViewedId = $this->getUserValue('lastViewedFeed');
-        $lastViewedType = $this->getUserValue('lastViewedFeedType');
+        $lastViewedFeedId = $this->getUserValue('lastViewedFeed');
+        $lastViewedFeedType = $this->getUserValue('lastViewedFeedType');
         $showAll = $this->getUserValue('showAll'); 
 
-        if( $lastViewedId === null || $lastViewedType === null) {
-            $lastViewedId = $feedMapper->mostRecent();
+        if( $lastViewedFeedId === null || $lastViewedFeedType === null) {
+            $lastViewedFeedId = $feedMapper->mostRecent();
         } else {
             // check if the last selected feed or folder exists
             if( (
-                    $lastViewedType === FeedType::FEED &&
-                    $feedMapper->findById($lastViewedId) === null
+                    $lastViewedFeedType === FeedType::FEED &&
+                    $feedMapper->findById($lastViewedFeedId) === null
                 ) || 
                 (
-                    $lastViewedType === FeedType::FOLDER &&
-                    $folderMapper->findById($lastViewedId) === null
+                    $lastViewedFeedType === FeedType::FOLDER &&
+                    $folderMapper->findById($lastViewedFeedId) === null
                 ) ){
-                $lastViewedId = $feedMapper->mostRecent();
+                $lastViewedFeedId = $feedMapper->mostRecent();
             }
         }
 
         $feeds = $folderMapper->childrenOfWithFeeds(0);
         $folderForest = $folderMapper->childrenOf(0); //retrieve all the folders
+        $starredCount = $itemMapper->countEveryItemByStatus(StatusFlag::IMPORTANT);
 
         $params = array(
             'allfeeds' => $feeds,
             'folderforest' => $folderForest,
             'showAll' => $showAll,
-            'lastViewedId' => $lastViewedType,
-            'lastViewedType' => $lastViewedType,
-            // FIXME: for compability, remove this after refactoring
-            'feedid' => $lastViewedId,
-            'feedtype' => $lastViewedType,
+            'lastViewedFeedId' => $lastViewedFeedId,
+            'lastViewedFeedType' => $lastViewedFeedType,
+            'starredCount' => $starredCount,
         );
 
         $this->render('main', $params);
