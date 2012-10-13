@@ -10,6 +10,7 @@
 "Error updating feeds." => "Ошибка обновления потоков.",
 "No file path was submitted." => "Не был задан путь к файлу.",
 "An error occurred while parsing the file." => "При парсинге файла произошла ошибка.",
+"Starred" => "Отмечено звездочкой",
 "New articles" => "Новые статьи",
 "Feed loaded!" => "Поток загружен!",
 "Error moving feed into folder." => "Ошибка при перемещении потока в папку. ",
@@ -85,5 +86,6 @@
 "Import feeds" => "Импортировать поток",
 "Export feeds" => "Экспортировать потоки",
 "Download OPML" => "Загрузить OPML",
+"Subscribelet" => "Subscribelet",
 "Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "Перетащите это в закладки Вашего браузера и кликните на нем, когда захотите быстро подписаться на страницу: "
 );

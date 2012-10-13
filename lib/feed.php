@@ -12,12 +12,6 @@
 
 namespace OCA\News;
 
-class FeedType {
-	const FEED          = 0;
-	const FOLDER        = 1;
-	const STARRED       = 2;
-	const SUBSCRIPTIONS = 3;
-}
 
 /**
  * This class models a feed.

@@ -72,6 +72,19 @@ class FeedMapper {
 		return $feeds;
 	}
 
+
+	/**
+	 * @brief returns the number of feeds that a user has
+	 * @returns the number of feeds that a user has
+	 */
+	public function feedCount() {
+		$query = 'SELECT COUNT(*) AS size FROM ' . self::tableName . ' WHERE user_id = ?';
+		$stmt = \OCP\DB::prepare($query);
+		$result = $stmt->execute(array($this->userid))->fetchRow();
+		return $result['size'];
+	}
+
+
 	/**
 	 * @brief Retrieve a feed from the database
 	 * @param id The id of the feed in the database table.

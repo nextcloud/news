@@ -83,6 +83,14 @@ class FolderMapper {
 
 	
 	/**
+	 * This is being used for consistency
+	 */
+	public function findById($id){
+		return $this->find($id);
+	}
+	
+
+	/**
 	 * @brief Retrieve a folder from the database
 	 * @param id The id of the folder in the database table.
 	 * @returns  an instance of OC_News_Folder

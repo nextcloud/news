@@ -20,13 +20,15 @@ $userid = OCP\USER::getUser();
 
 $feedId = $_POST['id'];
 $feedType = $_POST['type'];
+
+
 OCP\Config::setUserValue(OCP\USER::getUser(), 'news', 'lastViewedFeed', $feedId); 
 OCP\Config::setUserValue(OCP\USER::getUser(), 'news', 'lastViewedFeedType', $feedType); 
 
 $l = OC_L10N::get('news');
 
 $itemsTpl = new OCP\Template("news", "part.items");
-$itemsTpl->assign('feedid', $feedId);
+$itemsTpl->assign('lastViewedFeedId', $feedId);
 $feedItems = $itemsTpl->fetchPage();
 
 $itemMapper = new OCA\News\ItemMapper();

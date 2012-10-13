@@ -6,13 +6,23 @@ $l = new OC_l10n('news');
 $folder = isset($_['folder']) ? $_['folder'] : null;	
 $folderId = $folder->getId();
 $folderName = $folder->getName();
+
 if($folder->getOpened()){
 	$openedClass = 'open';
 } else {
 	$openedClass = 'collapsed';
 }
 
-echo '<li class="folder ' . $openedClass . ' all_read" data-id="' . $folderId . '">';
+
+$lastViewedFeedId = isset($_['lastViewedFeedId']) ? $_['lastViewedFeedId'] : null;
+$lastViewedFeedType = isset($_['lastViewedFeedType']) ? $_['lastViewedFeedType'] : null;
+if ($lastViewedFeedType == OCA\News\FeedType::FOLDER && $lastViewedFeedId == $folderId){
+    $activeClass = 'active';
+} else {
+    $activeClass = '';
+}
+
+echo '<li class="folder ' . $openedClass . ' ' . $activeClass . ' all_read" data-id="' . $folderId . '">';
 	echo '<button class="collapsable_trigger" title="' . $l->t('Collapse') . '"></button>';
 	echo '<a href="#" class="title">' . htmlspecialchars($folderName, ENT_QUOTES, 'UTF-8') .	'</a>';
 	echo '<span class="buttons">';
