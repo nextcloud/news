@@ -4,9 +4,9 @@
 
 <?php
 
-$showAll = OCP\Config::getUserValue(OCP\USER::getUser(), 'news', 'showAll'); 
+$l = $_['trans'];
 
-if($showAll) {
+if($_['showAll']) {
 	$viewButtonImg = 'eye_all.svg';
 	$viewButtonTitle = $l->t('Show everything');
 	$viewButtonClass = 'show_all';

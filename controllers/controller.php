@@ -65,7 +65,7 @@ class Controller {
 
     /**
      * Binds variables to the template and prints it
-     * The following values are always assigned: userId
+     * The following values are always assigned: userId, trans
      * @param $arguments an array with arguments in $templateVar => $content
      * @param $template the name of the template
      * @param $fullPage if true, it will render a full page, otherwise only a part
@@ -84,6 +84,7 @@ class Controller {
         }
 
         $template->assign('userId', $this->userId);
+        $template->assign('trans', $this->trans);
         $template->printPage();
     }
 

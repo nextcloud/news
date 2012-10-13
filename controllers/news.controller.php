@@ -62,18 +62,19 @@ class NewsController extends Controller {
         // always show the last viewed feed on reload
         $lastViewedId = $this->getUserValue('lastViewedFeed');
         $lastViewedType = $this->getUserValue('lastViewedFeedType');
+        $showAll = $this->getUserValue('showAll'); 
 
         if( $lastViewedId === null || $lastViewedType === null) {
             $lastViewedId = $feedMapper->mostRecent();
         } else {
             // check if the last selected feed or folder exists
             if( (
-                    $feedMapper->findById($lastViewedId) === null && 
-                    $lastViewedType === FeedType::FEED
+                    $lastViewedType === FeedType::FEED &&
+                    $feedMapper->findById($lastViewedId) === null
                 ) || 
                 (
-                    $folderMapper->findById($lastViewedId) === null && 
-                    $lastViewedType === FeedType::FOLDER
+                    $lastViewedType === FeedType::FOLDER &&
+                    $folderMapper->findById($lastViewedId) === null
                 ) ){
                 $lastViewedId = $feedMapper->mostRecent();
             }
@@ -85,9 +86,10 @@ class NewsController extends Controller {
         $params = array(
             'allfeeds' => $feeds,
             'folderforest' => $folderForest,
+            'showAll' => $showAll,
             'lastViewedId' => $lastViewedType,
             'lastViewedType' => $lastViewedType,
-            // for compability, remove this after refactoring
+            // FIXME: for compability, remove this after refactoring
             'feedid' => $lastViewedId,
             'feedtype' => $lastViewedType,
         );
