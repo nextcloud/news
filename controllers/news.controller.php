@@ -106,7 +106,7 @@ class NewsController extends Controller {
         $itemMapper = new ItemMapper($this->userId);
 
         // starred or subscriptions
-        if ($feedType === FeedType::STARRED || $feedId === FeedType::SUBSCRIPTIONS) { 
+        if ($feedType === FeedType::STARRED || $feedType === FeedType::SUBSCRIPTIONS) { 
 
             if($feedType === FeedType::STARRED){
                 $statusFlag = StatusFlag::IMPORTANT;
@@ -141,7 +141,6 @@ class NewsController extends Controller {
                 }
             }
         }
-
         return $items;
     }
 
@@ -158,7 +157,7 @@ class NewsController extends Controller {
 
         switch ($feedType) {
             case FeedType::STARRED:
-                $unreadCount = $itemMapper->countAllStatus($feedId, StatusFlag::IMPORTANT);
+                $unreadCount = $itemMapper->countEveryItemByStatus(StatusFlag::IMPORTANT);
                 break;
 
             case FeedType::SUBSCRIPTIONS:
@@ -179,12 +178,6 @@ class NewsController extends Controller {
         }
 
         return $unreadCount;
-    }
-
-    public function javascriptTests(){
-        $this->add3rdPartyScript('jasmine-1.2.0/jasmine.js');
-        $this->add3rdPartyStyle('jasmine-1.2.0/jasmine.css');
-        $this->render('javascript.tests');
     }
 
 
