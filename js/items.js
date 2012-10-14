@@ -396,7 +396,9 @@ var News = News || {};
             if(i === 0){
                 item.setViewed(true);
             }
-            if(News.Objects.Menu.isShowAll() || !item.isRead()){
+            if(News.Objects.Menu.isShowAll() ||
+               type === News.MenuNodeType.Starred ||
+               !item.isRead()){
                 var $itemHtml = item.getHtml();
                 $itemHtml.removeClass('keep_unread');
                 $html.append($itemHtml);
