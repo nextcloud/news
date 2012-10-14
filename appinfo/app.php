@@ -4,10 +4,10 @@
 *
 * @author Alessandro Cosentino
 * Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
-* 
+*
 * This file is licensed under the Affero General Public License version 3 or later.
 * See the COPYING-README file
-* 
+*
 */
 
 OC::$CLASSPATH['OCA\News\StatusFlag'] = 'apps/news/lib/item.php';
@@ -27,10 +27,10 @@ OCP\Backgroundjob::addRegularTask( 'OCA\News\Backgroundjob', 'run' );
 
 $l = new OC_l10n('news');
 
-OCP\App::addNavigationEntry( array( 
-  'id' => 'news', 
-  'order' => 74, 
-  'href' => OC_Helper::linkTo( 'news', 'index.php' ), 
-  'icon' => OC_Helper::imagePath( 'news', 'icon.svg' ), 
+OCP\App::addNavigationEntry( array(
+  'id' => 'news',
+  'order' => 74,
+  'href' => OC_Helper::linkTo( 'news', 'index.php' ),
+  'icon' => OC_Helper::imagePath( 'news', 'icon.svg' ),
   'name' => $l->t('News')
 ));

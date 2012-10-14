@@ -26,8 +26,8 @@ $feedId = (int)$_POST['id'];
 $feedType = (int)$_POST['type'];
 
 
-OCP\Config::setUserValue(OCP\USER::getUser(), 'news', 'lastViewedFeed', $feedId); 
-OCP\Config::setUserValue(OCP\USER::getUser(), 'news', 'lastViewedFeedType', $feedType); 
+OCP\Config::setUserValue(OCP\USER::getUser(), 'news', 'lastViewedFeed', $feedId);
+OCP\Config::setUserValue(OCP\USER::getUser(), 'news', 'lastViewedFeedType', $feedType);
 
 $showAll = OCP\Config::getUserValue(OCP\USER::getUser(), 'news', 'showAll');
 

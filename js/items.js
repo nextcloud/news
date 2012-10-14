@@ -36,7 +36,7 @@ var News = News || {};
         $(window).resize(function(){
             self._setScrollBottom();
         });
-        
+
         // mark items whose title was hid under the top edge as read
         this._scrollTimeoutMiliSecs = 100;
         this._markReadTimeoutMiliSecs = 500;
@@ -354,7 +354,7 @@ var News = News || {};
      */
     ItemCache.prototype._getSortedItemIds = function(type, id) {
         var pairs = this._getItemIdTimestampPairs(type, id);
-        
+
         var sorted = pairs.slice(0).sort(function(a, b) {
            return a.value - b.value;
         });

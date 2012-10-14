@@ -1,7 +1,7 @@
 <?php
 
 function print_collection_list($list, $lastViewedFeedId, $lastViewedFeedType) {
-	
+
 	foreach($list as $collection) {
 		if ($collection instanceOf OCA\News\Folder) {
 			$tmpl_folder = new OCP\Template("news", "part.listfolder");
@@ -9,7 +9,7 @@ function print_collection_list($list, $lastViewedFeedId, $lastViewedFeedType) {
 			$tmpl_folder->assign('lastViewedFeedId', $lastViewedFeedId);
 			$tmpl_folder->assign('lastViewedFeedType', $lastViewedFeedType);
 			$tmpl_folder->printpage();
-			print_collection_list($collection->getChildren(), $lastViewedFeedId, 
+			print_collection_list($collection->getChildren(), $lastViewedFeedId,
 									$lastViewedFeedType);
 			echo '</ul></li>';
 		}

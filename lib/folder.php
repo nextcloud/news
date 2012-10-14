@@ -62,11 +62,11 @@ class Folder extends Collection {
 	public function addChild(Collection $child) {
 		$this->children[] = $child;
 	}
-	
+
 	public function addChildren($children) {
 		$this->children = $children;
 	}
-	
+
 	public function getChildren() {
 		return $this->children;
 	}

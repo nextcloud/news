@@ -63,9 +63,9 @@ News = {
 			$(button).prop('value', t('news', 'Changing...'));
 
 			var	url = OC.filePath('news', 'ajax', 'changefoldername.php');
-			var data = { 
-				folderName: folderName, 
-				folderId: folderId 
+			var data = {
+				folderName: folderName,
+				folderId: folderId
 			};
 
 			$.post(url, data, function(jsonData){
@@ -93,7 +93,7 @@ News = {
 
 			$(button).attr("disabled", true);
 			$(button).prop('value', t('news', 'Adding...'));
-			
+
 			var folderid = 0;
 			if($('#firstrun').length == 0){
 				folderid = $('#addfeed_dialog .inputfolderid').val();
@@ -106,9 +106,9 @@ News = {
 				dataType: "json",
 				success: function(jsonData){
 					if($('#firstrun').length > 0){
-						window.location.reload(); 
+						window.location.reload();
 					} else {
-						if(jsonData.status == 'success'){		
+						if(jsonData.status == 'success'){
 							News.Objects.Menu.addNode(folderid, jsonData.data.listfeed);
 							News.Objects.Menu.load(News.MenuNodeType.Feed, jsonData.data.feedid);
 							$('#addfeed_dialog').dialog('close');
@@ -128,7 +128,7 @@ News = {
 				}
 			});
 		},
-		
+
 	},
 
 }

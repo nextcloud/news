@@ -4,10 +4,10 @@
 *
 * @author Alessandro Cosentino
 * Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
-* 
+*
 * This file is licensed under the Affero General Public License version 3 or later.
 * See the COPYING-README file
-* 
+*
 */
 
 namespace OCA\News;
@@ -34,7 +34,7 @@ class Item {
 	private $id;      //id of the item in the database table
 	private $author;
 	private $date; //date is stored in the Unix format
-	
+
 	public function __construct($url, $title, $guid, $body, $id = null) {
 		$this->title = $title;
 		$this->url = $url;
@@ -77,38 +77,38 @@ class Item {
 	}
 
 	public function setUnread() {
-		$this->status |= StatusFlag::UNREAD; 
+		$this->status |= StatusFlag::UNREAD;
 	}
 
 	public function isRead() {
 		return !($this->status & StatusFlag::UNREAD);
 	}
-	
+
 	public function setImportant() {
-		$this->status |= StatusFlag::IMPORTANT; 
+		$this->status |= StatusFlag::IMPORTANT;
 	}
-	
+
 	public function setUnimportant() {
 		$this->status &= ~StatusFlag::IMPORTANT;
 	}
-	
+
 	public function isImportant() {
 		return ($this->status & StatusFlag::IMPORTANT);
 	}
-		
+
 	/**
-	 * NOTE: this is needed to store items in the database, otherwise 
+	 * NOTE: this is needed to store items in the database, otherwise
 	 * the status of an item should be retrieved with methods: isRead(), isImportant(), ...
 	 */
 	public function getStatus() {
 		return $this->status;
 	}
-	
+
 	public function setStatus($status) {
 		$this->status = $status;
 	}
-	
-	/* change the following method with set/get magic methods 
+
+	/* change the following method with set/get magic methods
 	 * http://www.php.net/manual/en/language.oop5.overloading.php#object.get
 	 */
 
@@ -135,7 +135,7 @@ class Item {
 	public function setBody($body) {
 		$this->body = $body;
 	}
-	
+
 	public function getAuthor() {
 		return $this->author;
 	}
@@ -147,7 +147,7 @@ class Item {
 	public function getDate() {
 		return $this->date;
 	}
-	
+
 	//TODO: check if the parameter is in the Unix format
 	public function setDate($date) {
 		$this->date = $date;

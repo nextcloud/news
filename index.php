@@ -24,5 +24,5 @@ $controller = new OCA\News\NewsController();
 if(isset($_GET['jstest'])){
 	$controller->javascriptTests();
 } else {
-	$controller->index();	
+	$controller->index();
 }

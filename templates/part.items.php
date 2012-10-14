@@ -4,13 +4,13 @@ $items = isset($_['items']) ? $_['items'] : '';
 
 echo '<ul>';
 foreach($items as $item) {
-	
+
 	if($item->isRead()) {
 		$newsItemClass = "read";
 	} else {
 		$newsItemClass = "";
 	}
-	
+
 	if($item->isImportant()) {
 		$starClass = 'important';
 		$startTitle = $l->t('Mark as unimportant');
@@ -21,7 +21,7 @@ foreach($items as $item) {
 
 	echo '<li class="feed_item ' . $newsItemClass .'" data-id="' . $item->getId() . '" data-feedid="' . $item->getFeedId() . '">';
 		echo '<span class="timestamp">' . $item->getDate() . '</span>';
-		echo '<h2 class="item_date"><time class="timeago" datetime="' . 
+		echo '<h2 class="item_date"><time class="timeago" datetime="' .
 			date('c', $item->getDate()) . '">' . date('F j, Y, g:i a', $item->getDate()) .  '</time>' . '</h2>';
 
 		echo '<div class="utils">';
@@ -30,12 +30,12 @@ foreach($items as $item) {
 			echo '</ul>';
 		echo '</div>';
 
-		echo '<h1 class="item_title"><a target="_blank" href="' . $item->getUrl() . '">' . htmlspecialchars($item->getTitle(), ENT_QUOTES, 'UTF-8') . '</a></h1>';	
-		
+		echo '<h1 class="item_title"><a target="_blank" href="' . $item->getUrl() . '">' . htmlspecialchars($item->getTitle(), ENT_QUOTES, 'UTF-8') . '</a></h1>';
+
 		if(($item->getAuthor() !== null) && (trim($item->getAuthor()) != '')) {
 			echo '<h2 class="item_author">'. $l->t('by') . ' ' . htmlspecialchars($item->getAuthor(), ENT_QUOTES, 'UTF-8') . '</h2>';
 		}
-		
+
 		echo '<div class="body">' . $item->getBody() . '</div>';
 
 		echo '<div class="bottom_utils">';

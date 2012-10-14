@@ -100,9 +100,9 @@ class Utils {
 	}
 
 	/**
-	 * Perform a "slim" fetch of a feed from remote. 
+	 * Perform a "slim" fetch of a feed from remote.
 	 * Differently from Utils::fetch(), it doesn't retrieve items nor a favicon
-	 * 	
+	 *
 	 * @param url remote url of the feed
 	 * @returns an instance of OC_News_Feed
 	 */
@@ -121,7 +121,7 @@ class Utils {
 		$title = $spfeed->get_title();
 
 		$feed = new Feed($url, $title);
-		
+
 		return $feed;
 		}
 	   catch (Exception $e) {
@@ -130,7 +130,7 @@ class Utils {
 	}
 
 	public static function checkFavicon($favicon) {
-		if ($favicon === null || $favicon == false) 
+		if ($favicon === null || $favicon == false)
 			return false;
 
 		$file = new \SimplePie_File($favicon);
@@ -158,7 +158,7 @@ class Utils {
 
 		//try to extract favicon from web page
 		$absoluteUrl = \SimplePie_Misc::absolutize_url('/', $url);
-		
+
 		$handle = curl_init ( );
 		curl_setopt ( $handle, CURLOPT_URL, $absoluteUrl );
 		curl_setopt ( $handle, CURLOPT_RETURNTRANSFER, 1 );

@@ -19,7 +19,7 @@
 
 We create a new instance of the menu. Then we need to bind it on an ul which contains
 all the items:
-    
+
     var updateIntervalMiliseconds = 2000;
     var items = new News.Items('#feed_items');
     var menu = new News.Menu(updateIntervalMiliseconds, items);
@@ -44,7 +44,7 @@ Deleting nodes:
 
 
 Creating nodes:
-    
+
     var parentId = 0;
     var html = '<nodehtml>';
     menu.addNode(parentId, html);
@@ -171,7 +171,7 @@ var News = News || {};
     Menu.prototype.updateNode = function(type, id, data){
         var $node = this._getNodeFromTypeAndId(type, id);
         id = parseInt(id, 10);
-        
+
         if(data.title !== undefined){
             // prevent xss
             var title = $('<div>').text(data.title).html();
@@ -339,11 +339,11 @@ var News = News || {};
         this._$activeFeed = $('#feeds .active');
         this._activeFeedId = this._$activeFeed.data('id');
         this._activeFeedType = this._listItemToMenuNodeType(this._$activeFeed);
-        
+
         setTimeout(function(){
             self._updateUnreadCountAll();
         }, 3000);
-        
+
         setInterval(function(){
             self._updateUnreadCountAll();
         }, self._updateInterval);
@@ -592,7 +592,7 @@ var News = News || {};
                         OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));
                     }
                 });
-                
+
                 break;
         }
     };
@@ -651,13 +651,13 @@ var News = News || {};
      */
     Menu.prototype._toggleCollapse = function($listItem){
         $listItem.toggleClass('open');
-        
+
         var folderId = this._getIdAndTypeFromNode($listItem).id;
         var data = {
             'folderId': folderId,
             'opened': $listItem.hasClass('open')
         };
-        
+
         $.post(OC.filePath('news', 'ajax', 'collapsefolder.php'), data, function(jsondata){
             if(jsondata.status != 'success'){
                 OC.dialogs.alert(jsonData.data.message, t('news', 'Error'));

@@ -57,7 +57,7 @@ class NewsController extends Controller {
         // always show the last viewed feed on reload
         $lastViewedFeedId = (int)$this->getUserValue('lastViewedFeed');
         $lastViewedFeedType = (int)$this->getUserValue('lastViewedFeedType');
-        $showAll = $this->getUserValue('showAll'); 
+        $showAll = $this->getUserValue('showAll');
 
         if( $lastViewedFeedId === null || $lastViewedFeedType === null) {
             $lastViewedFeedId = $feedMapper->mostRecent();
@@ -66,7 +66,7 @@ class NewsController extends Controller {
             if( (
                     $lastViewedFeedType === FeedType::FEED &&
                     $feedMapper->findById($lastViewedFeedId) === null
-                ) || 
+                ) ||
                 (
                     $lastViewedFeedType === FeedType::FOLDER &&
                     $folderMapper->findById($lastViewedFeedId) === null
@@ -106,14 +106,14 @@ class NewsController extends Controller {
         $itemMapper = new ItemMapper($this->userId);
 
         // starred or subscriptions
-        if ($feedType === FeedType::STARRED || $feedType === FeedType::SUBSCRIPTIONS) { 
+        if ($feedType === FeedType::STARRED || $feedType === FeedType::SUBSCRIPTIONS) {
 
             if($feedType === FeedType::STARRED){
                 $statusFlag = StatusFlag::IMPORTANT;
             }
 
             if($feedType === FeedType::SUBSCRIPTIONS){
-                $statusFlag = StatusFlag::UNREAD;   
+                $statusFlag = StatusFlag::UNREAD;
             }
 
             $items = $itemMapper->findEveryItemByStatus($statusFlag);
@@ -125,7 +125,7 @@ class NewsController extends Controller {
                 $items = $itemMapper->findByFeedId($feedId);
             } else {
                 $items = $itemMapper->findAllStatus($feedId, StatusFlag::UNREAD);
-            }    
+            }
 
         // folder
         } elseif ($feedType === FeedType::FOLDER){
@@ -136,7 +136,7 @@ class NewsController extends Controller {
                 if($showAll) {
                     $items = array_merge($items, $itemMapper->findByFeedId($feed->getId()));
                 } else {
-                    $items = array_merge($items, 
+                    $items = array_merge($items,
                         $itemMapper->findAllStatus($feed->getId(), StatusFlag::UNREAD));
                 }
             }
@@ -163,7 +163,7 @@ class NewsController extends Controller {
             case FeedType::SUBSCRIPTIONS:
                 $unreadCount = $itemMapper->countEveryItemByStatus(StatusFlag::UNREAD);
                 break;
-            
+
             case FeedType::FOLDER:
                 $feedMapper = new FeedMapper($this->userId);
                 $feeds = $feedMapper->findByFolderId($feedId);
@@ -182,5 +182,3 @@ class NewsController extends Controller {
 
 
 }
-
-?>

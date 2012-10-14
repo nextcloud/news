@@ -35,13 +35,13 @@ News.Settings={
 		if (News.Settings.importkind == News.Settings.IMPORTCLOUD) {
 			path = News.Settings.importpath;
 		} else if (this.importkind == this.IMPORTLOCAL) {
-			
+
 		}
 
 		$.post(OC.filePath('news', 'ajax', 'importopml.php'), { path: path }, function(jsondata){
 			if (jsondata.status == 'success') {
-				var message = jsondata.data.countsuccess + t('news', ' out of ') + jsondata.data.count + 
-					t('news', ' feeds imported successfully from ') + jsondata.data.title;   
+				var message = jsondata.data.countsuccess + t('news', ' out of ') + jsondata.data.count +
+					t('news', ' feeds imported successfully from ') + jsondata.data.title;
 				OC.dialogs.alert(message, t('news', 'Success'));
 			} else {
 				OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));

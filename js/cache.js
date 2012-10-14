@@ -30,5 +30,3 @@
     exports.Cache = Cache;
 
  }(typeof exports === "undefined" ? (this.moduleName = {}): exports));
-
-
