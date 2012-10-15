@@ -12,11 +12,7 @@
 
 namespace OCA\News;
 
-require_once(\OC_App::getAppPath('news') . '/lib/feedtypes.php');
-
-
 class NewsController extends Controller {
-
 
     /**
      * Decides wether to show the feedpage or the firstrun page

@@ -57,10 +57,12 @@ class ItemMapper {
 	public function findByFeedId($feedid) {
 		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE feed_id = ? ORDER BY pub_date DESC');
 		$result = $stmt->execute(array($feedid));
-
+		$feedmapper = new FeedMapper($this->userid);
+		$feed = $feedmapper->findById($feedid);
 		$items = array();
 		while ($row = $result->fetchRow()) {
 			$item = $this->fromRow($row);
+			$item->setFeedTitle($feed->getTitle());
 			$items[] = $item;
 		}
 

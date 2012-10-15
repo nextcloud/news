@@ -34,6 +34,7 @@ class Item {
 	private $id;      //id of the item in the database table
 	private $author;
 	private $date; //date is stored in the Unix format
+	private $feedTitle;
 
 	public function __construct($url, $title, $guid, $body, $id = null) {
 		$this->title = $title;
@@ -118,6 +119,14 @@ class Item {
 
 	public function setTitle($title) {
 		$this->title = $title;
+	}
+	
+	public function getFeedTitle() {
+		return $this->feedTitle;
+	}
+
+	public function setFeedTitle($feedtitle) {
+		$this->feedTitle = $feedtitle;
 	}
 
 	public function getUrl() {

@@ -15,6 +15,7 @@ OC::$CLASSPATH['OCA\News\Item'] = 'apps/news/lib/item.php';
 OC::$CLASSPATH['OCA\News\Collection'] = 'apps/news/lib/collection.php';
 OC::$CLASSPATH['OCA\News\Feed'] = 'apps/news/lib/feed.php';
 OC::$CLASSPATH['OCA\News\Folder'] = 'apps/news/lib/folder.php';
+OC::$CLASSPATH['OCA\News\FeedType'] = 'apps/news/lib/feedtypes.php';
 
 OC::$CLASSPATH['OCA\News\FeedMapper'] = 'apps/news/lib/feedmapper.php';
 OC::$CLASSPATH['OCA\News\ItemMapper'] = 'apps/news/lib/itemmapper.php';
