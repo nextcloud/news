@@ -396,12 +396,19 @@ var News = News || {};
             if(i === 0){
                 item.setViewed(true);
             }
+            // show items
             if(News.Objects.Menu.isShowAll() ||
                type === News.MenuNodeType.Starred ||
                !item.isRead()){
                 var $itemHtml = item.getHtml();
                 $itemHtml.removeClass('keep_unread');
                 $html.append($itemHtml);
+            }
+            // hide the additional feed anme if its just a normal feed
+            if(type === News.MenuNodeType.Feed){
+                item.showAdditionalFeedTitle(false);
+            } else {
+                item.showAdditionalFeedTitle(true);
             }
         }
         return $html;
@@ -489,6 +496,18 @@ var News = News || {};
             this._$html.addClass('viewed');
         } else {
             this._$html.removeClass('viewed');
+        }
+    };
+
+
+    /**
+     * @param show if true, show the feedtitle on the left side of the author
+     */
+    Item.prototype.showAdditionalFeedTitle = function(show) {
+        if(show){
+            this._$html.find('.from_feed').show();
+        } else {
+            this._$html.find('.from_feed').hide();
         }
     };
 
