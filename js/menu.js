@@ -793,7 +793,7 @@ var News = News || {};
                 break;
 
             case MenuNodeType.Starred:
-                this._unreadCount.Subscriptions = unreadCount;
+                this._unreadCount.Starred = unreadCount;
                 break;
 
             default:
