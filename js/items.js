@@ -31,6 +31,7 @@ var News = News || {};
         this._$articleList.scrollTop(0);
         this._$articleList.children('ul').children('.feed_item:eq(0)').addClass('viewed');
         this._itemCache = new ItemCache();
+        this._loadRequest = null;
 
         this._setScrollBottom();
         $(window).resize(function(){
@@ -89,6 +90,10 @@ var News = News || {};
      * @param onSuccessCallback a callback that is executed when the loading succeeded
      */
     Items.prototype.load = function(type, id, onSuccessCallback) {
+        if(this._loadRequest !== null){
+            this._loadRequest.abort();
+        }
+
         this._lastActiveFeedId = id;
         this._lastActiveFeedType = type;
 
@@ -102,7 +107,7 @@ var News = News || {};
         this._$articleList.addClass('loading');
         this._$articleList.children('ul').hide();
 
-        $.post(OC.filePath('news', 'ajax', 'loadfeed.php'), data, function(jsonData) {
+        this._loadRequest = $.post(OC.filePath('news', 'ajax', 'loadfeed.php'), data, function(jsonData) {
             // prevent loading in selected feeds that are not active any more when
             // the post finishes later
             if(self._lastActiveFeedType === type && self._lastActiveFeedId === id){
