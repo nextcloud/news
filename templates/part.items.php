@@ -1,6 +1,7 @@
 <?php
 
 $items = isset($_['items']) ? $_['items'] : '';
+$lastViewedFeedType = isset($_['lastViewedFeedType']) ? $_['lastViewedFeedType'] : '';
 
 echo '<ul>';
 foreach($items as $item) {
@@ -31,13 +32,15 @@ foreach($items as $item) {
 		echo '</div>';
 
 		echo '<h1 class="item_title"><a target="_blank" href="' . $item->getUrl() . '">' . htmlspecialchars($item->getTitle(), ENT_QUOTES, 'UTF-8') . '</a></h1>';
-		
-//		if ($lastViewedFeedType !== OCA\News\FeedType::FEED) {
-			echo '<div class="item_feed">' . $l->t('from') . ' ' . $item->getFeedTitle() . '</div>';
-//		}
+
+		if ((int)$lastViewedFeedType !== OCA\News\FeedType::FEED) {
+			$feedTitle = '<span class="feed_title"> ' . $l->t('from') . ' ' . $item->getFeedTitle() . '</span>';
+		} else {
+			$feedTitle = '';
+		}
 		
 		if(($item->getAuthor() !== null) && (trim($item->getAuthor()) != '')) {
-			echo '<h2 class="item_author">'. $l->t('by') . ' ' . htmlspecialchars($item->getAuthor(), ENT_QUOTES, 'UTF-8') . '</h2>';
+			echo '<h2 class="item_author">'. $feedTitle . $l->t('by') . ' ' . htmlspecialchars($item->getAuthor(), ENT_QUOTES, 'UTF-8') . '</h2>';
 		}
 
 		echo '<div class="body">' . $item->getBody() . '</div>';
