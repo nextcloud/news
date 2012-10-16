@@ -529,6 +529,14 @@ div.add_parentfolder {
                 margin: .2em 0 0 3em;
             }
 
+                .feed_item h2.item_author a {
+                    color: inherit;
+                }
+
+                    .feed_item h2.item_author a:hover {
+                        text-decoration: underline;
+                    }
+
             .timestamp {
                 display: none;
             }

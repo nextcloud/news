@@ -605,6 +605,12 @@ var News = News || {};
             self.setRead(true);
         });
 
+        // bind click to load feed when the from_feed link is viewable
+        this._$html.find('.from_feed').click(function(){
+            News.Objects.Items.load(News.MenuNodeType.Feed, self.getFeedId(), function(){});
+            return false;
+        });
+
         // single hover on item should mark it as read too
         this._$html.find('.body').click(function(){
             var $item = $(this).parent('.feed_item');
