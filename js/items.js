@@ -607,7 +607,7 @@ var News = News || {};
 
         // bind click to load feed when the from_feed link is viewable
         this._$html.find('.from_feed').click(function(){
-            News.Objects.Items.load(News.MenuNodeType.Feed, self.getFeedId(), function(){});
+            News.Objects.Menu.load(News.MenuNodeType.Feed, self.getFeedId());
             return false;
         });
 
