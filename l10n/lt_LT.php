@@ -7,15 +7,15 @@
 "Importing..." => "Importuojama...",
 "Downloading..." => "Atsiunčiama...",
 "Download" => "Atsisiųsti",
+"Address" => "Adresas",
+"Subscribe" => "Prenumeruoti",
+"Import OPML" => "Importuoti OPML",
 "Settings" => "Nustatymai",
 "Add Folder" => "Pridėti katalogą",
 "Folder name" => "Katalogo pavadinimas",
 "Choose folder" => "Pasirinkite katalogą",
-"Address" => "Adresas",
 "Add" => "Pridėti",
 "Delete folder" => "Ištrinti katalogą",
 "Rename folder" => "Pervadinti katalogą",
-"Subscribe" => "Prenumeruoti",
-"Import OPML" => "Importuoti OPML",
 "Download OPML" => "Atsisiųsti OPML"
 );
