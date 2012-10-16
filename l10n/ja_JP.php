@@ -82,6 +82,7 @@
 "Starred" => "共有",
 "Mark as unimportant" => "重要でないとしてマーク",
 "Mark as important" => "重要マークを付ける",
+"from" => "送信元",
 "by" => "により",
 "Keep unread" => "未読のままにする",
 "Delete feed" => "フィードを削除",

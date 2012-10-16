@@ -82,6 +82,7 @@
 "Starred" => "S hvězdičkou",
 "Mark as unimportant" => "Označit jako nedůležité",
 "Mark as important" => "Označit jako důležité",
+"from" => "z",
 "by" => "od",
 "Keep unread" => "Ponechat nepřečteno",
 "Delete feed" => "Smazat kanál",
