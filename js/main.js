@@ -46,7 +46,7 @@ $(document).ready(function(){
             $('#addfeed_dialog .menu').append($folder);
         });
     });
-    
+
     $('#addfolder').click(function() {
         $('#addfolder_dialog').dialog('open');
         $('#folder_add_name').val('');
@@ -104,9 +104,9 @@ $(document).ready(function(){
             $(this).addClass('show_all').removeClass('show_unread');
             $(this).attr('title', t('news', 'Show everything'));
         }
-        
+
         News.Objects.Menu.triggerHideRead();
-        
+
         $.post(OC.filePath('news', 'ajax', 'usersettings.php'), data, function(jsondata){
             if(jsondata.status == 'success'){
                 News.Objects.Menu.setShowAll(data.showAll);
@@ -115,7 +115,7 @@ $(document).ready(function(){
             }
         });
     });
-    
+
     $(document).click(function(event) {
         $('#feedfoldermenu').hide();
     });

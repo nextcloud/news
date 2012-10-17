@@ -37,7 +37,7 @@ class Backgroundjob {
 			return 1;
 		}
 	}
-	
+
 	static public function run() {
 		if( \OC::$CLI ) {
 			self::cliStep();
@@ -46,25 +46,25 @@ class Backgroundjob {
 			self::webStep();
 		}
 	}
-	
+
 	static private function cliStep() {
 		$feedmapper = new FeedMapper();
-		
+
 		// Iterate over all feeds
 		$feeds = $feedmapper->findAll();
 		foreach( $feeds as $feed ) {
 			self::updateFeed( $feedmapper, $feed );
 		}
 	}
-	
+
 	static private function webStep() {
 		// Iterate over all users
 		$lastid = \OCP\Config::getAppValue('news', 'backgroundjob_lastid',0);
-		
+
 		$feedmapper = new FeedMapper();
 		$feeds = $feedmapper->findAll();
 		usort( $feeds, array( 'OCA\News\Backgroundjob', 'sortFeeds' ));
-		
+
 		$done = false;
 		foreach( $feeds as $feed ) {
 			if( $feed['id'] > $lastid ) {
@@ -74,12 +74,12 @@ class Backgroundjob {
 				self::updateFeed( $feedmapper, $feed );
 			}
 		}
-		
+
 		if( !$done ) {
 			\OCP\Config::setAppValue('news', 'backgroundjob_lastid',0);
 		}
 	}
-		
+
 	static private function updateFeed( $feedmapper, $feed ) {
 		$newfeed = null;
 		$newfeed = Utils::fetch( $feed['url'] );

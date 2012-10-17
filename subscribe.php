@@ -1,8 +1,8 @@
-<!DOCTYPE html>  
-<html lang="en">  
-  <head>  
-    <meta charset="utf-8">  
-    <title>News - ownCloud</title>  
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>News - ownCloud</title>
   </head>
   <body>
   	<div class="message">
@@ -30,7 +30,7 @@
 			echo $l->t('An error occurred');
 		} else {
 			echo $l->t('Nice! You have subscribed to ') . $feed->getTitle();
-		}	
+		}
 	}
 	else {
 		echo $l->t('You had already subcribed to this feed!');
@@ -39,5 +39,5 @@
 	?>
 	</div>
 	<a href="javascript:self.close()" >Close this window</a>
-  </body>  
+  </body>
 </html>

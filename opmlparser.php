@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
 * ownCloud - News app
@@ -17,7 +17,7 @@ class OPMLParser {
 	private $body;
 	private $data;
 	private $count;
-	
+
 	private function __construct() {
 		$this->data = array();
 		$this->count = 0;
@@ -38,7 +38,7 @@ class OPMLParser {
 	public function getData() {
 		return $this->data;
 	}
-	
+
 	/**
 	 * @brief
 	 * @returns the number of feeds found in the file
@@ -46,7 +46,7 @@ class OPMLParser {
 	public function getCount() {
 		return $this->count;
 	}
-	
+
 	/**
 	 * @brief This is used as a utility private function by the method OPMLParser::parse
 	 */
@@ -69,7 +69,7 @@ class OPMLParser {
 		}
 		return $list;
 	}
-	
+
 	private static function parseFeed($rawfeed) {
 		$url = (string)$rawfeed['xmlUrl'];
 		$title = (string)$rawfeed['title'];
@@ -77,21 +77,21 @@ class OPMLParser {
 		$feed = new OCA\News\Feed($url, $title);
 		return $feed;
 	}
-	
+
 	/**
-	 * @brief 
+	 * @brief
 	 * @param $raw the XML string to be parsed
 	 * @return an object of the OPMLParser class itself
 	 *	or null if the parsing failed
-	 * @throws 
+	 * @throws
 	 */
 	public static function parse($raw) {
 		$parsed = new OPMLParser();
-		
+
 		$xml_parser = new SimpleXMLElement($raw, LIBXML_NOERROR);
 		$parsed->title = (string)$xml_parser->head->title;
 		$parsed->body = $xml_parser->body;
-		
+
 		if ($parsed->body != null) {
 			$parsed->data =  self::parseFolder($parsed->body, $parsed->count);
 			return $parsed;

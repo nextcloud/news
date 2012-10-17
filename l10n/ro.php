@@ -9,7 +9,6 @@
 "Error removing folder." => "Eroare la eliminarea directorului.",
 "Error updating feeds." => "Eroare la actualizarea fluxurilor.",
 "No file path was submitted." => "Nu a fost specificată nici o cale către fișier.",
-"New articles" => "Articole noi",
 "Feed loaded!" => "Fluxul a fost încărcat!",
 "Error moving feed into folder." => "Eroare la mutarea fluxului într-un director.",
 "File doesn't exist:" => "Fișierul nu există:",
@@ -45,6 +44,8 @@
 "no body" => "nici un conținut",
 "An error occurred" => "A apărut o eroare",
 "You had already subcribed to this feed!" => "Ești deja abonat la acest flux!",
+"Address" => "Adresă",
+"Subscribe" => "Abonare",
 "Add feed or folder" => "Adaugă flux sau director",
 "Add Feed/Folder" => "Adaugă flux/director",
 "Feed" => "Flux",
@@ -56,8 +57,8 @@
 "Add Subscription" => "Adaugă abonament",
 "Add new feed" => "Adaugă flux nou",
 "Choose folder" => "Alege director",
-"Address" => "Adresă",
 "Add" => "Adaugă",
+"New articles" => "Articole noi",
 "Mark as unimportant" => "Marchează ca neimportant",
 "Mark as important" => "Marchează ca important",
 "by" => "de",
@@ -65,6 +66,5 @@
 "Delete feed" => "Șterge flux",
 "Collapse" => "Restrânge",
 "Delete folder" => "Șterge director",
-"Rename folder" => "Redenumește director",
-"Subscribe" => "Abonare"
+"Rename folder" => "Redenumește director"
 );

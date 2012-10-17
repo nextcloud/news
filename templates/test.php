@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $itemmapper = new OCA\News\ItemMapper();
 

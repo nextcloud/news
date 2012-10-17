@@ -1,9 +1,12 @@
 <?php
 
+require_once(\OC_App::getAppPath('news') . '/lib/feedtypes.php');
+
+
 $l = new OC_l10n('news');
 
 
-$folder = isset($_['folder']) ? $_['folder'] : null;	
+$folder = isset($_['folder']) ? $_['folder'] : null;
 $folderId = $folder->getId();
 $folderName = $folder->getName();
 

@@ -7,7 +7,6 @@
 "Error removing feed." => "Chyba pri mazaní kanála.",
 "Error removing folder." => "Chyba pri mazaní priečinka.",
 "Error updating feeds." => "Chyba pri obnovení kanálov.",
-"New articles" => "Nové články",
 "Feed loaded!" => "Kanál nahraný!",
 "File doesn't exist:" => "Súbor neexistuje.",
 "Feed updated!" => "Kanál obnovený!",
@@ -38,5 +37,6 @@
 "no body" => "bez obsahu",
 "Add feed or folder" => "Pridať kanál alebo priečinok",
 "Add new folder" => "Pridať priečinok",
-"Add new feed" => "Pridať kanál"
+"Add new feed" => "Pridať kanál",
+"New articles" => "Nové články"
 );

@@ -26,7 +26,7 @@ function bailOut($msg) {
 
 if(!isset($_POST['path'])) {
 	bailOut($l->t('No file path was submitted.'));
-} 
+}
 
 require_once 'news/opmlparser.php';
 
@@ -39,7 +39,7 @@ try {
 }
 
 if ($parsed == null) {
-	bailOut($l->t('An error occurred while parsing the file.'));	
+	bailOut($l->t('An error occurred while parsing the file.'));
 }
 
 $data = $parsed->getData();
@@ -65,7 +65,7 @@ function importFeed($feedurl, $folderid) {
 		OCP\Util::writeLog('news','ajax/importopml.php: Error adding feed: '. $feedurl, OCP\Util::ERROR);
 		return false;
 	}
-	
+
 	return true;
 }
 
@@ -86,7 +86,7 @@ function importFolder($name, $parentid) {
 		OCP\Util::writeLog('news','ajax/importopml.php: Error adding folder' . $name, OCP\Util::ERROR);
 		return null;
 	}
-	
+
 	return $folderid;
 }
 
@@ -94,11 +94,11 @@ function importList($data, $parentid) {
 	$countsuccess = 0;
 	foreach($data as $collection) {
 		if ($collection instanceOf OCA\News\Feed) {
-			$feedurl = $collection->getUrl(); 
+			$feedurl = $collection->getUrl();
 			if (importFeed($feedurl, $parentid)) {
 				$countsuccess++;
 			}
-		} 
+		}
 		else if ($collection instanceOf OCA\News\Folder) {
 			$folderid = importFolder($collection->getName(), $parentid);
 			if ($folderid) {
@@ -115,5 +115,5 @@ function importList($data, $parentid) {
 
 $countsuccess = importList($data, 0);
 
-OCP\JSON::success(array('data' => array('title'=>$parsed->getTitle(), 'count'=>$parsed->getCount(), 
+OCP\JSON::success(array('data' => array('title'=>$parsed->getTitle(), 'count'=>$parsed->getCount(),
 	'countsuccess'=>$countsuccess)));

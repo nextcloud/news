@@ -1,6 +1,4 @@
 <?php $TRANSLATIONS = array(
-"Starred" => "Estrelado",
-"New articles" => "Novos artigos",
 "File doesn't exist:" => "Ficheiro não existe:",
 "News" => "Noticias",
 "Error" => "Erro",
@@ -23,17 +21,19 @@
 "no name" => "sem nome",
 "An error occurred" => "Ocorreu um erro",
 "Nice! You have subscribed to " => "Boa! Subscreveu",
+"You don't have any feed in your reader." => "Não tem nenhum feed no seu leitor.",
+"Address" => "Endereço",
 "Feed" => "Feed",
 "Folder" => "Pasta",
 "Settings" => "Configurações",
 "Add Folder" => "Acrescentar pasta",
 "Folder name" => "Nome da pasta",
 "Choose folder" => "Escolha uma pasta",
-"Address" => "Endereço",
 "Add" => "Acrescentar",
+"New articles" => "Novos artigos",
+"Starred" => "Estrelado",
 "by" => "por",
 "Keep unread" => "Manter como não lido",
 "Delete folder" => "Apagar pasta",
-"Rename folder" => "Renomear pasta",
-"You don't have any feed in your reader." => "Não tem nenhum feed no seu leitor."
+"Rename folder" => "Renomear pasta"
 );

@@ -11,8 +11,8 @@
 *
 */
 
-require_once('controllers/controller.php');
-require_once('controllers/news.controller.php');
+require_once(OC_App::getAppPath('news') . '/controllers/controller.php');
+require_once(OC_App::getAppPath('news') . '/controllers/news.controller.php');
 
 OCP\User::checkLoggedIn();
 OCP\App::checkAppEnabled('news');
@@ -24,5 +24,5 @@ $controller = new OCA\News\NewsController();
 if(isset($_GET['jstest'])){
 	$controller->javascriptTests();
 } else {
-	$controller->index();	
+	$controller->index();
 }

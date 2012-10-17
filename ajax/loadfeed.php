@@ -16,44 +16,39 @@ OCP\JSON::checkAppEnabled('news');
 OCP\JSON::callCheck();
 session_write_close();
 
+require_once(OC_App::getAppPath('news') . '/lib/feedtypes.php');
+require_once(OC_App::getAppPath('news') . '/controllers/controller.php');
+require_once(OC_App::getAppPath('news') . '/controllers/news.controller.php');
+
 $userid = OCP\USER::getUser();
 
-$feedId = $_POST['id'];
-$feedType = $_POST['type'];
+$feedId = (int)$_POST['id'];
+$feedType = (int)$_POST['type'];
 
 
-OCP\Config::setUserValue(OCP\USER::getUser(), 'news', 'lastViewedFeed', $feedId); 
-OCP\Config::setUserValue(OCP\USER::getUser(), 'news', 'lastViewedFeedType', $feedType); 
+OCP\Config::setUserValue(OCP\USER::getUser(), 'news', 'lastViewedFeed', $feedId);
+OCP\Config::setUserValue(OCP\USER::getUser(), 'news', 'lastViewedFeedType', $feedType);
+
+$showAll = OCP\Config::getUserValue(OCP\USER::getUser(), 'news', 'showAll');
+
+$newsController = new OCA\News\NewsController();
+$items = $newsController->getItems($feedType, $feedId, $showAll);
+$unreadItemCount = $newsController->getItemUnreadCount($feedType, $feedId);
 
 $l = OC_L10N::get('news');
 
+
 $itemsTpl = new OCP\Template("news", "part.items");
 $itemsTpl->assign('lastViewedFeedId', $feedId);
+$itemsTpl->assign('lastViewedFeedType', $feedType);
+$itemsTpl->assign('items', $items, false);
 $feedItems = $itemsTpl->fetchPage();
 
 $itemMapper = new OCA\News\ItemMapper();
 
 
-switch ($feedId) {
-    case -1:
-        $feedTitle = $l->t('Starred');
-        $unreadItemCount = $itemMapper->countAllStatus($feedId, OCA\News\StatusFlag::IMPORTANT);
-        break;
 
-    case -2:
-        $feedTitle = $l->t('New articles');
-        $unreadItemCount = $itemMapper->countEveryItemByStatus(OCA\News\StatusFlag::UNREAD);
-        break;
-    
-    default:
-        $feedMapper = new OCA\News\FeedMapper();
-        $feed = $feedMapper->findById($feedId);
-        $feedTitle = $feed->getTitle();
-        $unreadItemCount = $itemMapper->countAllStatus($feedId, OCA\News\StatusFlag::UNREAD);
-        break;
-}
 
 OCP\JSON::success(array('data' => array( 'message' => $l->t('Feed loaded!'),
-                                        'feedTitle' => $feedTitle,
 					                   'feedItems' => $feedItems,
                                        'unreadItemCount' => $unreadItemCount )));

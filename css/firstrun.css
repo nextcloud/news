@@ -1,31 +1,31 @@
 /**
- * when there are no feeds in the db 
+ * when there are no feeds in the db
  */
-#firstrun { 
+#firstrun {
     position: relative;
     top: 50%;
     left: 50%;
     margin-left: -25em;
     margin-top: -10em;
-    width: 50em; 
+    width: 50em;
     height: 20em;
-    text-align: center; 
-    font-weight:bold; 
-    font-size:1.5em; 
-    color:#777; 
+    text-align: center;
+    font-weight:bold;
+    font-size:1.5em;
+    color:#777;
 }
 
     #firstrun small { display: block; font-weight: normal; font-size: 0.8em; margin: .5em 0 1em 0; }
     #firstrun .button { font-size: 0.7em; }
 
-    #firstrun #selections { 
-        font-size:0.8em; 
-        margin: 2em auto 2em 10em; 
-        clear: both; 
+    #firstrun #selections {
+        font-size:0.8em;
+        margin: 2em auto 2em 10em;
+        clear: both;
     }
-    
+
     #firstrun #feed_add_url { width:20em; }
-    
+
     #firstrun #selections #addfeed_dialog_firstrun, #firstrun #selections #importopml_dialog_firstrun {
 	width:40em;
 	border:1px solid;
@@ -33,20 +33,20 @@
 	border-radius:10px;
 	-moz-border-radius:10px; /* Firefox 3.6 and earlier */
     }
-    
+
     #firstrun #selections #addfeed_dialog_firstrun {
     	height:5em;
     }
-    
+
     #firstrun #selections #importopml_dialog_firstrun {
     	height:4em;
     }
-    
-#file_upload_start { 
-    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; 
-    filter:alpha(opacity=0); 
-    opacity:0; 
-    z-index:1001; 
+
+#file_upload_start {
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter:alpha(opacity=0);
+    opacity:0;
+    z-index:1001;
     width:0;
     height:0;
 }

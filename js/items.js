@@ -31,12 +31,13 @@ var News = News || {};
         this._$articleList.scrollTop(0);
         this._$articleList.children('ul').children('.feed_item:eq(0)').addClass('viewed');
         this._itemCache = new ItemCache();
+        this._loadRequest = null;
 
         this._setScrollBottom();
         $(window).resize(function(){
             self._setScrollBottom();
         });
-        
+
         // mark items whose title was hid under the top edge as read
         this._scrollTimeoutMiliSecs = 100;
         this._markReadTimeoutMiliSecs = 500;
@@ -70,7 +71,7 @@ var News = News || {};
      * @param item the dom item
      */
     Items.prototype._markItemAsReadTimeout = function(item) {
-        var itemId = parseInt($(item).data('id'));
+        var itemId = parseInt($(item).data('id'), 10);
         var itemOffset = $(item).position().top;
         var cachedItem = this._itemCache.getItem(itemId);
         if(itemOffset < 0){
@@ -89,6 +90,10 @@ var News = News || {};
      * @param onSuccessCallback a callback that is executed when the loading succeeded
      */
     Items.prototype.load = function(type, id, onSuccessCallback) {
+        if(this._loadRequest !== null){
+            this._loadRequest.abort();
+        }
+
         this._lastActiveFeedId = id;
         this._lastActiveFeedType = type;
 
@@ -102,7 +107,7 @@ var News = News || {};
         this._$articleList.addClass('loading');
         this._$articleList.children('ul').hide();
 
-        $.post(OC.filePath('news', 'ajax', 'loadfeed.php'), data, function(jsonData) {
+        this._loadRequest = $.post(OC.filePath('news', 'ajax', 'loadfeed.php'), data, function(jsonData) {
             // prevent loading in selected feeds that are not active any more when
             // the post finishes later
             if(self._lastActiveFeedType === type && self._lastActiveFeedId === id){
@@ -133,7 +138,7 @@ var News = News || {};
         var notJumped = true;
         $('.feed_item').each(function(){
             if(notJumped && $(this).position().top > 1){
-                var id = parseInt($(this).data('id'));
+                var id = parseInt($(this).data('id'), 10);
                 self._jumpToElemenId(id);
                 notJumped = false;
             }
@@ -150,7 +155,7 @@ var News = News || {};
             if(notJumped && $(this).position().top >= 0){
                 var previous = $(this).prev();
                 if(previous.length > 0){
-                    var id = parseInt(previous.data('id'));
+                    var id = parseInt(previous.data('id'), 10);
                     self._jumpToElemenId(id);
                 }
                 notJumped = false;
@@ -161,7 +166,7 @@ var News = News || {};
         if(notJumped){
             var $items = $('.feed_item');
             if($items.length > 0){
-                var id = parseInt($items.last().data('id'));
+                var id = parseInt($items.last().data('id'), 10);
                 self._jumpToElemenId(id);
             }
         }
@@ -220,7 +225,7 @@ var News = News || {};
      * @return the jquery node
      */
     Items.prototype._findNodeById = function(id) {
-        id = parseInt(id);
+        id = parseInt(id, 10);
         return this._$articleList.find('.feed_item[data-id="' + id + '"]');
     };
 
@@ -258,7 +263,7 @@ var News = News || {};
      * Returns an item from the cache
      */
     ItemCache.prototype.getItem = function(itemId) {
-        itemId = parseInt(itemId);
+        itemId = parseInt(itemId, 10);
         return this._items[itemId];
     };
 
@@ -309,7 +314,7 @@ var News = News || {};
 
         switch(type){
 
-            case MenuNodeType.Feed:
+            case News.MenuNodeType.Feed:
                 if(this._feeds[id] === undefined){
                     return pairs;
                 }
@@ -318,21 +323,24 @@ var News = News || {};
                 });
                 break;
 
-            case MenuNodeType.Folder:
+            case News.MenuNodeType.Folder:
                 // this is a bit of a hack and not that beautiful^^
                 var feedIds = News.Objects.Menu.getFeedIdsOfFolder(id);
                 for(var i=0; i<feedIds.length; i++){
-                    pairs.concat(this._getItemIdTimestampPairs(MenuNodeType.Feed, feedIds[i]));
+                    var feedPairs = this._getItemIdTimestampPairs(News.MenuNodeType.Feed, feedIds[i]);
+                    for(var j=0; j<feedPairs.length; j++){
+                        pairs.push(feedPairs[j]);
+                    }
                 }
                 break;
 
-            case MenuNodeType.Subscriptions:
+            case News.MenuNodeType.Subscriptions:
                 $.each(this._items, function(key, value){
                     pairs.push({key: value.getId(), value: value.getTimeStamp()});
                 });
                 break;
 
-            case MenuNodeType.Starred:
+            case News.MenuNodeType.Starred:
                 $.each(this._items, function(key, value){
                     if(value.isImportant()){
                         pairs.push({key: value.getId(), value: value.getTimeStamp()});
@@ -351,7 +359,7 @@ var News = News || {};
      */
     ItemCache.prototype._getSortedItemIds = function(type, id) {
         var pairs = this._getItemIdTimestampPairs(type, id);
-        
+
         var sorted = pairs.slice(0).sort(function(a, b) {
            return a.value - b.value;
         });
@@ -393,10 +401,19 @@ var News = News || {};
             if(i === 0){
                 item.setViewed(true);
             }
-            if(News.Objects.Menu.isShowAll() || !item.isRead()){
+            // show items
+            if(News.Objects.Menu.isShowAll() ||
+               type === News.MenuNodeType.Starred ||
+               !item.isRead()){
                 var $itemHtml = item.getHtml();
                 $itemHtml.removeClass('keep_unread');
                 $html.append($itemHtml);
+            }
+            // hide the additional feed anme if its just a normal feed
+            if(type === News.MenuNodeType.Feed){
+                item.showAdditionalFeedTitle(false);
+            } else {
+                item.showAdditionalFeedTitle(true);
             }
         }
         return $html;
@@ -412,14 +429,14 @@ var News = News || {};
      var Item = function(html){
         this._starred = false;
         this._$html = $(html);
-        this._id = parseInt(this._$html.data('id'));
-        this._feedId = parseInt(this._$html.data('feedid'));
+        this._id = parseInt(this._$html.data('id'), 10);
+        this._feedId = parseInt(this._$html.data('feedid'), 10);
         this._read = this._$html.hasClass('read');
         this._locked = false;
         this._important = this._$html.find('li.star').hasClass('important');
         // get timestamp for sorting
         var $stamp = this._$html.find('.timestamp');
-        this._timestamp = parseInt($stamp.html());
+        this._timestamp = parseInt($stamp.html(), 10);
         $stamp.remove();
         // open all links in new tabs
         this._$html.find('.body a').attr('target', '_blank');
@@ -484,6 +501,18 @@ var News = News || {};
             this._$html.addClass('viewed');
         } else {
             this._$html.removeClass('viewed');
+        }
+    };
+
+
+    /**
+     * @param show if true, show the feedtitle on the left side of the author
+     */
+    Item.prototype.showAdditionalFeedTitle = function(show) {
+        if(show){
+            this._$html.find('.from_feed').show();
+        } else {
+            this._$html.find('.from_feed').hide();
         }
     };
 
@@ -574,6 +603,12 @@ var News = News || {};
             var $item = $(this).parent().parent('.feed_item');
             var itemId = $item.data('id');
             self.setRead(true);
+        });
+
+        // bind click to load feed when the from_feed link is viewable
+        this._$html.find('.from_feed').click(function(){
+            News.Objects.Menu.load(News.MenuNodeType.Feed, self.getFeedId());
+            return false;
         });
 
         // single hover on item should mark it as read too
