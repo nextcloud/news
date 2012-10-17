@@ -34,7 +34,7 @@ foreach($items as $item) {
 		echo '<h1 class="item_title"><a target="_blank" href="' . $item->getUrl() . '">' . htmlspecialchars($item->getTitle(), ENT_QUOTES, 'UTF-8') . '</a></h1>';
 
 		if ((int)$lastViewedFeedType !== OCA\News\FeedType::FEED) {
-			$feedTitle = '<a href="#" class="from_feed"> ' . $l->t('from') . ' ' . $item->getFeedTitle() . '</a> ';
+			$feedTitle = $l->t('from') . ' ' . '<a href="#" class="from_feed"> ' . $item->getFeedTitle() . '</a> ';
 		} else {
 			$feedTitle = '';
 		}
