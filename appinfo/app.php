@@ -23,15 +23,17 @@ OC::$CLASSPATH['OCA\News\FolderMapper'] = 'apps/news/lib/foldermapper.php';
 
 OC::$CLASSPATH['OCA\News\Utils'] = 'apps/news/lib/utils.php';
 
+OC::$CLASSPATH['OC_Search_Provider_News'] = 'apps/news/lib/search.php';
+
 OC::$CLASSPATH['OCA\News\Backgroundjob'] = 'apps/news/lib/backgroundjob.php';
 OCP\Backgroundjob::addRegularTask( 'OCA\News\Backgroundjob', 'run' );
-
-$l = new OC_l10n('news');
 
 OCP\App::addNavigationEntry( array(
   'id' => 'news',
   'order' => 74,
   'href' => OC_Helper::linkTo( 'news', 'index.php' ),
   'icon' => OC_Helper::imagePath( 'news', 'icon.svg' ),
-  'name' => $l->t('News')
+  'name' => OC_L10N::get('news')->t('News')
 ));
+
+OC_Search::registerProvider('OC_Search_Provider_News');

@@ -82,6 +82,7 @@
 "Starred" => "Oznaczone",
 "Mark as unimportant" => "Oznacz jako nieważne",
 "Mark as important" => "Oznacz jako ważne",
+"from" => "z",
 "by" => "przez",
 "Keep unread" => "Pozostaw nieprzeczytane",
 "Delete feed" => "Usuń feed",

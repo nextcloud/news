@@ -82,6 +82,7 @@
 "Starred" => "已加星标",
 "Mark as unimportant" => "标志为不重要",
 "Mark as important" => "标志为重要",
+"from" => "自",
 "by" => "被",
 "Keep unread" => "保持未读",
 "Delete feed" => "删除Feed",
