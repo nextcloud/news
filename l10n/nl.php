@@ -82,6 +82,7 @@
 "Starred" => "Ster gegeven",
 "Mark as unimportant" => "Markeer als onbelangrijk",
 "Mark as important" => "Markeer als belangrijk",
+"from" => "van",
 "by" => "door ",
 "Keep unread" => "Bewaar ongelezen",
 "Delete feed" => "Verwijder feed",

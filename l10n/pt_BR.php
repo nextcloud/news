@@ -82,6 +82,7 @@
 "Starred" => "Destacado",
 "Mark as unimportant" => "Marcar como não importante",
 "Mark as important" => "Marcar como importante",
+"from" => "de",
 "by" => "por",
 "Keep unread" => "Manter não lido",
 "Delete feed" => "Excluir feed",

@@ -82,6 +82,7 @@
 "Starred" => "Markéret",
 "Mark as unimportant" => "Markér som ikke-vigtig",
 "Mark as important" => "Markér som vigtig",
+"from" => "fra",
 "by" => "af",
 "Keep unread" => "Behold ulæste",
 "Delete feed" => "Slet feed",
