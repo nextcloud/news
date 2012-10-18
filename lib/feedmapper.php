@@ -47,7 +47,6 @@ class FeedMapper {
 
 	/**
 	 * @brief as a list that can be easily parsed using JSON
-	 * @param userid
 	 * @returns
 	 */
 	public function findAll() {
@@ -66,12 +65,13 @@ class FeedMapper {
 			$id = $row['id'];
 			$folderid = $row['folder_id'];
 			$userid = $row['user_id'];
-			$feeds[] = array("url" => $url, "id" => $id, "folderid" => $folderid, 'userid' => $userid );
+			$title = $row['title'];
+			$feeds[] = array("url" => $url, "id" => $id, "folderid" => $folderid, 
+				'userid' => $userid, 'title' => $title );
 		}
 
 		return $feeds;
 	}
-
 
 	/**
 	 * @brief returns the number of feeds that a user has
