@@ -6,5 +6,7 @@
 	<licence>AGPL</licence>
 	<shipped>true</shipped>
 	<author>Alessandro Cosentino</author>
-	<require>4</require>
+	<require>4.9</require>
+	<shipped>true</shipped>
+	<default_enable/>
 </info>
