@@ -50,10 +50,11 @@ class NewsController extends Controller {
         $feedMapper = new FeedMapper($this->userId);
         $itemMapper = new ItemMapper($this->userId);
 
-        // always show the last viewed feed on reload
-        $lastViewedFeedId = (int)$this->getUserValue('lastViewedFeed');
-        $lastViewedFeedType = (int)$this->getUserValue('lastViewedFeedType');
-        $showAll = $this->getUserValue('showAll');
+        // if no feed id is passed as parameter, then show the last viewed feed on reload
+        $lastViewedFeedId = isset( $_GET['feedid'] ) ? $_GET['feedid'] : (int)$this->getUserValue('lastViewedFeed');
+        $lastViewedFeedType = isset( $_GET['feedid'] ) ? FeedType::FEED : (int)$this->getUserValue('lastViewedFeedType');
+        
+	$showAll = $this->getUserValue('showAll');
 
         if( $lastViewedFeedId === null || $lastViewedFeedType === null) {
             $lastViewedFeedId = $feedMapper->mostRecent();
