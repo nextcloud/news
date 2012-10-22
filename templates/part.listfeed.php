@@ -1,6 +1,6 @@
 <?php
 
-require_once(\OC_App::getAppPath('news') . '/lib/feedtypes.php');
+require_once \OC_App::getAppPath('news') . '/lib/feedtypes.php';
 
 
 $l = new OC_l10n('news');

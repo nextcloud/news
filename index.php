@@ -11,8 +11,8 @@
 *
 */
 
-require_once(OC_App::getAppPath('news') . '/controllers/controller.php');
-require_once(OC_App::getAppPath('news') . '/controllers/news.controller.php');
+require_once OC_App::getAppPath('news') . '/controllers/controller.php';
+require_once OC_App::getAppPath('news') . '/controllers/news.controller.php';
 
 OCP\User::checkLoggedIn();
 OCP\App::checkAppEnabled('news');
