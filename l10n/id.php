@@ -1,3 +1,26 @@
 <?php $TRANSLATIONS = array(
-"Folder added!" => "Folder ditambah!"
+"Folder added!" => "Folder ditambahkan!",
+"File doesn't exist:" => "file tidak ditemukan:",
+"Error setting all items as read." => "kesalahan mengatur semua item sebagai terdibaca",
+"Error marking item as read." => "kesalahan menandai item sebagai terbaca",
+"News" => "berita",
+"Error" => "kesalahan",
+"Show only unread" => "tampilkan yang belum dibaca saja",
+"Show everything" => "tampilkan semua",
+"Adding..." => "menambahkan...",
+"Add folder" => "tambah berkas",
+"URL cannot be empty." => "tautan tidak boleh kosong",
+"File " => "file",
+"No files selected." => "tidak ada file terpilih",
+"Importing..." => "mengimpor...",
+"Success" => "berhasil",
+"Import" => "impor",
+"Downloading..." => "mengunduh...",
+"Download" => "unduh",
+"Select file" => "pilih file",
+"no title" => "tidak ada judul",
+"no name" => "tidak bernama",
+"no body" => "tidak berisi",
+"New articles" => "artikel baru",
+"Starred" => "dibintangi"
 );
