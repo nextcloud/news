@@ -8,7 +8,7 @@ $l = new OC_l10n('news');
 
 $feed = isset($_['feed']) ? $_['feed'] : null;
 
-htmlspecialchars_decode($feedTitle = $feed->getTitle());
+$feedTitle = $feed->getTitle();
 $feedId =  $feed->getId();
 $unreadItemsCount = isset($_['unreadItemsCount']) ? $_['unreadItemsCount'] : null;
 $favicon = $feed->getFavicon();
