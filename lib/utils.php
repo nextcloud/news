@@ -52,51 +52,51 @@ class Utils {
 			return null;
 		}
 
-	   //temporary try-catch to bypass SimplePie bugs
-	   try {
-		$spfeed->handle_content_type();
-		$title = $spfeed->get_title();
+		//temporary try-catch to bypass SimplePie bugs
+		try {
+			$spfeed->handle_content_type();
+			$title = $spfeed->get_title();
 
-		$items = array();
-		if ($spitems = $spfeed->get_items()) {
-			foreach($spitems as $spitem) {
-				$itemUrl = $spitem->get_permalink();
-				$itemTitle = $spitem->get_title();
-				$itemGUID = $spitem->get_id();
-				$itemBody = $spitem->get_content();
-				$item = new Item($itemUrl, $itemTitle, $itemGUID, $itemBody);
+			$items = array();
+			if ($spitems = $spfeed->get_items()) {
+				foreach($spitems as $spitem) {
+					$itemUrl = $spitem->get_permalink();
+					$itemTitle = $spitem->get_title();
+					$itemGUID = $spitem->get_id();
+					$itemBody = $spitem->get_content();
+					$item = new Item($itemUrl, $itemTitle, $itemGUID, $itemBody);
 
-				$spAuthor = $spitem->get_author();
-				if ($spAuthor !== null) {
-					$item->setAuthor($spAuthor->get_name());
+					$spAuthor = $spitem->get_author();
+					if ($spAuthor !== null) {
+						$item->setAuthor($spAuthor->get_name());
+					}
+
+					//date in Item is stored in UNIX timestamp format
+					$itemDate = $spitem->get_date('U');
+					$item->setDate($itemDate);
+
+					$items[] = $item;
 				}
-
-				//date in Item is stored in UNIX timestamp format
-				$itemDate = $spitem->get_date('U');
-				$item->setDate($itemDate);
-
-				$items[] = $item;
 			}
-		}
 
-		$feed = new Feed($url, $title, $items);
+			$feed = new Feed($url, $title, $items);
 
-		$favicon = $spfeed->get_image_url();
+			$favicon = $spfeed->get_image_url();
 
-		if ($favicon !== null && self::checkFavicon($favicon)) { // use favicon from feed
-			$feed->setFavicon($favicon);
-		}
-		else { // try really hard to find a favicon
-			$webFavicon = self::discoverFavicon($url);
-			if ($webFavicon !== null) {
-				$feed->setFavicon($webFavicon);
+			if ($favicon !== null && self::checkFavicon($favicon)) { // use favicon from feed
+				$feed->setFavicon($favicon);
 			}
+			else { // try really hard to find a favicon
+				$webFavicon = self::discoverFavicon($url);
+				if ($webFavicon !== null) {
+					$feed->setFavicon($webFavicon);
+				}
+			}
+			return $feed;
 		}
-		return $feed;
-		}
-	   catch (Exception $e) {
-		return null;
-	   }
+	  catch (Exception $e) {
+			return null;
+	  }
 	}
 
 	/**

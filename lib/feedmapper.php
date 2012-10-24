@@ -204,7 +204,7 @@ class FeedMapper {
 			$feedid = \OCP\DB::insertid(self::tableName);
 		}
 		else {
-		//update the db. it needs to be done, since it might be the first save after a full fetch
+			//update the db. it needs to be done, since it might be the first save after a full fetch
 			$stmt = \OCP\DB::prepare('
 					UPDATE ' . self::tableName .
 					' SET favicon_link = ? , lastmodified = UNIX_TIMESTAMP() , folder_id = ?
