@@ -32,7 +32,7 @@ OCP\App::addNavigationEntry( array(
   'id' => 'news',
   'order' => 74,
   'href' => OC_Helper::linkTo( 'news', 'index.php' ),
-  'icon' => OC_Helper::imagePath( 'news', 'icon.svg' ),
+  'icon' => OC_Helper::imagePath( 'news', 'news.svg' ),
   'name' => OC_L10N::get('news')->t('News')
 ));
 
