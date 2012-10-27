@@ -29,7 +29,6 @@ var News = News || {};
         var self = this;
         this._$articleList = $(cssSelector);
         this._$articleList.scrollTop(0);
-        this._$articleList.children('ul').children('.feed_item:eq(0)').addClass('viewed');
         this._itemCache = new ItemCache();
         this._loadRequest = null;
 
@@ -59,7 +58,7 @@ var News = News || {};
                         }, self._markReadTimeoutMiliSecs);
                     }
                 });
-                self._markCurrentlyViewed();
+                //self._markCurrentlyViewed();
             }
         });
 
@@ -206,7 +205,7 @@ var News = News || {};
         $elem = $('.feed_item[data-id=' + id + ']');
         this._$articleList.scrollTop(
             $elem.offset().top - this._$articleList.offset().top + this._$articleList.scrollTop());
-        this._markCurrentlyViewed();
+        //this._markCurrentlyViewed();
     };
 
     /**
@@ -399,7 +398,7 @@ var News = News || {};
         for(var i=0; i<itemIds.length; i++){
             var item = this._items[itemIds[i]];
             if(i === 0){
-                item.setViewed(true);
+                //item.setViewed(true);
             }
             // show items
             if(News.Objects.Menu.isShowAll() ||
