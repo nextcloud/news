@@ -3,11 +3,13 @@
 <!-- End of Dialogs -->
 
 <?php
-if ($_['feedid']) {
 
-$showAll = OCP\Config::getUserValue(OCP\USER::getUser(), 'news', 'showAll'); 
+$l = $_['trans'];
+$lastViewedFeedId = $_['lastViewedFeedId'];
+$lastViewedFeedType = $_['lastViewedFeedType'];
 
-if($showAll) {
+
+if($_['showAll']) {
 	$viewButtonImg = 'eye_all.svg';
 	$viewButtonTitle = $l->t('Show everything');
 	$viewButtonClass = 'show_all';
@@ -17,6 +19,7 @@ if($showAll) {
 	$viewButtonClass = 'show_unread';
 }
 
+echo $this->inc("part.dialogues");
 ?>
 
 <div id="leftcontent_news" class="leftcontent_news">
@@ -56,10 +59,3 @@ if($showAll) {
 	<div id="appsettings" class="popup bottomleft hidden"></div>
 
 </div>
-
-<?php
-	} else {
-		echo $this->inc("part.nofeeds");
-	}
-
-	echo $this->inc("part.dialogues");

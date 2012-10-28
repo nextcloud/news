@@ -23,19 +23,12 @@ $(document).ready(function(){
     News.Objects.Menu = new News.Menu(menuUpdateIntervalMiliseconds, News.Objects.Items);
     News.Objects.Menu.bindOn('#feeds > ul');
 
-    /* first run script begins */
-    $('#browsebtn_firstrun, #cloudbtn_firstrun, #importbtn_firstrun').hide();
-    
-    /* first run script ends */
-
     $('#addfeed').click(function() {
         $('#addfeed_dialog').dialog('open');
         $('#feed_add_url').html('');
 
         // populate folderlist
         $('#addfeed_dialog .menu').empty();
-        
-        // http://9gag.com/trending
 
         var $rootFolder = $('<li>').addClass('menuItem').html($('<b>').html(t('News', 'None')));
         $rootFolder.click(function(){
@@ -53,7 +46,7 @@ $(document).ready(function(){
             $('#addfeed_dialog .menu').append($folder);
         });
     });
-    
+
     $('#addfolder').click(function() {
         $('#addfolder_dialog').dialog('open');
         $('#folder_add_name').val('');
@@ -111,9 +104,9 @@ $(document).ready(function(){
             $(this).addClass('show_all').removeClass('show_unread');
             $(this).attr('title', t('news', 'Show everything'));
         }
-        
+
         News.Objects.Menu.triggerHideRead();
-        
+
         $.post(OC.filePath('news', 'ajax', 'usersettings.php'), data, function(jsondata){
             if(jsondata.status == 'success'){
                 News.Objects.Menu.setShowAll(data.showAll);
@@ -122,7 +115,7 @@ $(document).ready(function(){
             }
         });
     });
-    
+
     $(document).click(function(event) {
         $('#feedfoldermenu').hide();
     });

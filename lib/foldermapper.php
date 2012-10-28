@@ -33,15 +33,15 @@ class FolderMapper {
 
 	/**
 	 * @brief Returns the forest (list of trees) of folders children of $parentid
-	 * @param 
-	 * @returns 
+	 * @param
+	 * @returns
 	 */
 	public function childrenOf($parentid) {
-		$folderlist = array(); 
+		$folderlist = array();
 		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName .
 					' WHERE user_id = ? AND parent_id = ?');
 		$result = $stmt->execute(array($this->userid, $parentid));
-		
+
 		while( $row = $result->fetchRow()) {
 			$folderid = $row['id'];
 			$folder = new Folder($row['name'], $folderid);
@@ -50,25 +50,25 @@ class FolderMapper {
 			$folder->addChildren($children);
 			$folderlist[] = $folder;
 		}
-		
+
 		return $folderlist;
 	}
 
 	/**
-	 * @brief Returns the forest (list of trees) of folders children of $parentid, 
+	 * @brief Returns the forest (list of trees) of folders children of $parentid,
 	 *		 including the feeds that they contain
-	 * @param 
-	 * @returns 
+	 * @param
+	 * @returns
 	 */
 	public function childrenOfWithFeeds($parentid) {
-		
+
 		$feedmapper = new FeedMapper();
 		$collectionlist = $feedmapper->findByFolderId($parentid);
-				
+
 		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName .
 					' WHERE user_id = ? AND parent_id = ?');
 		$result = $stmt->execute(array($this->userid, $parentid));
-		
+
 		while( $row = $result->fetchRow()) {
 			$folderid = $row['id'];
 			$folder = new Folder($row['name'], $folderid);
@@ -77,11 +77,19 @@ class FolderMapper {
 			$folder->addChildren($children);
 			$collectionlist[] = $folder;
 		}
-		
+
 		return $collectionlist;
 	}
 
-	
+
+	/**
+	 * This is being used for consistency
+	 */
+	public function findById($id){
+		return $this->find($id);
+	}
+
+
 	/**
 	 * @brief Retrieve a folder from the database
 	 * @param id The id of the folder in the database table.
@@ -140,7 +148,7 @@ class FolderMapper {
 	 * @param folder the folder to be updated
 	 */
 	public function update(Folder $folder) {
-		$query = \OCP\DB::prepare('UPDATE ' . self::tableName 
+		$query = \OCP\DB::prepare('UPDATE ' . self::tableName
 			. ' SET name = ?, opened = ?' . ' WHERE id = ?');
 
 		$params = array($folder->getName(), $folder->getOpened(), $folder->getId());

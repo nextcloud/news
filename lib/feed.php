@@ -4,20 +4,14 @@
 *
 * @author Alessandro Cosentino
 * Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
-* 
+*
 * This file is licensed under the Affero General Public License version 3 or later.
 * See the COPYING-README file
-* 
+*
 */
 
 namespace OCA\News;
 
-class FeedType {
-	const FEED          = 0;
-	const FOLDER        = 1;
-	const STARRED       = 2;
-	const SUBSCRIPTIONS = 3;
-}
 
 /**
  * This class models a feed.
@@ -41,7 +35,7 @@ class Feed extends Collection {
 			parent::__construct($id);
 		}
 	}
-	
+
 	public function getUrl() {
 		return $this->url;
 	}
@@ -49,7 +43,7 @@ class Feed extends Collection {
 	public function getTitle() {
 		return $this->title;
 	}
-	
+
 	public function setTitle($title) {
 		$this->title = $title;
 	}

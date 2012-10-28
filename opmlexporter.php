@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
 * ownCloud - News app

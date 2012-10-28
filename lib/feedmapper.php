@@ -41,13 +41,12 @@ class FeedMapper {
 		$feed = new Feed($url, $title, null, $id);
 		$favicon = $row['favicon_link'];
 		$feed->setFavicon($favicon);
-		
+
 		return $feed;
 	}
 
 	/**
 	 * @brief as a list that can be easily parsed using JSON
-	 * @param userid
 	 * @returns
 	 */
 	public function findAll() {
@@ -66,11 +65,25 @@ class FeedMapper {
 			$id = $row['id'];
 			$folderid = $row['folder_id'];
 			$userid = $row['user_id'];
-			$feeds[] = array("url" => $url, "id" => $id, "folderid" => $folderid, 'userid' => $userid );
+			$title = $row['title'];
+			$feeds[] = array("url" => $url, "id" => $id, "folderid" => $folderid, 
+				'userid' => $userid, 'title' => $title );
 		}
 
 		return $feeds;
 	}
+
+	/**
+	 * @brief returns the number of feeds that a user has
+	 * @returns the number of feeds that a user has
+	 */
+	public function feedCount() {
+		$query = 'SELECT COUNT(*) AS size FROM ' . self::tableName . ' WHERE user_id = ?';
+		$stmt = \OCP\DB::prepare($query);
+		$result = $stmt->execute(array($this->userid))->fetchRow();
+		return $result['size'];
+	}
+
 
 	/**
 	 * @brief Retrieve a feed from the database
@@ -112,7 +125,7 @@ class FeedMapper {
 		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE id = ?');
 		$result = $stmt->execute(array($id));
 		$row = $result->fetchRow();
-		
+
 		$feed = self::fromRow($row);
 		$itemMapper = new ItemMapper();
 		$items = $itemMapper->findById($id);
@@ -166,9 +179,9 @@ class FeedMapper {
 			$l = \OC_L10N::get('news');
 			$title = $l->t('no title');
 		}
-		
+
 		$favicon = $feed->getFavicon();
-		
+
 		//FIXME: Detect when feed contains already a database id
 		$feedid =  $this->findIdFromUrl($url);
 		if ($feedid === null) {
@@ -190,20 +203,20 @@ class FeedMapper {
 
 			$feedid = \OCP\DB::insertid(self::tableName);
 		}
-		else { 
-		//update the db. it needs to be done, since it might be the first save after a full fetch
+		else {
+			//update the db. it needs to be done, since it might be the first save after a full fetch
 			$stmt = \OCP\DB::prepare('
 					UPDATE ' . self::tableName .
 					' SET favicon_link = ? , lastmodified = UNIX_TIMESTAMP() , folder_id = ?
 					WHERE id = ?
 					');
-				
+
 			$params=array(
 				$favicon,
 				$folderid,
 				$feedid
 				);
-			$stmt->execute($params);		
+			$stmt->execute($params);
 		}
 		$feed->setId($feedid);
 
@@ -215,10 +228,10 @@ class FeedMapper {
 				$itemMapper->save($item, $feedid);
 			}
 		}
-		
+
 		return $feedid;
 	}
-	
+
 
 	public function deleteById($id) {
 		if ($id == null) {
@@ -234,7 +247,7 @@ class FeedMapper {
 
 		return true;
 	}
-	
+
 	public function delete(Feed $feed) {
 		$id = $feed->getId();
 		return deleteById($id);

@@ -4,10 +4,10 @@
 *
 * @author Bernhard Posselt
 * Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
-* 
+*
 * This file is licensed under the Affero General Public License version 3 or later.
 * See the COPYING-README file
-* 
+*
 */
 
 // Check if we are a user
@@ -22,7 +22,7 @@ if(isset($_POST['showAll'])) {
     } else {
         $showAll = true;
     }
-    OCP\Config::setUserValue(OCP\USER::getUser(), 'news', 'showAll', $showAll);     
+    OCP\Config::setUserValue(OCP\USER::getUser(), 'news', 'showAll', $showAll);
 }
 
-OCP\JSON::success();    
+OCP\JSON::success();
