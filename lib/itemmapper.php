@@ -236,11 +236,14 @@ class ItemMapper {
 
 	/**
 	 * @brief Retrieve an item from the database
-	 * @param id The id of the feed in the database table.
+	 * @param id The id of the item in the database table.
 	 */
 	public function findById($id) {
-		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE id = ?');
-		$result = $stmt->execute(array($id));
+		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' JOIN ' . FeedMapper::tableName . 
+		      ' ON ' . self::tableName . '.feed_id = ' . FeedMapper::tableName . '.id WHERE ' 
+		      . self::tableName .'.id = ? AND ' . FeedMapper::tableName . '.user_id = ? ');
+		$result = $stmt->execute(array($id, $this->userid));
+
 		$row = $result->fetchRow();
 
 		$item = $this->fromRow($row);

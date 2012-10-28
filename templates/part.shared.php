@@ -1,7 +1,8 @@
 <?php
 
-$items = isset($_['items']) ? $_['items'] : '';
-$lastViewedFeedType = isset($_['lastViewedFeedType']) ? $_['lastViewedFeedType'] : '';
+$items = OCP\Share::getItemsSharedWith('news_item', 1);
+
+//print_r($items);
 
 echo '<ul>';
 foreach($items as $item) {
