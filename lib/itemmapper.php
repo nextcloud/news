@@ -36,6 +36,7 @@ class ItemMapper {
 	 * @returns an object of the class OC_News_Item
 	 */
 	public function fromRow($row) {
+	
 		$url = $row['url'];
 		$title = $row['title'];
 		$guid = $row['guid'];
@@ -171,8 +172,10 @@ class ItemMapper {
 			$status,
 			$itemid
 			);
-		$stmt->execute($params);
+			
+		$result = $stmt->execute($params);
 
+		
 		return true;
 	}
 
@@ -239,11 +242,18 @@ class ItemMapper {
 	 * @param id The id of the item in the database table.
 	 */
 	public function findById($id) {
-		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' JOIN ' . FeedMapper::tableName . 
-		      ' ON ' . self::tableName . '.feed_id = ' . FeedMapper::tableName . '.id WHERE ' 
-		      . self::tableName .'.id = ? AND ' . FeedMapper::tableName . '.user_id = ? ');
-		$result = $stmt->execute(array($id, $this->userid));
 
+		$stmt = \OCP\DB::prepare('SELECT ' . self::tableName . '.id AS id, ' . self::tableName . 
+			'.url AS url, ' . self::tableName . '.title AS title, guid, body, status, author, feed_id, pub_date' .
+			' FROM ' . self::tableName . ' JOIN ' . FeedMapper::tableName . 
+			' ON ' . self::tableName . '.feed_id = ' . FeedMapper::tableName . '.id WHERE (' . self::tableName . 
+			'.id = ? AND ' . FeedMapper::tableName . '.user_id = ? )');
+		$result = $stmt->execute(array($id, $this->userid));
+		
+		/*
+		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE id = ?');
+		$result = $stmt->execute(array($id));
+		*/
 		$row = $result->fetchRow();
 
 		$item = $this->fromRow($row);

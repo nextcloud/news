@@ -40,7 +40,7 @@ $allfeeds = isset($_['allfeeds']) ? $_['allfeeds'] : '';
 $lastViewedFeedId = $_['lastViewedFeedId'];
 $lastViewedFeedType = $_['lastViewedFeedType'];
 $starredCount = $_['starredCount'];
-$sharedCount = $_['sharedCount'];
+//$sharedCount = $_['sharedCount'];
 
 ?>
 
@@ -55,11 +55,14 @@ $sharedCount = $_['sharedCount'];
 	<span class="unread_items_counter"><?php echo $starredCount ?></span>
 </li>
 
+<?php
+/*
 <li class="shared <?php if($lastViewedFeedType == OCA\News\FeedType::SHARED) { echo "active"; }; ?>">
 	<a class="title" href="#" ><?php echo $l->t('Shared'); ?></a>
 	<span class="unread_items_counter"><?php echo $sharedCount ?></span>
 </li>
-
+*/
+?>
 
 <?php
 	print_collection_list($allfeeds, $lastViewedFeedId, $lastViewedFeedType);
