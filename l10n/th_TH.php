@@ -84,6 +84,7 @@
 "Mark as important" => "ทำเครื่องหมายว่าสำคัญ",
 "from" => "จาก",
 "by" => "โดย",
+"Share" => "แชร์",
 "Keep unread" => "รักษาสถานะว่ายังไม่ได้เปิดอ่านไว้",
 "Delete feed" => "ลบ feed",
 "Collapse" => "ย่อ",

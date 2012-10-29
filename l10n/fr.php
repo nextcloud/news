@@ -84,6 +84,7 @@
 "Mark as important" => "Marquer comme important",
 "from" => "de",
 "by" => "par",
+"Share" => "Partager",
 "Keep unread" => "Garder non lu",
 "Delete feed" => "Supprimer le flux",
 "Collapse" => "Replier",
