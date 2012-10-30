@@ -45,8 +45,6 @@
 " feeds imported successfully from " => "feeds importados com sucesso de",
 "Success" => "Sucesso",
 "Import" => "Importar",
-"Downloading..." => "Baixando...",
-"Download" => "Baixar",
 "Select file" => "Selecionar arquivo",
 "no title" => "sem título",
 "no name" => "sem nome",

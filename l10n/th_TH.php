@@ -45,8 +45,6 @@
 " feeds imported successfully from " => "เสร็จสิ้นการนำเข้า feed จาก",
 "Success" => "เสร็จสิ้น",
 "Import" => "นำเข้า",
-"Downloading..." => "กำลังดาวน์โหลด...",
-"Download" => "ดาวน์โหลด",
 "Select file" => "เลือกไฟล์",
 "no title" => "ยังไม่มีชื่อ",
 "no name" => "ไม่มีชื่อ",

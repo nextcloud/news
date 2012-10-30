@@ -45,8 +45,6 @@
 " feeds imported successfully from " => "feeds succesfuldt importeret fra",
 "Success" => "Succes",
 "Import" => "Import",
-"Downloading..." => "Downloader...",
-"Download" => "Download",
 "Select file" => "Vælg fil",
 "no title" => "ingen titel",
 "no name" => "intet navn",

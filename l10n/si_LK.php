@@ -42,8 +42,6 @@
 " feeds imported successfully from " => "වෙතින් සංග්‍රහ සාර්ථකව ආයාත කරන ලදී",
 "Success" => "සාර්ථකයි",
 "Import" => "ආයාත කරන්න",
-"Downloading..." => "බාගතවේ...",
-"Download" => "බාගත කරන්න",
 "Select file" => "ගොනුව තෝරන්න",
 "no title" => "මාතෘකාවක් නැත",
 "no name" => "නමක් නැත",

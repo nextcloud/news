@@ -31,8 +31,6 @@
 " out of " => "sem",
 "Success" => "Sucesso",
 "Import" => "Importar",
-"Downloading..." => "A descarregar...",
-"Download" => "Descarregar",
 "Select file" => "Escolher ficheiro",
 "no title" => "sem titulo",
 "no name" => "sem nome",

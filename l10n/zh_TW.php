@@ -3,7 +3,6 @@
 "Error" => "錯誤",
 "None" => "無",
 "Import" => "匯入",
-"Download" => "下載",
 "Address" => "網址",
 "Upload" => "上傳",
 "Folder" => "資料夾",

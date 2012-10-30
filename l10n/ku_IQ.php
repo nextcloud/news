@@ -45,8 +45,6 @@
 " feeds imported successfully from " => "خورد هاورده‌کرا به‌سه‌رکه‌وتووانه‌ له",
 "Success" => "سه‌رکه‌وتن",
 "Import" => "هێنان",
-"Downloading..." => "داده‌گیرێت...",
-"Download" => "داگرتن",
 "Select file" => "دیاریکردنی په‌ڕگه",
 "no title" => "بێ ناونیشان",
 "no name" => "بێ ناو",

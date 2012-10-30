@@ -37,8 +37,6 @@
 "Importing..." => "Se importă...",
 "Success" => "Succes",
 "Import" => "Importă",
-"Downloading..." => "Se descarcă...",
-"Download" => "Descarcă",
 "Select file" => "Alege fișier",
 "no title" => "nici un titlu",
 "no name" => "nici un nume",

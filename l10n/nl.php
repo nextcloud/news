@@ -45,8 +45,6 @@
 " feeds imported successfully from " => "feeds succesvol geïmporteerd van ",
 "Success" => "Gelukt",
 "Import" => "Importeren",
-"Downloading..." => "Downloaden...",
-"Download" => "Downloaden",
 "Select file" => "Selecteer bestand",
 "no title" => "geen titel",
 "no name" => "geen naam",

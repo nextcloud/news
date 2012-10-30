@@ -24,6 +24,8 @@
 "None" => "Pole",
 "Show only unread" => "Näita ainult lugemata",
 "Show everything" => "Näita kõike",
+"Are you sure you want to delete this feed?" => "Oled sa kindel, et sa soovid seda uudisvoogu kustutada?",
+"Are you sure you want to delete this folder and all its feeds?" => "Oled sa kindel, et sa soovid seda kausta ja selle uudisvooge kustutada?",
 "Warning" => "Hoiatus",
 "Name of the folder cannot be empty." => "Kausta nimi ei saa olla tühi.",
 "Adding..." => "Lisamine...",
@@ -43,8 +45,6 @@
 " feeds imported successfully from " => "uudivoogu imporditud failist",
 "Success" => "Korras",
 "Import" => "Impordi",
-"Downloading..." => "Allalaadimine...",
-"Download" => "Laadi alla",
 "Select file" => "Vali fail",
 "no title" => "pealkirja pole",
 "no name" => "nime pole",
@@ -80,6 +80,7 @@
 "Starred" => "Tärniga märgitud",
 "Mark as unimportant" => "Märgi mitteoluliseks",
 "Mark as important" => "Märgi oluliseks",
+"from" => "kust",
 "by" => "lisas",
 "Share" => "Jaga",
 "Keep unread" => "Hoia kui lugemata",
@@ -90,5 +91,6 @@
 "Import feeds" => "Impordi uudisvood",
 "Export feeds" => "Ekspordi uudisvood",
 "Download OPML" => "Laadi OPMLfail alla",
-"Subscribelet" => "Tellimuse vidin"
+"Subscribelet" => "Tellimuse vidin",
+"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "Lohista see oma veebilehitseja järjehoidjatesse ja kliki sellel, kui sa soovid veebilehte kiiresti tellida:"
 );

@@ -45,8 +45,6 @@
 " feeds imported successfully from " => "Zaimportowano kanał z ",
 "Success" => "Sukces",
 "Import" => "Import",
-"Downloading..." => "Pobieram...",
-"Download" => "Pobierz",
 "Select file" => "Wybierz plik",
 "no title" => "brak tytułu",
 "no name" => "brak nazwy",

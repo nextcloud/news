@@ -45,8 +45,6 @@
 " feeds imported successfully from " => " kanály boli úspešne importované z ",
 "Success" => "Úspešné",
 "Import" => "Import",
-"Downloading..." => "Sťahovanie...",
-"Download" => "Sťahovanie",
 "Select file" => "Označiť súbor",
 "no title" => "bez nadpisu",
 "no name" => "bez názvu",

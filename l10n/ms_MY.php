@@ -3,7 +3,6 @@
 "Error" => "Ralat",
 "Warning" => "Amaran",
 "Import" => "Import",
-"Download" => "Muat turun",
 "Address" => "Alamat",
 "Upload" => "Muat naik",
 "Folder" => "Folder",

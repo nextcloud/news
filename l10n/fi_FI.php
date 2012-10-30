@@ -44,8 +44,6 @@
 " feeds imported successfully from " => "syötteet tuotu onnistuneesti täältä:",
 "Success" => "Onnistui!",
 "Import" => "Tuo",
-"Downloading..." => "Ladataan...",
-"Download" => "Lataa",
 "Select file" => "Valitse tiedosto",
 "no title" => "ei otsikkoa",
 "no name" => "ei nimeä",
