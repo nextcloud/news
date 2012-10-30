@@ -84,6 +84,7 @@
 "Mark as important" => "标记为重要",
 "from" => "从",
 "by" => "由",
+"Share" => "分享",
 "Keep unread" => "保持未读",
 "Delete feed" => "删除种子",
 "Collapse" => "收缩",

@@ -346,6 +346,7 @@ var News = News || {};
                     }
                 });
                 break;
+		
         }
         return pairs;
     };

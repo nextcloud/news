@@ -18,4 +18,5 @@ class FeedType {
     const FOLDER        = 1;
     const STARRED       = 2;
     const SUBSCRIPTIONS = 3;
+    const SHARED	= 4;
 };

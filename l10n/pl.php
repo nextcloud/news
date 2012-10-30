@@ -84,6 +84,7 @@
 "Mark as important" => "Oznacz jako ważne",
 "from" => "z",
 "by" => "przez",
+"Share" => "Udostępnij",
 "Keep unread" => "Pozostaw nieprzeczytane",
 "Delete feed" => "Usuń feed",
 "Collapse" => "Zwiń",

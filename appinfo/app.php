@@ -28,6 +28,8 @@ OC::$CLASSPATH['OC_Search_Provider_News'] = 'apps/news/lib/search.php';
 OC::$CLASSPATH['OCA\News\Backgroundjob'] = 'apps/news/lib/backgroundjob.php';
 OCP\Backgroundjob::addRegularTask( 'OCA\News\Backgroundjob', 'run' );
 
+OC::$CLASSPATH['OCA\News\Share_Backend_News_Item'] = 'apps/news/lib/share/item.php';
+
 OCP\App::addNavigationEntry( array(
   'id' => 'news',
   'order' => 74,
@@ -37,3 +39,5 @@ OCP\App::addNavigationEntry( array(
 ));
 
 OC_Search::registerProvider('OC_Search_Provider_News');
+
+OCP\Share::registerBackend('news_item', 'OCA\News\Share_Backend_News_Item');

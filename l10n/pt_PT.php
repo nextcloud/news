@@ -63,6 +63,7 @@
 "Mark as important" => "Marcar como importante",
 "from" => "de",
 "by" => "por",
+"Share" => "Partilhar",
 "Keep unread" => "Manter como não lido",
 "Collapse" => "Expandir",
 "Delete folder" => "Apagar pasta",

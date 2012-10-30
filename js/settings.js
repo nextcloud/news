@@ -51,11 +51,8 @@ News.Settings={
 		});
 	},
 	exportOpml:function(button){
-		$(button).attr("disabled", true);
-		$(button).prop('value', t('news', 'Downloading...'));
 		document.location.href = OC.linkTo('news', 'opmlexporter.php');
-		$(button).prop('value', t('news', 'Download'));
-		$(button).attr("disabled", false);
+		$('#appsettings_popup').remove();
 	}
 }
 
