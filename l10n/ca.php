@@ -84,6 +84,7 @@
 "Mark as important" => "Marca com a important",
 "from" => "des de",
 "by" => "per",
+"Share" => "Comparteix",
 "Keep unread" => "Mantén com a sense llegir",
 "Delete feed" => "Elimina font",
 "Collapse" => "Col·lapsa",

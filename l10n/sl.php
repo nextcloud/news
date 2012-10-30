@@ -84,6 +84,7 @@
 "Mark as important" => "Označi kot pomembno",
 "from" => "od",
 "by" => "od",
+"Share" => "Souporaba",
 "Keep unread" => "Obdrži neprebrano",
 "Delete feed" => "Izbriši vir",
 "Collapse" => "Skrči",

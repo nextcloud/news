@@ -84,6 +84,7 @@
 "Mark as important" => "Markeer als belangrijk",
 "from" => "van",
 "by" => "door ",
+"Share" => "Delen",
 "Keep unread" => "Bewaar ongelezen",
 "Delete feed" => "Verwijder feed",
 "Collapse" => "Inklappen",

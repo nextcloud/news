@@ -664,15 +664,20 @@ div.add_parentfolder {
 
             .feed_item:hover .secondary_item_utils {
                 display: block;
-            }
+            }            
 
+            /*
+                .feed_item a.share {
+		    background:url('%webroot%/core/img/actions/share.svg') no-repeat center; 
+		}
+            */
                 .feed_item:hover .secondary_item_utils li.keep_unread {
                     cursor: pointer;
-
                 }
 
                 .feed_item .secondary_item_utils li input[type=checkbox]{
                 }
+                
 
 /* dialog/menues */
 #addfolder_dialog, #addfeed_dialog, #changefolder_dialog {

@@ -84,6 +84,7 @@
 "Mark as important" => "Markera som viktigt",
 "from" => "från",
 "by" => "av",
+"Share" => "Dela",
 "Keep unread" => "Behåll som oläst",
 "Delete feed" => "Ta bort flöde",
 "Collapse" => "Dölj",

@@ -84,6 +84,7 @@
 "Mark as important" => "Markér som vigtig",
 "from" => "fra",
 "by" => "af",
+"Share" => "Del",
 "Keep unread" => "Behold ulæste",
 "Delete feed" => "Slet feed",
 "Collapse" => "Sammenfold",

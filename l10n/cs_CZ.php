@@ -84,6 +84,7 @@
 "Mark as important" => "Označit jako důležité",
 "from" => "z",
 "by" => "od",
+"Share" => "Sdílet",
 "Keep unread" => "Ponechat nepřečteno",
 "Delete feed" => "Smazat kanál",
 "Collapse" => "Svinout",
