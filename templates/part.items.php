@@ -51,11 +51,10 @@ foreach($items as $item) {
 
 		echo '<div class="body">' . $item->getBody() . '</div>';
 
-		echo '<div><a class="share" data-item-type="news_item" data-item="' . $item->getId() . '" title="' . $l->t('Share') . 
-		      '" data-possible-permissions="' . (OCP\Share::PERMISSION_READ | OCP\Share::PERMISSION_SHARE) . '"/></div>';
-		
 		echo '<div class="bottom_utils">';
-			echo '<ul class="secondary_item_utils">';				
+			echo '<ul class="secondary_item_utils">';
+				echo '<li class="share"><a data-item-type="news_item" data-item="' . $item->getId() . '" title="' . $l->t('Share') . 
+		      '" data-possible-permissions="' . (OCP\Share::PERMISSION_READ | OCP\Share::PERMISSION_SHARE) . '" href="#">' . $l->t('Share') . '</a></li>';				
 				echo '<li class="keep_unread">' . $l->t('Keep unread') . '<input type="checkbox" /></li>';
 			echo '</ul>';
 		echo '</div>';
