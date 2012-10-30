@@ -663,7 +663,6 @@ div.add_parentfolder {
 
             .feed_item .secondary_item_utils, .feed_item .secondary_item_utils a {
                 color: #000;
-                font-weight: bold;
             }
 
             .feed_item:hover .secondary_item_utils {
@@ -675,7 +674,7 @@ div.add_parentfolder {
                     padding-left: 25px;
                 }
 
-                .feed_item li.share {
+                .feed_item li.share_link {
 	           	    background-image: url('%webroot%/core/img/actions/share.svg'); 
                     background-repeat: no-repeat;
                     background-position: right center;
