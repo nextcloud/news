@@ -197,7 +197,7 @@ div.add_parentfolder {
         background-color: #d0d0d0 !important;
         border-bottom: 1px solid #ccc;
         border-top: 1px solid #ddd;
-        font-style: oblique;
+        text-shadow: 0 1px 0 rgba(255,255,255,.7);
     }
 
         #feeds li a.title {
