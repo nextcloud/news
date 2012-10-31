@@ -58,20 +58,21 @@ div.add_parentfolder {
 }
 
     #feeds .unread_items_counter {
-        border-radius: .4em;
-        background-color: #666;
-        color: #fefefe;
-        padding: .1em .3em;
-        min-width: 1em;
+        padding: 6px 8px 5px;
         position: absolute;
         z-index: 1000;
-        right: .3em;
-        top: .4em;
+        right: 0;
+        top: 0;
         overflow: hidden;
         text-overflow: ellipsis;
         text-align: center;
         font-size: 9pt;
+        border-left: 1px solid #ddd;
     }
+
+	#feeds .active .unread_items_counter {
+	    border-left: 1px solid #c5c5c5;
+	}
 
     #feeds li:hover > .unread_items_counter, #feeds .all_read > .unread_items_counter {
         display: none;
