@@ -58,6 +58,22 @@ div.add_parentfolder {
 }
 
     #feeds .unread_items_counter {
+        border-radius: .4em;
+        background-color: #666;
+        color: #fefefe;
+        padding: .1em .3em;
+        min-width: 1em;
+        position: absolute;
+        z-index: 1000;
+        right: .3em;
+        top: .3em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: center;
+        font-size: 9pt;
+    }
+
+    #feeds .feed:hover .unread_items_counter, #feeds .feed.all_read .unread_items_counter {
         display: none;
     }
 
@@ -168,7 +184,7 @@ div.add_parentfolder {
     #feeds li {
         border-bottom: 1px solid #ddd;
         border-top: 1px solid #fff;
-        padding: 0;
+        padding: 0 35px 0  0;
         font-weight: bold ;
         box-sizing: border-box;
         -moz-box-sizing: border-box;
@@ -201,13 +217,17 @@ div.add_parentfolder {
             line-height: 2.5em;
         }
 
-            #feeds li:hover > a.title {
-                padding-right: 4em !important;
+            #feeds li:hover {
+                padding: 0;
             }
 
-            #feeds li.folder:hover > a.title {
-                padding-right: 5.5em !important;
-            }
+                #feeds li:hover > a.title {
+                    padding-right: 4em !important;
+                }
+
+                #feeds li.folder:hover > a.title {
+                    padding-right: 5.5em !important;
+                }
 
         #feeds .starred a.title {
             background-image: url('%appswebroot%/news/img/starred.png');

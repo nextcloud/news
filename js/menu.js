@@ -426,7 +426,7 @@ var News = News || {};
         var self = this;
         var id = $listItem.data('id');
         this._setUnreadCount(MenuNodeType.Feed, id,
-            this._getAndRemoveUnreadCount($listItem));
+            this._getUnreadCount($listItem));
 
         $listItem.children('.title').click(function(){
             // prevent loading when dragging
@@ -464,7 +464,7 @@ var News = News || {};
     Menu.prototype._bindStarred = function($listItem){
         var self = this;
         this._setUnreadCount(MenuNodeType.Starred, 0,
-            this._getAndRemoveUnreadCount($listItem));
+            this._getUnreadCount($listItem));
 
         $listItem.children('.title').click(function(){
             self.load(MenuNodeType.Starred, -1);
@@ -687,10 +687,9 @@ var News = News || {};
      * @param $listItem the jquery list element
      * @return the count of unread items
      */
-    Menu.prototype._getAndRemoveUnreadCount = function($listItem){
+    Menu.prototype._getUnreadCount = function($listItem){
         var $unreadCounter = $listItem.children('.unread_items_counter');
         var unreadCount = parseInt($unreadCounter.html(), 10);
-        $unreadCounter.remove();
         return unreadCount;
     };
 
@@ -841,6 +840,11 @@ var News = News || {};
      */
     Menu.prototype._applyUnreadCountStyle = function(type, id, unreadCount) {
         var $node = this._getNodeFromTypeAndId(type, id);
+        
+        if(type === MenuNodeType.Feed){
+            $node.children('.unread_items_counter').html(unreadCount);
+        }
+
         if(unreadCount === 0){
             $node.addClass('all_read');
         } else {
