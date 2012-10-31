@@ -255,6 +255,7 @@ div.add_parentfolder {
         #feeds .folder > a.title {
             background-image: url('%webroot%/core/img/places/folder.svg');
             /*border-bottom: 1px solid #ddd;*/
+            text-transform:uppercase;
         }
 
         #feeds .folder.collapsable:hover a {
