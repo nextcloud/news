@@ -21,7 +21,6 @@ class NewsController extends Controller {
      * Decides wether to show the feedpage or the firstrun page
      */
     public function index($request){
-        echo "hi";
         $feedMapper = new FeedMapper($this->userId);
 
         if($feedMapper->feedCount() > 0){
@@ -36,7 +35,7 @@ class NewsController extends Controller {
         $this->addScript('news');
         $this->addScript('firstrun');
         $this->addStyle('firstrun');
-        $this->render('firstrun');
+        $this->renderTemplate('firstrun');
     }
 
 
@@ -102,7 +101,7 @@ class NewsController extends Controller {
      * @param $showAll if true, it will also include unread items
      * @return an array with all items
      */
-    private function getItems($feedType, $feedId, $showAll){
+    public function getItems($feedType, $feedId, $showAll){
         $items = array();
         $itemMapper = new ItemMapper($this->userId);
 
@@ -152,7 +151,7 @@ class NewsController extends Controller {
      * @param $feedId the id of the feed or folder
      * @return the unread count
      */
-    private function getItemUnreadCount($feedType, $feedId){
+    public function getItemUnreadCount($feedType, $feedId){
         $unreadCount = 0;
         $itemMapper = new ItemMapper($this->userId);
 

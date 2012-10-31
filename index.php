@@ -13,8 +13,8 @@
 
 namespace OCA\News;
 
-require_once \OC_App::getAppPath('news') . '/lib/url.php';
+require_once \OC_App::getAppPath('news') . '/lib/serve.php';
 require_once \OC_App::getAppPath('news') . '/controllers/news.controller.php';
 
 // routes
-url(new NewsController(), 'index');
+serve(new NewsController(), 'index', false);

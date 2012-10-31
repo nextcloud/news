@@ -4,7 +4,6 @@
 
 <?php
 
-$l = $_['trans'];
 $lastViewedFeedId = $_['lastViewedFeedId'];
 $lastViewedFeedType = $_['lastViewedFeedType'];
 

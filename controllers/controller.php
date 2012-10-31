@@ -11,37 +11,16 @@
 */
 
 
-/*
-
-Usage
-
-MyController extends Controller {
-    
-    public function __construct($request=null, $userLoggedInCheck=true, $csrfCheck=true){
-        super($request, $userLoggedInCheck, $csrfCheck);
-    }
-
-    public function myRoute(){
-    
-    }
-
-}
-
-
-*/
-
-
 namespace OCA\News;
 
 class Controller {
 
     protected $trans;
+    private $safeParams;
 
     public function __construct(){
         $this->trans = \OC_L10N::get('news');
         $this->safeParams = array();
-
-
     }
 
 
@@ -89,10 +68,7 @@ class Controller {
      * @param Renderer $renderer: the render which should be used to render the page
      */
     protected function render(Renderer $renderer){
-        $renderer->bind('userId', $this->request->userId);
         $renderer->render();
-        $this->csrfCheck = true;
-        $this->userLoggedInCheck = true;
     }
 
 
@@ -107,6 +83,7 @@ class Controller {
     protected function renderTemplate($templateName, $arguments=array(), 
                                       $safeParams=array(), $fullPage=true){
         $renderer = new TemplateRenderer($templateName, $fullPage);
+        $renderer->bind($arguments);
         $renderer->bindSafe($safeParams);
         $this->render($renderer);
     }
@@ -119,6 +96,7 @@ class Controller {
      */
     protected function renderJSON($arguments=array(), $error=""){
         $renderer = new JSONRenderer($error);
+        $renderer->bind($arguments);
         $this->render($renderer);
     }
 
@@ -126,34 +104,50 @@ class Controller {
 }
 
 
-
-
-
-
+/**
+ * Renderers
+ */
 interface Renderer {
     public function render();
     public function bind($params);
 }
 
 
-
+/**
+ * Used to render a normal template
+ */
 class TemplateRenderer implements Renderer {
 
     private $safeParams = array();
+    private $template;
 
+    /**
+     * @param string $name: the template which we want to render
+     * @param $fullPage: if the page should be included into the standard page
+     */
     public function __construct($name, $fullPage=true){
         if($fullPage){
-            $this->template = new \OCP\Template('news', $template, 'user');
+            $this->template = new \OCP\Template('news', $name, 'user');
         } else {
-            $this->template = new \OCP\Template('news', $template);
+            $this->template = new \OCP\Template('news', $name);
         }
     }
 
+
+    /**
+     * @brief binds parameters to the renderer which shouldnt be escaped
+     * @param array $params: an array of the form $doNotEscape => true
+     */
     public function bindSafe($params){
         $this->safeParams = $params;
     }
 
 
+    /**
+     * Bind parameters to the template
+     * @param array $params: an array of the form $key => value which will be used
+     *                       for access in templates
+     */
     public function bind($params){
         foreach($params as $key => $value){
             if(array_key_exists($key, $this->safeParams)) {
@@ -165,6 +159,9 @@ class TemplateRenderer implements Renderer {
     }
 
 
+    /**
+     * Print the page
+     */
     public function render(){
         $this->template->printPage();
     }
@@ -173,20 +170,35 @@ class TemplateRenderer implements Renderer {
 }
 
 
+
+/**
+ * Use this to render JSON calls
+ */
 class JSONRenderer implements Renderer {
 
     private $params;
 
+    /**
+     * @param string $error: if empty a success is sent, otherwise an error message
+     *                       will be logged
+     */
     public function __construct($error){
         $this->error = $error;
     }
 
 
+    /**
+     * Bind parameters to the template
+     * @param array $params: an array which will be converted to JSON
+     */
     public function bind($params){
         $this->params = $params;
     }
 
 
+    /**
+     * Print the json array
+     */
     public function render(){
         if($this->error === ""){
             OCP\JSON::success($this->params);        
