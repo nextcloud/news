@@ -67,12 +67,12 @@ div.add_parentfolder {
         text-overflow: ellipsis;
         text-align: center;
         font-size: 9pt;
-        border-left: 1px solid #ddd;
+        /*border-left: 1px solid #ddd;*/
     }
 
-	#feeds .active .unread_items_counter {
-	    border-left: 1px solid #c5c5c5;
-	}
+    #feeds .active .unread_items_counter {
+        /*border-left: 1px solid #c5c5c5;*/
+    }
 
     #feeds li:hover > .unread_items_counter, #feeds .all_read > .unread_items_counter {
         display: none;
@@ -254,7 +254,7 @@ div.add_parentfolder {
 
         #feeds .folder > a.title {
             background-image: url('%webroot%/core/img/places/folder.svg');
-            border-bottom: 1px solid #ddd;
+            /*border-bottom: 1px solid #ddd;*/
         }
 
         #feeds .folder.collapsable:hover a {
@@ -285,7 +285,9 @@ div.add_parentfolder {
 
 
         #feeds .folder.open ul li {
-
+            border: 0;
+            border-bottom: 1px solid rgba(0,0,0,0);
+            border-top: 1px solid rgba(0,0,0,0);
             box-sizing: border-box;
             -moz-box-sizing: border-box;
         }
@@ -450,7 +452,7 @@ div.add_parentfolder {
             background-image: -webkit-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
             background-image: -ms-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
             padding: 2.5em 0 0 0;
-	        cursor: default;
+            cursor: default;
         }
 
         .feed_item.viewed {
@@ -695,7 +697,7 @@ div.add_parentfolder {
                 }
 
                 .feed_item li.share_link {
-	           	    background-image: url('%webroot%/core/img/actions/share.svg'); 
+                    background-image: url('%webroot%/core/img/actions/share.svg'); 
                     background-repeat: no-repeat;
                     background-position: right center;
                     padding-right: 20px;
