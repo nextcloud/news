@@ -66,7 +66,7 @@ div.add_parentfolder {
         position: absolute;
         z-index: 1000;
         right: .3em;
-        top: .3em;
+        top: .4em;
         overflow: hidden;
         text-overflow: ellipsis;
         text-align: center;
