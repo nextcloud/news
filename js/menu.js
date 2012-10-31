@@ -840,10 +840,7 @@ var News = News || {};
      */
     Menu.prototype._applyUnreadCountStyle = function(type, id, unreadCount) {
         var $node = this._getNodeFromTypeAndId(type, id);
-        
-        if(type !== MenuNodeType.Folder){
-            $node.children('.unread_items_counter').html(unreadCount);
-        }
+        $node.children('.unread_items_counter').html(unreadCount);
 
         if(unreadCount === 0){
             $node.addClass('all_read');
