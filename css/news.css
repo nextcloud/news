@@ -73,7 +73,7 @@ div.add_parentfolder {
         font-size: 9pt;
     }
 
-    #feeds .feed:hover .unread_items_counter, #feeds .feed.all_read .unread_items_counter {
+    #feeds li:hover > .unread_items_counter, #feeds .all_read > .unread_items_counter {
         display: none;
     }
 

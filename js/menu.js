@@ -841,7 +841,7 @@ var News = News || {};
     Menu.prototype._applyUnreadCountStyle = function(type, id, unreadCount) {
         var $node = this._getNodeFromTypeAndId(type, id);
         
-        if(type === MenuNodeType.Feed){
+        if(type !== MenuNodeType.Folder){
             $node.children('.unread_items_counter').html(unreadCount);
         }
 

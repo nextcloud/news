@@ -46,6 +46,7 @@ $starredCount = $_['starredCount'];
 
 <li class="subscriptions <?php if($lastViewedFeedType == OCA\News\FeedType::SUBSCRIPTIONS) { echo "active"; }; ?>">
 	<a class="title" href="#" ><?php echo $l->t('New articles'); ?></a>
+	<span class="unread_items_counter"><?php echo $starredCount ?></span>
 	<span class="buttons">
     	<button class="svg action feeds_markread" title="<?php echo $l->t('Mark all read'); ?>"></button>
     </span>
