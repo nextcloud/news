@@ -254,6 +254,7 @@ div.add_parentfolder {
 
         #feeds .folder > a.title {
             background-image: url('%webroot%/core/img/places/folder.svg');
+            border-bottom: 1px solid #ddd;
         }
 
         #feeds .folder.collapsable:hover a {
@@ -284,9 +285,7 @@ div.add_parentfolder {
 
 
         #feeds .folder.open ul li {
-            border: 0;
-            border-top: 1px solid rgba(0,0,0,0);
-            border-bottom: 1px solid rgba(0,0,0,0);
+
             box-sizing: border-box;
             -moz-box-sizing: border-box;
         }
