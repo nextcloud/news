@@ -4,7 +4,6 @@
 
 <?php
 
-$l = $_['trans'];
 $lastViewedFeedId = $_['lastViewedFeedId'];
 $lastViewedFeedType = $_['lastViewedFeedType'];
 
@@ -52,6 +51,7 @@ echo $this->inc("part.dialogues");
 <div id="rightcontent" class="rightcontent">
 	<?php
 			echo '<div id="feed_items">';
+				//echo $this->inc("part.shared");
 				echo $this->inc("part.items");
 			echo '</div>';
 	?>

@@ -18,6 +18,7 @@
 "Feed updated!" => "Канал оновлено!",
 "News" => "Новини",
 "Error" => "Помилка",
+"None" => "Жоден",
 "Show only unread" => "Показати тільки не прочитане",
 "Show everything" => "Показати все",
 "Name of the folder cannot be empty." => "Ім'я папки не може бути пустим.",
@@ -36,8 +37,6 @@
 " feeds imported successfully from " => "канали успішно імпортовано з",
 "Success" => "Успіх",
 "Import" => "Імпорт",
-"Downloading..." => "Завантажується...",
-"Download" => "Завантажити",
 "Select file" => "Оберіть файл",
 "no title" => "без назви",
 "no name" => "без імені",
@@ -46,9 +45,13 @@
 "An error occurred" => "Виникла помилка",
 "Nice! You have subscribed to " => "Чудово! Ви підписались на",
 "You had already subcribed to this feed!" => "Ви вже підписані на цей канал!",
+"Address" => "Адреса",
+"Upload" => "Відвантажити",
 "Add feed or folder" => "Додати канал в папку",
+"Folder" => "Папка",
 "Settings" => "Налаштування",
 "Add" => "Додати",
 "New articles" => "Нові статті",
-"Starred" => "Помічені зірочко"
+"Starred" => "Помічені зірочко",
+"Share" => "Поділитися"
 );
