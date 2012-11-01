@@ -3,7 +3,6 @@
 "Error" => "에러",
 "Warning" => "경고",
 "Import" => "가져오기",
-"Download" => "다운로드",
 "Address" => "주소",
 "Upload" => "업로드",
 "Folder" => "폴더",

@@ -45,8 +45,6 @@
 " feeds imported successfully from " => "件のフィードを正常にインポートしました: ",
 "Success" => "成功",
 "Import" => "インポート",
-"Downloading..." => "ダウンロード中...",
-"Download" => "ダウンロード",
 "Select file" => "ファイルを選択",
 "no title" => "タイトル無し",
 "no name" => "名前無し",

@@ -44,8 +44,6 @@
 " feeds imported successfully from " => "fontes importadas con éxito desde",
 "Success" => "Éxito",
 "Import" => "Importar",
-"Downloading..." => "Baixando...",
-"Download" => "Baixar",
 "Select file" => "Seleccionar ficheiro",
 "no title" => "sen título",
 "no name" => "sen nome",

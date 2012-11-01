@@ -58,6 +58,23 @@ div.add_parentfolder {
 }
 
     #feeds .unread_items_counter {
+        padding: 6px 8px 5px;
+        position: absolute;
+        z-index: 1000;
+        right: 0;
+        top: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: center;
+        font-size: 9pt;
+        /*border-left: 1px solid #ddd;*/
+    }
+
+    #feeds .active .unread_items_counter {
+        /*border-left: 1px solid #c5c5c5;*/
+    }
+
+    #feeds li:hover > .unread_items_counter, #feeds .all_read > .unread_items_counter {
         display: none;
     }
 
@@ -168,7 +185,7 @@ div.add_parentfolder {
     #feeds li {
         border-bottom: 1px solid #ddd;
         border-top: 1px solid #fff;
-        padding: 0;
+        padding: 0 35px 0  0;
         font-weight: bold ;
         box-sizing: border-box;
         -moz-box-sizing: border-box;
@@ -181,7 +198,7 @@ div.add_parentfolder {
         background-color: #d0d0d0 !important;
         border-bottom: 1px solid #ccc;
         border-top: 1px solid #ddd;
-        font-style: oblique;
+        text-shadow: 0 1px 0 rgba(255,255,255,.7);
     }
 
         #feeds li a.title {
@@ -201,13 +218,17 @@ div.add_parentfolder {
             line-height: 2.5em;
         }
 
-            #feeds li:hover > a.title {
-                padding-right: 4em !important;
+            #feeds li:hover {
+                padding: 0;
             }
 
-            #feeds li.folder:hover > a.title {
-                padding-right: 5.5em !important;
-            }
+                #feeds li:hover > a.title {
+                    padding-right: 4em !important;
+                }
+
+                #feeds li.folder:hover > a.title {
+                    padding-right: 5.5em !important;
+                }
 
         #feeds .starred a.title {
             background-image: url('%appswebroot%/news/img/starred.png');
@@ -233,6 +254,8 @@ div.add_parentfolder {
 
         #feeds .folder > a.title {
             background-image: url('%webroot%/core/img/places/folder.svg');
+            /*border-bottom: 1px solid #ddd;*/
+            text-transform:uppercase;
         }
 
         #feeds .folder.collapsable:hover a {
@@ -264,8 +287,8 @@ div.add_parentfolder {
 
         #feeds .folder.open ul li {
             border: 0;
-            border-top: 1px solid rgba(0,0,0,0);
             border-bottom: 1px solid rgba(0,0,0,0);
+            border-top: 1px solid rgba(0,0,0,0);
             box-sizing: border-box;
             -moz-box-sizing: border-box;
         }
@@ -430,7 +453,7 @@ div.add_parentfolder {
             background-image: -webkit-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
             background-image: -ms-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
             padding: 2.5em 0 0 0;
-	        cursor: default;
+            cursor: default;
         }
 
         .feed_item.viewed {
@@ -657,25 +680,36 @@ div.add_parentfolder {
              */
             .feed_item .secondary_item_utils {
                 display: none;
-                color: #aaa;
                 float: right;
                 margin: 0 1.2em;
             }
 
+            .feed_item .secondary_item_utils, .feed_item .secondary_item_utils a {
+                color: #000;
+            }
+
             .feed_item:hover .secondary_item_utils {
                 display: block;
-            }            
+            }
 
-            /*
-                .feed_item a.share {
-		    background:url('%webroot%/core/img/actions/share.svg') no-repeat center; 
-		}
-            */
+                .feed_item .secondary_item_utils li {
+                    display: inline-block;
+                    padding-left: 25px;
+                }
+
+                .feed_item li.share_link {
+                    background-image: url('%webroot%/core/img/actions/share.svg'); 
+                    background-repeat: no-repeat;
+                    background-position: right center;
+                    padding-right: 20px;
+                }
+
                 .feed_item:hover .secondary_item_utils li.keep_unread {
                     cursor: pointer;
                 }
 
                 .feed_item .secondary_item_utils li input[type=checkbox]{
+                    margin-left: 5px;
                 }
                 
 

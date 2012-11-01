@@ -17,8 +17,6 @@
 "Importing..." => "mengimpor...",
 "Success" => "berhasil",
 "Import" => "impor",
-"Downloading..." => "mengunduh...",
-"Download" => "unduh",
 "Select file" => "pilih file",
 "no title" => "tidak ada judul",
 "no name" => "tidak bernama",

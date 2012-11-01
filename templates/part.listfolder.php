@@ -28,6 +28,7 @@ if ($lastViewedFeedType == OCA\News\FeedType::FOLDER && $lastViewedFeedId == $fo
 echo '<li class="folder ' . $openedClass . ' ' . $activeClass . ' all_read" data-id="' . $folderId . '">';
 	echo '<button class="collapsable_trigger" title="' . $l->t('Collapse') . '"></button>';
 	echo '<a href="#" class="title">' . htmlspecialchars($folderName, ENT_QUOTES, 'UTF-8') .	'</a>';
+	echo '<span class="unread_items_counter"></span>';
 	echo '<span class="buttons">';
 		echo '<button class="svg action feeds_delete" title="' . $l->t('Delete folder') . '"></button>';
 		echo '<button class="svg action feeds_edit" title="' . $l->t('Rename folder') . '"></button>';

@@ -19,8 +19,6 @@
 "No files selected." => "Không có tập tin được chọn.",
 "Success" => "Thành công",
 "Import" => "Nhập",
-"Downloading..." => "Đang tải ...",
-"Download" => "Tải về",
 "Select file" => "Chọn tập tin",
 "An error occurred" => "Một lỗi đã xảy ra",
 "Nice! You have subscribed to " => "Tuyệt! Bạn đã đăng ký",

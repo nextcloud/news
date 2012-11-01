@@ -45,8 +45,6 @@
 " feeds imported successfully from " => "lyckades hämta flöden från",
 "Success" => "Lyckat",
 "Import" => "Importera",
-"Downloading..." => "Laddar ner...",
-"Download" => "Ladda ner",
 "Select file" => "Välj fil",
 "no title" => "ingen titel",
 "no name" => "inget namn",

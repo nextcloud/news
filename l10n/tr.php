@@ -4,7 +4,6 @@
 "Warning" => "Uyarı",
 "Importing..." => "İçeri aktarılıyor...",
 "Import" => "İçe aktar",
-"Download" => "İndir",
 "Address" => "Adres",
 "Upload" => "Yükle",
 "Folder" => "Klasör",
