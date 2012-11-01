@@ -19,6 +19,7 @@
 "Error updating feed." => "Errore durante l'aggiornamento della fonte.",
 "Feed updated!" => "La fonte è stata aggiornata!",
 "News" => "Notizie",
+"An error occured: " => "Si è verificato un errore:",
 "Error while loading the feed" => "Errore durante il caricamento della fonte",
 "Error" => "Errore",
 "None" => "Nessuno",

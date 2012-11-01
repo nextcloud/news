@@ -19,6 +19,7 @@
 "Error updating feed." => "Ошибка при обновлении потока.",
 "Feed updated!" => "Поток обновлен!",
 "News" => "Новости",
+"An error occured: " => "Произошла ошибка:",
 "Error while loading the feed" => "Ошибка при загрузке потока",
 "Error" => "Ошибка",
 "None" => "Нет",

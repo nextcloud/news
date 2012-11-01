@@ -19,6 +19,7 @@
 "Error updating feed." => "Chyba při aktualizaci kanálu.",
 "Feed updated!" => "Kanál aktualizován.",
 "News" => "Novinky",
+"An error occured: " => "Nastala chyba:",
 "Error while loading the feed" => "Chyba při načítání kanálu",
 "Error" => "Chyba",
 "None" => "Žádné",
