@@ -2,7 +2,6 @@
 "File doesn't exist:" => "קובץ לא קיים:",
 "Error" => "שגיאה",
 "Import" => "יבא",
-"Download" => "הורדה",
 "Address" => "כתובת",
 "Upload" => "העלאה",
 "Folder" => "תיקייה",

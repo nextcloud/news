@@ -45,8 +45,6 @@
 " feeds imported successfully from " => "flux importés avec succès depuis",
 "Success" => "Succès",
 "Import" => "Import",
-"Downloading..." => "Téléchargement...",
-"Download" => "Télécharger",
 "Select file" => "Sélectionnez le fichier",
 "no title" => "sans titre",
 "no name" => "sans nom",

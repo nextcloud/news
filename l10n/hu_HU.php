@@ -4,7 +4,6 @@
 "None" => "Egyik sem",
 "Warning" => "Figyelmeztetés",
 "Import" => "Import",
-"Download" => "Letöltés",
 "Address" => "Cím",
 "Upload" => "Feltöltés",
 "Folder" => "Mappa",

@@ -45,8 +45,6 @@
 " feeds imported successfully from " => "种子导入成功，来自",
 "Success" => "成功",
 "Import" => "导入",
-"Downloading..." => "下载中...",
-"Download" => "下载",
 "Select file" => "选择文件",
 "no title" => "无主题",
 "no name" => "无名称",

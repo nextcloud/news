@@ -45,8 +45,6 @@
 " feeds imported successfully from " => "fonts importades correctament des de",
 "Success" => "Èxit",
 "Import" => "Importa",
-"Downloading..." => "Baixant...",
-"Download" => "Baixa",
 "Select file" => "Selecciona fitxer",
 "no title" => "sense títol",
 "no name" => "sense nom",

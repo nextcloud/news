@@ -45,8 +45,6 @@
 " feeds imported successfully from " => "viri uspešno uvoženi iz",
 "Success" => "Uspešno končano.",
 "Import" => "Uvozi",
-"Downloading..." => "Prejemanje ...",
-"Download" => "Prejmi",
 "Select file" => "Izbor datoteke",
 "no title" => "brez naslova",
 "no name" => "brez imena",

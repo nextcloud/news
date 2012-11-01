@@ -9,8 +9,6 @@
 "File " => "Failas",
 "Importing..." => "Importuojama...",
 "Import" => "Importuoti",
-"Downloading..." => "Atsiunčiama...",
-"Download" => "Atsisiųsti",
 "Address" => "Adresas",
 "Subscribe" => "Prenumeruoti",
 "Import OPML" => "Importuoti OPML",

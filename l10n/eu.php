@@ -44,8 +44,6 @@
 " feeds imported successfully from " => "iturburuak ongi inportatu dira hemendik",
 "Success" => "Arrakasta",
 "Import" => "Inportatu",
-"Downloading..." => "Deskargatzen...",
-"Download" => "Deskargatu",
 "Select file" => "Hautatu fitxategia",
 "no title" => "izenbururik gabe",
 "no name" => "izenik gabe",

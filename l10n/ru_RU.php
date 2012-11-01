@@ -45,8 +45,6 @@
 " feeds imported successfully from " => "потоки успешно импортированы из",
 "Success" => "Успех",
 "Import" => "Импорт",
-"Downloading..." => "Загрузка...",
-"Download" => "Загрузка",
 "Select file" => "Выбрать файл",
 "no title" => "заголовок отсутствует",
 "no name" => "имя отсутствует",

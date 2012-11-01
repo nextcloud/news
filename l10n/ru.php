@@ -45,8 +45,6 @@
 " feeds imported successfully from " => " ленты успешно импортированы из ",
 "Success" => "Успешно",
 "Import" => "Импорт",
-"Downloading..." => "Скачивание...",
-"Download" => "Скачать",
 "Select file" => "Выберите файл",
 "no title" => "без заголовка",
 "no name" => "без имени",

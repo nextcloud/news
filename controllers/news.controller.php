@@ -12,31 +12,34 @@
 
 namespace OCA\News;
 
+require_once \OC_App::getAppPath('news') . '/controllers/controller.php';
+
+
 class NewsController extends Controller {
 
     /**
      * Decides wether to show the feedpage or the firstrun page
      */
-    public function index(){
+    public function index($request){
         $feedMapper = new FeedMapper($this->userId);
 
         if($feedMapper->feedCount() > 0){
-            $this->feedPage();
+            $this->feedPage($request);
         } else {
-            $this->firstRun();
+            $this->firstRun($request);
         }
     }
 
 
-    public function firstRun(){
+    public function firstRun($request){
         $this->addScript('news');
         $this->addScript('firstrun');
         $this->addStyle('firstrun');
-        $this->render('firstrun');
+        $this->renderTemplate('firstrun');
     }
 
 
-    public function feedPage(){
+    public function feedPage($request){
         $this->addScript('main');
         $this->addScript('news');
         $this->addScript('menu');
@@ -51,10 +54,10 @@ class NewsController extends Controller {
         $itemMapper = new ItemMapper($this->userId);
 
         // if no feed id is passed as parameter, then show the last viewed feed on reload
-        $lastViewedFeedId = isset( $_GET['feedid'] ) ? $_GET['feedid'] : (int)$this->getUserValue('lastViewedFeed');
-        $lastViewedFeedType = isset( $_GET['feedid'] ) ? FeedType::FEED : (int)$this->getUserValue('lastViewedFeedType');
+        $lastViewedFeedId = isset( $request->get['feedid'] ) ? $request->get['feedid'] : (int)$this->getUserValue('lastViewedFeed');
+        $lastViewedFeedType = isset( $request->get['feedid'] ) ? FeedType::FEED : (int)$this->getUserValue('lastViewedFeedType');
         
-	$showAll = $this->getUserValue('showAll');
+        $showAll = $this->getUserValue('showAll');
 
         if( $lastViewedFeedId === null || $lastViewedFeedType === null) {
             $lastViewedFeedId = $feedMapper->mostRecent();
@@ -87,7 +90,7 @@ class NewsController extends Controller {
             'items' => $items
         );
 
-        $this->render('main', $params, array('items' => true));
+        $this->renderTemplate('main', $params, array('items' => true));
     }
 
 

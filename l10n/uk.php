@@ -37,8 +37,6 @@
 " feeds imported successfully from " => "канали успішно імпортовано з",
 "Success" => "Успіх",
 "Import" => "Імпорт",
-"Downloading..." => "Завантажується...",
-"Download" => "Завантажити",
 "Select file" => "Оберіть файл",
 "no title" => "без назви",
 "no name" => "без імені",

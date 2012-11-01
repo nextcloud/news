@@ -44,8 +44,6 @@
 " feeds imported successfully from " => "fluoj sukcese enportitaj el",
 "Success" => "Sukceso",
 "Import" => "Enporti",
-"Downloading..." => "Elŝutante...",
-"Download" => "Elŝuti",
 "Select file" => "Elekti dosieron",
 "no title" => "neniu titolo",
 "no name" => "neniu nomo",

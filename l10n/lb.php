@@ -3,7 +3,6 @@
 "Error" => "Fehler",
 "Warning" => "Warnung",
 "Import" => "Import",
-"Download" => "Download",
 "Address" => "Adress",
 "Folder" => "Dossier",
 "Settings" => "Astellungen",

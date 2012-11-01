@@ -45,8 +45,6 @@
 " feeds imported successfully from " => " ροές εισήχθησαν επιτυχώς από",
 "Success" => "Επιτυχία",
 "Import" => "Εισαγωγή",
-"Downloading..." => "Λήψη...",
-"Download" => "Λήψη",
 "Select file" => "Επιλογή αρχείου",
 "no title" => "χωρίς τίτλο",
 "no name" => "χωρίς όνομα",
