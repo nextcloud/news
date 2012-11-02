@@ -10,6 +10,7 @@ News.Settings={
 				OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
 			}
 		});
+		$('#appsettings_popup').remove();
 	},
 	browseFile:function(filelist){
 		if(!filelist) {
@@ -17,6 +18,27 @@ News.Settings={
 			return;
 		}
 		var file = filelist[0];
+		//check file format/size/...
+		var formData = new FormData();
+		formData.append('file', file);
+		$.ajax({
+			url: OC.filePath('news', 'ajax', 'importopml.php'),
+			data: formData,
+			cache: false,
+			contentType: false,
+			processData: false,
+			type: 'POST',
+			success: function(jsondata){
+				if (jsondata.status == 'success') {
+					var message = jsondata.data.countsuccess + t('news', ' out of ') + jsondata.data.count +
+					t('news', ' feeds imported successfully from ') + jsondata.data.title;
+					OC.dialogs.alert(message, t('news', 'Success'));
+				}
+				else {
+					OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
+				}
+			}
+		    });
 	},
 	importOpml:function(path){
 		$.post(OC.filePath('news', 'ajax', 'importopml.php'), { path: path }, function(jsondata){
@@ -42,7 +64,6 @@ $('#cloudlink').click(function() {
 	  * and filepicker doesn't support multiple MIME types filter.
 	  */
 	OC.dialogs.filepicker(t('news', 'Select file'), News.Settings.cloudFileSelected, false, '', true);
-	$('#appsettings_popup').remove();
 });
 
 $('#browselink').click(function() {
