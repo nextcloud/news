@@ -1,7 +1,7 @@
 <?php $TRANSLATIONS = array(
 "Error" => "Error",
-"Import" => "Importa",
 "Upload" => "Amontcarga",
+"Import" => "Importa",
 "Folder" => "Dorsièr",
 "Settings" => "Configuracion",
 "Add" => "Ajusta",
