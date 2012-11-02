@@ -24,13 +24,17 @@ function bailOut($msg) {
 	exit();
 }
 
-if(!isset($_POST['path'])) {
-	bailOut($l->t('No file path was submitted.'));
+if (isset($_POST['path'])) {
+	$raw = file_get_contents($_POST['path']);
 }
-
+elseif (isset($_FILES['file'])) {
+	$raw = file_get_contents($_FILES['file']['tmp_name']);
+}
+else {
+	bailOut($l->t('No file was submitted.'));
+}
+	
 require_once 'news/opmlparser.php';
-
-$raw = file_get_contents($_POST['path']);
 
 try {
 	$parsed = OPMLParser::parse($raw);

@@ -19,6 +19,7 @@
 "Error updating feed." => "Fehler bei der Aktualisierung der Feeds.",
 "Feed updated!" => "Feed aktualisiert!",
 "News" => "Nachrichten",
+"An error occured: " => "Ein Fehler ist aufgetreten:",
 "Error while loading the feed" => "Fehler während des Ladens eines Feeds",
 "Error" => "Fehler",
 "None" => "Nichts",
