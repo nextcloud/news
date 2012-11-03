@@ -9,6 +9,7 @@
 "Error removing feed." => "Erreur lors de la suppression du flux.",
 "Error removing folder." => "Erreur lors de la suppression du répertoire.",
 "Error updating feeds." => "Erreur lors de la mise à jour des flux.",
+"No file was submitted." => "Aucun fichier n'a été soumis.",
 "An error occurred while parsing the file." => "Une erreur est apparue lors de l'analyse du fichier.",
 "Feed loaded!" => "Flux chargé !",
 "Error moving feed into folder." => "Erreur lors du déplacement du flux dans le répertoire.",

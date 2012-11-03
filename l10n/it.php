@@ -9,6 +9,7 @@
 "Error removing feed." => "Errore durante la rimozione della fonte.",
 "Error removing folder." => "Errore durante la rimozione della cartella.",
 "Error updating feeds." => "Errore durante l'aggiornamento delle fonti.",
+"No file was submitted." => "Non è stato inviato alcun file.",
 "An error occurred while parsing the file." => "Si è verificato un errore durante l'elaborazione del file.",
 "Feed loaded!" => "Fonte caricata!",
 "Error moving feed into folder." => "Errore durante lo spostamento della fonte in una cartella.",

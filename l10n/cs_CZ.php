@@ -9,6 +9,7 @@
 "Error removing feed." => "Chyba při odstraňování příspěvku.",
 "Error removing folder." => "Chyba při odstraňování složky.",
 "Error updating feeds." => "Chyba při aktualizaci kanálů.",
+"No file was submitted." => "Nebyl odeslán žádný soubor.",
 "An error occurred while parsing the file." => "Nastala chyba při zpracování souboru.",
 "Feed loaded!" => "Kanály načteny.",
 "Error moving feed into folder." => "Chyba při přesunu kanálu do adresáře",

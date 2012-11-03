@@ -9,6 +9,7 @@
 "Error removing feed." => "Kunde inte radera flöde.",
 "Error removing folder." => "Fel vid radering av mapp.",
 "Error updating feeds." => "Fel vid uppdatering av flöden.",
+"No file was submitted." => "Ingen fil angavs.",
 "An error occurred while parsing the file." => "Ett fel uppstod vid läsning av filen.",
 "Feed loaded!" => "Flöde inläst!",
 "Error moving feed into folder." => "Fel vid flyttning av flöde till mapp.",
