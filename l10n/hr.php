@@ -1,9 +1,9 @@
 <?php $TRANSLATIONS = array(
 "File doesn't exist:" => "Datoteka ne postoji:",
 "Error" => "Greška",
-"Import" => "Uvezi",
 "Address" => "Adresa",
 "Upload" => "Učitaj",
+"Import" => "Uvezi",
 "Folder" => "mapa",
 "Settings" => "Postavke",
 "Add" => "Dodaj",

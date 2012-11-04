@@ -1,7 +1,7 @@
 <?php $TRANSLATIONS = array(
-"Import" => "Importar",
 "Address" => "Adresse",
 "Upload" => "Incargar",
+"Import" => "Importar",
 "Folder" => "Dossier",
 "Settings" => "Configurationes",
 "Add" => "Adder",
