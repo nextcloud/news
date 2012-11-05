@@ -61,8 +61,8 @@ function importFeed($feedurl, $folderid) {
 		      $feedid = $feedmapper->save($feed, $folderid);
 		}
 	} else {
-		OCP\Util::writeLog('news','ajax/importopml.php: Error adding feed: '. $feedurl, OCP\Util::ERROR);
-		return false;
+		OCP\Util::writeLog('news','ajax/importopml.php: This feed is already here: '. $feedurl, OCP\Util::WARN);
+		return true;
 	}
 
 	if($feed === null || !$feedid) {
