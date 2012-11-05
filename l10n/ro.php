@@ -31,7 +31,6 @@
 "Add feed" => "Adăugare flux",
 "Fatal Error" => "Eroare fatală",
 "No files selected." => "Nici un fișier selectat.",
-"Success" => "Succes",
 "Select file" => "Alege fișier",
 "no title" => "nici un titlu",
 "no name" => "nici un nume",

@@ -37,8 +37,6 @@
 "Error while parsing the feed" => "Eraro dum analizo de fluo",
 "Fatal Error" => "Neriparebla eraro",
 "No files selected." => "Neniu dosiero elektita.",
-" feeds imported successfully from " => "fluoj sukcese enportitaj el",
-"Success" => "Sukceso",
 "Select file" => "Elekti dosieron",
 "no title" => "neniu titolo",
 "no name" => "neniu nomo",

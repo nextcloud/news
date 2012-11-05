@@ -37,8 +37,6 @@
 "Error while parsing the feed" => "Errorea iturburua aztertzerakoan",
 "Fatal Error" => "Errore Larria",
 "No files selected." => "Ez da fitxategirik hautatu.",
-" feeds imported successfully from " => "iturburuak ongi inportatu dira hemendik",
-"Success" => "Arrakasta",
 "Select file" => "Hautatu fitxategia",
 "no title" => "izenbururik gabe",
 "no name" => "izenik gabe",
