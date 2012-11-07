@@ -4,7 +4,7 @@ News.Settings={
 	cloudFileSelected:function(path){
 		$.getJSON(OC.filePath('news', 'ajax', 'selectfromcloud.php'),{'path':path},function(jsondata){
 			if(jsondata.status == 'success'){
-				News.Settings.importOpml(jsondata.data.tmp);
+				News.Settings.importOpml('fromCloud', jsondata.data.tmp);
 			}
 			else{
 				OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
@@ -21,35 +21,44 @@ News.Settings={
 		//check file format/size/...
 		var formData = new FormData();
 		formData.append('file', file);
-		$.ajax({
+		
+		News.Settings.importOpml('fromFile', formData);
+		$('#appsettings_popup').remove();
+	},
+	importOpml:function(type, data){
+	  
+		$('#notification').fadeIn();
+		$('#notification').html(t('news', 'Importing OPML file...'));
+		
+		if (type == 'fromCloud') {
+			ajaxData = { path: data };
+			settings = {};
+		}
+		else if (type == 'fromFile') {
+			ajaxData = data;
+			settings = { cache: false, contentType: false, processData: false };
+		}
+		else {
+			throw t('news', 'Not a valid type');
+		}
+		
+		param = {
 			url: OC.filePath('news', 'ajax', 'importopml.php'),
-			data: formData,
-			cache: false,
-			contentType: false,
-			processData: false,
+			data: ajaxData,
 			type: 'POST',
 			success: function(jsondata){
 				if (jsondata.status == 'success') {
-					var message = jsondata.data.countsuccess + t('news', ' out of ') + jsondata.data.count +
-					t('news', ' feeds imported successfully from ') + jsondata.data.title;
-					OC.dialogs.alert(message, t('news', 'Success'));
+					$('#notification').html(t('files', '{n_success} out of {n_total} feeds imported successfully!', 
+						{n_success: jsondata.data.countsuccess, n_total: jsondata.data.count}));
 				}
 				else {
 					OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
 				}
+				$('#notification').delay('2500').fadeOut('400');
 			}
-		    });
-	},
-	importOpml:function(path){
-		$.post(OC.filePath('news', 'ajax', 'importopml.php'), { path: path }, function(jsondata){
-			if (jsondata.status == 'success') {
-				var message = jsondata.data.countsuccess + t('news', ' out of ') + jsondata.data.count +
-					t('news', ' feeds imported successfully from ') + jsondata.data.title;
-				OC.dialogs.alert(message, t('news', 'Success'));
-			} else {
-				OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
-			}
-		});
+		};
+		
+		$.ajax($.extend(param, settings));
 	},
 	exportOpml:function(button){
 		document.location.href = OC.linkTo('news', 'opmlexporter.php');
