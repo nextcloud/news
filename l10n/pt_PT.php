@@ -24,8 +24,6 @@
 "Error while parsing the feed" => "Ocorreu um erro ao analisar o ficheiro.",
 "Fatal Error" => "Erro Grave",
 "No files selected." => "Nenhum ficheiro seleccionado.",
-" out of " => "sem",
-"Success" => "Sucesso",
 "Select file" => "Escolher ficheiro",
 "no title" => "sem titulo",
 "no name" => "sem nome",

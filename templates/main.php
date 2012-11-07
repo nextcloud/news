@@ -59,3 +59,5 @@ echo $this->inc("part.dialogues");
 	<div id="appsettings" class="popup bottomleft hidden"></div>
 
 </div>
+
+<div id='notification'></div>

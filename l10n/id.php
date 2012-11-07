@@ -13,7 +13,6 @@
 "Add folder" => "tambah berkas",
 "URL cannot be empty." => "tautan tidak boleh kosong",
 "No files selected." => "tidak ada file terpilih",
-"Success" => "berhasil",
 "Select file" => "pilih file",
 "no title" => "tidak ada judul",
 "no name" => "tidak bernama",

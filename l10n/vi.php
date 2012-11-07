@@ -16,7 +16,6 @@
 "URL cannot be empty." => "URL không được để trống.",
 "Add feed" => "Tâp",
 "No files selected." => "Không có tập tin được chọn.",
-"Success" => "Thành công",
 "Select file" => "Chọn tập tin",
 "An error occurred" => "Một lỗi đã xảy ra",
 "Nice! You have subscribed to " => "Tuyệt! Bạn đã đăng ký",
