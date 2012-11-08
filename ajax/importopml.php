@@ -10,31 +10,47 @@
 *
 */
 
+global $eventSource;
+
 // Check if we are a user
 OCP\JSON::checkLoggedIn();
 OCP\JSON::checkAppEnabled('news');
 OCP\JSON::callCheck();
-session_write_close();
 
 $l = OC_L10N::get('news');
 
 function bailOut($msg) {
-	OCP\JSON::error(array('data' => array('message' => $msg)));
+	global $eventSource;
+	$eventSource->send('error', $msg);
+	$eventSource->close();
 	OCP\Util::writeLog('news','ajax/importopml.php: '.$msg, OCP\Util::ERROR);
 	exit();
 }
 
-if (isset($_POST['path'])) {
-	$raw = file_get_contents($_POST['path']);
-}
-elseif (isset($_FILES['file'])) {
-	$raw = file_get_contents($_FILES['file']['tmp_name']);
-}
-else {
-	bailOut($l->t('No file was submitted.'));
-}
-	
+$eventSource=new OC_EventSource();
+
 require_once 'news/opmlparser.php';
+
+$source = isset( $_REQUEST['source'] ) ? $_REQUEST['source'] : '';
+$path = isset( $_REQUEST['path'] ) ? $_REQUEST['path'] : '';
+
+if($path == '') {
+	bailOut($l->t('Empty filename'));
+	exit();
+}
+
+if($source == 'cloud') {
+	$raw = file_get_contents($path);
+} elseif ($source == 'local') {
+	$storage = \OCP\Files::getStorage('news');
+	$raw = $storage->file_get_contents($path);
+} else {
+	bailOut($l->t('No source argument passed'));
+}
+
+if ($raw == false) {
+	bailOut($l->t('Error while reading file'));
+}
 
 try {
 	$parsed = OPMLParser::parse($raw);
@@ -119,5 +135,6 @@ function importList($data, $parentid) {
 
 $countsuccess = importList($data, 0);
 
-OCP\JSON::success(array('data' => array('title'=>$parsed->getTitle(), 'count'=>$parsed->getCount(),
+$eventSource->send('success', array('data' => array('title'=>$parsed->getTitle(), 'count'=>$parsed->getCount(),
 	'countsuccess'=>$countsuccess)));
+$eventSource->close();
