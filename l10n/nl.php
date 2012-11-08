@@ -37,6 +37,8 @@
 "Error while parsing the feed" => "Fout tijdens het valideren van feed",
 "Fatal Error" => "Fatale fout",
 "No files selected." => "Geen bestanden geselecteerd.",
+"Importing OPML file..." => "OPML bestand wordt geïmporteerd...",
+"Not a valid type" => "Geen geldig type",
 "Select file" => "Selecteer bestand",
 "no title" => "geen titel",
 "no name" => "geen naam",

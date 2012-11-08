@@ -37,6 +37,8 @@
 "Error while parsing the feed" => "解析种子出错",
 "Fatal Error" => "致命错误",
 "No files selected." => "没有选择文件。",
+"Importing OPML file..." => "正在导入 OPML 文件...",
+"Not a valid type" => "不是一个有效的类型",
 "Select file" => "选择文件",
 "no title" => "无主题",
 "no name" => "无名称",

@@ -9,7 +9,6 @@
 "Error removing feed." => "Error en eliminar la font.",
 "Error removing folder." => "Error en eliminar la carpeta.",
 "Error updating feeds." => "Error en actualitzar les fonts.",
-"No file was submitted." => "No s'ha enviat cap fitxer",
 "An error occurred while parsing the file." => "S'ha produït un error en processar el fitxer.",
 "Feed loaded!" => "S'ha carregat la font!",
 "Error moving feed into folder." => "Error en moure la font dins la carpeta.",

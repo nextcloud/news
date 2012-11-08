@@ -9,7 +9,6 @@
 "Error removing feed." => "Erro ao remover feed.",
 "Error removing folder." => "Erro ao remover pasta.",
 "Error updating feeds." => "Erro ao atualizar feeds.",
-"No file was submitted." => "Nenhum arquivo foi enviado.",
 "An error occurred while parsing the file." => "Um erro ocorreu ao analisar o arquivo.",
 "Feed loaded!" => "Feed carregado!",
 "Error moving feed into folder." => "Erro ao mover feed para pasta.",
