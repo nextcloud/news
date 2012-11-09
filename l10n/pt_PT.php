@@ -14,6 +14,7 @@
 "Error moving feed into folder." => "Erro ao mover o feed para a pasta.",
 "No file path was submitted." => "Nenhum caminho de arquivo foi submetido.",
 "File doesn't exist:" => "Ficheiro não existe:",
+"Couldn't save temporary image: " => "Não foi possível guardar a imagem temporária: ",
 "Error setting all items as read." => "Erro ao definir todos como lidos.",
 "Error marking item as read." => "Erro ao definir item como lido.",
 "Error updating feed." => "Erro ao actualizar o feed.",

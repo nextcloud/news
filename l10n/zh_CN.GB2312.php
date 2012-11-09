@@ -14,6 +14,7 @@
 "Error moving feed into folder." => "移动种子到文件夹出错。",
 "No file path was submitted." => "没有提交文件路径。",
 "File doesn't exist:" => "文件不存在。",
+"Couldn't save temporary image: " => "不能保存临时相片：",
 "Error setting all items as read." => "全部标记为已读出错。",
 "Error marking item as read." => "标记条目为已读出错。",
 "Error updating feed." => "更新种子出错。",

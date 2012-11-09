@@ -14,6 +14,7 @@
 "Error moving feed into folder." => "เกิดข้อผิดพลาดในการย้าย feed ไปที่โฟลเดอร์",
 "No file path was submitted." => "ยังไม่ได้ส่งข้อมูลตำแหน่งพาธของไฟล์",
 "File doesn't exist:" => "ไม่มีไฟล์ดังกล่าวอยู่ในระบบ",
+"Couldn't save temporary image: " => "ไม่สามารถบันทึกรูปภาพชั่วคราวได้: ",
 "Error setting all items as read." => "เกิดข้อผิดพลาดในการตั้งค่ารายการทั้งหมดว่าอ่านแล้ว",
 "Error marking item as read." => "เกิดข้อผิดพลาดในระหว่างการทำเครื่องหมายรายการว่าอ่านแล้ว",
 "Error updating feed." => "เกิดข้อผิดพลาดในการอัพเดท feed",

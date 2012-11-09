@@ -14,6 +14,7 @@
 "Error moving feed into folder." => "Fel vid flyttning av flöde till mapp.",
 "No file path was submitted." => "Inga sökvägar angivna.",
 "File doesn't exist:" => "Filen existerar inte:",
+"Couldn't save temporary image: " => "Kunde inte spara tillfällig bild:",
 "Error setting all items as read." => "Ett fel uppstod när alla objekt skulle markeras som lästa.",
 "Error marking item as read." => "Ett fel uppstod när objektet skulle markeras som läst.",
 "Error updating feed." => "Fel vid uppdatering av flöde.",

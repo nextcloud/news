@@ -14,6 +14,7 @@
 "Error moving feed into folder." => "フォルダへのフィードの移動エラー",
 "No file path was submitted." => "ファイルパスは送信されませんでした。",
 "File doesn't exist:" => "ファイルは存在しません:",
+"Couldn't save temporary image: " => "一時的な画像の保存ができませんでした: ",
 "Error setting all items as read." => "すべての項目の既読設定エラー",
 "Error marking item as read." => "アイテムの既読設定エラー",
 "Error updating feed." => "フィードの更新エラー",

@@ -14,6 +14,7 @@
 "Error moving feed into folder." => "Napaka med premikanjem vira v mapo.",
 "No file path was submitted." => "Pot do datoteke ni poslana.",
 "File doesn't exist:" => "Datoteka ne obstaja:",
+"Couldn't save temporary image: " => "Začasne slike ni mogoče shraniti: ",
 "Error setting all items as read." => "Napaka med označevanjem vseh predmetov kot prebrane.",
 "Error marking item as read." => "Napaka med označevanjem predmeta kot prebranega.",
 "Error updating feed." => "Napaka med posodabljanjem vira.",

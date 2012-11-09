@@ -14,6 +14,7 @@
 "Error moving feed into folder." => "Erreur lors du déplacement du flux dans le répertoire.",
 "No file path was submitted." => "Aucun chemin vers un fichier n'a été indiqué.",
 "File doesn't exist:" => "Ce fichier n'existe pas :",
+"Couldn't save temporary image: " => "Impossible de sauvegarder l'image temporaire :",
 "Error setting all items as read." => "Erreur lors du marquage de tous les articles comme lus.",
 "Error marking item as read." => "Erreur lors du marquage de l'article comme lu.",
 "Error updating feed." => "Erreur lors de la mise à jour du flux.",

@@ -14,6 +14,7 @@
 "Error moving feed into folder." => "Σφάλμα μετακίνησης ροής σε φάκελο.",
 "No file path was submitted." => "Δεν υποβλήθηκε διαδρομή αρχείου.",
 "File doesn't exist:" => "Το αρχείο δεν υπάρχει",
+"Couldn't save temporary image: " => "Δεν ήταν δυνατή η αποθήκευση της προσωρινής εικόνας: ",
 "Error setting all items as read." => "Σφάλμα ορισμού όλων ως ανεγνωσμένων.",
 "Error marking item as read." => "Σφάλμα σήμανσης ως ανεγνωσμένου.",
 "Error updating feed." => "Σφάλμα ενημέρωσης ροής.",

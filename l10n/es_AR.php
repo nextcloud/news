@@ -14,6 +14,7 @@
 "Error moving feed into folder." => "Error al mover la fuente hacia el directorio.",
 "No file path was submitted." => "No se transmitió la ruta del archivo.",
 "File doesn't exist:" => "El archivo no existe.",
+"Couldn't save temporary image: " => "No fue posible guardar la imagen temporal",
 "Error setting all items as read." => "Error al configurar todos los elementos como leídos.",
 "Error marking item as read." => "Error al marcar elemento como leído.",
 "Error updating feed." => "Error actualizando la fuente.",

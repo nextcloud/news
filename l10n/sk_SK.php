@@ -14,6 +14,7 @@
 "Error moving feed into folder." => "Chyba pri presune kanálu do priečinka.",
 "No file path was submitted." => "Neuvedené cesta k súboru.",
 "File doesn't exist:" => "Súbor neexistuje.",
+"Couldn't save temporary image: " => "Nemôžem uložiť dočasný obrázok: ",
 "Error setting all items as read." => "Chyba pri označovaní všetkých položiek ako prečítané.",
 "Error marking item as read." => "Chyba pri označení položky ako prečítané.",
 "Error updating feed." => "Chyba pri aktualizácií kanála.",

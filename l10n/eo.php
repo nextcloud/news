@@ -14,6 +14,7 @@
 "Error moving feed into folder." => "Eraro dum movo de fluo en dosierujon.",
 "No file path was submitted." => "Neniu dosiervojo sendiĝis.",
 "File doesn't exist:" => "Dosiero ne ekzistas:",
+"Couldn't save temporary image: " => "Ne eblis konservi provizoran bildon: ",
 "Error setting all items as read." => "Eraro dum markiĝis ĉiuj eroj kiel legitaj.",
 "Error marking item as read." => "Eraro dum markiĝis ero kiel legita.",
 "Error updating feed." => "Eraro dum ĝusdatigo de fluo.",
