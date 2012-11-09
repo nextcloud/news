@@ -50,16 +50,18 @@ News.Settings={
 				if (jsondata.status == 'success') {
 					var eventSource=new OC.EventSource(OC.filePath('news','ajax','importopml.php'),{source:jsondata.data.source, path:jsondata.data.path});
 					eventSource.listen('progress',function(progress){
-						$('#notification').html('bingo');
-						//News.Objects.Menu.addNode(folderid, jsonData.data.listfeed);
-						//News.Objects.Menu.load(News.MenuNodeType.Feed, jsonData.data.feedid);
+						if (progress.data.type == 'feed') {
+							News.Objects.Menu.addNode(progress.data.folderid, progress.data.listfeed);
+						} else if (progress.data.type == 'folder') {
+							News.Objects.Menu.addNode(0, progress.data.listfolder);
+						}
 					});
 					eventSource.listen('success',function(data){
-						$('#notification').html('done');
+						$('#notification').html(t('news', 'Importing done'));
 					});
 					eventSource.listen('error',function(error){
 						$('#notification').fadeOut('400');
-						OC.dialogs.alert(error, t('news', 'Error'));
+						OC.dialogs.alert(error, t('news', 'Error while importing feeds.'));
 					});
 				}
 				else {

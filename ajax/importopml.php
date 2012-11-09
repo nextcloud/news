@@ -10,13 +10,14 @@
 *
 */
 
-global $eventSource;
+
 
 // Check if we are a user
 OCP\JSON::checkLoggedIn();
 OCP\JSON::checkAppEnabled('news');
 OCP\JSON::callCheck();
 
+global $l;
 $l = OC_L10N::get('news');
 
 function bailOut($msg) {
@@ -27,6 +28,7 @@ function bailOut($msg) {
 	exit();
 }
 
+global $eventSource;
 $eventSource=new OC_EventSource();
 
 require_once 'news/opmlparser.php';
@@ -65,16 +67,28 @@ if ($parsed == null) {
 $data = $parsed->getData();
 
 function importFeed($feedurl, $folderid) {
+
+	global $eventSource;
+	global $l;
+
 	$feedmapper = new OCA\News\FeedMapper();
 	$feedid = $feedmapper->findIdFromUrl($feedurl);
 
-	$l = OC_L10N::get('news');
-
 	if ($feedid === null) {
 		$feed = OCA\News\Utils::slimFetch($feedurl);
-
+		
 		if ($feed !== null) {
 		      $feedid = $feedmapper->save($feed, $folderid);
+		      
+		      $itemmapper = new OCA\News\ItemMapper(OCP\USER::getUser());
+		      $unreadItemsCount = $itemmapper->countAllStatus($feedid, OCA\News\StatusFlag::UNREAD);
+
+		      $tmpl_listfeed = new OCP\Template("news", "part.listfeed");
+		      $tmpl_listfeed->assign('feed', $feed);
+		      $tmpl_listfeed->assign('unreadItemsCount', $unreadItemsCount);
+		      $listfeed = $tmpl_listfeed->fetchPage();
+		      
+		      $eventSource->send('progress', array('data' => array('type'=>'feed', 'folderid'=>$folderid, 'listfeed'=>$listfeed)));
 		}
 	} else {
 		OCP\Util::writeLog('news','ajax/importopml.php: This feed is already here: '. $feedurl, OCP\Util::WARN);
@@ -90,6 +104,10 @@ function importFeed($feedurl, $folderid) {
 }
 
 function importFolder($name, $parentid) {
+
+	global $eventSource;
+	global $l;
+	
 	$foldermapper = new OCA\News\FolderMapper();
 
 	if($parentid != 0) {
@@ -100,8 +118,12 @@ function importFolder($name, $parentid) {
 
 	$folderid = $foldermapper->save($folder);
 
-	$l = OC_L10N::get('news');
-
+	$tmpl = new OCP\Template("news" , "part.listfolder");
+	$tmpl->assign("folder", $folder);
+	$listfolder = $tmpl->fetchPage();
+	
+	$eventSource->send('progress', array('data' => array('type'=>'folder', 'listfolder'=>$listfolder)));
+	
 	if(!$folderid) {
 		OCP\Util::writeLog('news','ajax/importopml.php: Error adding folder' . $name, OCP\Util::ERROR);
 		return null;
