@@ -43,6 +43,8 @@
 "No files selected." => "Nessun file selezionato.",
 "Importing OPML file..." => "Importazione file OPML...",
 "Not a valid type" => "Non è un tipo valido",
+"Importing done" => "Importazione completata",
+"Error while importing feeds." => "Errore durante l'importazione delle fonti.",
 "Select file" => "Seleziona file",
 "no title" => "nessun titolo",
 "no name" => "nessun nome",

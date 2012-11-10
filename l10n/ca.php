@@ -43,6 +43,8 @@
 "No files selected." => "No hi ha fitxers seleccionats",
 "Importing OPML file..." => "Important el fitxer OPML...",
 "Not a valid type" => "No és un tipus vàlid",
+"Importing done" => "La importació ha acabat",
+"Error while importing feeds." => "Error en importar les fonts.",
 "Select file" => "Selecciona fitxer",
 "no title" => "sense títol",
 "no name" => "sense nom",

@@ -43,6 +43,8 @@
 "No files selected." => "Geen bestanden geselecteerd.",
 "Importing OPML file..." => "OPML bestand wordt geïmporteerd...",
 "Not a valid type" => "Geen geldig type",
+"Importing done" => "Import uitgevoerd",
+"Error while importing feeds." => "Er ging iets fout tijdens het importeren van feeds.",
 "Select file" => "Selecteer bestand",
 "no title" => "geen titel",
 "no name" => "geen naam",

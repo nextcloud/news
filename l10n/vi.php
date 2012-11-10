@@ -43,6 +43,8 @@
 "No files selected." => "Không có tập tin được chọn.",
 "Importing OPML file..." => "Importing OPML tập tin...",
 "Not a valid type" => "kiểu không hợp lệ",
+"Importing done" => "import thành công",
+"Error while importing feeds." => "Lỗi trong khi import feed.",
 "Select file" => "Chọn tập tin",
 "no title" => " không có tiêu đề",
 "no name" => "không có tên",
