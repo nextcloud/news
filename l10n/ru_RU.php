@@ -43,6 +43,8 @@
 "No files selected." => "Не выбран файл.",
 "Importing OPML file..." => "Импортирование OPML-файла...",
 "Not a valid type" => "Недопустимый тип",
+"Importing done" => "Импортирование выполнено",
+"Error while importing feeds." => "Ошибка при импортировании потоков.",
 "Select file" => "Выбрать файл",
 "no title" => "заголовок отсутствует",
 "no name" => "имя отсутствует",
