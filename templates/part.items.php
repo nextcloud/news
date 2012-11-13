@@ -22,8 +22,9 @@ foreach($items as $item) {
 
 	echo '<li class="feed_item ' . $newsItemClass .'" data-id="' . $item->getId() . '" data-feedid="' . $item->getFeedId() . '">';
 		echo '<span class="timestamp">' . $item->getDate() . '</span>';
+		$relative_modified_date = OCP\relative_modified_date($item->getDate());
 		echo '<h2 class="item_date"><time class="timeago" datetime="' .
-			date('c', $item->getDate()) . '">' . date('F j, Y, g:i a', $item->getDate()) .  '</time>' . '</h2>';
+			date('c', $item->getDate()) . '">' . $relative_modified_date .  '</time>' . '</h2>';
 
 		echo '<div class="utils">';
 			echo '<ul class="primary_item_utils">';

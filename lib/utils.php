@@ -20,29 +20,33 @@ class Utils {
 
 	/**
 	 * @brief Transform a date from UNIX timestamp format to MDB2 timestamp format
-	 * @param dbtimestamp
-	 * @returns
+	 * @param dbtimestamp a date in the UNIX timestamp format
+	 * @returns a date in the MDB2 timestamp format, or NULL if an error occurred
 	 */
 	public static function unixtimeToDbtimestamp($unixtime) {
-		if ($unixtime === null)
+		if ($unixtime === null) {
 			return null;
+		}
 		$dt = \DateTime::createFromFormat('U', $unixtime);
-		if ($dt === false)
+		if ($dt === false) {
 			return null;
+		}
 		return $dt->format('Y-m-d H:i:s');
 	}
 
 	/**
 	 * @brief Transform a date from MDB2 timestamp format to UNIX timestamp format
-	 * @param dbtimestamp
-	 * @returns
+	 * @param dbtimestamp a date in the MDB2 timestamp format
+	 * @returns a date in the UNIX timestamp format, or NULL if an error occurred
 	 */
 	public static function dbtimestampToUnixtime($dbtimestamp) {
-		if ($dbtimestamp === null)
+		if ($dbtimestamp === null) {
 			return null;
+		}
 		$dt = \DateTime::createFromFormat('Y-m-d H:i:s', $dbtimestamp);
-		if ($dt === false)
+		if ($dt === false) {
 			return null;
+		}
 		return $dt->format('U');
 	}
 
