@@ -66,7 +66,7 @@ if ($parsed == null) {
 
 $data = $parsed->getData();
 
-function importFeed($feedurl, $folderid) {
+function importFeed($feedurl, $folderid, $feedtitle) {
 
 	global $eventSource;
 	global $l;
@@ -78,6 +78,7 @@ function importFeed($feedurl, $folderid) {
 		$feed = OCA\News\Utils::slimFetch($feedurl);
 		
 		if ($feed !== null) {
+		      $feed->setTitle($feedtitle); //we want the title of the feed to be the one from the opml file
 		      $feedid = $feedmapper->save($feed, $folderid);
 		      
 		      $itemmapper = new OCA\News\ItemMapper(OCP\USER::getUser());
@@ -137,7 +138,8 @@ function importList($data, $parentid) {
 	foreach($data as $collection) {
 		if ($collection instanceOf OCA\News\Feed) {
 			$feedurl = $collection->getUrl();
-			if (importFeed($feedurl, $parentid)) {
+			$feedtitle = $collection->getTitle();
+			if (importFeed($feedurl, $parentid, $feedtitle)) {
 				$countsuccess++;
 			}
 		}
