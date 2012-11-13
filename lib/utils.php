@@ -24,7 +24,11 @@ class Utils {
 	 * @returns
 	 */
 	public static function unixtimeToDbtimestamp($unixtime) {
+		if ($unixtime === null)
+			return null;
 		$dt = \DateTime::createFromFormat('U', $unixtime);
+		if ($dt === false)
+			return null;
 		return $dt->format('Y-m-d H:i:s');
 	}
 
@@ -34,7 +38,11 @@ class Utils {
 	 * @returns
 	 */
 	public static function dbtimestampToUnixtime($dbtimestamp) {
+		if ($dbtimestamp === null)
+			return null;
 		$dt = \DateTime::createFromFormat('Y-m-d H:i:s', $dbtimestamp);
+		if ($dt === false)
+			return null;
 		return $dt->format('U');
 	}
 
