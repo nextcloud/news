@@ -1,5 +1,6 @@
 <?php $TRANSLATIONS = array(
 "File doesn't exist:" => "파일이 존재하지 않습니다. ",
+"Couldn't save temporary image: " => "임시 이미지를 저장할 수 없습니다:",
 "Error" => "에러",
 "Warning" => "경고",
 "Address" => "주소",

@@ -14,6 +14,7 @@
 "Error moving feed into folder." => "移动Feed时出错",
 "No file path was submitted." => "没有提交文件路径。",
 "File doesn't exist:" => "文件不存在",
+"Couldn't save temporary image: " => "无法保存临时图像: ",
 "Error setting all items as read." => "标识所有已读时出错。",
 "Error marking item as read." => "标志为已读时出错。",
 "Error updating feed." => "更新Feed时出错。",

@@ -1,5 +1,6 @@
 <?php $TRANSLATIONS = array(
 "File doesn't exist:" => "A fájl nem létezik:",
+"Couldn't save temporary image: " => "Ideiglenes kép létrehozása sikertelen",
 "Error" => "Hiba",
 "None" => "Egyik sem",
 "Warning" => "Figyelmeztetés",

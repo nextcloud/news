@@ -41,7 +41,6 @@ class NewsController extends Controller {
         $this->addScript('news');
         $this->addScript('menu');
         $this->addScript('items');
-        $this->add3rdPartyScript('jquery.timeago');
 
         $this->addStyle('news');
         $this->addStyle('settings');

@@ -14,6 +14,7 @@
 "Error moving feed into folder." => "Viga uudisvoo liigutamisel kausta.",
 "No file path was submitted." => "Faili asukohta ei sisestatud.",
 "File doesn't exist:" => "Faili pole olemas:",
+"Couldn't save temporary image: " => "Ajutise pildi salvestamine ebaõnnestus: ",
 "Error setting all items as read." => "Viga kõigi kirjete loetuks märkimisel.",
 "Error marking item as read." => "Viga kirje loetuks märkimisel.",
 "Error updating feed." => "Viga uudisvoo uuendamisel.",

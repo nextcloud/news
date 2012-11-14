@@ -632,7 +632,7 @@ var News = News || {};
             self._toggleKeepUnread();
         });
 
-        this._$html.find('time.timeago').timeago();
+        //this._$html.find('time.timeago').timeago();
     };
 
     /**
