@@ -43,6 +43,8 @@
 "No files selected." => "ගොනුවක් තෝරා නැත",
 "Importing OPML file..." => "OPML ගොනුවක් ආයාත කරනවා...",
 "Not a valid type" => "වලංගු වර්ගයක් නොවේ",
+"Importing done" => "ආයාත කිරීම අවසන්",
+"Error while importing feeds." => "සංග්‍රහ ආයාත කිරීමේ දෝෂයක්",
 "Select file" => "ගොනුව තෝරන්න",
 "no title" => "මාතෘකාවක් නැත",
 "no name" => "නමක් නැත",
