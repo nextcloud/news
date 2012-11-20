@@ -10,6 +10,7 @@
 "Error removing folder." => "Σφάλμα αφαίρεσης φακέλου.",
 "Error updating feeds." => "Σφάλμα ενημέρωσης ροών.",
 "Empty filename" => "Κενό όνομα αρχείου",
+"No source argument passed" => "Δεν εγκρίθηκε η πηγαία παράμετρος",
 "Error while reading file" => "Σφάλμα κατά την ανάγνωση του αρχείου",
 "An error occurred while parsing the file." => "Παρουσιάστηκε σφάλμα κατά την ανάλυση του αρχείου.",
 "Feed loaded!" => "Φορτώθηκε η ροή!",
