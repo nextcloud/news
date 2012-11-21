@@ -42,6 +42,7 @@
 "No files selected." => "Nie wybrano plików",
 "Importing OPML file..." => "Importuje plik OPML...",
 "Not a valid type" => "Niepoprawny typ",
+"Importing done" => "Zaimportowano",
 "Select file" => "Wybierz plik",
 "no title" => "brak tytułu",
 "no name" => "brak nazwy",
