@@ -43,13 +43,26 @@ News.Settings={
 		}
 		
 		param = {
-			url: OC.filePath('news', 'ajax', 'importopml.php'),
+			url: OC.filePath('news', 'ajax', 'uploadopml.php'),
 			data: ajaxData,
 			type: 'POST',
 			success: function(jsondata){
 				if (jsondata.status == 'success') {
-					$('#notification').html(t('files', '{n_success} out of {n_total} feeds imported successfully!', 
-						{n_success: jsondata.data.countsuccess, n_total: jsondata.data.count}));
+					var eventSource=new OC.EventSource(OC.filePath('news','ajax','importopml.php'),{source:jsondata.data.source, path:jsondata.data.path});
+					eventSource.listen('progress',function(progress){
+						if (progress.data.type == 'feed') {
+							News.Objects.Menu.addNode(progress.data.folderid, progress.data.listfeed);
+						} else if (progress.data.type == 'folder') {
+							News.Objects.Menu.addNode(0, progress.data.listfolder);
+						}
+					});
+					eventSource.listen('success',function(data){
+						$('#notification').html(t('news', 'Importing done'));
+					});
+					eventSource.listen('error',function(error){
+						$('#notification').fadeOut('400');
+						OC.dialogs.alert(error, t('news', 'Error while importing feeds.'));
+					});
 				}
 				else {
 					OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));

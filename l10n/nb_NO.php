@@ -14,6 +14,7 @@
 "Error moving feed into folder." => "Kunne ikke flytte nyhetskilden til mappen.",
 "No file path was submitted." => "Ingen filbane ble funnet",
 "File doesn't exist:" => "Filen eksisterer ikke:",
+"Couldn't save temporary image: " => "Kunne ikke lagre midlertidig bilde:",
 "Error setting all items as read." => "Kunne ikke merke filene som lest",
 "Error marking item as read." => "Kunne ikke merke filen som lest.",
 "Error updating feed." => "Kunne ikke oppdatere nyhetskilde.",

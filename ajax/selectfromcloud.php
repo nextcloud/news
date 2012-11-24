@@ -41,5 +41,5 @@ if(!file_exists($localpath)) {
 if (file_put_contents($tmpfname, file_get_contents($localpath))) {
 	OCP\JSON::success(array('data' => array('tmp'=>$tmpfname, 'path'=>$localpath)));
 } else {
-	bailOut(bailOut('Couldn\'t save temporary image: '.$tmpfname));
+	bailOut($l->t('Couldn\'t save temporary image: ').$tmpfname);
 }

@@ -14,6 +14,7 @@
 "Error moving feed into folder." => "Errorea iturburua karpetara mugitzean.",
 "No file path was submitted." => "Ez da fitxategi bidea zehaztu.",
 "File doesn't exist:" => "Fitxategia ez da existitzen:",
+"Couldn't save temporary image: " => "Ezin izan da aldi bateko irudia gorde:",
 "Error setting all items as read." => "Errorea elementu guztiak irakurrita bezala ezartzean.",
 "Error marking item as read." => "Errorea elementua irakurrita bezala ezartzean.",
 "Error updating feed." => "Errorea iturburua eguneratzerakoan.",

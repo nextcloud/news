@@ -14,6 +14,7 @@
 "Error moving feed into folder." => "Fejl ved flytning af feed til mappe.",
 "No file path was submitted." => "Der var ingen sti til filen i forespørgslen.",
 "File doesn't exist:" => "Filen eksisterer ikke:",
+"Couldn't save temporary image: " => "Kunne ikke gemme midlertidigt billede: ",
 "Error setting all items as read." => "Kunne ikke markére alle artikler som læst.",
 "Error marking item as read." => "Kunne ikke markére artikel som læst.",
 "Error updating feed." => "Der opstod en fejl under opdateringen af feedet.",

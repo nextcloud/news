@@ -40,7 +40,8 @@ $foldermapper = new OCA\News\FolderMapper($userid);
 $allfeeds = $foldermapper->childrenOfWithFeeds(0);
 
 header('Content-Type: application/x.opml+xml');
-header('Content-Disposition: inline; filename=owncloud_news_subscriptions.xml');
+$filename = 'ownCloud ' . $l->t('News') . ' ' . $userid; 
+header('Content-Disposition: inline; filename="' . $filename . '.opml"');
 
 $dom = new DomDocument('1.0', 'UTF-8');
 $dom->formatOutput = true;

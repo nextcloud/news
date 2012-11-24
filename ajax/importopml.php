@@ -10,31 +10,49 @@
 *
 */
 
+
+
 // Check if we are a user
 OCP\JSON::checkLoggedIn();
 OCP\JSON::checkAppEnabled('news');
 OCP\JSON::callCheck();
-session_write_close();
 
+global $l;
 $l = OC_L10N::get('news');
 
 function bailOut($msg) {
-	OCP\JSON::error(array('data' => array('message' => $msg)));
+	global $eventSource;
+	$eventSource->send('error', $msg);
+	$eventSource->close();
 	OCP\Util::writeLog('news','ajax/importopml.php: '.$msg, OCP\Util::ERROR);
 	exit();
 }
 
-if (isset($_POST['path'])) {
-	$raw = file_get_contents($_POST['path']);
-}
-elseif (isset($_FILES['file'])) {
-	$raw = file_get_contents($_FILES['file']['tmp_name']);
-}
-else {
-	bailOut($l->t('No file was submitted.'));
-}
-	
+global $eventSource;
+$eventSource=new OC_EventSource();
+
 require_once 'news/opmlparser.php';
+
+$source = isset( $_REQUEST['source'] ) ? $_REQUEST['source'] : '';
+$path = isset( $_REQUEST['path'] ) ? $_REQUEST['path'] : '';
+
+if($path == '') {
+	bailOut($l->t('Empty filename'));
+	exit();
+}
+
+if($source == 'cloud') {
+	$raw = file_get_contents($path);
+} elseif ($source == 'local') {
+	$storage = \OCP\Files::getStorage('news');
+	$raw = $storage->file_get_contents($path);
+} else {
+	bailOut($l->t('No source argument passed'));
+}
+
+if ($raw == false) {
+	bailOut($l->t('Error while reading file'));
+}
 
 try {
 	$parsed = OPMLParser::parse($raw);
@@ -48,17 +66,30 @@ if ($parsed == null) {
 
 $data = $parsed->getData();
 
-function importFeed($feedurl, $folderid) {
+function importFeed($feedurl, $folderid, $feedtitle) {
+
+	global $eventSource;
+	global $l;
+
 	$feedmapper = new OCA\News\FeedMapper();
 	$feedid = $feedmapper->findIdFromUrl($feedurl);
 
-	$l = OC_L10N::get('news');
-
 	if ($feedid === null) {
 		$feed = OCA\News\Utils::slimFetch($feedurl);
-
+		
 		if ($feed !== null) {
+		      $feed->setTitle($feedtitle); //we want the title of the feed to be the one from the opml file
 		      $feedid = $feedmapper->save($feed, $folderid);
+		      
+		      $itemmapper = new OCA\News\ItemMapper(OCP\USER::getUser());
+		      $unreadItemsCount = $itemmapper->countAllStatus($feedid, OCA\News\StatusFlag::UNREAD);
+
+		      $tmpl_listfeed = new OCP\Template("news", "part.listfeed");
+		      $tmpl_listfeed->assign('feed', $feed);
+		      $tmpl_listfeed->assign('unreadItemsCount', $unreadItemsCount);
+		      $listfeed = $tmpl_listfeed->fetchPage();
+		      
+		      $eventSource->send('progress', array('data' => array('type'=>'feed', 'folderid'=>$folderid, 'listfeed'=>$listfeed)));
 		}
 	} else {
 		OCP\Util::writeLog('news','ajax/importopml.php: This feed is already here: '. $feedurl, OCP\Util::WARN);
@@ -74,6 +105,10 @@ function importFeed($feedurl, $folderid) {
 }
 
 function importFolder($name, $parentid) {
+
+	global $eventSource;
+	global $l;
+	
 	$foldermapper = new OCA\News\FolderMapper();
 
 	if($parentid != 0) {
@@ -84,8 +119,12 @@ function importFolder($name, $parentid) {
 
 	$folderid = $foldermapper->save($folder);
 
-	$l = OC_L10N::get('news');
-
+	$tmpl = new OCP\Template("news" , "part.listfolder");
+	$tmpl->assign("folder", $folder);
+	$listfolder = $tmpl->fetchPage();
+	
+	$eventSource->send('progress', array('data' => array('type'=>'folder', 'listfolder'=>$listfolder)));
+	
 	if(!$folderid) {
 		OCP\Util::writeLog('news','ajax/importopml.php: Error adding folder' . $name, OCP\Util::ERROR);
 		return null;
@@ -99,7 +138,8 @@ function importList($data, $parentid) {
 	foreach($data as $collection) {
 		if ($collection instanceOf OCA\News\Feed) {
 			$feedurl = $collection->getUrl();
-			if (importFeed($feedurl, $parentid)) {
+			$feedtitle = $collection->getTitle();
+			if (importFeed($feedurl, $parentid, $feedtitle)) {
 				$countsuccess++;
 			}
 		}
@@ -119,5 +159,6 @@ function importList($data, $parentid) {
 
 $countsuccess = importList($data, 0);
 
-OCP\JSON::success(array('data' => array('title'=>$parsed->getTitle(), 'count'=>$parsed->getCount(),
+$eventSource->send('success', array('data' => array('title'=>$parsed->getTitle(), 'count'=>$parsed->getCount(),
 	'countsuccess'=>$countsuccess)));
+$eventSource->close();
