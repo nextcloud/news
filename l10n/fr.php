@@ -10,6 +10,7 @@
 "Error removing folder." => "Erreur lors de la suppression du répertoire.",
 "Error updating feeds." => "Erreur lors de la mise à jour des flux.",
 "Empty filename" => "Nom de fichier manquant",
+"No source argument passed" => "Aucun argument concernant la source n'a été passé",
 "Error while reading file" => "Erreur lors de la lecture du fichier",
 "An error occurred while parsing the file." => "Une erreur est apparue lors de l'analyse du fichier.",
 "Feed loaded!" => "Flux chargé !",
