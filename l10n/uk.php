@@ -52,7 +52,6 @@
 "subscriptions in ownCloud - News" => "підписки на ownCloud - News",
 "An error occurred" => "Виникла помилка",
 "Nice! You have subscribed to " => "Чудово! Ви підписались на ",
-"You had already subcribed to this feed!" => "Ви вже підписані на цю стрічку!",
 "You don't have any feed in your reader." => "Ви не маєте жодної стрічки у вашому читачі.",
 "Address" => "Адреса",
 "Subscribe" => "Підписатися",

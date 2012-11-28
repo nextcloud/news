@@ -52,7 +52,6 @@
 "subscriptions in ownCloud - News" => "подписки на ownCloud - News",
 "An error occurred" => "Произошла ошибка",
 "Nice! You have subscribed to " => "Прекрасно! Вы подписаны на",
-"You had already subcribed to this feed!" => "Вы уже подписаны на этот поток!",
 "You don't have any feed in your reader." => "У Вас нет потоков в Вашей ленте",
 "Address" => "Адрес",
 "Subscribe" => "Подписаться",

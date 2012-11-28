@@ -52,7 +52,6 @@
 "subscriptions in ownCloud - News" => "subscricións en ownCloud - Novas",
 "An error occurred" => "Aconteceu un erro",
 "Nice! You have subscribed to " => "Ben! Subscribiuse a ",
-"You had already subcribed to this feed!" => "Xa estás subscrito a esta fonte",
 "You don't have any feed in your reader." => "Non ten fontes no seu lector.",
 "Address" => "Enderezo",
 "Subscribe" => "Subscribir",

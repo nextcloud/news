@@ -45,7 +45,6 @@
 "subscriptions in ownCloud - News" => "abbonementer i ownCloud - Nyheter",
 "An error occurred" => "En feil har oppstått",
 "Nice! You have subscribed to " => "Flott! Du abonnerer på",
-"You had already subcribed to this feed!" => "Du abonnerer allerede på denne nyhetskilden!",
 "You don't have any feed in your reader." => "Du har ingen nyhetskilder i leseren din.",
 "Address" => "Adresser",
 "Subscribe" => "Abonner",

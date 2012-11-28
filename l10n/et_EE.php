@@ -45,7 +45,6 @@
 "subscriptions in ownCloud - News" => "tellimust ownCloudis - Uudised",
 "An error occurred" => "Tekkis viga",
 "Nice! You have subscribed to " => "Lahe! Sa tellisid uudivoo",
-"You had already subcribed to this feed!" => "Sa oled selle uudisvoo juba tellnud!",
 "You don't have any feed in your reader." => "Sinu lugejas pole ühtegi uudisvoogu.",
 "Address" => "Aadress",
 "Subscribe" => "Telli",

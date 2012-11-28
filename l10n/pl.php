@@ -52,7 +52,6 @@
 "subscriptions in ownCloud - News" => "Subskrypcje w ownCloud - Wiadomości",
 "An error occurred" => "Wystąpił błąd",
 "Nice! You have subscribed to " => "Super! Subskrybujesz",
-"You had already subcribed to this feed!" => "Już subskrybujesz ten kanał!",
 "You don't have any feed in your reader." => "Nie masz kanałów w liście",
 "Address" => "Adres",
 "Subscribe" => "Subskrybuj",

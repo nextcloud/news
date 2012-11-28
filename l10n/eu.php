@@ -52,7 +52,6 @@
 "subscriptions in ownCloud - News" => "ownCloud - News harpidetzak",
 "An error occurred" => "Errore bat gertatu da",
 "Nice! You have subscribed to " => "Ongi! Harpidetu zara hurrengo iturburutan",
-"You had already subcribed to this feed!" => "Dagoeneko ituburu honen harpide zara!",
 "You don't have any feed in your reader." => "Ez duzu iturbururik.",
 "Address" => "Helbidea",
 "Subscribe" => "Harpidetu",
