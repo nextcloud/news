@@ -77,7 +77,7 @@ class Utils {
 					$itemGUID = $spitem->get_id();
 					$itemBody = $spitem->get_content();
 					$item = new Item($itemUrl, $itemTitle, $itemGUID, $itemBody);
-
+					
 					$spAuthor = $spitem->get_author();
 					if ($spAuthor !== null) {
 						$item->setAuthor($spAuthor->get_name());
@@ -87,6 +87,19 @@ class Utils {
 					$itemDate = $spitem->get_date('U');
 					$item->setDate($itemDate);
 
+					// associated media file, for podcasts
+					$itemEnclosure = $spitem->get_enclosure();
+					if($itemEnclosure !== null) {
+						$enclosureType = $itemEnclosure->get_type();
+						$enclosureLink = $itemEnclosure->get_link();
+						if(stripos($enclosureType, "audio/") !== FALSE) {
+							$enclosure = new Item_Enclosure();
+							$enclosure->setMimeType($enclosureType);
+							$enclosure->setLink($enclosureLink);
+							$item->setEnclosure($enclosure);
+						}
+					}
+					
 					$items[] = $item;
 				}
 			}

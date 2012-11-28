@@ -179,6 +179,16 @@
                 <notnull>false</notnull>
             </field>
             <field>
+            	<name>enclosure_mime</name>
+            	<type>clob</type>
+            	<notnull>false</notnull>
+            </field>
+            <field>
+            	<name>enclosure_link</name>
+            	<type>clob</type>
+            	<notnull>false</notnull>
+            </field>
+            <field>
                 <name>feed_id</name>
                 <type>integer</type>
                 <notnull>true</notnull>
