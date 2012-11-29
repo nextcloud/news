@@ -52,6 +52,7 @@
 "subscriptions in ownCloud - News" => "ownCloud内の購読 − ニュース",
 "An error occurred" => "エラーが発生しました",
 "Nice! You have subscribed to " => "無事に登録が完了しました: ",
+"You had already subscribed to this feed!" => "あなたはこのフィードをすでに購読しています！",
 "You don't have any feed in your reader." => "リーダに何もフィードがありません。",
 "Address" => "アドレス",
 "Subscribe" => "購読",

@@ -52,6 +52,7 @@
 "subscriptions in ownCloud - News" => "Flux d'actualités dans ownCloud - Abonnements",
 "An error occurred" => "Une erreur est survenue",
 "Nice! You have subscribed to " => "Vous avez souscrit à",
+"You had already subscribed to this feed!" => "Vous avez déjà souscrit à ce flux !",
 "You don't have any feed in your reader." => "Vous n'avez pas de flux dans votre lecteur.",
 "Address" => "Adresse",
 "Subscribe" => "S'abonner",
