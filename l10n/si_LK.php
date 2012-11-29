@@ -52,7 +52,6 @@
 "subscriptions in ownCloud - News" => "ownCloudහි දායකවුවන් - ප්‍රවෘත්ති",
 "An error occurred" => "දෝෂයක් සිදුවිය",
 "Nice! You have subscribed to " => "විශිෂ්ඨයි! ඔබ දැන් දායකවී ඇත්තේ",
-"You had already subcribed to this feed!" => "ඔබ දැනටමත් මෙම සංග්‍රහයට දායකවී ඇත!",
 "You don't have any feed in your reader." => "ඔබගේ පාඨකයා තුළ සංග්‍රහ කිසිවක් නැත",
 "Address" => "ලිපිනය",
 "Subscribe" => "දායකවන්න",

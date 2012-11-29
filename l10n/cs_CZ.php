@@ -52,7 +52,7 @@
 "subscriptions in ownCloud - News" => "odběry v ownCloud - Novinky",
 "An error occurred" => "Nastala chyba",
 "Nice! You have subscribed to " => "Dobře. Jste přihlášen k ",
-"You had already subcribed to this feed!" => "Již jste přihlášen k tomuto kanálu.",
+"You had already subscribed to this feed!" => "Tento kanál již odebíráte.",
 "You don't have any feed in your reader." => "Nemáte žádné kanály ve Vaší čtečce.",
 "Address" => "Adresa",
 "Subscribe" => "Odebírat",

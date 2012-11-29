@@ -44,7 +44,6 @@
 "subscriptions in ownCloud - News" => "به‌شداربوون له‌ هه‌واڵه‌کانی ownCloud",
 "An error occurred" => "هه‌ڵه‌ك ڕوویدا",
 "Nice! You have subscribed to " => "جوانه! تۆ به‌شداربووی له",
-"You had already subcribed to this feed!" => "تۆ به‌ته‌واوی به‌شداری له‌م خورده!",
 "You don't have any feed in your reader." => "تۆ هیچ خوردێکت نیه‌ له‌ خوێنه‌ر",
 "Address" => "ناونیشان",
 "Subscribe" => "به‌شداربوون",

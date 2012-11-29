@@ -48,7 +48,6 @@
 "subscriptions in ownCloud - News" => "tilaukset ownCloudista -Uutiset",
 "An error occurred" => "Tapahtui virhe",
 "Nice! You have subscribed to " => "Hienoa! Olet tilannut",
-"You had already subcribed to this feed!" => "Olet jo tilannut tämän syötteen!",
 "You don't have any feed in your reader." => "Sinulla ei ole yhtään syötettä lukijassa.",
 "Address" => "Osoite",
 "Subscribe" => "Tilaa",

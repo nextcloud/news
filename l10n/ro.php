@@ -36,7 +36,6 @@
 "no name" => "nici un nume",
 "no body" => "nici un conținut",
 "An error occurred" => "A apărut o eroare",
-"You had already subcribed to this feed!" => "Ești deja abonat la acest flux!",
 "Address" => "Adresă",
 "Subscribe" => "Abonare",
 "Upload" => "Încărcare",

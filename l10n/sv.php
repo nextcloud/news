@@ -52,7 +52,6 @@
 "subscriptions in ownCloud - News" => "prenumerationer i ownCloud - Nyheter",
 "An error occurred" => "Ett fel uppstod",
 "Nice! You have subscribed to " => "Gött! Du prenumererar nu på",
-"You had already subcribed to this feed!" => "Du prenumererar redan på detta flöde!",
 "You don't have any feed in your reader." => "Du har inget flöde i din läsare.",
 "Address" => "Adress",
 "Subscribe" => "Prenumerera",

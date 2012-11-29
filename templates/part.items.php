@@ -50,7 +50,20 @@ foreach($items as $item) {
 			echo '<h2 class="item_author">'. $feedTitle . $author . '</h2>';
 		}
 
-		echo '<div class="body">' . $item->getBody() . '</div>';
+		echo '<div class="body">';
+		echo $item->getBody();
+		
+		if($item->getEnclosure() !== null) {
+			$enclosure = $item->getEnclosure();
+			$enclosureType = htmlspecialchars($enclosure->getMimeType(), ENT_QUOTES, 'UTF-8');
+			$enclosureLink = htmlspecialchars($enclosure->getLink(), ENT_QUOTES, 'UTF-8');
+			$enclosureFilename = htmlspecialchars(basename($enclosureLink), ENT_QUOTES, 'UTF-8');
+			
+			echo '<br /><br /><audio controls="controls"><source src="' . $enclosureLink . '" type="' . $enclosureType . '"></source></audio><br />';
+			echo '<a href="' . $enclosureLink . '" target="_blank">Original audio source (' . $enclosureFilename . ')</a>';
+		}
+		
+		echo '</div>';
 
 		echo '<div class="bottom_utils">';
 			echo '<ul class="secondary_item_utils">';

@@ -52,7 +52,6 @@
 "subscriptions in ownCloud - News" => "συνδρομές στο ownCloud - Νέα",
 "An error occurred" => "Παρουσιάστηκε σφάλμα",
 "Nice! You have subscribed to " => "Ωραία! Γίνατε συνδρομητής στο",
-"You had already subcribed to this feed!" => "Είστε ήδη συνδρομητής σε αυτή τη ροή!",
 "You don't have any feed in your reader." => "Καμία ροή στον αναγνώστη σας.",
 "Address" => "Διεύθυνση",
 "Subscribe" => "Συνδρομή",
