@@ -52,6 +52,7 @@
 "subscriptions in ownCloud - News" => "đăng ký trong ownCloud - Tin tức",
 "An error occurred" => "Một lỗi đã xảy ra",
 "Nice! You have subscribed to " => "Chúc mừng! Bạn đã đăng ký",
+"You had already subscribed to this feed!" => "Bạn đã đăng ký feed này!",
 "You don't have any feed in your reader." => "Bạn không có bất kỳ feed nào .",
 "Address" => "Địa chỉ",
 "Subscribe" => "Theo dõi",
