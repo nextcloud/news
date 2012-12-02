@@ -50,7 +50,6 @@
 "subscriptions in ownCloud - News" => "ownCloud 뉴스 구독",
 "An error occurred" => "에러가 발생하였습니다.",
 "Nice! You have subscribed to " => "좋습니다! 당신은 구독하였습니다.",
-"You had already subcribed to this feed!" => "당신은 이미 이 피드를 구독하였습니다.",
 "You don't have any feed in your reader." => "당신의 리더에 피드가 없습니다.",
 "Address" => "주소",
 "Subscribe" => "구독",

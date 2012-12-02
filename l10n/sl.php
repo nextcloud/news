@@ -52,7 +52,6 @@
 "subscriptions in ownCloud - News" => "naročnine v ownCloud - Novice",
 "An error occurred" => "Prišlo je do napake",
 "Nice! You have subscribed to " => "Naročili ste se na",
-"You had already subcribed to this feed!" => "Na ta vir ste že naročeni!",
 "You don't have any feed in your reader." => "V bralniku ni nobenega vira.",
 "Address" => "Naslov",
 "Subscribe" => "Naroči se",

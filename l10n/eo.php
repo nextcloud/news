@@ -45,7 +45,6 @@
 "subscriptions in ownCloud - News" => "abonoj en ownCloud - Novaĵoj",
 "An error occurred" => "Eraro okazis",
 "Nice! You have subscribed to " => "Bone! Vi estas aboninta",
-"You had already subcribed to this feed!" => "Vi jam abonis ĉi tiun fluon!",
 "You don't have any feed in your reader." => "Vi havas neniun fluon en via legilo.",
 "Address" => "Adreso",
 "Subscribe" => "Aboni",

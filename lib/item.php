@@ -35,7 +35,8 @@ class Item {
 	private $author;
 	private $date; //date is stored in the Unix format
 	private $feedTitle;
-
+	private $enclosure; // Item_Enclosure object containing media attachment information
+	
 	public function __construct($url, $title, $guid, $body, $id = null) {
 		$this->title = $title;
 		$this->url = $url;
@@ -160,5 +161,34 @@ class Item {
 	//TODO: check if the parameter is in the Unix format
 	public function setDate($date) {
 		$this->date = $date;
+	}
+	
+	public function getEnclosure() {
+		return $this->enclosure;
+	}
+	
+	public function setEnclosure(Item_Enclosure $enclosure) {
+		$this->enclosure = $enclosure;
+	}
+}
+
+class Item_Enclosure {
+	private $mimetype;
+	private $link;
+
+	public function getMimeType() {
+		return $this->mimetype;
+	}
+	
+	public function setMimeType($mimetype) {
+		$this->mimetype = $mimetype;
+	}
+
+	public function getLink() {
+		return $this->link;
+	}
+	
+	public function setLink($link) {
+		$this->link = $link;
 	}
 }

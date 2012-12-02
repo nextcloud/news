@@ -52,7 +52,7 @@
 "subscriptions in ownCloud - News" => "abonnementen in ownCloud - Nieuws",
 "An error occurred" => "Er heeft zich een fout voorgedaan",
 "Nice! You have subscribed to " => "Leuk! Je bent geabonneerd op ",
-"You had already subcribed to this feed!" => "Je bent al geabonneerd op deze feed!",
+"You had already subscribed to this feed!" => "Je bent al ingeschreven voor deze feed!",
 "You don't have any feed in your reader." => "Je hebt geen feeds in je lijst.",
 "Address" => "Adres",
 "Subscribe" => "Abonneren",

@@ -47,7 +47,6 @@
 "subscriptions in ownCloud - News" => "在 ownCloud 中的订阅 - 新闻",
 "An error occurred" => "发生一个错误",
 "Nice! You have subscribed to " => "好的！您已经订阅了",
-"You had already subcribed to this feed!" => "您已经订阅过了该种子！",
 "You don't have any feed in your reader." => "你的阅读器没有任何种子",
 "Address" => "网址",
 "Subscribe" => "订阅",
