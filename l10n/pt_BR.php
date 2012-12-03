@@ -52,6 +52,7 @@
 "subscriptions in ownCloud - News" => "assinaturas em ownCloud - Notícias",
 "An error occurred" => "Um erro ocorreu",
 "Nice! You have subscribed to " => "Legal! Você se inscreveu em",
+"You had already subscribed to this feed!" => "Você já se inscreveu neste feed!",
 "You don't have any feed in your reader." => "Você não tem nenhum feed no seu leitor.",
 "Address" => "Endereço",
 "Subscribe" => "Inscrever-se",
