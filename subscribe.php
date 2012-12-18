@@ -33,7 +33,7 @@
 		}
 	}
 	else {
-		echo $l->t('You had already subcribed to this feed!');
+		echo $l->t('You had already subscribed to this feed!');
 	}
 
 	?>

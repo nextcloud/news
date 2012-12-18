@@ -1,9 +1,9 @@
 <?php $TRANSLATIONS = array(
 "Error" => "შეცდომა",
 "Warning" => "გაფრთხილება",
-"Import" => "იმპორტი",
 "Address" => "მისამართი",
 "Upload" => "ატვირთვა",
+"Import" => "იმპორტი",
 "Folder" => "საქაღალდე",
 "Settings" => "პარამეტრები",
 "Add" => "დამატება",

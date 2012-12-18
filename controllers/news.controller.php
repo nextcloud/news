@@ -12,39 +12,35 @@
 
 namespace OCA\News;
 
-require_once \OC_App::getAppPath('news') . '/controllers/controller.php';
-
-
 class NewsController extends Controller {
 
     /**
      * Decides wether to show the feedpage or the firstrun page
      */
-    public function index($request){
+    public function index(){
         $feedMapper = new FeedMapper($this->userId);
 
         if($feedMapper->feedCount() > 0){
-            $this->feedPage($request);
+            $this->feedPage();
         } else {
-            $this->firstRun($request);
+            $this->firstRun();
         }
     }
 
 
-    public function firstRun($request){
+    public function firstRun(){
         $this->addScript('news');
         $this->addScript('firstrun');
         $this->addStyle('firstrun');
-        $this->renderTemplate('firstrun');
+        $this->render('firstrun');
     }
 
 
-    public function feedPage($request){
+    public function feedPage(){
         $this->addScript('main');
         $this->addScript('news');
         $this->addScript('menu');
         $this->addScript('items');
-        $this->add3rdPartyScript('jquery.timeago');
 
         $this->addStyle('news');
         $this->addStyle('settings');
@@ -54,10 +50,10 @@ class NewsController extends Controller {
         $itemMapper = new ItemMapper($this->userId);
 
         // if no feed id is passed as parameter, then show the last viewed feed on reload
-        $lastViewedFeedId = isset( $request->get['feedid'] ) ? $request->get['feedid'] : (int)$this->getUserValue('lastViewedFeed');
-        $lastViewedFeedType = isset( $request->get['feedid'] ) ? FeedType::FEED : (int)$this->getUserValue('lastViewedFeedType');
+        $lastViewedFeedId = isset( $_GET['feedid'] ) ? $_GET['feedid'] : (int)$this->getUserValue('lastViewedFeed');
+        $lastViewedFeedType = isset( $_GET['feedid'] ) ? FeedType::FEED : (int)$this->getUserValue('lastViewedFeedType');
         
-        $showAll = $this->getUserValue('showAll');
+    $showAll = $this->getUserValue('showAll');
 
         if( $lastViewedFeedId === null || $lastViewedFeedType === null) {
             $lastViewedFeedId = $feedMapper->mostRecent();
@@ -90,7 +86,7 @@ class NewsController extends Controller {
             'items' => $items
         );
 
-        $this->renderTemplate('main', $params, array('items' => true));
+        $this->render('main', $params, array('items' => true));
     }
 
 

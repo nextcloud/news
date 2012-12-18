@@ -20,21 +20,33 @@ class Utils {
 
 	/**
 	 * @brief Transform a date from UNIX timestamp format to MDB2 timestamp format
-	 * @param dbtimestamp
-	 * @returns
+	 * @param dbtimestamp a date in the UNIX timestamp format
+	 * @returns a date in the MDB2 timestamp format, or NULL if an error occurred
 	 */
 	public static function unixtimeToDbtimestamp($unixtime) {
+		if ($unixtime === null) {
+			return null;
+		}
 		$dt = \DateTime::createFromFormat('U', $unixtime);
+		if ($dt === false) {
+			return null;
+		}
 		return $dt->format('Y-m-d H:i:s');
 	}
 
 	/**
 	 * @brief Transform a date from MDB2 timestamp format to UNIX timestamp format
-	 * @param dbtimestamp
-	 * @returns
+	 * @param dbtimestamp a date in the MDB2 timestamp format
+	 * @returns a date in the UNIX timestamp format, or NULL if an error occurred
 	 */
 	public static function dbtimestampToUnixtime($dbtimestamp) {
+		if ($dbtimestamp === null) {
+			return null;
+		}
 		$dt = \DateTime::createFromFormat('Y-m-d H:i:s', $dbtimestamp);
+		if ($dt === false) {
+			return null;
+		}
 		return $dt->format('U');
 	}
 
@@ -65,7 +77,7 @@ class Utils {
 					$itemGUID = $spitem->get_id();
 					$itemBody = $spitem->get_content();
 					$item = new Item($itemUrl, $itemTitle, $itemGUID, $itemBody);
-
+					
 					$spAuthor = $spitem->get_author();
 					if ($spAuthor !== null) {
 						$item->setAuthor($spAuthor->get_name());
@@ -75,6 +87,19 @@ class Utils {
 					$itemDate = $spitem->get_date('U');
 					$item->setDate($itemDate);
 
+					// associated media file, for podcasts
+					$itemEnclosure = $spitem->get_enclosure();
+					if($itemEnclosure !== null) {
+						$enclosureType = $itemEnclosure->get_type();
+						$enclosureLink = $itemEnclosure->get_link();
+						if(stripos($enclosureType, "audio/") !== FALSE) {
+							$enclosure = new Item_Enclosure();
+							$enclosure->setMimeType($enclosureType);
+							$enclosure->setLink($enclosureLink);
+							$item->setEnclosure($enclosure);
+						}
+					}
+					
 					$items[] = $item;
 				}
 			}

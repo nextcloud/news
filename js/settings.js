@@ -1,21 +1,16 @@
 News = News || {}
+
 News.Settings={
-	importkind: '',
-	importpath: '',
-	IMPORTCLOUD:'cloud',
-	IMPORTLOCAL:'local',
 	cloudFileSelected:function(path){
 		$.getJSON(OC.filePath('news', 'ajax', 'selectfromcloud.php'),{'path':path},function(jsondata){
 			if(jsondata.status == 'success'){
-				$('#browsebtn, #cloudbtn, #importbtn').show();
-				$('#opml_file').text(t('news', 'File ') + path + t('news', ' loaded from cloud.'));
-				News.Settings.importkind = News.Settings.IMPORTCLOUD;
-				News.Settings.importpath = jsondata.data.tmp;
+				News.Settings.importOpml('fromCloud', jsondata.data.tmp);
 			}
 			else{
 				OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
 			}
 		});
+		$('#appsettings_popup').remove();
 	},
 	browseFile:function(filelist){
 		if(!filelist) {
@@ -23,32 +18,60 @@ News.Settings={
 			return;
 		}
 		var file = filelist[0];
-		$('#browsebtn, #cloudbtn, #importbtn').show();
-		$('#opml_file').text(t('news', 'File ') + file.name + t('news', ' loaded from local filesystem.'));
-		$('#opml_file').prop('value', file.name);
+		//check file format/size/...
+		var formData = new FormData();
+		formData.append('file', file);
+		
+		News.Settings.importOpml('fromFile', formData);
+		$('#appsettings_popup').remove();
 	},
-	importOpml:function(button){
-		$(button).attr("disabled", true);
-		$(button).prop('value', t('news', 'Importing...'));
-
-		var path = '';
-		if (News.Settings.importkind == News.Settings.IMPORTCLOUD) {
-			path = News.Settings.importpath;
-		} else if (this.importkind == this.IMPORTLOCAL) {
-
+	importOpml:function(type, data){
+	  
+		$('#notification').fadeIn();
+		$('#notification').html(t('news', 'Importing OPML file...'));
+		
+		if (type == 'fromCloud') {
+			ajaxData = { path: data };
+			settings = {};
 		}
-
-		$.post(OC.filePath('news', 'ajax', 'importopml.php'), { path: path }, function(jsondata){
-			if (jsondata.status == 'success') {
-				var message = jsondata.data.countsuccess + t('news', ' out of ') + jsondata.data.count +
-					t('news', ' feeds imported successfully from ') + jsondata.data.title;
-				OC.dialogs.alert(message, t('news', 'Success'));
-			} else {
-				OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
+		else if (type == 'fromFile') {
+			ajaxData = data;
+			settings = { cache: false, contentType: false, processData: false };
+		}
+		else {
+			throw t('news', 'Not a valid type');
+		}
+		
+		param = {
+			url: OC.filePath('news', 'ajax', 'uploadopml.php'),
+			data: ajaxData,
+			type: 'POST',
+			success: function(jsondata){
+				if (jsondata.status == 'success') {
+					var eventSource=new OC.EventSource(OC.filePath('news','ajax','importopml.php'),{source:jsondata.data.source, path:jsondata.data.path});
+					eventSource.listen('progress',function(progress){
+						if (progress.data.type == 'feed') {
+							News.Objects.Menu.addNode(progress.data.folderid, progress.data.listfeed);
+						} else if (progress.data.type == 'folder') {
+							News.Objects.Menu.addNode(0, progress.data.listfolder);
+						}
+					});
+					eventSource.listen('success',function(data){
+						$('#notification').html(t('news', 'Importing done'));
+					});
+					eventSource.listen('error',function(error){
+						$('#notification').fadeOut('400');
+						OC.dialogs.alert(error, t('news', 'Error while importing feeds.'));
+					});
+				}
+				else {
+					OC.dialogs.alert(jsondata.data.message, t('news', 'Error'));
+				}
+				$('#notification').delay('2500').fadeOut('400');
 			}
-			$(button).prop('value', t('news', 'Import'));
-			$(button).attr("disabled", false);
-		});
+		};
+		
+		$.ajax($.extend(param, settings));
 	},
 	exportOpml:function(button){
 		document.location.href = OC.linkTo('news', 'opmlexporter.php');
@@ -56,9 +79,8 @@ News.Settings={
 	}
 }
 
-$('#browsebtn, #cloudbtn, #importbtn').hide();
 
-$('#cloudbtn, #cloudlink').click(function() {
+$('#cloudlink').click(function() {
 	/*
 	  * it needs to be filtered by MIME type, but there are too many MIME types corresponding to opml
 	  * and filepicker doesn't support multiple MIME types filter.
@@ -66,16 +88,12 @@ $('#cloudbtn, #cloudlink').click(function() {
 	OC.dialogs.filepicker(t('news', 'Select file'), News.Settings.cloudFileSelected, false, '', true);
 });
 
-$('#browsebtn, #browselink').click(function() {
+$('#browselink').click(function() {
 	$('#file_upload_start').trigger('click');
 });
 
 $('#file_upload_start').change(function() {
 	News.Settings.browseFile(this.files);
-});
-
-$('#importbtn').click(function() {
-	News.Settings.importOpml(this);
 });
 
 $('#exportbtn').click(function() {

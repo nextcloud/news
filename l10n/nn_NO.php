@@ -1,8 +1,8 @@
 <?php $TRANSLATIONS = array(
 "Error" => "Feil",
-"Import" => "Importer",
 "Address" => "Adresse",
 "Upload" => "Last opp",
+"Import" => "Importer",
 "Folder" => "Mappe",
 "Settings" => "Innstillingar",
 "Add" => "Legg til"
