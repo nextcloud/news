@@ -59,6 +59,7 @@
 "Upload" => "Подигни",
 "Select file from ownCloud" => "Избери датотека од ownCloud",
 "Select" => "Избери",
+"Select file from <a href=\"#\" class=\"settings\" id=\"browselink\">local filesystem</a> or <a href=\"#\" class=\"settings\" id=\"cloudlink\">cloud</a>" => "Избери датотека од <a href=\"#\" class=\"settings\" id=\"browselink\">локалниот диск</a> или <a href=\"#\" class=\"settings\" id=\"cloudlink\">облак</a>",
 "Import" => "Внеси",
 "Or..." => "Или...",
 "Add feed or folder" => "Додади канал или папка",
