@@ -52,6 +52,7 @@
 "subscriptions in ownCloud - News" => "รายการสมัครรับข้อมูลจกา ownCloud - ข่าวสาร",
 "An error occurred" => "เกิดข้อผิดพลาดบางประการ",
 "Nice! You have subscribed to " => "เยี่ยมเลย! คุณได้สมัครรับข้อมูลจาก",
+"You had already subscribed to this feed!" => "คุณได้สมัครรับข้อมูลจากฟีดนี้ไปแล้ว!",
 "You don't have any feed in your reader." => "คุณยังไม่มี feed ใดๆใน reader ของคุณ",
 "Address" => "ที่อยู่",
 "Subscribe" => "สมัครรับข้อมูล",
