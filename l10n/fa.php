@@ -4,6 +4,7 @@
 "Error" => "خطا",
 "None" => "هیچ‌کدام",
 "Warning" => "اخطار",
+"URL cannot be empty." => "URL  نمی تواند خالی باشد.",
 "Address" => "آدرس",
 "Upload" => "بارگزاری",
 "Import" => "وارد کردن",
