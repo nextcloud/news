@@ -1,11 +1,11 @@
 <?php $TRANSLATIONS = array(
-"File doesn't exist:" => "Fichier existéiert net:",
-"Error" => "Fehler",
-"Warning" => "Warnung",
+"News" => "News",
+"no title" => "keen Titel",
+"no name" => "kee Numm",
+"New articles" => "Nei Artikelen",
+"Share" => "Deelen",
+"Delete folder" => "Dossier läschen",
 "Address" => "Adress",
-"Import" => "Import",
-"Folder" => "Dossier",
-"Settings" => "Astellungen",
 "Add" => "Dobäisetzen",
-"Share" => "Deelen"
+"Settings" => "Astellungen"
 );
