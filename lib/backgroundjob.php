@@ -27,10 +27,10 @@ namespace OCA\News;
  */
 class Backgroundjob {
 	static public function sortFeeds( $a, $b ) {
-		if( $a['id'] == $b['id'] ) {
+		if( $a->getId() == $b->getId() ) {
 			return 0;
 		}
-		elseif( $a['id'] < $b['id'] ) {
+		elseif( $a->getId() < $b->getId() ) {
 			return -1;
 		}
 		else{
@@ -67,9 +67,9 @@ class Backgroundjob {
 
 		$done = false;
 		foreach( $feeds as $feed ) {
-			if( $feed['id'] > $lastid ) {
+			if( $feed->getId() > $lastid ) {
 				// set lastid BEFORE updating feed!
-				\OCP\Config::setAppValue('news', 'backgroundjob_lastid',$feed['id']);
+				\OCP\Config::setAppValue('news', 'backgroundjob_lastid',$feed->getId());
 				$done = true;
 				self::updateFeed( $feedmapper, $feed );
 			}
@@ -82,10 +82,10 @@ class Backgroundjob {
 
 	static private function updateFeed( $feedmapper, $feed ) {
 		$newfeed = null;
-		$newfeed = Utils::fetch( $feed['url'] );
+		$newfeed = Utils::fetch( $feed->getUrl() );
 		if( $newfeed !== null ) {
 			$feedmapper = new FeedMapper();
-			$newfeedid = $feedmapper->save($newfeed, $feed['folderid'] );
+			$newfeedid = $feedmapper->save($newfeed, $feed->getFolderId() );
 		}
 	}
 }

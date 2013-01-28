@@ -1,0 +1,38 @@
+###
+# ownCloud - News app
+#
+# @author Bernhard Posselt
+# Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
+#
+# This file is licensed under the Affero General Public License version 3 or later.
+# See the COPYING-README file
+#
+###
+
+angular.module('News').factory '_GarbageRegistry', ->
+	
+	class GarbageRegistry
+
+		constructor: (@itemModel) ->
+			@registeredItemIds = {}
+
+		register: (item) ->
+			itemId = item.id
+			@registeredItemIds[itemId] = item
+
+
+		unregister: (item) ->
+			itemId = item.id
+			delete @registeredItemIds[itemId]
+
+
+		clear: () ->
+			# delete read items for performance reasons when showAll == false
+			for id, item of @registeredItemIds
+				if not item.keptUnread
+					@itemModel.removeById(parseInt(id, 10))
+				item.keptUnread = false
+			@registeredItemIds = {}
+
+
+	return GarbageRegistry
