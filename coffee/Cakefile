@@ -1,0 +1,135 @@
+###
+# ownCloud
+#
+# @author Bernhard Posselt
+# Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
+#
+# This file is licensed under the Affero General Public License version 3 or later.
+# See the COPYING-README file
+#
+###
+
+# imports
+fs = require 'fs'
+util = require 'util'
+{exec} = require 'child_process'
+
+
+### Configuration ###
+
+# path that contains your coffee files
+sourceDirectory = __dirname
+
+# path and name of the compiled js file relative to this script without .js suffix
+compileToFile = '../js/app'
+
+# These files will be compiled in order before any other files
+compileFirst = [
+	'app.coffee'
+]
+
+
+### Functions ###
+
+# Recursively searches for coffee files
+# @param string path: the path to search for coffee files
+# @param array coffeeFiles: a hashmap with existing files that will be ignored
+getCoffeeFiles = (path, coffeeFiles) ->
+	entries = fs.readdirSync(path)
+
+	for entry in entries
+		do (entry) ->
+			entryPath = path + '/' + entry
+			entryStats = fs.statSync(entryPath)
+
+			if entryStats.isFile()
+				if entryPath.indexOf('.coffee') > 1 and coffeeFiles[entryPath] == undefined
+					coffeeFiles[entryPath] = true
+
+			else if entryStats.isDirectory()
+				getCoffeeFiles(entryPath, coffeeFiles)
+
+
+# returns an array with all coffeefiles in order
+getOrderedCoffeeFiles = (directory) ->
+	unorderedFiles = {}
+	getCoffeeFiles(directory, unorderedFiles)
+
+	# create data structures for quick prioritized files lookup
+	orderedFilesHashMap = {}
+	for file in compileFirst
+		filePath = directory + '/' + file
+		orderedFilesHashMap[filePath] = true
+
+	# prepend prioritized files
+	orderedFiles = []
+	for file in compileFirst
+		orderedFiles.push(directory + '/' + file)
+
+	# order files
+	for file, exists of unorderedFiles
+		if orderedFilesHashMap[file] == undefined
+			orderedFiles.push(file)
+
+	util.log "#{orderedFiles.length} coffee files found."
+	return orderedFiles
+
+
+# compiles an array with file content to a js file
+compile = (content, toFile) ->
+	toFile += '.coffee'
+
+	fs.writeFile toFile, content.join('\n\n'), 'utf8', (error) ->
+		if error
+			throw error
+
+		exec 'coffee --compile ' + toFile, (error, stdout, stderr) ->
+			if error
+				util.log 'Error compiling coffee file.'
+				util.error error
+			else
+				fs.unlink toFile, (error) ->
+					if error
+						util.log 'Couldn\'t delete the compile cache file ' + toFile
+					util.log 'Finished building coffee file.'
+
+
+# register a callback on an array of files and remove already bound ones
+watchFiles = (files, callback) ->
+	files = {}
+	getCoffeeFiles(sourceDirectory, files)
+	for file, exists of files
+		fs.unwatchFile(file)
+		fs.watchFile(file, callback)
+
+
+### Tasks ###
+
+task 'watch', 'Watch and rebuild on changes', ->
+	invoke 'build'
+	util.log "Watching for changes"
+
+	watchFiles getOrderedCoffeeFiles(sourceDirectory), ->
+		invoke 'build'
+
+	fs.watchFile sourceDirectory, (current, previous) ->
+		watchFiles getOrderedCoffeeFiles(sourceDirectory), ->
+			invoke 'build'
+
+
+task 'build', 'Build and compress CoffeeScript into single JavaScript file', ->
+	files = getOrderedCoffeeFiles(sourceDirectory)
+	content = []
+	remaining = files.length
+
+	# read out content of files and compile them afterwards
+	for file, index in files then do (file, index) ->
+		fs.readFile file, 'utf8', (error, fileContent) ->
+			if error
+				throw error
+
+			content[index] = fileContent
+			remaining -= 1
+
+			if remaining <= 0
+				compile(content, compileToFile)

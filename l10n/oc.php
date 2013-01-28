@@ -1,9 +1,5 @@
 <?php $TRANSLATIONS = array(
-"Error" => "Error",
-"Upload" => "Amontcarga",
-"Import" => "Importa",
-"Folder" => "Dorsièr",
-"Settings" => "Configuracion",
+"Share" => "Parteja",
 "Add" => "Ajusta",
-"Share" => "Parteja"
+"Settings" => "Configuracion"
 );

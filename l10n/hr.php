@@ -1,11 +1,6 @@
 <?php $TRANSLATIONS = array(
-"File doesn't exist:" => "Datoteka ne postoji:",
-"Error" => "Greška",
+"Share" => "Podijeli",
 "Address" => "Adresa",
-"Upload" => "Učitaj",
-"Import" => "Uvezi",
-"Folder" => "mapa",
-"Settings" => "Postavke",
 "Add" => "Dodaj",
-"Share" => "Podijeli"
+"Settings" => "Postavke"
 );

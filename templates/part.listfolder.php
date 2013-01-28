@@ -1,37 +1,37 @@
-<?php
-
-require_once \OC_App::getAppPath('news') . '/lib/feedtypes.php';
-
-
-$l = new OC_l10n('news');
-
-
-$folder = isset($_['folder']) ? $_['folder'] : null;
-$folderId = $folder->getId();
-$folderName = $folder->getName();
-
-if($folder->getOpened()){
-	$openedClass = 'open';
-} else {
-	$openedClass = 'collapsed';
-}
-
-
-$lastViewedFeedId = isset($_['lastViewedFeedId']) ? $_['lastViewedFeedId'] : null;
-$lastViewedFeedType = isset($_['lastViewedFeedType']) ? $_['lastViewedFeedType'] : null;
-if ($lastViewedFeedType == OCA\News\FeedType::FOLDER && $lastViewedFeedId == $folderId){
-    $activeClass = 'active';
-} else {
-    $activeClass = '';
-}
-
-echo '<li class="folder ' . $openedClass . ' ' . $activeClass . ' all_read" data-id="' . $folderId . '">';
-	echo '<button class="collapsable_trigger" title="' . $l->t('Collapse') . '"></button>';
-	echo '<a href="#" class="title">' . htmlspecialchars($folderName, ENT_QUOTES, 'UTF-8') .	'</a>';
-	echo '<span class="unread_items_counter"></span>';
-	echo '<span class="buttons">';
-		echo '<button class="svg action feeds_delete" title="' . $l->t('Delete folder') . '"></button>';
-		echo '<button class="svg action feeds_edit" title="' . $l->t('Rename folder') . '"></button>';
-		echo '<button class="svg action feeds_markread" title="' . $l->t('Mark all read') . '"></button>';
-	echo '</span>';
-	echo '<ul data-id="' . $folderId . '">';
+<li ng-class="{
+	active: isFeedActive(feedType.Folder, folder.id), 
+	open: folder.open,
+	collapsable: folder.hasChildren,
+	all_read: getUnreadCount(feedType.Folder, folder.id)==0
+}" 
+    ng-repeat="folder in folders"
+    ng-show="folder.show"
+    class="folder"
+    data-id="{{folder.id}}"
+    droppable>
+    <button class="collapsable_trigger" 
+            title="<?php p($l->t('Collapse'));?>"
+            ng-click="toggleFolder(folder.id)"></button>
+	<a href="#" 
+	   class="title"
+	   ng-click="loadFeed(feedType.Folder, folder.id)">
+	   {{folder.name}}
+	</a>
+	<span class="unread_items_counter">
+		{{ getUnreadCount(feedType.Folder, folder.id) }}
+	</span>
+	<span class="buttons">
+		<button ng-click="delete(feedType.Folder, folder.id)"
+		        class="svg action feeds_delete" 
+		        title="<?php p($l->t('Delete folder')); ?>"></button>
+		<button class="svg action feeds_edit" 
+				ng-click="renameFolder(folder.id)"
+		        title="<?php p($l->t('Rename folder')); ?>"></button>
+		<button class="svg action feeds_markread" 
+		        ng-click="markAllRead(feedType.Folder, folder.id)"
+		        title="<?php p($l->t('Mark all read')); ?>"></button>
+	</span>
+	<ul>
+		<?php print_unescaped($this->inc('part.listfeed', array('folderId' => 'folder.id'))); ?>
+	</ul>
+</li>
