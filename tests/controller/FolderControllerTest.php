@@ -80,7 +80,7 @@ class FolderControllerTest extends ControllerTestUtility {
 
 	public function testGetAllAnnotations(){
 		$methodName = 'getAll';
-		$annotations = array('IsAdminExemption', 'IsSubAdminExemption');
+		$annotations = array('IsAdminExemption', 'IsSubAdminExemption', 'Ajax');
 
 		$this->assertAnnotations($this->controller, $methodName, $annotations);
 	}
@@ -90,7 +90,7 @@ class FolderControllerTest extends ControllerTestUtility {
 		$this->folderMapper->expects($this->once())
 					->method('getAll')
 					->will($this->returnValue( array() ));
-					
+
 		$response = $this->controller->getAll();
 
 		$this->assertTrue($response instanceof JSONResponse);
