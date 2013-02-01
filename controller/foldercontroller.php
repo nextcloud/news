@@ -33,23 +33,23 @@ use \OCA\AppFramework\Http\Request;
 class FolderController extends Controller {
 
 
-        public function __construct(API $api, Request $request, $folderMapper){
-                parent::__construct($api, $request);
-                $this->folderMapper = $folderMapper;
-        }
+	public function __construct(API $api, Request $request, $folderMapper){
+		parent::__construct($api, $request);
+		$this->folderMapper = $folderMapper;
+	}
 
 
-        /**
-         * @IsAdminExemption
-         * @IsSubAdminExemption
-         * @Ajax
-         *
-         * Returns all folders
-         */
-        public function getAll(){
-                $folders = $this->folderMapper->getAll();
-                return $this->renderJSON($folders);
-        }
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 *
+	 * Returns all folders
+	 */
+	public function getAll(){
+		$folders = $this->folderMapper->getAll();
+		return $this->renderJSON($folders);
+	}
 
 
 }

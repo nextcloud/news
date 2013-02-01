@@ -33,48 +33,48 @@ require_once(__DIR__ . "/../classloader.php");
 
 class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 
-        private $api;
-        private $folderMapper;
-        private $request;
-        private $controller;
+	private $api;
+	private $folderMapper;
+	private $request;
+	private $controller;
 
 
-        /**
-         * Gets run before each test
-         */
-        public function setUp(){
-                $this->api = $this->getMock('\OCA\AppFramework\Core\API',
-                        null, array('news'));
-                $this->folderMapper = $this->getMock('FolderMapper',
-                        array('getAll'));
-                $this->request = new Request();
-                $this->controller = new FolderController($this->api, $this->request,
-                                $this->folderMapper);
+	/**
+	 * Gets run before each test
+	 */
+	public function setUp(){
+		$this->api = $this->getMock('\OCA\AppFramework\Core\API', 
+			null, array('news'));
+		$this->folderMapper = $this->getMock('FolderMapper',
+			array('getAll'));
+		$this->request = new Request();
+		$this->controller = new FolderController($this->api, $this->request,
+				$this->folderMapper);
 
-        }
-
-
-        public function testGetAllCalled(){
-                $this->folderMapper->expects($this->once())
-                                        ->method('getAll')
-                                        ->will($this->returnValue( array() ));
-
-                $this->controller->getAll();
-        }
+	}
 
 
-        public function testGetAllReturnsFolders(){
-                $return = array(
-                        'folder1' => 'name1',
-                        'folder2' => 'name2'
-                );
-                $this->folderMapper->expects($this->once())
-                                        ->method('getAll')
-                                        ->will($this->returnValue($return));
+	public function testGetAllCalled(){
+		$this->folderMapper->expects($this->once())
+					->method('getAll')
+					->will($this->returnValue( array() ));
+		
+		$this->controller->getAll();
+	}
 
-                $response = $this->controller->getAll();
-                $this->assertEquals($return, $response->getParams());
-        }
+
+	public function testGetAllReturnsFolders(){
+		$return = array(
+			'folder1' => 'name1',
+			'folder2' => 'name2'
+		);
+		$this->folderMapper->expects($this->once())
+					->method('getAll')
+					->will($this->returnValue($return));
+
+		$response = $this->controller->getAll();
+		$this->assertEquals($return, $response->getParams());
+	}
 
 
 }
