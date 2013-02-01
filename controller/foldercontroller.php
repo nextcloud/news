@@ -23,17 +23,33 @@
 *
 */
 
-namespace OCA\News\Business;
+namespace OCA\News\Controller;
 
-use \OCA\AppFramework\Db\DoesNotExistException;
+use \OCA\AppFramework\Controller\Controller;
+use \OCA\AppFramework\Core\API;
+use \OCA\AppFramework\Http\Request;
 
 
-class FeedDoesNotExistException extends DoesNotExistException {
+class FolderController extends Controller {
 
 
-	public function __construct($message){
-		parent::__construct($message);
-	}
+        public function __construct(API $api, Request $request, $folderMapper){
+                parent::__construct($api, $request);
+                $this->folderMapper = $folderMapper;
+        }
+
+
+        /**
+         * @IsAdminExemption
+         * @IsSubAdminExemption
+         * @Ajax
+         *
+         * Returns all folders
+         */
+        public function getAll(){
+                $folders = $this->folderMapper->getAll();
+                return $this->renderJSON($folders);
+        }
 
 
 }
