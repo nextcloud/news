@@ -26,6 +26,7 @@
 namespace OCA\News\Controller;
 
 use \OCA\AppFramework\Http\Request;
+use \OCA\AppFramework\Http\JSONResponse;
 use OCA\AppFramework\Utility\ControllerTestUtility;
 
 
@@ -84,5 +85,15 @@ class FolderControllerTest extends ControllerTestUtility {
 		$this->assertAnnotations($this->controller, $methodName, $annotations);
 	}
 
+
+	public function testReturnsJSON(){
+		$this->folderMapper->expects($this->once())
+					->method('getAll')
+					->will($this->returnValue( array() ));
+					
+		$response = $this->controller->getAll();
+
+		$this->assertTrue($response instanceof JSONResponse);
+	}
 
 }
