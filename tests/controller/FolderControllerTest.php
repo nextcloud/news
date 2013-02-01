@@ -26,12 +26,13 @@
 namespace OCA\News\Controller;
 
 use \OCA\AppFramework\Http\Request;
+use OCA\AppFramework\Utility\ControllerTestUtility;
 
 
 require_once(__DIR__ . "/../classloader.php");
 
 
-class FolderControllerTest extends \PHPUnit_Framework_TestCase {
+class FolderControllerTest extends ControllerTestUtility {
 
 	private $api;
 	private $folderMapper;
@@ -43,8 +44,7 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 	 * Gets run before each test
 	 */
 	public function setUp(){
-		$this->api = $this->getMock('\OCA\AppFramework\Core\API', 
-			null, array('news'));
+		$this->api = $this->getAPIMock();
 		$this->folderMapper = $this->getMock('FolderMapper',
 			array('getAll'));
 		$this->request = new Request();
@@ -74,6 +74,14 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 
 		$response = $this->controller->getAll();
 		$this->assertEquals($return, $response->getParams());
+	}
+
+
+	public function testGetAllAnnotations(){
+		$methodName = 'getAll';
+		$annotations = array('IsAdminExemption', 'IsSubAdminExemption');
+
+		$this->assertAnnotations($this->controller, $methodName, $annotations);
 	}
 
 
