@@ -25,14 +25,15 @@
 
 namespace OCA\News\Business;
 
-class Feed {
+use \OCA\AppFramework\Db\DoesNotExistException;
 
 
-    public function __construct($feedMapper) {
-        $this->feedMapper = $feedMapper;
-    }
+class FeedDoesNotExistException extends DoesNotExistException {
 
 
+	public function __construct($message){
+		parent::__construct($message);
+	}
 
 
 }
