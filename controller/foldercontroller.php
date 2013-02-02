@@ -28,6 +28,7 @@ namespace OCA\News\Controller;
 use \OCA\AppFramework\Controller\Controller;
 use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Http\Request;
+use \OCA\AppFramework\Db\DoesNotExistException;
 
 
 class FolderController extends Controller {
@@ -49,6 +50,25 @@ class FolderController extends Controller {
 	public function getAll(){
 		$folders = $this->folderMapper->getAll();
 		return $this->renderJSON($folders);
+	}
+
+
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 *
+	 * Collapses a folder
+	 */
+	public function collapse(){
+		$folderId = (int) $this->params('folderId');
+
+		try {
+			$this->folderMapper->setCollapsed($folderId, true);
+			return $this->renderJSON(array());
+		} catch (DoesNotExistException $e) {
+			return $this->renderJSON(array(), $e->getMessage());
+		}
 	}
 
 

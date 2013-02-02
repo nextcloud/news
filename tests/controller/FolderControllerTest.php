@@ -28,6 +28,7 @@ namespace OCA\News\Controller;
 use \OCA\AppFramework\Http\Request;
 use \OCA\AppFramework\Http\JSONResponse;
 use OCA\AppFramework\Utility\ControllerTestUtility;
+use \OCA\AppFramework\Db\DoesNotExistException;
 
 
 require_once(__DIR__ . "/../classloader.php");
@@ -47,14 +48,16 @@ class FolderControllerTest extends ControllerTestUtility {
 	public function setUp(){
 		$this->api = $this->getAPIMock();
 		$this->folderMapper = $this->getMock('FolderMapper',
-			array('getAll'));
+			array('getAll', 'setCollapsed'));
 		$this->request = new Request();
 		$this->controller = new FolderController($this->api, $this->request,
 				$this->folderMapper);
 
 	}
 
-
+	/**
+	 * getAll
+	 */
 	public function testGetAllCalled(){
 		$this->folderMapper->expects($this->once())
 					->method('getAll')
@@ -86,7 +89,7 @@ class FolderControllerTest extends ControllerTestUtility {
 	}
 
 
-	public function testReturnsJSON(){
+	public function testGetAllReturnsJSON(){
 		$this->folderMapper->expects($this->once())
 					->method('getAll')
 					->will($this->returnValue( array() ));
@@ -95,5 +98,70 @@ class FolderControllerTest extends ControllerTestUtility {
 
 		$this->assertTrue($response instanceof JSONResponse);
 	}
+
+
+	/**
+	 * collapse
+	 */
+	public function testCollapseCalled(){
+		$urlParams = array('folderId' => 1);
+		$this->folderMapper->expects($this->once())
+					->method('setCollapsed')
+					->with($this->equalTo($urlParams['folderId']), $this->equalTo(true));
+		$this->controller->setURLParams($urlParams);
+		
+		$this->controller->collapse();
+	}
+
+
+	public function testCollapseReturnsNoParams(){
+		$urlParams = array('folderId' => 1);
+		$this->folderMapper->expects($this->once())
+					->method('setCollapsed')
+					->with($this->equalTo($urlParams['folderId']), $this->equalTo(true));
+		$this->controller->setURLParams($urlParams);
+
+		$response = $this->controller->collapse();
+		$this->assertEquals(array(), $response->getParams());
+	}
+
+
+	public function testCollapseAnnotations(){
+		$methodName = 'collapse';
+		$annotations = array('IsAdminExemption', 'IsSubAdminExemption', 'Ajax');
+
+		$this->assertAnnotations($this->controller, $methodName, $annotations);
+	}
+
+
+	public function testCollapseReturnsJSON(){
+		$urlParams = array('folderId' => 1);
+		$this->folderMapper->expects($this->once())
+					->method('setCollapsed')
+					->with($this->equalTo($urlParams['folderId']), $this->equalTo(true));
+		$this->controller->setURLParams($urlParams);
+
+		$response = $this->controller->collapse();
+
+		$this->assertTrue($response instanceof JSONResponse);
+	}
+
+
+	public function testCollapseExceptionReturnsJSONError(){
+		$errorMsg = 'exception';
+		$ex = new DoesNotExistException($errorMsg);
+		$urlParams = array('folderId' => 1);
+		$this->folderMapper->expects($this->once())
+					->method('setCollapsed')
+					->with($this->equalTo($urlParams['folderId']), $this->equalTo(true))
+					->will($this->throwException($ex));
+		$this->controller->setURLParams($urlParams);
+
+		$response = $this->controller->collapse();
+
+		$expected = '{"status":"error","data":[],"msg":"' . $errorMsg . '"}';
+		$this->assertEquals($expected, $response->render());
+	}
+
 
 }
