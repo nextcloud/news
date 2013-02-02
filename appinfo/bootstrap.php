@@ -43,8 +43,8 @@ namespace OCA\News;
 \OC::$CLASSPATH['OCA\News\FeedType'] = 'apps/news/db/feedtype.php';
 \OC::$CLASSPATH['OCA\News\StatusFlag'] = 'apps/news/db/statusflag.php';
 
-\OC::$CLASSPATH['OCA\News\NewsController'] = 'apps/news/controllers/news.controller.php';
-\OC::$CLASSPATH['OCA\News\NewsAjaxController'] = 'apps/news/controllers/news.ajax.controller.php';
+\OC::$CLASSPATH['OCA\News\NewsController'] = 'apps/news/controller/news.controller.php';
+\OC::$CLASSPATH['OCA\News\NewsAjaxController'] = 'apps/news/controller/news.ajax.controller.php';
 
 
 /**

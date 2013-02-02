@@ -23,16 +23,33 @@
 *
 */
 
-namespace OCA\News\Business;
+namespace OCA\News\Controller;
 
-class Feed {
-
-
-    public function __construct($feedMapper) {
-        $this->feedMapper = $feedMapper;
-    }
+use \OCA\AppFramework\Controller\Controller;
+use \OCA\AppFramework\Core\API;
+use \OCA\AppFramework\Http\Request;
 
 
+class FolderController extends Controller {
+
+
+	public function __construct(API $api, Request $request, $folderMapper){
+		parent::__construct($api, $request);
+		$this->folderMapper = $folderMapper;
+	}
+
+
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 *
+	 * Returns all folders
+	 */
+	public function getAll(){
+		$folders = $this->folderMapper->getAll();
+		return $this->renderJSON($folders);
+	}
 
 
 }

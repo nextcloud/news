@@ -1,4 +1,5 @@
 <?php $TRANSLATIONS = array(
+"year" => "année",
 "News" => "Abonnements",
 "no title" => "sans titre",
 "no name" => "sans nom",
