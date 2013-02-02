@@ -1,4 +1,14 @@
 <?php
+/**
+* ownCloud - News app
+*
+* @author Alessandro Cosentino
+* Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
+*
+* This file is licensed under the Affero General Public License version 3 or later.
+* See the COPYING-README file
+*
+*/
 
 class OC_Search_Provider_News extends OC_Search_Provider{
 	
@@ -16,9 +26,9 @@ class OC_Search_Provider_News extends OC_Search_Provider{
 			$l = new OC_l10n('news');
 			
 			foreach($allFeeds as $feed) {
-				if(substr_count(strtolower($feed['title']), strtolower($query)) > 0) {
-					$link = OCP\Util::linkTo('news', 'index.php').'?feedid='.urlencode($feed['id']);
-					$results[]=new OC_Search_Result($feed['title'], '', $link, (string)$l->t('News'));
+				if(substr_count(strtolower($feed->getTitle()), strtolower($query)) > 0) {
+					$link = \OC_Helper::linkToRoute('news_index_feed', array('feedid' => $feed->getId()));
+					$results[]=new OC_Search_Result($feed->getTitle(), '', $link, (string)$l->t('News'));
 				}
 			}
 		}

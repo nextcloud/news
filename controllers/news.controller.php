@@ -12,169 +12,78 @@
 
 namespace OCA\News;
 
+
 class NewsController extends Controller {
 
-    /**
-     * Decides wether to show the feedpage or the firstrun page
-     */
-    public function index(){
-        $feedMapper = new FeedMapper($this->userId);
+	private $feedMapper;
+	private $folderMapper;
 
-        if($feedMapper->feedCount() > 0){
-            $this->feedPage();
-        } else {
-            $this->firstRun();
-        }
-    }
-
-
-    public function firstRun(){
-        $this->addScript('news');
-        $this->addScript('firstrun');
-        $this->addStyle('firstrun');
-        $this->render('firstrun');
-    }
+	/**
+	 * @param Request $request: the object with the request instance
+	 * @param string $api: an instance of the api wrapper object
+	 * @param FolderMapper $folderMapper: an instance of the folder mapper
+	 * @param FeedMapper $feedMapper: an instance of the feed mapper
+	 */
+	public function __construct($request, $api, $feedMapper, $folderMapper){
+		parent::__construct($request, $api);
+		$this->feedMapper = $feedMapper;
+		$this->folderMapper = $folderMapper;
+		$this->api->activateNavigationEntry();
+	}
 
 
-    public function feedPage(){
-        $this->addScript('main');
-        $this->addScript('news');
-        $this->addScript('menu');
-        $this->addScript('items');
+	/**
+	 * OPML export download page
+	 */
+	public function exportOPML($urlParams=array()){
+		$opmlExporter = new OPMLExporter($this->api);
 
-        $this->addStyle('news');
-        $this->addStyle('settings');
+		$allFeeds = $this->folderMapper->childrenOfWithFeeds(0);
+		$opml = $opmlExporter->buildOPML($allFeeds);
 
-        $folderMapper = new FolderMapper($this->userId);
-        $feedMapper = new FeedMapper($this->userId);
-        $itemMapper = new ItemMapper($this->userId);
-
-        // if no feed id is passed as parameter, then show the last viewed feed on reload
-        $lastViewedFeedId = isset( $_GET['feedid'] ) ? $_GET['feedid'] : (int)$this->getUserValue('lastViewedFeed');
-        $lastViewedFeedType = isset( $_GET['feedid'] ) ? FeedType::FEED : (int)$this->getUserValue('lastViewedFeedType');
-        
-    $showAll = $this->getUserValue('showAll');
-
-        if( $lastViewedFeedId === null || $lastViewedFeedType === null) {
-            $lastViewedFeedId = $feedMapper->mostRecent();
-        } else {
-            // check if the last selected feed or folder exists
-            if( (
-                    $lastViewedFeedType === FeedType::FEED &&
-                    $feedMapper->findById($lastViewedFeedId) === null
-                ) ||
-                (
-                    $lastViewedFeedType === FeedType::FOLDER &&
-                    $folderMapper->findById($lastViewedFeedId) === null
-                ) ){
-                $lastViewedFeedId = $feedMapper->mostRecent();
-            }
-        }
-
-        $feeds = $folderMapper->childrenOfWithFeeds(0);
-        $folderForest = $folderMapper->childrenOf(0); //retrieve all the folders
-        $starredCount = $itemMapper->countEveryItemByStatus(StatusFlag::IMPORTANT);
-        $items = $this->getItems($lastViewedFeedType, $lastViewedFeedId, $showAll);
-
-        $params = array(
-            'allfeeds' => $feeds,
-            'folderforest' => $folderForest,
-            'showAll' => $showAll,
-            'lastViewedFeedId' => $lastViewedFeedId,
-            'lastViewedFeedType' => $lastViewedFeedType,
-            'starredCount' => $starredCount,
-            'items' => $items
-        );
-
-        $this->render('main', $params, array('items' => true));
-    }
+		$fileName = 'ownCloud ' . $this->trans->t('News') . ' ' . $this->userId . '.opml'; 
+		$contentType = 'application/x.opml+xml';
+		$response = new TextDownloadResponse($opml, $fileName, $contentType);
+		
+		return $response;
+	}
 
 
-    /**
-     * Returns all items
-     * @param $feedType the type of the feed
-     * @param $feedId the id of the feed or folder
-     * @param $showAll if true, it will also include unread items
-     * @return an array with all items
-     */
-    public function getItems($feedType, $feedId, $showAll){
-        $items = array();
-        $itemMapper = new ItemMapper($this->userId);
-
-        // starred or subscriptions
-        if ($feedType === FeedType::STARRED || $feedType === FeedType::SUBSCRIPTIONS) {
-
-            if($feedType === FeedType::STARRED){
-                $statusFlag = StatusFlag::IMPORTANT;
-            }
-
-            if($feedType === FeedType::SUBSCRIPTIONS){
-                $statusFlag = StatusFlag::UNREAD;
-            }
-
-            $items = $itemMapper->findEveryItemByStatus($statusFlag);
-
-        // feed
-        } elseif ($feedType === FeedType::FEED){
-
-            if($showAll) {
-                $items = $itemMapper->findByFeedId($feedId);
-            } else {
-                $items = $itemMapper->findAllStatus($feedId, StatusFlag::UNREAD);
-            }
-
-        // folder
-        } elseif ($feedType === FeedType::FOLDER){
-            $feedMapper = new FeedMapper($this->userId);
-            $feeds = $feedMapper->findByFolderId($feedId);
-
-            foreach($feeds as $feed){
-                if($showAll) {
-                    $items = array_merge($items, $itemMapper->findByFeedId($feed->getId()));
-                } else {
-                    $items = array_merge($items,
-                        $itemMapper->findAllStatus($feed->getId(), StatusFlag::UNREAD));
-                }
-            }
-        }
-        return $items;
-    }
+	/**
+	 * Decides wether to show the feedpage or the firstrun page
+	 */
+	public function index($urlParams=array()){
+		$this->api->add3rdPartyScript('angular-1.0.2/angular.min');
+		$this->api->add3rdPartyScript('moment.min');
+		$this->api->addScript('app');
+		$this->api->addStyle('news');
 
 
-    /**
-     * Returns the unread count
-     * @param $feedType the type of the feed
-     * @param $feedId the id of the feed or folder
-     * @return the unread count
-     */
-    public function getItemUnreadCount($feedType, $feedId){
-        $unreadCount = 0;
-        $itemMapper = new ItemMapper($this->userId);
+		if($urlParams['feedid']){	
+			$this->api->setUserValue('lastViewedFeed', $urlParams['feedid']);
+			$this->api->setUserValue('lastViewedFeedType', FeedType::FEED);
+		}
 
-        switch ($feedType) {
-            case FeedType::STARRED:
-                $unreadCount = $itemMapper->countEveryItemByStatus(StatusFlag::IMPORTANT);
-                break;
+		$lastViewedFeedId = $this->api->getUserValue('lastViewedFeed');
+		$lastViewedFeedType = $this->api->getUserValue('lastViewedFeedType');
 
-            case FeedType::SUBSCRIPTIONS:
-                $unreadCount = $itemMapper->countEveryItemByStatus(StatusFlag::UNREAD);
-                break;
+		if( $lastViewedFeedId === null || $lastViewedFeedType === null) {
+			$this->api->setUserValue('lastViewedFeed', $this->feedMapper->mostRecent());;
+			$this->api->setUserValue('lastViewedFeedType', FeedType::FEED);
 
-            case FeedType::FOLDER:
-                $feedMapper = new FeedMapper($this->userId);
-                $feeds = $feedMapper->findByFolderId($feedId);
-                foreach($feeds as $feed){
-                    $unreadCount += $itemMapper->countAllStatus($feed->getId(), StatusFlag::UNREAD);
-                }
-                break;
+		} else {
+			// check if the last selected feed or folder exists
+			if(($lastViewedFeedType === FeedType::FEED &&
+				$this->feedMapper->findById($lastViewedFeedId) === null) ||
+				($lastViewedFeedType === FeedType::FOLDER &&
+					$this->folderMapper->findById($lastViewedFeedId) === null)){
+				$this->api->setUserValue('lastViewedFeed', $this->feedMapper->mostRecent());;
+				$this->api->setUserValue('lastViewedFeedType', FeedType::FEED);
+			}
+		}
 
-            case FeedType::FEED:
-                $unreadCount = $itemMapper->countAllStatus($feedId, StatusFlag::UNREAD);
-                break;
-        }
-
-        return $unreadCount;
-    }
+		return $this->render('main');
+	}
 
 
 }

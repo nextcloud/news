@@ -1,10 +1,6 @@
 <?php $TRANSLATIONS = array(
-"Error" => "Грешка",
+"Share" => "Дељење",
 "Address" => "Адреса",
-"Upload" => "Пошаљи",
-"Import" => "Увези",
-"Folder" => "фасцикла",
-"Settings" => "Подешавања",
 "Add" => "Додај",
-"Share" => "Дељење"
+"Settings" => "Подешавања"
 );

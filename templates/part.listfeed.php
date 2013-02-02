@@ -1,36 +1,24 @@
-<?php
-
-require_once \OC_App::getAppPath('news') . '/lib/feedtypes.php';
-
-
-$l = new OC_l10n('news');
-
-
-$feed = isset($_['feed']) ? $_['feed'] : null;
-
-$feedTitle = $feed->getTitle();
-$feedId =  $feed->getId();
-$unreadItemsCount = isset($_['unreadItemsCount']) ? $_['unreadItemsCount'] : null;
-$favicon = $feed->getFavicon();
-
-if ($favicon == null) {
-    $favicon = OCP\Util::imagePath('core', 'actions/public.svg');
-}
-
-$lastViewedFeedId = isset($_['lastViewedFeedId']) ? $_['lastViewedFeedId'] : null;
-$lastViewedFeedType = isset($_['lastViewedFeedType']) ? $_['lastViewedFeedType'] : null;
-
-if ($lastViewedFeedType == OCA\News\FeedType::FEED && $lastViewedFeedId == $feedId){
-    $activeClass = 'active';
-} else {
-    $activeClass = '';
-}
-
-echo '<li class="feed ' . $activeClass . '" data-id="' . $feedId . '">';
-    echo '<a style="background-image: url(' . $favicon . ');" href="#" class="title">' . $feedTitle .'</a>';
-	echo '<span class="unread_items_counter">' . $unreadItemsCount . '</span>';
-    echo '<span class="buttons">';
-        echo '<button class="svg action feeds_delete" title="' . $l->t('Delete feed') . '"></button>';
-        echo '<button class="svg action feeds_markread" title="' . $l->t('Mark all read') . '"></button>';
-    echo '</span>';
-echo '</li>';
+<li ng-class="{active: isFeedActive(feedType.Feed, feed.id), all_read: feed.unreadCount==0}" 
+    ng-repeat="feed in feeds|feedInFolder:<?php p($_['folderId']); ?>"
+    ng-show="feed.show"
+    data-id="{{feed.id}}"
+    class="feed"
+    draggable>
+	<a ng-style="{backgroundImage: feed.icon}"
+	   href="#"
+	   class="title"
+	   ng-click="loadFeed(feedType.Feed, feed.id)">
+	   {{feed.name}}
+	</a>
+	<span class="unread_items_counter">
+		{{ getUnreadCount(feedType.Feed, feed.id) }}
+	</span>
+	<span class="buttons">
+		<button ng-click="delete(feedType.Feed, feed.id)"
+		        class="svg action feeds_delete" 
+		        title="<?php p($l->t('Delete feed')); ?>"></button>
+		<button class="svg action feeds_markread" 
+		        ng-click="markAllRead(feedType.Feed, feed.id)"
+		        title="<?php p($l->t('Mark all read')); ?>"></button>
+	</span>
+</li>
