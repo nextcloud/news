@@ -19,7 +19,7 @@ require_once \OC_App::getAppPath('news') . '/appinfo/bootstrap.php';
   'id' => 'news',
   'order' => 74,
   'href' => \OC_Helper::linkToRoute('news_index'),
-  'icon' => \OC_Helper::imagePath( 'news', 'icon.svg' ),
+  'icon' => \OC_Helper::imagePath( 'news', 'news.svg' ),
   'name' => \OC_L10N::get('news')->t('News')
 ));
 
