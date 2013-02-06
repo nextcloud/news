@@ -6,15 +6,18 @@ module.exports = (grunt) ->
 	
 		meta:
 			pkg: '<json:package.json>'
-			version: '<config:meta.pkg.version>'
-			banner: '/*! <%= meta.pkg.description %> - v<%= meta.version %> - ' +
-				'<%= grunt.template.today("yyyy-mm-dd") %>\n' +
-				' * https://github.com/owncloud/apps\n' +
+			version: '<%= meta.pkg.version %>'
+			banner: '/**\n' +
+				' * <%= meta.pkg.description %> - v<%= meta.version %>\n' +
+				' *\n' +
 				'<% _.forEach(meta.pkg.contributors, function(contributor){	%>' +
-				' * Copyright (c) <%= grunt.template.today("yyyy") %> ' +
+				' * Copyright (c) <%= grunt.template.today("yyyy") %> - ' +
 				'<%= contributor.name %> <<%= contributor.email %>>\n' +
-				'<% };) %>' +
-				' * Licensed AGPL \n' + 
+				'<% }) %>' +
+				' *\n' +
+				' * This file is licensed under the Affero General Public License version 3 or later.\n' +
+				' * See the COPYING-README file\n' +
+				' *\n' + 
 				' */'
 			prefix: '(function(angular, $, OC, oc_requesttoken){'
 			suffix: '})(window.angular, jQuery, OC, oc_requesttoken);'
@@ -23,7 +26,8 @@ module.exports = (grunt) ->
 
 		concat:
 			app: 
-				src: [
+				src: [	
+						'<banner:meta.banner>'
 						'<banner:meta.prefix>'
 						'<%= meta.build %>main.js'
 						'<banner:meta.suffix>'
