@@ -1,0 +1,24 @@
+{
+  "name": "owncloud-news-app",
+  "description": "ownCloud RSS reader app",
+  "version": "0.0.1",
+  "author": "ownCloud <owncloud@kde.org>",
+  "private": true,
+  "contributors": [
+    {
+      "name": "Alessandro Cosentino",
+      "email": "cosenal@gmail.com"
+    },
+    {
+      "name": "Bernhard Posselt",
+      "email": "nukeawhale@gmail.com"
+    }
+  ],
+  "devDependencies": {
+    "grunt": "~0.3.17",
+    "coffee-script": "~1.4.0",
+    "grunt-contrib-coffee": "~0.3.2",
+    "grunt-testacular": "~0.2.2"
+  },
+  "engine": "node >= 0.8"
+}
