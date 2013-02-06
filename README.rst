@@ -6,7 +6,7 @@ CoffeeScript
 ------------
 To install the nodejs dependencies run ::
 
-	make deps
+        make deps
 
 inside the **coffee/** directory.
 
