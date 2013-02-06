@@ -13,4 +13,4 @@
 # Inject router into angular to make testing easier
 ###
 angular.module('OC').factory 'Router', ->
-        return OC.Router
+	return OC.Router
