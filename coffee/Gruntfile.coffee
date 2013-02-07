@@ -5,7 +5,7 @@ module.exports = (grunt) ->
 	grunt.initConfig
 	
 		meta:
-			pkg: grunt.file.readJSON('package.json>')
+			pkg: grunt.file.readJSON('package.json')
 			version: '<%= meta.pkg.version %>'
 			banner: '/**\n' +
 				' * <%= meta.pkg.description %> - v<%= meta.version %>\n' +
@@ -27,10 +27,10 @@ module.exports = (grunt) ->
 		concat:
 			app: 
 				src: [	
-						'<%= meta.banner %>'
-						'<%= meta.prefix %>'
+						'<banner:meta.banner>'
+						'<banner:meta.prefix>'
 						'<%= meta.build %>main.js'
-						'<%= meta.suffix %>'
+						'<banner:meta.suffix>'
 					]
 				dest: '<%= meta.production %>app.js'
 			owncloud: 
