@@ -34,9 +34,9 @@ $(document).ready ->
 	# and thus clearing the scroll cache
 	$(this).keyup (e) ->
 		if (e.which == 116) || (e.which == 82 && e.ctrlKey)
-                        document.location.reload(true)
+			document.location.reload(true)
 			return false
 
 	# click on upload button should trigger the file input
 	$('#browselink').click ->
-                $('#file_upload_start').trigger('click')
+		$('#file_upload_start').trigger('click')

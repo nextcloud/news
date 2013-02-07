@@ -9,16 +9,15 @@
  *
  */
 
-(function(angular, $, OC, oc_requesttoken){
-
-
 /*
 # ownCloud
 #
 # @author Bernhard Posselt
 # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
 #
-# This file is licensed under the Affero General Public License version 3 or later.
+# This file is licensed under the Affero General Public License version 3 or
+# later.
+#
 # See the COPYING-README file
 #
 */
@@ -53,7 +52,59 @@
   # @author Bernhard Posselt
   # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
   #
-  # This file is licensed under the Affero General Public License version 3 or later.
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
+  #
+  # See the COPYING-README file
+  #
+  */
+
+
+  /*
+  # Used for properly distributing received model data from the server
+  */
+
+
+  angular.module('OC').factory('_Publisher', function() {
+    var Publisher;
+    Publisher = (function() {
+
+      function Publisher() {
+        this.subscriptions = {};
+      }
+
+      Publisher.prototype.subscribeModelTo = function(model, name) {
+        var _base;
+        (_base = this.subscriptions)[name] || (_base[name] = []);
+        return this.subscriptions[name].push(model);
+      };
+
+      Publisher.prototype.publishDataTo = function(data, name) {
+        var subscriber, _i, _len, _ref, _results;
+        _ref = this.subscriptions[name] || [];
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          subscriber = _ref[_i];
+          _results.push(subscriber.handle(data));
+        }
+        return _results;
+      };
+
+      return Publisher;
+
+    })();
+    return Publisher;
+  });
+
+  /*
+  # ownCloud
+  #
+  # @author Bernhard Posselt
+  # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
+  #
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
+  #
   # See the COPYING-README file
   #
   */
@@ -165,165 +216,9 @@
   # @author Bernhard Posselt
   # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
   #
-  # This file is licensed under the Affero General Public License version 3 or later.
-  # See the COPYING-README file
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
   #
-  */
-
-
-  angular.module('OC').factory('_Model', function() {
-    var Model;
-    Model = (function() {
-
-      function Model() {
-        this.foreignKeys = {};
-        this.data = [];
-        this.ids = {};
-      }
-
-      Model.prototype.handle = function(data) {
-        var item, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2, _results;
-        if (data['create'] !== void 0) {
-          _ref = data['create'];
-          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            item = _ref[_i];
-            this.create(item);
-          }
-        }
-        if (data['update'] !== void 0) {
-          _ref1 = data['update'];
-          for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
-            item = _ref1[_j];
-            this.update(item);
-          }
-        }
-        if (data['delete'] !== void 0) {
-          _ref2 = data['delete'];
-          _results = [];
-          for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
-            item = _ref2[_k];
-            _results.push(this["delete"](item));
-          }
-          return _results;
-        }
-      };
-
-      Model.prototype.hasForeignKey = function(name) {
-        return this.foreignKeys[name] = {};
-      };
-
-      Model.prototype.create = function(data) {
-        var id, ids, name, _base, _ref, _results;
-        if (this.ids[data.id] !== void 0) {
-          return this.update(data);
-        } else {
-          this.data.push(data);
-          this.ids[data.id] = data;
-          _ref = this.foreignKeys;
-          _results = [];
-          for (name in _ref) {
-            ids = _ref[name];
-            id = data[name];
-            (_base = this.foreignKeys[name])[id] || (_base[id] = []);
-            _results.push(this.foreignKeys[name][id].push(data));
-          }
-          return _results;
-        }
-      };
-
-      Model.prototype.update = function(item) {
-        var currentItem, key, value, _results;
-        currentItem = this.ids[item.id];
-        _results = [];
-        for (key in item) {
-          value = item[key];
-          if (this.foreignKeys[key] !== void 0) {
-            if (value !== currentItem[key]) {
-              this._updateForeignKeyCache(key, currentItem, item);
-            }
-          }
-          if (key !== 'id') {
-            _results.push(currentItem[key] = value);
-          } else {
-            _results.push(void 0);
-          }
-        }
-        return _results;
-      };
-
-      Model.prototype["delete"] = function(item) {
-        if (this.getById(item.id) !== void 0) {
-          return this.removeById(item.id);
-        }
-      };
-
-      Model.prototype._updateForeignKeyCache = function(name, currentItem, toItem) {
-        var foreignKeyItems, fromValue, toValue;
-        fromValue = currentItem[name];
-        toValue = toItem[name];
-        foreignKeyItems = this.foreignKeys[name][fromValue];
-        this._removeForeignKeyCacheItem(foreignKeyItems, currentItem);
-        return this.foreignKeys[name][toValue].push(item);
-      };
-
-      Model.prototype._removeForeignKeyCacheItem = function(foreignKeyItems, item) {
-        var fkItem, index, _i, _len, _results;
-        _results = [];
-        for (index = _i = 0, _len = foreignKeyItems.length; _i < _len; index = ++_i) {
-          fkItem = foreignKeyItems[index];
-          if (fkItem.id === id) {
-            _results.push(this.foreignKeys[key][item[key]].splice(index, 1));
-          } else {
-            _results.push(void 0);
-          }
-        }
-        return _results;
-      };
-
-      Model.prototype.removeById = function(id) {
-        var foreignKeyItems, ids, index, item, key, _i, _len, _ref, _ref1;
-        item = this.getById(id);
-        _ref = this.foreignKeys;
-        for (key in _ref) {
-          ids = _ref[key];
-          foreignKeyItems = ids[item[key]];
-          this._removeForeignKeyCacheItem(foreignKeyItems, item);
-        }
-        _ref1 = this.data;
-        for (index = _i = 0, _len = _ref1.length; _i < _len; index = ++_i) {
-          item = _ref1[index];
-          if (item.id === id) {
-            this.data.splice(index, 1);
-          }
-        }
-        return delete this.ids[id];
-      };
-
-      Model.prototype.getById = function(id) {
-        return this.ids[id];
-      };
-
-      Model.prototype.getAll = function() {
-        return this.data;
-      };
-
-      Model.prototype.getAllOfForeignKeyWithId = function(foreignKeyName, foreignKeyId) {
-        return this.foreignKeys[foreignKeyName][foreignKeyId];
-      };
-
-      return Model;
-
-    })();
-    return Model;
-  });
-
-  /*
-  # ownCloud
-  #
-  # @author Bernhard Posselt
-  # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
-  #
-  # This file is licensed under the Affero General Public License version 3 or later.
   # See the COPYING-README file
   #
   */
@@ -338,64 +233,20 @@
     return OC.Router;
   });
 
-  /*
-  # ownCloud
-  #
-  # @author Bernhard Posselt
-  # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
-  #
-  # This file is licensed under the Affero General Public License version 3 or later.
-  # See the COPYING-README file
-  #
-  */
-
-
-  /*
-  # Used for properly distributing received model data from the server
-  */
-
-
-  angular.module('OC').factory('_Publisher', function() {
-    var Publisher;
-    Publisher = (function() {
-
-      function Publisher() {
-        this.subscriptions = {};
-      }
-
-      Publisher.prototype.subscribeModelTo = function(model, name) {
-        var _base;
-        (_base = this.subscriptions)[name] || (_base[name] = []);
-        return this.subscriptions[name].push(model);
-      };
-
-      Publisher.prototype.publishDataTo = function(data, name) {
-        var subscriber, _i, _len, _ref, _results;
-        _ref = this.subscriptions[name] || [];
-        _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          subscriber = _ref[_i];
-          _results.push(subscriber.handle(data));
-        }
-        return _results;
-      };
-
-      return Publisher;
-
-    })();
-    return Publisher;
-  });
-
 }).call(this);
 
 
 /*
-# ownCloud - News app
+# ownCloud news app
 #
+# @author Alessandro Cosentino
 # @author Bernhard Posselt
+# Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
 # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
 #
-# This file is licensed under the Affero General Public License version 3 or later.
+# This file is licensed under the Affero General Public License version 3 or
+# later.
+#
 # See the COPYING-README file
 #
 */
@@ -436,42 +287,402 @@
   });
 
   /*
-  # ownCloud - News app
+  # ownCloud news app
   #
+  # @author Alessandro Cosentino
   # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
   # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
   #
-  # This file is licensed under the Affero General Public License version 3 or later.
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
+  #
   # See the COPYING-README file
   #
   */
 
 
-  angular.module('News').factory('_ShowAll', function() {
-    var ShowAll;
-    ShowAll = (function() {
+  angular.module('News').factory('_ActiveFeed', function() {
+    var ActiveFeed;
+    ActiveFeed = (function() {
 
-      function ShowAll() {
-        this.showAll = false;
+      function ActiveFeed() {
+        this.id = 0;
+        this.type = 3;
       }
 
-      ShowAll.prototype.handle = function(data) {
-        return this.showAll = data;
+      ActiveFeed.prototype.handle = function(data) {
+        this.id = data.id;
+        return this.type = data.type;
       };
 
-      return ShowAll;
+      return ActiveFeed;
 
     })();
-    return ShowAll;
+    return ActiveFeed;
   });
 
   /*
-  # ownCloud - News app
+  # ownCloud news app
   #
+  # @author Alessandro Cosentino
   # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
   # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
   #
-  # This file is licensed under the Affero General Public License version 3 or later.
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
+  #
+  # See the COPYING-README file
+  #
+  */
+
+
+  angular.module('News').factory('_Cache', function() {
+    var Cache;
+    Cache = (function() {
+
+      function Cache(feedType, feedModel, folderModel) {
+        this.feedType = feedType;
+        this.feedModel = feedModel;
+        this.folderModel = folderModel;
+        this.clear();
+      }
+
+      Cache.prototype.clear = function() {
+        this.feedCache = [];
+        this.folderCache = {};
+        this.folderCacheLastModified = 0;
+        this.importantCache = [];
+        this.highestId = 0;
+        this.lowestId = 0;
+        this.highestTimestamp = 0;
+        this.lowestTimestamp = 0;
+        this.highestIds = {};
+        this.lowestIds = {};
+        this.highestTimestamps = {};
+        return this.lowestTimestamps = {};
+      };
+
+      Cache.prototype.add = function(item) {
+        if (!this.feedCache[item.feedId]) {
+          this.feedCache[item.feedId] = [];
+        }
+        this.feedCache[item.feedId].push(item);
+        if (this.highestTimestamp < item.date) {
+          this.highestTimestamp = item.date;
+        }
+        if (this.lowestTimestamp > item.date) {
+          this.lowestTimestamp = item.date;
+        }
+        if (this.highestId < item.id) {
+          this.highestId = item.id;
+        }
+        if (this.lowestId > item.id) {
+          this.lowestId = item.id;
+        }
+        if (item.isImportant) {
+          this.importantCache.push(item);
+        }
+        if (this.highestTimestamps[item.feedId] === void 0 || item.id > this.highestTimestamps[item.feedId]) {
+          this.highestTimestamps[item.feedId] = item.date;
+        }
+        if (this.lowestTimestamps[item.feedId] === void 0 || item.id > this.lowestTimestamps[item.feedId]) {
+          this.lowestTimestamps[item.feedId] = item.date;
+        }
+        if (this.highestIds[item.feedId] === void 0 || item.id > this.highestIds[item.feedId]) {
+          this.highestIds[item.feedId] = item.id;
+        }
+        if (this.lowestIds[item.feedId] === void 0 || item.id > this.lowestIds[item.feedId]) {
+          return this.lowestIds[item.feedId] = item.id;
+        }
+      };
+
+      Cache.prototype.getItemsOfFeed = function(feedId) {
+        return this.feedCache[feedId];
+      };
+
+      Cache.prototype.getFeedIdsOfFolder = function(folderId) {
+        this.buildFolderCache(folderId);
+        return this.folderCache[folderId];
+      };
+
+      Cache.prototype.getImportantItems = function() {
+        return this.importantCache;
+      };
+
+      Cache.prototype.buildFolderCache = function(id) {
+        var feed, _i, _len, _ref, _results;
+        if (this.folderCacheLastModified !== this.feedModel.getLastModified()) {
+          this.folderCache = {};
+          this.folderCacheLastModified = this.feedModel.getLastModified();
+        }
+        if (this.folderCache[id] === void 0) {
+          this.folderCache[id] = [];
+          _ref = this.feedModel.getItems();
+          _results = [];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            feed = _ref[_i];
+            if (feed.folderId === id) {
+              _results.push(this.folderCache[id].push(feed.id));
+            } else {
+              _results.push(void 0);
+            }
+          }
+          return _results;
+        }
+      };
+
+      Cache.prototype.getFeedsOfFolderId = function(id) {
+        this.buildFolderCache(id);
+        return this.folderCache[id];
+      };
+
+      Cache.prototype.removeItemInArray = function(id, array) {
+        var counter, element, removeItemIndex, _i, _len;
+        removeItemIndex = null;
+        counter = 0;
+        for (_i = 0, _len = array.length; _i < _len; _i++) {
+          element = array[_i];
+          if (element.id === id) {
+            removeItemIndex = counter;
+            break;
+          }
+          counter += 1;
+        }
+        if (removeItemIndex !== null) {
+          return array.splice(removeItemIndex, 1);
+        }
+      };
+
+      Cache.prototype.remove = function(item) {
+        this.removeItemInArray(item.id, this.feedCache[item.feedId]);
+        return this.removeItemInArray(item.id, this.importantCache);
+      };
+
+      Cache.prototype.setImportant = function(item, isImportant) {
+        if (isImportant) {
+          return this.importantCache.push(item);
+        } else {
+          return this.removeItemInArray(item.id, this.importantCache);
+        }
+      };
+
+      Cache.prototype.getHighestId = function(type, id) {
+        if (this.isFeed(type)) {
+          return this.highestIds[id] || 0;
+        } else {
+          return this.highestId;
+        }
+      };
+
+      Cache.prototype.getHighestTimestamp = function(type, id) {
+        if (this.isFeed(type)) {
+          return this.highestTimestamps[id] || 0;
+        } else {
+          return this.highestTimestamp;
+        }
+      };
+
+      Cache.prototype.getLowestId = function(type, id) {
+        if (this.isFeed(type)) {
+          return this.lowestIds[id] || 0;
+        } else {
+          return this.lowestId;
+        }
+      };
+
+      Cache.prototype.getLowestTimestamp = function(type, id) {
+        if (this.isFeed(type)) {
+          return this.lowestTimestamps[id] || 0;
+        } else {
+          return this.lowestTimestamp;
+        }
+      };
+
+      Cache.prototype.isFeed = function(type) {
+        return type === this.feedType.Feed;
+      };
+
+      return Cache;
+
+    })();
+    return Cache;
+  });
+
+  /*
+  # ownCloud news app
+  #
+  # @author Alessandro Cosentino
+  # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
+  # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
+  #
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
+  #
+  # See the COPYING-README file
+  #
+  */
+
+
+  angular.module('News').factory('_FeedModel', [
+    'Model', function(Model) {
+      var FeedModel;
+      FeedModel = (function(_super) {
+
+        __extends(FeedModel, _super);
+
+        function FeedModel() {
+          FeedModel.__super__.constructor.call(this);
+        }
+
+        FeedModel.prototype.add = function(item) {
+          return FeedModel.__super__.add.call(this, this.bindAdditional(item));
+        };
+
+        FeedModel.prototype.bindAdditional = function(item) {
+          if (item.icon === "url()") {
+            item.icon = 'url(' + OC.imagePath('news', 'rss.svg') + ')';
+          }
+          return item;
+        };
+
+        return FeedModel;
+
+      })(Model);
+      return FeedModel;
+    }
+  ]);
+
+  /*
+  # ownCloud news app
+  #
+  # @author Alessandro Cosentino
+  # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
+  # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
+  #
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
+  #
+  # See the COPYING-README file
+  #
+  */
+
+
+  angular.module('News').factory('FeedType', function() {
+    var feedType;
+    return feedType = {
+      Feed: 0,
+      Folder: 1,
+      Starred: 2,
+      Subscriptions: 3,
+      Shared: 4
+    };
+  });
+
+  /*
+  # ownCloud news app
+  #
+  # @author Alessandro Cosentino
+  # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
+  # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
+  #
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
+  #
+  # See the COPYING-README file
+  #
+  */
+
+
+  angular.module('News').factory('_FolderModel', [
+    'Model', function(Model, $rootScope) {
+      var FolderModel;
+      FolderModel = (function(_super) {
+
+        __extends(FolderModel, _super);
+
+        function FolderModel() {
+          FolderModel.__super__.constructor.call(this);
+        }
+
+        return FolderModel;
+
+      })(Model);
+      return FolderModel;
+    }
+  ]);
+
+  /*
+  # ownCloud news app
+  #
+  # @author Alessandro Cosentino
+  # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
+  # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
+  #
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
+  #
+  # See the COPYING-README file
+  #
+  */
+
+
+  angular.module('News').factory('_GarbageRegistry', function() {
+    var GarbageRegistry;
+    GarbageRegistry = (function() {
+
+      function GarbageRegistry(itemModel) {
+        this.itemModel = itemModel;
+        this.registeredItemIds = {};
+      }
+
+      GarbageRegistry.prototype.register = function(item) {
+        var itemId;
+        itemId = item.id;
+        return this.registeredItemIds[itemId] = item;
+      };
+
+      GarbageRegistry.prototype.unregister = function(item) {
+        var itemId;
+        itemId = item.id;
+        return delete this.registeredItemIds[itemId];
+      };
+
+      GarbageRegistry.prototype.clear = function() {
+        var id, item, _ref;
+        _ref = this.registeredItemIds;
+        for (id in _ref) {
+          item = _ref[id];
+          if (!item.keptUnread) {
+            this.itemModel.removeById(parseInt(id, 10));
+          }
+          item.keptUnread = false;
+        }
+        return this.registeredItemIds = {};
+      };
+
+      return GarbageRegistry;
+
+    })();
+    return GarbageRegistry;
+  });
+
+  /*
+  # ownCloud news app
+  #
+  # @author Alessandro Cosentino
+  # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
+  # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
+  #
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
+  #
   # See the COPYING-README file
   #
   */
@@ -581,12 +792,151 @@
   ]);
 
   /*
-  # ownCloud - News app
+  # ownCloud news app
   #
+  # @author Alessandro Cosentino
   # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
   # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
   #
-  # This file is licensed under the Affero General Public License version 3 or later.
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
+  #
+  # See the COPYING-README file
+  #
+  */
+
+
+  angular.module('News').factory('_Loading', function() {
+    var Loading;
+    return Loading = (function() {
+
+      function Loading() {
+        this.loading = 0;
+      }
+
+      return Loading;
+
+    })();
+  });
+
+  /*
+  # ownCloud news app
+  #
+  # @author Alessandro Cosentino
+  # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
+  # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
+  #
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
+  #
+  # See the COPYING-README file
+  #
+  */
+
+
+  angular.module('News').factory('Model', function() {
+    var Model;
+    Model = (function() {
+
+      function Model() {
+        this.clearCache();
+      }
+
+      Model.prototype.handle = function(data) {
+        var item, _i, _len, _results;
+        _results = [];
+        for (_i = 0, _len = data.length; _i < _len; _i++) {
+          item = data[_i];
+          _results.push(this.add(item));
+        }
+        return _results;
+      };
+
+      Model.prototype.clearCache = function() {
+        this.items = [];
+        this.itemIds = {};
+        return this.markAccessed();
+      };
+
+      Model.prototype.markAccessed = function() {
+        return this.lastAccessed = new Date().getTime();
+      };
+
+      Model.prototype.getLastModified = function() {
+        return this.lastAccessed;
+      };
+
+      Model.prototype.add = function(item) {
+        if (this.itemIds[item.id] === void 0) {
+          this.items.push(item);
+          this.itemIds[item.id] = item;
+          this.markAccessed();
+          return true;
+        } else {
+          this.update(item);
+          return false;
+        }
+      };
+
+      Model.prototype.update = function(item) {
+        var key, updatedItem, value;
+        updatedItem = this.itemIds[item.id];
+        for (key in item) {
+          value = item[key];
+          if (key !== 'id') {
+            updatedItem[key] = value;
+          }
+        }
+        return this.markAccessed();
+      };
+
+      Model.prototype.removeById = function(id) {
+        var counter, item, removeItemIndex, _i, _len, _ref;
+        removeItemIndex = null;
+        counter = 0;
+        _ref = this.items;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          item = _ref[_i];
+          if (item.id === id) {
+            removeItemIndex = counter;
+            break;
+          }
+          counter += 1;
+        }
+        if (removeItemIndex !== null) {
+          this.items.splice(removeItemIndex, 1);
+          delete this.itemIds[id];
+        }
+        return this.markAccessed();
+      };
+
+      Model.prototype.getItemById = function(id) {
+        return this.itemIds[id];
+      };
+
+      Model.prototype.getItems = function() {
+        return this.items;
+      };
+
+      return Model;
+
+    })();
+    return Model;
+  });
+
+  /*
+  # ownCloud news app
+  #
+  # @author Alessandro Cosentino
+  # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
+  # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
+  #
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
+  #
   # See the COPYING-README file
   #
   */
@@ -681,146 +1031,16 @@
   });
 
   /*
-  # ownCloud - News app
+  # ownCloud news app
   #
+  # @author Alessandro Cosentino
   # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
   # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
   #
-  # This file is licensed under the Affero General Public License version 3 or later.
-  # See the COPYING-README file
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
   #
-  */
-
-
-  angular.module('News').factory('Loading', [
-    '_Loading', function(_Loading) {
-      return new _Loading();
-    }
-  ]);
-
-  angular.module('News').factory('ActiveFeed', [
-    '_ActiveFeed', 'Publisher', function(_ActiveFeed, Publisher) {
-      var model;
-      model = new _ActiveFeed();
-      Publisher.subscribeTo('activeFeed', model);
-      return model;
-    }
-  ]);
-
-  angular.module('News').factory('ShowAll', [
-    '_ShowAll', 'Publisher', function(_ShowAll, Publisher) {
-      var model;
-      model = new _ShowAll();
-      Publisher.subscribeTo('showAll', model);
-      return model;
-    }
-  ]);
-
-  angular.module('News').factory('StarredCount', [
-    '_StarredCount', 'Publisher', function(_StarredCount, Publisher) {
-      var model;
-      model = new _StarredCount();
-      Publisher.subscribeTo('starredCount', model);
-      return model;
-    }
-  ]);
-
-  angular.module('News').factory('FeedModel', [
-    '_FeedModel', 'Publisher', function(_FeedModel, Publisher) {
-      var model;
-      model = new _FeedModel();
-      Publisher.subscribeTo('feeds', model);
-      return model;
-    }
-  ]);
-
-  angular.module('News').factory('FolderModel', [
-    '_FolderModel', 'Publisher', function(_FolderModel, Publisher) {
-      var model;
-      model = new _FolderModel();
-      Publisher.subscribeTo('folders', model);
-      return model;
-    }
-  ]);
-
-  angular.module('News').factory('ItemModel', [
-    '_ItemModel', 'Publisher', 'Cache', 'FeedType', function(_ItemModel, Publisher, Cache, FeedType) {
-      var model;
-      model = new _ItemModel(Cache, FeedType);
-      Publisher.subscribeTo('items', model);
-      return model;
-    }
-  ]);
-
-  angular.module('News').factory('Cache', [
-    '_Cache', 'FeedType', 'FeedModel', 'FolderModel', function(_Cache, FeedType, FeedModel, FolderModel) {
-      return new _Cache(FeedType, FeedModel, FolderModel);
-    }
-  ]);
-
-  angular.module('News').factory('PersistenceNews', [
-    '_PersistenceNews', '$http', '$rootScope', 'Loading', 'Publisher', function(_PersistenceNews, $http, $rootScope, Loading, Publisher) {
-      return new _PersistenceNews($http, $rootScope, Loading, Publisher);
-    }
-  ]);
-
-  angular.module('News').factory('GarbageRegistry', [
-    '_GarbageRegistry', 'ItemModel', function(_GarbageRegistry, ItemModel) {
-      return new _GarbageRegistry(ItemModel);
-    }
-  ]);
-
-  angular.module('News').factory('Publisher', [
-    '_Publisher', function(_Publisher) {
-      return new _Publisher();
-    }
-  ]);
-
-  angular.module('News').factory('OPMLParser', [
-    '_OPMLParser', function(_OPMLParser) {
-      return new _OPMLParser();
-    }
-  ]);
-
-  /*
-  # ownCloud - News app
-  #
-  # @author Bernhard Posselt
-  # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
-  #
-  # This file is licensed under the Affero General Public License version 3 or later.
-  # See the COPYING-README file
-  #
-  */
-
-
-  angular.module('News').factory('_ActiveFeed', function() {
-    var ActiveFeed;
-    ActiveFeed = (function() {
-
-      function ActiveFeed() {
-        this.id = 0;
-        this.type = 3;
-      }
-
-      ActiveFeed.prototype.handle = function(data) {
-        this.id = data.id;
-        return this.type = data.type;
-      };
-
-      return ActiveFeed;
-
-    })();
-    return ActiveFeed;
-  });
-
-  /*
-  # ownCloud - News app
-  #
-  # @author Bernhard Posselt
-  # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
-  #
-  # This file is licensed under the Affero General Public License version 3 or later.
   # See the COPYING-README file
   #
   */
@@ -913,42 +1133,16 @@
   });
 
   /*
-  # ownCloud - News app
+  # ownCloud news app
   #
+  # @author Alessandro Cosentino
   # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
   # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
   #
-  # This file is licensed under the Affero General Public License version 3 or later.
-  # See the COPYING-README file
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
   #
-  */
-
-
-  angular.module('News').factory('_FolderModel', [
-    'Model', function(Model, $rootScope) {
-      var FolderModel;
-      FolderModel = (function(_super) {
-
-        __extends(FolderModel, _super);
-
-        function FolderModel() {
-          FolderModel.__super__.constructor.call(this);
-        }
-
-        return FolderModel;
-
-      })(Model);
-      return FolderModel;
-    }
-  ]);
-
-  /*
-  # ownCloud - News app
-  #
-  # @author Bernhard Posselt
-  # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
-  #
-  # This file is licensed under the Affero General Public License version 3 or later.
   # See the COPYING-README file
   #
   */
@@ -1143,339 +1337,16 @@
   ]);
 
   /*
-  # ownCloud - News app
+  # ownCloud news app
   #
+  # @author Alessandro Cosentino
   # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
   # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
   #
-  # This file is licensed under the Affero General Public License version 3 or later.
-  # See the COPYING-README file
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
   #
-  */
-
-
-  angular.module('News').factory('Model', function() {
-    var Model;
-    Model = (function() {
-
-      function Model() {
-        this.clearCache();
-      }
-
-      Model.prototype.handle = function(data) {
-        var item, _i, _len, _results;
-        _results = [];
-        for (_i = 0, _len = data.length; _i < _len; _i++) {
-          item = data[_i];
-          _results.push(this.add(item));
-        }
-        return _results;
-      };
-
-      Model.prototype.clearCache = function() {
-        this.items = [];
-        this.itemIds = {};
-        return this.markAccessed();
-      };
-
-      Model.prototype.markAccessed = function() {
-        return this.lastAccessed = new Date().getTime();
-      };
-
-      Model.prototype.getLastModified = function() {
-        return this.lastAccessed;
-      };
-
-      Model.prototype.add = function(item) {
-        if (this.itemIds[item.id] === void 0) {
-          this.items.push(item);
-          this.itemIds[item.id] = item;
-          this.markAccessed();
-          return true;
-        } else {
-          this.update(item);
-          return false;
-        }
-      };
-
-      Model.prototype.update = function(item) {
-        var key, updatedItem, value;
-        updatedItem = this.itemIds[item.id];
-        for (key in item) {
-          value = item[key];
-          if (key !== 'id') {
-            updatedItem[key] = value;
-          }
-        }
-        return this.markAccessed();
-      };
-
-      Model.prototype.removeById = function(id) {
-        var counter, item, removeItemIndex, _i, _len, _ref;
-        removeItemIndex = null;
-        counter = 0;
-        _ref = this.items;
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          item = _ref[_i];
-          if (item.id === id) {
-            removeItemIndex = counter;
-            break;
-          }
-          counter += 1;
-        }
-        if (removeItemIndex !== null) {
-          this.items.splice(removeItemIndex, 1);
-          delete this.itemIds[id];
-        }
-        return this.markAccessed();
-      };
-
-      Model.prototype.getItemById = function(id) {
-        return this.itemIds[id];
-      };
-
-      Model.prototype.getItems = function() {
-        return this.items;
-      };
-
-      return Model;
-
-    })();
-    return Model;
-  });
-
-  /*
-  # ownCloud - News app
-  #
-  # @author Bernhard Posselt
-  # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
-  #
-  # This file is licensed under the Affero General Public License version 3 or later.
-  # See the COPYING-README file
-  #
-  */
-
-
-  angular.module('News').factory('_StarredCount', function() {
-    var StarredCount;
-    StarredCount = (function() {
-
-      function StarredCount() {
-        this.count = 0;
-      }
-
-      StarredCount.prototype.handle = function(data) {
-        return this.count = data;
-      };
-
-      return StarredCount;
-
-    })();
-    return StarredCount;
-  });
-
-  /*
-  # ownCloud - News app
-  #
-  # @author Bernhard Posselt
-  # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
-  #
-  # This file is licensed under the Affero General Public License version 3 or later.
-  # See the COPYING-README file
-  #
-  */
-
-
-  angular.module('News').factory('FeedType', function() {
-    var feedType;
-    return feedType = {
-      Feed: 0,
-      Folder: 1,
-      Starred: 2,
-      Subscriptions: 3,
-      Shared: 4
-    };
-  });
-
-  angular.module('News').factory('_Cache', function() {
-    var Cache;
-    Cache = (function() {
-
-      function Cache(feedType, feedModel, folderModel) {
-        this.feedType = feedType;
-        this.feedModel = feedModel;
-        this.folderModel = folderModel;
-        this.clear();
-      }
-
-      Cache.prototype.clear = function() {
-        this.feedCache = [];
-        this.folderCache = {};
-        this.folderCacheLastModified = 0;
-        this.importantCache = [];
-        this.highestId = 0;
-        this.lowestId = 0;
-        this.highestTimestamp = 0;
-        this.lowestTimestamp = 0;
-        this.highestIds = {};
-        this.lowestIds = {};
-        this.highestTimestamps = {};
-        return this.lowestTimestamps = {};
-      };
-
-      Cache.prototype.add = function(item) {
-        if (!this.feedCache[item.feedId]) {
-          this.feedCache[item.feedId] = [];
-        }
-        this.feedCache[item.feedId].push(item);
-        if (this.highestTimestamp < item.date) {
-          this.highestTimestamp = item.date;
-        }
-        if (this.lowestTimestamp > item.date) {
-          this.lowestTimestamp = item.date;
-        }
-        if (this.highestId < item.id) {
-          this.highestId = item.id;
-        }
-        if (this.lowestId > item.id) {
-          this.lowestId = item.id;
-        }
-        if (item.isImportant) {
-          this.importantCache.push(item);
-        }
-        if (this.highestTimestamps[item.feedId] === void 0 || item.id > this.highestTimestamps[item.feedId]) {
-          this.highestTimestamps[item.feedId] = item.date;
-        }
-        if (this.lowestTimestamps[item.feedId] === void 0 || item.id > this.lowestTimestamps[item.feedId]) {
-          this.lowestTimestamps[item.feedId] = item.date;
-        }
-        if (this.highestIds[item.feedId] === void 0 || item.id > this.highestIds[item.feedId]) {
-          this.highestIds[item.feedId] = item.id;
-        }
-        if (this.lowestIds[item.feedId] === void 0 || item.id > this.lowestIds[item.feedId]) {
-          return this.lowestIds[item.feedId] = item.id;
-        }
-      };
-
-      Cache.prototype.getItemsOfFeed = function(feedId) {
-        return this.feedCache[feedId];
-      };
-
-      Cache.prototype.getFeedIdsOfFolder = function(folderId) {
-        this.buildFolderCache(folderId);
-        return this.folderCache[folderId];
-      };
-
-      Cache.prototype.getImportantItems = function() {
-        return this.importantCache;
-      };
-
-      Cache.prototype.buildFolderCache = function(id) {
-        var feed, _i, _len, _ref, _results;
-        if (this.folderCacheLastModified !== this.feedModel.getLastModified()) {
-          this.folderCache = {};
-          this.folderCacheLastModified = this.feedModel.getLastModified();
-        }
-        if (this.folderCache[id] === void 0) {
-          this.folderCache[id] = [];
-          _ref = this.feedModel.getItems();
-          _results = [];
-          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            feed = _ref[_i];
-            if (feed.folderId === id) {
-              _results.push(this.folderCache[id].push(feed.id));
-            } else {
-              _results.push(void 0);
-            }
-          }
-          return _results;
-        }
-      };
-
-      Cache.prototype.getFeedsOfFolderId = function(id) {
-        this.buildFolderCache(id);
-        return this.folderCache[id];
-      };
-
-      Cache.prototype.removeItemInArray = function(id, array) {
-        var counter, element, removeItemIndex, _i, _len;
-        removeItemIndex = null;
-        counter = 0;
-        for (_i = 0, _len = array.length; _i < _len; _i++) {
-          element = array[_i];
-          if (element.id === id) {
-            removeItemIndex = counter;
-            break;
-          }
-          counter += 1;
-        }
-        if (removeItemIndex !== null) {
-          return array.splice(removeItemIndex, 1);
-        }
-      };
-
-      Cache.prototype.remove = function(item) {
-        this.removeItemInArray(item.id, this.feedCache[item.feedId]);
-        return this.removeItemInArray(item.id, this.importantCache);
-      };
-
-      Cache.prototype.setImportant = function(item, isImportant) {
-        if (isImportant) {
-          return this.importantCache.push(item);
-        } else {
-          return this.removeItemInArray(item.id, this.importantCache);
-        }
-      };
-
-      Cache.prototype.getHighestId = function(type, id) {
-        if (this.isFeed(type)) {
-          return this.highestIds[id] || 0;
-        } else {
-          return this.highestId;
-        }
-      };
-
-      Cache.prototype.getHighestTimestamp = function(type, id) {
-        if (this.isFeed(type)) {
-          return this.highestTimestamps[id] || 0;
-        } else {
-          return this.highestTimestamp;
-        }
-      };
-
-      Cache.prototype.getLowestId = function(type, id) {
-        if (this.isFeed(type)) {
-          return this.lowestIds[id] || 0;
-        } else {
-          return this.lowestId;
-        }
-      };
-
-      Cache.prototype.getLowestTimestamp = function(type, id) {
-        if (this.isFeed(type)) {
-          return this.lowestTimestamps[id] || 0;
-        } else {
-          return this.lowestTimestamp;
-        }
-      };
-
-      Cache.prototype.isFeed = function(type) {
-        return type === this.feedType.Feed;
-      };
-
-      return Cache;
-
-    })();
-    return Cache;
-  });
-
-  /*
-  # ownCloud - News app
-  #
-  # @author Bernhard Posselt
-  # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
-  #
-  # This file is licensed under the Affero General Public License version 3 or later.
   # See the COPYING-README file
   #
   */
@@ -1513,130 +1384,190 @@
   });
 
   /*
-  # ownCloud - News app
+  # ownCloud news app
   #
+  # @author Alessandro Cosentino
   # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
   # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
   #
-  # This file is licensed under the Affero General Public License version 3 or later.
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
+  #
   # See the COPYING-README file
   #
   */
 
 
-  angular.module('News').factory('_Loading', function() {
-    var Loading;
-    return Loading = (function() {
+  angular.module('News').factory('Loading', [
+    '_Loading', function(_Loading) {
+      return new _Loading();
+    }
+  ]);
 
-      function Loading() {
-        this.loading = 0;
-      }
+  angular.module('News').factory('ActiveFeed', [
+    '_ActiveFeed', 'Publisher', function(_ActiveFeed, Publisher) {
+      var model;
+      model = new _ActiveFeed();
+      Publisher.subscribeTo('activeFeed', model);
+      return model;
+    }
+  ]);
 
-      return Loading;
+  angular.module('News').factory('ShowAll', [
+    '_ShowAll', 'Publisher', function(_ShowAll, Publisher) {
+      var model;
+      model = new _ShowAll();
+      Publisher.subscribeTo('showAll', model);
+      return model;
+    }
+  ]);
 
-    })();
-  });
+  angular.module('News').factory('StarredCount', [
+    '_StarredCount', 'Publisher', function(_StarredCount, Publisher) {
+      var model;
+      model = new _StarredCount();
+      Publisher.subscribeTo('starredCount', model);
+      return model;
+    }
+  ]);
 
-  /*
-  # ownCloud - News app
-  #
-  # @author Bernhard Posselt
-  # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
-  #
-  # This file is licensed under the Affero General Public License version 3 or later.
-  # See the COPYING-README file
-  #
-  */
+  angular.module('News').factory('FeedModel', [
+    '_FeedModel', 'Publisher', function(_FeedModel, Publisher) {
+      var model;
+      model = new _FeedModel();
+      Publisher.subscribeTo('feeds', model);
+      return model;
+    }
+  ]);
 
+  angular.module('News').factory('FolderModel', [
+    '_FolderModel', 'Publisher', function(_FolderModel, Publisher) {
+      var model;
+      model = new _FolderModel();
+      Publisher.subscribeTo('folders', model);
+      return model;
+    }
+  ]);
 
-  angular.module('News').factory('_GarbageRegistry', function() {
-    var GarbageRegistry;
-    GarbageRegistry = (function() {
+  angular.module('News').factory('ItemModel', [
+    '_ItemModel', 'Publisher', 'Cache', 'FeedType', function(_ItemModel, Publisher, Cache, FeedType) {
+      var model;
+      model = new _ItemModel(Cache, FeedType);
+      Publisher.subscribeTo('items', model);
+      return model;
+    }
+  ]);
 
-      function GarbageRegistry(itemModel) {
-        this.itemModel = itemModel;
-        this.registeredItemIds = {};
-      }
+  angular.module('News').factory('Cache', [
+    '_Cache', 'FeedType', 'FeedModel', 'FolderModel', function(_Cache, FeedType, FeedModel, FolderModel) {
+      return new _Cache(FeedType, FeedModel, FolderModel);
+    }
+  ]);
 
-      GarbageRegistry.prototype.register = function(item) {
-        var itemId;
-        itemId = item.id;
-        return this.registeredItemIds[itemId] = item;
-      };
+  angular.module('News').factory('PersistenceNews', [
+    '_PersistenceNews', '$http', '$rootScope', 'Loading', 'Publisher', function(_PersistenceNews, $http, $rootScope, Loading, Publisher) {
+      return new _PersistenceNews($http, $rootScope, Loading, Publisher);
+    }
+  ]);
 
-      GarbageRegistry.prototype.unregister = function(item) {
-        var itemId;
-        itemId = item.id;
-        return delete this.registeredItemIds[itemId];
-      };
+  angular.module('News').factory('GarbageRegistry', [
+    '_GarbageRegistry', 'ItemModel', function(_GarbageRegistry, ItemModel) {
+      return new _GarbageRegistry(ItemModel);
+    }
+  ]);
 
-      GarbageRegistry.prototype.clear = function() {
-        var id, item, _ref;
-        _ref = this.registeredItemIds;
-        for (id in _ref) {
-          item = _ref[id];
-          if (!item.keptUnread) {
-            this.itemModel.removeById(parseInt(id, 10));
-          }
-          item.keptUnread = false;
-        }
-        return this.registeredItemIds = {};
-      };
+  angular.module('News').factory('Publisher', [
+    '_Publisher', function(_Publisher) {
+      return new _Publisher();
+    }
+  ]);
 
-      return GarbageRegistry;
-
-    })();
-    return GarbageRegistry;
-  });
-
-  /*
-  # ownCloud - News app
-  #
-  # @author Bernhard Posselt
-  # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
-  #
-  # This file is licensed under the Affero General Public License version 3 or later.
-  # See the COPYING-README file
-  #
-  */
-
-
-  angular.module('News').factory('_FeedModel', [
-    'Model', function(Model) {
-      var FeedModel;
-      FeedModel = (function(_super) {
-
-        __extends(FeedModel, _super);
-
-        function FeedModel() {
-          FeedModel.__super__.constructor.call(this);
-        }
-
-        FeedModel.prototype.add = function(item) {
-          return FeedModel.__super__.add.call(this, this.bindAdditional(item));
-        };
-
-        FeedModel.prototype.bindAdditional = function(item) {
-          if (item.icon === "url()") {
-            item.icon = 'url(' + OC.imagePath('news', 'rss.svg') + ')';
-          }
-          return item;
-        };
-
-        return FeedModel;
-
-      })(Model);
-      return FeedModel;
+  angular.module('News').factory('OPMLParser', [
+    '_OPMLParser', function(_OPMLParser) {
+      return new _OPMLParser();
     }
   ]);
 
   /*
-  # ownCloud - News app
+  # ownCloud news app
   #
+  # @author Alessandro Cosentino
   # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
   # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
   #
-  # This file is licensed under the Affero General Public License version 3 or later.
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
+  #
+  # See the COPYING-README file
+  #
+  */
+
+
+  angular.module('News').factory('_ShowAll', function() {
+    var ShowAll;
+    ShowAll = (function() {
+
+      function ShowAll() {
+        this.showAll = false;
+      }
+
+      ShowAll.prototype.handle = function(data) {
+        return this.showAll = data;
+      };
+
+      return ShowAll;
+
+    })();
+    return ShowAll;
+  });
+
+  /*
+  # ownCloud news app
+  #
+  # @author Alessandro Cosentino
+  # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
+  # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
+  #
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
+  #
+  # See the COPYING-README file
+  #
+  */
+
+
+  angular.module('News').factory('_StarredCount', function() {
+    var StarredCount;
+    StarredCount = (function() {
+
+      function StarredCount() {
+        this.count = 0;
+      }
+
+      StarredCount.prototype.handle = function(data) {
+        return this.count = data;
+      };
+
+      return StarredCount;
+
+    })();
+    return StarredCount;
+  });
+
+  /*
+  # ownCloud news app
+  #
+  # @author Alessandro Cosentino
+  # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
+  # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
+  #
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
+  #
   # See the COPYING-README file
   #
   */
@@ -1654,177 +1585,16 @@
   });
 
   /*
-  # ownCloud - News app
+  # ownCloud news app
   #
+  # @author Alessandro Cosentino
   # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
   # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
   #
-  # This file is licensed under the Affero General Public License version 3 or later.
-  # See the COPYING-README file
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
   #
-  */
-
-
-  angular.module('News').factory('_SettingsController', [
-    'Controller', function(Controller) {
-      var SettingsController;
-      SettingsController = (function(_super) {
-
-        __extends(SettingsController, _super);
-
-        function SettingsController($scope, $rootScope, showAll, persistence, folderModel, feedModel, opmlParser) {
-          var _this = this;
-          this.$scope = $scope;
-          this.$rootScope = $rootScope;
-          this.showAll = showAll;
-          this.persistence = persistence;
-          this.folderModel = folderModel;
-          this.feedModel = feedModel;
-          this.opmlParser = opmlParser;
-          this.add = false;
-          this.settings = false;
-          this.addingFeed = false;
-          this.addingFolder = false;
-          this.$scope.getFolders = function() {
-            return _this.folderModel.getItems();
-          };
-          this.$scope.getShowAll = function() {
-            return _this.showAll.showAll;
-          };
-          this.$scope.setShowAll = function(value) {
-            _this.showAll.showAll = value;
-            _this.persistence.showAll(value);
-            return _this.$rootScope.$broadcast('triggerHideRead');
-          };
-          this.$scope.toggleSettings = function() {
-            return _this.settings = !_this.settings;
-          };
-          this.$scope.toggleAdd = function() {
-            return _this.add = !_this.add;
-          };
-          this.$scope.addIsShown = function() {
-            return _this.add;
-          };
-          this.$scope.settingsAreShown = function() {
-            return _this.settings;
-          };
-          this.$scope.isAddingFeed = function() {
-            return _this.addingFeed;
-          };
-          this.$scope.isAddingFolder = function() {
-            return _this.addingFolder;
-          };
-          this.$scope.addFeed = function(url, folder) {
-            var feed, folderId, onError, onSuccess, _i, _len, _ref;
-            _this.$scope.feedEmptyError = false;
-            _this.$scope.feedExistsError = false;
-            _this.$scope.feedError = false;
-            if (url === void 0 || url.trim() === '') {
-              _this.$scope.feedEmptyError = true;
-            } else {
-              url = url.trim();
-              _ref = _this.feedModel.getItems();
-              for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                feed = _ref[_i];
-                if (url === feed.url) {
-                  _this.$scope.feedExistsError = true;
-                }
-              }
-            }
-            if (!(_this.$scope.feedEmptyError || _this.$scope.feedExistsError)) {
-              if (folder === void 0) {
-                folderId = 0;
-              } else {
-                folderId = folder.id;
-              }
-              _this.addingFeed = true;
-              onSuccess = function() {
-                _this.$scope.feedUrl = '';
-                return _this.addingFeed = false;
-              };
-              onError = function() {
-                _this.$scope.feedError = true;
-                return _this.addingFeed = false;
-              };
-              return _this.persistence.createFeed(url, folderId, onSuccess, onError);
-            }
-          };
-          this.$scope.addFolder = function(name) {
-            var folder, onSuccess, _i, _len, _ref;
-            _this.$scope.folderEmptyError = false;
-            _this.$scope.folderExistsError = false;
-            if (name === void 0 || name.trim() === '') {
-              _this.$scope.folderEmptyError = true;
-            } else {
-              name = name.trim();
-              _ref = _this.folderModel.getItems();
-              for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                folder = _ref[_i];
-                if (name.toLowerCase() === folder.name.toLowerCase()) {
-                  _this.$scope.folderExistsError = true;
-                }
-              }
-            }
-            if (!(_this.$scope.folderEmptyError || _this.$scope.folderExistsError)) {
-              _this.addingFolder = true;
-              onSuccess = function() {
-                _this.$scope.folderName = '';
-                return _this.addingFolder = false;
-              };
-              return _this.persistence.createFolder(name, onSuccess);
-            }
-          };
-          this.$scope.$on('readFile', function(scope, fileContent) {
-            var structure;
-            structure = _this.opmlParser.parseXML(fileContent);
-            return _this.parseOPMLStructure(structure);
-          });
-          this.$scope.$on('hidesettings', function() {
-            _this.add = false;
-            return _this.settings = false;
-          });
-        }
-
-        SettingsController.prototype.parseOPMLStructure = function(structure, folderId) {
-          var item, onError, onSuccess, _i, _len, _ref, _results,
-            _this = this;
-          if (folderId == null) {
-            folderId = 0;
-          }
-          _ref = structure.getItems();
-          _results = [];
-          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            item = _ref[_i];
-            if (item.isFolder()) {
-              onSuccess = function(data) {
-                console.log(data);
-                folderId = data.folders[0].id;
-                return _this.parseOPMLStructure(item, folderId);
-              };
-              _results.push(this.persistence.createFolder(item.getName(), onSuccess));
-            } else {
-              onSuccess = function() {};
-              onError = function() {};
-              _results.push(this.persistence.createFeed(item.getUrl(), folderId, onSuccess, onError));
-            }
-          }
-          return _results;
-        };
-
-        return SettingsController;
-
-      })(Controller);
-      return SettingsController;
-    }
-  ]);
-
-  /*
-  # ownCloud - News app
-  #
-  # @author Bernhard Posselt
-  # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
-  #
-  # This file is licensed under the Affero General Public License version 3 or later.
   # See the COPYING-README file
   #
   */
@@ -1849,12 +1619,16 @@
   ]);
 
   /*
-  # ownCloud - News app
+  # ownCloud news app
   #
+  # @author Alessandro Cosentino
   # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
   # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
   #
-  # This file is licensed under the Affero General Public License version 3 or later.
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
+  #
   # See the COPYING-README file
   #
   */
@@ -2118,12 +1892,16 @@
   ]);
 
   /*
-  # ownCloud - News app
+  # ownCloud news app
   #
+  # @author Alessandro Cosentino
   # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
   # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
   #
-  # This file is licensed under the Affero General Public License version 3 or later.
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
+  #
   # See the COPYING-README file
   #
   */
@@ -2217,68 +1995,255 @@
   ]);
 
   /*
-  # ownCloud - News app
+  # ownCloud news app
   #
+  # @author Alessandro Cosentino
   # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
   # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
   #
-  # This file is licensed under the Affero General Public License version 3 or later.
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
+  #
   # See the COPYING-README file
   #
   */
 
 
-  scrolling = true;
+  angular.module('News').factory('_SettingsController', [
+    'Controller', function(Controller) {
+      var SettingsController;
+      SettingsController = (function(_super) {
 
-  markingRead = true;
+        __extends(SettingsController, _super);
 
-  angular.module('News').directive('whenScrolled', [
-    '$rootScope', 'Config', function($rootScope, Config) {
-      return function(scope, elm, attr) {
-        return elm.bind('scroll', function() {
-          if (scrolling) {
-            scrolling = false;
-            setTimeout(function() {
-              return scrolling = true;
-            }, Config.ScrollTimeout);
-            if (markingRead) {
-              markingRead = false;
-              setTimeout(function() {
-                var $elems, feed, feedItem, id, offset, _i, _len, _results;
-                markingRead = true;
-                $elems = $(elm).find('.feed_item:not(.read)');
-                _results = [];
-                for (_i = 0, _len = $elems.length; _i < _len; _i++) {
-                  feedItem = $elems[_i];
-                  offset = $(feedItem).position().top;
-                  if (offset <= -50) {
-                    id = parseInt($(feedItem).data('id'), 10);
-                    feed = parseInt($(feedItem).data('feed'), 10);
-                    _results.push($rootScope.$broadcast('read', {
-                      id: id,
-                      feed: feed
-                    }));
-                  } else {
-                    break;
-                  }
+        function SettingsController($scope, $rootScope, showAll, persistence, folderModel, feedModel, opmlParser) {
+          var _this = this;
+          this.$scope = $scope;
+          this.$rootScope = $rootScope;
+          this.showAll = showAll;
+          this.persistence = persistence;
+          this.folderModel = folderModel;
+          this.feedModel = feedModel;
+          this.opmlParser = opmlParser;
+          this.add = false;
+          this.settings = false;
+          this.addingFeed = false;
+          this.addingFolder = false;
+          this.$scope.getFolders = function() {
+            return _this.folderModel.getItems();
+          };
+          this.$scope.getShowAll = function() {
+            return _this.showAll.showAll;
+          };
+          this.$scope.setShowAll = function(value) {
+            _this.showAll.showAll = value;
+            _this.persistence.showAll(value);
+            return _this.$rootScope.$broadcast('triggerHideRead');
+          };
+          this.$scope.toggleSettings = function() {
+            return _this.settings = !_this.settings;
+          };
+          this.$scope.toggleAdd = function() {
+            return _this.add = !_this.add;
+          };
+          this.$scope.addIsShown = function() {
+            return _this.add;
+          };
+          this.$scope.settingsAreShown = function() {
+            return _this.settings;
+          };
+          this.$scope.isAddingFeed = function() {
+            return _this.addingFeed;
+          };
+          this.$scope.isAddingFolder = function() {
+            return _this.addingFolder;
+          };
+          this.$scope.addFeed = function(url, folder) {
+            var feed, folderId, onError, onSuccess, _i, _len, _ref;
+            _this.$scope.feedEmptyError = false;
+            _this.$scope.feedExistsError = false;
+            _this.$scope.feedError = false;
+            if (url === void 0 || url.trim() === '') {
+              _this.$scope.feedEmptyError = true;
+            } else {
+              url = url.trim();
+              _ref = _this.feedModel.getItems();
+              for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                feed = _ref[_i];
+                if (url === feed.url) {
+                  _this.$scope.feedExistsError = true;
                 }
-                return _results;
-              }, Config.MarkReadTimeout);
+              }
             }
-            return scope.$apply(attr.whenScrolled);
+            if (!(_this.$scope.feedEmptyError || _this.$scope.feedExistsError)) {
+              if (folder === void 0) {
+                folderId = 0;
+              } else {
+                folderId = folder.id;
+              }
+              _this.addingFeed = true;
+              onSuccess = function() {
+                _this.$scope.feedUrl = '';
+                return _this.addingFeed = false;
+              };
+              onError = function() {
+                _this.$scope.feedError = true;
+                return _this.addingFeed = false;
+              };
+              return _this.persistence.createFeed(url, folderId, onSuccess, onError);
+            }
+          };
+          this.$scope.addFolder = function(name) {
+            var folder, onSuccess, _i, _len, _ref;
+            _this.$scope.folderEmptyError = false;
+            _this.$scope.folderExistsError = false;
+            if (name === void 0 || name.trim() === '') {
+              _this.$scope.folderEmptyError = true;
+            } else {
+              name = name.trim();
+              _ref = _this.folderModel.getItems();
+              for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                folder = _ref[_i];
+                if (name.toLowerCase() === folder.name.toLowerCase()) {
+                  _this.$scope.folderExistsError = true;
+                }
+              }
+            }
+            if (!(_this.$scope.folderEmptyError || _this.$scope.folderExistsError)) {
+              _this.addingFolder = true;
+              onSuccess = function() {
+                _this.$scope.folderName = '';
+                return _this.addingFolder = false;
+              };
+              return _this.persistence.createFolder(name, onSuccess);
+            }
+          };
+          this.$scope.$on('readFile', function(scope, fileContent) {
+            var structure;
+            structure = _this.opmlParser.parseXML(fileContent);
+            return _this.parseOPMLStructure(structure);
+          });
+          this.$scope.$on('hidesettings', function() {
+            _this.add = false;
+            return _this.settings = false;
+          });
+        }
+
+        SettingsController.prototype.parseOPMLStructure = function(structure, folderId) {
+          var item, onError, onSuccess, _i, _len, _ref, _results,
+            _this = this;
+          if (folderId == null) {
+            folderId = 0;
           }
-        });
+          _ref = structure.getItems();
+          _results = [];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            item = _ref[_i];
+            if (item.isFolder()) {
+              onSuccess = function(data) {
+                console.log(data);
+                folderId = data.folders[0].id;
+                return _this.parseOPMLStructure(item, folderId);
+              };
+              _results.push(this.persistence.createFolder(item.getName(), onSuccess));
+            } else {
+              onSuccess = function() {};
+              onError = function() {};
+              _results.push(this.persistence.createFeed(item.getUrl(), folderId, onSuccess, onError));
+            }
+          }
+          return _results;
+        };
+
+        return SettingsController;
+
+      })(Controller);
+      return SettingsController;
+    }
+  ]);
+
+  /*
+  # ownCloud news app
+  #
+  # @author Alessandro Cosentino
+  # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
+  # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
+  #
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
+  #
+  # See the COPYING-README file
+  #
+  */
+
+
+  angular.module('News').directive('draggable', function() {
+    return function(scope, elm, attr) {
+      var details;
+      details = {
+        revert: true,
+        stack: '> li',
+        zIndex: 1000,
+        axis: 'y'
+      };
+      return $(elm).draggable(details);
+    };
+  });
+
+  /*
+  # ownCloud news app
+  #
+  # @author Alessandro Cosentino
+  # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
+  # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
+  #
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
+  #
+  # See the COPYING-README file
+  #
+  */
+
+
+  angular.module('News').directive('droppable', [
+    '$rootScope', function($rootScope) {
+      return function(scope, elm, attr) {
+        var $elem, details;
+        $elem = $(elm);
+        details = {
+          accept: '.feed',
+          hoverClass: 'dnd_over',
+          greedy: true,
+          drop: function(event, ui) {
+            var data;
+            $('.dnd_over').removeClass('dnd_over');
+            data = {
+              folderId: parseInt($elem.data('id'), 10),
+              feedId: parseInt($(ui.draggable).data('id'), 10)
+            };
+            $rootScope.$broadcast('moveFeedToFolder', data);
+            return scope.$apply(attr.droppable);
+          }
+        };
+        return $elem.droppable(details);
       };
     }
   ]);
 
   /*
-  # ownCloud - News app
+  # ownCloud news app
   #
+  # @author Alessandro Cosentino
   # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
   # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
   #
-  # This file is licensed under the Affero General Public License version 3 or later.
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
+  #
   # See the COPYING-README file
   #
   */
@@ -2346,37 +2311,16 @@
   });
 
   /*
-  # ownCloud - News app
+  # ownCloud news app
   #
+  # @author Alessandro Cosentino
   # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
   # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
   #
-  # This file is licensed under the Affero General Public License version 3 or later.
-  # See the COPYING-README file
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
   #
-  */
-
-
-  angular.module('News').directive('draggable', function() {
-    return function(scope, elm, attr) {
-      var details;
-      details = {
-        revert: true,
-        stack: '> li',
-        zIndex: 1000,
-        axis: 'y'
-      };
-      return $(elm).draggable(details);
-    };
-  });
-
-  /*
-  # ownCloud - News app
-  #
-  # @author Bernhard Posselt
-  # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
-  #
-  # This file is licensed under the Affero General Public License version 3 or later.
   # See the COPYING-README file
   #
   */
@@ -2403,49 +2347,43 @@
   ]);
 
   /*
-  # ownCloud - News app
+  # ownCloud news app
   #
+  # @author Alessandro Cosentino
   # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
   # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
   #
-  # This file is licensed under the Affero General Public License version 3 or later.
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
+  #
   # See the COPYING-README file
   #
   */
 
 
-  angular.module('News').directive('droppable', [
-    '$rootScope', function($rootScope) {
-      return function(scope, elm, attr) {
-        var $elem, details;
-        $elem = $(elm);
-        details = {
-          accept: '.feed',
-          hoverClass: 'dnd_over',
-          greedy: true,
-          drop: function(event, ui) {
-            var data;
-            $('.dnd_over').removeClass('dnd_over');
-            data = {
-              folderId: parseInt($elem.data('id'), 10),
-              feedId: parseInt($(ui.draggable).data('id'), 10)
-            };
-            $rootScope.$broadcast('moveFeedToFolder', data);
-            return scope.$apply(attr.droppable);
-          }
-        };
-        return $elem.droppable(details);
-      };
-    }
-  ]);
+  angular.module('News').directive('onEnter', function() {
+    return function(scope, elm, attr) {
+      return elm.bind('keyup', function(e) {
+        if (e.keyCode === 13) {
+          e.preventDefault();
+          return scope.$apply(attr.onEnter);
+        }
+      });
+    };
+  });
 
   /*
-  # ownCloud - News app
+  # ownCloud news app
   #
+  # @author Alessandro Cosentino
   # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
   # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
   #
-  # This file is licensed under the Affero General Public License version 3 or later.
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
+  #
   # See the COPYING-README file
   #
   */
@@ -2480,35 +2418,76 @@
   ]);
 
   /*
-  # ownCloud - News app
+  # ownCloud news app
   #
+  # @author Alessandro Cosentino
   # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
   # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
   #
-  # This file is licensed under the Affero General Public License version 3 or later.
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
+  #
   # See the COPYING-README file
   #
   */
 
 
-  angular.module('News').directive('onEnter', function() {
-    return function(scope, elm, attr) {
-      return elm.bind('keyup', function(e) {
-        if (e.keyCode === 13) {
-          e.preventDefault();
-          return scope.$apply(attr.onEnter);
-        }
-      });
-    };
-  });
+  scrolling = true;
+
+  markingRead = true;
+
+  angular.module('News').directive('whenScrolled', [
+    '$rootScope', 'Config', function($rootScope, Config) {
+      return function(scope, elm, attr) {
+        return elm.bind('scroll', function() {
+          if (scrolling) {
+            scrolling = false;
+            setTimeout(function() {
+              return scrolling = true;
+            }, Config.ScrollTimeout);
+            if (markingRead) {
+              markingRead = false;
+              setTimeout(function() {
+                var $elems, feed, feedItem, id, offset, _i, _len, _results;
+                markingRead = true;
+                $elems = $(elm).find('.feed_item:not(.read)');
+                _results = [];
+                for (_i = 0, _len = $elems.length; _i < _len; _i++) {
+                  feedItem = $elems[_i];
+                  offset = $(feedItem).position().top;
+                  if (offset <= -50) {
+                    id = parseInt($(feedItem).data('id'), 10);
+                    feed = parseInt($(feedItem).data('feed'), 10);
+                    _results.push($rootScope.$broadcast('read', {
+                      id: id,
+                      feed: feed
+                    }));
+                  } else {
+                    break;
+                  }
+                }
+                return _results;
+              }, Config.MarkReadTimeout);
+            }
+            return scope.$apply(attr.whenScrolled);
+          }
+        });
+      };
+    }
+  ]);
 
   /*
-  # ownCloud - News app
+  # ownCloud news app
   #
+  # @author Alessandro Cosentino
   # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
   # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
   #
-  # This file is licensed under the Affero General Public License version 3 or later.
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
+  #
   # See the COPYING-README file
   #
   */
@@ -2529,5 +2508,3 @@
   });
 
 }).call(this);
-
-})(window.angular, jQuery, OC, oc_requesttoken);

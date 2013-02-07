@@ -21,10 +21,11 @@ angular.module('OC', []).config ['$httpProvider', ($httpProvider) ->
 	$httpProvider.defaults.post['requesttoken'] = oc_requesttoken
 	
 	# needed because crap PHP does not understand JSON
-        $httpProvider.defaults.post['Content-Type'] =
-                'application/x-www-form-urlencoded'
-        $httpProvider.defaults.get['Content-Type'] =
-                'application/x-www-form-urlencoded'
+	$httpProvider.defaults.post['Content-Type'] =
+		'application/x-www-form-urlencoded'
+		
+	$httpProvider.defaults.get['Content-Type'] =
+		'application/x-www-form-urlencoded'
 	$httpProvider.defaults.transformRequest = (data) ->
 		if angular.isDefined(data)
 			return data

@@ -16,7 +16,10 @@
 module.exports = (grunt) ->
 	
 	grunt.loadNpmTasks('grunt-contrib-coffee')
-        grunt.loadNpmTasks('grunt-coffeelint')
+	grunt.loadNpmTasks('grunt-contrib-concat')
+	grunt.loadNpmTasks('grunt-contrib-watch')
+	grunt.loadNpmTasks('grunt-coffeelint')
+	grunt.loadNpmTasks('gruntacular');
 
 	grunt.initConfig
 	
@@ -41,10 +44,10 @@ module.exports = (grunt) ->
 			production: '../js/'
 
 		concat:
-                        options:
-                                banner: '<%= meta.banner %>\n'
 			app: 
-                                src: '<%= meta.build %>main.js'
+				options:
+					banner: '<%= meta.banner %>\n'
+				src: '<%= meta.build %>main.js'
 				dest: '<%= meta.production %>app.js'
 			owncloud: 
 				src: ['lib/owncloud.coffee', 'lib/services/*.coffee']
@@ -66,21 +69,20 @@ module.exports = (grunt) ->
 						'<%= meta.build %>owncloud.coffee'
 						'<%= meta.build %>news.coffee'
 					]
-                coffeelintOptions:
-                        'no_tabs':
-                                'level': 'ignore'
-                        'indentation':
-                                'level': 'ignore'
-
-                coffeelint:
-                        app: [
-                                'app.coffee'
-                                'services/*.coffee'
-                                'controllers/*.coffee'
-                                'directives/*.coffee'
-                                'filters/*.coffee'
-                                'lib/**/*.coffee'
-                        ]
+		coffeelint:
+			app: [
+				'app.coffee'
+				'services/*.coffee'
+				'controllers/*.coffee'
+				'directives/*.coffee'
+				'filters/*.coffee'
+				'lib/**/*.coffee'
+			]
+		coffeelintOptions:
+			'no_tabs':
+				'level': 'ignore'
+			'indentation':
+				'level': 'ignore'
 
 		watch: 
 			app: 
@@ -88,12 +90,13 @@ module.exports = (grunt) ->
 				tasks: 'compile'
 
 
-	grunt.registerTask('run', 'watch')
-        grunt.registerTask('compile', [
-                        'coffeelint'
-                        'concat:owncloud'
-                        'concat:news'
-                        'coffee'
-                        'concat:app'
-                        ]
-        )
+	grunt.registerTask('run', ['watch'])
+	grunt.registerTask('lint', ['coffeelint'])
+	grunt.registerTask('compile', [
+			#'coffeelint'
+			'concat:owncloud'
+			'concat:news'
+			'coffee'
+			'concat:app'
+			]
+	)
