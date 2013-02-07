@@ -1,3 +1,14 @@
+/**
+ * ownCloud RSS reader app - v0.0.1
+ *
+ * Copyright (c) 2013 - Alessandro Cosentino <cosenal@gmail.com>
+ * Copyright (c) 2013 - Bernhard Posselt <nukeawhale@gmail.com>
+ *
+ * This file is licensed under the Affero General Public License version 3 or later.
+ * See the COPYING-README file
+ *
+ */
+
 (function(angular, $, OC, oc_requesttoken){
 
 
