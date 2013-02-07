@@ -1,10 +1,14 @@
 ###
-# ownCloud - News app
+# ownCloud news app
 #
+# @author Alessandro Cosentino
 # @author Bernhard Posselt
+# Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
 # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
 #
-# This file is licensed under the Affero General Public License version 3 or later.
+# This file is licensed under the Affero General Public License version 3 or
+# later.
+#
 # See the COPYING-README file
 #
 ###
@@ -30,9 +34,9 @@ $(document).ready ->
 	# and thus clearing the scroll cache
 	$(this).keyup (e) ->
 		if (e.which == 116) || (e.which == 82 && e.ctrlKey)
-			document.location.reload(true);
+                        document.location.reload(true)
 			return false
 
 	# click on upload button should trigger the file input
 	$('#browselink').click ->
-		$('#file_upload_start').trigger('click');
+                $('#file_upload_start').trigger('click')

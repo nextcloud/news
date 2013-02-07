@@ -1,6 +1,22 @@
+###
+# ownCloud news app
+#
+# @author Alessandro Cosentino
+# @author Bernhard Posselt
+# Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
+# Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
+#
+# This file is licensed under the Affero General Public License version 3 or
+# later.
+#
+# See the COPYING-README file
+#
+###
+
 module.exports = (grunt) ->
 	
 	grunt.loadNpmTasks('grunt-contrib-coffee')
+        grunt.loadNpmTasks('grunt-coffeelint')
 
 	grunt.initConfig
 	
@@ -25,13 +41,10 @@ module.exports = (grunt) ->
 			production: '../js/'
 
 		concat:
+                        options:
+                                banner: '<%= meta.banner %>\n'
 			app: 
-				src: [	
-						'<banner:meta.banner>'
-						'<banner:meta.prefix>'
-						'<%= meta.build %>main.js'
-						'<banner:meta.suffix>'
-					]
+                                src: '<%= meta.build %>main.js'
 				dest: '<%= meta.production %>app.js'
 			owncloud: 
 				src: ['lib/owncloud.coffee', 'lib/services/*.coffee']
@@ -53,6 +66,21 @@ module.exports = (grunt) ->
 						'<%= meta.build %>owncloud.coffee'
 						'<%= meta.build %>news.coffee'
 					]
+                coffeelintOptions:
+                        'no_tabs':
+                                'level': 'ignore'
+                        'indentation':
+                                'level': 'ignore'
+
+                coffeelint:
+                        app: [
+                                'app.coffee'
+                                'services/*.coffee'
+                                'controllers/*.coffee'
+                                'directives/*.coffee'
+                                'filters/*.coffee'
+                                'lib/**/*.coffee'
+                        ]
 
 		watch: 
 			app: 
@@ -61,4 +89,11 @@ module.exports = (grunt) ->
 
 
 	grunt.registerTask('run', 'watch')
-	grunt.registerTask('compile', 'concat:owncloud concat:news coffee concat:app')
+        grunt.registerTask('compile', [
+                        'coffeelint'
+                        'concat:owncloud'
+                        'concat:news'
+                        'coffee'
+                        'concat:app'
+                        ]
+        )
