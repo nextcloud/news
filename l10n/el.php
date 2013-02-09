@@ -18,6 +18,7 @@
 "Delete folder" => "Διαγραφή φακέλου",
 "Rename folder" => "Μετονομασία φακέλου",
 "Add Subscription" => "Προσθήκη Συνδρομής",
+"Folder under which the feed is being saved" => "Φάκελος που αποθηκεύεται η ροή",
 "-- choose folder --" => "-- αλλαγή φακέλου --",
 "Address must not be empty!" => "Η διεύθυνση δεν πρέπει να είναι κενή!",
 "Feed exists already!" => "Η ροή υπάρχει ήδη!",
