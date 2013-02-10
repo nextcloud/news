@@ -69,8 +69,8 @@ class FolderController extends Controller {
 			return $this->renderJSON(array());
 		} catch (DoesNotExistException $e) {
 			return $this->renderJSON(array(), $e->getMessage());
-                } catch(MultipleObjectsReturnedException $e){
-                        return $this->renderJSON(array(), $e->getMessage());
+		} catch(MultipleObjectsReturnedException $e){
+			return $this->renderJSON(array(), $e->getMessage());
 		}
 	}
 

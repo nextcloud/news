@@ -148,7 +148,7 @@ class FolderControllerTest extends ControllerTestUtility {
 	}
 
 
-        private function collapseException($ex){
+	private function collapseException($ex){
 		$urlParams = array('folderId' => 1);
 		$this->folderMapper->expects($this->once())
 					->method('setCollapsed')
@@ -158,21 +158,21 @@ class FolderControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->collapse();
 
-                $expected = '{"status":"error","data":[],"msg":"' . $ex->getMessage() . '"}';
+		$expected = '{"status":"error","data":[],"msg":"' . $ex->getMessage() . '"}';
 		$this->assertEquals($expected, $response->render());
 	}
 
 
-        public function testCollapseDoesNotExistExceptionReturnsJSONError(){
-                $ex = new DoesNotExistException('exception');
-                $this->collapseException($ex);
-        }
+	public function testCollapseDoesNotExistExceptionReturnsJSONError(){
+		$ex = new DoesNotExistException('exception');
+		$this->collapseException($ex);
+	}
 
 
-        public function testCollapseMultipleObjectsReturnedReturnsJSONError(){
-                $ex = new MultipleObjectsReturnedException('exception');
-                $this->collapseException($ex);
-        }
+	public function testCollapseMultipleObjectsReturnedReturnsJSONError(){
+		$ex = new MultipleObjectsReturnedException('exception');
+		$this->collapseException($ex);
+	}
 
 
 }
