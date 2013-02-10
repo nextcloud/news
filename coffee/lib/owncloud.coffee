@@ -26,9 +26,19 @@ angular.module('OC', []).config ['$httpProvider', ($httpProvider) ->
 		
 	$httpProvider.defaults.get['Content-Type'] =
 		'application/x-www-form-urlencoded'
+
 	$httpProvider.defaults.transformRequest = (data) ->
 		if angular.isDefined(data)
 			return data
 		else
 			return $.param(data)
+]
+
+angular.module('OC').init ['$rootScope', 'Router', ($rootScope, Router) ->
+        init = ->
+                $rootScope.$broadcast('routesLoaded')
+
+        # this registers a callback that is executed once the routes have
+        # finished loading. Before this you cant really do request
+        OC.Router.registerLoadedCallback(init)
 ]

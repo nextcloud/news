@@ -29,6 +29,7 @@ use \OCA\AppFramework\Controller\Controller;
 use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Http\Request;
 use \OCA\AppFramework\Db\DoesNotExistException;
+use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
 
 
 class FolderController extends Controller {
@@ -68,6 +69,8 @@ class FolderController extends Controller {
 			return $this->renderJSON(array());
 		} catch (DoesNotExistException $e) {
 			return $this->renderJSON(array(), $e->getMessage());
+                } catch(MultipleObjectsReturnedException $e){
+                        return $this->renderJSON(array(), $e->getMessage());
 		}
 	}
 

@@ -27,8 +27,9 @@ namespace OCA\News\Controller;
 
 use \OCA\AppFramework\Http\Request;
 use \OCA\AppFramework\Http\JSONResponse;
-use OCA\AppFramework\Utility\ControllerTestUtility;
+use \OCA\AppFramework\Utility\ControllerTestUtility;
 use \OCA\AppFramework\Db\DoesNotExistException;
+use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
 
 
 require_once(__DIR__ . "/../classloader.php");
@@ -147,9 +148,7 @@ class FolderControllerTest extends ControllerTestUtility {
 	}
 
 
-	public function testCollapseExceptionReturnsJSONError(){
-		$errorMsg = 'exception';
-		$ex = new DoesNotExistException($errorMsg);
+        private function collapseException($ex){
 		$urlParams = array('folderId' => 1);
 		$this->folderMapper->expects($this->once())
 					->method('setCollapsed')
@@ -159,9 +158,21 @@ class FolderControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->collapse();
 
-		$expected = '{"status":"error","data":[],"msg":"' . $errorMsg . '"}';
+                $expected = '{"status":"error","data":[],"msg":"' . $ex->getMessage() . '"}';
 		$this->assertEquals($expected, $response->render());
 	}
+
+
+        public function testCollapseDoesNotExistExceptionReturnsJSONError(){
+                $ex = new DoesNotExistException('exception');
+                $this->collapseException($ex);
+        }
+
+
+        public function testCollapseMultipleObjectsReturnedReturnsJSONError(){
+                $ex = new MultipleObjectsReturnedException('exception');
+                $this->collapseException($ex);
+        }
 
 
 }
