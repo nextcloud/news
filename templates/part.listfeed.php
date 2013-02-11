@@ -12,16 +12,18 @@
 	</a>
 	
 	<span class="utils">
-		<span class="unread-counter">
-		{{ getUnreadCount(feedType.Feed, feed.id) }}
-		</span>
-		
-		<button ng-click="delete(feedType.Feed, feed.id)"
-		        class="svg action delete-icon" 
-		        title="<?php p($l->t('Delete feed')); ?>"></button>
-		
+
 		<button class="svg action mark-read-icon" 
-		        ng-click="markAllRead(feedType.Feed, feed.id)"
-		        title="<?php p($l->t('Mark all read')); ?>"></button>
+			ng-click="markAllRead(feedType.Feed, feed.id)"
+			title="<?php p($l->t('Mark all read')); ?>"></button>
+
+		<span class="unread-counter">
+			{{ getUnreadCount(feedType.Feed, feed.id) }}
+		</span>
+
+		<button ng-click="delete(feedType.Feed, feed.id)"
+			class="svg action delete-icon" 
+			title="<?php p($l->t('Delete feed')); ?>"></button>
+
 	</span>
 </li>

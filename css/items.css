@@ -1,17 +1,17 @@
 #right-content:after {
-        content: '';
-        display: block;
-        height: 100%;
+	content: '';
+	display: block;
+	height: 100%;
 }
 
 #right-content.loading {
-        background-image: url('%webroot%/core/img/loading.gif');
-        background-position: center;
-        background-repeat: no-repeat;
+	background-image: url('%webroot%/core/img/loading.gif');
+	background-position: center;
+	background-repeat: no-repeat;
 }
 
 #right-content.loading > ul {
-        display: none;
+	display: none;
 }
 
 
@@ -19,281 +19,281 @@
  * Rules for a single feed item
  */
 .feed_item {
-        border-top: 1px solid #ccc;
-        min-height: 100px;
-        background-image: linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
-        background-image: -o-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
-        background-image: -moz-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
-        background-image: -webkit-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
-        background-image: -ms-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
-        padding: 2.5em 0 0 0;
-        cursor: default;
+	border-top: 1px solid #ccc;
+	min-height: 100px;
+	background-image: linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
+	background-image: -o-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
+	background-image: -moz-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
+	background-image: -webkit-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
+	background-image: -ms-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
+	padding: 2.5em 0 0 0;
+	cursor: default;
 }
 
 .feed_item.viewed {
-        border-right: 5px solid #F28627;
+	border-right: 5px solid #F28627;
 }
 
 
 .feed_item:first-child {
-        border-top: 0;
+	border-top: 0;
 }
 
-        /**
-         * Utils panel
-         */
-        .feed_item .utils {
-                height: 2em;
-                margin: 0 0 0 1em;
-                float: left;
-        }
+	/**
+	 * Utils panel
+	 */
+	.feed_item .utils {
+		height: 2em;
+		margin: 0 0 0 1em;
+		float: left;
+	}
 
-        /**
-         * Primary feed utils which are always shown
-         */
-        .feed_item .primary_item_utils {
-                float: left;
-        }
+	/**
+	 * Primary feed utils which are always shown
+	 */
+	.feed_item .primary_item_utils {
+		float: left;
+	}
 
-                .feed_item .primary_item_utils li {
-                        display: inline-block;
-                        line-height: 1.5em;
-                        font-size: 1em;
-                        color: #aaa;
-                        float: left;
-                        margin-left: ;
-                        cursor: default;
-                }
+		.feed_item .primary_item_utils li {
+			display: inline-block;
+			line-height: 1.5em;
+			font-size: 1em;
+			color: #aaa;
+			float: left;
+			margin-left: ;
+			cursor: default;
+		}
 
-                .feed_item .primary_item_utils li:first-child { margin: 0}
-                .feed_item .primary_item_utils li.star {
-                        background-image: url('%appswebroot%/news/img/inactive_star.svg');
-                        background-repeat: no-repeat;
-                        background-size: 1.5em 1.5em;
-                        width: 1.5em;
-                        height: 1.5em;
-                        cursor: pointer;
-                }
+		.feed_item .primary_item_utils li:first-child { margin: 0}
+		.feed_item .primary_item_utils li.star {
+			background-image: url('%appswebroot%/news/img/inactive_star.svg');
+			background-repeat: no-repeat;
+			background-size: 1.5em 1.5em;
+			width: 1.5em;
+			height: 1.5em;
+			cursor: pointer;
+		}
 
-                .feed_item .primary_item_utils li.star.important,
-                .feed_item .primary_item_utils li.star:hover {
-                        background-image: url('%appswebroot%/news/img/active_star.svg');
-                }
+		.feed_item .primary_item_utils li.star.important,
+		.feed_item .primary_item_utils li.star:hover {
+			background-image: url('%appswebroot%/news/img/active_star.svg');
+		}
 
-        /**
-         * Feed title
-         */
-        .feed_item h1.item_title {
-                font-size: 1.5em;
-                margin: 0 13em 0 2.1em;
-                font-weight: bold;
-                word-break: break-all;
-        }
+	/**
+	 * Feed title
+	 */
+	.feed_item h1.item_title {
+		font-size: 1.5em;
+		margin: 0 13em 0 2.1em;
+		font-weight: bold;
+		word-break: break-all;
+	}
 
-                .feed_item h1.item_title a {
-                        color: #222;
-                }
-                        .feed_item h1.item_title a:hover {
-                                color: #222;
-                                text-decoration: underline;
-                        }
+		.feed_item h1.item_title a {
+			color: #222;
+		}
+			.feed_item h1.item_title a:hover {
+				color: #222;
+				text-decoration: underline;
+			}
 
-        /**
-         * Feed title when read
-         */
-        .feed_item.read h1.item_title {
-                font-weight: normal;
-        }
+	/**
+	 * Feed title when read
+	 */
+	.feed_item.read h1.item_title {
+		font-weight: normal;
+	}
 
-                .feed_item.read h1.item_title a {
-                        color: #888;
-                }
+		.feed_item.read h1.item_title a {
+			color: #888;
+		}
 
-        /**
-         * Title of the feed to which the item belongs
-         */
-        .feed_item h2.item_feed_title {
-                color: #aaa;
-                font-size: 1.1em;
-                margin-left: 3em;
-        }
+	/**
+	 * Title of the feed to which the item belongs
+	 */
+	.feed_item h2.item_feed_title {
+		color: #aaa;
+		font-size: 1.1em;
+		margin-left: 3em;
+	}
 
-        /**
-         * Author of the item
-         */
-        .feed_item h2.item_author {
-                color: #aaa;
-                font-size: 1.1em;
-                margin: .2em 0 0 3em;
-        }
+	/**
+	 * Author of the item
+	 */
+	.feed_item h2.item_author {
+		color: #aaa;
+		font-size: 1.1em;
+		margin: .2em 0 0 3em;
+	}
 
-                .feed_item h2.item_author a {
-                        color: inherit;
-                }
+		.feed_item h2.item_author a {
+			color: inherit;
+		}
 
-                        .feed_item h2.item_author a:hover {
-                                text-decoration: underline;
-                        }
+			.feed_item h2.item_author a:hover {
+				text-decoration: underline;
+			}
 
-        .timestamp {
-                display: none;
-        }
+	.timestamp {
+		display: none;
+	}
 
-        /**
-         * Feed timestamp
-         */
-        .timeago {
-                float: right;
-                color: #aaa;
-                margin: 0 1.2em 0 0;
-                font-size: 1.1em;
-        }
+	/**
+	 * Feed timestamp
+	 */
+	.timeago {
+		float: right;
+		color: #aaa;
+		margin: 0 1.2em 0 0;
+		font-size: 1.1em;
+	}
 
-        /**
-         * Body of the feed item
-         */
-        .feed_item .enclosure {
-                padding: 1em 3em 0 3.5em;
-        }
+	/**
+	 * Body of the feed item
+	 */
+	.feed_item .enclosure {
+		padding: 1em 3em 0 3.5em;
+	}
 
-        .feed_item div.body {
-                padding: .75em 3em 0 3em;
-                max-width: 55em;
-                font-size: 1.1em;
-                clear: both;
-                overflow: auto;
-        }
+	.feed_item div.body {
+		padding: .75em 3em 0 3em;
+		max-width: 55em;
+		font-size: 1.1em;
+		clear: both;
+		overflow: auto;
+	}
 
-                .feed_item div.body p {
-                        line-height: 1.5;
-                        margin: .5em 0 1em 0;
-                }
+		.feed_item div.body p {
+			line-height: 1.5;
+			margin: .5em 0 1em 0;
+		}
 
-                .feed_item div.body img, .feed_item div.body table {
-                        max-width: 100%;
-                        height: auto;
-                        overflow: auto;
-                        word-wrap: break-word;
-                }
+		.feed_item div.body img, .feed_item div.body table {
+			max-width: 100%;
+			height: auto;
+			overflow: auto;
+			word-wrap: break-word;
+		}
 
-                .feed_item div.body > img:first-child {
-                        padding: 0 1em 0 0;
-                        float: left;
-                }
+		.feed_item div.body > img:first-child {
+			padding: 0 1em 0 0;
+			float: left;
+		}
 
-                .feed_item div.body h1, .feed_item div.body h2 {
-                        font-size: 1.25em;
-                        font-weight: bold;
-                        color: #222;
-                        margin: 1.5em 0 0 0;
-                }
+		.feed_item div.body h1, .feed_item div.body h2 {
+			font-size: 1.25em;
+			font-weight: bold;
+			color: #222;
+			margin: 1.5em 0 0 0;
+		}
 
-                .feed_item div.body h3 {
-                        font-size: 1.1em;
-                        font-weight: bold;
-                        color: #222;
-                        margin: 1.5em 0 0 0;
-                        text-decoration: underline;
-                }
+		.feed_item div.body h3 {
+			font-size: 1.1em;
+			font-weight: bold;
+			color: #222;
+			margin: 1.5em 0 0 0;
+			text-decoration: underline;
+		}
 
-                .feed_item div.body > div {
-                        margin: .5em 0;
-                }
+		.feed_item div.body > div {
+			margin: .5em 0;
+		}
 
-                .feed_item div.body a {
-                        color: #0000ff;
-                        text-decoration: underline;
-                }
+		.feed_item div.body a {
+			color: #0000ff;
+			text-decoration: underline;
+		}
 
-                .feed_item div.body ul {
-                        margin: .5em 0;
-                        padding-left: 1em;
-                        list-style-type: disc;
-                }
+		.feed_item div.body ul {
+			margin: .5em 0;
+			padding-left: 1em;
+			list-style-type: disc;
+		}
 
-                .feed_item div.body ol {
-                        margin: .5em 0;
-                        padding-left: 1.5em;
-                }
+		.feed_item div.body ol {
+			margin: .5em 0;
+			padding-left: 1.5em;
+		}
 
-                        .feed_item div.body ul li {
-                                cursor: default;
-                                line-height: 1.5em;
-                        }
+			.feed_item div.body ul li {
+				cursor: default;
+				line-height: 1.5em;
+			}
 
-                .feed_item div.body pre {
-                        padding: .5em .5em .5em 1em;
-                        background-color: #dadada;
-                        border: 1px solid #ccc;
-                        margin: .5em 0 1em 0;
-                        background-image: linear-gradient(top, rgb(215,215,215) 0%, rgb(220,220,220) 100%);
-                        background-image: -o-linear-gradient(top, rgb(215,215,215) 0%, rgb(220,220,220) 100%);
-                        background-image: -moz-linear-gradient(top, rgb(215,215,215) 0%, rgb(220,220,220) 100%);
-                        background-image: -webkit-linear-gradient(top, rgb(215,215,215) 0%, rgb(220,220,220) 100%);
-                        background-image: -ms-linear-gradient(top, rgb(215,215,215) 0%, rgb(220,220,220) 100%);
-                        overflow-y: auto;
-                }
+		.feed_item div.body pre {
+			padding: .5em .5em .5em 1em;
+			background-color: #dadada;
+			border: 1px solid #ccc;
+			margin: .5em 0 1em 0;
+			background-image: linear-gradient(top, rgb(215,215,215) 0%, rgb(220,220,220) 100%);
+			background-image: -o-linear-gradient(top, rgb(215,215,215) 0%, rgb(220,220,220) 100%);
+			background-image: -moz-linear-gradient(top, rgb(215,215,215) 0%, rgb(220,220,220) 100%);
+			background-image: -webkit-linear-gradient(top, rgb(215,215,215) 0%, rgb(220,220,220) 100%);
+			background-image: -ms-linear-gradient(top, rgb(215,215,215) 0%, rgb(220,220,220) 100%);
+			overflow-y: auto;
+		}
 
-                        .feed_item div.body pre code {
-                                font-family: monospace;
-                                font-size: 1.5em;
-                        }
-        .feed_item div.body > *:last-child {
-                margin-bottom: 0;
-        }
+			.feed_item div.body pre code {
+				font-family: monospace;
+				font-size: 1.5em;
+			}
+	.feed_item div.body > *:last-child {
+		margin-bottom: 0;
+	}
 
 /**
  * Line with utils at the bottom
  */
 .bottom_utils {
-        width: 100%;
-        height: 2.5em;
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        -moz-box-sizing: border-box;
+	width: 100%;
+	height: 2.5em;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
 }
 
-        /**
-         * Secondary feed items which are only shown on hover
-         */
-        .feed_item .secondary_item_utils {
-                float: right;
-                margin: 0 1.2em;
-        }
+	/**
+	 * Secondary feed items which are only shown on hover
+	 */
+	.feed_item .secondary_item_utils {
+		float: right;
+		margin: 0 1.2em;
+	}
 
 
-        .feed_item .secondary_item_utils, .feed_item .secondary_item_utils a {
-                color: #000;
-        }
+	.feed_item .secondary_item_utils, .feed_item .secondary_item_utils a {
+		color: #000;
+	}
 
-        .feed_item:hover .secondary_item_utils li {
-                display: inline-block;
-        }
+	.feed_item:hover .secondary_item_utils li {
+		display: inline-block;
+	}
 
-                .feed_item .secondary_item_utils li {
-                        padding-left: 25px;
-                        display: none;
-                }
+		.feed_item .secondary_item_utils li {
+			padding-left: 25px;
+			display: none;
+		}
 
-                /**
-                 * Secondary feed items which are only shown on hover
-                 */
-                .feed_item .show_keep_unread .keep_unread{
-                        display: block;
-                }
+		/**
+		 * Secondary feed items which are only shown on hover
+		 */
+		.feed_item .show_keep_unread .keep_unread{
+			display: block;
+		}
 
-                .feed_item li.share_link {
-                        background-image: url('%webroot%/core/img/actions/share.svg');
-                        background-repeat: no-repeat;
-                        background-position: right center;
-                        padding-right: 20px;
-                }
+		.feed_item li.share_link {
+			background-image: url('%webroot%/core/img/actions/share.svg');
+			background-repeat: no-repeat;
+			background-position: right center;
+			padding-right: 20px;
+		}
 
-                .feed_item:hover .secondary_item_utils li.keep_unread {
-                        cursor: pointer;
-                }
+		.feed_item:hover .secondary_item_utils li.keep_unread {
+			cursor: pointer;
+		}
 
-                .feed_item .secondary_item_utils li input[type=checkbox]{
-                        margin-left: 5px;
-                }
+		.feed_item .secondary_item_utils li input[type=checkbox]{
+			margin-left: 5px;
+		}

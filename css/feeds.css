@@ -26,13 +26,14 @@
 }
 
 #left-content .utils button {
-	margin: 5px 0 0 0;
+	margin: 0 5px 0 0;
 	background-position: center;
 	background-repeat: no-repeat;
 	background-color: transparent;
 	border: 0;
 	box-shadow: none;
-	display: block;
+	display: none;
+	padding: 8px;
 }
 
 #left-content li:hover .utils button {
@@ -40,7 +41,7 @@
 }
 
 .unread-counter {
-	padding: 6px 8px 5px;
+	padding: 8px 6px 8px 5px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	text-align: center;
@@ -69,6 +70,7 @@ button.action:hover {
 }
 
 .delete-icon {
+	background-position: center 10px !important;
 	background-image: url('%webroot%/core/img/actions/delete.svg');
 }
 
