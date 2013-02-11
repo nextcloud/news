@@ -20,11 +20,11 @@ angular.module('News').directive 'droppable', ['$rootScope', ($rootScope) ->
 
 		details = 
 			accept: '.feed'
-                        hoverClass: 'drag-and-drop'
+			hoverClass: 'drag-and-drop'
 			greedy: true
 			drop: (event, ui) ->
 				# in case jquery ui did something weird
-                                $('.drag-and-drop').removeClass('drag-and-drop')
+				$('.drag-and-drop').removeClass('drag-and-drop')
 
 				data = 
 					folderId: parseInt($elem.data('id'), 10)

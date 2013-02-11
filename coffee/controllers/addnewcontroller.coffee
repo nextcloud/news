@@ -15,6 +15,6 @@
 angular.module('News').factory '_AddNewController',
 ['Controller', (Controller) ->
 
-        class AddNewController extends Controller
+	class AddNewController extends Controller
 
 ]

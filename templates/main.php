@@ -1,32 +1,32 @@
 <div id="app" ng-app="News">
-        <div id="left-content" ng-controller="FeedController">
+	<div id="left-content" ng-controller="FeedController">
 
-                <ul class="with-icon" data-id="0" droppable>
-                        <?php print_unescaped($this->inc('part.addnew')) ?>
-                        <?php print_unescaped($this->inc('part.feed.unread')) ?>
-                        <?php print_unescaped($this->inc('part.feed.starred')) ?>
-                        <?php print_unescaped($this->inc('part.listfolder')) ?>
-                        <?php print_unescaped($this->inc('part.listfeed', array('folderId' => '0'))) ?>
-                        <?php print_unescaped($this->inc('part.showall')); ?>
-                </ul>
+		<ul class="with-icon" data-id="0" droppable>
+			<?php print_unescaped($this->inc('part.addnew')) ?>
+			<?php print_unescaped($this->inc('part.feed.unread')) ?>
+			<?php print_unescaped($this->inc('part.feed.starred')) ?>
+			<?php print_unescaped($this->inc('part.listfolder')) ?>
+			<?php print_unescaped($this->inc('part.listfeed', array('folderId' => '0'))) ?>
+			<?php print_unescaped($this->inc('part.showall')); ?>
+		</ul>
 
-                <div id="app-settings" ng-class="{open: showSettings==true}"
-                         ng-controller="SettingsController" hide-settings-when-focus-lost>
-                        <div id="app-settings-header">
-                                <button name="app settings"
-                                                class="settings-button"
-                                                ng-click="showSettings=!showSettings"></button>
-                        </div>
-                        <div id="app-settings-content">
-                                <?php print_unescaped($this->inc('part.settings')) ?>
+		<div id="app-settings" ng-class="{open: showSettings==true}"
+			 ng-controller="SettingsController" hide-settings-when-focus-lost>
+			<div id="app-settings-header">
+				<button name="app settings" 
+						class="settings-button"
+						ng-click="showSettings=!showSettings"></button>
+			</div>
+			<div id="app-settings-content">
+				<?php print_unescaped($this->inc('part.settings')) ?>
 			</div>
 		</div>
 
 	</div>
 
-        <div id="right-content" ng-class="{loading: loading.loading>0}"
-                ng-controller="ItemController" 	when-scrolled="scroll()" feed-navigation>
-                <?php print_unescaped($this->inc("part.items")); ?>
+	<div id="right-content" ng-class="{loading: loading.loading>0}"
+		ng-controller="ItemController" 	when-scrolled="scroll()" feed-navigation>
+		<?php print_unescaped($this->inc("part.items")); ?>
 	</div>
-
+	
 </div>

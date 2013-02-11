@@ -18,7 +18,7 @@ angular.module('News').factory '_SettingsController', ['Controller',
 
 	class SettingsController extends Controller
 
-                constructor: (@$scope, @$rootScope, @persistence, @opmlParser) ->
+		constructor: (@$scope, @$rootScope, @persistence, @opmlParser) ->
 			
 			@add = false
 			@settings = false
@@ -27,7 +27,7 @@ angular.module('News').factory '_SettingsController', ['Controller',
 
 			@$scope.$on 'readFile', (scope, fileContent) =>
 				structure = @opmlParser.parseXML(fileContent)
-                                @parseOPMLStructure(structure)
+				@parseOPMLStructure(structure)
 
 			@$scope.$on 'hidesettings', =>
 				@add = false
