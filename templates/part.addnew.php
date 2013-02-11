@@ -18,13 +18,14 @@
 					placeholder="<?php p($l->t('Address')); ?>" 
 					ng-disabled="isAddingFeed()">
 				<button title="<?php p($l->t('Add')); ?>" 
-						ng-class="{loading: isAddingFeed()}"
+						ng-class="{loading: adding}"
+						ng-disabled="adding"
 						ng-click="addFeed(feedUrl, folderId)"><?php p($l->t('Add')); ?></button>
 				<select name="folder" 
 					    data-create="<?php p($l->t('New folder')); ?>"
 						title="<?php p($l->t('Folder')); ?>"
 						ng-model="folderId"
-						ng-disabled="isAddingFeed()"
+						ng-disabled="adding"
 						ng-options="folder.name for folder in getFolders()"
 						add-folder-select>
 					<option value="" selected><?php p($l->t('No folder')); ?></option>

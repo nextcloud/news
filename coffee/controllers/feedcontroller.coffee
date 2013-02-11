@@ -52,13 +52,13 @@ angular.module('News').factory '_FeedController', ['Controller', (Controller) ->
 						folderId = 0
 					else
 						folderId = folder.id
-					@addingFeed = true
+					@$scope.adding = true
 					onSuccess = =>
 						@$scope.feedUrl = ''
-						@addingFeed = false
+						@$scope.adding = false
 					onError = =>
 						@$scope.feedError = true
-						@addingFeed = false
+						@$scope.adding = false
 					@persistence.createFeed(url, folderId, onSuccess, onError)
 
 

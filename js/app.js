@@ -1740,14 +1740,14 @@
               } else {
                 folderId = folder.id;
               }
-              _this.addingFeed = true;
+              _this.$scope.adding = true;
               onSuccess = function() {
                 _this.$scope.feedUrl = '';
-                return _this.addingFeed = false;
+                return _this.$scope.adding = false;
               };
               onError = function() {
                 _this.$scope.feedError = true;
-                return _this.addingFeed = false;
+                return _this.$scope.adding = false;
               };
               return _this.persistence.createFeed(url, folderId, onSuccess, onError);
             }

@@ -23,3 +23,7 @@
 .add-new-popup .personalblock:first-child legend {
 	padding-top: 15px;
 }
+
+.add-new input[type=text] {
+	width: 100px;
+}

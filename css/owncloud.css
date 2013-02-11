@@ -74,7 +74,7 @@
 
 #left-content > ul > li.active {
 	border-bottom: 1px solid #ccc;
-	border-top: 1px solid #ddd;
+	border-top: 1px solid #ccc;
 }
 
 #left-content ul.with-icon a {
@@ -98,11 +98,11 @@
 }
 
 #left-content > ul > li:hover {
-	border-top: 1px solid #ddd;
+	border-top: 1px solid #ccc;
 }
 
 #left-content li > a:hover {
-	background-color: #ddd;
+	background-color: #ccc;
 }
 
 /* collapsible */
@@ -209,12 +209,12 @@
 
 #app-settings-content {
 	background-color: #eee;
-	display: none;
+	height: 0;
 	padding: 10px;
 }
 
 #app-settings.open #app-settings-content {
-	display: block;
+	height: auto;
 }
 
 
