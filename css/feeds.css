@@ -40,6 +40,10 @@
 	display: block;
 }
 
+.folder {
+	text-transform: uppercase;
+}
+
 .unread-counter {
 	padding: 8px 6px 8px 5px;
 	overflow: hidden;
@@ -55,7 +59,6 @@
 }
 
 
-/* general */
 button.action {
 	opacity: .5;
 }
