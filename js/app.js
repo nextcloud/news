@@ -2150,8 +2150,7 @@
             return _this.parseOPMLStructure(structure);
           });
           this.$scope.$on('hidesettings', function() {
-            _this.add = false;
-            return _this.settings = false;
+            return _this.$scope.showSettings = false;
           });
         }
 

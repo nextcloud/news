@@ -30,8 +30,7 @@ angular.module('News').factory '_SettingsController', ['Controller',
 				@parseOPMLStructure(structure)
 
 			@$scope.$on 'hidesettings', =>
-				@add = false
-				@settings = false
+				@$scope.showSettings = false
 
 
 		# recursively create folders
