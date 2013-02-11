@@ -42,7 +42,7 @@
         /**
          * Utils panel
          */
-        .utils {
+        .feed_item .utils {
                 height: 2em;
                 margin: 0 0 0 1em;
                 float: left;

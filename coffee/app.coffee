@@ -13,7 +13,7 @@
 #
 ###
 
-app = angular.module('News', []).config ($provide) ->
+app = angular.module('News', ['ui']).config ($provide) ->
 	# enter your config values in here
 	config =
 		MarkReadTimeout: 500

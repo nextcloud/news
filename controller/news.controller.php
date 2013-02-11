@@ -53,7 +53,8 @@ class NewsController extends Controller {
          * Decides wether to show the feedpage or the firstrun page
          */
         public function index($urlParams=array()){
-                $this->api->add3rdPartyScript('angular-1.0.2/angular.min');
+                $this->api->add3rdPartyScript('angular/angular');
+                $this->api->add3rdPartyScript('angular-ui/angular-ui');
                 $this->api->add3rdPartyScript('moment.min');
                 $this->api->addScript('app');
                 $this->api->addScript('multiselect', 'core');

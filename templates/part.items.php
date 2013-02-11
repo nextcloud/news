@@ -29,8 +29,10 @@
 				class="from_feed">{{item.feedTitle}}</a> {{item.getAuthorLine()}}
 		</h2>
 
-		<div class="enclosure" ng-show="item.enclosure">
-			<audio controls="controls"><source ng-src="{{item.enclosure.link}}" type="{{item.enclosure.type}}"></source></audio>
+		<div class="enclosure" ui-if="item.enclosure">
+			<audio controls="controls" ng-src="{{item.enclosure.link}}" type="{{item.enclosure.type}}">
+				<?php p($l->t('Cant play audio format')) ?> {{item.enclosure.type}}
+			</audio>
 		</div>
 		
 		<div class="body" 

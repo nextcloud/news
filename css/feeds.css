@@ -1,82 +1,81 @@
 .starred-icon {
-        background-image: url('%appswebroot%/news/img/starred.png');
+	background-image: url('%appswebroot%/news/img/starred.png');
 }
 
 .subscriptions-icon {
-        background-image: url('%appswebroot%/news/img/rss.svg');
+	background-image: url('%appswebroot%/news/img/rss.svg');
 }
 
 .unread {
-        font-weight: bold;
+	font-weight: bold;
 }
 
 #left-content .unread > a {
-        padding-right: 32px;
+	padding-right: 32px;
 }
 
-
-
 #left-content .utils {
-        position: absolute;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        display: none;
+	position: absolute;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}
+
+#left-content .utils > * {
+	float: right;
 }
 
 #left-content .utils button {
-        margin: 5px 0 0 0;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-color: transparent;
-        border: 0;
-        box-shadow: none;
+	margin: 5px 0 0 0;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-color: transparent;
+	border: 0;
+	box-shadow: none;
+	display: block;
+}
+
+#left-content li:hover .utils button {
+	display: block;
 }
 
 .unread-counter {
-        padding: 6px 8px 5px;
-        position: absolute;
-        z-index: 5;
-        right: 0;
-        top: 0;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        text-align: center;
-        font-size: 9pt;
-        display: none;
+	padding: 6px 8px 5px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	text-align: center;
+	font-size: 9pt;
+	display: none;
 }
 
-#left-content li:hover .utils > .unread-counter {
-        display: none;
-}
 
 .unread .unread-counter {
-        display: block;
+	display: block;
 }
 
 
 /* general */
 button.action {
-        opacity: .5;
+	opacity: .5;
 }
 
 button.action:hover {
-        opacity: 1;
+	opacity: 1;
 }
 
 
 #left-content li:hover > .utils {
-        display: block;
+	display: block;
 }
 
 .delete-icon {
-        background-image: url('%webroot%/core/img/actions/delete.svg');
+	background-image: url('%webroot%/core/img/actions/delete.svg');
 }
 
 .edit-icon {
-        background-image: url('%webroot%/core/img/actions/rename.svg');
+	background-image: url('%webroot%/core/img/actions/rename.svg');
 }
 
 .mark-read-icon {
-        background-image: url('%appswebroot%/news/img/mark_read.svg');
+	background-image: url('%appswebroot%/news/img/mark_read.svg');
 }
