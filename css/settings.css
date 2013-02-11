@@ -1,11 +1,6 @@
-#app-settings {
-        bottom: -214px;
-}
-
-
 #app-settings input[type=file] {
-        opacity:0;
-        z-index:1001;
-        width:0;
-        height:0;
+	opacity:0;
+	z-index:1001;
+	width:0;
+	height:0;
 }
