@@ -71,8 +71,11 @@ class API {
 	 * @param string $scriptName: the name of the javascript in js/ 
 	 *                            without the suffix
 	 */
-	public function addScript($scriptName){
-		\OCP\Util::addScript($this->appName, $scriptName);
+        public function addScript($scriptName, $appName=null){
+                if($appName === null ){
+                        $appName = $this->appName;
+                }
+                \OCP\Util::addScript($appName, $scriptName);
 	}
 
 

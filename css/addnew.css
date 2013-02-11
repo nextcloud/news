@@ -1,0 +1,25 @@
+.add-new {
+        overflow: hidden;
+}
+
+.add-new > a {
+        background-image: url('%appswebroot%/news/img/add.svg');
+}
+
+.add-new-popup {
+        -moz-transition: padding-bottom 500ms ease 0s;
+        -o-transition: padding-bottom 500ms ease 0s;
+        -webkit-transition: padding-bottom 500ms ease 0s;
+        -ms-transition: padding-bottom 500ms ease 0s;
+        transition: height 500ms ease 0s;
+        height: 0;
+        padding: 0 15px;
+}
+
+.add-new-popup.open {
+        height: 170px;
+}
+
+.add-new-popup .personalblock:first-child legend {
+        padding-top: 15px;
+}

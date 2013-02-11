@@ -46,6 +46,16 @@
     }
   ]);
 
+  angular.module('OC').run([
+    '$rootScope', 'Router', function($rootScope, Router) {
+      var init;
+      init = function() {
+        return $rootScope.$broadcast('routesLoaded');
+      };
+      return Router.registerLoadedCallback(init);
+    }
+  ]);
+
   /*
   # ownCloud
   #
@@ -1573,6 +1583,39 @@
   */
 
 
+  angular.module('News').factory('_AddNewController', [
+    'Controller', function(Controller) {
+      var AddNewController;
+      return AddNewController = (function(_super) {
+
+        __extends(AddNewController, _super);
+
+        function AddNewController() {
+          return AddNewController.__super__.constructor.apply(this, arguments);
+        }
+
+        return AddNewController;
+
+      })(Controller);
+    }
+  ]);
+
+  /*
+  # ownCloud news app
+  #
+  # @author Alessandro Cosentino
+  # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
+  # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
+  #
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
+  #
+  # See the COPYING-README file
+  #
+  */
+
+
   angular.module('News').factory('Controller', function() {
     var Controller;
     return Controller = (function() {
@@ -1602,7 +1645,7 @@
 
   angular.module('News').controller('SettingsController', [
     '_SettingsController', '$scope', '$rootScope', 'ShowAll', 'PersistenceNews', 'FolderModel', 'FeedModel', 'OPMLParser', function(_SettingsController, $scope, $rootScope, ShowAll, PersistenceNews, FolderModel, FeedModel, OPMLParser) {
-      return new _SettingsController($scope, $rootScope, ShowAll, PersistenceNews, FolderModel, FeedModel, OPMLParser);
+      return new _SettingsController($scope, $rootScope, PersistenceNews, OPMLParser);
     }
   ]);
 
@@ -1615,6 +1658,12 @@
   angular.module('News').controller('FeedController', [
     '_FeedController', '$scope', 'FeedModel', 'FeedType', 'FolderModel', 'ActiveFeed', 'PersistenceNews', 'StarredCount', 'ShowAll', 'ItemModel', 'GarbageRegistry', '$rootScope', 'Loading', 'Config', function(_FeedController, $scope, FeedModel, FeedType, FolderModel, ActiveFeed, PersistenceNews, StarredCount, ShowAll, ItemModel, GarbageRegistry, $rootScope, Loading, Config) {
       return new _FeedController($scope, FeedModel, FolderModel, FeedType, ActiveFeed, PersistenceNews, StarredCount, ShowAll, ItemModel, GarbageRegistry, $rootScope, Loading, Config);
+    }
+  ]);
+
+  angular.module('News').controller('AddNewController', [
+    '_AddNewController', '$scope', function(_AddNewController, $scope) {
+      return new _AddNewController($scope);
     }
   ]);
 
@@ -1660,6 +1709,74 @@
           this.$scope.feeds = this.feedModel.getItems();
           this.$scope.folders = this.folderModel.getItems();
           this.$scope.feedType = this.feedType;
+          this.$scope.getShowAll = function() {
+            return _this.showAll.showAll;
+          };
+          this.$scope.setShowAll = function(value) {
+            _this.showAll.showAll = value;
+            _this.persistence.showAll(value);
+            return _this.$rootScope.$broadcast('triggerHideRead');
+          };
+          this.$scope.addFeed = function(url, folder) {
+            var feed, folderId, onError, onSuccess, _i, _len, _ref;
+            _this.$scope.feedEmptyError = false;
+            _this.$scope.feedExistsError = false;
+            _this.$scope.feedError = false;
+            if (url === void 0 || url.trim() === '') {
+              _this.$scope.feedEmptyError = true;
+            } else {
+              url = url.trim();
+              _ref = _this.feedModel.getItems();
+              for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                feed = _ref[_i];
+                if (url === feed.url) {
+                  _this.$scope.feedExistsError = true;
+                }
+              }
+            }
+            if (!(_this.$scope.feedEmptyError || _this.$scope.feedExistsError)) {
+              if (folder === void 0) {
+                folderId = 0;
+              } else {
+                folderId = folder.id;
+              }
+              _this.addingFeed = true;
+              onSuccess = function() {
+                _this.$scope.feedUrl = '';
+                return _this.addingFeed = false;
+              };
+              onError = function() {
+                _this.$scope.feedError = true;
+                return _this.addingFeed = false;
+              };
+              return _this.persistence.createFeed(url, folderId, onSuccess, onError);
+            }
+          };
+          this.$scope.addFolder = function(name) {
+            var folder, onSuccess, _i, _len, _ref;
+            _this.$scope.folderEmptyError = false;
+            _this.$scope.folderExistsError = false;
+            if (name === void 0 || name.trim() === '') {
+              _this.$scope.folderEmptyError = true;
+            } else {
+              name = name.trim();
+              _ref = _this.folderModel.getItems();
+              for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                folder = _ref[_i];
+                if (name.toLowerCase() === folder.name.toLowerCase()) {
+                  _this.$scope.folderExistsError = true;
+                }
+              }
+            }
+            if (!(_this.$scope.folderEmptyError || _this.$scope.folderExistsError)) {
+              _this.addingFolder = true;
+              onSuccess = function() {
+                _this.$scope.folderName = '';
+                return _this.addingFolder = false;
+              };
+              return _this.persistence.createFolder(name, onSuccess);
+            }
+          };
           this.$scope.toggleFolder = function(folderId) {
             var folder;
             folder = _this.folderModel.getItemById(folderId);
@@ -2017,108 +2134,16 @@
 
         __extends(SettingsController, _super);
 
-        function SettingsController($scope, $rootScope, showAll, persistence, folderModel, feedModel, opmlParser) {
+        function SettingsController($scope, $rootScope, persistence, opmlParser) {
           var _this = this;
           this.$scope = $scope;
           this.$rootScope = $rootScope;
-          this.showAll = showAll;
           this.persistence = persistence;
-          this.folderModel = folderModel;
-          this.feedModel = feedModel;
           this.opmlParser = opmlParser;
           this.add = false;
           this.settings = false;
           this.addingFeed = false;
           this.addingFolder = false;
-          this.$scope.getFolders = function() {
-            return _this.folderModel.getItems();
-          };
-          this.$scope.getShowAll = function() {
-            return _this.showAll.showAll;
-          };
-          this.$scope.setShowAll = function(value) {
-            _this.showAll.showAll = value;
-            _this.persistence.showAll(value);
-            return _this.$rootScope.$broadcast('triggerHideRead');
-          };
-          this.$scope.toggleSettings = function() {
-            return _this.settings = !_this.settings;
-          };
-          this.$scope.toggleAdd = function() {
-            return _this.add = !_this.add;
-          };
-          this.$scope.addIsShown = function() {
-            return _this.add;
-          };
-          this.$scope.settingsAreShown = function() {
-            return _this.settings;
-          };
-          this.$scope.isAddingFeed = function() {
-            return _this.addingFeed;
-          };
-          this.$scope.isAddingFolder = function() {
-            return _this.addingFolder;
-          };
-          this.$scope.addFeed = function(url, folder) {
-            var feed, folderId, onError, onSuccess, _i, _len, _ref;
-            _this.$scope.feedEmptyError = false;
-            _this.$scope.feedExistsError = false;
-            _this.$scope.feedError = false;
-            if (url === void 0 || url.trim() === '') {
-              _this.$scope.feedEmptyError = true;
-            } else {
-              url = url.trim();
-              _ref = _this.feedModel.getItems();
-              for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                feed = _ref[_i];
-                if (url === feed.url) {
-                  _this.$scope.feedExistsError = true;
-                }
-              }
-            }
-            if (!(_this.$scope.feedEmptyError || _this.$scope.feedExistsError)) {
-              if (folder === void 0) {
-                folderId = 0;
-              } else {
-                folderId = folder.id;
-              }
-              _this.addingFeed = true;
-              onSuccess = function() {
-                _this.$scope.feedUrl = '';
-                return _this.addingFeed = false;
-              };
-              onError = function() {
-                _this.$scope.feedError = true;
-                return _this.addingFeed = false;
-              };
-              return _this.persistence.createFeed(url, folderId, onSuccess, onError);
-            }
-          };
-          this.$scope.addFolder = function(name) {
-            var folder, onSuccess, _i, _len, _ref;
-            _this.$scope.folderEmptyError = false;
-            _this.$scope.folderExistsError = false;
-            if (name === void 0 || name.trim() === '') {
-              _this.$scope.folderEmptyError = true;
-            } else {
-              name = name.trim();
-              _ref = _this.folderModel.getItems();
-              for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                folder = _ref[_i];
-                if (name.toLowerCase() === folder.name.toLowerCase()) {
-                  _this.$scope.folderExistsError = true;
-                }
-              }
-            }
-            if (!(_this.$scope.folderEmptyError || _this.$scope.folderExistsError)) {
-              _this.addingFolder = true;
-              onSuccess = function() {
-                _this.$scope.folderName = '';
-                return _this.addingFolder = false;
-              };
-              return _this.persistence.createFolder(name, onSuccess);
-            }
-          };
           this.$scope.$on('readFile', function(scope, fileContent) {
             var structure;
             structure = _this.opmlParser.parseXML(fileContent);
@@ -2179,6 +2204,45 @@
   */
 
 
+  /*
+  Turns a normal select into a folder select with the ability to create new folders
+  */
+
+
+  angular.module('News').directive('addFolderSelect', [
+    '$rootScope', function() {
+      return function(scope, elm, attr) {
+        var options;
+        options = {
+          singleSelect: true,
+          selectedFirst: true,
+          createText: $(elm).data('create'),
+          createdCallback: function(selected, value) {
+            console.log(selected);
+            return console.log(value);
+          }
+        };
+        return $(elm).multiSelect(options);
+      };
+    }
+  ]);
+
+  /*
+  # ownCloud news app
+  #
+  # @author Alessandro Cosentino
+  # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
+  # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
+  #
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
+  #
+  # See the COPYING-README file
+  #
+  */
+
+
   angular.module('News').directive('draggable', function() {
     return function(scope, elm, attr) {
       var details;
@@ -2215,11 +2279,11 @@
         $elem = $(elm);
         details = {
           accept: '.feed',
-          hoverClass: 'dnd_over',
+          hoverClass: 'drag-and-drop',
           greedy: true,
           drop: function(event, ui) {
             var data;
-            $('.dnd_over').removeClass('dnd_over');
+            $('.drag-and-drop').removeClass('drag-and-drop');
             data = {
               folderId: parseInt($elem.data('id'), 10),
               feedId: parseInt($(ui.draggable).data('id'), 10)

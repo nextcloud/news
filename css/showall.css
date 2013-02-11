@@ -1,0 +1,19 @@
+.show-all {
+        background-color: transparent !important;
+        border: 0 !important;
+}
+
+.show-all:hover {
+        box-shadow: none !important;
+        border: 0 !important;
+}
+
+.show-all > a {
+        padding: 5px 0 5px 0 !important;
+        text-align: center;
+        opacity: .5;
+}
+
+.show-all > a:hover {
+        background-color: transparent !important;
+}

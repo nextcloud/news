@@ -1,0 +1,82 @@
+.starred-icon {
+        background-image: url('%appswebroot%/news/img/starred.png');
+}
+
+.subscriptions-icon {
+        background-image: url('%appswebroot%/news/img/rss.svg');
+}
+
+.unread {
+        font-weight: bold;
+}
+
+#left-content .unread > a {
+        padding-right: 32px;
+}
+
+
+
+#left-content .utils {
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        display: none;
+}
+
+#left-content .utils button {
+        margin: 5px 0 0 0;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-color: transparent;
+        border: 0;
+        box-shadow: none;
+}
+
+.unread-counter {
+        padding: 6px 8px 5px;
+        position: absolute;
+        z-index: 5;
+        right: 0;
+        top: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: center;
+        font-size: 9pt;
+        display: none;
+}
+
+#left-content li:hover .utils > .unread-counter {
+        display: none;
+}
+
+.unread .unread-counter {
+        display: block;
+}
+
+
+/* general */
+button.action {
+        opacity: .5;
+}
+
+button.action:hover {
+        opacity: 1;
+}
+
+
+#left-content li:hover > .utils {
+        display: block;
+}
+
+.delete-icon {
+        background-image: url('%webroot%/core/img/actions/delete.svg');
+}
+
+.edit-icon {
+        background-image: url('%webroot%/core/img/actions/rename.svg');
+}
+
+.mark-read-icon {
+        background-image: url('%appswebroot%/news/img/mark_read.svg');
+}

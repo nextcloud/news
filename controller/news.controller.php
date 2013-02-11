@@ -56,8 +56,15 @@ class NewsController extends Controller {
                 $this->api->add3rdPartyScript('angular-1.0.2/angular.min');
                 $this->api->add3rdPartyScript('moment.min');
                 $this->api->addScript('app');
-                $this->api->addStyle('news');
+                $this->api->addScript('multiselect', 'core');
 
+                $this->api->addStyle('owncloud');
+                $this->api->addStyle('addnew');
+                $this->api->addStyle('feeds');
+                $this->api->addStyle('items');
+                $this->api->addStyle('settings');
+                $this->api->addStyle('addnew');
+                $this->api->addStyle('showall');
 
                 if($urlParams['feedid']){
                         $this->api->setUserValue('lastViewedFeed', $urlParams['feedid']);
