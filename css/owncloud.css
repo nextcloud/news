@@ -209,12 +209,12 @@
 
 #app-settings-content {
 	background-color: #eee;
-	height: 0;
+	display: none;
 	padding: 10px;
 }
 
 #app-settings.open #app-settings-content {
-	height: auto;
+	display: block;
 }
 
 
