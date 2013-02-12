@@ -2249,37 +2249,46 @@
   */
 
 
-  angular.module('News').directive('clickSlideToggle', function() {
-    return function(scope, elm, attr) {
-      var options, slideArea;
-      options = scope.$eval(attr.clickSlideToggle);
-      if (angular.isDefined(options.selector)) {
-        slideArea = $(options.selector);
-      } else {
-        slideArea = elm;
-      }
-      elm.click(function() {
-        if (slideArea.is(':visible') && !slideArea.is(':animated')) {
-          return slideArea.slideUp();
+  angular.module('News').directive('clickSlideToggle', [
+    '$rootScope', function($rootScope) {
+      return function(scope, elm, attr) {
+        var options, slideArea;
+        options = scope.$eval(attr.clickSlideToggle);
+        if (angular.isDefined(options.selector)) {
+          slideArea = $(options.selector);
         } else {
-          return slideArea.slideDown();
+          slideArea = elm;
         }
-      });
-      if (angular.isDefined(options.hideOnFocusLost) && options.hideOnFocusLost) {
-        $(document.body).click(function() {
+        elm.click(function() {
           if (slideArea.is(':visible') && !slideArea.is(':animated')) {
             return slideArea.slideUp();
+          } else {
+            return slideArea.slideDown();
           }
         });
-        slideArea.click(function(e) {
-          return e.stopPropagation();
-        });
-        return elm.click(function(e) {
-          return e.stopPropagation();
-        });
-      }
-    };
-  });
+        if (angular.isDefined(options.hideOnFocusLost) && options.hideOnFocusLost) {
+          $(document.body).click(function() {
+            return $rootScope.$broadcast('lostFocus');
+          });
+          $rootScope.$on('lostFocus', function(scope, params) {
+            if (params !== slideArea) {
+              if (slideArea.is(':visible') && !slideArea.is(':animated')) {
+                return slideArea.slideUp();
+              }
+            }
+          });
+          slideArea.click(function(e) {
+            $rootScope.$broadcast('lostFocus', slideArea);
+            return e.stopPropagation();
+          });
+          return elm.click(function(e) {
+            $rootScope.$broadcast('lostFocus', slideArea);
+            return e.stopPropagation();
+          });
+        }
+      };
+    }
+  ]);
 
   /*
   # ownCloud news app

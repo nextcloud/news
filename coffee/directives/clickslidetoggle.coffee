@@ -18,7 +18,8 @@ Used to slide up an area and can be customized by passing an expression.
 If selector is defined, a different area is slid up on click
 If hideOnFocusLost is defined, the slid up area will hide when the focus is lost
 ###
-angular.module('News').directive 'clickSlideToggle', ->
+angular.module('News').directive 'clickSlideToggle',
+['$rootScope', ($rootScope) ->
 
 	return (scope, elm, attr) ->
 		options = scope.$eval(attr.clickSlideToggle)
@@ -36,11 +37,19 @@ angular.module('News').directive 'clickSlideToggle', ->
 
 		if angular.isDefined(options.hideOnFocusLost) and options.hideOnFocusLost
 			$(document.body).click ->
-				if slideArea.is(':visible') and not slideArea.is(':animated')
-					slideArea.slideUp()
+                                $rootScope.$broadcast 'lostFocus'
+
+                        $rootScope.$on 'lostFocus', (scope, params) ->
+                                if params != slideArea
+                                        if slideArea.is(':visible') and not slideArea.is(':animated')
+                                                slideArea.slideUp()
 
 			slideArea.click (e) ->
+                                $rootScope.$broadcast 'lostFocus', slideArea
 				e.stopPropagation()
 
 			elm.click (e) ->
+                                $rootScope.$broadcast 'lostFocus', slideArea
 				e.stopPropagation()
+
+]
