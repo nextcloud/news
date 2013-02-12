@@ -2391,6 +2391,41 @@
 
 
   /*
+  Used to forward clicks to another element via jquery selector
+  
+  The expression which can be passed looks like this {selector:'#opml-upload'}
+  */
+
+
+  angular.module('News').directive('forwardClick', function() {
+    return function(scope, elm, attr) {
+      var options;
+      options = scope.$eval(attr.forwardClick);
+      if (angular.isDefined(options.selector)) {
+        return elm.click(function() {
+          return $(options.selector).trigger('click');
+        });
+      }
+    };
+  });
+
+  /*
+  # ownCloud news app
+  #
+  # @author Alessandro Cosentino
+  # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
+  # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
+  #
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
+  #
+  # See the COPYING-README file
+  #
+  */
+
+
+  /*
   # This is used to signal the settings bar that the app has been focused and that
   # it should hide
   */
