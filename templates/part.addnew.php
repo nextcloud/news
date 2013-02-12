@@ -13,7 +13,7 @@
 			<p class="error">
 				<span ng-show="feedEmptyError"><?php p($l->t('Address must not be empty!')); ?></span>
 				<span ng-show="feedExistsError"><?php p($l->t('Feed exists already!')); ?></span>
-				<span ng-show="feedError"><?php p($l->t('Could not add feed!')); ?></span>
+                                <span ng-show="feedError"><?php p($l->t('Could not add feed! Check if feed contains valid RSS!')); ?></span>
 				<span ng-show="folderExistsError"><?php p($l->t('Folder exists already')); ?></span>
 			</p>
 			<form>
