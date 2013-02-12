@@ -10,14 +10,14 @@
 			<?php print_unescaped($this->inc('part.showall')); ?>
 		</ul>
 
-                <div id="app-settings" ng-controller="SettingsController">
+		<div id="app-settings" ng-controller="SettingsController">
 			<div id="app-settings-header">
 				<button name="app settings" 
 						class="settings-button"
-                                                click-slide-toggle="{
-                                                        selector: '#app-settings-content',
-                                                        hideOnFocusLost: true
-                                                }"></button>
+						click-slide-toggle="{
+							selector: '#app-settings-content',
+							hideOnFocusLost: true
+						}"></button>
 			</div>
 			<div id="app-settings-content">
 				<?php print_unescaped($this->inc('part.settings')) ?>

@@ -20,27 +20,27 @@ If hideOnFocusLost is defined, the slid up area will hide when the focus is lost
 ###
 angular.module('News').directive 'clickSlideToggle', ->
 
-        return (scope, elm, attr) ->
-                options = scope.$eval(attr.clickSlideToggle)
+	return (scope, elm, attr) ->
+		options = scope.$eval(attr.clickSlideToggle)
 
-                if angular.isDefined(options.selector)
-                        slideArea = $(options.selector)
-                else
-                        slideArea = elm
+		if angular.isDefined(options.selector)
+			slideArea = $(options.selector)
+		else
+			slideArea = elm
 
-                elm.click ->
-                        if slideArea.is(':visible') and not slideArea.is(':animated')
-                                slideArea.slideUp()
-                        else
-                                slideArea.slideDown()
+		elm.click ->
+			if slideArea.is(':visible') and not slideArea.is(':animated')
+				slideArea.slideUp()
+			else
+				slideArea.slideDown()
 
-                if angular.isDefined(options.hideOnFocusLost) and options.hideOnFocusLost
-                        $(document.body).click ->
-                                if slideArea.is(':visible') and not slideArea.is(':animated')
-                                        slideArea.slideUp()
+		if angular.isDefined(options.hideOnFocusLost) and options.hideOnFocusLost
+			$(document.body).click ->
+				if slideArea.is(':visible') and not slideArea.is(':animated')
+					slideArea.slideUp()
 
-                        slideArea.click (e) ->
-                                e.stopPropagation()
+			slideArea.click (e) ->
+				e.stopPropagation()
 
-                        elm.click (e) ->
-                                e.stopPropagation()
+			elm.click (e) ->
+				e.stopPropagation()

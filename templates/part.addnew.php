@@ -1,9 +1,9 @@
 <li class="add-new" ng-controller="AddNewController">
-        <a class="list-title list-title-with-icon" ng-click="showAdd=!showAdd"
-                        click-slide-toggle="{
-                                selector: '.add-new-popup',
-                                hideOnFocusLost: true
-                        }" href="#">
+	<a class="list-title list-title-with-icon" ng-click="showAdd=!showAdd" 
+			click-slide-toggle="{
+				selector: '.add-new-popup',
+				hideOnFocusLost: true
+			}" href="#">
 		<?php p($l->t('New'))?>
 	</a>
 
