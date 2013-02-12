@@ -1,6 +1,9 @@
 <?php $TRANSLATIONS = array(
-"Share" => "Kongsi",
+"New" => "Baru",
 "Address" => "Alamat",
 "Add" => "Tambah",
-"Settings" => "Tetapan"
+"Folder" => "Folder",
+"Share" => "Kongsi",
+"Import" => "Import",
+"Export" => "Export"
 );

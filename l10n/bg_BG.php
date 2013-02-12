@@ -1,5 +1,8 @@
 <?php $TRANSLATIONS = array(
-"Share" => "Споделяне",
+"New" => "Ново",
 "Add" => "Добавяне",
-"Settings" => "Настройки"
+"Folder" => "Папка",
+"Share" => "Споделяне",
+"Import" => "Внасяне",
+"Export" => "Експорт"
 );

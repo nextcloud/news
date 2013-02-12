@@ -3,12 +3,13 @@
 "no title" => "tidak ada judul",
 "no name" => "tidak bernama",
 "no body" => "tidak berisi",
-"New articles" => "artikel baru",
-"Starred" => "dibintangi",
-"Share" => "berbagi",
+"New" => "Baru",
 "Address" => "alamat",
 "Add" => "tambah",
-"Show everything" => "tampilkan semua",
-"Show only unread" => "tampilkan yang belum dibaca saja",
-"Settings" => "pengaturan"
+"Folder" => "Folder",
+"Starred" => "dibintangi",
+"Share" => "berbagi",
+"Import" => "impor",
+"Export" => "ekspor",
+"Show only unread" => "tampilkan yang belum dibaca saja"
 );

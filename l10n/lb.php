@@ -2,10 +2,12 @@
 "News" => "News",
 "no title" => "keen Titel",
 "no name" => "kee Numm",
-"New articles" => "Nei Artikelen",
-"Share" => "Deelen",
-"Delete folder" => "Dossier läschen",
+"New" => "Nei",
 "Address" => "Adress",
 "Add" => "Dobäisetzen",
-"Settings" => "Astellungen"
+"Folder" => "Dossier",
+"Share" => "Deelen",
+"Delete folder" => "Dossier läschen",
+"Import" => "Import",
+"Export" => "Export"
 );

@@ -1,6 +1,9 @@
 <?php $TRANSLATIONS = array(
-"Share" => "Podijeli",
+"New" => "novo",
 "Address" => "Adresa",
 "Add" => "Dodaj",
-"Settings" => "Postavke"
+"Folder" => "mapa",
+"Share" => "Podijeli",
+"Import" => "Uvezi",
+"Export" => "Izvoz"
 );

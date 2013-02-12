@@ -1,12 +1,13 @@
 <?php $TRANSLATIONS = array(
 "News" => "Naujienos",
+"New" => "Naujas",
+"Address" => "Adresas",
+"Add" => "Pridėti",
+"Folder" => "Katalogas",
 "Share" => "Dalintis",
 "Delete folder" => "Ištrinti katalogą",
 "Rename folder" => "Pervadinti katalogą",
-"Address" => "Adresas",
-"Add" => "Pridėti",
-"Add Folder" => "Pridėti katalogą",
-"Settings" => "Nustatymai",
-"Import OPML" => "Importuoti OPML",
+"Import" => "Importuoti",
+"Export" => "Eksportuoti",
 "Subscribe" => "Prenumeruoti"
 );

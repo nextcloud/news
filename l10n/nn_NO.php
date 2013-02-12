@@ -1,5 +1,8 @@
 <?php $TRANSLATIONS = array(
+"New" => "Ny",
 "Address" => "Adresse",
 "Add" => "Legg til",
-"Settings" => "Innstillingar"
+"Folder" => "Mappe",
+"Import" => "Importer",
+"Export" => "Eksporter"
 );
