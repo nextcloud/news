@@ -18,16 +18,16 @@ Turns a normal select into a folder select with the ability to create new folder
 ###
 angular.module('News').directive 'addFolderSelect', ['$rootScope', ->
 
-        return (scope, elm, attr) ->
+	return (scope, elm, attr) ->
 
-                options =
-                        singleSelect: true
-                        selectedFirst: true
-                        createText: $(elm).data('create')
-                        createdCallback: (selected, value) ->
-                                console.log selected
-                                console.log value
+		options =
+			singleSelect: true
+			selectedFirst: true
+			createText: $(elm).data('create')
+			createdCallback: (selected, value) ->
+				console.log selected
+				console.log value
 
-                $(elm).multiSelect(options)
+		$(elm).multiSelect(options)
 
 ]
