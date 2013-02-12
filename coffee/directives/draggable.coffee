@@ -22,6 +22,7 @@ angular.module('News').directive 'draggable', ->
 			stack: '> li'
 			zIndex: 1000
 			axis: 'y'
+			helper: 'clone'
 		
 		$(elm).draggable(details)
 

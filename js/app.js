@@ -2249,7 +2249,8 @@
         revert: true,
         stack: '> li',
         zIndex: 1000,
-        axis: 'y'
+        axis: 'y',
+        helper: 'clone'
       };
       return $(elm).draggable(details);
     };

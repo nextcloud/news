@@ -97,3 +97,7 @@ button.action:hover {
 .rss-icon {
 	background-image: url('%appswebroot%/news/img/rss.svg');
 }
+
+#left-content .ui-draggable-dragging {
+	width: 249px;
+}
