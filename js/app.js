@@ -71,6 +71,29 @@
 
 
   /*
+  # Inject notification into angular to make testing easier
+  */
+
+
+  angular.module('OC').factory('Notification', function() {
+    return OC.Notification;
+  });
+
+  /*
+  # ownCloud
+  #
+  # @author Bernhard Posselt
+  # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
+  #
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
+  #
+  # See the COPYING-README file
+  #
+  */
+
+
+  /*
   # Used for properly distributing received model data from the server
   */
 
