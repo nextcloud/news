@@ -26,14 +26,15 @@
 }
 
 #left-content .utils button {
-	margin: 0 5px 0 0;
+	margin: 0;
 	background-position: center;
 	background-repeat: no-repeat;
 	background-color: transparent;
 	border: 0;
 	box-shadow: none;
 	display: none;
-	padding: 8px;
+	height: 32px;
+	width: 32px;
 }
 
 #left-content li:hover .utils button {
@@ -68,8 +69,16 @@ button.action:hover {
 }
 
 
+#left-content li:hover > a {
+	padding-right: 98px;
+}
+
 #left-content li:hover > .utils {
 	display: block;
+}
+
+#left-content li:hover > .utils .unread-counter {
+	padding-right: 0;
 }
 
 .delete-icon {
@@ -83,4 +92,8 @@ button.action:hover {
 
 .mark-read-icon {
 	background-image: url('%appswebroot%/news/img/mark_read.svg');
+}
+
+.rss-icon {
+	background-image: url('%appswebroot%/news/img/rss.svg');
 }
