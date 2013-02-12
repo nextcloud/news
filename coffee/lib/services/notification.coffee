@@ -15,4 +15,4 @@
 # Inject notification into angular to make testing easier
 ###
 angular.module('OC').factory 'Notification', ->
-        return OC.Notification
+	return OC.Notification
