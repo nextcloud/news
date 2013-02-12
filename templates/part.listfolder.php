@@ -28,6 +28,7 @@
 				title="<?php p($l->t('Delete folder')); ?>"></button>
 
 		<button class="svg action mark-read-icon" 
+				ng-show="getUnreadCount(feedType.Feed, feed.id)>0"
 				ng-click="markAllRead(feedType.Folder, folder.id)"
 				title="<?php p($l->t('Mark all read')); ?>"></button>
 
