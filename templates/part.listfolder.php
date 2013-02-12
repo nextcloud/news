@@ -19,6 +19,13 @@
 	</a>
 
 	<span class="utils">
+		<button class="svg action edit-icon" 
+				ng-click="renameFolder(folder.id)"
+				title="<?php p($l->t('Rename folder')); ?>"></button>
+
+		<button ng-click="delete(feedType.Folder, folder.id)"
+				class="svg action delete-icon" 
+				title="<?php p($l->t('Delete folder')); ?>"></button>
 
 		<button class="svg action mark-read-icon" 
 				ng-click="markAllRead(feedType.Folder, folder.id)"
@@ -28,13 +35,6 @@
 			{{ getUnreadCount(feedType.Folder, folder.id) }}
 		</span>
 
-		<button ng-click="delete(feedType.Folder, folder.id)"
-				class="svg action delete-icon" 
-				title="<?php p($l->t('Delete folder')); ?>"></button>
-
-		<button class="svg action edit-icon" 
-				ng-click="renameFolder(folder.id)"
-				title="<?php p($l->t('Rename folder')); ?>"></button>
 	</span>
 	<ul>
 		<?php print_unescaped($this->inc('part.listfeed', array('folderId' => 'folder.id'))); ?>

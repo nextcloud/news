@@ -82,8 +82,12 @@ button.action:hover {
 }
 
 .delete-icon {
-	background-position: center 10px !important;
+	background-position: center 9px !important;
 	background-image: url('%webroot%/core/img/actions/delete.svg');
+}
+
+.delete-icon:hover {
+	background-image: url('%webroot%/core/img/actions/delete-hover.svg');
 }
 
 .edit-icon {

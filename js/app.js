@@ -1606,39 +1606,6 @@
   */
 
 
-  angular.module('News').factory('_AddNewController', [
-    'Controller', function(Controller) {
-      var AddNewController;
-      return AddNewController = (function(_super) {
-
-        __extends(AddNewController, _super);
-
-        function AddNewController() {
-          return AddNewController.__super__.constructor.apply(this, arguments);
-        }
-
-        return AddNewController;
-
-      })(Controller);
-    }
-  ]);
-
-  /*
-  # ownCloud news app
-  #
-  # @author Alessandro Cosentino
-  # @author Bernhard Posselt
-  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
-  # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
-  #
-  # This file is licensed under the Affero General Public License version 3 or
-  # later.
-  #
-  # See the COPYING-README file
-  #
-  */
-
-
   angular.module('News').factory('Controller', function() {
     var Controller;
     return Controller = (function() {
@@ -1667,8 +1634,8 @@
 
 
   angular.module('News').controller('SettingsController', [
-    '_SettingsController', '$scope', '$rootScope', 'ShowAll', 'PersistenceNews', 'FolderModel', 'FeedModel', 'OPMLParser', function(_SettingsController, $scope, $rootScope, ShowAll, PersistenceNews, FolderModel, FeedModel, OPMLParser) {
-      return new _SettingsController($scope, $rootScope, PersistenceNews, OPMLParser);
+    '_SettingsController', '$scope', '$rootScope', 'PersistenceNews', 'OPMLParser', 'FeedModel', function(_SettingsController, $scope, $rootScope, PersistenceNews, OPMLParser, FeedModel) {
+      return new _SettingsController($scope, $rootScope, PersistenceNews, OPMLParser, FeedModel);
     }
   ]);
 
@@ -1681,12 +1648,6 @@
   angular.module('News').controller('FeedController', [
     '_FeedController', '$scope', 'FeedModel', 'FeedType', 'FolderModel', 'ActiveFeed', 'PersistenceNews', 'StarredCount', 'ShowAll', 'ItemModel', 'GarbageRegistry', '$rootScope', 'Loading', 'Config', function(_FeedController, $scope, FeedModel, FeedType, FolderModel, ActiveFeed, PersistenceNews, StarredCount, ShowAll, ItemModel, GarbageRegistry, $rootScope, Loading, Config) {
       return new _FeedController($scope, FeedModel, FolderModel, FeedType, ActiveFeed, PersistenceNews, StarredCount, ShowAll, ItemModel, GarbageRegistry, $rootScope, Loading, Config);
-    }
-  ]);
-
-  angular.module('News').controller('AddNewController', [
-    '_AddNewController', '$scope', function(_AddNewController, $scope) {
-      return new _AddNewController($scope);
     }
   ]);
 
@@ -2157,16 +2118,14 @@
 
         __extends(SettingsController, _super);
 
-        function SettingsController($scope, $rootScope, persistence, opmlParser) {
+        function SettingsController($scope, $rootScope, persistence, opmlParser, feedModel) {
           var _this = this;
           this.$scope = $scope;
           this.$rootScope = $rootScope;
           this.persistence = persistence;
           this.opmlParser = opmlParser;
-          this.add = false;
-          this.settings = false;
-          this.addingFeed = false;
-          this.addingFolder = false;
+          this.feedModel = feedModel;
+          this.$scope.feeds = this.feedModel.getItems();
           this.$scope.$on('readFile', function(scope, fileContent) {
             var structure;
             structure = _this.opmlParser.parseXML(fileContent);
@@ -2175,7 +2134,16 @@
           this.$scope.$on('hidesettings', function() {
             return _this.$scope.showSettings = false;
           });
+          this.$scope["export"] = function() {
+            return _this["export"]();
+          };
         }
+
+        SettingsController.prototype["export"] = function() {
+          var url;
+          url = OC.Router.generate('news_export_opml');
+          return window.open(url, '_blank');
+        };
 
         SettingsController.prototype.parseOPMLStructure = function(structure, folderId) {
           var item, onError, onSuccess, _i, _len, _ref, _results,

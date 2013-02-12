@@ -14,12 +14,10 @@
 ###
 
 angular.module('News').controller 'SettingsController', 
-['_SettingsController', '$scope', '$rootScope', 'ShowAll', 'PersistenceNews', 
-'FolderModel', 'FeedModel', 'OPMLParser',
-(_SettingsController, $scope, $rootScope, ShowAll, PersistenceNews, 
-FolderModel, FeedModel, OPMLParser) ->
-        return new _SettingsController($scope, $rootScope, PersistenceNews,
-                                                                        OPMLParser)
+['_SettingsController', '$scope', '$rootScope', 'PersistenceNews', 'OPMLParser', 'FeedModel', 
+(_SettingsController, $scope, $rootScope, PersistenceNews, OPMLParser, FeedModel) ->
+		return new _SettingsController($scope, $rootScope, PersistenceNews,
+										OPMLParser, FeedModel)
 ]
 
 angular.module('News').controller 'ItemController', 
@@ -42,10 +40,4 @@ StarredCount, ShowAll, ItemModel, GarbageRegistry, $rootScope, Loading, Config) 
 								ActiveFeed, PersistenceNews, StarredCount, ShowAll,
 								ItemModel, GarbageRegistry, $rootScope, Loading,
 								Config)
-]
-
-angular.module('News').controller 'AddNewController',
-['_AddNewController', '$scope',
-(_AddNewController, $scope) ->
-        return new _AddNewController($scope)
 ]
