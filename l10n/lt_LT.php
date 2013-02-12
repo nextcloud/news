@@ -5,8 +5,8 @@
 "Add" => "Pridėti",
 "Folder" => "Katalogas",
 "Share" => "Dalintis",
-"Delete folder" => "Ištrinti katalogą",
 "Rename folder" => "Pervadinti katalogą",
+"Delete folder" => "Ištrinti katalogą",
 "Import" => "Importuoti",
 "Export" => "Eksportuoti",
 "Subscribe" => "Prenumeruoti"
