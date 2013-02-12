@@ -2242,6 +2242,61 @@
   */
 
 
+  /*
+  Used to slide up an area and can be customized by passing an expression.
+  If selector is defined, a different area is slid up on click
+  If hideOnFocusLost is defined, the slid up area will hide when the focus is lost
+  */
+
+
+  angular.module('News').directive('clickSlideToggle', function() {
+    return function(scope, elm, attr) {
+      var options, slideArea;
+      options = scope.$eval(attr.clickSlideToggle);
+      if (angular.isDefined(options.selector)) {
+        slideArea = $(options.selector);
+      } else {
+        slideArea = elm;
+      }
+      elm.click(function() {
+        if (slideArea.is(':visible') && !slideArea.is(':animated')) {
+          return slideArea.slideUp();
+        } else {
+          return slideArea.slideDown();
+        }
+      });
+      if (angular.isDefined(options.hideOnFocusLost) && options.hideOnFocusLost) {
+        $(document.body).click(function() {
+          if (slideArea.is(':visible') && !slideArea.is(':animated')) {
+            return slideArea.slideUp();
+          }
+        });
+        slideArea.click(function(e) {
+          return e.stopPropagation();
+        });
+        return elm.click(function(e) {
+          return e.stopPropagation();
+        });
+      }
+    };
+  });
+
+  /*
+  # ownCloud news app
+  #
+  # @author Alessandro Cosentino
+  # @author Bernhard Posselt
+  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
+  # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
+  #
+  # This file is licensed under the Affero General Public License version 3 or
+  # later.
+  #
+  # See the COPYING-README file
+  #
+  */
+
+
   angular.module('News').directive('draggable', function() {
     return function(scope, elm, attr) {
       var details;
@@ -2408,42 +2463,6 @@
       }
     };
   });
-
-  /*
-  # ownCloud news app
-  #
-  # @author Alessandro Cosentino
-  # @author Bernhard Posselt
-  # Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
-  # Copyright (c) 2012 - Bernhard Posselt <nukeawhale@gmail.com>
-  #
-  # This file is licensed under the Affero General Public License version 3 or
-  # later.
-  #
-  # See the COPYING-README file
-  #
-  */
-
-
-  /*
-  # This is used to signal the settings bar that the app has been focused and that
-  # it should hide
-  */
-
-
-  angular.module('News').directive('hideSettingsWhenFocusLost', [
-    '$rootScope', function($rootScope) {
-      return function(scope, elm, attr) {
-        $(document.body).click(function() {
-          $rootScope.$broadcast('hidesettings');
-          return scope.$apply(attr.hideSettingsWhenFocusLost);
-        });
-        return $(elm).click(function(e) {
-          return e.stopPropagation();
-        });
-      };
-    }
-  ]);
 
   /*
   # ownCloud news app
