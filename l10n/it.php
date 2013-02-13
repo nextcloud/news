@@ -12,6 +12,7 @@
 "Add Subscription" => "Aggiungi sottoscrizione",
 "Address must not be empty!" => "L'indirizzo non può essere vuoto!",
 "Feed exists already!" => "La fonte esiste già!",
+"Could not add feed! Check if feed contains valid RSS!" => "Impossibile aggiungere la fonte. Verifica che la fonte contenga un RSS valido.",
 "Folder exists already" => "La cartella esiste già",
 "Address" => "Indirizzo",
 "Add" => "Aggiungi",

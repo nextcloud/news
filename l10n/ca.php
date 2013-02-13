@@ -12,6 +12,7 @@
 "Add Subscription" => "Afegeix subscripció",
 "Address must not be empty!" => "L'adreça no pot ser buida",
 "Feed exists already!" => "La font ja existeix!",
+"Could not add feed! Check if feed contains valid RSS!" => "No s'ha pogut afegir la font! Comproveu si conté un RSS vàlid!",
 "Folder exists already" => "La carpeta ja existeix",
 "Address" => "Adreça",
 "Add" => "Afegeix",

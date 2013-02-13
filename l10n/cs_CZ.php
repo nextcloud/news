@@ -12,6 +12,7 @@
 "Add Subscription" => "Přidat odběr",
 "Address must not be empty!" => "Adresa nesmí být prázdná.",
 "Feed exists already!" => "Kanál již existuje.",
+"Could not add feed! Check if feed contains valid RSS!" => "Nelze přidat kanál. Zkontrolujte zda obsahuje platná data RSS.",
 "Folder exists already" => "Složka již existuje",
 "Address" => "Adresa",
 "Add" => "Přidat",

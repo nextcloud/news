@@ -12,6 +12,7 @@
 "Add Subscription" => "Pievienot abonementu",
 "Address must not be empty!" => "Adrese nedrīkst būt tukša!",
 "Feed exists already!" => "Plūsma jau eksistē!",
+"Could not add feed! Check if feed contains valid RSS!" => "Nevarēja pievienot plūsmu! Pārbaudiet, vai plūsma satur derīgu RSS!",
 "Folder exists already" => "Mape jau eksistē",
 "Address" => "Adrese",
 "Add" => "Pievienot",
