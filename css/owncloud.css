@@ -252,6 +252,18 @@
 	background-image: url('%webroot%/core/img/places/folder.png');
 }
 
+.delete-icon {
+	background-image: url('%webroot%/core/img/actions/delete.svg');
+}
+
+.delete-icon:hover {
+	background-image: url('%webroot%/core/img/actions/delete-hover.svg');
+}
+
+.edit-icon {
+	background-image: url('%webroot%/core/img/actions/rename.svg');
+}
+
 /* buttons */
 button.loading {
 	background-image: url('%webroot%/core/img/loading.gif');
