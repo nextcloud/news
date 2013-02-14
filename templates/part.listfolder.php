@@ -12,7 +12,7 @@
 			title="<?php p($l->t('Collapse'));?>"
 			ng-click="toggleFolder(folder.id)"></button>
 	<a href="#" 
-           class="title folder-icon"
+	   class="title folder-icon"
 	   ng-click="loadFeed(feedType.Folder, folder.id)">
 	   {{folder.name}}
 	</a>
@@ -23,18 +23,18 @@
 				class="svg action delete-icon" 
 				title="<?php p($l->t('Delete folder')); ?>"></button>
 
-                <span class="unread-counter">
-                        {{ getUnreadCount(feedType.Folder, folder.id) }}
-                </span>
-
+		<span class="unread-counter">
+			{{ getUnreadCount(feedType.Folder, folder.id) }}
+		</span>
+		
 		<button class="svg action mark-read-icon" 
 				ng-show="getUnreadCount(feedType.Feed, feed.id)>0"
 				ng-click="markAllRead(feedType.Folder, folder.id)"
 				title="<?php p($l->t('Mark all read')); ?>"></button>
-
-                <button class="svg action edit-icon"
-                                ng-click="renameFolder(folder.id)"
-                                title="<?php p($l->t('Rename folder')); ?>"></button>
+		
+		<button class="svg action edit-icon" 
+				ng-click="renameFolder(folder.id)"
+				title="<?php p($l->t('Rename folder')); ?>"></button>
 
 
 	</span>

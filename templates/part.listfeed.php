@@ -1,9 +1,9 @@
 <li ng-class="{active: isFeedActive(feedType.Feed, feed.id), unread: feed.unreadCount!=0}" 
-    ng-repeat="feed in feeds|feedInFolder:<?php p($_['folderId']); ?>"
-    ng-show="feed.show"
-    data-id="{{feed.id}}"
-    class="feed"
-    draggable>
+	ng-repeat="feed in feeds|feedInFolder:<?php p($_['folderId']); ?>"
+	ng-show="feed.show"
+	data-id="{{feed.id}}"
+	class="feed"
+	draggable>
 	<a ng-style="{backgroundImage: feed.icon}"
 	   href="#"
 	   class="title"
@@ -20,10 +20,10 @@
 			{{ getUnreadCount(feedType.Feed, feed.id) }}
 		</span>
 
-        <button class="svg action mark-read-icon"
-            ng-show="getUnreadCount(feedType.Feed, feed.id)>0"
-            ng-click="markAllRead(feedType.Feed, feed.id)"
-            title="<?php p($l->t('Mark all read')); ?>"></button>
+		<button class="svg action mark-read-icon"
+			ng-show="getUnreadCount(feedType.Feed, feed.id)>0"
+			ng-click="markAllRead(feedType.Feed, feed.id)"
+			title="<?php p($l->t('Mark all read')); ?>"></button>
 
 
 

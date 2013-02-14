@@ -59,7 +59,6 @@ class NewsController extends Controller {
                 $this->api->addScript('app');
                 $this->api->addScript('multiselect', 'core');
 
-                $this->api->addStyle('owncloud');
                 $this->api->addStyle('addnew');
                 $this->api->addStyle('feeds');
                 $this->api->addStyle('items');

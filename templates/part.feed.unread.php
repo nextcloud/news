@@ -19,8 +19,8 @@
 		<span class="unread-counter">
 			{{ getUnreadCount(feedType.Subscriptions, 0) }}
 		</span>
-                <button class="svg action mark-read-icon"
-                        ng-click="markAllRead(feedType.Subscriptions, 0)"
-                        title="<?php p($l->t('Mark all read')) ?>"></button>
+		<button class="svg action mark-read-icon" 
+			ng-click="markAllRead(feedType.Subscriptions, 0)"
+			title="<?php p($l->t('Mark all read')) ?>"></button>
 	</span>
 </li>
