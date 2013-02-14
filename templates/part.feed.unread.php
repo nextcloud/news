@@ -16,11 +16,11 @@
 	   <?php p($l->t('All articles'))?>
 	</a>
 	<span class="utils">
-		<button class="svg action mark-read-icon" 
-			ng-click="markAllRead(feedType.Subscriptions, 0)"
-			title="<?php p($l->t('Mark all read')) ?>"></button>
 		<span class="unread-counter">
 			{{ getUnreadCount(feedType.Subscriptions, 0) }}
 		</span>
+                <button class="svg action mark-read-icon"
+                        ng-click="markAllRead(feedType.Subscriptions, 0)"
+                        title="<?php p($l->t('Mark all read')) ?>"></button>
 	</span>
 </li>

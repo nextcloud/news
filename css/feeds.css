@@ -78,7 +78,7 @@ button.action:hover {
 }
 
 #app-navigation li:hover > .utils .unread-counter {
-	padding-right: 0;
+        padding-left: 0;
 }
 
 .delete-icon {
