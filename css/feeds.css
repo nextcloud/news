@@ -10,22 +10,22 @@
 	font-weight: bold;
 }
 
-#left-content .unread > a {
+#app-navigation .unread > a {
 	padding-right: 32px;
 }
 
-#left-content .utils {
+#app-navigation .utils {
 	position: absolute;
 	right: 0;
 	top: 0;
 	bottom: 0;
 }
 
-#left-content .utils > * {
+#app-navigation .utils > * {
 	float: right;
 }
 
-#left-content .utils button {
+#app-navigation .utils button {
 	margin: 0;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -37,7 +37,7 @@
 	width: 32px;
 }
 
-#left-content li:hover .utils button {
+#app-navigation li:hover .utils button {
 	display: block;
 }
 
@@ -69,15 +69,15 @@ button.action:hover {
 }
 
 
-#left-content li:hover > a {
+#app-navigation li:hover > a {
 	padding-right: 98px;
 }
 
-#left-content li:hover > .utils {
+#app-navigation li:hover > .utils {
 	display: block;
 }
 
-#left-content li:hover > .utils .unread-counter {
+#app-navigation li:hover > .utils .unread-counter {
 	padding-right: 0;
 }
 
@@ -93,6 +93,6 @@ button.action:hover {
 	background-image: url('%appswebroot%/news/img/rss.svg');
 }
 
-#left-content .ui-draggable-dragging {
+#app-navigation .ui-draggable-dragging {
 	width: 249px;
 }

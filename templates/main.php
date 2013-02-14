@@ -1,5 +1,5 @@
 <div id="app" ng-app="News">
-	<div id="left-content" ng-controller="FeedController">
+	<div id="app-navigation" ng-controller="FeedController">
 
 		<ul class="with-icon" data-id="0" droppable>
 			<?php print_unescaped($this->inc('part.addnew')) ?>
@@ -26,7 +26,7 @@
 
 	</div>
 
-	<div id="right-content" ng-class="{loading: loading.loading>0}"
+	<div id="app-content" ng-class="{loading: loading.loading>0}"
 		ng-controller="ItemController" 	when-scrolled="scroll()" feed-navigation>
 		<?php print_unescaped($this->inc("part.items")); ?>
 	</div>
