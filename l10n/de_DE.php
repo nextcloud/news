@@ -12,7 +12,7 @@
 "Add Subscription" => "Abonnement hinzufügen",
 "Address must not be empty!" => "Die Adresse muss angegeben werden!",
 "Feed exists already!" => "Feed existiert bereits!",
-"Could not add feed! Check if feed contains valid RSS!" => "Feed konnte nicht hinzugefügt werden! Überprüfe, ob das Feed valides RSS enthält!",
+"Could not add feed! Check if feed contains valid RSS!" => "Feed konnte nicht hinzugefügt werden! Überprüfe, ob der Feed gültiges RSS enthält!",
 "Folder exists already" => "Verzeichnis existiert bereits",
 "Address" => "Adresse",
 "Add" => "Hinzufügen",
