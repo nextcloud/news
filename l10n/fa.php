@@ -8,12 +8,14 @@
 "Address must not be empty!" => "آدرس نباید خالی باشد!",
 "Address" => "آدرس",
 "Add" => "افزودن",
+"New folder" => "پوشه جدید",
 "Folder" => "پوشه",
 "Share" => "اشتراک‌گزاری",
-"Rename folder" => "تغییر نام پوشه",
 "Delete folder" => "حذف پوشه",
+"Rename folder" => "تغییر نام پوشه",
 "Import" => "وارد کردن",
 "Export" => "گرفتن خروجی",
+"Show all" => "نمایش همه موارد",
 "Show only unread" => "نمایش خوانده نشده ها",
 "Subscribe" => "اشتراک گذاری"
 );
