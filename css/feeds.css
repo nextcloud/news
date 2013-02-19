@@ -96,3 +96,7 @@ button.action:hover {
 #app-navigation .ui-draggable-dragging {
 	width: 249px;
 }
+
+#app-navigation .multiselect {
+	height:20px;
+}
