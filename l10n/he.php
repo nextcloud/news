@@ -13,8 +13,8 @@
 "Starred" => "מסומן",
 "Share" => "שתף",
 "Keep unread" => "סמן כלא נקרא",
-"Rename folder" => "שנה שם תיקייה",
 "Delete folder" => "מחק תיקייה",
+"Rename folder" => "שנה שם תיקייה",
 "Import" => "יבוא",
 "Export" => "ייצוא",
 "Show only unread" => "להציג רק כאלה שלא נקראו"
