@@ -60,7 +60,7 @@ class FolderMapper {
 	 * @returns
 	 */
 	public function getAll() {
-		return self::childrenOf(0);
+		return $this->childrenOf(0);
 	}
 
 	/**

@@ -8,8 +8,13 @@ class API_Folder {
 
 	public static function getAll() {
 		$container = createDIContainer();
-		$controller = $container['FolderBL'];
-		return \OC_OCS_Result($controller->getAll());
+		$bl = $container['FolderBL'];
+		$folders = $bl->getAll();
+		$serializedFolders = array();
+		foreach ($folders as $folder) {
+			$serializedFolders[] = $folder->jsonSerialize();
+		}
+		return new \OC_OCS_Result($serializedFolders);
 	}
 }
 

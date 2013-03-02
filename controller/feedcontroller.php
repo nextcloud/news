@@ -32,12 +32,12 @@ use \OCA\AppFramework\Db\DoesNotExistException;
 use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
 
 
-class FolderController extends Controller {
+class FeedController extends Controller {
 
 
-	public function __construct(API $api, Request $request, $folderMapper){
+	public function __construct(API $api, Request $request, $feedMapper){
 		parent::__construct($api, $request);
-		$this->folderMapper = $folderMapper;
+		$this->feedMapper = $feedMapper;
 	}
 
 
@@ -46,33 +46,10 @@ class FolderController extends Controller {
 	 * @IsSubAdminExemption
 	 * @Ajax
 	 *
-	 * Returns all folders
+	 * Returns all feeds
 	 */
 	public function getAll(){
-		$folders = $this->folderMapper->getAll();
-		return $this->renderJSON($folders);
+		$feeds = $this->feedMapper->findAll();
+		return $this->renderJSON($feeds);
 	}
-
-
-	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
-	 *
-	 * Collapses a folder
-	 */
-	public function collapse(){
-		$folderId = (int) $this->params('folderId');
-
-		try {
-			$this->folderMapper->setCollapsed($folderId, true);
-			return $this->renderJSON(array());
-		} catch (DoesNotExistException $e) {
-			return $this->renderJSON(array(), $e->getMessage());
-		} catch(MultipleObjectsReturnedException $e){
-			return $this->renderJSON(array(), $e->getMessage());
-		}
-	}
-
-
 }

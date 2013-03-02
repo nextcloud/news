@@ -71,6 +71,9 @@ class Folder extends Collection {
 		return $this->children;
 	}
 
-
+	public function jsonSerialize() {
+		//TODO: this is just for test
+		return $this->name;
+	}
 
 }

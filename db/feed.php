@@ -71,5 +71,15 @@ class Feed extends Collection {
 	public function getFolderId(){
 		return $this->folderId;
 	}
+	
+	public function jsonSerialize(){
+		//TODO: this is just for test
+		$encoding = array(
+			'id'	=> $this->getId(),
+			'url' 	=> $this->getUrl(),
+			'title' => $this->getTitle()
+		);
+		return $encoding;
+	}
 
 }

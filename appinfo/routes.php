@@ -203,12 +203,12 @@ $this->create('news_ajax_importOPML', '/import')->action(
 
 
 /**
- * External API for folders 
+ * External API
  */
 \OCP\API::register(
-    'get', 
-    '/news/folders', 
-    array('OCA\News\API_Folder ', 'getAll'),
-    'news', 
-    \OC_API::USER_AUTH
+    'get', '/news/feeds', array('OCA\News\API_Feed', 'getAll'), 'news', \OC_API::USER_AUTH
+);
+
+\OCP\API::register(
+    'get', '/news/folders', array('OCA\News\API_Folder', 'getAll'), 'news', \OC_API::USER_AUTH
 );

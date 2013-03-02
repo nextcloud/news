@@ -47,8 +47,10 @@ namespace OCA\News;
 \OC::$CLASSPATH['OCA\News\NewsAjaxController'] = 'apps/news/controller/news.ajax.controller.php';
 
 \OC::$CLASSPATH['OCA\News\FolderBL'] = 'apps/news/folder.bl.php';
+\OC::$CLASSPATH['OCA\News\FeedBL'] = 'apps/news/feed.bl.php';
 
 \OC::$CLASSPATH['OCA\News\API_Folder'] = 'apps/news/external_api/folder.php';
+\OC::$CLASSPATH['OCA\News\API_Feed'] = 'apps/news/external_api/feed.php';
 
 
 /**
@@ -113,9 +115,14 @@ function createDIContainer(){
 	/** 
 	 * BUSINESS LAYER OBJECTS
 	 */
-	$newsContainer['FolderBL'] = function($c){ 
+	$newsContainer['FolderBL'] = $newsContainer->share(function($c){ 
 		return new FolderBL($c['FolderMapper']);
-	};
+	});
 
+	$newsContainer['FeedBL'] = $newsContainer->share(function($c){ 
+		return new FeedBL($c['FeedMapper']);
+	});
+
+	
 	return $newsContainer;
 }

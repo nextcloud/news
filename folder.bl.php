@@ -8,7 +8,7 @@ class FolderBL {
 		$this->folderMapper = $folderMapper;
 	}
 	
-	public static function getAll() {
-		$folders = $this->folderMapper->getAll();	
+	public function getAll() {
+		return $this->folderMapper->getAll();	
 	}
 }
