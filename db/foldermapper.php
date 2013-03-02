@@ -53,6 +53,15 @@ class FolderMapper {
 
 		return $folderlist;
 	}
+	
+	/**
+	 * @brief Returns the forest (list of trees) of folders children of $parentid
+	 * @param
+	 * @returns
+	 */
+	public function getAll() {
+		return self::childrenOf(0);
+	}
 
 	/**
 	 * @brief Returns the forest (list of trees) of folders children of $parentid,

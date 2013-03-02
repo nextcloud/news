@@ -46,6 +46,10 @@ namespace OCA\News;
 \OC::$CLASSPATH['OCA\News\NewsController'] = 'apps/news/controller/news.controller.php';
 \OC::$CLASSPATH['OCA\News\NewsAjaxController'] = 'apps/news/controller/news.ajax.controller.php';
 
+\OC::$CLASSPATH['OCA\News\FolderBL'] = 'apps/news/folder.bl.php';
+
+\OC::$CLASSPATH['OCA\News\API_Folder'] = 'apps/news/external_api/folder.php';
+
 
 /**
  * @return a new DI container with prefilled values for the news app
@@ -104,6 +108,13 @@ function createDIContainer(){
 	$newsContainer['NewsAjaxController'] = function($c){
 		return new NewsAjaxController($c['Request'], $c['API'], $c['FeedMapper'], 
 										$c['FolderMapper'], $c['ItemMapper']);
+	};
+
+	/** 
+	 * BUSINESS LAYER OBJECTS
+	 */
+	$newsContainer['FolderBL'] = function($c){ 
+		return new FolderBL($c['FolderMapper']);
 	};
 
 	return $newsContainer;

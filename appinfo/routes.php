@@ -200,3 +200,15 @@ $this->create('news_ajax_importOPML', '/import')->action(
 		callAjaxController('NewsAjaxController', 'uploadOPML', $params);
 	}
 );
+
+
+/**
+ * External API for folders 
+ */
+\OCP\API::register(
+    'get', 
+    '/news/folders', 
+    array('OCA\News\API_Folder ', 'getAll'),
+    'news', 
+    \OC_API::USER_AUTH
+);
