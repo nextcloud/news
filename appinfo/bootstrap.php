@@ -2,7 +2,7 @@
 /**
 * ownCloud - News app
 *
-* @author Alessandro Copyright
+* @author Alessandro Cosentino
 * @author Bernhard Posselt
 * @copyright 2012 Alessandro Cosentino cosenal@gmail.com
 * @copyright 2012 Bernhard Posselt nukeawhale@gmail.com                    
@@ -126,13 +126,14 @@ function createDIContainer(){
 	/** 
 	 * EXTERNAL API LAYER
 	 */
-	$newsContainer['API_Feed'] = $newsContainer->share(function($c){ 
-		return new API_($c['FolderMapper']);
+	$newsContainer['API_Folder'] = $newsContainer->share(function($c){ 
+		return new API_Folder($c['FolderBL']);
 	});
 
-	$newsContainer['API_Folder'] = $newsContainer->share(function($c){ 
-		return new FeedBL($c['FeedMapper']);
+	$newsContainer['API_Feed'] = $newsContainer->share(function($c){ 
+		return new API_Feed($c['FeedBL']);
 	});
+
 
 	return $newsContainer;
 }

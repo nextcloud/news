@@ -355,7 +355,7 @@ class ItemMapper {
 				break;
 
 			case FeedType::FOLDER:
-				$feedMapper = new FeedMapper($this->userId);
+				$feedMapper = new FeedMapper($this->userid);
 				$feeds = $feedMapper->findByFolderId($feedId);
 				foreach($feeds as $feed){
 					$unreadCount += $this->countAllStatus($feed->getId(), StatusFlag::UNREAD);
@@ -405,7 +405,7 @@ class ItemMapper {
 
 		// folder
 		} elseif ($feedType === FeedType::FOLDER){
-			$feedMapper = new FeedMapper($this->userId);
+			$feedMapper = new FeedMapper($this->userid);
 			$feeds = $feedMapper->findByFolderId($feedId);
 
 			foreach($feeds as $feed){

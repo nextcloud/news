@@ -223,3 +223,6 @@ $this->create('news_ajax_importOPML', '/import')->action(
 \OCP\API::register(
 	'get', '/news/folders', array('OCA\News\API_Folder', 'getAll'), 'news', \OC_API::USER_AUTH
 );
+\OCP\API::register(
+	'post', '/news/folders/create', array('OCA\News\API_Folder', 'create'), 'news', \OC_API::USER_AUTH
+);

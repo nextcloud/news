@@ -25,7 +25,7 @@ class Feed extends Collection {
 
 	// if $items = null, it means that feed has not been fetched yet
 	// if $id = null, it means that the feed has not been stored in the db yet
-	public function __construct($url, $title, $items = null, $id = null) {
+	public function __construct($url, $title = null, $items = null, $id = null) {
 		$this->url = $url;
 		$this->title = $title;
 		if ($items !== null) {

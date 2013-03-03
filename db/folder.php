@@ -51,6 +51,12 @@ class Folder extends Collection {
 	public function setOpened($opened) {
 		$this->opened = $opened;
 	}
+	
+	public function setParentId() {
+		if ($this->parent !== null) {
+			
+		}		
+	}
 
 	public function getParentId() {
 		if ($this->parent === null) {
@@ -73,7 +79,12 @@ class Folder extends Collection {
 
 	public function jsonSerialize() {
 		//TODO: this is just for test
-		return $this->name;
+		$encoding = array(
+			'id'	=> $this->getId(),
+			'parentId' 	=> $this->getParentId(),
+			'title' => $this->getName(),
+		);
+		return $encoding;
 	}
 
 }

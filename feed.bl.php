@@ -17,8 +17,12 @@ class FeedBL {
 	}
 	
 	public function create($url, $folderid) {
-		$feed = \OC_News_Utils::fetch($url);
+		$feed = new Feed($url);
 		$this->feedMapper->save($feed, $folderid);
+		$feed = Utils::fetch($url);
+		if ($feed != null) {
+			$this->feedMapper->save($feed, $folderid);
+		}
 		return true;
 	}
 	

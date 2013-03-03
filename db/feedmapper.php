@@ -163,10 +163,10 @@ class FeedMapper {
 	 */
 	 //TODO: handle error case
 	public function save(Feed $feed, $folderid) {
-		$title = $feed->getTitle();
 		$url = $feed->getUrl();
 		$url_hash = md5($url);
 
+		$title = $feed->getTitle();
 		if(empty($title)) {
 			$l = \OC_L10N::get('news');
 			$title = $l->t('no title');
@@ -199,11 +199,12 @@ class FeedMapper {
 			//update the db. it needs to be done, since it might be the first save after a full fetch
 			$stmt = \OCP\DB::prepare('
 					UPDATE ' . self::tableName .
-					' SET favicon_link = ? , lastmodified = UNIX_TIMESTAMP() , folder_id = ?
+					' SET title = ? , favicon_link = ? , lastmodified = UNIX_TIMESTAMP() , folder_id = ?
 					WHERE id = ?
 					');
 
 			$params=array(
+				$title,
 				$favicon,
 				$folderid,
 				$feedid
