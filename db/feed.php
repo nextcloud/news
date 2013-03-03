@@ -77,7 +77,8 @@ class Feed extends Collection {
 		$encoding = array(
 			'id'	=> $this->getId(),
 			'url' 	=> $this->getUrl(),
-			'title' => $this->getTitle()
+			'title' => $this->getTitle(),
+			'folderId' => $this->getFolderId()
 		);
 		return $encoding;
 	}

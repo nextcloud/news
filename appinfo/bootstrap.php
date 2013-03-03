@@ -123,6 +123,16 @@ function createDIContainer(){
 		return new FeedBL($c['FeedMapper']);
 	});
 
-	
+	/** 
+	 * EXTERNAL API LAYER
+	 */
+	$newsContainer['API_Feed'] = $newsContainer->share(function($c){ 
+		return new API_($c['FolderMapper']);
+	});
+
+	$newsContainer['API_Folder'] = $newsContainer->share(function($c){ 
+		return new FeedBL($c['FeedMapper']);
+	});
+
 	return $newsContainer;
 }
