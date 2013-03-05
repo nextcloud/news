@@ -27,13 +27,13 @@
 		}
 
 		if($feed === null || !$feedid) {
-			echo $l->t('An error occurred');
+			p($l->t('An error occurred'));
 		} else {
-			echo $l->t('Nice! You have subscribed to ') . $feed->getTitle();
+			p($l->t('Nice! You have subscribed to ')) . $feed->getTitle();
 		}
 	}
 	else {
-		echo $l->t('You had already subscribed to this feed!');
+		p($l->t('You had already subscribed to this feed!'));
 	}
 
 	?>
