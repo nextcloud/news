@@ -2,7 +2,7 @@
 
 namespace OCA\News;
 
-class FolderBL {
+class FolderBl {
 
 	public function __construct($folderMapper){
 		$this->folderMapper = $folderMapper;

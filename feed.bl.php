@@ -2,7 +2,7 @@
 
 namespace OCA\News;
 
-class FeedBL {
+class FeedBl {
 
 	public function __construct($feedMapper){
 		$this->feedMapper = $feedMapper;

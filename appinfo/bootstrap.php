@@ -46,11 +46,11 @@ namespace OCA\News;
 \OC::$CLASSPATH['OCA\News\NewsController'] = 'apps/news/controller/news.controller.php';
 \OC::$CLASSPATH['OCA\News\NewsAjaxController'] = 'apps/news/controller/news.ajax.controller.php';
 
-\OC::$CLASSPATH['OCA\News\FolderBL'] = 'apps/news/folder.bl.php';
-\OC::$CLASSPATH['OCA\News\FeedBL'] = 'apps/news/feed.bl.php';
+\OC::$CLASSPATH['OCA\News\FolderBl'] = 'apps/news/folder.bl.php';
+\OC::$CLASSPATH['OCA\News\FeedBl'] = 'apps/news/feed.bl.php';
 
-\OC::$CLASSPATH['OCA\News\API_Folder'] = 'apps/news/external_api/folder.php';
-\OC::$CLASSPATH['OCA\News\API_Feed'] = 'apps/news/external_api/feed.php';
+\OC::$CLASSPATH['OCA\News\FolderApi'] = 'apps/news/external_api/folder.php';
+\OC::$CLASSPATH['OCA\News\FeedApi'] = 'apps/news/external_api/feed.php';
 
 
 /**
@@ -115,23 +115,23 @@ function createDIContainer(){
 	/** 
 	 * BUSINESS LAYER OBJECTS
 	 */
-	$newsContainer['FolderBL'] = $newsContainer->share(function($c){ 
-		return new FolderBL($c['FolderMapper']);
+	$newsContainer['FolderBl'] = $newsContainer->share(function($c){ 
+		return new FolderBl($c['FolderMapper']);
 	});
 
-	$newsContainer['FeedBL'] = $newsContainer->share(function($c){ 
-		return new FeedBL($c['FeedMapper']);
+	$newsContainer['FeedBl'] = $newsContainer->share(function($c){ 
+		return new FeedBl($c['FeedMapper']);
 	});
 
 	/** 
 	 * EXTERNAL API LAYER
 	 */
-	$newsContainer['API_Folder'] = $newsContainer->share(function($c){ 
-		return new API_Folder($c['FolderBL']);
+	$newsContainer['FolderApi'] = $newsContainer->share(function($c){ 
+		return new FolderApi($c['FolderBl']);
 	});
 
-	$newsContainer['API_Feed'] = $newsContainer->share(function($c){ 
-		return new API_Feed($c['FeedBL']);
+	$newsContainer['FeedApi'] = $newsContainer->share(function($c){ 
+		return new FeedApi($c['FeedBl']);
 	});
 
 

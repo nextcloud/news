@@ -4,16 +4,14 @@ namespace OCA\News;
 
 use \OCA\News\Controller\FeedController;
 
-class API_Feed {
+class FeedApi {
 
-// 	public __construct($feedbl) {
-// 		$this->bl = $feedbl;
-// 	}
+	public function __construct($bl){
+		$this->bl = $bl;
+	}
 
-	public static function getAll() {
-		$container = createDIContainer();
-		$bl = $container['FeedBL'];
-		$feeds = $bl->getAll();
+	public function getAll() {
+		$feeds = $this->bl->getAll();
 		$serializedFeeds = array();
 		foreach ($feeds as $feed) {
 			$serializedFeeds[] = $feed->jsonSerialize();
@@ -21,23 +19,18 @@ class API_Feed {
 		return new \OC_OCS_Result($serializedFeeds);
 	}
 	
-	public function getById($parameters) {
-		$feedid = $parameters['feedid'];
-		$container = createDIContainer();
-		$bl = $container['FeedBL'];
-		$feed = $bl->getById($feedid);
+	public function getById($params) {
+		$feed = $this->bl->getById($feedid);
 		$serializedFeed = array($feed->jsonSerialize());
 		return new \OC_OCS_Result($serializedFeed);
 	}
 	
-	public static function create() {
-		
+	public function create() {
 		$url = $_POST['url'];
 		$folderId = $_POST['folderid'];
+		//TODO: check parameters here
 	
-		$container = createDIContainer();
-		$bl = $container['FeedBL'];
-		$success = $bl->create($url, $folderId);
+		$success = $this->bl->create($url, $folderId);
 		
 		if ($success) {
 			return new \OC_OCS_Result();

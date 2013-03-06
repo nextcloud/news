@@ -205,24 +205,54 @@ $this->create('news_ajax_importOPML', '/import')->action(
 /**
  * External API
  */
+ 
 /** 
  * Feed API
  */
+
 \OCP\API::register(
-	'get', '/news/feeds', array('OCA\News\API_Feed', 'getAll'), 'news', \OC_API::USER_AUTH
+	'get', '/news/feeds', 
+	function($urlParams) {
+		$container = createDIContainer();
+		return $container['FeedApi']->getAll($urlParams);
+	},
+	'news', \OC_API::USER_AUTH
 );
 \OCP\API::register(
-	'get', '/news/feeds/{feedid}', array('OCA\News\API_Feed', 'getById'), 'news', \OC_API::USER_AUTH
+	'get', '/news/feeds/{feedid}', 
+	function($urlParams) {
+		$container = createDIContainer();
+		return $container['FeedApi']->getById($urlParams);
+	},
+	'news', \OC_API::USER_AUTH
 );
 \OCP\API::register(
-	'post', '/news/feeds/create', array('OCA\News\API_Feed', 'create'), 'news', \OC_API::USER_AUTH
+	'post', '/news/feeds/create', 
+	function($urlParams) {
+		$container = createDIContainer();
+		return $container['FeedApi']->create($urlParams);
+	},
+	'news', \OC_API::USER_AUTH
 );
+
 /** 
  * Folder API
  */
+
 \OCP\API::register(
-	'get', '/news/folders', array('OCA\News\API_Folder', 'getAll'), 'news', \OC_API::USER_AUTH
+	'get', '/news/folders',
+	function($urlParams) {
+		$container = createDIContainer();
+		return $container['FolderApi']->getAll($urlParams);
+	},
+	'news', \OC_API::USER_AUTH
 );
+
 \OCP\API::register(
-	'post', '/news/folders/create', array('OCA\News\API_Folder', 'create'), 'news', \OC_API::USER_AUTH
+	'post', '/news/folders/create',
+	function($urlParams) {
+		$container = createDIContainer();
+		return $container['FolderApi']->create($urlParams);
+	},
+	'news', \OC_API::USER_AUTH
 );
