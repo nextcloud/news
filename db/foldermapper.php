@@ -53,7 +53,7 @@ class FolderMapper {
 
 		return $folderlist;
 	}
-	
+
 	/**
 	 * @brief Returns the forest (list of trees) of folders children of $parentid
 	 * @param
@@ -111,6 +111,9 @@ class FolderMapper {
 		$result = $stmt->execute(array($this->userid, $id));
 
 		$row = $result->fetchRow();
+		if(!$row)
+			return null;
+
 		$folder = new Folder($row['name'], $row['id']);
 		$folder->setOpened($row['opened']);
 
