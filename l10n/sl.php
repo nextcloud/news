@@ -1,4 +1,5 @@
 <?php $TRANSLATIONS = array(
+"year" => "leto",
 "News" => "Novice",
 "no title" => "brez naslova",
 "no name" => "brez imena",
@@ -12,6 +13,7 @@
 "Address" => "Naslov",
 "Add" => "Dodaj",
 "Folder" => "Mapa",
+"No folder" => "Ni map",
 "Starred" => "Z zvezdico",
 "Mark all read" => "Označi vse kot prebrano",
 "Share" => "Souporaba",
@@ -23,6 +25,7 @@
 "Import" => "Uvozi",
 "Export" => "Izvozi",
 "Subscribelet" => "Vstavek za naročanje",
+"Show all" => "Pokaži vse",
 "Show only unread" => "Prikaži le neprebrano",
 "Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "Povlecite gumb med svoje zaznamke in kliknite nanj, ko se želite hitro prijaviti na novice obiskane spletne strani:",
 "Subscribe" => "Naroči se"
