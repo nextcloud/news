@@ -16,6 +16,10 @@ class FeedBl {
 		return $this->feedMapper->findById($feedid);
 	}
 	
+	public function delete($feedid) {
+		return $this->feedMapper->deleteById($feedid);
+	}
+
 	public function create($url, $folderid) {
 		$feed = new Feed($url);
 		$this->feedMapper->save($feed, $folderid);

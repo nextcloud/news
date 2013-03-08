@@ -25,6 +25,19 @@ class FeedApi {
 		return new \OC_OCS_Result($serializedFeed);
 	}
 	
+	public function delete($params) {
+		//TODO: check parameters here
+
+		$success = $this->bl->delete($params["feedid"]);
+
+		if ($success) {
+			return new \OC_OCS_Result();
+		}
+		else {
+			return new \OC_OCS_Result(null, 101);
+		}
+	}
+
 	public function create() {
 		$url = $_POST['url'];
 		$folderId = $_POST['folderid'];

@@ -234,6 +234,14 @@ $this->create('news_ajax_importOPML', '/import')->action(
 	},
 	'news', \OC_API::USER_AUTH
 );
+\OCP\API::register(
+	'post', '/news/feeds/{feedid}/delete',
+	function($urlParams) {
+		$container = createDIContainer();
+		return $container['FeedApi']->delete($urlParams);
+	},
+	'news', \OC_API::USER_AUTH
+);
 
 /**
  * Folder API
@@ -255,6 +263,7 @@ $this->create('news_ajax_importOPML', '/import')->action(
 	},
 	'news', \OC_API::USER_AUTH
 );
+
 \OCP\API::register(
 	'get', '/news/folders/{folderid}/delete',
 	function($urlParams) {
