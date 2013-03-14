@@ -3,6 +3,7 @@
 "News" => "اخبار",
 "no title" => "بدون عنوان",
 "no name" => "بدون نام",
+"no body" => "هیچ کس",
 "An error occurred" => "یک خطا رخ داده است",
 "New" => "جدید",
 "Add Subscription" => "افزودن اشتراک",
