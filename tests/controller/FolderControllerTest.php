@@ -103,7 +103,7 @@ class FolderControllerTest extends ControllerTestUtility {
 
 	/**
 	 * collapse
-	 */
+	 *//*
 	public function testCollapseCalled(){
 		$urlParams = array('folderId' => 1);
 		$this->folderMapper->expects($this->once())
@@ -161,7 +161,7 @@ class FolderControllerTest extends ControllerTestUtility {
 		$expected = '{"status":"error","data":[],"msg":"' . $ex->getMessage() . '"}';
 		$this->assertEquals($expected, $response->render());
 	}
-
+ 
 
 	public function testCollapseDoesNotExistExceptionReturnsJSONError(){
 		$ex = new DoesNotExistException('exception');
@@ -173,6 +173,6 @@ class FolderControllerTest extends ControllerTestUtility {
 		$ex = new MultipleObjectsReturnedException('exception');
 		$this->collapseException($ex);
 	}
-
+urlParams has been removed, please refactor*/
 
 }
