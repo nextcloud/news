@@ -2,4 +2,4 @@ coffee/build/
 node_modules/
 *.log
 build/
-
+test-results.xml
