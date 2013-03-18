@@ -29,9 +29,9 @@ describe '_Persistence', ->
 	beforeEach inject (@_Persistence, @$rootScope) =>
 		@req =
 			post: jasmine.createSpy('POST')
-			get: jasmine.createSpy('GET').andCallFake (url, p1, p2, callback) ->
-				if callback
-					callback()
+			get: jasmine.createSpy('GET').andCallFake (route, data) ->
+				if angular.isDefined(data) and data.onSuccess
+					data.onSuccess()
 		@config =
 			itemBatchSize: 12
 		@active =
@@ -42,7 +42,7 @@ describe '_Persistence', ->
 			decrease: ->
 
 
-	xit 'should should show a loading sign when init', =>
+	it 'should should show a loading sign when init', =>
 		loading =
 			increase: jasmine.createSpy('loading')
 			decrease: jasmine.createSpy('finished loading')
