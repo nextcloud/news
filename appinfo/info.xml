@@ -6,6 +6,6 @@
 	<licence>AGPL</licence>
 	<shipped>true</shipped>
 	<author>Alessandro Cosentino, Bernhard Posselt. Powered by SimplePie (Ryan Parman, Geoffrey Sneddon, Ryan McCue and contributors).</author>
-	<require>4.93</require>
+	<require>5</require>
 	<default_enable/>
 </info>
