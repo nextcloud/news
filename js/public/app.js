@@ -492,7 +492,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 
       Persistence.prototype.getItems = function(type, id, offset, onSuccess, updatedSince) {
-        var data;
+        var data, params;
         if (updatedSince == null) {
           updatedSince = null;
         }
@@ -510,19 +510,19 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             type: type
           };
         }
-        return this._request.get('news_items', {}, data, onSuccess);
-      };
-
-      Persistence.prototype.getItemById = function(itemId) {
-        var url;
-        url = {
-          itemId: itemId
+        params = {
+          data: data,
+          onSuccess: onSuccess
         };
-        return this._request.get('news_item', url);
+        return this._request.get('news_items', params);
       };
 
       Persistence.prototype.getStarredItems = function(onSuccess) {
-        return this._request.get('news_starred_items', {}, {}, onSuccess);
+        var params;
+        params = {
+          onSuccess: onSuccess
+        };
+        return this._request.get('news_starred_items', params);
       };
 
       Persistence.prototype.starItem = function(itemId) {
@@ -530,11 +530,13 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         			Stars an item
         */
 
-        var url;
-        url = {
-          itemId: itemId
+        var params;
+        params = {
+          urlParams: {
+            itemId: itemId
+          }
         };
-        return this._request.post('news_star_item', url);
+        return this._request.post('news_star_item', params);
       };
 
       Persistence.prototype.unstarItem = function(itemId) {
@@ -542,11 +544,13 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         			Unstars an item
         */
 
-        var url;
-        url = {
-          itemId: itemId
+        var params;
+        params = {
+          urlParams: {
+            itemId: itemId
+          }
         };
-        return this._request.post('news_unstar_item', url);
+        return this._request.post('news_unstar_item', params);
       };
 
       Persistence.prototype.readItem = function(itemId) {
@@ -554,11 +558,13 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         			Sets an item as read
         */
 
-        var url;
-        url = {
-          itemId: itemId
+        var params;
+        params = {
+          urlParams: {
+            itemId: itemId
+          }
         };
-        return this._request.post('news_read_item', url);
+        return this._request.post('news_read_item', params);
       };
 
       Persistence.prototype.unreadItem = function(itemId) {
@@ -566,100 +572,13 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         			Sets an item as unread
         */
 
-        var url;
-        url = {
-          itemId: itemId
+        var params;
+        params = {
+          urlParams: {
+            itemId: itemId
+          }
         };
-        return this._request.post('news_unread_item', url);
-      };
-
-      /*
-      			FOLDER CONTROLLER
-      */
-
-
-      Persistence.prototype.getAllFolders = function(callback) {
-        callback || (callback = angular.noop);
-        return this._request.get('news_folders', {}, {}, callback);
-      };
-
-      Persistence.prototype.getFolderById = function(folderId) {
-        var url;
-        url = {
-          folderId: folderId
-        };
-        return this._request.get('news_folder', url);
-      };
-
-      Persistence.prototype.openFolder = function(folderId) {
-        /*
-        			Save if a folder was opened
-        */
-
-        var url;
-        url = {
-          folderId: folderId
-        };
-        return this._request.post('news_open_folder', url);
-      };
-
-      Persistence.prototype.collapseFolder = function(folderId) {
-        /*
-        			Save if a folder was collapsed
-        */
-
-        var url;
-        url = {
-          folderId: folderId
-        };
-        return this._request.post('news_collapse_folder', url);
-      };
-
-      Persistence.prototype.createFolder = function(folderName, parentFolderId, onSuccess, onError) {
-        var data;
-        if (parentFolderId == null) {
-          parentFolderId = 0;
-        }
-        if (onSuccess == null) {
-          onSuccess = null;
-        }
-        if (onError == null) {
-          onError = null;
-        }
-        data = {
-          folderName: folderName,
-          parentFolderId: parentFolderId
-        };
-        onSuccess || (onSuccess = angular.noop);
-        onError || (onError = angular.noop);
-        return this._request.post('news_create_folder', {}, data, onSuccess, onError);
-      };
-
-      Persistence.prototype.deleteFolder = function(folderId) {
-        /*
-        			Save if a folder was collapsed
-        */
-
-        var url;
-        url = {
-          folderId: folderId
-        };
-        return this._request.post('news_delete_folder', url);
-      };
-
-      Persistence.prototype.renameFolder = function(folderId, folderName) {
-        /*
-        			Save if a folder was collapsed
-        */
-
-        var data, url;
-        url = {
-          folderId: folderId
-        };
-        data = {
-          folderName: folderName
-        };
-        return this._request.post('news_rename_folder', url, data);
+        return this._request.post('news_unread_item', params);
       };
 
       /*
@@ -668,37 +587,43 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 
       Persistence.prototype.getAllFeeds = function(callback) {
+        var params;
         callback || (callback = angular.noop);
-        return this._request.get('news_feeds', {}, {}, callback);
-      };
-
-      Persistence.prototype.getFeedById = function(feedId) {
-        var url;
-        url = {
-          feedId: feedId
+        params = {
+          onSuccess: callback
         };
-        return this._request.get('news_feed', url);
+        return this._request.get('news_feeds', params);
       };
 
       Persistence.prototype.getActiveFeed = function(onSuccess) {
-        return this._request.get('news_active_feed', {}, {}, onSuccess);
+        var params;
+        params = {
+          onSuccess: onSuccess
+        };
+        return this._request.get('news_active_feed', params);
       };
 
-      Persistence.prototype.createFeed = function(url, parentFolderId, onSuccess, onError) {
-        var data;
-        data = {
-          parentFolderId: parentFolderId,
-          url: url
+      Persistence.prototype.createFeed = function(url, parentFolderId, onSuccess, onFailure) {
+        var params;
+        params = {
+          data: {
+            parentFolderId: parentFolderId,
+            url: url
+          },
+          onSuccess: onSuccess,
+          onFailure: onFailure
         };
-        return this._request.post('news_create_feed', {}, data, onSuccess, onError);
+        return this._request.post('news_create_feed', params);
       };
 
       Persistence.prototype.deleteFeed = function(feedId) {
-        var url;
-        url = {
-          feedId: feedId
+        var params;
+        params = {
+          urlParams: {
+            feedId: feedId
+          }
         };
-        return this._request.post('news_delete_feed', url);
+        return this._request.post('news_delete_feed', params);
       };
 
       Persistence.prototype.moveFeed = function(feedId, folderId) {
@@ -706,14 +631,16 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         			moves a feed to a new folder
         */
 
-        var data, url;
-        url = {
-          feedId: feedId
+        var params;
+        params = {
+          urlParams: {
+            feedId: feedId
+          },
+          data: {
+            folderId: folderId
+          }
         };
-        data = {
-          folderId: folderId
-        };
-        return this._request.post('news_move_feed', url, data);
+        return this._request.post('news_move_feed', params);
       };
 
       Persistence.prototype.setFeedRead = function(feedId, highestItemId) {
@@ -721,14 +648,16 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         			sets all items of a feed as read
         */
 
-        var data, url;
-        url = {
-          feedId: feedId
+        var params;
+        params = {
+          urlParams: {
+            feedId: feedId
+          },
+          data: {
+            highestItemId: highestItemId
+          }
         };
-        data = {
-          highestItemId: highestItemId
-        };
-        return this._request.post('news_set_feed_read', url, data);
+        return this._request.post('news_set_feed_read', params);
       };
 
       Persistence.prototype.updateFeed = function(feedId) {
@@ -736,11 +665,110 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         			moves a feed to a new folder
         */
 
-        var url;
-        url = {
-          feedId: feedId
+        var params;
+        params = {
+          urlParams: {
+            feedId: feedId
+          }
         };
-        return this._request.post('news_update_feed', url);
+        return this._request.post('news_update_feed', params);
+      };
+
+      /*
+      			FOLDER CONTROLLER
+      */
+
+
+      Persistence.prototype.getAllFolders = function(callback) {
+        var params;
+        callback || (callback = angular.noop);
+        params = {
+          onSuccess: callback
+        };
+        return this._request.get('news_folders', params);
+      };
+
+      Persistence.prototype.openFolder = function(folderId) {
+        /*
+        			Save if a folder was opened
+        */
+
+        var params;
+        params = {
+          urlParams: {
+            folderId: folderId
+          }
+        };
+        return this._request.post('news_open_folder', params);
+      };
+
+      Persistence.prototype.collapseFolder = function(folderId) {
+        /*
+        			Save if a folder was collapsed
+        */
+
+        var params;
+        params = {
+          urlParams: {
+            folderId: folderId
+          }
+        };
+        return this._request.post('news_collapse_folder', params);
+      };
+
+      Persistence.prototype.createFolder = function(folderName, parentFolderId, onSuccess, onFailure) {
+        var params;
+        if (parentFolderId == null) {
+          parentFolderId = 0;
+        }
+        if (onSuccess == null) {
+          onSuccess = null;
+        }
+        if (onFailure == null) {
+          onFailure = null;
+        }
+        onSuccess || (onSuccess = angular.noop);
+        onFailure || (onFailure = angular.noop);
+        params = {
+          data: {
+            folderName: folderName,
+            parentFolderId: parentFolderId
+          },
+          onSuccess: onSuccess,
+          onFailure: onFailure
+        };
+        return this._request.post('news_create_folder', params);
+      };
+
+      Persistence.prototype.deleteFolder = function(folderId) {
+        /*
+        			Save if a folder was collapsed
+        */
+
+        var params;
+        params = {
+          urlParams: {
+            folderId: folderId
+          }
+        };
+        return this._request.post('news_delete_folder', params);
+      };
+
+      Persistence.prototype.renameFolder = function(folderId, folderName) {
+        /*
+        			Save if a folder was collapsed
+        */
+
+        var params;
+        params = {
+          urlParams: {
+            folderId: folderId
+          },
+          data: {
+            folderName: folderName
+          }
+        };
+        return this._request.post('news_rename_folder', params);
       };
 
       /*
@@ -761,6 +789,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 
       Persistence.prototype.userSettingsRead = function(callback) {
+        var params;
         if (callback == null) {
           callback = null;
         }
@@ -769,7 +798,10 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         */
 
         callback || (callback = angular.noop);
-        return this._request.get('news_user_settings_read', {}, {}, callback);
+        params = {
+          onSuccess: callback
+        };
+        return this._request.get('news_user_settings_read', params);
       };
 
       Persistence.prototype.userSettingsReadShow = function() {

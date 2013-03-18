@@ -42,7 +42,7 @@ describe '_Persistence', ->
 			decrease: ->
 
 
-	it 'should should show a loading sign when init', =>
+	xit 'should should show a loading sign when init', =>
 		loading =
 			increase: jasmine.createSpy('loading')
 			decrease: jasmine.createSpy('finished loading')
@@ -55,91 +55,180 @@ describe '_Persistence', ->
 
 
 	###
+		ITEM CONTROLLER
+	###
+	it 'should send a autopaging request', =>
+		params =
+			data:
+				type: 2
+				id: 5
+				limit: @config.itemBatchSize
+				offset: 3
+			onSuccess: angular.noop
+
+		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
+		pers.getItems(params.data.type, params.data.id, params.data.offset,
+			params.onSuccess, null)
+
+		expect(@req.get).toHaveBeenCalledWith('news_items', params)
+
+
+	it 'should send a load newest items request', =>
+		params =
+			data:
+				type: 2
+				id: 5
+				updatedSince: 1333
+			onSuccess: angular.noop
+
+		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
+		pers.getItems(params.data.type, params.data.id, 0, params.onSuccess,
+						params.data.updatedSince)
+
+		expect(@req.get).toHaveBeenCalledWith('news_items', params)
+
+
+	it 'send a correct get starred items request', =>
+		params =
+			onSuccess: angular.noop
+
+		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
+		pers.getStarredItems(params.onSuccess)
+
+		expect(@req.get).toHaveBeenCalledWith('news_starred_items', params)
+
+
+	it 'send a correct star item request', =>
+		params =
+			urlParams:
+				itemId: 2
+
+		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
+		pers.starItem(params.urlParams.itemId)
+
+		expect(@req.post).toHaveBeenCalledWith('news_star_item', params)
+
+
+	it 'send a correct unstar item request', =>
+		params =
+			urlParams:
+				itemId: 2
+
+		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
+		pers.unstarItem(params.urlParams.itemId)
+
+		expect(@req.post).toHaveBeenCalledWith('news_unstar_item', params)
+
+
+	it 'send a correct read item request', =>
+		params =
+			urlParams:
+				itemId: 2
+
+
+		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
+		pers.readItem(params.urlParams.itemId)
+
+		expect(@req.post).toHaveBeenCalledWith('news_read_item', params)
+
+
+	it 'send a correct unread item request', =>
+		params =
+			urlParams:
+				itemId: 2
+
+		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
+		pers.unreadItem(params.urlParams.itemId)
+
+		expect(@req.post).toHaveBeenCalledWith('news_unread_item', params)
+
+
+
+	###
 		FEED CONTROLLER
 	###
 	it 'should get all feeds', =>
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
 		pers.getAllFeeds()
 
-		expect(@req.get).toHaveBeenCalledWith('news_feeds', {}, {}, angular.noop)
+		params =
+			onSuccess: angular.noop
 
-	it 'should get a feed by id', =>
-		url =
-			feedId: 1
-
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.getFeedById(url.feedId)
-
-		expect(@req.get).toHaveBeenCalledWith('news_feed', url)
+		expect(@req.get).toHaveBeenCalledWith('news_feeds', params)
 
 
 	it 'create a correct request for moving a feed', =>
-		data =
-			folderId: 4
-		url =
-			feedId: 3
+		params =
+			data:
+				folderId: 4
+			urlParams:
+				feedId: 3
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.moveFeed(url.feedId, data.folderId)
+		pers.moveFeed(params.urlParams.feedId, params.data.folderId)
 
-		expect(@req.post).toHaveBeenCalledWith('news_move_feed', url, data)
+		expect(@req.post).toHaveBeenCalledWith('news_move_feed', params)
 
 
 	it 'shoud send a correct request for marking all items read', =>
-		data =
-			highestItemId: 4
-		url =
-			feedId: 3
+		params =
+			data:
+				highestItemId: 4
+			urlParams:
+				feedId: 3
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.setFeedRead(url.feedId, data.highestItemId)
+		pers.setFeedRead(params.urlParams.feedId, params.data.highestItemId)
 
 
-		expect(@req.post).toHaveBeenCalledWith('news_set_feed_read', url, data)
+		expect(@req.post).toHaveBeenCalledWith('news_set_feed_read', params)
 
 
 	it 'send a correct feed update request', =>
-		url =
-			feedId: 3
+		params =
+			urlParams:
+				feedId: 3
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.updateFeed(url.feedId)
+		pers.updateFeed(params.urlParams.feedId)
 
-		expect(@req.post).toHaveBeenCalledWith('news_update_feed', url)
+		expect(@req.post).toHaveBeenCalledWith('news_update_feed', params)
 
 
 	it 'send a correct get active feed request', =>
-		succs = angular.noop
+		params =
+			onSuccess: angular.noop
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.getActiveFeed(succs)
+		pers.getActiveFeed(params.onSuccess)
 
-		expect(@req.get).toHaveBeenCalledWith('news_active_feed', {}, {}, succs)
+		expect(@req.get).toHaveBeenCalledWith('news_active_feed', params)
 
 
 	it 'send a correct feed delete request', =>
-		url =
-			feedId: 3
+		params =
+			urlParams:
+				feedId: 3
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.deleteFeed(url.feedId)
+		pers.deleteFeed(params.urlParams.feedId)
 
-		expect(@req.post).toHaveBeenCalledWith('news_delete_feed', url)
+		expect(@req.post).toHaveBeenCalledWith('news_delete_feed', params)
 
 
 	it 'send a correct feed create request', =>
-		data =
-			parentFolderId: 5
-			url: 'http://google.de'
-
-		onsuccess = angular.noop
-		onerror = angular.noop
+		params =
+			data:
+				parentFolderId: 5
+				url: 'http://google.de'
+			onSuccess: angular.noop
+			onFailure: angular.noop
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.createFeed(data.url, data.parentFolderId, onsuccess, onerror)
+		pers.createFeed(params.data.url, params.data.parentFolderId,
+						params.onSuccess, params.onFailure)
 
-		expect(@req.post).toHaveBeenCalledWith('news_create_feed', {}, data,
-			onsuccess, onerror)
+		expect(@req.post).toHaveBeenCalledWith('news_create_feed', params)
 
 
 
@@ -147,170 +236,74 @@ describe '_Persistence', ->
 		FOLDER CONTROLLER
 	###
 	it 'should do a proper get all folders request', =>
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.getAllFolders()
-
-		expect(@req.get).toHaveBeenCalledWith('news_folders', {}, {}, angular.noop)
-
-
-	it 'should get a folder by id', =>
-		url =
-			folderId: 5
+		params =
+			onSuccess: angular.noop
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.getFolderById(url.folderId)
+		pers.getAllFolders(params.onSuccess)
 
-		expect(@req.get).toHaveBeenCalledWith('news_folder', url)
+		expect(@req.get).toHaveBeenCalledWith('news_folders', params)
 
 
 	it 'send a correct collapse folder request', =>
-		url =
-			folderId: 3
+		params =
+			urlParams:
+				folderId: 3
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.collapseFolder(url.folderId)
+		pers.collapseFolder(params.urlParams.folderId)
 
-		expect(@req.post).toHaveBeenCalledWith('news_collapse_folder', url)
+		expect(@req.post).toHaveBeenCalledWith('news_collapse_folder', params)
 
 
 	it 'send a correct open folder request', =>
-		url =
-			folderId: 3
+		params =
+			urlParams:
+				folderId: 3
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.openFolder(url.folderId)
+		pers.openFolder(params.urlParams.folderId)
 
-		expect(@req.post).toHaveBeenCalledWith('news_open_folder', url)
+		expect(@req.post).toHaveBeenCalledWith('news_open_folder', params)
 
 
 	it 'should do a proper folder create request', =>
-		data =
-			folderName: 'check'
-			parentFolderId: 4
-
-		onsuccess = -> 1
-		onerror = -> 2
+		params =
+			data:
+				folderName: 'check'
+				parentFolderId: 4
+			onSuccess: -> 1
+			onFailure: -> 2
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.createFolder(data.folderName, data.parentFolderId, onsuccess, onerror)
+		pers.createFolder(params.data.folderName, params.data.parentFolderId,
+			params.onSuccess, params.onFailure)
 
-		expect(@req.post).toHaveBeenCalledWith('news_create_folder', {}, data,
-			onsuccess, onerror)
+		expect(@req.post).toHaveBeenCalledWith('news_create_folder', params)
 
 
 	it 'should do a proper folder delete request', =>
-		url =
-			folderId: 2
+		params =
+			urlParams:
+				folderId: 2
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.deleteFolder(url.folderId)
+		pers.deleteFolder(params.urlParams.folderId)
 
-		expect(@req.post).toHaveBeenCalledWith('news_delete_folder', url)
+		expect(@req.post).toHaveBeenCalledWith('news_delete_folder', params)
 
 
 	it 'should do a proper folder rename request', =>
-		url =
-			folderId: 2
-		data =
-			folderName: 'host'
+		params =
+			urlParams:
+				folderId: 2
+			data:
+				folderName: 'host'
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.renameFolder(url.folderId, data.folderName)
+		pers.renameFolder(params.urlParams.folderId, params.data.folderName)
 
-		expect(@req.post).toHaveBeenCalledWith('news_rename_folder', url, data)
-
-
-	###
-		ITEM CONTROLLER
-	###
-	it 'should send a autopaging request', =>
-		data =
-			type: 2
-			id: 5
-			limit: @config.itemBatchSize
-			offset: 3
-
-		success = angular.noop
-
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.getItems(data.type, data.id, data.offset, success, null)
-
-		expect(@req.get).toHaveBeenCalledWith('news_items', {}, data, success)
-
-
-	it 'should send a load newest items request', =>
-		data =
-			type: 2
-			id: 5
-			updatedSince: 1333
-
-		success = angular.noop
-
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.getItems(data.type, data.id, 0, success, data.updatedSince)
-
-		expect(@req.get).toHaveBeenCalledWith('news_items', {}, data, success)
-
-
-	it 'send a correct get item by id request', =>
-		url =
-			itemId: 5
-
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.getItemById(url.itemId)
-
-		expect(@req.get).toHaveBeenCalledWith('news_item', url)
-
-
-
-	it 'send a correct get starred items request', =>
-		success = angular.noop
-
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.getStarredItems(success)
-
-		expect(@req.get).toHaveBeenCalledWith('news_starred_items', {}, {},
-			success)
-
-
-	it 'send a correct star item request', =>
-		url =
-			itemId: 2
-
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.starItem(url.itemId)
-
-		expect(@req.post).toHaveBeenCalledWith('news_star_item', url)
-
-
-	it 'send a correct unstar item request', =>
-		url =
-			itemId: 2
-
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.unstarItem(url.itemId)
-
-		expect(@req.post).toHaveBeenCalledWith('news_unstar_item', url)
-
-
-	it 'send a correct read item request', =>
-		url =
-			itemId: 2
-
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.readItem(url.itemId)
-
-		expect(@req.post).toHaveBeenCalledWith('news_read_item', url)
-
-
-	it 'send a correct unread item request', =>
-		url =
-			itemId: 2
-
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.unreadItem(url.itemId)
-
-		expect(@req.post).toHaveBeenCalledWith('news_unread_item', url)
+		expect(@req.post).toHaveBeenCalledWith('news_rename_folder', params)
 
 
 	###
@@ -330,18 +323,20 @@ describe '_Persistence', ->
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
 		pers.userSettingsRead()
 
-		expect(@req.get).toHaveBeenCalledWith('news_user_settings_read', {}, {},
-		angular.noop)
+		params =
+			onSuccess: angular.noop
+
+		expect(@req.get).toHaveBeenCalledWith('news_user_settings_read', params)
 
 	
 	it 'should do a proper get user settings read req and call callback', =>
-		callback = ->
-			1 + 1
+		params =
+			onSuccess: ->
+				1 + 1
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.userSettingsRead(callback)
+		pers.userSettingsRead(params.onSuccess)
 
-		expect(@req.get).toHaveBeenCalledWith('news_user_settings_read', {}, {},
-				callback)
+		expect(@req.get).toHaveBeenCalledWith('news_user_settings_read', params)
 
 
 	it 'should do a proper user settings read show request', =>

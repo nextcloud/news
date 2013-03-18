@@ -63,28 +63,28 @@ angular.module('News').factory '_Persistence', ->
 					id: id
 					type: type
 
-			@_request.get 'news_items', {}, data, onSuccess
+			params =
+				data: data
+				onSuccess: onSuccess
 
-
-		getItemById: (itemId) ->
-			url =
-				itemId: itemId
-
-			@_request.get 'news_item', url
+			@_request.get 'news_items', params
 
 
 		getStarredItems: (onSuccess) ->
-			@_request.get 'news_starred_items', {}, {}, onSuccess
+			params =
+				onSuccess: onSuccess
+			@_request.get 'news_starred_items', params
 
 
 		starItem: (itemId) ->
 			###
 			Stars an item
 			###
-			url =
-				itemId: itemId
+			params =
+				urlParams:
+					itemId: itemId
 
-			@_request.post 'news_star_item', url
+			@_request.post 'news_star_item', params
 
 
 
@@ -92,20 +92,22 @@ angular.module('News').factory '_Persistence', ->
 			###
 			Unstars an item
 			###
-			url =
-				itemId: itemId
+			params =
+				urlParams:
+					itemId: itemId
 
-			@_request.post 'news_unstar_item', url
+			@_request.post 'news_unstar_item', params
 
 
 		readItem: (itemId) ->
 			###
 			Sets an item as read
 			###
-			url =
-				itemId: itemId
+			params =
+				urlParams:
+					itemId: itemId
 
-			@_request.post 'news_read_item', url
+			@_request.post 'news_read_item', params
 
 
 
@@ -113,77 +115,11 @@ angular.module('News').factory '_Persistence', ->
 			###
 			Sets an item as unread
 			###
-			url =
-				itemId: itemId
+			params =
+				urlParams:
+					itemId: itemId
 
-			@_request.post 'news_unread_item', url
-
-
-		###
-			FOLDER CONTROLLER
-		###
-		getAllFolders: (callback) ->
-			callback or= angular.noop
-			@_request.get 'news_folders', {}, {}, callback
-
-	
-		getFolderById: (folderId) ->
-			url =
-				folderId: folderId
-			@_request.get 'news_folder', url
-
-
-		openFolder: (folderId) ->
-			###
-			Save if a folder was opened
-			###
-			url =
-				folderId: folderId
-
-			@_request.post 'news_open_folder', url
-
-
-		collapseFolder: (folderId) ->
-			###
-			Save if a folder was collapsed
-			###
-			url =
-				folderId: folderId
-
-			@_request.post 'news_collapse_folder', url
-
-
-		createFolder: (folderName, parentFolderId=0, onSuccess=null, onError=null) ->
-			data =
-				folderName: folderName
-				parentFolderId: parentFolderId
-			onSuccess or= angular.noop
-			onError or= angular.noop
-
-			@_request.post 'news_create_folder', {}, data, onSuccess, onError
-
-
-		deleteFolder: (folderId) ->
-			###
-			Save if a folder was collapsed
-			###
-			url =
-				folderId: folderId
-
-			@_request.post 'news_delete_folder', url
-
-
-		renameFolder: (folderId, folderName) ->
-			###
-			Save if a folder was collapsed
-			###
-			url =
-				folderId: folderId
-
-			data =
-				folderName: folderName
-
-			@_request.post 'news_rename_folder', url, data
+			@_request.post 'news_unread_item', params
 
 
 		###
@@ -191,68 +127,147 @@ angular.module('News').factory '_Persistence', ->
 		###
 		getAllFeeds: (callback) ->
 			callback or= angular.noop
+			params =
+				onSuccess: callback
 
-			@_request.get 'news_feeds', {}, {}, callback
-
-
-		getFeedById: (feedId) ->
-			url =
-				feedId: feedId
-
-			@_request.get 'news_feed', url
+			@_request.get 'news_feeds', params
 
 
 		getActiveFeed: (onSuccess) ->
-			@_request.get 'news_active_feed', {}, {}, onSuccess
+			params =
+				onSuccess: onSuccess
+
+			@_request.get 'news_active_feed', params
 
 
-		createFeed: (url, parentFolderId, onSuccess, onError) ->
-			data =
-				parentFolderId: parentFolderId
-				url: url
+		createFeed: (url, parentFolderId, onSuccess, onFailure) ->
+			params =
+				data:
+					parentFolderId: parentFolderId
+					url: url
+				onSuccess: onSuccess
+				onFailure: onFailure
 
-			@_request.post 'news_create_feed', {}, data, onSuccess, onError
+			@_request.post 'news_create_feed', params
 
 
 		deleteFeed: (feedId) ->
-			url =
-				feedId: feedId
+			params =
+				urlParams:
+					feedId: feedId
 
-			@_request.post 'news_delete_feed', url
+			@_request.post 'news_delete_feed', params
 
 
 		moveFeed: (feedId, folderId) ->
 			###
 			moves a feed to a new folder
 			###
-			url =
-				feedId: feedId
-			data =
-				folderId: folderId
+			params =
+				urlParams:
+					feedId: feedId
+				data:
+					folderId: folderId
 
-			@_request.post 'news_move_feed', url, data
+			@_request.post 'news_move_feed', params
 
 
 		setFeedRead: (feedId, highestItemId) ->
 			###
 			sets all items of a feed as read
 			###
-			url =
-				feedId: feedId
-			data =
-				highestItemId: highestItemId
+			params =
+				urlParams:
+					feedId: feedId
+				data:
+					highestItemId: highestItemId
 
-			@_request.post 'news_set_feed_read', url, data
+			@_request.post 'news_set_feed_read', params
 
 
 		updateFeed: (feedId) ->
 			###
 			moves a feed to a new folder
 			###
-			url =
-				feedId: feedId
+			params =
+				urlParams:
+					feedId: feedId
 
-			@_request.post 'news_update_feed', url
+			@_request.post 'news_update_feed', params
+
+
+		###
+			FOLDER CONTROLLER
+		###
+		getAllFolders: (callback) ->
+			callback or= angular.noop
+			params =
+				onSuccess: callback
+
+			@_request.get 'news_folders', params
+
+	
+		openFolder: (folderId) ->
+			###
+			Save if a folder was opened
+			###
+			params =
+				urlParams:
+					folderId: folderId
+
+			@_request.post 'news_open_folder', params
+
+
+		collapseFolder: (folderId) ->
+			###
+			Save if a folder was collapsed
+			###
+			params =
+				urlParams:
+					folderId: folderId
+
+			@_request.post 'news_collapse_folder', params
+
+
+		createFolder: (folderName, parentFolderId=0, onSuccess=null,
+						onFailure=null) ->
+			onSuccess or= angular.noop
+			onFailure or= angular.noop
+
+			params =
+				data:
+					folderName: folderName
+					parentFolderId: parentFolderId
+				onSuccess: onSuccess
+				onFailure: onFailure
+
+			@_request.post 'news_create_folder', params
+
+
+		deleteFolder: (folderId) ->
+			###
+			Save if a folder was collapsed
+			###
+			params =
+				urlParams:
+					folderId: folderId
+
+
+			@_request.post 'news_delete_folder', params
+
+
+		renameFolder: (folderId, folderName) ->
+			###
+			Save if a folder was collapsed
+			###
+			params =
+				urlParams:
+					folderId: folderId
+				data:
+					folderName: folderName
+
+			@_request.post 'news_rename_folder', params
+
 
 
 		###
@@ -273,7 +288,10 @@ angular.module('News').factory '_Persistence', ->
 			Gets the configs for read settings
 			###
 			callback or= angular.noop
-			@_request.get 'news_user_settings_read', {}, {}, callback
+			params =
+				onSuccess: callback
+
+			@_request.get 'news_user_settings_read', params
 
 
 		userSettingsReadShow: ->
