@@ -64,6 +64,30 @@ class EntityTest extends \PHPUnit_Framework_TestCase {
 	}
 
 
+	public function testColumnToPropertyNoReplacement(){
+		$column = 'my';
+		$entity = new TestEntity();
+		$this->assertEquals('my', 
+			$entity->columnToProperty($column));
+	}
+
+
+	public function testColumnToProperty(){
+		$column = 'my_attribute';
+		$entity = new TestEntity();
+		$this->assertEquals('myAttribute', 
+			$entity->columnToProperty($column));
+	}
+
+
+	public function testPropertyToColumnNoReplacement(){
+		$property = 'my';
+		$entity = new TestEntity();
+		$this->assertEquals('my', 
+			$entity->propertyToColumn($property));
+	}
+
+
 	public function testSetterMarksFieldUpdated(){
 		$id = 3;
 		$entity = new TestEntity();

@@ -27,10 +27,8 @@ namespace OCA\News\Db;
 
 abstract class Entity {
 
-	public $id;
-	
+	public $id;	
 	private $updatedFields;
-
 
 	public function __construct(){
 		$this->updatedFields = array();
@@ -44,10 +42,61 @@ abstract class Entity {
 	 * getter method
 	 */
 	public function __call($methodName, $args){
-		if(startsWith($methodName, 'set')){
-			$setterPart = substr($methodName, 2);
-			array_push($this->updatedFields, $setterPart);
+		if(strpos($methodName, 'set') === 0){
+			$setterPart = substr($methodName, 3);
+			$attr = lcfirst($setterPart);
+		
+			// mark as accessed
+			array_push($this->updatedFields, $attr);	
+			$this->$attr = $args[0];
+
+		} elseif(strpos($methodName, 'get') === 0) {
+			$getterPart = substr($methodName, 3);
+			$attr = lcfirst($getterPart);
+			return $this->$attr;
 		}
+	}
+
+
+	/**
+	 * Transform a database columnname to a property 
+	 * @param string $columnName the name of the column
+	 * @return string the property name
+	 */
+	public function columnToProperty($columnName){
+		$parts = explode('_', $columnName);
+		$property = null;
+
+		foreach($parts as $part){
+			if($property === null){
+				$property = $part;
+			} else {
+				$property .= ucfirst($part);
+			}
+		}
+
+		return $property;
+	}
+
+
+	/**
+	 * Transform a property to a database column name
+	 * @param string $property the name of the property
+	 * @return string the column name
+	 */
+	public function propertyToColumn($property){
+		$parts = preg_split('/(?=[A-Z])/', $property);
+		$column = null;
+
+		foreach($parts as $part){
+			if($column === null){
+				$column = $part;
+			} else {
+				$column .= '_' . lcfirst($part);
+			}
+		}
+
+		return $column;
 	}
 
 
@@ -69,14 +118,5 @@ abstract class Entity {
 		}
 	}
 
-
-	public function setId($id){
-		$this->id = $id;
-	}
-
-
-	public function getId(){
-		return $this->id;
-	}
 
 }
