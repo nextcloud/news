@@ -45,16 +45,23 @@ abstract class Entity {
 		if(strpos($methodName, 'set') === 0){
 			$setterPart = substr($methodName, 3);
 			$attr = lcfirst($setterPart);
-		
-			// mark as accessed
-			array_push($this->updatedFields, $attr);	
-			$this->$attr = $args[0];
 
+			$this->markFieldUpdated($attr);
+			$this->$attr = $args[0];
 		} elseif(strpos($methodName, 'get') === 0) {
 			$getterPart = substr($methodName, 3);
 			$attr = lcfirst($getterPart);
 			return $this->$attr;
 		}
+	}
+
+
+	/**
+	 * Mark am attribute as updated
+	 * @param string $attribute the name of the attribute
+	 */
+	protected function markFieldUpdated($attribute){
+		array_push($this->updatedFields, $attribute);
 	}
 
 
