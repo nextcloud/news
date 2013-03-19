@@ -28,16 +28,14 @@ namespace OCA\News\Db;
 require_once(__DIR__ . "/../classloader.php");
 
 
-class Test extends \PHPUnit_Framework_TestCase {
+class Test extends \OCA\AppFramework\Utility\MapperTestUtility {
 
 	private $itemMapper;
-	private $api;
 	private $items;
 	
 	protected function setUp(){
-		$this->api = $this->getMock('\OCA\AppFramework\Core\API', 
-			array('prepareQuery'),
-			array('a'));
+		$this->beforeEach();
+
 		$this->itemMapper = new ItemMapper($this->api);
 
 		// create mock items
@@ -65,23 +63,7 @@ class Test extends \PHPUnit_Framework_TestCase {
 			WHERE user_id = ?
 			AND feed_id = ?';
 
-		$pdoResult = $this->getMock('Result', 
-			array('fetchRow'));
-		$pdoResult->expects($this->once())
-			->method('fetchRow')
-			->will($this->returnValue($rows));
-
-		$query = $this->getMock('Query', 
-			array('execute'));
-		$query->expects($this->once())
-			->method('execute')
-			->with($this->equalTo(array($feedId, $userId)))
-			->will($this->returnValue($pdoResult));
-
-		$this->api->expects($this->once())
-			->method('prepareQuery')
-			->with($this->equalTo($sql))
-			->will(($this->returnValue($query)));
+		$this->setMapperResult($sql, array($feedId, $userId), $rows);
 
 		$result = $this->itemMapper->findAllFromFeed($feedId, $userId);
 
