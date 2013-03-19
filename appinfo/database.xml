@@ -40,14 +40,14 @@
 			</field>
 
 			<index>
-				<name>parent_id_index</name>
+				<name>news_folders_parent_id_index</name>
 				<field>
 					<name>parent_id</name>
 				</field>
 			</index>
 
 			<index>
-				<name>user_id_index</name>
+				<name>news_folders_user_id_index</name>
 				<field>
 					<name>user_id</name>
 				</field>
@@ -115,21 +115,21 @@
 			</field>
 
 			<index>
-				<name>user_id_index</name>
+				<name>news_feeds_user_id_index</name>
 				<field>
 					<name>user_id</name>
 				</field>
 			</index>
 
 			<index>
-				<name>folder_id_index</name>
+				<name>news_feeds_folder_id_index</name>
 				<field>
 					<name>folder_id</name>
 				</field>
 			</index>
 			
 			<index>
-				<name>url_hash_index</name>
+				<name>news_feeds_url_hash_index</name>
 				<field>
 					<name>url_hash</name>
 				</field>
@@ -204,14 +204,14 @@
 			</field>
 				
 			<index>
-				<name>feed_id_index</name>
+				<name>news_items_feed_id_index</name>
 				<field>
 					<name>feed_id</name>
 				</field>
 			</index>
 			
 			<index>
-				<name>item_guid</name>
+				<name>news_items_item_guid</name>
 				<field>
 					<name>guid_hash</name>
 				</field>

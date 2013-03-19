@@ -3,7 +3,7 @@
 /**
 * ownCloud - News
 *
-* @author Alessandro Copyright
+* @author Alessandro Cosentino
 * @author Bernhard Posselt
 * @copyright 2012 Alessandro Cosentino cosenal@gmail.com
 * @copyright 2012 Bernhard Posselt nukeawhale@gmail.com
@@ -28,48 +28,48 @@ namespace OCA\News\Db;
 require_once(__DIR__ . "/../classloader.php");
 
 
-class TestEntity extends Entity {
-	public $name;
-	public $email;
-};
+class ItemTest extends \PHPUnit_Framework_TestCase {
 
 
-class EntityTest extends \PHPUnit_Framework_TestCase {
+	protected function assertSetterGetter($name){
+		$value = 'value';
 
-	protected function setUp(){
+		$item = new Item();
+		$setMethod = 'set' . $name;
+		$getMethod = 'get' . $name;
+		$item->$setMethod($value);
 
+		$this->assertEquals($value, $item->$getMethod());
 	}
 
 
-	public function testFromRow(){
-		$row = array(
-			'name' => 'john', 
-			'email' => 'john@something.com'
-		);
-		$entity = new TestEntity();
-
-		$entity->fromRow($row);
-
-		$this->assertEquals($row['name'], $entity->name);
-		$this->assertEquals($row['email'], $entity->email);
+	public function testGetUrl(){
+		$this->assertSetterGetter('Url');
 	}
 
 
-	public function testGetSetId(){
-		$id = 3;
-		$entity = new TestEntity();
-		$entity->setId(3);
-
-		$this->assertEquals($id, $entity->getId());
+	public function testSetFeedId(){
+		$this->assertSetterGetter('FeedId');
 	}
 
 
-	public function testSetterMarksFieldUpdated(){
-		$id = 3;
-		$entity = new TestEntity();
-		$entity->setId(3);
+	public function testSetGUID(){
+		$this->assertSetterGetter('GUID');
+	}
 
-		$this->assertContains('id', $entity->getUpdatedFields());
+
+	public function testSetStatus(){
+		$this->assertSetterGetter('Status');
+	}
+
+
+	public function testSetTitle(){
+		$this->assertSetterGetter('Title');
+	}
+
+
+	public function testSetFeedTitle(){
+		$this->assertSetterGetter('FeedTitle');
 	}
 
 }

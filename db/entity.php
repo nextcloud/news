@@ -27,10 +27,56 @@ namespace OCA\News\Db;
 
 abstract class Entity {
 
-	public function fromRow($row){
+	public $id;
+	
+	private $updatedFields;
+
+
+	public function __construct(){
+		$this->updatedFields = array();
+	}
+
+
+	/**
+	 * Each time a setter is called, push the part after set
+	 * into an array: for instance setId will save Id in the 
+	 * updated fields array so it can be easily used to create the
+	 * getter method
+	 */
+	public function __call($methodName, $args){
+		if(startsWith($methodName, 'set')){
+			$setterPart = substr($methodName, 2);
+			array_push($this->updatedFields, $setterPart);
+		}
+	}
+
+
+	/**
+	 * @return array array of updated fields for update query
+	 */
+	public function getUpdatedFields(){
+		return $this->updatedFields;
+	}
+
+
+	/**
+	 * Maps the keys of the row array to the attributes
+	 * @param array $row the row to map onto the entity
+	 */
+	public function fromRow(array $row){
 		foreach($row as $key => $value){
 			$this->$key = $value;
 		}
+	}
+
+
+	public function setId($id){
+		$this->id = $id;
+	}
+
+
+	public function getId(){
+		return $this->id;
 	}
 
 }

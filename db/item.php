@@ -12,16 +12,69 @@
 
 namespace OCA\News\Db;
 
+
 class Item extends Entity {
+
+	public $url;
+	public $feed_id;
+	public $guid;
+	public $status;
+	public $title;
+	public $feedTitle;
+
+
+	public function setUrl($url) {
+		$this->url = $url;
+	}
+
+	public function getUrl() {
+		return $this->url;
+	}
+
+	public function setFeedId($feed_id) {
+		$this->feed_id = $feed_id;
+	}
+
+	public function getFeedId() {
+		return $this->feed_id;
+	}
+
+	public function setGUID($guid) {
+		$this->guid = $guid;
+	}
+
+	public function getGUID() {
+		return $this->guid;
+	}
+
+	public function setStatus($status) {
+		$this->status = $status;
+	}
+
+	public function getStatus() {
+		return $this->status;
+	}
+
+	public function getTitle() {
+		return $this->title;
+	}
+
+	public function setTitle($title) {
+		$this->title = $title;
+	}
+
+	public function getFeedTitle() {
+		return $this->feedTitle;
+	}
+
+	public function setFeedTitle($feedtitle) {
+		$this->feedTitle = $feedtitle;
+	}
 
 
 }
 
-/**
- * This class models an item.
- *
- * It encapsulate a SimplePie_Item object and adds a status flag to it
- */
+
 
 /*class Item {
 
@@ -50,29 +103,9 @@ class Item extends Entity {
 		}
 	}
 
-	public function getFeedId() {
-		return $this->feedId;
-	}
 
-	public function setFeedId($feedId) {
-		$this->feedId = $feedId;
-	}
 
-	public function getGuid() {
-		return $this->guid;
-	}
-
-	public function setGuid($guid) {
-		$this->guid = $guid;
-	}
-
-	public function getId() {
-		return $this->id;
-	}
-
-	public function setId($id) {
-		$this->id = $id;
-	}
+	
 
 	public function setRead() {
 		$this->status &= ~StatusFlag::UNREAD;
@@ -97,38 +130,9 @@ class Item extends Entity {
 	public function isImportant() {
 		return ($this->status & StatusFlag::IMPORTANT);
 	}
-
-	public function getStatus() {
-		return $this->status;
-	}
-
-	public function setStatus($status) {
-		$this->status = $status;
-	}
-
-	public function getTitle() {
-		return $this->title;
-	}
-
-	public function setTitle($title) {
-		$this->title = $title;
-	}
 	
-	public function getFeedTitle() {
-		return $this->feedTitle;
-	}
 
-	public function setFeedTitle($feedtitle) {
-		$this->feedTitle = $feedtitle;
-	}
-
-	public function getUrl() {
-		return $this->url;
-	}
-
-	public function setUrl($url) {
-		$this->url = $url;
-	}
+	
 
 	public function getBody() {
 		return $this->body;
