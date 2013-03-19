@@ -10,14 +10,20 @@
 *
 */
 
-namespace OCA\News;
+namespace OCA\News\Db;
+
+class Item extends Entity {
+
+
+}
 
 /**
  * This class models an item.
  *
  * It encapsulate a SimplePie_Item object and adds a status flag to it
  */
-class Item {
+
+/*class Item {
 
 	private $url;
 	private $title;
@@ -92,10 +98,6 @@ class Item {
 		return ($this->status & StatusFlag::IMPORTANT);
 	}
 
-	/**
-	 * NOTE: this is needed to store items in the database, otherwise
-	 * the status of an item should be retrieved with methods: isRead(), isImportant(), ...
-	 */
 	public function getStatus() {
 		return $this->status;
 	}
@@ -103,10 +105,6 @@ class Item {
 	public function setStatus($status) {
 		$this->status = $status;
 	}
-
-	/* change the following method with set/get magic methods
-	 * http://www.php.net/manual/en/language.oop5.overloading.php#object.get
-	 */
 
 	public function getTitle() {
 		return $this->title;
@@ -166,3 +164,4 @@ class Item {
 	}
 }
 
+*/

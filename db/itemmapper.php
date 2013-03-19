@@ -10,12 +10,44 @@
 *
 */
 
-namespace OCA\News;
+namespace OCA\News\Db;
+
+use \OCA\AppFramework\Db\Mapper;
+use \OCA\AppFramework\Core\API;
+
+class ItemMapper extends Mapper {
+
+	public function __construct(API $api){
+		parent::__construct($api);
+	}
+
+
+	public function findAllFromFeed($feedId, $userId){
+		$sql = 'SELECT * FROM `*PREFIX*news_items` 
+			WHERE user_id = ?
+			AND feed_id = ?';
+
+		$result = $this->execute($sql, array($feedId, $userId));
+		$items = array();
+
+		foreach($result->fetchRow() as $row){
+			$item = new Item();
+			$item->fromRow($row);
+			
+			array_push($items, $item);
+		}
+
+		return $items;
+	}
+
+}
+
 
 /**
  * This class maps an item to a row of the items table in the database.
  * It follows the Data Mapper pattern (see http://martinfowler.com/eaaCatalog/dataMapper.html).
  */
+/*
 class ItemMapper {
 
 	const tableName = '*PREFIX*news_items';
@@ -30,11 +62,11 @@ class ItemMapper {
 		}
 	}
 
-	/**
+	
 	 * @brief
 	 * @param row a row from the items table of the database
 	 * @returns an object of the class OC_News_Item
-	 */
+	 *
 	public function fromRow($row) {
 		$url = $row['url'];
 		$title = $row['title'];
@@ -65,7 +97,7 @@ class ItemMapper {
 	/**
 	 * @brief Retrieve all the item corresponding to a feed from the database
 	 * @param feedid The id of the feed in the database table.
-	 */
+	 *
 	public function findByFeedId($feedid) {
 		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE feed_id = ? ORDER BY pub_date DESC');
 		$result = $stmt->execute(array($feedid));
@@ -84,7 +116,7 @@ class ItemMapper {
 	 * @brief Retrieve all the items corresponding to a feed from the database with a particular status
 	 * @param feedid The id of the feed in the database table.
 	 * @param status one of the constants defined in OCA\News\StatusFlag
-	 */
+	 *
 	public function findAllStatus($feedid, $status) {
 		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName . '
 				WHERE feed_id = ?
@@ -104,7 +136,7 @@ class ItemMapper {
 	/*
 	 * @brief Retrieve all the items from the database with a particular status
 	 * @param status one of the constants defined in OCA\News\StatusFlag
-	 */
+	 *
 	public function findEveryItemByStatus($status) {
 		$stmt = \OCP\DB::prepare('SELECT ' . self::tableName . '.* FROM ' . self::tableName . '
 				JOIN '. FeedMapper::tableName .' ON
@@ -134,7 +166,7 @@ class ItemMapper {
 	/**
 	 * @brief Count all the items from the database with a particular status
 	 * @param status one of the constants defined in OCA\News\StatusFlag
-	 */
+	 *
 	public function countEveryItemByStatus($status) {
 		$stmt = \OCP\DB::prepare('SELECT COUNT(*) as size FROM ' . self::tableName . '
 				JOIN '. FeedMapper::tableName .' ON
@@ -168,7 +200,7 @@ class ItemMapper {
 	 * @param int $feedId: the id of the feed
 	 * @param int $mostRecentItemId: every item with the same or lower id will 
 	 *								 be marked read
-	 */
+	 *
 	public function markAllRead($feedId, $mostRecentItemId){
 		if($mostRecentItemId === 0){
 			$stmt = \OCP\DB::prepare('
@@ -204,7 +236,7 @@ class ItemMapper {
 	/**
 	 * @brief Update the item after its status has changed
 	 * @returns The item whose status has changed.
-	 */
+	 *
 	public function update(Item $item) {
 
 		$itemid = $item->getId();
@@ -230,7 +262,7 @@ class ItemMapper {
 	/**
 	 * @brief Save the feed and all its items into the database
 	 * @returns The id of the feed in the database table.
-	 */
+	 *
 	public function save(Item $item, $feedid) {
 		$guid = $item->getGuid();
 		$guid_hash = md5($guid);
@@ -297,7 +329,7 @@ class ItemMapper {
 	/**
 	 * @brief Retrieve an item from the database
 	 * @param id The id of the item in the database table.
-	 */
+	 *
 	public function findById($id) {
 
 		$stmt = \OCP\DB::prepare('SELECT ' . self::tableName . '.id AS id, ' . self::tableName . 
@@ -310,7 +342,7 @@ class ItemMapper {
 		/*
 		$stmt = \OCP\DB::prepare('SELECT * FROM ' . self::tableName . ' WHERE id = ?');
 		$result = $stmt->execute(array($id));
-		*/
+		*
 		$row = $result->fetchRow();
 
 		$item = $this->fromRow($row);
@@ -324,7 +356,7 @@ class ItemMapper {
 	 * @brief Permanently delete all items belonging to a feed from the database
 	 * @param feedid The id of the feed that we wish to delete
 	 * @return
-	 */
+	 *
 	public function deleteAll($feedid) {
 		if ($feedid == null) {
 			return false;
@@ -341,7 +373,7 @@ class ItemMapper {
 	 * @param $feedType the type of the feed
 	 * @param $feedId the id of the feed or folder
 	 * @return the unread count
-	 */
+	 *
 	public function getUnreadCount($feedType, $feedId){
 		$unreadCount = 0;
 
@@ -377,7 +409,7 @@ class ItemMapper {
 	 * @param $feedId the id of the feed or folder
 	 * @param $showAll if true, it will also include unread items
 	 * @return an array with all items
-	 */
+	 *
 	public function getItems($feedType, $feedId, $showAll){
 		$items = array();
 
@@ -420,3 +452,4 @@ class ItemMapper {
 		return $items;
 	}
 }
+*/
