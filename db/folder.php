@@ -1,90 +1,38 @@
 <?php
+
 /**
-* ownCloud - News app
+* ownCloud - News
 *
 * @author Alessandro Cosentino
-* Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
+* @author Bernhard Posselt
+* @copyright 2012 Alessandro Cosentino cosenal@gmail.com
+* @copyright 2012 Bernhard Posselt nukeawhale@gmail.com
 *
-* This file is licensed under the Affero General Public License version 3 or later.
-* See the COPYING-README file
+* This library is free software; you can redistribute it and/or
+* modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+* License as published by the Free Software Foundation; either
+* version 3 of the License, or any later version.
+*
+* This library is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+*
+* You should have received a copy of the GNU Affero General Public
+* License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 *
 */
 
-namespace OCA\News;
+namespace OCA\News\Db;
 
-/**
- * This class models a folder that contains feeds.
- */
-class Folder extends Collection {
+use \OCA\AppFramework\Db\Entity;
 
-	private $name;
-	private $children;
-	private $parent;
-	private $opened;
 
-	public function __construct($name, $id = null, Collection $parent = null) {
-		$this->name = $name;
-		if ($id !== null) {
-			parent::__construct($id);
-		}
-		$this->children = array();
-		if ($parent !== null) {
-			$this->parent = $parent;
-		}
-		if($this->opened === null){
-			$this->opened = true;
-		}
-	}
+class Folder extends Entity {
 
-	public function getName() {
-		return $this->name;
-	}
-
-	public function setName($name) {
-		$this->name = $name;
-	}
-
-	public function getOpened() {
-		return $this->opened;
-	}
-
-	public function setOpened($opened) {
-		$this->opened = $opened;
-	}
-	
-	public function setParentId() {
-		if ($this->parent !== null) {
-			
-		}		
-	}
-
-	public function getParentId() {
-		if ($this->parent === null) {
-			return 0;
-		}
-		return $this->parent->getId();
-	}
-
-	public function addChild(Collection $child) {
-		$this->children[] = $child;
-	}
-
-	public function addChildren($children) {
-		$this->children = $children;
-	}
-
-	public function getChildren() {
-		return $this->children;
-	}
-
-	public function jsonSerialize() {
-		//TODO: this is just for test
-		$encoding = array(
-			'id'	=> $this->getId(),
-			'parentId' 	=> $this->getParentId(),
-			'title' => $this->getName(),
-		);
-		return $encoding;
-	}
+	public $parentId;
+	public $name;
+	public $userId;
+	public $opened;
 
 }

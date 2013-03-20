@@ -1,86 +1,42 @@
 <?php
+
 /**
-* ownCloud - News app
+* ownCloud - News
 *
 * @author Alessandro Cosentino
-* Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
+* @author Bernhard Posselt
+* @copyright 2012 Alessandro Cosentino cosenal@gmail.com
+* @copyright 2012 Bernhard Posselt nukeawhale@gmail.com
 *
-* This file is licensed under the Affero General Public License version 3 or later.
-* See the COPYING-README file
+* This library is free software; you can redistribute it and/or
+* modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+* License as published by the Free Software Foundation; either
+* version 3 of the License, or any later version.
+*
+* This library is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+*
+* You should have received a copy of the GNU Affero General Public
+* License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 *
 */
 
-namespace OCA\News;
+namespace OCA\News\Db;
+
+use \OCA\AppFramework\Db\Entity;
 
 
-/**
- * This class models a feed.
- */
-class Feed extends Collection {
+class Feed extends Entity {
 
-	private $title;
-	private $url;
-	private $items;  //array that contains all the items of the feed
-	private $favicon;
-
-	// if $items = null, it means that feed has not been fetched yet
-	// if $id = null, it means that the feed has not been stored in the db yet
-	public function __construct($url, $title = null, $items = null, $id = null) {
-		$this->url = $url;
-		$this->title = $title;
-		if ($items !== null) {
-			$this->items = $items;
-		}
-		if ($id !== null) {
-			parent::__construct($id);
-		}
-	}
-
-	public function getUrl() {
-		return $this->url;
-	}
-
-	public function getTitle() {
-		return $this->title;
-	}
-
-	public function setTitle($title) {
-		$this->title = $title;
-	}
-
-	public function getFavicon() {
-		return $this->favicon;
-	}
-
-	public function setFavicon($favicon) {
-		$this->favicon = $favicon;
-	}
-
-	public function setItems($items) {
-		$this->items = $items;
-	}
-
-	public function getItems() {
-		return $this->items;
-	}
-
-	public function setFolderId($folderId){
-		$this->folderId = $folderId;
-	}
-
-	public function getFolderId(){
-		return $this->folderId;
-	}
-	
-	public function jsonSerialize(){
-		//TODO: this is just for test
-		$encoding = array(
-			'id'	=> $this->getId(),
-			'url' 	=> $this->getUrl(),
-			'title' => $this->getTitle(),
-			'folderId' => $this->getFolderId()
-		);
-		return $encoding;
-	}
+	public $userId;
+	public $urlHash;
+	public $url;
+	public $title;
+	public $faviconLink;
+	public $added;
+	public $lastmodified;
+	public $folderId;
 
 }
