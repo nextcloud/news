@@ -32,9 +32,11 @@ use \OCA\AppFramework\Core\API;
 
 abstract class NewsMapper extends Mapper {
 	
+
 	public function __construct(API $api, $tableName) {
 		parent::__construct($api, $tableName);
 	}
+
 
 	protected function findRow($sql, $id, $userId){
 		
@@ -50,4 +52,6 @@ abstract class NewsMapper extends Mapper {
 			return $row;
 		}
 	}
+
+
 }

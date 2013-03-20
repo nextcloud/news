@@ -55,4 +55,5 @@ test: deps compile
 
 clean:
 	rm -rf $(CURDIR)/build
+	rm -rf $(CURDIR)/node_modules/
 	rm -rf $(CURDIR)/test-results.xml

@@ -122,7 +122,8 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$result = $this->itemMapper->find($id, $userId);
 	}
 	
-	public function testFindAllFromFolder() {
+	
+	public function FindAllFromFolder() {
 		$userId = 'john';
 		$folderId = 3;
 		$status = 2;
