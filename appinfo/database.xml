@@ -102,13 +102,6 @@
 				<unsigned>true</unsigned>
 			</field>
 			<field>
-				<name>lastmodified</name>
-				<type>integer</type>
-				<default></default>
-				<notnull>false</notnull>
-				<unsigned>true</unsigned>
-			</field>
-			<field>
 				<name>folder_id</name>
 				<type>integer</type>
 				<notnull>true</notnull>
@@ -201,6 +194,13 @@
 			<field>
 				<name>status</name>
 				<type>integer</type>
+			</field>
+			<field>
+				<name>last_modified</name>
+				<type>integer</type>
+				<default></default>
+				<notnull>false</notnull>
+				<unsigned>true</unsigned>
 			</field>
 				
 			<index>

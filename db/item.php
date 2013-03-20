@@ -42,6 +42,7 @@ class Item extends Entity {
 	public $feedId;
 	public $status;
 	public $feedTitle;
+	public $lastModified;
 
 	public function setRead() {
 		$this->markFieldUpdated('status');

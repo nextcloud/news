@@ -36,7 +36,7 @@ class Feed extends Entity {
 	public $title;
 	public $faviconLink;
 	public $added;
-	public $lastmodified;
 	public $folderId;
+	public $unreadCount;
 
 }
