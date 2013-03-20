@@ -27,7 +27,7 @@ namespace OCA\News\Db;
 
 class StatusFlag {
 	const UNREAD    = 0x02;
-	const STARRED = 0x04;
+	const STARRED   = 0x04;
 	const DELETED   = 0x08;
 	const UPDATED   = 0x16;
 }
