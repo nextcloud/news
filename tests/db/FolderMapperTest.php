@@ -28,23 +28,23 @@ namespace OCA\News\Db;
 require_once(__DIR__ . "/../classloader.php");
 
 
-class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
+class FolderMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 
-	private $feedMapper;
-	private $feeds;
+	private $folderMapper;
+	private $folders;
 	
 	protected function setUp(){
 		$this->beforeEach();
 
-		$this->feedMapper = new FeedMapper($this->api);
+		$this->folderMapper = new FolderMapper($this->api);
 
-		// create mock feeds
-		$feed1 = new Feed();
-		$feed2 = new Feed();
+		// create mock folders
+		$folder1 = new Folder();
+		$folder2 = new Folder();
 
-		$this->feeds = array(
-			$feed1,
-			$feed2
+		$this->folders = array(
+			$folder1,
+			$folder2
 		);
 	}
 
@@ -53,16 +53,16 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$userId = 'john';
 		$id = 3;
 		$rows = array(
-		  array('id' => $this->feeds[0]->getId()),
+		  array('id' => $this->folders[0]->getId()),
 		);
-		$sql = 'SELECT * FROM `*dbprefix*news_feeds` ' .
+		$sql = 'SELECT * FROM `*dbprefix*news_folders` ' .
 			'WHERE `id` = ? ' .
 			'AND `user_id` = ?';
 			
 		$this->setMapperResult($sql, array($id, $userId), $rows);
 		
-		$result = $this->feedMapper->find($id, $userId);
-		$this->assertEquals($this->feeds[0], $result);
+		$result = $this->folderMapper->find($id, $userId);
+		$this->assertEquals($this->folders[0], $result);
 		
 	}
 
@@ -70,14 +70,14 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 	public function testFindNotFound(){
 		$userId = 'john';
 		$id = 3;
-		$sql = 'SELECT * FROM `*dbprefix*news_feeds` ' .
+		$sql = 'SELECT * FROM `*dbprefix*news_folders` ' .
 			'WHERE `id` = ? ' .
 			'AND `user_id` = ?';
 			
 		$this->setMapperResult($sql, array($id, $userId));
 		
 		$this->setExpectedException('\OCA\AppFramework\Db\DoesNotExistException');
-		$result = $this->feedMapper->find($id, $userId);	
+		$result = $this->folderMapper->find($id, $userId);	
 	}
 	
 
@@ -85,64 +85,35 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$userId = 'john';
 		$id = 3;
 		$rows = array(
-			array('id' => $this->feeds[0]->getId()),
-			array('id' => $this->feeds[1]->getId())
+			array('id' => $this->folders[0]->getId()),
+			array('id' => $this->folders[1]->getId())
 		);
-		$sql = 'SELECT * FROM `*dbprefix*news_feeds` ' .
+		$sql = 'SELECT * FROM `*dbprefix*news_folders` ' .
 			'WHERE `id` = ? ' .
 			'AND `user_id` = ?';
 		
 		$this->setMapperResult($sql, array($id, $userId), $rows);
 		
 		$this->setExpectedException('\OCA\AppFramework\Db\MultipleObjectsReturnedException');
-		$result = $this->feedMapper->find($id, $userId);
+		$result = $this->folderMapper->find($id, $userId);
 	}
 
-
-	public function testFindAll(){
-		$userId = 'john';
-		$rows = array(
-			array('id' => $this->feeds[0]->getId()),
-			array('id' => $this->feeds[1]->getId())
-		);
-		$sql = 'SELECT * FROM `*dbprefix*news_feeds`';
-		
-		$this->setMapperResult($sql, array(), $rows);
-		
-		$result = $this->feedMapper->findAll();
-		$this->assertEquals($this->feeds, $result);
-	}
 
 
 	public function testFindAllFromUser(){
 		$userId = 'john';
 		$rows = array(
-			array('id' => $this->feeds[0]->getId()),
-			array('id' => $this->feeds[1]->getId())
+			array('id' => $this->folders[0]->getId()),
+			array('id' => $this->folders[1]->getId())
 		);
-		$sql = 'SELECT * FROM `*dbprefix*news_feeds` ' .
+		$sql = 'SELECT * FROM `*dbprefix*news_folders` ' .
 			'AND `user_id` = ?';
 		
 		$this->setMapperResult($sql, array($userId), $rows);
 		
-		$result = $this->feedMapper->findAllFromUser($userId);
-		$this->assertEquals($this->feeds, $result);
+		$result = $this->folderMapper->findAllFromUser($userId);
+		$this->assertEquals($this->folders, $result);
 	}
 
-
-	public function testGetStarredCount(){
-		$userId = 'john';
-		$row = array(
-			array('size' => 9)
-		);
-		$sql = 'SELECT COUNT(*) AS size FROM `*dbprefix*news_feeds` ' .
-			'AND `user_id` = ? ' .
-			'AND ((`status` & ?) > 0)';
-		
-		$this->setMapperResult($sql, array($userId, StatusFlag::STARRED), $row);
-		
-		$result = $this->feedMapper->getStarredCount($userId);
-		$this->assertEquals($row[0]['size'], $result);
-	}
 
 }

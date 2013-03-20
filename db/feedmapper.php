@@ -90,4 +90,5 @@ class FeedMapper extends NewsMapper {
 		return $result['size'];
 	}
 
+
 }
