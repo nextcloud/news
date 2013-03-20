@@ -35,6 +35,7 @@ class FeedMapper extends NewsMapper {
 		parent::__construct($api, 'news_feeds');
 	}
 
+	// TODO: add unread_count!
 
 	public function find($id, $userId){
 		$sql = 'SELECT * FROM `*dbprefix*news_feeds` ' .
