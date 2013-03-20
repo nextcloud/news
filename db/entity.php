@@ -42,17 +42,36 @@ abstract class Entity {
 	 * getter method
 	 */
 	public function __call($methodName, $args){
-		if(strpos($methodName, 'set') === 0){
-			$setterPart = substr($methodName, 3);
-			$attr = lcfirst($setterPart);
 
-			$this->markFieldUpdated($attr);
-			$this->$attr = $args[0];
+		// setters
+		if(strpos($methodName, 'set') === 0){
+			$attr = lcfirst( substr($methodName, 3) );
+
+			// setters should only work for existing attributes
+			if(property_exists($this, $attr)){
+				$this->markFieldUpdated($attr);
+				$this->$attr = $args[0];	
+			} else {
+				throw new \BadFunctionCallException($attr . 
+					' is not a valid attribute');
+			}
+		
+		// getters
 		} elseif(strpos($methodName, 'get') === 0) {
-			$getterPart = substr($methodName, 3);
-			$attr = lcfirst($getterPart);
-			return $this->$attr;
+			$attr = lcfirst( substr($methodName, 3) );
+
+			// getters should only work for existing attributes
+			if(property_exists($this, $attr)){
+				return $this->$attr;
+			} else {
+				throw new \BadFunctionCallException($attr . 
+					' is not a valid attribute');
+			}
+		} else {
+			throw new \BadFunctionCallException($methodName . 
+					' does not exist');
 		}
+
 	}
 
 

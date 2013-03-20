@@ -30,46 +30,17 @@ require_once(__DIR__ . "/../classloader.php");
 
 class ItemTest extends \PHPUnit_Framework_TestCase {
 
+	private $item;
 
-	protected function assertSetterGetter($name){
-		$value = 'value';
-
-		$item = new Item();
-		$setMethod = 'set' . $name;
-		$getMethod = 'get' . $name;
-		$item->$setMethod($value);
-
-		$this->assertEquals($value, $item->$getMethod());
+	protected function setUp(){
+		$this->item = new Item();
+		$this->item->setStatus(0);
 	}
 
+	public function testSetRead(){
+		$this->item->setRead();
 
-	public function testGetUrl(){
-		$this->assertSetterGetter('Url');
-	}
-
-
-	public function testSetFeedId(){
-		$this->assertSetterGetter('FeedId');
-	}
-
-
-	public function testSetGUID(){
-		$this->assertSetterGetter('GUID');
-	}
-
-
-	public function testSetStatus(){
-		$this->assertSetterGetter('Status');
-	}
-
-
-	public function testSetTitle(){
-		$this->assertSetterGetter('Title');
-	}
-
-
-	public function testSetFeedTitle(){
-		$this->assertSetterGetter('FeedTitle');
+		$this->assertTrue($this->item->isRead());
 	}
 
 }

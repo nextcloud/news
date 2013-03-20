@@ -23,9 +23,9 @@ class ItemMapper extends Mapper {
 
 
 	public function findAllFromFeed($feedId, $userId){
-		$sql = 'SELECT * FROM `*PREFIX*news_items` 
-			WHERE user_id = ?
-			AND feed_id = ?';
+		$sql = 'SELECT * FROM `*PREFIX*news_items` ' .
+			'WHERE user_id = ? ' .
+			'AND feed_id = ?';
 
 		$result = $this->execute($sql, array($feedId, $userId));
 		$items = array();

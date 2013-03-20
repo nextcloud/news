@@ -36,8 +36,10 @@ class TestEntity extends Entity {
 
 class EntityTest extends \PHPUnit_Framework_TestCase {
 
-	protected function setUp(){
+	private $entity;
 
+	protected function setUp(){
+		$this->entity = new TestEntity();
 	}
 
 
@@ -46,54 +48,70 @@ class EntityTest extends \PHPUnit_Framework_TestCase {
 			'pre_name' => 'john', 
 			'email' => 'john@something.com'
 		);
-		$entity = new TestEntity();
+		$this->entity = new TestEntity();
 
-		$entity->fromRow($row);
+		$this->entity->fromRow($row);
 
-		$this->assertEquals($row['pre_name'], $entity->getPreName());
-		$this->assertEquals($row['email'], $entity->getEmail());
+		$this->assertEquals($row['pre_name'], $this->entity->getPreName());
+		$this->assertEquals($row['email'], $this->entity->getEmail());
 	}
 
 
 	public function testGetSetId(){
 		$id = 3;
-		$entity = new TestEntity();
-		$entity->setId(3);
+		$this->entity->setId(3);
 
-		$this->assertEquals($id, $entity->getId());
+		$this->assertEquals($id, $this->entity->getId());
 	}
 
 
 	public function testColumnToPropertyNoReplacement(){
 		$column = 'my';
-		$entity = new TestEntity();
 		$this->assertEquals('my', 
-			$entity->columnToProperty($column));
+			$this->entity->columnToProperty($column));
 	}
 
 
 	public function testColumnToProperty(){
 		$column = 'my_attribute';
-		$entity = new TestEntity();
 		$this->assertEquals('myAttribute', 
-			$entity->columnToProperty($column));
+			$this->entity->columnToProperty($column));
 	}
 
 
 	public function testPropertyToColumnNoReplacement(){
 		$property = 'my';
-		$entity = new TestEntity();
 		$this->assertEquals('my', 
-			$entity->propertyToColumn($property));
+			$this->entity->propertyToColumn($property));
 	}
 
 
 	public function testSetterMarksFieldUpdated(){
 		$id = 3;
-		$entity = new TestEntity();
-		$entity->setId(3);
+		$this->entity->setId(3);
 
-		$this->assertContains('id', $entity->getUpdatedFields());
+		$this->assertContains('id', $this->entity->getUpdatedFields());
+	}
+
+
+	public function testCallShouldOnlyWorkForGetterSetter(){
+		$this->setExpectedException('\BadFunctionCallException');
+
+		$this->entity->something();
+	}
+
+
+	public function testGetterShouldFailIfAttributeNotDefined(){
+		$this->setExpectedException('\BadFunctionCallException');
+
+		$this->entity->getTest();
+	}
+
+
+	public function testSetterShouldFailIfAttributeNotDefined(){
+		$this->setExpectedException('\BadFunctionCallException');
+
+		$this->entity->setTest();
 	}
 
 }

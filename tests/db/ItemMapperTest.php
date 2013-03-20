@@ -59,9 +59,9 @@ class Test extends \OCA\AppFramework\Utility\MapperTestUtility {
 			array('test' => 1), 
 			array('test' => 2)
 		);
-		$sql = 'SELECT * FROM `*PREFIX*news_items` 
-			WHERE user_id = ?
-			AND feed_id = ?';
+		$sql = 'SELECT * FROM `*PREFIX*news_items` ' .
+			'WHERE user_id = ? ' .
+			'AND feed_id = ?';
 
 		$this->setMapperResult($sql, array($feedId, $userId), $rows);
 
