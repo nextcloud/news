@@ -35,7 +35,7 @@ class FolderBl extends Bl {
 	}
 
 
-	public function getAll($userId) {
+	public function findAll($userId) {
 		return $this->mapper->findAllFromUser($userId);
 	}
 
@@ -55,19 +55,11 @@ class FolderBl extends Bl {
 	}
 
 
-/*
-	public function modify($folderid, $name = null, $parent = null, $opened = null) {
-		$folder = $this->folderMapper->find($folderid);
-		if(!$folder)
-			return false;
-
-		if($name)
-			$folder->setName($name);
-		if($parent)
-			$folder->setParentId($parent);
-		if($opened)
-			$folder->setOpened($opened);
-		return $this->folderMapper->update($folder);
+	public function rename($folderId, $folderName, $userId){
+		$folder = $this->find($folderId, $userId);
+		$folder->setName($folderName);
+		$this->mapper->update($folder);
 	}
-*/
+
+
 }

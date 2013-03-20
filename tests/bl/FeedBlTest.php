@@ -47,7 +47,7 @@ class FolderBlTest extends \OCA\AppFramework\Utility\TestUtility {
 	}
 
 
-	function testGetAll(){
+	function testFindAll(){
 		$userId = 'jack';
 		$return = 'hi';
 		$this->folderMapper->expects($this->once())
@@ -55,7 +55,7 @@ class FolderBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->with($this->equalTo($userId))
 			->will($this->returnValue($return));
 
-		$result = $this->folderBl->getAll($userId);
+		$result = $this->folderBl->findAll($userId);
 
 		$this->assertEquals($return, $result);
 	}
@@ -93,6 +93,25 @@ class FolderBlTest extends \OCA\AppFramework\Utility\TestUtility {
 
 		$this->assertFalse($folder->getOpened());
 
+	}
+
+
+	public function testRename(){
+		$folder = new Folder();
+		$folder->setName('jooohn');
+
+		$this->folderMapper->expects($this->once())
+			->method('find')
+			->with($this->equalTo(3))
+			->will($this->returnValue($folder));
+
+		$this->folderMapper->expects($this->once())
+			->method('update')
+			->with($this->equalTo($folder));
+
+		$this->folderBl->rename(3, 'bogus', '');
+
+		$this->assertEquals('bogus', $folder->getName());		
 	}
 
 }
