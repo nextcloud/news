@@ -12,7 +12,6 @@
 
 namespace OCA\News;
 
-require_once \OC_App::getAppPath('news') . '/appinfo/bootstrap.php';
 
 
 \OCP\App::addNavigationEntry( array(
@@ -22,10 +21,10 @@ require_once \OC_App::getAppPath('news') . '/appinfo/bootstrap.php';
   'icon' => \OC_Helper::imagePath( 'news', 'news.svg' ),
   'name' => \OC_L10N::get('news')->t('News')
 ));
-
+/*
 \OC_Search::registerProvider('OC_Search_Provider_News');
 
 \OCP\Backgroundjob::addRegularTask( 'OCA\News\Backgroundjob', 'run' );
 \OCP\Share::registerBackend('news_item', 'OCA\News\Share_Backend_News_Item');
-
+*/
 
