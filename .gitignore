@@ -1,3 +1,10 @@
+#specific to news app
+-coffee/build/
+-node_modules/
+-*.log
+-build/
+-test-results.xml 
+
 # just sane ignores
 .*.sw[po]
 *.bak
