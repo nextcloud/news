@@ -28,16 +28,17 @@ namespace OCA\News\Controller;
 use \OCA\AppFramework\Controller\Controller;
 use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Http\Request;
-use \OCA\AppFramework\Db\DoesNotExistException;
-use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
+
+use \OCA\News\Bl\FolderBl;
 
 
 class FolderController extends Controller {
 
+	private $folderBl;
 
-	public function __construct(API $api, Request $request, $folderMapper){
+	public function __construct(API $api, Request $request, FolderBl $folderBl){
 		parent::__construct($api, $request);
-		$this->folderMapper = $folderMapper;
+		$this->folderBl = $folderBl;
 	}
 
 
@@ -49,8 +50,11 @@ class FolderController extends Controller {
 	 * Returns all folders
 	 */
 	public function getAll(){
-		$folders = $this->folderMapper->getAll();
-		return $this->renderJSON($folders);
+		$folders = $this->folderBl->findAll($this->api->getUserId());
+		$result = array(
+			'folders' => $folders
+		);
+		return $this->renderJSON($result);
 	}
 
 

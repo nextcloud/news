@@ -31,6 +31,8 @@ use \OCA\AppFramework\Utility\ControllerTestUtility;
 use \OCA\AppFramework\Db\DoesNotExistException;
 use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
 
+use \OCA\News\Db\Folder;
+
 
 require_once(__DIR__ . "/../classloader.php");
 
@@ -38,7 +40,7 @@ require_once(__DIR__ . "/../classloader.php");
 class FolderControllerTest extends ControllerTestUtility {
 
 	private $api;
-	private $folderMapper;
+	private $folderBl;
 	private $request;
 	private $controller;
 
@@ -48,20 +50,21 @@ class FolderControllerTest extends ControllerTestUtility {
 	 */
 	public function setUp(){
 		$this->api = $this->getAPIMock();
-		$this->folderMapper = $this->getMock('FolderMapper',
-			array('getAll', 'setCollapsed'));
+		$this->folderBl = $this->getMockBuilder('\OCA\News\Bl\FolderBl')
+			->disableOriginalConstructor()
+			->getMock();
 		$this->request = new Request();
 		$this->controller = new FolderController($this->api, $this->request,
-				$this->folderMapper);
-
+				$this->folderBl);
 	}
+
 
 	/**
 	 * getAll
 	 */
 	public function testGetAllCalled(){
-		$this->folderMapper->expects($this->once())
-					->method('getAll')
+		$this->folderBl->expects($this->once())
+					->method('findAll')
 					->will($this->returnValue( array() ));
 		
 		$this->controller->getAll();
@@ -70,18 +73,21 @@ class FolderControllerTest extends ControllerTestUtility {
 
 	public function testGetAllReturnsFolders(){
 		$return = array(
-			'folder1' => 'name1',
-			'folder2' => 'name2'
+			new Folder(),
+			new Folder(),
 		);
-		$this->folderMapper->expects($this->once())
-					->method('getAll')
+		$this->folderBl->expects($this->once())
+					->method('findAll')
 					->will($this->returnValue($return));
 
 		$response = $this->controller->getAll();
-		$this->assertEquals($return, $response->getParams());
+		$expected = array(
+			'folders' => $return
+		);
+		$this->assertEquals($expected, $response->getParams());
 	}
 
-
+	
 	public function testGetAllAnnotations(){
 		$methodName = 'getAll';
 		$annotations = array('IsAdminExemption', 'IsSubAdminExemption', 'Ajax');
@@ -91,10 +97,6 @@ class FolderControllerTest extends ControllerTestUtility {
 
 
 	public function testGetAllReturnsJSON(){
-		$this->folderMapper->expects($this->once())
-					->method('getAll')
-					->will($this->returnValue( array() ));
-
 		$response = $this->controller->getAll();
 
 		$this->assertTrue($response instanceof JSONResponse);
@@ -106,7 +108,7 @@ class FolderControllerTest extends ControllerTestUtility {
 	 *//*
 	public function testCollapseCalled(){
 		$urlParams = array('folderId' => 1);
-		$this->folderMapper->expects($this->once())
+		$this->folderBl->expects($this->once())
 					->method('setCollapsed')
 					->with($this->equalTo($urlParams['folderId']), $this->equalTo(true));
 		$this->controller->setURLParams($urlParams);
@@ -117,7 +119,7 @@ class FolderControllerTest extends ControllerTestUtility {
 
 	public function testCollapseReturnsNoParams(){
 		$urlParams = array('folderId' => 1);
-		$this->folderMapper->expects($this->once())
+		$this->folderBl->expects($this->once())
 					->method('setCollapsed')
 					->with($this->equalTo($urlParams['folderId']), $this->equalTo(true));
 		$this->controller->setURLParams($urlParams);
@@ -137,7 +139,7 @@ class FolderControllerTest extends ControllerTestUtility {
 
 	public function testCollapseReturnsJSON(){
 		$urlParams = array('folderId' => 1);
-		$this->folderMapper->expects($this->once())
+		$this->folderBl->expects($this->once())
 					->method('setCollapsed')
 					->with($this->equalTo($urlParams['folderId']), $this->equalTo(true));
 		$this->controller->setURLParams($urlParams);
@@ -150,7 +152,7 @@ class FolderControllerTest extends ControllerTestUtility {
 
 	private function collapseException($ex){
 		$urlParams = array('folderId' => 1);
-		$this->folderMapper->expects($this->once())
+		$this->folderBl->expects($this->once())
 					->method('setCollapsed')
 					->with($this->equalTo($urlParams['folderId']), $this->equalTo(true))
 					->will($this->throwException($ex));
