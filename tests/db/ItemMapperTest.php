@@ -134,7 +134,7 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			'AND ((`*dbprefix*news_items`.`status` & ?) > 0)';
 			
 		$this->setMapperResult($sql, array($userId, $folderId, $status));
-		$result = $this->findAllFromFolder($userId, $folderId, $status);
+		$result = $this->itemMapper->findAllFromFolder($userId, $folderId, $status);
 
 	}
 }

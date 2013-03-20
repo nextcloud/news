@@ -44,8 +44,18 @@ class ItemMapper extends NewsMapper {
 		
 		$params = array($feedId, $userId);
 		return $this->findAllRows($sql, $params);
-
-		
+	}
+	
+	public function findAllFromFolder($userId, $folderId, $status){
+		$sql = 'SELECT `*dbprefix*news_items`.* FROM `*dbprefix*news_items` ' .
+			'JOIN `*dbprefix*news_feeds` ' .
+			'ON `*dbprefix*news_feeds`.`id` = `*dbprefix*news_items`.`feed_id` ' .
+			'WHERE `*dbprefix*news_feeds`.`user_id` = ? ' .
+			'AND `*dbprefix*news_feeds`.`folder_id` = ? ' .
+			'AND ((`*dbprefix*news_items`.`status` & ?) > 0)';
+			
+		$params = array($userId, $folderId, $status);
+		return $this->findAllRows($sql, $params);
 	}
 	/*
 	request: get all items of a folder of a user (unread and read)
@@ -72,11 +82,7 @@ class ItemMapper extends NewsMapper {
 		$item->fromRow($row);
 		
 		return $item;
-	}
-	
-	public function findAllFromFolder($status, $feedId, $userId){
-	
-	}
+	}	
 
 }
 
