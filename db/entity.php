@@ -80,7 +80,7 @@ abstract class Entity {
 	 * @param string $attribute the name of the attribute
 	 */
 	protected function markFieldUpdated($attribute){
-		array_push($this->updatedFields, $attribute);
+		$this->updatedFields[$attribute] = true;
 	}
 
 
