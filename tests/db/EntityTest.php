@@ -114,4 +114,13 @@ class EntityTest extends \PHPUnit_Framework_TestCase {
 		$this->entity->setTest();
 	}
 
+
+	public function testFromRowShouldNotAssignEmptyArray(){
+		$row = array();
+		$entity2 = new TestEntity();
+
+		$this->entity->fromRow($row);
+		$this->assertEquals($entity2, $this->entity);
+	}
+
 }
