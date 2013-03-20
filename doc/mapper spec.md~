@@ -1,0 +1,15 @@
+
+findAllFromUser($userId)
+find(int $feedId, $userId)
+findAllFromFeedWithStatus($status, $feedId, $userId);
+
+foldermapper
+
+find($feedId, $userId)
+
+feedmapper
+
+find($feedId, $userId)
+findAll()
+findAllFromUser($userId)
+

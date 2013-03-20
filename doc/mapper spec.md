@@ -1,5 +1,6 @@
 itemmapper
 
+<<<<<<< Updated upstream
 find(int $feedId, $userId)
 
 
@@ -35,11 +36,20 @@ request: get all items of a feed of a user (unread and read)
 
 
 all requests: can be specified using an (offset (id), limit) or (updatedSince (timestamp))
+=======
+findAllFromUser($userId)
+find(int $feedId, $userId)
+
+findAll($status, $feedId, $userId, );
+>>>>>>> Stashed changes
 
 foldermapper
 
 find($feedId, $userId)
+<<<<<<< Updated upstream
 findAllFromUser($userId)
+=======
+>>>>>>> Stashed changes
 
 feedmapper
 

@@ -135,6 +135,7 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			
 		$this->setMapperResult($sql, array($userId, $folderId, $status));
 		$result = $this->findAllFromFolder($userId, $folderId, $status);
+		
 
 	}
 }
