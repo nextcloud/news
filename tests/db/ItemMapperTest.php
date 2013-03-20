@@ -48,26 +48,6 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		);
 	}
 
-
-	public function testFindAllFromFeed(){
-		$userId = 'john';
-		$feedId = 3;
-		$rows = array(
-			array('id' => $this->items[0]->getId()),
-			array('id' => $this->items[1]->getId())
-		);
-		$sql = 'SELECT * FROM `*PREFIX*news_items` ' .
-			'WHERE user_id = ? ' .
-			'AND feed_id = ?';
-
-		$this->setMapperResult($sql, array($feedId, $userId), $rows);
-
-		$result = $this->itemMapper->findAllFromFeed($feedId, $userId);
-
-		$this->assertEquals($this->items, $result);
-
-	}
-
 	public function testFind(){
 		$userId = 'john';
 		$id = 3;
@@ -122,8 +102,64 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$result = $this->itemMapper->find($id, $userId);
 	}
 	
+	public function testFindAllFromFeed(){
+		$userId = 'john';
+		$feedId = 3;
+		$rows = array(
+			array('id' => $this->items[0]->getId()),
+			array('id' => $this->items[1]->getId())
+		);
+		$sql = 'SELECT * FROM `*PREFIX*news_items` ' .
+			'WHERE user_id = ? ' .
+			'AND feed_id = ?';
+
+		$this->setMapperResult($sql, array($feedId, $userId), $rows);
+		$result = $this->itemMapper->findAllFromFeed($feedId, $userId);
+		$this->assertEquals($this->items, $result);
+
+	}
 	
-	public function FindAllFromFolder() {
+	public function testFindAllFromFeedByStatus(){
+		$userId = 'john';
+		$feedId = 3;
+		$status = 2;
+		$rows = array(
+			array('id' => $this->items[0]->getId()),
+			array('id' => $this->items[1]->getId())
+		);
+		$sql = 'SELECT * FROM `*PREFIX*news_items` ' .
+			'WHERE user_id = ? ' .
+			'AND feed_id = ? ' .
+			'AND ((`*dbprefix*news_items`.`status` & ?) > 0)';
+
+		$this->setMapperResult($sql, array($feedId, $userId, $status), $rows);
+		$result = $this->itemMapper->findAllFromFeedByStatus($feedId, $userId, $status);
+		$this->assertEquals($this->items, $result);
+
+	}
+	
+	public function testFindAllFromFolder() {
+		$userId = 'john';
+		$folderId = 3;
+		
+		$rows = array(
+			array('id' => $this->items[0]->getId()),
+			array('id' => $this->items[1]->getId())
+		);
+		
+		$sql = 'SELECT `*dbprefix*news_items`.* FROM `*dbprefix*news_items` ' .
+			'JOIN `*dbprefix*news_feeds` ' .
+			'ON `*dbprefix*news_feeds`.`id` = `*dbprefix*news_items`.`feed_id` ' .
+			'WHERE `*dbprefix*news_feeds`.`user_id` = ? ' .
+			'AND `*dbprefix*news_feeds`.`folder_id` = ? ';
+			
+		$this->setMapperResult($sql, array($userId, $folderId), $rows);
+		$result = $this->itemMapper->findAllFromFolder($userId, $folderId);
+		$this->assertEquals($this->items, $result);
+		
+	}
+	
+	public function testFindAllFromFolderByStatus() {
 		$userId = 'john';
 		$folderId = 3;
 		$status = 2;
@@ -135,7 +171,25 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			'AND ((`*dbprefix*news_items`.`status` & ?) > 0)';
 			
 		$this->setMapperResult($sql, array($userId, $folderId, $status));
-		$result = $this->itemMapper->findAllFromFolder($userId, $folderId, $status);
+		$result = $this->itemMapper->findAllFromFolderByStatus($userId, $folderId, $status);
 
 	}
+	
+	public function testFindAllFromFolderByLastModified() {
+		$userId = 'john';
+		$folderId = 3;
+		$lastModified = 123;
+	
+		$sql = 'SELECT `*dbprefix*news_items`.* FROM `*dbprefix*news_items` ' .
+			'JOIN `*dbprefix*news_feeds` ' .
+			'ON `*dbprefix*news_feeds`.`id` = `*dbprefix*news_items`.`feed_id` ' .
+			'WHERE `*dbprefix*news_feeds`.`user_id` = ? ' .
+			'AND `*dbprefix*news_feeds`.`folder_id` = ? ' .
+			'AND `*dbprefix*news_items`.last_modified >= ? ';
+			
+		$this->setMapperResult($sql, array($userId, $folderId, $lastModified));
+		$result = $this->itemMapper->findAllFromFolderByLastMofified($userId, $folderId, $lastModified);
+	}
+	
+
 }

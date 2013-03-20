@@ -3,10 +3,22 @@
 * ownCloud - News app
 *
 * @author Alessandro Cosentino
-* Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
+* @author Bernhard Posselt
+* @copyright 2012 Alessandro Cosentino cosenal@gmail.com
+* @copyright 2012 Bernhard Posselt nukeawhale@gmail.com
 *
-* This file is licensed under the Affero General Public License version 3 or later.
-* See the COPYING-README file
+* This library is free software; you can redistribute it and/or
+* modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+* License as published by the Free Software Foundation; either
+* version 3 of the License, or any later version.
+*
+* This library is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+*
+* You should have received a copy of the GNU Affero General Public
+* License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 *
 */
 
@@ -36,7 +48,7 @@ class ItemMapper extends NewsMapper {
 
 		return $items;
 	}
-
+	
 	public function findAllFromFeed($feedId, $userId){
 		$sql = 'SELECT * FROM `*PREFIX*news_items` ' .
 			'WHERE user_id = ? ' .
@@ -46,17 +58,46 @@ class ItemMapper extends NewsMapper {
 		return $this->findAllRows($sql, $params);
 	}
 	
-	public function findAllFromFolder($userId, $folderId, $status){
-		$sql = 'SELECT `*dbprefix*news_items`.* FROM `*dbprefix*news_items` ' .
+	public function findAllFromFeedByStatus($feedId, $userId, $status){
+		$sql = 'SELECT * FROM `*PREFIX*news_items` ' .
+			'WHERE user_id = ? ' .
+			'AND feed_id = ? ' .
+			'AND ((`*dbprefix*news_items`.`status` & ?) > 0)';
+		
+		$params = array($feedId, $userId, $status);
+		return $this->findAllRows($sql, $params);
+	}
+	
+	
+	public function findAllFromFolder($userId, $folderId){
+		$sql = $this->makeFindAllFromFolderQuery('');			
+		$params = array($userId, $folderId);
+		return $this->findAllRows($sql, $params);
+	}
+	
+	public function findAllFromFolderByStatus($userId, $folderId, $status){
+		$sql = $this->makeFindAllFromFolderQuery('AND ((`*dbprefix*news_items`.`status` & ?) > 0)');
+		$params = array($userId, $folderId, $status);
+		return $this->findAllRows($sql, $params);
+	}
+	
+	public function findAllFromFolderByLastMofified($userId, $folderId, $lastModified){
+		$sql = $this->makeFindAllFromFolderQuery('AND `*dbprefix*news_items`.last_modified >= ? ');
+		$params = array($userId, $folderId, $lastModified);
+		return $this->findAllRows($sql, $params);
+	}
+	
+	private function makeFindAllFromFolderQuery($custom) {
+		return 'SELECT `*dbprefix*news_items`.* FROM `*dbprefix*news_items` ' .
 			'JOIN `*dbprefix*news_feeds` ' .
 			'ON `*dbprefix*news_feeds`.`id` = `*dbprefix*news_items`.`feed_id` ' .
 			'WHERE `*dbprefix*news_feeds`.`user_id` = ? ' .
 			'AND `*dbprefix*news_feeds`.`folder_id` = ? ' .
-			'AND ((`*dbprefix*news_items`.`status` & ?) > 0)';
-			
-		$params = array($userId, $folderId, $status);
-		return $this->findAllRows($sql, $params);
+			$custom;
 	}
+	
+	
+
 	/*
 	request: get all items of a folder of a user (unread and read)
 	SELECT * FROM items 
