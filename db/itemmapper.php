@@ -12,15 +12,16 @@
 
 namespace OCA\News\Db;
 
+use \OCA\AppFramework\Db\DoesNotExistException;
+use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
 use \OCA\AppFramework\Db\Mapper;
 use \OCA\AppFramework\Core\API;
 
 class ItemMapper extends Mapper {
 
 	public function __construct(API $api){
-		parent::__construct($api);
+		parent::__construct($api, 'news_items');
 	}
-
 
 	public function findAllFromFeed($feedId, $userId){
 		$sql = 'SELECT * FROM `*PREFIX*news_items` ' .
@@ -30,7 +31,7 @@ class ItemMapper extends Mapper {
 		$result = $this->execute($sql, array($feedId, $userId));
 		$items = array();
 
-		foreach($result->fetchRow() as $row){
+		while($row = $result->fetchRow()){
 			$item = new Item();
 			$item->fromRow($row);
 			
@@ -39,6 +40,29 @@ class ItemMapper extends Mapper {
 
 		return $items;
 	}
+	
+	public function find($id, $userId){
+		$sql = 'SELECT * FROM `*PREFIX*news_items` ' .
+			'WHERE user_id = ? ' .
+			'AND id = ?';
+		
+		$result = $this->execute($sql, array($id, $userId));
+		
+		$row = $result->fetchRow();
+		if ($row === false) {
+			throw new DoesNotExistException('Item ' . $id . 
+				' from user ' . $userId . ' not found');
+		} elseif($result->fetchRow() !== false) {
+			throw new MultipleObjectsReturnedException('More than one result for Item with id ' . $id . ' from user ' . $userId . '!');
+		}
+		
+		$item = new Item();
+		$item->fromRow($row);
+		
+		return $item;
+	}
+	
+	
 
 }
 

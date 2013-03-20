@@ -40,10 +40,7 @@ class Test extends \OCA\AppFramework\Utility\MapperTestUtility {
 
 		// create mock items
 		$item1 = new Item();
-		$item1->test = 1;
-
 		$item2 = new Item();
-		$item2->test = 2;
 
 		$this->items = array(
 			$item1,
@@ -56,8 +53,8 @@ class Test extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$userId = 'john';
 		$feedId = 3;
 		$rows = array(
-			array('test' => 1), 
-			array('test' => 2)
+			array('id' => $this->items[0]->getId()),
+			array('id' => $this->items[1]->getId())
 		);
 		$sql = 'SELECT * FROM `*PREFIX*news_items` ' .
 			'WHERE user_id = ? ' .
@@ -71,4 +68,50 @@ class Test extends \OCA\AppFramework\Utility\MapperTestUtility {
 
 	}
 
+	public function testFind(){
+		$userId = 'john';
+		$id = 3;
+		$rows = array(
+		  array('id' => $this->items[0]->getId()),
+		);
+		$sql = 'SELECT * FROM `*PREFIX*news_items` ' .
+			'WHERE user_id = ? ' .
+			'AND id = ?';
+		
+		$this->setMapperResult($sql, array($id, $userId), $rows);
+		
+		$result = $this->itemMapper->find($id, $userId);
+		$this->assertEquals($this->items[0], $result);
+		
+	}
+
+	public function testFindNotFound(){
+		$userId = 'john';
+		$id = 3;
+		$sql = 'SELECT * FROM `*PREFIX*news_items` ' .
+			'WHERE user_id = ? ' .
+			'AND id = ?';
+		
+		$this->setMapperResult($sql, array($id, $userId));
+		
+		$this->setExpectedException('\OCA\AppFramework\Db\DoesNotExistException');
+		$result = $this->itemMapper->find($id, $userId);	
+	}
+	
+	public function testFindMoreThanOneResultFound(){
+		$userId = 'john';
+		$id = 3;
+		$rows = array(
+			array('id' => $this->items[0]->getId()),
+			array('id' => $this->items[1]->getId())
+		);
+		$sql = 'SELECT * FROM `*PREFIX*news_items` ' .
+			'WHERE user_id = ? ' .
+			'AND id = ?';
+		
+		$this->setMapperResult($sql, array($id, $userId), $rows);
+		
+		$this->setExpectedException('\OCA\AppFramework\Db\MultipleObjectsReturnedException');
+		$result = $this->itemMapper->find($id, $userId);
+	}
 }
