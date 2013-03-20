@@ -28,16 +28,18 @@ namespace OCA\News\Db;
 
 class Item extends Entity {
 
+	public $guidHash;
+	public $guid;
 	public $url;
 	public $title;
-	public $guid;
-	public $body;
-	public $status;
 	public $author;
-	public $date;
-	public $feedTitle;
+	public $pubDate;
+	public $body;
 	public $enclosureMime;
 	public $enclosureLink;
+	public $feedId;
+	public $status;
+	public $feedTitle;
 
 	public function setRead() {
 		$this->markFieldUpdated('status');
@@ -49,6 +51,7 @@ class Item extends Entity {
 	}
 
 	public function setUnread() {
+		$this->markFieldUpdated('status');
 		$this->status |= StatusFlag::UNREAD;
 	}
 
@@ -57,6 +60,7 @@ class Item extends Entity {
 	}
 
 	public function setStarred() {
+		$this->markFieldUpdated('status');
 		$this->status |= StatusFlag::STARRED;
 	}
 	
@@ -65,6 +69,7 @@ class Item extends Entity {
 	}
 
 	public function setUnstarred() {
+		$this->markFieldUpdated('status');
 		$this->status &= ~StatusFlag::STARRED;
 	}
 
