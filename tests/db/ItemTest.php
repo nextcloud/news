@@ -37,10 +37,32 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 		$this->item->setStatus(0);
 	}
 
+
 	public function testSetRead(){
 		$this->item->setRead();
 
 		$this->assertTrue($this->item->isRead());
+	}
+
+
+	public function testSetUnread(){
+		$this->item->setUnread();
+
+		$this->assertTrue($this->item->isUnread());
+	}
+
+
+	public function testSetStarred(){
+		$this->item->setStarred();
+
+		$this->assertTrue($this->item->isStarred());
+	}
+
+
+	public function testSetUnstarred(){
+		$this->item->setUnstarred();
+
+		$this->assertTrue($this->item->isUnstarred());
 	}
 
 }

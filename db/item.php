@@ -36,7 +36,8 @@ class Item extends Entity {
 	public $author;
 	public $date;
 	public $feedTitle;
-	public $enclosure;
+	public $enclosureMime;
+	public $enclosureLink;
 
 	public function setRead() {
 		$this->markFieldUpdated('status');
@@ -44,7 +45,31 @@ class Item extends Entity {
 	}
 
 	public function isRead() {
-		return !($this->status & StatusFlag::UNREAD);
+		return !(($this->status & StatusFlag::UNREAD) === StatusFlag::UNREAD);
+	}
+
+	public function setUnread() {
+		$this->status |= StatusFlag::UNREAD;
+	}
+
+	public function isUnread() {
+		return !$this->isRead();
+	}
+
+	public function setStarred() {
+		$this->status |= StatusFlag::STARRED;
+	}
+	
+	public function isStarred() {
+		return ($this->status & StatusFlag::STARRED) === StatusFlag::STARRED;
+	}
+
+	public function setUnstarred() {
+		$this->status &= ~StatusFlag::STARRED;
+	}
+
+	public function isUnstarred() {
+		return !$this->isStarred();
 	}
 
 }
@@ -77,32 +102,6 @@ class Item extends Entity {
 			$this->id = $id;
 		}
 	}
-
-
-
-	
-
-
-
-	public function setUnread() {
-		$this->status |= StatusFlag::UNREAD;
-	}
-
-	
-
-	public function setImportant() {
-		$this->status |= StatusFlag::IMPORTANT;
-	}
-
-	public function setUnimportant() {
-		$this->status &= ~StatusFlag::IMPORTANT;
-	}
-
-	public function isImportant() {
-		return ($this->status & StatusFlag::IMPORTANT);
-	}
-	
-
 	
 
 	public function getBody() {
