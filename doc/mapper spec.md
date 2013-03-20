@@ -1,11 +1,3 @@
-itemmapper
-
-<<<<<<< Updated upstream
-find(int $feedId, $userId)
-
-
-
-findAll()
 
 request: get just starred items of a user 
 	SELECT * FROM items 
@@ -37,9 +29,3 @@ request: get all items of a feed of a user (unread and read)
 
 all requests: can be specified using an (offset (id), limit) or (updatedSince (timestamp))
 
-
-
-foldermapper
-
-find($feedId, $userId)
-findAllFromUser($userId)
