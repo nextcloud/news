@@ -129,4 +129,21 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$this->assertEquals($this->feeds, $result);
 	}
 
+
+
+	public function testGetStarredCount(){
+		$userId = 'john';
+		$row = array(
+			array('size' => 9)
+		);
+		$sql = 'SELECT COUNT(*) AS size FROM `*dbprefix*news_feeds` ' .
+			'AND `user_id` = ? ' .
+			'AND ((`status` & ?) > 0)';
+		
+		$this->setMapperResult($sql, array($userId, StatusFlag::STARRED), $row);
+		
+		$result = $this->feedMapper->getStarredCount($userId);
+		$this->assertEquals($row[0]['size'], $result);
+	}
+
 }

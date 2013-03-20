@@ -43,10 +43,3 @@ foldermapper
 
 find($feedId, $userId)
 findAllFromUser($userId)
-
-feedmapper
-
-find($feedId, $userId)
-findAll()
-findAllFromUser($userId)
-getStarredCount($userId)

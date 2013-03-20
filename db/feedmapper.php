@@ -57,7 +57,7 @@ class FeedMapper extends NewsMapper {
 			$feed = new Feed();
 			$feed->fromRow($row);
 			array_push($feeds, $feed);
-		}		
+		}
 
 		return $feeds;
 	}
@@ -76,6 +76,18 @@ class FeedMapper extends NewsMapper {
 		$sql = 'SELECT * FROM `*dbprefix*news_feeds`';
 
 		return $this->findAllRows($sql);
+	}
+
+
+	public function getStarredCount($userId){
+		$sql = 'SELECT COUNT(*) AS size FROM `*dbprefix*news_feeds` ' .
+			'AND `user_id` = ? ' .
+			'AND ((`status` & ?) > 0)';
+		$params = array($userId, StatusFlag::STARRED);
+
+		$result = $this->execute($sql, $params)->fetchRow();
+
+		return $result['size'];
 	}
 
 }
