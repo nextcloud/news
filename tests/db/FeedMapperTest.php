@@ -77,7 +77,7 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$this->setMapperResult($sql, array($id, $userId));
 		
 		$this->setExpectedException('\OCA\AppFramework\Db\DoesNotExistException');
-		$result = $this->itemMapper->find($id, $userId);	
+		$result = $this->feedMapper->find($id, $userId);	
 	}
 	
 
@@ -85,8 +85,8 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$userId = 'john';
 		$id = 3;
 		$rows = array(
-			array('id' => $this->items[0]->getId()),
-			array('id' => $this->items[1]->getId())
+			array('id' => $this->feeds[0]->getId()),
+			array('id' => $this->feeds[1]->getId())
 		);
 		$sql = 'SELECT * FROM `*dbprefix*news_feeds` ' .
 			'WHERE `id` = ? ' .
@@ -95,8 +95,38 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$this->setMapperResult($sql, array($id, $userId), $rows);
 		
 		$this->setExpectedException('\OCA\AppFramework\Db\MultipleObjectsReturnedException');
-		$result = $this->itemMapper->find($id, $userId);
+		$result = $this->feedMapper->find($id, $userId);
 	}
 
+
+	public function testFindAll(){
+		$userId = 'john';
+		$rows = array(
+			array('id' => $this->feeds[0]->getId()),
+			array('id' => $this->feeds[1]->getId())
+		);
+		$sql = 'SELECT * FROM `*dbprefix*news_feeds`';
+		
+		$this->setMapperResult($sql, array(), $rows);
+		
+		$result = $this->feedMapper->findAll();
+		$this->assertEquals($this->feeds, $result);
+	}
+
+
+	public function testFindAllFromUser(){
+		$userId = 'john';
+		$rows = array(
+			array('id' => $this->feeds[0]->getId()),
+			array('id' => $this->feeds[1]->getId())
+		);
+		$sql = 'SELECT * FROM `*dbprefix*news_feeds` ' .
+			'AND `user_id` = ?';
+		
+		$this->setMapperResult($sql, array($userId), $rows);
+		
+		$result = $this->feedMapper->findAllFromUser($userId);
+		$this->assertEquals($this->feeds, $result);
+	}
 
 }

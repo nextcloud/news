@@ -25,6 +25,8 @@
 
 namespace OCA\News\Db;
 
+use \OCA\AppFramework\Core\API;
+
 
 class FeedMapper extends NewsMapper {
 
@@ -39,10 +41,41 @@ class FeedMapper extends NewsMapper {
 			'WHERE `id` = ? ' .
 			'AND `user_id` = ?';
 
-		return $this->findRow($sql, $id, $userId);
+		$row = $this->findRow($sql, $id, $userId);
+		$feed = new Feed();
+		$feed->fromRow($row);
+
+		return $feed;
 	}
 
 
+	private function findAllRows($sql, $params=array()){
+		$result = $this->execute($sql, $params);
+		
+		$feeds = array();
+		while($row = $result->fetchRow()){
+			$feed = new Feed();
+			$feed->fromRow($row);
+			array_push($feeds, $feed);
+		}		
 
+		return $feeds;
+	}
+
+
+	public function findAllFromUser($userId){
+		$sql = 'SELECT * FROM `*dbprefix*news_feeds` ' .
+			'AND `user_id` = ?';
+		$params = array($userId);
+
+		return $this->findAllRows($sql, $params);
+	}
+
+
+	public function findAll(){
+		$sql = 'SELECT * FROM `*dbprefix*news_feeds`';
+
+		return $this->findAllRows($sql);
+	}
 
 }
