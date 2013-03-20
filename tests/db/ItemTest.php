@@ -66,8 +66,4 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 	}
 
 
-	public function testTableName(){
-		$this->assertEquals('*dbprefix*news_items', $this->item->getTableName());
-	}
-
 }

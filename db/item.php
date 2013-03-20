@@ -25,6 +25,8 @@
 
 namespace OCA\News\Db;
 
+use \OCA\AppFramework\Db\Entity;
+
 
 class Item extends Entity {
 
@@ -40,10 +42,6 @@ class Item extends Entity {
 	public $feedId;
 	public $status;
 	public $feedTitle;
-
-	public function __construct(){
-		parent::__construct('news_items');
-	}
 
 	public function setRead() {
 		$this->markFieldUpdated('status');
