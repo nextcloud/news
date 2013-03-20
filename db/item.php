@@ -41,6 +41,10 @@ class Item extends Entity {
 	public $status;
 	public $feedTitle;
 
+	public function __construct(){
+		parent::__construct('news_items');
+	}
+
 	public function setRead() {
 		$this->markFieldUpdated('status');
 		$this->status &= ~StatusFlag::UNREAD;

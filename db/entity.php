@@ -27,11 +27,14 @@ namespace OCA\News\Db;
 
 abstract class Entity {
 
-	public $id;	
+	public $id;
+
+	private $tableName;
 	private $updatedFields;
 
-	public function __construct(){
+	public function __construct($tableName){
 		$this->updatedFields = array();
+		$this->tableName = '*dbprefix*' . $tableName;
 	}
 
 
@@ -145,5 +148,12 @@ abstract class Entity {
 		}
 	}
 
+
+	/**
+	 * @return string the table name
+	 */
+	public function getTableName(){
+		return $this->tableName;
+	}
 
 }

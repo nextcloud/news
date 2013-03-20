@@ -65,4 +65,9 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue($this->item->isUnstarred());
 	}
 
+
+	public function testTableName(){
+		$this->assertEquals('*dbprefix*news_items', $this->item->getTableName());
+	}
+
 }

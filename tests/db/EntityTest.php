@@ -31,6 +31,10 @@ require_once(__DIR__ . "/../classloader.php");
 class TestEntity extends Entity {
 	public $name;
 	public $email;
+
+	public function __construct(){
+		parent::__construct('entity');
+	}
 };
 
 
@@ -121,6 +125,11 @@ class EntityTest extends \PHPUnit_Framework_TestCase {
 
 		$this->entity->fromRow($row);
 		$this->assertEquals($entity2, $this->entity);
+	}
+
+
+	public function testEntityShouldSetTableName(){
+		$this->assertEquals('*dbprefix*entity', $this->entity->getTableName());
 	}
 
 }
