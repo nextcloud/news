@@ -121,7 +121,8 @@ abstract class Entity {
 	 */
 	public function fromRow(array $row){
 		foreach($row as $key => $value){
-			$this->$key = $value;
+			$prop = $this->columnToProperty($key);
+			$this->$prop = $value;
 		}
 	}
 

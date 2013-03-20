@@ -43,15 +43,15 @@ class EntityTest extends \PHPUnit_Framework_TestCase {
 
 	public function testFromRow(){
 		$row = array(
-			'name' => 'john', 
+			'pre_name' => 'john', 
 			'email' => 'john@something.com'
 		);
 		$entity = new TestEntity();
 
 		$entity->fromRow($row);
 
-		$this->assertEquals($row['name'], $entity->name);
-		$this->assertEquals($row['email'], $entity->email);
+		$this->assertEquals($row['pre_name'], $entity->getPreName());
+		$this->assertEquals($row['email'], $entity->getEmail());
 	}
 
 
