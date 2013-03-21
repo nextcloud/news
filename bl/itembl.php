@@ -26,13 +26,33 @@
 namespace OCA\News\Bl;
 
 use \OCA\News\Db\Item;
+use \OCA\News\Db\ItemMapper;
 
 
 class ItemBl extends Bl {
 
-	public function __construct($itemMapper){
+	public function __construct(ItemMapper $itemMapper){
 		parent::__construct($itemMapper);
 	}
 
+
+	public function findAll(){
+
+	}
+
+
+	public function finStarred(){
+
+	}
+
+
+	public function star(){
+		
+	}
+
+
+	public function read(){
+		
+	}
 
 }

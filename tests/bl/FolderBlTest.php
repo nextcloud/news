@@ -39,10 +39,10 @@ class FolderBlTest extends \OCA\AppFramework\Utility\TestUtility {
 
 	protected function setUp(){
 		$this->api = $this->getAPIMock();
-		$this->folderMapper = $this->getMock(
-			'\OCA\News\Db\NewsMapper',
-			array('findAllFromUser', 'insert', 'update', 'find'),
-			array($this->api, 'test'));
+		$this->folderMapper = $this->getMockBuilder(
+			'\OCA\News\Db\FolderMapper')
+			->disableOriginalConstructor()
+			->getMock();
 		$this->folderBl = new FolderBl($this->folderMapper);
 	}
 

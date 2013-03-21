@@ -38,9 +38,38 @@ class ItemController extends Controller {
 
 	public function __construct(API $api, Request $request, ItemBl $itemBl){
 		parent::__construct($api, $request);
-		$this->itemBl = $itemBl
+		$this->itemBl = $itemBl;
 	}
 
+
+	public function items(){
+		
+	}
+
+
+	public function starred(){
+		
+	}
+
+
+	public function star(){
+		
+	}
+
+
+	public function unstar(){
+		
+	}
+
+
+	public function read(){
+		
+	}
+
+
+	public function unread(){
+		
+	}
 
 
 }

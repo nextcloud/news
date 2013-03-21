@@ -26,11 +26,12 @@
 namespace OCA\News\Bl;
 
 use \OCA\News\Db\Folder;
+use \OCA\News\Db\FolderMapper;
 
 
 class FolderBl extends Bl {
 
-	public function __construct($folderMapper){
+	public function __construct(FolderMapper $folderMapper){
 		parent::__construct($folderMapper);
 	}
 

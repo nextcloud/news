@@ -26,13 +26,43 @@
 namespace OCA\News\Bl;
 
 use \OCA\News\Db\Feed;
+use \OCA\News\Db\FeedMapper;
 
 
 class FeedBl extends Bl {
 
-	public function __construct($feedMapper){
+	public function __construct(FeedMapper $feedMapper){
 		parent::__construct($feedMapper);
 	}
 
+	// README: only call this for the cronjob!
+	public function findAll(){
+
+	}
+
+
+	public function findAllFromUser(){
+
+	}
+
+
+	public function create(){
+		
+	}
+
+
+	public function update(){
+		
+	}
+
+
+	public function move(){
+		
+	}
+
+
+	public function read(){
+		
+	}
 
 }

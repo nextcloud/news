@@ -38,4 +38,9 @@ class ExportController extends Controller {
 	}
 
 
+	public function opml(){
+		
+	}
+
+
 }
