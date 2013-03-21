@@ -35,20 +35,19 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 
 	protected $api;
 	protected $feedMapper;
-	protected $folderBl;
+	protected $feedBl;
 
 	protected function setUp(){
 		$this->api = $this->getAPIMock();
-		$this->feedMapper = $this->getMock(
-			'\OCA\News\Db\NewsMapper',
-			array('findAllFromUser', 'insert', 'update', 'find'),
-			array($this->api, 'test'));
-		$this->folderBl = new FolderBl($this->feedMapper);
+		$this->feedMapper = $this->getMockBuilder('\OCA\News\Db\FeedMapper')
+			->disableOriginalConstructor()
+			->getMock();
+		$this->feedBl = new FeedBl($this->feedMapper);
 	}
 
 
 	public function testFindAll(){
-		
+
 	}
 
 }

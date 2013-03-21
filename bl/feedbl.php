@@ -26,11 +26,12 @@
 namespace OCA\News\Bl;
 
 use \OCA\News\Db\Feed;
+use \OCA\News\Db\FeedMapper;
 
 
 class FeedBl extends Bl {
 
-	public function __construct($feedMapper){
+	public function __construct(FeedMapper $feedMapper){
 		parent::__construct($feedMapper);
 	}
 
