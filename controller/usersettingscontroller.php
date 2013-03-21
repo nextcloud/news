@@ -38,16 +38,31 @@ class UserSettingsController extends Controller {
 	}
 
 
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
 	public function read(){
 		
 	}
 
 
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
 	public function show(){
 		
 	}
 
 
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
 	public function hide(){
 		
 	}

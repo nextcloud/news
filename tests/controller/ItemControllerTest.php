@@ -31,13 +31,13 @@ use \OCA\AppFramework\Utility\ControllerTestUtility;
 use \OCA\AppFramework\Db\DoesNotExistException;
 use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
 
-use \OCA\News\Db\Folder;
+use \OCA\News\Db\Item;
 
 
 require_once(__DIR__ . "/../classloader.php");
 
 
-class FeedControllerTest extends ControllerTestUtility {
+class ItemControllerTest extends ControllerTestUtility {
 
 	private $api;
 	private $bl;
@@ -50,51 +50,47 @@ class FeedControllerTest extends ControllerTestUtility {
 	 */
 	public function setUp(){
 		$this->api = $this->getAPIMock();
-		$this->bl = $this->getMockBuilder('\OCA\News\Bl\FeedBl')
+		$this->bl = $this->getMockBuilder('\OCA\News\Bl\ItemBl')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->request = new Request();
-		$this->controller = new FeedController($this->api, $this->request,
+		$this->controller = new ItemController($this->api, $this->request,
 				$this->bl);
 	}
 
-	private function assertFeedControllerAnnotations($methodName){
+	private function assertItemControllerAnnotations($methodName){
 		$annotations = array('IsAdminExemption', 'IsSubAdminExemption', 'Ajax');
 		$this->assertAnnotations($this->controller, $methodName, $annotations);
 	}
 
-	public function testFeedsAnnotations(){
-		$this->assertFeedControllerAnnotations('feeds');
+	public function testItemsAnnotations(){
+		$this->assertItemControllerAnnotations('items');
 	}
 
 
-	public function testActiveAnnotations(){
-		$this->assertFeedControllerAnnotations('active');
+	public function testStarredAnnotations(){
+		$this->assertItemControllerAnnotations('starred');
 	}
 
 
-	public function testCreateAnnotations(){
-		$this->assertFeedControllerAnnotations('create');
+	public function testStarAnnotations(){
+		$this->assertItemControllerAnnotations('star');
 	}
 
 
-	public function testDeleteAnnotations(){
-		$this->assertFeedControllerAnnotations('delete');
-	}
-
-
-	public function testUpdateAnnotations(){
-		$this->assertFeedControllerAnnotations('update');
+	public function testUnstarAnnotations(){
+		$this->assertItemControllerAnnotations('unstar');
 	}
 
 
 	public function testReadAnnotations(){
-		$this->assertFeedControllerAnnotations('read');
+		$this->assertItemControllerAnnotations('read');
 	}
 
 
-	public function testMoveAnnotations(){
-		$this->assertFeedControllerAnnotations('move');
+	public function testUnreadAnnotations(){
+		$this->assertItemControllerAnnotations('unread');
 	}
+
 
 }

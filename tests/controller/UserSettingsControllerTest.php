@@ -3,7 +3,7 @@
 /**
 * ownCloud - News
 *
-* @author Alessandro Cosentino
+* @author Alessandro Copyright
 * @author Bernhard Posselt
 * @copyright 2012 Alessandro Cosentino cosenal@gmail.com
 * @copyright 2012 Bernhard Posselt nukeawhale@gmail.com
@@ -25,91 +25,54 @@
 
 namespace OCA\News\Controller;
 
-use \OCA\AppFramework\Controller\Controller;
-use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Http\Request;
+use \OCA\AppFramework\Http\JSONResponse;
+use \OCA\AppFramework\Utility\ControllerTestUtility;
 use \OCA\AppFramework\Db\DoesNotExistException;
 use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
 
-use \OCA\News\Bl\FeedBl;
+
+require_once(__DIR__ . "/../classloader.php");
 
 
-class FeedController extends Controller {
+class UserSettingsControllerTest extends ControllerTestUtility {
 
-	private $feedBl;
-
-	public function __construct(API $api, Request $request, FeedBl $feedBl){
-		parent::__construct($api, $request);
-		$this->feedBl = $feedBl;
-	}
-
-
-	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
-	 */
-	public function feeds(){
-		
-	}
+	private $api;
+	private $request;
+	private $controller;
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * Gets run before each test
 	 */
-	public function active(){
-
+	public function setUp(){
+		$this->api = $this->getAPIMock();
+		$this->request = new Request();
+		$this->controller = new UserSettingsController($this->api, $this->request);
 	}
 
 
-	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
-	 */
-	public function create(){
-		
+	private function assertUserSettingsControllerAnnotations($methodName){
+		$annotations = array('IsAdminExemption', 'IsSubAdminExemption', 'Ajax');
+		$this->assertAnnotations($this->controller, $methodName, $annotations);
 	}
 
 
-	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
-	 */
-	public function delete(){
-		
+	public function testFoldersAnnotations(){
+		$this->assertUserSettingsControllerAnnotations('read');
 	}
 
 
-	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
-	 */
-	public function update(){
-		
+	public function testOpenAnnotations(){
+		$this->assertUserSettingsControllerAnnotations('show');
 	}
 
 
-	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
-	 */
-	public function move(){
-		
+	public function testCollapseAnnotations(){
+		$this->assertUserSettingsControllerAnnotations('hide');
 	}
 
 
-	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
-	 */
-	public function read(){
-		
-	}
+	
+
 }
