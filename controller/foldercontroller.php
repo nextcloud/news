@@ -30,6 +30,7 @@ use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Http\Request;
 
 use \OCA\News\Bl\FolderBl;
+use \OCA\News\Bl\BLException;
 
 
 class FolderController extends Controller {
@@ -70,7 +71,7 @@ class FolderController extends Controller {
 	 */
 	public function open(){
 		$this->setOpened(true);
-		return $this->renderJSON(array());
+		return $this->renderJSON();
 	}
 
 
@@ -81,7 +82,7 @@ class FolderController extends Controller {
 	 */
 	public function collapse(){
 		$this->setOpened(false);
-		return $this->renderJSON(array());
+		return $this->renderJSON();
 	}
 
 
@@ -91,6 +92,22 @@ class FolderController extends Controller {
 	 * @Ajax
 	 */
 	public function create(){
+		$userId = $this->api->getUserId();
+		$folderName = $this->params('folderName');
+
+		try {
+			$folder = $this->folderBl->create($folderName, $userId);
+
+			$params = array(
+				'folders' => array($folder)
+			);
+			return $this->renderJSON($params);
+
+		} catch (BLException $ex){
+
+			return $this->renderJSON(array(), $ex->getMessage());
+		}
+		
 	}
 
 
@@ -100,6 +117,12 @@ class FolderController extends Controller {
 	 * @Ajax
 	 */
 	public function delete(){
+		$userId = $this->api->getUserId();
+		$folderId = $this->params('folderId');
+
+		$this->folderBl->delete($folderId, $userId);
+
+		return $this->renderJSON();
 	}
 
 
@@ -109,6 +132,22 @@ class FolderController extends Controller {
 	 * @Ajax
 	 */
 	public function rename(){
+		$userId = $this->api->getUserId();
+		$folderName = $this->params('folderName');
+		$folderId = $this->params('folderId');
+
+		try {
+			$folder = $this->folderBl->rename($folderId, $folderName, $userId);
+
+			$params = array(
+				'folders' => array($folder)
+			);
+			return $this->renderJSON($params);
+
+		} catch (BLException $ex){
+
+			return $this->renderJSON(array(), $ex->getMessage());
+		}
 	}
 
 

@@ -42,6 +42,7 @@ class FolderBl extends Bl {
 
 
 	public function create($name, $parentId) {
+		// TODO: throw error when already existing
 		$folder = new Folder();
 		$folder->setName($name);
 		$folder->setParentId($parentId);
@@ -57,6 +58,7 @@ class FolderBl extends Bl {
 
 
 	public function rename($folderId, $folderName, $userId){
+		// TODO: throw error when already existing
 		$folder = $this->find($folderId, $userId);
 		$folder->setName($folderName);
 		$this->mapper->update($folder);

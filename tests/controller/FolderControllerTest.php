@@ -32,7 +32,7 @@ use \OCA\AppFramework\Db\DoesNotExistException;
 use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
 
 use \OCA\News\Db\Folder;
-
+use \OCA\News\Bl\BLException;
 
 require_once(__DIR__ . "/../classloader.php");
 
@@ -161,70 +161,100 @@ class FolderControllerTest extends ControllerTestUtility {
 	}
 
 
-	/**
-	 * collapse
-	 *//*
-	
+	public function testCreate(){
+		$post = array('folderName' => 'tech');
+		$this->controller = $this->getPostController($post);
+		$result = array(
+			'folders' => array(new Folder())
+		);
 
-
-	public function testCollapseReturnsNoParams(){
-		$urlParams = array('folderId' => 1);
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->bl->expects($this->once())
-					->method('setCollapsed')
-					->with($this->equalTo($urlParams['folderId']), $this->equalTo(true));
-		$this->controller->setURLParams($urlParams);
+			->method('create')
+			->with($this->equalTo($post['folderName']), 
+				$this->equalTo($this->user))
+			->will($this->returnValue($result['folders'][0]));
+		
+		$response = $this->controller->create();
 
-		$response = $this->controller->collapse();
-		$this->assertEquals(array(), $response->getParams());
+		$this->assertEquals($result, $response->getParams());
+		$this->assertTrue($response instanceof JSONResponse);	
 	}
 
 
-	public function testCollapseAnnotations(){
-		$methodName = 'collapse';
-		$annotations = array('IsAdminExemption', 'IsSubAdminExemption', 'Ajax');
-
-		$this->assertAnnotations($this->controller, $methodName, $annotations);
-	}
-
-
-	public function testCollapseReturnsJSON(){
-		$urlParams = array('folderId' => 1);
+	public function testCreateReturnsErrorForInvalidCreate(){
+		$msg = 'except';
+		$ex = new BLException($msg);
 		$this->bl->expects($this->once())
-					->method('setCollapsed')
-					->with($this->equalTo($urlParams['folderId']), $this->equalTo(true));
-		$this->controller->setURLParams($urlParams);
+			->method('create')
+			->will($this->throwException($ex));
 
-		$response = $this->controller->collapse();
+		$response = $this->controller->create();
+		$params = json_decode($response->render(), true);
 
+		$this->assertEquals('error', $params['status']);
+		$this->assertEquals($msg, $params['msg']);
 		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
-	private function collapseException($ex){
-		$urlParams = array('folderId' => 1);
+	public function testDelete(){
+		$url = array('folderId' => 5);
+		$this->controller = $this->getPostController(array(), $url);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->bl->expects($this->once())
-					->method('setCollapsed')
-					->with($this->equalTo($urlParams['folderId']), $this->equalTo(true))
-					->will($this->throwException($ex));
-		$this->controller->setURLParams($urlParams);
+			->method('delete')
+			->with($this->equalTo($url['folderId']), 
+				$this->equalTo($this->user));
+		
+		$response = $this->controller->delete();
 
-		$response = $this->controller->collapse();
-
-		$expected = '{"status":"error","data":[],"msg":"' . $ex->getMessage() . '"}';
-		$this->assertEquals($expected, $response->render());
-	}
- 
-
-	public function testCollapseDoesNotExistExceptionReturnsJSONError(){
-		$ex = new DoesNotExistException('exception');
-		$this->collapseException($ex);
+		$this->assertTrue($response instanceof JSONResponse);	
 	}
 
 
-	public function testCollapseMultipleObjectsReturnedReturnsJSONError(){
-		$ex = new MultipleObjectsReturnedException('exception');
-		$this->collapseException($ex);
-	}
-urlParams has been removed, please refactor*/
+	public function testRename(){
+		$post = array('folderName' => 'tech');
+		$url = array('folderId' => 4);
+		$this->controller = $this->getPostController($post, $url);
+		$result = array(
+			'folders' => array(new Folder())
+		);
 
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->bl->expects($this->once())
+			->method('rename')
+			->with($this->equalTo($url['folderId']),
+				$this->equalTo($post['folderName']), 
+				$this->equalTo($this->user))
+			->will($this->returnValue($result['folders'][0]));
+		
+		$response = $this->controller->rename();
+
+		$this->assertEquals($result, $response->getParams());
+		$this->assertTrue($response instanceof JSONResponse);
+	}
+
+
+	public function testRenameReturnsErrorForInvalidCreate(){
+		$msg = 'except';
+		$ex = new BLException($msg);
+		$this->bl->expects($this->once())
+			->method('rename')
+			->will($this->throwException($ex));
+
+		$response = $this->controller->rename();
+		$params = json_decode($response->render(), true);
+
+		$this->assertEquals('error', $params['status']);
+		$this->assertEquals($msg, $params['msg']);
+		$this->assertTrue($response instanceof JSONResponse);
+	}
 }

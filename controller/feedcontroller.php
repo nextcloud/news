@@ -117,7 +117,7 @@ class FeedController extends Controller {
 
 		$this->feedBl->delete($feedId, $userId);
 
-		return $this->renderJSON(array());
+		return $this->renderJSON();
 	}
 
 
@@ -152,7 +152,7 @@ class FeedController extends Controller {
 
 		$this->feedBl->move($feedId, $parentFolderId, $userId);
 
-		return $this->renderJSON(array());	
+		return $this->renderJSON();	
 	}
 
 
