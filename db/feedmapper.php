@@ -35,7 +35,6 @@ class FeedMapper extends NewsMapper {
 		parent::__construct($api, 'news_feeds');
 	}
 
-	// TODO: add unread_count!
 
 	public function find($id, $userId){
 		$sql = 'SELECT * FROM `*dbprefix*news_feeds` ' .
@@ -65,8 +64,13 @@ class FeedMapper extends NewsMapper {
 
 
 	public function findAllFromUser($userId){
-		$sql = 'SELECT * FROM `*dbprefix*news_feeds` ' .
-			'AND `user_id` = ?';
+		$sql = 'SELECT `feeds`.*, COUNT(`items`.`id`) AS unread_count ' .
+			'FROM `*dbprefix*news_feeds` `feeds` ' .
+			'LEFT OUTER JOIN `*dbprefix*news_items` `items` ' .
+				'ON `feeds`.`id` = `items`.`feed_id` ' . 
+			'WHERE (`items`.`status` & ?) > 0 ' .
+				'AND `feeds`.`user_id` = ? ' .
+			'GROUP BY `items`.`feed_id`';
 		$params = array($userId);
 
 		return $this->findAllRows($sql, $params);
