@@ -40,16 +40,4 @@ class FeedController extends Controller {
 		$this->feedMapper = $feedMapper;
 	}
 
-
-	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
-	 *
-	 * Returns all feeds
-	 */
-	public function getAll(){
-		$feeds = $this->feedMapper->findAll();
-		return $this->renderJSON($feeds);
-	}
 }

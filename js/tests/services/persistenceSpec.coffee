@@ -95,7 +95,7 @@ describe '_Persistence', ->
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
 		pers.getStarredItems(params.onSuccess)
 
-		expect(@req.get).toHaveBeenCalledWith('news_starred_items', params)
+		expect(@req.get).toHaveBeenCalledWith('news_items_starred', params)
 
 
 	it 'send a correct star item request', =>
@@ -106,7 +106,7 @@ describe '_Persistence', ->
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
 		pers.starItem(params.urlParams.itemId)
 
-		expect(@req.post).toHaveBeenCalledWith('news_star_item', params)
+		expect(@req.post).toHaveBeenCalledWith('news_items_star', params)
 
 
 	it 'send a correct unstar item request', =>
@@ -117,7 +117,7 @@ describe '_Persistence', ->
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
 		pers.unstarItem(params.urlParams.itemId)
 
-		expect(@req.post).toHaveBeenCalledWith('news_unstar_item', params)
+		expect(@req.post).toHaveBeenCalledWith('news_items_unstar', params)
 
 
 	it 'send a correct read item request', =>
@@ -129,7 +129,7 @@ describe '_Persistence', ->
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
 		pers.readItem(params.urlParams.itemId)
 
-		expect(@req.post).toHaveBeenCalledWith('news_read_item', params)
+		expect(@req.post).toHaveBeenCalledWith('news_items_read', params)
 
 
 	it 'send a correct unread item request', =>
@@ -140,7 +140,7 @@ describe '_Persistence', ->
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
 		pers.unreadItem(params.urlParams.itemId)
 
-		expect(@req.post).toHaveBeenCalledWith('news_unread_item', params)
+		expect(@req.post).toHaveBeenCalledWith('news_items_unread', params)
 
 
 
@@ -167,7 +167,7 @@ describe '_Persistence', ->
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
 		pers.moveFeed(params.urlParams.feedId, params.data.folderId)
 
-		expect(@req.post).toHaveBeenCalledWith('news_move_feed', params)
+		expect(@req.post).toHaveBeenCalledWith('news_feeds_move', params)
 
 
 	it 'shoud send a correct request for marking all items read', =>
@@ -181,7 +181,7 @@ describe '_Persistence', ->
 		pers.setFeedRead(params.urlParams.feedId, params.data.highestItemId)
 
 
-		expect(@req.post).toHaveBeenCalledWith('news_set_feed_read', params)
+		expect(@req.post).toHaveBeenCalledWith('news_feeds_read', params)
 
 
 	it 'send a correct feed update request', =>
@@ -192,7 +192,7 @@ describe '_Persistence', ->
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
 		pers.updateFeed(params.urlParams.feedId)
 
-		expect(@req.post).toHaveBeenCalledWith('news_update_feed', params)
+		expect(@req.post).toHaveBeenCalledWith('news_feeds_update', params)
 
 
 	it 'send a correct get active feed request', =>
@@ -202,7 +202,7 @@ describe '_Persistence', ->
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
 		pers.getActiveFeed(params.onSuccess)
 
-		expect(@req.get).toHaveBeenCalledWith('news_active_feed', params)
+		expect(@req.get).toHaveBeenCalledWith('news_feeds_active', params)
 
 
 	it 'send a correct feed delete request', =>
@@ -213,7 +213,7 @@ describe '_Persistence', ->
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
 		pers.deleteFeed(params.urlParams.feedId)
 
-		expect(@req.post).toHaveBeenCalledWith('news_delete_feed', params)
+		expect(@req.post).toHaveBeenCalledWith('news_feeds_delete', params)
 
 
 	it 'send a correct feed create request', =>
@@ -228,7 +228,7 @@ describe '_Persistence', ->
 		pers.createFeed(params.data.url, params.data.parentFolderId,
 						params.onSuccess, params.onFailure)
 
-		expect(@req.post).toHaveBeenCalledWith('news_create_feed', params)
+		expect(@req.post).toHaveBeenCalledWith('news_feeds_create', params)
 
 
 
@@ -253,7 +253,7 @@ describe '_Persistence', ->
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
 		pers.collapseFolder(params.urlParams.folderId)
 
-		expect(@req.post).toHaveBeenCalledWith('news_collapse_folder', params)
+		expect(@req.post).toHaveBeenCalledWith('news_folders_collapse', params)
 
 
 	it 'send a correct open folder request', =>
@@ -264,7 +264,7 @@ describe '_Persistence', ->
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
 		pers.openFolder(params.urlParams.folderId)
 
-		expect(@req.post).toHaveBeenCalledWith('news_open_folder', params)
+		expect(@req.post).toHaveBeenCalledWith('news_folders_open', params)
 
 
 	it 'should do a proper folder create request', =>
@@ -279,7 +279,7 @@ describe '_Persistence', ->
 		pers.createFolder(params.data.folderName, params.data.parentFolderId,
 			params.onSuccess, params.onFailure)
 
-		expect(@req.post).toHaveBeenCalledWith('news_create_folder', params)
+		expect(@req.post).toHaveBeenCalledWith('news_folders_create', params)
 
 
 	it 'should do a proper folder delete request', =>
@@ -290,7 +290,7 @@ describe '_Persistence', ->
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
 		pers.deleteFolder(params.urlParams.folderId)
 
-		expect(@req.post).toHaveBeenCalledWith('news_delete_folder', params)
+		expect(@req.post).toHaveBeenCalledWith('news_folders_delete', params)
 
 
 	it 'should do a proper folder rename request', =>
@@ -303,7 +303,7 @@ describe '_Persistence', ->
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
 		pers.renameFolder(params.urlParams.folderId, params.data.folderName)
 
-		expect(@req.post).toHaveBeenCalledWith('news_rename_folder', params)
+		expect(@req.post).toHaveBeenCalledWith('news_folders_rename', params)
 
 
 	###
@@ -326,7 +326,7 @@ describe '_Persistence', ->
 		params =
 			onSuccess: angular.noop
 
-		expect(@req.get).toHaveBeenCalledWith('news_user_settings_read', params)
+		expect(@req.get).toHaveBeenCalledWith('news_usersettings_read', params)
 
 	
 	it 'should do a proper get user settings read req and call callback', =>
@@ -336,14 +336,14 @@ describe '_Persistence', ->
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
 		pers.userSettingsRead(params.onSuccess)
 
-		expect(@req.get).toHaveBeenCalledWith('news_user_settings_read', params)
+		expect(@req.get).toHaveBeenCalledWith('news_usersettings_read', params)
 
 
 	it 'should do a proper user settings read show request', =>
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
 		pers.userSettingsReadShow()
 
-		expect(@req.post).toHaveBeenCalledWith('news_user_settings_read_show')
+		expect(@req.post).toHaveBeenCalledWith('news_usersettings_read_show')
 
 
 
@@ -351,4 +351,4 @@ describe '_Persistence', ->
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
 		pers.userSettingsReadHide()
 
-		expect(@req.post).toHaveBeenCalledWith('news_user_settings_read_hide')
+		expect(@req.post).toHaveBeenCalledWith('news_usersettings_read_hide')

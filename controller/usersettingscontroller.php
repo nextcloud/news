@@ -23,16 +23,24 @@
 *
 */
 
-namespace OCA\News\Bl;
+namespace OCA\News\Controller;
 
-use \OCA\News\Db\Feed;
+use \OCA\AppFramework\Controller\Controller;
+use \OCA\AppFramework\Core\API;
+use \OCA\AppFramework\Http\Request;
+
+use \OCA\News\Bl\FeedBl;
 
 
-class FeedBl extends Bl {
+class FeedController extends Controller {
 
-	public function __construct($feedMapper){
-		parent::__construct($feedMapper);
+	private $feedBl;
+
+	public function __construct(API $api, Request $request, FeedBl $feedBl){
+		parent::__construct($api, $request);
+		$this->feedBl = $feedBl
 	}
+
 
 
 }

@@ -46,10 +46,8 @@ class FolderController extends Controller {
 	 * @IsAdminExemption
 	 * @IsSubAdminExemption
 	 * @Ajax
-	 *
-	 * Returns all folders
 	 */
-	public function getAll(){
+	public function folders(){
 		$folders = $this->folderBl->findAll($this->api->getUserId());
 		$result = array(
 			'folders' => $folders
@@ -62,20 +60,8 @@ class FolderController extends Controller {
 	 * @IsAdminExemption
 	 * @IsSubAdminExemption
 	 * @Ajax
-	 *
-	 * Collapses a folder
 	 */
 	public function collapse(){
-		$folderId = (int) $this->params('folderId');
-
-		try {
-			$this->folderMapper->setCollapsed($folderId, true);
-			return $this->renderJSON(array());
-		} catch (DoesNotExistException $e) {
-			return $this->renderJSON(array(), $e->getMessage());
-		} catch(MultipleObjectsReturnedException $e){
-			return $this->renderJSON(array(), $e->getMessage());
-		}
 	}
 
 

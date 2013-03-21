@@ -73,7 +73,7 @@ angular.module('News').factory '_Persistence', ->
 		getStarredItems: (onSuccess) ->
 			params =
 				onSuccess: onSuccess
-			@_request.get 'news_starred_items', params
+			@_request.get 'news_items_starred', params
 
 
 		starItem: (itemId) ->
@@ -84,7 +84,7 @@ angular.module('News').factory '_Persistence', ->
 				urlParams:
 					itemId: itemId
 
-			@_request.post 'news_star_item', params
+			@_request.post 'news_items_star', params
 
 
 
@@ -96,7 +96,7 @@ angular.module('News').factory '_Persistence', ->
 				urlParams:
 					itemId: itemId
 
-			@_request.post 'news_unstar_item', params
+			@_request.post 'news_items_unstar', params
 
 
 		readItem: (itemId) ->
@@ -107,7 +107,7 @@ angular.module('News').factory '_Persistence', ->
 				urlParams:
 					itemId: itemId
 
-			@_request.post 'news_read_item', params
+			@_request.post 'news_items_read', params
 
 
 
@@ -119,7 +119,7 @@ angular.module('News').factory '_Persistence', ->
 				urlParams:
 					itemId: itemId
 
-			@_request.post 'news_unread_item', params
+			@_request.post 'news_items_unread', params
 
 
 		###
@@ -137,7 +137,7 @@ angular.module('News').factory '_Persistence', ->
 			params =
 				onSuccess: onSuccess
 
-			@_request.get 'news_active_feed', params
+			@_request.get 'news_feeds_active', params
 
 
 		createFeed: (url, parentFolderId, onSuccess, onFailure) ->
@@ -148,7 +148,7 @@ angular.module('News').factory '_Persistence', ->
 				onSuccess: onSuccess
 				onFailure: onFailure
 
-			@_request.post 'news_create_feed', params
+			@_request.post 'news_feeds_create', params
 
 
 		deleteFeed: (feedId) ->
@@ -156,7 +156,7 @@ angular.module('News').factory '_Persistence', ->
 				urlParams:
 					feedId: feedId
 
-			@_request.post 'news_delete_feed', params
+			@_request.post 'news_feeds_delete', params
 
 
 		moveFeed: (feedId, folderId) ->
@@ -169,7 +169,7 @@ angular.module('News').factory '_Persistence', ->
 				data:
 					folderId: folderId
 
-			@_request.post 'news_move_feed', params
+			@_request.post 'news_feeds_move', params
 
 
 		setFeedRead: (feedId, highestItemId) ->
@@ -182,7 +182,7 @@ angular.module('News').factory '_Persistence', ->
 				data:
 					highestItemId: highestItemId
 
-			@_request.post 'news_set_feed_read', params
+			@_request.post 'news_feeds_read', params
 
 
 		updateFeed: (feedId) ->
@@ -193,7 +193,7 @@ angular.module('News').factory '_Persistence', ->
 				urlParams:
 					feedId: feedId
 
-			@_request.post 'news_update_feed', params
+			@_request.post 'news_feeds_update', params
 
 
 		###
@@ -215,7 +215,7 @@ angular.module('News').factory '_Persistence', ->
 				urlParams:
 					folderId: folderId
 
-			@_request.post 'news_open_folder', params
+			@_request.post 'news_folders_open', params
 
 
 		collapseFolder: (folderId) ->
@@ -226,7 +226,7 @@ angular.module('News').factory '_Persistence', ->
 				urlParams:
 					folderId: folderId
 
-			@_request.post 'news_collapse_folder', params
+			@_request.post 'news_folders_collapse', params
 
 
 		createFolder: (folderName, parentFolderId=0, onSuccess=null,
@@ -241,7 +241,7 @@ angular.module('News').factory '_Persistence', ->
 				onSuccess: onSuccess
 				onFailure: onFailure
 
-			@_request.post 'news_create_folder', params
+			@_request.post 'news_folders_create', params
 
 
 		deleteFolder: (folderId) ->
@@ -253,7 +253,7 @@ angular.module('News').factory '_Persistence', ->
 					folderId: folderId
 
 
-			@_request.post 'news_delete_folder', params
+			@_request.post 'news_folders_delete', params
 
 
 		renameFolder: (folderId, folderName) ->
@@ -266,7 +266,7 @@ angular.module('News').factory '_Persistence', ->
 				data:
 					folderName: folderName
 
-			@_request.post 'news_rename_folder', params
+			@_request.post 'news_folders_rename', params
 
 
 
@@ -291,21 +291,21 @@ angular.module('News').factory '_Persistence', ->
 			params =
 				onSuccess: callback
 
-			@_request.get 'news_user_settings_read', params
+			@_request.get 'news_usersettings_read', params
 
 
 		userSettingsReadShow: ->
 			###
 			Sets the reader mode to show all
 			###
-			@_request.post 'news_user_settings_read_show'
+			@_request.post 'news_usersettings_read_show'
 
 
 		userSettingsReadHide: ->
 			###
 			Sets the reader mode to show only unread
 			###
-			@_request.post 'news_user_settings_read_hide'
+			@_request.post 'news_usersettings_read_hide'
 
 
 		_trigerHideRead: ->

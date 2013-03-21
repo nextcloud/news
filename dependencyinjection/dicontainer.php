@@ -27,9 +27,20 @@ namespace OCA\News\DependencyInjection;
 
 use OCA\AppFramework\DependencyInjection\DIContainer as BaseContainer;
 
+use OCA\News\Controller\PageController;
 use OCA\News\Controller\FolderController;
+use OCA\News\Controller\FeedController;
+use OCA\News\Controller\ItemController;
+use OCA\News\Controller\ExportController;
+use OCA\News\Controller\UserSettingsController;
+
 use OCA\News\Bl\FolderBl;
+use OCA\News\Bl\FeedBl;
+use OCA\News\Bl\ItemBl;
+
 use OCA\News\Db\FolderMapper;
+use OCA\News\Db\FeedMapper;
+use OCA\News\Db\ItemMapper;
 
 
 class DIContainer extends BaseContainer {
@@ -46,8 +57,29 @@ class DIContainer extends BaseContainer {
 		/** 
 		 * CONTROLLERS
 		 */
+		$this['PageController'] = $this->share(function($c){
+			return new PageController($c['API'], $c['Request']);
+		});
+
 		$this['FolderController'] = $this->share(function($c){
 			return new FolderController($c['API'], $c['Request'], $c['FolderBl']);
+		});
+
+		$this['FeedController'] = $this->share(function($c){
+			return new FeedController($c['API'], $c['Request'], $c['FeedBl']);
+		});
+
+		$this['ItemController'] = $this->share(function($c){
+			return new ItemController($c['API'], $c['Request'], $c['ItemBl']);
+		});
+
+		$this['ExportController'] = $this->share(function($c){
+			return new ExportController($c['API'], $c['Request'], 
+										$c['FolderBl'], $c['FeedBl']);
+		});
+
+		$this['UserSettingsController'] = $this->share(function($c){
+			return new UserSettingsController($c['API'], $c['Request']);
 		});
 
 		/**
@@ -57,6 +89,15 @@ class DIContainer extends BaseContainer {
 			return new FolderBl($c['FolderMapper']);
 		});
 
+		$this['FeedBl'] = $this->share(function($c){
+			return new FeedBl($c['FeedMapper']);
+		});
+
+		$this['ItemBl'] = $this->share(function($c){
+			return new ItemBl($c['ItemMapper']);
+		});
+
+
 		/**
 		 * MAPPERS
 		 */
@@ -64,7 +105,13 @@ class DIContainer extends BaseContainer {
 			return new FolderMapper($c['API']);
 		});
 
+		$this['FeedMapper'] = $this->share(function($c){
+			return new FeedMapper($c['API']);
+		});
 
+		$this['ItemMapper'] = $this->share(function($c){
+			return new ItemMapper($c['API']);
+		});
 	}
 }
 
