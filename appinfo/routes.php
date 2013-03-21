@@ -193,9 +193,7 @@ $this->create('news_usersettings_read_hide', '/usersettings/read/hide')->post()-
 	}
 );
 
-/**
- * External API
- */
+
 
 /**
  * Feed API

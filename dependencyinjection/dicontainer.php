@@ -31,6 +31,8 @@ use OCA\AppFramework\DependencyInjection\DIContainer as BaseContainer;
 use OCA\News\Controller\FolderController;
 use OCA\News\Controller\FeedController;
 use OCA\News\Controller\ItemController;
+use OCA\News\Controller\ExportController;
+use OCA\News\Controller\UserSettingsController;
 
 use OCA\News\Bl\FolderBl;
 use OCA\News\Bl\FeedBl;
@@ -65,6 +67,15 @@ class DIContainer extends BaseContainer {
 
 		$this['ItemController'] = $this->share(function($c){
 			return new ItemController($c['API'], $c['Request'], $c['ItemBl']);
+		});
+
+		$this['ExportController'] = $this->share(function($c){
+			return new ExportController($c['API'], $c['Request'], 
+										$c['FolderBl'], $c['FeedBl']);
+		});
+
+		$this['UserSettingsController'] = $this->share(function($c){
+			return new UserSettingsController($c['API'], $c['Request']);
 		});
 
 		/**
