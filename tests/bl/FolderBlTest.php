@@ -77,7 +77,7 @@ class FolderBlTest extends \OCA\AppFramework\Utility\TestUtility {
 	}
 
 
-	public function testSetOpened(){
+	public function testOpen(){
 		$folder = new Folder();
 
 		$this->folderMapper->expects($this->once())
@@ -89,7 +89,7 @@ class FolderBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('update')
 			->with($this->equalTo($folder));
 
-		$this->folderBl->setOpened(3, false, '');
+		$this->folderBl->open(3, false, '');
 
 		$this->assertFalse($folder->getOpened());
 

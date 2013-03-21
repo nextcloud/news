@@ -49,7 +49,7 @@ class FolderBl extends Bl {
 	}
 
 
-	public function setOpened($folderId, $opened, $userId){
+	public function open($folderId, $opened, $userId){
 		$folder = $this->find($folderId, $userId);
 		$folder->setOpened($opened);
 		$this->mapper->update($folder);

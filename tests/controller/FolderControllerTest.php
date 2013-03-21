@@ -40,7 +40,7 @@ require_once(__DIR__ . "/../classloader.php");
 class FolderControllerTest extends ControllerTestUtility {
 
 	private $api;
-	private $folderBl;
+	private $bl;
 	private $request;
 	private $controller;
 
@@ -50,12 +50,13 @@ class FolderControllerTest extends ControllerTestUtility {
 	 */
 	public function setUp(){
 		$this->api = $this->getAPIMock();
-		$this->folderBl = $this->getMockBuilder('\OCA\News\Bl\FolderBl')
+		$this->bl = $this->getMockBuilder('\OCA\News\Bl\FolderBl')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->request = new Request();
 		$this->controller = new FolderController($this->api, $this->request,
-				$this->folderBl);
+				$this->bl);
+		$this->user = 'jack';
 	}
 
 
@@ -64,6 +65,16 @@ class FolderControllerTest extends ControllerTestUtility {
 		$this->assertAnnotations($this->controller, $methodName, $annotations);
 	}
 
+
+	private function getPostController($postValue, $url=array()){
+		$post = array(
+			'post' => $postValue,
+			'urlParams' => $url
+		);
+
+		$request = $this->getRequest($post);
+		return new FolderController($this->api, $request, $this->bl);
+	}
 
 	public function testFoldersAnnotations(){
 		$this->assertFolderControllerAnnotations('folders');
@@ -95,24 +106,13 @@ class FolderControllerTest extends ControllerTestUtility {
 	}
 
 
-	/**
-	 * folders
-	 */
-	public function testFoldersCalled(){
-		$this->folderBl->expects($this->once())
-					->method('findAll')
-					->will($this->returnValue( array() ));
-		
-		$this->controller->folders();
-	}
-
-
-	public function testFoldersReturnsFolders(){
+	
+	public function testFolders(){
 		$return = array(
 			new Folder(),
 			new Folder(),
 		);
-		$this->folderBl->expects($this->once())
+		$this->bl->expects($this->once())
 					->method('findAll')
 					->will($this->returnValue($return));
 
@@ -121,33 +121,55 @@ class FolderControllerTest extends ControllerTestUtility {
 			'folders' => $return
 		);
 		$this->assertEquals($expected, $response->getParams());
+		$this->assertTrue($response instanceof JSONResponse);
 	}
 
-	
-	public function testFoldersReturnsJSON(){
-		$response = $this->controller->folders();
 
-		$this->assertTrue($response instanceof JSONResponse);
+	public function testOpen(){
+		$url = array('folderId' => 5);
+		$this->controller = $this->getPostController(array(), $url);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->bl->expects($this->once())
+			->method('open')
+			->with($this->equalTo($url['folderId']), 
+				$this->equalTo(true), $this->equalTo($this->user));
+		
+		$response = $this->controller->open();
+
+		$this->assertTrue($response instanceof JSONResponse);	
+	}
+
+
+	public function testCollapse(){
+		$url = array('folderId' => 5);
+		$this->controller = $this->getPostController(array(), $url);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->bl->expects($this->once())
+			->method('open')
+			->with($this->equalTo($url['folderId']), 
+				$this->equalTo(false), $this->equalTo($this->user));
+		
+		$response = $this->controller->collapse();
+
+		$this->assertTrue($response instanceof JSONResponse);	
 	}
 
 
 	/**
 	 * collapse
 	 *//*
-	public function testCollapseCalled(){
-		$urlParams = array('folderId' => 1);
-		$this->folderBl->expects($this->once())
-					->method('setCollapsed')
-					->with($this->equalTo($urlParams['folderId']), $this->equalTo(true));
-		$this->controller->setURLParams($urlParams);
-		
-		$this->controller->collapse();
-	}
+	
 
 
 	public function testCollapseReturnsNoParams(){
 		$urlParams = array('folderId' => 1);
-		$this->folderBl->expects($this->once())
+		$this->bl->expects($this->once())
 					->method('setCollapsed')
 					->with($this->equalTo($urlParams['folderId']), $this->equalTo(true));
 		$this->controller->setURLParams($urlParams);
@@ -167,7 +189,7 @@ class FolderControllerTest extends ControllerTestUtility {
 
 	public function testCollapseReturnsJSON(){
 		$urlParams = array('folderId' => 1);
-		$this->folderBl->expects($this->once())
+		$this->bl->expects($this->once())
 					->method('setCollapsed')
 					->with($this->equalTo($urlParams['folderId']), $this->equalTo(true));
 		$this->controller->setURLParams($urlParams);
@@ -180,7 +202,7 @@ class FolderControllerTest extends ControllerTestUtility {
 
 	private function collapseException($ex){
 		$urlParams = array('folderId' => 1);
-		$this->folderBl->expects($this->once())
+		$this->bl->expects($this->once())
 					->method('setCollapsed')
 					->with($this->equalTo($urlParams['folderId']), $this->equalTo(true))
 					->will($this->throwException($ex));

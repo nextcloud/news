@@ -56,12 +56,21 @@ class FolderController extends Controller {
 	}
 
 
+	private function setOpened($isOpened){
+		$userId = $this->api->getUserId();
+		$folderId = $this->params('folderId');
+
+		$this->folderBl->open($folderId, $isOpened, $userId);
+	}
+
 	/**
 	 * @IsAdminExemption
 	 * @IsSubAdminExemption
 	 * @Ajax
 	 */
 	public function open(){
+		$this->setOpened(true);
+		return $this->renderJSON(array());
 	}
 
 
@@ -71,6 +80,8 @@ class FolderController extends Controller {
 	 * @Ajax
 	 */
 	public function collapse(){
+		$this->setOpened(false);
+		return $this->renderJSON(array());
 	}
 
 
