@@ -104,6 +104,10 @@ module.exports = (grunt) ->
 				reporters: ['progress', 'junit']
 				junitReporter:
 					outputFile: 'test-results.xml'
+			unit_phantom: 
+				configFile: 'config/testacular_conf.js'
+				browsers: ['PhantomJS']	
+					
 
 		phpunit:
 			classes:
