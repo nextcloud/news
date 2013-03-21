@@ -40,11 +40,20 @@ class FolderBl extends Bl {
 		return $this->mapper->findAllFromUser($userId);
 	}
 
+	private function allowNoNameTwice($folderName, $userId){
+		$existingFolders = $this->mapper->findByName($folderName, $userId);
+		if(count($existingFolders) > 0){
+			throw new BLException('Error: Folder with name ' . $folderName . 
+				' exists already!');
+		}
+	}
 
-	public function create($name, $parentId) {
-		// TODO: throw error when already existing
+	public function create($folderName, $userId, $parentId=0) {
+		$this->allowNoNameTwice($folderName, $userId);
+
 		$folder = new Folder();
-		$folder->setName($name);
+		$folder->setName($folderName);
+		$folder->setUserId($userId);
 		$folder->setParentId($parentId);
 		return $this->mapper->insert($folder);
 	}
@@ -58,7 +67,8 @@ class FolderBl extends Bl {
 
 
 	public function rename($folderId, $folderName, $userId){
-		// TODO: throw error when already existing
+		$this->allowNoNameTwice($folderName, $userId);
+
 		$folder = $this->find($folderId, $userId);
 		$folder->setName($folderName);
 		$this->mapper->update($folder);

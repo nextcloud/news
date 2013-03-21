@@ -63,8 +63,18 @@ class FolderMapper extends NewsMapper {
 
 	public function findAllFromUser($userId){
 		$sql = 'SELECT * FROM `*dbprefix*news_folders` ' .
-			'AND `user_id` = ?';
+			'WHERE `user_id` = ?';
 		$params = array($userId);
+
+		return $this->findAllRows($sql, $params);
+	}
+
+
+	public function findByName($folderName, $userId){
+		$sql = 'SELECT * FROM `*dbprefix*news_folders` ' .
+			'WHERE `name` = ?' .
+			'AND `user_id` = ?';
+		$params = array($folderName, $userId);
 
 		return $this->findAllRows($sql, $params);
 	}

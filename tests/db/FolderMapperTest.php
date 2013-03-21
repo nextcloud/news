@@ -107,7 +107,7 @@ class FolderMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			array('id' => $this->folders[1]->getId())
 		);
 		$sql = 'SELECT * FROM `*dbprefix*news_folders` ' .
-			'AND `user_id` = ?';
+			'WHERE `user_id` = ?';
 		
 		$this->setMapperResult($sql, array($userId), $rows);
 		
@@ -115,5 +115,20 @@ class FolderMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$this->assertEquals($this->folders, $result);
 	}
 
+
+	public function testFindByName(){
+		$userId = 'john';
+		$rows = array(
+			array('id' => $this->folders[0]->getId()),
+			array('id' => $this->folders[1]->getId())
+		);
+		$sql = 'SELECT * FROM `*dbprefix*news_folders` ' .
+			'WHERE `user_id` = ?';
+		
+		$this->setMapperResult($sql, array($userId), $rows);
+		
+		$result = $this->folderMapper->findAllFromUser($userId);
+		$this->assertEquals($this->folders, $result);
+	}
 
 }

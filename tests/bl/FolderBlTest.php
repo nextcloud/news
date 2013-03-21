@@ -65,15 +65,32 @@ class FolderBlTest extends \OCA\AppFramework\Utility\TestUtility {
 		$folder = new Folder();
 		$folder->setName('hey');
 		$folder->setParentId(5);
+		$folder->setUserId('john');
 
 		$this->folderMapper->expects($this->once())
 			->method('insert')
 			->with($this->equalTo($folder))
 			->will($this->returnValue($folder));
 
-		$result = $this->folderBl->create('hey', 5);
+		$result = $this->folderBl->create('hey', 'john', 5);
 
 		$this->assertEquals($folder, $result);
+	}
+
+
+	public function testCreateThrowsExWhenFolderNameExists(){
+		$folderName = 'hihi';
+		$rows = array(
+			array('id' => 1)
+		);
+		
+		$this->folderMapper->expects($this->once())
+			->method('findByName')
+			->with($this->equalTo($folderName))
+			->will($this->returnValue($rows));
+
+		$this->setExpectedException('\OCA\News\Bl\BLException');
+		$result = $this->folderBl->create($folderName, 'john', 3);
 	}
 
 
@@ -113,5 +130,22 @@ class FolderBlTest extends \OCA\AppFramework\Utility\TestUtility {
 
 		$this->assertEquals('bogus', $folder->getName());		
 	}
+
+
+	public function testRenameThrowsExWhenFolderNameExists(){
+		$folderName = 'hihi';
+		$rows = array(
+			array('id' => 1)
+		);
+		
+		$this->folderMapper->expects($this->once())
+			->method('findByName')
+			->with($this->equalTo($folderName))
+			->will($this->returnValue($rows));
+
+		$this->setExpectedException('\OCA\News\Bl\BLException');
+		$result = $this->folderBl->rename(3, $folderName, 'john');
+	}
+
 
 }
