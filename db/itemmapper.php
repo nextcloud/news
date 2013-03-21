@@ -35,8 +35,8 @@ class ItemMapper extends NewsMapper {
 		parent::__construct($api, 'news_items');
 	}
 	
-	protected function findAllRows($sql, $params) {
-		$result = $this->execute($sql, $params);
+	protected function findAllRows($sql, $params, $limit=null, $offset=null) {
+		$result = $this->execute($sql, $params, $limit, $offset);
 		$items = array();
 
 		while($row = $result->fetchRow()){
@@ -48,52 +48,65 @@ class ItemMapper extends NewsMapper {
 
 		return $items;
 	}
+
+	/**
+	 * Queries to find all items that belong to a user
+	 */
+	 
+// 	private function makeFindAllFromFeedQuery($custom) {
+// 		return 'SELECT * FROM `*PREFIX*news_items` ' .
+// 			'WHERE user_id = ? ' .
+// 			'AND feed_id = ?' .
+// 			$custom;
+// 	}
+// 	
+// 	public function findAllFromFeed($feedId, $userId){
+// 		$sql = $this->makeFindAllFromFeedQuery('');
+// 		$params = array($feedId, $userId);
+// 		return $this->findAllRows($sql, $params);
+// 	}
+// 	
+// 	public function findAllFromFeedByStatus($feedId, $userId, $status){
+// 		$sql = $this->makeFindAllFromFeedQuery(' AND ((`*dbprefix*news_items`.`status` & ?) > 0)');
+// 		$params = array($feedId, $userId, $status);
+// 		return $this->findAllRows($sql, $params);
+// 	}
+// 	
+// 	public function findAllFromFeedByLastMofified($userId, $feedId, $lastModified){
+// 		$sql = $this->makeFindAllFromFeedQuery(' AND `*dbprefix*news_items`.last_modified >= ? ');
+// 		$params = array($feedId, $userId, $lastModified);
+// 		return $this->findAllRows($sql, $params);
+// 	}
+// 	
+// 	public function findAllFromFeedByOffset($userId, $feedId, $limit, $offset){
+// 		$sql = $this->makeFindAllFromFeedQuery(' AND `*dbprefix*news_items`.last_modified >= ? ');
+// 		$params = array($feedId, $userId, $limit, $offset);
+// 		return $this->findAllRows($sql, $params);
+// 	}
 	
-	public function findAllFromFeed($feedId, $userId){
-		$sql = 'SELECT * FROM `*PREFIX*news_items` ' .
-			'WHERE user_id = ? ' .
-			'AND feed_id = ?';
-		
-		$params = array($feedId, $userId);
-		return $this->findAllRows($sql, $params);
-	}
-	
-	public function findAllFromFeedByStatus($feedId, $userId, $status){
-		$sql = 'SELECT * FROM `*PREFIX*news_items` ' .
-			'WHERE user_id = ? ' .
-			'AND feed_id = ? ' .
-			'AND ((`*dbprefix*news_items`.`status` & ?) > 0)';
-		
-		$params = array($feedId, $userId, $status);
-		return $this->findAllRows($sql, $params);
-	}
-	
-	
-	public function findAllFromFolder($userId, $folderId){
-		$sql = $this->makeFindAllFromFolderQuery('');			
-		$params = array($userId, $folderId);
-		return $this->findAllRows($sql, $params);
-	}
-	
-	public function findAllFromFolderByStatus($userId, $folderId, $status){
-		$sql = $this->makeFindAllFromFolderQuery('AND ((`*dbprefix*news_items`.`status` & ?) > 0)');
-		$params = array($userId, $folderId, $status);
-		return $this->findAllRows($sql, $params);
-	}
-	
-	public function findAllFromFolderByLastMofified($userId, $folderId, $lastModified){
-		$sql = $this->makeFindAllFromFolderQuery('AND `*dbprefix*news_items`.last_modified >= ? ');
-		$params = array($userId, $folderId, $lastModified);
-		return $this->findAllRows($sql, $params);
-	}
-	
+	/**
+	 * Queries to find all items from a folder that belongs to a user
+	 */
 	private function makeFindAllFromFolderQuery($custom) {
 		return 'SELECT `*dbprefix*news_items`.* FROM `*dbprefix*news_items` ' .
 			'JOIN `*dbprefix*news_feeds` ' .
 			'ON `*dbprefix*news_feeds`.`id` = `*dbprefix*news_items`.`feed_id` ' .
 			'WHERE `*dbprefix*news_feeds`.`user_id` = ? ' .
 			'AND `*dbprefix*news_feeds`.`folder_id` = ? ' .
+			'AND ((`*dbprefix*news_items`.`status` & ?) > 0) ' .
 			$custom;
+	}
+	
+	public function findAllFromFolderByOffset($userId, $folderId, $status, $limit=null, $offset=null) {
+		$sql = $this->makeFindAllFromFolderQuery('');
+		$params = array($userId, $folderId, $status);
+		return $this->findAllRows($sql, $params, $limit, $offset);
+	}
+	
+ 	public function findAllFromFolderByLastMofified($userId, $folderId, $status, $lastModified) {
+		$sql = $this->makeFindAllFromFolderQuery(' AND (`*dbprefix*news_items`.`last_modified` >= ?)');
+		$params = array($userId, $folderId, $status, $lastModified);
+		return $this->findAllRows($sql, $params);
 	}
 	
 	
@@ -123,7 +136,7 @@ class ItemMapper extends NewsMapper {
 		$item->fromRow($row);
 		
 		return $item;
-	}	
+	}
 
 }
 
