@@ -3,7 +3,7 @@
 /**
 * ownCloud - News
 *
-* @author Alessandro Cosentino
+* @author Alessandro Copyright
 * @author Bernhard Posselt
 * @copyright 2012 Alessandro Cosentino cosenal@gmail.com
 * @copyright 2012 Bernhard Posselt nukeawhale@gmail.com
@@ -25,61 +25,46 @@
 
 namespace OCA\News\Controller;
 
-use \OCA\AppFramework\Controller\Controller;
-use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Http\Request;
+use \OCA\AppFramework\Http\JSONResponse;
+use \OCA\AppFramework\Utility\ControllerTestUtility;
 use \OCA\AppFramework\Db\DoesNotExistException;
 use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
 
-use \OCA\News\Bl\FeedBl;
+use \OCA\News\Db\Folder;
 
 
-class FeedController extends Controller {
+require_once(__DIR__ . "/../classloader.php");
 
-	private $feedBl;
 
-	public function __construct(API $api, Request $request, FeedBl $feedBl){
-		parent::__construct($api, $request);
-		$this->feedBl = $feedBl;
-	}
+class FeedControllerTest extends ControllerTestUtility {
+
+	private $api;
+	private $bl;
+	private $request;
+	private $controller;
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * Gets run before each test
 	 */
-	public function feeds(){
-		
+	public function setUp(){
+		$this->api = $this->getAPIMock();
+		$this->bl = $this->getMockBuilder('\OCA\News\Bl\FeedBl')
+			->disableOriginalConstructor()
+			->getMock();
+		$this->request = new Request();
+		$this->controller = new FeedController($this->api, $this->request,
+				$this->bl);
 	}
 
 
-	public function active(){
+	public function testFeedsAnnotations(){
+		$methodName = 'feeds';
+		$annotations = array('IsAdminExemption', 'IsSubAdminExemption', 'Ajax');
 
+		$this->assertAnnotations($this->controller, $methodName, $annotations);
 	}
 
 
-	public function create(){
-		
-	}
-
-
-	public function delete(){
-		
-	}
-
-
-	public function update(){
-		
-	}
-
-
-	public function move(){
-		
-	}
-
-
-	public function read(){
-		
-	}
 }
