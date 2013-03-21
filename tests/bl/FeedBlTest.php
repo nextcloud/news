@@ -46,4 +46,9 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->folderBl = new FolderBl($this->feedMapper);
 	}
 
+
+	public function testFindAll(){
+		
+	}
+
 }
