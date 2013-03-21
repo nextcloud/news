@@ -32,7 +32,7 @@ use \OCA\AppFramework\Db\DoesNotExistException;
 use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
 
 use \OCA\News\Bl\FeedBl;
-
+use \OCA\News\Bl\BLException;
 
 class FeedController extends Controller {
 
@@ -50,7 +50,14 @@ class FeedController extends Controller {
 	 * @Ajax
 	 */
 	public function feeds(){
-		
+		$userId = $this->api->getUserId();
+		$result = $this->feedBl->findAllFromUser($userId);
+
+		$params = array(
+			'feeds' => $result
+		);
+
+		return $this->renderJSON($params);
 	}
 
 
@@ -60,7 +67,17 @@ class FeedController extends Controller {
 	 * @Ajax
 	 */
 	public function active(){
+		$feedId = $this->api->getUserValue('lastViewedFeedId');
+		$feedType = $this->api->getUserValue('lastViewedFeedType');
 
+		$params = array(
+			'activeFeed' => array(
+				'id' => $feedId,
+				'type' => $feedType
+			)
+		);
+
+		return $this->renderJSON($params);
 	}
 
 
@@ -70,7 +87,21 @@ class FeedController extends Controller {
 	 * @Ajax
 	 */
 	public function create(){
-		
+		$url = $this->params('url');
+		$parentFolderId = $this->params('parentFolderId');
+		$userId = $this->api->getUserId();
+
+		try {
+			$feed = $this->feedBl->create($url, $parentFolderId, $userId);
+			$params = array(
+				'feeds' => array($feed)
+			);
+
+			return $this->renderJSON($params);
+		} catch(BLException $ex) {
+
+			return $this->renderJSON(array(), $ex->getMessage());
+		}
 	}
 
 
@@ -80,7 +111,12 @@ class FeedController extends Controller {
 	 * @Ajax
 	 */
 	public function delete(){
-		
+		$feedId = $this->params('feedId');
+		$userId = $this->api->getUserId();
+
+		$this->feedBl->delete($feedId, $userId);
+
+		return $this->renderJSON(array());
 	}
 
 
@@ -90,7 +126,16 @@ class FeedController extends Controller {
 	 * @Ajax
 	 */
 	public function update(){
-		
+		$feedId = $this->params('feedId');
+		$userId = $this->api->getUserId();
+
+		$feed = $this->feedBl->update($feedId, $userId);
+
+		$params = array(
+			'feeds' => array($feed)
+		);
+
+		return $this->renderJSON($params);
 	}
 
 
@@ -100,16 +145,14 @@ class FeedController extends Controller {
 	 * @Ajax
 	 */
 	public function move(){
-		
+		$feedId = $this->params('feedId');
+		$parentFolderId = $this->params('parentFolderId');
+		$userId = $this->api->getUserId();
+
+		$this->feedBl->move($feedId, $parentFolderId, $userId);
+
+		return $this->renderJSON(array());	
 	}
 
 
-	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
-	 */
-	public function read(){
-		
-	}
 }

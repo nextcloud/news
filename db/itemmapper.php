@@ -138,6 +138,16 @@ class ItemMapper extends NewsMapper {
 		return $item;
 	}
 
+
+	public function readFeed($feedId, $userId){
+		// TODO
+	}
+
+
+	public function starredCount($userId){
+		// TODO
+	}
+
 }
 
 

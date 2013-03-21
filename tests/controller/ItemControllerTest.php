@@ -93,4 +93,8 @@ class ItemControllerTest extends ControllerTestUtility {
 	}
 
 
+	public function testReadFeedAnnotations(){
+		$this->assertItemControllerAnnotations('readFeed');
+	}
+
 }

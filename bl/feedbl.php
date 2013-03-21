@@ -35,34 +35,34 @@ class FeedBl extends Bl {
 		parent::__construct($feedMapper);
 	}
 
-	// README: only call this for the cronjob!
+
+	// README: only call this for the cronjob because it does not
+	// check that the feeds belong to the right user
 	public function findAll(){
-
+		return $this->mapper->findAll();
 	}
 
 
-	public function findAllFromUser(){
-
+	public function findAllFromUser($userId){
+		return $this->mapper->findAllFromUser($userId);
 	}
 
 
-	public function create(){
-		
+	public function create($feedUrl, $parentId, $userId){
+		// TODO: download new items of feed
 	}
 
 
-	public function update(){
-		
+	public function update($feedId, $userId){
+		// TODO: update given feed	
 	}
 
 
-	public function move(){
-		
+	public function move($feedId, $folderId, $userId){
+		$feed = $this->find($feedId, $userId);
+		$feed->setFolderId($folderId);
+		$this->mapper->update($feed);
 	}
 
-
-	public function read(){
-		
-	}
 
 }

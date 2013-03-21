@@ -37,22 +37,39 @@ class ItemBl extends Bl {
 
 
 	public function findAll(){
-
+		// TODO all the crazy finding of items
 	}
 
 
-	public function finStarred(){
-
+	public function starredCount($userId){
+		return $this->mapper->starredCount($userId);
 	}
 
 
-	public function star(){
-		
+	public function star($itemId, $isStarred, $userId){
+		$item = $this->find($itemId, $userId);
+		if($isStarred){
+			$item->setStarred();	
+		} else {
+			$item->setUnstarred();
+		}
+		$this->mapper->update($item);
 	}
 
 
-	public function read(){
-		
+	public function read($itemId, $isRead, $userId){
+		$item = $this->find($itemId, $userId);
+		if($isRead){
+			$item->setRead();	
+		} else {
+			$item->setUnread();
+		}
+		$this->mapper->update($item);
+	}
+
+
+	public function readFeed($feedId, $userId){
+		$this->mapper->readFeed($feedId, $userId);
 	}
 
 }

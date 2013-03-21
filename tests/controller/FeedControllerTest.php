@@ -31,7 +31,8 @@ use \OCA\AppFramework\Utility\ControllerTestUtility;
 use \OCA\AppFramework\Db\DoesNotExistException;
 use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
 
-use \OCA\News\Db\Folder;
+use \OCA\News\Db\Feed;
+use \OCA\News\Bl\BLException;
 
 
 require_once(__DIR__ . "/../classloader.php");
@@ -56,12 +57,25 @@ class FeedControllerTest extends ControllerTestUtility {
 		$this->request = new Request();
 		$this->controller = new FeedController($this->api, $this->request,
 				$this->bl);
+		$this->user = 'jack';
 	}
 
 	private function assertFeedControllerAnnotations($methodName){
 		$annotations = array('IsAdminExemption', 'IsSubAdminExemption', 'Ajax');
 		$this->assertAnnotations($this->controller, $methodName, $annotations);
 	}
+
+
+	private function getPostController($postValue, $url=array()){
+		$post = array(
+			'post' => $postValue,
+			'urlParams' => $url
+		);
+
+		$request = $this->getRequest($post);
+		return new FeedController($this->api, $request, $this->bl);
+	}
+
 
 	public function testFeedsAnnotations(){
 		$this->assertFeedControllerAnnotations('feeds');
@@ -88,13 +102,169 @@ class FeedControllerTest extends ControllerTestUtility {
 	}
 
 
-	public function testReadAnnotations(){
-		$this->assertFeedControllerAnnotations('read');
+	public function testMoveAnnotations(){
+		$this->assertFeedControllerAnnotations('move');
 	}
 
 
-	public function testMoveAnnotations(){
-		$this->assertFeedControllerAnnotations('move');
+	public function testFeeds(){
+		$result = array(
+			'feeds' => array(
+				array('a feed')
+			)
+		);
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->bl->expects($this->once())
+			->method('findAllFromUser')
+			->with($this->equalTo($this->user))
+			->will($this->returnValue($result['feeds']));
+
+		$response = $this->controller->feeds();
+
+		$this->assertEquals($result, $response->getParams());
+		$this->assertTrue($response instanceof JSONResponse);
+	}
+
+
+	public function testActive(){
+		$id = 3;
+		$type = 2;
+		$result = array(
+			'activeFeed' => array(
+				'id' => $id,
+				'type' => $type
+			)
+		);
+
+		$this->api->expects($this->at(0))
+			->method('getUserValue')
+			->with($this->equalTo('lastViewedFeedId'))
+			->will($this->returnValue($id));
+		$this->api->expects($this->at(1))
+			->method('getUserValue')
+			->with($this->equalTo('lastViewedFeedType'))
+			->will($this->returnValue($type));
+
+		$response = $this->controller->active();
+
+		$this->assertEquals($result, $response->getParams());
+		$this->assertTrue($response instanceof JSONResponse);
+	}
+
+
+	public function testCreate(){
+		$result = array(
+			'feeds' => array(new Feed())
+		);
+
+		$post = array(
+			'url' => 'hi',
+			'parentFolderId' => 4
+		);
+		$this->controller = $this->getPostController($post);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+
+		$this->bl->expects($this->once())
+			->method('create')
+			->with($this->equalTo($post['url']),
+				$this->equalTo($post['parentFolderId']),
+				$this->equalTo($this->user))
+			->will($this->returnValue($result['feeds'][0]));
+
+		$response = $this->controller->create();
+
+		$this->assertEquals($result, $response->getParams());
+		$this->assertTrue($response instanceof JSONResponse);
+	}	
+
+
+	public function testCreateReturnsErrorForInvalidCreate(){
+		$msg = 'except';
+		$ex = new BLException($msg);
+		$this->bl->expects($this->once())
+			->method('create')
+			->will($this->throwException($ex));
+
+		$response = $this->controller->create();
+		$params = json_decode($response->render(), true);
+
+		$this->assertEquals('error', $params['status']);
+		$this->assertEquals($msg, $params['msg']);
+		$this->assertTrue($response instanceof JSONResponse);
+	}
+
+
+	public function testDelete(){
+		$url = array(
+				'feedId' => 4
+		);
+		$this->controller = $this->getPostController(array(), $url);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->bl->expects($this->once())
+			->method('delete')
+			->with($this->equalTo($url['feedId']));
+
+		$response = $this->controller->delete();
+		$this->assertTrue($response instanceof JSONResponse);
+	}
+
+
+	public function testUpdate(){
+		$result = array(
+			'feeds' => array(
+				new Feed()
+			)
+		);
+
+		$url = array(
+				'feedId' => 4
+		);
+		$this->controller = $this->getPostController(array(), $url);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->bl->expects($this->once())
+			->method('update')
+			->with($this->equalTo($url['feedId']), $this->equalTo($this->user))
+			->will($this->returnValue($result['feeds'][0]));
+
+		$response = $this->controller->update();
+
+		$this->assertEquals($result, $response->getParams());
+		$this->assertTrue($response instanceof JSONResponse);
+	}
+
+
+	public function testMove(){
+		$post = array(
+			'parentFolderId' => 3
+		);
+		$url = array(
+			'feedId' => 4
+		);
+		$this->controller = $this->getPostController($post, $url);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->bl->expects($this->once())
+			->method('move')
+			->with($this->equalTo($url['feedId']), 
+				$this->equalTo($post['parentFolderId']),
+				$this->equalTo($this->user));
+
+		$response = $this->controller->move();
+
+		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 }

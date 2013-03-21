@@ -36,6 +36,8 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 	protected $api;
 	protected $feedMapper;
 	protected $feedBl;
+	protected $user;
+	protected $response;
 
 	protected function setUp(){
 		$this->api = $this->getAPIMock();
@@ -43,11 +45,62 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->disableOriginalConstructor()
 			->getMock();
 		$this->feedBl = new FeedBl($this->feedMapper);
+		$this->user = 'jack';
+		$response = 'hi';
 	}
 
 
 	public function testFindAll(){
+		$this->feedMapper->expects($this->once())
+			->method('findAll')
+			->will($this->returnValue($this->response));
 
+		$result = $this->feedBl->findAll();
+		$this->assertEquals($this->response, $result);
 	}
+
+
+	public function testFindAllFromUser(){
+		$this->feedMapper->expects($this->once())
+			->method('findAllFromUser')
+			->with($this->equalTo($this->user))
+			->will($this->returnValue($this->response));
+
+		$result = $this->feedBl->findAllFromUser($this->user);
+		$this->assertEquals($this->response, $result);
+	}
+
+
+	public function testCreate(){
+		// TODO
+	}
+
+
+	public function testUpdate(){
+		// TODO
+	}
+
+
+	public function testMove(){
+		$feedId = 3;
+		$folderId = 4;
+		$feed = new Feed();
+		$feed->setFolderId(16);
+		$feed->setId($feedId);
+
+		$this->feedMapper->expects($this->once())
+			->method('find')
+			->with($this->equalTo($feedId), $this->equalTo($this->user))
+			->will($this->returnValue($feed));
+
+		$this->feedMapper->expects($this->once())
+			->method('update')
+			->with($this->equalTo($feed));
+
+		$this->feedBl->move($feedId, $folderId, $this->user);
+
+		$this->assertEquals($folderId, $feed->getFolderId());
+	}
+
 
 }

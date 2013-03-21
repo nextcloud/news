@@ -102,4 +102,12 @@ class ItemController extends Controller {
 	}
 
 
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
+	public function readFeed(){
+		
+	}
 }
