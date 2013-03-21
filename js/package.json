@@ -25,7 +25,6 @@
 		"grunt-coffeelint": "0.0.6",
 		"gruntacular": "~0.1.1",
 		"grunt-wrap": "~0.2.0",
-		"testacular": "~0.4.0",
 		"phantomjs": "~1.8.1-3",
 		"grunt-phpunit": "0.2.0"
 	},
