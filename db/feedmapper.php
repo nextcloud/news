@@ -64,7 +64,7 @@ class FeedMapper extends NewsMapper {
 
 
 	public function findAllFromUser($userId){
-		$sql = 'SELECT `feeds`.*, COUNT(`items`.`id`) AS unread_count ' .
+		$sql = 'SELECT `feeds`.*, COUNT(`items`.`id`) AS `unread_count` ' .
 			'FROM `*dbprefix*news_feeds` `feeds` ' .
 			'LEFT OUTER JOIN `*dbprefix*news_items` `items` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` ' . 

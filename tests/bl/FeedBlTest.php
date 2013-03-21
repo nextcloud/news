@@ -28,90 +28,22 @@ namespace OCA\News\Bl;
 require_once(__DIR__ . "/../classloader.php");
 
 
-use \OCA\News\Db\Folder;
+use \OCA\News\Db\Feed;
 
 
-class FolderBlTest extends \OCA\AppFramework\Utility\TestUtility {
+class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 
 	protected $api;
-	protected $folderMapper;
+	protected $feedMapper;
 	protected $folderBl;
 
 	protected function setUp(){
 		$this->api = $this->getAPIMock();
-		$this->folderMapper = $this->getMock(
+		$this->feedMapper = $this->getMock(
 			'\OCA\News\Db\NewsMapper',
 			array('findAllFromUser', 'insert', 'update', 'find'),
 			array($this->api, 'test'));
-		$this->folderBl = new FolderBl($this->folderMapper);
-	}
-
-
-	function testFindAll(){
-		$userId = 'jack';
-		$return = 'hi';
-		$this->folderMapper->expects($this->once())
-			->method('findAllFromUser')
-			->with($this->equalTo($userId))
-			->will($this->returnValue($return));
-
-		$result = $this->folderBl->findAll($userId);
-
-		$this->assertEquals($return, $result);
-	}
-
-
-	public function testCreate(){
-		$folder = new Folder();
-		$folder->setName('hey');
-		$folder->setParentId(5);
-
-		$this->folderMapper->expects($this->once())
-			->method('insert')
-			->with($this->equalTo($folder))
-			->will($this->returnValue($folder));
-
-		$result = $this->folderBl->create('hey', 5);
-
-		$this->assertEquals($folder, $result);
-	}
-
-
-	public function testSetOpened(){
-		$folder = new Folder();
-
-		$this->folderMapper->expects($this->once())
-			->method('find')
-			->with($this->equalTo(3))
-			->will($this->returnValue($folder));
-
-		$this->folderMapper->expects($this->once())
-			->method('update')
-			->with($this->equalTo($folder));
-
-		$this->folderBl->setOpened(3, false, '');
-
-		$this->assertFalse($folder->getOpened());
-
-	}
-
-
-	public function testRename(){
-		$folder = new Folder();
-		$folder->setName('jooohn');
-
-		$this->folderMapper->expects($this->once())
-			->method('find')
-			->with($this->equalTo(3))
-			->will($this->returnValue($folder));
-
-		$this->folderMapper->expects($this->once())
-			->method('update')
-			->with($this->equalTo($folder));
-
-		$this->folderBl->rename(3, 'bogus', '');
-
-		$this->assertEquals('bogus', $folder->getName());		
+		$this->folderBl = new FolderBl($this->feedMapper);
 	}
 
 }

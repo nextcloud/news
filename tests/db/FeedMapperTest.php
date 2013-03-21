@@ -120,7 +120,7 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			array('id' => $this->feeds[0]->getId()),
 			array('id' => $this->feeds[1]->getId())
 		);
-		$sql = 'SELECT `feeds`.*, COUNT(`items`.`id`) AS unread_count ' .
+		$sql = 'SELECT `feeds`.*, COUNT(`items`.`id`) AS `unread_count` ' .
 			'FROM `*dbprefix*news_feeds` `feeds` ' .
 			'LEFT OUTER JOIN `*dbprefix*news_items` `items` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` ' . 
