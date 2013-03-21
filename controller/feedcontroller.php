@@ -31,13 +31,50 @@ use \OCA\AppFramework\Http\Request;
 use \OCA\AppFramework\Db\DoesNotExistException;
 use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
 
+use \OCA\Bl\FeedBl;
+
 
 class FeedController extends Controller {
 
+	private $feedBl;
 
-	public function __construct(API $api, Request $request, $feedMapper){
+	public function __construct(API $api, Request $request, FeedBl $feedBl){
 		parent::__construct($api, $request);
-		$this->feedMapper = $feedMapper;
+		$this->feedBl = $feedBl;
 	}
 
+
+	public function feeds(){
+		
+	}
+
+
+	public function active(){
+
+	}
+
+
+	public function create(){
+		
+	}
+
+
+	public function delete(){
+		
+	}
+
+
+	public function update(){
+		
+	}
+
+
+	public function move(){
+		
+	}
+
+
+	public function read(){
+		
+	}
 }

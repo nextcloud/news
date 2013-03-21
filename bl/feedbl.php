@@ -34,5 +34,34 @@ class FeedBl extends Bl {
 		parent::__construct($feedMapper);
 	}
 
+	// README: only call this for the cronjob!
+	public function findAll(){
+
+	}
+
+
+	public function findAllFromUser(){
+
+	}
+
+
+	public function create(){
+		
+	}
+
+
+	public function update(){
+		
+	}
+
+
+	public function move(){
+		
+	}
+
+
+	public function read(){
+		
+	}
 
 }
