@@ -1,0 +1,24 @@
+From cf75b259ba604791494544f9569183de4a6b66a1 Mon Sep 17 00:00:00 2001
+From: Bernhard Posselt <nukeawhale@gmail.com>
+Date: Wed, 20 Mar 2013 23:36:11 +0100
+Subject: [PATCH 3/4] no kde for you jan
+
+---
+ .kdev4/news.kdev4 | 5 -----
+ 1 file changed, 5 deletions(-)
+ delete mode 100644 .kdev4/news.kdev4
+
+diff --git a/.kdev4/news.kdev4 b/.kdev4/news.kdev4
+deleted file mode 100644
+index fe496cc..0000000
+--- a/.kdev4/news.kdev4
++++ /dev/null
+@@ -1,5 +0,0 @@
+-[Buildset]
+-BuildItems=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x01\x00\x00\x00\x0b\x00\x00\x00\x00\x01\x00\x00\x00\x08\x00n\x00e\x00w\x00s)
+-
+-[Project]
+-VersionControlSupport=kdevgit
+-- 
+1.8.2
+

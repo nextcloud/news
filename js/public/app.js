@@ -522,7 +522,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         params = {
           onSuccess: onSuccess
         };
-        return this._request.get('news_starred_items', params);
+        return this._request.get('news_items_starred', params);
       };
 
       Persistence.prototype.starItem = function(itemId) {
@@ -536,7 +536,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             itemId: itemId
           }
         };
-        return this._request.post('news_star_item', params);
+        return this._request.post('news_items_star', params);
       };
 
       Persistence.prototype.unstarItem = function(itemId) {
@@ -550,7 +550,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             itemId: itemId
           }
         };
-        return this._request.post('news_unstar_item', params);
+        return this._request.post('news_items_unstar', params);
       };
 
       Persistence.prototype.readItem = function(itemId) {
@@ -564,7 +564,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             itemId: itemId
           }
         };
-        return this._request.post('news_read_item', params);
+        return this._request.post('news_items_read', params);
       };
 
       Persistence.prototype.unreadItem = function(itemId) {
@@ -578,7 +578,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             itemId: itemId
           }
         };
-        return this._request.post('news_unread_item', params);
+        return this._request.post('news_items_unread', params);
       };
 
       /*
@@ -600,7 +600,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         params = {
           onSuccess: onSuccess
         };
-        return this._request.get('news_active_feed', params);
+        return this._request.get('news_feeds_active', params);
       };
 
       Persistence.prototype.createFeed = function(url, parentFolderId, onSuccess, onFailure) {
@@ -613,7 +613,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           onSuccess: onSuccess,
           onFailure: onFailure
         };
-        return this._request.post('news_create_feed', params);
+        return this._request.post('news_feeds_create', params);
       };
 
       Persistence.prototype.deleteFeed = function(feedId) {
@@ -623,7 +623,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             feedId: feedId
           }
         };
-        return this._request.post('news_delete_feed', params);
+        return this._request.post('news_feeds_delete', params);
       };
 
       Persistence.prototype.moveFeed = function(feedId, folderId) {
@@ -640,7 +640,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             folderId: folderId
           }
         };
-        return this._request.post('news_move_feed', params);
+        return this._request.post('news_feeds_move', params);
       };
 
       Persistence.prototype.setFeedRead = function(feedId, highestItemId) {
@@ -657,7 +657,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             highestItemId: highestItemId
           }
         };
-        return this._request.post('news_set_feed_read', params);
+        return this._request.post('news_feeds_read', params);
       };
 
       Persistence.prototype.updateFeed = function(feedId) {
@@ -671,7 +671,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             feedId: feedId
           }
         };
-        return this._request.post('news_update_feed', params);
+        return this._request.post('news_feeds_update', params);
       };
 
       /*
@@ -699,7 +699,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             folderId: folderId
           }
         };
-        return this._request.post('news_open_folder', params);
+        return this._request.post('news_folders_open', params);
       };
 
       Persistence.prototype.collapseFolder = function(folderId) {
@@ -713,7 +713,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             folderId: folderId
           }
         };
-        return this._request.post('news_collapse_folder', params);
+        return this._request.post('news_folders_collapse', params);
       };
 
       Persistence.prototype.createFolder = function(folderName, parentFolderId, onSuccess, onFailure) {
@@ -737,7 +737,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           onSuccess: onSuccess,
           onFailure: onFailure
         };
-        return this._request.post('news_create_folder', params);
+        return this._request.post('news_folders_create', params);
       };
 
       Persistence.prototype.deleteFolder = function(folderId) {
@@ -751,7 +751,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             folderId: folderId
           }
         };
-        return this._request.post('news_delete_folder', params);
+        return this._request.post('news_folders_delete', params);
       };
 
       Persistence.prototype.renameFolder = function(folderId, folderName) {
@@ -768,7 +768,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             folderName: folderName
           }
         };
-        return this._request.post('news_rename_folder', params);
+        return this._request.post('news_folders_rename', params);
       };
 
       /*
@@ -801,21 +801,21 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         params = {
           onSuccess: callback
         };
-        return this._request.get('news_user_settings_read', params);
+        return this._request.get('news_usersettings_read', params);
       };
 
       Persistence.prototype.userSettingsReadShow = function() {
         /*
         			Sets the reader mode to show all
         */
-        return this._request.post('news_user_settings_read_show');
+        return this._request.post('news_usersettings_read_show');
       };
 
       Persistence.prototype.userSettingsReadHide = function() {
         /*
         			Sets the reader mode to show only unread
         */
-        return this._request.post('news_user_settings_read_hide');
+        return this._request.post('news_usersettings_read_hide');
       };
 
       Persistence.prototype._trigerHideRead = function() {
