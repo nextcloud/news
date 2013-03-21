@@ -34,6 +34,7 @@ use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
 use \OCA\News\Bl\FeedBl;
 use \OCA\News\Bl\BLException;
 
+
 class FeedController extends Controller {
 
 	private $feedBl;

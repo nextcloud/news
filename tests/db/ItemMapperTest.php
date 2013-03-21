@@ -73,7 +73,7 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$this->setMapperResult($sql, array($this->id, $this->userId), $this->row);
 		
 		$result = $this->itemMapper->find($this->id, $this->userId);
-		$this->assertEquals($this->items, $result);
+		$this->assertEquals($this->items[0], $result);
 		
 	}
 // 
