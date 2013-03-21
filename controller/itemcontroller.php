@@ -29,40 +29,18 @@ use \OCA\AppFramework\Controller\Controller;
 use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Http\Request;
 
-use \OCA\News\Bl\FolderBl;
+use \OCA\News\Bl\ItemBl;
 
 
-class FolderController extends Controller {
+class ItemController extends Controller {
 
-	private $folderBl;
+	private $itemBl;
 
-	public function __construct(API $api, Request $request, FolderBl $folderBl){
+	public function __construct(API $api, Request $request, ItemBl $itemBl){
 		parent::__construct($api, $request);
-		$this->folderBl = $folderBl;
+		$this->itemBl = $itemBl
 	}
 
-
-	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
-	 */
-	public function folders(){
-		$folders = $this->folderBl->findAll($this->api->getUserId());
-		$result = array(
-			'folders' => $folders
-		);
-		return $this->renderJSON($result);
-	}
-
-
-	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
-	 */
-	public function collapse(){
-	}
 
 
 }

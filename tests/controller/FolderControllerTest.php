@@ -62,16 +62,16 @@ class FolderControllerTest extends ControllerTestUtility {
 	/**
 	 * getAll
 	 */
-	public function testGetAllCalled(){
+	public function testFoldersCalled(){
 		$this->folderBl->expects($this->once())
 					->method('findAll')
 					->will($this->returnValue( array() ));
 		
-		$this->controller->getAll();
+		$this->controller->folders();
 	}
 
 
-	public function testGetAllReturnsFolders(){
+	public function testFoldersReturnsFolders(){
 		$return = array(
 			new Folder(),
 			new Folder(),
@@ -80,7 +80,7 @@ class FolderControllerTest extends ControllerTestUtility {
 					->method('findAll')
 					->will($this->returnValue($return));
 
-		$response = $this->controller->getAll();
+		$response = $this->controller->folders();
 		$expected = array(
 			'folders' => $return
 		);
@@ -88,16 +88,16 @@ class FolderControllerTest extends ControllerTestUtility {
 	}
 
 	
-	public function testGetAllAnnotations(){
-		$methodName = 'getAll';
+	public function testFoldersAnnotations(){
+		$methodName = 'folders';
 		$annotations = array('IsAdminExemption', 'IsSubAdminExemption', 'Ajax');
 
 		$this->assertAnnotations($this->controller, $methodName, $annotations);
 	}
 
 
-	public function testGetAllReturnsJSON(){
-		$response = $this->controller->getAll();
+	public function testFoldersReturnsJSON(){
+		$response = $this->controller->folders();
 
 		$this->assertTrue($response instanceof JSONResponse);
 	}

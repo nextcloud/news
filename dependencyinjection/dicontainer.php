@@ -27,7 +27,7 @@ namespace OCA\News\DependencyInjection;
 
 use OCA\AppFramework\DependencyInjection\DIContainer as BaseContainer;
 
-
+use OCA\News\Controller\PageController;
 use OCA\News\Controller\FolderController;
 use OCA\News\Controller\FeedController;
 use OCA\News\Controller\ItemController;
@@ -57,6 +57,10 @@ class DIContainer extends BaseContainer {
 		/** 
 		 * CONTROLLERS
 		 */
+		$this['PageController'] = $this->share(function($c){
+			return new PageController($c['API'], $c['Request']);
+		});
+
 		$this['FolderController'] = $this->share(function($c){
 			return new FolderController($c['API'], $c['Request'], $c['FolderBl']);
 		});
