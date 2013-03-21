@@ -60,7 +60,7 @@ class FolderControllerTest extends ControllerTestUtility {
 
 
 	/**
-	 * getAll
+	 * folders
 	 */
 	public function testFoldersCalled(){
 		$this->folderBl->expects($this->once())
