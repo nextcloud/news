@@ -59,6 +59,42 @@ class FolderControllerTest extends ControllerTestUtility {
 	}
 
 
+	private function assertFolderControllerAnnotations($methodName){
+		$annotations = array('IsAdminExemption', 'IsSubAdminExemption', 'Ajax');
+		$this->assertAnnotations($this->controller, $methodName, $annotations);
+	}
+
+
+	public function testFoldersAnnotations(){
+		$this->assertFolderControllerAnnotations('folders');
+	}
+
+
+	public function testOpenAnnotations(){
+		$this->assertFolderControllerAnnotations('open');
+	}
+
+
+	public function testCollapseAnnotations(){
+		$this->assertFolderControllerAnnotations('collapse');
+	}
+
+
+	public function testCreateAnnotations(){
+		$this->assertFolderControllerAnnotations('create');
+	}
+
+
+	public function testDeleteAnnotations(){
+		$this->assertFolderControllerAnnotations('delete');
+	}
+
+
+	public function testRenameAnnotations(){
+		$this->assertFolderControllerAnnotations('rename');
+	}
+
+
 	/**
 	 * folders
 	 */
@@ -88,14 +124,6 @@ class FolderControllerTest extends ControllerTestUtility {
 	}
 
 	
-	public function testFoldersAnnotations(){
-		$methodName = 'folders';
-		$annotations = array('IsAdminExemption', 'IsSubAdminExemption', 'Ajax');
-
-		$this->assertAnnotations($this->controller, $methodName, $annotations);
-	}
-
-
 	public function testFoldersReturnsJSON(){
 		$response = $this->controller->folders();
 
