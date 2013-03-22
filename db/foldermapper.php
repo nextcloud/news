@@ -26,9 +26,10 @@
 namespace OCA\News\Db;
 
 use \OCA\AppFramework\Core\API;
+use \OCA\AppFramework\Db\Mapper;
 
 
-class FolderMapper extends NewsMapper {
+class FolderMapper extends Mapper implements IMapper {
 
 	public function __construct(API $api) {
 		parent::__construct($api, 'news_folders');
@@ -39,7 +40,7 @@ class FolderMapper extends NewsMapper {
 			'WHERE `id` = ? ' .
 			'AND `user_id` = ?';
 
-		$row = $this->findRow($sql, $id, $userId);
+		$row = $this->findQuery($sql, array($id, $userId));
 		$folder = new Folder();
 		$folder->fromRow($row);
 

@@ -76,6 +76,21 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$this->assertEquals($this->items[0], $result);
 		
 	}
+
+
+	public function testFindByUrlHash(){
+		$urlHash = md5('hihi');
+		$sql = 'SELECT `*dbprefix*news_items`.* FROM `*dbprefix*news_items` ' .
+			'JOIN `*dbprefix*news_feeds` ' .
+			'ON `*dbprefix*news_feeds`.`id` = `*dbprefix*news_items`.`feed_id` ' .
+			'WHERE `*dbprefix*news_items`.`url_hash` = ? ' .
+			'AND `*dbprefix*news_feeds`.`user_id` = ? ';
+		$this->setMapperResult($sql, array($urlHash, $this->userId), $this->row);
+		
+		$result = $this->itemMapper->findByUrlHash($urlHash, $this->userId);
+		$this->assertEquals($this->items[0], $result);
+	}
+
 // 
 // 	public function testFindNotFound(){
 // 		$sql = 'SELECT `*dbprefix*news_items`.* FROM `*dbprefix*news_items` ' .

@@ -28,6 +28,8 @@ namespace OCA\News\Bl;
 require_once(__DIR__ . "/../classloader.php");
 
 
+use \OCA\AppFramework\Db\DoesNotExistException;
+use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
 use \OCA\News\Db\Folder;
 
 
@@ -40,14 +42,15 @@ class TestBl extends BL {
 class BlTest extends \OCA\AppFramework\Utility\TestUtility {
 
 	protected $api;
-	protected $newsMapper;
+	protected $mapper;
 	protected $newsBl;
 
 	protected function setUp(){
 		$this->api = $this->getAPIMock();
-		$this->newsMapper = $this->getMock('\OCA\News\Db\NewsMapper',
-			array('update', 'delete', 'find'), array($this->api, 'test'));
-		$this->newsBl = new TestBl($this->newsMapper);
+		$this->mapper = $this->getMockBuilder('\OCA\News\Db\ItemMapper')
+			->disableOriginalConstructor()
+			->getMock();
+		$this->newsBl = new TestBl($this->mapper);
 	}
 
 
@@ -57,10 +60,10 @@ class BlTest extends \OCA\AppFramework\Utility\TestUtility {
 		$folder = new Folder();
 		$folder->setId($id);
 
-		$this->newsMapper->expects($this->once())
+		$this->mapper->expects($this->once())
 			->method('delete')
 			->with($this->equalTo($folder));
-		$this->newsMapper->expects($this->once())
+		$this->mapper->expects($this->once())
 			->method('find')
 			->with($this->equalTo($id), $this->equalTo($user))
 			->will($this->returnValue($folder));
@@ -73,7 +76,7 @@ class BlTest extends \OCA\AppFramework\Utility\TestUtility {
 		$id = 3;
 		$user = 'ken';
 
-		$this->newsMapper->expects($this->once())
+		$this->mapper->expects($this->once())
 			->method('find')
 			->with($this->equalTo($id), $this->equalTo($user));
 
@@ -82,9 +85,9 @@ class BlTest extends \OCA\AppFramework\Utility\TestUtility {
 
 
 	public function testFindDoesNotExist(){
-		$ex = new \OCA\AppFramework\Db\DoesNotExistException('hi');
+		$ex = new DoesNotExistException('hi');
 
-		$this->newsMapper->expects($this->once())
+		$this->mapper->expects($this->once())
 			->method('find')
 			->will($this->throwException($ex));
 
@@ -94,9 +97,9 @@ class BlTest extends \OCA\AppFramework\Utility\TestUtility {
 
 
 	public function testFindMultiple(){
-		$ex = new \OCA\AppFramework\Db\MultipleObjectsReturnedException('hi');
+		$ex = new MultipleObjectsReturnedException('hi');
 
-		$this->newsMapper->expects($this->once())
+		$this->mapper->expects($this->once())
 			->method('find')
 			->will($this->throwException($ex));
 

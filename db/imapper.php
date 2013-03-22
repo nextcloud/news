@@ -1,7 +1,6 @@
 <?php
-
 /**
-* ownCloud - News
+* ownCloud - News app
 *
 * @author Alessandro Cosentino
 * @author Bernhard Posselt
@@ -23,37 +22,8 @@
 *
 */
 
-namespace OCA\News\Bl;
+namespace OCA\News\Db;
 
-use \OCA\AppFramework\Db\DoesNotExistException;
-use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
-
-use \OCA\News\Db\IMapper;
-
-
-abstract class Bl {
-
-	protected $mapper;
-
-	public function __construct(IMapper $mapper){
-		$this->mapper = $mapper;
-	}
-
-
-	public function delete($id, $userId){
-		$entity = $this->find($id, $userId);
-		$this->mapper->delete($entity);
-	}
-
-
-	public function find($id, $userId){
-		try {
-			return $this->mapper->find($id, $userId);
-		} catch(DoesNotExistException $ex){
-			throw new BLException($ex->getMessage());
-		} catch(MultipleObjectsReturnedException $ex){
-			throw new BLException($ex->getMessage());
-		}
-	}
-
+interface IMapper {
+	public function find($id, $userId);
 }

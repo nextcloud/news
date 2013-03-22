@@ -55,7 +55,8 @@ class FeedBl extends Bl {
 
 
 	public function create($feedUrl, $folderId, $userId){
-		// first try if its possible to reach the feed
+		// first try if the feed exists already
+		
 		try {
 			list($feed, $items) = $this->feedFetcher->fetch($feedUrl);
 			

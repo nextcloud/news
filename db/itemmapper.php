@@ -29,12 +29,28 @@ use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
 use \OCA\AppFramework\Db\Mapper;
 use \OCA\AppFramework\Core\API;
 
-class ItemMapper extends NewsMapper {
+class ItemMapper extends Mapper implements IMapper {
 
 	public function __construct(API $api){
 		parent::__construct($api, 'news_items');
 	}
 	
+
+	public function findByUrlHash($urlHash, $userId){
+		$sql = 'SELECT `*dbprefix*news_items`.* FROM `*dbprefix*news_items` ' .
+			'JOIN `*dbprefix*news_feeds` ' .
+			'ON `*dbprefix*news_feeds`.`id` = `*dbprefix*news_items`.`feed_id` ' .
+			'WHERE `*dbprefix*news_items`.`url_hash` = ? ' .
+			'AND `*dbprefix*news_feeds`.`user_id` = ? ';
+		$params = array($urlHash, $userId);
+		
+		$row = $this->findQuery($sql, $params);
+		$item = new Item();
+		$item->fromRow($row);
+
+		return $item;
+	}
+
 	protected function findAllRows($sql, $params, $limit=null, $offset=null) {
 		$result = $this->execute($sql, $params, $limit, $offset);
 		$items = array();
@@ -130,7 +146,7 @@ class ItemMapper extends NewsMapper {
 			'WHERE `*dbprefix*news_items`.`id` = ? ' .
 			'AND `*dbprefix*news_feeds`.`user_id` = ? ';
 
-		$row = $this->findRow($sql, $id, $userId);
+		$row = $this->findQuery($sql, array($id, $userId));
 		
 		$item = new Item();
 		$item->fromRow($row);

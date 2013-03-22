@@ -26,9 +26,9 @@
 namespace OCA\News\Db;
 
 use \OCA\AppFramework\Core\API;
+use \OCA\AppFramework\Db\Mapper;
 
-
-class FeedMapper extends NewsMapper {
+class FeedMapper extends Mapper implements IMapper {
 
 
 	public function __construct(API $api) {
@@ -41,7 +41,7 @@ class FeedMapper extends NewsMapper {
 			'WHERE `id` = ? ' .
 			'AND `user_id` = ?';
 
-		$row = $this->findRow($sql, $id, $userId);
+		$row = $this->findQuery($sql, array($id, $userId));
 		$feed = new Feed();
 		$feed->fromRow($row);
 
