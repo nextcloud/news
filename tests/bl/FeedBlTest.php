@@ -29,54 +29,97 @@ require_once(__DIR__ . "/../classloader.php");
 
 
 use \OCA\News\Db\Feed;
-
+use \OCA\News\Db\Item;
+use \OCA\News\Utility\FeedFetcher;
+use \OCA\News\Utility\FetcherException;
 
 class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 
 	protected $api;
-	protected $feedMapper;
-	protected $feedBl;
+	protected $mapper;
+	protected $bl;
 	protected $user;
 	protected $response;
-	protected $utils;
+	protected $fetcher;
+	protected $itemBl;
 
 	protected function setUp(){
 		$this->api = $this->getAPIMock();
-		$this->feedMapper = $this->getMockBuilder('\OCA\News\Db\FeedMapper')
+		$this->mapper = $this->getMockBuilder('\OCA\News\Db\FeedMapper')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->utils = $this->getMockBuilder('\OCA\News\Utility\FeedFetcher')
+		$this->fetcher = $this->getMockBuilder('\OCA\News\Utility\FeedFetcher')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->feedBl = new FeedBl($this->feedMapper, $this->utils);
+		$this->itemBl = $this->getMockBuilder('\OCA\News\Bl\ItemBl')
+			->disableOriginalConstructor()
+			->getMock();
+		$this->bl = new FeedBl($this->mapper, $this->fetcher, $this->itemBl);
 		$this->user = 'jack';
 		$response = 'hi';
 	}
 
 
 	public function testFindAll(){
-		$this->feedMapper->expects($this->once())
+		$this->mapper->expects($this->once())
 			->method('findAll')
 			->will($this->returnValue($this->response));
 
-		$result = $this->feedBl->findAll();
+		$result = $this->bl->findAll();
 		$this->assertEquals($this->response, $result);
 	}
 
 
 	public function testFindAllFromUser(){
-		$this->feedMapper->expects($this->once())
+		$this->mapper->expects($this->once())
 			->method('findAllFromUser')
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($this->response));
 
-		$result = $this->feedBl->findAllFromUser($this->user);
+		$result = $this->bl->findAllFromUser($this->user);
 		$this->assertEquals($this->response, $result);
 	}
 
 
+	public function testCreateDoesNotFindFeed(){
+		$ex = new FetcherException('hi');
+		$url = 'test';
+		$this->fetcher->expects($this->once())
+			->method('fetch')
+			->with($this->equalTo($url))
+			->will($this->throwException($ex));
+		$this->setExpectedException('\OCA\News\Bl\BLException');
+		$this->bl->create($url, 1, 2);
+	}
+
 	public function testCreate(){
-		// TODO
+		$url = 'test';
+		$folderId = 10;
+		$createdFeed = new Feed();
+		$createdFeed->setUrl($url);
+		$return = array(
+			$createdFeed,
+			array(new Item(), new Item())
+		);
+		$this->fetcher->expects($this->once())
+			->method('fetch')
+			->with($this->equalTo($url))
+			->will($this->returnValue($return));
+		$this->mapper->expects($this->once())
+			->method('insert')
+			->with($this->equalTo($createdFeed))
+			->will($this->returnValue($createdFeed));
+		$this->itemBl->expects($this->at(0))
+			->method('create')
+			->with($this->equalTo($return[1][0]));
+		$this->itemBl->expects($this->at(1))
+			->method('create')
+			->with($this->equalTo($return[1][1]));
+		
+		$feed = $this->bl->create($url, $folderId, $this->user);
+
+		$this->assertEquals($feed->getFolderId(), $folderId);
+		$this->assertEquals($feed->getUrl(), $url);
 	}
 
 
@@ -92,16 +135,16 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 		$feed->setFolderId(16);
 		$feed->setId($feedId);
 
-		$this->feedMapper->expects($this->once())
+		$this->mapper->expects($this->once())
 			->method('find')
 			->with($this->equalTo($feedId), $this->equalTo($this->user))
 			->will($this->returnValue($feed));
 
-		$this->feedMapper->expects($this->once())
+		$this->mapper->expects($this->once())
 			->method('update')
 			->with($this->equalTo($feed));
 
-		$this->feedBl->move($feedId, $folderId, $this->user);
+		$this->bl->move($feedId, $folderId, $this->user);
 
 		$this->assertEquals($folderId, $feed->getFolderId());
 	}

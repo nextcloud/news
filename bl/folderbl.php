@@ -49,7 +49,9 @@ class FolderBl extends Bl {
 		}
 	}
 
-
+	/**
+	 * @throws BLException if name exists already
+	 */
 	public function create($folderName, $userId, $parentId=0) {
 		$this->allowNoNameTwice($folderName, $userId);
 
@@ -68,6 +70,9 @@ class FolderBl extends Bl {
 	}
 
 
+	/**
+	 * @throws BLException if name exists already
+	 */
 	public function rename($folderId, $folderName, $userId){
 		$this->allowNoNameTwice($folderName, $userId);
 
@@ -76,5 +81,6 @@ class FolderBl extends Bl {
 		$this->mapper->update($folder);
 	}
 
+	// TODO: delete associated items
 
 }

@@ -33,16 +33,16 @@ class FeedFetcher {
 	 * Fetch a feed from remote
 	 * @param string url remote url of the feed
 	 * @throws FetcherException if simple pie fails
-	 * @returns array an array containing the new feed and its items
+	 * @return array an array containing the new feed and its items
 	 */
 	public function fetch($url) {
 		$simplePie = new \SimplePie_Core();
 		$simplePie->set_feed_url( $url );
 		$simplePie->enable_cache( false );
 
-		// TODO: throw error
+		
 		if (!$simplePie->init()) {
-			return null;
+			throw new FetcherException('Could not initialize simple pie');
 		}
 
 		// temporary try-catch to bypass SimplePie bugs
@@ -64,7 +64,7 @@ class FeedFetcher {
 						$item->setAuthor( $author->get_name() );
 					}
 
-					// associated media file, for podcasts
+					// TODO: make it work for video files also
 					$enclosure = $feedItem->get_enclosure();
 					if($enclosure !== null) {
 						$enclosureType = $enclosure->get_type();
@@ -96,7 +96,7 @@ class FeedFetcher {
 				}
 			}
 			return array($feed, $items);
-		} catch(Exception $ex){
+		} catch(\Exception $ex){
 			throw new FetcherException($ex->getMessage());
 		}
 
@@ -104,8 +104,7 @@ class FeedFetcher {
 
 	/**
 	 * Perform a "slim" fetch of a feed from remote.
-	 * Differently from Utils::fetch(), it doesn't retrieve items nor a favicon
-	 *
+	 * Differently from fetch(), it doesn't retrieve items nor a favicon
 	 * @param string url remote url of the feed
 	 * @returns \OCA\News\Db\Feed
 	 */
@@ -116,7 +115,7 @@ class FeedFetcher {
 		$simplePie->set_stupidly_fast( true );
 
 		if (!$simplePie->init()) {
-			return null;
+			throw new FetcherException('Could not initialize simple pie');
 		}
 
 		// temporary try-catch to bypass SimplePie bugs
@@ -128,7 +127,7 @@ class FeedFetcher {
 			$feed->setAdded(time());
 			return $feed;
 
-		} catch(Exception $ex){
+		} catch(\Exception $ex){
 			throw new FetcherException($ex->getMessage());
 		}
 	}

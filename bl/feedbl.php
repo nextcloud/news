@@ -28,16 +28,17 @@ namespace OCA\News\Bl;
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\FeedMapper;
 use \OCA\News\Utility\FeedFetcher;
-
+use \OCA\News\Utility\FetcherException;
 
 class FeedBl extends Bl {
 
 	private $feedFetcher;
 
-	public function __construct(FeedMapper $feedMapper, 
-		                        FeedFetcher $feedFetcher){
+	public function __construct(FeedMapper $feedMapper,
+		                        FeedFetcher $feedFetcher,  ItemBl $itemBl){
 		parent::__construct($feedMapper);
 		$this->feedFetcher = $feedFetcher;
+		$this->itemBl = $itemBl;
 	}
 
 
@@ -53,8 +54,25 @@ class FeedBl extends Bl {
 	}
 
 
-	public function create($feedUrl, $parentId, $userId){
-		// TODO: download new items of feed
+	public function create($feedUrl, $folderId, $userId){
+		// first try if its possible to reach the feed
+		try {
+			list($feed, $items) = $this->feedFetcher->fetch($feedUrl);
+			
+			// insert feed
+			$feed->setFolderId($folderId);
+			$feed = $this->mapper->insert($feed);
+
+			// insert items
+			foreach($items as $item){
+				$item->setFeedId($feed->getId());
+				$this->itemBl->create($item);
+			}
+
+			return $feed;
+		} catch(FetcherException $ex){
+			throw new BLException('Can not add feed: Not found or bad source');
+		}
 	}
 
 
@@ -69,5 +87,5 @@ class FeedBl extends Bl {
 		$this->mapper->update($feed);
 	}
 
-
+	// TODO: delete associated items
 }

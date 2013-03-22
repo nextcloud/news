@@ -131,6 +131,17 @@ class ItemBlTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->bl->readFeed($feedId, $this->user);
 	}
 
+
+	public function testCreate(){
+		$item = new Item();
+
+		$this->mapper->expects($this->once())
+			->method('insert')
+			->with($this->equalTo($item));
+
+		$this->bl->create($item, $this->user);	
+	}
+
 }
 
 

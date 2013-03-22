@@ -72,4 +72,11 @@ class ItemBl extends Bl {
 		$this->mapper->readFeed($feedId, $userId);
 	}
 
+
+	// ATTENTION: this does no validation and is only for creating
+	// items from the fetcher
+	public function create($item){
+		$this->mapper->insert($item);
+	}
+
 }
