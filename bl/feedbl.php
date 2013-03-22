@@ -27,12 +27,17 @@ namespace OCA\News\Bl;
 
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\FeedMapper;
+use \OCA\News\Utility\FeedFetcher;
 
 
 class FeedBl extends Bl {
 
-	public function __construct(FeedMapper $feedMapper){
+	private $feedFetcher;
+
+	public function __construct(FeedMapper $feedMapper, 
+		                        FeedFetcher $feedFetcher){
 		parent::__construct($feedMapper);
+		$this->feedFetcher = $feedFetcher;
 	}
 
 

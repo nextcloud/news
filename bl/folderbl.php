@@ -40,6 +40,7 @@ class FolderBl extends Bl {
 		return $this->mapper->findAllFromUser($userId);
 	}
 
+
 	private function allowNoNameTwice($folderName, $userId){
 		$existingFolders = $this->mapper->findByName($folderName, $userId);
 		if(count($existingFolders) > 0){
@@ -47,6 +48,7 @@ class FolderBl extends Bl {
 				' exists already!');
 		}
 	}
+
 
 	public function create($folderName, $userId, $parentId=0) {
 		$this->allowNoNameTwice($folderName, $userId);

@@ -38,13 +38,17 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 	protected $feedBl;
 	protected $user;
 	protected $response;
+	protected $utils;
 
 	protected function setUp(){
 		$this->api = $this->getAPIMock();
 		$this->feedMapper = $this->getMockBuilder('\OCA\News\Db\FeedMapper')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->feedBl = new FeedBl($this->feedMapper);
+		$this->utils = $this->getMockBuilder('\OCA\News\Utility\FeedFetcher')
+			->disableOriginalConstructor()
+			->getMock();
+		$this->feedBl = new FeedBl($this->feedMapper, $this->utils);
 		$this->user = 'jack';
 		$response = 'hi';
 	}

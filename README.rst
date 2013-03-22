@@ -1,17 +1,11 @@
 README
 ======
+App is not finished yet and in rewrite
 
 
-CoffeeScript
-------------
-To install the nodejs dependencies run ::
+TODO
+----
 
-        make deps
-
-inside the **coffee/** directory.
-
-To compile and run all unittests run::
-
-    make
-
-inside the **coffee/** directory.
+* Referential integrity (delete items and feeds when feed or folder with FK was deleted)
+* Port coffeescript
+* Dont allow multiple feeds with the same name

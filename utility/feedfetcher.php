@@ -1,61 +1,40 @@
 <?php
+
 /**
-* ownCloud - News app
+* ownCloud - News
 *
 * @author Alessandro Cosentino
-* Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
+* @author Bernhard Posselt
+* @copyright 2012 Alessandro Cosentino cosenal@gmail.com
+* @copyright 2012 Bernhard Posselt nukeawhale@gmail.com
 *
-* This file is licensed under the Affero General Public License version 3 or later.
-* See the COPYING-README file
+* This library is free software; you can redistribute it and/or
+* modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+* License as published by the Free Software Foundation; either
+* version 3 of the License, or any later version.
+*
+* This library is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+*
+* You should have received a copy of the GNU Affero General Public
+* License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 *
 */
 
-namespace OCA\News;
+namespace OCA\News\Utility;
 
-// load SimplePie library
-//TODO: is this a suitable place for the following require?
-require_once 'news/3rdparty/SimplePie/autoloader.php';
 
-class Utils {
+class FeedFetcher {
 
-	/**
-	 * @brief Transform a date from UNIX timestamp format to MDB2 timestamp format
-	 * @param dbtimestamp a date in the UNIX timestamp format
-	 * @returns a date in the MDB2 timestamp format, or NULL if an error occurred
-	 */
-	public static function unixtimeToDbtimestamp($unixtime) {
-		if ($unixtime === null) {
-			return null;
-		}
-		$dt = \DateTime::createFromFormat('U', $unixtime);
-		if ($dt === false) {
-			return null;
-		}
-		return $dt->format('Y-m-d H:i:s');
-	}
-
-	/**
-	 * @brief Transform a date from MDB2 timestamp format to UNIX timestamp format
-	 * @param dbtimestamp a date in the MDB2 timestamp format
-	 * @returns a date in the UNIX timestamp format, or NULL if an error occurred
-	 */
-	public static function dbtimestampToUnixtime($dbtimestamp) {
-		if ($dbtimestamp === null) {
-			return null;
-		}
-		$dt = \DateTime::createFromFormat('Y-m-d H:i:s', $dbtimestamp);
-		if ($dt === false) {
-			return null;
-		}
-		return $dt->format('U');
-	}
 
 	/**
 	 * @brief Fetch a feed from remote
 	 * @param url remote url of the feed
 	 * @returns an instance of OC_News_Feed
 	 */
-	public static function fetch($url) {
+	public function fetch($url) {
 		$spfeed = new \SimplePie_Core();
 		$spfeed->set_feed_url( $url );
 		$spfeed->enable_cache( false );
@@ -108,11 +87,11 @@ class Utils {
 
 			$favicon = $spfeed->get_image_url();
 
-			if ($favicon !== null && self::checkFavicon($favicon)) { // use favicon from feed
+			if ($favicon !== null && $this->checkFavicon($favicon)) { // use favicon from feed
 				$feed->setFavicon($favicon);
 			}
 			else { // try really hard to find a favicon
-				$webFavicon = self::discoverFavicon($url);
+				$webFavicon = $this->discoverFavicon($url);
 				if ($webFavicon !== null) {
 					$feed->setFavicon($webFavicon);
 				}
@@ -131,7 +110,7 @@ class Utils {
 	 * @param url remote url of the feed
 	 * @returns an instance of OC_News_Feed
 	 */
-	public static function slimFetch($url) {
+	public function slimFetch($url) {
 		$spfeed = new \SimplePie_Core();
 		$spfeed->set_feed_url( $url );
 		$spfeed->enable_cache( false );
@@ -154,7 +133,7 @@ class Utils {
 	   }
 	}
 
-	public static function checkFavicon($favicon) {
+	public function checkFavicon($favicon) {
 		if ($favicon === null || $favicon == false)
 			return false;
 
@@ -174,11 +153,11 @@ class Utils {
 		return false;
 	}
 
-	public static function discoverFavicon($url) {
+	public function discoverFavicon($url) {
 		//try webroot favicon
 		$favicon = \SimplePie_Misc::absolutize_url('/favicon.ico', $url);
 
-		if(self::checkFavicon($favicon))
+		if($this->checkFavicon($favicon))
 			return $favicon;
 
 		//try to extract favicon from web page
@@ -198,7 +177,7 @@ class Utils {
 				$favicon = htmlspecialchars_decode ( $match[2] );
 				// test for an url
 				if (parse_url($favicon,PHP_URL_SCHEME)) {
-					if(self::checkFavicon($favicon))
+					if($this->checkFavicon($favicon))
 						return $favicon;
 				}
 			}

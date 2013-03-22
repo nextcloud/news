@@ -43,6 +43,9 @@ use OCA\News\Db\FeedMapper;
 use OCA\News\Db\ItemMapper;
 
 
+require_once __DIR__ . '/../3rdparty/SimplePie/autoloader.php';
+
+
 class DIContainer extends BaseContainer {
 
 
@@ -90,7 +93,7 @@ class DIContainer extends BaseContainer {
 		});
 
 		$this['FeedBl'] = $this->share(function($c){
-			return new FeedBl($c['FeedMapper']);
+			return new FeedBl($c['FeedMapper'], $c['Utils']);
 		});
 
 		$this['ItemBl'] = $this->share(function($c){
@@ -112,6 +115,16 @@ class DIContainer extends BaseContainer {
 		$this['ItemMapper'] = $this->share(function($c){
 			return new ItemMapper($c['API']);
 		});
+
+
+		/**
+		 * Utility
+		 */
+		$this['Utils'] = $this->share(function($c){
+			return new Utils();
+		});
+
+
 	}
 }
 
