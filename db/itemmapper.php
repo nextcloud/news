@@ -50,6 +50,87 @@ class ItemMapper extends Mapper implements IMapper {
 		return $items;
 	}
 
+	
+	public function find($id, $userId){
+		$sql = 'SELECT `*dbprefix*news_items`.* FROM `*dbprefix*news_items` ' .
+			'JOIN `*dbprefix*news_feeds` ' .
+			'ON `*dbprefix*news_feeds`.`id` = `*dbprefix*news_items`.`feed_id` ' .
+			'WHERE `*dbprefix*news_items`.`id` = ? ' .
+			'AND `*dbprefix*news_feeds`.`user_id` = ? ';
+
+		$row = $this->findQuery($sql, array($id, $userId));
+		
+		$item = new Item();
+		$item->fromRow($row);
+		
+		return $item;
+	}
+
+
+	public function starredCount($userId){
+		$sql = 'SELECT COUNT(*) AS size FROM `*dbprefix*news_feeds` `feeds` ' .
+			'JOIN `*dbprefix*news_items` `items` ' .
+				'ON `items`.`feed_id` = `feeds`.`id` ' .
+			'WHERE `feeds`.`user_id` = ? ' .
+			'AND ((`items`.`status` & ?) > 0)';
+
+		$params = array($userId, StatusFlag::STARRED);
+
+		$result = $this->execute($sql, $params)->fetchRow();
+
+		return $result['size'];
+	}
+
+
+	public function readFeed($feedId, $userId){
+		$sql = 'UPDATE `*dbprefix*news_feeds` `feeds` ' .
+			'JOIN `*dbprefix*news_items` `items` ' .
+				'ON `items`.`feed_id` = `feeds`.`id` ' .
+			'SET `items`.`status` = (`items`.`status` & ?) ' .
+			'WHERE `feeds`.`user_id` = ? ' .
+			'AND `items`.`id` = ?';
+		$params = array(~StatusFlag::UNREAD, $userId, $feedId);
+
+		$this->execute($sql, $params);
+	}
+
+
+}
+	/**
+	 * Queries to find all items from a folder that belongs to a user
+	 */
+	/*private function makeFindAllFromFolderQuery($custom) {
+		return 'SELECT `*dbprefix*news_items`.* FROM `*dbprefix*news_items` ' .
+			'JOIN `*dbprefix*news_feeds` ' .
+			'ON `*dbprefix*news_feeds`.`id` = `*dbprefix*news_items`.`feed_id` ' .
+			'WHERE `*dbprefix*news_feeds`.`user_id` = ? ' .
+			'AND `*dbprefix*news_feeds`.`folder_id` = ? ' .
+			'AND ((`*dbprefix*news_items`.`status` & ?) > 0) ' .
+			$custom;
+	}
+	
+	public function findAllFromFolderByOffset($userId, $folderId, $status, $limit=null, $offset=null) {
+		$sql = $this->makeFindAllFromFolderQuery('');
+		$params = array($userId, $folderId, $status);
+		return $this->findAllRows($sql, $params, $limit, $offset);
+	}
+	
+ 	public function findAllFromFolderByLastMofified($userId, $folderId, $status, $lastModified) {
+		$sql = $this->makeFindAllFromFolderQuery(' AND (`*dbprefix*news_items`.`last_modified` >= ?)');
+		$params = array($userId, $folderId, $status, $lastModified);
+		return $this->findAllRows($sql, $params);
+	}	
+
+
+	/*
+	request: get all items of a folder of a user (unread and read)
+	SELECT * FROM items 
+		JOIN feeds
+			ON feed.id = feed_id
+		WHERE user_id = ? AND status = ? AND feed.folder_id = ?
+		(AND id < ? LIMIT ?)
+		(AND items.lastmodified >= ?)
+	*/
 	/**
 	 * Queries to find all items that belong to a user
 	 */
@@ -84,84 +165,6 @@ class ItemMapper extends Mapper implements IMapper {
 // 		$params = array($feedId, $userId, $limit, $offset);
 // 		return $this->findAllRows($sql, $params);
 // 	}
-	
-	/**
-	 * Queries to find all items from a folder that belongs to a user
-	 */
-	private function makeFindAllFromFolderQuery($custom) {
-		return 'SELECT `*dbprefix*news_items`.* FROM `*dbprefix*news_items` ' .
-			'JOIN `*dbprefix*news_feeds` ' .
-			'ON `*dbprefix*news_feeds`.`id` = `*dbprefix*news_items`.`feed_id` ' .
-			'WHERE `*dbprefix*news_feeds`.`user_id` = ? ' .
-			'AND `*dbprefix*news_feeds`.`folder_id` = ? ' .
-			'AND ((`*dbprefix*news_items`.`status` & ?) > 0) ' .
-			$custom;
-	}
-	
-	public function findAllFromFolderByOffset($userId, $folderId, $status, $limit=null, $offset=null) {
-		$sql = $this->makeFindAllFromFolderQuery('');
-		$params = array($userId, $folderId, $status);
-		return $this->findAllRows($sql, $params, $limit, $offset);
-	}
-	
- 	public function findAllFromFolderByLastMofified($userId, $folderId, $status, $lastModified) {
-		$sql = $this->makeFindAllFromFolderQuery(' AND (`*dbprefix*news_items`.`last_modified` >= ?)');
-		$params = array($userId, $folderId, $status, $lastModified);
-		return $this->findAllRows($sql, $params);
-	}
-	
-	
-
-	/*
-	request: get all items of a folder of a user (unread and read)
-	SELECT * FROM items 
-		JOIN feeds
-			ON feed.id = feed_id
-		WHERE user_id = ? AND status = ? AND feed.folder_id = ?
-		(AND id < ? LIMIT ?)
-		(AND items.lastmodified >= ?)
-	*/
-	
-	
-	
-	public function find($id, $userId){
-		$sql = 'SELECT `*dbprefix*news_items`.* FROM `*dbprefix*news_items` ' .
-			'JOIN `*dbprefix*news_feeds` ' .
-			'ON `*dbprefix*news_feeds`.`id` = `*dbprefix*news_items`.`feed_id` ' .
-			'WHERE `*dbprefix*news_items`.`id` = ? ' .
-			'AND `*dbprefix*news_feeds`.`user_id` = ? ';
-
-		$row = $this->findQuery($sql, array($id, $userId));
-		
-		$item = new Item();
-		$item->fromRow($row);
-		
-		return $item;
-	}
-
-
-	public function readFeed($feedId, $userId){
-		// TODO
-	}
-
-
-	public function starredCount($userId){
-		$sql = 'SELECT COUNT(*) AS size FROM `*dbprefix*news_feeds` `feeds` ' .
-			'JOIN `*dbprefix*news_items` `items` ' .
-				'ON `items`.`feed_id` = `feeds`.`id`' .
-			'WHERE `feeds`.`user_id` = ? ' .
-			'AND ((`items`.`status` & ?) > 0)';
-
-		$params = array($userId, StatusFlag::STARRED);
-
-		$result = $this->execute($sql, $params)->fetchRow();
-
-		return $result['size'];
-	}
-
-}
-
-
 /**
  * This class maps an item to a row of the items table in the database.
  * It follows the Data Mapper pattern (see http://martinfowler.com/eaaCatalog/dataMapper.html).
