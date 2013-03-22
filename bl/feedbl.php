@@ -25,6 +25,8 @@
 
 namespace OCA\News\Bl;
 
+use \OCA\AppFramework\Db\DoesNotExistException;
+
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\FeedMapper;
 use \OCA\News\Utility\FeedFetcher;
@@ -56,6 +58,10 @@ class FeedBl extends Bl {
 
 	public function create($feedUrl, $folderId, $userId){
 		// first try if the feed exists already
+		try {
+			$this->mapper->findByUrlHash(md5($feedUrl), $userId);
+			throw new BLException('Can not add feed: Exists already');
+		} catch(DoesNotExistException $ex){}
 		
 		try {
 			list($feed, $items) = $this->feedFetcher->fetch($feedUrl);

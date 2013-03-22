@@ -30,14 +30,14 @@ require_once(__DIR__ . "/../classloader.php");
 
 class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 
-	private $itemMapper;
+	private $mapper;
 	private $items;
 	
 	public function setUp()
 	{
 		$this->beforeEach();
 		
-		$this->itemMapper = new ItemMapper($this->api);
+		$this->mapper = new ItemMapper($this->api);
 		
 		// create mock items
 		$item1 = new Item();
@@ -72,24 +72,11 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			
 		$this->setMapperResult($sql, array($this->id, $this->userId), $this->row);
 		
-		$result = $this->itemMapper->find($this->id, $this->userId);
+		$result = $this->mapper->find($this->id, $this->userId);
 		$this->assertEquals($this->items[0], $result);
 		
 	}
 
-
-	public function testFindByUrlHash(){
-		$urlHash = md5('hihi');
-		$sql = 'SELECT `*dbprefix*news_items`.* FROM `*dbprefix*news_items` ' .
-			'JOIN `*dbprefix*news_feeds` ' .
-			'ON `*dbprefix*news_feeds`.`id` = `*dbprefix*news_items`.`feed_id` ' .
-			'WHERE `*dbprefix*news_items`.`url_hash` = ? ' .
-			'AND `*dbprefix*news_feeds`.`user_id` = ? ';
-		$this->setMapperResult($sql, array($urlHash, $this->userId), $this->row);
-		
-		$result = $this->itemMapper->findByUrlHash($urlHash, $this->userId);
-		$this->assertEquals($this->items[0], $result);
-	}
 
 // 
 // 	public function testFindNotFound(){
@@ -102,7 +89,7 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 // 		$this->setMapperResult($sql, array($id, $userId));
 // 		
 // 		$this->setExpectedException('\OCA\AppFramework\Db\DoesNotExistException');
-// 		$result = $this->itemMapper->find($id, $userId);	
+// 		$result = $this->mapper->find($id, $userId);	
 // 	}
 // 	
 // 	public function testFindMoreThanOneResultFound(){
@@ -120,7 +107,7 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 // 		$this->setMapperResult($sql, array($id, $userId), $rows);
 // 		
 // 		$this->setExpectedException('\OCA\AppFramework\Db\MultipleObjectsReturnedException');
-// 		$result = $this->itemMapper->find($id, $userId);
+// 		$result = $this->mapper->find($id, $userId);
 // 	}
 // 	
 // 	public function testFindAllFromFeed(){
@@ -135,7 +122,7 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 // 			'AND feed_id = ?';
 // 
 // 		$this->setMapperResult($sql, array($feedId, $userId), $rows);
-// 		$result = $this->itemMapper->findAllFromFeed($feedId, $userId);
+// 		$result = $this->mapper->findAllFromFeed($feedId, $userId);
 // 		$this->assertEquals($this->items, $result);
 // 
 // 	}
@@ -154,7 +141,7 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 // 			'AND ((`*dbprefix*news_items`.`status` & ?) > 0)';
 // 
 // 		$this->setMapperResult($sql, array($feedId, $userId, $status), $rows);
-// 		$result = $this->itemMapper->findAllFromFeedByStatus($feedId, $userId, $status);
+// 		$result = $this->mapper->findAllFromFeedByStatus($feedId, $userId, $status);
 // 		$this->assertEquals($this->items, $result);
 // 
 // 	}
@@ -176,7 +163,7 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		
 		$params = array($this->userId, $this->folderId, $status);
 		$this->setMapperResult($sql, $params, $this->rows);
-		$result = $this->itemMapper->findAllFromFolderByOffset($this->userId, $this->folderId, $status);
+		$result = $this->mapper->findAllFromFolderByOffset($this->userId, $this->folderId, $status);
 		$this->assertEquals($this->items, $result);
 		
 	}
@@ -190,7 +177,7 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		
 		$params = array($this->userId, $this->folderId, $status);
 		$this->setMapperResult($sql, $params, $this->rows);
-		$result = $this->itemMapper->findAllFromFolderByOffset($this->userId, $this->folderId, $status, $limit, $offset);
+		$result = $this->mapper->findAllFromFolderByOffset($this->userId, $this->folderId, $status, $limit, $offset);
 		$this->assertEquals($this->items, $result);
 		
 	}
@@ -203,7 +190,7 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		
 		$params = array($this->userId, $this->folderId, $status, $lastModified);
 		$this->setMapperResult($sql, $params, $this->rows);
-		$result = $this->itemMapper->findAllFromFolderByLastMofified($this->userId, $this->folderId, $status, $lastModified);
+		$result = $this->mapper->findAllFromFolderByLastMofified($this->userId, $this->folderId, $status, $lastModified);
 		$this->assertEquals($this->items, $result);
 		
 	}
@@ -223,8 +210,27 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 // 			'AND `*dbprefix*news_items`.last_modified >= ? ';
 // 			
 // 		$this->setMapperResult($sql, array($userId, $folderId, $lastModified));
-// 		$result = $this->itemMapper->findAllFromFolderByLastMofified($userId, $folderId, $lastModified);
+// 		$result = $this->mapper->findAllFromFolderByLastMofified($userId, $folderId, $lastModified);
 // 	}
 	
+
+
+	public function testGetStarredCount(){
+		$userId = 'john';
+		$row = array(
+			array('size' => 9)
+		);
+		$sql = 'SELECT COUNT(*) AS size FROM `*dbprefix*news_feeds` `feeds` ' .
+			'JOIN `*dbprefix*news_items` `items` ' .
+				'ON `items`.`feed_id` = `feeds`.`id`' .
+			'WHERE `feeds`.`user_id` = ? ' .
+			'AND ((`items`.`status` & ?) > 0)';
+		
+		$this->setMapperResult($sql, array($userId, StatusFlag::STARRED), $row);
+		
+		$result = $this->mapper->starredCount($userId);
+		$this->assertEquals($row[0]['size'], $result);
+	}
+
 
 }

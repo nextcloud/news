@@ -30,13 +30,13 @@ require_once(__DIR__ . "/../classloader.php");
 
 class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 
-	private $feedMapper;
+	private $mapper;
 	private $feeds;
 	
 	protected function setUp(){
 		$this->beforeEach();
 
-		$this->feedMapper = new FeedMapper($this->api);
+		$this->mapper = new FeedMapper($this->api);
 
 		// create mock feeds
 		$feed1 = new Feed();
@@ -46,6 +46,7 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			$feed1,
 			$feed2
 		);
+		$this->user = 'herman';
 	}
 
 
@@ -61,7 +62,7 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			
 		$this->setMapperResult($sql, array($id, $userId), $rows);
 		
-		$result = $this->feedMapper->find($id, $userId);
+		$result = $this->mapper->find($id, $userId);
 		$this->assertEquals($this->feeds[0], $result);
 		
 	}
@@ -77,7 +78,7 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$this->setMapperResult($sql, array($id, $userId));
 		
 		$this->setExpectedException('\OCA\AppFramework\Db\DoesNotExistException');
-		$result = $this->feedMapper->find($id, $userId);	
+		$result = $this->mapper->find($id, $userId);	
 	}
 	
 
@@ -95,7 +96,7 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$this->setMapperResult($sql, array($id, $userId), $rows);
 		
 		$this->setExpectedException('\OCA\AppFramework\Db\MultipleObjectsReturnedException');
-		$result = $this->feedMapper->find($id, $userId);
+		$result = $this->mapper->find($id, $userId);
 	}
 
 
@@ -109,7 +110,7 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		
 		$this->setMapperResult($sql, array(), $rows);
 		
-		$result = $this->feedMapper->findAll();
+		$result = $this->mapper->findAll();
 		$this->assertEquals($this->feeds, $result);
 	}
 
@@ -130,24 +131,54 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		
 		$this->setMapperResult($sql, array($userId), $rows);
 		
-		$result = $this->feedMapper->findAllFromUser($userId);
+		$result = $this->mapper->findAllFromUser($userId);
 		$this->assertEquals($this->feeds, $result);
 	}
 
 
-	public function testGetStarredCount(){
-		$userId = 'john';
+	public function testFindByUrlHash(){
+		$urlHash = md5('hihi');
 		$row = array(
-			array('size' => 9)
+			array('id' => $this->feeds[0]->getId()),
 		);
-		$sql = 'SELECT COUNT(*) AS size FROM `*dbprefix*news_feeds` ' .
-			'AND `user_id` = ? ' .
-			'AND ((`status` & ?) > 0)';
+		$sql = 'SELECT * FROM `*dbprefix*news_feeds` ' .
+			'WHERE `url_hash` = ? ' .
+			'AND `user_id` = ?';
+		$this->setMapperResult($sql, array($urlHash, $this->user), $row);
 		
-		$this->setMapperResult($sql, array($userId, StatusFlag::STARRED), $row);
-		
-		$result = $this->feedMapper->getStarredCount($userId);
-		$this->assertEquals($row[0]['size'], $result);
+		$result = $this->mapper->findByUrlHash($urlHash, $this->user);
+		$this->assertEquals($this->feeds[0], $result);
 	}
+
+
+	public function testFindByUrlHashNotFound(){
+		$urlHash = md5('hihi');
+		$sql = 'SELECT * FROM `*dbprefix*news_feeds` ' .
+			'WHERE `url_hash` = ? ' .
+			'AND `user_id` = ?';
+			
+		$this->setMapperResult($sql, array($urlHash, $this->user));
+		
+		$this->setExpectedException('\OCA\AppFramework\Db\DoesNotExistException');
+		$result = $this->mapper->findByUrlHash($urlHash, $this->user);	
+	}
+	
+
+	public function testFindByUrlHashMoreThanOneResultFound(){
+		$urlHash = md5('hihi');
+		$rows = array(
+			array('id' => $this->feeds[0]->getId()),
+			array('id' => $this->feeds[1]->getId())
+		);
+		$sql = 'SELECT * FROM `*dbprefix*news_feeds` ' .
+			'WHERE `url_hash` = ? ' .
+			'AND `user_id` = ?';
+			
+		$this->setMapperResult($sql, array($urlHash, $this->user));
+		
+		$this->setExpectedException('\OCA\AppFramework\Db\DoesNotExistException');
+		$result = $this->mapper->findByUrlHash($urlHash, $this->user);	
+	}
+
 
 }

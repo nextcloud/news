@@ -27,6 +27,7 @@ namespace OCA\News\Bl;
 
 require_once(__DIR__ . "/../classloader.php");
 
+use \OCA\AppFramework\Db\DoesNotExistException;
 
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\Item;
@@ -84,23 +85,33 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 	public function testCreateDoesNotFindFeed(){
 		$ex = new FetcherException('hi');
 		$url = 'test';
+		$this->mapper->expects($this->once())
+			->method('findByUrlHash')
+			->with($this->equalTo(md5($url)), $this->equalTo($this->user))
+			->will($this->throwException(new DoesNotExistException('yo')));
 		$this->fetcher->expects($this->once())
 			->method('fetch')
 			->with($this->equalTo($url))
 			->will($this->throwException($ex));
 		$this->setExpectedException('\OCA\News\Bl\BLException');
-		$this->bl->create($url, 1, 2);
+		$this->bl->create($url, 1, $this->user);
 	}
 
 	public function testCreate(){
 		$url = 'test';
 		$folderId = 10;
 		$createdFeed = new Feed();
+		$ex = new DoesNotExistException('yo');
 		$createdFeed->setUrl($url);
 		$return = array(
 			$createdFeed,
 			array(new Item(), new Item())
 		);
+
+		$this->mapper->expects($this->once())
+			->method('findByUrlHash')
+			->with($this->equalTo(md5($url)), $this->equalTo($this->user))
+			->will($this->throwException($ex));
 		$this->fetcher->expects($this->once())
 			->method('fetch')
 			->with($this->equalTo($url))
@@ -120,6 +131,16 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 
 		$this->assertEquals($feed->getFolderId(), $folderId);
 		$this->assertEquals($feed->getUrl(), $url);
+	}
+
+	public function testCreateFeedExistsAlready(){
+		$url = 'test';
+		$this->mapper->expects($this->once())
+			->method('findByUrlHash')
+			->with($this->equalTo(md5($url)), $this->equalTo($this->user));
+		$this->setExpectedException('\OCA\News\Bl\BLException');
+		$this->bl->create($url, 1, $this->user);
+
 	}
 
 

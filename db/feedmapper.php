@@ -84,16 +84,18 @@ class FeedMapper extends Mapper implements IMapper {
 	}
 
 
-	public function getStarredCount($userId){
-		$sql = 'SELECT COUNT(*) AS size FROM `*dbprefix*news_feeds` ' .
-			'AND `user_id` = ? ' .
-			'AND ((`status` & ?) > 0)';
-		$params = array($userId, StatusFlag::STARRED);
+	public function findByUrlHash($hash, $userId){
+		$sql = 'SELECT * FROM `*dbprefix*news_feeds` ' .
+			'WHERE `url_hash` = ? ' .
+			'AND `user_id` = ?';
+		$params = array($hash, $userId);
 
-		$result = $this->execute($sql, $params)->fetchRow();
+		$row = $this->findQuery($sql, $params);
+		$feed = new Feed();
+		$feed->fromRow($row);
 
-		return $result['size'];
+		return $feed;
+
 	}
-
 
 }

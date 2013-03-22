@@ -36,21 +36,6 @@ class ItemMapper extends Mapper implements IMapper {
 	}
 	
 
-	public function findByUrlHash($urlHash, $userId){
-		$sql = 'SELECT `*dbprefix*news_items`.* FROM `*dbprefix*news_items` ' .
-			'JOIN `*dbprefix*news_feeds` ' .
-			'ON `*dbprefix*news_feeds`.`id` = `*dbprefix*news_items`.`feed_id` ' .
-			'WHERE `*dbprefix*news_items`.`url_hash` = ? ' .
-			'AND `*dbprefix*news_feeds`.`user_id` = ? ';
-		$params = array($urlHash, $userId);
-		
-		$row = $this->findQuery($sql, $params);
-		$item = new Item();
-		$item->fromRow($row);
-
-		return $item;
-	}
-
 	protected function findAllRows($sql, $params, $limit=null, $offset=null) {
 		$result = $this->execute($sql, $params, $limit, $offset);
 		$items = array();
@@ -161,7 +146,17 @@ class ItemMapper extends Mapper implements IMapper {
 
 
 	public function starredCount($userId){
-		// TODO
+		$sql = 'SELECT COUNT(*) AS size FROM `*dbprefix*news_feeds` `feeds` ' .
+			'JOIN `*dbprefix*news_items` `items` ' .
+				'ON `items`.`feed_id` = `feeds`.`id`' .
+			'WHERE `feeds`.`user_id` = ? ' .
+			'AND ((`items`.`status` & ?) > 0)';
+
+		$params = array($userId, StatusFlag::STARRED);
+
+		$result = $this->execute($sql, $params)->fetchRow();
+
+		return $result['size'];
 	}
 
 }
