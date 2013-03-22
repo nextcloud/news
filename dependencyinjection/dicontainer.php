@@ -93,7 +93,7 @@ class DIContainer extends BaseContainer {
 		});
 
 		$this['FeedBl'] = $this->share(function($c){
-			return new FeedBl($c['FeedMapper'], $c['Utils']);
+			return new FeedBl($c['FeedMapper'], $c['FeedFetcher']);
 		});
 
 		$this['ItemBl'] = $this->share(function($c){
@@ -120,8 +120,8 @@ class DIContainer extends BaseContainer {
 		/**
 		 * Utility
 		 */
-		$this['Utils'] = $this->share(function($c){
-			return new Utils();
+		$this['FeedFetcher'] = $this->share(function($c){
+			return new FeedFetcher();
 		});
 
 
