@@ -82,7 +82,8 @@ class DIContainer extends BaseContainer {
 		});
 
 		$this['UserSettingsController'] = $this->share(function($c){
-			return new UserSettingsController($c['API'], $c['Request']);
+			return new UserSettingsController($c['API'], $c['Request'], 
+					$c['ItemBl']);
 		});
 
 		/**

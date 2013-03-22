@@ -49,6 +49,7 @@ class UserSettingsControllerTest extends ControllerTestUtility {
 		$this->api = $this->getAPIMock();
 		$this->request = new Request();
 		$this->controller = new UserSettingsController($this->api, $this->request);
+		$this->user = 'becka';
 	}
 
 
@@ -73,6 +74,51 @@ class UserSettingsControllerTest extends ControllerTestUtility {
 	}
 
 
+	public function testShow(){
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->api->expects($this->once())
+			->method('setUserValue')
+			->with($this->equalTo($this->user),
+				$this->equalTo('showAll'), 
+				$this->equalTo(true));
+		$result = $this->controller->show();
+	}
+
+
+	public function testHide(){
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->api->expects($this->once())
+			->method('setUserValue')
+			->with($this->equalTo($this->user),
+				$this->equalTo('showAll'), 
+				$this->equalTo(false));
+		$result = $this->controller->hide();
+	}
+
+
+	public function testRead(){
+		$result = array(
+			'showAll' => true
+		);
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->api->expects($this->once())
+			->method('getUserValue')
+			->with($this->equalTo($this->user),
+				$this->equalTo('showAll'))
+			->will($this->returnValue('true'));
+		
+		$response = $this->controller->read();
+		$this->assertEquals($result, $response->getParams());
+		$this->assertTrue($response instanceof JSONResponse);
+	}
 	
+
+
 
 }
