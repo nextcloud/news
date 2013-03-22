@@ -56,7 +56,19 @@ class ItemControllerTest extends ControllerTestUtility {
 		$this->request = new Request();
 		$this->controller = new ItemController($this->api, $this->request,
 				$this->bl);
+		$this->user = 'jackob';
 	}
+
+	private function getPostController($postValue, $url=array()){
+		$post = array(
+			'post' => $postValue,
+			'urlParams' => $url
+		);
+
+		$request = $this->getRequest($post);
+		return new ItemController($this->api, $request, $this->bl);
+	}
+
 
 	private function assertItemControllerAnnotations($methodName){
 		$annotations = array('IsAdminExemption', 'IsSubAdminExemption', 'Ajax');
@@ -95,6 +107,110 @@ class ItemControllerTest extends ControllerTestUtility {
 
 	public function testReadFeedAnnotations(){
 		$this->assertItemControllerAnnotations('readFeed');
+	}
+
+
+	public function testRead(){
+		$url = array(
+			'itemId' => 4
+		);
+		$this->controller = $this->getPostController(array(), $url);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->bl->expects($this->once())
+			->method('read')
+			->with($url['itemId'], true, $this->user);
+
+
+		$this->controller->read();
+	}
+
+
+	public function testUnread(){
+		$url = array(
+			'itemId' => 4
+		);
+		$this->controller = $this->getPostController(array(), $url);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->bl->expects($this->once())
+			->method('read')
+			->with($url['itemId'], false, $this->user);
+
+		$this->controller->unread();
+	}
+
+
+		public function testStar(){
+		$url = array(
+			'itemId' => 4
+		);
+		$this->controller = $this->getPostController(array(), $url);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->bl->expects($this->once())
+			->method('star')
+			->with($url['itemId'], true, $this->user);
+
+		$this->controller->star();
+	}
+
+
+	public function testUnstar(){
+		$url = array(
+			'itemId' => 4
+		);
+		$this->controller = $this->getPostController(array(), $url);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->bl->expects($this->once())
+			->method('star')
+			->with($url['itemId'], false, $this->user);
+
+		$this->controller->unstar();
+	}
+
+
+	public function testReadFeed(){
+		$url = array(
+			'feedId' => 4
+		);
+		$this->controller = $this->getPostController(array(), $url);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->bl->expects($this->once())
+			->method('readFeed')
+			->with($url['feedId'], $this->user);
+
+		$this->controller->readFeed();
+	}
+
+
+	public function testStarred(){
+		$result = array(
+			'starred' => 3
+		);
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->bl->expects($this->once())
+			->method('starredCount')
+			->with($this->user)
+			->will($this->returnValue($result['starred']));
+		$response = $this->controller->starred();
+
+		$this->assertEquals($result, $response->getParams());
+		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 }

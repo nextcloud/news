@@ -58,9 +58,23 @@ class ItemController extends Controller {
 	 * @Ajax
 	 */
 	public function starred(){
-		
+		$userId = $this->api->getUserId();
+		$starredCount = $this->itemBl->starredCount($userId);
+
+		$params = array(
+			'starred' => $starredCount
+		);
+
+		return $this->renderJSON($params);
 	}
 
+
+	private function setStarred($isStarred){
+		$userId = $this->api->getUserId();
+		$itemId = $this->params('itemId');
+
+		$this->itemBl->star($itemId, $isStarred, $userId);
+	}
 
 	/**
 	 * @IsAdminExemption
@@ -68,7 +82,7 @@ class ItemController extends Controller {
 	 * @Ajax
 	 */
 	public function star(){
-		
+		$this->setStarred(true);
 	}
 
 
@@ -78,9 +92,16 @@ class ItemController extends Controller {
 	 * @Ajax
 	 */
 	public function unstar(){
-		
+		$this->setStarred(false);
 	}
 
+
+	private function setRead($isRead){
+		$userId = $this->api->getUserId();
+		$itemId = $this->params('itemId');
+
+		$this->itemBl->read($itemId, $isRead, $userId);
+	}
 
 	/**
 	 * @IsAdminExemption
@@ -88,7 +109,7 @@ class ItemController extends Controller {
 	 * @Ajax
 	 */
 	public function read(){
-		
+		$this->setRead(true);
 	}
 
 
@@ -98,7 +119,7 @@ class ItemController extends Controller {
 	 * @Ajax
 	 */
 	public function unread(){
-		
+		$this->setRead(false);
 	}
 
 
@@ -108,6 +129,11 @@ class ItemController extends Controller {
 	 * @Ajax
 	 */
 	public function readFeed(){
-		
+		$userId = $this->api->getUserId();
+		$feedId = $this->params('feedId');
+
+		$this->itemBl->readFeed($feedId, $userId);
 	}
+
+
 }
