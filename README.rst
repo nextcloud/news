@@ -8,4 +8,8 @@ TODO
 
 * Referential integrity (delete items and feeds when feed or folder with FK was deleted)
 * Port coffeescript
-* Dont allow multiple feeds with the same name
+* make export work -> generate xml with template
+* make fetching of items work
+* make feed update work
+* fix search plugin
+* fix background job
