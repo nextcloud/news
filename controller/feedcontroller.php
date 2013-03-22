@@ -32,16 +32,21 @@ use \OCA\AppFramework\Db\DoesNotExistException;
 use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
 
 use \OCA\News\Bl\FeedBl;
+use \OCA\News\Bl\FolderBl;
 use \OCA\News\Bl\BLException;
+use \OCA\News\Db\FeedType;
 
 
 class FeedController extends Controller {
 
 	private $feedBl;
+	private $folderBl;
 
-	public function __construct(API $api, Request $request, FeedBl $feedBl){
+	public function __construct(API $api, Request $request, FeedBl $feedBl,
+		                        FolderBl $folderBl){
 		parent::__construct($api, $request);
 		$this->feedBl = $feedBl;
+		$this->folderBl = $folderBl;
 	}
 
 
@@ -68,8 +73,21 @@ class FeedController extends Controller {
 	 * @Ajax
 	 */
 	public function active(){
-		$feedId = $this->api->getUserValue('lastViewedFeedId');
-		$feedType = $this->api->getUserValue('lastViewedFeedType');
+		$userId = $this->api->getUserId();
+		$feedId = $this->api->getUserValue($userId, 'lastViewedFeedId');
+		$feedType = $this->api->getUserValue($userId, 'lastViewedFeedType');
+
+		// check if feed or folder exist
+		try {
+			if($feedType === FeedType::FOLDER){
+				$this->folderBl->find($feedId, $userId);
+			} elseif ($feedType === FeedType::FEED){
+				$this->feedBl->find($feedId, $userId);
+			}
+		} catch (BLException $ex){
+			$feedId = 0;
+			$feedType = FeedType::SUBSCRIPTIONS;
+		}
 
 		$params = array(
 			'activeFeed' => array(

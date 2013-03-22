@@ -32,6 +32,7 @@ use \OCA\AppFramework\Db\DoesNotExistException;
 use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
 
 use \OCA\News\Db\Feed;
+use \OCA\News\Db\FeedType;
 use \OCA\News\Bl\BLException;
 
 
@@ -44,6 +45,7 @@ class FeedControllerTest extends ControllerTestUtility {
 	private $bl;
 	private $request;
 	private $controller;
+	private $folderBl;
 
 
 	/**
@@ -54,9 +56,12 @@ class FeedControllerTest extends ControllerTestUtility {
 		$this->bl = $this->getMockBuilder('\OCA\News\Bl\FeedBl')
 			->disableOriginalConstructor()
 			->getMock();
+		$this->folderBl = $this->getMockBuilder('\OCA\News\Bl\FolderBl')
+			->disableOriginalConstructor()
+			->getMock();
 		$this->request = new Request();
 		$this->controller = new FeedController($this->api, $this->request,
-				$this->bl);
+				$this->bl, $this->folderBl);
 		$this->user = 'jack';
 	}
 
@@ -73,7 +78,7 @@ class FeedControllerTest extends ControllerTestUtility {
 		);
 
 		$request = $this->getRequest($post);
-		return new FeedController($this->api, $request, $this->bl);
+		return new FeedController($this->api, $request, $this->bl, $this->folderBl);
 	}
 
 
@@ -128,9 +133,24 @@ class FeedControllerTest extends ControllerTestUtility {
 	}
 
 
+	private function activeInitMocks($id, $type){
+		$this->api->expects($this->at(0))
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->api->expects($this->at(1))
+			->method('getUserValue')
+			->with($this->equalTo($this->user), $this->equalTo('lastViewedFeedId'))
+			->will($this->returnValue($id));
+		$this->api->expects($this->at(2))
+			->method('getUserValue')
+			->with($this->equalTo($this->user), $this->equalTo('lastViewedFeedType'))
+			->will($this->returnValue($type));
+	}
+
+
 	public function testActive(){
 		$id = 3;
-		$type = 2;
+		$type = FeedType::STARRED;
 		$result = array(
 			'activeFeed' => array(
 				'id' => $id,
@@ -138,14 +158,55 @@ class FeedControllerTest extends ControllerTestUtility {
 			)
 		);
 
-		$this->api->expects($this->at(0))
-			->method('getUserValue')
-			->with($this->equalTo('lastViewedFeedId'))
-			->will($this->returnValue($id));
-		$this->api->expects($this->at(1))
-			->method('getUserValue')
-			->with($this->equalTo('lastViewedFeedType'))
-			->will($this->returnValue($type));
+		$this->activeInitMocks($id, $type);
+
+		$response = $this->controller->active();
+
+		$this->assertEquals($result, $response->getParams());
+		$this->assertTrue($response instanceof JSONResponse);
+	}
+
+
+	public function testActiveFeedDoesNotExist(){
+		$id = 3;
+		$type = FeedType::FEED;
+		$ex = new BLException('hiu');
+		$result = array(
+			'activeFeed' => array(
+				'id' => 0,
+				'type' => FeedType::SUBSCRIPTIONS
+			)
+		);
+		$this->bl->expects($this->once())
+			->method('find')
+			->with($this->equalTo($id), $this->equalTo($this->user))
+			->will($this->throwException($ex));
+
+		$this->activeInitMocks($id, $type);
+
+		$response = $this->controller->active();
+
+		$this->assertEquals($result, $response->getParams());
+		$this->assertTrue($response instanceof JSONResponse);
+	}
+
+
+	public function testActiveFolderDoesNotExist(){
+		$id = 3;
+		$type = FeedType::FOLDER;
+		$ex = new BLException('hiu');
+		$result = array(
+			'activeFeed' => array(
+				'id' => 0,
+				'type' => FeedType::SUBSCRIPTIONS
+			)
+		);
+		$this->folderBl->expects($this->once())
+			->method('find')
+			->with($this->equalTo($id), $this->equalTo($this->user))
+			->will($this->throwException($ex));
+
+		$this->activeInitMocks($id, $type);
 
 		$response = $this->controller->active();
 
