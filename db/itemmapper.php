@@ -49,15 +49,24 @@ class ItemMapper extends Mapper implements IMapper {
 
 		return $items;
 	}
+	
 
+	protected function makeSelectQuery($prependTo){
+		return 'SELECT `*PREFIX*news_items`.* FROM `*PREFIX*news_items` ' .
+			'JOIN `*PREFIX*news_feeds` ' .
+				'ON `*PREFIX*news_feeds`.`id` = `*PREFIX*news_items`.`feed_id` '.
+				'AND `*PREFIX*news_feeds`.`user_id` = ? ' . $prependTo;		
+	}
+
+	protected function makeFindAllFromFolderQuery($prependTo) {
+		return $this->makeSelectQuery(
+			'WHERE ((`*PREFIX*news_items`.`status` & ?) > 0) ' .
+			$prependTo
+		);
+	}
 	
 	public function find($id, $userId){
-		$sql = 'SELECT `*PREFIX*news_items`.* FROM `*PREFIX*news_items` ' .
-				'JOIN `*PREFIX*news_feeds` ' .
-				'ON `*PREFIX*news_feeds`.`id` = `*PREFIX*news_items`.`feed_id` ' .
-				'AND `*PREFIX*news_feeds`.`user_id` = ? ' .
-			'WHERE `*PREFIX*news_items`.`id` = ? ';
-
+		$sql = $this->makeSelectQuery('WHERE `*PREFIX*news_items`.`id` = ? ');
 		$row = $this->findOneQuery($sql, array($id, $userId));
 		
 		$item = new Item();

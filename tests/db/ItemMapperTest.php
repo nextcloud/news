@@ -65,23 +65,23 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 	}
 	
 
-	private function makeFindAllFromFolderQuery($custom) {
+	private function makeSelectQuery($prependTo){
 		return 'SELECT `*PREFIX*news_items`.* FROM `*PREFIX*news_items` ' .
 			'JOIN `*PREFIX*news_feeds` ' .
-			'ON `*PREFIX*news_feeds`.`id` = `*PREFIX*news_items`.`feed_id` ' .
-			'AND `*PREFIX*news_feeds`.`folder_id` = ? ' .
-			'WHERE `*PREFIX*news_feeds`.`user_id` = ? ' .
-			'AND ((`*PREFIX*news_items`.`status` & ?) > 0) ' .
-			$custom;
+				'ON `*PREFIX*news_feeds`.`id` = `*PREFIX*news_items`.`feed_id` '.
+				'AND `*PREFIX*news_feeds`.`user_id` = ? ' . $prependTo;		
+	}
+
+	private function makeFindAllFromFolderQuery($prependTo) {
+		return $this->makeSelectQuery(
+			'WHERE ((`*PREFIX*news_items`.`status` & ?) > 0) ' .
+			$prependTo
+		);
 	}
 
 
 	public function testFind(){
-		$sql = 'SELECT `*PREFIX*news_items`.* FROM `*PREFIX*news_items` ' .
-			'JOIN `*PREFIX*news_feeds` ' .
-			'ON `*PREFIX*news_feeds`.`id` = `*PREFIX*news_items`.`feed_id` ' .
-			'AND `*PREFIX*news_feeds`.`user_id` = ? ' .
-			'WHERE `*PREFIX*news_items`.`id` = ? ';
+		$sql = $this->makeSelectQuery('WHERE `*PREFIX*news_items`.`id` = ? ');
 			
 		$this->setMapperResult($sql, array($this->id, $this->userId), $this->row);
 		
