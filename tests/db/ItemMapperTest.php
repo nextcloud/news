@@ -66,22 +66,22 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 	
 
 	private function makeFindAllFromFolderQuery($custom) {
-		return 'SELECT `*dbprefix*news_items`.* FROM `*dbprefix*news_items` ' .
-			'JOIN `*dbprefix*news_feeds` ' .
-			'ON `*dbprefix*news_feeds`.`id` = `*dbprefix*news_items`.`feed_id` ' .
-			'WHERE `*dbprefix*news_feeds`.`user_id` = ? ' .
-			'AND `*dbprefix*news_feeds`.`folder_id` = ? ' .
-			'AND ((`*dbprefix*news_items`.`status` & ?) > 0) ' .
+		return 'SELECT `*PREFIX*news_items`.* FROM `*PREFIX*news_items` ' .
+			'JOIN `*PREFIX*news_feeds` ' .
+			'ON `*PREFIX*news_feeds`.`id` = `*PREFIX*news_items`.`feed_id` ' .
+			'AND `*PREFIX*news_feeds`.`folder_id` = ? ' .
+			'WHERE `*PREFIX*news_feeds`.`user_id` = ? ' .
+			'AND ((`*PREFIX*news_items`.`status` & ?) > 0) ' .
 			$custom;
 	}
 
 
 	public function testFind(){
-		$sql = 'SELECT `*dbprefix*news_items`.* FROM `*dbprefix*news_items` ' .
-			'JOIN `*dbprefix*news_feeds` ' .
-			'ON `*dbprefix*news_feeds`.`id` = `*dbprefix*news_items`.`feed_id` ' .
-			'WHERE `*dbprefix*news_items`.`id` = ? ' .
-			'AND `*dbprefix*news_feeds`.`user_id` = ? ';
+		$sql = 'SELECT `*PREFIX*news_items`.* FROM `*PREFIX*news_items` ' .
+			'JOIN `*PREFIX*news_feeds` ' .
+			'ON `*PREFIX*news_feeds`.`id` = `*PREFIX*news_items`.`feed_id` ' .
+			'AND `*PREFIX*news_feeds`.`user_id` = ? ' .
+			'WHERE `*PREFIX*news_items`.`id` = ? ';
 			
 		$this->setMapperResult($sql, array($this->id, $this->userId), $this->row);
 		
@@ -96,11 +96,11 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$row = array(
 			array('size' => 9)
 		);
-		$sql = 'SELECT COUNT(*) AS size FROM `*dbprefix*news_feeds` `feeds` ' .
-			'JOIN `*dbprefix*news_items` `items` ' .
+		$sql = 'SELECT COUNT(*) AS size FROM `*PREFIX*news_feeds` `feeds` ' .
+			'JOIN `*PREFIX*news_items` `items` ' .
 				'ON `items`.`feed_id` = `feeds`.`id` ' .
-			'WHERE `feeds`.`user_id` = ? ' .
-			'AND ((`items`.`status` & ?) > 0)';
+				'AND `feeds`.`user_id` = ? ' .
+			'WHERE ((`items`.`status` & ?) > 0)';
 		
 		$this->setMapperResult($sql, array($userId, StatusFlag::STARRED), $row);
 		
@@ -110,12 +110,12 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 
 
 	public function testReadFeed(){
-		$sql = 'UPDATE `*dbprefix*news_feeds` `feeds` ' .
-			'JOIN `*dbprefix*news_items` `items` ' .
+		$sql = 'UPDATE `*PREFIX*news_feeds` `feeds` ' .
+			'JOIN `*PREFIX*news_items` `items` ' .
 				'ON `items`.`feed_id` = `feeds`.`id` ' .
+				'AND `feeds`.`user_id` = ? ' .
 			'SET `items`.`status` = (`items`.`status` & ?) ' .
-			'WHERE `feeds`.`user_id` = ? ' .
-			'AND `items`.`id` = ?';
+			'WHERE `items`.`id` = ?';
 		$this->setMapperResult($sql, array(~StatusFlag::UNREAD, $this->user, 3));
 		$this->mapper->readFeed(3, $this->user);
 	}
@@ -148,7 +148,7 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 	}
 	
 	public function testFindAllFromFolderByLastModified() {
-		$sql = $this->makeFindAllFromFolderQuery(' AND (`*dbprefix*news_items`.`last_modified` >= ?)');
+		$sql = $this->makeFindAllFromFolderQuery(' AND (`*PREFIX*news_items`.`last_modified` >= ?)');
 		
 		$status = 2;
 		$lastModified = 100;
@@ -174,23 +174,23 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 // 		$folderId = 3;
 // 		$lastModified = 123;
 // 	
-// 		$sql = 'SELECT `*dbprefix*news_items`.* FROM `*dbprefix*news_items` ' .
-// 			'JOIN `*dbprefix*news_feeds` ' .
-// 			'ON `*dbprefix*news_feeds`.`id` = `*dbprefix*news_items`.`feed_id` ' .
-// 			'WHERE `*dbprefix*news_feeds`.`user_id` = ? ' .
-// 			'AND `*dbprefix*news_feeds`.`folder_id` = ? ' .
-// 			'AND `*dbprefix*news_items`.last_modified >= ? ';
+// 		$sql = 'SELECT `*PREFIX*news_items`.* FROM `*PREFIX*news_items` ' .
+// 			'JOIN `*PREFIX*news_feeds` ' .
+// 			'ON `*PREFIX*news_feeds`.`id` = `*PREFIX*news_items`.`feed_id` ' .
+// 			'WHERE `*PREFIX*news_feeds`.`user_id` = ? ' .
+// 			'AND `*PREFIX*news_feeds`.`folder_id` = ? ' .
+// 			'AND `*PREFIX*news_items`.last_modified >= ? ';
 // 			
 // 		$this->setMapperResult($sql, array($userId, $folderId, $lastModified));
 // 		$result = $this->mapper->findAllFromFolderByLastMofified($userId, $folderId, $lastModified);
 // 	}
 // 
 // 	public function testFindNotFound(){
-// 		$sql = 'SELECT `*dbprefix*news_items`.* FROM `*dbprefix*news_items` ' .
-// 			'JOIN `*dbprefix*news_feeds` ' .
-// 			'ON `*dbprefix*news_feeds`.`id` = `*dbprefix*news_items`.`feed_id` ' .
-// 			'WHERE `*dbprefix*news_items`.`id` = ? ' .
-// 			'AND `*dbprefix*news_feeds`.`user_id` = ? ';
+// 		$sql = 'SELECT `*PREFIX*news_items`.* FROM `*PREFIX*news_items` ' .
+// 			'JOIN `*PREFIX*news_feeds` ' .
+// 			'ON `*PREFIX*news_feeds`.`id` = `*PREFIX*news_items`.`feed_id` ' .
+// 			'WHERE `*PREFIX*news_items`.`id` = ? ' .
+// 			'AND `*PREFIX*news_feeds`.`user_id` = ? ';
 // 			
 // 		$this->setMapperResult($sql, array($id, $userId));
 // 		
@@ -203,11 +203,11 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 // 			array('id' => $this->items[0]->getId()),
 // 			array('id' => $this->items[1]->getId())
 // 		);
-// 		$sql = 'SELECT `*dbprefix*news_items`.* FROM `*dbprefix*news_items` ' .
-// 			'JOIN `*dbprefix*news_feeds` ' .
-// 			'ON `*dbprefix*news_feeds`.`id` = `*dbprefix*news_items`.`feed_id` ' .
-// 			'WHERE `*dbprefix*news_items`.`id` = ? ' .
-// 			'AND `*dbprefix*news_feeds`.`user_id` = ? ';
+// 		$sql = 'SELECT `*PREFIX*news_items`.* FROM `*PREFIX*news_items` ' .
+// 			'JOIN `*PREFIX*news_feeds` ' .
+// 			'ON `*PREFIX*news_feeds`.`id` = `*PREFIX*news_items`.`feed_id` ' .
+// 			'WHERE `*PREFIX*news_items`.`id` = ? ' .
+// 			'AND `*PREFIX*news_feeds`.`user_id` = ? ';
 // 
 // 		
 // 		$this->setMapperResult($sql, array($id, $userId), $rows);
@@ -244,7 +244,7 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 // 		$sql = 'SELECT * FROM `*PREFIX*news_items` ' .
 // 			'WHERE user_id = ? ' .
 // 			'AND feed_id = ? ' .
-// 			'AND ((`*dbprefix*news_items`.`status` & ?) > 0)';
+// 			'AND ((`*PREFIX*news_items`.`status` & ?) > 0)';
 // 
 // 		$this->setMapperResult($sql, array($feedId, $userId, $status), $rows);
 // 		$result = $this->mapper->findAllFromFeedByStatus($feedId, $userId, $status);

@@ -56,7 +56,7 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$rows = array(
 		  array('id' => $this->feeds[0]->getId()),
 		);
-		$sql = 'SELECT * FROM `*dbprefix*news_feeds` ' .
+		$sql = 'SELECT * FROM `*PREFIX*news_feeds` ' .
 			'WHERE `id` = ? ' .
 			'AND `user_id` = ?';
 			
@@ -71,7 +71,7 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 	public function testFindNotFound(){
 		$userId = 'john';
 		$id = 3;
-		$sql = 'SELECT * FROM `*dbprefix*news_feeds` ' .
+		$sql = 'SELECT * FROM `*PREFIX*news_feeds` ' .
 			'WHERE `id` = ? ' .
 			'AND `user_id` = ?';
 			
@@ -89,7 +89,7 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			array('id' => $this->feeds[0]->getId()),
 			array('id' => $this->feeds[1]->getId())
 		);
-		$sql = 'SELECT * FROM `*dbprefix*news_feeds` ' .
+		$sql = 'SELECT * FROM `*PREFIX*news_feeds` ' .
 			'WHERE `id` = ? ' .
 			'AND `user_id` = ?';
 		
@@ -106,7 +106,7 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			array('id' => $this->feeds[0]->getId()),
 			array('id' => $this->feeds[1]->getId())
 		);
-		$sql = 'SELECT * FROM `*dbprefix*news_feeds`';
+		$sql = 'SELECT * FROM `*PREFIX*news_feeds`';
 		
 		$this->setMapperResult($sql, array(), $rows);
 		
@@ -122,8 +122,8 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			array('id' => $this->feeds[1]->getId())
 		);
 		$sql = 'SELECT `feeds`.*, COUNT(`items`.`id`) AS `unread_count` ' .
-			'FROM `*dbprefix*news_feeds` `feeds` ' .
-			'LEFT OUTER JOIN `*dbprefix*news_items` `items` ' .
+			'FROM `*PREFIX*news_feeds` `feeds` ' .
+			'LEFT OUTER JOIN `*PREFIX*news_items` `items` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` ' . 
 			'WHERE (`items`.`status` & ?) > 0 ' .
 				'AND `feeds`.`user_id` = ? ' .
@@ -141,7 +141,7 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$row = array(
 			array('id' => $this->feeds[0]->getId()),
 		);
-		$sql = 'SELECT * FROM `*dbprefix*news_feeds` ' .
+		$sql = 'SELECT * FROM `*PREFIX*news_feeds` ' .
 			'WHERE `url_hash` = ? ' .
 			'AND `user_id` = ?';
 		$this->setMapperResult($sql, array($urlHash, $this->user), $row);
@@ -153,7 +153,7 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 
 	public function testFindByUrlHashNotFound(){
 		$urlHash = md5('hihi');
-		$sql = 'SELECT * FROM `*dbprefix*news_feeds` ' .
+		$sql = 'SELECT * FROM `*PREFIX*news_feeds` ' .
 			'WHERE `url_hash` = ? ' .
 			'AND `user_id` = ?';
 			
@@ -170,7 +170,7 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			array('id' => $this->feeds[0]->getId()),
 			array('id' => $this->feeds[1]->getId())
 		);
-		$sql = 'SELECT * FROM `*dbprefix*news_feeds` ' .
+		$sql = 'SELECT * FROM `*PREFIX*news_feeds` ' .
 			'WHERE `url_hash` = ? ' .
 			'AND `user_id` = ?';
 			

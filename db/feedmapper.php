@@ -37,11 +37,11 @@ class FeedMapper extends Mapper implements IMapper {
 
 
 	public function find($id, $userId){
-		$sql = 'SELECT * FROM `*dbprefix*news_feeds` ' .
+		$sql = 'SELECT * FROM `*PREFIX*news_feeds` ' .
 			'WHERE `id` = ? ' .
 			'AND `user_id` = ?';
 
-		$row = $this->findQuery($sql, array($id, $userId));
+		$row = $this->findOneQuery($sql, array($id, $userId));
 		$feed = new Feed();
 		$feed->fromRow($row);
 
@@ -65,8 +65,8 @@ class FeedMapper extends Mapper implements IMapper {
 
 	public function findAllFromUser($userId){
 		$sql = 'SELECT `feeds`.*, COUNT(`items`.`id`) AS `unread_count` ' .
-			'FROM `*dbprefix*news_feeds` `feeds` ' .
-			'LEFT OUTER JOIN `*dbprefix*news_items` `items` ' .
+			'FROM `*PREFIX*news_feeds` `feeds` ' .
+			'LEFT OUTER JOIN `*PREFIX*news_items` `items` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` ' . 
 			'WHERE (`items`.`status` & ?) > 0 ' .
 				'AND `feeds`.`user_id` = ? ' .
@@ -78,19 +78,19 @@ class FeedMapper extends Mapper implements IMapper {
 
 
 	public function findAll(){
-		$sql = 'SELECT * FROM `*dbprefix*news_feeds`';
+		$sql = 'SELECT * FROM `*PREFIX*news_feeds`';
 
 		return $this->findAllRows($sql);
 	}
 
 
 	public function findByUrlHash($hash, $userId){
-		$sql = 'SELECT * FROM `*dbprefix*news_feeds` ' .
+		$sql = 'SELECT * FROM `*PREFIX*news_feeds` ' .
 			'WHERE `url_hash` = ? ' .
 			'AND `user_id` = ?';
 		$params = array($hash, $userId);
 
-		$row = $this->findQuery($sql, $params);
+		$row = $this->findOneQuery($sql, $params);
 		$feed = new Feed();
 		$feed->fromRow($row);
 

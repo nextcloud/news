@@ -52,13 +52,13 @@ class ItemMapper extends Mapper implements IMapper {
 
 	
 	public function find($id, $userId){
-		$sql = 'SELECT `*dbprefix*news_items`.* FROM `*dbprefix*news_items` ' .
-			'JOIN `*dbprefix*news_feeds` ' .
-			'ON `*dbprefix*news_feeds`.`id` = `*dbprefix*news_items`.`feed_id` ' .
-			'WHERE `*dbprefix*news_items`.`id` = ? ' .
-			'AND `*dbprefix*news_feeds`.`user_id` = ? ';
+		$sql = 'SELECT `*PREFIX*news_items`.* FROM `*PREFIX*news_items` ' .
+				'JOIN `*PREFIX*news_feeds` ' .
+				'ON `*PREFIX*news_feeds`.`id` = `*PREFIX*news_items`.`feed_id` ' .
+				'AND `*PREFIX*news_feeds`.`user_id` = ? ' .
+			'WHERE `*PREFIX*news_items`.`id` = ? ';
 
-		$row = $this->findQuery($sql, array($id, $userId));
+		$row = $this->findOneQuery($sql, array($id, $userId));
 		
 		$item = new Item();
 		$item->fromRow($row);
@@ -68,11 +68,11 @@ class ItemMapper extends Mapper implements IMapper {
 
 
 	public function starredCount($userId){
-		$sql = 'SELECT COUNT(*) AS size FROM `*dbprefix*news_feeds` `feeds` ' .
-			'JOIN `*dbprefix*news_items` `items` ' .
+		$sql = 'SELECT COUNT(*) AS size FROM `*PREFIX*news_feeds` `feeds` ' .
+			'JOIN `*PREFIX*news_items` `items` ' .
 				'ON `items`.`feed_id` = `feeds`.`id` ' .
-			'WHERE `feeds`.`user_id` = ? ' .
-			'AND ((`items`.`status` & ?) > 0)';
+				'AND `feeds`.`user_id` = ? ' .
+			'WHERE ((`items`.`status` & ?) > 0)';
 
 		$params = array($userId, StatusFlag::STARRED);
 
@@ -83,12 +83,12 @@ class ItemMapper extends Mapper implements IMapper {
 
 
 	public function readFeed($feedId, $userId){
-		$sql = 'UPDATE `*dbprefix*news_feeds` `feeds` ' .
-			'JOIN `*dbprefix*news_items` `items` ' .
+		$sql = 'UPDATE `*PREFIX*news_feeds` `feeds` ' .
+			'JOIN `*PREFIX*news_items` `items` ' .
 				'ON `items`.`feed_id` = `feeds`.`id` ' .
+				'AND `feeds`.`user_id` = ? ' .
 			'SET `items`.`status` = (`items`.`status` & ?) ' .
-			'WHERE `feeds`.`user_id` = ? ' .
-			'AND `items`.`id` = ?';
+			'WHERE `items`.`id` = ?';
 		$params = array(~StatusFlag::UNREAD, $userId, $feedId);
 
 		$this->execute($sql, $params);
@@ -100,12 +100,12 @@ class ItemMapper extends Mapper implements IMapper {
 	 * Queries to find all items from a folder that belongs to a user
 	 */
 	/*private function makeFindAllFromFolderQuery($custom) {
-		return 'SELECT `*dbprefix*news_items`.* FROM `*dbprefix*news_items` ' .
-			'JOIN `*dbprefix*news_feeds` ' .
-			'ON `*dbprefix*news_feeds`.`id` = `*dbprefix*news_items`.`feed_id` ' .
-			'WHERE `*dbprefix*news_feeds`.`user_id` = ? ' .
-			'AND `*dbprefix*news_feeds`.`folder_id` = ? ' .
-			'AND ((`*dbprefix*news_items`.`status` & ?) > 0) ' .
+		return 'SELECT `*PREFIX*news_items`.* FROM `*PREFIX*news_items` ' .
+			'JOIN `*PREFIX*news_feeds` ' .
+			'ON `*PREFIX*news_feeds`.`id` = `*PREFIX*news_items`.`feed_id` ' .
+			'WHERE `*PREFIX*news_feeds`.`user_id` = ? ' .
+			'AND `*PREFIX*news_feeds`.`folder_id` = ? ' .
+			'AND ((`*PREFIX*news_items`.`status` & ?) > 0) ' .
 			$custom;
 	}
 	
@@ -116,7 +116,7 @@ class ItemMapper extends Mapper implements IMapper {
 	}
 	
  	public function findAllFromFolderByLastMofified($userId, $folderId, $status, $lastModified) {
-		$sql = $this->makeFindAllFromFolderQuery(' AND (`*dbprefix*news_items`.`last_modified` >= ?)');
+		$sql = $this->makeFindAllFromFolderQuery(' AND (`*PREFIX*news_items`.`last_modified` >= ?)');
 		$params = array($userId, $folderId, $status, $lastModified);
 		return $this->findAllRows($sql, $params);
 	}	
@@ -149,19 +149,19 @@ class ItemMapper extends Mapper implements IMapper {
 // 	}
 // 	
 // 	public function findAllFromFeedByStatus($feedId, $userId, $status){
-// 		$sql = $this->makeFindAllFromFeedQuery(' AND ((`*dbprefix*news_items`.`status` & ?) > 0)');
+// 		$sql = $this->makeFindAllFromFeedQuery(' AND ((`*PREFIX*news_items`.`status` & ?) > 0)');
 // 		$params = array($feedId, $userId, $status);
 // 		return $this->findAllRows($sql, $params);
 // 	}
 // 	
 // 	public function findAllFromFeedByLastMofified($userId, $feedId, $lastModified){
-// 		$sql = $this->makeFindAllFromFeedQuery(' AND `*dbprefix*news_items`.last_modified >= ? ');
+// 		$sql = $this->makeFindAllFromFeedQuery(' AND `*PREFIX*news_items`.last_modified >= ? ');
 // 		$params = array($feedId, $userId, $lastModified);
 // 		return $this->findAllRows($sql, $params);
 // 	}
 // 	
 // 	public function findAllFromFeedByOffset($userId, $feedId, $limit, $offset){
-// 		$sql = $this->makeFindAllFromFeedQuery(' AND `*dbprefix*news_items`.last_modified >= ? ');
+// 		$sql = $this->makeFindAllFromFeedQuery(' AND `*PREFIX*news_items`.last_modified >= ? ');
 // 		$params = array($feedId, $userId, $limit, $offset);
 // 		return $this->findAllRows($sql, $params);
 // 	}

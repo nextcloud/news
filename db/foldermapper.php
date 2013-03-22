@@ -36,11 +36,11 @@ class FolderMapper extends Mapper implements IMapper {
 	}
 
 	public function find($id, $userId){
-		$sql = 'SELECT * FROM `*dbprefix*news_folders` ' .
+		$sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
 			'WHERE `id` = ? ' .
 			'AND `user_id` = ?';
 
-		$row = $this->findQuery($sql, array($id, $userId));
+		$row = $this->findOneQuery($sql, array($id, $userId));
 		$folder = new Folder();
 		$folder->fromRow($row);
 
@@ -63,7 +63,7 @@ class FolderMapper extends Mapper implements IMapper {
 
 
 	public function findAllFromUser($userId){
-		$sql = 'SELECT * FROM `*dbprefix*news_folders` ' .
+		$sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
 			'WHERE `user_id` = ?';
 		$params = array($userId);
 
@@ -72,7 +72,7 @@ class FolderMapper extends Mapper implements IMapper {
 
 
 	public function findByName($folderName, $userId){
-		$sql = 'SELECT * FROM `*dbprefix*news_folders` ' .
+		$sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
 			'WHERE `name` = ?' .
 			'AND `user_id` = ?';
 		$params = array($folderName, $userId);

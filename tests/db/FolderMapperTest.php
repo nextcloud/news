@@ -55,7 +55,7 @@ class FolderMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$rows = array(
 		  array('id' => $this->folders[0]->getId()),
 		);
-		$sql = 'SELECT * FROM `*dbprefix*news_folders` ' .
+		$sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
 			'WHERE `id` = ? ' .
 			'AND `user_id` = ?';
 			
@@ -70,7 +70,7 @@ class FolderMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 	public function testFindNotFound(){
 		$userId = 'john';
 		$id = 3;
-		$sql = 'SELECT * FROM `*dbprefix*news_folders` ' .
+		$sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
 			'WHERE `id` = ? ' .
 			'AND `user_id` = ?';
 			
@@ -88,7 +88,7 @@ class FolderMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			array('id' => $this->folders[0]->getId()),
 			array('id' => $this->folders[1]->getId())
 		);
-		$sql = 'SELECT * FROM `*dbprefix*news_folders` ' .
+		$sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
 			'WHERE `id` = ? ' .
 			'AND `user_id` = ?';
 		
@@ -106,7 +106,7 @@ class FolderMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			array('id' => $this->folders[0]->getId()),
 			array('id' => $this->folders[1]->getId())
 		);
-		$sql = 'SELECT * FROM `*dbprefix*news_folders` ' .
+		$sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
 			'WHERE `user_id` = ?';
 		
 		$this->setMapperResult($sql, array($userId), $rows);
@@ -122,7 +122,7 @@ class FolderMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			array('id' => $this->folders[0]->getId()),
 			array('id' => $this->folders[1]->getId())
 		);
-		$sql = 'SELECT * FROM `*dbprefix*news_folders` ' .
+		$sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
 			'WHERE `user_id` = ?';
 		
 		$this->setMapperResult($sql, array($userId), $rows);
