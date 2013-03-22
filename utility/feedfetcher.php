@@ -30,108 +30,109 @@ class FeedFetcher {
 
 
 	/**
-	 * @brief Fetch a feed from remote
-	 * @param url remote url of the feed
-	 * @returns an instance of OC_News_Feed
+	 * Fetch a feed from remote
+	 * @param string url remote url of the feed
+	 * @throws FetcherException if simple pie fails
+	 * @returns array an array containing the new feed and its items
 	 */
 	public function fetch($url) {
-		$spfeed = new \SimplePie_Core();
-		$spfeed->set_feed_url( $url );
-		$spfeed->enable_cache( false );
+		$simplePie = new \SimplePie_Core();
+		$simplePie->set_feed_url( $url );
+		$simplePie->enable_cache( false );
 
-		if (!$spfeed->init()) {
+		// TODO: throw error
+		if (!$simplePie->init()) {
 			return null;
 		}
 
-		//temporary try-catch to bypass SimplePie bugs
+		// temporary try-catch to bypass SimplePie bugs
 		try {
-			$spfeed->handle_content_type();
-			$title = $spfeed->get_title();
+			$simplePie->handle_content_type();
 
 			$items = array();
-			if ($spitems = $spfeed->get_items()) {
-				foreach($spitems as $spitem) {
-					$itemUrl = $spitem->get_permalink();
-					$itemTitle = $spitem->get_title();
-					$itemGUID = $spitem->get_id();
-					$itemBody = $spitem->get_content();
-					$item = new Item($itemUrl, $itemTitle, $itemGUID, $itemBody);
-					
-					$spAuthor = $spitem->get_author();
-					if ($spAuthor !== null) {
-						$item->setAuthor($spAuthor->get_name());
+			if ($feedItems = $simplePie->get_items()) {
+				foreach($feedItems as $feedItem) {
+					$item = new Item();
+					$item->setUrl( $feedItem->get_permalink() );
+					$item->setTitle( $feedItem->get_title() );
+					$item->setGuid( $feedItem->get_id() );
+					$item->setBody( $feedItem->get_content() );
+					$item->setDate( $feedItem->get_date('U') );
+
+					$author = $feedItem->get_author();
+					if ($author !== null) {
+						$item->setAuthor( $author->get_name() );
 					}
 
-					//date in Item is stored in UNIX timestamp format
-					$itemDate = $spitem->get_date('U');
-					$item->setDate($itemDate);
-
 					// associated media file, for podcasts
-					$itemEnclosure = $spitem->get_enclosure();
-					if($itemEnclosure !== null) {
-						$enclosureType = $itemEnclosure->get_type();
-						$enclosureLink = $itemEnclosure->get_link();
-						if(stripos($enclosureType, "audio/") !== FALSE) {
-							$enclosure = new Enclosure();
-							$enclosure->setMimeType($enclosureType);
-							$enclosure->setLink($enclosureLink);
-							$item->setEnclosure($enclosure);
+					$enclosure = $feedItem->get_enclosure();
+					if($enclosure !== null) {
+						$enclosureType = $enclosure->get_type();
+						if(stripos($enclosureType, "audio/") !== false) {
+							$enclosure->setEnclosureMime($enclosureType);
+							$enclosure->setEnclosureLink($enclosure->get_link());
 						}
 					}
 					
-					$items[] = $item;
+					array_push($items, $item);
 				}
 			}
 
-			$feed = new Feed($url, $title, $items);
+			$feed = new Feed();
+			$feed->setTitle( $simplePie->get_title());
+			$feed->setUrl($url);
+			$feed->setUrlHash(md5($url));
+			$feed->setAdded(time());
 
-			$favicon = $spfeed->get_image_url();
+			$favicon = $simplePie->get_image_url();
 
-			if ($favicon !== null && $this->checkFavicon($favicon)) { // use favicon from feed
-				$feed->setFavicon($favicon);
-			}
-			else { // try really hard to find a favicon
+			if ($favicon !== null && $this->checkFavicon($favicon)) {
+				$feed->setFaviconLink($favicon);
+
+			} else {
 				$webFavicon = $this->discoverFavicon($url);
 				if ($webFavicon !== null) {
-					$feed->setFavicon($webFavicon);
+					$feed->setFaviconLink($webFavicon);
 				}
 			}
-			return $feed;
+			return array($feed, $items);
+		} catch(Exception $ex){
+			throw new FetcherException($ex->getMessage());
 		}
-	  catch (Exception $e) {
-			return null;
-	  }
+
 	}
 
 	/**
 	 * Perform a "slim" fetch of a feed from remote.
 	 * Differently from Utils::fetch(), it doesn't retrieve items nor a favicon
 	 *
-	 * @param url remote url of the feed
-	 * @returns an instance of OC_News_Feed
+	 * @param string url remote url of the feed
+	 * @returns \OCA\News\Db\Feed
 	 */
 	public function slimFetch($url) {
-		$spfeed = new \SimplePie_Core();
-		$spfeed->set_feed_url( $url );
-		$spfeed->enable_cache( false );
-		$spfeed->set_stupidly_fast( true );
+		$simplePie = new \SimplePie_Core();
+		$simplePie->set_feed_url( $url );
+		$simplePie->enable_cache( false );
+		$simplePie->set_stupidly_fast( true );
 
-		if (!$spfeed->init()) {
+		if (!$simplePie->init()) {
 			return null;
 		}
 
-	   //temporary try-catch to bypass SimplePie bugs
-	   try {
-		$title = $spfeed->get_title();
+		// temporary try-catch to bypass SimplePie bugs
+		try {
+			$feed = new Feed($url, $title);
+			$feed->setUrl($url);
+			$feed->setUrlHash(md5($url));
+			$feed->setTitle($simplePie->get_title());
+			$feed->setAdded(time());
+			return $feed;
 
-		$feed = new Feed($url, $title);
-
-		return $feed;
+		} catch(Exception $ex){
+			throw new FetcherException($ex->getMessage());
 		}
-	   catch (Exception $e) {
-		return null;
-	   }
 	}
+
 
 	public function checkFavicon($favicon) {
 		if ($favicon === null || $favicon == false)
@@ -152,6 +153,7 @@ class FeedFetcher {
 		}
 		return false;
 	}
+
 
 	public function discoverFavicon($url) {
 		//try webroot favicon
