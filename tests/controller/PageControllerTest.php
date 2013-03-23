@@ -26,7 +26,7 @@
 namespace OCA\News\Controller;
 
 use \OCA\AppFramework\Http\Request;
-use \OCA\AppFramework\Http\JSONResponse;
+use \OCA\AppFramework\Http\TemplateResponse;
 use \OCA\AppFramework\Utility\ControllerTestUtility;
 use \OCA\AppFramework\Db\DoesNotExistException;
 use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
@@ -56,6 +56,12 @@ class PageControllerTest extends ControllerTestUtility {
 		$annotations = array('IsAdminExemption', 'IsSubAdminExemption', 
 			'CSRFExemption');
 		$this->assertAnnotations($this->controller, 'index', $annotations);
+	}
+
+	public function testIndex(){
+		$response = $this->controller->index();
+		$this->assertEquals('main', $response->getTemplateName());
+		$this->assertTrue($response instanceof TemplateResponse);
 	}
 
 

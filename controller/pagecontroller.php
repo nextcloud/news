@@ -44,6 +44,7 @@ class PageController extends Controller {
 	 * @CSRFExemption
 	 */
 	public function index() {
+		return $this->render('main');
 	}
 
 
