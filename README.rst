@@ -26,7 +26,7 @@ How to install the news app
 	git clone https://github.com/owncloud/news.git
 
 
-- Link both into ownCloud's apps folder 
+- Link both into ownCloud's apps folder::
 
 	ln -s /var/www/appframework /var/www/owncloud/apps
 	ln -s /var/www/news /var/www/owncloud/apps
