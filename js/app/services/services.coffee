@@ -23,7 +23,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 # request related stuff
 angular.module('News').factory 'Persistence', ['_Persistence', 'Request',
-'FeedLoading', 'Config', '$rootScope', 'ActiveFeed',
+'FeedLoading', 'Config', 'ActiveFeed', '$rootScope',
 (_Persistence, Request, FeedLoading, Config, ActiveFeed, $rootScope) ->
 	return new _Persistence(Request, FeedLoading, Config, ActiveFeed, $rootScope)
 ]

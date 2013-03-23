@@ -72,11 +72,12 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 	
 
 	private function makeSelectQuery($prependTo){
-		return 'SELECT `*PREFIX*news_items`.* FROM `*PREFIX*news_items` ' .
-			'JOIN `*PREFIX*news_feeds` ' .
+		return 'SELECT `*PREFIX*news_items`.* FROM `*PREFIX*news_items` `items` '.
+			'JOIN `*PREFIX*news_feeds` `feeds` ' .
 				'ON `*PREFIX*news_feeds`.`id` = `*PREFIX*news_items`.`feed_id` '.
-				'AND `*PREFIX*news_feeds`.`user_id` = ? ' . $prependTo;		
+				'AND `*PREFIX*news_feeds`.`user_id` = ? ' . $prependTo;
 	}
+
 
 	private function makeSelectQueryStatus($prependTo) {
 		return $this->makeSelectQuery(

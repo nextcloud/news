@@ -103,8 +103,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
   ]);
 
   angular.module('News').controller('ItemController', [
-    '$scope', '_ItemController', 'ItemModel', function($scope, _ItemController, ItemModel) {
-      return new _ItemController($scope, ItemModel);
+    '$scope', '_ItemController', 'ItemModel', 'FeedLoading', function($scope, _ItemController, ItemModel, FeedLoading) {
+      return new _ItemController($scope, ItemModel, FeedLoading);
     }
   ]);
 
@@ -184,9 +184,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     var ItemController;
     ItemController = (function() {
 
-      function ItemController($scope, itemModel) {
+      function ItemController($scope, itemModel, feedLoading) {
+        var _this = this;
         this.$scope = $scope;
         this.itemModel = itemModel;
+        this.feedLoading = feedLoading;
+        this.$scope.isLoading = function() {
+          return _this.feedLoading.isLoading();
+        };
       }
 
       return ItemController;
@@ -651,7 +656,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         var _this = this;
         this._loading.increase();
         this.getActiveFeed(function() {
-          return _this.getItems(_this._activeFeed.getType(), _this._activeFeed.getId(), null, function() {
+          return _this.getItems(_this._activeFeed.getType(), _this._activeFeed.getId(), 0, function() {
             return _this._loading.decrease();
           });
         });
@@ -1032,7 +1037,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 (function() {
 
   angular.module('News').factory('Persistence', [
-    '_Persistence', 'Request', 'FeedLoading', 'Config', '$rootScope', 'ActiveFeed', function(_Persistence, Request, FeedLoading, Config, ActiveFeed, $rootScope) {
+    '_Persistence', 'Request', 'FeedLoading', 'Config', 'ActiveFeed', '$rootScope', function(_Persistence, Request, FeedLoading, Config, ActiveFeed, $rootScope) {
       return new _Persistence(Request, FeedLoading, Config, ActiveFeed, $rootScope);
     }
   ]);

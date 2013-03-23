@@ -37,7 +37,7 @@ angular.module('News').factory '_Persistence', ->
 
 			# items can only be loaded after the active feed is known
 			@getActiveFeed =>
-				@getItems @_activeFeed.getType(), @_activeFeed.getId(), null, =>
+				@getItems @_activeFeed.getType(), @_activeFeed.getId(), 0, =>
 					@_loading.decrease()
 			
 			@getAllFolders(@_triggerHideRead)
@@ -50,7 +50,7 @@ angular.module('News').factory '_Persistence', ->
 			ITEM CONTROLLER
 		###
 		getItems: (type, id, offset, onSuccess, updatedSince=null) ->
-			# TODO
+
 			if updatedSince != null
 				data =
 					updatedSince: updatedSince
