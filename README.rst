@@ -18,6 +18,7 @@ All estimations include unittests
 * make feed update work ~ **5-10h**
 * fix search plugin ~ **2h**
 * fix background job ~ **2h**
+* Wire it together and fix bugs ~ **10-20h**
 
 
 How to install the news app
