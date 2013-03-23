@@ -20,12 +20,13 @@
 *
 */
 
-namespace OCA\News;
+namespace OCA\News\Backgroundjob;
+
 
 /**
  * This class maps a feed to an entry in the feeds table of the database.
  */
-class Backgroundjob {
+class Task {
 	static public function sortFeeds( $a, $b ) {
 		if( $a->getId() == $b->getId() ) {
 			return 0;
