@@ -5,7 +5,7 @@ Status
 ------
 App is not finished yet and in rewrite.
 
-If the first kinda working version is available it will be mentioned in this readme.
+When the first kinda working version is available it will be mentioned in this readme.
 
 
 Roadmap
