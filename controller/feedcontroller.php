@@ -85,9 +85,11 @@ class FeedController extends Controller {
 			} elseif ($feedType === FeedType::FEED){
 				$this->feedBl->find($feedId, $userId);
 			
+			// if its the first launch, those values will be null
 			} elseif($feedType === null || $feedId === null){
 				throw new BLException('');
 			}
+	
 		} catch (BLException $ex){
 			$feedId = 0;
 			$feedType = FeedType::SUBSCRIPTIONS;
