@@ -1,6 +1,6 @@
-# News
+# News CoffeeScript/JavaScript development
 
-You'll need node.js version > 0.8
+You will need node.js version >= 0.8
 
 ## Compile coffeescript
 To compile the coffeescript run:
