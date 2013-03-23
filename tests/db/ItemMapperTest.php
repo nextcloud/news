@@ -62,6 +62,12 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
  		);	
 
  		$this->user = 'john';
+ 		$this->limit = 10;
+ 		$this->offset = 3;
+ 		$this->id = 11;
+ 		$this->status = 333;
+ 		$this->updatedSince = 323;
+
 	}
 	
 
@@ -72,9 +78,9 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 				'AND `*PREFIX*news_feeds`.`user_id` = ? ' . $prependTo;		
 	}
 
-	private function makeFindAllFromFolderQuery($prependTo) {
+	private function makeSelectQueryStatus($prependTo) {
 		return $this->makeSelectQuery(
-			'WHERE ((`*PREFIX*news_items`.`status` & ?) > 0) ' .
+			'AND ((`*PREFIX*news_items`.`status` & ?) > 0) ' .
 			$prependTo
 		);
 	}
@@ -120,134 +126,125 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$this->mapper->readFeed(3, $this->user);
 	}
 
-/*
-	public function testFindAllFromFolder() {
-		$sql = $this->makeFindAllFromFolderQuery('');
-		
-		$status = 2;
-		
-		$params = array($this->userId, $this->folderId, $status);
-		$this->setMapperResult($sql, $params, $this->rows);
-		$result = $this->mapper->findAllFromFolderByOffset($this->userId, $this->folderId, $status);
-		$this->assertEquals($this->items, $result);
-		
-	}
-	
-	public function testFindAllFromFolderByOffset() {
-		$sql = $this->makeFindAllFromFolderQuery('');
-		
-		$status = 2;
-		$limit = 10;
-		$offset = 10;
-		
-		$params = array($this->userId, $this->folderId, $status);
-		$this->setMapperResult($sql, $params, $this->rows);
-		$result = $this->mapper->findAllFromFolderByOffset($this->userId, $this->folderId, $status, $limit, $offset);
-		$this->assertEquals($this->items, $result);
-		
-	}
-	
-	public function testFindAllFromFolderByLastModified() {
-		$sql = $this->makeFindAllFromFolderQuery(' AND (`*PREFIX*news_items`.`last_modified` >= ?)');
-		
-		$status = 2;
-		$lastModified = 100;
-		
-		$params = array($this->userId, $this->folderId, $status, $lastModified);
-		$this->setMapperResult($sql, $params, $this->rows);
-		$result = $this->mapper->findAllFromFolderByLastMofified($this->userId, $this->folderId, $status, $lastModified);
-		$this->assertEquals($this->items, $result);
-		
-	}*/
 
+	public function testFindAllNew(){
+		$sql = 'AND `items`.`lastmodified` >= ?';
+		$sql = $this->makeSelectQueryStatus($sql);
+		$params = array($this->user, $this->status,	$this->updatedSince);
+
+		$this->setMapperResult($sql, $params, $this->rows);
+		$result = $this->mapper->findAllNew($this->updatedSince, 
+			$this->status, $this->user);
+
+		$this->assertEquals($this->items, $result);
+	}
+
+
+	public function testFindAllNewFeed(){
+		$sql = 'AND `items`.`feed_id` = ? ' .
+				'AND `items`.`lastmodified` >= ?';
+		$sql = $this->makeSelectQueryStatus($sql);
+		$params = array($this->user, $this->status, $this->id, $this->updatedSince);
+
+		$this->setMapperResult($sql, $params, $this->rows);
+		$result = $this->mapper->findAllNewFeed($this->id, $this->updatedSince, 
+			$this->status, $this->user);
+
+		$this->assertEquals($this->items, $result);
+	}
+
+
+	public function testFindAllNewFolder(){
+		$sql = 'AND `feeds`.`folder_id` = ? ' .
+				'AND `items`.`lastmodified` >= ?';
+		$sql = $this->makeSelectQueryStatus($sql);
+
+		$params = array($this->user, $this->status, $this->id, 
+			$this->updatedSince);
+		$this->setMapperResult($sql, $params, $this->rows);
+		$result = $this->mapper->findAllNewFolder($this->id, $this->updatedSince, 
+			$this->status, $this->user);
+
+		$this->assertEquals($this->items, $result);
+	}
+
+
+	public function testFindAllFeed(){
+		$sql = 'AND `items`.`feed_id` = ? ' .
+			'AND `items`.`id` > ? ' .
+			'ORDER BY `items`.`id` DESC ';
+		$sql = $this->makeSelectQueryStatus($sql);
+		$params = array($this->user, $this->status, $this->id, $this->offset);
+		$this->setMapperResult($sql, $params, $this->rows);
+		$result = $this->mapper->findAllFeed($this->id, $this->limit, 
+				$this->offset, $this->status, $this->user);
+
+		$this->assertEquals($this->items, $result);
+	}
+
+
+	public function testFindAllFeedOffsetZero(){
+		$sql = 'AND `items`.`feed_id` = ? ' .
+			'ORDER BY `items`.`id` DESC ';
+		$sql = $this->makeSelectQueryStatus($sql);
+		$params = array($this->user, $this->status, $this->id);
+		$this->setMapperResult($sql, $params, $this->rows);
+		$result = $this->mapper->findAllFeed($this->id, $this->limit, 
+				0, $this->status, $this->user);
+
+		$this->assertEquals($this->items, $result);
+	}
+
+
+	public function testFindAllFolder(){
+		$sql = 'AND `feeds`.`folder_id` = ? ' .
+			'AND `items`.`id` > ? ' .
+			'ORDER BY `items`.`id` DESC ';
+		$sql = $this->makeSelectQueryStatus($sql);
+		$params = array($this->user, $this->status, $this->id, $this->offset);
+		$this->setMapperResult($sql, $params, $this->rows);
+		$result = $this->mapper->findAllFolder($this->id, $this->limit, 
+				$this->offset, $this->status, $this->user);
+
+		$this->assertEquals($this->items, $result);
+	}
+
+
+	public function testFindAllFolderOffsetZero(){
+		$sql = 'AND `feeds`.`folder_id` = ? ' .
+			'ORDER BY `items`.`id` DESC ';
+		$sql = $this->makeSelectQueryStatus($sql);
+		$params = array($this->user, $this->status, $this->id);
+		$this->setMapperResult($sql, $params, $this->rows);
+		$result = $this->mapper->findAllFolder($this->id, $this->limit, 
+				0, $this->status, $this->user);
+
+		$this->assertEquals($this->items, $result);
+	}
+
+
+	public function testFindAll(){
+		$sql = 'AND `items`.`id` > ? ' .
+			'ORDER BY `items`.`id` DESC ';
+		$sql = $this->makeSelectQueryStatus($sql);
+		$params = array($this->user, $this->status, $this->offset);
+		$this->setMapperResult($sql, $params, $this->rows);
+		$result = $this->mapper->findAll($this->limit, 
+				$this->offset, $this->status, $this->user);
+
+		$this->assertEquals($this->items, $result);
+	}
+
+
+	public function testFindAllOffsetZero(){
+		$sql = 'ORDER BY `items`.`id` DESC ';
+		$sql = $this->makeSelectQueryStatus($sql);
+		$params = array($this->user, $this->status);
+		$this->setMapperResult($sql, $params, $this->rows);
+		$result = $this->mapper->findAll($this->limit, 
+				0, $this->status, $this->user);
+
+		$this->assertEquals($this->items, $result);
+	}
 
 }
-
-
-
-
-// TBD
-// 	}
-// 	
-// 	public function testFindAllFromFolderByLastModified() {
-// 		$userId = 'john';
-// 		$folderId = 3;
-// 		$lastModified = 123;
-// 	
-// 		$sql = 'SELECT `*PREFIX*news_items`.* FROM `*PREFIX*news_items` ' .
-// 			'JOIN `*PREFIX*news_feeds` ' .
-// 			'ON `*PREFIX*news_feeds`.`id` = `*PREFIX*news_items`.`feed_id` ' .
-// 			'WHERE `*PREFIX*news_feeds`.`user_id` = ? ' .
-// 			'AND `*PREFIX*news_feeds`.`folder_id` = ? ' .
-// 			'AND `*PREFIX*news_items`.last_modified >= ? ';
-// 			
-// 		$this->setMapperResult($sql, array($userId, $folderId, $lastModified));
-// 		$result = $this->mapper->findAllFromFolderByLastMofified($userId, $folderId, $lastModified);
-// 	}
-// 
-// 	public function testFindNotFound(){
-// 		$sql = 'SELECT `*PREFIX*news_items`.* FROM `*PREFIX*news_items` ' .
-// 			'JOIN `*PREFIX*news_feeds` ' .
-// 			'ON `*PREFIX*news_feeds`.`id` = `*PREFIX*news_items`.`feed_id` ' .
-// 			'WHERE `*PREFIX*news_items`.`id` = ? ' .
-// 			'AND `*PREFIX*news_feeds`.`user_id` = ? ';
-// 			
-// 		$this->setMapperResult($sql, array($id, $userId));
-// 		
-// 		$this->setExpectedException('\OCA\AppFramework\Db\DoesNotExistException');
-// 		$result = $this->mapper->find($id, $userId);	
-// 	}
-// 	
-// 	public function testFindMoreThanOneResultFound(){
-// 		$rows = array(
-// 			array('id' => $this->items[0]->getId()),
-// 			array('id' => $this->items[1]->getId())
-// 		);
-// 		$sql = 'SELECT `*PREFIX*news_items`.* FROM `*PREFIX*news_items` ' .
-// 			'JOIN `*PREFIX*news_feeds` ' .
-// 			'ON `*PREFIX*news_feeds`.`id` = `*PREFIX*news_items`.`feed_id` ' .
-// 			'WHERE `*PREFIX*news_items`.`id` = ? ' .
-// 			'AND `*PREFIX*news_feeds`.`user_id` = ? ';
-// 
-// 		
-// 		$this->setMapperResult($sql, array($id, $userId), $rows);
-// 		
-// 		$this->setExpectedException('\OCA\AppFramework\Db\MultipleObjectsReturnedException');
-// 		$result = $this->mapper->find($id, $userId);
-// 	}
-// 	
-// 	public function testFindAllFromFeed(){
-// 		$userId = 'john';
-// 		$feedId = 3;
-// 		$rows = array(
-// 			array('id' => $this->items[0]->getId()),
-// 			array('id' => $this->items[1]->getId())
-// 		);
-// 		$sql = 'SELECT * FROM `*PREFIX*news_items` ' .
-// 			'WHERE user_id = ? ' .
-// 			'AND feed_id = ?';
-// 
-// 		$this->setMapperResult($sql, array($feedId, $userId), $rows);
-// 		$result = $this->mapper->findAllFromFeed($feedId, $userId);
-// 		$this->assertEquals($this->items, $result);
-// 
-// 	}
-// 	
-// 	public function testFindAllFromFeedByStatus(){
-// 		$userId = 'john';
-// 		$feedId = 3;
-// 		$status = 2;
-// 		$rows = array(
-// 			array('id' => $this->items[0]->getId()),
-// 			array('id' => $this->items[1]->getId())
-// 		);
-// 		$sql = 'SELECT * FROM `*PREFIX*news_items` ' .
-// 			'WHERE user_id = ? ' .
-// 			'AND feed_id = ? ' .
-// 			'AND ((`*PREFIX*news_items`.`status` & ?) > 0)';
-// 
-// 		$this->setMapperResult($sql, array($feedId, $userId, $status), $rows);
-// 		$result = $this->mapper->findAllFromFeedByStatus($feedId, $userId, $status);
-// 		$this->assertEquals($this->items, $result);
-// 
-// 	}

@@ -9,7 +9,6 @@ TODO
 * Referential integrity (delete items and feeds when feed or folder with FK was deleted)
 * Port coffeescript
 * make export work -> generate xml with template
-* implement findAll methods in itemMapper
 * make feed update work
 * fix search plugin
 * fix background job

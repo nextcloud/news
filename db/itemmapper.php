@@ -132,9 +132,9 @@ class ItemMapper extends Mapper implements IMapper {
 
 	public function findAllFeed($id, $limit, $offset, $status, $userId){
 		$params = array($userId, $status, $id);
-		$sql = 'AND `items`.`feed_id` = ?';
+		$sql = 'AND `items`.`feed_id` = ? ';
 		if($offset !== 0){
-			$sql .= 'ADND `items`.`id` > ? ';
+			$sql .= 'AND `items`.`id` > ? ';
 			array_push($params, $offset);
 		}
 		$sql .= 'ORDER BY `items`.`id` DESC ';
@@ -145,9 +145,9 @@ class ItemMapper extends Mapper implements IMapper {
 
 	public function findAllFolder($id, $limit, $offset, $status, $userId){
 		$params = array($userId, $status, $id);
-		$sql = 'AND `feeds`.`folder_id` = ?';
+		$sql = 'AND `feeds`.`folder_id` = ? ';
 		if($offset !== 0){
-			$sql .= 'ADND `items`.`id` > ? ';
+			$sql .= 'AND `items`.`id` > ? ';
 			array_push($params, $offset);
 		}
 		$sql .= 'ORDER BY `items`.`id` DESC ';
@@ -160,7 +160,7 @@ class ItemMapper extends Mapper implements IMapper {
 		$params = array($userId, $status);
 		$sql = '';
 		if($offset !== 0){
-			$sql .= 'ADND `items`.`id` > ? ';
+			$sql .= 'AND `items`.`id` > ? ';
 			array_push($params, $offset);
 		}
 		$sql .= 'ORDER BY `items`.`id` DESC ';
