@@ -215,6 +215,25 @@ class FeedControllerTest extends ControllerTestUtility {
 	}
 
 
+	public function testActiveActiveIsNull(){
+		$id = 3;
+		$type = null;
+		$result = array(
+			'activeFeed' => array(
+				'id' => 0,
+				'type' => FeedType::SUBSCRIPTIONS
+			)
+		);
+
+		$this->activeInitMocks($id, $type);
+
+		$response = $this->controller->active();
+
+		$this->assertEquals($result, $response->getParams());
+		$this->assertTrue($response instanceof JSONResponse);		
+	}
+
+
 	public function testCreate(){
 		$result = array(
 			'feeds' => array(new Feed())

@@ -81,8 +81,12 @@ class FeedController extends Controller {
 		try {
 			if($feedType === FeedType::FOLDER){
 				$this->folderBl->find($feedId, $userId);
+			
 			} elseif ($feedType === FeedType::FEED){
 				$this->feedBl->find($feedId, $userId);
+			
+			} elseif($feedType === null || $feedId === null){
+				throw new BLException('');
 			}
 		} catch (BLException $ex){
 			$feedId = 0;

@@ -47,7 +47,7 @@
 
 	</div>
 
-	<div id="right-content" ng-class="{loading: loading.loading>0}"
+	<div id="right-content" ng-class="{loading: isLoading()}"
 		ng-controller="ItemController" 	when-scrolled="scroll()" feed-navigation>
 		<?php print_unescaped($this->inc("part.items")); ?>
 	</div>

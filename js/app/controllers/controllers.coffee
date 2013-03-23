@@ -36,8 +36,8 @@ angular.module('News').controller 'FeedController',
 ]
 
 angular.module('News').controller 'ItemController', 
-['$scope', '_ItemController', 'ItemModel', 
-($scope, _ItemController, ItemModel)->
+['$scope', '_ItemController', 'ItemModel', 'FeedLoading',
+($scope, _ItemController, ItemModel, FeedLoading)->
 
-	return new _ItemController($scope, ItemModel)
+	return new _ItemController($scope, ItemModel, FeedLoading)
 ]
