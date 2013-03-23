@@ -32,7 +32,7 @@ use \OCA\AppFramework\Db\DoesNotExistException;
 use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
 
 use \OCA\News\Db\Item;
-
+use \OCA\News\Db\FeedType;
 
 require_once(__DIR__ . "/../classloader.php");
 
@@ -209,6 +209,60 @@ class ItemControllerTest extends ControllerTestUtility {
 			->will($this->returnValue($result['starred']));
 		$response = $this->controller->starred();
 
+		$this->assertEquals($result, $response->getParams());
+		$this->assertTrue($response instanceof JSONResponse);
+	}
+
+
+
+	public function testItems(){
+		$result = array(
+			'items' => array(new Item())
+		);
+		$post = array(
+			'limit' => 3,
+			'type' => FeedType::FEED,
+			'id' => 2,
+			'offset' => 0 
+		);
+		$this->controller = $this->getPostController($post);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->bl->expects($this->once())
+			->method('findAll')
+			->with($post['id'], $post['type'], $post['limit'], 
+				$post['offset'], $this->user)
+			->will($this->returnValue($result['items']));
+
+		$response = $this->controller->items();
+		$this->assertEquals($result, $response->getParams());
+		$this->assertTrue($response instanceof JSONResponse);
+	}
+
+
+	public function testItemsNew(){
+		$result = array(
+			'items' => array(new Item())
+		);
+		$post = array(
+			'type' => FeedType::FEED,
+			'id' => 2,
+			'updatedSince' => 3333
+		);
+		$this->controller = $this->getPostController($post);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->bl->expects($this->once())
+			->method('findAllNew')
+			->with($post['id'], $post['type'], $post['updatedSince'], 
+				$this->user)
+			->will($this->returnValue($result['items']));
+
+		$response = $this->controller->items();
 		$this->assertEquals($result, $response->getParams());
 		$this->assertTrue($response instanceof JSONResponse);
 	}

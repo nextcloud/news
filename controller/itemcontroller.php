@@ -48,7 +48,24 @@ class ItemController extends Controller {
 	 * @Ajax
 	 */
 	public function items(){
-		// TBD
+		$userId = $this->api->getUserId();
+		$limit = $this->params('limit');
+		$type = $this->params('type');
+		$id = $this->params('id');
+		
+		if($limit !== null){
+			$offset = $this->params('offset', 0);
+			$items = $this->itemBl->findAll($id, $type, $limit, $offset, $userId);
+		} else {
+			$updatedSince = $this->params('updatedSince');
+			$items = $this->itemBl->findAllNew($id, $type, $updatedSince, $userId);
+		}
+
+		$params = array(
+			'items' => $items
+		);
+
+		return $this->renderJSON($params);
 	}
 
 
