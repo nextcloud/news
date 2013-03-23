@@ -12,12 +12,12 @@ Roadmap
 -------
 All estimations include unittests
 
-* Referential integrity (delete items and feeds when feed or folder with FK was deleted) ~ 3h
-* Port coffeescript ~ 35h
-* make export work -> generate xml with template ~ 3h
-* make feed update work ~ 5-10h
-* fix search plugin ~ 2h
-* fix background job ~ 2h
+* Referential integrity (delete items and feeds when feed or folder with FK was deleted) ~ **3h**
+* Port coffeescript ~ **35h**
+* make export work -> generate xml with template ~ **3h**
+* make feed update work ~ **5-10h**
+* fix search plugin ~ **2h**
+* fix background job ~ **2h**
 
 
 How to install the news app
