@@ -7,18 +7,7 @@ App is not finished yet and in rewrite.
 
 When the first kinda working version is available it will be mentioned in this readme.
 
-
-Roadmap
--------
-All estimations include unittests
-
-* Referential integrity (delete items and feeds when feed or folder with FK was deleted) ~ **3h**
-* Port coffeescript ~ **35h**
-* make export work -> generate xml with template ~ **3h**
-* make feed update work ~ **5-10h**
-* fix search plugin ~ **2h**
-* fix background job ~ **2h**
-* Wire it together and fix bugs ~ **10-20h**
+See Roadmap page in the wiki for more details
 
 
 How to install the news app
