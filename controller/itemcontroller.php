@@ -53,6 +53,7 @@ class ItemController extends Controller {
 		$type = $this->params('type');
 		$id = $this->params('id');
 		
+		// TODO: pass in showAll value
 		if($limit !== null){
 			$offset = $this->params('offset', 0);
 			$items = $this->itemBl->findAll($id, $type, $limit, $offset, $userId);
