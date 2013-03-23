@@ -228,12 +228,17 @@ class ItemControllerTest extends ControllerTestUtility {
 		$this->controller = $this->getPostController($post);
 
 		$this->api->expects($this->once())
+			->method('getUserValue')
+			->with($this->equalTo($this->user),
+				$this->equalTo('showAll'))
+			->will($this->returnValue('true'));
+		$this->api->expects($this->once())
 			->method('getUserId')
 			->will($this->returnValue($this->user));
 		$this->bl->expects($this->once())
 			->method('findAll')
 			->with($post['id'], $post['type'], $post['limit'], 
-				$post['offset'], $this->user)
+				$post['offset'], true, $this->user)
 			->will($this->returnValue($result['items']));
 
 		$response = $this->controller->items();
@@ -254,12 +259,17 @@ class ItemControllerTest extends ControllerTestUtility {
 		$this->controller = $this->getPostController($post);
 
 		$this->api->expects($this->once())
+			->method('getUserValue')
+			->with($this->equalTo($this->user),
+				$this->equalTo('showAll'))
+			->will($this->returnValue('true'));
+		$this->api->expects($this->once())
 			->method('getUserId')
 			->will($this->returnValue($this->user));
 		$this->bl->expects($this->once())
 			->method('findAllNew')
 			->with($post['id'], $post['type'], $post['updatedSince'], 
-				$this->user)
+				true, $this->user)
 			->will($this->returnValue($result['items']));
 
 		$response = $this->controller->items();

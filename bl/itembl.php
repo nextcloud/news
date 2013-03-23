@@ -36,12 +36,14 @@ class ItemBl extends Bl {
 	}
 
 
-	public function findAllNew($id, $type, $updatedSince, $userId){
+	public function findAllNew($id, $type, $updatedSince, 
+		$showAll, $userId){
 		// TODO all the crazy finding of items
 	}
 
 
-	public function findAll($id, $type, $limit, $offset, $userId){
+	public function findAll($id, $type, $limit, $offset, 
+		$showAll, $userId){
 		// TODO all the crazy finding of items
 	}
 

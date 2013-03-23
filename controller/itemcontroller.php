@@ -49,17 +49,20 @@ class ItemController extends Controller {
 	 */
 	public function items(){
 		$userId = $this->api->getUserId();
+		$showAll = $this->api->getUserValue($userId, 'showAll') === 'true';
+
 		$limit = $this->params('limit');
 		$type = $this->params('type');
 		$id = $this->params('id');
 		
-		// TODO: pass in showAll value
 		if($limit !== null){
 			$offset = $this->params('offset', 0);
-			$items = $this->itemBl->findAll($id, $type, $limit, $offset, $userId);
+			$items = $this->itemBl->findAll($id, $type, $limit, $offset, 
+				                            $showAll, $userId);
 		} else {
 			$updatedSince = $this->params('updatedSince');
-			$items = $this->itemBl->findAllNew($id, $type, $updatedSince, $userId);
+			$items = $this->itemBl->findAllNew($id, $type, $updatedSince, 
+				                               $showAll, $userId);
 		}
 
 		$params = array(
