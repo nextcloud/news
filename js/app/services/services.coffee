@@ -23,9 +23,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 # request related stuff
 angular.module('News').factory 'Persistence', ['_Persistence', 'Request',
-'Loading', 'Config', '$rootScope', 'ActiveFeed',
-(_Persistence, Request, Loading, Config, ActiveFeed, $rootScope) ->
-	return new _Persistence(Request, Loading, Config, ActiveFeed, $rootScope)
+'FeedLoading', 'Config', '$rootScope', 'ActiveFeed',
+(_Persistence, Request, FeedLoading, Config, ActiveFeed, $rootScope) ->
+	return new _Persistence(Request, FeedLoading, Config, ActiveFeed, $rootScope)
 ]
 
 angular.module('News').factory 'Request',
@@ -34,6 +34,11 @@ angular.module('News').factory 'Request',
 	return new _Request($http, Publisher, Router)
 ]
 
+# loading helpers
+angular.module('News').factory 'FeedLoading',
+['_Loading', (_Loading) ->
+	return new _Loading()
+]
 
 # models
 angular.module('News').factory 'ActiveFeed', ['_ActiveFeed', (_ActiveFeed) ->

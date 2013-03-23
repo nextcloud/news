@@ -1,5 +1,26 @@
+<?php
+
+\OCP\Util::addScript('core', 'multiselect');
+
+\OCP\Util::addScript('appframework', 'vendor/angular/angular');
+\OCP\Util::addScript('appframework', 'public/app');
+
+\OCP\Util::addScript('news', 'vendor/angular-ui/angular-ui');
+\OCP\Util::addScript('news', 'vendor/momentjs/moment');
+\OCP\Util::addScript('news', 'public/app');
+
+\OCP\Util::addStyle('news', 'owncloud');
+\OCP\Util::addStyle('news', 'addnew');
+\OCP\Util::addStyle('news', 'feeds');
+\OCP\Util::addStyle('news', 'items');
+\OCP\Util::addStyle('news', 'settings');
+\OCP\Util::addStyle('news', 'addnew');
+\OCP\Util::addStyle('news', 'showall');
+
+?>
+
 <div id="app" ng-app="News">
-	<div id="app-navigation" ng-controller="FeedController">
+	<div id="left-content" ng-controller="FeedController">
 
 		<ul class="with-icon" data-id="0" droppable>
 			<?php print_unescaped($this->inc('part.addnew')) ?>
@@ -14,7 +35,7 @@
 			<div id="app-settings-header">
 				<button name="app settings" 
 						class="settings-button"
-						click-slide-toggle="{
+						oc-click-slide-toggle="{
 							selector: '#app-settings-content',
 							hideOnFocusLost: true
 						}"></button>
@@ -26,7 +47,7 @@
 
 	</div>
 
-	<div id="app-content" ng-class="{loading: loading.loading>0}"
+	<div id="right-content" ng-class="{loading: loading.loading>0}"
 		ng-controller="ItemController" 	when-scrolled="scroll()" feed-navigation>
 		<?php print_unescaped($this->inc("part.items")); ?>
 	</div>

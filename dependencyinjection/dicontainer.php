@@ -43,6 +43,7 @@ use OCA\News\Db\FeedMapper;
 use OCA\News\Db\ItemMapper;
 use OCA\News\Db\StatusFlag;
 
+use OCA\News\Utility\FeedFetcher;
 
 require_once __DIR__ . '/../3rdparty/SimplePie/autoloader.php';
 
