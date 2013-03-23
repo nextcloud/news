@@ -37,7 +37,7 @@ class ItemBl extends Bl {
 
 
 	public function findAllNew($id, $type, $updatedSince, $userId){
-		
+		// TODO all the crazy finding of items
 	}
 
 
