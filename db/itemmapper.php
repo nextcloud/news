@@ -104,6 +104,35 @@ class ItemMapper extends Mapper implements IMapper {
 	}
 
 
+	public function findAllNewFeed($id, $updatedSince, $status, $userId){
+		// TODO
+	}
+
+
+	public function findAllNewFolder($id, $updatedSince, $status, $userId){
+		// TODO
+	}
+
+
+	public function findAllNew($updatedSince, $status, $userId){
+		// TODO
+	}
+
+
+	public function findAllFeed($id, $limit, $offset, $status, $userId){
+		// TODO
+	}
+
+
+	public function findAllFolder($id, $limit, $offset, $status, $userId){
+		// TODO
+	}
+
+
+	public function findAll($limit, $offset, $status, $userId){
+		// TODO
+	}
+
 }
 	/**
 	 * Queries to find all items from a folder that belongs to a user

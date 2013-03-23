@@ -30,4 +30,26 @@ class StatusFlag {
 	const STARRED   = 0x04;
 	const DELETED   = 0x08;
 	const UPDATED   = 0x16;
+
+
+	/**
+	 * Get status for query
+	 */
+	public function typeToStatus($type, $showAll){
+		if($type === FeedType::STARRED){
+			$status = self::STARRED;
+		} else {
+			$status = 0;
+		}
+
+		if($showAll){
+			$status |= self::UNREAD;
+		} else {
+			$status &= ~self::UNREAD;
+		}
+
+		return $status;
+	}
+
+
 }

@@ -27,24 +27,61 @@ namespace OCA\News\Bl;
 
 use \OCA\News\Db\Item;
 use \OCA\News\Db\ItemMapper;
+use \OCA\News\Db\StatusFlag;
+use \OCA\News\Db\FeedType;
 
 
 class ItemBl extends Bl {
 
-	public function __construct(ItemMapper $itemMapper){
+	private $statusFlag;
+
+	public function __construct(ItemMapper $itemMapper, StatusFlag $statusFlag){
 		parent::__construct($itemMapper);
+		$this->statusFlag = $statusFlag;
 	}
 
 
 	public function findAllNew($id, $type, $updatedSince, 
 		$showAll, $userId){
-		// TODO all the crazy finding of items
+		$status = $this->statusFlag->typeToStatus($type, $showAll);
+		
+		switch($type){
+			case FeedType::FEED:
+				$items = $this->mapper->findAllNewFeed($id, $updatedSince, 
+					                                   $status, $userId);
+				break;
+			case FeedType::FOLDER:
+				$items = $this->mapper->findAllNewFolder($id, $updatedSince, 
+					                                   $status, $userId);
+				break;
+			default:
+				$items = $this->mapper->findAllNew($updatedSince, $status, 
+					                               $userId);
+		}
+
+		return $items;
 	}
 
 
 	public function findAll($id, $type, $limit, $offset, 
 		$showAll, $userId){
-		// TODO all the crazy finding of items
+		$status = $this->statusFlag->typeToStatus($type, $showAll);
+		
+		switch($type){
+			case FeedType::FEED:
+				$items = $this->mapper->findAllFeed($id, $limit, $offset, 
+					                                   $status, $userId);
+				break;
+			case FeedType::FOLDER:
+				$items = $this->mapper->findAllFolder($id, $limit, $offset, 
+					                                   $status, $userId);
+				break;
+			default:
+				$items = $this->mapper->findAll($limit, $offset, $status, 
+					                               $userId);
+		}
+
+		return $items;
 	}
 
 

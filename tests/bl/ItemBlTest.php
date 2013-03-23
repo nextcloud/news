@@ -29,41 +29,148 @@ require_once(__DIR__ . "/../classloader.php");
 
 
 use \OCA\News\Db\Item;
+use \OCA\News\Db\StatusFlag;
+use \OCA\News\Db\FeedType;
 
 
 class ItemBlTest extends \OCA\AppFramework\Utility\TestUtility {
 
-	protected $api;
-	protected $mapper;
-	protected $bl;
-	protected $user;
-	protected $response;
+	private $api;
+	private $mapper;
+	private $bl;
+	private $user;
+	private $response;
+	private $status;
+
 
 	protected function setUp(){
 		$this->api = $this->getAPIMock();
 		$this->mapper = $this->getMockBuilder('\OCA\News\Db\ItemMapper')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->bl = new ItemBl($this->mapper);
+		$statusFlag = $this->getMockBuilder('\OCA\News\Db\StatusFlag')
+			->disableOriginalConstructor()
+			->getMock();
+		$this->status = StatusFlag::STARRED;
+		$statusFlag->expects($this->any())
+			->method('typeToStatus')
+			->will($this->returnValue($this->status));
+		$this->bl = new ItemBl($this->mapper, $statusFlag);
 		$this->user = 'jack';
 		$response = 'hi';
+		$this->id = 3;
+		$this->updatedSince = 20333;
+		$this->showAll = true;	
+		$this->offset = 5;
+		$this->limit = 20;
 	}
 
-
-
-
-	/*
-	public function testFindAll(){
+	
+	public function testFindAllNewFeed(){
+		$type = FeedType::FEED;
 		$this->mapper->expects($this->once())
-			->method('findAll')
-			->with($this->equalTo($this->user))
+			->method('findAllNewFeed')
+			->with($this->equalTo($this->id), 
+					$this->equalTo($this->updatedSince),
+					$this->equalTo($this->status),
+					$this->equalTo($this->user))
 			->will($this->returnValue($this->response));
 
-		$result = $this->bl->findAllFromUser($this->user);
+		$result = $this->bl->findAllNew(
+			$this->id, $type, $this->updatedSince, $this->showAll,
+			$this->user);
 		$this->assertEquals($this->response, $result);
 	}
 
-	*/
+
+	public function testFindAllNewFolder(){
+		$type = FeedType::FOLDER;
+		$this->mapper->expects($this->once())
+			->method('findAllNewFolder')
+			->with($this->equalTo($this->id), 
+					$this->equalTo($this->updatedSince),
+					$this->equalTo($this->status),
+					$this->equalTo($this->user))
+			->will($this->returnValue($this->response));
+
+		$result = $this->bl->findAllNew(
+			$this->id, $type, $this->updatedSince, $this->showAll,
+			$this->user);
+		$this->assertEquals($this->response, $result);
+	}
+
+
+	public function testFindAllNew(){
+		$type = FeedType::STARRED;
+		$this->mapper->expects($this->once())
+			->method('findAllNew')
+			->with(	$this->equalTo($this->updatedSince),
+					$this->equalTo($this->status),
+					$this->equalTo($this->user))
+			->will($this->returnValue($this->response));
+
+		$result = $this->bl->findAllNew(
+			$this->id, $type, $this->updatedSince, $this->showAll,
+			$this->user);
+		$this->assertEquals($this->response, $result);
+	}
+
+
+		public function testFindAllFeed(){
+		$type = FeedType::FEED;
+		$this->mapper->expects($this->once())
+			->method('findAllFeed')
+			->with($this->equalTo($this->id), 
+					$this->equalTo($this->limit),
+					$this->equalTo($this->offset),
+					$this->equalTo($this->status),
+					$this->equalTo($this->user))
+			->will($this->returnValue($this->response));
+
+		$result = $this->bl->findAll(
+			$this->id, $type, $this->limit, 
+			$this->offset, $this->showAll,
+			$this->user);
+		$this->assertEquals($this->response, $result);
+	}
+
+
+	public function testFindAllFolder(){
+		$type = FeedType::FOLDER;
+		$this->mapper->expects($this->once())
+			->method('findAllFolder')
+			->with($this->equalTo($this->id), 
+					$this->equalTo($this->limit),
+					$this->equalTo($this->offset),
+					$this->equalTo($this->status),
+					$this->equalTo($this->user))
+			->will($this->returnValue($this->response));
+
+		$result = $this->bl->findAll(
+			$this->id, $type, $this->limit, 
+			$this->offset, $this->showAll,
+			$this->user);
+		$this->assertEquals($this->response, $result);
+	}
+
+
+	public function testFindAll(){
+		$type = FeedType::STARRED;
+		$this->mapper->expects($this->once())
+			->method('findAll')
+			->with(	$this->equalTo($this->limit),
+					$this->equalTo($this->offset),
+					$this->equalTo($this->status),
+					$this->equalTo($this->user))
+			->will($this->returnValue($this->response));
+
+		$result = $this->bl->findAll(
+			$this->id, $type, $this->limit, 
+			$this->offset, $this->showAll,
+			$this->user);
+		$this->assertEquals($this->response, $result);
+	}
+
 
 	public function testStarredCount(){
 		$star = 18;

@@ -41,6 +41,7 @@ use OCA\News\Bl\ItemBl;
 use OCA\News\Db\FolderMapper;
 use OCA\News\Db\FeedMapper;
 use OCA\News\Db\ItemMapper;
+use OCA\News\Db\StatusFlag;
 
 
 require_once __DIR__ . '/../3rdparty/SimplePie/autoloader.php';
@@ -99,7 +100,7 @@ class DIContainer extends BaseContainer {
 		});
 
 		$this['ItemBl'] = $this->share(function($c){
-			return new ItemBl($c['ItemMapper']);
+			return new ItemBl($c['ItemMapper'], $c['StatusFlag']);
 		});
 
 
@@ -124,6 +125,10 @@ class DIContainer extends BaseContainer {
 		 */
 		$this['FeedFetcher'] = $this->share(function($c){
 			return new FeedFetcher();
+		});
+
+		$this['StatusFlag'] = $this->share(function($c){
+			return new StatusFlag();
 		});
 
 
