@@ -19,7 +19,6 @@
 		"grunt": "~0.4.0",
 		"grunt-cli": "~0.1.6",
 		"coffee-script": "~1.4.0",
-		"grunt-contrib-coffee": "~0.4",
 		"grunt-contrib-concat": "~0.1.2",
 		"grunt-contrib-watch": "~0.2.0",
 		"grunt-coffeelint": "0.0.6",
