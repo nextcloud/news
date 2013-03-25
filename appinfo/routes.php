@@ -202,7 +202,7 @@ $this->create('news_usersettings_read_hide', '/usersettings/read/hide')->post()-
 \OCP\API::register(
 	'get', '/news/feeds',
 	function($urlParams) {
-		$container = createDIContainer();
+		$container = new DIContainer();
 		return $container['FeedApi']->getAll($urlParams);
 	},
 	'news', \OC_API::USER_AUTH
@@ -210,7 +210,7 @@ $this->create('news_usersettings_read_hide', '/usersettings/read/hide')->post()-
 \OCP\API::register(
 	'get', '/news/feeds/{feedid}',
 	function($urlParams) {
-		$container = createDIContainer();
+		$container = new DIContainer();
 		return $container['FeedApi']->getById($urlParams);
 	},
 	'news', \OC_API::USER_AUTH
@@ -218,7 +218,7 @@ $this->create('news_usersettings_read_hide', '/usersettings/read/hide')->post()-
 \OCP\API::register(
 	'post', '/news/feeds/create',
 	function($urlParams) {
-		$container = createDIContainer();
+		$container = new DIContainer();
 		return $container['FeedApi']->create($urlParams);
 	},
 	'news', \OC_API::USER_AUTH
@@ -226,7 +226,7 @@ $this->create('news_usersettings_read_hide', '/usersettings/read/hide')->post()-
 \OCP\API::register(
 	'post', '/news/feeds/{feedid}/delete',
 	function($urlParams) {
-		$container = createDIContainer();
+		$container = new DIContainer();
 		return $container['FeedApi']->delete($urlParams);
 	},
 	'news', \OC_API::USER_AUTH
@@ -239,7 +239,7 @@ $this->create('news_usersettings_read_hide', '/usersettings/read/hide')->post()-
 \OCP\API::register(
 	'get', '/news/folders',
 	function($urlParams) {
-		$container = createDIContainer();
+		$container = new DIContainer();
 		return $container['FolderApi']->getAll($urlParams);
 	},
 	'news', \OC_API::USER_AUTH
@@ -247,7 +247,7 @@ $this->create('news_usersettings_read_hide', '/usersettings/read/hide')->post()-
 \OCP\API::register(
 	'post', '/news/folders/create',
 	function($urlParams) {
-		$container = createDIContainer();
+		$container = new DIContainer();
 		return $container['FolderApi']->create($urlParams);
 	},
 	'news', \OC_API::USER_AUTH
@@ -256,7 +256,7 @@ $this->create('news_usersettings_read_hide', '/usersettings/read/hide')->post()-
 \OCP\API::register(
 	'get', '/news/folders/{folderid}/delete',
 	function($urlParams) {
-		$container = createDIContainer();
+		$container = new DIContainer();
 		return $container['FolderApi']->delete($urlParams);
 	},
 	'news', \OC_API::USER_AUTH
@@ -264,7 +264,7 @@ $this->create('news_usersettings_read_hide', '/usersettings/read/hide')->post()-
 \OCP\API::register(
 	'post', '/news/folders/{folderid}/modify',
 	function($urlParams) {
-		$container = createDIContainer();
+		$container = new DIContainer();
 		return $container['FolderApi']->modify($urlParams);
 	},
 	'news', \OC_API::USER_AUTH
