@@ -95,7 +95,7 @@ class ItemController extends Controller {
 
 	private function setStarred($isStarred){
 		$userId = $this->api->getUserId();
-		$itemId = $this->params('itemId');
+		$itemId = (int) $this->params('itemId');
 
 		$this->itemBl->star($itemId, $isStarred, $userId);
 	}

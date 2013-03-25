@@ -44,13 +44,6 @@ class FeedBl extends Bl {
 	}
 
 
-	// README: only call this for the cronjob because it does not
-	// check that the feeds belong to the right user
-	public function findAll(){
-		return $this->mapper->findAll();
-	}
-
-
 	public function findAllFromUser($userId){
 		return $this->mapper->findAllFromUser($userId);
 	}
@@ -79,6 +72,14 @@ class FeedBl extends Bl {
 			return $feed;
 		} catch(FetcherException $ex){
 			throw new BLException('Can not add feed: Not found or bad source');
+		}
+	}
+
+	public function updateAll(){
+		// TODO: needs test
+		$feeds = $this->mapper->findAll();
+		foreach($feeds as $feed){
+			$this->update($feed->getId(), $feed->getUser());
 		}
 	}
 

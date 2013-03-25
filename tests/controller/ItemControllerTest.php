@@ -213,18 +213,7 @@ class ItemControllerTest extends ControllerTestUtility {
 
 
 
-	public function testItems(){
-		$result = array(
-			'items' => array(new Item())
-		);
-		$post = array(
-			'limit' => 3,
-			'type' => FeedType::FEED,
-			'id' => 2,
-			'offset' => 0 
-		);
-		$this->controller = $this->getPostController($post);
-
+	private function itemsApiExpects($id, $type){
 		$this->api->expects($this->once())
 			->method('getUserValue')
 			->with($this->equalTo($this->user),
@@ -237,13 +226,28 @@ class ItemControllerTest extends ControllerTestUtility {
 			->method('setUserValue')
 			->with($this->equalTo($this->user),
 				$this->equalTo('lastViewedFeedId'),
-				$this->equalTo($post['id']));
+				$this->equalTo($id));
 		$this->api->expects($this->at(3))
 			->method('setUserValue')
 			->with($this->equalTo($this->user),
 				$this->equalTo('lastViewedFeedType'),
-				$this->equalTo($post['type']));
+				$this->equalTo($type));
+	}
 
+
+	public function testItems(){
+		$result = array(
+			'items' => array(new Item())
+		);
+		$post = array(
+			'limit' => 3,
+			'type' => FeedType::FEED,
+			'id' => 2,
+			'offset' => 0 
+		);
+		$this->controller = $this->getPostController($post);
+
+		$this->itemsApiExpects($post['id'], $post['type']);
 
 		$this->bl->expects($this->once())
 			->method('findAll')
@@ -268,14 +272,8 @@ class ItemControllerTest extends ControllerTestUtility {
 		);
 		$this->controller = $this->getPostController($post);
 
-		$this->api->expects($this->once())
-			->method('getUserValue')
-			->with($this->equalTo($this->user),
-				$this->equalTo('showAll'))
-			->will($this->returnValue('true'));
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
+		$this->itemsApiExpects($post['id'], $post['type']);
+		
 		$this->bl->expects($this->once())
 			->method('findAllNew')
 			->with($post['id'], $post['type'], $post['updatedSince'], 

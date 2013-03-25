@@ -56,6 +56,7 @@ class FeedFetcher {
 					$item->setUrl( $feedItem->get_permalink() );
 					$item->setTitle( $feedItem->get_title() );
 					$item->setGuid( $feedItem->get_id() );
+					$item->setGuidHash( md5($feedItem->get_id()) );
 					$item->setBody( $feedItem->get_content() );
 					$item->setDate( $feedItem->get_date('U') );
 

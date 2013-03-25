@@ -1,9 +1,12 @@
 <?php
+
 /**
-* ownCloud - News app
+* ownCloud - News
 *
-* @author Jakob Sack
-* @copyright 2012 Jakob Sack owncloud@jakobsack.de
+* @author Alessandro Cosentino
+* @author Bernhard Posselt
+* @copyright 2012 Alessandro Cosentino cosenal@gmail.com
+* @copyright 2012 Bernhard Posselt nukeawhale@gmail.com
 *
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -20,73 +23,19 @@
 *
 */
 
+
 namespace OCA\News\Backgroundjob;
 
+use \OCA\News\DependencyInjection\DIContainer;
 
-/**
- * This class maps a feed to an entry in the feeds table of the database.
- */
+
 class Task {
-	static public function sortFeeds( $a, $b ) {
-		if( $a->getId() == $b->getId() ) {
-			return 0;
-		}
-		elseif( $a->getId() < $b->getId() ) {
-			return -1;
-		}
-		else{
-			return 1;
-		}
-	}
+
 
 	static public function run() {
-		if( \OC::$CLI ) {
-			self::cliStep();
-		}
-		else{
-			self::webStep();
-		}
+		$container = new DIContainer();
+		$container['FeedBl']->updateAll();
 	}
 
-	static private function cliStep() {
-		$feedmapper = new FeedMapper();
 
-		// Iterate over all feeds
-		$feeds = $feedmapper->findAll();
-		foreach( $feeds as $feed ) {
-			self::updateFeed( $feedmapper, $feed );
-		}
-	}
-
-	static private function webStep() {
-		// Iterate over all users
-		$lastid = \OCP\Config::getAppValue('news', 'backgroundjob_lastid',0);
-
-		$feedmapper = new FeedMapper();
-		$feeds = $feedmapper->findAll();
-		usort( $feeds, array( 'OCA\News\Backgroundjob', 'sortFeeds' ));
-
-		$done = false;
-		foreach( $feeds as $feed ) {
-			if( $feed->getId() > $lastid ) {
-				// set lastid BEFORE updating feed!
-				\OCP\Config::setAppValue('news', 'backgroundjob_lastid',$feed->getId());
-				$done = true;
-				self::updateFeed( $feedmapper, $feed );
-			}
-		}
-
-		if( !$done ) {
-			\OCP\Config::setAppValue('news', 'backgroundjob_lastid',0);
-		}
-	}
-
-	static private function updateFeed( $feedmapper, $feed ) {
-		$newfeed = null;
-		$newfeed = Utils::fetch( $feed->getUrl() );
-		if( $newfeed !== null ) {
-			$feedmapper = new FeedMapper();
-			$newfeedid = $feedmapper->save($newfeed, $feed->getFolderId() );
-		}
-	}
 }
