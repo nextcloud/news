@@ -21,7 +21,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-angular.module('News').factory '_FeedModel', ['_Model', (_Model) ->
+angular.module('News').factory '_FeedModel',
+['_Model', '_EqualQuery',
+(_Model, _EqualQuery) ->
 
 	class FeedModel extends _Model
 
@@ -34,6 +36,35 @@ angular.module('News').factory '_FeedModel', ['_Model', (_Model) ->
 				item.icon = 'url(' + @_utils.imagePath('news', 'rss.svg') + ')'
 			super(item)
 
+
+		getUnreadCount: ->
+			count = 0
+			for feed in @getAll()
+				count += feed.unreadCount
+
+			return count
+
+
+		getFeedUnreadCount: (feedId) ->
+			feed = @getById(feedId)
+			if angular.isDefined(feed)
+				return feed.unreadCount
+			else
+				return 0
+
+
+		getFolderUnreadCount: (folderId) ->
+			query = new _EqualQuery('folderId', folderId)
+			count = 0
+			for feed in @get(query)
+				count += feed.unreadCount
+
+			return count
+
+
+		getAllOfFolder: (folderId) ->
+			query = new _EqualQuery('folderId', folderId)
+			return @get(query)
 
 
 	return FeedModel

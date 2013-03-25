@@ -97,8 +97,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
   ]);
 
   angular.module('News').controller('FeedController', [
-    '$scope', '_FeedController', 'FolderModel', 'FeedModel', 'ActiveFeed', 'ShowAll', 'FeedType', 'StarredCount', function($scope, _FeedController, FolderModel, FeedModel, ActiveFeed, ShowAll, FeedType, StarredCount) {
-      return new _FeedController($scope, FolderModel, FeedModel, ActiveFeed, ShowAll, FeedType, StarredCount);
+    '$scope', '_FeedController', 'FolderModel', 'FeedModel', 'ActiveFeed', 'ShowAll', 'FeedType', 'StarredCount', 'Persistence', 'ItemModel', function($scope, _FeedController, FolderModel, FeedModel, ActiveFeed, ShowAll, FeedType, StarredCount, Persistence, ItemModel) {
+      return new _FeedController($scope, FolderModel, FeedModel, ActiveFeed, ShowAll, FeedType, StarredCount, Persistence, ItemModel);
     }
   ]);
 
@@ -140,7 +140,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     var FeedController;
     FeedController = (function() {
 
-      function FeedController($scope, _folderModel, _feedModel, _active, _showAll, _feedType, _starredCount) {
+      function FeedController($scope, _folderModel, _feedModel, _active, _showAll, _feedType, _starredCount, _persistence, _itemModel) {
         var _this = this;
         this.$scope = $scope;
         this._folderModel = _folderModel;
@@ -149,6 +149,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         this._showAll = _showAll;
         this._feedType = _feedType;
         this._starredCount = _starredCount;
+        this._persistence = _persistence;
+        this._itemModel = _itemModel;
         this.$scope.feeds = this._feedModel.getAll();
         this.$scope.folders = this._folderModel.getAll();
         this.$scope.feedType = this._feedType;
@@ -200,17 +202,62 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         return this._showAll.getShowAll();
       };
 
-      FeedController.prototype.getUnreadCount = function(type, id) {};
+      FeedController.prototype.getUnreadCount = function(type, id) {
+        var count;
+        switch (type) {
+          case this._feedType.Subscriptions:
+            count = this._feedModel.getUnreadCount();
+            break;
+          case this._feedType.Starred:
+            count = this._starredCount.getStarredCount();
+            break;
+          case this._feedType.Feed:
+            count = this._feedModel.getFeedUnreadCount(id);
+            break;
+          case this._feedType.Folder:
+            count = this._feedModel.getFolderUnreadCount(id);
+        }
+        if (count > 999) {
+          count = '999+';
+        }
+        return count;
+      };
 
-      FeedController.prototype.loadFeed = function(type, id) {};
+      FeedController.prototype.loadFeed = function(type, id) {
+        var lastModified;
+        if (type !== this._active.getType() || id !== this._active.getId()) {
+          this._itemModel.clear();
+          this._persistence.getItems(type, id, 0);
+          return this._active.handle({
+            id: id,
+            type: type
+          });
+        } else {
+          lastModified = this._itemModel.getLastModified();
+          return this._persistence.getItems(type, id, 0, null, lastModified);
+        }
+      };
 
-      FeedController.prototype.hasFeeds = function(folderId) {};
+      FeedController.prototype.hasFeeds = function(folderId) {
+        return this._feedModel.getAllOfFolder(folderId).length;
+      };
 
       FeedController.prototype["delete"] = function(type, id) {};
 
       FeedController.prototype.markAllRead = function(type, id) {};
 
-      FeedController.prototype.getFeedsOfFolder = function(folderId) {};
+      FeedController.prototype.getFeedsOfFolder = function(folderId) {
+        return this._feedModel.getAllOfFolder(folderId);
+      };
+
+      FeedController.prototype.setShowAll = function(showAll) {
+        this._showAll.setShowAll(showAll);
+        if (showAll) {
+          return this._persistence.userSettingsReadShow();
+        } else {
+          return this._persistence.userSettingsReadHide();
+        }
+      };
 
       return FeedController;
 
@@ -437,7 +484,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   angular.module('News').factory('_FeedModel', [
-    '_Model', function(_Model) {
+    '_Model', '_EqualQuery', function(_Model, _EqualQuery) {
       var FeedModel;
       FeedModel = (function(_super) {
 
@@ -453,6 +500,45 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             item.icon = 'url(' + this._utils.imagePath('news', 'rss.svg') + ')';
           }
           return FeedModel.__super__.add.call(this, item);
+        };
+
+        FeedModel.prototype.getUnreadCount = function() {
+          var count, feed, _i, _len, _ref;
+          count = 0;
+          _ref = this.getAll();
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            feed = _ref[_i];
+            count += feed.unreadCount;
+          }
+          return count;
+        };
+
+        FeedModel.prototype.getFeedUnreadCount = function(feedId) {
+          var feed;
+          feed = this.getById(feedId);
+          if (angular.isDefined(feed)) {
+            return feed.unreadCount;
+          } else {
+            return 0;
+          }
+        };
+
+        FeedModel.prototype.getFolderUnreadCount = function(folderId) {
+          var count, feed, query, _i, _len, _ref;
+          query = new _EqualQuery('folderId', folderId);
+          count = 0;
+          _ref = this.get(query);
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            feed = _ref[_i];
+            count += feed.unreadCount;
+          }
+          return count;
+        };
+
+        FeedModel.prototype.getAllOfFolder = function(folderId) {
+          var query;
+          query = new _EqualQuery('folderId', folderId);
+          return this.get(query);
         };
 
         return FeedModel;
@@ -541,7 +627,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   angular.module('News').factory('_ItemModel', [
-    '_Model', function(_Model) {
+    '_Model', '_MaximumQuery', '_MinimumQuery', function(_Model, _MaximumQuery, _MinimumQuery) {
       var ItemModel;
       ItemModel = (function(_super) {
 
@@ -550,6 +636,17 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         function ItemModel() {
           return ItemModel.__super__.constructor.apply(this, arguments);
         }
+
+        ItemModel.prototype.getLastModified = function() {
+          var lastModified, query;
+          query = new _MaximumQuery('lastModified');
+          lastModified = this.get(query);
+          if (angular.isDefined(lastModified)) {
+            return lastModified.lastModified;
+          } else {
+            return null;
+          }
+        };
 
         return ItemModel;
 
@@ -1224,6 +1321,10 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         return this._showAll;
       };
 
+      ShowAll.prototype.setShowAll = function(showAll) {
+        return this._showAll = showAll;
+      };
+
       return ShowAll;
 
     })();
@@ -1268,6 +1369,10 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
       StarredCount.prototype.handle = function(data) {
         return this._count = data;
+      };
+
+      StarredCount.prototype.setStarredCount = function(count) {
+        return this._count = count;
       };
 
       StarredCount.prototype.getStarredCount = function() {

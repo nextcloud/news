@@ -37,5 +37,8 @@ angular.module('News').factory '_ShowAll', ->
 			return @_showAll
 
 
+		setShowAll: (showAll) ->
+			@_showAll = showAll
+
 
 	return ShowAll

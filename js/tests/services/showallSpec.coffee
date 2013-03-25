@@ -27,16 +27,23 @@ describe '_ShowAll', ->
 	beforeEach module 'News'
 
 	beforeEach inject (@_ShowAll) =>
+		@showAll = new @_ShowAll()
 
 
 	it 'should be false by default', =>
-		showAll = new @_ShowAll()
+		
 
-		expect(showAll.getShowAll()).toBeFalsy()
+		expect(@showAll.getShowAll()).toBeFalsy()
 
 
 	it 'should set the correct showAll value', =>
-		showAll = new @_ShowAll()
-		showAll.handle(true)
+		@showAll.handle(true)
+		expect(@showAll.getShowAll()).toBeTruthy()
 
-		expect(showAll.getShowAll()).toBeTruthy()
+
+	it 'should provide a set showall setter', =>
+		@showAll.setShowAll(true)
+		expect(@showAll.getShowAll()).toBeTruthy()
+
+		@showAll.setShowAll(false)
+		expect(@showAll.getShowAll()).toBeFalsy()

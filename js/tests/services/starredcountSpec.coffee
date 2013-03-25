@@ -27,16 +27,17 @@ describe '_StarredCount', ->
 	beforeEach module 'News'
 
 	beforeEach inject (@_StarredCount) =>
-
+		@starred = new @_StarredCount()
 
 	it 'should be 0 by default', =>
-		starred = new @_StarredCount()
-
-		expect(starred.getStarredCount()).toBe(0)
+		expect(@starred.getStarredCount()).toBe(0)
 
 
 	it 'should set the correct starred count', =>
-		starred = new @_StarredCount()
-		starred.handle(3)
+		@starred.handle(3)
+		expect(@starred.getStarredCount()).toBe(3)
 
-		expect(starred.getStarredCount()).toBe(3)
+
+	it 'should provide a setter', =>
+		@starred.setStarredCount(15)
+		expect(@starred.getStarredCount()).toBe(15)

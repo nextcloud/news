@@ -33,6 +33,10 @@ angular.module('News').factory '_StarredCount', ->
 			@_count = data
 
 
+		setStarredCount: (count) ->
+			@_count = count
+			
+
 		getStarredCount: ->
 			return @_count
 

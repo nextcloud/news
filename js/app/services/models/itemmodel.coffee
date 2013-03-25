@@ -20,9 +20,22 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 ###
 
-angular.module('News').factory '_ItemModel', ['_Model', (_Model) ->
+angular.module('News').factory '_ItemModel',
+['_Model', '_MaximumQuery', '_MinimumQuery',
+(_Model, _MaximumQuery, _MinimumQuery) ->
 
 	class ItemModel extends _Model
+
+
+		getLastModified: ->
+			query = new _MaximumQuery('lastModified')
+			lastModified = @get(query)
+			
+			if angular.isDefined(lastModified)
+				return lastModified.lastModified
+			else
+				return null
+
 
 	return ItemModel
 ]

@@ -25,8 +25,9 @@ angular.module('News').factory '_FeedController', ->
 
 	class FeedController
 
-		constructor: (@$scope, @_folderModel, @_feedModel, @_active, 
-					@_showAll, @_feedType, @_starredCount) ->
+		constructor: (@$scope, @_folderModel, @_feedModel, @_active,
+					@_showAll, @_feedType, @_starredCount, @_persistence,
+					@_itemModel) ->
 
 			# bind internal stuff to scope
 			@$scope.feeds = @_feedModel.getAll()
@@ -80,12 +81,34 @@ angular.module('News').factory '_FeedController', ->
 
 
 		getUnreadCount: (type, id) ->
+			switch type
+				when @_feedType.Subscriptions
+					count = @_feedModel.getUnreadCount()
+				when @_feedType.Starred
+					count = @_starredCount.getStarredCount()
+				when @_feedType.Feed
+					count = @_feedModel.getFeedUnreadCount(id)
+				when @_feedType.Folder
+					count = @_feedModel.getFolderUnreadCount(id)
+
+			if count > 999
+				count = '999+'
+
+			return count
 
 
 		loadFeed: (type, id) ->
+			if type != @_active.getType() or id != @_active.getId()
+				@_itemModel.clear()
+				@_persistence.getItems(type, id, 0)
+				@_active.handle({id: id, type: type})
+			else
+				lastModified = @_itemModel.getLastModified()
+				@_persistence.getItems(type, id, 0, null, lastModified)
 
 
 		hasFeeds: (folderId) ->
+			return @_feedModel.getAllOfFolder(folderId).length
 
 
 		delete: (type, id) ->
@@ -95,7 +118,15 @@ angular.module('News').factory '_FeedController', ->
 
 
 		getFeedsOfFolder: (folderId) ->
+			return @_feedModel.getAllOfFolder(folderId)
 
+
+		setShowAll: (showAll) ->
+			@_showAll.setShowAll(showAll)
+			if showAll
+				@_persistence.userSettingsReadShow()
+			else
+				@_persistence.userSettingsReadHide()
 
 
 	return FeedController
