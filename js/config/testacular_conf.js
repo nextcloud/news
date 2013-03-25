@@ -42,6 +42,7 @@ files = [
 	'build/app/directives/*.js',
 	'build/app/filters/*.js',
 	'build/app/services/**/*.js',
+	'build/app/controllers/**/*.js',
 	'build/tests/**/*Spec.js'
 ];
 

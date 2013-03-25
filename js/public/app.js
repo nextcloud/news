@@ -97,8 +97,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
   ]);
 
   angular.module('News').controller('FeedController', [
-    '$scope', '_FeedController', 'FolderModel', 'FeedModel', function($scope, _FeedController, FolderModel, FeedModel) {
-      return new _FeedController($scope, FolderModel, FeedModel);
+    '$scope', '_FeedController', 'FolderModel', 'FeedModel', 'ActiveFeed', 'ShowAll', 'FeedType', 'StarredCount', function($scope, _FeedController, FolderModel, FeedModel, ActiveFeed, ShowAll, FeedType, StarredCount) {
+      return new _FeedController($scope, FolderModel, FeedModel, ActiveFeed, ShowAll, FeedType, StarredCount);
     }
   ]);
 
@@ -140,11 +140,77 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     var FeedController;
     FeedController = (function() {
 
-      function FeedController($scope, folderModel, feedModel) {
+      function FeedController($scope, _folderModel, _feedModel, _active, _showAll, _feedType, _starredCount) {
+        var _this = this;
         this.$scope = $scope;
-        this.folderModel = folderModel;
-        this.feedModel = feedModel;
+        this._folderModel = _folderModel;
+        this._feedModel = _feedModel;
+        this._active = _active;
+        this._showAll = _showAll;
+        this._feedType = _feedType;
+        this._starredCount = _starredCount;
+        this.$scope.feeds = this._feedModel.getAll();
+        this.$scope.folders = this._folderModel.getAll();
+        this.$scope.feedType = this._feedType;
+        this.$scope.isFeedActive = function(type, id) {
+          return _this.isFeedActive(type, id);
+        };
+        this.$scope.isShown = function(type, id) {
+          return _this.isShown(type, id);
+        };
+        this.$scope.getUnreadCount = function(type, id) {
+          return _this.getUnreadCount(type, id);
+        };
+        this.$scope.isShowAll = function() {
+          return _this.isShowAll();
+        };
+        this.$scope.loadFeed = function(type, id) {
+          return _this.loadFeed(type, id);
+        };
+        this.$scope.hasFeeds = function(folderId) {
+          return _this.hasFeeds(folderId);
+        };
+        this.$scope["delete"] = function(type, id) {
+          return _this["delete"](type, id);
+        };
+        this.$scope.markAllRead = function(type, id) {
+          return _this.markAllRead(type, id);
+        };
+        this.$scope.getFeedsOfFolder = function(folderId) {
+          return _this.getFeedsOfFolder(folderId);
+        };
+        this.$scope.setShowAll = function(showAll) {
+          return _this.setShowAll(showAll);
+        };
       }
+
+      FeedController.prototype.isFeedActive = function(type, id) {
+        return type === this._active.getType() && (id = this._active.getId());
+      };
+
+      FeedController.prototype.isShown = function(type, id) {
+        if (this.isShowAll()) {
+          return true;
+        } else {
+          return this.getUnreadCount(type, id) > 0;
+        }
+      };
+
+      FeedController.prototype.isShowAll = function() {
+        return this._showAll.getShowAll();
+      };
+
+      FeedController.prototype.getUnreadCount = function(type, id) {};
+
+      FeedController.prototype.loadFeed = function(type, id) {};
+
+      FeedController.prototype.hasFeeds = function(folderId) {};
+
+      FeedController.prototype["delete"] = function(type, id) {};
+
+      FeedController.prototype.markAllRead = function(type, id) {};
+
+      FeedController.prototype.getFeedsOfFolder = function(folderId) {};
 
       return FeedController;
 

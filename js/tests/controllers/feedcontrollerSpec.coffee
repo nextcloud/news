@@ -25,3 +25,52 @@ describe '_FeedController', ->
 
 
 	beforeEach module 'News'
+
+
+	beforeEach inject (@_FeedController, @ActiveFeed, @ShowAll, @FeedType,
+		               @StarredCount) =>
+		@scope = {}
+		@feedModel =
+			getAll: ->
+		@folderModel =
+			getAll: ->
+		@controller = new @_FeedController(@scope, @folderModel, @feedModel, @ActiveFeed,
+			                 @ShowAll, @FeedType, @StarredCount)
+
+
+	it 'should make folders available', =>
+		@folderModel = 
+			getAll: jasmine.createSpy('FolderModel')
+		
+		new @_FeedController(@scope, @folderModel, @feedModel, @_ActiveFeed)
+
+		expect(@folderModel.getAll).toHaveBeenCalled()
+
+
+	it 'should make feeds availabe', =>
+		@feedModel = 
+			getAll: jasmine.createSpy('FeedModel')
+		
+		new @_FeedController(@scope, @folderModel, @feedModel, @_ActiveFeed)
+
+		expect(@feedModel.getAll).toHaveBeenCalled()		
+
+
+	it 'should make feedtype available', =>
+		expect(@scope.feedType).toBe(@FeedType)		
+
+
+	it 'should check the active feed', =>
+		@ActiveFeed.getType = =>
+			return @FeedType.Feed
+		@ActiveFeed.getId = =>
+			return 5
+
+		expect(@scope.isFeedActive(@FeedType.Feed, 5)).toBeTruthy()
+
+
+	it 'should provide ShowAll', =>
+		expect(@scope.isShowAll()).toBeFalsy()
+		
+		@ShowAll.handle(true)
+		expect(@scope.isShowAll()).toBeTruthy()

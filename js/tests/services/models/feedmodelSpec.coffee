@@ -44,3 +44,4 @@ describe '_FeedModel', ->
 		model.add(item)
 
 		expect(utils.imagePath).toHaveBeenCalledWith('news', 'rss.svg')
+
