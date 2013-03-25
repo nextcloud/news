@@ -52,15 +52,18 @@ class ItemController extends Controller {
 		$showAll = $this->api->getUserValue($userId, 'showAll') === 'true';
 
 		$limit = $this->params('limit');
-		$type = $this->params('type');
-		$id = $this->params('id');
+		$type = (int) $this->params('type');
+		$id = (int) $this->params('id');
+
+		$this->api->setUserValue($userId, 'lastViewedFeedId', $id);
+		$this->api->setUserValue($userId, 'lastViewedFeedType', $type);
 		
 		if($limit !== null){
-			$offset = $this->params('offset', 0);
-			$items = $this->itemBl->findAll($id, $type, $limit, $offset, 
+			$offset = (int) $this->params('offset', 0);
+			$items = $this->itemBl->findAll($id, $type, (int) $limit, $offset, 
 				                            $showAll, $userId);
 		} else {
-			$updatedSince = $this->params('updatedSince');
+			$updatedSince = (int) $this->params('updatedSince');
 			$items = $this->itemBl->findAllNew($id, $type, $updatedSince, 
 				                               $showAll, $userId);
 		}
@@ -119,7 +122,7 @@ class ItemController extends Controller {
 
 	private function setRead($isRead){
 		$userId = $this->api->getUserId();
-		$itemId = $this->params('itemId');
+		$itemId = (int) $this->params('itemId');
 
 		$this->itemBl->read($itemId, $isRead, $userId);
 	}
@@ -151,7 +154,7 @@ class ItemController extends Controller {
 	 */
 	public function readFeed(){
 		$userId = $this->api->getUserId();
-		$feedId = $this->params('feedId');
+		$feedId = (int) $this->params('feedId');
 
 		$this->itemBl->readFeed($feedId, $userId);
 	}

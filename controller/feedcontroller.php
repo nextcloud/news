@@ -28,8 +28,6 @@ namespace OCA\News\Controller;
 use \OCA\AppFramework\Controller\Controller;
 use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Http\Request;
-use \OCA\AppFramework\Db\DoesNotExistException;
-use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
 
 use \OCA\News\Bl\FeedBl;
 use \OCA\News\Bl\FolderBl;
@@ -74,10 +72,15 @@ class FeedController extends Controller {
 	 */
 	public function active(){
 		$userId = $this->api->getUserId();
-		$feedId = $this->api->getUserValue($userId, 'lastViewedFeedId');
+		$feedId = (int) $this->api->getUserValue($userId, 'lastViewedFeedId');
 		$feedType = $this->api->getUserValue($userId, 'lastViewedFeedType');
+		
+		// cast from null to int is 0
+		if($feedType !== null){
+			$feedType = (int) $feedType;
+		}
 
-		// check if feed or folder exist
+		// check if feed or folder exists
 		try {
 			if($feedType === FeedType::FOLDER){
 				$this->folderBl->find($feedId, $userId);
@@ -86,7 +89,7 @@ class FeedController extends Controller {
 				$this->feedBl->find($feedId, $userId);
 			
 			// if its the first launch, those values will be null
-			} elseif($feedType === null || $feedId === null){
+			} elseif($feedType === null){
 				throw new BLException('');
 			}
 	
@@ -113,7 +116,7 @@ class FeedController extends Controller {
 	 */
 	public function create(){
 		$url = $this->params('url');
-		$parentFolderId = $this->params('parentFolderId');
+		$parentFolderId = (int) $this->params('parentFolderId');
 		$userId = $this->api->getUserId();
 
 		try {
@@ -136,7 +139,7 @@ class FeedController extends Controller {
 	 * @Ajax
 	 */
 	public function delete(){
-		$feedId = $this->params('feedId');
+		$feedId = (int) $this->params('feedId');
 		$userId = $this->api->getUserId();
 
 		$this->feedBl->delete($feedId, $userId);
@@ -151,7 +154,7 @@ class FeedController extends Controller {
 	 * @Ajax
 	 */
 	public function update(){
-		$feedId = $this->params('feedId');
+		$feedId = (int) $this->params('feedId');
 		$userId = $this->api->getUserId();
 
 		$feed = $this->feedBl->update($feedId, $userId);
@@ -170,8 +173,8 @@ class FeedController extends Controller {
 	 * @Ajax
 	 */
 	public function move(){
-		$feedId = $this->params('feedId');
-		$parentFolderId = $this->params('parentFolderId');
+		$feedId = (int) $this->params('feedId');
+		$parentFolderId = (int) $this->params('parentFolderId');
 		$userId = $this->api->getUserId();
 
 		$this->feedBl->move($feedId, $parentFolderId, $userId);

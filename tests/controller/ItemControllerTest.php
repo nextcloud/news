@@ -28,8 +28,6 @@ namespace OCA\News\Controller;
 use \OCA\AppFramework\Http\Request;
 use \OCA\AppFramework\Http\JSONResponse;
 use \OCA\AppFramework\Utility\ControllerTestUtility;
-use \OCA\AppFramework\Db\DoesNotExistException;
-use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
 
 use \OCA\News\Db\Item;
 use \OCA\News\Db\FeedType;
@@ -235,6 +233,18 @@ class ItemControllerTest extends ControllerTestUtility {
 		$this->api->expects($this->once())
 			->method('getUserId')
 			->will($this->returnValue($this->user));
+		$this->api->expects($this->at(2))
+			->method('setUserValue')
+			->with($this->equalTo($this->user),
+				$this->equalTo('lastViewedFeedId'),
+				$this->equalTo($post['id']));
+		$this->api->expects($this->at(3))
+			->method('setUserValue')
+			->with($this->equalTo($this->user),
+				$this->equalTo('lastViewedFeedType'),
+				$this->equalTo($post['type']));
+
+
 		$this->bl->expects($this->once())
 			->method('findAll')
 			->with($post['id'], $post['type'], $post['limit'], 

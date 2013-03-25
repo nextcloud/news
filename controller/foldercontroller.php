@@ -59,7 +59,7 @@ class FolderController extends Controller {
 
 	private function setOpened($isOpened){
 		$userId = $this->api->getUserId();
-		$folderId = $this->params('folderId');
+		$folderId = (int) $this->params('folderId');
 
 		$this->folderBl->open($folderId, $isOpened, $userId);
 	}
@@ -118,7 +118,7 @@ class FolderController extends Controller {
 	 */
 	public function delete(){
 		$userId = $this->api->getUserId();
-		$folderId = $this->params('folderId');
+		$folderId = (int) $this->params('folderId');
 
 		$this->folderBl->delete($folderId, $userId);
 
@@ -134,7 +134,7 @@ class FolderController extends Controller {
 	public function rename(){
 		$userId = $this->api->getUserId();
 		$folderName = $this->params('folderName');
-		$folderId = $this->params('folderId');
+		$folderId = (int) $this->params('folderId');
 
 		try {
 			$folder = $this->folderBl->rename($folderId, $folderName, $userId);
