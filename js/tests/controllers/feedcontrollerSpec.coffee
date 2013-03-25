@@ -207,4 +207,60 @@ describe '_FeedController', ->
 		expect(@scope.hasFeeds(3)).toBeFalsy()
 
 		@FeedModel.add({id: 2, unreadCount:35, folderId: 3})
-		expect(@scope.hasFeeds(3)).toBeTruthy()		
+		expect(@scope.hasFeeds(3)).toBeTruthy()
+
+
+	it 'should delete feeds', =>
+		@FeedModel.removeById = jasmine.createSpy('remove')
+		@persistence.deleteFeed = jasmine.createSpy('deletequery')
+		@scope.delete(@FeedType.Feed, 3)
+
+		expect(@FeedModel.removeById).toHaveBeenCalledWith(3)
+		expect(@persistence.deleteFeed).toHaveBeenCalledWith(3)
+
+
+	it 'should delete folders', =>
+		@FolderModel.removeById = jasmine.createSpy('remove')
+		@persistence.deleteFolder = jasmine.createSpy('deletequery')
+		@scope.delete(@FeedType.Folder, 3)		
+
+		expect(@FolderModel.removeById).toHaveBeenCalledWith(3)
+		expect(@persistence.deleteFolder).toHaveBeenCalledWith(3)
+
+
+	it 'should mark feed as read', =>
+		@persistence.setFeedRead = jasmine.createSpy('setFeedRead')
+		@FeedModel.add({id: 5, unreadCount:2, folderId: 2})
+		@ItemModel.add({id: 6})
+		@ItemModel.add({id: 3})
+		@ItemModel.add({id: 2})
+		@scope.markAllRead(@FeedType.Feed, 5)
+
+		expect(@persistence.setFeedRead).toHaveBeenCalledWith(5, 6)
+		expect(@FeedModel.getById(5).unreadCount).toBe(0)
+
+
+	it 'should mark folder as read', =>
+		@persistence.setFeedRead = jasmine.createSpy('setFeedRead')
+		@FeedModel.add({id: 3, unreadCount:134, folderId: 3})
+		@FeedModel.add({id: 5, unreadCount:2, folderId: 2})
+		@FeedModel.add({id: 1, unreadCount:12, folderId: 3})
+
+		@scope.markAllRead(@FeedType.Folder, 3)
+
+		expect(@FeedModel.getById(3).unreadCount).toBe(0)
+		expect(@FeedModel.getById(1).unreadCount).toBe(0)
+		expect(@FeedModel.getById(5).unreadCount).toBe(2)
+
+
+	it 'should mark all as read', =>
+		@persistence.setFeedRead = jasmine.createSpy('setFeedRead')
+		@FeedModel.add({id: 3, unreadCount:134, folderId: 3})
+		@FeedModel.add({id: 5, unreadCount:2, folderId: 2})
+		@FeedModel.add({id: 1, unreadCount:12, folderId: 3})
+
+		@scope.markAllRead(@FeedType.Subscriptions, 0)
+
+		expect(@FeedModel.getById(3).unreadCount).toBe(0)
+		expect(@FeedModel.getById(1).unreadCount).toBe(0)
+		expect(@FeedModel.getById(5).unreadCount).toBe(0)

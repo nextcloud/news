@@ -81,6 +81,7 @@ angular.module('News').factory '_FeedController', ->
 
 
 		getUnreadCount: (type, id) ->
+			# TODO: use polymorphism instead of switches
 			switch type
 				when @_feedType.Subscriptions
 					count = @_feedModel.getUnreadCount()
@@ -98,6 +99,7 @@ angular.module('News').factory '_FeedController', ->
 
 
 		loadFeed: (type, id) ->
+			# TODO: use polymorphism instead of switches
 			if type != @_active.getType() or id != @_active.getId()
 				@_itemModel.clear()
 				@_persistence.getItems(type, id, 0)
@@ -112,9 +114,31 @@ angular.module('News').factory '_FeedController', ->
 
 
 		delete: (type, id) ->
+			# TODO: use polymorphism instead of switches
+			switch type
+				when @_feedType.Feed
+					count = @_feedModel.removeById(id)
+					@_persistence.deleteFeed(id)
+				when @_feedType.Folder
+					count = @_folderModel.removeById(id)
+					@_persistence.deleteFolder(id)
 
 
 		markAllRead: (type, id) ->
+			# TODO: use polymorphism instead of switches
+			switch type
+				when @_feedType.Subscriptions
+					for feed in @_feedModel.getAll()
+						@markAllRead(@_feedType.Feed, feed.id)
+				when @_feedType.Feed
+					feed = @_feedModel.getById(id)
+					if angular.isDefined(feed)
+						feed.unreadCount = 0
+						highestItemId = @_itemModel.getHighestId()
+						@_persistence.setFeedRead(id, highestItemId)
+				when @_feedType.Folder
+					for feed in @_feedModel.getAllOfFolder(id)
+						@markAllRead(@_feedType.Feed, feed.id)
 
 
 		getFeedsOfFolder: (folderId) ->

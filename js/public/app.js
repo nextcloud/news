@@ -242,9 +242,48 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         return this._feedModel.getAllOfFolder(folderId).length;
       };
 
-      FeedController.prototype["delete"] = function(type, id) {};
+      FeedController.prototype["delete"] = function(type, id) {
+        var count;
+        switch (type) {
+          case this._feedType.Feed:
+            count = this._feedModel.removeById(id);
+            return this._persistence.deleteFeed(id);
+          case this._feedType.Folder:
+            count = this._folderModel.removeById(id);
+            return this._persistence.deleteFolder(id);
+        }
+      };
 
-      FeedController.prototype.markAllRead = function(type, id) {};
+      FeedController.prototype.markAllRead = function(type, id) {
+        var feed, highestItemId, _i, _j, _len, _len1, _ref, _ref1, _results, _results1;
+        switch (type) {
+          case this._feedType.Subscriptions:
+            _ref = this._feedModel.getAll();
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              feed = _ref[_i];
+              _results.push(this.markAllRead(this._feedType.Feed, feed.id));
+            }
+            return _results;
+            break;
+          case this._feedType.Feed:
+            feed = this._feedModel.getById(id);
+            if (angular.isDefined(feed)) {
+              feed.unreadCount = 0;
+              highestItemId = this._itemModel.getHighestId();
+              return this._persistence.setFeedRead(id, highestItemId);
+            }
+            break;
+          case this._feedType.Folder:
+            _ref1 = this._feedModel.getAllOfFolder(id);
+            _results1 = [];
+            for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+              feed = _ref1[_j];
+              _results1.push(this.markAllRead(this._feedType.Feed, feed.id));
+            }
+            return _results1;
+        }
+      };
 
       FeedController.prototype.getFeedsOfFolder = function(folderId) {
         return this._feedModel.getAllOfFolder(folderId);
@@ -645,6 +684,17 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             return lastModified.lastModified;
           } else {
             return null;
+          }
+        };
+
+        ItemModel.prototype.getHighestId = function() {
+          var highestId, query;
+          query = new _MaximumQuery('id');
+          highestId = this.get(query);
+          if (angular.isDefined(highestId)) {
+            return highestId.id;
+          } else {
+            return 0;
           }
         };
 

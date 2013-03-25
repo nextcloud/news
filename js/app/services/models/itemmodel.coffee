@@ -37,5 +37,15 @@ angular.module('News').factory '_ItemModel',
 				return null
 
 
+		getHighestId: ->
+			query = new _MaximumQuery('id')
+			highestId = @get(query)
+			
+			if angular.isDefined(highestId)
+				return highestId.id
+			else
+				return 0			
+
+
 	return ItemModel
 ]
