@@ -653,17 +653,21 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         			Loads the initial data from the server
         */
 
-        var _this = this;
+        var triggerHideRead,
+          _this = this;
         this._loading.increase();
         this.getActiveFeed(function() {
           return _this.getItems(_this._activeFeed.getType(), _this._activeFeed.getId(), 0, function() {
             return _this._loading.decrease();
           });
         });
-        this.getAllFolders(this._triggerHideRead);
-        this.getAllFeeds(this._triggerHideRead);
-        this.userSettingsRead(this._triggerHideRead);
-        return this.getStarredItems(this._triggerHideRead);
+        triggerHideRead = function() {
+          return _this._triggerHideRead;
+        };
+        this.getAllFolders(triggerHideRead);
+        this.getAllFeeds(triggerHideRead);
+        this.userSettingsRead(triggerHideRead);
+        return this.getStarredItems(triggerHideRead);
       };
 
       /*
@@ -768,7 +772,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
       Persistence.prototype.getAllFeeds = function(callback) {
         var params;
-        callback || (callback = angular.noop);
+        callback || (callback = function() {});
         params = {
           onSuccess: callback
         };
@@ -861,7 +865,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
       Persistence.prototype.getAllFolders = function(callback) {
         var params;
-        callback || (callback = angular.noop);
+        callback || (callback = function() {});
         params = {
           onSuccess: callback
         };
@@ -907,8 +911,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         if (onFailure == null) {
           onFailure = null;
         }
-        onSuccess || (onSuccess = angular.noop);
-        onFailure || (onFailure = angular.noop);
+        onSuccess || (onSuccess = function() {});
+        onFailure || (onFailure = function() {});
         params = {
           data: {
             folderName: folderName,
@@ -977,7 +981,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         			Gets the configs for read settings
         */
 
-        callback || (callback = angular.noop);
+        callback || (callback = function() {});
         params = {
           onSuccess: callback
         };
@@ -998,7 +1002,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         return this._request.post('news_usersettings_read_hide');
       };
 
-      Persistence.prototype._trigerHideRead = function() {
+      Persistence.prototype._triggerHideRead = function() {
         return this._$rootScope.$broadcast('triggerHideRead');
       };
 

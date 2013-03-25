@@ -20,22 +20,22 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 ###
 
-angular.module('News').controller 'SettingsController', 
-['$scope', '_SettingsController', 
+angular.module('News').controller 'SettingsController',
+['$scope', '_SettingsController',
 ($scope, _SettingsController)->
 
 	return new _SettingsController($scope)
 ]
 
 
-angular.module('News').controller 'FeedController', 
-['$scope', '_FeedController', 'FolderModel', 'FeedModel', 
+angular.module('News').controller 'FeedController',
+['$scope', '_FeedController', 'FolderModel', 'FeedModel',
 ($scope, _FeedController, FolderModel, FeedModel)->
 
 	return new _FeedController($scope, FolderModel, FeedModel)
 ]
 
-angular.module('News').controller 'ItemController', 
+angular.module('News').controller 'ItemController',
 ['$scope', '_ItemController', 'ItemModel', 'FeedLoading',
 ($scope, _ItemController, ItemModel, FeedLoading)->
 

@@ -64,7 +64,7 @@ describe '_Persistence', ->
 				id: 5
 				limit: @config.itemBatchSize
 				offset: 3
-			onSuccess: angular.noop
+			onSuccess: ->
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
 		pers.getItems(params.data.type, params.data.id, params.data.offset,
@@ -79,7 +79,7 @@ describe '_Persistence', ->
 				type: 2
 				id: 5
 				updatedSince: 1333
-			onSuccess: angular.noop
+			onSuccess: ->
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
 		pers.getItems(params.data.type, params.data.id, 0, params.onSuccess,
@@ -90,7 +90,7 @@ describe '_Persistence', ->
 
 	it 'send a correct get starred items request', =>
 		params =
-			onSuccess: angular.noop
+			onSuccess: ->
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
 		pers.getStarredItems(params.onSuccess)
@@ -149,10 +149,11 @@ describe '_Persistence', ->
 	###
 	it 'should get all feeds', =>
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.getAllFeeds()
 
 		params =
-			onSuccess: angular.noop
+			onSuccess: ->
+
+		pers.getAllFeeds(params.onSuccess)
 
 		expect(@req.get).toHaveBeenCalledWith('news_feeds', params)
 
@@ -197,7 +198,7 @@ describe '_Persistence', ->
 
 	it 'send a correct get active feed request', =>
 		params =
-			onSuccess: angular.noop
+			onSuccess: ->
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
 		pers.getActiveFeed(params.onSuccess)
@@ -221,8 +222,8 @@ describe '_Persistence', ->
 			data:
 				parentFolderId: 5
 				url: 'http://google.de'
-			onSuccess: angular.noop
-			onFailure: angular.noop
+			onSuccess: ->
+			onFailure: ->
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
 		pers.createFeed(params.data.url, params.data.parentFolderId,
@@ -237,7 +238,7 @@ describe '_Persistence', ->
 	###
 	it 'should do a proper get all folders request', =>
 		params =
-			onSuccess: angular.noop
+			onSuccess: ->
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
 		pers.getAllFolders(params.onSuccess)
@@ -321,10 +322,11 @@ describe '_Persistence', ->
 	###
 	it 'should do a proper get user settings read request', =>
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.userSettingsRead()
 
 		params =
-			onSuccess: angular.noop
+			onSuccess: ->
+
+		pers.userSettingsRead(params.onSuccess)
 
 		expect(@req.get).toHaveBeenCalledWith('news_usersettings_read', params)
 

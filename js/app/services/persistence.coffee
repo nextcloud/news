@@ -40,10 +40,13 @@ angular.module('News').factory '_Persistence', ->
 				@getItems @_activeFeed.getType(), @_activeFeed.getId(), 0, =>
 					@_loading.decrease()
 			
-			@getAllFolders(@_triggerHideRead)
-			@getAllFeeds(@_triggerHideRead)
-			@userSettingsRead(@_triggerHideRead)
-			@getStarredItems(@_triggerHideRead)
+			triggerHideRead = =>
+				@_triggerHideRead
+
+			@getAllFolders(triggerHideRead)
+			@getAllFeeds(triggerHideRead)
+			@userSettingsRead(triggerHideRead)
+			@getStarredItems(triggerHideRead)
 			
 
 		###
@@ -126,7 +129,7 @@ angular.module('News').factory '_Persistence', ->
 			FEED CONTROLLER
 		###
 		getAllFeeds: (callback) ->
-			callback or= angular.noop
+			callback or= ->
 			params =
 				onSuccess: callback
 
@@ -200,7 +203,7 @@ angular.module('News').factory '_Persistence', ->
 			FOLDER CONTROLLER
 		###
 		getAllFolders: (callback) ->
-			callback or= angular.noop
+			callback or= ->
 			params =
 				onSuccess: callback
 
@@ -231,8 +234,8 @@ angular.module('News').factory '_Persistence', ->
 
 		createFolder: (folderName, parentFolderId=0, onSuccess=null,
 						onFailure=null) ->
-			onSuccess or= angular.noop
-			onFailure or= angular.noop
+			onSuccess or= ->
+			onFailure or= ->
 
 			params =
 				data:
@@ -287,7 +290,7 @@ angular.module('News').factory '_Persistence', ->
 			###
 			Gets the configs for read settings
 			###
-			callback or= angular.noop
+			callback or= ->
 			params =
 				onSuccess: callback
 
@@ -308,7 +311,7 @@ angular.module('News').factory '_Persistence', ->
 			@_request.post 'news_usersettings_read_hide'
 
 
-		_trigerHideRead: ->
+		_triggerHideRead: ->
 			@_$rootScope.$broadcast('triggerHideRead')
 
 
