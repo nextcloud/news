@@ -553,10 +553,11 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         };
 
         FeedModel.prototype.getFeedUnreadCount = function(feedId) {
-          var feed;
+          var count, feed;
           feed = this.getById(feedId);
+          count = 0;
           if (angular.isDefined(feed)) {
-            return feed.unreadCount;
+            return count += feed.unreadCount;
           } else {
             return 0;
           }
@@ -890,9 +891,13 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
       Persistence.prototype.getItems = function(type, id, offset, onSuccess, updatedSince) {
         var data, params;
+        if (onSuccess == null) {
+          onSuccess = null;
+        }
         if (updatedSince == null) {
           updatedSince = null;
         }
+        onSuccess || (onSuccess = function() {});
         if (updatedSince !== null) {
           data = {
             updatedSince: updatedSince,

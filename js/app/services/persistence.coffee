@@ -52,7 +52,9 @@ angular.module('News').factory '_Persistence', ->
 		###
 			ITEM CONTROLLER
 		###
-		getItems: (type, id, offset, onSuccess, updatedSince=null) ->
+		getItems: (type, id, offset, onSuccess=null, updatedSince=null) ->
+
+			onSuccess or= ->
 
 			if updatedSince != null
 				data =

@@ -47,8 +47,9 @@ angular.module('News').factory '_FeedModel',
 
 		getFeedUnreadCount: (feedId) ->
 			feed = @getById(feedId)
+			count = 0
 			if angular.isDefined(feed)
-				return feed.unreadCount
+				return count += feed.unreadCount
 			else
 				return 0
 
