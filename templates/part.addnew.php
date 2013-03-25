@@ -1,6 +1,6 @@
 <li class="add-new">
 	<a class="list-title list-title-with-icon" ng-click="showAdd=!showAdd" 
-			click-slide-toggle="{
+			oc-click-slide-toggle="{
 				selector: '.add-new-popup',
 				hideOnFocusLost: true
 			}" href="#">
