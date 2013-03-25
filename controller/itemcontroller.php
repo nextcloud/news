@@ -107,6 +107,8 @@ class ItemController extends Controller {
 	 */
 	public function star(){
 		$this->setStarred(true);
+
+		return $this->renderJSON();
 	}
 
 
@@ -117,6 +119,8 @@ class ItemController extends Controller {
 	 */
 	public function unstar(){
 		$this->setStarred(false);
+
+		return $this->renderJSON();
 	}
 
 
@@ -134,6 +138,8 @@ class ItemController extends Controller {
 	 */
 	public function read(){
 		$this->setRead(true);
+
+		return $this->renderJSON();
 	}
 
 
@@ -144,6 +150,8 @@ class ItemController extends Controller {
 	 */
 	public function unread(){
 		$this->setRead(false);
+
+		return $this->renderJSON();
 	}
 
 

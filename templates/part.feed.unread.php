@@ -5,13 +5,13 @@
 	ng-show="isShown(feedType.Subscriptions, 0)">
 	<a class="rss-icon" 
 	   href="#" 
-	   ui-if="getShowAll()==false"
+	   ui-if="!isShowAll()"
 	   ng-click="loadFeed(feedType.Subscriptions, 0)">
 	   <?php p($l->t('Unread articles'))?>
 	</a>
 		<a class="rss-icon" 
 	   href="#" 
-	   ui-if="getShowAll()==true"
+	   ui-if="isShowAll()"
 	   ng-click="loadFeed(feedType.Subscriptions, 0)">
 	   <?php p($l->t('All articles'))?>
 	</a>
