@@ -222,7 +222,7 @@ describe '_FeedController', ->
 	it 'should delete folders', =>
 		@FolderModel.removeById = jasmine.createSpy('remove')
 		@persistence.deleteFolder = jasmine.createSpy('deletequery')
-		@scope.delete(@FeedType.Folder, 3)		
+		@scope.delete(@FeedType.Folder, 3)
 
 		expect(@FolderModel.removeById).toHaveBeenCalledWith(3)
 		expect(@persistence.deleteFolder).toHaveBeenCalledWith(3)

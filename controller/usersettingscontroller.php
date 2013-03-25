@@ -45,10 +45,9 @@ class UserSettingsController extends Controller {
 	 */
 	public function read(){
 		$userId = $this->api->getUserId();
-		$showAll = $this->api->getUserValue($userId, 'showAll');
-
+		$showAll = $this->api->getUserValue('showAll');
 		$params = array(
-			'showAll' => $showAll === 'true'
+			'showAll' => $showAll === '1'
 		);
 
 		return $this->renderJSON($params);
@@ -62,7 +61,7 @@ class UserSettingsController extends Controller {
 	 */
 	public function show(){
 		$userId = $this->api->getUserId();
-		$this->api->setUserValue($userId, 'showAll', true);
+		$this->api->setUserValue('showAll', true);
 
 		return $this->renderJSON();
 	}
@@ -75,7 +74,7 @@ class UserSettingsController extends Controller {
 	 */
 	public function hide(){
 		$userId = $this->api->getUserId();
-		$this->api->setUserValue($userId, 'showAll', false);
+		$this->api->setUserValue('showAll', false);
 
 		return $this->renderJSON();
 	}

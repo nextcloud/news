@@ -68,6 +68,7 @@ class FeedBl extends Bl {
 			
 			// insert feed
 			$feed->setFolderId($folderId);
+			$feed->setUserId($userId);
 			$feed = $this->mapper->insert($feed);
 
 			// insert items
@@ -88,7 +89,7 @@ class FeedBl extends Bl {
 		$feeds = $this->mapper->findAll();
 		foreach($feeds as $feed){
 			try {
-				$this->update($feed->getId(), $feed->getUser());
+				$this->update($feed->getId(), $feed->getUserId());
 			} catch(BLException $ex){
 				continue;
 			}

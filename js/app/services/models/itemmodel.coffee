@@ -44,7 +44,7 @@ angular.module('News').factory '_ItemModel',
 			if angular.isDefined(highestId)
 				return highestId.id
 			else
-				return 0			
+				return 0
 
 
 	return ItemModel

@@ -80,8 +80,7 @@ class UserSettingsControllerTest extends ControllerTestUtility {
 			->will($this->returnValue($this->user));
 		$this->api->expects($this->once())
 			->method('setUserValue')
-			->with($this->equalTo($this->user),
-				$this->equalTo('showAll'), 
+			->with($this->equalTo('showAll'), 
 				$this->equalTo(true));
 		$result = $this->controller->show();
 	}
@@ -93,8 +92,7 @@ class UserSettingsControllerTest extends ControllerTestUtility {
 			->will($this->returnValue($this->user));
 		$this->api->expects($this->once())
 			->method('setUserValue')
-			->with($this->equalTo($this->user),
-				$this->equalTo('showAll'), 
+			->with($this->equalTo('showAll'), 
 				$this->equalTo(false));
 		$result = $this->controller->hide();
 	}
@@ -109,9 +107,8 @@ class UserSettingsControllerTest extends ControllerTestUtility {
 			->will($this->returnValue($this->user));
 		$this->api->expects($this->once())
 			->method('getUserValue')
-			->with($this->equalTo($this->user),
-				$this->equalTo('showAll'))
-			->will($this->returnValue('true'));
+			->with($this->equalTo('showAll'))
+			->will($this->returnValue('1'));
 		
 		$response = $this->controller->read();
 		$this->assertEquals($result, $response->getParams());
