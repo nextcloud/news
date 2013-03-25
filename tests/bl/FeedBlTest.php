@@ -23,7 +23,12 @@
 *
 */
 
-namespace OCA\News\Bl;
+namespace {
+	class DatabaseException extends Exception{};	
+}
+
+
+namespace OCA\News\Bl {
 
 require_once(__DIR__ . "/../classloader.php");
 
@@ -42,7 +47,7 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 	protected $user;
 	protected $response;
 	protected $fetcher;
-	protected $itemBl;
+	protected $itemMapper;
 
 	protected function setUp(){
 		$this->api = $this->getAPIMock();
@@ -52,10 +57,11 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->fetcher = $this->getMockBuilder('\OCA\News\Utility\FeedFetcher')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->itemBl = $this->getMockBuilder('\OCA\News\Bl\ItemBl')
+		$this->itemMapper = $this->getMockBuilder('\OCA\News\Db\ItemMapper')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->bl = new FeedBl($this->mapper, $this->fetcher, $this->itemBl);
+		$this->bl = new FeedBl($this->mapper, 
+			$this->fetcher, $this->itemMapper, $this->api);
 		$this->user = 'jack';
 		$response = 'hi';
 	}
@@ -110,11 +116,11 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('insert')
 			->with($this->equalTo($createdFeed))
 			->will($this->returnValue($createdFeed));
-		$this->itemBl->expects($this->at(0))
-			->method('create')
+		$this->itemMapper->expects($this->at(0))
+			->method('insert')
 			->with($this->equalTo($return[1][0]));
-		$this->itemBl->expects($this->at(1))
-			->method('create')
+		$this->itemMapper->expects($this->at(1))
+			->method('insert')
 			->with($this->equalTo($return[1][1]));
 		
 		$feed = $this->bl->create($url, $folderId, $this->user);
@@ -130,14 +136,95 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->with($this->equalTo(md5($url)), $this->equalTo($this->user));
 		$this->setExpectedException('\OCA\News\Bl\BLException');
 		$this->bl->create($url, 1, $this->user);
-
 	}
 
 
-	public function testUpdate(){
-		// TODO
+	public function testUpdateCreatesNewEntry(){
+		$feed = new Feed();
+		$feed->setId(3);
+		$feed->getUrl('test');
+
+		$item = new Item();
+		$item->setGuidHash(md5('hi'));
+		$items = array(
+			$item
+		);
+
+		$fetchReturn = array($feed, $items);
+
+		$this->mapper->expects($this->once())
+			->method('find')
+			->with($this->equalTo($feed->getId()),
+					$this->equalTo($this->user))
+			->will($this->returnValue($feed));
+		$this->fetcher->expects($this->once())
+			->method('fetch')
+			->will($this->returnValue($fetchReturn));
+		$this->itemMapper->expects($this->once())
+			->method('insert')
+			->with($this->equalTo($items[0]));
+		
+		$this->bl->update($feed->getId(), $this->user);
 	}
 
+
+	public function testUpdateUpdatesEntry(){
+		$feed = new Feed();
+		$feed->setId(3);
+		$feed->getUrl('test');
+		$ex = new \DatabaseException('');
+
+		$item = new Item();
+		$item->setGuidHash(md5('hi'));
+		$items = array(
+			$item
+		);
+
+		$fetchReturn = array($feed, $items);
+
+		$this->mapper->expects($this->once())
+			->method('find')
+			->with($this->equalTo($feed->getId()),
+					$this->equalTo($this->user))
+			->will($this->returnValue($feed));
+		$this->fetcher->expects($this->once())
+			->method('fetch')
+			->will($this->returnValue($fetchReturn));
+		$this->itemMapper->expects($this->once())
+			->method('insert')
+			->with($this->equalTo($items[0]))
+			->will($this->throwException($ex));
+		$this->itemMapper->expects($this->once())
+			->method('findByGuidHash')
+			->with($this->equalTo($item->getGuidHash()), 
+					$this->equalTo($this->user))
+			->will($this->returnValue($item));
+		$this->itemMapper->expects($this->once())
+			->method('update')
+			->with($this->equalTo($item));
+		
+		$this->bl->update($feed->getId(), $this->user);
+	}
+
+	public function testCreateUpdateFails(){
+		$feed = new Feed();
+		$feed->setId(3);
+		$feed->getUrl('test');
+		$ex = new FetcherException('');
+
+		$this->mapper->expects($this->once())
+			->method('find')
+			->with($this->equalTo($feed->getId()),
+					$this->equalTo($this->user))
+			->will($this->returnValue($feed));
+		$this->fetcher->expects($this->once())
+			->method('fetch')
+			->will($this->throwException($ex));
+		$this->api->expects($this->once())
+			->method('log');
+		
+		$this->bl->update($feed->getId(), $this->user);
+	}
 
 	public function testMove(){
 		$feedId = 3;
@@ -160,5 +247,7 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->assertEquals($folderId, $feed->getFolderId());
 	}
 
+
+}
 
 }

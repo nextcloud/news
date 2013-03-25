@@ -67,8 +67,8 @@ class ItemMapper extends Mapper implements IMapper {
 	
 
 	public function find($id, $userId){
-		$sql = $this->makeSelectQuery('WHERE `*PREFIX*news_items`.`id` = ? ');
-		$row = $this->findOneQuery($sql, array($id, $userId));
+		$sql = $this->makeSelectQuery('AND `*PREFIX*news_items`.`id` = ? ');
+		$row = $this->findOneQuery($sql, array($userId, $id));
 		
 		$item = new Item();
 		$item->fromRow($row);
@@ -167,5 +167,17 @@ class ItemMapper extends Mapper implements IMapper {
 		$sql = $this->makeSelectQueryStatus($sql);
 		return $this->findAllRows($sql, $params, $limit);
 	}
+
+
+	public function findByGuidHash($guidHash, $userId){
+		$sql = $this->makeSelectQuery('AND `*PREFIX*news_items`.`guid_hash` = ? ');
+		$row = $this->findOneQuery($sql, array($userId, $guidHash));
+		
+		$item = new Item();
+		$item->fromRow($row);
+		
+		return $item;
+	}
+
 
 }

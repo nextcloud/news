@@ -212,6 +212,7 @@
 			
 			<index>
 				<name>news_items_item_guid</name>
+				<unique>true</unique>
 				<field>
 					<name>guid_hash</name>
 				</field>

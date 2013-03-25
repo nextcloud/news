@@ -88,13 +88,12 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 
 
 	public function testFind(){
-		$sql = $this->makeSelectQuery('WHERE `*PREFIX*news_items`.`id` = ? ');
+		$sql = $this->makeSelectQuery('AND `*PREFIX*news_items`.`id` = ? ');
 			
-		$this->setMapperResult($sql, array($this->id, $this->userId), $this->row);
+		$this->setMapperResult($sql, array($this->userId, $this->id), $this->row);
 		
 		$result = $this->mapper->find($this->id, $this->userId);
 		$this->assertEquals($this->items[0], $result);
-		
 	}
 
 		
@@ -246,6 +245,17 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 				0, $this->status, $this->user);
 
 		$this->assertEquals($this->items, $result);
+	}
+
+
+	public function testFindByGuidHash(){
+		$hash = md5('test');
+		$sql = $this->makeSelectQuery('AND `*PREFIX*news_items`.`guid_hash` = ? ');
+			
+		$this->setMapperResult($sql, array($this->userId, $hash), $this->row);
+		
+		$result = $this->mapper->findByGuidHash($hash, $this->userId);
+		$this->assertEquals($this->items[0], $result);
 	}
 
 }

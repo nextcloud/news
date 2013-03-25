@@ -26,21 +26,28 @@
 namespace OCA\News\Bl;
 
 use \OCA\AppFramework\Db\DoesNotExistException;
+use \OCA\AppFramework\Core\API;
 
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\FeedMapper;
+use \OCA\News\Db\ItemMapper;
 use \OCA\News\Utility\FeedFetcher;
 use \OCA\News\Utility\FetcherException;
 
 class FeedBl extends Bl {
 
 	private $feedFetcher;
+	private $itemMapper;
+	private $api;
 
 	public function __construct(FeedMapper $feedMapper,
-		                        FeedFetcher $feedFetcher,  ItemBl $itemBl){
+		                        FeedFetcher $feedFetcher,  
+		                        ItemMapper $itemMapper,
+		                        API $api){
 		parent::__construct($feedMapper);
 		$this->feedFetcher = $feedFetcher;
-		$this->itemBl = $itemBl;
+		$this->itemMapper = $itemMapper;
+		$this->api = $api;
 	}
 
 
@@ -66,7 +73,7 @@ class FeedBl extends Bl {
 			// insert items
 			foreach($items as $item){
 				$item->setFeedId($feed->getId());
-				$this->itemBl->create($item);
+				$this->itemMapper->insert($item);
 			}
 
 			return $feed;
@@ -75,17 +82,46 @@ class FeedBl extends Bl {
 		}
 	}
 
+
+	// FIXME: this method is not covered by any tests
 	public function updateAll(){
-		// TODO: needs test
 		$feeds = $this->mapper->findAll();
 		foreach($feeds as $feed){
-			$this->update($feed->getId(), $feed->getUser());
+			try {
+				$this->update($feed->getId(), $feed->getUser());
+			} catch(BLException $ex){
+				continue;
+			}
 		}
 	}
 
 
 	public function update($feedId, $userId){
-		// TODO: update given feed	
+		$feed = $this->mapper->find($feedId, $userId);
+		try {
+			list($feed, $items) = $this->feedFetcher->fetch($feed->getUrl());
+
+			// update items
+			foreach($items as $item){
+
+				// if a database exception is being thrown the unique constraint 
+				// on the item guid hash is being violated and we need to update 
+				// the item
+				try {
+					$item->setFeedId($feed->getId());
+					$this->itemMapper->insert($item);
+				} catch(\DatabaseException $ex){
+					$existing = $this->itemMapper->findByGuidHash(
+						$item->getGuidHash(), $userId);
+					$item->setId($existing->getId());
+					$this->itemMapper->update($item);
+				}
+			}
+
+		} catch(FetcherException $ex){
+			// failed updating is not really a problem, so only log it
+			$this->api->log('Can not update feed: Not found or bad source');
+		}	
 	}
 
 

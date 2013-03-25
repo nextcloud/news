@@ -117,10 +117,4 @@ class ItemBl extends Bl {
 	}
 
 
-	// ATTENTION: this does no validation and is only for creating
-	// items from the fetcher
-	public function create($item){
-		$this->mapper->insert($item);
-	}
-
 }
