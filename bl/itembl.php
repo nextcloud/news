@@ -66,7 +66,7 @@ class ItemBl extends Bl {
 	public function findAll($id, $type, $limit, $offset, 
 		$showAll, $userId){
 		$status = $this->statusFlag->typeToStatus($type, $showAll);
-		
+
 		switch($type){
 			case FeedType::FEED:
 				$items = $this->mapper->findAllFeed($id, $limit, $offset, 

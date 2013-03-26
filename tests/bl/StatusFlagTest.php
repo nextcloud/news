@@ -42,7 +42,7 @@ class StatusFlagTest extends TestUtility {
 
 	public function testTypeToStatusUnreadStarred(){
 		$expected = StatusFlag::UNREAD | StatusFlag::STARRED;
-		$status = $this->statusFlag->typeToStatus(FeedType::STARRED, true);
+		$status = $this->statusFlag->typeToStatus(FeedType::STARRED, false);
 
 		$this->assertEquals($expected, $status);
 	}
@@ -50,7 +50,7 @@ class StatusFlagTest extends TestUtility {
 
 	public function testTypeToStatusUnread(){
 		$expected = StatusFlag::UNREAD;
-		$status = $this->statusFlag->typeToStatus(FeedType::FEED, true);
+		$status = $this->statusFlag->typeToStatus(FeedType::FEED, false);
 
 		$this->assertEquals($expected, $status);
 	}
@@ -58,7 +58,7 @@ class StatusFlagTest extends TestUtility {
 
 	public function testTypeToStatusReadStarred(){
 		$expected = (~StatusFlag::UNREAD) & StatusFlag::STARRED;
-		$status = $this->statusFlag->typeToStatus(FeedType::STARRED, false);
+		$status = $this->statusFlag->typeToStatus(FeedType::STARRED, true);
 
 		$this->assertEquals($expected, $status);
 	}
@@ -66,7 +66,7 @@ class StatusFlagTest extends TestUtility {
 
 	public function testTypeToStatusRead(){
 		$expected = (~StatusFlag::UNREAD) & 0;
-		$status = $this->statusFlag->typeToStatus(FeedType::FEED, false);
+		$status = $this->statusFlag->typeToStatus(FeedType::FEED, true);
 
 		$this->assertEquals($expected, $status);
 	}

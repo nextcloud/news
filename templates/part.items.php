@@ -1,6 +1,6 @@
 <ul>
 	<li class="feed_item"
-		ng-repeat="item in getItems(activeFeed.type, activeFeed.id) | orderBy:'date':true "
+		ng-repeat="item in items | orderBy:'date':true "
 		ng-class="{read: item.isRead}"
 		data-id="{{item.id}}"
     	data-feed="{{item.feedId}}">

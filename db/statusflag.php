@@ -43,9 +43,9 @@ class StatusFlag {
 		}
 
 		if($showAll){
-			$status |= self::UNREAD;
-		} else {
 			$status &= ~self::UNREAD;
+		} else {
+			$status |= self::UNREAD;
 		}
 
 		return $status;
