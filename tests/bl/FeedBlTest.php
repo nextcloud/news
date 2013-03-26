@@ -197,6 +197,7 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->itemMapper->expects($this->once())
 			->method('findByGuidHash')
 			->with($this->equalTo($item->getGuidHash()), 
+					$this->equalTo($feed->getId()),
 					$this->equalTo($this->user))
 			->will($this->returnValue($item));
 		$this->itemMapper->expects($this->once())

@@ -249,11 +249,14 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 
 	public function testFindByGuidHash(){
 		$hash = md5('test');
-		$sql = $this->makeSelectQuery('AND `*PREFIX*news_items`.`guid_hash` = ? ');
+		$feedId = 3;
+		$sql = $this->makeSelectQuery(
+			'AND `items`.`guid_hash` = ? ' .
+			'AND `feed`.`id = ? ');
 			
-		$this->setMapperResult($sql, array($this->userId, $hash), $this->row);
+		$this->setMapperResult($sql, array($this->userId, $hash, $feedId), $this->row);
 		
-		$result = $this->mapper->findByGuidHash($hash, $this->userId);
+		$result = $this->mapper->findByGuidHash($hash, $feedId, $this->userId);
 		$this->assertEquals($this->items[0], $result);
 	}
 

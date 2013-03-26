@@ -169,9 +169,11 @@ class ItemMapper extends Mapper implements IMapper {
 	}
 
 
-	public function findByGuidHash($guidHash, $userId){
-		$sql = $this->makeSelectQuery('AND `*PREFIX*news_items`.`guid_hash` = ? ');
-		$row = $this->findOneQuery($sql, array($userId, $guidHash));
+	public function findByGuidHash($guidHash, $feedId, $userId){
+		$sql = $this->makeSelectQuery(
+			'AND `items`.`guid_hash` = ? ' .
+			'AND `feed`.`id = ? ');
+		$row = $this->findOneQuery($sql, array($userId, $guidHash, $feedId));
 		
 		$item = new Item();
 		$item->fromRow($row);

@@ -113,7 +113,7 @@ class FeedBl extends Bl {
 					$this->itemMapper->insert($item);
 				} catch(\DatabaseException $ex){
 					$existing = $this->itemMapper->findByGuidHash(
-						$item->getGuidHash(), $userId);
+						$item->getGuidHash(), $feedId, $userId);
 					$item->setId($existing->getId());
 					$this->itemMapper->update($item);
 				}
