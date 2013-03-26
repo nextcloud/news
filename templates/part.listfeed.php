@@ -11,7 +11,7 @@
 	   href="#"
 	   class="title"
 	   ng-click="loadFeed(feedType.Feed, feed.id)">
-	   {{feed.name}}
+	   {{feed.title}}
 	</a>
 	
 	<span class="utils">
@@ -27,8 +27,6 @@
 			ng-show="getUnreadCount(feedType.Feed, feed.id)>0"
 			ng-click="markAllRead(feedType.Feed, feed.id)"
 			title="<?php p($l->t('Mark all read')); ?>"></button>
-
-
 
 	</span>
 </li>

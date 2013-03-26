@@ -100,45 +100,45 @@ describe '_Persistence', ->
 
 	it 'send a correct star item request', =>
 		params =
-			urlParams:
+			routeParams:
 				itemId: 2
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.starItem(params.urlParams.itemId)
+		pers.starItem(params.routeParams.itemId)
 
 		expect(@req.post).toHaveBeenCalledWith('news_items_star', params)
 
 
 	it 'send a correct unstar item request', =>
 		params =
-			urlParams:
+			routeParams:
 				itemId: 2
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.unstarItem(params.urlParams.itemId)
+		pers.unstarItem(params.routeParams.itemId)
 
 		expect(@req.post).toHaveBeenCalledWith('news_items_unstar', params)
 
 
 	it 'send a correct read item request', =>
 		params =
-			urlParams:
+			routeParams:
 				itemId: 2
 
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.readItem(params.urlParams.itemId)
+		pers.readItem(params.routeParams.itemId)
 
 		expect(@req.post).toHaveBeenCalledWith('news_items_read', params)
 
 
 	it 'send a correct unread item request', =>
 		params =
-			urlParams:
+			routeParams:
 				itemId: 2
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.unreadItem(params.urlParams.itemId)
+		pers.unreadItem(params.routeParams.itemId)
 
 		expect(@req.post).toHaveBeenCalledWith('news_items_unread', params)
 
@@ -162,11 +162,11 @@ describe '_Persistence', ->
 		params =
 			data:
 				folderId: 4
-			urlParams:
+			routeParams:
 				feedId: 3
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.moveFeed(params.urlParams.feedId, params.data.folderId)
+		pers.moveFeed(params.routeParams.feedId, params.data.folderId)
 
 		expect(@req.post).toHaveBeenCalledWith('news_feeds_move', params)
 
@@ -175,11 +175,11 @@ describe '_Persistence', ->
 		params =
 			data:
 				highestItemId: 4
-			urlParams:
+			routeParams:
 				feedId: 3
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.setFeedRead(params.urlParams.feedId, params.data.highestItemId)
+		pers.setFeedRead(params.routeParams.feedId, params.data.highestItemId)
 
 
 		expect(@req.post).toHaveBeenCalledWith('news_feeds_read', params)
@@ -187,11 +187,11 @@ describe '_Persistence', ->
 
 	it 'send a correct feed update request', =>
 		params =
-			urlParams:
+			routeParams:
 				feedId: 3
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.updateFeed(params.urlParams.feedId)
+		pers.updateFeed(params.routeParams.feedId)
 
 		expect(@req.post).toHaveBeenCalledWith('news_feeds_update', params)
 
@@ -208,11 +208,11 @@ describe '_Persistence', ->
 
 	it 'send a correct feed delete request', =>
 		params =
-			urlParams:
+			routeParams:
 				feedId: 3
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.deleteFeed(params.urlParams.feedId)
+		pers.deleteFeed(params.routeParams.feedId)
 
 		expect(@req.post).toHaveBeenCalledWith('news_feeds_delete', params)
 
@@ -248,22 +248,22 @@ describe '_Persistence', ->
 
 	it 'send a correct collapse folder request', =>
 		params =
-			urlParams:
+			routeParams:
 				folderId: 3
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.collapseFolder(params.urlParams.folderId)
+		pers.collapseFolder(params.routeParams.folderId)
 
 		expect(@req.post).toHaveBeenCalledWith('news_folders_collapse', params)
 
 
 	it 'send a correct open folder request', =>
 		params =
-			urlParams:
+			routeParams:
 				folderId: 3
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.openFolder(params.urlParams.folderId)
+		pers.openFolder(params.routeParams.folderId)
 
 		expect(@req.post).toHaveBeenCalledWith('news_folders_open', params)
 
@@ -285,24 +285,24 @@ describe '_Persistence', ->
 
 	it 'should do a proper folder delete request', =>
 		params =
-			urlParams:
+			routeParams:
 				folderId: 2
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.deleteFolder(params.urlParams.folderId)
+		pers.deleteFolder(params.routeParams.folderId)
 
 		expect(@req.post).toHaveBeenCalledWith('news_folders_delete', params)
 
 
 	it 'should do a proper folder rename request', =>
 		params =
-			urlParams:
+			routeParams:
 				folderId: 2
 			data:
 				folderName: 'host'
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.renameFolder(params.urlParams.folderId, params.data.folderName)
+		pers.renameFolder(params.routeParams.folderId, params.data.folderName)
 
 		expect(@req.post).toHaveBeenCalledWith('news_folders_rename', params)
 

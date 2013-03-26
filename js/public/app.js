@@ -1073,7 +1073,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
         var params;
         params = {
-          urlParams: {
+          routeParams: {
             itemId: itemId
           }
         };
@@ -1087,7 +1087,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
         var params;
         params = {
-          urlParams: {
+          routeParams: {
             itemId: itemId
           }
         };
@@ -1101,7 +1101,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
         var params;
         params = {
-          urlParams: {
+          routeParams: {
             itemId: itemId
           }
         };
@@ -1115,7 +1115,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
         var params;
         params = {
-          urlParams: {
+          routeParams: {
             itemId: itemId
           }
         };
@@ -1168,7 +1168,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
       Persistence.prototype.deleteFeed = function(feedId) {
         var params;
         params = {
-          urlParams: {
+          routeParams: {
             feedId: feedId
           }
         };
@@ -1182,7 +1182,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
         var params;
         params = {
-          urlParams: {
+          routeParams: {
             feedId: feedId
           },
           data: {
@@ -1199,7 +1199,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
         var params;
         params = {
-          urlParams: {
+          routeParams: {
             feedId: feedId
           },
           data: {
@@ -1216,7 +1216,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
         var params;
         params = {
-          urlParams: {
+          routeParams: {
             feedId: feedId
           }
         };
@@ -1244,7 +1244,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
         var params;
         params = {
-          urlParams: {
+          routeParams: {
             folderId: folderId
           }
         };
@@ -1258,7 +1258,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
         var params;
         params = {
-          urlParams: {
+          routeParams: {
             folderId: folderId
           }
         };
@@ -1296,7 +1296,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
         var params;
         params = {
-          urlParams: {
+          routeParams: {
             folderId: folderId
           }
         };
@@ -1310,7 +1310,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
         var params;
         params = {
-          urlParams: {
+          routeParams: {
             folderId: folderId
           },
           data: {

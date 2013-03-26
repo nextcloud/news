@@ -86,7 +86,7 @@ angular.module('News').factory '_Persistence', ->
 			Stars an item
 			###
 			params =
-				urlParams:
+				routeParams:
 					itemId: itemId
 
 			@_request.post 'news_items_star', params
@@ -98,7 +98,7 @@ angular.module('News').factory '_Persistence', ->
 			Unstars an item
 			###
 			params =
-				urlParams:
+				routeParams:
 					itemId: itemId
 
 			@_request.post 'news_items_unstar', params
@@ -109,7 +109,7 @@ angular.module('News').factory '_Persistence', ->
 			Sets an item as read
 			###
 			params =
-				urlParams:
+				routeParams:
 					itemId: itemId
 
 			@_request.post 'news_items_read', params
@@ -121,7 +121,7 @@ angular.module('News').factory '_Persistence', ->
 			Sets an item as unread
 			###
 			params =
-				urlParams:
+				routeParams:
 					itemId: itemId
 
 			@_request.post 'news_items_unread', params
@@ -160,7 +160,7 @@ angular.module('News').factory '_Persistence', ->
 
 		deleteFeed: (feedId) ->
 			params =
-				urlParams:
+				routeParams:
 					feedId: feedId
 
 			@_request.post 'news_feeds_delete', params
@@ -171,7 +171,7 @@ angular.module('News').factory '_Persistence', ->
 			moves a feed to a new folder
 			###
 			params =
-				urlParams:
+				routeParams:
 					feedId: feedId
 				data:
 					folderId: folderId
@@ -184,7 +184,7 @@ angular.module('News').factory '_Persistence', ->
 			sets all items of a feed as read
 			###
 			params =
-				urlParams:
+				routeParams:
 					feedId: feedId
 				data:
 					highestItemId: highestItemId
@@ -197,7 +197,7 @@ angular.module('News').factory '_Persistence', ->
 			moves a feed to a new folder
 			###
 			params =
-				urlParams:
+				routeParams:
 					feedId: feedId
 
 			@_request.post 'news_feeds_update', params
@@ -219,7 +219,7 @@ angular.module('News').factory '_Persistence', ->
 			Save if a folder was opened
 			###
 			params =
-				urlParams:
+				routeParams:
 					folderId: folderId
 
 			@_request.post 'news_folders_open', params
@@ -230,7 +230,7 @@ angular.module('News').factory '_Persistence', ->
 			Save if a folder was collapsed
 			###
 			params =
-				urlParams:
+				routeParams:
 					folderId: folderId
 
 			@_request.post 'news_folders_collapse', params
@@ -256,7 +256,7 @@ angular.module('News').factory '_Persistence', ->
 			Save if a folder was collapsed
 			###
 			params =
-				urlParams:
+				routeParams:
 					folderId: folderId
 
 
@@ -268,7 +268,7 @@ angular.module('News').factory '_Persistence', ->
 			Save if a folder was collapsed
 			###
 			params =
-				urlParams:
+				routeParams:
 					folderId: folderId
 				data:
 					folderName: folderName

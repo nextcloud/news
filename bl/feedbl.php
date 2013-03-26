@@ -77,6 +77,9 @@ class FeedBl extends Bl {
 				$this->itemMapper->insert($item);
 			}
 
+			// set unread count
+			$feed->setUnreadCount(count($items));
+			
 			return $feed;
 		} catch(FetcherException $ex){
 			$this->api->log($ex->getMessage());
