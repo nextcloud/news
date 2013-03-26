@@ -21,27 +21,22 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-describe '_FeedModel', ->
+###
+Turns a normal select into a folder select with the ability to create new
+folders
+###
+angular.module('News').directive 'addFolderSelect', ['$rootScope', ->
 
+	return (scope, elm, attr) ->
 
-	beforeEach module 'News'
+		options =
+			singleSelect: true
+			selectedFirst: true
+			createText: $(elm).data('create')
+			createdCallback: (selected, value) ->
+				console.log selected
+				console.log value
 
-	beforeEach inject (@_FeedModel, @_Model) =>
+		$(elm).multiSelect(options)
 
-
-	it 'should extend model', =>
-		expect(new @_FeedModel instanceof @_Model).toBeTruthy()
-
-
-	it 'should bind an imagepath to the item if the url is empty', =>
-		item =
-			id: 3
-			faviconLink: null
-		utils =
-			imagePath: jasmine.createSpy('utils')
-
-		model = new @_FeedModel(utils)
-		model.add(item)
-
-		expect(utils.imagePath).toHaveBeenCalledWith('news', 'rss.svg')
-
+]

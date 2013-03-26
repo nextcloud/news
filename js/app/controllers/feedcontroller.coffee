@@ -78,29 +78,27 @@ angular.module('News').factory '_FeedController', ->
 
 			@$scope.addFeed = (feedUrl, parentFolderId=0) =>
 				@$scope.feedEmptyError = false
-				@$scope.feedExistsError = false
 				@$scope.feedError = false
 				
 				if angular.isUndefined(feedUrl) or feedUrl.trim() == ''
 					@$scope.feedEmptyError = true
-				else
-					feedUrl = feedUrl.trim()
-					for feed in @_feedModel.getAll()
-						if feedUrl == feed.url
-							@$scope.feedExistsError = true
 				
-				
-				if not (@$scope.feedEmptyError or @$scope.feedExistsError)
+				if not @$scope.feedEmptyError
 					@_isAddingFeed = true
 
-					onSuccess = =>
-						@$scope.feedUrl = ''
-						@_isAddingFeed = false
 					onError = =>
 						@$scope.feedError = true
 						@_isAddingFeed = false
-					@_persistence.createFeed(feedUrl, parentFolderId, onSuccess,
-						onError)
+
+					onSuccess = (data) =>
+						if data.status == 'error'
+							onError()
+						else
+							@$scope.feedUrl = ''
+							@_isAddingFeed = false
+					
+					@_persistence.createFeed(feedUrl.trim(), parentFolderId,
+						onSuccess, onError)
 
 			@$scope.addFolder = (folderName) =>
 				@$scope.folderEmptyError = false
@@ -137,11 +135,20 @@ angular.module('News').factory '_FeedController', ->
 
 
 		isShown: (type, id) ->
-			if @isShowAll()
+			hasUnread = @getUnreadCount(type, id) > 0
+			if hasUnread
 				return true
 			else
-				return @getUnreadCount(type, id) > 0
-
+				if @isShowAll()
+					switch type
+						when @_feedType.Subscriptions
+							return @_feedModel.size() > 0
+						when @_feedType.Folder
+							return @_folderModel.size() > 0
+						when @_feedType.Feed
+							return @_feedModel.size() > 0
+			return false
+					
 
 		isShowAll: ->
 			return @_showAll.getShowAll()

@@ -127,7 +127,7 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 
 
 	public function testFindAllNew(){
-		$sql = 'AND `items`.`lastmodified` >= ?';
+		$sql = 'AND `items`.`last_modified` >= ?';
 		$sql = $this->makeSelectQueryStatus($sql);
 		$params = array($this->user, $this->status,	$this->updatedSince);
 
@@ -141,7 +141,7 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 
 	public function testFindAllNewFeed(){
 		$sql = 'AND `items`.`feed_id` = ? ' .
-				'AND `items`.`lastmodified` >= ?';
+				'AND `items`.`last_modified` >= ?';
 		$sql = $this->makeSelectQueryStatus($sql);
 		$params = array($this->user, $this->status, $this->id, $this->updatedSince);
 
@@ -155,7 +155,7 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 
 	public function testFindAllNewFolder(){
 		$sql = 'AND `feeds`.`folder_id` = ? ' .
-				'AND `items`.`lastmodified` >= ?';
+				'AND `items`.`last_modified` >= ?';
 		$sql = $this->makeSelectQueryStatus($sql);
 
 		$params = array($this->user, $this->status, $this->id, 

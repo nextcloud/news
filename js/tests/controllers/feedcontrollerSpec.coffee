@@ -171,7 +171,8 @@ describe '_FeedController', ->
 		expect(@ActiveFeed.getType()).toBe(4)
 
 
-	it 'should return true when calling isShown and ShowAll is set to true', =>
+	it 'should return true when calling isShown and there are feeds', =>
+		@FeedModel.add({id: 3})
 		@ShowAll.setShowAll(true)
 		expect(@scope.isShown(3, 4)).toBeTruthy()
 
@@ -340,15 +341,6 @@ describe '_FeedController', ->
 		expect(@persistence.createFeed).not.toHaveBeenCalled()
 
 
-	it 'should not add feeds that already exist client side', =>
-		@FeedModel.add({id: 3, url: 'ola'})
-		@persistence.createFeed = jasmine.createSpy('create')
-		@scope.addFeed('ola')
-
-		expect(@scope.feedExistsError).toBeTruthy()
-		expect(@persistence.createFeed).not.toHaveBeenCalled()
-
-
 	it 'should set isAddingFeed to true if there were no problems', =>
 		@persistence.createFeed = jasmine.createSpy('create')
 		@scope.addFeed('ola')
@@ -358,7 +350,9 @@ describe '_FeedController', ->
 	it 'should should reset the feedurl and set isAddingFeed to false on succ',=>
 		@persistence.createFeed =
 			jasmine.createSpy('create').andCallFake (arg1, arg2, func) =>
-				func()
+				data =
+					status: 'success'
+				func(data)
 		@scope.addFeed(' Ola')
 
 		expect(@scope.feedUrl).toBe('')
@@ -369,6 +363,18 @@ describe '_FeedController', ->
 		@persistence.createFeed =
 			jasmine.createSpy('create').andCallFake (arg1, arg2, func, err) =>
 				err()
+		@scope.addFeed('Ola')
+
+		expect(@scope.isAddingFeed()).toBeFalsy()
+		expect(@scope.feedError).toBeTruthy()
+
+
+	it 'should should set isAddingFeed to false on serverside error',=>
+		@persistence.createFeed =
+			jasmine.createSpy('create').andCallFake (arg1, arg2, func) =>
+				data =
+					status: 'error'
+				func(data)
 		@scope.addFeed('Ola')
 
 		expect(@scope.isAddingFeed()).toBeFalsy()

@@ -25,6 +25,9 @@
 
 namespace OCA\News\Utility;
 
+use \OCA\News\Db\Item;
+use \OCA\News\Db\Feed;
+
 
 class FeedFetcher {
 
@@ -39,7 +42,6 @@ class FeedFetcher {
 		$simplePie = new \SimplePie_Core();
 		$simplePie->set_feed_url( $url );
 		$simplePie->enable_cache( false );
-
 		
 		if (!$simplePie->init()) {
 			throw new FetcherException('Could not initialize simple pie');
@@ -53,12 +55,15 @@ class FeedFetcher {
 			if ($feedItems = $simplePie->get_items()) {
 				foreach($feedItems as $feedItem) {
 					$item = new Item();
+					$item->setStatus(0);
+					$item->setUnread();
 					$item->setUrl( $feedItem->get_permalink() );
 					$item->setTitle( $feedItem->get_title() );
 					$item->setGuid( $feedItem->get_id() );
 					$item->setGuidHash( md5($feedItem->get_id()) );
 					$item->setBody( $feedItem->get_content() );
-					$item->setDate( $feedItem->get_date('U') );
+					$item->setPubDate( $feedItem->get_date('U') );
+					$item->setLastModified(time());
 
 					$author = $feedItem->get_author();
 					if ($author !== null) {
@@ -103,36 +108,6 @@ class FeedFetcher {
 
 	}
 
-	/**
-	 * Perform a "slim" fetch of a feed from remote.
-	 * Differently from fetch(), it doesn't retrieve items nor a favicon
-	 * @param string url remote url of the feed
-	 * @returns \OCA\News\Db\Feed
-	 */
-	public function slimFetch($url) {
-		$simplePie = new \SimplePie_Core();
-		$simplePie->set_feed_url( $url );
-		$simplePie->enable_cache( false );
-		$simplePie->set_stupidly_fast( true );
-
-		if (!$simplePie->init()) {
-			throw new FetcherException('Could not initialize simple pie');
-		}
-
-		// temporary try-catch to bypass SimplePie bugs
-		try {
-			$feed = new Feed($url, $title);
-			$feed->setUrl($url);
-			$feed->setUrlHash(md5($url));
-			$feed->setTitle($simplePie->get_title());
-			$feed->setAdded(time());
-			return $feed;
-
-		} catch(\Exception $ex){
-			throw new FetcherException($ex->getMessage());
-		}
-	}
-
 
 	public function checkFavicon($favicon) {
 		if ($favicon === null || $favicon == false)
@@ -145,8 +120,8 @@ class FeedFetcher {
 		if($file->success && $filesize > 0 && $filesize < 50000) { //bigger files are not considered favicons
 			$sniffer = new \SimplePie_Content_Type_Sniffer($file);
 			if(substr($sniffer->get_type(), 0, 6) === 'image/') {
-				$imgsize = getimagesize($favicon);
-				if ($imgsize['0'] <= 32 && $imgsize['1'] <= 32) { //bigger images are not considered favicons
+				$imgsize = @getimagesize($favicon);
+				if ($imgsize && $imgsize['0'] <= 32 && $imgsize['1'] <= 32) { //bigger images are not considered favicons
 					return true;
 				}
 			}

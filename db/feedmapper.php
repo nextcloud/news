@@ -39,11 +39,17 @@ class FeedMapper extends Mapper implements IMapper {
 
 
 	public function find($id, $userId){
-		$sql = 'SELECT * FROM `*PREFIX*news_feeds` ' .
-			'WHERE `id` = ? ' .
-			'AND `user_id` = ?';
+		$sql = 'SELECT `feeds`.*, COUNT(`items`.`id`) AS `unread_count` ' .
+			'FROM `*PREFIX*news_feeds` `feeds` ' .
+			'LEFT JOIN `*PREFIX*news_items` `items` ' .
+				'ON `feeds`.`id` = `items`.`feed_id` ' . 
+				'AND (`items`.`status` & ?) > 0 ' .
+			'WHERE `feeds`.`id` = ? ' .
+				'AND `feeds`.`user_id` = ? ' .
+			'GROUP BY `feeds`.`id`';
+		$params = array(StatusFlag::UNREAD, $id, $userId);
 
-		$row = $this->findOneQuery($sql, array($id, $userId));
+		$row = $this->findOneQuery($sql, $params);
 		$feed = new Feed();
 		$feed->fromRow($row);
 
@@ -68,12 +74,12 @@ class FeedMapper extends Mapper implements IMapper {
 	public function findAllFromUser($userId){
 		$sql = 'SELECT `feeds`.*, COUNT(`items`.`id`) AS `unread_count` ' .
 			'FROM `*PREFIX*news_feeds` `feeds` ' .
-			'LEFT OUTER JOIN `*PREFIX*news_items` `items` ' .
+			'LEFT JOIN `*PREFIX*news_items` `items` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` ' . 
-			'WHERE (`items`.`status` & ?) > 0 ' .
-				'AND `feeds`.`user_id` = ? ' .
-			'GROUP BY `items`.`feed_id`';
-		$params = array($userId);
+				'AND (`items`.`status` & ?) > 0 ' .
+			'WHERE `feeds`.`user_id` = ? ' .
+			'GROUP BY `feeds`.`id`';
+		$params = array(StatusFlag::UNREAD, $userId);
 
 		return $this->findAllRows($sql, $params);
 	}
@@ -87,10 +93,15 @@ class FeedMapper extends Mapper implements IMapper {
 
 
 	public function findByUrlHash($hash, $userId){
-		$sql = 'SELECT * FROM `*PREFIX*news_feeds` ' .
-			'WHERE `url_hash` = ? ' .
-			'AND `user_id` = ?';
-		$params = array($hash, $userId);
+		$sql = 'SELECT `feeds`.*, COUNT(`items`.`id`) AS `unread_count` ' .
+			'FROM `*PREFIX*news_feeds` `feeds` ' .
+			'LEFT JOIN `*PREFIX*news_items` `items` ' .
+				'ON `feeds`.`id` = `items`.`feed_id` ' . 
+				'AND (`items`.`status` & ?) > 0 ' .
+			'WHERE `feeds`.`url_hash` = ? ' .
+				'AND `feeds`.`user_id` = ? ' .
+			'GROUP BY `feeds`.`id`';
+		$params = array(StatusFlag::UNREAD, $hash, $userId);
 
 		$row = $this->findOneQuery($sql, $params);
 		$feed = new Feed();

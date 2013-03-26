@@ -44,6 +44,15 @@ class Item extends Entity {
 	public $feedTitle;
 	public $lastModified;
 
+
+	public function __construct(){
+		$this->addType('pubDate', 'int');
+		$this->addType('feedId', 'int');
+		$this->addType('status', 'int');
+		$this->addType('lastModified', 'int');
+	}
+
+
 	public function setRead() {
 		$this->markFieldUpdated('status');
 		$this->status &= ~StatusFlag::UNREAD;

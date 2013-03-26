@@ -32,10 +32,10 @@
 				ng-click="markAllRead(feedType.Folder, folder.id)"
 				title="<?php p($l->t('Mark all read')); ?>"></button>
 		
-		<button class="svg action edit-icon" 
+<!--		<button class="svg action edit-icon" 
 				ng-click="renameFolder(folder.id)"
 				title="<?php p($l->t('Rename folder')); ?>"></button>
-
+-->
 
 	</span>
 	<ul>

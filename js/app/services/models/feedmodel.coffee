@@ -32,8 +32,9 @@ angular.module('News').factory '_FeedModel',
 
 
 		add: (item) ->
-			if item.icon == 'url()'
-				item.icon = 'url(' + @_utils.imagePath('news', 'rss.svg') + ')'
+			if item.faviconLink == null
+				item.faviconLink = 'url(' +
+					@_utils.imagePath('news', 'rss.svg') + ')'
 			super(item)
 
 

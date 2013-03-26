@@ -86,7 +86,7 @@ class ItemController extends Controller {
 		$starredCount = $this->itemBl->starredCount($userId);
 
 		$params = array(
-			'starred' => $starredCount
+			'starred' => (int) $starredCount
 		);
 
 		return $this->renderJSON($params);

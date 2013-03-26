@@ -79,6 +79,7 @@ class FeedBl extends Bl {
 
 			return $feed;
 		} catch(FetcherException $ex){
+			$this->api->log($ex->getMessage());
 			throw new BLException('Can not add feed: Not found or bad source');
 		}
 	}

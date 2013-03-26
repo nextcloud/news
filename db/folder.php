@@ -35,4 +35,9 @@ class Folder extends Entity {
 	public $userId;
 	public $opened;
 
+	public function __construct(){
+		$this->addType('parentId', 'int');
+		$this->addType('opened', 'bool');
+	}
+
 }
