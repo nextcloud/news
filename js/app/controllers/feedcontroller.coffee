@@ -131,7 +131,7 @@ angular.module('News').factory '_FeedController', ->
 
 
 		isFeedActive: (type, id) ->
-			return type == @_active.getType() and id = @_active.getId()
+			return type == @_active.getType() and id == @_active.getId()
 
 
 		isShown: (type, id) ->

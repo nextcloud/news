@@ -209,6 +209,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         this.$scope.folders = this._folderModel.getAll();
         this.$scope.feedType = this._feedType;
         this.$scope.isFeedActive = function(type, id) {
+          console.log(type + ' ' + id);
+          console.log(_this.isFeedActive(type, id));
           return _this.isFeedActive(type, id);
         };
         this.$scope.isShown = function(type, id) {
@@ -314,7 +316,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
       };
 
       FeedController.prototype.isFeedActive = function(type, id) {
-        return type === this._active.getType() && (id = this._active.getId());
+        return type === this._active.getType() && id === this._active.getId();
       };
 
       FeedController.prototype.isShown = function(type, id) {
