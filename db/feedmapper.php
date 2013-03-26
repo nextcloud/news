@@ -27,6 +27,8 @@ namespace OCA\News\Db;
 
 use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Db\Mapper;
+use \OCA\AppFramework\Db\Entity;
+
 
 class FeedMapper extends Mapper implements IMapper {
 
@@ -95,7 +97,17 @@ class FeedMapper extends Mapper implements IMapper {
 		$feed->fromRow($row);
 
 		return $feed;
+	}
 
+
+	public function delete(Entity $entity){
+		parent::delete($entity);
+
+		// someone please slap me for doing this manually :P
+		// we needz CASCADE + FKs please
+		$sql = 'DELETE FROM `*PREFIX*news_items` WHERE `feed_id` = ?';
+		$params = array($entity->getId());
+		$this->execute($sql, $params);
 	}
 
 }

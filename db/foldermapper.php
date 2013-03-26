@@ -27,6 +27,7 @@ namespace OCA\News\Db;
 
 use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Db\Mapper;
+use \OCA\AppFramework\Db\Entity;
 
 
 class FolderMapper extends Mapper implements IMapper {
@@ -79,4 +80,20 @@ class FolderMapper extends Mapper implements IMapper {
 
 		return $this->findAllRows($sql, $params);
 	}
+
+
+	public function delete(Entity $entity){
+		parent::delete($entity);
+
+		// someone please slap me for doing this manually :P
+		// we needz CASCADE + FKs please
+		$sql = 'DELETE FROM `*PREFIX*news_feeds` WHERE `folder_id` = ?; '.
+			'DELETE `items` FROM `*PREFIX*news_items` `items` '.
+			'LEFT JOIN `*PREFIX*news_feeds` `feeds` ON '. 
+			'`items`.`feed_id` = `feed`.`id` WHERE `feeds`.`id` IS NULL;';
+		$params = array($entity->getId());
+		$this->execute($sql, $params);
+	}
+
+
 }

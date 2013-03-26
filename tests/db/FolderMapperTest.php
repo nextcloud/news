@@ -131,4 +131,46 @@ class FolderMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$this->assertEquals($this->folders, $result);
 	}
 
+
+	public function testDelete(){
+		$folder = new Folder();
+		$folder->setId(3);
+
+		$sql = 'DELETE FROM `*PREFIX*news_folders` WHERE `id` = ?';
+		$arguments = array($folder->getId());
+
+		$sql2 = 'DELETE FROM `*PREFIX*news_feeds` WHERE `folder_id` = ?; '.
+			'DELETE `items` FROM `*PREFIX*news_items` `items` '.
+			'LEFT JOIN `*PREFIX*news_feeds` `feeds` ON '. 
+			'`items`.`feed_id` = `feed`.`id` WHERE `feeds`.`id` IS NULL;';
+		$arguments2 = array($folder->getId());
+
+		$pdoResult = $this->getMock('Result', 
+			array('fetchRow'));
+		$pdoResult->expects($this->any())
+			->method('fetchRow');
+		
+		$query = $this->getMock('Query', 
+			array('execute'));
+		$query->expects($this->at(0))
+			->method('execute')
+			->with($this->equalTo($arguments))
+			->will($this->returnValue($pdoResult));
+		$this->api->expects($this->at(0))
+			->method('prepareQuery')
+			->with($this->equalTo($sql))
+			->will(($this->returnValue($query)));	
+		
+		$query->expects($this->at(1))
+			->method('execute')
+			->with($this->equalTo($arguments2))
+			->will($this->returnValue($pdoResult));
+		$this->api->expects($this->at(1))
+			->method('prepareQuery')
+			->with($this->equalTo($sql2))
+			->will(($this->returnValue($query)));
+
+		$this->folderMapper->delete($folder);
+	}
+
 }

@@ -181,4 +181,44 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 	}
 
 
+	public function testDelete(){
+		$feed = new Feed();
+		$feed->setId(3);
+
+		$sql = 'DELETE FROM `*PREFIX*news_feeds` WHERE `id` = ?';
+		$arguments = array($feed->getId());
+
+		$sql2 = 'DELETE FROM `*PREFIX*news_items` WHERE `feed_id` = ?';
+		$arguments2 = array($feed->getId());
+
+		$pdoResult = $this->getMock('Result', 
+			array('fetchRow'));
+		$pdoResult->expects($this->any())
+			->method('fetchRow');
+		
+		$query = $this->getMock('Query', 
+			array('execute'));
+		$query->expects($this->at(0))
+			->method('execute')
+			->with($this->equalTo($arguments))
+			->will($this->returnValue($pdoResult));
+		$this->api->expects($this->at(0))
+			->method('prepareQuery')
+			->with($this->equalTo($sql))
+			->will(($this->returnValue($query)));	
+		
+		$query->expects($this->at(1))
+			->method('execute')
+			->with($this->equalTo($arguments2))
+			->will($this->returnValue($pdoResult));
+		$this->api->expects($this->at(1))
+			->method('prepareQuery')
+			->with($this->equalTo($sql2))
+			->will(($this->returnValue($query)));
+
+		$this->mapper->delete($feed);
+
+	}
+
+
 }
