@@ -23,11 +23,16 @@
 				target="_blank" href="{{item.url}}">{{item.title}}</a>
 		</h1>
 
-		<h2 class="item_author">from 
+		<h2 class="item_author">
+			<?php p($l->t('from')) ?>
 			<a href="#" 
 				ng-click="loadFeed(item.feedId)"
-				class="from_feed">{{item.feedTitle}}</a> {{item.getAuthorLine()}}
-		</h2>
+				class="from_feed">{{ getFeedTitle(item.feedId) }}</a> 
+			<span ui-if="item.author">
+				<?php p($l->t('by')) ?>
+				{{ item.author }}
+			</span>
+	</h2>
 
 		<div class="enclosure" ui-if="item.enclosure">
 			<audio controls="controls" ng-src="{{item.enclosure.link}}" type="{{item.enclosure.type}}">

@@ -41,7 +41,6 @@ class Item extends Entity {
 	public $enclosureLink;
 	public $feedId;
 	public $status;
-	public $feedTitle;
 	public $lastModified;
 
 
