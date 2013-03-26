@@ -40,8 +40,8 @@ ShowAll, FeedType, StarredCount, Persistence, ItemModel)->
 ]
 
 angular.module('News').controller 'ItemController',
-['$scope', '_ItemController', 'ItemModel', 'FeedLoading',
-($scope, _ItemController, ItemModel, FeedLoading)->
+['$scope', '_ItemController', 'ItemModel', 'FeedModel', 'FeedLoading',
+($scope, _ItemController, ItemModel, FeedModel, FeedLoading)->
 
-	return new _ItemController($scope, ItemModel, FeedLoading)
+	return new _ItemController($scope, ItemModel, FeedModel, FeedLoading)
 ]

@@ -2,7 +2,7 @@
 
 ownCloud - News
 
-@author Bernhard Posselt
+@_author Bernhard Posselt
 @copyright 2012 Bernhard Posselt nukeawhale@gmail.com
 
 This library is free software; you can redistribute it and/or
@@ -25,12 +25,19 @@ angular.module('News').factory '_ItemController', ->
 
 	class ItemController
 
-		constructor: (@$scope, @itemModel, @feedLoading) ->
+		constructor: (@_$scope, @_itemModel, @_feedModel, @_feedLoading) ->
 
-			@$scope.items = @itemModel.getAll()
+			@_$scope.items = @_itemModel.getAll()
 
-			@$scope.isLoading = =>
-				return @feedLoading.isLoading()
+			@_$scope.isLoading = =>
+				return @_feedLoading.isLoading()
+
+			@_$scope.getFeedTitle = (feedId) =>
+				feed = @_feedModel.getById(feedId)
+				if angular.isDefined(feed)
+					return feed.title
+				else
+					return ''
 
 
 	return ItemController

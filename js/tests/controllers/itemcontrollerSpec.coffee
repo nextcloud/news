@@ -32,7 +32,8 @@ describe '_ItemController', ->
 		@persistence = {
 			getItems: ->
 		}
-		@controller = new @_ItemController(@scope, @ItemModel)
+		@controller = new @_ItemController(@scope, @ItemModel, @FeedModel)
+
 
 	it 'should make items availabe', =>
 		@ItemModel.getAll = jasmine.createSpy('ItemModel')

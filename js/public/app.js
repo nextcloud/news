@@ -155,8 +155,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
   ]);
 
   angular.module('News').controller('ItemController', [
-    '$scope', '_ItemController', 'ItemModel', 'FeedLoading', function($scope, _ItemController, ItemModel, FeedLoading) {
-      return new _ItemController($scope, ItemModel, FeedLoading);
+    '$scope', '_ItemController', 'ItemModel', 'FeedModel', 'FeedLoading', function($scope, _ItemController, ItemModel, FeedModel, FeedLoading) {
+      return new _ItemController($scope, ItemModel, FeedModel, FeedLoading);
     }
   ]);
 
@@ -451,7 +451,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 ownCloud - News
 
-@author Bernhard Posselt
+@_author Bernhard Posselt
 @copyright 2012 Bernhard Posselt nukeawhale@gmail.com
 
 This library is free software; you can redistribute it and/or
@@ -475,14 +475,24 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     var ItemController;
     ItemController = (function() {
 
-      function ItemController($scope, itemModel, feedLoading) {
+      function ItemController(_$scope, _itemModel, _feedModel, _feedLoading) {
         var _this = this;
-        this.$scope = $scope;
-        this.itemModel = itemModel;
-        this.feedLoading = feedLoading;
-        this.$scope.items = this.itemModel.getAll();
-        this.$scope.isLoading = function() {
-          return _this.feedLoading.isLoading();
+        this._$scope = _$scope;
+        this._itemModel = _itemModel;
+        this._feedModel = _feedModel;
+        this._feedLoading = _feedLoading;
+        this._$scope.items = this._itemModel.getAll();
+        this._$scope.isLoading = function() {
+          return _this._feedLoading.isLoading();
+        };
+        this._$scope.getFeedTitle = function(feedId) {
+          var feed;
+          feed = _this._feedModel.getById(feedId);
+          if (angular.isDefined(feed)) {
+            return feed.title;
+          } else {
+            return '';
+          }
         };
       }
 
