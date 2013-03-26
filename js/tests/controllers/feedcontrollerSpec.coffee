@@ -323,7 +323,6 @@ describe '_FeedController', ->
 
 
 	it 'should should reset the foldername on and set isAddingFolder to false',=>
-
 		@persistence.createFolder =
 			jasmine.createSpy('create').andCallFake (arg1, arg2, func) =>
 				func()
@@ -332,4 +331,54 @@ describe '_FeedController', ->
 		expect(@scope.folderName).toBe('')
 		expect(@scope.isAddingFolder()).toBeFalsy()
 
+
+	it 'should not add feeds that have no url', =>
+		@persistence.createFeed = jasmine.createSpy('create')
+		@scope.addFeed(' ')
+
+		expect(@scope.feedEmptyError).toBeTruthy()
+		expect(@persistence.createFeed).not.toHaveBeenCalled()
+
+
+	it 'should not add feeds that already exist client side', =>
+		@FeedModel.add({id: 3, url: 'ola'})
+		@persistence.createFeed = jasmine.createSpy('create')
+		@scope.addFeed('ola')
+
+		expect(@scope.feedExistsError).toBeTruthy()
+		expect(@persistence.createFeed).not.toHaveBeenCalled()
+
+
+	it 'should set isAddingFeed to true if there were no problems', =>
+		@persistence.createFeed = jasmine.createSpy('create')
+		@scope.addFeed('ola')
+		expect(@scope.isAddingFeed()).toBeTruthy()
+
+
+	it 'should should reset the feedurl and set isAddingFeed to false on succ',=>
+		@persistence.createFeed =
+			jasmine.createSpy('create').andCallFake (arg1, arg2, func) =>
+				func()
+		@scope.addFeed(' Ola')
+
+		expect(@scope.feedUrl).toBe('')
+		expect(@scope.isAddingFeed()).toBeFalsy()
+
+
+	it 'should should set isAddingFeed to false on err',=>
+		@persistence.createFeed =
+			jasmine.createSpy('create').andCallFake (arg1, arg2, func, err) =>
+				err()
+		@scope.addFeed('Ola')
+
+		expect(@scope.isAddingFeed()).toBeFalsy()
+		expect(@scope.feedError).toBeTruthy()
+
+
+	it 'should create a create new feed request if everything was ok', =>
+		@persistence.createFeed = jasmine.createSpy('create')
+		@scope.addFeed('Ola')
+		expect(@persistence.createFeed).toHaveBeenCalled()
+		expect(@persistence.createFeed.argsForCall[0][0]).toBe('Ola')
+		expect(@persistence.createFeed.argsForCall[0][1]).toBe(0)
 

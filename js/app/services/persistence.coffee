@@ -145,7 +145,9 @@ angular.module('News').factory '_Persistence', ->
 			@_request.get 'news_feeds_active', params
 
 
-		createFeed: (url, parentFolderId, onSuccess, onFailure) ->
+		createFeed: (url, parentFolderId, onSuccess=null, onFailure=null) ->
+			onSuccess or= ->
+			onFailure or= ->
 			params =
 				data:
 					parentFolderId: parentFolderId

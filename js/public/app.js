@@ -186,35 +186,47 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         this.$scope.setShowAll = function(showAll) {
           return _this.setShowAll(showAll);
         };
+        this.$scope.isAddingFolder = function() {
+          return _this._isAddingFolder;
+        };
+        this.$scope.isAddingFeed = function() {
+          return _this._isAddingFeed;
+        };
+        this.$scope.toggleFolder = function(folderId) {
+          return _this.toggleFolder(folderId);
+        };
         this.$scope.addFeed = function(feedUrl, parentFolderId) {
-          /*
-          				@$scope.feedEmptyError = false
-          				@$scope.feedExistsError = false
-          				@$scope.feedError = false
-          			
-          				if angular.isUndefined(feedUrl) or feedUrl.trim() == ''
-          					@$scope.feedEmptyError = true
-          				else
-          					feedUrl = feedUrl.trim()
-          					for feed in @feedModel.getItems()
-          						if feedUrl == feed.feedUrl # FIXME: can we really compare this
-          							@$scope.feedExistsError = true
-          
-          				if not (@$scope.feedEmptyError or @$scope.feedExistsError)
-          					if angular.isUndefined(parentFolderId)
-          						folderId = 0
-          					else
-          						folderId = folder.id
-          					@$scope.adding = true
-          					onSuccess = =>
-          						@$scope.feedUrl = ''
-          						@$scope.adding = false
-          					onError = =>
-          						@$scope.feedError = true
-          						@$scope.adding = false
-          					@persistence.createFeed(url, folderId, onSuccess, onError)
-          */
-
+          var feed, onError, onSuccess, _i, _len, _ref;
+          if (parentFolderId == null) {
+            parentFolderId = 0;
+          }
+          _this.$scope.feedEmptyError = false;
+          _this.$scope.feedExistsError = false;
+          _this.$scope.feedError = false;
+          if (angular.isUndefined(feedUrl) || feedUrl.trim() === '') {
+            _this.$scope.feedEmptyError = true;
+          } else {
+            feedUrl = feedUrl.trim();
+            _ref = _this._feedModel.getAll();
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              feed = _ref[_i];
+              if (feedUrl === feed.url) {
+                _this.$scope.feedExistsError = true;
+              }
+            }
+          }
+          if (!(_this.$scope.feedEmptyError || _this.$scope.feedExistsError)) {
+            _this._isAddingFeed = true;
+            onSuccess = function() {
+              _this.$scope.feedUrl = '';
+              return _this._isAddingFeed = false;
+            };
+            onError = function() {
+              _this.$scope.feedError = true;
+              return _this._isAddingFeed = false;
+            };
+            return _this._persistence.createFeed(feedUrl, parentFolderId, onSuccess, onError);
+          }
         };
         this.$scope.addFolder = function(folderName) {
           var folder, _i, _len, _ref;
@@ -239,15 +251,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
               return _this._isAddingFolder = false;
             });
           }
-        };
-        this.$scope.isAddingFolder = function() {
-          return _this._isAddingFolder;
-        };
-        this.$scope.isAddingFeed = function() {
-          return _this._isAddingFeed;
-        };
-        this.$scope.toggleFolder = function(folderId) {
-          return _this.toggleFolder(folderId);
         };
       }
 
@@ -1085,6 +1088,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
       Persistence.prototype.createFeed = function(url, parentFolderId, onSuccess, onFailure) {
         var params;
+        if (onSuccess == null) {
+          onSuccess = null;
+        }
+        if (onFailure == null) {
+          onFailure = null;
+        }
+        onSuccess || (onSuccess = function() {});
+        onFailure || (onFailure = function() {});
         params = {
           data: {
             parentFolderId: parentFolderId,

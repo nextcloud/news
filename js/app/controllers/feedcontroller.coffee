@@ -67,34 +67,40 @@ angular.module('News').factory '_FeedController', ->
 			@$scope.setShowAll = (showAll) =>
 				@setShowAll(showAll)
 
-			@$scope.addFeed = (feedUrl, parentFolderId) =>
-				###
+			@$scope.isAddingFolder = =>
+				return @_isAddingFolder
+
+			@$scope.isAddingFeed = =>
+				return @_isAddingFeed
+
+			@$scope.toggleFolder = (folderId) =>
+				@toggleFolder(folderId)
+
+			@$scope.addFeed = (feedUrl, parentFolderId=0) =>
 				@$scope.feedEmptyError = false
 				@$scope.feedExistsError = false
 				@$scope.feedError = false
-			
+				
 				if angular.isUndefined(feedUrl) or feedUrl.trim() == ''
 					@$scope.feedEmptyError = true
 				else
 					feedUrl = feedUrl.trim()
-					for feed in @feedModel.getItems()
-						if feedUrl == feed.feedUrl # FIXME: can we really compare this
+					for feed in @_feedModel.getAll()
+						if feedUrl == feed.url
 							@$scope.feedExistsError = true
-
+				
+				
 				if not (@$scope.feedEmptyError or @$scope.feedExistsError)
-					if angular.isUndefined(parentFolderId)
-						folderId = 0
-					else
-						folderId = folder.id
-					@$scope.adding = true
+					@_isAddingFeed = true
+
 					onSuccess = =>
 						@$scope.feedUrl = ''
-						@$scope.adding = false
+						@_isAddingFeed = false
 					onError = =>
 						@$scope.feedError = true
-						@$scope.adding = false
-					@persistence.createFeed(url, folderId, onSuccess, onError)
-				###
+						@_isAddingFeed = false
+					@_persistence.createFeed(feedUrl, parentFolderId, onSuccess,
+						onError)
 
 			@$scope.addFolder = (folderName) =>
 				@$scope.folderEmptyError = false
@@ -113,16 +119,6 @@ angular.module('News').factory '_FeedController', ->
 					@_persistence.createFolder folderName, 0, =>
 						@$scope.folderName = ''
 						@_isAddingFolder = false
-
-
-			@$scope.isAddingFolder = =>
-				return @_isAddingFolder
-
-			@$scope.isAddingFeed = =>
-				return @_isAddingFeed
-
-			@$scope.toggleFolder = (folderId) =>
-				@toggleFolder(folderId)
 
 
 		toggleFolder: (folderId) ->
