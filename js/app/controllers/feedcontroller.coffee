@@ -29,6 +29,9 @@ angular.module('News').factory '_FeedController', ->
 					@_showAll, @_feedType, @_starredCount, @_persistence,
 					@_itemModel) ->
 
+			@_isAddingFolder = false
+			@_isAddingFeed = false
+
 			# bind internal stuff to scope
 			@$scope.feeds = @_feedModel.getAll()
 			@$scope.folders = @_folderModel.getAll()
@@ -63,6 +66,74 @@ angular.module('News').factory '_FeedController', ->
 
 			@$scope.setShowAll = (showAll) =>
 				@setShowAll(showAll)
+
+			@$scope.addFeed = (feedUrl, parentFolderId) =>
+				###
+				@$scope.feedEmptyError = false
+				@$scope.feedExistsError = false
+				@$scope.feedError = false
+			
+				if angular.isUndefined(feedUrl) or feedUrl.trim() == ''
+					@$scope.feedEmptyError = true
+				else
+					feedUrl = feedUrl.trim()
+					for feed in @feedModel.getItems()
+						if feedUrl == feed.feedUrl # FIXME: can we really compare this
+							@$scope.feedExistsError = true
+
+				if not (@$scope.feedEmptyError or @$scope.feedExistsError)
+					if angular.isUndefined(parentFolderId)
+						folderId = 0
+					else
+						folderId = folder.id
+					@$scope.adding = true
+					onSuccess = =>
+						@$scope.feedUrl = ''
+						@$scope.adding = false
+					onError = =>
+						@$scope.feedError = true
+						@$scope.adding = false
+					@persistence.createFeed(url, folderId, onSuccess, onError)
+				###
+
+			@$scope.addFolder = (folderName) =>
+				@$scope.folderEmptyError = false
+				@$scope.folderExistsError = false
+
+				if angular.isUndefined(folderName) or folderName.trim() == ''
+					@$scope.folderEmptyError = true
+				else
+					folderName = folderName.trim()
+					for folder in @_folderModel.getAll()
+						if folderName.toLowerCase() == folder.name.toLowerCase()
+							@$scope.folderExistsError = true
+
+				if not (@$scope.folderEmptyError or @$scope.folderExistsError)
+					@_isAddingFolder = true
+					@_persistence.createFolder folderName, 0, =>
+						@$scope.folderName = ''
+						@_isAddingFolder = false
+
+
+			@$scope.isAddingFolder = =>
+				return @_isAddingFolder
+
+			@$scope.isAddingFeed = =>
+				return @_isAddingFeed
+
+			@$scope.toggleFolder = (folderId) =>
+				@toggleFolder(folderId)
+
+
+		toggleFolder: (folderId) ->
+			folder = @_folderModel.getById(folderId)
+			
+			if angular.isDefined(folder)
+				folder.open = !folder.open
+				if folder.open
+					@_persistence.openFolder(folder.id)
+				else
+					@_persistence.collapseFolder(folder.id)
 
 
 		isFeedActive: (type, id) ->

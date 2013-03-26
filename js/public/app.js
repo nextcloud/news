@@ -151,6 +151,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         this._starredCount = _starredCount;
         this._persistence = _persistence;
         this._itemModel = _itemModel;
+        this._isAddingFolder = false;
+        this._isAddingFeed = false;
         this.$scope.feeds = this._feedModel.getAll();
         this.$scope.folders = this._folderModel.getAll();
         this.$scope.feedType = this._feedType;
@@ -184,7 +186,83 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         this.$scope.setShowAll = function(showAll) {
           return _this.setShowAll(showAll);
         };
+        this.$scope.addFeed = function(feedUrl, parentFolderId) {
+          /*
+          				@$scope.feedEmptyError = false
+          				@$scope.feedExistsError = false
+          				@$scope.feedError = false
+          			
+          				if angular.isUndefined(feedUrl) or feedUrl.trim() == ''
+          					@$scope.feedEmptyError = true
+          				else
+          					feedUrl = feedUrl.trim()
+          					for feed in @feedModel.getItems()
+          						if feedUrl == feed.feedUrl # FIXME: can we really compare this
+          							@$scope.feedExistsError = true
+          
+          				if not (@$scope.feedEmptyError or @$scope.feedExistsError)
+          					if angular.isUndefined(parentFolderId)
+          						folderId = 0
+          					else
+          						folderId = folder.id
+          					@$scope.adding = true
+          					onSuccess = =>
+          						@$scope.feedUrl = ''
+          						@$scope.adding = false
+          					onError = =>
+          						@$scope.feedError = true
+          						@$scope.adding = false
+          					@persistence.createFeed(url, folderId, onSuccess, onError)
+          */
+
+        };
+        this.$scope.addFolder = function(folderName) {
+          var folder, _i, _len, _ref;
+          _this.$scope.folderEmptyError = false;
+          _this.$scope.folderExistsError = false;
+          if (angular.isUndefined(folderName) || folderName.trim() === '') {
+            _this.$scope.folderEmptyError = true;
+          } else {
+            folderName = folderName.trim();
+            _ref = _this._folderModel.getAll();
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              folder = _ref[_i];
+              if (folderName.toLowerCase() === folder.name.toLowerCase()) {
+                _this.$scope.folderExistsError = true;
+              }
+            }
+          }
+          if (!(_this.$scope.folderEmptyError || _this.$scope.folderExistsError)) {
+            _this._isAddingFolder = true;
+            return _this._persistence.createFolder(folderName, 0, function() {
+              _this.$scope.folderName = '';
+              return _this._isAddingFolder = false;
+            });
+          }
+        };
+        this.$scope.isAddingFolder = function() {
+          return _this._isAddingFolder;
+        };
+        this.$scope.isAddingFeed = function() {
+          return _this._isAddingFeed;
+        };
+        this.$scope.toggleFolder = function(folderId) {
+          return _this.toggleFolder(folderId);
+        };
       }
+
+      FeedController.prototype.toggleFolder = function(folderId) {
+        var folder;
+        folder = this._folderModel.getById(folderId);
+        if (angular.isDefined(folder)) {
+          folder.open = !folder.open;
+          if (folder.open) {
+            return this._persistence.openFolder(folder.id);
+          } else {
+            return this._persistence.collapseFolder(folder.id);
+          }
+        }
+      };
 
       FeedController.prototype.isFeedActive = function(type, id) {
         return type === this._active.getType() && (id = this._active.getId());

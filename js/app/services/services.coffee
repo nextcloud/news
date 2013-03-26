@@ -59,7 +59,8 @@ angular.module('News').factory 'FeedModel', ['_FeedModel', 'Utils',
 	return new _FeedModel(Utils)
 ]
 
-angular.module('News').factory 'FolderModel', ['_FolderModel', (_FolderModel) ->
+angular.module('News').factory 'FolderModel',
+['_FolderModel', (_FolderModel) ->
 	return new _FolderModel()
 ]
 

@@ -264,3 +264,72 @@ describe '_FeedController', ->
 		expect(@FeedModel.getById(3).unreadCount).toBe(0)
 		expect(@FeedModel.getById(1).unreadCount).toBe(0)
 		expect(@FeedModel.getById(5).unreadCount).toBe(0)
+
+
+	it 'should toggle folder', =>
+		@persistence.openFolder = jasmine.createSpy('open')
+		@persistence.collapseFolder = jasmine.createSpy('collapse')
+
+		@FolderModel.add({id: 3, open: false})
+		@scope.toggleFolder(4)
+		expect(@FolderModel.getById(3).open).toBeFalsy()
+
+		@scope.toggleFolder(3)
+		expect(@FolderModel.getById(3).open).toBeTruthy()
+		expect(@persistence.openFolder).toHaveBeenCalledWith(3)
+
+		@scope.toggleFolder(3)
+		expect(@FolderModel.getById(3).open).toBeFalsy()
+		expect(@persistence.collapseFolder).toHaveBeenCalledWith(3)
+
+
+	it 'isAddingFolder should return false in the beginning', =>
+		expect(@scope.isAddingFolder()).toBeFalsy()
+
+
+	it 'isAddingFeed should return false in the beginning', =>
+		expect(@scope.isAddingFeed()).toBeFalsy()
+
+
+	it 'should not add folders that have no name', =>
+		@persistence.createFolder = jasmine.createSpy('create')
+		@scope.addFolder(' ')
+
+		expect(@scope.folderEmptyError).toBeTruthy()
+		expect(@persistence.createFolder).not.toHaveBeenCalled()
+
+
+	it 'should not add folders that already exist client side', =>
+		@FolderModel.add({id: 3, name: 'ola'})
+		@persistence.createFolder = jasmine.createSpy('create')
+		@scope.addFolder(' Ola')
+
+		expect(@scope.folderExistsError).toBeTruthy()
+		expect(@persistence.createFolder).not.toHaveBeenCalled()
+
+
+	it 'should set isAddingFolder to true if there were no problems', =>
+		@persistence.createFolder = jasmine.createSpy('create')
+		@scope.addFolder(' Ola')
+		expect(@scope.isAddingFolder()).toBeTruthy()
+
+
+	it 'should create a create new folder request if everything was ok', =>
+		@persistence.createFolder = jasmine.createSpy('create')
+		@scope.addFolder(' Ola')
+		expect(@persistence.createFolder).toHaveBeenCalled()
+		expect(@persistence.createFolder.argsForCall[0][0]).toBe('Ola')
+		expect(@persistence.createFolder.argsForCall[0][1]).toBe(0)
+
+
+	it 'should should reset the foldername on and set isAddingFolder to false',=>
+
+		@persistence.createFolder =
+			jasmine.createSpy('create').andCallFake (arg1, arg2, func) =>
+				func()
+		@scope.addFolder(' Ola')
+
+		expect(@scope.folderName).toBe('')
+		expect(@scope.isAddingFolder()).toBeFalsy()
+
+
