@@ -136,7 +136,8 @@ class FeedBl extends Bl {
 						$item->setStatus($existing->getStatus());
 						$item->setUnread();
 
-						$this->itemMapper->insert($item);	
+						$this->itemMapper->delete($existing);
+						$this->itemMapper->insert($item);
 					}
 					
 				}

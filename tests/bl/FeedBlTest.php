@@ -244,6 +244,9 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 					$this->equalTo($this->user))
 			->will($this->returnValue($item2));
 		$this->itemMapper->expects($this->at(2))
+			->method('delete')
+			->with($this->equalTo($item2));
+		$this->itemMapper->expects($this->at(3))
 			->method('insert')
 			->with($this->equalTo($item));
 		
