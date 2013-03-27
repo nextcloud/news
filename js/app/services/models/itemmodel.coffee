@@ -38,7 +38,7 @@ angular.module('News').factory '_ItemModel',
 
 
 		# items have two unique fields: feed_id and guidhash
-		# in case we get updated items with the same two fields we 
+		# in case we get updated items with the same two fields we
 		# also need to update the field
 		add: (data, clearCache=true) ->
 			hash = data.feedId + '_' + data.guidHash

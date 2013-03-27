@@ -37,6 +37,7 @@ describe '_FeedModel', ->
 		item =
 			id: 3
 			faviconLink: null
+			urlHash: 'hi'
 		utils =
 			imagePath: jasmine.createSpy('utils')
 
@@ -45,3 +46,20 @@ describe '_FeedModel', ->
 
 		expect(utils.imagePath).toHaveBeenCalledWith('news', 'rss.svg')
 
+
+	it 'should also update items when url is the same', =>
+		utils =
+			imagePath: jasmine.createSpy('utils')
+		model = new @_FeedModel(utils)
+
+		model.add({id: 2, faviconLink: null, urlHash: 'hi'})
+		expect(model.size()).toBe(1)
+
+		model.add({id: 2, faviconLink: null, urlHash: 'hi4'})
+		expect(model.size()).toBe(1)
+		expect(model.getById(2).urlHash).toBe('hi4')
+
+		model.add({id: 3, faviconLink: 'hey', urlHash: 'hi4'})
+		expect(model.size()).toBe(1)
+		expect(model.getById(2)).toBe(undefined)
+		expect(model.getById(3).faviconLink).toBe('hey')

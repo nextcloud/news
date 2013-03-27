@@ -28,6 +28,12 @@ angular.module('News').factory '_FeedModel',
 	class FeedModel extends _Model
 
 		constructor: (@_utils) ->
+			@_urlHash = {}
+			super()
+
+
+		clear: ->
+			@_urlHash = {}
 			super()
 
 
@@ -35,7 +41,25 @@ angular.module('News').factory '_FeedModel',
 			if item.faviconLink == null
 				item.faviconLink = 'url(' +
 					@_utils.imagePath('news', 'rss.svg') + ')'
-			super(item)
+
+			# since the feedurl is also unique, we want to update items that have
+			# the same url
+			entry = @_urlHash[item.urlHash]
+			if angular.isDefined(entry)
+				# first update id that could have changed
+				delete @_dataMap[entry.id]
+				@_dataMap[item.id] = entry
+
+				# now copy over the elements data attrs
+				for key, value of item
+					if key == 'urlHash'
+						continue
+					else
+						entry[key] = value
+
+			else
+				@_urlHash[item.urlHash] = item
+				super(item)
 
 
 		getUnreadCount: ->

@@ -108,25 +108,25 @@ describe '_FeedController', ->
 
 
 	it 'should get the correct unread count for feeds', =>
-		@FeedModel.add({id: 3, unreadCount:134})
+		@FeedModel.add({id: 3, unreadCount:134, urlHash: 'a1'})
 		count = @scope.getUnreadCount(@FeedType.Feed, 3)
 
 		expect(count).toBe(134)
 
 
 	it 'should get the correct unread count for subscribtions', =>
-		@FeedModel.add({id: 3, unreadCount:134})
-		@FeedModel.add({id: 5, unreadCount:2})
+		@FeedModel.add({id: 3, unreadCount:134, urlHash: 'a1'})
+		@FeedModel.add({id: 5, unreadCount:2, urlHash: 'a2'})
 		count = @scope.getUnreadCount(@FeedType.Subscriptions, 0)
 
 		expect(count).toBe(136)
 
 
 	it 'should get the correct unread count for folders', =>
-		@FeedModel.add({id: 3, unreadCount:134, folderId: 3})
-		@FeedModel.add({id: 5, unreadCount:2, folderId: 2})
-		@FeedModel.add({id: 1, unreadCount:12, folderId: 5})
-		@FeedModel.add({id: 2, unreadCount:35, folderId: 3})
+		@FeedModel.add({id: 3, unreadCount:134, folderId: 3, urlHash: 'a1'})
+		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, urlHash: 'a2'})
+		@FeedModel.add({id: 1, unreadCount:12, folderId: 5, urlHash: 'a3'})
+		@FeedModel.add({id: 2, unreadCount:35, folderId: 3, urlHash: 'a4'})
 		count = @scope.getUnreadCount(@FeedType.Folder, 3)
 
 		expect(count).toBe(169)
@@ -182,18 +182,18 @@ describe '_FeedController', ->
 
 	it 'should return true if ShowAll is false but unreadcount is not 0', =>
 		@ShowAll.setShowAll(false)
-		@FeedModel.add({id: 4, unreadCount: 0})
+		@FeedModel.add({id: 4, unreadCount: 0, urlHash: 'a1'})
 		expect(@scope.isShown(@FeedType.Feed, 4)).toBeFalsy()
 
-		@FeedModel.add({id: 4, unreadCount: 12})
+		@FeedModel.add({id: 4, unreadCount: 12, urlHash: 'a2'})
 		expect(@scope.isShown(@FeedType.Feed, 4)).toBeTruthy()
 
 
 	it 'should return all feeds of a folder', =>
-		@FeedModel.add({id: 3, unreadCount:134, folderId: 3})
-		@FeedModel.add({id: 5, unreadCount:2, folderId: 2})
-		@FeedModel.add({id: 1, unreadCount:12, folderId: 5})
-		@FeedModel.add({id: 2, unreadCount:35, folderId: 3})
+		@FeedModel.add({id: 3, unreadCount:134, folderId: 3, urlHash: 'a1'})
+		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, urlHash: 'a2'})
+		@FeedModel.add({id: 1, unreadCount:12, folderId: 5, urlHash: 'a3'})
+		@FeedModel.add({id: 2, unreadCount:35, folderId: 3, urlHash: 'a4'})
 
 		result = @scope.getFeedsOfFolder(3)
 
@@ -204,10 +204,10 @@ describe '_FeedController', ->
 
 
 	it 'should return true when folder has feeds', =>
-		@FeedModel.add({id: 5, unreadCount:2, folderId: 2})
+		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, urlHash: 'a1'})
 		expect(@scope.hasFeeds(3)).toBeFalsy()
 
-		@FeedModel.add({id: 2, unreadCount:35, folderId: 3})
+		@FeedModel.add({id: 2, unreadCount:35, folderId: 3, urlHash: 'a2'})
 		expect(@scope.hasFeeds(3)).toBeTruthy()
 
 
@@ -231,10 +231,10 @@ describe '_FeedController', ->
 
 	it 'should mark feed as read', =>
 		@persistence.setFeedRead = jasmine.createSpy('setFeedRead')
-		@FeedModel.add({id: 5, unreadCount:2, folderId: 2})
-		@ItemModel.add({id: 6, feedId: 5, guidHash: 'a'})
-		@ItemModel.add({id: 3, feedId: 5, guidHash: 'a1'})
-		@ItemModel.add({id: 2, feedId: 5, guidHash: 'a2'})
+		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, urlHash: 'a1'})
+		@ItemModel.add({id: 6, feedId: 5, guidHash: 'a1'})
+		@ItemModel.add({id: 3, feedId: 5, guidHash: 'a2'})
+		@ItemModel.add({id: 2, feedId: 5, guidHash: 'a3'})
 		@scope.markAllRead(@FeedType.Feed, 5)
 
 		expect(@persistence.setFeedRead).toHaveBeenCalledWith(5, 6)
@@ -243,9 +243,9 @@ describe '_FeedController', ->
 
 	it 'should mark folder as read', =>
 		@persistence.setFeedRead = jasmine.createSpy('setFeedRead')
-		@FeedModel.add({id: 3, unreadCount:134, folderId: 3})
-		@FeedModel.add({id: 5, unreadCount:2, folderId: 2})
-		@FeedModel.add({id: 1, unreadCount:12, folderId: 3})
+		@FeedModel.add({id: 3, unreadCount:134, folderId: 3, urlHash: 'a1'})
+		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, urlHash: 'a2'})
+		@FeedModel.add({id: 1, unreadCount:12, folderId: 3, urlHash: 'a3'})
 
 		@scope.markAllRead(@FeedType.Folder, 3)
 
@@ -256,9 +256,9 @@ describe '_FeedController', ->
 
 	it 'should mark all as read', =>
 		@persistence.setFeedRead = jasmine.createSpy('setFeedRead')
-		@FeedModel.add({id: 3, unreadCount:134, folderId: 3})
-		@FeedModel.add({id: 5, unreadCount:2, folderId: 2})
-		@FeedModel.add({id: 1, unreadCount:12, folderId: 3})
+		@FeedModel.add({id: 3, unreadCount:134, folderId: 3, urlHash: 'a1'})
+		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, urlHash: 'a2'})
+		@FeedModel.add({id: 1, unreadCount:12, folderId: 3, urlHash: 'a3'})
 
 		@scope.markAllRead(@FeedType.Subscriptions, 0)
 

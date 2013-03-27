@@ -681,14 +681,38 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
         function FeedModel(_utils) {
           this._utils = _utils;
+          this._urlHash = {};
           FeedModel.__super__.constructor.call(this);
         }
 
+        FeedModel.prototype.clear = function() {
+          this._urlHash = {};
+          return FeedModel.__super__.clear.call(this);
+        };
+
         FeedModel.prototype.add = function(item) {
+          var entry, key, value, _results;
           if (item.faviconLink === null) {
             item.faviconLink = 'url(' + this._utils.imagePath('news', 'rss.svg') + ')';
           }
-          return FeedModel.__super__.add.call(this, item);
+          entry = this._urlHash[item.urlHash];
+          if (angular.isDefined(entry)) {
+            delete this._dataMap[entry.id];
+            this._dataMap[item.id] = entry;
+            _results = [];
+            for (key in item) {
+              value = item[key];
+              if (key === 'urlHash') {
+                continue;
+              } else {
+                _results.push(entry[key] = value);
+              }
+            }
+            return _results;
+          } else {
+            this._urlHash[item.urlHash] = item;
+            return FeedModel.__super__.add.call(this, item);
+          }
         };
 
         FeedModel.prototype.getUnreadCount = function() {
