@@ -167,8 +167,8 @@
 			</field>
 			<field>
 				<name>pub_date</name>
-				<type>timestamp</type>
-				<default>0000-00-00 00:00:00</default>
+				<type>integer</type>
+				<unsigned>true</unsigned>
 				<notnull>false</notnull>
 			</field>
 			<field>
