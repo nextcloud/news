@@ -1,7 +1,5 @@
 <?php
 
-\OCP\Util::addScript('core', 'multiselect');
-
 \OCP\Util::addScript('appframework', 'vendor/angular/angular');
 \OCP\Util::addScript('appframework', 'public/app');
 
@@ -37,7 +35,8 @@
 						class="settings-button"
 						oc-click-slide-toggle="{
 							selector: '#app-settings-content',
-							hideOnFocusLost: true
+							hideOnFocusLost: true,
+							cssClass: 'opened'
 						}"></button>
 			</div>
 			<div id="app-settings-content">

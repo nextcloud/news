@@ -15,7 +15,7 @@
 	-moz-box-sizing: border-box; box-sizing: border-box;
 	text-shadow: 0 1px 0 rgba(255, 255, 255, .9);
 }
-#app-navigation li.active {	background-color: #ccc;	text-shadow: 0 1px 0 rgba(255,255,255,.7); }
+#app-navigation li.active {	background-color: #ddd;	text-shadow: 0 1px 0 rgba(255,255,255,.7); }
 
 #app-navigation > ul > li {
 	border-bottom: 1px solid #ddd;
@@ -35,7 +35,7 @@
 	-moz-box-sizing: border-box; box-sizing: border-box;
 	white-space: nowrap; text-overflow: ellipsis; color: #333;
 }
-#app-navigation li:hover > a { background-color: #ccc; }
+#app-navigation li:hover > a { background-color: #ddd; }
 #app-navigation > ul > li:hover { border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;}
 
 #app-navigation button.collapse { display: none; }
@@ -80,8 +80,8 @@
 }
 
 #app-navigation > ul li.open:hover {
-	-webkit-box-shadow: inset 0 0 3px #cccccc;
-	box-shadow: inset 0 0 3px #cccccc;
+	-webkit-box-shadow: inset 0 0 3px #ddd;
+	box-shadow: inset 0 0 3px #ddd;
 	border-top: 1px solid #ccc;
 }
 

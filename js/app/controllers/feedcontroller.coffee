@@ -99,15 +99,16 @@ angular.module('News').factory '_FeedController', ->
 					
 					@_persistence.createFeed(feedUrl.trim(), parentFolderId,
 						onSuccess, onError)
+				
 
 			@$scope.addFolder = (folderName) =>
 				@$scope.folderEmptyError = false
 				@$scope.folderExistsError = false
-				folderName = folderName.trim()
 
-				if angular.isUndefined(folderName) or folderName == ''
+				if angular.isUndefined(folderName) or folderName.trim() == ''
 					@$scope.folderEmptyError = true
 				else
+					folderName = folderName.trim()
 					if @_folderModel.nameExists(folderName)
 						@$scope.folderExistsError = true
 
@@ -115,11 +116,8 @@ angular.module('News').factory '_FeedController', ->
 					@_isAddingFolder = true
 					@_persistence.createFolder folderName, 0, =>
 						@$scope.folderName = ''
+						@$scope.addNewFolder = false
 						@_isAddingFolder = false
-
-
-			@$scope.$on 'createFolder', (scope, folderName) =>
-				$scope.addFolder(folderName)
 
 
 		toggleFolder: (folderId) ->

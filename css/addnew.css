@@ -2,15 +2,44 @@
 	background-image: url('%appswebroot%/news/img/add.svg');
 }
 
-.add-new-popup {
-	display: none;
-	padding: 0 15px;
+.add-new:hover a.opened {
+	background-color: transparent !important;
 }
 
-.add-new-popup .personalblock:first-child legend {
-	padding-top: 15px;
+.add-new-popup {
+	display: none;
+	padding: 15px 10px;
 }
 
 .add-new input[type=text] {
-	width: 100px;
+	width: 120px;
+}
+
+.add-new select {
+	width: 134px;
+	margin-top: 1px !important;
+}
+
+.add-new input {
+	height: 16px !important;
+}
+
+.add-new input, 
+.add-new select {
+	margin: 0 0 5px 0;
+	display: inline-block;
+	float: left;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+	border-right: 0;
+}
+
+.add-new button {
+	margin: 0 0 5px 0;
+	display: inline-block;
+	float: left;
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
+	height: 30px !important;
+	margin-top: 1px;
 }

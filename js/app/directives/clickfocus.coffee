@@ -1,6 +1,6 @@
 ###
 
-ownCloud - News
+ownCloud - news
 
 @author Bernhard Posselt
 @copyright 2012 Bernhard Posselt nukeawhale@gmail.com
@@ -21,26 +21,12 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-###
-Turns a normal select into a folder select with the ability to create new
-folders
-###
-angular.module('News').directive 'addFolderSelect',
-['$rootScope', 'FolderModel', ($rootScope, FolderModel) ->
+angular.module('News').directive 'clickFocus', ->
 
 	return (scope, elm, attr) ->
+		options = scope.$eval(attr.clickFocus)
 
-		options =
-			singleSelect: true
-			selectedFirst: true
-			createText: $(elm).data('create')
-			createCallback: (selected, value) ->
-				if FolderModel.nameExists(value)
-					return false
-				else
-					$rootScope.$broadcast 'createFolder', value
+		if angular.isDefined(options) and angular.isDefined(options.selector)
+			elm.click ->
+				$(options.selector).focus()
 
-
-		$(elm).multiSelect(options)
-
-]

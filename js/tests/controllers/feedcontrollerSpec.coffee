@@ -333,6 +333,7 @@ describe '_FeedController', ->
 
 		expect(@scope.folderName).toBe('')
 		expect(@scope.isAddingFolder()).toBeFalsy()
+		expect(@scope.addNewFolder).toBeFalsy()
 
 
 	it 'should not add feeds that have no url', =>

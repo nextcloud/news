@@ -67,7 +67,6 @@ angular.module('News').factory '_FeedModel',
 					entry[key] = value
 
 
-
 		removeById: (id) ->
 			item = @getById(id)
 			delete @_urlHash[item.urlHash]

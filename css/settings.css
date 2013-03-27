@@ -4,3 +4,7 @@
 	width:0;
 	height:0;
 }
+
+#app-settings .opened:hover {
+	background-color: transparent !important;
+}
