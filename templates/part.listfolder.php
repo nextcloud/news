@@ -1,10 +1,10 @@
 <li ng-class="{
 	active: isFeedActive(feedType.Folder, folder.id), 
 	open: folder.open,
-	collapsible: hasFeeds(),
+	collapsible: hasFeeds(folder.id),
 	unread: getUnreadCount(feedType.Folder, folder.id)!=0}" 
 	ng-repeat="folder in folders"
-	ng-show="folder.show"
+	ng-show="isShown(feedType.Folder, folder.id)"
 	class="folder"
 	data-id="{{folder.id}}"
 	droppable>

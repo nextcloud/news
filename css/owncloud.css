@@ -38,8 +38,9 @@
 #app-navigation li:hover > a { background-color: #ccc; }
 #app-navigation > ul > li:hover { border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;}
 
+#app-navigation button.collapse { display: none; }
 #app-navigation li.collapsible > button.collapse {
-	display: none; position: absolute; left: 6px; top: 5px; height: 16px; width: 16px;
+	position: absolute; left: 6px; top: 5px; height: 16px; width: 16px;
 	background: none; background-image: url('%webroot%/core/img/actions/triangle-s.svg');
 	background-repeat: no-repeat; background-size: 16px 16px;
 	border: none; border-radius: 0; outline: none !important;
