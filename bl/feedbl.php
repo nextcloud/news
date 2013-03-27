@@ -85,7 +85,8 @@ class FeedBl extends Bl {
 			return $feed;
 		} catch(FetcherException $ex){
 			$this->api->log($ex->getMessage());
-			throw new BLException('Can not add feed: Not found or bad source');
+			throw new BLException('Can not add feed with url' . $feedUrl .
+				': Not found or bad source');
 		}
 	}
 
@@ -143,7 +144,8 @@ class FeedBl extends Bl {
 
 		} catch(FetcherException $ex){
 			// failed updating is not really a problem, so only log it
-			$this->api->log('Can not update feed: Not found or bad source');
+			$this->api->log('Can not update feed with url' . $feed->getUrl() .
+				': Not found or bad source');
 		}	
 	}
 
