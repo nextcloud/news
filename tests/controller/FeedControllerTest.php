@@ -139,11 +139,11 @@ class FeedControllerTest extends ControllerTestUtility {
 			->will($this->returnValue($this->user));
 		$this->api->expects($this->at(1))
 			->method('getUserValue')
-			->with($this->equalTo($this->user), $this->equalTo('lastViewedFeedId'))
+			->with($this->equalTo('lastViewedFeedId'))
 			->will($this->returnValue($id));
 		$this->api->expects($this->at(2))
 			->method('getUserValue')
-			->with($this->equalTo($this->user), $this->equalTo('lastViewedFeedType'))
+			->with($this->equalTo('lastViewedFeedType'))
 			->will($this->returnValue($type));
 	}
 

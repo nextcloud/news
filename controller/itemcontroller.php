@@ -55,8 +55,8 @@ class ItemController extends Controller {
 		$type = (int) $this->params('type');
 		$id = (int) $this->params('id');
 
-		$this->api->setUserValue($userId, 'lastViewedFeedId', $id);
-		$this->api->setUserValue($userId, 'lastViewedFeedType', $type);
+		$this->api->setUserValue('lastViewedFeedId', $id);
+		$this->api->setUserValue('lastViewedFeedType', $type);
 		
 		if($limit !== null){
 			$offset = (int) $this->params('offset', 0);

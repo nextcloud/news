@@ -237,13 +237,11 @@ class ItemControllerTest extends ControllerTestUtility {
 			->will($this->returnValue($this->user));
 		$this->api->expects($this->at(2))
 			->method('setUserValue')
-			->with($this->equalTo($this->user),
-				$this->equalTo('lastViewedFeedId'),
+			->with($this->equalTo('lastViewedFeedId'),
 				$this->equalTo($id));
 		$this->api->expects($this->at(3))
 			->method('setUserValue')
-			->with($this->equalTo($this->user),
-				$this->equalTo('lastViewedFeedType'),
+			->with($this->equalTo('lastViewedFeedType'),
 				$this->equalTo($type));
 	}
 

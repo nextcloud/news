@@ -72,8 +72,8 @@ class FeedController extends Controller {
 	 */
 	public function active(){
 		$userId = $this->api->getUserId();
-		$feedId = (int) $this->api->getUserValue($userId, 'lastViewedFeedId');
-		$feedType = $this->api->getUserValue($userId, 'lastViewedFeedType');
+		$feedId = (int) $this->api->getUserValue('lastViewedFeedId');
+		$feedType = $this->api->getUserValue('lastViewedFeedType');
 		
 		// cast from null to int is 0
 		if($feedType !== null){
