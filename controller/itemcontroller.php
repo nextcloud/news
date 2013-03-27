@@ -101,6 +101,7 @@ class ItemController extends Controller {
 		$this->itemBl->star($feedId, $guidHash, $isStarred, $userId);
 	}
 
+
 	/**
 	 * @IsAdminExemption
 	 * @IsSubAdminExemption

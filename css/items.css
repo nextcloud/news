@@ -1,16 +1,16 @@
-#right-content:after {
+#app-content:after {
 	content: '';
 	display: block;
 	height: 100%;
 }
 
-#right-content.loading {
+#app-content.loading {
 	background-image: url('%webroot%/core/img/loading.gif');
 	background-position: center;
 	background-repeat: no-repeat;
 }
 
-#right-content.loading > ul {
+#app-content.loading > ul {
 	display: none;
 }
 

@@ -29,10 +29,12 @@ describe '_FeedController', ->
 
 	beforeEach inject (@_FeedController, @ActiveFeed, @ShowAll, @FeedType,
 		               @StarredCount, @FeedModel, @FolderModel, @ItemModel) =>
-		@scope = {}
-		@persistence = {
+		@scope =
+			$on: ->
+
+		@persistence =
 			getItems: ->
-		}
+				
 		@controller = new @_FeedController(@scope, @FolderModel, @FeedModel,
 			                               @ActiveFeed, @ShowAll, @FeedType,
 			                               @StarredCount, @persistence,

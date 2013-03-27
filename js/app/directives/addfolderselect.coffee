@@ -25,7 +25,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 Turns a normal select into a folder select with the ability to create new
 folders
 ###
-angular.module('News').directive 'addFolderSelect', ['$rootScope', ->
+angular.module('News').directive 'addFolderSelect',
+['$rootScope', 'FolderModel', ($rootScope, FolderModel) ->
 
 	return (scope, elm, attr) ->
 
@@ -33,9 +34,12 @@ angular.module('News').directive 'addFolderSelect', ['$rootScope', ->
 			singleSelect: true
 			selectedFirst: true
 			createText: $(elm).data('create')
-			createdCallback: (selected, value) ->
-				console.log selected
-				console.log value
+			createCallback: (selected, value) ->
+				if FolderModel.nameExists(value)
+					return false
+				else
+					$rootScope.$broadcast 'createFolder', value
+
 
 		$(elm).multiSelect(options)
 

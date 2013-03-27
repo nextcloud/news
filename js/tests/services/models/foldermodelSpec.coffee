@@ -30,3 +30,11 @@ describe '_FolderModel', ->
 
 	it 'should extend model', =>
 		expect(new @_FolderModel instanceof @_Model).toBeTruthy()
+
+
+	it 'should allow to search for foldernames', =>
+		model = new @_FolderModel()
+		model.add({id: 3, name: 'hi'})
+
+		expect(model.nameExists('hi')).toBeTruthy()
+		expect(model.nameExists('dhi')).toBeFalsy()

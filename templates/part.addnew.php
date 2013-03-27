@@ -28,12 +28,14 @@
 						ng-click="addFeed(feedUrl, folderId)"><?php p($l->t('Add')); ?></button>
 				<select name="folder" 
 						data-create="<?php p($l->t('New folder')); ?>"
-						title="<?php p($l->t('Folder')); ?>"
-						ng-model="folderId"
+						title="<?php p($l->t('Folder')); ?>
+"						ng-model="folderId"
 						ng-disabled="isAddingFolder()"
-						ng-options="folder.name for folder in getFolders()"
-						add-folder-select>
-					<option value="" selected><?php p($l->t('No folder')); ?></option>
+						ng-options="folder.name for folder in folders"
+						add-folder-select
+						multiple="multiple">
+					<option value="" selected="selected">- <?php p($l->t('Top Level')); ?></option>
+					<option>create</option>
 				</select>
 			</form>	
 		</fieldset>

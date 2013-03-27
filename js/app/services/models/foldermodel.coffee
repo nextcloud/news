@@ -20,9 +20,16 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 ###
 
-angular.module('News').factory '_FolderModel', ['_Model', (_Model) ->
+angular.module('News').factory '_FolderModel',
+['_Model', '_EqualQuery', (_Model, _EqualQuery) ->
 
 	class FolderModel extends _Model
+
+
+		nameExists: (folderName) ->
+			query = new _EqualQuery('name', folderName.trim(), true)
+			return @get(query).length > 0
+
 
 	return FolderModel
 ]

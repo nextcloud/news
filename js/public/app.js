@@ -97,16 +97,19 @@ folders
 (function() {
 
   angular.module('News').directive('addFolderSelect', [
-    '$rootScope', function() {
+    '$rootScope', 'FolderModel', function($rootScope, FolderModel) {
       return function(scope, elm, attr) {
         var options;
         options = {
           singleSelect: true,
           selectedFirst: true,
           createText: $(elm).data('create'),
-          createdCallback: function(selected, value) {
-            console.log(selected);
-            return console.log(value);
+          createCallback: function(selected, value) {
+            if (FolderModel.nameExists(value)) {
+              return false;
+            } else {
+              return $rootScope.$broadcast('createFolder', value);
+            }
           }
         };
         return $(elm).multiSelect(options);
@@ -275,19 +278,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           }
         };
         this.$scope.addFolder = function(folderName) {
-          var folder, _i, _len, _ref;
           _this.$scope.folderEmptyError = false;
           _this.$scope.folderExistsError = false;
-          if (angular.isUndefined(folderName) || folderName.trim() === '') {
+          folderName = folderName.trim();
+          if (angular.isUndefined(folderName) || folderName === '') {
             _this.$scope.folderEmptyError = true;
           } else {
-            folderName = folderName.trim();
-            _ref = _this._folderModel.getAll();
-            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-              folder = _ref[_i];
-              if (folderName.toLowerCase() === folder.name.toLowerCase()) {
-                _this.$scope.folderExistsError = true;
-              }
+            if (_this._folderModel.nameExists(folderName)) {
+              _this.$scope.folderExistsError = true;
             }
           }
           if (!(_this.$scope.folderEmptyError || _this.$scope.folderExistsError)) {
@@ -298,6 +296,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             });
           }
         };
+        this.$scope.$on('createFolder', function(scope, folderName) {
+          return $scope.addFolder(folderName);
+        });
       }
 
       FeedController.prototype.toggleFolder = function(folderId) {
@@ -793,7 +794,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   angular.module('News').factory('_FolderModel', [
-    '_Model', function(_Model) {
+    '_Model', '_EqualQuery', function(_Model, _EqualQuery) {
       var FolderModel;
       FolderModel = (function(_super) {
 
@@ -802,6 +803,12 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         function FolderModel() {
           return FolderModel.__super__.constructor.apply(this, arguments);
         }
+
+        FolderModel.prototype.nameExists = function(folderName) {
+          var query;
+          query = new _EqualQuery('name', folderName.trim(), true);
+          return this.get(query).length > 0;
+        };
 
         return FolderModel;
 
