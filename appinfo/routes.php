@@ -151,13 +151,13 @@ $this->create('news_items_unread', '/items/{itemId}/unread')->post()->action(
 	}
 );
 
-$this->create('news_items_star', '/items/{itemId}/star')->post()->action(
+$this->create('news_items_star', '/items/{feedId}/{guidHash}/star')->post()->action(
 	function($params){
 		App::main('ItemController', 'star', $params, new DIContainer());
 	}
 );
 
-$this->create('news_items_unstar', '/items/{itemId}/unstar')->post()->action(
+$this->create('news_items_unstar', '/items/{feedId}/{guidHash}/unstar')->post()->action(
 	function($params){
 		App::main('ItemController', 'unstar', $params, new DIContainer());
 	}

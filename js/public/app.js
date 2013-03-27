@@ -1122,7 +1122,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         return this._request.get('news_items_starred', params);
       };
 
-      Persistence.prototype.starItem = function(itemId) {
+      Persistence.prototype.starItem = function(feedId, guidHash) {
         /*
         			Stars an item
         */
@@ -1130,13 +1130,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         var params;
         params = {
           routeParams: {
-            itemId: itemId
+            feedId: feedId,
+            guidHash: guidHash
           }
         };
         return this._request.post('news_items_star', params);
       };
 
-      Persistence.prototype.unstarItem = function(itemId) {
+      Persistence.prototype.unstarItem = function(feedId, guidHash) {
         /*
         			Unstars an item
         */
@@ -1144,7 +1145,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         var params;
         params = {
           routeParams: {
-            itemId: itemId
+            feedId: feedId,
+            guidHash: guidHash
           }
         };
         return this._request.post('news_items_unstar', params);

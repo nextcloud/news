@@ -1,7 +1,8 @@
 <fieldset class="personalblock">
 	<legend><strong><?php p($l->t('Import / Export OPML')); ?></strong></legend>
 	<input type="file" id="opml-upload" name="files[]" read-file/>
-	<button title="<?php p($l->t('Import')); ?>" forward-click="{selector:'#opml-upload'}">
+	<button title="<?php p($l->t('Import')); ?>" 
+		oc-forward-click="{selector:'#opml-upload'}">
 		<?php p($l->t('Import')); ?>
 	</button>
 	<button ng-disabled="feeds.length==0" title="<?php p($l->t('Export')); ?>"

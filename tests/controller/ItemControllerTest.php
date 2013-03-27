@@ -145,7 +145,8 @@ class ItemControllerTest extends ControllerTestUtility {
 
 		public function testStar(){
 		$url = array(
-			'itemId' => 4
+			'feedId' => 4,
+			'guidHash' => md5('test')
 		);
 		$this->controller = $this->getPostController(array(), $url);
 
@@ -154,7 +155,11 @@ class ItemControllerTest extends ControllerTestUtility {
 			->will($this->returnValue($this->user));
 		$this->bl->expects($this->once())
 			->method('star')
-			->with($url['itemId'], true, $this->user);
+			->with(
+				$this->equalTo($url['feedId']), 
+				$this->equalTo($url['guidHash']),
+				$this->equalTo(true), 
+				$this->equalTo($this->user));
 
 		$this->controller->star();
 	}
@@ -162,7 +167,8 @@ class ItemControllerTest extends ControllerTestUtility {
 
 	public function testUnstar(){
 		$url = array(
-			'itemId' => 4
+			'feedId' => 4,
+			'guidHash' => md5('test')
 		);
 		$this->controller = $this->getPostController(array(), $url);
 
@@ -171,7 +177,11 @@ class ItemControllerTest extends ControllerTestUtility {
 			->will($this->returnValue($this->user));
 		$this->bl->expects($this->once())
 			->method('star')
-			->with($url['itemId'], false, $this->user);
+			->with(
+				$this->equalTo($url['feedId']), 
+				$this->equalTo($url['guidHash']),
+				$this->equalTo(false), 
+				$this->equalTo($this->user));
 
 		$this->controller->unstar();
 	}

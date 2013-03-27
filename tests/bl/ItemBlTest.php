@@ -187,21 +187,25 @@ class ItemBlTest extends \OCA\AppFramework\Utility\TestUtility {
 
 
 	public function testStar(){
-		$itemId = 3;
+		$feedId = 3;
+		$guidHash = md5('hihi');
+
 		$item = new Item();
 		$item->setStatus(128);
-		$item->setId($itemId);
+		$item->setId($feedId);
 
 		$this->mapper->expects($this->once())
-			->method('find')
-			->with($this->equalTo($itemId), $this->equalTo($this->user))
+			->method('findByGuidHash')
+			->with($this->equalTo($feedId), 
+				$this->equalTo($guidHash), 
+				$this->equalTo($this->user))
 			->will($this->returnValue($item));
 
 		$this->mapper->expects($this->once())
 			->method('update')
 			->with($this->equalTo($item));
 
-		$this->bl->star($itemId, false, $this->user);
+		$this->bl->star($feedId, $guidHash, false, $this->user);
 
 		$this->assertTrue($item->isUnstarred());
 	}

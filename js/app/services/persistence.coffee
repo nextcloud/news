@@ -81,25 +81,27 @@ angular.module('News').factory '_Persistence', ->
 			@_request.get 'news_items_starred', params
 
 
-		starItem: (itemId) ->
+		starItem: (feedId, guidHash) ->
 			###
 			Stars an item
 			###
 			params =
 				routeParams:
-					itemId: itemId
+					feedId: feedId
+					guidHash: guidHash
 
 			@_request.post 'news_items_star', params
 
 
 
-		unstarItem: (itemId) ->
+		unstarItem: (feedId, guidHash) ->
 			###
 			Unstars an item
 			###
 			params =
 				routeParams:
-					itemId: itemId
+					feedId: feedId
+					guidHash: guidHash
 
 			@_request.post 'news_items_unstar', params
 

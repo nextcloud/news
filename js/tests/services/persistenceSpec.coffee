@@ -101,10 +101,11 @@ describe '_Persistence', ->
 	it 'send a correct star item request', =>
 		params =
 			routeParams:
-				itemId: 2
+				feedId: 2
+				guidHash: 'dfdfdf'
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.starItem(params.routeParams.itemId)
+		pers.starItem(params.routeParams.feedId, params.routeParams.guidHash)
 
 		expect(@req.post).toHaveBeenCalledWith('news_items_star', params)
 
@@ -112,10 +113,11 @@ describe '_Persistence', ->
 	it 'send a correct unstar item request', =>
 		params =
 			routeParams:
-				itemId: 2
+				feedId: 2
+				guidHash: 'dfdfdf'
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.unstarItem(params.routeParams.itemId)
+		pers.unstarItem(params.routeParams.feedId, params.routeParams.guidHash)
 
 		expect(@req.post).toHaveBeenCalledWith('news_items_unstar', params)
 
