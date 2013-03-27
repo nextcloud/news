@@ -118,10 +118,10 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->will($this->returnValue($createdFeed));
 		$this->itemMapper->expects($this->at(0))
 			->method('insert')
-			->with($this->equalTo($return[1][0]));
+			->with($this->equalTo($return[1][1]));
 		$this->itemMapper->expects($this->at(1))
 			->method('insert')
-			->with($this->equalTo($return[1][1]));
+			->with($this->equalTo($return[1][0]));
 		
 		$feed = $this->bl->create($url, $folderId, $this->user);
 
@@ -168,7 +168,7 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 	}
 
 
-	public function testUpdateUpdatesEntry(){
+	public function testUpdateUpdatesEntryNotWhenPubDateSame(){
 		$feed = new Feed();
 		$feed->setId(3);
 		$feed->getUrl('test');
@@ -176,6 +176,7 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 
 		$item = new Item();
 		$item->setGuidHash(md5('hi'));
+		$item->setPubDate(3333);
 		$items = array(
 			$item
 		);
@@ -200,12 +201,56 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 					$this->equalTo($feed->getId()),
 					$this->equalTo($this->user))
 			->will($this->returnValue($item));
-		$this->itemMapper->expects($this->once())
-			->method('update')
-			->with($this->equalTo($item));
 		
 		$this->bl->update($feed->getId(), $this->user);
 	}
+
+
+
+	public function testUpdateUpdatesEntry(){
+		$feed = new Feed();
+		$feed->setId(3);
+		$feed->getUrl('test');
+		$ex = new \DatabaseException('');
+
+		$item = new Item();
+		$item->setGuidHash(md5('hi'));
+		$item->setPubDate(3333);
+		$items = array(
+			$item
+		);
+
+		$item2 = new Item();
+		$item2->setPubDate(111);
+
+		$fetchReturn = array($feed, $items);
+
+		$this->mapper->expects($this->once())
+			->method('find')
+			->with($this->equalTo($feed->getId()),
+					$this->equalTo($this->user))
+			->will($this->returnValue($feed));
+		$this->fetcher->expects($this->once())
+			->method('fetch')
+			->will($this->returnValue($fetchReturn));
+		$this->itemMapper->expects($this->at(0))
+			->method('insert')
+			->with($this->equalTo($items[0]))
+			->will($this->throwException($ex));
+		$this->itemMapper->expects($this->once())
+			->method('findByGuidHash')
+			->with($this->equalTo($item->getGuidHash()), 
+					$this->equalTo($feed->getId()),
+					$this->equalTo($this->user))
+			->will($this->returnValue($item2));
+		$this->itemMapper->expects($this->at(2))
+			->method('insert')
+			->with($this->equalTo($item));
+		
+		$this->bl->update($feed->getId(), $this->user);
+		$this->assertTrue($item->isUnread());
+	}
+
 
 	public function testCreateUpdateFails(){
 		$feed = new Feed();

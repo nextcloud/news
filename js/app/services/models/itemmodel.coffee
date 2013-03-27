@@ -27,14 +27,40 @@ angular.module('News').factory '_ItemModel',
 	class ItemModel extends _Model
 
 
-		getLastModified: ->
-			query = new _MaximumQuery('lastModified')
-			lastModified = @get(query)
+		constructor: ->
+			@_guidFeedIdHash = {}
+			super()
+
+
+		clear: ->
+			@_guidFeedIdHash = {}
+			super()
+
+
+		# items have two unique fields: feed_id and guidhash
+		# in case we get updated items with the same two fields we 
+		# also need to update the field
+		add: (data, clearCache=true) ->
+			hash = data.feedId + '_' + data.guidHash
+			entry = @_guidFeedIdHash[hash]
+
+			# update entry if exists with same feedid and guidhash
+			if angular.isDefined(entry)
+
+				# first update id that could have changed
+				delete @_dataMap[entry.id]
+				@_dataMap[data.id] = entry
+				
+				# now copy over the elements data attrs
+				for key, value of data
+					if key == 'feedId' or key == 'guidHash'
+						continue
+					else
+						entry[key] = value
 			
-			if angular.isDefined(lastModified)
-				return lastModified.lastModified
 			else
-				return null
+				@_guidFeedIdHash[hash] = data
+				super(data, clearCache)
 
 
 		getHighestId: ->

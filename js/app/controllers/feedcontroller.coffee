@@ -179,7 +179,7 @@ angular.module('News').factory '_FeedController', ->
 				@_persistence.getItems(type, id, 0)
 				@_active.handle({id: id, type: type})
 			else
-				lastModified = @_itemModel.getLastModified()
+				lastModified = @_itemModel.getHighestId()
 				@_persistence.getItems(type, id, 0, null, lastModified)
 
 
@@ -208,6 +208,8 @@ angular.module('News').factory '_FeedController', ->
 					feed = @_feedModel.getById(id)
 					if angular.isDefined(feed)
 						feed.unreadCount = 0
+						# TODO: also update items in the right field if id is the
+						# the same
 						highestItemId = @_itemModel.getHighestId()
 						@_persistence.setFeedRead(id, highestItemId)
 				when @_feedType.Folder

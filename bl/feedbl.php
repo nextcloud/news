@@ -71,8 +71,10 @@ class FeedBl extends Bl {
 			$feed->setUserId($userId);
 			$feed = $this->mapper->insert($feed);
 
-			// insert items
-			foreach($items as $item){
+			// insert items in reverse order because the first one is usually the
+			// newest item
+			for($i=count($items)-1; $i>=0; $i--){
+				$item = $items[$i];
 				$item->setFeedId($feed->getId());
 				$this->itemMapper->insert($item);
 			}
@@ -106,8 +108,10 @@ class FeedBl extends Bl {
 		try {
 			list($feed, $items) = $this->feedFetcher->fetch($feed->getUrl());
 
-			// update items
-			foreach($items as $item){
+			// insert items in reverse order because the first one is usually the
+			// newest item
+			for($i=count($items)-1; $i>=0; $i--){
+				$item = $items[$i];
 
 				// if a database exception is being thrown the unique constraint 
 				// on the item guid hash is being violated and we need to update 
@@ -116,10 +120,24 @@ class FeedBl extends Bl {
 					$item->setFeedId($feed->getId());
 					$this->itemMapper->insert($item);
 				} catch(\DatabaseException $ex){
+
+					// in case of an update the existing item has to be deleted
+					// if the pub_date changed because we sort by id on the 
+					// client side since this is the only reliable way to do it
+					// to not get weird behaviour
 					$existing = $this->itemMapper->findByGuidHash(
 						$item->getGuidHash(), $feedId, $userId);
-					$item->setId($existing->getId());
-					$this->itemMapper->update($item);
+
+					if($existing->getPubDate() !== $item->getPubDate()){
+
+						// because the item is being replaced we need to keep 
+						// status flags
+						$item->setStatus($existing->getStatus());
+						$item->setUnread();
+
+						$this->itemMapper->insert($item);	
+					}
+					
 				}
 			}
 

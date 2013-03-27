@@ -152,7 +152,7 @@ describe '_FeedController', ->
 		@ActiveFeed.handle({id: 3, type: 3})
 		@scope.loadFeed(3, 3)
 
-		expect(@persistence.getItems).toHaveBeenCalledWith(3, 3, 0, null, 323)
+		expect(@persistence.getItems).toHaveBeenCalledWith(3, 3, 0, null, 6)
 
 
 	it 'should send a get all items query when feed changed', =>
@@ -232,9 +232,9 @@ describe '_FeedController', ->
 	it 'should mark feed as read', =>
 		@persistence.setFeedRead = jasmine.createSpy('setFeedRead')
 		@FeedModel.add({id: 5, unreadCount:2, folderId: 2})
-		@ItemModel.add({id: 6})
-		@ItemModel.add({id: 3})
-		@ItemModel.add({id: 2})
+		@ItemModel.add({id: 6, feedId: 5, guidHash: 'a'})
+		@ItemModel.add({id: 3, feedId: 5, guidHash: 'a1'})
+		@ItemModel.add({id: 2, feedId: 5, guidHash: 'a2'})
 		@scope.markAllRead(@FeedType.Feed, 5)
 
 		expect(@persistence.setFeedRead).toHaveBeenCalledWith(5, 6)

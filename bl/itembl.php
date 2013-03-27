@@ -112,8 +112,8 @@ class ItemBl extends Bl {
 	}
 
 
-	public function readFeed($feedId, $userId){
-		$this->mapper->readFeed($feedId, $userId);
+	public function readFeed($feedId, $highestItemId, $userId){
+		$this->mapper->readFeed($feedId, $highestItemId, $userId);
 	}
 
 

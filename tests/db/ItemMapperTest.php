@@ -119,15 +119,17 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			'JOIN `*PREFIX*news_items` `items` ' .
 				'ON `items`.`feed_id` = `feeds`.`id` ' .
 				'AND `feeds`.`user_id` = ? ' .
-			'SET `items`.`status` = (`items`.`status` & ?) ' .
-			'WHERE `items`.`id` = ?';
-		$this->setMapperResult($sql, array(~StatusFlag::UNREAD, $this->user, 3));
-		$this->mapper->readFeed(3, $this->user);
+				'AND `feeds`.`id` = ? ' .
+				'AND `items`.`id` <= ? ' .
+			'SET `items`.`status` = (`items`.`status` & ?) ';
+		$params = array($this->user, 3, 6, ~StatusFlag::UNREAD);
+		$this->setMapperResult($sql, $params);
+		$this->mapper->readFeed(3, 6, $this->user);
 	}
 
 
 	public function testFindAllNew(){
-		$sql = 'AND `items`.`last_modified` >= ?';
+		$sql = 'AND `items`.`id` >= ?';
 		$sql = $this->makeSelectQueryStatus($sql);
 		$params = array($this->user, $this->status,	$this->updatedSince);
 
@@ -141,7 +143,7 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 
 	public function testFindAllNewFeed(){
 		$sql = 'AND `items`.`feed_id` = ? ' .
-				'AND `items`.`last_modified` >= ?';
+				'AND `items`.`id` >= ?';
 		$sql = $this->makeSelectQueryStatus($sql);
 		$params = array($this->user, $this->status, $this->id, $this->updatedSince);
 
@@ -155,7 +157,7 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 
 	public function testFindAllNewFolder(){
 		$sql = 'AND `feeds`.`folder_id` = ? ' .
-				'AND `items`.`last_modified` >= ?';
+				'AND `items`.`id` >= ?';
 		$sql = $this->makeSelectQueryStatus($sql);
 
 		$params = array($this->user, $this->status, $this->id, 

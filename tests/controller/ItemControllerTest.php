@@ -181,14 +181,17 @@ class ItemControllerTest extends ControllerTestUtility {
 		$url = array(
 			'feedId' => 4
 		);
-		$this->controller = $this->getPostController(array(), $url);
+		$post = array(
+			'highestItemId' => 5
+		);
+		$this->controller = $this->getPostController($post, $url);
 
 		$this->api->expects($this->once())
 			->method('getUserId')
 			->will($this->returnValue($this->user));
 		$this->bl->expects($this->once())
 			->method('readFeed')
-			->with($url['feedId'], $this->user);
+			->with($url['feedId'], $post['highestItemId'], $this->user);
 
 		$this->controller->readFeed();
 	}

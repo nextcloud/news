@@ -163,8 +163,9 @@ class ItemController extends Controller {
 	public function readFeed(){
 		$userId = $this->api->getUserId();
 		$feedId = (int) $this->params('feedId');
+		$highestItemId = (int) $this->params('highestItemId');
 
-		$this->itemBl->readFeed($feedId, $userId);
+		$this->itemBl->readFeed($feedId, $highestItemId, $userId);
 	}
 
 

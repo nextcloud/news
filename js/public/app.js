@@ -372,7 +372,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             type: type
           });
         } else {
-          lastModified = this._itemModel.getLastModified();
+          lastModified = this._itemModel.getHighestId();
           return this._persistence.getItems(type, id, 0, null, lastModified);
         }
       };
@@ -824,17 +824,38 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         __extends(ItemModel, _super);
 
         function ItemModel() {
-          return ItemModel.__super__.constructor.apply(this, arguments);
+          this._guidFeedIdHash = {};
+          ItemModel.__super__.constructor.call(this);
         }
 
-        ItemModel.prototype.getLastModified = function() {
-          var lastModified, query;
-          query = new _MaximumQuery('lastModified');
-          lastModified = this.get(query);
-          if (angular.isDefined(lastModified)) {
-            return lastModified.lastModified;
+        ItemModel.prototype.clear = function() {
+          this._guidFeedIdHash = {};
+          return ItemModel.__super__.clear.call(this);
+        };
+
+        ItemModel.prototype.add = function(data, clearCache) {
+          var entry, hash, key, value, _results;
+          if (clearCache == null) {
+            clearCache = true;
+          }
+          hash = data.feedId + '_' + data.guidHash;
+          entry = this._guidFeedIdHash[hash];
+          if (angular.isDefined(entry)) {
+            delete this._dataMap[entry.id];
+            this._dataMap[data.id] = entry;
+            _results = [];
+            for (key in data) {
+              value = data[key];
+              if (key === 'feedId' || key === 'guidHash') {
+                continue;
+              } else {
+                _results.push(entry[key] = value);
+              }
+            }
+            return _results;
           } else {
-            return null;
+            this._guidFeedIdHash[hash] = data;
+            return ItemModel.__super__.add.call(this, data, clearCache);
           }
         };
 

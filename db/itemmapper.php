@@ -92,14 +92,15 @@ class ItemMapper extends Mapper implements IMapper {
 	}
 
 
-	public function readFeed($feedId, $userId){
+	public function readFeed($feedId, $highestItemId, $userId){
 		$sql = 'UPDATE `*PREFIX*news_feeds` `feeds` ' .
 			'JOIN `*PREFIX*news_items` `items` ' .
 				'ON `items`.`feed_id` = `feeds`.`id` ' .
 				'AND `feeds`.`user_id` = ? ' .
-			'SET `items`.`status` = (`items`.`status` & ?) ' .
-			'WHERE `items`.`id` = ?';
-		$params = array(~StatusFlag::UNREAD, $userId, $feedId);
+				'AND `feeds`.`id` = ? ' .
+				'AND `items`.`id` <= ? ' .
+			'SET `items`.`status` = (`items`.`status` & ?) ';
+		$params = array($userId, $feedId, $highestItemId, ~StatusFlag::UNREAD);
 
 		$this->execute($sql, $params);
 	}
@@ -107,7 +108,7 @@ class ItemMapper extends Mapper implements IMapper {
 
 	public function findAllNewFeed($id, $updatedSince, $status, $userId){
 		$sql = 'AND `items`.`feed_id` = ? ' .
-				'AND `items`.`last_modified` >= ?';
+				'AND `items`.`id` >= ?';
 		$sql = $this->makeSelectQueryStatus($sql);
 		$params = array($userId, $status, $id, $updatedSince);
 		return $this->findAllRows($sql, $params);
@@ -116,7 +117,7 @@ class ItemMapper extends Mapper implements IMapper {
 
 	public function findAllNewFolder($id, $updatedSince, $status, $userId){
 		$sql = 'AND `feeds`.`folder_id` = ? ' .
-				'AND `items`.`last_modified` >= ?';
+				'AND `items`.`id` >= ?';
 		$sql = $this->makeSelectQueryStatus($sql);
 		$params = array($userId, $status, $id, $updatedSince);
 		return $this->findAllRows($sql, $params);
@@ -124,7 +125,7 @@ class ItemMapper extends Mapper implements IMapper {
 
 
 	public function findAllNew($updatedSince, $status, $userId){
-		$sql = $this->makeSelectQueryStatus('AND `items`.`last_modified` >= ?');
+		$sql = $this->makeSelectQueryStatus('AND `items`.`id` >= ?');
 		$params = array($userId, $status, $updatedSince);
 		return $this->findAllRows($sql, $params);
 	}

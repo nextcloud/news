@@ -230,12 +230,15 @@ class ItemBlTest extends \OCA\AppFramework\Utility\TestUtility {
 
 	public function testReadFeed(){
 		$feedId = 3;
+		$highestItemId = 6;
 		
 		$this->mapper->expects($this->once())
 			->method('readFeed')
-			->with($this->equalTo($feedId), $this->equalTo($this->user));
+			->with($this->equalTo($feedId), 
+				$this->equalTo($highestItemId), 
+				$this->equalTo($this->user));
 
-		$this->bl->readFeed($feedId, $this->user);
+		$this->bl->readFeed($feedId, $highestItemId, $this->user);
 	}
 
 }
