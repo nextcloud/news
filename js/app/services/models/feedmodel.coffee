@@ -37,7 +37,7 @@ angular.module('News').factory '_FeedModel',
 			super()
 
 
-		add: (item) ->
+		add: (item, clearCache=true) ->
 			if item.faviconLink == null
 				item.faviconLink = 'url(' +
 					@_utils.imagePath('news', 'rss.svg') + ')'
@@ -46,20 +46,36 @@ angular.module('News').factory '_FeedModel',
 			# the same url
 			entry = @_urlHash[item.urlHash]
 			if angular.isDefined(entry)
-				# first update id that could have changed
-				delete @_dataMap[entry.id]
-				@_dataMap[item.id] = entry
-
-				# now copy over the elements data attrs
-				for key, value of item
-					if key == 'urlHash'
-						continue
-					else
-						entry[key] = value
-
+				@update(item, clearCache)
 			else
 				@_urlHash[item.urlHash] = item
-				super(item)
+				super(item, clearCache)
+
+
+		update: (item, clearCache=true) ->
+			entry = @_urlHash[item.urlHash]
+
+			# first update id that could have changed
+			delete @_dataMap[entry.id]
+			@_dataMap[item.id] = entry
+
+			# now copy over the elements data attrs
+			for key, value of item
+				if key == 'urlHash'
+					continue
+				else
+					entry[key] = value
+
+
+
+		removeById: (id) ->
+			item = @getById(id)
+			delete @_urlHash[item.urlHash]
+			super(id)
+
+
+		getByUrlHash: (urlHash) ->
+			return @_urlHash[urlHash]
 
 
 		getUnreadCount: ->

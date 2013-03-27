@@ -57,3 +57,15 @@ describe '_ItemModel', ->
 		expect(model.getById(3).id).toBe(item4.id)
 		expect(model.getById(5)).toBe(undefined)
 		expect(model.size()).toBe(2)
+
+
+	it 'should also remove the feed from the urlHash cache when its removed', =>
+		model = new @_ItemModel()
+		item = {id: 4, guidHash: 'abc', feedId: 3}
+		model.add(item)
+
+		expect(model.getById(4)).toBe(item)
+		expect(model.getByGuidHashAndFeedId('abc', 3)).toBe(item)
+
+		model.removeById(4)
+		expect(model.getByGuidHashAndFeedId('abc', 3)).toBe(undefined)

@@ -46,21 +46,40 @@ angular.module('News').factory '_ItemModel',
 
 			# update entry if exists with same feedid and guidhash
 			if angular.isDefined(entry)
-
-				# first update id that could have changed
-				delete @_dataMap[entry.id]
-				@_dataMap[data.id] = entry
-				
-				# now copy over the elements data attrs
-				for key, value of data
-					if key == 'feedId' or key == 'guidHash'
-						continue
-					else
-						entry[key] = value
-			
+				@update(data, clearCache)
 			else
 				@_guidFeedIdHash[hash] = data
 				super(data, clearCache)
+
+
+		update: (data, clearCache=true) ->
+			hash = data.feedId + '_' + data.guidHash
+			entry = @_guidFeedIdHash[hash]
+
+			# first update id that could have changed
+			delete @_dataMap[entry.id]
+			@_dataMap[data.id] = entry
+			
+			# now copy over the elements data attrs
+			for key, value of data
+				if key == 'feedId' or key == 'guidHash'
+					continue
+				else
+					entry[key] = value
+
+			super(entry, clearCache)
+
+
+		getByGuidHashAndFeedId: (guidHash, feedId) ->
+			hash = feedId + '_' + guidHash
+			return @_guidFeedIdHash[hash]
+
+
+		removeById: (id) ->
+			item = @getById(id)
+			hash = item.feedId + '_' + item.guidHash
+			delete @_guidFeedIdHash[hash]
+			super(id)
 
 
 		getHighestId: ->

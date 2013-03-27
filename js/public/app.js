@@ -691,29 +691,52 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return FeedModel.__super__.clear.call(this);
         };
 
-        FeedModel.prototype.add = function(item) {
-          var entry, key, value, _results;
+        FeedModel.prototype.add = function(item, clearCache) {
+          var entry;
+          if (clearCache == null) {
+            clearCache = true;
+          }
           if (item.faviconLink === null) {
             item.faviconLink = 'url(' + this._utils.imagePath('news', 'rss.svg') + ')';
           }
           entry = this._urlHash[item.urlHash];
           if (angular.isDefined(entry)) {
-            delete this._dataMap[entry.id];
-            this._dataMap[item.id] = entry;
-            _results = [];
-            for (key in item) {
-              value = item[key];
-              if (key === 'urlHash') {
-                continue;
-              } else {
-                _results.push(entry[key] = value);
-              }
-            }
-            return _results;
+            return this.update(item, clearCache);
           } else {
             this._urlHash[item.urlHash] = item;
-            return FeedModel.__super__.add.call(this, item);
+            return FeedModel.__super__.add.call(this, item, clearCache);
           }
+        };
+
+        FeedModel.prototype.update = function(item, clearCache) {
+          var entry, key, value, _results;
+          if (clearCache == null) {
+            clearCache = true;
+          }
+          entry = this._urlHash[item.urlHash];
+          delete this._dataMap[entry.id];
+          this._dataMap[item.id] = entry;
+          _results = [];
+          for (key in item) {
+            value = item[key];
+            if (key === 'urlHash') {
+              continue;
+            } else {
+              _results.push(entry[key] = value);
+            }
+          }
+          return _results;
+        };
+
+        FeedModel.prototype.removeById = function(id) {
+          var item;
+          item = this.getById(id);
+          delete this._urlHash[item.urlHash];
+          return FeedModel.__super__.removeById.call(this, id);
+        };
+
+        FeedModel.prototype.getByUrlHash = function(urlHash) {
+          return this._urlHash[urlHash];
         };
 
         FeedModel.prototype.getUnreadCount = function() {
@@ -865,29 +888,52 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         };
 
         ItemModel.prototype.add = function(data, clearCache) {
-          var entry, hash, key, value, _results;
+          var entry, hash;
           if (clearCache == null) {
             clearCache = true;
           }
           hash = data.feedId + '_' + data.guidHash;
           entry = this._guidFeedIdHash[hash];
           if (angular.isDefined(entry)) {
-            delete this._dataMap[entry.id];
-            this._dataMap[data.id] = entry;
-            _results = [];
-            for (key in data) {
-              value = data[key];
-              if (key === 'feedId' || key === 'guidHash') {
-                continue;
-              } else {
-                _results.push(entry[key] = value);
-              }
-            }
-            return _results;
+            return this.update(data, clearCache);
           } else {
             this._guidFeedIdHash[hash] = data;
             return ItemModel.__super__.add.call(this, data, clearCache);
           }
+        };
+
+        ItemModel.prototype.update = function(data, clearCache) {
+          var entry, hash, key, value;
+          if (clearCache == null) {
+            clearCache = true;
+          }
+          hash = data.feedId + '_' + data.guidHash;
+          entry = this._guidFeedIdHash[hash];
+          delete this._dataMap[entry.id];
+          this._dataMap[data.id] = entry;
+          for (key in data) {
+            value = data[key];
+            if (key === 'feedId' || key === 'guidHash') {
+              continue;
+            } else {
+              entry[key] = value;
+            }
+          }
+          return ItemModel.__super__.update.call(this, entry, clearCache);
+        };
+
+        ItemModel.prototype.getByGuidHashAndFeedId = function(guidHash, feedId) {
+          var hash;
+          hash = feedId + '_' + guidHash;
+          return this._guidFeedIdHash[hash];
+        };
+
+        ItemModel.prototype.removeById = function(id) {
+          var hash, item;
+          item = this.getById(id);
+          hash = item.feedId + '_' + item.guidHash;
+          delete this._guidFeedIdHash[hash];
+          return ItemModel.__super__.removeById.call(this, id);
         };
 
         ItemModel.prototype.getHighestId = function() {

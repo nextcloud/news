@@ -63,3 +63,17 @@ describe '_FeedModel', ->
 		expect(model.size()).toBe(1)
 		expect(model.getById(2)).toBe(undefined)
 		expect(model.getById(3).faviconLink).toBe('hey')
+
+
+	it 'should also remove the feed from the urlHash cache when its removed', =>
+		utils =
+			imagePath: jasmine.createSpy('utils')
+		model = new @_FeedModel(utils)
+
+		item = {id: 2, faviconLink: null, urlHash: 'hi'}
+		model.add(item)
+
+		expect(model.getByUrlHash('hi')).toBe(item)
+
+		model.removeById(2)
+		expect(model.getByUrlHash('hi')).toBe(undefined)
