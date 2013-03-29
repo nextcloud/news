@@ -6,7 +6,7 @@
 			cssClass: 'opened'
 		}" 
 		href="#"
-		click-focus="{
+		oc-click-focus="{
 			selector: '.add-new-popup input[ng-model=feedUrl]'
 		}">
 		<?php p($l->t('Add Website'))?>
