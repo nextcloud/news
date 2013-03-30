@@ -171,8 +171,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
   ]);
 
   angular.module('News').controller('FeedController', [
-    '$scope', '_FeedController', 'FolderModel', 'FeedModel', 'ActiveFeed', 'ShowAll', 'FeedType', 'StarredCount', 'Persistence', 'ItemModel', function($scope, _FeedController, FolderModel, FeedModel, ActiveFeed, ShowAll, FeedType, StarredCount, Persistence, ItemModel) {
-      return new _FeedController($scope, FolderModel, FeedModel, ActiveFeed, ShowAll, FeedType, StarredCount, Persistence, ItemModel);
+    '$scope', '_FeedController', 'FolderModel', 'FeedModel', 'ActiveFeed', 'ShowAll', 'FeedType', 'StarredCount', 'Persistence', 'FolderBl', 'FeedBl', function($scope, _FeedController, FolderModel, FeedModel, ActiveFeed, ShowAll, FeedType, StarredCount, Persistence, FolderBl, FeedBl) {
+      return new _FeedController($scope, FolderModel, FeedModel, ActiveFeed, ShowAll, FeedType, StarredCount, Persistence, FolderBl, FeedBl);
     }
   ]);
 
@@ -214,7 +214,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     var FeedController;
     FeedController = (function() {
 
-      function FeedController($scope, _folderModel, _feedModel, _active, _showAll, _feedType, _starredCount, _persistence, _itemModel) {
+      function FeedController($scope, _folderModel, _feedModel, _active, _showAll, _feedType, _starredCount, _persistence, _folderBl, _feedBl) {
         var _this = this;
         this.$scope = $scope;
         this._folderModel = _folderModel;
@@ -224,20 +224,29 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         this._feedType = _feedType;
         this._starredCount = _starredCount;
         this._persistence = _persistence;
-        this._itemModel = _itemModel;
+        this._folderBl = _folderBl;
+        this._feedBl = _feedBl;
         this._isAddingFolder = false;
         this._isAddingFeed = false;
         this.$scope.feeds = this._feedModel.getAll();
         this.$scope.folders = this._folderModel.getAll();
         this.$scope.feedType = this._feedType;
-        this.$scope.isFeedActive = function(type, id) {
-          return _this.isFeedActive(type, id);
-        };
+        this.$scope.folderBl = this._folderBl;
+        this.$scope.feedBl = this._feedBl;
         this.$scope.isShown = function(type, id) {
           return _this.isShown(type, id);
         };
-        this.$scope.getUnreadCount = function(type, id) {
-          return _this.getUnreadCount(type, id);
+        this.$scope.getUnreadCount = function() {
+          return _this._transFormCount(_this._feedBl.getUnreadCount());
+        };
+        this.$scope.getStarredCount = function() {
+          return _this._transFormCount(_this._starredCount.getStarredCount());
+        };
+        this.$scope.getFeedUnreadCount = function(feedId) {
+          return _this._transFormCount(_this._feedBl.getFeedUnreadCount(feedId));
+        };
+        this.$scope.getUnreadCount = function(folderId) {
+          return _this._transFormCount(_this._folderBl.getFolderUnreadCount(folderId));
         };
         this.$scope.isShowAll = function() {
           return _this.isShowAll();
@@ -318,19 +327,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         };
       }
 
-      FeedController.prototype.toggleFolder = function(folderId) {
-        var folder;
-        folder = this._folderModel.getById(folderId);
-        if (angular.isDefined(folder)) {
-          folder.open = !folder.open;
-          if (folder.open) {
-            return this._persistence.openFolder(folder.id);
-          } else {
-            return this._persistence.collapseFolder(folder.id);
-          }
-        }
-      };
-
       FeedController.prototype.isFeedActive = function(type, id) {
         return type === this._active.getType() && id === this._active.getId();
       };
@@ -359,21 +355,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         return this._showAll.getShowAll();
       };
 
-      FeedController.prototype.getUnreadCount = function(type, id) {
-        var count;
-        switch (type) {
-          case this._feedType.Subscriptions:
-            count = this._feedModel.getUnreadCount();
-            break;
-          case this._feedType.Starred:
-            count = this._starredCount.getStarredCount();
-            break;
-          case this._feedType.Feed:
-            count = this._feedModel.getFeedUnreadCount(id);
-            break;
-          case this._feedType.Folder:
-            count = this._feedModel.getFolderUnreadCount(id);
-        }
+      FeedController.prototype._transFormCount = function(count) {
         if (count > 999) {
           count = '999+';
         }
@@ -393,57 +375,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           lastModified = this._itemModel.getHighestId();
           return this._persistence.getItems(type, id, 0, null, lastModified);
         }
-      };
-
-      FeedController.prototype.hasFeeds = function(folderId) {
-        return this._feedModel.getAllOfFolder(folderId).length;
-      };
-
-      FeedController.prototype["delete"] = function(type, id) {
-        var count;
-        switch (type) {
-          case this._feedType.Feed:
-            count = this._feedModel.removeById(id);
-            return this._persistence.deleteFeed(id);
-          case this._feedType.Folder:
-            count = this._folderModel.removeById(id);
-            return this._persistence.deleteFolder(id);
-        }
-      };
-
-      FeedController.prototype.markAllRead = function(type, id) {
-        var feed, highestItemId, _i, _j, _len, _len1, _ref, _ref1, _results, _results1;
-        switch (type) {
-          case this._feedType.Subscriptions:
-            _ref = this._feedModel.getAll();
-            _results = [];
-            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-              feed = _ref[_i];
-              _results.push(this.markAllRead(this._feedType.Feed, feed.id));
-            }
-            return _results;
-            break;
-          case this._feedType.Feed:
-            feed = this._feedModel.getById(id);
-            if (angular.isDefined(feed)) {
-              feed.unreadCount = 0;
-              highestItemId = this._itemModel.getHighestId();
-              return this._persistence.setFeedRead(id, highestItemId);
-            }
-            break;
-          case this._feedType.Folder:
-            _ref1 = this._feedModel.getAllOfFolder(id);
-            _results1 = [];
-            for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
-              feed = _ref1[_j];
-              _results1.push(this.markAllRead(this._feedType.Feed, feed.id));
-            }
-            return _results1;
-        }
-      };
-
-      FeedController.prototype.getFeedsOfFolder = function(folderId) {
-        return this._feedModel.getAllOfFolder(folderId);
       };
 
       FeedController.prototype.setShowAll = function(showAll) {
@@ -619,6 +550,224 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
     })();
     return ActiveFeed;
+  });
+
+}).call(this);
+
+// Generated by CoffeeScript 1.4.0
+
+/*
+
+ownCloud - News
+
+@author Bernhard Posselt
+@copyright 2012 Bernhard Posselt nukeawhale@gmail.com
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+License as published by the Free Software Foundation; either
+version 3 of the License, or any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+You should have received a copy of the GNU Affero General Public
+License along with this library.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+(function() {
+
+  angular.module('News').factory('_FeedBl', function() {
+    var FeedBl;
+    FeedBl = (function() {
+
+      function FeedBl(_feedModel, _itemBl, _persistence) {
+        this._feedModel = _feedModel;
+        this._itemBl = _itemBl;
+        this._persistence = _persistence;
+      }
+
+      FeedBl.prototype.getUnreadCount = function(feedId) {
+        return this._feedModel.getFeedUnreadCount(feedId);
+      };
+
+      FeedBl.prototype.getFeedsOfFolder = function(folderId) {
+        return this._feedModel.getAllOfFolder(folderId);
+      };
+
+      FeedBl.prototype.getFolderUnreadCount = function(folderId) {
+        return this._feedModel.getFolderUnreadCount(folderId);
+      };
+
+      FeedBl.prototype.getUnreadCount = function() {
+        return this._feedModel.getUnreadCount();
+      };
+
+      FeedBl.prototype["delete"] = function(feedId) {
+        this._feedModel.removeById(feedId);
+        return this._persistence.deleteFeed(feedId);
+      };
+
+      FeedBl.prototype.markFeedRead = function(feedId) {
+        var feed;
+        feed = this._feedModel.getById(feedId);
+        if (angular.isDefined(feed)) {
+          feed.unreadCount = 0;
+          return this._itemBl.markAllRead(feedId);
+        }
+      };
+
+      FeedBl.prototype.markAllRead = function() {
+        var feed, _i, _len, _ref, _results;
+        _ref = this._feedModel.getAll();
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          feed = _ref[_i];
+          _results.push(this.markFeedRead(feed.id));
+        }
+        return _results;
+      };
+
+      return FeedBl;
+
+    })();
+    return FeedBl;
+  });
+
+}).call(this);
+
+// Generated by CoffeeScript 1.4.0
+
+/*
+
+ownCloud - News
+
+@author Bernhard Posselt
+@copyright 2012 Bernhard Posselt nukeawhale@gmail.com
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+License as published by the Free Software Foundation; either
+version 3 of the License, or any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+You should have received a copy of the GNU Affero General Public
+License along with this library.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+(function() {
+
+  angular.module('News').factory('_FolderBl', function() {
+    var FolderBl;
+    FolderBl = (function() {
+
+      function FolderBl(_folderModel, _feedBl, _persistence) {
+        this._folderModel = _folderModel;
+        this._feedBl = _feedBl;
+        this._persistence = _persistence;
+      }
+
+      FolderBl.prototype["delete"] = function(folderId) {
+        this._folderModel.removeById(folderId);
+        return this._persistence.deleteFolder(folderId);
+      };
+
+      FolderBl.prototype.hasFeeds = function(folderId) {
+        return this._feedBl.getFeedsOfFolder(folderId).length;
+      };
+
+      FolderBl.prototype.markFolderRead = function(folderId) {
+        var feed, _i, _len, _ref, _results;
+        _ref = this._feedBl.getFeedsOfFolder(folderId);
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          feed = _ref[_i];
+          _results.push(this._feedBl.markFeedRead(feed.id));
+        }
+        return _results;
+      };
+
+      FolderBl.prototype.toggleFolder = function(folderId) {
+        var folder;
+        folder = this._folderModel.getById(folderId);
+        if (angular.isDefined(folder)) {
+          folder.open = !folder.open;
+          if (folder.open) {
+            return this._persistence.openFolder(folder.id);
+          } else {
+            return this._persistence.collapseFolder(folder.id);
+          }
+        }
+      };
+
+      return FolderBl;
+
+    })();
+    return FolderBl;
+  });
+
+}).call(this);
+
+// Generated by CoffeeScript 1.4.0
+
+/*
+
+ownCloud - News
+
+@author Bernhard Posselt
+@copyright 2012 Bernhard Posselt nukeawhale@gmail.com
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+License as published by the Free Software Foundation; either
+version 3 of the License, or any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+You should have received a copy of the GNU Affero General Public
+License along with this library.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+(function() {
+
+  angular.module('News').factory('_ItemBl', function() {
+    var ItemBl;
+    ItemBl = (function() {
+
+      function ItemBl(_itemModel, _persistence) {
+        this._itemModel = _itemModel;
+        this._persistence = _persistence;
+      }
+
+      ItemBl.prototype.markAllRead = function(feedId) {
+        var highestItemId, item, _i, _len, _ref, _results;
+        highestItemId = this._itemModel.getHighestId();
+        this._persistence.setFeedRead(feedId, highestItemId);
+        _ref = this._itemModel.getAll();
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          item = _ref[_i];
+          _results.push(item.setRead());
+        }
+        return _results;
+      };
+
+      return ItemBl;
+
+    })();
+    return ItemBl;
   });
 
 }).call(this);
@@ -888,7 +1037,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   angular.module('News').factory('_ItemModel', [
-    '_Model', '_MaximumQuery', '_MinimumQuery', function(_Model, _MaximumQuery, _MinimumQuery) {
+    '_Model', '_MaximumQuery', '_MinimumQuery', 'StatusFlag', function(_Model, _MaximumQuery, _MinimumQuery, StatusFlag) {
       var ItemModel;
       ItemModel = (function(_super) {
 
@@ -909,6 +1058,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           if (clearCache == null) {
             clearCache = true;
           }
+          this._bindMethods(data);
           hash = data.feedId + '_' + data.guidHash;
           entry = this._guidFeedIdHash[hash];
           if (angular.isDefined(entry)) {
@@ -917,6 +1067,27 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             this._guidFeedIdHash[hash] = data;
             return ItemModel.__super__.add.call(this, data, clearCache);
           }
+        };
+
+        ItemModel.prototype._bindMethods = function(data) {
+          data.isRead = function() {
+            return !((this.status & StatusFlag.UNREAD) === StatusFlag.UNREAD);
+          };
+          data.setRead = function() {
+            return this.status &= ~StatusFlag.UNREAD;
+          };
+          data.setUnread = function() {
+            return this.status |= StatusFlag.UNREAD;
+          };
+          data.isStarred = function() {
+            return (this.status & StatusFlag.STARRED) === StatusFlag.STARRED;
+          };
+          data.setStarred = function() {
+            return this.status |= StatusFlag.STARRED;
+          };
+          return data.setUnstarred = function() {
+            return this.status &= ~StatusFlag.STARRED;
+          };
         };
 
         ItemModel.prototype.update = function(data, clearCache) {
@@ -1551,6 +1722,36 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     }
   ]);
 
+  angular.module('News').factory('AutoPageLoading', [
+    '_Loading', function(_Loading) {
+      return new _Loading();
+    }
+  ]);
+
+  angular.module('News').factory('NewLoading', [
+    '_Loading', function(_Loading) {
+      return new _Loading();
+    }
+  ]);
+
+  angular.module('News').factory('ItemBl', [
+    '_ItemBl', 'ItemModel', 'Persistence', function(_ItemBl, ItemModel, Persistence) {
+      return new _ItemBl(ItemModel, Persistence);
+    }
+  ]);
+
+  angular.module('News').factory('FeedBl', [
+    '_FeedBl', 'FeedModel', 'ItemBl', 'Persistence', function(_FeedBl, FeedModel, ItemBl, Persistence) {
+      return new _FeedBl(FeedModel, ItemBl, Persistence);
+    }
+  ]);
+
+  angular.module('News').factory('FolderBl', [
+    '_FolderBl', 'FolderModel', 'FeedBl', 'Persistence', function(_FolderBl, FolderModel, FeedBl, Persistence) {
+      return new _FolderBl(FolderModel, FeedBl, Persistence);
+    }
+  ]);
+
   angular.module('News').factory('ActiveFeed', [
     '_ActiveFeed', function(_ActiveFeed) {
       return new _ActiveFeed();
@@ -1713,6 +1914,43 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
     })();
     return StarredCount;
+  });
+
+}).call(this);
+
+// Generated by CoffeeScript 1.4.0
+
+/*
+
+ownCloud - News
+
+@author Bernhard Posselt
+@copyright 2012 Bernhard Posselt nukeawhale@gmail.com
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+License as published by the Free Software Foundation; either
+version 3 of the License, or any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+You should have received a copy of the GNU Affero General Public
+License along with this library.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+(function() {
+
+  angular.module('News').factory('StatusFlag', function() {
+    return {
+      UNREAD: 0x02,
+      STARRED: 0x04,
+      DELETED: 0x08,
+      UPDATED: 0x16
+    };
   });
 
 }).call(this);

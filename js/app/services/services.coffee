@@ -34,11 +34,43 @@ angular.module('News').factory 'Request',
 	return new _Request($http, Publisher, Router)
 ]
 
+
 # loading helpers
 angular.module('News').factory 'FeedLoading',
 ['_Loading', (_Loading) ->
 	return new _Loading()
 ]
+
+angular.module('News').factory 'AutoPageLoading',
+['_Loading', (_Loading) ->
+	return new _Loading()
+]
+
+angular.module('News').factory 'NewLoading',
+['_Loading', (_Loading) ->
+	return new _Loading()
+]
+
+
+# business layer
+angular.module('News').factory 'ItemBl',
+['_ItemBl', 'ItemModel', 'Persistence',
+(_ItemBl, ItemModel, Persistence) ->
+	return new _ItemBl(ItemModel, Persistence)
+]
+
+angular.module('News').factory 'FeedBl',
+['_FeedBl', 'FeedModel', 'ItemBl', 'Persistence',
+(_FeedBl, FeedModel, ItemBl, Persistence) ->
+	return new _FeedBl(FeedModel, ItemBl, Persistence)
+]
+
+angular.module('News').factory 'FolderBl',
+['_FolderBl', 'FolderModel', 'FeedBl', 'Persistence',
+(_FolderBl, FolderModel, FeedBl, Persistence) ->
+	return new _FolderBl(FolderModel, FeedBl, Persistence)
+]
+
 
 # models
 angular.module('News').factory 'ActiveFeed', ['_ActiveFeed', (_ActiveFeed) ->

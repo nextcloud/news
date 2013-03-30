@@ -26,6 +26,7 @@ describe '_ItemModel', ->
 	beforeEach module 'News'
 
 	beforeEach inject (@_ItemModel, @_Model) =>
+		@model = new @_ItemModel()
 
 
 	it 'should extend model', =>
@@ -33,39 +34,76 @@ describe '_ItemModel', ->
 
 
 	it 'should also update items with the same feed id and guidhash', =>
-		model = new @_ItemModel()
 		item1 = {id: 4, guidHash: 'abc', feedId: 3}
-		model.add(item1)
+		@model.add(item1)
 
-		expect(model.getById(4)).toBe(item1)
+		expect(@model.getById(4)).toBe(item1)
 
 		# normal id update
 		item2 = {id: 4, guidHash: 'abc', feedId: 4}
-		model.add(item2)
-		expect(model.size()).toBe(1)
+		@model.add(item2)
+		expect(@model.size()).toBe(1)
 
 		# new feeds should be added normally if different
 		item3 = {id: 5, guidHash: 'abc', feedId: 6}
-		model.add(item3)
-		expect(model.size()).toBe(2)
+		@model.add(item3)
+		expect(@model.size()).toBe(2)
 
 		# feed should be updated when guidhash and feedid the same
 		item4 = {id: 3, guidHash: 'abc', feedId: 6}
-		model.add(item4)
-		expect(model.getById(3).guidHash).toBe(item4.guidHash)
-		expect(model.getById(3).feedId).toBe(item4.feedId)
-		expect(model.getById(3).id).toBe(item4.id)
-		expect(model.getById(5)).toBe(undefined)
-		expect(model.size()).toBe(2)
+		@model.add(item4)
+		expect(@model.getById(3).guidHash).toBe(item4.guidHash)
+		expect(@model.getById(3).feedId).toBe(item4.feedId)
+		expect(@model.getById(3).id).toBe(item4.id)
+		expect(@model.getById(5)).toBe(undefined)
+		expect(@model.size()).toBe(2)
 
 
 	it 'should also remove the feed from the urlHash cache when its removed', =>
-		model = new @_ItemModel()
+		@model = new @_ItemModel()
 		item = {id: 4, guidHash: 'abc', feedId: 3}
-		model.add(item)
+		@model.add(item)
 
-		expect(model.getById(4)).toBe(item)
-		expect(model.getByGuidHashAndFeedId('abc', 3)).toBe(item)
+		expect(@model.getById(4)).toBe(item)
+		expect(@model.getByGuidHashAndFeedId('abc', 3)).toBe(item)
 
-		model.removeById(4)
-		expect(model.getByGuidHashAndFeedId('abc', 3)).toBe(undefined)
+		@model.removeById(4)
+		expect(@model.getByGuidHashAndFeedId('abc', 3)).toBe(undefined)
+
+
+	it 'should bind the correct isRead() method to the item', =>
+		item = {id: 3, guidHash: 'abc', feedId: 6, status: 16}
+
+		@model.add(item)
+		item.setRead()
+
+		expect(@model.getById(3).isRead()).toBe(true)
+
+
+	it 'should bind the correct set unread method to the item', =>
+		item = {id: 3, guidHash: 'abc', feedId: 6, status: 16}
+
+		@model.add(item)
+		item.setUnread()
+
+		expect(@model.getById(3).isRead()).toBe(false)
+
+
+	it 'should bind the correct set starred method to the item', =>
+		item = {id: 3, guidHash: 'abc', feedId: 6, status: 16}
+
+		@model.add(item)
+		item.setStarred()
+
+		expect(@model.getById(3).isStarred()).toBe(true)
+
+
+	it 'should bind the correct set unstarred method to the item', =>
+		item = {id: 3, guidHash: 'abc', feedId: 6, status: 16}
+
+		@model.add(item)
+		item.setUnstarred()
+
+		expect(@model.getById(3).isStarred()).toBe(false)
+
+	

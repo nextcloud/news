@@ -21,8 +21,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 angular.module('News').factory '_ItemModel',
-['_Model', '_MaximumQuery', '_MinimumQuery',
-(_Model, _MaximumQuery, _MinimumQuery) ->
+['_Model', '_MaximumQuery', '_MinimumQuery', 'StatusFlag',
+(_Model, _MaximumQuery, _MinimumQuery, StatusFlag) ->
 
 	class ItemModel extends _Model
 
@@ -41,6 +41,8 @@ angular.module('News').factory '_ItemModel',
 		# in case we get updated items with the same two fields we
 		# also need to update the field
 		add: (data, clearCache=true) ->
+			@_bindMethods(data)
+
 			hash = data.feedId + '_' + data.guidHash
 			entry = @_guidFeedIdHash[hash]
 
@@ -50,6 +52,21 @@ angular.module('News').factory '_ItemModel',
 			else
 				@_guidFeedIdHash[hash] = data
 				super(data, clearCache)
+
+
+		_bindMethods: (data) ->
+			data.isRead = ->
+				return !((@status & StatusFlag.UNREAD) == StatusFlag.UNREAD)
+			data.setRead = ->
+				@status &= ~StatusFlag.UNREAD
+			data.setUnread = ->
+				@status |= StatusFlag.UNREAD
+			data.isStarred = ->
+				return (@status & StatusFlag.STARRED) == StatusFlag.STARRED
+			data.setStarred = ->
+				@status |= StatusFlag.STARRED
+			data.setUnstarred = ->
+				@status &= ~StatusFlag.STARRED
 
 
 		update: (data, clearCache=true) ->

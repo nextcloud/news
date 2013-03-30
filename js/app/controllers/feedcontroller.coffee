@@ -27,7 +27,7 @@ angular.module('News').factory '_FeedController', ->
 
 		constructor: (@$scope, @_folderModel, @_feedModel, @_active,
 					@_showAll, @_feedType, @_starredCount, @_persistence,
-					@_itemModel) ->
+					@_folderBl, @_feedBl) ->
 
 			@_isAddingFolder = false
 			@_isAddingFeed = false
@@ -36,15 +36,24 @@ angular.module('News').factory '_FeedController', ->
 			@$scope.feeds = @_feedModel.getAll()
 			@$scope.folders = @_folderModel.getAll()
 			@$scope.feedType = @_feedType
+			@$scope.folderBl = @_folderBl
+			@$scope.feedBl = @_feedBl
 
-			@$scope.isFeedActive = (type, id) =>
-				return @isFeedActive(type, id)
 			
 			@$scope.isShown = (type, id) =>
 				return @isShown(type, id)
 
-			@$scope.getUnreadCount = (type, id) =>
-				return @getUnreadCount(type, id)
+			@$scope.getUnreadCount = =>
+				return @_transFormCount(@_feedBl.getUnreadCount())
+
+			@$scope.getStarredCount = =>
+				return @_transFormCount(@_starredCount.getStarredCount())
+
+			@$scope.getFeedUnreadCount = (feedId) =>
+				return @_transFormCount(@_feedBl.getFeedUnreadCount(feedId))
+
+			@$scope.getUnreadCount = (folderId) =>
+				return @_transFormCount(@_folderBl.getFolderUnreadCount(folderId))
 
 			@$scope.isShowAll = =>
 				return @isShowAll()
@@ -120,17 +129,6 @@ angular.module('News').factory '_FeedController', ->
 						@_isAddingFolder = false
 
 
-		toggleFolder: (folderId) ->
-			folder = @_folderModel.getById(folderId)
-			
-			if angular.isDefined(folder)
-				folder.open = !folder.open
-				if folder.open
-					@_persistence.openFolder(folder.id)
-				else
-					@_persistence.collapseFolder(folder.id)
-
-
 		isFeedActive: (type, id) ->
 			return type == @_active.getType() and id == @_active.getId()
 
@@ -155,18 +153,7 @@ angular.module('News').factory '_FeedController', ->
 			return @_showAll.getShowAll()
 
 
-		getUnreadCount: (type, id) ->
-			# TODO: use polymorphism instead of switches
-			switch type
-				when @_feedType.Subscriptions
-					count = @_feedModel.getUnreadCount()
-				when @_feedType.Starred
-					count = @_starredCount.getStarredCount()
-				when @_feedType.Feed
-					count = @_feedModel.getFeedUnreadCount(id)
-				when @_feedType.Folder
-					count = @_feedModel.getFolderUnreadCount(id)
-
+		_transFormCount: (count) ->
 			if count > 999
 				count = '999+'
 
@@ -182,44 +169,6 @@ angular.module('News').factory '_FeedController', ->
 			else
 				lastModified = @_itemModel.getHighestId()
 				@_persistence.getItems(type, id, 0, null, lastModified)
-
-
-		hasFeeds: (folderId) ->
-			return @_feedModel.getAllOfFolder(folderId).length
-
-
-		delete: (type, id) ->
-			# TODO: use polymorphism instead of switches
-			switch type
-				when @_feedType.Feed
-					count = @_feedModel.removeById(id)
-					@_persistence.deleteFeed(id)
-				when @_feedType.Folder
-					count = @_folderModel.removeById(id)
-					@_persistence.deleteFolder(id)
-
-
-		markAllRead: (type, id) ->
-			# TODO: use polymorphism instead of switches
-			switch type
-				when @_feedType.Subscriptions
-					for feed in @_feedModel.getAll()
-						@markAllRead(@_feedType.Feed, feed.id)
-				when @_feedType.Feed
-					feed = @_feedModel.getById(id)
-					if angular.isDefined(feed)
-						feed.unreadCount = 0
-						# TODO: also update items in the right field if id is the
-						# the same
-						highestItemId = @_itemModel.getHighestId()
-						@_persistence.setFeedRead(id, highestItemId)
-				when @_feedType.Folder
-					for feed in @_feedModel.getAllOfFolder(id)
-						@markAllRead(@_feedType.Feed, feed.id)
-
-
-		getFeedsOfFolder: (folderId) ->
-			return @_feedModel.getAllOfFolder(folderId)
 
 
 		setShowAll: (showAll) ->

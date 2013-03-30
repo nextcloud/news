@@ -30,13 +30,13 @@ angular.module('News').controller 'SettingsController',
 
 angular.module('News').controller 'FeedController',
 ['$scope', '_FeedController', 'FolderModel', 'FeedModel', 'ActiveFeed',
-'ShowAll', 'FeedType', 'StarredCount', 'Persistence', 'ItemModel',
+'ShowAll', 'FeedType', 'StarredCount', 'Persistence', 'FolderBl', 'FeedBl',
 ($scope, _FeedController, FolderModel, FeedModel, ActiveFeed,
-ShowAll, FeedType, StarredCount, Persistence, ItemModel)->
+ShowAll, FeedType, StarredCount, Persistence, FolderBl, FeedBl)->
 
 	return new _FeedController($scope, FolderModel, FeedModel, ActiveFeed,
 		                       ShowAll, FeedType, StarredCount, Persistence,
-		                       ItemModel)
+		                       FolderBl, FeedBl)
 ]
 
 angular.module('News').controller 'ItemController',
