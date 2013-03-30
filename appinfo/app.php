@@ -54,7 +54,4 @@ $api->addNavigationEntry(array(
 
 \OCP\Backgroundjob::addRegularTask( 'OCA\News\Backgroundjob\Task', 'run');
 
-/* TODO: fix this classes and uncomment these lines afterwards
-\OC_Search::registerProvider('OCA\News\Search\Provider');
-*/
 
