@@ -9,7 +9,7 @@ App is not finished yet and in rewrite.
 
 When the first kinda working version is available it will be mentioned in this readme.
 
-See `Roadmap page <https://github.com/owncloud/news/wiki/Roadmap>`_ in the wiki for more details
+See the milestones in the Bugtracker for more information on progress
 
 
 How to install the news app
