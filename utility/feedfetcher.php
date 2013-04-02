@@ -31,12 +31,20 @@ use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
 
 
-class FeedFetcher {
+class FeedFetcher implements IFeedFetcher {
 
 	private $api;
 
 	public function __construct(API $api){
 		$this->api = $api;
+	}
+
+
+	public function canHandle($url){
+
+		// This fetcher handles all the remaining urls therefore
+		// return true
+		return true;
 	}
 
 

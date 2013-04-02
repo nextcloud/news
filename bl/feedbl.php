@@ -31,7 +31,7 @@ use \OCA\AppFramework\Core\API;
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\FeedMapper;
 use \OCA\News\Db\ItemMapper;
-use \OCA\News\Utility\FeedFetcher;
+use \OCA\News\Utility\Fetcher;
 use \OCA\News\Utility\FetcherException;
 
 class FeedBl extends Bl {
@@ -40,10 +40,8 @@ class FeedBl extends Bl {
 	private $itemMapper;
 	private $api;
 
-	public function __construct(FeedMapper $feedMapper,
-		                        FeedFetcher $feedFetcher,  
-		                        ItemMapper $itemMapper,
-		                        API $api){
+	public function __construct(FeedMapper $feedMapper, Fetcher $feedFetcher,
+		                        ItemMapper $itemMapper, API $api){
 		parent::__construct($feedMapper);
 		$this->feedFetcher = $feedFetcher;
 		$this->itemMapper = $itemMapper;

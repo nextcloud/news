@@ -43,6 +43,7 @@ use OCA\News\Db\FeedMapper;
 use OCA\News\Db\ItemMapper;
 use OCA\News\Db\StatusFlag;
 
+use OCA\News\Utility\Fetcher;
 use OCA\News\Utility\FeedFetcher;
 
 require_once __DIR__ . '/../3rdparty/SimplePie/autoloader.php';
@@ -90,14 +91,14 @@ class DIContainer extends BaseContainer {
 		});
 
 		/**
-		 * Business
+		 * Business Layer
 		 */
 		$this['FolderBl'] = $this->share(function($c){
 			return new FolderBl($c['FolderMapper']);
 		});
 
 		$this['FeedBl'] = $this->share(function($c){
-			return new FeedBl($c['FeedMapper'], $c['FeedFetcher'], 
+			return new FeedBl($c['FeedMapper'], $c['Fetcher'], 
 								$c['ItemMapper'], $c['API']);
 		});
 
@@ -125,6 +126,16 @@ class DIContainer extends BaseContainer {
 		/**
 		 * Utility
 		 */
+		$this['Fetcher'] = $this->share(function(){
+			$fetcher = new Fetcher();
+
+			// register fetchers in order
+			// the most generic fetcher should be the last one
+			$fetcher->registerFetcher($c['FeedFetcher']);
+
+			return $fetcher;
+		});
+
 		$this['FeedFetcher'] = $this->share(function($c){
 			return new FeedFetcher($c['API']);
 		});
