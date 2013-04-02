@@ -7,7 +7,6 @@
 \OCP\Util::addScript('news', 'vendor/momentjs/moment');
 \OCP\Util::addScript('news', 'public/app');
 
-\OCP\Util::addStyle('news', 'owncloud');
 \OCP\Util::addStyle('news', 'addnew');
 \OCP\Util::addStyle('news', 'feeds');
 \OCP\Util::addStyle('news', 'items');
