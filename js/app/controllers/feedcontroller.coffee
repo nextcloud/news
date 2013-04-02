@@ -41,7 +41,7 @@ angular.module('News').factory '_FeedController', ->
 
 			
 			@$scope.isShown = (type, id) =>
-				return @isShown(type, id)
+				return true
 
 			@$scope.getUnreadCount = =>
 				return @_transFormCount(@_feedBl.getUnreadCount())
@@ -53,7 +53,7 @@ angular.module('News').factory '_FeedController', ->
 				return @_transFormCount(@_feedBl.getFeedUnreadCount(feedId))
 
 			@$scope.getUnreadCount = (folderId) =>
-				return @_transFormCount(@_folderBl.getFolderUnreadCount(folderId))
+				return @_transFormCount(@_feedBl.getFolderUnreadCount(folderId))
 
 			@$scope.isShowAll = =>
 				return @isShowAll()
@@ -133,20 +133,20 @@ angular.module('News').factory '_FeedController', ->
 			return type == @_active.getType() and id == @_active.getId()
 
 
-		isShown: (type, id) ->
-			hasUnread = @getUnreadCount(type, id) > 0
-			if hasUnread
-				return true
-			else
-				if @isShowAll()
-					switch type
-						when @_feedType.Subscriptions
-							return @_feedModel.size() > 0
-						when @_feedType.Folder
-							return @_folderModel.size() > 0
-						when @_feedType.Feed
-							return @_feedModel.size() > 0
-			return false
+		#isShown: (type, id) ->
+		#	hasUnread = @getUnreadCount(type, id) > 0
+		#	if hasUnread
+		#		return true
+		#	else
+		#		if @isShowAll()
+		#			switch type
+		#				when @_feedType.Subscriptions
+		#					return @_feedModel.size() > 0
+		#				when @_feedType.Folder
+		#					return @_folderModel.size() > 0
+		#				when @_feedType.Feed
+		#					return @_feedModel.size() > 0
+		#	return false
 					
 
 		isShowAll: ->

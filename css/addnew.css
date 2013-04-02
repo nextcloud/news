@@ -16,11 +16,14 @@
 }
 
 .add-new select {
-	width: 134px;
+	width: 133px;
 	margin-top: 1px !important;
+	height: 30px;
+	background-color: #eee;
 }
 
 .add-new input {
+	margin-top: 15px;
 	height: 16px !important;
 }
 

@@ -234,7 +234,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         this.$scope.folderBl = this._folderBl;
         this.$scope.feedBl = this._feedBl;
         this.$scope.isShown = function(type, id) {
-          return _this.isShown(type, id);
+          return true;
         };
         this.$scope.getUnreadCount = function() {
           return _this._transFormCount(_this._feedBl.getUnreadCount());
@@ -246,7 +246,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return _this._transFormCount(_this._feedBl.getFeedUnreadCount(feedId));
         };
         this.$scope.getUnreadCount = function(folderId) {
-          return _this._transFormCount(_this._folderBl.getFolderUnreadCount(folderId));
+          return _this._transFormCount(_this._feedBl.getFolderUnreadCount(folderId));
         };
         this.$scope.isShowAll = function() {
           return _this.isShowAll();
@@ -329,26 +329,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
       FeedController.prototype.isFeedActive = function(type, id) {
         return type === this._active.getType() && id === this._active.getId();
-      };
-
-      FeedController.prototype.isShown = function(type, id) {
-        var hasUnread;
-        hasUnread = this.getUnreadCount(type, id) > 0;
-        if (hasUnread) {
-          return true;
-        } else {
-          if (this.isShowAll()) {
-            switch (type) {
-              case this._feedType.Subscriptions:
-                return this._feedModel.size() > 0;
-              case this._feedType.Folder:
-                return this._folderModel.size() > 0;
-              case this._feedType.Feed:
-                return this._feedModel.size() > 0;
-            }
-          }
-        }
-        return false;
       };
 
       FeedController.prototype.isShowAll = function() {
@@ -484,7 +464,12 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     SettingsController = (function() {
 
       function SettingsController($scope) {
+        var _this = this;
         this.$scope = $scope;
+        this.$scope["import"] = function(fileContent) {
+          console.log('hi');
+          return console.log(fileContent);
+        };
       }
 
       return SettingsController;
@@ -590,7 +575,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         this._persistence = _persistence;
       }
 
-      FeedBl.prototype.getUnreadCount = function(feedId) {
+      FeedBl.prototype.getFeedUnreadCount = function(feedId) {
         return this._feedModel.getFeedUnreadCount(feedId);
       };
 

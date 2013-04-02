@@ -17,10 +17,10 @@
 	</a>
 	<span class="utils">
 		<span class="unread-counter">
-			{{ getUnreadCount(feedType.Subscriptions, 0) }}
+			{{ getUnreadCount() }}
 		</span>
 		<button class="svg action mark-read-icon" 
-			ng-click="markAllRead(feedType.Subscriptions, 0)"
+			ng-click="feedBl.markAllRead()"
 			title="<?php p($l->t('Mark all read')) ?>"></button>
 	</span>
 </li>

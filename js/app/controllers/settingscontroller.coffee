@@ -27,5 +27,9 @@ angular.module('News').factory '_SettingsController', ->
 
 		constructor: (@$scope) ->
 
+			@$scope.import = (fileContent) =>
+				console.log 'hi'
+				console.log fileContent
+
 
 	return SettingsController

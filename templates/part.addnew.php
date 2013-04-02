@@ -12,7 +12,7 @@
 		<?php p($l->t('Add Website'))?>
 	</a>
 
-	<div class="add-new-popup" >
+	<div class="add-new-popup">
 		<fieldset class="personalblock">
 			<p class="error">
 				<span ng-show="feedEmptyError"><?php p($l->t('Address must not be empty!')); ?></span>

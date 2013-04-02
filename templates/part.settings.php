@@ -1,6 +1,7 @@
 <fieldset class="personalblock">
 	<legend><strong><?php p($l->t('Import / Export OPML')); ?></strong></legend>
-	<input type="file" id="opml-upload" name="files[]" read-file/>
+	<input type="file" id="opml-upload" name="import" 
+			oc-read-file="import($fileContent)"/>
 	<button title="<?php p($l->t('Import')); ?>" 
 		oc-forward-click="{selector:'#opml-upload'}">
 		<?php p($l->t('Import')); ?>

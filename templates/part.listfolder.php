@@ -1,8 +1,8 @@
 <li ng-class="{
 	active: isFeedActive(feedType.Folder, folder.id), 
 	open: folder.open,
-	collapsible: hasFeeds(folder.id),
-	unread: getUnreadCount(feedType.Folder, folder.id)!=0}" 
+	collapsible: folderBl.hasFeeds(folder.id),
+	unread: getFolderUnreadCount(folder.id) != 0}" 
 	ng-repeat="folder in folders"
 	ng-show="isShown(feedType.Folder, folder.id)"
 	class="folder"
@@ -10,7 +10,7 @@
 	droppable>
 	<button class="collapse" 
 			title="<?php p($l->t('Collapse'));?>"
-			ng-click="toggleFolder(folder.id)"></button>
+			ng-click="folderBl.toggleFolder(folder.id)"></button>
 	<a href="#" 
 	   class="title folder-icon"
 	   ng-click="loadFeed(feedType.Folder, folder.id)">
@@ -19,7 +19,7 @@
 
 	<span class="utils">
 
-		<button ng-click="delete(feedType.Folder, folder.id)"
+		<button ng-click="folderBl.delete(folder.id)"
 				class="svg action delete-icon" 
 				title="<?php p($l->t('Delete folder')); ?>"></button>
 

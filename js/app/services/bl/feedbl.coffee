@@ -28,7 +28,7 @@ angular.module('News').factory '_FeedBl', ->
 		constructor: (@_feedModel, @_itemBl, @_persistence) ->
 
 
-		getUnreadCount: (feedId) ->
+		getFeedUnreadCount: (feedId) ->
 			@_feedModel.getFeedUnreadCount(feedId)
 
 
