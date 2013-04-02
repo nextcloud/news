@@ -126,7 +126,7 @@ class DIContainer extends BaseContainer {
 		/**
 		 * Utility
 		 */
-		$this['Fetcher'] = $this->share(function(){
+		$this['Fetcher'] = $this->share(function($c){
 			$fetcher = new Fetcher();
 
 			// register fetchers in order
