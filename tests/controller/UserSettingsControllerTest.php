@@ -76,9 +76,6 @@ class UserSettingsControllerTest extends ControllerTestUtility {
 
 	public function testShow(){
 		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
-		$this->api->expects($this->once())
 			->method('setUserValue')
 			->with($this->equalTo('showAll'), 
 				$this->equalTo(true));
@@ -87,9 +84,6 @@ class UserSettingsControllerTest extends ControllerTestUtility {
 
 
 	public function testHide(){
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->api->expects($this->once())
 			->method('setUserValue')
 			->with($this->equalTo('showAll'), 
@@ -102,9 +96,6 @@ class UserSettingsControllerTest extends ControllerTestUtility {
 		$result = array(
 			'showAll' => true
 		);
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->api->expects($this->once())
 			->method('getUserValue')
 			->with($this->equalTo('showAll'))

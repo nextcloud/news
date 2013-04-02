@@ -45,6 +45,8 @@ use OCA\News\Db\StatusFlag;
 
 use OCA\News\Utility\Fetcher;
 use OCA\News\Utility\FeedFetcher;
+use OCA\News\Utility\TwitterFetcher;
+
 
 require_once __DIR__ . '/../3rdparty/SimplePie/autoloader.php';
 
@@ -131,6 +133,7 @@ class DIContainer extends BaseContainer {
 
 			// register fetchers in order
 			// the most generic fetcher should be the last one
+			$fetcher->registerFetcher($c['TwitterFetcher']);
 			$fetcher->registerFetcher($c['FeedFetcher']);
 
 			return $fetcher;
@@ -138,6 +141,10 @@ class DIContainer extends BaseContainer {
 
 		$this['FeedFetcher'] = $this->share(function($c){
 			return new FeedFetcher($c['API']);
+		});
+
+		$this['TwitterFetcher'] = $this->share(function($c){
+			return new TwitterFetcher($c['FeedFetcher']);
 		});
 
 		$this['StatusFlag'] = $this->share(function($c){

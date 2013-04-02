@@ -23,57 +23,33 @@
 *
 */
 
-namespace OCA\News\Controller;
-
-use \OCA\AppFramework\Controller\Controller;
-use \OCA\AppFramework\Core\API;
-use \OCA\AppFramework\Http\Request;
+namespace OCA\News\Utility;
 
 
-class UserSettingsController extends Controller {
+class TwitterFetcher implements IFeedFetcher {
 
 
-	public function __construct(API $api, Request $request){
-		parent::__construct($api, $request);
+	private $fetcher;
+	private $regex;
+
+	// FIXME: implement twitter api to be future proof
+	public function __construct(FeedFetcher $fetcher){
+		$this->fetcher = $fetcher;
+		$this->regex = '/^(?:https?:\/\/)?(?:www\.)?' .
+						'twitter.com\/([\pL\pN\pM]+)$/u';
 	}
 
 
-	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
-	 */
-	public function read(){
-		$showAll = $this->api->getUserValue('showAll');
-		$params = array(
-			'showAll' => $showAll === '1'
-		);
-
-		return $this->renderJSON($params);
+	public function canHandle($url){
+		return preg_match($this->regex, $url) == true;
 	}
 
 
-	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
-	 */
-	public function show(){
-		$this->api->setUserValue('showAll', true);
-
-		return $this->renderJSON();
-	}
-
-
-	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
-	 */
-	public function hide(){
-		$this->api->setUserValue('showAll', false);
-
-		return $this->renderJSON();
+	public function fetch($url){
+		preg_match($this->regex, $url, $match);
+		$rssUrl = 'https://api.twitter.com/1/statuses/user_timeline.' . 
+					'rss?screen_name=' . $match[1];
+		return $this->fetcher->fetch($rssUrl);
 	}
 
 

@@ -30,7 +30,7 @@ use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Http\Request;
 
 
-class UserSettingsController extends Controller {
+class SettingsController extends Controller {
 
 
 	public function __construct(API $api, Request $request){
@@ -39,42 +39,28 @@ class UserSettingsController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @CSRFExemption
 	 */
-	public function read(){
-		$showAll = $this->api->getUserValue('showAll');
+	public function index(){
+		$purgeLimit = (int) $this->api->getAppValue('purgeLimit');
+
 		$params = array(
-			'showAll' => $showAll === '1'
+			'purgeLimit' => $purgeLimit
 		);
-
-		return $this->renderJSON($params);
+		return $this->render('admin', $params);
 	}
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
 	 * @Ajax
 	 */
-	public function show(){
-		$this->api->setUserValue('showAll', true);
+	public function setAutoPurgeLimit(){
+		$purgeLimit = (int) $this->params('purgeLimit');
+		$this->api->setAppValue('purgeLimit', $purgeLimit);
 
 		return $this->renderJSON();
 	}
 
-
-	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
-	 */
-	public function hide(){
-		$this->api->setUserValue('showAll', false);
-
-		return $this->renderJSON();
-	}
 
 
 }

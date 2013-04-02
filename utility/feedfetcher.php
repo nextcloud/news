@@ -55,6 +55,7 @@ class FeedFetcher implements IFeedFetcher {
 	 * @return array an array containing the new feed and its items
 	 */
 	public function fetch($url) {
+		// TODO: write unittests!
 		$simplePie = new \SimplePie_Core();
 		$simplePie->set_feed_url( $url );
 		$simplePie->enable_cache( false );
@@ -158,6 +159,7 @@ class FeedFetcher implements IFeedFetcher {
 		$page = $this->api->getUrlContent($absoluteUrl);
 
 		if ( FALSE !== $page ) {
+			// FIXME: dont use regex to get xml, use xpath!
 			preg_match ( '/<[^>]*link[^>]*(rel=["\']icon["\']|rel=["\']shortcut icon["\']) .*href=["\']([^>]*)["\'].*>/iU', $page, $match );
 			if (1<sizeof($match)) {
 				// the specified uri might be an url, an absolute or a relative path
