@@ -111,33 +111,32 @@ class FeedBl extends Bl {
 			// newest item
 			for($i=count($items)-1; $i>=0; $i--){
 				$item = $items[$i];
+				$item->setFeedId($feed->getId());
 
-				// if a database exception is being thrown the unique constraint 
-				// on the item guid hash is being violated and we need to update 
-				// the item
+				// if a doesnotexist exception is being thrown the entry does not 
+				// exist and the item needs to be created, otherwise
+				// update it
 				try {
-					$item->setFeedId($feed->getId());
-					$this->itemMapper->insert($item);
-				} catch(\DatabaseException $ex){
+					$existing = $this->itemMapper->findByGuidHash(
+						$item->getGuidHash(), $feedId, $userId);
 
 					// in case of an update the existing item has to be deleted
 					// if the pub_date changed because we sort by id on the 
 					// client side since this is the only reliable way to do it
 					// to not get weird behaviour
-					$existing = $this->itemMapper->findByGuidHash(
-						$item->getGuidHash(), $feedId, $userId);
-
 					if($existing->getPubDate() !== $item->getPubDate()){
 
 						// because the item is being replaced we need to keep 
-						// status flags
+						// status flags but we want the new entry to be unread
 						$item->setStatus($existing->getStatus());
 						$item->setUnread();
 
 						$this->itemMapper->delete($existing);
 						$this->itemMapper->insert($item);
 					}
-					
+
+				} catch(DoesNotExistException $ex){
+					$this->itemMapper->insert($item);
 				}
 			}
 

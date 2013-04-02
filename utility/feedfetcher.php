@@ -125,7 +125,7 @@ class FeedFetcher implements IFeedFetcher {
 	}
 
 
-	public function checkFavicon($favicon) {
+	private function checkFavicon($favicon) {
 		if ($favicon === null || $favicon == false)
 			return false;
 
@@ -146,7 +146,7 @@ class FeedFetcher implements IFeedFetcher {
 	}
 
 
-	public function discoverFavicon($url) {
+	private function discoverFavicon($url) {
 		//try webroot favicon
 		$favicon = \SimplePie_Misc::absolutize_url('/favicon.ico', $url);
 

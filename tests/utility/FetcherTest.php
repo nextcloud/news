@@ -75,6 +75,7 @@ class FetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->fetcher->fetch($url);
 	}
 
+
 	public function testMultipleFetchersOnlyOneShouldHandle(){
 		$url = 'hi';
 		$return = 'zeas';

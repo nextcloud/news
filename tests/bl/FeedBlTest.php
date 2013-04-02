@@ -146,9 +146,12 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 
 		$item = new Item();
 		$item->setGuidHash(md5('hi'));
+		$item->setFeedId(3);
 		$items = array(
 			$item
 		);
+
+		$ex = new DoesNotExistException('hi');
 
 		$fetchReturn = array($feed, $items);
 
@@ -161,9 +164,15 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('fetch')
 			->will($this->returnValue($fetchReturn));
 		$this->itemMapper->expects($this->once())
+			->method('findByGuidHash')
+			->with($this->equalTo($items[0]->getGuidHash()),
+					$this->equalTo($items[0]->getFeedId()),
+					$this->equalTo($this->user))
+			->will($this->throwException($ex));
+		$this->itemMapper->expects($this->once())
 			->method('insert')
 			->with($this->equalTo($items[0]));
-		
+
 		$this->bl->update($feed->getId(), $this->user);
 	}
 
@@ -192,15 +201,15 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('fetch')
 			->will($this->returnValue($fetchReturn));
 		$this->itemMapper->expects($this->once())
-			->method('insert')
-			->with($this->equalTo($items[0]))
-			->will($this->throwException($ex));
-		$this->itemMapper->expects($this->once())
 			->method('findByGuidHash')
 			->with($this->equalTo($item->getGuidHash()), 
 					$this->equalTo($feed->getId()),
 					$this->equalTo($this->user))
 			->will($this->returnValue($item));
+		$this->itemMapper->expects($this->never())
+			->method('insert');
+		$this->itemMapper->expects($this->never())
+			->method('delete');
 		
 		$this->bl->update($feed->getId(), $this->user);
 	}
@@ -233,20 +242,16 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->fetcher->expects($this->once())
 			->method('fetch')
 			->will($this->returnValue($fetchReturn));
-		$this->itemMapper->expects($this->at(0))
-			->method('insert')
-			->with($this->equalTo($items[0]))
-			->will($this->throwException($ex));
 		$this->itemMapper->expects($this->once())
 			->method('findByGuidHash')
 			->with($this->equalTo($item->getGuidHash()), 
 					$this->equalTo($feed->getId()),
 					$this->equalTo($this->user))
 			->will($this->returnValue($item2));
-		$this->itemMapper->expects($this->at(2))
+		$this->itemMapper->expects($this->at(1))
 			->method('delete')
 			->with($this->equalTo($item2));
-		$this->itemMapper->expects($this->at(3))
+		$this->itemMapper->expects($this->at(2))
 			->method('insert')
 			->with($this->equalTo($item));
 		
