@@ -32,9 +32,17 @@ class TwitterFetcher implements IFeedFetcher {
 	private $fetcher;
 	private $regex;
 
-	// FIXME: implement twitter api to be future proof
+	
 	public function __construct(FeedFetcher $fetcher){
 		$this->fetcher = $fetcher;
+		
+		// matches the following urls and extracts the username
+		// https://twitter.com/GeorgeTakei
+		// https://www.twitter.com/GeorgeTakei
+		// http://twitter.com/GeorgeTakei
+		// http://www.twitter.com/GeorgeTakei
+		// www.twitter.com/GeorgeTakei
+		// twitter.com/GeorgeTakei
 		$this->regex = '/^(?:https?:\/\/)?(?:www\.)?' .
 						'twitter.com\/([\pL\pN\pM]+)$/u';
 	}
@@ -47,8 +55,13 @@ class TwitterFetcher implements IFeedFetcher {
 
 	public function fetch($url){
 		preg_match($this->regex, $url, $match);
+
+		// FIXME: implement twitter api to be future proof
+		// deprecated Twitter RSS API
 		$rssUrl = 'https://api.twitter.com/1/statuses/user_timeline.' . 
 					'rss?screen_name=' . $match[1];
+
+		// use transformed url to fetch the rss feeds with the default fetcher
 		return $this->fetcher->fetch($rssUrl);
 	}
 

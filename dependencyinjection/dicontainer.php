@@ -133,7 +133,7 @@ class DIContainer extends BaseContainer {
 
 			// register fetchers in order
 			// the most generic fetcher should be the last one
-			$fetcher->registerFetcher($c['TwitterFetcher']);
+			$fetcher->registerFetcher($c['TwitterFetcher']); // twitter timeline
 			$fetcher->registerFetcher($c['FeedFetcher']);
 
 			return $fetcher;
