@@ -139,14 +139,9 @@ class FeedFetcher {
 
 		//try to extract favicon from web page
 		$absoluteUrl = \SimplePie_Misc::absolutize_url('/', $url);
+		$page = \OC_Util::getUrlContent($absoluteUrl);
 
-		$handle = curl_init ( );
-		curl_setopt ( $handle, CURLOPT_URL, $absoluteUrl );
-		curl_setopt ( $handle, CURLOPT_RETURNTRANSFER, 1 );
-		curl_setopt ( $handle, CURLOPT_FOLLOWLOCATION, TRUE );
-		curl_setopt ( $handle, CURLOPT_MAXREDIRS, 10 );
-
-		if ( FALSE!==($page=curl_exec($handle)) ) {
+		if ( FALSE !== $page ) {
 			preg_match ( '/<[^>]*link[^>]*(rel=["\']icon["\']|rel=["\']shortcut icon["\']) .*href=["\']([^>]*)["\'].*>/iU', $page, $match );
 			if (1<sizeof($match)) {
 				// the specified uri might be an url, an absolute or a relative path
