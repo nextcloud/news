@@ -126,7 +126,7 @@ class DIContainer extends BaseContainer {
 		 * Utility
 		 */
 		$this['FeedFetcher'] = $this->share(function($c){
-			return new FeedFetcher();
+			return new FeedFetcher($c['API']);
 		});
 
 		$this['StatusFlag'] = $this->share(function($c){

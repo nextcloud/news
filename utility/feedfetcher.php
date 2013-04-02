@@ -25,11 +25,19 @@
 
 namespace OCA\News\Utility;
 
+use \OCA\AppFramework\Core\API;
+
 use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
 
 
 class FeedFetcher {
+
+	private $api;
+
+	public function __construct(API $api){
+		$this->api = $api;
+	}
 
 
 	/**
@@ -139,7 +147,7 @@ class FeedFetcher {
 
 		//try to extract favicon from web page
 		$absoluteUrl = \SimplePie_Misc::absolutize_url('/', $url);
-		$page = \OC_Util::getUrlContent($absoluteUrl);
+		$page = $this->api->getUrlContent($absoluteUrl);
 
 		if ( FALSE !== $page ) {
 			preg_match ( '/<[^>]*link[^>]*(rel=["\']icon["\']|rel=["\']shortcut icon["\']) .*href=["\']([^>]*)["\'].*>/iU', $page, $match );
