@@ -52,6 +52,7 @@ $api->addNavigationEntry(array(
 ));
 
 
-\OCP\Backgroundjob::addRegularTask( 'OCA\News\Backgroundjob\Task', 'run');
+$api->addRegularTask('OCA\News\Backgroundjob\Task', 'run');
+$api->registerAdmin('settings/admin');
 
 

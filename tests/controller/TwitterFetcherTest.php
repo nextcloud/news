@@ -51,7 +51,7 @@ class TwitterFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 			'twitter.com/GeorgeTakei'
 		);
 		foreach($urls as $url){
-			$this->assertTrue($this->twitter->canHandle($url));
+			$this->assertTrue($this->twitter->canHandle($url), $url);
 		}
 	}
 

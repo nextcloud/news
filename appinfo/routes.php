@@ -194,6 +194,17 @@ $this->create('news_usersettings_read_hide', '/usersettings/read/hide')->post()-
 );
 
 
+/**
+ * Settings
+ */
+$this->create('news_setings_auto_purge_limit', '/settings/autopurgelimit')
+->post()->action(
+	function($params){
+		App::main('SettingsController', 'setAutoPurgeLimit', $params,
+		          new DIContainer());
+	}
+);
+
 
 /**
  * Feed API
