@@ -73,7 +73,22 @@ angular.module('News').factory 'FeedBl',
 			return @_feedModel.size()
 
 		
-		# todo isvisible, move
+		isVisible: (feedId) ->
+			if @isActive(feedId) or @_showAll.getShowAll()
+				return true
+			else
+				return @_feedModel.getFeedUnreadCount(feedId) > 0
+
+
+		move: (feedId, folderId) ->
+			feed = @_feedModel.getById(feedId)
+			if angular.isDefined(feed) and feed.folderId != folderId
+				@_feedModel.update({
+					id: feedId,
+					folderId: folderId,
+					urlHash: feed.urlHash})
+				@_persistence.moveFeed(feedId, folderId)
+
 
 	return new FeedBl(ShowAll, FeedModel, Persistence, ActiveFeed, FeedType,
 	                  ItemModel)

@@ -32,8 +32,10 @@ describe 'FeedBl', ->
 				setFeedRead: @setFeedReadSpy
 			}
 
-	beforeEach inject (@FeedBl, @FeedModel, @ItemModel) =>
-
+	beforeEach inject (@FeedBl, @FeedModel, @ItemModel, @FeedType,
+	                   @ShowAll, @ActiveFeed) =>
+		@ShowAll.setShowAll(false)
+		@ActiveFeed.handle({type: @FeedType.Folder, id:0})
 
 	it 'should delete feeds', =>
 		@FeedModel.removeById = jasmine.createSpy('remove')
@@ -117,3 +119,37 @@ describe 'FeedBl', ->
 		count = @FeedBl.getNumberOfFeeds()
 
 		expect(count).toBe(2)
+
+
+	it 'should be visible if its active', =>
+		@ActiveFeed.handle({type: @FeedType.Feed, id:3})
+		expect(@FeedBl.isVisible(3)).toBe(true)
+
+
+	it 'should be visible if show all is true', =>
+		expect(@FeedBl.isVisible(3)).toBe(false)
+
+		@ShowAll.setShowAll(true)
+		expect(@FeedBl.isVisible(3)).toBe(true)
+
+
+	it 'should be visible if unreadcount bigger than 0', =>
+		@FeedModel.add({id: 2, unreadCount:134, urlHash: 'a1'})
+		expect(@FeedBl.isVisible(2)).toBe(true)
+
+	
+	it 'should not move the feed to a new folder', =>
+		@persistence.moveFeed = jasmine.createSpy('Move feed')
+		@FeedModel.add({id: 2, unreadCount:134, urlHash: 'a1', folderId: 3})
+		@FeedBl.move(2, 4)
+
+		expect(@persistence.moveFeed).toHaveBeenCalledWith(2, 4)
+		expect(@FeedModel.getById(2).folderId).toBe(4)
+
+
+	it 'should not move the feed to the same folder', =>
+		@persistence.moveFeed = jasmine.createSpy('Move feed')
+		@FeedModel.add({id: 2, unreadCount:134, urlHash: 'a1', folderId: 3})
+		@FeedBl.move(2, 3)
+
+		expect(@persistence.moveFeed).not.toHaveBeenCalled()

@@ -697,6 +697,27 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return this._feedModel.size();
         };
 
+        FeedBl.prototype.isVisible = function(feedId) {
+          if (this.isActive(feedId) || this._showAll.getShowAll()) {
+            return true;
+          } else {
+            return this._feedModel.getFeedUnreadCount(feedId) > 0;
+          }
+        };
+
+        FeedBl.prototype.move = function(feedId, folderId) {
+          var feed;
+          feed = this._feedModel.getById(feedId);
+          if (angular.isDefined(feed) && feed.folderId !== folderId) {
+            this._feedModel.update({
+              id: feedId,
+              folderId: folderId,
+              urlHash: feed.urlHash
+            });
+            return this._persistence.moveFeed(feedId, folderId);
+          }
+        };
+
         return FeedBl;
 
       })(_Bl);
