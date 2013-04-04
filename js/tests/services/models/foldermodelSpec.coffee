@@ -20,21 +20,20 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 ###
 
-describe '_FolderModel', ->
+describe 'FolderModel', ->
 
 
 	beforeEach module 'News'
 
-	beforeEach inject (@_FolderModel, @_Model) =>
+	beforeEach inject (@FolderModel, @_Model) =>
 
 
 	it 'should extend model', =>
-		expect(new @_FolderModel instanceof @_Model).toBeTruthy()
+		expect(@FolderModel instanceof @_Model).toBeTruthy()
 
 
 	it 'should allow to search for foldernames', =>
-		model = new @_FolderModel()
-		model.add({id: 3, name: 'hi'})
+		@FolderModel.add({id: 3, name: 'hi'})
 
-		expect(model.nameExists('hi')).toBeTruthy()
-		expect(model.nameExists('dhi')).toBeFalsy()
+		expect(@FolderModel.nameExists('hi')).toBeTruthy()
+		expect(@FolderModel.nameExists('dhi')).toBeFalsy()

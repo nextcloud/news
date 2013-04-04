@@ -21,16 +21,16 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-describe '_OPMLParser', ->
+describe 'OPMLParser', ->
 
 	beforeEach module 'News'
 
-	beforeEach inject (@_OPMLParser) =>
-		@parser = new @_OPMLParser()
+	beforeEach inject (@OPMLParser) =>
+
 		
 	it 'should return only the root folder when parsing empty OPML', =>
-		@data = @parser.parseXML('')
+		@data = @OPMLParser.parseXML('')
 		expect(@data.getName()).toBe('root')
 			
 			
-			
+	# TODO: write rest

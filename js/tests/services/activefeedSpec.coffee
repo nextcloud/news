@@ -21,32 +21,25 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-describe '_ActiveFeed', ->
-
+describe 'ActiveFeed', ->
 
 	beforeEach module 'News'
 
-	beforeEach inject (@_ActiveFeed, @FeedType) =>
+	beforeEach inject (@ActiveFeed, @FeedType) =>
 		@data =
 			id: 5
 			type: 3
 
 
 	it 'should be Subscriptions by default', =>
-		active = new @_ActiveFeed()
-
-		expect(active.getType()).toBe(@FeedType.Subscriptions)
+		expect(@ActiveFeed.getType()).toBe(@FeedType.Subscriptions)
 
 
 	it 'should set the correct feed id', =>
-		active = new @_ActiveFeed()
-		active.handle(@data)
-
-		expect(active.getId()).toBe(5)
+		@ActiveFeed.handle(@data)
+		expect(@ActiveFeed.getId()).toBe(5)
 
 
 	it 'should set the correct feed type', =>
-		active = new @_ActiveFeed()
-		active.handle(@data)
-
-		expect(active.getType()).toBe(3)
+		@ActiveFeed.handle(@data)
+		expect(@ActiveFeed.getType()).toBe(3)

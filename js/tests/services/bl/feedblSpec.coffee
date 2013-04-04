@@ -21,23 +21,21 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-describe '_FeedBl', ->
-
+describe 'FeedBl', ->
 
 	beforeEach module 'News'
 
-	beforeEach inject (@_FeedBl, @FeedModel, @ItemModel, @_ItemBl) =>
-		@persistence =
-			getItems: ->
+	beforeEach =>
+		angular.module('News').factory 'Persistence', =>
+			@persistence =
+				getItems: ->
 
-		@itemBl = new _ItemBl(@ItemModel, @persistence)
-
-		@bl = new @_FeedBl(@FeedModel, @itemBl, @persistence)
+	beforeEach inject (@FeedBl, @FeedModel, @ItemModel) =>
 
 
 	it 'should return the number of unread feeds', =>
 		@FeedModel.add({id: 3, unreadCount:134, urlHash: 'a1'})
-		count = @bl.getUnreadCount(3)
+		count = @FeedBl.getUnreadCount(3)
 
 		expect(count).toBe(134)
 
@@ -50,7 +48,7 @@ describe '_FeedBl', ->
 		@FeedModel.add(feed2)
 		@FeedModel.add(feed3)
 
-		feeds = @bl.getFeedsOfFolder(3)
+		feeds = @FeedBl.getFeedsOfFolder(3)
 
 		expect(feeds).toContain(feed1)
 		expect(feeds).toContain(feed3)
@@ -61,7 +59,7 @@ describe '_FeedBl', ->
 		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, urlHash: 'a2'})
 		@FeedModel.add({id: 1, unreadCount:12, folderId: 5, urlHash: 'a3'})
 		@FeedModel.add({id: 2, unreadCount:35, folderId: 3, urlHash: 'a4'})
-		count = @bl.getFolderUnreadCount(3)
+		count = @FeedBl.getFolderUnreadCount(3)
 
 		expect(count).toBe(169)
 
@@ -69,7 +67,7 @@ describe '_FeedBl', ->
 	it 'should delete feeds', =>
 		@FeedModel.removeById = jasmine.createSpy('remove')
 		@persistence.deleteFeed = jasmine.createSpy('deletequery')
-		@bl.delete(3)
+		@FeedBl.delete(3)
 
 		expect(@FeedModel.removeById).toHaveBeenCalledWith(3)
 		expect(@persistence.deleteFeed).toHaveBeenCalledWith(3)
@@ -82,7 +80,7 @@ describe '_FeedBl', ->
 		@ItemModel.add({id: 6, feedId: 5, guidHash: 'a1'})
 		@ItemModel.add({id: 3, feedId: 5, guidHash: 'a2'})
 		@ItemModel.add({id: 2, feedId: 5, guidHash: 'a3'})
-		@bl.markFeedRead(5)
+		@FeedBl.markFeedRead(5)
 
 		expect(@persistence.setFeedRead).toHaveBeenCalledWith(5, 6)
 		expect(@FeedModel.getById(5).unreadCount).toBe(0)
@@ -94,7 +92,7 @@ describe '_FeedBl', ->
 		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, urlHash: 'a2'})
 		@FeedModel.add({id: 1, unreadCount:12, folderId: 3, urlHash: 'a3'})
 
-		@bl.markAllRead()
+		@FeedBl.markAllRead()
 
 		expect(@FeedModel.getById(3).unreadCount).toBe(0)
 		expect(@FeedModel.getById(1).unreadCount).toBe(0)
@@ -104,6 +102,6 @@ describe '_FeedBl', ->
 	it 'should get the correct unread count for subscribtions', =>
 		@FeedModel.add({id: 3, unreadCount:134, urlHash: 'a1'})
 		@FeedModel.add({id: 5, unreadCount:2, urlHash: 'a2'})
-		count = @bl.getUnreadCount()
+		count = @FeedBl.getUnreadCount()
 
 		expect(count).toBe(136)

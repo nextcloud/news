@@ -21,16 +21,17 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-describe '_ItemBl', ->
+describe 'ItemBl', ->
 
 
 	beforeEach module 'News'
 
-	beforeEach inject (@ItemModel, @_ItemBl, @StatusFlag) =>
-		@persistence =
-			getItems: ->
+	beforeEach =>
+		angular.module('News').factory 'Persistence', =>
+			@persistence =
+				getItems: ->
 
-		@bl = new _ItemBl(@ItemModel, @persistence)
+	beforeEach inject (@ItemModel, @ItemBl, @StatusFlag) =>
 
 
 	it 'should mark all items read of a feed', =>
@@ -41,7 +42,7 @@ describe '_ItemBl', ->
 		@ItemModel.add(item1)
 		@ItemModel.add(item2)
 		@ItemModel.add(item3)
-		@bl.markAllRead(5)
+		@ItemBl.markAllRead(5)
 
 		expect(@persistence.setFeedRead).toHaveBeenCalledWith(5, 6)
 		expect(item1.isRead()).toBe(true)

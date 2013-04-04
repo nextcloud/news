@@ -21,29 +21,25 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-describe '_ShowAll', ->
+describe 'ShowAll', ->
 
 
 	beforeEach module 'News'
 
-	beforeEach inject (@_ShowAll) =>
-		@showAll = new @_ShowAll()
-
+	beforeEach inject (@ShowAll) =>
 
 	it 'should be false by default', =>
-		
-
-		expect(@showAll.getShowAll()).toBeFalsy()
+		expect(@ShowAll.getShowAll()).toBeFalsy()
 
 
-	it 'should set the correct showAll value', =>
-		@showAll.handle(true)
-		expect(@showAll.getShowAll()).toBeTruthy()
+	it 'should set the correct ShowAll value', =>
+		@ShowAll.handle(true)
+		expect(@ShowAll.getShowAll()).toBeTruthy()
 
 
-	it 'should provide a set showall setter', =>
-		@showAll.setShowAll(true)
-		expect(@showAll.getShowAll()).toBeTruthy()
+	it 'should provide a set Showall setter', =>
+		@ShowAll.setShowAll(true)
+		expect(@ShowAll.getShowAll()).toBeTruthy()
 
-		@showAll.setShowAll(false)
-		expect(@showAll.getShowAll()).toBeFalsy()
+		@ShowAll.setShowAll(false)
+		expect(@ShowAll.getShowAll()).toBeFalsy()

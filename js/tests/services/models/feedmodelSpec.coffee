@@ -21,16 +21,20 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-describe '_FeedModel', ->
-
+describe 'FeedModel', ->
 
 	beforeEach module 'News'
 
-	beforeEach inject (@_FeedModel, @_Model) =>
+	beforeEach =>
+		angular.module('News').factory 'Utils', =>
+			@utils =
+				imagePath: jasmine.createSpy('utils')
+
+	beforeEach inject (@FeedModel, @_Model) =>
 
 
-	it 'should extend model', =>
-		expect(new @_FeedModel instanceof @_Model).toBeTruthy()
+	it 'should extend _Model', =>
+		expect(@FeedModel instanceof @_Model).toBeTruthy()
 
 
 	it 'should bind an imagepath to the item if the url is empty', =>
@@ -38,42 +42,31 @@ describe '_FeedModel', ->
 			id: 3
 			faviconLink: null
 			urlHash: 'hi'
-		utils =
-			imagePath: jasmine.createSpy('utils')
+		
+		@FeedModel.add(item)
 
-		model = new @_FeedModel(utils)
-		model.add(item)
-
-		expect(utils.imagePath).toHaveBeenCalledWith('news', 'rss.svg')
+		expect(@utils.imagePath).toHaveBeenCalledWith('news', 'rss.svg')
 
 
 	it 'should also update items when url is the same', =>
-		utils =
-			imagePath: jasmine.createSpy('utils')
-		model = new @_FeedModel(utils)
+		@FeedModel.add({id: 2, faviconLink: null, urlHash: 'hi'})
+		expect(@FeedModel.size()).toBe(1)
 
-		model.add({id: 2, faviconLink: null, urlHash: 'hi'})
-		expect(model.size()).toBe(1)
+		@FeedModel.add({id: 2, faviconLink: null, urlHash: 'hi4'})
+		expect(@FeedModel.size()).toBe(1)
+		expect(@FeedModel.getById(2).urlHash).toBe('hi4')
 
-		model.add({id: 2, faviconLink: null, urlHash: 'hi4'})
-		expect(model.size()).toBe(1)
-		expect(model.getById(2).urlHash).toBe('hi4')
-
-		model.add({id: 3, faviconLink: 'hey', urlHash: 'hi4'})
-		expect(model.size()).toBe(1)
-		expect(model.getById(2)).toBe(undefined)
-		expect(model.getById(3).faviconLink).toBe('hey')
+		@FeedModel.add({id: 3, faviconLink: 'hey', urlHash: 'hi4'})
+		expect(@FeedModel.size()).toBe(1)
+		expect(@FeedModel.getById(2)).toBe(undefined)
+		expect(@FeedModel.getById(3).faviconLink).toBe('hey')
 
 
 	it 'should also remove the feed from the urlHash cache when its removed', =>
-		utils =
-			imagePath: jasmine.createSpy('utils')
-		model = new @_FeedModel(utils)
-
 		item = {id: 2, faviconLink: null, urlHash: 'hi'}
-		model.add(item)
+		@FeedModel.add(item)
 
-		expect(model.getByUrlHash('hi')).toBe(item)
+		expect(@FeedModel.getByUrlHash('hi')).toBe(item)
 
-		model.removeById(2)
-		expect(model.getByUrlHash('hi')).toBe(undefined)
+		@FeedModel.removeById(2)
+		expect(@FeedModel.getByUrlHash('hi')).toBe(undefined)

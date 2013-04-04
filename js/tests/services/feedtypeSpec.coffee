@@ -23,7 +23,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 describe 'FeedType', ->
 
-
 	beforeEach module 'News'
 
 	beforeEach inject (@FeedType) =>

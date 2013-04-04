@@ -21,23 +21,23 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-describe '_StarredCount', ->
+describe 'StarredCount', ->
 
 
 	beforeEach module 'News'
 
-	beforeEach inject (@_StarredCount) =>
-		@starred = new @_StarredCount()
+	beforeEach inject (@StarredCount) =>
+
 
 	it 'should be 0 by default', =>
-		expect(@starred.getStarredCount()).toBe(0)
+		expect(@StarredCount.getStarredCount()).toBe(0)
 
 
-	it 'should set the correct starred count', =>
-		@starred.handle(3)
-		expect(@starred.getStarredCount()).toBe(3)
+	it 'should set the correct StarredCount count', =>
+		@StarredCount.handle(3)
+		expect(@StarredCount.getStarredCount()).toBe(3)
 
 
 	it 'should provide a setter', =>
-		@starred.setStarredCount(15)
-		expect(@starred.getStarredCount()).toBe(15)
+		@StarredCount.setStarredCount(15)
+		expect(@StarredCount.getStarredCount()).toBe(15)
