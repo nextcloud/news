@@ -159,16 +159,23 @@ class FeedFetcher implements IFeedFetcher {
 		$page = $this->api->getUrlContent($absoluteUrl);
 
 		if ( FALSE !== $page ) {
-			// FIXME: dont use regex to get xml, use xpath!
-			preg_match ( '/<[^>]*link[^>]*(rel=["\']icon["\']|rel=["\']shortcut icon["\']) .*href=["\']([^>]*)["\'].*>/iU', $page, $match );
-			if (1<sizeof($match)) {
-				// the specified uri might be an url, an absolute or a relative path
-				// we have to turn it into an url to be able to display it out of context
-				$favicon = htmlspecialchars_decode ( $match[2] );
-				// test for an url
-				if (parse_url($favicon,PHP_URL_SCHEME)) {
-					if($this->checkFavicon($favicon))
-						return $favicon;
+			$doc = @\DOMDocument::loadHTML($page);
+
+			if ( $doc !== FALSE ) {
+				$xpath = new \DOMXpath($doc);
+				$elements = $xpath->query("//link[contains(@rel, 'icon')]");
+
+				if ( $elements->length > 0 ) {
+					if ( $favicon = $elements->item(0)->getAttribute('href') ) {
+						// the specified uri might be an url, an absolute or a relative path
+						// we have to turn it into a url to be able to display it out of context
+						if ( !parse_url($favicon, PHP_URL_SCHEME) ) {
+							$favicon = \SimplePie_Misc::absolutize_url($favicon, $absoluteUrl);
+						}
+
+						if($this->checkFavicon($favicon))
+							return $favicon;
+					}
 				}
 			}
 		}
