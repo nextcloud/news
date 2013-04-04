@@ -122,25 +122,5 @@ class FeedMapper extends Mapper implements IMapper {
 	}
 
 
-	public function getReadOlderThanThreshold($threshold){
-
-		// we want items that are not starred and not unread
-		$status = StatusFlag::STARRED | StatusFlag::UNREAD;
-		$sql = 'SELECT * FROM `*PREFIX*news_items` ' .
-			'WHERE NOT ((`status` & ?) > 0)';
-
-		$params = array($status);
-		return $this->findAllRows($sql, $params, $threshold);
-	}
-
-
-	public function deleteReadOlderThanId($id){
-		$status = StatusFlag::STARRED | StatusFlag::UNREAD;
-		$sql = 'DELETE FROM `*PREFIX*news_items` WHERE `id` < ? ' .
-			'AND NOT ((`status` & ?) > 0)';
-		$params = array($id, $status);
-		$this->execute($sql, $params);
-	}
-
 
 }
