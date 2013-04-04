@@ -268,8 +268,10 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 
 	public function testDeleteReadOlderThanId(){
 		$id = 10;
-		$sql = 'DELETE FROM `*PREFIX*news_items` WHERE `id` < ?';
-		$params = array($id);
+		$status = StatusFlag::STARRED | StatusFlag::UNREAD;
+		$sql = 'DELETE FROM `*PREFIX*news_items` WHERE `id` < ? ' .
+			'AND NOT ((`status` & ?) > 0)';
+		$params = array($id, $status);
 
 		$this->setMapperResult($sql, $params);
 		$this->mapper->deleteReadOlderThanId($id);

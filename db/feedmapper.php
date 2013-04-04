@@ -135,8 +135,10 @@ class FeedMapper extends Mapper implements IMapper {
 
 
 	public function deleteReadOlderThanId($id){
-		$sql = 'DELETE FROM `*PREFIX*news_items` WHERE `id` < ?';
-		$params = array($id);
+		$status = StatusFlag::STARRED | StatusFlag::UNREAD;
+		$sql = 'DELETE FROM `*PREFIX*news_items` WHERE `id` < ? ' .
+			'AND NOT ((`status` & ?) > 0)';
+		$params = array($id, $status);
 		$this->execute($sql, $params);
 	}
 
