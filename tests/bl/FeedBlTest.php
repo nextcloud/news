@@ -50,7 +50,6 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 	private $threshold;
 
 	protected function setUp(){
-		$this->threshold = 2;
 		$this->api = $this->getAPIMock();
 		$this->mapper = $this->getMockBuilder('\OCA\News\Db\FeedMapper')
 			->disableOriginalConstructor()
@@ -62,8 +61,7 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->disableOriginalConstructor()
 			->getMock();
 		$this->bl = new FeedBl($this->mapper, 
-			$this->fetcher, $this->itemMapper, $this->api,
-			$this->threshold);
+			$this->fetcher, $this->itemMapper, $this->api);
 		$this->user = 'jack';
 		$response = 'hi';
 
@@ -305,23 +303,6 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 	}
 
 
-	public function testAutoPurgeOldWillPurgeOld(){
-		$feed = new Feed();
-		$feed->setId(3);
-		$unread = array(
-			new Feed(), $feed
-		);
-		$this->mapper->expects($this->once())
-			->method('getReadOlderThanThreshold')
-			->with($this->equalTo($this->threshold))
-			->will($this->returnValue($unread));
-		$this->mapper->expects($this->once())
-			->method('deleteReadOlderThanId')
-			->with($this->equalTo($feed->getId()));
-
-		$result = $this->bl->autoPurgeOld();
-
-	}
 
 }
 

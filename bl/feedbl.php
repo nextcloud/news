@@ -39,16 +39,13 @@ class FeedBl extends Bl {
 	private $feedFetcher;
 	private $itemMapper;
 	private $api;
-	private $autoPurgeCount;
 
 	public function __construct(FeedMapper $feedMapper, Fetcher $feedFetcher,
-		                        ItemMapper $itemMapper, API $api, 
-		                        $autoPurgeCount=0){
+		                        ItemMapper $itemMapper, API $api){
 		parent::__construct($feedMapper);
 		$this->feedFetcher = $feedFetcher;
 		$this->itemMapper = $itemMapper;
 		$this->api = $api;
-		$this->autoPurgeCount = $autoPurgeCount;
 	}
 
 
@@ -155,25 +152,6 @@ class FeedBl extends Bl {
 		$feed = $this->find($feedId, $userId);
 		$feed->setFolderId($folderId);
 		$this->mapper->update($feed);
-	}
-
-
-	/**
-	 * This method deletes all unread feeds that are not starred and over the 
-	 * count of $this->autoPurgeCount starting by the oldest. This is to clean
-	 * up the database so that old entries dont spam your db. As criteria for
-	 * old, the id is taken
-	 */
-	public function autoPurgeOld(){
-		$readAndNotStarred = 
-			$this->mapper->getReadOlderThanThreshold($this->autoPurgeCount);
-		
-		// delete entries with a lower id than last item
-		if($this->autoPurgeCount > 0 
-			&& isset($readAndNotStarred[$this->autoPurgeCount-1])){
-			$this->mapper->deleteReadOlderThanId(
-				$readAndNotStarred[$this->autoPurgeCount-1]->getId());
-		}
 	}
 
 

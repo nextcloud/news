@@ -55,7 +55,8 @@ class ItemBlTest extends \OCA\AppFramework\Utility\TestUtility {
 		$statusFlag->expects($this->any())
 			->method('typeToStatus')
 			->will($this->returnValue($this->status));
-		$this->bl = new ItemBl($this->mapper, $statusFlag);
+		$this->threshold = 2;
+		$this->bl = new ItemBl($this->mapper, $statusFlag, $this->threshold);
 		$this->user = 'jack';
 		$response = 'hi';
 		$this->id = 3;
@@ -244,6 +245,26 @@ class ItemBlTest extends \OCA\AppFramework\Utility\TestUtility {
 
 		$this->bl->readFeed($feedId, $highestItemId, $this->user);
 	}
+
+
+	public function testAutoPurgeOldWillPurgeOld(){
+		$item = new Item();
+		$item->setId(3);
+		$unread = array(
+			new Item(), $item
+		);
+		$this->mapper->expects($this->once())
+			->method('getReadOlderThanThreshold')
+			->with($this->equalTo($this->threshold))
+			->will($this->returnValue($unread));
+		$this->mapper->expects($this->once())
+			->method('deleteReadOlderThanId')
+			->with($this->equalTo($item->getId()));
+
+		$result = $this->bl->autoPurgeOld();
+
+	}
+
 
 }
 

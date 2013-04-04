@@ -107,12 +107,12 @@ class DIContainer extends BaseContainer {
 
 		$this['FeedBl'] = $this->share(function($c){
 			return new FeedBl($c['FeedMapper'], $c['Fetcher'],
-								$c['ItemMapper'], $c['API'], 
-								$c['autoPurgeCount']);
+								$c['ItemMapper'], $c['API']);
 		});
 
 		$this['ItemBl'] = $this->share(function($c){
-			return new ItemBl($c['ItemMapper'], $c['StatusFlag']);
+			return new ItemBl($c['ItemMapper'], $c['StatusFlag'],
+								$c['autoPurgeCount']);
 		});
 
 

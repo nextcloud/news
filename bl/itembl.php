@@ -34,10 +34,13 @@ use \OCA\News\Db\FeedType;
 class ItemBl extends Bl {
 
 	private $statusFlag;
+	private $autoPurgeCount;
 
-	public function __construct(ItemMapper $itemMapper, StatusFlag $statusFlag){
+	public function __construct(ItemMapper $itemMapper, StatusFlag $statusFlag,
+								$autoPurgeCount=0){
 		parent::__construct($itemMapper);
 		$this->statusFlag = $statusFlag;
+		$this->autoPurgeCount = $autoPurgeCount;
 	}
 
 
@@ -115,6 +118,25 @@ class ItemBl extends Bl {
 
 	public function readFeed($feedId, $highestItemId, $userId){
 		$this->mapper->readFeed($feedId, $highestItemId, $userId);
+	}
+
+
+	/**
+	 * This method deletes all unread feeds that are not starred and over the 
+	 * count of $this->autoPurgeCount starting by the oldest. This is to clean
+	 * up the database so that old entries dont spam your db. As criteria for
+	 * old, the id is taken
+	 */
+	public function autoPurgeOld(){
+		$readAndNotStarred = 
+			$this->mapper->getReadOlderThanThreshold($this->autoPurgeCount);
+		
+		// delete entries with a lower id than last item
+		if($this->autoPurgeCount > 0 
+			&& isset($readAndNotStarred[$this->autoPurgeCount-1])){
+			$this->mapper->deleteReadOlderThanId(
+				$readAndNotStarred[$this->autoPurgeCount-1]->getId());
+		}
 	}
 
 

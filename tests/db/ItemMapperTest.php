@@ -262,4 +262,32 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$this->assertEquals($this->items[0], $result);
 	}
 
+
+	public function testGetReadOlderThanThreshold(){
+		$status = StatusFlag::STARRED | StatusFlag::UNREAD;
+		$sql = 'SELECT * FROM `*PREFIX*news_items` ' .
+			'WHERE NOT ((`status` & ?) > 0)';
+		$threshold = 10;
+		$feed = new Feed();
+		$feed->setId(30);
+		$rows = array(array('id' => 30));
+		$params = array($status);
+
+		$this->setMapperResult($sql, $params, $rows);
+		$result = $this->mapper->getReadOlderThanThreshold($threshold);
+
+		$this->assertEquals($feed->getId(), $result[0]->getId());
+	}
+
+
+	public function testDeleteReadOlderThanId(){
+		$id = 10;
+		$status = StatusFlag::STARRED | StatusFlag::UNREAD;
+		$sql = 'DELETE FROM `*PREFIX*news_items` WHERE `id` < ? ' .
+			'AND NOT ((`status` & ?) > 0)';
+		$params = array($id, $status);
+
+		$this->setMapperResult($sql, $params);
+		$this->mapper->deleteReadOlderThanId($id);
+	}
 }
