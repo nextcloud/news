@@ -21,18 +21,12 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-angular.module('News').factory '_ItemBl', ->
+angular.module('News').factory 'ItemBl', ->
 
 	class ItemBl
 
 		constructor: (@_itemModel, @_persistence) ->
 
 
-		markAllRead: (feedId) ->
-			highestItemId = @_itemModel.getHighestId()
-			@_persistence.setFeedRead(feedId, highestItemId)
-			for item in @_itemModel.getAll()
-				item.setRead()
 
-
-	return ItemBl
+	return new ItemBl()

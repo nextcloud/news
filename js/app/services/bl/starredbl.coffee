@@ -21,16 +21,27 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-describe 'ItemBl', ->
+angular.module('News').factory 'StarredBl',
+['_Bl', 'StarredCount', 'Persistence', 'ActiveFeed', 'FeedType', 'ItemModel',
+(_Bl, StarredCount, Persistence, ActiveFeed, FeedType, ItemModel) ->
+
+	class StarredBl extends _Bl
+
+		constructor: (@_starredCount, feedType,
+			persistence, activeFeed, itemModel) ->
+			super(activeFeed, persistence, itemModel, feedType.Starred)
+
+		isVisible: ->
+			if @isActive(0)
+				return true
+			else
+				return @_starredCount.getStarredCount() > 0
 
 
-	beforeEach module 'News'
+		getUnreadCount: ->
+			return @_starredCount.getStarredCount()
 
-	beforeEach =>
-		angular.module('News').factory 'Persistence', =>
-			@setFeedReadSpy = jasmine.createSpy('setFeedRead')
-			@persistence = {
-				
-			}
 
-	beforeEach inject (@ItemModel, @ItemBl, @StatusFlag) =>
+	return new StarredBl(StarredCount, FeedType, Persistence,
+	                     ActiveFeed, ItemModel)
+]

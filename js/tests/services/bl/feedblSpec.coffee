@@ -27,10 +27,22 @@ describe 'FeedBl', ->
 
 	beforeEach =>
 		angular.module('News').factory 'Persistence', =>
-			@persistence = {}
+			@setFeedReadSpy = jasmine.createSpy('setFeedRead')
+			@persistence = {
+				setFeedRead: @setFeedReadSpy
+			}
 
 	beforeEach inject (@FeedBl, @FeedModel, @ItemModel) =>
 
+
+	it 'should delete feeds', =>
+		@FeedModel.removeById = jasmine.createSpy('remove')
+		@persistence.deleteFeed = jasmine.createSpy('deletequery')
+		@FeedBl.delete(3)
+
+		expect(@FeedModel.removeById).toHaveBeenCalledWith(3)
+		expect(@persistence.deleteFeed).toHaveBeenCalledWith(3)
+		
 
 	it 'should return the number of unread feeds', =>
 		@FeedModel.add({id: 3, unreadCount:134, urlHash: 'a1'})
@@ -63,16 +75,6 @@ describe 'FeedBl', ->
 		expect(count).toBe(169)
 
 
-	it 'should delete feeds', =>
-		@FeedModel.removeById = jasmine.createSpy('remove')
-		@persistence.deleteFeed = jasmine.createSpy('deletequery')
-		@FeedBl.delete(3)
-
-		expect(@FeedModel.removeById).toHaveBeenCalledWith(3)
-		expect(@persistence.deleteFeed).toHaveBeenCalledWith(3)
-
-
-
 	it 'should mark feed as read', =>
 		@persistence.setFeedRead = jasmine.createSpy('setFeedRead')
 		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, urlHash: 'a1'})
@@ -83,6 +85,9 @@ describe 'FeedBl', ->
 
 		expect(@persistence.setFeedRead).toHaveBeenCalledWith(5, 6)
 		expect(@FeedModel.getById(5).unreadCount).toBe(0)
+		expect(@ItemModel.getById(6).isRead()).toBeTruthy()
+		expect(@ItemModel.getById(3).isRead()).toBeTruthy()
+		expect(@ItemModel.getById(2).isRead()).toBeTruthy()
 
 
 	it 'should mark all as read', =>
@@ -101,6 +106,14 @@ describe 'FeedBl', ->
 	it 'should get the correct unread count for subscribtions', =>
 		@FeedModel.add({id: 3, unreadCount:134, urlHash: 'a1'})
 		@FeedModel.add({id: 5, unreadCount:2, urlHash: 'a2'})
-		count = @FeedBl.getUnreadCount()
+		count = @FeedBl.getAllUnreadCount()
 
 		expect(count).toBe(136)
+
+
+	it 'should return the correct number of feeds', =>
+		@FeedModel.add({id: 3, unreadCount:134, urlHash: 'a1'})
+		@FeedModel.add({id: 5, unreadCount:2, urlHash: 'a2'})
+		count = @FeedBl.getNumberOfFeeds()
+
+		expect(count).toBe(2)

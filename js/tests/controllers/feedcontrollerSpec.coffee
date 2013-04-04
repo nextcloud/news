@@ -110,35 +110,6 @@ describe '_FeedController', ->
 
 
 
-	xit 'should reset the item cache when a different feed is being loaded', =>
-		@ItemModel.clear = jasmine.createSpy('clear')
-		@ActiveFeed.handle({id: 3, type: 3})
-		@scope.loadFeed(3, 3)
-
-		expect(@ItemModel.clear).not.toHaveBeenCalled()
-		
-		@scope.loadFeed(3, 4)
-		expect(@ItemModel.clear).toHaveBeenCalled()
-
-
-	xit 'should send a get latest items query when feed did not change', =>
-		@ItemModel.add({id: 1, lastModified: 5})
-		@ItemModel.add({id: 2, lastModified: 1})
-		@ItemModel.add({id: 4, lastModified: 323})
-		@ItemModel.add({id: 6, lastModified: 44})
-		@persistence.getItems = jasmine.createSpy('latest')
-		@ActiveFeed.handle({id: 3, type: 3})
-		@scope.loadFeed(3, 3)
-
-		expect(@persistence.getItems).toHaveBeenCalledWith(3, 3, 0, null, 6)
-
-
-	xit 'should send a get all items query when feed changed', =>
-		@persistence.getItems = jasmine.createSpy('latest')
-		@ActiveFeed.handle({id: 3, type: 3})
-		@scope.loadFeed(4, 3)
-
-		expect(@persistence.getItems).toHaveBeenCalledWith(4, 3, 0)
 
 
 	xit 'should set active feed to new feed if changed', =>

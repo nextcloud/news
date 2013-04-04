@@ -21,11 +21,17 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-angular.module('News').factory '_FolderBl', ->
+angular.module('News').factory 'FolderBl',
+['_Bl', 'FolderModel', 'FeedBl', 'Persistence', 'FeedType', 'ActiveFeed',
+'ItemModel', 'ShowAll',
+(_Bl, FolderModel, FeedBl, Persistence, FeedType, ActiveFeed,
+ItemModel, ShowAll)->
 
-	class FolderBl
+	class FolderBl extends _Bl
 
-		constructor: (@_folderModel, @_feedBl, @_persistence) ->
+		constructor: (@_folderModel, @_feedBl, @_showAll, activeFeed,
+			          persistence, @_feedType, itemModel) ->
+			super(activeFeed, persistence, itemModel, @_feedType.Folder)
 
 
 		delete: (folderId) ->
@@ -35,11 +41,6 @@ angular.module('News').factory '_FolderBl', ->
 
 		hasFeeds: (folderId) ->
 			return @_feedBl.getFeedsOfFolder(folderId).length
-
-
-		markFolderRead: (folderId) ->
-			for feed in @_feedBl.getFeedsOfFolder(folderId)
-				@_feedBl.markFeedRead(feed.id)
 
 
 		toggleFolder: (folderId) ->
@@ -53,4 +54,30 @@ angular.module('News').factory '_FolderBl', ->
 					@_persistence.collapseFolder(folder.id)
 
 
-	return FolderBl
+		markFolderRead: (folderId) ->
+			for feed in @_feedBl.getFeedsOfFolder(folderId)
+				@_feedBl.markFeedRead(feed.id)
+
+
+		getUnreadCount: (folderId) ->
+			return @_feedBl.getFolderUnreadCount(folderId)
+
+
+		isVisible: (folderId) ->
+			if @_showAll.getShowAll()
+				return true
+			else
+				if @isActive(folderId) or
+				@_feedBl.getFolderUnreadCount(folderId) > 0
+					return true
+				if @_activeFeed.getType() == @_feedType.Feed
+					for feed in @_feedBl.getFeedsOfFolder(folderId)
+						if feed.id == @_activeFeed.getId()
+							return true
+				return false
+
+
+	return new FolderBl(FolderModel, FeedBl, ShowAll, ActiveFeed, Persistence,
+		                FeedType, ItemModel)
+
+]

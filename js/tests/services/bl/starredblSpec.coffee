@@ -21,16 +21,34 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-describe 'ItemBl', ->
-
+describe 'StarredBl', ->
 
 	beforeEach module 'News'
 
 	beforeEach =>
 		angular.module('News').factory 'Persistence', =>
-			@setFeedReadSpy = jasmine.createSpy('setFeedRead')
-			@persistence = {
-				
-			}
+			@persistence = {}
 
-	beforeEach inject (@ItemModel, @ItemBl, @StatusFlag) =>
+	beforeEach inject (@StarredBl, @StarredCount, @ActiveFeed, @FeedType) =>
+		@ActiveFeed.handle({type: @FeedType.Feed, id:0})
+		@StarredCount.setStarredCount(0)
+
+
+	it 'should not be visible if starredCount is 0', =>
+		expect(@StarredBl.isVisible()).toBe(false)
+
+		@StarredCount.setStarredCount(144)
+		expect(@StarredBl.isVisible()).toBe(true)
+
+
+	it 'should always be visible if its the active feed', =>
+		@ActiveFeed.handle({type: @FeedType.Starred, id:0})
+		expect(@StarredBl.isVisible()).toBe(true)
+
+
+	it 'should get the correct unread count', =>
+		@StarredCount.setStarredCount(144)
+
+		expect(@StarredBl.getUnreadCount()).toBe(144)
+
+

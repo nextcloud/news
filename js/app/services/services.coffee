@@ -51,27 +51,6 @@ angular.module('News').factory 'NewLoading',
 	return new _Loading()
 ]
 
-
-# business layer
-angular.module('News').factory 'ItemBl',
-['_ItemBl', 'ItemModel', 'Persistence',
-(_ItemBl, ItemModel, Persistence) ->
-	return new _ItemBl(ItemModel, Persistence)
-]
-
-angular.module('News').factory 'FeedBl',
-['_FeedBl', 'FeedModel', 'ItemBl', 'Persistence',
-(_FeedBl, FeedModel, ItemBl, Persistence) ->
-	return new _FeedBl(FeedModel, ItemBl, Persistence)
-]
-
-angular.module('News').factory 'FolderBl',
-['_FolderBl', 'FolderModel', 'FeedBl', 'Persistence',
-(_FolderBl, FolderModel, FeedBl, Persistence) ->
-	return new _FolderBl(FolderModel, FeedBl, Persistence)
-]
-
-
 # models
 angular.module('News').factory 'ActiveFeed', ['_ActiveFeed', (_ActiveFeed) ->
 	return new _ActiveFeed()

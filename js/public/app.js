@@ -565,61 +565,40 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 (function() {
 
-  angular.module('News').factory('_FeedBl', function() {
-    var FeedBl;
-    FeedBl = (function() {
+  angular.module('News').factory('_Bl', function() {
+    var Bl;
+    Bl = (function() {
 
-      function FeedBl(_feedModel, _itemBl, _persistence) {
-        this._feedModel = _feedModel;
-        this._itemBl = _itemBl;
+      function Bl(_activeFeed, _persistence, _itemModel, _type) {
+        this._activeFeed = _activeFeed;
         this._persistence = _persistence;
+        this._itemModel = _itemModel;
+        this._type = _type;
       }
 
-      FeedBl.prototype.getFeedUnreadCount = function(feedId) {
-        return this._feedModel.getFeedUnreadCount(feedId);
-      };
-
-      FeedBl.prototype.getFeedsOfFolder = function(folderId) {
-        return this._feedModel.getAllOfFolder(folderId);
-      };
-
-      FeedBl.prototype.getFolderUnreadCount = function(folderId) {
-        return this._feedModel.getFolderUnreadCount(folderId);
-      };
-
-      FeedBl.prototype.getUnreadCount = function() {
-        return this._feedModel.getUnreadCount();
-      };
-
-      FeedBl.prototype["delete"] = function(feedId) {
-        this._feedModel.removeById(feedId);
-        return this._persistence.deleteFeed(feedId);
-      };
-
-      FeedBl.prototype.markFeedRead = function(feedId) {
-        var feed;
-        feed = this._feedModel.getById(feedId);
-        if (angular.isDefined(feed)) {
-          feed.unreadCount = 0;
-          return this._itemBl.markAllRead(feedId);
+      Bl.prototype.load = function(id) {
+        var lastModified;
+        if (this._type !== this._activeFeed.getType() || id !== this._activeFeed.getId()) {
+          this._itemModel.clear();
+          this._persistence.getItems(this._type, id, 0);
+          return this._activeFeed.handle({
+            id: id,
+            type: this._type
+          });
+        } else {
+          lastModified = this._itemModel.getHighestId();
+          return this._persistence.getItems(this._type, id, 0, null, lastModified);
         }
       };
 
-      FeedBl.prototype.markAllRead = function() {
-        var feed, _i, _len, _ref, _results;
-        _ref = this._feedModel.getAll();
-        _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          feed = _ref[_i];
-          _results.push(this.markFeedRead(feed.id));
-        }
-        return _results;
+      Bl.prototype.isActive = function(id) {
+        return this._activeFeed.getType() === this._type && this._activeFeed.getId() === id;
       };
 
-      return FeedBl;
+      return Bl;
 
     })();
-    return FeedBl;
+    return Bl;
   });
 
 }).call(this);
@@ -649,55 +628,191 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 
 (function() {
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  angular.module('News').factory('_FolderBl', function() {
-    var FolderBl;
-    FolderBl = (function() {
+  angular.module('News').factory('FeedBl', [
+    '_Bl', 'ShowAll', 'Persistence', 'ActiveFeed', 'FeedType', 'ItemModel', 'FeedModel', function(_Bl, ShowAll, Persistence, ActiveFeed, FeedType, ItemModel, FeedModel) {
+      var FeedBl;
+      FeedBl = (function(_super) {
 
-      function FolderBl(_folderModel, _feedBl, _persistence) {
-        this._folderModel = _folderModel;
-        this._feedBl = _feedBl;
-        this._persistence = _persistence;
-      }
+        __extends(FeedBl, _super);
 
-      FolderBl.prototype["delete"] = function(folderId) {
-        this._folderModel.removeById(folderId);
-        return this._persistence.deleteFolder(folderId);
-      };
-
-      FolderBl.prototype.hasFeeds = function(folderId) {
-        return this._feedBl.getFeedsOfFolder(folderId).length;
-      };
-
-      FolderBl.prototype.markFolderRead = function(folderId) {
-        var feed, _i, _len, _ref, _results;
-        _ref = this._feedBl.getFeedsOfFolder(folderId);
-        _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          feed = _ref[_i];
-          _results.push(this._feedBl.markFeedRead(feed.id));
+        function FeedBl(_showAll, _feedModel, persistence, activeFeed, feedType, itemModel) {
+          this._showAll = _showAll;
+          this._feedModel = _feedModel;
+          FeedBl.__super__.constructor.call(this, activeFeed, persistence, itemModel, feedType.Feed);
         }
-        return _results;
-      };
 
-      FolderBl.prototype.toggleFolder = function(folderId) {
-        var folder;
-        folder = this._folderModel.getById(folderId);
-        if (angular.isDefined(folder)) {
-          folder.open = !folder.open;
-          if (folder.open) {
-            return this._persistence.openFolder(folder.id);
-          } else {
-            return this._persistence.collapseFolder(folder.id);
+        FeedBl.prototype.getUnreadCount = function(feedId) {
+          return this._feedModel.getFeedUnreadCount(feedId);
+        };
+
+        FeedBl.prototype.getFeedsOfFolder = function(folderId) {
+          return this._feedModel.getAllOfFolder(folderId);
+        };
+
+        FeedBl.prototype.getFolderUnreadCount = function(folderId) {
+          return this._feedModel.getFolderUnreadCount(folderId);
+        };
+
+        FeedBl.prototype.getAllUnreadCount = function() {
+          return this._feedModel.getUnreadCount();
+        };
+
+        FeedBl.prototype["delete"] = function(feedId) {
+          this._feedModel.removeById(feedId);
+          return this._persistence.deleteFeed(feedId);
+        };
+
+        FeedBl.prototype.markFeedRead = function(feedId) {
+          var feed, highestItemId, item, _i, _len, _ref, _results;
+          feed = this._feedModel.getById(feedId);
+          if (angular.isDefined(feed)) {
+            feed.unreadCount = 0;
+            highestItemId = this._itemModel.getHighestId();
+            this._persistence.setFeedRead(feedId, highestItemId);
+            _ref = this._itemModel.getAll();
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              item = _ref[_i];
+              _results.push(item.setRead());
+            }
+            return _results;
           }
+        };
+
+        FeedBl.prototype.markAllRead = function() {
+          var feed, _i, _len, _ref, _results;
+          _ref = this._feedModel.getAll();
+          _results = [];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            feed = _ref[_i];
+            _results.push(this.markFeedRead(feed.id));
+          }
+          return _results;
+        };
+
+        FeedBl.prototype.getNumberOfFeeds = function() {
+          return this._feedModel.size();
+        };
+
+        return FeedBl;
+
+      })(_Bl);
+      return new FeedBl(ShowAll, FeedModel, Persistence, ActiveFeed, FeedType, ItemModel);
+    }
+  ]);
+
+}).call(this);
+
+// Generated by CoffeeScript 1.4.0
+
+/*
+
+ownCloud - News
+
+@author Bernhard Posselt
+@copyright 2012 Bernhard Posselt nukeawhale@gmail.com
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+License as published by the Free Software Foundation; either
+version 3 of the License, or any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+You should have received a copy of the GNU Affero General Public
+License along with this library.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+(function() {
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  angular.module('News').factory('FolderBl', [
+    '_Bl', 'FolderModel', 'FeedBl', 'Persistence', 'FeedType', 'ActiveFeed', 'ItemModel', 'ShowAll', function(_Bl, FolderModel, FeedBl, Persistence, FeedType, ActiveFeed, ItemModel, ShowAll) {
+      var FolderBl;
+      FolderBl = (function(_super) {
+
+        __extends(FolderBl, _super);
+
+        function FolderBl(_folderModel, _feedBl, _showAll, activeFeed, persistence, _feedType, itemModel) {
+          this._folderModel = _folderModel;
+          this._feedBl = _feedBl;
+          this._showAll = _showAll;
+          this._feedType = _feedType;
+          FolderBl.__super__.constructor.call(this, activeFeed, persistence, itemModel, this._feedType.Folder);
         }
-      };
 
-      return FolderBl;
+        FolderBl.prototype["delete"] = function(folderId) {
+          this._folderModel.removeById(folderId);
+          return this._persistence.deleteFolder(folderId);
+        };
 
-    })();
-    return FolderBl;
-  });
+        FolderBl.prototype.hasFeeds = function(folderId) {
+          return this._feedBl.getFeedsOfFolder(folderId).length;
+        };
+
+        FolderBl.prototype.toggleFolder = function(folderId) {
+          var folder;
+          folder = this._folderModel.getById(folderId);
+          if (angular.isDefined(folder)) {
+            folder.open = !folder.open;
+            if (folder.open) {
+              return this._persistence.openFolder(folder.id);
+            } else {
+              return this._persistence.collapseFolder(folder.id);
+            }
+          }
+        };
+
+        FolderBl.prototype.markFolderRead = function(folderId) {
+          var feed, _i, _len, _ref, _results;
+          _ref = this._feedBl.getFeedsOfFolder(folderId);
+          _results = [];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            feed = _ref[_i];
+            _results.push(this._feedBl.markFeedRead(feed.id));
+          }
+          return _results;
+        };
+
+        FolderBl.prototype.getUnreadCount = function(folderId) {
+          return this._feedBl.getFolderUnreadCount(folderId);
+        };
+
+        FolderBl.prototype.isVisible = function(folderId) {
+          var feed, _i, _len, _ref;
+          if (this._showAll.getShowAll()) {
+            return true;
+          } else {
+            if (this.isActive(folderId) || this._feedBl.getFolderUnreadCount(folderId) > 0) {
+              return true;
+            }
+            if (this._activeFeed.getType() === this._feedType.Feed) {
+              _ref = this._feedBl.getFeedsOfFolder(folderId);
+              for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                feed = _ref[_i];
+                if (feed.id === this._activeFeed.getId()) {
+                  return true;
+                }
+              }
+            }
+            return false;
+          }
+        };
+
+        return FolderBl;
+
+      })(_Bl);
+      return new FolderBl(FolderModel, FeedBl, ShowAll, ActiveFeed, Persistence, FeedType, ItemModel);
+    }
+  ]);
 
 }).call(this);
 
@@ -727,7 +842,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 (function() {
 
-  angular.module('News').factory('_ItemBl', function() {
+  angular.module('News').factory('ItemBl', function() {
     var ItemBl;
     ItemBl = (function() {
 
@@ -736,24 +851,143 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         this._persistence = _persistence;
       }
 
-      ItemBl.prototype.markAllRead = function(feedId) {
-        var highestItemId, item, _i, _len, _ref, _results;
-        highestItemId = this._itemModel.getHighestId();
-        this._persistence.setFeedRead(feedId, highestItemId);
-        _ref = this._itemModel.getAll();
-        _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          item = _ref[_i];
-          _results.push(item.setRead());
-        }
-        return _results;
-      };
-
       return ItemBl;
 
     })();
-    return ItemBl;
+    return new ItemBl();
   });
+
+}).call(this);
+
+// Generated by CoffeeScript 1.4.0
+
+/*
+
+ownCloud - News
+
+@author Bernhard Posselt
+@copyright 2012 Bernhard Posselt nukeawhale@gmail.com
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+License as published by the Free Software Foundation; either
+version 3 of the License, or any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+You should have received a copy of the GNU Affero General Public
+License along with this library.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+(function() {
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  angular.module('News').factory('StarredBl', [
+    '_Bl', 'StarredCount', 'Persistence', 'ActiveFeed', 'FeedType', 'ItemModel', function(_Bl, StarredCount, Persistence, ActiveFeed, FeedType, ItemModel) {
+      var StarredBl;
+      StarredBl = (function(_super) {
+
+        __extends(StarredBl, _super);
+
+        function StarredBl(_starredCount, feedType, persistence, activeFeed, itemModel) {
+          this._starredCount = _starredCount;
+          StarredBl.__super__.constructor.call(this, activeFeed, persistence, itemModel, feedType.Starred);
+        }
+
+        StarredBl.prototype.isVisible = function() {
+          if (this.isActive(0)) {
+            return true;
+          } else {
+            return this._starredCount.getStarredCount() > 0;
+          }
+        };
+
+        StarredBl.prototype.getUnreadCount = function() {
+          return this._starredCount.getStarredCount();
+        };
+
+        return StarredBl;
+
+      })(_Bl);
+      return new StarredBl(StarredCount, FeedType, Persistence, ActiveFeed, ItemModel);
+    }
+  ]);
+
+}).call(this);
+
+// Generated by CoffeeScript 1.4.0
+
+/*
+
+ownCloud - News
+
+@author Bernhard Posselt
+@copyright 2012 Bernhard Posselt nukeawhale@gmail.com
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+License as published by the Free Software Foundation; either
+version 3 of the License, or any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+You should have received a copy of the GNU Affero General Public
+License along with this library.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+(function() {
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  angular.module('News').factory('SubscriptionsBl', [
+    '_Bl', 'FeedBl', 'Persistence', 'ShowAll', 'ActiveFeed', 'FeedType', 'ItemModel', function(_Bl, FeedBl, Persistence, ShowAll, ActiveFeed, FeedType, ItemModel) {
+      var SubscriptionsBl;
+      SubscriptionsBl = (function(_super) {
+
+        __extends(SubscriptionsBl, _super);
+
+        function SubscriptionsBl(_feedBl, _showAll, feedType, persistence, activeFeed, itemModel) {
+          this._feedBl = _feedBl;
+          this._showAll = _showAll;
+          SubscriptionsBl.__super__.constructor.call(this, activeFeed, persistence, itemModel, feedType.Subscriptions);
+        }
+
+        SubscriptionsBl.prototype.isVisible = function() {
+          var visible;
+          if (this.isActive(0)) {
+            return true;
+          }
+          if (this._showAll.getShowAll()) {
+            return this._feedBl.getNumberOfFeeds() > 0;
+          } else {
+            visible = this._feedBl.getNumberOfFeeds() > 0 && this._feedBl.getAllUnreadCount() > 0;
+            return visible;
+          }
+        };
+
+        SubscriptionsBl.prototype.markAllRead = function() {
+          return this._feedBl.markAllRead();
+        };
+
+        SubscriptionsBl.prototype.getUnreadCount = function() {
+          return this._feedBl.getAllUnreadCount();
+        };
+
+        return SubscriptionsBl;
+
+      })(_Bl);
+      return new SubscriptionsBl(FeedBl, ShowAll, FeedType, Persistence, ActiveFeed, ItemModel);
+    }
+  ]);
 
 }).call(this);
 
@@ -1716,24 +1950,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
   angular.module('News').factory('NewLoading', [
     '_Loading', function(_Loading) {
       return new _Loading();
-    }
-  ]);
-
-  angular.module('News').factory('ItemBl', [
-    '_ItemBl', 'ItemModel', 'Persistence', function(_ItemBl, ItemModel, Persistence) {
-      return new _ItemBl(ItemModel, Persistence);
-    }
-  ]);
-
-  angular.module('News').factory('FeedBl', [
-    '_FeedBl', 'FeedModel', 'ItemBl', 'Persistence', function(_FeedBl, FeedModel, ItemBl, Persistence) {
-      return new _FeedBl(FeedModel, ItemBl, Persistence);
-    }
-  ]);
-
-  angular.module('News').factory('FolderBl', [
-    '_FolderBl', 'FolderModel', 'FeedBl', 'Persistence', function(_FolderBl, FolderModel, FeedBl, Persistence) {
-      return new _FolderBl(FolderModel, FeedBl, Persistence);
     }
   ]);
 

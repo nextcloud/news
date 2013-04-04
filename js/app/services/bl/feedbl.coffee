@@ -21,14 +21,19 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-angular.module('News').factory '_FeedBl', ->
+angular.module('News').factory 'FeedBl',
+['_Bl', 'ShowAll', 'Persistence', 'ActiveFeed', 'FeedType', 'ItemModel',
+'FeedModel',
+(_Bl, ShowAll, Persistence, ActiveFeed, FeedType, ItemModel, FeedModel) ->
 
-	class FeedBl
+	class FeedBl extends _Bl
 
-		constructor: (@_feedModel, @_itemBl, @_persistence) ->
+		constructor: (@_showAll, @_feedModel, persistence, activeFeed, feedType,
+			          itemModel) ->
+			super(activeFeed, persistence, itemModel, feedType.Feed)
 
 
-		getFeedUnreadCount: (feedId) ->
+		getUnreadCount: (feedId) ->
 			@_feedModel.getFeedUnreadCount(feedId)
 
 
@@ -40,7 +45,7 @@ angular.module('News').factory '_FeedBl', ->
 			@_feedModel.getFolderUnreadCount(folderId)
 
 
-		getUnreadCount: ->
+		getAllUnreadCount: ->
 			return @_feedModel.getUnreadCount()
 
 
@@ -53,7 +58,10 @@ angular.module('News').factory '_FeedBl', ->
 			feed = @_feedModel.getById(feedId)
 			if angular.isDefined(feed)
 				feed.unreadCount = 0
-				@_itemBl.markAllRead(feedId)
+				highestItemId = @_itemModel.getHighestId()
+				@_persistence.setFeedRead(feedId, highestItemId)
+				for item in @_itemModel.getAll()
+					item.setRead()
 
 
 		markAllRead: ->
@@ -61,5 +69,13 @@ angular.module('News').factory '_FeedBl', ->
 				@markFeedRead(feed.id)
 
 
+		getNumberOfFeeds: ->
+			return @_feedModel.size()
 
-	return FeedBl
+		
+		# todo isvisible, move
+
+	return new FeedBl(ShowAll, FeedModel, Persistence, ActiveFeed, FeedType,
+	                  ItemModel)
+
+]

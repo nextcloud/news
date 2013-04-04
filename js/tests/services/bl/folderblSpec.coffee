@@ -29,7 +29,10 @@ describe 'FolderBl', ->
 		angular.module('News').factory 'Persistence', =>
 			@persistence = {}
 
-	beforeEach inject (@FolderBl, @FolderModel,	@FeedModel) =>
+	beforeEach inject (@FolderBl, @FolderModel,	@FeedModel, @ShowAll,
+		               @ActiveFeed, @FeedType) =>
+		@ShowAll.setShowAll(false)
+		@ActiveFeed.handle({type: @FeedType.Feed, id:0})
 
 
 	it 'should delete folders', =>
@@ -77,3 +80,41 @@ describe 'FolderBl', ->
 		expect(@FeedModel.getById(3).unreadCount).toBe(0)
 		expect(@FeedModel.getById(1).unreadCount).toBe(0)
 		expect(@FeedModel.getById(5).unreadCount).toBe(2)
+
+
+	it 'should get the correct unread count', =>
+		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, urlHash: 'a1'})
+		@FeedModel.add({id: 6, unreadCount:3, folderId: 3, urlHash: 'a2'})
+		@FeedModel.add({id: 7, unreadCount:4, folderId: 2, urlHash: 'a3'})
+
+		expect(@FolderBl.getUnreadCount(2)).toBe(6)
+
+
+	it 'should be visible if show all is true', =>
+		expect(@FolderBl.isVisible(3)).toBe(false)
+
+		@ShowAll.setShowAll(true)
+		expect(@FolderBl.isVisible(3)).toBe(true)
+
+
+	it 'should be visible if its active', =>
+		@ActiveFeed.handle({type: @FeedType.Folder, id:3})
+		expect(@FolderBl.isVisible(3)).toBe(true)
+
+
+	it 'should be visible if one of its subfeeds is active', =>
+		@FeedModel.add({id: 5, unreadCount:0, folderId: 2, urlHash: 'a1'})
+		@FeedModel.add({id: 6, unreadCount:0, folderId: 3, urlHash: 'a2'})
+		@FeedModel.add({id: 7, unreadCount:0, folderId: 2, urlHash: 'a3'})
+
+		@ActiveFeed.handle({type: @FeedType.Feed, id:6})
+		expect(@FolderBl.isVisible(3)).toBe(true)
+
+
+	it 'should be visible if showAll is false and it has unread items', =>
+		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, urlHash: 'a1'})
+		@FeedModel.add({id: 6, unreadCount:3, folderId: 3, urlHash: 'a2'})
+		@FeedModel.add({id: 7, unreadCount:4, folderId: 2, urlHash: 'a3'})
+
+		@ActiveFeed.handle({type: @FeedType.Folder, id:2})
+		expect(@FolderBl.isVisible(3)).toBe(true)

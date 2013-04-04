@@ -21,16 +21,25 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-describe 'ItemBl', ->
+angular.module('News').factory '_Bl', ->
+
+	class Bl
+
+		constructor: (@_activeFeed, @_persistence, @_itemModel, @_type) ->
 
 
-	beforeEach module 'News'
+		load: (id) ->
+			if @_type != @_activeFeed.getType() or id != @_activeFeed.getId()
+				@_itemModel.clear()
+				@_persistence.getItems(@_type, id, 0)
+				@_activeFeed.handle({id: id, type: @_type})
+			else
+				lastModified = @_itemModel.getHighestId()
+				@_persistence.getItems(@_type, id, 0, null, lastModified)
 
-	beforeEach =>
-		angular.module('News').factory 'Persistence', =>
-			@setFeedReadSpy = jasmine.createSpy('setFeedRead')
-			@persistence = {
-				
-			}
 
-	beforeEach inject (@ItemModel, @ItemBl, @StatusFlag) =>
+		isActive: (id) ->
+			return @_activeFeed.getType() == @_type && @_activeFeed.getId() == id
+
+
+	return Bl
