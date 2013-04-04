@@ -27,8 +27,7 @@ describe 'FolderBl', ->
 
 	beforeEach =>
 		angular.module('News').factory 'Persistence', =>
-			@persistence =
-				getItems: ->
+			@persistence = {}
 
 	beforeEach inject (@FolderBl, @FolderModel,	@FeedModel) =>
 

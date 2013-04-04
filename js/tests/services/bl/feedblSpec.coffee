@@ -27,8 +27,7 @@ describe 'FeedBl', ->
 
 	beforeEach =>
 		angular.module('News').factory 'Persistence', =>
-			@persistence =
-				getItems: ->
+			@persistence = {}
 
 	beforeEach inject (@FeedBl, @FeedModel, @ItemModel) =>
 

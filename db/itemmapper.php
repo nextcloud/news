@@ -60,7 +60,7 @@ class ItemMapper extends Mapper implements IMapper {
 
 	private function makeSelectQueryStatus($prependTo) {
 		return $this->makeSelectQuery(
-			'AND ((`items`.`status` & ?) > 0) ' .
+			'AND ((`items`.`status` & ?) = ?) ' .
 			$prependTo
 		);
 	}
@@ -82,9 +82,9 @@ class ItemMapper extends Mapper implements IMapper {
 			'JOIN `*PREFIX*news_items` `items` ' .
 				'ON `items`.`feed_id` = `feeds`.`id` ' .
 				'AND `feeds`.`user_id` = ? ' .
-			'WHERE ((`items`.`status` & ?) > 0)';
+			'WHERE ((`items`.`status` & ?) = ?)';
 
-		$params = array($userId, StatusFlag::STARRED);
+		$params = array($userId, StatusFlag::STARRED, StatusFlag::STARRED);
 
 		$result = $this->execute($sql, $params)->fetchRow();
 
@@ -110,7 +110,7 @@ class ItemMapper extends Mapper implements IMapper {
 		$sql = 'AND `items`.`feed_id` = ? ' .
 				'AND `items`.`id` >= ?';
 		$sql = $this->makeSelectQueryStatus($sql);
-		$params = array($userId, $status, $id, $updatedSince);
+		$params = array($userId, $status, $status, $id, $updatedSince);
 		return $this->findAllRows($sql, $params);
 	}
 
@@ -119,20 +119,20 @@ class ItemMapper extends Mapper implements IMapper {
 		$sql = 'AND `feeds`.`folder_id` = ? ' .
 				'AND `items`.`id` >= ?';
 		$sql = $this->makeSelectQueryStatus($sql);
-		$params = array($userId, $status, $id, $updatedSince);
+		$params = array($userId, $status, $status, $id, $updatedSince);
 		return $this->findAllRows($sql, $params);
 	}
 
 
 	public function findAllNew($updatedSince, $status, $userId){
 		$sql = $this->makeSelectQueryStatus('AND `items`.`id` >= ?');
-		$params = array($userId, $status, $updatedSince);
+		$params = array($userId, $status, $status, $updatedSince);
 		return $this->findAllRows($sql, $params);
 	}
 
 
 	public function findAllFeed($id, $limit, $offset, $status, $userId){
-		$params = array($userId, $status, $id);
+		$params = array($userId, $status, $status, $id);
 		$sql = 'AND `items`.`feed_id` = ? ';
 		if($offset !== 0){
 			$sql .= 'AND `items`.`id` > ? ';
@@ -145,7 +145,7 @@ class ItemMapper extends Mapper implements IMapper {
 
 
 	public function findAllFolder($id, $limit, $offset, $status, $userId){
-		$params = array($userId, $status, $id);
+		$params = array($userId, $status, $status, $id);
 		$sql = 'AND `feeds`.`folder_id` = ? ';
 		if($offset !== 0){
 			$sql .= 'AND `items`.`id` > ? ';
@@ -158,7 +158,7 @@ class ItemMapper extends Mapper implements IMapper {
 
 
 	public function findAll($limit, $offset, $status, $userId){
-		$params = array($userId, $status);
+		$params = array($userId, $status, $status);
 		$sql = '';
 		if($offset !== 0){
 			$sql .= 'AND `items`.`id` > ? ';

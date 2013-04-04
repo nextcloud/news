@@ -28,8 +28,7 @@ describe 'ItemBl', ->
 
 	beforeEach =>
 		angular.module('News').factory 'Persistence', =>
-			@persistence =
-				getItems: ->
+			@persistence = {}
 
 	beforeEach inject (@ItemModel, @ItemBl, @StatusFlag) =>
 

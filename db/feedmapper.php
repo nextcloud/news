@@ -43,11 +43,11 @@ class FeedMapper extends Mapper implements IMapper {
 			'FROM `*PREFIX*news_feeds` `feeds` ' .
 			'LEFT JOIN `*PREFIX*news_items` `items` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` ' . 
-				'AND (`items`.`status` & ?) > 0 ' .
+				'AND (`items`.`status` & ?) = ? ' .
 			'WHERE `feeds`.`id` = ? ' .
 				'AND `feeds`.`user_id` = ? ' .
 			'GROUP BY `feeds`.`id`';
-		$params = array(StatusFlag::UNREAD, $id, $userId);
+		$params = array(StatusFlag::UNREAD, StatusFlag::UNREAD, $id, $userId);
 
 		$row = $this->findOneQuery($sql, $params);
 		$feed = new Feed();
@@ -76,10 +76,10 @@ class FeedMapper extends Mapper implements IMapper {
 			'FROM `*PREFIX*news_feeds` `feeds` ' .
 			'LEFT JOIN `*PREFIX*news_items` `items` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` ' . 
-				'AND (`items`.`status` & ?) > 0 ' .
+				'AND (`items`.`status` & ?) = ? ' .
 			'WHERE `feeds`.`user_id` = ? ' .
 			'GROUP BY `feeds`.`id`';
-		$params = array(StatusFlag::UNREAD, $userId);
+		$params = array(StatusFlag::UNREAD, StatusFlag::UNREAD, $userId);
 
 		return $this->findAllRows($sql, $params);
 	}
@@ -97,11 +97,11 @@ class FeedMapper extends Mapper implements IMapper {
 			'FROM `*PREFIX*news_feeds` `feeds` ' .
 			'LEFT JOIN `*PREFIX*news_items` `items` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` ' . 
-				'AND (`items`.`status` & ?) > 0 ' .
+				'AND (`items`.`status` & ?) = ? ' .
 			'WHERE `feeds`.`url_hash` = ? ' .
 				'AND `feeds`.`user_id` = ? ' .
 			'GROUP BY `feeds`.`id`';
-		$params = array(StatusFlag::UNREAD, $hash, $userId);
+		$params = array(StatusFlag::UNREAD, StatusFlag::UNREAD, $hash, $userId);
 
 		$row = $this->findOneQuery($sql, $params);
 		$feed = new Feed();

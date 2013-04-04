@@ -60,11 +60,11 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			'FROM `*PREFIX*news_feeds` `feeds` ' .
 			'LEFT JOIN `*PREFIX*news_items` `items` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` ' . 
-				'AND (`items`.`status` & ?) > 0 ' .
+				'AND (`items`.`status` & ?) = ? ' .
 			'WHERE `feeds`.`id` = ? ' .
 				'AND `feeds`.`user_id` = ? ' .
 			'GROUP BY `feeds`.`id`';
-		$params = array(StatusFlag::UNREAD, $id, $userId);
+		$params = array(StatusFlag::UNREAD, StatusFlag::UNREAD, $id, $userId);
 		$this->setMapperResult($sql, $params, $rows);
 		
 		$result = $this->mapper->find($id, $userId);
@@ -80,11 +80,11 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			'FROM `*PREFIX*news_feeds` `feeds` ' .
 			'LEFT JOIN `*PREFIX*news_items` `items` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` ' . 
-				'AND (`items`.`status` & ?) > 0 ' .
+				'AND (`items`.`status` & ?) = ? ' .
 			'WHERE `feeds`.`id` = ? ' .
 				'AND `feeds`.`user_id` = ? ' .
 			'GROUP BY `feeds`.`id`';
-		$params = array(StatusFlag::UNREAD, $id, $userId);
+		$params = array(StatusFlag::UNREAD, StatusFlag::UNREAD, $id, $userId);
 		$this->setMapperResult($sql, $params);
 		
 		$this->setExpectedException('\OCA\AppFramework\Db\DoesNotExistException');
@@ -103,11 +103,11 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			'FROM `*PREFIX*news_feeds` `feeds` ' .
 			'LEFT JOIN `*PREFIX*news_items` `items` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` ' . 
-				'AND (`items`.`status` & ?) > 0 ' .
+				'AND (`items`.`status` & ?) = ? ' .
 			'WHERE `feeds`.`id` = ? ' .
 				'AND `feeds`.`user_id` = ? ' .
 			'GROUP BY `feeds`.`id`';
-		$params = array(StatusFlag::UNREAD, $id, $userId);
+		$params = array(StatusFlag::UNREAD, StatusFlag::UNREAD, $id, $userId);
 		$this->setMapperResult($sql, $params, $rows);
 				
 		$this->setExpectedException('\OCA\AppFramework\Db\MultipleObjectsReturnedException');
@@ -140,11 +140,12 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			'FROM `*PREFIX*news_feeds` `feeds` ' .
 			'LEFT JOIN `*PREFIX*news_items` `items` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` ' . 
-				'AND (`items`.`status` & ?) > 0 ' .
+				'AND (`items`.`status` & ?) = ? ' .
 			'WHERE `feeds`.`user_id` = ? ' .
 			'GROUP BY `feeds`.`id`';
 		
-		$this->setMapperResult($sql, array(StatusFlag::UNREAD, $userId), $rows);
+		$this->setMapperResult($sql, 
+			array(StatusFlag::UNREAD, StatusFlag::UNREAD, $userId), $rows);
 		
 		$result = $this->mapper->findAllFromUser($userId);
 		$this->assertEquals($this->feeds, $result);
@@ -160,11 +161,12 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			'FROM `*PREFIX*news_feeds` `feeds` ' .
 			'LEFT JOIN `*PREFIX*news_items` `items` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` ' . 
-				'AND (`items`.`status` & ?) > 0 ' .
+				'AND (`items`.`status` & ?) = ? ' .
 			'WHERE `feeds`.`url_hash` = ? ' .
 				'AND `feeds`.`user_id` = ? ' .
 			'GROUP BY `feeds`.`id`';
-		$this->setMapperResult($sql, array(StatusFlag::UNREAD, $urlHash, $this->user), $row);
+		$this->setMapperResult($sql, 
+			array(StatusFlag::UNREAD, StatusFlag::UNREAD, $urlHash, $this->user), $row);
 		
 		$result = $this->mapper->findByUrlHash($urlHash, $this->user);
 		$this->assertEquals($this->feeds[0], $result);
@@ -177,11 +179,12 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			'FROM `*PREFIX*news_feeds` `feeds` ' .
 			'LEFT JOIN `*PREFIX*news_items` `items` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` ' . 
-				'AND (`items`.`status` & ?) > 0 ' .
+				'AND (`items`.`status` & ?) = ? ' .
 			'WHERE `feeds`.`url_hash` = ? ' .
 				'AND `feeds`.`user_id` = ? ' .
 			'GROUP BY `feeds`.`id`';
-		$this->setMapperResult($sql, array(StatusFlag::UNREAD, $urlHash, $this->user));
+		$this->setMapperResult($sql, 
+			array(StatusFlag::UNREAD, StatusFlag::UNREAD, $urlHash, $this->user));
 			
 		$this->setExpectedException('\OCA\AppFramework\Db\DoesNotExistException');
 		$result = $this->mapper->findByUrlHash($urlHash, $this->user);	
@@ -198,11 +201,12 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			'FROM `*PREFIX*news_feeds` `feeds` ' .
 			'LEFT JOIN `*PREFIX*news_items` `items` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` ' . 
-				'AND (`items`.`status` & ?) > 0 ' .
+				'AND (`items`.`status` & ?) = ? ' .
 			'WHERE `feeds`.`url_hash` = ? ' .
 				'AND `feeds`.`user_id` = ? ' .
 			'GROUP BY `feeds`.`id`';
-		$this->setMapperResult($sql, array(StatusFlag::UNREAD, $urlHash, $this->user), $rows);
+		$this->setMapperResult($sql, 
+			array(StatusFlag::UNREAD, StatusFlag::UNREAD, $urlHash, $this->user), $rows);
 		
 		$this->setExpectedException('\OCA\AppFramework\Db\MultipleObjectsReturnedException');
 		$result = $this->mapper->findByUrlHash($urlHash, $this->user);	
