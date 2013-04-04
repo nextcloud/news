@@ -81,6 +81,6 @@ class FolderBl extends Bl {
 		$this->mapper->update($folder);
 	}
 
-	// TODO: delete associated items
+
 
 }

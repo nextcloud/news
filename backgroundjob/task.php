@@ -35,6 +35,7 @@ class Task {
 	static public function run() {
 		$container = new DIContainer();
 		$container['FeedBl']->updateAll();
+		$container['FeedBl']->autoPurgeOld();
 	}
 
 

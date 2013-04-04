@@ -61,6 +61,11 @@ class DIContainer extends BaseContainer {
 		// tell parent container about the app name
 		parent::__construct('news');
 
+		/**
+		 * Configuration values
+		 */
+		$this['autoPurgeCount'] = 1000;
+
 
 		/** 
 		 * CONTROLLERS
@@ -101,8 +106,9 @@ class DIContainer extends BaseContainer {
 		});
 
 		$this['FeedBl'] = $this->share(function($c){
-			return new FeedBl($c['FeedMapper'], $c['Fetcher'], 
-								$c['ItemMapper'], $c['API']);
+			return new FeedBl($c['FeedMapper'], $c['Fetcher'],
+								$c['ItemMapper'], $c['API'], 
+								$c['autoPurgeCount']);
 		});
 
 		$this['ItemBl'] = $this->share(function($c){

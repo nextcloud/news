@@ -57,8 +57,8 @@ class FeedMapper extends Mapper implements IMapper {
 	}
 
 
-	private function findAllRows($sql, $params=array()){
-		$result = $this->execute($sql, $params);
+	private function findAllRows($sql, $params=array(), $limit=null){
+		$result = $this->execute($sql, $params, $limit);
 		
 		$feeds = array();
 		while($row = $result->fetchRow()){
@@ -120,5 +120,25 @@ class FeedMapper extends Mapper implements IMapper {
 		$params = array($entity->getId());
 		$this->execute($sql, $params);
 	}
+
+
+	public function getReadOlderThanThreshold($threshold){
+
+		// we want items that are not starred and not unread
+		$status = StatusFlag::STARRED | StatusFlag::UNREAD;
+		$sql = 'SELECT * FROM `*PREFIX*news_items` ' .
+			'WHERE NOT ((`status` & ?) > 0)';
+
+		$params = array($status);
+		return $this->findAllRows($sql, $params, $threshold);
+	}
+
+
+	public function deleteReadOlderThanId($id){
+		$sql = 'DELETE FROM `*PREFIX*news_items` WHERE `id` < ?';
+		$params = array($id);
+		$this->execute($sql, $params);
+	}
+
 
 }

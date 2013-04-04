@@ -42,7 +42,7 @@ module.exports = (grunt) ->
 				'<%= meta.pkg.author.name %> <<%= meta.pkg.author.email %>>\n' +
 				' *\n' +
 				' * This file is licensed under the Affero General Public License version 3 or later.\n' +
-				' * See the COPYING-README file\n' +
+				' * See the COPYING file\n' +
 				' *\n' + 
 				' */\n\n'
 			build: 'build/'
