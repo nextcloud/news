@@ -29,14 +29,12 @@ angular.module('News').controller 'SettingsController',
 
 
 angular.module('News').controller 'FeedController',
-['$scope', '_FeedController', 'FolderModel', 'FeedModel', 'ActiveFeed',
-'ShowAll', 'FeedType', 'StarredCount', 'Persistence', 'FolderBl', 'FeedBl',
-($scope, _FeedController, FolderModel, FeedModel, ActiveFeed,
-ShowAll, FeedType, StarredCount, Persistence, FolderBl, FeedBl)->
+['$scope', '_FeedController', 'Persistence', 'FolderBl', 'FeedBl',
+'unreadCountFormatter',
+($scope, _FeedController, Persistence, FolderBl, FeedBl, unreadCountFormatter)->
 
-	return new _FeedController($scope, FolderModel, FeedModel, ActiveFeed,
-		                       ShowAll, FeedType, StarredCount, Persistence,
-		                       FolderBl, FeedBl)
+	return new _FeedController($scope, Persistence, FolderBl, FeedBl,
+	                           unreadCountFormatter)
 ]
 
 angular.module('News').controller 'ItemController',

@@ -61,7 +61,7 @@ ItemModel, ShowAll)->
 
 		getUnreadCount: (folderId) ->
 			return @_feedBl.getFolderUnreadCount(folderId)
-
+			
 
 		isVisible: (folderId) ->
 			if @_showAll.getShowAll()
@@ -75,6 +75,10 @@ ItemModel, ShowAll)->
 						if feed.id == @_activeFeed.getId()
 							return true
 				return false
+
+
+		getAll: ->
+			return @_folderModel.getAll()
 
 
 	return new FolderBl(FolderModel, FeedBl, ShowAll, ActiveFeed, Persistence,

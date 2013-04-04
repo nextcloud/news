@@ -153,3 +153,29 @@ describe 'FeedBl', ->
 		@FeedBl.move(2, 3)
 
 		expect(@persistence.moveFeed).not.toHaveBeenCalled()
+
+
+	it 'should set the show all setting', =>
+		@persistence.userSettingsReadShow = jasmine.createSpy('Show All')
+		@FeedBl.setShowAll(true)
+
+		expect(@persistence.userSettingsReadShow).toHaveBeenCalled()
+
+
+
+	it 'should set the hide read setting', =>
+		@persistence.userSettingsReadHide = jasmine.createSpy('Hide Read')
+		@FeedBl.setShowAll(false)
+
+		expect(@persistence.userSettingsReadHide).toHaveBeenCalled()
+
+
+	it 'should return all feeds', =>
+		item1 = {id: 2, unreadCount:134, urlHash: 'a1', folderId: 3}
+		item2 = {id: 4, unreadCount:134, urlHash: 'a2', folderId: 3}
+		@FeedModel.add(item1)
+		@FeedModel.add(item2)
+
+		expect(@FeedBl.getAll()).toContain(item1)
+		expect(@FeedBl.getAll()).toContain(item2)
+

@@ -118,3 +118,15 @@ describe 'FolderBl', ->
 
 		@ActiveFeed.handle({type: @FeedType.Folder, id:2})
 		expect(@FolderBl.isVisible(3)).toBe(true)
+
+
+	it 'should return all folders', =>
+		item1 = {id: 3, open: false}
+		item2 = {id: 4, open: true}
+		@FolderModel.add(item1)
+		@FolderModel.add(item2)
+
+		expect(@FolderBl.getAll()).toContain(item1)
+		expect(@FolderBl.getAll()).toContain(item2)
+
+

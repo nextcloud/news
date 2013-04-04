@@ -90,6 +90,18 @@ angular.module('News').factory 'FeedBl',
 				@_persistence.moveFeed(feedId, folderId)
 
 
+		setShowAll: (showAll) ->
+			@_showAll.setShowAll(showAll)
+			if showAll
+				@_persistence.userSettingsReadShow()
+			else
+				@_persistence.userSettingsReadHide()
+
+
+		getAll: ->
+			return @_feedModel.getAll()
+
+
 	return new FeedBl(ShowAll, FeedModel, Persistence, ActiveFeed, FeedType,
 	                  ItemModel)
 

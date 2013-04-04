@@ -171,8 +171,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
   ]);
 
   angular.module('News').controller('FeedController', [
-    '$scope', '_FeedController', 'FolderModel', 'FeedModel', 'ActiveFeed', 'ShowAll', 'FeedType', 'StarredCount', 'Persistence', 'FolderBl', 'FeedBl', function($scope, _FeedController, FolderModel, FeedModel, ActiveFeed, ShowAll, FeedType, StarredCount, Persistence, FolderBl, FeedBl) {
-      return new _FeedController($scope, FolderModel, FeedModel, ActiveFeed, ShowAll, FeedType, StarredCount, Persistence, FolderBl, FeedBl);
+    '$scope', '_FeedController', 'Persistence', 'FolderBl', 'FeedBl', 'unreadCountFormatter', function($scope, _FeedController, Persistence, FolderBl, FeedBl, unreadCountFormatter) {
+      return new _FeedController($scope, Persistence, FolderBl, FeedBl, unreadCountFormatter);
     }
   ]);
 
@@ -214,69 +214,23 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     var FeedController;
     FeedController = (function() {
 
-      function FeedController($scope, _folderModel, _feedModel, _active, _showAll, _feedType, _starredCount, _persistence, _folderBl, _feedBl) {
+      function FeedController($scope, _persistence, _folderBl, _feedBl, _unreadCountFormatter) {
         var _this = this;
         this.$scope = $scope;
-        this._folderModel = _folderModel;
-        this._feedModel = _feedModel;
-        this._active = _active;
-        this._showAll = _showAll;
-        this._feedType = _feedType;
-        this._starredCount = _starredCount;
         this._persistence = _persistence;
         this._folderBl = _folderBl;
         this._feedBl = _feedBl;
+        this._unreadCountFormatter = _unreadCountFormatter;
         this._isAddingFolder = false;
         this._isAddingFeed = false;
-        this.$scope.feeds = this._feedModel.getAll();
-        this.$scope.folders = this._folderModel.getAll();
-        this.$scope.feedType = this._feedType;
         this.$scope.folderBl = this._folderBl;
         this.$scope.feedBl = this._feedBl;
-        this.$scope.isShown = function(type, id) {
-          return true;
-        };
-        this.$scope.getUnreadCount = function() {
-          return _this._transFormCount(_this._feedBl.getUnreadCount());
-        };
-        this.$scope.getStarredCount = function() {
-          return _this._transFormCount(_this._starredCount.getStarredCount());
-        };
-        this.$scope.getFeedUnreadCount = function(feedId) {
-          return _this._transFormCount(_this._feedBl.getFeedUnreadCount(feedId));
-        };
-        this.$scope.getUnreadCount = function(folderId) {
-          return _this._transFormCount(_this._feedBl.getFolderUnreadCount(folderId));
-        };
-        this.$scope.isShowAll = function() {
-          return _this.isShowAll();
-        };
-        this.$scope.loadFeed = function(type, id) {
-          return _this.loadFeed(type, id);
-        };
-        this.$scope.hasFeeds = function(folderId) {
-          return _this.hasFeeds(folderId);
-        };
-        this.$scope["delete"] = function(type, id) {
-          return _this["delete"](type, id);
-        };
-        this.$scope.markAllRead = function(type, id) {
-          return _this.markAllRead(type, id);
-        };
-        this.$scope.getFeedsOfFolder = function(folderId) {
-          return _this.getFeedsOfFolder(folderId);
-        };
-        this.$scope.setShowAll = function(showAll) {
-          return _this.setShowAll(showAll);
-        };
+        this.$scope.unreadCountFormatter = this._unreadCountFormatter;
         this.$scope.isAddingFolder = function() {
           return _this._isAddingFolder;
         };
         this.$scope.isAddingFeed = function() {
           return _this._isAddingFeed;
-        };
-        this.$scope.toggleFolder = function(folderId) {
-          return _this.toggleFolder(folderId);
         };
         this.$scope.addFeed = function(feedUrl, parentFolderId) {
           var onError, onSuccess;
@@ -326,45 +280,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           }
         };
       }
-
-      FeedController.prototype.isFeedActive = function(type, id) {
-        return type === this._active.getType() && id === this._active.getId();
-      };
-
-      FeedController.prototype.isShowAll = function() {
-        return this._showAll.getShowAll();
-      };
-
-      FeedController.prototype._transFormCount = function(count) {
-        if (count > 999) {
-          count = '999+';
-        }
-        return count;
-      };
-
-      FeedController.prototype.loadFeed = function(type, id) {
-        var lastModified;
-        if (type !== this._active.getType() || id !== this._active.getId()) {
-          this._itemModel.clear();
-          this._persistence.getItems(type, id, 0);
-          return this._active.handle({
-            id: id,
-            type: type
-          });
-        } else {
-          lastModified = this._itemModel.getHighestId();
-          return this._persistence.getItems(type, id, 0, null, lastModified);
-        }
-      };
-
-      FeedController.prototype.setShowAll = function(showAll) {
-        this._showAll.setShowAll(showAll);
-        if (showAll) {
-          return this._persistence.userSettingsReadShow();
-        } else {
-          return this._persistence.userSettingsReadHide();
-        }
-      };
 
       return FeedController;
 
@@ -718,6 +633,19 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           }
         };
 
+        FeedBl.prototype.setShowAll = function(showAll) {
+          this._showAll.setShowAll(showAll);
+          if (showAll) {
+            return this._persistence.userSettingsReadShow();
+          } else {
+            return this._persistence.userSettingsReadHide();
+          }
+        };
+
+        FeedBl.prototype.getAll = function() {
+          return this._feedModel.getAll();
+        };
+
         return FeedBl;
 
       })(_Bl);
@@ -826,6 +754,10 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             }
             return false;
           }
+        };
+
+        FolderBl.prototype.getAll = function() {
+          return this._folderModel.getAll();
         };
 
         return FolderBl;
@@ -2172,6 +2104,43 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
       STARRED: 0x04,
       DELETED: 0x08,
       UPDATED: 0x16
+    };
+  });
+
+}).call(this);
+
+// Generated by CoffeeScript 1.4.0
+
+/*
+
+ownCloud - News
+
+@author Bernhard Posselt
+@copyright 2012 Bernhard Posselt nukeawhale@gmail.com
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+License as published by the Free Software Foundation; either
+version 3 of the License, or any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+You should have received a copy of the GNU Affero General Public
+License along with this library.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+(function() {
+
+  angular.module('News').factory('unreadCountFormatter', function() {
+    return function(unreadCount) {
+      if (unreadCount > 999) {
+        unreadCount = '999+';
+      }
+      return unreadCount;
     };
   });
 

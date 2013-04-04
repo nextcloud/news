@@ -25,65 +25,23 @@ angular.module('News').factory '_FeedController', ->
 
 	class FeedController
 
-		constructor: (@$scope, @_folderModel, @_feedModel, @_active,
-					@_showAll, @_feedType, @_starredCount, @_persistence,
-					@_folderBl, @_feedBl) ->
+		constructor: (@$scope, @_persistence, @_folderBl, @_feedBl,
+		              @_unreadCountFormatter) ->
 
 			@_isAddingFolder = false
 			@_isAddingFeed = false
 
 			# bind internal stuff to scope
-			@$scope.feeds = @_feedModel.getAll()
-			@$scope.folders = @_folderModel.getAll()
-			@$scope.feedType = @_feedType
 			@$scope.folderBl = @_folderBl
 			@$scope.feedBl = @_feedBl
+			@$scope.unreadCountFormatter = @_unreadCountFormatter
 
 			
-			@$scope.isShown = (type, id) =>
-				return true
-
-			@$scope.getUnreadCount = =>
-				return @_transFormCount(@_feedBl.getUnreadCount())
-
-			@$scope.getStarredCount = =>
-				return @_transFormCount(@_starredCount.getStarredCount())
-
-			@$scope.getFeedUnreadCount = (feedId) =>
-				return @_transFormCount(@_feedBl.getFeedUnreadCount(feedId))
-
-			@$scope.getUnreadCount = (folderId) =>
-				return @_transFormCount(@_feedBl.getFolderUnreadCount(folderId))
-
-			@$scope.isShowAll = =>
-				return @isShowAll()
-
-			@$scope.loadFeed = (type, id) =>
-				@loadFeed(type, id)
-
-			@$scope.hasFeeds = (folderId) =>
-				return @hasFeeds(folderId)
-
-			@$scope.delete = (type, id) =>
-				@delete(type, id)
-
-			@$scope.markAllRead = (type, id) =>
-				@markAllRead(type, id)
-
-			@$scope.getFeedsOfFolder = (folderId) =>
-				return @getFeedsOfFolder(folderId)
-
-			@$scope.setShowAll = (showAll) =>
-				@setShowAll(showAll)
-
 			@$scope.isAddingFolder = =>
 				return @_isAddingFolder
 
 			@$scope.isAddingFeed = =>
 				return @_isAddingFeed
-
-			@$scope.toggleFolder = (folderId) =>
-				@toggleFolder(folderId)
 
 			@$scope.addFeed = (feedUrl, parentFolderId=0) =>
 				@$scope.feedEmptyError = false
@@ -127,56 +85,6 @@ angular.module('News').factory '_FeedController', ->
 						@$scope.folderName = ''
 						@$scope.addNewFolder = false
 						@_isAddingFolder = false
-
-
-		isFeedActive: (type, id) ->
-			return type == @_active.getType() and id == @_active.getId()
-
-
-		#isShown: (type, id) ->
-		#	hasUnread = @getUnreadCount(type, id) > 0
-		#	if hasUnread
-		#		return true
-		#	else
-		#		if @isShowAll()
-		#			switch type
-		#				when @_feedType.Subscriptions
-		#					return @_feedModel.size() > 0
-		#				when @_feedType.Folder
-		#					return @_folderModel.size() > 0
-		#				when @_feedType.Feed
-		#					return @_feedModel.size() > 0
-		#	return false
-					
-
-		isShowAll: ->
-			return @_showAll.getShowAll()
-
-
-		_transFormCount: (count) ->
-			if count > 999
-				count = '999+'
-
-			return count
-
-
-		loadFeed: (type, id) ->
-			# TODO: use polymorphism instead of switches
-			if type != @_active.getType() or id != @_active.getId()
-				@_itemModel.clear()
-				@_persistence.getItems(type, id, 0)
-				@_active.handle({id: id, type: type})
-			else
-				lastModified = @_itemModel.getHighestId()
-				@_persistence.getItems(type, id, 0, null, lastModified)
-
-
-		setShowAll: (showAll) ->
-			@_showAll.setShowAll(showAll)
-			if showAll
-				@_persistence.userSettingsReadShow()
-			else
-				@_persistence.userSettingsReadHide()
 
 
 	return FeedController
