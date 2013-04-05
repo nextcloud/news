@@ -805,15 +805,17 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 (function() {
 
   angular.module('News').factory('ItemBl', [
-    'ItemModel', 'Persistence', 'ActiveFeed', 'FeedType', function(ItemModel, Persistence, ActiveFeed, FeedType) {
+    'ItemModel', 'FeedModel', 'Persistence', 'ActiveFeed', 'FeedType', 'StarredBl', function(ItemModel, FeedModel, Persistence, ActiveFeed, FeedType, StarredBl) {
       var ItemBl;
       ItemBl = (function() {
 
-        function ItemBl(_itemModel, _persistence, _activeFeed, _feedType) {
+        function ItemBl(_itemModel, _feedModel, _persistence, _activeFeed, _feedType, _starredBl) {
           this._itemModel = _itemModel;
+          this._feedModel = _feedModel;
           this._persistence = _persistence;
           this._activeFeed = _activeFeed;
           this._feedType = _feedType;
+          this._starredBl = _starredBl;
         }
 
         ItemBl.prototype.getAll = function() {
@@ -824,20 +826,79 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return this._activeFeed.getType() !== this._feedType.Feed;
         };
 
-        ItemBl.prototype.isKeptUnread = function(itemId) {};
+        ItemBl.prototype.isKeptUnread = function(itemId) {
+          var item;
+          item = this._itemModel.getById(itemId);
+          if (angular.isDefined(item) && angular.isDefined(item.keptUnread)) {
+            return item.keptUnread;
+          }
+          return false;
+        };
 
-        ItemBl.prototype.toggleKeepUnread = function(itemId) {};
+        ItemBl.prototype.toggleKeepUnread = function(itemId) {
+          var item;
+          item = this._itemModel.getById(itemId);
+          if (angular.isDefined(item) && !item.keptUnread) {
+            item.keptUnread = true;
+            if (item.isRead()) {
+              return this.setUnread(itemId);
+            }
+          } else {
+            return item.keptUnread = false;
+          }
+        };
 
-        ItemBl.prototype.toggleStarred = function(itemId) {};
+        ItemBl.prototype.toggleStarred = function(itemId) {
+          var item;
+          item = this._itemModel.getById(itemId);
+          if (item.isStarred()) {
+            item.setUnstarred();
+            this._starredBl.decreaseCount();
+            return this._persistence.unstarItem(item.feedId, item.guidHash);
+          } else {
+            item.setStarred();
+            this._starredBl.increaseCount();
+            return this._persistence.starItem(item.feedId, item.guidHash);
+          }
+        };
 
-        ItemBl.prototype.setRead = function(itemId) {};
+        ItemBl.prototype.setRead = function(itemId) {
+          var item;
+          item = this._itemModel.getById(itemId);
+          if (angular.isDefined(item)) {
+            item.setRead();
+            return this._persistence.readItem(itemId);
+          }
+        };
 
-        ItemBl.prototype.getFeedTitle = function(itemId) {};
+        ItemBl.prototype.setUnread = function(itemId) {
+          var item;
+          item = this._itemModel.getById(itemId);
+          if (angular.isDefined(item)) {
+            item.setUnread();
+            return this._persistence.unreadItem(itemId);
+          }
+        };
+
+        ItemBl.prototype.getFeedTitle = function(itemId) {
+          var feed, item;
+          item = this._itemModel.getById(itemId);
+          if (angular.isDefined(item)) {
+            feed = this._feedModel.getById(item.feedId);
+            if (angular.isDefined(feed)) {
+              return feed.title;
+            }
+          }
+        };
+
+        ItemBl.prototype.loadNext = function() {};
+
+        ItemBl.prototype.loadNew = function() {};
 
         return ItemBl;
 
       })();
-      return new ItemBl(ItemModel, Persistence, ActiveFeed, FeedType);
+      return new ItemBl(ItemModel, FeedModel, Persistence, ActiveFeed, FeedType, StarredBl);
     }
   ]);
 
@@ -893,6 +954,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
         StarredBl.prototype.getUnreadCount = function() {
           return this._starredCount.getStarredCount();
+        };
+
+        StarredBl.prototype.increaseCount = function() {
+          return this._starredCount.setStarredCount(this._starredCount.getStarredCount() + 1);
+        };
+
+        StarredBl.prototype.decreaseCount = function() {
+          return this._starredCount.setStarredCount(this._starredCount.getStarredCount() - 1);
         };
 
         return StarredBl;

@@ -28,13 +28,10 @@ describe 'ItemBl', ->
 
 	beforeEach =>
 		angular.module('News').factory 'Persistence', =>
-			@setFeedReadSpy = jasmine.createSpy('setFeedRead')
-			@persistence = {
-				
-			}
+			@persistence = {}
 
 	beforeEach inject (@ItemModel, @ItemBl, @StatusFlag, @ActiveFeed
-	                   @FeedType) =>
+	                   @FeedType, @FeedModel, @StarredBl) =>
 
 
 	it 'should return all items', =>
@@ -69,3 +66,105 @@ describe 'ItemBl', ->
 		@ActiveFeed.handle({type: @FeedType.Feed, id: 0})
 		expect(@ItemBl.noFeedActive()).toBe(false)
 
+
+	it 'should return the correct feed title', =>
+		item1 = {id: 5, title: 'hi', unreadCount:134, urlHash: 'a3', folderId: 3}
+		@FeedModel.add(item1)
+
+		item2 = {id: 2, feedId: 5, guidHash: 'a3'}
+		@ItemModel.add(item2)
+
+		expect(@ItemBl.getFeedTitle(2)).toBe('hi')
+
+
+	it 'should set an item unstarred', =>
+		@persistence.unstarItem = jasmine.createSpy('star item')
+		
+		item2 = {id: 2, feedId: 5, guidHash: 'a3', status: 0}
+		@ItemModel.add(item2)
+		item2.setStarred()
+
+		@ItemBl.toggleStarred(2)
+
+		expect(item2.isStarred()).toBe(false)
+		expect(@StarredBl.getUnreadCount()).toBe(-1)
+		expect(@persistence.unstarItem).toHaveBeenCalledWith(5, 'a3')
+
+
+	it 'should set an item starred', =>
+		@persistence.starItem = jasmine.createSpy('unstar item')
+		
+		item2 = {id: 2, feedId: 5, guidHash: 'a3', status: 0}
+		@ItemModel.add(item2)
+		item2.setUnstarred()
+
+		@ItemBl.toggleStarred(2)
+
+		expect(item2.isStarred()).toBe(true)
+		expect(@StarredBl.getUnreadCount()).toBe(1)
+		expect(@persistence.starItem).toHaveBeenCalledWith(5, 'a3')
+
+
+	it 'should set an item read', =>
+		@persistence.readItem = jasmine.createSpy('read item')
+		
+		item = {id: 2, feedId: 5, guidHash: 'a3', status: 0}
+		@ItemModel.add(item)
+		item.setUnread()
+
+		@ItemBl.setRead(2)
+
+		expect(item.isRead()).toBe(true)
+		expect(@persistence.readItem).toHaveBeenCalledWith(2)
+
+
+	it 'should return false when item kept unread does not exist', =>
+		expect(@ItemBl.isKeptUnread(2)).toBe(false)
+
+
+	it 'should return false if an item is not kept unread', =>
+		item = {id: 2, feedId: 5, guidHash: 'a3', status: 0}
+		@ItemModel.add(item)
+
+		expect(@ItemBl.isKeptUnread(2)).toBe(false)
+
+
+	it 'should toggle an item as kept unread', =>
+		@persistence.unreadItem = jasmine.createSpy('unread item')
+		
+		item = {id: 2, feedId: 5, guidHash: 'a3', status: 0}
+		@ItemModel.add(item)
+
+		expect(@ItemBl.isKeptUnread(2)).toBe(false)
+
+		@ItemBl.toggleKeepUnread(2)
+		expect(@ItemBl.isKeptUnread(2)).toBe(true)
+
+		@ItemBl.toggleKeepUnread(2)
+		expect(@ItemBl.isKeptUnread(2)).toBe(false)
+
+
+	it 'should set an item as unread', =>
+		@persistence.unreadItem = jasmine.createSpy('unread item')
+
+		item = {id: 2, feedId: 5, guidHash: 'a3', status: 0}
+		@ItemModel.add(item)
+		item.setRead()
+
+		@ItemBl.setUnread(2)
+
+		expect(item.isRead()).toBe(false)
+		expect(@persistence.unreadItem).toHaveBeenCalledWith(2)
+
+
+	it 'should set item as unread if kept unread is toggled and it is read', =>
+		@persistence.unreadItem = jasmine.createSpy('unread item')
+
+		item = {id: 2, feedId: 5, guidHash: 'a3', status: 0}
+		@ItemModel.add(item)
+		item.setRead()
+
+		@ItemBl.toggleKeepUnread(2)
+
+		expect(item.isRead()).toBe(false)
+		expect(@persistence.unreadItem).toHaveBeenCalledWith(2)

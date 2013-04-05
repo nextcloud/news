@@ -22,12 +22,13 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 
 angular.module('News').factory 'ItemBl',
-['ItemModel', 'Persistence', 'ActiveFeed', 'FeedType',
-(ItemModel, Persistence, ActiveFeed, FeedType) ->
+['ItemModel', 'FeedModel', 'Persistence', 'ActiveFeed', 'FeedType', 'StarredBl',
+(ItemModel, FeedModel, Persistence, ActiveFeed, FeedType, StarredBl) ->
 
 	class ItemBl
 
-		constructor: (@_itemModel, @_persistence, @_activeFeed, @_feedType) ->
+		constructor: (@_itemModel, @_feedModel, @_persistence, @_activeFeed,
+		              @_feedType, @_starredBl) ->
 
 		getAll: ->
 			return @_itemModel.getAll()
@@ -38,21 +39,65 @@ angular.module('News').factory 'ItemBl',
 
 
 		isKeptUnread: (itemId) ->
+			item = @_itemModel.getById(itemId)
+			if angular.isDefined(item) and angular.isDefined(item.keptUnread)
+				return item.keptUnread
+			return false
 
 
 		toggleKeepUnread: (itemId) ->
+			item = @_itemModel.getById(itemId)
+			if angular.isDefined(item) and not item.keptUnread
+				item.keptUnread = true
+				if item.isRead()
+					@setUnread(itemId)
+			else
+				item.keptUnread = false
 
 
 		toggleStarred: (itemId) ->
+			item = @_itemModel.getById(itemId)
+			if item.isStarred()
+				item.setUnstarred()
+				@_starredBl.decreaseCount()
+				@_persistence.unstarItem(item.feedId, item.guidHash)
+			else
+				item.setStarred()
+				@_starredBl.increaseCount()
+				@_persistence.starItem(item.feedId, item.guidHash)
 
 
 		setRead: (itemId) ->
+			item = @_itemModel.getById(itemId)
+			if angular.isDefined(item)
+				item.setRead()
+				@_persistence.readItem(itemId)
+
+
+		setUnread: (itemId) ->
+			item = @_itemModel.getById(itemId)
+			if angular.isDefined(item)
+				item.setUnread()
+				@_persistence.unreadItem(itemId)
 
 
 		getFeedTitle: (itemId) ->
+			item = @_itemModel.getById(itemId)
+			if angular.isDefined(item)
+				feed = @_feedModel.getById(item.feedId)
+				if angular.isDefined(feed)
+					return feed.title
+
+
+		loadNext: ->
 
 
 
-	return new ItemBl(ItemModel, Persistence, ActiveFeed, FeedType)
+		loadNew: ->
+
+
+
+	return new ItemBl(ItemModel, FeedModel, Persistence, ActiveFeed, FeedType,
+	                  StarredBl)
 
 ]

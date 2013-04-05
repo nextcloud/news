@@ -93,7 +93,6 @@ angular.module('News').factory '_Persistence', ->
 			@_request.post 'news_items_star', params
 
 
-
 		unstarItem: (feedId, guidHash) ->
 			###
 			Unstars an item

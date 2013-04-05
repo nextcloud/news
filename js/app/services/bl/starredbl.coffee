@@ -42,6 +42,13 @@ angular.module('News').factory 'StarredBl',
 			return @_starredCount.getStarredCount()
 
 
+		increaseCount: ->
+			@_starredCount.setStarredCount(@_starredCount.getStarredCount() + 1)
+
+
+		decreaseCount: ->
+			@_starredCount.setStarredCount(@_starredCount.getStarredCount() - 1)
+
 	return new StarredBl(StarredCount, FeedType, Persistence,
 	                     ActiveFeed, ItemModel)
 ]

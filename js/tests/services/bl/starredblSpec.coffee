@@ -52,3 +52,9 @@ describe 'StarredBl', ->
 		expect(@StarredBl.getUnreadCount()).toBe(144)
 
 
+	it 'should increase the starred count', =>
+		expect(@StarredBl.increaseCount()).toBe(1)
+
+
+	it 'should decrease the starred count', =>
+		expect(@StarredBl.decreaseCount()).toBe(-1)
