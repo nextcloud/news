@@ -32,6 +32,8 @@ describe 'ItemBl', ->
 
 	beforeEach inject (@ItemModel, @ItemBl, @StatusFlag, @ActiveFeed
 	                   @FeedType, @FeedModel, @StarredBl) =>
+		@item1 = {id: 5, title: 'hi', unreadCount:134, urlHash: 'a3', folderId: 3}
+		@FeedModel.add(@item1)
 
 
 	it 'should return all items', =>
@@ -68,9 +70,6 @@ describe 'ItemBl', ->
 
 
 	it 'should return the correct feed title', =>
-		item1 = {id: 5, title: 'hi', unreadCount:134, urlHash: 'a3', folderId: 3}
-		@FeedModel.add(item1)
-
 		item2 = {id: 2, feedId: 5, guidHash: 'a3'}
 		@ItemModel.add(item2)
 
@@ -131,7 +130,7 @@ describe 'ItemBl', ->
 
 	it 'should toggle an item as kept unread', =>
 		@persistence.unreadItem = jasmine.createSpy('unread item')
-		
+
 		item = {id: 2, feedId: 5, guidHash: 'a3', status: 0}
 		@ItemModel.add(item)
 
@@ -168,3 +167,27 @@ describe 'ItemBl', ->
 
 		expect(item.isRead()).toBe(false)
 		expect(@persistence.unreadItem).toHaveBeenCalledWith(2)
+
+
+	it 'should lower the unread count of a feed when its items get read', =>
+		@persistence.readItem = jasmine.createSpy('read item')
+		
+		item = {id: 2, feedId: 5, guidHash: 'a3', status: 0}
+		@ItemModel.add(item)
+		item.setUnread()
+
+		@ItemBl.setRead(2)
+
+		expect(@item1.unreadCount).toBe(133)
+
+
+	it 'should increase the unread count of a feed when its items get unread', =>
+		@persistence.unreadItem = jasmine.createSpy('unread item')
+		
+		item = {id: 2, feedId: 5, guidHash: 'a3', status: 0}
+		@ItemModel.add(item)
+		item.setRead()
+
+		@ItemBl.setUnread(2)
+
+		expect(@item1.unreadCount).toBe(135)

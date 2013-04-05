@@ -73,12 +73,20 @@ angular.module('News').factory 'ItemBl',
 				item.setRead()
 				@_persistence.readItem(itemId)
 
+				feed = @_feedModel.getById(item.feedId)
+				if angular.isDefined(feed)
+					feed.unreadCount -= 1
+
 
 		setUnread: (itemId) ->
 			item = @_itemModel.getById(itemId)
 			if angular.isDefined(item)
 				item.setUnread()
 				@_persistence.unreadItem(itemId)
+
+				feed = @_feedModel.getById(item.feedId)
+				if angular.isDefined(feed)
+					feed.unreadCount += 1
 
 
 		getFeedTitle: (itemId) ->

@@ -863,20 +863,28 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         };
 
         ItemBl.prototype.setRead = function(itemId) {
-          var item;
+          var feed, item;
           item = this._itemModel.getById(itemId);
           if (angular.isDefined(item)) {
             item.setRead();
-            return this._persistence.readItem(itemId);
+            this._persistence.readItem(itemId);
+            feed = this._feedModel.getById(item.feedId);
+            if (angular.isDefined(feed)) {
+              return feed.unreadCount -= 1;
+            }
           }
         };
 
         ItemBl.prototype.setUnread = function(itemId) {
-          var item;
+          var feed, item;
           item = this._itemModel.getById(itemId);
           if (angular.isDefined(item)) {
             item.setUnread();
-            return this._persistence.unreadItem(itemId);
+            this._persistence.unreadItem(itemId);
+            feed = this._feedModel.getById(item.feedId);
+            if (angular.isDefined(feed)) {
+              return feed.unreadCount += 1;
+            }
           }
         };
 
