@@ -26,7 +26,7 @@ angular.module('News').factory '_FeedController', ->
 	class FeedController
 
 		constructor: (@$scope, @_persistence, @_folderBl, @_feedBl,
-		              @_unreadCountFormatter) ->
+		              @_subscriptionsBl, @_starredBl, @_unreadCountFormatter) ->
 
 			@_isAddingFolder = false
 			@_isAddingFeed = false
@@ -34,6 +34,8 @@ angular.module('News').factory '_FeedController', ->
 			# bind internal stuff to scope
 			@$scope.folderBl = @_folderBl
 			@$scope.feedBl = @_feedBl
+			@$scope.subscriptionsBl = @_subscriptionsBl
+			@$scope.starredBl = @_starredBl
 			@$scope.unreadCountFormatter = @_unreadCountFormatter
 
 			

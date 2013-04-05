@@ -179,3 +179,10 @@ describe 'FeedBl', ->
 		expect(@FeedBl.getAll()).toContain(item1)
 		expect(@FeedBl.getAll()).toContain(item2)
 
+
+	it 'should retunr if ShowAll is set', =>
+		@persistence.userSettingsReadShow = jasmine.createSpy('Show All')
+		expect(@FeedBl.isShowAll()).toBe(false)
+		@FeedBl.setShowAll(true)
+
+		expect(@FeedBl.isShowAll()).toBe(true)

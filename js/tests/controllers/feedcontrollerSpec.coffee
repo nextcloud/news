@@ -31,11 +31,12 @@ describe '_FeedController', ->
 
 
 	beforeEach inject (@_FeedController, @FolderBl, @FeedBl, $rootScope,
-		               @unreadCountFormatter) =>
+		               @unreadCountFormatter, @SubscriptionsBl, @StarredBl) =>
 		@scope = $rootScope.$new()
 
 		@controller = new @_FeedController(@scope, @persistence, @FolderBl,
-		                                   @FeedBl, @unreadCountFormatter)
+		                                   @FeedBl, @SubscriptionsBl, @StarredBl,
+		                                   @unreadCountFormatter)
 
 
 
@@ -58,6 +59,12 @@ describe '_FeedController', ->
 	it 'should make FolderBl available', =>
 		expect(@scope.folderBl).toBe(@FolderBl)
 
+
+	it 'should make SubscriptionsBl available', =>
+		expect(@scope.subscriptionsBl).toBe(@SubscriptionsBl)
+
+	it 'should make StarredBl available', =>
+		expect(@scope.starredBl).toBe(@StarredBl)
 
 	it 'should not add folders that have no name', =>
 		@persistence.createFolder = jasmine.createSpy('create')

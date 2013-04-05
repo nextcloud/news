@@ -171,8 +171,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
   ]);
 
   angular.module('News').controller('FeedController', [
-    '$scope', '_FeedController', 'Persistence', 'FolderBl', 'FeedBl', 'unreadCountFormatter', function($scope, _FeedController, Persistence, FolderBl, FeedBl, unreadCountFormatter) {
-      return new _FeedController($scope, Persistence, FolderBl, FeedBl, unreadCountFormatter);
+    '$scope', '_FeedController', 'Persistence', 'FolderBl', 'FeedBl', 'SubscriptionsBl', 'StarredBl', 'unreadCountFormatter', function($scope, _FeedController, Persistence, FolderBl, FeedBl, SubscriptionsBl, StarredBl, unreadCountFormatter) {
+      return new _FeedController($scope, Persistence, FolderBl, FeedBl, SubscriptionsBl, StarredBl, unreadCountFormatter);
     }
   ]);
 
@@ -214,17 +214,21 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     var FeedController;
     FeedController = (function() {
 
-      function FeedController($scope, _persistence, _folderBl, _feedBl, _unreadCountFormatter) {
+      function FeedController($scope, _persistence, _folderBl, _feedBl, _subscriptionsBl, _starredBl, _unreadCountFormatter) {
         var _this = this;
         this.$scope = $scope;
         this._persistence = _persistence;
         this._folderBl = _folderBl;
         this._feedBl = _feedBl;
+        this._subscriptionsBl = _subscriptionsBl;
+        this._starredBl = _starredBl;
         this._unreadCountFormatter = _unreadCountFormatter;
         this._isAddingFolder = false;
         this._isAddingFeed = false;
         this.$scope.folderBl = this._folderBl;
         this.$scope.feedBl = this._feedBl;
+        this.$scope.subscriptionsBl = this._subscriptionsBl;
+        this.$scope.starredBl = this._starredBl;
         this.$scope.unreadCountFormatter = this._unreadCountFormatter;
         this.$scope.isAddingFolder = function() {
           return _this._isAddingFolder;
@@ -640,6 +644,10 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           } else {
             return this._persistence.userSettingsReadHide();
           }
+        };
+
+        FeedBl.prototype.isShowAll = function() {
+          return this._showAll.getShowAll();
         };
 
         FeedBl.prototype.getAll = function() {

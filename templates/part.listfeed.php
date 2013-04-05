@@ -1,17 +1,17 @@
 <li ng-class="{
-		active: isFeedActive(feedType.Feed, feed.id), 
-		unread: feed.unreadCount!=0
+		active: feedBl.isActive(feed.id), 
+		unread: feedBl.getUnreadCount(feed.id) != 0
 	}" 
 	ng-repeat="feed in feedBl.getFeedsOfFolder(<?php p($_['folderId']); ?>)"
-	ng-show="isShown(feedType.Feed, feed.id)"
-	data-id="{{feed.id}}"
+	ng-show="feedBl.isShown(feed.id)"
+	data-id="{{ feed.id }}"
 	class="feed"
 	draggable>
-	<a ng-style="{backgroundImage: feed.faviconLink}"
+	<a ng-style="{ backgroundImage: feed.faviconLink }"
 	   href="#"
 	   class="title"
-	   ng-click="loadFeed(feedType.Feed, feed.id)">
-	   {{feed.title}}
+	   ng-click="feedBl.load(feed.id)">
+	   {{ feed.title }}
 	</a>
 	
 	<span class="utils">
@@ -20,11 +20,11 @@
 			title="<?php p($l->t('Delete feed')); ?>"></button>
 
 		<span class="unread-counter">
-			{{ getFeedUnreadCount(feed.id) }}
+			{{ feedBl.getUnreadCount(feed.id) }}
 		</span>
 
 		<button class="svg action mark-read-icon"
-			ng-show="feed.unreadCount > 0"
+			ng-show="feedBl.getUnreadCount(feed.id) > 0"
 			ng-click="feedBl.markFeedRead(feed.id)"
 			title="<?php p($l->t('Mark all read')); ?>"></button>
 

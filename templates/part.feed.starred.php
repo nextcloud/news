@@ -1,13 +1,13 @@
-<li ng-class="{	active: isFeedActive(feedType.Starred, 0) }" 
-	ng-show="isShown(feedType.Starred, 0)">
+<li ng-class="{	active: starredBl.isActive(0) }" 
+	ng-show="starredBl.isVisible(0)">
 	<a class="starred-icon"
 		href="#"
-		ng-click="loadFeed(feedType.Starred, 0)">
+		ng-click="starredBl.load(0)">
 	   <?php p($l->t('Starred')) ?>
 	</a>
 	<span class="utils">
 		<span class="unread-counter">
-			{{ getStarredCount() }}
+			{{ starredBl.getStarredCount() }}
 		</span>
 	</span>
 </li>

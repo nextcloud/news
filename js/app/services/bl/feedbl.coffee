@@ -98,6 +98,10 @@ angular.module('News').factory 'FeedBl',
 				@_persistence.userSettingsReadHide()
 
 
+		isShowAll: ->
+			return @_showAll.getShowAll()
+
+
 		getAll: ->
 			return @_feedModel.getAll()
 
