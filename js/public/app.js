@@ -639,6 +639,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
         FeedBl.prototype.setShowAll = function(showAll) {
           this._showAll.setShowAll(showAll);
+          this._persistence.getItems(this._activeFeed.getType(), this._activeFeed.getId(), 0);
           if (showAll) {
             return this._persistence.userSettingsReadShow();
           } else {

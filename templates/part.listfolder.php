@@ -4,7 +4,7 @@
 		collapsible: folderBl.hasFeeds(folder.id),
 		unread: folderBl.getUnreadCount(folder.id) != 0
 	}" 
-	ng-repeat="folder in folders"
+	ng-repeat="folder in folderBl.getAll()"
 	ng-show="folderBl.isVisible(folder.id)"
 	class="folder"
 	data-id="{{folder.id}}"

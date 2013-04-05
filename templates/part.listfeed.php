@@ -1,9 +1,9 @@
 <li ng-class="{
 		active: feedBl.isActive(feed.id), 
-		unread: feedBl.getUnreadCount(feed.id) != 0
+		unread: feedBl.getUnreadCount(feed.id) > 0
 	}" 
 	ng-repeat="feed in feedBl.getFeedsOfFolder(<?php p($_['folderId']); ?>)"
-	ng-show="feedBl.isShown(feed.id)"
+	ng-show="feedBl.isVisible(feed.id)"
 	data-id="{{ feed.id }}"
 	class="feed"
 	draggable>

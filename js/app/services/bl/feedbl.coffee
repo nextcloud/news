@@ -92,6 +92,11 @@ angular.module('News').factory 'FeedBl',
 
 		setShowAll: (showAll) ->
 			@_showAll.setShowAll(showAll)
+			@_persistence.getItems(
+				@_activeFeed.getType(),
+				@_activeFeed.getId(),
+				0
+			)
 			if showAll
 				@_persistence.userSettingsReadShow()
 			else

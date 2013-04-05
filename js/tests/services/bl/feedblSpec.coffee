@@ -28,8 +28,10 @@ describe 'FeedBl', ->
 	beforeEach =>
 		angular.module('News').factory 'Persistence', =>
 			@setFeedReadSpy = jasmine.createSpy('setFeedRead')
+			@getItemsSpy = jasmine.createSpy('Get Items')
 			@persistence = {
 				setFeedRead: @setFeedReadSpy
+				getItems: @getItemsSpy
 			}
 
 	beforeEach inject (@FeedBl, @FeedModel, @ItemModel, @FeedType,
@@ -186,3 +188,26 @@ describe 'FeedBl', ->
 		@FeedBl.setShowAll(true)
 
 		expect(@FeedBl.isShowAll()).toBe(true)
+
+
+	it 'should reload the active feed if showall changed', =>
+		@persistence.userSettingsReadShow = jasmine.createSpy('Show All')
+		@persistence.userSettingsReadHide = jasmine.createSpy('Hide All')
+
+		@FeedBl.setShowAll(true)
+
+		expect(@getItemsSpy).toHaveBeenCalledWith(@FeedType.Folder, 0, 0)
+
+
+	it 'should return all feeds of a folder', =>
+		item1 = {id: 2, unreadCount:134, urlHash: 'a1', folderId: 3}
+		item2 = {id: 4, unreadCount:134, urlHash: 'a2', folderId: 2}
+		item3 = {id: 5, unreadCount:134, urlHash: 'a3', folderId: 3}
+		@FeedModel.add(item1)
+		@FeedModel.add(item2)
+		@FeedModel.add(item3)
+
+		folders = @FeedBl.getFeedsOfFolder(3)
+
+		expect(folders).toContain(item1)
+		expect(folders).toContain(item3)
