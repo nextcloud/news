@@ -21,12 +21,38 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-angular.module('News').factory 'ItemBl', ->
+angular.module('News').factory 'ItemBl',
+['ItemModel', 'Persistence', 'ActiveFeed', 'FeedType',
+(ItemModel, Persistence, ActiveFeed, FeedType) ->
 
 	class ItemBl
 
-		constructor: (@_itemModel, @_persistence) ->
+		constructor: (@_itemModel, @_persistence, @_activeFeed, @_feedType) ->
+
+		getAll: ->
+			return @_itemModel.getAll()
+
+
+		noFeedActive: ->
+			return @_activeFeed.getType() != @_feedType.Feed
+
+
+		isKeptUnread: (itemId) ->
+
+
+		toggleKeepUnread: (itemId) ->
+
+
+		toggleStarred: (itemId) ->
+
+
+		setRead: (itemId) ->
+
+
+		getFeedTitle: (itemId) ->
 
 
 
-	return new ItemBl()
+	return new ItemBl(ItemModel, Persistence, ActiveFeed, FeedType)
+
+]

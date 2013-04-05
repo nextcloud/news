@@ -177,8 +177,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
   ]);
 
   angular.module('News').controller('ItemController', [
-    '$scope', '_ItemController', 'ItemModel', 'FeedModel', 'FeedLoading', function($scope, _ItemController, ItemModel, FeedModel, FeedLoading) {
-      return new _ItemController($scope, ItemModel, FeedModel, FeedLoading);
+    '$scope', '_ItemController', 'ItemBl', 'FeedModel', 'FeedLoading', function($scope, _ItemController, ItemBl, FeedModel, FeedLoading) {
+      return new _ItemController($scope, ItemBl, FeedModel, FeedLoading);
     }
   ]);
 
@@ -323,13 +323,13 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     var ItemController;
     ItemController = (function() {
 
-      function ItemController(_$scope, _itemModel, _feedModel, _feedLoading) {
+      function ItemController(_$scope, _itemBl, _feedModel, _feedLoading) {
         var _this = this;
         this._$scope = _$scope;
-        this._itemModel = _itemModel;
+        this._itemBl = _itemBl;
         this._feedModel = _feedModel;
         this._feedLoading = _feedLoading;
-        this._$scope.items = this._itemModel.getAll();
+        this._$scope.itemBl = this._itemBl;
         this._$scope.isLoading = function() {
           return _this._feedLoading.isLoading();
         };
@@ -804,20 +804,42 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 (function() {
 
-  angular.module('News').factory('ItemBl', function() {
-    var ItemBl;
-    ItemBl = (function() {
+  angular.module('News').factory('ItemBl', [
+    'ItemModel', 'Persistence', 'ActiveFeed', 'FeedType', function(ItemModel, Persistence, ActiveFeed, FeedType) {
+      var ItemBl;
+      ItemBl = (function() {
 
-      function ItemBl(_itemModel, _persistence) {
-        this._itemModel = _itemModel;
-        this._persistence = _persistence;
-      }
+        function ItemBl(_itemModel, _persistence, _activeFeed, _feedType) {
+          this._itemModel = _itemModel;
+          this._persistence = _persistence;
+          this._activeFeed = _activeFeed;
+          this._feedType = _feedType;
+        }
 
-      return ItemBl;
+        ItemBl.prototype.getAll = function() {
+          return this._itemModel.getAll();
+        };
 
-    })();
-    return new ItemBl();
-  });
+        ItemBl.prototype.noFeedActive = function() {
+          return this._activeFeed.getType() !== this._feedType.Feed;
+        };
+
+        ItemBl.prototype.isKeptUnread = function(itemId) {};
+
+        ItemBl.prototype.toggleKeepUnread = function(itemId) {};
+
+        ItemBl.prototype.toggleStarred = function(itemId) {};
+
+        ItemBl.prototype.setRead = function(itemId) {};
+
+        ItemBl.prototype.getFeedTitle = function(itemId) {};
+
+        return ItemBl;
+
+      })();
+      return new ItemBl(ItemModel, Persistence, ActiveFeed, FeedType);
+    }
+  ]);
 
 }).call(this);
 

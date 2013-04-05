@@ -27,16 +27,14 @@ describe '_ItemController', ->
 	beforeEach module 'News'
 
 	beforeEach inject (@_ItemController, @ActiveFeed, @ShowAll, @FeedType,
-		               @StarredCount, @FeedModel, @FolderModel, @ItemModel) =>
+		               @StarredCount, @FeedModel, @FolderModel, @ItemModel,
+		               @ItemBl) =>
 		@scope = {}
 		@persistence = {
 			getItems: ->
 		}
-		@controller = new @_ItemController(@scope, @ItemModel, @FeedModel)
+		@controller = new @_ItemController(@scope, @ItemBl, @FeedModel)
 
 
-	it 'should make items availabe', =>
-		@ItemModel.getAll = jasmine.createSpy('ItemModel')
-		new @_ItemController(@scope, @ItemModel)
-
-		expect(@ItemModel.getAll).toHaveBeenCalled()
+	it 'should make ItemBl availabe', =>
+		expect(@scope.itemBl).toBe(@ItemBl)

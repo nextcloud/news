@@ -25,9 +25,9 @@ angular.module('News').factory '_ItemController', ->
 
 	class ItemController
 
-		constructor: (@_$scope, @_itemModel, @_feedModel, @_feedLoading) ->
+		constructor: (@_$scope, @_itemBl, @_feedModel, @_feedLoading) ->
 
-			@_$scope.items = @_itemModel.getAll()
+			@_$scope.itemBl = @_itemBl
 
 			@_$scope.isLoading = =>
 				return @_feedLoading.isLoading()

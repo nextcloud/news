@@ -33,4 +33,39 @@ describe 'ItemBl', ->
 				
 			}
 
-	beforeEach inject (@ItemModel, @ItemBl, @StatusFlag) =>
+	beforeEach inject (@ItemModel, @ItemBl, @StatusFlag, @ActiveFeed
+	                   @FeedType) =>
+
+
+	it 'should return all items', =>
+		item1 = {id: 6, feedId: 5, guidHash: 'a1'}
+		item2 = {id: 3, feedId: 5, guidHash: 'a2'}
+		item3 = {id: 2, feedId: 5, guidHash: 'a3'}
+
+		@ItemModel.add(item1)
+		@ItemModel.add(item2)
+		@ItemModel.add(item3)
+
+		items = @ItemBl.getAll()
+
+		expect(items).toContain(item1)
+		expect(items).toContain(item2)
+		expect(items).toContain(item3)
+
+
+	it 'should tell if no feed is active', =>
+		@ActiveFeed.handle({type: @FeedType.Folder, id: 0})
+		expect(@ItemBl.noFeedActive()).toBe(true)
+
+		@ActiveFeed.handle({type: @FeedType.Subscriptions, id: 0})
+		expect(@ItemBl.noFeedActive()).toBe(true)
+
+		@ActiveFeed.handle({type: @FeedType.Starred, id: 0})
+		expect(@ItemBl.noFeedActive()).toBe(true)
+
+		@ActiveFeed.handle({type: @FeedType.Shared, id: 0})
+		expect(@ItemBl.noFeedActive()).toBe(true)
+
+		@ActiveFeed.handle({type: @FeedType.Feed, id: 0})
+		expect(@ItemBl.noFeedActive()).toBe(false)
+
