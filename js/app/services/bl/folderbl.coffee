@@ -47,8 +47,8 @@ ItemModel, ShowAll)->
 			folder = @_folderModel.getById(folderId)
 			
 			if angular.isDefined(folder)
-				folder.open = !folder.open
-				if folder.open
+				folder.opened = !folder.opened
+				if folder.opened
 					@_persistence.openFolder(folder.id)
 				else
 					@_persistence.collapseFolder(folder.id)

@@ -1,13 +1,13 @@
 <li ng-class="{
 		active: folderBl.isActive(folder.id), 
-		open: folder.open,
+		open: folder.opened,
 		collapsible: folderBl.hasFeeds(folder.id),
 		unread: folderBl.getUnreadCount(folder.id) != 0
 	}" 
 	ng-repeat="folder in folderBl.getAll()"
 	ng-show="folderBl.isVisible(folder.id)"
 	class="folder"
-	data-id="{{folder.id}}"
+	data-id="{{ folder.id }}"
 	droppable>
 	<button class="collapse" 
 			title="<?php p($l->t('Collapse'));?>"
@@ -15,7 +15,7 @@
 	<a href="#" 
 	   class="title folder-icon"
 	   ng-click="folderBl.load(folder.id)">
-	   {{folder.name}}
+	   {{ folder.name }}
 	</a>
 
 	<span class="utils">

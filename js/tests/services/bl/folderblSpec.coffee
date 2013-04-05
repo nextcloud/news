@@ -56,16 +56,16 @@ describe 'FolderBl', ->
 		@persistence.openFolder = jasmine.createSpy('open')
 		@persistence.collapseFolder = jasmine.createSpy('collapse')
 
-		@FolderModel.add({id: 3, open: false})
+		@FolderModel.add({id: 3, opened: false})
 		@FolderBl.toggleFolder(4)
-		expect(@FolderModel.getById(3).open).toBeFalsy()
+		expect(@FolderModel.getById(3).opened).toBeFalsy()
 
 		@FolderBl.toggleFolder(3)
-		expect(@FolderModel.getById(3).open).toBeTruthy()
+		expect(@FolderModel.getById(3).opened).toBeTruthy()
 		expect(@persistence.openFolder).toHaveBeenCalledWith(3)
 
 		@FolderBl.toggleFolder(3)
-		expect(@FolderModel.getById(3).open).toBeFalsy()
+		expect(@FolderModel.getById(3).opened).toBeFalsy()
 		expect(@persistence.collapseFolder).toHaveBeenCalledWith(3)
 
 

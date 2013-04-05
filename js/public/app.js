@@ -720,8 +720,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           var folder;
           folder = this._folderModel.getById(folderId);
           if (angular.isDefined(folder)) {
-            folder.open = !folder.open;
-            if (folder.open) {
+            folder.opened = !folder.opened;
+            if (folder.opened) {
               return this._persistence.openFolder(folder.id);
             } else {
               return this._persistence.collapseFolder(folder.id);
