@@ -37,35 +37,7 @@ class ItemMapper extends Mapper implements IMapper {
 	
 
 	protected function findAllRows($sql, $params, $limit=null, $offset=null) {
-		/*echo $sql . '<br>';
-
-		print_r($params);
-		echo '<br>';*/
-		/* works 
-		$sql = 'SELECT `items`.* 
-		FROM `*PREFIX*news_items` `items` 
-		JOIN `*PREFIX*news_feeds` `feeds` 
-		ON `feeds`.`id` = `items`.`feed_id` 
-		AND `feeds`.`user_id` = \'admin\' 
-		AND ((`items`.`status` & 2) = 2) 
-		AND `items`.`feed_id` = 20 
-		ORDER BY `items`.`id` DESC';
-		$params = array();*/
-
-		/* works not */
-		/*$params = array('admin', 2, 2, 20);
-		$sql = 'SELECT `items`.* 
-		FROM `*PREFIX*news_items` `items` 
-		JOIN `*PREFIX*news_feeds` `feeds` 
-		ON `feeds`.`id` = `items`.`feed_id` 
-		AND `feeds`.`user_id` = ? 
-		AND ((`items`.`status` & ?) = ?) 
-		AND `items`.`feed_id` = ? 
-		ORDER BY `items`.`id` DESC';*/
-
-		//$result = \OCP\DB::prepare($sql, $limit, $offset)->execute($params);
 		$result = $this->execute($sql, $params, $limit, $offset);
-		
 
 		$items = array();
 
@@ -75,8 +47,6 @@ class ItemMapper extends Mapper implements IMapper {
 			
 			array_push($items, $item);
 		}
-
-		//print_r($items);
 
 		return $items;
 	}
@@ -89,9 +59,15 @@ class ItemMapper extends Mapper implements IMapper {
 				'AND `feeds`.`user_id` = ? ' . $prependTo;
 	}
 
-	private function makeSelectQueryStatus($prependTo) {
+	private function makeSelectQueryStatus($prependTo, $status) {
+		// Hi this is Ray and you're watching Jack Ass
+		// Now look closely: this is how we adults handle weird bugs in our
+		// code: we take them variables and we cast the shit out of them
+		$status = (int) $status;
+
+		// now im gonna slowly stick them in the query, be careful!
 		return $this->makeSelectQuery(
-			'AND ((`items`.`status` & ?) = ?) ' .
+			'AND ((`items`.`status` & ' . $status . ') = ' . $status . ') ' .
 			$prependTo
 		);
 	}
@@ -140,8 +116,8 @@ class ItemMapper extends Mapper implements IMapper {
 	public function findAllNewFeed($id, $updatedSince, $status, $userId){
 		$sql = 'AND `items`.`feed_id` = ? ' .
 				'AND `items`.`id` >= ?';
-		$sql = $this->makeSelectQueryStatus($sql);
-		$params = array($userId, $status, $status, $id, $updatedSince);
+		$sql = $this->makeSelectQueryStatus($sql, $status);
+		$params = array($userId, $id, $updatedSince);
 		return $this->findAllRows($sql, $params);
 	}
 
@@ -149,54 +125,54 @@ class ItemMapper extends Mapper implements IMapper {
 	public function findAllNewFolder($id, $updatedSince, $status, $userId){
 		$sql = 'AND `feeds`.`folder_id` = ? ' .
 				'AND `items`.`id` >= ?';
-		$sql = $this->makeSelectQueryStatus($sql);
-		$params = array($userId, $status, $status, $id, $updatedSince);
+		$sql = $this->makeSelectQueryStatus($sql, $status);
+		$params = array($userId, $id, $updatedSince);
 		return $this->findAllRows($sql, $params);
 	}
 
 
 	public function findAllNew($updatedSince, $status, $userId){
-		$sql = $this->makeSelectQueryStatus('AND `items`.`id` >= ?');
-		$params = array($userId, $status, $status, $updatedSince);
+		$sql = $this->makeSelectQueryStatus('AND `items`.`id` >= ?', $status);
+		$params = array($userId, $updatedSince);
 		return $this->findAllRows($sql, $params);
 	}
 
 
 	public function findAllFeed($id, $limit, $offset, $status, $userId){
-		$params = array($userId, $status, $status, $id);
+		$params = array($userId, $id);
 		$sql = 'AND `items`.`feed_id` = ? ';
 		if($offset !== 0){
 			$sql .= 'AND `items`.`id` > ? ';
 			array_push($params, $offset);
 		}
 		$sql .= 'ORDER BY `items`.`id` DESC ';
-		$sql = $this->makeSelectQueryStatus($sql);
+		$sql = $this->makeSelectQueryStatus($sql, $status);
 		return $this->findAllRows($sql, $params, $limit);
 	}
 
 
 	public function findAllFolder($id, $limit, $offset, $status, $userId){
-		$params = array($userId, $status, $status, $id);
+		$params = array($userId, $id);
 		$sql = 'AND `feeds`.`folder_id` = ? ';
 		if($offset !== 0){
 			$sql .= 'AND `items`.`id` > ? ';
 			array_push($params, $offset);
 		}
 		$sql .= 'ORDER BY `items`.`id` DESC ';
-		$sql = $this->makeSelectQueryStatus($sql);
+		$sql = $this->makeSelectQueryStatus($sql, $status);
 		return $this->findAllRows($sql, $params, $limit);
 	}
 
 
 	public function findAll($limit, $offset, $status, $userId){
-		$params = array($userId, $status, $status);
+		$params = array($userId);
 		$sql = '';
 		if($offset !== 0){
 			$sql .= 'AND `items`.`id` > ? ';
 			array_push($params, $offset);
 		}
 		$sql .= 'ORDER BY `items`.`id` DESC ';
-		$sql = $this->makeSelectQueryStatus($sql);
+		$sql = $this->makeSelectQueryStatus($sql, $status);
 		return $this->findAllRows($sql, $params, $limit);
 	}
 
