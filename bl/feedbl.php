@@ -103,15 +103,15 @@ class FeedBl extends Bl {
 
 
 	public function update($feedId, $userId){
-		$feed = $this->mapper->find($feedId, $userId);
+		$existingFeed = $this->mapper->find($feedId, $userId);
 		try {
-			list($feed, $items) = $this->feedFetcher->fetch($feed->getUrl());
+			list($feed, $items) = $this->feedFetcher->fetch($existingFeed->getUrl());
 
 			// insert items in reverse order because the first one is usually the
 			// newest item
 			for($i=count($items)-1; $i>=0; $i--){
 				$item = $items[$i];
-				$item->setFeedId($feed->getId());
+				$item->setFeedId($existingFeed->getId());
 
 				// if a doesnotexist exception is being thrown the entry does not 
 				// exist and the item needs to be created, otherwise
@@ -142,7 +142,7 @@ class FeedBl extends Bl {
 
 		} catch(FetcherException $ex){
 			// failed updating is not really a problem, so only log it
-			$this->api->log('Can not update feed with url' . $feed->getUrl() .
+			$this->api->log('Can not update feed with url' . $existingFeed->getUrl() .
 				': Not found or bad source');
 		}	
 	}

@@ -87,7 +87,7 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 
 
 	public function testFind(){
-		$sql = $this->makeSelectQuery('AND `*PREFIX*news_items`.`id` = ? ');
+		$sql = $this->makeSelectQuery('AND `items`.`id` = ? ');
 			
 		$this->setMapperResult($sql, array($this->userId, $this->id), $this->row);
 		
@@ -260,7 +260,7 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$feedId = 3;
 		$sql = $this->makeSelectQuery(
 			'AND `items`.`guid_hash` = ? ' .
-			'AND `feed`.`id = ? ');
+			'AND `feeds`.`id` = ? ');
 			
 		$this->setMapperResult($sql, array($this->userId, $hash, $feedId), $this->row);
 		

@@ -37,7 +37,36 @@ class ItemMapper extends Mapper implements IMapper {
 	
 
 	protected function findAllRows($sql, $params, $limit=null, $offset=null) {
+		/*echo $sql . '<br>';
+
+		print_r($params);
+		echo '<br>';*/
+		/* works 
+		$sql = 'SELECT `items`.* 
+		FROM `*PREFIX*news_items` `items` 
+		JOIN `*PREFIX*news_feeds` `feeds` 
+		ON `feeds`.`id` = `items`.`feed_id` 
+		AND `feeds`.`user_id` = \'admin\' 
+		AND ((`items`.`status` & 2) = 2) 
+		AND `items`.`feed_id` = 20 
+		ORDER BY `items`.`id` DESC';
+		$params = array();*/
+
+		/* works not */
+		/*$params = array('admin', 2, 2, 20);
+		$sql = 'SELECT `items`.* 
+		FROM `*PREFIX*news_items` `items` 
+		JOIN `*PREFIX*news_feeds` `feeds` 
+		ON `feeds`.`id` = `items`.`feed_id` 
+		AND `feeds`.`user_id` = ? 
+		AND ((`items`.`status` & ?) = ?) 
+		AND `items`.`feed_id` = ? 
+		ORDER BY `items`.`id` DESC';*/
+
+		//$result = \OCP\DB::prepare($sql, $limit, $offset)->execute($params);
 		$result = $this->execute($sql, $params, $limit, $offset);
+		
+
 		$items = array();
 
 		while($row = $result->fetchRow()){
@@ -46,6 +75,8 @@ class ItemMapper extends Mapper implements IMapper {
 			
 			array_push($items, $item);
 		}
+
+		//print_r($items);
 
 		return $items;
 	}
@@ -67,7 +98,7 @@ class ItemMapper extends Mapper implements IMapper {
 	
 
 	public function find($id, $userId){
-		$sql = $this->makeSelectQuery('AND `*PREFIX*news_items`.`id` = ? ');
+		$sql = $this->makeSelectQuery('AND `items`.`id` = ? ');
 		$row = $this->findOneQuery($sql, array($userId, $id));
 		
 		$item = new Item();
@@ -173,7 +204,7 @@ class ItemMapper extends Mapper implements IMapper {
 	public function findByGuidHash($guidHash, $feedId, $userId){
 		$sql = $this->makeSelectQuery(
 			'AND `items`.`guid_hash` = ? ' .
-			'AND `feed`.`id = ? ');
+			'AND `feeds`.`id` = ? ');
 		$row = $this->findOneQuery($sql, array($userId, $guidHash, $feedId));
 		
 		$item = new Item();
