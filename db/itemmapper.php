@@ -65,6 +65,11 @@ class ItemMapper extends Mapper implements IMapper {
 		// code: we take them variables and we cast the shit out of them
 		$status = (int) $status;
 
+		// prepare for the unexpected
+		if(!is_numeric($status)) {
+			die(); die(); die('If you can read this something is terribly wrong');
+		}
+
 		// now im gonna slowly stick them in the query, be careful!
 		return $this->makeSelectQuery(
 			'AND ((`items`.`status` & ' . $status . ') = ' . $status . ') ' .
@@ -89,9 +94,10 @@ class ItemMapper extends Mapper implements IMapper {
 			'JOIN `*PREFIX*news_items` `items` ' .
 				'ON `items`.`feed_id` = `feeds`.`id` ' .
 				'AND `feeds`.`user_id` = ? ' .
-			'WHERE ((`items`.`status` & ?) = ?)';
+			'WHERE ((`items`.`status` & ' . StatusFlag::STARRED . ') = ' . 
+				StatusFlag::STARRED . ')';
 
-		$params = array($userId, StatusFlag::STARRED, StatusFlag::STARRED);
+		$params = array($userId);
 
 		$result = $this->execute($sql, $params)->fetchRow();
 

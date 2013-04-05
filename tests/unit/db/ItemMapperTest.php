@@ -78,9 +78,11 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 				'AND `feeds`.`user_id` = ? ' . $prependTo;
 	}
 
-	private function makeSelectQueryStatus($prependTo) {
+	private function makeSelectQueryStatus($prependTo, $status) {
+		$status = (int) $status;
+
 		return $this->makeSelectQuery(
-			'AND ((`items`.`status` & ?) = ?) ' .
+			'AND ((`items`.`status` & ' . $status . ') = ' . $status . ') ' .
 			$prependTo
 		);
 	}
@@ -105,10 +107,10 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			'JOIN `*PREFIX*news_items` `items` ' .
 				'ON `items`.`feed_id` = `feeds`.`id` ' .
 				'AND `feeds`.`user_id` = ? ' .
-			'WHERE ((`items`.`status` & ?) = ?)';
+			'WHERE ((`items`.`status` & ' . StatusFlag::STARRED . ') = '
+				. StatusFlag::STARRED . ')';
 		
-		$this->setMapperResult($sql, array($userId, StatusFlag::STARRED, 
-			StatusFlag::STARRED), $row);
+		$this->setMapperResult($sql, array($userId), $row);
 		
 		$result = $this->mapper->starredCount($userId);
 		$this->assertEquals($row[0]['size'], $result);
@@ -131,9 +133,8 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 
 	public function testFindAllNew(){
 		$sql = 'AND `items`.`id` >= ?';
-		$sql = $this->makeSelectQueryStatus($sql);
-		$params = array($this->user, $this->status,	$this->status, 
-			$this->updatedSince);
+		$sql = $this->makeSelectQueryStatus($sql, $this->status);
+		$params = array($this->user, $this->updatedSince);
 
 		$this->setMapperResult($sql, $params, $this->rows);
 		$result = $this->mapper->findAllNew($this->updatedSince, 
@@ -146,9 +147,8 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 	public function testFindAllNewFeed(){
 		$sql = 'AND `items`.`feed_id` = ? ' .
 				'AND `items`.`id` >= ?';
-		$sql = $this->makeSelectQueryStatus($sql);
-		$params = array($this->user, $this->status, $this->status, $this->id, 
-			$this->updatedSince);
+		$sql = $this->makeSelectQueryStatus($sql, $this->status);
+		$params = array($this->user, $this->id, $this->updatedSince);
 
 		$this->setMapperResult($sql, $params, $this->rows);
 		$result = $this->mapper->findAllNewFeed($this->id, $this->updatedSince, 
@@ -161,10 +161,9 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 	public function testFindAllNewFolder(){
 		$sql = 'AND `feeds`.`folder_id` = ? ' .
 				'AND `items`.`id` >= ?';
-		$sql = $this->makeSelectQueryStatus($sql);
+		$sql = $this->makeSelectQueryStatus($sql, $this->status);
 
-		$params = array($this->user, $this->status, $this->status, $this->id, 
-			$this->updatedSince);
+		$params = array($this->user, $this->id, $this->updatedSince);
 		$this->setMapperResult($sql, $params, $this->rows);
 		$result = $this->mapper->findAllNewFolder($this->id, $this->updatedSince, 
 			$this->status, $this->user);
@@ -177,9 +176,8 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$sql = 'AND `items`.`feed_id` = ? ' .
 			'AND `items`.`id` > ? ' .
 			'ORDER BY `items`.`id` DESC ';
-		$sql = $this->makeSelectQueryStatus($sql);
-		$params = array($this->user, $this->status, $this->status, $this->id, 
-			$this->offset);
+		$sql = $this->makeSelectQueryStatus($sql, $this->status);
+		$params = array($this->user, $this->id, $this->offset);
 		$this->setMapperResult($sql, $params, $this->rows);
 		$result = $this->mapper->findAllFeed($this->id, $this->limit, 
 				$this->offset, $this->status, $this->user);
@@ -191,8 +189,8 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 	public function testFindAllFeedOffsetZero(){
 		$sql = 'AND `items`.`feed_id` = ? ' .
 			'ORDER BY `items`.`id` DESC ';
-		$sql = $this->makeSelectQueryStatus($sql);
-		$params = array($this->user, $this->status, $this->status, $this->id);
+		$sql = $this->makeSelectQueryStatus($sql, $this->status);
+		$params = array($this->user, $this->id);
 		$this->setMapperResult($sql, $params, $this->rows);
 		$result = $this->mapper->findAllFeed($this->id, $this->limit, 
 				0, $this->status, $this->user);
@@ -205,8 +203,8 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$sql = 'AND `feeds`.`folder_id` = ? ' .
 			'AND `items`.`id` > ? ' .
 			'ORDER BY `items`.`id` DESC ';
-		$sql = $this->makeSelectQueryStatus($sql);
-		$params = array($this->user, $this->status, $this->status, $this->id, 
+		$sql = $this->makeSelectQueryStatus($sql, $this->status);
+		$params = array($this->user, $this->id, 
 			$this->offset);
 		$this->setMapperResult($sql, $params, $this->rows);
 		$result = $this->mapper->findAllFolder($this->id, $this->limit, 
@@ -219,8 +217,8 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 	public function testFindAllFolderOffsetZero(){
 		$sql = 'AND `feeds`.`folder_id` = ? ' .
 			'ORDER BY `items`.`id` DESC ';
-		$sql = $this->makeSelectQueryStatus($sql);
-		$params = array($this->user, $this->status, $this->status, $this->id);
+		$sql = $this->makeSelectQueryStatus($sql, $this->status);
+		$params = array($this->user, $this->id);
 		$this->setMapperResult($sql, $params, $this->rows);
 		$result = $this->mapper->findAllFolder($this->id, $this->limit, 
 				0, $this->status, $this->user);
@@ -232,9 +230,8 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 	public function testFindAll(){
 		$sql = 'AND `items`.`id` > ? ' .
 			'ORDER BY `items`.`id` DESC ';
-		$sql = $this->makeSelectQueryStatus($sql);
-		$params = array($this->user, $this->status, $this->status, 
-			$this->offset);
+		$sql = $this->makeSelectQueryStatus($sql, $this->status);
+		$params = array($this->user, $this->offset);
 		$this->setMapperResult($sql, $params, $this->rows);
 		$result = $this->mapper->findAll($this->limit, 
 				$this->offset, $this->status, $this->user);
@@ -245,8 +242,8 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 
 	public function testFindAllOffsetZero(){
 		$sql = 'ORDER BY `items`.`id` DESC ';
-		$sql = $this->makeSelectQueryStatus($sql);
-		$params = array($this->user, $this->status, $this->status);
+		$sql = $this->makeSelectQueryStatus($sql, $this->status);
+		$params = array($this->user);
 		$this->setMapperResult($sql, $params, $this->rows);
 		$result = $this->mapper->findAll($this->limit, 
 				0, $this->status, $this->user);
