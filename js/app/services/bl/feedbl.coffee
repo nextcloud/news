@@ -23,13 +23,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 angular.module('News').factory 'FeedBl',
 ['_Bl', 'ShowAll', 'Persistence', 'ActiveFeed', 'FeedType', 'ItemModel',
-'FeedModel',
-(_Bl, ShowAll, Persistence, ActiveFeed, FeedType, ItemModel, FeedModel) ->
+'FeedModel', 'NewLoading',
+(_Bl, ShowAll, Persistence, ActiveFeed, FeedType, ItemModel, FeedModel,
+NewLoading) ->
 
 	class FeedBl extends _Bl
 
 		constructor: (@_showAll, @_feedModel, persistence, activeFeed, feedType,
-			          itemModel) ->
+			          itemModel, @_newLoading) ->
 			super(activeFeed, persistence, itemModel, feedType.Feed)
 
 
@@ -92,15 +93,22 @@ angular.module('News').factory 'FeedBl',
 
 		setShowAll: (showAll) ->
 			@_showAll.setShowAll(showAll)
-			@_persistence.getItems(
-				@_activeFeed.getType(),
-				@_activeFeed.getId(),
-				0
-			)
+
+			# TODO: this callback is not tested with a unittest
+			callback = =>
+				@_itemModel.clear()
+				@_newLoading.increase()
+				@_persistence.getItems(
+					@_activeFeed.getType(),
+					@_activeFeed.getId(),
+					0,
+					=>
+						@_newLoading.decrease()
+				)
 			if showAll
-				@_persistence.userSettingsReadShow()
+				@_persistence.userSettingsReadShow(callback)
 			else
-				@_persistence.userSettingsReadHide()
+				@_persistence.userSettingsReadHide(callback)
 
 
 		isShowAll: ->
@@ -112,6 +120,6 @@ angular.module('News').factory 'FeedBl',
 
 
 	return new FeedBl(ShowAll, FeedModel, Persistence, ActiveFeed, FeedType,
-	                  ItemModel)
+	                  ItemModel, NewLoading)
 
 ]

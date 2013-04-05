@@ -302,18 +302,22 @@ angular.module('News').factory '_Persistence', ->
 			@_request.get 'news_usersettings_read', params
 
 
-		userSettingsReadShow: ->
+		userSettingsReadShow: (callback) ->
 			###
 			Sets the reader mode to show all
 			###
-			@_request.post 'news_usersettings_read_show'
+			data =
+				onSuccess: callback
+			@_request.post 'news_usersettings_read_show', data
 
 
-		userSettingsReadHide: ->
+		userSettingsReadHide: (callback) ->
 			###
 			Sets the reader mode to show only unread
 			###
-			@_request.post 'news_usersettings_read_hide'
+			data =
+				onSuccess: callback
+			@_request.post 'news_usersettings_read_hide', data
 
 
 		_triggerHideRead: ->

@@ -551,15 +551,16 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   angular.module('News').factory('FeedBl', [
-    '_Bl', 'ShowAll', 'Persistence', 'ActiveFeed', 'FeedType', 'ItemModel', 'FeedModel', function(_Bl, ShowAll, Persistence, ActiveFeed, FeedType, ItemModel, FeedModel) {
+    '_Bl', 'ShowAll', 'Persistence', 'ActiveFeed', 'FeedType', 'ItemModel', 'FeedModel', 'NewLoading', function(_Bl, ShowAll, Persistence, ActiveFeed, FeedType, ItemModel, FeedModel, NewLoading) {
       var FeedBl;
       FeedBl = (function(_super) {
 
         __extends(FeedBl, _super);
 
-        function FeedBl(_showAll, _feedModel, persistence, activeFeed, feedType, itemModel) {
+        function FeedBl(_showAll, _feedModel, persistence, activeFeed, feedType, itemModel, _newLoading) {
           this._showAll = _showAll;
           this._feedModel = _feedModel;
+          this._newLoading = _newLoading;
           FeedBl.__super__.constructor.call(this, activeFeed, persistence, itemModel, feedType.Feed);
         }
 
@@ -638,12 +639,20 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         };
 
         FeedBl.prototype.setShowAll = function(showAll) {
+          var callback,
+            _this = this;
           this._showAll.setShowAll(showAll);
-          this._persistence.getItems(this._activeFeed.getType(), this._activeFeed.getId(), 0);
+          callback = function() {
+            _this._itemModel.clear();
+            _this._newLoading.increase();
+            return _this._persistence.getItems(_this._activeFeed.getType(), _this._activeFeed.getId(), 0, function() {
+              return _this._newLoading.decrease();
+            });
+          };
           if (showAll) {
-            return this._persistence.userSettingsReadShow();
+            return this._persistence.userSettingsReadShow(callback);
           } else {
-            return this._persistence.userSettingsReadHide();
+            return this._persistence.userSettingsReadHide(callback);
           }
         };
 
@@ -658,7 +667,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         return FeedBl;
 
       })(_Bl);
-      return new FeedBl(ShowAll, FeedModel, Persistence, ActiveFeed, FeedType, ItemModel);
+      return new FeedBl(ShowAll, FeedModel, Persistence, ActiveFeed, FeedType, ItemModel, NewLoading);
     }
   ]);
 
@@ -1932,18 +1941,28 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         return this._request.get('news_usersettings_read', params);
       };
 
-      Persistence.prototype.userSettingsReadShow = function() {
+      Persistence.prototype.userSettingsReadShow = function(callback) {
         /*
         			Sets the reader mode to show all
         */
-        return this._request.post('news_usersettings_read_show');
+
+        var data;
+        data = {
+          onSuccess: callback
+        };
+        return this._request.post('news_usersettings_read_show', data);
       };
 
-      Persistence.prototype.userSettingsReadHide = function() {
+      Persistence.prototype.userSettingsReadHide = function(callback) {
         /*
         			Sets the reader mode to show only unread
         */
-        return this._request.post('news_usersettings_read_hide');
+
+        var data;
+        data = {
+          onSuccess: callback
+        };
+        return this._request.post('news_usersettings_read_hide', data);
       };
 
       Persistence.prototype._triggerHideRead = function() {

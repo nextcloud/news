@@ -345,14 +345,21 @@ describe '_Persistence', ->
 
 	it 'should do a proper user settings read show request', =>
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.userSettingsReadShow()
+		params =
+			onSuccess: ->
 
-		expect(@req.post).toHaveBeenCalledWith('news_usersettings_read_show')
+		pers.userSettingsReadShow(params.onSuccess)
+
+		expect(@req.post).toHaveBeenCalledWith('news_usersettings_read_show',
+			params)
 
 
 
 	it 'should do a proper user settings read hide request', =>
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.userSettingsReadHide()
+		params =
+			onSuccess: ->
+		pers.userSettingsReadHide(params.onSuccess)
 
-		expect(@req.post).toHaveBeenCalledWith('news_usersettings_read_hide')
+		expect(@req.post).toHaveBeenCalledWith('news_usersettings_read_hide',
+			params)

@@ -42,7 +42,7 @@
 		</div>
 		
 		<div class="body" 
-				ng-click="setRead(item.id)" 
+				ng-click="itemBl.setRead(item.id)" 
 				ng-bind-html-unsafe="item.body">
 		</div>
 
