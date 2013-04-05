@@ -24,10 +24,11 @@
 		</h1>
 
 		<h2 class="item_author">
-			<?php p($l->t('from')) ?>
-			<a href="#"
-				ng-show="itemBl.noFeedActive()"
-				class="from_feed">{{ itemBl.getFeedTitle(item.id) }}</a> 
+			<span ng-show="itemBl.noFeedActive()">
+				<?php p($l->t('from')) ?>
+				<a href="#"
+					class="from_feed">{{ itemBl.getFeedTitle(item.id) }}</a> 
+			</span>
 			<span ui-if="item.author">
 				<?php p($l->t('by')) ?>
 				{{ item.author }}
