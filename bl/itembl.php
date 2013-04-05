@@ -95,7 +95,7 @@ class ItemBl extends Bl {
 
 	public function star($feedId, $guidHash, $isStarred, $userId){
 		// FIXME: this can throw two possible exceptions
-		$item = $this->mapper->findByGuidHash($feedId, $guidHash, $userId);
+		$item = $this->mapper->findByGuidHash($guidHash, $feedId, $userId);
 		if($isStarred){
 			$item->setStarred();
 		} else {

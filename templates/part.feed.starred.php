@@ -1,4 +1,7 @@
-<li ng-class="{	active: starredBl.isActive(0) }" 
+<li ng-class="{	
+		active: starredBl.isActive(0), 
+		unread: starredBl.getUnreadCount() > 0
+	}" 
 	ng-show="starredBl.isVisible(0)">
 	<a class="starred-icon"
 		href="#"
@@ -7,7 +10,7 @@
 	</a>
 	<span class="utils">
 		<span class="unread-counter">
-			{{ starredBl.getStarredCount() }}
+			{{ starredBl.getUnreadCount() }}
 		</span>
 	</span>
 </li>

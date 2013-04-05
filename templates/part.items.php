@@ -13,7 +13,7 @@
 				<li ng-class="{ important: item.isStarred() }"
 					ng-click="itemBl.toggleStarred(item.id)"
 					class="star" 
-					title="{{ item.isStarred() }}">
+					title="<?php p($l->t('Save for later')) ?>">
 				</li>
 			</ul>
 		</div>

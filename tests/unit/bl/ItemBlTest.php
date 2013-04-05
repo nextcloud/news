@@ -197,8 +197,9 @@ class ItemBlTest extends \OCA\AppFramework\Utility\TestUtility {
 
 		$this->mapper->expects($this->once())
 			->method('findByGuidHash')
-			->with($this->equalTo($feedId), 
-				$this->equalTo($guidHash), 
+			->with( 
+				$this->equalTo($guidHash),
+				$this->equalTo($feedId),
 				$this->equalTo($this->user))
 			->will($this->returnValue($item));
 
