@@ -117,6 +117,17 @@ describe 'ItemBl', ->
 		expect(@persistence.readItem).toHaveBeenCalledWith(2)
 
 
+	it 'should no set an item read if its already read', =>
+		@persistence.readItem = jasmine.createSpy('read item')
+		
+		item = {id: 2, feedId: 5, guidHash: 'a3', status: 0}
+		@ItemModel.add(item)
+		item.setRead()
+
+		@ItemBl.setRead(2)
+		expect(@persistence.readItem).not.toHaveBeenCalled()
+
+
 	it 'should return false when item kept unread does not exist', =>
 		expect(@ItemBl.isKeptUnread(2)).toBe(false)
 
@@ -154,6 +165,19 @@ describe 'ItemBl', ->
 
 		expect(item.isRead()).toBe(false)
 		expect(@persistence.unreadItem).toHaveBeenCalledWith(2)
+
+
+	it 'should not set an item as unread if its unread', =>
+		@persistence.unreadItem = jasmine.createSpy('unread item')
+
+		item = {id: 2, feedId: 5, guidHash: 'a3', status: 0}
+		@ItemModel.add(item)
+		item.setUnread()
+
+		@ItemBl.setUnread(2)
+
+		expect(item.isRead()).toBe(false)
+		expect(@persistence.unreadItem).not.toHaveBeenCalled()
 
 
 	it 'should set item as unread if kept unread is toggled and it is read', =>

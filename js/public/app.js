@@ -875,11 +875,13 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           var feed, item;
           item = this._itemModel.getById(itemId);
           if (angular.isDefined(item)) {
-            item.setRead();
-            this._persistence.readItem(itemId);
-            feed = this._feedModel.getById(item.feedId);
-            if (angular.isDefined(feed)) {
-              return feed.unreadCount -= 1;
+            if (!item.isRead()) {
+              item.setRead();
+              this._persistence.readItem(itemId);
+              feed = this._feedModel.getById(item.feedId);
+              if (angular.isDefined(feed)) {
+                return feed.unreadCount -= 1;
+              }
             }
           }
         };
@@ -888,11 +890,13 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           var feed, item;
           item = this._itemModel.getById(itemId);
           if (angular.isDefined(item)) {
-            item.setUnread();
-            this._persistence.unreadItem(itemId);
-            feed = this._feedModel.getById(item.feedId);
-            if (angular.isDefined(feed)) {
-              return feed.unreadCount += 1;
+            if (item.isRead()) {
+              item.setUnread();
+              this._persistence.unreadItem(itemId);
+              feed = this._feedModel.getById(item.feedId);
+              if (angular.isDefined(feed)) {
+                return feed.unreadCount += 1;
+              }
             }
           }
         };
