@@ -45,8 +45,8 @@ class FeedMapper extends Mapper implements IMapper {
 				'ON `feeds`.`id` = `items`.`feed_id` ' . 
 				// WARNING: this is a desperate attempt at making this query work
 				// because prepared statements dont work. This is a possible 
-				// SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGH.
-				// think twice when chaning this
+				// SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
+				// think twice when changing this
 				'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' .
 				StatusFlag::UNREAD . ' ' .
 			'WHERE `feeds`.`id` = ? ' .
@@ -83,8 +83,8 @@ class FeedMapper extends Mapper implements IMapper {
 				'ON `feeds`.`id` = `items`.`feed_id` ' .
 				// WARNING: this is a desperate attempt at making this query work
 				// because prepared statements dont work. This is a possible 
-				// SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGH.
-				// think twice when chaning this 
+				// SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
+				// think twice when changing this 
 				'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' .
 				StatusFlag::UNREAD . ' ' .
 			'WHERE `feeds`.`user_id` = ? ' .
@@ -109,8 +109,8 @@ class FeedMapper extends Mapper implements IMapper {
 				'ON `feeds`.`id` = `items`.`feed_id` ' . 
 				// WARNING: this is a desperate attempt at making this query work
 				// because prepared statements dont work. This is a possible 
-				// SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGH.
-				// think twice when chaning this
+				// SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
+				// think twice when changing this
 				'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' .
 				StatusFlag::UNREAD . ' ' .
 			'WHERE `feeds`.`url_hash` = ? ' .
