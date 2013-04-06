@@ -72,6 +72,11 @@ class ItemMapper extends Mapper implements IMapper {
 
 		// now im gonna slowly stick them in the query, be careful!
 		return $this->makeSelectQuery(
+			
+			// WARNING: this is a desperate attempt at making this query work
+			// because prepared statements dont work. This is a possible 
+			// SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGH.
+			// think twice when chaning this
 			'AND ((`items`.`status` & ' . $status . ') = ' . $status . ') ' .
 			$prependTo
 		);
@@ -94,6 +99,10 @@ class ItemMapper extends Mapper implements IMapper {
 			'JOIN `*PREFIX*news_items` `items` ' .
 				'ON `items`.`feed_id` = `feeds`.`id` ' .
 				'AND `feeds`.`user_id` = ? ' .
+			// WARNING: this is a desperate attempt at making this query work
+			// because prepared statements dont work. This is a possible 
+			// SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGH.
+			// think twice when chaning this
 			'WHERE ((`items`.`status` & ' . StatusFlag::STARRED . ') = ' . 
 				StatusFlag::STARRED . ')';
 

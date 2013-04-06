@@ -43,6 +43,10 @@ class FeedMapper extends Mapper implements IMapper {
 			'FROM `*PREFIX*news_feeds` `feeds` ' .
 			'LEFT JOIN `*PREFIX*news_items` `items` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` ' . 
+				// WARNING: this is a desperate attempt at making this query work
+				// because prepared statements dont work. This is a possible 
+				// SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGH.
+				// think twice when chaning this
 				'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' .
 				StatusFlag::UNREAD . ' ' .
 			'WHERE `feeds`.`id` = ? ' .
@@ -76,7 +80,11 @@ class FeedMapper extends Mapper implements IMapper {
 		$sql = 'SELECT `feeds`.*, COUNT(`items`.`id`) AS `unread_count` ' .
 			'FROM `*PREFIX*news_feeds` `feeds` ' .
 			'LEFT JOIN `*PREFIX*news_items` `items` ' .
-				'ON `feeds`.`id` = `items`.`feed_id` ' . 
+				'ON `feeds`.`id` = `items`.`feed_id` ' .
+				// WARNING: this is a desperate attempt at making this query work
+				// because prepared statements dont work. This is a possible 
+				// SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGH.
+				// think twice when chaning this 
 				'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' .
 				StatusFlag::UNREAD . ' ' .
 			'WHERE `feeds`.`user_id` = ? ' .
@@ -99,6 +107,10 @@ class FeedMapper extends Mapper implements IMapper {
 			'FROM `*PREFIX*news_feeds` `feeds` ' .
 			'LEFT JOIN `*PREFIX*news_items` `items` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` ' . 
+				// WARNING: this is a desperate attempt at making this query work
+				// because prepared statements dont work. This is a possible 
+				// SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGH.
+				// think twice when chaning this
 				'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' .
 				StatusFlag::UNREAD . ' ' .
 			'WHERE `feeds`.`url_hash` = ? ' .
