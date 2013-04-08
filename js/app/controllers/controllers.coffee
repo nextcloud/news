@@ -39,8 +39,8 @@ StarredBl, unreadCountFormatter)->
 ]
 
 angular.module('News').controller 'ItemController',
-['$scope', '_ItemController', 'ItemBl', 'FeedModel', 'FeedLoading',
-($scope, _ItemController, ItemBl, FeedModel, FeedLoading)->
+['$scope', '_ItemController', 'ItemBl', 'FeedModel', 'FeedLoading', 'FeedBl',
+($scope, _ItemController, ItemBl, FeedModel, FeedLoading, FeedBl)->
 
-	return new _ItemController($scope, ItemBl, FeedModel, FeedLoading)
+	return new _ItemController($scope, ItemBl, FeedModel, FeedLoading, FeedBl)
 ]

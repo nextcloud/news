@@ -202,3 +202,15 @@ describe 'FeedBl', ->
 
 		expect(folders).toContain(item1)
 		expect(folders).toContain(item3)
+
+
+	it 'should return the correct feed link', =>
+		item2 =
+			id: 4,
+			unreadCount:134,
+			urlHash: 'a2',
+			folderId: 3,
+			link: 'test.com'
+		@FeedModel.add(item2)
+
+		expect(@FeedBl.getFeedLink(4)).toBe('test.com')

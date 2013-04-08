@@ -25,9 +25,11 @@ angular.module('News').factory '_ItemController', ->
 
 	class ItemController
 
-		constructor: (@_$scope, @_itemBl, @_feedModel, @_feedLoading) ->
+		constructor: (@_$scope, @_itemBl, @_feedModel, @_feedLoading,
+		              @_feedBl) ->
 
 			@_$scope.itemBl = @_itemBl
+			@_$scope.feedBl = @_feedBl
 
 			@_$scope.isLoading = =>
 				return @_feedLoading.isLoading()

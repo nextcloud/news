@@ -177,8 +177,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
   ]);
 
   angular.module('News').controller('ItemController', [
-    '$scope', '_ItemController', 'ItemBl', 'FeedModel', 'FeedLoading', function($scope, _ItemController, ItemBl, FeedModel, FeedLoading) {
-      return new _ItemController($scope, ItemBl, FeedModel, FeedLoading);
+    '$scope', '_ItemController', 'ItemBl', 'FeedModel', 'FeedLoading', 'FeedBl', function($scope, _ItemController, ItemBl, FeedModel, FeedLoading, FeedBl) {
+      return new _ItemController($scope, ItemBl, FeedModel, FeedLoading, FeedBl);
     }
   ]);
 
@@ -323,13 +323,15 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     var ItemController;
     ItemController = (function() {
 
-      function ItemController(_$scope, _itemBl, _feedModel, _feedLoading) {
+      function ItemController(_$scope, _itemBl, _feedModel, _feedLoading, _feedBl) {
         var _this = this;
         this._$scope = _$scope;
         this._itemBl = _itemBl;
         this._feedModel = _feedModel;
         this._feedLoading = _feedLoading;
+        this._feedBl = _feedBl;
         this._$scope.itemBl = this._itemBl;
+        this._$scope.feedBl = this._feedBl;
         this._$scope.isLoading = function() {
           return _this._feedLoading.isLoading();
         };
@@ -662,6 +664,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
         FeedBl.prototype.getAll = function() {
           return this._feedModel.getAll();
+        };
+
+        FeedBl.prototype.getFeedLink = function(feedId) {
+          var feed;
+          feed = this._feedModel.getById(feedId);
+          if (angular.isDefined(feed)) {
+            return feed.link;
+          }
         };
 
         return FeedBl;

@@ -38,6 +38,7 @@ class Feed extends Entity {
 	public $added;
 	public $folderId;
 	public $unreadCount;
+	public $link;
 
 	public function __construct(){
 		$this->addType('parentId', 'int');

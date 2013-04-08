@@ -59,6 +59,8 @@ class FeedFetcher implements IFeedFetcher {
 		$simplePie = new \SimplePie_Core();
 		$simplePie->set_feed_url( $url );
 		$simplePie->enable_cache( false );
+		// $simplePie->set_cache_location($cacheDirectory) . '/rss/';
+		// $simplePie->enable_cache(true);
 		
 		if (!$simplePie->init()) {
 			throw new FetcherException('Could not initialize simple pie');
@@ -102,8 +104,9 @@ class FeedFetcher implements IFeedFetcher {
 			}
 
 			$feed = new Feed();
-			$feed->setTitle( $simplePie->get_title());
+			$feed->setTitle($simplePie->get_title());
 			$feed->setUrl($url);
+			$feed->setLink($simplePie->get_link());
 			$feed->setUrlHash(md5($url));
 			$feed->setAdded(time());
 

@@ -24,9 +24,9 @@
 		</h1>
 
 		<h2 class="item_author">
-			<span ng-show="itemBl.noFeedActive()">
+			<span ng-show="itemBl.noFeedActive() && feedBl.getFeedLink(item.feedId)">
 				<?php p($l->t('from')) ?>
-				<a href="#"
+				<a 	target="_blank" href="{{ feedBl.getFeedLink(item.feedId) }}"
 					class="from_feed">{{ itemBl.getFeedTitle(item.id) }}</a> 
 			</span>
 			<span ui-if="item.author">

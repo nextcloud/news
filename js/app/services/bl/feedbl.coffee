@@ -119,6 +119,12 @@ NewLoading) ->
 			return @_feedModel.getAll()
 
 
+		getFeedLink: (feedId) ->
+			feed = @_feedModel.getById(feedId)
+			if angular.isDefined(feed)
+				return feed.link
+
+
 	return new FeedBl(ShowAll, FeedModel, Persistence, ActiveFeed, FeedType,
 	                  ItemModel, NewLoading)
 

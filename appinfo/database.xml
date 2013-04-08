@@ -90,6 +90,11 @@
 				<notnull>true</notnull>
 			</field>
 			<field>
+				<name>link</name>
+				<type>clob</type>
+				<notnull>false</notnull>
+			</field>
+			<field>
 				<name>favicon_link</name>
 				<type>clob</type>
 				<notnull>false</notnull>

@@ -28,13 +28,18 @@ describe '_ItemController', ->
 
 	beforeEach inject (@_ItemController, @ActiveFeed, @ShowAll, @FeedType,
 		               @StarredCount, @FeedModel, @FolderModel, @ItemModel,
-		               @ItemBl) =>
+		               @ItemBl, @FeedBl, @FeedLoading) =>
 		@scope = {}
 		@persistence = {
 			getItems: ->
 		}
-		@controller = new @_ItemController(@scope, @ItemBl, @FeedModel)
+		@controller = new @_ItemController(@scope, @ItemBl, @FeedModel,
+		                                   @FeedLoading, @FeedBl)
 
 
 	it 'should make ItemBl availabe', =>
 		expect(@scope.itemBl).toBe(@ItemBl)
+
+
+	it 'should make FeedBl availabe', =>
+		expect(@scope.feedBl).toBe(@FeedBl)
