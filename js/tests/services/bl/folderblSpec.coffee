@@ -30,9 +30,10 @@ describe 'FolderBl', ->
 			@persistence = {}
 
 	beforeEach inject (@FolderBl, @FolderModel,	@FeedModel, @ShowAll,
-		               @ActiveFeed, @FeedType) =>
+		               @ActiveFeed, @FeedType, @_ExistsError) =>
 		@ShowAll.setShowAll(false)
 		@ActiveFeed.handle({type: @FeedType.Feed, id:0})
+
 
 
 	it 'should delete folders', =>
@@ -130,3 +131,8 @@ describe 'FolderBl', ->
 		expect(@FolderBl.getAll()).toContain(item2)
 
 
+	it 'should not create a folder if it already exists', =>
+		item1 = {id: 4, open: true, name: 'john'}
+		@FolderModel.add(item1)
+
+		expect(@FolderBl.create('johns')).toThrow(new @_ExistsError())

@@ -23,9 +23,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 angular.module('News').factory 'FolderBl',
 ['_Bl', 'FolderModel', 'FeedBl', 'Persistence', 'FeedType', 'ActiveFeed',
-'ItemModel', 'ShowAll',
+'ItemModel', 'ShowAll', '_ExistsError',
 (_Bl, FolderModel, FeedBl, Persistence, FeedType, ActiveFeed,
-ItemModel, ShowAll)->
+ItemModel, ShowAll, _ExistsError)->
 
 	class FolderBl extends _Bl
 
@@ -79,6 +79,12 @@ ItemModel, ShowAll)->
 
 		getAll: ->
 			return @_folderModel.getAll()
+
+
+		create: (folderName) ->
+			if @_folderModel.nameExists(folderName)
+				throw new _ExistsError()
+
 
 
 	return new FolderBl(FolderModel, FeedBl, ShowAll, ActiveFeed, Persistence,

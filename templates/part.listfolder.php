@@ -1,6 +1,6 @@
 <li ng-class="{
 		active: folderBl.isActive(folder.id), 
-		open: folder.opened,
+		open: folder.opened && folderBl.hasFeeds(folder.id),
 		collapsible: folderBl.hasFeeds(folder.id),
 		unread: folderBl.getUnreadCount(folder.id) != 0
 	}" 

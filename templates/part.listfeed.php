@@ -15,9 +15,6 @@
 	</a>
 	
 	<span class="utils">
-		<button ng-click="feedBl.delete(feed.id)"
-			class="svg action delete-icon" 
-			title="<?php p($l->t('Delete feed')); ?>"></button>
 
 		<span class="unread-counter">
 			{{ feedBl.getUnreadCount(feed.id) }}
@@ -27,6 +24,10 @@
 			ng-show="feedBl.getUnreadCount(feed.id) > 0"
 			ng-click="feedBl.markFeedRead(feed.id)"
 			title="<?php p($l->t('Mark all read')); ?>"></button>
+		
+		<button ng-click="feedBl.delete(feed.id)"
+			class="svg action delete-icon" 
+			title="<?php p($l->t('Delete feed')); ?>"></button>
 
 	</span>
 </li>
