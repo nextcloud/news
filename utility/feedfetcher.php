@@ -94,8 +94,8 @@ class FeedFetcher implements IFeedFetcher {
 					if($enclosure !== null) {
 						$enclosureType = $enclosure->get_type();
 						if(stripos($enclosureType, "audio/") !== false) {
-							$enclosure->setEnclosureMime($enclosureType);
-							$enclosure->setEnclosureLink($enclosure->get_link());
+							$item->setEnclosureMime($enclosureType);
+							$item->setEnclosureLink($enclosure->get_link());
 						}
 					}
 					
