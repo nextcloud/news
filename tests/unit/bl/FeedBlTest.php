@@ -23,12 +23,8 @@
 *
 */
 
-namespace {
-	class DatabaseException extends Exception{};	
-}
 
-
-namespace OCA\News\Bl {
+namespace OCA\News\Bl;
 
 require_once(__DIR__ . "/../../classloader.php");
 
@@ -182,7 +178,6 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 		$feed = new Feed();
 		$feed->setId(3);
 		$feed->getUrl('test');
-		$ex = new \DatabaseException('');
 
 		$item = new Item();
 		$item->setGuidHash(md5('hi'));
@@ -221,7 +216,6 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 		$feed = new Feed();
 		$feed->setId(3);
 		$feed->getUrl('test');
-		$ex = new \DatabaseException('');
 
 		$item = new Item();
 		$item->setGuidHash(md5('hi'));
@@ -303,7 +297,5 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 	}
 
 
-
-}
 
 }
