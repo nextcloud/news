@@ -43,6 +43,7 @@
 	display: block;
 }
 
+
 .folder {
 	text-transform: uppercase;
 }
@@ -95,7 +96,7 @@ button.action:hover {
 }
 
 .mark-read-icon {
-	background-image: url('%appswebroot%/news/img/mark_read.svg');
+	background-image: url('%appswebroot%/news/img/mark_read.svg') !important;
 }
 
 .rss-icon {

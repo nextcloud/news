@@ -37,7 +37,7 @@
 		<button class="svg action mark-read-icon"
 			ng-show="feedBl.getUnreadCount(feed.id) > 0 && feed.id"
 			ng-click="feedBl.markFeedRead(feed.id)"
-			title="<?php p($l->t('Mark all read')); ?>"></button>
+			title="<?php p($l->t('Mark all read')); ?>"> </button>
 		
 		<button ng-click="feedBl.delete(feed.id)"
 			class="svg action delete-icon" 

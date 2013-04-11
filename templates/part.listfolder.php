@@ -36,8 +36,7 @@
 		</span>
 		
 		<button class="svg action mark-read-icon" 
-				ng-show="folderBl.getUnreadCount(feedType.Feed, feed.id) > 0 &&
-					folder.id"
+				ng-show="folderBl.getUnreadCount(folder.id) > 0 && folder.id"
 				ng-click="folderBl.markFolderRead(folder.id)"
 				title="<?php p($l->t('Mark all read')); ?>"></button>
 
