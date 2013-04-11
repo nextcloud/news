@@ -48,25 +48,57 @@ describe 'FeedModel', ->
 		expect(@utils.imagePath).toHaveBeenCalledWith('news', 'rss.svg')
 
 
-	it 'should also update items when url is the same', =>
-		@FeedModel.add({id: 2, faviconLink: null, urlHash: 'hi'})
-		expect(@FeedModel.size()).toBe(1)
-
-		@FeedModel.add({id: 2, faviconLink: null, urlHash: 'hi4'})
-		expect(@FeedModel.size()).toBe(1)
-		expect(@FeedModel.getById(2).urlHash).toBe('hi4')
-
-		@FeedModel.add({id: 3, faviconLink: 'hey', urlHash: 'hi4'})
-		expect(@FeedModel.size()).toBe(1)
-		expect(@FeedModel.getById(2)).toBe(undefined)
-		expect(@FeedModel.getById(3).faviconLink).toBe('hey')
-
-
-	it 'should also remove the feed from the urlHash cache when its removed', =>
-		item = {id: 2, faviconLink: null, urlHash: 'hi'}
+	it 'should add feeds without id', =>
+		item = {faviconLink: null, urlHash: 'hi'}
 		@FeedModel.add(item)
 
 		expect(@FeedModel.getByUrlHash('hi')).toBe(item)
+		expect(@FeedModel.size()).toBe(1)
 
-		@FeedModel.removeById(2)
+
+	it 'should clear the url hash cache', =>
+		item = {faviconLink: null, urlHash: 'hi'}
+		@FeedModel.add(item)
+		@FeedModel.clear()
 		expect(@FeedModel.getByUrlHash('hi')).toBe(undefined)
+		expect(@FeedModel.size()).toBe(0)
+
+
+	it 'should delete items from the fodername cache', =>
+		item = {id:3, faviconLink: null, urlHash: 'hi'}
+		@FeedModel.add(item)
+		expect(@FeedModel.size()).toBe(1)
+
+		@FeedModel.removeById(3)
+		expect(@FeedModel.getByUrlHash('hi')).toBe(undefined)
+		expect(@FeedModel.size()).toBe(0)
+
+
+	it 'should update the id if an update comes in with an id', =>
+		item = {faviconLink: null, urlHash: 'hi', test: 'heheh'}
+		@FeedModel.add(item)
+
+		item = {id: 3, faviconLink: null, urlHash: 'hi', test: 'hoho'}
+		@FeedModel.add(item)
+
+		item = {id: 4, faviconLink: null, urlHash: 'his'}
+		@FeedModel.add(item)
+
+		expect(@FeedModel.getByUrlHash('hi').id).toBe(3)
+		expect(@FeedModel.getById(3).id).toBe(3)
+		expect(@FeedModel.getById(3).test).toBe('hoho')
+		expect(@FeedModel.size()).toBe(2)
+
+
+	it 'should update normally', =>
+		item = {id: 3, faviconLink: null, urlHash: 'hi', test: 'heheh'}
+		@FeedModel.add(item)
+
+		item2 = {id: 3, faviconLink: null, urlHash: 'his', test: 'hoho'}
+		@FeedModel.add(item2)
+
+		expect(@FeedModel.getById(3).id).toBe(3)
+		expect(@FeedModel.getById(3).test).toBe('hoho')
+		expect(@FeedModel.size()).toBe(1)
+
+

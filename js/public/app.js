@@ -1347,21 +1347,91 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
   angular.module('News').factory('_FolderModel', [
     '_Model', '_EqualQuery', function(_Model, _EqualQuery) {
-      var FolderModel, _ref;
+      var FolderModel;
 
       FolderModel = (function(_super) {
         __extends(FolderModel, _super);
 
         function FolderModel() {
-          _ref = FolderModel.__super__.constructor.apply(this, arguments);
-          return _ref;
+          this._nameCache = {};
+          FolderModel.__super__.constructor.call(this);
         }
 
-        FolderModel.prototype.nameExists = function(folderName) {
-          var query;
+        FolderModel.prototype.add = function(data, clearCache) {
+          var item, updateById, updateByName;
 
-          query = new _EqualQuery('name', folderName.trim(), true);
-          return this.get(query).length > 0;
+          if (clearCache == null) {
+            clearCache = true;
+          }
+          /*
+          			We want to add a folder on the client side before
+          			we have an id from the server. Once the server returns
+          			an id, we have to update the existing item without id
+          */
+
+          data.name = this._transformName(data.name);
+          item = this._nameCache[data.name];
+          updateById = angular.isDefined(data.id) && angular.isDefined(this.getById(data.id));
+          updateByName = angular.isDefined(item) && angular.isUndefined(item.id);
+          if (updateById || updateByName) {
+            return this.update(data);
+          } else {
+            this._nameCache[data.name] = data;
+            if (angular.isDefined(data.id)) {
+              return FolderModel.__super__.add.call(this, data, clearCache);
+            } else {
+              return this._data.push(data);
+            }
+          }
+        };
+
+        FolderModel.prototype.update = function(data, clearCache) {
+          var item, itemWithId;
+
+          if (clearCache == null) {
+            clearCache = true;
+          }
+          data.name = this._transformName(data.name);
+          item = this._nameCache[data.name];
+          if (angular.isUndefined(data.id) && angular.isDefined(item)) {
+            return angular.extend(item, data);
+          } else {
+            if (angular.isDefined(data.id) && angular.isDefined(item) && angular.isUndefined(item.id)) {
+              item.id = data.id;
+              this._dataMap[data.id] = item;
+            }
+            itemWithId = this.getById(data.id);
+            if (angular.isDefined(itemWithId) && itemWithId.name !== data.name) {
+              delete this._nameCache[itemWithId.name];
+              this._nameCache[data.name] = itemWithId;
+            }
+            return FolderModel.__super__.update.call(this, data, clearCache);
+          }
+        };
+
+        FolderModel.prototype.getByName = function(folderName) {
+          folderName = this._transformName(folderName);
+          return this._nameCache[folderName];
+        };
+
+        FolderModel.prototype.clear = function() {
+          this._nameCache = {};
+          return FolderModel.__super__.clear.call(this);
+        };
+
+        FolderModel.prototype.removeById = function(id, clearCache) {
+          var item;
+
+          if (clearCache == null) {
+            clearCache = true;
+          }
+          item = this.getById(id);
+          delete this._nameCache[this._transformName(item.name)];
+          return FolderModel.__super__.removeById.call(this, id, clearCache);
+        };
+
+        FolderModel.prototype._transformName = function(folderName) {
+          return folderName.trim().toLowerCase();
         };
 
         return FolderModel;

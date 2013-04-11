@@ -32,8 +32,63 @@ describe 'FolderModel', ->
 		expect(@FolderModel instanceof @_Model).toBeTruthy()
 
 
-	it 'should allow to search for foldernames', =>
-		@FolderModel.add({id: 3, name: 'hi'})
+	it 'should add folders without id but name if they dont exist yet', =>
+		item = {name: 'Hi'}
+		@FolderModel.add(item)
+		expect(@FolderModel.getByName('hi')).toBe(item)
+		expect(@FolderModel.size()).toBe(1)
 
-		expect(@FolderModel.nameExists('hi')).toBeTruthy()
-		expect(@FolderModel.nameExists('dhi')).toBeFalsy()
+
+	it 'should clear the fodername cache', =>
+		item = {name: 'Hi'}
+		@FolderModel.add(item)
+		@FolderModel.clear()
+		expect(@FolderModel.getByName('hi')).toBe(undefined)
+		expect(@FolderModel.size()).toBe(0)
+
+
+	it 'should delete items from the fodername cache', =>
+		item = {id: 3, name: 'Hi'}
+		@FolderModel.add(item)
+		@FolderModel.removeById(3)
+		expect(@FolderModel.getByName('hi')).toBe(undefined)
+		expect(@FolderModel.size()).toBe(0)
+
+
+	it 'should update by foldername', =>
+		item = {name: 'Hi'}
+		@FolderModel.add(item)
+
+		item2 = {name: 'hi', test: 'hoho'}
+		@FolderModel.add(item2)
+
+		expect(@FolderModel.getByName('hi').test).toBe('hoho')
+		expect(@FolderModel.size()).toBe(1)
+
+
+	it 'should update the id if an update comes in with an id', =>
+		item = {name: 'Tony'}
+		@FolderModel.add(item)
+
+		item2 = {id: 3, name: 'tony', test: 'hoho'}
+		@FolderModel.add(item2)
+
+		expect(@FolderModel.getByName('Tony').id).toBe(3)
+		expect(@FolderModel.getByName('Tony').test).toBe('hoho')
+		expect(@FolderModel.getById(3).id).toBe(3)
+		expect(@FolderModel.getById(3).test).toBe('hoho')
+		expect(@FolderModel.size()).toBe(1)
+
+
+	it 'should update normally', =>
+		item = {id: 3, name: 'His'}
+		@FolderModel.add(item)
+
+		item2 = {id: 3, name: 'hobo', test: 'hoho'}
+		@FolderModel.add(item2)
+
+		expect(@FolderModel.getByName('His')).toBe(undefined)
+		expect(@FolderModel.getByName('Hobo').id).toBe(3)
+		expect(@FolderModel.getByName('Hobo').test).toBe('hoho')
+		expect(@FolderModel.getById(3).test).toBe('hoho')
+		expect(@FolderModel.size()).toBe(1)

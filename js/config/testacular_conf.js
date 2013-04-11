@@ -40,7 +40,6 @@ files = [
 	'../../appframework/js/public/app.js',
 	'tests/stubs/modules.js',
 	'build/app/directives/*.js',
-	'build/app/filters/*.js',
 	'build/app/services/**/*.js',
 	'build/app/controllers/**/*.js',
 	'build/tests/**/*Spec.js'
