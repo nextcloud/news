@@ -312,3 +312,11 @@ describe 'FeedBl', ->
 			@response.msg)
 
 
+	it 'should mark a feed error as read by removing it', =>
+		@FeedModel.add({id: 3, urlHash: 'john'})
+
+		@FeedBl.markErrorRead('john')
+
+		expect(@FeedModel.size()).toBe(0)
+		expect(@FeedModel.getByUrlHash('john')).toBe(undefined)
+

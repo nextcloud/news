@@ -306,10 +306,11 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             } catch (_error) {
               error = _error;
               if (error instanceof _ExistsError) {
-                return _this._$scope.feedExistsError = true;
+                _this._$scope.feedExistsError = true;
               } else {
-                return _this._$scope.feedEmptyError = true;
+                _this._$scope.feedEmptyError = true;
               }
+              return _this._isAddingFeed = false;
             }
           };
           this._$scope.addFolder = function(folderName) {
@@ -329,10 +330,11 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             } catch (_error) {
               error = _error;
               if (error instanceof _ExistsError) {
-                return _this._$scope.folderExistsError = true;
+                _this._$scope.folderExistsError = true;
               } else {
-                return _this._$scope.folderEmptyError = true;
+                _this._$scope.folderEmptyError = true;
               }
+              return _this._isAddingFolder = false;
             }
           };
           this._$scope.$on('moveFeedToFolder', function(scope, data) {
@@ -772,6 +774,10 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return this._persistence.createFeed(url, parentId, success);
         };
 
+        FeedBl.prototype.markErrorRead = function(urlHash) {
+          return this._feedModel.removeByUrlHash(urlHash);
+        };
+
         return FeedBl;
 
       })(_Bl);
@@ -920,6 +926,10 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             }
           };
           return this._persistence.createFolder(folderName, 0, success);
+        };
+
+        FolderBl.prototype.markErrorRead = function(folderName) {
+          return this._folderModel.removeByName(folderName);
         };
 
         return FolderBl;
@@ -1455,6 +1465,42 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return this.get(query);
         };
 
+        FeedModel.prototype.removeByUrlHash = function(urlHash, clearCache) {
+          var counter, entry, key, value, _i, _len, _ref, _ref1, _results;
+
+          if (clearCache == null) {
+            clearCache = true;
+          }
+          /*
+          			Remove an entry by id
+          */
+
+          _ref = this._dataMap;
+          for (key in _ref) {
+            value = _ref[key];
+            if (this._dataMap[key].urlHash === urlHash) {
+              delete this._dataMap[key];
+              break;
+            }
+          }
+          _ref1 = this._data;
+          _results = [];
+          for (counter = _i = 0, _len = _ref1.length; _i < _len; counter = ++_i) {
+            entry = _ref1[counter];
+            if (entry.urlHash === urlHash) {
+              this._data.splice(counter, 1);
+              delete this._urlHash[urlHash];
+              if (clearCache) {
+                this._invalidateCache();
+              }
+              break;
+            } else {
+              _results.push(void 0);
+            }
+          }
+          return _results;
+        };
+
         return FeedModel;
 
       })(_Model);
@@ -1581,6 +1627,43 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
         FolderModel.prototype._transformName = function(folderName) {
           return folderName.trim().toLowerCase();
+        };
+
+        FolderModel.prototype.removeByName = function(name, clearCache) {
+          var counter, entry, key, value, _i, _len, _ref, _ref1, _results;
+
+          if (clearCache == null) {
+            clearCache = true;
+          }
+          /*
+          			Remove an entry by id
+          */
+
+          name = name.toLowerCase();
+          _ref = this._dataMap;
+          for (key in _ref) {
+            value = _ref[key];
+            if (this._dataMap[key].name === name) {
+              delete this._dataMap[key];
+              break;
+            }
+          }
+          _ref1 = this._data;
+          _results = [];
+          for (counter = _i = 0, _len = _ref1.length; _i < _len; counter = ++_i) {
+            entry = _ref1[counter];
+            if (entry.name === name) {
+              this._data.splice(counter, 1);
+              delete this._nameCache[name];
+              if (clearCache) {
+                this._invalidateCache();
+              }
+              break;
+            } else {
+              _results.push(void 0);
+            }
+          }
+          return _results;
         };
 
         return FolderModel;

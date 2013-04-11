@@ -23,10 +23,10 @@
 	   {{ folder.name }}
 	</a>
 
-	<span class="utils" ng-hide="folder.error">
+	<span class="utils">
 
 		<button ng-click="folderBl.delete(folder.id)"
-				ng-hide="folderBl.hasFeeds(folder.id)"
+				ng-hide="folderBl.hasFeeds(folder.id) || !folder.id"
 				class="svg action delete-icon" 
 				title="<?php p($l->t('Delete folder')); ?>"></button>
 
@@ -35,10 +35,16 @@
 		</span>
 		
 		<button class="svg action mark-read-icon" 
-				ng-show="folderBl.getUnreadCount(feedType.Feed, feed.id) > 0"
+				ng-show="folderBl.getUnreadCount(feedType.Feed, feed.id) > 0 &&
+					folder.id"
 				ng-click="folderBl.markFolderRead(folder.id)"
 				title="<?php p($l->t('Mark all read')); ?>"></button>
-		
+
+		<button class="svg action mark-read-icon"
+			ng-click="folderBl.markErrorRead(folder.name)"
+			title="<?php p($l->t('Discard')); ?>"
+			ng-show="folder.error"></button>
+
 <!--		<button class="svg action edit-icon" 
 				ng-click="renameFolder(folder.id)"
 				title="<?php p($l->t('Rename folder')); ?>"></button>

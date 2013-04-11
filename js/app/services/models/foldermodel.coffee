@@ -116,5 +116,27 @@ angular.module('News').factory '_FolderModel',
 			return folderName.trim().toLowerCase()
 
 
+		removeByName: (name, clearCache=true) ->
+			###
+			Remove an entry by id
+			###
+			name = name.toLowerCase()
+
+			# remove from data map
+			for key, value of @_dataMap
+				if @_dataMap[key].name == name
+					delete @_dataMap[key]
+					break
+
+			for entry, counter in @_data
+				if entry.name == name
+					@_data.splice(counter, 1)
+					delete @_nameCache[name]
+
+					if clearCache
+						@_invalidateCache()
+					break
+
+
 	return FolderModel
 ]

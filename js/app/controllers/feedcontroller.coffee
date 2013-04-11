@@ -68,6 +68,7 @@ angular.module('News').factory '_FeedController',
 						@_$scope.feedExistsError = true
 					else
 						@_$scope.feedEmptyError = true
+					@_isAddingFeed = false
 					
 
 			@_$scope.addFolder = (folderName) =>
@@ -92,6 +93,7 @@ angular.module('News').factory '_FeedController',
 						@_$scope.folderExistsError = true
 					else
 						@_$scope.folderEmptyError = true
+					@_isAddingFolder = false
 
 
 			@_$scope.$on 'moveFeedToFolder', (scope, data) =>

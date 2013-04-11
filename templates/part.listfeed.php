@@ -26,21 +26,26 @@
 	   {{ feed.title }}
 	</a>
 	
-	<span class="utils" ng-hide="feed.error">
+	<span class="utils">
 
 		<span class="unread-counter">
 			{{ feedBl.getUnreadCount(feed.id) }}
 		</span>
 
 		<button class="svg action mark-read-icon"
-			ng-show="feedBl.getUnreadCount(feed.id) > 0"
+			ng-show="feedBl.getUnreadCount(feed.id) > 0 && feed.id"
 			ng-click="feedBl.markFeedRead(feed.id)"
 			title="<?php p($l->t('Mark all read')); ?>"></button>
 		
 		<button ng-click="feedBl.delete(feed.id)"
 			class="svg action delete-icon" 
-			title="<?php p($l->t('Delete feed')); ?>"></button>
+			title="<?php p($l->t('Delete feed')); ?>"
+			ng-show="feed.id"></button>
 
+		<button class="svg action mark-read-icon"
+			ng-click="feedBl.markErrorRead(feed.urlHash)"
+			title="<?php p($l->t('Discard')); ?>"
+			ng-show="feed.error"></button>
 	</span>
 
 	<div class="message" ng-show="feed.error">{{ feed.error }}</div>

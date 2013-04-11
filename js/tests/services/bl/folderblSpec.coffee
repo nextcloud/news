@@ -193,3 +193,13 @@ describe 'FolderBl', ->
 		expect(onFailure).toHaveBeenCalled()
 
 		expect(@FolderModel.getByName('johns').error).toBe(@response.msg)
+
+
+	it 'should mark a folder error as read by removing it', =>
+		@FolderModel.add({id: 3, name: 'john'})
+
+		@FolderBl.markErrorRead('John')
+
+		expect(@FolderModel.size()).toBe(0)
+		expect(@FolderModel.getByName('john')).toBe(undefined)
+

@@ -156,7 +156,11 @@ NewLoading, _ExistsError) ->
 				else
 					onSuccess(response.data)
 
-			@_persistence.createFeed url, parentId, success
+			@_persistence.createFeed(url, parentId, success)
+
+
+		markErrorRead: (urlHash) ->
+			@_feedModel.removeByUrlHash(urlHash)
 
 
 	return new FeedBl(ShowAll, FeedModel, Persistence, ActiveFeed, FeedType,

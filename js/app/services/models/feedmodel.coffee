@@ -144,5 +144,25 @@ angular.module('News').factory '_FeedModel',
 			return @get(query)
 
 
+		removeByUrlHash: (urlHash, clearCache=true) ->
+			###
+			Remove an entry by id
+			###
+
+			# remove from data map
+			for key, value of @_dataMap
+				if @_dataMap[key].urlHash == urlHash
+					delete @_dataMap[key]
+					break
+
+			for entry, counter in @_data
+				if entry.urlHash == urlHash
+					@_data.splice(counter, 1)
+					delete @_urlHash[urlHash]
+
+					if clearCache
+						@_invalidateCache()
+					break
+
 	return FeedModel
 ]

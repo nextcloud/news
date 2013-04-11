@@ -108,6 +108,10 @@ ItemModel, ShowAll, _ExistsError)->
 			@_persistence.createFolder folderName, 0, success
 
 
+		markErrorRead: (folderName) ->
+			@_folderModel.removeByName(folderName)
+
+
 	return new FolderBl(FolderModel, FeedBl, ShowAll, ActiveFeed, Persistence,
 		                FeedType, ItemModel)
 
