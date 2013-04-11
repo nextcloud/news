@@ -12,7 +12,7 @@ When the first kinda working version is available it will be mentioned in this r
 See the milestones in the Bugtracker for more information on progress
 
 
-How to install the news app
+How to install the News app
 ---------------------------
 - Install ownCloud 5.0
 - Clone the App Framework app into the **/var/www** directory::
@@ -30,3 +30,17 @@ How to install the news app
 	ln -s /var/www/news /var/www/owncloud/apps
 
 - Activate the App Framework App first, then activate the News app in the apps menu
+
+
+How to keep up to date
+----------------------
+To get the newest update you can use git. To update the appframework use::
+
+    cd /var/www/appframework
+    git pull --rebase origin master
+
+
+To update the News app use::
+
+    cd /var/www/news
+    git pull --rebase origin master
