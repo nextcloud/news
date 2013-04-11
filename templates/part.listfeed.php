@@ -1,6 +1,7 @@
 <li ng-class="{
 		active: feedBl.isActive(feed.id), 
-		unread: feedBl.getUnreadCount(feed.id) > 0
+		unread: feedBl.getUnreadCount(feed.id) > 0,
+		failed: feed.error
 	}" 
 	ng-repeat="feed in feedBl.getFeedsOfFolder(<?php p($_['folderId']); ?>)"
 	ng-show="feedBl.isVisible(feed.id)"
@@ -13,10 +14,15 @@
 		axis: 'y',
 		helper: 'clone'
 	}">
-	<a ng-style="{ backgroundImage: feed.faviconLink }"
-	   href="#"
-	   class="title"
-	   ng-click="feedBl.load(feed.id)">
+	<a 	ng-style="{ backgroundImage: feed.faviconLink }"
+		ng-click="feedBl.load(feed.id)"
+		ng-class="{
+			progress-icon: !feed.id,
+			problem-icon: feed.error
+		}"
+	   	href="#"
+	   	class="title">
+	   	
 	   {{ feed.title }}
 	</a>
 	
@@ -36,4 +42,7 @@
 			title="<?php p($l->t('Delete feed')); ?>"></button>
 
 	</span>
+
+	<div class="message" ng-show="feed.error">{{ feed.error }}</div>
 </li>
+

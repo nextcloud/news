@@ -2,7 +2,8 @@
 		active: folderBl.isActive(folder.id), 
 		open: folder.opened && folderBl.hasFeeds(folder.id),
 		collapsible: folderBl.hasFeeds(folder.id),
-		unread: folderBl.getUnreadCount(folder.id) != 0
+		unread: folderBl.getUnreadCount(folder.id) != 0,
+		failed: folder.error
 	}" 
 	ng-repeat="folder in folderBl.getAll()"
 	ng-show="folderBl.isVisible(folder.id)"
@@ -14,11 +15,15 @@
 			ng-click="folderBl.toggleFolder(folder.id)"></button>
 	<a href="#" 
 	   class="title folder-icon"
-	   ng-click="folderBl.load(folder.id)">
+	   ng-click="folderBl.load(folder.id)"
+	   ng-class="{
+			progress-icon: !folder.id,
+			problem-icon: folder.error
+		}">
 	   {{ folder.name }}
 	</a>
 
-	<span class="utils">
+	<span class="utils" ng-hide="folder.error">
 
 		<button ng-click="folderBl.delete(folder.id)"
 				ng-hide="folderBl.hasFeeds(folder.id)"
@@ -43,4 +48,6 @@
 	<ul>
 		<?php print_unescaped($this->inc('part.listfeed', array('folderId' => 'folder.id'))); ?>
 	</ul>
+	
+	<div class="message" ng-show="folder.error">{{ folder.error }}</div>
 </li>

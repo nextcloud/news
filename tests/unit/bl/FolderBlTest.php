@@ -43,7 +43,7 @@ class FolderBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			'\OCA\News\Db\FolderMapper')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->folderBl = new FolderBl($this->folderMapper);
+		$this->folderBl = new FolderBl($this->folderMapper, $this->api);
 	}
 
 
@@ -83,7 +83,13 @@ class FolderBlTest extends \OCA\AppFramework\Utility\TestUtility {
 		$rows = array(
 			array('id' => 1)
 		);
-		
+
+		$trans = $this->getMock('Trans', array('t'));
+		$trans->expects($this->once())
+			->method('t');
+		$this->api->expects($this->once())
+			->method('getTrans')
+			->will($this->returnValue($trans));
 		$this->folderMapper->expects($this->once())
 			->method('findByName')
 			->with($this->equalTo($folderName))
@@ -138,6 +144,12 @@ class FolderBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			array('id' => 1)
 		);
 		
+		$trans = $this->getMock('Trans', array('t'));
+		$trans->expects($this->once())
+			->method('t');
+		$this->api->expects($this->once())
+			->method('getTrans')
+			->will($this->returnValue($trans));
 		$this->folderMapper->expects($this->once())
 			->method('findByName')
 			->with($this->equalTo($folderName))

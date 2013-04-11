@@ -102,7 +102,7 @@ class DIContainer extends BaseContainer {
 		 * Business Layer
 		 */
 		$this['FolderBl'] = $this->share(function($c){
-			return new FolderBl($c['FolderMapper']);
+			return new FolderBl($c['FolderMapper'], $c['API']);
 		});
 
 		$this['FeedBl'] = $this->share(function($c){

@@ -78,6 +78,12 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 	public function testCreateDoesNotFindFeed(){
 		$ex = new FetcherException('hi');
 		$url = 'test';
+		$trans = $this->getMock('Trans', array('t'));
+		$trans->expects($this->once())
+			->method('t');
+		$this->api->expects($this->once())
+			->method('getTrans')
+			->will($this->returnValue($trans));
 		$this->mapper->expects($this->once())
 			->method('findByUrlHash')
 			->with($this->equalTo(md5($url)), $this->equalTo($this->user))
@@ -128,6 +134,12 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 
 	public function testCreateFeedExistsAlready(){
 		$url = 'test';
+		$trans = $this->getMock('Trans', array('t'));
+		$trans->expects($this->once())
+			->method('t');
+		$this->api->expects($this->once())
+			->method('getTrans')
+			->will($this->returnValue($trans));
 		$this->mapper->expects($this->once())
 			->method('findByUrlHash')
 			->with($this->equalTo(md5($url)), $this->equalTo($this->user));

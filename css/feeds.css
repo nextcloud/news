@@ -45,6 +45,10 @@
 	text-transform: uppercase;
 }
 
+.feed {
+	text-transform: none;	
+}
+
 .unread-counter {
 	padding: 8px 6px 8px 5px;
 	overflow: hidden;
@@ -101,4 +105,27 @@ button.action:hover {
 	height:20px;
 }
 
+.progress-icon {
+	background-image: url('%webroot%/core/img/loading.gif');
+}
 
+.problem-icon {
+	background-image: url('%appswebroot%/news/img/problem.svg');
+}
+
+.failed {
+	background-color: #EB9DA6 !important;
+	text-shadow: none !important;
+}
+
+	.failed .message {
+		padding: 5px 20px 5px 32px;
+		text-transform: none;
+		background-color: #E83A4E;
+		text-shadow: none;
+		color: #fefefe;
+	}
+
+	.folder .feed.failed .message {
+		padding-left: 48px;
+	}

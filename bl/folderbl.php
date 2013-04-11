@@ -25,14 +25,20 @@
 
 namespace OCA\News\Bl;
 
+use \OCA\AppFramework\Core\API;
+
 use \OCA\News\Db\Folder;
 use \OCA\News\Db\FolderMapper;
 
 
 class FolderBl extends Bl {
 
-	public function __construct(FolderMapper $folderMapper){
+	private $api;
+
+	public function __construct(FolderMapper $folderMapper,
+	                            API $api){
 		parent::__construct($folderMapper);
+		$this->api = $api;
 	}
 
 
@@ -44,8 +50,9 @@ class FolderBl extends Bl {
 	private function allowNoNameTwice($folderName, $userId){
 		$existingFolders = $this->mapper->findByName($folderName, $userId);
 		if(count($existingFolders) > 0){
-			throw new BLException('Error: Folder with name ' . $folderName . 
-				' exists already!');
+
+			throw new BLException(
+				$this->api->getTrans()->t('Can not add folder: Exists already'));
 		}
 	}
 

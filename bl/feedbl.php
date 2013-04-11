@@ -58,7 +58,8 @@ class FeedBl extends Bl {
 		// first try if the feed exists already
 		try {
 			$this->mapper->findByUrlHash(md5($feedUrl), $userId);
-			throw new BLException('Can not add feed: Exists already');
+			throw new BLException(
+				$this->api->getTrans()->t('Can not add feed: Exists already'));
 		} catch(DoesNotExistException $ex){}
 		
 		try {
@@ -83,8 +84,9 @@ class FeedBl extends Bl {
 			return $feed;
 		} catch(FetcherException $ex){
 			$this->api->log($ex->getMessage());
-			throw new BLException('Can not add feed with url' . $feedUrl .
-				': Not found or bad source');
+			throw new BLException(
+				$this->api->getTrans()->t(
+					'Can not add feed: URL does not exist or has invalid xml'));
 		}
 	}
 
