@@ -34,9 +34,13 @@ use \OCA\News\Db\Feed;
 class FeedFetcher implements IFeedFetcher {
 
 	private $api;
+	private $cacheDirectory;
+	private $cacheDuration;
 
-	public function __construct(API $api){
+	public function __construct(API $api, $cacheDirectory, $cacheDuration){
 		$this->api = $api;
+		$this->cacheDirectory = $cacheDirectory;
+		$this->cacheDuration = $cacheDuration;
 	}
 
 
@@ -59,8 +63,9 @@ class FeedFetcher implements IFeedFetcher {
 		$simplePie = new \SimplePie_Core();
 		$simplePie->set_feed_url( $url );
 		$simplePie->enable_cache( false );
-		// $simplePie->set_cache_location($cacheDirectory) . '/rss/';
-		// $simplePie->enable_cache(true);
+		$simplePie->set_cache_location($this->cacheDirectory);
+		$simplePie->set_cache_duration($this->cacheDuration);
+		$simplePie->enable_cache(true);
 		
 		if (!$simplePie->init()) {
 			throw new FetcherException('Could not initialize simple pie');

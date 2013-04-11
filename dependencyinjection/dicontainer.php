@@ -65,6 +65,8 @@ class DIContainer extends BaseContainer {
 		 * Configuration values
 		 */
 		$this['autoPurgeCount'] = 1000;
+		$this['simplePieCacheDirectory'] = __DIR__ . '/../cache/simplepie/';
+		$this['simplePieCacheDuration'] = 1000;  // seconds
 
 
 		/** 
@@ -147,7 +149,8 @@ class DIContainer extends BaseContainer {
 		});
 
 		$this['FeedFetcher'] = $this->share(function($c){
-			return new FeedFetcher($c['API']);
+			return new FeedFetcher($c['API'], $c['simplePieCacheDirectory'],
+				$c['simplePieCacheDuration']);
 		});
 
 		$this['TwitterFetcher'] = $this->share(function($c){

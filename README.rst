@@ -31,6 +31,9 @@ How to install the News app
 
 - Activate the App Framework App first, then activate the News app in the apps menu
 
+- Adjust the rights so that the webserver can write into the cache directory::
+
+    sudo chown -R www-data:www-data /var/www/news/cache
 
 How to keep up to date
 ----------------------
