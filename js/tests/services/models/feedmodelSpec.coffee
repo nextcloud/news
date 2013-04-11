@@ -52,8 +52,11 @@ describe 'FeedModel', ->
 		item = {faviconLink: null, urlHash: 'hi'}
 		@FeedModel.add(item)
 
+		item2 = {faviconLink: null, urlHash: 'his'}
+		@FeedModel.add(item2)
+
 		expect(@FeedModel.getByUrlHash('hi')).toBe(item)
-		expect(@FeedModel.size()).toBe(1)
+		expect(@FeedModel.size()).toBe(2)
 
 
 	it 'should clear the url hash cache', =>
@@ -78,16 +81,14 @@ describe 'FeedModel', ->
 		item = {faviconLink: null, urlHash: 'hi', test: 'heheh'}
 		@FeedModel.add(item)
 
-		item = {id: 3, faviconLink: null, urlHash: 'hi', test: 'hoho'}
-		@FeedModel.add(item)
-
-		item = {id: 4, faviconLink: null, urlHash: 'his'}
-		@FeedModel.add(item)
+		item2 = {id: 3, faviconLink: null, urlHash: 'hi', test: 'hoho'}
+		@FeedModel.add(item2)
 
 		expect(@FeedModel.getByUrlHash('hi').id).toBe(3)
+		expect(@FeedModel.getByUrlHash('hi').test).toBe('hoho')
 		expect(@FeedModel.getById(3).id).toBe(3)
 		expect(@FeedModel.getById(3).test).toBe('hoho')
-		expect(@FeedModel.size()).toBe(2)
+		expect(@FeedModel.size()).toBe(1)
 
 
 	it 'should update normally', =>
@@ -97,8 +98,11 @@ describe 'FeedModel', ->
 		item2 = {id: 3, faviconLink: null, urlHash: 'his', test: 'hoho'}
 		@FeedModel.add(item2)
 
-		expect(@FeedModel.getById(3).id).toBe(3)
+		expect(@FeedModel.getByUrlHash('hi')).toBe(undefined)
+		expect(@FeedModel.getByUrlHash('his').id).toBe(3)
+		expect(@FeedModel.getByUrlHash('his').test).toBe('hoho')
 		expect(@FeedModel.getById(3).test).toBe('hoho')
 		expect(@FeedModel.size()).toBe(1)
+
 
 

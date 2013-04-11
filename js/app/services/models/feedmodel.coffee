@@ -37,34 +37,68 @@ angular.module('News').factory '_FeedModel',
 			super()
 
 
-		add: (item, clearCache=true) ->
-			if item.faviconLink == null
-				item.faviconLink = 'url(' +
+		add: (data, clearCache=true) ->
+			if data.faviconLink == null
+				data.faviconLink = 'url(' +
 					@_utils.imagePath('news', 'rss.svg') + ')'
+			###
+			We want to add a feed on the client side before
+			we have an id from the server. Once the server returns
+			an id, we have to update the existing item without id
+			###
 
-			# since the feedurl is also unique, we want to update items that have
-			# the same url
-			entry = @_urlHash[item.urlHash]
-			if angular.isDefined(entry)
-				@update(item, clearCache)
+			item = @_urlHash[data.urlHash]
+
+			# update in the following cases:
+			# * the id is defined and the item exists
+			# * the id is not defined and the name exists in the cache
+			updateById = angular.isDefined(data.id) and
+			angular.isDefined(@getById(data.id))
+			
+			updateByUrlHash = angular.isDefined(item) and
+			angular.isUndefined(item.id)
+			
+			if updateById or updateByUrlHash
+				@update(data)
 			else
-				@_urlHash[item.urlHash] = item
-				super(item, clearCache)
+				# if the item is not yet in the name cache it must be added
+				@_urlHash[data.urlHash] = data
+				
+				# in case there is an id it can go through the normal add method
+				if angular.isDefined(data.id)
+					super(data, clearCache)
 
-
-		update: (item, clearCache=true) ->
-			entry = @_urlHash[item.urlHash]
-
-			# first update id that could have changed
-			delete @_dataMap[entry.id]
-			@_dataMap[item.id] = entry
-
-			# now copy over the elements data attrs
-			for key, value of item
-				if key == 'urlHash'
-					continue
+				# if there is no id we just want it to appear in the list
 				else
-					entry[key] = value
+					@_data.push(data)
+
+
+		update: (data, clearCache=true) ->
+			# only when the id on the updated item does not exist we wish
+			# to update by name, otherwise we always update by id
+			item = @_urlHash[data.urlHash]
+			# update by name
+			if angular.isUndefined(data.id)	and angular.isDefined(item)
+				angular.extend(item, data)
+			
+			else
+				# this case happens when there exists an element with the same
+				# name but it has no id yet
+				if angular.isDefined(data.id) and
+				angular.isDefined(item) and
+				angular.isUndefined(item.id)
+					item.id = data.id
+					@_dataMap[data.id] = item
+
+				# if an update comes in and we update because of the id
+				# we need to fix the name cache if the name was changed
+				itemWithId = @getById(data.id)
+				if angular.isDefined(itemWithId) and
+				itemWithId.urlHash != data.urlHash
+					delete @_urlHash[itemWithId.urlHash]
+					@_urlHash[data.urlHash] = itemWithId
+
+				super(data, clearCache)
 
 
 		removeById: (id) ->

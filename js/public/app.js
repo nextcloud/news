@@ -1214,43 +1214,57 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return FeedModel.__super__.clear.call(this);
         };
 
-        FeedModel.prototype.add = function(item, clearCache) {
-          var entry;
+        FeedModel.prototype.add = function(data, clearCache) {
+          var item, updateById, updateByUrlHash;
 
           if (clearCache == null) {
             clearCache = true;
           }
-          if (item.faviconLink === null) {
-            item.faviconLink = 'url(' + this._utils.imagePath('news', 'rss.svg') + ')';
+          if (data.faviconLink === null) {
+            data.faviconLink = 'url(' + this._utils.imagePath('news', 'rss.svg') + ')';
           }
-          entry = this._urlHash[item.urlHash];
-          if (angular.isDefined(entry)) {
-            return this.update(item, clearCache);
+          /*
+          			We want to add a feed on the client side before
+          			we have an id from the server. Once the server returns
+          			an id, we have to update the existing item without id
+          */
+
+          item = this._urlHash[data.urlHash];
+          updateById = angular.isDefined(data.id) && angular.isDefined(this.getById(data.id));
+          updateByUrlHash = angular.isDefined(item) && angular.isUndefined(item.id);
+          if (updateById || updateByUrlHash) {
+            return this.update(data);
           } else {
-            this._urlHash[item.urlHash] = item;
-            return FeedModel.__super__.add.call(this, item, clearCache);
+            this._urlHash[data.urlHash] = data;
+            if (angular.isDefined(data.id)) {
+              return FeedModel.__super__.add.call(this, data, clearCache);
+            } else {
+              return this._data.push(data);
+            }
           }
         };
 
-        FeedModel.prototype.update = function(item, clearCache) {
-          var entry, key, value, _results;
+        FeedModel.prototype.update = function(data, clearCache) {
+          var item, itemWithId;
 
           if (clearCache == null) {
             clearCache = true;
           }
-          entry = this._urlHash[item.urlHash];
-          delete this._dataMap[entry.id];
-          this._dataMap[item.id] = entry;
-          _results = [];
-          for (key in item) {
-            value = item[key];
-            if (key === 'urlHash') {
-              continue;
-            } else {
-              _results.push(entry[key] = value);
+          item = this._urlHash[data.urlHash];
+          if (angular.isUndefined(data.id) && angular.isDefined(item)) {
+            return angular.extend(item, data);
+          } else {
+            if (angular.isDefined(data.id) && angular.isDefined(item) && angular.isUndefined(item.id)) {
+              item.id = data.id;
+              this._dataMap[data.id] = item;
             }
+            itemWithId = this.getById(data.id);
+            if (angular.isDefined(itemWithId) && itemWithId.urlHash !== data.urlHash) {
+              delete this._urlHash[itemWithId.urlHash];
+              this._urlHash[data.urlHash] = itemWithId;
+            }
+            return FeedModel.__super__.update.call(this, data, clearCache);
           }
-          return _results;
         };
 
         FeedModel.prototype.removeById = function(id) {

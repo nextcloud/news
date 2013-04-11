@@ -35,8 +35,10 @@ describe 'FolderModel', ->
 	it 'should add folders without id but name if they dont exist yet', =>
 		item = {name: 'Hi'}
 		@FolderModel.add(item)
+		item1 = {name: 'His'}
+		@FolderModel.add(item1)
 		expect(@FolderModel.getByName('hi')).toBe(item)
-		expect(@FolderModel.size()).toBe(1)
+		expect(@FolderModel.size()).toBe(2)
 
 
 	it 'should clear the fodername cache', =>
