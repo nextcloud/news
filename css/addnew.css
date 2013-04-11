@@ -46,3 +46,15 @@
 	height: 30px !important;
 	margin-top: 1px;
 }
+
+.add-new .back-button {
+	border-radius: 0;
+	width: 30px;
+	background-image: url('%webroot%/core/img/actions/delete.svg');
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.add-new .back-button:hover {
+	background-image: url('%webroot%/core/img/actions/delete-hover.svg');
+}

@@ -81,10 +81,31 @@ ItemModel, ShowAll, _ExistsError)->
 			return @_folderModel.getAll()
 
 
-		create: (folderName) ->
-			if @_folderModel.nameExists(folderName)
+		create: (folderName, onSuccess=null, onFailure=null) ->
+			onSuccess or= ->
+			onFailure or= ->
+
+			if angular.isUndefined(folderName) or folderName.trim() == ''
+				throw new Error()
+			
+			folderName = folderName.trim()
+			
+			if @_folderModel.getByName(folderName)
 				throw new _ExistsError()
 
+			folder =
+				name: folderName
+
+			@_folderModel.add(folder)
+
+			success = (response) =>
+				if response.status == 'error'
+					folder.error = response.msg
+					onFailure()
+				else
+					onSuccess()
+
+			@_persistence.createFolder folderName, 0, success
 
 
 	return new FolderBl(FolderModel, FeedBl, ShowAll, ActiveFeed, Persistence,

@@ -258,91 +258,96 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 
 (function() {
-  angular.module('News').factory('_FeedController', function() {
-    var FeedController;
+  angular.module('News').factory('_FeedController', [
+    '_ExistsError', function(_ExistsError) {
+      var FeedController;
 
-    FeedController = (function() {
-      function FeedController(_$scope, _persistence, _folderBl, _feedBl, _subscriptionsBl, _starredBl, _unreadCountFormatter) {
-        var _this = this;
+      FeedController = (function() {
+        function FeedController(_$scope, _persistence, _folderBl, _feedBl, _subscriptionsBl, _starredBl, _unreadCountFormatter) {
+          var _this = this;
 
-        this._$scope = _$scope;
-        this._persistence = _persistence;
-        this._folderBl = _folderBl;
-        this._feedBl = _feedBl;
-        this._subscriptionsBl = _subscriptionsBl;
-        this._starredBl = _starredBl;
-        this._unreadCountFormatter = _unreadCountFormatter;
-        this._isAddingFolder = false;
-        this._isAddingFeed = false;
-        this._$scope.folderBl = this._folderBl;
-        this._$scope.feedBl = this._feedBl;
-        this._$scope.subscriptionsBl = this._subscriptionsBl;
-        this._$scope.starredBl = this._starredBl;
-        this._$scope.unreadCountFormatter = this._unreadCountFormatter;
-        this._$scope.isAddingFolder = function() {
-          return _this._isAddingFolder;
-        };
-        this._$scope.isAddingFeed = function() {
-          return _this._isAddingFeed;
-        };
-        this._$scope.addFeed = function(feedUrl, parentFolderId) {
-          var onError, onSuccess;
+          this._$scope = _$scope;
+          this._persistence = _persistence;
+          this._folderBl = _folderBl;
+          this._feedBl = _feedBl;
+          this._subscriptionsBl = _subscriptionsBl;
+          this._starredBl = _starredBl;
+          this._unreadCountFormatter = _unreadCountFormatter;
+          this._isAddingFolder = false;
+          this._isAddingFeed = false;
+          this._$scope.folderBl = this._folderBl;
+          this._$scope.feedBl = this._feedBl;
+          this._$scope.subscriptionsBl = this._subscriptionsBl;
+          this._$scope.starredBl = this._starredBl;
+          this._$scope.unreadCountFormatter = this._unreadCountFormatter;
+          this._$scope.isAddingFolder = function() {
+            return _this._isAddingFolder;
+          };
+          this._$scope.isAddingFeed = function() {
+            return _this._isAddingFeed;
+          };
+          this._$scope.addFeed = function(feedUrl, parentFolderId) {
+            var onError, onSuccess;
 
-          if (parentFolderId == null) {
-            parentFolderId = 0;
-          }
-          _this._$scope.feedEmptyError = false;
-          _this._$scope.feedError = false;
-          if (angular.isUndefined(feedUrl) || feedUrl.trim() === '') {
-            _this._$scope.feedEmptyError = true;
-          }
-          if (!_this._$scope.feedEmptyError) {
-            _this._isAddingFeed = true;
-            onError = function() {
-              _this._$scope.feedError = true;
-              return _this._isAddingFeed = false;
-            };
-            onSuccess = function(data) {
-              if (data.status === 'error') {
-                return onError();
-              } else {
-                _this._$scope.feedUrl = '';
-                return _this._isAddingFeed = false;
-              }
-            };
-            return _this._persistence.createFeed(feedUrl.trim(), parentFolderId, onSuccess, onError);
-          }
-        };
-        this._$scope.addFolder = function(folderName) {
-          _this._$scope.folderEmptyError = false;
-          _this._$scope.folderExistsError = false;
-          if (angular.isUndefined(folderName) || folderName.trim() === '') {
-            _this._$scope.folderEmptyError = true;
-          } else {
-            folderName = folderName.trim();
-            if (_this._folderModel.nameExists(folderName)) {
-              _this._$scope.folderExistsError = true;
+            if (parentFolderId == null) {
+              parentFolderId = 0;
             }
-          }
-          if (!(_this._$scope.folderEmptyError || _this._$scope.folderExistsError)) {
-            _this._isAddingFolder = true;
-            return _this._persistence.createFolder(folderName, 0, function() {
-              _this.$scope.folderName = '';
-              _this.$scope.addNewFolder = false;
-              return _this._isAddingFolder = false;
-            });
-          }
-        };
-        this._$scope.$on('moveFeedToFolder', function(scope, data) {
-          return console.log(data);
-        });
-      }
+            _this._$scope.feedEmptyError = false;
+            _this._$scope.feedError = false;
+            if (angular.isUndefined(feedUrl) || feedUrl.trim() === '') {
+              _this._$scope.feedEmptyError = true;
+            }
+            if (!_this._$scope.feedEmptyError) {
+              _this._isAddingFeed = true;
+              onError = function() {
+                _this._$scope.feedError = true;
+                return _this._isAddingFeed = false;
+              };
+              onSuccess = function(data) {
+                if (data.status === 'error') {
+                  return onError();
+                } else {
+                  _this._$scope.feedUrl = '';
+                  return _this._isAddingFeed = false;
+                }
+              };
+              return _this._persistence.createFeed(feedUrl.trim(), parentFolderId, onSuccess, onError);
+            }
+          };
+          this._$scope.addFolder = function(folderName) {
+            var error;
 
+            _this._$scope.folderEmptyError = false;
+            _this._$scope.folderExistsError = false;
+            try {
+              _this._isAddingFolder = true;
+              return _this._folderBl.create(folderName, function() {
+                _this._$scope.folderName = '';
+                _this._$scope.addNewFolder = false;
+                return _this._isAddingFolder = false;
+              }, function() {
+                return _this._isAddingFolder = false;
+              });
+            } catch (_error) {
+              error = _error;
+              if (error instanceof _ExistsError) {
+                return _this._$scope.folderExistsError = true;
+              } else {
+                return _this._$scope.folderEmptyError = true;
+              }
+            }
+          };
+          this._$scope.$on('moveFeedToFolder', function(scope, data) {
+            return console.log(data);
+          });
+        }
+
+        return FeedController;
+
+      })();
       return FeedController;
-
-    })();
-    return FeedController;
-  });
+    }
+  ]);
 
 }).call(this);
 
@@ -843,10 +848,38 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return this._folderModel.getAll();
         };
 
-        FolderBl.prototype.create = function(folderName) {
-          if (this._folderModel.nameExists(folderName)) {
+        FolderBl.prototype.create = function(folderName, onSuccess, onFailure) {
+          var folder, success,
+            _this = this;
+
+          if (onSuccess == null) {
+            onSuccess = null;
+          }
+          if (onFailure == null) {
+            onFailure = null;
+          }
+          onSuccess || (onSuccess = function() {});
+          onFailure || (onFailure = function() {});
+          if (angular.isUndefined(folderName) || folderName.trim() === '') {
+            throw new Error();
+          }
+          folderName = folderName.trim();
+          if (this._folderModel.getByName(folderName)) {
             throw new _ExistsError();
           }
+          folder = {
+            name: folderName
+          };
+          this._folderModel.add(folder);
+          success = function(response) {
+            if (response.status === 'error') {
+              folder.error = response.msg;
+              return onFailure();
+            } else {
+              return onSuccess();
+            }
+          };
+          return this._persistence.createFolder(folderName, 0, success);
         };
 
         return FolderBl;

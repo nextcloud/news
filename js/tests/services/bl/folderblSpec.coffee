@@ -27,7 +27,8 @@ describe 'FolderBl', ->
 
 	beforeEach =>
 		angular.module('News').factory 'Persistence', =>
-			@persistence = {}
+			@persistence =
+				createFolder: ->
 
 	beforeEach inject (@FolderBl, @FolderModel,	@FeedModel, @ShowAll,
 		               @ActiveFeed, @FeedType, @_ExistsError) =>
@@ -131,8 +132,64 @@ describe 'FolderBl', ->
 		expect(@FolderBl.getAll()).toContain(item2)
 
 
-	xit 'should not create a folder if it already exists', =>
+	it 'should not create a folder if it already exists', =>
 		item1 = {id: 4, open: true, name: 'john'}
 		@FolderModel.add(item1)
 
-		expect(@FolderBl.create('johns')).toThrow(new @_ExistsError())
+		expect =>
+			@FolderBl.create('john')
+		.toThrow(new @_ExistsError())
+		
+		expect =>
+			@FolderBl.create('johns')
+		.not.toThrow(new @_ExistsError())
+
+
+	it 'should not create folders that are empty', =>
+		expect =>
+			@FolderBl.create('   ')
+		.toThrow(new Error())
+
+
+	it 'should create a folder before theres a response from the server', =>
+		@FolderBl.create('johns')
+		expect(@FolderModel.size()).toBe(1)
+
+
+	it 'should make a create folder request', =>
+		@persistence.createFolder = jasmine.createSpy('add folder')
+		
+		@FolderBl.create(' johns ')
+		expect(@persistence.createFolder).toHaveBeenCalledWith('johns', 0,
+			jasmine.any(Function))
+
+
+	it 'should call the onSuccess function on response status ok', =>
+		onSuccess = jasmine.createSpy('Success')
+		@persistence.createFolder = jasmine.createSpy('add folder')
+		@persistence.createFolder.andCallFake (folderName, parentId, success) =>
+			response =
+				status: 'ok'
+			success(response)
+
+		@FolderBl.create(' johns ', onSuccess)
+
+		expect(onSuccess).toHaveBeenCalled()
+
+
+	it 'should call the handle a response error when creating a folder', =>
+		onSuccess = jasmine.createSpy('Success')
+		onFailure = jasmine.createSpy('Failure')
+		@persistence.createFolder = jasmine.createSpy('add folder')
+		@persistence.createFolder.andCallFake (folderName, parentId, success) =>
+			@response =
+				status: 'error'
+				msg: 'this is an error'
+			success(@response)
+
+		@FolderBl.create(' johns ', onSuccess, onFailure)
+
+		expect(onSuccess).not.toHaveBeenCalled()
+		expect(onFailure).toHaveBeenCalled()
+
+		expect(@FolderModel.getByName('johns').error).toBe(@response.msg)

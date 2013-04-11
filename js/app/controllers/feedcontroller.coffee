@@ -21,7 +21,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-angular.module('News').factory '_FeedController', ->
+angular.module('News').factory '_FeedController',
+['_ExistsError',
+(_ExistsError)->
 
 	class FeedController
 
@@ -74,22 +76,29 @@ angular.module('News').factory '_FeedController', ->
 				@_$scope.folderEmptyError = false
 				@_$scope.folderExistsError = false
 
-				if angular.isUndefined(folderName) or folderName.trim() == ''
-					@_$scope.folderEmptyError = true
-				else
-					folderName = folderName.trim()
-					if @_folderModel.nameExists(folderName)
-						@_$scope.folderExistsError = true
-
-				if not (@_$scope.folderEmptyError or @_$scope.folderExistsError)
+				try
 					@_isAddingFolder = true
-					@_persistence.createFolder folderName, 0, =>
-						@$scope.folderName = ''
-						@$scope.addNewFolder = false
+					@_folderBl.create folderName
+
+					# on success
+					, =>
+						@_$scope.folderName = ''
+						@_$scope.addNewFolder = false
 						@_isAddingFolder = false
+					# on error
+					, =>
+						@_isAddingFolder = false
+
+				catch error
+					if error instanceof _ExistsError
+						@_$scope.folderExistsError = true
+					else
+						@_$scope.folderEmptyError = true
 
 
 			@_$scope.$on 'moveFeedToFolder', (scope, data) =>
 				console.log data
 
 	return FeedController
+
+]

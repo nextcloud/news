@@ -15,11 +15,18 @@
 	<div class="add-new-popup">
 		<fieldset class="personalblock">
 			<p class="error">
-				<span ng-show="feedEmptyError"><?php p($l->t('Address must not be empty!')); ?></span>
-				<span ng-show="feedError">
-					<?php p($l->t('Could not add feed! Check if feed contains valid RSS or exists already!')); ?>
+				<span ng-show="feedEmptyError">
+					<?php p($l->t('Error: address must not be empty!')); ?>
 				</span>
-				<span ng-show="folderExistsError"><?php p($l->t('Folder exists already')); ?></span>
+				<span ng-show="feedExistsError">
+					<?php p($l->t('Error: address exists already!')); ?>
+				</span>
+				<span ng-show="folderEmptyError">
+					<?php p($l->t('Error: folder name must not be empty!')); ?>
+				</span>
+				<span ng-show="folderExistsError">
+					<?php p($l->t('Error: folder exists already')); ?>
+				</span>
 			</p>
 			<form>
 
@@ -55,13 +62,18 @@
 						placeholder="<?php p($l->t('Folder name')); ?>" 
 						autofocus
 						ui-keyup="{13: 'addFolder(folderName)'}"/>
-					<button title="<?php p($l->t('Add')); ?>" 
+				<button title="<?php p($l->t('Back')); ?>" 
+						ng-show="addNewFolder"
+						ng-click="addNewFolder=false"
+						ng-disabled="isAddingFolder()"
+						class="back-button"></button>
+				<button title="<?php p($l->t('Add')); ?>" 
 						ng-show="addNewFolder"
 						ng-click="addFolder(folderName)"
 						ng-disabled="isAddingFolder()"
 						ng-class="{loading: isAddingFolder()}">
 						<?php p($l->t('Create')); ?>
-					</button>
+				</button>
 			</form>	
 		</fieldset>
 	</div>
