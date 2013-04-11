@@ -168,13 +168,14 @@ describe 'FolderBl', ->
 		onSuccess = jasmine.createSpy('Success')
 		@persistence.createFolder = jasmine.createSpy('add folder')
 		@persistence.createFolder.andCallFake (folderName, parentId, success) =>
-			response =
+			@response =
 				status: 'ok'
-			success(response)
+				data: 'jooo'
+			success(@response)
 
 		@FolderBl.create(' johns ', onSuccess)
 
-		expect(onSuccess).toHaveBeenCalled()
+		expect(onSuccess).toHaveBeenCalledWith(@response.data)
 
 
 	it 'should call the handle a response error when creating a folder', =>
@@ -202,4 +203,20 @@ describe 'FolderBl', ->
 
 		expect(@FolderModel.size()).toBe(0)
 		expect(@FolderModel.getByName('john')).toBe(undefined)
+
+
+	it 'should return the corret folder for id', =>
+		item = {id: 3, name: 'john'}
+		@FolderModel.add(item)
+
+		expect(@FolderBl.getById(3)).toBe(item)
+
+
+	it 'should open a folder', =>
+		@persistence.openFolder = jasmine.createSpy('open')
+
+		@FolderModel.add({id: 3, opened: false, name: 'ho'})
+		@FolderBl.open(3)
+		expect(@FolderModel.getById(3).opened).toBeTruthy()
+		expect(@persistence.openFolder).toHaveBeenCalledWith(3)
 

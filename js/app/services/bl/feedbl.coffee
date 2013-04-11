@@ -146,6 +146,7 @@ NewLoading, _ExistsError) ->
 				url: url
 				urlHash: urlHash
 				folderId: parentId
+				unreadCount: 0
 
 			@_feedModel.add(feed)
 

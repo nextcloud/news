@@ -53,6 +53,9 @@ angular.module('News').factory '_FeedController',
 				
 				try
 					@_isAddingFeed = true
+					# set folder to open
+					if parentFolderId != 0
+						@_folderBl.open(parentFolderId)
 					@_feedBl.create feedUrl, parentFolderId
 					# on success
 					, (data) =>
@@ -80,10 +83,12 @@ angular.module('News').factory '_FeedController',
 					@_folderBl.create folderName
 
 					# on success
-					, =>
+					, (data) =>
 						@_$scope.folderName = ''
 						@_$scope.addNewFolder = false
 						@_isAddingFolder = false
+						activeId = data['folders'][0].id
+						@_$scope.folderId = @_folderBl.getById(activeId)
 					# on error
 					, =>
 						@_isAddingFolder = false
@@ -94,6 +99,7 @@ angular.module('News').factory '_FeedController',
 					else
 						@_$scope.folderEmptyError = true
 					@_isAddingFolder = false
+					@_$scope.addNewFolder = true
 
 
 			@_$scope.$on 'moveFeedToFolder', (scope, data) =>

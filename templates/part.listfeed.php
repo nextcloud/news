@@ -28,7 +28,7 @@
 	
 	<span class="utils">
 
-		<span class="unread-counter">
+		<span class="unread-counter" ng-show="feed.id">
 			{{ feedBl.getUnreadCount(feed.id) }}
 		</span>
 

@@ -253,6 +253,7 @@ describe 'FeedBl', ->
 		expect(feed.url).toBe(url)
 		expect(feed.urlHash).toBe(hash)
 		expect(feed.folderId).toBe(0)
+		expect(feed.unreadCount).toBe(0)
 
 	
 	it 'should transform urls correctly', =>

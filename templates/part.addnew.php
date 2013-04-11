@@ -38,13 +38,13 @@
 					autofocus>
 				<button title="<?php p($l->t('Add')); ?>" 
 						class="primary"
-						ng-class="{loading: isAddingFeed()}"
 						ng-disabled="isAddingFeed() || isAddingFolder()"
 						ng-click="addFeed(feedUrl, folderId.id)"><?php p($l->t('Add')); ?></button>
-
+			</form>
+			<form>
 				<select name="folder" 
 						data-create="<?php p($l->t('New folder')); ?>"
-						title="<?php p($l->t('Folder')); ?>"						
+						title="<?php p($l->t('Folder')); ?>"		
 						ng-model="folderId"
 						ng-disabled="isAddingFolder()"
 						ng-options="folder.name for folder in folderBl.getAll()"
@@ -54,7 +54,8 @@
 				<button title="<?php p($l->t('New folder')); ?>" 
 						ng-click="addNewFolder=true"
 						ng-hide="addNewFolder"
-						class="action-button new-button action"></button>
+						class="action-button new-button action"
+						oc-click-focus="{selector: 'input[name=\'foldername\']'}"></button>
 				<input type="text" 
 						ng-model="folderName" 
 						ng-disabled="isAddingFolder()"
@@ -75,7 +76,7 @@
 						ng-class="{loading: isAddingFolder()}"
 						class="action-button create-button action">
 				</button>
-			</form>	
+			</form>
 		</fieldset>
 	</div>
 </li>

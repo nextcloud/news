@@ -34,6 +34,9 @@ ItemModel, ShowAll, _ExistsError)->
 			super(activeFeed, persistence, itemModel, @_feedType.Folder)
 
 
+		getById: (folderId) ->
+			return @_folderModel.getById(folderId)
+
 		delete: (folderId) ->
 			@_folderModel.removeById(folderId)
 			@_persistence.deleteFolder(folderId)
@@ -41,6 +44,14 @@ ItemModel, ShowAll, _ExistsError)->
 
 		hasFeeds: (folderId) ->
 			return @_feedBl.getFeedsOfFolder(folderId).length
+
+
+		open: (folderId) ->
+			folder = @_folderModel.getById(folderId)
+			if angular.isDefined(folder)
+				if not folder.opened
+					folder.opened = true
+					@_persistence.openFolder(folder.id)
 
 
 		toggleFolder: (folderId) ->
@@ -103,7 +114,7 @@ ItemModel, ShowAll, _ExistsError)->
 					folder.error = response.msg
 					onFailure()
 				else
-					onSuccess()
+					onSuccess(response.data)
 
 			@_persistence.createFolder folderName, 0, success
 

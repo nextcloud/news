@@ -296,6 +296,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             _this._$scope.feedExistsError = false;
             try {
               _this._isAddingFeed = true;
+              if (parentFolderId !== 0) {
+                _this._folderBl.open(parentFolderId);
+              }
               return _this._feedBl.create(feedUrl, parentFolderId, function(data) {
                 _this._$scope.feedUrl = '';
                 _this._isAddingFeed = false;
@@ -320,10 +323,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             _this._$scope.folderExistsError = false;
             try {
               _this._isAddingFolder = true;
-              return _this._folderBl.create(folderName, function() {
+              return _this._folderBl.create(folderName, function(data) {
+                var activeId;
+
                 _this._$scope.folderName = '';
                 _this._$scope.addNewFolder = false;
-                return _this._isAddingFolder = false;
+                _this._isAddingFolder = false;
+                activeId = data['folders'][0].id;
+                return _this._$scope.folderId = _this._folderBl.getById(activeId);
               }, function() {
                 return _this._isAddingFolder = false;
               });
@@ -334,7 +341,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
               } else {
                 _this._$scope.folderEmptyError = true;
               }
-              return _this._isAddingFolder = false;
+              _this._isAddingFolder = false;
+              return _this._$scope.addNewFolder = true;
             }
           };
           this._$scope.$on('moveFeedToFolder', function(scope, data) {
@@ -760,7 +768,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             title: url.replace(/^(?:https?:\/\/)?(?:www\.)?([a-z0-9_\-\.]+)(?:\/.*)?$/gi, '$1'),
             url: url,
             urlHash: urlHash,
-            folderId: parentId
+            folderId: parentId,
+            unreadCount: 0
           };
           this._feedModel.add(feed);
           success = function(response) {
@@ -829,6 +838,10 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           FolderBl.__super__.constructor.call(this, activeFeed, persistence, itemModel, this._feedType.Folder);
         }
 
+        FolderBl.prototype.getById = function(folderId) {
+          return this._folderModel.getById(folderId);
+        };
+
         FolderBl.prototype["delete"] = function(folderId) {
           this._folderModel.removeById(folderId);
           return this._persistence.deleteFolder(folderId);
@@ -836,6 +849,18 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
         FolderBl.prototype.hasFeeds = function(folderId) {
           return this._feedBl.getFeedsOfFolder(folderId).length;
+        };
+
+        FolderBl.prototype.open = function(folderId) {
+          var folder;
+
+          folder = this._folderModel.getById(folderId);
+          if (angular.isDefined(folder)) {
+            if (!folder.opened) {
+              folder.opened = true;
+              return this._persistence.openFolder(folder.id);
+            }
+          }
         };
 
         FolderBl.prototype.toggleFolder = function(folderId) {
@@ -922,7 +947,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
               folder.error = response.msg;
               return onFailure();
             } else {
-              return onSuccess();
+              return onSuccess(response.data);
             }
           };
           return this._persistence.createFolder(folderName, 0, success);
