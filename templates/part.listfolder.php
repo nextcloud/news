@@ -17,8 +17,8 @@
 	   class="title folder-icon"
 	   ng-click="folderBl.load(folder.id)"
 	   ng-class="{
-			progress-icon: !folder.id,
-			problem-icon: folder.error
+			'progress-icon': !folder.id,
+			'problem-icon': folder.error
 		}">
 	   {{ folder.name }}
 	</a>

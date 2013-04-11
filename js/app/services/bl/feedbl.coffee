@@ -144,10 +144,9 @@ NewLoading, _ExistsError) ->
 					'$1')
 				url: url
 				urlHash: urlHash
+				folderId: parentId
 
 			@_feedModel.add(feed)
-
-			console.log @_feedModel
 
 			success = (response) =>
 				if response.status == 'error'

@@ -47,7 +47,7 @@
 						title="<?php p($l->t('Folder')); ?>"						
 						ng-model="folderId"
 						ng-disabled="isAddingFolder()"
-						ng-options="folder.name for folder in folders"
+						ng-options="folder.name for folder in folderBl.getAll()"
 						ng-hide="addNewFolder">
 					<option value="" selected="selected"><?php p($l->t('Choose folder')); ?></option>
 				</select>

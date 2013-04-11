@@ -17,8 +17,8 @@
 	<a 	ng-style="{ backgroundImage: feed.faviconLink }"
 		ng-click="feedBl.load(feed.id)"
 		ng-class="{
-			progress-icon: !feed.id,
-			problem-icon: feed.error
+			'progress-icon': !feed.id,
+			'problem-icon': feed.error
 		}"
 	   	href="#"
 	   	class="title">

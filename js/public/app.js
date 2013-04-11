@@ -755,10 +755,10 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           feed = {
             title: url.replace(/^(?:https?:\/\/)?(?:www\.)?([a-z0-9_\-\.]+)(?:\/.*)?$/gi, '$1'),
             url: url,
-            urlHash: urlHash
+            urlHash: urlHash,
+            folderId: parentId
           };
           this._feedModel.add(feed);
-          console.log(this._feedModel);
           success = function(response) {
             if (response.status === 'error') {
               feed.error = response.msg;
