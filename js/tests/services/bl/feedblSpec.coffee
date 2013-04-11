@@ -283,13 +283,14 @@ describe 'FeedBl', ->
 		onSuccess = jasmine.createSpy('Success')
 		@persistence.createFeed = jasmine.createSpy('add feed')
 		@persistence.createFeed.andCallFake (folderName, parentId, success) =>
-			response =
+			@response =
 				status: 'ok'
-			success(response)
+				data: 'hi'
+			success(@response)
 
 		@FeedBl.create(' johns ', 0, onSuccess)
 
-		expect(onSuccess).toHaveBeenCalled()
+		expect(onSuccess).toHaveBeenCalledWith(@response.data)
 
 
 	it 'should call the handle a response error when creating a folder', =>

@@ -296,9 +296,10 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             _this._$scope.feedExistsError = false;
             try {
               _this._isAddingFeed = true;
-              return _this._feedBl.create(feedUrl, parentFolderId, function() {
+              return _this._feedBl.create(feedUrl, parentFolderId, function(data) {
                 _this._$scope.feedUrl = '';
-                return _this._isAddingFeed = false;
+                _this._isAddingFeed = false;
+                return _this._feedBl.load(data['feeds'][0].id);
               }, function() {
                 return _this._isAddingFeed = false;
               });
@@ -764,7 +765,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
               feed.error = response.msg;
               return onFailure();
             } else {
-              return onSuccess();
+              return onSuccess(response.data);
             }
           };
           return this._persistence.createFeed(url, parentId, success);

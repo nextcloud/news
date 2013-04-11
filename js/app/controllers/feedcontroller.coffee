@@ -55,9 +55,10 @@ angular.module('News').factory '_FeedController',
 					@_isAddingFeed = true
 					@_feedBl.create feedUrl, parentFolderId
 					# on success
-					, =>
+					, (data) =>
 						@_$scope.feedUrl = ''
 						@_isAddingFeed = false
+						@_feedBl.load(data['feeds'][0].id)
 					# on error
 					, =>
 						@_isAddingFeed = false

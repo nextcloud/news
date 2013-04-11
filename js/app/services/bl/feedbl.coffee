@@ -153,7 +153,7 @@ NewLoading, _ExistsError) ->
 					feed.error = response.msg
 					onFailure()
 				else
-					onSuccess()
+					onSuccess(response.data)
 
 			@_persistence.createFeed url, parentId, success
 
