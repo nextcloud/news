@@ -140,12 +140,14 @@ NewLoading, _ExistsError) ->
 
 			feed =
 				title: url.replace(
-					/^(?:https?:\/\/)?(?:www\.)?([a-z0-9_\-\.]+)(?:\/.*)?$/gi, 
+					/^(?:https?:\/\/)?(?:www\.)?([a-z0-9_\-\.]+)(?:\/.*)?$/gi,
 					'$1')
 				url: url
 				urlHash: urlHash
 
 			@_feedModel.add(feed)
+
+			console.log @_feedModel
 
 			success = (response) =>
 				if response.status == 'error'

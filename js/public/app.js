@@ -758,6 +758,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             urlHash: urlHash
           };
           this._feedModel.add(feed);
+          console.log(this._feedModel);
           success = function(response) {
             if (response.status === 'error') {
               feed.error = response.msg;

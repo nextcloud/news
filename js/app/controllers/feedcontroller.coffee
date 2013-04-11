@@ -51,7 +51,7 @@ angular.module('News').factory '_FeedController',
 				@_$scope.feedEmptyError = false
 				@_$scope.feedExistsError = false
 				
-				try				
+				try
 					@_isAddingFeed = true
 					@_feedBl.create feedUrl, parentFolderId
 					# on success
