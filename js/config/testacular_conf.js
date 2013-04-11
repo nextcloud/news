@@ -36,6 +36,7 @@ files = [
 	'vendor/angular/angular.js',
 	'vendor/angular/angular-mocks.js',
 	'vendor/angular-ui/angular-ui.js',
+	'vendor/md5js/md5.js',
 	'../../appframework/js/tests/stubs/owncloud.js',
 	'../../appframework/js/public/app.js',
 	'tests/stubs/modules.js',

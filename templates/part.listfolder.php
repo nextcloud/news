@@ -6,7 +6,7 @@
 		failed: folder.error
 	}" 
 	ng-repeat="folder in folderBl.getAll()"
-	ng-show="folderBl.isVisible(folder.id)"
+	ng-show="folderBl.isVisible(folder.id) || !folder.id"
 	class="folder"
 	data-id="{{ folder.id }}"
 	droppable>

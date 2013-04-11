@@ -32,10 +32,11 @@ describe 'FeedBl', ->
 			@persistence = {
 				setFeedRead: @setFeedReadSpy
 				getItems: @getItemsSpy
+				createFeed: ->
 			}
 
 	beforeEach inject (@FeedBl, @FeedModel, @ItemModel, @FeedType,
-	                   @ShowAll, @ActiveFeed) =>
+	                   @ShowAll, @ActiveFeed, @_ExistsError) =>
 		@ShowAll.setShowAll(false)
 		@ActiveFeed.handle({type: @FeedType.Folder, id:0})
 
@@ -214,3 +215,96 @@ describe 'FeedBl', ->
 		@FeedModel.add(item2)
 
 		expect(@FeedBl.getFeedLink(4)).toBe('test.com')
+
+
+
+	it 'should not create a feed if it already exists', =>
+		item1 = {urlHash: hex_md5('john')}
+		@FeedModel.add(item1)
+
+		expect =>
+			@FeedBl.create('john')
+		.toThrow(new @_ExistsError())
+		
+		expect =>
+			@FeedBl.create('johns')
+		.not.toThrow(new @_ExistsError())
+
+
+	it 'should not create feeds that are empty', =>
+		expect =>
+			@FeedBl.create('   ')
+		.toThrow(new Error())
+
+
+	it 'should create a feed before theres a response from the server', =>
+		@FeedBl.create('johns')
+		expect(@FeedModel.size()).toBe(1)
+
+
+	it 'should set a title and an url hash to the newly crated feed', =>
+		url = 'www.google.de'
+		@FeedBl.create(url)
+		hash = hex_md5(url)
+
+		feed = @FeedModel.getByUrlHash(hash)
+
+		expect(feed.title).toBe('google.de')
+		expect(feed.url).toBe(url)
+		expect(feed.urlHash).toBe(hash)
+
+	
+	it 'should transform urls correctly', =>
+		urls = [
+			'www.google.de'
+			'www.google.de/'
+			'google.de'
+			'http://google.de'
+			'http://www.google.de/'
+		]
+		for url in urls
+			@FeedModel.clear()
+			@FeedBl.create(url)
+			hash = hex_md5(url)
+			feed = @FeedModel.getByUrlHash(hash)
+			expect(feed.title).toBe('google.de')
+
+
+	it 'should make a create feed request', =>
+		@persistence.createFeed = jasmine.createSpy('add feed')
+		
+		@FeedBl.create(' johns ')
+		expect(@persistence.createFeed).toHaveBeenCalledWith('johns', 0,
+			jasmine.any(Function))
+
+
+	it 'should call the onSuccess function on response status ok', =>
+		onSuccess = jasmine.createSpy('Success')
+		@persistence.createFeed = jasmine.createSpy('add feed')
+		@persistence.createFeed.andCallFake (folderName, parentId, success) =>
+			response =
+				status: 'ok'
+			success(response)
+
+		@FeedBl.create(' johns ', 0, onSuccess)
+
+		expect(onSuccess).toHaveBeenCalled()
+
+
+	it 'should call the handle a response error when creating a folder', =>
+		onSuccess = jasmine.createSpy('Success')
+		onFailure = jasmine.createSpy('Failure')
+		@persistence.createFeed = jasmine.createSpy('add feed')
+		@persistence.createFeed.andCallFake (folderName, parentId, success) =>
+			@response =
+				status: 'error'
+				msg: 'this is an error'
+			success(@response)
+
+		@FeedBl.create(' johns ', 0, onSuccess, onFailure)
+
+		expect(onSuccess).not.toHaveBeenCalled()
+		expect(onFailure).toHaveBeenCalled()
+
+		expect(@FeedModel.getByUrlHash(hex_md5('johns')).error).toBe(
+			@response.msg)

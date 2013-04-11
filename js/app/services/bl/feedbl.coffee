@@ -23,9 +23,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 angular.module('News').factory 'FeedBl',
 ['_Bl', 'ShowAll', 'Persistence', 'ActiveFeed', 'FeedType', 'ItemModel',
-'FeedModel', 'NewLoading',
+'FeedModel', 'NewLoading', '_ExistsError',
 (_Bl, ShowAll, Persistence, ActiveFeed, FeedType, ItemModel, FeedModel,
-NewLoading) ->
+NewLoading, _ExistsError) ->
 
 	class FeedBl extends _Bl
 
@@ -123,6 +123,38 @@ NewLoading) ->
 			feed = @_feedModel.getById(feedId)
 			if angular.isDefined(feed)
 				return feed.link
+
+
+		create: (url, parentId=0, onSuccess=null, onFailure=null) ->
+			onSuccess or= ->
+			onFailure or= ->
+
+			if angular.isUndefined(url) or url.trim() == ''
+				throw new Error()
+			
+			url = url.trim()
+			urlHash = hex_md5(url)
+			
+			if @_feedModel.getByUrlHash(urlHash)
+				throw new _ExistsError()
+
+			feed =
+				title: url.replace(
+					/^(?:https?:\/\/)?(?:www\.)?([a-z0-9_\-\.]+)(?:\/.*)?$/gi, 
+					'$1')
+				url: url
+				urlHash: urlHash
+
+			@_feedModel.add(feed)
+
+			success = (response) =>
+				if response.status == 'error'
+					feed.error = response.msg
+					onFailure()
+				else
+					onSuccess()
+
+			@_persistence.createFeed url, parentId, success
 
 
 	return new FeedBl(ShowAll, FeedModel, Persistence, ActiveFeed, FeedType,

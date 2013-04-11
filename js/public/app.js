@@ -1,4 +1,4 @@
-(function(angular, $, undefined){
+(function(angular, $, hex_md5, undefined){
 
 /**
  * ownCloud News App - v0.0.1
@@ -287,31 +287,28 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             return _this._isAddingFeed;
           };
           this._$scope.addFeed = function(feedUrl, parentFolderId) {
-            var onError, onSuccess;
+            var error;
 
             if (parentFolderId == null) {
               parentFolderId = 0;
             }
             _this._$scope.feedEmptyError = false;
-            _this._$scope.feedError = false;
-            if (angular.isUndefined(feedUrl) || feedUrl.trim() === '') {
-              _this._$scope.feedEmptyError = true;
-            }
-            if (!_this._$scope.feedEmptyError) {
+            _this._$scope.feedExistsError = false;
+            try {
               _this._isAddingFeed = true;
-              onError = function() {
-                _this._$scope.feedError = true;
+              return _this._feedBl.create(feedUrl, parentFolderId, function() {
+                _this._$scope.feedUrl = '';
                 return _this._isAddingFeed = false;
-              };
-              onSuccess = function(data) {
-                if (data.status === 'error') {
-                  return onError();
-                } else {
-                  _this._$scope.feedUrl = '';
-                  return _this._isAddingFeed = false;
-                }
-              };
-              return _this._persistence.createFeed(feedUrl.trim(), parentFolderId, onSuccess, onError);
+              }, function() {
+                return _this._isAddingFeed = false;
+              });
+            } catch (_error) {
+              error = _error;
+              if (error instanceof _ExistsError) {
+                return _this._$scope.feedExistsError = true;
+              } else {
+                return _this._$scope.feedEmptyError = true;
+              }
             }
           };
           this._$scope.addFolder = function(folderName) {
@@ -606,7 +603,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   angular.module('News').factory('FeedBl', [
-    '_Bl', 'ShowAll', 'Persistence', 'ActiveFeed', 'FeedType', 'ItemModel', 'FeedModel', 'NewLoading', function(_Bl, ShowAll, Persistence, ActiveFeed, FeedType, ItemModel, FeedModel, NewLoading) {
+    '_Bl', 'ShowAll', 'Persistence', 'ActiveFeed', 'FeedType', 'ItemModel', 'FeedModel', 'NewLoading', '_ExistsError', function(_Bl, ShowAll, Persistence, ActiveFeed, FeedType, ItemModel, FeedModel, NewLoading, _ExistsError) {
       var FeedBl;
 
       FeedBl = (function(_super) {
@@ -730,6 +727,46 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           if (angular.isDefined(feed)) {
             return feed.link;
           }
+        };
+
+        FeedBl.prototype.create = function(url, parentId, onSuccess, onFailure) {
+          var feed, success, urlHash,
+            _this = this;
+
+          if (parentId == null) {
+            parentId = 0;
+          }
+          if (onSuccess == null) {
+            onSuccess = null;
+          }
+          if (onFailure == null) {
+            onFailure = null;
+          }
+          onSuccess || (onSuccess = function() {});
+          onFailure || (onFailure = function() {});
+          if (angular.isUndefined(url) || url.trim() === '') {
+            throw new Error();
+          }
+          url = url.trim();
+          urlHash = hex_md5(url);
+          if (this._feedModel.getByUrlHash(urlHash)) {
+            throw new _ExistsError();
+          }
+          feed = {
+            title: url.replace(/^(?:https?:\/\/)?(?:www\.)?([a-z0-9_\-\.]+)(?:\/.*)?$/gi, '$1'),
+            url: url,
+            urlHash: urlHash
+          };
+          this._feedModel.add(feed);
+          success = function(response) {
+            if (response.status === 'error') {
+              feed.error = response.msg;
+              return onFailure();
+            } else {
+              return onSuccess();
+            }
+          };
+          return this._persistence.createFeed(url, parentId, success);
         };
 
         return FeedBl;
@@ -2536,4 +2573,4 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 }).call(this);
 
-})(window.angular, jQuery);
+})(window.angular, jQuery, hex_md5);

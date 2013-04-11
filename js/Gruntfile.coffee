@@ -66,8 +66,8 @@ module.exports = (grunt) ->
 				src: '<%= meta.production %>app.js'
 				dest: ''
 				wrapper: [
-					'(function(angular, $, undefined){\n\n'
-					'\n})(window.angular, jQuery);'
+					'(function(angular, $, hex_md5, undefined){\n\n'
+					'\n})(window.angular, jQuery, hex_md5);'
 				]
 
 		coffeelint:

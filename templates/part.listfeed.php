@@ -4,7 +4,7 @@
 		failed: feed.error
 	}" 
 	ng-repeat="feed in feedBl.getFeedsOfFolder(<?php p($_['folderId']); ?>)"
-	ng-show="feedBl.isVisible(feed.id)"
+	ng-show="feedBl.isVisible(feed.id) || !feed.id"
 	data-id="{{ feed.id }}"
 	class="feed"
 	oc-draggable="{

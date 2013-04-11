@@ -49,28 +49,25 @@ angular.module('News').factory '_FeedController',
 
 			@_$scope.addFeed = (feedUrl, parentFolderId=0) =>
 				@_$scope.feedEmptyError = false
-				@_$scope.feedError = false
+				@_$scope.feedExistsError = false
 				
-				if angular.isUndefined(feedUrl) or feedUrl.trim() == ''
-					@_$scope.feedEmptyError = true
-				
-				if not @_$scope.feedEmptyError
+				try				
 					@_isAddingFeed = true
-
-					onError = =>
-						@_$scope.feedError = true
+					@_feedBl.create feedUrl, parentFolderId
+					# on success
+					, =>
+						@_$scope.feedUrl = ''
 						@_isAddingFeed = false
-
-					onSuccess = (data) =>
-						if data.status == 'error'
-							onError()
-						else
-							@_$scope.feedUrl = ''
-							@_isAddingFeed = false
-					
-					@_persistence.createFeed(feedUrl.trim(), parentFolderId,
-						onSuccess, onError)
+					# on error
+					, =>
+						@_isAddingFeed = false
 				
+				catch error
+					if error instanceof _ExistsError
+						@_$scope.feedExistsError = true
+					else
+						@_$scope.feedEmptyError = true
+					
 
 			@_$scope.addFolder = (folderName) =>
 				@_$scope.folderEmptyError = false
