@@ -95,7 +95,7 @@ angular.module('News').factory '_FeedController',
 
 
 			@_$scope.$on 'moveFeedToFolder', (scope, data) =>
-				console.log data
+				@_feedBl.move(data.feedId, data.folderId)
 
 	return FeedController
 

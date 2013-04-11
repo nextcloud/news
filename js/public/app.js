@@ -336,7 +336,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             }
           };
           this._$scope.$on('moveFeedToFolder', function(scope, data) {
-            return console.log(data);
+            return _this._feedBl.move(data.feedId, data.folderId);
           });
         }
 
@@ -2074,7 +2074,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             feedId: feedId
           },
           data: {
-            folderId: folderId
+            parentFolderId: folderId
           }
         };
         return this._request.post('news_feeds_move', params);

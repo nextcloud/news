@@ -163,12 +163,12 @@ describe '_Persistence', ->
 	it 'create a correct request for moving a feed', =>
 		params =
 			data:
-				folderId: 4
+				parentFolderId: 4
 			routeParams:
 				feedId: 3
 
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.moveFeed(params.routeParams.feedId, params.data.folderId)
+		pers.moveFeed(params.routeParams.feedId, params.data.parentFolderId)
 
 		expect(@req.post).toHaveBeenCalledWith('news_feeds_move', params)
 

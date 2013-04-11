@@ -175,7 +175,7 @@ angular.module('News').factory '_Persistence', ->
 				routeParams:
 					feedId: feedId
 				data:
-					folderId: folderId
+					parentFolderId: folderId
 
 			@_request.post 'news_feeds_move', params
 
