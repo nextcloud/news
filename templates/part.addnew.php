@@ -51,9 +51,10 @@
 						ng-hide="addNewFolder">
 					<option value="" selected="selected"><?php p($l->t('Choose folder')); ?></option>
 				</select>
-				<button title="<?php p($l->t('Add')); ?>" 
+				<button title="<?php p($l->t('New folder')); ?>" 
 						ng-click="addNewFolder=true"
-						ng-hide="addNewFolder"><?php p($l->t('New')); ?></button>
+						ng-hide="addNewFolder"
+						class="action-button new-button action"></button>
 				<input type="text" 
 						ng-model="folderName" 
 						ng-disabled="isAddingFolder()"
@@ -62,17 +63,17 @@
 						placeholder="<?php p($l->t('Folder name')); ?>" 
 						autofocus
 						ui-keyup="{13: 'addFolder(folderName)'}"/>
-				<button title="<?php p($l->t('Back')); ?>" 
+				<button title="<?php p($l->t('Back to folder selection')); ?>" 
 						ng-show="addNewFolder"
 						ng-click="addNewFolder=false"
 						ng-disabled="isAddingFolder()"
-						class="back-button"></button>
-				<button title="<?php p($l->t('Add')); ?>" 
+						class="action-button back-button action"></button>
+				<button title="<?php p($l->t('Create folder')); ?>" 
 						ng-show="addNewFolder"
 						ng-click="addFolder(folderName)"
 						ng-disabled="isAddingFolder()"
-						ng-class="{loading: isAddingFolder()}">
-						<?php p($l->t('Create')); ?>
+						ng-class="{loading: isAddingFolder()}"
+						class="action-button create-button action">
 				</button>
 			</form>	
 		</fieldset>

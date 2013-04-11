@@ -47,14 +47,27 @@
 	margin-top: 1px;
 }
 
-.add-new .back-button {
-	border-radius: 0;
+.add-new .action-button {
 	width: 30px;
-	background-image: url('%webroot%/core/img/actions/delete.svg');
 	background-position: center;
-	background-repeat: no-repeat;
+	background-repeat: no-repeat;	
 }
 
-.add-new .back-button:hover {
-	background-image: url('%webroot%/core/img/actions/delete-hover.svg');
+.add-new .back-button {
+	border-radius: 0;
+	background-image: url('%webroot%/core/img/actions/delete.svg');
+}
+
+.add-new .new-button {
+	border-radius: 0;
+	background-image: url('%appswebroot%/news/img/add.svg');
+	border-top-right-radius: 5px; 
+	border-bottom-right-radius: 5px; 
+}
+
+.add-new .create-button {
+	border-radius: 0;
+	background-image: url('%appswebroot%/news/img/mark_read.svg');
+	border-top-right-radius: 5px; 
+	border-bottom-right-radius: 5px; 
 }
