@@ -105,4 +105,15 @@ describe 'FeedModel', ->
 		expect(@FeedModel.size()).toBe(1)
 
 
+	it 'should clear invalidate the query cache on adding folder with name', =>
+		item = {faviconLink: null, urlHash: 'hi', test: 'heheh', folderId: 0}
+		
+		expect(@FeedModel.getAllOfFolder(0).length).toBe(0)
+		@FeedModel.add(item, false)
 
+		expect(@FeedModel.getAllOfFolder(0).length).toBe(0)
+
+		item2 = {faviconLink: null, urlHash: 'his', test: 'heheh', folderId: 0}
+		@FeedModel.add(item2)
+
+		expect(@FeedModel.getAllOfFolder(0).length).toBe(2)

@@ -59,7 +59,7 @@ angular.module('News').factory '_FeedModel',
 			angular.isUndefined(item.id)
 			
 			if updateById or updateByUrlHash
-				@update(data)
+				@update(data, clearCache)
 			else
 				# if the item is not yet in the name cache it must be added
 				@_urlHash[data.urlHash] = data
@@ -71,6 +71,8 @@ angular.module('News').factory '_FeedModel',
 				# if there is no id we just want it to appear in the list
 				else
 					@_data.push(data)
+					if clearCache
+						@_invalidateCache()
 
 
 		update: (data, clearCache=true) ->
@@ -129,7 +131,7 @@ angular.module('News').factory '_FeedModel',
 
 
 		getFolderUnreadCount: (folderId) ->
-			query = new _EqualQuery('folderId', folderId)
+			query = new _EqualQuery('folderId', parseInt(folderId))
 			count = 0
 			for feed in @get(query)
 				count += feed.unreadCount
@@ -138,7 +140,7 @@ angular.module('News').factory '_FeedModel',
 
 
 		getAllOfFolder: (folderId) ->
-			query = new _EqualQuery('folderId', folderId)
+			query = new _EqualQuery('folderId', parseInt(folderId))
 			return @get(query)
 
 

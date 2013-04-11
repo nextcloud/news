@@ -114,16 +114,19 @@ button.action:hover {
 }
 
 .failed {
-	background-color: #EB9DA6 !important;
+	background-color: #F2FF63 !important;
 	text-shadow: none !important;
+	font-weight: bold;
 }
 
+	.failed a:hover,
+	.failed:hover a {
+		background-color: #F2FF63 !important;
+	}
+
 	.failed .message {
+		font-weight: normal;
 		padding: 5px 20px 5px 32px;
-		text-transform: none;
-		background-color: #E83A4E;
-		text-shadow: none;
-		color: #fefefe;
 	}
 
 	.folder .feed.failed .message {

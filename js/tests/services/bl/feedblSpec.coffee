@@ -310,3 +310,5 @@ describe 'FeedBl', ->
 
 		expect(@FeedModel.getByUrlHash(hex_md5('johns')).error).toBe(
 			@response.msg)
+
+

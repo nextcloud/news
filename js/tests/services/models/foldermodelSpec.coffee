@@ -25,7 +25,7 @@ describe 'FolderModel', ->
 
 	beforeEach module 'News'
 
-	beforeEach inject (@FolderModel, @_Model) =>
+	beforeEach inject (@FolderModel, @_Model, @_EqualQuery) =>
 
 
 	it 'should extend model', =>
@@ -94,3 +94,19 @@ describe 'FolderModel', ->
 		expect(@FolderModel.getByName('Hobo').test).toBe('hoho')
 		expect(@FolderModel.getById(3).test).toBe('hoho')
 		expect(@FolderModel.size()).toBe(1)
+
+
+
+	it 'should clear invalidate the query cache on adding folder with name', =>
+		item = {name: 'name1', test: 'hi'}
+		query = new @_EqualQuery('test', 'hi')
+		
+		expect(@FolderModel.get(query).length).toBe(0)
+		@FolderModel.add(item, false)
+
+		expect(@FolderModel.get(query).length).toBe(0)
+
+		item2 = {name: 'name',  test: 'hi'}
+		@FolderModel.add(item2)
+
+		expect(@FolderModel.get(query).length).toBe(2)

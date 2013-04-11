@@ -128,6 +128,7 @@ NewLoading, _ExistsError) ->
 		create: (url, parentId=0, onSuccess=null, onFailure=null) ->
 			onSuccess or= ->
 			onFailure or= ->
+			parentId = parseInt(parentId, 10)
 
 			if angular.isUndefined(url) or url.trim() == ''
 				throw new Error()

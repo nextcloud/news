@@ -50,7 +50,7 @@ angular.module('News').factory '_FolderModel',
 			angular.isUndefined(item.id)
 			
 			if updateById or updateByName
-				@update(data)
+				@update(data, clearCache)
 			else
 				# if the item is not yet in the name cache it must be added
 				@_nameCache[data.name] = data
@@ -62,6 +62,8 @@ angular.module('News').factory '_FolderModel',
 				# if there is no id we just want it to appear in the list
 				else
 					@_data.push(data)
+					if clearCache
+						@_invalidateCache()
 
 
 		update: (data, clearCache=true) ->

@@ -745,6 +745,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           }
           onSuccess || (onSuccess = function() {});
           onFailure || (onFailure = function() {});
+          parentId = parseInt(parentId, 10);
           if (angular.isUndefined(url) || url.trim() === '') {
             throw new Error();
           }
@@ -1361,13 +1362,16 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           updateById = angular.isDefined(data.id) && angular.isDefined(this.getById(data.id));
           updateByUrlHash = angular.isDefined(item) && angular.isUndefined(item.id);
           if (updateById || updateByUrlHash) {
-            return this.update(data);
+            return this.update(data, clearCache);
           } else {
             this._urlHash[data.urlHash] = data;
             if (angular.isDefined(data.id)) {
               return FeedModel.__super__.add.call(this, data, clearCache);
             } else {
-              return this._data.push(data);
+              this._data.push(data);
+              if (clearCache) {
+                return this._invalidateCache();
+              }
             }
           }
         };
@@ -1434,7 +1438,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         FeedModel.prototype.getFolderUnreadCount = function(folderId) {
           var count, feed, query, _i, _len, _ref;
 
-          query = new _EqualQuery('folderId', folderId);
+          query = new _EqualQuery('folderId', parseInt(folderId));
           count = 0;
           _ref = this.get(query);
           for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -1447,7 +1451,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         FeedModel.prototype.getAllOfFolder = function(folderId) {
           var query;
 
-          query = new _EqualQuery('folderId', folderId);
+          query = new _EqualQuery('folderId', parseInt(folderId));
           return this.get(query);
         };
 
@@ -1516,13 +1520,16 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           updateById = angular.isDefined(data.id) && angular.isDefined(this.getById(data.id));
           updateByName = angular.isDefined(item) && angular.isUndefined(item.id);
           if (updateById || updateByName) {
-            return this.update(data);
+            return this.update(data, clearCache);
           } else {
             this._nameCache[data.name] = data;
             if (angular.isDefined(data.id)) {
               return FolderModel.__super__.add.call(this, data, clearCache);
             } else {
-              return this._data.push(data);
+              this._data.push(data);
+              if (clearCache) {
+                return this._invalidateCache();
+              }
             }
           }
         };
