@@ -6,7 +6,13 @@
 	ng-show="feedBl.isVisible(feed.id)"
 	data-id="{{ feed.id }}"
 	class="feed"
-	draggable>
+	oc-draggable="{
+		revert: true,
+		stack: '> li',
+		zIndex: 1000,
+		axis: 'y',
+		helper: 'clone'
+	}">
 	<a ng-style="{ backgroundImage: feed.faviconLink }"
 	   href="#"
 	   class="title"

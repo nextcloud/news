@@ -25,68 +25,71 @@ angular.module('News').factory '_FeedController', ->
 
 	class FeedController
 
-		constructor: (@$scope, @_persistence, @_folderBl, @_feedBl,
+		constructor: (@_$scope, @_persistence, @_folderBl, @_feedBl,
 		              @_subscriptionsBl, @_starredBl, @_unreadCountFormatter) ->
 
 			@_isAddingFolder = false
 			@_isAddingFeed = false
 
 			# bind internal stuff to scope
-			@$scope.folderBl = @_folderBl
-			@$scope.feedBl = @_feedBl
-			@$scope.subscriptionsBl = @_subscriptionsBl
-			@$scope.starredBl = @_starredBl
-			@$scope.unreadCountFormatter = @_unreadCountFormatter
+			@_$scope.folderBl = @_folderBl
+			@_$scope.feedBl = @_feedBl
+			@_$scope.subscriptionsBl = @_subscriptionsBl
+			@_$scope.starredBl = @_starredBl
+			@_$scope.unreadCountFormatter = @_unreadCountFormatter
 
 			
-			@$scope.isAddingFolder = =>
+			@_$scope.isAddingFolder = =>
 				return @_isAddingFolder
 
-			@$scope.isAddingFeed = =>
+			@_$scope.isAddingFeed = =>
 				return @_isAddingFeed
 
-			@$scope.addFeed = (feedUrl, parentFolderId=0) =>
-				@$scope.feedEmptyError = false
-				@$scope.feedError = false
+			@_$scope.addFeed = (feedUrl, parentFolderId=0) =>
+				@_$scope.feedEmptyError = false
+				@_$scope.feedError = false
 				
 				if angular.isUndefined(feedUrl) or feedUrl.trim() == ''
-					@$scope.feedEmptyError = true
+					@_$scope.feedEmptyError = true
 				
-				if not @$scope.feedEmptyError
+				if not @_$scope.feedEmptyError
 					@_isAddingFeed = true
 
 					onError = =>
-						@$scope.feedError = true
+						@_$scope.feedError = true
 						@_isAddingFeed = false
 
 					onSuccess = (data) =>
 						if data.status == 'error'
 							onError()
 						else
-							@$scope.feedUrl = ''
+							@_$scope.feedUrl = ''
 							@_isAddingFeed = false
 					
 					@_persistence.createFeed(feedUrl.trim(), parentFolderId,
 						onSuccess, onError)
 				
 
-			@$scope.addFolder = (folderName) =>
-				@$scope.folderEmptyError = false
-				@$scope.folderExistsError = false
+			@_$scope.addFolder = (folderName) =>
+				@_$scope.folderEmptyError = false
+				@_$scope.folderExistsError = false
 
 				if angular.isUndefined(folderName) or folderName.trim() == ''
-					@$scope.folderEmptyError = true
+					@_$scope.folderEmptyError = true
 				else
 					folderName = folderName.trim()
 					if @_folderModel.nameExists(folderName)
-						@$scope.folderExistsError = true
+						@_$scope.folderExistsError = true
 
-				if not (@$scope.folderEmptyError or @$scope.folderExistsError)
+				if not (@_$scope.folderEmptyError or @_$scope.folderExistsError)
 					@_isAddingFolder = true
 					@_persistence.createFolder folderName, 0, =>
 						@$scope.folderName = ''
 						@$scope.addNewFolder = false
 						@_isAddingFolder = false
 
+
+			@_$scope.$on 'moveFeedToFolder', (scope, data) =>
+				console.log data
 
 	return FeedController
