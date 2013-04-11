@@ -28,7 +28,9 @@
 	
 	<span class="utils">
 
-		<span class="unread-counter" ng-show="feed.id">
+		<span class="unread-counter" 
+			ng-show="feed.id"
+			ng-style="{opacity: getOpacity(feedBl.getUnreadCount(feed.id)) }">
 			{{ feedBl.getUnreadCount(feed.id) }}
 		</span>
 

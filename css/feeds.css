@@ -10,6 +10,8 @@
 	font-weight: bold;
 }
 
+
+
 #app-navigation .unread > a {
 	padding-right: 32px;
 }
@@ -63,6 +65,9 @@
 	display: block;
 }
 
+.starred .unread-counter {
+	font-weight: normal;
+}
 
 button.action {
 	opacity: .5;

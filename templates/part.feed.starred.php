@@ -2,7 +2,8 @@
 		active: starredBl.isActive(0), 
 		unread: starredBl.getUnreadCount() > 0
 	}" 
-	ng-show="starredBl.isVisible(0)">
+	ng-show="starredBl.isVisible(0)"
+	class="starred">
 	<a class="starred-icon"
 		href="#"
 		ng-click="starredBl.load(0)">

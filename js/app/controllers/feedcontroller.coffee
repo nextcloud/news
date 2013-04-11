@@ -102,6 +102,19 @@ angular.module('News').factory '_FeedController',
 					@_$scope.addNewFolder = true
 
 
+			@_$scope.getOpacity = (number) =>
+				number = parseInt(number, 10)
+
+				# the higher the number, the lower the opacity
+				opacity = (number / 180)
+
+				if opacity < 0.3
+					opacity = 0.3
+				if opacity > 1
+					opacity = 1
+				return opacity
+
+
 			@_$scope.$on 'moveFeedToFolder', (scope, data) =>
 				@_feedBl.move(data.feedId, data.folderId)
 

@@ -16,7 +16,8 @@
 	   <?php p($l->t('All articles'))?>
 	</a>
 	<span class="utils">
-		<span class="unread-counter">
+		<span class="unread-counter"
+			ng-style="{opacity: getOpacity(subscriptionsBl.getUnreadCount()) }">
 			{{ subscriptionsBl.getUnreadCount() }}
 		</span>
 		<button class="svg action mark-read-icon" 
