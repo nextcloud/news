@@ -3,11 +3,13 @@
 	<input type="file" id="opml-upload" name="import" 
 			oc-read-file="import($fileContent)"/>
 	<button title="<?php p($l->t('Import')); ?>" 
-		oc-forward-click="{selector:'#opml-upload'}">
+		oc-forward-click="{selector:'#opml-upload'}"
+		class="opml-icon">
 		<?php p($l->t('Import')); ?>
 	</button>
 	<button ng-disabled="feeds.length==0" title="<?php p($l->t('Export')); ?>"
-		ng-click="export()">
+		ng-click="export()"
+		class="opml-icon">
 		<?php p($l->t('Export')); ?>
 	</button>
 </fieldset>
