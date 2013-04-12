@@ -26,12 +26,18 @@ angular.module('News', ['OC', 'ui']).config ($provide) ->
 	$provide.value 'Config', config =
 		markReadTimeout: 500
 		scrollTimeout: 500
-		feedUpdateInterval: 6000000
+		feedUpdateInterval: 600000
 		itemBatchSize: 20
 
 
-angular.module('News').run ['Persistence', (Persistence) ->
+angular.module('News').run ['Persistence', 'Config', 'FeedBl',
+(Persistence, Config, FeedBl) ->
+
 	Persistence.init()
+	
+	setInterval ->
+		FeedBl.updateFeeds()
+	, Config.feedUpdateInterval
 ]
 
 

@@ -41,14 +41,17 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     return $provide.value('Config', config = {
       markReadTimeout: 500,
       scrollTimeout: 500,
-      feedUpdateInterval: 6000000,
+      feedUpdateInterval: 600000,
       itemBatchSize: 20
     });
   });
 
   angular.module('News').run([
-    'Persistence', function(Persistence) {
-      return Persistence.init();
+    'Persistence', 'Config', 'FeedBl', function(Persistence, Config, FeedBl) {
+      Persistence.init();
+      return setInterval(function() {
+        return FeedBl.updateFeeds();
+      }, Config.feedUpdateInterval);
     }
   ]);
 
@@ -798,6 +801,22 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
         FeedBl.prototype.markErrorRead = function(urlHash) {
           return this._feedModel.removeByUrlHash(urlHash);
+        };
+
+        FeedBl.prototype.updateFeeds = function() {
+          var feed, _i, _len, _ref, _results;
+
+          _ref = this._feedModel.getAll();
+          _results = [];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            feed = _ref[_i];
+            if (angular.isDefined(feed.id)) {
+              _results.push(this._persistence.updateFeed(feed.id));
+            } else {
+              _results.push(void 0);
+            }
+          }
+          return _results;
         };
 
         return FeedBl;

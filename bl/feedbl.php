@@ -146,7 +146,9 @@ class FeedBl extends Bl {
 			// failed updating is not really a problem, so only log it
 			$this->api->log('Can not update feed with url' . $existingFeed->getUrl() .
 				': Not found or bad source');
-		}	
+		}
+		
+		return $this->mapper->find($feedId, $userId);
 	}
 
 

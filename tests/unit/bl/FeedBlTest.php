@@ -164,7 +164,7 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 
 		$fetchReturn = array($feed, $items);
 
-		$this->mapper->expects($this->once())
+		$this->mapper->expects($this->at(0))
 			->method('find')
 			->with($this->equalTo($feed->getId()),
 					$this->equalTo($this->user))
@@ -182,7 +182,14 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('insert')
 			->with($this->equalTo($items[0]));
 
-		$this->bl->update($feed->getId(), $this->user);
+		$this->mapper->expects($this->at(1))
+			->method('find')
+			->with($feed->getId(), $this->user)
+			->will($this->returnValue($feed));
+
+		$return = $this->bl->update($feed->getId(), $this->user);
+
+		$this->assertEquals($return, $feed);
 	}
 
 
@@ -200,7 +207,7 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 
 		$fetchReturn = array($feed, $items);
 
-		$this->mapper->expects($this->once())
+		$this->mapper->expects($this->at(0))
 			->method('find')
 			->with($this->equalTo($feed->getId()),
 					$this->equalTo($this->user))
@@ -219,7 +226,14 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->itemMapper->expects($this->never())
 			->method('delete');
 		
-		$this->bl->update($feed->getId(), $this->user);
+		$this->mapper->expects($this->at(1))
+			->method('find')
+			->with($feed->getId(), $this->user)
+			->will($this->returnValue($feed));
+
+		$return = $this->bl->update($feed->getId(), $this->user);
+
+		$this->assertEquals($return, $feed);
 	}
 
 
@@ -241,7 +255,7 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 
 		$fetchReturn = array($feed, $items);
 
-		$this->mapper->expects($this->once())
+		$this->mapper->expects($this->at(0))
 			->method('find')
 			->with($this->equalTo($feed->getId()),
 					$this->equalTo($this->user))
@@ -262,7 +276,14 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('insert')
 			->with($this->equalTo($item));
 		
-		$this->bl->update($feed->getId(), $this->user);
+		$this->mapper->expects($this->at(1))
+			->method('find')
+			->with($feed->getId(), $this->user)
+			->will($this->returnValue($feed));
+
+		$return = $this->bl->update($feed->getId(), $this->user);
+
+		$this->assertEquals($return, $feed);
 		$this->assertTrue($item->isUnread());
 	}
 
@@ -273,7 +294,7 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 		$feed->getUrl('test');
 		$ex = new FetcherException('');
 
-		$this->mapper->expects($this->once())
+		$this->mapper->expects($this->at(0))
 			->method('find')
 			->with($this->equalTo($feed->getId()),
 					$this->equalTo($this->user))
@@ -284,7 +305,14 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->api->expects($this->once())
 			->method('log');
 		
-		$this->bl->update($feed->getId(), $this->user);
+		$this->mapper->expects($this->at(1))
+			->method('find')
+			->with($feed->getId(), $this->user)
+			->will($this->returnValue($feed));
+
+		$return = $this->bl->update($feed->getId(), $this->user);
+
+		$this->assertEquals($return, $feed);
 	}
 
 	public function testMove(){

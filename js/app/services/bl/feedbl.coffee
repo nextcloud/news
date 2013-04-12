@@ -164,6 +164,12 @@ NewLoading, _ExistsError) ->
 			@_feedModel.removeByUrlHash(urlHash)
 
 
+		updateFeeds: ->
+			for feed in @_feedModel.getAll()
+				if angular.isDefined(feed.id)
+					@_persistence.updateFeed(feed.id)
+
+
 	return new FeedBl(ShowAll, FeedModel, Persistence, ActiveFeed, FeedType,
 	                  ItemModel, NewLoading)
 

@@ -321,3 +321,20 @@ describe 'FeedBl', ->
 		expect(@FeedModel.size()).toBe(0)
 		expect(@FeedModel.getByUrlHash('john')).toBe(undefined)
 
+
+	it 'should update all feeds', =>
+		@persistence.updateFeed = jasmine.createSpy('update')
+		@FeedModel.add({id: 3, urlHash: 'john'})
+
+		@FeedBl.updateFeeds()
+
+		expect(@persistence.updateFeed).toHaveBeenCalledWith(3)
+
+
+	it 'should not update feeds without ids', =>
+		@persistence.updateFeed = jasmine.createSpy('update')
+		@FeedModel.add({urlHash: 'john'})
+
+		@FeedBl.updateFeeds()
+
+		expect(@persistence.updateFeed).not.toHaveBeenCalled()
