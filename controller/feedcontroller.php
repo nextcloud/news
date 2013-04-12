@@ -55,7 +55,7 @@ class FeedController extends Controller {
 	 */
 	public function feeds(){
 		$userId = $this->api->getUserId();
-		$result = $this->feedBl->findAllFromUser($userId);
+		$result = $this->feedBl->findAll($userId);
 
 		$params = array(
 			'feeds' => $result

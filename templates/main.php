@@ -30,18 +30,7 @@
 		</ul>
 
 		<div id="app-settings" ng-controller="SettingsController">
-			<div id="app-settings-header">
-				<button name="app settings" 
-						class="settings-button"
-						oc-click-slide-toggle="{
-							selector: '#app-settings-content',
-							hideOnFocusLost: true,
-							cssClass: 'opened'
-						}"></button>
-			</div>
-			<div id="app-settings-content">
-				<?php print_unescaped($this->inc('part.settings')) ?>
-			</div>
+			<?php print_unescaped($this->inc('part.settings')) ?>
 		</div>
 
 	</div>

@@ -217,12 +217,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 
 (function() {
-  angular.module('News').controller('SettingsController', [
-    '$scope', '_SettingsController', function($scope, _SettingsController) {
-      return new _SettingsController($scope);
-    }
-  ]);
-
   angular.module('News').controller('FeedController', [
     '$scope', '_FeedController', 'Persistence', 'FolderBl', 'FeedBl', 'SubscriptionsBl', 'StarredBl', 'unreadCountFormatter', function($scope, _FeedController, Persistence, FolderBl, FeedBl, SubscriptionsBl, StarredBl, unreadCountFormatter) {
       return new _FeedController($scope, Persistence, FolderBl, FeedBl, SubscriptionsBl, StarredBl, unreadCountFormatter);
@@ -460,25 +454,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 
 (function() {
-  angular.module('News').factory('_SettingsController', function() {
-    var SettingsController;
-
-    SettingsController = (function() {
-      function SettingsController($scope) {
-        var _this = this;
-
-        this.$scope = $scope;
-        this.$scope["import"] = function(fileContent) {
-          console.log('hi');
-          return console.log(fileContent);
-        };
-      }
-
-      return SettingsController;
-
-    })();
-    return SettingsController;
-  });
+  angular.module('News').controller('SettingsController', [
+    '$scope', 'FeedBl', function($scope, FeedBl) {
+      $scope["import"] = function(fileContent) {
+        return console.log(fileContent);
+      };
+      return $scope.feedBl = FeedBl;
+    }
+  ]);
 
 }).call(this);
 
@@ -1966,7 +1949,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           outline = _ref[_i];
           $outline = $(outline);
-          if (angular.isDefined($outline.attr('type'))) {
+          if (angular.isDefined($outline.attr('xmlUrl'))) {
             feed = new Feed($outline.attr('text'), $outline.attr('xmlUrl'));
             _results.push(structure.add(feed));
           } else {

@@ -49,7 +49,7 @@ class FeedBl extends Bl {
 	}
 
 
-	public function findAllFromUser($userId){
+	public function findAll($userId){
 		return $this->mapper->findAllFromUser($userId);
 	}
 

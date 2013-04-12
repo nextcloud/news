@@ -64,13 +64,13 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 	}
 
 
-	public function testFindAllFromUser(){
+	public function testFindAll(){
 		$this->mapper->expects($this->once())
 			->method('findAllFromUser')
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($this->response));
 
-		$result = $this->bl->findAllFromUser($this->user);
+		$result = $this->bl->findAll($this->user);
 		$this->assertEquals($this->response, $result);
 	}
 

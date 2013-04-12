@@ -122,7 +122,7 @@ class FeedControllerTest extends ControllerTestUtility {
 			->method('getUserId')
 			->will($this->returnValue($this->user));
 		$this->bl->expects($this->once())
-			->method('findAllFromUser')
+			->method('findAll')
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($result['feeds']));
 

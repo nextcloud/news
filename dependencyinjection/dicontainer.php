@@ -46,6 +46,7 @@ use OCA\News\Db\StatusFlag;
 use OCA\News\Utility\Fetcher;
 use OCA\News\Utility\FeedFetcher;
 use OCA\News\Utility\TwitterFetcher;
+use OCA\News\Utility\OPMLExporter;
 
 
 require_once __DIR__ . '/../3rdparty/SimplePie/autoloader.php';
@@ -90,8 +91,8 @@ class DIContainer extends BaseContainer {
 		});
 
 		$this['ExportController'] = $this->share(function($c){
-			return new ExportController($c['API'], $c['Request'], 
-										$c['FolderBl'], $c['FeedBl']);
+			return new ExportController($c['API'], $c['Request'], $c['FeedBl'],
+				                        $c['FolderBl'], $c['OPMLExporter']);
 		});
 
 		$this['UserSettingsController'] = $this->share(function($c){
@@ -160,6 +161,11 @@ class DIContainer extends BaseContainer {
 		$this['StatusFlag'] = $this->share(function($c){
 			return new StatusFlag();
 		});
+
+		$this['OPMLExporter'] = $this->share(function($c){
+			return new OPMLExporter();
+		});
+
 
 
 	}

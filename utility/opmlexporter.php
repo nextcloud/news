@@ -1,82 +1,98 @@
 <?php
 
 /**
-* ownCloud - News app
+* ownCloud - News
 *
 * @author Alessandro Cosentino
-* Copyright (c) 2012 - Alessandro Cosentino <cosenal@gmail.com>
+* @author Bernhard Posselt
+* @copyright 2012 Alessandro Cosentino cosenal@gmail.com
+* @copyright 2012 Bernhard Posselt nukeawhale@gmail.com
 *
-* This file is licensed under the Affero General Public License version 3 or later.
-* See the COPYING-README file
+* This library is free software; you can redistribute it and/or
+* modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+* License as published by the Free Software Foundation; either
+* version 3 of the License, or any later version.
+*
+* This library is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+*
+* You should have received a copy of the GNU Affero General Public
+* License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 *
 */
 
-namespace OCA\News;
+namespace OCA\News\Utility;
 
 /**
 * Exports the OPML
 */
 class OPMLExporter {
 	
-	private $api;
-	private $trans;
-
-	public function __construct($api){
-		$this->api = $api;
-		$this->trans = $api->getTrans();
-	}
-
-
 	/**
 	 * Generates the OPML for the active user
 	 * @return the OPML as string
 	 */
-	public function buildOPML($feeds){
-		$dom = new \DomDocument('1.0', 'UTF-8');
-		$dom->formatOutput = true;
+	public function build($folders, $feeds){
+		$document = new \DomDocument('1.0', 'UTF-8');
+		$document->formatOutput = true;
 
-		$opml_el = $dom->createElement('opml');
-		$opml_el->setAttribute('version', '2.0');
+		$root = $document->createElement('opml');
+		$root->setAttribute('version', '2.0');
 
-		$head_el = $dom->createElement('head');
+		// head
+		$head = $document->createElement('head');
 
-		$title = $this->api->getUserId() . ' ' . 
-					$this->trans->t('subscriptions in ownCloud - News');
-		$title_el = $dom->createElement('title', $title);
+		$title = $document->createElement('title', 'Subscriptions');
+		$head->appendChild( $title );
+		
+		$root->appendChild($head);
+		
+		// body
+		$body = $document->createElement('body');
 
-		$head_el->appendChild( $title_el );
-		$opml_el->appendChild( $head_el );
-		$body_el = $dom->createElement('body');
+		// feeds with folders
+		foreach($folders as $folder) {
+			$folderOutline = $document->createElement('outline');
+			$folderOutline->setAttribute('title', $folder->getName());
+			$folderOutline->setAttribute('text', $folder->getName());
+			
+			// feeds in folders
+			foreach ($feeds as $feed) {
+				if ($feed->getFolderId() === $folder->getId()) {
+					$feedOutline = $this->createFeedOutline($feed, $document);
+					$folderOutline->appendChild($feedOutline);
+				}
+			}
 
-		$this->feedsToXML($feeds, $body_el, $dom);
+			$body->appendChild($folderOutline);
+		}
 
-		$opml_el->appendChild( $body_el );
-		$dom->appendChild( $opml_el );
+		// feeds without folders
+		foreach ($feeds as $feed) {
+			if ($feed->getFolderId() === 0) {
+				$feedOutline = $this->createFeedOutline($feed, $document);
+				$body->appendChild($feedOutline);
+			}
+		}
 
-		return $dom->saveXML();
+		$root->appendChild($body);
+
+		$document->appendChild($root);
+
+		return $document;
 	}
 
 
-	/**
-	 * Creates the OPML content recursively
-	 */
-	protected function feedsToXML($data, $xml_el, $dom) {
-
-		foreach($data as $collection) {
-			$outline_el = $dom->createElement('outline');
-			if ($collection instanceOf Folder) {
-				$outline_el->setAttribute('title', $collection->getName());
-				$outline_el->setAttribute('text', $collection->getName());
-				$this->feedsToXML($collection->getChildren(), $outline_el, $dom);
-			}
-			elseif ($collection instanceOf Feed) {
-				$outline_el->setAttribute('title', $collection->getTitle());
-				$outline_el->setAttribute('text', $collection->getTitle());
-				$outline_el->setAttribute('type', 'rss');
-				$outline_el->setAttribute('xmlUrl', $collection->getUrl());
-			}
-			$xml_el->appendChild( $outline_el );
-		}
+	protected function createFeedOutline($feed, $document) {
+		$feedOutline = $document->createElement('outline');
+		$feedOutline->setAttribute('title', $feed->getTitle());
+		$feedOutline->setAttribute('text', $feed->getTitle());
+		$feedOutline->setAttribute('type', 'rss');
+		$feedOutline->setAttribute('xmlUrl', $feed->getUrl());
+		$feedOutline->setAttribute('htmlUrl', $feed->getLink());
+		return $feedOutline;
 	}
 
 

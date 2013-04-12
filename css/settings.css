@@ -9,13 +9,6 @@
 	background-color: transparent !important;
 }
 
-.opml-icon {
-	background-image: url('%appswebroot%/news/img/opml-icon.svg');
-	background-repeat: no-repeat;
-	background-position: 5px center;
-	padding-left: 28px;
-	padding-right: 10px;
-}
 
 #app-settings-content {
 	padding-bottom: 25px;

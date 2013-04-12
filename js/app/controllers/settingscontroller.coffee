@@ -21,15 +21,12 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-angular.module('News').factory '_SettingsController', ->
+angular.module('News').controller 'SettingsController',
+['$scope', 'FeedBl', ($scope, FeedBl) ->
 
-	class SettingsController
+	$scope.import = (fileContent) ->
+		console.log fileContent
 
-		constructor: (@$scope) ->
+	$scope.feedBl = FeedBl
 
-			@$scope.import = (fileContent) =>
-				console.log 'hi'
-				console.log fileContent
-
-
-	return SettingsController
+]

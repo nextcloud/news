@@ -96,7 +96,7 @@ button.action:hover {
 }
 
 .mark-read-icon {
-	background-image: url('%appswebroot%/news/img/mark_read.svg') !important;
+	background-image: url('%appswebroot%/news/img/mark_read.svg');
 }
 
 .rss-icon {

@@ -28,23 +28,38 @@ namespace OCA\News\Controller;
 use \OCA\AppFramework\Controller\Controller;
 use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Http\Request;
+use \OCA\AppFramework\Http\TextDownloadResponse;
 
+use \OCA\News\Bl\FeedBl;
+use \OCA\News\Bl\FolderBl;
+use \OCA\News\Utility\OPMLExporter;
 
 class ExportController extends Controller {
 
+	private $opmlExporter;
+	private $folderBl;
+	private $feedBl;
 
-	public function __construct(API $api, Request $request){
+	public function __construct(API $api, Request $request, FeedBl $feedBl,
+	                            FolderBl $folderBl, OPMLExporter $opmlExporter){
 		parent::__construct($api, $request);
+		$this->feedBl = $feedBl;
+		$this->folderBl = $folderBl;
+		$this->opmlExporter = $opmlExporter;
 	}
 
 
 	/**
 	 * @IsAdminExemption
 	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @CSRFExemption
 	 */
 	public function opml(){
-		// TODO
+		$user = $this->api->getUserId();
+		$feeds = $this->feedBl->findAll($user);
+		$folders = $this->folderBl->findAll($user);
+		$opml = $this->opmlExporter->build($folders, $feeds)->saveXML();
+		return new TextDownloadResponse($opml, 'subscriptions.opml', 'text/xml');
 	}
 
 

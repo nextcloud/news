@@ -66,7 +66,7 @@ angular.module('News').factory '_OPMLParser', ->
 		_recursivelyParse: ($xml, structure) ->
 			for outline in $xml.children('outline')
 				$outline = $(outline)
-				if angular.isDefined($outline.attr('type'))
+				if angular.isDefined($outline.attr('xmlUrl'))
 					feed = new Feed($outline.attr('text'), $outline.attr('xmlUrl'))
 					structure.add(feed)
 				else

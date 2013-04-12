@@ -26,11 +26,12 @@
 namespace OCA\News\Controller;
 
 use \OCA\AppFramework\Http\Request;
-use \OCA\AppFramework\Http\JSONResponse;
+use \OCA\AppFramework\Http\TextDownloadResponse;
 use \OCA\AppFramework\Utility\ControllerTestUtility;
 use \OCA\AppFramework\Db\DoesNotExistException;
 use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
 
+use \OCA\News\Utility\OPMLExporter;
 
 require_once(__DIR__ . "/../../classloader.php");
 
@@ -40,22 +41,58 @@ class ExportControllerTest extends ControllerTestUtility {
 	private $api;
 	private $request;
 	private $controller;
-
+	private $user;
+	private $feedBl;
+	private $folderBl;
+	private $opmlExporter;
 
 	/**
 	 * Gets run before each test
 	 */
 	public function setUp(){
 		$this->api = $this->getAPIMock();
+		$this->feedBl = $this->getMockBuilder('\OCA\News\Bl\FeedBl')
+			->disableOriginalConstructor()
+			->getMock();
+		$this->folderBl = $this->getMockBuilder('\OCA\News\Bl\FolderBl')
+			->disableOriginalConstructor()
+			->getMock();
 		$this->request = new Request();
-		$this->controller = new ExportController($this->api, $this->request);
+		$this->opmlExporter = new OPMLExporter();
+		$this->controller = new ExportController($this->api, $this->request,
+			$this->feedBl, $this->folderBl, $this->opmlExporter);
+		$this->user = 'john';
 	}
 
 
 	public function testOpmlAnnotations(){
-		$annotations = array('IsAdminExemption', 'IsSubAdminExemption', 'Ajax');
+		$annotations = array('IsAdminExemption', 'IsSubAdminExemption', 
+			'CSRFExemption');
 		$this->assertAnnotations($this->controller, 'opml', $annotations);
 	}
+
+
+	public function testOpmlExportNoFeeds(){
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->feedBl->expects($this->once())
+			->method('findAll')
+			->with($this->equalTo($this->user))
+			->will($this->returnValue(array()));
+		$this->folderBl->expects($this->once())
+			->method('findAll')
+			->with($this->equalTo($this->user))
+			->will($this->returnValue(array()));
+
+		$return = $this->controller->opml();
+		$this->assertTrue($return instanceof TextDownloadResponse);
+
+		// TODO: check if its empty xml structure
+	}
+
+
+	// TODO more tests for this
 
 
 }
