@@ -3,18 +3,23 @@ README
 
 The News app is a an rss/atom feed aggregator. It is based on the library SimplePie.
 
+Maintainers
+-----------
+`Alessandro Cosentino <https://github.com/zimba12>`_ IRC: zimba
+`Bernhard Posselt <https://github.com/Raydiation>`_ IRC: Raydiation
+
 Status
 ------
 App is not finished yet and in rewrite.
 
 When the first kinda working version is available it will be mentioned in this readme.
 
-See the milestones in the Bugtracker for more information on progress
+See the `milestones in the bugtracker <https://github.com/owncloud/news/issues/milestones>`_ for more information on progress
 
 
 How to install the News app
 ---------------------------
-- Install ownCloud 5.0
+- Install ownCloud 5.0.5 (not released yet contains a small css fix, use the stable5 branch or 5.0.4)
 - Clone the App Framework app into the **/var/www** directory::
 
 	git clone https://github.com/owncloud/appframework.git
