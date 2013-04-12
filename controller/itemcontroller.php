@@ -168,6 +168,7 @@ class ItemController extends Controller {
 		$highestItemId = (int) $this->params('highestItemId');
 
 		$this->itemBl->readFeed($feedId, $highestItemId, $userId);
+		return $this->renderJSON();
 	}
 
 

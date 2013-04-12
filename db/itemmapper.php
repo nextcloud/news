@@ -115,15 +115,16 @@ class ItemMapper extends Mapper implements IMapper {
 
 
 	public function readFeed($feedId, $highestItemId, $userId){
-		$sql = 'UPDATE `*PREFIX*news_feeds` `feeds` ' .
-			'JOIN `*PREFIX*news_items` `items` ' .
-				'ON `items`.`feed_id` = `feeds`.`id` ' .
-				'AND `feeds`.`user_id` = ? ' .
-				'AND `feeds`.`id` = ? ' .
-				'AND `items`.`id` <= ? ' .
-			'SET `items`.`status` = (`items`.`status` & ?) ';
-		$params = array($userId, $feedId, $highestItemId, ~StatusFlag::UNREAD);
-
+		$sql = 'UPDATE `*PREFIX*news_items` ' . 
+			'SET `status` = `status` & ? ' .
+				'WHERE `feed_id` = ? ' .
+				'AND `id` <= ? ' .
+				'AND EXISTS (' .
+					'SELECT * FROM `*PREFIX*news_feeds` ' .
+					'WHERE `user_id` = ? ' .
+					'AND `id` = ? ) ';
+		$params = array(~StatusFlag::UNREAD, $feedId, $highestItemId, $userId, 
+		                $feedId);
 		$this->execute($sql, $params);
 	}
 

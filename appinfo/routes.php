@@ -120,7 +120,7 @@ $this->create('news_feeds_move', '/feeds/{feedId}/move')->post()->action(
 
 $this->create('news_feeds_read', '/feeds/{feedId}/read')->post()->action(
 	function($params){
-		App::main('FeedController', 'read', $params, new DIContainer());
+		App::main('ItemController', 'readFeed', $params, new DIContainer());
 	}
 );
 

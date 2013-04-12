@@ -33,7 +33,7 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 	private $fetcher;
 
 	protected function setUp(){
-		$this->fetcher = new FeedFetcher($this->getAPIMock());
+		$this->fetcher = new FeedFetcher($this->getAPIMock(), 'dir', 300);
 	}
 
 
