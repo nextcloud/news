@@ -5,8 +5,8 @@ The News app is a an rss/atom feed aggregator. It is based on the library Simple
 
 Maintainers
 -----------
-* `Alessandro Cosentino <https://github.com/zimba12>`_ IRC: zimba
-* `Bernhard Posselt <https://github.com/Raydiation>`_ IRC: Raydiation
+* `Alessandro Cosentino <https://github.com/zimba12>`_ 
+* `Bernhard Posselt <https://github.com/Raydiation>`_ 
 
 Status
 ------
