@@ -79,7 +79,8 @@ class UserSettingsControllerTest extends ControllerTestUtility {
 			->method('setUserValue')
 			->with($this->equalTo('showAll'), 
 				$this->equalTo(true));
-		$result = $this->controller->show();
+		$response = $this->controller->show();
+		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -88,7 +89,8 @@ class UserSettingsControllerTest extends ControllerTestUtility {
 			->method('setUserValue')
 			->with($this->equalTo('showAll'), 
 				$this->equalTo(false));
-		$result = $this->controller->hide();
+		$response = $this->controller->hide();
+		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 

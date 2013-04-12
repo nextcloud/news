@@ -161,7 +161,8 @@ class ItemControllerTest extends ControllerTestUtility {
 				$this->equalTo(true), 
 				$this->equalTo($this->user));
 
-		$this->controller->star();
+		$response = $this->controller->star();
+		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -183,7 +184,8 @@ class ItemControllerTest extends ControllerTestUtility {
 				$this->equalTo(false), 
 				$this->equalTo($this->user));
 
-		$this->controller->unstar();
+		$response = $this->controller->unstar();
+		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -203,7 +205,8 @@ class ItemControllerTest extends ControllerTestUtility {
 			->method('readFeed')
 			->with($url['feedId'], $post['highestItemId'], $this->user);
 
-		$this->controller->readFeed();
+		$response = $this->controller->readFeed();
+		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
