@@ -145,8 +145,6 @@ ItemModel, ShowAll, _ExistsError, OPMLParser)->
 					try
 						@_feedBl.create(item.getUrl(), parentFolderId)
 					catch error
-						console.log 'feed ' + item.getUrl() + ' exists'
-						console.log error
 
 
 	return new FolderBl(FolderModel, FeedBl, ShowAll, ActiveFeed, Persistence,

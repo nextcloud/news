@@ -468,7 +468,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return FolderBl["import"](fileContent);
         } catch (_error) {
           error = _error;
-          console.log(error);
           return $scope.error = true;
         }
       };
@@ -1021,8 +1020,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
                 _results.push(this._feedBl.create(item.getUrl(), parentFolderId));
               } catch (_error) {
                 error = _error;
-                console.log('feed ' + item.getUrl() + ' exists');
-                _results.push(console.log(error));
               }
             }
           }
@@ -1936,7 +1933,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 
 (function() {
-  angular.module('News').factory('OPMLParser', function() {
+  angular.module('News').factory('_OPMLParser', function() {
     var Feed, Folder, OPMLParser;
 
     Feed = (function() {
@@ -2021,7 +2018,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
       return OPMLParser;
 
     })();
-    return new OPMLParser();
+    return OPMLParser;
   });
 
 }).call(this);
@@ -2577,6 +2574,12 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
       publisher.subscribeObjectTo(FeedModel, 'feeds');
       publisher.subscribeObjectTo(ItemModel, 'items');
       return publisher;
+    }
+  ]);
+
+  angular.module('News').factory('OPMLParser', [
+    '_OPMLParser', function(_OPMLParser) {
+      return new _OPMLParser();
     }
   ]);
 

@@ -49,5 +49,5 @@ describe 'SettingsController', ->
 
 		@scope.import(xml)
 
-		expect(@ShowAll.getShowAll()).toBe(true)		
+		expect(@ShowAll.getShowAll()).toBe(true)
 		
