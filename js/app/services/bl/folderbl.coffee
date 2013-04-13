@@ -132,18 +132,24 @@ ItemModel, ShowAll, _ExistsError, OPMLParser)->
 		_importElement: (opml, parentFolderId) ->
 			for item in opml.getItems()
 				if item.isFolder()
-					try
-						@create item.getName(), (data) =>
-							@_importElement(item, data.folders[0].id)
-					catch error
-						if error instanceof _ExistsError
-							folder = @_folderModel.getByName(item.getName())
-							@open(folder.id)
-							@_importElement(item, folder.id)
+					do (item) =>
+						try
+							@create item.getName(), (data) =>
+								@_importElement(item, data.folders[0].id)
+						catch error
+							if error instanceof _ExistsError
+								folder = @_folderModel.getByName(item.getName())
+								@open(folder.id)
+								@_importElement(item, folder.id)
+							else
+								console.info error
 				else
 					try
-						@_feedBl.create(item.getUrl(), parentFolderId)
+						do (item) =>
+							@_feedBl.create(item.getUrl(), parentFolderId)
 					catch error
+						if not error instanceof _ExistsError
+							console.info error
 
 
 	return new FolderBl(FolderModel, FeedBl, ShowAll, ActiveFeed, Persistence,

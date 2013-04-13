@@ -273,12 +273,13 @@ describe 'FolderBl', ->
 			  </head>
 			  <body>
 			  		<outline text="Design" title="Design" />
+			  		<outline text="test" title="test"></outline>
 			  </body>
 			</opml>'
 
 		@FolderBl.import(xml)
 
-		expect(@persistence.createFolder).toHaveBeenCalledWith('Design', 0,
+		expect(@persistence.createFolder).toHaveBeenCalledWith('test', 0,
 			jasmine.any(Function))
 		expect(@persistence.createFeed).not.toHaveBeenCalled()
 

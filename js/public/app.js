@@ -468,6 +468,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return FolderBl["import"](fileContent);
         } catch (_error) {
           error = _error;
+          console.error(error);
           return $scope.error = true;
         }
       };
@@ -993,7 +994,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         };
 
         FolderBl.prototype._importElement = function(opml, parentFolderId) {
-          var error, folder, item, _i, _len, _ref, _results,
+          var error, item, _i, _len, _ref, _results,
             _this = this;
 
           _ref = opml.getItems();
@@ -1001,25 +1002,36 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           for (_i = 0, _len = _ref.length; _i < _len; _i++) {
             item = _ref[_i];
             if (item.isFolder()) {
+              _results.push((function(item) {
+                var error, folder;
+
+                try {
+                  return _this.create(item.getName(), function(data) {
+                    return _this._importElement(item, data.folders[0].id);
+                  });
+                } catch (_error) {
+                  error = _error;
+                  if (error instanceof _ExistsError) {
+                    folder = _this._folderModel.getByName(item.getName());
+                    _this.open(folder.id);
+                    return _this._importElement(item, folder.id);
+                  } else {
+                    return console.info(error);
+                  }
+                }
+              })(item));
+            } else {
               try {
-                _results.push(this.create(item.getName(), function(data) {
-                  return _this._importElement(item, data.folders[0].id);
-                }));
+                _results.push((function(item) {
+                  return _this._feedBl.create(item.getUrl(), parentFolderId);
+                })(item));
               } catch (_error) {
                 error = _error;
-                if (error instanceof _ExistsError) {
-                  folder = this._folderModel.getByName(item.getName());
-                  this.open(folder.id);
-                  _results.push(this._importElement(item, folder.id));
+                if (!error instanceof _ExistsError) {
+                  _results.push(console.info(error));
                 } else {
                   _results.push(void 0);
                 }
-              }
-            } else {
-              try {
-                _results.push(this._feedBl.create(item.getUrl(), parentFolderId));
-              } catch (_error) {
-                error = _error;
               }
             }
           }
@@ -1455,6 +1467,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           }
           if (data.faviconLink === null) {
             data.faviconLink = 'url(' + this._utils.imagePath('news', 'rss.svg') + ')';
+          } else {
+            data.faviconLink = 'url(' + data.faviconLink + ')';
           }
           /*
           			We want to add a feed on the client side before
@@ -1933,7 +1947,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 
 (function() {
-  angular.module('News').factory('_OPMLParser', function() {
+  angular.module('News').factory('OPMLParser', function() {
     var Feed, Folder, OPMLParser;
 
     Feed = (function() {
@@ -2018,7 +2032,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
       return OPMLParser;
 
     })();
-    return OPMLParser;
+    return new OPMLParser();
   });
 
 }).call(this);
@@ -2574,12 +2588,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
       publisher.subscribeObjectTo(FeedModel, 'feeds');
       publisher.subscribeObjectTo(ItemModel, 'items');
       return publisher;
-    }
-  ]);
-
-  angular.module('News').factory('OPMLParser', [
-    '_OPMLParser', function(_OPMLParser) {
-      return new _OPMLParser();
     }
   ]);
 

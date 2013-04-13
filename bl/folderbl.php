@@ -66,6 +66,7 @@ class FolderBl extends Bl {
 		$folder->setName($folderName);
 		$folder->setUserId($userId);
 		$folder->setParentId($parentId);
+		$folder->setOpened(true);
 		return $this->mapper->insert($folder);
 	}
 

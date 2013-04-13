@@ -34,6 +34,7 @@ angular.module('News').controller 'SettingsController',
 		try
 			FolderBl.import(fileContent)
 		catch error
+			console.error error
 			$scope.error = true
 
 ]

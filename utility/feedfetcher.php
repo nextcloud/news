@@ -62,10 +62,9 @@ class FeedFetcher implements IFeedFetcher {
 		// TODO: write unittests!
 		$simplePie = new \SimplePie_Core();
 		$simplePie->set_feed_url( $url );
-		$simplePie->enable_cache( false );
+		$simplePie->enable_cache(true);
 		$simplePie->set_cache_location($this->cacheDirectory);
 		$simplePie->set_cache_duration($this->cacheDuration);
-		$simplePie->enable_cache(true);
 		
 		if (!$simplePie->init()) {
 			throw new FetcherException('Could not initialize simple pie');
@@ -115,18 +114,21 @@ class FeedFetcher implements IFeedFetcher {
 			$feed->setUrlHash(md5($url));
 			$feed->setAdded(time());
 
+			// get the favicon from the feed
 			$favicon = $simplePie->get_image_url();
-
-			if ($favicon !== null && $this->checkFavicon($favicon)) {
+			if ($favicon) {
 				$feed->setFaviconLink($favicon);
 
+			// or the webpage
 			} else {
 				$webFavicon = $this->discoverFavicon($url);
 				if ($webFavicon !== null) {
 					$feed->setFaviconLink($webFavicon);
 				}
 			}
+
 			return array($feed, $items);
+
 		} catch(\Exception $ex){
 			throw new FetcherException($ex->getMessage());
 		}
@@ -134,21 +136,17 @@ class FeedFetcher implements IFeedFetcher {
 	}
 
 
-	private function checkFavicon($favicon) {
-		if ($favicon === null || $favicon == false)
+	private function isValidFavIcon($favicon) {
+		if (!$favicon){
 			return false;
+		}
 
 		$file = new \SimplePie_File($favicon);
-		// size in bytes
-		$filesize = strlen($file->body);
 
-		if($file->success && $filesize > 0 && $filesize < 50000) { //bigger files are not considered favicons
+		if($file->success) {
 			$sniffer = new \SimplePie_Content_Type_Sniffer($file);
 			if(substr($sniffer->get_type(), 0, 6) === 'image/') {
-				$imgsize = @getimagesize($favicon);
-				if ($imgsize && $imgsize['0'] <= 32 && $imgsize['1'] <= 32) { //bigger images are not considered favicons
-					return true;
-				}
+				return true;
 			}
 		}
 		return false;
@@ -156,16 +154,9 @@ class FeedFetcher implements IFeedFetcher {
 
 
 	private function discoverFavicon($url) {
-		//try webroot favicon
-		$favicon = \SimplePie_Misc::absolutize_url('/favicon.ico', $url);
-
-		if($this->checkFavicon($favicon))
-			return $favicon;
 
 		//try to extract favicon from web page
-		$absoluteUrl = \SimplePie_Misc::absolutize_url('/', $url);
-		$page = $this->api->getUrlContent($absoluteUrl);
-
+		$page = $this->api->getUrlContent($url);
 		if ( FALSE !== $page ) {
 			$doc = @\DOMDocument::loadHTML($page);
 
@@ -175,14 +166,18 @@ class FeedFetcher implements IFeedFetcher {
 
 				if ( $elements->length > 0 ) {
 					if ( $favicon = $elements->item(0)->getAttribute('href') ) {
+
 						// the specified uri might be an url, an absolute or a relative path
 						// we have to turn it into a url to be able to display it out of context
 						if ( !parse_url($favicon, PHP_URL_SCHEME) ) {
+							$absoluteUrl = \SimplePie_Misc::absolutize_url('/', $url);
 							$favicon = \SimplePie_Misc::absolutize_url($favicon, $absoluteUrl);
 						}
 
-						if($this->checkFavicon($favicon))
+						if($this->isValidFavIcon($favicon)){
 							return $favicon;
+						}
+							
 					}
 				}
 			}
