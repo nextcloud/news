@@ -22,11 +22,15 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 
 angular.module('News').controller 'SettingsController',
-['$scope', 'FeedBl', ($scope, FeedBl) ->
-
-	$scope.import = (fileContent) ->
-		console.log fileContent
+['$scope', 'FeedBl', 'FolderBl', ($scope, FeedBl, FolderBl) ->
 
 	$scope.feedBl = FeedBl
+
+	$scope.import = (fileContent) =>
+		$scope.error = false
+		try
+			FolderBl.import(fileContent)
+		catch error
+			$scope.error = true
 
 ]

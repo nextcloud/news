@@ -21,7 +21,25 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-describe '_SettingsController', ->
-
+describe 'SettingsController', ->
 
 	beforeEach module 'News'
+
+	beforeEach inject ($controller, @FeedBl, @FolderBl) =>
+		@scope = {}
+		@replace =
+			'$scope': @scope
+		@controller = $controller('SettingsController', @replace)
+
+
+	it 'should make FeedBl available', =>
+		expect(@scope.feedBl).toBe(@FeedBl)
+
+
+	it 'should show an error if the xml import failed', =>
+		xml = 'test'
+
+		@scope.import(xml)
+
+		expect(@scope.error).toBe(true)
+		

@@ -99,8 +99,3 @@ FolderModel, FeedModel) ->
 ]
 
 
-# other classes
-angular.module('News').factory 'OPMLParser', ['_OPMLParser', (_OPMLParser) ->
-	return new _OPMLParser()
-]
-

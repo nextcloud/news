@@ -455,11 +455,21 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 (function() {
   angular.module('News').controller('SettingsController', [
-    '$scope', 'FeedBl', function($scope, FeedBl) {
-      $scope["import"] = function(fileContent) {
-        return console.log(fileContent);
+    '$scope', 'FeedBl', 'FolderBl', function($scope, FeedBl, FolderBl) {
+      var _this = this;
+
+      $scope.feedBl = FeedBl;
+      return $scope["import"] = function(fileContent) {
+        var error;
+
+        $scope.error = false;
+        try {
+          return FolderBl["import"](fileContent);
+        } catch (_error) {
+          error = _error;
+          return $scope.error = true;
+        }
       };
-      return $scope.feedBl = FeedBl;
     }
   ]);
 
@@ -839,17 +849,18 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   angular.module('News').factory('FolderBl', [
-    '_Bl', 'FolderModel', 'FeedBl', 'Persistence', 'FeedType', 'ActiveFeed', 'ItemModel', 'ShowAll', '_ExistsError', function(_Bl, FolderModel, FeedBl, Persistence, FeedType, ActiveFeed, ItemModel, ShowAll, _ExistsError) {
+    '_Bl', 'FolderModel', 'FeedBl', 'Persistence', 'FeedType', 'ActiveFeed', 'ItemModel', 'ShowAll', '_ExistsError', 'OPMLParser', function(_Bl, FolderModel, FeedBl, Persistence, FeedType, ActiveFeed, ItemModel, ShowAll, _ExistsError, OPMLParser) {
       var FolderBl;
 
       FolderBl = (function(_super) {
         __extends(FolderBl, _super);
 
-        function FolderBl(_folderModel, _feedBl, _showAll, activeFeed, persistence, _feedType, itemModel) {
+        function FolderBl(_folderModel, _feedBl, _showAll, activeFeed, persistence, _feedType, itemModel, _opmlParser) {
           this._folderModel = _folderModel;
           this._feedBl = _feedBl;
           this._showAll = _showAll;
           this._feedType = _feedType;
+          this._opmlParser = _opmlParser;
           FolderBl.__super__.constructor.call(this, activeFeed, persistence, itemModel, this._feedType.Folder);
         }
 
@@ -972,10 +983,50 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return this._folderModel.removeByName(folderName);
         };
 
+        FolderBl.prototype["import"] = function(xml) {
+          var opml;
+
+          opml = this._opmlParser.parseXML(xml);
+          return this._importElement(opml, 0);
+        };
+
+        FolderBl.prototype._importElement = function(opml, parentFolderId) {
+          var error, folder, item, _i, _len, _ref, _results,
+            _this = this;
+
+          _ref = opml.getItems();
+          _results = [];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            item = _ref[_i];
+            if (item.isFolder()) {
+              try {
+                _results.push(this.create(item.getName(), function(data) {
+                  return _this._importElement(item, data.folders[0].id);
+                }));
+              } catch (_error) {
+                error = _error;
+                if (error instanceof _ExistsError) {
+                  folder = this._folderModel.getByName(item.getName());
+                  _results.push(this._importElement(item, folder.id));
+                } else {
+                  _results.push(void 0);
+                }
+              }
+            } else {
+              try {
+                _results.push(this._feedBl.create(item.getUrl(), parentFolderId));
+              } catch (_error) {
+                error = _error;
+              }
+            }
+          }
+          return _results;
+        };
+
         return FolderBl;
 
       })(_Bl);
-      return new FolderBl(FolderModel, FeedBl, ShowAll, ActiveFeed, Persistence, FeedType, ItemModel);
+      return new FolderBl(FolderModel, FeedBl, ShowAll, ActiveFeed, Persistence, FeedType, ItemModel, OPMLParser);
     }
   ]);
 
@@ -1879,7 +1930,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 
 (function() {
-  angular.module('News').factory('_OPMLParser', function() {
+  angular.module('News').factory('OPMLParser', function() {
     var Feed, Folder, OPMLParser;
 
     Feed = (function() {
@@ -1964,7 +2015,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
       return OPMLParser;
 
     })();
-    return OPMLParser;
+    return new OPMLParser();
   });
 
 }).call(this);
@@ -2520,12 +2571,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
       publisher.subscribeObjectTo(FeedModel, 'feeds');
       publisher.subscribeObjectTo(ItemModel, 'items');
       return publisher;
-    }
-  ]);
-
-  angular.module('News').factory('OPMLParser', [
-    '_OPMLParser', function(_OPMLParser) {
-      return new _OPMLParser();
     }
   ]);
 

@@ -23,14 +23,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 angular.module('News').factory 'FolderBl',
 ['_Bl', 'FolderModel', 'FeedBl', 'Persistence', 'FeedType', 'ActiveFeed',
-'ItemModel', 'ShowAll', '_ExistsError',
+'ItemModel', 'ShowAll', '_ExistsError', 'OPMLParser',
 (_Bl, FolderModel, FeedBl, Persistence, FeedType, ActiveFeed,
-ItemModel, ShowAll, _ExistsError)->
+ItemModel, ShowAll, _ExistsError, OPMLParser)->
 
 	class FolderBl extends _Bl
 
 		constructor: (@_folderModel, @_feedBl, @_showAll, activeFeed,
-			          persistence, @_feedType, itemModel) ->
+			          persistence, @_feedType, itemModel, @_opmlParser) ->
 			super(activeFeed, persistence, itemModel, @_feedType.Folder)
 
 
@@ -123,7 +123,29 @@ ItemModel, ShowAll, _ExistsError)->
 			@_folderModel.removeByName(folderName)
 
 
+		import: (xml) ->
+			opml = @_opmlParser.parseXML(xml)
+
+			@_importElement(opml, 0)
+
+
+		_importElement: (opml, parentFolderId) ->
+			for item in opml.getItems()
+				if item.isFolder()
+					try
+						@create item.getName(), (data) =>
+							@_importElement(item, data.folders[0].id)
+					catch error
+						if error instanceof _ExistsError
+							folder = @_folderModel.getByName(item.getName())
+							@_importElement(item, folder.id)
+				else
+					try
+						@_feedBl.create(item.getUrl(), parentFolderId)
+					catch error
+
+
 	return new FolderBl(FolderModel, FeedBl, ShowAll, ActiveFeed, Persistence,
-		                FeedType, ItemModel)
+		                FeedType, ItemModel, OPMLParser)
 
 ]

@@ -20,7 +20,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 ###
 
-angular.module('News').factory '_OPMLParser', ->
+angular.module('News').factory 'OPMLParser', ->
 	
 	class Feed
 
@@ -75,4 +75,4 @@ angular.module('News').factory '_OPMLParser', ->
 					@_recursivelyParse($outline, folder)
 
 
-	return OPMLParser
+	return new OPMLParser()
