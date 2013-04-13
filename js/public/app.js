@@ -625,16 +625,17 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   angular.module('News').factory('FeedBl', [
-    '_Bl', 'ShowAll', 'Persistence', 'ActiveFeed', 'FeedType', 'ItemModel', 'FeedModel', 'NewLoading', '_ExistsError', function(_Bl, ShowAll, Persistence, ActiveFeed, FeedType, ItemModel, FeedModel, NewLoading, _ExistsError) {
+    '_Bl', 'ShowAll', 'Persistence', 'ActiveFeed', 'FeedType', 'ItemModel', 'FeedModel', 'NewLoading', '_ExistsError', 'Utils', function(_Bl, ShowAll, Persistence, ActiveFeed, FeedType, ItemModel, FeedModel, NewLoading, _ExistsError, Utils) {
       var FeedBl;
 
       FeedBl = (function(_super) {
         __extends(FeedBl, _super);
 
-        function FeedBl(_showAll, _feedModel, persistence, activeFeed, feedType, itemModel, _newLoading) {
+        function FeedBl(_showAll, _feedModel, persistence, activeFeed, feedType, itemModel, _newLoading, _utils) {
           this._showAll = _showAll;
           this._feedModel = _feedModel;
           this._newLoading = _newLoading;
+          this._utils = _utils;
           FeedBl.__super__.constructor.call(this, activeFeed, persistence, itemModel, feedType.Feed);
         }
 
@@ -780,7 +781,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             url: url,
             urlHash: urlHash,
             folderId: parentId,
-            unreadCount: 0
+            unreadCount: 0,
+            faviconLink: 'url(' + this._utils.imagePath('core', 'loading.gif') + ')'
           };
           this._feedModel.add(feed);
           success = function(response) {
@@ -817,7 +819,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         return FeedBl;
 
       })(_Bl);
-      return new FeedBl(ShowAll, FeedModel, Persistence, ActiveFeed, FeedType, ItemModel, NewLoading);
+      return new FeedBl(ShowAll, FeedModel, Persistence, ActiveFeed, FeedType, ItemModel, NewLoading, Utils);
     }
   ]);
 

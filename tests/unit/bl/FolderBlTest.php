@@ -66,6 +66,7 @@ class FolderBlTest extends \OCA\AppFramework\Utility\TestUtility {
 		$folder->setName('hey');
 		$folder->setParentId(5);
 		$folder->setUserId('john');
+		$folder->setOpened(true);
 
 		$this->folderMapper->expects($this->once())
 			->method('insert')

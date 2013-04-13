@@ -134,7 +134,7 @@ button.action:hover {
 }
 
 .progress-icon {
-	background-image: url('%webroot%/core/img/loading.gif') !important; 
+	background-image: url('%webroot%/core/img/loading.gif'); 
 }
 
 .problem-icon {

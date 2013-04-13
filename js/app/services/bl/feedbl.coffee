@@ -23,14 +23,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 angular.module('News').factory 'FeedBl',
 ['_Bl', 'ShowAll', 'Persistence', 'ActiveFeed', 'FeedType', 'ItemModel',
-'FeedModel', 'NewLoading', '_ExistsError',
+'FeedModel', 'NewLoading', '_ExistsError', 'Utils',
 (_Bl, ShowAll, Persistence, ActiveFeed, FeedType, ItemModel, FeedModel,
-NewLoading, _ExistsError) ->
+NewLoading, _ExistsError, Utils) ->
 
 	class FeedBl extends _Bl
 
 		constructor: (@_showAll, @_feedModel, persistence, activeFeed, feedType,
-			          itemModel, @_newLoading) ->
+			          itemModel, @_newLoading, @_utils) ->
 			super(activeFeed, persistence, itemModel, feedType.Feed)
 
 
@@ -147,6 +147,7 @@ NewLoading, _ExistsError) ->
 				urlHash: urlHash
 				folderId: parentId
 				unreadCount: 0
+				faviconLink: 'url('+@_utils.imagePath('core', 'loading.gif')+')'
 
 			@_feedModel.add(feed)
 
@@ -171,6 +172,6 @@ NewLoading, _ExistsError) ->
 
 
 	return new FeedBl(ShowAll, FeedModel, Persistence, ActiveFeed, FeedType,
-	                  ItemModel, NewLoading)
+	                  ItemModel, NewLoading, Utils)
 
 ]

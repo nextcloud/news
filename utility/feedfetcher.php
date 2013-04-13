@@ -121,7 +121,7 @@ class FeedFetcher implements IFeedFetcher {
 
 			// or the webpage
 			} else {
-				$webFavicon = $this->discoverFavicon($url);
+				$webFavicon = $this->discoverFavicon($feed->getLink());
 				if ($webFavicon !== null) {
 					$feed->setFaviconLink($webFavicon);
 				}
@@ -145,7 +145,11 @@ class FeedFetcher implements IFeedFetcher {
 
 		if($file->success) {
 			$sniffer = new \SimplePie_Content_Type_Sniffer($file);
-			if(substr($sniffer->get_type(), 0, 6) === 'image/') {
+			$mimeType = $sniffer->get_type();
+			if(substr($mimeType, 0, 6) === 'image/') {
+				return true;
+			} elseif($mimeType === 'application/octet-stream' && 
+				strpos($favicon, 'favicon.ico') === strlen($favicon) - 11){
 				return true;
 			}
 		}
@@ -154,9 +158,18 @@ class FeedFetcher implements IFeedFetcher {
 
 
 	private function discoverFavicon($url) {
+		// try the /favicon.ico
+		$url = rtrim($url, '/');
+
+		$baseFavicon = $url . '/favicon.ico';
+		if($this->isValidFavIcon($baseFavicon)){
+			return $baseFavicon;
+		}
+		echo $baseFavicon;
 
 		//try to extract favicon from web page
 		$page = $this->api->getUrlContent($url);
+
 		if ( FALSE !== $page ) {
 			$doc = @\DOMDocument::loadHTML($page);
 
@@ -167,17 +180,28 @@ class FeedFetcher implements IFeedFetcher {
 				if ( $elements->length > 0 ) {
 					if ( $favicon = $elements->item(0)->getAttribute('href') ) {
 
-						// the specified uri might be an url, an absolute or a relative path
-						// we have to turn it into a url to be able to display it out of context
-						if ( !parse_url($favicon, PHP_URL_SCHEME) ) {
-							$absoluteUrl = \SimplePie_Misc::absolutize_url('/', $url);
-							$favicon = \SimplePie_Misc::absolutize_url($favicon, $absoluteUrl);
+						// remove //
+						$favicon = ltrim($favicon, '/');
+
+						// if it does not start with http, add it
+						if (strpos($favicon, 'http') !== 0){
+							$favicon = 'http://' . $favicon;
 						}
 
-						if($this->isValidFavIcon($favicon)){
+						// if its already valid, return it
+						if ($this->isValidFavIcon($favicon)){
 							return $favicon;
+
+						// assume its a realtive path or absolute path
+						} else {
+							// add slash to make it absolute
+							$favicon = '/' . $favicon;
+							$favicon = $url . $favicon;
+
+							if($this->isValidFavIcon($favicon)){
+								return $favicon;
+							}
 						}
-							
 					}
 				}
 			}

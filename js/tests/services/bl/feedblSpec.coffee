@@ -34,6 +34,12 @@ describe 'FeedBl', ->
 				getItems: @getItemsSpy
 				createFeed: ->
 			}
+		angular.module('News').factory 'Utils', =>
+			@imagePath = jasmine.createSpy('imagePath')
+			@utils = {
+				imagePath: @imagePath
+			}
+
 
 	beforeEach inject (@FeedBl, @FeedModel, @ItemModel, @FeedType,
 	                   @ShowAll, @ActiveFeed, @_ExistsError) =>
