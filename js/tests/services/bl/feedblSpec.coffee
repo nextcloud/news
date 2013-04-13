@@ -189,7 +189,7 @@ describe 'FeedBl', ->
 		expect(@FeedBl.getAll()).toContain(item2)
 
 
-	it 'should retunr if ShowAll is set', =>
+	it 'should return if ShowAll is set', =>
 		@persistence.userSettingsReadShow = jasmine.createSpy('Show All')
 		expect(@FeedBl.isShowAll()).toBe(false)
 		@FeedBl.setShowAll(true)
@@ -260,7 +260,7 @@ describe 'FeedBl', ->
 		expect(feed.urlHash).toBe(hash)
 		expect(feed.folderId).toBe(0)
 		expect(feed.unreadCount).toBe(0)
-
+		expect(@imagePath).toHaveBeenCalledWith('core', 'loading.gif')
 	
 	it 'should transform urls correctly', =>
 		urls = [

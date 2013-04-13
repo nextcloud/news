@@ -158,14 +158,7 @@ class FeedFetcher implements IFeedFetcher {
 
 
 	private function discoverFavicon($url) {
-		// try the /favicon.ico
 		$url = rtrim($url, '/');
-
-		$baseFavicon = $url . '/favicon.ico';
-		if($this->isValidFavIcon($baseFavicon)){
-			return $baseFavicon;
-		}
-
 
 		//try to extract favicon from web page
 		$page = $this->api->getUrlContent($url);
@@ -186,12 +179,14 @@ class FeedFetcher implements IFeedFetcher {
 						// if it does not start with http, add it
 						if (strpos($favicon, 'http') !== 0){
 							$favicon = 'http://' . $favicon;
-						}
+							$httpsFavicon = 'https://' . $favicon;
+						} 
 
 						// if its already valid, return it
 						if ($this->isValidFavIcon($favicon)){
 							return $favicon;
-
+						} elseif ($this->isValidFavIcon($httpsFavicon)){
+							return $httpsFavicon;
 						// assume its a realtive path or absolute path
 						} else {
 							// add slash to make it absolute
@@ -206,6 +201,14 @@ class FeedFetcher implements IFeedFetcher {
 				}
 			}
 		}
+
+		// try the /favicon.ico as a last resort
+		$parseUrl = parse_url($url);
+		$baseFavicon = $parseUrl['scheme'] . '://' . $parseUrl['host'] . '/favicon.ico';
+		if($this->isValidFavIcon($baseFavicon)){
+			return $baseFavicon;
+		}
+
 		return null;
 	}
 }
