@@ -126,7 +126,6 @@ ItemModel, ShowAll, _ExistsError, OPMLParser)->
 
 		import: (xml) ->
 			opml = @_opmlParser.parseXML(xml)
-
 			@_importElement(opml, 0)
 
 
