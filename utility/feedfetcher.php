@@ -165,7 +165,7 @@ class FeedFetcher implements IFeedFetcher {
 		if($this->isValidFavIcon($baseFavicon)){
 			return $baseFavicon;
 		}
-		echo $baseFavicon;
+
 
 		//try to extract favicon from web page
 		$page = $this->api->getUrlContent($url);
