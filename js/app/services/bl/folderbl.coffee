@@ -106,6 +106,7 @@ ItemModel, ShowAll, _ExistsError, OPMLParser)->
 
 			folder =
 				name: folderName
+				opened: true
 
 			@_folderModel.add(folder)
 
@@ -138,11 +139,14 @@ ItemModel, ShowAll, _ExistsError, OPMLParser)->
 					catch error
 						if error instanceof _ExistsError
 							folder = @_folderModel.getByName(item.getName())
+							@open(folder.id)
 							@_importElement(item, folder.id)
 				else
 					try
 						@_feedBl.create(item.getUrl(), parentFolderId)
 					catch error
+						console.log 'feed ' + item.getUrl() + ' exists'
+						console.log error
 
 
 	return new FolderBl(FolderModel, FeedBl, ShowAll, ActiveFeed, Persistence,

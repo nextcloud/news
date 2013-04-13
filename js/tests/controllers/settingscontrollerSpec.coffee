@@ -25,7 +25,7 @@ describe 'SettingsController', ->
 
 	beforeEach module 'News'
 
-	beforeEach inject ($controller, @FeedBl, @FolderBl) =>
+	beforeEach inject ($controller, @FeedBl, @FolderBl, @ShowAll) =>
 		@scope = {}
 		@replace =
 			'$scope': @scope
@@ -42,4 +42,12 @@ describe 'SettingsController', ->
 		@scope.import(xml)
 
 		expect(@scope.error).toBe(true)
+
+
+	it 'should set showall to true if importing', =>
+		xml = 'test'
+
+		@scope.import(xml)
+
+		expect(@ShowAll.getShowAll()).toBe(true)		
 		

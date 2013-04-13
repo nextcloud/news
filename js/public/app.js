@@ -455,7 +455,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 (function() {
   angular.module('News').controller('SettingsController', [
-    '$scope', 'FeedBl', 'FolderBl', function($scope, FeedBl, FolderBl) {
+    '$scope', 'FeedBl', 'FolderBl', 'ShowAll', function($scope, FeedBl, FolderBl, ShowAll) {
       var _this = this;
 
       $scope.feedBl = FeedBl;
@@ -463,10 +463,12 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         var error;
 
         $scope.error = false;
+        ShowAll.setShowAll(true);
         try {
           return FolderBl["import"](fileContent);
         } catch (_error) {
           error = _error;
+          console.log(error);
           return $scope.error = true;
         }
       };
@@ -965,7 +967,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             throw new _ExistsError();
           }
           folder = {
-            name: folderName
+            name: folderName,
+            opened: true
           };
           this._folderModel.add(folder);
           success = function(response) {
@@ -1007,6 +1010,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
                 error = _error;
                 if (error instanceof _ExistsError) {
                   folder = this._folderModel.getByName(item.getName());
+                  this.open(folder.id);
                   _results.push(this._importElement(item, folder.id));
                 } else {
                   _results.push(void 0);
@@ -1017,6 +1021,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
                 _results.push(this._feedBl.create(item.getUrl(), parentFolderId));
               } catch (_error) {
                 error = _error;
+                console.log('feed ' + item.getUrl() + ' exists');
+                _results.push(console.log(error));
               }
             }
           }
