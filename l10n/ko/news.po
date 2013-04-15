@@ -1,0 +1,198 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# 남자사람  <cessnagi@gmail.com>, 2012.
+# Park Shinjo <kde@peremen.name>, 2013.
+# Shinjo Park <kde@peremen.name>, 2012.
+# Sung Jin Gang <potopro@gmail.com>, 2013.
+msgid ""
+msgstr ""
+"Project-Id-Version: ownCloud\n"
+"Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
+"POT-Creation-Date: 2013-04-16 01:04+0200\n"
+"PO-Revision-Date: 2013-04-15 23:04+0000\n"
+"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"Language-Team: Korean (http://www.transifex.com/projects/p/owncloud/language/ko/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ko\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: appinfo/app.php:52
+msgid "News"
+msgstr "뉴스"
+
+#: businesslayer/feedbusinesslayer.php:62
+msgid "Can not add feed: Exists already"
+msgstr ""
+
+#: businesslayer/feedbusinesslayer.php:89
+msgid "Can not add feed: URL does not exist or has invalid xml"
+msgstr ""
+
+#: businesslayer/folderbusinesslayer.php:55
+msgid "Can not add folder: Exists already"
+msgstr ""
+
+#: templates/part.addnew.php:12
+msgid "Add Website"
+msgstr "웹사이트 추가"
+
+#: templates/part.addnew.php:19
+msgid "Error: address must not be empty!"
+msgstr ""
+
+#: templates/part.addnew.php:22
+msgid "Error: address exists already!"
+msgstr ""
+
+#: templates/part.addnew.php:25
+msgid "Error: folder name must not be empty!"
+msgstr ""
+
+#: templates/part.addnew.php:28
+msgid "Error: folder exists already"
+msgstr ""
+
+#: templates/part.addnew.php:35
+msgid "Address"
+msgstr "주소"
+
+#: templates/part.addnew.php:39 templates/part.addnew.php:42
+msgid "Add"
+msgstr "추가"
+
+#: templates/part.addnew.php:46 templates/part.addnew.php:54
+msgid "New folder"
+msgstr "새로운 폴더"
+
+#: templates/part.addnew.php:47
+msgid "Folder"
+msgstr "폴더"
+
+#: templates/part.addnew.php:52
+msgid "Choose folder"
+msgstr "폴더 선택"
+
+#: templates/part.addnew.php:64
+msgid "Folder name"
+msgstr "폴더 이름"
+
+#: templates/part.addnew.php:67
+msgid "Back to folder selection"
+msgstr ""
+
+#: templates/part.addnew.php:72
+msgid "Create folder"
+msgstr ""
+
+#: templates/part.feed.starred.php:10
+msgid "Starred"
+msgstr "별표"
+
+#: templates/part.feed.unread.php:10
+msgid "Unread articles"
+msgstr "읽지 않은 항목"
+
+#: templates/part.feed.unread.php:16
+msgid "All articles"
+msgstr "모든 항목"
+
+#: templates/part.feed.unread.php:24 templates/part.listfeed.php:39
+#: templates/part.listfolder.php:40
+msgid "Mark all read"
+msgstr "모두 읽은 글로 표시"
+
+#: templates/part.items.php:17
+msgid "Save for later"
+msgstr ""
+
+#: templates/part.items.php:29
+msgid "from"
+msgstr "원본 사이트"
+
+#: templates/part.items.php:34
+msgid "by"
+msgstr "작성:"
+
+#: templates/part.items.php:42
+msgid "Cant play audio format"
+msgstr "오디오 포맷을 재생할 수 없습니다."
+
+#: templates/part.items.php:55
+msgid "Keep unread"
+msgstr "읽지 않은 글로 두기"
+
+#: templates/part.listfeed.php:43
+msgid "Delete feed"
+msgstr "피드 삭제"
+
+#: templates/part.listfeed.php:48
+msgid "Delete website"
+msgstr ""
+
+#: templates/part.listfolder.php:14
+msgid "Collapse"
+msgstr "접기"
+
+#: templates/part.listfolder.php:31 templates/part.listfolder.php:44
+msgid "Delete folder"
+msgstr "폴더 삭제"
+
+#: templates/part.listfolder.php:49
+msgid "Rename folder"
+msgstr "폴더 이름 바꾸기"
+
+#: templates/part.settings.php:13
+msgid "Import / Export OPML"
+msgstr "가져오기 / 내보내기 OPML"
+
+#: templates/part.settings.php:17 templates/part.settings.php:19
+msgid "Import"
+msgstr "가져오기"
+
+#: templates/part.settings.php:23 templates/part.settings.php:27
+#: templates/part.settings.php:30 templates/part.settings.php:32
+msgid "Export"
+msgstr "내보내기"
+
+#: templates/part.settings.php:36
+msgid "Error when importing: file does not contain valid OPML"
+msgstr ""
+
+#: templates/part.settings.php:41
+msgid "Subscribelet"
+msgstr "구독물"
+
+#: templates/part.showall.php:2
+msgid "Show all"
+msgstr "모두 보기"
+
+#: templates/part.showall.php:6
+msgid "Show only unread"
+msgstr "읽지 않은 글만 보기"
+
+#: templates/part.subscribelet.php:3
+msgid ""
+"Drag this to your browser bookmarks and click on it whenever you want to "
+"subscribe to a webpage quickly:"
+msgstr "웹 브라우저 책갈피 항목에 다음 링크를 끌어다 놓으면 나중에 볼 웹 페이지를 빠르게 구독할 때 사용할 수 있습니다:"
+
+#: templates/part.subscribelet.php:17
+msgid "Subscribe"
+msgstr "구독"
+
+#: templates/subscribe.php:30
+msgid "An error occurred"
+msgstr "오류가 발생하였습니다."
+
+#: templates/subscribe.php:32
+msgid "Nice! You have subscribed to "
+msgstr "좋습니다! 다음 피드를 구독합니다:"
+
+#: templates/subscribe.php:36
+msgid "You had already subscribed to this feed!"
+msgstr "이 피드를 이미 구독하고 있습니다!"

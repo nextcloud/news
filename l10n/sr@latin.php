@@ -1,3 +1,4 @@
 <?php $TRANSLATIONS = array(
-"Address" => "Adresa"
+"Address" => "Adresa",
+"by" => "od"
 );

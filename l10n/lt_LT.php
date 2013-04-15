@@ -1,10 +1,10 @@
 <?php $TRANSLATIONS = array(
 "News" => "Naujienos",
-"New" => "Naujas",
 "Address" => "Adresas",
 "Add" => "Pridėti",
 "Folder" => "Katalogas",
-"Share" => "Dalintis",
+"Folder name" => "Katalogo pavadinimas",
+"by" => " ",
 "Delete folder" => "Ištrinti katalogą",
 "Rename folder" => "Pervadinti katalogą",
 "Import" => "Importuoti",

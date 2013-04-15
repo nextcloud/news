@@ -1,19 +1,12 @@
 <?php $TRANSLATIONS = array(
 "News" => "ප්‍රවෘත්ති",
-"no title" => "මාතෘකාවක් නැත",
-"no name" => "නමක් නැත",
-"no body" => "සිරුරක් නැත",
-"subscriptions in ownCloud - News" => "ownCloudහි දායකවුවන් - ප්‍රවෘත්ති",
-"An error occurred" => "දෝෂයක් සිදුවිය",
-"Nice! You have subscribed to " => "විශිෂ්ඨයි! ඔබ දැන් දායකවී ඇත්තේ",
-"New" => "නව",
-"Add Subscription" => "දායකත්වය එකතු කරන්න",
 "Address" => "ලිපිනය",
 "Add" => "එකතු කරන්න",
 "Folder" => "ෆෝල්ඩරය",
+"Folder name" => "ෆොල්ඩරයේ නම",
 "Starred" => "තරු දැමු",
 "Mark all read" => "සියල්ල කියවා ඇතැයි සලකුණු කරන්න",
-"Share" => "බෙදා හදාගන්න",
+"by" => "විසින්",
 "Keep unread" => "නොකියවුදේ තබාගන්න",
 "Delete feed" => "සංග්‍රහය මකන්න",
 "Collapse" => "හකුළන්න",
@@ -23,5 +16,7 @@
 "Export" => "නිර්යාත කරන්න",
 "Show only unread" => "කියවා නැති පමණක් පෙන්වන්න",
 "Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "වෙබ්පිටුවකට ඉක්මනින් දායකවීම සඳහා, මෙය ඔබගේ බ්‍රවුසරයේ පිටුසන වෙත ඇදගෙන ගොස් අතහරින්න",
-"Subscribe" => "දායකවන්න"
+"Subscribe" => "දායකවන්න",
+"An error occurred" => "දෝෂයක් සිදුවිය",
+"Nice! You have subscribed to " => "විශිෂ්ඨයි! ඔබ දැන් දායකවී ඇත්තේ"
 );

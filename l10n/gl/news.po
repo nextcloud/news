@@ -1,0 +1,197 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+#  <mbouzada@gmail.com>, 2013.
+#   <mbouzada@gmail.com>, 2012.
+# Xosé M. Lamas <correo.xmgz@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: ownCloud\n"
+"Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
+"POT-Creation-Date: 2013-04-16 01:04+0200\n"
+"PO-Revision-Date: 2013-04-15 23:04+0000\n"
+"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"Language-Team: Galician (http://www.transifex.com/projects/p/owncloud/language/gl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: gl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: appinfo/app.php:52
+msgid "News"
+msgstr "Novas"
+
+#: businesslayer/feedbusinesslayer.php:62
+msgid "Can not add feed: Exists already"
+msgstr ""
+
+#: businesslayer/feedbusinesslayer.php:89
+msgid "Can not add feed: URL does not exist or has invalid xml"
+msgstr ""
+
+#: businesslayer/folderbusinesslayer.php:55
+msgid "Can not add folder: Exists already"
+msgstr ""
+
+#: templates/part.addnew.php:12
+msgid "Add Website"
+msgstr "Engadir un sitio web"
+
+#: templates/part.addnew.php:19
+msgid "Error: address must not be empty!"
+msgstr ""
+
+#: templates/part.addnew.php:22
+msgid "Error: address exists already!"
+msgstr ""
+
+#: templates/part.addnew.php:25
+msgid "Error: folder name must not be empty!"
+msgstr ""
+
+#: templates/part.addnew.php:28
+msgid "Error: folder exists already"
+msgstr ""
+
+#: templates/part.addnew.php:35
+msgid "Address"
+msgstr "Enderezo"
+
+#: templates/part.addnew.php:39 templates/part.addnew.php:42
+msgid "Add"
+msgstr "Engadir"
+
+#: templates/part.addnew.php:46 templates/part.addnew.php:54
+msgid "New folder"
+msgstr "Novo cartafol"
+
+#: templates/part.addnew.php:47
+msgid "Folder"
+msgstr "Cartafol"
+
+#: templates/part.addnew.php:52
+msgid "Choose folder"
+msgstr "Escoller un cartafol"
+
+#: templates/part.addnew.php:64
+msgid "Folder name"
+msgstr "Nome do cartafol"
+
+#: templates/part.addnew.php:67
+msgid "Back to folder selection"
+msgstr ""
+
+#: templates/part.addnew.php:72
+msgid "Create folder"
+msgstr ""
+
+#: templates/part.feed.starred.php:10
+msgid "Starred"
+msgstr "Destacado"
+
+#: templates/part.feed.unread.php:10
+msgid "Unread articles"
+msgstr "Artigos sen ler"
+
+#: templates/part.feed.unread.php:16
+msgid "All articles"
+msgstr "Todos os artigos"
+
+#: templates/part.feed.unread.php:24 templates/part.listfeed.php:39
+#: templates/part.listfolder.php:40
+msgid "Mark all read"
+msgstr "Marcar todo como lido"
+
+#: templates/part.items.php:17
+msgid "Save for later"
+msgstr ""
+
+#: templates/part.items.php:29
+msgid "from"
+msgstr "desde"
+
+#: templates/part.items.php:34
+msgid "by"
+msgstr "por"
+
+#: templates/part.items.php:42
+msgid "Cant play audio format"
+msgstr "Non é posíbel reproducir este formato de son"
+
+#: templates/part.items.php:55
+msgid "Keep unread"
+msgstr "Manter sen ler"
+
+#: templates/part.listfeed.php:43
+msgid "Delete feed"
+msgstr "Eliminar fonte de novas"
+
+#: templates/part.listfeed.php:48
+msgid "Delete website"
+msgstr ""
+
+#: templates/part.listfolder.php:14
+msgid "Collapse"
+msgstr "Repregar"
+
+#: templates/part.listfolder.php:31 templates/part.listfolder.php:44
+msgid "Delete folder"
+msgstr "Eliminar o cartafol"
+
+#: templates/part.listfolder.php:49
+msgid "Rename folder"
+msgstr "Renomear o cartafol"
+
+#: templates/part.settings.php:13
+msgid "Import / Export OPML"
+msgstr "Importar / Exportar OPML"
+
+#: templates/part.settings.php:17 templates/part.settings.php:19
+msgid "Import"
+msgstr "Importar"
+
+#: templates/part.settings.php:23 templates/part.settings.php:27
+#: templates/part.settings.php:30 templates/part.settings.php:32
+msgid "Export"
+msgstr "Exportar"
+
+#: templates/part.settings.php:36
+msgid "Error when importing: file does not contain valid OPML"
+msgstr ""
+
+#: templates/part.settings.php:41
+msgid "Subscribelet"
+msgstr "Subscripción"
+
+#: templates/part.showall.php:2
+msgid "Show all"
+msgstr "Amosar todo"
+
+#: templates/part.showall.php:6
+msgid "Show only unread"
+msgstr "Amosar só o non lido"
+
+#: templates/part.subscribelet.php:3
+msgid ""
+"Drag this to your browser bookmarks and click on it whenever you want to "
+"subscribe to a webpage quickly:"
+msgstr "Arrastre isto aos marcadores do seu navegador e prema nel cando queira subscribirse rapidamente a unha páxina web:"
+
+#: templates/part.subscribelet.php:17
+msgid "Subscribe"
+msgstr "Subscribir"
+
+#: templates/subscribe.php:30
+msgid "An error occurred"
+msgstr "Produciuse un erro"
+
+#: templates/subscribe.php:32
+msgid "Nice! You have subscribed to "
+msgstr "Ben! Subscribiuse a "
+
+#: templates/subscribe.php:36
+msgid "You had already subscribed to this feed!"
+msgstr "Xa está subscrito a esta fonte"

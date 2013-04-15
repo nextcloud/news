@@ -1,0 +1,202 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Cyryl Sochacki <>, 2012.
+# Cyryl Sochacki <cyrylsochacki@gmail.com>, 2012-2013.
+#   <koalamis0@gmail.com>, 2012.
+# Maciej Tarmas <maciej@tarmas.com>, 2013.
+# Marcin Małecki <gerber@tkdami.net>, 2012.
+#   <mplichta@gmail.com>, 2012.
+# Paweł Ciecierski <pciecierski@gmail.com>, 2012.
+#   <szporwolik@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: ownCloud\n"
+"Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
+"POT-Creation-Date: 2013-04-16 01:04+0200\n"
+"PO-Revision-Date: 2013-04-15 23:04+0000\n"
+"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"Language-Team: Polish (http://www.transifex.com/projects/p/owncloud/language/pl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: appinfo/app.php:52
+msgid "News"
+msgstr "Aktualności"
+
+#: businesslayer/feedbusinesslayer.php:62
+msgid "Can not add feed: Exists already"
+msgstr ""
+
+#: businesslayer/feedbusinesslayer.php:89
+msgid "Can not add feed: URL does not exist or has invalid xml"
+msgstr ""
+
+#: businesslayer/folderbusinesslayer.php:55
+msgid "Can not add folder: Exists already"
+msgstr ""
+
+#: templates/part.addnew.php:12
+msgid "Add Website"
+msgstr "Dodaj stronę www"
+
+#: templates/part.addnew.php:19
+msgid "Error: address must not be empty!"
+msgstr ""
+
+#: templates/part.addnew.php:22
+msgid "Error: address exists already!"
+msgstr ""
+
+#: templates/part.addnew.php:25
+msgid "Error: folder name must not be empty!"
+msgstr ""
+
+#: templates/part.addnew.php:28
+msgid "Error: folder exists already"
+msgstr ""
+
+#: templates/part.addnew.php:35
+msgid "Address"
+msgstr "Adres"
+
+#: templates/part.addnew.php:39 templates/part.addnew.php:42
+msgid "Add"
+msgstr "Dodaj"
+
+#: templates/part.addnew.php:46 templates/part.addnew.php:54
+msgid "New folder"
+msgstr "Nowy folder"
+
+#: templates/part.addnew.php:47
+msgid "Folder"
+msgstr "Folder"
+
+#: templates/part.addnew.php:52
+msgid "Choose folder"
+msgstr "Wybierz folder"
+
+#: templates/part.addnew.php:64
+msgid "Folder name"
+msgstr "Nazwa folderu"
+
+#: templates/part.addnew.php:67
+msgid "Back to folder selection"
+msgstr ""
+
+#: templates/part.addnew.php:72
+msgid "Create folder"
+msgstr ""
+
+#: templates/part.feed.starred.php:10
+msgid "Starred"
+msgstr "Oznaczone"
+
+#: templates/part.feed.unread.php:10
+msgid "Unread articles"
+msgstr "Nieprzeczytane artykuły"
+
+#: templates/part.feed.unread.php:16
+msgid "All articles"
+msgstr "Wszystkie artykuły"
+
+#: templates/part.feed.unread.php:24 templates/part.listfeed.php:39
+#: templates/part.listfolder.php:40
+msgid "Mark all read"
+msgstr "Oznacz wszystkie jako przeczytane"
+
+#: templates/part.items.php:17
+msgid "Save for later"
+msgstr ""
+
+#: templates/part.items.php:29
+msgid "from"
+msgstr "z"
+
+#: templates/part.items.php:34
+msgid "by"
+msgstr "przez"
+
+#: templates/part.items.php:42
+msgid "Cant play audio format"
+msgstr "Nie mogę odtworzyć formatu audio"
+
+#: templates/part.items.php:55
+msgid "Keep unread"
+msgstr "Pozostaw nieprzeczytane"
+
+#: templates/part.listfeed.php:43
+msgid "Delete feed"
+msgstr "Usuń kanał"
+
+#: templates/part.listfeed.php:48
+msgid "Delete website"
+msgstr ""
+
+#: templates/part.listfolder.php:14
+msgid "Collapse"
+msgstr "Zwiń"
+
+#: templates/part.listfolder.php:31 templates/part.listfolder.php:44
+msgid "Delete folder"
+msgstr "Usuń folder"
+
+#: templates/part.listfolder.php:49
+msgid "Rename folder"
+msgstr "Zmień nazwę folderu"
+
+#: templates/part.settings.php:13
+msgid "Import / Export OPML"
+msgstr "Importuj/eksportuj OPML"
+
+#: templates/part.settings.php:17 templates/part.settings.php:19
+msgid "Import"
+msgstr "Importuj"
+
+#: templates/part.settings.php:23 templates/part.settings.php:27
+#: templates/part.settings.php:30 templates/part.settings.php:32
+msgid "Export"
+msgstr "Eksportuj"
+
+#: templates/part.settings.php:36
+msgid "Error when importing: file does not contain valid OPML"
+msgstr ""
+
+#: templates/part.settings.php:41
+msgid "Subscribelet"
+msgstr "Subskrybowane"
+
+#: templates/part.showall.php:2
+msgid "Show all"
+msgstr "Pokaż wszystko"
+
+#: templates/part.showall.php:6
+msgid "Show only unread"
+msgstr "Pokaż tylko nieprzeczytane"
+
+#: templates/part.subscribelet.php:3
+msgid ""
+"Drag this to your browser bookmarks and click on it whenever you want to "
+"subscribe to a webpage quickly:"
+msgstr "Przeciągnij do zakładek w swojej przeglądarce. Wystarczy kliknąć w zakładkę aby dodać subskrypcję nowej strony:"
+
+#: templates/part.subscribelet.php:17
+msgid "Subscribe"
+msgstr "Subskrybuj"
+
+#: templates/subscribe.php:30
+msgid "An error occurred"
+msgstr "Wystąpił błąd"
+
+#: templates/subscribe.php:32
+msgid "Nice! You have subscribed to "
+msgstr "Super! Subskrybujesz"
+
+#: templates/subscribe.php:36
+msgid "You had already subscribed to this feed!"
+msgstr "Już subskrybujesz ten kanał!"

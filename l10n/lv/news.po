@@ -1,0 +1,195 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2013.
+msgid ""
+msgstr ""
+"Project-Id-Version: ownCloud\n"
+"Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
+"POT-Creation-Date: 2013-04-16 01:04+0200\n"
+"PO-Revision-Date: 2013-04-15 23:04+0000\n"
+"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"Language-Team: Latvian (http://www.transifex.com/projects/p/owncloud/language/lv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lv\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);\n"
+
+#: appinfo/app.php:52
+msgid "News"
+msgstr "Ziņas"
+
+#: businesslayer/feedbusinesslayer.php:62
+msgid "Can not add feed: Exists already"
+msgstr ""
+
+#: businesslayer/feedbusinesslayer.php:89
+msgid "Can not add feed: URL does not exist or has invalid xml"
+msgstr ""
+
+#: businesslayer/folderbusinesslayer.php:55
+msgid "Can not add folder: Exists already"
+msgstr ""
+
+#: templates/part.addnew.php:12
+msgid "Add Website"
+msgstr ""
+
+#: templates/part.addnew.php:19
+msgid "Error: address must not be empty!"
+msgstr ""
+
+#: templates/part.addnew.php:22
+msgid "Error: address exists already!"
+msgstr ""
+
+#: templates/part.addnew.php:25
+msgid "Error: folder name must not be empty!"
+msgstr ""
+
+#: templates/part.addnew.php:28
+msgid "Error: folder exists already"
+msgstr ""
+
+#: templates/part.addnew.php:35
+msgid "Address"
+msgstr "Adrese"
+
+#: templates/part.addnew.php:39 templates/part.addnew.php:42
+msgid "Add"
+msgstr "Pievienot"
+
+#: templates/part.addnew.php:46 templates/part.addnew.php:54
+msgid "New folder"
+msgstr "Jauna mape"
+
+#: templates/part.addnew.php:47
+msgid "Folder"
+msgstr "Mape"
+
+#: templates/part.addnew.php:52
+msgid "Choose folder"
+msgstr ""
+
+#: templates/part.addnew.php:64
+msgid "Folder name"
+msgstr "Mapes nosaukums"
+
+#: templates/part.addnew.php:67
+msgid "Back to folder selection"
+msgstr ""
+
+#: templates/part.addnew.php:72
+msgid "Create folder"
+msgstr ""
+
+#: templates/part.feed.starred.php:10
+msgid "Starred"
+msgstr "Svarīgs"
+
+#: templates/part.feed.unread.php:10
+msgid "Unread articles"
+msgstr "Nelasītie raksti"
+
+#: templates/part.feed.unread.php:16
+msgid "All articles"
+msgstr "Visi raksti"
+
+#: templates/part.feed.unread.php:24 templates/part.listfeed.php:39
+#: templates/part.listfolder.php:40
+msgid "Mark all read"
+msgstr "Atzīmēt visu kā lasītu"
+
+#: templates/part.items.php:17
+msgid "Save for later"
+msgstr ""
+
+#: templates/part.items.php:29
+msgid "from"
+msgstr ""
+
+#: templates/part.items.php:34
+msgid "by"
+msgstr "līdz"
+
+#: templates/part.items.php:42
+msgid "Cant play audio format"
+msgstr "Nevar atskaņot audio formātu"
+
+#: templates/part.items.php:55
+msgid "Keep unread"
+msgstr "Atstāt nelasītu"
+
+#: templates/part.listfeed.php:43
+msgid "Delete feed"
+msgstr "Dzēst plūsmu"
+
+#: templates/part.listfeed.php:48
+msgid "Delete website"
+msgstr ""
+
+#: templates/part.listfolder.php:14
+msgid "Collapse"
+msgstr "Sakļaut"
+
+#: templates/part.listfolder.php:31 templates/part.listfolder.php:44
+msgid "Delete folder"
+msgstr "Dzēst mapi"
+
+#: templates/part.listfolder.php:49
+msgid "Rename folder"
+msgstr "Pārsaukt mapi"
+
+#: templates/part.settings.php:13
+msgid "Import / Export OPML"
+msgstr "Importēt / eksportēt OPML"
+
+#: templates/part.settings.php:17 templates/part.settings.php:19
+msgid "Import"
+msgstr "Importēt"
+
+#: templates/part.settings.php:23 templates/part.settings.php:27
+#: templates/part.settings.php:30 templates/part.settings.php:32
+msgid "Export"
+msgstr "Eksportēt"
+
+#: templates/part.settings.php:36
+msgid "Error when importing: file does not contain valid OPML"
+msgstr ""
+
+#: templates/part.settings.php:41
+msgid "Subscribelet"
+msgstr "Sīkabonements"
+
+#: templates/part.showall.php:2
+msgid "Show all"
+msgstr "Rādīt visu"
+
+#: templates/part.showall.php:6
+msgid "Show only unread"
+msgstr "Rādīt tikai nelasītos"
+
+#: templates/part.subscribelet.php:3
+msgid ""
+"Drag this to your browser bookmarks and click on it whenever you want to "
+"subscribe to a webpage quickly:"
+msgstr "Velciet šo uz sava pārlūka grāmatzīmēm un spiediet uz tā, kad vēlaties ātri abonēt tīmekļa lapu:"
+
+#: templates/part.subscribelet.php:17
+msgid "Subscribe"
+msgstr "Abonēt"
+
+#: templates/subscribe.php:30
+msgid "An error occurred"
+msgstr "Gadījās kļūda"
+
+#: templates/subscribe.php:32
+msgid "Nice! You have subscribed to "
+msgstr "Jauki! Jūs esat abonējis"
+
+#: templates/subscribe.php:36
+msgid "You had already subscribed to this feed!"
+msgstr "Jūs jau esat abonējis šo plūsmu!"

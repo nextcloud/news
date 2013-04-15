@@ -1,8 +1,7 @@
 <?php $TRANSLATIONS = array(
-"New" => "Nòu",
 "Add" => "Ajusta",
 "Folder" => "Dorsièr",
-"Share" => "Parteja",
+"by" => "per",
 "Import" => "Importa",
 "Export" => "Exporta"
 );
