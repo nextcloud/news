@@ -342,19 +342,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
               return _this._$scope.addNewFolder = true;
             }
           };
-          this._$scope.getOpacity = function(number) {
-            var opacity;
-
-            number = parseInt(number, 10);
-            opacity = number / 180;
-            if (opacity < 0.3) {
-              opacity = 0.3;
-            }
-            if (opacity > 1) {
-              opacity = 1;
-            }
-            return opacity;
-          };
           this._$scope.$on('moveFeedToFolder', function(scope, data) {
             return _this._feedBl.move(data.feedId, data.folderId);
           });

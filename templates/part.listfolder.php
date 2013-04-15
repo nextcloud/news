@@ -30,8 +30,7 @@
 				class="svg action delete-icon" 
 				title="<?php p($l->t('Delete folder')); ?>"></button>
 
-		<span class="unread-counter"
-			ng-style="{ opacity: getOpacity(folderBl.getUnreadCount(folder.id)) }">
+		<span class="unread-counter">
 			{{ folderBl.getUnreadCount(folder.id) }}
 		</span>
 		
