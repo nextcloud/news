@@ -72,7 +72,11 @@ StarredBusinessLayer) ->
 		setRead: (itemId) ->
 			item = @_itemModel.getById(itemId)
 			if angular.isDefined(item)
-				if not item.isRead()
+				
+				keptUnread = angular.isDefined(item.keptUnread) and 
+				item.keptUnread
+				
+				if not (item.isRead() or keptUnread)
 					item.setRead()
 					@_persistence.readItem(itemId)
 

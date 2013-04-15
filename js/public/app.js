@@ -329,7 +329,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             if (markingRead) {
               markingRead = false;
               setTimeout(function() {
-                var $elems, data, feedItem, offset, _i, _len, _results;
+                var $elems, feedItem, id, offset, _i, _len, _results;
 
                 markingRead = true;
                 $elems = elm.find('.feed_item:not(.read)');
@@ -338,11 +338,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
                   feedItem = $elems[_i];
                   offset = $(feedItem).position().top;
                   if (offset <= -50) {
-                    data = {
-                      id: parseInt($(feedItem).data('id'), 10),
-                      feed: parseInt($(feedItem).data('feed'), 10)
-                    };
-                    _results.push($rootScope.$broadcast('readItem', data));
+                    id = parseInt($(feedItem).data('id'), 10);
+                    _results.push($rootScope.$broadcast('readItem', id));
                   } else {
                     break;
                   }
@@ -545,7 +542,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             }
           };
           this._$scope.$on('readItem', function(scope, data) {
-            return console.log(data);
+            console.log(data);
+            return _this._itemBusinessLayer.setRead(data);
           });
         }
 
@@ -698,19 +696,12 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
       }
 
       BusinessLayer.prototype.load = function(id) {
-        var lastModified;
-
-        if (this._type !== this._activeFeed.getType() || id !== this._activeFeed.getId()) {
-          this._itemModel.clear();
-          this._persistence.getItems(this._type, id, 0);
-          return this._activeFeed.handle({
-            id: id,
-            type: this._type
-          });
-        } else {
-          lastModified = this._itemModel.getHighestId();
-          return this._persistence.getItems(this._type, id, 0, null, lastModified);
-        }
+        this._itemModel.clear();
+        this._persistence.getItems(this._type, id, 0);
+        return this._activeFeed.handle({
+          id: id,
+          type: this._type
+        });
       };
 
       BusinessLayer.prototype.isActive = function(id) {
@@ -1263,11 +1254,12 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         };
 
         ItemBusinessLayer.prototype.setRead = function(itemId) {
-          var feed, item;
+          var feed, item, keptUnread;
 
           item = this._itemModel.getById(itemId);
           if (angular.isDefined(item)) {
-            if (!item.isRead()) {
+            keptUnread = angular.isDefined(item.keptUnread) && item.keptUnread;
+            if (!(item.isRead() || keptUnread)) {
               item.setRead();
               this._persistence.readItem(itemId);
               feed = this._feedModel.getById(item.feedId);

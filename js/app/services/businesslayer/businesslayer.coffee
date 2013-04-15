@@ -29,13 +29,9 @@ angular.module('News').factory '_BusinessLayer', ->
 
 
 		load: (id) ->
-			if @_type != @_activeFeed.getType() or id != @_activeFeed.getId()
-				@_itemModel.clear()
-				@_persistence.getItems(@_type, id, 0)
-				@_activeFeed.handle({id: id, type: @_type})
-			else
-				lastModified = @_itemModel.getHighestId()
-				@_persistence.getItems(@_type, id, 0, null, lastModified)
+			@_itemModel.clear()
+			@_persistence.getItems(@_type, id, 0)
+			@_activeFeed.handle({id: id, type: @_type})
 
 
 		isActive: (id) ->

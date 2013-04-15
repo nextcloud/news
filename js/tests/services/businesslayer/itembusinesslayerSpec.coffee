@@ -117,6 +117,20 @@ describe 'ItemBusinessLayer', ->
 		expect(@persistence.readItem).toHaveBeenCalledWith(2)
 
 
+	it 'should not set an item read if its kept unread', =>
+		@persistence.readItem = jasmine.createSpy('read item')
+		
+		item = {id: 2, feedId: 5, guidHash: 'a3', status: 0, keptUnread: true}
+		@ItemModel.add(item)
+		item.setUnread()
+
+		@ItemBusinessLayer.setRead(2)
+
+		expect(item.isRead()).toBe(false)
+		expect(@persistence.readItem).not.toHaveBeenCalled()
+
+
+
 	it 'should no set an item read if its already read', =>
 		@persistence.readItem = jasmine.createSpy('read item')
 		
@@ -215,3 +229,5 @@ describe 'ItemBusinessLayer', ->
 		@ItemBusinessLayer.setUnread(2)
 
 		expect(@item1.unreadCount).toBe(135)
+
+

@@ -48,11 +48,9 @@ angular.module('News').directive 'scrollMarksRead', ['$rootScope', 'Config',
 						for feedItem in $elems
 							offset = $(feedItem).position().top
 							if offset <= -50
-								data =
-									id: parseInt($(feedItem).data('id'), 10)
-									feed: parseInt($(feedItem).data('feed'), 10)
+								id = parseInt($(feedItem).data('id'), 10)
+								$rootScope.$broadcast 'readItem', id
 
-								$rootScope.$broadcast 'readItem', data
 							else
 								break
 

@@ -55,6 +55,7 @@ Language) ->
 
 			@_$scope.$on 'readItem', (scope, data) =>
 				console.log data
+				@_itemBusinessLayer.setRead(data)
 
 
 
