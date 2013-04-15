@@ -43,9 +43,9 @@
 			title="<?php p($l->t('Delete feed')); ?>"
 			ng-show="feed.id"></button>
 
-		<button class="svg action mark-read-icon"
+		<button class="svg action delete-icon"
 			ng-click="feedBl.markErrorRead(feed.urlHash)"
-			title="<?php p($l->t('Discard')); ?>"
+			title="<?php p($l->t('Delete website')); ?>"
 			ng-show="feed.error"></button>
 	</span>
 

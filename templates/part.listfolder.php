@@ -39,9 +39,9 @@
 				ng-click="folderBl.markFolderRead(folder.id)"
 				title="<?php p($l->t('Mark all read')); ?>"></button>
 
-		<button class="svg action mark-read-icon"
+		<button class="svg action delete-icon"
 			ng-click="folderBl.markErrorRead(folder.name)"
-			title="<?php p($l->t('Discard')); ?>"
+			title="<?php p($l->t('Delete folder')); ?>"
 			ng-show="folder.error"></button>
 
 <!--		<button class="svg action edit-icon" 
