@@ -1,0 +1,9 @@
+[main]
+host = https://www.transifex.net
+
+[owncloud.news]
+file_filter = <lang>/news.po
+source_file = templates/news.pot
+source_lang = en
+type = PO
+
