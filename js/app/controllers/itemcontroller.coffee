@@ -29,7 +29,6 @@ angular.module('News').controller 'ItemController',
 
 		constructor: (@_$scope, @_itemBl, @_feedModel, @_feedLoading,
 		              @_feedBl, @_language) ->
-
 			@_$scope.itemBl = @_itemBl
 			@_$scope.feedBl = @_feedBl
 
@@ -43,7 +42,14 @@ angular.module('News').controller 'ItemController',
 				else
 					return ''
 
+			@_$scope.getRelativeDate = (date) =>
+				if date
+					return @_language.getMomentFromTimestamp(date).fromNow()
+				else
+					return ''
+
+
 
 	return new ItemController($scope, ItemBl, FeedModel, FeedLoading, FeedBl,
-	                           Language)
+	                          Language)
 ]

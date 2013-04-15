@@ -99,4 +99,3 @@ FolderModel, FeedModel, Language) ->
 	return publisher
 ]
 
-

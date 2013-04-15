@@ -67,7 +67,7 @@ module.exports = (grunt) ->
 				dest: ''
 				wrapper: [
 					'(function(angular, $, hex_md5, moment, undefined){\n\n'
-					'\n})(window.angular, jQuery, hex_md5, moment);'
+					'\n})(window.angular, window.jQuery, window.hex_md5, window.moment);'
 				]
 
 		coffeelint:

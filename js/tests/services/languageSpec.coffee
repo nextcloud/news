@@ -26,15 +26,18 @@ describe 'Language', ->
 	beforeEach module 'News'
 
 	beforeEach inject (@Language, @FeedType) =>
-		@data =
-			language: 'de'
+		@data = 'de'
 
 
 	it 'should be en by default', =>
 		expect(@Language.getLanguage()).toBe('en')
 
 
-	it 'should set the correct feed id', =>
+	it 'should set the correct language', =>
 		@Language.handle(@data)
+		expect(@Language.getLanguage()).toBe('de')
+
+	it 'should only set the first part of the language', =>
+		@Language.handle 'de_DE'
 		expect(@Language.getLanguage()).toBe('de')
 

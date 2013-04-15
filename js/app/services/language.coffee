@@ -27,11 +27,17 @@ angular.module('News').factory 'Language', ->
 		constructor: ->
 			@_language = 'en'
 
+
 		handle: (data) ->
-			@_language = data.language
+			@_language = data.split('_')[0]
+
 
 		getLanguage: ->
 			return @_language
+
+
+		getMomentFromTimestamp: (timestamp) ->
+			return moment.unix(timestamp).lang(@_language)
 
 
 	return new Language()

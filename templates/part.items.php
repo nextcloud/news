@@ -5,7 +5,7 @@
 		data-id="{{ item.id }}"
     	data-feed="{{ item.feedId }}">
 		<h2 class="item_date">
-			<time class="timeago" datetime="">{{ item.getRelativeDate() }}</time>
+			<time class="timeago" datetime="">{{ getRelativeDate(item.pubDate) }}</time>
 		</h2>
 		
 		<div class="utils">
