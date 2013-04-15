@@ -21,9 +21,12 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-angular.module('News').factory '_FeedController',
-['_ExistsError',
-(_ExistsError)->
+angular.module('News').controller 'FeedController',
+['$scope', '_ExistsError', 'Persistence', 'FolderBl', 'FeedBl',
+'SubscriptionsBl', 'StarredBl', 'unreadCountFormatter',
+($scope, _ExistsError, Persistence, FolderBl, FeedBl, SubscriptionsBl,
+StarredBl, unreadCountFormatter) ->
+
 
 	class FeedController
 
@@ -105,6 +108,8 @@ angular.module('News').factory '_FeedController',
 			@_$scope.$on 'moveFeedToFolder', (scope, data) =>
 				@_feedBl.move(data.feedId, data.folderId)
 
-	return FeedController
+
+	return new FeedController($scope, Persistence, FolderBl, FeedBl,
+	                           SubscriptionsBl, StarredBl, unreadCountFormatter)
 
 ]

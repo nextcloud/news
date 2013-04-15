@@ -20,30 +20,18 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 ###
 
+angular.module('News').factory 'Language', ->
 
-describe 'ItemController', ->
+	class Language
 
+		constructor: ->
+			@_language = 'en'
 
-	beforeEach module 'News'
+		handle: (data) ->
+			@_language = data.language
 
-	beforeEach inject ($controller, @ItemBl, @FeedBl) =>
-		@scope = {}
-		@persistence = {
-			getItems: ->
-		}
-
-		replace =
-			$scope: @scope
-			Persistence: @persistence
-		@controller = $controller('ItemController', replace)
+		getLanguage: ->
+			return @_language
 
 
-	it 'should make ItemBl availabe', =>
-		expect(@scope.itemBl).toBe(@ItemBl)
-
-
-	it 'should make FeedBl availabe', =>
-		expect(@scope.feedBl).toBe(@FeedBl)
-
-
-	it 'should '
+	return new Language()

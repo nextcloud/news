@@ -47,7 +47,8 @@ angular.module('News').factory '_Persistence', ->
 			@getAllFeeds(triggerHideRead)
 			@userSettingsRead(triggerHideRead)
 			@getStarredItems(triggerHideRead)
-			
+			@userSettingsLanguage()
+
 
 		###
 			ITEM CONTROLLER
@@ -318,6 +319,13 @@ angular.module('News').factory '_Persistence', ->
 			data =
 				onSuccess: callback
 			@_request.post 'news_usersettings_read_hide', data
+
+
+		userSettingsLanguage: (callback=null) ->
+			callback or= ->
+			data =
+				onSuccess: callback
+			@_request.get 'news_usersettings_language', data
 
 
 		_triggerHideRead: ->

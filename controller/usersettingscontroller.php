@@ -77,4 +77,20 @@ class UserSettingsController extends Controller {
 	}
 
 
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
+	public function getLanguage(){
+		$language = $this->api->getTrans()->findLanguage();
+
+		$params = array(
+			'language' => $language
+		);
+		return $this->renderJSON($params);
+	}
+
+
+
 }

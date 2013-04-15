@@ -30,13 +30,14 @@ describe '_FeedController', ->
 			@persistence = {}
 
 
-	beforeEach inject (@_FeedController, @FolderBl, @FeedBl, $rootScope,
+	beforeEach inject ($controller, @FolderBl, @FeedBl, $rootScope,
 		               @unreadCountFormatter, @SubscriptionsBl, @StarredBl) =>
 		@scope = $rootScope.$new()
+		replace =
+			$scope: @scope
+			Persistence: @persistence
 
-		@controller = new @_FeedController(@scope, @persistence, @FolderBl,
-		                                   @FeedBl, @SubscriptionsBl, @StarredBl,
-		                                   @unreadCountFormatter)
+		@controller = $controller('FeedController', replace)
 
 
 

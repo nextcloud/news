@@ -20,19 +20,21 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 ###
 
-angular.module('News').controller 'FeedController',
-['$scope', '_FeedController', 'Persistence', 'FolderBl', 'FeedBl',
-'SubscriptionsBl', 'StarredBl', 'unreadCountFormatter',
-($scope, _FeedController, Persistence, FolderBl, FeedBl, SubscriptionsBl,
-StarredBl, unreadCountFormatter)->
 
-	return new _FeedController($scope, Persistence, FolderBl, FeedBl,
-	                           SubscriptionsBl, StarredBl, unreadCountFormatter)
-]
+describe 'Language', ->
 
-angular.module('News').controller 'ItemController',
-['$scope', '_ItemController', 'ItemBl', 'FeedModel', 'FeedLoading', 'FeedBl',
-($scope, _ItemController, ItemBl, FeedModel, FeedLoading, FeedBl)->
+	beforeEach module 'News'
 
-	return new _ItemController($scope, ItemBl, FeedModel, FeedLoading, FeedBl)
-]
+	beforeEach inject (@Language, @FeedType) =>
+		@data =
+			language: 'de'
+
+
+	it 'should be en by default', =>
+		expect(@Language.getLanguage()).toBe('en')
+
+
+	it 'should set the correct feed id', =>
+		@Language.handle(@data)
+		expect(@Language.getLanguage()).toBe('de')
+

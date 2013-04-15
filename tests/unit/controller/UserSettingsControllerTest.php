@@ -59,6 +59,11 @@ class UserSettingsControllerTest extends ControllerTestUtility {
 	}
 
 
+	public function testGetLanguageAnnotations(){
+		$this->assertUserSettingsControllerAnnotations('getLanguage');
+	}
+
+
 	public function testFoldersAnnotations(){
 		$this->assertUserSettingsControllerAnnotations('read');
 	}
@@ -109,6 +114,22 @@ class UserSettingsControllerTest extends ControllerTestUtility {
 	}
 	
 
+	public function testGetLanguage(){
+		$language = 'de';
+		$lang = $this->getMock('Lang', array('findLanguage'));
+		$lang->expects($this->once())
+			->method('findLanguage')
+			->will($this->returnValue($language));
+		$this->api->expects($this->once())
+			->method('getTrans')
+			->will($this->returnValue($lang));
+
+		$response = $this->controller->getLanguage();
+		$params = $response->getParams();
+
+		$this->assertEquals($language, $params['language']);
+		$this->assertTrue($response instanceof JSONResponse);	
+	}
 
 
 }

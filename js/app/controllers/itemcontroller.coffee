@@ -21,12 +21,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-angular.module('News').factory '_ItemController', ->
+angular.module('News').controller 'ItemController',
+['$scope', 'ItemBl', 'FeedModel', 'FeedLoading', 'FeedBl', 'Language',
+($scope, ItemBl, FeedModel, FeedLoading, FeedBl, Language) ->
 
 	class ItemController
 
 		constructor: (@_$scope, @_itemBl, @_feedModel, @_feedLoading,
-		              @_feedBl) ->
+		              @_feedBl, @_language) ->
 
 			@_$scope.itemBl = @_itemBl
 			@_$scope.feedBl = @_feedBl
@@ -42,4 +44,6 @@ angular.module('News').factory '_ItemController', ->
 					return ''
 
 
-	return ItemController
+	return new ItemController($scope, ItemBl, FeedModel, FeedLoading, FeedBl,
+	                           Language)
+]

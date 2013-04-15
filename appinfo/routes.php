@@ -193,6 +193,11 @@ $this->create('news_usersettings_read_hide', '/usersettings/read/hide')->post()-
 	}
 );
 
+$this->create('news_usersettings_language', '/usersettings/language')->get()->action(
+	function($params){
+		App::main('UserSettingsController', 'getLanguage', $params, new DIContainer());
+	}
+);
 
 
 

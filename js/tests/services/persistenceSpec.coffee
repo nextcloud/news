@@ -354,7 +354,6 @@ describe '_Persistence', ->
 			params)
 
 
-
 	it 'should do a proper user settings read hide request', =>
 		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
 		params =
@@ -362,4 +361,14 @@ describe '_Persistence', ->
 		pers.userSettingsReadHide(params.onSuccess)
 
 		expect(@req.post).toHaveBeenCalledWith('news_usersettings_read_hide',
+			params)
+
+
+	it 'should do a proper user settings language request', =>
+		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
+		params =
+			onSuccess: ->
+		pers.userSettingsLanguage(params.onSuccess)
+
+		expect(@req.get).toHaveBeenCalledWith('news_usersettings_language',
 			params)
