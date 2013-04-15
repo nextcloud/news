@@ -294,6 +294,7 @@
 	}
 
 		.feed_item .secondary_item_utils li {
+			display: none;
 			padding: .4em;
 			background-color: rgba(240,240,240,.9);
 			font-weight: bold;
