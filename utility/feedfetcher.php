@@ -204,7 +204,18 @@ class FeedFetcher implements IFeedFetcher {
 
 		// try the /favicon.ico as a last resort
 		$parseUrl = parse_url($url);
-		$baseFavicon = $parseUrl['scheme'] . '://' . $parseUrl['host'] . '/favicon.ico';
+		if (!array_key_exists('scheme', $parseUrl)){
+			$scheme = 'http';
+		} else {
+			$scheme = $parseUrl['scheme'];
+		}
+
+		if(!array_key_exists('host', $parseUrl)){
+			error_log($url);
+			return null;
+		}
+
+		$baseFavicon = $scheme . '://' . $parseUrl['host'] . '/favicon.ico';
 		if($this->isValidFavIcon($baseFavicon)){
 			return $baseFavicon;
 		}

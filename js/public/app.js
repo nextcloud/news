@@ -896,7 +896,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             throw new _ExistsError('Exists already');
           }
           feed = {
-            title: url.replace(/^(?:https?:\/\/)?(?:www\.)?([a-z0-9_\-\.]+)(?:\/.*)?$/gi, '$1'),
+            title: url,
             url: url,
             urlHash: urlHash,
             folderId: parentId,

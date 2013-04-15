@@ -255,28 +255,13 @@ describe 'FeedBusinessLayer', ->
 
 		feed = @FeedModel.getByUrlHash(hash)
 
-		expect(feed.title).toBe('google.de')
+		expect(feed.title).toBe('www.google.de')
 		expect(feed.url).toBe(url)
 		expect(feed.urlHash).toBe(hash)
 		expect(feed.folderId).toBe(0)
 		expect(feed.unreadCount).toBe(0)
 		expect(@imagePath).toHaveBeenCalledWith('core', 'loading.gif')
 	
-	it 'should transform urls correctly', =>
-		urls = [
-			'www.google.de'
-			'www.google.de/'
-			'google.de'
-			'http://google.de'
-			'http://www.google.de/'
-		]
-		for url in urls
-			@FeedModel.clear()
-			@FeedBusinessLayer.create(url)
-			hash = hex_md5(url)
-			feed = @FeedModel.getByUrlHash(hash)
-			expect(feed.title).toBe('google.de')
-
 
 	it 'should make a create feed request', =>
 		@persistence.createFeed = jasmine.createSpy('add feed')
