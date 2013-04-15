@@ -5,7 +5,7 @@
 		unread: folderBusinessLayer.getUnreadCount(folder.id) != 0,
 		failed: folder.error
 	}" 
-	ng-repeat="folder in folderBusinessLayer.getAll()"
+	ng-repeat="folder in folderBusinessLayer.getAll() | orderBy:'id':true"
 	ng-show="folderBusinessLayer.isVisible(folder.id) || !folder.id"
 	class="folder"
 	data-id="{{ folder.id }}"

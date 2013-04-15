@@ -3,7 +3,7 @@
 		unread: feedBusinessLayer.getUnreadCount(feed.id) > 0,
 		failed: feed.error
 	}" 
-	ng-repeat="feed in feedBusinessLayer.getFeedsOfFolder(<?php p($_['folderId']); ?>)"
+	ng-repeat="feed in feedBusinessLayer.getFeedsOfFolder(<?php p($_['folderId']); ?>) | orderBy:'id':true"
 	ng-show="feedBusinessLayer.isVisible(feed.id) || !feed.id"
 	data-id="{{ feed.id }}"
 	class="feed"

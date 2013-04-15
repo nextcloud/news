@@ -3,7 +3,6 @@
 		ng-repeat="item in itemBusinessLayer.getAll() | orderBy:'id':true "
 		ng-class="{ read: item.isRead() }"
 		data-id="{{ item.id }}"
-    	data-feed="{{ item.feedId }}">
 		<h2 class="item_date">
 			<span class="timeago" title="{{item.pubDate*1000|date:'dd-MM-yyyy'}}">
 				{{ getRelativeDate(item.pubDate) }}
