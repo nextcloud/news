@@ -211,7 +211,6 @@ class FeedFetcher implements IFeedFetcher {
 		}
 
 		if(!array_key_exists('host', $parseUrl)){
-			error_log($url);
 			return null;
 		}
 
