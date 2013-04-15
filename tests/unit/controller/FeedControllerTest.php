@@ -33,7 +33,7 @@ use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
 
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\FeedType;
-use \OCA\News\Bl\BLException;
+use \OCA\News\BusinessLayer\BusinessLayerException;
 
 
 require_once(__DIR__ . "/../../classloader.php");
@@ -42,10 +42,10 @@ require_once(__DIR__ . "/../../classloader.php");
 class FeedControllerTest extends ControllerTestUtility {
 
 	private $api;
-	private $bl;
+	private $feedBusinessLayer;
 	private $request;
 	private $controller;
-	private $folderBl;
+	private $folderBusinessLayer;
 
 
 	/**
@@ -53,15 +53,15 @@ class FeedControllerTest extends ControllerTestUtility {
 	 */
 	public function setUp(){
 		$this->api = $this->getAPIMock();
-		$this->bl = $this->getMockBuilder('\OCA\News\Bl\FeedBl')
+		$this->feedBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\FeedBusinessLayer')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->folderBl = $this->getMockBuilder('\OCA\News\Bl\FolderBl')
+		$this->folderBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\FolderBusinessLayer')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->request = new Request();
 		$this->controller = new FeedController($this->api, $this->request,
-				$this->bl, $this->folderBl);
+				$this->feedBusinessLayer, $this->folderBusinessLayer);
 		$this->user = 'jack';
 	}
 
@@ -78,7 +78,7 @@ class FeedControllerTest extends ControllerTestUtility {
 		);
 
 		$request = $this->getRequest($post);
-		return new FeedController($this->api, $request, $this->bl, $this->folderBl);
+		return new FeedController($this->api, $request, $this->feedBusinessLayer, $this->folderBusinessLayer);
 	}
 
 
@@ -121,7 +121,7 @@ class FeedControllerTest extends ControllerTestUtility {
 		$this->api->expects($this->once())
 			->method('getUserId')
 			->will($this->returnValue($this->user));
-		$this->bl->expects($this->once())
+		$this->feedBusinessLayer->expects($this->once())
 			->method('findAll')
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($result['feeds']));
@@ -170,14 +170,14 @@ class FeedControllerTest extends ControllerTestUtility {
 	public function testActiveFeedDoesNotExist(){
 		$id = 3;
 		$type = FeedType::FEED;
-		$ex = new BLException('hiu');
+		$ex = new BusinessLayerException('hiu');
 		$result = array(
 			'activeFeed' => array(
 				'id' => 0,
 				'type' => FeedType::SUBSCRIPTIONS
 			)
 		);
-		$this->bl->expects($this->once())
+		$this->feedBusinessLayer->expects($this->once())
 			->method('find')
 			->with($this->equalTo($id), $this->equalTo($this->user))
 			->will($this->throwException($ex));
@@ -194,14 +194,14 @@ class FeedControllerTest extends ControllerTestUtility {
 	public function testActiveFolderDoesNotExist(){
 		$id = 3;
 		$type = FeedType::FOLDER;
-		$ex = new BLException('hiu');
+		$ex = new BusinessLayerException('hiu');
 		$result = array(
 			'activeFeed' => array(
 				'id' => 0,
 				'type' => FeedType::SUBSCRIPTIONS
 			)
 		);
-		$this->folderBl->expects($this->once())
+		$this->folderBusinessLayer->expects($this->once())
 			->method('find')
 			->with($this->equalTo($id), $this->equalTo($this->user))
 			->will($this->throwException($ex));
@@ -249,7 +249,7 @@ class FeedControllerTest extends ControllerTestUtility {
 			->method('getUserId')
 			->will($this->returnValue($this->user));
 
-		$this->bl->expects($this->once())
+		$this->feedBusinessLayer->expects($this->once())
 			->method('create')
 			->with($this->equalTo($post['url']),
 				$this->equalTo($post['parentFolderId']),
@@ -265,8 +265,8 @@ class FeedControllerTest extends ControllerTestUtility {
 
 	public function testCreateReturnsErrorForInvalidCreate(){
 		$msg = 'except';
-		$ex = new BLException($msg);
-		$this->bl->expects($this->once())
+		$ex = new BusinessLayerException($msg);
+		$this->feedBusinessLayer->expects($this->once())
 			->method('create')
 			->will($this->throwException($ex));
 
@@ -288,7 +288,7 @@ class FeedControllerTest extends ControllerTestUtility {
 		$this->api->expects($this->once())
 			->method('getUserId')
 			->will($this->returnValue($this->user));
-		$this->bl->expects($this->once())
+		$this->feedBusinessLayer->expects($this->once())
 			->method('delete')
 			->with($this->equalTo($url['feedId']));
 
@@ -312,7 +312,7 @@ class FeedControllerTest extends ControllerTestUtility {
 		$this->api->expects($this->once())
 			->method('getUserId')
 			->will($this->returnValue($this->user));
-		$this->bl->expects($this->once())
+		$this->feedBusinessLayer->expects($this->once())
 			->method('update')
 			->with($this->equalTo($url['feedId']), $this->equalTo($this->user))
 			->will($this->returnValue($result['feeds'][0]));
@@ -320,6 +320,34 @@ class FeedControllerTest extends ControllerTestUtility {
 		$response = $this->controller->update();
 
 		$this->assertEquals($result, $response->getParams());
+		$this->assertTrue($response instanceof JSONResponse);
+	}
+
+
+	public function testUpdateReturnsJSONError(){
+		$result = array(
+			'feeds' => array(
+				new Feed()
+			)
+		);
+
+		$url = array(
+				'feedId' => 4
+		);
+		$this->controller = $this->getPostController(array(), $url);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->feedBusinessLayer->expects($this->once())
+			->method('update')
+			->with($this->equalTo($url['feedId']), $this->equalTo($this->user))
+			->will($this->throwException(new BusinessLayerException('NO!')));
+
+		$response = $this->controller->update();
+		$render = $response->render();
+
+		$this->assertEquals('{"status":"error","data":[],"msg":"NO!"}', $render);
 		$this->assertTrue($response instanceof JSONResponse);
 	}
 
@@ -336,7 +364,7 @@ class FeedControllerTest extends ControllerTestUtility {
 		$this->api->expects($this->once())
 			->method('getUserId')
 			->will($this->returnValue($this->user));
-		$this->bl->expects($this->once())
+		$this->feedBusinessLayer->expects($this->once())
 			->method('move')
 			->with($this->equalTo($url['feedId']), 
 				$this->equalTo($post['parentFolderId']),

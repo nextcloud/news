@@ -22,25 +22,27 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 
 angular.module('News').controller 'FeedController',
-['$scope', '_ExistsError', 'Persistence', 'FolderBl', 'FeedBl',
-'SubscriptionsBl', 'StarredBl', 'unreadCountFormatter',
-($scope, _ExistsError, Persistence, FolderBl, FeedBl, SubscriptionsBl,
-StarredBl, unreadCountFormatter) ->
+['$scope', '_ExistsError', 'Persistence', 'FolderBusinessLayer',
+'FeedBusinessLayer', 'SubscriptionsBusinessLayer', 'StarredBusinessLayer',
+'unreadCountFormatter',
+($scope, _ExistsError, Persistence, FolderBusinessLayer, FeedBusinessLayer,
+SubscriptionsBusinessLayer, StarredBusinessLayer, unreadCountFormatter) ->
 
 
 	class FeedController
 
-		constructor: (@_$scope, @_persistence, @_folderBl, @_feedBl,
-		              @_subscriptionsBl, @_starredBl, @_unreadCountFormatter) ->
+		constructor: (@_$scope, @_persistence, @_folderBusinessLayer,
+		              @_feedBusinessLayer, @_subscriptionsBusinessLayer,
+		              @_starredBusinessLayer, @_unreadCountFormatter) ->
 
 			@_isAddingFolder = false
 			@_isAddingFeed = false
 
 			# bind internal stuff to scope
-			@_$scope.folderBl = @_folderBl
-			@_$scope.feedBl = @_feedBl
-			@_$scope.subscriptionsBl = @_subscriptionsBl
-			@_$scope.starredBl = @_starredBl
+			@_$scope.folderBusinessLayer = @_folderBusinessLayer
+			@_$scope.feedBusinessLayer = @_feedBusinessLayer
+			@_$scope.subscriptionsBusinessLayer = @_subscriptionsBusinessLayer
+			@_$scope.starredBusinessLayer = @_starredBusinessLayer
 			@_$scope.unreadCountFormatter = @_unreadCountFormatter
 
 			
@@ -58,13 +60,13 @@ StarredBl, unreadCountFormatter) ->
 					@_isAddingFeed = true
 					# set folder to open
 					if parentFolderId != 0
-						@_folderBl.open(parentFolderId)
-					@_feedBl.create feedUrl, parentFolderId
+						@_folderBusinessLayer.open(parentFolderId)
+					@_feedBusinessLayer.create feedUrl, parentFolderId
 					# on success
 					, (data) =>
 						@_$scope.feedUrl = ''
 						@_isAddingFeed = false
-						@_feedBl.load(data['feeds'][0].id)
+						@_feedBusinessLayer.load(data['feeds'][0].id)
 					# on error
 					, =>
 						@_isAddingFeed = false
@@ -83,7 +85,7 @@ StarredBl, unreadCountFormatter) ->
 
 				try
 					@_isAddingFolder = true
-					@_folderBl.create folderName
+					@_folderBusinessLayer.create folderName
 
 					# on success
 					, (data) =>
@@ -91,7 +93,7 @@ StarredBl, unreadCountFormatter) ->
 						@_$scope.addNewFolder = false
 						@_isAddingFolder = false
 						activeId = data['folders'][0].id
-						@_$scope.folderId = @_folderBl.getById(activeId)
+						@_$scope.folderId = @_folderBusinessLayer.getById(activeId)
 					# on error
 					, =>
 						@_isAddingFolder = false
@@ -106,10 +108,11 @@ StarredBl, unreadCountFormatter) ->
 
 
 			@_$scope.$on 'moveFeedToFolder', (scope, data) =>
-				@_feedBl.move(data.feedId, data.folderId)
+				@_feedBusinessLayer.move(data.feedId, data.folderId)
 
 
-	return new FeedController($scope, Persistence, FolderBl, FeedBl,
-	                           SubscriptionsBl, StarredBl, unreadCountFormatter)
+	return new FeedController($scope, Persistence, FolderBusinessLayer,
+	                          FeedBusinessLayer, SubscriptionsBusinessLayer,
+	                          StarredBusinessLayer, unreadCountFormatter)
 
 ]

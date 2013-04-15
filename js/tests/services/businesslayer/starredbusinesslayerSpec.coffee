@@ -21,7 +21,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-describe 'StarredBl', ->
+describe 'StarredBusinessLayer', ->
 
 	beforeEach module 'News'
 
@@ -29,32 +29,33 @@ describe 'StarredBl', ->
 		angular.module('News').factory 'Persistence', =>
 			@persistence = {}
 
-	beforeEach inject (@StarredBl, @StarredCount, @ActiveFeed, @FeedType) =>
+	beforeEach inject (@StarredBusinessLayer, @StarredCount, @ActiveFeed,
+	@FeedType) =>
 		@ActiveFeed.handle({type: @FeedType.Feed, id:0})
 		@StarredCount.setStarredCount(0)
 
 
 	it 'should not be visible if starredCount is 0', =>
-		expect(@StarredBl.isVisible()).toBe(false)
+		expect(@StarredBusinessLayer.isVisible()).toBe(false)
 
 		@StarredCount.setStarredCount(144)
-		expect(@StarredBl.isVisible()).toBe(true)
+		expect(@StarredBusinessLayer.isVisible()).toBe(true)
 
 
 	it 'should always be visible if its the active feed', =>
 		@ActiveFeed.handle({type: @FeedType.Starred, id:0})
-		expect(@StarredBl.isVisible()).toBe(true)
+		expect(@StarredBusinessLayer.isVisible()).toBe(true)
 
 
 	it 'should get the correct unread count', =>
 		@StarredCount.setStarredCount(144)
 
-		expect(@StarredBl.getUnreadCount()).toBe(144)
+		expect(@StarredBusinessLayer.getUnreadCount()).toBe(144)
 
 
 	it 'should increase the starred count', =>
-		expect(@StarredBl.increaseCount()).toBe(1)
+		expect(@StarredBusinessLayer.increaseCount()).toBe(1)
 
 
 	it 'should decrease the starred count', =>
-		expect(@StarredBl.decreaseCount()).toBe(-1)
+		expect(@StarredBusinessLayer.decreaseCount()).toBe(-1)

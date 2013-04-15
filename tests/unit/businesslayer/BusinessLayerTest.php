@@ -23,7 +23,7 @@
 *
 */
 
-namespace OCA\News\Bl;
+namespace OCA\News\BusinessLayer;
 
 require_once(__DIR__ . "/../../classloader.php");
 
@@ -33,24 +33,24 @@ use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
 use \OCA\News\Db\Folder;
 
 
-class TestBl extends BL {
+class TestBusinessLayer extends BusinessLayer {
 	public function __construct($mapper){
 		parent::__construct($mapper);
 	}
 }
 
-class BlTest extends \OCA\AppFramework\Utility\TestUtility {
+class BusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 	protected $api;
 	protected $mapper;
-	protected $newsBl;
+	protected $newsBusinessLayer;
 
 	protected function setUp(){
 		$this->api = $this->getAPIMock();
 		$this->mapper = $this->getMockBuilder('\OCA\News\Db\ItemMapper')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->newsBl = new TestBl($this->mapper);
+		$this->newsBusinessLayer = new TestBusinessLayer($this->mapper);
 	}
 
 
@@ -68,7 +68,7 @@ class BlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->with($this->equalTo($id), $this->equalTo($user))
 			->will($this->returnValue($folder));
 
-		$result = $this->newsBl->delete($id, $user);
+		$result = $this->newsBusinessLayer->delete($id, $user);
 	}
 
 
@@ -80,7 +80,7 @@ class BlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('find')
 			->with($this->equalTo($id), $this->equalTo($user));
 
-		$result = $this->newsBl->find($id, $user);
+		$result = $this->newsBusinessLayer->find($id, $user);
 	}
 
 
@@ -91,8 +91,8 @@ class BlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('find')
 			->will($this->throwException($ex));
 
-		$this->setExpectedException('\OCA\News\Bl\BLException');
-		$this->newsBl->find(1, '');
+		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
+		$this->newsBusinessLayer->find(1, '');
 	}
 
 
@@ -103,8 +103,8 @@ class BlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('find')
 			->will($this->throwException($ex));
 
-		$this->setExpectedException('\OCA\News\Bl\BLException');
-		$this->newsBl->find(1, '');
+		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
+		$this->newsBusinessLayer->find(1, '');
 	}
 
 }

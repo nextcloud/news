@@ -21,7 +21,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-describe '_FeedController', ->
+describe 'FeedController', ->
 
 	beforeEach module 'News'
 
@@ -30,8 +30,9 @@ describe '_FeedController', ->
 			@persistence = {}
 
 
-	beforeEach inject ($controller, @FolderBl, @FeedBl, $rootScope,
-		               @unreadCountFormatter, @SubscriptionsBl, @StarredBl) =>
+	beforeEach inject ($controller, @FolderBusinessLayer, @FeedBusinessLayer,
+	                   $rootScope, @unreadCountFormatter,
+	                   @SubscriptionsBusinessLayer, @StarredBusinessLayer) =>
 		@scope = $rootScope.$new()
 		replace =
 			$scope: @scope
@@ -53,19 +54,20 @@ describe '_FeedController', ->
 		expect(@scope.unreadCountFormatter).toBe(@unreadCountFormatter)
 
 
-	it 'should make FeedBl available', =>
-		expect(@scope.feedBl).toBe(@FeedBl)
+	it 'should make FeedBusinessLayer available', =>
+		expect(@scope.feedBusinessLayer).toBe(@FeedBusinessLayer)
 
 
-	it 'should make FolderBl available', =>
-		expect(@scope.folderBl).toBe(@FolderBl)
+	it 'should make FolderBusinessLayer available', =>
+		expect(@scope.folderBusinessLayer).toBe(@FolderBusinessLayer)
 
 
-	it 'should make SubscriptionsBl available', =>
-		expect(@scope.subscriptionsBl).toBe(@SubscriptionsBl)
+	it 'should make SubscriptionsBusinessLayer available', =>
+		expect(@scope.subscriptionsBusinessLayer).toBe(
+			@SubscriptionsBusinessLayer)
 
-	it 'should make StarredBl available', =>
-		expect(@scope.starredBl).toBe(@StarredBl)
+	it 'should make StarredBusinessLayer available', =>
+		expect(@scope.starredBusinessLayer).toBe(@StarredBusinessLayer)
 
 	it 'should not add folders that have no name', =>
 		@persistence.createFolder = jasmine.createSpy('create')

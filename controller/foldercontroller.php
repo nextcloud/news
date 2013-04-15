@@ -29,17 +29,18 @@ use \OCA\AppFramework\Controller\Controller;
 use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Http\Request;
 
-use \OCA\News\Bl\FolderBl;
-use \OCA\News\Bl\BLException;
+use \OCA\News\BusinessLayer\FolderBusinessLayer;
+use \OCA\News\BusinessLayer\BusinessLayerException;
 
 
 class FolderController extends Controller {
 
-	private $folderBl;
+	private $folderBusinessLayer;
 
-	public function __construct(API $api, Request $request, FolderBl $folderBl){
+	public function __construct(API $api, Request $request, 
+	                            FolderBusinessLayer $folderBusinessLayer){
 		parent::__construct($api, $request);
-		$this->folderBl = $folderBl;
+		$this->folderBusinessLayer = $folderBusinessLayer;
 	}
 
 
@@ -49,7 +50,7 @@ class FolderController extends Controller {
 	 * @Ajax
 	 */
 	public function folders(){
-		$folders = $this->folderBl->findAll($this->api->getUserId());
+		$folders = $this->folderBusinessLayer->findAll($this->api->getUserId());
 		$result = array(
 			'folders' => $folders
 		);
@@ -61,7 +62,7 @@ class FolderController extends Controller {
 		$userId = $this->api->getUserId();
 		$folderId = (int) $this->params('folderId');
 
-		$this->folderBl->open($folderId, $isOpened, $userId);
+		$this->folderBusinessLayer->open($folderId, $isOpened, $userId);
 	}
 
 	/**
@@ -96,14 +97,14 @@ class FolderController extends Controller {
 		$folderName = $this->params('folderName');
 
 		try {
-			$folder = $this->folderBl->create($folderName, $userId);
+			$folder = $this->folderBusinessLayer->create($folderName, $userId);
 
 			$params = array(
 				'folders' => array($folder)
 			);
 			return $this->renderJSON($params);
 
-		} catch (BLException $ex){
+		} catch (BusinessLayerException $ex){
 
 			return $this->renderJSON(array(), $ex->getMessage());
 		}
@@ -120,7 +121,7 @@ class FolderController extends Controller {
 		$userId = $this->api->getUserId();
 		$folderId = (int) $this->params('folderId');
 
-		$this->folderBl->delete($folderId, $userId);
+		$this->folderBusinessLayer->delete($folderId, $userId);
 
 		return $this->renderJSON();
 	}
@@ -137,14 +138,14 @@ class FolderController extends Controller {
 		$folderId = (int) $this->params('folderId');
 
 		try {
-			$folder = $this->folderBl->rename($folderId, $folderName, $userId);
+			$folder = $this->folderBusinessLayer->rename($folderId, $folderName, $userId);
 
 			$params = array(
 				'folders' => array($folder)
 			);
 			return $this->renderJSON($params);
 
-		} catch (BLException $ex){
+		} catch (BusinessLayerException $ex){
 
 			return $this->renderJSON(array(), $ex->getMessage());
 		}

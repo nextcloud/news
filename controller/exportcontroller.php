@@ -30,21 +30,23 @@ use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Http\Request;
 use \OCA\AppFramework\Http\TextDownloadResponse;
 
-use \OCA\News\Bl\FeedBl;
-use \OCA\News\Bl\FolderBl;
+use \OCA\News\BusinessLayer\FeedBusinessLayer;
+use \OCA\News\BusinessLayer\FolderBusinessLayer;
 use \OCA\News\Utility\OPMLExporter;
 
 class ExportController extends Controller {
 
 	private $opmlExporter;
-	private $folderBl;
-	private $feedBl;
+	private $folderBusinessLayer;
+	private $feedBusinessLayer;
 
-	public function __construct(API $api, Request $request, FeedBl $feedBl,
-	                            FolderBl $folderBl, OPMLExporter $opmlExporter){
+	public function __construct(API $api, Request $request,
+	                            FeedBusinessLayer $feedBusinessLayer,
+	                            FolderBusinessLayer $folderBusinessLayer,
+	                            OPMLExporter $opmlExporter){
 		parent::__construct($api, $request);
-		$this->feedBl = $feedBl;
-		$this->folderBl = $folderBl;
+		$this->feedBusinessLayer = $feedBusinessLayer;
+		$this->folderBusinessLayer = $folderBusinessLayer;
 		$this->opmlExporter = $opmlExporter;
 	}
 
@@ -56,8 +58,8 @@ class ExportController extends Controller {
 	 */
 	public function opml(){
 		$user = $this->api->getUserId();
-		$feeds = $this->feedBl->findAll($user);
-		$folders = $this->folderBl->findAll($user);
+		$feeds = $this->feedBusinessLayer->findAll($user);
+		$folders = $this->folderBusinessLayer->findAll($user);
 		$opml = $this->opmlExporter->build($folders, $feeds)->saveXML();
 		return new TextDownloadResponse($opml, 'subscriptions.opml', 'text/xml');
 	}

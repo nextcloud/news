@@ -1,10 +1,10 @@
 <li ng-class="{
-		active: feedBl.isActive(feed.id), 
-		unread: feedBl.getUnreadCount(feed.id) > 0,
+		active: feedBusinessLayer.isActive(feed.id), 
+		unread: feedBusinessLayer.getUnreadCount(feed.id) > 0,
 		failed: feed.error
 	}" 
-	ng-repeat="feed in feedBl.getFeedsOfFolder(<?php p($_['folderId']); ?>)"
-	ng-show="feedBl.isVisible(feed.id) || !feed.id"
+	ng-repeat="feed in feedBusinessLayer.getFeedsOfFolder(<?php p($_['folderId']); ?>)"
+	ng-show="feedBusinessLayer.isVisible(feed.id) || !feed.id"
 	data-id="{{ feed.id }}"
 	class="feed"
 	oc-draggable="{
@@ -15,7 +15,7 @@
 		helper: 'clone'
 	}">
 	<a 	ng-style="{ backgroundImage: feed.faviconLink }"
-		ng-click="feedBl.load(feed.id)"
+		ng-click="feedBusinessLayer.load(feed.id)"
 		ng-class="{
 			'progress-icon': !feed.id,
 			'problem-icon': feed.error
@@ -30,21 +30,21 @@
 
 		<span class="unread-counter" 
 			ng-show="feed.id">
-			{{ feedBl.getUnreadCount(feed.id) }}
+			{{ feedBusinessLayer.getUnreadCount(feed.id) }}
 		</span>
 
 		<button class="svg action mark-read-icon"
-			ng-show="feedBl.getUnreadCount(feed.id) > 0 && feed.id"
-			ng-click="feedBl.markFeedRead(feed.id)"
+			ng-show="feedBusinessLayer.getUnreadCount(feed.id) > 0 && feed.id"
+			ng-click="feedBusinessLayer.markFeedRead(feed.id)"
 			title="<?php p($l->t('Mark all read')); ?>"> </button>
 		
-		<button ng-click="feedBl.delete(feed.id)"
+		<button ng-click="feedBusinessLayer.delete(feed.id)"
 			class="svg action delete-icon" 
 			title="<?php p($l->t('Delete feed')); ?>"
 			ng-show="feed.id"></button>
 
 		<button class="svg action delete-icon"
-			ng-click="feedBl.markErrorRead(feed.urlHash)"
+			ng-click="feedBusinessLayer.markErrorRead(feed.urlHash)"
 			title="<?php p($l->t('Delete website')); ?>"
 			ng-show="feed.error"></button>
 	</span>

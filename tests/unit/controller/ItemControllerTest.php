@@ -38,7 +38,7 @@ require_once(__DIR__ . "/../../classloader.php");
 class ItemControllerTest extends ControllerTestUtility {
 
 	private $api;
-	private $bl;
+	private $itemBusinessLayer;
 	private $request;
 	private $controller;
 
@@ -48,12 +48,12 @@ class ItemControllerTest extends ControllerTestUtility {
 	 */
 	public function setUp(){
 		$this->api = $this->getAPIMock();
-		$this->bl = $this->getMockBuilder('\OCA\News\Bl\ItemBl')
+		$this->itemBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\ItemBusinessLayer')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->request = new Request();
 		$this->controller = new ItemController($this->api, $this->request,
-				$this->bl);
+				$this->itemBusinessLayer);
 		$this->user = 'jackob';
 	}
 
@@ -64,7 +64,7 @@ class ItemControllerTest extends ControllerTestUtility {
 		);
 
 		$request = $this->getRequest($post);
-		return new ItemController($this->api, $request, $this->bl);
+		return new ItemController($this->api, $request, $this->itemBusinessLayer);
 	}
 
 
@@ -117,7 +117,7 @@ class ItemControllerTest extends ControllerTestUtility {
 		$this->api->expects($this->once())
 			->method('getUserId')
 			->will($this->returnValue($this->user));
-		$this->bl->expects($this->once())
+		$this->itemBusinessLayer->expects($this->once())
 			->method('read')
 			->with($url['itemId'], true, $this->user);
 
@@ -135,7 +135,7 @@ class ItemControllerTest extends ControllerTestUtility {
 		$this->api->expects($this->once())
 			->method('getUserId')
 			->will($this->returnValue($this->user));
-		$this->bl->expects($this->once())
+		$this->itemBusinessLayer->expects($this->once())
 			->method('read')
 			->with($url['itemId'], false, $this->user);
 
@@ -153,7 +153,7 @@ class ItemControllerTest extends ControllerTestUtility {
 		$this->api->expects($this->once())
 			->method('getUserId')
 			->will($this->returnValue($this->user));
-		$this->bl->expects($this->once())
+		$this->itemBusinessLayer->expects($this->once())
 			->method('star')
 			->with(
 				$this->equalTo($url['feedId']), 
@@ -176,7 +176,7 @@ class ItemControllerTest extends ControllerTestUtility {
 		$this->api->expects($this->once())
 			->method('getUserId')
 			->will($this->returnValue($this->user));
-		$this->bl->expects($this->once())
+		$this->itemBusinessLayer->expects($this->once())
 			->method('star')
 			->with(
 				$this->equalTo($url['feedId']), 
@@ -201,7 +201,7 @@ class ItemControllerTest extends ControllerTestUtility {
 		$this->api->expects($this->once())
 			->method('getUserId')
 			->will($this->returnValue($this->user));
-		$this->bl->expects($this->once())
+		$this->itemBusinessLayer->expects($this->once())
 			->method('readFeed')
 			->with($url['feedId'], $post['highestItemId'], $this->user);
 
@@ -217,7 +217,7 @@ class ItemControllerTest extends ControllerTestUtility {
 		$this->api->expects($this->once())
 			->method('getUserId')
 			->will($this->returnValue($this->user));
-		$this->bl->expects($this->once())
+		$this->itemBusinessLayer->expects($this->once())
 			->method('starredCount')
 			->with($this->user)
 			->will($this->returnValue($result['starred']));
@@ -263,7 +263,7 @@ class ItemControllerTest extends ControllerTestUtility {
 
 		$this->itemsApiExpects($post['id'], $post['type']);
 
-		$this->bl->expects($this->once())
+		$this->itemBusinessLayer->expects($this->once())
 			->method('findAll')
 			->with($post['id'], $post['type'], $post['limit'], 
 				$post['offset'], true, $this->user)
@@ -288,7 +288,7 @@ class ItemControllerTest extends ControllerTestUtility {
 
 		$this->itemsApiExpects($post['id'], $post['type']);
 		
-		$this->bl->expects($this->once())
+		$this->itemBusinessLayer->expects($this->once())
 			->method('findAllNew')
 			->with($post['id'], $post['type'], $post['updatedSince'], 
 				true, $this->user)

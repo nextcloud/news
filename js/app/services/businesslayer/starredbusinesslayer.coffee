@@ -21,11 +21,12 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-angular.module('News').factory 'StarredBl',
-['_Bl', 'StarredCount', 'Persistence', 'ActiveFeed', 'FeedType', 'ItemModel',
-(_Bl, StarredCount, Persistence, ActiveFeed, FeedType, ItemModel) ->
+angular.module('News').factory 'StarredBusinessLayer',
+['_BusinessLayer', 'StarredCount', 'Persistence', 'ActiveFeed', 'FeedType',
+'ItemModel',
+(_BusinessLayer, StarredCount, Persistence, ActiveFeed, FeedType, ItemModel) ->
 
-	class StarredBl extends _Bl
+	class StarredBusinessLayer extends _BusinessLayer
 
 		constructor: (@_starredCount, feedType,
 			persistence, activeFeed, itemModel) ->
@@ -49,6 +50,6 @@ angular.module('News').factory 'StarredBl',
 		decreaseCount: ->
 			@_starredCount.setStarredCount(@_starredCount.getStarredCount() - 1)
 
-	return new StarredBl(StarredCount, FeedType, Persistence,
+	return new StarredBusinessLayer(StarredCount, FeedType, Persistence,
 	                     ActiveFeed, ItemModel)
 ]

@@ -21,13 +21,13 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-angular.module('News').factory 'FeedBl',
-['_Bl', 'ShowAll', 'Persistence', 'ActiveFeed', 'FeedType', 'ItemModel',
-'FeedModel', 'NewLoading', '_ExistsError', 'Utils',
-(_Bl, ShowAll, Persistence, ActiveFeed, FeedType, ItemModel, FeedModel,
-NewLoading, _ExistsError, Utils) ->
+angular.module('News').factory 'FeedBusinessLayer',
+['_BusinessLayer', 'ShowAll', 'Persistence', 'ActiveFeed', 'FeedType',
+'ItemModel', 'FeedModel', 'NewLoading', '_ExistsError', 'Utils',
+(_BusinessLayer, ShowAll, Persistence, ActiveFeed, FeedType, ItemModel,
+FeedModel, NewLoading, _ExistsError, Utils) ->
 
-	class FeedBl extends _Bl
+	class FeedBusinessLayer extends _BusinessLayer
 
 		constructor: (@_showAll, @_feedModel, persistence, activeFeed, feedType,
 			          itemModel, @_newLoading, @_utils) ->
@@ -171,7 +171,7 @@ NewLoading, _ExistsError, Utils) ->
 					@_persistence.updateFeed(feed.id)
 
 
-	return new FeedBl(ShowAll, FeedModel, Persistence, ActiveFeed, FeedType,
-	                  ItemModel, NewLoading, Utils)
+	return new FeedBusinessLayer(ShowAll, FeedModel, Persistence, ActiveFeed,
+	                             FeedType, ItemModel, NewLoading, Utils)
 
 ]

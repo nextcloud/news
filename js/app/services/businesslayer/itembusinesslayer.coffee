@@ -21,14 +21,16 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-angular.module('News').factory 'ItemBl',
-['ItemModel', 'FeedModel', 'Persistence', 'ActiveFeed', 'FeedType', 'StarredBl',
-(ItemModel, FeedModel, Persistence, ActiveFeed, FeedType, StarredBl) ->
+angular.module('News').factory 'ItemBusinessLayer',
+['ItemModel', 'FeedModel', 'Persistence', 'ActiveFeed', 'FeedType',
+'StarredBusinessLayer',
+(ItemModel, FeedModel, Persistence, ActiveFeed, FeedType,
+StarredBusinessLayer) ->
 
-	class ItemBl
+	class ItemBusinessLayer
 
 		constructor: (@_itemModel, @_feedModel, @_persistence, @_activeFeed,
-		              @_feedType, @_starredBl) ->
+		              @_feedType, @_starredBusinessLayer) ->
 
 		getAll: ->
 			return @_itemModel.getAll()
@@ -59,11 +61,11 @@ angular.module('News').factory 'ItemBl',
 			item = @_itemModel.getById(itemId)
 			if item.isStarred()
 				item.setUnstarred()
-				@_starredBl.decreaseCount()
+				@_starredBusinessLayer.decreaseCount()
 				@_persistence.unstarItem(item.feedId, item.guidHash)
 			else
 				item.setStarred()
-				@_starredBl.increaseCount()
+				@_starredBusinessLayer.increaseCount()
 				@_persistence.starItem(item.feedId, item.guidHash)
 
 
@@ -107,7 +109,7 @@ angular.module('News').factory 'ItemBl',
 
 
 
-	return new ItemBl(ItemModel, FeedModel, Persistence, ActiveFeed, FeedType,
-	                  StarredBl)
+	return new ItemBusinessLayer(ItemModel, FeedModel, Persistence, ActiveFeed,
+	                             FeedType, StarredBusinessLayer)
 
 ]

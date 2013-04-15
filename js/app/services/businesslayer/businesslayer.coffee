@@ -21,9 +21,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-angular.module('News').factory '_Bl', ->
+angular.module('News').factory '_BusinessLayer', ->
 
-	class Bl
+	class BusinessLayer
 
 		constructor: (@_activeFeed, @_persistence, @_itemModel, @_type) ->
 
@@ -42,4 +42,4 @@ angular.module('News').factory '_Bl', ->
 			return @_activeFeed.getType() == @_type && @_activeFeed.getId() == id
 
 
-	return Bl
+	return BusinessLayer

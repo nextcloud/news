@@ -1,21 +1,21 @@
 <li ng-class="{
-		active: folderBl.isActive(folder.id), 
-		open: folder.opened && folderBl.hasFeeds(folder.id),
-		collapsible: folderBl.hasFeeds(folder.id),
-		unread: folderBl.getUnreadCount(folder.id) != 0,
+		active: folderBusinessLayer.isActive(folder.id), 
+		open: folder.opened && folderBusinessLayer.hasFeeds(folder.id),
+		collapsible: folderBusinessLayer.hasFeeds(folder.id),
+		unread: folderBusinessLayer.getUnreadCount(folder.id) != 0,
 		failed: folder.error
 	}" 
-	ng-repeat="folder in folderBl.getAll()"
-	ng-show="folderBl.isVisible(folder.id) || !folder.id"
+	ng-repeat="folder in folderBusinessLayer.getAll()"
+	ng-show="folderBusinessLayer.isVisible(folder.id) || !folder.id"
 	class="folder"
 	data-id="{{ folder.id }}"
 	droppable>
 	<button class="collapse" 
 			title="<?php p($l->t('Collapse'));?>"
-			ng-click="folderBl.toggleFolder(folder.id)"></button>
+			ng-click="folderBusinessLayer.toggleFolder(folder.id)"></button>
 	<a href="#" 
 	   class="title folder-icon"
-	   ng-click="folderBl.load(folder.id)"
+	   ng-click="folderBusinessLayer.load(folder.id)"
 	   ng-class="{
 			'progress-icon': !folder.id,
 			'problem-icon': folder.error
@@ -25,22 +25,22 @@
 
 	<span class="utils">
 
-		<button ng-click="folderBl.delete(folder.id)"
-				ng-hide="folderBl.hasFeeds(folder.id) || !folder.id"
+		<button ng-click="folderBusinessLayer.delete(folder.id)"
+				ng-hide="folderBusinessLayer.hasFeeds(folder.id) || !folder.id"
 				class="svg action delete-icon" 
 				title="<?php p($l->t('Delete folder')); ?>"></button>
 
 		<span class="unread-counter">
-			{{ folderBl.getUnreadCount(folder.id) }}
+			{{ folderBusinessLayer.getUnreadCount(folder.id) }}
 		</span>
 		
 		<button class="svg action mark-read-icon" 
-				ng-show="folderBl.getUnreadCount(folder.id) > 0 && folder.id"
-				ng-click="folderBl.markFolderRead(folder.id)"
+				ng-show="folderBusinessLayer.getUnreadCount(folder.id) > 0 && folder.id"
+				ng-click="folderBusinessLayer.markFolderRead(folder.id)"
 				title="<?php p($l->t('Mark all read')); ?>"></button>
 
 		<button class="svg action delete-icon"
-			ng-click="folderBl.markErrorRead(folder.name)"
+			ng-click="folderBusinessLayer.markErrorRead(folder.name)"
 			title="<?php p($l->t('Delete folder')); ?>"
 			ng-show="folder.error"></button>
 

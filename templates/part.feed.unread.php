@@ -1,26 +1,26 @@
 <li ng-class="{
-		active: subscriptionsBl.isActive(0),
-		unread: subscriptionsBl.getUnreadCount(0) > 0
+		active: subscriptionsBusinessLayer.isActive(0),
+		unread: subscriptionsBusinessLayer.getUnreadCount(0) > 0
 	}" 
-	ng-show="subscriptionsBl.isVisible(0)">
+	ng-show="subscriptionsBusinessLayer.isVisible(0)">
 	<a class="rss-icon" 
 	   href="#" 
-	   ui-if="!feedBl.isShowAll()"
-	   ng-click="subscriptionsBl.load(0)">
+	   ui-if="!feedBusinessLayer.isShowAll()"
+	   ng-click="subscriptionsBusinessLayer.load(0)">
 	   <?php p($l->t('Unread articles'))?>
 	</a>
 		<a class="rss-icon" 
 	   href="#" 
-	   ui-if="feedBl.isShowAll()"
-	   ng-click="subscriptionsBl.load(0)">
+	   ui-if="feedBusinessLayer.isShowAll()"
+	   ng-click="subscriptionsBusinessLayer.load(0)">
 	   <?php p($l->t('All articles'))?>
 	</a>
 	<span class="utils">
 		<span class="unread-counter">
-			{{ subscriptionsBl.getUnreadCount() }}
+			{{ subscriptionsBusinessLayer.getUnreadCount() }}
 		</span>
 		<button class="svg action mark-read-icon" 
-			ng-click="subscriptionsBl.markAllRead()"
+			ng-click="subscriptionsBusinessLayer.markAllRead()"
 			title="<?php p($l->t('Mark all read')) ?>"></button>
 	</span>
 </li>

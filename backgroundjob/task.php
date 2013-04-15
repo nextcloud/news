@@ -34,8 +34,8 @@ class Task {
 
 	static public function run() {
 		$container = new DIContainer();
-		$container['FeedBl']->updateAll();
-		$container['ItemBl']->autoPurgeOld();
+		$container['FeedBusinessLayer']->updateAll();
+		$container['ItemBusinessLayer']->autoPurgeOld();
 	}
 
 

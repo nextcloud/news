@@ -21,14 +21,15 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-angular.module('News').factory 'SubscriptionsBl',
-['_Bl', 'FeedBl', 'Persistence', 'ShowAll', 'ActiveFeed', 'FeedType',
-'ItemModel',
-(_Bl, FeedBl, Persistence, ShowAll, ActiveFeed, FeedType, ItemModel) ->
+angular.module('News').factory 'SubscriptionsBusinessLayer',
+['_BusinessLayer', 'FeedBusinessLayer', 'Persistence', 'ShowAll', 'ActiveFeed',
+'FeedType', 'ItemModel',
+(_BusinessLayer, FeedBusinessLayer, Persistence, ShowAll, ActiveFeed, FeedType,
+ItemModel) ->
 
-	class SubscriptionsBl extends _Bl
+	class SubscriptionsBusinessLayer extends _BusinessLayer
 
-		constructor: (@_feedBl, @_showAll, feedType,
+		constructor: (@_feedBusinessLayer, @_showAll, feedType,
 			persistence, activeFeed, itemModel) ->
 			super(activeFeed, persistence, itemModel, feedType.Subscriptions)
 
@@ -37,21 +38,21 @@ angular.module('News').factory 'SubscriptionsBl',
 				return true
 
 			if @_showAll.getShowAll()
-				return @_feedBl.getNumberOfFeeds() > 0
+				return @_feedBusinessLayer.getNumberOfFeeds() > 0
 			else
-				visible = @_feedBl.getNumberOfFeeds() > 0 &&
-				@_feedBl.getAllUnreadCount() > 0
+				visible = @_feedBusinessLayer.getNumberOfFeeds() > 0 &&
+				@_feedBusinessLayer.getAllUnreadCount() > 0
 				return visible
 
 
 		markAllRead: ->
-			@_feedBl.markAllRead()
+			@_feedBusinessLayer.markAllRead()
 
 
 		getUnreadCount: ->
-			return @_feedBl.getAllUnreadCount()
+			return @_feedBusinessLayer.getAllUnreadCount()
 
 
-	return new SubscriptionsBl(FeedBl, ShowAll, FeedType, Persistence,
-	                           ActiveFeed, ItemModel)
+	return new SubscriptionsBusinessLayer(FeedBusinessLayer, ShowAll, FeedType,
+	                                      Persistence, ActiveFeed, ItemModel)
 ]

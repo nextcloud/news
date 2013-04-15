@@ -23,37 +23,17 @@
 *
 */
 
-namespace OCA\News\Bl;
-
-use \OCA\AppFramework\Db\DoesNotExistException;
-use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
-
-use \OCA\News\Db\IMapper;
+namespace OCA\News\BusinessLayer;
 
 
-abstract class Bl {
+class BusinessLayerException extends \Exception {
 
-	protected $mapper;
-
-	public function __construct(IMapper $mapper){
-		$this->mapper = $mapper;
-	}
-
-
-	public function delete($id, $userId){
-		$entity = $this->find($id, $userId);
-		$this->mapper->delete($entity);
-	}
-
-
-	public function find($id, $userId){
-		try {
-			return $this->mapper->find($id, $userId);
-		} catch(DoesNotExistException $ex){
-			throw new BLException($ex->getMessage());
-		} catch(MultipleObjectsReturnedException $ex){
-			throw new BLException($ex->getMessage());
-		}
+	/**
+	 * Constructor
+	 * @param string $msg the error message
+	 */
+	public function __construct($msg){
+		parent::__construct($msg);
 	}
 
 }

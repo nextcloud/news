@@ -23,7 +23,7 @@
 *
 */
 
-namespace OCA\News\Bl;
+namespace OCA\News\BusinessLayer;
 
 use \OCA\AppFramework\Core\API;
 
@@ -31,7 +31,7 @@ use \OCA\News\Db\Folder;
 use \OCA\News\Db\FolderMapper;
 
 
-class FolderBl extends Bl {
+class FolderBusinessLayer extends BusinessLayer {
 
 	private $api;
 
@@ -51,13 +51,13 @@ class FolderBl extends Bl {
 		$existingFolders = $this->mapper->findByName($folderName, $userId);
 		if(count($existingFolders) > 0){
 
-			throw new BLException(
+			throw new BusinessLayerException(
 				$this->api->getTrans()->t('Can not add folder: Exists already'));
 		}
 	}
 
 	/**
-	 * @throws BLException if name exists already
+	 * @throws BusinessLayerException if name exists already
 	 */
 	public function create($folderName, $userId, $parentId=0) {
 		$this->allowNoNameTwice($folderName, $userId);
@@ -79,7 +79,7 @@ class FolderBl extends Bl {
 
 
 	/**
-	 * @throws BLException if name exists already
+	 * @throws BusinessLayerException if name exists already
 	 */
 	public function rename($folderId, $folderName, $userId){
 		$this->allowNoNameTwice($folderName, $userId);

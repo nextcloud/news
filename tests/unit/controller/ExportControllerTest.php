@@ -42,8 +42,8 @@ class ExportControllerTest extends ControllerTestUtility {
 	private $request;
 	private $controller;
 	private $user;
-	private $feedBl;
-	private $folderBl;
+	private $feedBusinessLayer;
+	private $folderBusinessLayer;
 	private $opmlExporter;
 
 	/**
@@ -51,16 +51,16 @@ class ExportControllerTest extends ControllerTestUtility {
 	 */
 	public function setUp(){
 		$this->api = $this->getAPIMock();
-		$this->feedBl = $this->getMockBuilder('\OCA\News\Bl\FeedBl')
+		$this->feedBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\FeedBusinessLayer')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->folderBl = $this->getMockBuilder('\OCA\News\Bl\FolderBl')
+		$this->folderBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\FolderBusinessLayer')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->request = new Request();
 		$this->opmlExporter = new OPMLExporter();
 		$this->controller = new ExportController($this->api, $this->request,
-			$this->feedBl, $this->folderBl, $this->opmlExporter);
+			$this->feedBusinessLayer, $this->folderBusinessLayer, $this->opmlExporter);
 		$this->user = 'john';
 	}
 
@@ -76,11 +76,11 @@ class ExportControllerTest extends ControllerTestUtility {
 		$this->api->expects($this->once())
 			->method('getUserId')
 			->will($this->returnValue($this->user));
-		$this->feedBl->expects($this->once())
+		$this->feedBusinessLayer->expects($this->once())
 			->method('findAll')
 			->with($this->equalTo($this->user))
 			->will($this->returnValue(array()));
-		$this->folderBl->expects($this->once())
+		$this->folderBusinessLayer->expects($this->once())
 			->method('findAll')
 			->with($this->equalTo($this->user))
 			->will($this->returnValue(array()));

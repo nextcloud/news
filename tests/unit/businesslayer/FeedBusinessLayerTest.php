@@ -24,7 +24,7 @@
 */
 
 
-namespace OCA\News\Bl;
+namespace OCA\News\BusinessLayer;
 
 require_once(__DIR__ . "/../../classloader.php");
 
@@ -35,10 +35,10 @@ use \OCA\News\Db\Item;
 use \OCA\News\Utility\Fetcher;
 use \OCA\News\Utility\FetcherException;
 
-class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
+class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 	private $mapper;
-	private $bl;
+	private $businessLayer;
 	private $user;
 	private $response;
 	private $fetcher;
@@ -56,7 +56,7 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->itemMapper = $this->getMockBuilder('\OCA\News\Db\ItemMapper')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->bl = new FeedBl($this->mapper, 
+		$this->businessLayer = new FeedBusinessLayer($this->mapper, 
 			$this->fetcher, $this->itemMapper, $this->api);
 		$this->user = 'jack';
 		$response = 'hi';
@@ -70,7 +70,7 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($this->response));
 
-		$result = $this->bl->findAll($this->user);
+		$result = $this->businessLayer->findAll($this->user);
 		$this->assertEquals($this->response, $result);
 	}
 
@@ -92,8 +92,8 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('fetch')
 			->with($this->equalTo($url))
 			->will($this->throwException($ex));
-		$this->setExpectedException('\OCA\News\Bl\BLException');
-		$this->bl->create($url, 1, $this->user);
+		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
+		$this->businessLayer->create($url, 1, $this->user);
 	}
 
 	public function testCreate(){
@@ -126,7 +126,7 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('insert')
 			->with($this->equalTo($return[1][0]));
 		
-		$feed = $this->bl->create($url, $folderId, $this->user);
+		$feed = $this->businessLayer->create($url, $folderId, $this->user);
 
 		$this->assertEquals($feed->getFolderId(), $folderId);
 		$this->assertEquals($feed->getUrl(), $url);
@@ -143,8 +143,8 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->mapper->expects($this->once())
 			->method('findByUrlHash')
 			->with($this->equalTo(md5($url)), $this->equalTo($this->user));
-		$this->setExpectedException('\OCA\News\Bl\BLException');
-		$this->bl->create($url, 1, $this->user);
+		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
+		$this->businessLayer->create($url, 1, $this->user);
 	}
 
 
@@ -187,7 +187,7 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->with($feed->getId(), $this->user)
 			->will($this->returnValue($feed));
 
-		$return = $this->bl->update($feed->getId(), $this->user);
+		$return = $this->businessLayer->update($feed->getId(), $this->user);
 
 		$this->assertEquals($return, $feed);
 	}
@@ -231,7 +231,7 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->with($feed->getId(), $this->user)
 			->will($this->returnValue($feed));
 
-		$return = $this->bl->update($feed->getId(), $this->user);
+		$return = $this->businessLayer->update($feed->getId(), $this->user);
 
 		$this->assertEquals($return, $feed);
 	}
@@ -281,7 +281,7 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->with($feed->getId(), $this->user)
 			->will($this->returnValue($feed));
 
-		$return = $this->bl->update($feed->getId(), $this->user);
+		$return = $this->businessLayer->update($feed->getId(), $this->user);
 
 		$this->assertEquals($return, $feed);
 		$this->assertTrue($item->isUnread());
@@ -310,10 +310,74 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->with($feed->getId(), $this->user)
 			->will($this->returnValue($feed));
 
-		$return = $this->bl->update($feed->getId(), $this->user);
+		$return = $this->businessLayer->update($feed->getId(), $this->user);
 
 		$this->assertEquals($return, $feed);
 	}
+
+
+	public function testUpdateDoesNotFindEntry() {
+		$feed = new Feed();
+		$feed->setId(3);
+		$feed->getUrl('test');
+		
+		$ex = new DoesNotExistException('');
+
+		$this->mapper->expects($this->at(0))
+			->method('find')
+			->with($this->equalTo($feed->getId()),
+					$this->equalTo($this->user))
+			->will($this->throwException($ex));
+
+		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
+		$return = $this->businessLayer->update($feed->getId(), $this->user);
+	}
+
+	
+	public function testUpdateDoesNotFindUpdatedEntry() {
+		$feed = new Feed();
+		$feed->setId(3);
+		$feed->getUrl('test');
+
+		$item = new Item();
+		$item->setGuidHash(md5('hi'));
+		$item->setPubDate(3333);
+		$item->setId(4);
+		$items = array(
+			$item
+		);
+
+		$item2 = new Item();
+		$item2->setPubDate(111);
+
+		$fetchReturn = array($feed, $items);
+		$ex = new DoesNotExistException('');
+
+		$this->mapper->expects($this->at(0))
+			->method('find')
+			->with($this->equalTo($feed->getId()),
+					$this->equalTo($this->user))
+			->will($this->returnValue($feed));
+		$this->fetcher->expects($this->once())
+			->method('fetch')
+			->will($this->returnValue($fetchReturn));
+		$this->itemMapper->expects($this->once())
+			->method('findByGuidHash')
+			->with($this->equalTo($item->getGuidHash()), 
+					$this->equalTo($feed->getId()),
+					$this->equalTo($this->user))
+			->will($this->returnValue($item2));;
+	
+		$this->mapper->expects($this->at(1))
+			->method('find')
+			->with($this->equalTo($feed->getId()),
+					$this->equalTo($this->user))
+			->will($this->throwException($ex));
+
+		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
+		$return = $this->businessLayer->update($feed->getId(), $this->user);
+	}
+
 
 	public function testMove(){
 		$feedId = 3;
@@ -331,7 +395,7 @@ class FeedBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('update')
 			->with($this->equalTo($feed));
 
-		$this->bl->move($feedId, $folderId, $this->user);
+		$this->businessLayer->move($feedId, $folderId, $this->user);
 
 		$this->assertEquals($folderId, $feed->getFolderId());
 	}

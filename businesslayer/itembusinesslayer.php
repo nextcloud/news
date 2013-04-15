@@ -23,7 +23,7 @@
 *
 */
 
-namespace OCA\News\Bl;
+namespace OCA\News\BusinessLayer;
 
 use \OCA\News\Db\Item;
 use \OCA\News\Db\ItemMapper;
@@ -31,7 +31,7 @@ use \OCA\News\Db\StatusFlag;
 use \OCA\News\Db\FeedType;
 
 
-class ItemBl extends Bl {
+class ItemBusinessLayer extends BusinessLayer {
 
 	private $statusFlag;
 	private $autoPurgeCount;

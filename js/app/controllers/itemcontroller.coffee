@@ -22,15 +22,17 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 
 angular.module('News').controller 'ItemController',
-['$scope', 'ItemBl', 'FeedModel', 'FeedLoading', 'FeedBl', 'Language',
-($scope, ItemBl, FeedModel, FeedLoading, FeedBl, Language) ->
+['$scope', 'ItemBusinessLayer', 'FeedModel', 'FeedLoading', 'FeedBusinessLayer',
+'Language',
+($scope, ItemBusinessLayer, FeedModel, FeedLoading, FeedBusinessLayer,
+Language) ->
 
 	class ItemController
 
-		constructor: (@_$scope, @_itemBl, @_feedModel, @_feedLoading,
-		              @_feedBl, @_language) ->
-			@_$scope.itemBl = @_itemBl
-			@_$scope.feedBl = @_feedBl
+		constructor: (@_$scope, @_itemBusinessLayer, @_feedModel, @_feedLoading,
+		              @_feedBusinessLayer, @_language) ->
+			@_$scope.itemBusinessLayer = @_itemBusinessLayer
+			@_$scope.feedBusinessLayer = @_feedBusinessLayer
 
 			@_$scope.isLoading = =>
 				return @_feedLoading.isLoading()
@@ -50,6 +52,6 @@ angular.module('News').controller 'ItemController',
 
 
 
-	return new ItemController($scope, ItemBl, FeedModel, FeedLoading, FeedBl,
-	                          Language)
+	return new ItemController($scope, ItemBusinessLayer, FeedModel, FeedLoading,
+	                          FeedBusinessLayer, Language)
 ]

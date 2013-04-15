@@ -23,7 +23,7 @@
 *
 */
 
-namespace OCA\News\Bl;
+namespace OCA\News\BusinessLayer;
 
 require_once(__DIR__ . "/../../classloader.php");
 
@@ -31,11 +31,11 @@ require_once(__DIR__ . "/../../classloader.php");
 use \OCA\News\Db\Folder;
 
 
-class FolderBlTest extends \OCA\AppFramework\Utility\TestUtility {
+class FolderBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 	protected $api;
 	protected $folderMapper;
-	protected $folderBl;
+	protected $folderBusinessLayer;
 
 	protected function setUp(){
 		$this->api = $this->getAPIMock();
@@ -43,7 +43,7 @@ class FolderBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			'\OCA\News\Db\FolderMapper')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->folderBl = new FolderBl($this->folderMapper, $this->api);
+		$this->folderBusinessLayer = new FolderBusinessLayer($this->folderMapper, $this->api);
 	}
 
 
@@ -55,7 +55,7 @@ class FolderBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->with($this->equalTo($userId))
 			->will($this->returnValue($return));
 
-		$result = $this->folderBl->findAll($userId);
+		$result = $this->folderBusinessLayer->findAll($userId);
 
 		$this->assertEquals($return, $result);
 	}
@@ -73,7 +73,7 @@ class FolderBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->with($this->equalTo($folder))
 			->will($this->returnValue($folder));
 
-		$result = $this->folderBl->create('hey', 'john', 5);
+		$result = $this->folderBusinessLayer->create('hey', 'john', 5);
 
 		$this->assertEquals($folder, $result);
 	}
@@ -96,8 +96,8 @@ class FolderBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->with($this->equalTo($folderName))
 			->will($this->returnValue($rows));
 
-		$this->setExpectedException('\OCA\News\Bl\BLException');
-		$result = $this->folderBl->create($folderName, 'john', 3);
+		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
+		$result = $this->folderBusinessLayer->create($folderName, 'john', 3);
 	}
 
 
@@ -113,7 +113,7 @@ class FolderBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('update')
 			->with($this->equalTo($folder));
 
-		$this->folderBl->open(3, false, '');
+		$this->folderBusinessLayer->open(3, false, '');
 
 		$this->assertFalse($folder->getOpened());
 
@@ -133,7 +133,7 @@ class FolderBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('update')
 			->with($this->equalTo($folder));
 
-		$this->folderBl->rename(3, 'bogus', '');
+		$this->folderBusinessLayer->rename(3, 'bogus', '');
 
 		$this->assertEquals('bogus', $folder->getName());		
 	}
@@ -156,8 +156,8 @@ class FolderBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->with($this->equalTo($folderName))
 			->will($this->returnValue($rows));
 
-		$this->setExpectedException('\OCA\News\Bl\BLException');
-		$result = $this->folderBl->rename(3, $folderName, 'john');
+		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
+		$result = $this->folderBusinessLayer->rename(3, $folderName, 'john');
 	}
 
 

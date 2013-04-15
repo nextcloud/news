@@ -29,16 +29,17 @@ use \OCA\AppFramework\Controller\Controller;
 use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Http\Request;
 
-use \OCA\News\Bl\ItemBl;
+use \OCA\News\BusinessLayer\ItemBusinessLayer;
 
 
 class ItemController extends Controller {
 
-	private $itemBl;
+	private $itemBusinessLayer;
 
-	public function __construct(API $api, Request $request, ItemBl $itemBl){
+	public function __construct(API $api, Request $request, 
+		                        ItemBusinessLayer $itemBusinessLayer){
 		parent::__construct($api, $request);
-		$this->itemBl = $itemBl;
+		$this->itemBusinessLayer = $itemBusinessLayer;
 	}
 
 
@@ -60,11 +61,11 @@ class ItemController extends Controller {
 		
 		if($limit !== null){
 			$offset = (int) $this->params('offset', 0);
-			$items = $this->itemBl->findAll($id, $type, (int) $limit, $offset, 
+			$items = $this->itemBusinessLayer->findAll($id, $type, (int) $limit, $offset, 
 				                            $showAll, $userId);
 		} else {
 			$updatedSince = (int) $this->params('updatedSince');
-			$items = $this->itemBl->findAllNew($id, $type, $updatedSince, 
+			$items = $this->itemBusinessLayer->findAllNew($id, $type, $updatedSince, 
 				                               $showAll, $userId);
 		}
 
@@ -83,7 +84,7 @@ class ItemController extends Controller {
 	 */
 	public function starred(){
 		$userId = $this->api->getUserId();
-		$starredCount = $this->itemBl->starredCount($userId);
+		$starredCount = $this->itemBusinessLayer->starredCount($userId);
 
 		$params = array(
 			'starred' => (int) $starredCount
@@ -98,7 +99,7 @@ class ItemController extends Controller {
 		$feedId = (int) $this->params('feedId');
 		$guidHash = $this->params('guidHash');
 
-		$this->itemBl->star($feedId, $guidHash, $isStarred, $userId);
+		$this->itemBusinessLayer->star($feedId, $guidHash, $isStarred, $userId);
 	}
 
 
@@ -130,7 +131,7 @@ class ItemController extends Controller {
 		$userId = $this->api->getUserId();
 		$itemId = (int) $this->params('itemId');
 
-		$this->itemBl->read($itemId, $isRead, $userId);
+		$this->itemBusinessLayer->read($itemId, $isRead, $userId);
 	}
 
 	/**
@@ -167,7 +168,7 @@ class ItemController extends Controller {
 		$feedId = (int) $this->params('feedId');
 		$highestItemId = (int) $this->params('highestItemId');
 
-		$this->itemBl->readFeed($feedId, $highestItemId, $userId);
+		$this->itemBusinessLayer->readFeed($feedId, $highestItemId, $userId);
 		return $this->renderJSON();
 	}
 

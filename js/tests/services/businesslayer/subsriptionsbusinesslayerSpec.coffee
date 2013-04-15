@@ -21,7 +21,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-describe 'SubscriptionsBl', ->
+describe 'SubscriptionsBusinessLayer', ->
 
 	beforeEach module 'News'
 
@@ -32,8 +32,8 @@ describe 'SubscriptionsBl', ->
 				setFeedRead: @setFeedReadSpy
 			}
 
-	beforeEach inject (@SubscriptionsBl, @ShowAll, @FeedModel, @ActiveFeed,
-		               @FeedType) =>
+	beforeEach inject (@SubscriptionsBusinessLayer, @ShowAll, @FeedModel,
+	                   @ActiveFeed, @FeedType) =>
 		@ShowAll.setShowAll(false)
 		@ActiveFeed.handle({type: @FeedType.Feed, id:0})
 
@@ -41,34 +41,34 @@ describe 'SubscriptionsBl', ->
 	it 'should be visible shows all items is set to true and there are feeds', =>
 		@FeedModel.add({id: 3, unreadCount: 5})
 
-		expect(@SubscriptionsBl.isVisible()).toBe(true)
+		expect(@SubscriptionsBusinessLayer.isVisible()).toBe(true)
 
 		@ShowAll.setShowAll(true)
-		expect(@SubscriptionsBl.isVisible()).toBe(true)
+		expect(@SubscriptionsBusinessLayer.isVisible()).toBe(true)
 
 
 	it 'should not be visible if there are no feeds', =>
-		expect(@SubscriptionsBl.isVisible()).toBe(false)
+		expect(@SubscriptionsBusinessLayer.isVisible()).toBe(false)
 
 		@ShowAll.setShowAll(true)
-		expect(@SubscriptionsBl.isVisible()).toBe(false)
+		expect(@SubscriptionsBusinessLayer.isVisible()).toBe(false)
 
 
 	it 'should not be visible if showall is false + there are no unread', =>
 		@FeedModel.add({id: 3, unreadCount: 0})
-		expect(@SubscriptionsBl.isVisible()).toBe(false)
+		expect(@SubscriptionsBusinessLayer.isVisible()).toBe(false)
 
 
 	it 'should always be visible if its the active feed', =>
 		@ActiveFeed.handle({type: @FeedType.Subscriptions, id:0})
-		expect(@SubscriptionsBl.isVisible()).toBe(true)
+		expect(@SubscriptionsBusinessLayer.isVisible()).toBe(true)
 
 
 	it 'should mark all feeds as read', =>
 		item = {id: 3, unreadCount: 132}
 		@FeedModel.add(item)
 
-		@SubscriptionsBl.markAllRead()
+		@SubscriptionsBusinessLayer.markAllRead()
 
 		expect(item.unreadCount).toBe(0)
 		expect(@setFeedReadSpy).toHaveBeenCalled()
@@ -78,6 +78,6 @@ describe 'SubscriptionsBl', ->
 		@FeedModel.add({id: 3, unreadCount: 132, urlHash: 'hoho'})
 		@FeedModel.add({id: 4, unreadCount: 12, urlHash: 'hohod'})
 
-		expect(@SubscriptionsBl.getUnreadCount()).toBe(144)
+		expect(@SubscriptionsBusinessLayer.getUnreadCount()).toBe(144)
 
 

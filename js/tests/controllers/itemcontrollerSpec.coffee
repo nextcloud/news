@@ -26,7 +26,7 @@ describe 'ItemController', ->
 
 	beforeEach module 'News'
 
-	beforeEach inject ($controller, @ItemBl, @FeedBl) =>
+	beforeEach inject ($controller, @ItemBusinessLayer, @FeedBusinessLayer) =>
 		@scope = {}
 		@persistence = {
 			getItems: ->
@@ -38,12 +38,12 @@ describe 'ItemController', ->
 		@controller = $controller('ItemController', replace)
 
 
-	it 'should make ItemBl availabe', =>
-		expect(@scope.itemBl).toBe(@ItemBl)
+	it 'should make ItemBusinessLayer availabe', =>
+		expect(@scope.itemBusinessLayer).toBe(@ItemBusinessLayer)
 
 
-	it 'should make FeedBl availabe', =>
-		expect(@scope.feedBl).toBe(@FeedBl)
+	it 'should make FeedBusinessLayer availabe', =>
+		expect(@scope.feedBusinessLayer).toBe(@FeedBusinessLayer)
 
 
 	it 'should '

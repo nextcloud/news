@@ -25,7 +25,8 @@ describe 'SettingsController', ->
 
 	beforeEach module 'News'
 
-	beforeEach inject ($controller, @FeedBl, @FolderBl, @ShowAll) =>
+	beforeEach inject ($controller, @FeedBusinessLayer, @FolderBusinessLayer,
+	                   @ShowAll) =>
 		@scope = {}
 		@replace =
 			'$scope': @scope

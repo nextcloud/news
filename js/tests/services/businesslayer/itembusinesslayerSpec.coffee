@@ -21,7 +21,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-describe 'ItemBl', ->
+describe 'ItemBusinessLayer', ->
 
 
 	beforeEach module 'News'
@@ -30,8 +30,8 @@ describe 'ItemBl', ->
 		angular.module('News').factory 'Persistence', =>
 			@persistence = {}
 
-	beforeEach inject (@ItemModel, @ItemBl, @StatusFlag, @ActiveFeed
-	                   @FeedType, @FeedModel, @StarredBl) =>
+	beforeEach inject (@ItemModel, @ItemBusinessLayer, @StatusFlag, @ActiveFeed
+	                   @FeedType, @FeedModel, @StarredBusinessLayer) =>
 		@item1 = {id: 5, title: 'hi', unreadCount:134, urlHash: 'a3', folderId: 3}
 		@FeedModel.add(@item1)
 
@@ -45,7 +45,7 @@ describe 'ItemBl', ->
 		@ItemModel.add(item2)
 		@ItemModel.add(item3)
 
-		items = @ItemBl.getAll()
+		items = @ItemBusinessLayer.getAll()
 
 		expect(items).toContain(item1)
 		expect(items).toContain(item2)
@@ -54,26 +54,26 @@ describe 'ItemBl', ->
 
 	it 'should tell if no feed is active', =>
 		@ActiveFeed.handle({type: @FeedType.Folder, id: 0})
-		expect(@ItemBl.noFeedActive()).toBe(true)
+		expect(@ItemBusinessLayer.noFeedActive()).toBe(true)
 
 		@ActiveFeed.handle({type: @FeedType.Subscriptions, id: 0})
-		expect(@ItemBl.noFeedActive()).toBe(true)
+		expect(@ItemBusinessLayer.noFeedActive()).toBe(true)
 
 		@ActiveFeed.handle({type: @FeedType.Starred, id: 0})
-		expect(@ItemBl.noFeedActive()).toBe(true)
+		expect(@ItemBusinessLayer.noFeedActive()).toBe(true)
 
 		@ActiveFeed.handle({type: @FeedType.Shared, id: 0})
-		expect(@ItemBl.noFeedActive()).toBe(true)
+		expect(@ItemBusinessLayer.noFeedActive()).toBe(true)
 
 		@ActiveFeed.handle({type: @FeedType.Feed, id: 0})
-		expect(@ItemBl.noFeedActive()).toBe(false)
+		expect(@ItemBusinessLayer.noFeedActive()).toBe(false)
 
 
 	it 'should return the correct feed title', =>
 		item2 = {id: 2, feedId: 5, guidHash: 'a3'}
 		@ItemModel.add(item2)
 
-		expect(@ItemBl.getFeedTitle(2)).toBe('hi')
+		expect(@ItemBusinessLayer.getFeedTitle(2)).toBe('hi')
 
 
 	it 'should set an item unstarred', =>
@@ -83,10 +83,10 @@ describe 'ItemBl', ->
 		@ItemModel.add(item2)
 		item2.setStarred()
 
-		@ItemBl.toggleStarred(2)
+		@ItemBusinessLayer.toggleStarred(2)
 
 		expect(item2.isStarred()).toBe(false)
-		expect(@StarredBl.getUnreadCount()).toBe(-1)
+		expect(@StarredBusinessLayer.getUnreadCount()).toBe(-1)
 		expect(@persistence.unstarItem).toHaveBeenCalledWith(5, 'a3')
 
 
@@ -97,10 +97,10 @@ describe 'ItemBl', ->
 		@ItemModel.add(item2)
 		item2.setUnstarred()
 
-		@ItemBl.toggleStarred(2)
+		@ItemBusinessLayer.toggleStarred(2)
 
 		expect(item2.isStarred()).toBe(true)
-		expect(@StarredBl.getUnreadCount()).toBe(1)
+		expect(@StarredBusinessLayer.getUnreadCount()).toBe(1)
 		expect(@persistence.starItem).toHaveBeenCalledWith(5, 'a3')
 
 
@@ -111,7 +111,7 @@ describe 'ItemBl', ->
 		@ItemModel.add(item)
 		item.setUnread()
 
-		@ItemBl.setRead(2)
+		@ItemBusinessLayer.setRead(2)
 
 		expect(item.isRead()).toBe(true)
 		expect(@persistence.readItem).toHaveBeenCalledWith(2)
@@ -124,19 +124,19 @@ describe 'ItemBl', ->
 		@ItemModel.add(item)
 		item.setRead()
 
-		@ItemBl.setRead(2)
+		@ItemBusinessLayer.setRead(2)
 		expect(@persistence.readItem).not.toHaveBeenCalled()
 
 
 	it 'should return false when item kept unread does not exist', =>
-		expect(@ItemBl.isKeptUnread(2)).toBe(false)
+		expect(@ItemBusinessLayer.isKeptUnread(2)).toBe(false)
 
 
 	it 'should return false if an item is not kept unread', =>
 		item = {id: 2, feedId: 5, guidHash: 'a3', status: 0}
 		@ItemModel.add(item)
 
-		expect(@ItemBl.isKeptUnread(2)).toBe(false)
+		expect(@ItemBusinessLayer.isKeptUnread(2)).toBe(false)
 
 
 	it 'should toggle an item as kept unread', =>
@@ -145,13 +145,13 @@ describe 'ItemBl', ->
 		item = {id: 2, feedId: 5, guidHash: 'a3', status: 0}
 		@ItemModel.add(item)
 
-		expect(@ItemBl.isKeptUnread(2)).toBe(false)
+		expect(@ItemBusinessLayer.isKeptUnread(2)).toBe(false)
 
-		@ItemBl.toggleKeepUnread(2)
-		expect(@ItemBl.isKeptUnread(2)).toBe(true)
+		@ItemBusinessLayer.toggleKeepUnread(2)
+		expect(@ItemBusinessLayer.isKeptUnread(2)).toBe(true)
 
-		@ItemBl.toggleKeepUnread(2)
-		expect(@ItemBl.isKeptUnread(2)).toBe(false)
+		@ItemBusinessLayer.toggleKeepUnread(2)
+		expect(@ItemBusinessLayer.isKeptUnread(2)).toBe(false)
 
 
 	it 'should set an item as unread', =>
@@ -161,7 +161,7 @@ describe 'ItemBl', ->
 		@ItemModel.add(item)
 		item.setRead()
 
-		@ItemBl.setUnread(2)
+		@ItemBusinessLayer.setUnread(2)
 
 		expect(item.isRead()).toBe(false)
 		expect(@persistence.unreadItem).toHaveBeenCalledWith(2)
@@ -174,7 +174,7 @@ describe 'ItemBl', ->
 		@ItemModel.add(item)
 		item.setUnread()
 
-		@ItemBl.setUnread(2)
+		@ItemBusinessLayer.setUnread(2)
 
 		expect(item.isRead()).toBe(false)
 		expect(@persistence.unreadItem).not.toHaveBeenCalled()
@@ -187,7 +187,7 @@ describe 'ItemBl', ->
 		@ItemModel.add(item)
 		item.setRead()
 
-		@ItemBl.toggleKeepUnread(2)
+		@ItemBusinessLayer.toggleKeepUnread(2)
 
 		expect(item.isRead()).toBe(false)
 		expect(@persistence.unreadItem).toHaveBeenCalledWith(2)
@@ -200,7 +200,7 @@ describe 'ItemBl', ->
 		@ItemModel.add(item)
 		item.setUnread()
 
-		@ItemBl.setRead(2)
+		@ItemBusinessLayer.setRead(2)
 
 		expect(@item1.unreadCount).toBe(133)
 
@@ -212,6 +212,6 @@ describe 'ItemBl', ->
 		@ItemModel.add(item)
 		item.setRead()
 
-		@ItemBl.setUnread(2)
+		@ItemBusinessLayer.setUnread(2)
 
 		expect(@item1.unreadCount).toBe(135)

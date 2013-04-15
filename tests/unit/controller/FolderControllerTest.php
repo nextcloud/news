@@ -32,7 +32,7 @@ use \OCA\AppFramework\Db\DoesNotExistException;
 use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
 
 use \OCA\News\Db\Folder;
-use \OCA\News\Bl\BLException;
+use \OCA\News\BusinessLayer\BusinessLayerException;
 
 require_once(__DIR__ . "/../../classloader.php");
 
@@ -40,7 +40,7 @@ require_once(__DIR__ . "/../../classloader.php");
 class FolderControllerTest extends ControllerTestUtility {
 
 	private $api;
-	private $bl;
+	private $folderBusinessLayer;
 	private $request;
 	private $controller;
 
@@ -50,12 +50,12 @@ class FolderControllerTest extends ControllerTestUtility {
 	 */
 	public function setUp(){
 		$this->api = $this->getAPIMock();
-		$this->bl = $this->getMockBuilder('\OCA\News\Bl\FolderBl')
+		$this->folderBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\FolderBusinessLayer')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->request = new Request();
 		$this->controller = new FolderController($this->api, $this->request,
-				$this->bl);
+				$this->folderBusinessLayer);
 		$this->user = 'jack';
 	}
 
@@ -73,7 +73,7 @@ class FolderControllerTest extends ControllerTestUtility {
 		);
 
 		$request = $this->getRequest($post);
-		return new FolderController($this->api, $request, $this->bl);
+		return new FolderController($this->api, $request, $this->folderBusinessLayer);
 	}
 
 	public function testFoldersAnnotations(){
@@ -112,7 +112,7 @@ class FolderControllerTest extends ControllerTestUtility {
 			new Folder(),
 			new Folder(),
 		);
-		$this->bl->expects($this->once())
+		$this->folderBusinessLayer->expects($this->once())
 					->method('findAll')
 					->will($this->returnValue($return));
 
@@ -132,7 +132,7 @@ class FolderControllerTest extends ControllerTestUtility {
 		$this->api->expects($this->once())
 			->method('getUserId')
 			->will($this->returnValue($this->user));
-		$this->bl->expects($this->once())
+		$this->folderBusinessLayer->expects($this->once())
 			->method('open')
 			->with($this->equalTo($url['folderId']), 
 				$this->equalTo(true), $this->equalTo($this->user));
@@ -150,7 +150,7 @@ class FolderControllerTest extends ControllerTestUtility {
 		$this->api->expects($this->once())
 			->method('getUserId')
 			->will($this->returnValue($this->user));
-		$this->bl->expects($this->once())
+		$this->folderBusinessLayer->expects($this->once())
 			->method('open')
 			->with($this->equalTo($url['folderId']), 
 				$this->equalTo(false), $this->equalTo($this->user));
@@ -171,7 +171,7 @@ class FolderControllerTest extends ControllerTestUtility {
 		$this->api->expects($this->once())
 			->method('getUserId')
 			->will($this->returnValue($this->user));
-		$this->bl->expects($this->once())
+		$this->folderBusinessLayer->expects($this->once())
 			->method('create')
 			->with($this->equalTo($post['folderName']), 
 				$this->equalTo($this->user))
@@ -186,8 +186,8 @@ class FolderControllerTest extends ControllerTestUtility {
 
 	public function testCreateReturnsErrorForInvalidCreate(){
 		$msg = 'except';
-		$ex = new BLException($msg);
-		$this->bl->expects($this->once())
+		$ex = new BusinessLayerException($msg);
+		$this->folderBusinessLayer->expects($this->once())
 			->method('create')
 			->will($this->throwException($ex));
 
@@ -207,7 +207,7 @@ class FolderControllerTest extends ControllerTestUtility {
 		$this->api->expects($this->once())
 			->method('getUserId')
 			->will($this->returnValue($this->user));
-		$this->bl->expects($this->once())
+		$this->folderBusinessLayer->expects($this->once())
 			->method('delete')
 			->with($this->equalTo($url['folderId']), 
 				$this->equalTo($this->user));
@@ -229,7 +229,7 @@ class FolderControllerTest extends ControllerTestUtility {
 		$this->api->expects($this->once())
 			->method('getUserId')
 			->will($this->returnValue($this->user));
-		$this->bl->expects($this->once())
+		$this->folderBusinessLayer->expects($this->once())
 			->method('rename')
 			->with($this->equalTo($url['folderId']),
 				$this->equalTo($post['folderName']), 
@@ -245,8 +245,8 @@ class FolderControllerTest extends ControllerTestUtility {
 
 	public function testRenameReturnsErrorForInvalidCreate(){
 		$msg = 'except';
-		$ex = new BLException($msg);
-		$this->bl->expects($this->once())
+		$ex = new BusinessLayerException($msg);
+		$this->folderBusinessLayer->expects($this->once())
 			->method('rename')
 			->will($this->throwException($ex));
 

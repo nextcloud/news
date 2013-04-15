@@ -47,10 +47,10 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
   });
 
   angular.module('News').run([
-    'Persistence', 'Config', 'FeedBl', function(Persistence, Config, FeedBl) {
+    'Persistence', 'Config', 'FeedBusinessLayer', function(Persistence, Config, FeedBusinessLayer) {
       Persistence.init();
       return setInterval(function() {
-        return FeedBl.updateFeeds();
+        return FeedBusinessLayer.updateFeeds();
       }, Config.feedUpdateInterval);
     }
   ]);
@@ -218,26 +218,26 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 (function() {
   angular.module('News').controller('FeedController', [
-    '$scope', '_ExistsError', 'Persistence', 'FolderBl', 'FeedBl', 'SubscriptionsBl', 'StarredBl', 'unreadCountFormatter', function($scope, _ExistsError, Persistence, FolderBl, FeedBl, SubscriptionsBl, StarredBl, unreadCountFormatter) {
+    '$scope', '_ExistsError', 'Persistence', 'FolderBusinessLayer', 'FeedBusinessLayer', 'SubscriptionsBusinessLayer', 'StarredBusinessLayer', 'unreadCountFormatter', function($scope, _ExistsError, Persistence, FolderBusinessLayer, FeedBusinessLayer, SubscriptionsBusinessLayer, StarredBusinessLayer, unreadCountFormatter) {
       var FeedController;
 
       FeedController = (function() {
-        function FeedController(_$scope, _persistence, _folderBl, _feedBl, _subscriptionsBl, _starredBl, _unreadCountFormatter) {
+        function FeedController(_$scope, _persistence, _folderBusinessLayer, _feedBusinessLayer, _subscriptionsBusinessLayer, _starredBusinessLayer, _unreadCountFormatter) {
           var _this = this;
 
           this._$scope = _$scope;
           this._persistence = _persistence;
-          this._folderBl = _folderBl;
-          this._feedBl = _feedBl;
-          this._subscriptionsBl = _subscriptionsBl;
-          this._starredBl = _starredBl;
+          this._folderBusinessLayer = _folderBusinessLayer;
+          this._feedBusinessLayer = _feedBusinessLayer;
+          this._subscriptionsBusinessLayer = _subscriptionsBusinessLayer;
+          this._starredBusinessLayer = _starredBusinessLayer;
           this._unreadCountFormatter = _unreadCountFormatter;
           this._isAddingFolder = false;
           this._isAddingFeed = false;
-          this._$scope.folderBl = this._folderBl;
-          this._$scope.feedBl = this._feedBl;
-          this._$scope.subscriptionsBl = this._subscriptionsBl;
-          this._$scope.starredBl = this._starredBl;
+          this._$scope.folderBusinessLayer = this._folderBusinessLayer;
+          this._$scope.feedBusinessLayer = this._feedBusinessLayer;
+          this._$scope.subscriptionsBusinessLayer = this._subscriptionsBusinessLayer;
+          this._$scope.starredBusinessLayer = this._starredBusinessLayer;
           this._$scope.unreadCountFormatter = this._unreadCountFormatter;
           this._$scope.isAddingFolder = function() {
             return _this._isAddingFolder;
@@ -256,12 +256,12 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             try {
               _this._isAddingFeed = true;
               if (parentFolderId !== 0) {
-                _this._folderBl.open(parentFolderId);
+                _this._folderBusinessLayer.open(parentFolderId);
               }
-              return _this._feedBl.create(feedUrl, parentFolderId, function(data) {
+              return _this._feedBusinessLayer.create(feedUrl, parentFolderId, function(data) {
                 _this._$scope.feedUrl = '';
                 _this._isAddingFeed = false;
-                return _this._feedBl.load(data['feeds'][0].id);
+                return _this._feedBusinessLayer.load(data['feeds'][0].id);
               }, function() {
                 return _this._isAddingFeed = false;
               });
@@ -282,14 +282,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             _this._$scope.folderExistsError = false;
             try {
               _this._isAddingFolder = true;
-              return _this._folderBl.create(folderName, function(data) {
+              return _this._folderBusinessLayer.create(folderName, function(data) {
                 var activeId;
 
                 _this._$scope.folderName = '';
                 _this._$scope.addNewFolder = false;
                 _this._isAddingFolder = false;
                 activeId = data['folders'][0].id;
-                return _this._$scope.folderId = _this._folderBl.getById(activeId);
+                return _this._$scope.folderId = _this._folderBusinessLayer.getById(activeId);
               }, function() {
                 return _this._isAddingFolder = false;
               });
@@ -305,14 +305,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             }
           };
           this._$scope.$on('moveFeedToFolder', function(scope, data) {
-            return _this._feedBl.move(data.feedId, data.folderId);
+            return _this._feedBusinessLayer.move(data.feedId, data.folderId);
           });
         }
 
         return FeedController;
 
       })();
-      return new FeedController($scope, Persistence, FolderBl, FeedBl, SubscriptionsBl, StarredBl, unreadCountFormatter);
+      return new FeedController($scope, Persistence, FolderBusinessLayer, FeedBusinessLayer, SubscriptionsBusinessLayer, StarredBusinessLayer, unreadCountFormatter);
     }
   ]);
 
@@ -343,21 +343,21 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 (function() {
   angular.module('News').controller('ItemController', [
-    '$scope', 'ItemBl', 'FeedModel', 'FeedLoading', 'FeedBl', 'Language', function($scope, ItemBl, FeedModel, FeedLoading, FeedBl, Language) {
+    '$scope', 'ItemBusinessLayer', 'FeedModel', 'FeedLoading', 'FeedBusinessLayer', 'Language', function($scope, ItemBusinessLayer, FeedModel, FeedLoading, FeedBusinessLayer, Language) {
       var ItemController;
 
       ItemController = (function() {
-        function ItemController(_$scope, _itemBl, _feedModel, _feedLoading, _feedBl, _language) {
+        function ItemController(_$scope, _itemBusinessLayer, _feedModel, _feedLoading, _feedBusinessLayer, _language) {
           var _this = this;
 
           this._$scope = _$scope;
-          this._itemBl = _itemBl;
+          this._itemBusinessLayer = _itemBusinessLayer;
           this._feedModel = _feedModel;
           this._feedLoading = _feedLoading;
-          this._feedBl = _feedBl;
+          this._feedBusinessLayer = _feedBusinessLayer;
           this._language = _language;
-          this._$scope.itemBl = this._itemBl;
-          this._$scope.feedBl = this._feedBl;
+          this._$scope.itemBusinessLayer = this._itemBusinessLayer;
+          this._$scope.feedBusinessLayer = this._feedBusinessLayer;
           this._$scope.isLoading = function() {
             return _this._feedLoading.isLoading();
           };
@@ -383,7 +383,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         return ItemController;
 
       })();
-      return new ItemController($scope, ItemBl, FeedModel, FeedLoading, FeedBl, Language);
+      return new ItemController($scope, ItemBusinessLayer, FeedModel, FeedLoading, FeedBusinessLayer, Language);
     }
   ]);
 
@@ -414,17 +414,17 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 (function() {
   angular.module('News').controller('SettingsController', [
-    '$scope', 'FeedBl', 'FolderBl', 'ShowAll', function($scope, FeedBl, FolderBl, ShowAll) {
+    '$scope', 'FeedBusinessLayer', 'FolderBusinessLayer', 'ShowAll', function($scope, FeedBusinessLayer, FolderBusinessLayer, ShowAll) {
       var _this = this;
 
-      $scope.feedBl = FeedBl;
+      $scope.feedBusinessLayer = FeedBusinessLayer;
       return $scope["import"] = function(fileContent) {
         var error;
 
         $scope.error = false;
         ShowAll.setShowAll(true);
         try {
-          return FolderBl["import"](fileContent);
+          return FolderBusinessLayer["import"](fileContent);
         } catch (_error) {
           error = _error;
           console.error(error);
@@ -517,18 +517,18 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 
 (function() {
-  angular.module('News').factory('_Bl', function() {
-    var Bl;
+  angular.module('News').factory('_BusinessLayer', function() {
+    var BusinessLayer;
 
-    Bl = (function() {
-      function Bl(_activeFeed, _persistence, _itemModel, _type) {
+    BusinessLayer = (function() {
+      function BusinessLayer(_activeFeed, _persistence, _itemModel, _type) {
         this._activeFeed = _activeFeed;
         this._persistence = _persistence;
         this._itemModel = _itemModel;
         this._type = _type;
       }
 
-      Bl.prototype.load = function(id) {
+      BusinessLayer.prototype.load = function(id) {
         var lastModified;
 
         if (this._type !== this._activeFeed.getType() || id !== this._activeFeed.getId()) {
@@ -544,14 +544,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         }
       };
 
-      Bl.prototype.isActive = function(id) {
+      BusinessLayer.prototype.isActive = function(id) {
         return this._activeFeed.getType() === this._type && this._activeFeed.getId() === id;
       };
 
-      return Bl;
+      return BusinessLayer;
 
     })();
-    return Bl;
+    return BusinessLayer;
   });
 
 }).call(this);
@@ -583,43 +583,43 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  angular.module('News').factory('FeedBl', [
-    '_Bl', 'ShowAll', 'Persistence', 'ActiveFeed', 'FeedType', 'ItemModel', 'FeedModel', 'NewLoading', '_ExistsError', 'Utils', function(_Bl, ShowAll, Persistence, ActiveFeed, FeedType, ItemModel, FeedModel, NewLoading, _ExistsError, Utils) {
-      var FeedBl;
+  angular.module('News').factory('FeedBusinessLayer', [
+    '_BusinessLayer', 'ShowAll', 'Persistence', 'ActiveFeed', 'FeedType', 'ItemModel', 'FeedModel', 'NewLoading', '_ExistsError', 'Utils', function(_BusinessLayer, ShowAll, Persistence, ActiveFeed, FeedType, ItemModel, FeedModel, NewLoading, _ExistsError, Utils) {
+      var FeedBusinessLayer;
 
-      FeedBl = (function(_super) {
-        __extends(FeedBl, _super);
+      FeedBusinessLayer = (function(_super) {
+        __extends(FeedBusinessLayer, _super);
 
-        function FeedBl(_showAll, _feedModel, persistence, activeFeed, feedType, itemModel, _newLoading, _utils) {
+        function FeedBusinessLayer(_showAll, _feedModel, persistence, activeFeed, feedType, itemModel, _newLoading, _utils) {
           this._showAll = _showAll;
           this._feedModel = _feedModel;
           this._newLoading = _newLoading;
           this._utils = _utils;
-          FeedBl.__super__.constructor.call(this, activeFeed, persistence, itemModel, feedType.Feed);
+          FeedBusinessLayer.__super__.constructor.call(this, activeFeed, persistence, itemModel, feedType.Feed);
         }
 
-        FeedBl.prototype.getUnreadCount = function(feedId) {
+        FeedBusinessLayer.prototype.getUnreadCount = function(feedId) {
           return this._feedModel.getFeedUnreadCount(feedId);
         };
 
-        FeedBl.prototype.getFeedsOfFolder = function(folderId) {
+        FeedBusinessLayer.prototype.getFeedsOfFolder = function(folderId) {
           return this._feedModel.getAllOfFolder(folderId);
         };
 
-        FeedBl.prototype.getFolderUnreadCount = function(folderId) {
+        FeedBusinessLayer.prototype.getFolderUnreadCount = function(folderId) {
           return this._feedModel.getFolderUnreadCount(folderId);
         };
 
-        FeedBl.prototype.getAllUnreadCount = function() {
+        FeedBusinessLayer.prototype.getAllUnreadCount = function() {
           return this._feedModel.getUnreadCount();
         };
 
-        FeedBl.prototype["delete"] = function(feedId) {
+        FeedBusinessLayer.prototype["delete"] = function(feedId) {
           this._feedModel.removeById(feedId);
           return this._persistence.deleteFeed(feedId);
         };
 
-        FeedBl.prototype.markFeedRead = function(feedId) {
+        FeedBusinessLayer.prototype.markFeedRead = function(feedId) {
           var feed, highestItemId, item, _i, _len, _ref, _results;
 
           feed = this._feedModel.getById(feedId);
@@ -637,7 +637,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           }
         };
 
-        FeedBl.prototype.markAllRead = function() {
+        FeedBusinessLayer.prototype.markAllRead = function() {
           var feed, _i, _len, _ref, _results;
 
           _ref = this._feedModel.getAll();
@@ -649,11 +649,11 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return _results;
         };
 
-        FeedBl.prototype.getNumberOfFeeds = function() {
+        FeedBusinessLayer.prototype.getNumberOfFeeds = function() {
           return this._feedModel.size();
         };
 
-        FeedBl.prototype.isVisible = function(feedId) {
+        FeedBusinessLayer.prototype.isVisible = function(feedId) {
           if (this.isActive(feedId) || this._showAll.getShowAll()) {
             return true;
           } else {
@@ -661,7 +661,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           }
         };
 
-        FeedBl.prototype.move = function(feedId, folderId) {
+        FeedBusinessLayer.prototype.move = function(feedId, folderId) {
           var feed;
 
           feed = this._feedModel.getById(feedId);
@@ -675,7 +675,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           }
         };
 
-        FeedBl.prototype.setShowAll = function(showAll) {
+        FeedBusinessLayer.prototype.setShowAll = function(showAll) {
           var callback,
             _this = this;
 
@@ -694,15 +694,15 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           }
         };
 
-        FeedBl.prototype.isShowAll = function() {
+        FeedBusinessLayer.prototype.isShowAll = function() {
           return this._showAll.getShowAll();
         };
 
-        FeedBl.prototype.getAll = function() {
+        FeedBusinessLayer.prototype.getAll = function() {
           return this._feedModel.getAll();
         };
 
-        FeedBl.prototype.getFeedLink = function(feedId) {
+        FeedBusinessLayer.prototype.getFeedLink = function(feedId) {
           var feed;
 
           feed = this._feedModel.getById(feedId);
@@ -711,7 +711,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           }
         };
 
-        FeedBl.prototype.create = function(url, parentId, onSuccess, onFailure) {
+        FeedBusinessLayer.prototype.create = function(url, parentId, onSuccess, onFailure) {
           var feed, success, urlHash,
             _this = this;
 
@@ -755,11 +755,11 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return this._persistence.createFeed(url, parentId, success);
         };
 
-        FeedBl.prototype.markErrorRead = function(urlHash) {
+        FeedBusinessLayer.prototype.markErrorRead = function(urlHash) {
           return this._feedModel.removeByUrlHash(urlHash);
         };
 
-        FeedBl.prototype.updateFeeds = function() {
+        FeedBusinessLayer.prototype.updateFeeds = function() {
           var feed, _i, _len, _ref, _results;
 
           _ref = this._feedModel.getAll();
@@ -775,10 +775,10 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return _results;
         };
 
-        return FeedBl;
+        return FeedBusinessLayer;
 
-      })(_Bl);
-      return new FeedBl(ShowAll, FeedModel, Persistence, ActiveFeed, FeedType, ItemModel, NewLoading, Utils);
+      })(_BusinessLayer);
+      return new FeedBusinessLayer(ShowAll, FeedModel, Persistence, ActiveFeed, FeedType, ItemModel, NewLoading, Utils);
     }
   ]);
 
@@ -811,36 +811,36 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  angular.module('News').factory('FolderBl', [
-    '_Bl', 'FolderModel', 'FeedBl', 'Persistence', 'FeedType', 'ActiveFeed', 'ItemModel', 'ShowAll', '_ExistsError', 'OPMLParser', function(_Bl, FolderModel, FeedBl, Persistence, FeedType, ActiveFeed, ItemModel, ShowAll, _ExistsError, OPMLParser) {
-      var FolderBl;
+  angular.module('News').factory('FolderBusinessLayer', [
+    '_BusinessLayer', 'FolderModel', 'FeedBusinessLayer', 'Persistence', 'FeedType', 'ActiveFeed', 'ItemModel', 'ShowAll', '_ExistsError', 'OPMLParser', function(_BusinessLayer, FolderModel, FeedBusinessLayer, Persistence, FeedType, ActiveFeed, ItemModel, ShowAll, _ExistsError, OPMLParser) {
+      var FolderBusinessLayer;
 
-      FolderBl = (function(_super) {
-        __extends(FolderBl, _super);
+      FolderBusinessLayer = (function(_super) {
+        __extends(FolderBusinessLayer, _super);
 
-        function FolderBl(_folderModel, _feedBl, _showAll, activeFeed, persistence, _feedType, itemModel, _opmlParser) {
+        function FolderBusinessLayer(_folderModel, _feedBusinessLayer, _showAll, activeFeed, persistence, _feedType, itemModel, _opmlParser) {
           this._folderModel = _folderModel;
-          this._feedBl = _feedBl;
+          this._feedBusinessLayer = _feedBusinessLayer;
           this._showAll = _showAll;
           this._feedType = _feedType;
           this._opmlParser = _opmlParser;
-          FolderBl.__super__.constructor.call(this, activeFeed, persistence, itemModel, this._feedType.Folder);
+          FolderBusinessLayer.__super__.constructor.call(this, activeFeed, persistence, itemModel, this._feedType.Folder);
         }
 
-        FolderBl.prototype.getById = function(folderId) {
+        FolderBusinessLayer.prototype.getById = function(folderId) {
           return this._folderModel.getById(folderId);
         };
 
-        FolderBl.prototype["delete"] = function(folderId) {
+        FolderBusinessLayer.prototype["delete"] = function(folderId) {
           this._folderModel.removeById(folderId);
           return this._persistence.deleteFolder(folderId);
         };
 
-        FolderBl.prototype.hasFeeds = function(folderId) {
-          return this._feedBl.getFeedsOfFolder(folderId).length;
+        FolderBusinessLayer.prototype.hasFeeds = function(folderId) {
+          return this._feedBusinessLayer.getFeedsOfFolder(folderId).length;
         };
 
-        FolderBl.prototype.open = function(folderId) {
+        FolderBusinessLayer.prototype.open = function(folderId) {
           var folder;
 
           folder = this._folderModel.getById(folderId);
@@ -852,7 +852,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           }
         };
 
-        FolderBl.prototype.toggleFolder = function(folderId) {
+        FolderBusinessLayer.prototype.toggleFolder = function(folderId) {
           var folder;
 
           folder = this._folderModel.getById(folderId);
@@ -866,33 +866,33 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           }
         };
 
-        FolderBl.prototype.markFolderRead = function(folderId) {
+        FolderBusinessLayer.prototype.markFolderRead = function(folderId) {
           var feed, _i, _len, _ref, _results;
 
-          _ref = this._feedBl.getFeedsOfFolder(folderId);
+          _ref = this._feedBusinessLayer.getFeedsOfFolder(folderId);
           _results = [];
           for (_i = 0, _len = _ref.length; _i < _len; _i++) {
             feed = _ref[_i];
-            _results.push(this._feedBl.markFeedRead(feed.id));
+            _results.push(this._feedBusinessLayer.markFeedRead(feed.id));
           }
           return _results;
         };
 
-        FolderBl.prototype.getUnreadCount = function(folderId) {
-          return this._feedBl.getFolderUnreadCount(folderId);
+        FolderBusinessLayer.prototype.getUnreadCount = function(folderId) {
+          return this._feedBusinessLayer.getFolderUnreadCount(folderId);
         };
 
-        FolderBl.prototype.isVisible = function(folderId) {
+        FolderBusinessLayer.prototype.isVisible = function(folderId) {
           var feed, _i, _len, _ref;
 
           if (this._showAll.getShowAll()) {
             return true;
           } else {
-            if (this.isActive(folderId) || this._feedBl.getFolderUnreadCount(folderId) > 0) {
+            if (this.isActive(folderId) || this._feedBusinessLayer.getFolderUnreadCount(folderId) > 0) {
               return true;
             }
             if (this._activeFeed.getType() === this._feedType.Feed) {
-              _ref = this._feedBl.getFeedsOfFolder(folderId);
+              _ref = this._feedBusinessLayer.getFeedsOfFolder(folderId);
               for (_i = 0, _len = _ref.length; _i < _len; _i++) {
                 feed = _ref[_i];
                 if (feed.id === this._activeFeed.getId()) {
@@ -904,11 +904,11 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           }
         };
 
-        FolderBl.prototype.getAll = function() {
+        FolderBusinessLayer.prototype.getAll = function() {
           return this._folderModel.getAll();
         };
 
-        FolderBl.prototype.create = function(folderName, onSuccess, onFailure) {
+        FolderBusinessLayer.prototype.create = function(folderName, onSuccess, onFailure) {
           var folder, success,
             _this = this;
 
@@ -943,18 +943,18 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return this._persistence.createFolder(folderName, 0, success);
         };
 
-        FolderBl.prototype.markErrorRead = function(folderName) {
+        FolderBusinessLayer.prototype.markErrorRead = function(folderName) {
           return this._folderModel.removeByName(folderName);
         };
 
-        FolderBl.prototype["import"] = function(xml) {
+        FolderBusinessLayer.prototype["import"] = function(xml) {
           var opml;
 
           opml = this._opmlParser.parseXML(xml);
           return this._importElement(opml, 0);
         };
 
-        FolderBl.prototype._importElement = function(opml, parentFolderId) {
+        FolderBusinessLayer.prototype._importElement = function(opml, parentFolderId) {
           var error, item, _i, _len, _ref, _results,
             _this = this;
 
@@ -984,7 +984,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             } else {
               try {
                 _results.push((function(item) {
-                  return _this._feedBl.create(item.getUrl(), parentFolderId);
+                  return _this._feedBusinessLayer.create(item.getUrl(), parentFolderId);
                 })(item));
               } catch (_error) {
                 error = _error;
@@ -999,10 +999,10 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return _results;
         };
 
-        return FolderBl;
+        return FolderBusinessLayer;
 
-      })(_Bl);
-      return new FolderBl(FolderModel, FeedBl, ShowAll, ActiveFeed, Persistence, FeedType, ItemModel, OPMLParser);
+      })(_BusinessLayer);
+      return new FolderBusinessLayer(FolderModel, FeedBusinessLayer, ShowAll, ActiveFeed, Persistence, FeedType, ItemModel, OPMLParser);
     }
   ]);
 
@@ -1032,29 +1032,29 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 
 (function() {
-  angular.module('News').factory('ItemBl', [
-    'ItemModel', 'FeedModel', 'Persistence', 'ActiveFeed', 'FeedType', 'StarredBl', function(ItemModel, FeedModel, Persistence, ActiveFeed, FeedType, StarredBl) {
-      var ItemBl;
+  angular.module('News').factory('ItemBusinessLayer', [
+    'ItemModel', 'FeedModel', 'Persistence', 'ActiveFeed', 'FeedType', 'StarredBusinessLayer', function(ItemModel, FeedModel, Persistence, ActiveFeed, FeedType, StarredBusinessLayer) {
+      var ItemBusinessLayer;
 
-      ItemBl = (function() {
-        function ItemBl(_itemModel, _feedModel, _persistence, _activeFeed, _feedType, _starredBl) {
+      ItemBusinessLayer = (function() {
+        function ItemBusinessLayer(_itemModel, _feedModel, _persistence, _activeFeed, _feedType, _starredBusinessLayer) {
           this._itemModel = _itemModel;
           this._feedModel = _feedModel;
           this._persistence = _persistence;
           this._activeFeed = _activeFeed;
           this._feedType = _feedType;
-          this._starredBl = _starredBl;
+          this._starredBusinessLayer = _starredBusinessLayer;
         }
 
-        ItemBl.prototype.getAll = function() {
+        ItemBusinessLayer.prototype.getAll = function() {
           return this._itemModel.getAll();
         };
 
-        ItemBl.prototype.noFeedActive = function() {
+        ItemBusinessLayer.prototype.noFeedActive = function() {
           return this._activeFeed.getType() !== this._feedType.Feed;
         };
 
-        ItemBl.prototype.isKeptUnread = function(itemId) {
+        ItemBusinessLayer.prototype.isKeptUnread = function(itemId) {
           var item;
 
           item = this._itemModel.getById(itemId);
@@ -1064,7 +1064,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return false;
         };
 
-        ItemBl.prototype.toggleKeepUnread = function(itemId) {
+        ItemBusinessLayer.prototype.toggleKeepUnread = function(itemId) {
           var item;
 
           item = this._itemModel.getById(itemId);
@@ -1078,22 +1078,22 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           }
         };
 
-        ItemBl.prototype.toggleStarred = function(itemId) {
+        ItemBusinessLayer.prototype.toggleStarred = function(itemId) {
           var item;
 
           item = this._itemModel.getById(itemId);
           if (item.isStarred()) {
             item.setUnstarred();
-            this._starredBl.decreaseCount();
+            this._starredBusinessLayer.decreaseCount();
             return this._persistence.unstarItem(item.feedId, item.guidHash);
           } else {
             item.setStarred();
-            this._starredBl.increaseCount();
+            this._starredBusinessLayer.increaseCount();
             return this._persistence.starItem(item.feedId, item.guidHash);
           }
         };
 
-        ItemBl.prototype.setRead = function(itemId) {
+        ItemBusinessLayer.prototype.setRead = function(itemId) {
           var feed, item;
 
           item = this._itemModel.getById(itemId);
@@ -1109,7 +1109,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           }
         };
 
-        ItemBl.prototype.setUnread = function(itemId) {
+        ItemBusinessLayer.prototype.setUnread = function(itemId) {
           var feed, item;
 
           item = this._itemModel.getById(itemId);
@@ -1125,7 +1125,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           }
         };
 
-        ItemBl.prototype.getFeedTitle = function(itemId) {
+        ItemBusinessLayer.prototype.getFeedTitle = function(itemId) {
           var feed, item;
 
           item = this._itemModel.getById(itemId);
@@ -1137,14 +1137,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           }
         };
 
-        ItemBl.prototype.loadNext = function() {};
+        ItemBusinessLayer.prototype.loadNext = function() {};
 
-        ItemBl.prototype.loadNew = function() {};
+        ItemBusinessLayer.prototype.loadNew = function() {};
 
-        return ItemBl;
+        return ItemBusinessLayer;
 
       })();
-      return new ItemBl(ItemModel, FeedModel, Persistence, ActiveFeed, FeedType, StarredBl);
+      return new ItemBusinessLayer(ItemModel, FeedModel, Persistence, ActiveFeed, FeedType, StarredBusinessLayer);
     }
   ]);
 
@@ -1177,19 +1177,19 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  angular.module('News').factory('StarredBl', [
-    '_Bl', 'StarredCount', 'Persistence', 'ActiveFeed', 'FeedType', 'ItemModel', function(_Bl, StarredCount, Persistence, ActiveFeed, FeedType, ItemModel) {
-      var StarredBl;
+  angular.module('News').factory('StarredBusinessLayer', [
+    '_BusinessLayer', 'StarredCount', 'Persistence', 'ActiveFeed', 'FeedType', 'ItemModel', function(_BusinessLayer, StarredCount, Persistence, ActiveFeed, FeedType, ItemModel) {
+      var StarredBusinessLayer;
 
-      StarredBl = (function(_super) {
-        __extends(StarredBl, _super);
+      StarredBusinessLayer = (function(_super) {
+        __extends(StarredBusinessLayer, _super);
 
-        function StarredBl(_starredCount, feedType, persistence, activeFeed, itemModel) {
+        function StarredBusinessLayer(_starredCount, feedType, persistence, activeFeed, itemModel) {
           this._starredCount = _starredCount;
-          StarredBl.__super__.constructor.call(this, activeFeed, persistence, itemModel, feedType.Starred);
+          StarredBusinessLayer.__super__.constructor.call(this, activeFeed, persistence, itemModel, feedType.Starred);
         }
 
-        StarredBl.prototype.isVisible = function() {
+        StarredBusinessLayer.prototype.isVisible = function() {
           if (this.isActive(0)) {
             return true;
           } else {
@@ -1197,22 +1197,22 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           }
         };
 
-        StarredBl.prototype.getUnreadCount = function() {
+        StarredBusinessLayer.prototype.getUnreadCount = function() {
           return this._starredCount.getStarredCount();
         };
 
-        StarredBl.prototype.increaseCount = function() {
+        StarredBusinessLayer.prototype.increaseCount = function() {
           return this._starredCount.setStarredCount(this._starredCount.getStarredCount() + 1);
         };
 
-        StarredBl.prototype.decreaseCount = function() {
+        StarredBusinessLayer.prototype.decreaseCount = function() {
           return this._starredCount.setStarredCount(this._starredCount.getStarredCount() - 1);
         };
 
-        return StarredBl;
+        return StarredBusinessLayer;
 
-      })(_Bl);
-      return new StarredBl(StarredCount, FeedType, Persistence, ActiveFeed, ItemModel);
+      })(_BusinessLayer);
+      return new StarredBusinessLayer(StarredCount, FeedType, Persistence, ActiveFeed, ItemModel);
     }
   ]);
 
@@ -1245,45 +1245,45 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  angular.module('News').factory('SubscriptionsBl', [
-    '_Bl', 'FeedBl', 'Persistence', 'ShowAll', 'ActiveFeed', 'FeedType', 'ItemModel', function(_Bl, FeedBl, Persistence, ShowAll, ActiveFeed, FeedType, ItemModel) {
-      var SubscriptionsBl;
+  angular.module('News').factory('SubscriptionsBusinessLayer', [
+    '_BusinessLayer', 'FeedBusinessLayer', 'Persistence', 'ShowAll', 'ActiveFeed', 'FeedType', 'ItemModel', function(_BusinessLayer, FeedBusinessLayer, Persistence, ShowAll, ActiveFeed, FeedType, ItemModel) {
+      var SubscriptionsBusinessLayer;
 
-      SubscriptionsBl = (function(_super) {
-        __extends(SubscriptionsBl, _super);
+      SubscriptionsBusinessLayer = (function(_super) {
+        __extends(SubscriptionsBusinessLayer, _super);
 
-        function SubscriptionsBl(_feedBl, _showAll, feedType, persistence, activeFeed, itemModel) {
-          this._feedBl = _feedBl;
+        function SubscriptionsBusinessLayer(_feedBusinessLayer, _showAll, feedType, persistence, activeFeed, itemModel) {
+          this._feedBusinessLayer = _feedBusinessLayer;
           this._showAll = _showAll;
-          SubscriptionsBl.__super__.constructor.call(this, activeFeed, persistence, itemModel, feedType.Subscriptions);
+          SubscriptionsBusinessLayer.__super__.constructor.call(this, activeFeed, persistence, itemModel, feedType.Subscriptions);
         }
 
-        SubscriptionsBl.prototype.isVisible = function() {
+        SubscriptionsBusinessLayer.prototype.isVisible = function() {
           var visible;
 
           if (this.isActive(0)) {
             return true;
           }
           if (this._showAll.getShowAll()) {
-            return this._feedBl.getNumberOfFeeds() > 0;
+            return this._feedBusinessLayer.getNumberOfFeeds() > 0;
           } else {
-            visible = this._feedBl.getNumberOfFeeds() > 0 && this._feedBl.getAllUnreadCount() > 0;
+            visible = this._feedBusinessLayer.getNumberOfFeeds() > 0 && this._feedBusinessLayer.getAllUnreadCount() > 0;
             return visible;
           }
         };
 
-        SubscriptionsBl.prototype.markAllRead = function() {
-          return this._feedBl.markAllRead();
+        SubscriptionsBusinessLayer.prototype.markAllRead = function() {
+          return this._feedBusinessLayer.markAllRead();
         };
 
-        SubscriptionsBl.prototype.getUnreadCount = function() {
-          return this._feedBl.getAllUnreadCount();
+        SubscriptionsBusinessLayer.prototype.getUnreadCount = function() {
+          return this._feedBusinessLayer.getAllUnreadCount();
         };
 
-        return SubscriptionsBl;
+        return SubscriptionsBusinessLayer;
 
-      })(_Bl);
-      return new SubscriptionsBl(FeedBl, ShowAll, FeedType, Persistence, ActiveFeed, ItemModel);
+      })(_BusinessLayer);
+      return new SubscriptionsBusinessLayer(FeedBusinessLayer, ShowAll, FeedType, Persistence, ActiveFeed, ItemModel);
     }
   ]);
 

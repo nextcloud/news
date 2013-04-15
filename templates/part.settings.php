@@ -23,12 +23,12 @@
 		<a title="<?php p($l->t('Export')); ?>" class="button"
 			href="<?php p(\OCP\Util::linkToRoute('news_export_opml')); ?>" 
 			target="_blank"
-			ng-show="feedBl.getNumberOfFeeds() > 0">
+			ng-show="feedBusinessLayer.getNumberOfFeeds() > 0">
 			<?php p($l->t('Export')); ?>
 		</a>
 		<button
 			title="<?php p($l->t('Export')); ?>" 
-			ng-hide="feedBl.getNumberOfFeeds() > 0" disabled>
+			ng-hide="feedBusinessLayer.getNumberOfFeeds() > 0" disabled>
 			<?php p($l->t('Export')); ?>
 		</button>
 

@@ -21,15 +21,15 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-angular.module('News').factory 'FolderBl',
-['_Bl', 'FolderModel', 'FeedBl', 'Persistence', 'FeedType', 'ActiveFeed',
-'ItemModel', 'ShowAll', '_ExistsError', 'OPMLParser',
-(_Bl, FolderModel, FeedBl, Persistence, FeedType, ActiveFeed,
-ItemModel, ShowAll, _ExistsError, OPMLParser)->
+angular.module('News').factory 'FolderBusinessLayer',
+['_BusinessLayer', 'FolderModel', 'FeedBusinessLayer', 'Persistence',
+'FeedType', 'ActiveFeed', 'ItemModel', 'ShowAll', '_ExistsError', 'OPMLParser',
+(_BusinessLayer, FolderModel, FeedBusinessLayer, Persistence, FeedType,
+ActiveFeed, ItemModel, ShowAll, _ExistsError, OPMLParser) ->
 
-	class FolderBl extends _Bl
+	class FolderBusinessLayer extends _BusinessLayer
 
-		constructor: (@_folderModel, @_feedBl, @_showAll, activeFeed,
+		constructor: (@_folderModel, @_feedBusinessLayer, @_showAll, activeFeed,
 			          persistence, @_feedType, itemModel, @_opmlParser) ->
 			super(activeFeed, persistence, itemModel, @_feedType.Folder)
 
@@ -43,7 +43,7 @@ ItemModel, ShowAll, _ExistsError, OPMLParser)->
 
 
 		hasFeeds: (folderId) ->
-			return @_feedBl.getFeedsOfFolder(folderId).length
+			return @_feedBusinessLayer.getFeedsOfFolder(folderId).length
 
 
 		open: (folderId) ->
@@ -66,12 +66,12 @@ ItemModel, ShowAll, _ExistsError, OPMLParser)->
 
 
 		markFolderRead: (folderId) ->
-			for feed in @_feedBl.getFeedsOfFolder(folderId)
-				@_feedBl.markFeedRead(feed.id)
+			for feed in @_feedBusinessLayer.getFeedsOfFolder(folderId)
+				@_feedBusinessLayer.markFeedRead(feed.id)
 
 
 		getUnreadCount: (folderId) ->
-			return @_feedBl.getFolderUnreadCount(folderId)
+			return @_feedBusinessLayer.getFolderUnreadCount(folderId)
 			
 
 		isVisible: (folderId) ->
@@ -79,10 +79,10 @@ ItemModel, ShowAll, _ExistsError, OPMLParser)->
 				return true
 			else
 				if @isActive(folderId) or
-				@_feedBl.getFolderUnreadCount(folderId) > 0
+				@_feedBusinessLayer.getFolderUnreadCount(folderId) > 0
 					return true
 				if @_activeFeed.getType() == @_feedType.Feed
-					for feed in @_feedBl.getFeedsOfFolder(folderId)
+					for feed in @_feedBusinessLayer.getFeedsOfFolder(folderId)
 						if feed.id == @_activeFeed.getId()
 							return true
 				return false
@@ -146,13 +146,15 @@ ItemModel, ShowAll, _ExistsError, OPMLParser)->
 				else
 					try
 						do (item) =>
-							@_feedBl.create(item.getUrl(), parentFolderId)
+							@_feedBusinessLayer.create(item.getUrl(),
+								parentFolderId)
 					catch error
 						if not error instanceof _ExistsError
 							console.info error
 
 
-	return new FolderBl(FolderModel, FeedBl, ShowAll, ActiveFeed, Persistence,
-		                FeedType, ItemModel, OPMLParser)
+	return new FolderBusinessLayer(FolderModel, FeedBusinessLayer, ShowAll,
+	                               ActiveFeed, Persistence, FeedType, ItemModel,
+	                               OPMLParser)
 
 ]

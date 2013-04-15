@@ -23,7 +23,7 @@
 *
 */
 
-namespace OCA\News\Bl;
+namespace OCA\News\BusinessLayer;
 
 require_once(__DIR__ . "/../../classloader.php");
 
@@ -33,11 +33,11 @@ use \OCA\News\Db\StatusFlag;
 use \OCA\News\Db\FeedType;
 
 
-class ItemBlTest extends \OCA\AppFramework\Utility\TestUtility {
+class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 	private $api;
 	private $mapper;
-	private $bl;
+	private $itemBusinessLayer;
 	private $user;
 	private $response;
 	private $status;
@@ -56,7 +56,7 @@ class ItemBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('typeToStatus')
 			->will($this->returnValue($this->status));
 		$this->threshold = 2;
-		$this->bl = new ItemBl($this->mapper, $statusFlag, $this->threshold);
+		$this->itemBusinessLayer = new ItemBusinessLayer($this->mapper, $statusFlag, $this->threshold);
 		$this->user = 'jack';
 		$response = 'hi';
 		$this->id = 3;
@@ -77,7 +77,7 @@ class ItemBlTest extends \OCA\AppFramework\Utility\TestUtility {
 					$this->equalTo($this->user))
 			->will($this->returnValue($this->response));
 
-		$result = $this->bl->findAllNew(
+		$result = $this->itemBusinessLayer->findAllNew(
 			$this->id, $type, $this->updatedSince, $this->showAll,
 			$this->user);
 		$this->assertEquals($this->response, $result);
@@ -94,7 +94,7 @@ class ItemBlTest extends \OCA\AppFramework\Utility\TestUtility {
 					$this->equalTo($this->user))
 			->will($this->returnValue($this->response));
 
-		$result = $this->bl->findAllNew(
+		$result = $this->itemBusinessLayer->findAllNew(
 			$this->id, $type, $this->updatedSince, $this->showAll,
 			$this->user);
 		$this->assertEquals($this->response, $result);
@@ -110,7 +110,7 @@ class ItemBlTest extends \OCA\AppFramework\Utility\TestUtility {
 					$this->equalTo($this->user))
 			->will($this->returnValue($this->response));
 
-		$result = $this->bl->findAllNew(
+		$result = $this->itemBusinessLayer->findAllNew(
 			$this->id, $type, $this->updatedSince, $this->showAll,
 			$this->user);
 		$this->assertEquals($this->response, $result);
@@ -128,7 +128,7 @@ class ItemBlTest extends \OCA\AppFramework\Utility\TestUtility {
 					$this->equalTo($this->user))
 			->will($this->returnValue($this->response));
 
-		$result = $this->bl->findAll(
+		$result = $this->itemBusinessLayer->findAll(
 			$this->id, $type, $this->limit, 
 			$this->offset, $this->showAll,
 			$this->user);
@@ -147,7 +147,7 @@ class ItemBlTest extends \OCA\AppFramework\Utility\TestUtility {
 					$this->equalTo($this->user))
 			->will($this->returnValue($this->response));
 
-		$result = $this->bl->findAll(
+		$result = $this->itemBusinessLayer->findAll(
 			$this->id, $type, $this->limit, 
 			$this->offset, $this->showAll,
 			$this->user);
@@ -165,7 +165,7 @@ class ItemBlTest extends \OCA\AppFramework\Utility\TestUtility {
 					$this->equalTo($this->user))
 			->will($this->returnValue($this->response));
 
-		$result = $this->bl->findAll(
+		$result = $this->itemBusinessLayer->findAll(
 			$this->id, $type, $this->limit, 
 			$this->offset, $this->showAll,
 			$this->user);
@@ -181,7 +181,7 @@ class ItemBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($star));
 
-		$result = $this->bl->starredCount($this->user);
+		$result = $this->itemBusinessLayer->starredCount($this->user);
 
 		$this->assertEquals($star, $result);
 	}
@@ -207,7 +207,7 @@ class ItemBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('update')
 			->with($this->equalTo($item));
 
-		$this->bl->star($feedId, $guidHash, false, $this->user);
+		$this->itemBusinessLayer->star($feedId, $guidHash, false, $this->user);
 
 		$this->assertTrue($item->isUnstarred());
 	}
@@ -228,7 +228,7 @@ class ItemBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('update')
 			->with($this->equalTo($item));
 
-		$this->bl->read($itemId, false, $this->user);
+		$this->itemBusinessLayer->read($itemId, false, $this->user);
 
 		$this->assertTrue($item->isUnread());
 	}
@@ -244,7 +244,7 @@ class ItemBlTest extends \OCA\AppFramework\Utility\TestUtility {
 				$this->equalTo($highestItemId), 
 				$this->equalTo($this->user));
 
-		$this->bl->readFeed($feedId, $highestItemId, $this->user);
+		$this->itemBusinessLayer->readFeed($feedId, $highestItemId, $this->user);
 	}
 
 
@@ -262,7 +262,7 @@ class ItemBlTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('deleteReadOlderThanId')
 			->with($this->equalTo($item->getId()));
 
-		$result = $this->bl->autoPurgeOld();
+		$result = $this->itemBusinessLayer->autoPurgeOld();
 
 	}
 

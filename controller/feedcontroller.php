@@ -29,22 +29,23 @@ use \OCA\AppFramework\Controller\Controller;
 use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Http\Request;
 
-use \OCA\News\Bl\FeedBl;
-use \OCA\News\Bl\FolderBl;
-use \OCA\News\Bl\BLException;
+use \OCA\News\BusinessLayer\FeedBusinessLayer;
+use \OCA\News\BusinessLayer\FolderBusinessLayer;
+use \OCA\News\BusinessLayer\BusinessLayerException;
 use \OCA\News\Db\FeedType;
 
 
 class FeedController extends Controller {
 
-	private $feedBl;
-	private $folderBl;
+	private $feedBusinessLayer;
+	private $folderBusinessLayer;
 
-	public function __construct(API $api, Request $request, FeedBl $feedBl,
-		                        FolderBl $folderBl){
+	public function __construct(API $api, Request $request, 
+	                            FeedBusinessLayer $feedBusinessLayer,
+		                        FolderBusinessLayer $folderBusinessLayer){
 		parent::__construct($api, $request);
-		$this->feedBl = $feedBl;
-		$this->folderBl = $folderBl;
+		$this->feedBusinessLayer = $feedBusinessLayer;
+		$this->folderBusinessLayer = $folderBusinessLayer;
 	}
 
 
@@ -55,7 +56,7 @@ class FeedController extends Controller {
 	 */
 	public function feeds(){
 		$userId = $this->api->getUserId();
-		$result = $this->feedBl->findAll($userId);
+		$result = $this->feedBusinessLayer->findAll($userId);
 
 		$params = array(
 			'feeds' => $result
@@ -83,17 +84,17 @@ class FeedController extends Controller {
 		// check if feed or folder exists
 		try {
 			if($feedType === FeedType::FOLDER){
-				$this->folderBl->find($feedId, $userId);
+				$this->folderBusinessLayer->find($feedId, $userId);
 			
 			} elseif ($feedType === FeedType::FEED){
-				$this->feedBl->find($feedId, $userId);
+				$this->feedBusinessLayer->find($feedId, $userId);
 			
 			// if its the first launch, those values will be null
 			} elseif($feedType === null){
-				throw new BLException('');
+				throw new BusinessLayerException('');
 			}
 	
-		} catch (BLException $ex){
+		} catch (BusinessLayerException $ex){
 			$feedId = 0;
 			$feedType = FeedType::SUBSCRIPTIONS;
 		}
@@ -120,13 +121,13 @@ class FeedController extends Controller {
 		$userId = $this->api->getUserId();
 
 		try {
-			$feed = $this->feedBl->create($url, $parentFolderId, $userId);
+			$feed = $this->feedBusinessLayer->create($url, $parentFolderId, $userId);
 			$params = array(
 				'feeds' => array($feed)
 			);
 
 			return $this->renderJSON($params);
-		} catch(BLException $ex) {
+		} catch(BusinessLayerException $ex) {
 
 			return $this->renderJSON(array(), $ex->getMessage());
 		}
@@ -142,7 +143,7 @@ class FeedController extends Controller {
 		$feedId = (int) $this->params('feedId');
 		$userId = $this->api->getUserId();
 
-		$this->feedBl->delete($feedId, $userId);
+		$this->feedBusinessLayer->delete($feedId, $userId);
 
 		return $this->renderJSON();
 	}
@@ -154,16 +155,21 @@ class FeedController extends Controller {
 	 * @Ajax
 	 */
 	public function update(){
-		$feedId = (int) $this->params('feedId');
-		$userId = $this->api->getUserId();
+		try {
+			$feedId = (int) $this->params('feedId');
+			$userId = $this->api->getUserId();
 
-		$feed = $this->feedBl->update($feedId, $userId);
+			$feed = $this->feedBusinessLayer->update($feedId, $userId);
 
-		$params = array(
-			'feeds' => array($feed)
-		);
+			$params = array(
+				'feeds' => array($feed)
+			);
 
-		return $this->renderJSON($params);
+			return $this->renderJSON($params);
+
+		} catch(BusinessLayerException $ex) {
+			return $this->renderJSON(array(), $ex->getMessage());
+		}
 	}
 
 
@@ -177,7 +183,7 @@ class FeedController extends Controller {
 		$parentFolderId = (int) $this->params('parentFolderId');
 		$userId = $this->api->getUserId();
 
-		$this->feedBl->move($feedId, $parentFolderId, $userId);
+		$this->feedBusinessLayer->move($feedId, $parentFolderId, $userId);
 
 		return $this->renderJSON();	
 	}

@@ -30,13 +30,13 @@ angular.module('News', ['OC', 'ui']).config ($provide) ->
 		itemBatchSize: 20
 
 
-angular.module('News').run ['Persistence', 'Config', 'FeedBl',
-(Persistence, Config, FeedBl) ->
+angular.module('News').run ['Persistence', 'Config', 'FeedBusinessLayer',
+(Persistence, Config, FeedBusinessLayer) ->
 
 	Persistence.init()
 	
 	setInterval ->
-		FeedBl.updateFeeds()
+		FeedBusinessLayer.updateFeeds()
 	, Config.feedUpdateInterval
 ]
 

@@ -34,9 +34,9 @@ use OCA\News\Controller\ItemController;
 use OCA\News\Controller\ExportController;
 use OCA\News\Controller\UserSettingsController;
 
-use OCA\News\Bl\FolderBl;
-use OCA\News\Bl\FeedBl;
-use OCA\News\Bl\ItemBl;
+use OCA\News\BusinessLayer\FolderBusinessLayer;
+use OCA\News\BusinessLayer\FeedBusinessLayer;
+use OCA\News\BusinessLayer\ItemBusinessLayer;
 
 use OCA\News\Db\FolderMapper;
 use OCA\News\Db\FeedMapper;
@@ -78,43 +78,43 @@ class DIContainer extends BaseContainer {
 		});
 
 		$this['FolderController'] = $this->share(function($c){
-			return new FolderController($c['API'], $c['Request'], $c['FolderBl']);
+			return new FolderController($c['API'], $c['Request'], $c['FolderBusinessLayer']);
 		});
 
 		$this['FeedController'] = $this->share(function($c){
-			return new FeedController($c['API'], $c['Request'], $c['FeedBl'], 
-				                      $c['FolderBl']);
+			return new FeedController($c['API'], $c['Request'], $c['FeedBusinessLayer'], 
+				                      $c['FolderBusinessLayer']);
 		});
 
 		$this['ItemController'] = $this->share(function($c){
-			return new ItemController($c['API'], $c['Request'], $c['ItemBl']);
+			return new ItemController($c['API'], $c['Request'], $c['ItemBusinessLayer']);
 		});
 
 		$this['ExportController'] = $this->share(function($c){
-			return new ExportController($c['API'], $c['Request'], $c['FeedBl'],
-				                        $c['FolderBl'], $c['OPMLExporter']);
+			return new ExportController($c['API'], $c['Request'], $c['FeedBusinessLayer'],
+				                        $c['FolderBusinessLayer'], $c['OPMLExporter']);
 		});
 
 		$this['UserSettingsController'] = $this->share(function($c){
 			return new UserSettingsController($c['API'], $c['Request'], 
-					$c['ItemBl']);
+					$c['ItemBusinessLayer']);
 		});
 
 
 		/**
 		 * Business Layer
 		 */
-		$this['FolderBl'] = $this->share(function($c){
-			return new FolderBl($c['FolderMapper'], $c['API']);
+		$this['FolderBusinessLayer'] = $this->share(function($c){
+			return new FolderBusinessLayer($c['FolderMapper'], $c['API']);
 		});
 
-		$this['FeedBl'] = $this->share(function($c){
-			return new FeedBl($c['FeedMapper'], $c['Fetcher'],
+		$this['FeedBusinessLayer'] = $this->share(function($c){
+			return new FeedBusinessLayer($c['FeedMapper'], $c['Fetcher'],
 								$c['ItemMapper'], $c['API']);
 		});
 
-		$this['ItemBl'] = $this->share(function($c){
-			return new ItemBl($c['ItemMapper'], $c['StatusFlag'],
+		$this['ItemBusinessLayer'] = $this->share(function($c){
+			return new ItemBusinessLayer($c['ItemMapper'], $c['StatusFlag'],
 								$c['autoPurgeCount']);
 		});
 

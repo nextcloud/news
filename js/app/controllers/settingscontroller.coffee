@@ -22,17 +22,17 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 
 angular.module('News').controller 'SettingsController',
-['$scope', 'FeedBl', 'FolderBl', 'ShowAll',
-($scope, FeedBl, FolderBl, ShowAll) ->
+['$scope', 'FeedBusinessLayer', 'FolderBusinessLayer', 'ShowAll',
+($scope, FeedBusinessLayer, FolderBusinessLayer, ShowAll) ->
 
-	$scope.feedBl = FeedBl
+	$scope.feedBusinessLayer = FeedBusinessLayer
 
 	$scope.import = (fileContent) =>
 		$scope.error = false
 		ShowAll.setShowAll(true)
 
 		try
-			FolderBl.import(fileContent)
+			FolderBusinessLayer.import(fileContent)
 		catch error
 			console.error error
 			$scope.error = true

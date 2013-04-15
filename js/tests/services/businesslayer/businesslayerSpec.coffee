@@ -21,11 +21,11 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-describe 'Bl', ->
+describe 'BusinessLayer', ->
 
 	beforeEach module 'News'
 
-	beforeEach inject (@_Bl, @ActiveFeed, @FeedType, @ItemModel) =>
+	beforeEach inject (@_BusinessLayer, @ActiveFeed, @FeedType, @ItemModel) =>
 		type = @FeedType.Starred
 		angular.module('News').factory 'Persistence', =>
 		@getItemsSpy = jasmine.createSpy('getItems')
@@ -33,26 +33,27 @@ describe 'Bl', ->
 			getItems: @getItemsSpy
 		}
 
-		class TestBl extends @_Bl
+		class TestBusinessLayer extends @_BusinessLayer
 
 			constructor: (activeFeed, persistence, itemModel) ->
 				super(activeFeed, persistence, itemModel, type)
 
-		@bl = new TestBl(@ActiveFeed, @persistence, @ItemModel)
+		@BusinessLayer = new TestBusinessLayer(@ActiveFeed, @persistence,
+		@ItemModel)
 
 
 	it 'should reset the item cache when a different feed is being loaded', =>
 		@ItemModel.clear = jasmine.createSpy('clear')
 		@ActiveFeed.handle({id: 0, type: @FeedType.Starred})
-		@bl.load(0)
+		@BusinessLayer.load(0)
 
 		expect(@ItemModel.clear).not.toHaveBeenCalled()
 		
-		@bl.load(2)
+		@BusinessLayer.load(2)
 		expect(@ItemModel.clear).toHaveBeenCalled()
 
 		@ActiveFeed.handle({id: 2, type: @FeedType.Feed})
-		@bl.load(2)
+		@BusinessLayer.load(2)
 		expect(@ItemModel.clear).toHaveBeenCalled()
 
 
@@ -64,7 +65,7 @@ describe 'Bl', ->
 		@ItemModel.add({id: 6, lastModified: 44})
 		@persistence.getItems = jasmine.createSpy('latest')
 		@ActiveFeed.handle({id: 3, type: @FeedType.Starred})
-		@bl.load(3)
+		@BusinessLayer.load(3)
 
 		expect(@persistence.getItems).toHaveBeenCalledWith(@FeedType.Starred, 3,
 			0, null, 6)
@@ -73,14 +74,14 @@ describe 'Bl', ->
 	it 'should send a get all items query when feed changed', =>
 		@persistence.getItems = jasmine.createSpy('latest')
 		@ActiveFeed.handle({id: 3, type: @FeedType.Feed})
-		@bl.load(3)
+		@BusinessLayer.load(3)
 
 		expect(@persistence.getItems).toHaveBeenCalledWith(@FeedType.Starred, 3,
 			0)
 
 
 	it 'should be active when its selected', =>
-		expect(@bl.isActive(0)).toBe(false)
+		expect(@BusinessLayer.isActive(0)).toBe(false)
 
 		@ActiveFeed.handle({type: @FeedType.Starred, id:0})
-		expect(@bl.isActive(0)).toBe(true)
+		expect(@BusinessLayer.isActive(0)).toBe(true)
