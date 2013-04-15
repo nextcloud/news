@@ -26,10 +26,71 @@ angular.module('News').factory 'Language', ->
 
 		constructor: ->
 			@_language = 'en'
+			@_langs = [
+				'ar-ma'
+				'ar'
+				'bg'
+				'ca'
+				'cs'
+				'cv'
+				'da'
+				'de'
+				'el'
+				'en-ca'
+				'en-gb'
+				'eo'
+				'es'
+				'et'
+				'eu'
+				'fi'
+				'fr-ca'
+				'fr'
+				'gl'
+				'he'
+				'hi'
+				'hu'
+				'id'
+				'is'
+				'it'
+				'ja'
+				'ka'
+				'ko'
+				'lv'
+				'ms-my'
+				'nb'
+				'ne'
+				'nl'
+				'pl'
+				'pt-br'
+				'pt'
+				'ro'
+				'ru'
+				'sk'
+				'sl'
+				'sv'
+				'th'
+				'tr'
+				'tzm-la'
+				'tzm'
+				'uk'
+				'zh-cn'
+				'zh-tw'
+			]
 
 
 		handle: (data) ->
-			@_language = data.split('_')[0]
+			# fix broken server locales
+			data = data.replace('_', '-').toLowerCase()
+
+			# check if the first part is available, if so use this
+			if not (data in @_langs)
+				data = data.split('-')[0]
+
+			# if its not available default to english
+			if not (data in @_langs)
+				data = 'en'
+
+			@_language = data
 
 
 		getLanguage: ->
