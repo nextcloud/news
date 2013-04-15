@@ -131,13 +131,13 @@ FeedModel, NewLoading, _ExistsError, Utils) ->
 			parentId = parseInt(parentId, 10)
 
 			if angular.isUndefined(url) or url.trim() == ''
-				throw new Error()
+				throw new Error('Url must not be empty')
 			
 			url = url.trim()
 			urlHash = hex_md5(url)
 			
 			if @_feedModel.getByUrlHash(urlHash)
-				throw new _ExistsError()
+				throw new _ExistsError('Exists already')
 
 			feed =
 				title: url.replace(

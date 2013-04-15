@@ -38,7 +38,9 @@
 	</div>
 
 	<div id="app-content" ng-class="{loading: isLoading()}"
-		ng-controller="ItemController" 	when-scrolled="scroll()" feed-navigation>
+		ng-controller="ItemController" 
+		scroll-marks-read
+		item-shortcuts>
 		<?php print_unescaped($this->inc("part.items")); ?>
 	</div>
 	

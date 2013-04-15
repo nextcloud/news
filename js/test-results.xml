@@ -1,0 +1,185 @@
+<?xml version="1.0"?>
+<testsuites>
+  <testsuite name="PhantomJS 1.9 (Linux)" package="undefined" timestamp="2013-04-15T16:10:51" id="0" hostname="archtop" tests="174" errors="0" failures="0" time="0.43">
+    <properties>
+      <property name="browser.fullName" value="Mozilla/5.0 (Unknown; Linux x86_64) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.0 Safari/534.34"/>
+    </properties>
+    <testcase name="isAddingFolder should return false in the beginning" time="0.022" classname="PhantomJS 1.9 (Linux).FeedController"/>
+    <testcase name="isAddingFeed should return false in the beginning" time="0.003" classname="PhantomJS 1.9 (Linux).FeedController"/>
+    <testcase name="should make unreadCountFormatter available" time="0.007" classname="PhantomJS 1.9 (Linux).FeedController"/>
+    <testcase name="should make FeedBusinessLayer available" time="0.002" classname="PhantomJS 1.9 (Linux).FeedController"/>
+    <testcase name="should make FolderBusinessLayer available" time="0.002" classname="PhantomJS 1.9 (Linux).FeedController"/>
+    <testcase name="should make SubscriptionsBusinessLayer available" time="0.002" classname="PhantomJS 1.9 (Linux).FeedController"/>
+    <testcase name="should make StarredBusinessLayer available" time="0.002" classname="PhantomJS 1.9 (Linux).FeedController"/>
+    <testcase name="should not add folders that have no name" time="0.003" classname="PhantomJS 1.9 (Linux).FeedController"/>
+    <testcase name="should make ItemBusinessLayer availabe" time="0.003" classname="PhantomJS 1.9 (Linux).ItemController"/>
+    <testcase name="should make FeedBusinessLayer availabe" time="0.002" classname="PhantomJS 1.9 (Linux).ItemController"/>
+    <testcase name="should make FeedBl available" time="0.002" classname="PhantomJS 1.9 (Linux).SettingsController"/>
+    <testcase name="should show an error if the xml import failed" time="0.002" classname="PhantomJS 1.9 (Linux).SettingsController"/>
+    <testcase name="should set showall to true if importing" time="0.002" classname="PhantomJS 1.9 (Linux).SettingsController"/>
+    <testcase name="should be Subscriptions by default" time="0.001" classname="PhantomJS 1.9 (Linux).ActiveFeed"/>
+    <testcase name="should set the correct feed id" time="0.001" classname="PhantomJS 1.9 (Linux).ActiveFeed"/>
+    <testcase name="should set the correct feed type" time="0.001" classname="PhantomJS 1.9 (Linux).ActiveFeed"/>
+    <testcase name="should reset the item cache when a different feed is being loaded" time="0.003" classname="PhantomJS 1.9 (Linux).BusinessLayer"/>
+    <testcase name="should send a get latest items query when feed did not change" time="0.002" classname="PhantomJS 1.9 (Linux).BusinessLayer"/>
+    <testcase name="should send a get all items query when feed changed" time="0.001" classname="PhantomJS 1.9 (Linux).BusinessLayer"/>
+    <testcase name="should be active when its selected" time="0.002" classname="PhantomJS 1.9 (Linux).BusinessLayer"/>
+    <testcase name="should delete feeds" time="0.002" classname="PhantomJS 1.9 (Linux).FeedBusinessLayer"/>
+    <testcase name="should return the number of unread feeds" time="0.002" classname="PhantomJS 1.9 (Linux).FeedBusinessLayer"/>
+    <testcase name="should return all feeds of a folder" time="0.002" classname="PhantomJS 1.9 (Linux).FeedBusinessLayer"/>
+    <testcase name="should get the correct unread count for folders" time="0.009" classname="PhantomJS 1.9 (Linux).FeedBusinessLayer"/>
+    <testcase name="should mark feed as read" time="0.002" classname="PhantomJS 1.9 (Linux).FeedBusinessLayer"/>
+    <testcase name="should mark all as read" time="0.002" classname="PhantomJS 1.9 (Linux).FeedBusinessLayer"/>
+    <testcase name="should get the correct unread count for subscribtions" time="0.002" classname="PhantomJS 1.9 (Linux).FeedBusinessLayer"/>
+    <testcase name="should return the correct number of feeds" time="0.002" classname="PhantomJS 1.9 (Linux).FeedBusinessLayer"/>
+    <testcase name="should be visible if its active" time="0.002" classname="PhantomJS 1.9 (Linux).FeedBusinessLayer"/>
+    <testcase name="should be visible if show all is true" time="0.002" classname="PhantomJS 1.9 (Linux).FeedBusinessLayer"/>
+    <testcase name="should be visible if unreadcount bigger than 0" time="0.001" classname="PhantomJS 1.9 (Linux).FeedBusinessLayer"/>
+    <testcase name="should not move the feed to a new folder" time="0.002" classname="PhantomJS 1.9 (Linux).FeedBusinessLayer"/>
+    <testcase name="should not move the feed to the same folder" time="0.001" classname="PhantomJS 1.9 (Linux).FeedBusinessLayer"/>
+    <testcase name="should set the show all setting" time="0.003" classname="PhantomJS 1.9 (Linux).FeedBusinessLayer"/>
+    <testcase name="should set the hide read setting" time="0.002" classname="PhantomJS 1.9 (Linux).FeedBusinessLayer"/>
+    <testcase name="should return all feeds" time="0.002" classname="PhantomJS 1.9 (Linux).FeedBusinessLayer"/>
+    <testcase name="should return if ShowAll is set" time="0.001" classname="PhantomJS 1.9 (Linux).FeedBusinessLayer"/>
+    <testcase name="should return all feeds of a folder" time="0.002" classname="PhantomJS 1.9 (Linux).FeedBusinessLayer"/>
+    <testcase name="should return the correct feed link" time="0.002" classname="PhantomJS 1.9 (Linux).FeedBusinessLayer"/>
+    <testcase name="should not create a feed if it already exists" time="0.004" classname="PhantomJS 1.9 (Linux).FeedBusinessLayer"/>
+    <testcase name="should not create feeds that are empty" time="0.002" classname="PhantomJS 1.9 (Linux).FeedBusinessLayer"/>
+    <testcase name="should create a feed before theres a response from the server" time="0.002" classname="PhantomJS 1.9 (Linux).FeedBusinessLayer"/>
+    <testcase name="should set a title and an url hash to the newly crated feed" time="0.002" classname="PhantomJS 1.9 (Linux).FeedBusinessLayer"/>
+    <testcase name="should transform urls correctly" time="0.002" classname="PhantomJS 1.9 (Linux).FeedBusinessLayer"/>
+    <testcase name="should make a create feed request" time="0.002" classname="PhantomJS 1.9 (Linux).FeedBusinessLayer"/>
+    <testcase name="should call the onSuccess function on response status ok" time="0.002" classname="PhantomJS 1.9 (Linux).FeedBusinessLayer"/>
+    <testcase name="should call the handle a response error when creating a folder" time="0.003" classname="PhantomJS 1.9 (Linux).FeedBusinessLayer"/>
+    <testcase name="should mark a feed error as read by removing it" time="0.002" classname="PhantomJS 1.9 (Linux).FeedBusinessLayer"/>
+    <testcase name="should update all feeds" time="0.009" classname="PhantomJS 1.9 (Linux).FeedBusinessLayer"/>
+    <testcase name="should not update feeds without ids" time="0.002" classname="PhantomJS 1.9 (Linux).FeedBusinessLayer"/>
+    <testcase name="should delete folders" time="0.003" classname="PhantomJS 1.9 (Linux).FolderBusinessLayer"/>
+    <testcase name="should return true when folder has feeds" time="0.002" classname="PhantomJS 1.9 (Linux).FolderBusinessLayer"/>
+    <testcase name="should toggle folder" time="0.002" classname="PhantomJS 1.9 (Linux).FolderBusinessLayer"/>
+    <testcase name="should mark folder as read" time="0.002" classname="PhantomJS 1.9 (Linux).FolderBusinessLayer"/>
+    <testcase name="should get the correct unread count" time="0.001" classname="PhantomJS 1.9 (Linux).FolderBusinessLayer"/>
+    <testcase name="should be visible if show all is true" time="0.002" classname="PhantomJS 1.9 (Linux).FolderBusinessLayer"/>
+    <testcase name="should be visible if its active" time="0.001" classname="PhantomJS 1.9 (Linux).FolderBusinessLayer"/>
+    <testcase name="should be visible if one of its subfeeds is active" time="0.001" classname="PhantomJS 1.9 (Linux).FolderBusinessLayer"/>
+    <testcase name="should be visible if showAll is false and it has unread items" time="0.002" classname="PhantomJS 1.9 (Linux).FolderBusinessLayer"/>
+    <testcase name="should return all folders" time="0.002" classname="PhantomJS 1.9 (Linux).FolderBusinessLayer"/>
+    <testcase name="should not create a folder if it already exists" time="0.003" classname="PhantomJS 1.9 (Linux).FolderBusinessLayer"/>
+    <testcase name="should not create folders that are empty" time="0.002" classname="PhantomJS 1.9 (Linux).FolderBusinessLayer"/>
+    <testcase name="should create a folder before theres a response from the server" time="0.001" classname="PhantomJS 1.9 (Linux).FolderBusinessLayer"/>
+    <testcase name="should make a create folder request" time="0.001" classname="PhantomJS 1.9 (Linux).FolderBusinessLayer"/>
+    <testcase name="should call the onSuccess function on response status ok" time="0.002" classname="PhantomJS 1.9 (Linux).FolderBusinessLayer"/>
+    <testcase name="should call the handle a response error when creating a folder" time="0.002" classname="PhantomJS 1.9 (Linux).FolderBusinessLayer"/>
+    <testcase name="should mark a folder error as read by removing it" time="0.002" classname="PhantomJS 1.9 (Linux).FolderBusinessLayer"/>
+    <testcase name="should return the corret folder for id" time="0.002" classname="PhantomJS 1.9 (Linux).FolderBusinessLayer"/>
+    <testcase name="should open a folder" time="0.002" classname="PhantomJS 1.9 (Linux).FolderBusinessLayer"/>
+    <testcase name="should not import on empty opml" time="0.006" classname="PhantomJS 1.9 (Linux).FolderBusinessLayer"/>
+    <testcase name="should import a folder" time="0.004" classname="PhantomJS 1.9 (Linux).FolderBusinessLayer"/>
+    <testcase name="should import a feed" time="0.012" classname="PhantomJS 1.9 (Linux).FolderBusinessLayer"/>
+    <testcase name="should import nested folders" time="0.004" classname="PhantomJS 1.9 (Linux).FolderBusinessLayer"/>
+    <testcase name="should use an existing folder when importing a folder" time="0.003" classname="PhantomJS 1.9 (Linux).FolderBusinessLayer"/>
+    <testcase name="should not import a feed if it already exists" time="0.003" classname="PhantomJS 1.9 (Linux).FolderBusinessLayer"/>
+    <testcase name="should return all items" time="0.003" classname="PhantomJS 1.9 (Linux).ItemBusinessLayer"/>
+    <testcase name="should tell if no feed is active" time="0.002" classname="PhantomJS 1.9 (Linux).ItemBusinessLayer"/>
+    <testcase name="should return the correct feed title" time="0.002" classname="PhantomJS 1.9 (Linux).ItemBusinessLayer"/>
+    <testcase name="should set an item unstarred" time="0.002" classname="PhantomJS 1.9 (Linux).ItemBusinessLayer"/>
+    <testcase name="should set an item starred" time="0.002" classname="PhantomJS 1.9 (Linux).ItemBusinessLayer"/>
+    <testcase name="should set an item read" time="0.002" classname="PhantomJS 1.9 (Linux).ItemBusinessLayer"/>
+    <testcase name="should no set an item read if its already read" time="0.002" classname="PhantomJS 1.9 (Linux).ItemBusinessLayer"/>
+    <testcase name="should return false when item kept unread does not exist" time="0.002" classname="PhantomJS 1.9 (Linux).ItemBusinessLayer"/>
+    <testcase name="should return false if an item is not kept unread" time="0.002" classname="PhantomJS 1.9 (Linux).ItemBusinessLayer"/>
+    <testcase name="should toggle an item as kept unread" time="0.002" classname="PhantomJS 1.9 (Linux).ItemBusinessLayer"/>
+    <testcase name="should set an item as unread" time="0.002" classname="PhantomJS 1.9 (Linux).ItemBusinessLayer"/>
+    <testcase name="should not set an item as unread if its unread" time="0.002" classname="PhantomJS 1.9 (Linux).ItemBusinessLayer"/>
+    <testcase name="should set item as unread if kept unread is toggled and it is read" time="0.002" classname="PhantomJS 1.9 (Linux).ItemBusinessLayer"/>
+    <testcase name="should lower the unread count of a feed when its items get read" time="0.002" classname="PhantomJS 1.9 (Linux).ItemBusinessLayer"/>
+    <testcase name="should increase the unread count of a feed when its items get unread" time="0.002" classname="PhantomJS 1.9 (Linux).ItemBusinessLayer"/>
+    <testcase name="should not be visible if starredCount is 0" time="0.002" classname="PhantomJS 1.9 (Linux).StarredBusinessLayer"/>
+    <testcase name="should always be visible if its the active feed" time="0.004" classname="PhantomJS 1.9 (Linux).StarredBusinessLayer"/>
+    <testcase name="should get the correct unread count" time="0.003" classname="PhantomJS 1.9 (Linux).StarredBusinessLayer"/>
+    <testcase name="should increase the starred count" time="0.003" classname="PhantomJS 1.9 (Linux).StarredBusinessLayer"/>
+    <testcase name="should decrease the starred count" time="0.002" classname="PhantomJS 1.9 (Linux).StarredBusinessLayer"/>
+    <testcase name="should be visible shows all items is set to true and there are feeds" time="0.004" classname="PhantomJS 1.9 (Linux).SubscriptionsBusinessLayer"/>
+    <testcase name="should not be visible if there are no feeds" time="0.002" classname="PhantomJS 1.9 (Linux).SubscriptionsBusinessLayer"/>
+    <testcase name="should not be visible if showall is false + there are no unread" time="0.012" classname="PhantomJS 1.9 (Linux).SubscriptionsBusinessLayer"/>
+    <testcase name="should always be visible if its the active feed" time="0.002" classname="PhantomJS 1.9 (Linux).SubscriptionsBusinessLayer"/>
+    <testcase name="should mark all feeds as read" time="0.003" classname="PhantomJS 1.9 (Linux).SubscriptionsBusinessLayer"/>
+    <testcase name="should get the correct unread count" time="0.002" classname="PhantomJS 1.9 (Linux).SubscriptionsBusinessLayer"/>
+    <testcase name="should have the correct folder number" time="0.002" classname="PhantomJS 1.9 (Linux).FeedType"/>
+    <testcase name="should have the correct folder number" time="0.001" classname="PhantomJS 1.9 (Linux).FeedType"/>
+    <testcase name="should have the correct folder number" time="0.002" classname="PhantomJS 1.9 (Linux).FeedType"/>
+    <testcase name="should have the correct folder number" time="0.002" classname="PhantomJS 1.9 (Linux).FeedType"/>
+    <testcase name="should have the correct folder number" time="0.001" classname="PhantomJS 1.9 (Linux).FeedType"/>
+    <testcase name="should be en by default" time="0.001" classname="PhantomJS 1.9 (Linux).Language"/>
+    <testcase name="should set the correct language" time="0.002" classname="PhantomJS 1.9 (Linux).Language"/>
+    <testcase name="should only set the first part of the language if not available" time="0.001" classname="PhantomJS 1.9 (Linux).Language"/>
+    <testcase name="should default to en" time="0.002" classname="PhantomJS 1.9 (Linux).Language"/>
+    <testcase name="should support languages" time="0.002" classname="PhantomJS 1.9 (Linux).Language"/>
+    <testcase name="should extend _Model" time="0.002" classname="PhantomJS 1.9 (Linux).FeedModel"/>
+    <testcase name="should bind an imagepath to the item if the url is empty" time="0.002" classname="PhantomJS 1.9 (Linux).FeedModel"/>
+    <testcase name="should add feeds without id" time="0.001" classname="PhantomJS 1.9 (Linux).FeedModel"/>
+    <testcase name="should clear the url hash cache" time="0.002" classname="PhantomJS 1.9 (Linux).FeedModel"/>
+    <testcase name="should delete items from the fodername cache" time="0.002" classname="PhantomJS 1.9 (Linux).FeedModel"/>
+    <testcase name="should update the id if an update comes in with an id" time="0.002" classname="PhantomJS 1.9 (Linux).FeedModel"/>
+    <testcase name="should update normally" time="0.002" classname="PhantomJS 1.9 (Linux).FeedModel"/>
+    <testcase name="should clear invalidate the query cache on adding folder with name" time="0.002" classname="PhantomJS 1.9 (Linux).FeedModel"/>
+    <testcase name="should extend model" time="0.001" classname="PhantomJS 1.9 (Linux).FolderModel"/>
+    <testcase name="should add folders without id but name if they dont exist yet" time="0.002" classname="PhantomJS 1.9 (Linux).FolderModel"/>
+    <testcase name="should clear the fodername cache" time="0.002" classname="PhantomJS 1.9 (Linux).FolderModel"/>
+    <testcase name="should delete items from the fodername cache" time="0.002" classname="PhantomJS 1.9 (Linux).FolderModel"/>
+    <testcase name="should update by foldername" time="0.002" classname="PhantomJS 1.9 (Linux).FolderModel"/>
+    <testcase name="should update the id if an update comes in with an id" time="0.001" classname="PhantomJS 1.9 (Linux).FolderModel"/>
+    <testcase name="should update normally" time="0.002" classname="PhantomJS 1.9 (Linux).FolderModel"/>
+    <testcase name="should clear invalidate the query cache on adding folder with name" time="0.002" classname="PhantomJS 1.9 (Linux).FolderModel"/>
+    <testcase name="should extend model" time="0.002" classname="PhantomJS 1.9 (Linux).ItemModel"/>
+    <testcase name="should also update items with the same feed id and guidhash" time="0.002" classname="PhantomJS 1.9 (Linux).ItemModel"/>
+    <testcase name="should also remove the feed from the urlHash cache when its removed" time="0.011" classname="PhantomJS 1.9 (Linux).ItemModel"/>
+    <testcase name="should bind the correct isRead() method to the item" time="0.002" classname="PhantomJS 1.9 (Linux).ItemModel"/>
+    <testcase name="should bind the correct set unread method to the item" time="0.002" classname="PhantomJS 1.9 (Linux).ItemModel"/>
+    <testcase name="should bind the correct set starred method to the item" time="0.002" classname="PhantomJS 1.9 (Linux).ItemModel"/>
+    <testcase name="should bind the correct set unstarred method to the item" time="0.001" classname="PhantomJS 1.9 (Linux).ItemModel"/>
+    <testcase name="should return only the root folder when parsing empty OPML" time="0.004" classname="PhantomJS 1.9 (Linux).OPMLParser"/>
+    <testcase name="should parse folders" time="0.003" classname="PhantomJS 1.9 (Linux).OPMLParser"/>
+    <testcase name="should parse feeds" time="0.004" classname="PhantomJS 1.9 (Linux).OPMLParser"/>
+    <testcase name="should nest feeds" time="0.003" classname="PhantomJS 1.9 (Linux).OPMLParser"/>
+    <testcase name="should should show a loading sign when init" time="0.004" classname="PhantomJS 1.9 (Linux)._Persistence"/>
+    <testcase name="should send a autopaging request" time="0.002" classname="PhantomJS 1.9 (Linux)._Persistence"/>
+    <testcase name="should send a load newest items request" time="0.001" classname="PhantomJS 1.9 (Linux)._Persistence"/>
+    <testcase name="send a correct get starred items request" time="0.001" classname="PhantomJS 1.9 (Linux)._Persistence"/>
+    <testcase name="send a correct star item request" time="0.002" classname="PhantomJS 1.9 (Linux)._Persistence"/>
+    <testcase name="send a correct unstar item request" time="0.002" classname="PhantomJS 1.9 (Linux)._Persistence"/>
+    <testcase name="send a correct read item request" time="0.002" classname="PhantomJS 1.9 (Linux)._Persistence"/>
+    <testcase name="send a correct unread item request" time="0.002" classname="PhantomJS 1.9 (Linux)._Persistence"/>
+    <testcase name="should get all feeds" time="0.001" classname="PhantomJS 1.9 (Linux)._Persistence"/>
+    <testcase name="create a correct request for moving a feed" time="0.001" classname="PhantomJS 1.9 (Linux)._Persistence"/>
+    <testcase name="shoud send a correct request for marking all items read" time="0.002" classname="PhantomJS 1.9 (Linux)._Persistence"/>
+    <testcase name="send a correct feed update request" time="0.002" classname="PhantomJS 1.9 (Linux)._Persistence"/>
+    <testcase name="send a correct get active feed request" time="0.002" classname="PhantomJS 1.9 (Linux)._Persistence"/>
+    <testcase name="send a correct feed delete request" time="0.002" classname="PhantomJS 1.9 (Linux)._Persistence"/>
+    <testcase name="send a correct feed create request" time="0.001" classname="PhantomJS 1.9 (Linux)._Persistence"/>
+    <testcase name="should do a proper get all folders request" time="0.001" classname="PhantomJS 1.9 (Linux)._Persistence"/>
+    <testcase name="send a correct collapse folder request" time="0.002" classname="PhantomJS 1.9 (Linux)._Persistence"/>
+    <testcase name="send a correct open folder request" time="0.002" classname="PhantomJS 1.9 (Linux)._Persistence"/>
+    <testcase name="should do a proper folder create request" time="0.002" classname="PhantomJS 1.9 (Linux)._Persistence"/>
+    <testcase name="should do a proper folder delete request" time="0.002" classname="PhantomJS 1.9 (Linux)._Persistence"/>
+    <testcase name="should do a proper folder rename request" time="0.002" classname="PhantomJS 1.9 (Linux)._Persistence"/>
+    <testcase name="should have an export request" time="0.011" classname="PhantomJS 1.9 (Linux)._Persistence"/>
+    <testcase name="should do a proper get user settings read request" time="0.002" classname="PhantomJS 1.9 (Linux)._Persistence"/>
+    <testcase name="should do a proper get user settings read req and call callback" time="0.001" classname="PhantomJS 1.9 (Linux)._Persistence"/>
+    <testcase name="should do a proper user settings read show request" time="0.001" classname="PhantomJS 1.9 (Linux)._Persistence"/>
+    <testcase name="should do a proper user settings read hide request" time="0.002" classname="PhantomJS 1.9 (Linux)._Persistence"/>
+    <testcase name="should do a proper user settings language request" time="0.002" classname="PhantomJS 1.9 (Linux)._Persistence"/>
+    <testcase name="should be false by default" time="0.002" classname="PhantomJS 1.9 (Linux).ShowAll"/>
+    <testcase name="should set the correct ShowAll value" time="0.001" classname="PhantomJS 1.9 (Linux).ShowAll"/>
+    <testcase name="should provide a set Showall setter" time="0.002" classname="PhantomJS 1.9 (Linux).ShowAll"/>
+    <testcase name="should be 0 by default" time="0.002" classname="PhantomJS 1.9 (Linux).StarredCount"/>
+    <testcase name="should set the correct StarredCount count" time="0.002" classname="PhantomJS 1.9 (Linux).StarredCount"/>
+    <testcase name="should provide a setter" time="0.001" classname="PhantomJS 1.9 (Linux).StarredCount"/>
+    <testcase name="should have the correct status flags" time="0.002" classname="PhantomJS 1.9 (Linux).StatusFlag"/>
+    <testcase name="should return the normal count if its below 999" time="0.001" classname="PhantomJS 1.9 (Linux).unreadCountFormatter"/>
+    <testcase name="should set the count to 999+ if the count is over 999" time="0.002" classname="PhantomJS 1.9 (Linux).unreadCountFormatter"/>
+    <system-out><![CDATA[
+]]></system-out>
+    <system-err/>
+  </testsuite>
+</testsuites>

@@ -23,10 +23,10 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 angular.module('News').factory '_ExistsError', ->
 
-	class ExistsError extends Error
+	class ExistsError
 
-		constructor: (message='') ->
-			super(message)
+		constructor: (@message) ->
+
 
 
 	return ExistsError

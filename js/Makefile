@@ -27,7 +27,6 @@ all: compile
 deps:
 	cd $(CURDIR)/
 	npm install --deps
-	cd ..
 
 watch: compile
 	$(coffee) --compile --watch --output $(CURDIR)/build/app $(CURDIR)/app/ & \

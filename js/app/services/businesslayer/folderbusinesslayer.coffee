@@ -97,12 +97,12 @@ ActiveFeed, ItemModel, ShowAll, _ExistsError, OPMLParser) ->
 			onFailure or= ->
 
 			if angular.isUndefined(folderName) or folderName.trim() == ''
-				throw new Error()
+				throw new Error('Folder name must not be empty')
 			
 			folderName = folderName.trim()
 			
 			if @_folderModel.getByName(folderName)
-				throw new _ExistsError()
+				throw new _ExistsError('Exists already')
 
 			folder =
 				name: folderName

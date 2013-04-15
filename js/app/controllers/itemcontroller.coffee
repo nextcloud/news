@@ -34,6 +34,7 @@ Language) ->
 			@_$scope.itemBusinessLayer = @_itemBusinessLayer
 			@_$scope.feedBusinessLayer = @_feedBusinessLayer
 
+
 			@_$scope.isLoading = =>
 				return @_feedLoading.isLoading()
 
@@ -44,11 +45,17 @@ Language) ->
 				else
 					return ''
 
+			# TODO: unittest
 			@_$scope.getRelativeDate = (date) =>
 				if date
 					return @_language.getMomentFromTimestamp(date).fromNow()
 				else
 					return ''
+
+
+			@_$scope.$on 'readItem', (scope, data) =>
+				console.log data
+
 
 
 

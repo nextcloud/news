@@ -230,17 +230,17 @@ describe 'FeedBusinessLayer', ->
 
 		expect =>
 			@FeedBusinessLayer.create('john')
-		.toThrow(new @_ExistsError())
+		.toThrow(new @_ExistsError('Exists already'))
 		
 		expect =>
 			@FeedBusinessLayer.create('johns')
-		.not.toThrow(new @_ExistsError())
+		.not.toThrow(new @_ExistsError('Exists already'))
 
 
 	it 'should not create feeds that are empty', =>
 		expect =>
 			@FeedBusinessLayer.create('   ')
-		.toThrow(new Error())
+		.toThrow(new Error('Url must not be empty'))
 
 
 	it 'should create a feed before theres a response from the server', =>

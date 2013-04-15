@@ -140,17 +140,17 @@ describe 'FolderBusinessLayer', ->
 
 		expect =>
 			@FolderBusinessLayer.create('john')
-		.toThrow(new @_ExistsError())
+		.toThrow(new @_ExistsError('Exists already'))
 		
 		expect =>
 			@FolderBusinessLayer.create('johns')
-		.not.toThrow(new @_ExistsError())
+		.not.toThrow(new @_ExistsError('Exists already'))
 
 
 	it 'should not create folders that are empty', =>
 		expect =>
 			@FolderBusinessLayer.create('   ')
-		.toThrow(new Error())
+		.toThrow(new Error('Folder name must not be empty'))
 
 
 	it 'should create a folder before theres a response from the server', =>
