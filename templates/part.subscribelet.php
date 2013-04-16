@@ -7,7 +7,7 @@
    	var a=window,
    	    b=document,
    	    c=encodeURIComponent,
-   	    d=a.open('<?php print_unescaped(OCP\Util::linkToAbsolute('news', 'subscribe.php'))?>?output=popup&url='+c(b.location),
+   	    d=a.open('<?php print_unescaped(\OCP\Util::linkToAbsolute('news', 'subscribe.php'))?>?output=popup&url='+c(b.location),
    	    			'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',
    	    			 top='+((a.screenY||a.screenTop)+10)+',
    	    			 height=150px,width=360px,resizable=1,alwaysRaised=1');
