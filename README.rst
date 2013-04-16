@@ -10,12 +10,13 @@ Maintainers
 
 Status
 ------
-App is not finished yet and in rewrite.
+The app is in alpha status and can be tested.
 
-When the first kinda working version is available it will be mentioned in this readme.
+See the `beta milestone in the bugtracker <https://github.com/owncloud/news/issues?milestone=3&state=open>`_ for more information on progress
 
-See the `milestones in the bugtracker <https://github.com/owncloud/news/issues/milestones>`_ for more information on progress
-
+Bugs
+----
+Before reporting bugs, `please check if they already have been reported <https://github.com/owncloud/news/issues?state=open>`_.
 
 How to install the News app
 ---------------------------
