@@ -132,6 +132,19 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 	}
 
 
+	public function testReadFeedShouldMarkAllAsReadWhenIdZero(){
+		$sql = 'UPDATE `*PREFIX*news_items` ' . 
+			'SET `status` = `status` & ? ' .
+				'WHERE `feed_id` = ? ' .
+				'AND EXISTS (' .
+					'SELECT * FROM `*PREFIX*news_feeds` ' .
+					'WHERE `user_id` = ? ' .
+					'AND `id` = ? ) ';
+		$params = array(~StatusFlag::UNREAD, 3,$this->user, 3);
+		$this->setMapperResult($sql, $params);
+		$this->mapper->readFeed(3, 0, $this->user);
+	}
+
 	public function testFindAllNew(){
 		$sql = 'AND `items`.`id` >= ?';
 		$sql = $this->makeSelectQueryStatus($sql, $this->status);
