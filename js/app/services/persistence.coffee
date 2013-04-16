@@ -63,7 +63,7 @@ $rootScope) ->
 			# loading sign handling
 			loading.increase()
 			successCallbackWrapper = (data) =>
-				onSuccess()
+				onSuccess(data)
 				loading.decrease()
 			failureCallbackWrapper = (data) =>
 				loading.decrease()

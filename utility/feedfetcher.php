@@ -81,7 +81,8 @@ class FeedFetcher implements IFeedFetcher {
 					$item->setStatus(0);
 					$item->setUnread();
 					$item->setUrl( $feedItem->get_permalink() );
-					$item->setTitle( $feedItem->get_title() );
+					// unescape content because angularjs helps agains XSS
+					$item->setTitle(html_entity_decode($feedItem->get_title()));
 					$item->setGuid( $feedItem->get_id() );
 					$item->setGuidHash( md5($feedItem->get_id()) );
 					$item->setBody( $feedItem->get_content() );
@@ -108,7 +109,8 @@ class FeedFetcher implements IFeedFetcher {
 			}
 
 			$feed = new Feed();
-			$feed->setTitle($simplePie->get_title());
+			// unescape content because angularjs helps agains XSS
+			$feed->setTitle(html_entity_decode($simplePie->get_title()));
 			$feed->setUrl($url);
 			$feed->setLink($simplePie->get_link());
 			$feed->setUrlHash(md5($url));

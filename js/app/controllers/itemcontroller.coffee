@@ -66,7 +66,7 @@ Language, AutoPageLoading) ->
 				if @_autoPaging
 					# prevent multiple autopaging requests
 					@_autoPaging = false
-					@_itemBusinessLayer.loadNext =>
+					@_itemBusinessLayer.loadNext (data) =>
 						@_autoPaging = true
 
 

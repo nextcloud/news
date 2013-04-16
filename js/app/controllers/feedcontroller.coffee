@@ -24,16 +24,18 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 angular.module('News').controller 'FeedController',
 ['$scope', '_ExistsError', 'Persistence', 'FolderBusinessLayer',
 'FeedBusinessLayer', 'SubscriptionsBusinessLayer', 'StarredBusinessLayer',
-'unreadCountFormatter',
+'unreadCountFormatter', 'ActiveFeed', 'FeedType',
 ($scope, _ExistsError, Persistence, FolderBusinessLayer, FeedBusinessLayer,
-SubscriptionsBusinessLayer, StarredBusinessLayer, unreadCountFormatter) ->
+SubscriptionsBusinessLayer, StarredBusinessLayer, unreadCountFormatter,
+ActiveFeed, FeedType) ->
 
 
 	class FeedController
 
 		constructor: (@_$scope, @_persistence, @_folderBusinessLayer,
 		              @_feedBusinessLayer, @_subscriptionsBusinessLayer,
-		              @_starredBusinessLayer, @_unreadCountFormatter) ->
+		              @_starredBusinessLayer, @_unreadCountFormatter,
+		              @_activeFeed, @_feedType) ->
 
 			@_isAddingFolder = false
 			@_isAddingFeed = false
@@ -45,7 +47,6 @@ SubscriptionsBusinessLayer, StarredBusinessLayer, unreadCountFormatter) ->
 			@_$scope.starredBusinessLayer = @_starredBusinessLayer
 			@_$scope.unreadCountFormatter = @_unreadCountFormatter
 
-			
 			@_$scope.isAddingFolder = =>
 				return @_isAddingFolder
 
@@ -111,8 +112,10 @@ SubscriptionsBusinessLayer, StarredBusinessLayer, unreadCountFormatter) ->
 				@_feedBusinessLayer.move(data.feedId, data.folderId)
 
 
+
 	return new FeedController($scope, Persistence, FolderBusinessLayer,
 	                          FeedBusinessLayer, SubscriptionsBusinessLayer,
-	                          StarredBusinessLayer, unreadCountFormatter)
+	                          StarredBusinessLayer, unreadCountFormatter,
+	                          ActiveFeed, FeedType)
 
 ]

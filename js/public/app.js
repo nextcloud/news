@@ -314,11 +314,11 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 (function() {
   angular.module('News').controller('FeedController', [
-    '$scope', '_ExistsError', 'Persistence', 'FolderBusinessLayer', 'FeedBusinessLayer', 'SubscriptionsBusinessLayer', 'StarredBusinessLayer', 'unreadCountFormatter', function($scope, _ExistsError, Persistence, FolderBusinessLayer, FeedBusinessLayer, SubscriptionsBusinessLayer, StarredBusinessLayer, unreadCountFormatter) {
+    '$scope', '_ExistsError', 'Persistence', 'FolderBusinessLayer', 'FeedBusinessLayer', 'SubscriptionsBusinessLayer', 'StarredBusinessLayer', 'unreadCountFormatter', 'ActiveFeed', 'FeedType', function($scope, _ExistsError, Persistence, FolderBusinessLayer, FeedBusinessLayer, SubscriptionsBusinessLayer, StarredBusinessLayer, unreadCountFormatter, ActiveFeed, FeedType) {
       var FeedController;
 
       FeedController = (function() {
-        function FeedController(_$scope, _persistence, _folderBusinessLayer, _feedBusinessLayer, _subscriptionsBusinessLayer, _starredBusinessLayer, _unreadCountFormatter) {
+        function FeedController(_$scope, _persistence, _folderBusinessLayer, _feedBusinessLayer, _subscriptionsBusinessLayer, _starredBusinessLayer, _unreadCountFormatter, _activeFeed, _feedType) {
           var _this = this;
 
           this._$scope = _$scope;
@@ -328,6 +328,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           this._subscriptionsBusinessLayer = _subscriptionsBusinessLayer;
           this._starredBusinessLayer = _starredBusinessLayer;
           this._unreadCountFormatter = _unreadCountFormatter;
+          this._activeFeed = _activeFeed;
+          this._feedType = _feedType;
           this._isAddingFolder = false;
           this._isAddingFeed = false;
           this._$scope.folderBusinessLayer = this._folderBusinessLayer;
@@ -408,7 +410,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         return FeedController;
 
       })();
-      return new FeedController($scope, Persistence, FolderBusinessLayer, FeedBusinessLayer, SubscriptionsBusinessLayer, StarredBusinessLayer, unreadCountFormatter);
+      return new FeedController($scope, Persistence, FolderBusinessLayer, FeedBusinessLayer, SubscriptionsBusinessLayer, StarredBusinessLayer, unreadCountFormatter, ActiveFeed, FeedType);
     }
   ]);
 
@@ -485,7 +487,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           this._$scope.$on('autoPage', function() {
             if (_this._autoPaging) {
               _this._autoPaging = false;
-              return _this._itemBusinessLayer.loadNext(function() {
+              return _this._itemBusinessLayer.loadNext(function(data) {
                 return _this._autoPaging = true;
               });
             }
@@ -2256,7 +2258,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           }
           loading.increase();
           successCallbackWrapper = function(data) {
-            onSuccess();
+            onSuccess(data);
             return loading.decrease();
           };
           failureCallbackWrapper = function(data) {
