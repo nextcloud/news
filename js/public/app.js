@@ -439,17 +439,18 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 (function() {
   angular.module('News').controller('ItemController', [
-    '$scope', 'ItemBusinessLayer', 'FeedModel', 'FeedLoading', 'FeedBusinessLayer', 'Language', function($scope, ItemBusinessLayer, FeedModel, FeedLoading, FeedBusinessLayer, Language) {
+    '$scope', 'ItemBusinessLayer', 'FeedModel', 'FeedLoading', 'FeedBusinessLayer', 'Language', 'AutoPageLoading', function($scope, ItemBusinessLayer, FeedModel, FeedLoading, FeedBusinessLayer, Language, AutoPageLoading) {
       var ItemController;
 
       ItemController = (function() {
-        function ItemController(_$scope, _itemBusinessLayer, _feedModel, _feedLoading, _feedBusinessLayer, _language) {
+        function ItemController(_$scope, _itemBusinessLayer, _feedModel, _feedLoading, _autoPageLoading, _feedBusinessLayer, _language) {
           var _this = this;
 
           this._$scope = _$scope;
           this._itemBusinessLayer = _itemBusinessLayer;
           this._feedModel = _feedModel;
           this._feedLoading = _feedLoading;
+          this._autoPageLoading = _autoPageLoading;
           this._feedBusinessLayer = _feedBusinessLayer;
           this._language = _language;
           this._autoPaging = true;
@@ -457,6 +458,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           this._$scope.feedBusinessLayer = this._feedBusinessLayer;
           this._$scope.isLoading = function() {
             return _this._feedLoading.isLoading();
+          };
+          this._$scope.isAutoPaging = function() {
+            return _this._autoPageLoading.isLoading();
           };
           this._$scope.getFeedTitle = function(feedId) {
             var feed;
@@ -491,7 +495,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         return ItemController;
 
       })();
-      return new ItemController($scope, ItemBusinessLayer, FeedModel, FeedLoading, FeedBusinessLayer, Language);
+      return new ItemController($scope, ItemBusinessLayer, FeedModel, FeedLoading, AutoPageLoading, FeedBusinessLayer, Language);
     }
   ]);
 

@@ -37,7 +37,10 @@
 
 	</div>
 
-	<div id="app-content" ng-class="{loading: isLoading()}"
+	<div id="app-content" ng-class="{
+			loading: isLoading(),
+			autopaging: isAutoPaging()
+		}"
 		ng-controller="ItemController" 
 		news-item-scroll
 		item-shortcuts>

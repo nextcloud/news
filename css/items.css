@@ -25,6 +25,15 @@
 	height: 100%;
 }
 
+#app-content.autopaging:after {
+	content: '';
+	background-image: url('%webroot%/core/img/loading.gif');
+	background-position: center;
+	background-repeat: no-repeat;
+	display: block;
+	height: 100%;
+}
+
 #app-content.loading {
 	background-image: url('%webroot%/core/img/loading.gif');
 	background-position: center;
