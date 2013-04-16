@@ -18,8 +18,18 @@ Bugs
 ----
 Before reporting bugs, `please check if they already have been reported <https://github.com/owncloud/news/issues?state=open>`_.
 
+Before you install the News app
+-------------------------------
+Before you install the app check that the following requirements are met:
+
+- Your database uses utf-8
+- Your webserver uses utf-8
+- You use a browser that supports the FileReader API
+
+
 How to install the News app
 ---------------------------
+
 - Install **ownCloud 5.0.5** (not released yet contains a small css fix, use the stable5 branch or 5.0.4)
 
 Should you have upgraded from a prior version, disable the CSS and JavaScript caching by adding this to :file:`owncloud/config/config.php`::
