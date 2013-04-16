@@ -32,6 +32,7 @@ FeedModel, NewLoading, _ExistsError, Utils) ->
 		constructor: (@_showAll, @_feedModel, persistence, activeFeed, feedType,
 			          itemModel, @_newLoading, @_utils) ->
 			super(activeFeed, persistence, itemModel, feedType.Feed)
+			@_feedType = feedType
 
 
 		getUnreadCount: (feedId) ->
@@ -59,7 +60,11 @@ FeedModel, NewLoading, _ExistsError, Utils) ->
 			feed = @_feedModel.getById(feedId)
 			if angular.isDefined(feed)
 				feed.unreadCount = 0
-				highestItemId = @_itemModel.getHighestId()
+				if @_activeFeed.getId() == feedId and
+				@_activeFeed.getType() == @_feedType.Feed
+					highestItemId = @_itemModel.getHighestId()
+				else
+					highestItemId = 0
 				@_persistence.setFeedRead(feedId, highestItemId)
 				for item in @_itemModel.getAll()
 					item.setRead()

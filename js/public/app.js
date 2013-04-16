@@ -703,6 +703,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           this._newLoading = _newLoading;
           this._utils = _utils;
           FeedBusinessLayer.__super__.constructor.call(this, activeFeed, persistence, itemModel, feedType.Feed);
+          this._feedType = feedType;
         }
 
         FeedBusinessLayer.prototype.getUnreadCount = function(feedId) {
@@ -732,7 +733,11 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           feed = this._feedModel.getById(feedId);
           if (angular.isDefined(feed)) {
             feed.unreadCount = 0;
-            highestItemId = this._itemModel.getHighestId();
+            if (this._activeFeed.getId() === feedId && this._activeFeed.getType() === this._feedType.Feed) {
+              highestItemId = this._itemModel.getHighestId();
+            } else {
+              highestItemId = 0;
+            }
             this._persistence.setFeedRead(feedId, highestItemId);
             _ref = this._itemModel.getAll();
             _results = [];
