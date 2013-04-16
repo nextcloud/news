@@ -25,18 +25,23 @@ describe 'FolderBusinessLayer', ->
 
 	beforeEach module 'News'
 
-	beforeEach =>
-		angular.module('News').factory 'Persistence', =>
-			@persistence =
-				createFolder: ->
-				createFeed: ->
-				openFolder: ->
+	beforeEach module ($provide) =>
+		@persistence =
+			test: 'folderbusinesslayer'
+
+		@imagePath = jasmine.createSpy('imagePath')
+		@utils =
+			imagePath: @imagePath
+
+		$provide.value 'Persistence', @persistence
+		$provide.value 'Utils', @utils
+		return
+
 
 	beforeEach inject (@FolderBusinessLayer, @FolderModel,	@FeedModel, @ShowAll,
 		               @ActiveFeed, @FeedType, @_ExistsError) =>
 		@ShowAll.setShowAll(false)
 		@ActiveFeed.handle({type: @FeedType.Feed, id:0})
-
 
 
 	it 'should delete folders', =>
@@ -154,6 +159,7 @@ describe 'FolderBusinessLayer', ->
 
 
 	it 'should create a folder before theres a response from the server', =>
+		@persistence.createFolder = jasmine.createSpy('create folder')
 		@FolderBusinessLayer.create('johns')
 		expect(@FolderModel.size()).toBe(1)
 		expect(@FolderModel.getByName('johns').opened).toBe(true)
@@ -366,7 +372,7 @@ describe 'FolderBusinessLayer', ->
 	it 'should use an existing folder when importing a folder', =>
 		@persistence.createFolder = jasmine.createSpy('create folder')
 		@persistence.createFeed = jasmine.createSpy('create feed')
-		@persistence.openFolder = jasmine.createSpy('open folder')
+		@persistence.openFolder = jasmine.createSpy('open')
 
 		folder = {id: 2, name: 'design', opened: false}
 		@FolderModel.add(folder)

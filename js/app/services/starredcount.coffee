@@ -21,7 +21,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-angular.module('News').factory '_StarredCount', ->
+angular.module('News').factory 'StarredCount', ->
 	
 	class StarredCount
 
@@ -41,5 +41,4 @@ angular.module('News').factory '_StarredCount', ->
 			return @_count
 
 
-
-	return StarredCount
+	return new StarredCount()

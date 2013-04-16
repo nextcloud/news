@@ -26,14 +26,16 @@ describe 'ItemBusinessLayer', ->
 
 	beforeEach module 'News'
 
-	beforeEach =>
-		angular.module('News').factory 'Persistence', =>
-			@persistence = {}
-
+	beforeEach module ($provide) =>
+		@persistence = {}
+		$provide.value 'Persistence', @persistence
+		return
+			
 	beforeEach inject (@ItemModel, @ItemBusinessLayer, @StatusFlag, @ActiveFeed
 	                   @FeedType, @FeedModel, @StarredBusinessLayer) =>
 		@item1 = {id: 5, title: 'hi', unreadCount:134, urlHash: 'a3', folderId: 3}
 		@FeedModel.add(@item1)
+		
 
 
 	it 'should return all items', =>

@@ -25,10 +25,10 @@ describe 'FeedController', ->
 
 	beforeEach module 'News'
 
-	beforeEach =>
-		angular.module('News').factory 'Persistence', =>
-			@persistence = {}
-
+	beforeEach module ($provide) =>
+		@persistence = {}
+		$provide.value 'Persistence', @persistence
+		return
 
 	beforeEach inject ($controller, @FolderBusinessLayer, @FeedBusinessLayer,
 	                   $rootScope, @unreadCountFormatter,
@@ -36,10 +36,8 @@ describe 'FeedController', ->
 		@scope = $rootScope.$new()
 		replace =
 			$scope: @scope
-			Persistence: @persistence
 
 		@controller = $controller('FeedController', replace)
-
 
 
 	it 'isAddingFolder should return false in the beginning', =>

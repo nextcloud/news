@@ -20,7 +20,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 ###
 
-angular.module('News').factory '_FolderModel',
+angular.module('News').factory 'FolderModel',
 ['_Model', '_EqualQuery', (_Model, _EqualQuery) ->
 
 	class FolderModel extends _Model
@@ -138,5 +138,5 @@ angular.module('News').factory '_FolderModel',
 					break
 
 
-	return FolderModel
+	return new FolderModel()
 ]

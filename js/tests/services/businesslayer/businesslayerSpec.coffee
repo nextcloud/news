@@ -27,7 +27,7 @@ describe 'BusinessLayer', ->
 
 	beforeEach inject (@_BusinessLayer, @ActiveFeed, @FeedType, @ItemModel) =>
 		type = @FeedType.Starred
-		angular.module('News').factory 'Persistence', =>
+		
 		@getItemsSpy = jasmine.createSpy('getItems')
 		@persistence = {
 			getItems: @getItemsSpy

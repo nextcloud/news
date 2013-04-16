@@ -25,22 +25,24 @@ describe 'FeedBusinessLayer', ->
 
 	beforeEach module 'News'
 
-	beforeEach =>
-		angular.module('News').factory 'Persistence', =>
-			@setFeedReadSpy = jasmine.createSpy('setFeedRead')
-			@getItemsSpy = jasmine.createSpy('Get Items')
-			@persistence = {
-				setFeedRead: @setFeedReadSpy
-				getItems: @getItemsSpy
-				createFeed: ->
-			}
-		angular.module('News').factory 'Utils', =>
-			@imagePath = jasmine.createSpy('imagePath')
-			@utils = {
-				imagePath: @imagePath
-			}
+	beforeEach module ($provide) =>
+		@setFeedReadSpy = jasmine.createSpy('setFeedRead')
+		@getItemsSpy = jasmine.createSpy('Get Items')
+		@persistence =
+			setFeedRead: @setFeedReadSpy
+			getItems: @getItemsSpy
+			createFeed: ->
+			test: 'feedbusinesslayer'
 
+		@imagePath = jasmine.createSpy('imagePath')
+		@utils =
+			imagePath: @imagePath
 
+		$provide.value 'Persistence', @persistence
+		$provide.value 'Utils', @utils
+		return
+
+	
 	beforeEach inject (@FeedBusinessLayer, @FeedModel, @ItemModel, @FeedType,
 	                   @ShowAll, @ActiveFeed, @_ExistsError) =>
 		@ShowAll.setShowAll(false)

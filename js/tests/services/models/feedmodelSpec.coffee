@@ -25,10 +25,14 @@ describe 'FeedModel', ->
 
 	beforeEach module 'News'
 
-	beforeEach =>
-		angular.module('News').factory 'Utils', =>
-			@utils =
-				imagePath: jasmine.createSpy('utils')
+	beforeEach module ($provide) =>
+		@imagePath = jasmine.createSpy('imagePath')
+		@utils =
+			imagePath: @imagePath
+
+		$provide.value 'Utils', @utils
+		return
+
 
 	beforeEach inject (@FeedModel, @_Model) =>
 

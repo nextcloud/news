@@ -20,7 +20,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 ###
 
-angular.module('News').factory '_ItemModel',
+angular.module('News').factory 'ItemModel',
 ['_Model', '_MaximumQuery', '_MinimumQuery', 'StatusFlag',
 (_Model, _MaximumQuery, _MinimumQuery, StatusFlag) ->
 
@@ -109,5 +109,5 @@ angular.module('News').factory '_ItemModel',
 				return 0
 
 
-	return ItemModel
+	return new ItemModel()
 ]

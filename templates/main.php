@@ -39,7 +39,7 @@
 
 	<div id="app-content" ng-class="{loading: isLoading()}"
 		ng-controller="ItemController" 
-		scroll-marks-read
+		news-item-scroll
 		item-shortcuts>
 		<?php print_unescaped($this->inc("part.items")); ?>
 	</div>

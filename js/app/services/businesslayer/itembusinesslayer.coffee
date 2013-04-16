@@ -73,7 +73,7 @@ StarredBusinessLayer) ->
 			item = @_itemModel.getById(itemId)
 			if angular.isDefined(item)
 				
-				keptUnread = angular.isDefined(item.keptUnread) and 
+				keptUnread = angular.isDefined(item.keptUnread) and
 				item.keptUnread
 				
 				if not (item.isRead() or keptUnread)

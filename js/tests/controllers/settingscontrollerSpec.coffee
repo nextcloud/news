@@ -25,6 +25,11 @@ describe 'SettingsController', ->
 
 	beforeEach module 'News'
 
+	beforeEach module ($provide) =>
+		@persistence = {}
+		$provide.value 'Persistence', @persistence
+		return
+
 	beforeEach inject ($controller, @FeedBusinessLayer, @FolderBusinessLayer,
 	                   @ShowAll) =>
 		@scope = {}

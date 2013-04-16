@@ -22,12 +22,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 
 # request related stuff
-angular.module('News').factory 'Persistence', ['_Persistence', 'Request',
-'FeedLoading', 'Config', 'ActiveFeed', '$rootScope',
-(_Persistence, Request, FeedLoading, Config, ActiveFeed, $rootScope) ->
-	return new _Persistence(Request, FeedLoading, Config, ActiveFeed, $rootScope)
-]
-
 angular.module('News').factory 'Request',
 ['_Request', '$http', 'Publisher', 'Router',
 (_Request, $http, Publisher, Router) ->
@@ -36,47 +30,16 @@ angular.module('News').factory 'Request',
 
 
 # loading helpers
-angular.module('News').factory 'FeedLoading',
-['_Loading', (_Loading) ->
+angular.module('News').factory 'FeedLoading', ['_Loading', (_Loading) ->
 	return new _Loading()
 ]
 
-angular.module('News').factory 'AutoPageLoading',
-['_Loading', (_Loading) ->
+angular.module('News').factory 'AutoPageLoading', ['_Loading', (_Loading) ->
 	return new _Loading()
 ]
 
-angular.module('News').factory 'NewLoading',
-['_Loading', (_Loading) ->
+angular.module('News').factory 'NewLoading', ['_Loading', (_Loading) ->
 	return new _Loading()
-]
-
-# models
-angular.module('News').factory 'ActiveFeed', ['_ActiveFeed', (_ActiveFeed) ->
-	return new _ActiveFeed()
-]
-
-angular.module('News').factory 'ShowAll', ['_ShowAll', (_ShowAll) ->
-	return new _ShowAll()
-]
-
-angular.module('News').factory 'StarredCount', ['_StarredCount',
-(_StarredCount) ->
-	return new _StarredCount()
-]
-
-angular.module('News').factory 'FeedModel', ['_FeedModel', 'Utils',
-(_FeedModel, Utils) ->
-	return new _FeedModel(Utils)
-]
-
-angular.module('News').factory 'FolderModel',
-['_FolderModel', (_FolderModel) ->
-	return new _FolderModel()
-]
-
-angular.module('News').factory 'ItemModel', ['_ItemModel', (_ItemModel) ->
-	return new _ItemModel()
 ]
 
 

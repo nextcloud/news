@@ -21,7 +21,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-angular.module('News').factory '_ShowAll', ->
+angular.module('News').factory 'ShowAll', ->
 	
 	class ShowAll
 
@@ -41,4 +41,4 @@ angular.module('News').factory '_ShowAll', ->
 			@_showAll = showAll
 
 
-	return ShowAll
+	return new ShowAll()

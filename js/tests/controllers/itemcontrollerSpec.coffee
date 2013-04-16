@@ -26,16 +26,17 @@ describe 'ItemController', ->
 
 	beforeEach module 'News'
 
+	beforeEach module ($provide) =>
+		@persistence =
+			getItems: ->
+		$provide.value 'Persistence', @persistence
+		return
+
 	beforeEach inject ($controller, @ItemBusinessLayer, @FeedBusinessLayer,
 	$rootScope) =>
 		@scope = $rootScope.$new()
-		@persistence = {
-			getItems: ->
-		}
-
 		replace =
 			$scope: @scope
-			Persistence: @persistence
 		@controller = $controller('ItemController', replace)
 
 

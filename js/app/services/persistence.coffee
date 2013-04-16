@@ -20,33 +20,31 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 ###
 
+angular.module('News').factory 'Persistence',
+['Request', 'FeedLoading', 'AutoPageLoading', 'NewLoading', 'Config',
+'ActiveFeed', '$rootScope',
+(Request, FeedLoading, AutoPageLoading, NewLoading, Config, ActiveFeed,
+$rootScope) ->
 
-angular.module('News').factory '_Persistence', ->
-	
 	class Persistence
 
-		constructor: (@_request, @_loading, @_config, @_activeFeed,
-						@_$rootScope) ->
+		constructor: (@_request, @_feedLoading, @_autoPageLoading, @_newLoading,
+		              @_config, @_activeFeed, @_$rootScope) ->
 
 
 		init: ->
 			###
 			Loads the initial data from the server
 			###
-			@_loading.increase()
 
 			# items can only be loaded after the active feed is known
 			@getActiveFeed =>
-				@getItems @_activeFeed.getType(), @_activeFeed.getId(), 0, =>
-					@_loading.decrease()
+				@getItems(@_activeFeed.getType(), @_activeFeed.getId())
 			
-			triggerHideRead = =>
-				@_triggerHideRead
-
-			@getAllFolders(triggerHideRead)
-			@getAllFeeds(triggerHideRead)
-			@userSettingsRead(triggerHideRead)
-			@getStarredItems(triggerHideRead)
+			@getAllFolders()
+			@getAllFeeds()
+			@userSettingsRead()
+			@getStarredItems()
 			@userSettingsLanguage()
 
 
@@ -54,8 +52,21 @@ angular.module('News').factory '_Persistence', ->
 			ITEM CONTROLLER
 		###
 		getItems: (type, id, offset, onSuccess=null, updatedSince=null) ->
-
 			onSuccess or= ->
+
+			# show different loading signs
+			if offset == 0
+				loading = @_feedLoading
+			else
+				loading = @_autoPageLoading
+
+			# loading sign handling
+			loading.increase()
+			successCallbackWrapper = (data) =>
+				onSuccess()
+				loading.decrease()
+			failureCallbackWrapper = (data) =>
+				loading.decrease()
 
 			if updatedSince != null
 				data =
@@ -71,14 +82,27 @@ angular.module('News').factory '_Persistence', ->
 
 			params =
 				data: data
-				onSuccess: onSuccess
+				onSuccess: successCallbackWrapper
+				onFailure: failureCallbackWrapper
 
 			@_request.get 'news_items', params
 
 
 		getStarredItems: (onSuccess) ->
+			onSuccess or= ->
+
+			# loading sign handling
+			@_feedLoading.increase()
+			successCallbackWrapper = (data) =>
+				onSuccess()
+				@_feedLoading.decrease()
+			failureCallbackWrapper = (data) =>
+				@_feedLoading.decrease()
+
 			params =
-				onSuccess: onSuccess
+				onSuccess: successCallbackWrapper
+				onFailure: failureCallbackWrapper
+
 			@_request.get 'news_items_starred', params
 
 
@@ -132,17 +156,36 @@ angular.module('News').factory '_Persistence', ->
 		###
 			FEED CONTROLLER
 		###
-		getAllFeeds: (callback) ->
-			callback or= ->
+		getAllFeeds: (onSuccess) ->
+			onSuccess or= ->
+
+			# loading sign handling
+			@_feedLoading.increase()
+			successCallbackWrapper = (data) =>
+				onSuccess()
+				@_feedLoading.decrease()
+			failureCallbackWrapper = (data) =>
+				@_feedLoading.decrease()
+
 			params =
-				onSuccess: callback
+				onSuccess: successCallbackWrapper
+				onFailure: failureCallbackWrapper
 
 			@_request.get 'news_feeds', params
 
 
 		getActiveFeed: (onSuccess) ->
+			# loading sign handling
+			@_feedLoading.increase()
+			successCallbackWrapper = (data) =>
+				onSuccess()
+				@_feedLoading.decrease()
+			failureCallbackWrapper = (data) =>
+				@_feedLoading.decrease()
+
 			params =
-				onSuccess: onSuccess
+				onSuccess: successCallbackWrapper
+				onFailure: failureCallbackWrapper
 
 			@_request.get 'news_feeds_active', params
 
@@ -208,10 +251,20 @@ angular.module('News').factory '_Persistence', ->
 		###
 			FOLDER CONTROLLER
 		###
-		getAllFolders: (callback) ->
-			callback or= ->
+		getAllFolders: (onSuccess) ->
+			onSuccess or= ->
+
+			# loading sign handling
+			@_feedLoading.increase()
+			successCallbackWrapper = (data) =>
+				onSuccess()
+				@_feedLoading.decrease()
+			failureCallbackWrapper = (data) =>
+				@_feedLoading.decrease()
+
 			params =
-				onSuccess: callback
+				onSuccess: successCallbackWrapper
+				onFailure: failureCallbackWrapper
 
 			@_request.get 'news_folders', params
 
@@ -292,13 +345,23 @@ angular.module('News').factory '_Persistence', ->
 		###
 			USERSETTINGS CONTROLLER
 		###
-		userSettingsRead: (callback=null) ->
+		userSettingsRead: (onSuccess=null) ->
 			###
 			Gets the configs for read settings
 			###
-			callback or= ->
+			onSuccess or= ->
+
+			# loading sign handling
+			@_feedLoading.increase()
+			successCallbackWrapper = (data) =>
+				onSuccess()
+				@_feedLoading.decrease()
+			failureCallbackWrapper = (data) =>
+				@_feedLoading.decrease()
+			
 			params =
-				onSuccess: callback
+				onSuccess: successCallbackWrapper
+				onFailure: failureCallbackWrapper
 
 			@_request.get 'news_usersettings_read', params
 
@@ -321,10 +384,21 @@ angular.module('News').factory '_Persistence', ->
 			@_request.post 'news_usersettings_read_hide', data
 
 
-		userSettingsLanguage: (callback=null) ->
-			callback or= ->
+		userSettingsLanguage: (onSuccess=null) ->
+			onSuccess or= ->
+
+			# loading sign handling
+			@_feedLoading.increase()
+			successCallbackWrapper = (data) =>
+				onSuccess()
+				@_feedLoading.decrease()
+			failureCallbackWrapper = (data) =>
+				@_feedLoading.decrease()
+
 			data =
-				onSuccess: callback
+				onSuccess: successCallbackWrapper
+				onFailure: failureCallbackWrapper
+
 			@_request.get 'news_usersettings_language', data
 
 
@@ -332,5 +406,8 @@ angular.module('News').factory '_Persistence', ->
 			@_$rootScope.$broadcast('triggerHideRead')
 
 
-	return Persistence
+	return new Persistence(Request, FeedLoading, AutoPageLoading, NewLoading,
+	                       Config, ActiveFeed, $rootScope)
+
+]
 

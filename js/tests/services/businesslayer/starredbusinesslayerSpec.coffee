@@ -25,12 +25,15 @@ describe 'StarredBusinessLayer', ->
 
 	beforeEach module 'News'
 
-	beforeEach =>
-		angular.module('News').factory 'Persistence', =>
-			@persistence = {}
+	beforeEach module ($provide) =>
+		@persistence =
+			test: 'starredbusinesslayer'
+
+		$provide.value 'Persistence', @persistence
+		return
 
 	beforeEach inject (@StarredBusinessLayer, @StarredCount, @ActiveFeed,
-	@FeedType) =>
+	                   @FeedType) =>
 		@ActiveFeed.handle({type: @FeedType.Feed, id:0})
 		@StarredCount.setStarredCount(0)
 

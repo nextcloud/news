@@ -25,12 +25,13 @@ describe 'SubscriptionsBusinessLayer', ->
 
 	beforeEach module 'News'
 
-	beforeEach =>
-		angular.module('News').factory 'Persistence', =>
-			@setFeedReadSpy = jasmine.createSpy('setFeedRead')
-			@persistence = {
-				setFeedRead: @setFeedReadSpy
-			}
+	beforeEach module ($provide) =>
+		@persistence =
+			setFeedRead: jasmine.createSpy('setFeedRead')
+			test: 'subscriptionsbusinesslayer'
+
+		$provide.value 'Persistence', @persistence
+		return
 
 	beforeEach inject (@SubscriptionsBusinessLayer, @ShowAll, @FeedModel,
 	                   @ActiveFeed, @FeedType) =>
@@ -71,7 +72,7 @@ describe 'SubscriptionsBusinessLayer', ->
 		@SubscriptionsBusinessLayer.markAllRead()
 
 		expect(item.unreadCount).toBe(0)
-		expect(@setFeedReadSpy).toHaveBeenCalled()
+		expect(@persistence.setFeedRead).toHaveBeenCalled()
 
 
 	it 'should get the correct unread count', =>

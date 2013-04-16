@@ -23,7 +23,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 scrolling = true
 markingRead = true
 
-angular.module('News').directive 'scrollMarksRead', ['$rootScope', 'Config',
+angular.module('News').directive 'newsItemScroll', ['$rootScope', 'Config',
 ($rootScope, Config) ->
 
 	return (scope, elm, attr) ->
@@ -49,14 +49,14 @@ angular.module('News').directive 'scrollMarksRead', ['$rootScope', 'Config',
 							offset = $(feedItem).position().top
 							if offset <= -50
 								id = parseInt($(feedItem).data('id'), 10)
-								$rootScope.$broadcast 'readItem', id
+								#$rootScope.$broadcast 'readItem', id
 
 							else
 								break
 
 					, Config.MarkReadTimeout
 
-				scope.$apply attr.scrollMarksRead
+				scope.$apply attr.newsItemScroll
 
 ]
 

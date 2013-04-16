@@ -20,10 +20,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 ###
 
-
-angular.module('News').factory '_FeedModel',
-['_Model', '_EqualQuery',
-(_Model, _EqualQuery) ->
+angular.module('News').factory 'FeedModel',
+['_Model', '_EqualQuery', 'Utils',
+(_Model, _EqualQuery, Utils) ->
 
 	class FeedModel extends _Model
 
@@ -166,5 +165,6 @@ angular.module('News').factory '_FeedModel',
 						@_invalidateCache()
 					break
 
-	return FeedModel
+
+	return new FeedModel(Utils)
 ]

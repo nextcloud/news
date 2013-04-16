@@ -20,7 +20,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 ###
 
-angular.module('News').factory '_ActiveFeed', ->
+angular.module('News').factory 'ActiveFeed', ->
 
 	class ActiveFeed
 
@@ -45,4 +45,4 @@ angular.module('News').factory '_ActiveFeed', ->
 			return @_id
 
 
-	return ActiveFeed
+	return new ActiveFeed()

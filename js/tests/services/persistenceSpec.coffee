@@ -21,37 +21,24 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-describe '_Persistence', ->
-
+describe 'Persistence', ->
 
 	beforeEach module 'News'
 
-	beforeEach inject (@_Persistence, @$rootScope) =>
+	beforeEach module ($provide) =>
 		@req =
-			post: jasmine.createSpy('POST')
-			get: jasmine.createSpy('GET').andCallFake (route, data) ->
-				if angular.isDefined(data) and data.onSuccess
-					data.onSuccess()
+			get: jasmine.createSpy('get')
+			post: jasmine.createSpy('post')
 		@config =
-			itemBatchSize: 12
-		@active =
-			getType: -> 3
-			getId: -> 1
-		@loading =
-			increase: ->
-			decrease: ->
+			itemBatchSize: 3
+
+		$provide.value 'Request', @req
+		$provide.value 'Config', @config
+		return
 
 
-	it 'should should show a loading sign when init', =>
-		loading =
-			increase: jasmine.createSpy('loading')
-			decrease: jasmine.createSpy('finished loading')
+	beforeEach inject (@Persistence) =>
 		
-		pers = new @_Persistence(@req, loading, @config, @active, @$rootScope)
-		pers.init()
-
-		expect(loading.increase).toHaveBeenCalled()
-		expect(loading.decrease).toHaveBeenCalled()
 
 
 	###
@@ -66,11 +53,19 @@ describe '_Persistence', ->
 				offset: 3
 			onSuccess: ->
 
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.getItems(params.data.type, params.data.id, params.data.offset,
-			params.onSuccess, null)
+		@Persistence.getItems(params.data.type, params.data.id,
+		                      params.data.offset, params.onSuccess, null)
 
-		expect(@req.get).toHaveBeenCalledWith('news_items', params)
+		expected =
+			onSuccess: jasmine.any(Function)
+			onFailure: jasmine.any(Function)
+			data:
+				type: 2
+				id: 5
+				limit: @config.itemBatchSize
+				offset: 3
+
+		expect(@req.get).toHaveBeenCalledWith('news_items', expected)
 
 
 	it 'should send a load newest items request', =>
@@ -81,21 +76,31 @@ describe '_Persistence', ->
 				updatedSince: 1333
 			onSuccess: ->
 
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.getItems(params.data.type, params.data.id, 0, params.onSuccess,
-						params.data.updatedSince)
+		@Persistence.getItems(params.data.type, params.data.id, 0,
+		                      params.onSuccess,	params.data.updatedSince)
 
-		expect(@req.get).toHaveBeenCalledWith('news_items', params)
+		expected =
+			onSuccess: jasmine.any(Function)
+			onFailure: jasmine.any(Function)
+			data:
+				type: 2
+				id: 5
+				updatedSince: 1333
+
+		expect(@req.get).toHaveBeenCalledWith('news_items', expected)
 
 
 	it 'send a correct get starred items request', =>
 		params =
 			onSuccess: ->
 
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.getStarredItems(params.onSuccess)
+		@Persistence.getStarredItems(params.onSuccess)
 
-		expect(@req.get).toHaveBeenCalledWith('news_items_starred', params)
+		expected =
+			onSuccess: jasmine.any(Function)
+			onFailure: jasmine.any(Function)
+
+		expect(@req.get).toHaveBeenCalledWith('news_items_starred', expected)
 
 
 	it 'send a correct star item request', =>
@@ -104,8 +109,7 @@ describe '_Persistence', ->
 				feedId: 2
 				guidHash: 'dfdfdf'
 
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.starItem(params.routeParams.feedId, params.routeParams.guidHash)
+		@Persistence.starItem(params.routeParams.feedId, params.routeParams.guidHash)
 
 		expect(@req.post).toHaveBeenCalledWith('news_items_star', params)
 
@@ -116,8 +120,8 @@ describe '_Persistence', ->
 				feedId: 2
 				guidHash: 'dfdfdf'
 
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.unstarItem(params.routeParams.feedId, params.routeParams.guidHash)
+		@Persistence.unstarItem(params.routeParams.feedId,
+			params.routeParams.guidHash)
 
 		expect(@req.post).toHaveBeenCalledWith('news_items_unstar', params)
 
@@ -128,8 +132,7 @@ describe '_Persistence', ->
 				itemId: 2
 
 
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.readItem(params.routeParams.itemId)
+		@Persistence.readItem(params.routeParams.itemId)
 
 		expect(@req.post).toHaveBeenCalledWith('news_items_read', params)
 
@@ -139,8 +142,7 @@ describe '_Persistence', ->
 			routeParams:
 				itemId: 2
 
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.unreadItem(params.routeParams.itemId)
+		@Persistence.unreadItem(params.routeParams.itemId)
 
 		expect(@req.post).toHaveBeenCalledWith('news_items_unread', params)
 
@@ -150,14 +152,17 @@ describe '_Persistence', ->
 		FEED CONTROLLER
 	###
 	it 'should get all feeds', =>
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
 
 		params =
 			onSuccess: ->
 
-		pers.getAllFeeds(params.onSuccess)
+		@Persistence.getAllFeeds(params.onSuccess)
 
-		expect(@req.get).toHaveBeenCalledWith('news_feeds', params)
+		expected =
+			onSuccess: jasmine.any(Function)
+			onFailure: jasmine.any(Function)
+
+		expect(@req.get).toHaveBeenCalledWith('news_feeds', expected)
 
 
 	it 'create a correct request for moving a feed', =>
@@ -167,8 +172,7 @@ describe '_Persistence', ->
 			routeParams:
 				feedId: 3
 
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.moveFeed(params.routeParams.feedId, params.data.parentFolderId)
+		@Persistence.moveFeed(params.routeParams.feedId, params.data.parentFolderId)
 
 		expect(@req.post).toHaveBeenCalledWith('news_feeds_move', params)
 
@@ -180,8 +184,7 @@ describe '_Persistence', ->
 			routeParams:
 				feedId: 3
 
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.setFeedRead(params.routeParams.feedId, params.data.highestItemId)
+		@Persistence.setFeedRead(params.routeParams.feedId, params.data.highestItemId)
 
 
 		expect(@req.post).toHaveBeenCalledWith('news_feeds_read', params)
@@ -192,8 +195,7 @@ describe '_Persistence', ->
 			routeParams:
 				feedId: 3
 
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.updateFeed(params.routeParams.feedId)
+		@Persistence.updateFeed(params.routeParams.feedId)
 
 		expect(@req.post).toHaveBeenCalledWith('news_feeds_update', params)
 
@@ -202,10 +204,13 @@ describe '_Persistence', ->
 		params =
 			onSuccess: ->
 
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.getActiveFeed(params.onSuccess)
+		@Persistence.getActiveFeed(params.onSuccess)
 
-		expect(@req.get).toHaveBeenCalledWith('news_feeds_active', params)
+		expected =
+			onSuccess: jasmine.any(Function)
+			onFailure: jasmine.any(Function)
+
+		expect(@req.get).toHaveBeenCalledWith('news_feeds_active', expected)
 
 
 	it 'send a correct feed delete request', =>
@@ -213,8 +218,7 @@ describe '_Persistence', ->
 			routeParams:
 				feedId: 3
 
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.deleteFeed(params.routeParams.feedId)
+		@Persistence.deleteFeed(params.routeParams.feedId)
 
 		expect(@req.post).toHaveBeenCalledWith('news_feeds_delete', params)
 
@@ -227,8 +231,7 @@ describe '_Persistence', ->
 			onSuccess: ->
 			onFailure: ->
 
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.createFeed(params.data.url, params.data.parentFolderId,
+		@Persistence.createFeed(params.data.url, params.data.parentFolderId,
 						params.onSuccess, params.onFailure)
 
 		expect(@req.post).toHaveBeenCalledWith('news_feeds_create', params)
@@ -242,10 +245,13 @@ describe '_Persistence', ->
 		params =
 			onSuccess: ->
 
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.getAllFolders(params.onSuccess)
+		@Persistence.getAllFolders(params.onSuccess)
 
-		expect(@req.get).toHaveBeenCalledWith('news_folders', params)
+		expected =
+			onSuccess: jasmine.any(Function)
+			onFailure: jasmine.any(Function)
+
+		expect(@req.get).toHaveBeenCalledWith('news_folders', expected)
 
 
 	it 'send a correct collapse folder request', =>
@@ -253,8 +259,7 @@ describe '_Persistence', ->
 			routeParams:
 				folderId: 3
 
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.collapseFolder(params.routeParams.folderId)
+		@Persistence.collapseFolder(params.routeParams.folderId)
 
 		expect(@req.post).toHaveBeenCalledWith('news_folders_collapse', params)
 
@@ -264,8 +269,7 @@ describe '_Persistence', ->
 			routeParams:
 				folderId: 3
 
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.openFolder(params.routeParams.folderId)
+		@Persistence.openFolder(params.routeParams.folderId)
 
 		expect(@req.post).toHaveBeenCalledWith('news_folders_open', params)
 
@@ -278,8 +282,7 @@ describe '_Persistence', ->
 			onSuccess: -> 1
 			onFailure: -> 2
 
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.createFolder(params.data.folderName, params.data.parentFolderId,
+		@Persistence.createFolder(params.data.folderName, params.data.parentFolderId,
 			params.onSuccess, params.onFailure)
 
 		expect(@req.post).toHaveBeenCalledWith('news_folders_create', params)
@@ -290,8 +293,7 @@ describe '_Persistence', ->
 			routeParams:
 				folderId: 2
 
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.deleteFolder(params.routeParams.folderId)
+		@Persistence.deleteFolder(params.routeParams.folderId)
 
 		expect(@req.post).toHaveBeenCalledWith('news_folders_delete', params)
 
@@ -303,8 +305,7 @@ describe '_Persistence', ->
 			data:
 				folderName: 'host'
 
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.renameFolder(params.routeParams.folderId, params.data.folderName)
+		@Persistence.renameFolder(params.routeParams.folderId, params.data.folderName)
 
 		expect(@req.post).toHaveBeenCalledWith('news_folders_rename', params)
 
@@ -313,8 +314,7 @@ describe '_Persistence', ->
 		EXPORT CONTROLLER
 	###
 	it 'should have an export request', =>
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.exportOPML()
+		@Persistence.exportOPML()
 
 		expect(@req.get).toHaveBeenCalledWith('news_export_opml')
 
@@ -323,52 +323,48 @@ describe '_Persistence', ->
 		USERSETTINGS CONTROLLER
 	###
 	it 'should do a proper get user settings read request', =>
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
 
 		params =
 			onSuccess: ->
 
-		pers.userSettingsRead(params.onSuccess)
+		@Persistence.userSettingsRead(params.onSuccess)
 
-		expect(@req.get).toHaveBeenCalledWith('news_usersettings_read', params)
+		expected =
+			onSuccess: jasmine.any(Function)
+			onFailure: jasmine.any(Function)
+
+		expect(@req.get).toHaveBeenCalledWith('news_usersettings_read', expected)
 
 	
-	it 'should do a proper get user settings read req and call callback', =>
-		params =
-			onSuccess: ->
-				1 + 1
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
-		pers.userSettingsRead(params.onSuccess)
-
-		expect(@req.get).toHaveBeenCalledWith('news_usersettings_read', params)
-
 
 	it 'should do a proper user settings read show request', =>
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
 		params =
 			onSuccess: ->
 
-		pers.userSettingsReadShow(params.onSuccess)
+		@Persistence.userSettingsReadShow(params.onSuccess)
 
 		expect(@req.post).toHaveBeenCalledWith('news_usersettings_read_show',
 			params)
 
 
 	it 'should do a proper user settings read hide request', =>
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
 		params =
 			onSuccess: ->
-		pers.userSettingsReadHide(params.onSuccess)
+		@Persistence.userSettingsReadHide(params.onSuccess)
 
 		expect(@req.post).toHaveBeenCalledWith('news_usersettings_read_hide',
 			params)
 
 
 	it 'should do a proper user settings language request', =>
-		pers = new @_Persistence(@req, @loading, @config, @active, @$rootScope)
 		params =
 			onSuccess: ->
-		pers.userSettingsLanguage(params.onSuccess)
+
+		@Persistence.userSettingsLanguage(params.onSuccess)
+
+		expected =
+			onSuccess: jasmine.any(Function)
+			onFailure: jasmine.any(Function)
 
 		expect(@req.get).toHaveBeenCalledWith('news_usersettings_language',
-			params)
+			expected)
