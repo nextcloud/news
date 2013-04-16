@@ -37,7 +37,7 @@ class StatusFlag {
 	 */
 	public function typeToStatus($type, $showAll){
 		if($type === FeedType::STARRED){
-			$status = self::STARRED;
+			return self::STARRED;
 		} else {
 			$status = 0;
 		}
