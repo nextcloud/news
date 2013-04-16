@@ -28,7 +28,8 @@
 	background-image: url('%appswebroot%/news/img/rss.svg');
 }
 
-.unread > a {
+.unread > a,
+.unread > .utils .unread-counter {
 	font-weight: bold;
 }
 
@@ -87,10 +88,10 @@
 .unread .unread-counter {
 	display: block;
 }
-
 .starred .unread-counter {
-	font-weight: normal;
+	font-weight: normal !important;
 }
+
 
 button.action {
 	opacity: .5;
