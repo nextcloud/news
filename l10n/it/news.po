@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-16 01:04+0200\n"
-"PO-Revision-Date: 2013-04-15 23:04+0000\n"
+"POT-Creation-Date: 2013-04-17 01:39+0200\n"
+"PO-Revision-Date: 2013-04-16 23:39+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/owncloud/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -25,15 +25,15 @@ msgstr "Notizie"
 
 #: businesslayer/feedbusinesslayer.php:62
 msgid "Can not add feed: Exists already"
-msgstr ""
+msgstr "Impossible aggiungere la fonte: esiste già"
 
-#: businesslayer/feedbusinesslayer.php:89
+#: businesslayer/feedbusinesslayer.php:100
 msgid "Can not add feed: URL does not exist or has invalid xml"
-msgstr ""
+msgstr "Impossibile aggiungere la fonte: l'URL non esiste o ha xml non valido"
 
 #: businesslayer/folderbusinesslayer.php:55
 msgid "Can not add folder: Exists already"
-msgstr ""
+msgstr "Impossibile aggiungere la cartella: esiste già"
 
 #: templates/part.addnew.php:12
 msgid "Add Website"
@@ -41,19 +41,19 @@ msgstr "Aggiungi sito web"
 
 #: templates/part.addnew.php:19
 msgid "Error: address must not be empty!"
-msgstr ""
+msgstr "Errore: l'indirizzo non può essere vuoto!"
 
 #: templates/part.addnew.php:22
 msgid "Error: address exists already!"
-msgstr ""
+msgstr "Errore: l'indirizzo esiste già!"
 
 #: templates/part.addnew.php:25
 msgid "Error: folder name must not be empty!"
-msgstr ""
+msgstr "Errore: il nome della cartella non può essere vuoto!"
 
 #: templates/part.addnew.php:28
 msgid "Error: folder exists already"
-msgstr ""
+msgstr "Errore: la cartella esiste già"
 
 #: templates/part.addnew.php:35
 msgid "Address"
@@ -81,11 +81,11 @@ msgstr "Nome della cartella"
 
 #: templates/part.addnew.php:67
 msgid "Back to folder selection"
-msgstr ""
+msgstr "Torna alla selezione della cartella"
 
 #: templates/part.addnew.php:72
 msgid "Create folder"
-msgstr ""
+msgstr "Crea cartella"
 
 #: templates/part.feed.starred.php:10
 msgid "Starred"
@@ -99,14 +99,14 @@ msgstr "Articoli non letti"
 msgid "All articles"
 msgstr "Tutti gli articoli"
 
-#: templates/part.feed.unread.php:24 templates/part.listfeed.php:39
-#: templates/part.listfolder.php:40
+#: templates/part.feed.unread.php:25 templates/part.listfeed.php:39
+#: templates/part.listfolder.php:41
 msgid "Mark all read"
 msgstr "Marca tutti come letti"
 
 #: templates/part.items.php:17
 msgid "Save for later"
-msgstr ""
+msgstr "Salva per dopo"
 
 #: templates/part.items.php:29
 msgid "from"
@@ -130,17 +130,17 @@ msgstr "Elimina la fonte"
 
 #: templates/part.listfeed.php:48
 msgid "Delete website"
-msgstr ""
+msgstr "Elimina sito web"
 
 #: templates/part.listfolder.php:14
 msgid "Collapse"
 msgstr "Contrai"
 
-#: templates/part.listfolder.php:31 templates/part.listfolder.php:44
+#: templates/part.listfolder.php:31 templates/part.listfolder.php:45
 msgid "Delete folder"
 msgstr "Elimina la cartella"
 
-#: templates/part.listfolder.php:49
+#: templates/part.listfolder.php:50
 msgid "Rename folder"
 msgstr "Rinomina la cartella"
 
@@ -159,7 +159,7 @@ msgstr "Esporta"
 
 #: templates/part.settings.php:36
 msgid "Error when importing: file does not contain valid OPML"
-msgstr ""
+msgstr "Errore di importazione: il file non contiene OPML valido"
 
 #: templates/part.settings.php:41
 msgid "Subscribelet"

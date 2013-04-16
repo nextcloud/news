@@ -15,12 +15,13 @@
 #  <stefan.niedermann@googlemail.com>, 2013.
 #  <transifex-2.7.mensaje@spamgourmet.com>, 2013.
 #   <transifex.3.mensaje@spamgourmet.com>, 2012.
+#  <uu.kabum@gmail.com>, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-16 01:04+0200\n"
-"PO-Revision-Date: 2013-04-15 23:04+0000\n"
+"POT-Creation-Date: 2013-04-17 01:39+0200\n"
+"PO-Revision-Date: 2013-04-16 23:39+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: German (Germany) <translations@owncloud.org>\n"
 "MIME-Version: 1.0\n"
@@ -35,15 +36,15 @@ msgstr "Nachrichten"
 
 #: businesslayer/feedbusinesslayer.php:62
 msgid "Can not add feed: Exists already"
-msgstr ""
+msgstr "Feed konnte nicht hinzugefügt werden:  Existiert bereits"
 
-#: businesslayer/feedbusinesslayer.php:89
+#: businesslayer/feedbusinesslayer.php:100
 msgid "Can not add feed: URL does not exist or has invalid xml"
-msgstr ""
+msgstr "Feed konnte nicht hinzugefügt werden: URL existiert nicht oder enthält ungültiges XML"
 
 #: businesslayer/folderbusinesslayer.php:55
 msgid "Can not add folder: Exists already"
-msgstr ""
+msgstr "Ordner kann nicht hinzgefügt werden: Existiert bereits"
 
 #: templates/part.addnew.php:12
 msgid "Add Website"
@@ -51,19 +52,19 @@ msgstr "Website hinzufügen"
 
 #: templates/part.addnew.php:19
 msgid "Error: address must not be empty!"
-msgstr ""
+msgstr "Fehler: Adresse muss angegeben werden!"
 
 #: templates/part.addnew.php:22
 msgid "Error: address exists already!"
-msgstr ""
+msgstr "Fehler: Adresse existier bereits!"
 
 #: templates/part.addnew.php:25
 msgid "Error: folder name must not be empty!"
-msgstr ""
+msgstr "Fehler: Ordnername muss angegeben werden!"
 
 #: templates/part.addnew.php:28
 msgid "Error: folder exists already"
-msgstr ""
+msgstr "Fehler: Ordner existiert bereits"
 
 #: templates/part.addnew.php:35
 msgid "Address"
@@ -91,11 +92,11 @@ msgstr "Ordnername"
 
 #: templates/part.addnew.php:67
 msgid "Back to folder selection"
-msgstr ""
+msgstr "Zurück zur Ordnerauswahl"
 
 #: templates/part.addnew.php:72
 msgid "Create folder"
-msgstr ""
+msgstr "Ordner erstellen"
 
 #: templates/part.feed.starred.php:10
 msgid "Starred"
@@ -109,14 +110,14 @@ msgstr "Ungelesene Artikel"
 msgid "All articles"
 msgstr "Alle Artikel"
 
-#: templates/part.feed.unread.php:24 templates/part.listfeed.php:39
-#: templates/part.listfolder.php:40
+#: templates/part.feed.unread.php:25 templates/part.listfeed.php:39
+#: templates/part.listfolder.php:41
 msgid "Mark all read"
 msgstr "Alles als gelesen kennzeichnen"
 
 #: templates/part.items.php:17
 msgid "Save for later"
-msgstr ""
+msgstr "Für später aufheben"
 
 #: templates/part.items.php:29
 msgid "from"
@@ -140,17 +141,17 @@ msgstr "Feed löschen"
 
 #: templates/part.listfeed.php:48
 msgid "Delete website"
-msgstr ""
+msgstr "Webseite löschen"
 
 #: templates/part.listfolder.php:14
 msgid "Collapse"
 msgstr "Zuklappen"
 
-#: templates/part.listfolder.php:31 templates/part.listfolder.php:44
+#: templates/part.listfolder.php:31 templates/part.listfolder.php:45
 msgid "Delete folder"
 msgstr "Ordner löschen"
 
-#: templates/part.listfolder.php:49
+#: templates/part.listfolder.php:50
 msgid "Rename folder"
 msgstr "Ordner umbenennen"
 
@@ -169,7 +170,7 @@ msgstr "Exportieren"
 
 #: templates/part.settings.php:36
 msgid "Error when importing: file does not contain valid OPML"
-msgstr ""
+msgstr "Fehler beim Importieren: Datei enthält kein gültiges OPML"
 
 #: templates/part.settings.php:41
 msgid "Subscribelet"

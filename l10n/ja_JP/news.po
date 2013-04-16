@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-16 01:04+0200\n"
-"PO-Revision-Date: 2013-04-15 23:04+0000\n"
+"POT-Creation-Date: 2013-04-17 01:39+0200\n"
+"PO-Revision-Date: 2013-04-16 23:39+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Japanese (Japan) (http://www.transifex.com/projects/p/owncloud/language/ja_JP/)\n"
 "MIME-Version: 1.0\n"
@@ -27,15 +27,15 @@ msgstr "ニュース"
 
 #: businesslayer/feedbusinesslayer.php:62
 msgid "Can not add feed: Exists already"
-msgstr ""
+msgstr "フィードを追加できません: すでに存在します"
 
-#: businesslayer/feedbusinesslayer.php:89
+#: businesslayer/feedbusinesslayer.php:100
 msgid "Can not add feed: URL does not exist or has invalid xml"
-msgstr ""
+msgstr "フィードを追加できません: URLが存在しない、もしくは無効なXMLです"
 
 #: businesslayer/folderbusinesslayer.php:55
 msgid "Can not add folder: Exists already"
-msgstr ""
+msgstr "フォルダを追加できません: すでに存在します"
 
 #: templates/part.addnew.php:12
 msgid "Add Website"
@@ -43,19 +43,19 @@ msgstr "ウェブサイトを追加"
 
 #: templates/part.addnew.php:19
 msgid "Error: address must not be empty!"
-msgstr ""
+msgstr "エラー: アドレスは空にできません！"
 
 #: templates/part.addnew.php:22
 msgid "Error: address exists already!"
-msgstr ""
+msgstr "エラー: アドレスはすでに存在します！"
 
 #: templates/part.addnew.php:25
 msgid "Error: folder name must not be empty!"
-msgstr ""
+msgstr "エラー: フォルダ名は空に出来ません！"
 
 #: templates/part.addnew.php:28
 msgid "Error: folder exists already"
-msgstr ""
+msgstr "エラー: フォルダはすでに存在します！"
 
 #: templates/part.addnew.php:35
 msgid "Address"
@@ -83,11 +83,11 @@ msgstr "フォルダ名"
 
 #: templates/part.addnew.php:67
 msgid "Back to folder selection"
-msgstr ""
+msgstr "フォルダ選択に戻る"
 
 #: templates/part.addnew.php:72
 msgid "Create folder"
-msgstr ""
+msgstr "フォルダを作成"
 
 #: templates/part.feed.starred.php:10
 msgid "Starred"
@@ -101,14 +101,14 @@ msgstr "未読の記事"
 msgid "All articles"
 msgstr "全ての記事"
 
-#: templates/part.feed.unread.php:24 templates/part.listfeed.php:39
-#: templates/part.listfolder.php:40
+#: templates/part.feed.unread.php:25 templates/part.listfeed.php:39
+#: templates/part.listfolder.php:41
 msgid "Mark all read"
 msgstr "すべて既読にする"
 
 #: templates/part.items.php:17
 msgid "Save for later"
-msgstr ""
+msgstr "一時保存"
 
 #: templates/part.items.php:29
 msgid "from"
@@ -132,17 +132,17 @@ msgstr "フィードを削除"
 
 #: templates/part.listfeed.php:48
 msgid "Delete website"
-msgstr ""
+msgstr "ウェブサイトを削除"
 
 #: templates/part.listfolder.php:14
 msgid "Collapse"
 msgstr "折りたたむ"
 
-#: templates/part.listfolder.php:31 templates/part.listfolder.php:44
+#: templates/part.listfolder.php:31 templates/part.listfolder.php:45
 msgid "Delete folder"
 msgstr "フォルダを削除"
 
-#: templates/part.listfolder.php:49
+#: templates/part.listfolder.php:50
 msgid "Rename folder"
 msgstr "フォルダの名前を変更"
 
@@ -161,7 +161,7 @@ msgstr "エクスポート"
 
 #: templates/part.settings.php:36
 msgid "Error when importing: file does not contain valid OPML"
-msgstr ""
+msgstr "インポート中のエラー: ファイルは有効なOPMLを含んでいません"
 
 #: templates/part.settings.php:41
 msgid "Subscribelet"

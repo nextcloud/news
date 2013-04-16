@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-16 01:04+0200\n"
-"PO-Revision-Date: 2013-04-15 23:04+0000\n"
+"POT-Creation-Date: 2013-04-17 01:39+0200\n"
+"PO-Revision-Date: 2013-04-16 23:39+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Galician (http://www.transifex.com/projects/p/owncloud/language/gl/)\n"
 "MIME-Version: 1.0\n"
@@ -26,15 +26,15 @@ msgstr "Novas"
 
 #: businesslayer/feedbusinesslayer.php:62
 msgid "Can not add feed: Exists already"
-msgstr ""
+msgstr "Non é posíbel engadir a fonte: xa existe"
 
-#: businesslayer/feedbusinesslayer.php:89
+#: businesslayer/feedbusinesslayer.php:100
 msgid "Can not add feed: URL does not exist or has invalid xml"
-msgstr ""
+msgstr "Non é posíbel engadir a fonte: non existe o URL ou é un XML incorrecto"
 
 #: businesslayer/folderbusinesslayer.php:55
 msgid "Can not add folder: Exists already"
-msgstr ""
+msgstr "Non é posíbel engadir o cartafol: xa existe"
 
 #: templates/part.addnew.php:12
 msgid "Add Website"
@@ -42,19 +42,19 @@ msgstr "Engadir un sitio web"
 
 #: templates/part.addnew.php:19
 msgid "Error: address must not be empty!"
-msgstr ""
+msgstr "Erro: o enderezo non pode estar baleiro."
 
 #: templates/part.addnew.php:22
 msgid "Error: address exists already!"
-msgstr ""
+msgstr "Erro: xa existe o enderezo "
 
 #: templates/part.addnew.php:25
 msgid "Error: folder name must not be empty!"
-msgstr ""
+msgstr "Erro: o nome do cartafol non pode estar baleiro."
 
 #: templates/part.addnew.php:28
 msgid "Error: folder exists already"
-msgstr ""
+msgstr "Erro: xa existe o cartafol"
 
 #: templates/part.addnew.php:35
 msgid "Address"
@@ -82,11 +82,11 @@ msgstr "Nome do cartafol"
 
 #: templates/part.addnew.php:67
 msgid "Back to folder selection"
-msgstr ""
+msgstr "Volver á selección do cartafol"
 
 #: templates/part.addnew.php:72
 msgid "Create folder"
-msgstr ""
+msgstr "Crear un cartafol"
 
 #: templates/part.feed.starred.php:10
 msgid "Starred"
@@ -100,14 +100,14 @@ msgstr "Artigos sen ler"
 msgid "All articles"
 msgstr "Todos os artigos"
 
-#: templates/part.feed.unread.php:24 templates/part.listfeed.php:39
-#: templates/part.listfolder.php:40
+#: templates/part.feed.unread.php:25 templates/part.listfeed.php:39
+#: templates/part.listfolder.php:41
 msgid "Mark all read"
 msgstr "Marcar todo como lido"
 
 #: templates/part.items.php:17
 msgid "Save for later"
-msgstr ""
+msgstr "Gardar para máis tarde"
 
 #: templates/part.items.php:29
 msgid "from"
@@ -131,17 +131,17 @@ msgstr "Eliminar fonte de novas"
 
 #: templates/part.listfeed.php:48
 msgid "Delete website"
-msgstr ""
+msgstr "Eliminar o sitio web"
 
 #: templates/part.listfolder.php:14
 msgid "Collapse"
 msgstr "Repregar"
 
-#: templates/part.listfolder.php:31 templates/part.listfolder.php:44
+#: templates/part.listfolder.php:31 templates/part.listfolder.php:45
 msgid "Delete folder"
 msgstr "Eliminar o cartafol"
 
-#: templates/part.listfolder.php:49
+#: templates/part.listfolder.php:50
 msgid "Rename folder"
 msgstr "Renomear o cartafol"
 
@@ -160,7 +160,7 @@ msgstr "Exportar"
 
 #: templates/part.settings.php:36
 msgid "Error when importing: file does not contain valid OPML"
-msgstr ""
+msgstr "Erro durante a importación: o ficheiro non conten OPML correcto"
 
 #: templates/part.settings.php:41
 msgid "Subscribelet"

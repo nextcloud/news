@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-16 01:04+0200\n"
-"PO-Revision-Date: 2013-04-15 23:04+0000\n"
+"POT-Creation-Date: 2013-04-17 01:39+0200\n"
+"PO-Revision-Date: 2013-04-16 23:39+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/owncloud/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr "新闻"
 msgid "Can not add feed: Exists already"
 msgstr ""
 
-#: businesslayer/feedbusinesslayer.php:89
+#: businesslayer/feedbusinesslayer.php:100
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr ""
 
@@ -103,8 +103,8 @@ msgstr "未读文章"
 msgid "All articles"
 msgstr "全部文章"
 
-#: templates/part.feed.unread.php:24 templates/part.listfeed.php:39
-#: templates/part.listfolder.php:40
+#: templates/part.feed.unread.php:25 templates/part.listfeed.php:39
+#: templates/part.listfolder.php:41
 msgid "Mark all read"
 msgstr "设置所有为已读"
 
@@ -140,11 +140,11 @@ msgstr ""
 msgid "Collapse"
 msgstr "折叠"
 
-#: templates/part.listfolder.php:31 templates/part.listfolder.php:44
+#: templates/part.listfolder.php:31 templates/part.listfolder.php:45
 msgid "Delete folder"
 msgstr "删除目录"
 
-#: templates/part.listfolder.php:49
+#: templates/part.listfolder.php:50
 msgid "Rename folder"
 msgstr "重命名目录"
 

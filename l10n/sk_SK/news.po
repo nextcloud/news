@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-16 01:04+0200\n"
-"PO-Revision-Date: 2013-04-15 23:04+0000\n"
+"POT-Creation-Date: 2013-04-17 01:39+0200\n"
+"PO-Revision-Date: 2013-04-16 23:39+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/projects/p/owncloud/language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -30,7 +30,7 @@ msgstr "Novinky"
 msgid "Can not add feed: Exists already"
 msgstr ""
 
-#: businesslayer/feedbusinesslayer.php:89
+#: businesslayer/feedbusinesslayer.php:100
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr ""
 
@@ -102,8 +102,8 @@ msgstr "Neprečítané články"
 msgid "All articles"
 msgstr "Všetky články"
 
-#: templates/part.feed.unread.php:24 templates/part.listfeed.php:39
-#: templates/part.listfolder.php:40
+#: templates/part.feed.unread.php:25 templates/part.listfeed.php:39
+#: templates/part.listfolder.php:41
 msgid "Mark all read"
 msgstr "Označiť ako prečítané"
 
@@ -139,11 +139,11 @@ msgstr ""
 msgid "Collapse"
 msgstr "Zvinúť"
 
-#: templates/part.listfolder.php:31 templates/part.listfolder.php:44
+#: templates/part.listfolder.php:31 templates/part.listfolder.php:45
 msgid "Delete folder"
 msgstr "Odstrániť priečinok"
 
-#: templates/part.listfolder.php:49
+#: templates/part.listfolder.php:50
 msgid "Rename folder"
 msgstr "Premenovať priečinok"
 
