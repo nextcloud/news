@@ -72,14 +72,25 @@ class FeedBusinessLayer extends BusinessLayer {
 
 			// insert items in reverse order because the first one is usually the
 			// newest item
+			$unreadCount = 0;
 			for($i=count($items)-1; $i>=0; $i--){
 				$item = $items[$i];
 				$item->setFeedId($feed->getId());
-				$this->itemMapper->insert($item);
+
+				// check if item exists (guidhash is the same)
+				// and ignore it if it does
+				try {
+					$this->itemMapper->findByGuidHash(
+						$item->getGuidHash(), $item->getFeedId(), $userId);
+					continue;
+				} catch(DoesNotExistException $ex){
+					$unreadCount += 1;
+					$this->itemMapper->insert($item);
+				}
 			}
 
 			// set unread count
-			$feed->setUnreadCount(count($items));
+			$feed->setUnreadCount($unreadCount);
 			
 			return $feed;
 		} catch(FetcherException $ex){

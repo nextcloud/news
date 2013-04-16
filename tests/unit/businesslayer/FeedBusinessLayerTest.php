@@ -102,9 +102,13 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$createdFeed = new Feed();
 		$ex = new DoesNotExistException('yo');
 		$createdFeed->setUrl($url);
+		$item1 = new Item();
+		$item1->setGuidHash('hi');
+		$item2 = new Item();
+		$item2->setGuidHash('yo');
 		$return = array(
 			$createdFeed,
-			array(new Item(), new Item())
+			array($item1, $item2)
 		);
 
 		$this->mapper->expects($this->once())
@@ -120,9 +124,23 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->with($this->equalTo($createdFeed))
 			->will($this->returnValue($createdFeed));
 		$this->itemMapper->expects($this->at(0))
+			->method('findByGuidHash')
+			->with(
+				$this->equalTo($item2->getGuidHash()),
+				$this->equalTo($item2->getFeedId()),
+				$this->equalTo($this->user))
+			->will($this->throwException($ex));
+		$this->itemMapper->expects($this->at(1))
 			->method('insert')
 			->with($this->equalTo($return[1][1]));
-		$this->itemMapper->expects($this->at(1))
+		$this->itemMapper->expects($this->at(2))
+			->method('findByGuidHash')
+			->with(
+				$this->equalTo($item1->getGuidHash()),
+				$this->equalTo($item1->getFeedId()),
+				$this->equalTo($this->user))
+			->will($this->throwException($ex));
+		$this->itemMapper->expects($this->at(3))
 			->method('insert')
 			->with($this->equalTo($return[1][0]));
 		
@@ -132,19 +150,56 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->assertEquals($feed->getUrl(), $url);
 	}
 
-	public function testCreateFeedExistsAlready(){
+
+	public function testCreateItemGuidExistsAlready(){
 		$url = 'test';
-		$trans = $this->getMock('Trans', array('t'));
-		$trans->expects($this->once())
-			->method('t');
-		$this->api->expects($this->once())
-			->method('getTrans')
-			->will($this->returnValue($trans));
+		$folderId = 10;
+		$createdFeed = new Feed();
+		$ex = new DoesNotExistException('yo');
+		$createdFeed->setUrl($url);
+		$item1 = new Item();
+		$item1->setGuidHash('hi');
+		$item2 = new Item();
+		$item2->setGuidHash('yo');
+		$return = array(
+			$createdFeed,
+			array($item1, $item2)
+		);
+
 		$this->mapper->expects($this->once())
 			->method('findByUrlHash')
-			->with($this->equalTo(md5($url)), $this->equalTo($this->user));
-		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
-		$this->businessLayer->create($url, 1, $this->user);
+			->with($this->equalTo(md5($url)), $this->equalTo($this->user))
+			->will($this->throwException($ex));
+		$this->fetcher->expects($this->once())
+			->method('fetch')
+			->with($this->equalTo($url))
+			->will($this->returnValue($return));
+		$this->mapper->expects($this->once())
+			->method('insert')
+			->with($this->equalTo($createdFeed))
+			->will($this->returnValue($createdFeed));
+		$this->itemMapper->expects($this->at(0))
+			->method('findByGuidHash')
+			->with(
+				$this->equalTo($item2->getGuidHash()),
+				$this->equalTo($item2->getFeedId()),
+				$this->equalTo($this->user))
+			->will($this->throwException($ex));
+		$this->itemMapper->expects($this->at(1))
+			->method('insert')
+			->with($this->equalTo($return[1][1]));
+		$this->itemMapper->expects($this->at(2))
+			->method('findByGuidHash')
+			->with(
+				$this->equalTo($item1->getGuidHash()),
+				$this->equalTo($item1->getFeedId()),
+				$this->equalTo($this->user));
+		
+		$feed = $this->businessLayer->create($url, $folderId, $this->user);
+
+		$this->assertEquals($feed->getFolderId(), $folderId);
+		$this->assertEquals($feed->getUrl(), $url);
+		$this->assertEquals(1, $feed->getUnreadCount());
 	}
 
 
