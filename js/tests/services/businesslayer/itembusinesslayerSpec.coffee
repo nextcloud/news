@@ -35,8 +35,8 @@ describe 'ItemBusinessLayer', ->
 	                   @FeedType, @FeedModel, @StarredBusinessLayer) =>
 		@item1 = {id: 5, title: 'hi', unreadCount:134, urlHash: 'a3', folderId: 3}
 		@FeedModel.add(@item1)
+		@ActiveFeed.handle({type: @FeedType.Feed, id: 3})
 		
-
 
 	it 'should return all items', =>
 		item1 = {id: 6, feedId: 5, guidHash: 'a1'}
@@ -233,3 +233,16 @@ describe 'ItemBusinessLayer', ->
 		expect(@item1.unreadCount).toBe(135)
 
 
+	it 'should load the next items', =>
+		@persistence.getItems = jasmine.createSpy('autopage')
+		callback = ->
+
+		@ItemModel.add({id: 2, guidHash: 'abc', feedId: 2, status: 16})
+		@ItemModel.add({id: 3, guidHash: 'abcd', feedId: 2, status: 16})
+		@ItemModel.add({id: 1, guidHash: 'abce', feedId: 2, status: 16})
+		@ItemModel.add({id: 6, guidHash: 'abcf', feedId: 2, status: 16})
+
+		@ItemBusinessLayer.loadNext(callback)
+
+		expect(@persistence.getItems).toHaveBeenCalledWith(
+			@FeedType.Feed, 3, 1, jasmine.any(Function))

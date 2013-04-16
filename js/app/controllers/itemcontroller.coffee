@@ -31,6 +31,8 @@ Language) ->
 
 		constructor: (@_$scope, @_itemBusinessLayer, @_feedModel, @_feedLoading,
 		              @_feedBusinessLayer, @_language) ->
+			@_autoPaging = true
+
 			@_$scope.itemBusinessLayer = @_itemBusinessLayer
 			@_$scope.feedBusinessLayer = @_feedBusinessLayer
 
@@ -54,10 +56,14 @@ Language) ->
 
 
 			@_$scope.$on 'readItem', (scope, data) =>
-				console.log data
 				@_itemBusinessLayer.setRead(data)
 
-
+			@_$scope.$on 'autoPage', =>
+				if @_autoPaging
+					# prevent multiple autopaging requests
+					@_autoPaging = false
+					@_itemBusinessLayer.loadNext =>
+						@_autoPaging = true
 
 
 	return new ItemController($scope, ItemBusinessLayer, FeedModel, FeedLoading,

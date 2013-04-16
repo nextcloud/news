@@ -49,14 +49,18 @@ angular.module('News').directive 'newsItemScroll', ['$rootScope', 'Config',
 							offset = $(feedItem).position().top
 							if offset <= -50
 								id = parseInt($(feedItem).data('id'), 10)
-								#$rootScope.$broadcast 'readItem', id
+								$rootScope.$broadcast 'readItem', id
 
 							else
 								break
 
 					, Config.MarkReadTimeout
 
-				scope.$apply attr.newsItemScroll
+				# autopaging
+				tolerance = elm.height() * Config.autoPageFactor
+				remaining = elm[0].scrollHeight - elm.scrollTop() - tolerance
+				if remaining <= 0
+					$rootScope.$broadcast 'autoPage'
 
 ]
 

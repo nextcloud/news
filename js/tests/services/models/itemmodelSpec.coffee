@@ -104,3 +104,10 @@ describe 'ItemModel', ->
 		expect(@ItemModel.getById(3).isStarred()).toBe(false)
 
 	
+	it 'should return the lowest id', =>
+		@ItemModel.add({id: 2, guidHash: 'abc', feedId: 2, status: 16})
+		@ItemModel.add({id: 3, guidHash: 'abcd', feedId: 2, status: 16})
+		@ItemModel.add({id: 1, guidHash: 'abce', feedId: 2, status: 16})
+		@ItemModel.add({id: 6, guidHash: 'abcf', feedId: 2, status: 16})
+
+		expect(@ItemModel.getLowestId()).toBe(1)

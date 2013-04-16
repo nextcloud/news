@@ -109,5 +109,16 @@ angular.module('News').factory 'ItemModel',
 				return 0
 
 
+		getLowestId: ->
+			query = new _MinimumQuery('id')
+			lowestId = @get(query)
+			
+			if angular.isDefined(lowestId)
+				return lowestId.id
+			else
+				return 0
+
+
+
 	return new ItemModel()
 ]

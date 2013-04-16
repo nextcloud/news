@@ -42,7 +42,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
       markReadTimeout: 500,
       scrollTimeout: 500,
       feedUpdateInterval: 600000,
-      itemBatchSize: 20
+      itemBatchSize: 20,
+      autoPageFactor: 6
     });
   });
 
@@ -247,6 +248,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     '$rootScope', 'Config', function($rootScope, Config) {
       return function(scope, elm, attr) {
         return elm.bind('scroll', function() {
+          var remaining, tolerance;
+
           if (scrolling) {
             scrolling = false;
             setTimeout(function() {
@@ -264,7 +267,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
                   feedItem = $elems[_i];
                   offset = $(feedItem).position().top;
                   if (offset <= -50) {
-                    _results.push(id = parseInt($(feedItem).data('id'), 10));
+                    id = parseInt($(feedItem).data('id'), 10);
+                    _results.push($rootScope.$broadcast('readItem', id));
                   } else {
                     break;
                   }
@@ -272,7 +276,11 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
                 return _results;
               }, Config.MarkReadTimeout);
             }
-            return scope.$apply(attr.newsItemScroll);
+            tolerance = elm.height() * Config.autoPageFactor;
+            remaining = elm[0].scrollHeight - elm.scrollTop() - tolerance;
+            if (remaining <= 0) {
+              return $rootScope.$broadcast('autoPage');
+            }
           }
         });
       };
@@ -444,6 +452,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           this._feedLoading = _feedLoading;
           this._feedBusinessLayer = _feedBusinessLayer;
           this._language = _language;
+          this._autoPaging = true;
           this._$scope.itemBusinessLayer = this._itemBusinessLayer;
           this._$scope.feedBusinessLayer = this._feedBusinessLayer;
           this._$scope.isLoading = function() {
@@ -467,8 +476,15 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             }
           };
           this._$scope.$on('readItem', function(scope, data) {
-            console.log(data);
             return _this._itemBusinessLayer.setRead(data);
+          });
+          this._$scope.$on('autoPage', function() {
+            if (_this._autoPaging) {
+              _this._autoPaging = false;
+              return _this._itemBusinessLayer.loadNext(function() {
+                return _this._autoPaging = true;
+              });
+            }
           });
         }
 
@@ -1223,7 +1239,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           }
         };
 
-        ItemBusinessLayer.prototype.loadNext = function() {};
+        ItemBusinessLayer.prototype.loadNext = function(callback) {
+          var lowestItemId;
+
+          lowestItemId = this._itemModel.getLowestId();
+          if (angular.isDefined(lowestItemId)) {
+            return this._persistence.getItems(this._activeFeed.getType(), this._activeFeed.getId(), lowestItemId, callback);
+          }
+        };
 
         ItemBusinessLayer.prototype.loadNew = function() {};
 
@@ -2010,6 +2033,18 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           highestId = this.get(query);
           if (angular.isDefined(highestId)) {
             return highestId.id;
+          } else {
+            return 0;
+          }
+        };
+
+        ItemModel.prototype.getLowestId = function() {
+          var lowestId, query;
+
+          query = new _MinimumQuery('id');
+          lowestId = this.get(query);
+          if (angular.isDefined(lowestId)) {
+            return lowestId.id;
           } else {
             return 0;
           }

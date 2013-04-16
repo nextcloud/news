@@ -105,7 +105,12 @@ StarredBusinessLayer) ->
 					return feed.title
 
 
-		loadNext: ->
+		loadNext: (callback) ->
+			lowestItemId = @_itemModel.getLowestId()
+			if angular.isDefined(lowestItemId)
+				@_persistence.getItems @_activeFeed.getType(),
+				                       @_activeFeed.getId(), lowestItemId,
+				                       callback
 
 
 

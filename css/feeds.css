@@ -28,7 +28,7 @@
 	background-image: url('%appswebroot%/news/img/rss.svg');
 }
 
-.unread {
+.unread > a {
 	font-weight: bold;
 }
 

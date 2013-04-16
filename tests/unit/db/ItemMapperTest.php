@@ -175,7 +175,7 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 
 	public function testFindAllFeed(){
 		$sql = 'AND `items`.`feed_id` = ? ' .
-			'AND `items`.`id` > ? ' .
+			'AND `items`.`id` < ? ' .
 			'ORDER BY `items`.`id` DESC ';
 		$sql = $this->makeSelectQueryStatus($sql, $this->status);
 		$params = array($this->user, $this->id, $this->offset);
@@ -202,7 +202,7 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 
 	public function testFindAllFolder(){
 		$sql = 'AND `feeds`.`folder_id` = ? ' .
-			'AND `items`.`id` > ? ' .
+			'AND `items`.`id` < ? ' .
 			'ORDER BY `items`.`id` DESC ';
 		$sql = $this->makeSelectQueryStatus($sql, $this->status);
 		$params = array($this->user, $this->id, 
@@ -229,7 +229,7 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 
 
 	public function testFindAll(){
-		$sql = 'AND `items`.`id` > ? ' .
+		$sql = 'AND `items`.`id` < ? ' .
 			'ORDER BY `items`.`id` DESC ';
 		$sql = $this->makeSelectQueryStatus($sql, $this->status);
 		$params = array($this->user, $this->offset);

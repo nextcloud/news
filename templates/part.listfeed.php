@@ -29,7 +29,7 @@
 	<span class="utils">
 
 		<span class="unread-counter" 
-			ng-show="feed.id">
+			ng-show="feed.id && feedBusinessLayer.getUnreadCount(feed.id) > 0">
 			{{ feedBusinessLayer.getUnreadCount(feed.id) }}
 		</span>
 

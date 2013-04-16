@@ -232,9 +232,8 @@ class ItemControllerTest extends ControllerTestUtility {
 	private function itemsApiExpects($id, $type){
 		$this->api->expects($this->once())
 			->method('getUserValue')
-			->with($this->equalTo($this->user),
-				$this->equalTo('showAll'))
-			->will($this->returnValue('true'));
+			->with($this->equalTo('showAll'))
+			->will($this->returnValue('1'));
 		$this->api->expects($this->once())
 			->method('getUserId')
 			->will($this->returnValue($this->user));

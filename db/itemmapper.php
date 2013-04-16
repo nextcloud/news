@@ -158,7 +158,7 @@ class ItemMapper extends Mapper implements IMapper {
 		$params = array($userId, $id);
 		$sql = 'AND `items`.`feed_id` = ? ';
 		if($offset !== 0){
-			$sql .= 'AND `items`.`id` > ? ';
+			$sql .= 'AND `items`.`id` < ? ';
 			array_push($params, $offset);
 		}
 		$sql .= 'ORDER BY `items`.`id` DESC ';
@@ -171,7 +171,7 @@ class ItemMapper extends Mapper implements IMapper {
 		$params = array($userId, $id);
 		$sql = 'AND `feeds`.`folder_id` = ? ';
 		if($offset !== 0){
-			$sql .= 'AND `items`.`id` > ? ';
+			$sql .= 'AND `items`.`id` < ? ';
 			array_push($params, $offset);
 		}
 		$sql .= 'ORDER BY `items`.`id` DESC ';
@@ -184,7 +184,7 @@ class ItemMapper extends Mapper implements IMapper {
 		$params = array($userId);
 		$sql = '';
 		if($offset !== 0){
-			$sql .= 'AND `items`.`id` > ? ';
+			$sql .= 'AND `items`.`id` < ? ';
 			array_push($params, $offset);
 		}
 		$sql .= 'ORDER BY `items`.`id` DESC ';

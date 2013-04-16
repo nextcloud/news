@@ -50,7 +50,7 @@ class ItemController extends Controller {
 	 */
 	public function items(){
 		$userId = $this->api->getUserId();
-		$showAll = $this->api->getUserValue($userId, 'showAll') === 'true';
+		$showAll = $this->api->getUserValue('showAll') === '1';
 
 		$limit = $this->params('limit');
 		$type = (int) $this->params('type');
@@ -61,12 +61,12 @@ class ItemController extends Controller {
 		
 		if($limit !== null){
 			$offset = (int) $this->params('offset', 0);
-			$items = $this->itemBusinessLayer->findAll($id, $type, (int) $limit, $offset, 
-				                            $showAll, $userId);
+			$items = $this->itemBusinessLayer->findAll($id, $type, (int) $limit, 
+				                                       $offset, $showAll, $userId);
 		} else {
 			$updatedSince = (int) $this->params('updatedSince');
-			$items = $this->itemBusinessLayer->findAllNew($id, $type, $updatedSince, 
-				                               $showAll, $userId);
+			$items = $this->itemBusinessLayer->findAllNew($id, $type, 
+				                               $updatedSince, $showAll, $userId);
 		}
 
 		$params = array(

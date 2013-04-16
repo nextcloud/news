@@ -30,7 +30,8 @@
 				class="svg action delete-icon" 
 				title="<?php p($l->t('Delete folder')); ?>"></button>
 
-		<span class="unread-counter">
+		<span class="unread-counter"
+			ng-show="folderBusinessLayer.getUnreadCount(folder.id) > 0">
 			{{ folderBusinessLayer.getUnreadCount(folder.id) }}
 		</span>
 		
