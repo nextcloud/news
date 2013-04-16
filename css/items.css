@@ -306,7 +306,6 @@
 			display: none;
 			padding: .4em;
 			background-color: rgba(240,240,240,.9);
-			font-weight: bold;
 			color: #555;
 			text-shadow: rgba(255,255,255,.9) 0 1px 0;
 			border: 1px solid rgba(190,190,190,.9);
@@ -346,8 +345,8 @@
 			display:none;
 		}
 		.feed_item .show_keep_unread li {
-			border: 1px solid #1d2d44 !important;
-			background: #35537a !important;
-			color: #eee !important;
-			text-shadow: #000 0 -1px 0;
+			border: 1px solid #bbb !important;
+			background-color: rgba(240,240,240,.9) !important;
+			color: #555 !important;
+			font-weight:bold;
 		}
