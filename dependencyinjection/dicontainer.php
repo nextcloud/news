@@ -49,9 +49,6 @@ use OCA\News\Utility\TwitterFetcher;
 use OCA\News\Utility\OPMLExporter;
 
 
-require_once __DIR__ . '/../3rdparty/SimplePie/autoloader.php';
-
-
 class DIContainer extends BaseContainer {
 
 
