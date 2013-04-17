@@ -51,12 +51,12 @@
 .feed_item {
 	border-top: 1px solid #ccc;
 	min-height: 100px;
-	background-image: linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
-	background-image: -o-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
-	background-image: -moz-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
-	background-image: -webkit-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
-	background-image: -ms-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 6em);
-	padding: 2.5em 0 0 0;
+	background-image: linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 84px);
+	background-image: -o-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 84px);
+	background-image: -moz-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 84px);
+	background-image: -webkit-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 84px);
+	background-image: -ms-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 84px);
+	padding: 35px 0 0 0;
 	cursor: default;
 }
 
@@ -73,8 +73,8 @@
 	 * Utils panel
 	 */
 	.feed_item .utils {
-		height: 2em;
-		margin: 0 0 0 1em;
+		height: 28px;
+		margin: 0 0 0 14px;
 		float: left;
 	}
 
@@ -87,8 +87,8 @@
 
 		.feed_item .primary_item_utils li {
 			display: inline-block;
-			line-height: 1.5em;
-			font-size: 1em;
+			line-height: 21px;
+			font-size: 14px;
 			color: #aaa;
 			float: left;
 			margin-left: ;
@@ -99,9 +99,9 @@
 		.feed_item .primary_item_utils li.star {
 			background-image: url('%appswebroot%/news/img/inactive_star.svg');
 			background-repeat: no-repeat;
-			background-size: 1.5em 1.5em;
-			width: 1.5em;
-			height: 1.5em;
+			background-size: 21px 21px;
+			width: 21px;
+			height: 21px;
 			cursor: pointer;
 		}
 
@@ -114,8 +114,8 @@
 	 * Feed title
 	 */
 	.feed_item h1.item_title {
-		font-size: 1.5em;
-		margin: 0 13em 0 2.1em;
+		font-size: 19px;
+		margin: 0 182px 0 29px;
 		font-weight: bold;
 		word-break: break-all;
 	}
@@ -144,8 +144,8 @@
 	 */
 	.feed_item h2.item_feed_title {
 		color: #aaa;
-		font-size: 1.1em;
-		margin-left: 3em;
+		font-size: 15px;
+		margin-left: 42px;
 	}
 
 	/**
@@ -153,8 +153,8 @@
 	 */
 	.feed_item h2.item_author {
 		color: #aaa;
-		font-size: 1.1em;
-		margin: .2em 0 0 3em;
+		font-size: 15px;
+		margin: 3px 0 0 42px;
 	}
 
 		.feed_item h2.item_author a {
@@ -175,28 +175,28 @@
 	.timeago {
 		float: right;
 		color: #aaa;
-		margin: 0 1.2em 0 0;
-		font-size: 1.1em;
+		margin: 0 17px 0 0;
+		font-size: 15px;
 	}
 
 	/**
 	 * Body of the feed item
 	 */
 	.feed_item .enclosure {
-		padding: 1em 3em 0 3.5em;
+		padding: 14px 42px 0 49px;
 	}
 
 	.feed_item div.body {
-		padding: .75em 3em 0 3em;
-		max-width: 55em;
-		font-size: 1.1em;
+		padding: 10px 42px 0 42px;
+		max-width: 770px;
+		font-size: 14px;
 		clear: both;
 		overflow: auto;
 	}
 
 		.feed_item div.body p {
 			line-height: 1.5;
-			margin: .5em 0 1em 0;
+			margin: 7px 0 14px 0;
 		}
 
 		.feed_item div.body img, .feed_item div.body table {
@@ -207,27 +207,27 @@
 		}
 
 		.feed_item div.body > img:first-child {
-			padding: 0 1em 0 0;
+			padding: 0 14px 0 0;
 			float: left;
 		}
 
 		.feed_item div.body h1, .feed_item div.body h2 {
-			font-size: 1.25em;
+			font-size: 17px;
 			font-weight: bold;
 			color: #222;
-			margin: 1.5em 0 0 0;
+			margin: 21px 0 0 0;
 		}
 
 		.feed_item div.body h3 {
-			font-size: 1.1em;
+			font-size: 15px;
 			font-weight: bold;
 			color: #222;
-			margin: 1.5em 0 0 0;
+			margin: 21px 0 0 0;
 			text-decoration: underline;
 		}
 
 		.feed_item div.body > div {
-			margin: .5em 0;
+			margin: 7px 0;
 		}
 
 		.feed_item div.body a {
@@ -236,26 +236,26 @@
 		}
 
 		.feed_item div.body ul {
-			margin: .5em 0;
-			padding-left: 1em;
+			margin: 7px 0;
+			padding-left: 14px;
 			list-style-type: disc;
 		}
 
 		.feed_item div.body ol {
-			margin: .5em 0;
-			padding-left: 1.5em;
+			margin: 7px 0;
+			padding-left: 21px;
 		}
 
 			.feed_item div.body ul li {
 				cursor: default;
-				line-height: 1.5em;
+				line-height: 21px;
 			}
 
 		.feed_item div.body pre {
-			padding: .5em .5em .5em 1em;
+			padding: 7px 7px 7px 14px;
 			background-color: #dadada;
 			border: 1px solid #ccc;
-			margin: .5em 0 1em 0;
+			margin: 7px 0 14px 0;
 			background-image: linear-gradient(top, rgb(215,215,215) 0%, rgb(220,220,220) 100%);
 			background-image: -o-linear-gradient(top, rgb(215,215,215) 0%, rgb(220,220,220) 100%);
 			background-image: -moz-linear-gradient(top, rgb(215,215,215) 0%, rgb(220,220,220) 100%);
@@ -266,7 +266,7 @@
 
 			.feed_item div.body pre code {
 				font-family: monospace;
-				font-size: 1.5em;
+				font-size: 16px;
 			}
 	.feed_item div.body > *:last-child {
 		margin-bottom: 0;
@@ -277,12 +277,12 @@
  */
 .bottom_utils {
 	width: 100%;
-	height: 2.5em;
+	height: 35px;
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
-	margin-bottom:0.6em;
+	margin-bottom:8px;
 }
 
 	/**
@@ -290,7 +290,7 @@
 	 */
 	.feed_item .secondary_item_utils {
 		float: right;
-		margin: 0 1.2em;
+		margin: 0 17px;
 	}
 
 
@@ -304,7 +304,7 @@
 
 		.feed_item .secondary_item_utils li {
 			display: none;
-			padding: .4em;
+			padding: 6px;
 			background-color: rgba(240,240,240,.9);
 			color: #555;
 			text-shadow: rgba(255,255,255,.9) 0 1px 0;
@@ -313,9 +313,9 @@
 			-moz-box-shadow: 0 1px 1px rgba(255,255,255,.9),0 1px 1px rgba(255,255,255,.9) inset;
 			-webkit-box-shadow: 0 1px 1px rgba(255,255,255,.9),0 1px 1px rgba(255,255,255,.9) inset;
 			box-shadow: 0 1px 1px rgba(255,255,255,.9),0 1px 1px rgba(255,255,255,.9) inset;
-			-moz-border-radius: .5em;
-			-webkit-border-radius: .5em;
-			border-radius: .5em;
+			-moz-border-radius: 7px;
+			-webkit-border-radius: 7px;
+			border-radius: 7px;
 		}
 		.feed_item .secondary_item_utils li:hover {
 			background-color: rgba(250,250,250,.9);
