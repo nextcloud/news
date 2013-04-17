@@ -147,7 +147,8 @@ class DIContainer extends BaseContainer {
 		});
 
 		$this['FeedFetcher'] = $this->share(function($c){
-			return new FeedFetcher($c['API'], $c['simplePieCacheDirectory'],
+			return new FeedFetcher($c['API'], $c['FaviconFetcher'],
+				$c['simplePieCacheDirectory'],
 				$c['simplePieCacheDuration']);
 		});
 

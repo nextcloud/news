@@ -26,6 +26,7 @@
 namespace OCA\News\Utility;
 
 use \OCA\AppFramework\Core\API;
+use \OCA\AppFramework\Utility\FaviconFetcher;
 
 use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
@@ -36,18 +37,21 @@ class FeedFetcher implements IFeedFetcher {
 	private $api;
 	private $cacheDirectory;
 	private $cacheDuration;
+	private $faviconFetcher;
 
-	public function __construct(API $api, $cacheDirectory, $cacheDuration){
+	public function __construct(API $api, FaviconFetcher $faviconFetcher,
+	                            $cacheDirectory, $cacheDuration){
 		$this->api = $api;
 		$this->cacheDirectory = $cacheDirectory;
 		$this->cacheDuration = $cacheDuration;
+		$this->faviconFetcher = $faviconFetcher;
 	}
 
 
+	/**
+	 * This fetcher handles all the remaining urls therefore always returns true
+	 */
 	public function canHandle($url){
-
-		// This fetcher handles all the remaining urls therefore
-		// return true
 		return true;
 	}
 
@@ -123,10 +127,8 @@ class FeedFetcher implements IFeedFetcher {
 
 			// or the webpage
 			} else {
-				$webFavicon = $this->discoverFavicon($feed->getLink());
-				if ($webFavicon !== null) {
-					$feed->setFaviconLink($webFavicon);
-				}
+				$webFavicon = $this->faviconFetcher->fetch($feed->getLink());
+				$feed->setFaviconLink($webFavicon);
 			}
 
 			return array($feed, $items);
@@ -138,90 +140,4 @@ class FeedFetcher implements IFeedFetcher {
 	}
 
 
-	private function isValidFavIcon($favicon) {
-		if (!$favicon){
-			return false;
-		}
-
-		$file = new \SimplePie_File($favicon);
-
-		if($file->success) {
-			$sniffer = new \SimplePie_Content_Type_Sniffer($file);
-			$mimeType = $sniffer->get_type();
-			if(substr($mimeType, 0, 6) === 'image/') {
-				return true;
-			} elseif($mimeType === 'application/octet-stream' && 
-				strpos($favicon, 'favicon.ico') === strlen($favicon) - 11){
-				return true;
-			}
-		}
-		return false;
-	}
-
-
-	private function discoverFavicon($url) {
-		$url = rtrim($url, '/');
-
-		//try to extract favicon from web page
-		$page = $this->api->getUrlContent($url);
-
-		if ( FALSE !== $page ) {
-			$doc = @\DOMDocument::loadHTML($page);
-
-			if ( $doc !== FALSE ) {
-				$xpath = new \DOMXpath($doc);
-				$elements = $xpath->query("//link[contains(@rel, 'icon')]");
-
-				if ( $elements->length > 0 ) {
-					if ( $favicon = $elements->item(0)->getAttribute('href') ) {
-
-						// remove //
-						$favicon = ltrim($favicon, '/');
-						$httpsFavicon = $favicon;
-
-						// if it does not start with http, add it
-						if (strpos($favicon, 'http') !== 0){
-							$favicon = 'http://' . $favicon;
-							$httpsFavicon = 'https://' . $favicon;
-						}
-
-						// if its already valid, return it
-						if ($this->isValidFavIcon($favicon)){
-							return $favicon;
-						} elseif ($this->isValidFavIcon($httpsFavicon)){
-							return $httpsFavicon;
-						// assume its a realtive path or absolute path
-						} else {
-							// add slash to make it absolute
-							$favicon = '/' . $favicon;
-							$favicon = $url . $favicon;
-
-							if($this->isValidFavIcon($favicon)){
-								return $favicon;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		// try the /favicon.ico as a last resort
-		$parseUrl = parse_url($url);
-		if (!array_key_exists('scheme', $parseUrl)){
-			$scheme = 'http';
-		} else {
-			$scheme = $parseUrl['scheme'];
-		}
-
-		if(!array_key_exists('host', $parseUrl)){
-			return null;
-		}
-
-		$baseFavicon = $scheme . '://' . $parseUrl['host'] . '/favicon.ico';
-		if($this->isValidFavIcon($baseFavicon)){
-			return $baseFavicon;
-		}
-
-		return null;
-	}
 }
