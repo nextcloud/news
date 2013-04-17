@@ -37,9 +37,4 @@
 		</p>
 
 	</fieldset>
-	<fieldset class="personalblock">
-		<legend><strong><?php p($l->t('Subscribelet')); ?></strong></legend>
-		<p><?php print_unescaped($this->inc('part.subscribelet'));?>
-		</p>
-	</fieldset>
 </div>
