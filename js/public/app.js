@@ -1602,7 +1602,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           }
           if (data.faviconLink === null) {
             data.faviconLink = 'url(' + this._utils.imagePath('news', 'rss.svg') + ')';
-          } else {
+          } else if (angular.isDefined(data.faviconLink)) {
             data.faviconLink = 'url(' + data.faviconLink + ')';
           }
           /*

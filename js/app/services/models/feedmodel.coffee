@@ -40,7 +40,7 @@ angular.module('News').factory 'FeedModel',
 			if data.faviconLink == null
 				data.faviconLink = 'url(' +
 					@_utils.imagePath('news', 'rss.svg') + ')'
-			else
+			else if angular.isDefined(data.faviconLink)
 				data.faviconLink = 'url(' + data.faviconLink + ')'
 			###
 			We want to add a feed on the client side before
