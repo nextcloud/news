@@ -164,8 +164,6 @@ class DIContainer extends BaseContainer {
 			return new OPMLExporter();
 		});
 
-
-
 	}
 }
 
