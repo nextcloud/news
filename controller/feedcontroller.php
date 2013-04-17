@@ -162,7 +162,14 @@ class FeedController extends Controller {
 			$feed = $this->feedBusinessLayer->update($feedId, $userId);
 
 			$params = array(
-				'feeds' => array($feed)
+				'feeds' => array(
+					// only pass unreadcount to not accidentally readd
+					// the feed again
+					array(
+						'id' => $feed->getId(),
+						'unreadCount' => $feed->getUnreadCount()
+					)
+				)
 			);
 
 			return $this->renderJSON($params);

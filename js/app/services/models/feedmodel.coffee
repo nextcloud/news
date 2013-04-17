@@ -62,24 +62,27 @@ angular.module('News').factory 'FeedModel',
 			if updateById or updateByUrlHash
 				@update(data, clearCache)
 			else
-				# if the item is not yet in the name cache it must be added
-				@_urlHash[data.urlHash] = data
-				
-				# in case there is an id it can go through the normal add method
-				if angular.isDefined(data.id)
-					super(data, clearCache)
+				if angular.isDefined(data.urlHash)
+					# if the item is not yet in the name cache it must be added
+					@_urlHash[data.urlHash] = data
+					
+					# in case there is an id it can go through the normal add method
+					if angular.isDefined(data.id)
+						super(data, clearCache)
 
-				# if there is no id we just want it to appear in the list
-				else
-					@_data.push(data)
-					if clearCache
-						@_invalidateCache()
+					# if there is no id we just want it to appear in the list
+					else
+						@_data.push(data)
+						if clearCache
+							@_invalidateCache()
 
 
 		update: (data, clearCache=true) ->
 			# only when the id on the updated item does not exist we wish
 			# to update by name, otherwise we always update by id
-			item = @_urlHash[data.urlHash]
+			if angular.isDefined(data.urlHash)
+				item = @_urlHash[data.urlHash]
+
 			# update by name
 			if angular.isUndefined(data.id)	and angular.isDefined(item)
 				angular.extend(item, data)

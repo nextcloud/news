@@ -1617,13 +1617,15 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           if (updateById || updateByUrlHash) {
             return this.update(data, clearCache);
           } else {
-            this._urlHash[data.urlHash] = data;
-            if (angular.isDefined(data.id)) {
-              return FeedModel.__super__.add.call(this, data, clearCache);
-            } else {
-              this._data.push(data);
-              if (clearCache) {
-                return this._invalidateCache();
+            if (angular.isDefined(data.urlHash)) {
+              this._urlHash[data.urlHash] = data;
+              if (angular.isDefined(data.id)) {
+                return FeedModel.__super__.add.call(this, data, clearCache);
+              } else {
+                this._data.push(data);
+                if (clearCache) {
+                  return this._invalidateCache();
+                }
               }
             }
           }
@@ -1635,7 +1637,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           if (clearCache == null) {
             clearCache = true;
           }
-          item = this._urlHash[data.urlHash];
+          if (angular.isDefined(data.urlHash)) {
+            item = this._urlHash[data.urlHash];
+          }
           if (angular.isUndefined(data.id) && angular.isDefined(item)) {
             return angular.extend(item, data);
           } else {

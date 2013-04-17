@@ -177,12 +177,13 @@ class FeedFetcher implements IFeedFetcher {
 
 						// remove //
 						$favicon = ltrim($favicon, '/');
+						$httpsFavicon = $favicon;
 
 						// if it does not start with http, add it
 						if (strpos($favicon, 'http') !== 0){
 							$favicon = 'http://' . $favicon;
 							$httpsFavicon = 'https://' . $favicon;
-						} 
+						}
 
 						// if its already valid, return it
 						if ($this->isValidFavIcon($favicon)){

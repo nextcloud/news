@@ -121,3 +121,17 @@ describe 'FeedModel', ->
 		@FeedModel.add(item2)
 
 		expect(@FeedModel.getAllOfFolder(0).length).toBe(2)
+
+
+	it 'should only update feeds that contain only an id but no url hash', =>
+		item = {id: 3, unreadCount: 232}
+		@FeedModel.add(item)
+		expect(@FeedModel.size()).toBe(0)
+
+		item2 = {id: 3, unreadCount: 2, faviconLink: null, urlHash: 'his'}
+		@FeedModel.add(item2)
+		@FeedModel.add(item)
+
+		expect(@FeedModel.size()).toBe(1)
+		expect(@FeedModel.getById(3).unreadCount).toBe(232)
+

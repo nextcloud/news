@@ -298,14 +298,20 @@ class FeedControllerTest extends ControllerTestUtility {
 
 
 	public function testUpdate(){
+		$feed = new Feed();
+		$feed->setId(3);
+		$feed->setUnreadCount(44);
 		$result = array(
 			'feeds' => array(
-				new Feed()
+				array(
+					'id' => $feed->getId(),
+					'unreadCount' => $feed->getUnreadCount()
+				)
 			)
 		);
 
 		$url = array(
-				'feedId' => 4
+			'feedId' => 4
 		);
 		$this->controller = $this->getPostController(array(), $url);
 
@@ -315,7 +321,7 @@ class FeedControllerTest extends ControllerTestUtility {
 		$this->feedBusinessLayer->expects($this->once())
 			->method('update')
 			->with($this->equalTo($url['feedId']), $this->equalTo($this->user))
-			->will($this->returnValue($result['feeds'][0]));
+			->will($this->returnValue($feed));
 
 		$response = $this->controller->update();
 

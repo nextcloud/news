@@ -197,6 +197,14 @@ class ItemControllerTest extends ControllerTestUtility {
 			'highestItemId' => 5
 		);
 		$this->controller = $this->getPostController($post, $url);
+		$expected = array(
+			'feeds' => array(
+				array(
+					'id' => 4,
+					'unreadCount' => 0
+				)
+			)
+		);
 
 		$this->api->expects($this->once())
 			->method('getUserId')
@@ -207,6 +215,7 @@ class ItemControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->readFeed();
 		$this->assertTrue($response instanceof JSONResponse);
+		$this->assertEquals($expected, $response->getParams());
 	}
 
 
