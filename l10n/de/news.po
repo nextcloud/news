@@ -3,22 +3,23 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-#   <blobbyjj@ymail.com>, 2012.
-# I Robot <owncloud-bot@tmit.eu>, 2012.
-# I Robot <thomas.mueller@tmit.eu>, 2012.
-#   <mail@felixmoeller.de>, 2012.
-# Marcel Kühlhorn <susefan93@gmx.de>, 2013.
-#   <martin@oemus.net>, 2012.
-#   <mibunrui@gmx.de>, 2012.
-#   <niko@nik-o-mat.de>, 2012.
-#   <transifex.3.mensaje@spamgourmet.com>, 2012.
-#  <uu.kabum@gmail.com>, 2013.
+# Mirodin <blobbyjj@ymail.com>, 2012
+# I Robot <owncloud-bot@tmit.eu>, 2012
+# I Robot <owncloud-bot@tmit.eu>, 2012
+# fmms <mail@felixmoeller.de>, 2012
+# Marcel Kühlhorn <susefan93@gmx.de>, 2013
+# medarion <martin@oemus.net>, 2012
+# AndryXY <mibunrui@gmx.de>, 2012
+# JamFX <niko@nik-o-mat.de>, 2012
+# traductor <transifex-2.7.mensaje@spamgourmet.com>, 2012
+# Mirodin <blobbyjj@ymail.com>, 2013
+# kabum <uu.kabum@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-17 01:39+0200\n"
-"PO-Revision-Date: 2013-04-16 23:39+0000\n"
+"POT-Creation-Date: 2013-04-18 01:03+0200\n"
+"PO-Revision-Date: 2013-04-17 23:03+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: German <translations@owncloud.org>\n"
 "MIME-Version: 1.0\n"
@@ -53,7 +54,7 @@ msgstr "Fehler: Adresse muss angegeben werden!"
 
 #: templates/part.addnew.php:22
 msgid "Error: address exists already!"
-msgstr "Fehler: Adresse existier bereits!"
+msgstr "Fehler: Adresse existiert bereits!"
 
 #: templates/part.addnew.php:25
 msgid "Error: folder name must not be empty!"
@@ -81,7 +82,7 @@ msgstr "Ordner"
 
 #: templates/part.addnew.php:52
 msgid "Choose folder"
-msgstr "Wählen Sie einen Ordner"
+msgstr "Wähle einen Ordner"
 
 #: templates/part.addnew.php:64
 msgid "Folder name"
@@ -122,7 +123,7 @@ msgstr "von"
 
 #: templates/part.items.php:34
 msgid "by"
-msgstr "mit"
+msgstr "von"
 
 #: templates/part.items.php:42
 msgid "Cant play audio format"
@@ -169,10 +170,6 @@ msgstr "Exportieren"
 msgid "Error when importing: file does not contain valid OPML"
 msgstr "Fehler beim Importieren: Datei enthält kein gültiges OPML"
 
-#: templates/part.settings.php:41
-msgid "Subscribelet"
-msgstr "Subscribelet"
-
 #: templates/part.showall.php:2
 msgid "Show all"
 msgstr "Alle anzeigen"
@@ -180,25 +177,3 @@ msgstr "Alle anzeigen"
 #: templates/part.showall.php:6
 msgid "Show only unread"
 msgstr "Nur Ungelesene anzeigen"
-
-#: templates/part.subscribelet.php:3
-msgid ""
-"Drag this to your browser bookmarks and click on it whenever you want to "
-"subscribe to a webpage quickly:"
-msgstr "Lege dies in Deinen Lesezeichen ab und klicke darauf, wann immer Du schnellstmöglich eine Seite abonnieren möchtest:"
-
-#: templates/part.subscribelet.php:17
-msgid "Subscribe"
-msgstr "Abonnieren"
-
-#: templates/subscribe.php:30
-msgid "An error occurred"
-msgstr "Es ist ein Fehler aufgetreten"
-
-#: templates/subscribe.php:32
-msgid "Nice! You have subscribed to "
-msgstr "Gratulation! Du hast Folgendes abonniert:"
-
-#: templates/subscribe.php:36
-msgid "You had already subscribed to this feed!"
-msgstr "Du hast diesen Feed bereits abonniert!"

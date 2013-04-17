@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-#   <mr.pige_ina@yahoo.co.id>, 2012.
-#   <putu.sutha@yahoo.com>, 2012.
-#  <romihardiyanto@gmail.com>, 2013.
-# Widya Walesa <walecha99@gmail.com>, 2013.
+# elmakong <mr.pige_ina@yahoo.co.id>, 2012
+# putu.sutha <putu.sutha@yahoo.com>, 2012
+# rodin <romihardiyanto@gmail.com>, 2013
+# w41l <walecha99@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-17 01:39+0200\n"
-"PO-Revision-Date: 2013-04-16 23:39+0000\n"
+"POT-Creation-Date: 2013-04-18 01:03+0200\n"
+"PO-Revision-Date: 2013-04-17 23:03+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Indonesian (http://www.transifex.com/projects/p/owncloud/language/id/)\n"
 "MIME-Version: 1.0\n"
@@ -163,10 +163,6 @@ msgstr "ekspor"
 msgid "Error when importing: file does not contain valid OPML"
 msgstr ""
 
-#: templates/part.settings.php:41
-msgid "Subscribelet"
-msgstr "Subscribelet"
-
 #: templates/part.showall.php:2
 msgid "Show all"
 msgstr "Tampilkan semua"
@@ -174,25 +170,3 @@ msgstr "Tampilkan semua"
 #: templates/part.showall.php:6
 msgid "Show only unread"
 msgstr "tampilkan yang belum dibaca saja"
-
-#: templates/part.subscribelet.php:3
-msgid ""
-"Drag this to your browser bookmarks and click on it whenever you want to "
-"subscribe to a webpage quickly:"
-msgstr "Seret ini ke bookmark penjelajah anda dan klik jika anda ingin berlangganan webpage dengan cepat:"
-
-#: templates/part.subscribelet.php:17
-msgid "Subscribe"
-msgstr "Berlangganan"
-
-#: templates/subscribe.php:30
-msgid "An error occurred"
-msgstr "Terjadi kesalahan"
-
-#: templates/subscribe.php:32
-msgid "Nice! You have subscribed to "
-msgstr "Selamat! Anda telah berlangganan"
-
-#: templates/subscribe.php:36
-msgid "You had already subscribed to this feed!"
-msgstr "Anda sudah berlangganan feed ini!"

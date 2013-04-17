@@ -22,12 +22,6 @@
 "Import / Export OPML" => "Import / Eksport af OPML",
 "Import" => "Importer",
 "Export" => "Exporter",
-"Subscribelet" => "Subscribelet",
 "Show all" => "Vis alt",
-"Show only unread" => "Vis kun ulæste",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "Træk denne til din browsers bogmærker og klik på den, når du ønsker at abonnere på en hjemmeside hurtigt:",
-"Subscribe" => "Abonner",
-"An error occurred" => "Der opstod en fejl",
-"Nice! You have subscribed to " => "Godt! Du abonnerer nu på ",
-"You had already subscribed to this feed!" => "Du havde allerede abonnerer på dette feed!"
+"Show only unread" => "Vis kun ulæste"
 );

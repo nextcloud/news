@@ -12,8 +12,5 @@
 "Rename folder" => "கோப்பின் பெயரை மாற்றுக",
 "Import" => "இறக்குமதி",
 "Export" => "ஏற்றுமதி",
-"Show only unread" => "வாசிக்காததை மட்டும் காட்டுக",
-"An error occurred" => "ஒரு வழு ஏற்பட்டுள்ளது",
-"Nice! You have subscribed to " => "சிறந்தது! உங்களையும் சேர்க்கப்பட்டுள்ளது",
-"You had already subscribed to this feed!" => "நீங்கள் ஏற்கனவே இந்த ஊட்டில் பங்குபற்றியுள்ளீர்கள்!"
+"Show only unread" => "வாசிக்காததை மட்டும் காட்டுக"
 );

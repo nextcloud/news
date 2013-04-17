@@ -22,12 +22,6 @@
 "Import / Export OPML" => "OPML–ის იმპორტ / ექსპორტი",
 "Import" => "იმპორტი",
 "Export" => "ექსპორტი",
-"Subscribelet" => "საბსქრაიბლეტი",
 "Show all" => "ყველაფრის გამოჩენა",
-"Show only unread" => "გამოაჩინე მხოლოდ წაუკითხავი",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "გადაათრიეთ ეს თქვენს ბუქმარკებში  და შემდეგ დააჭირეთ თუ გინდათ რომ სწრაფად გამოიწეროთ ვებგვერდზე:",
-"Subscribe" => "გამოწერა",
-"An error occurred" => "დაფიქსირდა შეცდომა",
-"Nice! You have subscribed to " => "კარგია! თქვენ გაწევრიანდით აქ",
-"You had already subscribed to this feed!" => "თქვენ უკვე გაქვთ გამოწერილი ეს ფიდი!"
+"Show only unread" => "გამოაჩინე მხოლოდ წაუკითხავი"
 );

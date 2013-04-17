@@ -3,20 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Cyryl Sochacki <>, 2012.
-# Cyryl Sochacki <cyrylsochacki@gmail.com>, 2012-2013.
-#   <koalamis0@gmail.com>, 2012.
-# Maciej Tarmas <maciej@tarmas.com>, 2013.
-# Marcin Małecki <gerber@tkdami.net>, 2012.
-#   <mplichta@gmail.com>, 2012.
-# Paweł Ciecierski <pciecierski@gmail.com>, 2012.
-#   <szporwolik@gmail.com>, 2012.
+# Cyryl Sochacki <cyrylsochacki@gmail.com>, 2012
+# Cyryl Sochacki <cyrylsochacki@gmail.com>, 2012-2013
+# szymon.filip <koalamis0@gmail.com>, 2012
+# Maciej Tarmas <maciej@tarmas.pl>, 2013
+# Marcin Małecki <gerber@tkdami.net>, 2012
+# emc <mplichta@gmail.com>, 2012
+# Paweł Ciecierski <pciecierski@gmail.com>, 2012
+# szporwolik <szporwolik@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-17 01:39+0200\n"
-"PO-Revision-Date: 2013-04-16 23:39+0000\n"
+"POT-Creation-Date: 2013-04-18 01:03+0200\n"
+"PO-Revision-Date: 2013-04-17 23:03+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/owncloud/language/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -167,10 +167,6 @@ msgstr "Eksportuj"
 msgid "Error when importing: file does not contain valid OPML"
 msgstr ""
 
-#: templates/part.settings.php:41
-msgid "Subscribelet"
-msgstr "Subskrybowane"
-
 #: templates/part.showall.php:2
 msgid "Show all"
 msgstr "Pokaż wszystko"
@@ -178,25 +174,3 @@ msgstr "Pokaż wszystko"
 #: templates/part.showall.php:6
 msgid "Show only unread"
 msgstr "Pokaż tylko nieprzeczytane"
-
-#: templates/part.subscribelet.php:3
-msgid ""
-"Drag this to your browser bookmarks and click on it whenever you want to "
-"subscribe to a webpage quickly:"
-msgstr "Przeciągnij do zakładek w swojej przeglądarce. Wystarczy kliknąć w zakładkę aby dodać subskrypcję nowej strony:"
-
-#: templates/part.subscribelet.php:17
-msgid "Subscribe"
-msgstr "Subskrybuj"
-
-#: templates/subscribe.php:30
-msgid "An error occurred"
-msgstr "Wystąpił błąd"
-
-#: templates/subscribe.php:32
-msgid "Nice! You have subscribed to "
-msgstr "Super! Subskrybujesz"
-
-#: templates/subscribe.php:36
-msgid "You had already subscribed to this feed!"
-msgstr "Już subskrybujesz ten kanał!"

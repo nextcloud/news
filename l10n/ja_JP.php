@@ -34,12 +34,6 @@
 "Import" => "インポート",
 "Export" => "エクスポート",
 "Error when importing: file does not contain valid OPML" => "インポート中のエラー: ファイルは有効なOPMLを含んでいません",
-"Subscribelet" => "投稿",
 "Show all" => "全て表示",
-"Show only unread" => "未読のみを表示",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "WEBページをすぐに購読したい場合は、これをブラウザのブックマークにドラッグし、それをクリックしてください:",
-"Subscribe" => "購読",
-"An error occurred" => "エラーが発生しました",
-"Nice! You have subscribed to " => "無事に登録が完了しました: ",
-"You had already subscribed to this feed!" => "あなたはこのフィードをすでに購読しています！"
+"Show only unread" => "未読のみを表示"
 );

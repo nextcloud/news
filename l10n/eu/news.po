@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-#  <asieriko@gmail.com>, 2013.
-#   <asieriko@gmail.com>, 2012.
-# Piarres Beobide <pi@beobide.net>, 2012.
+# asieriko <asieriko@gmail.com>, 2013
+# asieriko <asieriko@gmail.com>, 2012
+# Piarres Beobide <pi@beobide.net>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-17 01:39+0200\n"
-"PO-Revision-Date: 2013-04-16 23:39+0000\n"
+"POT-Creation-Date: 2013-04-18 01:03+0200\n"
+"PO-Revision-Date: 2013-04-17 23:03+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Basque (http://www.transifex.com/projects/p/owncloud/language/eu/)\n"
 "MIME-Version: 1.0\n"
@@ -162,10 +162,6 @@ msgstr "Exportatu"
 msgid "Error when importing: file does not contain valid OPML"
 msgstr ""
 
-#: templates/part.settings.php:41
-msgid "Subscribelet"
-msgstr "Subscribelet"
-
 #: templates/part.showall.php:2
 msgid "Show all"
 msgstr "Bistartu denak"
@@ -173,25 +169,3 @@ msgstr "Bistartu denak"
 #: templates/part.showall.php:6
 msgid "Show only unread"
 msgstr "Erakutsi bakarrik irakurri gabekoa"
-
-#: templates/part.subscribelet.php:3
-msgid ""
-"Drag this to your browser bookmarks and click on it whenever you want to "
-"subscribe to a webpage quickly:"
-msgstr "Arrastratu hau zure arakatzailearen laster-marketara eta klikatu web orri bateko iturubruak jaso nahi badituzu."
-
-#: templates/part.subscribelet.php:17
-msgid "Subscribe"
-msgstr "Harpidetu"
-
-#: templates/subscribe.php:30
-msgid "An error occurred"
-msgstr "Errore bat gertatu da"
-
-#: templates/subscribe.php:32
-msgid "Nice! You have subscribed to "
-msgstr "Ongi! Harpidetu zara hurrengo iturburutan"
-
-#: templates/subscribe.php:36
-msgid "You had already subscribed to this feed!"
-msgstr "Dagoeneko iturburu honetako harpidedun zara!"

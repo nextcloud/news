@@ -15,10 +15,5 @@
 "Rename folder" => "Преименувај папка",
 "Import" => "Увези",
 "Export" => "Извези",
-"Show only unread" => "Прикажи само непрочитани",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "Повлечете го ова во лентата со обележувачи во Вашиот прелистувач и кликнете на него секој пат кога сакате брзо да се претплатите на страница.",
-"Subscribe" => "Претплата",
-"An error occurred" => "Се случи грепка",
-"Nice! You have subscribed to " => "Супер! Се претплативте на",
-"You had already subscribed to this feed!" => "Веќе сте претплатени на овој канал!"
+"Show only unread" => "Прикажи само непрочитани"
 );

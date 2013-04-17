@@ -15,11 +15,5 @@
 "Rename folder" => "เปลี่ยนชื่อโฟลเดอร์",
 "Import" => "นำเข้า",
 "Export" => "ส่งออก",
-"Subscribelet" => "ปุ่มสมัครรับข้อมูล",
-"Show only unread" => "แสดงเฉพาะที่ยังไม่ได้อ่าน",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "ลากปุ่มนี้ไปไว้ที่รายการโปรดในโปรแกรมบราวเซอร์ของคุณ แล้วคลิกที่ปุ่มดังกล่าวเมื่อคุณต้องการสมัครรับข้อมูลหน้าเว็บอย่างรวดเร็ว",
-"Subscribe" => "สมัครรับข้อมูล",
-"An error occurred" => "เกิดข้อผิดพลาดบางประการ",
-"Nice! You have subscribed to " => "เยี่ยมเลย! คุณได้สมัครรับข้อมูลจาก",
-"You had already subscribed to this feed!" => "คุณได้สมัครรับข้อมูลจากฟีดนี้ไปแล้ว!"
+"Show only unread" => "แสดงเฉพาะที่ยังไม่ได้อ่าน"
 );

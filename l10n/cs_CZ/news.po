@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Jakub Sycha <jacobcz@mineland.cz>, 2013.
-# Martin  <fireball@atlas.cz>, 2012.
-# Tomáš Chvátal <tomas.chvatal@gmail.com>, 2012-2013.
+# JacobCZ <jacobcz@mineland.cz>, 2013
+# Martin <fireball@atlas.cz>, 2012
+# Tomáš Chvátal <tomas.chvatal@gmail.com>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-17 01:39+0200\n"
-"PO-Revision-Date: 2013-04-16 23:39+0000\n"
+"POT-Creation-Date: 2013-04-18 01:03+0200\n"
+"PO-Revision-Date: 2013-04-17 23:03+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/projects/p/owncloud/language/cs_CZ/)\n"
 "MIME-Version: 1.0\n"
@@ -26,15 +26,15 @@ msgstr "Novinky"
 
 #: businesslayer/feedbusinesslayer.php:62
 msgid "Can not add feed: Exists already"
-msgstr ""
+msgstr "Nelze přidat kanál: již existuje"
 
 #: businesslayer/feedbusinesslayer.php:100
 msgid "Can not add feed: URL does not exist or has invalid xml"
-msgstr ""
+msgstr "Nelze přidat kanál: URL neexistuje nebo obsahuje neplatné xml"
 
 #: businesslayer/folderbusinesslayer.php:55
 msgid "Can not add folder: Exists already"
-msgstr ""
+msgstr "Nelze přidat složku: již existuje"
 
 #: templates/part.addnew.php:12
 msgid "Add Website"
@@ -42,19 +42,19 @@ msgstr "Přidat stránku"
 
 #: templates/part.addnew.php:19
 msgid "Error: address must not be empty!"
-msgstr ""
+msgstr "Chyba: adresa nesmí být prázdná"
 
 #: templates/part.addnew.php:22
 msgid "Error: address exists already!"
-msgstr ""
+msgstr "Chyba: adresa již existuje"
 
 #: templates/part.addnew.php:25
 msgid "Error: folder name must not be empty!"
-msgstr ""
+msgstr "Chyba: název složky nesmí být prázdný"
 
 #: templates/part.addnew.php:28
 msgid "Error: folder exists already"
-msgstr ""
+msgstr "Chyba: složka již existuje"
 
 #: templates/part.addnew.php:35
 msgid "Address"
@@ -82,11 +82,11 @@ msgstr "Název složky"
 
 #: templates/part.addnew.php:67
 msgid "Back to folder selection"
-msgstr ""
+msgstr "Zpět na výběr složky"
 
 #: templates/part.addnew.php:72
 msgid "Create folder"
-msgstr ""
+msgstr "Vytvořit složku"
 
 #: templates/part.feed.starred.php:10
 msgid "Starred"
@@ -107,7 +107,7 @@ msgstr "Označit vše jako přečtené"
 
 #: templates/part.items.php:17
 msgid "Save for later"
-msgstr ""
+msgstr "Uložit na později"
 
 #: templates/part.items.php:29
 msgid "from"
@@ -131,7 +131,7 @@ msgstr "Smazat kanál"
 
 #: templates/part.listfeed.php:48
 msgid "Delete website"
-msgstr ""
+msgstr "Smazat webovou stránku"
 
 #: templates/part.listfolder.php:14
 msgid "Collapse"
@@ -160,11 +160,7 @@ msgstr "Exportovat"
 
 #: templates/part.settings.php:36
 msgid "Error when importing: file does not contain valid OPML"
-msgstr ""
-
-#: templates/part.settings.php:41
-msgid "Subscribelet"
-msgstr "Subscribelet"
+msgstr "Chyba při importu: soubor neobsahuje platné OPML"
 
 #: templates/part.showall.php:2
 msgid "Show all"
@@ -173,25 +169,3 @@ msgstr "Zobrazit vše"
 #: templates/part.showall.php:6
 msgid "Show only unread"
 msgstr "Zobrazit pouze nepřečtené"
-
-#: templates/part.subscribelet.php:3
-msgid ""
-"Drag this to your browser bookmarks and click on it whenever you want to "
-"subscribe to a webpage quickly:"
-msgstr "Přetáhněte do Vašeho prohlížeče a klikněte, pokud si přejete rychle odebírat stránku:"
-
-#: templates/part.subscribelet.php:17
-msgid "Subscribe"
-msgstr "Odebírat"
-
-#: templates/subscribe.php:30
-msgid "An error occurred"
-msgstr "Nastala chyba"
-
-#: templates/subscribe.php:32
-msgid "Nice! You have subscribed to "
-msgstr "Dobře. Jste přihlášen k "
-
-#: templates/subscribe.php:36
-msgid "You had already subscribed to this feed!"
-msgstr "Tento kanál již odebíráte."

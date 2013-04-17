@@ -3,21 +3,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Denis <reg.transifex.net@demitel.ru>, 2013.
-# Denis  <reg.transifex.net@demitel.ru>, 2012.
-#   <iuranemo@gmail.com>, 2012.
-#   <seg@it4you.kiev.ua>, 2012.
-#   <semen@sam002.net>, 2012.
-#   <skoptev@ukr.net>, 2012.
-#   <victor.dubiniuk@gmail.com>, 2012.
-#   <zaera.alex@gmail.com>, 2012.
-# Дмитрий <langaru@gmail.com>, 2013.
+# Denis <reg.transifex.net@demitel.ru>, 2013
+# Denis <reg.transifex.net@demitel.ru>, 2012
+# iuranemo <iuranemo@gmail.com>, 2012
+# EugeneSG <seg@it4you.kiev.ua>, 2012
+# sam002 <semen@sam002.net>, 2012
+# skoptev <skoptev@ukr.net>, 2012
+# VicDeo <victor.dubiniuk@gmail.com>, 2012
+# zaera <zaera.alex@gmail.com>, 2012
+# Langaru <langaru@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-17 01:39+0200\n"
-"PO-Revision-Date: 2013-04-16 23:39+0000\n"
+"POT-Creation-Date: 2013-04-18 01:03+0200\n"
+"PO-Revision-Date: 2013-04-17 23:03+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/owncloud/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -168,10 +168,6 @@ msgstr "Экспорт"
 msgid "Error when importing: file does not contain valid OPML"
 msgstr ""
 
-#: templates/part.settings.php:41
-msgid "Subscribelet"
-msgstr "Быстрая подписка"
-
 #: templates/part.showall.php:2
 msgid "Show all"
 msgstr "Показать всё"
@@ -179,25 +175,3 @@ msgstr "Показать всё"
 #: templates/part.showall.php:6
 msgid "Show only unread"
 msgstr "Показать только непрочитанные"
-
-#: templates/part.subscribelet.php:3
-msgid ""
-"Drag this to your browser bookmarks and click on it whenever you want to "
-"subscribe to a webpage quickly:"
-msgstr "Перетащите эту кнопку в закладки вашего браузера и нажимайте на неё для быстрого добавления страницы в закладки:"
-
-#: templates/part.subscribelet.php:17
-msgid "Subscribe"
-msgstr "Подписаться"
-
-#: templates/subscribe.php:30
-msgid "An error occurred"
-msgstr "Произошла ошибка"
-
-#: templates/subscribe.php:32
-msgid "Nice! You have subscribed to "
-msgstr "Ура! Вы подписаны на "
-
-#: templates/subscribe.php:36
-msgid "You had already subscribed to this feed!"
-msgstr "Вы уже подписаны на эту ленту!"

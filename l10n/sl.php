@@ -22,12 +22,6 @@
 "Import / Export OPML" => "Izvoz / Uvoz OPML",
 "Import" => "Uvozi",
 "Export" => "Izvozi",
-"Subscribelet" => "Aplet naročanja",
 "Show all" => "Pokaži vse",
-"Show only unread" => "Prikaži le neprebrano",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "Povlecite gumb med zaznamke in kliknite nanj, ko želite hitro pregledati novice na spletni strani:",
-"Subscribe" => "Naročilo",
-"An error occurred" => "Prišlo je do napake",
-"Nice! You have subscribed to " => "Naročili ste se na",
-"You had already subscribed to this feed!" => "Na ta vir ste že prijavljeni!"
+"Show only unread" => "Prikaži le neprebrano"
 );

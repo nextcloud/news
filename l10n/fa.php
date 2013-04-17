@@ -14,7 +14,5 @@
 "Import" => "وارد کردن",
 "Export" => "گرفتن خروجی",
 "Show all" => "نمایش همه موارد",
-"Show only unread" => "نمایش خوانده نشده ها",
-"Subscribe" => "اشتراک گذاری",
-"An error occurred" => "یک خطا رخ داده است"
+"Show only unread" => "نمایش خوانده نشده ها"
 );

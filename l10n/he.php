@@ -12,7 +12,5 @@
 "Rename folder" => "שנה שם תיקייה",
 "Import" => "יבוא",
 "Export" => "ייצוא",
-"Show only unread" => "להציג רק כאלה שלא נקראו",
-"An error occurred" => "אירעה שגיאה",
-"Nice! You have subscribed to " => "מעולה! נרשמת ל"
+"Show only unread" => "להציג רק כאלה שלא נקראו"
 );

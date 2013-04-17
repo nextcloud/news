@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Daisuke Deguchi <ddeguchi@is.nagoya-u.ac.jp>, 2012.
-# Daisuke Deguchi <ddeguchi@nagoya-u.jp>, 2013.
-# <tetuyano+transi@gmail.com>, 2012.
-#   <tetuyano+transi@gmail.com>, 2012.
+# Daisuke Deguchi <ddeguchi@nagoya-u.jp>, 2012
+# Daisuke Deguchi <ddeguchi@nagoya-u.jp>, 2013
+# tt yn <tetuyano+transi@gmail.com>, 2012
+# tt yn <tetuyano+transi@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-17 01:39+0200\n"
-"PO-Revision-Date: 2013-04-16 23:39+0000\n"
+"POT-Creation-Date: 2013-04-18 01:03+0200\n"
+"PO-Revision-Date: 2013-04-17 23:03+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Japanese (Japan) (http://www.transifex.com/projects/p/owncloud/language/ja_JP/)\n"
 "MIME-Version: 1.0\n"
@@ -163,10 +163,6 @@ msgstr "エクスポート"
 msgid "Error when importing: file does not contain valid OPML"
 msgstr "インポート中のエラー: ファイルは有効なOPMLを含んでいません"
 
-#: templates/part.settings.php:41
-msgid "Subscribelet"
-msgstr "投稿"
-
 #: templates/part.showall.php:2
 msgid "Show all"
 msgstr "全て表示"
@@ -174,25 +170,3 @@ msgstr "全て表示"
 #: templates/part.showall.php:6
 msgid "Show only unread"
 msgstr "未読のみを表示"
-
-#: templates/part.subscribelet.php:3
-msgid ""
-"Drag this to your browser bookmarks and click on it whenever you want to "
-"subscribe to a webpage quickly:"
-msgstr "WEBページをすぐに購読したい場合は、これをブラウザのブックマークにドラッグし、それをクリックしてください:"
-
-#: templates/part.subscribelet.php:17
-msgid "Subscribe"
-msgstr "購読"
-
-#: templates/subscribe.php:30
-msgid "An error occurred"
-msgstr "エラーが発生しました"
-
-#: templates/subscribe.php:32
-msgid "Nice! You have subscribed to "
-msgstr "無事に登録が完了しました: "
-
-#: templates/subscribe.php:36
-msgid "You had already subscribed to this feed!"
-msgstr "あなたはこのフィードをすでに購読しています！"

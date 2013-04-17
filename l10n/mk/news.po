@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Georgi Stanojevski <glisha@gmail.com>, 2012.
+# Georgi Stanojevski <glisha@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-17 01:39+0200\n"
-"PO-Revision-Date: 2013-04-16 23:39+0000\n"
+"POT-Creation-Date: 2013-04-18 01:03+0200\n"
+"PO-Revision-Date: 2013-04-17 23:03+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Macedonian (http://www.transifex.com/projects/p/owncloud/language/mk/)\n"
 "MIME-Version: 1.0\n"
@@ -160,10 +160,6 @@ msgstr "Извези"
 msgid "Error when importing: file does not contain valid OPML"
 msgstr ""
 
-#: templates/part.settings.php:41
-msgid "Subscribelet"
-msgstr ""
-
 #: templates/part.showall.php:2
 msgid "Show all"
 msgstr ""
@@ -171,25 +167,3 @@ msgstr ""
 #: templates/part.showall.php:6
 msgid "Show only unread"
 msgstr "Прикажи само непрочитани"
-
-#: templates/part.subscribelet.php:3
-msgid ""
-"Drag this to your browser bookmarks and click on it whenever you want to "
-"subscribe to a webpage quickly:"
-msgstr "Повлечете го ова во лентата со обележувачи во Вашиот прелистувач и кликнете на него секој пат кога сакате брзо да се претплатите на страница."
-
-#: templates/part.subscribelet.php:17
-msgid "Subscribe"
-msgstr "Претплата"
-
-#: templates/subscribe.php:30
-msgid "An error occurred"
-msgstr "Се случи грепка"
-
-#: templates/subscribe.php:32
-msgid "Nice! You have subscribed to "
-msgstr "Супер! Се претплативте на"
-
-#: templates/subscribe.php:36
-msgid "You had already subscribed to this feed!"
-msgstr "Веќе сте претплатени на овој канал!"

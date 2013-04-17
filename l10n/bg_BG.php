@@ -12,8 +12,5 @@
 "Import" => "Внасяне",
 "Export" => "Експорт",
 "Show all" => "Покажи всички",
-"Show only unread" => "Покажи само новите",
-"Subscribe" => "Абонирай ме",
-"An error occurred" => "Възникна грешка",
-"Nice! You have subscribed to " => "Вие се абонирахте за"
+"Show only unread" => "Покажи само новите"
 );

@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Akos <nagy.akos@libreoffice.ro>, 2013.
-#   <gyonkibendeguz@gmail.com>, 2013.
-# Laszlo Tornoci <torlasz@gmail.com>, 2013.
+# akoscomp <nagy.akos@libreoffice.ro>, 2013
+# gyeben <gyonkibendeguz@gmail.com>, 2013
+# Laszlo Tornoci <torlasz@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-17 01:39+0200\n"
-"PO-Revision-Date: 2013-04-16 23:39+0000\n"
+"POT-Creation-Date: 2013-04-18 01:03+0200\n"
+"PO-Revision-Date: 2013-04-17 23:03+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/owncloud/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
@@ -162,10 +162,6 @@ msgstr "Exportálás"
 msgid "Error when importing: file does not contain valid OPML"
 msgstr ""
 
-#: templates/part.settings.php:41
-msgid "Subscribelet"
-msgstr "Feliratkozó"
-
 #: templates/part.showall.php:2
 msgid "Show all"
 msgstr "Mutassuk mindet"
@@ -173,25 +169,3 @@ msgstr "Mutassuk mindet"
 #: templates/part.showall.php:6
 msgid "Show only unread"
 msgstr "Csak az olvasatlanok megjelenítése"
-
-#: templates/part.subscribelet.php:3
-msgid ""
-"Drag this to your browser bookmarks and click on it whenever you want to "
-"subscribe to a webpage quickly:"
-msgstr "Húzza ezt a böngészője könyvjelzői közé és kattintson rá, amikor az aktuális weboldal címét szeretné gyorsan elmenteni :"
-
-#: templates/part.subscribelet.php:17
-msgid "Subscribe"
-msgstr "Feliratkozás"
-
-#: templates/subscribe.php:30
-msgid "An error occurred"
-msgstr "Hiba történt"
-
-#: templates/subscribe.php:32
-msgid "Nice! You have subscribed to "
-msgstr "Rendben! Feliratkozott a következőre: "
-
-#: templates/subscribe.php:36
-msgid "You had already subscribed to this feed!"
-msgstr "Már fel van iratkozva erre a csatornára!"

@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2013.
+# Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-17 01:39+0200\n"
-"PO-Revision-Date: 2013-04-16 23:39+0000\n"
+"POT-Creation-Date: 2013-04-18 01:03+0200\n"
+"PO-Revision-Date: 2013-04-17 23:03+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Latvian (http://www.transifex.com/projects/p/owncloud/language/lv/)\n"
 "MIME-Version: 1.0\n"
@@ -160,10 +160,6 @@ msgstr "Eksportēt"
 msgid "Error when importing: file does not contain valid OPML"
 msgstr ""
 
-#: templates/part.settings.php:41
-msgid "Subscribelet"
-msgstr "Sīkabonements"
-
 #: templates/part.showall.php:2
 msgid "Show all"
 msgstr "Rādīt visu"
@@ -171,25 +167,3 @@ msgstr "Rādīt visu"
 #: templates/part.showall.php:6
 msgid "Show only unread"
 msgstr "Rādīt tikai nelasītos"
-
-#: templates/part.subscribelet.php:3
-msgid ""
-"Drag this to your browser bookmarks and click on it whenever you want to "
-"subscribe to a webpage quickly:"
-msgstr "Velciet šo uz sava pārlūka grāmatzīmēm un spiediet uz tā, kad vēlaties ātri abonēt tīmekļa lapu:"
-
-#: templates/part.subscribelet.php:17
-msgid "Subscribe"
-msgstr "Abonēt"
-
-#: templates/subscribe.php:30
-msgid "An error occurred"
-msgstr "Gadījās kļūda"
-
-#: templates/subscribe.php:32
-msgid "Nice! You have subscribed to "
-msgstr "Jauki! Jūs esat abonējis"
-
-#: templates/subscribe.php:36
-msgid "You had already subscribed to this feed!"
-msgstr "Jūs jau esat abonējis šo plūsmu!"

@@ -22,12 +22,6 @@
 "Import / Export OPML" => "Importuj/eksportuj OPML",
 "Import" => "Importuj",
 "Export" => "Eksportuj",
-"Subscribelet" => "Subskrybowane",
 "Show all" => "Pokaż wszystko",
-"Show only unread" => "Pokaż tylko nieprzeczytane",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "Przeciągnij do zakładek w swojej przeglądarce. Wystarczy kliknąć w zakładkę aby dodać subskrypcję nowej strony:",
-"Subscribe" => "Subskrybuj",
-"An error occurred" => "Wystąpił błąd",
-"Nice! You have subscribed to " => "Super! Subskrybujesz",
-"You had already subscribed to this feed!" => "Już subskrybujesz ten kanał!"
+"Show only unread" => "Pokaż tylko nieprzeczytane"
 );

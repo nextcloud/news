@@ -3,17 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# André Koot <meneer@tken.net>, 2013.
-#   <bramdv@me.com>, 2012.
-#   <lenny@weijl.org>, 2012.
-# Richard Bos <radoeka@gmail.com>, 2012.
-#   <webbsite-mark@hotmail.com>, 2012.
+# André Koot <meneer@tken.net>, 2013
+# Bramdv <bramdv@me.com>, 2012
+# Len <lenny@weijl.org>, 2012
+# Richard Bos <radoeka@gmail.com>, 2012
+# webbmark <webbsite-mark@hotmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-17 01:39+0200\n"
-"PO-Revision-Date: 2013-04-16 23:39+0000\n"
+"POT-Creation-Date: 2013-04-18 01:03+0200\n"
+"PO-Revision-Date: 2013-04-17 23:03+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/owncloud/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -28,15 +28,15 @@ msgstr "Nieuws"
 
 #: businesslayer/feedbusinesslayer.php:62
 msgid "Can not add feed: Exists already"
-msgstr ""
+msgstr "Kan feed niet toevoegen: bestaat al"
 
 #: businesslayer/feedbusinesslayer.php:100
 msgid "Can not add feed: URL does not exist or has invalid xml"
-msgstr ""
+msgstr "Kan feed niet toevoegen: URL bestaat niet, of bevat geen geldige xml"
 
 #: businesslayer/folderbusinesslayer.php:55
 msgid "Can not add folder: Exists already"
-msgstr ""
+msgstr "Kan map niet toevoegen, bestaat al"
 
 #: templates/part.addnew.php:12
 msgid "Add Website"
@@ -44,19 +44,19 @@ msgstr "Toevoegen website"
 
 #: templates/part.addnew.php:19
 msgid "Error: address must not be empty!"
-msgstr ""
+msgstr "Fout: adres mag niet leeg zijn!"
 
 #: templates/part.addnew.php:22
 msgid "Error: address exists already!"
-msgstr ""
+msgstr "Fout: adres bestaat al!"
 
 #: templates/part.addnew.php:25
 msgid "Error: folder name must not be empty!"
-msgstr ""
+msgstr "Fout: mapnaam mag niet leeg zijn!"
 
 #: templates/part.addnew.php:28
 msgid "Error: folder exists already"
-msgstr ""
+msgstr "Fout: map bestaat al!"
 
 #: templates/part.addnew.php:35
 msgid "Address"
@@ -84,11 +84,11 @@ msgstr "Mapnaam"
 
 #: templates/part.addnew.php:67
 msgid "Back to folder selection"
-msgstr ""
+msgstr "Terug naar mappenselectie"
 
 #: templates/part.addnew.php:72
 msgid "Create folder"
-msgstr ""
+msgstr "Aanmaken map"
 
 #: templates/part.feed.starred.php:10
 msgid "Starred"
@@ -109,7 +109,7 @@ msgstr "Markeer alles als gelezen"
 
 #: templates/part.items.php:17
 msgid "Save for later"
-msgstr ""
+msgstr "Bewaren voor later"
 
 #: templates/part.items.php:29
 msgid "from"
@@ -133,7 +133,7 @@ msgstr "Verwijder feed"
 
 #: templates/part.listfeed.php:48
 msgid "Delete website"
-msgstr ""
+msgstr "Verwijder website"
 
 #: templates/part.listfolder.php:14
 msgid "Collapse"
@@ -162,11 +162,7 @@ msgstr "Exporteer"
 
 #: templates/part.settings.php:36
 msgid "Error when importing: file does not contain valid OPML"
-msgstr ""
-
-#: templates/part.settings.php:41
-msgid "Subscribelet"
-msgstr "Subscribelet"
+msgstr "Fout bij importeren: het bestand bevat geen geldige OPML"
 
 #: templates/part.showall.php:2
 msgid "Show all"
@@ -175,25 +171,3 @@ msgstr "Toon alles"
 #: templates/part.showall.php:6
 msgid "Show only unread"
 msgstr "Toon alleen ongelezen"
-
-#: templates/part.subscribelet.php:3
-msgid ""
-"Drag this to your browser bookmarks and click on it whenever you want to "
-"subscribe to a webpage quickly:"
-msgstr "Sleep dit naar je browser bladwijzers en klik erop wanneer je snel wil abonneren op een webpagina."
-
-#: templates/part.subscribelet.php:17
-msgid "Subscribe"
-msgstr "Abonneren"
-
-#: templates/subscribe.php:30
-msgid "An error occurred"
-msgstr "Er heeft zich een fout voorgedaan"
-
-#: templates/subscribe.php:32
-msgid "Nice! You have subscribed to "
-msgstr "Leuk! Je bent geabonneerd op "
-
-#: templates/subscribe.php:36
-msgid "You had already subscribed to this feed!"
-msgstr "Je bent al ingeschreven voor deze feed!"

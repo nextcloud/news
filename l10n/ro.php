@@ -15,11 +15,5 @@
 "Rename folder" => "Redenumește director",
 "Import" => "Importă",
 "Export" => "Exportă",
-"Subscribelet" => "Înregistrator",
-"Show only unread" => "Arată doar necitite",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "Trage asta în Semnele de carte ale navigatorului și apasă pe ea de fiecare dată când vrei să te abonezi la o pagină rapid:",
-"Subscribe" => "Abonare",
-"An error occurred" => "A apărut o eroare",
-"Nice! You have subscribed to " => "Drăguț! Ești abonat la",
-"You had already subscribed to this feed!" => "Deja ești înscris la acest flux!"
+"Show only unread" => "Arată doar necitite"
 );

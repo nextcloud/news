@@ -8,6 +8,5 @@
 "Delete folder" => "Ištrinti katalogą",
 "Rename folder" => "Pervadinti katalogą",
 "Import" => "Importuoti",
-"Export" => "Eksportuoti",
-"Subscribe" => "Prenumeruoti"
+"Export" => "Eksportuoti"
 );

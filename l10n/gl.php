@@ -34,12 +34,6 @@
 "Import" => "Importar",
 "Export" => "Exportar",
 "Error when importing: file does not contain valid OPML" => "Erro durante a importación: o ficheiro non conten OPML correcto",
-"Subscribelet" => "Subscripción",
 "Show all" => "Amosar todo",
-"Show only unread" => "Amosar só o non lido",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "Arrastre isto aos marcadores do seu navegador e prema nel cando queira subscribirse rapidamente a unha páxina web:",
-"Subscribe" => "Subscribir",
-"An error occurred" => "Produciuse un erro",
-"Nice! You have subscribed to " => "Ben! Subscribiuse a ",
-"You had already subscribed to this feed!" => "Xa está subscrito a esta fonte"
+"Show only unread" => "Amosar só o non lido"
 );

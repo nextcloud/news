@@ -22,12 +22,6 @@
 "Import / Export OPML" => "Impor/Ekspor OPML",
 "Import" => "impor",
 "Export" => "ekspor",
-"Subscribelet" => "Subscribelet",
 "Show all" => "Tampilkan semua",
-"Show only unread" => "tampilkan yang belum dibaca saja",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "Seret ini ke bookmark penjelajah anda dan klik jika anda ingin berlangganan webpage dengan cepat:",
-"Subscribe" => "Berlangganan",
-"An error occurred" => "Terjadi kesalahan",
-"Nice! You have subscribed to " => "Selamat! Anda telah berlangganan",
-"You had already subscribed to this feed!" => "Anda sudah berlangganan feed ini!"
+"Show only unread" => "tampilkan yang belum dibaca saja"
 );

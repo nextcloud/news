@@ -22,12 +22,6 @@
 "Import / Export OPML" => "가져오기 / 내보내기 OPML",
 "Import" => "가져오기",
 "Export" => "내보내기",
-"Subscribelet" => "구독물",
 "Show all" => "모두 보기",
-"Show only unread" => "읽지 않은 글만 보기",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "웹 브라우저 책갈피 항목에 다음 링크를 끌어다 놓으면 나중에 볼 웹 페이지를 빠르게 구독할 때 사용할 수 있습니다:",
-"Subscribe" => "구독",
-"An error occurred" => "오류가 발생하였습니다.",
-"Nice! You have subscribed to " => "좋습니다! 다음 피드를 구독합니다:",
-"You had already subscribed to this feed!" => "이 피드를 이미 구독하고 있습니다!"
+"Show only unread" => "읽지 않은 글만 보기"
 );

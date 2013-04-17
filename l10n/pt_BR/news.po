@@ -3,18 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-#   <dudanogueira@gmail.com>, 2012.
-#   <fred.maranhao@gmail.com>, 2012.
-#   <philippi.sedir@gmail.com>, 2012.
-# Rodrigo Tavares <rodrigo.st23@hotmail.com>, 2013.
-# Sedir G. Morais <philippi.sedir@gmail.com>, 2013.
-#   <thoriumbr@gmail.com>, 2012.
+# dudanogueira <dudanogueira@gmail.com>, 2012
+# FredMaranhao <fred.maranhao@gmail.com>, 2012
+# sedir <philippi.sedir@gmail.com>, 2012
+# Rodrigo Tavares <rodrigo.st23@hotmail.com>, 2013
+# sedir <philippi.sedir@gmail.com>, 2013
+# thoriumbr <thoriumbr@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-17 01:39+0200\n"
-"PO-Revision-Date: 2013-04-16 23:39+0000\n"
+"POT-Creation-Date: 2013-04-18 01:03+0200\n"
+"PO-Revision-Date: 2013-04-17 23:03+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/owncloud/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -165,10 +165,6 @@ msgstr "Exportar"
 msgid "Error when importing: file does not contain valid OPML"
 msgstr ""
 
-#: templates/part.settings.php:41
-msgid "Subscribelet"
-msgstr "Subscribelet"
-
 #: templates/part.showall.php:2
 msgid "Show all"
 msgstr "Mostrar tudo"
@@ -176,25 +172,3 @@ msgstr "Mostrar tudo"
 #: templates/part.showall.php:6
 msgid "Show only unread"
 msgstr "Mostrar não lidos apenas"
-
-#: templates/part.subscribelet.php:3
-msgid ""
-"Drag this to your browser bookmarks and click on it whenever you want to "
-"subscribe to a webpage quickly:"
-msgstr "Arraste isso para os favoritos do seu navegador e clique nele quando quiser assinar uma página rapidamente:"
-
-#: templates/part.subscribelet.php:17
-msgid "Subscribe"
-msgstr "Assinar"
-
-#: templates/subscribe.php:30
-msgid "An error occurred"
-msgstr "Ocorreu um erro"
-
-#: templates/subscribe.php:32
-msgid "Nice! You have subscribed to "
-msgstr "Legal! Você assinou"
-
-#: templates/subscribe.php:36
-msgid "You had already subscribed to this feed!"
-msgstr "Você já assinou este feed!"

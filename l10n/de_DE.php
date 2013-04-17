@@ -34,12 +34,6 @@
 "Import" => "Importieren",
 "Export" => "Exportieren",
 "Error when importing: file does not contain valid OPML" => "Fehler beim Importieren: Datei enthält kein gültiges OPML",
-"Subscribelet" => "Subscribelet",
 "Show all" => "Zeige alle",
-"Show only unread" => "Nur Ungelesene anzeigen",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "Speichern Sie diesen Link als Lesezeichen ab und klicken Sie darauf, wann immer Sie schnellstmöglich eine Seite abonnieren möchten:",
-"Subscribe" => "Abonnieren",
-"An error occurred" => "Es ist ein Fehler aufgetreten",
-"Nice! You have subscribed to " => "Gratulation! Sie haben Folgendes abonniert:",
-"You had already subscribed to this feed!" => "Sie haben diesen Feed bereits abonniert!"
+"Show only unread" => "Nur Ungelesene anzeigen"
 );

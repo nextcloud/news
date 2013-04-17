@@ -20,12 +20,6 @@
 "Import / Export OPML" => "Inportatu/Esportatu OPML",
 "Import" => "Inportatu",
 "Export" => "Exportatu",
-"Subscribelet" => "Subscribelet",
 "Show all" => "Bistartu denak",
-"Show only unread" => "Erakutsi bakarrik irakurri gabekoa",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "Arrastratu hau zure arakatzailearen laster-marketara eta klikatu web orri bateko iturubruak jaso nahi badituzu.",
-"Subscribe" => "Harpidetu",
-"An error occurred" => "Errore bat gertatu da",
-"Nice! You have subscribed to " => "Ongi! Harpidetu zara hurrengo iturburutan",
-"You had already subscribed to this feed!" => "Dagoeneko iturburu honetako harpidedun zara!"
+"Show only unread" => "Erakutsi bakarrik irakurri gabekoa"
 );

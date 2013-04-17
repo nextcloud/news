@@ -3,25 +3,25 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Andreas Tangemann <a.tangemann@web.de>, 2013.
-#   <a.tangemann@web.de>, 2012.
-#   <blobbyjj@ymail.com>, 2012.
-# I Robot <owncloud-bot@tmit.eu>, 2012.
-# I Robot <thomas.mueller@tmit.eu>, 2012.
-# Marcel Kühlhorn <susefan93@gmx.de>, 2012-2013.
-#   <martin@oemus.net>, 2012.
-#   <niko@nik-o-mat.de>, 2012.
-#   <seeed@freenet.de>, 2012.
-#  <stefan.niedermann@googlemail.com>, 2013.
-#  <transifex-2.7.mensaje@spamgourmet.com>, 2013.
-#   <transifex.3.mensaje@spamgourmet.com>, 2012.
-#  <uu.kabum@gmail.com>, 2013.
+# a.tangemann <a.tangemann@web.de>, 2013
+# a.tangemann <a.tangemann@web.de>, 2012
+# Mirodin <blobbyjj@ymail.com>, 2012
+# I Robot <owncloud-bot@tmit.eu>, 2012
+# I Robot <owncloud-bot@tmit.eu>, 2012
+# Marcel Kühlhorn <susefan93@gmx.de>, 2012-2013
+# medarion <martin@oemus.net>, 2012
+# JamFX <niko@nik-o-mat.de>, 2012
+# seeed <seeed@freenet.de>, 2012
+# stefanniedermann <stefan.niedermann@googlemail.com>, 2013
+# traductor <transifex-2.7.mensaje@spamgourmet.com>, 2013
+# traductor <transifex-2.7.mensaje@spamgourmet.com>, 2012
+# kabum <uu.kabum@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-17 01:39+0200\n"
-"PO-Revision-Date: 2013-04-16 23:39+0000\n"
+"POT-Creation-Date: 2013-04-18 01:03+0200\n"
+"PO-Revision-Date: 2013-04-17 23:03+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: German (Germany) <translations@owncloud.org>\n"
 "MIME-Version: 1.0\n"
@@ -172,10 +172,6 @@ msgstr "Exportieren"
 msgid "Error when importing: file does not contain valid OPML"
 msgstr "Fehler beim Importieren: Datei enthält kein gültiges OPML"
 
-#: templates/part.settings.php:41
-msgid "Subscribelet"
-msgstr "Subscribelet"
-
 #: templates/part.showall.php:2
 msgid "Show all"
 msgstr "Zeige alle"
@@ -183,25 +179,3 @@ msgstr "Zeige alle"
 #: templates/part.showall.php:6
 msgid "Show only unread"
 msgstr "Nur Ungelesene anzeigen"
-
-#: templates/part.subscribelet.php:3
-msgid ""
-"Drag this to your browser bookmarks and click on it whenever you want to "
-"subscribe to a webpage quickly:"
-msgstr "Speichern Sie diesen Link als Lesezeichen ab und klicken Sie darauf, wann immer Sie schnellstmöglich eine Seite abonnieren möchten:"
-
-#: templates/part.subscribelet.php:17
-msgid "Subscribe"
-msgstr "Abonnieren"
-
-#: templates/subscribe.php:30
-msgid "An error occurred"
-msgstr "Es ist ein Fehler aufgetreten"
-
-#: templates/subscribe.php:32
-msgid "Nice! You have subscribed to "
-msgstr "Gratulation! Sie haben Folgendes abonniert:"
-
-#: templates/subscribe.php:36
-msgid "You had already subscribed to this feed!"
-msgstr "Sie haben diesen Feed bereits abonniert!"

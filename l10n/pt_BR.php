@@ -22,12 +22,6 @@
 "Import / Export OPML" => "Importar / Exportar OPML",
 "Import" => "Importar",
 "Export" => "Exportar",
-"Subscribelet" => "Subscribelet",
 "Show all" => "Mostrar tudo",
-"Show only unread" => "Mostrar não lidos apenas",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "Arraste isso para os favoritos do seu navegador e clique nele quando quiser assinar uma página rapidamente:",
-"Subscribe" => "Assinar",
-"An error occurred" => "Ocorreu um erro",
-"Nice! You have subscribed to " => "Legal! Você assinou",
-"You had already subscribed to this feed!" => "Você já assinou este feed!"
+"Show only unread" => "Mostrar não lidos apenas"
 );

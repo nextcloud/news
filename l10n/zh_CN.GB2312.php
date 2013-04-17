@@ -14,10 +14,5 @@
 "Rename folder" => "重命名文件夹",
 "Import" => "导入",
 "Export" => "导出",
-"Subscribelet" => "订阅小书签",
-"Show only unread" => "只显示未读",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "拖动此物到您的浏览器书签栏，并在您想要快速订阅某网页时点击它：",
-"Subscribe" => "订阅",
-"An error occurred" => "发生一个错误",
-"Nice! You have subscribed to " => "好的！您已经订阅了"
+"Show only unread" => "只显示未读"
 );

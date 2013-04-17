@@ -19,12 +19,6 @@
 "Import / Export OPML" => "Xuất nhập dữ liệu OPML",
 "Import" => "Nhập vào",
 "Export" => "Xuất ra",
-"Subscribelet" => "Subscribelet",
 "Show all" => "Hiên thị tất cả",
-"Show only unread" => "Hiển thị chưa đọc",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "Kéo vào bookmark trình duyệt của bạn và nhấp vào nó bất cứ khi nào bạn muốn để theo dõi trang web một cách nhanh chóng:",
-"Subscribe" => "Theo dõi",
-"An error occurred" => "Một lỗi đã xảy ra",
-"Nice! You have subscribed to " => "Chúc mừng! Bạn đã đăng ký",
-"You had already subscribed to this feed!" => "Bạn đã đăng ký feed này!"
+"Show only unread" => "Hiển thị chưa đọc"
 );

@@ -22,12 +22,6 @@
 "Import / Export OPML" => "Import / Export OPML",
 "Import" => "Importera",
 "Export" => "Exportera",
-"Subscribelet" => "Subscribelet",
 "Show all" => "Visa alla",
-"Show only unread" => "Visa endast olästa",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "Drag denna till din webbläsares bokmärken och klicka på den när du snabbt vill prenumerera på en webbsida:",
-"Subscribe" => "Prenumerera",
-"An error occurred" => "Ett fel uppstod",
-"Nice! You have subscribed to " => "Gött! Du prenumererar nu på",
-"You had already subscribed to this feed!" => "Du prenumererar redan på detta flöde!"
+"Show only unread" => "Visa endast olästa"
 );

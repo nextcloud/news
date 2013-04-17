@@ -13,10 +13,5 @@
 "Rename folder" => "گۆڕینی ناوی بوخچه",
 "Import" => "هێنان",
 "Export" => "هه‌ناردن",
-"Subscribelet" => "به‌شداربوون",
-"Show only unread" => "ته‌نها نه‌خوێنراوه‌ پێشان بده",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "رابکێشه‌ ئه‌مه بۆ دڵخوازه‌کان له‌ وێبگه‌ڕه‌که‌ت وه کرته‌ بکه‌ له‌سه‌ری هه‌رکاتێك ویستت به‌شداربیت له‌ ماڵپه‌ڕێك به‌خێرایی:",
-"Subscribe" => "به‌شداربوون",
-"An error occurred" => "هه‌ڵه‌ك ڕوویدا",
-"Nice! You have subscribed to " => "جوانه! تۆ به‌شداربووی له"
+"Show only unread" => "ته‌نها نه‌خوێنراوه‌ پێشان بده"
 );

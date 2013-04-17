@@ -1,3 +1,5 @@
 <?php $TRANSLATIONS = array(
-"Add" => "Ychwanegu"
+"Add" => "Ychwanegu",
+"Import" => "Mewnforio",
+"Export" => "Allforio"
 );

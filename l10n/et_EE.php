@@ -22,12 +22,6 @@
 "Import / Export OPML" => "Impordi / Ekspordi OPML",
 "Import" => "Impordi",
 "Export" => "Ekspordi",
-"Subscribelet" => "Tellimuse vidin",
 "Show all" => "Näita kõiki",
-"Show only unread" => "Näita ainult lugemata",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "Lohista see oma veebilehitseja järjehoidjatesse ja kliki sellel, kui sa soovid veebilehte kiiresti tellida:",
-"Subscribe" => "Telli",
-"An error occurred" => "Tekkis viga",
-"Nice! You have subscribed to " => "Lahe! Sa tellisid uudivoo",
-"You had already subscribed to this feed!" => "Sa oled selle voo juba tellinud!"
+"Show only unread" => "Näita ainult lugemata"
 );

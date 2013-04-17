@@ -14,11 +14,5 @@
 "Rename folder" => "Переименовать папку",
 "Import" => "Импортировать",
 "Export" => "Экспортировать",
-"Subscribelet" => "Subscribelet",
-"Show only unread" => "Показать только непрочитанное",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "Перетащите это в закладки Вашего браузера и кликните на нем, когда захотите быстро подписаться на страницу: ",
-"Subscribe" => "Подписаться",
-"An error occurred" => "Произошла ошибка",
-"Nice! You have subscribed to " => "Прекрасно! Вы подписаны на",
-"You had already subscribed to this feed!" => "Вы уже подписаны на этот поток!"
+"Show only unread" => "Показать только непрочитанное"
 );

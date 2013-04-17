@@ -19,12 +19,6 @@
 "Import / Export OPML" => "Импорт / Экспорт OPML",
 "Import" => "Импорт",
 "Export" => "Экспорт",
-"Subscribelet" => "Быстрая подписка",
 "Show all" => "Показать всё",
-"Show only unread" => "Показать только непрочитанные",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "Перетащите эту кнопку в закладки вашего браузера и нажимайте на неё для быстрого добавления страницы в закладки:",
-"Subscribe" => "Подписаться",
-"An error occurred" => "Произошла ошибка",
-"Nice! You have subscribed to " => "Ура! Вы подписаны на ",
-"You had already subscribed to this feed!" => "Вы уже подписаны на эту ленту!"
+"Show only unread" => "Показать только непрочитанные"
 );

@@ -3,24 +3,24 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Cédric MARTIN <sid50.martin@gmail.com>, 2013.
-# Christophe Lherieau <skimpax@gmail.com>, 2012.
-# David Basquin <dba@alternalease.fr>, 2013.
-#   <fkhannouf@me.com>, 2012.
-#   <florentin.lemoal@gmail.com>, 2012.
-#   <gp4004@arghh.org>, 2012.
-# Guillaume Paumier <guillom.pom@gmail.com>, 2012.
-#   <mathieu.payrol@gmail.com>, 2012.
-# Nahir Mohamed <nahirmoha@gmail.com>, 2013.
-# Paul McFly <roipoussiere@gmail.com>, 2012.
-# Robert Di Rosa <>, 2012.
-# Romain DEP. <rom1dep@gmail.com>, 2012-2013.
+# Flywall <sid50.martin@gmail.com>, 2013
+# Christophe Lherieau <skimpax@gmail.com>, 2012
+# dbasquin <dba@alternalease.fr>, 2013
+# fkhannouf <fkhannouf@me.com>, 2012
+# Florentin Le Moal <florentin.lemoal@gmail.com>, 2012
+# gp4004 <gp4004@arghh.org>, 2012
+# Guillaume Paumier <guillom.pom@gmail.com>, 2012
+# MathieuP <mathieu.payrol@gmail.com>, 2012
+# Nahir Mohamed <nahirmoha@gmail.com>, 2013
+# Paul McFly <roipoussiere@gmail.com>, 2012
+# Robert Di Rosa <>, 2012
+# Romain DEP. <rom1dep@gmail.com>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-17 01:39+0200\n"
-"PO-Revision-Date: 2013-04-16 23:39+0000\n"
+"POT-Creation-Date: 2013-04-18 01:03+0200\n"
+"PO-Revision-Date: 2013-04-17 23:03+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/owncloud/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -171,10 +171,6 @@ msgstr "Exporter"
 msgid "Error when importing: file does not contain valid OPML"
 msgstr ""
 
-#: templates/part.settings.php:41
-msgid "Subscribelet"
-msgstr "Subscribelet"
-
 #: templates/part.showall.php:2
 msgid "Show all"
 msgstr "Tout afficher"
@@ -182,25 +178,3 @@ msgstr "Tout afficher"
 #: templates/part.showall.php:6
 msgid "Show only unread"
 msgstr "Montrer uniquement les articles non-lus"
-
-#: templates/part.subscribelet.php:3
-msgid ""
-"Drag this to your browser bookmarks and click on it whenever you want to "
-"subscribe to a webpage quickly:"
-msgstr "Déposez ceci dans les marque-pages de votre navigateur et cliquez dessus lorsque vous souhaitez vous abonner rapidement à la page en cours de consultation :"
-
-#: templates/part.subscribelet.php:17
-msgid "Subscribe"
-msgstr "S'abonner"
-
-#: templates/subscribe.php:30
-msgid "An error occurred"
-msgstr "Une erreur est survenue"
-
-#: templates/subscribe.php:32
-msgid "Nice! You have subscribed to "
-msgstr "Vous avez souscrit à"
-
-#: templates/subscribe.php:36
-msgid "You had already subscribed to this feed!"
-msgstr "Vous avez déjà souscrit à ce flux !"

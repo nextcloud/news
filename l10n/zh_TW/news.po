@@ -3,17 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-#  <admin@alphacorp.tk>, 2013.
-#   <dw4dev@gmail.com>, 2012.
-# Hydriz Scholz <admin@alphacorp.tk>, 2013.
-#  <orinx@orinx.com>, 2013.
-# Pellaeon Lin <nfsmwlin@gmail.com>, 2013.
+# Hydriz <admin@alphacorp.tk>, 2013
+# dw4dev <dw4dev@gmail.com>, 2012
+# Hydriz <admin@alphacorp.tk>, 2013
+# orinx <orinx@orinx.com>, 2013
+# pellaeon <nfsmwlin@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-17 01:39+0200\n"
-"PO-Revision-Date: 2013-04-16 23:39+0000\n"
+"POT-Creation-Date: 2013-04-18 01:03+0200\n"
+"PO-Revision-Date: 2013-04-17 23:03+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/owncloud/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -164,10 +164,6 @@ msgstr "匯出"
 msgid "Error when importing: file does not contain valid OPML"
 msgstr ""
 
-#: templates/part.settings.php:41
-msgid "Subscribelet"
-msgstr "Subscribelet"
-
 #: templates/part.showall.php:2
 msgid "Show all"
 msgstr "顯示全部"
@@ -175,25 +171,3 @@ msgstr "顯示全部"
 #: templates/part.showall.php:6
 msgid "Show only unread"
 msgstr "只顯示未閱讀的項目"
-
-#: templates/part.subscribelet.php:3
-msgid ""
-"Drag this to your browser bookmarks and click on it whenever you want to "
-"subscribe to a webpage quickly:"
-msgstr "將這個拖曳至瀏覽器的書籤列，當您想要訂閱網頁時，點它一下即可。"
-
-#: templates/part.subscribelet.php:17
-msgid "Subscribe"
-msgstr "訂閱"
-
-#: templates/subscribe.php:30
-msgid "An error occurred"
-msgstr "發生錯誤"
-
-#: templates/subscribe.php:32
-msgid "Nice! You have subscribed to "
-msgstr "太棒了！您已經訂閱"
-
-#: templates/subscribe.php:36
-msgid "You had already subscribed to this feed!"
-msgstr "您已經訂閱了這個訊息串！"

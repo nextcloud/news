@@ -14,9 +14,5 @@
 "Rename folder" => "ෆොල්ඩරය නැවත නම් කරන්න",
 "Import" => "ආයාත කරන්න",
 "Export" => "නිර්යාත කරන්න",
-"Show only unread" => "කියවා නැති පමණක් පෙන්වන්න",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "වෙබ්පිටුවකට ඉක්මනින් දායකවීම සඳහා, මෙය ඔබගේ බ්‍රවුසරයේ පිටුසන වෙත ඇදගෙන ගොස් අතහරින්න",
-"Subscribe" => "දායකවන්න",
-"An error occurred" => "දෝෂයක් සිදුවිය",
-"Nice! You have subscribed to " => "විශිෂ්ඨයි! ඔබ දැන් දායකවී ඇත්තේ"
+"Show only unread" => "කියවා නැති පමණක් පෙන්වන්න"
 );

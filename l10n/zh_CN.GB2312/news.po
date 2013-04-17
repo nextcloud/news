@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# marguerite su <i@marguerite.su>, 2012.
+# marguerite su <i@marguerite.su>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-17 01:39+0200\n"
-"PO-Revision-Date: 2013-04-16 23:39+0000\n"
+"POT-Creation-Date: 2013-04-18 01:03+0200\n"
+"PO-Revision-Date: 2013-04-17 23:03+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Chinese (China) (GB2312) (http://www.transifex.com/projects/p/owncloud/language/zh_CN.GB2312/)\n"
 "MIME-Version: 1.0\n"
@@ -160,10 +160,6 @@ msgstr "导出"
 msgid "Error when importing: file does not contain valid OPML"
 msgstr ""
 
-#: templates/part.settings.php:41
-msgid "Subscribelet"
-msgstr "订阅小书签"
-
 #: templates/part.showall.php:2
 msgid "Show all"
 msgstr ""
@@ -171,25 +167,3 @@ msgstr ""
 #: templates/part.showall.php:6
 msgid "Show only unread"
 msgstr "只显示未读"
-
-#: templates/part.subscribelet.php:3
-msgid ""
-"Drag this to your browser bookmarks and click on it whenever you want to "
-"subscribe to a webpage quickly:"
-msgstr "拖动此物到您的浏览器书签栏，并在您想要快速订阅某网页时点击它："
-
-#: templates/part.subscribelet.php:17
-msgid "Subscribe"
-msgstr "订阅"
-
-#: templates/subscribe.php:30
-msgid "An error occurred"
-msgstr "发生一个错误"
-
-#: templates/subscribe.php:32
-msgid "Nice! You have subscribed to "
-msgstr "好的！您已经订阅了"
-
-#: templates/subscribe.php:36
-msgid "You had already subscribed to this feed!"
-msgstr ""

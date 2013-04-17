@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Dumitru Ursu <>, 2013.
-#   <g.ciprian@osn.ro>, 2012.
+# Dimon Pockemon <>, 2013
+# g.ciprian <g.ciprian@osn.ro>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-17 01:39+0200\n"
-"PO-Revision-Date: 2013-04-16 23:39+0000\n"
+"POT-Creation-Date: 2013-04-18 01:03+0200\n"
+"PO-Revision-Date: 2013-04-17 23:03+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Romanian (http://www.transifex.com/projects/p/owncloud/language/ro/)\n"
 "MIME-Version: 1.0\n"
@@ -161,10 +161,6 @@ msgstr "Exportă"
 msgid "Error when importing: file does not contain valid OPML"
 msgstr ""
 
-#: templates/part.settings.php:41
-msgid "Subscribelet"
-msgstr "Înregistrator"
-
 #: templates/part.showall.php:2
 msgid "Show all"
 msgstr ""
@@ -172,25 +168,3 @@ msgstr ""
 #: templates/part.showall.php:6
 msgid "Show only unread"
 msgstr "Arată doar necitite"
-
-#: templates/part.subscribelet.php:3
-msgid ""
-"Drag this to your browser bookmarks and click on it whenever you want to "
-"subscribe to a webpage quickly:"
-msgstr "Trage asta în Semnele de carte ale navigatorului și apasă pe ea de fiecare dată când vrei să te abonezi la o pagină rapid:"
-
-#: templates/part.subscribelet.php:17
-msgid "Subscribe"
-msgstr "Abonare"
-
-#: templates/subscribe.php:30
-msgid "An error occurred"
-msgstr "A apărut o eroare"
-
-#: templates/subscribe.php:32
-msgid "Nice! You have subscribed to "
-msgstr "Drăguț! Ești abonat la"
-
-#: templates/subscribe.php:36
-msgid "You had already subscribed to this feed!"
-msgstr "Deja ești înscris la acest flux!"

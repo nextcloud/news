@@ -13,11 +13,5 @@
 "Rename folder" => "Преименуј фасциклу",
 "Import" => "Увези",
 "Export" => "Извези",
-"Subscribelet" => "Пријава",
-"Show only unread" => "Прикажи само непрочитане",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "Превуците ово на траку са обележивачима и кликните кад год желите да бисте се пријавили на веб страницу:",
-"Subscribe" => "Пријави ме",
-"An error occurred" => "Дошло је до грешке",
-"Nice! You have subscribed to " => "Лепо! Пријавили сте се на ",
-"You had already subscribed to this feed!" => "Већ сте пријављени на овај довод."
+"Show only unread" => "Прикажи само непрочитане"
 );

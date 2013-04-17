@@ -22,12 +22,6 @@
 "Import / Export OPML" => "导入 / 导出 OPML",
 "Import" => "导入",
 "Export" => "导出",
-"Subscribelet" => "订阅组件",
 "Show all" => "显示所有",
-"Show only unread" => "只看未读",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "拖动此到您的浏览器书签，每当你想迅速订阅网页单击它",
-"Subscribe" => "订阅",
-"An error occurred" => "发生了一个错误",
-"Nice! You have subscribed to " => "不错！您已经订阅",
-"You had already subscribed to this feed!" => "您已经订阅过此feed哟。"
+"Show only unread" => "只看未读"
 );

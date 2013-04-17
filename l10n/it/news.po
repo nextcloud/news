@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-#   <cosenal@gmail.com>, 2012.
-# Vincenzo Reale <vinx.reale@gmail.com>, 2012-2013.
+# zimba12 <cosenal@gmail.com>, 2012
+# Vincenzo Reale <vinx.reale@gmail.com>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-17 01:39+0200\n"
-"PO-Revision-Date: 2013-04-16 23:39+0000\n"
+"POT-Creation-Date: 2013-04-18 01:03+0200\n"
+"PO-Revision-Date: 2013-04-17 23:03+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/owncloud/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -161,10 +161,6 @@ msgstr "Esporta"
 msgid "Error when importing: file does not contain valid OPML"
 msgstr "Errore di importazione: il file non contiene OPML valido"
 
-#: templates/part.settings.php:41
-msgid "Subscribelet"
-msgstr "Subscribelet"
-
 #: templates/part.showall.php:2
 msgid "Show all"
 msgstr "Mostra tutto"
@@ -172,25 +168,3 @@ msgstr "Mostra tutto"
 #: templates/part.showall.php:6
 msgid "Show only unread"
 msgstr "Mostra solo i non letti"
-
-#: templates/part.subscribelet.php:3
-msgid ""
-"Drag this to your browser bookmarks and click on it whenever you want to "
-"subscribe to a webpage quickly:"
-msgstr "Trascina questo segnalibro nel tuo browser e fai clic su di esso ogni volta che vuoi sottoscrivere rapidamente una pagina web:"
-
-#: templates/part.subscribelet.php:17
-msgid "Subscribe"
-msgstr "Sottoscrivi"
-
-#: templates/subscribe.php:30
-msgid "An error occurred"
-msgstr "Si è verificato un errore"
-
-#: templates/subscribe.php:32
-msgid "Nice! You have subscribed to "
-msgstr "Bene! Hai effettuato la sottoscrizione a"
-
-#: templates/subscribe.php:36
-msgid "You had already subscribed to this feed!"
-msgstr "Hai già sottoscritto questa fonte!"

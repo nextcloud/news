@@ -22,12 +22,6 @@
 "Import / Export OPML" => "匯入/匯出 OPML",
 "Import" => "匯入",
 "Export" => "匯出",
-"Subscribelet" => "Subscribelet",
 "Show all" => "顯示全部",
-"Show only unread" => "只顯示未閱讀的項目",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "將這個拖曳至瀏覽器的書籤列，當您想要訂閱網頁時，點它一下即可。",
-"Subscribe" => "訂閱",
-"An error occurred" => "發生錯誤",
-"Nice! You have subscribed to " => "太棒了！您已經訂閱",
-"You had already subscribed to this feed!" => "您已經訂閱了這個訊息串！"
+"Show only unread" => "只顯示未閱讀的項目"
 );

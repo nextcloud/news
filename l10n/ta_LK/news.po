@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-#   <suganthi@nic.lk>, 2012.
+# suganthi <suganthi@nic.lk>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-17 01:39+0200\n"
-"PO-Revision-Date: 2013-04-16 23:39+0000\n"
+"POT-Creation-Date: 2013-04-18 01:03+0200\n"
+"PO-Revision-Date: 2013-04-17 23:03+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Tamil (Sri-Lanka) (http://www.transifex.com/projects/p/owncloud/language/ta_LK/)\n"
 "MIME-Version: 1.0\n"
@@ -160,10 +160,6 @@ msgstr "ஏற்றுமதி"
 msgid "Error when importing: file does not contain valid OPML"
 msgstr ""
 
-#: templates/part.settings.php:41
-msgid "Subscribelet"
-msgstr ""
-
 #: templates/part.showall.php:2
 msgid "Show all"
 msgstr ""
@@ -171,25 +167,3 @@ msgstr ""
 #: templates/part.showall.php:6
 msgid "Show only unread"
 msgstr "வாசிக்காததை மட்டும் காட்டுக"
-
-#: templates/part.subscribelet.php:3
-msgid ""
-"Drag this to your browser bookmarks and click on it whenever you want to "
-"subscribe to a webpage quickly:"
-msgstr ""
-
-#: templates/part.subscribelet.php:17
-msgid "Subscribe"
-msgstr ""
-
-#: templates/subscribe.php:30
-msgid "An error occurred"
-msgstr "ஒரு வழு ஏற்பட்டுள்ளது"
-
-#: templates/subscribe.php:32
-msgid "Nice! You have subscribed to "
-msgstr "சிறந்தது! உங்களையும் சேர்க்கப்பட்டுள்ளது"
-
-#: templates/subscribe.php:36
-msgid "You had already subscribed to this feed!"
-msgstr "நீங்கள் ஏற்கனவே இந்த ஊட்டில் பங்குபற்றியுள்ளீர்கள்!"

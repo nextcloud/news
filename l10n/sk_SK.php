@@ -22,12 +22,6 @@
 "Import / Export OPML" => "Import / Export OPML",
 "Import" => "Import",
 "Export" => "Export",
-"Subscribelet" => "Subscribelet",
 "Show all" => "Zobraziť všetko",
-"Show only unread" => "Zobraziť iba neprečítané",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "Pretiahnite do záložiek prehliadača a kliknite, ak si prajete rýchle odoberať stránku:",
-"Subscribe" => "Prihlásiť",
-"An error occurred" => "Nastala chyba",
-"Nice! You have subscribed to " => "Dobre. Ste prihlásený k ",
-"You had already subscribed to this feed!" => "Už ste odberateľmi tohto kanálu (RSS)!"
+"Show only unread" => "Zobraziť iba neprečítané"
 );

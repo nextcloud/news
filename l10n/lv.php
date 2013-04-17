@@ -19,12 +19,6 @@
 "Import / Export OPML" => "Importēt / eksportēt OPML",
 "Import" => "Importēt",
 "Export" => "Eksportēt",
-"Subscribelet" => "Sīkabonements",
 "Show all" => "Rādīt visu",
-"Show only unread" => "Rādīt tikai nelasītos",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "Velciet šo uz sava pārlūka grāmatzīmēm un spiediet uz tā, kad vēlaties ātri abonēt tīmekļa lapu:",
-"Subscribe" => "Abonēt",
-"An error occurred" => "Gadījās kļūda",
-"Nice! You have subscribed to " => "Jauki! Jūs esat abonējis",
-"You had already subscribed to this feed!" => "Jūs jau esat abonējis šo plūsmu!"
+"Show only unread" => "Rādīt tikai nelasītos"
 );

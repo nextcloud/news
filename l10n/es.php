@@ -22,12 +22,6 @@
 "Import / Export OPML" => "Importar/Exportar OPML",
 "Import" => "Importart",
 "Export" => "Exportar",
-"Subscribelet" => "Suscribirse",
 "Show all" => "Mostrar todo",
-"Show only unread" => "Mostrar solo no leídos",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "Arrastra hacia los favoritos de tu navegador y haz clic en él siempre que quiera suscribirse a una página web con rapidez:",
-"Subscribe" => "Subscribirse",
-"An error occurred" => "Ocurrió un error",
-"Nice! You have subscribed to " => "¡Bien! Te has suscrito a ",
-"You had already subscribed to this feed!" => "¡Ya te has suscrito a esta fuente!"
+"Show only unread" => "Mostrar solo no leídos"
 );

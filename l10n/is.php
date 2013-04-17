@@ -16,11 +16,5 @@
 "Rename folder" => "Endurskýra möppu",
 "Import" => "Flytja inn",
 "Export" => "Flytja út",
-"Subscribelet" => "Áskriftar-let",
-"Show only unread" => "Sýna aðeins ólesið",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "Dragðu þetta í bókamerkjaslá vafrans og notaðu til að búa til áskrift af vefsíðunni á fljótlegan hátt.",
-"Subscribe" => "Áskrift",
-"An error occurred" => "Villa kom upp",
-"Nice! You have subscribed to " => "Flott! Þú ert nú áskrifandi af",
-"You had already subscribed to this feed!" => "Þú ert nú þegar áskrifandi af þessum fréttastraum!"
+"Show only unread" => "Sýna aðeins ólesið"
 );

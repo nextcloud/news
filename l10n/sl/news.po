@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-#   <>, 2012.
-# Matej Urbančič <>, 2013.
-# Peter Peroša <peter.perosa@gmail.com>, 2012.
+# mateju <>, 2012
+# mateju <>, 2013
+# Peter Peroša <peter.perosa@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-17 01:39+0200\n"
-"PO-Revision-Date: 2013-04-16 23:39+0000\n"
+"POT-Creation-Date: 2013-04-18 01:03+0200\n"
+"PO-Revision-Date: 2013-04-17 23:03+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Slovenian (http://www.transifex.com/projects/p/owncloud/language/sl/)\n"
 "MIME-Version: 1.0\n"
@@ -162,10 +162,6 @@ msgstr "Izvozi"
 msgid "Error when importing: file does not contain valid OPML"
 msgstr ""
 
-#: templates/part.settings.php:41
-msgid "Subscribelet"
-msgstr "Aplet naročanja"
-
 #: templates/part.showall.php:2
 msgid "Show all"
 msgstr "Pokaži vse"
@@ -173,25 +169,3 @@ msgstr "Pokaži vse"
 #: templates/part.showall.php:6
 msgid "Show only unread"
 msgstr "Prikaži le neprebrano"
-
-#: templates/part.subscribelet.php:3
-msgid ""
-"Drag this to your browser bookmarks and click on it whenever you want to "
-"subscribe to a webpage quickly:"
-msgstr "Povlecite gumb med zaznamke in kliknite nanj, ko želite hitro pregledati novice na spletni strani:"
-
-#: templates/part.subscribelet.php:17
-msgid "Subscribe"
-msgstr "Naročilo"
-
-#: templates/subscribe.php:30
-msgid "An error occurred"
-msgstr "Prišlo je do napake"
-
-#: templates/subscribe.php:32
-msgid "Nice! You have subscribed to "
-msgstr "Naročili ste se na"
-
-#: templates/subscribe.php:36
-msgid "You had already subscribed to this feed!"
-msgstr "Na ta vir ste že prijavljeni!"

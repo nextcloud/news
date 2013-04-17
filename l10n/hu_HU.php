@@ -22,12 +22,6 @@
 "Import / Export OPML" => "OPML állomány importálása/exportálása",
 "Import" => "Importálás",
 "Export" => "Exportálás",
-"Subscribelet" => "Feliratkozó",
 "Show all" => "Mutassuk mindet",
-"Show only unread" => "Csak az olvasatlanok megjelenítése",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "Húzza ezt a böngészője könyvjelzői közé és kattintson rá, amikor az aktuális weboldal címét szeretné gyorsan elmenteni :",
-"Subscribe" => "Feliratkozás",
-"An error occurred" => "Hiba történt",
-"Nice! You have subscribed to " => "Rendben! Feliratkozott a következőre: ",
-"You had already subscribed to this feed!" => "Már fel van iratkozva erre a csatornára!"
+"Show only unread" => "Csak az olvasatlanok megjelenítése"
 );

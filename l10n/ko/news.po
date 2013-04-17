@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# 남자사람  <cessnagi@gmail.com>, 2012.
-# Park Shinjo <kde@peremen.name>, 2013.
-# Shinjo Park <kde@peremen.name>, 2012.
-# Sung Jin Gang <potopro@gmail.com>, 2013.
+# 남자사람 <cessnagi@gmail.com>, 2012
+# Shinjo Park <kde@peremen.name>, 2013
+# Shinjo Park <kde@peremen.name>, 2012
+# Sung Jin Gang <potopro@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-17 01:39+0200\n"
-"PO-Revision-Date: 2013-04-16 23:39+0000\n"
+"POT-Creation-Date: 2013-04-18 01:03+0200\n"
+"PO-Revision-Date: 2013-04-17 23:03+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Korean (http://www.transifex.com/projects/p/owncloud/language/ko/)\n"
 "MIME-Version: 1.0\n"
@@ -163,10 +163,6 @@ msgstr "내보내기"
 msgid "Error when importing: file does not contain valid OPML"
 msgstr ""
 
-#: templates/part.settings.php:41
-msgid "Subscribelet"
-msgstr "구독물"
-
 #: templates/part.showall.php:2
 msgid "Show all"
 msgstr "모두 보기"
@@ -174,25 +170,3 @@ msgstr "모두 보기"
 #: templates/part.showall.php:6
 msgid "Show only unread"
 msgstr "읽지 않은 글만 보기"
-
-#: templates/part.subscribelet.php:3
-msgid ""
-"Drag this to your browser bookmarks and click on it whenever you want to "
-"subscribe to a webpage quickly:"
-msgstr "웹 브라우저 책갈피 항목에 다음 링크를 끌어다 놓으면 나중에 볼 웹 페이지를 빠르게 구독할 때 사용할 수 있습니다:"
-
-#: templates/part.subscribelet.php:17
-msgid "Subscribe"
-msgstr "구독"
-
-#: templates/subscribe.php:30
-msgid "An error occurred"
-msgstr "오류가 발생하였습니다."
-
-#: templates/subscribe.php:32
-msgid "Nice! You have subscribed to "
-msgstr "좋습니다! 다음 피드를 구독합니다:"
-
-#: templates/subscribe.php:36
-msgid "You had already subscribed to this feed!"
-msgstr "이 피드를 이미 구독하고 있습니다!"

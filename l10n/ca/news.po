@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Josep Tomàs <jtomas.binsoft@gmail.com>, 2012.
-#  <rcalvoi@yahoo.com>, 2013.
-#   <rcalvoi@yahoo.com>, 2012.
+# Josep Tomàs <jtomas.binsoft@gmail.com>, 2012
+# rogerc <rcalvoi@yahoo.com>, 2013
+# rogerc <rcalvoi@yahoo.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-17 01:39+0200\n"
-"PO-Revision-Date: 2013-04-16 23:39+0000\n"
+"POT-Creation-Date: 2013-04-18 01:03+0200\n"
+"PO-Revision-Date: 2013-04-17 23:03+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Catalan (http://www.transifex.com/projects/p/owncloud/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -162,10 +162,6 @@ msgstr "Exporta"
 msgid "Error when importing: file does not contain valid OPML"
 msgstr ""
 
-#: templates/part.settings.php:41
-msgid "Subscribelet"
-msgstr "Subscripció"
-
 #: templates/part.showall.php:2
 msgid "Show all"
 msgstr "Mostra tot"
@@ -173,25 +169,3 @@ msgstr "Mostra tot"
 #: templates/part.showall.php:6
 msgid "Show only unread"
 msgstr "Mostra només els no llegits"
-
-#: templates/part.subscribelet.php:3
-msgid ""
-"Drag this to your browser bookmarks and click on it whenever you want to "
-"subscribe to a webpage quickly:"
-msgstr "Arrossegueu això a les adreces d'interès del vostre navegador i feu-hi clic quan vulgueu subscriure-us ràpidament en una pàgina web:"
-
-#: templates/part.subscribelet.php:17
-msgid "Subscribe"
-msgstr "Subscriu"
-
-#: templates/subscribe.php:30
-msgid "An error occurred"
-msgstr "S'ha produït un error"
-
-#: templates/subscribe.php:32
-msgid "Nice! You have subscribed to "
-msgstr "Bé! Us heu subscrit a"
-
-#: templates/subscribe.php:36
-msgid "You had already subscribed to this feed!"
-msgstr "Vostè ja estava subscrit en aquest canal!"

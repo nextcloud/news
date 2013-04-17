@@ -21,10 +21,5 @@
 "Import" => "İçe aktar",
 "Export" => "Dışa aktar",
 "Show all" => "Hepsini göster",
-"Show only unread" => "Sadece okunmamışları göster",
-"Drag this to your browser bookmarks and click on it whenever you want to subscribe to a webpage quickly:" => "Bir web sayfasını hızlıca yer imlerine eklemek istediğinizde onu tarayıcınızın yer imlerine sürükleyin ve tıklayın.",
-"Subscribe" => "Abone ol",
-"An error occurred" => "Bir hata oluştu",
-"Nice! You have subscribed to " => "Güzel! Sende Abone oldun",
-"You had already subscribed to this feed!" => "Zaten bu beslemeye abone olmuştunuz!"
+"Show only unread" => "Sadece okunmamışları göster"
 );
