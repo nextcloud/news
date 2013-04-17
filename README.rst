@@ -16,7 +16,10 @@ See the `beta milestone in the bugtracker <https://github.com/owncloud/news/issu
 
 Bugs
 ----
-Before reporting bugs, `please check if they already have been reported <https://github.com/owncloud/news/issues?state=open>`_.
+Before reporting bugs:
+* get the newest version of the App Framework
+* get the newest version of the News app
+* `check if they already have been reported <https://github.com/owncloud/news/issues?state=open>`_.
 
 Before you install the News app
 -------------------------------
