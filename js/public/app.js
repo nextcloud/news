@@ -343,6 +343,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
             count = _this._subscriptionsBusinessLayer.getUnreadCount(0);
             if (count > 0) {
+              count = _this._unreadCountFormatter(count);
               _this._$window.document.title = 'News (' + count + ') | ownCloud';
             } else {
               _this._$window.document.title = 'News | ownCloud';
