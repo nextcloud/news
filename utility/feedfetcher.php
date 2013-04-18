@@ -74,10 +74,7 @@ class FeedFetcher implements IFeedFetcher {
 			throw new FetcherException('Could not initialize simple pie');
 		}
 
-		// temporary try-catch to bypass SimplePie bugs
 		try {
-			$simplePie->handle_content_type();
-
 			$items = array();
 			if ($feedItems = $simplePie->get_items()) {
 				foreach($feedItems as $feedItem) {
