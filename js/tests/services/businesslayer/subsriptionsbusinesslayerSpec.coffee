@@ -40,7 +40,7 @@ describe 'SubscriptionsBusinessLayer', ->
 
 
 	it 'should be visible shows all items is set to true and there are feeds', =>
-		@FeedModel.add({id: 3, unreadCount: 5, urlHash: 'hi'})
+		@FeedModel.add({id: 3, unreadCount: 5, url: 'hi'})
 
 		expect(@SubscriptionsBusinessLayer.isVisible()).toBe(true)
 
@@ -66,7 +66,7 @@ describe 'SubscriptionsBusinessLayer', ->
 
 
 	it 'should mark all feeds as read', =>
-		item = {id: 3, unreadCount: 132, urlHash: 'hi'}
+		item = {id: 3, unreadCount: 132, url: 'hi'}
 		@FeedModel.add(item)
 
 		@SubscriptionsBusinessLayer.markAllRead()
@@ -76,8 +76,8 @@ describe 'SubscriptionsBusinessLayer', ->
 
 
 	it 'should get the correct unread count', =>
-		@FeedModel.add({id: 3, unreadCount: 132, urlHash: 'hoho'})
-		@FeedModel.add({id: 4, unreadCount: 12, urlHash: 'hohod'})
+		@FeedModel.add({id: 3, unreadCount: 132, url: 'hoho'})
+		@FeedModel.add({id: 4, unreadCount: 12, url: 'hohod'})
 
 		expect(@SubscriptionsBusinessLayer.getUnreadCount()).toBe(144)
 

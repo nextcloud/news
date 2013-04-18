@@ -58,16 +58,16 @@ describe 'FeedBusinessLayer', ->
 		
 
 	it 'should return the number of unread feeds', =>
-		@FeedModel.add({id: 3, unreadCount:134, urlHash: 'a1'})
+		@FeedModel.add({id: 3, unreadCount:134, url: 'a1'})
 		count = @FeedBusinessLayer.getUnreadCount(3)
 
 		expect(count).toBe(134)
 
 
 	it 'should return all feeds of a folder', =>
-		feed1 = {id: 3, unreadCount:134, urlHash: 'a1', folderId: 3}
-		feed2 = {id: 4, unreadCount:134, urlHash: 'a2', folderId: 2}
-		feed3 = {id: 5, unreadCount:134, urlHash: 'a3', folderId: 3}
+		feed1 = {id: 3, unreadCount:134, url: 'a1', folderId: 3}
+		feed2 = {id: 4, unreadCount:134, url: 'a2', folderId: 2}
+		feed3 = {id: 5, unreadCount:134, url: 'a3', folderId: 3}
 		@FeedModel.add(feed1)
 		@FeedModel.add(feed2)
 		@FeedModel.add(feed3)
@@ -79,10 +79,10 @@ describe 'FeedBusinessLayer', ->
 
 
 	it 'should get the correct unread count for folders', =>
-		@FeedModel.add({id: 3, unreadCount:134, folderId: 3, urlHash: 'a1'})
-		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, urlHash: 'a2'})
-		@FeedModel.add({id: 1, unreadCount:12, folderId: 5, urlHash: 'a3'})
-		@FeedModel.add({id: 2, unreadCount:35, folderId: 3, urlHash: 'a4'})
+		@FeedModel.add({id: 3, unreadCount:134, folderId: 3, url: 'a1'})
+		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, url: 'a2'})
+		@FeedModel.add({id: 1, unreadCount:12, folderId: 5, url: 'a3'})
+		@FeedModel.add({id: 2, unreadCount:35, folderId: 3, url: 'a4'})
 		count = @FeedBusinessLayer.getFolderUnreadCount(3)
 
 		expect(count).toBe(169)
@@ -91,7 +91,7 @@ describe 'FeedBusinessLayer', ->
 	it 'should mark feed as read', =>
 		@ActiveFeed.handle({type: @FeedType.Feed, id: 5})
 		@persistence.setFeedRead = jasmine.createSpy('setFeedRead')
-		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, urlHash: 'a1'})
+		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, url: 'a1'})
 		@ItemModel.add({id: 6, feedId: 5, guidHash: 'a1'})
 		@ItemModel.add({id: 3, feedId: 5, guidHash: 'a2'})
 		@ItemModel.add({id: 2, feedId: 5, guidHash: 'a3'})
@@ -106,7 +106,7 @@ describe 'FeedBusinessLayer', ->
 
 	it 'should mark feed as read and set 0 if as highest id if its not active',=>
 		@persistence.setFeedRead = jasmine.createSpy('setFeedRead')
-		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, urlHash: 'a1'})
+		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, url: 'a1'})
 		@ItemModel.add({id: 6, feedId: 5, guidHash: 'a1'})
 		@ItemModel.add({id: 3, feedId: 5, guidHash: 'a2'})
 		@ItemModel.add({id: 2, feedId: 5, guidHash: 'a3'})
@@ -121,9 +121,9 @@ describe 'FeedBusinessLayer', ->
 
 	it 'should mark all as read', =>
 		@persistence.setFeedRead = jasmine.createSpy('setFeedRead')
-		@FeedModel.add({id: 3, unreadCount:134, folderId: 3, urlHash: 'a1'})
-		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, urlHash: 'a2'})
-		@FeedModel.add({id: 1, unreadCount:12, folderId: 3, urlHash: 'a3'})
+		@FeedModel.add({id: 3, unreadCount:134, folderId: 3, url: 'a1'})
+		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, url: 'a2'})
+		@FeedModel.add({id: 1, unreadCount:12, folderId: 3, url: 'a3'})
 
 		@FeedBusinessLayer.markAllRead()
 
@@ -133,16 +133,16 @@ describe 'FeedBusinessLayer', ->
 
 
 	it 'should get the correct unread count for subscribtions', =>
-		@FeedModel.add({id: 3, unreadCount:134, urlHash: 'a1'})
-		@FeedModel.add({id: 5, unreadCount:2, urlHash: 'a2'})
+		@FeedModel.add({id: 3, unreadCount:134, url: 'a1'})
+		@FeedModel.add({id: 5, unreadCount:2, url: 'a2'})
 		count = @FeedBusinessLayer.getAllUnreadCount()
 
 		expect(count).toBe(136)
 
 
 	it 'should return the correct number of feeds', =>
-		@FeedModel.add({id: 3, unreadCount:134, urlHash: 'a1'})
-		@FeedModel.add({id: 5, unreadCount:2, urlHash: 'a2'})
+		@FeedModel.add({id: 3, unreadCount:134, url: 'a1'})
+		@FeedModel.add({id: 5, unreadCount:2, url: 'a2'})
 		count = @FeedBusinessLayer.getNumberOfFeeds()
 
 		expect(count).toBe(2)
@@ -161,13 +161,13 @@ describe 'FeedBusinessLayer', ->
 
 
 	it 'should be visible if unreadcount bigger than 0', =>
-		@FeedModel.add({id: 2, unreadCount:134, urlHash: 'a1'})
+		@FeedModel.add({id: 2, unreadCount:134, url: 'a1'})
 		expect(@FeedBusinessLayer.isVisible(2)).toBe(true)
 
 	
 	it 'should not move the feed to a new folder', =>
 		@persistence.moveFeed = jasmine.createSpy('Move feed')
-		@FeedModel.add({id: 2, unreadCount:134, urlHash: 'a1', folderId: 3})
+		@FeedModel.add({id: 2, unreadCount:134, url: 'a1', folderId: 3})
 		@FeedBusinessLayer.move(2, 4)
 
 		expect(@persistence.moveFeed).toHaveBeenCalledWith(2, 4)
@@ -176,7 +176,7 @@ describe 'FeedBusinessLayer', ->
 
 	it 'should not move the feed to the same folder', =>
 		@persistence.moveFeed = jasmine.createSpy('Move feed')
-		@FeedModel.add({id: 2, unreadCount:134, urlHash: 'a1', folderId: 3})
+		@FeedModel.add({id: 2, unreadCount:134, url: 'a1', folderId: 3})
 		@FeedBusinessLayer.move(2, 3)
 
 		expect(@persistence.moveFeed).not.toHaveBeenCalled()
@@ -198,8 +198,8 @@ describe 'FeedBusinessLayer', ->
 
 
 	it 'should return all feeds', =>
-		item1 = {id: 2, unreadCount:134, urlHash: 'a1', folderId: 3}
-		item2 = {id: 4, unreadCount:134, urlHash: 'a2', folderId: 3}
+		item1 = {id: 2, unreadCount:134, url: 'a1', folderId: 3}
+		item2 = {id: 4, unreadCount:134, url: 'a2', folderId: 3}
 		@FeedModel.add(item1)
 		@FeedModel.add(item2)
 
@@ -216,9 +216,9 @@ describe 'FeedBusinessLayer', ->
 
 
 	it 'should return all feeds of a folder', =>
-		item1 = {id: 2, unreadCount:134, urlHash: 'a1', folderId: 3}
-		item2 = {id: 4, unreadCount:134, urlHash: 'a2', folderId: 2}
-		item3 = {id: 5, unreadCount:134, urlHash: 'a3', folderId: 3}
+		item1 = {id: 2, unreadCount:134, url: 'a1', folderId: 3}
+		item2 = {id: 4, unreadCount:134, url: 'a2', folderId: 2}
+		item3 = {id: 5, unreadCount:134, url: 'a3', folderId: 3}
 		@FeedModel.add(item1)
 		@FeedModel.add(item2)
 		@FeedModel.add(item3)
@@ -233,7 +233,7 @@ describe 'FeedBusinessLayer', ->
 		item2 =
 			id: 4,
 			unreadCount:134,
-			urlHash: 'a2',
+			url: 'a2',
 			folderId: 3,
 			link: 'test.com'
 		@FeedModel.add(item2)
@@ -243,7 +243,7 @@ describe 'FeedBusinessLayer', ->
 
 
 	it 'should not create a feed if it already exists', =>
-		item1 = {urlHash: hex_md5('john')}
+		item1 = {url: 'john'}
 		@FeedModel.add(item1)
 
 		expect =>
@@ -269,13 +269,11 @@ describe 'FeedBusinessLayer', ->
 	it 'should set a title and an url hash to the newly crated feed', =>
 		url = 'www.google.de'
 		@FeedBusinessLayer.create(url)
-		hash = hex_md5(url)
 
-		feed = @FeedModel.getByUrlHash(hash)
+		feed = @FeedModel.getByUrl(url)
 
 		expect(feed.title).toBe('www.google.de')
 		expect(feed.url).toBe(url)
-		expect(feed.urlHash).toBe(hash)
 		expect(feed.folderId).toBe(0)
 		expect(feed.unreadCount).toBe(0)
 		expect(@imagePath).toHaveBeenCalledWith('core', 'loading.gif')
@@ -318,22 +316,22 @@ describe 'FeedBusinessLayer', ->
 		expect(onSuccess).not.toHaveBeenCalled()
 		expect(onFailure).toHaveBeenCalled()
 
-		expect(@FeedModel.getByUrlHash(hex_md5('johns')).error).toBe(
+		expect(@FeedModel.getByUrl('johns').error).toBe(
 			@response.msg)
 
 
 	it 'should mark a feed error as read by removing it', =>
-		@FeedModel.add({id: 3, urlHash: 'john'})
+		@FeedModel.add({id: 3, url: 'john'})
 
 		@FeedBusinessLayer.markErrorRead('john')
 
 		expect(@FeedModel.size()).toBe(0)
-		expect(@FeedModel.getByUrlHash('john')).toBe(undefined)
+		expect(@FeedModel.getByUrl('john')).toBe(undefined)
 
 
 	it 'should update all feeds', =>
 		@persistence.updateFeed = jasmine.createSpy('update')
-		@FeedModel.add({id: 3, urlHash: 'john'})
+		@FeedModel.add({id: 3, url: 'john'})
 
 		@FeedBusinessLayer.updateFeeds()
 
@@ -342,7 +340,7 @@ describe 'FeedBusinessLayer', ->
 
 	it 'should not update feeds without ids', =>
 		@persistence.updateFeed = jasmine.createSpy('update')
-		@FeedModel.add({urlHash: 'john'})
+		@FeedModel.add({url: 'john'})
 
 		@FeedBusinessLayer.updateFeeds()
 

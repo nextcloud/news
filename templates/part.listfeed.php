@@ -36,20 +36,17 @@
 		<button class="svg action mark-read-icon"
 			ng-show="feedBusinessLayer.getUnreadCount(feed.id) > 0 && feed.id"
 			ng-click="feedBusinessLayer.markFeedRead(feed.id)"
-			title="<?php p($l->t('Mark all read')); ?>"
-			oc-tipsy="{gravity: 's'}"> </button>
+			title="<?php p($l->t('Mark all read')); ?>"> </button>
 		
 		<button ng-click="feedBusinessLayer.delete(feed.id)"
 			class="svg action delete-icon" 
 			title="<?php p($l->t('Delete feed')); ?>"
-			ng-show="feed.id"
-			oc-tipsy="{gravity: 's'}"></button>
+			ng-show="feed.id"></button>
 
 		<button class="svg action delete-icon"
 			ng-click="feedBusinessLayer.markErrorRead(feed.urlHash)"
 			title="<?php p($l->t('Delete website')); ?>"
-			ng-show="feed.error"
-			oc-tipsy="{gravity: 's'}"></button>
+			ng-show="feed.error"></button>
 	</span>
 
 	<div class="message" ng-show="feed.error">{{ feed.error }}</div>

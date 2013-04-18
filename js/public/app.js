@@ -1,4 +1,4 @@
-(function(angular, $, hex_md5, moment, undefined){
+(function(angular, $, moment, undefined){
 
 /**
  * ownCloud News App - v0.0.1
@@ -794,7 +794,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             this._feedModel.update({
               id: feedId,
               folderId: folderId,
-              urlHash: feed.urlHash
+              url: feed.url
             });
             return this._persistence.moveFeed(feedId, folderId);
           }
@@ -837,7 +837,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         };
 
         FeedBusinessLayer.prototype.create = function(url, parentId, onSuccess, onFailure) {
-          var feed, success, urlHash,
+          var feed, success,
             _this = this;
 
           if (parentId == null) {
@@ -856,14 +856,12 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             throw new Error('Url must not be empty');
           }
           url = url.trim();
-          urlHash = hex_md5(url);
-          if (this._feedModel.getByUrlHash(urlHash)) {
+          if (this._feedModel.getByUrl(url)) {
             throw new _ExistsError('Exists already');
           }
           feed = {
             title: url,
             url: url,
-            urlHash: urlHash,
             folderId: parentId,
             unreadCount: 0,
             faviconLink: 'url(' + this._utils.imagePath('core', 'loading.gif') + ')'
@@ -880,8 +878,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return this._persistence.createFeed(url, parentId, success);
         };
 
-        FeedBusinessLayer.prototype.markErrorRead = function(urlHash) {
-          return this._feedModel.removeByUrlHash(urlHash);
+        FeedBusinessLayer.prototype.markErrorRead = function(url) {
+          return this._feedModel.removeByUrl(url);
         };
 
         FeedBusinessLayer.prototype.updateFeeds = function() {
@@ -1598,17 +1596,17 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
         function FeedModel(_utils) {
           this._utils = _utils;
-          this._urlHash = {};
+          this._url = {};
           FeedModel.__super__.constructor.call(this);
         }
 
         FeedModel.prototype.clear = function() {
-          this._urlHash = {};
+          this._url = {};
           return FeedModel.__super__.clear.call(this);
         };
 
         FeedModel.prototype.add = function(data, clearCache) {
-          var item, updateById, updateByUrlHash;
+          var item, updateById, updateByUrl;
 
           if (clearCache == null) {
             clearCache = true;
@@ -1624,14 +1622,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           			an id, we have to update the existing item without id
           */
 
-          item = this._urlHash[data.urlHash];
+          item = this._url[data.url];
           updateById = angular.isDefined(data.id) && angular.isDefined(this.getById(data.id));
-          updateByUrlHash = angular.isDefined(item) && angular.isUndefined(item.id);
-          if (updateById || updateByUrlHash) {
+          updateByUrl = angular.isDefined(item) && angular.isUndefined(item.id);
+          if (updateById || updateByUrl) {
             return this.update(data, clearCache);
           } else {
-            if (angular.isDefined(data.urlHash)) {
-              this._urlHash[data.urlHash] = data;
+            if (angular.isDefined(data.url)) {
+              this._url[data.url] = data;
               if (angular.isDefined(data.id)) {
                 return FeedModel.__super__.add.call(this, data, clearCache);
               } else {
@@ -1650,8 +1648,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           if (clearCache == null) {
             clearCache = true;
           }
-          if (angular.isDefined(data.urlHash)) {
-            item = this._urlHash[data.urlHash];
+          if (angular.isDefined(data.url)) {
+            item = this._url[data.url];
           }
           if (angular.isUndefined(data.id) && angular.isDefined(item)) {
             return angular.extend(item, data);
@@ -1661,9 +1659,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
               this._dataMap[data.id] = item;
             }
             itemWithId = this.getById(data.id);
-            if (angular.isDefined(itemWithId) && itemWithId.urlHash !== data.urlHash) {
-              delete this._urlHash[itemWithId.urlHash];
-              this._urlHash[data.urlHash] = itemWithId;
+            if (angular.isDefined(itemWithId) && itemWithId.url !== data.url) {
+              delete this._url[itemWithId.url];
+              this._url[data.url] = itemWithId;
             }
             return FeedModel.__super__.update.call(this, data, clearCache);
           }
@@ -1673,12 +1671,12 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           var item;
 
           item = this.getById(id);
-          delete this._urlHash[item.urlHash];
+          delete this._url[item.url];
           return FeedModel.__super__.removeById.call(this, id);
         };
 
-        FeedModel.prototype.getByUrlHash = function(urlHash) {
-          return this._urlHash[urlHash];
+        FeedModel.prototype.getByUrl = function(url) {
+          return this._url[url];
         };
 
         FeedModel.prototype.getUnreadCount = function() {
@@ -1725,7 +1723,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return this.get(query);
         };
 
-        FeedModel.prototype.removeByUrlHash = function(urlHash, clearCache) {
+        FeedModel.prototype.removeByUrl = function(url, clearCache) {
           var counter, entry, key, value, _i, _len, _ref, _ref1, _results;
 
           if (clearCache == null) {
@@ -1738,7 +1736,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           _ref = this._dataMap;
           for (key in _ref) {
             value = _ref[key];
-            if (this._dataMap[key].urlHash === urlHash) {
+            if (this._dataMap[key].url === url) {
               delete this._dataMap[key];
               break;
             }
@@ -1747,9 +1745,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           _results = [];
           for (counter = _i = 0, _len = _ref1.length; _i < _len; counter = ++_i) {
             entry = _ref1[counter];
-            if (entry.urlHash === urlHash) {
+            if (entry.url === url) {
               this._data.splice(counter, 1);
-              delete this._urlHash[urlHash];
+              delete this._url[url];
               if (clearCache) {
                 this._invalidateCache();
               }
@@ -2977,4 +2975,4 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 }).call(this);
 
-})(window.angular, window.jQuery, window.hex_md5, window.moment);
+})(window.angular, window.jQuery, window.moment);

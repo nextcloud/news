@@ -5,7 +5,6 @@
 \OCP\Util::addScript('appframework', 'vendor/angular/angular');
 \OCP\Util::addScript('appframework', 'public/app');
 
-\OCP\Util::addScript('news', 'vendor/md5js/md5');
 \OCP\Util::addScript('news', 'vendor/angular-ui/angular-ui');
 
 \OCP\Util::addScript('news', 'public/app');

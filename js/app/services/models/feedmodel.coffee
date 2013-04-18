@@ -27,12 +27,12 @@ angular.module('News').factory 'FeedModel',
 	class FeedModel extends _Model
 
 		constructor: (@_utils) ->
-			@_urlHash = {}
+			@_url = {}
 			super()
 
 
 		clear: ->
-			@_urlHash = {}
+			@_url = {}
 			super()
 
 
@@ -48,7 +48,7 @@ angular.module('News').factory 'FeedModel',
 			an id, we have to update the existing item without id
 			###
 
-			item = @_urlHash[data.urlHash]
+			item = @_url[data.url]
 
 			# update in the following cases:
 			# * the id is defined and the item exists
@@ -56,15 +56,15 @@ angular.module('News').factory 'FeedModel',
 			updateById = angular.isDefined(data.id) and
 			angular.isDefined(@getById(data.id))
 			
-			updateByUrlHash = angular.isDefined(item) and
+			updateByUrl = angular.isDefined(item) and
 			angular.isUndefined(item.id)
 			
-			if updateById or updateByUrlHash
+			if updateById or updateByUrl
 				@update(data, clearCache)
 			else
-				if angular.isDefined(data.urlHash)
+				if angular.isDefined(data.url)
 					# if the item is not yet in the name cache it must be added
-					@_urlHash[data.urlHash] = data
+					@_url[data.url] = data
 					
 					# in case there is an id it can go through the normal add method
 					if angular.isDefined(data.id)
@@ -80,8 +80,8 @@ angular.module('News').factory 'FeedModel',
 		update: (data, clearCache=true) ->
 			# only when the id on the updated item does not exist we wish
 			# to update by name, otherwise we always update by id
-			if angular.isDefined(data.urlHash)
-				item = @_urlHash[data.urlHash]
+			if angular.isDefined(data.url)
+				item = @_url[data.url]
 
 			# update by name
 			if angular.isUndefined(data.id)	and angular.isDefined(item)
@@ -100,21 +100,21 @@ angular.module('News').factory 'FeedModel',
 				# we need to fix the name cache if the name was changed
 				itemWithId = @getById(data.id)
 				if angular.isDefined(itemWithId) and
-				itemWithId.urlHash != data.urlHash
-					delete @_urlHash[itemWithId.urlHash]
-					@_urlHash[data.urlHash] = itemWithId
+				itemWithId.url != data.url
+					delete @_url[itemWithId.url]
+					@_url[data.url] = itemWithId
 
 				super(data, clearCache)
 
 
 		removeById: (id) ->
 			item = @getById(id)
-			delete @_urlHash[item.urlHash]
+			delete @_url[item.url]
 			super(id)
 
 
-		getByUrlHash: (urlHash) ->
-			return @_urlHash[urlHash]
+		getByUrl: (url) ->
+			return @_url[url]
 
 
 		getUnreadCount: ->
@@ -148,21 +148,21 @@ angular.module('News').factory 'FeedModel',
 			return @get(query)
 
 
-		removeByUrlHash: (urlHash, clearCache=true) ->
+		removeByUrl: (url, clearCache=true) ->
 			###
 			Remove an entry by id
 			###
 
 			# remove from data map
 			for key, value of @_dataMap
-				if @_dataMap[key].urlHash == urlHash
+				if @_dataMap[key].url == url
 					delete @_dataMap[key]
 					break
 
 			for entry, counter in @_data
-				if entry.urlHash == urlHash
+				if entry.url == url
 					@_data.splice(counter, 1)
-					delete @_urlHash[urlHash]
+					delete @_url[url]
 
 					if clearCache
 						@_invalidateCache()

@@ -54,10 +54,10 @@ describe 'FolderBusinessLayer', ->
 
 
 	it 'should return true when folder has feeds', =>
-		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, urlHash: 'a1'})
+		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, url: 'a1'})
 		expect(@FolderBusinessLayer.hasFeeds(3)).toBeFalsy()
 
-		@FeedModel.add({id: 2, unreadCount:35, folderId: 3, urlHash: 'a2'})
+		@FeedModel.add({id: 2, unreadCount:35, folderId: 3, url: 'a2'})
 		expect(@FolderBusinessLayer.hasFeeds(3)).toBeTruthy()
 
 
@@ -80,9 +80,9 @@ describe 'FolderBusinessLayer', ->
 
 	it 'should mark folder as read', =>
 		@persistence.setFeedRead = jasmine.createSpy('setFeedRead')
-		@FeedModel.add({id: 3, unreadCount:134, folderId: 3, urlHash: 'a1'})
-		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, urlHash: 'a2'})
-		@FeedModel.add({id: 1, unreadCount:12, folderId: 3, urlHash: 'a3'})
+		@FeedModel.add({id: 3, unreadCount:134, folderId: 3, url: 'a1'})
+		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, url: 'a2'})
+		@FeedModel.add({id: 1, unreadCount:12, folderId: 3, url: 'a3'})
 
 		@FolderBusinessLayer.markFolderRead(3)
 
@@ -92,9 +92,9 @@ describe 'FolderBusinessLayer', ->
 
 
 	it 'should get the correct unread count', =>
-		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, urlHash: 'a1'})
-		@FeedModel.add({id: 6, unreadCount:3, folderId: 3, urlHash: 'a2'})
-		@FeedModel.add({id: 7, unreadCount:4, folderId: 2, urlHash: 'a3'})
+		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, url: 'a1'})
+		@FeedModel.add({id: 6, unreadCount:3, folderId: 3, url: 'a2'})
+		@FeedModel.add({id: 7, unreadCount:4, folderId: 2, url: 'a3'})
 
 		expect(@FolderBusinessLayer.getUnreadCount(2)).toBe(6)
 
@@ -112,18 +112,18 @@ describe 'FolderBusinessLayer', ->
 
 
 	it 'should be visible if one of its subfeeds is active', =>
-		@FeedModel.add({id: 5, unreadCount:0, folderId: 2, urlHash: 'a1'})
-		@FeedModel.add({id: 6, unreadCount:0, folderId: 3, urlHash: 'a2'})
-		@FeedModel.add({id: 7, unreadCount:0, folderId: 2, urlHash: 'a3'})
+		@FeedModel.add({id: 5, unreadCount:0, folderId: 2, url: 'a1'})
+		@FeedModel.add({id: 6, unreadCount:0, folderId: 3, url: 'a2'})
+		@FeedModel.add({id: 7, unreadCount:0, folderId: 2, url: 'a3'})
 
 		@ActiveFeed.handle({type: @FeedType.Feed, id:6})
 		expect(@FolderBusinessLayer.isVisible(3)).toBe(true)
 
 
 	it 'should be visible if showAll is false and it has unread items', =>
-		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, urlHash: 'a1'})
-		@FeedModel.add({id: 6, unreadCount:3, folderId: 3, urlHash: 'a2'})
-		@FeedModel.add({id: 7, unreadCount:4, folderId: 2, urlHash: 'a3'})
+		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, url: 'a1'})
+		@FeedModel.add({id: 6, unreadCount:3, folderId: 3, url: 'a2'})
+		@FeedModel.add({id: 7, unreadCount:4, folderId: 2, url: 'a3'})
 
 		@ActiveFeed.handle({type: @FeedType.Folder, id:2})
 		expect(@FolderBusinessLayer.isVisible(3)).toBe(true)
@@ -415,7 +415,7 @@ describe 'FolderBusinessLayer', ->
 		@persistence.createFolder = jasmine.createSpy('create folder')
 		@persistence.createFeed = jasmine.createSpy('create feed')
 
-		@FeedModel.add({urlHash: hex_md5('http://worrydream.com/feed.xml')})
+		@FeedModel.add({url: 'http://worrydream.com/feed.xml'})
 
 		xml = '<?xml version="1.0" ?>
 			<opml version="1.1">

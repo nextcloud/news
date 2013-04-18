@@ -28,8 +28,7 @@
 		<button ng-click="folderBusinessLayer.delete(folder.id)"
 				ng-hide="folderBusinessLayer.hasFeeds(folder.id) || !folder.id"
 				class="svg action delete-icon" 
-				title="<?php p($l->t('Delete folder')); ?>"
-				oc-tipsy="{gravity: 's'}"></button>
+				title="<?php p($l->t('Delete folder')); ?>"></button>
 
 		<span class="unread-counter"
 			ng-show="folderBusinessLayer.getUnreadCount(folder.id) > 0">
@@ -39,18 +38,15 @@
 		<button class="svg action mark-read-icon" 
 				ng-show="folderBusinessLayer.getUnreadCount(folder.id) > 0 && folder.id"
 				ng-click="folderBusinessLayer.markFolderRead(folder.id)"
-				title="<?php p($l->t('Mark all read')); ?>"
-				oc-tipsy="{gravity: 's'}"></button>
+				title="<?php p($l->t('Mark all read')); ?>"></button>
 
 		<button class="svg action delete-icon"
 			ng-click="folderBusinessLayer.markErrorRead(folder.name)"
 			title="<?php p($l->t('Delete folder')); ?>"
-			ng-show="folder.error"
-			oc-tipsy="{gravity: 's'}"></button>
+			ng-show="folder.error"></button>
 
 <!--		<button class="svg action edit-icon" 
 				ng-click="renameFolder(folder.id)"
-				oc-tipsy
 				title="<?php p($l->t('Rename folder')); ?>"></button>
 -->
 

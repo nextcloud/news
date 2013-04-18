@@ -33,7 +33,7 @@ describe 'ItemBusinessLayer', ->
 			
 	beforeEach inject (@ItemModel, @ItemBusinessLayer, @StatusFlag, @ActiveFeed
 	                   @FeedType, @FeedModel, @StarredBusinessLayer) =>
-		@item1 = {id: 5, title: 'hi', unreadCount:134, urlHash: 'a3', folderId: 3}
+		@item1 = {id: 5, title: 'hi', unreadCount:134, url: 'a3', folderId: 3}
 		@FeedModel.add(@item1)
 		@ActiveFeed.handle({type: @FeedType.Feed, id: 3})
 		

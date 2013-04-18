@@ -45,7 +45,7 @@ describe 'FeedModel', ->
 		item =
 			id: 3
 			faviconLink: null
-			urlHash: 'hi'
+			url: 'hi'
 		
 		@FeedModel.add(item)
 
@@ -53,82 +53,82 @@ describe 'FeedModel', ->
 
 
 	it 'should add feeds without id', =>
-		item = {faviconLink: null, urlHash: 'hi'}
+		item = {faviconLink: null, url: 'hi'}
 		@FeedModel.add(item)
 
-		item2 = {faviconLink: null, urlHash: 'his'}
+		item2 = {faviconLink: null, url: 'his'}
 		@FeedModel.add(item2)
 
-		expect(@FeedModel.getByUrlHash('hi')).toBe(item)
+		expect(@FeedModel.getByUrl('hi')).toBe(item)
 		expect(@FeedModel.size()).toBe(2)
 
 
-	it 'should clear the url hash cache', =>
-		item = {faviconLink: null, urlHash: 'hi'}
+	it 'should clear the url cache', =>
+		item = {faviconLink: null, url: 'hi'}
 		@FeedModel.add(item)
 		@FeedModel.clear()
-		expect(@FeedModel.getByUrlHash('hi')).toBe(undefined)
+		expect(@FeedModel.getByUrl('hi')).toBe(undefined)
 		expect(@FeedModel.size()).toBe(0)
 
 
 	it 'should delete items from the fodername cache', =>
-		item = {id:3, faviconLink: null, urlHash: 'hi'}
+		item = {id:3, faviconLink: null, url: 'hi'}
 		@FeedModel.add(item)
 		expect(@FeedModel.size()).toBe(1)
 
 		@FeedModel.removeById(3)
-		expect(@FeedModel.getByUrlHash('hi')).toBe(undefined)
+		expect(@FeedModel.getByUrl('hi')).toBe(undefined)
 		expect(@FeedModel.size()).toBe(0)
 
 
 	it 'should update the id if an update comes in with an id', =>
-		item = {faviconLink: null, urlHash: 'hi', test: 'heheh'}
+		item = {faviconLink: null, url: 'hi', test: 'heheh'}
 		@FeedModel.add(item)
 
-		item2 = {id: 3, faviconLink: null, urlHash: 'hi', test: 'hoho'}
+		item2 = {id: 3, faviconLink: null, url: 'hi', test: 'hoho'}
 		@FeedModel.add(item2)
 
-		expect(@FeedModel.getByUrlHash('hi').id).toBe(3)
-		expect(@FeedModel.getByUrlHash('hi').test).toBe('hoho')
+		expect(@FeedModel.getByUrl('hi').id).toBe(3)
+		expect(@FeedModel.getByUrl('hi').test).toBe('hoho')
 		expect(@FeedModel.getById(3).id).toBe(3)
 		expect(@FeedModel.getById(3).test).toBe('hoho')
 		expect(@FeedModel.size()).toBe(1)
 
 
 	it 'should update normally', =>
-		item = {id: 3, faviconLink: null, urlHash: 'hi', test: 'heheh'}
+		item = {id: 3, faviconLink: null, url: 'hi', test: 'heheh'}
 		@FeedModel.add(item)
 
-		item2 = {id: 3, faviconLink: null, urlHash: 'his', test: 'hoho'}
+		item2 = {id: 3, faviconLink: null, url: 'his', test: 'hoho'}
 		@FeedModel.add(item2)
 
-		expect(@FeedModel.getByUrlHash('hi')).toBe(undefined)
-		expect(@FeedModel.getByUrlHash('his').id).toBe(3)
-		expect(@FeedModel.getByUrlHash('his').test).toBe('hoho')
+		expect(@FeedModel.getByUrl('hi')).toBe(undefined)
+		expect(@FeedModel.getByUrl('his').id).toBe(3)
+		expect(@FeedModel.getByUrl('his').test).toBe('hoho')
 		expect(@FeedModel.getById(3).test).toBe('hoho')
 		expect(@FeedModel.size()).toBe(1)
 
 
 	it 'should clear invalidate the query cache on adding folder with name', =>
-		item = {faviconLink: null, urlHash: 'hi', test: 'heheh', folderId: 0}
+		item = {faviconLink: null, url: 'hi', test: 'heheh', folderId: 0}
 		
 		expect(@FeedModel.getAllOfFolder(0).length).toBe(0)
 		@FeedModel.add(item, false)
 
 		expect(@FeedModel.getAllOfFolder(0).length).toBe(0)
 
-		item2 = {faviconLink: null, urlHash: 'his', test: 'heheh', folderId: 0}
+		item2 = {faviconLink: null, url: 'his', test: 'heheh', folderId: 0}
 		@FeedModel.add(item2)
 
 		expect(@FeedModel.getAllOfFolder(0).length).toBe(2)
 
 
-	it 'should only update feeds that contain only an id but no url hash', =>
+	it 'should only update feeds that contain only an id but no url', =>
 		item = {id: 3, unreadCount: 232}
 		@FeedModel.add(item)
 		expect(@FeedModel.size()).toBe(0)
 
-		item2 = {id: 3, unreadCount: 2, faviconLink: null, urlHash: 'his'}
+		item2 = {id: 3, unreadCount: 2, faviconLink: null, url: 'his'}
 		@FeedModel.add(item2)
 		@FeedModel.add(item)
 

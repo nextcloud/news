@@ -57,7 +57,7 @@ describe 'ItemModel', ->
 		expect(@ItemModel.size()).toBe(2)
 
 
-	it 'should also remove the feed from the urlHash cache when its removed', =>
+	it 'should also remove the feed from the url cache when its removed', =>
 		item = {id: 4, guidHash: 'abc', feedId: 3}
 		@ItemModel.add(item)
 

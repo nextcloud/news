@@ -92,7 +92,7 @@ FeedModel, NewLoading, _ExistsError, Utils) ->
 				@_feedModel.update({
 					id: feedId,
 					folderId: folderId,
-					urlHash: feed.urlHash})
+					url: feed.url})
 				@_persistence.moveFeed(feedId, folderId)
 
 
@@ -139,15 +139,13 @@ FeedModel, NewLoading, _ExistsError, Utils) ->
 				throw new Error('Url must not be empty')
 			
 			url = url.trim()
-			urlHash = hex_md5(url)
 			
-			if @_feedModel.getByUrlHash(urlHash)
+			if @_feedModel.getByUrl(url)
 				throw new _ExistsError('Exists already')
 
 			feed =
 				title: url
 				url: url
-				urlHash: urlHash
 				folderId: parentId
 				unreadCount: 0
 				faviconLink: 'url('+@_utils.imagePath('core', 'loading.gif')+')'
@@ -164,8 +162,8 @@ FeedModel, NewLoading, _ExistsError, Utils) ->
 			@_persistence.createFeed(url, parentId, success)
 
 
-		markErrorRead: (urlHash) ->
-			@_feedModel.removeByUrlHash(urlHash)
+		markErrorRead: (url) ->
+			@_feedModel.removeByUrl(url)
 
 
 		updateFeeds: ->
