@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud news 5.0.0\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2013-04-18 01:03+0200\n"
+"POT-Creation-Date: 2013-04-19 01:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -98,7 +98,7 @@ msgid "All articles"
 msgstr ""
 
 #: templates/part.feed.unread.php:25 templates/part.listfeed.php:39
-#: templates/part.listfolder.php:41
+#: templates/part.listfolder.php:42
 msgid "Mark all read"
 msgstr ""
 
@@ -106,27 +106,27 @@ msgstr ""
 msgid "Save for later"
 msgstr ""
 
-#: templates/part.items.php:29
+#: templates/part.items.php:31
 msgid "from"
 msgstr ""
 
-#: templates/part.items.php:34
+#: templates/part.items.php:36
 msgid "by"
 msgstr ""
 
-#: templates/part.items.php:42
+#: templates/part.items.php:44
 msgid "Cant play audio format"
 msgstr ""
 
-#: templates/part.items.php:55
+#: templates/part.items.php:57
 msgid "Keep unread"
 msgstr ""
 
-#: templates/part.listfeed.php:43
+#: templates/part.listfeed.php:44
 msgid "Delete feed"
 msgstr ""
 
-#: templates/part.listfeed.php:48
+#: templates/part.listfeed.php:50
 msgid "Delete website"
 msgstr ""
 
@@ -134,11 +134,11 @@ msgstr ""
 msgid "Collapse"
 msgstr ""
 
-#: templates/part.listfolder.php:31 templates/part.listfolder.php:45
+#: templates/part.listfolder.php:31 templates/part.listfolder.php:47
 msgid "Delete folder"
 msgstr ""
 
-#: templates/part.listfolder.php:50
+#: templates/part.listfolder.php:53
 msgid "Rename folder"
 msgstr ""
 

@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-18 01:03+0200\n"
-"PO-Revision-Date: 2013-04-17 23:03+0000\n"
-"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"POT-Creation-Date: 2013-04-19 01:01+0200\n"
+"PO-Revision-Date: 2013-04-18 07:36+0000\n"
+"Last-Translator: pisike.sipelgas <pisike.sipelgas@gmail.com>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/projects/p/owncloud/language/et_EE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,15 +25,15 @@ msgstr "Uudised"
 
 #: businesslayer/feedbusinesslayer.php:62
 msgid "Can not add feed: Exists already"
-msgstr ""
+msgstr "Voogu ei saa lisada:  on juba olemas"
 
 #: businesslayer/feedbusinesslayer.php:100
 msgid "Can not add feed: URL does not exist or has invalid xml"
-msgstr ""
+msgstr "Voogu ei saa lisada: URL-i pole olemas või sisaldab vigast XML-i"
 
 #: businesslayer/folderbusinesslayer.php:55
 msgid "Can not add folder: Exists already"
-msgstr ""
+msgstr "Kataloogi ei saa lisada: on juba olemas"
 
 #: templates/part.addnew.php:12
 msgid "Add Website"
@@ -41,19 +41,19 @@ msgstr "Lisa veebisait"
 
 #: templates/part.addnew.php:19
 msgid "Error: address must not be empty!"
-msgstr ""
+msgstr "Viga: Aadress ei saa olla tühi!"
 
 #: templates/part.addnew.php:22
 msgid "Error: address exists already!"
-msgstr ""
+msgstr "Viga: aadress on juba olemas!"
 
 #: templates/part.addnew.php:25
 msgid "Error: folder name must not be empty!"
-msgstr ""
+msgstr "Viga: Kataloogi nimi ei saa olla tühi."
 
 #: templates/part.addnew.php:28
 msgid "Error: folder exists already"
-msgstr ""
+msgstr "Viga: kataloog on juba olemas"
 
 #: templates/part.addnew.php:35
 msgid "Address"
@@ -81,11 +81,11 @@ msgstr "Kausta nimi"
 
 #: templates/part.addnew.php:67
 msgid "Back to folder selection"
-msgstr ""
+msgstr "Tagasi kataloogide valikusse"
 
 #: templates/part.addnew.php:72
 msgid "Create folder"
-msgstr ""
+msgstr "Loo kaust"
 
 #: templates/part.feed.starred.php:10
 msgid "Starred"
@@ -100,47 +100,47 @@ msgid "All articles"
 msgstr "Kõik artiklid"
 
 #: templates/part.feed.unread.php:25 templates/part.listfeed.php:39
-#: templates/part.listfolder.php:41
+#: templates/part.listfolder.php:42
 msgid "Mark all read"
 msgstr "Märgi loetuks"
 
 #: templates/part.items.php:17
 msgid "Save for later"
-msgstr ""
+msgstr "Salvesta hilisemaks"
 
-#: templates/part.items.php:29
+#: templates/part.items.php:31
 msgid "from"
 msgstr "kohast"
 
-#: templates/part.items.php:34
+#: templates/part.items.php:36
 msgid "by"
 msgstr "lisas"
 
-#: templates/part.items.php:42
+#: templates/part.items.php:44
 msgid "Cant play audio format"
 msgstr "Helivormingut ei saa esitada"
 
-#: templates/part.items.php:55
+#: templates/part.items.php:57
 msgid "Keep unread"
 msgstr "Hoia kui lugemata"
 
-#: templates/part.listfeed.php:43
+#: templates/part.listfeed.php:44
 msgid "Delete feed"
 msgstr "Kustuta uudisvoog"
 
-#: templates/part.listfeed.php:48
+#: templates/part.listfeed.php:50
 msgid "Delete website"
-msgstr ""
+msgstr "Kustuta veebileht"
 
 #: templates/part.listfolder.php:14
 msgid "Collapse"
 msgstr "Sulge"
 
-#: templates/part.listfolder.php:31 templates/part.listfolder.php:45
+#: templates/part.listfolder.php:31 templates/part.listfolder.php:47
 msgid "Delete folder"
 msgstr "Kustuta kaust"
 
-#: templates/part.listfolder.php:50
+#: templates/part.listfolder.php:53
 msgid "Rename folder"
 msgstr "Nimeta kaust ümber"
 
@@ -159,7 +159,7 @@ msgstr "Ekspordi"
 
 #: templates/part.settings.php:36
 msgid "Error when importing: file does not contain valid OPML"
-msgstr ""
+msgstr "Viga importimisel: fail ei sisalda korrektset OPML-i"
 
 #: templates/part.showall.php:2
 msgid "Show all"
