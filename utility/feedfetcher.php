@@ -27,6 +27,8 @@ namespace OCA\News\Utility;
 
 use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Utility\FaviconFetcher;
+use \OCA\AppFramework\Utility\SimplePieAPIFactory;
+use \OCA\AppFramework\Utility\TimeFactory;
 
 use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
@@ -38,13 +40,21 @@ class FeedFetcher implements IFeedFetcher {
 	private $cacheDirectory;
 	private $cacheDuration;
 	private $faviconFetcher;
+	private $simplePieFactory;
+	private $time;
 
-	public function __construct(API $api, FaviconFetcher $faviconFetcher,
-	                            $cacheDirectory, $cacheDuration){
+	public function __construct(API $api, 
+	                            SimplePieAPIFactory $simplePieFactory,
+	                            FaviconFetcher $faviconFetcher,
+	                            TimeFactory $time,
+	                            $cacheDirectory, 
+	                            $cacheDuration){
 		$this->api = $api;
 		$this->cacheDirectory = $cacheDirectory;
 		$this->cacheDuration = $cacheDuration;
 		$this->faviconFetcher = $faviconFetcher;
+		$this->simplePieFactory = $simplePieFactory;
+		$this->time = $time;
 	}
 
 
@@ -63,9 +73,8 @@ class FeedFetcher implements IFeedFetcher {
 	 * @return array an array containing the new feed and its items
 	 */
 	public function fetch($url) {
-		// TODO: write unittests!
-		$simplePie = new \SimplePie_Core();
-		$simplePie->set_feed_url( $url );
+		$simplePie = $this->simplePieFactory->getCore();
+		$simplePie->set_feed_url($url);
 		$simplePie->enable_cache(true);
 		$simplePie->set_cache_location($this->cacheDirectory);
 		$simplePie->set_cache_duration($this->cacheDuration);
@@ -74,59 +83,17 @@ class FeedFetcher implements IFeedFetcher {
 			throw new FetcherException('Could not initialize simple pie');
 		}
 
+
 		try {
+			// somehow $simplePie turns into a feed after init
 			$items = array();
 			if ($feedItems = $simplePie->get_items()) {
 				foreach($feedItems as $feedItem) {
-					$item = new Item();
-					$item->setStatus(0);
-					$item->setUnread();
-					$item->setUrl( $feedItem->get_permalink() );
-					// unescape content because angularjs helps agains XSS
-					$item->setTitle(html_entity_decode($feedItem->get_title()));
-					$item->setGuid( $feedItem->get_id() );
-					$item->setGuidHash( md5($feedItem->get_id()) );
-					$item->setBody( $feedItem->get_content() );
-					$item->setPubDate( $feedItem->get_date('U') );
-					$item->setLastModified(time());
-
-					$author = $feedItem->get_author();
-					if ($author !== null) {
-						$item->setAuthor( $author->get_name() );
-					}
-
-					// TODO: make it work for video files also
-					$enclosure = $feedItem->get_enclosure();
-					if($enclosure !== null) {
-						$enclosureType = $enclosure->get_type();
-						if(stripos($enclosureType, "audio/") !== false) {
-							$item->setEnclosureMime($enclosureType);
-							$item->setEnclosureLink($enclosure->get_link());
-						}
-					}
-					
-					array_push($items, $item);
+					array_push($items, $this->buildItem($feedItem));
 				}
 			}
 
-			$feed = new Feed();
-			// unescape content because angularjs helps agains XSS
-			$feed->setTitle(html_entity_decode($simplePie->get_title()));
-			$feed->setUrl($url);
-			$feed->setLink($simplePie->get_link());
-			$feed->setUrlHash(md5($url));
-			$feed->setAdded(time());
-
-			// get the favicon from the feed
-			$favicon = $simplePie->get_image_url();
-			if ($favicon) {
-				$feed->setFaviconLink($favicon);
-
-			// or the webpage
-			} else {
-				$webFavicon = $this->faviconFetcher->fetch($feed->getLink());
-				$feed->setFaviconLink($webFavicon);
-			}
+			$feed = $this->buildFeed($simplePie, $url);
 
 			return array($feed, $items);
 
@@ -136,5 +103,61 @@ class FeedFetcher implements IFeedFetcher {
 
 	}
 
+
+	protected function buildItem($simplePieItem) {
+		$item = new Item();
+		$item->setStatus(0);
+		$item->setUnread();
+		$item->setUrl($simplePieItem->get_permalink());
+		// unescape content because angularjs helps agains XSS
+		$item->setTitle(html_entity_decode($simplePieItem->get_title()));
+		$guid = $simplePieItem->get_id();
+		$item->setGuid($guid);
+		$item->setGuidHash(md5($guid));
+		$item->setBody($simplePieItem->get_content());
+		$item->setPubDate($simplePieItem->get_date('U'));
+		$item->setLastModified($this->time->getTime());
+
+		$author = $simplePieItem->get_author();
+		if ($author !== null) {
+			$item->setAuthor($author->get_name());
+		}
+
+		// TODO: make it work for video files also
+		$enclosure = $simplePieItem->get_enclosure();
+		if($enclosure !== null) {
+			$enclosureType = $enclosure->get_type();
+			if(stripos($enclosureType, "audio/") !== false) {
+				$item->setEnclosureMime($enclosureType);
+				$item->setEnclosureLink($enclosure->get_link());
+			}
+		}
+
+		return $item;
+	}
+
+
+	protected function buildFeed($simplePieFeed, $url) {
+		$feed = new Feed();
+
+		// unescape content because angularjs helps agains XSS
+		$feed->setTitle(html_entity_decode($simplePieFeed->get_title()));
+		$feed->setUrl($url);
+		$feed->setLink($simplePieFeed->get_link());
+		$feed->setUrlHash(md5($url));
+		$feed->setAdded($this->time->getTime());
+
+		// get the favicon from the feed or the webpage
+		$favicon = $simplePieFeed->get_image_url();
+
+		if ($favicon) {
+			$feed->setFaviconLink($favicon);
+		} else {
+			$webFavicon = $this->faviconFetcher->fetch($feed->getLink());
+			$feed->setFaviconLink($webFavicon);
+		}
+
+		return $feed;
+	}
 
 }
