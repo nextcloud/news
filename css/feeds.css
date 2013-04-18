@@ -161,3 +161,8 @@ button.action:hover {
 	.folder .feed.failed .message {
 		padding-left: 48px;
 	}
+
+.tooltip {
+	text-shadow: none;
+	text-transform: none;
+}
