@@ -22,7 +22,7 @@
 		<h1 class="item_title">
 			<a ng-click="itemBusinessLayer.setRead(item.id)" 
 				target="_blank" href="{{ item.url }}">
-				{{ item.title|ocRemoveTags:['em'] }}
+				{{ item.title|ocRemoveTags:['em', 'b', 'i'] }}
 			</a>
 		</h1>
 
