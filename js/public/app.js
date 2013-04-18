@@ -314,11 +314,11 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 (function() {
   angular.module('News').controller('FeedController', [
-    '$scope', '_ExistsError', 'Persistence', 'FolderBusinessLayer', 'FeedBusinessLayer', 'SubscriptionsBusinessLayer', 'StarredBusinessLayer', 'unreadCountFormatter', 'ActiveFeed', 'FeedType', function($scope, _ExistsError, Persistence, FolderBusinessLayer, FeedBusinessLayer, SubscriptionsBusinessLayer, StarredBusinessLayer, unreadCountFormatter, ActiveFeed, FeedType) {
+    '$scope', '_ExistsError', 'Persistence', 'FolderBusinessLayer', 'FeedBusinessLayer', 'SubscriptionsBusinessLayer', 'StarredBusinessLayer', 'unreadCountFormatter', 'ActiveFeed', 'FeedType', '$window', function($scope, _ExistsError, Persistence, FolderBusinessLayer, FeedBusinessLayer, SubscriptionsBusinessLayer, StarredBusinessLayer, unreadCountFormatter, ActiveFeed, FeedType, $window) {
       var FeedController;
 
       FeedController = (function() {
-        function FeedController(_$scope, _persistence, _folderBusinessLayer, _feedBusinessLayer, _subscriptionsBusinessLayer, _starredBusinessLayer, _unreadCountFormatter, _activeFeed, _feedType) {
+        function FeedController(_$scope, _persistence, _folderBusinessLayer, _feedBusinessLayer, _subscriptionsBusinessLayer, _starredBusinessLayer, _unreadCountFormatter, _activeFeed, _feedType, _$window) {
           var _this = this;
 
           this._$scope = _$scope;
@@ -330,6 +330,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           this._unreadCountFormatter = _unreadCountFormatter;
           this._activeFeed = _activeFeed;
           this._feedType = _feedType;
+          this._$window = _$window;
           this._isAddingFolder = false;
           this._isAddingFeed = false;
           this._$scope.folderBusinessLayer = this._folderBusinessLayer;
@@ -337,6 +338,17 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           this._$scope.subscriptionsBusinessLayer = this._subscriptionsBusinessLayer;
           this._$scope.starredBusinessLayer = this._starredBusinessLayer;
           this._$scope.unreadCountFormatter = this._unreadCountFormatter;
+          this._$scope.getTotalUnreadCount = function() {
+            var count;
+
+            count = _this._subscriptionsBusinessLayer.getUnreadCount(0);
+            if (count > 0) {
+              _this._$window.document.title = 'News (' + count + ') | ownCloud';
+            } else {
+              _this._$window.document.title = 'News | ownCloud';
+            }
+            return count;
+          };
           this._$scope.isAddingFolder = function() {
             return _this._isAddingFolder;
           };
@@ -410,7 +422,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         return FeedController;
 
       })();
-      return new FeedController($scope, Persistence, FolderBusinessLayer, FeedBusinessLayer, SubscriptionsBusinessLayer, StarredBusinessLayer, unreadCountFormatter, ActiveFeed, FeedType);
+      return new FeedController($scope, Persistence, FolderBusinessLayer, FeedBusinessLayer, SubscriptionsBusinessLayer, StarredBusinessLayer, unreadCountFormatter, ActiveFeed, FeedType, $window);
     }
   ]);
 

@@ -24,10 +24,10 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 angular.module('News').controller 'FeedController',
 ['$scope', '_ExistsError', 'Persistence', 'FolderBusinessLayer',
 'FeedBusinessLayer', 'SubscriptionsBusinessLayer', 'StarredBusinessLayer',
-'unreadCountFormatter', 'ActiveFeed', 'FeedType',
+'unreadCountFormatter', 'ActiveFeed', 'FeedType', '$window',
 ($scope, _ExistsError, Persistence, FolderBusinessLayer, FeedBusinessLayer,
 SubscriptionsBusinessLayer, StarredBusinessLayer, unreadCountFormatter,
-ActiveFeed, FeedType) ->
+ActiveFeed, FeedType, $window) ->
 
 
 	class FeedController
@@ -35,7 +35,7 @@ ActiveFeed, FeedType) ->
 		constructor: (@_$scope, @_persistence, @_folderBusinessLayer,
 		              @_feedBusinessLayer, @_subscriptionsBusinessLayer,
 		              @_starredBusinessLayer, @_unreadCountFormatter,
-		              @_activeFeed, @_feedType) ->
+		              @_activeFeed, @_feedType, @_$window) ->
 
 			@_isAddingFolder = false
 			@_isAddingFeed = false
@@ -46,6 +46,19 @@ ActiveFeed, FeedType) ->
 			@_$scope.subscriptionsBusinessLayer = @_subscriptionsBusinessLayer
 			@_$scope.starredBusinessLayer = @_starredBusinessLayer
 			@_$scope.unreadCountFormatter = @_unreadCountFormatter
+
+			@_$scope.getTotalUnreadCount = =>
+				# also update title based on unreadcount
+				count = @_subscriptionsBusinessLayer.getUnreadCount(0)
+
+				# dont do this for other dom elements
+				# the title is some kind of exception since its always there
+				# and it has nothing to do with the body structure
+				if count > 0
+					@_$window.document.title = 'News (' + count + ') | ownCloud'
+				else
+					@_$window.document.title = 'News | ownCloud'
+				return count
 
 			@_$scope.isAddingFolder = =>
 				return @_isAddingFolder
@@ -116,6 +129,6 @@ ActiveFeed, FeedType) ->
 	return new FeedController($scope, Persistence, FolderBusinessLayer,
 	                          FeedBusinessLayer, SubscriptionsBusinessLayer,
 	                          StarredBusinessLayer, unreadCountFormatter,
-	                          ActiveFeed, FeedType)
+	                          ActiveFeed, FeedType, $window)
 
 ]

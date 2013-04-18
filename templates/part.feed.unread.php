@@ -1,6 +1,6 @@
 <li ng-class="{
 		active: subscriptionsBusinessLayer.isActive(0),
-		unread: subscriptionsBusinessLayer.getUnreadCount(0) > 0
+		unread: getTotalUnreadCount() > 0
 	}" 
 	ng-show="subscriptionsBusinessLayer.isVisible(0)">
 	<a class="rss-icon" 
@@ -17,8 +17,8 @@
 	</a>
 	<span class="utils">
 		<span class="unread-counter"
-			ng-show="subscriptionsBusinessLayer.getUnreadCount() > 0">
-			{{ subscriptionsBusinessLayer.getUnreadCount() }}
+			ng-show="getTotalUnreadCount() > 0">
+			{{ getTotalUnreadCount() }}
 		</span>
 		<button class="svg action mark-read-icon" 
 			ng-click="subscriptionsBusinessLayer.markAllRead()"
