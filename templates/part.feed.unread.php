@@ -22,7 +22,7 @@
 		</span>
 		<button class="svg action mark-read-icon" 
 			ng-click="subscriptionsBusinessLayer.markAllRead()"
-			title="<?php p($l->t('Mark all read')) ?>"
+			title="<?php p($l->t('Mark read')) ?>"
 			oc-tooltip data-placement="bottom"></button>
 	</span>
 </li>
