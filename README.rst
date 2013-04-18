@@ -34,7 +34,7 @@ Before you install the app check that the following requirements are met:
 How to install the News app
 ---------------------------
 
-- Install **ownCloud 5.0.5** (not released yet contains a small css fix, use the stable5 branch or 5.0.4)
+- Install `ownCloud 5.0.5 <download.owncloud.org/community/owncloud-5.0.5.RC1.tar.bz2>`_
 
 Should you have upgraded from a prior version, disable the CSS and JavaScript caching by adding this to :file:`owncloud/config/config.php`::
 
