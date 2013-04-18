@@ -292,6 +292,52 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 	}
 
 
+	public function testUpdateUpdatesEntryNotWhenPubDateUnkown(){
+		$feed = new Feed();
+		$feed->setId(3);
+		$feed->getUrl('test');
+
+		$item = new Item();
+		$item->setGuidHash(md5('hi'));
+		$item->setPubDate(false);
+		$items = array(
+			$item
+		);
+
+		$item2 = new Item();
+		$item2->setPubDate(0);
+
+		$fetchReturn = array($feed, $items);
+
+		$this->mapper->expects($this->at(0))
+			->method('find')
+			->with($this->equalTo($feed->getId()),
+				$this->equalTo($this->user))
+			->will($this->returnValue($feed));
+		$this->fetcher->expects($this->once())
+			->method('fetch')
+			->will($this->returnValue($fetchReturn));
+		$this->itemMapper->expects($this->once())
+			->method('findByGuidHash')
+			->with($this->equalTo($item->getGuidHash()),
+				$this->equalTo($feed->getId()),
+				$this->equalTo($this->user))
+			->will($this->returnValue($item2));
+		$this->itemMapper->expects($this->never())
+			->method('insert');
+		$this->itemMapper->expects($this->never())
+			->method('delete');
+
+		$this->mapper->expects($this->at(1))
+			->method('find')
+			->with($feed->getId(), $this->user)
+			->will($this->returnValue($feed));
+
+		$return = $this->businessLayer->update($feed->getId(), $this->user);
+
+		$this->assertEquals($return, $feed);
+	}
+
 
 	public function testUpdateUpdatesEntry(){
 		$feed = new Feed();
