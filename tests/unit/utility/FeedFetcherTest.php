@@ -101,7 +101,7 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->guid = 'hey guid here';
 		$this->body = 'let the bodies hit the floor';
 		$this->pub = 23111;
-		$this->author = 'boogieman';
+		$this->author = 'boogieman&lte;';
 		$this->enclosureLink = 'http://enclosure.you';
 
 		$this->feedTitle = '&lte;its a title';
@@ -184,7 +184,7 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 				->method('get_name')
 				->will($this->returnValue($this->author));
 			$this->expectItem('get_author', $mock);
-			$item->setAuthor($this->author);
+			$item->setAuthor(html_entity_decode($this->author));
 		}
 
 		if($enclosureType === 'audio/ogg') {

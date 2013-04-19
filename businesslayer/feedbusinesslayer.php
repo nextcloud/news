@@ -175,4 +175,15 @@ class FeedBusinessLayer extends BusinessLayer {
 	}
 
 
+	/**
+	 * Imports the google reader json
+	 * @param array $json the array with json
+	 * @param string userId the username
+	 * @return Feed the created feed
+	 */
+	public function importGoogleReaderJSON($json, $userId) {
+
+	}
+
+
 }

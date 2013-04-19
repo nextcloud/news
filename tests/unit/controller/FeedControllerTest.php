@@ -112,6 +112,10 @@ class FeedControllerTest extends ControllerTestUtility {
 	}
 
 
+	public function testImportGoogleReaderAnnotations(){
+		$this->assertFeedControllerAnnotations('importGoogleReader');
+	}
+
 	public function testFeeds(){
 		$result = array(
 			'feeds' => array(
@@ -378,6 +382,33 @@ class FeedControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->move();
 
+		$this->assertTrue($response instanceof JSONResponse);
+	}
+
+
+	public function testImportGoogleReader() {
+		$feed = new Feed();
+
+		$post = array(
+			'json' => 'the json'
+		);
+		$expected = array(
+			'feeds' => array($feed)
+		);
+		$this->controller = $this->getPostController($post);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->feedBusinessLayer->expects($this->once())
+			->method('importGoogleReaderJSON')
+			->with($this->equalTo($post['json']), 
+				$this->equalTo($this->user))
+			->will($this->returnValue($feed));
+
+		$response = $this->controller->importGoogleReader();
+
+		$this->assertEquals($expected, $response->getParams());
 		$this->assertTrue($response instanceof JSONResponse);
 	}
 
