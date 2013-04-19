@@ -107,7 +107,7 @@ class DIContainer extends BaseContainer {
 
 		$this['FeedBusinessLayer'] = $this->share(function($c){
 			return new FeedBusinessLayer($c['FeedMapper'], $c['Fetcher'],
-								$c['ItemMapper'], $c['API']);
+								$c['ItemMapper'], $c['API'], $c['TimeFactory']);
 		});
 
 		$this['ItemBusinessLayer'] = $this->share(function($c){

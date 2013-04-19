@@ -26,6 +26,7 @@
 namespace OCA\News\BusinessLayer;
 
 use \OCA\AppFramework\Db\DoesNotExistException;
+use \OCA\AppFramework\Utility\TimeFactory;
 use \OCA\AppFramework\Core\API;
 
 use \OCA\News\Db\Feed;
@@ -39,13 +40,16 @@ class FeedBusinessLayer extends BusinessLayer {
 	private $feedFetcher;
 	private $itemMapper;
 	private $api;
+	private $timeFactory;
 
 	public function __construct(FeedMapper $feedMapper, Fetcher $feedFetcher,
-		                        ItemMapper $itemMapper, API $api){
+		                        ItemMapper $itemMapper, API $api,
+		                        TimeFactory $timeFactory){
 		parent::__construct($feedMapper);
 		$this->feedFetcher = $feedFetcher;
 		$this->itemMapper = $itemMapper;
 		$this->api = $api;
+		$this->timeFactory = $timeFactory;
 	}
 
 
@@ -185,7 +189,29 @@ class FeedBusinessLayer extends BusinessLayer {
 	 * @return Feed the created feed
 	 */
 	public function importGoogleReaderJSON($json, $userId) {
+		$url = 'http://owncloud/googlereader';
 
+		// TODO: write unittests that ensure that the correct
+		// feed parameters are being returned
+		
+		// you need to check first if the feed exists and if it does
+		// use that feed to add the items and to return
+		// if this has not been saved, these are the values 
+		// that need to be set fyi
+		$feed = new Feed();
+		$feed->setUserId($userId);
+		$feed->setUrlHash(md5($url));
+		$feed->setUrl($url);
+		$feed->setTitle('Google Reader');
+		$feed->setAdded($this->timeFactory->getTime());
+		$feed->setFolderId(0);
+		$feed->setPreventUpdate(true);
+
+
+		// TODO: after saving the above feed, query the feed from the
+		// database to get the unreadCount (this is being set in the 
+		// sql query) see line 177
+		return $feed;
 	}
 
 

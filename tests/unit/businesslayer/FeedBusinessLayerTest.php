@@ -44,9 +44,18 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 	private $fetcher;
 	private $itemMapper;
 	private $threshold;
+	private $time;
 
 	protected function setUp(){
 		$this->api = $this->getAPIMock();
+		$this->time = 222;
+		$timeFactory = $this->getMockBuilder(
+			'\OCA\AppFramework\Utility\TimeFactory')
+			->disableOriginalConstructor()
+			->getMock();
+		$timeFactory->expects($this->any())
+			->method('getTime')
+			->will($this->returnValue($this->time));
 		$this->mapper = $this->getMockBuilder('\OCA\News\Db\FeedMapper')
 			->disableOriginalConstructor()
 			->getMock();
@@ -57,7 +66,8 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->disableOriginalConstructor()
 			->getMock();
 		$this->businessLayer = new FeedBusinessLayer($this->mapper, 
-			$this->fetcher, $this->itemMapper, $this->api);
+			$this->fetcher, $this->itemMapper, $this->api,
+			$timeFactory);
 		$this->user = 'jack';
 		$response = 'hi';
 
