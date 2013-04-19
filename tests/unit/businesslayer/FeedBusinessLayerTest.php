@@ -70,7 +70,6 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			$timeFactory);
 		$this->user = 'jack';
 		$response = 'hi';
-
 	}
 
 

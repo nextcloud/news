@@ -97,11 +97,11 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->url = 'tests';
 
 		$this->permalink = 'http://permalink';
-		$this->title = 'my title';
+		$this->title = 'my title&lt;';
 		$this->guid = 'hey guid here';
 		$this->body = 'let the bodies hit the floor';
 		$this->pub = 23111;
-		$this->author = 'boogieman&lte;';
+		$this->author = '&lt;boogieman';
 		$this->enclosureLink = 'http://enclosure.you';
 
 		$this->feedTitle = '&lte;its a title';
@@ -172,7 +172,7 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 		$item->setStatus(0);
 		$item->setUnread();
 		$item->setUrl($this->permalink);
-		$item->setTitle($this->title);
+		$item->setTitle(html_entity_decode($this->title));
 		$item->setGuid($this->guid);
 		$item->setGuidHash(md5($this->guid));
 		$item->setBody($this->body);
