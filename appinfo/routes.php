@@ -127,7 +127,7 @@ $this->create('news_feeds_read', '/feeds/{feedId}/read')->post()->action(
 $this->create('news_feeds_import_googlereader', '/feeds/import/googlereader')
 ->post()->action(
 	function($params){
-		App::main('ItemController', 'importGoogleReader', $params, 
+		App::main('FeedController', 'importGoogleReader', $params, 
 			new DIContainer());
 	}
 );

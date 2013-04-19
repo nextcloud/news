@@ -345,3 +345,34 @@ describe 'FeedBusinessLayer', ->
 		@FeedBusinessLayer.updateFeeds()
 
 		expect(@persistence.updateFeed).not.toHaveBeenCalled()
+
+
+	it 'should not import google reader json', =>
+		@persistence.importGoogleReader = jasmine.createSpy('importGoogleReader')
+
+		json = {"test": "hi"}
+		@FeedBusinessLayer.importGoogleReader(json)
+
+		imported = @FeedModel.getByUrl('http://owncloud/googlereader')
+		expect(imported.title).toBe('Google Reader')
+		expect(imported.folderId).toBe(0)
+		expect(imported.unreadCount).toBe(0)
+
+
+	it 'should not create a google reader feed if it already exists', =>
+		@persistence.importGoogleReader = jasmine.createSpy('importGoogleReader')
+
+		@FeedModel.add({id: 3, url: 'http://owncloud/googlereader'})
+		json = {"test": "hi"}
+		@FeedBusinessLayer.importGoogleReader(json)
+
+		imported = @FeedModel.getByUrl('http://owncloud/googlereader')
+		expect(imported.folderId).not.toBeDefined()
+
+
+	it 'should create an import google reader request', =>
+		@persistence.importGoogleReader = jasmine.createSpy('importGoogleReader')
+		json = {"test": "hi"}
+		@FeedBusinessLayer.importGoogleReader(json)
+
+		expect(@persistence.importGoogleReader).toHaveBeenCalledWith(json)

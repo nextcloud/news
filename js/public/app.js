@@ -545,7 +545,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
       var _this = this;
 
       $scope.feedBusinessLayer = FeedBusinessLayer;
-      return $scope["import"] = function(fileContent) {
+      $scope["import"] = function(fileContent) {
         var error;
 
         $scope.error = false;
@@ -556,6 +556,20 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           error = _error;
           console.error(error);
           return $scope.error = true;
+        }
+      };
+      return $scope.importGoogleReader = function(fileContent) {
+        var error, parsedJSON;
+
+        $scope.jsonError = false;
+        ShowAll.setShowAll(true);
+        try {
+          parsedJSON = JSON.parse(fileContent);
+          return FeedBusinessLayer.importGoogleReader(parsedJSON);
+        } catch (_error) {
+          error = _error;
+          console.error(error);
+          return $scope.jsonError = true;
         }
       };
     }
@@ -896,6 +910,23 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             }
           }
           return _results;
+        };
+
+        FeedBusinessLayer.prototype.importGoogleReader = function(json) {
+          var feed, url;
+
+          url = 'http://owncloud/googlereader';
+          if (angular.isUndefined(this._feedModel.getByUrl(url))) {
+            feed = {
+              title: 'Google Reader',
+              url: url,
+              folderId: 0,
+              unreadCount: 0,
+              faviconLink: 'url(' + this._utils.imagePath('core', 'loading.gif') + ')'
+            };
+            this._feedModel.add(feed);
+          }
+          return this._persistence.importGoogleReader(json);
         };
 
         return FeedBusinessLayer;
@@ -2514,6 +2545,17 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             }
           };
           return this._request.post('news_feeds_update', params);
+        };
+
+        Persistence.prototype.importGoogleReader = function(json) {
+          var params;
+
+          params = {
+            data: {
+              json: json
+            }
+          };
+          return this._request.post('news_feeds_import_googlereader', params);
         };
 
         /*

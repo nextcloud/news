@@ -237,6 +237,17 @@ describe 'Persistence', ->
 		expect(@req.post).toHaveBeenCalledWith('news_feeds_create', params)
 
 
+	it 'should do a proper import google reader request', =>
+		params =
+			data:
+				json: {"some": "json"}
+
+		@Persistence.importGoogleReader(params.data.json)
+
+
+		expect(@req.post).toHaveBeenCalledWith('news_feeds_import_googlereader',
+			params)
+
 
 	###
 		FOLDER CONTROLLER

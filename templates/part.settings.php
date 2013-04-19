@@ -49,10 +49,9 @@
 			<?php p($l->t('Import')); ?>
 		</button>
 
-		<p class="error" ng-show="error">
-			<?php p($l->t('Error when importing: file does not contain valid OPML')); ?>
+		<p class="error" ng-show="jsonError">
+			<?php p($l->t('Error when importing: file does not contain valid JSON')); ?>
 		</p>
 
 	</fieldset>
-</div>
 </div>

@@ -37,4 +37,16 @@ angular.module('News').controller 'SettingsController',
 			console.error error
 			$scope.error = true
 
+
+	$scope.importGoogleReader = (fileContent) =>
+		$scope.jsonError = false
+		ShowAll.setShowAll(true)
+
+		try
+			parsedJSON = JSON.parse(fileContent)
+			FeedBusinessLayer.importGoogleReader(parsedJSON)
+		catch error
+			console.error error
+			$scope.jsonError = true
+
 ]

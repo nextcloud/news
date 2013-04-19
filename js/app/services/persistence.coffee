@@ -248,6 +248,14 @@ $rootScope) ->
 			@_request.post 'news_feeds_update', params
 
 
+		importGoogleReader: (json) ->
+			params =
+				data:
+					json: json
+
+			@_request.post 'news_feeds_import_googlereader', params
+
+
 		###
 			FOLDER CONTROLLER
 		###

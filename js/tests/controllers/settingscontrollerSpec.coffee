@@ -56,4 +56,31 @@ describe 'SettingsController', ->
 		@scope.import(xml)
 
 		expect(@ShowAll.getShowAll()).toBe(true)
-		
+
+
+	it 'should set showall to true if importing json', =>
+		json = "[\"test\"]"
+
+		@scope.importGoogleReader(json)
+
+		expect(@ShowAll.getShowAll()).toBe(true)
+
+
+	it 'should show an error if the json import failed', =>
+		json = 'test'
+
+		@scope.importGoogleReader(json)
+
+		expect(@scope.jsonError).toBe(true)
+
+
+	it 'should import json', =>
+		@FeedBusinessLayer.importGoogleReader = jasmine.createSpy('googlereader')
+		json = "{\"test\": \"abc\"}"
+
+		@scope.importGoogleReader(json)
+
+		expected = JSON.parse(json)
+		expect(@FeedBusinessLayer.importGoogleReader).toHaveBeenCalledWith(
+			expected
+		)
