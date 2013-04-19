@@ -73,6 +73,15 @@ class ExportControllerTest extends ControllerTestUtility {
 
 
 	public function testOpmlExportNoFeeds(){
+		$opml = 
+		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" .
+		"<opml version=\"2.0\">\n" .
+		"  <head>\n" .
+		"    <title>Subscriptions</title>\n" .
+		"  </head>\n" .
+		"  <body/>\n" .
+		"</opml>\n";
+
 		$this->api->expects($this->once())
 			->method('getUserId')
 			->will($this->returnValue($this->user));
@@ -87,12 +96,8 @@ class ExportControllerTest extends ControllerTestUtility {
 
 		$return = $this->controller->opml();
 		$this->assertTrue($return instanceof TextDownloadResponse);
-
-		// TODO: check if its empty xml structure
+		$this->assertEquals($opml, $return->render());
 	}
-
-
-	// TODO more tests for this
 
 
 }
