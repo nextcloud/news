@@ -6,7 +6,8 @@
 	class="starred">
 	<a class="starred-icon"
 		href="#"
-		ng-click="starredBusinessLayer.load(0)">
+		ng-click="starredBusinessLayer.load(0)"
+		oc-click-focus="{selector: '#app-content'}">
 	   <?php p($l->t('Starred')) ?>
 	</a>
 	<span class="utils">

@@ -19,7 +19,8 @@
 	   ng-class="{
 			'progress-icon': !folder.id,
 			'problem-icon': folder.error
-		}">
+		}"
+		oc-click-focus="{selector: '#app-content'}">
 	   {{ folder.name }}
 	</a>
 

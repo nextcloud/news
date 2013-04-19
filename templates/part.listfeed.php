@@ -21,7 +21,8 @@
 			'problem-icon': feed.error
 		}"
 	   	href="#"
-	   	class="title">
+	   	class="title"
+	   	oc-click-focus="{selector: '#app-content'}">
 	   	
 	   {{ feed.title }}
 	</a>

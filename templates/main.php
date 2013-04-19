@@ -45,7 +45,8 @@
 		}"
 		ng-controller="ItemController" 
 		news-item-scroll
-		item-shortcuts>
+		item-shortcuts
+		tabindex="-1">
 		<?php print_unescaped($this->inc("part.items")); ?>
 	</div>
 	

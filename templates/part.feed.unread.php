@@ -12,7 +12,8 @@
 		<a class="rss-icon" 
 	   href="#" 
 	   ui-if="feedBusinessLayer.isShowAll()"
-	   ng-click="subscriptionsBusinessLayer.load(0)">
+	   ng-click="subscriptionsBusinessLayer.load(0)"
+	   oc-click-focus="{selector: '#app-content'}">
 	   <?php p($l->t('All articles'))?>
 	</a>
 	<span class="utils">
