@@ -19,7 +19,6 @@
 "Starred" => "Preferiti",
 "Unread articles" => "Articoli non letti",
 "All articles" => "Tutti gli articoli",
-"Mark all read" => "Marca tutti come letti",
 "Save for later" => "Salva per dopo",
 "from" => "da",
 "by" => "da",

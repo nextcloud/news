@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-18 01:03+0200\n"
-"PO-Revision-Date: 2013-04-17 23:03+0000\n"
+"POT-Creation-Date: 2013-04-20 01:01+0200\n"
+"PO-Revision-Date: 2013-04-19 23:01+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/owncloud/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -26,11 +26,11 @@ msgstr ""
 msgid "News"
 msgstr "Nieuws"
 
-#: businesslayer/feedbusinesslayer.php:62
+#: businesslayer/feedbusinesslayer.php:66
 msgid "Can not add feed: Exists already"
 msgstr "Kan feed niet toevoegen: bestaat al"
 
-#: businesslayer/feedbusinesslayer.php:100
+#: businesslayer/feedbusinesslayer.php:104
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "Kan feed niet toevoegen: URL bestaat niet, of bevat geen geldige xml"
 
@@ -90,7 +90,7 @@ msgstr "Terug naar mappenselectie"
 msgid "Create folder"
 msgstr "Aanmaken map"
 
-#: templates/part.feed.starred.php:10
+#: templates/part.feed.starred.php:11
 msgid "Starred"
 msgstr "Ster gegeven"
 
@@ -98,40 +98,40 @@ msgstr "Ster gegeven"
 msgid "Unread articles"
 msgstr "Ongelezen artikelen"
 
-#: templates/part.feed.unread.php:16
+#: templates/part.feed.unread.php:17
 msgid "All articles"
 msgstr "Alle artikelen"
 
-#: templates/part.feed.unread.php:25 templates/part.listfeed.php:39
-#: templates/part.listfolder.php:41
-msgid "Mark all read"
-msgstr "Markeer alles als gelezen"
+#: templates/part.feed.unread.php:26 templates/part.listfeed.php:40
+#: templates/part.listfolder.php:43
+msgid "Mark read"
+msgstr ""
 
 #: templates/part.items.php:17
 msgid "Save for later"
 msgstr "Bewaren voor later"
 
-#: templates/part.items.php:29
+#: templates/part.items.php:31
 msgid "from"
 msgstr "van"
 
-#: templates/part.items.php:34
+#: templates/part.items.php:36
 msgid "by"
 msgstr "door"
 
-#: templates/part.items.php:42
+#: templates/part.items.php:44
 msgid "Cant play audio format"
 msgstr "Kan audiobestandsformaat niet afspelen"
 
-#: templates/part.items.php:55
+#: templates/part.items.php:57
 msgid "Keep unread"
 msgstr "Bewaar ongelezen"
 
-#: templates/part.listfeed.php:43
+#: templates/part.listfeed.php:45
 msgid "Delete feed"
 msgstr "Verwijder feed"
 
-#: templates/part.listfeed.php:48
+#: templates/part.listfeed.php:51
 msgid "Delete website"
 msgstr "Verwijder website"
 
@@ -139,11 +139,11 @@ msgstr "Verwijder website"
 msgid "Collapse"
 msgstr "Inklappen"
 
-#: templates/part.listfolder.php:31 templates/part.listfolder.php:45
+#: templates/part.listfolder.php:32 templates/part.listfolder.php:48
 msgid "Delete folder"
 msgstr "Verwijder map"
 
-#: templates/part.listfolder.php:50
+#: templates/part.listfolder.php:54
 msgid "Rename folder"
 msgstr "Hernoem map"
 
@@ -152,6 +152,7 @@ msgid "Import / Export OPML"
 msgstr "Import / Export OPML"
 
 #: templates/part.settings.php:17 templates/part.settings.php:19
+#: templates/part.settings.php:47 templates/part.settings.php:49
 msgid "Import"
 msgstr "Importeer"
 
@@ -163,6 +164,20 @@ msgstr "Exporteer"
 #: templates/part.settings.php:36
 msgid "Error when importing: file does not contain valid OPML"
 msgstr "Fout bij importeren: het bestand bevat geen geldige OPML"
+
+#: templates/part.settings.php:42
+msgid "Import Google Reader JSON"
+msgstr ""
+
+#: templates/part.settings.php:43
+msgid ""
+"To import starred and shared articles from Google \n"
+"\t\t\tReader please upload the .json files from the Google Takeout archive"
+msgstr ""
+
+#: templates/part.settings.php:53
+msgid "Error when importing: file does not contain valid JSON"
+msgstr ""
 
 #: templates/part.showall.php:2
 msgid "Show all"

@@ -19,7 +19,6 @@
 "Starred" => "共有",
 "Unread articles" => "未読の記事",
 "All articles" => "全ての記事",
-"Mark all read" => "すべて既読にする",
 "Save for later" => "一時保存",
 "from" => "から",
 "by" => "により",

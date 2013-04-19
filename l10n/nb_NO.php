@@ -8,7 +8,6 @@
 "Starred" => "Merket",
 "Unread articles" => "Uleste artikler",
 "All articles" => "Alle artikler",
-"Mark all read" => "Marker alle som lest",
 "from" => "fra",
 "Cant play audio format" => "Kan ikke spille av lydformat",
 "Keep unread" => "Merk som ulest",

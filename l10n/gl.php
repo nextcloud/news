@@ -19,7 +19,6 @@
 "Starred" => "Destacado",
 "Unread articles" => "Artigos sen ler",
 "All articles" => "Todos os artigos",
-"Mark all read" => "Marcar todo como lido",
 "Save for later" => "Gardar para máis tarde",
 "from" => "desde",
 "by" => "por",

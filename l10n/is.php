@@ -6,7 +6,6 @@
 "Choose folder" => "Veldu möppu",
 "Folder name" => "Nafn möppu",
 "Starred" => "Stjörnumerkt",
-"Mark all read" => "Merkja allt sem lesið",
 "from" => "frá",
 "by" => "af",
 "Keep unread" => "Halda sem ólesnu",

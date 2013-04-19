@@ -19,7 +19,6 @@
 "Starred" => "Markiert",
 "Unread articles" => "Ungelesene Artikel",
 "All articles" => "Alle Artikel",
-"Mark all read" => "Alles als gelesen kennzeichnen",
 "Save for later" => "Für später aufheben",
 "from" => "von",
 "by" => "von",

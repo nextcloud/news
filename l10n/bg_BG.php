@@ -6,7 +6,6 @@
 "Folder" => "Папка",
 "Unread articles" => "Нови статии",
 "All articles" => "Всички статии",
-"Mark all read" => "Маркирай всички като прочетени",
 "Delete folder" => "Изтриване на папка",
 "Rename folder" => "Преименуване на папка",
 "Import" => "Внасяне",

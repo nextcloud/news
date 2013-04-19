@@ -10,7 +10,6 @@
 "Starred" => "Estrelles",
 "Unread articles" => "Articles sense llegir",
 "All articles" => "Tots els articles",
-"Mark all read" => "Marca-ho tot com a llegit",
 "from" => "des de",
 "by" => "per",
 "Cant play audio format" => "No es pot reproduïr format d'àudio",

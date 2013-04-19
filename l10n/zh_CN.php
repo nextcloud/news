@@ -10,7 +10,6 @@
 "Starred" => "已加星标",
 "Unread articles" => "未读文章",
 "All articles" => "全部文章",
-"Mark all read" => "设置所有为已读",
 "from" => "来源",
 "by" => "被",
 "Cant play audio format" => "无法播放此音频格式",

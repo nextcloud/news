@@ -8,7 +8,6 @@
 "Starred" => "Starred",
 "Unread articles" => "Bài chưa đọc",
 "All articles" => "Mọi bài viết",
-"Mark all read" => "Đánh dấu tất cả đã đọc",
 "by" => "bởi",
 "Cant play audio format" => "Không thể chạy định dạng audio này",
 "Keep unread" => "Giữ chưa đọc",

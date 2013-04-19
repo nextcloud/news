@@ -19,7 +19,6 @@
 "Starred" => "Tähdellä varustettu",
 "Unread articles" => "Lukemattomat artikkelit",
 "All articles" => "Kaikki artikkelit",
-"Mark all read" => "Merkitse kaikki luetuksi",
 "Save for later" => "Tallenna luettavaksi myöhemmin",
 "from" => "lähettäjältä",
 "by" => "toimesta:",

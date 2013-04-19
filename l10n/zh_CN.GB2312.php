@@ -5,7 +5,6 @@
 "Folder" => "文件夹",
 "Folder name" => "文件夹名",
 "Starred" => "红心",
-"Mark all read" => "全部标记为已读",
 "by" => "由",
 "Keep unread" => "保持未读",
 "Delete feed" => "删除种子",

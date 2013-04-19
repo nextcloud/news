@@ -19,7 +19,6 @@
 "Starred" => "Ster gegeven",
 "Unread articles" => "Ongelezen artikelen",
 "All articles" => "Alle artikelen",
-"Mark all read" => "Markeer alles als gelezen",
 "Save for later" => "Bewaren voor later",
 "from" => "van",
 "by" => "door",

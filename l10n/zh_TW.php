@@ -10,7 +10,6 @@
 "Starred" => "星號",
 "Unread articles" => "未讀文章",
 "All articles" => "所有文章",
-"Mark all read" => "標記所有為已閱讀",
 "from" => "從",
 "by" => "由",
 "Cant play audio format" => "無法播放音頻格式",

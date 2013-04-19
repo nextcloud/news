@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-18 01:03+0200\n"
-"PO-Revision-Date: 2013-04-17 23:03+0000\n"
+"POT-Creation-Date: 2013-04-20 01:01+0200\n"
+"PO-Revision-Date: 2013-04-19 23:01+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Slovenian (http://www.transifex.com/projects/p/owncloud/language/sl/)\n"
 "MIME-Version: 1.0\n"
@@ -24,17 +24,17 @@ msgstr ""
 msgid "News"
 msgstr "Novice"
 
-#: businesslayer/feedbusinesslayer.php:62
+#: businesslayer/feedbusinesslayer.php:66
 msgid "Can not add feed: Exists already"
-msgstr ""
+msgstr "Vira ni mogoče dodati: ta že obstaja"
 
-#: businesslayer/feedbusinesslayer.php:100
+#: businesslayer/feedbusinesslayer.php:104
 msgid "Can not add feed: URL does not exist or has invalid xml"
-msgstr ""
+msgstr "Ni mogoče dodati vira: naslov URL ne obstaja ali pa je okvarjen zapis"
 
 #: businesslayer/folderbusinesslayer.php:55
 msgid "Can not add folder: Exists already"
-msgstr ""
+msgstr "Ni mogoče dodati mape: mapa že obstaja."
 
 #: templates/part.addnew.php:12
 msgid "Add Website"
@@ -42,19 +42,19 @@ msgstr "Dodaj spletišče"
 
 #: templates/part.addnew.php:19
 msgid "Error: address must not be empty!"
-msgstr ""
+msgstr "Napaka: naslov ne sme biti prazna vrednost!"
 
 #: templates/part.addnew.php:22
 msgid "Error: address exists already!"
-msgstr ""
+msgstr "Napaka: naslov že obstaja!"
 
 #: templates/part.addnew.php:25
 msgid "Error: folder name must not be empty!"
-msgstr ""
+msgstr "Napaka: ime mape ne sme biti prazna vrednost!"
 
 #: templates/part.addnew.php:28
 msgid "Error: folder exists already"
-msgstr ""
+msgstr "Napaka: mapa že obstaja!"
 
 #: templates/part.addnew.php:35
 msgid "Address"
@@ -82,13 +82,13 @@ msgstr "Ime mape"
 
 #: templates/part.addnew.php:67
 msgid "Back to folder selection"
-msgstr ""
+msgstr "Nazaj na odsek map"
 
 #: templates/part.addnew.php:72
 msgid "Create folder"
-msgstr ""
+msgstr "Ustvari mapo"
 
-#: templates/part.feed.starred.php:10
+#: templates/part.feed.starred.php:11
 msgid "Starred"
 msgstr "Z zvezdico"
 
@@ -96,52 +96,52 @@ msgstr "Z zvezdico"
 msgid "Unread articles"
 msgstr "Neprebrani prispevki"
 
-#: templates/part.feed.unread.php:16
+#: templates/part.feed.unread.php:17
 msgid "All articles"
 msgstr "Vsi prispevki"
 
-#: templates/part.feed.unread.php:25 templates/part.listfeed.php:39
-#: templates/part.listfolder.php:41
-msgid "Mark all read"
-msgstr "Označi vse kot prebrano"
+#: templates/part.feed.unread.php:26 templates/part.listfeed.php:40
+#: templates/part.listfolder.php:43
+msgid "Mark read"
+msgstr ""
 
 #: templates/part.items.php:17
 msgid "Save for later"
-msgstr ""
+msgstr "Shrani za kasneje"
 
-#: templates/part.items.php:29
+#: templates/part.items.php:31
 msgid "from"
 msgstr "od"
 
-#: templates/part.items.php:34
+#: templates/part.items.php:36
 msgid "by"
 msgstr "od"
 
-#: templates/part.items.php:42
+#: templates/part.items.php:44
 msgid "Cant play audio format"
 msgstr "Zvočnega zapisa ni mogoče predvajati"
 
-#: templates/part.items.php:55
+#: templates/part.items.php:57
 msgid "Keep unread"
 msgstr "Ohrani neprebrano"
 
-#: templates/part.listfeed.php:43
+#: templates/part.listfeed.php:45
 msgid "Delete feed"
 msgstr "Izbriši vir"
 
-#: templates/part.listfeed.php:48
+#: templates/part.listfeed.php:51
 msgid "Delete website"
-msgstr ""
+msgstr "Izbriši spletišče"
 
 #: templates/part.listfolder.php:14
 msgid "Collapse"
 msgstr "Skrči"
 
-#: templates/part.listfolder.php:31 templates/part.listfolder.php:45
+#: templates/part.listfolder.php:32 templates/part.listfolder.php:48
 msgid "Delete folder"
 msgstr "Izbriši mapo"
 
-#: templates/part.listfolder.php:50
+#: templates/part.listfolder.php:54
 msgid "Rename folder"
 msgstr "Preimenuj mapo"
 
@@ -150,6 +150,7 @@ msgid "Import / Export OPML"
 msgstr "Izvoz / Uvoz OPML"
 
 #: templates/part.settings.php:17 templates/part.settings.php:19
+#: templates/part.settings.php:47 templates/part.settings.php:49
 msgid "Import"
 msgstr "Uvozi"
 
@@ -160,6 +161,20 @@ msgstr "Izvozi"
 
 #: templates/part.settings.php:36
 msgid "Error when importing: file does not contain valid OPML"
+msgstr "Napaka med uvažanjem: datoteka ne vsebuje veljavnega OPML"
+
+#: templates/part.settings.php:42
+msgid "Import Google Reader JSON"
+msgstr ""
+
+#: templates/part.settings.php:43
+msgid ""
+"To import starred and shared articles from Google \n"
+"\t\t\tReader please upload the .json files from the Google Takeout archive"
+msgstr ""
+
+#: templates/part.settings.php:53
+msgid "Error when importing: file does not contain valid JSON"
 msgstr ""
 
 #: templates/part.showall.php:2

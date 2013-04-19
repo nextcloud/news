@@ -10,7 +10,6 @@
 "Starred" => "Markéret",
 "Unread articles" => "Ulæste artikler",
 "All articles" => "Alle artikler",
-"Mark all read" => "Marker alle som læst",
 "from" => "fra",
 "by" => "af",
 "Cant play audio format" => "Kan ikke afspille lydformatet",

@@ -10,7 +10,6 @@
 "Starred" => "Favoris",
 "Unread articles" => "Articles non lus",
 "All articles" => "Tous les articles",
-"Mark all read" => "Tout marquer comme lu",
 "from" => "de",
 "by" => "par",
 "Cant play audio format" => "Impossible de jouer ce format audio",

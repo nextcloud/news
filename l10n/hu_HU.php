@@ -10,7 +10,6 @@
 "Starred" => "Csillagozott",
 "Unread articles" => "Olvasatlan cikkek",
 "All articles" => "Az összes cikk",
-"Mark all read" => "Jelöljük meg az összeset olvasottként",
 "from" => "innen:",
 "by" => "általa:",
 "Cant play audio format" => "Ez az hangformátum nem játszható le",

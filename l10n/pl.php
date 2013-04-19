@@ -10,7 +10,6 @@
 "Starred" => "Oznaczone",
 "Unread articles" => "Nieprzeczytane artykuły",
 "All articles" => "Wszystkie artykuły",
-"Mark all read" => "Oznacz wszystkie jako przeczytane",
 "from" => "z",
 "by" => "przez",
 "Cant play audio format" => "Nie mogę odtworzyć formatu audio",

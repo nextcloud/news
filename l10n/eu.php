@@ -8,7 +8,6 @@
 "Starred" => "Izardunak",
 "Unread articles" => "Irakurri gabeko artikuluak",
 "All articles" => "Artikulu guztiak",
-"Mark all read" => "Markatu guztiak irakurrita",
 "from" => "lekua",
 "by" => " Egilea:",
 "Cant play audio format" => "Ezin da audio formatua erreproduzitu",

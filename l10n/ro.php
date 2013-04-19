@@ -5,7 +5,6 @@
 "Folder" => "Dosar",
 "Folder name" => "Denumire director",
 "Starred" => "Marcat",
-"Mark all read" => "Marchează toate ca citite",
 "from" => "de la",
 "by" => "după",
 "Keep unread" => "Păstrează necitite",

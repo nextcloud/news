@@ -10,7 +10,6 @@
 "Starred" => "Yıldızlı",
 "Unread articles" => "Okunmamış makaleler",
 "All articles" => "Bütün makaleler",
-"Mark all read" => "Tümünü okundu olarak işaretle",
 "by" => "tarafından",
 "Cant play audio format" => "ses dosyası formatı çalınamıyor",
 "Keep unread" => "Okunmamış bırak",

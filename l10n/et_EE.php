@@ -19,7 +19,6 @@
 "Starred" => "Tärniga märgitud",
 "Unread articles" => "Lugemata artiklid",
 "All articles" => "Kõik artiklid",
-"Mark all read" => "Märgi loetuks",
 "Save for later" => "Salvesta hilisemaks",
 "from" => "kohast",
 "by" => "lisas",

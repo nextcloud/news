@@ -10,7 +10,6 @@
 "Starred" => "Stjärnmärkt",
 "Unread articles" => "Olästa artiklar",
 "All articles" => "Alla artiklar",
-"Mark all read" => "Markera alla som lästa",
 "from" => "Från",
 "by" => "av",
 "Cant play audio format" => "Kan inte spela ljudformat",

@@ -10,7 +10,6 @@
 "Starred" => "dibintangi",
 "Unread articles" => "Artikel belum dibaca",
 "All articles" => "Semua artikel",
-"Mark all read" => "Tandai terbaca semua",
 "from" => "dari",
 "by" => "oleh",
 "Cant play audio format" => "Tidak dapat memainkan format audio",

@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-18 01:03+0200\n"
-"PO-Revision-Date: 2013-04-17 23:03+0000\n"
+"POT-Creation-Date: 2013-04-20 01:01+0200\n"
+"PO-Revision-Date: 2013-04-19 23:01+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/owncloud/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -27,11 +27,11 @@ msgstr ""
 msgid "News"
 msgstr "新闻"
 
-#: businesslayer/feedbusinesslayer.php:62
+#: businesslayer/feedbusinesslayer.php:66
 msgid "Can not add feed: Exists already"
 msgstr ""
 
-#: businesslayer/feedbusinesslayer.php:100
+#: businesslayer/feedbusinesslayer.php:104
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr ""
 
@@ -91,7 +91,7 @@ msgstr ""
 msgid "Create folder"
 msgstr ""
 
-#: templates/part.feed.starred.php:10
+#: templates/part.feed.starred.php:11
 msgid "Starred"
 msgstr "已加星标"
 
@@ -99,40 +99,40 @@ msgstr "已加星标"
 msgid "Unread articles"
 msgstr "未读文章"
 
-#: templates/part.feed.unread.php:16
+#: templates/part.feed.unread.php:17
 msgid "All articles"
 msgstr "全部文章"
 
-#: templates/part.feed.unread.php:25 templates/part.listfeed.php:39
-#: templates/part.listfolder.php:41
-msgid "Mark all read"
-msgstr "设置所有为已读"
+#: templates/part.feed.unread.php:26 templates/part.listfeed.php:40
+#: templates/part.listfolder.php:43
+msgid "Mark read"
+msgstr ""
 
 #: templates/part.items.php:17
 msgid "Save for later"
 msgstr ""
 
-#: templates/part.items.php:29
+#: templates/part.items.php:31
 msgid "from"
 msgstr "来源"
 
-#: templates/part.items.php:34
+#: templates/part.items.php:36
 msgid "by"
 msgstr "被"
 
-#: templates/part.items.php:42
+#: templates/part.items.php:44
 msgid "Cant play audio format"
 msgstr "无法播放此音频格式"
 
-#: templates/part.items.php:55
+#: templates/part.items.php:57
 msgid "Keep unread"
 msgstr "保持未读"
 
-#: templates/part.listfeed.php:43
+#: templates/part.listfeed.php:45
 msgid "Delete feed"
 msgstr "删除Feed"
 
-#: templates/part.listfeed.php:48
+#: templates/part.listfeed.php:51
 msgid "Delete website"
 msgstr ""
 
@@ -140,11 +140,11 @@ msgstr ""
 msgid "Collapse"
 msgstr "折叠"
 
-#: templates/part.listfolder.php:31 templates/part.listfolder.php:45
+#: templates/part.listfolder.php:32 templates/part.listfolder.php:48
 msgid "Delete folder"
 msgstr "删除目录"
 
-#: templates/part.listfolder.php:50
+#: templates/part.listfolder.php:54
 msgid "Rename folder"
 msgstr "重命名目录"
 
@@ -153,6 +153,7 @@ msgid "Import / Export OPML"
 msgstr "导入 / 导出 OPML"
 
 #: templates/part.settings.php:17 templates/part.settings.php:19
+#: templates/part.settings.php:47 templates/part.settings.php:49
 msgid "Import"
 msgstr "导入"
 
@@ -163,6 +164,20 @@ msgstr "导出"
 
 #: templates/part.settings.php:36
 msgid "Error when importing: file does not contain valid OPML"
+msgstr ""
+
+#: templates/part.settings.php:42
+msgid "Import Google Reader JSON"
+msgstr ""
+
+#: templates/part.settings.php:43
+msgid ""
+"To import starred and shared articles from Google \n"
+"\t\t\tReader please upload the .json files from the Google Takeout archive"
+msgstr ""
+
+#: templates/part.settings.php:53
+msgid "Error when importing: file does not contain valid JSON"
 msgstr ""
 
 #: templates/part.showall.php:2

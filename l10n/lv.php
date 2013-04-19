@@ -8,7 +8,6 @@
 "Starred" => "Svarīgs",
 "Unread articles" => "Nelasītie raksti",
 "All articles" => "Visi raksti",
-"Mark all read" => "Atzīmēt visu kā lasītu",
 "by" => "līdz",
 "Cant play audio format" => "Nevar atskaņot audio formātu",
 "Keep unread" => "Atstāt nelasītu",

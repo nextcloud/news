@@ -10,7 +10,6 @@
 "Starred" => "별표",
 "Unread articles" => "읽지 않은 항목",
 "All articles" => "모든 항목",
-"Mark all read" => "모두 읽은 글로 표시",
 "from" => "원본 사이트",
 "by" => "작성:",
 "Cant play audio format" => "오디오 포맷을 재생할 수 없습니다.",

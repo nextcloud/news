@@ -19,7 +19,6 @@
 "Starred" => "S hvězdičkou",
 "Unread articles" => "Nepřečtené články",
 "All articles" => "Všechny články",
-"Mark all read" => "Označit vše jako přečtené",
 "Save for later" => "Uložit na později",
 "from" => "z",
 "by" => "sdílí",

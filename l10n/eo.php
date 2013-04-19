@@ -5,7 +5,6 @@
 "Folder" => "Dosierujo",
 "Folder name" => "Dosierujnomo",
 "Starred" => "Markita",
-"Mark all read" => "Marki ĉion kiel legita",
 "from" => "el",
 "by" => "de",
 "Keep unread" => "Lasi legota",
