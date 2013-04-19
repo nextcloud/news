@@ -37,4 +37,22 @@
 		</p>
 
 	</fieldset>
+
+	<fieldset class="personalblock">
+		<legend><strong><?php p($l->t('Import Google Reader JSON')); ?></strong></legend>
+		<p><?php p($l->t('To import starred and shared articles from Google 
+			Reader please upload the .json files from the Google Takeout archive')); ?>
+		<input type="file" id="google-upload" name="importgoogle" 
+				oc-read-file="importGoogleReader($fileContent)"/>
+		<button title="<?php p($l->t('Import')); ?>" 
+			oc-forward-click="{selector:'#google-upload'}">
+			<?php p($l->t('Import')); ?>
+		</button>
+
+		<p class="error" ng-show="error">
+			<?php p($l->t('Error when importing: file does not contain valid OPML')); ?>
+		</p>
+
+	</fieldset>
+</div>
 </div>
