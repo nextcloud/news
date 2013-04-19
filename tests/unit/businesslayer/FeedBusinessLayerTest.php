@@ -480,6 +480,26 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 	}
 
 
+	public function testUpdateDoesntUpdateIfFeedIsPrevented() {
+		$feedId = 3;
+		$folderId = 4;
+		$feed = new Feed();
+		$feed->setFolderId(16);
+		$feed->setId($feedId);
+		$feed->setPreventUpdate(true);
+
+		$this->mapper->expects($this->once())
+			->method('find')
+			->with($this->equalTo($feedId), 
+				$this->equalTo($this->user))
+			->will($this->returnValue($feed));
+		$this->fetcher->expects($this->never())
+			->method('fetch');
+
+		$this->businessLayer->update($feedId, $this->user);
+	}
+
+
 	public function testMove(){
 		$feedId = 3;
 		$folderId = 4;

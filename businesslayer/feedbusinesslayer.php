@@ -118,18 +118,21 @@ class FeedBusinessLayer extends BusinessLayer {
 	public function update($feedId, $userId){
 		try {
 			$existingFeed = $this->mapper->find($feedId, $userId);
-			try {
-				list($feed, $items) = $this->feedFetcher->fetch($existingFeed->getUrl());
 
-				// insert items in reverse order because the first one is usually the
-				// newest item
+			if($existingFeed->getPreventUpdate() === true) {
+				return;
+			}
+
+			try {
+				list($feed, $items) = $this->feedFetcher->fetch(
+					$existingFeed->getUrl());
+
+				// insert items in reverse order because the first one is usually 
+				// the newest item
 				for($i=count($items)-1; $i>=0; $i--){
 					$item = $items[$i];
 					$item->setFeedId($existingFeed->getId());
 
-					// if a doesnotexist exception is being thrown the entry does not 
-					// exist and the item needs to be created, otherwise
-					// update it
 					try {
 						$existing = $this->itemMapper->findByGuidHash(
 							$item->getGuidHash(), $feedId, $userId);

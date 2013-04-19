@@ -111,6 +111,12 @@
 				<type>integer</type>
 				<notnull>true</notnull>
 			</field>
+			<field>
+				<name>preventUpdate</name>
+				<type>boolean</type>
+				<default>false</default>
+				<notnull>true</notnull>
+			</field>
 
 			<index>
 				<name>news_feeds_user_id_index</name>
