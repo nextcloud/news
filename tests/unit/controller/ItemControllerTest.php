@@ -30,6 +30,7 @@ use \OCA\AppFramework\Http\JSONResponse;
 use \OCA\AppFramework\Utility\ControllerTestUtility;
 
 use \OCA\News\Db\Item;
+use \OCA\News\Db\Feed;
 use \OCA\News\Db\FeedType;
 
 require_once(__DIR__ . "/../../classloader.php");
@@ -39,6 +40,7 @@ class ItemControllerTest extends ControllerTestUtility {
 
 	private $api;
 	private $itemBusinessLayer;
+	private $feedBusinessLayer;
 	private $request;
 	private $controller;
 
@@ -48,12 +50,17 @@ class ItemControllerTest extends ControllerTestUtility {
 	 */
 	public function setUp(){
 		$this->api = $this->getAPIMock();
-		$this->itemBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\ItemBusinessLayer')
+		$this->itemBusinessLayer = 
+		$this->getMockBuilder('\OCA\News\BusinessLayer\ItemBusinessLayer')
+			->disableOriginalConstructor()
+			->getMock();
+		$this->feedBusinessLayer = 
+		$this->getMockBuilder('\OCA\News\BusinessLayer\FeedBusinessLayer')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->request = new Request();
 		$this->controller = new ItemController($this->api, $this->request,
-				$this->itemBusinessLayer);
+				$this->itemBusinessLayer, $this->feedBusinessLayer);
 		$this->user = 'jackob';
 	}
 
@@ -64,7 +71,8 @@ class ItemControllerTest extends ControllerTestUtility {
 		);
 
 		$request = $this->getRequest($post);
-		return new ItemController($this->api, $request, $this->itemBusinessLayer);
+		return new ItemController($this->api, $request, $this->itemBusinessLayer,
+			$this->feedBusinessLayer);
 	}
 
 
@@ -258,8 +266,10 @@ class ItemControllerTest extends ControllerTestUtility {
 
 
 	public function testItems(){
+		$feeds = array(new Feed());
 		$result = array(
-			'items' => array(new Item())
+			'items' => array(new Item()),
+			'feeds' => $feeds
 		);
 		$post = array(
 			'limit' => 3,
@@ -277,11 +287,44 @@ class ItemControllerTest extends ControllerTestUtility {
 				$post['offset'], true, $this->user)
 			->will($this->returnValue($result['items']));
 
+		$this->feedBusinessLayer->expects($this->once())
+			->method('findAll')
+			->with($this->equalTo($this->user))
+			->will($this->returnValue($feeds));
+
 		$response = $this->controller->items();
 		$this->assertEquals($result, $response->getParams());
 		$this->assertTrue($response instanceof JSONResponse);
 	}
 
+
+	public function testItemsDoesNotReturnFeedsIfOffsetNotZero(){
+		$result = array(
+			'items' => array(new Item())
+		);
+		$post = array(
+			'limit' => 3,
+			'type' => FeedType::FEED,
+			'id' => 2,
+			'offset' => 10 
+		);
+		$this->controller = $this->getPostController($post);
+
+		$this->itemsApiExpects($post['id'], $post['type']);
+
+		$this->itemBusinessLayer->expects($this->once())
+			->method('findAll')
+			->with($post['id'], $post['type'], $post['limit'], 
+				$post['offset'], true, $this->user)
+			->will($this->returnValue($result['items']));
+
+		$this->feedBusinessLayer->expects($this->never())
+			->method('findAll');
+
+		$response = $this->controller->items();
+		$this->assertEquals($result, $response->getParams());
+		$this->assertTrue($response instanceof JSONResponse);
+	}
 
 	public function testItemsNew(){
 		$result = array(

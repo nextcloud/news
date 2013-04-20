@@ -30,16 +30,20 @@ use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Http\Request;
 
 use \OCA\News\BusinessLayer\ItemBusinessLayer;
+use \OCA\News\BusinessLayer\FeedBusinessLayer;
 
 
 class ItemController extends Controller {
 
 	private $itemBusinessLayer;
+	private $feedBusinessLayer;
 
 	public function __construct(API $api, Request $request, 
-		                        ItemBusinessLayer $itemBusinessLayer){
+		                        ItemBusinessLayer $itemBusinessLayer,
+		                        FeedBusinessLayer $feedBusinessLayer){
 		parent::__construct($api, $request);
 		$this->itemBusinessLayer = $itemBusinessLayer;
+		$this->feedBusinessLayer = $feedBusinessLayer;
 	}
 
 
@@ -63,6 +67,9 @@ class ItemController extends Controller {
 			$offset = (int) $this->params('offset', 0);
 			$items = $this->itemBusinessLayer->findAll($id, $type, (int) $limit, 
 				                                       $offset, $showAll, $userId);
+			if($offset === 0) {
+				$feeds = $this->feedBusinessLayer->findAll($userId);
+			}
 		} else {
 			$updatedSince = (int) $this->params('updatedSince');
 			$items = $this->itemBusinessLayer->findAllNew($id, $type, 
@@ -72,6 +79,12 @@ class ItemController extends Controller {
 		$params = array(
 			'items' => $items
 		);
+
+		// we need to pass the newest feeds to not let the unread count get out
+		// of sync
+		if(isset($feeds)) {
+			$params['feeds'] = $feeds;
+		}
 
 		return $this->renderJSON($params);
 	}
