@@ -19,6 +19,7 @@
 "Starred" => "Markiert",
 "Unread articles" => "Ungelesene Artikel",
 "All articles" => "Alle Artikel",
+"Mark read" => "Als gelesen markieren",
 "Save for later" => "Für später aufheben",
 "from" => "von",
 "by" => "von",
@@ -33,6 +34,9 @@
 "Import" => "Importieren",
 "Export" => "Exportieren",
 "Error when importing: file does not contain valid OPML" => "Fehler beim Importieren: Datei enthält kein gültiges OPML",
+"Import Google Reader JSON" => "Google Reader JSON importieren",
+"To import starred and shared articles from Google \n\t\t\tReader please upload the .json files from the Google Takeout archive" => "Um markierte und geteilte Artikel aus dem Google Reader\n\t\t\tzu importieren lade bitte die .json Dateien aus dem Google Takeout Archiv hoch",
+"Error when importing: file does not contain valid JSON" => "Fehler beim Importieren: Datei enthält kein gültiges JSON",
 "Show all" => "Alle anzeigen",
 "Show only unread" => "Nur Ungelesene anzeigen"
 );

@@ -19,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-20 01:01+0200\n"
-"PO-Revision-Date: 2013-04-19 23:01+0000\n"
-"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"POT-Creation-Date: 2013-04-21 01:04+0200\n"
+"PO-Revision-Date: 2013-04-20 11:40+0000\n"
+"Last-Translator: Romain DEP. <rom1dep@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/owncloud/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,15 +35,15 @@ msgstr "Abonnements"
 
 #: businesslayer/feedbusinesslayer.php:66
 msgid "Can not add feed: Exists already"
-msgstr ""
+msgstr "Impossible d'ajouter le flux : Déjà présent"
 
 #: businesslayer/feedbusinesslayer.php:104
 msgid "Can not add feed: URL does not exist or has invalid xml"
-msgstr ""
+msgstr "Impossible d'ajouter le flux : l'URL n'existe pas ou pointe vers un document xml invalide"
 
 #: businesslayer/folderbusinesslayer.php:55
 msgid "Can not add folder: Exists already"
-msgstr ""
+msgstr "Impossible d'ajouter le dossier : Déjà présent"
 
 #: templates/part.addnew.php:12
 msgid "Add Website"
@@ -51,19 +51,19 @@ msgstr "Ajouter une page web"
 
 #: templates/part.addnew.php:19
 msgid "Error: address must not be empty!"
-msgstr ""
+msgstr "Erreur : l'adresse ne doit pas être vide !"
 
 #: templates/part.addnew.php:22
 msgid "Error: address exists already!"
-msgstr ""
+msgstr "Erreur : cette adresse est déjà présente !"
 
 #: templates/part.addnew.php:25
 msgid "Error: folder name must not be empty!"
-msgstr ""
+msgstr "Erreur : le nom de dossier ne doit pas être vide !"
 
 #: templates/part.addnew.php:28
 msgid "Error: folder exists already"
-msgstr ""
+msgstr "Erreur : un dossier du même nom existe déjà"
 
 #: templates/part.addnew.php:35
 msgid "Address"
@@ -91,15 +91,15 @@ msgstr "Nom du dossier"
 
 #: templates/part.addnew.php:67
 msgid "Back to folder selection"
-msgstr ""
+msgstr "Retour à la sélection du dossier"
 
 #: templates/part.addnew.php:72
 msgid "Create folder"
-msgstr ""
+msgstr "Créer un dossier"
 
 #: templates/part.feed.starred.php:11
 msgid "Starred"
-msgstr "Favoris"
+msgstr "Épinglé"
 
 #: templates/part.feed.unread.php:10
 msgid "Unread articles"
@@ -109,38 +109,38 @@ msgstr "Articles non lus"
 msgid "All articles"
 msgstr "Tous les articles"
 
-#: templates/part.feed.unread.php:26 templates/part.listfeed.php:40
+#: templates/part.feed.unread.php:26 templates/part.listfeed.php:41
 #: templates/part.listfolder.php:43
 msgid "Mark read"
-msgstr ""
+msgstr "Marquer comme lu"
 
 #: templates/part.items.php:17
 msgid "Save for later"
-msgstr ""
+msgstr "Sauvegarder pour plus tard"
 
-#: templates/part.items.php:31
+#: templates/part.items.php:33
 msgid "from"
 msgstr "de"
 
-#: templates/part.items.php:36
+#: templates/part.items.php:38
 msgid "by"
 msgstr "par"
 
-#: templates/part.items.php:44
+#: templates/part.items.php:46
 msgid "Cant play audio format"
 msgstr "Impossible de jouer ce format audio"
 
-#: templates/part.items.php:57
+#: templates/part.items.php:59
 msgid "Keep unread"
 msgstr "Garder non lu"
 
-#: templates/part.listfeed.php:45
+#: templates/part.listfeed.php:46
 msgid "Delete feed"
 msgstr "Supprimer le flux"
 
-#: templates/part.listfeed.php:51
+#: templates/part.listfeed.php:52
 msgid "Delete website"
-msgstr ""
+msgstr "Supprimer cette page web"
 
 #: templates/part.listfolder.php:14
 msgid "Collapse"
@@ -170,21 +170,21 @@ msgstr "Exporter"
 
 #: templates/part.settings.php:36
 msgid "Error when importing: file does not contain valid OPML"
-msgstr ""
+msgstr "Erreur lors de l'import : le fichier spécifié n'est pas un fichier OPML valide"
 
 #: templates/part.settings.php:42
 msgid "Import Google Reader JSON"
-msgstr ""
+msgstr "Importer depuis le format JSON de Google Reader"
 
 #: templates/part.settings.php:43
 msgid ""
 "To import starred and shared articles from Google \n"
 "\t\t\tReader please upload the .json files from the Google Takeout archive"
-msgstr ""
+msgstr "Pour importer les articles épinglés et partagés depuis Google \n\t\t\tReader, veuillez importer les fichiers .json récupérés depuis l'archive Google Takeout"
 
 #: templates/part.settings.php:53
 msgid "Error when importing: file does not contain valid JSON"
-msgstr ""
+msgstr "Erreur lors de l'import : le fichier spécifié n'est pas un fichier JSON valide"
 
 #: templates/part.showall.php:2
 msgid "Show all"

@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-20 01:01+0200\n"
-"PO-Revision-Date: 2013-04-19 23:01+0000\n"
-"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"POT-Creation-Date: 2013-04-21 01:04+0200\n"
+"PO-Revision-Date: 2013-04-20 18:20+0000\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish (Finland) (http://www.transifex.com/projects/p/owncloud/language/fi_FI/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -100,36 +100,36 @@ msgstr "Lukemattomat artikkelit"
 msgid "All articles"
 msgstr "Kaikki artikkelit"
 
-#: templates/part.feed.unread.php:26 templates/part.listfeed.php:40
+#: templates/part.feed.unread.php:26 templates/part.listfeed.php:41
 #: templates/part.listfolder.php:43
 msgid "Mark read"
-msgstr ""
+msgstr "Merkitse luetuksi"
 
 #: templates/part.items.php:17
 msgid "Save for later"
 msgstr "Tallenna luettavaksi myöhemmin"
 
-#: templates/part.items.php:31
+#: templates/part.items.php:33
 msgid "from"
 msgstr "lähettäjältä"
 
-#: templates/part.items.php:36
+#: templates/part.items.php:38
 msgid "by"
 msgstr "toimesta:"
 
-#: templates/part.items.php:44
+#: templates/part.items.php:46
 msgid "Cant play audio format"
 msgstr "Äänimuodon toistaminen ei onnistu"
 
-#: templates/part.items.php:57
+#: templates/part.items.php:59
 msgid "Keep unread"
 msgstr "Pidä ei-luettuna"
 
-#: templates/part.listfeed.php:45
+#: templates/part.listfeed.php:46
 msgid "Delete feed"
 msgstr "Poista syöte"
 
-#: templates/part.listfeed.php:51
+#: templates/part.listfeed.php:52
 msgid "Delete website"
 msgstr "Poista verkkosivusto"
 
@@ -165,17 +165,17 @@ msgstr "Virhe tuonnissa: tiedostossa ei ole kelvollista OPML:ää"
 
 #: templates/part.settings.php:42
 msgid "Import Google Reader JSON"
-msgstr ""
+msgstr "Tuo Google Reader JSON"
 
 #: templates/part.settings.php:43
 msgid ""
 "To import starred and shared articles from Google \n"
 "\t\t\tReader please upload the .json files from the Google Takeout archive"
-msgstr ""
+msgstr "Tuo tähdellä varustetut ja jaetut artikkelit Google \n\t\t\t-syötteenlukijasta lataamalla .json-tiedostot Google Takeout -arkistosta"
 
 #: templates/part.settings.php:53
 msgid "Error when importing: file does not contain valid JSON"
-msgstr ""
+msgstr "Virhe tuotaessa: tiedosto ei sisällä kelvollista JSON:ia"
 
 #: templates/part.showall.php:2
 msgid "Show all"

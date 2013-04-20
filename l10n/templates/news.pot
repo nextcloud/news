@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud news 5.0.0\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2013-04-20 01:01+0200\n"
+"POT-Creation-Date: 2013-04-21 01:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -97,7 +97,7 @@ msgstr ""
 msgid "All articles"
 msgstr ""
 
-#: templates/part.feed.unread.php:26 templates/part.listfeed.php:40
+#: templates/part.feed.unread.php:26 templates/part.listfeed.php:41
 #: templates/part.listfolder.php:43
 msgid "Mark read"
 msgstr ""
@@ -106,27 +106,27 @@ msgstr ""
 msgid "Save for later"
 msgstr ""
 
-#: templates/part.items.php:31
+#: templates/part.items.php:33
 msgid "from"
 msgstr ""
 
-#: templates/part.items.php:36
+#: templates/part.items.php:38
 msgid "by"
 msgstr ""
 
-#: templates/part.items.php:44
+#: templates/part.items.php:46
 msgid "Cant play audio format"
 msgstr ""
 
-#: templates/part.items.php:57
+#: templates/part.items.php:59
 msgid "Keep unread"
 msgstr ""
 
-#: templates/part.listfeed.php:45
+#: templates/part.listfeed.php:46
 msgid "Delete feed"
 msgstr ""
 
-#: templates/part.listfeed.php:51
+#: templates/part.listfeed.php:52
 msgid "Delete website"
 msgstr ""
 
