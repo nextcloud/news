@@ -55,4 +55,7 @@ if(\OCP\App::isEnabled('appframework')){
 
 	$api->addRegularTask('OCA\News\Backgroundjob\Task', 'run');
 
+} else {
+	$msg = 'Can not enable the News app because the App Framework App is disabled';
+	\OCP\Util::writeLog('news', $msg, \OCP\Util::ERROR);
 }
