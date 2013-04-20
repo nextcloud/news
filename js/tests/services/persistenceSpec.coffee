@@ -32,8 +32,13 @@ describe 'Persistence', ->
 		@config =
 			itemBatchSize: 3
 
+		@feedLoading =
+			increase: jasmine.createSpy('feedLoading increase')
+			decrease: jasmine.createSpy('feedLoading decrease')
+
 		$provide.value 'Request', @req
 		$provide.value 'Config', @config
+		$provide.value 'FeedLoading', @feedLoading
 		return
 
 
@@ -163,6 +168,12 @@ describe 'Persistence', ->
 			onFailure: jasmine.any(Function)
 
 		expect(@req.get).toHaveBeenCalledWith('news_feeds', expected)
+
+
+	it 'should not show loading sign if disabled', =>
+		success = ->
+		@Persistence.getAllFeeds(success, false)
+		expect(@feedLoading.increase).not.toHaveBeenCalled()
 
 
 	it 'create a correct request for moving a feed', =>

@@ -166,12 +166,6 @@ FeedModel, NewLoading, _ExistsError, Utils) ->
 			@_feedModel.removeByUrl(url)
 
 
-		updateFeeds: ->
-			for feed in @_feedModel.getAll()
-				if angular.isDefined(feed.id)
-					@_persistence.updateFeed(feed.id)
-
-
 		importGoogleReader: (json) ->
 			url = 'http://owncloud/googlereader'  # hardcoded
 

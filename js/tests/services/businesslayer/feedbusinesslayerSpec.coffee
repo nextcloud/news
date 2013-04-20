@@ -329,24 +329,6 @@ describe 'FeedBusinessLayer', ->
 		expect(@FeedModel.getByUrl('john')).toBe(undefined)
 
 
-	it 'should update all feeds', =>
-		@persistence.updateFeed = jasmine.createSpy('update')
-		@FeedModel.add({id: 3, url: 'john'})
-
-		@FeedBusinessLayer.updateFeeds()
-
-		expect(@persistence.updateFeed).toHaveBeenCalledWith(3)
-
-
-	it 'should not update feeds without ids', =>
-		@persistence.updateFeed = jasmine.createSpy('update')
-		@FeedModel.add({url: 'john'})
-
-		@FeedBusinessLayer.updateFeeds()
-
-		expect(@persistence.updateFeed).not.toHaveBeenCalled()
-
-
 	it 'should not import google reader json', =>
 		@persistence.importGoogleReader = jasmine.createSpy('importGoogleReader')
 

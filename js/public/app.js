@@ -41,17 +41,17 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     return $provide.value('Config', config = {
       markReadTimeout: 500,
       scrollTimeout: 500,
-      feedUpdateInterval: 600000,
+      feedUpdateInterval: 1000 * 60 * 10,
       itemBatchSize: 20,
       autoPageFactor: 6
     });
   });
 
   angular.module('News').run([
-    'Persistence', 'Config', 'FeedBusinessLayer', function(Persistence, Config, FeedBusinessLayer) {
+    'Persistence', 'Config', function(Persistence, Config) {
       Persistence.init();
       return setInterval(function() {
-        return FeedBusinessLayer.updateFeeds();
+        return Persistence.getAllFeeds();
       }, Config.feedUpdateInterval);
     }
   ]);
@@ -894,22 +894,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
         FeedBusinessLayer.prototype.markErrorRead = function(url) {
           return this._feedModel.removeByUrl(url);
-        };
-
-        FeedBusinessLayer.prototype.updateFeeds = function() {
-          var feed, _i, _len, _ref, _results;
-
-          _ref = this._feedModel.getAll();
-          _results = [];
-          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            feed = _ref[_i];
-            if (angular.isDefined(feed.id)) {
-              _results.push(this._persistence.updateFeed(feed.id));
-            } else {
-              _results.push(void 0);
-            }
-          }
-          return _results;
         };
 
         FeedBusinessLayer.prototype.importGoogleReader = function(json) {
@@ -2424,19 +2408,29 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         */
 
 
-        Persistence.prototype.getAllFeeds = function(onSuccess) {
+        Persistence.prototype.getAllFeeds = function(onSuccess, showLoading) {
           var failureCallbackWrapper, params, successCallbackWrapper,
             _this = this;
 
+          if (showLoading == null) {
+            showLoading = true;
+          }
           onSuccess || (onSuccess = function() {});
-          this._feedLoading.increase();
-          successCallbackWrapper = function(data) {
-            onSuccess();
-            return _this._feedLoading.decrease();
-          };
-          failureCallbackWrapper = function(data) {
-            return _this._feedLoading.decrease();
-          };
+          if (showLoading) {
+            this._feedLoading.increase();
+            successCallbackWrapper = function(data) {
+              onSuccess();
+              return _this._feedLoading.decrease();
+            };
+            failureCallbackWrapper = function(data) {
+              return _this._feedLoading.decrease();
+            };
+          } else {
+            successCallbackWrapper = function(data) {
+              return onSuccess();
+            };
+            failureCallbackWrapper = function(data) {};
+          }
           params = {
             onSuccess: successCallbackWrapper,
             onFailure: failureCallbackWrapper
