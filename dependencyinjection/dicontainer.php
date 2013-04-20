@@ -116,7 +116,7 @@ class DIContainer extends BaseContainer {
 
 		$this['ItemBusinessLayer'] = $this->share(function($c){
 			return new ItemBusinessLayer($c['ItemMapper'], $c['StatusFlag'],
-								$c['autoPurgeCount']);
+								$c['TimeFactory'], $c['autoPurgeCount']);
 		});
 
 

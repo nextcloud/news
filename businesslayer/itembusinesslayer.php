@@ -25,6 +25,8 @@
 
 namespace OCA\News\BusinessLayer;
 
+use \OCA\AppFramework\Utility\TimeFactory;
+
 use \OCA\News\Db\Item;
 use \OCA\News\Db\ItemMapper;
 use \OCA\News\Db\StatusFlag;
@@ -35,12 +37,14 @@ class ItemBusinessLayer extends BusinessLayer {
 
 	private $statusFlag;
 	private $autoPurgeCount;
+	private $timeFactory;
 
 	public function __construct(ItemMapper $itemMapper, StatusFlag $statusFlag,
-								$autoPurgeCount=0){
+								TimeFactory $timeFactory, $autoPurgeCount=0){
 		parent::__construct($itemMapper);
 		$this->statusFlag = $statusFlag;
 		$this->autoPurgeCount = $autoPurgeCount;
+		$this->timeFactory = $timeFactory;
 	}
 
 
@@ -96,6 +100,7 @@ class ItemBusinessLayer extends BusinessLayer {
 	public function star($feedId, $guidHash, $isStarred, $userId){
 		// FIXME: this can throw two possible exceptions
 		$item = $this->mapper->findByGuidHash($guidHash, $feedId, $userId);
+		$item->setLastModified($this->timeFactory->getTime());
 		if($isStarred){
 			$item->setStarred();
 		} else {
@@ -107,6 +112,7 @@ class ItemBusinessLayer extends BusinessLayer {
 
 	public function read($itemId, $isRead, $userId){
 		$item = $this->find($itemId, $userId);
+		$item->setLastModified($this->timeFactory->getTime());
 		if($isRead){
 			$item->setRead();	
 		} else {

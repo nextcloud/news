@@ -41,9 +41,18 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 	private $user;
 	private $response;
 	private $status;
+	private $time;
 
 
 	protected function setUp(){
+		$this->time = 222;
+		$timeFactory = $this->getMockBuilder(
+			'\OCA\AppFramework\Utility\TimeFactory')
+			->disableOriginalConstructor()
+			->getMock();
+		$timeFactory->expects($this->any())
+			->method('getTime')
+			->will($this->returnValue($this->time));
 		$this->api = $this->getAPIMock();
 		$this->mapper = $this->getMockBuilder('\OCA\News\Db\ItemMapper')
 			->disableOriginalConstructor()
@@ -56,7 +65,8 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('typeToStatus')
 			->will($this->returnValue($this->status));
 		$this->threshold = 2;
-		$this->itemBusinessLayer = new ItemBusinessLayer($this->mapper, $statusFlag, $this->threshold);
+		$this->itemBusinessLayer = new ItemBusinessLayer($this->mapper, 
+			$statusFlag, $timeFactory, $this->threshold);
 		$this->user = 'jack';
 		$response = 'hi';
 		$this->id = 3;
@@ -188,12 +198,20 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 
 	public function testStar(){
-		$feedId = 3;
+		$itemId = 3;
+		$feedId = 5;
 		$guidHash = md5('hihi');
 
 		$item = new Item();
 		$item->setStatus(128);
-		$item->setId($feedId);
+		$item->setId($itemId);
+		$item->setUnstarred();
+
+		$expectedItem = new Item();
+		$expectedItem->setStatus(128);
+		$expectedItem->setStarred();
+		$expectedItem->setId($itemId);
+		$expectedItem->setLastModified($this->time);
 
 		$this->mapper->expects($this->once())
 			->method('findByGuidHash')
@@ -205,11 +223,11 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 		$this->mapper->expects($this->once())
 			->method('update')
-			->with($this->equalTo($item));
+			->with($this->equalTo($expectedItem));
 
-		$this->itemBusinessLayer->star($feedId, $guidHash, false, $this->user);
+		$this->itemBusinessLayer->star($feedId, $guidHash, true, $this->user);
 
-		$this->assertTrue($item->isUnstarred());
+		$this->assertTrue($item->isStarred());
 	}
 
 
@@ -218,6 +236,13 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$item = new Item();
 		$item->setStatus(128);
 		$item->setId($itemId);
+		$item->setRead();
+
+		$expectedItem = new Item();
+		$expectedItem->setStatus(128);
+		$expectedItem->setUnread();
+		$expectedItem->setId($itemId);
+		$expectedItem->setLastModified($this->time);		
 
 		$this->mapper->expects($this->once())
 			->method('find')
@@ -226,7 +251,7 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 		$this->mapper->expects($this->once())
 			->method('update')
-			->with($this->equalTo($item));
+			->with($this->equalTo($expectedItem));
 
 		$this->itemBusinessLayer->read($itemId, false, $this->user);
 
