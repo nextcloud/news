@@ -145,7 +145,7 @@ class FeedBusinessLayer extends BusinessLayer {
 						// if the pub_date changed because we sort by id on the 
 						// client side since this is the only reliable way to do it
 						// to not get weird behaviour
-						if($existing->getPubDate() !== (int)$item->getPubDate()){
+						if((int)$existing->getPubDate() !== (int)$item->getPubDate()){
 
 							// because the item is being replaced we need to keep 
 							// status flags but we want the new entry to be unread
