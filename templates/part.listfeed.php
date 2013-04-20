@@ -12,6 +12,7 @@
 		stack: '> li',
 		zIndex: 1000,
 		axis: 'y',
+		delay: 200,
 		helper: 'clone'
 	}">
 	<a 	ng-style="{ backgroundImage: feed.faviconLink }"
