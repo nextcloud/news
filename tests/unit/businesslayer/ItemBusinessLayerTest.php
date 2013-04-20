@@ -249,18 +249,9 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 
 	public function testAutoPurgeOldWillPurgeOld(){
-		$item = new Item();
-		$item->setId(3);
-		$unread = array(
-			new Item(), $item
-		);
 		$this->mapper->expects($this->once())
-			->method('getReadOlderThanThreshold')
-			->with($this->equalTo($this->threshold))
-			->will($this->returnValue($unread));
-		$this->mapper->expects($this->once())
-			->method('deleteReadOlderThanId')
-			->with($this->equalTo($item->getId()));
+			->method('deleteReadOlderThanThreshold')
+			->with($this->equalTo($this->threshold));
 
 		$result = $this->itemBusinessLayer->autoPurgeOld();
 

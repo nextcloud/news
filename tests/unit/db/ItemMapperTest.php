@@ -280,31 +280,78 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 	}
 
 
-	public function testGetReadOlderThanThreshold(){
+	public function testDeleteReadOlderThanThresholdDoesNotDeleteBelowThreshold(){
 		$status = StatusFlag::STARRED | StatusFlag::UNREAD;
-		$sql = 'SELECT * FROM `*PREFIX*news_items` ' .
-			'WHERE NOT ((`status` & ?) > 0)';
+		$sql = 'SELECT COUNT(*) `size`, `feed_id` ' .
+			'FROM `*PREFIX*news_items` ' .
+			'AND NOT ((`status` & ?) > 0) ' .
+			'GROUP BY `feed_id` ' .
+			'HAVING COUNT(*) > ?';
+
 		$threshold = 10;
-		$feed = new Feed();
-		$feed->setId(30);
-		$rows = array(array('id' => 30));
-		$params = array($status);
+		$rows = array(array('feed_id' => 30, 'size' => 11));
+		$params = array($status, $threshold);
 
 		$this->setMapperResult($sql, $params, $rows);
-		$result = $this->mapper->getReadOlderThanThreshold($threshold);
-
-		$this->assertEquals($feed->getId(), $result[0]->getId());
+		$this->mapper->deleteReadOlderThanThreshold($threshold);
 	}
 
 
-	public function testDeleteReadOlderThanId(){
-		$id = 10;
+	public function testDeleteReadOlderThanThreshold(){
+		$threshold = 10;
 		$status = StatusFlag::STARRED | StatusFlag::UNREAD;
-		$sql = 'DELETE FROM `*PREFIX*news_items` WHERE `id` < ? ' .
-			'AND NOT ((`status` & ?) > 0)';
-		$params = array($id, $status);
 
-		$this->setMapperResult($sql, $params);
-		$this->mapper->deleteReadOlderThanId($id);
+		$sql1 = 'SELECT COUNT(*) `size`, `feed_id` ' .
+			'FROM `*PREFIX*news_items` ' .
+			'AND NOT ((`status` & ?) > 0) ' .
+			'GROUP BY `feed_id` ' .
+			'HAVING COUNT(*) > ?';
+		$params1 = array($status, $threshold);
+
+		
+		$row = array('feed_id' => 30, 'size' => 9);
+
+		$sql2 = 'DELETE FROM `*PREFIX*news_items` `items` ' .
+				'WHERE NOT ((`status` & ?) > 0) ' .
+				'AND `feed_id` = ? ' .
+				'ORDER BY `items`.`id` ASC';
+		$params2 = array($status, 30);
+
+		
+		$pdoResult = $this->getMock('Result', 
+			array('fetchRow'));
+
+		$pdoResult->expects($this->at(0))
+			->method('fetchRow')
+			->will($this->returnValue($row));
+		$pdoResult->expects($this->at(1))
+			->method('fetchRow')
+			->will($this->returnValue(false));
+			
+		$query = $this->getMock('Query', 
+			array('execute'));
+		$query->expects($this->at(0))
+			->method('execute')
+			->with($this->equalTo($params1))
+			->will($this->returnValue($pdoResult));
+
+		$this->api->expects($this->at(0))
+			->method('prepareQuery')
+			->with($this->equalTo($sql1))
+			->will(($this->returnValue($query)));
+
+		$query2 = $this->getMock('Query', 
+			array('execute'));
+		$query2->expects($this->at(0))
+			->method('execute')
+			->with($this->equalTo($params2));
+
+		$this->api->expects($this->at(1))
+			->method('prepareQuery')
+			->with($this->equalTo($sql2))
+			->will(($this->returnValue($query2)));
+
+		$result = $this->mapper->deleteReadOlderThanThreshold($threshold);
 	}
+
 }

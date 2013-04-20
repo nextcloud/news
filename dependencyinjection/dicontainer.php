@@ -62,7 +62,7 @@ class DIContainer extends BaseContainer {
 		/**
 		 * Configuration values
 		 */
-		$this['autoPurgeCount'] = 1000;
+		$this['autoPurgeCount'] = 200;
 		$this['simplePieCacheDirectory'] = __DIR__ . '/../cache/simplepie/';
 		$this['simplePieCacheDuration'] = 1000;  // seconds
 

@@ -216,25 +216,38 @@ class ItemMapper extends Mapper implements IMapper {
 	}
 
 
-	public function getReadOlderThanThreshold($threshold){
-
-		// we want items that are not starred and not unread
+	/** 
+	 * Delete all items for feeds that have over $threshold unread and not
+	 * starred items
+	 */
+	public function deleteReadOlderThanThreshold($threshold){
 		$status = StatusFlag::STARRED | StatusFlag::UNREAD;
-		$sql = 'SELECT * FROM `*PREFIX*news_items` ' .
-			'WHERE NOT ((`status` & ?) > 0)';
+		$sql = 'SELECT COUNT(*) `size`, `feed_id` ' .
+			'FROM `*PREFIX*news_items` ' .
+			'AND NOT ((`status` & ?) > 0) ' .
+			'GROUP BY `feed_id` ' .
+			'HAVING COUNT(*) > ?';
+		$params = array($status, $threshold);
+		$result = $this->execute($sql, $params);
 
-		$params = array($status);
-		return $this->findAllRows($sql, $params, $threshold);
+		while($row = $result->fetchRow()) {
+			
+			$limit = $threshold - $row['size'];
+			
+			if($limit > 0) {
+				$params = array($status, $row['feed_id']);
+
+				$sql = 'DELETE FROM `*PREFIX*news_items` `items` ' .
+				'WHERE NOT ((`status` & ?) > 0) ' .
+				'AND `feed_id` = ? ' .
+				'ORDER BY `items`.`id` ASC';
+
+				$this->execute($sql, $params, $limit);
+			}
+		}
 	}
 
 
-	public function deleteReadOlderThanId($id){
-		$status = StatusFlag::STARRED | StatusFlag::UNREAD;
-		$sql = 'DELETE FROM `*PREFIX*news_items` WHERE `id` < ? ' .
-			'AND NOT ((`status` & ?) > 0)';
-		$params = array($id, $status);
-		$this->execute($sql, $params);
-	}
 
 
 }

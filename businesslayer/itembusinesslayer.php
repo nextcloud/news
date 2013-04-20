@@ -128,15 +128,7 @@ class ItemBusinessLayer extends BusinessLayer {
 	 * old, the id is taken
 	 */
 	public function autoPurgeOld(){
-		$readAndNotStarred = 
-			$this->mapper->getReadOlderThanThreshold($this->autoPurgeCount);
-		
-		// delete entries with a lower id than last item
-		if($this->autoPurgeCount > 0 
-			&& isset($readAndNotStarred[$this->autoPurgeCount-1])){
-			$this->mapper->deleteReadOlderThanId(
-				$readAndNotStarred[$this->autoPurgeCount-1]->getId());
-		}
+		$this->mapper->deleteReadOlderThanThreshold($this->autoPurgeCount);
 	}
 
 
