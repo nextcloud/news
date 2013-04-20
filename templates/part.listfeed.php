@@ -1,8 +1,8 @@
 <li ng-class="{
-		active: feedBusinessLayer.isActive(feed.id), 
+		active: feedBusinessLayer.isActive(feed.id),
 		unread: feedBusinessLayer.getUnreadCount(feed.id) > 0,
 		failed: feed.error
-	}" 
+	}"
 	ng-repeat="feed in feedBusinessLayer.getFeedsOfFolder(<?php p($_['folderId']); ?>) | orderBy:'id':true"
 	ng-show="feedBusinessLayer.isVisible(feed.id) || !feed.id"
 	data-id="{{ feed.id }}"
@@ -12,6 +12,7 @@
 		stack: '> li',
 		zIndex: 1000,
 		axis: 'y',
+		delay: 200,
 		helper: 'clone'
 	}">
 	<a 	ng-style="{ backgroundImage: feed.faviconLink }"
@@ -23,13 +24,13 @@
 	   	href="#"
 	   	class="title"
 	   	oc-click-focus="{selector: '#app-content'}">
-	   	
+
 	   {{ feed.title }}
 	</a>
-	
+
 	<span class="utils">
 
-		<span class="unread-counter" 
+		<span class="unread-counter"
 			ng-show="feed.id && feedBusinessLayer.getUnreadCount(feed.id) > 0">
 			{{ feedBusinessLayer.getUnreadCount(feed.id) }}
 		</span>
@@ -39,9 +40,9 @@
 			ng-click="feedBusinessLayer.markFeedRead(feed.id)"
 			title="<?php p($l->t('Mark read')); ?>"
 			oc-tooltip></button>
-		
+
 		<button ng-click="feedBusinessLayer.delete(feed.id)"
-			class="svg action delete-icon" 
+			class="svg action delete-icon"
 			title="<?php p($l->t('Delete feed')); ?>"
 			ng-show="feed.id"
 			oc-tooltip></button>
