@@ -26,7 +26,7 @@ angular.module('News', ['OC', 'ui']).config ($provide) ->
 	$provide.value 'Config', config =
 		markReadTimeout: 500
 		scrollTimeout: 500
-		feedUpdateInterval: 1000*60*10
+		feedUpdateInterval: 1000*60*5
 		itemBatchSize: 20
 		# the autoPageFactor defines how many heights of the box must be left
 		# before it starts autopaging e.g. if it was 2, then it will start

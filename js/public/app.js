@@ -41,7 +41,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     return $provide.value('Config', config = {
       markReadTimeout: 500,
       scrollTimeout: 500,
-      feedUpdateInterval: 1000 * 60 * 10,
+      feedUpdateInterval: 1000 * 60 * 5,
       itemBatchSize: 20,
       autoPageFactor: 6
     });

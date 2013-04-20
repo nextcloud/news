@@ -29,7 +29,8 @@ Before you install the app check that the following requirements are met:
 - Your database uses utf-8
 - Your webserver uses utf-8
 - You use a browser that supports the FileReader API
-
+- You can use a cron or webcron to call Background Jobs in ownCloud
+- (optional) install php-curl
 
 How to install the News app
 ---------------------------
@@ -60,6 +61,8 @@ Should you have upgraded from a prior version, disable the CSS and JavaScript ca
 
     sudo chown -R www-data:www-data /var/www/news/cache
 
+- `Set up ownCloud Background Jobs <http://doc.owncloud.org/server/5.0/admin_manual/configuration/background_jobs.html>`_ to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
+
 How to keep up to date
 ----------------------
 To get the newest update you can use git. To update the appframework use::
@@ -72,3 +75,5 @@ To update the News app use::
 
     cd /var/www/news
     git pull --rebase origin master
+
+
