@@ -24,6 +24,7 @@
 		<button class="svg action mark-read-icon" 
 			ng-click="subscriptionsBusinessLayer.markAllRead()"
 			title="<?php p($l->t('Mark read')) ?>"
+			ng-show="getTotalUnreadCount() > 0"
 			oc-tooltip data-placement="bottom"></button>
 	</span>
 </li>
