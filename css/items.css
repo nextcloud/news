@@ -109,6 +109,12 @@
 		.feed_item .primary_item_utils li.star:hover {
 			background-image: url('%appswebroot%/news/img/active_star.svg');
 		}
+		.feed_item .primary_item_utils li.star.important:hover {
+			opacity:1;
+		}
+		.feed_item .primary_item_utils li.star:hover {
+			opacity:0.5;
+		}
 
 	/**
 	 * Feed title
