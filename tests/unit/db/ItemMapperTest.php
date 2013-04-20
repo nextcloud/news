@@ -348,8 +348,8 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 
 		$this->api->expects($this->at(1))
 			->method('prepareQuery')
-			->with($this->equalTo($sql2))
-			->will(($this->returnValue($query2)));
+			->with($this->equalTo($sql2), $this->equalTo(1))
+			->will($this->returnValue($query2));
 
 		$result = $this->mapper->deleteReadOlderThanThreshold($threshold);
 	}
