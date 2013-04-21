@@ -23,6 +23,7 @@
 		}"
 	   	href="#"
 	   	class="title"
+	   	title="{{ feed.title }}"
 	   	oc-click-focus="{selector: '#app-content'}">
 
 	   {{ feed.title }}
