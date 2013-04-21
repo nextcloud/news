@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-20 01:01+0200\n"
-"PO-Revision-Date: 2013-04-19 23:01+0000\n"
-"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"POT-Creation-Date: 2013-04-22 01:08+0200\n"
+"PO-Revision-Date: 2013-04-21 12:10+0000\n"
+"Last-Translator: Tomáš Chvátal <tomas.chvatal@gmail.com>\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/projects/p/owncloud/language/cs_CZ/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -100,36 +100,36 @@ msgstr "Nepřečtené články"
 msgid "All articles"
 msgstr "Všechny články"
 
-#: templates/part.feed.unread.php:26 templates/part.listfeed.php:40
+#: templates/part.feed.unread.php:26 templates/part.listfeed.php:42
 #: templates/part.listfolder.php:43
 msgid "Mark read"
-msgstr ""
+msgstr "Označit jako přečtené"
 
 #: templates/part.items.php:17
 msgid "Save for later"
 msgstr "Uložit na později"
 
-#: templates/part.items.php:31
+#: templates/part.items.php:33
 msgid "from"
 msgstr "z"
 
-#: templates/part.items.php:36
+#: templates/part.items.php:38
 msgid "by"
 msgstr "sdílí"
 
-#: templates/part.items.php:44
+#: templates/part.items.php:46
 msgid "Cant play audio format"
 msgstr "Nelze přehrát formát zvuku"
 
-#: templates/part.items.php:57
+#: templates/part.items.php:59
 msgid "Keep unread"
 msgstr "Ponechat nepřečteno"
 
-#: templates/part.listfeed.php:45
+#: templates/part.listfeed.php:47
 msgid "Delete feed"
 msgstr "Smazat kanál"
 
-#: templates/part.listfeed.php:51
+#: templates/part.listfeed.php:53
 msgid "Delete website"
 msgstr "Smazat webovou stránku"
 
@@ -165,17 +165,17 @@ msgstr "Chyba při importu: soubor neobsahuje platné OPML"
 
 #: templates/part.settings.php:42
 msgid "Import Google Reader JSON"
-msgstr ""
+msgstr "Importovat JSON z Google Readeru"
 
 #: templates/part.settings.php:43
 msgid ""
 "To import starred and shared articles from Google \n"
 "\t\t\tReader please upload the .json files from the Google Takeout archive"
-msgstr ""
+msgstr "Pro importování sdílených článků a článků s hvězdičkou z Google Readeru prosím nahrajte .json soubor z archivu Google Takeout."
 
 #: templates/part.settings.php:53
 msgid "Error when importing: file does not contain valid JSON"
-msgstr ""
+msgstr "Chyba při importování: soubor neobsahuje platný JSON"
 
 #: templates/part.showall.php:2
 msgid "Show all"

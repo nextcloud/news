@@ -19,6 +19,7 @@
 "Starred" => "S hvězdičkou",
 "Unread articles" => "Nepřečtené články",
 "All articles" => "Všechny články",
+"Mark read" => "Označit jako přečtené",
 "Save for later" => "Uložit na později",
 "from" => "z",
 "by" => "sdílí",
@@ -33,6 +34,9 @@
 "Import" => "Importovat",
 "Export" => "Exportovat",
 "Error when importing: file does not contain valid OPML" => "Chyba při importu: soubor neobsahuje platné OPML",
+"Import Google Reader JSON" => "Importovat JSON z Google Readeru",
+"To import starred and shared articles from Google \n\t\t\tReader please upload the .json files from the Google Takeout archive" => "Pro importování sdílených článků a článků s hvězdičkou z Google Readeru prosím nahrajte .json soubor z archivu Google Takeout.",
+"Error when importing: file does not contain valid JSON" => "Chyba při importování: soubor neobsahuje platný JSON",
 "Show all" => "Zobrazit vše",
 "Show only unread" => "Zobrazit pouze nepřečtené"
 );

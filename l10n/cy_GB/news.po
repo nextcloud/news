@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-20 01:01+0200\n"
-"PO-Revision-Date: 2013-04-19 23:01+0000\n"
+"POT-Creation-Date: 2013-04-22 01:08+0200\n"
+"PO-Revision-Date: 2013-04-21 19:50+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Welsh (United Kingdom) (http://www.transifex.com/projects/p/owncloud/language/cy_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -67,7 +67,7 @@ msgstr ""
 
 #: templates/part.addnew.php:47
 msgid "Folder"
-msgstr ""
+msgstr "Plygell"
 
 #: templates/part.addnew.php:52
 msgid "Choose folder"
@@ -97,7 +97,7 @@ msgstr ""
 msgid "All articles"
 msgstr ""
 
-#: templates/part.feed.unread.php:26 templates/part.listfeed.php:40
+#: templates/part.feed.unread.php:26 templates/part.listfeed.php:42
 #: templates/part.listfolder.php:43
 msgid "Mark read"
 msgstr ""
@@ -106,27 +106,27 @@ msgstr ""
 msgid "Save for later"
 msgstr ""
 
-#: templates/part.items.php:31
+#: templates/part.items.php:33
 msgid "from"
 msgstr ""
 
-#: templates/part.items.php:36
+#: templates/part.items.php:38
 msgid "by"
-msgstr ""
+msgstr "gan"
 
-#: templates/part.items.php:44
+#: templates/part.items.php:46
 msgid "Cant play audio format"
 msgstr ""
 
-#: templates/part.items.php:57
+#: templates/part.items.php:59
 msgid "Keep unread"
 msgstr ""
 
-#: templates/part.listfeed.php:45
+#: templates/part.listfeed.php:47
 msgid "Delete feed"
 msgstr ""
 
-#: templates/part.listfeed.php:51
+#: templates/part.listfeed.php:53
 msgid "Delete website"
 msgstr ""
 
