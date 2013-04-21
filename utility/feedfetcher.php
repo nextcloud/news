@@ -141,7 +141,14 @@ class FeedFetcher implements IFeedFetcher {
 		$feed = new Feed();
 
 		// unescape content because angularjs helps agains XSS
-		$feed->setTitle(html_entity_decode($simplePieFeed->get_title()));
+		$title = html_entity_decode($simplePieFeed->get_title());
+		
+		// if there is no title use the url
+		if(!$title) {
+			$title = $url;
+		}
+
+		$feed->setTitle($title);
 		$feed->setUrl($url);
 		$feed->setLink($simplePieFeed->get_link());
 		$feed->setUrlHash(md5($url));

@@ -244,6 +244,28 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 	}
 
 
+	public function testFetchMapItemsNoFeedTitleUsesUrl(){
+		$this->expectCore('get_title', '');
+		$this->expectCore('get_link', $this->feedLink);
+
+		$feed = new Feed();
+		$feed->setTitle($this->url);
+		$feed->setUrl($this->url);
+		$feed->setLink($this->feedLink);
+		$feed->setUrlHash(md5($this->url));
+		$feed->setAdded($this->time);
+		$feed->setFaviconLink(null);
+
+		$this->core->expects($this->once())
+			->method('init')
+			->will($this->returnValue(true));
+		$item = $this->createItem();
+		$this->expectCore('get_items', array($this->item));
+		$result = $this->fetcher->fetch($this->url);
+
+		$this->assertEquals(array($feed, array($item)), $result);
+	}
+
 	public function testFetchMapItemsAuthorExists(){
 		$this->core->expects($this->once())
 			->method('init')
