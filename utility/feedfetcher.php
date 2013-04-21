@@ -120,7 +120,11 @@ class FeedFetcher implements IFeedFetcher {
 
 		$author = $simplePieItem->get_author();
 		if ($author !== null) {
-			$item->setAuthor(html_entity_decode($author->get_name()));
+			if ($author->get_name()) {
+				$item->setAuthor(html_entity_decode($author->get_name()));
+			} else {
+				$item->setAuthor(html_entity_decode($author->get_email()));
+			}
 		}
 
 		// TODO: make it work for video files also
