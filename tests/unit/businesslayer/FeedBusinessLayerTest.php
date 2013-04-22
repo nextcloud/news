@@ -34,6 +34,7 @@ use \OCA\News\Db\Feed;
 use \OCA\News\Db\Item;
 use \OCA\News\Utility\Fetcher;
 use \OCA\News\Utility\FetcherException;
+use \OCA\News\Utility\ImportParser;
 
 class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
@@ -45,6 +46,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 	private $itemMapper;
 	private $threshold;
 	private $time;
+	private $importParser;
 
 	protected function setUp(){
 		$this->api = $this->getAPIMock();
@@ -65,9 +67,12 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->itemMapper = $this->getMockBuilder('\OCA\News\Db\ItemMapper')
 			->disableOriginalConstructor()
 			->getMock();
+		$this->importParser = $this->getMockBuilder('\OCA\News\Utility\ImportParser')
+			->disableOriginalConstructor()
+			->getMock();
 		$this->businessLayer = new FeedBusinessLayer($this->mapper, 
 			$this->fetcher, $this->itemMapper, $this->api,
-			$timeFactory);
+			$timeFactory, $this->importParser);
 		$this->user = 'jack';
 		$response = 'hi';
 	}
@@ -576,5 +581,100 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 	}
 
 
+	public function testImportGoogleReaderJSON(){
+		$url = 'http://owncloud/googlereader';
+		$urlHash = md5($url);
 
+		$feed = new Feed();
+		$feed->setId(3);
+		$feed->setUserId($this->user);
+		$feed->setUrlHash($urlHash);
+		$feed->setUrl($url);
+		$feed->setTitle('Google Reader');
+		$feed->setAdded($this->time);
+		$feed->setFolderId(0);
+		$feed->setPreventUpdate(true);
+
+		$items = array(new Item());
+
+		$this->mapper->expects($this->at(0))
+			->method('findByUrlHash')
+			->with($this->equalTo($urlHash),
+				$this->equalTo($this->user))
+			->will($this->throwException(new DoesNotExistException('hi')));
+		$this->mapper->expects($this->at(1))
+			->method('insert')
+			->will($this->returnValue($feed));
+		$this->mapper->expects($this->at(2))
+			->method('findByUrlHash')
+			->with($this->equalTo($urlHash),
+				$this->equalTo($this->user))
+			->will($this->returnValue($feed));
+		$this->importParser->expects($this->once())
+			->method('parse')
+			->will($this->returnValue($items));
+		$this->itemMapper->expects($this->once())
+			->method('findByGuidHash');
+		$this->itemMapper->expects($this->never())
+			->method('insert');
+
+
+		$result = $this->businessLayer->importGoogleReaderJSON(array(), $this->user);
+
+		$this->assertEquals($feed, $result);
+	}
+
+
+	public function testImportGoogleReaderJSONFeedExists(){
+		$url = 'http://owncloud/googlereader';
+		$urlHash = md5($url);
+
+
+		$feed = new Feed();
+		$feed->setUserId($this->user);
+		$feed->setUrlHash($urlHash);
+		$feed->setUrl($url);
+		$feed->setTitle('Google Reader');
+		$feed->setAdded($this->time);
+		$feed->setFolderId(0);
+		$feed->setPreventUpdate(true);
+		$feed->setId(3);
+
+		$item = new Item();
+		$item->setGuidHash('hi');
+		$items = array($item);
+		$savedItem = new Item();
+		$savedItem->setFeedId($feed->getId());
+		$savedItem->setGuidHash('hi');
+
+		$in = array();
+
+		$this->mapper->expects($this->at(0))
+			->method('findByUrlHash')
+			->with($this->equalTo($urlHash),
+				$this->equalTo($this->user))
+			->will($this->returnValue($feed));
+		$this->mapper->expects($this->at(1))
+			->method('findByUrlHash')
+			->with($this->equalTo($urlHash),
+				$this->equalTo($this->user))
+			->will($this->returnValue($feed));
+		$this->importParser->expects($this->once())
+			->method('parse')
+			->with($this->equalTo($in))
+			->will($this->returnValue($items));
+		$this->itemMapper->expects($this->once())
+			->method('findByGuidHash')
+			->with($this->equalTo($savedItem->getGuidHash()),
+				$this->equalTo($savedItem->getFeedId()),
+				$this->equalTo($this->user))
+			->will($this->throwException(new DoesNotExistException('ho')));
+		$this->itemMapper->expects($this->once())
+			->method('insert')
+			->with($this->equalTo($savedItem));
+
+		$result = $this->businessLayer->importGoogleReaderJSON($in, $this->user);
+
+		$this->assertEquals($feed, $result);
+	}
 }

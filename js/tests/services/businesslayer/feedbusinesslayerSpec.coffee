@@ -365,8 +365,25 @@ describe 'FeedBusinessLayer', ->
 
 
 	it 'should create an import google reader request', =>
+		returned =
+			data:
+				feeds: [
+					{id: 3, url: 'hi'}
+				]
+		@persistence.getItems = jasmine.createSpy('importGoogleReader')
 		@persistence.importGoogleReader = jasmine.createSpy('importGoogleReader')
+		@persistence.importGoogleReader.andCallFake (data, onSuccess) =>
+			@FeedModel.handle(returned.data.feeds)
+			onSuccess(returned)
+
 		json = {"test": "hi"}
 		@FeedBusinessLayer.importGoogleReader(json)
 
-		expect(@persistence.importGoogleReader).toHaveBeenCalledWith(json)
+		expect(@persistence.importGoogleReader).toHaveBeenCalledWith(json,
+			jasmine.any(Function))
+		expect(@persistence.getItems).toHaveBeenCalledWith(
+			@FeedType.Feed, returned.data.feeds[0].id, 0
+		)
+		expect(@ActiveFeed.getId()).toBe(returned.data.feeds[0].id)
+		expect(@ActiveFeed.getType()).toBe(@FeedType.Feed)
+

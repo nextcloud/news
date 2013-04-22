@@ -253,10 +253,11 @@ $rootScope) ->
 			@_request.post 'news_feeds_update', params
 
 
-		importGoogleReader: (json) ->
+		importGoogleReader: (json, onSuccess) ->
 			params =
 				data:
 					json: json
+				onSuccess: onSuccess
 
 			@_request.post 'news_feeds_import_googlereader', params
 

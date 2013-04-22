@@ -34,6 +34,7 @@ use \OCA\News\Db\FeedMapper;
 use \OCA\News\Db\ItemMapper;
 use \OCA\News\Utility\Fetcher;
 use \OCA\News\Utility\FetcherException;
+use \OCA\News\Utility\ImportParser;
 
 class FeedBusinessLayer extends BusinessLayer {
 
@@ -41,15 +42,18 @@ class FeedBusinessLayer extends BusinessLayer {
 	private $itemMapper;
 	private $api;
 	private $timeFactory;
+	private $importParser;
 
 	public function __construct(FeedMapper $feedMapper, Fetcher $feedFetcher,
 		                        ItemMapper $itemMapper, API $api,
-		                        TimeFactory $timeFactory){
+		                        TimeFactory $timeFactory,
+		                        ImportParser $importParser){
 		parent::__construct($feedMapper);
 		$this->feedFetcher = $feedFetcher;
 		$this->itemMapper = $itemMapper;
 		$this->api = $api;
 		$this->timeFactory = $timeFactory;
+		$this->importParser = $importParser;
 	}
 
 
@@ -190,28 +194,34 @@ class FeedBusinessLayer extends BusinessLayer {
 	 */
 	public function importGoogleReaderJSON($json, $userId) {
 		$url = 'http://owncloud/googlereader';
+		$urlHash = md5($url);
 
-		// TODO: write unittests that ensure that the correct
-		// feed parameters are being returned
-		
-		// you need to check first if the feed exists and if it does
-		// use that feed to add the items and to return
-		// if this has not been saved, these are the values 
-		// that need to be set fyi
-		$feed = new Feed();
-		$feed->setUserId($userId);
-		$feed->setUrlHash(md5($url));
-		$feed->setUrl($url);
-		$feed->setTitle('Google Reader');
-		$feed->setAdded($this->timeFactory->getTime());
-		$feed->setFolderId(0);
-		$feed->setPreventUpdate(true);
+		try {
+			$feed = $this->mapper->findByUrlHash($urlHash, $userId);
+		} catch(DoesNotExistException $ex) {
+			$feed = new Feed();
+			$feed->setUserId($userId);
+			$feed->setUrlHash($urlHash);
+			$feed->setUrl($url);
+			$feed->setTitle('Google Reader');
+			$feed->setAdded($this->timeFactory->getTime());
+			$feed->setFolderId(0);
+			$feed->setPreventUpdate(true);
+			$feed = $this->mapper->insert($feed);
+		}
 
+		foreach($this->importParser->parse($json) as $item) {
+			$item->setFeedId($feed->getId());
+			try {
+				$this->itemMapper->findByGuidHash(
+					$item->getGuidHash(), $item->getFeedId(), $userId);
+			} catch(DoesNotExistException $ex) {
+				$this->itemMapper->insert($item);
+			}
+		}
 
-		// TODO: after saving the above feed, query the feed from the
-		// database to get the unreadCount (this is being set in the 
-		// sql query) see line 177
-		return $feed;
+		return $this->mapper->findByUrlHash($urlHash, $userId);
+
 	}
 
 

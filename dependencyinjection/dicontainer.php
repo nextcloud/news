@@ -25,28 +25,29 @@
 
 namespace OCA\News\DependencyInjection;
 
-use OCA\AppFramework\DependencyInjection\DIContainer as BaseContainer;
+use \OCA\AppFramework\DependencyInjection\DIContainer as BaseContainer;
 
-use OCA\News\Controller\PageController;
-use OCA\News\Controller\FolderController;
-use OCA\News\Controller\FeedController;
-use OCA\News\Controller\ItemController;
-use OCA\News\Controller\ExportController;
-use OCA\News\Controller\UserSettingsController;
+use \OCA\News\Controller\PageController;
+use \OCA\News\Controller\FolderController;
+use \OCA\News\Controller\FeedController;
+use \OCA\News\Controller\ItemController;
+use \OCA\News\Controller\ExportController;
+use \OCA\News\Controller\UserSettingsController;
 
-use OCA\News\BusinessLayer\FolderBusinessLayer;
-use OCA\News\BusinessLayer\FeedBusinessLayer;
-use OCA\News\BusinessLayer\ItemBusinessLayer;
+use \OCA\News\BusinessLayer\FolderBusinessLayer;
+use \OCA\News\BusinessLayer\FeedBusinessLayer;
+use \OCA\News\BusinessLayer\ItemBusinessLayer;
 
-use OCA\News\Db\FolderMapper;
-use OCA\News\Db\FeedMapper;
-use OCA\News\Db\ItemMapper;
-use OCA\News\Db\StatusFlag;
+use \OCA\News\Db\FolderMapper;
+use \OCA\News\Db\FeedMapper;
+use \OCA\News\Db\ItemMapper;
+use \OCA\News\Db\StatusFlag;
 
-use OCA\News\Utility\Fetcher;
-use OCA\News\Utility\FeedFetcher;
-use OCA\News\Utility\TwitterFetcher;
-use OCA\News\Utility\OPMLExporter;
+use \OCA\News\Utility\Fetcher;
+use \OCA\News\Utility\FeedFetcher;
+use \OCA\News\Utility\TwitterFetcher;
+use \OCA\News\Utility\OPMLExporter;
+use \OCA\News\Utility\ImportParser;
 
 
 class DIContainer extends BaseContainer {
@@ -111,7 +112,8 @@ class DIContainer extends BaseContainer {
 
 		$this['FeedBusinessLayer'] = $this->share(function($c){
 			return new FeedBusinessLayer($c['FeedMapper'], $c['Fetcher'],
-								$c['ItemMapper'], $c['API'], $c['TimeFactory']);
+								$c['ItemMapper'], $c['API'], $c['TimeFactory'],
+								$c['ImportParser']);
 		});
 
 		$this['ItemBusinessLayer'] = $this->share(function($c){
@@ -162,6 +164,10 @@ class DIContainer extends BaseContainer {
 
 		$this['TwitterFetcher'] = $this->share(function($c){
 			return new TwitterFetcher($c['FeedFetcher']);
+		});
+
+		$this['ImportParser'] = $this->share(function($c){
+			return new ImportParser($c['TimeFactory']);
 		});
 
 		$this['StatusFlag'] = $this->share(function($c){

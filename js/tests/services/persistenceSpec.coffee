@@ -252,8 +252,9 @@ describe 'Persistence', ->
 		params =
 			data:
 				json: {"some": "json"}
+			onSuccess: ->
 
-		@Persistence.importGoogleReader(params.data.json)
+		@Persistence.importGoogleReader(params.data.json, params.onSuccess)
 
 
 		expect(@req.post).toHaveBeenCalledWith('news_feeds_import_googlereader',

@@ -188,8 +188,12 @@ FeedModel, NewLoading, _ExistsError, Utils, $rootScope, UndoQueue) ->
 					faviconLink: 'url('+@_utils.imagePath('core', 'loading.gif')+')'
 
 				@_feedModel.add(feed)
-			
-			@_persistence.importGoogleReader(json)
+
+			onSuccess = (response) =>
+				id = response.data.feeds[0].id
+				@load(id)
+
+			@_persistence.importGoogleReader(json, onSuccess)
 
 
 	return new FeedBusinessLayer(ShowAll, FeedModel, Persistence, ActiveFeed,

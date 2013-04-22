@@ -961,7 +961,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         };
 
         FeedBusinessLayer.prototype.importGoogleReader = function(json) {
-          var feed, url;
+          var feed, onSuccess, url,
+            _this = this;
 
           url = 'http://owncloud/googlereader';
           if (angular.isUndefined(this._feedModel.getByUrl(url))) {
@@ -974,7 +975,13 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             };
             this._feedModel.add(feed);
           }
-          return this._persistence.importGoogleReader(json);
+          onSuccess = function(response) {
+            var id;
+
+            id = response.data.feeds[0].id;
+            return _this.load(id);
+          };
+          return this._persistence.importGoogleReader(json, onSuccess);
         };
 
         return FeedBusinessLayer;
@@ -2617,13 +2624,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return this._request.post('news_feeds_update', params);
         };
 
-        Persistence.prototype.importGoogleReader = function(json) {
+        Persistence.prototype.importGoogleReader = function(json, onSuccess) {
           var params;
 
           params = {
             data: {
               json: json
-            }
+            },
+            onSuccess: onSuccess
           };
           return this._request.post('news_feeds_import_googlereader', params);
         };
