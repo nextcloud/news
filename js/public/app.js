@@ -201,9 +201,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           focused = $(':focus');
           if (!(focused.is('input') || focused.is('select') || focused.is('textarea') || focused.is('checkbox') || focused.is('button'))) {
             scrollArea = elm;
-            if (e.keyCode === 74 || e.keyCode === 39) {
+            if (e.keyCode === 74 || e.keyCode === 39 || e.keyCode === 78) {
               return jumpToNextItem(scrollArea);
-            } else if (e.keyCode === 75 || e.keyCode === 37) {
+            } else if (e.keyCode === 75 || e.keyCode === 37 || e.keyCode === 80) {
               return jumpToPreviousItem(scrollArea);
             }
           }

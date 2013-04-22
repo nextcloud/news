@@ -70,12 +70,12 @@ angular.module('News').directive 'itemShortcuts', ['$window', ($window) ->
 			focused.is('button'))
 
 				scrollArea = elm
-				# j or right
-				if e.keyCode == 74 or e.keyCode == 39
+				# j or right or n
+				if e.keyCode == 74 or e.keyCode == 39 or e.keyCode == 78
 					jumpToNextItem(scrollArea)
 
-				# k or left
-				else if e.keyCode == 75 or e.keyCode == 37
+				# k or left or p
+				else if e.keyCode == 75 or e.keyCode == 37 or e.keyCode == 80
 					jumpToPreviousItem(scrollArea)
 
 
