@@ -179,7 +179,7 @@ button.action:hover {
 }
 
 .problem-icon {
-	background-image: url('%appswebroot%/news/img/problem.svg');
+	background-image: url('%appswebroot%/news/img/problem.svg') !important;
 }
 
 .failed {

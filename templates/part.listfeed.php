@@ -49,7 +49,7 @@
 			oc-tooltip></button>
 
 		<button class="svg action delete-icon"
-			ng-click="feedBusinessLayer.markErrorRead(feed.urlHash)"
+			ng-click="feedBusinessLayer.markErrorRead(feed.url)"
 			title="<?php p($l->t('Delete website')); ?>"
 			ng-show="feed.error"
 			oc-tooltip></button>
