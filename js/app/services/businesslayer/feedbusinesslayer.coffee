@@ -139,6 +139,8 @@ FeedModel, NewLoading, _ExistsError, Utils) ->
 				throw new Error('Url must not be empty')
 			
 			url = url.trim()
+			if url.indexOf('http') != 0
+				url = 'http://' + url
 			
 			if @_feedModel.getByUrl(url)
 				throw new _ExistsError('Exists already')

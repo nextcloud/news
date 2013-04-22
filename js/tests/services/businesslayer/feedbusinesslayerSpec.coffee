@@ -243,7 +243,7 @@ describe 'FeedBusinessLayer', ->
 
 
 	it 'should not create a feed if it already exists', =>
-		item1 = {url: 'john'}
+		item1 = {url: 'http://john'}
 		@FeedModel.add(item1)
 
 		expect =>
@@ -266,24 +266,32 @@ describe 'FeedBusinessLayer', ->
 		expect(@FeedModel.size()).toBe(1)
 
 
-	it 'should set a title and an url hash to the newly crated feed', =>
+	it 'should set a title and an url to the newly created feed', =>
 		url = 'www.google.de'
 		@FeedBusinessLayer.create(url)
 
-		feed = @FeedModel.getByUrl(url)
+		feed = @FeedModel.getByUrl('http://' + url)
 
-		expect(feed.title).toBe('www.google.de')
-		expect(feed.url).toBe(url)
+		expect(feed.title).toBe('http://www.google.de')
+		expect(feed.url).toBe('http://' + url)
 		expect(feed.folderId).toBe(0)
 		expect(feed.unreadCount).toBe(0)
 		expect(@imagePath).toHaveBeenCalledWith('core', 'loading.gif')
 	
 
+	it 'should not add http when it already is at the start of created feed', =>
+		url = 'https://www.google.de'
+		@FeedBusinessLayer.create(url)
+		feed = @FeedModel.getByUrl(url)
+
+		expect(feed.url).toBe(url)
+
+
 	it 'should make a create feed request', =>
 		@persistence.createFeed = jasmine.createSpy('add feed')
 		
 		@FeedBusinessLayer.create(' johns ')
-		expect(@persistence.createFeed).toHaveBeenCalledWith('johns', 0,
+		expect(@persistence.createFeed).toHaveBeenCalledWith('http://johns', 0,
 			jasmine.any(Function))
 
 
@@ -316,7 +324,7 @@ describe 'FeedBusinessLayer', ->
 		expect(onSuccess).not.toHaveBeenCalled()
 		expect(onFailure).toHaveBeenCalled()
 
-		expect(@FeedModel.getByUrl('johns').error).toBe(
+		expect(@FeedModel.getByUrl('http://johns').error).toBe(
 			@response.msg)
 
 

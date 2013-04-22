@@ -41,7 +41,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     return $provide.value('Config', config = {
       markReadTimeout: 500,
       scrollTimeout: 500,
-      feedUpdateInterval: 1000 * 60 * 5,
+      feedUpdateInterval: 1000 * 60 * 3,
       itemBatchSize: 20,
       autoPageFactor: 6
     });
@@ -870,6 +870,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             throw new Error('Url must not be empty');
           }
           url = url.trim();
+          if (url.indexOf('http') !== 0) {
+            url = 'http://' + url;
+          }
           if (this._feedModel.getByUrl(url)) {
             throw new _ExistsError('Exists already');
           }
