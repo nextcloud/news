@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-20 01:01+0200\n"
-"PO-Revision-Date: 2013-04-19 23:01+0000\n"
+"POT-Creation-Date: 2013-04-23 01:08+0200\n"
+"PO-Revision-Date: 2013-04-22 23:08+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/projects/p/owncloud/language/et_EE/)\n"
 "MIME-Version: 1.0\n"
@@ -23,11 +23,11 @@ msgstr ""
 msgid "News"
 msgstr "Uudised"
 
-#: businesslayer/feedbusinesslayer.php:66
+#: businesslayer/feedbusinesslayer.php:70
 msgid "Can not add feed: Exists already"
 msgstr "Voogu ei saa lisada:  on juba olemas"
 
-#: businesslayer/feedbusinesslayer.php:104
+#: businesslayer/feedbusinesslayer.php:108
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "Voogu ei saa lisada: URL-i pole olemas või sisaldab vigast XML-i"
 
@@ -35,55 +35,51 @@ msgstr "Voogu ei saa lisada: URL-i pole olemas või sisaldab vigast XML-i"
 msgid "Can not add folder: Exists already"
 msgstr "Kataloogi ei saa lisada: on juba olemas"
 
+#: templates/main.php:27
+msgid "Undo deletion of "
+msgstr ""
+
 #: templates/part.addnew.php:12
 msgid "Add Website"
 msgstr "Lisa veebisait"
 
 #: templates/part.addnew.php:19
-msgid "Error: address must not be empty!"
-msgstr "Viga: Aadress ei saa olla tühi!"
-
-#: templates/part.addnew.php:22
 msgid "Error: address exists already!"
 msgstr "Viga: aadress on juba olemas!"
 
-#: templates/part.addnew.php:25
-msgid "Error: folder name must not be empty!"
-msgstr "Viga: Kataloogi nimi ei saa olla tühi."
-
-#: templates/part.addnew.php:28
+#: templates/part.addnew.php:22
 msgid "Error: folder exists already"
 msgstr "Viga: kataloog on juba olemas"
 
-#: templates/part.addnew.php:35
+#: templates/part.addnew.php:29
 msgid "Address"
 msgstr "Aadress"
 
-#: templates/part.addnew.php:39 templates/part.addnew.php:42
+#: templates/part.addnew.php:33 templates/part.addnew.php:36
 msgid "Add"
 msgstr "Lisa"
 
-#: templates/part.addnew.php:46 templates/part.addnew.php:54
+#: templates/part.addnew.php:40 templates/part.addnew.php:48
 msgid "New folder"
 msgstr "Uus kaust"
 
-#: templates/part.addnew.php:47
+#: templates/part.addnew.php:41
 msgid "Folder"
 msgstr "Kaust"
 
-#: templates/part.addnew.php:52
+#: templates/part.addnew.php:46
 msgid "Choose folder"
 msgstr "Vali kataloog"
 
-#: templates/part.addnew.php:64
+#: templates/part.addnew.php:58
 msgid "Folder name"
 msgstr "Kausta nimi"
 
-#: templates/part.addnew.php:67
+#: templates/part.addnew.php:61
 msgid "Back to folder selection"
 msgstr "Tagasi kataloogide valikusse"
 
-#: templates/part.addnew.php:72
+#: templates/part.addnew.php:66
 msgid "Create folder"
 msgstr "Loo kaust"
 
@@ -99,36 +95,36 @@ msgstr "Lugemata artiklid"
 msgid "All articles"
 msgstr "Kõik artiklid"
 
-#: templates/part.feed.unread.php:26 templates/part.listfeed.php:40
+#: templates/part.feed.unread.php:26 templates/part.listfeed.php:42
 #: templates/part.listfolder.php:43
 msgid "Mark read"
-msgstr ""
+msgstr "Märgi loetuks"
 
 #: templates/part.items.php:17
 msgid "Save for later"
 msgstr "Salvesta hilisemaks"
 
-#: templates/part.items.php:31
+#: templates/part.items.php:33
 msgid "from"
 msgstr "kohast"
 
-#: templates/part.items.php:36
+#: templates/part.items.php:38
 msgid "by"
 msgstr "lisas"
 
-#: templates/part.items.php:44
+#: templates/part.items.php:46
 msgid "Cant play audio format"
 msgstr "Helivormingut ei saa esitada"
 
-#: templates/part.items.php:57
+#: templates/part.items.php:59
 msgid "Keep unread"
 msgstr "Hoia kui lugemata"
 
-#: templates/part.listfeed.php:45
+#: templates/part.listfeed.php:47
 msgid "Delete feed"
 msgstr "Kustuta uudisvoog"
 
-#: templates/part.listfeed.php:51
+#: templates/part.listfeed.php:53
 msgid "Delete website"
 msgstr "Kustuta veebileht"
 
@@ -164,17 +160,17 @@ msgstr "Viga importimisel: fail ei sisalda korrektset OPML-i"
 
 #: templates/part.settings.php:42
 msgid "Import Google Reader JSON"
-msgstr ""
+msgstr "Impordi Google Reader JSON"
 
 #: templates/part.settings.php:43
 msgid ""
 "To import starred and shared articles from Google \n"
 "\t\t\tReader please upload the .json files from the Google Takeout archive"
-msgstr ""
+msgstr "Et importida tähitud ja jagatud artikleid Google ⏎\n»»»Reader-ist palun laadi üles Google Takeout arhiivist .json failid "
 
 #: templates/part.settings.php:53
 msgid "Error when importing: file does not contain valid JSON"
-msgstr ""
+msgstr "Viga importimisel: fail ei sisalda korrektset JSON-i"
 
 #: templates/part.showall.php:2
 msgid "Show all"

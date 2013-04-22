@@ -20,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-22 01:08+0200\n"
-"PO-Revision-Date: 2013-04-21 21:15+0000\n"
-"Last-Translator: a.tangemann <a.tangemann@web.de>\n"
+"POT-Creation-Date: 2013-04-23 01:08+0200\n"
+"PO-Revision-Date: 2013-04-22 23:08+0000\n"
+"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: German (Germany) <translations@owncloud.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,11 +34,11 @@ msgstr ""
 msgid "News"
 msgstr "Nachrichten"
 
-#: businesslayer/feedbusinesslayer.php:66
+#: businesslayer/feedbusinesslayer.php:70
 msgid "Can not add feed: Exists already"
 msgstr "Feed konnte nicht hinzugefügt werden:  Existiert bereits"
 
-#: businesslayer/feedbusinesslayer.php:104
+#: businesslayer/feedbusinesslayer.php:108
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "Feed konnte nicht hinzugefügt werden: URL existiert nicht oder enthält ungültiges XML"
 
@@ -46,55 +46,51 @@ msgstr "Feed konnte nicht hinzugefügt werden: URL existiert nicht oder enthält
 msgid "Can not add folder: Exists already"
 msgstr "Ordner kann nicht hinzgefügt werden: Existiert bereits"
 
+#: templates/main.php:27
+msgid "Undo deletion of "
+msgstr ""
+
 #: templates/part.addnew.php:12
 msgid "Add Website"
 msgstr "Website hinzufügen"
 
 #: templates/part.addnew.php:19
-msgid "Error: address must not be empty!"
-msgstr "Fehler: Adresse muss angegeben werden!"
-
-#: templates/part.addnew.php:22
 msgid "Error: address exists already!"
 msgstr "Fehler: Adresse existier bereits!"
 
-#: templates/part.addnew.php:25
-msgid "Error: folder name must not be empty!"
-msgstr "Fehler: Ordnername muss angegeben werden!"
-
-#: templates/part.addnew.php:28
+#: templates/part.addnew.php:22
 msgid "Error: folder exists already"
 msgstr "Fehler: Ordner existiert bereits"
 
-#: templates/part.addnew.php:35
+#: templates/part.addnew.php:29
 msgid "Address"
 msgstr "Adresse"
 
-#: templates/part.addnew.php:39 templates/part.addnew.php:42
+#: templates/part.addnew.php:33 templates/part.addnew.php:36
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: templates/part.addnew.php:46 templates/part.addnew.php:54
+#: templates/part.addnew.php:40 templates/part.addnew.php:48
 msgid "New folder"
 msgstr "Neues Verzeichnis"
 
-#: templates/part.addnew.php:47
+#: templates/part.addnew.php:41
 msgid "Folder"
 msgstr "Ordner"
 
-#: templates/part.addnew.php:52
+#: templates/part.addnew.php:46
 msgid "Choose folder"
 msgstr "Ordner auswählen"
 
-#: templates/part.addnew.php:64
+#: templates/part.addnew.php:58
 msgid "Folder name"
 msgstr "Ordnername"
 
-#: templates/part.addnew.php:67
+#: templates/part.addnew.php:61
 msgid "Back to folder selection"
 msgstr "Zurück zur Ordnerauswahl"
 
-#: templates/part.addnew.php:72
+#: templates/part.addnew.php:66
 msgid "Create folder"
 msgstr "Ordner erstellen"
 

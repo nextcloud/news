@@ -4,9 +4,7 @@
 "Can not add feed: URL does not exist or has invalid xml" => "Ni mogoče dodati vira: naslov URL ne obstaja ali pa je okvarjen zapis",
 "Can not add folder: Exists already" => "Ni mogoče dodati mape: mapa že obstaja.",
 "Add Website" => "Dodaj spletišče",
-"Error: address must not be empty!" => "Napaka: naslov ne sme biti prazna vrednost!",
 "Error: address exists already!" => "Napaka: naslov že obstaja!",
-"Error: folder name must not be empty!" => "Napaka: ime mape ne sme biti prazna vrednost!",
 "Error: folder exists already" => "Napaka: mapa že obstaja!",
 "Address" => "Naslov",
 "Add" => "Dodaj",
@@ -19,6 +17,7 @@
 "Starred" => "Z zvezdico",
 "Unread articles" => "Neprebrani prispevki",
 "All articles" => "Vsi prispevki",
+"Mark read" => "Označi kot prebrano",
 "Save for later" => "Shrani za kasneje",
 "from" => "od",
 "by" => "od",
@@ -33,6 +32,9 @@
 "Import" => "Uvozi",
 "Export" => "Izvozi",
 "Error when importing: file does not contain valid OPML" => "Napaka med uvažanjem: datoteka ne vsebuje veljavnega OPML",
+"Import Google Reader JSON" => "Uvozi podatke JSON bralnika Google",
+"To import starred and shared articles from Google \n\t\t\tReader please upload the .json files from the Google Takeout archive" => "Za uvoz označenih prispevkov in prispevkov v souporabi preko\n\t\t\tbralnika Google je treba poslati datoteke .json iz arhiva Google Takeout.",
+"Error when importing: file does not contain valid JSON" => "Napaka uvoza: datoteka ne vsebuje veljavnih podatkov JSON.",
 "Show all" => "Pokaži vse",
 "Show only unread" => "Prikaži le neprebrano"
 );

@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-20 01:01+0200\n"
-"PO-Revision-Date: 2013-04-19 23:01+0000\n"
+"POT-Creation-Date: 2013-04-23 01:08+0200\n"
+"PO-Revision-Date: 2013-04-22 23:08+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Danish (http://www.transifex.com/projects/p/owncloud/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -27,11 +27,11 @@ msgstr ""
 msgid "News"
 msgstr "Nyheder"
 
-#: businesslayer/feedbusinesslayer.php:66
+#: businesslayer/feedbusinesslayer.php:70
 msgid "Can not add feed: Exists already"
 msgstr ""
 
-#: businesslayer/feedbusinesslayer.php:104
+#: businesslayer/feedbusinesslayer.php:108
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr ""
 
@@ -39,55 +39,51 @@ msgstr ""
 msgid "Can not add folder: Exists already"
 msgstr ""
 
+#: templates/main.php:27
+msgid "Undo deletion of "
+msgstr ""
+
 #: templates/part.addnew.php:12
 msgid "Add Website"
 msgstr "Tilføj website"
 
 #: templates/part.addnew.php:19
-msgid "Error: address must not be empty!"
-msgstr ""
-
-#: templates/part.addnew.php:22
 msgid "Error: address exists already!"
 msgstr ""
 
-#: templates/part.addnew.php:25
-msgid "Error: folder name must not be empty!"
-msgstr ""
-
-#: templates/part.addnew.php:28
+#: templates/part.addnew.php:22
 msgid "Error: folder exists already"
 msgstr ""
 
-#: templates/part.addnew.php:35
+#: templates/part.addnew.php:29
 msgid "Address"
 msgstr "Adresse"
 
-#: templates/part.addnew.php:39 templates/part.addnew.php:42
+#: templates/part.addnew.php:33 templates/part.addnew.php:36
 msgid "Add"
 msgstr "Tilføj"
 
-#: templates/part.addnew.php:46 templates/part.addnew.php:54
+#: templates/part.addnew.php:40 templates/part.addnew.php:48
 msgid "New folder"
 msgstr "Ny Mappe"
 
-#: templates/part.addnew.php:47
+#: templates/part.addnew.php:41
 msgid "Folder"
 msgstr "Mappe"
 
-#: templates/part.addnew.php:52
+#: templates/part.addnew.php:46
 msgid "Choose folder"
 msgstr "Vælg folder"
 
-#: templates/part.addnew.php:64
+#: templates/part.addnew.php:58
 msgid "Folder name"
 msgstr "Mappenavn"
 
-#: templates/part.addnew.php:67
+#: templates/part.addnew.php:61
 msgid "Back to folder selection"
 msgstr ""
 
-#: templates/part.addnew.php:72
+#: templates/part.addnew.php:66
 msgid "Create folder"
 msgstr ""
 
@@ -103,7 +99,7 @@ msgstr "Ulæste artikler"
 msgid "All articles"
 msgstr "Alle artikler"
 
-#: templates/part.feed.unread.php:26 templates/part.listfeed.php:40
+#: templates/part.feed.unread.php:26 templates/part.listfeed.php:42
 #: templates/part.listfolder.php:43
 msgid "Mark read"
 msgstr ""
@@ -112,27 +108,27 @@ msgstr ""
 msgid "Save for later"
 msgstr ""
 
-#: templates/part.items.php:31
+#: templates/part.items.php:33
 msgid "from"
 msgstr "fra"
 
-#: templates/part.items.php:36
+#: templates/part.items.php:38
 msgid "by"
 msgstr "af"
 
-#: templates/part.items.php:44
+#: templates/part.items.php:46
 msgid "Cant play audio format"
 msgstr "Kan ikke afspille lydformatet"
 
-#: templates/part.items.php:57
+#: templates/part.items.php:59
 msgid "Keep unread"
 msgstr "Behold ulæste"
 
-#: templates/part.listfeed.php:45
+#: templates/part.listfeed.php:47
 msgid "Delete feed"
 msgstr "Slet feed"
 
-#: templates/part.listfeed.php:51
+#: templates/part.listfeed.php:53
 msgid "Delete website"
 msgstr ""
 

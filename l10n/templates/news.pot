@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud news 5.0.0\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2013-04-22 01:08+0200\n"
+"POT-Creation-Date: 2013-04-23 01:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,11 +21,11 @@ msgstr ""
 msgid "News"
 msgstr ""
 
-#: businesslayer/feedbusinesslayer.php:66
+#: businesslayer/feedbusinesslayer.php:70
 msgid "Can not add feed: Exists already"
 msgstr ""
 
-#: businesslayer/feedbusinesslayer.php:104
+#: businesslayer/feedbusinesslayer.php:108
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr ""
 
@@ -33,55 +33,51 @@ msgstr ""
 msgid "Can not add folder: Exists already"
 msgstr ""
 
+#: templates/main.php:27
+msgid "Undo deletion of "
+msgstr ""
+
 #: templates/part.addnew.php:12
 msgid "Add Website"
 msgstr ""
 
 #: templates/part.addnew.php:19
-msgid "Error: address must not be empty!"
-msgstr ""
-
-#: templates/part.addnew.php:22
 msgid "Error: address exists already!"
 msgstr ""
 
-#: templates/part.addnew.php:25
-msgid "Error: folder name must not be empty!"
-msgstr ""
-
-#: templates/part.addnew.php:28
+#: templates/part.addnew.php:22
 msgid "Error: folder exists already"
 msgstr ""
 
-#: templates/part.addnew.php:35
+#: templates/part.addnew.php:29
 msgid "Address"
 msgstr ""
 
-#: templates/part.addnew.php:39 templates/part.addnew.php:42
+#: templates/part.addnew.php:33 templates/part.addnew.php:36
 msgid "Add"
 msgstr ""
 
-#: templates/part.addnew.php:46 templates/part.addnew.php:54
+#: templates/part.addnew.php:40 templates/part.addnew.php:48
 msgid "New folder"
 msgstr ""
 
-#: templates/part.addnew.php:47
+#: templates/part.addnew.php:41
 msgid "Folder"
 msgstr ""
 
-#: templates/part.addnew.php:52
+#: templates/part.addnew.php:46
 msgid "Choose folder"
 msgstr ""
 
-#: templates/part.addnew.php:64
+#: templates/part.addnew.php:58
 msgid "Folder name"
 msgstr ""
 
-#: templates/part.addnew.php:67
+#: templates/part.addnew.php:61
 msgid "Back to folder selection"
 msgstr ""
 
-#: templates/part.addnew.php:72
+#: templates/part.addnew.php:66
 msgid "Create folder"
 msgstr ""
 

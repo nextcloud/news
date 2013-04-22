@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-20 01:01+0200\n"
-"PO-Revision-Date: 2013-04-19 23:01+0000\n"
+"POT-Creation-Date: 2013-04-23 01:08+0200\n"
+"PO-Revision-Date: 2013-04-22 23:08+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Japanese (Japan) (http://www.transifex.com/projects/p/owncloud/language/ja_JP/)\n"
 "MIME-Version: 1.0\n"
@@ -25,11 +25,11 @@ msgstr ""
 msgid "News"
 msgstr "ニュース"
 
-#: businesslayer/feedbusinesslayer.php:66
+#: businesslayer/feedbusinesslayer.php:70
 msgid "Can not add feed: Exists already"
 msgstr "フィードを追加できません: すでに存在します"
 
-#: businesslayer/feedbusinesslayer.php:104
+#: businesslayer/feedbusinesslayer.php:108
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "フィードを追加できません: URLが存在しない、もしくは無効なXMLです"
 
@@ -37,55 +37,51 @@ msgstr "フィードを追加できません: URLが存在しない、もしく�
 msgid "Can not add folder: Exists already"
 msgstr "フォルダを追加できません: すでに存在します"
 
+#: templates/main.php:27
+msgid "Undo deletion of "
+msgstr ""
+
 #: templates/part.addnew.php:12
 msgid "Add Website"
 msgstr "ウェブサイトを追加"
 
 #: templates/part.addnew.php:19
-msgid "Error: address must not be empty!"
-msgstr "エラー: アドレスは空にできません！"
-
-#: templates/part.addnew.php:22
 msgid "Error: address exists already!"
 msgstr "エラー: アドレスはすでに存在します！"
 
-#: templates/part.addnew.php:25
-msgid "Error: folder name must not be empty!"
-msgstr "エラー: フォルダ名は空に出来ません！"
-
-#: templates/part.addnew.php:28
+#: templates/part.addnew.php:22
 msgid "Error: folder exists already"
 msgstr "エラー: フォルダはすでに存在します！"
 
-#: templates/part.addnew.php:35
+#: templates/part.addnew.php:29
 msgid "Address"
 msgstr "アドレス"
 
-#: templates/part.addnew.php:39 templates/part.addnew.php:42
+#: templates/part.addnew.php:33 templates/part.addnew.php:36
 msgid "Add"
 msgstr "追加"
 
-#: templates/part.addnew.php:46 templates/part.addnew.php:54
+#: templates/part.addnew.php:40 templates/part.addnew.php:48
 msgid "New folder"
 msgstr "新しいフォルダ"
 
-#: templates/part.addnew.php:47
+#: templates/part.addnew.php:41
 msgid "Folder"
 msgstr "フォルダ"
 
-#: templates/part.addnew.php:52
+#: templates/part.addnew.php:46
 msgid "Choose folder"
 msgstr "フォルダを選択"
 
-#: templates/part.addnew.php:64
+#: templates/part.addnew.php:58
 msgid "Folder name"
 msgstr "フォルダ名"
 
-#: templates/part.addnew.php:67
+#: templates/part.addnew.php:61
 msgid "Back to folder selection"
 msgstr "フォルダ選択に戻る"
 
-#: templates/part.addnew.php:72
+#: templates/part.addnew.php:66
 msgid "Create folder"
 msgstr "フォルダを作成"
 
@@ -101,36 +97,36 @@ msgstr "未読の記事"
 msgid "All articles"
 msgstr "全ての記事"
 
-#: templates/part.feed.unread.php:26 templates/part.listfeed.php:40
+#: templates/part.feed.unread.php:26 templates/part.listfeed.php:42
 #: templates/part.listfolder.php:43
 msgid "Mark read"
-msgstr ""
+msgstr "既読としてマーク"
 
 #: templates/part.items.php:17
 msgid "Save for later"
 msgstr "一時保存"
 
-#: templates/part.items.php:31
+#: templates/part.items.php:33
 msgid "from"
 msgstr "から"
 
-#: templates/part.items.php:36
+#: templates/part.items.php:38
 msgid "by"
 msgstr "により"
 
-#: templates/part.items.php:44
+#: templates/part.items.php:46
 msgid "Cant play audio format"
 msgstr "音声フォーマットを再生できません"
 
-#: templates/part.items.php:57
+#: templates/part.items.php:59
 msgid "Keep unread"
 msgstr "未読のままにする"
 
-#: templates/part.listfeed.php:45
+#: templates/part.listfeed.php:47
 msgid "Delete feed"
 msgstr "フィードを削除"
 
-#: templates/part.listfeed.php:51
+#: templates/part.listfeed.php:53
 msgid "Delete website"
 msgstr "ウェブサイトを削除"
 
@@ -166,17 +162,17 @@ msgstr "インポート中のエラー: ファイルは有効なOPMLを含んで
 
 #: templates/part.settings.php:42
 msgid "Import Google Reader JSON"
-msgstr ""
+msgstr "GoogleリーダJSONをインポート"
 
 #: templates/part.settings.php:43
 msgid ""
 "To import starred and shared articles from Google \n"
 "\t\t\tReader please upload the .json files from the Google Takeout archive"
-msgstr ""
+msgstr "Googleからスター付きもしくは共有の記事をインポートするために\n»»»Google Takeoutの書庫から .json ファイルをアップロードしてください"
 
 #: templates/part.settings.php:53
 msgid "Error when importing: file does not contain valid JSON"
-msgstr ""
+msgstr "インポート中のエラー: ファイルは有効なJSONを含んでいません"
 
 #: templates/part.showall.php:2
 msgid "Show all"

@@ -4,9 +4,7 @@
 "Can not add feed: URL does not exist or has invalid xml" => "フィードを追加できません: URLが存在しない、もしくは無効なXMLです",
 "Can not add folder: Exists already" => "フォルダを追加できません: すでに存在します",
 "Add Website" => "ウェブサイトを追加",
-"Error: address must not be empty!" => "エラー: アドレスは空にできません！",
 "Error: address exists already!" => "エラー: アドレスはすでに存在します！",
-"Error: folder name must not be empty!" => "エラー: フォルダ名は空に出来ません！",
 "Error: folder exists already" => "エラー: フォルダはすでに存在します！",
 "Address" => "アドレス",
 "Add" => "追加",
@@ -19,6 +17,7 @@
 "Starred" => "共有",
 "Unread articles" => "未読の記事",
 "All articles" => "全ての記事",
+"Mark read" => "既読としてマーク",
 "Save for later" => "一時保存",
 "from" => "から",
 "by" => "により",
@@ -33,6 +32,9 @@
 "Import" => "インポート",
 "Export" => "エクスポート",
 "Error when importing: file does not contain valid OPML" => "インポート中のエラー: ファイルは有効なOPMLを含んでいません",
+"Import Google Reader JSON" => "GoogleリーダJSONをインポート",
+"To import starred and shared articles from Google \n\t\t\tReader please upload the .json files from the Google Takeout archive" => "Googleからスター付きもしくは共有の記事をインポートするために\n»»»Google Takeoutの書庫から .json ファイルをアップロードしてください",
+"Error when importing: file does not contain valid JSON" => "インポート中のエラー: ファイルは有効なJSONを含んでいません",
 "Show all" => "全て表示",
 "Show only unread" => "未読のみを表示"
 );
