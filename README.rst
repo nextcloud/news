@@ -77,3 +77,7 @@ To update the News app use::
     git pull --rebase origin master
 
 
+Keyboard shortcuts
+------------------
+* **Next item**: n/j/right arrow
+* **Previous item**: p/k/left arrow
