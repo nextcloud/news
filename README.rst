@@ -81,3 +81,8 @@ Keyboard shortcuts
 ------------------
 * **Next item**: n/j/right arrow
 * **Previous item**: p/k/left arrow
+
+Performance Notices
+-------------------
+* It is currently discouraged to use it in large hosted installations since there is no way to restrict the backgroundjob to require a pause of X minutes. This `will be addressed <https://github.com/owncloud/news/issues/103>`_ in the `next ownCloud release <https://github.com/owncloud/core/pull/3051>`_.
+* Use MySQL or PostgreSQL for better database performance
