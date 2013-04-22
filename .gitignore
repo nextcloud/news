@@ -3,7 +3,7 @@ coffee/build/
 node_modules/
 *.log
 build/
-test-results.xml 
+test\-results.xml 
 
 # just sane ignores
 .*.sw[po]
