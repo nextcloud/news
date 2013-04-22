@@ -1283,8 +1283,10 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           var lowestItemId;
 
           lowestItemId = this._itemModel.getLowestId();
-          if (angular.isDefined(lowestItemId)) {
+          if (lowestItemId !== 0) {
             return this._persistence.getItems(this._activeFeed.getType(), this._activeFeed.getId(), lowestItemId, callback);
+          } else {
+            return callback();
           }
         };
 

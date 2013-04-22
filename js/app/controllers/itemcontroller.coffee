@@ -51,7 +51,7 @@ Language, AutoPageLoading) ->
 				else
 					return ''
 
-			# TODO: unittest
+
 			@_$scope.getRelativeDate = (date) =>
 				if date
 					return @_language.getMomentFromTimestamp(date).fromNow()
