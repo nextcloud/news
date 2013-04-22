@@ -22,6 +22,12 @@
 ?>
 
 <div id="app" ng-app="News">
+	<div id="undo-container">
+		<div undo-notification id="undo">
+			<a href="#"><?php p($l->t('Undo deletion of ')); ?>{{ getCaption() }}</a>
+		</div>
+	</div>
+
 	<div id="app-navigation" ng-controller="FeedController">
 
 		<ul class="with-icon" data-id="0" droppable>

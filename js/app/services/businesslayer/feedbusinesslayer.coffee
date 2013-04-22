@@ -23,14 +23,16 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 angular.module('News').factory 'FeedBusinessLayer',
 ['_BusinessLayer', 'ShowAll', 'Persistence', 'ActiveFeed', 'FeedType',
-'ItemModel', 'FeedModel', 'NewLoading', '_ExistsError', 'Utils',
+'ItemModel', 'FeedModel', 'NewLoading', '_ExistsError', 'Utils', '$rootScope',
+'UndoQueue',
 (_BusinessLayer, ShowAll, Persistence, ActiveFeed, FeedType, ItemModel,
-FeedModel, NewLoading, _ExistsError, Utils) ->
+FeedModel, NewLoading, _ExistsError, Utils, $rootScope, UndoQueue) ->
 
 	class FeedBusinessLayer extends _BusinessLayer
 
 		constructor: (@_showAll, @_feedModel, persistence, activeFeed, feedType,
-			          itemModel, @_newLoading, @_utils) ->
+			          itemModel, @_newLoading, @_utils, @_$rootScope,
+			          @_undoQueue) ->
 			super(activeFeed, persistence, itemModel, feedType.Feed)
 			@_feedType = feedType
 
@@ -52,8 +54,14 @@ FeedModel, NewLoading, _ExistsError, Utils) ->
 
 
 		delete: (feedId) ->
-			@_feedModel.removeById(feedId)
-			@_persistence.deleteFeed(feedId)
+			feed = @_feedModel.removeById(feedId)
+			callback = =>
+				@_persistence.deleteFeed(feedId)
+		
+			undoCallback = =>
+				@_feedModel.add(feed)
+
+			@_undoQueue.add(feed.title, callback, 10*1000, undoCallback)
 
 
 		markFeedRead: (feedId) ->
@@ -185,6 +193,7 @@ FeedModel, NewLoading, _ExistsError, Utils) ->
 
 
 	return new FeedBusinessLayer(ShowAll, FeedModel, Persistence, ActiveFeed,
-	                             FeedType, ItemModel, NewLoading, Utils)
+	                             FeedType, ItemModel, NewLoading, Utils,
+	                             $rootScope, UndoQueue)
 
 ]

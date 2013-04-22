@@ -39,15 +39,17 @@ describe 'FolderBusinessLayer', ->
 
 
 	beforeEach inject (@FolderBusinessLayer, @FolderModel,	@FeedModel, @ShowAll,
-		               @ActiveFeed, @FeedType, @_ExistsError) =>
+		               @ActiveFeed, @FeedType, @_ExistsError, @$timeout) =>
 		@ShowAll.setShowAll(false)
 		@ActiveFeed.handle({type: @FeedType.Feed, id:0})
 
 
 	it 'should delete folders', =>
-		@FolderModel.removeById = jasmine.createSpy('remove')
+		@FolderModel.removeById = jasmine.createSpy('remove').andCallFake ->
+			return {id: 3, name: 'test'}
 		@persistence.deleteFolder = jasmine.createSpy('deletequery')
 		@FolderBusinessLayer.delete(3)
+		@$timeout.flush()
 
 		expect(@FolderModel.removeById).toHaveBeenCalledWith(3)
 		expect(@persistence.deleteFolder).toHaveBeenCalledWith(3)

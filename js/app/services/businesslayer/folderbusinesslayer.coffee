@@ -24,22 +24,31 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 angular.module('News').factory 'FolderBusinessLayer',
 ['_BusinessLayer', 'FolderModel', 'FeedBusinessLayer', 'Persistence',
 'FeedType', 'ActiveFeed', 'ItemModel', 'ShowAll', '_ExistsError', 'OPMLParser',
+'UndoQueue',
 (_BusinessLayer, FolderModel, FeedBusinessLayer, Persistence, FeedType,
-ActiveFeed, ItemModel, ShowAll, _ExistsError, OPMLParser) ->
+ActiveFeed, ItemModel, ShowAll, _ExistsError, OPMLParser, UndoQueue) ->
 
 	class FolderBusinessLayer extends _BusinessLayer
 
 		constructor: (@_folderModel, @_feedBusinessLayer, @_showAll, activeFeed,
-			          persistence, @_feedType, itemModel, @_opmlParser) ->
+			          persistence, @_feedType, itemModel, @_opmlParser,
+			          @_undoQueue) ->
 			super(activeFeed, persistence, itemModel, @_feedType.Folder)
 
 
 		getById: (folderId) ->
 			return @_folderModel.getById(folderId)
 
+
 		delete: (folderId) ->
-			@_folderModel.removeById(folderId)
-			@_persistence.deleteFolder(folderId)
+			folder = @_folderModel.removeById(folderId)
+			callback = =>
+				@_persistence.deleteFolder(folderId)
+		
+			undoCallback = =>
+				@_folderModel.add(folder)
+
+			@_undoQueue.add(folder.name, callback, 10*1000, undoCallback)
 
 
 		hasFeeds: (folderId) ->
@@ -155,6 +164,6 @@ ActiveFeed, ItemModel, ShowAll, _ExistsError, OPMLParser) ->
 
 	return new FolderBusinessLayer(FolderModel, FeedBusinessLayer, ShowAll,
 	                               ActiveFeed, Persistence, FeedType, ItemModel,
-	                               OPMLParser)
+	                               OPMLParser, UndoQueue)
 
 ]

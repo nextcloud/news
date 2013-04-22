@@ -44,16 +44,20 @@ describe 'FeedBusinessLayer', ->
 
 	
 	beforeEach inject (@FeedBusinessLayer, @FeedModel, @ItemModel, @FeedType,
-	                   @ShowAll, @ActiveFeed, @_ExistsError) =>
+	                   @ShowAll, @ActiveFeed, @_ExistsError, @$timeout) =>
 		@ShowAll.setShowAll(false)
 		@ActiveFeed.handle({type: @FeedType.Folder, id:0})
 
 	it 'should delete feeds', =>
-		@FeedModel.removeById = jasmine.createSpy('remove')
+		@FeedModel.removeById = jasmine.createSpy('remove').andCallFake ->
+			return {id: 3, title: 'test'}
 		@persistence.deleteFeed = jasmine.createSpy('deletequery')
 		@FeedBusinessLayer.delete(3)
 
 		expect(@FeedModel.removeById).toHaveBeenCalledWith(3)
+		
+		@$timeout.flush()
+
 		expect(@persistence.deleteFeed).toHaveBeenCalledWith(3)
 		
 
