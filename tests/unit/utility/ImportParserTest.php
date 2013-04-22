@@ -111,4 +111,40 @@ class ImportParserTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->assertEquals(array($out), $result);
 	}
 
+
+	public function testDontAddIfNoTitleAndUrlAndGuid() {
+		$in = array(
+			'items' => array(
+				array(
+					"published" => 1365415485,
+   
+				    "summary" => array(
+      					"content" => "1596 seeder(s), 775 leecher(s), 8005 download(s) - 316.7 MiB - Trusted"
+      				)
+				)
+			)
+		);
+
+		$result = $this->parser->parse($in);
+		$this->assertEquals(array(), $result);
+	}
+
+	public function testParsesItemsNoPubDate() {
+		unset($this->in['items'][0]['published']);
+		$result = $this->parser->parse($this->in);
+
+		$out = new Item();
+		$out->setTitle($this->in['items'][0]['title']);
+		$out->setPubDate($this->time);
+		$out->setBody($this->in['items'][0]['summary']['content']);
+		$out->setUrl($this->in['items'][0]['alternate'][0]['href']);
+		$out->setGuid($this->in['items'][0]['id']);
+		$out->setGuidHash(md5($this->in['items'][0]['id']));
+		$out->setStatus(0);
+		$out->setUnread();
+		$out->setStarred();
+
+		$this->assertEquals(array($out), $result);
+	}
+
 }

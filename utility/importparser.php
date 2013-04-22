@@ -35,7 +35,7 @@ class ImportParser {
 	private $timeFactory;
 
 	public function __construct(TimeFactory $timeFactory) {
-		$this->timeFactor = $timeFactory;
+		$this->timeFactory = $timeFactory;
 	}
 
 	public function parse($json){
@@ -43,22 +43,38 @@ class ImportParser {
 
 		if(array_key_exists('items', $json)) {
 			foreach($json['items'] as $entry) {
+				// we require title, guid and url
+				if(!array_key_exists('title', $entry)
+					|| !array_key_exists('id', $entry)
+					|| !array_key_exists('alternate', $entry)
+					|| !count($entry['alternate']) > 0
+					|| !array_key_exists('href', $entry['alternate'][0])) {
+					continue;
+				}
+
 				$item = new Item();
+				
 				$id = $entry['id'];
 				$item->setGuid($id);
 				$item->setGuidHash(md5($id));
 				$item->setTitle($entry['title']);
-				$item->setPubDate($entry['published']);
+				$item->setUrl($entry['alternate'][0]['href']);
+				$item->setStatus(0);
+				$item->setStarred();
+				$item->setUnread();
+
+				if(array_key_exists('published', $entry)) {
+					$item->setPubDate($entry['published']);	
+				} else {
+					$item->setPubDate($this->timeFactory->getTime());
+				}
+				
 				if(array_key_exists('summary', $entry)) {
 					$item->setBody($entry['summary']['content']);
 				} elseif(array_key_exists('content', $entry)) {
 					$item->setBody($entry['content']['content']);
 				}
 				
-				$item->setUrl($entry['alternate'][0]['href']);
-				$item->setStatus(0);
-				$item->setStarred();
-				$item->setUnread();
 
 				array_push($items, $item);
 			}
