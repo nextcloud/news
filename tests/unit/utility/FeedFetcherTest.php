@@ -50,6 +50,7 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 	private $pub;
 	private $body;
 	private $author;
+	private $authorMail;
 	private $enclosureLink;
 
 	// feed
@@ -108,6 +109,7 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->feedLink = 'http://goatse';
 		$this->feedImage = '/an/image';
 		$this->webFavicon = 'http://anon.google.com';
+		$this->authorMail = 'doe@joes.com';
 	}
 
 
@@ -160,7 +162,7 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 			->will($this->returnValue($return));
 	}
 
- 
+
 	private function createItem($author=false, $enclosureType=null) {
 		$this->expectItem('get_permalink', $this->permalink);
 		$this->expectItem('get_title', $this->title);
@@ -185,6 +187,17 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 				->will($this->returnValue($this->author));
 			$this->expectItem('get_author', $mock);
 			$item->setAuthor(html_entity_decode($this->author));
+		} else {
+			$mock = $this->getMock('author', array('get_name', 'get_email'));
+			$mock->expects($this->any())
+				->method('get_name')
+				->will($this->returnValue(''));
+			$mock->expects($this->any())
+				->method('get_email')
+				->will($this->returnValue($this->authorMail));
+
+			$this->expectItem('get_author', $mock);
+			$item->setAuthor(html_entity_decode($this->authorMail));
 		}
 
 		if($enclosureType === 'audio/ogg') {

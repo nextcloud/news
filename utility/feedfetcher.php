@@ -120,8 +120,9 @@ class FeedFetcher implements IFeedFetcher {
 
 		$author = $simplePieItem->get_author();
 		if ($author !== null) {
-			if ($author->get_name()) {
-				$item->setAuthor(html_entity_decode($author->get_name()));
+			$name = html_entity_decode($author->get_name());
+			if ($name) {
+				$item->setAuthor($name);
 			} else {
 				$item->setAuthor(html_entity_decode($author->get_email()));
 			}
