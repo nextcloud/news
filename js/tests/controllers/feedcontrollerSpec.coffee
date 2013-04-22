@@ -26,16 +26,25 @@ describe 'FeedController', ->
 	beforeEach module 'News'
 
 	beforeEach module ($provide) =>
+		@imagePath = jasmine.createSpy('imagePath')
+		@utils =
+			imagePath: @imagePath
+		$provide.value 'Utils', @utils
+
 		@persistence = {}
+
 		$provide.value 'Persistence', @persistence
 		return
 
 	beforeEach inject ($controller, @FolderBusinessLayer, @FeedBusinessLayer,
-	                   $rootScope, @unreadCountFormatter,
-	                   @SubscriptionsBusinessLayer, @StarredBusinessLayer) =>
+	                   $rootScope, @unreadCountFormatter, @FeedModel,
+	                   @SubscriptionsBusinessLayer, @StarredBusinessLayer,
+	                   @$window, @_ExistsError, @FolderModel, @FeedType) =>
 		@scope = $rootScope.$new()
 		replace =
 			$scope: @scope
+
+		@$window.document.title = ''
 
 		@controller = $controller('FeedController', replace)
 
@@ -64,103 +73,143 @@ describe 'FeedController', ->
 		expect(@scope.subscriptionsBusinessLayer).toBe(
 			@SubscriptionsBusinessLayer)
 
+
 	it 'should make StarredBusinessLayer available', =>
 		expect(@scope.starredBusinessLayer).toBe(@StarredBusinessLayer)
 
-	it 'should not add folders that have no name', =>
-		@persistence.createFolder = jasmine.createSpy('create')
-		@scope.addFolder(' ')
 
-		expect(@scope.folderEmptyError).toBeTruthy()
-		expect(@persistence.createFolder).not.toHaveBeenCalled()
+	it 'should set the window title to the total unread count', =>
+		expect(@$window.document.title).toBe('')
+
+		@scope.getTotalUnreadCount()
+		expect(@$window.document.title).toBe('News | ownCloud')
+
+		item = {id: 3, unreadCount: 5, faviconLink: 'test', url: 'hi'}
+		@FeedModel.add(item)
+		@scope.getTotalUnreadCount()
+
+		expect(@$window.document.title).toBe('News (5) | ownCloud')
 
 
-	xit 'should not add folders that already exist client side', =>
-		@FolderModel.add({id: 3, name: 'ola'})
+	it 'should show 999+ if in window title when more than 999 unread count', =>
+		item = {id: 3, unreadCount: 1, faviconLink: 'test', url: 'hi'}
+		item1 = {id: 5, unreadCount: 999, faviconLink: 'test', url: 'his'}
+		@FeedModel.add(item)
+		@FeedModel.add(item1)
+
+		@scope.getTotalUnreadCount()
+
+		expect(@$window.document.title).toBe('News (999+) | ownCloud')
+
+
+	it 'should move a feed if moveFeedToFolder is broadcasted', =>
+		item = {id: 3, unreadCount: 1, faviconLink: 'test', url: 'hi'}
+		@FeedModel.add(item)
+		@persistence.moveFeed = jasmine.createSpy('move feed')
+		@scope.$broadcast 'moveFeedToFolder', {feedId: 3, folderId: 1}
+
+		expect(@persistence.moveFeed).toHaveBeenCalledWith(3, 1)
+
+
+	it 'should set isAddingFolder to true if there were no problems', =>
 		@persistence.createFolder = jasmine.createSpy('create')
 		@scope.addFolder(' Ola')
-
-		expect(@scope.folderExistsError).toBeTruthy()
-		expect(@persistence.createFolder).not.toHaveBeenCalled()
+		expect(@scope.isAddingFolder()).toBe(true)
 
 
-	xit 'should set isAddingFolder to true if there were no problems', =>
+	it 'should set isAddingFolder to false after a failed request', =>
 		@persistence.createFolder = jasmine.createSpy('create')
+		@persistence.createFolder.andCallFake (name, id, onSuccess, onFailure) ->
+			onFailure()
+
 		@scope.addFolder(' Ola')
-		expect(@scope.isAddingFolder()).toBeTruthy()
+		expect(@scope.isAddingFolder()).toBe(false)
 
 
-	xit 'should create a create new folder request if everything was ok', =>
+	it 'should show an error if the folder exists and reset the input', =>
+		@FolderBusinessLayer.create = jasmine.createSpy('create')
+		@FolderBusinessLayer.create.andCallFake =>
+			throw new @_ExistsError('ye')
+
+		@scope.addFolder(' Ola')
+
+		expect(@scope.folderExistsError).toBe(true)
+		expect(@scope.isAddingFolder()).toBe(false)
+
+
+	it 'should reset the add folder form and set the created as selected', =>
 		@persistence.createFolder = jasmine.createSpy('create')
-		@scope.addFolder(' Ola')
-		expect(@persistence.createFolder).toHaveBeenCalled()
-		expect(@persistence.createFolder.argsForCall[0][0]).toBe('Ola')
-		expect(@persistence.createFolder.argsForCall[0][1]).toBe(0)
+		data =
+			data:
+				folders: [
+					{id: 3, name: 'soba'}
+				]
+			status: 'success'
+		@persistence.createFolder.andCallFake (id, parent, onSuccess) =>
+			@FolderModel.handle(data.data.folders)
+			onSuccess(data)
 
-
-	xit 'should should reset the foldername on and set isAddingFolder to false',=>
-		@persistence.createFolder =
-			jasmine.createSpy('create').andCallFake (arg1, arg2, func) =>
-				func()
-		@scope.addFolder(' Ola')
+		@scope.addFolder(' Soba')
 
 		expect(@scope.folderName).toBe('')
-		expect(@scope.isAddingFolder()).toBeFalsy()
-		expect(@scope.addNewFolder).toBeFalsy()
+		expect(@scope.addNewFolder).toBe(false)
+		expect(@scope.isAddingFolder()).toBe(false)
+		expect(@scope.folderId.name).toBe('soba')
 
 
-	xit 'should not add feeds that have no url', =>
+	it 'should set isAddingFeed to true if there were no problems', =>
 		@persistence.createFeed = jasmine.createSpy('create')
-		@scope.addFeed(' ')
-
-		expect(@scope.feedEmptyError).toBeTruthy()
-		expect(@persistence.createFeed).not.toHaveBeenCalled()
+		@scope.addFeed('Ola')
+		expect(@scope.isAddingFeed()).toBe(true)
 
 
-	xit 'should set isAddingFeed to true if there were no problems', =>
+	it 'should set isAddingFeed to false after a failed request', =>
 		@persistence.createFeed = jasmine.createSpy('create')
-		@scope.addFeed('ola')
-		expect(@scope.isAddingFeed()).toBeTruthy()
+		@persistence.createFeed.andCallFake (name, id, onSuccess, onFailure) ->
+			onFailure()
+
+		@scope.addFolder(' Ola')
+		expect(@scope.isAddingFeed()).toBe(false)
 
 
-	xit 'should should reset the feedurl and set isAddingFeed to false on succ',=>
-		@persistence.createFeed =
-			jasmine.createSpy('create').andCallFake (arg1, arg2, func) =>
-				data =
-					status: 'success'
-				func(data)
+	it 'should show an error if the feed exists and reset the input', =>
+		@FeedBusinessLayer.create = jasmine.createSpy('create')
+		@FeedBusinessLayer.create.andCallFake =>
+			throw new @_ExistsError('ye')
+
 		@scope.addFeed(' Ola')
 
-		expect(@scope.feedUrl).toBe('')
-		expect(@scope.isAddingFeed()).toBeFalsy()
+		expect(@scope.feedExistsError).toBe(true)
+		expect(@scope.isAddingFeed()).toBe(false)
 
 
-	xit 'should should set isAddingFeed to false on err',=>
-		@persistence.createFeed =
-			jasmine.createSpy('create').andCallFake (arg1, arg2, func, err) =>
-				err()
-		@scope.addFeed('Ola')
+	it 'should open the parent folder of the added feed', =>
+		item = {opened: false, id: 3, name: 'john'}
+		@FolderModel.add(item)
 
-		expect(@scope.isAddingFeed()).toBeFalsy()
-		expect(@scope.feedError).toBeTruthy()
+		@scope.addFeed(' Ola', 3)
 
-
-	xit 'should should set isAddingFeed to false on serverside error',=>
-		@persistence.createFeed =
-			jasmine.createSpy('create').andCallFake (arg1, arg2, func) =>
-				data =
-					status: 'error'
-				func(data)
-		@scope.addFeed('Ola')
-
-		expect(@scope.isAddingFeed()).toBeFalsy()
-		expect(@scope.feedError).toBeTruthy()
+		expect(item.opened).toBe(true)
 
 
-	xit 'should create a create new feed request if everything was ok', =>
+	it 'should reset the add feed form and load the added feed', =>
 		@persistence.createFeed = jasmine.createSpy('create')
-		@scope.addFeed('Ola')
-		expect(@persistence.createFeed).toHaveBeenCalled()
-		expect(@persistence.createFeed.argsForCall[0][0]).toBe('Ola')
-		expect(@persistence.createFeed.argsForCall[0][1]).toBe(0)
+		@persistence.getItems = jasmine.createSpy('load')
 
+		data =
+			data:
+				feeds: [
+					{id: 3, url: 'http://soba', title: 'hi'}
+				]
+			status: 'success'
+		@persistence.createFeed.andCallFake (id, parent, onSuccess) =>
+			@FeedModel.handle(data.data.feeds)
+			onSuccess(data)
+
+		@scope.addFeed(' Soba')
+
+		expect(@scope.feedUrl).toBe('')
+		expect(@scope.isAddingFeed()).toBe(false)
+		expect(@persistence.getItems).toHaveBeenCalledWith(
+			@FeedType.Feed, 3, 0
+		)

@@ -68,7 +68,6 @@ ActiveFeed, FeedType, $window) ->
 				return @_isAddingFeed
 
 			@_$scope.addFeed = (feedUrl, parentFolderId=0) =>
-				@_$scope.feedEmptyError = false
 				@_$scope.feedExistsError = false
 				
 				try
@@ -89,13 +88,10 @@ ActiveFeed, FeedType, $window) ->
 				catch error
 					if error instanceof _ExistsError
 						@_$scope.feedExistsError = true
-					else
-						@_$scope.feedEmptyError = true
 					@_isAddingFeed = false
 					
 
 			@_$scope.addFolder = (folderName) =>
-				@_$scope.folderEmptyError = false
 				@_$scope.folderExistsError = false
 
 				try
@@ -116,10 +112,7 @@ ActiveFeed, FeedType, $window) ->
 				catch error
 					if error instanceof _ExistsError
 						@_$scope.folderExistsError = true
-					else
-						@_$scope.folderEmptyError = true
 					@_isAddingFolder = false
-					@_$scope.addNewFolder = true
 
 
 			@_$scope.$on 'moveFeedToFolder', (scope, data) =>

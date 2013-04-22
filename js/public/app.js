@@ -362,7 +362,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             if (parentFolderId == null) {
               parentFolderId = 0;
             }
-            _this._$scope.feedEmptyError = false;
             _this._$scope.feedExistsError = false;
             try {
               _this._isAddingFeed = true;
@@ -380,8 +379,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
               error = _error;
               if (error instanceof _ExistsError) {
                 _this._$scope.feedExistsError = true;
-              } else {
-                _this._$scope.feedEmptyError = true;
               }
               return _this._isAddingFeed = false;
             }
@@ -389,7 +386,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           this._$scope.addFolder = function(folderName) {
             var error;
 
-            _this._$scope.folderEmptyError = false;
             _this._$scope.folderExistsError = false;
             try {
               _this._isAddingFolder = true;
@@ -408,11 +404,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
               error = _error;
               if (error instanceof _ExistsError) {
                 _this._$scope.folderExistsError = true;
-              } else {
-                _this._$scope.folderEmptyError = true;
               }
-              _this._isAddingFolder = false;
-              return _this._$scope.addNewFolder = true;
+              return _this._isAddingFolder = false;
             }
           };
           this._$scope.$on('moveFeedToFolder', function(scope, data) {
