@@ -57,10 +57,6 @@ Should you have upgraded from a prior version, disable the CSS and JavaScript ca
 
 - Activate the App Framework App first, then activate the News app in the apps menu
 
-- Adjust the rights so that the webserver can write into the cache directory::
-
-    sudo chown -R www-data:www-data /var/www/news/cache
-
 - `Set up ownCloud Background Jobs <http://doc.owncloud.org/server/5.0/admin_manual/configuration/background_jobs.html>`_ to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
 
 How to keep up to date
