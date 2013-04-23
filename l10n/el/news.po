@@ -9,14 +9,15 @@
 # Efstathios Iosifidis <iosifidis@opensuse.org>, 2012
 # Marios Bekatoros <>, 2012
 # Wasilis <m.wasilis@yahoo.de>, 2013
+# KAT.RAT12 <spanish.katerina@gmail.com>, 2013
 # Γιάννης Ανθυμίδης <yannanth@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-23 01:08+0200\n"
-"PO-Revision-Date: 2013-04-22 23:08+0000\n"
-"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"POT-Creation-Date: 2013-04-24 01:09+0200\n"
+"PO-Revision-Date: 2013-04-23 00:00+0000\n"
+"Last-Translator: KAT.RAT12 <spanish.katerina@gmail.com>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/owncloud/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,7 +43,7 @@ msgstr "Ο χωρος αποθηκευσης δεν μπορει να προστ
 
 #: templates/main.php:27
 msgid "Undo deletion of "
-msgstr ""
+msgstr "Αναίρεση της διαγραφής "
 
 #: templates/part.addnew.php:12
 msgid "Add Website"

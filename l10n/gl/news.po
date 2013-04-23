@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-23 01:08+0200\n"
-"PO-Revision-Date: 2013-04-22 23:08+0000\n"
-"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"POT-Creation-Date: 2013-04-24 01:09+0200\n"
+"PO-Revision-Date: 2013-04-23 06:40+0000\n"
+"Last-Translator: mbouzada <mbouzada@gmail.com>\n"
 "Language-Team: Galician (http://www.transifex.com/projects/p/owncloud/language/gl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,7 +38,7 @@ msgstr "Non é posíbel engadir o cartafol: xa existe"
 
 #: templates/main.php:27
 msgid "Undo deletion of "
-msgstr ""
+msgstr "Desfacer a eliminación de"
 
 #: templates/part.addnew.php:12
 msgid "Add Website"

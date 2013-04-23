@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-23 01:08+0200\n"
-"PO-Revision-Date: 2013-04-22 23:08+0000\n"
-"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"POT-Creation-Date: 2013-04-24 01:09+0200\n"
+"PO-Revision-Date: 2013-04-23 09:10+0000\n"
+"Last-Translator: Stefan Ilivanov <ilivanov@gmail.com>\n"
 "Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/projects/p/owncloud/language/bg_BG/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -40,7 +40,7 @@ msgstr ""
 
 #: templates/part.addnew.php:12
 msgid "Add Website"
-msgstr ""
+msgstr "Добавете сайт"
 
 #: templates/part.addnew.php:19
 msgid "Error: address exists already!"
@@ -68,11 +68,11 @@ msgstr "Папка"
 
 #: templates/part.addnew.php:46
 msgid "Choose folder"
-msgstr ""
+msgstr "Изберете папка"
 
 #: templates/part.addnew.php:58
 msgid "Folder name"
-msgstr ""
+msgstr "Име на папката"
 
 #: templates/part.addnew.php:61
 msgid "Back to folder selection"
@@ -80,7 +80,7 @@ msgstr ""
 
 #: templates/part.addnew.php:66
 msgid "Create folder"
-msgstr ""
+msgstr "Нова папка"
 
 #: templates/part.feed.starred.php:11
 msgid "Starred"
@@ -97,19 +97,19 @@ msgstr "Всички статии"
 #: templates/part.feed.unread.php:26 templates/part.listfeed.php:42
 #: templates/part.listfolder.php:43
 msgid "Mark read"
-msgstr ""
+msgstr "Маркирай като прочетено"
 
 #: templates/part.items.php:17
 msgid "Save for later"
-msgstr ""
+msgstr "Запиши за по-късно"
 
 #: templates/part.items.php:33
 msgid "from"
-msgstr ""
+msgstr "от"
 
 #: templates/part.items.php:38
 msgid "by"
-msgstr ""
+msgstr "от"
 
 #: templates/part.items.php:46
 msgid "Cant play audio format"
@@ -125,7 +125,7 @@ msgstr ""
 
 #: templates/part.listfeed.php:53
 msgid "Delete website"
-msgstr ""
+msgstr "Изтриване на сайт"
 
 #: templates/part.listfolder.php:14
 msgid "Collapse"

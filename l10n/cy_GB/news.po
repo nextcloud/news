@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-23 01:08+0200\n"
-"PO-Revision-Date: 2013-04-22 23:08+0000\n"
+"POT-Creation-Date: 2013-04-24 01:09+0200\n"
+"PO-Revision-Date: 2013-04-23 19:30+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Welsh (United Kingdom) (http://www.transifex.com/projects/p/owncloud/language/cy_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -51,7 +51,7 @@ msgstr ""
 
 #: templates/part.addnew.php:29
 msgid "Address"
-msgstr ""
+msgstr "Cyfeiriad"
 
 #: templates/part.addnew.php:33 templates/part.addnew.php:36
 msgid "Add"

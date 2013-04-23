@@ -19,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-23 01:08+0200\n"
-"PO-Revision-Date: 2013-04-22 23:08+0000\n"
-"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"POT-Creation-Date: 2013-04-24 01:09+0200\n"
+"PO-Revision-Date: 2013-04-23 17:20+0000\n"
+"Last-Translator: Art O. Pal <artopal@fastmail.fm>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/owncloud/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -47,7 +47,7 @@ msgstr "No se puede agregar carpeta: ya existe"
 
 #: templates/main.php:27
 msgid "Undo deletion of "
-msgstr ""
+msgstr "Deshacer la eliminación de"
 
 #: templates/part.addnew.php:12
 msgid "Add Website"

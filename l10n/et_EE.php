@@ -3,6 +3,7 @@
 "Can not add feed: Exists already" => "Voogu ei saa lisada:  on juba olemas",
 "Can not add feed: URL does not exist or has invalid xml" => "Voogu ei saa lisada: URL-i pole olemas või sisaldab vigast XML-i",
 "Can not add folder: Exists already" => "Kataloogi ei saa lisada: on juba olemas",
+"Undo deletion of " => "Taasta kustutatud",
 "Add Website" => "Lisa veebisait",
 "Error: address exists already!" => "Viga: aadress on juba olemas!",
 "Error: folder exists already" => "Viga: kataloog on juba olemas",

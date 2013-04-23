@@ -3,6 +3,7 @@
 "Can not add feed: Exists already" => "Impossible aggiungere la fonte: esiste già",
 "Can not add feed: URL does not exist or has invalid xml" => "Impossibile aggiungere la fonte: l'URL non esiste o ha xml non valido",
 "Can not add folder: Exists already" => "Impossibile aggiungere la cartella: esiste già",
+"Undo deletion of " => "Annulla l'eliminazione di",
 "Add Website" => "Aggiungi sito web",
 "Error: address exists already!" => "Errore: l'indirizzo esiste già!",
 "Error: folder exists already" => "Errore: la cartella esiste già",

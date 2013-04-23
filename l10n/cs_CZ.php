@@ -3,6 +3,7 @@
 "Can not add feed: Exists already" => "Nelze přidat kanál: již existuje",
 "Can not add feed: URL does not exist or has invalid xml" => "Nelze přidat kanál: URL neexistuje nebo obsahuje neplatné xml",
 "Can not add folder: Exists already" => "Nelze přidat složku: již existuje",
+"Undo deletion of " => "Zrušit mazání",
 "Add Website" => "Přidat stránku",
 "Error: address exists already!" => "Chyba: adresa již existuje",
 "Error: folder exists already" => "Chyba: složka již existuje",

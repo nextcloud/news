@@ -3,6 +3,7 @@
 "Can not add feed: Exists already" => "Syötettä ei voi lisätä: se on jo olemassa",
 "Can not add feed: URL does not exist or has invalid xml" => "Syötettä ei voi lisätä: joko osoitetta ei ole olemassa tai siinä on virheellistä XML:ää",
 "Can not add folder: Exists already" => "Kansiota ei voi lisätä: se on jo olemassa",
+"Undo deletion of " => "Kumoa poisto:",
 "Add Website" => "Lisää verkkosivusto",
 "Error: address exists already!" => "Virhe: osoite on jo olemassa!",
 "Error: folder exists already" => "Virhe: kansio on jo olemassa",
