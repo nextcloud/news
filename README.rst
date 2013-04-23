@@ -91,11 +91,11 @@ This will be in a seperate config file in the future but for now you can tweak t
 
 * To cache feeds longer increase::
  
-    $this['simplePieCacheDuration'] = 1000;  // seconds
+    $this['simplePieCacheDuration'] = 30*60;  // seconds
 
-* To let people have more read items before there are purged increase::
+* To let people have more read items per feed before they are purged increase::
 
-    $this['autoPurgeCount'] = 200;
+    $this['autoPurgeCount'] = 200;  // per feed
 
 :file:`js/app/app.coffee`
 
