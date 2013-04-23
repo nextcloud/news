@@ -34,7 +34,7 @@ ItemModel) ->
 			super(activeFeed, persistence, itemModel, feedType.Subscriptions)
 
 		isVisible: ->
-			if @isActive(0)
+			if @isActive(0) and @_feedBusinessLayer.getNumberOfFeeds() > 0
 				return true
 
 			if @_showAll.getShowAll()

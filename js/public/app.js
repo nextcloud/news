@@ -1490,7 +1490,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         SubscriptionsBusinessLayer.prototype.isVisible = function() {
           var visible;
 
-          if (this.isActive(0)) {
+          if (this.isActive(0) && this._feedBusinessLayer.getNumberOfFeeds() > 0) {
             return true;
           }
           if (this._showAll.getShowAll()) {

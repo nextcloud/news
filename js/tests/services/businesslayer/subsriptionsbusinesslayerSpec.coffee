@@ -60,8 +60,11 @@ describe 'SubscriptionsBusinessLayer', ->
 		expect(@SubscriptionsBusinessLayer.isVisible()).toBe(false)
 
 
-	it 'should always be visible if its the active feed', =>
+	it 'should always be visible if its the active feed and there are feeds', =>
 		@ActiveFeed.handle({type: @FeedType.Subscriptions, id:0})
+		expect(@SubscriptionsBusinessLayer.isVisible()).toBe(false)
+
+		@FeedModel.add({id: 3, unreadCount: 0, url: 'hi'})
 		expect(@SubscriptionsBusinessLayer.isVisible()).toBe(true)
 
 
