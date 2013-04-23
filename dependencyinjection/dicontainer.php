@@ -64,7 +64,16 @@ class DIContainer extends BaseContainer {
 		 * Configuration values
 		 */
 		$this['autoPurgeCount'] = 200;
-		$this['simplePieCacheDirectory'] = __DIR__ . '/../cache/simplepie/';
+		$this['simplePieCacheDirectory'] = $this->share(function($c) {
+			$dir = $c['API']->getSystemValue('datadirectory') . 
+				'/news/cache/simplepie';
+			
+			if(!is_dir($dir)) {
+				mkdir($dir, 0770, true);
+			}
+			return $dir;
+
+		});
 		$this['simplePieCacheDuration'] = 1000;  // seconds
 
 
