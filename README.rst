@@ -82,3 +82,30 @@ Performance Notices
 -------------------
 * It is currently discouraged to use it in large hosted installations since there is no way to restrict the backgroundjob to require a pause of X minutes. This `will be addressed <https://github.com/owncloud/news/issues/103>`_ in the `next ownCloud release <https://github.com/owncloud/core/pull/3051>`_.
 * Use MySQL or PostgreSQL for better database performance
+
+Configuration
+~~~~~~~~~~~~~
+This will be in a seperate config file in the future but for now you can tweak the folowing things. 
+
+:file:`dependencyinjection/dicontainer.php`
+
+* To cache feeds longer increase::
+ 
+    $this['simplePieCacheDuration'] = 1000;  // seconds
+
+* To let people have more read items before there are purged increase::
+
+    $this['autoPurgeCount'] = 200;
+
+:file:`js/app/app.coffee`
+
+All changes in the coffee file have to be compiled by using::
+
+    make
+
+in the **js/** directory
+
+* To increase the interval when the app fetches new entries from database(!, not the webpage, thats set by the backgroundjob interval) change::
+
+    feedUpdateInterval: 1000*60*3  # miliseconds
+

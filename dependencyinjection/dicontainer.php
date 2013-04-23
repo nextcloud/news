@@ -63,7 +63,9 @@ class DIContainer extends BaseContainer {
 		/**
 		 * Configuration values
 		 */
-		$this['autoPurgeCount'] = 200;
+		$this['autoPurgeCount'] = 200;  // per feed
+		$this['simplePieCacheDuration'] = 30*60;  // seconds
+
 		$this['simplePieCacheDirectory'] = $this->share(function($c) {
 			$dir = $c['API']->getSystemValue('datadirectory') . 
 				'/news/cache/simplepie';
@@ -74,7 +76,6 @@ class DIContainer extends BaseContainer {
 			return $dir;
 
 		});
-		$this['simplePieCacheDuration'] = 1000;  // seconds
 
 
 		/** 
