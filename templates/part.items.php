@@ -42,7 +42,7 @@
 
 		<div class="enclosure" ui-if="item.enclosureLink">
 			<audio controls="controls" ng-src="{{ item.enclosureLink }}" 
-					type="{{ item.enclosureType }}">
+					type="{{ item.enclosureType }}" preload="none">
 				<?php p($l->t('Cant play audio format')) ?> {{item.enclosureType}}
 			</audio>
 		</div>
