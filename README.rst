@@ -27,7 +27,7 @@ Before you install the News app
 Before you install the app check that the following requirements are met:
 
 - Your database uses utf-8
-- Your webserver uses utf-8
+- Your webserver uses utf-8 (`Apache <http://stackoverflow.com/questions/913869/how-to-change-the-default-encoding-to-utf-8-for-server>`_, `NginX <http://www.cyberciti.biz/faq/nginx-set-http-content-type-response-header-to-charset-utf8/>`_)
 - `Magic quotes are turned off <http://php.net/manual/de/security.magicquotes.disabling.php>`_
 - `You use a browser that supports the FileReader API <https://developer.mozilla.org/en/docs/DOM/FileReader#Browser_compatibility>`_
 - You can use a cron or webcron to call Background Jobs in ownCloud
