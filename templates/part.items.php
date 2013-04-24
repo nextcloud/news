@@ -13,9 +13,7 @@
 			<ul class="primary_item_utils">
 				<li ng-class="{ important: item.isStarred() }"
 					ng-click="itemBusinessLayer.toggleStarred(item.id)"
-					class="star" 
-					title="<?php p($l->t('Save for later')) ?>"
-					oc-tooltip
+					class="star"
 					>
 				</li>
 			</ul>
