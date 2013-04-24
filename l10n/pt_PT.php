@@ -17,7 +17,6 @@
 "Starred" => "Marcado",
 "Unread articles" => "Artigos por ler",
 "All articles" => "Todos os artigos",
-"Save for later" => "Guardar para ler mais tarde",
 "from" => "de",
 "by" => "por",
 "Cant play audio format" => "Não é possível reproduzir este formato de audio",

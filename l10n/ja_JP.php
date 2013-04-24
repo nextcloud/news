@@ -19,7 +19,6 @@
 "Unread articles" => "未読の記事",
 "All articles" => "全ての記事",
 "Mark read" => "既読としてマーク",
-"Save for later" => "一時保存",
 "from" => "から",
 "by" => "により",
 "Cant play audio format" => "音声フォーマットを再生できません",

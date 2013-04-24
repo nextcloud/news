@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-23 01:08+0200\n"
-"PO-Revision-Date: 2013-04-22 23:08+0000\n"
+"POT-Creation-Date: 2013-04-25 01:17+0200\n"
+"PO-Revision-Date: 2013-04-24 23:17+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/projects/p/owncloud/language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -103,23 +103,19 @@ msgstr "Všetky články"
 msgid "Mark read"
 msgstr ""
 
-#: templates/part.items.php:17
-msgid "Save for later"
-msgstr "Uložiť na neskôr"
-
-#: templates/part.items.php:33
+#: templates/part.items.php:31
 msgid "from"
 msgstr "z"
 
-#: templates/part.items.php:38
+#: templates/part.items.php:36
 msgid "by"
 msgstr "od"
 
-#: templates/part.items.php:46
+#: templates/part.items.php:44
 msgid "Cant play audio format"
 msgstr "Nemožno prehrať tento zvukový formát"
 
-#: templates/part.items.php:59
+#: templates/part.items.php:57
 msgid "Keep unread"
 msgstr "Ponechať neprečítané"
 

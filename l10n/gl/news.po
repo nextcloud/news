@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-24 01:09+0200\n"
-"PO-Revision-Date: 2013-04-23 06:40+0000\n"
-"Last-Translator: mbouzada <mbouzada@gmail.com>\n"
+"POT-Creation-Date: 2013-04-25 01:17+0200\n"
+"PO-Revision-Date: 2013-04-24 23:17+0000\n"
+"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Galician (http://www.transifex.com/projects/p/owncloud/language/gl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -101,23 +101,19 @@ msgstr "Todos os artigos"
 msgid "Mark read"
 msgstr "Marcar como lido"
 
-#: templates/part.items.php:17
-msgid "Save for later"
-msgstr "Gardar para máis tarde"
-
-#: templates/part.items.php:33
+#: templates/part.items.php:31
 msgid "from"
 msgstr "desde"
 
-#: templates/part.items.php:38
+#: templates/part.items.php:36
 msgid "by"
 msgstr "por"
 
-#: templates/part.items.php:46
+#: templates/part.items.php:44
 msgid "Cant play audio format"
 msgstr "Non é posíbel reproducir este formato de son"
 
-#: templates/part.items.php:59
+#: templates/part.items.php:57
 msgid "Keep unread"
 msgstr "Manter sen ler"
 

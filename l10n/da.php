@@ -1,6 +1,8 @@
 <?php $TRANSLATIONS = array(
 "News" => "Nyheder",
+"Can not add feed: Exists already" => "Kan ikke tilføje feed: Det eksisterer allerede",
 "Add Website" => "Tilføj website",
+"Error: address exists already!" => "Fejl: adressen eksisterer allerede!",
 "Address" => "Adresse",
 "Add" => "Tilføj",
 "New folder" => "Ny Mappe",
@@ -15,12 +17,14 @@
 "Cant play audio format" => "Kan ikke afspille lydformatet",
 "Keep unread" => "Behold ulæste",
 "Delete feed" => "Slet feed",
+"Delete website" => "Slet hjemmeside",
 "Collapse" => "Sammenfold",
 "Delete folder" => "Slet mappe",
 "Rename folder" => "Omdøb mappe",
 "Import / Export OPML" => "Import / Eksport af OPML",
 "Import" => "Importer",
 "Export" => "Exporter",
+"Import Google Reader JSON" => "Importer Google Reader JSON",
 "Show all" => "Vis alt",
 "Show only unread" => "Vis kun ulæste"
 );

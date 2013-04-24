@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-24 01:09+0200\n"
-"PO-Revision-Date: 2013-04-23 08:50+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
+"POT-Creation-Date: 2013-04-25 01:17+0200\n"
+"PO-Revision-Date: 2013-04-24 23:18+0000\n"
+"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Finnish (Finland) (http://www.transifex.com/projects/p/owncloud/language/fi_FI/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,7 +38,7 @@ msgstr "Kansiota ei voi lisätä: se on jo olemassa"
 
 #: templates/main.php:27
 msgid "Undo deletion of "
-msgstr "Kumoa poisto:"
+msgstr "Kumoa poisto: "
 
 #: templates/part.addnew.php:12
 msgid "Add Website"
@@ -86,7 +86,7 @@ msgstr "Luo kansio"
 
 #: templates/part.feed.starred.php:11
 msgid "Starred"
-msgstr "Tähdellä varustettu"
+msgstr "Tähdellä varustetut"
 
 #: templates/part.feed.unread.php:10
 msgid "Unread articles"
@@ -101,25 +101,21 @@ msgstr "Kaikki artikkelit"
 msgid "Mark read"
 msgstr "Merkitse luetuksi"
 
-#: templates/part.items.php:17
-msgid "Save for later"
-msgstr "Tallenna luettavaksi myöhemmin"
-
-#: templates/part.items.php:33
+#: templates/part.items.php:31
 msgid "from"
-msgstr "lähettäjältä"
+msgstr "syöte:"
 
-#: templates/part.items.php:38
+#: templates/part.items.php:36
 msgid "by"
-msgstr "toimesta:"
+msgstr "kirjoittaja:"
 
-#: templates/part.items.php:46
+#: templates/part.items.php:44
 msgid "Cant play audio format"
 msgstr "Äänimuodon toistaminen ei onnistu"
 
-#: templates/part.items.php:59
+#: templates/part.items.php:57
 msgid "Keep unread"
-msgstr "Pidä ei-luettuna"
+msgstr "Pidä lukemattomana"
 
 #: templates/part.listfeed.php:47
 msgid "Delete feed"
@@ -143,7 +139,7 @@ msgstr "Muuta kansion nimeä"
 
 #: templates/part.settings.php:13
 msgid "Import / Export OPML"
-msgstr "Vie/tuo OPML"
+msgstr "OPML:n tuonti ja vienti"
 
 #: templates/part.settings.php:17 templates/part.settings.php:19
 #: templates/part.settings.php:47 templates/part.settings.php:49
@@ -157,11 +153,11 @@ msgstr "Vie"
 
 #: templates/part.settings.php:36
 msgid "Error when importing: file does not contain valid OPML"
-msgstr "Virhe tuonnissa: tiedostossa ei ole kelvollista OPML:ää"
+msgstr "Virhe tuotaessa: tiedostossa ei ole kelvollista OPML:ää"
 
 #: templates/part.settings.php:42
 msgid "Import Google Reader JSON"
-msgstr "Tuo Google Reader JSON"
+msgstr "Google Reader JSONin tuonti"
 
 #: templates/part.settings.php:43
 msgid ""
@@ -171,7 +167,7 @@ msgstr "Tuo tähdellä varustetut ja jaetut artikkelit Google \n\t\t\t-syötteen
 
 #: templates/part.settings.php:53
 msgid "Error when importing: file does not contain valid JSON"
-msgstr "Virhe tuotaessa: tiedosto ei sisällä kelvollista JSON:ia"
+msgstr "Virhe tuotaessa: tiedosto ei sisällä kelvollista JSONia"
 
 #: templates/part.showall.php:2
 msgid "Show all"

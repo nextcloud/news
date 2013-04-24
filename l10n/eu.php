@@ -12,7 +12,6 @@
 "Unread articles" => "Irakurri gabeko artikuluak",
 "All articles" => "Artikulu guztiak",
 "Mark read" => "Markatu irakurrita gisa",
-"Save for later" => "Gorde gerorako",
 "from" => "lekua",
 "by" => " Egilea:",
 "Cant play audio format" => "Ezin da audio formatua erreproduzitu",

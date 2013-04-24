@@ -19,7 +19,6 @@
 "Unread articles" => "Lugemata artiklid",
 "All articles" => "Kõik artiklid",
 "Mark read" => "Märgi loetuks",
-"Save for later" => "Salvesta hilisemaks",
 "from" => "kohast",
 "by" => "lisas",
 "Cant play audio format" => "Helivormingut ei saa esitada",

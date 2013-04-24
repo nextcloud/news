@@ -11,7 +11,6 @@
 "Unread articles" => "Нови статии",
 "All articles" => "Всички статии",
 "Mark read" => "Маркирай като прочетено",
-"Save for later" => "Запиши за по-късно",
 "from" => "от",
 "by" => "от",
 "Delete website" => "Изтриване на сайт",

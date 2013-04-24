@@ -19,7 +19,6 @@
 "Unread articles" => "Artículos sin leer",
 "All articles" => "Todos los artículos",
 "Mark read" => "Marcar como leído",
-"Save for later" => "Guardar para después",
 "from" => "de",
 "by" => "por",
 "Cant play audio format" => "No se puede reproducir el formato de audio",

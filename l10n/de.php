@@ -18,7 +18,6 @@
 "Unread articles" => "Ungelesene Artikel",
 "All articles" => "Alle Artikel",
 "Mark read" => "Als gelesen markieren",
-"Save for later" => "Für später aufheben",
 "from" => "von",
 "by" => "von",
 "Cant play audio format" => "Audioformat kann nicht wiedergegeben werden",

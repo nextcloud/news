@@ -19,7 +19,6 @@
 "Unread articles" => "Nepřečtené články",
 "All articles" => "Všechny články",
 "Mark read" => "Označit jako přečtené",
-"Save for later" => "Uložit na později",
 "from" => "z",
 "by" => "sdílí",
 "Cant play audio format" => "Nelze přehrát formát zvuku",

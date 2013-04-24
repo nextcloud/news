@@ -17,7 +17,6 @@
 "Starred" => "Помічені зірочкою",
 "Unread articles" => "Непрочитані статті",
 "All articles" => "Всі статті",
-"Save for later" => "Зберегти на майбутньє",
 "from" => "З",
 "by" => "по",
 "Cant play audio format" => "Неможливо програти цей формат аудіо",

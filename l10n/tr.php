@@ -16,7 +16,6 @@
 "Unread articles" => "Okunmamış makaleler",
 "All articles" => "Bütün makaleler",
 "Mark read" => "Okumus noktamak ",
-"Save for later" => "Daha gec icin kaydetmek ",
 "from" => "dan ",
 "by" => "tarafından",
 "Cant play audio format" => "ses dosyası formatı çalınamıyor",

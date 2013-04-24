@@ -17,7 +17,6 @@
 "Starred" => "S hviezdičkou",
 "Unread articles" => "Neprečítané články",
 "All articles" => "Všetky články",
-"Save for later" => "Uložiť na neskôr",
 "from" => "z",
 "by" => "od",
 "Cant play audio format" => "Nemožno prehrať tento zvukový formát",

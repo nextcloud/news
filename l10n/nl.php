@@ -18,7 +18,6 @@
 "Unread articles" => "Ongelezen artikelen",
 "All articles" => "Alle artikelen",
 "Mark read" => "Markeer als gelezen",
-"Save for later" => "Bewaren voor later",
 "from" => "van",
 "by" => "door",
 "Cant play audio format" => "Kan audiobestandsformaat niet afspelen",
