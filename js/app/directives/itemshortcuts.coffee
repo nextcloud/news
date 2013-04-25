@@ -59,6 +59,27 @@ angular.module('News').directive 'itemShortcuts', ['$window', ($window) ->
 					break
 
 
+		getCurrentItem = (scrollArea) ->
+			$scrollArea = $(scrollArea)
+			$items = $scrollArea.find('.feed_item')
+			for item in $items
+				$item = $(item)
+				# 130px of the item should be visible
+				if ($item.height() + $item.position().top) > 110
+					return $item
+
+
+		keepUnreadCurrentItem = (scrollArea) ->
+			$item = getCurrentItem(scrollArea)
+			$item.find('.keep_unread').trigger('click')
+
+
+		starCurrentItem = (scrollArea) ->
+			$item = getCurrentItem(scrollArea)
+			$item.find('.star').trigger('click')
+
+
+
 		$($window.document).keydown (e) ->
 			# only activate if no input elements is focused
 			focused = $(':focus')
@@ -77,6 +98,16 @@ angular.module('News').directive 'itemShortcuts', ['$window', ($window) ->
 				# k or left or p
 				else if e.keyCode == 75 or e.keyCode == 37 or e.keyCode == 80
 					jumpToPreviousItem(scrollArea)
+
+				# u
+				else if e.keyCode == 85
+					keepUnreadCurrentItem(scrollArea)
+					
+				# s or i
+				else if e.keyCode == 73 or e.keyCode == 83
+					starCurrentItem(scrollArea)
+					
+
 
 
 ]

@@ -50,7 +50,7 @@
  */
 .feed_item {
 	border-top: 1px solid #ccc;
-	min-height: 100px;
+	min-height: 120px;
 	background-image: linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 84px);
 	background-image: -o-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 84px);
 	background-image: -moz-linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 84px);

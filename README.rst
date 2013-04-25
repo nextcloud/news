@@ -78,6 +78,8 @@ Keyboard shortcuts
 ------------------
 * **Next item**: n/j/right arrow
 * **Previous item**: p/k/left arrow
+* **Star current item**: s/i
+* **Keep current item unread**: u
 
 Performance Notices
 -------------------

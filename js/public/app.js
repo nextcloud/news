@@ -147,7 +147,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
   angular.module('News').directive('itemShortcuts', [
     '$window', function($window) {
       return function(scope, elm, attr) {
-        var jumpTo, jumpToNextItem, jumpToPreviousItem;
+        var getCurrentItem, jumpTo, jumpToNextItem, jumpToPreviousItem, keepUnreadCurrentItem, starCurrentItem;
 
         jumpTo = function($scrollArea, $item) {
           var position;
@@ -195,6 +195,31 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           }
           return _results;
         };
+        getCurrentItem = function(scrollArea) {
+          var $item, $items, $scrollArea, item, _i, _len;
+
+          $scrollArea = $(scrollArea);
+          $items = $scrollArea.find('.feed_item');
+          for (_i = 0, _len = $items.length; _i < _len; _i++) {
+            item = $items[_i];
+            $item = $(item);
+            if (($item.height() + $item.position().top) > 110) {
+              return $item;
+            }
+          }
+        };
+        keepUnreadCurrentItem = function(scrollArea) {
+          var $item;
+
+          $item = getCurrentItem(scrollArea);
+          return $item.find('.keep_unread').trigger('click');
+        };
+        starCurrentItem = function(scrollArea) {
+          var $item;
+
+          $item = getCurrentItem(scrollArea);
+          return $item.find('.star').trigger('click');
+        };
         return $($window.document).keydown(function(e) {
           var focused, scrollArea;
 
@@ -205,6 +230,10 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
               return jumpToNextItem(scrollArea);
             } else if (e.keyCode === 75 || e.keyCode === 37 || e.keyCode === 80) {
               return jumpToPreviousItem(scrollArea);
+            } else if (e.keyCode === 85) {
+              return keepUnreadCurrentItem(scrollArea);
+            } else if (e.keyCode === 73 || e.keyCode === 83) {
+              return starCurrentItem(scrollArea);
             }
           }
         });
