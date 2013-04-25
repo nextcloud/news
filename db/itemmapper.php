@@ -224,7 +224,7 @@ class ItemMapper extends Mapper implements IMapper {
 		$status = StatusFlag::STARRED | StatusFlag::UNREAD;
 		$sql = 'SELECT COUNT(*) `size`, `feed_id` ' .
 			'FROM `*PREFIX*news_items` ' .
-			'AND NOT ((`status` & ?) > 0) ' .
+			'WHERE NOT ((`status` & ?) > 0) ' .
 			'GROUP BY `feed_id` ' .
 			'HAVING COUNT(*) > ?';
 		$params = array($status, $threshold);
