@@ -103,8 +103,8 @@ angular.module('News').directive 'itemShortcuts', ['$window', ($window) ->
 				else if e.keyCode == 85
 					keepUnreadCurrentItem(scrollArea)
 					
-				# s or i
-				else if e.keyCode == 73 or e.keyCode == 83
+				# s or i or l
+				else if e.keyCode == 73 or e.keyCode == 83 or e.keyCode == 76
 					starCurrentItem(scrollArea)
 					
 

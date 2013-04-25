@@ -232,7 +232,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
               return jumpToPreviousItem(scrollArea);
             } else if (e.keyCode === 85) {
               return keepUnreadCurrentItem(scrollArea);
-            } else if (e.keyCode === 73 || e.keyCode === 83) {
+            } else if (e.keyCode === 73 || e.keyCode === 83 || e.keyCode === 76) {
               return starCurrentItem(scrollArea);
             }
           }
