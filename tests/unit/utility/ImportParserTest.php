@@ -52,15 +52,14 @@ class ImportParserTest extends \OCA\AppFramework\Utility\TestUtility {
 				array(
 					'id' => "tag:google.com,2005:reader/item/f9fd1dd3c19262e1",
 					'title' => "[HorribleSubs] Mushibugyo - 01 [720p].mkv",
-    				"published" => 1365415485,
-   
-				    "alternate" => array( array(
-				      "href" => "http://www.nyaa.eu/?page=view&tid=421561",
-				      "type" => "text/html"
-				    )),
-    				"summary" => array(
-      					"content" => "1596 seeder(s), 775 leecher(s), 8005 download(s) - 316.7 MiB - Trusted"
-      				)
+					"published" => 1365415485,
+					"alternate" => array( array(
+					  "href" => "http://www.nyaa.eu/?page=view&tid=421561",
+					  "type" => "text/html"
+					)),
+					"summary" => array(
+						"content" => "1596 seeder(s), 775 leecher(s), 8005 download(s) - 316.7 MiB - Trusted"
+					)
 				)
 			)
 		);
@@ -118,9 +117,9 @@ class ImportParserTest extends \OCA\AppFramework\Utility\TestUtility {
 				array(
 					"published" => 1365415485,
    
-				    "summary" => array(
-      					"content" => "1596 seeder(s), 775 leecher(s), 8005 download(s) - 316.7 MiB - Trusted"
-      				)
+					"summary" => array(
+						"content" => "1596 seeder(s), 775 leecher(s), 8005 download(s) - 316.7 MiB - Trusted"
+					)
 				)
 			)
 		);
@@ -147,4 +146,25 @@ class ImportParserTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->assertEquals(array($out), $result);
 	}
 
+
+	public function testParsesReverse() {
+		$this->in['items'][1]= 	array(
+			'id' => "tag",
+			'title' => "[HorribleSubs] Mushibugyo - 01 [720p].mkv",
+			"published" => 1365415485,
+			"alternate" => array( array(
+			  "href" => "http://www.nyaa.eu/?page=view&tid=421561",
+			  "type" => "text/html"
+			)),
+			"summary" => array(
+				"content" => "1596 seeder(s), 775 leecher(s), 8005 download(s) - 316.7 MiB - Trusted"
+			)
+		);
+
+		$result = $this->parser->parse($this->in);
+
+		$this->assertEquals('tag', $result[0]->getGuid());
+		$this->assertEquals('tag:google.com,2005:reader/item/f9fd1dd3c19262e1', 
+			$result[1]->getGuid());
+	}
 }

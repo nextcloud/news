@@ -42,7 +42,13 @@ class ImportParser {
 		$items = array();
 
 		if(array_key_exists('items', $json)) {
-			foreach($json['items'] as $entry) {
+			$jsonItems = $json['items'];
+
+			// reverse because highest entry is the newest one and we cant rely
+			// on a set pubdate
+			for($i=count($jsonItems)-1; $i>=0; $i--) {
+				$entry = $jsonItems[$i];
+
 				// we require title, guid and url
 				if(!array_key_exists('title', $entry)
 					|| !array_key_exists('id', $entry)
