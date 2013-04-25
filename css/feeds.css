@@ -134,7 +134,7 @@ button.action:hover {
 	opacity: 1;
 }
 
-#app-navigation li.add-new:hover > a {
+#app-navigation .add-new:hover > a {
 	padding-right: 0px;
 }
 
