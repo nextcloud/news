@@ -134,6 +134,9 @@ button.action:hover {
 	opacity: 1;
 }
 
+#app-navigation .add-new:hover > a {
+	padding-right: 0px;
+}
 
 #app-navigation li:hover > a {
 	padding-right: 98px;
