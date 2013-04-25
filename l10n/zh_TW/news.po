@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# admachen <admachen@gmail.com>, 2013
 # Hydriz <admin@alphacorp.tk>, 2013
 # dw4dev <dw4dev@gmail.com>, 2012
 # Hydriz <admin@alphacorp.tk>, 2013
@@ -12,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-25 01:17+0200\n"
-"PO-Revision-Date: 2013-04-24 23:18+0000\n"
-"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"POT-Creation-Date: 2013-04-26 01:12+0200\n"
+"PO-Revision-Date: 2013-04-25 07:30+0000\n"
+"Last-Translator: admachen <admachen@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/owncloud/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,19 +29,19 @@ msgstr "新聞"
 
 #: businesslayer/feedbusinesslayer.php:70
 msgid "Can not add feed: Exists already"
-msgstr ""
+msgstr "無法新增反饋: 已經存在"
 
 #: businesslayer/feedbusinesslayer.php:108
 msgid "Can not add feed: URL does not exist or has invalid xml"
-msgstr ""
+msgstr "無法新增反饋: URL不存在或具有無效的xml"
 
 #: businesslayer/folderbusinesslayer.php:55
 msgid "Can not add folder: Exists already"
-msgstr ""
+msgstr "無法新增目錄: 目錄已存在"
 
 #: templates/main.php:27
 msgid "Undo deletion of "
-msgstr ""
+msgstr "回復刪除動作"
 
 #: templates/part.addnew.php:12
 msgid "Add Website"
@@ -48,11 +49,11 @@ msgstr "新增網站"
 
 #: templates/part.addnew.php:19
 msgid "Error: address exists already!"
-msgstr ""
+msgstr "錯誤: 地址已存在"
 
 #: templates/part.addnew.php:22
 msgid "Error: folder exists already"
-msgstr ""
+msgstr "錯誤: 資料夾已存在"
 
 #: templates/part.addnew.php:29
 msgid "Address"
@@ -80,11 +81,11 @@ msgstr "資料夾名稱"
 
 #: templates/part.addnew.php:61
 msgid "Back to folder selection"
-msgstr ""
+msgstr "返回到資料夾選擇"
 
 #: templates/part.addnew.php:66
 msgid "Create folder"
-msgstr ""
+msgstr "建立資料夾"
 
 #: templates/part.feed.starred.php:11
 msgid "Starred"
@@ -101,7 +102,7 @@ msgstr "所有文章"
 #: templates/part.feed.unread.php:26 templates/part.listfeed.php:42
 #: templates/part.listfolder.php:43
 msgid "Mark read"
-msgstr ""
+msgstr "標記成已讀"
 
 #: templates/part.items.php:31
 msgid "from"
@@ -125,7 +126,7 @@ msgstr "刪除訂閱"
 
 #: templates/part.listfeed.php:53
 msgid "Delete website"
-msgstr ""
+msgstr "刪除網站"
 
 #: templates/part.listfolder.php:14
 msgid "Collapse"
@@ -155,21 +156,21 @@ msgstr "匯出"
 
 #: templates/part.settings.php:36
 msgid "Error when importing: file does not contain valid OPML"
-msgstr ""
+msgstr "匯入時出錯: 該檔案不包含有效的OPML"
 
 #: templates/part.settings.php:42
 msgid "Import Google Reader JSON"
-msgstr ""
+msgstr "導入Google閱讀器JSON檔案"
 
 #: templates/part.settings.php:43
 msgid ""
 "To import starred and shared articles from Google \n"
 "\t\t\tReader please upload the .json files from the Google Takeout archive"
-msgstr ""
+msgstr "從Google匯入喜愛或分享的文章\\n»»»讀者上傳Google Takeout存檔中的 .json檔案"
 
 #: templates/part.settings.php:53
 msgid "Error when importing: file does not contain valid JSON"
-msgstr ""
+msgstr "匯入錯誤: 檔案包含非法的JSON數據"
 
 #: templates/part.showall.php:2
 msgid "Show all"

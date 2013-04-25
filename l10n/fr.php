@@ -3,6 +3,7 @@
 "Can not add feed: Exists already" => "Impossible d'ajouter le flux : Déjà présent",
 "Can not add feed: URL does not exist or has invalid xml" => "Impossible d'ajouter le flux : l'URL n'existe pas ou pointe vers un document xml invalide",
 "Can not add folder: Exists already" => "Impossible d'ajouter le dossier : Déjà présent",
+"Undo deletion of " => "Annuler la suppression de",
 "Add Website" => "Ajouter une page web",
 "Error: address exists already!" => "Erreur : cette adresse est déjà présente !",
 "Error: folder exists already" => "Erreur : un dossier du même nom existe déjà",
