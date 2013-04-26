@@ -33,7 +33,7 @@
 
 		<span class="unread-counter"
 			ng-show="feed.id && feedBusinessLayer.getUnreadCount(feed.id) > 0">
-			{{ feedBusinessLayer.getUnreadCount(feed.id) }}
+			{{ unreadCountFormatter(feedBusinessLayer.getUnreadCount(feed.id)) }}
 		</span>
 
 		<button class="svg action mark-read-icon"

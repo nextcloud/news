@@ -12,7 +12,7 @@
 	</a>
 	<span class="utils">
 		<span class="unread-counter">
-			{{ starredBusinessLayer.getUnreadCount() }}
+			{{ unreadCountFormatter(starredBusinessLayer.getUnreadCount()) }}
 		</span>
 	</span>
 </li>

@@ -26,7 +26,7 @@ angular.module('News').factory 'FeedBusinessLayer',
 'ItemModel', 'FeedModel', 'NewLoading', '_ExistsError', 'Utils', '$rootScope',
 'UndoQueue', 'NewestItem',
 (_BusinessLayer, ShowAll, Persistence, ActiveFeed, FeedType, ItemModel,
-FeedModel, NewLoading, _ExistsError, Utils, $rootScope, UndoQueue, NewestItem) ->
+FeedModel, NewLoading, _ExistsError, Utils, $rootScope, UndoQueue, NewestItem)->
 
 	class FeedBusinessLayer extends _BusinessLayer
 
@@ -185,7 +185,8 @@ FeedModel, NewLoading, _ExistsError, Utils, $rootScope, UndoQueue, NewestItem) -
 					url: url
 					folderId: 0
 					unreadCount: 0
-					faviconLink: 'url('+@_utils.imagePath('core', 'loading.gif')+')'
+					faviconLink: 'url(' +
+						@_utils.imagePath('core', 'loading.gif') + ')'
 
 				@_feedModel.add(feed)
 

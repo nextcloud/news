@@ -19,7 +19,7 @@
 	<span class="utils">
 		<span class="unread-counter"
 			ng-show="getTotalUnreadCount() > 0">
-			{{ getTotalUnreadCount() }}
+			{{ unreadCountFormatter(getTotalUnreadCount()) }}
 		</span>
 		<button class="svg action mark-read-icon" 
 			ng-click="subscriptionsBusinessLayer.markAllRead()"

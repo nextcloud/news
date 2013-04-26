@@ -34,7 +34,7 @@
 
 		<span class="unread-counter"
 			ng-show="folderBusinessLayer.getUnreadCount(folder.id) > 0">
-			{{ folderBusinessLayer.getUnreadCount(folder.id) }}
+			{{ unreadCountFormatter(folderBusinessLayer.getUnreadCount(folder.id)) }}
 		</span>
 		
 		<button class="svg action mark-read-icon" 

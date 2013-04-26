@@ -69,7 +69,7 @@ $rootScope) ->
 				loading.decrease()
 
 			params =
-				data: 
+				data:
 					limit: @_config.itemBatchSize
 					offset: offset
 					id: id

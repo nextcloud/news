@@ -109,7 +109,7 @@ StarredBusinessLayer, NewestItem) ->
 			size = @_itemModel.size()
 			if size != 0
 				@_persistence.getItems @_activeFeed.getType(),
-				                       @_activeFeed.getId(), 
+				                       @_activeFeed.getId(),
 				                       size,
 				                       @_newestItem.getId(),
 				                       callback

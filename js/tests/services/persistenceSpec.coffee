@@ -60,7 +60,7 @@ describe 'Persistence', ->
 			onSuccess: ->
 
 		@Persistence.getItems(params.data.type, params.data.id,
-		                      params.data.offset, params.data.newestItemId, 
+		                      params.data.offset, params.data.newestItemId,
 		                      params.onSuccess)
 
 		expected =

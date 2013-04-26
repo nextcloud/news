@@ -55,8 +55,9 @@ ActiveFeed, FeedType, $window) ->
 				# the title is some kind of exception since its always there
 				# and it has nothing to do with the body structure
 				if count > 0
-					count = @_unreadCountFormatter(count)
-					@_$window.document.title = 'News (' + count + ') | ownCloud'
+					titleCount = @_unreadCountFormatter(count)
+					@_$window.document.title =
+						'News (' + titleCount + ') | ownCloud'
 				else
 					@_$window.document.title = 'News | ownCloud'
 				return count
