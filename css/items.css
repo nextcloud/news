@@ -123,7 +123,7 @@
 		font-size: 19px;
 		margin: 0 182px 0 42px;
 		font-weight: bold;
-		word-break: break-all;
+		word-wrap: break-word;
 	}
 
 		.feed_item h1.item_title a {
