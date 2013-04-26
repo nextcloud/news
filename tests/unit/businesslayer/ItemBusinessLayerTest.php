@@ -27,6 +27,7 @@ namespace OCA\News\BusinessLayer;
 
 require_once(__DIR__ . "/../../classloader.php");
 
+use \OCA\AppFramework\Db\DoesNotExistException;
 
 use \OCA\News\Db\Item;
 use \OCA\News\Db\StatusFlag;
@@ -42,6 +43,7 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 	private $response;
 	private $status;
 	private $time;
+	private $newestItemId;
 
 
 	protected function setUp(){
@@ -74,6 +76,7 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->showAll = true;	
 		$this->offset = 5;
 		$this->limit = 20;
+		$this->newestItemId = 4;
 	}
 
 	
@@ -134,13 +137,14 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->with($this->equalTo($this->id), 
 					$this->equalTo($this->limit),
 					$this->equalTo($this->offset),
+					$this->equalTo($this->newestItemId),
 					$this->equalTo($this->status),
 					$this->equalTo($this->user))
 			->will($this->returnValue($this->response));
 
 		$result = $this->itemBusinessLayer->findAll(
 			$this->id, $type, $this->limit, 
-			$this->offset, $this->showAll,
+			$this->offset, $this->newestItemId, $this->showAll,
 			$this->user);
 		$this->assertEquals($this->response, $result);
 	}
@@ -153,13 +157,14 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->with($this->equalTo($this->id), 
 					$this->equalTo($this->limit),
 					$this->equalTo($this->offset),
+					$this->equalTo($this->newestItemId),
 					$this->equalTo($this->status),
 					$this->equalTo($this->user))
 			->will($this->returnValue($this->response));
 
 		$result = $this->itemBusinessLayer->findAll(
 			$this->id, $type, $this->limit, 
-			$this->offset, $this->showAll,
+			$this->offset, $this->newestItemId, $this->showAll,
 			$this->user);
 		$this->assertEquals($this->response, $result);
 	}
@@ -171,13 +176,14 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('findAll')
 			->with(	$this->equalTo($this->limit),
 					$this->equalTo($this->offset),
+					$this->equalTo($this->newestItemId),
 					$this->equalTo($this->status),
 					$this->equalTo($this->user))
 			->will($this->returnValue($this->response));
 
 		$result = $this->itemBusinessLayer->findAll(
 			$this->id, $type, $this->limit, 
-			$this->offset, $this->showAll,
+			$this->offset, $this->newestItemId, $this->showAll,
 			$this->user);
 		$this->assertEquals($this->response, $result);
 	}
@@ -282,6 +288,27 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 	}
 
+
+	public function testGetNewestItemId() {
+		$this->mapper->expects($this->once())
+			->method('getNewestItemId')
+			->with($this->equalTo($this->user))
+			->will($this->returnValue(12));
+
+		$result = $this->itemBusinessLayer->getNewestItemId($this->user);
+		$this->assertEquals(12, $result);
+	}
+
+
+	public function testGetNewestItemIdDoesNotExist() {
+		$this->mapper->expects($this->once())
+			->method('getNewestItemId')
+			->with($this->equalTo($this->user))
+			->will($this->throwException(new DoesNotExistException('There are no items')));
+
+		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
+		$this->itemBusinessLayer->getNewestItemId($this->user);
+	}
 
 }
 

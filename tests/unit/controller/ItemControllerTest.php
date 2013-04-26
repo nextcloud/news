@@ -32,6 +32,7 @@ use \OCA\AppFramework\Utility\ControllerTestUtility;
 use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\FeedType;
+use \OCA\News\BusinessLayer\BusinessLayerException;
 
 require_once(__DIR__ . "/../../classloader.php");
 
@@ -43,6 +44,7 @@ class ItemControllerTest extends ControllerTestUtility {
 	private $feedBusinessLayer;
 	private $request;
 	private $controller;
+	private $newestItemId;
 
 
 	/**
@@ -62,6 +64,7 @@ class ItemControllerTest extends ControllerTestUtility {
 		$this->controller = new ItemController($this->api, $this->request,
 				$this->itemBusinessLayer, $this->feedBusinessLayer);
 		$this->user = 'jackob';
+		$this->newestItemId = 12312;
 	}
 
 	private function getPostController($postValue, $url=array()){
@@ -269,28 +272,41 @@ class ItemControllerTest extends ControllerTestUtility {
 		$feeds = array(new Feed());
 		$result = array(
 			'items' => array(new Item()),
-			'feeds' => $feeds
+			'feeds' => $feeds,
+			'newestItemId' => $this->newestItemId
 		);
 		$post = array(
 			'limit' => 3,
 			'type' => FeedType::FEED,
 			'id' => 2,
-			'offset' => 0 
+			'offset' => 0,
+			'newestItemId' => 3 
 		);
 		$this->controller = $this->getPostController($post);
 
 		$this->itemsApiExpects($post['id'], $post['type']);
 
-		$this->itemBusinessLayer->expects($this->once())
-			->method('findAll')
-			->with($post['id'], $post['type'], $post['limit'], 
-				$post['offset'], true, $this->user)
-			->will($this->returnValue($result['items']));
-
 		$this->feedBusinessLayer->expects($this->once())
 			->method('findAll')
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($feeds));
+
+		$this->itemBusinessLayer->expects($this->once())
+			->method('getNewestItemId')
+			->with($this->equalTo($this->user))
+			->will($this->returnValue($this->newestItemId));
+
+		$this->itemBusinessLayer->expects($this->once())
+			->method('findAll')
+			->with(
+				$this->equalTo($post['id']), 
+				$this->equalTo($post['type']), 
+				$this->equalTo($post['limit']), 
+				$this->equalTo($post['offset']),
+				$this->equalTo($this->newestItemId), 
+				$this->equalTo(true), 
+				$this->equalTo($this->user))
+			->will($this->returnValue($result['items']));
 
 		$response = $this->controller->items();
 		$this->assertEquals($result, $response->getParams());
@@ -298,7 +314,7 @@ class ItemControllerTest extends ControllerTestUtility {
 	}
 
 
-	public function testItemsDoesNotReturnFeedsIfOffsetNotZero(){
+	public function testItemsOffsetNotZero(){
 		$result = array(
 			'items' => array(new Item())
 		);
@@ -306,7 +322,8 @@ class ItemControllerTest extends ControllerTestUtility {
 			'limit' => 3,
 			'type' => FeedType::FEED,
 			'id' => 2,
-			'offset' => 10 
+			'offset' => 10,
+			'newestItemId' => 3 
 		);
 		$this->controller = $this->getPostController($post);
 
@@ -314,8 +331,13 @@ class ItemControllerTest extends ControllerTestUtility {
 
 		$this->itemBusinessLayer->expects($this->once())
 			->method('findAll')
-			->with($post['id'], $post['type'], $post['limit'], 
-				$post['offset'], true, $this->user)
+			->with($this->equalTo($post['id']), 
+				$this->equalTo($post['type']), 
+				$this->equalTo($post['limit']), 
+				$this->equalTo($post['offset']),
+				$this->equalTo($post['newestItemId']), 
+				$this->equalTo(true), 
+				$this->equalTo($this->user))
 			->will($this->returnValue($result['items']));
 
 		$this->feedBusinessLayer->expects($this->never())
@@ -326,28 +348,30 @@ class ItemControllerTest extends ControllerTestUtility {
 		$this->assertTrue($response instanceof JSONResponse);
 	}
 
-	public function testItemsNew(){
-		$result = array(
-			'items' => array(new Item())
-		);
+
+	public function testGetItemsNoNewestItemsId(){
+		$result = array();
 		$post = array(
+			'limit' => 3,
 			'type' => FeedType::FEED,
 			'id' => 2,
-			'updatedSince' => 3333
+			'offset' => 0,
+			'newestItemId' => 3 
 		);
 		$this->controller = $this->getPostController($post);
 
 		$this->itemsApiExpects($post['id'], $post['type']);
-		
+
 		$this->itemBusinessLayer->expects($this->once())
-			->method('findAllNew')
-			->with($post['id'], $post['type'], $post['updatedSince'], 
-				true, $this->user)
-			->will($this->returnValue($result['items']));
+			->method('getNewestItemId')
+			->with($this->equalTo($this->user))
+			->will($this->throwException(new BusinessLayerException('')));
 
 		$response = $this->controller->items();
 		$this->assertEquals($result, $response->getParams());
-		$this->assertTrue($response instanceof JSONResponse);
+		$this->assertTrue($response instanceof JSONResponse);			
 	}
+
+
 
 }

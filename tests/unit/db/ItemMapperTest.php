@@ -32,6 +32,13 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 
 	private $mapper;
 	private $items;
+	private $newestItemId;
+	private $limit;
+	private $user;
+	private $offset;
+	private $updatedSince;
+	private $status;
+
 	
 	public function setUp()
 	{
@@ -67,6 +74,7 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
  		$this->id = 11;
  		$this->status = 333;
  		$this->updatedSince = 323;
+ 		$this->newestItemId = 2;
 
 	}
 	
@@ -146,7 +154,7 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 	}
 
 	public function testFindAllNew(){
-		$sql = 'AND `items`.`id` >= ?';
+		$sql = 'AND `items`.`last_modified` >= ?';
 		$sql = $this->makeSelectQueryStatus($sql, $this->status);
 		$params = array($this->user, $this->updatedSince);
 
@@ -158,23 +166,9 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 	}
 
 
-	public function testFindAllNewFeed(){
-		$sql = 'AND `items`.`feed_id` = ? ' .
-				'AND `items`.`id` >= ?';
-		$sql = $this->makeSelectQueryStatus($sql, $this->status);
-		$params = array($this->user, $this->id, $this->updatedSince);
-
-		$this->setMapperResult($sql, $params, $this->rows);
-		$result = $this->mapper->findAllNewFeed($this->id, $this->updatedSince, 
-			$this->status, $this->user);
-
-		$this->assertEquals($this->items, $result);
-	}
-
-
 	public function testFindAllNewFolder(){
 		$sql = 'AND `feeds`.`folder_id` = ? ' .
-				'AND `items`.`id` >= ?';
+				'AND `items`.`last_modified` >= ?';
 		$sql = $this->makeSelectQueryStatus($sql, $this->status);
 
 		$params = array($this->user, $this->id, $this->updatedSince);
@@ -186,28 +180,31 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 	}
 
 
-	public function testFindAllFeed(){
+	public function testFindAllNewFeed(){
 		$sql = 'AND `items`.`feed_id` = ? ' .
-			'AND `items`.`id` < ? ' .
-			'ORDER BY `items`.`id` DESC ';
+				'AND `items`.`last_modified` >= ?';
 		$sql = $this->makeSelectQueryStatus($sql, $this->status);
-		$params = array($this->user, $this->id, $this->offset);
+		$params = array($this->user, $this->id, $this->updatedSince);
+
 		$this->setMapperResult($sql, $params, $this->rows);
-		$result = $this->mapper->findAllFeed($this->id, $this->limit, 
-				$this->offset, $this->status, $this->user);
+		$result = $this->mapper->findAllNewFeed($this->id, $this->updatedSince, 
+			$this->status, $this->user);
 
 		$this->assertEquals($this->items, $result);
 	}
 
 
-	public function testFindAllFeedOffsetZero(){
-		$sql = 'AND `items`.`feed_id` = ? ' .
-			'ORDER BY `items`.`id` DESC ';
+	public function testFindAll(){
+		$sql = 'AND `items`.`id` < ? ' .
+			'ORDER BY `items`.`pub_date` DESC, `items`.`id` DESC ';
 		$sql = $this->makeSelectQueryStatus($sql, $this->status);
-		$params = array($this->user, $this->id);
-		$this->setMapperResult($sql, $params, $this->rows);
-		$result = $this->mapper->findAllFeed($this->id, $this->limit, 
-				0, $this->status, $this->user);
+		$params = array($this->user, $this->newestItemId);
+		$this->setMapperResult($sql, $params, $this->rows, 
+			$this->limit, $this->offset);
+
+		$result = $this->mapper->findAll($this->limit, 
+				$this->offset, $this->newestItemId, 
+				$this->status, $this->user);
 
 		$this->assertEquals($this->items, $result);
 	}
@@ -216,54 +213,35 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 	public function testFindAllFolder(){
 		$sql = 'AND `feeds`.`folder_id` = ? ' .
 			'AND `items`.`id` < ? ' .
-			'ORDER BY `items`.`id` DESC ';
+			'ORDER BY `items`.`pub_date` DESC, `items`.`id` DESC ';
 		$sql = $this->makeSelectQueryStatus($sql, $this->status);
-		$params = array($this->user, $this->id, 
+		$params = array($this->user, $this->id, $this->newestItemId);
+
+		$this->setMapperResult($sql, $params, $this->rows,
+			$this->limit, $this->offset);
+
+		$result = $this->mapper->findAllFolder($this->id, $this->limit, 
+				$this->offset, $this->newestItemId, $this->status, $this->user);
+
+		$this->assertEquals($this->items, $result);
+	}
+
+
+	public function testFindAllFeed(){
+		$sql = 'AND `items`.`feed_id` = ? ' .
+			'AND `items`.`id` < ? ' .
+			'ORDER BY `items`.`pub_date` DESC, `items`.`id` DESC ';
+		$sql = $this->makeSelectQueryStatus($sql, $this->status);
+		$params = array($this->user, $this->id, $this->newestItemId);
+		$this->setMapperResult($sql, $params, $this->rows, $this->limit, 
 			$this->offset);
-		$this->setMapperResult($sql, $params, $this->rows);
-		$result = $this->mapper->findAllFolder($this->id, $this->limit, 
-				$this->offset, $this->status, $this->user);
+
+		$result = $this->mapper->findAllFeed($this->id, $this->limit, 
+				$this->offset, $this->newestItemId, $this->status, $this->user);
 
 		$this->assertEquals($this->items, $result);
 	}
 
-
-	public function testFindAllFolderOffsetZero(){
-		$sql = 'AND `feeds`.`folder_id` = ? ' .
-			'ORDER BY `items`.`id` DESC ';
-		$sql = $this->makeSelectQueryStatus($sql, $this->status);
-		$params = array($this->user, $this->id);
-		$this->setMapperResult($sql, $params, $this->rows);
-		$result = $this->mapper->findAllFolder($this->id, $this->limit, 
-				0, $this->status, $this->user);
-
-		$this->assertEquals($this->items, $result);
-	}
-
-
-	public function testFindAll(){
-		$sql = 'AND `items`.`id` < ? ' .
-			'ORDER BY `items`.`id` DESC ';
-		$sql = $this->makeSelectQueryStatus($sql, $this->status);
-		$params = array($this->user, $this->offset);
-		$this->setMapperResult($sql, $params, $this->rows);
-		$result = $this->mapper->findAll($this->limit, 
-				$this->offset, $this->status, $this->user);
-
-		$this->assertEquals($this->items, $result);
-	}
-
-
-	public function testFindAllOffsetZero(){
-		$sql = 'ORDER BY `items`.`id` DESC ';
-		$sql = $this->makeSelectQueryStatus($sql, $this->status);
-		$params = array($this->user);
-		$this->setMapperResult($sql, $params, $this->rows);
-		$result = $this->mapper->findAll($this->limit, 
-				0, $this->status, $this->user);
-
-		$this->assertEquals($this->items, $result);
-	}
 
 
 	public function testFindByGuidHash(){
@@ -352,6 +330,36 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			->will($this->returnValue($query2));
 
 		$result = $this->mapper->deleteReadOlderThanThreshold($threshold);
+	}
+
+
+	public function testGetNewestItem() {
+		$sql = 'SELECT MAX(`items`.`id`) AS `max_id` FROM `*PREFIX*news_items` `items` '.
+			'JOIN `*PREFIX*news_feeds` `feeds` ' .
+				'ON `feeds`.`id` = `items`.`feed_id` '.
+				'AND `feeds`.`user_id` = ?';
+		$params = array($this->user);
+		$rows = array(array('max_id' => 3));
+
+		$this->setMapperResult($sql, $params, $rows);
+		
+		$result = $this->mapper->getNewestItemId($this->user);
+		$this->assertEquals(3, $result);
+	}
+
+
+	public function testGetNewestItemIdNotFound() {
+		$sql = 'SELECT MAX(`items`.`id`) AS `max_id` FROM `*PREFIX*news_items` `items` '.
+			'JOIN `*PREFIX*news_feeds` `feeds` ' .
+				'ON `feeds`.`id` = `items`.`feed_id` '.
+				'AND `feeds`.`user_id` = ?';
+		$params = array($this->user);
+		$rows = array();
+
+		$this->setMapperResult($sql, $params, $rows);
+		$this->setExpectedException('\OCA\AppFramework\Db\DoesNotExistException');
+
+		$result = $this->mapper->getNewestItemId($this->user);
 	}
 
 }

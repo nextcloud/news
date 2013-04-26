@@ -29,6 +29,7 @@ use \OCA\AppFramework\Controller\Controller;
 use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Http\Request;
 
+use \OCA\News\BusinessLayer\BusinessLayerException;
 use \OCA\News\BusinessLayer\ItemBusinessLayer;
 use \OCA\News\BusinessLayer\FeedBusinessLayer;
 
@@ -59,32 +60,33 @@ class ItemController extends Controller {
 		$limit = $this->params('limit');
 		$type = (int) $this->params('type');
 		$id = (int) $this->params('id');
+		$offset = (int) $this->params('offset', 0);
+		$newestItemId = (int) $this->params('newestItemId');
 
 		$this->api->setUserValue('lastViewedFeedId', $id);
 		$this->api->setUserValue('lastViewedFeedType', $type);
-		
-		if($limit !== null){
-			$offset = (int) $this->params('offset', 0);
-			$items = $this->itemBusinessLayer->findAll($id, $type, (int) $limit, 
-				                                       $offset, $showAll, $userId);
+
+		$params = array();
+
+		try {
+
+			// the offset is 0 if the user clicks on a new feed
+			// we need to pass the newest feeds to not let the unread count get 
+			// out of sync
 			if($offset === 0) {
-				$feeds = $this->feedBusinessLayer->findAll($userId);
+				$params['newestItemId'] = 
+					$this->itemBusinessLayer->getNewestItemId($userId);
+				$newestItemId = $params['newestItemId'];
+				$params['feeds'] = $this->feedBusinessLayer->findAll($userId);
 			}
-		} else {
-			$updatedSince = (int) $this->params('updatedSince');
-			$items = $this->itemBusinessLayer->findAllNew($id, $type, 
-				                               $updatedSince, $showAll, $userId);
-		}
-
-		$params = array(
-			'items' => $items
-		);
-
-		// we need to pass the newest feeds to not let the unread count get out
-		// of sync
-		if(isset($feeds)) {
-			$params['feeds'] = $feeds;
-		}
+						
+			$params['items'] = $this->itemBusinessLayer->findAll(
+				                                       $id, $type, $limit, 
+				                                       $offset, $newestItemId, 
+				                                       $showAll, $userId);
+		// this gets thrown if there are no items
+		// in that case just return an empty array
+		} catch(BusinessLayerException $ex) {}
 
 		return $this->renderJSON($params);
 	}

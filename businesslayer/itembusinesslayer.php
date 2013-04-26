@@ -26,6 +26,7 @@
 namespace OCA\News\BusinessLayer;
 
 use \OCA\AppFramework\Utility\TimeFactory;
+use \OCA\AppFramework\Db\DoesNotExistException;
 
 use \OCA\News\Db\Item;
 use \OCA\News\Db\ItemMapper;
@@ -70,22 +71,25 @@ class ItemBusinessLayer extends BusinessLayer {
 	}
 
 
-	public function findAll($id, $type, $limit, $offset, 
-		$showAll, $userId){
+	public function findAll($id, $type, $limit, $offset, $newestItemId, $showAll,
+	                        $userId){
+
 		$status = $this->statusFlag->typeToStatus($type, $showAll);
 
 		switch($type){
 			case FeedType::FEED:
 				$items = $this->mapper->findAllFeed($id, $limit, $offset, 
-					                                   $status, $userId);
+					                                $newestItemId, $status, 
+					                                $userId);
 				break;
 			case FeedType::FOLDER:
 				$items = $this->mapper->findAllFolder($id, $limit, $offset, 
-					                                   $status, $userId);
+					                                  $newestItemId, $status, 
+					                                  $userId);
 				break;
 			default:
-				$items = $this->mapper->findAll($limit, $offset, $status, 
-					                               $userId);
+				$items = $this->mapper->findAll($limit, $offset, $newestItemId, 
+				                                $status, $userId);
 		}
 
 		return $items;
@@ -135,6 +139,15 @@ class ItemBusinessLayer extends BusinessLayer {
 	 */
 	public function autoPurgeOld(){
 		$this->mapper->deleteReadOlderThanThreshold($this->autoPurgeCount);
+	}
+
+
+	public function getNewestItemId($userId) {
+		try {
+			return $this->mapper->getNewestItemId($userId);
+		} catch(DoesNotExistException $ex) {
+			throw new BusinessLayerException($ex->getMessage());
+		}
 	}
 
 

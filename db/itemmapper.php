@@ -139,67 +139,65 @@ class ItemMapper extends Mapper implements IMapper {
 	}
 
 
-	public function findAllNewFeed($id, $updatedSince, $status, $userId){
-		$sql = 'AND `items`.`feed_id` = ? ' .
-				'AND `items`.`id` >= ?';
-		$sql = $this->makeSelectQueryStatus($sql, $status);
-		$params = array($userId, $id, $updatedSince);
+	public function findAllNew($updatedSince, $status, $userId){
+		$sql = $this->makeSelectQueryStatus('AND `items`.`last_modified` >= ?', $status);
+		$params = array($userId, $updatedSince);
 		return $this->findAllRows($sql, $params);
 	}
 
 
 	public function findAllNewFolder($id, $updatedSince, $status, $userId){
 		$sql = 'AND `feeds`.`folder_id` = ? ' .
-				'AND `items`.`id` >= ?';
+				'AND `items`.`last_modified` >= ?';
 		$sql = $this->makeSelectQueryStatus($sql, $status);
 		$params = array($userId, $id, $updatedSince);
 		return $this->findAllRows($sql, $params);
 	}
 
 
-	public function findAllNew($updatedSince, $status, $userId){
-		$sql = $this->makeSelectQueryStatus('AND `items`.`id` >= ?', $status);
-		$params = array($userId, $updatedSince);
+	public function findAllNewFeed($id, $updatedSince, $status, $userId){
+		$sql = 'AND `items`.`feed_id` = ? ' .
+				'AND `items`.`last_modified` >= ?';
+		$sql = $this->makeSelectQueryStatus($sql, $status);
+		$params = array($userId, $id, $updatedSince);
 		return $this->findAllRows($sql, $params);
 	}
 
 
-	public function findAllFeed($id, $limit, $offset, $status, $userId){
-		$params = array($userId, $id);
-		$sql = 'AND `items`.`feed_id` = ? ';
-		if($offset !== 0){
-			$sql .= 'AND `items`.`id` < ? ';
-			array_push($params, $offset);
-		}
-		$sql .= 'ORDER BY `items`.`id` DESC ';
+	public function findAll($limit, $offset, $newestItemId, $status, $userId){
+		$sql = 'AND `items`.`id` < ? ';
+		$sql .= 'ORDER BY `items`.`pub_date` DESC, `items`.`id` DESC ';
+		$params = array($userId, $newestItemId);
+
 		$sql = $this->makeSelectQueryStatus($sql, $status);
-		return $this->findAllRows($sql, $params, $limit);
+		return $this->findAllRows($sql, $params, $limit, $offset);
 	}
 
 
-	public function findAllFolder($id, $limit, $offset, $status, $userId){
-		$params = array($userId, $id);
-		$sql = 'AND `feeds`.`folder_id` = ? ';
-		if($offset !== 0){
-			$sql .= 'AND `items`.`id` < ? ';
-			array_push($params, $offset);
-		}
-		$sql .= 'ORDER BY `items`.`id` DESC ';
+	public function findAllFolder($id, $limit, $offset, $newestItemId, $status,
+	                              $userId){
+		
+		$sql = 'AND `feeds`.`folder_id` = ? ' .
+			'AND `items`.`id` < ? ' .
+			'ORDER BY `items`.`pub_date` DESC, `items`.`id` DESC ';
+		$params = array($userId, $id, $newestItemId);
+
 		$sql = $this->makeSelectQueryStatus($sql, $status);
-		return $this->findAllRows($sql, $params, $limit);
+
+		return $this->findAllRows($sql, $params, $limit, $offset);
 	}
 
 
-	public function findAll($limit, $offset, $status, $userId){
-		$params = array($userId);
-		$sql = '';
-		if($offset !== 0){
-			$sql .= 'AND `items`.`id` < ? ';
-			array_push($params, $offset);
-		}
-		$sql .= 'ORDER BY `items`.`id` DESC ';
+	public function findAllFeed($id, $limit, $offset, $newestItemId, $status, 
+	                            $userId){
+
+		$sql = 'AND `items`.`feed_id` = ? ' .
+			'AND `items`.`id` < ? ' .
+			'ORDER BY `items`.`pub_date` DESC, `items`.`id` DESC ';
 		$sql = $this->makeSelectQueryStatus($sql, $status);
-		return $this->findAllRows($sql, $params, $limit);
+		$params = array($userId, $id, $newestItemId);
+
+		return $this->findAllRows($sql, $params, $limit, $offset);
 	}
 
 
@@ -248,6 +246,16 @@ class ItemMapper extends Mapper implements IMapper {
 	}
 
 
+	public function getNewestItemId($userId) {
+		$sql = 'SELECT MAX(`items`.`id`) AS `max_id` FROM `*PREFIX*news_items` `items` '.
+			'JOIN `*PREFIX*news_feeds` `feeds` ' .
+				'ON `feeds`.`id` = `items`.`feed_id` '.
+				'AND `feeds`.`user_id` = ?';
+		$params = array($userId);
 
+		$result = $this->findOneQuery($sql, $params);
+
+		return $result['max_id'];
+	}
 
 }
