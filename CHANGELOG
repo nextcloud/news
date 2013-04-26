@@ -1,6 +1,6 @@
 ownCloud-news (1.0~beta)
 
-* Add all methods for the current API spec
+* Add all businesslayer methods for the current API spec
 * API Specification Draft
 * Fix a bug that would cause words in the headlines to always be wrapped
 * Fix a bug that would cause the elipsis on the "Add Website" entry to be to short
