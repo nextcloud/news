@@ -20,22 +20,20 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 ###
 
+angular.module('News').factory 'NewestItem', ->
 
-angular.module('News').factory '_BusinessLayer', ->
+	class NewestItem
 
-	class BusinessLayer
-
-		constructor: (@_activeFeed, @_persistence, @_itemModel, @_type, @_newest) ->
-
-
-		load: (id) ->
-			@_itemModel.clear()
-			@_persistence.getItems(@_type, id, 0)
-			@_activeFeed.handle({id: id, type: @_type})
+		constructor: ->
+			@_id = 0
 
 
-		isActive: (id) ->
-			return @_activeFeed.getType() == @_type && @_activeFeed.getId() == id
+		handle: (data) ->
+			@_id = data
 
 
-	return BusinessLayer
+		getId: ->
+			return @_id
+
+
+	return new NewestItem()

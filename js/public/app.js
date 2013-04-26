@@ -741,11 +741,12 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     var BusinessLayer;
 
     BusinessLayer = (function() {
-      function BusinessLayer(_activeFeed, _persistence, _itemModel, _type) {
+      function BusinessLayer(_activeFeed, _persistence, _itemModel, _type, _newest) {
         this._activeFeed = _activeFeed;
         this._persistence = _persistence;
         this._itemModel = _itemModel;
         this._type = _type;
+        this._newest = _newest;
       }
 
       BusinessLayer.prototype.load = function(id) {
@@ -797,19 +798,20 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   angular.module('News').factory('FeedBusinessLayer', [
-    '_BusinessLayer', 'ShowAll', 'Persistence', 'ActiveFeed', 'FeedType', 'ItemModel', 'FeedModel', 'NewLoading', '_ExistsError', 'Utils', '$rootScope', 'UndoQueue', function(_BusinessLayer, ShowAll, Persistence, ActiveFeed, FeedType, ItemModel, FeedModel, NewLoading, _ExistsError, Utils, $rootScope, UndoQueue) {
+    '_BusinessLayer', 'ShowAll', 'Persistence', 'ActiveFeed', 'FeedType', 'ItemModel', 'FeedModel', 'NewLoading', '_ExistsError', 'Utils', '$rootScope', 'UndoQueue', 'NewestItem', function(_BusinessLayer, ShowAll, Persistence, ActiveFeed, FeedType, ItemModel, FeedModel, NewLoading, _ExistsError, Utils, $rootScope, UndoQueue, NewestItem) {
       var FeedBusinessLayer;
 
       FeedBusinessLayer = (function(_super) {
         __extends(FeedBusinessLayer, _super);
 
-        function FeedBusinessLayer(_showAll, _feedModel, persistence, activeFeed, feedType, itemModel, _newLoading, _utils, _$rootScope, _undoQueue) {
+        function FeedBusinessLayer(_showAll, _feedModel, persistence, activeFeed, feedType, itemModel, _newLoading, _utils, _$rootScope, _undoQueue, _newestItem) {
           this._showAll = _showAll;
           this._feedModel = _feedModel;
           this._newLoading = _newLoading;
           this._utils = _utils;
           this._$rootScope = _$rootScope;
           this._undoQueue = _undoQueue;
+          this._newestItem = _newestItem;
           FeedBusinessLayer.__super__.constructor.call(this, activeFeed, persistence, itemModel, feedType.Feed);
           this._feedType = feedType;
         }
@@ -851,7 +853,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           if (angular.isDefined(feed)) {
             feed.unreadCount = 0;
             if (this._activeFeed.getId() === feedId && this._activeFeed.getType() === this._feedType.Feed) {
-              highestItemId = this._itemModel.getHighestId();
+              highestItemId = this._newestItem.getId();
             } else {
               highestItemId = 0;
             }
@@ -1016,7 +1018,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         return FeedBusinessLayer;
 
       })(_BusinessLayer);
-      return new FeedBusinessLayer(ShowAll, FeedModel, Persistence, ActiveFeed, FeedType, ItemModel, NewLoading, Utils, $rootScope, UndoQueue);
+      return new FeedBusinessLayer(ShowAll, FeedModel, Persistence, ActiveFeed, FeedType, ItemModel, NewLoading, Utils, $rootScope, UndoQueue, NewestItem);
     }
   ]);
 
@@ -1281,17 +1283,18 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 (function() {
   angular.module('News').factory('ItemBusinessLayer', [
-    'ItemModel', 'FeedModel', 'Persistence', 'ActiveFeed', 'FeedType', 'StarredBusinessLayer', function(ItemModel, FeedModel, Persistence, ActiveFeed, FeedType, StarredBusinessLayer) {
+    'ItemModel', 'FeedModel', 'Persistence', 'ActiveFeed', 'FeedType', 'StarredBusinessLayer', 'NewestItem', function(ItemModel, FeedModel, Persistence, ActiveFeed, FeedType, StarredBusinessLayer, NewestItem) {
       var ItemBusinessLayer;
 
       ItemBusinessLayer = (function() {
-        function ItemBusinessLayer(_itemModel, _feedModel, _persistence, _activeFeed, _feedType, _starredBusinessLayer) {
+        function ItemBusinessLayer(_itemModel, _feedModel, _persistence, _activeFeed, _feedType, _starredBusinessLayer, _newestItem) {
           this._itemModel = _itemModel;
           this._feedModel = _feedModel;
           this._persistence = _persistence;
           this._activeFeed = _activeFeed;
           this._feedType = _feedType;
           this._starredBusinessLayer = _starredBusinessLayer;
+          this._newestItem = _newestItem;
         }
 
         ItemBusinessLayer.prototype.getAll = function() {
@@ -1387,11 +1390,11 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         };
 
         ItemBusinessLayer.prototype.loadNext = function(callback) {
-          var lowestItemId;
+          var size;
 
-          lowestItemId = this._itemModel.getLowestId();
-          if (lowestItemId !== 0) {
-            return this._persistence.getItems(this._activeFeed.getType(), this._activeFeed.getId(), lowestItemId, callback);
+          size = this._itemModel.size();
+          if (size !== 0) {
+            return this._persistence.getItems(this._activeFeed.getType(), this._activeFeed.getId(), size, this._newestItem.getId(), callback);
           } else {
             return callback();
           }
@@ -1402,7 +1405,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         return ItemBusinessLayer;
 
       })();
-      return new ItemBusinessLayer(ItemModel, FeedModel, Persistence, ActiveFeed, FeedType, StarredBusinessLayer);
+      return new ItemBusinessLayer(ItemModel, FeedModel, Persistence, ActiveFeed, FeedType, StarredBusinessLayer, NewestItem);
     }
   ]);
 
@@ -2179,36 +2182,60 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return ItemModel.__super__.removeById.call(this, id);
         };
 
-        ItemModel.prototype.getHighestId = function() {
-          var highestId, query;
-
-          query = new _MaximumQuery('id');
-          highestId = this.get(query);
-          if (angular.isDefined(highestId)) {
-            return highestId.id;
-          } else {
-            return 0;
-          }
-        };
-
-        ItemModel.prototype.getLowestId = function() {
-          var lowestId, query;
-
-          query = new _MinimumQuery('id');
-          lowestId = this.get(query);
-          if (angular.isDefined(lowestId)) {
-            return lowestId.id;
-          } else {
-            return 0;
-          }
-        };
-
         return ItemModel;
 
       })(_Model);
       return new ItemModel();
     }
   ]);
+
+}).call(this);
+
+// Generated by CoffeeScript 1.6.2
+/*
+
+ownCloud - News
+
+@author Bernhard Posselt
+@copyright 2012 Bernhard Posselt nukeawhale@gmail.com
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+License as published by the Free Software Foundation; either
+version 3 of the License, or any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+You should have received a copy of the GNU Affero General Public
+License along with this library.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+(function() {
+  angular.module('News').factory('NewestItem', function() {
+    var NewestItem;
+
+    NewestItem = (function() {
+      function NewestItem() {
+        this._id = 0;
+      }
+
+      NewestItem.prototype.handle = function(data) {
+        return this._id = data;
+      };
+
+      NewestItem.prototype.getId = function() {
+        return this._id;
+      };
+
+      return NewestItem;
+
+    })();
+    return new NewestItem();
+  });
 
 }).call(this);
 
@@ -2387,15 +2414,15 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         */
 
 
-        Persistence.prototype.getItems = function(type, id, offset, onSuccess, updatedSince) {
-          var data, failureCallbackWrapper, loading, params, successCallbackWrapper,
+        Persistence.prototype.getItems = function(type, id, offset, newestItemId, onSuccess) {
+          var failureCallbackWrapper, loading, params, successCallbackWrapper,
             _this = this;
 
+          if (newestItemId == null) {
+            newestItemId = 0;
+          }
           if (onSuccess == null) {
             onSuccess = null;
-          }
-          if (updatedSince == null) {
-            updatedSince = null;
           }
           onSuccess || (onSuccess = function() {});
           if (offset === 0) {
@@ -2411,22 +2438,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           failureCallbackWrapper = function(data) {
             return loading.decrease();
           };
-          if (updatedSince !== null) {
-            data = {
-              updatedSince: updatedSince,
-              type: type,
-              id: id
-            };
-          } else {
-            data = {
+          params = {
+            data: {
               limit: this._config.itemBatchSize,
               offset: offset,
               id: id,
-              type: type
-            };
-          }
-          params = {
-            data: data,
+              type: type,
+              newestItemId: newestItemId
+            },
             onSuccess: successCallbackWrapper,
             onFailure: failureCallbackWrapper
           };
@@ -2933,7 +2952,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
   ]);
 
   angular.module('News').factory('Publisher', [
-    '_Publisher', 'ActiveFeed', 'ShowAll', 'StarredCount', 'ItemModel', 'FolderModel', 'FeedModel', 'Language', function(_Publisher, ActiveFeed, ShowAll, StarredCount, ItemModel, FolderModel, FeedModel, Language) {
+    '_Publisher', 'ActiveFeed', 'ShowAll', 'StarredCount', 'ItemModel', 'FolderModel', 'FeedModel', 'Language', 'NewestItem', function(_Publisher, ActiveFeed, ShowAll, StarredCount, ItemModel, FolderModel, FeedModel, Language, NewestItem) {
       var publisher;
 
       publisher = new _Publisher();
@@ -2944,6 +2963,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
       publisher.subscribeObjectTo(FolderModel, 'folders');
       publisher.subscribeObjectTo(FeedModel, 'feeds');
       publisher.subscribeObjectTo(ItemModel, 'items');
+      publisher.subscribeObjectTo(NewestItem, 'newestItemId');
       return publisher;
     }
   ]);

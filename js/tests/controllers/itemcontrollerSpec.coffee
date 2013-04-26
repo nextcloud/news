@@ -40,7 +40,7 @@ describe 'ItemController', ->
 
 	beforeEach inject ($controller, @ItemBusinessLayer, @FeedBusinessLayer,
 		$rootScope, @FeedLoading, @AutoPageLoading, @FeedModel, @ItemModel,
-		@ActiveFeed, @FeedType) =>
+		@ActiveFeed, @FeedType, @NewestItem) =>
 		
 		@ActiveFeed.handle({type: @FeedType.Folder, id: 3})
 		@scope = $rootScope.$new()
@@ -101,7 +101,9 @@ describe 'ItemController', ->
 		expect(@persistence.getItems).not.toHaveBeenCalled()
 
 
-	it 'should autoPage with the lowest Item Id', =>
+	it 'should autoPage with the newest Item Id', =>
+		@NewestItem.handle(25)
+
 		@persistence.getItems = jasmine.createSpy('getItems')
 		item1 = {id: 4, guidHash: 'abc', feedId: 3}
 		@ItemModel.add(item1)
@@ -114,11 +116,12 @@ describe 'ItemController', ->
 
 		@scope.$broadcast 'autoPage'
 		expect(@persistence.getItems).toHaveBeenCalledWith(
-			@FeedType.Folder, 3, 3, jasmine.any(Function)
+			@FeedType.Folder, 3, 3, 25, jasmine.any(Function)
 		)
 
 
 	it 'should not prevent autopaging if there are no items', =>
+		@NewestItem.handle(25)
 		@scope.$broadcast 'autoPage'
 		@persistence.getItems = jasmine.createSpy('getItems')
 
@@ -127,11 +130,12 @@ describe 'ItemController', ->
 
 		@scope.$broadcast 'autoPage'
 		expect(@persistence.getItems).toHaveBeenCalledWith(
-			@FeedType.Folder, 3, 3, jasmine.any(Function)
+			@FeedType.Folder, 3, 1, 25, jasmine.any(Function)
 		)
 
 
 	it 'should not send multiple autopage requests at once', =>
+		@NewestItem.handle(25)
 		@persistence.getItems = jasmine.createSpy('getItems')
 		item1 = {id: 3, guidHash: 'abcd', feedId: 3}
 		@ItemModel.add(item1)
@@ -144,13 +148,15 @@ describe 'ItemController', ->
 		@scope.$broadcast 'autoPage'
 
 		expect(@persistence.getItems).not.toHaveBeenCalledWith(
-			@FeedType.Folder, 2, 3, jasmine.any(Function)
+			@FeedType.Folder, 2, 1, 25, jasmine.any(Function)
 		)
 
 
 	it 'should allow another autopaging request if the last one finished', =>
+		@NewestItem.handle(25)
 		@persistence.getItems = jasmine.createSpy('getItems')
-		@persistence.getItems.andCallFake (type, id, offset, onSuccess) ->
+		@persistence.getItems.andCallFake (type, id, offset, newestItemId,
+			onSuccess) ->
 			onSuccess()
 
 		item1 = {id: 3, guidHash: 'abcd', feedId: 3}

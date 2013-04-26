@@ -23,14 +23,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 angular.module('News').factory 'ItemBusinessLayer',
 ['ItemModel', 'FeedModel', 'Persistence', 'ActiveFeed', 'FeedType',
-'StarredBusinessLayer',
+'StarredBusinessLayer', 'NewestItem',
 (ItemModel, FeedModel, Persistence, ActiveFeed, FeedType,
-StarredBusinessLayer) ->
+StarredBusinessLayer, NewestItem) ->
 
 	class ItemBusinessLayer
 
 		constructor: (@_itemModel, @_feedModel, @_persistence, @_activeFeed,
-		              @_feedType, @_starredBusinessLayer) ->
+		              @_feedType, @_starredBusinessLayer, @_newestItem) ->
 
 		getAll: ->
 			return @_itemModel.getAll()
@@ -106,10 +106,12 @@ StarredBusinessLayer) ->
 
 
 		loadNext: (callback) ->
-			lowestItemId = @_itemModel.getLowestId()
-			if lowestItemId != 0
+			size = @_itemModel.size()
+			if size != 0
 				@_persistence.getItems @_activeFeed.getType(),
-				                       @_activeFeed.getId(), lowestItemId,
+				                       @_activeFeed.getId(), 
+				                       size,
+				                       @_newestItem.getId(),
 				                       callback
 			else
 				callback()
@@ -121,6 +123,6 @@ StarredBusinessLayer) ->
 
 
 	return new ItemBusinessLayer(ItemModel, FeedModel, Persistence, ActiveFeed,
-	                             FeedType, StarredBusinessLayer)
+	                             FeedType, StarredBusinessLayer, NewestItem)
 
 ]

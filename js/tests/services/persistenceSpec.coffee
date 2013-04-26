@@ -56,10 +56,12 @@ describe 'Persistence', ->
 				id: 5
 				limit: @config.itemBatchSize
 				offset: 3
+				newestItemId: 4
 			onSuccess: ->
 
 		@Persistence.getItems(params.data.type, params.data.id,
-		                      params.data.offset, params.onSuccess, null)
+		                      params.data.offset, params.data.newestItemId, 
+		                      params.onSuccess)
 
 		expected =
 			onSuccess: jasmine.any(Function)
@@ -69,28 +71,7 @@ describe 'Persistence', ->
 				id: 5
 				limit: @config.itemBatchSize
 				offset: 3
-
-		expect(@req.get).toHaveBeenCalledWith('news_items', expected)
-
-
-	it 'should send a load newest items request', =>
-		params =
-			data:
-				type: 2
-				id: 5
-				updatedSince: 1333
-			onSuccess: ->
-
-		@Persistence.getItems(params.data.type, params.data.id, 0,
-		                      params.onSuccess,	params.data.updatedSince)
-
-		expected =
-			onSuccess: jasmine.any(Function)
-			onFailure: jasmine.any(Function)
-			data:
-				type: 2
-				id: 5
-				updatedSince: 1333
+				newestItemId: 4
 
 		expect(@req.get).toHaveBeenCalledWith('news_items', expected)
 

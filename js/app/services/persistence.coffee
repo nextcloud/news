@@ -51,7 +51,7 @@ $rootScope) ->
 		###
 			ITEM CONTROLLER
 		###
-		getItems: (type, id, offset, onSuccess=null, updatedSince=null) ->
+		getItems: (type, id, offset, newestItemId=0, onSuccess=null) ->
 			onSuccess or= ->
 
 			# show different loading signs
@@ -68,20 +68,13 @@ $rootScope) ->
 			failureCallbackWrapper = (data) =>
 				loading.decrease()
 
-			if updatedSince != null
-				data =
-					updatedSince: updatedSince
-					type: type
-					id: id
-			else
-				data =
+			params =
+				data: 
 					limit: @_config.itemBatchSize
 					offset: offset
 					id: id
 					type: type
-
-			params =
-				data: data
+					newestItemId: newestItemId
 				onSuccess: successCallbackWrapper
 				onFailure: failureCallbackWrapper
 

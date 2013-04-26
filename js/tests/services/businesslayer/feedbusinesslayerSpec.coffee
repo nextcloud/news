@@ -44,7 +44,8 @@ describe 'FeedBusinessLayer', ->
 
 	
 	beforeEach inject (@FeedBusinessLayer, @FeedModel, @ItemModel, @FeedType,
-	                   @ShowAll, @ActiveFeed, @_ExistsError, @$timeout) =>
+	                   @ShowAll, @ActiveFeed, @_ExistsError, @$timeout,
+	                   @NewestItem) =>
 		@ShowAll.setShowAll(false)
 		@ActiveFeed.handle({type: @FeedType.Folder, id:0})
 
@@ -93,6 +94,7 @@ describe 'FeedBusinessLayer', ->
 
 
 	it 'should mark feed as read', =>
+		@NewestItem.handle(25)
 		@ActiveFeed.handle({type: @FeedType.Feed, id: 5})
 		@persistence.setFeedRead = jasmine.createSpy('setFeedRead')
 		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, url: 'a1'})
@@ -101,7 +103,7 @@ describe 'FeedBusinessLayer', ->
 		@ItemModel.add({id: 2, feedId: 5, guidHash: 'a3'})
 		@FeedBusinessLayer.markFeedRead(5)
 
-		expect(@persistence.setFeedRead).toHaveBeenCalledWith(5, 6)
+		expect(@persistence.setFeedRead).toHaveBeenCalledWith(5, 25)
 		expect(@FeedModel.getById(5).unreadCount).toBe(0)
 		expect(@ItemModel.getById(6).isRead()).toBeTruthy()
 		expect(@ItemModel.getById(3).isRead()).toBeTruthy()

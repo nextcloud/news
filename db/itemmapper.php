@@ -255,7 +255,7 @@ class ItemMapper extends Mapper implements IMapper {
 
 		$result = $this->findOneQuery($sql, $params);
 
-		return $result['max_id'];
+		return (int) $result['max_id'];
 	}
 
 }

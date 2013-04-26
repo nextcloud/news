@@ -24,15 +24,15 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 angular.module('News').factory 'FeedBusinessLayer',
 ['_BusinessLayer', 'ShowAll', 'Persistence', 'ActiveFeed', 'FeedType',
 'ItemModel', 'FeedModel', 'NewLoading', '_ExistsError', 'Utils', '$rootScope',
-'UndoQueue',
+'UndoQueue', 'NewestItem',
 (_BusinessLayer, ShowAll, Persistence, ActiveFeed, FeedType, ItemModel,
-FeedModel, NewLoading, _ExistsError, Utils, $rootScope, UndoQueue) ->
+FeedModel, NewLoading, _ExistsError, Utils, $rootScope, UndoQueue, NewestItem) ->
 
 	class FeedBusinessLayer extends _BusinessLayer
 
 		constructor: (@_showAll, @_feedModel, persistence, activeFeed, feedType,
 			          itemModel, @_newLoading, @_utils, @_$rootScope,
-			          @_undoQueue) ->
+			          @_undoQueue, @_newestItem) ->
 			super(activeFeed, persistence, itemModel, feedType.Feed)
 			@_feedType = feedType
 
@@ -70,7 +70,7 @@ FeedModel, NewLoading, _ExistsError, Utils, $rootScope, UndoQueue) ->
 				feed.unreadCount = 0
 				if @_activeFeed.getId() == feedId and
 				@_activeFeed.getType() == @_feedType.Feed
-					highestItemId = @_itemModel.getHighestId()
+					highestItemId = @_newestItem.getId()
 				else
 					highestItemId = 0
 				@_persistence.setFeedRead(feedId, highestItemId)
@@ -198,6 +198,6 @@ FeedModel, NewLoading, _ExistsError, Utils, $rootScope, UndoQueue) ->
 
 	return new FeedBusinessLayer(ShowAll, FeedModel, Persistence, ActiveFeed,
 	                             FeedType, ItemModel, NewLoading, Utils,
-	                             $rootScope, UndoQueue)
+	                             $rootScope, UndoQueue, NewestItem)
 
 ]

@@ -21,21 +21,19 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 
-angular.module('News').factory '_BusinessLayer', ->
+describe 'NewestItem', ->
 
-	class BusinessLayer
+	beforeEach module 'News'
 
-		constructor: (@_activeFeed, @_persistence, @_itemModel, @_type, @_newest) ->
-
-
-		load: (id) ->
-			@_itemModel.clear()
-			@_persistence.getItems(@_type, id, 0)
-			@_activeFeed.handle({id: id, type: @_type})
+	beforeEach inject (@NewestItem) =>
+		@data = 5
 
 
-		isActive: (id) ->
-			return @_activeFeed.getType() == @_type && @_activeFeed.getId() == id
+	it 'should be 0 by default', =>
+		expect(@NewestItem.getId()).toBe(0)
 
 
-	return BusinessLayer
+	it 'should set the correct feed id', =>
+		@NewestItem.handle(@data)
+		expect(@NewestItem.getId()).toBe(5)
+

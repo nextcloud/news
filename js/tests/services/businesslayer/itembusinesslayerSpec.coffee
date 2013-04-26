@@ -32,7 +32,8 @@ describe 'ItemBusinessLayer', ->
 		return
 			
 	beforeEach inject (@ItemModel, @ItemBusinessLayer, @StatusFlag, @ActiveFeed
-	                   @FeedType, @FeedModel, @StarredBusinessLayer) =>
+	                   @FeedType, @FeedModel, @StarredBusinessLayer,
+	                   @NewestItem) =>
 		@item1 = {id: 5, title: 'hi', unreadCount:134, url: 'a3', folderId: 3}
 		@FeedModel.add(@item1)
 		@ActiveFeed.handle({type: @FeedType.Feed, id: 3})
@@ -234,6 +235,7 @@ describe 'ItemBusinessLayer', ->
 
 
 	it 'should load the next items', =>
+		@NewestItem.handle(13)
 		@persistence.getItems = jasmine.createSpy('autopage')
 		callback = ->
 
@@ -245,4 +247,4 @@ describe 'ItemBusinessLayer', ->
 		@ItemBusinessLayer.loadNext(callback)
 
 		expect(@persistence.getItems).toHaveBeenCalledWith(
-			@FeedType.Feed, 3, 1, jasmine.any(Function))
+			@FeedType.Feed, 3, 4, 13, jasmine.any(Function))
