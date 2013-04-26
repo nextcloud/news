@@ -27,3 +27,5 @@ ownCloud-news (1.0~beta)
 * Do not update articles all the time that have no pubdate
 * Prevent app from making ownCloud unusable if the Appframework is not installed
 * Focus the articles area when a feed is being clicked so page up/page down work
+* Use a delay for drag and drop to make experience on Mac OS X better
+* Show unread count in the tab title
