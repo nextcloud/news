@@ -8,6 +8,7 @@
 # iuranemo <iuranemo@gmail.com>, 2012
 # EugeneSG <seg@it4you.kiev.ua>, 2012
 # sam002 <semen@sam002.net>, 2012
+# eurekafag <eurekafag@eureka7.ru>, 2013
 # skoptev <skoptev@ukr.net>, 2012
 # VicDeo <victor.dubiniuk@gmail.com>, 2012
 # zaera <zaera.alex@gmail.com>, 2012
@@ -16,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-25 01:17+0200\n"
-"PO-Revision-Date: 2013-04-24 23:18+0000\n"
-"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"POT-Creation-Date: 2013-04-27 01:19+0200\n"
+"PO-Revision-Date: 2013-04-26 09:30+0000\n"
+"Last-Translator: eurekafag <eurekafag@eureka7.ru>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/owncloud/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,31 +33,31 @@ msgstr "Новости"
 
 #: businesslayer/feedbusinesslayer.php:70
 msgid "Can not add feed: Exists already"
-msgstr ""
+msgstr "Не удаётся добавить ленту: уже существует"
 
 #: businesslayer/feedbusinesslayer.php:108
 msgid "Can not add feed: URL does not exist or has invalid xml"
-msgstr ""
+msgstr "Не удаётся добавить ленту: URL не существует или содержит неверный xml"
 
 #: businesslayer/folderbusinesslayer.php:55
 msgid "Can not add folder: Exists already"
-msgstr ""
+msgstr "Не удаётся добавить папку: уже существует"
 
 #: templates/main.php:27
 msgid "Undo deletion of "
-msgstr ""
+msgstr "Отменить удаление"
 
 #: templates/part.addnew.php:12
 msgid "Add Website"
-msgstr ""
+msgstr "Добавить сайт"
 
 #: templates/part.addnew.php:19
 msgid "Error: address exists already!"
-msgstr ""
+msgstr "Ошибка: адрес уже существует!"
 
 #: templates/part.addnew.php:22
 msgid "Error: folder exists already"
-msgstr ""
+msgstr "Ошибка: папка уже существует"
 
 #: templates/part.addnew.php:29
 msgid "Address"
@@ -76,7 +77,7 @@ msgstr "Папка"
 
 #: templates/part.addnew.php:46
 msgid "Choose folder"
-msgstr ""
+msgstr "Выбрать папку"
 
 #: templates/part.addnew.php:58
 msgid "Folder name"
@@ -84,11 +85,11 @@ msgstr "Имя папки"
 
 #: templates/part.addnew.php:61
 msgid "Back to folder selection"
-msgstr ""
+msgstr "Назад к выбору папки"
 
 #: templates/part.addnew.php:66
 msgid "Create folder"
-msgstr ""
+msgstr "Создать папку"
 
 #: templates/part.feed.starred.php:11
 msgid "Starred"
@@ -105,11 +106,11 @@ msgstr "Все статьи"
 #: templates/part.feed.unread.php:26 templates/part.listfeed.php:42
 #: templates/part.listfolder.php:43
 msgid "Mark read"
-msgstr ""
+msgstr "Отметить как прочитанное"
 
 #: templates/part.items.php:31
 msgid "from"
-msgstr ""
+msgstr "от"
 
 #: templates/part.items.php:36
 msgid "by"
@@ -129,7 +130,7 @@ msgstr "Удалить ленту"
 
 #: templates/part.listfeed.php:53
 msgid "Delete website"
-msgstr ""
+msgstr "Удалить сайт"
 
 #: templates/part.listfolder.php:14
 msgid "Collapse"
@@ -159,21 +160,21 @@ msgstr "Экспорт"
 
 #: templates/part.settings.php:36
 msgid "Error when importing: file does not contain valid OPML"
-msgstr ""
+msgstr "Ошибка при импорте: файл не содержит правильный OPML"
 
 #: templates/part.settings.php:42
 msgid "Import Google Reader JSON"
-msgstr ""
+msgstr "Импорт Google Reader JSON"
 
 #: templates/part.settings.php:43
 msgid ""
 "To import starred and shared articles from Google \n"
 "\t\t\tReader please upload the .json files from the Google Takeout archive"
-msgstr ""
+msgstr "Чтобы импортировать отмеченные и общие статьи из Google\n»»»Reader, пожалуйста, загрузите файлы .json из архива Google Takeout"
 
 #: templates/part.settings.php:53
 msgid "Error when importing: file does not contain valid JSON"
-msgstr ""
+msgstr "Ошибка при импорте: файл не содержит правильный JSON"
 
 #: templates/part.showall.php:2
 msgid "Show all"
