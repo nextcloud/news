@@ -159,15 +159,14 @@ class FeedFetcher implements IFeedFetcher {
 		$feed->setUrlHash(md5($url));
 		$feed->setAdded($this->time->getTime());
 
-		// get the favicon from the feed or the webpage
-		$favicon = $simplePieFeed->get_image_url();
+		// use the favicon from the page first since most feeds use a weird image
+		$favicon = $this->faviconFetcher->fetch($feed->getLink());
 
-		if ($favicon) {
-			$feed->setFaviconLink($favicon);
-		} else {
-			$webFavicon = $this->faviconFetcher->fetch($feed->getLink());
-			$feed->setFaviconLink($webFavicon);
+		if (!$favicon) {
+			$favicon = $simplePieFeed->get_image_url();
 		}
+		
+		$feed->setFaviconLink($favicon);
 
 		return $feed;
 	}

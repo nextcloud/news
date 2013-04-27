@@ -213,7 +213,7 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 	}
 
 
-	private function createFeed($hasFavicon=false, $hasWebFavicon=false) {
+	private function createFeed($hasFeedFavicon=false, $hasWebFavicon=false) {
 		$this->expectCore('get_title', $this->feedTitle);
 		$this->expectCore('get_link', $this->feedLink);
 
@@ -224,14 +224,6 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 		$feed->setUrlHash(md5($this->url));
 		$feed->setAdded($this->time);
 
-		if($hasFavicon) {
-			$this->expectCore('get_image_url', $this->feedImage);
-			$feed->setFaviconLink($this->feedImage);
-		} else {
-			$feed->setFaviconLink(null);
-			$this->expectCore('get_image_url', null);
-		}
-
 		if($hasWebFavicon) {
 			$this->faviconFetcher->expects($this->once())
 				->method('fetch')
@@ -239,6 +231,15 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 				->will($this->returnValue($this->webFavicon));
 			$feed->setFaviconLink($this->webFavicon);
 		}
+
+		if($hasFeedFavicon) {
+			$this->expectCore('get_image_url', $this->feedImage);
+			$feed->setFaviconLink($this->feedImage);
+		} elseif(!$hasWebFavicon) {
+			$feed->setFaviconLink(null);
+			$this->expectCore('get_image_url', null);
+		}
+
 
 		return $feed;
 	}
