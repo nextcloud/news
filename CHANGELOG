@@ -1,5 +1,6 @@
 ownCloud-news (1.0~beta)
 
+* Prefer website favicon over channel image, fixes wordpress blog favicons
 * Add all businesslayer methods for the current API spec
 * API Specification Draft
 * Fix a bug that would cause words in the headlines to always be wrapped

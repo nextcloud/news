@@ -18,6 +18,7 @@ Bugs
 ----
 Before reporting bugs:
 
+* We do not support Internet Explorer and Safari (Patches accepted though, except for IE < 10)
 * get the newest version of the App Framework
 * get the newest version of the News app
 * `check if they already have been reported <https://github.com/owncloud/news/issues?state=open>`_

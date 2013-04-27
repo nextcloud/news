@@ -43,7 +43,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
       scrollTimeout: 500,
       feedUpdateInterval: 1000 * 60 * 3,
       itemBatchSize: 20,
-      autoPageFactor: 6
+      autoPageFactor: 10
     });
   });
 
@@ -277,7 +277,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     '$rootScope', 'Config', function($rootScope, Config) {
       return function(scope, elm, attr) {
         return elm.bind('scroll', function() {
-          var remaining, tolerance;
+          var counter, item, _i, _ref, _results;
 
           if (scrolling) {
             scrolling = false;
@@ -305,11 +305,21 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
                 return _results;
               }, Config.MarkReadTimeout);
             }
-            tolerance = elm.height() * Config.autoPageFactor;
-            remaining = elm[0].scrollHeight - elm.scrollTop() - tolerance;
-            if (remaining <= 0) {
-              return $rootScope.$broadcast('autoPage');
+            counter = 0;
+            _ref = elm.find('.feed_item');
+            _results = [];
+            for (_i = _ref.length - 1; _i >= 0; _i += -1) {
+              item = _ref[_i];
+              if (counter >= Config.autoPageFactor) {
+                break;
+              }
+              if ($(item).position().top < 0) {
+                $rootScope.$broadcast('autoPage');
+                break;
+              }
+              _results.push(counter += 1);
             }
+            return _results;
           }
         });
       };

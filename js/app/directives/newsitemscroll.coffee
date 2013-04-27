@@ -57,10 +57,23 @@ angular.module('News').directive 'newsItemScroll', ['$rootScope', 'Config',
 					, Config.MarkReadTimeout
 
 				# autopaging
-				tolerance = elm.height() * Config.autoPageFactor
-				remaining = elm[0].scrollHeight - elm.scrollTop() - tolerance
-				if remaining <= 0
-					$rootScope.$broadcast 'autoPage'
+				counter = 0
+
+				# run from the bottom up to be performant
+				for item in elm.find('.feed_item') by -1
+
+					# if the counter is 10 it means that it didnt break to auto
+					# page yet and that there are more than 10 items, so break
+					if counter >= Config.autoPageFactor
+						break
+
+					# this is only reached when the item is not is below the top
+					# and we didnt hit the factor yet so autopage and break
+					if $(item).position().top < 0
+						$rootScope.$broadcast 'autoPage'
+						break
+
+					counter += 1
 
 ]
 
