@@ -13,7 +13,7 @@
 		axis: 'y',
 		delay: 200,
 		helper: 'clone',
-		containment: 'window',
+		containment: 'document',
 		scroll: true,
 		scrollSensitivity: 100
 	}">

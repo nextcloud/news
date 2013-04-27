@@ -57,6 +57,7 @@ angular.module('News').factory 'UndoQueue',
 					@_queue = []
 				promise: @_$timeout =>
 					command.execute()
+					@_queue = []
 					@_$rootScope.$broadcast('notUndone')
 				, @_timeout
 

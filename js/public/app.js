@@ -3178,6 +3178,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             },
             promise: this._$timeout(function() {
               command.execute();
+              _this._queue = [];
               return _this._$rootScope.$broadcast('notUndone');
             }, this._timeout)
           };
