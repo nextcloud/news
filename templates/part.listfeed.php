@@ -8,7 +8,6 @@
 	data-id="{{ feed.id }}"
 	class="feed"
 	oc-draggable="{
-		revert: true,
 		stack: '> li',
 		zIndex: 1000,
 		axis: 'y',
