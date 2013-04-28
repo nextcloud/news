@@ -3,7 +3,6 @@
 "Can not add feed: Exists already" => "Non é posíbel engadir a fonte: xa existe",
 "Can not add feed: URL does not exist or has invalid xml" => "Non é posíbel engadir a fonte: non existe o URL ou é un XML incorrecto",
 "Can not add folder: Exists already" => "Non é posíbel engadir o cartafol: xa existe",
-"Undo deletion of " => "Desfacer a eliminación de",
 "Add Website" => "Engadir un sitio web",
 "Error: address exists already!" => "Erro: xa existe o enderezo ",
 "Error: folder exists already" => "Erro: xa existe o cartafol",

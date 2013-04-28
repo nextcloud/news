@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-27 01:19+0200\n"
-"PO-Revision-Date: 2013-04-26 08:24+0000\n"
+"POT-Creation-Date: 2013-04-29 01:18+0200\n"
+"PO-Revision-Date: 2013-04-28 23:18+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: German (Germany) <translations@owncloud.org>\n"
 "MIME-Version: 1.0\n"
@@ -47,8 +47,9 @@ msgid "Can not add folder: Exists already"
 msgstr "Ordner kann nicht hinzgefügt werden: Existiert bereits"
 
 #: templates/main.php:27
-msgid "Undo deletion of "
-msgstr "Wiederherstellung von"
+#, php-format
+msgid "Undo deletion of %s"
+msgstr ""
 
 #: templates/part.addnew.php:12
 msgid "Add Website"
@@ -106,7 +107,7 @@ msgstr "Ungelesene Artikel"
 msgid "All articles"
 msgstr "Alle Artikel"
 
-#: templates/part.feed.unread.php:26 templates/part.listfeed.php:42
+#: templates/part.feed.unread.php:26 templates/part.listfeed.php:44
 #: templates/part.listfolder.php:43
 msgid "Mark read"
 msgstr "Als gelesen markieren"
@@ -127,11 +128,11 @@ msgstr "Das Audio-Format kann nicht abgespielt werden"
 msgid "Keep unread"
 msgstr "Ungelesenes behalten"
 
-#: templates/part.listfeed.php:47
+#: templates/part.listfeed.php:49
 msgid "Delete feed"
 msgstr "Feed löschen"
 
-#: templates/part.listfeed.php:53
+#: templates/part.listfeed.php:55
 msgid "Delete website"
 msgstr "Webseite löschen"
 

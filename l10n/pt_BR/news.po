@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-28 01:20+0200\n"
-"PO-Revision-Date: 2013-04-27 12:40+0000\n"
-"Last-Translator: Flávio Veras <flaviove@gmail.com>\n"
+"POT-Creation-Date: 2013-04-29 01:18+0200\n"
+"PO-Revision-Date: 2013-04-28 23:18+0000\n"
+"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/owncloud/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,8 +41,9 @@ msgid "Can not add folder: Exists already"
 msgstr "Não é possível adicionar pasta: já existe"
 
 #: templates/main.php:27
-msgid "Undo deletion of "
-msgstr "Desfazer exclusão de"
+#, php-format
+msgid "Undo deletion of %s"
+msgstr ""
 
 #: templates/part.addnew.php:12
 msgid "Add Website"

@@ -3,7 +3,6 @@
 "Can not add feed: Exists already" => "フィードを追加できません: すでに存在します",
 "Can not add feed: URL does not exist or has invalid xml" => "フィードを追加できません: URLが存在しない、もしくは無効なXMLです",
 "Can not add folder: Exists already" => "フォルダを追加できません: すでに存在します",
-"Undo deletion of " => "削除を元に戻す",
 "Add Website" => "ウェブサイトを追加",
 "Error: address exists already!" => "エラー: アドレスはすでに存在します！",
 "Error: folder exists already" => "エラー: フォルダはすでに存在します！",

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud news 5.0.0\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2013-04-28 01:20+0200\n"
+"POT-Creation-Date: 2013-04-29 01:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,7 +34,8 @@ msgid "Can not add folder: Exists already"
 msgstr ""
 
 #: templates/main.php:27
-msgid "Undo deletion of "
+#, php-format
+msgid "Undo deletion of %s"
 msgstr ""
 
 #: templates/part.addnew.php:12

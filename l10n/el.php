@@ -3,7 +3,6 @@
 "Can not add feed: Exists already" => "Το feed δεν μπορεσε να προστεθει: Υπαρχει ηδη",
 "Can not add feed: URL does not exist or has invalid xml" => "Το feed δεν μπορεσε να προστεθει: Το URL δεν υπαρχει η περιεχει κατεστραμμενο xml",
 "Can not add folder: Exists already" => "Ο χωρος αποθηκευσης δεν μπορει να προστεθει: Υπαρχει ηδη",
-"Undo deletion of " => "Αναίρεση της διαγραφής ",
 "Add Website" => "Προσθηκη ιστοσελιδας",
 "Error: address exists already!" => "Σφαλμα: η διευθυνση υπαρχει ηδη!",
 "Error: folder exists already" => "Σφάλμα: Ο φάκελος υπάρχει ήδη",

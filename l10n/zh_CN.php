@@ -3,7 +3,6 @@
 "Can not add feed: Exists already" => "无法添加反馈：已经存在",
 "Can not add feed: URL does not exist or has invalid xml" => "无法添加反馈：URL不存在或具有无效的xml",
 "Can not add folder: Exists already" => "无法添加目录：目录已存在",
-"Undo deletion of " => "撤销删除",
 "Add Website" => "添加网页",
 "Error: address exists already!" => "错误：地址已存在",
 "Error: folder exists already" => "错误：目录不存在",

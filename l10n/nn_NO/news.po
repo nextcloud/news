@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-27 01:19+0200\n"
-"PO-Revision-Date: 2013-04-26 08:24+0000\n"
+"POT-Creation-Date: 2013-04-29 01:18+0200\n"
+"PO-Revision-Date: 2013-04-28 23:18+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Norwegian Nynorsk (Norway) (http://www.transifex.com/projects/p/owncloud/language/nn_NO/)\n"
 "MIME-Version: 1.0\n"
@@ -34,7 +34,8 @@ msgid "Can not add folder: Exists already"
 msgstr ""
 
 #: templates/main.php:27
-msgid "Undo deletion of "
+#, php-format
+msgid "Undo deletion of %s"
 msgstr ""
 
 #: templates/part.addnew.php:12
@@ -93,7 +94,7 @@ msgstr ""
 msgid "All articles"
 msgstr ""
 
-#: templates/part.feed.unread.php:26 templates/part.listfeed.php:42
+#: templates/part.feed.unread.php:26 templates/part.listfeed.php:44
 #: templates/part.listfolder.php:43
 msgid "Mark read"
 msgstr ""
@@ -114,11 +115,11 @@ msgstr ""
 msgid "Keep unread"
 msgstr ""
 
-#: templates/part.listfeed.php:47
+#: templates/part.listfeed.php:49
 msgid "Delete feed"
 msgstr ""
 
-#: templates/part.listfeed.php:53
+#: templates/part.listfeed.php:55
 msgid "Delete website"
 msgstr ""
 

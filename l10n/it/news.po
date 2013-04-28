@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-27 01:19+0200\n"
-"PO-Revision-Date: 2013-04-26 08:24+0000\n"
+"POT-Creation-Date: 2013-04-29 01:18+0200\n"
+"PO-Revision-Date: 2013-04-28 23:18+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/owncloud/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -36,8 +36,9 @@ msgid "Can not add folder: Exists already"
 msgstr "Impossibile aggiungere la cartella: esiste già"
 
 #: templates/main.php:27
-msgid "Undo deletion of "
-msgstr "Annulla l'eliminazione di"
+#, php-format
+msgid "Undo deletion of %s"
+msgstr ""
 
 #: templates/part.addnew.php:12
 msgid "Add Website"
@@ -95,7 +96,7 @@ msgstr "Articoli non letti"
 msgid "All articles"
 msgstr "Tutti gli articoli"
 
-#: templates/part.feed.unread.php:26 templates/part.listfeed.php:42
+#: templates/part.feed.unread.php:26 templates/part.listfeed.php:44
 #: templates/part.listfolder.php:43
 msgid "Mark read"
 msgstr "Marca come letto"
@@ -116,11 +117,11 @@ msgstr "Impossibile riprodurre il formato audio"
 msgid "Keep unread"
 msgstr "Mantieni non letto"
 
-#: templates/part.listfeed.php:47
+#: templates/part.listfeed.php:49
 msgid "Delete feed"
 msgstr "Elimina la fonte"
 
-#: templates/part.listfeed.php:53
+#: templates/part.listfeed.php:55
 msgid "Delete website"
 msgstr "Elimina sito web"
 

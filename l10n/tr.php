@@ -3,7 +3,6 @@
 "Can not add feed: Exists already" => "Daha mesaj goendermecek. Zaten varmi",
 "Can not add feed: URL does not exist or has invalid xml" => "Daha beslemek edeme.URL yok varmi veya xml gecerli. ",
 "Can not add folder: Exists already" => "Arkibv birlemedis.Zaten varmi. ",
-"Undo deletion of " => "Iptal feshetmek. ",
 "Add Website" => "Website ekle",
 "Error: address exists already!" => "Hata. Adres zaten varmi",
 "Error: folder exists already" => "Hata, arkiv zaten varmi",
