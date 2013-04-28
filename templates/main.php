@@ -24,7 +24,7 @@
 <div id="app" ng-app="News">
 	<div id="undo-container">
 		<div undo-notification id="undo">
-			<a href="#"><?php p($l->t('Undo deletion of ')); ?>{{ getCaption() }}</a>
+			<a href="#"><?php p($l->t('Undo deletion of %s', '{{ getCaption() }}')); ?></a>
 		</div>
 	</div>
 
