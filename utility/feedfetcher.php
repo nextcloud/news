@@ -110,7 +110,8 @@ class FeedFetcher implements IFeedFetcher {
 		$item->setUnread();
 		$item->setUrl($simplePieItem->get_permalink());
 		// unescape content because angularjs helps agains XSS
-		$item->setTitle(html_entity_decode($simplePieItem->get_title()));
+		$item->setTitle(html_entity_decode($simplePieItem->get_title()), 
+			ENT_XML1 | ENT_COMPAT, 'UTF-8' );
 		$guid = $simplePieItem->get_id();
 		$item->setGuid($guid);
 		$item->setGuidHash(md5($guid));
@@ -120,11 +121,13 @@ class FeedFetcher implements IFeedFetcher {
 
 		$author = $simplePieItem->get_author();
 		if ($author !== null) {
-			$name = html_entity_decode($author->get_name());
+			$name = html_entity_decode($author->get_name(), 
+				ENT_XML1 | ENT_COMPAT, 'UTF-8' );
 			if ($name) {
 				$item->setAuthor($name);
 			} else {
-				$item->setAuthor(html_entity_decode($author->get_email()));
+				$item->setAuthor(html_entity_decode($author->get_email()), 
+					ENT_XML1 | ENT_COMPAT, 'UTF-8' );
 			}
 		}
 
@@ -146,7 +149,8 @@ class FeedFetcher implements IFeedFetcher {
 		$feed = new Feed();
 
 		// unescape content because angularjs helps agains XSS
-		$title = html_entity_decode($simplePieFeed->get_title());
+		$title = html_entity_decode($simplePieFeed->get_title(), 
+			ENT_XML1 | ENT_COMPAT, 'UTF-8' );
 		
 		// if there is no title use the url
 		if(!$title) {
