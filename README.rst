@@ -34,8 +34,8 @@ Before you install the app check that the following requirements are met:
 - You can use a cron or webcron to call Background Jobs in ownCloud
 - (optional) install php-curl
 
-How to install the News app
----------------------------
+How to install the News app from Git
+------------------------------------
 
 - Install ownCloud **5.0.5**
 
@@ -61,8 +61,8 @@ Should you have upgraded from a prior version, disable the CSS and JavaScript ca
 
 - `Set up ownCloud Background Jobs <http://doc.owncloud.org/server/5.0/admin_manual/configuration/background_jobs.html>`_ to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
 
-How to keep up to date
-----------------------
+How to keep up to date with Git
+-------------------------------
 To get the newest update you can use git. To update the appframework use::
 
     cd /var/www/appframework
