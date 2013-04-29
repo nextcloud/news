@@ -3,7 +3,7 @@ README
 
 The News app is a an RSS/Atom feed aggregator. It is based on the library SimplePie.
 
-**It is not compatible with the first preview release in 2012**
+**It is not compatible with the first preview release from 2012**
 
 Maintainers
 -----------
