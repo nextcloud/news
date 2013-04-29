@@ -36,12 +36,13 @@ Should you have upgraded from a prior version, disable the CSS and JavaScript ca
 
     DEFINE('DEBUG', true);
 
+You can remove the line after a page reload
+
 How to install the News app from the App Store
 ----------------------------------------------
 
 - Go to the ownCloud apps page
 - Activate the App Framework App first, then activate the News app in the apps menu
-
 - `Set up ownCloud Background Jobs <http://doc.owncloud.org/server/5.0/admin_manual/configuration/background_jobs.html>`_ to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
 
 How to keep up to date
@@ -50,12 +51,6 @@ Simply disable and reenable the **News** and **App Framework** App again (ownClo
 
 How to install the News app from Git
 ------------------------------------
-
-- Install ownCloud **5.0.5**
-
-Should you have upgraded from a prior version, disable the CSS and JavaScript caching by adding this to :file:`owncloud/config/config.php`::
-
-    DEFINE('DEBUG', true);
 
 - Clone the App Framework app into the **/var/www** directory::
 
