@@ -677,4 +677,6 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 		$this->assertEquals($feed, $result);
 	}
+
+
 }

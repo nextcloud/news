@@ -46,6 +46,7 @@ class FeedControllerTest extends ControllerTestUtility {
 	private $request;
 	private $controller;
 	private $folderBusinessLayer;
+	private $itemBusinessLayer;
 
 
 	/**
@@ -53,6 +54,9 @@ class FeedControllerTest extends ControllerTestUtility {
 	 */
 	public function setUp(){
 		$this->api = $this->getAPIMock();
+		$this->itemBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\ItemBusinessLayer')
+			->disableOriginalConstructor()
+			->getMock();
 		$this->feedBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\FeedBusinessLayer')
 			->disableOriginalConstructor()
 			->getMock();
@@ -61,7 +65,8 @@ class FeedControllerTest extends ControllerTestUtility {
 			->getMock();
 		$this->request = new Request();
 		$this->controller = new FeedController($this->api, $this->request,
-				$this->feedBusinessLayer, $this->folderBusinessLayer);
+				$this->feedBusinessLayer, $this->folderBusinessLayer,
+				$this->itemBusinessLayer);
 		$this->user = 'jack';
 	}
 
@@ -78,7 +83,8 @@ class FeedControllerTest extends ControllerTestUtility {
 		);
 
 		$request = $this->getRequest($post);
-		return new FeedController($this->api, $request, $this->feedBusinessLayer, $this->folderBusinessLayer);
+		return new FeedController($this->api, $request, $this->feedBusinessLayer, 
+			$this->folderBusinessLayer, $this->itemBusinessLayer);
 	}
 
 
@@ -119,8 +125,9 @@ class FeedControllerTest extends ControllerTestUtility {
 	public function testFeeds(){
 		$result = array(
 			'feeds' => array(
-				array('a feed')
-			)
+				array('a feed'),
+			),
+			'starred' => 13
 		);
 		$this->api->expects($this->once())
 			->method('getUserId')
@@ -129,12 +136,52 @@ class FeedControllerTest extends ControllerTestUtility {
 			->method('findAll')
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($result['feeds']));
+		$this->itemBusinessLayer->expects($this->once())
+			->method('getNewestItemId')
+			->with($this->equalTo($this->user))
+			->will($this->throwException(new BusinessLayerException('')));
+		$this->itemBusinessLayer->expects($this->once())
+			->method('starredCount')
+			->with($this->equalTo($this->user))
+			->will($this->returnValue($result['starred']));
 
 		$response = $this->controller->feeds();
 
 		$this->assertEquals($result, $response->getParams());
 		$this->assertTrue($response instanceof JSONResponse);
 	}
+
+
+	public function testFeedsHighestItemIdExists(){
+		$result = array(
+			'feeds' => array(
+				array('a feed'),
+			),
+			'starred' => 13,
+			'newestItemId' => 5
+		);
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->feedBusinessLayer->expects($this->once())
+			->method('findAll')
+			->with($this->equalTo($this->user))
+			->will($this->returnValue($result['feeds']));
+		$this->itemBusinessLayer->expects($this->once())
+			->method('getNewestItemId')
+			->with($this->equalTo($this->user))
+			->will($this->returnValue($result['newestItemId']));
+		$this->itemBusinessLayer->expects($this->once())
+			->method('starredCount')
+			->with($this->equalTo($this->user))
+			->will($this->returnValue($result['starred']));
+
+		$response = $this->controller->feeds();
+
+		$this->assertEquals($result, $response->getParams());
+		$this->assertTrue($response instanceof JSONResponse);
+	}
+
 
 
 	private function activeInitMocks($id, $type){

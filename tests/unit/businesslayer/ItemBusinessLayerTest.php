@@ -130,21 +130,20 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 	}
 
 
-		public function testFindAllFeed(){
+	public function testFindAllFeed(){
 		$type = FeedType::FEED;
 		$this->mapper->expects($this->once())
 			->method('findAllFeed')
 			->with($this->equalTo($this->id), 
 					$this->equalTo($this->limit),
 					$this->equalTo($this->offset),
-					$this->equalTo($this->newestItemId),
 					$this->equalTo($this->status),
 					$this->equalTo($this->user))
 			->will($this->returnValue($this->response));
 
 		$result = $this->itemBusinessLayer->findAll(
 			$this->id, $type, $this->limit, 
-			$this->offset, $this->newestItemId, $this->showAll,
+			$this->offset, $this->showAll,
 			$this->user);
 		$this->assertEquals($this->response, $result);
 	}
@@ -157,14 +156,13 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->with($this->equalTo($this->id), 
 					$this->equalTo($this->limit),
 					$this->equalTo($this->offset),
-					$this->equalTo($this->newestItemId),
 					$this->equalTo($this->status),
 					$this->equalTo($this->user))
 			->will($this->returnValue($this->response));
 
 		$result = $this->itemBusinessLayer->findAll(
 			$this->id, $type, $this->limit, 
-			$this->offset, $this->newestItemId, $this->showAll,
+			$this->offset, $this->showAll,
 			$this->user);
 		$this->assertEquals($this->response, $result);
 	}
@@ -176,30 +174,15 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('findAll')
 			->with(	$this->equalTo($this->limit),
 					$this->equalTo($this->offset),
-					$this->equalTo($this->newestItemId),
 					$this->equalTo($this->status),
 					$this->equalTo($this->user))
 			->will($this->returnValue($this->response));
 
 		$result = $this->itemBusinessLayer->findAll(
 			$this->id, $type, $this->limit, 
-			$this->offset, $this->newestItemId, $this->showAll,
+			$this->offset, $this->showAll,
 			$this->user);
 		$this->assertEquals($this->response, $result);
-	}
-
-
-	public function testStarredCount(){
-		$star = 18;
-
-		$this->mapper->expects($this->once())
-			->method('starredCount')
-			->with($this->equalTo($this->user))
-			->will($this->returnValue($star));
-
-		$result = $this->itemBusinessLayer->starredCount($this->user);
-
-		$this->assertEquals($star, $result);
 	}
 
 
@@ -309,6 +292,21 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
 		$this->itemBusinessLayer->getNewestItemId($this->user);
 	}
+
+
+	public function testStarredCount(){
+		$star = 18;
+
+		$this->mapper->expects($this->once())
+			->method('starredCount')
+			->with($this->equalTo($this->user))
+			->will($this->returnValue($star));
+
+		$result = $this->itemBusinessLayer->starredCount($this->user);
+
+		$this->assertEquals($star, $result);
+	}
+
 
 }
 

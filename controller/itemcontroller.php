@@ -61,7 +61,6 @@ class ItemController extends Controller {
 		$type = (int) $this->params('type');
 		$id = (int) $this->params('id');
 		$offset = (int) $this->params('offset', 0);
-		$newestItemId = (int) $this->params('newestItemId');
 
 		$this->api->setUserValue('lastViewedFeedId', $id);
 		$this->api->setUserValue('lastViewedFeedType', $type);
@@ -76,34 +75,15 @@ class ItemController extends Controller {
 			if($offset === 0) {
 				$params['newestItemId'] = 
 					$this->itemBusinessLayer->getNewestItemId($userId);
-				$newestItemId = $params['newestItemId'];
 				$params['feeds'] = $this->feedBusinessLayer->findAll($userId);
+				$params['starred'] = $this->itemBusinessLayer->starredCount($userId);
 			}
 						
-			$params['items'] = $this->itemBusinessLayer->findAll(
-				                                       $id, $type, $limit, 
-				                                       $offset, $newestItemId, 
-				                                       $showAll, $userId);
+			$params['items'] = $this->itemBusinessLayer->findAll($id, $type, $limit, 
+				                                       $offset, $showAll, $userId);
 		// this gets thrown if there are no items
 		// in that case just return an empty array
 		} catch(BusinessLayerException $ex) {}
-
-		return $this->renderJSON($params);
-	}
-
-
-	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
-	 */
-	public function starred(){
-		$userId = $this->api->getUserId();
-		$starredCount = $this->itemBusinessLayer->starredCount($userId);
-
-		$params = array(
-			'starred' => (int) $starredCount
-		);
 
 		return $this->renderJSON($params);
 	}

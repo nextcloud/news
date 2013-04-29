@@ -109,7 +109,7 @@ class FeedFetcher implements IFeedFetcher {
 		$item->setStatus(0);
 		$item->setUnread();
 		$item->setUrl($simplePieItem->get_permalink());
-		// unescape content because angularjs helps agains XSS
+		// unescape content because angularjs helps against XSS
 		$item->setTitle(html_entity_decode($simplePieItem->get_title()), 
 			ENT_COMPAT, 'UTF-8' );
 		$guid = $simplePieItem->get_id();
@@ -148,7 +148,7 @@ class FeedFetcher implements IFeedFetcher {
 	protected function buildFeed($simplePieFeed, $url) {
 		$feed = new Feed();
 
-		// unescape content because angularjs helps agains XSS
+		// unescape content because angularjs helps against XSS
 		$title = html_entity_decode($simplePieFeed->get_title(), 
 			ENT_COMPAT, 'UTF-8' );
 		

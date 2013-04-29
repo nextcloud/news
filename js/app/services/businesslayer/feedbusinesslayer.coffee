@@ -66,14 +66,11 @@ FeedModel, NewLoading, _ExistsError, Utils, $rootScope, UndoQueue, NewestItem)->
 
 		markFeedRead: (feedId) ->
 			feed = @_feedModel.getById(feedId)
-			if angular.isDefined(feed)
+			newestItemId = @_newestItem.getId()
+
+			if angular.isDefined(feed) and angular.isDefined(newestItemId)
 				feed.unreadCount = 0
-				if @_activeFeed.getId() == feedId and
-				@_activeFeed.getType() == @_feedType.Feed
-					highestItemId = @_newestItem.getId()
-				else
-					highestItemId = 0
-				@_persistence.setFeedRead(feedId, highestItemId)
+				@_persistence.setFeedRead(feedId, newestItemId)
 				for item in @_itemModel.getAll()
 					item.setRead()
 

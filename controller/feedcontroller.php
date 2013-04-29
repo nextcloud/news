@@ -29,6 +29,7 @@ use \OCA\AppFramework\Controller\Controller;
 use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Http\Request;
 
+use \OCA\News\BusinessLayer\ItemBusinessLayer;
 use \OCA\News\BusinessLayer\FeedBusinessLayer;
 use \OCA\News\BusinessLayer\FolderBusinessLayer;
 use \OCA\News\BusinessLayer\BusinessLayerException;
@@ -39,13 +40,16 @@ class FeedController extends Controller {
 
 	private $feedBusinessLayer;
 	private $folderBusinessLayer;
+	private $itemBusinessLayer;
 
 	public function __construct(API $api, Request $request, 
 	                            FeedBusinessLayer $feedBusinessLayer,
-		                        FolderBusinessLayer $folderBusinessLayer){
+		                        FolderBusinessLayer $folderBusinessLayer,
+		                        ItemBusinessLayer $itemBusinessLayer){
 		parent::__construct($api, $request);
 		$this->feedBusinessLayer = $feedBusinessLayer;
 		$this->folderBusinessLayer = $folderBusinessLayer;
+		$this->itemBusinessLayer = $itemBusinessLayer;
 	}
 
 
@@ -56,11 +60,19 @@ class FeedController extends Controller {
 	 */
 	public function feeds(){
 		$userId = $this->api->getUserId();
-		$result = $this->feedBusinessLayer->findAll($userId);
 
+		// this method is also used to update the interface
+		// because of this we also pass the starred count and the newest
+		// item id which will be used for marking feeds read
 		$params = array(
-			'feeds' => $result
+			'feeds' => $this->feedBusinessLayer->findAll($userId),
+			'starred' => $this->itemBusinessLayer->starredCount($userId)
 		);
+
+		try {
+			$params['newestItemId'] = 
+				$this->itemBusinessLayer->getNewestItemId($userId);
+		} catch (BusinessLayerException $ex) {}
 
 		return $this->renderJSON($params);
 	}

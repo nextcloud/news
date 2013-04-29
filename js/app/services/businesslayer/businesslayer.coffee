@@ -25,7 +25,7 @@ angular.module('News').factory '_BusinessLayer', ->
 
 	class BusinessLayer
 
-		constructor: (@_activeFeed, @_persistence, @_itemModel, @_type, @_newest) ->
+		constructor: (@_activeFeed, @_persistence, @_itemModel, @_type) ->
 
 
 		load: (id) ->

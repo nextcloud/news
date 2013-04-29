@@ -92,7 +92,8 @@ class DIContainer extends BaseContainer {
 
 		$this['FeedController'] = $this->share(function($c){
 			return new FeedController($c['API'], $c['Request'], 
-				$c['FeedBusinessLayer'], $c['FolderBusinessLayer']);
+				$c['FeedBusinessLayer'], $c['FolderBusinessLayer'], 
+				$c['ItemBusinessLayer']);
 		});
 
 		$this['ItemController'] = $this->share(function($c){

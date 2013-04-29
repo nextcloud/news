@@ -21,8 +21,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
 angular.module('News').factory 'ItemModel',
-['_Model', '_MaximumQuery', '_MinimumQuery', 'StatusFlag',
-(_Model, _MaximumQuery, _MinimumQuery, StatusFlag) ->
+['_Model', '_MinimumQuery', 'StatusFlag',
+(_Model, _MinimumQuery, StatusFlag) ->
 
 	class ItemModel extends _Model
 
@@ -97,6 +97,16 @@ angular.module('News').factory 'ItemModel',
 			hash = item.feedId + '_' + item.guidHash
 			delete @_guidFeedIdHash[hash]
 			super(id)
+
+
+		getLowestId: ->
+			query = new _MinimumQuery('id')
+			lowestId = @get(query)
+
+			if angular.isDefined(lowestId)
+				return lowestId.id
+			else
+				return 0
 
 
 	return new ItemModel()

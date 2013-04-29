@@ -194,17 +194,28 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 	}
 
 
-	public function testFindAll(){
-		$sql = 'AND `items`.`id` < ? ' .
-			'ORDER BY `items`.`pub_date` DESC, `items`.`id` DESC ';
+	public function testFindAllFeed(){
+		$sql = 'AND `items`.`feed_id` = ? ' .
+			'AND `items`.`id` < ? ' .
+			'ORDER BY `items`.`id` DESC ';
 		$sql = $this->makeSelectQueryStatus($sql, $this->status);
-		$params = array($this->user, $this->newestItemId);
-		$this->setMapperResult($sql, $params, $this->rows, 
-			$this->limit, $this->offset);
+		$params = array($this->user, $this->id, $this->offset);
+		$this->setMapperResult($sql, $params, $this->rows);
+		$result = $this->mapper->findAllFeed($this->id, $this->limit, 
+				$this->offset, $this->status, $this->user);
 
-		$result = $this->mapper->findAll($this->limit, 
-				$this->offset, $this->newestItemId, 
-				$this->status, $this->user);
+		$this->assertEquals($this->items, $result);
+	}
+
+
+	public function testFindAllFeedOffsetZero(){
+		$sql = 'AND `items`.`feed_id` = ? ' .
+			'ORDER BY `items`.`id` DESC ';
+		$sql = $this->makeSelectQueryStatus($sql, $this->status);
+		$params = array($this->user, $this->id);
+		$this->setMapperResult($sql, $params, $this->rows);
+		$result = $this->mapper->findAllFeed($this->id, $this->limit, 
+				0, $this->status, $this->user);
 
 		$this->assertEquals($this->items, $result);
 	}
@@ -213,34 +224,55 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 	public function testFindAllFolder(){
 		$sql = 'AND `feeds`.`folder_id` = ? ' .
 			'AND `items`.`id` < ? ' .
-			'ORDER BY `items`.`pub_date` DESC, `items`.`id` DESC ';
+			'ORDER BY `items`.`id` DESC ';
 		$sql = $this->makeSelectQueryStatus($sql, $this->status);
-		$params = array($this->user, $this->id, $this->newestItemId);
-
-		$this->setMapperResult($sql, $params, $this->rows,
-			$this->limit, $this->offset);
-
-		$result = $this->mapper->findAllFolder($this->id, $this->limit, 
-				$this->offset, $this->newestItemId, $this->status, $this->user);
-
-		$this->assertEquals($this->items, $result);
-	}
-
-
-	public function testFindAllFeed(){
-		$sql = 'AND `items`.`feed_id` = ? ' .
-			'AND `items`.`id` < ? ' .
-			'ORDER BY `items`.`pub_date` DESC, `items`.`id` DESC ';
-		$sql = $this->makeSelectQueryStatus($sql, $this->status);
-		$params = array($this->user, $this->id, $this->newestItemId);
-		$this->setMapperResult($sql, $params, $this->rows, $this->limit, 
+		$params = array($this->user, $this->id, 
 			$this->offset);
-
-		$result = $this->mapper->findAllFeed($this->id, $this->limit, 
-				$this->offset, $this->newestItemId, $this->status, $this->user);
+		$this->setMapperResult($sql, $params, $this->rows);
+		$result = $this->mapper->findAllFolder($this->id, $this->limit, 
+				$this->offset, $this->status, $this->user);
 
 		$this->assertEquals($this->items, $result);
 	}
+
+
+	public function testFindAllFolderOffsetZero(){
+		$sql = 'AND `feeds`.`folder_id` = ? ' .
+			'ORDER BY `items`.`id` DESC ';
+		$sql = $this->makeSelectQueryStatus($sql, $this->status);
+		$params = array($this->user, $this->id);
+		$this->setMapperResult($sql, $params, $this->rows);
+		$result = $this->mapper->findAllFolder($this->id, $this->limit, 
+				0, $this->status, $this->user);
+
+		$this->assertEquals($this->items, $result);
+	}
+
+
+	public function testFindAll(){
+		$sql = 'AND `items`.`id` < ? ' .
+			'ORDER BY `items`.`id` DESC ';
+		$sql = $this->makeSelectQueryStatus($sql, $this->status);
+		$params = array($this->user, $this->offset);
+		$this->setMapperResult($sql, $params, $this->rows);
+		$result = $this->mapper->findAll($this->limit, 
+				$this->offset, $this->status, $this->user);
+
+		$this->assertEquals($this->items, $result);
+	}
+
+
+	public function testFindAllOffsetZero(){
+		$sql = 'ORDER BY `items`.`id` DESC ';
+		$sql = $this->makeSelectQueryStatus($sql, $this->status);
+		$params = array($this->user);
+		$this->setMapperResult($sql, $params, $this->rows);
+		$result = $this->mapper->findAll($this->limit, 
+				0, $this->status, $this->user);
+
+		$this->assertEquals($this->items, $result);
+	}
+
 
 
 

@@ -89,11 +89,6 @@ class ItemControllerTest extends ControllerTestUtility {
 	}
 
 
-	public function testStarredAnnotations(){
-		$this->assertItemControllerAnnotations('starred');
-	}
-
-
 	public function testStarAnnotations(){
 		$this->assertItemControllerAnnotations('star');
 	}
@@ -230,24 +225,6 @@ class ItemControllerTest extends ControllerTestUtility {
 	}
 
 
-	public function testStarred(){
-		$result = array(
-			'starred' => 3
-		);
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
-		$this->itemBusinessLayer->expects($this->once())
-			->method('starredCount')
-			->with($this->user)
-			->will($this->returnValue($result['starred']));
-		$response = $this->controller->starred();
-
-		$this->assertEquals($result, $response->getParams());
-		$this->assertTrue($response instanceof JSONResponse);
-	}
-
-
 
 	private function itemsApiExpects($id, $type){
 		$this->api->expects($this->once())
@@ -273,14 +250,14 @@ class ItemControllerTest extends ControllerTestUtility {
 		$result = array(
 			'items' => array(new Item()),
 			'feeds' => $feeds,
-			'newestItemId' => $this->newestItemId
+			'newestItemId' => $this->newestItemId,
+			'starred' => 3111
 		);
 		$post = array(
 			'limit' => 3,
 			'type' => FeedType::FEED,
 			'id' => 2,
 			'offset' => 0,
-			'newestItemId' => 3 
 		);
 		$this->controller = $this->getPostController($post);
 
@@ -297,13 +274,17 @@ class ItemControllerTest extends ControllerTestUtility {
 			->will($this->returnValue($this->newestItemId));
 
 		$this->itemBusinessLayer->expects($this->once())
+			->method('starredCount')
+			->with($this->equalTo($this->user))
+			->will($this->returnValue(3111));
+
+		$this->itemBusinessLayer->expects($this->once())
 			->method('findAll')
 			->with(
 				$this->equalTo($post['id']), 
 				$this->equalTo($post['type']), 
 				$this->equalTo($post['limit']), 
 				$this->equalTo($post['offset']),
-				$this->equalTo($this->newestItemId), 
 				$this->equalTo(true), 
 				$this->equalTo($this->user))
 			->will($this->returnValue($result['items']));
@@ -323,7 +304,6 @@ class ItemControllerTest extends ControllerTestUtility {
 			'type' => FeedType::FEED,
 			'id' => 2,
 			'offset' => 10,
-			'newestItemId' => 3 
 		);
 		$this->controller = $this->getPostController($post);
 
@@ -335,7 +315,6 @@ class ItemControllerTest extends ControllerTestUtility {
 				$this->equalTo($post['type']), 
 				$this->equalTo($post['limit']), 
 				$this->equalTo($post['offset']),
-				$this->equalTo($post['newestItemId']), 
 				$this->equalTo(true), 
 				$this->equalTo($this->user))
 			->will($this->returnValue($result['items']));

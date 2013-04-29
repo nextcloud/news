@@ -110,7 +110,7 @@ class ItemMapper extends Mapper implements IMapper {
 
 		$result = $this->execute($sql, $params)->fetchRow();
 
-		return $result['size'];
+		return (int) $result['size'];
 	}
 
 
@@ -164,40 +164,42 @@ class ItemMapper extends Mapper implements IMapper {
 	}
 
 
-	public function findAll($limit, $offset, $newestItemId, $status, $userId){
-		$sql = 'AND `items`.`id` < ? ';
-		$sql .= 'ORDER BY `items`.`pub_date` DESC, `items`.`id` DESC ';
-		$params = array($userId, $newestItemId);
-
+	public function findAllFeed($id, $limit, $offset, $status, $userId){
+		$params = array($userId, $id);
+		$sql = 'AND `items`.`feed_id` = ? ';
+		if($offset !== 0){
+			$sql .= 'AND `items`.`id` < ? ';
+			array_push($params, $offset);
+		}
+		$sql .= 'ORDER BY `items`.`id` DESC ';
 		$sql = $this->makeSelectQueryStatus($sql, $status);
-		return $this->findAllRows($sql, $params, $limit, $offset);
+		return $this->findAllRows($sql, $params, $limit);
 	}
 
 
-	public function findAllFolder($id, $limit, $offset, $newestItemId, $status,
-	                              $userId){
-		
-		$sql = 'AND `feeds`.`folder_id` = ? ' .
-			'AND `items`.`id` < ? ' .
-			'ORDER BY `items`.`pub_date` DESC, `items`.`id` DESC ';
-		$params = array($userId, $id, $newestItemId);
-
+	public function findAllFolder($id, $limit, $offset, $status, $userId){
+		$params = array($userId, $id);
+		$sql = 'AND `feeds`.`folder_id` = ? ';
+		if($offset !== 0){
+			$sql .= 'AND `items`.`id` < ? ';
+			array_push($params, $offset);
+		}
+		$sql .= 'ORDER BY `items`.`id` DESC ';
 		$sql = $this->makeSelectQueryStatus($sql, $status);
-
-		return $this->findAllRows($sql, $params, $limit, $offset);
+		return $this->findAllRows($sql, $params, $limit);
 	}
 
 
-	public function findAllFeed($id, $limit, $offset, $newestItemId, $status, 
-	                            $userId){
-
-		$sql = 'AND `items`.`feed_id` = ? ' .
-			'AND `items`.`id` < ? ' .
-			'ORDER BY `items`.`pub_date` DESC, `items`.`id` DESC ';
+	public function findAll($limit, $offset, $status, $userId){
+		$params = array($userId);
+		$sql = '';
+		if($offset !== 0){
+			$sql .= 'AND `items`.`id` < ? ';
+			array_push($params, $offset);
+		}
+		$sql .= 'ORDER BY `items`.`id` DESC ';
 		$sql = $this->makeSelectQueryStatus($sql, $status);
-		$params = array($userId, $id, $newestItemId);
-
-		return $this->findAllRows($sql, $params, $limit, $offset);
+		return $this->findAllRows($sql, $params, $limit);
 	}
 
 

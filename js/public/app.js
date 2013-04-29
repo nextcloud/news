@@ -751,12 +751,11 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     var BusinessLayer;
 
     BusinessLayer = (function() {
-      function BusinessLayer(_activeFeed, _persistence, _itemModel, _type, _newest) {
+      function BusinessLayer(_activeFeed, _persistence, _itemModel, _type) {
         this._activeFeed = _activeFeed;
         this._persistence = _persistence;
         this._itemModel = _itemModel;
         this._type = _type;
-        this._newest = _newest;
       }
 
       BusinessLayer.prototype.load = function(id) {
@@ -857,17 +856,13 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         };
 
         FeedBusinessLayer.prototype.markFeedRead = function(feedId) {
-          var feed, highestItemId, item, _i, _len, _ref, _results;
+          var feed, item, newestItemId, _i, _len, _ref, _results;
 
           feed = this._feedModel.getById(feedId);
-          if (angular.isDefined(feed)) {
+          newestItemId = this._newestItem.getId();
+          if (angular.isDefined(feed) && angular.isDefined(newestItemId)) {
             feed.unreadCount = 0;
-            if (this._activeFeed.getId() === feedId && this._activeFeed.getType() === this._feedType.Feed) {
-              highestItemId = this._newestItem.getId();
-            } else {
-              highestItemId = 0;
-            }
-            this._persistence.setFeedRead(feedId, highestItemId);
+            this._persistence.setFeedRead(feedId, newestItemId);
             _ref = this._itemModel.getAll();
             _results = [];
             for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -1400,11 +1395,11 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         };
 
         ItemBusinessLayer.prototype.loadNext = function(callback) {
-          var size;
+          var lowestItemId;
 
-          size = this._itemModel.size();
-          if (size !== 0) {
-            return this._persistence.getItems(this._activeFeed.getType(), this._activeFeed.getId(), size, this._newestItem.getId(), callback);
+          lowestItemId = this._itemModel.getLowestId();
+          if (lowestItemId !== 0) {
+            return this._persistence.getItems(this._activeFeed.getType(), this._activeFeed.getId(), lowestItemId, callback);
           } else {
             return callback();
           }
@@ -2101,7 +2096,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   angular.module('News').factory('ItemModel', [
-    '_Model', '_MaximumQuery', '_MinimumQuery', 'StatusFlag', function(_Model, _MaximumQuery, _MinimumQuery, StatusFlag) {
+    '_Model', '_MinimumQuery', 'StatusFlag', function(_Model, _MinimumQuery, StatusFlag) {
       var ItemModel;
 
       ItemModel = (function(_super) {
@@ -2190,6 +2185,18 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           hash = item.feedId + '_' + item.guidHash;
           delete this._guidFeedIdHash[hash];
           return ItemModel.__super__.removeById.call(this, id);
+        };
+
+        ItemModel.prototype.getLowestId = function() {
+          var lowestId, query;
+
+          query = new _MinimumQuery('id');
+          lowestId = this.get(query);
+          if (angular.isDefined(lowestId)) {
+            return lowestId.id;
+          } else {
+            return 0;
+          }
         };
 
         return ItemModel;
@@ -2415,7 +2422,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           this.getAllFolders();
           this.getAllFeeds();
           this.userSettingsRead();
-          this.getStarredItems();
           return this.userSettingsLanguage();
         };
 
@@ -2424,13 +2430,10 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         */
 
 
-        Persistence.prototype.getItems = function(type, id, offset, newestItemId, onSuccess) {
+        Persistence.prototype.getItems = function(type, id, offset, onSuccess) {
           var failureCallbackWrapper, loading, params, successCallbackWrapper,
             _this = this;
 
-          if (newestItemId == null) {
-            newestItemId = 0;
-          }
           if (onSuccess == null) {
             onSuccess = null;
           }
@@ -2453,33 +2456,12 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
               limit: this._config.itemBatchSize,
               offset: offset,
               id: id,
-              type: type,
-              newestItemId: newestItemId
+              type: type
             },
             onSuccess: successCallbackWrapper,
             onFailure: failureCallbackWrapper
           };
           return this._request.get('news_items', params);
-        };
-
-        Persistence.prototype.getStarredItems = function(onSuccess) {
-          var failureCallbackWrapper, params, successCallbackWrapper,
-            _this = this;
-
-          onSuccess || (onSuccess = function() {});
-          this._feedLoading.increase();
-          successCallbackWrapper = function(data) {
-            onSuccess();
-            return _this._feedLoading.decrease();
-          };
-          failureCallbackWrapper = function(data) {
-            return _this._feedLoading.decrease();
-          };
-          params = {
-            onSuccess: successCallbackWrapper,
-            onFailure: failureCallbackWrapper
-          };
-          return this._request.get('news_items_starred', params);
         };
 
         Persistence.prototype.starItem = function(feedId, guidHash) {

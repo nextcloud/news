@@ -106,12 +106,11 @@ StarredBusinessLayer, NewestItem) ->
 
 
 		loadNext: (callback) ->
-			size = @_itemModel.size()
-			if size != 0
+			lowestItemId = @_itemModel.getLowestId()
+			if lowestItemId != 0
 				@_persistence.getItems @_activeFeed.getType(),
 				                       @_activeFeed.getId(),
-				                       size,
-				                       @_newestItem.getId(),
+				                       lowestItemId,
 				                       callback
 			else
 				callback()

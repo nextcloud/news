@@ -44,14 +44,13 @@ $rootScope) ->
 			@getAllFolders()
 			@getAllFeeds()
 			@userSettingsRead()
-			@getStarredItems()
 			@userSettingsLanguage()
 
 
 		###
 			ITEM CONTROLLER
 		###
-		getItems: (type, id, offset, newestItemId=0, onSuccess=null) ->
+		getItems: (type, id, offset, onSuccess=null) ->
 			onSuccess or= ->
 
 			# show different loading signs
@@ -74,29 +73,10 @@ $rootScope) ->
 					offset: offset
 					id: id
 					type: type
-					newestItemId: newestItemId
 				onSuccess: successCallbackWrapper
 				onFailure: failureCallbackWrapper
 
 			@_request.get 'news_items', params
-
-
-		getStarredItems: (onSuccess) ->
-			onSuccess or= ->
-
-			# loading sign handling
-			@_feedLoading.increase()
-			successCallbackWrapper = (data) =>
-				onSuccess()
-				@_feedLoading.decrease()
-			failureCallbackWrapper = (data) =>
-				@_feedLoading.decrease()
-
-			params =
-				onSuccess: successCallbackWrapper
-				onFailure: failureCallbackWrapper
-
-			@_request.get 'news_items_starred', params
 
 
 		starItem: (feedId, guidHash) ->

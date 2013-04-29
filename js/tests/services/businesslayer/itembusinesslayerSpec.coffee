@@ -247,4 +247,4 @@ describe 'ItemBusinessLayer', ->
 		@ItemBusinessLayer.loadNext(callback)
 
 		expect(@persistence.getItems).toHaveBeenCalledWith(
-			@FeedType.Feed, 3, 4, 13, jasmine.any(Function))
+			@FeedType.Feed, 3, 1, jasmine.any(Function))

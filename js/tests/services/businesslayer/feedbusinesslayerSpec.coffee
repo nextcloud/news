@@ -93,6 +93,12 @@ describe 'FeedBusinessLayer', ->
 		expect(count).toBe(169)
 
 
+	it 'should not mark feed read when no highest item id', =>
+		@persistence.setFeedRead = jasmine.createSpy('setFeedRead')
+		@FeedBusinessLayer.markFeedRead(5)
+		expect(@persistence.setFeedRead).not.toHaveBeenCalled()
+
+
 	it 'should mark feed as read', =>
 		@NewestItem.handle(25)
 		@ActiveFeed.handle({type: @FeedType.Feed, id: 5})

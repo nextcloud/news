@@ -49,8 +49,8 @@ class ItemBusinessLayer extends BusinessLayer {
 	}
 
 
-	public function findAllNew($id, $type, $updatedSince, 
-		$showAll, $userId){
+	public function findAllNew($id, $type, $updatedSince, $showAll, $userId){
+
 		$status = $this->statusFlag->typeToStatus($type, $showAll);
 		
 		switch($type){
@@ -71,33 +71,25 @@ class ItemBusinessLayer extends BusinessLayer {
 	}
 
 
-	public function findAll($id, $type, $limit, $offset, $newestItemId, $showAll,
-	                        $userId){
-
+	public function findAll($id, $type, $limit, $offset, 
+		$showAll, $userId){
 		$status = $this->statusFlag->typeToStatus($type, $showAll);
 
 		switch($type){
 			case FeedType::FEED:
 				$items = $this->mapper->findAllFeed($id, $limit, $offset, 
-					                                $newestItemId, $status, 
-					                                $userId);
+					                                   $status, $userId);
 				break;
 			case FeedType::FOLDER:
 				$items = $this->mapper->findAllFolder($id, $limit, $offset, 
-					                                  $newestItemId, $status, 
-					                                  $userId);
+					                                   $status, $userId);
 				break;
 			default:
-				$items = $this->mapper->findAll($limit, $offset, $newestItemId, 
-				                                $status, $userId);
+				$items = $this->mapper->findAll($limit, $offset, $status, 
+					                               $userId);
 		}
 
 		return $items;
-	}
-
-
-	public function starredCount($userId){
-		return $this->mapper->starredCount($userId);
 	}
 
 
@@ -150,5 +142,9 @@ class ItemBusinessLayer extends BusinessLayer {
 		}
 	}
 
+
+	public function starredCount($userId){
+		return $this->mapper->starredCount($userId);
+	}
 
 }

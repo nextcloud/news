@@ -1,6 +1,6 @@
 <ul>
 	<li class="feed_item"
-		ng-repeat="item in itemBusinessLayer.getAll() | orderBy:['-pubDate','-id'] "
+		ng-repeat="item in itemBusinessLayer.getAll() | orderBy:['-id'] "
 		ng-class="{ read: item.isRead() }"
 		data-id="{{ item.id }}"
 		<h2 class="item_date">
