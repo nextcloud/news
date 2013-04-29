@@ -1,5 +1,6 @@
 ownCloud-news (1.0~beta)
 
+* Fix an issue that prevented scrolling when drag and dropping a feed in to a new folder
 * Do not mark items as read that have not been displayed to the user
 * Autopage if there are 10 items left instead of 4 times the scroll area height, fixes a bug that would not load new items if the entry was too big
 * Prefer website favicon over channel image, fixes wordpress blog favicons
