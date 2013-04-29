@@ -28,7 +28,7 @@ Before you install the News app
 -------------------------------
 Before you install the app check that the following requirements are met:
 
-- `Magic quotes are turned off <http://php.net/manual/de/security.magicquotes.disabling.php>`_
+- `Magic quotes are turned off <http://php.net/manual/de/security.magicquotes.disabling.php>`_ (only needed for PHP < 5.4)
 - `You use a browser that supports the FileReader API <https://developer.mozilla.org/en/docs/DOM/FileReader#Browser_compatibility>`_
 - You can use a cron or webcron to call Background Jobs in ownCloud
 - You have installed **php-curl** and activated it in the **php.ini**
