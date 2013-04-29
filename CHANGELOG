@@ -1,12 +1,13 @@
 ownCloud-news (1.0~beta)
 
+* Do not mark items as read that have not been displayed to the user
+* Autopage if there are 10 items left instead of 4 times the scroll area height, fixes a bug that would not load new items if the entry was too big
 * Prefer website favicon over channel image, fixes wordpress blog favicons
 * Add all businesslayer methods for the current API spec
 * API Specification Draft
 * Fix a bug that would cause words in the headlines to always be wrapped
 * Fix a bug that would cause the ellipsis on the "Add Website" entry to be to short
 * Provide undo dialog for feed and folder deletion
-* Order by pubdate descending instead of id
 * Do not preload audio in podcast feed
 * Use utf-8 charset header in JSON responses to prevent broken headlines
 * Move the rss cache files into the ownCloud data directory
