@@ -4,8 +4,6 @@
 	<name>News</name>
 	<description>An RSS/Atom feed reader</description>
 	<licence>AGPL</licence>
-	<shipped>true</shipped>
 	<author>Alessandro Cosentino, Bernhard Posselt, Jan-Christoph Borchardt. Powered by SimplePie (Ryan Parman, Geoffrey Sneddon, Ryan McCue and contributors).</author>
 	<require>5</require>
-	<default_enable/>
 </info>

@@ -1,7 +1,7 @@
 README
 ======
 
-The News app is a an rss/atom feed aggregator. It is based on the library SimplePie.
+The News app is a an RSS/Atom feed aggregator. It is based on the library SimplePie.
 
 Maintainers
 -----------
@@ -10,9 +10,7 @@ Maintainers
 
 Status
 ------
-The app is in alpha status and can be tested.
-
-See the `beta milestone in the bugtracker <https://github.com/owncloud/news/issues?milestone=3&state=open>`_ for more information on progress
+Beta
 
 Bugs
 ----
@@ -23,16 +21,32 @@ Before reporting bugs:
 * get the newest version of the News app
 * `check if they already have been reported <https://github.com/owncloud/news/issues?state=open>`_
 
+
 Before you install the News app
 -------------------------------
 Before you install the app check that the following requirements are met:
 
-- Your database uses utf-8
-- Your webserver uses utf-8 (`Apache <http://stackoverflow.com/questions/913869/how-to-change-the-default-encoding-to-utf-8-for-server>`_, `NginX <http://www.cyberciti.biz/faq/nginx-set-http-content-type-response-header-to-charset-utf8/>`_)
 - `Magic quotes are turned off <http://php.net/manual/de/security.magicquotes.disabling.php>`_
 - `You use a browser that supports the FileReader API <https://developer.mozilla.org/en/docs/DOM/FileReader#Browser_compatibility>`_
 - You can use a cron or webcron to call Background Jobs in ownCloud
-- (optional) install php-curl
+- You have installed **php-curl** and activated it in the **php.ini**
+- Install ownCloud **5.0.5** (important! comes with required CSS styles)
+
+Should you have upgraded from a prior version, disable the CSS and JavaScript caching by adding this to :file:`owncloud/config/config.php`::
+
+    DEFINE('DEBUG', true);
+
+How to install the News app from the App Store
+----------------------------------------------
+
+- Go to the ownCloud apps page
+- Activate the App Framework App first, then activate the News app in the apps menu
+
+- `Set up ownCloud Background Jobs <http://doc.owncloud.org/server/5.0/admin_manual/configuration/background_jobs.html>`_ to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
+
+How to keep up to date
+----------------------
+Simply disable and reenable the **News** and **App Framework** App again (ownCloud deletes the app if its not shipped by default)
 
 How to install the News app from Git
 ------------------------------------
