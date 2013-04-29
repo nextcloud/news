@@ -12,10 +12,8 @@
 		zIndex: 1000,
 		axis: 'y',
 		delay: 200,
-		helper: 'clone',
-		containment: 'document',
-		scroll: true,
-		scrollSensitivity: 100
+		containment: '#app-navigation ul',
+		scroll: true
 	}">
 	<a 	ng-style="{ backgroundImage: feed.faviconLink }"
 		ng-click="feedBusinessLayer.load(feed.id)"
