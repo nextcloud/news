@@ -860,7 +860,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
           feed = this._feedModel.getById(feedId);
           newestItemId = this._newestItem.getId();
-          if (angular.isDefined(feed) && angular.isDefined(newestItemId)) {
+          if (angular.isDefined(feed) && newestItemId !== 0) {
             feed.unreadCount = 0;
             this._persistence.setFeedRead(feedId, newestItemId);
             _ref = this._itemModel.getAll();

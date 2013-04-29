@@ -39,7 +39,8 @@ describe 'FolderBusinessLayer', ->
 
 
 	beforeEach inject (@FolderBusinessLayer, @FolderModel,	@FeedModel, @ShowAll,
-		               @ActiveFeed, @FeedType, @_ExistsError, @$timeout) =>
+		               @ActiveFeed, @FeedType, @_ExistsError, @$timeout,
+		               @NewestItem) =>
 		@ShowAll.setShowAll(false)
 		@ActiveFeed.handle({type: @FeedType.Feed, id:0})
 
@@ -81,6 +82,7 @@ describe 'FolderBusinessLayer', ->
 
 
 	it 'should mark folder as read', =>
+		@NewestItem.handle(25)
 		@persistence.setFeedRead = jasmine.createSpy('setFeedRead')
 		@FeedModel.add({id: 3, unreadCount:134, folderId: 3, url: 'a1'})
 		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, url: 'a2'})

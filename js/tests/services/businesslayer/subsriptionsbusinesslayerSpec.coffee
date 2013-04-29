@@ -34,7 +34,7 @@ describe 'SubscriptionsBusinessLayer', ->
 		return
 
 	beforeEach inject (@SubscriptionsBusinessLayer, @ShowAll, @FeedModel,
-	                   @ActiveFeed, @FeedType) =>
+	                   @ActiveFeed, @FeedType, @NewestItem) =>
 		@ShowAll.setShowAll(false)
 		@ActiveFeed.handle({type: @FeedType.Feed, id:0})
 
@@ -69,6 +69,7 @@ describe 'SubscriptionsBusinessLayer', ->
 
 
 	it 'should mark all feeds as read', =>
+		@NewestItem.handle(25)
 		item = {id: 3, unreadCount: 132, url: 'hi'}
 		@FeedModel.add(item)
 

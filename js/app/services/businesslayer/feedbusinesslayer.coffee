@@ -68,7 +68,7 @@ FeedModel, NewLoading, _ExistsError, Utils, $rootScope, UndoQueue, NewestItem)->
 			feed = @_feedModel.getById(feedId)
 			newestItemId = @_newestItem.getId()
 
-			if angular.isDefined(feed) and angular.isDefined(newestItemId)
+			if angular.isDefined(feed) and newestItemId != 0
 				feed.unreadCount = 0
 				@_persistence.setFeedRead(feedId, newestItemId)
 				for item in @_itemModel.getAll()
