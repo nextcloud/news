@@ -1,4 +1,4 @@
-ownCloud-news (1.0~beta)
+ownCloud-news (1.0~beta1)
 
 * Reverted the keep unread checkbox styling from a button back to a normal checkbox
 * Fix an issue that prevented scrolling when drag and dropping a feed in to a new folder
