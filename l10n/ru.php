@@ -3,6 +3,7 @@
 "Can not add feed: Exists already" => "Не удаётся добавить ленту: уже существует",
 "Can not add feed: URL does not exist or has invalid xml" => "Не удаётся добавить ленту: URL не существует или содержит неверный xml",
 "Can not add folder: Exists already" => "Не удаётся добавить папку: уже существует",
+"Undo deletion of %s" => "Отменить удаление %s",
 "Add Website" => "Добавить сайт",
 "Error: address exists already!" => "Ошибка: адрес уже существует!",
 "Error: folder exists already" => "Ошибка: папка уже существует",

@@ -3,6 +3,7 @@
 "Can not add feed: Exists already" => "Feed konnte nicht hinzugefügt werden:  Existiert bereits",
 "Can not add feed: URL does not exist or has invalid xml" => "Feed konnte nicht hinzugefügt werden: URL existiert nicht oder enthält ungültiges XML",
 "Can not add folder: Exists already" => "Ordner kann nicht hinzgefügt werden: Existiert bereits",
+"Undo deletion of %s" => "Löschen von %s rückgängig machen",
 "Add Website" => "Website hinzufügen",
 "Error: address exists already!" => "Fehler: Adresse existier bereits!",
 "Error: folder exists already" => "Fehler: Ordner existiert bereits",

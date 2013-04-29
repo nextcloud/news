@@ -3,6 +3,7 @@
 "Can not add feed: Exists already" => "Nemožno pridať kanál: Už existuje",
 "Can not add feed: URL does not exist or has invalid xml" => "Nemožno pridať kanál: URL neexistuje alebo obsahuje neplatné xml",
 "Can not add folder: Exists already" => "Nemožno pridať priečinok: Už existuje",
+"Undo deletion of %s" => "Späť odstránenie %s",
 "Add Website" => "Pridať webstránku",
 "Error: address exists already!" => "Chyba: Adresa už existuje!",
 "Error: folder exists already" => "Chyba: Priečinok už existuje",
@@ -17,6 +18,7 @@
 "Starred" => "S hviezdičkou",
 "Unread articles" => "Neprečítané články",
 "All articles" => "Všetky články",
+"Mark read" => "Označiť ako prečítané",
 "from" => "z",
 "by" => "od",
 "Cant play audio format" => "Nemožno prehrať tento zvukový formát",
@@ -30,6 +32,9 @@
 "Import" => "Import",
 "Export" => "Export",
 "Error when importing: file does not contain valid OPML" => "Chyba pri importe: Súbor neobsahuje platné OPML",
+"Import Google Reader JSON" => "Importovať Google Reader JSON",
+"To import starred and shared articles from Google \n\t\t\tReader please upload the .json files from the Google Takeout archive" => "Na naimportovanie zdieľaných článkov a článkov z hviezdičkou z Google Readera nahrajte .json súbor z archívu Google Takeout",
+"Error when importing: file does not contain valid JSON" => "Chyba pri importe: súbor neobsahuje platný JSON",
 "Show all" => "Zobraziť všetko",
 "Show only unread" => "Zobraziť iba neprečítané"
 );

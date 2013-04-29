@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-29 01:18+0200\n"
-"PO-Revision-Date: 2013-04-28 23:18+0000\n"
-"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"POT-Creation-Date: 2013-04-30 01:12+0200\n"
+"PO-Revision-Date: 2013-04-29 08:10+0000\n"
+"Last-Translator: mbouzada <mbouzada@gmail.com>\n"
 "Language-Team: Galician (http://www.transifex.com/projects/p/owncloud/language/gl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,7 +39,7 @@ msgstr "Non é posíbel engadir o cartafol: xa existe"
 #: templates/main.php:27
 #, php-format
 msgid "Undo deletion of %s"
-msgstr ""
+msgstr "Desfacer a eliminación de %s"
 
 #: templates/part.addnew.php:12
 msgid "Add Website"
@@ -97,7 +97,7 @@ msgstr "Artigos sen ler"
 msgid "All articles"
 msgstr "Todos os artigos"
 
-#: templates/part.feed.unread.php:26 templates/part.listfeed.php:44
+#: templates/part.feed.unread.php:26 templates/part.listfeed.php:43
 #: templates/part.listfolder.php:43
 msgid "Mark read"
 msgstr "Marcar como lido"
@@ -118,11 +118,11 @@ msgstr "Non é posíbel reproducir este formato de son"
 msgid "Keep unread"
 msgstr "Manter sen ler"
 
-#: templates/part.listfeed.php:49
+#: templates/part.listfeed.php:48
 msgid "Delete feed"
 msgstr "Eliminar fonte de novas"
 
-#: templates/part.listfeed.php:55
+#: templates/part.listfeed.php:54
 msgid "Delete website"
 msgstr "Eliminar o sitio web"
 
