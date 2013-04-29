@@ -13,7 +13,8 @@
 		axis: 'y',
 		delay: 200,
 		containment: '#app-navigation ul',
-		scroll: true
+		scroll: true,
+		revert: true
 	}">
 	<a 	ng-style="{ backgroundImage: feed.faviconLink }"
 		ng-click="feedBusinessLayer.load(feed.id)"
