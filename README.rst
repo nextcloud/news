@@ -19,7 +19,7 @@ Before reporting bugs:
 * We do not support Internet Explorer and Safari (Patches accepted though, except for IE < 10)
 * get the newest version of the App Framework
 * get the newest version of the News app
-* `check if they already have been reported <https://github.com/owncloud/news/issues?state=open>`_
+* `check if they have already been reported <https://github.com/owncloud/news/issues?state=open>`_
 
 
 Before you install the News app
@@ -46,7 +46,7 @@ Installation
 ~~~~~~~~~~~~
 
 - Go to the ownCloud apps page
-- Activate the App Framework App first, then activate the News app in the apps menu
+- Activate the **App Framework** App first, then activate the **News** app in the apps menu
 - `Set up ownCloud Background Jobs <http://doc.owncloud.org/server/5.0/admin_manual/configuration/background_jobs.html>`_ to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
 
 Keep up to date
@@ -59,11 +59,11 @@ Git (development version)
 Installation
 ~~~~~~~~~~~~
 
-- Clone the App Framework app into the **/var/www** directory::
+- Clone the **App Framework** app into the **/var/www** directory::
 
 	git clone https://github.com/owncloud/appframework.git
 
-- Clone the News app into the **/var/www** directory::
+- Clone the **News** app into the **/var/www** directory::
 
 	git clone https://github.com/owncloud/news.git
 
@@ -73,7 +73,7 @@ Installation
 	ln -s /var/www/appframework /var/www/owncloud/apps
 	ln -s /var/www/news /var/www/owncloud/apps
 
-- Activate the App Framework App first, then activate the News app in the apps menu
+- Activate the **App Framework** App first, then activate the **News** app in the apps menu
 
 - `Set up ownCloud Background Jobs <http://doc.owncloud.org/server/5.0/admin_manual/configuration/background_jobs.html>`_ to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
 
