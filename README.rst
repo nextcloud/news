@@ -105,7 +105,7 @@ Performance Notices
 * Use MySQL or PostgreSQL for better database performance
 
 Configuration
-~~~~~~~~~~~~~
+-------------
 This will be in a seperate config file in the future but for now you can tweak the folowing things. 
 
 :file:`dependencyinjection/dicontainer.php`
