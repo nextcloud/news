@@ -1,5 +1,6 @@
 ownCloud-news (1.0~beta1)
 
+* Fix a bug that would cause PHP 5.3 to fail while parsing utf-8
 * Reverted the keep unread checkbox styling from a button back to a normal checkbox
 * Fix an issue that prevented scrolling when drag and dropping a feed in to a new folder
 * Do not mark items as read that have not yet been displayed to the user
@@ -15,7 +16,7 @@ ownCloud-news (1.0~beta1)
 * Move the rss cache files into the ownCloud data directory
 * Autopurge: limit read articles per feed instead of using a global limit
 * Use tooltips for delete and mark read button
-* Also load the newest unread count when a feed is loaded
+* Also load the newest unread and starred count when a feed is loaded
 * Do not request updates from the client but only use the background job to make the app faster
 * Add a way to import articles from Google Reader Takeout Archive
 * Fix a bug in favicon fetcher that would not fetch certain favicons
@@ -25,7 +26,7 @@ ownCloud-news (1.0~beta1)
 * Add keyboard shortcuts
 * Do not show unread articles feed when there are no feeds
 * Filter HTML tags from headlines and authors
-* If there the article author has no name use the mail
+* If the article author has no name use the mail
 * Show full feed name on hover
 * If feed has no name, use its URL
 * Do not update articles all the time that have no pubdate
