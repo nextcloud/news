@@ -9,6 +9,7 @@ Maintainers
 -----------
 * `Alessandro Cosentino <https://github.com/zimba12>`_ 
 * `Bernhard Posselt <https://github.com/Raydiation>`_ 
+* `Jan-Christoph Borchardt <https://github.com/jancborchardt>`_ (Design)
 
 Status
 ------
