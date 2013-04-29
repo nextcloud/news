@@ -38,19 +38,26 @@ Should you have upgraded from a prior version, disable the CSS and JavaScript ca
 
 You can remove the line after a page reload
 
-How to install the News app from the App Store
-----------------------------------------------
+
+App Store
+---------
+
+Installation
+~~~~~~~~~~~~
 
 - Go to the ownCloud apps page
 - Activate the App Framework App first, then activate the News app in the apps menu
 - `Set up ownCloud Background Jobs <http://doc.owncloud.org/server/5.0/admin_manual/configuration/background_jobs.html>`_ to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
 
-How to keep up to date
-----------------------
+Keep up to date
+~~~~~~~~~~~~~~~
 Simply disable and reenable the **News** and **App Framework** App again (ownCloud deletes the app if its not shipped by default)
 
-How to install the News app from Git
-------------------------------------
+Git (development version)
+-------------------------
+
+Installation
+~~~~~~~~~~~~
 
 - Clone the App Framework app into the **/var/www** directory::
 
@@ -70,8 +77,9 @@ How to install the News app from Git
 
 - `Set up ownCloud Background Jobs <http://doc.owncloud.org/server/5.0/admin_manual/configuration/background_jobs.html>`_ to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
 
-How to keep up to date with Git
--------------------------------
+Keep up to date
+~~~~~~~~~~~~~~~
+
 To get the newest update you can use git. To update the appframework use::
 
     cd /var/www/appframework
