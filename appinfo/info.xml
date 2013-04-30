@@ -2,7 +2,7 @@
 <info>
 	<id>news</id>
 	<name>News</name>
-	<description>An RSS/Atom feed reader</description>
+	<description>An RSS/Atom feed reader. Requires the App Framework app and backgroundjobs need to be enabled. See the README.rst in the apps top directory</description>
 	<licence>AGPL</licence>
 	<version>0.95</version>
 	<author>Alessandro Cosentino, Bernhard Posselt, Jan-Christoph Borchardt. Powered by SimplePie (Ryan Parman, Geoffrey Sneddon, Ryan McCue and contributors).</author>
