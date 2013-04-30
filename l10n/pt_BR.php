@@ -3,6 +3,7 @@
 "Can not add feed: Exists already" => "Não é possível adicionar alimentação: já existe",
 "Can not add feed: URL does not exist or has invalid xml" => "Não é possível adicionar alimentação: URL não existe ou tem ml inválido",
 "Can not add folder: Exists already" => "Não é possível adicionar pasta: já existe",
+"Undo deletion of %s" => "Desfazer exclusão de %s",
 "Add Website" => "Adicionar site",
 "Error: address exists already!" => "Erro: endereço já existe!",
 "Error: folder exists already" => "Erro: pasta já existe!",
