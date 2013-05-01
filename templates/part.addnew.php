@@ -8,7 +8,7 @@
 		href="#"
 		oc-click-focus="{
 			selector: '.add-new-popup input[ng-model=feedUrl]'
-		}">+ </a>
+		}">+ <span><?php p($l->t('Add Website'))?></span></a>
 	<div class="add-new-popup">
 		<fieldset class="personalblock">
 			<p class="error">

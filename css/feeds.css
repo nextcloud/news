@@ -70,6 +70,18 @@
 	padding-left:10px;
 }
 
+#app-navigation .with-icon .list-title span {
+	display:none;
+}
+
+#app-navigation .with-icon .list-title:hover span {
+	display:inline;
+}
+
+#app-navigation .with-icon .opened span {
+	display:inline;
+}
+
 #app-navigation .unread > a {
 	padding-right: 32px;
 }
