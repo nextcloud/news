@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-05-01 01:05+0200\n"
-"PO-Revision-Date: 2013-04-30 01:00+0000\n"
-"Last-Translator: Flávio Veras <flaviove@gmail.com>\n"
+"POT-Creation-Date: 2013-05-02 01:19+0200\n"
+"PO-Revision-Date: 2013-05-01 23:19+0000\n"
+"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/owncloud/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -122,11 +122,7 @@ msgstr "Formato de áudio inválido"
 msgid "Keep unread"
 msgstr "Manter como não lido"
 
-#: templates/part.listfeed.php:48
-msgid "Delete feed"
-msgstr "Excluir feed"
-
-#: templates/part.listfeed.php:54
+#: templates/part.listfeed.php:48 templates/part.listfeed.php:54
 msgid "Delete website"
 msgstr "Excluir website"
 

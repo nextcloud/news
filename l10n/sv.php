@@ -14,7 +14,6 @@
 "by" => "av",
 "Cant play audio format" => "Kan inte spela ljudformat",
 "Keep unread" => "Behåll som oläst",
-"Delete feed" => "Ta bort flöde",
 "Collapse" => "Dölj",
 "Delete folder" => "Radera mapp",
 "Rename folder" => "Byt namn på mapp",

@@ -22,7 +22,6 @@
 "by" => "από",
 "Cant play audio format" => "Αδυναμία αναπαραγωγής ήχου",
 "Keep unread" => "Διατήρηση αδιάβαστου",
-"Delete feed" => "Διαγραφή ροής",
 "Delete website" => "Διαγραφη ιστοσελιδας",
 "Collapse" => "Σύμπτυξη",
 "Delete folder" => "Διαγραφή φακέλου",

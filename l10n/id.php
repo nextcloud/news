@@ -14,7 +14,6 @@
 "by" => "oleh",
 "Cant play audio format" => "Tidak dapat memainkan format audio",
 "Keep unread" => "Biarkan belum terbaca",
-"Delete feed" => "Hapus feed",
 "Collapse" => "Tutup",
 "Delete folder" => "Hapus map",
 "Rename folder" => "Ubah nama map",

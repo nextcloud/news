@@ -6,7 +6,6 @@
 "Folder name" => "ناوی بوخچه",
 "Starred" => "گه‌شاوه",
 "Keep unread" => "هێشتنه‌وه‌ی وه‌ك نه‌خوێنراوه",
-"Delete feed" => "سڕینه‌وه‌ی خورد",
 "Collapse" => "شکستهێنان",
 "Delete folder" => "سڕینه‌وه‌ی بوخچه",
 "Rename folder" => "گۆڕینی ناوی بوخچه",

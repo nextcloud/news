@@ -14,7 +14,6 @@
 "by" => "általa:",
 "Cant play audio format" => "Ez az hangformátum nem játszható le",
 "Keep unread" => "Maradjon olvasatlan",
-"Delete feed" => "Hírfolyam törlése",
 "Collapse" => "Összecsukás",
 "Delete folder" => "Mappa törlése",
 "Rename folder" => "Mappa átnevezése",

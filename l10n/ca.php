@@ -14,7 +14,6 @@
 "by" => "per",
 "Cant play audio format" => "No es pot reproduïr format d'àudio",
 "Keep unread" => "Mantén com a sense llegir",
-"Delete feed" => "Elimina font",
 "Collapse" => "Col·lapsa",
 "Delete folder" => "Elimina carpeta",
 "Rename folder" => "Reanomena carpeta",

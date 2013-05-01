@@ -23,7 +23,6 @@
 "by" => "por",
 "Cant play audio format" => "No se puede reproducir el formato de audio",
 "Keep unread" => "Dejar como no leido",
-"Delete feed" => "Eliminar fuente",
 "Delete website" => "Eliminar sitio web",
 "Collapse" => "Colapsar",
 "Delete folder" => "Eliminar carpeta",

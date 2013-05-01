@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-04-29 01:18+0200\n"
-"PO-Revision-Date: 2013-04-28 23:18+0000\n"
+"POT-Creation-Date: 2013-05-02 01:19+0200\n"
+"PO-Revision-Date: 2013-05-01 23:19+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/owncloud/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
@@ -97,7 +97,7 @@ msgstr "Olvasatlan cikkek"
 msgid "All articles"
 msgstr "Az összes cikk"
 
-#: templates/part.feed.unread.php:26 templates/part.listfeed.php:44
+#: templates/part.feed.unread.php:26 templates/part.listfeed.php:43
 #: templates/part.listfolder.php:43
 msgid "Mark read"
 msgstr ""
@@ -118,11 +118,7 @@ msgstr "Ez az hangformátum nem játszható le"
 msgid "Keep unread"
 msgstr "Maradjon olvasatlan"
 
-#: templates/part.listfeed.php:49
-msgid "Delete feed"
-msgstr "Hírfolyam törlése"
-
-#: templates/part.listfeed.php:55
+#: templates/part.listfeed.php:48 templates/part.listfeed.php:54
 msgid "Delete website"
 msgstr ""
 

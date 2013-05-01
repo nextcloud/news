@@ -23,7 +23,6 @@
 "by" => "sdílí",
 "Cant play audio format" => "Nelze přehrát formát zvuku",
 "Keep unread" => "Ponechat nepřečteno",
-"Delete feed" => "Smazat kanál",
 "Delete website" => "Smazat webovou stránku",
 "Collapse" => "Svinout",
 "Delete folder" => "Smazat složku",

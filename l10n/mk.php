@@ -9,7 +9,6 @@
 "from" => "од",
 "by" => "од",
 "Keep unread" => "Чувај непрочитано",
-"Delete feed" => "Избриши канал",
 "Delete folder" => "Избриши папка",
 "Rename folder" => "Преименувај папка",
 "Import" => "Увези",

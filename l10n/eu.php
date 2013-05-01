@@ -16,7 +16,6 @@
 "by" => " Egilea:",
 "Cant play audio format" => "Ezin da audio formatua erreproduzitu",
 "Keep unread" => "Mantendu irakurri gabea",
-"Delete feed" => "Ezabatu iturburua",
 "Collapse" => "Tolestu",
 "Delete folder" => "Ezabatu karpeta",
 "Rename folder" => "Berrizendatu karpeta",

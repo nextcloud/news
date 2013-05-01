@@ -23,7 +23,6 @@
 "by" => "lisas",
 "Cant play audio format" => "Helivormingut ei saa esitada",
 "Keep unread" => "Hoia kui lugemata",
-"Delete feed" => "Kustuta uudisvoog",
 "Delete website" => "Kustuta veebileht",
 "Collapse" => "Sulge",
 "Delete folder" => "Kustuta kaust",

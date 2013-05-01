@@ -16,7 +16,6 @@
 "by" => "af",
 "Cant play audio format" => "Kan ikke afspille lydformatet",
 "Keep unread" => "Behold ulæste",
-"Delete feed" => "Slet feed",
 "Delete website" => "Slet hjemmeside",
 "Collapse" => "Sammenfold",
 "Delete folder" => "Slet mappe",

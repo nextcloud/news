@@ -8,7 +8,6 @@
 "from" => "el",
 "by" => "de",
 "Keep unread" => "Lasi legota",
-"Delete feed" => "Forigi fluon",
 "Collapse" => "Maletendi",
 "Delete folder" => "Forigi dosierujon",
 "Rename folder" => "Alinomigi dosierujon",

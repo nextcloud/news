@@ -21,7 +21,6 @@
 "by" => "по",
 "Cant play audio format" => "Неможливо програти цей формат аудіо",
 "Keep unread" => "Залишити непрочитаним",
-"Delete feed" => "Видалити стрічку",
 "Delete website" => "Видалити Web-сайт",
 "Collapse" => "Згорнути",
 "Delete folder" => "Видалити теку",

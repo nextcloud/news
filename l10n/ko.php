@@ -14,7 +14,6 @@
 "by" => "작성:",
 "Cant play audio format" => "오디오 포맷을 재생할 수 없습니다.",
 "Keep unread" => "읽지 않은 글로 두기",
-"Delete feed" => "피드 삭제",
 "Collapse" => "접기",
 "Delete folder" => "폴더 삭제",
 "Rename folder" => "폴더 이름 바꾸기",

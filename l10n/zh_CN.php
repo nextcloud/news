@@ -22,7 +22,6 @@
 "by" => "被",
 "Cant play audio format" => "无法播放此音频格式",
 "Keep unread" => "保持未读",
-"Delete feed" => "删除Feed",
 "Delete website" => "删除网站",
 "Collapse" => "折叠",
 "Delete folder" => "删除目录",

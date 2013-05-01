@@ -23,7 +23,6 @@
 "by" => "od",
 "Cant play audio format" => "Nemožno prehrať tento zvukový formát",
 "Keep unread" => "Ponechať neprečítané",
-"Delete feed" => "Odstrániť kanál",
 "Delete website" => "Zmazať webstránku",
 "Collapse" => "Zvinúť",
 "Delete folder" => "Odstrániť priečinok",

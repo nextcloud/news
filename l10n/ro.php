@@ -8,7 +8,6 @@
 "from" => "de la",
 "by" => "după",
 "Keep unread" => "Păstrează necitite",
-"Delete feed" => "Șterge flux",
 "Collapse" => "Restrânge",
 "Delete folder" => "Șterge director",
 "Rename folder" => "Redenumește director",

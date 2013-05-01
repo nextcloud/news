@@ -9,7 +9,6 @@
 "from" => "frá",
 "by" => "af",
 "Keep unread" => "Halda sem ólesnu",
-"Delete feed" => "Eyða fréttastraum",
 "Collapse" => "Fletja út",
 "Delete folder" => "Eyða möppu",
 "Rename folder" => "Endurskýra möppu",

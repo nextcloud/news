@@ -23,7 +23,6 @@
 "by" => "von",
 "Cant play audio format" => "Das Audio-Format kann nicht abgespielt werden",
 "Keep unread" => "Ungelesenes behalten",
-"Delete feed" => "Feed löschen",
 "Delete website" => "Webseite löschen",
 "Collapse" => "Zuklappen",
 "Delete folder" => "Ordner löschen",

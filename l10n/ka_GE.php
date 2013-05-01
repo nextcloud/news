@@ -22,7 +22,6 @@
 "by" => "მიერ",
 "Cant play audio format" => "აუდიო ფორმატის დაკვრა ვერ მოხერხდა",
 "Keep unread" => "მხოლოდ წაუკითხავი",
-"Delete feed" => "ფიდების წაშლა",
 "Delete website" => "ვებსაიტის წაშლა",
 "Collapse" => "აკეცვა",
 "Delete folder" => "ფოლდერის წაშლა",

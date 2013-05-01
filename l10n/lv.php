@@ -11,7 +11,6 @@
 "by" => "līdz",
 "Cant play audio format" => "Nevar atskaņot audio formātu",
 "Keep unread" => "Atstāt nelasītu",
-"Delete feed" => "Dzēst plūsmu",
 "Collapse" => "Sakļaut",
 "Delete folder" => "Dzēst mapi",
 "Rename folder" => "Pārsaukt mapi",

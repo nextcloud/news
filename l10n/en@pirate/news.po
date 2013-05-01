@@ -10,11 +10,11 @@ msgstr ""
 "POT-Creation-Date: 2013-05-02 01:19+0200\n"
 "PO-Revision-Date: 2013-05-01 23:19+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
-"Language-Team: Afrikaans (South Africa) (http://www.transifex.com/projects/p/owncloud/language/af_ZA/)\n"
+"Language-Team: Pirate English (http://www.transifex.com/projects/p/owncloud/language/en@pirate/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: af_ZA\n"
+"Language: en@pirate\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: appinfo/app.php:52

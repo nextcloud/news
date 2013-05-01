@@ -21,7 +21,6 @@
 "by" => "por",
 "Cant play audio format" => "Não é possível reproduzir este formato de audio",
 "Keep unread" => "Manter como não lido",
-"Delete feed" => "Eliminar Feed",
 "Delete website" => "Eliminar website",
 "Collapse" => "Expandir",
 "Delete folder" => "Apagar pasta",

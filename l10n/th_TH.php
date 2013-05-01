@@ -8,7 +8,6 @@
 "from" => "จาก",
 "by" => "โดย",
 "Keep unread" => "รักษาสถานะว่ายังไม่ได้เปิดอ่านไว้",
-"Delete feed" => "ลบ feed",
 "Collapse" => "ย่อ",
 "Delete folder" => "ลบโฟลเดอร์",
 "Rename folder" => "เปลี่ยนชื่อโฟลเดอร์",

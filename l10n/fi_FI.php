@@ -23,7 +23,6 @@
 "by" => "&nbsp;Kirjoittaja:",
 "Cant play audio format" => "Äänimuodon toistaminen ei onnistu",
 "Keep unread" => "Pidä lukemattomana",
-"Delete feed" => "Poista syöte",
 "Delete website" => "Poista verkkosivusto",
 "Collapse" => "Kutista näkymää",
 "Delete folder" => "Poista kansio",

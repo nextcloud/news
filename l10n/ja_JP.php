@@ -23,7 +23,6 @@
 "by" => "により",
 "Cant play audio format" => "音声フォーマットを再生できません",
 "Keep unread" => "未読のままにする",
-"Delete feed" => "フィードを削除",
 "Delete website" => "ウェブサイトを削除",
 "Collapse" => "折りたたむ",
 "Delete folder" => "フォルダを削除",

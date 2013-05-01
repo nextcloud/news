@@ -11,7 +11,6 @@
 "from" => "fra",
 "Cant play audio format" => "Kan ikke spille av lydformat",
 "Keep unread" => "Merk som ulest",
-"Delete feed" => "Slett nyhetskilden",
 "Collapse" => "Skjul",
 "Delete folder" => "Slett mappe",
 "Rename folder" => "Gi mappen nytt navn",

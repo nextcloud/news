@@ -22,7 +22,6 @@
 "by" => "由",
 "Cant play audio format" => "無法播放音頻格式",
 "Keep unread" => "保持未閱讀",
-"Delete feed" => "刪除訂閱",
 "Delete website" => "刪除網站",
 "Collapse" => "收合",
 "Delete folder" => "刪除資料夾",

@@ -11,7 +11,6 @@
 "by" => "bởi",
 "Cant play audio format" => "Không thể chạy định dạng audio này",
 "Keep unread" => "Giữ chưa đọc",
-"Delete feed" => "Xóa feed",
 "Collapse" => "Thu gọn",
 "Delete folder" => "Xóa thư mục",
 "Rename folder" => "Đổi tên thư mục",

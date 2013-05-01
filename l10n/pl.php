@@ -14,7 +14,6 @@
 "by" => "przez",
 "Cant play audio format" => "Nie mogę odtworzyć formatu audio",
 "Keep unread" => "Pozostaw nieprzeczytane",
-"Delete feed" => "Usuń kanał",
 "Collapse" => "Zwiń",
 "Delete folder" => "Usuń folder",
 "Rename folder" => "Zmień nazwę folderu",
