@@ -66,7 +66,9 @@
 	font-weight: bold;
 }
 
-
+#app-navigation .with-icon .list-title {
+	padding-left:10px;
+}
 
 #app-navigation .unread > a {
 	padding-right: 32px;
