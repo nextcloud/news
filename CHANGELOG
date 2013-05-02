@@ -1,3 +1,9 @@
+ownCloud-news (1.0-beta.2)
+
+* Always open links in new tabs
+* Better exception handling for controllers
+* Implemented API
+
 ownCloud-news (1.0-beta.1)
 
 * Fix a bug that would cause PHP 5.3 to fail while parsing utf-8

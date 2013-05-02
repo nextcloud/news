@@ -31,6 +31,7 @@ use \OCA\AppFramework\Http\Request;
 
 use \OCA\News\BusinessLayer\FolderBusinessLayer;
 use \OCA\News\BusinessLayer\BusinessLayerException;
+use \OCA\News\BusinessLayer\BusinessLayerExistsException;
 
 
 class FolderAPI extends Controller {
@@ -59,18 +60,52 @@ class FolderAPI extends Controller {
 	}
 
 
-	public function create() {
+	public function create() {		
+		$userId = $this->api->getUserId();
+		$folderName = $this->params('name');
+		$result = array(
+			'folders' => array()
+		);
 
+		try {
+			$folder = $this->folderBusinessLayer->create($folderName, $userId);
+			array_push($result['folders'], $folder->toAPI());
+
+			return new NewsAPIResult($result);
+		} catch(BusinessLayerExistsException $ex) {
+			return new NewsAPIResult(null, NewsAPIResult::EXISTS_ERROR, 
+				$ex->getMessage());
+		}
 	}
 
 
 	public function delete() {
+		$userId = $this->api->getUserId();
+		$folderId = $this->params('folderId');
 
+		try {
+			$this->folderBusinessLayer->delete($folderId, $userId);
+			return new NewsAPIResult();
+		} catch(BusinessLayerException $ex) {
+			return new NewsAPIResult(null, NewsAPIResult::NOT_FOUND, 
+				$ex->getMessage());
+		}
 	}
 
 
 	public function update() {
+		$userId = $this->api->getUserId();
+		$folderId = $this->params('folderId');
+		$folderName = $this->params('name');
 
+		try {
+			$this->folderBusinessLayer->rename($folderId, $folderName, $userId);
+			return new NewsAPIResult();
+		} catch(BusinessLayerException $ex) {
+			return new NewsAPIResult(null, NewsAPIResult::NOT_FOUND, 
+				$ex->getMessage());
+		}
 	}
+
 
 }

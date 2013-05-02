@@ -31,8 +31,9 @@ class NewsAPIResult extends APIResult {
 
 	const EXISTS_ERROR = 409;
 
-	public function __construct($data, $statusCode=NewsAPIResult::OK) {
-		parent::__construct($data, $statusCode);
+	public function __construct($data=null, $statusCode=NewsAPIResult::OK, 
+	                            $message=null) {
+		parent::__construct($data, $statusCode, $message);
 	}
 
 

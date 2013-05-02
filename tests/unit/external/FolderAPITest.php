@@ -25,7 +25,10 @@
 
 namespace OCA\News\External;
 
+use \OCA\AppFramework\Http\Request;
+
 use \OCA\News\BusinessLayer\BusinessLayerException;
+use \OCA\News\BusinessLayer\BusinessLayerExistsException;
 
 use \OCA\News\Db\Folder;
 use \OCA\News\Db\Feed;
@@ -41,6 +44,7 @@ class FolderAPITest extends \PHPUnit_Framework_TestCase {
 	private $api;
 	private $user;
 	private $request;
+	private $msg;
 
 	protected function setUp() {
 		$this->api = $this->getMockBuilder(
@@ -61,6 +65,7 @@ class FolderAPITest extends \PHPUnit_Framework_TestCase {
 			$this->folderBusinessLayer
 		);
 		$this->user = 'tom';
+		$this->msg = 'test';
 	}
 
 
@@ -85,5 +90,170 @@ class FolderAPITest extends \PHPUnit_Framework_TestCase {
 	}
 
 
+	public function testCreate() {
+		$folderName = 'test';
+		$folder = new Folder();
+		$folder->setName($folderName);
+		$folders = array(
+			$folder
+		);
+		$this->folderAPI = new FolderAPI(
+			$this->api,
+			new Request(array('params' => array(
+				'name' => $folderName
+			))),
+			$this->folderBusinessLayer
+		);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->folderBusinessLayer->expects($this->once())
+			->method('create')
+			->with($this->equalTo($folderName), $this->equalTo($this->user))
+			->will($this->returnValue($folder));
+
+		$response = $this->folderAPI->create();
+
+		$this->assertEquals(array(
+			'folders' => array($folders[0]->toAPI())
+		), $response->getData());
+	}
+
+
+	public function testCreateAlreadyExists() {
+		$msg = 'exists';
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->folderBusinessLayer->expects($this->once())
+			->method('create')
+			->will($this->throwException(new BusinessLayerExistsException($msg)));
+
+		$response = $this->folderAPI->create();
+
+		$this->assertNull($response->getData());
+		$this->assertEquals(NewsAPIResult::EXISTS_ERROR, $response->getStatusCode());
+		$this->assertEquals($msg, $response->getMessage());
+	}
+
+
+	public function testDelete() {
+		$folderId = 23;
+
+		$this->folderAPI = new FolderAPI(
+			$this->api,
+			new Request(array('urlParams' => array(
+				'folderId' => $folderId
+			))),
+			$this->folderBusinessLayer
+		);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->folderBusinessLayer->expects($this->once())
+			->method('delete')
+			->with($this->equalTo($folderId), $this->equalTo($this->user));
+
+		$response = $this->folderAPI->delete();
+
+		$this->assertNull($response->getData());
+	}
+
+
+	public function testDeleteDoesNotExist() {
+		$folderId = 23;
+
+		$this->folderAPI = new FolderAPI(
+			$this->api,
+			new Request(array('urlParams' => array(
+				'folderId' => $folderId
+			))),
+			$this->folderBusinessLayer
+		);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->folderBusinessLayer->expects($this->once())
+			->method('delete')
+			->will($this->throwException(new BusinessLayerException($this->msg)));
+
+		$response = $this->folderAPI->delete();
+
+		$this->assertNull($response->getData());
+		$this->assertEquals($this->msg, $response->getMessage());
+		$this->assertEquals(NewsAPIResult::NOT_FOUND, $response->getStatusCode());
+	}
+
+
+	public function testUpdate() {
+		$folderId = 23;
+		$folderName = 'test';
+
+		$this->folderAPI = new FolderAPI(
+			$this->api,
+			new Request(
+				array(
+					'urlParams' => array(
+						'folderId' => $folderId
+					),
+			
+					'params' => array(
+						'name' => $folderName
+					)
+				)
+			),
+			$this->folderBusinessLayer
+		);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->folderBusinessLayer->expects($this->once())
+			->method('rename')
+			->with($this->equalTo($folderId),
+				$this->equalTo($folderName),
+				$this->equalTo($this->user));
+
+		$response = $this->folderAPI->update();
+
+		$this->assertNull($response->getData());
+		$this->assertNull($response->getMessage());
+		$this->assertEquals(NewsAPIResult::OK, $response->getStatusCode());
+	}
+
+
+	public function testUpdateDoesNotExist() {
+		$folderId = 23;
+		$folderName = 'test';
+
+		$this->folderAPI = new FolderAPI(
+			$this->api,
+			new Request(
+				array('urlParams' => array(
+					'folderId' => $folderId
+				),
+				array('params' => array(
+					'name' => $folderName
+				))
+			)),
+			$this->folderBusinessLayer
+		);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->folderBusinessLayer->expects($this->once())
+			->method('rename')
+			->will($this->throwException(new BusinessLayerException($this->msg)));
+
+		$response = $this->folderAPI->update();
+
+		$this->assertNull($response->getData());
+		$this->assertEquals($this->msg, $response->getMessage());
+		$this->assertEquals(NewsAPIResult::NOT_FOUND, $response->getStatusCode());
+	}
 
 }

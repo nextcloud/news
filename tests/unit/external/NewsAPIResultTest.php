@@ -32,8 +32,17 @@ class NewsAPIResultTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testExistsError(){
-		$result = new NewsAPIResult(null, NewsAPIResult::EXISTS_ERROR);
+		$result = new NewsAPIResult(null, NewsAPIResult::EXISTS_ERROR, 'hi');
 		$this->assertEquals(409, $result->getStatusCode());
+		$this->assertEquals('hi', $result->getMessage());
+	}
+
+
+	public function testNoInput(){
+		$result = new NewsAPIResult();
+		$this->assertNull($result->getData());
+		$this->assertEquals(100, $result->getStatusCode());
+		$this->assertNull($result->getMessage());
 	}
 
 
