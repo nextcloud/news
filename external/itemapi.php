@@ -103,28 +103,47 @@ class ItemAPI extends Controller {
 	private function setRead($isRead) {
 		$userId = $this->api->getUserId();
 		$itemId = $this->params('itemId');
-		$this->itemBusinessLayer->read($itemId, $isRead, $userId);
+		try {
+			$this->itemBusinessLayer->read($itemId, $isRead, $userId);
+			return new NewsAPIResult();
+		} catch(BusinessLayerException $ex){
+			return new NewsAPIResult(null, NewsAPIResult::NOT_FOUND_ERROR, 
+				$ex->getMessage());
+		}
+	}
+
+
+	private function setStarred($isStarred) {
+		$userId = $this->api->getUserId();
+		$feedId = $this->params('feedId');
+		$guidHash = $this->params('guidHash');
+		try {
+			$this->itemBusinessLayer->star($feedId, $guidHash, $isStarred, $userId);
+			return new NewsAPIResult();
+		} catch(BusinessLayerException $ex){
+			return new NewsAPIResult(null, NewsAPIResult::NOT_FOUND_ERROR, 
+				$ex->getMessage());
+		}
 	}
 
 
 	public function read() {
-		$this->setRead(true);
-		return new NewsAPIResult();
+		return $this->setRead(true);
 	}
 
 
 	public function unread() {
-
+		return $this->setRead(false);
 	}
 
 
 	public function star() {
-
+		return $this->setStarred(true);
 	}
 
 
 	public function unstar() {
-
+		return $this->setStarred(false);
 	}
 
 

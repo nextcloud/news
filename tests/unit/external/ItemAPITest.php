@@ -40,6 +40,7 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 	private $api;
 	private $user;
 	private $request;
+	private $msg;
 
 	protected function setUp() {
 		$this->api = $this->getMockBuilder(
@@ -63,6 +64,7 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 			$this->request,
 			$this->itemBusinessLayer
 		);
+		$this->msg = 'hi';
 	}
 
 
@@ -160,6 +162,178 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 		$this->assertNull($response->getData());
 		$this->assertNull($response->getMessage());
 		$this->assertEquals(NewsAPIResult::OK, $response->getStatusCode());
+	}
+
+
+	public function testReadDoesNotExist() {
+		$request = new Request(array('urlParams' => array(
+			'itemId' => 2
+		)));
+		$this->itemAPI = new ItemAPI(
+			$this->api,
+			$request,
+			$this->itemBusinessLayer
+		);		
+
+		$this->itemBusinessLayer->expects($this->once())
+			->method('read')
+			->will($this->throwException(new BusinessLayerException($this->msg)));
+
+		$response = $this->itemAPI->read();
+
+		$this->assertNull($response->getData());
+		$this->assertEquals($this->msg, $response->getMessage());
+		$this->assertEquals(NewsAPIResult::NOT_FOUND_ERROR, $response->getStatusCode());
+	}
+
+
+	public function testUnread() {
+		$request = new Request(array('urlParams' => array(
+			'itemId' => 2
+		)));
+		$this->itemAPI = new ItemAPI(
+			$this->api,
+			$request,
+			$this->itemBusinessLayer
+		);		
+
+		$this->itemBusinessLayer->expects($this->once())
+			->method('read')
+			->with(
+				$this->equalTo(2),
+				$this->equalTo(false),
+				$this->equalTo($this->user)
+			);
+
+		$response = $this->itemAPI->unread();
+
+		$this->assertNull($response->getData());
+		$this->assertNull($response->getMessage());
+		$this->assertEquals(NewsAPIResult::OK, $response->getStatusCode());
+	}
+
+
+	public function testUnreadDoesNotExist() {
+		$request = new Request(array('urlParams' => array(
+			'itemId' => 2
+		)));
+		$this->itemAPI = new ItemAPI(
+			$this->api,
+			$request,
+			$this->itemBusinessLayer
+		);		
+
+		$this->itemBusinessLayer->expects($this->once())
+			->method('read')
+			->will($this->throwException(new BusinessLayerException($this->msg)));
+
+		$response = $this->itemAPI->unread();
+
+		$this->assertNull($response->getData());
+		$this->assertEquals($this->msg, $response->getMessage());
+		$this->assertEquals(NewsAPIResult::NOT_FOUND_ERROR, $response->getStatusCode());
+	}
+
+
+	public function testStar() {
+		$request = new Request(array('urlParams' => array(
+			'feedId' => 2,
+			'guidHash' => 'hash'
+		)));
+		$this->itemAPI = new ItemAPI(
+			$this->api,
+			$request,
+			$this->itemBusinessLayer
+		);		
+
+		$this->itemBusinessLayer->expects($this->once())
+			->method('star')
+			->with(
+				$this->equalTo(2),
+				$this->equalTo('hash'),
+				$this->equalTo(true),
+				$this->equalTo($this->user)
+			);
+
+		$response = $this->itemAPI->star();
+
+		$this->assertNull($response->getData());
+		$this->assertNull($response->getMessage());
+		$this->assertEquals(NewsAPIResult::OK, $response->getStatusCode());
+	}
+
+
+	public function testStarDoesNotExist() {
+		$request = new Request(array('urlParams' => array(
+			'feedId' => 2,
+			'guidHash' => 'hash'
+		)));
+		$this->itemAPI = new ItemAPI(
+			$this->api,
+			$request,
+			$this->itemBusinessLayer
+		);		
+
+		$this->itemBusinessLayer->expects($this->once())
+			->method('star')
+			->will($this->throwException(new BusinessLayerException($this->msg)));
+
+		$response = $this->itemAPI->star();
+
+		$this->assertNull($response->getData());
+		$this->assertEquals($this->msg, $response->getMessage());
+		$this->assertEquals(NewsAPIResult::NOT_FOUND_ERROR, $response->getStatusCode());
+	}
+
+
+	public function testUnstar() {
+		$request = new Request(array('urlParams' => array(
+			'feedId' => 2,
+			'guidHash' => 'hash'
+		)));
+		$this->itemAPI = new ItemAPI(
+			$this->api,
+			$request,
+			$this->itemBusinessLayer
+		);		
+
+		$this->itemBusinessLayer->expects($this->once())
+			->method('star')
+			->with(
+				$this->equalTo(2),
+				$this->equalTo('hash'),
+				$this->equalTo(false),
+				$this->equalTo($this->user)
+			);
+
+		$response = $this->itemAPI->unstar();
+
+		$this->assertNull($response->getData());
+		$this->assertNull($response->getMessage());
+		$this->assertEquals(NewsAPIResult::OK, $response->getStatusCode());
+	}
+
+
+	public function testUnstarDoesNotExist() {
+		$request = new Request(array('urlParams' => array(
+			'feedId' => 2,
+			'guidHash' => 'hash'
+		)));
+		$this->itemAPI = new ItemAPI(
+			$this->api,
+			$request,
+			$this->itemBusinessLayer
+		);		
+
+		$this->itemBusinessLayer->expects($this->once())
+			->method('star')
+			->will($this->throwException(new BusinessLayerException($this->msg)));
+
+		$response = $this->itemAPI->unstar();
+
+		$this->assertNull($response->getData());
+		$this->assertEquals($this->msg, $response->getMessage());
+		$this->assertEquals(NewsAPIResult::NOT_FOUND_ERROR, $response->getStatusCode());
 	}
 
 }
