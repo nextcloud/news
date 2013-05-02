@@ -210,7 +210,7 @@ $this->create('news_usersettings_language', '/usersettings/language')->get()->ac
 	function($urlParams) {
 		$container = new DIContainer();
 		$response = $container['FeedAPI']->getAll($urlParams);
-		return \OC_OCS_Result($response);
+		return new \OC_OCS_Result($response);
 	}, 
 	'news', 
 	\OC_API::USER_AUTH
