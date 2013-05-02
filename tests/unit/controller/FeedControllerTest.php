@@ -348,6 +348,29 @@ class FeedControllerTest extends ControllerTestUtility {
 	}
 
 
+	public function testDeleteDoesNotExist(){
+		$url = array(
+				'feedId' => 4
+		);
+		$msg = 'hehe';
+		$this->controller = $this->getPostController(array(), $url);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->feedBusinessLayer->expects($this->once())
+			->method('delete')
+			->will($this->throwException(new BusinessLayerException($msg)));
+
+		$response = $this->controller->delete();
+		$params = json_decode($response->render(), true);
+
+		$this->assertEquals('error', $params['status']);
+		$this->assertEquals($msg, $params['msg']);
+		$this->assertTrue($response instanceof JSONResponse);
+	}
+
+
 	public function testUpdate(){
 		$feed = new Feed();
 		$feed->setId(3);
@@ -429,6 +452,32 @@ class FeedControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->move();
 
+		$this->assertTrue($response instanceof JSONResponse);
+	}
+
+
+	public function testMoveDoesNotExist(){
+		$post = array(
+			'parentFolderId' => 3
+		);
+		$url = array(
+			'feedId' => 4
+		);
+		$msg = 'john';
+		$this->controller = $this->getPostController($post, $url);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->feedBusinessLayer->expects($this->once())
+			->method('move')
+			->will($this->throwException(new BusinessLayerException($msg)));
+
+		$response = $this->controller->move();
+		$params = json_decode($response->render(), true);
+
+		$this->assertEquals('error', $params['status']);
+		$this->assertEquals($msg, $params['msg']);
 		$this->assertTrue($response instanceof JSONResponse);
 	}
 

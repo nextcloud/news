@@ -33,6 +33,7 @@ use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
 
 use \OCA\News\Db\Folder;
 use \OCA\News\BusinessLayer\BusinessLayerException;
+use \OCA\News\BusinessLayer\BusinessLayerExistsException;
 
 require_once(__DIR__ . "/../../classloader.php");
 
@@ -43,6 +44,7 @@ class FolderControllerTest extends ControllerTestUtility {
 	private $folderBusinessLayer;
 	private $request;
 	private $controller;
+	private $msg;
 
 
 	/**
@@ -57,6 +59,7 @@ class FolderControllerTest extends ControllerTestUtility {
 		$this->controller = new FolderController($this->api, $this->request,
 				$this->folderBusinessLayer);
 		$this->user = 'jack';
+		$this->msg = 'ron';
 	}
 
 
@@ -143,6 +146,27 @@ class FolderControllerTest extends ControllerTestUtility {
 	}
 
 
+	public function testOpenDoesNotExist(){
+		$url = array('folderId' => 5);
+		$this->controller = $this->getPostController(array(), $url);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->folderBusinessLayer->expects($this->once())
+			->method('open')
+			->will($this->throwException(new BusinessLayerException($this->msg)));
+		
+		$response = $this->controller->open();
+
+		$params = json_decode($response->render(), true);
+
+		$this->assertEquals('error', $params['status']);
+		$this->assertEquals($this->msg, $params['msg']);
+		$this->assertTrue($response instanceof JSONResponse);
+	}
+
+
 	public function testCollapse(){
 		$url = array('folderId' => 5);
 		$this->controller = $this->getPostController(array(), $url);
@@ -158,6 +182,27 @@ class FolderControllerTest extends ControllerTestUtility {
 		$response = $this->controller->collapse();
 
 		$this->assertTrue($response instanceof JSONResponse);	
+	}
+
+
+	public function testCollapseDoesNotExist(){
+		$url = array('folderId' => 5);
+		$this->controller = $this->getPostController(array(), $url);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->folderBusinessLayer->expects($this->once())
+			->method('open')
+			->will($this->throwException(new BusinessLayerException($this->msg)));
+		
+		$response = $this->controller->collapse();
+
+		$params = json_decode($response->render(), true);
+
+		$this->assertEquals('error', $params['status']);
+		$this->assertEquals($this->msg, $params['msg']);
+		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -186,7 +231,7 @@ class FolderControllerTest extends ControllerTestUtility {
 
 	public function testCreateReturnsErrorForInvalidCreate(){
 		$msg = 'except';
-		$ex = new BusinessLayerException($msg);
+		$ex = new BusinessLayerExistsException($msg);
 		$this->folderBusinessLayer->expects($this->once())
 			->method('create')
 			->will($this->throwException($ex));
@@ -218,6 +263,27 @@ class FolderControllerTest extends ControllerTestUtility {
 	}
 
 
+	public function testDeleteDoesNotExist(){
+		$url = array('folderId' => 5);
+		$this->controller = $this->getPostController(array(), $url);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->folderBusinessLayer->expects($this->once())
+			->method('delete')
+			->will($this->throwException(new BusinessLayerException($this->msg)));
+		
+		$response = $this->controller->delete();
+
+		$params = json_decode($response->render(), true);
+
+		$this->assertEquals('error', $params['status']);
+		$this->assertEquals($this->msg, $params['msg']);
+		$this->assertTrue($response instanceof JSONResponse);
+	}
+
+
 	public function testRename(){
 		$post = array('folderName' => 'tech');
 		$url = array('folderId' => 4);
@@ -245,7 +311,7 @@ class FolderControllerTest extends ControllerTestUtility {
 
 	public function testRenameReturnsErrorForInvalidCreate(){
 		$msg = 'except';
-		$ex = new BusinessLayerException($msg);
+		$ex = new BusinessLayerExistsException($msg);
 		$this->folderBusinessLayer->expects($this->once())
 			->method('rename')
 			->will($this->throwException($ex));

@@ -62,11 +62,15 @@ class FeedBusinessLayer extends BusinessLayer {
 	}
 
 
+	/**
+	 * @throws BusinessLayerExistsException if the feed exists already
+	 * @throws BusinessLayerException if the url points to an invalid feed
+	 */
 	public function create($feedUrl, $folderId, $userId){
 		// first try if the feed exists already
 		try {
 			$this->mapper->findByUrlHash(md5($feedUrl), $userId);
-			throw new BusinessLayerException(
+			throw new BusinessLayerExistsException(
 				$this->api->getTrans()->t('Can not add feed: Exists already'));
 		} catch(DoesNotExistException $ex){}
 		
@@ -123,6 +127,9 @@ class FeedBusinessLayer extends BusinessLayer {
 	}
 
 
+	/**
+	 * @throws BusinessLayerException if the feed does not exist
+	 */
 	public function update($feedId, $userId){
 		try {
 			$existingFeed = $this->mapper->find($feedId, $userId);
@@ -179,6 +186,9 @@ class FeedBusinessLayer extends BusinessLayer {
 	}
 
 
+	/**
+	 * @throws BusinessLayerException if the feed does not exist
+	 */
 	public function move($feedId, $folderId, $userId){
 		$feed = $this->find($feedId, $userId);
 		$feed->setFolderId($folderId);

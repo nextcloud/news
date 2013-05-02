@@ -51,13 +51,13 @@ class FolderBusinessLayer extends BusinessLayer {
 		$existingFolders = $this->mapper->findByName($folderName, $userId);
 		if(count($existingFolders) > 0){
 
-			throw new BusinessLayerException(
+			throw new BusinessLayerExistsException(
 				$this->api->getTrans()->t('Can not add folder: Exists already'));
 		}
 	}
 
 	/**
-	 * @throws BusinessLayerException if name exists already
+	 * @throws BusinessLayerExistsException if name exists already
 	 */
 	public function create($folderName, $userId, $parentId=0) {
 		$this->allowNoNameTwice($folderName, $userId);
@@ -70,7 +70,9 @@ class FolderBusinessLayer extends BusinessLayer {
 		return $this->mapper->insert($folder);
 	}
 
-
+	/**
+	 * @throws BusinessLayerException if the folder does not exist
+	 */
 	public function open($folderId, $opened, $userId){
 		$folder = $this->find($folderId, $userId);
 		$folder->setOpened($opened);
@@ -79,7 +81,8 @@ class FolderBusinessLayer extends BusinessLayer {
 
 
 	/**
-	 * @throws BusinessLayerException if name exists already
+	 * @throws BusinessLayerExistsException if name exists already
+	 * @throws BusinessLayerException if the folder does not exist
 	 */
 	public function rename($folderId, $folderName, $userId){
 		$this->allowNoNameTwice($folderName, $userId);

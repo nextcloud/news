@@ -71,8 +71,12 @@ class FolderController extends Controller {
 	 * @Ajax
 	 */
 	public function open(){
-		$this->setOpened(true);
-		return $this->renderJSON();
+		try {
+			$this->setOpened(true);
+			return $this->renderJSON();
+		} catch(BusinessLayerException $ex) {
+			return $this->renderJSON(array(), $ex->getMessage());
+		}
 	}
 
 
@@ -82,8 +86,12 @@ class FolderController extends Controller {
 	 * @Ajax
 	 */
 	public function collapse(){
-		$this->setOpened(false);
-		return $this->renderJSON();
+		try {
+			$this->setOpened(false);
+			return $this->renderJSON();
+		} catch(BusinessLayerException $ex) {
+			return $this->renderJSON(array(), $ex->getMessage());
+		}
 	}
 
 
@@ -121,9 +129,12 @@ class FolderController extends Controller {
 		$userId = $this->api->getUserId();
 		$folderId = (int) $this->params('folderId');
 
-		$this->folderBusinessLayer->delete($folderId, $userId);
-
-		return $this->renderJSON();
+		try {
+			$this->folderBusinessLayer->delete($folderId, $userId);
+			return $this->renderJSON();
+		} catch (BusinessLayerException $ex){
+			return $this->renderJSON(array(), $ex->getMessage());
+		}
 	}
 
 

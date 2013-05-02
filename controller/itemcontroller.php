@@ -104,9 +104,12 @@ class ItemController extends Controller {
 	 * @Ajax
 	 */
 	public function star(){
-		$this->setStarred(true);
-
-		return $this->renderJSON();
+		try {
+			$this->setStarred(true);
+			return $this->renderJSON();
+		} catch(BusinessLayerException $ex) {
+			return $this->renderJSON(array(), $ex->getMessage());
+		}
 	}
 
 
@@ -116,9 +119,12 @@ class ItemController extends Controller {
 	 * @Ajax
 	 */
 	public function unstar(){
-		$this->setStarred(false);
-
-		return $this->renderJSON();
+		try {
+			$this->setStarred(false);
+			return $this->renderJSON();
+		} catch(BusinessLayerException $ex) {
+			return $this->renderJSON(array(), $ex->getMessage());
+		}
 	}
 
 
@@ -129,15 +135,19 @@ class ItemController extends Controller {
 		$this->itemBusinessLayer->read($itemId, $isRead, $userId);
 	}
 
+
 	/**
 	 * @IsAdminExemption
 	 * @IsSubAdminExemption
 	 * @Ajax
 	 */
 	public function read(){
-		$this->setRead(true);
-
-		return $this->renderJSON();
+		try {
+			$this->setRead(true);
+			return $this->renderJSON();
+		} catch(BusinessLayerException $ex) {
+			return $this->renderJSON(array(), $ex->getMessage());
+		}
 	}
 
 
@@ -147,9 +157,12 @@ class ItemController extends Controller {
 	 * @Ajax
 	 */
 	public function unread(){
-		$this->setRead(false);
-
-		return $this->renderJSON();
+		try {
+			$this->setRead(false);
+			return $this->renderJSON();
+		} catch(BusinessLayerException $ex) {
+			return $this->renderJSON(array(), $ex->getMessage());
+		}
 	}
 
 

@@ -93,19 +93,28 @@ class ItemBusinessLayer extends BusinessLayer {
 	}
 
 
+	/**
+	 * @throws BusinessLayerException if the item does not exist
+	 */
 	public function star($feedId, $guidHash, $isStarred, $userId){
-		// FIXME: this can throw two possible exceptions
-		$item = $this->mapper->findByGuidHash($guidHash, $feedId, $userId);
-		$item->setLastModified($this->timeFactory->getTime());
-		if($isStarred){
-			$item->setStarred();
-		} else {
-			$item->setUnstarred();
+		try {
+			$item = $this->mapper->findByGuidHash($guidHash, $feedId, $userId);
+			$item->setLastModified($this->timeFactory->getTime());
+			if($isStarred){
+				$item->setStarred();
+			} else {
+				$item->setUnstarred();
+			}
+			$this->mapper->update($item);
+		} catch(DoesNotExistException $ex) {
+			throw new BusinessLayerException($ex->getMessage());
 		}
-		$this->mapper->update($item);
 	}
 
 
+	/**
+	 * @throws BusinessLayerException if the item does not exist
+	 */
 	public function read($itemId, $isRead, $userId){
 		$item = $this->find($itemId, $userId);
 		$item->setLastModified($this->timeFactory->getTime());
@@ -134,6 +143,9 @@ class ItemBusinessLayer extends BusinessLayer {
 	}
 
 
+	/**
+	 * @throws BusinessLayerException if there is no newest item
+	 */
 	public function getNewestItemId($userId) {
 		try {
 			return $this->mapper->getNewestItemId($userId);

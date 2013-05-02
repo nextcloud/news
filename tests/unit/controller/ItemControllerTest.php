@@ -128,7 +128,32 @@ class ItemControllerTest extends ControllerTestUtility {
 			->with($url['itemId'], true, $this->user);
 
 
-		$this->controller->read();
+		$result = $this->controller->read();
+		$this->assertTrue($result instanceof JSONResponse);
+	}
+
+
+	public function testReadDoesNotExist(){
+		$url = array(
+			'itemId' => 4
+		);
+		$msg = 'hi';
+		$this->controller = $this->getPostController(array(), $url);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->itemBusinessLayer->expects($this->once())
+			->method('read')
+			->will($this->throwException(new BusinessLayerException($msg)));
+
+
+		$response = $this->controller->read();
+		$params = json_decode($response->render(), true);
+
+		$this->assertEquals('error', $params['status']);
+		$this->assertEquals($msg, $params['msg']);
+		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -149,7 +174,32 @@ class ItemControllerTest extends ControllerTestUtility {
 	}
 
 
-		public function testStar(){
+
+	public function testUnreadDoesNotExist(){
+		$url = array(
+			'itemId' => 4
+		);
+		$msg = 'hi';
+		$this->controller = $this->getPostController(array(), $url);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->itemBusinessLayer->expects($this->once())
+			->method('read')
+			->will($this->throwException(new BusinessLayerException($msg)));
+
+
+		$response = $this->controller->unread();
+		$params = json_decode($response->render(), true);
+
+		$this->assertEquals('error', $params['status']);
+		$this->assertEquals($msg, $params['msg']);
+		$this->assertTrue($response instanceof JSONResponse);
+	}
+
+
+	public function testStar(){
 		$url = array(
 			'feedId' => 4,
 			'guidHash' => md5('test')
@@ -168,6 +218,30 @@ class ItemControllerTest extends ControllerTestUtility {
 				$this->equalTo($this->user));
 
 		$response = $this->controller->star();
+		$this->assertTrue($response instanceof JSONResponse);
+	}
+
+
+	public function testStarDoesNotExist(){
+		$url = array(
+			'feedId' => 4,
+			'guidHash' => md5('test')
+		);
+		$msg = 'ho';
+		$this->controller = $this->getPostController(array(), $url);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->itemBusinessLayer->expects($this->once())
+			->method('star')
+			->will($this->throwException(new BusinessLayerException($msg)));;
+
+		$response = $this->controller->star();
+		$params = json_decode($response->render(), true);
+
+		$this->assertEquals('error', $params['status']);
+		$this->assertEquals($msg, $params['msg']);
 		$this->assertTrue($response instanceof JSONResponse);
 	}
 
@@ -191,6 +265,30 @@ class ItemControllerTest extends ControllerTestUtility {
 				$this->equalTo($this->user));
 
 		$response = $this->controller->unstar();
+		$this->assertTrue($response instanceof JSONResponse);
+	}
+
+
+	public function testUnstarDoesNotExist(){
+		$url = array(
+			'feedId' => 4,
+			'guidHash' => md5('test')
+		);
+		$msg = 'ho';
+		$this->controller = $this->getPostController(array(), $url);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->itemBusinessLayer->expects($this->once())
+			->method('star')
+			->will($this->throwException(new BusinessLayerException($msg)));;
+
+		$response = $this->controller->unstar();
+		$params = json_decode($response->render(), true);
+
+		$this->assertEquals('error', $params['status']);
+		$this->assertEquals($msg, $params['msg']);
 		$this->assertTrue($response instanceof JSONResponse);
 	}
 

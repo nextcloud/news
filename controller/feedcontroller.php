@@ -140,7 +140,6 @@ class FeedController extends Controller {
 
 			return $this->renderJSON($params);
 		} catch(BusinessLayerException $ex) {
-
 			return $this->renderJSON(array(), $ex->getMessage());
 		}
 	}
@@ -155,9 +154,12 @@ class FeedController extends Controller {
 		$feedId = (int) $this->params('feedId');
 		$userId = $this->api->getUserId();
 
-		$this->feedBusinessLayer->delete($feedId, $userId);
-
-		return $this->renderJSON();
+		try {
+			$this->feedBusinessLayer->delete($feedId, $userId);
+			return $this->renderJSON();
+		} catch(BusinessLayerException $ex) {
+			return $this->renderJSON(array(), $ex->getMessage());
+		}
 	}
 
 
@@ -202,9 +204,12 @@ class FeedController extends Controller {
 		$parentFolderId = (int) $this->params('parentFolderId');
 		$userId = $this->api->getUserId();
 
-		$this->feedBusinessLayer->move($feedId, $parentFolderId, $userId);
-
-		return $this->renderJSON();	
+		try {
+			$this->feedBusinessLayer->move($feedId, $parentFolderId, $userId);
+			return $this->renderJSON();	
+		} catch(BusinessLayerException $ex) {
+			return $this->renderJSON(array(), $ex->getMessage());
+		}
 	}
 
 

@@ -248,6 +248,17 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 	}
 
 
+	public function testStarDoesNotExist(){
+
+		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
+		$this->mapper->expects($this->once())
+			->method('findByGuidHash')
+			->will($this->throwException(new DoesNotExistException('')));
+
+		$this->itemBusinessLayer->star(1, 'hash', true, $this->user);
+	}
+
+
 	public function testReadFeed(){
 		$feedId = 3;
 		$highestItemId = 6;
