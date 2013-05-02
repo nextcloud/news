@@ -67,11 +67,12 @@
 }
 
 #app-navigation .with-icon .list-title {
-	padding-left:10px;
+	padding-left:16px;
 }
 
 #app-navigation .with-icon .list-title span {
 	display:none;
+	margin-left:6px;
 }
 
 #app-navigation .with-icon .list-title:hover span {
