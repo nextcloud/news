@@ -72,7 +72,7 @@ class FeedAPI extends Controller {
 				$this->itemBusinessLayer->getNewestItemId($userId);
 		} catch(BusinessLayerException $ex) {}
 
-		return $result;
+		return new APIResult($result);
 	}
 
 

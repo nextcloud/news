@@ -46,8 +46,16 @@ class FolderAPI extends Controller {
 
 
 	public function getAll() {
+		$userId = $this->api->getUserId();
+		$result = array(
+			'folders' => array()
+		);
 
+		foreach ($this->folderBusinessLayer->findAll($userId) as $folder) {
+			array_push($result['folders'], $folder->toAPI());
+		}
 
+		return new APIResult($result);
 	}
 
 

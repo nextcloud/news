@@ -105,7 +105,7 @@ class FeedAPITest extends \PHPUnit_Framework_TestCase {
 			'feeds' => array($feeds[0]->toAPI()),
 			'starredCount' => $starredCount,
 			'newestItemId' => $newestItemId
-		), $response);
+		), $response->getData());
 	}
 
 
@@ -136,7 +136,7 @@ class FeedAPITest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(array(
 			'feeds' => array($feeds[0]->toAPI()),
 			'starredCount' => $starredCount,
-		), $response);
+		), $response->getData());
 	}
 
 

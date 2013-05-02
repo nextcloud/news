@@ -25,17 +25,30 @@
 
 namespace OCA\News\External;
 
-class External {
+class APIResult {
+
+	const OK = 100;
+	const SERVER_ERROR = 996;
+	const UNAUTHORISED = 997;
+	const NOT_FOUND = 998;
+	const UNKNOWN_ERROR = 999;
+
+	private $data;
+	private $statusCode;
+
+	public function __construct($data, $statusCode=APIResult::OK) {
+		$this->data = $data;
+		$this->statusCode = $statusCode;
+	}
 
 
-	/**
-	 * Simple main function for API calls
-	 */
-	public static function main($controllerName, $methodName, $urlParams,
-	                            \Pimple $container) {
-		$container['urlParams'] = $urlParams;
-		$response = $container[$controllerName]->$methodName();
-		return new \OC_OCS_Result($response->getData(), $response->getStatusCode());
+	public function getData() {
+		return $this->data;
+	}
+
+
+	public function getStatusCode() {
+		return $this->statusCode;
 	}
 
 

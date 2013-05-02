@@ -25,18 +25,21 @@
 
 namespace OCA\News\External;
 
-class External {
+require_once(__DIR__ . "/../../classloader.php");
 
 
-	/**
-	 * Simple main function for API calls
-	 */
-	public static function main($controllerName, $methodName, $urlParams,
-	                            \Pimple $container) {
-		$container['urlParams'] = $urlParams;
-		$response = $container[$controllerName]->$methodName();
-		return new \OC_OCS_Result($response->getData(), $response->getStatusCode());
+class APIResultTest extends \PHPUnit_Framework_TestCase {
+
+
+	public function testGetStatusCode() {
+		$result = new APIResult(null, APIResult::SERVER_ERROR);
+		$this->assertEquals(996, $result->getStatusCode());
 	}
 
+	public function testGetData() {
+		$result = new APIResult('hi');
+		$this->assertEquals('hi', $result->getData());
+		$this->assertEquals(100, $result->getStatusCode());
+	}
 
 }
