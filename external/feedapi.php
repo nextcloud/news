@@ -26,6 +26,7 @@
 namespace OCA\News\External;
 
 use \OCA\AppFramework\Core\API;
+use \OCA\AppFramework\External\APIResult;
 use \OCA\AppFramework\Controller\Controller;
 use \OCA\AppFramework\Http\Request;
 

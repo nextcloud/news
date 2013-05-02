@@ -26,7 +26,7 @@
 namespace OCA\News;
 
 use \OCA\News\DependencyInjection\DIContainer;
-use \OCA\News\External\External;
+use \OCA\AppFramework\External\External;
 
 
 /**
@@ -41,7 +41,7 @@ use \OCA\News\External\External;
 );
 
 \OCP\API::register('get', '/apps/news/folders/{folderId}',
-	function($urlParams) {
+	function($params) {
 		return External::main('FolderAPI', 'get', $params, new DIContainer());
 	}, 
 	'news', 
@@ -49,7 +49,7 @@ use \OCA\News\External\External;
 );
 
 \OCP\API::register('post', '/apps/news/folders',
-	function($urlParams) {
+	function($params) {
 		return External::main('FolderAPI', 'create', $params, new DIContainer());
 	}, 
 	'news', 
@@ -57,7 +57,7 @@ use \OCA\News\External\External;
 );
 
 \OCP\API::register('delete', '/apps/news/folders/{folderId}',
-	function($urlParams) {
+	function($params) {
 		return External::main('FolderAPI', 'delete', $params, new DIContainer());
 	}, 
 	'news', 
@@ -65,7 +65,7 @@ use \OCA\News\External\External;
 );
 
 \OCP\API::register('put', '/apps/news/folders/{folderId}',
-	function($urlParams) {
+	function($params) {
 		return External::main('FolderAPI', 'update', $params, new DIContainer());
 	}, 
 	'news', 
@@ -77,7 +77,7 @@ use \OCA\News\External\External;
  * Feed API
  */
 \OCP\API::register('get', '/apps/news/feeds',
-	function($urlParams) {
+	function($params) {
 		return External::main('FeedAPI', 'getAll', $params, new DIContainer());
 	}, 
 	'news', 
@@ -85,7 +85,7 @@ use \OCA\News\External\External;
 );
 
 \OCP\API::register('get', '/apps/news/feeds/{feedId}',
-	function($urlParams) {
+	function($params) {
 		return External::main('FeedAPI', 'get', $params, new DIContainer());
 	}, 
 	'news', 
@@ -93,7 +93,7 @@ use \OCA\News\External\External;
 );
 
 \OCP\API::register('post', '/apps/news/feeds/{feedId}',
-	function($urlParams) {
+	function($params) {
 		return External::main('FeedAPI', 'create', $params, new DIContainer());
 	}, 
 	'news', 
@@ -101,7 +101,7 @@ use \OCA\News\External\External;
 );
 
 \OCP\API::register('delete', '/apps/news/feeds/{feedId}',
-	function($urlParams) {
+	function($params) {
 		return External::main('FeedAPI', 'delete', $params, new DIContainer());
 	}, 
 	'news', 
@@ -109,7 +109,7 @@ use \OCA\News\External\External;
 );
 
 \OCP\API::register('put', '/apps/news/feeds/{feedId}/move',
-	function($urlParams) {
+	function($params) {
 		return External::main('FeedAPI', 'move', $params, new DIContainer());
 	}, 
 	'news', 
@@ -117,7 +117,7 @@ use \OCA\News\External\External;
 );
 
 \OCP\API::register('get', '/apps/news/feeds/{feedId}/read',
-	function($urlParams) {
+	function($params) {
 		return External::main('FeedAPI', 'read', $params, new DIContainer());
 	}, 
 	'news', 
@@ -128,7 +128,7 @@ use \OCA\News\External\External;
  * Item API
  */
 \OCP\API::register('get', '/apps/news/items',
-	function($urlParams) {
+	function($params) {
 		return External::main('ItemAPI', 'getAll', $params, new DIContainer());
 	}, 
 	'news', 
@@ -136,7 +136,7 @@ use \OCA\News\External\External;
 );
 
 \OCP\API::register('get', '/apps/news/items/updated',
-	function($urlParams) {
+	function($params) {
 		return External::main('ItemAPI', 'getUpdated', $params, new DIContainer());
 	}, 
 	'news', 
@@ -144,7 +144,7 @@ use \OCA\News\External\External;
 );
 
 \OCP\API::register('get', '/apps/news/items/{itemId}',
-	function($urlParams) {
+	function($params) {
 		return External::main('ItemAPI', 'get', $params, new DIContainer());
 	}, 
 	'news', 
@@ -152,7 +152,7 @@ use \OCA\News\External\External;
 );
 
 \OCP\API::register('put', '/apps/news/items/{itemId}/read',
-	function($urlParams) {
+	function($params) {
 		return External::main('ItemAPI', 'read', $params, new DIContainer());
 	}, 
 	'news', 
@@ -160,7 +160,7 @@ use \OCA\News\External\External;
 );
 
 \OCP\API::register('put', '/apps/news/items/{itemId}/unread',
-	function($urlParams) {
+	function($params) {
 		return External::main('ItemAPI', 'unread', $params, new DIContainer());
 	}, 
 	'news', 
@@ -168,7 +168,7 @@ use \OCA\News\External\External;
 );
 
 \OCP\API::register('put', '/apps/news/items/{feedId}/{guidHash}/star',
-	function($urlParams) {
+	function($params) {
 		return External::main('ItemAPI', 'star', $params, new DIContainer());
 	}, 
 	'news', 
@@ -176,7 +176,7 @@ use \OCA\News\External\External;
 );
 
 \OCP\API::register('put', '/apps/news/items/{feedId}/{guidHash}/unstar',
-	function($urlParams) {
+	function($params) {
 		return External::main('ItemAPI', 'unstar', $params, new DIContainer());
 	}, 
 	'news', 
