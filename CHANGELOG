@@ -5,6 +5,7 @@ ownCloud-news (1.0-beta.2)
 * Implemented API
 * Fixed a bug that would prevent update of the News app
 * Log feed update errors
+* Make add website button less obstrusive
 
 ownCloud-news (1.0-beta.1)
 
