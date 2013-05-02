@@ -102,7 +102,7 @@ class ItemAPI extends Controller {
 
 	private function setRead($isRead) {
 		$userId = $this->api->getUserId();
-		$itemId = $this->params('itemId');
+		$itemId = (int) $this->params('itemId');
 		try {
 			$this->itemBusinessLayer->read($itemId, $isRead, $userId);
 			return new NewsAPIResult();
@@ -115,7 +115,7 @@ class ItemAPI extends Controller {
 
 	private function setStarred($isStarred) {
 		$userId = $this->api->getUserId();
-		$feedId = $this->params('feedId');
+		$feedId = (int) $this->params('feedId');
 		$guidHash = $this->params('guidHash');
 		try {
 			$this->itemBusinessLayer->star($feedId, $guidHash, $isStarred, $userId);

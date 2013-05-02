@@ -81,7 +81,7 @@ class FolderAPI extends Controller {
 
 	public function delete() {
 		$userId = $this->api->getUserId();
-		$folderId = $this->params('folderId');
+		$folderId = (int) $this->params('folderId');
 
 		try {
 			$this->folderBusinessLayer->delete($folderId, $userId);
@@ -95,7 +95,7 @@ class FolderAPI extends Controller {
 
 	public function update() {
 		$userId = $this->api->getUserId();
-		$folderId = $this->params('folderId');
+		$folderId = (int) $this->params('folderId');
 		$folderName = $this->params('name');
 
 		try {

@@ -25,8 +25,10 @@
 
 namespace OCA\News\External;
 
-use \OCA\News\BusinessLayer\BusinessLayerException;
+use \OCA\AppFramework\Http\Request;
 
+use \OCA\News\BusinessLayer\BusinessLayerException;
+use \OCA\News\BusinessLayer\BusinessLayerExistsException;
 use \OCA\News\Db\Folder;
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\Item;
@@ -43,6 +45,7 @@ class FeedAPITest extends \PHPUnit_Framework_TestCase {
 	private $api;
 	private $user;
 	private $request;
+	private $msg;
 
 	protected function setUp() {
 		$this->api = $this->getMockBuilder(
@@ -73,6 +76,10 @@ class FeedAPITest extends \PHPUnit_Framework_TestCase {
 			$this->itemBusinessLayer
 		);
 		$this->user = 'tom';
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->msg = 'hohoho';
 	}
 
 
@@ -83,9 +90,6 @@ class FeedAPITest extends \PHPUnit_Framework_TestCase {
 		$starredCount = 3;
 		$newestItemId = 2;
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('starredCount')
 			->with($this->equalTo($this->user))
@@ -115,9 +119,6 @@ class FeedAPITest extends \PHPUnit_Framework_TestCase {
 		);
 		$starredCount = 3;
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('starredCount')
 			->with($this->equalTo($this->user))
@@ -140,4 +141,195 @@ class FeedAPITest extends \PHPUnit_Framework_TestCase {
 	}
 
 
+	public function testDelete() {
+		$request = new Request(array('urlParams' => array(
+			'feedId' => 2
+		)));
+		$this->feedAPI = new FeedAPI(
+			$this->api,
+			$request,
+			$this->folderBusinessLayer,
+			$this->feedBusinessLayer,
+			$this->itemBusinessLayer
+		);		
+
+		
+		$this->feedBusinessLayer->expects($this->once())
+			->method('delete')
+			->with(
+				$this->equalTo(2),
+				$this->equalTo($this->user));
+
+		$response = $this->feedAPI->delete();
+
+		$this->assertNull($response->getData());
+		$this->assertNull($response->getMessage());
+		$this->assertEquals(NewsAPIResult::OK, $response->getStatusCode());
+	}
+
+
+	public function testDeleteDoesNotExist() {
+		$request = new Request(array('urlParams' => array(
+			'feedId' => 2
+		)));
+		$this->feedAPI = new FeedAPI(
+			$this->api,
+			$request,
+			$this->folderBusinessLayer,
+			$this->feedBusinessLayer,
+			$this->itemBusinessLayer
+		);		
+
+		
+		$this->feedBusinessLayer->expects($this->once())
+			->method('delete')
+			->will($this->throwException(new BusinessLayerException($this->msg)));
+
+		$response = $this->feedAPI->delete();
+
+		$this->assertNull($response->getData());
+		$this->assertEquals($this->msg, $response->getMessage());
+		$this->assertEquals(NewsAPIResult::NOT_FOUND_ERROR, $response->getStatusCode());
+	}
+
+
+	public function testCreate() {
+		$feeds = array(
+			new Feed()
+		);
+		$request = new Request(array('params' => array(
+			'url' => 'ho',
+			'folderId' => 3
+		)));
+		$this->feedAPI = new FeedAPI(
+			$this->api,
+			$request,
+			$this->folderBusinessLayer,
+			$this->feedBusinessLayer,
+			$this->itemBusinessLayer
+		);		
+
+		
+		$this->feedBusinessLayer->expects($this->once())
+			->method('create')
+			->with(
+				$this->equalTo('ho'),
+				$this->equalTo(3),
+				$this->equalTo($this->user))
+			->will($this->returnValue($feeds[0]));
+
+		$response = $this->feedAPI->create();
+
+		$this->assertEquals(array(
+			'feeds' => array($feeds[0]->toAPI())
+		), $response->getData());
+
+		$this->assertNull($response->getMessage());
+		$this->assertEquals(NewsAPIResult::OK, $response->getStatusCode());
+	}
+
+
+	public function testCreateExists() {
+		$this->feedBusinessLayer->expects($this->once())
+			->method('create')
+			->will($this->throwException(new BusinessLayerExistsException($this->msg)));
+
+		$response = $this->feedAPI->create();
+
+		$this->assertNull($response->getData());
+		$this->assertEquals($this->msg, $response->getMessage());
+		$this->assertEquals(NewsAPIResult::EXISTS_ERROR, $response->getStatusCode());
+	}
+
+
+	public function testCreateError() {
+		$this->feedBusinessLayer->expects($this->once())
+			->method('create')
+			->will($this->throwException(new BusinessLayerException($this->msg)));
+
+		$response = $this->feedAPI->create();
+
+		$this->assertNull($response->getData());
+		$this->assertEquals($this->msg, $response->getMessage());
+		$this->assertEquals(NewsAPIResult::NOT_FOUND_ERROR, $response->getStatusCode());
+	}
+
+
+	public function testRead() {
+		$request = new Request(array(
+			'urlParams' => array(
+				'feedId' => 3
+			),
+			'params' => array(
+				'newestItemId' => 30,
+			)
+		));
+		$this->feedAPI = new FeedAPI(
+			$this->api,
+			$request,
+			$this->folderBusinessLayer,
+			$this->feedBusinessLayer,
+			$this->itemBusinessLayer
+		);		
+
+		
+		$this->itemBusinessLayer->expects($this->once())
+			->method('readFeed')
+			->with(
+				$this->equalTo(3),
+				$this->equalTo(30),
+				$this->equalTo($this->user));
+
+		$response = $this->feedAPI->read();
+
+		$this->assertNull($response->getData());
+		$this->assertNull($response->getMessage());
+		$this->assertEquals(NewsAPIResult::OK, $response->getStatusCode());
+	}
+
+
+	public function testMove() {
+		$request = new Request(array(
+			'urlParams' => array(
+				'feedId' => 3
+			),
+			'params' => array(
+				'folderId' => 30,
+			)
+		));
+		$this->feedAPI = new FeedAPI(
+			$this->api,
+			$request,
+			$this->folderBusinessLayer,
+			$this->feedBusinessLayer,
+			$this->itemBusinessLayer
+		);		
+
+		
+		$this->feedBusinessLayer->expects($this->once())
+			->method('move')
+			->with(
+				$this->equalTo(3),
+				$this->equalTo(30),
+				$this->equalTo($this->user));
+
+		$response = $this->feedAPI->move();
+
+		$this->assertNull($response->getData());
+		$this->assertNull($response->getMessage());
+		$this->assertEquals(NewsAPIResult::OK, $response->getStatusCode());
+	}
+
+
+	public function testMoveDoesNotExist() {	
+		$this->feedBusinessLayer->expects($this->once())
+			->method('move')
+			->will($this->throwException(new BusinessLayerException($this->msg)));
+
+		$response = $this->feedAPI->move();
+
+		$this->assertNull($response->getData());
+		$this->assertEquals($this->msg, $response->getMessage());
+		$this->assertEquals(NewsAPIResult::NOT_FOUND_ERROR, $response->getStatusCode());
+	}
 }

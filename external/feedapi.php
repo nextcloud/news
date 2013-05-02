@@ -33,6 +33,7 @@ use \OCA\News\BusinessLayer\FeedBusinessLayer;
 use \OCA\News\BusinessLayer\FolderBusinessLayer;
 use \OCA\News\BusinessLayer\ItemBusinessLayer;
 use \OCA\News\BusinessLayer\BusinessLayerException;
+use \OCA\News\BusinessLayer\BusinessLayerExistsException;
 
 
 class FeedAPI extends Controller {
@@ -54,7 +55,6 @@ class FeedAPI extends Controller {
 
 
 	public function getAll() {
-
 		$userId = $this->api->getUserId();
 
 		$result = array(
@@ -77,22 +77,61 @@ class FeedAPI extends Controller {
 
 
 	public function create() {
+		$userId = $this->api->getUserId();
+		$feedUrl = $this->params('url');
+		$folderId = (int) $this->params('folderId', 0);
 
+		try {
+			$feed = $this->feedBusinessLayer->create($feedUrl, $folderId, $userId);
+			return new NewsAPIResult(array(
+				'feeds' => array($feed->toAPI())
+			));
+		} catch(BusinessLayerExistsException $ex) {
+			return new NewsAPIResult(null, NewsAPIResult::EXISTS_ERROR, 
+				$ex->getMessage());
+		} catch(BusinessLayerException $ex) {
+			return new NewsAPIResult(null, NewsAPIResult::NOT_FOUND_ERROR, 
+				$ex->getMessage());
+		}
 	}
 
 
 	public function delete() {
+		$userId = $this->api->getUserId();
+		$feedId = (int) $this->params('feedId');
 
+		try {
+			$this->feedBusinessLayer->delete($feedId, $userId);
+			return new NewsAPIResult();
+		} catch(BusinessLayerException $ex) {
+			return new NewsAPIResult(null, NewsAPIResult::NOT_FOUND_ERROR, 
+				$ex->getMessage());
+		}
 	}
 
 
 	public function read() {
+		$userId = $this->api->getUserId();
+		$feedId = (int) $this->params('feedId');
+		$newestItemId = (int) $this->params('newestItemId');
 
+		$this->itemBusinessLayer->readFeed($feedId, $newestItemId, $userId);
+		return new NewsAPIResult();
 	}
 
 
 	public function move() {
+		$userId = $this->api->getUserId();
+		$feedId = (int) $this->params('feedId');
+		$folderId = (int) $this->params('folderId');
 
+		try {
+			$this->feedBusinessLayer->move($feedId, $folderId, $userId);
+			return new NewsAPIResult();
+		} catch(BusinessLayerException $ex) {
+			return new NewsAPIResult(null, NewsAPIResult::NOT_FOUND_ERROR, 
+				$ex->getMessage());
+		}
 	}
 
 
