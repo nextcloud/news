@@ -87,7 +87,7 @@ class FolderAPI extends Controller {
 			$this->folderBusinessLayer->delete($folderId, $userId);
 			return new NewsAPIResult();
 		} catch(BusinessLayerException $ex) {
-			return new NewsAPIResult(null, NewsAPIResult::NOT_FOUND, 
+			return new NewsAPIResult(null, NewsAPIResult::NOT_FOUND_ERROR, 
 				$ex->getMessage());
 		}
 	}
@@ -101,8 +101,13 @@ class FolderAPI extends Controller {
 		try {
 			$this->folderBusinessLayer->rename($folderId, $folderName, $userId);
 			return new NewsAPIResult();
+
+		} catch(BusinessLayerExistsException $ex) {
+			return new NewsAPIResult(null, NewsAPIResult::EXISTS_ERROR, 
+				$ex->getMessage());
+
 		} catch(BusinessLayerException $ex) {
-			return new NewsAPIResult(null, NewsAPIResult::NOT_FOUND, 
+			return new NewsAPIResult(null, NewsAPIResult::NOT_FOUND_ERROR, 
 				$ex->getMessage());
 		}
 	}

@@ -184,7 +184,7 @@ class FolderAPITest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertNull($response->getData());
 		$this->assertEquals($this->msg, $response->getMessage());
-		$this->assertEquals(NewsAPIResult::NOT_FOUND, $response->getStatusCode());
+		$this->assertEquals(NewsAPIResult::NOT_FOUND_ERROR, $response->getStatusCode());
 	}
 
 
@@ -224,7 +224,6 @@ class FolderAPITest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(NewsAPIResult::OK, $response->getStatusCode());
 	}
 
-
 	public function testUpdateDoesNotExist() {
 		$folderId = 23;
 		$folderName = 'test';
@@ -232,13 +231,16 @@ class FolderAPITest extends \PHPUnit_Framework_TestCase {
 		$this->folderAPI = new FolderAPI(
 			$this->api,
 			new Request(
-				array('urlParams' => array(
-					'folderId' => $folderId
-				),
-				array('params' => array(
-					'name' => $folderName
-				))
-			)),
+				array(
+					'urlParams' => array(
+						'folderId' => $folderId
+					),
+			
+					'params' => array(
+						'name' => $folderName
+					)
+				)
+			),
 			$this->folderBusinessLayer
 		);
 
@@ -253,7 +255,42 @@ class FolderAPITest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertNull($response->getData());
 		$this->assertEquals($this->msg, $response->getMessage());
-		$this->assertEquals(NewsAPIResult::NOT_FOUND, $response->getStatusCode());
+		$this->assertEquals(NewsAPIResult::NOT_FOUND_ERROR, $response->getStatusCode());
+	}
+
+
+	public function testUpdateExists() {
+		$folderId = 23;
+		$folderName = 'test';
+
+		$this->folderAPI = new FolderAPI(
+			$this->api,
+			new Request(
+				array(
+					'urlParams' => array(
+						'folderId' => $folderId
+					),
+			
+					'params' => array(
+						'name' => $folderName
+					)
+				)
+			),
+			$this->folderBusinessLayer
+		);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->folderBusinessLayer->expects($this->once())
+			->method('rename')
+			->will($this->throwException(new BusinessLayerExistsException($this->msg)));
+
+		$response = $this->folderAPI->update();
+
+		$this->assertNull($response->getData());
+		$this->assertEquals($this->msg, $response->getMessage());
+		$this->assertEquals(NewsAPIResult::EXISTS_ERROR, $response->getStatusCode());
 	}
 
 }
