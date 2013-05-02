@@ -65,6 +65,7 @@ class FolderController extends Controller {
 		$this->folderBusinessLayer->open($folderId, $isOpened, $userId);
 	}
 
+
 	/**
 	 * @IsAdminExemption
 	 * @IsSubAdminExemption
@@ -113,7 +114,6 @@ class FolderController extends Controller {
 			return $this->renderJSON($params);
 
 		} catch (BusinessLayerException $ex){
-
 			return $this->renderJSON(array(), $ex->getMessage());
 		}
 		
@@ -157,7 +157,6 @@ class FolderController extends Controller {
 			return $this->renderJSON($params);
 
 		} catch (BusinessLayerException $ex){
-
 			return $this->renderJSON(array(), $ex->getMessage());
 		}
 	}

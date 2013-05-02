@@ -115,7 +115,8 @@ class FeedFetcher implements IFeedFetcher {
 		$guid = $simplePieItem->get_id();
 		$item->setGuid($guid);
 		$item->setGuidHash(md5($guid));
-		$item->setBody($simplePieItem->get_content());
+		$item->setBody(str_replace('<a', '<a target="_blank"', 
+			$simplePieItem->get_content()));
 		$item->setPubDate($simplePieItem->get_date('U'));
 		$item->setLastModified($this->time->getTime());
 

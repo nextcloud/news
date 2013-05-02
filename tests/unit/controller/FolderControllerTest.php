@@ -323,4 +323,6 @@ class FolderControllerTest extends ControllerTestUtility {
 		$this->assertEquals($msg, $params['msg']);
 		$this->assertTrue($response instanceof JSONResponse);
 	}
+
+	
 }

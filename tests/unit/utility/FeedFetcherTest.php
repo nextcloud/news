@@ -100,7 +100,8 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->permalink = 'http://permalink';
 		$this->title = 'my title&lt;';
 		$this->guid = 'hey guid here';
-		$this->body = 'let the bodies hit the floor';
+		$this->body = 'let the bodies hit the floor <a href="test">test</a>';
+		$this->body2 = 'let the bodies hit the floor <a target="_blank" href="test">test</a>';
 		$this->pub = 23111;
 		$this->author = '&lt;boogieman';
 		$this->enclosureLink = 'http://enclosure.you';
@@ -177,7 +178,7 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 		$item->setTitle(html_entity_decode($this->title));
 		$item->setGuid($this->guid);
 		$item->setGuidHash(md5($this->guid));
-		$item->setBody($this->body);
+		$item->setBody($this->body2);
 		$item->setPubDate($this->pub);
 		$item->setLastModified($this->time);
 		if($author) {
