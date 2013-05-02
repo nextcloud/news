@@ -26,7 +26,6 @@
 namespace OCA\News\External;
 
 use \OCA\AppFramework\Core\API;
-use \OCA\AppFramework\External\APIResult;
 use \OCA\AppFramework\Controller\Controller;
 use \OCA\AppFramework\Http\Request;
 
@@ -73,7 +72,7 @@ class FeedAPI extends Controller {
 				$this->itemBusinessLayer->getNewestItemId($userId);
 		} catch(BusinessLayerException $ex) {}
 
-		return new APIResult($result);
+		return new NewsAPIResult($result);
 	}
 
 

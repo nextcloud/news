@@ -26,7 +26,6 @@
 namespace OCA\News\External;
 
 use \OCA\AppFramework\Core\API;
-use \OCA\AppFramework\External\APIResult;
 use \OCA\AppFramework\Controller\Controller;
 use \OCA\AppFramework\Http\Request;
 
@@ -56,7 +55,7 @@ class FolderAPI extends Controller {
 			array_push($result['folders'], $folder->toAPI());
 		}
 
-		return new APIResult($result);
+		return new NewsAPIResult($result);
 	}
 
 
