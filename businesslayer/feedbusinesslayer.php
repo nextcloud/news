@@ -121,7 +121,7 @@ class FeedBusinessLayer extends BusinessLayer {
 			try {
 				$this->update($feed->getId(), $feed->getUserId());
 			} catch(BusinessLayerException $ex){
-				continue;
+				$this->api->log('Could not update feed ' . $ex->getMessage());
 			}
 		}
 	}
