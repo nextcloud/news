@@ -6,6 +6,7 @@ ownCloud-news (1.0-beta.2)
 * Fixed a bug that would prevent update of the News app
 * Log feed update errors
 * Make add website button less obstrusive
+* Fixed problem with sites that updated too frequently like youtube
 
 ownCloud-news (1.0-beta.1)
 
