@@ -25,15 +25,15 @@
 
 namespace OCA\News\External;
 
-use \OCA\AppFramework\External\APIResult;
+require_once(__DIR__ . "/../../classloader.php");
 
-class NewsAPIResult extends APIResult {
 
-	const EXISTS_ERROR = 409;
+class NewsAPIResultTest extends \PHPUnit_Framework_TestCase {
 
-	public function __construct($data, $statusCode=NewsAPIResult::OK) {
-		parent::__construct($data, $statusCode);
+
+	public function testExistsError(){
+		$result = new NewsAPIResult(null, NewsAPIResult::EXISTS_ERROR);
+		$this->assertEquals(409, $result->getStatusCode());
 	}
-
 
 }
