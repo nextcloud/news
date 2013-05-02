@@ -75,17 +75,41 @@ class ItemAPI extends Controller {
 
 
 	public function getUpdated() {
+		$result = array(
+			'items' => array()
+		);
 
+		$userId = $this->api->getUserId();
+		$lastModified = (int) $this->params('lastModified', 0);
+		$type = (int) $this->params('type');
+		$id = (int) $this->params('id');
+
+		$items = $this->itemBusinessLayer->findAllNew(
+			$id,
+			$type,
+			$lastModified,
+			true,
+			$userId
+		);
+
+		foreach ($items as $item) {
+			array_push($result['items'], $item->toAPI());
+		}
+
+		return new NewsAPIResult($result);
 	}
 
 
-	public function get() {
-
+	private function setRead($isRead) {
+		$userId = $this->api->getUserId();
+		$itemId = $this->params('itemId');
+		$this->itemBusinessLayer->read($itemId, $isRead, $userId);
 	}
 
 
 	public function read() {
-
+		$this->setRead(true);
+		return new NewsAPIResult();
 	}
 
 

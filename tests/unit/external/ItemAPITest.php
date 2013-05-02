@@ -54,12 +54,15 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 			'\OCA\News\BusinessLayer\ItemBusinessLayer')
 			->disableOriginalConstructor()
 			->getMock();
+		$this->user = 'tom';
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->itemAPI = new ItemAPI(
 			$this->api,
 			$this->request,
 			$this->itemBusinessLayer
 		);
-		$this->user = 'tom';
 	}
 
 
@@ -80,9 +83,6 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 			$this->itemBusinessLayer
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('findAll')
 			->with(
@@ -103,5 +103,63 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 	}
 
 
+	public function testGetUpdated() {
+		$items = array(
+			new Item()
+		);
+		$request = new Request(array('params' => array(
+			'lastModified' => 30,
+			'type' => 1,
+			'id' => 2,
+		)));
+		$this->itemAPI = new ItemAPI(
+			$this->api,
+			$request,
+			$this->itemBusinessLayer
+		);
+
+		$this->itemBusinessLayer->expects($this->once())
+			->method('findAllNew')
+			->with(
+				$this->equalTo(2),
+				$this->equalTo(1),
+				$this->equalTo(30),
+				$this->equalTo(true),
+				$this->equalTo($this->user)
+			)
+			->will($this->returnValue($items));
+
+		$response = $this->itemAPI->getUpdated();
+
+		$this->assertEquals(array(
+			'items' => array($items[0]->toAPI())
+		), $response->getData());
+	}
+
+
+	public function testRead() {
+		$request = new Request(array('urlParams' => array(
+			'itemId' => 2
+		)));
+		$this->itemAPI = new ItemAPI(
+			$this->api,
+			$request,
+			$this->itemBusinessLayer
+		);		
+
+		$this->itemBusinessLayer->expects($this->once())
+			->method('read')
+			->with(
+				$this->equalTo(2),
+				$this->equalTo(true),
+				$this->equalTo($this->user)
+			);
+
+		$response = $this->itemAPI->read();
+
+		$this->assertNull($response->getData());
+		$this->assertNull($response->getMessage());
+		$this->assertEquals(NewsAPIResult::OK, $response->getStatusCode());
+	}
 
 }
