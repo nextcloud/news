@@ -28,66 +28,35 @@ namespace OCA\News\External;
 use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Http\Request;
 
-use \OCA\News\BusinessLayer\FeedBusinessLayer;
-use \OCA\News\BusinessLayer\FolderBusinessLayer;
 use \OCA\News\BusinessLayer\ItemBusinessLayer;
 use \OCA\News\BusinessLayer\BusinessLayerException;
 
 
-class FeedAPI {
+class ItemAPI {
 
 	private $itemBusinessLayer;
-	private $feedBusinessLayer;
-	private $folderBusinessLayer;
 	private $api;
 	private $request;
 
 	public function __construct(API $api,
 	                            Request $request,
-	                            FolderBusinessLayer $folderBusinessLayer,
-	                            FeedBusinessLayer $feedBusinessLayer,
 	                            ItemBusinessLayer $itemBusinessLayer){
 		$this->api = $api;
-		$this->folderBusinessLayer = $folderBusinessLayer;
-		$this->feedBusinessLayer = $feedBusinessLayer;
 		$this->itemBusinessLayer = $itemBusinessLayer;
 	}
 
 
 	public function getAll() {
 
-		$userId = $this->api->getUserId();
+	}
 
-		$result = array(
-			'feeds' => array(),
-			'starredCount' => $this->itemBusinessLayer->starredCount($userId)
-		);
 
-		foreach ($this->feedBusinessLayer->findAll($userId) as $feed) {
-			array_push($result['feeds'], $feed->toAPI());
-		}
+	public function getUpdated() {
 
-		// check case when there are no items
-		try {
-			$result['newestItemId'] = 
-				$this->itemBusinessLayer->getNewestItemId($userId);
-		} catch(BusinessLayerException $ex) {}
-
-		return $result;
 	}
 
 
 	public function get() {
-
-	}
-
-
-	public function create() {
-
-	}
-
-
-	public function delete() {
 
 	}
 
@@ -97,7 +66,17 @@ class FeedAPI {
 	}
 
 
-	public function move() {
+	public function unread() {
+
+	}
+
+
+	public function star() {
+
+	}
+
+
+	public function unstar() {
 
 	}
 

@@ -29,11 +29,9 @@ use \OCA\AppFramework\App;
 
 use \OCA\News\DependencyInjection\DIContainer;
 
-
 /**
  * Webinterface
  */
-
 $this->create('news_index', '/')->get()->action(
 	function($params){
 		App::main('PageController', 'index', $params, new DIContainer());
@@ -202,16 +200,5 @@ $this->create('news_usersettings_language', '/usersettings/language')->get()->ac
 );
 
 
-
-/**
- * Feed API
- */
-\OCP\API::register('get', '/apps/news/feeds',
-	function($urlParams) {
-		$container = new DIContainer();
-		$response = $container['FeedAPI']->getAll($urlParams);
-		return new \OC_OCS_Result($response);
-	}, 
-	'news', 
-	\OC_API::USER_AUTH
-);
+// include external API
+require_once __DIR__ . '/api.php';

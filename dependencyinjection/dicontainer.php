@@ -43,7 +43,9 @@ use \OCA\News\Db\FeedMapper;
 use \OCA\News\Db\ItemMapper;
 use \OCA\News\Db\StatusFlag;
 
+use \OCA\News\External\FolderAPI;
 use \OCA\News\External\FeedAPI;
+use \OCA\News\External\ItemAPI;
 
 use \OCA\News\Utility\Fetcher;
 use \OCA\News\Utility\FeedFetcher;
@@ -154,10 +156,20 @@ class DIContainer extends BaseContainer {
 		/**
 		 * External API
 		 */
+		$this['FolderAPI'] = $this->share(function($c){
+			return new FolderAPI($c['API'], $c['Request'], 
+			                     $c['FolderBusinessLayer']);
+		});
+
 		$this['FeedAPI'] = $this->share(function($c){
-			return new FeedAPI($c['API'],
+			return new FeedAPI($c['API'], $c['Request'],
 			                   $c['FolderBusinessLayer'], 
 			                   $c['FeedBusinessLayer'],
+			                   $c['ItemBusinessLayer']);
+		});
+
+		$this['ItemAPI'] = $this->share(function($c){
+			return new ItemAPI($c['API'], $c['Request'], 
 			                   $c['ItemBusinessLayer']);
 		});
 
