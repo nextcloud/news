@@ -3,7 +3,7 @@ ownCloud-news (1.0-beta.2)
 * Always open links in new tabs
 * Better exception handling for controllers
 * Implemented API
-* Fixed a bug that would prevent updates
+* Fixed a bug that would prevent update of the News app
 
 ownCloud-news (1.0-beta.1)
 
@@ -37,7 +37,7 @@ ownCloud-news (1.0-beta.1)
 * Show full feed name on hover
 * If feed has no name, use its URL
 * Do not update articles all the time that have no pubdate
-* Prevent app from making ownCloud unusable if the Appframework is not installed
+* Prevent app from making ownCloud unusable if the App Framework is not installed
 * Focus the articles area when a feed is being clicked so page up/page down work
 * Use a delay for drag and drop to make experience on Mac OS X better
 * Show unread count in the tab title
