@@ -28,7 +28,7 @@ namespace OCA\News\Db;
 use \OCA\AppFramework\Db\Entity;
 
 
-class Item extends Entity {
+class Item extends Entity implements IAPI {
 
 	public $guidHash;
 	public $guid;
@@ -86,6 +86,26 @@ class Item extends Entity {
 
 	public function isUnstarred() {
 		return !$this->isStarred();
+	}
+
+
+	public function toAPI() {
+		return array(
+			'id' => $this->getId(),
+			'guid' => $this->getGuid(),
+			'guidHash' => $this->getGuidHash(),
+			'url' => $this->getUrl(),
+			'title' => $this->getTitle(),
+			'author' => $this->getAuthor(),
+			'pubDate' => $this->getPubDate(),
+			'body' => $this->getBody(),
+			'enclosureMime' => $this->getEnclosureMime(),
+			'enclosureLink' => $this->getEnclosureLink(),
+			'feedId' => $this->getFeedId(),
+			'unread' => $this->isUnread(),
+			'starred' => $this->isStarred(),
+			'lastModified' => $this->getLastModified()
+		);
 	}
 
 }

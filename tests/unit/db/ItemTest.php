@@ -66,4 +66,40 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 	}
 
 
+	public function testToAPI() {
+		$item = new Item();
+		$item->setId(3);
+		$item->setGuid('guid');
+		$item->setGuidHash('hash');
+		$item->setUrl('url');
+		$item->setTitle('title');
+		$item->setAuthor('author');
+		$item->setPubDate(123);
+		$item->setBody('body');
+		$item->setEnclosureMime('audio/ogg');
+		$item->setEnclosureLink('enclink');
+		$item->setFeedId(1);
+		$item->setStatus(0);
+		$item->setUnread();
+		$item->setStarred();
+		$item->setLastModified(321);
+
+		$this->assertEquals(array(
+			'id' => 3,
+			'guid' => 'guid',
+			'guidHash' => 'hash',
+			'url' => 'url',
+			'title' => 'title',
+			'author' => 'author',
+			'pubDate' => 123,
+			'body' => 'body',
+			'enclosureMime' => 'audio/ogg',
+			'enclosureLink' => 'enclink',
+			'feedId' => 1,
+			'unread' => true,
+			'starred' => true,
+			'lastModified' => 321
+			), $item->toAPI());
+	}
+
 }
