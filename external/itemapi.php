@@ -36,7 +36,6 @@ use \OCA\News\BusinessLayer\BusinessLayerException;
 class ItemAPI extends Controller {
 
 	private $itemBusinessLayer;
-	parent::__construct($api, $request);
 
 	public function __construct(API $api,
 	                            Request $request,
@@ -47,7 +46,31 @@ class ItemAPI extends Controller {
 
 
 	public function getAll() {
+		$result = array(
+			'items' => array()
+		);
 
+		$userId = $this->api->getUserId();
+		$batchSize = (int) $this->params('batchSize');
+		$offset = (int) $this->params('offset', 0);
+		$type = (int) $this->params('type');
+		$id = (int) $this->params('id');
+		$showAll = $this->params('getRead') === 'true';
+
+		$items = $this->itemBusinessLayer->findAll(
+			$id,
+			$type,
+			$batchSize,
+			$offset,
+			$showAll,
+			$userId
+		);
+
+		foreach ($items as $item) {
+			array_push($result['items'], $item->toAPI());
+		}
+
+		return new NewsAPIResult($result);
 	}
 
 

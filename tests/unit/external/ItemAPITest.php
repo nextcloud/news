@@ -25,19 +25,18 @@
 
 namespace OCA\News\External;
 
-use \OCA\News\BusinessLayer\BusinessLayerException;
+use \OCA\AppFramework\Http\Request;
 
-use \OCA\News\Db\Folder;
-use \OCA\News\Db\Feed;
+use \OCA\News\BusinessLayer\BusinessLayerException;
 use \OCA\News\Db\Item;
 
 require_once(__DIR__ . "/../../classloader.php");
 
 
-class FolderAPITest extends \PHPUnit_Framework_TestCase {
+class ItemAPITest extends \PHPUnit_Framework_TestCase {
 
-	private $folderBusinessLayer;
-	private $folderAPI;
+	private $itemBusinessLayer;
+	private $itemAPI;
 	private $api;
 	private $user;
 	private $request;
@@ -51,36 +50,55 @@ class FolderAPITest extends \PHPUnit_Framework_TestCase {
 			'\OCA\AppFramework\Http\Request')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->folderBusinessLayer = $this->getMockBuilder(
-			'\OCA\News\BusinessLayer\FolderBusinessLayer')
+		$this->itemBusinessLayer = $this->getMockBuilder(
+			'\OCA\News\BusinessLayer\ItemBusinessLayer')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->folderAPI = new FolderAPI(
+		$this->itemAPI = new ItemAPI(
 			$this->api,
 			$this->request,
-			$this->folderBusinessLayer
+			$this->itemBusinessLayer
 		);
 		$this->user = 'tom';
 	}
 
 
 	public function testGetAll() {
-		$folders = array(
-			new Folder()
+		$items = array(
+			new Item()
+		);
+		$request = new Request(array('params' => array(
+			'batchSize' => 30,
+			'offset' => 20,
+			'type' => 1,
+			'id' => 2,
+			'getRead' => 'false'
+		)));
+		$this->itemAPI = new ItemAPI(
+			$this->api,
+			$request,
+			$this->itemBusinessLayer
 		);
 
 		$this->api->expects($this->once())
 			->method('getUserId')
 			->will($this->returnValue($this->user));
-		$this->folderBusinessLayer->expects($this->once())
+		$this->itemBusinessLayer->expects($this->once())
 			->method('findAll')
-			->with($this->equalTo($this->user))
-			->will($this->returnValue($folders));
+			->with(
+				$this->equalTo(2),
+				$this->equalTo(1),
+				$this->equalTo(30),
+				$this->equalTo(20),
+				$this->equalTo(false),
+				$this->equalTo($this->user)
+			)
+			->will($this->returnValue($items));
 
-		$response = $this->folderAPI->getAll();
+		$response = $this->itemAPI->getAll();
 
 		$this->assertEquals(array(
-			'folders' => array($folders[0]->toAPI())
+			'items' => array($items[0]->toAPI())
 		), $response->getData());
 	}
 

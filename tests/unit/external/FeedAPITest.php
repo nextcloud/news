@@ -45,11 +45,11 @@ class FeedAPITest extends \PHPUnit_Framework_TestCase {
 	private $request;
 
 	protected function setUp() {
-		$this->api = $this->folderBusinessLayer = $this->getMockBuilder(
+		$this->api = $this->getMockBuilder(
 			'\OCA\AppFramework\Core\API')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->request = $this->folderBusinessLayer = $this->getMockBuilder(
+		$this->request = $this->getMockBuilder(
 			'\OCA\AppFramework\Http\Request')
 			->disableOriginalConstructor()
 			->getMock();
