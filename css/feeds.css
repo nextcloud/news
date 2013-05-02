@@ -66,7 +66,22 @@
 	font-weight: bold;
 }
 
+#app-navigation .with-icon .list-title {
+	padding-left:16px;
+}
 
+#app-navigation .with-icon .list-title span {
+	display:none;
+	margin-left:6px;
+}
+
+#app-navigation .with-icon .list-title:hover span {
+	display:inline;
+}
+
+#app-navigation .with-icon .opened span {
+	display:inline;
+}
 
 #app-navigation .unread > a {
 	padding-right: 32px;

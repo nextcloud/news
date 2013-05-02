@@ -19,9 +19,7 @@
  *
  */
 
-.add-new > a {
-	background-image: url('%appswebroot%/news/img/add.svg');
-}
+
 
 .add-new:hover a.opened {
 	background-color: transparent !important;
