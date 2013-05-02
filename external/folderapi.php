@@ -26,22 +26,21 @@
 namespace OCA\News\External;
 
 use \OCA\AppFramework\Core\API;
+use \OCA\AppFramework\Controller\Controller;
 use \OCA\AppFramework\Http\Request;
 
 use \OCA\News\BusinessLayer\FolderBusinessLayer;
 use \OCA\News\BusinessLayer\BusinessLayerException;
 
 
-class FolderAPI {
+class FolderAPI extends Controller {
 
 	private $folderBusinessLayer;
-	private $api;
-	private $request;
 
 	public function __construct(API $api, 
 	                            Request $request,
 	                            FolderBusinessLayer $folderBusinessLayer){
-		$this->api = $api;
+		parent::__construct($api, $request);
 		$this->folderBusinessLayer = $folderBusinessLayer;
 	}
 

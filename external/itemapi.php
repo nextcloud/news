@@ -26,22 +26,22 @@
 namespace OCA\News\External;
 
 use \OCA\AppFramework\Core\API;
+use \OCA\AppFramework\Controller\Controller;
 use \OCA\AppFramework\Http\Request;
 
 use \OCA\News\BusinessLayer\ItemBusinessLayer;
 use \OCA\News\BusinessLayer\BusinessLayerException;
 
 
-class ItemAPI {
+class ItemAPI extends Controller {
 
 	private $itemBusinessLayer;
-	private $api;
-	private $request;
+	parent::__construct($api, $request);
 
 	public function __construct(API $api,
 	                            Request $request,
 	                            ItemBusinessLayer $itemBusinessLayer){
-		$this->api = $api;
+		parent::__construct($api, $request);
 		$this->itemBusinessLayer = $itemBusinessLayer;
 	}
 

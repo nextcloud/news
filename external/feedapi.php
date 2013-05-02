@@ -26,6 +26,7 @@
 namespace OCA\News\External;
 
 use \OCA\AppFramework\Core\API;
+use \OCA\AppFramework\Controller\Controller;
 use \OCA\AppFramework\Http\Request;
 
 use \OCA\News\BusinessLayer\FeedBusinessLayer;
@@ -34,20 +35,18 @@ use \OCA\News\BusinessLayer\ItemBusinessLayer;
 use \OCA\News\BusinessLayer\BusinessLayerException;
 
 
-class FeedAPI {
+class FeedAPI extends Controller {
 
 	private $itemBusinessLayer;
 	private $feedBusinessLayer;
 	private $folderBusinessLayer;
-	private $api;
-	private $request;
 
 	public function __construct(API $api,
 	                            Request $request,
 	                            FolderBusinessLayer $folderBusinessLayer,
 	                            FeedBusinessLayer $feedBusinessLayer,
 	                            ItemBusinessLayer $itemBusinessLayer){
-		$this->api = $api;
+		parent::__construct($api, $request);
 		$this->folderBusinessLayer = $folderBusinessLayer;
 		$this->feedBusinessLayer = $feedBusinessLayer;
 		$this->itemBusinessLayer = $itemBusinessLayer;
