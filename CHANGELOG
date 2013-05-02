@@ -3,6 +3,7 @@ ownCloud-news (1.0-beta.2)
 * Always open links in new tabs
 * Better exception handling for controllers
 * Implemented API
+* Fixed a bug that would prevent updates
 
 ownCloud-news (1.0-beta.1)
 
