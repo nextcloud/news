@@ -25,26 +25,21 @@
 
 namespace OCA\News\Db;
 
-use \OCA\AppFramework\Db\Entity;
+require_once(__DIR__ . "/../../classloader.php");
 
 
-class Folder extends Entity implements IAPI {
+class FolderTest extends \PHPUnit_Framework_TestCase {
 
-	public $parentId;
-	public $name;
-	public $userId;
-	public $opened;
 
-	public function __construct(){
-		$this->addType('parentId', 'int');
-		$this->addType('opened', 'bool');
+	public function testToAPI() {
+		$folder = new Folder();
+		$folder->setId(3);
+		$folder->setName('name');
+
+		$this->assertEquals(array(
+			'id' => 3,
+			'name' => 'name'
+			), $folder->toAPI());
 	}
 
-
-	public function toAPI() {
-		return array(
-			'id' => $this->getId(),
-			'name' => $this->getName()
-		);
-	}
 }

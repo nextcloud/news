@@ -25,26 +25,33 @@
 
 namespace OCA\News\Db;
 
-use \OCA\AppFramework\Db\Entity;
+require_once(__DIR__ . "/../../classloader.php");
 
 
-class Folder extends Entity implements IAPI {
+class FeedTest extends \PHPUnit_Framework_TestCase {
 
-	public $parentId;
-	public $name;
-	public $userId;
-	public $opened;
 
-	public function __construct(){
-		$this->addType('parentId', 'int');
-		$this->addType('opened', 'bool');
+	public function testToAPI() {
+		$feed = new Feed();
+		$feed->setId(3);
+		$feed->setUrl('url');
+		$feed->setTitle('title');
+		$feed->setFaviconLink('favicon');
+		$feed->setAdded(123);
+		$feed->setFolderId(1);
+		$feed->setUnreadCount(321);
+		$feed->setLink('link');
+
+		$this->assertEquals(array(
+			'id' => 3,
+			'url' => 'url',
+			'title' => 'title',
+			'faviconLink' => 'favicon',
+			'added' => 123,
+			'folderId' => 1,
+			'unreadCount' => 321,
+			'link' => 'link'
+			), $feed->toAPI());
 	}
 
-
-	public function toAPI() {
-		return array(
-			'id' => $this->getId(),
-			'name' => $this->getName()
-		);
-	}
 }

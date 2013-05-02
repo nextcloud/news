@@ -28,7 +28,7 @@ namespace OCA\News\Db;
 use \OCA\AppFramework\Db\Entity;
 
 
-class Feed extends Entity {
+class Feed extends Entity implements IAPI {
 
 	public $userId;
 	public $urlHash;
@@ -47,6 +47,20 @@ class Feed extends Entity {
 		$this->addType('folderId', 'int');
 		$this->addType('unreadCount', 'int');
 		$this->addType('preventUpdate', 'bool');
+	}
+
+
+	public function toAPI() {
+		return array(
+			'id' => $this->getId(),
+			'url' => $this->getUrl(),
+			'title' => $this->getTitle(),
+			'faviconLink' => $this->getFaviconLink(),
+			'added' => $this->getAdded(),
+			'folderId' => $this->getFolderId(),
+			'unreadCount' => $this->getUnreadCount(),
+			'link' => $this->getLink()
+		);
 	}
 
 }
