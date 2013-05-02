@@ -43,6 +43,8 @@ use \OCA\News\Db\FeedMapper;
 use \OCA\News\Db\ItemMapper;
 use \OCA\News\Db\StatusFlag;
 
+use \OCA\News\External\FeedAPI;
+
 use \OCA\News\Utility\Fetcher;
 use \OCA\News\Utility\FeedFetcher;
 use \OCA\News\Utility\TwitterFetcher;
@@ -148,6 +150,16 @@ class DIContainer extends BaseContainer {
 			return new ItemMapper($c['API']);
 		});
 
+
+		/**
+		 * External API
+		 */
+		$this['FeedAPI'] = $this->share(function($c){
+			return new FeedAPI($c['API'],
+			                   $c['FolderBusinessLayer'], 
+			                   $c['FeedBusinessLayer'],
+			                   $c['ItemBusinessLayer']);
+		});
 
 		/**
 		 * Utility
