@@ -59,11 +59,6 @@ class FolderAPI extends Controller {
 	}
 
 
-	public function get() {
-
-	}
-
-
 	public function create() {
 
 	}

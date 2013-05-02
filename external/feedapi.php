@@ -76,11 +76,6 @@ class FeedAPI extends Controller {
 	}
 
 
-	public function get() {
-
-	}
-
-
 	public function create() {
 
 	}

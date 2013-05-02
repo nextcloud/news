@@ -40,14 +40,6 @@ use \OCA\AppFramework\External\External;
 	\OC_API::USER_AUTH
 );
 
-\OCP\API::register('get', '/apps/news/folders/{folderId}',
-	function($params) {
-		return External::main('FolderAPI', 'get', $params, new DIContainer());
-	}, 
-	'news', 
-	\OC_API::USER_AUTH
-);
-
 \OCP\API::register('post', '/apps/news/folders',
 	function($params) {
 		return External::main('FolderAPI', 'create', $params, new DIContainer());
@@ -84,14 +76,6 @@ use \OCA\AppFramework\External\External;
 	\OC_API::USER_AUTH
 );
 
-\OCP\API::register('get', '/apps/news/feeds/{feedId}',
-	function($params) {
-		return External::main('FeedAPI', 'get', $params, new DIContainer());
-	}, 
-	'news', 
-	\OC_API::USER_AUTH
-);
-
 \OCP\API::register('post', '/apps/news/feeds/{feedId}',
 	function($params) {
 		return External::main('FeedAPI', 'create', $params, new DIContainer());
@@ -116,7 +100,7 @@ use \OCA\AppFramework\External\External;
 	\OC_API::USER_AUTH
 );
 
-\OCP\API::register('get', '/apps/news/feeds/{feedId}/read',
+\OCP\API::register('put', '/apps/news/feeds/{feedId}/read',
 	function($params) {
 		return External::main('FeedAPI', 'read', $params, new DIContainer());
 	}, 
@@ -138,14 +122,6 @@ use \OCA\AppFramework\External\External;
 \OCP\API::register('get', '/apps/news/items/updated',
 	function($params) {
 		return External::main('ItemAPI', 'getUpdated', $params, new DIContainer());
-	}, 
-	'news', 
-	\OC_API::USER_AUTH
-);
-
-\OCP\API::register('get', '/apps/news/items/{itemId}',
-	function($params) {
-		return External::main('ItemAPI', 'get', $params, new DIContainer());
 	}, 
 	'news', 
 	\OC_API::USER_AUTH

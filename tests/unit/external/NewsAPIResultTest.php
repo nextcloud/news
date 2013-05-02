@@ -36,4 +36,5 @@ class NewsAPIResultTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(409, $result->getStatusCode());
 	}
 
+
 }
