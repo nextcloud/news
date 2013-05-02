@@ -55,6 +55,12 @@ if(\OCP\App::isEnabled('appframework')){
 
 	$api->addRegularTask('OCA\News\Backgroundjob\Task', 'run');
 
+	// TODO: remove this after the release after the next release
+	// this is done to help users upgrade properly from the beta
+	if($api->getAppValue('installed_version') === '8.4') {
+		$api->setAppValue('installed_version', '0.96');
+	}
+
 } else {
 	$msg = 'Can not enable the News app because the App Framework App is disabled';
 	\OCP\Util::writeLog('news', $msg, \OCP\Util::ERROR);
