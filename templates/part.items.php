@@ -21,7 +21,7 @@
 
 		<h1 class="item_title">
 			<a ng-click="itemBusinessLayer.setRead(item.id)" 
-				target="_blank" href="{{ item.url }}">
+				target="_blank" ng-href="{{ item.url|ocSanitizeURL }}">
 				{{ item.title|ocRemoveTags:['em', 'b', 'i'] }}
 			</a>
 		</h1>
@@ -29,7 +29,7 @@
 		<h2 class="item_author">
 			<span ng-show="itemBusinessLayer.noFeedActive() && feedBusinessLayer.getFeedLink(item.feedId)">
 				<?php p($l->t('from')) ?>
-				<a 	target="_blank" href="{{ feedBusinessLayer.getFeedLink(item.feedId) }}"
+				<a 	target="_blank" ng-href="{{ feedBusinessLayer.getFeedLink(item.feedId)|ocSanitizeURL }}"
 					class="from_feed">{{ itemBusinessLayer.getFeedTitle(item.id) }}</a> 
 			</span>
 			<span ui-if="item.author">

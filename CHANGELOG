@@ -1,3 +1,8 @@
+ownCloud-news (0.98)
+
+* Fix XSS vulnerability in sanitation for json import
+* Fix XSS vulnerability in feed and title link
+
 ownCloud-news (0.97)
 
 * Fix XSS vulnerability in sanitation
