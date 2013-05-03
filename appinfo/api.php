@@ -30,6 +30,17 @@ use \OCA\AppFramework\External\External;
 
 
 /**
+ * Generic API
+ */
+\OCP\API::register('get', '/apps/news/version',
+	function($params) {
+		return External::main('NewsAPI', 'version', $params, new DIContainer());
+	}, 
+	'news', 
+	\OC_API::USER_AUTH
+);
+
+/**
  * Folder API
  */
 \OCP\API::register('get', '/apps/news/folders',
