@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Josep Tomàs <jtomas.binsoft@gmail.com>, 2012
-# rogerc <rcalvoi@yahoo.com>, 2013
-# rogerc <rcalvoi@yahoo.com>, 2012
+# rogerc, 2013
+# rogerc, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-05-02 01:19+0200\n"
-"PO-Revision-Date: 2013-05-01 23:19+0000\n"
-"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"POT-Creation-Date: 2013-05-04 01:09+0200\n"
+"PO-Revision-Date: 2013-05-03 07:40+0000\n"
+"Last-Translator: rogerc\n"
 "Language-Team: Catalan (http://www.transifex.com/projects/p/owncloud/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,66 +24,66 @@ msgstr ""
 msgid "News"
 msgstr "Notícies"
 
-#: businesslayer/feedbusinesslayer.php:70
+#: businesslayer/feedbusinesslayer.php:74
 msgid "Can not add feed: Exists already"
-msgstr ""
+msgstr "No es pot afegir la font: ja existeix"
 
-#: businesslayer/feedbusinesslayer.php:108
+#: businesslayer/feedbusinesslayer.php:112
 msgid "Can not add feed: URL does not exist or has invalid xml"
-msgstr ""
+msgstr "No es pot afegir la font: la URL no existeix o té un XML no vàlid"
 
 #: businesslayer/folderbusinesslayer.php:55
 msgid "Can not add folder: Exists already"
-msgstr ""
+msgstr "No es pot afegir la carpeta: ja existeix"
 
 #: templates/main.php:27
 #, php-format
 msgid "Undo deletion of %s"
-msgstr ""
+msgstr "Desfés l'eliminació de %s"
 
-#: templates/part.addnew.php:12
+#: templates/part.addnew.php:11
 msgid "Add Website"
 msgstr "Afegeix pàgina web"
 
-#: templates/part.addnew.php:19
+#: templates/part.addnew.php:16
 msgid "Error: address exists already!"
-msgstr ""
+msgstr "Error: l'adreça ja existeix!"
 
-#: templates/part.addnew.php:22
+#: templates/part.addnew.php:19
 msgid "Error: folder exists already"
-msgstr ""
+msgstr "Error: la carpeta ja existeix"
 
-#: templates/part.addnew.php:29
+#: templates/part.addnew.php:26
 msgid "Address"
 msgstr "Adreça"
 
-#: templates/part.addnew.php:33 templates/part.addnew.php:36
+#: templates/part.addnew.php:30 templates/part.addnew.php:33
 msgid "Add"
 msgstr "Afegeix"
 
-#: templates/part.addnew.php:40 templates/part.addnew.php:48
+#: templates/part.addnew.php:37 templates/part.addnew.php:45
 msgid "New folder"
 msgstr "Carpeta nova"
 
-#: templates/part.addnew.php:41
+#: templates/part.addnew.php:38
 msgid "Folder"
 msgstr "Carpeta"
 
-#: templates/part.addnew.php:46
+#: templates/part.addnew.php:43
 msgid "Choose folder"
 msgstr "Escolliu una carpeta"
 
-#: templates/part.addnew.php:58
+#: templates/part.addnew.php:55
 msgid "Folder name"
 msgstr "Nom de la carpeta"
 
-#: templates/part.addnew.php:61
+#: templates/part.addnew.php:58
 msgid "Back to folder selection"
-msgstr ""
+msgstr "Torna a la selecció de carpeta"
 
-#: templates/part.addnew.php:66
+#: templates/part.addnew.php:63
 msgid "Create folder"
-msgstr ""
+msgstr "Crea carpeta"
 
 #: templates/part.feed.starred.php:11
 msgid "Starred"
@@ -100,7 +100,7 @@ msgstr "Tots els articles"
 #: templates/part.feed.unread.php:26 templates/part.listfeed.php:43
 #: templates/part.listfolder.php:43
 msgid "Mark read"
-msgstr ""
+msgstr "Marca com a llegit"
 
 #: templates/part.items.php:31
 msgid "from"
@@ -120,7 +120,7 @@ msgstr "Mantén com a sense llegir"
 
 #: templates/part.listfeed.php:48 templates/part.listfeed.php:54
 msgid "Delete website"
-msgstr ""
+msgstr "Elimina pàgina web"
 
 #: templates/part.listfolder.php:14
 msgid "Collapse"
@@ -150,21 +150,21 @@ msgstr "Exporta"
 
 #: templates/part.settings.php:36
 msgid "Error when importing: file does not contain valid OPML"
-msgstr ""
+msgstr "Error en importar: el fitxer no conté un OPML vàlid"
 
 #: templates/part.settings.php:42
 msgid "Import Google Reader JSON"
-msgstr ""
+msgstr "Importa Google Reader JSON"
 
 #: templates/part.settings.php:43
 msgid ""
 "To import starred and shared articles from Google \n"
 "\t\t\tReader please upload the .json files from the Google Takeout archive"
-msgstr ""
+msgstr "Per importar articles amb estrelles i compartits des de Google\n»»»Reader utilitzeu la pujada dels fitxers .json de l'arxiu de Google Takeout"
 
 #: templates/part.settings.php:53
 msgid "Error when importing: file does not contain valid JSON"
-msgstr ""
+msgstr "Error en importar: el fitxer no conté un JSON vàlid"
 
 #: templates/part.showall.php:2
 msgid "Show all"
