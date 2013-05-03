@@ -11,10 +11,6 @@ Maintainers
 * `Bernhard Posselt <https://github.com/Raydiation>`_ 
 * `Jan-Christoph Borchardt <https://github.com/jancborchardt>`_ (Design)
 
-Status
-------
-Beta
-
 Bugs
 ----
 Before reporting bugs:
