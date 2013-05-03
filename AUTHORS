@@ -3,9 +3,16 @@ Authors:
 Alessandro Cosentino <cosenal@gmail.com>
 Bernhard Posselt <nukeawhale@gmail.com>
 
+
+Designers:
+
+Jan-Christoph Borchardt (http://jancborchardt.net)
+Raghu Nayyar <me@iraghu.com>
+Bernhard Posselt <nukeawhale@gmail.com>
+
+
 Contributors:
 
-Raghu Nayyar <me@iraghu.com>
-Jan-Christoph Borchardt (http://jancborchardt.net)
-Robin Appelman <icewind@owncloud.com>
-Morris Jobke <morris.jobke@gmail.com>
+Robin Appelman <icewind@owncloud.com> (bugfixes)
+Morris Jobke <morris.jobke@gmail.com> (bugfixes)
+Lukas Reschke <lukas@statuscode.ch> (security fixes)
