@@ -1,3 +1,8 @@
+ownCloud-news (0.97)
+
+* Fix XSS vulnerability in sanitation
+* Properly show embedded vimeo and youtube videos
+
 ownCloud-news (0.96)
 
 * Always open links in new tabs
