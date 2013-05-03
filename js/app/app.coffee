@@ -40,6 +40,7 @@ angular.module('News').run ['Persistence', 'Config',
 	
 	setInterval ->
 		Persistence.getAllFeeds()
+		Persistence.getAllFolders()
 	, Config.feedUpdateInterval
 ]
 

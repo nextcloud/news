@@ -7,6 +7,7 @@ ownCloud-news (1.0-beta.2)
 * Log feed update errors
 * Make add website button less obstrusive
 * Fixed problem with sites that updated too frequently like youtube
+* Also update folders
 
 ownCloud-news (1.0-beta.1)
 

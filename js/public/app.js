@@ -51,7 +51,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     'Persistence', 'Config', function(Persistence, Config) {
       Persistence.init();
       return setInterval(function() {
-        return Persistence.getAllFeeds();
+        Persistence.getAllFeeds();
+        return Persistence.getAllFolders();
       }, Config.feedUpdateInterval);
     }
   ]);
