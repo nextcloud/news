@@ -226,7 +226,7 @@ class DIContainer extends BaseContainer {
 		});
 
 		$this['ImportParser'] = $this->share(function($c){
-			return new ImportParser($c['TimeFactory']);
+			return new ImportParser($c['TimeFactory'], $c['HTMLPurifier']);
 		});
 
 		$this['StatusFlag'] = $this->share(function($c){

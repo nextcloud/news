@@ -35,9 +35,11 @@ class ImportParserTest extends \OCA\AppFramework\Utility\TestUtility {
 	private $parser;
 	private $time;
 	private $in;
+	private $purifier;
 
 	protected function setUp(){
 		$this->time = 222;
+		$this->purifier = $this->getMock('purifier', array('purify'));
 		$timeFactory = $this->getMockBuilder(
 			'\OCA\AppFramework\Utility\TimeFactory')
 			->disableOriginalConstructor()
@@ -46,7 +48,7 @@ class ImportParserTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('getTime')
 			->will($this->returnValue($this->time));
 
-		$this->parser = new ImportParser($timeFactory);
+		$this->parser = new ImportParser($timeFactory, $this->purifier);
 		$this->in = array(
 			'items' => array(
 				array(
@@ -74,12 +76,18 @@ class ImportParserTest extends \OCA\AppFramework\Utility\TestUtility {
 
 
 	public function testParsesItems() {
+		$body = $this->in['items'][0]['summary']['content'];
+		$this->purifier->expects($this->once())
+			->method('purify')
+			->with($this->equalTo($body))
+			->will($this->returnValue($body));
+
 		$result = $this->parser->parse($this->in);
 
 		$out = new Item();
 		$out->setTitle($this->in['items'][0]['title']);
 		$out->setPubDate($this->in['items'][0]['published']);
-		$out->setBody($this->in['items'][0]['summary']['content']);
+		$out->setBody($body);
 		$out->setUrl($this->in['items'][0]['alternate'][0]['href']);
 		$out->setGuid($this->in['items'][0]['id']);
 		$out->setGuidHash(md5($this->in['items'][0]['id']));
@@ -93,13 +101,20 @@ class ImportParserTest extends \OCA\AppFramework\Utility\TestUtility {
 
 	public function testParsesItemsNoSummary() {
 		$this->in['items'][0]['content']['content'] = 'hi';
+		$body = $this->in['items'][0]['content']['content'];
+
+		$this->purifier->expects($this->once())
+			->method('purify')
+			->with($this->equalTo($body))
+			->will($this->returnValue($body));
+
 		unset($this->in['items'][0]['summary']);
 		$result = $this->parser->parse($this->in);
 
 		$out = new Item();
 		$out->setTitle($this->in['items'][0]['title']);
 		$out->setPubDate($this->in['items'][0]['published']);
-		$out->setBody($this->in['items'][0]['content']['content']);
+		$out->setBody($body);
 		$out->setUrl($this->in['items'][0]['alternate'][0]['href']);
 		$out->setGuid($this->in['items'][0]['id']);
 		$out->setGuidHash(md5($this->in['items'][0]['id']));
@@ -129,13 +144,19 @@ class ImportParserTest extends \OCA\AppFramework\Utility\TestUtility {
 	}
 
 	public function testParsesItemsNoPubDate() {
+		$body = $this->in['items'][0]['summary']['content'];
+		$this->purifier->expects($this->once())
+			->method('purify')
+			->with($this->equalTo($body))
+			->will($this->returnValue($body));
+
 		unset($this->in['items'][0]['published']);
 		$result = $this->parser->parse($this->in);
 
 		$out = new Item();
 		$out->setTitle($this->in['items'][0]['title']);
 		$out->setPubDate($this->time);
-		$out->setBody($this->in['items'][0]['summary']['content']);
+		$out->setBody($body);
 		$out->setUrl($this->in['items'][0]['alternate'][0]['href']);
 		$out->setGuid($this->in['items'][0]['id']);
 		$out->setGuidHash(md5($this->in['items'][0]['id']));

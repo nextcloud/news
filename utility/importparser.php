@@ -33,9 +33,11 @@ use \OCA\News\Db\Item;
 class ImportParser {
 
 	private $timeFactory;
+	private $purifier;
 
-	public function __construct(TimeFactory $timeFactory) {
+	public function __construct(TimeFactory $timeFactory, $purifier) {
 		$this->timeFactory = $timeFactory;
+		$this->purifier = $purifier;
 	}
 
 	public function parse($json){
@@ -76,9 +78,12 @@ class ImportParser {
 				}
 				
 				if(array_key_exists('summary', $entry)) {
-					$item->setBody($entry['summary']['content']);
+					$item->setBody($this->purifier->purify(
+						$entry['summary']['content']));
+
 				} elseif(array_key_exists('content', $entry)) {
-					$item->setBody($entry['content']['content']);
+					$item->setBody($this->purifier->purify(
+						$entry['content']['content']));
 				}
 				
 
