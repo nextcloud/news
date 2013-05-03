@@ -55,6 +55,8 @@ use \OCA\News\Utility\OPMLExporter;
 use \OCA\News\Utility\ImportParser;
 
 
+require_once __DIR__ . '/../3rdparty/htmlpurifier/library/HTMLPurifier.auto.php';
+
 class DIContainer extends BaseContainer {
 
 
@@ -72,14 +74,27 @@ class DIContainer extends BaseContainer {
 		$this['simplePieCacheDuration'] = 30*60;  // seconds
 
 		$this['simplePieCacheDirectory'] = $this->share(function($c) {
-			$dir = $c['API']->getSystemValue('datadirectory') . 
+			$directory = $c['API']->getSystemValue('datadirectory') . 
 				'/news/cache/simplepie';
 			
-			if(!is_dir($dir)) {
-				mkdir($dir, 0770, true);
+			if(!is_dir($directory)) {
+				mkdir($directory, 0770, true);
 			}
-			return $dir;
+			return $directory;
 
+		});
+
+		$this['HTMLPurifier'] = $this->share(function($c) {
+			$directory = $c['API']->getSystemValue('datadirectory') . 
+				'/news/cache/purifier';
+			
+			if(!is_dir($directory)) {
+				mkdir($directory, 0770, true);
+			}
+
+			$config = \HTMLPurifier_Config::createDefault();
+			$config->set('Cache.SerializerPath', $directory);
+			return new \HTMLPurifier($config);
 		});
 
 
@@ -199,7 +214,8 @@ class DIContainer extends BaseContainer {
 				$c['FaviconFetcher'],
 				$c['TimeFactory'],
 				$c['simplePieCacheDirectory'],
-				$c['simplePieCacheDuration']);
+				$c['simplePieCacheDuration'],
+				$c['HTMLPurifier']);
 		});
 
 		$this['TwitterFetcher'] = $this->share(function($c){

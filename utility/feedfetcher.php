@@ -42,19 +42,22 @@ class FeedFetcher implements IFeedFetcher {
 	private $faviconFetcher;
 	private $simplePieFactory;
 	private $time;
+	private $purifier;
 
 	public function __construct(API $api, 
 	                            SimplePieAPIFactory $simplePieFactory,
 	                            FaviconFetcher $faviconFetcher,
 	                            TimeFactory $time,
 	                            $cacheDirectory, 
-	                            $cacheDuration){
+	                            $cacheDuration,
+	                            $purifier){
 		$this->api = $api;
 		$this->cacheDirectory = $cacheDirectory;
 		$this->cacheDuration = $cacheDuration;
 		$this->faviconFetcher = $faviconFetcher;
 		$this->simplePieFactory = $simplePieFactory;
 		$this->time = $time;
+		$this->purifier = $purifier;
 	}
 
 
@@ -116,7 +119,8 @@ class FeedFetcher implements IFeedFetcher {
 		$item->setGuid($guid);
 		$item->setGuidHash(md5($guid));
 		$item->setBody(str_replace('<a', '<a target="_blank"', 
-			$simplePieItem->get_content()));
+			// escape XSS
+			$this->purifier->purify($simplePieItem->get_content())));
 		$item->setPubDate($simplePieItem->get_date('U'));
 		$item->setLastModified($this->time->getTime());
 
