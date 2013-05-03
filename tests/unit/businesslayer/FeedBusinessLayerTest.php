@@ -462,7 +462,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->fetcher->expects($this->once())
 			->method('fetch')
 			->will($this->throwException($ex));
-		$this->api->expects($this->once())
+		$this->api->expects($this->any())
 			->method('log');
 		
 		$this->mapper->expects($this->at(1))
