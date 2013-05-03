@@ -1,4 +1,4 @@
-ownCloud-news (1.0-beta.2)
+ownCloud-news (0.96)
 
 * Always open links in new tabs
 * Better exception handling for controllers
@@ -9,7 +9,7 @@ ownCloud-news (1.0-beta.2)
 * Fixed problem with sites that updated too frequently like youtube
 * Also update folders
 
-ownCloud-news (1.0-beta.1)
+ownCloud-news (0.95)
 
 * Fix a bug that would cause PHP 5.3 to fail while parsing utf-8
 * Reverted the keep unread checkbox styling from a button back to a normal checkbox
