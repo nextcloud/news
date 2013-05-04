@@ -27,8 +27,8 @@
 	<span class="utils">
 
 		<button ng-click="folderBusinessLayer.delete(folder.id)"
-				ng-hide="folderBusinessLayer.hasFeeds(folder.id) || !folder.id"
-				class="svg action delete-icon" 
+				ng-hide="!folder.id"
+				class="svg action delete-icon delete-button" 
 				title="<?php p($l->t('Delete folder')); ?>"
 				oc-tooltip></button>
 

@@ -1,3 +1,8 @@
+ownCloud-news (0.99)
+
+* show 99+ as max unread count
+* only show delete button if feed is active
+
 ownCloud-news (0.98)
 
 * Fix XSS vulnerability in sanitation for json import

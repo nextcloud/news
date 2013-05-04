@@ -44,7 +44,7 @@
 			oc-tooltip></button>
 
 		<button ng-click="feedBusinessLayer.delete(feed.id)"
-			class="svg action delete-icon"
+			class="svg action delete-icon delete-button"
 			title="<?php p($l->t('Delete website')); ?>"
 			ng-show="feed.id"
 			oc-tooltip></button>

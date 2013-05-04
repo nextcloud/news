@@ -114,6 +114,14 @@
 	display: block;
 }
 
+/* only display the delete button when the feed is active */
+#app-navigation li:hover > .utils .delete-button {
+	display: none;
+}
+
+#app-navigation li.active > .utils .delete-button {
+	display: block;
+}
 
 .folder {
 	text-transform: uppercase;

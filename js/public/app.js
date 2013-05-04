@@ -3236,8 +3236,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 (function() {
   angular.module('News').factory('unreadCountFormatter', function() {
     return function(unreadCount) {
-      if (unreadCount > 999) {
-        unreadCount = '999+';
+      if (unreadCount > 99) {
+        unreadCount = '99+';
       }
       return unreadCount;
     };
