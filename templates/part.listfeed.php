@@ -31,6 +31,12 @@
 	</a>
 
 	<span class="utils">
+		
+		<button ng-click="feedBusinessLayer.delete(feed.id)"
+			class="svg action delete-icon delete-button"
+			title="<?php p($l->t('Delete website')); ?>"
+			ng-show="feed.id"
+			oc-tooltip></button>
 
 		<span class="unread-counter"
 			ng-show="feed.id && feedBusinessLayer.getUnreadCount(feed.id) > 0">
@@ -43,11 +49,6 @@
 			title="<?php p($l->t('Mark read')); ?>"
 			oc-tooltip></button>
 
-		<button ng-click="feedBusinessLayer.delete(feed.id)"
-			class="svg action delete-icon delete-button"
-			title="<?php p($l->t('Delete website')); ?>"
-			ng-show="feed.id"
-			oc-tooltip></button>
 
 		<button class="svg action delete-icon"
 			ng-click="feedBusinessLayer.markErrorRead(feed.url)"
