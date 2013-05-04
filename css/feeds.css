@@ -87,6 +87,18 @@
 	padding-right: 32px;
 }
 
+#app-navigation .active.unread > a {
+	padding-right: 80px;
+}
+
+#app-navigation li:hover > a {
+	padding-right: 60px;
+}
+
+#app-navigation .add-new:hover > a {
+	padding-right: 0px;
+}
+
 #app-navigation .utils {
 	position: absolute;
 	right: 0;
@@ -157,13 +169,6 @@ button.action:hover {
 	opacity: 1;
 }
 
-#app-navigation .add-new:hover > a {
-	padding-right: 0px;
-}
-
-#app-navigation li:hover > a {
-	padding-right: 98px;
-}
 
 #app-navigation li:hover > .utils {
 	display: block;
