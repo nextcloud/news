@@ -87,6 +87,10 @@
 	padding-right: 32px;
 }
 
+#app-navigation .active > a {
+	padding-right: 40px;
+}
+
 #app-navigation .active.unread > a {
 	padding-right: 80px;
 }
