@@ -2,6 +2,8 @@ ownCloud-news (0.99)
 
 * show 99+ as max unread count
 * only show delete button if feed is active
+* Fix a bug that would show the loading sign when updating the web ui and would reload all items while reading
+* More accurate padding when hovering over a feed
 
 ownCloud-news (0.98)
 
