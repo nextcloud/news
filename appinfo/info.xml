@@ -6,5 +6,5 @@
 	<licence>AGPL</licence>
 	<author>Alessandro Cosentino, Bernhard Posselt, Jan-Christoph Borchardt. Powered by SimplePie (Ryan Parman, Geoffrey Sneddon, Ryan McCue and contributors).</author>
 	<version>0.99</version>
-	<require>5.0.5</require>
+	<require>5.0.6</require>
 </info>
