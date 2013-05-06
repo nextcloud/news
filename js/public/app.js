@@ -51,8 +51,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     'Persistence', 'Config', function(Persistence, Config) {
       Persistence.init();
       return setInterval(function() {
-        Persistence.getAllFeeds();
-        return Persistence.getAllFolders();
+        Persistence.getAllFeeds(null, false);
+        return Persistence.getAllFolders(null, false);
       }, Config.feedUpdateInterval);
     }
   ]);
@@ -2682,19 +2682,29 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         */
 
 
-        Persistence.prototype.getAllFolders = function(onSuccess) {
+        Persistence.prototype.getAllFolders = function(onSuccess, showLoading) {
           var failureCallbackWrapper, params, successCallbackWrapper,
             _this = this;
 
+          if (showLoading == null) {
+            showLoading = true;
+          }
           onSuccess || (onSuccess = function() {});
-          this._feedLoading.increase();
-          successCallbackWrapper = function(data) {
-            onSuccess();
-            return _this._feedLoading.decrease();
-          };
-          failureCallbackWrapper = function(data) {
-            return _this._feedLoading.decrease();
-          };
+          if (showLoading) {
+            this._feedLoading.increase();
+            successCallbackWrapper = function(data) {
+              onSuccess();
+              return _this._feedLoading.decrease();
+            };
+            failureCallbackWrapper = function(data) {
+              return _this._feedLoading.decrease();
+            };
+          } else {
+            successCallbackWrapper = function(data) {
+              return onSuccess();
+            };
+            failureCallbackWrapper = function(data) {};
+          }
           params = {
             onSuccess: successCallbackWrapper,
             onFailure: failureCallbackWrapper

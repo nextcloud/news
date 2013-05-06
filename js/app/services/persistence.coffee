@@ -238,16 +238,23 @@ $rootScope) ->
 		###
 			FOLDER CONTROLLER
 		###
-		getAllFolders: (onSuccess) ->
+		getAllFolders: (onSuccess, showLoading=true) ->
 			onSuccess or= ->
 
+
 			# loading sign handling
-			@_feedLoading.increase()
-			successCallbackWrapper = (data) =>
-				onSuccess()
-				@_feedLoading.decrease()
-			failureCallbackWrapper = (data) =>
-				@_feedLoading.decrease()
+			if showLoading
+				@_feedLoading.increase()
+				successCallbackWrapper = (data) =>
+					onSuccess()
+					@_feedLoading.decrease()
+				failureCallbackWrapper = (data) =>
+					@_feedLoading.decrease()
+			else
+				successCallbackWrapper = (data) =>
+					onSuccess()
+				failureCallbackWrapper = (data) =>
+			
 
 			params =
 				onSuccess: successCallbackWrapper
