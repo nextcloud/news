@@ -29,7 +29,7 @@ Before you install the app check that the following requirements are met:
 - `You use a browser that supports the FileReader API <https://developer.mozilla.org/en/docs/DOM/FileReader#Browser_compatibility>`_
 - You can use a cron or webcron to call Background Jobs in ownCloud
 - You have installed **php-curl** and activated it in the **php.ini**
-- Install ownCloud **5.0.6** (important! comes with required CSS styles)
+- Install ownCloud **5.0.6** (important!)
 
 Should you have upgraded from a prior version, disable the CSS and JavaScript caching by adding this to :file:`owncloud/config/config.php`::
 
