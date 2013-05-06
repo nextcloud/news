@@ -50,7 +50,10 @@ Installation
 
 Keep up to date
 ~~~~~~~~~~~~~~~
-Simply disable and reenable the **News** and **App Framework** App again (ownCloud deletes the app if its not shipped by default)
+Both the **News** and **App Framework** App can be updated through the ownCloud apps page. Should you have upgraded from a version prior to 0.96 you'll have to adjust the version number by running this on your database:
+
+    UPDATE oc_appconfig SET configvalue = '0.96' WHERE configkey = 'installed_version' AND configvalue = '8.4' AND appid = 'news'
+
 
 Git (development version)
 -------------------------
