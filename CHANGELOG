@@ -4,6 +4,7 @@ ownCloud-news (0.99)
 * only show delete button if feed is active
 * Fix a bug that would show the loading sign when updating the web ui and would reload all items while reading
 * More accurate padding when hovering over a feed
+* Require 5.0.6 which includes a fix for the core API
 
 ownCloud-news (0.98)
 
