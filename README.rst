@@ -148,19 +148,19 @@ Running tests
 -------------
 All tests
 ~~~~~~~~~
-::
+To run them execute::
 
     make test
 
 PHP Unit tests
 ~~~~~~~~~~~~~~
-::
+To run them execute::
 
     make unit-tests
 
 Integration tests
 ~~~~~~~~~~~~~~~~~
-::
+To run them execute::
 
     make integration-tests
 
@@ -172,12 +172,13 @@ To change the url under which ownCloud is installed, set the environment variabl
 
     export OWNCLOUD_HOST='localhost/core'
 
-::
+Otherwise it defaults to **localhost/owncloud**
+To run them execute::
 
     make acceptance-tests
 
 JavaScript unit tests
 ~~~~~~~~~~~~~~~~~~~~~
-::
+To run them execute::
 
     make javascript-tests
