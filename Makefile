@@ -30,16 +30,22 @@ clean:
 	rm -rf $(build_directory)
 
 
-dist: clean
+dist: clean test
 	mkdir -p $(build_directory)
 	git archive HEAD --format=zip --prefix=$(app_name)/ > $(package_name).zip
 
 
 test: unit integration acceptance
 
+
 unit:
+	phpunit tests/unit
+
 
 integration:
+	phpunit tests/integration
+
 
 acceptance:
+	# TODO
 	
