@@ -22,7 +22,9 @@
 build_directory=build/
 package_name=$(build_directory)$(app_name)
 
-all: dist
+all:
+	# compile the coffeescript
+	cd js; make
 
 
 clean:

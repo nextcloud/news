@@ -132,6 +132,16 @@ in the **js/** directory
     feedUpdateInterval: 1000*60*3  # miliseconds
 
 
+Building the package
+--------------------
+To build the app simply run::
+
+    make
+
+Then build the package with
+
+    make dist
+
 Running tests
 -------------
 
