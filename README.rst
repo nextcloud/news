@@ -131,3 +131,31 @@ in the **js/** directory
 
     feedUpdateInterval: 1000*60*3  # miliseconds
 
+
+Running tests
+-------------
+
+JavaScript
+~~~~~~~~~~
+For JavaScript tests see :file:`js/README.md`
+
+
+PHP
+~~~
+All tests::
+
+    make test
+
+Unit tests::
+
+    make unit
+
+Integration tests::
+
+    make integration
+
+.. note:: For acceptance tests, a user with the name **test** and password **test** must exist!
+
+Acceptance tests::
+
+    make acceptance

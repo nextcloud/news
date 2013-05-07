@@ -19,32 +19,12 @@
 # This makefile is for general project specific stuff like packaging a new 
 # release for the app store and running php unittests which require core
 
-build_directory=build/
-package_name=$(build_directory)$(app_name)
+bash=/bin/bash
 
-all: dist
-
-
-clean:
-	rm -rf $(build_directory)
-
-
-dist: clean
-	mkdir -p $(build_directory)
-	git archive HEAD --format=zip --prefix=$(app_name)/ > $(package_name).zip
-
-
-test: unit integration acceptance
-
-
-unit:
-	phpunit tests/unit
-
-
-integration:
-	phpunit tests/integration
-
+all: acceptance
 
 acceptance:
-	cd tests/acceptance; make
-	
+	$(bash) run.sh
+
+headless:
+	export HEADLESS=true && $(bash) run.sh

@@ -3,7 +3,8 @@ coffee/build/
 node_modules/
 *.log
 build/
-js/*.xml 
+js/*.xml
+.rvm
 
 # just sane ignores
 .*.sw[po]
