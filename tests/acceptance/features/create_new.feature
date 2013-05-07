@@ -10,4 +10,9 @@ Feature: create_new
 
 	Scenario: show caption on hover
 		When I hover over the add new button
-		Then I should see a "Add Website" caption on the add new button
+		Then I should see an "Add Website" caption on the add new button
+
+	Scenario: hide caption when not hover
+		Given I hover over the add new button
+		When I hover out of the add new button
+		Then I should not see an "Add Website" caption on the add new button
