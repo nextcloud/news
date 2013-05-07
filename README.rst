@@ -138,9 +138,11 @@ To build the app simply run::
 
     make
 
-Then build the package with
+Then build the package with::
 
     make dist
+
+The package lies in the **build/** directory and is ready to be uploaded to `the App-Store <http://apps.owncloud.com>`_
 
 Running tests
 -------------
