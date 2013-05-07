@@ -5,6 +5,7 @@ ownCloud-news (0.99)
 * Fix a bug that would show the loading sign when updating the web ui and would reload all items while reading
 * More accurate padding when hovering over a feed
 * Require 5.0.6 which includes a fix for the core API
+* Don't highlight the tab title when there are no new unread feeds
 
 ownCloud-news (0.98)
 

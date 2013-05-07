@@ -1,4 +1,4 @@
-# ownCloud - News
+# ownCloud - App Framework
 #
 # @author Bernhard Posselt
 # @copyright 2012 Bernhard Posselt nukeawhale@gmail.com
@@ -20,7 +20,8 @@
 # release for the app store and running php unittests which require core
 
 build_directory=build/
-package_name=$(build_directory)news
+app_name=news
+package_name=$(build_directory)$(app_name)
 
 all: dist
 
@@ -31,7 +32,7 @@ clean:
 
 dist: clean
 	mkdir -p $(build_directory)
-	git archive HEAD --format=zip --prefix=news/ > $(package_name).zip
+	git archive HEAD --format=zip --prefix=$(app_name)/ > $(package_name).zip
 
 
 test: unit integration acceptance
