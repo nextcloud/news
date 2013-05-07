@@ -20,7 +20,6 @@
 # release for the app store and running php unittests which require core
 
 build_directory=build/
-app_name=news
 package_name=$(build_directory)$(app_name)
 
 all: dist
@@ -30,7 +29,7 @@ clean:
 	rm -rf $(build_directory)
 
 
-dist: clean test
+dist: clean
 	mkdir -p $(build_directory)
 	git archive HEAD --format=zip --prefix=$(app_name)/ > $(package_name).zip
 
