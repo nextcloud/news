@@ -436,14 +436,17 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           this._$scope.starredBusinessLayer = this._starredBusinessLayer;
           this._$scope.unreadCountFormatter = this._unreadCountFormatter;
           this._$scope.getTotalUnreadCount = function() {
-            var count, titleCount;
+            var count, title, titleCount;
 
             count = _this._subscriptionsBusinessLayer.getUnreadCount(0);
             if (count > 0) {
               titleCount = _this._unreadCountFormatter(count);
-              _this._$window.document.title = 'News (' + titleCount + ') | ownCloud';
+              title = 'News (' + titleCount + ') | ownCloud';
             } else {
-              _this._$window.document.title = 'News | ownCloud';
+              title = 'News | ownCloud';
+            }
+            if (_this._$window.document.title !== title) {
+              _this._$window.document.title = title;
             }
             return count;
           };

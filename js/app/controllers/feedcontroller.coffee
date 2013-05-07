@@ -56,10 +56,15 @@ ActiveFeed, FeedType, $window) ->
 				# and it has nothing to do with the body structure
 				if count > 0
 					titleCount = @_unreadCountFormatter(count)
-					@_$window.document.title =
-						'News (' + titleCount + ') | ownCloud'
+					title =	'News (' + titleCount + ') | ownCloud'
 				else
-					@_$window.document.title = 'News | ownCloud'
+					title = 'News | ownCloud'
+
+				# only update title when it changed to prevent highlighting the
+				# tab
+				if @_$window.document.title != title
+					@_$window.document.title = title
+
 				return count
 
 			@_$scope.isAddingFolder = =>
