@@ -14,5 +14,6 @@ Then (/^I should see an "([^"]+)" caption on the add new button$/) do |caption|
 end
 
 Then (/^I should not see an "([^"]+)" caption on the add new button$/) do |caption|
+	# if its not visible the selector wont find it
 	page.should have_no_selector(:xpath, "//li[contains(@class,\"add-new\")]/a/span[1]")
 end
