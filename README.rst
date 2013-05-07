@@ -146,28 +146,38 @@ The package lies in the **build/** directory and is ready to be uploaded to `the
 
 Running tests
 -------------
-All tests::
+All tests
+~~~~~~~~~
+::
 
     make test
 
-PHP Unit tests::
+PHP Unit tests
+~~~~~~~~~~~~~~
+::
 
     make unit-tests
 
-Integration tests::
+Integration tests
+~~~~~~~~~~~~~~~~~
+::
 
     make integration-tests
 
+Acceptance tests
+~~~~~~~~~~~~~~~~
 .. note:: For acceptance tests, a user with the name **test** and password **test** must exist!
 
 To change the url under which ownCloud is installed, set the environment variable $OWNCLOUD_HOST::
 
     export OWNCLOUD_HOST='localhost/core'
 
-Acceptance tests::
+::
 
     make acceptance-tests
 
-JavaScript unit tests::
+JavaScript unit tests
+~~~~~~~~~~~~~~~~~~~~~
+::
 
     make javascript-tests
