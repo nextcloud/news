@@ -210,6 +210,7 @@
 			height: auto;
 			overflow: auto;
 			word-wrap: break-word;
+			white-space:normal;
 		}
 
 		.feed_item div.body > img:first-child {
