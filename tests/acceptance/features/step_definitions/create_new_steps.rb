@@ -3,7 +3,7 @@ When (/^I hover over the add new button$/) do
 	page.execute_script("$('.list-title span').show()")
 end
 
-When (/^I hover out of the add new button$/) do
+When (/^I hover out off the add new button$/) do
 	# FIXME: get this working with hover action
 	page.execute_script("$('.list-title span').hide()")
 end
