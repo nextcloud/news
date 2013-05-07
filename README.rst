@@ -172,7 +172,8 @@ To change the url under which ownCloud is installed, set the environment variabl
 
     export OWNCLOUD_HOST='localhost/core'
 
-Otherwise it defaults to **localhost/owncloud**
+Otherwise it defaults to **localhost/owncloud**,
+
 To run them execute::
 
     make acceptance-tests
