@@ -149,23 +149,24 @@ JavaScript
 ~~~~~~~~~~
 For JavaScript tests see :file:`js/README.md`
 
-
-PHP
-~~~
 All tests::
 
     make test
 
-Unit tests::
+PHP Unit tests::
 
-    make unit
+    make unit-tests
 
 Integration tests::
 
-    make integration
+    make integration-tests
 
 .. note:: For acceptance tests, a user with the name **test** and password **test** must exist!
 
 Acceptance tests::
 
-    make acceptance
+    make acceptance-tests
+
+JavaScript tests::
+
+    make javascript-tests

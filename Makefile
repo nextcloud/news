@@ -36,17 +36,21 @@ dist: clean
 	git archive HEAD --format=zip --prefix=$(app_name)/ > $(package_name).zip
 
 
-test: unit integration acceptance
+# tests
+test: javascript-tests unit-tests integration-tests acceptance-tests
 
-
-unit:
+unit-tests:
 	phpunit tests/unit
 
 
-integration:
+integration-tests:
 	phpunit tests/integration
 
 
-acceptance:
-	cd tests/acceptance; make
+acceptance-tests:
+	cd tests/acceptance; make headless
+
+
+javascript-tests:
+	cd js; make test
 	
