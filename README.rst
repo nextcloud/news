@@ -146,11 +146,6 @@ The package lies in the **build/** directory and is ready to be uploaded to `the
 
 Running tests
 -------------
-
-JavaScript
-~~~~~~~~~~
-For JavaScript tests see :file:`js/README.md`
-
 All tests::
 
     make test
@@ -169,6 +164,6 @@ Acceptance tests::
 
     make acceptance-tests
 
-JavaScript tests::
+JavaScript unit tests::
 
     make javascript-tests
