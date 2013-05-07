@@ -71,5 +71,12 @@ fi
 rvm install 2.0.0
 rvm use ruby-2.0.0@oc_acceptance --create
 
+# install dep libraries
 bundle install
-cucumber -f json -o ./logs/owncloud.json -f pretty HOST=localhost/owncloud features
+
+# if the OWNCLOUD_HOST variable is not set it will default to localhost/owncloud
+if [[ -z "$OWNCLOUD_HOST" ]]; then
+	export OWNCLOUD_HOST='localhost/owncloud'
+fi
+
+cucumber -f json -o ./logs/owncloud.json -f pretty HOST=$OWNCLOUD_HOST features

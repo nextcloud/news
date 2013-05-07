@@ -160,6 +160,10 @@ Integration tests::
 
 .. note:: For acceptance tests, a user with the name **test** and password **test** must exist!
 
+.. note:: To change the url under which ownCloud is installed, set the environment variable $OWNCLOUD_HOST::
+
+    export OWNCLOUD_HOST='localhost/core'
+
 Acceptance tests::
 
     make acceptance-tests
