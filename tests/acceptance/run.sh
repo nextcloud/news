@@ -1,9 +1,7 @@
 # ownCloud - News
 #
-# @author Bernhard Posselt, Thomas Müller, Jakob Sack
+# @author Bernhard Posselt
 # @copyright 2013 Bernhard Posselt nukeawhale@gmail.com
-# @copyright 2012-2013 Thomas Müller thomas.mueller@tmit.eu
-# @copyright 2012-2013 Jakob Sack
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
