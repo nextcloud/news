@@ -10,16 +10,16 @@ Given (/^I am logged in$/) do
   fill_in 'password', with: "test"
   click_button 'submit'
 
-  #save_page
-  page.should have_selector('a#logout')
+  # if visibility is not set to false it will fail
+  page.should have_selector('a#logout', :visible => false)
 end
 
-When (/^I am in the "([^"]*)" app$/) do |app|
-  visit "/index.php/apps/#{app}"
-  page.should have_selector('#logout')
+Given (/^I am in the "([^"]+)" app$/) do |app|
+  visit "/index.php/apps/#{app}/"
+  page.should have_selector('a#logout', :visible => false)
 end
 
-When (/^I go to "([^"]*)"$/) do |path|
+When (/^I go to "([^"]+)"$/) do |path|
   visit "#{path}"
-  page.should have_selector('#logout')
+  page.should have_selector('a#logout', :visible => false)
 end

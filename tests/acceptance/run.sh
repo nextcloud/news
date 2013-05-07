@@ -44,6 +44,7 @@ if [[ ! -e "/usr/bin/xvfb-run" ]]; then
 	fi
 fi
 
+
 # dont use --user-install for gems since this breaks rvm. abort setup in case it
 # exists
 if [[ -e "/etc/gemrc" ]]; then

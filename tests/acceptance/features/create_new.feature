@@ -8,6 +8,6 @@ Feature: create_new
 		Given I am logged in
 		And I am in the "news" app
 
-	Scenario Outline: show caption on hover
+	Scenario: show caption on hover
 		When I hover over the add new button
 		Then I should see a "Add Website" caption on the add new button
