@@ -16,3 +16,13 @@ Feature: create_new
 		Given I hover over the add new button
 		When I hover out off the add new button
 		Then I should not see an "Add Website" caption on the add new button
+
+	Scenario: show add website dialogue
+		When I click on the add new button
+		Then I should see a form to add feeds and folders
+
+	Scenario: hide add website dialogue when clicking somewhere else
+		Given I should not see a form to add feeds and folders 
+			And I click on the add new button
+		When I click somewhere else
+		Then I should not see a form to add feeds and folders
