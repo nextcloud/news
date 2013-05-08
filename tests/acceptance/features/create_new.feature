@@ -14,6 +14,7 @@ Feature: create_new
 		Then I should see an "Add Website" caption on the add new button
 
 	Scenario: show add website dialogue
+		Given I should not see a form to add feeds and folders 
 		When I click on the add new button
 		Then I should see a form to add feeds and folders
 
