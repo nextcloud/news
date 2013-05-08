@@ -9,13 +9,9 @@ Feature: create_new
 		And I am in the "news" app
 
 	Scenario: show caption on hover
+		Given I should not see an "Add Website" caption on the add new button
 		When I hover over the add new button
 		Then I should see an "Add Website" caption on the add new button
-
-	Scenario: hide caption when not hover
-		Given I hover over the add new button
-		When I hover out off the add new button
-		Then I should not see an "Add Website" caption on the add new button
 
 	Scenario: show add website dialogue
 		When I click on the add new button
