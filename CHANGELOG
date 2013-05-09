@@ -9,6 +9,8 @@ ownCloud-news (0.99)
 * Make only one http request for reading all items and all items of a folder
 * Fix bug that would prevent marking a feed as read when its created and no other feeds are there
 * Fix bug that would prevent readding of a feed when a folder containing the feed was deleted
+* Also send newest item id in the api when creating a feed
+* Fix a bug that would mark the items on the right side as read regardless of feed or folder id
 
 ownCloud-news (0.98)
 

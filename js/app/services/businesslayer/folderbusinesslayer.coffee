@@ -89,8 +89,12 @@ NewestItem, FeedModel) ->
 			if newestItemId != 0 and angular.isDefined(folder)
 				for feed in @_feedBusinessLayer.getFeedsOfFolder(folderId)
 					feed.unreadCount = 0
-				for item in @_itemModel.getAll()
-					item.setRead()
+
+					# also set items in feeds as read
+					for item in @_itemModel.getAll()
+						if item.feedId == feed.id
+							item.setRead()
+
 				@_persistence.setFolderRead(folderId, newestItemId)
 
 

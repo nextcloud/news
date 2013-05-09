@@ -83,6 +83,11 @@ describe 'SubscriptionsBusinessLayer', ->
 		expect(@persistence.setAllRead).toHaveBeenCalledWith(25)
 
 
+	it 'should not mark all read when no highest item id', =>
+		@persistence.setAllRead = jasmine.createSpy('setAllRead')
+		@SubscriptionsBusinessLayer.markRead()
+		expect(@persistence.setAllRead).not.toHaveBeenCalled()
+
 	it 'should get the correct unread count', =>
 		@FeedModel.add({id: 3, unreadCount: 132, url: 'hoho'})
 		@FeedModel.add({id: 4, unreadCount: 12, url: 'hohod'})

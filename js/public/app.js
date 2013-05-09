@@ -860,20 +860,20 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         };
 
         FeedBusinessLayer.prototype.markRead = function(feedId) {
-          var feed, item, newestItemId, _i, _len, _ref, _results;
+          var feed, item, newestItemId, _i, _len, _ref;
 
           feed = this._feedModel.getById(feedId);
           newestItemId = this._newestItem.getId();
           if (angular.isDefined(feed) && newestItemId !== 0) {
             feed.unreadCount = 0;
-            this._persistence.setFeedRead(feedId, newestItemId);
             _ref = this._itemModel.getAll();
-            _results = [];
             for (_i = 0, _len = _ref.length; _i < _len; _i++) {
               item = _ref[_i];
-              _results.push(item.setRead());
+              if (item.feedId === feed.id) {
+                item.setRead();
+              }
             }
-            return _results;
+            return this._persistence.setFeedRead(feedId, newestItemId);
           }
         };
 
@@ -1139,11 +1139,13 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             for (_i = 0, _len = _ref.length; _i < _len; _i++) {
               feed = _ref[_i];
               feed.unreadCount = 0;
-            }
-            _ref1 = this._itemModel.getAll();
-            for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
-              item = _ref1[_j];
-              item.setRead();
+              _ref1 = this._itemModel.getAll();
+              for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+                item = _ref1[_j];
+                if (item.feedId === feed.id) {
+                  item.setRead();
+                }
+              }
             }
             return this._persistence.setFolderRead(folderId, newestItemId);
           }

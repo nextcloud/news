@@ -40,7 +40,7 @@ describe 'FolderBusinessLayer', ->
 
 	beforeEach inject (@FolderBusinessLayer, @FolderModel,	@FeedModel, @ShowAll,
 		               @ActiveFeed, @FeedType, @_ExistsError, @$timeout,
-		               @NewestItem) =>
+		               @NewestItem, @ItemModel) =>
 		@ShowAll.setShowAll(false)
 		@ActiveFeed.handle({type: @FeedType.Feed, id:0})
 
@@ -88,9 +88,17 @@ describe 'FolderBusinessLayer', ->
 
 	it 'should mark folder as read', =>
 		@NewestItem.handle(25)
-		@FolderModel.add({id: 3, opened: false, name: 'ho'})
 
 		@persistence.setFolderRead = jasmine.createSpy('setFeedRead')
+		
+		item1 = {id: 3, feedId: 5, guidHash: 'a3', status: 0}
+		@ItemModel.add(item1)
+		item1.setUnread()
+		item2 = {id: 2, feedId: 3, guidHash: 'a3', status: 0}
+		@ItemModel.add(item2)
+		item2.setUnread()
+
+		@FolderModel.add({id: 3, opened: false, name: 'ho'})
 		@FeedModel.add({id: 3, unreadCount:134, folderId: 3, url: 'a1'})
 		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, url: 'a2'})
 		@FeedModel.add({id: 1, unreadCount:12, folderId: 3, url: 'a3'})
@@ -101,7 +109,17 @@ describe 'FolderBusinessLayer', ->
 		expect(@FeedModel.getById(1).unreadCount).toBe(0)
 		expect(@FeedModel.getById(5).unreadCount).toBe(2)
 
+		expect(item1.isRead()).toBe(false)
+		expect(item2.isRead()).toBe(true)
+
 		expect(@persistence.setFolderRead).toHaveBeenCalledWith(3, 25)
+
+
+	it 'should not mark folder read when no highest item id', =>
+		@FolderModel.add({id: 5, opened: false, name: 'ho'})
+		@persistence.setFolderRead = jasmine.createSpy('setFolderRead')
+		@FolderBusinessLayer.markRead(5)
+		expect(@persistence.setFolderRead).not.toHaveBeenCalled()
 
 
 	it 'should get the correct unread count', =>
