@@ -217,6 +217,49 @@ class FeedAPITest extends \PHPUnit_Framework_TestCase {
 				$this->equalTo(3),
 				$this->equalTo($this->user))
 			->will($this->returnValue($feeds[0]));
+		$this->itemBusinessLayer->expects($this->once())
+			->method('getNewestItemId')
+			->will($this->returnValue(3));
+
+		$response = $this->feedAPI->create();
+
+		$this->assertEquals(array(
+			'feeds' => array($feeds[0]->toAPI()),
+			'newestItemId' => 3
+		), $response->getData());
+
+		$this->assertNull($response->getMessage());
+		$this->assertEquals(NewsAPIResult::OK, $response->getStatusCode());
+	}
+
+
+	public function testCreateNoItems() {
+		$feeds = array(
+			new Feed()
+		);
+		$request = new Request(array('params' => array(
+			'url' => 'ho',
+			'folderId' => 3
+		)));
+		$this->feedAPI = new FeedAPI(
+			$this->api,
+			$request,
+			$this->folderBusinessLayer,
+			$this->feedBusinessLayer,
+			$this->itemBusinessLayer
+		);		
+
+		
+		$this->feedBusinessLayer->expects($this->once())
+			->method('create')
+			->with(
+				$this->equalTo('ho'),
+				$this->equalTo(3),
+				$this->equalTo($this->user))
+			->will($this->returnValue($feeds[0]));
+		$this->itemBusinessLayer->expects($this->once())
+			->method('getNewestItemId')
+			->will($this->throwException(new BusinessLayerException('')));
 
 		$response = $this->feedAPI->create();
 
@@ -227,6 +270,7 @@ class FeedAPITest extends \PHPUnit_Framework_TestCase {
 		$this->assertNull($response->getMessage());
 		$this->assertEquals(NewsAPIResult::OK, $response->getStatusCode());
 	}
+
 
 
 	public function testCreateExists() {

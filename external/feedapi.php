@@ -83,9 +83,17 @@ class FeedAPI extends Controller {
 
 		try {
 			$feed = $this->feedBusinessLayer->create($feedUrl, $folderId, $userId);
-			return new NewsAPIResult(array(
+			$result = array(
 				'feeds' => array($feed->toAPI())
-			));
+			);
+
+			try {
+				$result['newestItemId'] = 
+					$this->itemBusinessLayer->getNewestItemId($userId);
+			} catch(BusinessLayerException $ex) {}
+
+			return new NewsAPIResult($result);
+
 		} catch(BusinessLayerExistsException $ex) {
 			return new NewsAPIResult(null, NewsAPIResult::EXISTS_ERROR, 
 				$ex->getMessage());
