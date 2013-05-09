@@ -32,6 +32,7 @@ use \OCA\AppFramework\Db\DoesNotExistException;
 use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
 
 use \OCA\News\Db\Folder;
+use \OCA\News\Db\Feed;
 use \OCA\News\BusinessLayer\BusinessLayerException;
 use \OCA\News\BusinessLayer\BusinessLayerExistsException;
 
@@ -42,6 +43,8 @@ class FolderControllerTest extends ControllerTestUtility {
 
 	private $api;
 	private $folderBusinessLayer;
+	private $itemBusinessLayer;
+	private $feedBusinessLayer;
 	private $request;
 	private $controller;
 	private $msg;
@@ -55,9 +58,17 @@ class FolderControllerTest extends ControllerTestUtility {
 		$this->folderBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\FolderBusinessLayer')
 			->disableOriginalConstructor()
 			->getMock();
+		$this->feedBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\FeedBusinessLayer')
+			->disableOriginalConstructor()
+			->getMock();
+		$this->itemBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\ItemBusinessLayer')
+			->disableOriginalConstructor()
+			->getMock();
 		$this->request = new Request();
 		$this->controller = new FolderController($this->api, $this->request,
-				$this->folderBusinessLayer);
+				$this->folderBusinessLayer, 
+				$this->feedBusinessLayer,
+				$this->itemBusinessLayer);
 		$this->user = 'jack';
 		$this->msg = 'ron';
 	}
@@ -76,7 +87,10 @@ class FolderControllerTest extends ControllerTestUtility {
 		);
 
 		$request = $this->getRequest($post);
-		return new FolderController($this->api, $request, $this->folderBusinessLayer);
+		return new FolderController($this->api, $request,
+			$this->folderBusinessLayer, 
+			$this->feedBusinessLayer,
+			$this->itemBusinessLayer);
 	}
 
 	public function testFoldersAnnotations(){
@@ -109,6 +123,9 @@ class FolderControllerTest extends ControllerTestUtility {
 	}
 
 
+	public function testReadAnnotations(){
+		$this->assertFolderControllerAnnotations('read');
+	}
 	
 	public function testFolders(){
 		$return = array(
@@ -325,4 +342,35 @@ class FolderControllerTest extends ControllerTestUtility {
 	}
 
 	
+	public function testRead(){
+		$feed = new Feed();
+		$url = array(
+			'folderId' => 4
+		);
+		$post = array(
+			'highestItemId' => 5
+		);
+		$this->controller = $this->getPostController($post, $url);
+		$expected = array(
+			'feeds' => array($feed)
+		);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->itemBusinessLayer->expects($this->once())
+			->method('readFolder')
+			->with($this->equalTo($url['folderId']), 
+				$this->equalTo($post['highestItemId']), 
+				$this->equalTo($this->user));
+		$this->feedBusinessLayer->expects($this->once())
+			->method('findAll')
+			->with($this->equalTo($this->user))
+			->will($this->returnValue(array($feed)));
+
+		$response = $this->controller->read();
+		$this->assertTrue($response instanceof JSONResponse);
+		$this->assertEquals($expected, $response->getParams());
+	}
+
 }

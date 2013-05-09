@@ -67,7 +67,7 @@ fi
 
 # Set the gemset and ruby version
 rvm install 2.0.0
-rvm use ruby-2.0.0@oc_acceptance --create
+rvm use ruby-2.0.0@oc_news_acceptance --create
 
 # install dep libraries
 bundle install

@@ -46,13 +46,18 @@ describe 'FolderBusinessLayer', ->
 
 
 	it 'should delete folders', =>
+		@FeedModel.add({id: 5, unreadCount:2, folderId: 3, url: 'a1'})
 		@FolderModel.removeById = jasmine.createSpy('remove').andCallFake ->
 			return {id: 3, name: 'test'}
+		@FeedModel.removeById = jasmine.createSpy('remove').andCallFake ->
+			return {id: 5, name: 'test', folderId: 3}
+
 		@persistence.deleteFolder = jasmine.createSpy('deletequery')
 		@FolderBusinessLayer.delete(3)
 		@$timeout.flush()
 
 		expect(@FolderModel.removeById).toHaveBeenCalledWith(3)
+		expect(@FeedModel.removeById).toHaveBeenCalledWith(5)
 		expect(@persistence.deleteFolder).toHaveBeenCalledWith(3)
 
 
@@ -83,16 +88,20 @@ describe 'FolderBusinessLayer', ->
 
 	it 'should mark folder as read', =>
 		@NewestItem.handle(25)
-		@persistence.setFeedRead = jasmine.createSpy('setFeedRead')
+		@FolderModel.add({id: 3, opened: false, name: 'ho'})
+
+		@persistence.setFolderRead = jasmine.createSpy('setFeedRead')
 		@FeedModel.add({id: 3, unreadCount:134, folderId: 3, url: 'a1'})
 		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, url: 'a2'})
 		@FeedModel.add({id: 1, unreadCount:12, folderId: 3, url: 'a3'})
 
-		@FolderBusinessLayer.markFolderRead(3)
+		@FolderBusinessLayer.markRead(3)
 
 		expect(@FeedModel.getById(3).unreadCount).toBe(0)
 		expect(@FeedModel.getById(1).unreadCount).toBe(0)
 		expect(@FeedModel.getById(5).unreadCount).toBe(2)
+
+		expect(@persistence.setFolderRead).toHaveBeenCalledWith(3, 25)
 
 
 	it 'should get the correct unread count', =>

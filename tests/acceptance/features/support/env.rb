@@ -17,8 +17,12 @@ end
 #
 host = ENV['HOST']
 host ||= '33.33.33.10'
+
 Capybara.app = host
 Capybara.run_server = false
 Capybara.app_host = "http://#{host}"
 Capybara.default_selector = :css
 Capybara.default_driver = :selenium
+
+# serve static files
+run Rack::Directory.new Dir.pwd.concat('./static')

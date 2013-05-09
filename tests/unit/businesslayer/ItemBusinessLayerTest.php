@@ -259,6 +259,32 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 	}
 
 
+	public function testReadAll(){
+		$highestItemId = 6;
+		
+		$this->mapper->expects($this->once())
+			->method('readAll')
+			->with($this->equalTo($highestItemId), 
+				$this->equalTo($this->user));
+
+		$this->itemBusinessLayer->readAll($highestItemId, $this->user);
+	}
+
+
+	public function testReadFolder(){
+		$folderId = 3;
+		$highestItemId = 6;
+		
+		$this->mapper->expects($this->once())
+			->method('readFolder')
+			->with($this->equalTo($folderId), 
+				$this->equalTo($highestItemId), 
+				$this->equalTo($this->user));
+
+		$this->itemBusinessLayer->readFolder($folderId, $highestItemId, $this->user);
+	}
+
+
 	public function testReadFeed(){
 		$feedId = 3;
 		$highestItemId = 6;

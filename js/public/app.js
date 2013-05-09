@@ -859,7 +859,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return this._undoQueue.add(feed.title, callback, 10 * 1000, undoCallback);
         };
 
-        FeedBusinessLayer.prototype.markFeedRead = function(feedId) {
+        FeedBusinessLayer.prototype.markRead = function(feedId) {
           var feed, item, newestItemId, _i, _len, _ref, _results;
 
           feed = this._feedModel.getById(feedId);
@@ -875,18 +875,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             }
             return _results;
           }
-        };
-
-        FeedBusinessLayer.prototype.markAllRead = function() {
-          var feed, _i, _len, _ref, _results;
-
-          _ref = this._feedModel.getAll();
-          _results = [];
-          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            feed = _ref[_i];
-            _results.push(this.markFeedRead(feed.id));
-          }
-          return _results;
         };
 
         FeedBusinessLayer.prototype.getNumberOfFeeds = function() {
@@ -1061,19 +1049,21 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   angular.module('News').factory('FolderBusinessLayer', [
-    '_BusinessLayer', 'FolderModel', 'FeedBusinessLayer', 'Persistence', 'FeedType', 'ActiveFeed', 'ItemModel', 'ShowAll', '_ExistsError', 'OPMLParser', 'UndoQueue', function(_BusinessLayer, FolderModel, FeedBusinessLayer, Persistence, FeedType, ActiveFeed, ItemModel, ShowAll, _ExistsError, OPMLParser, UndoQueue) {
+    '_BusinessLayer', 'FolderModel', 'FeedBusinessLayer', 'Persistence', 'FeedType', 'ActiveFeed', 'ItemModel', 'ShowAll', '_ExistsError', 'OPMLParser', 'UndoQueue', 'NewestItem', 'FeedModel', function(_BusinessLayer, FolderModel, FeedBusinessLayer, Persistence, FeedType, ActiveFeed, ItemModel, ShowAll, _ExistsError, OPMLParser, UndoQueue, NewestItem, FeedModel) {
       var FolderBusinessLayer;
 
       FolderBusinessLayer = (function(_super) {
         __extends(FolderBusinessLayer, _super);
 
-        function FolderBusinessLayer(_folderModel, _feedBusinessLayer, _showAll, activeFeed, persistence, _feedType, itemModel, _opmlParser, _undoQueue) {
+        function FolderBusinessLayer(_folderModel, _feedBusinessLayer, _showAll, activeFeed, persistence, _feedType, itemModel, _opmlParser, _undoQueue, _newestItem, _feedModel) {
           this._folderModel = _folderModel;
           this._feedBusinessLayer = _feedBusinessLayer;
           this._showAll = _showAll;
           this._feedType = _feedType;
           this._opmlParser = _opmlParser;
           this._undoQueue = _undoQueue;
+          this._newestItem = _newestItem;
+          this._feedModel = _feedModel;
           FolderBusinessLayer.__super__.constructor.call(this, activeFeed, persistence, itemModel, this._feedType.Folder);
         }
 
@@ -1082,15 +1072,29 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         };
 
         FolderBusinessLayer.prototype["delete"] = function(folderId) {
-          var callback, folder, undoCallback,
+          var callback, feed, feeds, folder, undoCallback, _i, _len, _ref,
             _this = this;
 
+          feeds = [];
           folder = this._folderModel.removeById(folderId);
+          _ref = this._feedBusinessLayer.getFeedsOfFolder(folderId);
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            feed = _ref[_i];
+            feeds.push(this._feedModel.removeById(feed.id));
+          }
           callback = function() {
             return _this._persistence.deleteFolder(folderId);
           };
           undoCallback = function() {
-            return _this._folderModel.add(folder);
+            var _j, _len1, _results;
+
+            _this._folderModel.add(folder);
+            _results = [];
+            for (_j = 0, _len1 = feeds.length; _j < _len1; _j++) {
+              feed = feeds[_j];
+              _results.push(_this._feedModel.create(feed));
+            }
+            return _results;
           };
           return this._undoQueue.add(folder.name, callback, 10 * 1000, undoCallback);
         };
@@ -1125,16 +1129,24 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           }
         };
 
-        FolderBusinessLayer.prototype.markFolderRead = function(folderId) {
-          var feed, _i, _len, _ref, _results;
+        FolderBusinessLayer.prototype.markRead = function(folderId) {
+          var feed, folder, item, newestItemId, _i, _j, _len, _len1, _ref, _ref1;
 
-          _ref = this._feedBusinessLayer.getFeedsOfFolder(folderId);
-          _results = [];
-          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            feed = _ref[_i];
-            _results.push(this._feedBusinessLayer.markFeedRead(feed.id));
+          newestItemId = this._newestItem.getId();
+          folder = this._folderModel.getById(folderId);
+          if (newestItemId !== 0 && angular.isDefined(folder)) {
+            _ref = this._feedBusinessLayer.getFeedsOfFolder(folderId);
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              feed = _ref[_i];
+              feed.unreadCount = 0;
+            }
+            _ref1 = this._itemModel.getAll();
+            for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+              item = _ref1[_j];
+              item.setRead();
+            }
+            return this._persistence.setFolderRead(folderId, newestItemId);
           }
-          return _results;
         };
 
         FolderBusinessLayer.prototype.getUnreadCount = function(folderId) {
@@ -1261,7 +1273,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         return FolderBusinessLayer;
 
       })(_BusinessLayer);
-      return new FolderBusinessLayer(FolderModel, FeedBusinessLayer, ShowAll, ActiveFeed, Persistence, FeedType, ItemModel, OPMLParser, UndoQueue);
+      return new FolderBusinessLayer(FolderModel, FeedBusinessLayer, ShowAll, ActiveFeed, Persistence, FeedType, ItemModel, OPMLParser, UndoQueue, NewestItem, FeedModel);
     }
   ]);
 
@@ -1516,15 +1528,17 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   angular.module('News').factory('SubscriptionsBusinessLayer', [
-    '_BusinessLayer', 'FeedBusinessLayer', 'Persistence', 'ShowAll', 'ActiveFeed', 'FeedType', 'ItemModel', function(_BusinessLayer, FeedBusinessLayer, Persistence, ShowAll, ActiveFeed, FeedType, ItemModel) {
+    '_BusinessLayer', 'FeedBusinessLayer', 'Persistence', 'ShowAll', 'ActiveFeed', 'FeedType', 'ItemModel', 'FeedModel', 'NewestItem', function(_BusinessLayer, FeedBusinessLayer, Persistence, ShowAll, ActiveFeed, FeedType, ItemModel, FeedModel, NewestItem) {
       var SubscriptionsBusinessLayer;
 
       SubscriptionsBusinessLayer = (function(_super) {
         __extends(SubscriptionsBusinessLayer, _super);
 
-        function SubscriptionsBusinessLayer(_feedBusinessLayer, _showAll, feedType, persistence, activeFeed, itemModel) {
+        function SubscriptionsBusinessLayer(_feedBusinessLayer, _showAll, feedType, persistence, activeFeed, itemModel, _feedModel, _newestItem) {
           this._feedBusinessLayer = _feedBusinessLayer;
           this._showAll = _showAll;
+          this._feedModel = _feedModel;
+          this._newestItem = _newestItem;
           SubscriptionsBusinessLayer.__super__.constructor.call(this, activeFeed, persistence, itemModel, feedType.Subscriptions);
         }
 
@@ -1542,8 +1556,23 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           }
         };
 
-        SubscriptionsBusinessLayer.prototype.markAllRead = function() {
-          return this._feedBusinessLayer.markAllRead();
+        SubscriptionsBusinessLayer.prototype.markRead = function() {
+          var feed, item, newestItemId, _i, _j, _len, _len1, _ref, _ref1;
+
+          newestItemId = this._newestItem.getId();
+          if (newestItemId !== 0) {
+            _ref = this._feedModel.getAll();
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              feed = _ref[_i];
+              feed.unreadCount = 0;
+            }
+            _ref1 = this._itemModel.getAll();
+            for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+              item = _ref1[_j];
+              item.setRead();
+            }
+            return this._persistence.setAllRead(newestItemId);
+          }
         };
 
         SubscriptionsBusinessLayer.prototype.getUnreadCount = function() {
@@ -1553,7 +1582,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         return SubscriptionsBusinessLayer;
 
       })(_BusinessLayer);
-      return new SubscriptionsBusinessLayer(FeedBusinessLayer, ShowAll, FeedType, Persistence, ActiveFeed, ItemModel);
+      return new SubscriptionsBusinessLayer(FeedBusinessLayer, ShowAll, FeedType, Persistence, ActiveFeed, ItemModel, FeedModel, NewestItem);
     }
   ]);
 
@@ -2530,6 +2559,21 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return this._request.post('news_items_unread', params);
         };
 
+        Persistence.prototype.setAllRead = function(highestItemId) {
+          /*
+          			sets all items as read
+          */
+
+          var params;
+
+          params = {
+            data: {
+              highestItemId: highestItemId
+            }
+          };
+          return this._request.post('news_items_all_read', params);
+        };
+
         /*
         			FEED CONTROLLER
         */
@@ -2801,6 +2845,24 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             }
           };
           return this._request.post('news_folders_rename', params);
+        };
+
+        Persistence.prototype.setFolderRead = function(folderId, highestItemId) {
+          /*
+          			sets all items of a folder as read
+          */
+
+          var params;
+
+          params = {
+            routeParams: {
+              folderId: folderId
+            },
+            data: {
+              highestItemId: highestItemId
+            }
+          };
+          return this._request.post('news_folders_read', params);
         };
 
         /*

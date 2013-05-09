@@ -43,8 +43,8 @@ class FeedController extends Controller {
 	private $itemBusinessLayer;
 
 	public function __construct(API $api, Request $request, 
-	                            FeedBusinessLayer $feedBusinessLayer,
 		                        FolderBusinessLayer $folderBusinessLayer,
+	                            FeedBusinessLayer $feedBusinessLayer,
 		                        ItemBusinessLayer $itemBusinessLayer){
 		parent::__construct($api, $request);
 		$this->feedBusinessLayer = $feedBusinessLayer;
@@ -138,6 +138,11 @@ class FeedController extends Controller {
 				'feeds' => array($feed)
 			);
 
+			try {
+				$params['newestItemId'] = 
+					$this->itemBusinessLayer->getNewestItemId($userId);
+			} catch (BusinessLayerException $ex) {}
+
 			return $this->renderJSON($params);
 		} catch(BusinessLayerException $ex) {
 			return $this->renderJSON(array(), $ex->getMessage());
@@ -226,6 +231,29 @@ class FeedController extends Controller {
 
 		$params = array(
 			'feeds' => array($feed)
+		);
+		return $this->renderJSON($params);
+	}
+
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
+	public function read(){
+		$userId = $this->api->getUserId();
+		$feedId = (int) $this->params('feedId');
+		$highestItemId = (int) $this->params('highestItemId');
+
+		$this->itemBusinessLayer->readFeed($feedId, $highestItemId, $userId);
+
+		$params = array(
+			'feeds' => array(
+				array(
+					'id' => $feedId,
+					'unreadCount' => 0
+				)
+			)
 		);
 		return $this->renderJSON($params);
 	}

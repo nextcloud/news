@@ -62,7 +62,7 @@ class ItemControllerTest extends ControllerTestUtility {
 			->getMock();
 		$this->request = new Request();
 		$this->controller = new ItemController($this->api, $this->request,
-				$this->itemBusinessLayer, $this->feedBusinessLayer);
+				$this->feedBusinessLayer, $this->itemBusinessLayer);
 		$this->user = 'jackob';
 		$this->newestItemId = 12312;
 	}
@@ -74,8 +74,8 @@ class ItemControllerTest extends ControllerTestUtility {
 		);
 
 		$request = $this->getRequest($post);
-		return new ItemController($this->api, $request, $this->itemBusinessLayer,
-			$this->feedBusinessLayer);
+		return new ItemController($this->api, $request,
+			$this->feedBusinessLayer, $this->itemBusinessLayer);
 	}
 
 
@@ -108,9 +108,8 @@ class ItemControllerTest extends ControllerTestUtility {
 		$this->assertItemControllerAnnotations('unread');
 	}
 
-
-	public function testReadFeedAnnotations(){
-		$this->assertItemControllerAnnotations('readFeed');
+	public function testReadAllAnnotations(){
+		$this->assertItemControllerAnnotations('readAll');
 	}
 
 
@@ -293,35 +292,32 @@ class ItemControllerTest extends ControllerTestUtility {
 	}
 
 
-	public function testReadFeed(){
-		$url = array(
-			'feedId' => 4
-		);
+	public function testReadAll(){
+		$feed = new Feed();
 		$post = array(
 			'highestItemId' => 5
 		);
-		$this->controller = $this->getPostController($post, $url);
+		$this->controller = $this->getPostController($post);
 		$expected = array(
-			'feeds' => array(
-				array(
-					'id' => 4,
-					'unreadCount' => 0
-				)
-			)
+			'feeds' => array($feed)
 		);
 
 		$this->api->expects($this->once())
 			->method('getUserId')
 			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
-			->method('readFeed')
-			->with($url['feedId'], $post['highestItemId'], $this->user);
+			->method('readAll')
+			->with($this->equalTo($post['highestItemId']), 
+				$this->equalTo($this->user));
+		$this->feedBusinessLayer->expects($this->once())
+			->method('findAll')
+			->with($this->equalTo($this->user))
+			->will($this->returnValue(array($feed)));
 
-		$response = $this->controller->readFeed();
+		$response = $this->controller->readAll();
 		$this->assertTrue($response instanceof JSONResponse);
 		$this->assertEquals($expected, $response->getParams());
 	}
-
 
 
 	private function itemsApiExpects($id, $type){

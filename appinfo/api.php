@@ -75,6 +75,13 @@ use \OCA\AppFramework\External\External;
 	\OC_API::USER_AUTH
 );
 
+\OCP\API::register('put', '/apps/news/folders/{folderId}/read',
+	function($params) {
+		return External::main('FolderAPI', 'read', $params, new DIContainer());
+	}, 
+	'news', 
+	\OC_API::USER_AUTH
+);
 
 /**
  * Feed API
@@ -165,6 +172,14 @@ use \OCA\AppFramework\External\External;
 \OCP\API::register('put', '/apps/news/items/{feedId}/{guidHash}/unstar',
 	function($params) {
 		return External::main('ItemAPI', 'unstar', $params, new DIContainer());
+	}, 
+	'news', 
+	\OC_API::USER_AUTH
+);
+
+\OCP\API::register('put', '/apps/news/items/read',
+	function($params) {
+		return External::main('ItemAPI', 'readAll', $params, new DIContainer());
 	}, 
 	'news', 
 	\OC_API::USER_AUTH

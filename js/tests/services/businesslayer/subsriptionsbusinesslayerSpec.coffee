@@ -68,15 +68,19 @@ describe 'SubscriptionsBusinessLayer', ->
 		expect(@SubscriptionsBusinessLayer.isVisible()).toBe(true)
 
 
-	it 'should mark all feeds as read', =>
+	it 'should mark all as read', =>
 		@NewestItem.handle(25)
-		item = {id: 3, unreadCount: 132, url: 'hi'}
-		@FeedModel.add(item)
+		@persistence.setAllRead = jasmine.createSpy('setFeedRead')
+		@FeedModel.add({id: 3, unreadCount:134, folderId: 3, url: 'a1'})
+		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, url: 'a2'})
+		@FeedModel.add({id: 1, unreadCount:12, folderId: 3, url: 'a3'})
 
-		@SubscriptionsBusinessLayer.markAllRead()
+		@SubscriptionsBusinessLayer.markRead()
 
-		expect(item.unreadCount).toBe(0)
-		expect(@persistence.setFeedRead).toHaveBeenCalled()
+		expect(@FeedModel.getById(3).unreadCount).toBe(0)
+		expect(@FeedModel.getById(1).unreadCount).toBe(0)
+		expect(@FeedModel.getById(5).unreadCount).toBe(0)
+		expect(@persistence.setAllRead).toHaveBeenCalledWith(25)
 
 
 	it 'should get the correct unread count', =>

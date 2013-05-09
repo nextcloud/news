@@ -64,7 +64,7 @@ FeedModel, NewLoading, _ExistsError, Utils, $rootScope, UndoQueue, NewestItem)->
 			@_undoQueue.add(feed.title, callback, 10*1000, undoCallback)
 
 
-		markFeedRead: (feedId) ->
+		markRead: (feedId) ->
 			feed = @_feedModel.getById(feedId)
 			newestItemId = @_newestItem.getId()
 
@@ -73,11 +73,6 @@ FeedModel, NewLoading, _ExistsError, Utils, $rootScope, UndoQueue, NewestItem)->
 				@_persistence.setFeedRead(feedId, newestItemId)
 				for item in @_itemModel.getAll()
 					item.setRead()
-
-
-		markAllRead: ->
-			for feed in @_feedModel.getAll()
-				@markFeedRead(feed.id)
 
 
 		getNumberOfFeeds: ->

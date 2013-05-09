@@ -147,4 +147,13 @@ class ItemAPI extends Controller {
 	}
 
 
+	public function readAll() {
+		$userId = $this->api->getUserId();
+		$newestItemId = (int) $this->params('newestItemId');
+
+		$this->itemBusinessLayer->readAll($newestItemId, $userId);
+		return new NewsAPIResult();
+	}
+
+
 }

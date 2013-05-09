@@ -77,6 +77,12 @@ $this->create('news_folders_rename', '/folders/{folderId}/rename')->post()->acti
 	}
 );
 
+$this->create('news_folders_read', '/folders/{folderId}/read')->post()->action(
+	function($params){
+		App::main('FolderController', 'read', $params, new DIContainer());
+	}
+);
+
 /**
  * Feeds
  */
@@ -118,7 +124,7 @@ $this->create('news_feeds_move', '/feeds/{feedId}/move')->post()->action(
 
 $this->create('news_feeds_read', '/feeds/{feedId}/read')->post()->action(
 	function($params){
-		App::main('ItemController', 'readFeed', $params, new DIContainer());
+		App::main('FeedController', 'read', $params, new DIContainer());
 	}
 );
 
@@ -160,6 +166,12 @@ $this->create('news_items_star', '/items/{feedId}/{guidHash}/star')->post()->act
 $this->create('news_items_unstar', '/items/{feedId}/{guidHash}/unstar')->post()->action(
 	function($params){
 		App::main('ItemController', 'unstar', $params, new DIContainer());
+	}
+);
+
+$this->create('news_items_all_read', '/items/read')->post()->action(
+	function($params){
+		App::main('ItemController', 'readAll', $params, new DIContainer());
 	}
 );
 

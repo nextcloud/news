@@ -65,7 +65,8 @@ class FeedControllerTest extends ControllerTestUtility {
 			->getMock();
 		$this->request = new Request();
 		$this->controller = new FeedController($this->api, $this->request,
-				$this->feedBusinessLayer, $this->folderBusinessLayer,
+				$this->folderBusinessLayer,
+				$this->feedBusinessLayer,
 				$this->itemBusinessLayer);
 		$this->user = 'jack';
 	}
@@ -83,8 +84,10 @@ class FeedControllerTest extends ControllerTestUtility {
 		);
 
 		$request = $this->getRequest($post);
-		return new FeedController($this->api, $request, $this->feedBusinessLayer, 
-			$this->folderBusinessLayer, $this->itemBusinessLayer);
+		return new FeedController($this->api, $request, 
+			$this->folderBusinessLayer,
+			$this->feedBusinessLayer, 
+			$this->itemBusinessLayer);
 	}
 
 
@@ -120,6 +123,10 @@ class FeedControllerTest extends ControllerTestUtility {
 
 	public function testImportGoogleReaderAnnotations(){
 		$this->assertFeedControllerAnnotations('importGoogleReader');
+	}
+
+	public function testReadAnnotations(){
+		$this->assertFeedControllerAnnotations('read');
 	}
 
 	public function testFeeds(){
@@ -287,6 +294,40 @@ class FeedControllerTest extends ControllerTestUtility {
 
 	public function testCreate(){
 		$result = array(
+			'feeds' => array(new Feed()),
+			'newestItemId' => 3
+		);
+
+		$post = array(
+			'url' => 'hi',
+			'parentFolderId' => 4
+		);
+		$this->controller = $this->getPostController($post);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+
+		$this->itemBusinessLayer->expects($this->once())
+			->method('getNewestItemId')
+			->will($this->returnValue($result['newestItemId']));
+
+		$this->feedBusinessLayer->expects($this->once())
+			->method('create')
+			->with($this->equalTo($post['url']),
+				$this->equalTo($post['parentFolderId']),
+				$this->equalTo($this->user))
+			->will($this->returnValue($result['feeds'][0]));
+
+		$response = $this->controller->create();
+
+		$this->assertEquals($result, $response->getParams());
+		$this->assertTrue($response instanceof JSONResponse);
+	}	
+
+
+	public function testCreateNoItems(){
+		$result = array(
 			'feeds' => array(new Feed())
 		);
 
@@ -299,6 +340,10 @@ class FeedControllerTest extends ControllerTestUtility {
 		$this->api->expects($this->once())
 			->method('getUserId')
 			->will($this->returnValue($this->user));
+
+		$this->itemBusinessLayer->expects($this->once())
+			->method('getNewestItemId')
+			->will($this->throwException(new BusinessLayerException('')));
 
 		$this->feedBusinessLayer->expects($this->once())
 			->method('create')
@@ -506,6 +551,36 @@ class FeedControllerTest extends ControllerTestUtility {
 
 		$this->assertEquals($expected, $response->getParams());
 		$this->assertTrue($response instanceof JSONResponse);
+	}
+
+
+	public function testReadFeed(){
+		$url = array(
+			'feedId' => 4
+		);
+		$post = array(
+			'highestItemId' => 5
+		);
+		$this->controller = $this->getPostController($post, $url);
+		$expected = array(
+			'feeds' => array(
+				array(
+					'id' => 4,
+					'unreadCount' => 0
+				)
+			)
+		);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->itemBusinessLayer->expects($this->once())
+			->method('readFeed')
+			->with($url['feedId'], $post['highestItemId'], $this->user);
+
+		$response = $this->controller->read();
+		$this->assertTrue($response instanceof JSONResponse);
+		$this->assertEquals($expected, $response->getParams());
 	}
 
 }

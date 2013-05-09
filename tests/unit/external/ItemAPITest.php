@@ -336,4 +336,32 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(NewsAPIResult::NOT_FOUND_ERROR, $response->getStatusCode());
 	}
 
+
+	public function testReadAll() {
+		$request = new Request(array(
+			'params' => array(
+				'newestItemId' => 30,
+			)
+		));
+		$this->itemAPI = new ItemAPI(
+			$this->api,
+			$request,
+			$this->itemBusinessLayer
+		);	
+
+		
+		$this->itemBusinessLayer->expects($this->once())
+			->method('readAll')
+			->with(
+				$this->equalTo(30),
+				$this->equalTo($this->user));
+
+		$response = $this->itemAPI->readAll();
+
+		$this->assertNull($response->getData());
+		$this->assertNull($response->getMessage());
+		$this->assertEquals(NewsAPIResult::OK, $response->getStatusCode());
+	}
+
+
 }

@@ -24,15 +24,16 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 angular.module('News').factory 'FolderBusinessLayer',
 ['_BusinessLayer', 'FolderModel', 'FeedBusinessLayer', 'Persistence',
 'FeedType', 'ActiveFeed', 'ItemModel', 'ShowAll', '_ExistsError', 'OPMLParser',
-'UndoQueue',
+'UndoQueue', 'NewestItem', 'FeedModel',
 (_BusinessLayer, FolderModel, FeedBusinessLayer, Persistence, FeedType,
-ActiveFeed, ItemModel, ShowAll, _ExistsError, OPMLParser, UndoQueue) ->
+ActiveFeed, ItemModel, ShowAll, _ExistsError, OPMLParser, UndoQueue,
+NewestItem, FeedModel) ->
 
 	class FolderBusinessLayer extends _BusinessLayer
 
 		constructor: (@_folderModel, @_feedBusinessLayer, @_showAll, activeFeed,
 			          persistence, @_feedType, itemModel, @_opmlParser,
-			          @_undoQueue) ->
+			          @_undoQueue, @_newestItem, @_feedModel) ->
 			super(activeFeed, persistence, itemModel, @_feedType.Folder)
 
 
@@ -41,12 +42,19 @@ ActiveFeed, ItemModel, ShowAll, _ExistsError, OPMLParser, UndoQueue) ->
 
 
 		delete: (folderId) ->
+			feeds = []
 			folder = @_folderModel.removeById(folderId)
+
+			# also delete feeds
+			for feed in @_feedBusinessLayer.getFeedsOfFolder(folderId)
+				feeds.push(@_feedModel.removeById(feed.id))
 			callback = =>
 				@_persistence.deleteFolder(folderId)
 		
 			undoCallback = =>
 				@_folderModel.add(folder)
+				for feed in feeds
+					@_feedModel.create(feed)
 
 			@_undoQueue.add(folder.name, callback, 10*1000, undoCallback)
 
@@ -74,9 +82,16 @@ ActiveFeed, ItemModel, ShowAll, _ExistsError, OPMLParser, UndoQueue) ->
 					@_persistence.collapseFolder(folder.id)
 
 
-		markFolderRead: (folderId) ->
-			for feed in @_feedBusinessLayer.getFeedsOfFolder(folderId)
-				@_feedBusinessLayer.markFeedRead(feed.id)
+		markRead: (folderId) ->
+			newestItemId = @_newestItem.getId()
+			folder = @_folderModel.getById(folderId)
+
+			if newestItemId != 0 and angular.isDefined(folder)
+				for feed in @_feedBusinessLayer.getFeedsOfFolder(folderId)
+					feed.unreadCount = 0
+				for item in @_itemModel.getAll()
+					item.setRead()
+				@_persistence.setFolderRead(folderId, newestItemId)
 
 
 		getUnreadCount: (folderId) ->
@@ -164,6 +179,6 @@ ActiveFeed, ItemModel, ShowAll, _ExistsError, OPMLParser, UndoQueue) ->
 
 	return new FolderBusinessLayer(FolderModel, FeedBusinessLayer, ShowAll,
 	                               ActiveFeed, Persistence, FeedType, ItemModel,
-	                               OPMLParser, UndoQueue)
+	                               OPMLParser, UndoQueue, NewestItem, FeedModel)
 
 ]

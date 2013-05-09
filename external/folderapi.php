@@ -30,6 +30,7 @@ use \OCA\AppFramework\Controller\Controller;
 use \OCA\AppFramework\Http\Request;
 
 use \OCA\News\BusinessLayer\FolderBusinessLayer;
+use \OCA\News\BusinessLayer\ItemBusinessLayer;
 use \OCA\News\BusinessLayer\BusinessLayerException;
 use \OCA\News\BusinessLayer\BusinessLayerExistsException;
 
@@ -37,12 +38,15 @@ use \OCA\News\BusinessLayer\BusinessLayerExistsException;
 class FolderAPI extends Controller {
 
 	private $folderBusinessLayer;
+	private $itemBusinessLayer;
 
 	public function __construct(API $api, 
 	                            Request $request,
-	                            FolderBusinessLayer $folderBusinessLayer){
+	                            FolderBusinessLayer $folderBusinessLayer,
+	                            ItemBusinessLayer $itemBusinessLayer){
 		parent::__construct($api, $request);
 		$this->folderBusinessLayer = $folderBusinessLayer;
+		$this->itemBusinessLayer = $itemBusinessLayer;
 	}
 
 
@@ -110,6 +114,16 @@ class FolderAPI extends Controller {
 			return new NewsAPIResult(null, NewsAPIResult::NOT_FOUND_ERROR, 
 				$ex->getMessage());
 		}
+	}
+
+
+	public function read() {
+		$userId = $this->api->getUserId();
+		$folderId = (int) $this->params('folderId');
+		$newestItemId = (int) $this->params('newestItemId');
+
+		$this->itemBusinessLayer->readFolder($folderId, $newestItemId, $userId);
+		return new NewsAPIResult();
 	}
 
 

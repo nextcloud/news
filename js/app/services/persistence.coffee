@@ -126,6 +126,17 @@ $rootScope) ->
 			@_request.post 'news_items_unread', params
 
 
+		setAllRead: (highestItemId) ->
+			###
+			sets all items as read
+			###
+			params =
+				data:
+					highestItemId: highestItemId
+
+			@_request.post 'news_items_all_read', params
+
+
 		###
 			FEED CONTROLLER
 		###
@@ -323,6 +334,19 @@ $rootScope) ->
 					folderName: folderName
 
 			@_request.post 'news_folders_rename', params
+
+
+		setFolderRead: (folderId, highestItemId) ->
+			###
+			sets all items of a folder as read
+			###
+			params =
+				routeParams:
+					folderId: folderId
+				data:
+					highestItemId: highestItemId
+
+			@_request.post 'news_folders_read', params
 
 
 

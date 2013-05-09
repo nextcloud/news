@@ -45,7 +45,7 @@
 
 		<button class="svg action mark-read-icon"
 			ng-show="feedBusinessLayer.getUnreadCount(feed.id) > 0 && feed.id"
-			ng-click="feedBusinessLayer.markFeedRead(feed.id)"
+			ng-click="feedBusinessLayer.markRead(feed.id)"
 			title="<?php p($l->t('Mark read')); ?>"
 			oc-tooltip></button>
 

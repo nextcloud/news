@@ -30,17 +30,25 @@ use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Http\Request;
 
 use \OCA\News\BusinessLayer\FolderBusinessLayer;
+use \OCA\News\BusinessLayer\FeedBusinessLayer;
+use \OCA\News\BusinessLayer\ItemBusinessLayer;
 use \OCA\News\BusinessLayer\BusinessLayerException;
 
 
 class FolderController extends Controller {
 
 	private $folderBusinessLayer;
+	private $feedBusinessLayer;
+	private $itemBusinessLayer;
 
 	public function __construct(API $api, Request $request, 
-	                            FolderBusinessLayer $folderBusinessLayer){
+	                            FolderBusinessLayer $folderBusinessLayer,
+	                            FeedBusinessLayer $feedBusinessLayer,
+	                            ItemBusinessLayer $itemBusinessLayer){
 		parent::__construct($api, $request);
 		$this->folderBusinessLayer = $folderBusinessLayer;
+		$this->feedBusinessLayer = $feedBusinessLayer;
+		$this->itemBusinessLayer = $itemBusinessLayer;
 	}
 
 
@@ -159,6 +167,24 @@ class FolderController extends Controller {
 		} catch (BusinessLayerException $ex){
 			return $this->renderJSON(array(), $ex->getMessage());
 		}
+	}
+
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
+	public function read(){
+		$userId = $this->api->getUserId();
+		$folderId = (int) $this->params('folderId');
+		$highestItemId = (int) $this->params('highestItemId');
+
+		$this->itemBusinessLayer->readFolder($folderId, $highestItemId, $userId);
+
+		$params = array(
+			'feeds' => $this->feedBusinessLayer->findAll($userId)
+		);
+		return $this->renderJSON($params);
 	}
 
 

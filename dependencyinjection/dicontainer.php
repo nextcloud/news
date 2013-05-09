@@ -110,18 +110,22 @@ class DIContainer extends BaseContainer {
 
 		$this['FolderController'] = $this->share(function($c){
 			return new FolderController($c['API'], $c['Request'], 
-				$c['FolderBusinessLayer']);
+				$c['FolderBusinessLayer'], 
+				$c['FeedBusinessLayer'],
+				$c['ItemBusinessLayer']);
 		});
 
 		$this['FeedController'] = $this->share(function($c){
 			return new FeedController($c['API'], $c['Request'], 
-				$c['FeedBusinessLayer'], $c['FolderBusinessLayer'], 
+				$c['FolderBusinessLayer'], 
+				$c['FeedBusinessLayer'], 
 				$c['ItemBusinessLayer']);
 		});
 
 		$this['ItemController'] = $this->share(function($c){
 			return new ItemController($c['API'], $c['Request'], 
-				$c['ItemBusinessLayer'], $c['FeedBusinessLayer']);
+				$c['FeedBusinessLayer'],
+				$c['ItemBusinessLayer']);
 		});
 
 		$this['ExportController'] = $this->share(function($c){
@@ -181,7 +185,8 @@ class DIContainer extends BaseContainer {
 
 		$this['FolderAPI'] = $this->share(function($c){
 			return new FolderAPI($c['API'], $c['Request'], 
-			                     $c['FolderBusinessLayer']);
+			                     $c['FolderBusinessLayer'],
+			                     $c['ItemBusinessLayer']);
 		});
 
 		$this['FeedAPI'] = $this->share(function($c){
@@ -193,6 +198,7 @@ class DIContainer extends BaseContainer {
 
 		$this['ItemAPI'] = $this->share(function($c){
 			return new ItemAPI($c['API'], $c['Request'], 
+			                   $c['FeedBusinessLayer'],
 			                   $c['ItemBusinessLayer']);
 		});
 

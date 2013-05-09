@@ -40,8 +40,8 @@ class ItemController extends Controller {
 	private $feedBusinessLayer;
 
 	public function __construct(API $api, Request $request, 
-		                        ItemBusinessLayer $itemBusinessLayer,
-		                        FeedBusinessLayer $feedBusinessLayer){
+		                        FeedBusinessLayer $feedBusinessLayer,
+		                        ItemBusinessLayer $itemBusinessLayer){
 		parent::__construct($api, $request);
 		$this->itemBusinessLayer = $itemBusinessLayer;
 		$this->feedBusinessLayer = $feedBusinessLayer;
@@ -171,20 +171,14 @@ class ItemController extends Controller {
 	 * @IsSubAdminExemption
 	 * @Ajax
 	 */
-	public function readFeed(){
+	public function readAll(){
 		$userId = $this->api->getUserId();
-		$feedId = (int) $this->params('feedId');
 		$highestItemId = (int) $this->params('highestItemId');
 
-		$this->itemBusinessLayer->readFeed($feedId, $highestItemId, $userId);
+		$this->itemBusinessLayer->readAll($highestItemId, $userId);
 
 		$params = array(
-			'feeds' => array(
-				array(
-					'id' => $feedId,
-					'unreadCount' => 0
-				)
-			)
+			'feeds' => $this->feedBusinessLayer->findAll($userId)
 		);
 		return $this->renderJSON($params);
 	}

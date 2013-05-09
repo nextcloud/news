@@ -95,7 +95,7 @@ describe 'FeedBusinessLayer', ->
 
 	it 'should not mark feed read when no highest item id', =>
 		@persistence.setFeedRead = jasmine.createSpy('setFeedRead')
-		@FeedBusinessLayer.markFeedRead(5)
+		@FeedBusinessLayer.markRead(5)
 		expect(@persistence.setFeedRead).not.toHaveBeenCalled()
 
 
@@ -107,27 +107,13 @@ describe 'FeedBusinessLayer', ->
 		@ItemModel.add({id: 6, feedId: 5, guidHash: 'a1'})
 		@ItemModel.add({id: 3, feedId: 5, guidHash: 'a2'})
 		@ItemModel.add({id: 2, feedId: 5, guidHash: 'a3'})
-		@FeedBusinessLayer.markFeedRead(5)
+		@FeedBusinessLayer.markRead(5)
 
 		expect(@persistence.setFeedRead).toHaveBeenCalledWith(5, 25)
 		expect(@FeedModel.getById(5).unreadCount).toBe(0)
 		expect(@ItemModel.getById(6).isRead()).toBeTruthy()
 		expect(@ItemModel.getById(3).isRead()).toBeTruthy()
 		expect(@ItemModel.getById(2).isRead()).toBeTruthy()
-
-
-	it 'should mark all as read', =>
-		@NewestItem.handle(25)
-		@persistence.setFeedRead = jasmine.createSpy('setFeedRead')
-		@FeedModel.add({id: 3, unreadCount:134, folderId: 3, url: 'a1'})
-		@FeedModel.add({id: 5, unreadCount:2, folderId: 2, url: 'a2'})
-		@FeedModel.add({id: 1, unreadCount:12, folderId: 3, url: 'a3'})
-
-		@FeedBusinessLayer.markAllRead()
-
-		expect(@FeedModel.getById(3).unreadCount).toBe(0)
-		expect(@FeedModel.getById(1).unreadCount).toBe(0)
-		expect(@FeedModel.getById(5).unreadCount).toBe(0)
 
 
 	it 'should get the correct unread count for subscribtions', =>

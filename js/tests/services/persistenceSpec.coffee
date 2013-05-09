@@ -117,6 +117,14 @@ describe 'Persistence', ->
 		expect(@req.post).toHaveBeenCalledWith('news_items_unread', params)
 
 
+	it 'shoud send a correct request for marking all items read', =>
+		params =
+			data:
+				highestItemId: 4
+
+		@Persistence.setAllRead(params.data.highestItemId)
+
+
 
 	###
 		FEED CONTROLLER
@@ -153,7 +161,7 @@ describe 'Persistence', ->
 		expect(@req.post).toHaveBeenCalledWith('news_feeds_move', params)
 
 
-	it 'shoud send a correct request for marking all items read', =>
+	it 'shoud send a correct request for marking all items of a feed read', =>
 		params =
 			data:
 				highestItemId: 4
@@ -296,6 +304,20 @@ describe 'Persistence', ->
 		@Persistence.renameFolder(params.routeParams.folderId, params.data.folderName)
 
 		expect(@req.post).toHaveBeenCalledWith('news_folders_rename', params)
+
+
+	it 'shoud send a correct request for marking all items of a folders read', =>
+		params =
+			data:
+				highestItemId: 4
+			routeParams:
+				folderId: 3
+
+		@Persistence.setFolderRead(params.routeParams.folderId,
+		                           params.data.highestItemId)
+
+
+		expect(@req.post).toHaveBeenCalledWith('news_folders_read', params)
 
 
 	###

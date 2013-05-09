@@ -127,6 +127,16 @@ class ItemBusinessLayer extends BusinessLayer {
 	}
 
 
+	public function readAll($highestItemId, $userId){
+		$this->mapper->readAll($highestItemId, $userId);
+	}
+
+
+	public function readFolder($folderId, $highestItemId, $userId){
+		$this->mapper->readFolder($folderId, $highestItemId, $userId);
+	}
+
+
 	public function readFeed($feedId, $highestItemId, $userId){
 		$this->mapper->readFeed($feedId, $highestItemId, $userId);
 	}

@@ -6,6 +6,9 @@ ownCloud-news (0.99)
 * More accurate padding when hovering over a feed
 * Require 5.0.6 which includes a fix for the core API
 * Don't highlight the tab title when there are no new unread feeds
+* Make only one http request for reading all items and all items of a folder
+* Fix bug that would prevent marking a feed as read when its created and no other feeds are there
+* Fix bug that would prevent readding of a feed when a folder containing the feed was deleted
 
 ownCloud-news (0.98)
 
