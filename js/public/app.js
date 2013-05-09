@@ -1092,7 +1092,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             _results = [];
             for (_j = 0, _len1 = feeds.length; _j < _len1; _j++) {
               feed = feeds[_j];
-              _results.push(_this._feedModel.create(feed));
+              _results.push(_this._feedModel.add(feed));
             }
             return _results;
           };

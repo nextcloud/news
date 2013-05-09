@@ -54,7 +54,7 @@ NewestItem, FeedModel) ->
 			undoCallback = =>
 				@_folderModel.add(folder)
 				for feed in feeds
-					@_feedModel.create(feed)
+					@_feedModel.add(feed)
 
 			@_undoQueue.add(folder.name, callback, 10*1000, undoCallback)
 
