@@ -70,7 +70,11 @@ class DIContainer extends BaseContainer {
 		/**
 		 * Configuration values
 		 */
-		$this['autoPurgeCount'] = 200;  // per feed
+		$this['autoPurgeMinimumInterval'] = 60; // seconds, used to define how 
+		                                        // long deleted folders and feeds
+		                                        // should still be kept for an 
+		                                        // undo actions
+		$this['autoPurgeCount'] = 200;  // number of allowed unread articles per feed
 		$this['simplePieCacheDuration'] = 30*60;  // seconds
 
 		$this['simplePieCacheDirectory'] = $this->share(function($c) {
@@ -145,18 +149,30 @@ class DIContainer extends BaseContainer {
 		 * Business Layer
 		 */
 		$this['FolderBusinessLayer'] = $this->share(function($c){
-			return new FolderBusinessLayer($c['FolderMapper'], $c['API']);
+			return new FolderBusinessLayer(
+				$c['FolderMapper'], 
+				$c['API'],
+				$c['TimeFactory'],
+				$c['autoPurgeMinimumInterval']);
 		});
 
 		$this['FeedBusinessLayer'] = $this->share(function($c){
-			return new FeedBusinessLayer($c['FeedMapper'], $c['Fetcher'],
-								$c['ItemMapper'], $c['API'], $c['TimeFactory'],
-								$c['ImportParser']);
+			return new FeedBusinessLayer(
+				$c['FeedMapper'], 
+				$c['Fetcher'],
+				$c['ItemMapper'], 
+				$c['API'], 
+				$c['TimeFactory'],
+				$c['ImportParser'],	
+				$c['autoPurgeMinimumInterval']);
 		});
 
 		$this['ItemBusinessLayer'] = $this->share(function($c){
-			return new ItemBusinessLayer($c['ItemMapper'], $c['StatusFlag'],
-								$c['TimeFactory'], $c['autoPurgeCount']);
+			return new ItemBusinessLayer(
+				$c['ItemMapper'], 
+				$c['StatusFlag'],
+				$c['TimeFactory'], 
+				$c['autoPurgeCount']);
 		});
 
 

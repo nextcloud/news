@@ -38,6 +38,13 @@
 				<default>true</default>
 				<notnull>true</notnull>
 			</field>
+			<field>
+				<name>deleted_at</name>
+				<type>integer</type>
+				<default>0</default>
+				<notnull>false</notnull>
+				<unsigned>true</unsigned>
+			</field>
 
 			<index>
 				<name>news_folders_parent_id_index</name>
@@ -103,6 +110,13 @@
 				<name>added</name>
 				<type>integer</type>
 				<default></default>
+				<notnull>false</notnull>
+				<unsigned>true</unsigned>
+			</field>
+			<field>
+				<name>deleted_at</name>
+				<type>integer</type>
+				<default>0</default>
 				<notnull>false</notnull>
 				<unsigned>true</unsigned>
 			</field>

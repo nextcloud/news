@@ -72,6 +72,7 @@ class FolderAPI extends Controller {
 		);
 
 		try {
+			$this->folderBusinessLayer->purgeDeleted($userId);
 			$folder = $this->folderBusinessLayer->create($folderName, $userId);
 			array_push($result['folders'], $folder->toAPI());
 

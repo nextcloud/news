@@ -111,6 +111,11 @@ class FeedControllerTest extends ControllerTestUtility {
 	}
 
 
+	public function testRestoreAnnotations(){
+		$this->assertFeedControllerAnnotations('restore');
+	}
+
+
 	public function testUpdateAnnotations(){
 		$this->assertFeedControllerAnnotations('update');
 	}
@@ -311,7 +316,9 @@ class FeedControllerTest extends ControllerTestUtility {
 		$this->itemBusinessLayer->expects($this->once())
 			->method('getNewestItemId')
 			->will($this->returnValue($result['newestItemId']));
-
+		$this->feedBusinessLayer->expects($this->once())
+			->method('purgeDeleted')
+			->with($this->equalTo($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('create')
 			->with($this->equalTo($post['url']),
@@ -340,6 +347,9 @@ class FeedControllerTest extends ControllerTestUtility {
 		$this->api->expects($this->once())
 			->method('getUserId')
 			->will($this->returnValue($this->user));
+		$this->feedBusinessLayer->expects($this->once())
+			->method('purgeDeleted')
+			->with($this->equalTo($this->user));
 
 		$this->itemBusinessLayer->expects($this->once())
 			->method('getNewestItemId')
@@ -362,6 +372,12 @@ class FeedControllerTest extends ControllerTestUtility {
 	public function testCreateReturnsErrorForInvalidCreate(){
 		$msg = 'except';
 		$ex = new BusinessLayerException($msg);
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->feedBusinessLayer->expects($this->once())
+			->method('purgeDeleted')
+			->with($this->equalTo($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('create')
 			->will($this->throwException($ex));
@@ -385,7 +401,7 @@ class FeedControllerTest extends ControllerTestUtility {
 			->method('getUserId')
 			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
-			->method('delete')
+			->method('markDeleted')
 			->with($this->equalTo($url['feedId']));
 
 		$response = $this->controller->delete();
@@ -404,7 +420,7 @@ class FeedControllerTest extends ControllerTestUtility {
 			->method('getUserId')
 			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
-			->method('delete')
+			->method('markDeleted')
 			->will($this->throwException(new BusinessLayerException($msg)));
 
 		$response = $this->controller->delete();
@@ -581,6 +597,47 @@ class FeedControllerTest extends ControllerTestUtility {
 		$response = $this->controller->read();
 		$this->assertTrue($response instanceof JSONResponse);
 		$this->assertEquals($expected, $response->getParams());
+	}
+
+
+	public function testRestore() {
+		$url = array(
+				'feedId' => 4
+		);
+		$this->controller = $this->getPostController(array(), $url);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->feedBusinessLayer->expects($this->once())
+			->method('unmarkDeleted')
+			->with($this->equalTo($url['feedId']));
+
+		$response = $this->controller->restore();
+		$this->assertTrue($response instanceof JSONResponse);		
+	}
+
+
+	public function testRestoreDoesNotExist(){
+		$url = array(
+				'feedId' => 4
+		);
+		$msg = 'hehe';
+		$this->controller = $this->getPostController(array(), $url);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->feedBusinessLayer->expects($this->once())
+			->method('unmarkDeleted')
+			->will($this->throwException(new BusinessLayerException($msg)));
+
+		$response = $this->controller->restore();
+		$params = json_decode($response->render(), true);
+
+		$this->assertEquals('error', $params['status']);
+		$this->assertEquals($msg, $params['msg']);
+		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 }

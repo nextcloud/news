@@ -113,6 +113,9 @@ class FolderAPITest extends \PHPUnit_Framework_TestCase {
 		);
 
 		$this->folderBusinessLayer->expects($this->once())
+			->method('purgeDeleted')
+			->with($this->equalTo($this->user));
+		$this->folderBusinessLayer->expects($this->once())
 			->method('create')
 			->with($this->equalTo($folderName), $this->equalTo($this->user))
 			->will($this->returnValue($folder));
@@ -127,6 +130,9 @@ class FolderAPITest extends \PHPUnit_Framework_TestCase {
 
 	public function testCreateAlreadyExists() {
 		$msg = 'exists';
+		$this->folderBusinessLayer->expects($this->once())
+			->method('purgeDeleted')
+			->with($this->equalTo($this->user));
 		$this->folderBusinessLayer->expects($this->once())
 			->method('create')
 			->will($this->throwException(new BusinessLayerExistsException($msg)));

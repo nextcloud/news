@@ -114,6 +114,10 @@ class FolderController extends Controller {
 		$folderName = $this->params('folderName');
 
 		try {
+			// we need to purge deleted folders if a folder is created to 
+			// prevent already exists exceptions
+			$this->folderBusinessLayer->purgeDeleted($userId);
+
 			$folder = $this->folderBusinessLayer->create($folderName, $userId);
 
 			$params = array(
@@ -138,7 +142,7 @@ class FolderController extends Controller {
 		$folderId = (int) $this->params('folderId');
 
 		try {
-			$this->folderBusinessLayer->delete($folderId, $userId);
+			$this->folderBusinessLayer->markDeleted($folderId, $userId);
 			return $this->renderJSON();
 		} catch (BusinessLayerException $ex){
 			return $this->renderJSON(array(), $ex->getMessage());
@@ -185,6 +189,25 @@ class FolderController extends Controller {
 			'feeds' => $this->feedBusinessLayer->findAll($userId)
 		);
 		return $this->renderJSON($params);
+	}
+
+
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
+	public function restore(){
+		$userId = $this->api->getUserId();
+		$folderId = (int) $this->params('folderId');
+
+		try {
+			$this->folderBusinessLayer->unmarkDeleted($folderId, $userId);
+			return $this->renderJSON();
+		} catch (BusinessLayerException $ex){
+			return $this->renderJSON(array(), $ex->getMessage());
+		}
+
 	}
 
 

@@ -34,7 +34,9 @@ class Task {
 
 	static public function run() {
 		$container = new DIContainer();
+		$container['FolderBusinessLayer']->purgeDeleted();
 		$container['FeedBusinessLayer']->updateAll();
+		$container['FeedBusinessLayer']->purgeDeleted();
 		$container['ItemBusinessLayer']->autoPurgeOld();
 	}
 

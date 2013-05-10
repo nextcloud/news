@@ -38,8 +38,8 @@ use \OCA\News\Utility\ImportParser;
 
 class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
-	private $mapper;
-	private $businessLayer;
+	private $feedMapper;
+	private $feedBusinessLayer;
 	private $user;
 	private $response;
 	private $fetcher;
@@ -47,10 +47,12 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 	private $threshold;
 	private $time;
 	private $importParser;
+	private $autoPurgeMinimumInterval;
 
 	protected function setUp(){
 		$this->api = $this->getAPIMock();
 		$this->time = 222;
+		$this->autoPurgeMinimumInterval = 10;
 		$timeFactory = $this->getMockBuilder(
 			'\OCA\AppFramework\Utility\TimeFactory')
 			->disableOriginalConstructor()
@@ -58,7 +60,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$timeFactory->expects($this->any())
 			->method('getTime')
 			->will($this->returnValue($this->time));
-		$this->mapper = $this->getMockBuilder('\OCA\News\Db\FeedMapper')
+		$this->feedMapper = $this->getMockBuilder('\OCA\News\Db\FeedMapper')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->fetcher = $this->getMockBuilder('\OCA\News\Utility\Fetcher')
@@ -70,21 +72,21 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->importParser = $this->getMockBuilder('\OCA\News\Utility\ImportParser')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->businessLayer = new FeedBusinessLayer($this->mapper, 
+		$this->feedBusinessLayer = new FeedBusinessLayer($this->feedMapper, 
 			$this->fetcher, $this->itemMapper, $this->api,
-			$timeFactory, $this->importParser);
+			$timeFactory, $this->importParser, $this->autoPurgeMinimumInterval);
 		$this->user = 'jack';
 		$response = 'hi';
 	}
 
 
 	public function testFindAll(){
-		$this->mapper->expects($this->once())
+		$this->feedMapper->expects($this->once())
 			->method('findAllFromUser')
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($this->response));
 
-		$result = $this->businessLayer->findAll($this->user);
+		$result = $this->feedBusinessLayer->findAll($this->user);
 		$this->assertEquals($this->response, $result);
 	}
 
@@ -98,7 +100,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->api->expects($this->once())
 			->method('getTrans')
 			->will($this->returnValue($trans));
-		$this->mapper->expects($this->once())
+		$this->feedMapper->expects($this->once())
 			->method('findByUrlHash')
 			->with($this->equalTo(md5($url)), $this->equalTo($this->user))
 			->will($this->throwException(new DoesNotExistException('yo')));
@@ -107,7 +109,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->with($this->equalTo($url))
 			->will($this->throwException($ex));
 		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
-		$this->businessLayer->create($url, 1, $this->user);
+		$this->feedBusinessLayer->create($url, 1, $this->user);
 	}
 
 	public function testCreate(){
@@ -125,7 +127,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			array($item1, $item2)
 		);
 
-		$this->mapper->expects($this->once())
+		$this->feedMapper->expects($this->once())
 			->method('findByUrlHash')
 			->with($this->equalTo(md5($url)), $this->equalTo($this->user))
 			->will($this->throwException($ex));
@@ -133,7 +135,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('fetch')
 			->with($this->equalTo($url))
 			->will($this->returnValue($return));
-		$this->mapper->expects($this->once())
+		$this->feedMapper->expects($this->once())
 			->method('insert')
 			->with($this->equalTo($createdFeed))
 			->will($this->returnValue($createdFeed));
@@ -158,7 +160,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('insert')
 			->with($this->equalTo($return[1][0]));
 		
-		$feed = $this->businessLayer->create($url, $folderId, $this->user);
+		$feed = $this->feedBusinessLayer->create($url, $folderId, $this->user);
 
 		$this->assertEquals($feed->getFolderId(), $folderId);
 		$this->assertEquals($feed->getUrl(), $url);
@@ -180,7 +182,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			array($item1, $item2)
 		);
 
-		$this->mapper->expects($this->once())
+		$this->feedMapper->expects($this->once())
 			->method('findByUrlHash')
 			->with($this->equalTo(md5($url)), $this->equalTo($this->user))
 			->will($this->throwException($ex));
@@ -188,7 +190,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('fetch')
 			->with($this->equalTo($url))
 			->will($this->returnValue($return));
-		$this->mapper->expects($this->once())
+		$this->feedMapper->expects($this->once())
 			->method('insert')
 			->with($this->equalTo($createdFeed))
 			->will($this->returnValue($createdFeed));
@@ -209,7 +211,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 				$this->equalTo($item1->getFeedId()),
 				$this->equalTo($this->user));
 		
-		$feed = $this->businessLayer->create($url, $folderId, $this->user);
+		$feed = $this->feedBusinessLayer->create($url, $folderId, $this->user);
 
 		$this->assertEquals($feed->getFolderId(), $folderId);
 		$this->assertEquals($feed->getUrl(), $url);
@@ -233,7 +235,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 		$fetchReturn = array($feed, $items);
 
-		$this->mapper->expects($this->at(0))
+		$this->feedMapper->expects($this->at(0))
 			->method('find')
 			->with($this->equalTo($feed->getId()),
 					$this->equalTo($this->user))
@@ -251,12 +253,12 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('insert')
 			->with($this->equalTo($items[0]));
 
-		$this->mapper->expects($this->at(1))
+		$this->feedMapper->expects($this->at(1))
 			->method('find')
 			->with($feed->getId(), $this->user)
 			->will($this->returnValue($feed));
 
-		$return = $this->businessLayer->update($feed->getId(), $this->user);
+		$return = $this->feedBusinessLayer->update($feed->getId(), $this->user);
 
 		$this->assertEquals($return, $feed);
 	}
@@ -276,7 +278,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 		$fetchReturn = array($feed, $items);
 
-		$this->mapper->expects($this->at(0))
+		$this->feedMapper->expects($this->at(0))
 			->method('find')
 			->with($this->equalTo($feed->getId()),
 					$this->equalTo($this->user))
@@ -295,12 +297,12 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->itemMapper->expects($this->never())
 			->method('delete');
 		
-		$this->mapper->expects($this->at(1))
+		$this->feedMapper->expects($this->at(1))
 			->method('find')
 			->with($feed->getId(), $this->user)
 			->will($this->returnValue($feed));
 
-		$return = $this->businessLayer->update($feed->getId(), $this->user);
+		$return = $this->feedBusinessLayer->update($feed->getId(), $this->user);
 
 		$this->assertEquals($return, $feed);
 	}
@@ -323,7 +325,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 		$fetchReturn = array($feed, $items);
 
-		$this->mapper->expects($this->at(0))
+		$this->feedMapper->expects($this->at(0))
 			->method('find')
 			->with($this->equalTo($feed->getId()),
 				$this->equalTo($this->user))
@@ -342,12 +344,12 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->itemMapper->expects($this->never())
 			->method('delete');
 
-		$this->mapper->expects($this->at(1))
+		$this->feedMapper->expects($this->at(1))
 			->method('find')
 			->with($feed->getId(), $this->user)
 			->will($this->returnValue($feed));
 
-		$return = $this->businessLayer->update($feed->getId(), $this->user);
+		$return = $this->feedBusinessLayer->update($feed->getId(), $this->user);
 
 		$this->assertEquals($return, $feed);
 	}
@@ -369,7 +371,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 		$fetchReturn = array($feed, $items);
 
-		$this->mapper->expects($this->at(0))
+		$this->feedMapper->expects($this->at(0))
 			->method('find')
 			->with($this->equalTo($feed->getId()),
 				$this->equalTo($this->user))
@@ -388,12 +390,12 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->itemMapper->expects($this->never())
 			->method('delete');
 
-		$this->mapper->expects($this->at(1))
+		$this->feedMapper->expects($this->at(1))
 			->method('find')
 			->with($feed->getId(), $this->user)
 			->will($this->returnValue($feed));
 
-		$return = $this->businessLayer->update($feed->getId(), $this->user);
+		$return = $this->feedBusinessLayer->update($feed->getId(), $this->user);
 
 		$this->assertEquals($return, $feed);
 	}
@@ -415,7 +417,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 		$fetchReturn = array($feed, $items);
 
-		$this->mapper->expects($this->at(0))
+		$this->feedMapper->expects($this->at(0))
 			->method('find')
 			->with($this->equalTo($feed->getId()),
 					$this->equalTo($this->user))
@@ -436,12 +438,12 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('insert')
 			->with($this->equalTo($item));
 		
-		$this->mapper->expects($this->at(1))
+		$this->feedMapper->expects($this->at(1))
 			->method('find')
 			->with($feed->getId(), $this->user)
 			->will($this->returnValue($feed));
 
-		$return = $this->businessLayer->update($feed->getId(), $this->user);
+		$return = $this->feedBusinessLayer->update($feed->getId(), $this->user);
 
 		$this->assertEquals($return, $feed);
 		$this->assertTrue($item->isUnread());
@@ -454,7 +456,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$feed->getUrl('test');
 		$ex = new FetcherException('');
 
-		$this->mapper->expects($this->at(0))
+		$this->feedMapper->expects($this->at(0))
 			->method('find')
 			->with($this->equalTo($feed->getId()),
 					$this->equalTo($this->user))
@@ -465,12 +467,12 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->api->expects($this->any())
 			->method('log');
 		
-		$this->mapper->expects($this->at(1))
+		$this->feedMapper->expects($this->at(1))
 			->method('find')
 			->with($feed->getId(), $this->user)
 			->will($this->returnValue($feed));
 
-		$return = $this->businessLayer->update($feed->getId(), $this->user);
+		$return = $this->feedBusinessLayer->update($feed->getId(), $this->user);
 
 		$this->assertEquals($return, $feed);
 	}
@@ -483,14 +485,14 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		
 		$ex = new DoesNotExistException('');
 
-		$this->mapper->expects($this->at(0))
+		$this->feedMapper->expects($this->at(0))
 			->method('find')
 			->with($this->equalTo($feed->getId()),
 					$this->equalTo($this->user))
 			->will($this->throwException($ex));
 
 		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
-		$return = $this->businessLayer->update($feed->getId(), $this->user);
+		$return = $this->feedBusinessLayer->update($feed->getId(), $this->user);
 	}
 
 	
@@ -513,7 +515,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$fetchReturn = array($feed, $items);
 		$ex = new DoesNotExistException('');
 
-		$this->mapper->expects($this->at(0))
+		$this->feedMapper->expects($this->at(0))
 			->method('find')
 			->with($this->equalTo($feed->getId()),
 					$this->equalTo($this->user))
@@ -528,14 +530,14 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 					$this->equalTo($this->user))
 			->will($this->returnValue($item2));;
 	
-		$this->mapper->expects($this->at(1))
+		$this->feedMapper->expects($this->at(1))
 			->method('find')
 			->with($this->equalTo($feed->getId()),
 					$this->equalTo($this->user))
 			->will($this->throwException($ex));
 
 		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
-		$return = $this->businessLayer->update($feed->getId(), $this->user);
+		$return = $this->feedBusinessLayer->update($feed->getId(), $this->user);
 	}
 
 
@@ -547,7 +549,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$feed->setId($feedId);
 		$feed->setPreventUpdate(true);
 
-		$this->mapper->expects($this->once())
+		$this->feedMapper->expects($this->once())
 			->method('find')
 			->with($this->equalTo($feedId), 
 				$this->equalTo($this->user))
@@ -555,7 +557,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->fetcher->expects($this->never())
 			->method('fetch');
 
-		$this->businessLayer->update($feedId, $this->user);
+		$this->feedBusinessLayer->update($feedId, $this->user);
 	}
 
 
@@ -566,16 +568,16 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$feed->setFolderId(16);
 		$feed->setId($feedId);
 
-		$this->mapper->expects($this->once())
+		$this->feedMapper->expects($this->once())
 			->method('find')
 			->with($this->equalTo($feedId), $this->equalTo($this->user))
 			->will($this->returnValue($feed));
 
-		$this->mapper->expects($this->once())
+		$this->feedMapper->expects($this->once())
 			->method('update')
 			->with($this->equalTo($feed));
 
-		$this->businessLayer->move($feedId, $folderId, $this->user);
+		$this->feedBusinessLayer->move($feedId, $folderId, $this->user);
 
 		$this->assertEquals($folderId, $feed->getFolderId());
 	}
@@ -597,15 +599,15 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 		$items = array(new Item());
 
-		$this->mapper->expects($this->at(0))
+		$this->feedMapper->expects($this->at(0))
 			->method('findByUrlHash')
 			->with($this->equalTo($urlHash),
 				$this->equalTo($this->user))
 			->will($this->throwException(new DoesNotExistException('hi')));
-		$this->mapper->expects($this->at(1))
+		$this->feedMapper->expects($this->at(1))
 			->method('insert')
 			->will($this->returnValue($feed));
-		$this->mapper->expects($this->at(2))
+		$this->feedMapper->expects($this->at(2))
 			->method('findByUrlHash')
 			->with($this->equalTo($urlHash),
 				$this->equalTo($this->user))
@@ -619,7 +621,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('insert');
 
 
-		$result = $this->businessLayer->importGoogleReaderJSON(array(), $this->user);
+		$result = $this->feedBusinessLayer->importGoogleReaderJSON(array(), $this->user);
 
 		$this->assertEquals($feed, $result);
 	}
@@ -649,12 +651,12 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 		$in = array();
 
-		$this->mapper->expects($this->at(0))
+		$this->feedMapper->expects($this->at(0))
 			->method('findByUrlHash')
 			->with($this->equalTo($urlHash),
 				$this->equalTo($this->user))
 			->will($this->returnValue($feed));
-		$this->mapper->expects($this->at(1))
+		$this->feedMapper->expects($this->at(1))
 			->method('findByUrlHash')
 			->with($this->equalTo($urlHash),
 				$this->equalTo($this->user))
@@ -673,9 +675,68 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('insert')
 			->with($this->equalTo($savedItem));
 
-		$result = $this->businessLayer->importGoogleReaderJSON($in, $this->user);
+		$result = $this->feedBusinessLayer->importGoogleReaderJSON($in, $this->user);
 
 		$this->assertEquals($feed, $result);
+	}
+
+
+	public function testMarkDeleted() {
+		$id = 3;
+		$feed = new Feed();
+		$feed2 = new Feed();
+		$feed2->setDeletedAt($this->time);
+
+		$this->feedMapper->expects($this->once())
+			->method('find')
+			->with($this->equalTo($id), $this->equalTo($this->user))
+			->will($this->returnValue($feed));
+		$this->feedMapper->expects($this->once())
+			->method('update')
+			->with($this->equalTo($feed2));
+
+		$this->feedBusinessLayer->markDeleted($id, $this->user);
+	}
+
+
+	public function testUnmarkDeleted() {
+		$id = 3;
+		$feed = new Feed();
+		$feed2 = new Feed();
+		$feed2->setDeletedAt(0);
+
+		$this->feedMapper->expects($this->once())
+			->method('find')
+			->with($this->equalTo($id), $this->equalTo($this->user))
+			->will($this->returnValue($feed));
+		$this->feedMapper->expects($this->once())
+			->method('update')
+			->with($this->equalTo($feed2));
+
+		$this->feedBusinessLayer->unmarkDeleted($id, $this->user);
+	}
+
+
+	public function testPurgeDeleted(){
+		$feed1 = new Feed();
+		$feed1->setId(3);
+		$feed2 = new Feed();
+		$feed2->setId(5);
+		$feeds = array($feed1, $feed2);
+
+		$time = $this->time - $this->autoPurgeMinimumInterval;
+		$this->feedMapper->expects($this->once())
+			->method('getToDelete')
+			->with($this->equalTo($time), $this->equalTo($this->user))
+			->will($this->returnValue($feeds));
+		$this->feedMapper->expects($this->at(1))
+			->method('delete')
+			->with($this->equalTo($feed1));
+		$this->feedMapper->expects($this->at(2))
+			->method('delete')
+			->with($this->equalTo($feed2));
+
+		$this->feedBusinessLayer->purgeDeleted($this->user);
 	}
 
 

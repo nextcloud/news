@@ -65,7 +65,8 @@ class FolderMapper extends Mapper implements IMapper {
 
 	public function findAllFromUser($userId){
 		$sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
-			'WHERE `user_id` = ?';
+			'WHERE `user_id` = ? ' .
+			'AND `deleted_at` = 0';
 		$params = array($userId);
 
 		return $this->findAllRows($sql, $params);
@@ -74,7 +75,7 @@ class FolderMapper extends Mapper implements IMapper {
 
 	public function findByName($folderName, $userId){
 		$sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
-			'WHERE `name` = ?' .
+			'WHERE `name` = ? ' .
 			'AND `user_id` = ?';
 		$params = array($folderName, $userId);
 
@@ -94,6 +95,23 @@ class FolderMapper extends Mapper implements IMapper {
 		$params = array($entity->getId());
 		$this->execute($sql, $params);
 	}
+
+
+	public function getToDelete($deleteOlderThan, $userId=null) {
+		$sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
+			'WHERE `deleted_at` > 0 ' .
+			'AND `deleted_at` < ?';
+		$params = array($deleteOlderThan);
+
+		// we need to sometimes only delete feeds of a user
+		if($userId !== null) {
+			$sql .= ' AND `user_id` = ?';
+			array_push($params, $userId);
+		}
+		
+		return $this->findAllRows($sql, $params);
+	}
+
 
 
 }

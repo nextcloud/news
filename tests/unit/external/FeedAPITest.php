@@ -209,7 +209,9 @@ class FeedAPITest extends \PHPUnit_Framework_TestCase {
 			$this->itemBusinessLayer
 		);		
 
-		
+		$this->feedBusinessLayer->expects($this->once())
+			->method('purgeDeleted')
+			->with($this->equalTo($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('create')
 			->with(
@@ -249,7 +251,9 @@ class FeedAPITest extends \PHPUnit_Framework_TestCase {
 			$this->itemBusinessLayer
 		);		
 
-		
+		$this->feedBusinessLayer->expects($this->once())
+			->method('purgeDeleted')
+			->with($this->equalTo($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('create')
 			->with(
@@ -274,6 +278,9 @@ class FeedAPITest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testCreateExists() {
+		$this->feedBusinessLayer->expects($this->once())
+			->method('purgeDeleted')
+			->with($this->equalTo($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('create')
 			->will($this->throwException(new BusinessLayerExistsException($this->msg)));

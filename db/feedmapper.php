@@ -88,6 +88,7 @@ class FeedMapper extends Mapper implements IMapper {
 				'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' .
 				StatusFlag::UNREAD . ' ' .
 			'WHERE `feeds`.`user_id` = ? ' .
+			'AND `feeds`.`deleted_at` = 0 ' .
 			'GROUP BY `feeds`.`id`';
 		$params = array($userId);
 
@@ -136,6 +137,21 @@ class FeedMapper extends Mapper implements IMapper {
 		$this->execute($sql, $params);
 	}
 
+
+	public function getToDelete($deleteOlderThan, $userId=null) {
+		$sql = 'SELECT * FROM `*PREFIX*news_feeds` ' .
+			'WHERE `deleted_at` > 0 ' .
+			'AND `deleted_at` < ?';
+		$params = array($deleteOlderThan);
+
+		// we need to sometimes only delete feeds of a user
+		if($userId !== null) {
+			$sql .= ' AND `user_id` = ?';
+			array_push($params, $userId);
+		}
+
+		return $this->findAllRows($sql, $params);
+	}
 
 
 }

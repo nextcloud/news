@@ -1076,12 +1076,12 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             _this = this;
 
           feeds = [];
-          folder = this._folderModel.removeById(folderId);
           _ref = this._feedBusinessLayer.getFeedsOfFolder(folderId);
           for (_i = 0, _len = _ref.length; _i < _len; _i++) {
             feed = _ref[_i];
             feeds.push(this._feedModel.removeById(feed.id));
           }
+          folder = this._folderModel.removeById(folderId);
           callback = function() {
             return _this._persistence.deleteFolder(folderId);
           };
@@ -1228,17 +1228,17 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         };
 
         FolderBusinessLayer.prototype._importElement = function(opml, parentFolderId) {
-          var error, item, _i, _len, _ref, _results,
+          var item, _i, _len, _ref, _results,
             _this = this;
 
           _ref = opml.getItems();
           _results = [];
           for (_i = 0, _len = _ref.length; _i < _len; _i++) {
             item = _ref[_i];
-            if (item.isFolder()) {
-              _results.push((function(item) {
-                var error, folder;
+            _results.push((function(item) {
+              var error, folder;
 
+              if (item.isFolder()) {
                 try {
                   return _this.create(item.getName(), function(data) {
                     return _this._importElement(item, data.folders[0].id);
@@ -1253,21 +1253,17 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
                     return console.info(error);
                   }
                 }
-              })(item));
-            } else {
-              try {
-                _results.push((function(item) {
+              } else {
+                try {
                   return _this._feedBusinessLayer.create(item.getUrl(), parentFolderId);
-                })(item));
-              } catch (_error) {
-                error = _error;
-                if (!error instanceof _ExistsError) {
-                  _results.push(console.info(error));
-                } else {
-                  _results.push(void 0);
+                } catch (_error) {
+                  error = _error;
+                  if (!error instanceof _ExistsError) {
+                    return console.info(error);
+                  }
                 }
               }
-            }
+            })(item));
           }
           return _results;
         };
@@ -3234,7 +3230,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           			object back to the interface, defaults to an empty function
           */
 
-          this._executeAll();
+          this.executeAll();
           command = {
             _undoCallback: this._undoCallback || (this._undoCallback = function() {}),
             _callback: this._callback,
@@ -3260,7 +3256,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return this._queue.push(command);
         };
 
-        UndoQueue.prototype._executeAll = function() {
+        UndoQueue.prototype.executeAll = function() {
           /*
           			Executes the callback before the timeout has run out
           			This is useful to execute all remaining commands if a new command is

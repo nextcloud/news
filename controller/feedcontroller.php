@@ -133,6 +133,10 @@ class FeedController extends Controller {
 		$userId = $this->api->getUserId();
 
 		try {
+			// we need to purge deleted feeds if a feed is created to 
+			// prevent already exists exceptions
+			$this->feedBusinessLayer->purgeDeleted($userId);
+
 			$feed = $this->feedBusinessLayer->create($url, $parentFolderId, $userId);
 			$params = array(
 				'feeds' => array($feed)
@@ -160,7 +164,7 @@ class FeedController extends Controller {
 		$userId = $this->api->getUserId();
 
 		try {
-			$this->feedBusinessLayer->delete($feedId, $userId);
+			$this->feedBusinessLayer->markDeleted($feedId, $userId);
 			return $this->renderJSON();
 		} catch(BusinessLayerException $ex) {
 			return $this->renderJSON(array(), $ex->getMessage());
@@ -256,6 +260,24 @@ class FeedController extends Controller {
 			)
 		);
 		return $this->renderJSON($params);
+	}
+
+
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
+	public function restore(){
+		$feedId = (int) $this->params('feedId');
+		$userId = $this->api->getUserId();
+
+		try {
+			$this->feedBusinessLayer->unmarkDeleted($feedId, $userId);
+			return $this->renderJSON();
+		} catch(BusinessLayerException $ex) {
+			return $this->renderJSON(array(), $ex->getMessage());
+		}
 	}
 
 

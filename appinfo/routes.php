@@ -71,6 +71,12 @@ $this->create('news_folders_delete', '/folders/{folderId}/delete')->post()->acti
 	}
 );
 
+$this->create('news_folders_restore', '/folders/{folderId}/restore')->post()->action(
+	function($params){
+		App::main('FolderController', 'restore', $params, new DIContainer());
+	}
+);
+
 $this->create('news_folders_rename', '/folders/{folderId}/rename')->post()->action(
 	function($params){
 		App::main('FolderController', 'rename', $params, new DIContainer());
@@ -107,6 +113,12 @@ $this->create('news_feeds_create', '/feeds/create')->post()->action(
 $this->create('news_feeds_delete', '/feeds/{feedId}/delete')->post()->action(
 	function($params){
 		App::main('FeedController', 'delete', $params, new DIContainer());
+	}
+);
+
+$this->create('news_feeds_restore', '/feeds/{feedId}/restore')->post()->action(
+	function($params){
+		App::main('FeedController', 'restore', $params, new DIContainer());
 	}
 );
 

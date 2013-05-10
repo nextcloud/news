@@ -33,17 +33,31 @@ use \OCA\News\Db\Folder;
 
 class FolderBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
-	protected $api;
-	protected $folderMapper;
-	protected $folderBusinessLayer;
+	private $folderMapper;
+	private $folderBusinessLayer;
+	private $time;
+	private $user;
+	private $autoPurgeMinimumInterval;
 
 	protected function setUp(){
 		$this->api = $this->getAPIMock();
+		$this->time = 222;
+		$timeFactory = $this->getMockBuilder(
+			'\OCA\AppFramework\Utility\TimeFactory')
+			->disableOriginalConstructor()
+			->getMock();
+		$timeFactory->expects($this->any())
+			->method('getTime')
+			->will($this->returnValue($this->time));
 		$this->folderMapper = $this->getMockBuilder(
 			'\OCA\News\Db\FolderMapper')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->folderBusinessLayer = new FolderBusinessLayer($this->folderMapper, $this->api);
+		$this->autoPurgeMinimumInterval = 10;
+		$this->folderBusinessLayer = new FolderBusinessLayer(
+			$this->folderMapper, $this->api, $timeFactory, 
+			$this->autoPurgeMinimumInterval);
+		$this->user = 'hi';
 	}
 
 
@@ -160,5 +174,62 @@ class FolderBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$result = $this->folderBusinessLayer->rename(3, $folderName, 'john');
 	}
 
+
+	public function testMarkDeleted() {
+		$id = 3;
+		$folder = new Folder();
+		$folder2 = new Folder();
+		$folder2->setDeletedAt($this->time);
+
+		$this->folderMapper->expects($this->once())
+			->method('find')
+			->with($this->equalTo($id), $this->equalTo($this->user))
+			->will($this->returnValue($folder));
+		$this->folderMapper->expects($this->once())
+			->method('update')
+			->with($this->equalTo($folder2));
+
+		$this->folderBusinessLayer->markDeleted($id, $this->user);
+	}
+
+
+	public function testUnmarkDeleted() {
+		$id = 3;
+		$folder = new Folder();
+		$folder2 = new Folder();
+		$folder2->setDeletedAt(0);
+
+		$this->folderMapper->expects($this->once())
+			->method('find')
+			->with($this->equalTo($id), $this->equalTo($this->user))
+			->will($this->returnValue($folder));
+		$this->folderMapper->expects($this->once())
+			->method('update')
+			->with($this->equalTo($folder2));
+
+		$this->folderBusinessLayer->unmarkDeleted($id, $this->user);
+	}
+
+	public function testPurgeDeleted(){
+		$folder1 = new Folder();
+		$folder1->setId(3);
+		$folder2 = new Folder();
+		$folder2->setId(5);
+		$feeds = array($folder1, $folder2);
+
+		$time = $this->time - $this->autoPurgeMinimumInterval;
+		$this->folderMapper->expects($this->once())
+			->method('getToDelete')
+			->with($this->equalTo($time), $this->equalTo($this->user))
+			->will($this->returnValue($feeds));
+		$this->folderMapper->expects($this->at(1))
+			->method('delete')
+			->with($this->equalTo($folder1));
+		$this->folderMapper->expects($this->at(2))
+			->method('delete')
+			->with($this->equalTo($folder2));
+
+		$this->folderBusinessLayer->purgeDeleted($this->user);
+	}
 
 }

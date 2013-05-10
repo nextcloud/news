@@ -43,11 +43,12 @@ NewestItem, FeedModel) ->
 
 		delete: (folderId) ->
 			feeds = []
-			folder = @_folderModel.removeById(folderId)
-
 			# also delete feeds
 			for feed in @_feedBusinessLayer.getFeedsOfFolder(folderId)
 				feeds.push(@_feedModel.removeById(feed.id))
+
+			folder = @_folderModel.removeById(folderId)
+
 			callback = =>
 				@_persistence.deleteFolder(folderId)
 		
@@ -159,8 +160,8 @@ NewestItem, FeedModel) ->
 
 		_importElement: (opml, parentFolderId) ->
 			for item in opml.getItems()
-				if item.isFolder()
-					do (item) =>
+				do (item) =>
+					if item.isFolder()
 						try
 							@create item.getName(), (data) =>
 								@_importElement(item, data.folders[0].id)
@@ -171,14 +172,13 @@ NewestItem, FeedModel) ->
 								@_importElement(item, folder.id)
 							else
 								console.info error
-				else
-					try
-						do (item) =>
+					else
+						try
 							@_feedBusinessLayer.create(item.getUrl(),
 								parentFolderId)
-					catch error
-						if not error instanceof _ExistsError
-							console.info error
+						catch error
+							if not error instanceof _ExistsError
+								console.info error
 
 
 	return new FolderBusinessLayer(FolderModel, FeedBusinessLayer, ShowAll,

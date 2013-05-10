@@ -146,6 +146,7 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 				'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' . 
 				StatusFlag::UNREAD . ' ' .
 			'WHERE `feeds`.`user_id` = ? ' .
+			'AND `feeds`.`deleted_at` = 0 ' .
 			'GROUP BY `feeds`.`id`';
 		
 		$this->setMapperResult($sql, 
@@ -260,6 +261,37 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 	}
 
 
+	public function testGetPurgeDeleted(){
+		$rows = array(
+			array('id' => $this->feeds[0]->getId()),
+			array('id' => $this->feeds[1]->getId())
+		);
+		$deleteOlderThan = 110;
+		$sql = 'SELECT * FROM `*PREFIX*news_feeds` ' .
+			'WHERE `deleted_at` > 0 ' .
+			'AND `deleted_at` < ?';
+		$this->setMapperResult($sql, array($deleteOlderThan), $rows);
+		$result = $this->mapper->getToDelete($deleteOlderThan);
+
+		$this->assertEquals($this->feeds, $result);
+	}
 	
 
+	public function testGetPurgeDeletedFromUser(){
+		$rows = array(
+			array('id' => $this->feeds[0]->getId()),
+			array('id' => $this->feeds[1]->getId())
+		);
+		$deleteOlderThan = 110;
+		$sql = 'SELECT * FROM `*PREFIX*news_feeds` ' .
+			'WHERE `deleted_at` > 0 ' .
+			'AND `deleted_at` < ? ' .
+			'AND `user_id` = ?';
+		$this->setMapperResult($sql, array($deleteOlderThan, $this->user), $rows);
+		$result = $this->mapper->getToDelete($deleteOlderThan, $this->user);
+
+		$this->assertEquals($this->feeds, $result);
+	}
+
+	
 }

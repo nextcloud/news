@@ -118,6 +118,11 @@ class FolderControllerTest extends ControllerTestUtility {
 	}
 
 
+	public function testRestoreAnnotations(){
+		$this->assertFolderControllerAnnotations('restore');
+	}
+
+
 	public function testRenameAnnotations(){
 		$this->assertFolderControllerAnnotations('rename');
 	}
@@ -234,6 +239,9 @@ class FolderControllerTest extends ControllerTestUtility {
 			->method('getUserId')
 			->will($this->returnValue($this->user));
 		$this->folderBusinessLayer->expects($this->once())
+			->method('purgeDeleted')
+			->with($this->equalTo($this->user));
+		$this->folderBusinessLayer->expects($this->once())
 			->method('create')
 			->with($this->equalTo($post['folderName']), 
 				$this->equalTo($this->user))
@@ -249,6 +257,12 @@ class FolderControllerTest extends ControllerTestUtility {
 	public function testCreateReturnsErrorForInvalidCreate(){
 		$msg = 'except';
 		$ex = new BusinessLayerExistsException($msg);
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->folderBusinessLayer->expects($this->once())
+			->method('purgeDeleted')
+			->with($this->equalTo($this->user));
 		$this->folderBusinessLayer->expects($this->once())
 			->method('create')
 			->will($this->throwException($ex));
@@ -270,7 +284,7 @@ class FolderControllerTest extends ControllerTestUtility {
 			->method('getUserId')
 			->will($this->returnValue($this->user));
 		$this->folderBusinessLayer->expects($this->once())
-			->method('delete')
+			->method('markDeleted')
 			->with($this->equalTo($url['folderId']), 
 				$this->equalTo($this->user));
 		
@@ -288,7 +302,7 @@ class FolderControllerTest extends ControllerTestUtility {
 			->method('getUserId')
 			->will($this->returnValue($this->user));
 		$this->folderBusinessLayer->expects($this->once())
-			->method('delete')
+			->method('markDeleted')
 			->will($this->throwException(new BusinessLayerException($this->msg)));
 		
 		$response = $this->controller->delete();
@@ -371,6 +385,45 @@ class FolderControllerTest extends ControllerTestUtility {
 		$response = $this->controller->read();
 		$this->assertTrue($response instanceof JSONResponse);
 		$this->assertEquals($expected, $response->getParams());
+	}
+
+
+	public function testRestore(){
+		$url = array('folderId' => 5);
+		$this->controller = $this->getPostController(array(), $url);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->folderBusinessLayer->expects($this->once())
+			->method('unmarkDeleted')
+			->with($this->equalTo($url['folderId']), 
+				$this->equalTo($this->user));
+		
+		$response = $this->controller->restore();
+
+		$this->assertTrue($response instanceof JSONResponse);	
+	}
+
+
+	public function testRestoreDoesNotExist(){
+		$url = array('folderId' => 5);
+		$this->controller = $this->getPostController(array(), $url);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->folderBusinessLayer->expects($this->once())
+			->method('unmarkDeleted')
+			->will($this->throwException(new BusinessLayerException($this->msg)));
+		
+		$response = $this->controller->restore();
+
+		$params = json_decode($response->render(), true);
+
+		$this->assertEquals('error', $params['status']);
+		$this->assertEquals($this->msg, $params['msg']);
+		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 }

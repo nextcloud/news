@@ -43,17 +43,20 @@ class FeedBusinessLayer extends BusinessLayer {
 	private $api;
 	private $timeFactory;
 	private $importParser;
+	private $autoPurgeMinimumInterval;
 
 	public function __construct(FeedMapper $feedMapper, Fetcher $feedFetcher,
 		                        ItemMapper $itemMapper, API $api,
 		                        TimeFactory $timeFactory,
-		                        ImportParser $importParser){
+		                        ImportParser $importParser,
+		                        $autoPurgeMinimumInterval){
 		parent::__construct($feedMapper);
 		$this->feedFetcher = $feedFetcher;
 		$this->itemMapper = $itemMapper;
 		$this->api = $api;
 		$this->timeFactory = $timeFactory;
 		$this->importParser = $importParser;
+		$this->autoPurgeMinimumInterval = $autoPurgeMinimumInterval;
 	}
 
 
@@ -233,6 +236,39 @@ class FeedBusinessLayer extends BusinessLayer {
 
 		return $this->mapper->findByUrlHash($urlHash, $userId);
 
+	}
+
+
+	/**
+	 * Use this to mark a feed as deleted. That way it can be undeleted
+	 * @throws BusinessLayerException when feed does not exist
+	 */
+	public function markDeleted($feedId, $userId) {
+		$feed = $this->find($feedId, $userId);
+		$feed->setDeletedAt($this->timeFactory->getTime());
+		$this->mapper->update($feed);
+	}
+
+
+	/**
+	 * Use this to undo a feed deletion
+	 * @throws BusinessLayerException when feed does not exist
+	 */
+	public function unmarkDeleted($feedId, $userId) {
+		$feed = $this->find($feedId, $userId);
+		$feed->setDeletedAt(0);
+		$this->mapper->update($feed);
+	}
+
+
+	public function purgeDeleted($userId=null) {
+		$now = $this->timeFactory->getTime();
+		$deleteOlderThan = $now - $this->autoPurgeMinimumInterval;
+		$toDelete = $this->mapper->getToDelete($deleteOlderThan, $userId);	
+
+		foreach ($toDelete as $feed) {
+			$this->mapper->delete($feed);
+		}
 	}
 
 

@@ -44,7 +44,7 @@ angular.module('News').factory 'UndoQueue',
 			an command has been canceled. Usually this will add back a deleted
 			object back to the interface, defaults to an empty function
 			###
-			@_executeAll()
+			@executeAll()
 
 			command =
 				_undoCallback: @_undoCallback or= ->
@@ -70,7 +70,7 @@ angular.module('News').factory 'UndoQueue',
 			@_queue.push(command)
 
 
-		_executeAll: ->
+		executeAll: ->
 			###
 			Executes the callback before the timeout has run out
 			This is useful to execute all remaining commands if a new command is

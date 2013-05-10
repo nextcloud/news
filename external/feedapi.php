@@ -82,6 +82,8 @@ class FeedAPI extends Controller {
 		$folderId = (int) $this->params('folderId', 0);
 
 		try {
+			$this->feedBusinessLayer->purgeDeleted($userId);
+			
 			$feed = $this->feedBusinessLayer->create($feedUrl, $folderId, $userId);
 			$result = array(
 				'feeds' => array($feed->toAPI())

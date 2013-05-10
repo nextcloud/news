@@ -26,6 +26,7 @@
 namespace OCA\News\BusinessLayer;
 
 use \OCA\AppFramework\Core\API;
+use \OCA\AppFramework\Utility\TimeFactory;
 
 use \OCA\News\Db\Folder;
 use \OCA\News\Db\FolderMapper;
@@ -34,11 +35,17 @@ use \OCA\News\Db\FolderMapper;
 class FolderBusinessLayer extends BusinessLayer {
 
 	private $api;
+	private $timeFactory;
+	private $autoPurgeMinimumInterval;
 
 	public function __construct(FolderMapper $folderMapper,
-	                            API $api){
+	                            API $api,
+	                            TimeFactory $timeFactory,
+	                            $autoPurgeMinimumInterval){
 		parent::__construct($folderMapper);
 		$this->api = $api;
+		$this->timeFactory = $timeFactory;
+		$this->autoPurgeMinimumInterval = $autoPurgeMinimumInterval;
 	}
 
 
@@ -92,6 +99,41 @@ class FolderBusinessLayer extends BusinessLayer {
 		$this->mapper->update($folder);
 	}
 
+
+	/**
+	 * Use this to mark a folder as deleted. That way it can be undeleted
+	 * @throws BusinessLayerException when folder does not exist
+	 */
+	public function markDeleted($folderId, $userId) {
+		$folder = $this->find($folderId, $userId);
+		$folder->setDeletedAt($this->timeFactory->getTime());
+		$this->mapper->update($folder);
+	}
+
+
+	/**
+	 * Use this to undo a folder deletion
+	 * @throws BusinessLayerException when folder does not exist
+	 */
+	public function unmarkDeleted($folderId, $userId) {
+		$folder = $this->find($folderId, $userId);
+		$folder->setDeletedAt(0);
+		$this->mapper->update($folder);
+	}
+
+
+	/**
+	 * Purges marked as deleted folders
+	 */
+	public function purgeDeleted($userId=null) {
+		$now = $this->timeFactory->getTime();
+		$deleteOlderThan = $now - $this->autoPurgeMinimumInterval;
+		$toDelete = $this->mapper->getToDelete($deleteOlderThan, $userId);	
+
+		foreach ($toDelete as $folder) {
+			$this->mapper->delete($folder);
+		}
+	}
 
 
 }
