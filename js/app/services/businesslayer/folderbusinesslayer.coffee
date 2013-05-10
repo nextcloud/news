@@ -24,16 +24,16 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 angular.module('News').factory 'FolderBusinessLayer',
 ['_BusinessLayer', 'FolderModel', 'FeedBusinessLayer', 'Persistence',
 'FeedType', 'ActiveFeed', 'ItemModel', 'ShowAll', '_ExistsError', 'OPMLParser',
-'UndoQueue', 'NewestItem', 'FeedModel',
+'NewestItem', 'FeedModel', '$rootScope',
 (_BusinessLayer, FolderModel, FeedBusinessLayer, Persistence, FeedType,
-ActiveFeed, ItemModel, ShowAll, _ExistsError, OPMLParser, UndoQueue,
-NewestItem, FeedModel) ->
+ActiveFeed, ItemModel, ShowAll, _ExistsError, OPMLParser, NewestItem,
+FeedModel, $rootScope) ->
 
 	class FolderBusinessLayer extends _BusinessLayer
 
 		constructor: (@_folderModel, @_feedBusinessLayer, @_showAll, activeFeed,
 			          persistence, @_feedType, itemModel, @_opmlParser,
-			          @_undoQueue, @_newestItem, @_feedModel) ->
+			          @_newestItem, @_feedModel, @_$rootScope) ->
 			super(activeFeed, persistence, itemModel, @_feedType.Folder)
 
 
@@ -48,16 +48,17 @@ NewestItem, FeedModel) ->
 				feeds.push(@_feedModel.removeById(feed.id))
 
 			folder = @_folderModel.removeById(folderId)
-
-			callback = =>
-				@_persistence.deleteFolder(folderId)
 		
-			undoCallback = =>
-				@_folderModel.add(folder)
-				for feed in feeds
-					@_feedModel.add(feed)
+			data =
+				undoCallback: =>
+					@_persistence.restoreFolder folderId, =>
+						@_persistence.getAllFeeds()
+						@_persistence.getAllFolders()
+				caption: folder.name
 
-			@_undoQueue.add(folder.name, callback, 10*1000, undoCallback)
+			@_$rootScope.$broadcast 'undoMessage', data
+			@_persistence.deleteFolder(folderId)
+
 
 
 		hasFeeds: (folderId) ->
@@ -183,6 +184,6 @@ NewestItem, FeedModel) ->
 
 	return new FolderBusinessLayer(FolderModel, FeedBusinessLayer, ShowAll,
 	                               ActiveFeed, Persistence, FeedType, ItemModel,
-	                               OPMLParser, UndoQueue, NewestItem, FeedModel)
+	                               OPMLParser, NewestItem, FeedModel, $rootScope)
 
 ]

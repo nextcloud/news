@@ -24,15 +24,15 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 angular.module('News').factory 'FeedBusinessLayer',
 ['_BusinessLayer', 'ShowAll', 'Persistence', 'ActiveFeed', 'FeedType',
 'ItemModel', 'FeedModel', 'NewLoading', '_ExistsError', 'Utils', '$rootScope',
-'UndoQueue', 'NewestItem',
+'NewestItem',
 (_BusinessLayer, ShowAll, Persistence, ActiveFeed, FeedType, ItemModel,
-FeedModel, NewLoading, _ExistsError, Utils, $rootScope, UndoQueue, NewestItem)->
+FeedModel, NewLoading, _ExistsError, Utils, $rootScope, NewestItem)->
 
 	class FeedBusinessLayer extends _BusinessLayer
 
 		constructor: (@_showAll, @_feedModel, persistence, activeFeed, feedType,
 			          itemModel, @_newLoading, @_utils, @_$rootScope,
-			          @_undoQueue, @_newestItem) ->
+			          @_newestItem) ->
 			super(activeFeed, persistence, itemModel, feedType.Feed)
 			@_feedType = feedType
 
@@ -55,13 +55,15 @@ FeedModel, NewLoading, _ExistsError, Utils, $rootScope, UndoQueue, NewestItem)->
 
 		delete: (feedId) ->
 			feed = @_feedModel.removeById(feedId)
-			callback = =>
-				@_persistence.deleteFeed(feedId)
-		
-			undoCallback = =>
-				@_feedModel.add(feed)
 
-			@_undoQueue.add(feed.title, callback, 10*1000, undoCallback)
+			data =
+				undoCallback: =>
+					@_persistence.restoreFeed feedId, =>
+					@_persistence.getAllFeeds()
+				caption: feed.title
+
+			@_$rootScope.$broadcast 'undoMessage', data
+			@_persistence.deleteFeed(feedId)
 
 
 		markRead: (feedId) ->
@@ -192,6 +194,6 @@ FeedModel, NewLoading, _ExistsError, Utils, $rootScope, UndoQueue, NewestItem)->
 
 	return new FeedBusinessLayer(ShowAll, FeedModel, Persistence, ActiveFeed,
 	                             FeedType, ItemModel, NewLoading, Utils,
-	                             $rootScope, UndoQueue, NewestItem)
+	                             $rootScope, NewestItem)
 
 ]

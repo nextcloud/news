@@ -20,23 +20,22 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 ###
 
-angular.module('News').directive 'undoNotification', ['$rootScope',
-($rootScope) ->
+angular.module('News').directive 'undoNotification',
+['$rootScope', '$timeout', 'Config',
+($rootScope, $timeout, Config) ->
 
 	return (scope, elm, attr) ->
-
-		elm.click ->
-			$(@).fadeOut()
-
-		scope.$on 'notUndone', ->
-			$(elm).fadeOut()
-
 		undo = ->
 		caption = ''
+		timeout = null
 
-		link = $(elm).find('a')
-		link.click ->
+		$(elm).click ->
+			timout = null
+			$(@).fadeOut()
+
+		$(elm).find('a').click ->
 			undo()
+			timout = null
 			$rootScope.$apply()
 			elm.fadeOut()
 
@@ -44,9 +43,18 @@ angular.module('News').directive 'undoNotification', ['$rootScope',
 			return caption
 
 		scope.$on 'undoMessage', (scope, data) ->
+			# cancel previous timeouts
+			if timeout
+				$timeout.cancel(timeout.promise)
+				
+			# fade out if not reset with a new
+			timeout = $timeout =>
+				$(elm).fadeOut()
+			, Config.undoTimeout
+				
 			undo = data.undoCallback
 			caption = data.caption
-			elm.fadeIn().css("display","inline")
+			$(elm).fadeIn().css("display","inline")
 
 
 ]

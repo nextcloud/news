@@ -1,4 +1,4 @@
-ownCloud-news (0.99)
+ownCloud-news (0.101)
 
 * show 99+ as max unread count
 * only show delete button if feed is active
@@ -11,6 +11,8 @@ ownCloud-news (0.99)
 * Fix bug that would prevent readding of a feed when a folder containing the feed was deleted
 * Also send newest item id in the api when creating a feed
 * Fix a bug that would mark the items on the right side as read regardless of feed or folder id
+* Fix a bug that would a feed from being added when he was deleted and then another feed was deleted
+* When a feed is deleted and not undone in 10 seconds and the window is closed, delete him
 
 ownCloud-news (0.98)
 

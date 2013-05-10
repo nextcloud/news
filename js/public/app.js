@@ -43,6 +43,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
       scrollTimeout: 500,
       feedUpdateInterval: 1000 * 60 * 3,
       itemBatchSize: 20,
+      undoTimeout: 1000 * 10,
       autoPageFactor: 10
     });
   });
@@ -354,21 +355,24 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 (function() {
   angular.module('News').directive('undoNotification', [
-    '$rootScope', function($rootScope) {
+    '$rootScope', '$timeout', 'Config', function($rootScope, $timeout, Config) {
       return function(scope, elm, attr) {
-        var caption, link, undo;
+        var caption, timeout, undo;
 
-        elm.click(function() {
-          return $(this).fadeOut();
-        });
-        scope.$on('notUndone', function() {
-          return $(elm).fadeOut();
-        });
         undo = function() {};
         caption = '';
-        link = $(elm).find('a');
-        link.click(function() {
+        timeout = null;
+        $(elm).click(function() {
+          var timout;
+
+          timout = null;
+          return $(this).fadeOut();
+        });
+        $(elm).find('a').click(function() {
+          var timout;
+
           undo();
+          timout = null;
           $rootScope.$apply();
           return elm.fadeOut();
         });
@@ -376,9 +380,17 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return caption;
         };
         return scope.$on('undoMessage', function(scope, data) {
+          var _this = this;
+
+          if (timeout) {
+            $timeout.cancel(timeout.promise);
+          }
+          timeout = $timeout(function() {
+            return $(elm).fadeOut();
+          }, Config.undoTimeout);
           undo = data.undoCallback;
           caption = data.caption;
-          return elm.fadeIn().css("display", "inline");
+          return $(elm).fadeIn().css("display", "inline");
         });
       };
     }
@@ -811,19 +823,18 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   angular.module('News').factory('FeedBusinessLayer', [
-    '_BusinessLayer', 'ShowAll', 'Persistence', 'ActiveFeed', 'FeedType', 'ItemModel', 'FeedModel', 'NewLoading', '_ExistsError', 'Utils', '$rootScope', 'UndoQueue', 'NewestItem', function(_BusinessLayer, ShowAll, Persistence, ActiveFeed, FeedType, ItemModel, FeedModel, NewLoading, _ExistsError, Utils, $rootScope, UndoQueue, NewestItem) {
+    '_BusinessLayer', 'ShowAll', 'Persistence', 'ActiveFeed', 'FeedType', 'ItemModel', 'FeedModel', 'NewLoading', '_ExistsError', 'Utils', '$rootScope', 'NewestItem', function(_BusinessLayer, ShowAll, Persistence, ActiveFeed, FeedType, ItemModel, FeedModel, NewLoading, _ExistsError, Utils, $rootScope, NewestItem) {
       var FeedBusinessLayer;
 
       FeedBusinessLayer = (function(_super) {
         __extends(FeedBusinessLayer, _super);
 
-        function FeedBusinessLayer(_showAll, _feedModel, persistence, activeFeed, feedType, itemModel, _newLoading, _utils, _$rootScope, _undoQueue, _newestItem) {
+        function FeedBusinessLayer(_showAll, _feedModel, persistence, activeFeed, feedType, itemModel, _newLoading, _utils, _$rootScope, _newestItem) {
           this._showAll = _showAll;
           this._feedModel = _feedModel;
           this._newLoading = _newLoading;
           this._utils = _utils;
           this._$rootScope = _$rootScope;
-          this._undoQueue = _undoQueue;
           this._newestItem = _newestItem;
           FeedBusinessLayer.__super__.constructor.call(this, activeFeed, persistence, itemModel, feedType.Feed);
           this._feedType = feedType;
@@ -846,17 +857,19 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         };
 
         FeedBusinessLayer.prototype["delete"] = function(feedId) {
-          var callback, feed, undoCallback,
+          var data, feed,
             _this = this;
 
           feed = this._feedModel.removeById(feedId);
-          callback = function() {
-            return _this._persistence.deleteFeed(feedId);
+          data = {
+            undoCallback: function() {
+              _this._persistence.restoreFeed(feedId, function() {});
+              return _this._persistence.getAllFeeds();
+            },
+            caption: feed.title
           };
-          undoCallback = function() {
-            return _this._feedModel.add(feed);
-          };
-          return this._undoQueue.add(feed.title, callback, 10 * 1000, undoCallback);
+          this._$rootScope.$broadcast('undoMessage', data);
+          return this._persistence.deleteFeed(feedId);
         };
 
         FeedBusinessLayer.prototype.markRead = function(feedId) {
@@ -1015,7 +1028,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         return FeedBusinessLayer;
 
       })(_BusinessLayer);
-      return new FeedBusinessLayer(ShowAll, FeedModel, Persistence, ActiveFeed, FeedType, ItemModel, NewLoading, Utils, $rootScope, UndoQueue, NewestItem);
+      return new FeedBusinessLayer(ShowAll, FeedModel, Persistence, ActiveFeed, FeedType, ItemModel, NewLoading, Utils, $rootScope, NewestItem);
     }
   ]);
 
@@ -1049,21 +1062,21 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   angular.module('News').factory('FolderBusinessLayer', [
-    '_BusinessLayer', 'FolderModel', 'FeedBusinessLayer', 'Persistence', 'FeedType', 'ActiveFeed', 'ItemModel', 'ShowAll', '_ExistsError', 'OPMLParser', 'UndoQueue', 'NewestItem', 'FeedModel', function(_BusinessLayer, FolderModel, FeedBusinessLayer, Persistence, FeedType, ActiveFeed, ItemModel, ShowAll, _ExistsError, OPMLParser, UndoQueue, NewestItem, FeedModel) {
+    '_BusinessLayer', 'FolderModel', 'FeedBusinessLayer', 'Persistence', 'FeedType', 'ActiveFeed', 'ItemModel', 'ShowAll', '_ExistsError', 'OPMLParser', 'NewestItem', 'FeedModel', '$rootScope', function(_BusinessLayer, FolderModel, FeedBusinessLayer, Persistence, FeedType, ActiveFeed, ItemModel, ShowAll, _ExistsError, OPMLParser, NewestItem, FeedModel, $rootScope) {
       var FolderBusinessLayer;
 
       FolderBusinessLayer = (function(_super) {
         __extends(FolderBusinessLayer, _super);
 
-        function FolderBusinessLayer(_folderModel, _feedBusinessLayer, _showAll, activeFeed, persistence, _feedType, itemModel, _opmlParser, _undoQueue, _newestItem, _feedModel) {
+        function FolderBusinessLayer(_folderModel, _feedBusinessLayer, _showAll, activeFeed, persistence, _feedType, itemModel, _opmlParser, _newestItem, _feedModel, _$rootScope) {
           this._folderModel = _folderModel;
           this._feedBusinessLayer = _feedBusinessLayer;
           this._showAll = _showAll;
           this._feedType = _feedType;
           this._opmlParser = _opmlParser;
-          this._undoQueue = _undoQueue;
           this._newestItem = _newestItem;
           this._feedModel = _feedModel;
+          this._$rootScope = _$rootScope;
           FolderBusinessLayer.__super__.constructor.call(this, activeFeed, persistence, itemModel, this._feedType.Folder);
         }
 
@@ -1072,7 +1085,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         };
 
         FolderBusinessLayer.prototype["delete"] = function(folderId) {
-          var callback, feed, feeds, folder, undoCallback, _i, _len, _ref,
+          var data, feed, feeds, folder, _i, _len, _ref,
             _this = this;
 
           feeds = [];
@@ -1082,21 +1095,17 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             feeds.push(this._feedModel.removeById(feed.id));
           }
           folder = this._folderModel.removeById(folderId);
-          callback = function() {
-            return _this._persistence.deleteFolder(folderId);
+          data = {
+            undoCallback: function() {
+              return _this._persistence.restoreFolder(folderId, function() {
+                _this._persistence.getAllFeeds();
+                return _this._persistence.getAllFolders();
+              });
+            },
+            caption: folder.name
           };
-          undoCallback = function() {
-            var _j, _len1, _results;
-
-            _this._folderModel.add(folder);
-            _results = [];
-            for (_j = 0, _len1 = feeds.length; _j < _len1; _j++) {
-              feed = feeds[_j];
-              _results.push(_this._feedModel.add(feed));
-            }
-            return _results;
-          };
-          return this._undoQueue.add(folder.name, callback, 10 * 1000, undoCallback);
+          this._$rootScope.$broadcast('undoMessage', data);
+          return this._persistence.deleteFolder(folderId);
         };
 
         FolderBusinessLayer.prototype.hasFeeds = function(folderId) {
@@ -1271,7 +1280,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         return FolderBusinessLayer;
 
       })(_BusinessLayer);
-      return new FolderBusinessLayer(FolderModel, FeedBusinessLayer, ShowAll, ActiveFeed, Persistence, FeedType, ItemModel, OPMLParser, UndoQueue, NewestItem, FeedModel);
+      return new FolderBusinessLayer(FolderModel, FeedBusinessLayer, ShowAll, ActiveFeed, Persistence, FeedType, ItemModel, OPMLParser, NewestItem, FeedModel, $rootScope);
     }
   ]);
 
@@ -2659,6 +2668,22 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return this._request.post('news_feeds_delete', params);
         };
 
+        Persistence.prototype.restoreFeed = function(feedId, onSuccess) {
+          var params;
+
+          if (onSuccess == null) {
+            onSuccess = null;
+          }
+          onSuccess || (onSuccess = function() {});
+          params = {
+            onSuccess: onSuccess,
+            routeParams: {
+              feedId: feedId
+            }
+          };
+          return this._request.post('news_feeds_restore', params);
+        };
+
         Persistence.prototype.moveFeed = function(feedId, folderId) {
           /*
           			moves a feed to a new folder
@@ -2825,6 +2850,22 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             }
           };
           return this._request.post('news_folders_delete', params);
+        };
+
+        Persistence.prototype.restoreFolder = function(folderId, onSuccess) {
+          var params;
+
+          if (onSuccess == null) {
+            onSuccess = null;
+          }
+          onSuccess || (onSuccess = function() {});
+          params = {
+            onSuccess: onSuccess,
+            routeParams: {
+              folderId: folderId
+            }
+          };
+          return this._request.post('news_folders_restore', params);
         };
 
         Persistence.prototype.renameFolder = function(folderId, folderName) {
@@ -3172,114 +3213,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
       UPDATED: 0x16
     };
   });
-
-}).call(this);
-
-// Generated by CoffeeScript 1.6.2
-/*
-
-ownCloud - App Framework
-
-@author Bernhard Posselt
-@copyright 2012 Bernhard Posselt nukeawhale@gmail.com
-
-This library is free software; you can redistribute it and/or
-modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
-License as published by the Free Software Foundation; either
-version 3 of the License, or any later version.
-
-This library is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU AFFERO GENERAL PUBLIC LICENSE for more details.
-
-You should have received a copy of the GNU Affero General Public
-License along with this library.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-(function() {
-  angular.module('News').factory('UndoQueue', [
-    '$timeout', '$rootScope', function($timeout, $rootScope) {
-      var UndoQueue;
-
-      UndoQueue = (function() {
-        function UndoQueue(_$timeout, _$rootScope) {
-          this._$timeout = _$timeout;
-          this._$rootScope = _$rootScope;
-          this._queue = [];
-        }
-
-        UndoQueue.prototype.add = function(_caption, _callback, _timeout, _undoCallback) {
-          var command, data,
-            _this = this;
-
-          this._caption = _caption;
-          this._callback = _callback;
-          this._timeout = _timeout != null ? _timeout : 0;
-          this._undoCallback = _undoCallback != null ? _undoCallback : null;
-          /*
-          			@_caption the caption which indentifies the item
-          			@_callback function the callback which should be executed when it was
-          			not undone, this will usually be a request to the server to finally
-          			delete something
-          			@_timeout int the timeout after the callback should be executed
-          			defaults to 0
-          			@_undoCallback function the function which should be executed when
-          			an command has been canceled. Usually this will add back a deleted
-          			object back to the interface, defaults to an empty function
-          */
-
-          this.executeAll();
-          command = {
-            _undoCallback: this._undoCallback || (this._undoCallback = function() {}),
-            _callback: this._callback,
-            execute: function() {
-              return command._callback();
-            },
-            undo: function() {
-              command._undoCallback();
-              _this._$timeout.cancel(command.promise);
-              return _this._queue = [];
-            },
-            promise: this._$timeout(function() {
-              command.execute();
-              _this._queue = [];
-              return _this._$rootScope.$broadcast('notUndone');
-            }, this._timeout)
-          };
-          data = {
-            undoCallback: command.undo,
-            caption: this._caption
-          };
-          this._$rootScope.$broadcast('undoMessage', data);
-          return this._queue.push(command);
-        };
-
-        UndoQueue.prototype.executeAll = function() {
-          /*
-          			Executes the callback before the timeout has run out
-          			This is useful to execute all remaining commands if a new command is
-          			added
-          */
-
-          var command, _i, _len, _ref;
-
-          _ref = this._queue;
-          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            command = _ref[_i];
-            this._$timeout.cancel(command.promise);
-            command.execute();
-          }
-          return this._queue = [];
-        };
-
-        return UndoQueue;
-
-      })();
-      return new UndoQueue($timeout, $rootScope);
-    }
-  ]);
 
 }).call(this);
 

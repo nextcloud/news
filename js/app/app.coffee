@@ -28,6 +28,7 @@ angular.module('News', ['OC', 'ui']).config ($provide) ->
 		scrollTimeout: 500
 		feedUpdateInterval: 1000*60*3  # miliseconds
 		itemBatchSize: 20
+		undoTimeout: 1000*10 # miliseconds
 		# the autoPageFactor defines how many articles must be left
 		# before it starts autopaging
 		autoPageFactor: 10

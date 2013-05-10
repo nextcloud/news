@@ -200,6 +200,16 @@ $rootScope) ->
 			@_request.post 'news_feeds_delete', params
 
 
+		restoreFeed: (feedId, onSuccess=null) ->
+			onSuccess or= ->
+			params =
+				onSuccess: onSuccess
+				routeParams:
+					feedId: feedId
+
+			@_request.post 'news_feeds_restore', params
+
+
 		moveFeed: (feedId, folderId) ->
 			###
 			moves a feed to a new folder
@@ -319,8 +329,17 @@ $rootScope) ->
 				routeParams:
 					folderId: folderId
 
-
 			@_request.post 'news_folders_delete', params
+
+
+		restoreFolder: (folderId, onSuccess=null) ->
+			onSuccess or= ->
+			params =
+				onSuccess: onSuccess
+				routeParams:
+					folderId: folderId
+
+			@_request.post 'news_folders_restore', params
 
 
 		renameFolder: (folderId, folderName) ->

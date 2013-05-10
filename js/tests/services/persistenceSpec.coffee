@@ -207,6 +207,17 @@ describe 'Persistence', ->
 		expect(@req.post).toHaveBeenCalledWith('news_feeds_delete', params)
 
 
+	it 'send a correct feed restore request', =>
+		params =
+			onSuccess: ->
+			routeParams:
+				feedId: 3
+
+		@Persistence.restoreFeed(params.routeParams.feedId, params.onSuccess)
+
+		expect(@req.post).toHaveBeenCalledWith('news_feeds_restore', params)
+
+
 	it 'send a correct feed create request', =>
 		params =
 			data:
@@ -292,6 +303,17 @@ describe 'Persistence', ->
 		@Persistence.deleteFolder(params.routeParams.folderId)
 
 		expect(@req.post).toHaveBeenCalledWith('news_folders_delete', params)
+
+
+	it 'send a correct folder restore request', =>
+		params =
+			onSuccess: ->
+			routeParams:
+				folderId: 3
+
+		@Persistence.restoreFolder(params.routeParams.folderId, params.onSuccess)
+
+		expect(@req.post).toHaveBeenCalledWith('news_folders_restore', params)
 
 
 	it 'should do a proper folder rename request', =>
