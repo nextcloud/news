@@ -25,4 +25,4 @@ Capybara.default_selector = :css
 Capybara.default_driver = :selenium
 
 # serve static files
-run Rack::Directory.new Dir.pwd.concat('./static')
+#run Rack::Directory.new Dir.pwd.concat('./static')

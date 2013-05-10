@@ -3,6 +3,8 @@ def turn_off_animations
 	page.execute_script("$.fx.off=true")
 end
 
+When (/^I look at the add new button$/) do
+end
 
 When (/^I hover over the add new button$/) do
 	# FIXME: get this working with hover action
@@ -14,7 +16,7 @@ When (/^I hover out off the add new button$/) do
 	page.execute_script("$('.list-title span').hide()")
 end
 
-Then (/^I should (not )?see an "([^"]+)" caption on the add new button$/) do |shouldNot, caption|
+Then (/^I should (not )?see a (?:"([^"]+)" )?caption on the add new button$/) do |shouldNot, caption|
 	selector = "//li[contains(@class,\"add-new\")]/a/span[1]"
 	if shouldNot
 		page.should have_no_selector(:xpath, selector)
