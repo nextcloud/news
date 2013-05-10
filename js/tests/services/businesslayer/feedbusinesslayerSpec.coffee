@@ -45,21 +45,26 @@ describe 'FeedBusinessLayer', ->
 	
 	beforeEach inject (@FeedBusinessLayer, @FeedModel, @ItemModel, @FeedType,
 	                   @ShowAll, @ActiveFeed, @_ExistsError, @$timeout,
-	                   @NewestItem) =>
+	                   @NewestItem, @$rootScope) =>
 		@ShowAll.setShowAll(false)
 		@ActiveFeed.handle({type: @FeedType.Folder, id:0})
 
+
 	it 'should delete feeds', =>
+		data = null
+		@$rootScope.$on 'undoMessage', (scope, data) ->
+			data = data
+
 		@FeedModel.removeById = jasmine.createSpy('remove').andCallFake ->
 			return {id: 3, title: 'test'}
 		@persistence.deleteFeed = jasmine.createSpy('deletequery')
 		@FeedBusinessLayer.delete(3)
 
 		expect(@FeedModel.removeById).toHaveBeenCalledWith(3)
-		
-		@$timeout.flush()
-
 		expect(@persistence.deleteFeed).toHaveBeenCalledWith(3)
+		
+		#expect(data.caption).toBe('test')
+		# TODO: test for correct undocallbacks
 		
 
 	it 'should return the number of unread feeds', =>

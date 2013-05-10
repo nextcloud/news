@@ -40,12 +40,16 @@ describe 'FolderBusinessLayer', ->
 
 	beforeEach inject (@FolderBusinessLayer, @FolderModel,	@FeedModel, @ShowAll,
 		               @ActiveFeed, @FeedType, @_ExistsError, @$timeout,
-		               @NewestItem, @ItemModel) =>
+		               @NewestItem, @ItemModel, @$rootScope) =>
 		@ShowAll.setShowAll(false)
 		@ActiveFeed.handle({type: @FeedType.Feed, id:0})
 
 
 	it 'should delete folders', =>
+		data = null
+		@$rootScope.$on 'undoMessage', (scope, data) ->
+			data = data
+
 		@FeedModel.add({id: 5, unreadCount:2, folderId: 3, url: 'a1'})
 		@FolderModel.removeById = jasmine.createSpy('remove').andCallFake ->
 			return {id: 3, name: 'test'}
@@ -54,11 +58,14 @@ describe 'FolderBusinessLayer', ->
 
 		@persistence.deleteFolder = jasmine.createSpy('deletequery')
 		@FolderBusinessLayer.delete(3)
-		@$timeout.flush()
 
 		expect(@FolderModel.removeById).toHaveBeenCalledWith(3)
 		expect(@FeedModel.removeById).toHaveBeenCalledWith(5)
 		expect(@persistence.deleteFolder).toHaveBeenCalledWith(3)
+
+		#expect(data.caption).toBe('test')
+		# TODO: test for correct undocallbacks
+
 
 
 	it 'should return true when folder has feeds', =>
