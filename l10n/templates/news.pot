@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud news 5.0.0\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2013-05-04 01:09+0200\n"
+"POT-Creation-Date: 2013-05-12 01:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,15 +21,15 @@ msgstr ""
 msgid "News"
 msgstr ""
 
-#: businesslayer/feedbusinesslayer.php:74
+#: businesslayer/feedbusinesslayer.php:77
 msgid "Can not add feed: Exists already"
 msgstr ""
 
-#: businesslayer/feedbusinesslayer.php:112
+#: businesslayer/feedbusinesslayer.php:115
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr ""
 
-#: businesslayer/folderbusinesslayer.php:55
+#: businesslayer/folderbusinesslayer.php:62
 msgid "Can not add folder: Exists already"
 msgstr ""
 
@@ -94,7 +94,7 @@ msgstr ""
 msgid "All articles"
 msgstr ""
 
-#: templates/part.feed.unread.php:26 templates/part.listfeed.php:43
+#: templates/part.feed.unread.php:26 templates/part.listfeed.php:49
 #: templates/part.listfolder.php:43
 msgid "Mark read"
 msgstr ""
@@ -115,7 +115,7 @@ msgstr ""
 msgid "Keep unread"
 msgstr ""
 
-#: templates/part.listfeed.php:48 templates/part.listfeed.php:54
+#: templates/part.listfeed.php:37 templates/part.listfeed.php:55
 msgid "Delete website"
 msgstr ""
 

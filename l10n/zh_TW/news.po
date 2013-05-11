@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-05-02 01:19+0200\n"
-"PO-Revision-Date: 2013-05-01 23:19+0000\n"
-"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"POT-Creation-Date: 2013-05-12 01:03+0200\n"
+"PO-Revision-Date: 2013-05-06 07:20+0000\n"
+"Last-Translator: pellaeon <nfsmwlin@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/owncloud/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,64 +27,64 @@ msgstr ""
 msgid "News"
 msgstr "新聞"
 
-#: businesslayer/feedbusinesslayer.php:70
+#: businesslayer/feedbusinesslayer.php:77
 msgid "Can not add feed: Exists already"
 msgstr "無法新增反饋: 已經存在"
 
-#: businesslayer/feedbusinesslayer.php:108
+#: businesslayer/feedbusinesslayer.php:115
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "無法新增反饋: URL不存在或具有無效的xml"
 
-#: businesslayer/folderbusinesslayer.php:55
+#: businesslayer/folderbusinesslayer.php:62
 msgid "Can not add folder: Exists already"
 msgstr "無法新增目錄: 目錄已存在"
 
 #: templates/main.php:27
 #, php-format
 msgid "Undo deletion of %s"
-msgstr ""
+msgstr "復原刪除 %s"
 
-#: templates/part.addnew.php:12
+#: templates/part.addnew.php:11
 msgid "Add Website"
 msgstr "新增網站"
 
-#: templates/part.addnew.php:19
+#: templates/part.addnew.php:16
 msgid "Error: address exists already!"
 msgstr "錯誤: 地址已存在"
 
-#: templates/part.addnew.php:22
+#: templates/part.addnew.php:19
 msgid "Error: folder exists already"
 msgstr "錯誤: 資料夾已存在"
 
-#: templates/part.addnew.php:29
+#: templates/part.addnew.php:26
 msgid "Address"
 msgstr "網址"
 
-#: templates/part.addnew.php:33 templates/part.addnew.php:36
+#: templates/part.addnew.php:30 templates/part.addnew.php:33
 msgid "Add"
 msgstr "新增"
 
-#: templates/part.addnew.php:40 templates/part.addnew.php:48
+#: templates/part.addnew.php:37 templates/part.addnew.php:45
 msgid "New folder"
 msgstr "新資料夾"
 
-#: templates/part.addnew.php:41
+#: templates/part.addnew.php:38
 msgid "Folder"
 msgstr "資料夾"
 
-#: templates/part.addnew.php:46
+#: templates/part.addnew.php:43
 msgid "Choose folder"
 msgstr "選擇資料夾"
 
-#: templates/part.addnew.php:58
+#: templates/part.addnew.php:55
 msgid "Folder name"
 msgstr "資料夾名稱"
 
-#: templates/part.addnew.php:61
+#: templates/part.addnew.php:58
 msgid "Back to folder selection"
 msgstr "返回到資料夾選擇"
 
-#: templates/part.addnew.php:66
+#: templates/part.addnew.php:63
 msgid "Create folder"
 msgstr "建立資料夾"
 
@@ -100,7 +100,7 @@ msgstr "未讀文章"
 msgid "All articles"
 msgstr "所有文章"
 
-#: templates/part.feed.unread.php:26 templates/part.listfeed.php:43
+#: templates/part.feed.unread.php:26 templates/part.listfeed.php:49
 #: templates/part.listfolder.php:43
 msgid "Mark read"
 msgstr "標記成已讀"
@@ -121,7 +121,7 @@ msgstr "無法播放音頻格式"
 msgid "Keep unread"
 msgstr "保持未閱讀"
 
-#: templates/part.listfeed.php:48 templates/part.listfeed.php:54
+#: templates/part.listfeed.php:37 templates/part.listfeed.php:55
 msgid "Delete website"
 msgstr "刪除網站"
 

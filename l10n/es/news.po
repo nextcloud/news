@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-05-02 01:19+0200\n"
-"PO-Revision-Date: 2013-05-01 23:19+0000\n"
+"POT-Creation-Date: 2013-05-12 01:03+0200\n"
+"PO-Revision-Date: 2013-05-04 16:30+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/owncloud/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -34,15 +34,15 @@ msgstr ""
 msgid "News"
 msgstr "Noticias"
 
-#: businesslayer/feedbusinesslayer.php:70
+#: businesslayer/feedbusinesslayer.php:77
 msgid "Can not add feed: Exists already"
 msgstr "No se puede agregar fuente: ya existe"
 
-#: businesslayer/feedbusinesslayer.php:108
+#: businesslayer/feedbusinesslayer.php:115
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "No se puede agregar fuente: el URL no existe o contiene XML inválido"
 
-#: businesslayer/folderbusinesslayer.php:55
+#: businesslayer/folderbusinesslayer.php:62
 msgid "Can not add folder: Exists already"
 msgstr "No se puede agregar carpeta: ya existe"
 
@@ -51,47 +51,47 @@ msgstr "No se puede agregar carpeta: ya existe"
 msgid "Undo deletion of %s"
 msgstr "Deshacer borrado de %s"
 
-#: templates/part.addnew.php:12
+#: templates/part.addnew.php:11
 msgid "Add Website"
 msgstr "Agregar sitio web"
 
-#: templates/part.addnew.php:19
+#: templates/part.addnew.php:16
 msgid "Error: address exists already!"
 msgstr "Error: ¡la dirección ya existe!"
 
-#: templates/part.addnew.php:22
+#: templates/part.addnew.php:19
 msgid "Error: folder exists already"
 msgstr "Error: la carpeta ya existe"
 
-#: templates/part.addnew.php:29
+#: templates/part.addnew.php:26
 msgid "Address"
 msgstr "Dirección"
 
-#: templates/part.addnew.php:33 templates/part.addnew.php:36
+#: templates/part.addnew.php:30 templates/part.addnew.php:33
 msgid "Add"
 msgstr "Agregar"
 
-#: templates/part.addnew.php:40 templates/part.addnew.php:48
+#: templates/part.addnew.php:37 templates/part.addnew.php:45
 msgid "New folder"
 msgstr "Nueva carpeta"
 
-#: templates/part.addnew.php:41
+#: templates/part.addnew.php:38
 msgid "Folder"
 msgstr "Carpeta"
 
-#: templates/part.addnew.php:46
+#: templates/part.addnew.php:43
 msgid "Choose folder"
 msgstr "Seleccionar carpeta"
 
-#: templates/part.addnew.php:58
+#: templates/part.addnew.php:55
 msgid "Folder name"
 msgstr "Nombre de la carpeta"
 
-#: templates/part.addnew.php:61
+#: templates/part.addnew.php:58
 msgid "Back to folder selection"
 msgstr "Regresar a seleccionar carpeta"
 
-#: templates/part.addnew.php:66
+#: templates/part.addnew.php:63
 msgid "Create folder"
 msgstr "Crear carpeta"
 
@@ -107,7 +107,7 @@ msgstr "Artículos sin leer"
 msgid "All articles"
 msgstr "Todos los artículos"
 
-#: templates/part.feed.unread.php:26 templates/part.listfeed.php:43
+#: templates/part.feed.unread.php:26 templates/part.listfeed.php:49
 #: templates/part.listfolder.php:43
 msgid "Mark read"
 msgstr "Marcar como leído"
@@ -128,7 +128,7 @@ msgstr "No se puede reproducir el formato de audio"
 msgid "Keep unread"
 msgstr "Dejar como no leido"
 
-#: templates/part.listfeed.php:48 templates/part.listfeed.php:54
+#: templates/part.listfeed.php:37 templates/part.listfeed.php:55
 msgid "Delete website"
 msgstr "Eliminar sitio web"
 

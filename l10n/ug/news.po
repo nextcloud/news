@@ -7,10 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-05-02 01:19+0200\n"
-"PO-Revision-Date: 2013-05-01 23:19+0000\n"
-"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
-"Language-Team: Uighur (http://www.transifex.com/projects/p/owncloud/language/ug/)\n"
+"POT-Creation-Date: 2013-05-12 01:03+0200\n"
+"PO-Revision-Date: 2013-05-04 11:50+0000\n"
+"Last-Translator: Abduqadir Abliz <sahran.ug@gmail.com>\n"
+"Language-Team: Uighur <uqkun@outlook.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,17 +19,17 @@ msgstr ""
 
 #: appinfo/app.php:52
 msgid "News"
-msgstr ""
+msgstr "خەۋەر"
 
-#: businesslayer/feedbusinesslayer.php:70
+#: businesslayer/feedbusinesslayer.php:77
 msgid "Can not add feed: Exists already"
 msgstr ""
 
-#: businesslayer/feedbusinesslayer.php:108
+#: businesslayer/feedbusinesslayer.php:115
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr ""
 
-#: businesslayer/folderbusinesslayer.php:55
+#: businesslayer/folderbusinesslayer.php:62
 msgid "Can not add folder: Exists already"
 msgstr ""
 
@@ -38,53 +38,53 @@ msgstr ""
 msgid "Undo deletion of %s"
 msgstr ""
 
-#: templates/part.addnew.php:12
+#: templates/part.addnew.php:11
 msgid "Add Website"
 msgstr ""
 
-#: templates/part.addnew.php:19
+#: templates/part.addnew.php:16
 msgid "Error: address exists already!"
 msgstr ""
 
-#: templates/part.addnew.php:22
+#: templates/part.addnew.php:19
 msgid "Error: folder exists already"
 msgstr ""
 
-#: templates/part.addnew.php:29
+#: templates/part.addnew.php:26
 msgid "Address"
-msgstr ""
+msgstr "ئادرېس"
 
-#: templates/part.addnew.php:33 templates/part.addnew.php:36
+#: templates/part.addnew.php:30 templates/part.addnew.php:33
 msgid "Add"
-msgstr ""
+msgstr "قوش"
 
-#: templates/part.addnew.php:40 templates/part.addnew.php:48
+#: templates/part.addnew.php:37 templates/part.addnew.php:45
 msgid "New folder"
-msgstr ""
+msgstr "يېڭى قىسقۇچ"
 
-#: templates/part.addnew.php:41
+#: templates/part.addnew.php:38
 msgid "Folder"
-msgstr ""
+msgstr "قىسقۇچ"
 
-#: templates/part.addnew.php:46
+#: templates/part.addnew.php:43
 msgid "Choose folder"
 msgstr ""
 
-#: templates/part.addnew.php:58
+#: templates/part.addnew.php:55
 msgid "Folder name"
-msgstr ""
+msgstr "قىسقۇچ ئاتى"
 
-#: templates/part.addnew.php:61
+#: templates/part.addnew.php:58
 msgid "Back to folder selection"
 msgstr ""
 
-#: templates/part.addnew.php:66
+#: templates/part.addnew.php:63
 msgid "Create folder"
-msgstr ""
+msgstr "قىسقۇچ قۇر"
 
 #: templates/part.feed.starred.php:11
 msgid "Starred"
-msgstr ""
+msgstr "يۇلتۇزلۇق"
 
 #: templates/part.feed.unread.php:10
 msgid "Unread articles"
@@ -94,10 +94,10 @@ msgstr ""
 msgid "All articles"
 msgstr ""
 
-#: templates/part.feed.unread.php:26 templates/part.listfeed.php:43
+#: templates/part.feed.unread.php:26 templates/part.listfeed.php:49
 #: templates/part.listfolder.php:43
 msgid "Mark read"
-msgstr ""
+msgstr "ئوقۇلدى بەلگىسى قوي"
 
 #: templates/part.items.php:31
 msgid "from"
@@ -105,7 +105,7 @@ msgstr ""
 
 #: templates/part.items.php:36
 msgid "by"
-msgstr ""
+msgstr "سەنئەتكار"
 
 #: templates/part.items.php:44
 msgid "Cant play audio format"
@@ -115,7 +115,7 @@ msgstr ""
 msgid "Keep unread"
 msgstr ""
 
-#: templates/part.listfeed.php:48 templates/part.listfeed.php:54
+#: templates/part.listfeed.php:37 templates/part.listfeed.php:55
 msgid "Delete website"
 msgstr ""
 
@@ -125,11 +125,11 @@ msgstr ""
 
 #: templates/part.listfolder.php:32 templates/part.listfolder.php:48
 msgid "Delete folder"
-msgstr ""
+msgstr "قىسقۇچ ئۆچۈر"
 
 #: templates/part.listfolder.php:54
 msgid "Rename folder"
-msgstr ""
+msgstr "قىسقۇچ ئاتىنى ئۆزگەرت"
 
 #: templates/part.settings.php:13
 msgid "Import / Export OPML"
@@ -138,12 +138,12 @@ msgstr ""
 #: templates/part.settings.php:17 templates/part.settings.php:19
 #: templates/part.settings.php:47 templates/part.settings.php:49
 msgid "Import"
-msgstr ""
+msgstr "ئەكىر"
 
 #: templates/part.settings.php:23 templates/part.settings.php:27
 #: templates/part.settings.php:30 templates/part.settings.php:32
 msgid "Export"
-msgstr ""
+msgstr "چىقار"
 
 #: templates/part.settings.php:36
 msgid "Error when importing: file does not contain valid OPML"
@@ -165,7 +165,7 @@ msgstr ""
 
 #: templates/part.showall.php:2
 msgid "Show all"
-msgstr ""
+msgstr "ھەممىنى كۆرسەت"
 
 #: templates/part.showall.php:6
 msgid "Show only unread"
