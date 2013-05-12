@@ -106,8 +106,11 @@ angular.module('News').directive 'itemShortcuts', ['$window', ($window) ->
 				# s or i or l
 				else if e.keyCode == 73 or e.keyCode == 83 or e.keyCode == 76
 					starCurrentItem(scrollArea)
-					
 
+				# h
+				else if e.keyCode == 72
+					starCurrentItem(scrollArea)
+					jumpToNextItem(scrollArea)
 
 
 ]
