@@ -21,7 +21,7 @@
 
 ?>
 
-<div id="app" ng-app="News">
+<div id="app" ng-app="News" ng-cloak>
 	<div id="undo-container">
 		<div undo-notification id="undo">
 			<a href="#"><?php p($l->t('Undo deletion of %s', '{{ getCaption() }}')); ?></a>
@@ -49,11 +49,11 @@
 			loading: isLoading(),
 			autopaging: isAutoPaging()
 		}"
-		ng-controller="ItemController" 
+		ng-controller="ItemController"
 		news-item-scroll
 		item-shortcuts
 		tabindex="-1">
 		<?php print_unescaped($this->inc("part.items")); ?>
 	</div>
-	
+
 </div>
