@@ -108,6 +108,7 @@ Keyboard shortcuts
 * **Previous item**: p / k / left arrow
 * **Star current item**: s / i
 * **Keep current item unread**: u
+* **Star item and jump to next one**: h 
 
 Performance Notices
 -------------------
