@@ -9,13 +9,14 @@
 # Duarte Velez Grilo <duartegrilo@gmail.com>, 2012
 # Helder Meneses <helder.meneses@gmail.com>, 2012-2013
 # Nelson Rosado <nelsontrosado@gmail.com>, 2012
+# victorix, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-05-02 01:19+0200\n"
-"PO-Revision-Date: 2013-05-01 23:19+0000\n"
-"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"POT-Creation-Date: 2013-05-14 01:02+0200\n"
+"PO-Revision-Date: 2013-05-13 13:20+0000\n"
+"Last-Translator: victorix\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/owncloud/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,64 +28,64 @@ msgstr ""
 msgid "News"
 msgstr "Noticias"
 
-#: businesslayer/feedbusinesslayer.php:70
+#: businesslayer/feedbusinesslayer.php:77
 msgid "Can not add feed: Exists already"
 msgstr "Não é possível adicionar o feed: Já existe"
 
-#: businesslayer/feedbusinesslayer.php:108
+#: businesslayer/feedbusinesslayer.php:115
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "Não é possível adicionar o feed: o endereço não existe ou contem um xml inválido"
 
-#: businesslayer/folderbusinesslayer.php:55
+#: businesslayer/folderbusinesslayer.php:62
 msgid "Can not add folder: Exists already"
 msgstr "Não é possivel adicionar a pasta: Já existe"
 
 #: templates/main.php:27
 #, php-format
 msgid "Undo deletion of %s"
-msgstr ""
+msgstr "Anular o apagar de %s"
 
-#: templates/part.addnew.php:12
+#: templates/part.addnew.php:11
 msgid "Add Website"
 msgstr "Adicionar WebSite"
 
-#: templates/part.addnew.php:19
+#: templates/part.addnew.php:16
 msgid "Error: address exists already!"
 msgstr "Erro: o endereço já existe!"
 
-#: templates/part.addnew.php:22
+#: templates/part.addnew.php:19
 msgid "Error: folder exists already"
 msgstr "Erro: a pasta já existe"
 
-#: templates/part.addnew.php:29
+#: templates/part.addnew.php:26
 msgid "Address"
 msgstr "Endereço"
 
-#: templates/part.addnew.php:33 templates/part.addnew.php:36
+#: templates/part.addnew.php:30 templates/part.addnew.php:33
 msgid "Add"
 msgstr "Acrescentar"
 
-#: templates/part.addnew.php:40 templates/part.addnew.php:48
+#: templates/part.addnew.php:37 templates/part.addnew.php:45
 msgid "New folder"
 msgstr "Nova Pasta"
 
-#: templates/part.addnew.php:41
+#: templates/part.addnew.php:38
 msgid "Folder"
 msgstr "Pasta"
 
-#: templates/part.addnew.php:46
+#: templates/part.addnew.php:43
 msgid "Choose folder"
 msgstr "Escolha uma pasta"
 
-#: templates/part.addnew.php:58
+#: templates/part.addnew.php:55
 msgid "Folder name"
 msgstr "Nome da pasta"
 
-#: templates/part.addnew.php:61
+#: templates/part.addnew.php:58
 msgid "Back to folder selection"
 msgstr "Voltar para a selecção de pastas"
 
-#: templates/part.addnew.php:66
+#: templates/part.addnew.php:63
 msgid "Create folder"
 msgstr "Criar pasta"
 
@@ -100,10 +101,10 @@ msgstr "Artigos por ler"
 msgid "All articles"
 msgstr "Todos os artigos"
 
-#: templates/part.feed.unread.php:26 templates/part.listfeed.php:43
+#: templates/part.feed.unread.php:26 templates/part.listfeed.php:49
 #: templates/part.listfolder.php:43
 msgid "Mark read"
-msgstr ""
+msgstr "Seleccionar leitura"
 
 #: templates/part.items.php:31
 msgid "from"
@@ -121,7 +122,7 @@ msgstr "Não é possível reproduzir este formato de audio"
 msgid "Keep unread"
 msgstr "Manter como não lido"
 
-#: templates/part.listfeed.php:48 templates/part.listfeed.php:54
+#: templates/part.listfeed.php:37 templates/part.listfeed.php:55
 msgid "Delete website"
 msgstr "Eliminar website"
 
@@ -157,17 +158,17 @@ msgstr "Erro na importação: o ficheiro não contém um OPML válido"
 
 #: templates/part.settings.php:42
 msgid "Import Google Reader JSON"
-msgstr ""
+msgstr "Importar Leitor Google JSON"
 
 #: templates/part.settings.php:43
 msgid ""
 "To import starred and shared articles from Google \n"
 "\t\t\tReader please upload the .json files from the Google Takeout archive"
-msgstr ""
+msgstr "Para importar artigos marcados e partilhados da Google\n»»»Leitor por favor envie os ficheiros .json para o arquivo Google Takeout"
 
 #: templates/part.settings.php:53
 msgid "Error when importing: file does not contain valid JSON"
-msgstr ""
+msgstr "Erro ao importar: ficheiro não contém JSON válido"
 
 #: templates/part.showall.php:2
 msgid "Show all"
