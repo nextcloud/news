@@ -116,7 +116,7 @@ Performance Notices
 
 Known Problems
 --------------
-* **Feeds are not updated anymore**: `this is a bug in the core backgroundjob system <https://github.com/owncloud/core/issues/3221>`_ deleting the owncloud/data/cron.lock file gets the cron back up running
+* **Feeds are not updated anymore**: `this is a bug in the core bac1kgroundjob system <https://github.com/owncloud/core/issues/3221>`_ deleting the :file:`owncloud/data/cron.lock` file gets the cron back up running
 
 Configuration
 -------------
