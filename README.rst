@@ -114,6 +114,10 @@ Performance Notices
 -------------------
 * Use MySQL or PostgreSQL for better database performance
 
+Known Problems
+--------------
+Feeds are not updated anymore: `this is a bug in the core backgroundjob system <https://github.com/owncloud/core/issues/3221>`_ deleting the owncloud/data/cron.lock file gets the cron back up running
+
 Configuration
 -------------
 This will be in a seperate config file in the future but for now you can tweak the folowing things. 
