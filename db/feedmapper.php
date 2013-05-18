@@ -51,7 +51,10 @@ class FeedMapper extends Mapper implements IMapper {
 				StatusFlag::UNREAD . ' ' .
 			'WHERE `feeds`.`id` = ? ' .
 				'AND `feeds`.`user_id` = ? ' .
-			'GROUP BY `feeds`.`id`';
+			'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`,'.
+				'`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
+				'`feeds`.`favicon_link`, `feeds`.`added`,'.
+				'`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
 		$params = array($id, $userId);
 
 		$row = $this->findOneQuery($sql, $params);
@@ -89,7 +92,10 @@ class FeedMapper extends Mapper implements IMapper {
 				StatusFlag::UNREAD . ' ' .
 			'WHERE `feeds`.`user_id` = ? ' .
 			'AND `feeds`.`deleted_at` = 0 ' .
-			'GROUP BY `feeds`.`id`';
+			'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`,'.
+				'`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
+				'`feeds`.`favicon_link`, `feeds`.`added`,'.
+				'`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
 		$params = array($userId);
 
 		return $this->findAllRows($sql, $params);
@@ -116,7 +122,10 @@ class FeedMapper extends Mapper implements IMapper {
 				StatusFlag::UNREAD . ' ' .
 			'WHERE `feeds`.`url_hash` = ? ' .
 				'AND `feeds`.`user_id` = ? ' .
-			'GROUP BY `feeds`.`id`';
+			'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`,'.
+				'`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
+				'`feeds`.`favicon_link`, `feeds`.`added`,'.
+				'`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
 		$params = array($hash, $userId);
 
 		$row = $this->findOneQuery($sql, $params);
