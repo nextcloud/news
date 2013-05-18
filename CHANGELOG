@@ -13,6 +13,8 @@ ownCloud-news (0.101)
 * Fix a bug that would mark the items on the right side as read regardless of feed or folder id
 * Fix a bug that would a feed from being added when he was deleted and then another feed was deleted
 * When a feed is deleted and not undone in 10 seconds and the window is closed, delete him
+* Fix bug that would make links containing hashes unclickable
+* Fix bug that broke the News app on postgresql
 
 ownCloud-news (0.98)
 
