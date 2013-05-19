@@ -9,6 +9,7 @@
 "Unread articles" => "Uleste artikler",
 "All articles" => "Alle artikler",
 "from" => "fra",
+"by" => "av",
 "Cant play audio format" => "Kan ikke spille av lydformat",
 "Keep unread" => "Merk som ulest",
 "Collapse" => "Skjul",
