@@ -15,6 +15,7 @@ ownCloud-news (0.101)
 * When a feed is deleted and not undone in 10 seconds and the window is closed, delete him
 * Fix bug that would make links containing hashes unclickable
 * Fix bug that broke the News app on postgresql
+* Fix bug that prevented the API from serving items
 
 ownCloud-news (0.98)
 
