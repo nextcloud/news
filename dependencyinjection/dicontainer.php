@@ -214,7 +214,6 @@ class DIContainer extends BaseContainer {
 
 		$this['ItemAPI'] = $this->share(function($c){
 			return new ItemAPI($c['API'], $c['Request'], 
-			                   $c['FeedBusinessLayer'],
 			                   $c['ItemBusinessLayer']);
 		});
 
