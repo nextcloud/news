@@ -117,10 +117,12 @@ Official
 
 Unofficial
 ~~~~~~~~~~
-**Author**: David Luhmer 
-**Name**: `Owncloud News Reader <http://luhmer.homelinux.com/wordpress/?p=126>`_
-**Status**: Alpha
-**Platform**: Android
+* **Author**: David Luhmer 
+* **Name**: `Owncloud News Reader <http://luhmer.homelinux.com/wordpress/?p=126>`_
+* **Status**: Alpha
+* **Platform**: Android
+* **License**: Proprietary
+* **Bugtracker**: unknown
 
 Desktop Clients
 ---------------
