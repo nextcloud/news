@@ -110,6 +110,21 @@ Keyboard shortcuts
 * **Keep current item unread**: u
 * **Star item and jump to next one**: h 
 
+Mobile Clients
+--------------
+Official
+~~~~~~~~
+
+Unofficial
+~~~~~~~~~~
+**Author**: David Luhmer 
+**Name**: `Owncloud News Reader <http://luhmer.homelinux.com/wordpress/?p=126>`_
+**Status**: Alpha
+**Platform**: Android
+
+Desktop Clients
+---------------
+
 Performance Notices
 -------------------
 * Use MySQL or PostgreSQL for better database performance
