@@ -114,15 +114,21 @@ Mobile Clients
 --------------
 Official
 ~~~~~~~~
+* **Author**: TBA
+* **Link**: `http://en.opensuse.org/openSUSE:GSOC_ideas#Mobile_app_that_syncs_with_ownCloud_News_app`_
+* **Status**: In development
+* **Platform**: Android, iOS, Windows Phone (PhoneGap)
+* **License**: AGPL
+* **Bugtracker**: TBA
 
 Unofficial
 ~~~~~~~~~~
 * **Author**: David Luhmer 
-* **Name**: `Owncloud News Reader <http://luhmer.homelinux.com/wordpress/?p=126>`_
+* **Link**: `Owncloud News Reader <http://luhmer.homelinux.com/wordpress/?p=126>`_
 * **Status**: Alpha
 * **Platform**: Android
 * **License**: Proprietary
-* **Bugtracker**: unknown
+* **Bugtracker**: TBA
 
 Desktop Clients
 ---------------
