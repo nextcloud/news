@@ -115,7 +115,7 @@ Mobile Clients
 Official
 ~~~~~~~~
 * **Author**: TBA
-* **Link**: `http://en.opensuse.org/openSUSE:GSOC_ideas#Mobile_app_that_syncs_with_ownCloud_News_app`_
+* **Link**: `GSoC Project Page <http://en.opensuse.org/openSUSE:GSOC_ideas#Mobile_app_that_syncs_with_ownCloud_News_app>`_
 * **Status**: In development
 * **Platform**: Android, iOS, Windows Phone (PhoneGap)
 * **License**: AGPL
