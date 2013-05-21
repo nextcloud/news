@@ -135,7 +135,7 @@ class FeedController extends Controller {
 		try {
 			// we need to purge deleted feeds if a feed is created to 
 			// prevent already exists exceptions
-			$this->feedBusinessLayer->purgeDeleted($userId);
+			$this->feedBusinessLayer->purgeDeleted($userId, false);
 
 			$feed = $this->feedBusinessLayer->create($url, $parentFolderId, $userId);
 			$params = array(

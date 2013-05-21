@@ -232,4 +232,25 @@ class FolderBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->folderBusinessLayer->purgeDeleted($this->user);
 	}
 
+
+	public function testPurgeDeletedNoInterval(){
+		$folder1 = new Folder();
+		$folder1->setId(3);
+		$folder2 = new Folder();
+		$folder2->setId(5);
+		$feeds = array($folder1, $folder2);
+
+		$this->folderMapper->expects($this->once())
+			->method('getToDelete')
+			->with($this->equalTo(null), $this->equalTo($this->user))
+			->will($this->returnValue($feeds));
+		$this->folderMapper->expects($this->at(1))
+			->method('delete')
+			->with($this->equalTo($folder1));
+		$this->folderMapper->expects($this->at(2))
+			->method('delete')
+			->with($this->equalTo($folder2));
+
+		$this->folderBusinessLayer->purgeDeleted($this->user, false);
+	}
 }

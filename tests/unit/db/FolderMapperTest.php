@@ -187,7 +187,7 @@ class FolderMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$deleteOlderThan = 110;
 		$sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
 			'WHERE `deleted_at` > 0 ' .
-			'AND `deleted_at` < ?';
+			'AND `deleted_at` < ? ';
 		$this->setMapperResult($sql, array($deleteOlderThan), $rows);
 		$result = $this->folderMapper->getToDelete($deleteOlderThan);
 
@@ -212,5 +212,20 @@ class FolderMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$this->assertEquals($this->folders, $result);
 	}
 
+
+	public function testGetAllPurgeDeletedUser(){
+		$rows = array(
+			array('id' => $this->folders[0]->getId()),
+			array('id' => $this->folders[1]->getId())
+		);
+		$deleteOlderThan = 110;
+		$sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
+			'WHERE `deleted_at` > 0 ' .
+			'AND `user_id` = ?';
+		$this->setMapperResult($sql, array($this->user), $rows);
+		$result = $this->folderMapper->getToDelete(null, $this->user);
+
+		$this->assertEquals($this->folders, $result);
+	}
 
 }

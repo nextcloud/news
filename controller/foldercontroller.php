@@ -116,7 +116,7 @@ class FolderController extends Controller {
 		try {
 			// we need to purge deleted folders if a folder is created to 
 			// prevent already exists exceptions
-			$this->folderBusinessLayer->purgeDeleted($userId);
+			$this->folderBusinessLayer->purgeDeleted($userId, false);
 
 			$folder = $this->folderBusinessLayer->create($folderName, $userId);
 

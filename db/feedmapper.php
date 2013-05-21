@@ -147,15 +147,26 @@ class FeedMapper extends Mapper implements IMapper {
 	}
 
 
-	public function getToDelete($deleteOlderThan, $userId=null) {
+	/**
+	 * @param int $deleteOlderThan if given gets all entries with a delete date
+	 * older than that timestamp
+	 * @param string $userId if given returns only entries from the given user
+	 * @return array with the database rows
+	 */
+	public function getToDelete($deleteOlderThan=null, $userId=null) {
 		$sql = 'SELECT * FROM `*PREFIX*news_feeds` ' .
-			'WHERE `deleted_at` > 0 ' .
-			'AND `deleted_at` < ?';
-		$params = array($deleteOlderThan);
+			'WHERE `deleted_at` > 0 ';
+		$params = array();
+
+		// sometimes we want to delete all entries
+		if ($deleteOlderThan !== null) {
+			$sql .= 'AND `deleted_at` < ? ';
+			array_push($params, $deleteOlderThan);
+		}
 
 		// we need to sometimes only delete feeds of a user
 		if($userId !== null) {
-			$sql .= ' AND `user_id` = ?';
+			$sql .= 'AND `user_id` = ?';
 			array_push($params, $userId);
 		}
 

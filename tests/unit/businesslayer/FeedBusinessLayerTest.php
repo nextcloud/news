@@ -740,4 +740,24 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 	}
 
 
+	public function testPurgeDeletedWithoutInterval(){
+		$feed1 = new Feed();
+		$feed1->setId(3);
+		$feed2 = new Feed();
+		$feed2->setId(5);
+		$feeds = array($feed1, $feed2);
+
+		$this->feedMapper->expects($this->once())
+			->method('getToDelete')
+			->with($this->equalTo(null), $this->equalTo($this->user))
+			->will($this->returnValue($feeds));
+		$this->feedMapper->expects($this->at(1))
+			->method('delete')
+			->with($this->equalTo($feed1));
+		$this->feedMapper->expects($this->at(2))
+			->method('delete')
+			->with($this->equalTo($feed2));
+
+		$this->feedBusinessLayer->purgeDeleted($this->user, false);
+	}
 }

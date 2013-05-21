@@ -261,9 +261,21 @@ class FeedBusinessLayer extends BusinessLayer {
 	}
 
 
-	public function purgeDeleted($userId=null) {
-		$now = $this->timeFactory->getTime();
-		$deleteOlderThan = $now - $this->autoPurgeMinimumInterval;
+	/**
+	 * Deletes all deleted feeds
+	 * @param string $userId if given it purges only feeds of that user
+	 * @param boolean $useInterval defaults to true, if true it only purges
+	 * entries in a given interval to give the user a chance to undo the 
+	 * deletion
+	 */
+	public function purgeDeleted($userId=null, $useInterval=true) {
+		$deleteOlderThan = null;
+
+		if ($useInterval) {
+			$now = $this->timeFactory->getTime();
+			$deleteOlderThan = $now - $this->autoPurgeMinimumInterval;
+		}
+
 		$toDelete = $this->mapper->getToDelete($deleteOlderThan, $userId);	
 
 		foreach ($toDelete as $feed) {

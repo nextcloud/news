@@ -318,7 +318,7 @@ class FeedControllerTest extends ControllerTestUtility {
 			->will($this->returnValue($result['newestItemId']));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('purgeDeleted')
-			->with($this->equalTo($this->user));
+			->with($this->equalTo($this->user), $this->equalTo(false));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('create')
 			->with($this->equalTo($post['url']),
@@ -349,7 +349,7 @@ class FeedControllerTest extends ControllerTestUtility {
 			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('purgeDeleted')
-			->with($this->equalTo($this->user));
+			->with($this->equalTo($this->user), $this->equalTo(false));
 
 		$this->itemBusinessLayer->expects($this->once())
 			->method('getNewestItemId')
@@ -377,7 +377,7 @@ class FeedControllerTest extends ControllerTestUtility {
 			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('purgeDeleted')
-			->with($this->equalTo($this->user));
+			->with($this->equalTo($this->user), $this->equalTo(false));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('create')
 			->will($this->throwException($ex));

@@ -289,7 +289,7 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$deleteOlderThan = 110;
 		$sql = 'SELECT * FROM `*PREFIX*news_feeds` ' .
 			'WHERE `deleted_at` > 0 ' .
-			'AND `deleted_at` < ?';
+			'AND `deleted_at` < ? ';
 		$this->setMapperResult($sql, array($deleteOlderThan), $rows);
 		$result = $this->mapper->getToDelete($deleteOlderThan);
 
@@ -314,4 +314,18 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 	}
 
 	
+	public function testGetAllPurgeDeletedFromUser(){
+		$rows = array(
+			array('id' => $this->feeds[0]->getId()),
+			array('id' => $this->feeds[1]->getId())
+		);
+		$deleteOlderThan = 110;
+		$sql = 'SELECT * FROM `*PREFIX*news_feeds` ' .
+			'WHERE `deleted_at` > 0 ' .
+			'AND `user_id` = ?';
+		$this->setMapperResult($sql, array($this->user), $rows);
+		$result = $this->mapper->getToDelete(null, $this->user);
+
+		$this->assertEquals($this->feeds, $result);
+	}	
 }
