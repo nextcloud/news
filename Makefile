@@ -19,6 +19,7 @@
 # This makefile is for general project specific stuff like packaging a new 
 # release for the app store and running php unittests which require core
 
+app_name=news
 build_directory=build/
 package_name=$(build_directory)$(app_name)
 
