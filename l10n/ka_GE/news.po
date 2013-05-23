@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-05-02 01:19+0200\n"
-"PO-Revision-Date: 2013-05-01 23:19+0000\n"
+"POT-Creation-Date: 2013-05-24 01:17+0200\n"
+"PO-Revision-Date: 2013-05-23 23:13+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Georgian (Georgia) (http://www.transifex.com/projects/p/owncloud/language/ka_GE/)\n"
 "MIME-Version: 1.0\n"
@@ -22,15 +22,15 @@ msgstr ""
 msgid "News"
 msgstr "სიახლეები"
 
-#: businesslayer/feedbusinesslayer.php:70
+#: businesslayer/feedbusinesslayer.php:77
 msgid "Can not add feed: Exists already"
 msgstr "ფიდის დამატება შეუძლებელია: უკვე არსებობს"
 
-#: businesslayer/feedbusinesslayer.php:108
+#: businesslayer/feedbusinesslayer.php:115
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "ფიდის დამატება შეუძლებელია: ასეთი URL არ არსებობს ან არ შეიცავს მართებულ xml–ს"
 
-#: businesslayer/folderbusinesslayer.php:55
+#: businesslayer/folderbusinesslayer.php:62
 msgid "Can not add folder: Exists already"
 msgstr "ფოლდერის დამატება შეუძლებელია: უკვე არსებობს"
 
@@ -39,47 +39,47 @@ msgstr "ფოლდერის დამატება შეუძლებ�
 msgid "Undo deletion of %s"
 msgstr ""
 
-#: templates/part.addnew.php:12
+#: templates/part.addnew.php:11
 msgid "Add Website"
 msgstr "დაამატე ვებგვერდი"
 
-#: templates/part.addnew.php:19
+#: templates/part.addnew.php:16
 msgid "Error: address exists already!"
 msgstr "შეცდომა: მისამართი უკვე არსებობს!"
 
-#: templates/part.addnew.php:22
+#: templates/part.addnew.php:19
 msgid "Error: folder exists already"
 msgstr "შეცდომა: ფოლდერი უკვე არსებობს!"
 
-#: templates/part.addnew.php:29
+#: templates/part.addnew.php:26
 msgid "Address"
 msgstr "მისამართი"
 
-#: templates/part.addnew.php:33 templates/part.addnew.php:36
+#: templates/part.addnew.php:30 templates/part.addnew.php:33
 msgid "Add"
 msgstr "დამატება"
 
-#: templates/part.addnew.php:40 templates/part.addnew.php:48
+#: templates/part.addnew.php:37 templates/part.addnew.php:45
 msgid "New folder"
 msgstr "ახალი ფოლდერი"
 
-#: templates/part.addnew.php:41
+#: templates/part.addnew.php:38
 msgid "Folder"
 msgstr "საქაღალდე"
 
-#: templates/part.addnew.php:46
+#: templates/part.addnew.php:43
 msgid "Choose folder"
 msgstr "აირჩიეთ ფოლდერი"
 
-#: templates/part.addnew.php:58
+#: templates/part.addnew.php:55
 msgid "Folder name"
 msgstr "ფოლდერის სახელი"
 
-#: templates/part.addnew.php:61
+#: templates/part.addnew.php:58
 msgid "Back to folder selection"
 msgstr "უკან ფოლდერის ასარჩევად"
 
-#: templates/part.addnew.php:66
+#: templates/part.addnew.php:63
 msgid "Create folder"
 msgstr "ფოლდერის შექმნა"
 
@@ -95,7 +95,7 @@ msgstr "წაუკითხავი არტიკლები"
 msgid "All articles"
 msgstr "ყველა არტიკლი"
 
-#: templates/part.feed.unread.php:26 templates/part.listfeed.php:43
+#: templates/part.feed.unread.php:26 templates/part.listfeed.php:49
 #: templates/part.listfolder.php:43
 msgid "Mark read"
 msgstr "მონიშნე წაკითხულად"
@@ -116,7 +116,7 @@ msgstr "აუდიო ფორმატის დაკვრა ვერ �
 msgid "Keep unread"
 msgstr "მხოლოდ წაუკითხავი"
 
-#: templates/part.listfeed.php:48 templates/part.listfeed.php:54
+#: templates/part.listfeed.php:37 templates/part.listfeed.php:55
 msgid "Delete website"
 msgstr "ვებსაიტის წაშლა"
 

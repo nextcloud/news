@@ -8,15 +8,15 @@
 # Efstathios Iosifidis <iefstathios@gmail.com>, 2013
 # Efstathios Iosifidis <iosifidis@opensuse.org>, 2012
 # Marios Bekatoros <>, 2012
-# Wasilis <m.wasilis@yahoo.de>, 2013
+# Wasilis <inactive+Wasilis@transifex.com>, 2013
 # KAT.RAT12 <spanish.katerina@gmail.com>, 2013
 # Γιάννης Ανθυμίδης <yannanth@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-05-02 01:19+0200\n"
-"PO-Revision-Date: 2013-05-01 23:19+0000\n"
+"POT-Creation-Date: 2013-05-24 01:17+0200\n"
+"PO-Revision-Date: 2013-05-23 23:13+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/owncloud/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -29,15 +29,15 @@ msgstr ""
 msgid "News"
 msgstr "Ειδήσεις"
 
-#: businesslayer/feedbusinesslayer.php:70
+#: businesslayer/feedbusinesslayer.php:77
 msgid "Can not add feed: Exists already"
 msgstr "Το feed δεν μπορεσε να προστεθει: Υπαρχει ηδη"
 
-#: businesslayer/feedbusinesslayer.php:108
+#: businesslayer/feedbusinesslayer.php:115
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "Το feed δεν μπορεσε να προστεθει: Το URL δεν υπαρχει η περιεχει κατεστραμμενο xml"
 
-#: businesslayer/folderbusinesslayer.php:55
+#: businesslayer/folderbusinesslayer.php:62
 msgid "Can not add folder: Exists already"
 msgstr "Ο χωρος αποθηκευσης δεν μπορει να προστεθει: Υπαρχει ηδη"
 
@@ -46,47 +46,47 @@ msgstr "Ο χωρος αποθηκευσης δεν μπορει να προστ
 msgid "Undo deletion of %s"
 msgstr ""
 
-#: templates/part.addnew.php:12
+#: templates/part.addnew.php:11
 msgid "Add Website"
 msgstr "Προσθηκη ιστοσελιδας"
 
-#: templates/part.addnew.php:19
+#: templates/part.addnew.php:16
 msgid "Error: address exists already!"
 msgstr "Σφαλμα: η διευθυνση υπαρχει ηδη!"
 
-#: templates/part.addnew.php:22
+#: templates/part.addnew.php:19
 msgid "Error: folder exists already"
 msgstr "Σφάλμα: Ο φάκελος υπάρχει ήδη"
 
-#: templates/part.addnew.php:29
+#: templates/part.addnew.php:26
 msgid "Address"
 msgstr "Διεύθυνση"
 
-#: templates/part.addnew.php:33 templates/part.addnew.php:36
+#: templates/part.addnew.php:30 templates/part.addnew.php:33
 msgid "Add"
 msgstr "Προσθήκη"
 
-#: templates/part.addnew.php:40 templates/part.addnew.php:48
+#: templates/part.addnew.php:37 templates/part.addnew.php:45
 msgid "New folder"
 msgstr "Νέος κατάλογος"
 
-#: templates/part.addnew.php:41
+#: templates/part.addnew.php:38
 msgid "Folder"
 msgstr "Φάκελος"
 
-#: templates/part.addnew.php:46
+#: templates/part.addnew.php:43
 msgid "Choose folder"
 msgstr "Επιλογή φακέλου"
 
-#: templates/part.addnew.php:58
+#: templates/part.addnew.php:55
 msgid "Folder name"
 msgstr "Όνομα φακέλου"
 
-#: templates/part.addnew.php:61
+#: templates/part.addnew.php:58
 msgid "Back to folder selection"
 msgstr "Επιστροφή στην επιλογή φακέλου"
 
-#: templates/part.addnew.php:66
+#: templates/part.addnew.php:63
 msgid "Create folder"
 msgstr "Δημιουργια φακελου"
 
@@ -102,7 +102,7 @@ msgstr "Μη αναγνωσμένα άρθρα"
 msgid "All articles"
 msgstr "Όλα τα άρθρα"
 
-#: templates/part.feed.unread.php:26 templates/part.listfeed.php:43
+#: templates/part.feed.unread.php:26 templates/part.listfeed.php:49
 #: templates/part.listfolder.php:43
 msgid "Mark read"
 msgstr "Σημείωση ως ανεγνωσμένων"
@@ -123,7 +123,7 @@ msgstr "Αδυναμία αναπαραγωγής ήχου"
 msgid "Keep unread"
 msgstr "Διατήρηση αδιάβαστου"
 
-#: templates/part.listfeed.php:48 templates/part.listfeed.php:54
+#: templates/part.listfeed.php:37 templates/part.listfeed.php:55
 msgid "Delete website"
 msgstr "Διαγραφη ιστοσελιδας"
 
