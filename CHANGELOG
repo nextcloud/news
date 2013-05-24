@@ -1,5 +1,6 @@
 ownCloud-news (0.102)
 * Fix marking read of all articles and folders on mysql and postgres
+* Fix bug that would still show items after its feed or folder has been marked as deleted
 
 ownCloud-news (0.101)
 

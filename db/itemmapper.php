@@ -56,7 +56,13 @@ class ItemMapper extends Mapper implements IMapper {
 		return 'SELECT `items`.* FROM `*PREFIX*news_items` `items` '.
 			'JOIN `*PREFIX*news_feeds` `feeds` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` '.
-				'AND `feeds`.`user_id` = ? ' . $prependTo;
+				'AND `feeds`.`deleted_at` = 0 ' .
+				'AND `feeds`.`user_id` = ? ' . 
+				$prependTo .
+			'JOIN `*PREFIX*news_folders` `folders` ' .
+				'ON `folders`.`id` = `feeds`.`folder_id` ' .
+				'AND `folders`.`deleted_at` = 0 ' . 
+			'ORDER BY `items`.`id` DESC';
 	}
 
 	private function makeSelectQueryStatus($prependTo, $status) {
@@ -117,12 +123,12 @@ class ItemMapper extends Mapper implements IMapper {
 	public function readAll($highestItemId, $userId) {
 		$sql = 'UPDATE `*PREFIX*news_items` ' . 
 			'SET `status` = `status` & ? ' .
-                        'WHERE `feed_id` IN (' .
-                                'SELECT `id` FROM `*PREFIX*news_feeds` ' .
-                                        'WHERE `user_id` = ? ' .
-                                ') '.
-                        'AND `id` <= ?';
-                $params = array(~StatusFlag::UNREAD, $userId, $highestItemId);
+			'WHERE `feed_id` IN (' .
+				'SELECT `id` FROM `*PREFIX*news_feeds` ' .
+					'WHERE `user_id` = ? ' .
+				') '.
+			'AND `id` <= ?';
+		$params = array(~StatusFlag::UNREAD, $userId, $highestItemId);
 		$this->execute($sql, $params);
 	}
 
@@ -130,13 +136,13 @@ class ItemMapper extends Mapper implements IMapper {
 	public function readFolder($folderId, $highestItemId, $userId) {
 		$sql = 'UPDATE `*PREFIX*news_items` ' . 
 			'SET `status` = `status` & ? ' .
-                        'WHERE `feed_id` IN (' .
-                                'SELECT `id` FROM `*PREFIX*news_feeds` ' .
-                                        'WHERE `folder_id` = ? ' .
-                                        'AND `user_id` = ? ' .
-                                ') '.
-                        'AND `id` <= ?';
-                $params = array(~StatusFlag::UNREAD, $folderId, $userId, $highestItemId);
+			'WHERE `feed_id` IN (' .
+				'SELECT `id` FROM `*PREFIX*news_feeds` ' .
+					'WHERE `folder_id` = ? ' .
+					'AND `user_id` = ? ' .
+				') '.
+			'AND `id` <= ?';
+		$params = array(~StatusFlag::UNREAD, $folderId, $userId, $highestItemId);
 		$this->execute($sql, $params);
 	}
 
@@ -151,14 +157,15 @@ class ItemMapper extends Mapper implements IMapper {
 					'WHERE `user_id` = ? ' .
 					'AND `id` = ? ) ';
 		$params = array(~StatusFlag::UNREAD, $feedId, $highestItemId, $userId, 
-		                $feedId);
+				$feedId);
 		
 		$this->execute($sql, $params);
 	}
 
 
 	public function findAllNew($updatedSince, $status, $userId){
-		$sql = $this->makeSelectQueryStatus('AND `items`.`last_modified` >= ?', $status);
+		$sql = $this->makeSelectQueryStatus(
+			'AND `items`.`last_modified` >= ? ', $status);
 		$params = array($userId, $updatedSince);
 		return $this->findAllRows($sql, $params);
 	}
@@ -166,7 +173,7 @@ class ItemMapper extends Mapper implements IMapper {
 
 	public function findAllNewFolder($id, $updatedSince, $status, $userId){
 		$sql = 'AND `feeds`.`folder_id` = ? ' .
-				'AND `items`.`last_modified` >= ?';
+				'AND `items`.`last_modified` >= ? ';
 		$sql = $this->makeSelectQueryStatus($sql, $status);
 		$params = array($userId, $id, $updatedSince);
 		return $this->findAllRows($sql, $params);
@@ -175,7 +182,7 @@ class ItemMapper extends Mapper implements IMapper {
 
 	public function findAllNewFeed($id, $updatedSince, $status, $userId){
 		$sql = 'AND `items`.`feed_id` = ? ' .
-				'AND `items`.`last_modified` >= ?';
+				'AND `items`.`last_modified` >= ? ';
 		$sql = $this->makeSelectQueryStatus($sql, $status);
 		$params = array($userId, $id, $updatedSince);
 		return $this->findAllRows($sql, $params);
@@ -189,7 +196,6 @@ class ItemMapper extends Mapper implements IMapper {
 			$sql .= 'AND `items`.`id` < ? ';
 			array_push($params, $offset);
 		}
-		$sql .= 'ORDER BY `items`.`id` DESC ';
 		$sql = $this->makeSelectQueryStatus($sql, $status);
 		return $this->findAllRows($sql, $params, $limit);
 	}
@@ -202,7 +208,6 @@ class ItemMapper extends Mapper implements IMapper {
 			$sql .= 'AND `items`.`id` < ? ';
 			array_push($params, $offset);
 		}
-		$sql .= 'ORDER BY `items`.`id` DESC ';
 		$sql = $this->makeSelectQueryStatus($sql, $status);
 		return $this->findAllRows($sql, $params, $limit);
 	}
@@ -215,7 +220,6 @@ class ItemMapper extends Mapper implements IMapper {
 			$sql .= 'AND `items`.`id` < ? ';
 			array_push($params, $offset);
 		}
-		$sql .= 'ORDER BY `items`.`id` DESC ';
 		$sql = $this->makeSelectQueryStatus($sql, $status);
 		return $this->findAllRows($sql, $params, $limit);
 	}
