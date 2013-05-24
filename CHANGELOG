@@ -1,3 +1,6 @@
+ownCloud-news (0.102)
+* Fix marking read of all articles and folders on mysql and postgres
+
 ownCloud-news (0.101)
 
 * show 99+ as max unread count
