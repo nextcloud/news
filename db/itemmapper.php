@@ -59,9 +59,10 @@ class ItemMapper extends Mapper implements IMapper {
 				'AND `feeds`.`deleted_at` = 0 ' .
 				'AND `feeds`.`user_id` = ? ' . 
 				$prependTo .
-			'JOIN `*PREFIX*news_folders` `folders` ' .
+			'LEFT OUTER JOIN `*PREFIX*news_folders` `folders` ' .
 				'ON `folders`.`id` = `feeds`.`folder_id` ' .
-				'AND `folders`.`deleted_at` = 0 ' . 
+			'WHERE `feeds`.`folder_id` = 0 ' .
+				'OR `folders`.`deleted_at` = 0 ' . 
 			'ORDER BY `items`.`id` DESC';
 	}
 
