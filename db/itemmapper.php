@@ -117,14 +117,12 @@ class ItemMapper extends Mapper implements IMapper {
 	public function readAll($highestItemId, $userId) {
 		$sql = 'UPDATE `*PREFIX*news_items` ' . 
 			'SET `status` = `status` & ? ' .
-			'WHERE `id` IN (' .
-				'SELECT `items`.`id` FROM `*PREFIX*news_items` `items` ' .
-				'JOIN `*PREFIX*news_feeds` `feeds` ' .
-					'ON `feeds`.`id` = `items`.`feed_id` '.
-					'AND `items`.`id` <= ? ' .
-					'AND `feeds`.`user_id` = ? ' .
-				') ';
-		$params = array(~StatusFlag::UNREAD, $highestItemId, $userId);
+                        'WHERE `feed_id` IN (' .
+                                'SELECT `id` FROM `*PREFIX*news_feeds` ' .
+                                        'WHERE `user_id` = ? ' .
+                                ') '.
+                        'AND `id` <= ?';
+                $params = array(~StatusFlag::UNREAD, $userId, $highestItemId);
 		$this->execute($sql, $params);
 	}
 
@@ -132,15 +130,13 @@ class ItemMapper extends Mapper implements IMapper {
 	public function readFolder($folderId, $highestItemId, $userId) {
 		$sql = 'UPDATE `*PREFIX*news_items` ' . 
 			'SET `status` = `status` & ? ' .
-			'WHERE `id` IN (' .
-				'SELECT `items`.`id` FROM `*PREFIX*news_items` `items` ' .
-				'JOIN `*PREFIX*news_feeds` `feeds` ' .
-					'ON `feeds`.`id` = `items`.`feed_id` '.
-					'AND `feeds`.`folder_id` = ? ' .
-					'AND `items`.`id` <= ? ' .
-					'AND `feeds`.`user_id` = ? ' .
-				') ';
-		$params = array(~StatusFlag::UNREAD, $folderId, $highestItemId, $userId);
+                        'WHERE `feed_id` IN (' .
+                                'SELECT `id` FROM `*PREFIX*news_feeds` ' .
+                                        'WHERE `folder_id` = ? ' .
+                                        'AND `user_id` = ? ' .
+                                ') '.
+                        'AND `id` <= ?';
+                $params = array(~StatusFlag::UNREAD, $folderId, $userId, $highestItemId);
 		$this->execute($sql, $params);
 	}
 

@@ -128,14 +128,12 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 	public function testReadAll(){
 		$sql = 'UPDATE `*PREFIX*news_items` ' . 
 			'SET `status` = `status` & ? ' .
-			'WHERE `id` IN (' .
-				'SELECT `items`.`id` FROM `*PREFIX*news_items` `items` ' .
-				'JOIN `*PREFIX*news_feeds` `feeds` ' .
-					'ON `feeds`.`id` = `items`.`feed_id` '.
-					'AND `items`.`id` <= ? ' .
-					'AND `feeds`.`user_id` = ? ' .
-				') ';
-		$params = array(~StatusFlag::UNREAD, 3, $this->user);
+                        'WHERE `feed_id` IN (' .
+                                'SELECT `id` FROM `*PREFIX*news_feeds` ' .
+                                        'WHERE `user_id` = ? ' .
+                                ') '.
+                        'AND `id` <= ?';
+                $params = array(~StatusFlag::UNREAD, $this->user, 3);
 		$this->setMapperResult($sql, $params);
 		$this->mapper->readAll(3, $this->user);
 	}	
@@ -144,15 +142,13 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 	public function testReadFolder(){
 		$sql = 'UPDATE `*PREFIX*news_items` ' . 
 			'SET `status` = `status` & ? ' .
-			'WHERE `id` IN (' .
-				'SELECT `items`.`id` FROM `*PREFIX*news_items` `items` ' .
-				'JOIN `*PREFIX*news_feeds` `feeds` ' .
-					'ON `feeds`.`id` = `items`.`feed_id` '.
-					'AND `feeds`.`folder_id` = ? ' .
-					'AND `items`.`id` <= ? ' .
-					'AND `feeds`.`user_id` = ? ' .
-				') ';
-		$params = array(~StatusFlag::UNREAD, 3, 6, $this->user);
+                        'WHERE `feed_id` IN (' .
+                                'SELECT `id` FROM `*PREFIX*news_feeds` ' .
+                                        'WHERE `folder_id` = ? ' .
+                                        'AND `user_id` = ? ' .
+                                ') '.
+                        'AND `id` <= ?';
+                $params = array(~StatusFlag::UNREAD, 3, $this->user, 6);
 		$this->setMapperResult($sql, $params);
 		$this->mapper->readFolder(3, 6, $this->user);
 	}
