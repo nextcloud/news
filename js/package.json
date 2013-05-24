@@ -7,12 +7,12 @@
 		"email": "nukeawhale@gmail.com"
 	},
 	"private": true,
-	"homepage": "https://github.com/owncloud/apps/tree/news/",
+	"homepage": "https://github.com/owncloud/news",
 	"repository": {
 		"type": "git",
-		"url": "git@github.com:owncloud/apps.git"
+		"url": "git@github.com:owncloud/news.git"
 	},
-	"bugs": "https://github.com/owncloud/apps/issues",
+	"bugs": "https://github.com/owncloud/news/issues",
 	"contributors": [],
 	"dependencies": {},
 	"devDependencies": {
