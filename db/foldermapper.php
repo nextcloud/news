@@ -88,12 +88,15 @@ class FolderMapper extends Mapper implements IMapper {
 
 		// someone please slap me for doing this manually :P
 		// we needz CASCADE + FKs please
-		$sql = 'DELETE FROM `*PREFIX*news_feeds` WHERE `folder_id` = ?; '.
-			'DELETE `items` FROM `*PREFIX*news_items` `items` '.
-			'LEFT JOIN `*PREFIX*news_feeds` `feeds` ON '. 
-			'`items`.`feed_id` = `feed`.`id` WHERE `feeds`.`id` IS NULL;';
+		$sql = 'DELETE FROM `*PREFIX*news_feeds` WHERE `folder_id` = ?';
 		$params = array($entity->getId());
 		$this->execute($sql, $params);
+
+		$sql = 'DELETE `items` FROM `*PREFIX*news_items` `items` '.
+			'LEFT JOIN `*PREFIX*news_feeds` `feeds` ON '. 
+			'`items`.`feed_id` = `feeds`.`id` WHERE `feeds`.`id` IS NULL';
+		
+		$this->execute($sql);
 	}
 
 
