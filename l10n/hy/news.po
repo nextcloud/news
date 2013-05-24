@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
 "POT-Creation-Date: 2013-05-25 01:26+0200\n"
-"PO-Revision-Date: 2013-05-24 23:23+0000\n"
-"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
-"Language-Team: Arabic (http://www.transifex.com/projects/p/owncloud/language/ar/)\n"
+"PO-Revision-Date: 2012-08-26 23:39+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Armenian (http://www.transifex.com/projects/p/owncloud/language/hy/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ar\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Language: hy\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: appinfo/app.php:52
 msgid "News"
@@ -52,11 +52,11 @@ msgstr ""
 
 #: templates/part.addnew.php:26
 msgid "Address"
-msgstr "عنوان"
+msgstr ""
 
 #: templates/part.addnew.php:30 templates/part.addnew.php:33
 msgid "Add"
-msgstr "أدخل"
+msgstr ""
 
 #: templates/part.addnew.php:37 templates/part.addnew.php:45
 msgid "New folder"
@@ -64,7 +64,7 @@ msgstr ""
 
 #: templates/part.addnew.php:38
 msgid "Folder"
-msgstr "مجلد"
+msgstr ""
 
 #: templates/part.addnew.php:43
 msgid "Choose folder"
@@ -105,7 +105,7 @@ msgstr ""
 
 #: templates/part.items.php:36
 msgid "by"
-msgstr "من قبل"
+msgstr ""
 
 #: templates/part.items.php:44
 msgid "Cant play audio format"
@@ -138,12 +138,12 @@ msgstr ""
 #: templates/part.settings.php:17 templates/part.settings.php:19
 #: templates/part.settings.php:47 templates/part.settings.php:49
 msgid "Import"
-msgstr "إدخال"
+msgstr ""
 
 #: templates/part.settings.php:23 templates/part.settings.php:27
 #: templates/part.settings.php:30 templates/part.settings.php:32
 msgid "Export"
-msgstr "تصدير"
+msgstr ""
 
 #: templates/part.settings.php:36
 msgid "Error when importing: file does not contain valid OPML"
