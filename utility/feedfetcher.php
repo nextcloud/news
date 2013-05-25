@@ -111,10 +111,11 @@ class FeedFetcher implements IFeedFetcher {
 		$item = new Item();
 		$item->setStatus(0);
 		$item->setUnread();
-		$item->setUrl($simplePieItem->get_permalink());
+                $item->setUrl(html_entity_decode($simplePieItem->get_permalink(),
+                        ENT_COMPAT, 'UTF-8'));
 		// unescape content because angularjs helps against XSS
-		$item->setTitle(html_entity_decode($simplePieItem->get_title()), 
-			ENT_COMPAT, 'UTF-8' );
+                $item->setTitle(html_entity_decode($simplePieItem->get_title(),
+                        ENT_COMPAT, 'UTF-8'));
 		$guid = $simplePieItem->get_id();
 		$item->setGuid($guid);
 		$item->setGuidHash(md5($guid));

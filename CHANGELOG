@@ -1,3 +1,6 @@
+ownCloud-news (0.104)
+* Also html decode the links to the page to not break on nyaa torrents
+
 ownCloud-news (0.103)
 * Fixed a bug that prevented deleting feeds when a folder was deleted
 
