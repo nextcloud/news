@@ -120,7 +120,7 @@ Official
 * **Status**: In development
 * **Platform**: Android, iOS, Windows Phone (PhoneGap), FirefoxOS
 * **License**: AGPL
-* **Bugtracker**: `https://github.com/owncloud/news-mobile/issues <https://github.com/owncloud/news-mobile/issues>`
+* **Bugtracker**: `https://github.com/owncloud/news-mobile/issues <https://github.com/owncloud/news-mobile/issues>`_
 
 Unofficial
 ~~~~~~~~~~
