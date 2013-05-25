@@ -49,10 +49,6 @@ App Store
 
 Update Notices
 ~~~~~~~~~~~~~~
-Should you have **updated from a version prior to 0.96** you'll have to adjust the version number by running this on your database::
-
-    UPDATE oc_appconfig SET configvalue = '0.96' WHERE configkey = 'installed_version' AND configvalue = '8.4' AND appid = 'news'
-
 Should you have **updated from a version prior to 0.100** you'll have to run this SQL query to trigger a schema upgrade::
 
     UPDATE oc_appconfig SET configvalue = '0.001' WHERE configkey = 'installed_version' AND appid = 'news'
