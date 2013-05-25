@@ -116,11 +116,11 @@ Mobile Clients
 Official
 ~~~~~~~~
 * **Author**: TBA
-* **Link**: `GSoC Project Page <http://en.opensuse.org/openSUSE:GSOC_ideas#Mobile_app_that_syncs_with_ownCloud_News_app>`_
+* **Link**: `https://github.com/owncloud/news-mobile <https://github.com/owncloud/news-mobile>`_
 * **Status**: In development
-* **Platform**: Android, iOS, Windows Phone (PhoneGap)
+* **Platform**: Android, iOS, Windows Phone (PhoneGap), FirefoxOS
 * **License**: AGPL
-* **Bugtracker**: TBA
+* **Bugtracker**: `https://github.com/owncloud/news-mobile/issues <https://github.com/owncloud/news-mobile/issues>`
 
 Unofficial
 ~~~~~~~~~~
