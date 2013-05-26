@@ -15,7 +15,7 @@ In addition to the basic structure you also want to make sure that the News app 
 
 	use \OCA\AppFramework\Core\API;
 
-	if(\OCP\App::isEnabled('news') && \OCP\App::isEnabled('appframework')){
+	if (\OCP\App::isEnabled('news') && \OCP\App::isEnabled('appframework')) {
 
 		// your code here
 
@@ -81,7 +81,7 @@ To add a simple script create the script in the :file:`my_news_plugin/js/script.
 
 	use \OCA\AppFramework\Core\API;
 
-	if(\OCP\App::isEnabled('news') && \OCP\App::isEnabled('appframework')){
+	if (\OCP\App::isEnabled('news') && \OCP\App::isEnabled('appframework')) {
 
 		$api = new API('my_news_plugin');
 		$api->addScript('script.js'); // add a script from js/script.js
