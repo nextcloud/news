@@ -85,6 +85,7 @@ To add a simple script create the script in the :file:`my_news_plugin/js/script.
 
 		$api = new API('my_news_plugin');
 		$api->addScript('script.js'); // add a script from js/script.js
+		$api->addStyle('style.css'); // add a stylesheet from css/styles.css
 
 	}
 
