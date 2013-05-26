@@ -96,10 +96,8 @@ Inside your script you have to make sure that the News app is active. You can do
 	
 	(function ($, window, undefined) {
 		'use strict';
-		
-		var document = window.document;
 
-		$(document).ready(function () {
+		$(window.document).ready(function () {
 			if ($('[ng-app="News"]').length > 0) {
 
 				// your code here
