@@ -95,7 +95,8 @@ Inside your script you have to make sure that the News app is active. You can do
 .. code-block:: js
 	
 	(function ($, window, undefined) {
-
+		'use strict';
+		
 		var document = window.document;
 
 		$(document).ready(function () {
