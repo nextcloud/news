@@ -23,7 +23,7 @@ In addition to the basic structure you also want to make sure that the News app 
 
 Serverside plugin
 -----------------
-A serverside plugin is a plugin that uses the same infrastructure to add additional features. An example would be a plugin that makes the starred entries of a user available via an interface.
+A serverside plugin is a plugin that uses the same infrastructure as the news app for its own purposes. An example would be a plugin that makes the starred entries of a user available via an interface or a bookmark app that that also shows starred articles as bookmarks.
 
 Its very easy to interface with the News app. Because all Classes are registered in the :file:`news/dependencyinjection/dicontainer.php` it takes almost no effort to use the same infrastructure.
 
