@@ -107,6 +107,13 @@ Inside your script you have to make sure that the News app is active. You can do
 	})(jQuery, angular, window);
 
 
-Custom User interface
+Custom user Interface
 ~~~~~~~~~~~~~~~~~~~~~
 This is currently not yet possible to do but we're working on it ;)
+
+These issues need to be implemented:
+
+* `Implement RESTful urls for the web backend <https://github.com/owncloud/news/issues/166>`_
+* `Move configuration into a config file instead of hard coding it in the container <https://github.com/owncloud/news/issues/167>`_
+* `Transition to Twig Templates <https://github.com/owncloud/news/issues/165>`_
+* `Seperate directives, filters, controllers and services into their own angularjs containers <https://github.com/owncloud/news/issues/164>`_
