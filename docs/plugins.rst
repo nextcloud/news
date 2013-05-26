@@ -57,6 +57,7 @@ Since you dont want to extend the app but use its resources, its advised that yo
 				// you can use all defined classes but its recommended that you 
 				// stick to the mapper and businesslayer classes since they are less
 				// likely to change
+				// also dont use controllers from the news app!
 				return new YourController($c['NewsContainer']['FeedBusinessLayer']);
 			});
 		}
