@@ -93,7 +93,7 @@ Inside your script you have to make sure that the News app is active. You can do
 
 .. code-block:: js
 	
-	(function ($, angular, window, undefined) {
+	(function ($, window, undefined) {
 
 		var document = window.document;
 
@@ -105,7 +105,7 @@ Inside your script you have to make sure that the News app is active. You can do
 			}
 		});
 
-	})(jQuery, angular, window);
+	})(jQuery, window);
 
 
 Custom user Interface
