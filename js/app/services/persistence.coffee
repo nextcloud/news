@@ -197,7 +197,7 @@ $rootScope) ->
 				routeParams:
 					feedId: feedId
 
-			@_request.post 'news_feeds_delete', params
+			@_request.delete 'news_feeds_delete', params
 
 
 		restoreFeed: (feedId, onSuccess=null) ->
@@ -329,7 +329,7 @@ $rootScope) ->
 				routeParams:
 					folderId: folderId
 
-			@_request.post 'news_folders_delete', params
+			@_request.delete 'news_folders_delete', params
 
 
 		restoreFolder: (folderId, onSuccess=null) ->

@@ -2668,7 +2668,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
               feedId: feedId
             }
           };
-          return this._request.post('news_feeds_delete', params);
+          return this._request["delete"]('news_feeds_delete', params);
         };
 
         Persistence.prototype.restoreFeed = function(feedId, onSuccess) {
@@ -2852,7 +2852,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
               folderId: folderId
             }
           };
-          return this._request.post('news_folders_delete', params);
+          return this._request["delete"]('news_folders_delete', params);
         };
 
         Persistence.prototype.restoreFolder = function(folderId, onSuccess) {
