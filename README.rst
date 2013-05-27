@@ -115,7 +115,7 @@ Mobile Clients
 --------------
 Official
 ~~~~~~~~
-* **Author**: TBA
+* **Author**: `Bernhard Posselt <https://github.com/Raydiation>`_
 * **Link**: `https://github.com/owncloud/news-mobile <https://github.com/owncloud/news-mobile>`_
 * **Status**: In development
 * **Platform**: Android, iOS, Windows Phone (PhoneGap), FirefoxOS
@@ -124,12 +124,12 @@ Official
 
 Unofficial
 ~~~~~~~~~~
-* **Author**: David Luhmer 
+* **Author**: `David Luhmer <https://github.com/David-Development>`_
 * **Link**: `Owncloud News Reader <http://luhmer.homelinux.com/wordpress/?p=126>`_
-* **Status**: Alpha
+* **Status**: Beta
 * **Platform**: Android
-* **License**: Proprietary
-* **Bugtracker**: TBA
+* **License**: AGPL
+* **Bugtracker**: `https://github.com/owncloud/News-Android-App/issues <https://github.com/owncloud/News-Android-App/issues>`_
 
 Desktop Clients
 ---------------
