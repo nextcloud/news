@@ -125,7 +125,7 @@ Official
 Unofficial
 ~~~~~~~~~~
 * **Author**: `David Luhmer <https://github.com/David-Development>`_
-* **Link**: `Owncloud News Reader <http://luhmer.homelinux.com/wordpress/?p=126>`_
+* **Link**: `Owncloud News Reader <http://david-luhmer.de/wordpress/?p=126>`_
 * **Google play Store**: `buy the App <https://play.google.com/store/apps/details?id=de.luhmer.owncloudnewsreader>`_
 * **Status**: Beta
 * **Platform**: Android
