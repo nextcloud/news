@@ -32,7 +32,7 @@
 "Export" => "Ekspordi",
 "Error when importing: file does not contain valid OPML" => "Viga importimisel: fail ei sisalda korrektset OPML-i",
 "Import Google Reader JSON" => "Impordi Google Reader JSON",
-"To import starred and shared articles from Google \n\t\t\tReader please upload the .json files from the Google Takeout archive" => "Et importida tähitud ja jagatud artikleid Google ⏎\n»»»Reader-ist palun laadi üles Google Takeout arhiivist .json failid ",
+"To import starred and shared articles from Google \n\t\t\tReader please upload the .json files from the Google Takeout archive" => "Et importida tähitud ja jagatud artikleid Google ⏎\n»»»Reader-ist palun laadi Google Takeout arhiivist üles .json failid ",
 "Error when importing: file does not contain valid JSON" => "Viga importimisel: fail ei sisalda korrektset JSON-i",
 "Show all" => "Näita kõiki",
 "Show only unread" => "Näita ainult lugemata"
