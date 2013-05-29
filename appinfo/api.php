@@ -184,3 +184,11 @@ use \OCA\AppFramework\External\External;
 	'news', 
 	\OC_API::USER_AUTH
 );
+
+\OCP\API::register('put', '/apps/news/items/read/multiple',
+	function($params) {
+		return External::main('ItemAPI', 'readMultiple', $params, new DIContainer());
+	}, 
+	'news', 
+	\OC_API::USER_AUTH
+);

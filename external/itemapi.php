@@ -156,4 +156,13 @@ class ItemAPI extends Controller {
 	}
 
 
+	public function readMultiple() {
+		$userId = $this->api->getUserId();
+		//$ids = $this->params('_put');
+		//print_r(json_decode(file_get_contents('php://input'), true));
+		
+		exit();
+		//return new NewsAPIResult();
+	}
+
 }
