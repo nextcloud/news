@@ -192,7 +192,7 @@
 		padding: 14px 42px 0 49px;
 	}
 
-	.feed_item div.body {
+	.feed_item .body {
 		padding: 10px 42px 0 42px;
 		max-width: 770px;
 		font-size: 14px;
@@ -200,12 +200,12 @@
 		overflow: auto;
 	}
 
-		.feed_item div.body p {
+		.feed_item .body p {
 			line-height: 1.5;
 			margin: 7px 0 14px 0;
 		}
 
-		.feed_item div.body img, .feed_item div.body table {
+		.feed_item .body img, .feed_item .body table {
 			max-width: 100%;
 			height: auto;
 			overflow: auto;
@@ -213,19 +213,19 @@
 			white-space:normal;
 		}
 
-		.feed_item div.body > img:first-child {
+		.feed_item .body > img:first-child {
 			padding: 0 14px 0 0;
 			float: left;
 		}
 
-		.feed_item div.body h1, .feed_item div.body h2 {
+		.feed_item .body h1, .feed_item .body h2 {
 			font-size: 17px;
 			font-weight: bold;
 			color: #222;
 			margin: 21px 0 0 0;
 		}
 
-		.feed_item div.body h3 {
+		.feed_item .body h3 {
 			font-size: 15px;
 			font-weight: bold;
 			color: #222;
@@ -233,32 +233,32 @@
 			text-decoration: underline;
 		}
 
-		.feed_item div.body > div {
+		.feed_item .body > div {
 			margin: 7px 0;
 		}
 
-		.feed_item div.body a {
+		.feed_item .body a {
 			color: #0000ff;
 			text-decoration: underline;
 		}
 
-		.feed_item div.body ul {
+		.feed_item .body ul {
 			margin: 7px 0;
 			padding-left: 14px;
 			list-style-type: disc;
 		}
 
-		.feed_item div.body ol {
+		.feed_item .body ol {
 			margin: 7px 0;
 			padding-left: 21px;
 		}
 
-			.feed_item div.body ul li {
+			.feed_item .body ul li {
 				cursor: default;
 				line-height: 21px;
 			}
 
-		.feed_item div.body pre {
+		.feed_item .body pre {
 			padding: 7px 7px 7px 14px;
 			background-color: #dadada;
 			border: 1px solid #ccc;
@@ -271,11 +271,13 @@
 			overflow-y: auto;
 		}
 
-			.feed_item div.body pre code {
+			.feed_item .body code,
+			.feed_item .body pre {
 				font-family: monospace;
 				font-size: 16px;
 			}
-	.feed_item div.body > *:last-child {
+
+	.feed_item .body > *:last-child {
 		margin-bottom: 0;
 	}
 
