@@ -1,5 +1,6 @@
 owncloud-news (1.001)
 * Also use monospace for pre tag
+* Fix bug that would prevent feed updates when feeds or folders are deleted
 
 ownCloud-news (0.104)
 * Also html decode the links to the page to not break on nyaa torrents
