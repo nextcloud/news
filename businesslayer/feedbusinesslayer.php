@@ -59,15 +59,24 @@ class FeedBusinessLayer extends BusinessLayer {
 		$this->autoPurgeMinimumInterval = $autoPurgeMinimumInterval;
 	}
 
-
+	/**
+	 * Finds all feeds of a user
+	 * @param string $userId the name of the user
+	 * @return array of feeds
+	 */
 	public function findAll($userId){
 		return $this->mapper->findAllFromUser($userId);
 	}
 
 
 	/**
+	 * Creates a new feed
+	 * @param string $feedUrl the url to the feed
+	 * @param int $folderId the folder where it should be put into, 0 for root folder
+	 * @param string $userId for which user the feed should be created
 	 * @throws BusinessLayerExistsException if the feed exists already
 	 * @throws BusinessLayerException if the url points to an invalid feed
+	 * @return Feed the newly created feed
 	 */
 	public function create($feedUrl, $folderId, $userId){
 		// first try if the feed exists already
@@ -76,10 +85,10 @@ class FeedBusinessLayer extends BusinessLayer {
 			throw new BusinessLayerExistsException(
 				$this->api->getTrans()->t('Can not add feed: Exists already'));
 		} catch(DoesNotExistException $ex){}
-		
+
 		try {
 			list($feed, $items) = $this->feedFetcher->fetch($feedUrl);
-			
+
 			// insert feed
 			$feed->setFolderId($folderId);
 			$feed->setUserId($userId);
@@ -106,7 +115,7 @@ class FeedBusinessLayer extends BusinessLayer {
 
 			// set unread count
 			$feed->setUnreadCount($unreadCount);
-			
+
 			return $feed;
 		} catch(FetcherException $ex){
 			$this->api->log($ex->getMessage());
@@ -117,8 +126,11 @@ class FeedBusinessLayer extends BusinessLayer {
 	}
 
 
-	// FIXME: this method is not covered by any tests
+	/**
+	 * Runs all the feed updates
+	 */
 	public function updateAll(){
+		// TODO: this method is not covered by any tests
 		$feeds = $this->mapper->findAll();
 		foreach($feeds as $feed){
 			try {
@@ -131,7 +143,11 @@ class FeedBusinessLayer extends BusinessLayer {
 
 
 	/**
+	 * Updates a single feed
+	 * @param int $feedId the id of the feed that should be updated
+	 * @param string $userId the id of the user
 	 * @throws BusinessLayerException if the feed does not exist
+	 * @return Feed the updated feed entity
 	 */
 	public function update($feedId, $userId){
 		try {
@@ -145,7 +161,7 @@ class FeedBusinessLayer extends BusinessLayer {
 				list($feed, $items) = $this->feedFetcher->fetch(
 					$existingFeed->getUrl());
 
-				// insert items in reverse order because the first one is usually 
+				// insert items in reverse order because the first one is usually
 				// the newest item
 				for($i=count($items)-1; $i>=0; $i--){
 					$item = $items[$i];
@@ -156,12 +172,12 @@ class FeedBusinessLayer extends BusinessLayer {
 							$item->getGuidHash(), $feedId, $userId);
 
 						// in case of an update the existing item has to be deleted
-						// if the pub_date changed because we sort by id on the 
+						// if the pub_date changed because we sort by id on the
 						// client side since this is the only reliable way to do it
 						// to not get weird behaviour
 						if((int)$existing->getPubDate() !== (int)$item->getPubDate()){
 
-							// because the item is being replaced we need to keep 
+							// because the item is being replaced we need to keep
 							// status flags but we want the new entry to be unread
 							$item->setStatus($existing->getStatus());
 							$item->setUnread();
@@ -181,9 +197,9 @@ class FeedBusinessLayer extends BusinessLayer {
 					': Not found or bad source');
 				$this->api->log($ex->getMessage());
 			}
-			
+
 			return $this->mapper->find($feedId, $userId);
-		
+
 		} catch (DoesNotExistException $ex){
 			throw new BusinessLayerException('Feed does not exist');
 		}
@@ -191,6 +207,10 @@ class FeedBusinessLayer extends BusinessLayer {
 
 
 	/**
+	 * Moves a feed into a different folder
+	 * @param int $feedId the id of the feed that should be moved
+	 * @param int $folderId the id of the folder where the feed should be moved to
+	 * @param string $userId the name of the user whose feed should be moved
 	 * @throws BusinessLayerException if the feed does not exist
 	 */
 	public function move($feedId, $folderId, $userId){
@@ -241,6 +261,8 @@ class FeedBusinessLayer extends BusinessLayer {
 
 	/**
 	 * Use this to mark a feed as deleted. That way it can be undeleted
+	 * @param int $feedId the id of the feed that should be deleted
+	 * @param string $userId the name of the user for security reasons
 	 * @throws BusinessLayerException when feed does not exist
 	 */
 	public function markDeleted($feedId, $userId) {
@@ -252,6 +274,8 @@ class FeedBusinessLayer extends BusinessLayer {
 
 	/**
 	 * Use this to undo a feed deletion
+	 * @param int $feedId the id of the feed that should be restored
+	 * @param string $userId the name of the user for security reasons
 	 * @throws BusinessLayerException when feed does not exist
 	 */
 	public function unmarkDeleted($feedId, $userId) {
@@ -265,7 +289,7 @@ class FeedBusinessLayer extends BusinessLayer {
 	 * Deletes all deleted feeds
 	 * @param string $userId if given it purges only feeds of that user
 	 * @param boolean $useInterval defaults to true, if true it only purges
-	 * entries in a given interval to give the user a chance to undo the 
+	 * entries in a given interval to give the user a chance to undo the
 	 * deletion
 	 */
 	public function purgeDeleted($userId=null, $useInterval=true) {
@@ -276,7 +300,7 @@ class FeedBusinessLayer extends BusinessLayer {
 			$deleteOlderThan = $now - $this->autoPurgeMinimumInterval;
 		}
 
-		$toDelete = $this->mapper->getToDelete($deleteOlderThan, $userId);	
+		$toDelete = $this->mapper->getToDelete($deleteOlderThan, $userId);
 
 		foreach ($toDelete as $feed) {
 			$this->mapper->delete($feed);

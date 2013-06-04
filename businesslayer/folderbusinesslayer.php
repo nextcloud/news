@@ -48,7 +48,11 @@ class FolderBusinessLayer extends BusinessLayer {
 		$this->autoPurgeMinimumInterval = $autoPurgeMinimumInterval;
 	}
 
-
+	/**
+	 * Returns all folders of a user
+	 * @param string $userId the name of the user
+	 * @return array of folders
+	 */
 	public function findAll($userId) {
 		return $this->mapper->findAllFromUser($userId);
 	}
@@ -63,8 +67,14 @@ class FolderBusinessLayer extends BusinessLayer {
 		}
 	}
 
+
 	/**
+	 * Creates a new folder
+	 * @param string $folderName the name of the folder
+	 * @param string $userId the name of the user for whom it should be created
+	 * @param int $parentId the parent folder id, deprecated we dont nest folders
 	 * @throws BusinessLayerExistsException if name exists already
+	 * @return Folder the newly created folder
 	 */
 	public function create($folderName, $userId, $parentId=0) {
 		$this->allowNoNameTwice($folderName, $userId);
@@ -88,20 +98,27 @@ class FolderBusinessLayer extends BusinessLayer {
 
 
 	/**
+	 * Renames a folder
+	 * @param int $folderId the id of the folder that should be deleted
+	 * @param string $folderName the new name of the folder
+	 * @param string $userId the name of the user for security reasons
 	 * @throws BusinessLayerExistsException if name exists already
 	 * @throws BusinessLayerException if the folder does not exist
+	 * @return Folder the updated folder
 	 */
 	public function rename($folderId, $folderName, $userId){
 		$this->allowNoNameTwice($folderName, $userId);
 
 		$folder = $this->find($folderId, $userId);
 		$folder->setName($folderName);
-		$this->mapper->update($folder);
+		return $this->mapper->update($folder);
 	}
 
 
 	/**
 	 * Use this to mark a folder as deleted. That way it can be undeleted
+	 * @param int $folderId the id of the folder that should be deleted
+	 * @param string $userId the name of the user for security reasons
 	 * @throws BusinessLayerException when folder does not exist
 	 */
 	public function markDeleted($folderId, $userId) {
@@ -112,7 +129,9 @@ class FolderBusinessLayer extends BusinessLayer {
 
 
 	/**
-	 * Use this to undo a folder deletion
+	 * Use this to restore a folder
+	 * @param int $folderId the id of the folder that should be restored
+	 * @param string $userId the name of the user for security reasons
 	 * @throws BusinessLayerException when folder does not exist
 	 */
 	public function unmarkDeleted($folderId, $userId) {
@@ -126,18 +145,18 @@ class FolderBusinessLayer extends BusinessLayer {
 	 * Deletes all deleted folders
 	 * @param string $userId if given it purges only folders of that user
 	 * @param boolean $useInterval defaults to true, if true it only purges
-	 * entries in a given interval to give the user a chance to undo the 
+	 * entries in a given interval to give the user a chance to undo the
 	 * deletion
 	 */
 	public function purgeDeleted($userId=null, $useInterval=true) {
 		$deleteOlderThan = null;
-		
+
 		if ($useInterval) {
 			$now = $this->timeFactory->getTime();
 			$deleteOlderThan = $now - $this->autoPurgeMinimumInterval;
 		}
 
-		$toDelete = $this->mapper->getToDelete($deleteOlderThan, $userId);	
+		$toDelete = $this->mapper->getToDelete($deleteOlderThan, $userId);
 
 		foreach ($toDelete as $folder) {
 			$this->mapper->delete($folder);
