@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud news 5.0.0\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2013-06-04 01:11+0200\n"
+"POT-Creation-Date: 2013-06-05 01:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,15 +21,15 @@ msgstr ""
 msgid "News"
 msgstr ""
 
-#: businesslayer/feedbusinesslayer.php:77
+#: businesslayer/feedbusinesslayer.php:86
 msgid "Can not add feed: Exists already"
 msgstr ""
 
-#: businesslayer/feedbusinesslayer.php:115
+#: businesslayer/feedbusinesslayer.php:124
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr ""
 
-#: businesslayer/folderbusinesslayer.php:62
+#: businesslayer/folderbusinesslayer.php:66
 msgid "Can not add folder: Exists already"
 msgstr ""
 
