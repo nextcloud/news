@@ -33,16 +33,16 @@ watch: compile
 	$(coffee) --compile --watch --output $(CURDIR)/build/tests $(CURDIR)/tests/ & \
 	$(grunt) --config $(CURDIR)/Gruntfile.coffee run
 
-testacular: deps
+karma: deps
 	export CHROME_BIN=$(chrome_bin) && export FIREFOX_BIN=$(firefox_bin) && \
-	$(grunt) --config $(CURDIR)/Gruntfile.coffee testacular
-	
-testacular_phantom: deps
+	$(grunt) --config $(CURDIR)/Gruntfile.coffee karma
+
+karma_phantom: deps
 	export PHANTOMJS_BIN=$(phantomjs) && \
-	$(grunt) --config $(CURDIR)/Gruntfile.coffee testacular:unit_phantom
+	$(grunt) --config $(CURDIR)/Gruntfile.coffee karma:unit_phantom
 
 phpunit: deps
-	$(grunt) --config $(CURDIR)/Gruntfile.coffee testphp	
+	$(grunt) --config $(CURDIR)/Gruntfile.coffee testphp
 
 compile: deps
 	mkdir -p $(CURDIR)/build/app

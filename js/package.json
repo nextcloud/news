@@ -16,16 +16,16 @@
 	"contributors": [],
 	"dependencies": {},
 	"devDependencies": {
-		"grunt": "~0.4",
-		"grunt-cli": "~0.1.6",
-		"coffee-script": "~1.6",
-		"grunt-contrib-concat": "~0.1",
-		"grunt-contrib-watch": "~0.2",
-		"grunt-coffeelint": "0.0.6",
-		"gruntacular": "~0.3",
-		"grunt-wrap": "~0.2",
-		"phantomjs": "~1.9",
-		"grunt-phpunit": "0.2"
+		"grunt": "*",
+		"grunt-cli": "*",
+		"coffee-script": "*",
+		"grunt-contrib-concat": "*",
+		"grunt-contrib-watch": "*",
+		"grunt-coffeelint": "*",
+		"grunt-karma": "*",
+		"grunt-wrap": "*",
+		"phantomjs": "*",
+		"grunt-phpunit": "*"
 	},
 	"engine": "node >= 0.8"
 }

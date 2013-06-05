@@ -22,16 +22,16 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 
 module.exports = (grunt) ->
-	
+
 	grunt.loadNpmTasks('grunt-contrib-concat')
 	grunt.loadNpmTasks('grunt-contrib-watch')
 	grunt.loadNpmTasks('grunt-coffeelint')
 	grunt.loadNpmTasks('grunt-wrap');
 	grunt.loadNpmTasks('grunt-phpunit');
-	grunt.loadNpmTasks('gruntacular');
+	grunt.loadNpmTasks('grunt-karma');
 
 	grunt.initConfig
-	
+
 		meta:
 			pkg: grunt.file.readJSON('package.json')
 			version: '<%= meta.pkg.version %>'
@@ -43,16 +43,16 @@ module.exports = (grunt) ->
 				' *\n' +
 				' * This file is licensed under the Affero General Public License version 3 or later.\n' +
 				' * See the COPYING file\n' +
-				' *\n' + 
+				' *\n' +
 				' */\n\n'
 			build: 'build/'
 			production: 'public/'
 
 		concat:
-			app: 
+			app:
 				options:
 					banner: '<%= meta.banner %>\n'
-					stripBanners: 
+					stripBanners:
 						options: 'block'
 				src: [
 						'<%= meta.build %>app/app.js'
@@ -83,7 +83,7 @@ module.exports = (grunt) ->
 				'no_trailing_whitespace':
 					'level': 'warn'
 
-		watch: 
+		watch:
 			concat:
 				files: [
 					'<%= meta.build %>app/**/*.js'
@@ -94,20 +94,20 @@ module.exports = (grunt) ->
 				files: '../**/*.php'
 				tasks: 'phpunit'
 
-		testacular: 
-			unit: 
-				configFile: 'config/testacular_conf.js'
+		karma:
+			unit:
+				configFile: 'config/karma.js'
 			continuous:
-				configFile: 'config/testacular_conf.js'
+				configFile: 'config/karma.js'
 				singleRun: true
 				browsers: ['PhantomJS']
 				reporters: ['progress', 'junit']
 				junitReporter:
 					outputFile: 'test-results.xml'
-			unit_phantom: 
-				configFile: 'config/testacular_conf.js'
-				browsers: ['PhantomJS']	
-					
+			unit_phantom:
+				configFile: 'config/karma.js'
+				browsers: ['PhantomJS']
+
 
 		phpunit:
 			classes:
@@ -118,5 +118,5 @@ module.exports = (grunt) ->
 
 	grunt.registerTask('run', ['watch:concat'])
 	grunt.registerTask('compile', ['concat', 'wrap', 'coffeelint'])
-	grunt.registerTask('ci', ['testacular:continuous'])
+	grunt.registerTask('ci', ['karma:continuous'])
 	grunt.registerTask('testphp', ['watch:phpunit'])
