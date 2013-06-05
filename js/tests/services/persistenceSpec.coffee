@@ -28,6 +28,7 @@ describe 'Persistence', ->
 	beforeEach module ($provide) =>
 		@req =
 			get: jasmine.createSpy('get')
+			delete: jasmine.createSpy('delete')
 			post: jasmine.createSpy('post')
 		@config =
 			itemBatchSize: 3
@@ -204,7 +205,7 @@ describe 'Persistence', ->
 
 		@Persistence.deleteFeed(params.routeParams.feedId)
 
-		expect(@req.post).toHaveBeenCalledWith('news_feeds_delete', params)
+		expect(@req.delete).toHaveBeenCalledWith('news_feeds_delete', params)
 
 
 	it 'send a correct feed restore request', =>
@@ -302,7 +303,7 @@ describe 'Persistence', ->
 
 		@Persistence.deleteFolder(params.routeParams.folderId)
 
-		expect(@req.post).toHaveBeenCalledWith('news_folders_delete', params)
+		expect(@req.delete).toHaveBeenCalledWith('news_folders_delete', params)
 
 
 	it 'send a correct folder restore request', =>

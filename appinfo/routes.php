@@ -59,13 +59,13 @@ $this->create('news_folders_collapse', '/folders/{folderId}/collapse')->post()->
 	}
 );
 
-$this->create('news_folders_create', '/folders/create')->post()->action(
+$this->create('news_folders_create', '/folders')->post()->action(
 	function($params){
 		App::main('FolderController', 'create', $params, new DIContainer());
 	}
 );
 
-$this->create('news_folders_delete', '/folders/{folderId}/delete')->post()->action(
+$this->create('news_folders_delete', '/folders/{folderId}')->delete()->action(
 	function($params){
 		App::main('FolderController', 'delete', $params, new DIContainer());
 	}
@@ -104,13 +104,13 @@ $this->create('news_feeds_active', '/feeds/active')->get()->action(
 	}
 );
 
-$this->create('news_feeds_create', '/feeds/create')->post()->action(
+$this->create('news_feeds_create', '/feeds')->post()->action(
 	function($params){
 		App::main('FeedController', 'create', $params, new DIContainer());
 	}
 );
 
-$this->create('news_feeds_delete', '/feeds/{feedId}/delete')->post()->action(
+$this->create('news_feeds_delete', '/feeds/{feedId}')->delete()->action(
 	function($params){
 		App::main('FeedController', 'delete', $params, new DIContainer());
 	}
