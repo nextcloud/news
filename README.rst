@@ -18,13 +18,16 @@ Before reporting bugs:
 * get the newest version of the News app
 * `check if they have already been reported <https://github.com/owncloud/news/issues?state=open>`_
 
-If you are not able to add a feed because its XML does not validate and  (see `this issue <https://github.com/owncloud/news/issues/133>`_ for an example), 
+----------------
+
+If you are not able to add a feed because its XML *does not validate* (see `this issue <https://github.com/owncloud/news/issues/133>`_ for an example), 
 check if:
 
+* it is a valid RSS by running it through the `W3C validator <http://feed2.w3.org/>`_
 * you are able to add the feed in other feed readers
 * it runs without error through `SimplePie demo <http://www.simplepie.org/demo/>`_
 
-In the case the second condition is not met, please file a bug on `SimplePie issue tracker <https://github.com/simplepie/simplepie>`_.
+In the case the third condition is not met, please file a bug on `SimplePie issue tracker <https://github.com/simplepie/simplepie>`_.
 
 
 Before you install the News app
