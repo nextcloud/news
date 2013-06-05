@@ -20,7 +20,7 @@
 "All articles" => "Kaikki artikkelit",
 "Mark read" => "Merkitse luetuksi",
 "from" => "Syöte:",
-"by" => "&nbsp;Kirjoittaja:",
+"by" => " Kirjoittaja:",
 "Cant play audio format" => "Äänimuodon toistaminen ei onnistu",
 "Keep unread" => "Pidä lukemattomana",
 "Delete website" => "Poista verkkosivusto",

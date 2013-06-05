@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-06-04 01:11+0200\n"
-"PO-Revision-Date: 2013-06-02 23:16+0000\n"
-"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"POT-Creation-Date: 2013-06-06 01:48+0200\n"
+"PO-Revision-Date: 2013-06-05 00:56+0000\n"
+"Last-Translator: Larso <larso@gmx.com>\n"
 "Language-Team: Finnish (Finland) (http://www.transifex.com/projects/p/owncloud/language/fi_FI/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,15 +24,15 @@ msgstr ""
 msgid "News"
 msgstr "Uutiset"
 
-#: businesslayer/feedbusinesslayer.php:77
+#: businesslayer/feedbusinesslayer.php:86
 msgid "Can not add feed: Exists already"
 msgstr "Syötettä ei voi lisätä: se on jo olemassa"
 
-#: businesslayer/feedbusinesslayer.php:115
+#: businesslayer/feedbusinesslayer.php:124
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "Syötettä ei voi lisätä: joko osoitetta ei ole olemassa tai siinä on virheellistä XML:ää"
 
-#: businesslayer/folderbusinesslayer.php:62
+#: businesslayer/folderbusinesslayer.php:66
 msgid "Can not add folder: Exists already"
 msgstr "Kansiota ei voi lisätä: se on jo olemassa"
 
@@ -108,7 +108,7 @@ msgstr "Syöte:"
 
 #: templates/part.items.php:36
 msgid "by"
-msgstr "&nbsp;Kirjoittaja:"
+msgstr " Kirjoittaja:"
 
 #: templates/part.items.php:44
 msgid "Cant play audio format"
