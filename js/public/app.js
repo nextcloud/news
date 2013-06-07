@@ -214,8 +214,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         };
         openCurrentItem = function(scrollArea) {
           var $item;
-          $item = getCurrentItem(scrollArea);
-          return $item.find('.item_title a').trigger('click');
+          $item = getCurrentItem(scrollArea).find('.item_title a');
+          $item.trigger('click');
+          return window.open($item.attr('href'), '_blank');
         };
         return $($window.document).keydown(function(e) {
           var focused, scrollArea;

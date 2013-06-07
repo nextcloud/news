@@ -80,8 +80,9 @@ angular.module('News').directive 'itemShortcuts', ['$window', ($window) ->
 
 
 		openCurrentItem = (scrollArea) ->
-			$item = getCurrentItem(scrollArea)
-			$item.find('.item_title a').trigger('click')
+			$item = getCurrentItem(scrollArea).find('.item_title a')
+			$item.trigger('click')
+			window.open($item.attr('href'), '_blank')
 
 
 		$($window.document).keydown (e) ->
@@ -106,7 +107,7 @@ angular.module('News').directive 'itemShortcuts', ['$window', ($window) ->
 				# u
 				else if e.keyCode == 85
 					keepUnreadCurrentItem(scrollArea)
-					
+
 				# s or i or l
 				else if e.keyCode == 73 or e.keyCode == 83 or e.keyCode == 76
 					starCurrentItem(scrollArea)
