@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-06-04 01:11+0200\n"
-"PO-Revision-Date: 2013-06-02 23:16+0000\n"
+"POT-Creation-Date: 2013-06-08 01:27+0200\n"
+"PO-Revision-Date: 2013-06-07 23:16+0000\n"
 "Last-Translator: Laszlo Tornoci <torlasz@gmail.com>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/owncloud/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
@@ -24,15 +24,15 @@ msgstr ""
 msgid "News"
 msgstr "Hírek"
 
-#: businesslayer/feedbusinesslayer.php:77
+#: businesslayer/feedbusinesslayer.php:86
 msgid "Can not add feed: Exists already"
 msgstr "Nem sikerült hozzáadni a hírcsatornát: már létezik"
 
-#: businesslayer/feedbusinesslayer.php:115
+#: businesslayer/feedbusinesslayer.php:124
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "Nem sikerült hozzáadni a hírcsatornát: hibás az URL vagy érvénytelen xml-t ad"
 
-#: businesslayer/folderbusinesslayer.php:62
+#: businesslayer/folderbusinesslayer.php:66
 msgid "Can not add folder: Exists already"
 msgstr "A mappa nem hozható létre: már létezik"
 

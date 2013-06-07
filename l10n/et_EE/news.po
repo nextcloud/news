@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-06-04 01:11+0200\n"
-"PO-Revision-Date: 2013-06-02 23:16+0000\n"
+"POT-Creation-Date: 2013-06-08 01:27+0200\n"
+"PO-Revision-Date: 2013-06-07 23:16+0000\n"
 "Last-Translator: Rivo Zängov <eraser@eraser.ee>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/projects/p/owncloud/language/et_EE/)\n"
 "MIME-Version: 1.0\n"
@@ -23,15 +23,15 @@ msgstr ""
 msgid "News"
 msgstr "Uudised"
 
-#: businesslayer/feedbusinesslayer.php:77
+#: businesslayer/feedbusinesslayer.php:86
 msgid "Can not add feed: Exists already"
 msgstr "Voogu ei saa lisada:  on juba olemas"
 
-#: businesslayer/feedbusinesslayer.php:115
+#: businesslayer/feedbusinesslayer.php:124
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "Voogu ei saa lisada: URL-i pole olemas või sisaldab vigast XML-i"
 
-#: businesslayer/folderbusinesslayer.php:62
+#: businesslayer/folderbusinesslayer.php:66
 msgid "Can not add folder: Exists already"
 msgstr "Kausta ei saa lisada: on juba olemas"
 
