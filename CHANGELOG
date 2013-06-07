@@ -1,4 +1,8 @@
-owncloud-news (1.001)
+ownCloud-news (1.101)
+* Add shortcut 'o' which opens the current article in a new tab
+
+
+ownCloud-news (1.001)
 * Also use monospace for pre tag
 * Fix bug that would prevent feed updates when feeds or folders are deleted
 
