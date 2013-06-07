@@ -79,6 +79,11 @@ angular.module('News').directive 'itemShortcuts', ['$window', ($window) ->
 			$item.find('.star').trigger('click')
 
 
+		openCurrentItem = (scrollArea) ->
+			$item = getCurrentItem(scrollArea).find('.item_title a')
+			$item.trigger('click')
+			window.open($item.attr('href'), '_blank')
+
 
 		$($window.document).keydown (e) ->
 			# only activate if no input elements is focused
@@ -102,7 +107,7 @@ angular.module('News').directive 'itemShortcuts', ['$window', ($window) ->
 				# u
 				else if e.keyCode == 85
 					keepUnreadCurrentItem(scrollArea)
-					
+
 				# s or i or l
 				else if e.keyCode == 73 or e.keyCode == 83 or e.keyCode == 76
 					starCurrentItem(scrollArea)
@@ -111,6 +116,10 @@ angular.module('News').directive 'itemShortcuts', ['$window', ($window) ->
 				else if e.keyCode == 72
 					starCurrentItem(scrollArea)
 					jumpToNextItem(scrollArea)
+
+				# o
+				else if e.keyCode == 79
+					openCurrentItem(scrollArea)
 
 
 ]
