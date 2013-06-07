@@ -146,7 +146,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
   angular.module('News').directive('itemShortcuts', [
     '$window', function($window) {
       return function(scope, elm, attr) {
-        var getCurrentItem, jumpTo, jumpToNextItem, jumpToPreviousItem, keepUnreadCurrentItem, starCurrentItem;
+        var getCurrentItem, jumpTo, jumpToNextItem, jumpToPreviousItem, keepUnreadCurrentItem, openCurrentItem, starCurrentItem;
         jumpTo = function($scrollArea, $item) {
           var position;
           position = $item.offset().top - $scrollArea.offset().top + $scrollArea.scrollTop();
@@ -212,6 +212,11 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           $item = getCurrentItem(scrollArea);
           return $item.find('.star').trigger('click');
         };
+        openCurrentItem = function(scrollArea) {
+          var $item;
+          $item = getCurrentItem(scrollArea);
+          return $item.find('.item_title a').trigger('click');
+        };
         return $($window.document).keydown(function(e) {
           var focused, scrollArea;
           focused = $(':focus');
@@ -228,6 +233,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             } else if (e.keyCode === 72) {
               starCurrentItem(scrollArea);
               return jumpToNextItem(scrollArea);
+            } else if (e.keyCode === 79) {
+              return openCurrentItem(scrollArea);
             }
           }
         });

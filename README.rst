@@ -107,7 +107,8 @@ Keyboard shortcuts
 * **Previous item**: p / k / left arrow
 * **Star current item**: s / i
 * **Keep current item unread**: u
-* **Star item and jump to next one**: h 
+* **Star item and jump to next one**: h
+* **Open current item**: o
 
 Mobile Clients
 --------------

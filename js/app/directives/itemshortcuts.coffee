@@ -79,6 +79,10 @@ angular.module('News').directive 'itemShortcuts', ['$window', ($window) ->
 			$item.find('.star').trigger('click')
 
 
+		openCurrentItem = (scrollArea) ->
+			$item = getCurrentItem(scrollArea)
+			$item.find('.item_title a').trigger('click')
+
 
 		$($window.document).keydown (e) ->
 			# only activate if no input elements is focused
@@ -111,6 +115,10 @@ angular.module('News').directive 'itemShortcuts', ['$window', ($window) ->
 				else if e.keyCode == 72
 					starCurrentItem(scrollArea)
 					jumpToNextItem(scrollArea)
+
+				# o
+				else if e.keyCode == 79
+					openCurrentItem(scrollArea)
 
 
 ]
