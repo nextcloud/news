@@ -112,10 +112,11 @@ Keyboard shortcuts
 
 Mobile Clients
 --------------
+
 Official
 ~~~~~~~~
 * **Author**: `Bernhard Posselt <https://github.com/Raydiation>`_
-* **Link**: `https://github.com/owncloud/news-mobile <https://github.com/owncloud/news-mobile>`_
+* **Link (source)**: `https://github.com/owncloud/news-mobile <https://github.com/owncloud/news-mobile>`_
 * **Status**: In development
 * **Platform**: Android, iOS, Windows Phone (PhoneGap), FirefoxOS
 * **License**: AGPL
@@ -123,13 +124,23 @@ Official
 
 Unofficial
 ~~~~~~~~~~
+* **Platform**: Android
 * **Author**: `David Luhmer <https://github.com/David-Development>`_
-* **Link**: `Owncloud News Reader <http://david-luhmer.de/wordpress/?p=126>`_
+* **Link (source)**: `Owncloud News Reader <http://david-luhmer.de/wordpress/?p=126>`_
 * **Google play Store**: `buy the App <https://play.google.com/store/apps/details?id=de.luhmer.owncloudnewsreader>`_
 * **Status**: Beta
-* **Platform**: Android
 * **License**: AGPL
 * **Bugtracker**: `https://github.com/owncloud/News-Android-App/issues <https://github.com/owncloud/News-Android-App/issues>`_
+
+----------------
+
+* **Platform**: Blackberry 10
+* **Author**: `Adam Pigg <http://www.piggz.co.uk/>`_
+* **Link (source)**: `Own News <https://gitorious.org/ownnews/ownnews>`_
+* **Blackberry World**: coming soon
+* **Status**: Beta
+* **License**: GPL
+
 
 Desktop Clients
 ---------------
