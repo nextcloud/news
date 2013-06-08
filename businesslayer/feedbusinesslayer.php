@@ -159,7 +159,10 @@ class FeedBusinessLayer extends BusinessLayer {
 
 			try {
 				list($feed, $items) = $this->feedFetcher->fetch(
-					$existingFeed->getUrl());
+					$existingFeed->getUrl(), false);
+
+				// keep the current faviconLink
+				$feed->setFaviconLink($existingFeed->getFaviconLink());
 
 				// insert items in reverse order because the first one is usually
 				// the newest item

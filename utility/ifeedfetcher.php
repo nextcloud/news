@@ -26,16 +26,16 @@
 namespace OCA\News\Utility;
 
 interface IFeedFetcher {
-	
+
 	/**
 	 * @param string url the url that the user entered in the add feed dialog
-	 * box 
+	 * box
 	 * @throws FetcherException if the fetcher encounters a problem
 	 * @return array with the first element being the feed and the
 	 * second element being an array of items. Those items will be saved into
 	 * into the database
 	 */
-	function fetch($url);
+	function fetch($url, $getFavicon=true);
 
 	/**
 	 * @param string $url the url that should be fetched
