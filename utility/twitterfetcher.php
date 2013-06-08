@@ -32,10 +32,10 @@ class TwitterFetcher implements IFeedFetcher {
 	private $fetcher;
 	private $regex;
 
-	
+
 	public function __construct(FeedFetcher $fetcher){
 		$this->fetcher = $fetcher;
-		
+
 		// matches the following urls and extracts the username
 		// https://twitter.com/GeorgeTakei
 		// https://www.twitter.com/GeorgeTakei
@@ -53,16 +53,16 @@ class TwitterFetcher implements IFeedFetcher {
 	}
 
 
-	public function fetch($url){
+	public function fetch($url, $getFavicon=true){
 		preg_match($this->regex, $url, $match);
 
 		// FIXME: implement twitter api to be future proof
 		// deprecated Twitter RSS API
-		$rssUrl = 'https://api.twitter.com/1/statuses/user_timeline.' . 
+		$rssUrl = 'https://api.twitter.com/1/statuses/user_timeline.' .
 					'rss?screen_name=' . $match[1];
 
 		// use transformed url to fetch the rss feeds with the default fetcher
-		return $this->fetcher->fetch($rssUrl);
+		return $this->fetcher->fetch($rssUrl, $getFavicon);
 	}
 
 
