@@ -40,10 +40,10 @@ class Fetcher {
 	}
 
 
-	public function fetch($url){
+	public function fetch($url, $getFavicon=true){
 		foreach($this->fetchers as $fetcher){
 			if($fetcher->canHandle($url)){
-				return $fetcher->fetch($url);
+				return $fetcher->fetch($url, $getFavicon);
 			}
 		}
 	}
