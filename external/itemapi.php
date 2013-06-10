@@ -55,7 +55,13 @@ class ItemAPI extends Controller {
 		$offset = (int) $this->params('offset', 0);
 		$type = (int) $this->params('type');
 		$id = (int) $this->params('id');
-		$showAll = $this->params('getRead') === 'true';
+		$showAll = $this->params('getRead');
+
+		if($showAll === 'true' || $showAll === true) {
+			$showAll = true;
+		} else {
+			$showAll = false;
+		}
 
 		$items = $this->itemBusinessLayer->findAll(
 			$id,
