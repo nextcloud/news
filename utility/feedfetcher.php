@@ -83,7 +83,7 @@ class FeedFetcher implements IFeedFetcher {
 		$simplePie->set_cache_duration($this->cacheDuration);
 
 		if (!$simplePie->init()) {
-			throw new FetcherException('Could not initialize simple pie');
+			throw new FetcherException('Could not initialize simple pie on feed with url ' . $url);
 		}
 
 

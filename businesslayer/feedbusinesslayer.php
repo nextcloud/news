@@ -196,7 +196,7 @@ class FeedBusinessLayer extends BusinessLayer {
 
 			} catch(FetcherException $ex){
 				// failed updating is not really a problem, so only log it
-				$this->api->log('Can not update feed with url' . $existingFeed->getUrl() .
+				$this->api->log('Can not update feed with url ' . $existingFeed->getUrl() .
 					': Not found or bad source');
 				$this->api->log($ex->getMessage());
 			}
