@@ -147,7 +147,7 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 			$this->api,
 			$request,
 			$this->itemBusinessLayer
-		);		
+		);
 
 		$this->itemBusinessLayer->expects($this->once())
 			->method('read')
@@ -173,7 +173,7 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 			$this->api,
 			$request,
 			$this->itemBusinessLayer
-		);		
+		);
 
 		$this->itemBusinessLayer->expects($this->once())
 			->method('read')
@@ -195,7 +195,7 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 			$this->api,
 			$request,
 			$this->itemBusinessLayer
-		);		
+		);
 
 		$this->itemBusinessLayer->expects($this->once())
 			->method('read')
@@ -221,7 +221,7 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 			$this->api,
 			$request,
 			$this->itemBusinessLayer
-		);		
+		);
 
 		$this->itemBusinessLayer->expects($this->once())
 			->method('read')
@@ -244,7 +244,7 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 			$this->api,
 			$request,
 			$this->itemBusinessLayer
-		);		
+		);
 
 		$this->itemBusinessLayer->expects($this->once())
 			->method('star')
@@ -272,7 +272,7 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 			$this->api,
 			$request,
 			$this->itemBusinessLayer
-		);		
+		);
 
 		$this->itemBusinessLayer->expects($this->once())
 			->method('star')
@@ -295,7 +295,7 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 			$this->api,
 			$request,
 			$this->itemBusinessLayer
-		);		
+		);
 
 		$this->itemBusinessLayer->expects($this->once())
 			->method('star')
@@ -323,7 +323,7 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 			$this->api,
 			$request,
 			$this->itemBusinessLayer
-		);		
+		);
 
 		$this->itemBusinessLayer->expects($this->once())
 			->method('star')
@@ -347,9 +347,9 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 			$this->api,
 			$request,
 			$this->itemBusinessLayer
-		);	
+		);
 
-		
+
 		$this->itemBusinessLayer->expects($this->once())
 			->method('readAll')
 			->with(
@@ -363,5 +363,181 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(NewsAPIResult::OK, $response->getStatusCode());
 	}
 
+
+
+	public function testReadMultiple() {
+		$request = new Request(array('params' => array(
+			'items' => array(2, 4)
+		)));
+		$this->itemAPI = new ItemAPI(
+			$this->api,
+			$request,
+			$this->itemBusinessLayer
+		);
+
+		$this->itemBusinessLayer->expects($this->at(0))
+			->method('read')
+			->with($this->equalTo(2),
+				$this->equalTo(true),
+				$this->equalTo($this->user));
+		$this->itemBusinessLayer->expects($this->at(1))
+			->method('read')
+			->with($this->equalTo(4),
+				$this->equalTo(true),
+				$this->equalTo($this->user));
+		$response = $this->itemAPI->readMultiple();
+		$this->assertEquals(NewsAPIResult::OK, $response->getStatusCode());
+	}
+
+
+	public function testReadMultipleDoesntCareAboutException() {
+		$request = new Request(array('params' => array(
+			'items' => array(2, 4)
+		)));
+		$this->itemAPI = new ItemAPI(
+			$this->api,
+			$request,
+			$this->itemBusinessLayer
+		);
+
+		$this->itemBusinessLayer->expects($this->at(0))
+			->method('read')
+			->will($this->throwException(new BusinessLayerException('')));
+		$this->itemBusinessLayer->expects($this->at(1))
+			->method('read')
+			->with($this->equalTo(4),
+				$this->equalTo(true),
+				$this->equalTo($this->user));
+		$this->itemAPI->readMultiple();
+	}
+
+
+	public function testUnreadMultiple() {
+		$request = new Request(array('params' => array(
+			'items' => array(2, 4)
+		)));
+		$this->itemAPI = new ItemAPI(
+			$this->api,
+			$request,
+			$this->itemBusinessLayer
+		);
+
+		$this->itemBusinessLayer->expects($this->at(0))
+			->method('read')
+			->with($this->equalTo(2),
+				$this->equalTo(false),
+				$this->equalTo($this->user));
+		$this->itemBusinessLayer->expects($this->at(1))
+			->method('read')
+			->with($this->equalTo(4),
+				$this->equalTo(false),
+				$this->equalTo($this->user));
+		$response = $this->itemAPI->unreadMultiple();
+		$this->assertEquals(NewsAPIResult::OK, $response->getStatusCode());
+	}
+
+
+	public function testStarMultiple() {
+		$request = new Request(array('params' => array(
+			'items' => array(
+				array(
+					'feedId' => 2,
+					'guidHash' => 'a'
+				),
+				array(
+					'feedId' => 4,
+					'guidHash' => 'b'
+				)
+			)
+		)));
+		$this->itemAPI = new ItemAPI(
+			$this->api,
+			$request,
+			$this->itemBusinessLayer
+		);
+
+		$this->itemBusinessLayer->expects($this->at(0))
+			->method('star')
+			->with($this->equalTo(2),
+				$this->equalTo('a'),
+				$this->equalTo(true),
+				$this->equalTo($this->user));
+		$this->itemBusinessLayer->expects($this->at(1))
+			->method('star')
+			->with($this->equalTo(4),
+				$this->equalTo('b'),
+				$this->equalTo(true),
+				$this->equalTo($this->user));
+		$response = $this->itemAPI->starMultiple();
+		$this->assertEquals(NewsAPIResult::OK, $response->getStatusCode());
+	}
+
+
+	public function testStarMultipleDoesntCareAboutException() {
+		$request = new Request(array('params' => array(
+			'items' => array(
+				array(
+					'feedId' => 2,
+					'guidHash' => 'a'
+				),
+				array(
+					'feedId' => 4,
+					'guidHash' => 'b'
+				)
+			)
+		)));
+		$this->itemAPI = new ItemAPI(
+			$this->api,
+			$request,
+			$this->itemBusinessLayer
+		);
+
+		$this->itemBusinessLayer->expects($this->at(0))
+			->method('star')
+			->will($this->throwException(new BusinessLayerException('')));
+		$this->itemBusinessLayer->expects($this->at(1))
+			->method('star')
+			->with($this->equalTo(4),
+				$this->equalTo('b'),
+				$this->equalTo(true),
+				$this->equalTo($this->user));
+		$this->itemAPI->starMultiple();
+	}
+
+
+	public function testUnstarMultiple() {
+		$request = new Request(array('params' => array(
+			'items' => array(
+				array(
+					'feedId' => 2,
+					'guidHash' => 'a'
+				),
+				array(
+					'feedId' => 4,
+					'guidHash' => 'b'
+				)
+			)
+		)));
+		$this->itemAPI = new ItemAPI(
+			$this->api,
+			$request,
+			$this->itemBusinessLayer
+		);
+
+		$this->itemBusinessLayer->expects($this->at(0))
+			->method('star')
+			->with($this->equalTo(2),
+				$this->equalTo('a'),
+				$this->equalTo(false),
+				$this->equalTo($this->user));
+		$this->itemBusinessLayer->expects($this->at(1))
+			->method('star')
+			->with($this->equalTo(4),
+				$this->equalTo('b'),
+				$this->equalTo(false),
+				$this->equalTo($this->user));
+		$response = $this->itemAPI->unstarMultiple();
+		$this->assertEquals(NewsAPIResult::OK, $response->getStatusCode());
+	}
 
 }

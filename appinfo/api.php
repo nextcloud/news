@@ -35,8 +35,8 @@ use \OCA\AppFramework\External\External;
 \OCP\API::register('get', '/apps/news/version',
 	function($params) {
 		return External::main('NewsAPI', 'version', $params, new DIContainer());
-	}, 
-	'news', 
+	},
+	'news',
 	\OC_API::USER_AUTH
 );
 
@@ -46,40 +46,40 @@ use \OCA\AppFramework\External\External;
 \OCP\API::register('get', '/apps/news/folders',
 	function($params) {
 		return External::main('FolderAPI', 'getAll', $params, new DIContainer());
-	}, 
-	'news', 
+	},
+	'news',
 	\OC_API::USER_AUTH
 );
 
 \OCP\API::register('post', '/apps/news/folders',
 	function($params) {
 		return External::main('FolderAPI', 'create', $params, new DIContainer());
-	}, 
-	'news', 
+	},
+	'news',
 	\OC_API::USER_AUTH
 );
 
 \OCP\API::register('delete', '/apps/news/folders/{folderId}',
 	function($params) {
 		return External::main('FolderAPI', 'delete', $params, new DIContainer());
-	}, 
-	'news', 
+	},
+	'news',
 	\OC_API::USER_AUTH
 );
 
 \OCP\API::register('put', '/apps/news/folders/{folderId}',
 	function($params) {
 		return External::main('FolderAPI', 'update', $params, new DIContainer());
-	}, 
-	'news', 
+	},
+	'news',
 	\OC_API::USER_AUTH
 );
 
 \OCP\API::register('put', '/apps/news/folders/{folderId}/read',
 	function($params) {
 		return External::main('FolderAPI', 'read', $params, new DIContainer());
-	}, 
-	'news', 
+	},
+	'news',
 	\OC_API::USER_AUTH
 );
 
@@ -89,40 +89,40 @@ use \OCA\AppFramework\External\External;
 \OCP\API::register('get', '/apps/news/feeds',
 	function($params) {
 		return External::main('FeedAPI', 'getAll', $params, new DIContainer());
-	}, 
-	'news', 
+	},
+	'news',
 	\OC_API::USER_AUTH
 );
 
 \OCP\API::register('post', '/apps/news/feeds/{feedId}',
 	function($params) {
 		return External::main('FeedAPI', 'create', $params, new DIContainer());
-	}, 
-	'news', 
+	},
+	'news',
 	\OC_API::USER_AUTH
 );
 
 \OCP\API::register('delete', '/apps/news/feeds/{feedId}',
 	function($params) {
 		return External::main('FeedAPI', 'delete', $params, new DIContainer());
-	}, 
-	'news', 
+	},
+	'news',
 	\OC_API::USER_AUTH
 );
 
 \OCP\API::register('put', '/apps/news/feeds/{feedId}/move',
 	function($params) {
 		return External::main('FeedAPI', 'move', $params, new DIContainer());
-	}, 
-	'news', 
+	},
+	'news',
 	\OC_API::USER_AUTH
 );
 
 \OCP\API::register('put', '/apps/news/feeds/{feedId}/read',
 	function($params) {
 		return External::main('FeedAPI', 'read', $params, new DIContainer());
-	}, 
-	'news', 
+	},
+	'news',
 	\OC_API::USER_AUTH
 );
 
@@ -132,63 +132,87 @@ use \OCA\AppFramework\External\External;
 \OCP\API::register('get', '/apps/news/items',
 	function($params) {
 		return External::main('ItemAPI', 'getAll', $params, new DIContainer());
-	}, 
-	'news', 
+	},
+	'news',
 	\OC_API::USER_AUTH
 );
 
 \OCP\API::register('get', '/apps/news/items/updated',
 	function($params) {
 		return External::main('ItemAPI', 'getUpdated', $params, new DIContainer());
-	}, 
-	'news', 
+	},
+	'news',
 	\OC_API::USER_AUTH
 );
 
 \OCP\API::register('put', '/apps/news/items/{itemId}/read',
 	function($params) {
 		return External::main('ItemAPI', 'read', $params, new DIContainer());
-	}, 
-	'news', 
+	},
+	'news',
 	\OC_API::USER_AUTH
 );
 
 \OCP\API::register('put', '/apps/news/items/{itemId}/unread',
 	function($params) {
 		return External::main('ItemAPI', 'unread', $params, new DIContainer());
-	}, 
-	'news', 
+	},
+	'news',
 	\OC_API::USER_AUTH
 );
 
 \OCP\API::register('put', '/apps/news/items/{feedId}/{guidHash}/star',
 	function($params) {
 		return External::main('ItemAPI', 'star', $params, new DIContainer());
-	}, 
-	'news', 
+	},
+	'news',
 	\OC_API::USER_AUTH
 );
 
 \OCP\API::register('put', '/apps/news/items/{feedId}/{guidHash}/unstar',
 	function($params) {
 		return External::main('ItemAPI', 'unstar', $params, new DIContainer());
-	}, 
-	'news', 
+	},
+	'news',
 	\OC_API::USER_AUTH
 );
 
 \OCP\API::register('put', '/apps/news/items/read',
 	function($params) {
 		return External::main('ItemAPI', 'readAll', $params, new DIContainer());
-	}, 
-	'news', 
+	},
+	'news',
 	\OC_API::USER_AUTH
 );
 
 \OCP\API::register('put', '/apps/news/items/read/multiple',
 	function($params) {
 		return External::main('ItemAPI', 'readMultiple', $params, new DIContainer());
-	}, 
-	'news', 
+	},
+	'news',
+	\OC_API::USER_AUTH
+);
+
+\OCP\API::register('put', '/apps/news/items/unread/multiple',
+	function($params) {
+		return External::main('ItemAPI', 'unreadMultiple', $params, new DIContainer());
+	},
+	'news',
+	\OC_API::USER_AUTH
+);
+
+\OCP\API::register('put', '/apps/news/items/star/multiple',
+	function($params) {
+		return External::main('ItemAPI', 'starMultiple', $params, new DIContainer());
+	},
+	'news',
+	\OC_API::USER_AUTH
+);
+
+\OCP\API::register('put', '/apps/news/items/unstar/multiple',
+	function($params) {
+		return External::main('ItemAPI', 'unstarMultiple', $params, new DIContainer());
+	},
+	'news',
 	\OC_API::USER_AUTH
 );

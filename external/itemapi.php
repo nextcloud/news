@@ -107,7 +107,7 @@ class ItemAPI extends Controller {
 			$this->itemBusinessLayer->read($itemId, $isRead, $userId);
 			return new NewsAPIResult();
 		} catch(BusinessLayerException $ex){
-			return new NewsAPIResult(null, NewsAPIResult::NOT_FOUND_ERROR, 
+			return new NewsAPIResult(null, NewsAPIResult::NOT_FOUND_ERROR,
 				$ex->getMessage());
 		}
 	}
@@ -121,7 +121,7 @@ class ItemAPI extends Controller {
 			$this->itemBusinessLayer->star($feedId, $guidHash, $isStarred, $userId);
 			return new NewsAPIResult();
 		} catch(BusinessLayerException $ex){
-			return new NewsAPIResult(null, NewsAPIResult::NOT_FOUND_ERROR, 
+			return new NewsAPIResult(null, NewsAPIResult::NOT_FOUND_ERROR,
 				$ex->getMessage());
 		}
 	}
@@ -156,13 +156,56 @@ class ItemAPI extends Controller {
 	}
 
 
-	public function readMultiple() {
+	private function setMultipleRead($isRead) {
 		$userId = $this->api->getUserId();
-		//$ids = $this->params('_put');
-		//print_r(json_decode(file_get_contents('php://input'), true));
-		
-		exit();
-		//return new NewsAPIResult();
+		$items = $this->params('items');
+
+		foreach($items as $id) {
+			try {
+				$this->itemBusinessLayer->read($id, $isRead, $userId);
+			} catch(BusinessLayerException $ex) {
+				continue;
+			}
+		}
+
+		return new NewsAPIResult();
+	}
+
+
+	public function readMultiple() {
+		return $this->setMultipleRead(true);
+	}
+
+
+	public function unreadMultiple() {
+		return $this->setMultipleRead(false);
+	}
+
+
+	private function setMultipleStarred($isStarred) {
+		$userId = $this->api->getUserId();
+		$items = $this->params('items');
+
+		foreach($items as $item) {
+			try {
+				$this->itemBusinessLayer->star($item['feedId'],
+					$item['guidHash'], $isStarred, $userId);
+			} catch(BusinessLayerException $ex) {
+				continue;
+			}
+		}
+
+		return new NewsAPIResult();
+	}
+
+
+	public function starMultiple() {
+		return $this->setMultipleStarred(true);
+	}
+
+
+	public function unstarMultiple() {
+		return $this->setMultipleStarred(false);
 	}
 
 }
