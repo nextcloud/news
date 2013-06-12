@@ -45,6 +45,11 @@ class ItemAPI extends Controller {
 	}
 
 
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
 	public function getAll() {
 		$result = array(
 			'items' => array()
@@ -80,6 +85,11 @@ class ItemAPI extends Controller {
 	}
 
 
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
 	public function getUpdated() {
 		$result = array(
 			'items' => array()
@@ -133,26 +143,51 @@ class ItemAPI extends Controller {
 	}
 
 
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
 	public function read() {
 		return $this->setRead(true);
 	}
 
 
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
 	public function unread() {
 		return $this->setRead(false);
 	}
 
 
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
 	public function star() {
 		return $this->setStarred(true);
 	}
 
 
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
 	public function unstar() {
 		return $this->setStarred(false);
 	}
 
 
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
 	public function readAll() {
 		$userId = $this->api->getUserId();
 		$newestItemId = (int) $this->params('newestItemId');
@@ -178,11 +213,21 @@ class ItemAPI extends Controller {
 	}
 
 
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
 	public function readMultiple() {
 		return $this->setMultipleRead(true);
 	}
 
 
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
 	public function unreadMultiple() {
 		return $this->setMultipleRead(false);
 	}
@@ -205,13 +250,24 @@ class ItemAPI extends Controller {
 	}
 
 
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
 	public function starMultiple() {
 		return $this->setMultipleStarred(true);
 	}
 
 
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
 	public function unstarMultiple() {
 		return $this->setMultipleStarred(false);
 	}
+
 
 }

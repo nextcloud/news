@@ -40,7 +40,7 @@ class FolderAPI extends Controller {
 	private $folderBusinessLayer;
 	private $itemBusinessLayer;
 
-	public function __construct(API $api, 
+	public function __construct(API $api,
 	                            Request $request,
 	                            FolderBusinessLayer $folderBusinessLayer,
 	                            ItemBusinessLayer $itemBusinessLayer){
@@ -50,6 +50,11 @@ class FolderAPI extends Controller {
 	}
 
 
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
 	public function getAll() {
 		$userId = $this->api->getUserId();
 		$result = array(
@@ -64,7 +69,12 @@ class FolderAPI extends Controller {
 	}
 
 
-	public function create() {		
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
+	public function create() {
 		$userId = $this->api->getUserId();
 		$folderName = $this->params('name');
 		$result = array(
@@ -78,12 +88,17 @@ class FolderAPI extends Controller {
 
 			return new NewsAPIResult($result);
 		} catch(BusinessLayerExistsException $ex) {
-			return new NewsAPIResult(null, NewsAPIResult::EXISTS_ERROR, 
+			return new NewsAPIResult(null, NewsAPIResult::EXISTS_ERROR,
 				$ex->getMessage());
 		}
 	}
 
 
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
 	public function delete() {
 		$userId = $this->api->getUserId();
 		$folderId = (int) $this->params('folderId');
@@ -92,12 +107,17 @@ class FolderAPI extends Controller {
 			$this->folderBusinessLayer->delete($folderId, $userId);
 			return new NewsAPIResult();
 		} catch(BusinessLayerException $ex) {
-			return new NewsAPIResult(null, NewsAPIResult::NOT_FOUND_ERROR, 
+			return new NewsAPIResult(null, NewsAPIResult::NOT_FOUND_ERROR,
 				$ex->getMessage());
 		}
 	}
 
 
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
 	public function update() {
 		$userId = $this->api->getUserId();
 		$folderId = (int) $this->params('folderId');
@@ -108,16 +128,21 @@ class FolderAPI extends Controller {
 			return new NewsAPIResult();
 
 		} catch(BusinessLayerExistsException $ex) {
-			return new NewsAPIResult(null, NewsAPIResult::EXISTS_ERROR, 
+			return new NewsAPIResult(null, NewsAPIResult::EXISTS_ERROR,
 				$ex->getMessage());
 
 		} catch(BusinessLayerException $ex) {
-			return new NewsAPIResult(null, NewsAPIResult::NOT_FOUND_ERROR, 
+			return new NewsAPIResult(null, NewsAPIResult::NOT_FOUND_ERROR,
 				$ex->getMessage());
 		}
 	}
 
 
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
 	public function read() {
 		$userId = $this->api->getUserId();
 		$folderId = (int) $this->params('folderId');

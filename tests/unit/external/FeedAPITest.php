@@ -26,6 +26,8 @@
 namespace OCA\News\External;
 
 use \OCA\AppFramework\Http\Request;
+use \OCA\AppFramework\Http\JSONResponse;
+use \OCA\AppFramework\Utility\ControllerTestUtility;
 
 use \OCA\News\BusinessLayer\BusinessLayerException;
 use \OCA\News\BusinessLayer\BusinessLayerExistsException;
@@ -36,7 +38,7 @@ use \OCA\News\Db\Item;
 require_once(__DIR__ . "/../../classloader.php");
 
 
-class FeedAPITest extends \PHPUnit_Framework_TestCase {
+class FeedAPITest extends ControllerTestUtility {
 
 	private $folderBusinessLayer;
 	private $feedBusinessLayer;
@@ -76,10 +78,38 @@ class FeedAPITest extends \PHPUnit_Framework_TestCase {
 			$this->itemBusinessLayer
 		);
 		$this->user = 'tom';
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->msg = 'hohoho';
+	}
+
+
+	private function assertDefaultAnnotations($methodName){
+		$annotations = array('IsAdminExemption', 'IsSubAdminExemption', 'Ajax');
+		$this->assertAnnotations($this->feedAPI, $methodName, $annotations);
+	}
+
+
+	public function testGetAllAnnotations(){
+		$this->assertDefaultAnnotations('getAll');
+	}
+
+
+	public function testCreateAnnotations(){
+		$this->assertDefaultAnnotations('create');
+	}
+
+
+	public function testDeleteAnnotations(){
+		$this->assertDefaultAnnotations('delete');
+	}
+
+
+	public function testMoveAnnotations(){
+		$this->assertDefaultAnnotations('move');
+	}
+
+
+	public function testReadAnnotations(){
+		$this->assertDefaultAnnotations('read');
 	}
 
 
@@ -90,6 +120,9 @@ class FeedAPITest extends \PHPUnit_Framework_TestCase {
 		$starredCount = 3;
 		$newestItemId = 2;
 
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('starredCount')
 			->with($this->equalTo($this->user))
@@ -119,6 +152,9 @@ class FeedAPITest extends \PHPUnit_Framework_TestCase {
 		);
 		$starredCount = 3;
 
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('starredCount')
 			->with($this->equalTo($this->user))
@@ -151,9 +187,11 @@ class FeedAPITest extends \PHPUnit_Framework_TestCase {
 			$this->folderBusinessLayer,
 			$this->feedBusinessLayer,
 			$this->itemBusinessLayer
-		);		
+		);
 
-		
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('delete')
 			->with(
@@ -178,9 +216,11 @@ class FeedAPITest extends \PHPUnit_Framework_TestCase {
 			$this->folderBusinessLayer,
 			$this->feedBusinessLayer,
 			$this->itemBusinessLayer
-		);		
+		);
 
-		
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('delete')
 			->will($this->throwException(new BusinessLayerException($this->msg)));
@@ -207,8 +247,11 @@ class FeedAPITest extends \PHPUnit_Framework_TestCase {
 			$this->folderBusinessLayer,
 			$this->feedBusinessLayer,
 			$this->itemBusinessLayer
-		);		
+		);
 
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('purgeDeleted')
 			->with($this->equalTo($this->user), $this->equalTo(false));
@@ -249,8 +292,11 @@ class FeedAPITest extends \PHPUnit_Framework_TestCase {
 			$this->folderBusinessLayer,
 			$this->feedBusinessLayer,
 			$this->itemBusinessLayer
-		);		
+		);
 
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('purgeDeleted')
 			->with($this->equalTo($this->user), $this->equalTo(false));
@@ -278,6 +324,9 @@ class FeedAPITest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testCreateExists() {
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('purgeDeleted')
 			->with($this->equalTo($this->user), $this->equalTo(false));
@@ -294,6 +343,9 @@ class FeedAPITest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testCreateError() {
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('create')
 			->will($this->throwException(new BusinessLayerException($this->msg)));
@@ -321,9 +373,11 @@ class FeedAPITest extends \PHPUnit_Framework_TestCase {
 			$this->folderBusinessLayer,
 			$this->feedBusinessLayer,
 			$this->itemBusinessLayer
-		);		
+		);
 
-		
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('readFeed')
 			->with(
@@ -354,9 +408,11 @@ class FeedAPITest extends \PHPUnit_Framework_TestCase {
 			$this->folderBusinessLayer,
 			$this->feedBusinessLayer,
 			$this->itemBusinessLayer
-		);		
+		);
 
-		
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('move')
 			->with(
@@ -372,7 +428,10 @@ class FeedAPITest extends \PHPUnit_Framework_TestCase {
 	}
 
 
-	public function testMoveDoesNotExist() {	
+	public function testMoveDoesNotExist() {
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('move')
 			->will($this->throwException(new BusinessLayerException($this->msg)));

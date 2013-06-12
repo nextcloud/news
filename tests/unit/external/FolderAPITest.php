@@ -26,6 +26,8 @@
 namespace OCA\News\External;
 
 use \OCA\AppFramework\Http\Request;
+use \OCA\AppFramework\Http\JSONResponse;
+use \OCA\AppFramework\Utility\ControllerTestUtility;
 
 use \OCA\News\BusinessLayer\BusinessLayerException;
 use \OCA\News\BusinessLayer\BusinessLayerExistsException;
@@ -37,7 +39,7 @@ use \OCA\News\Db\Item;
 require_once(__DIR__ . "/../../classloader.php");
 
 
-class FolderAPITest extends \PHPUnit_Framework_TestCase {
+class FolderAPITest extends ControllerTestUtility {
 
 	private $folderBusinessLayer;
 	private $itemBusinessLayer;
@@ -72,9 +74,37 @@ class FolderAPITest extends \PHPUnit_Framework_TestCase {
 		);
 		$this->user = 'tom';
 		$this->msg = 'test';
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
+	}
+
+
+	private function assertDefaultAnnotations($methodName){
+		$annotations = array('IsAdminExemption', 'IsSubAdminExemption', 'Ajax');
+		$this->assertAnnotations($this->folderAPI, $methodName, $annotations);
+	}
+
+
+	public function testGetAllAnnotations(){
+		$this->assertDefaultAnnotations('getAll');
+	}
+
+
+	public function testCreateAnnotations(){
+		$this->assertDefaultAnnotations('create');
+	}
+
+
+	public function testDeleteAnnotations(){
+		$this->assertDefaultAnnotations('delete');
+	}
+
+
+	public function testUpdateAnnotations(){
+		$this->assertDefaultAnnotations('update');
+	}
+
+
+	public function testReadAnnotations(){
+		$this->assertDefaultAnnotations('read');
 	}
 
 
@@ -83,6 +113,9 @@ class FolderAPITest extends \PHPUnit_Framework_TestCase {
 			new Folder()
 		);
 
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->folderBusinessLayer->expects($this->once())
 			->method('findAll')
 			->with($this->equalTo($this->user))
@@ -112,6 +145,9 @@ class FolderAPITest extends \PHPUnit_Framework_TestCase {
 			$this->itemBusinessLayer
 		);
 
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->folderBusinessLayer->expects($this->once())
 			->method('purgeDeleted')
 			->with($this->equalTo($this->user), $this->equalTo(false));
@@ -130,6 +166,10 @@ class FolderAPITest extends \PHPUnit_Framework_TestCase {
 
 	public function testCreateAlreadyExists() {
 		$msg = 'exists';
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->folderBusinessLayer->expects($this->once())
 			->method('purgeDeleted')
 			->with($this->equalTo($this->user), $this->equalTo(false));
@@ -157,6 +197,9 @@ class FolderAPITest extends \PHPUnit_Framework_TestCase {
 			$this->itemBusinessLayer
 		);
 
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->folderBusinessLayer->expects($this->once())
 			->method('delete')
 			->with($this->equalTo($folderId), $this->equalTo($this->user));
@@ -179,6 +222,9 @@ class FolderAPITest extends \PHPUnit_Framework_TestCase {
 			$this->itemBusinessLayer
 		);
 
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->folderBusinessLayer->expects($this->once())
 			->method('delete')
 			->will($this->throwException(new BusinessLayerException($this->msg)));
@@ -202,7 +248,7 @@ class FolderAPITest extends \PHPUnit_Framework_TestCase {
 					'urlParams' => array(
 						'folderId' => $folderId
 					),
-			
+
 					'params' => array(
 						'name' => $folderName
 					)
@@ -212,6 +258,9 @@ class FolderAPITest extends \PHPUnit_Framework_TestCase {
 			$this->itemBusinessLayer
 		);
 
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->folderBusinessLayer->expects($this->once())
 			->method('rename')
 			->with($this->equalTo($folderId),
@@ -236,7 +285,7 @@ class FolderAPITest extends \PHPUnit_Framework_TestCase {
 					'urlParams' => array(
 						'folderId' => $folderId
 					),
-			
+
 					'params' => array(
 						'name' => $folderName
 					)
@@ -246,6 +295,9 @@ class FolderAPITest extends \PHPUnit_Framework_TestCase {
 			$this->itemBusinessLayer
 		);
 
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->folderBusinessLayer->expects($this->once())
 			->method('rename')
 			->will($this->throwException(new BusinessLayerException($this->msg)));
@@ -269,7 +321,7 @@ class FolderAPITest extends \PHPUnit_Framework_TestCase {
 					'urlParams' => array(
 						'folderId' => $folderId
 					),
-			
+
 					'params' => array(
 						'name' => $folderName
 					)
@@ -279,6 +331,9 @@ class FolderAPITest extends \PHPUnit_Framework_TestCase {
 			$this->itemBusinessLayer
 		);
 
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->folderBusinessLayer->expects($this->once())
 			->method('rename')
 			->will($this->throwException(new BusinessLayerExistsException($this->msg)));
@@ -305,9 +360,11 @@ class FolderAPITest extends \PHPUnit_Framework_TestCase {
 			$request,
 			$this->folderBusinessLayer,
 			$this->itemBusinessLayer
-		);		
+		);
 
-		
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('readFolder')
 			->with(

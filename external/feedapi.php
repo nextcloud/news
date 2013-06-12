@@ -54,6 +54,11 @@ class FeedAPI extends Controller {
 	}
 
 
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
 	public function getAll() {
 		$userId = $this->api->getUserId();
 
@@ -68,7 +73,7 @@ class FeedAPI extends Controller {
 
 		// check case when there are no items
 		try {
-			$result['newestItemId'] = 
+			$result['newestItemId'] =
 				$this->itemBusinessLayer->getNewestItemId($userId);
 		} catch(BusinessLayerException $ex) {}
 
@@ -76,6 +81,11 @@ class FeedAPI extends Controller {
 	}
 
 
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
 	public function create() {
 		$userId = $this->api->getUserId();
 		$feedUrl = $this->params('url');
@@ -83,29 +93,34 @@ class FeedAPI extends Controller {
 
 		try {
 			$this->feedBusinessLayer->purgeDeleted($userId, false);
-			
+
 			$feed = $this->feedBusinessLayer->create($feedUrl, $folderId, $userId);
 			$result = array(
 				'feeds' => array($feed->toAPI())
 			);
 
 			try {
-				$result['newestItemId'] = 
+				$result['newestItemId'] =
 					$this->itemBusinessLayer->getNewestItemId($userId);
 			} catch(BusinessLayerException $ex) {}
 
 			return new NewsAPIResult($result);
 
 		} catch(BusinessLayerExistsException $ex) {
-			return new NewsAPIResult(null, NewsAPIResult::EXISTS_ERROR, 
+			return new NewsAPIResult(null, NewsAPIResult::EXISTS_ERROR,
 				$ex->getMessage());
 		} catch(BusinessLayerException $ex) {
-			return new NewsAPIResult(null, NewsAPIResult::NOT_FOUND_ERROR, 
+			return new NewsAPIResult(null, NewsAPIResult::NOT_FOUND_ERROR,
 				$ex->getMessage());
 		}
 	}
 
 
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
 	public function delete() {
 		$userId = $this->api->getUserId();
 		$feedId = (int) $this->params('feedId');
@@ -114,12 +129,17 @@ class FeedAPI extends Controller {
 			$this->feedBusinessLayer->delete($feedId, $userId);
 			return new NewsAPIResult();
 		} catch(BusinessLayerException $ex) {
-			return new NewsAPIResult(null, NewsAPIResult::NOT_FOUND_ERROR, 
+			return new NewsAPIResult(null, NewsAPIResult::NOT_FOUND_ERROR,
 				$ex->getMessage());
 		}
 	}
 
 
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
 	public function read() {
 		$userId = $this->api->getUserId();
 		$feedId = (int) $this->params('feedId');
@@ -130,6 +150,11 @@ class FeedAPI extends Controller {
 	}
 
 
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
 	public function move() {
 		$userId = $this->api->getUserId();
 		$feedId = (int) $this->params('feedId');
@@ -139,7 +164,7 @@ class FeedAPI extends Controller {
 			$this->feedBusinessLayer->move($feedId, $folderId, $userId);
 			return new NewsAPIResult();
 		} catch(BusinessLayerException $ex) {
-			return new NewsAPIResult(null, NewsAPIResult::NOT_FOUND_ERROR, 
+			return new NewsAPIResult(null, NewsAPIResult::NOT_FOUND_ERROR,
 				$ex->getMessage());
 		}
 	}

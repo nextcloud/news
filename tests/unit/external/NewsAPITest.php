@@ -25,11 +25,13 @@
 
 namespace OCA\News\External;
 
+use \OCA\AppFramework\Http\JSONResponse;
+use \OCA\AppFramework\Utility\ControllerTestUtility;
 
 require_once(__DIR__ . "/../../classloader.php");
 
 
-class NewsAPITest extends \PHPUnit_Framework_TestCase {
+class NewsAPITest extends ControllerTestUtility {
 
 	private $api;
 	private $request;
@@ -47,6 +49,15 @@ class NewsAPITest extends \PHPUnit_Framework_TestCase {
 		$this->newsAPI = new NewsAPI($this->api, $this->request);
 	}
 
+
+	private function assertDefaultAnnotations($methodName){
+		$annotations = array('IsAdminExemption', 'IsSubAdminExemption', 'Ajax');
+		$this->assertAnnotations($this->newsAPI, $methodName, $annotations);
+	}
+
+	public function testVersionAnnotations(){
+		$this->assertDefaultAnnotations('version');
+	}
 
 	public function testGetVersion(){
 		$this->api->expects($this->once())

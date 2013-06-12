@@ -26,6 +26,8 @@
 namespace OCA\News\External;
 
 use \OCA\AppFramework\Http\Request;
+use \OCA\AppFramework\Http\JSONResponse;
+use \OCA\AppFramework\Utility\ControllerTestUtility;
 
 use \OCA\News\BusinessLayer\BusinessLayerException;
 use \OCA\News\Db\Item;
@@ -33,7 +35,7 @@ use \OCA\News\Db\Item;
 require_once(__DIR__ . "/../../classloader.php");
 
 
-class ItemAPITest extends \PHPUnit_Framework_TestCase {
+class ItemAPITest extends ControllerTestUtility {
 
 	private $itemBusinessLayer;
 	private $itemAPI;
@@ -56,15 +58,73 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 		$this->user = 'tom';
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->itemAPI = new ItemAPI(
 			$this->api,
 			$this->request,
 			$this->itemBusinessLayer
 		);
 		$this->msg = 'hi';
+	}
+
+
+	private function assertDefaultAnnotations($methodName){
+		$annotations = array('IsAdminExemption', 'IsSubAdminExemption', 'Ajax');
+		$this->assertAnnotations($this->itemAPI, $methodName, $annotations);
+	}
+
+
+	public function testGetAllAnnotations(){
+		$this->assertDefaultAnnotations('getAll');
+	}
+
+
+	public function testGetUpdatedAnnotations(){
+		$this->assertDefaultAnnotations('getUpdated');
+	}
+
+
+	public function testReadAllAnnotations(){
+		$this->assertDefaultAnnotations('readAll');
+	}
+
+
+	public function testReadAnnotations(){
+		$this->assertDefaultAnnotations('read');
+	}
+
+
+	public function testStarAnnotations(){
+		$this->assertDefaultAnnotations('star');
+	}
+
+
+	public function testUnreadAnnotations(){
+		$this->assertDefaultAnnotations('unread');
+	}
+
+
+	public function testUnstarAnnotations(){
+		$this->assertDefaultAnnotations('unstar');
+	}
+
+
+	public function testReadMultipleAnnotations(){
+		$this->assertDefaultAnnotations('readMultiple');
+	}
+
+
+	public function testStarMultipleAnnotations(){
+		$this->assertDefaultAnnotations('starMultiple');
+	}
+
+
+	public function testUnreadMultipleAnnotations(){
+		$this->assertDefaultAnnotations('unreadMultiple');
+	}
+
+
+	public function testUnstarMultipleAnnotations(){
+		$this->assertDefaultAnnotations('unstarMultiple');
 	}
 
 
@@ -85,6 +145,9 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 			$this->itemBusinessLayer
 		);
 
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('findAll')
 			->with(
@@ -120,6 +183,9 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 			$this->itemBusinessLayer
 		);
 
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('findAllNew')
 			->with(
@@ -149,6 +215,9 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 			$this->itemBusinessLayer
 		);
 
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('read')
 			->with(
@@ -175,6 +244,9 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 			$this->itemBusinessLayer
 		);
 
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('read')
 			->will($this->throwException(new BusinessLayerException($this->msg)));
@@ -197,6 +269,9 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 			$this->itemBusinessLayer
 		);
 
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('read')
 			->with(
@@ -223,6 +298,9 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 			$this->itemBusinessLayer
 		);
 
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('read')
 			->will($this->throwException(new BusinessLayerException($this->msg)));
@@ -246,6 +324,9 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 			$this->itemBusinessLayer
 		);
 
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('star')
 			->with(
@@ -274,6 +355,9 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 			$this->itemBusinessLayer
 		);
 
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('star')
 			->will($this->throwException(new BusinessLayerException($this->msg)));
@@ -297,6 +381,9 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 			$this->itemBusinessLayer
 		);
 
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('star')
 			->with(
@@ -325,6 +412,9 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 			$this->itemBusinessLayer
 		);
 
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('star')
 			->will($this->throwException(new BusinessLayerException($this->msg)));
@@ -349,7 +439,9 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 			$this->itemBusinessLayer
 		);
 
-
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('readAll')
 			->with(
@@ -375,6 +467,9 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 			$this->itemBusinessLayer
 		);
 
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->at(0))
 			->method('read')
 			->with($this->equalTo(2),
@@ -400,6 +495,9 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 			$this->itemBusinessLayer
 		);
 
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->at(0))
 			->method('read')
 			->will($this->throwException(new BusinessLayerException('')));
@@ -422,6 +520,9 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 			$this->itemBusinessLayer
 		);
 
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->at(0))
 			->method('read')
 			->with($this->equalTo(2),
@@ -456,6 +557,9 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 			$this->itemBusinessLayer
 		);
 
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->at(0))
 			->method('star')
 			->with($this->equalTo(2),
@@ -492,6 +596,9 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 			$this->itemBusinessLayer
 		);
 
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->at(0))
 			->method('star')
 			->will($this->throwException(new BusinessLayerException('')));
@@ -524,6 +631,9 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 			$this->itemBusinessLayer
 		);
 
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->at(0))
 			->method('star')
 			->with($this->equalTo(2),
@@ -539,5 +649,6 @@ class ItemAPITest extends \PHPUnit_Framework_TestCase {
 		$response = $this->itemAPI->unstarMultiple();
 		$this->assertEquals(NewsAPIResult::OK, $response->getStatusCode());
 	}
+
 
 }

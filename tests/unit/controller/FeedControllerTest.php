@@ -84,9 +84,9 @@ class FeedControllerTest extends ControllerTestUtility {
 		);
 
 		$request = $this->getRequest($post);
-		return new FeedController($this->api, $request, 
+		return new FeedController($this->api, $request,
 			$this->folderBusinessLayer,
-			$this->feedBusinessLayer, 
+			$this->feedBusinessLayer,
 			$this->itemBusinessLayer);
 	}
 
@@ -293,7 +293,7 @@ class FeedControllerTest extends ControllerTestUtility {
 		$response = $this->controller->active();
 
 		$this->assertEquals($result, $response->getParams());
-		$this->assertTrue($response instanceof JSONResponse);		
+		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -330,7 +330,7 @@ class FeedControllerTest extends ControllerTestUtility {
 
 		$this->assertEquals($result, $response->getParams());
 		$this->assertTrue($response instanceof JSONResponse);
-	}	
+	}
 
 
 	public function testCreateNoItems(){
@@ -366,7 +366,7 @@ class FeedControllerTest extends ControllerTestUtility {
 
 		$this->assertEquals($result, $response->getParams());
 		$this->assertTrue($response instanceof JSONResponse);
-	}	
+	}
 
 
 	public function testCreateReturnsErrorForInvalidCreate(){
@@ -507,7 +507,7 @@ class FeedControllerTest extends ControllerTestUtility {
 			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('move')
-			->with($this->equalTo($url['feedId']), 
+			->with($this->equalTo($url['feedId']),
 				$this->equalTo($post['parentFolderId']),
 				$this->equalTo($this->user));
 
@@ -559,7 +559,7 @@ class FeedControllerTest extends ControllerTestUtility {
 			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('importGoogleReaderJSON')
-			->with($this->equalTo($post['json']), 
+			->with($this->equalTo($post['json']),
 				$this->equalTo($this->user))
 			->will($this->returnValue($feed));
 
@@ -614,7 +614,7 @@ class FeedControllerTest extends ControllerTestUtility {
 			->with($this->equalTo($url['feedId']));
 
 		$response = $this->controller->restore();
-		$this->assertTrue($response instanceof JSONResponse);		
+		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
