@@ -1,6 +1,7 @@
 ownCloud-news (1.101)
 * Add shortcut 'o' which opens the current article in a new tab
-
+* Speed up updating of feeds by more than 100%
+* Moved to new RESTful API to fix API bugs
 
 ownCloud-news (1.001)
 * Also use monospace for pre tag
