@@ -28,6 +28,8 @@ namespace OCA\News\External;
 use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Controller\Controller;
 use \OCA\AppFramework\Http\Request;
+use \OCA\AppFramework\Http\JSONResponse;
+use \OCA\AppFramework\Http\Http;
 
 use \OCA\News\BusinessLayer\FolderBusinessLayer;
 use \OCA\News\BusinessLayer\ItemBusinessLayer;
@@ -65,7 +67,7 @@ class FolderAPI extends Controller {
 			array_push($result['folders'], $folder->toAPI());
 		}
 
-		return new NewsAPIResult($result);
+		return new JSONResponse($result);
 	}
 
 
@@ -86,10 +88,10 @@ class FolderAPI extends Controller {
 			$folder = $this->folderBusinessLayer->create($folderName, $userId);
 			array_push($result['folders'], $folder->toAPI());
 
-			return new NewsAPIResult($result);
+			return new JSONResponse($result);
 		} catch(BusinessLayerExistsException $ex) {
-			return new NewsAPIResult(null, NewsAPIResult::EXISTS_ERROR,
-				$ex->getMessage());
+			return new JSONResponse(array('message' => $ex->getMessage()),
+				Http::STATUS_CONFLICT);
 		}
 	}
 
@@ -105,10 +107,10 @@ class FolderAPI extends Controller {
 
 		try {
 			$this->folderBusinessLayer->delete($folderId, $userId);
-			return new NewsAPIResult();
+			return new JSONResponse();
 		} catch(BusinessLayerException $ex) {
-			return new NewsAPIResult(null, NewsAPIResult::NOT_FOUND_ERROR,
-				$ex->getMessage());
+			return new JSONResponse(array('message' => $ex->getMessage()),
+				Http::STATUS_NOT_FOUND);
 		}
 	}
 
@@ -125,15 +127,15 @@ class FolderAPI extends Controller {
 
 		try {
 			$this->folderBusinessLayer->rename($folderId, $folderName, $userId);
-			return new NewsAPIResult();
+			return new JSONResponse();
 
 		} catch(BusinessLayerExistsException $ex) {
-			return new NewsAPIResult(null, NewsAPIResult::EXISTS_ERROR,
-				$ex->getMessage());
+			return new JSONResponse(array('message' => $ex->getMessage()),
+				Http::STATUS_CONFLICT);
 
 		} catch(BusinessLayerException $ex) {
-			return new NewsAPIResult(null, NewsAPIResult::NOT_FOUND_ERROR,
-				$ex->getMessage());
+			return new JSONResponse(array('message' => $ex->getMessage()),
+				Http::STATUS_NOT_FOUND);
 		}
 	}
 
@@ -149,7 +151,7 @@ class FolderAPI extends Controller {
 		$newestItemId = (int) $this->params('newestItemId');
 
 		$this->itemBusinessLayer->readFolder($folderId, $newestItemId, $userId);
-		return new NewsAPIResult();
+		return new JSONResponse();
 	}
 
 

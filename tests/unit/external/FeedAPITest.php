@@ -27,6 +27,7 @@ namespace OCA\News\External;
 
 use \OCA\AppFramework\Http\Request;
 use \OCA\AppFramework\Http\JSONResponse;
+use \OCA\AppFramework\Http\Http;
 use \OCA\AppFramework\Utility\ControllerTestUtility;
 
 use \OCA\News\BusinessLayer\BusinessLayerException;
@@ -200,9 +201,8 @@ class FeedAPITest extends ControllerTestUtility {
 
 		$response = $this->feedAPI->delete();
 
-		$this->assertNull($response->getData());
-		$this->assertNull($response->getMessage());
-		$this->assertEquals(NewsAPIResult::OK, $response->getStatusCode());
+		$this->assertEmpty($response->getData());
+		$this->assertEquals(Http::STATUS_OK, $response->getStatus());
 	}
 
 
@@ -227,9 +227,9 @@ class FeedAPITest extends ControllerTestUtility {
 
 		$response = $this->feedAPI->delete();
 
-		$this->assertNull($response->getData());
-		$this->assertEquals($this->msg, $response->getMessage());
-		$this->assertEquals(NewsAPIResult::NOT_FOUND_ERROR, $response->getStatusCode());
+		$data = $response->getData();
+		$this->assertEquals($this->msg, $data['message']);
+		$this->assertEquals(Http::STATUS_NOT_FOUND, $response->getStatus());
 	}
 
 
@@ -273,8 +273,7 @@ class FeedAPITest extends ControllerTestUtility {
 			'newestItemId' => 3
 		), $response->getData());
 
-		$this->assertNull($response->getMessage());
-		$this->assertEquals(NewsAPIResult::OK, $response->getStatusCode());
+		$this->assertEquals(Http::STATUS_OK, $response->getStatus());
 	}
 
 
@@ -317,8 +316,7 @@ class FeedAPITest extends ControllerTestUtility {
 			'feeds' => array($feeds[0]->toAPI())
 		), $response->getData());
 
-		$this->assertNull($response->getMessage());
-		$this->assertEquals(NewsAPIResult::OK, $response->getStatusCode());
+		$this->assertEquals(Http::STATUS_OK, $response->getStatus());
 	}
 
 
@@ -336,9 +334,9 @@ class FeedAPITest extends ControllerTestUtility {
 
 		$response = $this->feedAPI->create();
 
-		$this->assertNull($response->getData());
-		$this->assertEquals($this->msg, $response->getMessage());
-		$this->assertEquals(NewsAPIResult::EXISTS_ERROR, $response->getStatusCode());
+		$data = $response->getData();
+		$this->assertEquals($this->msg, $data['message']);
+		$this->assertEquals(NewsAPIResult::EXISTS_ERROR, $response->getStatus());
 	}
 
 
@@ -352,9 +350,9 @@ class FeedAPITest extends ControllerTestUtility {
 
 		$response = $this->feedAPI->create();
 
-		$this->assertNull($response->getData());
-		$this->assertEquals($this->msg, $response->getMessage());
-		$this->assertEquals(NewsAPIResult::NOT_FOUND_ERROR, $response->getStatusCode());
+		$data = $response->getData();
+		$this->assertEquals($this->msg, $data['message']);
+		$this->assertEquals(Http::STATUS_NOT_FOUND, $response->getStatus());
 	}
 
 
@@ -387,9 +385,8 @@ class FeedAPITest extends ControllerTestUtility {
 
 		$response = $this->feedAPI->read();
 
-		$this->assertNull($response->getData());
-		$this->assertNull($response->getMessage());
-		$this->assertEquals(NewsAPIResult::OK, $response->getStatusCode());
+		$this->assertEmpty($response->getData());
+		$this->assertEquals(Http::STATUS_OK, $response->getStatus());
 	}
 
 
@@ -422,9 +419,8 @@ class FeedAPITest extends ControllerTestUtility {
 
 		$response = $this->feedAPI->move();
 
-		$this->assertNull($response->getData());
-		$this->assertNull($response->getMessage());
-		$this->assertEquals(NewsAPIResult::OK, $response->getStatusCode());
+		$this->assertEmpty($response->getData());
+		$this->assertEquals(Http::STATUS_OK, $response->getStatus());
 	}
 
 
@@ -438,8 +434,8 @@ class FeedAPITest extends ControllerTestUtility {
 
 		$response = $this->feedAPI->move();
 
-		$this->assertNull($response->getData());
-		$this->assertEquals($this->msg, $response->getMessage());
-		$this->assertEquals(NewsAPIResult::NOT_FOUND_ERROR, $response->getStatusCode());
+		$data = $response->getData();
+		$this->assertEquals($this->msg, $data['message']);
+		$this->assertEquals(Http::STATUS_NOT_FOUND, $response->getStatus());
 	}
 }

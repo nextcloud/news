@@ -28,6 +28,7 @@ namespace OCA\News\External;
 use \OCA\AppFramework\Http\Request;
 use \OCA\AppFramework\Http\JSONResponse;
 use \OCA\AppFramework\Utility\ControllerTestUtility;
+use \OCA\AppFramework\Http\Http;
 
 use \OCA\News\BusinessLayer\BusinessLayerException;
 use \OCA\News\BusinessLayer\BusinessLayerExistsException;
@@ -179,9 +180,9 @@ class FolderAPITest extends ControllerTestUtility {
 
 		$response = $this->folderAPI->create();
 
-		$this->assertNull($response->getData());
-		$this->assertEquals(NewsAPIResult::EXISTS_ERROR, $response->getStatusCode());
-		$this->assertEquals($msg, $response->getMessage());
+		$data = $response->getData();
+		$this->assertEquals($msg, $data['message']);
+		$this->assertEquals(Http::STATUS_CONFLICT, $response->getStatus());
 	}
 
 
@@ -206,7 +207,7 @@ class FolderAPITest extends ControllerTestUtility {
 
 		$response = $this->folderAPI->delete();
 
-		$this->assertNull($response->getData());
+		$this->assertEmpty($response->getData());
 	}
 
 
@@ -231,9 +232,9 @@ class FolderAPITest extends ControllerTestUtility {
 
 		$response = $this->folderAPI->delete();
 
-		$this->assertNull($response->getData());
-		$this->assertEquals($this->msg, $response->getMessage());
-		$this->assertEquals(NewsAPIResult::NOT_FOUND_ERROR, $response->getStatusCode());
+		$data = $response->getData();
+		$this->assertEquals($this->msg, $data['message']);
+		$this->assertEquals(Http::STATUS_NOT_FOUND, $response->getStatus());
 	}
 
 
@@ -269,9 +270,8 @@ class FolderAPITest extends ControllerTestUtility {
 
 		$response = $this->folderAPI->update();
 
-		$this->assertNull($response->getData());
-		$this->assertNull($response->getMessage());
-		$this->assertEquals(NewsAPIResult::OK, $response->getStatusCode());
+		$this->assertEmpty($response->getData());
+		$this->assertEquals(Http::STATUS_OK, $response->getStatus());
 	}
 
 	public function testUpdateDoesNotExist() {
@@ -304,9 +304,9 @@ class FolderAPITest extends ControllerTestUtility {
 
 		$response = $this->folderAPI->update();
 
-		$this->assertNull($response->getData());
-		$this->assertEquals($this->msg, $response->getMessage());
-		$this->assertEquals(NewsAPIResult::NOT_FOUND_ERROR, $response->getStatusCode());
+		$data = $response->getData();
+		$this->assertEquals($this->msg, $data['message']);
+		$this->assertEquals(Http::STATUS_NOT_FOUND, $response->getStatus());
 	}
 
 
@@ -340,9 +340,9 @@ class FolderAPITest extends ControllerTestUtility {
 
 		$response = $this->folderAPI->update();
 
-		$this->assertNull($response->getData());
-		$this->assertEquals($this->msg, $response->getMessage());
-		$this->assertEquals(NewsAPIResult::EXISTS_ERROR, $response->getStatusCode());
+		$data = $response->getData();
+		$this->assertEquals($this->msg, $data['message']);
+		$this->assertEquals(Http::STATUS_CONFLICT, $response->getStatus());
 	}
 
 
@@ -374,9 +374,8 @@ class FolderAPITest extends ControllerTestUtility {
 
 		$response = $this->folderAPI->read();
 
-		$this->assertNull($response->getData());
-		$this->assertNull($response->getMessage());
-		$this->assertEquals(NewsAPIResult::OK, $response->getStatusCode());
+		$this->assertEmpty($response->getData());
+		$this->assertEquals(Http::STATUS_OK, $response->getStatus());
 	}
 
 

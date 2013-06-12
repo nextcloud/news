@@ -488,7 +488,7 @@ class FeedControllerTest extends ControllerTestUtility {
 		$response = $this->controller->update();
 		$render = $response->render();
 
-		$this->assertEquals('{"status":"error","data":[],"msg":"NO!"}', $render);
+		$this->assertEquals('{"data":[],"status":"error","msg":"NO!"}', $render);
 		$this->assertTrue($response instanceof JSONResponse);
 	}
 
