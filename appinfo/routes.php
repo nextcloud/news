@@ -39,7 +39,7 @@ $this->create('news_index', '/')->get()->action(
 );
 
 /**
- * Folders 
+ * Folders
  */
 $this->create('news_folders', '/folders')->get()->action(
 	function($params){
@@ -143,7 +143,7 @@ $this->create('news_feeds_read', '/feeds/{feedId}/read')->post()->action(
 $this->create('news_feeds_import_googlereader', '/feeds/import/googlereader')
 ->post()->action(
 	function($params){
-		App::main('FeedController', 'importGoogleReader', $params, 
+		App::main('FeedController', 'importGoogleReader', $params,
 			new DIContainer());
 	}
 );
@@ -224,5 +224,146 @@ $this->create('news_usersettings_language', '/usersettings/language')->get()->ac
 );
 
 
-// include external API
-require_once __DIR__ . '/api.php';
+/**
+ * Generic API
+ */
+$this->create('news_api_version', '/api/v1-2/version')->get()->action(
+	function($params) {
+		return App::main('NewsAPI', 'version', $params, new DIContainer());
+	}
+);
+
+/**
+ * Folder API
+ */
+$this->create('news_api_folders_get_all', '/api/v1-2/folders')->get()->action(
+	function($params) {
+		return App::main('FolderAPI', 'getAll', $params, new DIContainer());
+	}
+);
+
+$this->create('news_api_folders_create', '/api/v1-2/folders')->post()->action(
+	function($params) {
+		return App::main('FolderAPI', 'create', $params, new DIContainer());
+	}
+);
+
+$this->create('news_api_folders_delete', '/api/v1-2/folders/{folderId}')->delete()->action(
+	function($params) {
+		return App::main('FolderAPI', 'delete', $params, new DIContainer());
+	}
+);
+
+$this->create('news_api_folders_update', '/api/v1-2/folders/{folderId}')->put()->action(
+	function($params) {
+		return App::main('FolderAPI', 'update', $params, new DIContainer());
+	}
+);
+
+$this->create('news_api_folders_read', '/api/v1-2/folders/{folderId}/read')->put()->action(
+	function($params) {
+		return App::main('FolderAPI', 'read', $params, new DIContainer());
+	}
+);
+
+/**
+ * Feed API
+ */
+$this->create('news_api_feeds_get_all', '/api/v1-2/feeds')->get()->action(
+	function($params) {
+		return App::main('FeedAPI', 'getAll', $params, new DIContainer());
+	}
+);
+
+$this->create('news_api_feeds_create', '/api/v1-2/feeds/{feedId}')->post()->action(
+	function($params) {
+		return App::main('FeedAPI', 'create', $params, new DIContainer());
+	}
+);
+
+$this->create('news_api_feeds_delete', '/api/v1-2/feeds/{feedId}')->delete()->action(
+	function($params) {
+		return App::main('FeedAPI', 'delete', $params, new DIContainer());
+	}
+);
+
+$this->create('news_api_feeds_move', '/api/v1-2/feeds/{feedId}/move')->put()->action(
+	function($params) {
+		return App::main('FeedAPI', 'move', $params, new DIContainer());
+	}
+);
+
+$this->create('news_api_feeds_read', '/api/v1-2/feeds/{feedId}/read')->put()->action(
+	function($params) {
+		return App::main('FeedAPI', 'read', $params, new DIContainer());
+	}
+);
+
+/**
+ * Item API
+ */
+$this->create('news_api_items_get_all', '/api/v1-2/items')->get()->action(
+	function($params) {
+		return App::main('ItemAPI', 'getAll', $params, new DIContainer());
+	}
+);
+
+$this->create('news_api_items_updated', '/api/v1-2/items/updated')->get()->action(
+	function($params) {
+		return App::main('ItemAPI', 'getUpdated', $params, new DIContainer());
+	}
+);
+
+$this->create('news_api_items_read', '/api/v1-2/items/{itemId}/read')->put()->action(
+	function($params) {
+		return App::main('ItemAPI', 'read', $params, new DIContainer());
+	}
+);
+
+$this->create('news_api_items_unread', '/api/v1-2/items/{itemId}/unread')->put()->action(
+	function($params) {
+		return App::main('ItemAPI', 'unread', $params, new DIContainer());
+	}
+);
+
+$this->create('news_api_items_star', '/api/v1-2/items/{feedId}/{guidHash}/star')->put()->action(
+	function($params) {
+		return App::main('ItemAPI', 'star', $params, new DIContainer());
+	}
+);
+
+$this->create('news_api_items_unstar', '/api/v1-2/items/{feedId}/{guidHash}/unstar')->put()->action(
+	function($params) {
+		return App::main('ItemAPI', 'unstar', $params, new DIContainer());
+	}
+);
+
+$this->create('news_api_items_read_all', '/api/v1-2/items/read')->put()->action(
+	function($params) {
+		return App::main('ItemAPI', 'readAll', $params, new DIContainer());
+	}
+);
+
+$this->create('news_api_items_read_multiple', '/api/v1-2/items/read/multiple')->put()->action(
+	function($params) {
+		return App::main('ItemAPI', 'readMultiple', $params, new DIContainer());
+	}
+);
+
+$this->create('news_api_items_unread_multiple', '/api/v1-2/items/unread/multiple')->put()->action(
+	function($params) {
+		return App::main('ItemAPI', 'unreadMultiple', $params, new DIContainer());
+	}
+);
+
+$this->create('news_api_items_star_multiple', '/api/v1-2/items/star/multiple')->put()->action(
+	function($params) {
+		return App::main('ItemAPI', 'starMultiple', $params, new DIContainer());
+	}
+);
+
+$this->create('news_api_items_unstar_multiple', '/api/v1-2/items/unstar/multiple')->put()->action(
+	function($params) {
+		return App::main('ItemAPI', 'unstarMultiple', $params, new DIContainer());
+	}
+);

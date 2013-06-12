@@ -84,7 +84,8 @@ class FeedAPITest extends ControllerTestUtility {
 
 
 	private function assertDefaultAnnotations($methodName){
-		$annotations = array('IsAdminExemption', 'IsSubAdminExemption', 'Ajax');
+		$annotations = array('IsAdminExemption', 'IsSubAdminExemption',
+			'Ajax', 'CSRFExemption');
 		$this->assertAnnotations($this->feedAPI, $methodName, $annotations);
 	}
 
@@ -336,7 +337,7 @@ class FeedAPITest extends ControllerTestUtility {
 
 		$data = $response->getData();
 		$this->assertEquals($this->msg, $data['message']);
-		$this->assertEquals(NewsAPIResult::EXISTS_ERROR, $response->getStatus());
+		$this->assertEquals(Http::STATUS_CONFLICT, $response->getStatus());
 	}
 
 

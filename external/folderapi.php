@@ -55,6 +55,7 @@ class FolderAPI extends Controller {
 	/**
 	 * @IsAdminExemption
 	 * @IsSubAdminExemption
+	 * @CSRFExemption
 	 * @Ajax
 	 */
 	public function getAll() {
@@ -74,6 +75,7 @@ class FolderAPI extends Controller {
 	/**
 	 * @IsAdminExemption
 	 * @IsSubAdminExemption
+	 * @CSRFExemption
 	 * @Ajax
 	 */
 	public function create() {
@@ -99,6 +101,7 @@ class FolderAPI extends Controller {
 	/**
 	 * @IsAdminExemption
 	 * @IsSubAdminExemption
+	 * @CSRFExemption
 	 * @Ajax
 	 */
 	public function delete() {
@@ -118,6 +121,7 @@ class FolderAPI extends Controller {
 	/**
 	 * @IsAdminExemption
 	 * @IsSubAdminExemption
+	 * @CSRFExemption
 	 * @Ajax
 	 */
 	public function update() {
@@ -143,6 +147,7 @@ class FolderAPI extends Controller {
 	/**
 	 * @IsAdminExemption
 	 * @IsSubAdminExemption
+	 * @CSRFExemption
 	 * @Ajax
 	 */
 	public function read() {

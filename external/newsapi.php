@@ -28,6 +28,7 @@ namespace OCA\News\External;
 use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Controller\Controller;
 use \OCA\AppFramework\Http\Request;
+use \OCA\AppFramework\Http\JSONResponse;
 
 
 class NewsAPI extends Controller {
@@ -41,11 +42,12 @@ class NewsAPI extends Controller {
 	/**
 	 * @IsAdminExemption
 	 * @IsSubAdminExemption
+	 * @CSRFExemption
 	 * @Ajax
 	 */
 	public function version() {
 		$version = $this->api->getAppValue('installed_version');
-		return new NewsAPIResult(array('version' => $version));
+		return new JSONResponse(array('version' => $version));
 	}
 
 

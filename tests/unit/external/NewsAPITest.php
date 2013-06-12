@@ -51,7 +51,8 @@ class NewsAPITest extends ControllerTestUtility {
 
 
 	private function assertDefaultAnnotations($methodName){
-		$annotations = array('IsAdminExemption', 'IsSubAdminExemption', 'Ajax');
+		$annotations = array('IsAdminExemption', 'IsSubAdminExemption',
+			'Ajax', 'CSRFExemption');
 		$this->assertAnnotations($this->newsAPI, $methodName, $annotations);
 	}
 

@@ -50,6 +50,7 @@ class ItemAPI extends Controller {
 	/**
 	 * @IsAdminExemption
 	 * @IsSubAdminExemption
+	 * @CSRFExemption
 	 * @Ajax
 	 */
 	public function getAll() {
@@ -90,6 +91,7 @@ class ItemAPI extends Controller {
 	/**
 	 * @IsAdminExemption
 	 * @IsSubAdminExemption
+	 * @CSRFExemption
 	 * @Ajax
 	 */
 	public function getUpdated() {
@@ -148,6 +150,7 @@ class ItemAPI extends Controller {
 	/**
 	 * @IsAdminExemption
 	 * @IsSubAdminExemption
+	 * @CSRFExemption
 	 * @Ajax
 	 */
 	public function read() {
@@ -158,6 +161,7 @@ class ItemAPI extends Controller {
 	/**
 	 * @IsAdminExemption
 	 * @IsSubAdminExemption
+	 * @CSRFExemption
 	 * @Ajax
 	 */
 	public function unread() {
@@ -168,6 +172,7 @@ class ItemAPI extends Controller {
 	/**
 	 * @IsAdminExemption
 	 * @IsSubAdminExemption
+	 * @CSRFExemption
 	 * @Ajax
 	 */
 	public function star() {
@@ -178,6 +183,7 @@ class ItemAPI extends Controller {
 	/**
 	 * @IsAdminExemption
 	 * @IsSubAdminExemption
+	 * @CSRFExemption
 	 * @Ajax
 	 */
 	public function unstar() {
@@ -188,6 +194,7 @@ class ItemAPI extends Controller {
 	/**
 	 * @IsAdminExemption
 	 * @IsSubAdminExemption
+	 * @CSRFExemption
 	 * @Ajax
 	 */
 	public function readAll() {
@@ -218,6 +225,7 @@ class ItemAPI extends Controller {
 	/**
 	 * @IsAdminExemption
 	 * @IsSubAdminExemption
+	 * @CSRFExemption
 	 * @Ajax
 	 */
 	public function readMultiple() {
@@ -228,6 +236,7 @@ class ItemAPI extends Controller {
 	/**
 	 * @IsAdminExemption
 	 * @IsSubAdminExemption
+	 * @CSRFExemption
 	 * @Ajax
 	 */
 	public function unreadMultiple() {
@@ -255,6 +264,7 @@ class ItemAPI extends Controller {
 	/**
 	 * @IsAdminExemption
 	 * @IsSubAdminExemption
+	 * @CSRFExemption
 	 * @Ajax
 	 */
 	public function starMultiple() {
@@ -265,6 +275,7 @@ class ItemAPI extends Controller {
 	/**
 	 * @IsAdminExemption
 	 * @IsSubAdminExemption
+	 * @CSRFExemption
 	 * @Ajax
 	 */
 	public function unstarMultiple() {
