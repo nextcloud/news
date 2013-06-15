@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-06-12 01:38+0200\n"
-"PO-Revision-Date: 2013-06-11 23:26+0000\n"
+"POT-Creation-Date: 2013-06-16 01:02+0200\n"
+"PO-Revision-Date: 2013-06-14 23:19+0000\n"
 "Last-Translator: Vincenzo Reale <vinx.reale@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/owncloud/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgstr "Impossibile aggiungere la fonte: l'URL non esiste o ha xml non valido"
 msgid "Can not add folder: Exists already"
 msgstr "Impossibile aggiungere la cartella: esiste già"
 
-#: templates/main.php:27
+#: templates/main.php:26
 #, php-format
 msgid "Undo deletion of %s"
 msgstr "Annulla l'eliminazione di %s"

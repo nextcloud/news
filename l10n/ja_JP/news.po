@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-06-12 01:38+0200\n"
-"PO-Revision-Date: 2013-06-11 23:26+0000\n"
+"POT-Creation-Date: 2013-06-16 01:02+0200\n"
+"PO-Revision-Date: 2013-06-14 23:19+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Japanese (Japan) (http://www.transifex.com/projects/p/owncloud/language/ja_JP/)\n"
 "MIME-Version: 1.0\n"
@@ -37,7 +37,7 @@ msgstr "フィードを追加できません: URLが存在しない、もしく�
 msgid "Can not add folder: Exists already"
 msgstr "フォルダを追加できません: すでに存在します"
 
-#: templates/main.php:27
+#: templates/main.php:26
 #, php-format
 msgid "Undo deletion of %s"
 msgstr "%s の削除を元に戻す"
