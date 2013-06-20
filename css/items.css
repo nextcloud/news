@@ -258,7 +258,8 @@
 				line-height: 21px;
 			}
 
-		.feed_item .body pre {
+		.feed_item .body pre,
+        .feed_item .body blockquote {
 			padding: 7px 7px 7px 14px;
 			background-color: #dadada;
 			border: 1px solid #ccc;
@@ -270,6 +271,20 @@
 			background-image: -ms-linear-gradient(top, rgb(215,215,215) 0%, rgb(220,220,220) 100%);
 			overflow-y: auto;
 		}
+            .feed_item .body pre::-webkit-scrollbar,                     
+            .feed_item .body blockquote::-webkit-scrollbar {
+                height: 10px;
+            }
+
+            .feed_item .body pre::-webkit-scrollbar-thumb,
+            .feed_item .body blockquote::-webkit-scrollbar-thumb {
+                background: #333;
+            }
+
+            .feed_item .body pre::-webkit-scrollbar-track-piece,
+            .feed_item .body blockquote::-webkit-scrollbar-track-piece {
+                background: #ddd;
+            }
 
 			.feed_item .body code,
 			.feed_item .body pre {
