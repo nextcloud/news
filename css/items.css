@@ -258,7 +258,8 @@
 				line-height: 21px;
 			}
 
-		.feed_item .body pre {
+		.feed_item .body pre,
+		.feed_item .body blockquote {
 			padding: 7px 7px 7px 14px;
 			background-color: #dadada;
 			border: 1px solid #ccc;
