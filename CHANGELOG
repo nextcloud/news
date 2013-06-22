@@ -2,6 +2,9 @@ ownCloud-news (1.101)
 * Add shortcut 'o' which opens the current article in a new tab
 * Speed up updating of feeds by more than 100%
 * Moved to new RESTful API to fix API bugs
+* Fix bug that wouldnt mark items as read if they were set read in a folder, feed or all read request
+* Style blockquotes
+* Use current date if no date is given in the feed
 
 ownCloud-news (1.001)
 * Also use monospace for pre tag
