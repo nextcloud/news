@@ -45,12 +45,12 @@ class FeedFetcher implements IFeedFetcher {
 	private $purifier;
 
 	public function __construct(API $api,
-	                            SimplePieAPIFactory $simplePieFactory,
-	                            FaviconFetcher $faviconFetcher,
-	                            TimeFactory $time,
-	                            $cacheDirectory,
-	                            $cacheDuration,
-	                            $purifier){
+				    SimplePieAPIFactory $simplePieFactory,
+				    FaviconFetcher $faviconFetcher,
+				    TimeFactory $time,
+				    $cacheDirectory,
+				    $cacheDuration,
+				    $purifier){
 		$this->api = $api;
 		$this->cacheDirectory = $cacheDirectory;
 		$this->cacheDuration = $cacheDuration;
@@ -111,11 +111,11 @@ class FeedFetcher implements IFeedFetcher {
 		$item = new Item();
 		$item->setStatus(0);
 		$item->setUnread();
-                $item->setUrl(html_entity_decode($simplePieItem->get_permalink(),
-                        ENT_COMPAT, 'UTF-8'));
+		$item->setUrl(html_entity_decode($simplePieItem->get_permalink(),
+			ENT_COMPAT, 'UTF-8'));
 		// unescape content because angularjs helps against XSS
-                $item->setTitle(html_entity_decode($simplePieItem->get_title(),
-                        ENT_COMPAT, 'UTF-8'));
+		$item->setTitle(html_entity_decode($simplePieItem->get_title(),
+			ENT_COMPAT, 'UTF-8'));
 		$guid = $simplePieItem->get_id();
 		$item->setGuid($guid);
 		$item->setGuidHash(md5($guid));
