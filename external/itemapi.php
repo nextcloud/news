@@ -52,6 +52,7 @@ class ItemAPI extends Controller {
 	 * @IsSubAdminExemption
 	 * @CSRFExemption
 	 * @Ajax
+	 * @API
 	 */
 	public function getAll() {
 		$result = array(
@@ -93,6 +94,7 @@ class ItemAPI extends Controller {
 	 * @IsSubAdminExemption
 	 * @CSRFExemption
 	 * @Ajax
+	 * @API
 	 */
 	public function getUpdated() {
 		$result = array(
@@ -152,6 +154,7 @@ class ItemAPI extends Controller {
 	 * @IsSubAdminExemption
 	 * @CSRFExemption
 	 * @Ajax
+	 * @API
 	 */
 	public function read() {
 		return $this->setRead(true);
@@ -163,6 +166,7 @@ class ItemAPI extends Controller {
 	 * @IsSubAdminExemption
 	 * @CSRFExemption
 	 * @Ajax
+	 * @API
 	 */
 	public function unread() {
 		return $this->setRead(false);
@@ -174,6 +178,7 @@ class ItemAPI extends Controller {
 	 * @IsSubAdminExemption
 	 * @CSRFExemption
 	 * @Ajax
+	 * @API
 	 */
 	public function star() {
 		return $this->setStarred(true);
@@ -185,6 +190,7 @@ class ItemAPI extends Controller {
 	 * @IsSubAdminExemption
 	 * @CSRFExemption
 	 * @Ajax
+	 * @API
 	 */
 	public function unstar() {
 		return $this->setStarred(false);
@@ -196,6 +202,7 @@ class ItemAPI extends Controller {
 	 * @IsSubAdminExemption
 	 * @CSRFExemption
 	 * @Ajax
+	 * @API
 	 */
 	public function readAll() {
 		$userId = $this->api->getUserId();
@@ -227,6 +234,7 @@ class ItemAPI extends Controller {
 	 * @IsSubAdminExemption
 	 * @CSRFExemption
 	 * @Ajax
+	 * @API
 	 */
 	public function readMultiple() {
 		return $this->setMultipleRead(true);
@@ -238,6 +246,7 @@ class ItemAPI extends Controller {
 	 * @IsSubAdminExemption
 	 * @CSRFExemption
 	 * @Ajax
+	 * @API
 	 */
 	public function unreadMultiple() {
 		return $this->setMultipleRead(false);
@@ -266,6 +275,7 @@ class ItemAPI extends Controller {
 	 * @IsSubAdminExemption
 	 * @CSRFExemption
 	 * @Ajax
+	 * @API
 	 */
 	public function starMultiple() {
 		return $this->setMultipleStarred(true);
@@ -277,6 +287,7 @@ class ItemAPI extends Controller {
 	 * @IsSubAdminExemption
 	 * @CSRFExemption
 	 * @Ajax
+	 * @API
 	 */
 	public function unstarMultiple() {
 		return $this->setMultipleStarred(false);

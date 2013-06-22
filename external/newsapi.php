@@ -44,6 +44,7 @@ class NewsAPI extends Controller {
 	 * @IsSubAdminExemption
 	 * @CSRFExemption
 	 * @Ajax
+	 * @API
 	 */
 	public function version() {
 		$version = $this->api->getAppValue('installed_version');

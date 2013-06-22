@@ -80,7 +80,7 @@ class FolderAPITest extends ControllerTestUtility {
 
 	private function assertDefaultAnnotations($methodName){
 		$annotations = array('IsAdminExemption', 'IsSubAdminExemption',
-			'Ajax', 'CSRFExemption');
+			'Ajax', 'CSRFExemption', 'API');
 		$this->assertAnnotations($this->folderAPI, $methodName, $annotations);
 	}
 

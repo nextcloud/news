@@ -57,6 +57,7 @@ class FolderAPI extends Controller {
 	 * @IsSubAdminExemption
 	 * @CSRFExemption
 	 * @Ajax
+	 * @API
 	 */
 	public function getAll() {
 		$userId = $this->api->getUserId();
@@ -77,6 +78,7 @@ class FolderAPI extends Controller {
 	 * @IsSubAdminExemption
 	 * @CSRFExemption
 	 * @Ajax
+	 * @API
 	 */
 	public function create() {
 		$userId = $this->api->getUserId();
@@ -102,6 +104,7 @@ class FolderAPI extends Controller {
 	 * @IsAdminExemption
 	 * @IsSubAdminExemption
 	 * @CSRFExemption
+	 * @API
 	 * @Ajax
 	 */
 	public function delete() {
@@ -123,6 +126,7 @@ class FolderAPI extends Controller {
 	 * @IsSubAdminExemption
 	 * @CSRFExemption
 	 * @Ajax
+	 * @API
 	 */
 	public function update() {
 		$userId = $this->api->getUserId();
@@ -149,6 +153,7 @@ class FolderAPI extends Controller {
 	 * @IsSubAdminExemption
 	 * @CSRFExemption
 	 * @Ajax
+	 * @API
 	 */
 	public function read() {
 		$userId = $this->api->getUserId();

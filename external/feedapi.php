@@ -61,6 +61,7 @@ class FeedAPI extends Controller {
 	 * @IsSubAdminExemption
 	 * @CSRFExemption
 	 * @Ajax
+	 * @API
 	 */
 	public function getAll() {
 		$userId = $this->api->getUserId();
@@ -89,6 +90,7 @@ class FeedAPI extends Controller {
 	 * @IsSubAdminExemption
 	 * @CSRFExemption
 	 * @Ajax
+	 * @API
 	 */
 	public function create() {
 		$userId = $this->api->getUserId();
@@ -125,6 +127,7 @@ class FeedAPI extends Controller {
 	 * @IsSubAdminExemption
 	 * @CSRFExemption
 	 * @Ajax
+	 * @API
 	 */
 	public function delete() {
 		$userId = $this->api->getUserId();
@@ -145,6 +148,7 @@ class FeedAPI extends Controller {
 	 * @IsSubAdminExemption
 	 * @CSRFExemption
 	 * @Ajax
+	 * @API
 	 */
 	public function read() {
 		$userId = $this->api->getUserId();
@@ -161,6 +165,7 @@ class FeedAPI extends Controller {
 	 * @IsSubAdminExemption
 	 * @CSRFExemption
 	 * @Ajax
+	 * @API
 	 */
 	public function move() {
 		$userId = $this->api->getUserId();
