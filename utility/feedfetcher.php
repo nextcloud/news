@@ -120,16 +120,9 @@ class FeedFetcher implements IFeedFetcher {
 		$item->setGuid($guid);
 		$item->setGuidHash(md5($guid));
 		$item->setBody(str_replace('<a', '<a target="_blank"',
-		// escape XSS
-		$this->purifier->purify($simplePieItem->get_content())));
-
-		// pubdate is not required. if not given use the current date
-		$date = $simplePieItem->get_date('U');
-		if(!$date) {
-			$date = $this->time->getTime();
-		}
-
-		$item->setPubDate($date);
+			// escape XSS
+			$this->purifier->purify($simplePieItem->get_content())));
+		$item->setPubDate($simplePieItem->get_date('U'));
 		$item->setLastModified($this->time->getTime());
 
 		$author = $simplePieItem->get_author();
