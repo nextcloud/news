@@ -8,6 +8,8 @@ ownCloud-news (1.201)
 * Increased allowed feed timeout from 10 to 60 seconds
 * Make it possible for plugins to turn off mark read on scroll
 * Removed HTML Purifier unit tests which made it possible to trigger XSS using a crafted URL
+* Don't update existing articles anymore if the pubdate changes to prevent weird update behaviour
+* If articles dont provide a pubdate, use the date when the article was saved in the database
 
 ownCloud-news (1.001)
 * Also use monospace for pre tag

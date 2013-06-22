@@ -171,24 +171,7 @@ class FeedBusinessLayer extends BusinessLayer {
 					$item->setFeedId($existingFeed->getId());
 
 					try {
-						$existing = $this->itemMapper->findByGuidHash(
-							$item->getGuidHash(), $feedId, $userId);
-
-						// in case of an update the existing item has to be deleted
-						// if the pub_date changed because we sort by id on the
-						// client side since this is the only reliable way to do it
-						// to not get weird behaviour
-						if((int)$existing->getPubDate() !== (int)$item->getPubDate()){
-
-							// because the item is being replaced we need to keep
-							// status flags but we want the new entry to be unread
-							$item->setStatus($existing->getStatus());
-							$item->setUnread();
-
-							$this->itemMapper->delete($existing);
-							$this->itemMapper->insert($item);
-						}
-
+						$this->itemMapper->findByGuidHash($item->getGuidHash(), $feedId, $userId);
 					} catch(DoesNotExistException $ex){
 						$this->itemMapper->insert($item);
 					}
