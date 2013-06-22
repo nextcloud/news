@@ -161,7 +161,8 @@ class ItemBusinessLayer extends BusinessLayer {
 	 * @param string $userId the name of the user
 	 */
 	public function readAll($highestItemId, $userId){
-		$this->mapper->readAll($highestItemId, $userId);
+		$time = $this->timeFactory->getTime();
+		$this->mapper->readAll($highestItemId, $time, $userId);
 	}
 
 
@@ -173,7 +174,8 @@ class ItemBusinessLayer extends BusinessLayer {
 	 * @param string $userId the name of the user
 	 */
 	public function readFolder($folderId, $highestItemId, $userId){
-		$this->mapper->readFolder($folderId, $highestItemId, $userId);
+		$time = $this->timeFactory->getTime();
+		$this->mapper->readFolder($folderId, $highestItemId, $time, $userId);
 	}
 
 
@@ -185,7 +187,8 @@ class ItemBusinessLayer extends BusinessLayer {
 	 * @param string $userId the name of the user
 	 */
 	public function readFeed($feedId, $highestItemId, $userId){
-		$this->mapper->readFeed($feedId, $highestItemId, $userId);
+		$time = $this->timeFactory->getTime();
+		$this->mapper->readFeed($feedId, $highestItemId, $time, $userId);
 	}
 
 

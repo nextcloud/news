@@ -67,24 +67,24 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('typeToStatus')
 			->will($this->returnValue($this->status));
 		$this->threshold = 2;
-		$this->itemBusinessLayer = new ItemBusinessLayer($this->mapper, 
+		$this->itemBusinessLayer = new ItemBusinessLayer($this->mapper,
 			$statusFlag, $timeFactory, $this->threshold);
 		$this->user = 'jack';
 		$response = 'hi';
 		$this->id = 3;
 		$this->updatedSince = 20333;
-		$this->showAll = true;	
+		$this->showAll = true;
 		$this->offset = 5;
 		$this->limit = 20;
 		$this->newestItemId = 4;
 	}
 
-	
+
 	public function testFindAllNewFeed(){
 		$type = FeedType::FEED;
 		$this->mapper->expects($this->once())
 			->method('findAllNewFeed')
-			->with($this->equalTo($this->id), 
+			->with($this->equalTo($this->id),
 					$this->equalTo($this->updatedSince),
 					$this->equalTo($this->status),
 					$this->equalTo($this->user))
@@ -101,7 +101,7 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$type = FeedType::FOLDER;
 		$this->mapper->expects($this->once())
 			->method('findAllNewFolder')
-			->with($this->equalTo($this->id), 
+			->with($this->equalTo($this->id),
 					$this->equalTo($this->updatedSince),
 					$this->equalTo($this->status),
 					$this->equalTo($this->user))
@@ -134,7 +134,7 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$type = FeedType::FEED;
 		$this->mapper->expects($this->once())
 			->method('findAllFeed')
-			->with($this->equalTo($this->id), 
+			->with($this->equalTo($this->id),
 					$this->equalTo($this->limit),
 					$this->equalTo($this->offset),
 					$this->equalTo($this->status),
@@ -142,7 +142,7 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->will($this->returnValue($this->response));
 
 		$result = $this->itemBusinessLayer->findAll(
-			$this->id, $type, $this->limit, 
+			$this->id, $type, $this->limit,
 			$this->offset, $this->showAll,
 			$this->user);
 		$this->assertEquals($this->response, $result);
@@ -153,7 +153,7 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$type = FeedType::FOLDER;
 		$this->mapper->expects($this->once())
 			->method('findAllFolder')
-			->with($this->equalTo($this->id), 
+			->with($this->equalTo($this->id),
 					$this->equalTo($this->limit),
 					$this->equalTo($this->offset),
 					$this->equalTo($this->status),
@@ -161,7 +161,7 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->will($this->returnValue($this->response));
 
 		$result = $this->itemBusinessLayer->findAll(
-			$this->id, $type, $this->limit, 
+			$this->id, $type, $this->limit,
 			$this->offset, $this->showAll,
 			$this->user);
 		$this->assertEquals($this->response, $result);
@@ -179,7 +179,7 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->will($this->returnValue($this->response));
 
 		$result = $this->itemBusinessLayer->findAll(
-			$this->id, $type, $this->limit, 
+			$this->id, $type, $this->limit,
 			$this->offset, $this->showAll,
 			$this->user);
 		$this->assertEquals($this->response, $result);
@@ -204,7 +204,7 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 		$this->mapper->expects($this->once())
 			->method('findByGuidHash')
-			->with( 
+			->with(
 				$this->equalTo($guidHash),
 				$this->equalTo($feedId),
 				$this->equalTo($this->user))
@@ -231,7 +231,7 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$expectedItem->setStatus(128);
 		$expectedItem->setUnread();
 		$expectedItem->setId($itemId);
-		$expectedItem->setLastModified($this->time);		
+		$expectedItem->setLastModified($this->time);
 
 		$this->mapper->expects($this->once())
 			->method('find')
@@ -261,10 +261,11 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 	public function testReadAll(){
 		$highestItemId = 6;
-		
+
 		$this->mapper->expects($this->once())
 			->method('readAll')
-			->with($this->equalTo($highestItemId), 
+			->with($this->equalTo($highestItemId),
+				$this->equalTo($this->time),
 				$this->equalTo($this->user));
 
 		$this->itemBusinessLayer->readAll($highestItemId, $this->user);
@@ -274,11 +275,12 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 	public function testReadFolder(){
 		$folderId = 3;
 		$highestItemId = 6;
-		
+
 		$this->mapper->expects($this->once())
 			->method('readFolder')
-			->with($this->equalTo($folderId), 
-				$this->equalTo($highestItemId), 
+			->with($this->equalTo($folderId),
+				$this->equalTo($highestItemId),
+				$this->equalTo($this->time),
 				$this->equalTo($this->user));
 
 		$this->itemBusinessLayer->readFolder($folderId, $highestItemId, $this->user);
@@ -288,11 +290,12 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 	public function testReadFeed(){
 		$feedId = 3;
 		$highestItemId = 6;
-		
+
 		$this->mapper->expects($this->once())
 			->method('readFeed')
-			->with($this->equalTo($feedId), 
-				$this->equalTo($highestItemId), 
+			->with($this->equalTo($feedId),
+				$this->equalTo($highestItemId),
+				$this->equalTo($this->time),
 				$this->equalTo($this->user));
 
 		$this->itemBusinessLayer->readFeed($feedId, $highestItemId, $this->user);

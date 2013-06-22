@@ -34,7 +34,7 @@ class ItemMapper extends Mapper implements IMapper {
 	public function __construct(API $api){
 		parent::__construct($api, 'news_items');
 	}
-	
+
 
 	protected function findAllRows($sql, $params, $limit=null, $offset=null) {
 		$result = $this->execute($sql, $params, $limit, $offset);
@@ -44,25 +44,25 @@ class ItemMapper extends Mapper implements IMapper {
 		while($row = $result->fetchRow()){
 			$item = new Item();
 			$item->fromRow($row);
-			
+
 			array_push($items, $item);
 		}
 
 		return $items;
 	}
-	
+
 
 	private function makeSelectQuery($prependTo){
 		return 'SELECT `items`.* FROM `*PREFIX*news_items` `items` '.
 			'JOIN `*PREFIX*news_feeds` `feeds` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` '.
 				'AND `feeds`.`deleted_at` = 0 ' .
-				'AND `feeds`.`user_id` = ? ' . 
+				'AND `feeds`.`user_id` = ? ' .
 				$prependTo .
 			'LEFT OUTER JOIN `*PREFIX*news_folders` `folders` ' .
 				'ON `folders`.`id` = `feeds`.`folder_id` ' .
 			'WHERE `feeds`.`folder_id` = 0 ' .
-				'OR `folders`.`deleted_at` = 0 ' . 
+				'OR `folders`.`deleted_at` = 0 ' .
 			'ORDER BY `items`.`id` DESC';
 	}
 
@@ -81,22 +81,22 @@ class ItemMapper extends Mapper implements IMapper {
 		return $this->makeSelectQuery(
 
 			// WARNING: this is a desperate attempt at making this query work
-			// because prepared statements dont work. This is a possible 
+			// because prepared statements dont work. This is a possible
 			// SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
 			// think twice when changing this
 			'AND ((`items`.`status` & ' . $status . ') = ' . $status . ') ' .
 			$prependTo
 		);
 	}
-	
+
 
 	public function find($id, $userId){
 		$sql = $this->makeSelectQuery('AND `items`.`id` = ? ');
 		$row = $this->findOneQuery($sql, array($userId, $id));
-		
+
 		$item = new Item();
 		$item->fromRow($row);
-		
+
 		return $item;
 	}
 
@@ -107,10 +107,10 @@ class ItemMapper extends Mapper implements IMapper {
 				'ON `items`.`feed_id` = `feeds`.`id` ' .
 				'AND `feeds`.`user_id` = ? ' .
 			// WARNING: this is a desperate attempt at making this query work
-			// because prepared statements dont work. This is a possible 
+			// because prepared statements dont work. This is a possible
 			// SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
 			// think twice when changing this
-			'WHERE ((`items`.`status` & ' . StatusFlag::STARRED . ') = ' . 
+			'WHERE ((`items`.`status` & ' . StatusFlag::STARRED . ') = ' .
 				StatusFlag::STARRED . ')';
 
 		$params = array($userId);
@@ -121,45 +121,49 @@ class ItemMapper extends Mapper implements IMapper {
 	}
 
 
-	public function readAll($highestItemId, $userId) {
-		$sql = 'UPDATE `*PREFIX*news_items` ' . 
+	public function readAll($highestItemId, $time, $userId) {
+		$sql = 'UPDATE `*PREFIX*news_items` ' .
 			'SET `status` = `status` & ? ' .
+			'AND `last_modified` = ? ' .
 			'WHERE `feed_id` IN (' .
 				'SELECT `id` FROM `*PREFIX*news_feeds` ' .
 					'WHERE `user_id` = ? ' .
 				') '.
 			'AND `id` <= ?';
-		$params = array(~StatusFlag::UNREAD, $userId, $highestItemId);
+		$params = array(~StatusFlag::UNREAD, $time, $userId, $highestItemId);
 		$this->execute($sql, $params);
 	}
 
 
-	public function readFolder($folderId, $highestItemId, $userId) {
-		$sql = 'UPDATE `*PREFIX*news_items` ' . 
+	public function readFolder($folderId, $highestItemId, $time, $userId) {
+		$sql = 'UPDATE `*PREFIX*news_items` ' .
 			'SET `status` = `status` & ? ' .
+			'AND `last_modified` = ? ' .
 			'WHERE `feed_id` IN (' .
 				'SELECT `id` FROM `*PREFIX*news_feeds` ' .
 					'WHERE `folder_id` = ? ' .
 					'AND `user_id` = ? ' .
 				') '.
 			'AND `id` <= ?';
-		$params = array(~StatusFlag::UNREAD, $folderId, $userId, $highestItemId);
+		$params = array(~StatusFlag::UNREAD, $time, $folderId, $userId,
+			$highestItemId);
 		$this->execute($sql, $params);
 	}
 
 
-	public function readFeed($feedId, $highestItemId, $userId){
-		$sql = 'UPDATE `*PREFIX*news_items` ' . 
+	public function readFeed($feedId, $highestItemId, $time, $userId){
+		$sql = 'UPDATE `*PREFIX*news_items` ' .
 			'SET `status` = `status` & ? ' .
+			'AND `last_modified` = ? ' .
 				'WHERE `feed_id` = ? ' .
 				'AND `id` <= ? ' .
 				'AND EXISTS (' .
 					'SELECT * FROM `*PREFIX*news_feeds` ' .
 					'WHERE `user_id` = ? ' .
 					'AND `id` = ? ) ';
-		$params = array(~StatusFlag::UNREAD, $feedId, $highestItemId, $userId, 
-				$feedId);
-		
+		$params = array(~StatusFlag::UNREAD, $time, $feedId, $highestItemId,
+			$userId, $feedId);
+
 		$this->execute($sql, $params);
 	}
 
@@ -231,15 +235,15 @@ class ItemMapper extends Mapper implements IMapper {
 			'AND `items`.`guid_hash` = ? ' .
 			'AND `feeds`.`id` = ? ');
 		$row = $this->findOneQuery($sql, array($userId, $guidHash, $feedId));
-		
+
 		$item = new Item();
 		$item->fromRow($row);
-		
+
 		return $item;
 	}
 
 
-	/** 
+	/**
 	 * Delete all items for feeds that have over $threshold unread and not
 	 * starred items
 	 */
@@ -254,9 +258,9 @@ class ItemMapper extends Mapper implements IMapper {
 		$result = $this->execute($sql, $params);
 
 		while($row = $result->fetchRow()) {
-			
+
 			$limit = $threshold - $row['size'];
-			
+
 			if($limit > 0) {
 				$params = array($status, $row['feed_id']);
 
