@@ -3,6 +3,7 @@
 "Can not add feed: Exists already" => "No es posible agregar fuente: Ya existe",
 "Can not add feed: URL does not exist or has invalid xml" => "No es posible agregar fuente: No existe o tiene un xml inválido",
 "Can not add folder: Exists already" => "No es posible agregar carpeta: Ya existe",
+"Undo deletion of %s" => "Deshacer borrado de %s",
 "Add Website" => "Agregar sitio web",
 "Error: address exists already!" => "Error: ¡la dirección ya existe!",
 "Error: folder exists already" => "Error: ¡la carpeta ya existe!",
@@ -17,6 +18,7 @@
 "Starred" => "Favoritos",
 "Unread articles" => "Articulos sin leer",
 "All articles" => "Todos los articulos",
+"Mark read" => "Marcar como leído",
 "from" => "de",
 "by" => "por",
 "Cant play audio format" => "No se puede reproducir el formato de audio",
@@ -29,6 +31,9 @@
 "Import" => "Importar",
 "Export" => "Exportar",
 "Error when importing: file does not contain valid OPML" => "Error al importar: el archivo no contiene OPML válido",
+"Import Google Reader JSON" => "Importar JSON de Google Reader",
+"To import starred and shared articles from Google \n\t\t\tReader please upload the .json files from the Google Takeout archive" => "Para importar artículos favoritos y compartidos de Google Reader, cargá los archivos .json del archivo de Google Takeout",
+"Error when importing: file does not contain valid JSON" => "Error al importar: el archivo no contiene JSON válido",
 "Show all" => "Mostrar todo",
 "Show only unread" => "Mostrar únicamente los no leidos"
 );
