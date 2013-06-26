@@ -3,6 +3,7 @@
 "Can not add feed: Exists already" => "Vira ni mogoče dodati: ta že obstaja",
 "Can not add feed: URL does not exist or has invalid xml" => "Ni mogoče dodati vira: naslov URL ne obstaja ali pa je okvarjen zapis",
 "Can not add folder: Exists already" => "Ni mogoče dodati mape: mapa že obstaja.",
+"Undo deletion of %s" => "Prekliči izbris %s",
 "Add Website" => "Dodaj spletišče",
 "Error: address exists already!" => "Napaka: naslov že obstaja!",
 "Error: folder exists already" => "Napaka: mapa že obstaja!",
