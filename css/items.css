@@ -284,7 +284,8 @@
 			}
 
 		.feed_item .body blockquote {
-			border-left: 1px solid rgb(220,220,220);
+			border-left: 1px solid rgb(210,210,210);
+			margin: 25px 0;
 			padding: 0 0 0 15px;
 			font-style: italic;
 		}
