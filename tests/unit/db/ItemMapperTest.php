@@ -135,7 +135,7 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 	public function testReadAll(){
 		$sql = 'UPDATE `*PREFIX*news_items` ' .
 			'SET `status` = `status` & ? ' .
-			'AND `last_modified` = ? ' .
+			', `last_modified` = ? ' .
 			'WHERE `feed_id` IN (' .
 				'SELECT `id` FROM `*PREFIX*news_feeds` ' .
 					'WHERE `user_id` = ? ' .
@@ -150,7 +150,7 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 	public function testReadFolder(){
 		$sql = 'UPDATE `*PREFIX*news_items` ' .
 			'SET `status` = `status` & ? ' .
-			'AND `last_modified` = ? ' .
+			', `last_modified` = ? ' .
 			'WHERE `feed_id` IN (' .
 				'SELECT `id` FROM `*PREFIX*news_feeds` ' .
 					'WHERE `folder_id` = ? ' .
@@ -166,7 +166,7 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 	public function testReadFeed(){
 		$sql = 'UPDATE `*PREFIX*news_items` ' .
 			'SET `status` = `status` & ? ' .
-			'AND `last_modified` = ? ' .
+			', `last_modified` = ? ' .
 				'WHERE `feed_id` = ? ' .
 				'AND `id` <= ? ' .
 				'AND EXISTS (' .
