@@ -124,7 +124,7 @@ class ItemMapper extends Mapper implements IMapper {
 	public function readAll($highestItemId, $time, $userId) {
 		$sql = 'UPDATE `*PREFIX*news_items` ' .
 			'SET `status` = `status` & ? ' .
-			'AND `last_modified` = ? ' .
+			', `last_modified` = ? ' .
 			'WHERE `feed_id` IN (' .
 				'SELECT `id` FROM `*PREFIX*news_feeds` ' .
 					'WHERE `user_id` = ? ' .
@@ -138,7 +138,7 @@ class ItemMapper extends Mapper implements IMapper {
 	public function readFolder($folderId, $highestItemId, $time, $userId) {
 		$sql = 'UPDATE `*PREFIX*news_items` ' .
 			'SET `status` = `status` & ? ' .
-			'AND `last_modified` = ? ' .
+			', `last_modified` = ? ' .
 			'WHERE `feed_id` IN (' .
 				'SELECT `id` FROM `*PREFIX*news_feeds` ' .
 					'WHERE `folder_id` = ? ' .
@@ -154,7 +154,7 @@ class ItemMapper extends Mapper implements IMapper {
 	public function readFeed($feedId, $highestItemId, $time, $userId){
 		$sql = 'UPDATE `*PREFIX*news_items` ' .
 			'SET `status` = `status` & ? ' .
-			'AND `last_modified` = ? ' .
+			', `last_modified` = ? ' .
 				'WHERE `feed_id` = ? ' .
 				'AND `id` <= ? ' .
 				'AND EXISTS (' .
