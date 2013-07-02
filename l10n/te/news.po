@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# వీవెన్ <veeven@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-07-01 01:19+0200\n"
-"PO-Revision-Date: 2013-06-30 23:13+0000\n"
-"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"POT-Creation-Date: 2013-07-02 15:40+0200\n"
+"PO-Revision-Date: 2013-07-02 08:10+0000\n"
+"Last-Translator: వీవెన్ <veeven@gmail.com>\n"
 "Language-Team: Telugu (http://www.transifex.com/projects/p/owncloud/language/te/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +20,7 @@ msgstr ""
 
 #: appinfo/app.php:52
 msgid "News"
-msgstr ""
+msgstr "వార్తలు"
 
 #: businesslayer/feedbusinesslayer.php:86
 msgid "Can not add feed: Exists already"
@@ -52,7 +53,7 @@ msgstr ""
 
 #: templates/part.addnew.php:26
 msgid "Address"
-msgstr ""
+msgstr "చిరునామా"
 
 #: templates/part.addnew.php:30 templates/part.addnew.php:33
 msgid "Add"
@@ -60,11 +61,11 @@ msgstr "చేర్చు"
 
 #: templates/part.addnew.php:37 templates/part.addnew.php:45
 msgid "New folder"
-msgstr ""
+msgstr "కొత్త సంచయం"
 
 #: templates/part.addnew.php:38
 msgid "Folder"
-msgstr ""
+msgstr "సంచయం"
 
 #: templates/part.addnew.php:43
 msgid "Choose folder"
@@ -72,7 +73,7 @@ msgstr ""
 
 #: templates/part.addnew.php:55
 msgid "Folder name"
-msgstr ""
+msgstr "సంచయం పేరు"
 
 #: templates/part.addnew.php:58
 msgid "Back to folder selection"
@@ -88,11 +89,11 @@ msgstr ""
 
 #: templates/part.feed.unread.php:10
 msgid "Unread articles"
-msgstr ""
+msgstr "చదవని వ్యాసాలు"
 
 #: templates/part.feed.unread.php:17
 msgid "All articles"
-msgstr ""
+msgstr "అన్ని వ్యాసాలు"
 
 #: templates/part.feed.unread.php:26 templates/part.listfeed.php:49
 #: templates/part.listfolder.php:43
@@ -125,11 +126,11 @@ msgstr ""
 
 #: templates/part.listfolder.php:32 templates/part.listfolder.php:48
 msgid "Delete folder"
-msgstr ""
+msgstr "సంచయాన్ని తొలగించు"
 
 #: templates/part.listfolder.php:54
 msgid "Rename folder"
-msgstr ""
+msgstr "సంచయం పేరుమార్చు"
 
 #: templates/part.settings.php:13
 msgid "Import / Export OPML"
@@ -138,12 +139,12 @@ msgstr ""
 #: templates/part.settings.php:17 templates/part.settings.php:19
 #: templates/part.settings.php:47 templates/part.settings.php:49
 msgid "Import"
-msgstr ""
+msgstr "దిగుమతించు"
 
 #: templates/part.settings.php:23 templates/part.settings.php:27
 #: templates/part.settings.php:30 templates/part.settings.php:32
 msgid "Export"
-msgstr ""
+msgstr "ఎగుమతించు"
 
 #: templates/part.settings.php:36
 msgid "Error when importing: file does not contain valid OPML"
@@ -165,8 +166,8 @@ msgstr ""
 
 #: templates/part.showall.php:2
 msgid "Show all"
-msgstr ""
+msgstr "అన్నీ చూపించు"
 
 #: templates/part.showall.php:6
 msgid "Show only unread"
-msgstr ""
+msgstr "చదవనివి మాత్రమే చూపించు"
