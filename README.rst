@@ -149,9 +149,20 @@ Performance Notices
 -------------------
 * Use MySQL or PostgreSQL for better database performance
 
-Known Problems
---------------
-* **Feeds are not updated anymore**: `this is a bug in the core backgroundjob system <https://github.com/owncloud/core/issues/3221>`_ deleting the :file:`owncloud/data/cron.lock` file gets the cron back up running
+Frequent Problems
+-----------------
+
+Feeds are not updated anymore
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+`This is a bug in the core backgroundjob system <https://github.com/owncloud/core/issues/3221>`_ deleting the :file:`owncloud/data/cron.lock` file gets the cron back up running
+
+Feeds are not updated and theres no cron.lock
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Check if the cronjob exists with **crontab -u www-data -e** (replace www-data with your httpd user)
+* Check if the cronjob is ever executed by placing an **error_log('updating')** in the `background job file <https://github.com/owncloud/news/blob/master/backgroundjob/task.php#L37>`_. If the cronjob runs, there should be an updating log statement in your httpd log.
+* If there is no **updating** statement in your logs check if your cronjob is executed by executing a different script
+* If everything above failed, file a bug in `core <https://github.com/owncloud/core/>`_
+
 
 Configuration
 -------------
