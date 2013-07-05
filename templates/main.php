@@ -49,7 +49,7 @@
 			autopaging: isAutoPaging()
 		}"
 		ng-controller="ItemController"
-		news-item-scroll
+		news-item-scroll="true"
 		item-shortcuts
 		tabindex="-1">
 		<?php print_unescaped($this->inc("part.items")); ?>

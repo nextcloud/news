@@ -285,7 +285,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             setTimeout(function() {
               return scrolling = true;
             }, Config.ScrollTimeout);
-            if (markingRead) {
+            if (markingRead && elm.attr('news-item-scroll') === 'true') {
               markingRead = false;
               setTimeout(function() {
                 var $elems, feedItem, id, offset, _i, _len, _results;

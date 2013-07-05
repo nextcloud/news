@@ -37,7 +37,9 @@ angular.module('News').directive 'newsItemScroll', ['$rootScope', 'Config',
 					scrolling = true
 				, Config.ScrollTimeout
 
-				if markingRead
+				# dont scroll if the value is set to false or there is already
+				# a mark read request
+				if markingRead and elm.attr('news-item-scroll') == 'true'
 					markingRead = false
 					setTimeout ->
 						markingRead = true
