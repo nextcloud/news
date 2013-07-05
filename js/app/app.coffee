@@ -27,18 +27,18 @@ angular.module('News', ['OC', 'ui']).config ($provide) ->
 		markReadTimeout: 500
 		scrollTimeout: 500
 		feedUpdateInterval: 1000*60*3  # miliseconds
-		itemBatchSize: 20
+		itemBatchSize: 40
 		undoTimeout: 1000*10 # miliseconds
 		# the autoPageFactor defines how many articles must be left
 		# before it starts autopaging
-		autoPageFactor: 10
+		autoPageFactor: 30
 
 
 angular.module('News').run ['Persistence', 'Config',
 (Persistence, Config) ->
 
 	Persistence.init()
-	
+
 	setInterval ->
 		Persistence.getAllFeeds(null, false)
 		Persistence.getAllFolders(null, false)

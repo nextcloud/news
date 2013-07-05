@@ -41,9 +41,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
       markReadTimeout: 500,
       scrollTimeout: 500,
       feedUpdateInterval: 1000 * 60 * 3,
-      itemBatchSize: 20,
+      itemBatchSize: 40,
       undoTimeout: 1000 * 10,
-      autoPageFactor: 10
+      autoPageFactor: 30
     });
   });
 
