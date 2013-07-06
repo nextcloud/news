@@ -2,7 +2,6 @@ README
 ======
 |travis-ci|_
 
-
 The News app is a an RSS/Atom feed aggregator. It is based on the library SimplePie.
 
 .. |travis-ci| image:: https://travis-ci.org/DeepDiver1975/news.png
