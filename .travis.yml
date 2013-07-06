@@ -3,6 +3,8 @@ node_js:
   - "0.11"
   - "0.10"
 
+git:
+    depth: 0
 before_install: git clone https://github.com/owncloud/appframework
 
 script: make javascript-tests
