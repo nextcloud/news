@@ -6,6 +6,6 @@ node_js:
 git:
     depth: 0
 
-before_install: git clone https://github.com/owncloud/appframework
+before_install: cd ..; git clone https://github.com/owncloud/appframework; cd news
 
 script: make javascript-tests
