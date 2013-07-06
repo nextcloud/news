@@ -3,9 +3,9 @@ node_js:
   - "0.11"
   - "0.10"
 
-git:
-    depth: 0
+before_install: 
+  - cd ..; git clone https://github.com/owncloud/appframework; cd news
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
 
-before_install: cd ..; git clone https://github.com/owncloud/appframework; cd news
-
-script: make javascript-tests
+script: make tests
