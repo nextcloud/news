@@ -290,9 +290,6 @@
 			font-style: italic;
 		}
 
-	.feed_item .body > *:last-child {
-		margin-bottom: 0;
-	}
 
 /**
  * Line with utils at the bottom
