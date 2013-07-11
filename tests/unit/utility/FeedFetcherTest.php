@@ -43,6 +43,7 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 	private $time;
 	private $item;
 	private $purifier;
+	private $fetchTimeout;
 
 	// items
 	private $permalink;
@@ -91,12 +92,14 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 			->will($this->returnValue($this->time));
 		$this->cacheDuration = 100;
 		$this->cacheDirectory = 'dir/';
+		$this->fetchTimeout = 40;
 		$this->fetcher = new FeedFetcher($this->getAPIMock(),
 						 $this->coreFactory,
 						 $this->faviconFetcher,
 						 $timeFactory,
 						 $this->cacheDirectory,
 						 $this->cacheDuration,
+						 $this->fetchTimeout,
 						 $this->purifier);
 		$this->url = 'tests';
 
@@ -131,6 +134,9 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->core->expects($this->once())
 			->method('enable_cache')
 			->with($this->equalTo(true));
+		$this->core->expects($this->once())
+			->method('set_timeout')
+			->with($this->equalTo($this->fetchTimeout));
 		$this->core->expects($this->once())
 			->method('set_cache_location')
 			->with($this->equalTo($this->cacheDirectory));

@@ -76,6 +76,7 @@ class DIContainer extends BaseContainer {
 		                                        // undo actions
 		$this['autoPurgeCount'] = 200;  // number of allowed unread articles per feed
 		$this['simplePieCacheDuration'] = 30*60;  // seconds
+		$this['feedFetcherTimeout'] = 60; // seconds
 
 		$this['simplePieCacheDirectory'] = $this->share(function($c) {
 			$directory = $c['API']->getSystemValue('datadirectory') . 
@@ -242,6 +243,7 @@ class DIContainer extends BaseContainer {
 				$c['TimeFactory'],
 				$c['simplePieCacheDirectory'],
 				$c['simplePieCacheDuration'],
+				$c['feedFetcherTimeout'],
 				$c['HTMLPurifier']);
 		});
 

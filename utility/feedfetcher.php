@@ -41,6 +41,7 @@ class FeedFetcher implements IFeedFetcher {
 	private $cacheDuration;
 	private $faviconFetcher;
 	private $simplePieFactory;
+	private $fetchTimeout;
 	private $time;
 	private $purifier;
 
@@ -50,6 +51,7 @@ class FeedFetcher implements IFeedFetcher {
 				    TimeFactory $time,
 				    $cacheDirectory,
 				    $cacheDuration,
+				    $fetchTimeout,
 				    $purifier){
 		$this->api = $api;
 		$this->cacheDirectory = $cacheDirectory;
@@ -58,6 +60,7 @@ class FeedFetcher implements IFeedFetcher {
 		$this->simplePieFactory = $simplePieFactory;
 		$this->time = $time;
 		$this->purifier = $purifier;
+		$this->fetchTimeout = $fetchTimeout;
 	}
 
 
@@ -79,6 +82,7 @@ class FeedFetcher implements IFeedFetcher {
 		$simplePie = $this->simplePieFactory->getCore();
 		$simplePie->set_feed_url($url);
 		$simplePie->enable_cache(true);
+		$simplePie->set_timeout($this->fetchTimeout);
 		$simplePie->set_cache_location($this->cacheDirectory);
 		$simplePie->set_cache_duration($this->cacheDuration);
 
