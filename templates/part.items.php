@@ -19,7 +19,7 @@
 			</ul>
 		</div>
 
-		<h1 class="item_title">
+		<h1 class="item_title" title="{{ item.title|ocRemoveTags:['em', 'b', 'i'] }}">
 			<a ng-click="itemBusinessLayer.setRead(item.id)"
 				target="_blank" ng-href="{{ item.url|ocSanitizeURL }}">
 				{{ item.title|ocRemoveTags:['em', 'b', 'i'] }}
