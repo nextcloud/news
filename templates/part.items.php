@@ -2,7 +2,7 @@
 	<li class="feed_item"
 		ng-repeat="item in itemBusinessLayer.getAll() | orderBy:['-id'] "
 		ng-class="{ read: item.isRead() }"
-		data-id="{{ item.id }}"
+		data-id="{{ item.id }}">
 		<h2 class="item_date">
 			<span class="timeago" title="{{item.pubDate*1000|date:'dd-MM-yyyy'}}">
 				{{ getRelativeDate(item.pubDate) }}
@@ -19,7 +19,8 @@
 			</ul>
 		</div>
 
-		<h1 class="item_title" title="{{ item.title|ocRemoveTags:['em', 'b', 'i'] }}">
+		<h1 class="item_heading">{{ item.title|ocRemoveTags:['em', 'b', 'i'] }}</h1>
+		<h1 class="item_title">
 			<a ng-click="itemBusinessLayer.setRead(item.id)"
 				target="_blank" ng-href="{{ item.url|ocSanitizeURL }}">
 				{{ item.title|ocRemoveTags:['em', 'b', 'i'] }}

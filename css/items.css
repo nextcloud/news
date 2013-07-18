@@ -117,19 +117,26 @@
 		}
 
 	/**
+	 * Heading which is used for plugins only
+	 */
+	.feed_item .item_heading {
+		display: none;
+	}
+
+	/**
 	 * Feed title
 	 */
-	.feed_item h1.item_title {
+	.feed_item .item_title {
 		font-size: 19px;
 		margin: 0 182px 0 42px;
 		font-weight: bold;
 		word-wrap: break-word;
 	}
 
-		.feed_item h1.item_title a {
+		.feed_item .item_title a {
 			color: #222;
 		}
-			.feed_item h1.item_title a:hover {
+			.feed_item .item_title a:hover {
 				color: #222;
 				text-decoration: underline;
 			}
@@ -137,18 +144,18 @@
 	/**
 	 * Feed title when read
 	 */
-	.feed_item.read h1.item_title {
+	.feed_item.read .item_title {
 		font-weight: normal;
 	}
 
-		.feed_item.read h1.item_title a {
+		.feed_item.read .item_title a {
 			color: #888;
 		}
 
 	/**
 	 * Title of the feed to which the item belongs
 	 */
-	.feed_item h2.item_feed_title {
+	.feed_item .item_feed_title {
 		color: #aaa;
 		font-size: 15px;
 		margin-left: 42px;
@@ -157,17 +164,17 @@
 	/**
 	 * Author of the item
 	 */
-	.feed_item h2.item_author {
+	.feed_item .item_author {
 		color: #aaa;
 		font-size: 15px;
 		margin: 3px 0 0 42px;
 	}
 
-		.feed_item h2.item_author a {
+		.feed_item .item_author a {
 			color: inherit;
 		}
 
-			.feed_item h2.item_author a:hover {
+			.feed_item .item_author a:hover {
 				text-decoration: underline;
 			}
 
