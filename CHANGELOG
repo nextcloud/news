@@ -1,10 +1,13 @@
-ownCloud-news (1.101)
+ownCloud-news (1.201)
 * Add shortcut 'o' which opens the current article in a new tab
-* Speed up updating of feeds by more than 100%
+* Speed up updating of feeds by more than 100% by not fetching favicons and unneeded https/http variants
 * Moved to new RESTful API to fix API bugs
 * Fix bug that wouldnt mark items as read if they were set read in a folder, feed or all read request
 * Style blockquotes
-* Use current date if no date is given in the feed
+* Fixed small CSS bug that would remove the bottom margin of every last element
+* Increased allowed feed timeout from 10 to 60 seconds
+* Make it possible for plugins to turn off mark read on scroll
+* Removed HTML Purifier unit tests which made it possible to trigger XSS using a crafted URL
 
 ownCloud-news (1.001)
 * Also use monospace for pre tag
