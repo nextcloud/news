@@ -154,7 +154,7 @@ Unofficial
 * **Link (source)**: `iOCNews <https://github.com/phedlund/iOCNews>`_
 * **Apple App Store**: coming soon
 * **Bugtracker**: `https://github.com/phedlund/iOCNews/issues <https://github.com/phedlund/iOCNews/issues>`_
-
+* **License**: BSD
 
 Desktop Clients
 ---------------
