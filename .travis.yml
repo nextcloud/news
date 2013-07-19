@@ -1,9 +1,14 @@
-language: node_js
-node_js:
-  - "0.10"
+language: php
+php:
+  - 5.3
+  - 5.4
 
 before_install:
   - cd ..; git clone https://github.com/owncloud/appframework; cd news
 
 script:
+  - sudo add-apt-repository ppa:chris-lea/node.js
+  - sudo apt-get update
+  - sudo apt-get upgrade -y
+  - make unit-tests
   - make javascript-tests
