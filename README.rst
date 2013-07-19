@@ -146,6 +146,15 @@ Unofficial
 * **Blackberry World**: coming soon
 * **License**: GPL
 
+----------------
+
+* **Platform**: iOS (only iPad support for now)
+* **Status**: In development
+* **Author**: `Peter Hedlund <http://peterandlinda.com/>`_
+* **Link (source)**: `iOCNews <https://github.com/phedlund/iOCNews>`_
+* **Apple App Store**: coming soon
+* **Bugtracker**: `https://github.com/phedlund/iOCNews/issues <https://github.com/phedlund/iOCNews/issues>`_
+
 
 Desktop Clients
 ---------------
