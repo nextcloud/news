@@ -21,7 +21,6 @@
 "Mark read" => "Marca com a llegit",
 "from" => "des de",
 "by" => "per",
-"Cant play audio format" => "No es pot reproduïr format d'àudio",
 "Keep unread" => "Mantén com a sense llegir",
 "Delete website" => "Elimina pàgina web",
 "Collapse" => "Col·lapsa",

@@ -9,7 +9,6 @@
 "Unread articles" => "Nelasītie raksti",
 "All articles" => "Visi raksti",
 "by" => "līdz",
-"Cant play audio format" => "Nevar atskaņot audio formātu",
 "Keep unread" => "Atstāt nelasītu",
 "Collapse" => "Sakļaut",
 "Delete folder" => "Dzēst mapi",

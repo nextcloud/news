@@ -19,7 +19,6 @@
 "All articles" => "Всі статті",
 "from" => "З",
 "by" => "по",
-"Cant play audio format" => "Неможливо програти цей формат аудіо",
 "Keep unread" => "Залишити непрочитаним",
 "Delete website" => "Видалити Web-сайт",
 "Collapse" => "Згорнути",

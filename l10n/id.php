@@ -12,7 +12,6 @@
 "All articles" => "Semua artikel",
 "from" => "dari",
 "by" => "oleh",
-"Cant play audio format" => "Tidak dapat memainkan format audio",
 "Keep unread" => "Biarkan belum terbaca",
 "Collapse" => "Tutup",
 "Delete folder" => "Hapus map",

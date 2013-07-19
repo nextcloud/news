@@ -21,7 +21,6 @@
 "Mark read" => "Markeer als gelezen",
 "from" => "van",
 "by" => "door",
-"Cant play audio format" => "Kan audiobestandsformaat niet afspelen",
 "Keep unread" => "Bewaar ongelezen",
 "Delete website" => "Verwijder website",
 "Collapse" => "Inklappen",

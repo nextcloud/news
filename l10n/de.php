@@ -21,7 +21,6 @@
 "Mark read" => "Als gelesen markieren",
 "from" => "von",
 "by" => "von",
-"Cant play audio format" => "Audioformat kann nicht wiedergegeben werden",
 "Keep unread" => "Ungelesenes behalten",
 "Delete website" => "Webseite löschen",
 "Collapse" => "Zuklappen",

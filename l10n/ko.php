@@ -21,7 +21,6 @@
 "Mark read" => "읽은 것으로 표시",
 "from" => "원본 사이트",
 "by" => "작성:",
-"Cant play audio format" => "오디오 포맷을 재생할 수 없습니다.",
 "Keep unread" => "읽지 않은 글로 두기",
 "Delete website" => "웹 사이트 삭제",
 "Collapse" => "접기",

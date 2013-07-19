@@ -14,7 +14,6 @@
 "Mark read" => "Markatu irakurrita gisa",
 "from" => "lekua",
 "by" => " Egilea:",
-"Cant play audio format" => "Ezin da audio formatua erreproduzitu",
 "Keep unread" => "Mantendu irakurri gabea",
 "Collapse" => "Tolestu",
 "Delete folder" => "Ezabatu karpeta",

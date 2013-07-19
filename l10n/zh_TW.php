@@ -21,7 +21,6 @@
 "Mark read" => "標記成已讀",
 "from" => "從",
 "by" => "由",
-"Cant play audio format" => "無法播放音頻格式",
 "Keep unread" => "保持未閱讀",
 "Delete website" => "刪除網站",
 "Collapse" => "收合",

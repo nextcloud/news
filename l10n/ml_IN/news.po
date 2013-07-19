@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-07-06 01:03+0200\n"
-"PO-Revision-Date: 2013-07-05 08:25+0000\n"
+"POT-Creation-Date: 2013-07-19 01:17-0400\n"
+"PO-Revision-Date: 2013-07-19 05:17+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Malayalam (India) (http://www.transifex.com/projects/p/owncloud/language/ml_IN/)\n"
 "MIME-Version: 1.0\n"
@@ -99,16 +99,16 @@ msgstr ""
 msgid "Mark read"
 msgstr ""
 
-#: templates/part.items.php:31
+#: templates/part.items.php:32
 msgid "from"
 msgstr ""
 
-#: templates/part.items.php:36
+#: templates/part.items.php:37
 msgid "by"
 msgstr ""
 
 #: templates/part.items.php:44
-msgid "Cant play audio format"
+msgid "Download"
 msgstr ""
 
 #: templates/part.items.php:57

@@ -21,7 +21,6 @@
 "Mark read" => "Okumus noktamak ",
 "from" => "dan ",
 "by" => "tarafından",
-"Cant play audio format" => "ses dosyası formatı çalınamıyor",
 "Keep unread" => "Okunmamış bırak",
 "Delete website" => "web sitesi silmek ",
 "Collapse" => "çökme",

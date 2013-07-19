@@ -21,7 +21,6 @@
 "Mark read" => "Označiť ako prečítané",
 "from" => "z",
 "by" => "od",
-"Cant play audio format" => "Nemožno prehrať tento zvukový formát",
 "Keep unread" => "Ponechať neprečítané",
 "Delete website" => "Zmazať webstránku",
 "Collapse" => "Zvinúť",

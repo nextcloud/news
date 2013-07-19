@@ -21,7 +21,6 @@
 "Mark read" => "علامت خوانده شده",
 "from" => "از",
 "by" => "با",
-"Cant play audio format" => "فرمت های صوتی را نمی تواند پخش کند.",
 "Keep unread" => "خوانده نشده ",
 "Delete website" => "پاک کردن سایت",
 "Collapse" => "فروکش  کردن",

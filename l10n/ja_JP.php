@@ -21,7 +21,6 @@
 "Mark read" => "既読としてマーク",
 "from" => "から",
 "by" => "により",
-"Cant play audio format" => "音声フォーマットを再生できません",
 "Keep unread" => "未読のままにする",
 "Delete website" => "ウェブサイトを削除",
 "Collapse" => "折りたたむ",

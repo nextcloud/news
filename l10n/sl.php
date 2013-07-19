@@ -21,7 +21,6 @@
 "Mark read" => "Označi kot prebrano",
 "from" => "od",
 "by" => "od",
-"Cant play audio format" => "Zvočnega zapisa ni mogoče predvajati",
 "Keep unread" => "Ohrani neprebrano",
 "Delete website" => "Izbriši spletišče",
 "Collapse" => "Skrči",
