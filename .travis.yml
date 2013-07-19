@@ -9,6 +9,6 @@ before_install:
 script:
   - sudo add-apt-repository -y ppa:chris-lea/node.js
   - sudo apt-get update
-  - sudo -y apt-get upgrade
+  - sudo apt-get -y upgrade
   - make unit-tests
   - make javascript-tests
