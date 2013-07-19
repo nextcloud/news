@@ -275,7 +275,7 @@ $this->create('news_api_feeds_get_all', '/api/v1-2/feeds')->get()->action(
 	}
 );
 
-$this->create('news_api_feeds_create', '/api/v1-2/feeds/{feedId}')->post()->action(
+$this->create('news_api_feeds_create', '/api/v1-2/feeds')->post()->action(
 	function($params) {
 		return App::main('FeedAPI', 'create', $params, new DIContainer());
 	}
