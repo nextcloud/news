@@ -119,6 +119,10 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->authorMail = 'doe@joes.com';
 	}
 
+	public function testFail() {
+		$this->assertFalse(true);
+	}
+
 
 	public function testCanHandle(){
 		$url = 'google.de';
