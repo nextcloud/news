@@ -21,6 +21,7 @@
 "Mark read" => "Okumus noktamak ",
 "from" => "dan ",
 "by" => "tarafından",
+"Download" => "İndir",
 "Keep unread" => "Okunmamış bırak",
 "Delete website" => "web sitesi silmek ",
 "Collapse" => "çökme",

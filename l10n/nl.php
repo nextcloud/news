@@ -21,6 +21,7 @@
 "Mark read" => "Markeer als gelezen",
 "from" => "van",
 "by" => "door",
+"Download" => "Downloaden",
 "Keep unread" => "Bewaar ongelezen",
 "Delete website" => "Verwijder website",
 "Collapse" => "Inklappen",

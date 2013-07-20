@@ -21,6 +21,7 @@
 "Mark read" => "Jelöljük meg olvasottként",
 "from" => "innen:",
 "by" => "általa:",
+"Download" => "Letöltés",
 "Keep unread" => "Maradjon olvasatlan",
 "Delete website" => "A honlap törlése",
 "Collapse" => "Összecsukás",

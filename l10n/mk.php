@@ -8,6 +8,7 @@
 "Starred" => "Со ѕвезда",
 "from" => "од",
 "by" => "од",
+"Download" => "Преземи",
 "Keep unread" => "Чувај непрочитано",
 "Delete folder" => "Избриши папка",
 "Rename folder" => "Преименувај папка",

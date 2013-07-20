@@ -21,6 +21,7 @@
 "Mark read" => "읽은 것으로 표시",
 "from" => "원본 사이트",
 "by" => "작성:",
+"Download" => "다운로드",
 "Keep unread" => "읽지 않은 글로 두기",
 "Delete website" => "웹 사이트 삭제",
 "Collapse" => "접기",

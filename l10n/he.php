@@ -7,6 +7,7 @@
 "Folder name" => "שם התיקייה",
 "Starred" => "מסומן",
 "by" => "על ידי",
+"Download" => "הורדה",
 "Keep unread" => "סמן כלא נקרא",
 "Delete folder" => "מחק תיקייה",
 "Rename folder" => "שנה שם תיקייה",

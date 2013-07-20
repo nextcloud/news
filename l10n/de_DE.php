@@ -21,6 +21,7 @@
 "Mark read" => "Als gelesen markieren",
 "from" => "von",
 "by" => "von",
+"Download" => "Herunterladen",
 "Keep unread" => "Ungelesenes behalten",
 "Delete website" => "Webseite löschen",
 "Collapse" => "Zuklappen",

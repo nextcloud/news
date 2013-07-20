@@ -19,6 +19,7 @@
 "All articles" => "Всі статті",
 "from" => "З",
 "by" => "по",
+"Download" => "Завантажити",
 "Keep unread" => "Залишити непрочитаним",
 "Delete website" => "Видалити Web-сайт",
 "Collapse" => "Згорнути",

@@ -21,6 +21,7 @@
 "Mark read" => "Označi kot prebrano",
 "from" => "od",
 "by" => "od",
+"Download" => "Prejmi",
 "Keep unread" => "Ohrani neprebrano",
 "Delete website" => "Izbriši spletišče",
 "Collapse" => "Skrči",

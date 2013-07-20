@@ -21,6 +21,7 @@
 "Mark read" => "Marcar como lido",
 "from" => "desde",
 "by" => "por",
+"Download" => "Descargar",
 "Keep unread" => "Manter sen ler",
 "Delete website" => "Eliminar o sitio web",
 "Collapse" => "Repregar",

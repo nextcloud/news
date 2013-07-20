@@ -14,6 +14,7 @@
 "All articles" => "Alle artikler",
 "from" => "fra",
 "by" => "af",
+"Download" => "Download",
 "Keep unread" => "Behold ulæste",
 "Delete website" => "Slet hjemmeside",
 "Collapse" => "Sammenfold",

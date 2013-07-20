@@ -7,6 +7,7 @@
 "Starred" => "Marcat",
 "from" => "de la",
 "by" => "după",
+"Download" => "Descarcă",
 "Keep unread" => "Păstrează necitite",
 "Collapse" => "Restrânge",
 "Delete folder" => "Șterge director",

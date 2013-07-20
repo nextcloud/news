@@ -21,6 +21,7 @@
 "Mark read" => "Märgi loetuks",
 "from" => "kohast",
 "by" => "lisas",
+"Download" => "Lae alla",
 "Keep unread" => "Hoia kui lugemata",
 "Delete website" => "Kustuta veebileht",
 "Collapse" => "Sulge",

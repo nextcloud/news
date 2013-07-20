@@ -10,6 +10,7 @@
 "All articles" => "Alle artikler",
 "from" => "fra",
 "by" => "av",
+"Download" => "Last ned",
 "Keep unread" => "Merk som ulest",
 "Collapse" => "Skjul",
 "Delete folder" => "Slett mappe",

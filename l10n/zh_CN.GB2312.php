@@ -6,6 +6,7 @@
 "Folder name" => "文件夹名",
 "Starred" => "红心",
 "by" => "由",
+"Download" => "下载",
 "Keep unread" => "保持未读",
 "Collapse" => "收缩",
 "Delete folder" => "删除文件夹",

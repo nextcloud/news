@@ -6,6 +6,7 @@
 "Folder name" => "ෆොල්ඩරයේ නම",
 "Starred" => "තරු දැමු",
 "by" => "විසින්",
+"Download" => "බාන්න",
 "Keep unread" => "නොකියවුදේ තබාගන්න",
 "Collapse" => "හකුළන්න",
 "Delete folder" => "ෆොල්ඩරය මකන්න",

@@ -21,6 +21,7 @@
 "Mark read" => "Oznacz jako przeczytane",
 "from" => "z",
 "by" => "przez",
+"Download" => "Pobierz",
 "Keep unread" => "Pozostaw nieprzeczytane",
 "Delete website" => "Usuń adres strony",
 "Collapse" => "Zwiń",

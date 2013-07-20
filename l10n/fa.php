@@ -21,6 +21,7 @@
 "Mark read" => "علامت خوانده شده",
 "from" => "از",
 "by" => "با",
+"Download" => "دانلود",
 "Keep unread" => "خوانده نشده ",
 "Delete website" => "پاک کردن سایت",
 "Collapse" => "فروکش  کردن",

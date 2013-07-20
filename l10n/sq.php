@@ -2,5 +2,6 @@
 "News" => "Lajme",
 "Address" => "Adresa",
 "Add" => "Shto",
-"Folder" => "Dosje"
+"Folder" => "Dosje",
+"Download" => "Shkarko"
 );

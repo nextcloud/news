@@ -9,6 +9,7 @@
 "Unread articles" => "Nelasītie raksti",
 "All articles" => "Visi raksti",
 "by" => "līdz",
+"Download" => "Lejupielādēt",
 "Keep unread" => "Atstāt nelasītu",
 "Collapse" => "Sakļaut",
 "Delete folder" => "Dzēst mapi",

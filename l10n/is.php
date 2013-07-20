@@ -8,6 +8,7 @@
 "Starred" => "Stjörnumerkt",
 "from" => "frá",
 "by" => "af",
+"Download" => "Niðurhal",
 "Keep unread" => "Halda sem ólesnu",
 "Collapse" => "Fletja út",
 "Delete folder" => "Eyða möppu",

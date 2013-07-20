@@ -5,6 +5,7 @@
 "Folder" => "Katalogas",
 "Folder name" => "Katalogo pavadinimas",
 "by" => " ",
+"Download" => "Atsisiųsti",
 "Delete folder" => "Ištrinti katalogą",
 "Rename folder" => "Pervadinti katalogą",
 "Import" => "Importuoti",

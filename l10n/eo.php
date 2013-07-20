@@ -21,6 +21,7 @@
 "Mark read" => "Marki kiel legita",
 "from" => "el",
 "by" => "de",
+"Download" => "Elŝuti",
 "Keep unread" => "Lasi legota",
 "Delete website" => "Forigi TTT-ejon",
 "Collapse" => "Maletendi",

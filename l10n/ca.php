@@ -21,6 +21,7 @@
 "Mark read" => "Marca com a llegit",
 "from" => "des de",
 "by" => "per",
+"Download" => "Baixa",
 "Keep unread" => "Mantén com a sense llegir",
 "Delete website" => "Elimina pàgina web",
 "Collapse" => "Col·lapsa",

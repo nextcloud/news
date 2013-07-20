@@ -21,6 +21,7 @@
 "Mark read" => "Merkitse luetuksi",
 "from" => "Syöte:",
 "by" => " Kirjoittaja:",
+"Download" => "Lataa",
 "Keep unread" => "Pidä lukemattomana",
 "Delete website" => "Poista verkkosivusto",
 "Collapse" => "Kutista näkymää",

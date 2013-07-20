@@ -21,6 +21,7 @@
 "Mark read" => "Označit jako přečtené",
 "from" => "z",
 "by" => "sdílí",
+"Download" => "Stáhnout",
 "Keep unread" => "Ponechat nepřečteno",
 "Delete website" => "Smazat webovou stránku",
 "Collapse" => "Svinout",

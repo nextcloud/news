@@ -12,6 +12,7 @@
 "All articles" => "Semua artikel",
 "from" => "dari",
 "by" => "oleh",
+"Download" => "Unduh",
 "Keep unread" => "Biarkan belum terbaca",
 "Collapse" => "Tutup",
 "Delete folder" => "Hapus map",

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-07-19 01:17-0400\n"
-"PO-Revision-Date: 2013-07-19 05:17+0000\n"
+"POT-Creation-Date: 2013-07-20 01:17-0400\n"
+"PO-Revision-Date: 2013-07-19 05:30+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Tamil (Sri-Lanka) (http://www.transifex.com/projects/p/owncloud/language/ta_LK/)\n"
 "MIME-Version: 1.0\n"
@@ -110,7 +110,7 @@ msgstr "மூலம்"
 
 #: templates/part.items.php:44
 msgid "Download"
-msgstr ""
+msgstr "பதிவிறக்குக"
 
 #: templates/part.items.php:57
 msgid "Keep unread"

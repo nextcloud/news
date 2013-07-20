@@ -14,6 +14,7 @@
 "Mark read" => "Markatu irakurrita gisa",
 "from" => "lekua",
 "by" => " Egilea:",
+"Download" => "Deskargatu",
 "Keep unread" => "Mantendu irakurri gabea",
 "Collapse" => "Tolestu",
 "Delete folder" => "Ezabatu karpeta",

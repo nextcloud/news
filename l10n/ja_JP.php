@@ -21,6 +21,7 @@
 "Mark read" => "既読としてマーク",
 "from" => "から",
 "by" => "により",
+"Download" => "ダウンロード",
 "Keep unread" => "未読のままにする",
 "Delete website" => "ウェブサイトを削除",
 "Collapse" => "折りたたむ",
