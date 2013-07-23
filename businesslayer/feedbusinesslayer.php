@@ -118,7 +118,7 @@ class FeedBusinessLayer extends BusinessLayer {
 
 			return $feed;
 		} catch(FetcherException $ex){
-			$this->api->log($ex->getMessage());
+			$this->api->log($ex->getMessage(), 'debug');
 			throw new BusinessLayerException(
 				$this->api->getTrans()->t(
 					'Can not add feed: URL does not exist or has invalid xml'));
@@ -136,7 +136,8 @@ class FeedBusinessLayer extends BusinessLayer {
 			try {
 				$this->update($feed->getId(), $feed->getUserId());
 			} catch(BusinessLayerException $ex){
-				$this->api->log('Could not update feed ' . $ex->getMessage());
+				$this->api->log('Could not update feed ' . $ex->getMessage(),
+					'debug');
 			}
 		}
 	}
@@ -180,8 +181,8 @@ class FeedBusinessLayer extends BusinessLayer {
 			} catch(FetcherException $ex){
 				// failed updating is not really a problem, so only log it
 				$this->api->log('Can not update feed with url ' . $existingFeed->getUrl() .
-					': Not found or bad source');
-				$this->api->log($ex->getMessage());
+					': Not found or bad source', 'debug');
+				$this->api->log($ex->getMessage(), 'debug');
 			}
 
 			return $this->mapper->find($feedId, $userId);

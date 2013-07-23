@@ -1,5 +1,6 @@
 ownCloud-news (1.202)
 * Fixed a bug in the API routes that would request an uneeded id when creating a feed
+* Log unimportant errors on debug level instead of error level
 
 ownCloud-news (1.201)
 * Add shortcut 'o' which opens the current article in a new tab
