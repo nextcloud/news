@@ -2,7 +2,7 @@ README
 ======
 |travis-ci|_
 
-The News app is a an RSS/Atom feed aggregator. It is based on the library SimplePie.
+The News app is a an RSS/Atom feed aggregator. It offers a [RESTful API](https://github.com/owncloud/news/wiki/API-1.2) for app developers. The source code is [available on GitHub](https://github.com/owncloud/news)
 
 .. |travis-ci| image:: https://travis-ci.org/owncloud/news.png
 .. _travis-ci: https://travis-ci.org/owncloud/news
