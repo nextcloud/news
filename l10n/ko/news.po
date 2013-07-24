@@ -7,14 +7,14 @@
 # 남자사람 <cessnagi@gmail.com>, 2012
 # Shinjo Park <kde@peremen.name>, 2013
 # Shinjo Park <kde@peremen.name>, 2012-2013
-# ujuc Gang <potopro@gmail.com>, 2013
-# ujuc Gang <potopro@gmail.com>, 2013
+# Sungjin Gang <potopro@gmail.com>, 2013
+# Sungjin Gang <potopro@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-07-23 01:01-0400\n"
-"PO-Revision-Date: 2013-07-22 05:23+0000\n"
+"POT-Creation-Date: 2013-07-24 01:02-0400\n"
+"PO-Revision-Date: 2013-07-23 05:03+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Korean (http://www.transifex.com/projects/p/owncloud/language/ko/)\n"
 "MIME-Version: 1.0\n"
