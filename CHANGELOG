@@ -1,5 +1,5 @@
 owncloud-news (1.203)
-* Decode the title twice to fix stupid feed authors' mistakes
+* Decode the title twice to fix special characters in HTML content in the title, author and email
 
 ownCloud-news (1.202)
 * Fixed a bug in the API routes that would request an uneeded id when creating a feed
