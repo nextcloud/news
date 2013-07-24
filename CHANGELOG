@@ -1,3 +1,6 @@
+owncloud-news (1.203)
+* Decode the title twice to fix stupid feed authors' mistakes
+
 ownCloud-news (1.202)
 * Fixed a bug in the API routes that would request an uneeded id when creating a feed
 * Log unimportant errors on debug level instead of error level

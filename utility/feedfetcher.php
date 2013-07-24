@@ -118,8 +118,13 @@ class FeedFetcher implements IFeedFetcher {
 		$item->setUrl(html_entity_decode($simplePieItem->get_permalink(),
 			ENT_COMPAT, 'UTF-8'));
 		// unescape content because angularjs helps against XSS
-		$item->setTitle(html_entity_decode($simplePieItem->get_title(),
-			ENT_COMPAT, 'UTF-8'));
+		// unescape again to clean up fucktard's RSS feeds who escape twice
+		// (I'm looking at you slashdot)
+		$item->setTitle(
+			html_entity_decode(
+				html_entity_decode($simplePieItem->get_title(), ENT_COMPAT, 'UTF-8'), 
+			ENT_COMPAT, 'UTF-8')
+		);
 		$guid = $simplePieItem->get_id();
 		$item->setGuid($guid);
 		$item->setGuidHash(md5($guid));
