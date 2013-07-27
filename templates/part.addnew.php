@@ -11,7 +11,7 @@
 		}">+ <span><?php p($l->t('Add Website'))?></span></a>
 	<div class="add-new-popup">
 		<fieldset class="personalblock">
-			<p class="error">
+			<p class="error" ng-show="feedExistsError || folderExistsError">
 				<span ng-show="feedExistsError">
 					<?php p($l->t('Error: address exists already!')); ?>
 				</span>
