@@ -181,7 +181,7 @@ All feeds are not updated and theres no cron.lock
 
 Configuration
 -------------
-This will be in a seperate config file in the future but for now you can tweak the folowing things. 
+This will be in a separate config file in the future but for now you can tweak the following things. 
 
 :file:`dependencyinjection/dicontainer.php`
 
