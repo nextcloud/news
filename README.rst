@@ -148,8 +148,8 @@ Unofficial
 
 ----------------
 
-* **Platform**: iOS (only iPad support for now)
-* **Status**: In development
+* **Platform**: iOS
+* **Status**: Beta
 * **Author**: `Peter Hedlund <http://peterandlinda.com/>`_
 * **Link (source)**: `iOCNews <https://github.com/phedlund/iOCNews>`_
 * **Apple App Store**: coming soon
