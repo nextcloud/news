@@ -148,8 +148,8 @@ Unofficial
 
 ----------------
 
-* **Platform**: iOS (only iPad support for now)
-* **Status**: In development
+* **Platform**: iOS
+* **Status**: Beta
 * **Author**: `Peter Hedlund <http://peterandlinda.com/>`_
 * **Link (source)**: `iOCNews <https://github.com/phedlund/iOCNews>`_
 * **Apple App Store**: coming soon
@@ -181,7 +181,7 @@ All feeds are not updated and theres no cron.lock
 
 Configuration
 -------------
-This will be in a seperate config file in the future but for now you can tweak the folowing things. 
+This will be in a separate config file in the future but for now you can tweak the following things. 
 
 :file:`dependencyinjection/dicontainer.php`
 
