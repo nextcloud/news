@@ -26,13 +26,14 @@ angular.module('News').directive 'newsClickScroll', ['$timeout', ($timeout) ->
 		elm.click ->
 			scrollArea = $(options.scrollArea)
 			direction = options.direction
-			if direction == 'top'
-				scrollPosition = 0
-			else
-				scrollPosition = scrollArea[0].scrollHeight
 
 			# do this to execute after rendering
 			$timeout ->
+				if direction == 'top'
+					scrollPosition = 0
+				else
+					scrollPosition = scrollArea.prop('scrollHeight')
+
 				scrollArea.scrollTop(scrollPosition)
 			, 10
 ]

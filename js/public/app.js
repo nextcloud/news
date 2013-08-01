@@ -327,15 +327,16 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         var options;
         options = scope.$eval(attr.newsClickScroll);
         return elm.click(function() {
-          var direction, scrollArea, scrollPosition;
+          var direction, scrollArea;
           scrollArea = $(options.scrollArea);
           direction = options.direction;
-          if (direction === 'top') {
-            scrollPosition = 0;
-          } else {
-            scrollPosition = scrollArea[0].scrollHeight;
-          }
           return $timeout(function() {
+            var scrollPosition;
+            if (direction === 'top') {
+              scrollPosition = 0;
+            } else {
+              scrollPosition = scrollArea.prop('scrollHeight');
+            }
             return scrollArea.scrollTop(scrollPosition);
           }, 10);
         });

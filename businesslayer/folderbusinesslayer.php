@@ -103,6 +103,7 @@ class FolderBusinessLayer extends BusinessLayer {
 	 * @param string $folderName the new name of the folder
 	 * @param string $userId the name of the user for security reasons
 	 * @throws BusinessLayerExistsException if name exists already
+	 * @throws BusinessLayerInvalidParameterException if the foldername is invalid
 	 * @throws BusinessLayerException if the folder does not exist
 	 * @return Folder the updated folder
 	 */
