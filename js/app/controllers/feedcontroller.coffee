@@ -75,7 +75,7 @@ ActiveFeed, FeedType, $window) ->
 
 			@_$scope.addFeed = (feedUrl, parentFolderId=0) =>
 				@_$scope.feedExistsError = false
-				
+
 				try
 					@_isAddingFeed = true
 					# set folder to open
@@ -90,12 +90,12 @@ ActiveFeed, FeedType, $window) ->
 					# on error
 					, =>
 						@_isAddingFeed = false
-				
+
 				catch error
 					if error instanceof _ExistsError
 						@_$scope.feedExistsError = true
 					@_isAddingFeed = false
-					
+
 
 			@_$scope.addFolder = (folderName) =>
 				@_$scope.folderExistsError = false
