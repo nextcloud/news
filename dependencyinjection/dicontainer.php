@@ -263,7 +263,9 @@ class DIContainer extends BaseContainer {
 		});
 
 		$this['Updater'] = $this->share(function($c){
-			return new Updater();
+			return new Updater($c['FolderBusinessLayer'],
+			                   $c['FeedBusinessLayer'],
+			                   $c['ItemBusinessLayer']);
 		});
 
 	}
