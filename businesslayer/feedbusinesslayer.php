@@ -70,6 +70,15 @@ class FeedBusinessLayer extends BusinessLayer {
 
 
 	/**
+	 * Finds all feeds from all users
+	 * @return array of feeds
+	 */
+	public function findAllFromAllUsers() {
+		return $this->mapper->findAll();
+	}
+
+
+	/**
 	 * Creates a new feed
 	 * @param string $feedUrl the url to the feed
 	 * @param int $folderId the folder where it should be put into, 0 for root folder

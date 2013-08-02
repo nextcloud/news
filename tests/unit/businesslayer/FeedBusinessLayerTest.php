@@ -72,7 +72,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->importParser = $this->getMockBuilder('\OCA\News\Utility\ImportParser')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->feedBusinessLayer = new FeedBusinessLayer($this->feedMapper, 
+		$this->feedBusinessLayer = new FeedBusinessLayer($this->feedMapper,
 			$this->fetcher, $this->itemMapper, $this->api,
 			$timeFactory, $this->importParser, $this->autoPurgeMinimumInterval);
 		$this->user = 'jack';
@@ -159,7 +159,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->itemMapper->expects($this->at(3))
 			->method('insert')
 			->with($this->equalTo($return[1][0]));
-		
+
 		$feed = $this->feedBusinessLayer->create($url, $folderId, $this->user);
 
 		$this->assertEquals($feed->getFolderId(), $folderId);
@@ -210,7 +210,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 				$this->equalTo($item1->getGuidHash()),
 				$this->equalTo($item1->getFeedId()),
 				$this->equalTo($this->user));
-		
+
 		$feed = $this->feedBusinessLayer->create($url, $folderId, $this->user);
 
 		$this->assertEquals($feed->getFolderId(), $folderId);
@@ -288,7 +288,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->will($this->returnValue($fetchReturn));
 		$this->itemMapper->expects($this->once())
 			->method('findByGuidHash')
-			->with($this->equalTo($item->getGuidHash()), 
+			->with($this->equalTo($item->getGuidHash()),
 					$this->equalTo($feed->getId()),
 					$this->equalTo($this->user))
 			->will($this->returnValue($item));
@@ -296,7 +296,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('insert');
 		$this->itemMapper->expects($this->never())
 			->method('delete');
-		
+
 		$this->feedMapper->expects($this->at(1))
 			->method('find')
 			->with($feed->getId(), $this->user)
@@ -417,7 +417,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->will($this->throwException($ex));
 		$this->api->expects($this->any())
 			->method('log');
-		
+
 		$this->feedMapper->expects($this->at(1))
 			->method('find')
 			->with($feed->getId(), $this->user)
@@ -433,7 +433,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$feed = new Feed();
 		$feed->setId(3);
 		$feed->getUrl('test');
-		
+
 		$ex = new DoesNotExistException('');
 
 		$this->feedMapper->expects($this->at(0))
@@ -446,7 +446,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$return = $this->feedBusinessLayer->update($feed->getId(), $this->user);
 	}
 
-	
+
 	public function testUpdateDoesNotFindUpdatedEntry() {
 		$feed = new Feed();
 		$feed->setId(3);
@@ -476,11 +476,11 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->will($this->returnValue($fetchReturn));
 		$this->itemMapper->expects($this->once())
 			->method('findByGuidHash')
-			->with($this->equalTo($item->getGuidHash()), 
+			->with($this->equalTo($item->getGuidHash()),
 					$this->equalTo($feed->getId()),
 					$this->equalTo($this->user))
 			->will($this->returnValue($item2));;
-	
+
 		$this->feedMapper->expects($this->at(1))
 			->method('find')
 			->with($this->equalTo($feed->getId()),
@@ -502,7 +502,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 		$this->feedMapper->expects($this->once())
 			->method('find')
-			->with($this->equalTo($feedId), 
+			->with($this->equalTo($feedId),
 				$this->equalTo($this->user))
 			->will($this->returnValue($feed));
 		$this->fetcher->expects($this->never())
@@ -711,4 +711,17 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 		$this->feedBusinessLayer->purgeDeleted($this->user, false);
 	}
+
+
+	public function testfindAllFromAllUsers() {
+		$expected = 'hi';
+		$this->feedMapper->expects($this->once())
+			->method('findAll')
+			->will($this->returnValue($expected));
+		$result = $this->feedBusinessLayer->findAllFromAllUsers();
+		$this->assertEquals($expected, $result);
+	}
+
+
 }
+

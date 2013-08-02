@@ -182,4 +182,47 @@ class FeedAPI extends Controller {
 	}
 
 
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @CSRFExemption
+	 * @Ajax
+	 * @API
+	 */
+	public function getAllFromAllUsers() {
+		$feeds = $this->feedBusinessLayer->findAllFromAllUsers();
+		$result = array('feeds' => array());
+
+		foreach ($feeds as $feed) {
+			array_push($result['feeds'], array(
+				'id' => $feed->getId(),
+				'userId' => $feed->getUserId()
+			));
+		}
+
+		return  new JSONResponse($result);
+	}
+
+
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @CSRFExemption
+	 * @Ajax
+	 * @API
+	 */
+	public function update() {
+		$userId = $this->params('userId');
+		$feedId = $this->params('feedId');
+
+		try {
+			$this->feedBusinessLayer->update($feedId, $userId);
+		} catch(BusinessLayerException $ex) {
+			return new JSONResponse(array('message' => $ex->getMessage()),
+				Http::STATUS_NOT_FOUND);
+		}
+
+	}
+
+
 }
