@@ -23,48 +23,40 @@
 *
 */
 
-namespace OCA\News\External;
 
-use \OCA\AppFramework\Core\API;
-use \OCA\AppFramework\Controller\Controller;
-use \OCA\AppFramework\Http\Request;
-use \OCA\AppFramework\Http\JSONResponse;
+namespace OCA\News\Utility;
 
-use \OCA\News\Utility\Updater;
+use \OCA\News\BusinessLayer\FolderBusinessLayer;
+use \OCA\News\BusinessLayer\FeedBusinessLayer;
+use \OCA\News\BusinessLayer\ItemBusinessLayer;
 
 
-class NewsAPI extends Controller {
+class Updater {
 
-	private $updater;
 
-	public function __construct(API $api, Request $request, Updater $updater){
-		parent::__construct($api, $request);
-		$this->updater = $updater;
+	private $folderBusinessLayer;
+	private $feedBusinessLayer;
+	private $itemBusinessLayer;
+
+	public function __construct(FolderBusinessLayer $folderBusinessLayer,
+	                            FeedBusinessLayer $feedBusinessLayer,
+	                            ItemBusinessLayer $itemBusinessLayer) {
+		$this->folderBusinessLayer = $folderBusinessLayer;
+		$this->feedBusinessLayer = $feedBusinessLayer;
+		$this->itemBusinessLayer = $itemBusinessLayer;
 	}
 
 
-	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @CSRFExemption
-	 * @Ajax
-	 * @API
-	 */
-	public function version() {
-		$version = $this->api->getAppValue('installed_version');
-		return new JSONResponse(array('version' => $version));
-	}
-
-
-	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @CSRFExemption
-	 * @Ajax
-	 * @API
-	 */
 	public function cleanUp() {
-		$this->updater->cleanUp();
+		$this->folderBusinessLayer->purgeDeleted();
+		$this->feedBusinessLayer->purgeDeleted();
+		$this->itemBusinessLayer->autoPurgeOld();
 	}
+
+
+	public function update() {
+		$this->feedBusinessLayer->updateAll();
+	}
+
 
 }

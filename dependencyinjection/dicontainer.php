@@ -53,6 +53,7 @@ use \OCA\News\Utility\FeedFetcher;
 use \OCA\News\Utility\TwitterFetcher;
 use \OCA\News\Utility\OPMLExporter;
 use \OCA\News\Utility\ImportParser;
+use \OCA\News\Utility\Updater;
 
 
 require_once __DIR__ . '/../3rdparty/htmlpurifier/library/HTMLPurifier.auto.php';
@@ -70,18 +71,19 @@ class DIContainer extends BaseContainer {
 		/**
 		 * Configuration values
 		 */
-		$this['autoPurgeMinimumInterval'] = 60; // seconds, used to define how 
+		$this['autoPurgeMinimumInterval'] = 60; // seconds, used to define how
 		                                        // long deleted folders and feeds
-		                                        // should still be kept for an 
+		                                        // should still be kept for an
 		                                        // undo actions
 		$this['autoPurgeCount'] = 200;  // number of allowed unread articles per feed
 		$this['simplePieCacheDuration'] = 30*60;  // seconds
 		$this['feedFetcherTimeout'] = 60; // seconds
+		$this['useCronUpdates'] = true;
 
 		$this['simplePieCacheDirectory'] = $this->share(function($c) {
-			$directory = $c['API']->getSystemValue('datadirectory') . 
+			$directory = $c['API']->getSystemValue('datadirectory') .
 				'/news/cache/simplepie';
-			
+
 			if(!is_dir($directory)) {
 				mkdir($directory, 0770, true);
 			}
@@ -90,9 +92,9 @@ class DIContainer extends BaseContainer {
 		});
 
 		$this['HTMLPurifier'] = $this->share(function($c) {
-			$directory = $c['API']->getSystemValue('datadirectory') . 
+			$directory = $c['API']->getSystemValue('datadirectory') .
 				'/news/cache/purifier';
-			
+
 			if(!is_dir($directory)) {
 				mkdir($directory, 0770, true);
 			}
@@ -100,13 +102,13 @@ class DIContainer extends BaseContainer {
 			$config = \HTMLPurifier_Config::createDefault();
 			$config->set('Cache.SerializerPath', $directory);
 			$config->set('HTML.SafeIframe', true);
-			$config->set('URI.SafeIframeRegexp', 
+			$config->set('URI.SafeIframeRegexp',
 				'%^http://(www.youtube(?:-nocookie)?.com/embed/|player.vimeo.com/video/)%'); //allow YouTube and Vimeo
 			return new \HTMLPurifier($config);
 		});
 
 
-		/** 
+		/**
 		 * CONTROLLERS
 		 */
 		$this['PageController'] = $this->share(function($c){
@@ -114,34 +116,34 @@ class DIContainer extends BaseContainer {
 		});
 
 		$this['FolderController'] = $this->share(function($c){
-			return new FolderController($c['API'], $c['Request'], 
-				$c['FolderBusinessLayer'], 
+			return new FolderController($c['API'], $c['Request'],
+				$c['FolderBusinessLayer'],
 				$c['FeedBusinessLayer'],
 				$c['ItemBusinessLayer']);
 		});
 
 		$this['FeedController'] = $this->share(function($c){
-			return new FeedController($c['API'], $c['Request'], 
-				$c['FolderBusinessLayer'], 
-				$c['FeedBusinessLayer'], 
+			return new FeedController($c['API'], $c['Request'],
+				$c['FolderBusinessLayer'],
+				$c['FeedBusinessLayer'],
 				$c['ItemBusinessLayer']);
 		});
 
 		$this['ItemController'] = $this->share(function($c){
-			return new ItemController($c['API'], $c['Request'], 
+			return new ItemController($c['API'], $c['Request'],
 				$c['FeedBusinessLayer'],
 				$c['ItemBusinessLayer']);
 		});
 
 		$this['ExportController'] = $this->share(function($c){
-			return new ExportController($c['API'], $c['Request'], 
+			return new ExportController($c['API'], $c['Request'],
 			                            $c['FeedBusinessLayer'],
-				                        $c['FolderBusinessLayer'], 
+				                        $c['FolderBusinessLayer'],
 				                        $c['OPMLExporter']);
 		});
 
 		$this['UserSettingsController'] = $this->share(function($c){
-			return new UserSettingsController($c['API'], $c['Request'], 
+			return new UserSettingsController($c['API'], $c['Request'],
 					$c['ItemBusinessLayer']);
 		});
 
@@ -151,7 +153,7 @@ class DIContainer extends BaseContainer {
 		 */
 		$this['FolderBusinessLayer'] = $this->share(function($c){
 			return new FolderBusinessLayer(
-				$c['FolderMapper'], 
+				$c['FolderMapper'],
 				$c['API'],
 				$c['TimeFactory'],
 				$c['autoPurgeMinimumInterval']);
@@ -159,20 +161,20 @@ class DIContainer extends BaseContainer {
 
 		$this['FeedBusinessLayer'] = $this->share(function($c){
 			return new FeedBusinessLayer(
-				$c['FeedMapper'], 
+				$c['FeedMapper'],
 				$c['Fetcher'],
-				$c['ItemMapper'], 
-				$c['API'], 
+				$c['ItemMapper'],
+				$c['API'],
 				$c['TimeFactory'],
-				$c['ImportParser'],	
+				$c['ImportParser'],
 				$c['autoPurgeMinimumInterval']);
 		});
 
 		$this['ItemBusinessLayer'] = $this->share(function($c){
 			return new ItemBusinessLayer(
-				$c['ItemMapper'], 
+				$c['ItemMapper'],
 				$c['StatusFlag'],
-				$c['TimeFactory'], 
+				$c['TimeFactory'],
 				$c['autoPurgeCount']);
 		});
 
@@ -197,24 +199,24 @@ class DIContainer extends BaseContainer {
 		 * External API
 		 */
 		$this['NewsAPI'] = $this->share(function($c){
-			return new NewsAPI($c['API'], $c['Request']);
+			return new NewsAPI($c['API'], $c['Request'], $c['Updater']);
 		});
 
 		$this['FolderAPI'] = $this->share(function($c){
-			return new FolderAPI($c['API'], $c['Request'], 
+			return new FolderAPI($c['API'], $c['Request'],
 			                     $c['FolderBusinessLayer'],
 			                     $c['ItemBusinessLayer']);
 		});
 
 		$this['FeedAPI'] = $this->share(function($c){
 			return new FeedAPI($c['API'], $c['Request'],
-			                   $c['FolderBusinessLayer'], 
+			                   $c['FolderBusinessLayer'],
 			                   $c['FeedBusinessLayer'],
 			                   $c['ItemBusinessLayer']);
 		});
 
 		$this['ItemAPI'] = $this->share(function($c){
-			return new ItemAPI($c['API'], $c['Request'], 
+			return new ItemAPI($c['API'], $c['Request'],
 			                   $c['ItemBusinessLayer']);
 		});
 
@@ -234,7 +236,7 @@ class DIContainer extends BaseContainer {
 
 		$this['FeedFetcher'] = $this->share(function($c){
 			return new FeedFetcher(
-				$c['API'], 
+				$c['API'],
 				$c['SimplePieAPIFactory'],
 				$c['FaviconFetcher'],
 				$c['TimeFactory'],
@@ -258,6 +260,10 @@ class DIContainer extends BaseContainer {
 
 		$this['OPMLExporter'] = $this->share(function($c){
 			return new OPMLExporter();
+		});
+
+		$this['Updater'] = $this->share(function($c){
+			return new Updater();
 		});
 
 	}

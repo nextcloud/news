@@ -36,6 +36,7 @@ class NewsAPITest extends ControllerTestUtility {
 	private $api;
 	private $request;
 	private $newsAPI;
+	private $updater;
 
 	protected function setUp() {
 		$this->api = $this->getMockBuilder(
@@ -46,7 +47,11 @@ class NewsAPITest extends ControllerTestUtility {
 			'\OCA\AppFramework\Http\Request')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->newsAPI = new NewsAPI($this->api, $this->request);
+		$this->updater = $this->getMockBuilder(
+			'\OCA\News\Utility\Updater')
+			->disableOriginalConstructor()
+			->getMock();
+		$this->newsAPI = new NewsAPI($this->api, $this->request, $this->updater);
 	}
 
 
@@ -60,6 +65,10 @@ class NewsAPITest extends ControllerTestUtility {
 		$this->assertDefaultAnnotations('version');
 	}
 
+	public function testCleanUpAnnotations(){
+		$this->assertDefaultAnnotations('cleanUp');
+	}
+
 	public function testGetVersion(){
 		$this->api->expects($this->once())
 			->method('getAppValue')
@@ -71,6 +80,13 @@ class NewsAPITest extends ControllerTestUtility {
 		$version = $data['version'];
 
 		$this->assertEquals('1.0', $version);
+	}
+
+
+	public function testCleanUp(){
+		$this->updater->expects($this->once())
+			->method('cleanUp');
+		$this->newsAPI->cleanUp();
 	}
 
 

@@ -34,10 +34,13 @@ class Task {
 
 	static public function run() {
 		$container = new DIContainer();
-		$container['FolderBusinessLayer']->purgeDeleted();
-		$container['FeedBusinessLayer']->purgeDeleted();
-		$container['ItemBusinessLayer']->autoPurgeOld();
-		$container['FeedBusinessLayer']->updateAll();
+
+		// make it possible to turn off cron updates if you use an external
+		// script to execute updates in paralell
+		if ($container['useCronUpdates']) {
+			$container['Updater']->cleanUp();
+			$container['Updater']->update();
+		}
 	}
 
 

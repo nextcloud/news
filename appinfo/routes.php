@@ -233,6 +233,12 @@ $this->create('news_api_version', '/api/v1-2/version')->get()->action(
 	}
 );
 
+$this->create('news_api_cleanup', '/api/v1-2/cleanUp')->get()->action(
+	function($params) {
+		return App::main('NewsAPI', 'cleanUp', $params, new DIContainer());
+	}
+);
+
 /**
  * Folder API
  */
