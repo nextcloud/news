@@ -66,7 +66,8 @@ class NewsAPITest extends ControllerTestUtility {
 	}
 
 	public function testCleanUpAnnotations(){
-		$this->assertDefaultAnnotations('cleanUp');
+		$annotations = array('Ajax', 'CSRFExemption', 'API');
+		$this->assertAnnotations($this->newsAPI, 'cleanUp', $annotations);
 	}
 
 	public function testGetVersion(){

@@ -183,8 +183,6 @@ class FeedAPI extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
 	 * @CSRFExemption
 	 * @Ajax
 	 * @API

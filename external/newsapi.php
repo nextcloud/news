@@ -57,8 +57,6 @@ class NewsAPI extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
 	 * @CSRFExemption
 	 * @Ajax
 	 * @API

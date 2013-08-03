@@ -116,13 +116,15 @@ class FeedAPITest extends ControllerTestUtility {
 
 
 	public function testGetAllFromUsersAnnotations(){
-		$this->assertDefaultAnnotations('getAllFromAllUsers');
+		$annotations = array('Ajax', 'CSRFExemption', 'API');
+		$this->assertAnnotations($this->feedAPI, 'getAllFromAllUsers', $annotations);
 	}
 
 
 	public function testUpdateAnnotations(){
 		$this->assertDefaultAnnotations('update');
 	}
+
 
 	public function testGetAll() {
 		$feeds = array(
