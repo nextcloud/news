@@ -10,8 +10,8 @@ The News app is a an RSS/Atom feed aggregator. It offers a `RESTful API <https:/
 
 Maintainers
 -----------
-* `Alessandro Cosentino <https://github.com/zimba12>`_ 
-* `Bernhard Posselt <https://github.com/Raydiation>`_ 
+* `Alessandro Cosentino <https://github.com/zimba12>`_
+* `Bernhard Posselt <https://github.com/Raydiation>`_
 * `Jan-Christoph Borchardt <https://github.com/jancborchardt>`_ (Design)
 
 Bugs
@@ -25,7 +25,7 @@ Before reporting bugs:
 
 ----------------
 
-If you are not able to add a feed because its XML *does not validate* (see `this issue <https://github.com/owncloud/news/issues/133>`_ for an example), 
+If you are not able to add a feed because its XML *does not validate* (see `this issue <https://github.com/owncloud/news/issues/133>`_ for an example),
 check if:
 
 * it is a valid RSS by running it through the `W3C validator <http://feed2.w3.org/>`_
@@ -64,7 +64,7 @@ Installation
 
 Keep up to date
 ~~~~~~~~~~~~~~~
-Both the **News** and **App Framework** App can be updated through the ownCloud apps page. 
+Both the **News** and **App Framework** App can be updated through the ownCloud apps page.
 
 
 Git (development version)
@@ -181,12 +181,16 @@ All feeds are not updated and theres no cron.lock
 
 Configuration
 -------------
-This will be in a separate config file in the future but for now you can tweak the following things. 
+This will be in a separate config file in the future but for now you can tweak the following things.
 
 :file:`dependencyinjection/dicontainer.php`
 
+* To use a custom update/cron script you need to disable the cronjob which is run by ownCloud by default:
+
+    $this['useCronUpdates'] = false;
+
 * To cache feeds longer increase::
- 
+
     $this['simplePieCacheDuration'] = 30*60;  // seconds
 
 * To let people have more read items per feed before they are purged increase::
