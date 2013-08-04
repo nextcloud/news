@@ -23,12 +23,12 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 # This script uses python 3
-from sys import exit
-from time import sleep
-from argparse import ArgumentParser
-from urllib.request import HTTPPasswordMgrWithDefaultRealm, \
-    HTTPBasicAuthHandler, build_opener, install_opener, urlopen
-from urllib.error import HTTPError
+import sys
+import time
+import json
+import argparse
+import urllib.request
+import urllib.error
 
 
 class Updater:
@@ -51,19 +51,23 @@ class Updater:
 
     def run(self):
         try:
-            auth = HTTPPasswordMgrWithDefaultRealm()
+            auth = urllib.request.HTTPPasswordMgrWithDefaultRealm()
             auth.add_password(None, self.base_url, self.user, self.password)
-            opener = build_opener( HTTPBasicAuthHandler(auth) )
-            install_opener(opener)
+            auth_handler = urllib.request.HTTPBasicAuthHandler(auth)
 
-            urlopen(self.cleanup_url)
-            feeds = urlopen(self.all_feeds_url).read()
+            opener = urllib.request.build_opener(auth_handler)
+            urllib.request.install_opener(opener)
 
-            # TODO: parse feeds and thread the requests
+            urllib.request.urlopen(self.cleanup_url)
+            feeds_response = urllib.request.urlopen(self.all_feeds_url)
+            feeds_json = str( feeds_response.read() )
+            feeds = json.loads(feeds_json)
+
+            # TODO: create feeds requests and thread the requests
 
 
         # TODO: also check for the other URLErrors
-        except (ValueError, HTTPError):
+        except (ValueError, urllib.error.HTTPError):
             print('%s is either not valid or does not exist' % self.base_url)
             exit(1)
 
@@ -76,12 +80,12 @@ class Daemon:
         updates
         """
         runner.run()
-        sleep(timeout)
+        time.sleep(timeout)
         run(timeout, runner)
 
 
 def main():
-    parser = ArgumentParser()
+    parser = argparse.ArgumentParser()
     parser.add_argument('--threads',
         help='How many feeds should be fetched in paralell, defaults to 10',
         default=10)
