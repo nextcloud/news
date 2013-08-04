@@ -20,7 +20,7 @@ firefox_bin=/usr/bin/firefox
 chrome_bin=/usr/bin/chromium
 coffee=$(CURDIR)/node_modules/coffee-script/bin/coffee
 grunt=$(CURDIR)/node_modules/grunt-cli/bin/grunt
-phantomjs=$(CURDIR)/node_modules/phantomjs/bin/phantomjs
+phantomjs=/usr/bin/phantomjs
 
 all: compile
 
