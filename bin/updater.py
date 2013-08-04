@@ -50,10 +50,6 @@ class Updater:
 
 
     def run(self):
-        # TODO: make a request to the cleanup route
-        # TODO: get all feeds and update them in seperate threads
-
-        # TODO: also check for the other URLErrors
         try:
             auth = HTTPPasswordMgrWithDefaultRealm()
             auth.add_password(None, self.base_url, self.user, self.password)
@@ -63,8 +59,10 @@ class Updater:
             urlopen(self.cleanup_url)
             feeds = urlopen(self.all_feeds_url).read()
 
-            print(feeds)
+            # TODO: parse feeds and thread the requests
 
+
+        # TODO: also check for the other URLErrors
         except (ValueError, HTTPError):
             print('%s is either not valid or does not exist' % self.base_url)
             exit(1)
