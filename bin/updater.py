@@ -23,8 +23,64 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 # This script uses python 3
+from sys import exit
+from time import sleep
 from argparse import ArgumentParser
-from urllib import request
+from urllib.request import HTTPPasswordMgrWithDefaultRealm, \
+    HTTPBasicAuthHandler, build_opener, install_opener, urlopen
+from urllib.error import HTTPError
+
+
+class Updater:
+
+    def __init__(self, base_url, user, password, threads):
+
+        self.threads = threads
+        self.user = user
+        self.password = password
+        self.base_url = base_url
+
+        if self.base_url[-1] != '/':
+            self.base_url += '/'
+        self.base_url += 'index.php/apps/news/api/v1-2'
+
+        self.cleanup_url = '%s/cleanup' % self.base_url
+        self.all_feeds_url = '%s/feeds/all' % self.base_url
+        self.update_url = '%s/feeds/update' % self.base_url
+
+
+    def run(self):
+        # TODO: make a request to the cleanup route
+        # TODO: get all feeds and update them in seperate threads
+
+        # TODO: also check for the other URLErrors
+        try:
+            auth = HTTPPasswordMgrWithDefaultRealm()
+            auth.add_password(None, self.base_url, self.user, self.password)
+            opener = build_opener( HTTPBasicAuthHandler(auth) )
+            install_opener(opener)
+
+            urlopen(self.cleanup_url)
+            feeds = urlopen(self.all_feeds_url).read()
+
+            print(feeds)
+
+        except (ValueError, HTTPError):
+            print('%s is either not valid or does not exist' % self.base_url)
+            exit(1)
+
+
+class Daemon:
+
+    def run(self, timeout, runner):
+        """
+        This is for running the updater with a certain timeout between the
+        updates
+        """
+        runner.run()
+        sleep(timeout)
+        run(timeout, runner)
+
 
 def main():
     parser = ArgumentParser()
@@ -32,26 +88,20 @@ def main():
         help='How many feeds should be fetched in paralell, defaults to 10',
         default=10)
     parser.add_argument('--interval',
-        help='Minimal update interval between fetching the next round of \
+        help='Update interval between fetching the next round of \
             updates in minutes, defaults to 30 minutes',
         default=30)
     parser.add_argument('--user',
         help='A username to log into ownCloud', required=True)
-    parser.add_argument('--pass',
+    parser.add_argument('--password',
         help='A password to log into ownCloud', required=True)
     parser.add_argument('url',
         help='The URL where owncloud is installed')
     args = parser.parse_args()
 
-    # TODO: main loop with update inteval
-    # TODO: make a request to the cleanup route
-    # TODO: get all feeds and update them in seperate threads
-
-    # TODO: also check for the other URLErrors
-    try:
-        pass
-    except ValueError:
-        print('Please enter a valid URL')
+    updater = Updater(args.url, args.user, args.password, args.threads)
+    daemon = Daemon()
+    daemon.run(args.interval, updater)
 
 
 if __name__ == '__main__':
