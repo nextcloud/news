@@ -30,6 +30,12 @@ import threading
 import urllib.request
 import urllib.error
 
+def get_basic_auth_opener(url, user, password):
+    auth = urllib.request.HTTPPasswordMgrWithDefaultRealm()
+    auth.add_password(None, url, user, password)
+    auth_handler = urllib.request.HTTPBasicAuthHandler(auth)
+    return urllib.request.build_opener(auth_handler)
+
 
 class UpdateThread(threading.Thread):
 
@@ -61,10 +67,7 @@ class UpdateThread(threading.Thread):
         url = '%s?%s' % (self.update_url, data)
 
         try:
-            auth = urllib.request.HTTPPasswordMgrWithDefaultRealm()
-            auth.add_password(None, url, self.user, self.password)
-            auth_handler = urllib.request.HTTPBasicAuthHandler(auth)
-            opener = urllib.request.build_opener(auth_handler)
+            opener = get_basic_auth_opener(url, self.user, self.password)
             opener.open(url, timeout=60)
         except urllib.error.HTTPError as e:
             print('%s: %s' % (url, e))
@@ -92,16 +95,19 @@ class Updater:
 
     def run(self):
         try:
+            opener = get_basic_auth_opener(self.base_url, self.user,
+                self.password)
             # run the cleanup request and get all the feeds to update
-            urllib.request.urlopen(self.cleanup_url)
-            feeds_response = urllib.request.urlopen(self.all_feeds_url)
+            opener.open(self.cleanup_url)
+            feeds_response = opener.open(self.all_feeds_url)
             feeds_json = feeds_response.read().decode('utf-8')
             feeds = json.loads(feeds_json)['feeds']
 
             # start thread_num for feeds
             threads = []
             for num in range(0, self.thread_num):
-                thread = UpdateThread(feeds, self.update_url, self.user, self.password)
+                thread = UpdateThread(feeds, self.update_url, self.user,
+                    self.password)
                 thread.start()
                 threads.append(thread)
 
@@ -135,15 +141,9 @@ def main():
         help='The URL where owncloud is installed')
     args = parser.parse_args()
 
-    # register user and password for a certain url
-    auth = urllib.request.HTTPPasswordMgrWithDefaultRealm()
-    auth.add_password(None, args.url, args.user, args.password)
-    auth_handler = urllib.request.HTTPBasicAuthHandler(auth)
-    opener = urllib.request.build_opener(auth_handler)
-    urllib.request.install_opener(opener)
-
     # create the updater and run the threads
-    updater = Updater(args.url, args.threads, args.interval, args.user, args.password)
+    updater = Updater(args.url, args.threads, args.interval, args.user,
+        args.password)
     updater.run()
 
 
