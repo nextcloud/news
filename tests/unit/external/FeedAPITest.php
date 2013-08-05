@@ -494,7 +494,11 @@ class FeedAPITest extends ControllerTestUtility {
 	public function testUpdateError() {
 		$this->feedBusinessLayer->expects($this->once())
 			->method('update')
-			->will($this->throwException(new BusinessLayerException($this->msg)));
+			->will($this->throwException(new \Exception($this->msg)));
+		$this->api->expects($this->once())
+			->method('log')
+			->with($this->equalTo('Could not update feed ' . $this->msg),
+				$this->equalTo('debug'));
 
 		$response = $this->feedAPI->update();
 

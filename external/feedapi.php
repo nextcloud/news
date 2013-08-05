@@ -214,7 +214,10 @@ class FeedAPI extends Controller {
 		try {
 			$this->feedBusinessLayer->update($feedId, $userId);
 		// ignore update failure (feed could not be reachable etc, we dont care)
-		} catch(BusinessLayerException $ex) {}
+		} catch(\Exception $ex) {
+			$this->api->log('Could not update feed ' . $ex->getMessage(),
+					'debug');
+		}
 		return new JSONResponse();
 
 	}
