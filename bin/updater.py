@@ -104,12 +104,9 @@ class Updater:
             time.sleep(self.interval)
             self.run()
 
-        except ValueError:
-            print('%s is not a valid URL' % self.base_url)
-        except urllib.error.HTTPError:
-            print('%s does not exist' % self.base_url)
+        except (ValueError, urllib.error.HTTPError) as e:
+            print('%s: %s' % (self.base_url, e))
             exit(1)
-
 
 def main():
     parser = argparse.ArgumentParser()
@@ -132,7 +129,7 @@ def main():
 
     # register user and password for a certain url
     auth = urllib.request.HTTPPasswordMgrWithDefaultRealm()
-    auth.add_password("Authorisation Required", args.url, args.user, args.password)
+    auth.add_password(None, args.url, args.user, args.password)
     auth_handler = urllib.request.HTTPBasicAuthHandler(auth)
     opener = urllib.request.build_opener(auth_handler)
     urllib.request.install_opener(opener)
