@@ -132,7 +132,7 @@ def main():
 
     # register user and password for a certain url
     auth = urllib.request.HTTPPasswordMgrWithDefaultRealm()
-    auth.add_password(None, args.url, args.user, args.password)
+    auth.add_password("Authorisation Required", args.url, args.user, args.password)
     auth_handler = urllib.request.HTTPBasicAuthHandler(auth)
     opener = urllib.request.build_opener(auth_handler)
     urllib.request.install_opener(opener)

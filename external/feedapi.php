@@ -213,11 +213,9 @@ class FeedAPI extends Controller {
 
 		try {
 			$this->feedBusinessLayer->update($feedId, $userId);
-			return new JSONResponse();
-		} catch(BusinessLayerException $ex) {
-			return new JSONResponse(array('message' => $ex->getMessage()),
-				Http::STATUS_NOT_FOUND);
-		}
+		// ignore update failure (feed could not be reachable etc, we dont care)
+		} catch(BusinessLayerException $ex) {}
+		return new JSONResponse();
 
 	}
 
