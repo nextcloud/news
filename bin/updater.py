@@ -142,8 +142,8 @@ def main():
 
 
 if __name__ == '__main__':
-    if sys.version_info < (3, 3):
-        print('Python 3.3 is required to run this script')
+    if sys.version_info < (3, 0):
+        print('Python 3.0 or higher is required to run this script')
     else:
         main()
 
