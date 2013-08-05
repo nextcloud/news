@@ -486,7 +486,8 @@ class FeedAPITest extends ControllerTestUtility {
 			->method('update')
 			->with($this->equalTo($feedId), $this->equalTo($userId));
 
-		$this->feedAPI->update();
+		$response = $this->feedAPI->update();
+		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 

@@ -198,7 +198,7 @@ class FeedAPI extends Controller {
 			));
 		}
 
-		return  new JSONResponse($result);
+		return new JSONResponse($result);
 	}
 
 
@@ -213,6 +213,7 @@ class FeedAPI extends Controller {
 
 		try {
 			$this->feedBusinessLayer->update($feedId, $userId);
+			return new JSONResponse();
 		} catch(BusinessLayerException $ex) {
 			return new JSONResponse(array('message' => $ex->getMessage()),
 				Http::STATUS_NOT_FOUND);
