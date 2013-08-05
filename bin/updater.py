@@ -22,7 +22,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 """
 
-# This script uses python 3
+
 import sys
 import time
 import json
@@ -30,6 +30,7 @@ import argparse
 import threading
 import urllib.request
 import urllib.error
+
 
 class UpdateThread(threading.Thread):
 
@@ -40,23 +41,29 @@ class UpdateThread(threading.Thread):
         self.feeds = feeds
         self.update_url = update_url
 
-
     def run(self):
-        with lock:
+        with UpdateThread.lock:
             if len(self.feeds) > 0:
                 feed = self.feeds.pop()
-                # call the update method of one feed
-                data = urllib.parse.urlencode(feed)
-                urllib.request.urlopen(self.update_url, data)
-                self.run()
             else:
                 self.exit()
+
+        # call the update method of one feed
+        data = json.dumps(feed)
+        headers = {
+            'Content-type': 'application/json',
+            'Accept': 'text/plain'
+        }
+        request = urllib.request.Request(self.update_url, data=data,
+            headers=headers, method='GET')
+        response = urllib.request.urlopen(request)
+        print(response.read())
+        self.run()
 
 
 class Updater:
 
     def __init__(self, base_url, thread_num, interval):
-
         self.thread_num = thread_num
         self.interval = interval
         self.base_url = base_url
@@ -75,12 +82,12 @@ class Updater:
             # run the cleanup request and get all the feeds to update
             urllib.request.urlopen(self.cleanup_url)
             feeds_response = urllib.request.urlopen(self.all_feeds_url)
-            feeds_json = str( feeds_response.read() )
-            feeds = json.loads(feeds_json)
+            feeds_json = feeds_response.read().decode('utf-8')
+            feeds = json.loads(feeds_json)['feeds']
 
             # start thread_num for feeds
             threads = []
-            for i in range(0, self.thread_num):
+            for num in range(0, self.thread_num):
                 thread = UpdateThread(feeds, self.update_url)
                 thread.start()
                 threads.append(thread)
@@ -92,10 +99,10 @@ class Updater:
             time.sleep(self.interval)
             self.run()
 
-
-        # TODO: also check for the other URLErrors
-        except (ValueError, urllib.error.HTTPError):
-            print('%s is either not valid or does not exist' % self.base_url)
+        except ValueError:
+            print('%s is not a valid URL' % self.base_url)
+        except urllib.error.HTTPError:
+            print('%s does not exist' % self.base_url)
             exit(1)
 
 
@@ -125,9 +132,13 @@ def main():
 
     # create the updater and run the threads
     updater = Updater(args.url, args.threads, args.interval)
+    updater.run()
 
 
 if __name__ == '__main__':
-    main()
+    if sys.version_info < (3, 3):
+        print('Python 3.3 is required to run this script')
+    else:
+        main()
 
 
