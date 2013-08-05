@@ -27,18 +27,38 @@ import sys
 import time
 import json
 import argparse
-import queue
+import threading
 import urllib.request
 import urllib.error
+
+class UpdateThread(threading.Thread):
+
+    lock = threading.Lock()
+
+    def __init__(self, feeds, update_url):
+        super().__init__()
+        self.feeds = feeds
+        self.update_url = update_url
+
+
+    def run(self):
+        with lock:
+            if len(self.feeds) > 0:
+                feed = self.feeds.pop()
+                # call the update method of one feed
+                data = urllib.parse.urlencode(feed)
+                urllib.request.urlopen(self.update_url, data)
+                self.run()
+            else:
+                self.exit()
 
 
 class Updater:
 
-    def __init__(self, base_url, user, password, threads):
+    def __init__(self, base_url, thread_num, interval):
 
-        self.threads = threads
-        self.user = user
-        self.password = password
+        self.thread_num = thread_num
+        self.interval = interval
         self.base_url = base_url
 
         if self.base_url[-1] != '/':
@@ -52,37 +72,31 @@ class Updater:
 
     def run(self):
         try:
-            auth = urllib.request.HTTPPasswordMgrWithDefaultRealm()
-            auth.add_password(None, self.base_url, self.user, self.password)
-            auth_handler = urllib.request.HTTPBasicAuthHandler(auth)
-
-            opener = urllib.request.build_opener(auth_handler)
-            urllib.request.install_opener(opener)
-
+            # run the cleanup request and get all the feeds to update
             urllib.request.urlopen(self.cleanup_url)
             feeds_response = urllib.request.urlopen(self.all_feeds_url)
             feeds_json = str( feeds_response.read() )
             feeds = json.loads(feeds_json)
 
-            # TODO: create feeds requests and thread the requests
+            # start thread_num for feeds
+            threads = []
+            for i in range(0, self.thread_num):
+                thread = UpdateThread(feeds, self.update_url)
+                thread.start()
+                threads.append(thread)
+
+            for thread in threads:
+                thread.join()
+
+            # wait until the interval finished to run again
+            time.sleep(self.interval)
+            self.run()
 
 
         # TODO: also check for the other URLErrors
         except (ValueError, urllib.error.HTTPError):
             print('%s is either not valid or does not exist' % self.base_url)
             exit(1)
-
-
-class Daemon:
-
-    def run(self, timeout, runner):
-        """
-        This is for running the updater with a certain timeout between the
-        updates
-        """
-        runner.run()
-        time.sleep(timeout)
-        run(timeout, runner)
 
 
 def main():
@@ -102,9 +116,15 @@ def main():
         help='The URL where owncloud is installed')
     args = parser.parse_args()
 
-    updater = Updater(args.url, args.user, args.password, args.threads)
-    daemon = Daemon()
-    daemon.run(args.interval, updater)
+    # register user and password for a certain url
+    auth = urllib.request.HTTPPasswordMgrWithDefaultRealm()
+    auth.add_password(None, args.url, args.user, args.password)
+    auth_handler = urllib.request.HTTPBasicAuthHandler(auth)
+    opener = urllib.request.build_opener(auth_handler)
+    urllib.request.install_opener(opener)
+
+    # create the updater and run the threads
+    updater = Updater(args.url, args.threads, args.interval)
 
 
 if __name__ == '__main__':
