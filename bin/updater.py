@@ -65,8 +65,7 @@ class UpdateThread(threading.Thread):
             auth.add_password(None, url, self.user, self.password)
             auth_handler = urllib.request.HTTPBasicAuthHandler(auth)
             opener = urllib.request.build_opener(auth_handler)
-            urllib.request.install_opener(opener)
-            urllib.request.urlopen(url, timeout=60)
+            opener.open(url, timeout=60)
         except urllib.error.HTTPError as e:
             print('%s: %s' % (url, e))
 
