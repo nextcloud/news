@@ -209,7 +209,7 @@ class FeedAPI extends Controller {
 	 */
 	public function update() {
 		$userId = $this->params('userId');
-		$feedId = $this->params('feedId');
+		$feedId = (int) $this->params('feedId');
 
 		try {
 			$this->feedBusinessLayer->update($feedId, $userId);

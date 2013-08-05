@@ -47,9 +47,10 @@ class UpdateThread(threading.Thread):
             else:
                 return
 
-        # call the update method of one feed
         feed['feedId'] = feed['id']
         del feed['id']
+
+        # call the update method of one feed
         data = urllib.parse.urlencode(feed)
         headers = {
             'Content-type': 'application/json',
@@ -58,9 +59,12 @@ class UpdateThread(threading.Thread):
         url = '%s?%s' % (self.update_url, data)
 
         try:
-            response = urllib.request.urlopen(url)
-        except urllib.error.HTTPError:
-            print('%s does not exist' % url)
+            response = urllib.request.urlopen(url, timeout=60)
+            print('succ!')
+            print(url)
+            print(response.read())
+        except urllib.error.HTTPError as e:
+            print('%s: %s' % (url, e))
 
         self.run()
 
