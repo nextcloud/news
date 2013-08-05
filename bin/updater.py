@@ -22,7 +22,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 """
 
-
 import sys
 import time
 import json
@@ -46,18 +45,22 @@ class UpdateThread(threading.Thread):
             if len(self.feeds) > 0:
                 feed = self.feeds.pop()
             else:
-                self.exit()
+                return
 
         # call the update method of one feed
-        data = json.dumps(feed)
+        data = urllib.parse.urlencode(feed)
         headers = {
             'Content-type': 'application/json',
             'Accept': 'text/plain'
         }
-        request = urllib.request.Request(self.update_url, data=data,
-            headers=headers, method='GET')
-        response = urllib.request.urlopen(request)
-        print(response.read())
+        url = '%s?%s' % (self.update_url, data)
+        request = urllib.request.Request(url)
+
+        try:
+            response = urllib.request.urlopen(request)
+        except urllib.error.HTTPError:
+            print('%s does not exist' % url)
+
         self.run()
 
 
@@ -110,11 +113,13 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--threads',
         help='How many feeds should be fetched in paralell, defaults to 10',
-        default=10)
+        default=10,
+        type=int)
     parser.add_argument('--interval',
         help='Update interval between fetching the next round of \
             updates in minutes, defaults to 30 minutes',
-        default=30)
+        default=30,
+        type=int)
     parser.add_argument('--user',
         help='A username to log into ownCloud', required=True)
     parser.add_argument('--password',
