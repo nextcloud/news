@@ -35,10 +35,12 @@ class UpdateThread(threading.Thread):
 
     lock = threading.Lock()
 
-    def __init__(self, feeds, update_url):
+    def __init__(self, feeds, update_url, user, password):
         super().__init__()
         self.feeds = feeds
         self.update_url = update_url
+        self.user = user
+        self.password = password
 
     def run(self):
         with UpdateThread.lock:
@@ -59,6 +61,11 @@ class UpdateThread(threading.Thread):
         url = '%s?%s' % (self.update_url, data)
 
         try:
+            auth = urllib.request.HTTPPasswordMgrWithDefaultRealm()
+            auth.add_password(None, url, self.user, self.password)
+            auth_handler = urllib.request.HTTPBasicAuthHandler(auth)
+            opener = urllib.request.build_opener(auth_handler)
+            urllib.request.install_opener(opener)
             urllib.request.urlopen(url, timeout=60)
         except urllib.error.HTTPError as e:
             print('%s: %s' % (url, e))
@@ -68,10 +75,12 @@ class UpdateThread(threading.Thread):
 
 class Updater:
 
-    def __init__(self, base_url, thread_num, interval):
+    def __init__(self, base_url, thread_num, interval, user, password):
         self.thread_num = thread_num
         self.interval = interval
         self.base_url = base_url
+        self.user = user
+        self.password = password
 
         if self.base_url[-1] != '/':
             self.base_url += '/'
@@ -93,7 +102,7 @@ class Updater:
             # start thread_num for feeds
             threads = []
             for num in range(0, self.thread_num):
-                thread = UpdateThread(feeds, self.update_url)
+                thread = UpdateThread(feeds, self.update_url, self.user, self.password)
                 thread.start()
                 threads.append(thread)
 
@@ -135,7 +144,7 @@ def main():
     urllib.request.install_opener(opener)
 
     # create the updater and run the threads
-    updater = Updater(args.url, args.threads, args.interval)
+    updater = Updater(args.url, args.threads, args.interval, args.user, args.password)
     updater.run()
 
 
