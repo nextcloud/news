@@ -59,10 +59,7 @@ class UpdateThread(threading.Thread):
         url = '%s?%s' % (self.update_url, data)
 
         try:
-            response = urllib.request.urlopen(url, timeout=60)
-            print('succ!')
-            print(url)
-            print(response.read())
+            urllib.request.urlopen(url, timeout=60)
         except urllib.error.HTTPError as e:
             print('%s: %s' % (url, e))
 
