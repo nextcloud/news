@@ -141,9 +141,9 @@ def main():
         default=30,
         type=int)
     parser.add_argument('--user',
-        help='A username to log into ownCloud', required=True)
+        help='Admin username to log into ownCloud', required=True)
     parser.add_argument('--password',
-        help='A password to log into ownCloud', required=True)
+        help='Admin password to log into ownCloud', required=True)
     parser.add_argument('url',
         help='The URL where owncloud is installed')
     args = parser.parse_args()
