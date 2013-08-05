@@ -48,16 +48,17 @@ class UpdateThread(threading.Thread):
                 return
 
         # call the update method of one feed
+        feed['feedId'] = feed['id']
+        del feed['id']
         data = urllib.parse.urlencode(feed)
         headers = {
             'Content-type': 'application/json',
             'Accept': 'text/plain'
         }
         url = '%s?%s' % (self.update_url, data)
-        request = urllib.request.Request(url)
 
         try:
-            response = urllib.request.urlopen(request)
+            response = urllib.request.urlopen(url)
         except urllib.error.HTTPError:
             print('%s does not exist' % url)
 
