@@ -27,6 +27,7 @@ import time
 import json
 import argparse
 import threading
+import socket
 import urllib.request
 import urllib.error
 
@@ -41,12 +42,13 @@ class UpdateThread(threading.Thread):
 
     lock = threading.Lock()
 
-    def __init__(self, feeds, update_url, user, password):
+    def __init__(self, feeds, update_url, user, password, timeout):
         super().__init__()
         self.feeds = feeds
         self.update_url = update_url
         self.user = user
         self.password = password
+        self.timeout = timeout
 
     def run(self):
         with UpdateThread.lock:
@@ -68,8 +70,8 @@ class UpdateThread(threading.Thread):
 
         try:
             opener = get_basic_auth_opener(url, self.user, self.password)
-            opener.open(url, timeout=60)
-        except urllib.error.HTTPError as e:
+            opener.open(url, timeout=self.timeout)
+        except (urllib.error.HTTPError, socket.timeout) as e:
             print('%s: %s' % (url, e))
 
         self.run()
@@ -77,12 +79,13 @@ class UpdateThread(threading.Thread):
 
 class Updater:
 
-    def __init__(self, base_url, thread_num, interval, user, password):
+    def __init__(self, base_url, thread_num, interval, user, password, timeout):
         self.thread_num = thread_num
         self.interval = interval
         self.base_url = base_url
         self.user = user
         self.password = password
+        self.timeout = timeout
 
         if self.base_url[-1] != '/':
             self.base_url += '/'
@@ -107,7 +110,7 @@ class Updater:
             threads = []
             for num in range(0, self.thread_num):
                 thread = UpdateThread(feeds, self.update_url, self.user,
-                    self.password)
+                    self.password, self.timeout)
                 thread.start()
                 threads.append(thread)
 
@@ -128,6 +131,10 @@ def main():
         help='How many feeds should be fetched in paralell, defaults to 10',
         default=10,
         type=int)
+    parser.add_argument('--timeout',
+        help='Maximum number of seconds for updating a feed, defaults to 5 minutes',
+        default=5*60,
+        type=int)
     parser.add_argument('--interval',
         help='Update interval between fetching the next round of \
             updates in minutes, defaults to 30 minutes',
@@ -143,7 +150,7 @@ def main():
 
     # create the updater and run the threads
     updater = Updater(args.url, args.threads, args.interval, args.user,
-        args.password)
+        args.password, args.timeout)
     updater.run()
 
 
