@@ -170,6 +170,45 @@ class ItemAPITest extends ControllerTestUtility {
 	}
 
 
+	public function testGetAllDefaultBatchSize() {
+		$items = array(
+			new Item()
+		);
+		$request = new Request(array('params' => array(
+			'offset' => 20,
+			'type' => 1,
+			'id' => 2,
+			'getRead' => 'false'
+		)));
+		$this->itemAPI = new ItemAPI(
+			$this->api,
+			$request,
+			$this->itemBusinessLayer
+		);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->itemBusinessLayer->expects($this->once())
+			->method('findAll')
+			->with(
+				$this->equalTo(2),
+				$this->equalTo(1),
+				$this->equalTo(20),
+				$this->equalTo(20),
+				$this->equalTo(false),
+				$this->equalTo($this->user)
+			)
+			->will($this->returnValue($items));
+
+		$response = $this->itemAPI->getAll();
+
+		$this->assertEquals(array(
+			'items' => array($items[0]->toAPI())
+		), $response->getData());
+	}
+
+
 	public function testGetUpdated() {
 		$items = array(
 			new Item()

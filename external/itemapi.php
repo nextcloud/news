@@ -60,7 +60,7 @@ class ItemAPI extends Controller {
 		);
 
 		$userId = $this->api->getUserId();
-		$batchSize = (int) $this->params('batchSize');
+		$batchSize = (int) $this->params('batchSize', 20);
 		$offset = (int) $this->params('offset', 0);
 		$type = (int) $this->params('type');
 		$id = (int) $this->params('id');

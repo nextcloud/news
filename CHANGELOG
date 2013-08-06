@@ -6,6 +6,7 @@ owncloud-news (1.203)
 * Make it possible to turn off cron updates
 * Strip all HTML tags from the author and title
 * Sanitize urls on the server side to prevent clients from being affected by XSS
+* Use a default batch value for the API
 
 ownCloud-news (1.202)
 * Fixed a bug in the API routes that would request an uneeded id when creating a feed
