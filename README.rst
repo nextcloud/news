@@ -147,7 +147,7 @@ This will be in a separate config file in the future but for now you can tweak t
 
 :file:`dependencyinjection/dicontainer.php`
 
-* To use a custom update/cron script you need to disable the cronjob which is run by ownCloud by default:
+* To use a custom update/cron script you need to disable the cronjob which is run by ownCloud by default::
 
     $this['useCronUpdates'] = false;
 
