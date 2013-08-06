@@ -4,6 +4,8 @@ README
 
 The News app is a an RSS/Atom feed aggregator. It offers a `RESTful API <https://github.com/owncloud/news/wiki/API-1.2>`_ for app developers. The source code is `available on GitHub <https://github.com/owncloud/news>`_
 
+For further developer and user documentation please visit `the wiki <https://github.com/owncloud/news/wiki>`_
+
 .. |travis-ci| image:: https://travis-ci.org/owncloud/news.png
 .. _travis-ci: https://travis-ci.org/owncloud/news
 
@@ -115,49 +117,6 @@ Keyboard shortcuts
 * **Star item and jump to next one**: h
 * **Open current item**: o
 
-Mobile Clients
---------------
-
-Official
-~~~~~~~~
-* **Platform**: Android, iOS, Windows Phone (PhoneGap), FirefoxOS
-* **Status**: In development
-* **Author**: `Bernhard Posselt <https://github.com/Raydiation>`_
-* **Link (source)**: `https://github.com/owncloud/news-mobile <https://github.com/owncloud/news-mobile>`_
-* **License**: AGPL
-* **Bugtracker**: `https://github.com/owncloud/news-mobile/issues <https://github.com/owncloud/news-mobile/issues>`_
-
-Unofficial
-~~~~~~~~~~
-* **Platform**: Android
-* **Status**: Beta
-* **Author**: `David Luhmer <https://github.com/David-Development>`_
-* **Link (source)**: `Owncloud News Reader <http://david-luhmer.de/wordpress/?p=126>`_
-* **Google play Store**: `buy the App <https://play.google.com/store/apps/details?id=de.luhmer.owncloudnewsreader>`_
-* **License**: AGPL
-* **Bugtracker**: `https://github.com/owncloud/News-Android-App/issues <https://github.com/owncloud/News-Android-App/issues>`_
-
-----------------
-
-* **Platform**: Blackberry 10
-* **Status**: Beta
-* **Author**: `Adam Pigg <http://www.piggz.co.uk/>`_
-* **Link (source)**: `Own News <https://gitorious.org/ownnews/ownnews>`_
-* **Blackberry World**: coming soon
-* **License**: GPL
-
-----------------
-
-* **Platform**: iOS
-* **Status**: Beta
-* **Author**: `Peter Hedlund <http://peterandlinda.com/>`_
-* **Link (source)**: `iOCNews <https://github.com/phedlund/iOCNews>`_
-* **Apple App Store**: coming soon
-* **Bugtracker**: `https://github.com/phedlund/iOCNews/issues <https://github.com/phedlund/iOCNews/issues>`_
-* **License**: BSD
-
-Desktop Clients
----------------
 
 Performance Notices
 -------------------
@@ -213,54 +172,4 @@ in the **js/** directory
     feedUpdateInterval: 1000*60*3  # miliseconds
 
 
-Building the package
---------------------
-To build the app simply run::
 
-    make
-
-Then build the package with::
-
-    make dist
-
-The package lies in the **build/** directory and is ready to be uploaded to `the App-Store <http://apps.owncloud.com>`_
-
-Running tests
--------------
-All tests
-~~~~~~~~~
-To run them execute::
-
-    make test
-
-PHP Unit tests
-~~~~~~~~~~~~~~
-To run them execute::
-
-    make unit-tests
-
-Integration tests
-~~~~~~~~~~~~~~~~~
-To run them execute::
-
-    make integration-tests
-
-Acceptance tests
-~~~~~~~~~~~~~~~~
-.. note:: For acceptance tests, a user with the name **test** and password **test** must exist!
-
-To change the url under which ownCloud is installed, set the environment variable $OWNCLOUD_HOST::
-
-    export OWNCLOUD_HOST="localhost/core"
-
-Otherwise it defaults to **localhost/owncloud**,
-
-To run them execute::
-
-    make acceptance-tests
-
-JavaScript unit tests
-~~~~~~~~~~~~~~~~~~~~~
-To run them execute::
-
-    make javascript-tests
