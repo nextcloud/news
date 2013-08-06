@@ -2,6 +2,8 @@ owncloud-news (1.203)
 * Decode the title twice to fix special characters in HTML content in the title, author and email
 * Scroll to the bottom once you hit the show all button to prevent tedious scrolling
 * Add an API to make ownCloud cron updates optionally. This can be used to write an update script which can be threaded to dramatically speed up fetching of feeds and reduce the used memory to run the update
+* Add a Python update script which threads the updates
+* Make it possible to turn off cron updates
 
 ownCloud-news (1.202)
 * Fixed a bug in the API routes that would request an uneeded id when creating a feed
