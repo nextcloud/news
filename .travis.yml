@@ -10,4 +10,5 @@ script:
   - sudo add-apt-repository -y ppa:chris-lea/node.js
   - sudo apt-get update
   - sudo apt-get -y install nodejs phantomjs
+  - file /usr/bin/phantomjs
   - make unit-tests && make javascript-tests
