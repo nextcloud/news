@@ -113,7 +113,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 	}
 
 	public function testCreate(){
-		$url = 'test';
+		$url = 'http://test';
 		$folderId = 10;
 		$createdFeed = new Feed();
 		$ex = new DoesNotExistException('yo');
@@ -168,7 +168,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 
 	public function testCreateItemGuidExistsAlready(){
-		$url = 'test';
+		$url = 'http://test';
 		$folderId = 10;
 		$createdFeed = new Feed();
 		$ex = new DoesNotExistException('yo');

@@ -71,7 +71,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 		$item->setId(3);
 		$item->setGuid('guid');
 		$item->setGuidHash('hash');
-		$item->setUrl('url');
+		$item->setUrl('https://google');
 		$item->setTitle('title');
 		$item->setAuthor('author');
 		$item->setPubDate(123);
@@ -88,7 +88,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 			'id' => 3,
 			'guid' => 'guid',
 			'guidHash' => 'hash',
-			'url' => 'url',
+			'url' => 'https://google',
 			'title' => 'title',
 			'author' => 'author',
 			'pubDate' => 123,
@@ -116,6 +116,13 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 		$item->setTitle('<a>my link</li>');
 		$this->assertEquals('my link', $item->getTitle());
 		$this->assertContains('title', $item->getUpdatedFields());
+	}
+
+
+	public function testSetXSSUrl() {
+		$item = new Item();
+		$item->setUrl('javascript:alert()');
+		$this->assertEquals('', $item->getUrl());
 	}
 
 

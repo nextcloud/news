@@ -34,24 +34,39 @@ class FeedTest extends \PHPUnit_Framework_TestCase {
 	public function testToAPI() {
 		$feed = new Feed();
 		$feed->setId(3);
-		$feed->setUrl('url');
+		$feed->setUrl('http://google');
 		$feed->setTitle('title');
 		$feed->setFaviconLink('favicon');
 		$feed->setAdded(123);
 		$feed->setFolderId(1);
 		$feed->setUnreadCount(321);
-		$feed->setLink('link');
+		$feed->setLink('https://google');
 
 		$this->assertEquals(array(
 			'id' => 3,
-			'url' => 'url',
+			'url' => 'http://google',
 			'title' => 'title',
 			'faviconLink' => 'favicon',
 			'added' => 123,
 			'folderId' => 1,
 			'unreadCount' => 321,
-			'link' => 'link'
+			'link' => 'https://google'
 			), $feed->toAPI());
 	}
+
+
+	public function testSetXSSUrl() {
+		$feed = new Feed();
+		$feed->setUrl('javascript:alert()');
+		$this->assertEquals('', $feed->getUrl());
+	}
+
+
+	public function testSetXSSLink() {
+		$feed = new Feed();
+		$feed->setLink('javascript:alert()');
+		$this->assertEquals('', $feed->getLink());
+	}
+
 
 }
