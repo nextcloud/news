@@ -12,6 +12,6 @@ script:
   - sudo apt-get update
   - sudo apt-get -y install nodejs
   - wget https://phantomjs.googlecode.com/files/phantomjs-1.9.0-linux-x86_64.tar.bz2
-  - tar xjf phantomjs-1.9.0-linux-i686.tar.bz2
+  - tar xjf phantomjs-1.9.0-linux-x86_64.tar.bz2
   - sudo ln -s $(pwd)/phantomjs-1.9.0-linux-x86_64/bin/phantomjs /usr/bin/phantomjs
   - make unit-tests && make javascript-tests
