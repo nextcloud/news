@@ -102,4 +102,21 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 			), $item->toAPI());
 	}
 
+
+	public function testSetAuthor(){
+		$item = new Item();
+		$item->setAuthor('<a>my link</li>');
+		$this->assertEquals('my link', $item->getAuthor());
+		$this->assertContains('author', $item->getUpdatedFields());
+	}
+
+
+	public function testSetTitle(){
+		$item = new Item();
+		$item->setTitle('<a>my link</li>');
+		$this->assertEquals('my link', $item->getTitle());
+		$this->assertContains('title', $item->getUpdatedFields());
+	}
+
+
 }

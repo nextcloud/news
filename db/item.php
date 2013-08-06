@@ -74,7 +74,7 @@ class Item extends Entity implements IAPI {
 		$this->markFieldUpdated('status');
 		$this->status |= StatusFlag::STARRED;
 	}
-	
+
 	public function isStarred() {
 		return ($this->status & StatusFlag::STARRED) === StatusFlag::STARRED;
 	}
@@ -107,6 +107,17 @@ class Item extends Entity implements IAPI {
 			'lastModified' => $this->getLastModified()
 		);
 	}
+
+
+	public function setAuthor($name) {
+		parent::setAuthor(strip_tags($name));
+	}
+
+
+	public function setTitle($title) {
+		parent::setTitle(strip_tags($title));
+	}
+
 
 }
 
