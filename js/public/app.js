@@ -1,4 +1,3 @@
-(function(angular, $, moment, undefined){
 
 /**
  * ownCloud News App - v0.0.1
@@ -3245,4 +3244,3 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 }).call(this);
 
-})(window.angular, window.jQuery, window.moment);

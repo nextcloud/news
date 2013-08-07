@@ -101,9 +101,7 @@ module.exports = (grunt) ->
 				configFile: 'config/karma.js'
 				singleRun: true
 				browsers: ['PhantomJS']
-				reporters: ['progress', 'junit']
-				junitReporter:
-					outputFile: 'test-results.xml'
+				reporters: ['progress']
 			unit_phantom:
 				configFile: 'config/karma.js'
 				browsers: ['PhantomJS']
