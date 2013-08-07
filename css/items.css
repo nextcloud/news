@@ -204,7 +204,13 @@
 		max-width: 770px;
 		font-size: 14px;
 		clear: both;
-		overflow: auto;
+		overflow-x: auto;
+		/*overflow-y: hidden;
+		height: 80px;*/
+	}
+
+	.feed_item .body.opened {
+
 	}
 
 		.feed_item .body p {

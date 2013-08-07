@@ -70,7 +70,8 @@ angular.module('News').factory 'OPMLParser', ->
 					feed = new Feed($outline.attr('text'), $outline.attr('xmlUrl'))
 					structure.add(feed)
 				else
-					folder = new Folder($outline.attr('text'))
+					title = $outline.attr('text') || $outline.attr('title')
+					folder = new Folder(title)
 					structure.add(folder)
 					@_recursivelyParse($outline, folder)
 

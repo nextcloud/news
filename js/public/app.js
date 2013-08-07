@@ -2407,7 +2407,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
       };
 
       OPMLParser.prototype._recursivelyParse = function($xml, structure) {
-        var $outline, feed, folder, outline, _i, _len, _ref, _results;
+        var $outline, feed, folder, outline, title, _i, _len, _ref, _results;
         _ref = $xml.children('outline');
         _results = [];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -2417,7 +2417,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             feed = new Feed($outline.attr('text'), $outline.attr('xmlUrl'));
             _results.push(structure.add(feed));
           } else {
-            folder = new Folder($outline.attr('text'));
+            title = $outline.attr('text') || $outline.attr('title');
+            folder = new Folder(title);
             structure.add(folder);
             _results.push(this._recursivelyParse($outline, folder));
           }
