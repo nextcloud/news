@@ -79,13 +79,14 @@ class UpdateThread(threading.Thread):
 
 class Updater:
 
-    def __init__(self, base_url, thread_num, interval, user, password, timeout):
+    def __init__(self, base_url, thread_num, interval, user, password, timeout, runonce):
         self.thread_num = thread_num
         self.interval = interval
         self.base_url = base_url
         self.user = user
         self.password = password
         self.timeout = timeout
+        self.runonce = runonce
 
         if self.base_url[-1] != '/':
             self.base_url += '/'
@@ -117,9 +118,10 @@ class Updater:
             for thread in threads:
                 thread.join()
 
-            # wait until the interval finished to run again
-            time.sleep(self.interval)
-            self.run()
+            if self.runonce != True:
+                # wait until the interval finished to run again
+                time.sleep(self.interval)
+                self.run()
 
         except (ValueError, urllib.error.HTTPError) as e:
             print('%s: %s' % (self.base_url, e))
@@ -127,6 +129,8 @@ class Updater:
 
 def main():
     parser = argparse.ArgumentParser()
+    parser.add_argument('--runonce',
+        help='Run update only once', action='store_true')
     parser.add_argument('--threads',
         help='How many feeds should be fetched in paralell, defaults to 10',
         default=10,
