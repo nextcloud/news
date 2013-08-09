@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-08-01 01:02-0400\n"
-"PO-Revision-Date: 2013-07-31 05:41+0000\n"
+"POT-Creation-Date: 2013-08-09 06:01-0400\n"
+"PO-Revision-Date: 2013-08-07 12:21+0000\n"
 "Last-Translator: Vincenzo Reale <vinx.reale@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/owncloud/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -23,11 +23,11 @@ msgstr ""
 msgid "News"
 msgstr "Notizie"
 
-#: businesslayer/feedbusinesslayer.php:86
+#: businesslayer/feedbusinesslayer.php:95
 msgid "Can not add feed: Exists already"
 msgstr "Impossible aggiungere la fonte: esiste già"
 
-#: businesslayer/feedbusinesslayer.php:124
+#: businesslayer/feedbusinesslayer.php:133
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "Impossibile aggiungere la fonte: l'URL non esiste o ha xml non valido"
 
@@ -165,10 +165,10 @@ msgstr "Per importare gli articoli con stella e condivisi da Google\nReader cari
 msgid "Error when importing: file does not contain valid JSON"
 msgstr "Errore durante l'importazione: il file non contiene JSON valido"
 
-#: templates/part.showall.php:2
+#: templates/part.showall.php:5
 msgid "Show all"
 msgstr "Mostra tutto"
 
-#: templates/part.showall.php:6
+#: templates/part.showall.php:11
 msgid "Show only unread"
 msgstr "Mostra solo i non letti"

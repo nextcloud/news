@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-08-01 01:02-0400\n"
-"PO-Revision-Date: 2013-07-31 05:41+0000\n"
+"POT-Creation-Date: 2013-08-09 06:01-0400\n"
+"PO-Revision-Date: 2013-08-07 12:21+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/owncloud/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -28,11 +28,11 @@ msgstr ""
 msgid "News"
 msgstr "新闻"
 
-#: businesslayer/feedbusinesslayer.php:86
+#: businesslayer/feedbusinesslayer.php:95
 msgid "Can not add feed: Exists already"
 msgstr "无法添加反馈：已经存在"
 
-#: businesslayer/feedbusinesslayer.php:124
+#: businesslayer/feedbusinesslayer.php:133
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "无法添加反馈：URL不存在或具有无效的xml"
 
@@ -170,10 +170,10 @@ msgstr "要从Google导入加星的或分享的文章\n»»»请读者上传Goog
 msgid "Error when importing: file does not contain valid JSON"
 msgstr "导入出错：文件包含非法的JSON数据"
 
-#: templates/part.showall.php:2
+#: templates/part.showall.php:5
 msgid "Show all"
 msgstr "显示所有"
 
-#: templates/part.showall.php:6
+#: templates/part.showall.php:11
 msgid "Show only unread"
 msgstr "只看未读"
