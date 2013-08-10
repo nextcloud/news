@@ -154,7 +154,7 @@ def main():
 
     # create the updater and run the threads
     updater = Updater(args.url, args.threads, args.interval, args.user,
-        args.password, args.timeout)
+        args.password, args.timeout, args.runonce)
     updater.run()
 
 
