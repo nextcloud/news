@@ -131,7 +131,7 @@ class Updater:
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--runonce',
-        help='Run update only once', action='store_true')
+        help='Run update only once, only recommended for testing', action='store_true')
     parser.add_argument('--threads',
         help='How many feeds should be fetched in paralell, defaults to 10',
         default=10,
