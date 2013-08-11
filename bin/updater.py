@@ -127,6 +127,7 @@ class Updater:
             print('%s: %s' % (self.base_url, e))
             print('Trying again in 30 seconds')
             time.sleep(30)
+            self.run()
 
 def main():
     parser = argparse.ArgumentParser()
