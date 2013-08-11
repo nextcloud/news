@@ -125,7 +125,7 @@ class Updater:
 
         except (ValueError, urllib.error.HTTPError) as e:
             print('%s: %s' % (self.base_url, e))
-            print('Trying again in 30 seconds")
+            print('Trying again in 30 seconds')
             time.sleep(30)
 
 def main():
