@@ -125,7 +125,8 @@ class Updater:
 
         except (ValueError, urllib.error.HTTPError) as e:
             print('%s: %s' % (self.base_url, e))
-            exit(1)
+            print('Trying again in 30 seconds")
+            time.sleep(30)
 
 def main():
     parser = argparse.ArgumentParser()
