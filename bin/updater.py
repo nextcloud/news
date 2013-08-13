@@ -132,7 +132,7 @@ class Updater:
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--runonce',
+    parser.add_argument('--testrun',
         help='Run update only once, DO NOT use this in a cron job, only \
               recommended for testing', action='store_true')
     parser.add_argument('--threads',
@@ -159,7 +159,7 @@ def main():
 
     # create the updater and run the threads
     updater = Updater(args.url, args.threads, args.interval, args.user,
-        args.password, args.timeout, args.runonce)
+        args.password, args.timeout, args.testrun)
     updater.run()
 
 
