@@ -79,7 +79,8 @@ class UpdateThread(threading.Thread):
 
 class Updater:
 
-    def __init__(self, base_url, thread_num, interval, user, password, timeout, runonce):
+    def __init__(self, base_url, thread_num, interval, user, password, timeout, 
+                 runonce):
         self.thread_num = thread_num
         self.interval = interval
         self.base_url = base_url
@@ -132,13 +133,15 @@ class Updater:
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--runonce',
-        help='Run update only once, DO NOT use this in a cron job, only recommended for testing', action='store_true')
+        help='Run update only once, DO NOT use this in a cron job, only \
+              recommended for testing', action='store_true')
     parser.add_argument('--threads',
         help='How many feeds should be fetched in paralell, defaults to 10',
         default=10,
         type=int)
     parser.add_argument('--timeout',
-        help='Maximum number of seconds for updating a feed, defaults to 5 minutes',
+        help='Maximum number of seconds for updating a feed, \
+              defaults to 5 minutes',
         default=5*60,
         type=int)
     parser.add_argument('--interval',
