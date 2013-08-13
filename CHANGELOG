@@ -1,3 +1,6 @@
+owncloud-news (1.205)
+* Also allow magnet urls in articles
+
 owncloud-news (1.204)
 * Fix problem that caused python updater script to exit because of maximum recursion
 * Add an option to testrun an update with the updater script
