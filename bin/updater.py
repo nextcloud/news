@@ -51,43 +51,43 @@ class UpdateThread(threading.Thread):
         self.timeout = timeout
 
     def run(self):
-        with UpdateThread.lock:
-            if len(self.feeds) > 0:
-                feed = self.feeds.pop()
-            else:
-                return
+        while True:
+            with UpdateThread.lock:
+                if len(self.feeds) > 0:
+                    feed = self.feeds.pop()
+                else:
+                    return
 
-        feed['feedId'] = feed['id']
-        del feed['id']
+            feed['feedId'] = feed['id']
+            del feed['id']
 
-        # call the update method of one feed
-        data = urllib.parse.urlencode(feed)
-        headers = {
-            'Content-type': 'application/json',
-            'Accept': 'text/plain'
-        }
-        url = '%s?%s' % (self.update_url, data)
+            # call the update method of one feed
+            data = urllib.parse.urlencode(feed)
+            headers = {
+                'Content-type': 'application/json',
+                'Accept': 'text/plain'
+            }
+            url = '%s?%s' % (self.update_url, data)
 
-        try:
-            opener = get_basic_auth_opener(url, self.user, self.password)
-            opener.open(url, timeout=self.timeout)
-        except (urllib.error.HTTPError, socket.timeout) as e:
-            print('%s: %s' % (url, e))
+            try:
+                opener = get_basic_auth_opener(url, self.user, self.password)
+                opener.open(url, timeout=self.timeout)
+            except (urllib.error.HTTPError, socket.timeout) as e:
+                print('%s: %s' % (url, e))
 
-        self.run()
 
 
 class Updater:
 
     def __init__(self, base_url, thread_num, interval, user, password, timeout, 
-                 runonce):
+                 run_once):
         self.thread_num = thread_num
         self.interval = interval
         self.base_url = base_url
         self.user = user
         self.password = password
         self.timeout = timeout
-        self.runonce = runonce
+        self.run_once = run_once
 
         if self.base_url[-1] != '/':
             self.base_url += '/'
@@ -99,36 +99,39 @@ class Updater:
 
 
     def run(self):
-        try:
-            opener = get_basic_auth_opener(self.base_url, self.user,
-                self.password)
-            # run the cleanup request and get all the feeds to update
-            opener.open(self.cleanup_url)
-            feeds_response = opener.open(self.all_feeds_url)
-            feeds_json = feeds_response.read().decode('utf-8')
-            feeds = json.loads(feeds_json)['feeds']
+        while True:
+            try:
+                opener = get_basic_auth_opener(self.base_url, self.user,
+                    self.password)
+                # run the cleanup request and get all the feeds to update
+                opener.open(self.cleanup_url)
+                feeds_response = opener.open(self.all_feeds_url)
+                feeds_json = feeds_response.read().decode('utf-8')
+                feeds = json.loads(feeds_json)['feeds']
 
-            # start thread_num for feeds
-            threads = []
-            for num in range(0, self.thread_num):
-                thread = UpdateThread(feeds, self.update_url, self.user,
-                    self.password, self.timeout)
-                thread.start()
-                threads.append(thread)
+                # start thread_num for feeds
+                threads = []
+                for num in range(0, self.thread_num):
+                    thread = UpdateThread(feeds, self.update_url, self.user,
+                        self.password, self.timeout)
+                    thread.start()
+                    threads.append(thread)
 
-            for thread in threads:
-                thread.join()
+                for thread in threads:
+                    thread.join()
 
-            if self.runonce != True:
+                if self.run_once:
+                    return
+                
                 # wait until the interval finished to run again
                 time.sleep(self.interval)
-                self.run()
 
-        except (ValueError, urllib.error.HTTPError) as e:
-            print('%s: %s' % (self.base_url, e))
-            print('Trying again in 30 seconds')
-            time.sleep(30)
-            self.run()
+
+            except (ValueError, urllib.error.HTTPError) as e:
+                print('%s: %s' % (self.base_url, e))
+                print('Trying again in 30 seconds')
+                time.sleep(30)
+
 
 def main():
     parser = argparse.ArgumentParser()
