@@ -121,7 +121,7 @@ class Item extends Entity implements IAPI {
 
 	public function setUrl($url) {
 		$url = trim($url);
-		if(strpos($url, 'http') === 0) {
+		if(strpos($url, 'http') === 0 || strpos($url, 'magnet') === 0) {
 			parent::setUrl($url);
 		}
 	}

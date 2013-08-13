@@ -126,4 +126,10 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 	}
 
 
+	public function testSetMagnetUrl() {
+		$item = new Item();
+		$item->setUrl('magnet://link.com');
+		$this->assertEquals('magnet://link.com', $item->getUrl());
+	}
+
 }
