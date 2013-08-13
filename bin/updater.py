@@ -109,7 +109,7 @@ class Updater:
                 feeds_json = feeds_response.read().decode('utf-8')
                 feeds = json.loads(feeds_json)['feeds']
 
-                # start thread_num for feeds
+                # start thread_num threads which update the feeds
                 threads = []
                 for num in range(0, self.thread_num):
                     thread = UpdateThread(feeds, self.update_url, self.user,
@@ -125,7 +125,6 @@ class Updater:
                 
                 # wait until the interval finished to run again
                 time.sleep(self.interval)
-
 
             except (ValueError, urllib.error.HTTPError) as e:
                 print('%s: %s' % (self.base_url, e))
