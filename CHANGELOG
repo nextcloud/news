@@ -1,5 +1,6 @@
 owncloud-news (1.205)
 * Also allow magnet urls in articles
+* When jumping to the next item after the last one, also mark the last item as read
 
 owncloud-news (1.204)
 * Fix problem that caused python updater script to exit because of maximum recursion

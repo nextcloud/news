@@ -52,11 +52,18 @@ angular.module('News').directive 'itemShortcuts', ['$window', ($window) ->
 		jumpToNextItem = (scrollArea) ->
 			$scrollArea = $(scrollArea)
 			$items = $scrollArea.find('.feed_item')
+			jumped = false
 			for item in $items
 				$item = $(item)
 				if $item.position().top > 1
+					jumped = true
 					jumpTo($scrollArea, $item)
 					break
+			# in case this is the last item it should still scroll below the
+			# top
+			if jumped == false
+				$scrollArea.scrollTop($scrollArea.prop('scrollHeight'))
+
 
 
 		getCurrentItem = (scrollArea) ->

@@ -225,21 +225,22 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           }
         };
         jumpToNextItem = function(scrollArea) {
-          var $item, $items, $scrollArea, item, _i, _len, _results;
+          var $item, $items, $scrollArea, item, jumped, _i, _len;
           $scrollArea = $(scrollArea);
           $items = $scrollArea.find('.feed_item');
-          _results = [];
+          jumped = false;
           for (_i = 0, _len = $items.length; _i < _len; _i++) {
             item = $items[_i];
             $item = $(item);
             if ($item.position().top > 1) {
+              jumped = true;
               jumpTo($scrollArea, $item);
               break;
-            } else {
-              _results.push(void 0);
             }
           }
-          return _results;
+          if (jumped === false) {
+            return $scrollArea.scrollTop($scrollArea.prop('scrollHeight'));
+          }
         };
         getCurrentItem = function(scrollArea) {
           var $item, $items, $scrollArea, item, _i, _len;
