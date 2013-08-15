@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# aivier <iaivier@126.com>, 2013
 # marguerite su <i@marguerite.su>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-08-09 06:01-0400\n"
-"PO-Revision-Date: 2013-08-07 12:21+0000\n"
-"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"POT-Creation-Date: 2013-08-15 16:56-0400\n"
+"PO-Revision-Date: 2013-08-15 11:10+0000\n"
+"Last-Translator: aivier <iaivier@126.com>\n"
 "Language-Team: Chinese (China) (GB2312) (http://www.transifex.com/projects/p/owncloud/language/zh_CN.GB2312/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,32 +25,32 @@ msgstr "新闻"
 
 #: businesslayer/feedbusinesslayer.php:95
 msgid "Can not add feed: Exists already"
-msgstr ""
+msgstr "无法添加订阅：已经存在"
 
 #: businesslayer/feedbusinesslayer.php:133
 msgid "Can not add feed: URL does not exist or has invalid xml"
-msgstr ""
+msgstr "无法添加订阅：网址不存在或无效的XML"
 
 #: businesslayer/folderbusinesslayer.php:66
 msgid "Can not add folder: Exists already"
-msgstr ""
+msgstr "无法添加文件夹：已经存在！"
 
 #: templates/main.php:26
 #, php-format
 msgid "Undo deletion of %s"
-msgstr ""
+msgstr "撤销删除 %s"
 
 #: templates/part.addnew.php:11
 msgid "Add Website"
-msgstr ""
+msgstr "添加网站"
 
 #: templates/part.addnew.php:16
 msgid "Error: address exists already!"
-msgstr ""
+msgstr "错误：地址已经存在！"
 
 #: templates/part.addnew.php:19
 msgid "Error: folder exists already"
-msgstr ""
+msgstr "错误：文件夹已经存在"
 
 #: templates/part.addnew.php:26
 msgid "Address"
@@ -61,7 +62,7 @@ msgstr "添加"
 
 #: templates/part.addnew.php:37 templates/part.addnew.php:45
 msgid "New folder"
-msgstr ""
+msgstr "新文件夹"
 
 #: templates/part.addnew.php:38
 msgid "Folder"
@@ -69,7 +70,7 @@ msgstr "文件夹"
 
 #: templates/part.addnew.php:43
 msgid "Choose folder"
-msgstr ""
+msgstr "选择文件夹"
 
 #: templates/part.addnew.php:55
 msgid "Folder name"
@@ -77,32 +78,32 @@ msgstr "文件夹名"
 
 #: templates/part.addnew.php:58
 msgid "Back to folder selection"
-msgstr ""
+msgstr "回到选择的文件夹"
 
 #: templates/part.addnew.php:63
 msgid "Create folder"
-msgstr ""
+msgstr "创建文件夹"
 
 #: templates/part.feed.starred.php:11
 msgid "Starred"
-msgstr "红心"
+msgstr "星标"
 
 #: templates/part.feed.unread.php:10
 msgid "Unread articles"
-msgstr ""
+msgstr "未读文章"
 
 #: templates/part.feed.unread.php:17
 msgid "All articles"
-msgstr ""
+msgstr "所有文章"
 
 #: templates/part.feed.unread.php:26 templates/part.listfeed.php:49
 #: templates/part.listfolder.php:43
 msgid "Mark read"
-msgstr ""
+msgstr "标记为已读"
 
 #: templates/part.items.php:32
 msgid "from"
-msgstr ""
+msgstr "来自"
 
 #: templates/part.items.php:37
 msgid "by"
@@ -118,7 +119,7 @@ msgstr "保持未读"
 
 #: templates/part.listfeed.php:37 templates/part.listfeed.php:55
 msgid "Delete website"
-msgstr ""
+msgstr "删除网站"
 
 #: templates/part.listfolder.php:14
 msgid "Collapse"
@@ -134,7 +135,7 @@ msgstr "重命名文件夹"
 
 #: templates/part.settings.php:13
 msgid "Import / Export OPML"
-msgstr ""
+msgstr "导入/导出 OPML"
 
 #: templates/part.settings.php:17 templates/part.settings.php:19
 #: templates/part.settings.php:47 templates/part.settings.php:49
@@ -148,11 +149,11 @@ msgstr "导出"
 
 #: templates/part.settings.php:36
 msgid "Error when importing: file does not contain valid OPML"
-msgstr ""
+msgstr "导入时发生错误：文件不是OPML格式"
 
 #: templates/part.settings.php:42
 msgid "Import Google Reader JSON"
-msgstr ""
+msgstr "导入 Google Reader JSON"
 
 #: templates/part.settings.php:43
 msgid ""
@@ -162,11 +163,11 @@ msgstr ""
 
 #: templates/part.settings.php:53
 msgid "Error when importing: file does not contain valid JSON"
-msgstr ""
+msgstr "导入时发生错误：文件不是JSON格式"
 
 #: templates/part.showall.php:5
 msgid "Show all"
-msgstr ""
+msgstr "显示所有"
 
 #: templates/part.showall.php:11
 msgid "Show only unread"
