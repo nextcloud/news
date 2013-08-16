@@ -43,7 +43,7 @@
 
 .add-new input {
 	margin-top: 15px;
-	height: 16px !important;
+	box-sizing: border-box;
 }
 
 .add-new input, 
