@@ -72,7 +72,8 @@ class UpdateThread(threading.Thread):
             try:
                 opener = get_basic_auth_opener(url, self.user, self.password)
                 opener.open(url, timeout=self.timeout)
-            except (urllib.error.HTTPError, socket.timeout) as e:
+            except (urllib.error.HTTPError, urllib.error.URLError, 
+                socket.timeout) as e:
                 print('%s: %s' % (url, e))
 
 
@@ -126,7 +127,8 @@ class Updater:
                 # wait until the interval finished to run again
                 time.sleep(self.interval)
 
-            except (ValueError, urllib.error.HTTPError) as e:
+            except (ValueError, urllib.error.HTTPError, 
+                urllib.error.URLError) as e:
                 print('%s: %s' % (self.base_url, e))
                 print('Trying again in 30 seconds')
                 time.sleep(30)
