@@ -4,6 +4,7 @@
 "Add" => "Legg til",
 "New folder" => "Ny mappe",
 "Folder" => "Mappe",
+"Choose folder" => "Velg mappe",
 "Folder name" => "Mappenavn",
 "Starred" => "Merket",
 "Unread articles" => "Uleste artikler",
