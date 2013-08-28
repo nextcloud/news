@@ -30,6 +30,7 @@ use \OCA\AppFramework\Controller\Controller;
 use \OCA\AppFramework\Http\Request;
 use \OCA\AppFramework\Http\JSONResponse;
 use \OCA\AppFramework\Http\Response;
+use \OCA\AppFramework\Http\Http;
 
 use \OCA\News\Utility\Updater;
 
@@ -79,11 +80,13 @@ class NewsAPI extends Controller {
 	public function cors() {
 		// needed for webapps access due to cross origin request policy
 		$response = new Response();
+		$response->setStatus(Http::STATUS_UNAUTHORIZED);
 		$response->addHeader('Access-Control-Allow-Origin', '*');
 		$response->addHeader('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE');
 		$response->addHeader('Access-Control-Allow-Credentials', 'true');
 		$response->addHeader('Access-Control-Allow-Headers', 'Authorization');
 		$response->addHeader('Access-Control-Max-Age', '1728000');
+		$response->addHeader('WWW-Authenticate', 'Basic realm="ownCloud News"');
 		return $response;
 	}
 
