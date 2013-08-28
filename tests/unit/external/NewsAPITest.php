@@ -91,4 +91,22 @@ class NewsAPITest extends ControllerTestUtility {
 	}
 
 
+	public function testCorsAnnotations(){
+		$annotations = array('IsAdminExemption', 'IsSubAdminExemption',
+			'Ajax', 'CSRFExemption', 'IsLoggedInExemption');
+		$this->assertAnnotations($this->newsAPI, 'cors', $annotations);
+	}
+
+
+	public function testCors() {
+		$response = $this->newsAPI->cors();
+
+		$headers = $response->getHeaders();
+
+		$this->assertEquals('*', $headers['Access-Control-Allow-Origin']);
+		$this->assertEquals('PUT, POST, GET, DELETE', $headers['Access-Control-Allow-Methods']);
+		$this->assertEquals('true', $headers['Access-Control-Allow-Credentials']);
+	}
+
+
 }

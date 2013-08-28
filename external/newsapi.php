@@ -29,6 +29,7 @@ use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Controller\Controller;
 use \OCA\AppFramework\Http\Request;
 use \OCA\AppFramework\Http\JSONResponse;
+use \OCA\AppFramework\Http\Response;
 
 use \OCA\News\Utility\Updater;
 
@@ -64,5 +65,23 @@ class NewsAPI extends Controller {
 	public function cleanUp() {
 		$this->updater->cleanUp();
 	}
+
+
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @CSRFExemption
+	 * @IsLoggedInExemption
+	 * @Ajax
+	 */
+	public function cors() {
+		// needed for webapps access due to cross origin request policy
+		$response = new Response();
+		$response->addHeader('Access-Control-Allow-Origin', '*');
+		$response->addHeader('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE');
+		$response->addHeader('Access-Control-Allow-Credentials', 'true');
+		return $response;
+	}
+
 
 }
