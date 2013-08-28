@@ -54,6 +54,11 @@ use \OCA\News\Utility\TwitterFetcher;
 use \OCA\News\Utility\OPMLExporter;
 use \OCA\News\Utility\ImportParser;
 use \OCA\News\Utility\Updater;
+use \OCA\News\Utility\SimplePieFileFactory;
+
+use \OCA\News\Utility\ArticleEnhancer\Enhancer;
+use \OCA\News\Utility\ArticleEnhancer\DefaultEnhancer;
+use \OCA\News\Utility\ArticleEnhancer\CyanideAndHappinessEnhancer;
 
 
 require_once __DIR__ . '/../3rdparty/htmlpurifier/library/HTMLPurifier.auto.php';
@@ -167,7 +172,8 @@ class DIContainer extends BaseContainer {
 				$c['API'],
 				$c['TimeFactory'],
 				$c['ImportParser'],
-				$c['autoPurgeMinimumInterval']);
+				$c['autoPurgeMinimumInterval'],
+				$c['Enhancer']);
 		});
 
 		$this['ItemBusinessLayer'] = $this->share(function($c){
@@ -223,6 +229,30 @@ class DIContainer extends BaseContainer {
 		/**
 		 * Utility
 		 */
+		$this['Enhancer'] = $this->share(function($c){
+			$enhancer = new Enhancer();
+
+			// register fetchers in order
+			// the most generic enhancer should be the last one
+			$enhancer->registerEnhancer($c['CyanideAndHappinessEnhancer']);
+			$enhancer->registerEnhancer($c['DefaultEnhancer']);
+
+			return $enhancer;
+		});
+
+		$this['DefaultEnhancer'] = $this->share(function($c){
+			return new DefaultEnhancer();
+		});
+
+		$this['CyanideAndHappinessEnhancer'] = $this->share(function($c){
+			return new CyanideAndHappinessEnhancer(
+				$c['SimplePieFileFactory'],
+				$c['HTMLPurifier'],
+				$c['feedFetcherTimeout']
+			);
+		});
+
+
 		$this['Fetcher'] = $this->share(function($c){
 			$fetcher = new Fetcher();
 
@@ -250,6 +280,7 @@ class DIContainer extends BaseContainer {
 			return new TwitterFetcher($c['FeedFetcher']);
 		});
 
+
 		$this['ImportParser'] = $this->share(function($c){
 			return new ImportParser($c['TimeFactory'], $c['HTMLPurifier']);
 		});
@@ -266,6 +297,10 @@ class DIContainer extends BaseContainer {
 			return new Updater($c['FolderBusinessLayer'],
 			                   $c['FeedBusinessLayer'],
 			                   $c['ItemBusinessLayer']);
+		});
+
+		$this['SimplePieFileFactory'] = $this->share(function($c){
+			return new SimplePieFileFactory();
 		});
 
 	}

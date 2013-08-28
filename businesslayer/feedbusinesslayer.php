@@ -36,6 +36,8 @@ use \OCA\News\Utility\Fetcher;
 use \OCA\News\Utility\FetcherException;
 use \OCA\News\Utility\ImportParser;
 
+use \OCA\News\Utility\ArticleEnhancer\Enhancer;
+
 class FeedBusinessLayer extends BusinessLayer {
 
 	private $feedFetcher;
@@ -44,12 +46,14 @@ class FeedBusinessLayer extends BusinessLayer {
 	private $timeFactory;
 	private $importParser;
 	private $autoPurgeMinimumInterval;
+	private $enhancer;
 
 	public function __construct(FeedMapper $feedMapper, Fetcher $feedFetcher,
 		                        ItemMapper $itemMapper, API $api,
 		                        TimeFactory $timeFactory,
 		                        ImportParser $importParser,
-		                        $autoPurgeMinimumInterval){
+		                        $autoPurgeMinimumInterval,
+		                        Enhancer $enhancer){
 		parent::__construct($feedMapper);
 		$this->feedFetcher = $feedFetcher;
 		$this->itemMapper = $itemMapper;
@@ -57,6 +61,7 @@ class FeedBusinessLayer extends BusinessLayer {
 		$this->timeFactory = $timeFactory;
 		$this->importParser = $importParser;
 		$this->autoPurgeMinimumInterval = $autoPurgeMinimumInterval;
+		$this->enhancer = $enhancer;
 	}
 
 	/**
@@ -118,6 +123,7 @@ class FeedBusinessLayer extends BusinessLayer {
 					continue;
 				} catch(DoesNotExistException $ex){
 					$unreadCount += 1;
+					$item = $this->enhancer->enhance($item);
 					$this->itemMapper->insert($item);
 				}
 			}
@@ -183,6 +189,7 @@ class FeedBusinessLayer extends BusinessLayer {
 					try {
 						$this->itemMapper->findByGuidHash($item->getGuidHash(), $feedId, $userId);
 					} catch(DoesNotExistException $ex){
+						$item = $this->enhancer->enhance($item);
 						$this->itemMapper->insert($item);
 					}
 				}
