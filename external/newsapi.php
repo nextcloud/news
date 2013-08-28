@@ -80,6 +80,7 @@ class NewsAPI extends Controller {
 		$response->addHeader('Access-Control-Allow-Origin', '*');
 		$response->addHeader('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE');
 		$response->addHeader('Access-Control-Allow-Credentials', 'true');
+		$response->addHeader('Access-Control-Max-Age', '1728000');
 		return $response;
 	}
 
