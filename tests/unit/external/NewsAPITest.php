@@ -106,6 +106,7 @@ class NewsAPITest extends ControllerTestUtility {
 		$this->assertEquals('*', $headers['Access-Control-Allow-Origin']);
 		$this->assertEquals('PUT, POST, GET, DELETE', $headers['Access-Control-Allow-Methods']);
 		$this->assertEquals('true', $headers['Access-Control-Allow-Credentials']);
+		$this->assertEquals('Authorization', $headers['Access-Control-Allow-Headers']);
 		$this->assertEquals('1728000', $headers['Access-Control-Max-Age']);
 	}
 
