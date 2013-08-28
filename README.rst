@@ -141,6 +141,10 @@ All feeds are not updated and theres no cron.lock
 * If your cron works fine but owncloud's cronjobs are never executed, file a bug in `core <https://github.com/owncloud/core/>`_
 * Try the `updater script <https://github.com/owncloud/news/wiki/Cron-1.2>`_
 
+News always redirects to files
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This problem is related to opcode caching, `check the issue tracker for how to solve it <https://github.com/owncloud/news/issues/319>`_
+
 Configuration
 -------------
 This will be in a separate config file in the future but for now you can tweak the following things.
