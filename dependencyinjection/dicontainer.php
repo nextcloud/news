@@ -26,6 +26,7 @@
 namespace OCA\News\DependencyInjection;
 
 use \OCA\AppFramework\DependencyInjection\DIContainer as BaseContainer;
+use \OCA\AppFramework\Middleware\MiddlewareDispatcher;
 
 use \OCA\News\Controller\PageController;
 use \OCA\News\Controller\FolderController;
@@ -59,6 +60,7 @@ use \OCA\News\Utility\SimplePieFileFactory;
 use \OCA\News\Utility\ArticleEnhancer\Enhancer;
 use \OCA\News\Utility\ArticleEnhancer\CyanideAndHappinessEnhancer;
 
+use \OCA\News\Middleware\CORSMiddleware;
 
 require_once __DIR__ . '/../3rdparty/htmlpurifier/library/HTMLPurifier.auto.php';
 
@@ -300,6 +302,22 @@ class DIContainer extends BaseContainer {
 		$this['SimplePieFileFactory'] = $this->share(function($c){
 			return new SimplePieFileFactory();
 		});
+
+
+		/** 
+		 * Middleware
+		 */
+		$this['MiddlewareDispatcher'] = $this->share(function($c){
+			$dispatcher = new MiddlewareDispatcher();
+			$dispatcher->registerMiddleware($c['HttpMiddleware']);
+			$dispatcher->registerMiddleware($c['SecurityMiddleware']);
+			$dispatcher->registerMiddleware($c['CORSMiddleware']);
+			return $dispatcher;
+		});
+
+		$this['CORSMiddleware'] = $this->share(function($c){
+			return new CORSMiddleware();
+		});		
 
 	}
 }

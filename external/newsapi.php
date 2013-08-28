@@ -53,7 +53,9 @@ class NewsAPI extends Controller {
 	 */
 	public function version() {
 		$version = $this->api->getAppValue('installed_version');
-		return new JSONResponse(array('version' => $version));
+		$response = new JSONResponse(array('version' => $version));
+		$response->addHeader('Access-Control-Allow-Origin', '*');
+		return $response;
 	}
 
 
