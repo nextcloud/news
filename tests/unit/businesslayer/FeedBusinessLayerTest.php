@@ -105,10 +105,6 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->api->expects($this->once())
 			->method('getTrans')
 			->will($this->returnValue($trans));
-		$this->feedMapper->expects($this->once())
-			->method('findByUrlHash')
-			->with($this->equalTo(md5($url)), $this->equalTo($this->user))
-			->will($this->throwException(new DoesNotExistException('yo')));
 		$this->fetcher->expects($this->once())
 			->method('fetch')
 			->with($this->equalTo($url))
@@ -123,6 +119,8 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$createdFeed = new Feed();
 		$ex = new DoesNotExistException('yo');
 		$createdFeed->setUrl($url);
+		$createdFeed->setUrlHash('hsssi');
+		$createdFeed->setLink($url);
 		$item1 = new Item();
 		$item1->setGuidHash('hi');
 		$item2 = new Item();
@@ -134,7 +132,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 		$this->feedMapper->expects($this->once())
 			->method('findByUrlHash')
-			->with($this->equalTo(md5($url)), $this->equalTo($this->user))
+			->with($this->equalTo($createdFeed->getUrlHash()), $this->equalTo($this->user))
 			->will($this->throwException($ex));
 		$this->fetcher->expects($this->once())
 			->method('fetch')
@@ -153,7 +151,8 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->will($this->throwException($ex));
 		$this->enhancer->expects($this->at(0))
 			->method('enhance')
-			->with($this->equalTo($return[1][1]))
+			->with($this->equalTo($return[1][1]),
+				$this->equalTo($url))
 			->will($this->returnValue($return[1][1]));
 		$this->itemMapper->expects($this->at(1))
 			->method('insert')
@@ -167,7 +166,8 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->will($this->throwException($ex));
 		$this->enhancer->expects($this->at(1))
 			->method('enhance')
-			->with($this->equalTo($return[1][0]))
+			->with($this->equalTo($return[1][0]),
+				$this->equalTo($url))
 			->will($this->returnValue($return[1][0]));
 		$this->itemMapper->expects($this->at(3))
 			->method('insert')
@@ -183,9 +183,11 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 	public function testCreateItemGuidExistsAlready(){
 		$url = 'http://test';
 		$folderId = 10;
-		$createdFeed = new Feed();
 		$ex = new DoesNotExistException('yo');
+		$createdFeed = new Feed();
 		$createdFeed->setUrl($url);
+		$createdFeed->setUrlHash($url);
+		$createdFeed->setLink($url);
 		$item1 = new Item();
 		$item1->setGuidHash('hi');
 		$item2 = new Item();
@@ -197,7 +199,8 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 		$this->feedMapper->expects($this->once())
 			->method('findByUrlHash')
-			->with($this->equalTo(md5($url)), $this->equalTo($this->user))
+			->with($this->equalTo($createdFeed->getUrlHash()), 
+				$this->equalTo($this->user))
 			->will($this->throwException($ex));
 		$this->fetcher->expects($this->once())
 			->method('fetch')
@@ -216,7 +219,8 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->will($this->throwException($ex));
 		$this->enhancer->expects($this->at(0))
 			->method('enhance')
-			->with($this->equalTo($return[1][1]))
+			->with($this->equalTo($return[1][1]),
+				$this->equalTo($url))
 			->will($this->returnValue($return[1][1]));
 		$this->itemMapper->expects($this->at(1))
 			->method('insert')
@@ -240,6 +244,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$feed = new Feed();
 		$feed->setId(3);
 		$feed->getUrl('test');
+		$feed->setUrlHash('yo');
 
 		$item = new Item();
 		$item->setGuidHash(md5('hi'));
@@ -268,7 +273,8 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->will($this->throwException($ex));
 		$this->enhancer->expects($this->at(0))
 			->method('enhance')
-			->with($this->equalTo($items[0]))
+			->with($this->equalTo($items[0]),
+				$this->equalTo($feed->getUrl()))
 			->will($this->returnValue($items[0]));
 		$this->itemMapper->expects($this->once())
 			->method('insert')

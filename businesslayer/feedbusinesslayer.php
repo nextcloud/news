@@ -95,13 +95,14 @@ class FeedBusinessLayer extends BusinessLayer {
 	public function create($feedUrl, $folderId, $userId){
 		// first try if the feed exists already
 		try {
-			$this->mapper->findByUrlHash(md5($feedUrl), $userId);
-			throw new BusinessLayerExistsException(
-				$this->api->getTrans()->t('Can not add feed: Exists already'));
-		} catch(DoesNotExistException $ex){}
-
-		try {
 			list($feed, $items) = $this->feedFetcher->fetch($feedUrl);
+
+			// try again if feed exists depending on the reported link
+			try {
+				$this->mapper->findByUrlHash($feed->getUrlHash(), $userId);
+				throw new BusinessLayerExistsException(
+					$this->api->getTrans()->t('Can not add feed: Exists already'));
+			} catch(DoesNotExistException $ex){}
 
 			// insert feed
 			$feed->setFolderId($folderId);
@@ -123,7 +124,7 @@ class FeedBusinessLayer extends BusinessLayer {
 					continue;
 				} catch(DoesNotExistException $ex){
 					$unreadCount += 1;
-					$item = $this->enhancer->enhance($item);
+					$item = $this->enhancer->enhance($item, $feed->getLink());
 					$this->itemMapper->insert($item);
 				}
 			}
@@ -189,7 +190,8 @@ class FeedBusinessLayer extends BusinessLayer {
 					try {
 						$this->itemMapper->findByGuidHash($item->getGuidHash(), $feedId, $userId);
 					} catch(DoesNotExistException $ex){
-						$item = $this->enhancer->enhance($item);
+						$item = $this->enhancer->enhance($item, 
+							$existingFeed->getLink());
 						$this->itemMapper->insert($item);
 					}
 				}

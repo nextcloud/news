@@ -60,26 +60,22 @@ abstract class ArticleEnhancer {
 	}
 
 
-	public function canHandle($item){
-		return preg_match($this->articleUrlRegex, $item->getUrl()) == true;
-	}
-
-
 	public function enhance($item){
-		$file = $this->fileFactory->getFile($item->getUrl(), $this->maximumTimeout);
-		$dom = new \DOMDocument();
-		@$dom->loadHTML($file->body);
-		$xpath = new \DOMXpath($dom);
-		$xpathResult = $xpath->evaluate($this->articleXPath);
+		if(preg_match($this->articleUrlRegex, $item->getUrl())) {
+			$file = $this->fileFactory->getFile($item->getUrl(), $this->maximumTimeout);
+			$dom = new \DOMDocument();
+			@$dom->loadHTML($file->body);
+			$xpath = new \DOMXpath($dom);
+			$xpathResult = $xpath->evaluate($this->articleXPath);
 
-		// in case it wasnt a text query assume its a single 
-		if(!is_string($xpathResult)) {
-			$xpathResult = $this->domToString($xpathResult);
+			// in case it wasnt a text query assume its a single 
+			if(!is_string($xpathResult)) {
+				$xpathResult = $this->domToString($xpathResult);
+			}
+
+			$sanitizedResult = $this->purifier->purify($xpathResult);
+			$item->setBody($sanitizedResult);
 		}
-
-		$sanitizedResult = $this->purifier->purify($xpathResult);
-		$item->setBody($sanitizedResult);
-
 
 		return $item;
 	}

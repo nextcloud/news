@@ -42,67 +42,49 @@ class EnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 			'\OCA\News\Utility\ArticleEnhancer\ArticleEnhancer')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->articleEnhancer2 = $this->getMockBuilder(
-			'\OCA\News\Utility\ArticleEnhancer\ArticleEnhancer')
-			->disableOriginalConstructor()
-			->getMock();
+		$this->enhancer->registerEnhancer('test.com', $this->articleEnhancer);
 	}
 
 
-	public function testFetch(){
+	public function testEnhanceSetsCorrectHash(){
 		$item = new Item();
 		$item->setUrl('hi');
+		$urls = array(
+			'https://test.com',
+			'https://www.test.com',
+			'https://test.com/',
+			'http://test.com',
+			'http://test.com/',
+			'http://www.test.com'
+		);
+		for ($i=0; $i < count($urls); $i++) { 
+			$url = $urls[$i];
+			$this->articleEnhancer->expects($this->at($i))
+				->method('enhance')
+				->with($this->equalTo($item))
+				->will($this->returnValue($item));
+		}
+
+		for ($i=0; $i < count($urls); $i++) { 
+			$url = $urls[$i];
+			$result = $this->enhancer->enhance($item, $url);
+			$this->assertEquals($item, $result);
+		}
 		
-		$this->articleEnhancer->expects($this->once())
-			->method('canHandle')
-			->with($this->equalTo($item))
-			->will($this->returnValue(true));
-		$this->enhancer->registerEnhancer($this->articleEnhancer);
-
-		$this->enhancer->enhance($item);
 	}
 
 
-	public function testMultipleFetchers(){
+	public function testNotMatchShouldJustReturnItem() {
 		$item = new Item();
 		$item->setUrl('hi');
-		$this->articleEnhancer->expects($this->once())
-			->method('canHandle')
-			->with($this->equalTo($item))
-			->will($this->returnValue(false));
-		$this->articleEnhancer2->expects($this->once())
-			->method('canHandle')
-			->with($this->equalTo($item))
-			->will($this->returnValue(true));
 
-		$this->enhancer->registerEnhancer($this->articleEnhancer);
-		$this->enhancer->registerEnhancer($this->articleEnhancer2);
+		$url = 'https://tests.com';
+		$this->articleEnhancer->expects($this->never())
+				->method('enhance');
 
-		$this->enhancer->enhance($item);
-	}
-
-
-	public function testMultipleFetchersOnlyOneShouldHandle(){
-		$item = new Item();
-		$item->setUrl('hi');
-		$return = 'zeas';
-		$this->articleEnhancer->expects($this->once())
-			->method('canHandle')
-			->with($this->equalTo($item))
-			->will($this->returnValue(true));
-		$this->articleEnhancer->expects($this->once())
-			->method('enhance')
-			->with($this->equalTo($item))
-			->will($this->returnValue($return));
-		$this->articleEnhancer2->expects($this->never())
-			->method('canHandle');
-
-		$this->enhancer->registerEnhancer($this->articleEnhancer);
-		$this->enhancer->registerEnhancer($this->articleEnhancer2);
-
-		$result = $this->enhancer->enhance($item);
-
-		$this->assertEquals($return, $result);
+		$result = $this->enhancer->enhance($item, $url);	
+		$this->assertEquals($item, $result);
+		
 	}
 
 

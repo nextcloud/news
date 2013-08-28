@@ -1,7 +1,7 @@
-owncloud-news (1.207)
+owncloud-news (1.401)
 * Add possibility to hook up article enhancers which fetch article content directly from the web page
 * Add article enhancer for explosm.net to directly fetch comics
-
+* Possible backwards incompatible change by using the link provided by simplepie instead of the user for the url hash. This prevents duplication of the feed when adding a slightly different feed url which points to the same feed and allows a speedup from O(n) to O(1) for article enhanchers
 
 owncloud-news (1.206)
 * Also handle URLErrors in updater script that are thrown when the domain of a feed is not found

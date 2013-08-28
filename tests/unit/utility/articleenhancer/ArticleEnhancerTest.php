@@ -63,10 +63,10 @@ class ArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 	}
 
 
-	public function testCanHandle() {
+	public function testDoesNotModifiyNotMatchingResults() {
 		$item = new Item();
-		$item->setUrl('http://explosm.net/comics');
-		$this->assertTrue($this->testEnhancer->canHandle($item));
+		$item->setUrl('http://explosm.net');
+		$this->assertEquals($item, $this->testEnhancer->enhance($item));
 	}
 
 	

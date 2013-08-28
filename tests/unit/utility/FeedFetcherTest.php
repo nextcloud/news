@@ -236,13 +236,13 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 
 	private function createFeed($hasFeedFavicon=false, $hasWebFavicon=false) {
 		$this->expectCore('get_title', $this->feedTitle);
-		$this->expectCore('get_link', $this->feedLink);
+		$this->expectCore('get_permalink', $this->feedLink);
 
 		$feed = new Feed();
 		$feed->setTitle(html_entity_decode($this->feedTitle));
 		$feed->setUrl($this->url);
 		$feed->setLink($this->feedLink);
-		$feed->setUrlHash(md5($this->url));
+		$feed->setUrlHash(md5($this->feedLink));
 		$feed->setAdded($this->time);
 
 		if($hasWebFavicon) {
@@ -281,13 +281,13 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 
 	public function testFetchMapItemsNoFeedTitleUsesUrl(){
 		$this->expectCore('get_title', '');
-		$this->expectCore('get_link', $this->feedLink);
+		$this->expectCore('get_permalink', $this->feedLink);
 
 		$feed = new Feed();
 		$feed->setTitle($this->url);
 		$feed->setUrl($this->url);
 		$feed->setLink($this->feedLink);
-		$feed->setUrlHash(md5($this->url));
+		$feed->setUrlHash(md5($this->feedLink));
 		$feed->setAdded($this->time);
 		$feed->setFaviconLink(null);
 
@@ -342,13 +342,13 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 
 	public function testFetchMapItemsGetFavicon() {
 		$this->expectCore('get_title', $this->feedTitle);
-		$this->expectCore('get_link', $this->feedLink);
+		$this->expectCore('get_permalink', $this->feedLink);
 
 		$feed = new Feed();
 		$feed->setTitle(html_entity_decode($this->feedTitle));
 		$feed->setUrl($this->url);
 		$feed->setLink($this->feedLink);
-		$feed->setUrlHash(md5($this->url));
+		$feed->setUrlHash(md5($this->feedLink));
 		$feed->setAdded($this->time);
 		$feed->setFaviconLink($this->webFavicon);
 
@@ -369,13 +369,13 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 
 	public function testFetchMapItemsNoGetFavicon() {
 		$this->expectCore('get_title', $this->feedTitle);
-		$this->expectCore('get_link', $this->feedLink);
+		$this->expectCore('get_permalink', $this->feedLink);
 
 		$feed = new Feed();
 		$feed->setTitle(html_entity_decode($this->feedTitle));
 		$feed->setUrl($this->url);
 		$feed->setLink($this->feedLink);
-		$feed->setUrlHash(md5($this->url));
+		$feed->setUrlHash(md5($this->feedLink));
 		$feed->setAdded($this->time);
 
 		$this->core->expects($this->once())

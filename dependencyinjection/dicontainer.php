@@ -57,7 +57,6 @@ use \OCA\News\Utility\Updater;
 use \OCA\News\Utility\SimplePieFileFactory;
 
 use \OCA\News\Utility\ArticleEnhancer\Enhancer;
-use \OCA\News\Utility\ArticleEnhancer\DefaultEnhancer;
 use \OCA\News\Utility\ArticleEnhancer\CyanideAndHappinessEnhancer;
 
 
@@ -234,8 +233,7 @@ class DIContainer extends BaseContainer {
 
 			// register fetchers in order
 			// the most generic enhancer should be the last one
-			$enhancer->registerEnhancer($c['CyanideAndHappinessEnhancer']);
-			$enhancer->registerEnhancer($c['DefaultEnhancer']);
+			$enhancer->registerEnhancer('explosm.net', $c['CyanideAndHappinessEnhancer']);
 
 			return $enhancer;
 		});
