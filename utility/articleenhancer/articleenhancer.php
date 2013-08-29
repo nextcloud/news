@@ -44,7 +44,7 @@ abstract class ArticleEnhancer {
 	 * @param array $regexXPathPair an associative array containing regex to 
 	 * match the url and the xpath that should be used for it to extract the 
 	 * page
-	 * @param int $maximumTimeout maximum timeout in seconds
+	 * @param int $maximumTimeout maximum timeout in seconds, defaults to 10 sec
 	 */
 	public function __construct($purifier, SimplePieFileFactory $fileFactory, 
 	                            array $regexXPathPair, $maximumTimeout=10){
