@@ -36,8 +36,10 @@ class CyanideAndHappinessEnhancer extends ArticleEnhancer {
 		parent::__construct(
 			$purifier,
 			$fileFactory,
-			'/explosm.net\/comics/', // match article url
-			'//*[@id=\'maincontent\']/div[2]/div', // xpath statement to extract the html from the page
+			array(
+				'/explosm.net\/comics/' => '//*[@id=\'maincontent\']/div[2]/div',
+				'/explosm.net\/show/' => '//*[@id=\'videoPlayer\']/iframe'
+			), 
 			$timeout
 		);
 	}

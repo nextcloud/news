@@ -32,8 +32,6 @@ abstract class ArticleEnhancer {
 
 
 	private $feedRegex;
-	private $articleUrlRegex;
-	private $articleXPath;
 	private $purifier;
 	private $fileFactory;
 	private $maximumTimeout;
@@ -43,38 +41,38 @@ abstract class ArticleEnhancer {
 	 * @param $purifier the purifier object to clean the html which will be
 	 * matched
 	 * @param SimplePieFileFactory a factory for getting a simple pie file instance
-	 * @param string $articleUrlRegex the regex to match which article should be
-	 * handled
-	 * @param string $articleXPath the xpath which tells the fetcher with what
-	 * body the feed should be replaced
+	 * @param array $regexXPathPair an associative array containing regex to 
+	 * match the url and the xpath that should be used for it to extract the 
+	 * page
 	 * @param int $maximumTimeout maximum timeout in seconds
 	 */
 	public function __construct($purifier, SimplePieFileFactory $fileFactory, 
-	                            $articleUrlRegex, $articleXPath, 
-	                            $maximumTimeout=10){
+	                            array $regexXPathPair, $maximumTimeout=10){
 		$this->purifier = $purifier;
-		$this->articleUrlRegex = $articleUrlRegex;
-		$this->articleXPath = $articleXPath;
+		$this->regexXPathPair = $regexXPathPair;
 		$this->fileFactory = $fileFactory;
-		$this->timeout = $maximumTimeout;
+		$this->maximumTimeout = $maximumTimeout;
 	}
 
 
 	public function enhance($item){
-		if(preg_match($this->articleUrlRegex, $item->getUrl())) {
-			$file = $this->fileFactory->getFile($item->getUrl(), $this->maximumTimeout);
-			$dom = new \DOMDocument();
-			@$dom->loadHTML($file->body);
-			$xpath = new \DOMXpath($dom);
-			$xpathResult = $xpath->evaluate($this->articleXPath);
+		foreach($this->regexXPathPair as $regex => $search) {
 
-			// in case it wasnt a text query assume its a single 
-			if(!is_string($xpathResult)) {
-				$xpathResult = $this->domToString($xpathResult);
+			if(preg_match($regex, $item->getUrl())) {
+				$file = $this->fileFactory->getFile($item->getUrl(), $this->maximumTimeout);
+				$dom = new \DOMDocument();
+				@$dom->loadHTML($file->body);
+				$xpath = new \DOMXpath($dom);
+				$xpathResult = $xpath->evaluate($search);
+
+				// in case it wasnt a text query assume its a single 
+				if(!is_string($xpathResult)) {
+					$xpathResult = $this->domToString($xpathResult);
+				}
+
+				$sanitizedResult = $this->purifier->purify($xpathResult);
+				$item->setBody($sanitizedResult);
 			}
-
-			$sanitizedResult = $this->purifier->purify($xpathResult);
-			$item->setBody($sanitizedResult);
 		}
 
 		return $item;

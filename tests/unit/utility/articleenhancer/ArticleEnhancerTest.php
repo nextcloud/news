@@ -31,10 +31,10 @@ require_once(__DIR__ . "/../../../classloader.php");
 
 
 class TestEnhancer extends ArticleEnhancer {
-	public function __construct($purifier, $fileFactory, $articleRegex,
-	                            $articleXPATH, $timeout){
-		parent::__construct($purifier, $fileFactory, $articleRegex,
-		                    $articleXPATH, $timeout);
+	public function __construct($purifier, $fileFactory, $regexXPathPair,
+	                            $timeout){
+		parent::__construct($purifier, $fileFactory, $regexXPathPair,
+		                    $timeout);
 	}
 }
 
@@ -56,8 +56,10 @@ class ArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->testEnhancer = new TestEnhancer(
 			$this->purifier,
 			$this->fileFactory,
-			'/explosm.net\/comics/', 
-			'//*[@id=\'maincontent\']/div[2]/img',
+			array(
+				'/explosm.net\/comics/' => '//*[@id=\'maincontent\']/div[2]/div/img',
+				'/explosm.net\/shorts/' => '//*[@id=\'maincontent\']/div[2]/div'
+			), 
 			$this->timeout
 		);
 	}
@@ -76,7 +78,7 @@ class ArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 			<body>
 				<div id="maincontent">
 					<div>nooo</div>
-					<div><img src="hiho"></div>
+					<div><div><img src="hiho"></div></div>
 				</div>
 			</body>
 		</html>';
@@ -96,6 +98,35 @@ class ArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 		$result = $this->testEnhancer->enhance($item);
 		$this->assertEquals('<img src="hiho">', $result->getBody());
+	}
+
+
+	public function testDoesModifiyAllArticlesThatMatch() {
+		$file = new \stdClass;
+		$file->body = '<html>
+			<body>
+				<div id="maincontent">
+					<div>nooo</div>
+					<div><div>rawr</div></div>
+				</div>
+			</body>
+		</html>';
+		$item = new Item();
+		$item->setUrl('https://www.explosm.net/shorts/312');
+		$item->setBody('Hello thar');
+
+		$this->fileFactory->expects($this->once())
+			->method('getFile')
+			->with($this->equalTo($item->getUrl()),
+				$this->equalTo($this->timeout))
+			->will($this->returnValue($file));
+		$this->purifier->expects($this->once())
+			->method('purify')
+			->with($this->equalTo('<div>rawr</div>'))
+			->will($this->returnValue('<div>rawr</div>'));
+
+		$result = $this->testEnhancer->enhance($item);
+		$this->assertEquals('<div>rawr</div>', $result->getBody());
 	}
 
 

@@ -109,7 +109,9 @@ class DIContainer extends BaseContainer {
 			$config->set('Cache.SerializerPath', $directory);
 			$config->set('HTML.SafeIframe', true);
 			$config->set('URI.SafeIframeRegexp',
-				'%^http://(www.youtube(?:-nocookie)?.com/embed/|player.vimeo.com/video/)%'); //allow YouTube and Vimeo
+				'%^(?:https?:)?//(' . 
+				'www.youtube(?:-nocookie)?.com/embed/|' .
+				'player.vimeo.com/video/)%'); //allow YouTube and Vimeo
 			return new \HTMLPurifier($config);
 		});
 
