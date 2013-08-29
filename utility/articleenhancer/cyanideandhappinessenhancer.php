@@ -37,7 +37,7 @@ class CyanideAndHappinessEnhancer extends ArticleEnhancer {
 			$purifier,
 			$fileFactory,
 			array(
-				'/explosm.net\/comics/' => '//*[@id=\'maincontent\']/div[2]/div',
+				'/explosm.net\/comics/' => '//*[@id=\'maincontent\']/div[2]/div/img',
 				'/explosm.net\/show/' => '//*[@id=\'videoPlayer\']/iframe'
 			), 
 			$timeout
