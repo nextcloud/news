@@ -1,0 +1,19 @@
+#app-navigation .utils {
+	top: 7px;
+}
+
+#app-navigation .add-new input,
+#app-navigation .add-new select {
+	width: 170px;
+}
+
+#app-navigation .ui-draggable-dragging {
+	width: 299px;
+}
+
+#app-navigation .progress-icon, 
+#app-navigation .problem-icon {
+	width: 299px;
+	line-height: 44px;
+}
+

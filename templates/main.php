@@ -18,6 +18,15 @@
 \OCP\Util::addStyle('news', 'settings');
 \OCP\Util::addStyle('news', 'showall');
 
+// stylesheets for different OC versions
+$version = \OCP\Util::getVersion();
+
+// owncloud 6
+if($version[0] > 5 || ($version[0] >= 5 && $version[1] >= 80)) {
+	\OCP\Util::addStyle('news', 'owncloud6');
+}
+
+
 ?>
 
 <div id="app" ng-app="News" ng-cloak>
