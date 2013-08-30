@@ -1,172 +1,173 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# 
+# Translators:
+# mnestis <transifex@mnestis.net>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: ownCloud news 5.0.0\n"
-"Report-Msgid-Bugs-To: translations@owncloud.org\n"
+"Project-Id-Version: ownCloud\n"
+"Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
 "POT-Creation-Date: 2013-08-30 08:25-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2013-08-29 16:50+0000\n"
+"Last-Translator: mnestis <transifex@mnestis.net>\n"
+"Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/owncloud/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: en_GB\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: appinfo/app.php:52
 msgid "News"
-msgstr ""
+msgstr "News"
 
 #: businesslayer/feedbusinesslayer.php:104
 msgid "Can not add feed: Exists already"
-msgstr ""
+msgstr "Can not add feed: Exists already"
 
 #: businesslayer/feedbusinesslayer.php:140
 msgid "Can not add feed: URL does not exist or has invalid xml"
-msgstr ""
+msgstr "Can not add feed: URL does not exist or has invalid xml"
 
 #: businesslayer/folderbusinesslayer.php:66
 msgid "Can not add folder: Exists already"
-msgstr ""
+msgstr "Can not add folder: Exists already"
 
 #: templates/main.php:26
 #, php-format
 msgid "Undo deletion of %s"
-msgstr ""
+msgstr "Undo deletion of %s"
 
 #: templates/part.addnew.php:11
 msgid "Add Website"
-msgstr ""
+msgstr "Add Website"
 
 #: templates/part.addnew.php:16
 msgid "Error: address exists already!"
-msgstr ""
+msgstr "Error: address exists already!"
 
 #: templates/part.addnew.php:19
 msgid "Error: folder exists already"
-msgstr ""
+msgstr "Error: folder exists already"
 
 #: templates/part.addnew.php:26
 msgid "Address"
-msgstr ""
+msgstr "Address"
 
 #: templates/part.addnew.php:30 templates/part.addnew.php:33
 msgid "Add"
-msgstr ""
+msgstr "Add"
 
 #: templates/part.addnew.php:37 templates/part.addnew.php:45
 msgid "New folder"
-msgstr ""
+msgstr "New folder"
 
 #: templates/part.addnew.php:38
 msgid "Folder"
-msgstr ""
+msgstr "Folder"
 
 #: templates/part.addnew.php:43
 msgid "Choose folder"
-msgstr ""
+msgstr "Choose folder"
 
 #: templates/part.addnew.php:55
 msgid "Folder name"
-msgstr ""
+msgstr "Folder name"
 
 #: templates/part.addnew.php:58
 msgid "Back to folder selection"
-msgstr ""
+msgstr "Back to folder selection"
 
 #: templates/part.addnew.php:63
 msgid "Create folder"
-msgstr ""
+msgstr "Create folder"
 
 #: templates/part.feed.starred.php:11
 msgid "Starred"
-msgstr ""
+msgstr "Starred"
 
 #: templates/part.feed.unread.php:10
 msgid "Unread articles"
-msgstr ""
+msgstr "Unread articles"
 
 #: templates/part.feed.unread.php:17
 msgid "All articles"
-msgstr ""
+msgstr "All articles"
 
 #: templates/part.feed.unread.php:26 templates/part.listfeed.php:49
 #: templates/part.listfolder.php:43
 msgid "Mark read"
-msgstr ""
+msgstr "Mark read"
 
 #: templates/part.items.php:32
 msgid "from"
-msgstr ""
+msgstr "from"
 
 #: templates/part.items.php:37
 msgid "by"
-msgstr ""
+msgstr "by"
 
 #: templates/part.items.php:44
 msgid "Download"
-msgstr ""
+msgstr "Download"
 
 #: templates/part.items.php:57
 msgid "Keep unread"
-msgstr ""
+msgstr "Keep unread"
 
 #: templates/part.listfeed.php:37 templates/part.listfeed.php:55
 msgid "Delete website"
-msgstr ""
+msgstr "Delete website"
 
 #: templates/part.listfolder.php:14
 msgid "Collapse"
-msgstr ""
+msgstr "Collapse"
 
 #: templates/part.listfolder.php:32 templates/part.listfolder.php:48
 msgid "Delete folder"
-msgstr ""
+msgstr "Delete folder"
 
 #: templates/part.listfolder.php:54
 msgid "Rename folder"
-msgstr ""
+msgstr "Rename folder"
 
 #: templates/part.settings.php:13
 msgid "Import / Export OPML"
-msgstr ""
+msgstr "Import / Export OPML"
 
 #: templates/part.settings.php:17 templates/part.settings.php:19
 #: templates/part.settings.php:47 templates/part.settings.php:49
 msgid "Import"
-msgstr ""
+msgstr "Import"
 
 #: templates/part.settings.php:23 templates/part.settings.php:27
 #: templates/part.settings.php:30 templates/part.settings.php:32
 msgid "Export"
-msgstr ""
+msgstr "Export"
 
 #: templates/part.settings.php:36
 msgid "Error when importing: file does not contain valid OPML"
-msgstr ""
+msgstr "Error when importing: file does not contain valid OPML"
 
 #: templates/part.settings.php:42
 msgid "Import Google Reader JSON"
-msgstr ""
+msgstr "Import Google Reader JSON"
 
 #: templates/part.settings.php:43
 msgid ""
 "To import starred and shared articles from Google \n"
 "\t\t\tReader please upload the .json files from the Google Takeout archive"
-msgstr ""
+msgstr "To import starred and shared articles from Google \n\t\t\tReader please upload the .json files from the Google Takeout archive"
 
 #: templates/part.settings.php:53
 msgid "Error when importing: file does not contain valid JSON"
-msgstr ""
+msgstr "Error when importing: file does not contain valid JSON"
 
 #: templates/part.showall.php:5
 msgid "Show all"
-msgstr ""
+msgstr "Show all"
 
 #: templates/part.showall.php:11
 msgid "Show only unread"
-msgstr ""
+msgstr "Show only unread"
