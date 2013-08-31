@@ -19,8 +19,33 @@
 	line-height: 44px;
 }
 
+#app-navigation .mark-read-icon {
+	padding-right: 40px;
+}
+
+#app-navigation li:hover > a {
+	padding-right: 80px;
+}
+
 .show-all {
 	line-height: 44px;
+}
+
+#app-navigation .unread > a,
+#app-navigation .active > a {
+	padding-right: 50px;
+}
+
+#app-navigation .active.unread > a {
+	padding-right: 80px;
+}
+
+#app-navigation .active.unread:hover > a {
+	padding-right: 100px;
+}
+
+#app-navigation li:hover > a {
+	padding-right: 80px;
 }
 
 /* more whitespace for articles to fit design */
@@ -46,3 +71,4 @@
 #app-content .feed_item .utils {
 	margin-left: 10px;
 }
+
