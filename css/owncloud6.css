@@ -24,18 +24,18 @@
 }
 
 /* more whitespace for articles to fit design */
-.item_title {
+#app-content .feed_item {
+	padding: 40px 5px 10px 5px;
+}
+
+#app-content .item_title {
 	margin-bottom: 10px;
 }
 
-.item_author {
+#app-content .item_author {
 	margin-bottom: 15px;
 }
 
-.feed_item {
-	padding: 35px 5px 5px 5px;
-}
-
-.feed_item .utils {
+#app-content .feed_item .utils {
 	margin-left: 10px;
 }
