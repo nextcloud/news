@@ -33,7 +33,7 @@
 
 #app-navigation .unread > a,
 #app-navigation .active > a {
-	padding-right: 50px;
+	padding-right: 60px;
 }
 
 #app-navigation .active.unread > a {
