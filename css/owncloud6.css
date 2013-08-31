@@ -31,9 +31,16 @@
 #app-content .item_title {
 	margin-bottom: 10px;
 }
-
 #app-content .item_author {
-	margin-bottom: 15px;
+	margin-bottom: 5px;
+}
+
+#app-content .body {
+	padding-top: 20px;
+}
+
+#app-content .feed_item .body > img:first-child {
+	padding-right: 20px;
 }
 
 #app-content .feed_item .utils {
