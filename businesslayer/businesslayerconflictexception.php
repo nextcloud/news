@@ -26,7 +26,7 @@
 namespace OCA\News\BusinessLayer;
 
 
-class BusinessLayerExistsException extends BusinessLayerException {
+class BusinessLayerConflictException extends BusinessLayerException {
 
 	/**
 	 * Constructor

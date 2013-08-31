@@ -31,7 +31,7 @@ use \OCA\AppFramework\Http\Http;
 use \OCA\AppFramework\Utility\ControllerTestUtility;
 
 use \OCA\News\BusinessLayer\BusinessLayerException;
-use \OCA\News\BusinessLayer\BusinessLayerExistsException;
+use \OCA\News\BusinessLayer\BusinessLayerConflictException;
 use \OCA\News\Db\Folder;
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\Item;
@@ -343,7 +343,7 @@ class FeedAPITest extends ControllerTestUtility {
 			->with($this->equalTo($this->user), $this->equalTo(false));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('create')
-			->will($this->throwException(new BusinessLayerExistsException($this->msg)));
+			->will($this->throwException(new BusinessLayerConflictException($this->msg)));
 
 		$response = $this->feedAPI->create();
 

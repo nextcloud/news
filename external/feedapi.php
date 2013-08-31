@@ -35,7 +35,7 @@ use \OCA\News\BusinessLayer\FeedBusinessLayer;
 use \OCA\News\BusinessLayer\FolderBusinessLayer;
 use \OCA\News\BusinessLayer\ItemBusinessLayer;
 use \OCA\News\BusinessLayer\BusinessLayerException;
-use \OCA\News\BusinessLayer\BusinessLayerExistsException;
+use \OCA\News\BusinessLayer\BusinessLayerConflictException;
 
 
 class FeedAPI extends Controller {
@@ -112,7 +112,7 @@ class FeedAPI extends Controller {
 
 			return new JSONResponse($result);
 
-		} catch(BusinessLayerExistsException $ex) {
+		} catch(BusinessLayerConflictException $ex) {
 			return new JSONResponse(array('message' => $ex->getMessage()),
 				Http::STATUS_CONFLICT);
 		} catch(BusinessLayerException $ex) {

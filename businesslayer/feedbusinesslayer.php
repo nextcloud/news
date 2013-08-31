@@ -88,7 +88,7 @@ class FeedBusinessLayer extends BusinessLayer {
 	 * @param string $feedUrl the url to the feed
 	 * @param int $folderId the folder where it should be put into, 0 for root folder
 	 * @param string $userId for which user the feed should be created
-	 * @throws BusinessLayerExistsException if the feed exists already
+	 * @throws BusinessLayerConflictException if the feed exists already
 	 * @throws BusinessLayerException if the url points to an invalid feed
 	 * @return Feed the newly created feed
 	 */
@@ -100,7 +100,7 @@ class FeedBusinessLayer extends BusinessLayer {
 			// try again if feed exists depending on the reported link
 			try {
 				$this->mapper->findByUrlHash($feed->getUrlHash(), $userId);
-				throw new BusinessLayerExistsException(
+				throw new BusinessLayerConflictException(
 					$this->api->getTrans()->t('Can not add feed: Exists already'));
 			} catch(DoesNotExistException $ex){}
 

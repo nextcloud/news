@@ -115,6 +115,22 @@ class FolderBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 	}
 
 
+	public function testCreateThrowsExWhenFolderNameEmpty(){
+		$folderName = '';
+		$rows = array(
+			array('id' => 1)
+		);
+
+		$this->folderMapper->expects($this->once())
+			->method('findByName')
+			->with($this->equalTo($folderName))
+			->will($this->returnValue(array()));
+
+		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerValidationException');
+		$result = $this->folderBusinessLayer->create($folderName, 'john', 3);
+	}
+
+
 	public function testOpen(){
 		$folder = new Folder();
 
@@ -169,6 +185,22 @@ class FolderBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('findByName')
 			->with($this->equalTo($folderName))
 			->will($this->returnValue($rows));
+
+		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
+		$result = $this->folderBusinessLayer->rename(3, $folderName, 'john');
+	}
+
+
+	public function testRenameThrowsExWhenFolderNameEmpty(){
+		$folderName = '';
+		$rows = array(
+			array('id' => 1)
+		);
+		
+		$this->folderMapper->expects($this->once())
+			->method('findByName')
+			->with($this->equalTo($folderName))
+			->will($this->returnValue(array()));
 
 		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
 		$result = $this->folderBusinessLayer->rename(3, $folderName, 'john');

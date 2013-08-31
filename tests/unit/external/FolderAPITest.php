@@ -31,7 +31,8 @@ use \OCA\AppFramework\Utility\ControllerTestUtility;
 use \OCA\AppFramework\Http\Http;
 
 use \OCA\News\BusinessLayer\BusinessLayerException;
-use \OCA\News\BusinessLayer\BusinessLayerExistsException;
+use \OCA\News\BusinessLayer\BusinessLayerConflictException;
+use \OCA\News\BusinessLayer\BusinessLayerValidationException;
 
 use \OCA\News\Db\Folder;
 use \OCA\News\Db\Feed;
@@ -177,13 +178,34 @@ class FolderAPITest extends ControllerTestUtility {
 			->with($this->equalTo($this->user), $this->equalTo(false));
 		$this->folderBusinessLayer->expects($this->once())
 			->method('create')
-			->will($this->throwException(new BusinessLayerExistsException($msg)));
+			->will($this->throwException(new BusinessLayerConflictException($msg)));
 
 		$response = $this->folderAPI->create();
 
 		$data = $response->getData();
 		$this->assertEquals($msg, $data['message']);
 		$this->assertEquals(Http::STATUS_CONFLICT, $response->getStatus());
+	}
+
+
+	public function testCreateInvalidFolderName() {
+		$msg = 'exists';
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->folderBusinessLayer->expects($this->once())
+			->method('purgeDeleted')
+			->with($this->equalTo($this->user), $this->equalTo(false));
+		$this->folderBusinessLayer->expects($this->once())
+			->method('create')
+			->will($this->throwException(new BusinessLayerValidationException($msg)));
+
+		$response = $this->folderAPI->create();
+
+		$data = $response->getData();
+		$this->assertEquals($msg, $data['message']);
+		$this->assertEquals(Http::STATUS_UNPROCESSABLE_ENTITY, $response->getStatus());
 	}
 
 
@@ -337,13 +359,49 @@ class FolderAPITest extends ControllerTestUtility {
 			->will($this->returnValue($this->user));
 		$this->folderBusinessLayer->expects($this->once())
 			->method('rename')
-			->will($this->throwException(new BusinessLayerExistsException($this->msg)));
+			->will($this->throwException(new BusinessLayerConflictException($this->msg)));
 
 		$response = $this->folderAPI->update();
 
 		$data = $response->getData();
 		$this->assertEquals($this->msg, $data['message']);
 		$this->assertEquals(Http::STATUS_CONFLICT, $response->getStatus());
+	}
+
+
+	public function testUpdateInvalidFolderName() {
+		$folderId = 23;
+		$folderName = '';
+
+		$this->folderAPI = new FolderAPI(
+			$this->api,
+			new Request(
+				array(
+					'urlParams' => array(
+						'folderId' => $folderId
+					),
+
+					'params' => array(
+						'name' => $folderName
+					)
+				)
+			),
+			$this->folderBusinessLayer,
+			$this->itemBusinessLayer
+		);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->folderBusinessLayer->expects($this->once())
+			->method('rename')
+			->will($this->throwException(new BusinessLayerValidationException($this->msg)));
+
+		$response = $this->folderAPI->update();
+
+		$data = $response->getData();
+		$this->assertEquals($this->msg, $data['message']);
+		$this->assertEquals(Http::STATUS_UNPROCESSABLE_ENTITY, $response->getStatus());
 	}
 
 

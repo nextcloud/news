@@ -58,12 +58,16 @@ class FolderBusinessLayer extends BusinessLayer {
 	}
 
 
-	private function allowNoNameTwice($folderName, $userId){
+	private function validateFolder($folderName, $userId){
 		$existingFolders = $this->mapper->findByName($folderName, $userId);
 		if(count($existingFolders) > 0){
 
-			throw new BusinessLayerExistsException(
+			throw new BusinessLayerConflictException(
 				$this->api->getTrans()->t('Can not add folder: Exists already'));
+		}
+
+		if(mb_strlen($folderName) === 0) {
+			throw new BusinessLayerValidationException('Folder name can not be empty');
 		}
 	}
 
@@ -73,11 +77,12 @@ class FolderBusinessLayer extends BusinessLayer {
 	 * @param string $folderName the name of the folder
 	 * @param string $userId the name of the user for whom it should be created
 	 * @param int $parentId the parent folder id, deprecated we dont nest folders
-	 * @throws BusinessLayerExistsException if name exists already
+	 * @throws BusinessLayerConflictException if name exists already
+	 * @throws BusinessLayerValidationException if the folder has invalid parameters
 	 * @return Folder the newly created folder
 	 */
 	public function create($folderName, $userId, $parentId=0) {
-		$this->allowNoNameTwice($folderName, $userId);
+		$this->validateFolder($folderName, $userId);
 
 		$folder = new Folder();
 		$folder->setName($folderName);
@@ -86,6 +91,7 @@ class FolderBusinessLayer extends BusinessLayer {
 		$folder->setOpened(true);
 		return $this->mapper->insert($folder);
 	}
+
 
 	/**
 	 * @throws BusinessLayerException if the folder does not exist
@@ -102,13 +108,13 @@ class FolderBusinessLayer extends BusinessLayer {
 	 * @param int $folderId the id of the folder that should be deleted
 	 * @param string $folderName the new name of the folder
 	 * @param string $userId the name of the user for security reasons
-	 * @throws BusinessLayerExistsException if name exists already
-	 * @throws BusinessLayerInvalidParameterException if the foldername is invalid
+	 * @throws BusinessLayerConflictException if name exists already
+	 * @throws BusinessLayerValidationException if the folder has invalid parameters
 	 * @throws BusinessLayerException if the folder does not exist
 	 * @return Folder the updated folder
 	 */
 	public function rename($folderId, $folderName, $userId){
-		$this->allowNoNameTwice($folderName, $userId);
+		$this->validateFolder($folderName, $userId);
 
 		$folder = $this->find($folderId, $userId);
 		$folder->setName($folderName);

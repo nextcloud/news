@@ -34,7 +34,8 @@ use \OCA\AppFramework\Http\Http;
 use \OCA\News\BusinessLayer\FolderBusinessLayer;
 use \OCA\News\BusinessLayer\ItemBusinessLayer;
 use \OCA\News\BusinessLayer\BusinessLayerException;
-use \OCA\News\BusinessLayer\BusinessLayerExistsException;
+use \OCA\News\BusinessLayer\BusinessLayerConflictException;
+use \OCA\News\BusinessLayer\BusinessLayerValidationException;
 
 
 class FolderAPI extends Controller {
@@ -93,7 +94,12 @@ class FolderAPI extends Controller {
 			array_push($result['folders'], $folder->toAPI());
 
 			return new JSONResponse($result);
-		} catch(BusinessLayerExistsException $ex) {
+		
+		} catch(BusinessLayerValidationException $ex) {
+			return new JSONResponse(array('message' => $ex->getMessage()),
+				Http::STATUS_UNPROCESSABLE_ENTITY);
+
+		} catch(BusinessLayerConflictException $ex) {
 			return new JSONResponse(array('message' => $ex->getMessage()),
 				Http::STATUS_CONFLICT);
 		}
@@ -137,7 +143,11 @@ class FolderAPI extends Controller {
 			$this->folderBusinessLayer->rename($folderId, $folderName, $userId);
 			return new JSONResponse();
 
-		} catch(BusinessLayerExistsException $ex) {
+		} catch(BusinessLayerValidationException $ex) {
+			return new JSONResponse(array('message' => $ex->getMessage()),
+				Http::STATUS_UNPROCESSABLE_ENTITY);
+
+		} catch(BusinessLayerConflictException $ex) {
 			return new JSONResponse(array('message' => $ex->getMessage()),
 				Http::STATUS_CONFLICT);
 
