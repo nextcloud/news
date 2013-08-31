@@ -23,6 +23,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 angular.module('News').factory 'unreadCountFormatter', ->
 	return (unreadCount) ->
-		if unreadCount > 99
-				unreadCount = '99+'
+		if unreadCount > 999
+				unreadCount = '999+'
 		return unreadCount

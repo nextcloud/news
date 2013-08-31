@@ -27,9 +27,9 @@ describe 'unreadCountFormatter', ->
 
 	beforeEach inject (@unreadCountFormatter) =>
 
-	it 'should return the normal count if its below 99', =>
-		expect(@unreadCountFormatter(99)).toBe(99)
+	it 'should return the normal count if its below 999', =>
+		expect(@unreadCountFormatter(999)).toBe(999)
 
 
-	it 'should set the count to 99+ if the count is over 99', =>
-		expect(@unreadCountFormatter(100)).toBe('99+')
+	it 'should set the count to 999+ if the count is over 999', =>
+		expect(@unreadCountFormatter(1000)).toBe('999+')
