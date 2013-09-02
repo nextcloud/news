@@ -335,7 +335,7 @@ class DIContainer extends BaseContainer {
 		});
 
 		$this['CORSMiddleware'] = $this->share(function($c){
-			return new CORSMiddleware();
+			return new CORSMiddleware($c['Request']);
 		});		
 
 	}

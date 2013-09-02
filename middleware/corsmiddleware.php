@@ -51,8 +51,15 @@ class CORSMiddleware extends Middleware {
 	 */
 	public function afterController($controller, $methodName, Response $response){
 		$annotationReader = new MethodAnnotationReader($controller, $methodName);
+
+		if(array_key_exists('Origin', $this->request->server)) {
+			$allowed = $this->request->server['Origin'];
+		} else {
+			$allowed = '*';
+		}
+
 		if($annotationReader->hasAnnotation('API')) {
-			$response->addHeader('Access-Control-Allow-Origin', $request->server['Origin']);
+			$response->addHeader('Access-Control-Allow-Origin', $allowed);
 			$response->addHeader('Access-Control-Allow-Credentials', 'true');
 		}
 		return $response;
