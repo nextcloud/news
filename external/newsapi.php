@@ -79,7 +79,7 @@ class NewsAPI extends Controller {
 	 */
 	public function cors() {
 		// needed for webapps access due to cross origin request policy
-		if(array_key_exists('Origin', $this->request->server)) {
+		if(isset($this->request->server['Origin'])) {
 			$origin = $this->request->server['Origin'];
 		} else {
 			$origin = '*';
