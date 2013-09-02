@@ -79,8 +79,14 @@ class NewsAPI extends Controller {
 	 */
 	public function cors() {
 		// needed for webapps access due to cross origin request policy
+		if(array_key_exists('Origin', $this->request->server)) {
+			$allowed = $this->request->server['Origin'];
+		} else {
+			$allowed = '*';
+		}
+
 		$response = new Response();
-		$response->addHeader('Access-Control-Allow-Origin', $this->request->server['Origin']);
+		$response->addHeader('Access-Control-Allow-Origin', $allowed);
 		$response->addHeader('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE');
 		$response->addHeader('Access-Control-Allow-Credentials', 'true');
 		$response->addHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type');
