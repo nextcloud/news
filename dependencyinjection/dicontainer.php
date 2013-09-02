@@ -25,6 +25,8 @@
 
 namespace OCA\News\DependencyInjection;
 
+use \OC\Files\View;
+
 use \OCA\AppFramework\DependencyInjection\DIContainer as BaseContainer;
 use \OCA\AppFramework\Middleware\MiddlewareDispatcher;
 
@@ -49,6 +51,7 @@ use \OCA\News\External\FolderAPI;
 use \OCA\News\External\FeedAPI;
 use \OCA\News\External\ItemAPI;
 
+use \OCA\News\Utility\Config;
 use \OCA\News\Utility\Fetcher;
 use \OCA\News\Utility\FeedFetcher;
 use \OCA\News\Utility\TwitterFetcher;
@@ -77,14 +80,29 @@ class DIContainer extends BaseContainer {
 		/**
 		 * Configuration values
 		 */
-		$this['autoPurgeMinimumInterval'] = 60; // seconds, used to define how
-		                                        // long deleted folders and feeds
-		                                        // should still be kept for an
-		                                        // undo actions
-		$this['autoPurgeCount'] = 200;  // number of allowed unread articles per feed
-		$this['simplePieCacheDuration'] = 30*60;  // seconds
-		$this['feedFetcherTimeout'] = 60; // seconds
-		$this['useCronUpdates'] = true;
+		$this['configView'] = $this->share(function($c) {
+			$view = new View('/news/config');
+			if (!$view->file_exists('')) {
+				$view->mkdir('');
+			}
+
+			return $view;
+		});
+
+		$this['Config'] = $this->share(function($c) {
+			$config = new Config($c['configView'], $c['API']);
+			$config->read('config.json', true);
+			return $config;
+		});
+
+		// set by config class from config file
+		// look up defaults in utility/config.php
+		$this['autoPurgeMinimumInterval'] = $this['Config']->getAutoPurgeMinimumInterval();
+		$this['autoPurgeCount'] = $this['Config']->getAutoPurgeCount();
+		$this['simplePieCacheDuration'] = $this['Config']->getSimplePieCacheDuration();
+		$this['feedFetcherTimeout'] = $this['Config']->getFeedFetcherTimeout();
+		$this['useCronUpdates'] = $this['Config']->getUseCronUpdates();
+
 
 		$this['simplePieCacheDirectory'] = $this->share(function($c) {
 			$directory = $c['API']->getSystemValue('datadirectory') .
@@ -94,7 +112,6 @@ class DIContainer extends BaseContainer {
 				mkdir($directory, 0770, true);
 			}
 			return $directory;
-
 		});
 
 		$this['HTMLPurifier'] = $this->share(function($c) {

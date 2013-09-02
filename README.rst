@@ -147,33 +147,28 @@ This problem is related to opcode caching, `check the issue tracker for how to s
 
 Configuration
 -------------
-This will be in a separate config file in the future but for now you can tweak the following things.
+All configuration values are set inside :file:`owncloud/data/news/config/config.json`
 
-:file:`dependencyinjection/dicontainer.php`
+The configuration is in **JSON** and looks like this:
 
-* To use a custom update/cron script you need to disable the cronjob which is run by ownCloud by default::
+.. code-block:: js
 
-    $this['useCronUpdates'] = false;
+    {
+        "autoPurgeMinimumInterval": 60,
+        "autoPurgeCount": 200,
+        "simplePieCacheDuration": 1800,
+        "feedFetcherTimeout": 60,
+        "useCronUpdates": true
+    }
 
-* To cache feeds longer increase::
+* **autoPurgeMinimumInterval**: Minimum amount of seconds after deleted feeds and folders are removed from the database. 
+* **autoPurgeCount**: To let people have more read and unstarred items per feed before they are purged increase this value
+* **simplePieCacheDuration**: Amount of seconds to cache feeds
+* **feedFetcherTimeout**: Maximum number of seconds to wait for an RSS or Atom feed to load. If a feed takes longer than that number of seconds to update, the update will be aborted
+* **useCronUpdates**: To use a custom update/cron script you need to disable the cronjob which is run by ownCloud by default by setting this to false
 
-    $this['simplePieCacheDuration'] = 30*60;  // seconds
 
-* To let people have more read items per feed before they are purged increase::
 
-    $this['autoPurgeCount'] = 200;  // per feed
-
-:file:`js/app/app.coffee`
-
-All changes in the coffee file have to be compiled by using::
-
-    make
-
-in the **js/** directory
-
-* To increase the interval when the app fetches new entries from database(!, not the webpage, thats set by the backgroundjob interval) change::
-
-    feedUpdateInterval: 1000*60*3  # miliseconds
 
 
 
