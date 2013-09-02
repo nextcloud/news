@@ -1,9 +1,4 @@
 /* Feeds */
-#app-navigation .utils {
-	top: 7px;
-	right: 7px;
-}
-
 #app-navigation .add-new input,
 #app-navigation .add-new select {
 	width: 170px;
