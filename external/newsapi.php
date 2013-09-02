@@ -86,7 +86,7 @@ class NewsAPI extends Controller {
 		}
 
 		$response = new Response();
-		$response->addHeader('Access-Control-Allow-Origin', '*');
+		$response->addHeader('Access-Control-Allow-Origin', $origin);
 		$response->addHeader('Access-Control-Allow-Methods', 
 			'PUT, POST, GET, DELETE');
 		$response->addHeader('Access-Control-Allow-Credentials', 'true');
