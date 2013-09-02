@@ -25,6 +25,7 @@
 
 namespace OCA\News\External;
 
+use \OCA\AppFramework\Http\Request;
 use \OCA\AppFramework\Http\JSONResponse;
 use \OCA\AppFramework\Utility\ControllerTestUtility;
 
@@ -99,6 +100,8 @@ class NewsAPITest extends ControllerTestUtility {
 
 
 	public function testCors() {
+		$this->request = new Request(array('server' => array()));
+		$this->newsAPI = new NewsAPI($this->api, $this->request, $this->updater);
 		$response = $this->newsAPI->cors();
 
 		$headers = $response->getHeaders();
@@ -106,8 +109,19 @@ class NewsAPITest extends ControllerTestUtility {
 		$this->assertEquals('*', $headers['Access-Control-Allow-Origin']);
 		$this->assertEquals('PUT, POST, GET, DELETE', $headers['Access-Control-Allow-Methods']);
 		$this->assertEquals('true', $headers['Access-Control-Allow-Credentials']);
-		$this->assertEquals('Authorization', $headers['Access-Control-Allow-Headers']);
+		$this->assertEquals('Authorization, Content-Type', $headers['Access-Control-Allow-Headers']);
 		$this->assertEquals('1728000', $headers['Access-Control-Max-Age']);
+	}
+
+
+	public function testCorsUsesOriginIfGiven() {
+		$this->request = new Request(array('server' => array('Origin' => 'test')));
+		$this->newsAPI = new NewsAPI($this->api, $this->request, $this->updater);
+		$response = $this->newsAPI->cors();
+
+		$headers = $response->getHeaders();
+
+		$this->assertEquals('test', $headers['Access-Control-Allow-Origin']);
 	}
 
 

@@ -24,8 +24,8 @@
 
 namespace OCA\News\Middleware;
 
+use OCA\AppFramework\Http\Request;
 use OCA\AppFramework\Http\Response;
-
 
 require_once(__DIR__ . "/../../classloader.php");
 
@@ -37,20 +37,38 @@ class CORSMiddlewareTest extends \PHPUnit_Framework_TestCase {
 	 * @API
 	 */
 	public function testSetCORSAPIHeader() {
-		$middleware = new CORSMiddleware();
+		$request = new Request(
+			array('server' => array('Origin' => 'test'))
+		);
+		$middleware = new CORSMiddleware($request);
 		$response = $middleware->afterController('\OCA\News\Middleware\CORSMiddlewareTest',
 			'testSetCORSAPIHeader',
 			new Response());
 		$headers = $response->getHeaders();
 
-		$this->assertEquals('*', $headers['Access-Control-Allow-Origin']);
+		$this->assertEquals('test', $headers['Access-Control-Allow-Origin']);
 	}
 
 
 	public function testNoAPINoCORSHEADER() {
-		$middleware = new CORSMiddleware();
+		$request = new Request();
+		$middleware = new CORSMiddleware($request);
 		$response = $middleware->afterController('\OCA\News\Middleware\CORSMiddlewareTest',
 			'testNoAPINoCORSHEADER',
+			new Response());
+		$headers = $response->getHeaders();
+		$this->assertFalse(array_key_exists('Access-Control-Allow-Origin', $headers));
+	}
+
+
+	/**
+	 * @API
+	 */
+	public function testNoOriginHeaderNoCORSHEADER() {
+		$request = new Request();
+		$middleware = new CORSMiddleware($request);
+		$response = $middleware->afterController('\OCA\News\Middleware\CORSMiddlewareTest',
+			'testNoOriginHeaderNoCORSHEADER',
 			new Response());
 		$headers = $response->getHeaders();
 		$this->assertFalse(array_key_exists('Access-Control-Allow-Origin', $headers));
