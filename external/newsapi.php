@@ -67,6 +67,7 @@ class NewsAPI extends Controller {
 	 */
 	public function cleanUp() {
 		$this->updater->cleanUp();
+		return new JSONResponse();
 	}
 
 

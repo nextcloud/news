@@ -88,7 +88,8 @@ class NewsAPITest extends ControllerTestUtility {
 	public function testCleanUp(){
 		$this->updater->expects($this->once())
 			->method('cleanUp');
-		$this->newsAPI->cleanUp();
+		$response = $this->newsAPI->cleanUp();
+		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
