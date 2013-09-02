@@ -24,11 +24,19 @@
 
 namespace OCA\News\Middleware;
 
+use OCA\AppFramework\Http\Request;
 use OCA\AppFramework\Http\Response;
 use OCA\AppFramework\Middleware\Middleware;
 use OCA\AppFramework\Utility\MethodAnnotationReader;
 
+
 class CORSMiddleware extends Middleware {
+
+	private $request;
+
+	public function __construct(Request $request) {
+		$this->request = $request;
+	}
 
 
 	/**
@@ -44,7 +52,7 @@ class CORSMiddleware extends Middleware {
 	public function afterController($controller, $methodName, Response $response){
 		$annotationReader = new MethodAnnotationReader($controller, $methodName);
 		if($annotationReader->hasAnnotation('API')) {
-			$response->addHeader('Access-Control-Allow-Origin', '*');
+			$response->addHeader('Access-Control-Allow-Origin', $request->server['Origin']);
 			$response->addHeader('Access-Control-Allow-Credentials', 'true');
 		}
 		return $response;
