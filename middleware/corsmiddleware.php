@@ -53,10 +53,10 @@ class CORSMiddleware extends Middleware {
 		$annotationReader = new MethodAnnotationReader($controller, $methodName);
 
 		// only react if its an API request and if the request sends origin
-		if(isset($this->request->server['Origin']) &&
+		if(isset($this->request->server['HTTP_ORIGIN']) &&
 			$annotationReader->hasAnnotation('API')) {
 
-			$origin = $this->request->server['Origin'];
+			$origin = $this->request->server['HTTP_ORIGIN'];
 			$response->addHeader('Access-Control-Allow-Origin', $origin);
 			$response->addHeader('Access-Control-Allow-Credentials', 'true');
 
