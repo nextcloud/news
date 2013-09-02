@@ -91,7 +91,7 @@ class DIContainer extends BaseContainer {
 
 		$this['Config'] = $this->share(function($c) {
 			$config = new Config($c['configView'], $c['API']);
-			$config->read('config.json', true);
+			$config->read('config.ini', true);
 			return $config;
 		});
 

@@ -147,19 +147,17 @@ This problem is related to opcode caching, `check the issue tracker for how to s
 
 Configuration
 -------------
-All configuration values are set inside :file:`owncloud/data/news/config/config.json`
+All configuration values are set inside :file:`owncloud/data/news/config/config.ini`
 
-The configuration is in **JSON** and looks like this:
+The configuration is in **INI** format and looks like this:
 
-.. code-block:: js
+.. code-block:: ini
 
-    {
-        "autoPurgeMinimumInterval": 60,
-        "autoPurgeCount": 200,
-        "simplePieCacheDuration": 1800,
-        "feedFetcherTimeout": 60,
-        "useCronUpdates": true
-    }
+    autoPurgeMinimumInterval = 60
+    autoPurgeCount = 200
+    simplePieCacheDuration = 1800
+    feedFetcherTimeout = 60
+
 
 * **autoPurgeMinimumInterval**: Minimum amount of seconds after deleted feeds and folders are removed from the database. 
 * **autoPurgeCount**: To let people have more read and unstarred items per feed before they are purged increase this value

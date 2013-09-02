@@ -62,11 +62,12 @@ class ConfigFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->fileSystem->expects($this->once())
 			->method('file_get_contents')
 			->with($this->equalTo($this->configPath))
-			->will($this->returnValue('{"autoPurgeCount": 3}'));
+			->will($this->returnValue("autoPurgeCount = 3\nuseCronUpdates = true"));
 
 		$this->config->read($this->configPath);
 
 		$this->assertEquals(3, $this->config->getAutoPurgeCount());
+		$this->assertEquals(true, $this->config->getUseCronUpdates());
 	}
 
 
@@ -74,7 +75,7 @@ class ConfigFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->fileSystem->expects($this->once())
 			->method('file_get_contents')
 			->with($this->equalTo($this->configPath))
-			->will($this->returnValue('{"autoPurgeCounts": 3}'));
+			->will($this->returnValue('autoPurgeCounts = 3'));
 		$this->api->expects($this->once())
 			->method('log')
 			->with($this->equalTo('Configuration value "autoPurgeCounts" ' . 
@@ -85,14 +86,14 @@ class ConfigFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 	}
 
 
-	public function testReadLogsInvalidJSON() {
+	public function testReadLogsInvalidINI() {
 		$this->fileSystem->expects($this->once())
 			->method('file_get_contents')
 			->with($this->equalTo($this->configPath))
-			->will($this->returnValue(null));
+			->will($this->returnValue(''));
 		$this->api->expects($this->once())
 			->method('log')
-			->with($this->equalTo('Configuration contains invalid JSON'), 
+			->with($this->equalTo('Configuration invalid. Ignoring values.'), 
 				$this->equalTo('warn'));
 
 		$this->config->read($this->configPath);
@@ -100,13 +101,11 @@ class ConfigFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 
 
 	public function testWrite () {
-		$json = "{\n" .
-			"    \"autoPurgeMinimumInterval\": 60,\n" . 
-			"    \"autoPurgeCount\": 3,\n" . 
-			"    \"simplePieCacheDuration\": 1800,\n" . 
-			"    \"feedFetcherTimeout\": 60,\n" . 
-			"    \"useCronUpdates\": true\n" . 
-		"}";
+		$json = "autoPurgeMinimumInterval = 60\n" . 
+			"autoPurgeCount = 3\n" . 
+			"simplePieCacheDuration = 1800\n" . 
+			"feedFetcherTimeout = 60\n" . 
+			"useCronUpdates = true";
 		$this->config->setAutoPurgeCount(3);
 
 		$this->fileSystem->expects($this->once())
@@ -123,14 +122,14 @@ class ConfigFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('file_exists')
 			->with($this->equalTo($this->configPath))
 			->will($this->returnValue(false));
+		
+		$this->config->setUseCronUpdates(false);
 
-		$json = "{\n" .
-			"    \"autoPurgeMinimumInterval\": 60,\n" . 
-			"    \"autoPurgeCount\": 200,\n" . 
-			"    \"simplePieCacheDuration\": 1800,\n" . 
-			"    \"feedFetcherTimeout\": 60,\n" . 
-			"    \"useCronUpdates\": true\n" . 
-		"}";
+		$json = "autoPurgeMinimumInterval = 60\n" . 
+			"autoPurgeCount = 200\n" . 
+			"simplePieCacheDuration = 1800\n" . 
+			"feedFetcherTimeout = 60\n" . 
+			"useCronUpdates = false";
 
 		$this->fileSystem->expects($this->once())
 			->method('file_put_contents')

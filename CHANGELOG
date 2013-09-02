@@ -8,7 +8,7 @@ owncloud-news (1.401)
 * Throw proper error codes when creating invalid folders through the API
 * More whitespace to fit ownCloud 6 design better
 * Increased unread count from 99+ to maximum of 999+ because there is now more space
-* Use a configuration file in data/news/config/config.json to not overwrite uservalues on update
+* Use a configuration file in data/news/config/config.ini to not overwrite uservalues on update
 
 owncloud-news (1.206)
 * Also handle URLErrors in updater script that are thrown when the domain of a feed is not found

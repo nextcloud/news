@@ -111,10 +111,10 @@ class Config {
 		} else {
 
 			$content = $this->fileSystem->file_get_contents($configPath);
-			$configValues = json_decode($content, true);
+			$configValues = parse_ini_string($content);
 
-			if($configValues === null) {
-				$this->api->log('Configuration contains invalid JSON' , 'warn');
+			if($configValues === false || count($configValues) === 0) {
+				$this->api->log('Configuration invalid. Ignoring values.' , 'warn');
 			} else {
 
 				foreach($configValues as $key => $value) {
@@ -132,15 +132,15 @@ class Config {
 
 
 	public function write($configPath) {
-		$json = json_encode(array(
-			"autoPurgeMinimumInterval" => $this->autoPurgeMinimumInterval,
-			"autoPurgeCount" => $this->autoPurgeCount,
-			"simplePieCacheDuration" => $this->simplePieCacheDuration,
-			"feedFetcherTimeout" => $this->feedFetcherTimeout,
-			"useCronUpdates" => $this->useCronUpdates,
-		), JSON_PRETTY_PRINT);
+		$ini = 
+			"autoPurgeMinimumInterval = " . $this->autoPurgeMinimumInterval . "\n" .
+			"autoPurgeCount = " . $this->autoPurgeCount . "\n" .
+			"simplePieCacheDuration = " . $this->simplePieCacheDuration . "\n" .
+			"feedFetcherTimeout = " . $this->feedFetcherTimeout . "\n" .
+			"useCronUpdates = " . var_export($this->useCronUpdates, true)
+		;
 
-		$this->fileSystem->file_put_contents($configPath, $json);
+		$this->fileSystem->file_put_contents($configPath, $ini);
 	}
 
 
