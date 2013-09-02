@@ -38,7 +38,7 @@ class CORSMiddlewareTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testSetCORSAPIHeader() {
 		$request = new Request(
-			array('server' => array('Origin' => 'test'))
+			array('server' => array('HTTP_ORIGIN' => 'test'))
 		);
 		$middleware = new CORSMiddleware($request);
 		$response = $middleware->afterController('\OCA\News\Middleware\CORSMiddlewareTest',

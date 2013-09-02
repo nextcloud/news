@@ -116,7 +116,7 @@ class NewsAPITest extends ControllerTestUtility {
 
 
 	public function testCorsUsesOriginIfGiven() {
-		$this->request = new Request(array('server' => array('Origin' => 'test')));
+		$this->request = new Request(array('server' => array('HTTP_ORIGIN' => 'test')));
 		$this->newsAPI = new NewsAPI($this->api, $this->request, $this->updater);
 		$response = $this->newsAPI->cors();
 
