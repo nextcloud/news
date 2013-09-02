@@ -157,6 +157,7 @@ The configuration is in **INI** format and looks like this:
     autoPurgeCount = 200
     simplePieCacheDuration = 1800
     feedFetcherTimeout = 60
+    useCronUpdates = true
 
 
 * **autoPurgeMinimumInterval**: Minimum amount of seconds after deleted feeds and folders are removed from the database. 
