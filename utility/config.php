@@ -119,6 +119,8 @@ class Config {
 
 				foreach($configValues as $key => $value) {
 					if(property_exists($this, $key)) {
+						$type = gettype($this->$key);
+						settype($value, $type);
 						$this->$key = $value;
 					} else {
 						$this->api->log('Configuration value "' . $key . 

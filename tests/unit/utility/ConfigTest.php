@@ -66,8 +66,21 @@ class ConfigFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 
 		$this->config->read($this->configPath);
 
-		$this->assertEquals(3, $this->config->getAutoPurgeCount());
-		$this->assertEquals(true, $this->config->getUseCronUpdates());
+		$this->assertTrue(3 === $this->config->getAutoPurgeCount());
+		$this->assertTrue(true === $this->config->getUseCronUpdates());
+	}
+
+
+	public function testReadBool () {
+		$this->fileSystem->expects($this->once())
+			->method('file_get_contents')
+			->with($this->equalTo($this->configPath))
+			->will($this->returnValue("autoPurgeCount = 3\nuseCronUpdates = false"));
+
+		$this->config->read($this->configPath);
+
+		$this->assertTrue(3 === $this->config->getAutoPurgeCount());
+		$this->assertTrue(false === $this->config->getUseCronUpdates());
 	}
 
 
