@@ -9,6 +9,7 @@ owncloud-news (1.401)
 * More whitespace to fit ownCloud 6 design better
 * Increased unread count from 99+ to maximum of 999+ because there is now more space
 * Use a configuration file in data/news/config/config.ini to not overwrite uservalues on update
+* Fix bug in python updater api that would trigger a method not allowed error
 * Add first run page that shows all options expanded if there are no feeds and the app is launched for the first time
 
 owncloud-news (1.206)
