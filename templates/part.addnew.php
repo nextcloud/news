@@ -8,8 +8,13 @@
 		href="#"
 		oc-click-focus="{
 			selector: '.add-new-popup input[ng-model=feedUrl]'
-		}">+ <span><?php p($l->t('Add Website'))?></span></a>
-	<div class="add-new-popup">
+		}"
+		ng-class="{opened: initialized && feedBusinessLayer.noFeeds()}"
+ 	>+ <span><?php p($l->t('Add Website'))?></span></a>
+
+	<div class="add-new-popup"
+		ng-show="initialized && feedBusinessLayer.noFeeds()">
+	
 		<fieldset class="personalblock">
 			<p class="error" ng-show="feedExistsError || folderExistsError">
 				<span ng-show="feedExistsError">
