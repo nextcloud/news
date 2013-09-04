@@ -259,7 +259,7 @@ class ItemMapper extends Mapper implements IMapper {
 
 		while($row = $result->fetchRow()) {
 
-			$limit = $threshold - $row['size'];
+			$limit = $row['size'] - $threshold;
 
 			if($limit > 0) {
 				$params = array($status, $row['feed_id']);
