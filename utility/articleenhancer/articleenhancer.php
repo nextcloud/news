@@ -90,7 +90,7 @@ abstract class ArticleEnhancer {
 	protected function domToString($xpathResult) {
 		$result = "";
 		foreach($xpathResult as $node) {
-			$result = $result . $this->toInnerHTML($node);
+			$result .= $this->toInnerHTML($node);
 		}
 		return $result;
 	}
