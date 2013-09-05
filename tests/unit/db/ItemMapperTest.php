@@ -320,7 +320,7 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			'HAVING COUNT(*) > ?';
 
 		$threshold = 10;
-		$rows = array(array('feed_id' => 30, 'size' => 11));
+		$rows = array(array('feed_id' => 30, 'size' => 9));
 		$params = array($status, $threshold);
 
 		$this->setMapperResult($sql, $params, $rows);
@@ -340,7 +340,7 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$params1 = array($status, $threshold);
 
 
-		$row = array('feed_id' => 30, 'size' => 9);
+		$row = array('feed_id' => 30, 'size' => 11);
 
 		$sql2 = 'DELETE FROM `*PREFIX*news_items` `items` ' .
 				'WHERE NOT ((`status` & ?) > 0) ' .

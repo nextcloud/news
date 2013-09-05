@@ -88,11 +88,11 @@ abstract class ArticleEnhancer {
 	 * @return the result as a string
 	 */
 	protected function domToString($xpathResult) {
-		if($xpathResult->length > 0) {
-			return $this->toInnerHTML($xpathResult->item(0));
-		} else {
-			return "";
+		$result = "";
+		foreach($xpathResult as $node) {
+			$result .= $this->toInnerHTML($node);
 		}
+		return $result;
 	}
 
 

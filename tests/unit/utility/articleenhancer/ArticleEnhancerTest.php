@@ -58,7 +58,7 @@ class ArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 			$this->fileFactory,
 			array(
 				'/explosm.net\/comics/' => '//*[@id=\'maincontent\']/div[2]/div/img',
-				'/explosm.net\/shorts/' => '//*[@id=\'maincontent\']/div[2]/div'
+				'/explosm.net\/shorts/' => '//*[@id=\'maincontent\']/div/div'
 			), 
 			$this->timeout
 		);
@@ -106,7 +106,7 @@ class ArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$file->body = '<html>
 			<body>
 				<div id="maincontent">
-					<div>nooo</div>
+					<div>nooo<div>hiho</div></div>
 					<div><div>rawr</div></div>
 				</div>
 			</body>
@@ -122,11 +122,11 @@ class ArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->will($this->returnValue($file));
 		$this->purifier->expects($this->once())
 			->method('purify')
-			->with($this->equalTo('<div>rawr</div>'))
-			->will($this->returnValue('<div>rawr</div>'));
+			->with($this->equalTo('<div>hiho</div><div>rawr</div>'))
+			->will($this->returnValue('<div>hiho</div><div>rawr</div>'));
 
 		$result = $this->testEnhancer->enhance($item);
-		$this->assertEquals('<div>rawr</div>', $result->getBody());
+		$this->assertEquals('<div>hiho</div><div>rawr</div>', $result->getBody());
 	}
 
 
