@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-08-21 07:04-0400\n"
-"PO-Revision-Date: 2013-08-19 18:21+0000\n"
+"POT-Creation-Date: 2013-09-05 06:31-0400\n"
+"PO-Revision-Date: 2013-09-05 10:31+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/owncloud/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -28,11 +28,11 @@ msgstr ""
 msgid "News"
 msgstr "新闻"
 
-#: businesslayer/feedbusinesslayer.php:95
+#: businesslayer/feedbusinesslayer.php:104
 msgid "Can not add feed: Exists already"
 msgstr "无法添加反馈：已经存在"
 
-#: businesslayer/feedbusinesslayer.php:133
+#: businesslayer/feedbusinesslayer.php:140
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "无法添加反馈：URL不存在或具有无效的xml"
 
@@ -40,52 +40,52 @@ msgstr "无法添加反馈：URL不存在或具有无效的xml"
 msgid "Can not add folder: Exists already"
 msgstr "无法添加目录：目录已存在"
 
-#: templates/main.php:26
+#: templates/main.php:37
 #, php-format
 msgid "Undo deletion of %s"
 msgstr "撤销删除 %s"
 
-#: templates/part.addnew.php:11
+#: templates/part.addnew.php:13
 msgid "Add Website"
 msgstr "添加网页"
 
-#: templates/part.addnew.php:16
+#: templates/part.addnew.php:21
 msgid "Error: address exists already!"
 msgstr "错误：地址已存在"
 
-#: templates/part.addnew.php:19
+#: templates/part.addnew.php:24
 msgid "Error: folder exists already"
 msgstr "错误：目录不存在"
 
-#: templates/part.addnew.php:26
+#: templates/part.addnew.php:31
 msgid "Address"
 msgstr "地址"
 
-#: templates/part.addnew.php:30 templates/part.addnew.php:33
+#: templates/part.addnew.php:35 templates/part.addnew.php:38
 msgid "Add"
 msgstr "添加"
 
-#: templates/part.addnew.php:37 templates/part.addnew.php:45
+#: templates/part.addnew.php:42 templates/part.addnew.php:50
 msgid "New folder"
 msgstr "添加文件夹"
 
-#: templates/part.addnew.php:38
+#: templates/part.addnew.php:43
 msgid "Folder"
 msgstr "文件夹"
 
-#: templates/part.addnew.php:43
+#: templates/part.addnew.php:48
 msgid "Choose folder"
 msgstr "选择目录"
 
-#: templates/part.addnew.php:55
+#: templates/part.addnew.php:60
 msgid "Folder name"
 msgstr "目录名称"
 
-#: templates/part.addnew.php:58
+#: templates/part.addnew.php:63
 msgid "Back to folder selection"
 msgstr "返回到目录选择"
 
-#: templates/part.addnew.php:63
+#: templates/part.addnew.php:68
 msgid "Create folder"
 msgstr "创建目录"
 
@@ -105,6 +105,10 @@ msgstr "全部文章"
 #: templates/part.listfolder.php:43
 msgid "Mark read"
 msgstr "标记已读"
+
+#: templates/part.firstrun.php:2
+msgid "Welcome to the ownCloud News app!"
+msgstr ""
 
 #: templates/part.items.php:32
 msgid "from"

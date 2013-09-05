@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud news 5.0.0\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2013-09-03 05:34-0400\n"
+"POT-Creation-Date: 2013-09-05 06:31-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,52 +33,52 @@ msgstr ""
 msgid "Can not add folder: Exists already"
 msgstr ""
 
-#: templates/main.php:35
+#: templates/main.php:37
 #, php-format
 msgid "Undo deletion of %s"
 msgstr ""
 
-#: templates/part.addnew.php:11
+#: templates/part.addnew.php:13
 msgid "Add Website"
 msgstr ""
 
-#: templates/part.addnew.php:16
+#: templates/part.addnew.php:21
 msgid "Error: address exists already!"
 msgstr ""
 
-#: templates/part.addnew.php:19
+#: templates/part.addnew.php:24
 msgid "Error: folder exists already"
 msgstr ""
 
-#: templates/part.addnew.php:26
+#: templates/part.addnew.php:31
 msgid "Address"
 msgstr ""
 
-#: templates/part.addnew.php:30 templates/part.addnew.php:33
+#: templates/part.addnew.php:35 templates/part.addnew.php:38
 msgid "Add"
 msgstr ""
 
-#: templates/part.addnew.php:37 templates/part.addnew.php:45
+#: templates/part.addnew.php:42 templates/part.addnew.php:50
 msgid "New folder"
 msgstr ""
 
-#: templates/part.addnew.php:38
+#: templates/part.addnew.php:43
 msgid "Folder"
 msgstr ""
 
-#: templates/part.addnew.php:43
+#: templates/part.addnew.php:48
 msgid "Choose folder"
 msgstr ""
 
-#: templates/part.addnew.php:55
+#: templates/part.addnew.php:60
 msgid "Folder name"
 msgstr ""
 
-#: templates/part.addnew.php:58
+#: templates/part.addnew.php:63
 msgid "Back to folder selection"
 msgstr ""
 
-#: templates/part.addnew.php:63
+#: templates/part.addnew.php:68
 msgid "Create folder"
 msgstr ""
 
@@ -97,6 +97,10 @@ msgstr ""
 #: templates/part.feed.unread.php:26 templates/part.listfeed.php:49
 #: templates/part.listfolder.php:43
 msgid "Mark read"
+msgstr ""
+
+#: templates/part.firstrun.php:2
+msgid "Welcome to the ownCloud News app!"
 msgstr ""
 
 #: templates/part.items.php:32

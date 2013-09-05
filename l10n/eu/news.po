@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-08-21 07:04-0400\n"
-"PO-Revision-Date: 2013-08-19 18:22+0000\n"
-"Last-Translator: asieriko <asieriko@gmail.com>\n"
+"POT-Creation-Date: 2013-09-05 06:31-0400\n"
+"PO-Revision-Date: 2013-09-05 10:31+0000\n"
+"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Basque (http://www.transifex.com/projects/p/owncloud/language/eu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,11 +24,11 @@ msgstr ""
 msgid "News"
 msgstr "Berriak"
 
-#: businesslayer/feedbusinesslayer.php:95
+#: businesslayer/feedbusinesslayer.php:104
 msgid "Can not add feed: Exists already"
 msgstr "Ezin da iturburua gehitu: Dagoeneko existitzen da"
 
-#: businesslayer/feedbusinesslayer.php:133
+#: businesslayer/feedbusinesslayer.php:140
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "Ezin da iturburua gehitu: URL-a ez dago edo xml-a ez da egokia"
 
@@ -36,52 +36,52 @@ msgstr "Ezin da iturburua gehitu: URL-a ez dago edo xml-a ez da egokia"
 msgid "Can not add folder: Exists already"
 msgstr "Ezin da karpeta gehitu: Dagoeneko existitzen da"
 
-#: templates/main.php:26
+#: templates/main.php:37
 #, php-format
 msgid "Undo deletion of %s"
 msgstr "Desegin %sren ezabaketa"
 
-#: templates/part.addnew.php:11
+#: templates/part.addnew.php:13
 msgid "Add Website"
 msgstr "Webgunea Gehitu"
 
-#: templates/part.addnew.php:16
+#: templates/part.addnew.php:21
 msgid "Error: address exists already!"
 msgstr "Errorea: Helbidea dagoeneko existitzen da!"
 
-#: templates/part.addnew.php:19
+#: templates/part.addnew.php:24
 msgid "Error: folder exists already"
 msgstr "Errorea: Karpeta dagoeneko existitzen da"
 
-#: templates/part.addnew.php:26
+#: templates/part.addnew.php:31
 msgid "Address"
 msgstr "Helbidea"
 
-#: templates/part.addnew.php:30 templates/part.addnew.php:33
+#: templates/part.addnew.php:35 templates/part.addnew.php:38
 msgid "Add"
 msgstr "Gehitu"
 
-#: templates/part.addnew.php:37 templates/part.addnew.php:45
+#: templates/part.addnew.php:42 templates/part.addnew.php:50
 msgid "New folder"
 msgstr "Karpeta berria"
 
-#: templates/part.addnew.php:38
+#: templates/part.addnew.php:43
 msgid "Folder"
 msgstr "Karpeta"
 
-#: templates/part.addnew.php:43
+#: templates/part.addnew.php:48
 msgid "Choose folder"
 msgstr "Hautatu karpeta"
 
-#: templates/part.addnew.php:55
+#: templates/part.addnew.php:60
 msgid "Folder name"
 msgstr "Karpetaren izena"
 
-#: templates/part.addnew.php:58
+#: templates/part.addnew.php:63
 msgid "Back to folder selection"
 msgstr "Itzuli karpeten hautapenera"
 
-#: templates/part.addnew.php:63
+#: templates/part.addnew.php:68
 msgid "Create folder"
 msgstr "Sortu karpeta"
 
@@ -101,6 +101,10 @@ msgstr "Artikulu guztiak"
 #: templates/part.listfolder.php:43
 msgid "Mark read"
 msgstr "Markatu irakurrita gisa"
+
+#: templates/part.firstrun.php:2
+msgid "Welcome to the ownCloud News app!"
+msgstr ""
 
 #: templates/part.items.php:32
 msgid "from"

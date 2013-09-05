@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-08-21 07:04-0400\n"
-"PO-Revision-Date: 2013-08-19 18:21+0000\n"
+"POT-Creation-Date: 2013-09-05 06:31-0400\n"
+"PO-Revision-Date: 2013-09-05 10:31+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Catalan (http://www.transifex.com/projects/p/owncloud/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -24,11 +24,11 @@ msgstr ""
 msgid "News"
 msgstr "Notícies"
 
-#: businesslayer/feedbusinesslayer.php:95
+#: businesslayer/feedbusinesslayer.php:104
 msgid "Can not add feed: Exists already"
 msgstr "No es pot afegir la font: ja existeix"
 
-#: businesslayer/feedbusinesslayer.php:133
+#: businesslayer/feedbusinesslayer.php:140
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "No es pot afegir la font: la URL no existeix o té un XML no vàlid"
 
@@ -36,52 +36,52 @@ msgstr "No es pot afegir la font: la URL no existeix o té un XML no vàlid"
 msgid "Can not add folder: Exists already"
 msgstr "No es pot afegir la carpeta: ja existeix"
 
-#: templates/main.php:26
+#: templates/main.php:37
 #, php-format
 msgid "Undo deletion of %s"
 msgstr "Desfés l'eliminació de %s"
 
-#: templates/part.addnew.php:11
+#: templates/part.addnew.php:13
 msgid "Add Website"
 msgstr "Afegeix pàgina web"
 
-#: templates/part.addnew.php:16
+#: templates/part.addnew.php:21
 msgid "Error: address exists already!"
 msgstr "Error: l'adreça ja existeix!"
 
-#: templates/part.addnew.php:19
+#: templates/part.addnew.php:24
 msgid "Error: folder exists already"
 msgstr "Error: la carpeta ja existeix"
 
-#: templates/part.addnew.php:26
+#: templates/part.addnew.php:31
 msgid "Address"
 msgstr "Adreça"
 
-#: templates/part.addnew.php:30 templates/part.addnew.php:33
+#: templates/part.addnew.php:35 templates/part.addnew.php:38
 msgid "Add"
 msgstr "Afegeix"
 
-#: templates/part.addnew.php:37 templates/part.addnew.php:45
+#: templates/part.addnew.php:42 templates/part.addnew.php:50
 msgid "New folder"
 msgstr "Carpeta nova"
 
-#: templates/part.addnew.php:38
+#: templates/part.addnew.php:43
 msgid "Folder"
 msgstr "Carpeta"
 
-#: templates/part.addnew.php:43
+#: templates/part.addnew.php:48
 msgid "Choose folder"
 msgstr "Escolliu una carpeta"
 
-#: templates/part.addnew.php:55
+#: templates/part.addnew.php:60
 msgid "Folder name"
 msgstr "Nom de la carpeta"
 
-#: templates/part.addnew.php:58
+#: templates/part.addnew.php:63
 msgid "Back to folder selection"
 msgstr "Torna a la selecció de carpeta"
 
-#: templates/part.addnew.php:63
+#: templates/part.addnew.php:68
 msgid "Create folder"
 msgstr "Crea carpeta"
 
@@ -101,6 +101,10 @@ msgstr "Tots els articles"
 #: templates/part.listfolder.php:43
 msgid "Mark read"
 msgstr "Marca com a llegit"
+
+#: templates/part.firstrun.php:2
+msgid "Welcome to the ownCloud News app!"
+msgstr ""
 
 #: templates/part.items.php:32
 msgid "from"

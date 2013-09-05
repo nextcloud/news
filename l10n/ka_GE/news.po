@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-08-21 07:04-0400\n"
-"PO-Revision-Date: 2013-08-19 18:22+0000\n"
+"POT-Creation-Date: 2013-09-05 06:31-0400\n"
+"PO-Revision-Date: 2013-09-05 10:31+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Georgian (Georgia) (http://www.transifex.com/projects/p/owncloud/language/ka_GE/)\n"
 "MIME-Version: 1.0\n"
@@ -22,11 +22,11 @@ msgstr ""
 msgid "News"
 msgstr "სიახლეები"
 
-#: businesslayer/feedbusinesslayer.php:95
+#: businesslayer/feedbusinesslayer.php:104
 msgid "Can not add feed: Exists already"
 msgstr "ფიდის დამატება შეუძლებელია: უკვე არსებობს"
 
-#: businesslayer/feedbusinesslayer.php:133
+#: businesslayer/feedbusinesslayer.php:140
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "ფიდის დამატება შეუძლებელია: ასეთი URL არ არსებობს ან არ შეიცავს მართებულ xml–ს"
 
@@ -34,52 +34,52 @@ msgstr "ფიდის დამატება შეუძლებელი�
 msgid "Can not add folder: Exists already"
 msgstr "ფოლდერის დამატება შეუძლებელია: უკვე არსებობს"
 
-#: templates/main.php:26
+#: templates/main.php:37
 #, php-format
 msgid "Undo deletion of %s"
 msgstr ""
 
-#: templates/part.addnew.php:11
+#: templates/part.addnew.php:13
 msgid "Add Website"
 msgstr "დაამატე ვებგვერდი"
 
-#: templates/part.addnew.php:16
+#: templates/part.addnew.php:21
 msgid "Error: address exists already!"
 msgstr "შეცდომა: მისამართი უკვე არსებობს!"
 
-#: templates/part.addnew.php:19
+#: templates/part.addnew.php:24
 msgid "Error: folder exists already"
 msgstr "შეცდომა: ფოლდერი უკვე არსებობს!"
 
-#: templates/part.addnew.php:26
+#: templates/part.addnew.php:31
 msgid "Address"
 msgstr "მისამართი"
 
-#: templates/part.addnew.php:30 templates/part.addnew.php:33
+#: templates/part.addnew.php:35 templates/part.addnew.php:38
 msgid "Add"
 msgstr "დამატება"
 
-#: templates/part.addnew.php:37 templates/part.addnew.php:45
+#: templates/part.addnew.php:42 templates/part.addnew.php:50
 msgid "New folder"
 msgstr "ახალი ფოლდერი"
 
-#: templates/part.addnew.php:38
+#: templates/part.addnew.php:43
 msgid "Folder"
 msgstr "საქაღალდე"
 
-#: templates/part.addnew.php:43
+#: templates/part.addnew.php:48
 msgid "Choose folder"
 msgstr "აირჩიეთ ფოლდერი"
 
-#: templates/part.addnew.php:55
+#: templates/part.addnew.php:60
 msgid "Folder name"
 msgstr "ფოლდერის სახელი"
 
-#: templates/part.addnew.php:58
+#: templates/part.addnew.php:63
 msgid "Back to folder selection"
 msgstr "უკან ფოლდერის ასარჩევად"
 
-#: templates/part.addnew.php:63
+#: templates/part.addnew.php:68
 msgid "Create folder"
 msgstr "ფოლდერის შექმნა"
 
@@ -99,6 +99,10 @@ msgstr "ყველა არტიკლი"
 #: templates/part.listfolder.php:43
 msgid "Mark read"
 msgstr "მონიშნე წაკითხულად"
+
+#: templates/part.firstrun.php:2
+msgid "Welcome to the ownCloud News app!"
+msgstr ""
 
 #: templates/part.items.php:32
 msgid "from"
