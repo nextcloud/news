@@ -1,5 +1,5 @@
 # Authors
-* Alessandro Cosentino <cosenal@gmail.com>
+* [Alessandro Cosentino](cosenal@gmail.com)
 * Bernhard Posselt <dev@bernhard-posselt.com>
 
 ## Designers
