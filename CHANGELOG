@@ -1,3 +1,7 @@
+owncloud-news (1.402)
+* Add possibility of adding more than one xpath for article enhancer
+* Fix bug that wouldn't delete old read articles
+
 owncloud-news (1.401)
 * Add possibility to hook up article enhancers which fetch article content directly from the web page
 * Add article enhancer for explosm.net to directly fetch comics and shorts
