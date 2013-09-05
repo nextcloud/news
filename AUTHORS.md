@@ -1,27 +1,28 @@
 # Authors
-* [Alessandro Cosentino](cosenal@gmail.com)
-* Bernhard Posselt <dev@bernhard-posselt.com>
+* [Alessandro Cosentino](https://github.com/zimba12): <cosenal@gmail.com>
+* [Bernhard Posselt](https://github.com/Raydiation): <dev@bernhard-posselt.com>
 
 ## Designers
 
-* Jan-Christoph Borchardt (http://jancborchardt.net)
-* Raghu Nayyar <me@iraghu.com>
-* Bernhard Posselt <dev@bernhard-posselt.com>
+* [Jan-Christoph Borchardt](https://github.com/jancborchardt): <hey@jancborchardt.net>
+* [Raghu Nayyar](https://github.com/raghunayyar): <me@iraghu.com>
+* [Bernhard Posselt](https://github.com/Raydiation): <dev@bernhard-posselt.com>
 
 
 ## Contributors
 
-* Robin Appelman <icewind@owncloud.com>
-* Morris Jobke <morris.jobke@gmail.com>
-* Lukas Reschke <lukas@statuscode.ch>
-* bluehaze (https://github.com/bluehaze)
-* Dave Hou Qingping <dave2008713@gmail.com> (https://github.com/houqp)
-* David Kleuker <info@davidak.de> (http://davidak.de/)
-* bastei (https://github.com/bastei)
-* Peter Hedlund <support@peterandlinda.com> (http://peterandlinda.com/)
-* benediktb (https://github.com/benediktb)
-* Maik Kulbe (http://www.linux-web-development.de)
-* s17t.net <mail+github@s17t.net> (https://s17t.net/)
-* John Kristensen (http://www.jerrykan.com/)
-* Lutz Schildt <ls@lsmooth.de> (http://lsmooth.de/)
-* Christopher <kondou@ts.unde.re> (http://ts.unde.re/)
+* [Robin Appelman](https://github.com/icewind1991): <icewind@owncloud.com>
+* [Morris Jobke](https://github.com/kabum): <morris.jobke@gmail.com>
+* [Lukas Reschke](https://github.com/LukasReschke): <lukas@statuscode.ch>
+* [bluehaze](https://github.com/bluehaze)
+* [Dave Hou Qingping](https://github.com/houqp): <dave2008713@gmail.com> 
+* [David Kleuker](https://github.com/davidak): <info@davidak.de> 
+* [bastei](https://github.com/bastei)
+* [Peter Hedlund](https://github.com/phedlund): <support@peterandlinda.com>
+* [benediktb](https://github.com/benediktb)
+* [Maik Kulbe](https://github.com/mkzero)
+* [s17t.net](https://github.com/s17t): <mail+github@s17t.net>
+* [John Kristensen](https://github.com/jerrykan)
+* [Lutz Schildt](https://github.com/lsmooth): <ls@lsmooth.de>
+* [Christopher](https://github.com/Kondou-ger): <kondou@ts.unde.re>
+* [Xemle](https://github.com/xemle): <xemle@phtagr.org>
