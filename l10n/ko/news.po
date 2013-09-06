@@ -7,14 +7,14 @@
 # 남자사람 <cessnagi@gmail.com>, 2012
 # Shinjo Park <kde@peremen.name>, 2013
 # Shinjo Park <kde@peremen.name>, 2012-2013
-# Sungjin Gang <potopro@gmail.com>, 2013
-# Sungjin Gang <potopro@gmail.com>, 2013
+# ujuc Gang <potopro@gmail.com>, 2013
+# ujuc Gang <potopro@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-08-21 07:04-0400\n"
-"PO-Revision-Date: 2013-08-19 18:21+0000\n"
+"POT-Creation-Date: 2013-09-05 06:31-0400\n"
+"PO-Revision-Date: 2013-09-05 10:31+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Korean (http://www.transifex.com/projects/p/owncloud/language/ko/)\n"
 "MIME-Version: 1.0\n"
@@ -27,11 +27,11 @@ msgstr ""
 msgid "News"
 msgstr "뉴스"
 
-#: businesslayer/feedbusinesslayer.php:95
+#: businesslayer/feedbusinesslayer.php:104
 msgid "Can not add feed: Exists already"
 msgstr "피드를 추가할 수 없음: 이미 존재함"
 
-#: businesslayer/feedbusinesslayer.php:133
+#: businesslayer/feedbusinesslayer.php:140
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "피드를 추가할 수 없음: URL이 존재하지 않거나 XML이 올바르지 않음"
 
@@ -39,52 +39,52 @@ msgstr "피드를 추가할 수 없음: URL이 존재하지 않거나 XML이 올
 msgid "Can not add folder: Exists already"
 msgstr "폴더를 추가할 수 없음: 이미 존재함"
 
-#: templates/main.php:26
+#: templates/main.php:37
 #, php-format
 msgid "Undo deletion of %s"
 msgstr "%s 삭제 실행 취소"
 
-#: templates/part.addnew.php:11
+#: templates/part.addnew.php:13
 msgid "Add Website"
 msgstr "웹 사이트 추가"
 
-#: templates/part.addnew.php:16
+#: templates/part.addnew.php:21
 msgid "Error: address exists already!"
 msgstr "오류: 주소가 이미 존재합니다!"
 
-#: templates/part.addnew.php:19
+#: templates/part.addnew.php:24
 msgid "Error: folder exists already"
 msgstr "오류: 폴더가 이미 존재합니다"
 
-#: templates/part.addnew.php:26
+#: templates/part.addnew.php:31
 msgid "Address"
 msgstr "주소"
 
-#: templates/part.addnew.php:30 templates/part.addnew.php:33
+#: templates/part.addnew.php:35 templates/part.addnew.php:38
 msgid "Add"
 msgstr "추가"
 
-#: templates/part.addnew.php:37 templates/part.addnew.php:45
+#: templates/part.addnew.php:42 templates/part.addnew.php:50
 msgid "New folder"
 msgstr "새 폴더"
 
-#: templates/part.addnew.php:38
+#: templates/part.addnew.php:43
 msgid "Folder"
 msgstr "폴더"
 
-#: templates/part.addnew.php:43
+#: templates/part.addnew.php:48
 msgid "Choose folder"
 msgstr "폴더 선택"
 
-#: templates/part.addnew.php:55
+#: templates/part.addnew.php:60
 msgid "Folder name"
 msgstr "폴더 이름"
 
-#: templates/part.addnew.php:58
+#: templates/part.addnew.php:63
 msgid "Back to folder selection"
 msgstr "폴더 선택으로 돌아가기"
 
-#: templates/part.addnew.php:63
+#: templates/part.addnew.php:68
 msgid "Create folder"
 msgstr "폴더 만들기"
 
@@ -104,6 +104,10 @@ msgstr "모든 "
 #: templates/part.listfolder.php:43
 msgid "Mark read"
 msgstr "읽은 것으로 표시"
+
+#: templates/part.firstrun.php:2
+msgid "Welcome to the ownCloud News app!"
+msgstr ""
 
 #: templates/part.items.php:32
 msgid "from"

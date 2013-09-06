@@ -342,10 +342,10 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 
 		$row = array('feed_id' => 30, 'size' => 11);
 
-		$sql2 = 'DELETE FROM `*PREFIX*news_items` `items` ' .
+		$sql2 = 'DELETE FROM `*PREFIX*news_items` ' .
 				'WHERE NOT ((`status` & ?) > 0) ' .
 				'AND `feed_id` = ? ' .
-				'ORDER BY `items`.`id` ASC';
+				'ORDER BY `id` ASC';
 		$params2 = array($status, 30);
 
 

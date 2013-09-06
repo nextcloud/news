@@ -264,10 +264,10 @@ class ItemMapper extends Mapper implements IMapper {
 			if($limit > 0) {
 				$params = array($status, $row['feed_id']);
 
-				$sql = 'DELETE FROM `*PREFIX*news_items` `items` ' .
+				$sql = 'DELETE FROM `*PREFIX*news_items` ' .
 				'WHERE NOT ((`status` & ?) > 0) ' .
 				'AND `feed_id` = ? ' .
-				'ORDER BY `items`.`id` ASC';
+				'ORDER BY `id` ASC';
 
 				$this->execute($sql, $params, $limit);
 			}
