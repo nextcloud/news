@@ -63,10 +63,11 @@ abstract class ArticleEnhancer {
 				
 				// convert encoding by detecting charset from header
 				$contentType = $file->headers['content-type'];
-				if( preg_match( '/(?<=charset=)[^;]*/', $contentType, $matches ) )
+				if( preg_match( '/(?<=charset=)[^;]*/', $contentType, $matches ) ) {
 					$body = mb_convert_encoding($file->body, 'HTML-ENTITIES', $matches[0]);
-				else
+				} else {
 					$body = $file->body;
+				}
 
 				$dom = new \DOMDocument();
 				@$dom->loadHTML($body);
