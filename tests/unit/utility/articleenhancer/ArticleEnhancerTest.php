@@ -74,6 +74,7 @@ class ArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 	
 	public function testDoesModifiyArticlesThatMatch() {
 		$file = new \stdClass;
+		$file->headers = array("content-type"=>"text/html; charset=utf-8");
 		$file->body = '<html>
 			<body>
 				<div id="maincontent">
@@ -103,6 +104,7 @@ class ArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 	public function testDoesModifiyAllArticlesThatMatch() {
 		$file = new \stdClass;
+		$file->headers = array("content-type"=>"text/html; charset=utf-8");
 		$file->body = '<html>
 			<body>
 				<div id="maincontent">
@@ -132,6 +134,7 @@ class ArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 	public function testModificationHandlesEmptyResults() {
 		$file = new \stdClass;
+		$file->headers = array("content-type"=>"text/html; charset=utf-8");
 		$file->body = '<html>
 			<body>
 				<div id="maincontent">
@@ -159,6 +162,7 @@ class ArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 	public function testModificationDoesNotBreakOnEmptyDom() {
 		$file = new \stdClass;
+		$file->headers = array("content-type"=>"text/html; charset=utf-8");
 		$file->body = '';
 		$item = new Item();
 		$item->setUrl('https://www.explosm.net/comics/312');
@@ -181,6 +185,7 @@ class ArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 	public function testModificationDoesNotBreakOnBrokenDom() {
 		$file = new \stdClass;
+		$file->headers = array("content-type"=>"text/html; charset=utf-8");
 		$file->body = '<html/><p>
 			<body>
 				<div id="maincontent">
