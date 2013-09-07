@@ -16,6 +16,23 @@ Maintainers
 * `Bernhard Posselt <https://github.com/Raydiation>`_
 * `Jan-Christoph Borchardt <https://github.com/jancborchardt>`_ (Design)
 
+Supported Webservers
+--------------------
+* Apache
+
+Supported Databases
+-------------------
+* Postgresql
+* Sqlite
+* MySql
+
+Explicitely Unsupported
+-----------------------
+There are good reasons for this and patches will not be accepted:
+* Oracle
+* MSSQL
+* IIS
+
 Bugs
 ----
 Before reporting bugs:

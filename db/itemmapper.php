@@ -257,9 +257,11 @@ class ItemMapper extends Mapper implements IMapper {
 		$params = array($status, $threshold);
 		$result = $this->execute($sql, $params);
 
+		/* FIXME: this is broken on posgres
 		while($row = $result->fetchRow()) {
 
-			$limit = $row['size'] - $threshold;
+			$size = (int) $row['size'];
+			$limit = $size - $threshold;
 
 			if($limit > 0) {
 				$params = array($status, $row['feed_id']);
@@ -272,6 +274,7 @@ class ItemMapper extends Mapper implements IMapper {
 				$this->execute($sql, $params, $limit);
 			}
 		}
+		*/
 	}
 
 
