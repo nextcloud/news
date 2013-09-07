@@ -45,6 +45,7 @@ use \OCA\News\Db\FolderMapper;
 use \OCA\News\Db\FeedMapper;
 use \OCA\News\Db\ItemMapper;
 use \OCA\News\Db\StatusFlag;
+use \OCA\News\Db\MapperFactory;
 
 use \OCA\News\External\NewsAPI;
 use \OCA\News\External\FolderAPI;
@@ -208,6 +209,10 @@ class DIContainer extends BaseContainer {
 		/**
 		 * MAPPERS
 		 */
+		$this['MapperFactory'] = $this->share(function($c){
+			return new MapperFactory($c['API']);
+		});
+
 		$this['FolderMapper'] = $this->share(function($c){
 			return new FolderMapper($c['API']);
 		});
@@ -217,7 +222,7 @@ class DIContainer extends BaseContainer {
 		});
 
 		$this['ItemMapper'] = $this->share(function($c){
-			return new ItemMapper($c['API']);
+			return $c['MapperFactory']->getItemMapper($c['API']);
 		});
 
 

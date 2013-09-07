@@ -331,9 +331,6 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 
 
 	public function testDeleteReadOlderThanThreshold(){
-		$this->markTestIncomplete(
-			'Fix on postgres first'
-		);
 		$threshold = 10;
 		$status = StatusFlag::STARRED | StatusFlag::UNREAD;
 
