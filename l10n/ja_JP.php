@@ -19,6 +19,7 @@
 "Unread articles" => "未読の記事",
 "All articles" => "全ての記事",
 "Mark read" => "既読としてマーク",
+"Welcome to the ownCloud News app!" => "ownCloudニュースアプリへようこそ！",
 "from" => "から",
 "by" => "により",
 "Download" => "ダウンロード",

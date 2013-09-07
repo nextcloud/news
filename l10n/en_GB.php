@@ -19,6 +19,7 @@
 "Unread articles" => "Unread articles",
 "All articles" => "All articles",
 "Mark read" => "Mark read",
+"Welcome to the ownCloud News app!" => "Welcome to the ownCloud News app!",
 "from" => "from",
 "by" => "by",
 "Download" => "Download",

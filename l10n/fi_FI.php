@@ -19,6 +19,7 @@
 "Unread articles" => "Lukemattomat artikkelit",
 "All articles" => "Kaikki artikkelit",
 "Mark read" => "Merkitse luetuksi",
+"Welcome to the ownCloud News app!" => "Tervetuloa ownCloudin syötesovellukseen!",
 "from" => "Syöte:",
 "by" => " Kirjoittaja:",
 "Download" => "Lataa",

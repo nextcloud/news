@@ -19,6 +19,7 @@
 "Unread articles" => "Ulæste artikler",
 "All articles" => "Alle artikler",
 "Mark read" => "Marker som læst",
+"Welcome to the ownCloud News app!" => "Velkommen til ownCloud News app'en!",
 "from" => "fra",
 "by" => "af",
 "Download" => "Download",

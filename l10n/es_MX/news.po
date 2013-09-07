@@ -3,177 +3,174 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# mbouzada <mbouzada@gmail.com>, 2013
-# mbouzada <mbouzada@gmail.com>, 2012
-# Xosé M. Lamas <correo.xmgz@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
 "POT-Creation-Date: 2013-09-07 04:35-0400\n"
-"PO-Revision-Date: 2013-09-05 18:20+0000\n"
-"Last-Translator: mbouzada <mbouzada@gmail.com>\n"
-"Language-Team: Galician (http://www.transifex.com/projects/p/owncloud/language/gl/)\n"
+"PO-Revision-Date: 2013-09-07 07:27+0000\n"
+"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"Language-Team: Spanish (Mexico) (http://www.transifex.com/projects/p/owncloud/language/es_MX/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: gl\n"
+"Language: es_MX\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: appinfo/app.php:52
 msgid "News"
-msgstr "Novas"
+msgstr ""
 
 #: businesslayer/feedbusinesslayer.php:104
 msgid "Can not add feed: Exists already"
-msgstr "Non é posíbel engadir a fonte: xa existe"
+msgstr ""
 
 #: businesslayer/feedbusinesslayer.php:140
 msgid "Can not add feed: URL does not exist or has invalid xml"
-msgstr "Non é posíbel engadir a fonte: non existe o URL ou é un XML incorrecto"
+msgstr ""
 
 #: businesslayer/folderbusinesslayer.php:66
 msgid "Can not add folder: Exists already"
-msgstr "Non é posíbel engadir o cartafol: xa existe"
+msgstr ""
 
 #: templates/main.php:37
 #, php-format
 msgid "Undo deletion of %s"
-msgstr "Desfacer a eliminación de %s"
+msgstr ""
 
 #: templates/part.addnew.php:13
 msgid "Add Website"
-msgstr "Engadir un sitio web"
+msgstr ""
 
 #: templates/part.addnew.php:21
 msgid "Error: address exists already!"
-msgstr "Erro: xa existe o enderezo "
+msgstr ""
 
 #: templates/part.addnew.php:24
 msgid "Error: folder exists already"
-msgstr "Erro: xa existe o cartafol"
+msgstr ""
 
 #: templates/part.addnew.php:31
 msgid "Address"
-msgstr "Enderezo"
+msgstr ""
 
 #: templates/part.addnew.php:35 templates/part.addnew.php:38
 msgid "Add"
-msgstr "Engadir"
+msgstr ""
 
 #: templates/part.addnew.php:42 templates/part.addnew.php:50
 msgid "New folder"
-msgstr "Novo cartafol"
+msgstr ""
 
 #: templates/part.addnew.php:43
 msgid "Folder"
-msgstr "Cartafol"
+msgstr ""
 
 #: templates/part.addnew.php:48
 msgid "Choose folder"
-msgstr "Escoller un cartafol"
+msgstr ""
 
 #: templates/part.addnew.php:60
 msgid "Folder name"
-msgstr "Nome do cartafol"
+msgstr ""
 
 #: templates/part.addnew.php:63
 msgid "Back to folder selection"
-msgstr "Volver á selección do cartafol"
+msgstr ""
 
 #: templates/part.addnew.php:68
 msgid "Create folder"
-msgstr "Crear un cartafol"
+msgstr ""
 
 #: templates/part.feed.starred.php:11
 msgid "Starred"
-msgstr "Destacado"
+msgstr ""
 
 #: templates/part.feed.unread.php:10
 msgid "Unread articles"
-msgstr "Artigos sen ler"
+msgstr ""
 
 #: templates/part.feed.unread.php:17
 msgid "All articles"
-msgstr "Todos os artigos"
+msgstr ""
 
 #: templates/part.feed.unread.php:26 templates/part.listfeed.php:49
 #: templates/part.listfolder.php:43
 msgid "Mark read"
-msgstr "Marcar como lido"
+msgstr ""
 
 #: templates/part.firstrun.php:2
 msgid "Welcome to the ownCloud News app!"
-msgstr "Benvido/a ao aplicativo de novas do ownCloud!"
+msgstr ""
 
 #: templates/part.items.php:32
 msgid "from"
-msgstr "desde"
+msgstr ""
 
 #: templates/part.items.php:37
 msgid "by"
-msgstr "por"
+msgstr ""
 
 #: templates/part.items.php:44
 msgid "Download"
-msgstr "Descargar"
+msgstr ""
 
 #: templates/part.items.php:57
 msgid "Keep unread"
-msgstr "Manter sen ler"
+msgstr ""
 
 #: templates/part.listfeed.php:37 templates/part.listfeed.php:55
 msgid "Delete website"
-msgstr "Eliminar o sitio web"
+msgstr ""
 
 #: templates/part.listfolder.php:14
 msgid "Collapse"
-msgstr "Repregar"
+msgstr ""
 
 #: templates/part.listfolder.php:32 templates/part.listfolder.php:48
 msgid "Delete folder"
-msgstr "Eliminar o cartafol"
+msgstr ""
 
 #: templates/part.listfolder.php:54
 msgid "Rename folder"
-msgstr "Renomear o cartafol"
+msgstr ""
 
 #: templates/part.settings.php:13
 msgid "Import / Export OPML"
-msgstr "Importar / Exportar OPML"
+msgstr ""
 
 #: templates/part.settings.php:17 templates/part.settings.php:19
 #: templates/part.settings.php:47 templates/part.settings.php:49
 msgid "Import"
-msgstr "Importar"
+msgstr ""
 
 #: templates/part.settings.php:23 templates/part.settings.php:27
 #: templates/part.settings.php:30 templates/part.settings.php:32
 msgid "Export"
-msgstr "Exportar"
+msgstr ""
 
 #: templates/part.settings.php:36
 msgid "Error when importing: file does not contain valid OPML"
-msgstr "Erro durante a importación: o ficheiro non conten OPML correcto"
+msgstr ""
 
 #: templates/part.settings.php:42
 msgid "Import Google Reader JSON"
-msgstr "Importar o JSON de Google Reader"
+msgstr ""
 
 #: templates/part.settings.php:43
 msgid ""
 "To import starred and shared articles from Google \n"
 "\t\t\tReader please upload the .json files from the Google Takeout archive"
-msgstr "Para importar artigos favoritos e compartidos de Google \n\t\t\tReader envíe os ficheiros .json do arquivo de Google Takeout"
+msgstr ""
 
 #: templates/part.settings.php:53
 msgid "Error when importing: file does not contain valid JSON"
-msgstr "Produciuse un erro ao importar: o ficheiro non contén un JSON correcto"
+msgstr ""
 
 #: templates/part.showall.php:5
 msgid "Show all"
-msgstr "Amosar todo"
+msgstr ""
 
 #: templates/part.showall.php:11
 msgid "Show only unread"
-msgstr "Amosar só o non lido"
+msgstr ""
