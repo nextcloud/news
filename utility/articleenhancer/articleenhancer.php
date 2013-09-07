@@ -60,8 +60,17 @@ abstract class ArticleEnhancer {
 
 			if(preg_match($regex, $item->getUrl())) {
 				$file = $this->fileFactory->getFile($item->getUrl(), $this->maximumTimeout);
+				
+				// convert encoding by detecting charset from header
+				$contentType = $file->headers['content-type'];
+				if( preg_match( '/(?<=charset=)[^;]*/', $contentType, $matches ) ) {
+					$body = mb_convert_encoding($file->body, 'HTML-ENTITIES', $matches[0]);
+				} else {
+					$body = $file->body;
+				}
+
 				$dom = new \DOMDocument();
-				@$dom->loadHTML($file->body);
+				@$dom->loadHTML($body);
 				$xpath = new \DOMXpath($dom);
 				$xpathResult = $xpath->evaluate($search);
 
