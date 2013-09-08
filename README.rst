@@ -26,12 +26,6 @@ Supported Databases
 * Sqlite
 * MySql
 
-Explicitely Unsupported
------------------------
-There are good reasons for this and patches will not be accepted:
-* Oracle
-* MSSQL
-* IIS
 
 Bugs
 ----
