@@ -19,6 +19,7 @@
 "Unread articles" => "Ungelesene Artikel",
 "All articles" => "Alle Artikel",
 "Mark read" => "Als gelesen markieren",
+"Welcome to the ownCloud News app!" => "Willkommen in der ownCloud-News App!",
 "from" => "von",
 "by" => "von",
 "Download" => "Herunterladen",

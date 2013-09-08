@@ -19,6 +19,7 @@
 "Unread articles" => "未讀文章",
 "All articles" => "所有文章",
 "Mark read" => "標記成已讀",
+"Welcome to the ownCloud News app!" => "歡迎使用 ownCloud 新聞應用程式！",
 "from" => "從",
 "by" => "由",
 "Download" => "下載",
