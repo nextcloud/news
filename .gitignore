@@ -2,7 +2,7 @@
 coffee/build/
 node_modules/
 *.log
-./build/
+/build/
 js/build/
 js/*.xml
 .rvm
