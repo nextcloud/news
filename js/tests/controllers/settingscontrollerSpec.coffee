@@ -51,7 +51,7 @@ describe 'SettingsController', ->
 
 		@scope.import(xml)
 
-		expect(@replace.FolderBusinessLayer.import).toHaveBeenCalledWith(xml);
+		expect(@replace.FolderBusinessLayer.import).toHaveBeenCalledWith(xml)
 		expect(@scope.error).toBe(true)
 
 
