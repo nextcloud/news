@@ -1,0 +1,12 @@
+{
+  "name": "ownCloud news",
+  "version": "0.0.1",
+  "dependencies": {
+    "angular" : "",
+    "angular-ui" : "",
+    "jquery" : "",
+    "jquery-ui" : "",
+    "momentjs" : "",
+    "angular-mocks": ""
+  }
+}

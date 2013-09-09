@@ -21,12 +21,17 @@ chrome_bin=/usr/bin/chromium
 coffee=$(CURDIR)/node_modules/coffee-script/bin/coffee
 grunt=$(CURDIR)/node_modules/grunt-cli/bin/grunt
 phantomjs=/usr/bin/phantomjs
+bower=$(CURDIR)/node_modules/bower/bin/bower
 
 all: compile
+
 
 deps:
 	cd $(CURDIR)/
 	npm install --deps
+
+update: deps
+	$(bower) update
 
 watch: compile
 	$(coffee) --compile --watch --output $(CURDIR)/build/app $(CURDIR)/app/ & \

@@ -1,17 +1,14 @@
 <?php
+\OCP\Util::addScript('news', 'vendor/angular/angular');
+\OCP\Util::addScript('news', 'vendor/angular-ui/build/angular-ui');
 \OCP\Util::addScript('news', 'vendor/momentjs/moment');
-\OCP\Util::addScript('news', 'vendor/momentjs/langs');
-
+\OCP\Util::addScript('news', 'vendor/momentjs/min/langs');
 \OCP\Util::addScript('appframework', 'vendor/bootstrap/tooltip');
-\OCP\Util::addScript('appframework', 'vendor/angular/angular');
 \OCP\Util::addScript('appframework', 'public/app');
-
-\OCP\Util::addScript('news', 'vendor/angular-ui/angular-ui');
-
 \OCP\Util::addScript('news', 'public/app');
 
-\OCP\Util::addStyle('appframework', 'bootstrap/tooltip');
 
+\OCP\Util::addStyle('appframework', 'bootstrap/tooltip');
 \OCP\Util::addStyle('news', 'addnew');
 \OCP\Util::addStyle('news', 'feeds');
 \OCP\Util::addStyle('news', 'items');

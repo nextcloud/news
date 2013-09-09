@@ -16,6 +16,7 @@
 	"contributors": [],
 	"dependencies": {},
 	"devDependencies": {
+		"bower": "*",
 		"grunt": "*",
 		"grunt-cli": "*",
 		"coffee-script": "*",

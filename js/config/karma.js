@@ -31,10 +31,10 @@ module.exports = function(config) {
 		// list of files / patterns to load in the browser
 		files: [
 			'vendor/jquery/jquery.js',
-			'vendor/jquery-ui/jquery-ui.js',
+			'vendor/jquery-ui/ui/jquery-ui.js',
 			'vendor/angular/angular.js',
-			'vendor/angular/angular-mocks.js',
-			'vendor/angular-ui/angular-ui.js',
+			'vendor/angular-mocks/angular-mocks.js',
+			'vendor/angular-ui/build/angular-ui.js',
 			'vendor/momentjs/moment.js',
 			'../../appframework/js/tests/stubs/owncloud.js',
 			'../../appframework/js/public/app.js',
