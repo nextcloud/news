@@ -34,7 +34,6 @@ angular.module('News').controller 'SettingsController',
 		try
 			FolderBusinessLayer.import(fileContent)
 		catch error
-			console.error error
 			$scope.error = true
 
 
@@ -46,7 +45,6 @@ angular.module('News').controller 'SettingsController',
 			parsedJSON = JSON.parse(fileContent)
 			FeedBusinessLayer.importGoogleReader(parsedJSON)
 		catch error
-			console.error error
 			$scope.jsonError = true
 
 ]

@@ -793,7 +793,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return FolderBusinessLayer["import"](fileContent);
         } catch (_error) {
           error = _error;
-          console.error(error);
           return $scope.error = true;
         }
       };
@@ -806,7 +805,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return FeedBusinessLayer.importGoogleReader(parsedJSON);
         } catch (_error) {
           error = _error;
-          console.error(error);
           return $scope.jsonError = true;
         }
       };
