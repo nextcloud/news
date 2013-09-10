@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-09-05 06:31-0400\n"
-"PO-Revision-Date: 2013-09-05 10:31+0000\n"
+"POT-Creation-Date: 2013-09-10 08:46-0400\n"
+"PO-Revision-Date: 2013-09-10 12:46+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Pirate English (http://www.transifex.com/projects/p/owncloud/language/en@pirate/)\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +33,20 @@ msgstr ""
 msgid "Can not add folder: Exists already"
 msgstr ""
 
-#: templates/main.php:37
+#: js/vendor/angular-ui/build/angular-ui.min.js:7
+msgid " "
+msgstr ""
+
+#: js/vendor/angular-ui/build/angular-ui.min.js:7
+msgid "_"
+msgstr ""
+
+#: js/vendor/jquery-ui/ui/minified/jquery-ui.min.js:8
+#: js/vendor/jquery-ui/ui/minified/jquery.ui.autocomplete.min.js:4
+msgid "status"
+msgstr ""
+
+#: templates/main.php:34
 #, php-format
 msgid "Undo deletion of %s"
 msgstr ""

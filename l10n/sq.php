@@ -3,5 +3,7 @@
 "Address" => "Adresa",
 "Add" => "Shto",
 "Folder" => "Dosje",
-"Download" => "Shkarko"
+"Download" => "Shkarko",
+"Import" => "Importo",
+"Export" => "Eksporto"
 );

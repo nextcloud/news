@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-09-08 19:38-0400\n"
-"PO-Revision-Date: 2013-09-07 11:10+0000\n"
-"Last-Translator: Magnus Höglund <magnus@linux.com>\n"
+"POT-Creation-Date: 2013-09-10 08:46-0400\n"
+"PO-Revision-Date: 2013-09-10 12:46+0000\n"
+"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Swedish (http://www.transifex.com/projects/p/owncloud/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,7 +38,20 @@ msgstr "Kan inte lägga till flöde: URL:en existerar inte eller har ogiltig xml
 msgid "Can not add folder: Exists already"
 msgstr "Kan inte lägga till: mappen existerar redan"
 
-#: templates/main.php:37
+#: js/vendor/angular-ui/build/angular-ui.min.js:7
+msgid " "
+msgstr ""
+
+#: js/vendor/angular-ui/build/angular-ui.min.js:7
+msgid "_"
+msgstr ""
+
+#: js/vendor/jquery-ui/ui/minified/jquery-ui.min.js:8
+#: js/vendor/jquery-ui/ui/minified/jquery.ui.autocomplete.min.js:4
+msgid "status"
+msgstr ""
+
+#: templates/main.php:34
 #, php-format
 msgid "Undo deletion of %s"
 msgstr "Återställ raderingen av %s"

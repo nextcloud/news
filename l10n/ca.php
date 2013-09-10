@@ -19,6 +19,7 @@
 "Unread articles" => "Articles sense llegir",
 "All articles" => "Tots els articles",
 "Mark read" => "Marca com a llegit",
+"Welcome to the ownCloud News app!" => "Benvingut a l'aplicació de notícies d'ownCloud!",
 "from" => "des de",
 "by" => "per",
 "Download" => "Baixa",

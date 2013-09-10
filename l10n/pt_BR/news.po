@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-09-05 06:31-0400\n"
-"PO-Revision-Date: 2013-09-05 10:31+0000\n"
+"POT-Creation-Date: 2013-09-10 08:46-0400\n"
+"PO-Revision-Date: 2013-09-10 12:46+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/owncloud/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -40,7 +40,20 @@ msgstr "Não é possível adicionar alimentação: URL não existe ou tem ml inv
 msgid "Can not add folder: Exists already"
 msgstr "Não é possível adicionar pasta: já existe"
 
-#: templates/main.php:37
+#: js/vendor/angular-ui/build/angular-ui.min.js:7
+msgid " "
+msgstr ""
+
+#: js/vendor/angular-ui/build/angular-ui.min.js:7
+msgid "_"
+msgstr ""
+
+#: js/vendor/jquery-ui/ui/minified/jquery-ui.min.js:8
+#: js/vendor/jquery-ui/ui/minified/jquery.ui.autocomplete.min.js:4
+msgid "status"
+msgstr ""
+
+#: templates/main.php:34
 #, php-format
 msgid "Undo deletion of %s"
 msgstr "Desfazer exclusão de %s"
@@ -108,7 +121,7 @@ msgstr "Marcar como lido"
 
 #: templates/part.firstrun.php:2
 msgid "Welcome to the ownCloud News app!"
-msgstr ""
+msgstr "Bem vindo a aplicação de Notícias do ownClowd!"
 
 #: templates/part.items.php:32
 msgid "from"
