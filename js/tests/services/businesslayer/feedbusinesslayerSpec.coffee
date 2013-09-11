@@ -332,49 +332,16 @@ describe 'FeedBusinessLayer', ->
 		expect(@FeedModel.getByUrl('john')).toBe(undefined)
 
 
-	it 'should not import google reader json', =>
-		@persistence.importGoogleReader = jasmine.createSpy('importGoogleReader')
+	it 'should create an import article request', =>
+		callback = jasmine.createSpy('called')
+		@persistence.importArticles = jasmine.createSpy('importArticles')
+		@persistence.importArticles.andCallFake (data, onSuccess) =>
+			onSuccess()
 
 		json = {"test": "hi"}
-		@FeedBusinessLayer.importGoogleReader(json)
+		@FeedBusinessLayer.importArticles(json, callback)
 
-		imported = @FeedModel.getByUrl('http://owncloud/googlereader')
-		expect(imported.title).toBe('Google Reader')
-		expect(imported.folderId).toBe(0)
-		expect(imported.unreadCount).toBe(0)
-
-
-	it 'should not create a google reader feed if it already exists', =>
-		@persistence.importGoogleReader = jasmine.createSpy('importGoogleReader')
-
-		@FeedModel.add({id: 3, url: 'http://owncloud/googlereader'})
-		json = {"test": "hi"}
-		@FeedBusinessLayer.importGoogleReader(json)
-
-		imported = @FeedModel.getByUrl('http://owncloud/googlereader')
-		expect(imported.folderId).not.toBeDefined()
-
-
-	it 'should create an import google reader request', =>
-		returned =
-			data:
-				feeds: [
-					{id: 3, url: 'hi'}
-				]
-		@persistence.getItems = jasmine.createSpy('importGoogleReader')
-		@persistence.importGoogleReader = jasmine.createSpy('importGoogleReader')
-		@persistence.importGoogleReader.andCallFake (data, onSuccess) =>
-			@FeedModel.handle(returned.data.feeds)
-			onSuccess(returned)
-
-		json = {"test": "hi"}
-		@FeedBusinessLayer.importGoogleReader(json)
-
-		expect(@persistence.importGoogleReader).toHaveBeenCalledWith(json,
+		expect(@persistence.importArticles).toHaveBeenCalledWith(json,
 			jasmine.any(Function))
-		expect(@persistence.getItems).toHaveBeenCalledWith(
-			@FeedType.Feed, returned.data.feeds[0].id, 0
-		)
-		expect(@ActiveFeed.getId()).toBe(returned.data.feeds[0].id)
-		expect(@ActiveFeed.getType()).toBe(@FeedType.Feed)
+		expect(callback).toHaveBeenCalled()
 

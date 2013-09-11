@@ -254,13 +254,15 @@ $rootScope, $q) ->
 			@_request.post 'news_feeds_update', params
 
 
-		importGoogleReader: (json, onSuccess) ->
+		importArticles: (json, onSuccess) ->
 			params =
 				data:
 					json: json
-				onSuccess: onSuccess
+				onSuccess: =>
+					@getAllFeeds()
+					onSuccess()
 
-			@_request.post 'news_feeds_import_googlereader', params
+			@_request.post 'news_feeds_import_articles', params
 
 
 		###

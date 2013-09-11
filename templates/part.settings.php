@@ -8,7 +8,7 @@
 		}"></button>
 </div>
 
-<div id="app-settings-content">
+<div id="app-settings-content" style="display:block">
 	<fieldset class="personalblock">
 		<legend><strong><?php p($l->t('Subscriptions')); ?></strong></legend>
 		
@@ -44,9 +44,11 @@
 		<legend><strong><?php p($l->t('Unread/Starred Articles')); ?></strong></legend>
 		<input type="file" id="google-upload" name="importgoogle" 
 			accept="application/json"
-			oc-read-file="importGoogleReader($fileContent)"/>
+			oc-read-file="importArticles($fileContent)"/>
 		<button title="<?php p($l->t('Import')); ?>" 
 			class="upload-icon svg"
+			ng-class="{loading: importing}"
+			ng-disabled="importing"
 			oc-forward-click="{selector:'#google-upload'}">
 			<?php p($l->t('Import')); ?>
 		</button>

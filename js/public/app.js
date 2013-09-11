@@ -796,16 +796,19 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return $scope.error = true;
         }
       };
-      return $scope.importGoogleReader = function(fileContent) {
+      return $scope.importArticles = function(fileContent) {
         var error, parsedJSON;
         $scope.jsonError = false;
-        ShowAll.setShowAll(true);
+        $scope.loading = true;
         try {
           parsedJSON = JSON.parse(fileContent);
-          return FeedBusinessLayer.importGoogleReader(parsedJSON);
+          return FeedBusinessLayer.importArticles(parsedJSON, function() {
+            return $scope.loading = false;
+          });
         } catch (_error) {
           error = _error;
-          return $scope.jsonError = true;
+          $scope.jsonError = true;
+          return $scope.loading = false;
         }
       };
     }
@@ -1128,26 +1131,13 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return this._feedModel.removeByUrl(url);
         };
 
-        FeedBusinessLayer.prototype.importGoogleReader = function(json) {
-          var feed, onSuccess, url,
+        FeedBusinessLayer.prototype.importArticles = function(json, callback) {
+          var onSuccess,
             _this = this;
-          url = 'http://owncloud/googlereader';
-          if (angular.isUndefined(this._feedModel.getByUrl(url))) {
-            feed = {
-              title: 'Google Reader',
-              url: url,
-              folderId: 0,
-              unreadCount: 0,
-              faviconLink: 'url(' + this._utils.imagePath('core', 'loading.gif') + ')'
-            };
-            this._feedModel.add(feed);
-          }
           onSuccess = function(response) {
-            var id;
-            id = response.data.feeds[0].id;
-            return _this.load(id);
+            return callback();
           };
-          return this._persistence.importGoogleReader(json, onSuccess);
+          return this._persistence.importArticles(json, onSuccess);
         };
 
         return FeedBusinessLayer;
@@ -2802,15 +2792,19 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return this._request.post('news_feeds_update', params);
         };
 
-        Persistence.prototype.importGoogleReader = function(json, onSuccess) {
-          var params;
+        Persistence.prototype.importArticles = function(json, onSuccess) {
+          var params,
+            _this = this;
           params = {
             data: {
               json: json
             },
-            onSuccess: onSuccess
+            onSuccess: function() {
+              _this.getAllFeeds();
+              return onSuccess();
+            }
           };
-          return this._request.post('news_feeds_import_googlereader', params);
+          return this._request.post('news_feeds_import_articles', params);
         };
 
         /*

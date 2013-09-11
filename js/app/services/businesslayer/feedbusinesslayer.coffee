@@ -174,25 +174,11 @@ FeedModel, NewLoading, _ExistsError, Utils, $rootScope, NewestItem)->
 			@_feedModel.removeByUrl(url)
 
 
-		importGoogleReader: (json) ->
-			url = 'http://owncloud/googlereader'  # hardcoded
-
-			if angular.isUndefined(@_feedModel.getByUrl(url))
-				feed =
-					title: 'Google Reader'
-					url: url
-					folderId: 0
-					unreadCount: 0
-					faviconLink: 'url(' +
-						@_utils.imagePath('core', 'loading.gif') + ')'
-
-				@_feedModel.add(feed)
-
+		importArticles: (json, callback) ->
 			onSuccess = (response) =>
-				id = response.data.feeds[0].id
-				@load(id)
+				callback()
 
-			@_persistence.importGoogleReader(json, onSuccess)
+			@_persistence.importArticles(json, onSuccess)
 
 
 	return new FeedBusinessLayer(ShowAll, FeedModel, Persistence, ActiveFeed,

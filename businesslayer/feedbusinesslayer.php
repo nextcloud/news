@@ -239,6 +239,8 @@ class FeedBusinessLayer extends BusinessLayer {
 			$feedsDict[$feed->getLink()] = $feed;
 		}
 
+		$createdFeed = false;
+
 		// loop over all items and get the corresponding feed
 		// if the feed does not exist, create a seperate feed for them
 		foreach ($json as $entry) {
@@ -253,6 +255,7 @@ class FeedBusinessLayer extends BusinessLayer {
 				$feed = $feedsDict[$url];
 				$item->setFeedId($feed->getId());				
 			} else {
+				$createdFeed = true;
 				$feed = new Feed();
 				$feed->setUserId($userId);
 				$feed->setLink($url);
@@ -261,21 +264,24 @@ class FeedBusinessLayer extends BusinessLayer {
 				$feed->setAdded($this->timeFactory->getTime());
 				$feed->setFolderId(0);
 				$feed->setPreventUpdate(true);	
-				$feed = $this->mapper->insert($item);
+				$feed = $this->mapper->insert($feed);
 
 				$item->setFeedId($feed->getId());
 				$feedsDict[$feed->getLink()] = $feed;
 			}
 
 			try {
-				$this->itemMapper->findByGuidHash($item->getGuidHash(), 
-					$feed->getId(), $userId);
+				// if item exists, copy the status
+				$existingItem = $this->itemMapper->findByGuidHash(
+					$item->getGuidHash(), $feed->getId(), $userId);
+				$existingItem->setStatus($item->getStatus());
+				$this->itemMapper->update($existingItem);
 			} catch(DoesNotExistException $ex){
 				$this->itemMapper->insert($item);
 			}
 		}
 
-		if($feed) {
+		if($createdFeed) {
 			return $this->mapper->findByUrlHash($urlHash, $userId);
 		}
 	}
