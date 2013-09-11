@@ -117,7 +117,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 		$item->setEnclosureLink('enclink');
 		$item->setFeedId(1);
 		$item->setStatus(0);
-		$item->setUnread();
+		$item->setRead();
 		$item->setStarred();
 		$item->setLastModified(321);
 
@@ -136,10 +136,36 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 			'body' => 'body',
 			'enclosureMime' => 'audio/ogg',
 			'enclosureLink' => 'enclink',
-			'unread' => true,
+			'unread' => false,
 			'starred' => true,
 			'feedLink' => 'http://test'
 			), $item->toExport($feeds));
+	}
+
+
+	public function testFromImport() {
+		$item = new Item();
+		$item->setGuid('guid');
+		$item->setUrl('https://google');
+		$item->setTitle('title');
+		$item->setAuthor('author');
+		$item->setPubDate(123);
+		$item->setBody('body');
+		$item->setEnclosureMime('audio/ogg');
+		$item->setEnclosureLink('enclink');
+		$item->setFeedId(1);
+		$item->setUnread();
+		$item->setStarred();
+
+		$feed = new Feed();
+		$feed->setLink('http://test');
+		$feeds = array(
+			"feed1" => $feed
+		);
+
+		$compareWith = Item::fromImport($item->toExport($feeds));
+		$item->setFeedId(null);
+		$this->assertEquals($item, $compareWith);
 	}
 
 
@@ -171,5 +197,13 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 		$item->setUrl('magnet://link.com');
 		$this->assertEquals('magnet://link.com', $item->getUrl());
 	}
+
+
+	public function testSetGuidUpdatesHash() {
+		$feed = new Item();
+		$feed->setGuid('http://test');
+		$this->assertEquals(md5('http://test'), $feed->getGuidHash());
+	}
+
 
 }

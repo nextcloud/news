@@ -40,7 +40,7 @@ class Item extends Entity implements IAPI {
 	public $enclosureMime;
 	public $enclosureLink;
 	public $feedId;
-	public $status;
+	public $status = 0;
 	public $lastModified;
 
 
@@ -126,6 +126,32 @@ class Item extends Entity implements IAPI {
 	}
 
 
+	public static function fromImport($import) {
+		$item = new static();
+		$item->setGuid($import['guid']);
+		$item->setUrl($import['url']);
+		$item->setTitle($import['title']);
+		$item->setAuthor($import['author']);
+		$item->setPubDate($import['pubDate']);
+		$item->setBody($import['body']);
+		$item->setEnclosureMime($import['enclosureMime']);
+		$item->setEnclosureLink($import['enclosureLink']);
+		if($import['unread']) {
+			$item->setUnread();
+		} else {
+			$item->setRead();
+		}
+		if($import['starred']) {
+			$item->setStarred();
+		} else {
+			$item->setUnstarred();
+		}
+		
+		$item->setFeedId(null);
+		return $item;
+	}
+
+
 	public function setAuthor($name) {
 		parent::setAuthor(strip_tags($name));
 	}
@@ -142,6 +168,13 @@ class Item extends Entity implements IAPI {
 			parent::setUrl($url);
 		}
 	}
+
+
+	public function setGuid($guid) {
+		parent::setGuid($guid);
+		$this->setGuidHash(md5($guid));
+	}
+
 
 }
 

@@ -57,7 +57,6 @@ use \OCA\News\Utility\Fetcher;
 use \OCA\News\Utility\FeedFetcher;
 use \OCA\News\Utility\TwitterFetcher;
 use \OCA\News\Utility\OPMLExporter;
-use \OCA\News\Utility\ImportParser;
 use \OCA\News\Utility\Updater;
 use \OCA\News\Utility\SimplePieFileFactory;
 
@@ -193,7 +192,6 @@ class DIContainer extends BaseContainer {
 				$c['ItemMapper'],
 				$c['API'],
 				$c['TimeFactory'],
-				$c['ImportParser'],
 				$c['autoPurgeMinimumInterval'],
 				$c['Enhancer']);
 		});

@@ -227,17 +227,20 @@ class FeedController extends Controller {
 	 * @IsSubAdminExemption
 	 * @Ajax
 	 */
-	public function importGoogleReader() {
+	public function importArticles() {
 		$json = $this->params('json');
 		$userId = $this->api->getUserId();
 
-		$feed = $this->feedBusinessLayer->importGoogleReaderJSON($json, $userId);
+		$feed = $this->feedBusinessLayer->importArticles($json, $userId);
 
-		$params = array(
-			'feeds' => array($feed)
-		);
+		$params = array();
+		if($feed) {
+			$params['feeds'] = array($feed);
+		}
+
 		return $this->renderJSON($params);
 	}
+
 
 	/**
 	 * @IsAdminExemption

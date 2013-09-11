@@ -128,7 +128,6 @@ class FeedFetcher implements IFeedFetcher {
 		$item->setTitle($this->decodeTwice($simplePieItem->get_title()));
 		$guid = $simplePieItem->get_id();
 		$item->setGuid($guid);
-		$item->setGuidHash(md5($guid));
 
 		// links should always open in a new window
 		$item->setBody(
@@ -188,7 +187,6 @@ class FeedFetcher implements IFeedFetcher {
 		$feed->setTitle($title);
 		$feed->setUrl($url);
 		$feed->setLink($simplePieFeed->get_permalink());
-		$feed->setUrlHash(md5($feed->getLink()));
 		$feed->setAdded($this->time->getTime());
 
 		if ($getFavicon) {

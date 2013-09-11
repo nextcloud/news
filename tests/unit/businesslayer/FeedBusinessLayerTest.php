@@ -34,7 +34,6 @@ use \OCA\News\Db\Feed;
 use \OCA\News\Db\Item;
 use \OCA\News\Utility\Fetcher;
 use \OCA\News\Utility\FetcherException;
-use \OCA\News\Utility\ImportParser;
 
 class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
@@ -70,15 +69,12 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->itemMapper = $this->getMockBuilder('\OCA\News\Db\ItemMapper')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->importParser = $this->getMockBuilder('\OCA\News\Utility\ImportParser')
-			->disableOriginalConstructor()
-			->getMock();
 		$this->enhancer = $this->getMockBuilder('\OCA\News\Utility\ArticleEnhancer\Enhancer')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->feedBusinessLayer = new FeedBusinessLayer($this->feedMapper,
 			$this->fetcher, $this->itemMapper, $this->api,
-			$timeFactory, $this->importParser, $this->autoPurgeMinimumInterval,
+			$timeFactory, $this->autoPurgeMinimumInterval,
 			$this->enhancer);
 		$this->user = 'jack';
 		$response = 'hi';
@@ -423,51 +419,58 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 	}
 
 
-	public function testImportGoogleReaderJSON(){
-		$url = 'http://owncloud/googlereader';
-		$urlHash = md5($url);
+	public function testImportArticles(){
+		$url = 'http://owncloud/nofeed';
 
 		$feed = new Feed();
 		$feed->setId(3);
 		$feed->setUserId($this->user);
-		$feed->setUrlHash($urlHash);
 		$feed->setUrl($url);
-		$feed->setTitle('Google Reader');
+		$feed->setLink($url);
+		$feed->setTitle('Articles without feed');
 		$feed->setAdded($this->time);
 		$feed->setFolderId(0);
 		$feed->setPreventUpdate(true);
 
-		$items = array(new Item());
+		$feeds = array($feed);
 
-		$this->feedMapper->expects($this->at(0))
-			->method('findByUrlHash')
-			->with($this->equalTo($urlHash),
-				$this->equalTo($this->user))
-			->will($this->throwException(new DoesNotExistException('hi')));
-		$this->feedMapper->expects($this->at(1))
-			->method('insert')
-			->will($this->returnValue($feed));
-		$this->feedMapper->expects($this->at(2))
-			->method('findByUrlHash')
-			->with($this->equalTo($urlHash),
-				$this->equalTo($this->user))
-			->will($this->returnValue($feed));
-		$this->importParser->expects($this->once())
-			->method('parse')
-			->will($this->returnValue($items));
+		$item = new Item();
+		$item->setFeedId(3);
+		$item->setAuthor('john');
+		$item->setGuid('s');
+		$item->setTitle('hey');
+		$item->setPubDate(333);
+		$item->setBody('come over');
+		$item->setEnclosureMime('mime');
+		$item->setEnclosureLink('lin');
+		$item->setUnread();
+		$item->setUnstarred();
+		$item->setLastModified($this->time);
+
+		$json = $item->toExport(array('feed3' => $feed));
+
+		$items = array($json);
+
+		$this->feedMapper->expects($this->once())
+			->method('findAllFromUser')
+			->with($this->equalTo($this->user))
+			->will($this->returnValue($feeds));
+
 		$this->itemMapper->expects($this->once())
-			->method('findByGuidHash');
-		$this->itemMapper->expects($this->never())
-			->method('insert');
+			->method('findByGuidHash')
+			->will($this->throwException(new DoesNotExistException('yo')));
+		$this->itemMapper->expects($this->once())
+			->method('insert')
+			->with($this->equalTo($item));
 
 
-		$result = $this->feedBusinessLayer->importGoogleReaderJSON(array(), $this->user);
+		$result = $this->feedBusinessLayer->importArticles($items, $this->user);
 
-		$this->assertEquals($feed, $result);
+		$this->assertEquals(null, $result);
 	}
 
 
-	public function testImportGoogleReaderJSONFeedExists(){
+	public function atestImportGoogleReaderJSONFeedExists(){
 		$url = 'http://owncloud/googlereader';
 		$urlHash = md5($url);
 

@@ -126,8 +126,8 @@ class FeedControllerTest extends ControllerTestUtility {
 	}
 
 
-	public function testImportGoogleReaderAnnotations(){
-		$this->assertFeedControllerAnnotations('importGoogleReader');
+	public function testImportArticlesAnnotations(){
+		$this->assertFeedControllerAnnotations('importArticles');
 	}
 
 	public function testReadAnnotations(){
@@ -543,7 +543,7 @@ class FeedControllerTest extends ControllerTestUtility {
 	}
 
 
-	public function testImportGoogleReader() {
+	public function testImportArticles() {
 		$feed = new Feed();
 
 		$post = array(
@@ -558,12 +558,37 @@ class FeedControllerTest extends ControllerTestUtility {
 			->method('getUserId')
 			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
-			->method('importGoogleReaderJSON')
+			->method('importArticles')
 			->with($this->equalTo($post['json']),
 				$this->equalTo($this->user))
 			->will($this->returnValue($feed));
 
-		$response = $this->controller->importGoogleReader();
+		$response = $this->controller->importArticles();
+
+		$this->assertEquals($expected, $response->getParams());
+		$this->assertTrue($response instanceof JSONResponse);
+	}
+
+
+	public function testImportArticlesCreatesNoAdditionalFeed() {
+		$feed = new Feed();
+
+		$post = array(
+			'json' => 'the json'
+		);
+		$expected = array();
+		$this->controller = $this->getPostController($post);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->feedBusinessLayer->expects($this->once())
+			->method('importArticles')
+			->with($this->equalTo($post['json']),
+				$this->equalTo($this->user))
+			->will($this->returnValue(null));
+
+		$response = $this->controller->importArticles();
 
 		$this->assertEquals($expected, $response->getParams());
 		$this->assertTrue($response instanceof JSONResponse);

@@ -43,7 +43,8 @@
 	<fieldset class="personalblock">
 		<legend><strong><?php p($l->t('Unread/Starred Articles')); ?></strong></legend>
 		<input type="file" id="google-upload" name="importgoogle" 
-				oc-read-file="importGoogleReader($fileContent)"/>
+			accept="application/json"
+			oc-read-file="importGoogleReader($fileContent)"/>
 		<button title="<?php p($l->t('Import')); ?>" 
 			class="upload-icon svg"
 			oc-forward-click="{selector:'#google-upload'}">

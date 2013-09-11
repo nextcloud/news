@@ -140,10 +140,10 @@ $this->create('news_feeds_read', '/feeds/{feedId}/read')->post()->action(
 	}
 );
 
-$this->create('news_feeds_import_googlereader', '/feeds/import/googlereader')
+$this->create('news_feeds_import_articles', '/feeds/import/articles')
 ->post()->action(
 	function($params){
-		App::main('FeedController', 'importGoogleReader', $params,
+		App::main('FeedController', 'importArticles', $params,
 			new DIContainer());
 	}
 );
