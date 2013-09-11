@@ -228,4 +228,13 @@ class ItemBusinessLayer extends BusinessLayer {
 	}
 
 
+	/**
+	 * @param string $userId from which user the items should be taken
+	 * @return array of items which are starred or unread
+	 */
+	public function getUnreadOrStarred($userId) {
+		return $this->mapper->findAllUnreadOrStarred($userId);
+	}
+
+
 }

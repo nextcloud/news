@@ -8,25 +8,27 @@
 		}"></button>
 </div>
 
-<div id="app-settings-content">
+<div id="app-settings-content" style="display:block">
 	<fieldset class="personalblock">
-		<legend><strong><?php p($l->t('Import / Export OPML')); ?></strong></legend>
+		<legend><strong><?php p($l->t('Subscriptions')); ?></strong></legend>
 		
-		<input type="file" id="opml-upload" name="import" 
+		<input type="file" id="opml-upload" name="import" accept="text/x-opml, text/xml"
 				oc-read-file="import($fileContent)"/>
 		<button title="<?php p($l->t('Import')); ?>" 
+			class="upload-icon svg"
 			oc-forward-click="{selector:'#opml-upload'}">
 			<?php p($l->t('Import')); ?>
 		</button>
 
 
-		<a title="<?php p($l->t('Export')); ?>" class="button"
+		<a title="<?php p($l->t('Export')); ?>" class="button download-icon svg"
 			href="<?php p(\OCP\Util::linkToRoute('news_export_opml')); ?>" 
 			target="_blank"
 			ng-show="feedBusinessLayer.getNumberOfFeeds() > 0">
 			<?php p($l->t('Export')); ?>
 		</a>
 		<button
+			class="download-icon svg"
 			title="<?php p($l->t('Export')); ?>" 
 			ng-hide="feedBusinessLayer.getNumberOfFeeds() > 0" disabled>
 			<?php p($l->t('Export')); ?>
@@ -39,14 +41,26 @@
 	</fieldset>
 
 	<fieldset class="personalblock">
-		<legend><strong><?php p($l->t('Import Google Reader JSON')); ?></strong></legend>
-		<p><?php p($l->t('To import starred and shared articles from Google 
-			Reader please upload the .json files from the Google Takeout archive')); ?>
+		<legend><strong><?php p($l->t('Unread/Starred Articles')); ?></strong></legend>
 		<input type="file" id="google-upload" name="importgoogle" 
 				oc-read-file="importGoogleReader($fileContent)"/>
 		<button title="<?php p($l->t('Import')); ?>" 
+			class="upload-icon svg"
 			oc-forward-click="{selector:'#google-upload'}">
 			<?php p($l->t('Import')); ?>
+		</button>
+
+		<a title="<?php p($l->t('Export')); ?>" class="button download-icon svg"
+			href="<?php p(\OCP\Util::linkToRoute('news_export_articles')); ?>" 
+			target="_blank"
+			ng-show="feedBusinessLayer.getNumberOfFeeds() > 0">
+			<?php p($l->t('Export')); ?>
+		</a>
+		<button
+			class="download-icon svg"
+			title="<?php p($l->t('Export')); ?>" 
+			ng-hide="feedBusinessLayer.getNumberOfFeeds() > 0" disabled>
+			<?php p($l->t('Export')); ?>
 		</button>
 
 		<p class="error" ng-show="jsonError">

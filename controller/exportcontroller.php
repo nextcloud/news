@@ -29,9 +29,11 @@ use \OCA\AppFramework\Controller\Controller;
 use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Http\Request;
 use \OCA\AppFramework\Http\TextDownloadResponse;
+use \OCA\AppFramework\Http\JSONResponse;
 
 use \OCA\News\BusinessLayer\FeedBusinessLayer;
 use \OCA\News\BusinessLayer\FolderBusinessLayer;
+use \OCA\News\BusinessLayer\ItemBusinessLayer;
 use \OCA\News\Utility\OPMLExporter;
 
 class ExportController extends Controller {
@@ -39,15 +41,18 @@ class ExportController extends Controller {
 	private $opmlExporter;
 	private $folderBusinessLayer;
 	private $feedBusinessLayer;
+	private $itemBusinessLayer;
 
 	public function __construct(API $api, Request $request,
 	                            FeedBusinessLayer $feedBusinessLayer,
 	                            FolderBusinessLayer $folderBusinessLayer,
+	                            ItemBusinessLayer $itemBusinessLayer,
 	                            OPMLExporter $opmlExporter){
 		parent::__construct($api, $request);
 		$this->feedBusinessLayer = $feedBusinessLayer;
 		$this->folderBusinessLayer = $folderBusinessLayer;
 		$this->opmlExporter = $opmlExporter;
+		$this->itemBusinessLayer = $itemBusinessLayer;
 	}
 
 
@@ -57,11 +62,39 @@ class ExportController extends Controller {
 	 * @CSRFExemption
 	 */
 	public function opml(){
-		$user = $this->api->getUserId();
-		$feeds = $this->feedBusinessLayer->findAll($user);
-		$folders = $this->folderBusinessLayer->findAll($user);
+		$userId = $this->api->getUserId();
+		$feeds = $this->feedBusinessLayer->findAll($userId);
+		$folders = $this->folderBusinessLayer->findAll($userId);
 		$opml = $this->opmlExporter->build($folders, $feeds)->saveXML();
 		return new TextDownloadResponse($opml, 'subscriptions.opml', 'text/xml');
+	}
+
+
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @CSRFExemption
+	 */
+	public function articles(){
+		$userId = $this->api->getUserId();
+		$feeds = $this->feedBusinessLayer->findAll($userId);
+		$items = $this->itemBusinessLayer->getUnreadOrStarred($userId);
+
+		// build assoc array for fast access
+		$feedsDict = array();
+		foreach($feeds as $feed) {
+			$feedsDict['feed' . $feed->getId()] = $feed;
+		}
+
+		$articles = array();
+		foreach($items as $item) {
+			array_push($articles, $item->toExport($feedsDict));
+		}
+		
+		$response = new JSONResponse($articles);
+		$response->addHeader('Content-Disposition', 
+			'attachment; filename="articles.json"');
+		return $response;
 	}
 
 

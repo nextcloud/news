@@ -230,6 +230,15 @@ class ItemMapper extends Mapper implements IMapper {
 	}
 
 
+	public function findAllUnreadOrStarred($userId) {
+		$params = array($userId);
+		$status = StatusFlag::UNREAD | StatusFlag::STARRED;
+		$sql = 'AND ((`items`.`status` & ' . $status . ') > 0) ';
+		$sql = $this->makeSelectQuery($sql);
+		return $this->findAllRows($sql, $params);
+	}
+
+
 	public function findByGuidHash($guidHash, $feedId, $userId){
 		$sql = $this->makeSelectQuery(
 			'AND `items`.`guid_hash` = ? ' .

@@ -103,6 +103,46 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 	}
 
 
+	public function testToExport() {
+		$item = new Item();
+		$item->setId(3);
+		$item->setGuid('guid');
+		$item->setGuidHash('hash');
+		$item->setUrl('https://google');
+		$item->setTitle('title');
+		$item->setAuthor('author');
+		$item->setPubDate(123);
+		$item->setBody('body');
+		$item->setEnclosureMime('audio/ogg');
+		$item->setEnclosureLink('enclink');
+		$item->setFeedId(1);
+		$item->setStatus(0);
+		$item->setUnread();
+		$item->setStarred();
+		$item->setLastModified(321);
+
+		$feed = new Feed();
+		$feed->setLink('http://test');
+		$feeds = array(
+			"feed1" => $feed
+		);
+
+		$this->assertEquals(array(
+			'guid' => 'guid',
+			'url' => 'https://google',
+			'title' => 'title',
+			'author' => 'author',
+			'pubDate' => 123,
+			'body' => 'body',
+			'enclosureMime' => 'audio/ogg',
+			'enclosureLink' => 'enclink',
+			'unread' => true,
+			'starred' => true,
+			'feedLink' => 'http://test'
+			), $item->toExport($feeds));
+	}
+
+
 	public function testSetAuthor(){
 		$item = new Item();
 		$item->setAuthor('<a>my link</li>');

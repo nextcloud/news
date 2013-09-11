@@ -109,6 +109,23 @@ class Item extends Entity implements IAPI {
 	}
 
 
+	public function toExport($feeds) {
+		return array(
+			'guid' => $this->getGuid(),
+			'url' => $this->getUrl(),
+			'title' => $this->getTitle(),
+			'author' => $this->getAuthor(),
+			'pubDate' => $this->getPubDate(),
+			'body' => $this->getBody(),
+			'enclosureMime' => $this->getEnclosureMime(),
+			'enclosureLink' => $this->getEnclosureLink(),
+			'unread' => $this->isUnread(),
+			'starred' => $this->isStarred(),
+			'feedLink' => $feeds['feed'. $this->getFeedId()]->getLink()
+		);
+	}
+
+
 	public function setAuthor($name) {
 		parent::setAuthor(strip_tags($name));
 	}

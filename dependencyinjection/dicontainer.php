@@ -165,6 +165,7 @@ class DIContainer extends BaseContainer {
 			return new ExportController($c['API'], $c['Request'],
 			                            $c['FeedBusinessLayer'],
 				                        $c['FolderBusinessLayer'],
+				                        $c['ItemBusinessLayer'],
 				                        $c['OPMLExporter']);
 		});
 

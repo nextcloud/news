@@ -35,3 +35,19 @@
 #app-settings-content {
 	padding-bottom: 25px;
 }
+
+.upload-icon,
+.download-icon {
+	padding-left: 25px;
+	background-repeat: no-repeat;
+	background-position: 5px center;
+	opacity: .8;
+}
+
+.upload-icon {
+	background-image: url('%webroot%/core/img/actions/upload.svg');
+}
+
+.download-icon {
+	background-image: url('%appswebroot%/news/img/download.svg');
+}

@@ -221,6 +221,18 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 	}
 
 
+	public function testFindAllUnreadOrStarred(){
+		$status = StatusFlag::UNREAD | StatusFlag::STARRED;
+		$sql = 'AND ((`items`.`status` & ' . $status . ') > 0) ';
+		$sql = $this->makeSelectQuery($sql);
+		$params = array($this->user);
+		$this->setMapperResult($sql, $params, $this->rows);
+		$result = $this->mapper->findAllUnreadOrStarred($this->user);
+
+		$this->assertEquals($this->items, $result);
+	}
+
+
 	public function testFindAllFeed(){
 		$sql = 'AND `items`.`feed_id` = ? ' .
 			'AND `items`.`id` < ? ';

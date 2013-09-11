@@ -348,6 +348,18 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 	}
 
 
+	public function testGetUnreadOrStarred(){
+		$star = 18;
+
+		$this->mapper->expects($this->once())
+			->method('findAllUnreadOrStarred')
+			->with($this->equalTo($this->user))
+			->will($this->returnValue($star));
+
+		$result = $this->itemBusinessLayer->getUnreadOrStarred($this->user);
+
+		$this->assertEquals($star, $result);
+	}
 }
 
 

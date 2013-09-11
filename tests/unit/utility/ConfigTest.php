@@ -51,7 +51,7 @@ class ConfigFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 
 	public function testDefaults() {
 		$this->assertEquals(60, $this->config->getAutoPurgeMinimumInterval());
-		$this->assertEquals(200, $this->config->getAutoPurgeCount());
+		$this->assertEquals(5000, $this->config->getAutoPurgeCount());
 		$this->assertEquals(30*60, $this->config->getSimplePieCacheDuration());
 		$this->assertEquals(60, $this->config->getFeedFetcherTimeout());
 		$this->assertEquals(true, $this->config->getUseCronUpdates());
@@ -139,7 +139,7 @@ class ConfigFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->config->setUseCronUpdates(false);
 
 		$json = "autoPurgeMinimumInterval = 60\n" . 
-			"autoPurgeCount = 200\n" . 
+			"autoPurgeCount = 5000\n" . 
 			"simplePieCacheDuration = 1800\n" . 
 			"feedFetcherTimeout = 60\n" . 
 			"useCronUpdates = false";

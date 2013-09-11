@@ -196,6 +196,12 @@ $this->create('news_export_opml', '/export/opml')->get()->action(
 	}
 );
 
+$this->create('news_export_articles', '/export/articles')->get()->action(
+	function($params){
+		App::main('ExportController', 'articles', $params, new DIContainer());
+	}
+);
+
 /**
  * User Settings
  */
