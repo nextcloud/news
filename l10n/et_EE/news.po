@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-09-10 08:46-0400\n"
-"PO-Revision-Date: 2013-09-10 12:46+0000\n"
-"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"POT-Creation-Date: 2013-09-11 05:41-0400\n"
+"PO-Revision-Date: 2013-09-11 09:30+0000\n"
+"Last-Translator: pisike.sipelgas <pisike.sipelgas@gmail.com>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/projects/p/owncloud/language/et_EE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,16 +37,16 @@ msgstr "Kausta ei saa lisada: on juba olemas"
 
 #: js/vendor/angular-ui/build/angular-ui.min.js:7
 msgid " "
-msgstr ""
+msgstr " "
 
 #: js/vendor/angular-ui/build/angular-ui.min.js:7
 msgid "_"
-msgstr ""
+msgstr "_"
 
 #: js/vendor/jquery-ui/ui/minified/jquery-ui.min.js:8
 #: js/vendor/jquery-ui/ui/minified/jquery.ui.autocomplete.min.js:4
 msgid "status"
-msgstr ""
+msgstr "staatus"
 
 #: templates/main.php:34
 #, php-format
@@ -116,7 +116,7 @@ msgstr "Märgi loetuks"
 
 #: templates/part.firstrun.php:2
 msgid "Welcome to the ownCloud News app!"
-msgstr ""
+msgstr "Tere tulemast ownCloud News rakendisse!"
 
 #: templates/part.items.php:32
 msgid "from"

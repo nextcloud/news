@@ -1,5 +1,6 @@
 <?php $TRANSLATIONS = array(
 "News" => "Вести",
+"status" => "статус",
 "Address" => "Адреса",
 "Add" => "Додај",
 "Folder" => "фасцикла",
