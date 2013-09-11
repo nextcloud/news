@@ -8,7 +8,7 @@
 		}"></button>
 </div>
 
-<div id="app-settings-content" style="display:block">
+<div id="app-settings-content">
 	<fieldset class="personalblock">
 		<legend><strong><?php p($l->t('Subscriptions')); ?></strong></legend>
 		
