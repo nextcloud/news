@@ -10,7 +10,7 @@
 
 <div id="app-settings-content">
 	<fieldset class="personalblock">
-		<legend><strong><?php p($l->t('Subscriptions')); ?></strong></legend>
+		<legend><strong><?php p($l->t('Subscriptions (OPML)')); ?></strong></legend>
 		
 		<input type="file" id="opml-upload" name="import" accept="text/x-opml, text/xml"
 				oc-read-file="import($fileContent)"/>
