@@ -325,10 +325,13 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 
 	public function testDeleteReadOlderThanThresholdDoesNotDeleteBelowThreshold(){
 		$status = StatusFlag::STARRED | StatusFlag::UNREAD;
-		$sql = 'SELECT COUNT(*) `size`, `feed_id` ' .
-			'FROM `*PREFIX*news_items` ' .
-			'WHERE NOT ((`status` & ?) > 0) ' .
-			'GROUP BY `feed_id` ' .
+		$sql =  'SELECT COUNT(*) - `feeds`.`articles_per_update` AS `size`, ' .
+		'`items`.`feed_id` AS `feed_id`, ' . 
+			'FROM `*PREFIX*news_items` `items` ' .
+			'JOIN `*PREFIX*news_feeds` `feeds` ' .
+				'ON `feeds`.`id` = `items`.`feed_id` ' .
+			'WHERE NOT ((`items`.`status` & ?) > 0) ' .
+			'GROUP BY `items`.`feed_id` ' .
 			'HAVING COUNT(*) > ?';
 
 		$threshold = 10;
@@ -346,10 +349,13 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$threshold = 10;
 		$status = StatusFlag::STARRED | StatusFlag::UNREAD;
 
-		$sql1 = 'SELECT COUNT(*) `size`, `feed_id` ' .
-			'FROM `*PREFIX*news_items` ' .
-			'WHERE NOT ((`status` & ?) > 0) ' .
-			'GROUP BY `feed_id` ' .
+		$sql1 = 'SELECT COUNT(*) - `feeds`.`articles_per_update` AS `size`, ' .
+		'`items`.`feed_id` AS `feed_id`, ' . 
+			'FROM `*PREFIX*news_items` `items` ' .
+			'JOIN `*PREFIX*news_feeds` `feeds` ' .
+				'ON `feeds`.`id` = `items`.`feed_id` ' .
+			'WHERE NOT ((`items`.`status` & ?) > 0) ' .
+			'GROUP BY `items`.`feed_id` ' .
 			'HAVING COUNT(*) > ?';
 		$params1 = array($status, $threshold);
 

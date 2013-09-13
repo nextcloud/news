@@ -173,7 +173,7 @@ The configuration is in **INI** format and looks like this:
 
 
 * **autoPurgeMinimumInterval**: Minimum amount of seconds after deleted feeds and folders are removed from the database. 
-* **autoPurgeCount**: To let people have more read and unstarred items per feed before they are deleted increase this value. If you set this too low this will cause read articles to reappear: For instance a feed offers the newest 100 entries. The user reads 80 of them, the autoPrugeCount is set to 20. After the cleanup which runs with the update only 20 read entries of that feed will remain, which means 60 entries are deleted. The next update will then readd those 60 entries because they are gone from the database and thus appear to be new entries.
+* **autoPurgeCount**: Defines the minimum amount of articles that can be unread per feed before they get deleted
 * **simplePieCacheDuration**: Amount of seconds to cache feeds
 * **feedFetcherTimeout**: Maximum number of seconds to wait for an RSS or Atom feed to load. If a feed takes longer than that number of seconds to update, the update will be aborted
 * **useCronUpdates**: To use a custom update/cron script you need to disable the cronjob which is run by ownCloud by default by setting this to false
