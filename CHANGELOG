@@ -3,6 +3,7 @@ owncloud-news (1.601)
 * Replace Google Reader import with export and import of unread and starred articles
 * Autopurge limit is now added to the number of articles each feed gets when it updates
 * Fix CORS headers for OPTIONS request deeper than one level
+* Use before and after update cleanup hooks to make sure that read items are not turned unread again after an update
 
 owncloud-news (1.404)
 * Fix bug on postgres databases that would not delete old articles
