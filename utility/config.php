@@ -45,7 +45,7 @@ class Config {
 	public function __construct($fileSystem, API $api) {
 		$this->fileSystem = $fileSystem;
 		$this->autoPurgeMinimumInterval = 60;
-		$this->autoPurgeCount = 5000;
+		$this->autoPurgeCount = 200;
 		$this->simplePieCacheDuration = 30*60;
 		$this->feedFetcherTimeout = 60;
 		$this->useCronUpdates = true;
