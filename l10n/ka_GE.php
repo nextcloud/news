@@ -26,12 +26,9 @@
 "Collapse" => "აკეცვა",
 "Delete folder" => "ფოლდერის წაშლა",
 "Rename folder" => "ფოლდერის სახელის გადარქმევა",
-"Import / Export OPML" => "OPML–ის იმპორტ / ექსპორტი",
 "Import" => "იმპორტი",
 "Export" => "ექსპორტი",
 "Error when importing: file does not contain valid OPML" => "შეცდომა იმპორტირების დროს: ფაილი არ უნდა შეიცავდეს მართებულ OPML–ს",
-"Import Google Reader JSON" => "Google წამკითხავი JSON–ის იმპორტირება",
-"To import starred and shared articles from Google \n\t\t\tReader please upload the .json files from the Google Takeout archive" => "ვარსკვლავმონიშნული და გაზიარებული არტიკლების Google–დან დასაიმპორტებლად »»» გთხოვთ ატვირთეთ  .json წამკითხავი ფაილები Google Takeout არქივიდან",
 "Error when importing: file does not contain valid JSON" => "შეცდომა იმპორტირებისას: ფაილი არ უნდა შეიცავდეს მართებულ  JSON–ს",
 "Show all" => "ყველაფრის გამოჩენა",
 "Show only unread" => "გამოაჩინე მხოლოდ წაუკითხავი"

@@ -27,12 +27,9 @@
 "Collapse" => "çökme",
 "Delete folder" => "Dizini sil",
 "Rename folder" => "Dizini yeniden adlandır",
-"Import / Export OPML" => "Icere/disari OPML koymak ",
 "Import" => "İçe aktar",
 "Export" => "Dışa aktar",
 "Error when importing: file does not contain valid OPML" => "Hata ithal etmeye. dosya OPML gecirli icere etmiyor. ",
-"Import Google Reader JSON" => "Google Reader JSON birlemek ",
-"To import starred and shared articles from Google \n\t\t\tReader please upload the .json files from the Google Takeout archive" => "Makaleler isaretis ve dayitmis  Googleden birlemek icin, Reader lütfen   dosyalari  json arkivden Google Takeout yüklemek.  ",
 "Error when importing: file does not contain valid JSON" => "Error, ithal icin, dosya gencerli JSAON icere etmiyor. ",
 "Show all" => "Hepsini göster",
 "Show only unread" => "Sadece okunmamışları göster"

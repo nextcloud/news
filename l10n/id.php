@@ -17,7 +17,6 @@
 "Collapse" => "Tutup",
 "Delete folder" => "Hapus map",
 "Rename folder" => "Ubah nama map",
-"Import / Export OPML" => "Impor/Ekspor OPML",
 "Import" => "impor",
 "Export" => "ekspor",
 "Show all" => "Tampilkan semua",

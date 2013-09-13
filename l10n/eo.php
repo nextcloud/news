@@ -27,12 +27,9 @@
 "Collapse" => "Maletendi",
 "Delete folder" => "Forigi dosierujon",
 "Rename folder" => "Alinomigi dosierujon",
-"Import / Export OPML" => "Enporti/Malenporti OPML-on",
 "Import" => "Enporti",
 "Export" => "Elporti",
 "Error when importing: file does not contain valid OPML" => "La enporto eraris: la dosiero ne enhavas validan OPML-on",
-"Import Google Reader JSON" => "Enporti JSON-on de Google Reader",
-"To import starred and shared articles from Google \n\t\t\tReader please upload the .json files from the Google Takeout archive" => "Por enporti malkitajn kaj kunhavigitajn artikolojn el Google\nReader bonvolu alŝuti la dosierojn .json el la arĥivo Google Takeout",
 "Error when importing: file does not contain valid JSON" => "La enporto eraris: la dosiero ne enhavas validan JSON-on",
 "Show all" => "Montri ĉion",
 "Show only unread" => "Montri nur legotajn"

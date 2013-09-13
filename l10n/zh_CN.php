@@ -27,12 +27,9 @@
 "Collapse" => "折叠",
 "Delete folder" => "删除目录",
 "Rename folder" => "重命名目录",
-"Import / Export OPML" => "导入 / 导出 OPML",
 "Import" => "导入",
 "Export" => "导出",
 "Error when importing: file does not contain valid OPML" => "导入时出错：文件不包含有效的OPML",
-"Import Google Reader JSON" => "导入谷歌阅读器JSON文件",
-"To import starred and shared articles from Google \n\t\t\tReader please upload the .json files from the Google Takeout archive" => "要从Google导入加星的或分享的文章\n»»»请读者上传Google Takeout存档中的 .json 文件",
 "Error when importing: file does not contain valid JSON" => "导入出错：文件包含非法的JSON数据",
 "Show all" => "显示所有",
 "Show only unread" => "只看未读"

@@ -31,12 +31,9 @@
 "Collapse" => "Sammenfold",
 "Delete folder" => "Slet mappe",
 "Rename folder" => "Omdøb mappe",
-"Import / Export OPML" => "Import / Eksport af OPML",
 "Import" => "Importer",
 "Export" => "Exporter",
 "Error when importing: file does not contain valid OPML" => "Fejl ved import: filen indeholder ingen gyldig OPML kode",
-"Import Google Reader JSON" => "Importer Google Reader JSON",
-"To import starred and shared articles from Google \n\t\t\tReader please upload the .json files from the Google Takeout archive" => "For at importere markerde artikler fra Google Reader; upload venligst .json filerne fra Google Takeout arkivet",
 "Error when importing: file does not contain valid JSON" => "Fejl ved import: filen indeholder ikke gyldig JSON kode",
 "Show all" => "Vis alt",
 "Show only unread" => "Vis kun ulæste"

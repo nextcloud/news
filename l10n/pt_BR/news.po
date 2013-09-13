@@ -7,16 +7,16 @@
 # Flávio Veras <flaviove@gmail.com>, 2013
 # FredMaranhao <fred.maranhao@gmail.com>, 2012
 # sedir <philippi.sedir@gmail.com>, 2012
-# Rodrigo Tavares <rodrigo.st23@hotmail.com>, 2013
+# Rodrigo Tavares <rodrigost23@gmail.com>, 2013
 # sedir <philippi.sedir@gmail.com>, 2013
 # thoriumbr <thoriumbr@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-09-11 05:41-0400\n"
-"PO-Revision-Date: 2013-09-10 14:00+0000\n"
-"Last-Translator: Flávio Veras <flaviove@gmail.com>\n"
+"POT-Creation-Date: 2013-09-13 19:48-0400\n"
+"PO-Revision-Date: 2013-09-13 23:48+0000\n"
+"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/owncloud/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,13 +28,17 @@ msgstr ""
 msgid "News"
 msgstr "Notícias"
 
-#: businesslayer/feedbusinesslayer.php:104
+#: businesslayer/feedbusinesslayer.php:101
 msgid "Can not add feed: Exists already"
 msgstr "Não é possível adicionar alimentação: já existe"
 
-#: businesslayer/feedbusinesslayer.php:140
+#: businesslayer/feedbusinesslayer.php:138
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "Não é possível adicionar alimentação: URL não existe ou tem ml inválido"
+
+#: businesslayer/feedbusinesslayer.php:267
+msgid "Articles without feed"
+msgstr ""
 
 #: businesslayer/folderbusinesslayer.php:66
 msgid "Can not add folder: Exists already"
@@ -156,34 +160,30 @@ msgid "Rename folder"
 msgstr "Renomear pasta"
 
 #: templates/part.settings.php:13
-msgid "Import / Export OPML"
-msgstr "Importar / Exportar OPML"
+msgid "Subscriptions (OPML)"
+msgstr ""
 
-#: templates/part.settings.php:17 templates/part.settings.php:19
-#: templates/part.settings.php:47 templates/part.settings.php:49
+#: templates/part.settings.php:17 templates/part.settings.php:20
+#: templates/part.settings.php:48 templates/part.settings.php:53
 msgid "Import"
 msgstr "Importar"
 
-#: templates/part.settings.php:23 templates/part.settings.php:27
-#: templates/part.settings.php:30 templates/part.settings.php:32
+#: templates/part.settings.php:24 templates/part.settings.php:28
+#: templates/part.settings.php:32 templates/part.settings.php:34
+#: templates/part.settings.php:56 templates/part.settings.php:60
+#: templates/part.settings.php:64 templates/part.settings.php:66
 msgid "Export"
 msgstr "Exportar"
 
-#: templates/part.settings.php:36
+#: templates/part.settings.php:38
 msgid "Error when importing: file does not contain valid OPML"
 msgstr "Erro ao importar: arquivo não contém OPML válido"
 
-#: templates/part.settings.php:42
-msgid "Import Google Reader JSON"
-msgstr "Importar Google Reader JSON"
+#: templates/part.settings.php:44
+msgid "Unread/Starred Articles"
+msgstr ""
 
-#: templates/part.settings.php:43
-msgid ""
-"To import starred and shared articles from Google \n"
-"\t\t\tReader please upload the .json files from the Google Takeout archive"
-msgstr "Para importar artigos favoritos e compartilhados do Google ⏎\n»»»Leitor faça o upload dos arquivos JSON. Partir do arquivo Google Takeout"
-
-#: templates/part.settings.php:53
+#: templates/part.settings.php:70
 msgid "Error when importing: file does not contain valid JSON"
 msgstr "Erro ao importar: arquivo não contém JSON válido"
 

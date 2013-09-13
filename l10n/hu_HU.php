@@ -27,12 +27,9 @@
 "Collapse" => "Összecsukás",
 "Delete folder" => "Mappa törlése",
 "Rename folder" => "Mappa átnevezése",
-"Import / Export OPML" => "OPML állomány importálása/exportálása",
 "Import" => "Importálás",
 "Export" => "Exportálás",
 "Error when importing: file does not contain valid OPML" => "Hiba az importálás során: az állomány nem tartalmaz érvényes OPML adatot",
-"Import Google Reader JSON" => "A Google Reader JSON adatainak importálása",
-"To import starred and shared articles from Google \n\t\t\tReader please upload the .json files from the Google Takeout archive" => "Ha a Google Readerből importálni szeretné a csillaggal megjelölt vagy megosztott cikkeket, akkor töltse föl a .json állományokat a Google Takeout archívumból",
 "Error when importing: file does not contain valid JSON" => "Hiba az importálás során: az állomány nem tartalmaz érvényes JSON adatokat",
 "Show all" => "Mutassuk mindet",
 "Show only unread" => "Csak az olvasatlanok megjelenítése"

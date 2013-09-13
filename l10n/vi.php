@@ -14,7 +14,6 @@
 "Collapse" => "Thu gọn",
 "Delete folder" => "Xóa thư mục",
 "Rename folder" => "Đổi tên thư mục",
-"Import / Export OPML" => "Xuất nhập dữ liệu OPML",
 "Import" => "Nhập vào",
 "Export" => "Xuất ra",
 "Show all" => "Hiên thị tất cả",

@@ -27,12 +27,9 @@
 "Collapse" => "Σύμπτυξη",
 "Delete folder" => "Διαγραφή φακέλου",
 "Rename folder" => "Μετονομασία φακέλου",
-"Import / Export OPML" => "Εισαγωγή / Εξαγωγή OPML",
 "Import" => "Εισαγωγή",
 "Export" => "Εξαγωγή",
 "Error when importing: file does not contain valid OPML" => "Σφαλμα κατα την εισαγωγη: το αρχειο δεν περιεχει ενα εγκυρο OPML",
-"Import Google Reader JSON" => "Εισαγωγη του Google Reader JSON",
-"To import starred and shared articles from Google \n\t\t\tReader please upload the .json files from the Google Takeout archive" => "Για να εισαγάγετε αστέρι και κοινα άρθρα από το Google ⏎ »» » \nReader ανεβάστε τα . Json αρχεια από το Google Takeout archive",
 "Error when importing: file does not contain valid JSON" => "Σφαλμα κατα την εισαγωγη: το αρχειο δεν περιεχει ενα εγκυρο JSON",
 "Show all" => "Εμφάνιση όλων",
 "Show only unread" => "Εμφάνιση μόνο αδιάβαστων"

@@ -28,12 +28,9 @@
 "Collapse" => "Col·lapsa",
 "Delete folder" => "Elimina carpeta",
 "Rename folder" => "Reanomena carpeta",
-"Import / Export OPML" => "Importa / Exporta OPML",
 "Import" => "Importa",
 "Export" => "Exporta",
 "Error when importing: file does not contain valid OPML" => "Error en importar: el fitxer no conté un OPML vàlid",
-"Import Google Reader JSON" => "Importa Google Reader JSON",
-"To import starred and shared articles from Google \n\t\t\tReader please upload the .json files from the Google Takeout archive" => "Per importar articles amb estrelles i compartits des de Google\n»»»Reader utilitzeu la pujada dels fitxers .json de l'arxiu de Google Takeout",
 "Error when importing: file does not contain valid JSON" => "Error en importar: el fitxer no conté un JSON vàlid",
 "Show all" => "Mostra tot",
 "Show only unread" => "Mostra només els no llegits"

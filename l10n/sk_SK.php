@@ -27,12 +27,9 @@
 "Collapse" => "Zvinúť",
 "Delete folder" => "Odstrániť priečinok",
 "Rename folder" => "Premenovať priečinok",
-"Import / Export OPML" => "Import / Export OPML",
 "Import" => "Import",
 "Export" => "Export",
 "Error when importing: file does not contain valid OPML" => "Chyba pri importe: Súbor neobsahuje platné OPML",
-"Import Google Reader JSON" => "Importovať Google Reader JSON",
-"To import starred and shared articles from Google \n\t\t\tReader please upload the .json files from the Google Takeout archive" => "Na naimportovanie zdieľaných článkov a článkov z hviezdičkou z Google Readera nahrajte .json súbor z archívu Google Takeout",
 "Error when importing: file does not contain valid JSON" => "Chyba pri importe: súbor neobsahuje platný JSON",
 "Show all" => "Zobraziť všetko",
 "Show only unread" => "Zobraziť iba neprečítané"

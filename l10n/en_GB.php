@@ -31,12 +31,9 @@
 "Collapse" => "Collapse",
 "Delete folder" => "Delete folder",
 "Rename folder" => "Rename folder",
-"Import / Export OPML" => "Import / Export OPML",
 "Import" => "Import",
 "Export" => "Export",
 "Error when importing: file does not contain valid OPML" => "Error when importing: file does not contain valid OPML",
-"Import Google Reader JSON" => "Import Google Reader JSON",
-"To import starred and shared articles from Google \n\t\t\tReader please upload the .json files from the Google Takeout archive" => "To import starred and shared articles from Google \n\t\t\tReader please upload the .json files from the Google Takeout archive",
 "Error when importing: file does not contain valid JSON" => "Error when importing: file does not contain valid JSON",
 "Show all" => "Show all",
 "Show only unread" => "Show only unread"

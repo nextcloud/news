@@ -27,12 +27,9 @@
 "Collapse" => "Inklappen",
 "Delete folder" => "Verwijder map",
 "Rename folder" => "Hernoem map",
-"Import / Export OPML" => "Import / Export OPML",
 "Import" => "Importeer",
 "Export" => "Exporteer",
 "Error when importing: file does not contain valid OPML" => "Fout bij importeren: het bestand bevat geen geldige OPML",
-"Import Google Reader JSON" => "Importeer Google Reader JSON",
-"To import starred and shared articles from Google \n\t\t\tReader please upload the .json files from the Google Takeout archive" => "Om gesterde en gedeelde artikelen te importeren uit Google\n\t\t\tReader gelieve de .json bestanden van het Google Takeout archief te uploaden",
 "Error when importing: file does not contain valid JSON" => "Fout tijdens het importeren: bestand bevat geen geldige JSON",
 "Show all" => "Toon alles",
 "Show only unread" => "Toon alleen ongelezen"

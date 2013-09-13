@@ -27,12 +27,9 @@
 "Collapse" => "Skrči",
 "Delete folder" => "Izbriši mapo",
 "Rename folder" => "Preimenuj mapo",
-"Import / Export OPML" => "Izvoz / Uvoz OPML",
 "Import" => "Uvozi",
 "Export" => "Izvozi",
 "Error when importing: file does not contain valid OPML" => "Napaka med uvažanjem: datoteka ne vsebuje veljavnega OPML",
-"Import Google Reader JSON" => "Uvozi podatke JSON bralnika Google",
-"To import starred and shared articles from Google \n\t\t\tReader please upload the .json files from the Google Takeout archive" => "Za uvoz označenih prispevkov in prispevkov v souporabi preko\n\t\t\tbralnika Google je treba poslati datoteke .json iz arhiva Google Takeout.",
 "Error when importing: file does not contain valid JSON" => "Napaka uvoza: datoteka ne vsebuje veljavnih podatkov JSON.",
 "Show all" => "Pokaži vse",
 "Show only unread" => "Prikaži le neprebrano"

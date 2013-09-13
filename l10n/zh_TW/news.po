@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-09-10 08:46-0400\n"
-"PO-Revision-Date: 2013-09-10 12:46+0000\n"
+"POT-Creation-Date: 2013-09-13 19:48-0400\n"
+"PO-Revision-Date: 2013-09-13 23:48+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/owncloud/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -27,13 +27,17 @@ msgstr ""
 msgid "News"
 msgstr "新聞"
 
-#: businesslayer/feedbusinesslayer.php:104
+#: businesslayer/feedbusinesslayer.php:101
 msgid "Can not add feed: Exists already"
 msgstr "無法新增反饋: 已經存在"
 
-#: businesslayer/feedbusinesslayer.php:140
+#: businesslayer/feedbusinesslayer.php:138
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "無法新增反饋: URL不存在或具有無效的xml"
+
+#: businesslayer/feedbusinesslayer.php:267
+msgid "Articles without feed"
+msgstr ""
 
 #: businesslayer/folderbusinesslayer.php:66
 msgid "Can not add folder: Exists already"
@@ -155,34 +159,30 @@ msgid "Rename folder"
 msgstr "資料夾更名"
 
 #: templates/part.settings.php:13
-msgid "Import / Export OPML"
-msgstr "匯入/匯出 OPML"
+msgid "Subscriptions (OPML)"
+msgstr ""
 
-#: templates/part.settings.php:17 templates/part.settings.php:19
-#: templates/part.settings.php:47 templates/part.settings.php:49
+#: templates/part.settings.php:17 templates/part.settings.php:20
+#: templates/part.settings.php:48 templates/part.settings.php:53
 msgid "Import"
 msgstr "匯入"
 
-#: templates/part.settings.php:23 templates/part.settings.php:27
-#: templates/part.settings.php:30 templates/part.settings.php:32
+#: templates/part.settings.php:24 templates/part.settings.php:28
+#: templates/part.settings.php:32 templates/part.settings.php:34
+#: templates/part.settings.php:56 templates/part.settings.php:60
+#: templates/part.settings.php:64 templates/part.settings.php:66
 msgid "Export"
 msgstr "匯出"
 
-#: templates/part.settings.php:36
+#: templates/part.settings.php:38
 msgid "Error when importing: file does not contain valid OPML"
 msgstr "匯入時出錯: 該檔案不包含有效的OPML"
 
-#: templates/part.settings.php:42
-msgid "Import Google Reader JSON"
-msgstr "導入Google閱讀器JSON檔案"
+#: templates/part.settings.php:44
+msgid "Unread/Starred Articles"
+msgstr ""
 
-#: templates/part.settings.php:43
-msgid ""
-"To import starred and shared articles from Google \n"
-"\t\t\tReader please upload the .json files from the Google Takeout archive"
-msgstr "從Google匯入喜愛或分享的文章\\n»»»讀者上傳Google Takeout存檔中的 .json檔案"
-
-#: templates/part.settings.php:53
+#: templates/part.settings.php:70
 msgid "Error when importing: file does not contain valid JSON"
 msgstr "匯入錯誤: 檔案包含非法的JSON數據"
 

@@ -27,12 +27,9 @@
 "Collapse" => "فروکش  کردن",
 "Delete folder" => "حذف پوشه",
 "Rename folder" => "تغییر نام پوشه",
-"Import / Export OPML" => "وارد کردن / خروجی گرفتن  OPML",
 "Import" => "وارد کردن",
 "Export" => "گرفتن خروجی",
 "Error when importing: file does not contain valid OPML" => "خطا هنگام وارد کردن: فایل حاوی OPML  معتبر نیست.",
-"Import Google Reader JSON" => "وارد کردن Google Reader JSON",
-"To import starred and shared articles from Google \n\t\t\tReader please upload the .json files from the Google Takeout archive" => "برای وارد کردن مقالات ستاره دار و مشترک از گوگل⏎\n⇥⇥⇥خوانندگان لطفا فایل های .json را از آرشیو Google Takeout آپلود کنید.",
 "Error when importing: file does not contain valid JSON" => "خطا هنگام وارد کردن: فایل حاوی JSON معتبر نیست.",
 "Show all" => "نمایش همه موارد",
 "Show only unread" => "نمایش خوانده نشده ها"

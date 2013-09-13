@@ -27,12 +27,9 @@
 "Collapse" => "Tolestu",
 "Delete folder" => "Ezabatu karpeta",
 "Rename folder" => "Berrizendatu karpeta",
-"Import / Export OPML" => "Inportatu/Esportatu OPML",
 "Import" => "Inportatu",
 "Export" => "Exportatu",
 "Error when importing: file does not contain valid OPML" => "Errorea inportatzean: fitxategiak ez du OPML baliogarria",
-"Import Google Reader JSON" => "Inportatu Google Readeren JSON",
-"To import starred and shared articles from Google \n\t\t\tReader please upload the .json files from the Google Takeout archive" => "Google Reader-etik nabarmendutako eta elkarbanatutako artikuluak inportatzeko\nMesedez igo Google Takeout-etik hartutako .json fitxategiak",
 "Error when importing: file does not contain valid JSON" => "Errorea inportatzean: fitxategiak ez du JSON baliogarria",
 "Show all" => "Bistartu denak",
 "Show only unread" => "Erakutsi bakarrik irakurri gabekoa"

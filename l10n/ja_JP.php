@@ -28,12 +28,9 @@
 "Collapse" => "折りたたむ",
 "Delete folder" => "フォルダを削除",
 "Rename folder" => "フォルダの名前を変更",
-"Import / Export OPML" => "OPMLをインポート／エクスポート",
 "Import" => "インポート",
 "Export" => "エクスポート",
 "Error when importing: file does not contain valid OPML" => "インポート中のエラー: ファイルは有効なOPMLを含んでいません",
-"Import Google Reader JSON" => "GoogleリーダJSONをインポート",
-"To import starred and shared articles from Google \n\t\t\tReader please upload the .json files from the Google Takeout archive" => "Googleからスター付きもしくは共有の記事をインポートするために\n»»»Google Takeoutの書庫から .json ファイルをアップロードしてください",
 "Error when importing: file does not contain valid JSON" => "インポート中のエラー: ファイルは有効なJSONを含んでいません",
 "Show all" => "全て表示",
 "Show only unread" => "未読のみを表示"

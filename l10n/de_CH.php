@@ -27,12 +27,9 @@
 "Collapse" => "Zuklappen",
 "Delete folder" => "Ordner löschen",
 "Rename folder" => "Ordner umbenennen",
-"Import / Export OPML" => "Importiere / Exportiere OPML",
 "Import" => "Importieren",
 "Export" => "Exportieren",
 "Error when importing: file does not contain valid OPML" => "Fehler beim Importieren: Datei enthält kein gültiges OPML",
-"Import Google Reader JSON" => "Google Reader JSON importieren",
-"To import starred and shared articles from Google \n\t\t\tReader please upload the .json files from the Google Takeout archive" => "Um markierte und geteilte Artikel aus dem Google Reader\n\t\t\tzu importieren laden Sie bitte die .json Dateien aus dem Google Takeout Archiv hoch",
 "Error when importing: file does not contain valid JSON" => "Fehler beim Importieren: Datei enthält kein gültiges JSON",
 "Show all" => "Zeige alle",
 "Show only unread" => "Nur Ungelesene anzeigen"

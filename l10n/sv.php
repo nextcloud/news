@@ -28,12 +28,9 @@
 "Collapse" => "Dölj",
 "Delete folder" => "Radera mapp",
 "Rename folder" => "Byt namn på mapp",
-"Import / Export OPML" => "Import / Export OPML",
 "Import" => "Importera",
 "Export" => "Exportera",
 "Error when importing: file does not contain valid OPML" => "Fel vid import: filen innehåller ej giltig OPML",
-"Import Google Reader JSON" => "Importera Google Reader JSON",
-"To import starred and shared articles from Google \n\t\t\tReader please upload the .json files from the Google Takeout archive" => "För att importera stjärnmärkta och delande artiklar från Google ⏎\n⇥⇥⇥Reader vänligen ladda upp .json filer från Google Takeout archive",
 "Error when importing: file does not contain valid JSON" => "Fel vid import: filen innehåller ej giltig JSON",
 "Show all" => "Visa alla",
 "Show only unread" => "Visa endast olästa"

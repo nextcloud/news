@@ -31,12 +31,9 @@
 "Collapse" => "Kutista näkymää",
 "Delete folder" => "Poista kansio",
 "Rename folder" => "Muuta kansion nimeä",
-"Import / Export OPML" => "OPML:n tuonti ja vienti",
 "Import" => "Tuo",
 "Export" => "Vie",
 "Error when importing: file does not contain valid OPML" => "Virhe tuotaessa: tiedostossa ei ole kelvollista OPML:ää",
-"Import Google Reader JSON" => "Google Reader JSONin tuonti",
-"To import starred and shared articles from Google \n\t\t\tReader please upload the .json files from the Google Takeout archive" => "Tuo tähdellä varustetut ja jaetut artikkelit Google \n\t\t\t-syötteenlukijasta lataamalla .json-tiedostot Google Takeout -arkistosta",
 "Error when importing: file does not contain valid JSON" => "Virhe tuotaessa: tiedosto ei sisällä kelvollista JSONia",
 "Show all" => "Näytä kaikki",
 "Show only unread" => "Näytä vain lukemattomat"

@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-09-10 08:46-0400\n"
-"PO-Revision-Date: 2013-09-10 12:46+0000\n"
+"POT-Creation-Date: 2013-09-13 19:48-0400\n"
+"PO-Revision-Date: 2013-09-13 23:48+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/owncloud/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -35,13 +35,17 @@ msgstr ""
 msgid "News"
 msgstr "Abonnements"
 
-#: businesslayer/feedbusinesslayer.php:104
+#: businesslayer/feedbusinesslayer.php:101
 msgid "Can not add feed: Exists already"
 msgstr "Impossible d'ajouter le flux : Déjà présent"
 
-#: businesslayer/feedbusinesslayer.php:140
+#: businesslayer/feedbusinesslayer.php:138
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "Impossible d'ajouter le flux : l'URL n'existe pas ou pointe vers un document xml invalide"
+
+#: businesslayer/feedbusinesslayer.php:267
+msgid "Articles without feed"
+msgstr ""
 
 #: businesslayer/folderbusinesslayer.php:66
 msgid "Can not add folder: Exists already"
@@ -49,16 +53,16 @@ msgstr "Impossible d'ajouter le dossier : Déjà présent"
 
 #: js/vendor/angular-ui/build/angular-ui.min.js:7
 msgid " "
-msgstr ""
+msgstr " "
 
 #: js/vendor/angular-ui/build/angular-ui.min.js:7
 msgid "_"
-msgstr ""
+msgstr "_"
 
 #: js/vendor/jquery-ui/ui/minified/jquery-ui.min.js:8
 #: js/vendor/jquery-ui/ui/minified/jquery.ui.autocomplete.min.js:4
 msgid "status"
-msgstr ""
+msgstr "status"
 
 #: templates/main.php:34
 #, php-format
@@ -163,34 +167,30 @@ msgid "Rename folder"
 msgstr "Renommer le répertoire"
 
 #: templates/part.settings.php:13
-msgid "Import / Export OPML"
-msgstr "Import / Export OPML"
+msgid "Subscriptions (OPML)"
+msgstr ""
 
-#: templates/part.settings.php:17 templates/part.settings.php:19
-#: templates/part.settings.php:47 templates/part.settings.php:49
+#: templates/part.settings.php:17 templates/part.settings.php:20
+#: templates/part.settings.php:48 templates/part.settings.php:53
 msgid "Import"
 msgstr "Importer"
 
-#: templates/part.settings.php:23 templates/part.settings.php:27
-#: templates/part.settings.php:30 templates/part.settings.php:32
+#: templates/part.settings.php:24 templates/part.settings.php:28
+#: templates/part.settings.php:32 templates/part.settings.php:34
+#: templates/part.settings.php:56 templates/part.settings.php:60
+#: templates/part.settings.php:64 templates/part.settings.php:66
 msgid "Export"
 msgstr "Exporter"
 
-#: templates/part.settings.php:36
+#: templates/part.settings.php:38
 msgid "Error when importing: file does not contain valid OPML"
 msgstr "Erreur lors de l'import : le fichier spécifié n'est pas un fichier OPML valide"
 
-#: templates/part.settings.php:42
-msgid "Import Google Reader JSON"
-msgstr "Importer depuis le format JSON de Google Reader"
+#: templates/part.settings.php:44
+msgid "Unread/Starred Articles"
+msgstr ""
 
-#: templates/part.settings.php:43
-msgid ""
-"To import starred and shared articles from Google \n"
-"\t\t\tReader please upload the .json files from the Google Takeout archive"
-msgstr "Pour importer les articles épinglés et partagés depuis Google \n\t\t\tReader, veuillez importer les fichiers .json récupérés depuis l'archive Google Takeout"
-
-#: templates/part.settings.php:53
+#: templates/part.settings.php:70
 msgid "Error when importing: file does not contain valid JSON"
 msgstr "Erreur lors de l'import : le fichier spécifié n'est pas un fichier JSON valide"
 
