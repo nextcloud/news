@@ -104,6 +104,7 @@ class FeedBusinessLayer extends BusinessLayer {
 			// insert feed
 			$feed->setFolderId($folderId);
 			$feed->setUserId($userId);
+			$feed->setArticlesPerUpdate(count($items));
 			$feed = $this->mapper->insert($feed);
 
 			// insert items in reverse order because the first one is usually the
@@ -175,8 +176,11 @@ class FeedBusinessLayer extends BusinessLayer {
 				list($feed, $items) = $this->feedFetcher->fetch(
 					$existingFeed->getUrl(), false);
 
-				// keep the current faviconLink
-				$feed->setFaviconLink($existingFeed->getFaviconLink());
+				// update number of articles on every feed update
+				if($existingFeed->getArticlesPerUpdate() !== count($items)) {
+					$existingFeed->setArticlesPerUpdate(count($items));
+					$this->mapper->update($existingFeed);
+				}
 
 				// insert items in reverse order because the first one is usually
 				// the newest item

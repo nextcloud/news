@@ -173,6 +173,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 		$this->assertEquals($feed->getFolderId(), $folderId);
 		$this->assertEquals($feed->getUrl(), $url);
+		$this->assertEquals($feed->getArticlesPerUpdate(), 2);
 	}
 
 
@@ -240,6 +241,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$feed = new Feed();
 		$feed->setId(3);
 		$feed->getUrl('test');
+		$feed->setArticlesPerUpdate(1);
 		$feed->setUrlHash('yo');
 
 		$item = new Item();
@@ -284,6 +286,43 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$return = $this->feedBusinessLayer->update($feed->getId(), $this->user);
 
 		$this->assertEquals($return, $feed);
+	}
+
+
+	public function testUpdateUpdatesArticlesPerFeedCount() {
+		$feed = new Feed();
+		$feed->setId(3);
+		$feed->getUrl('test');
+		$feed->setUrlHash('yo');
+
+		$existingFeed = new Feed();
+		$feed->setArticlesPerUpdate(2);
+
+		$item = new Item();
+		$item->setGuidHash(md5('hi'));
+		$item->setFeedId(3);
+		$items = array(
+			$item
+		);
+
+		$ex = new DoesNotExistException('hi');
+
+		$fetchReturn = array($feed, $items);
+
+		$this->feedMapper->expects($this->any())
+			->method('find')
+			->will($this->returnValue($existingFeed));
+
+		$this->fetcher->expects($this->once())
+			->method('fetch')
+			->will($this->returnValue(array($feed, $items)));
+
+		$this->feedMapper->expects($this->once())
+			->method('update')
+			->with($this->equalTo($existingFeed));
+
+
+		$this->feedBusinessLayer->update($feed->getId(), $this->user);
 	}
 
 	public function testUpdateFails(){
@@ -336,6 +375,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$feed = new Feed();
 		$feed->setId(3);
 		$feed->getUrl('test');
+		$feed->setArticlesPerUpdate(1);
 
 		$item = new Item();
 		$item->setGuidHash(md5('hi'));

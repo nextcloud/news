@@ -114,6 +114,13 @@
 				<unsigned>true</unsigned>
 			</field>
 			<field>
+				<name>articles_per_update</name>
+				<type>integer</type>
+				<default>0</default>
+				<notnull>true</notnull>
+				<unsigned>true</unsigned>
+			</field>
+			<field>
 				<name>deleted_at</name>
 				<type>integer</type>
 				<default>0</default>

@@ -41,6 +41,7 @@ class Feed extends Entity implements IAPI {
 	public $link;
 	public $preventUpdate;
 	public $deletedAt;
+	public $articlesPerUpdate;
 
 	public function __construct(){
 		$this->addType('parentId', 'int');
@@ -49,6 +50,7 @@ class Feed extends Entity implements IAPI {
 		$this->addType('unreadCount', 'int');
 		$this->addType('preventUpdate', 'bool');
 		$this->addType('deletedAt', 'int');
+		$this->addType('articlesPerUpdate', 'int');
 	}
 
 
