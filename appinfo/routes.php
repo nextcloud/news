@@ -285,7 +285,7 @@ $this->create('news_api_cors', '/api/v1-2/{path}')->method('options')->action(
 	function($params) {
 		return App::main('NewsAPI', 'cors', $params, new DIContainer());
 	}
-)->requirements(array('path', '.+'));
+)->requirements(array('path' => '.+'));
 
 
 $this->create('news_api_feeds_get_all', '/api/v1-2/feeds')->get()->action(
