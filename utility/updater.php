@@ -47,15 +47,19 @@ class Updater {
 	}
 
 
-	public function cleanUp() {
+	public function beforeUpdate() {
 		$this->folderBusinessLayer->purgeDeleted();
 		$this->feedBusinessLayer->purgeDeleted();
-		$this->itemBusinessLayer->autoPurgeOld();
 	}
 
 
 	public function update() {
 		$this->feedBusinessLayer->updateAll();
+	}
+
+
+	public function afterUpdate() {
+		$this->itemBusinessLayer->autoPurgeOld();
 	}
 
 

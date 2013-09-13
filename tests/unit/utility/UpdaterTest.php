@@ -58,16 +58,20 @@ class UpdaterTest extends \PHPUnit_Framework_TestCase {
 			$this->itemBusinessLayer);
 	}
 
-	public function testCleanUp() {
+	public function testBeforeUpdate() {
 		$this->folderBusinessLayer->expects($this->once())
 			->method('purgeDeleted');
 		$this->feedBusinessLayer->expects($this->once())
 			->method('purgeDeleted');
-		$this->itemBusinessLayer->expects($this->once())
-			->method('autoPurgeOld');
-		$this->updater->cleanUp();
+		$this->updater->beforeUpdate();
 	}
 
+
+	public function testAfterUpdate() {
+		$this->itemBusinessLayer->expects($this->once())
+			->method('autoPurgeOld');
+		$this->updater->afterUpdate();
+	}
 
 	public function testUpdate() {
 		$this->feedBusinessLayer->expects($this->once())

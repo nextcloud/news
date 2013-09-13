@@ -94,7 +94,8 @@ class Updater:
             self.base_url += '/'
         self.base_url += 'index.php/apps/news/api/v1-2'
 
-        self.cleanup_url = '%s/cleanup' % self.base_url
+        self.before_cleanup_url = '%s/cleanup/before-update' % self.base_url
+        self.after_cleanup_url = '%s/cleanup/after-update' % self.base_url
         self.all_feeds_url = '%s/feeds/all' % self.base_url
         self.update_url = '%s/feeds/update' % self.base_url
 
@@ -105,7 +106,7 @@ class Updater:
                 opener = get_basic_auth_opener(self.base_url, self.user,
                     self.password)
                 # run the cleanup request and get all the feeds to update
-                opener.open(self.cleanup_url)
+                opener.open(self.before_cleanup_url)
                 feeds_response = opener.open(self.all_feeds_url)
                 feeds_json = feeds_response.read().decode('utf-8')
                 feeds = json.loads(feeds_json)['feeds']
@@ -120,6 +121,8 @@ class Updater:
 
                 for thread in threads:
                     thread.join()
+
+                opener.open(self.after_cleanup_url)
 
                 if self.run_once:
                     return

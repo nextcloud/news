@@ -239,9 +239,15 @@ $this->create('news_api_version', '/api/v1-2/version')->get()->action(
 	}
 );
 
-$this->create('news_api_cleanup', '/api/v1-2/cleanup')->get()->action(
+$this->create('news_api_before_update', '/api/v1-2/cleanup/before-update')->get()->action(
 	function($params) {
-		return App::main('NewsAPI', 'cleanUp', $params, new DIContainer());
+		return App::main('NewsAPI', 'beforeUpdate', $params, new DIContainer());
+	}
+);
+
+$this->create('news_api_after_update', '/api/v1-2/cleanup/after-update')->get()->action(
+	function($params) {
+		return App::main('NewsAPI', 'afterUpdate', $params, new DIContainer());
 	}
 );
 

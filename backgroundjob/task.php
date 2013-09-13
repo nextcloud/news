@@ -38,8 +38,9 @@ class Task {
 		// make it possible to turn off cron updates if you use an external
 		// script to execute updates in paralell
 		if ($container['useCronUpdates']) {
-			$container['Updater']->cleanUp();
+			$container['Updater']->beforeUpdate();
 			$container['Updater']->update();
+			$container['Updater']->afterUpdate();
 		}
 	}
 

@@ -66,9 +66,14 @@ class NewsAPITest extends ControllerTestUtility {
 		$this->assertDefaultAnnotations('version');
 	}
 
-	public function testCleanUpAnnotations(){
+	public function testBeforeUpdateAnnotations(){
 		$annotations = array('Ajax', 'CSRFExemption', 'API');
-		$this->assertAnnotations($this->newsAPI, 'cleanUp', $annotations);
+		$this->assertAnnotations($this->newsAPI, 'beforeUpdate', $annotations);
+	}
+
+	public function testAfterUpdateAnnotations(){
+		$annotations = array('Ajax', 'CSRFExemption', 'API');
+		$this->assertAnnotations($this->newsAPI, 'afterUpdate', $annotations);
 	}
 
 	public function testGetVersion(){
@@ -85,10 +90,18 @@ class NewsAPITest extends ControllerTestUtility {
 	}
 
 
-	public function testCleanUp(){
+	public function testBeforeUpdate(){
 		$this->updater->expects($this->once())
-			->method('cleanUp');
-		$response = $this->newsAPI->cleanUp();
+			->method('beforeUpdate');
+		$response = $this->newsAPI->beforeUpdate();
+		$this->assertTrue($response instanceof JSONResponse);
+	}
+
+
+	public function testAfterUpdate(){
+		$this->updater->expects($this->once())
+			->method('afterUpdate');
+		$response = $this->newsAPI->afterUpdate();
 		$this->assertTrue($response instanceof JSONResponse);
 	}
 

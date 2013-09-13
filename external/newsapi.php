@@ -64,8 +64,19 @@ class NewsAPI extends Controller {
 	 * @Ajax
 	 * @API
 	 */
-	public function cleanUp() {
-		$this->updater->cleanUp();
+	public function beforeUpdate() {
+		$this->updater->beforeUpdate();
+		return new JSONResponse();
+	}
+
+
+	/**
+	 * @CSRFExemption
+	 * @Ajax
+	 * @API
+	 */
+	public function afterUpdate() {
+		$this->updater->afterUpdate();
 		return new JSONResponse();
 	}
 
