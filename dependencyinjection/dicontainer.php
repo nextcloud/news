@@ -303,11 +303,6 @@ class DIContainer extends BaseContainer {
 			return new TwitterFetcher($c['FeedFetcher']);
 		});
 
-
-		$this['ImportParser'] = $this->share(function($c){
-			return new ImportParser($c['TimeFactory'], $c['HTMLPurifier']);
-		});
-
 		$this['StatusFlag'] = $this->share(function($c){
 			return new StatusFlag();
 		});
