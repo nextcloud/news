@@ -62,6 +62,7 @@ use \OCA\News\Utility\SimplePieFileFactory;
 
 use \OCA\News\Utility\ArticleEnhancer\Enhancer;
 use \OCA\News\Utility\ArticleEnhancer\CyanideAndHappinessEnhancer;
+use \OCA\News\Utility\ArticleEnhancer\ThemeRepublicEnhancer;
 
 use \OCA\News\Middleware\CORSMiddleware;
 
@@ -259,6 +260,7 @@ class DIContainer extends BaseContainer {
 			// register fetchers in order
 			// the most generic enhancer should be the last one
 			$enhancer->registerEnhancer('explosm.net', $c['CyanideAndHappinessEnhancer']);
+			$enhancer->registerEnhancer('feedproxy.google.com', $c['ThemeRepublicEnhancer']);
 
 			return $enhancer;
 		});
@@ -269,6 +271,14 @@ class DIContainer extends BaseContainer {
 
 		$this['CyanideAndHappinessEnhancer'] = $this->share(function($c){
 			return new CyanideAndHappinessEnhancer(
+				$c['SimplePieFileFactory'],
+				$c['HTMLPurifier'],
+				$c['feedFetcherTimeout']
+			);
+		});
+
+		$this['ThemeRepublicEnhancer'] = $this->share(function($c){
+			return new ThemeRepublicEnhancer(
 				$c['SimplePieFileFactory'],
 				$c['HTMLPurifier'],
 				$c['feedFetcherTimeout']
