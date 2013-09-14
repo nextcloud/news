@@ -86,6 +86,19 @@ $rootScope, $q) ->
 			@_request.get 'news_items', params
 
 
+		getNewItems: (type, id, lastModified, onSuccess) ->
+			onSuccess or= ->
+			params =
+				data:
+					type: type
+					id: id
+					lastModified: lastModified
+				onSuccess: onSuccess
+				onFailure: onSuccess
+
+			@_request.get 'news_items_new', params
+
+
 		starItem: (feedId, guidHash) ->
 			###
 			Stars an item

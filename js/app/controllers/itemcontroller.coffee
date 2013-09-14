@@ -58,6 +58,11 @@ Language, AutoPageLoading) ->
 				else
 					return ''
 
+			@_$scope.loadNew = =>
+				@_$scope.refresh = true
+				@_itemBusinessLayer.loadNew =>
+					@_$scope.refresh = false
+
 
 			@_$scope.$on 'readItem', (scope, data) =>
 				@_itemBusinessLayer.setRead(data)

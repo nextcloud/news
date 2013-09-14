@@ -111,3 +111,12 @@ describe 'ItemModel', ->
 		@ItemModel.add({id: 6, guidHash: 'abcf', feedId: 2, status: 16})
 
 		expect(@ItemModel.getLowestId()).toBe(1)
+
+
+	it 'should return the highest lastModified', =>
+		@ItemModel.add({id: 2, guidHash: 'abc', feedId: 2, lastModified: 3})
+		@ItemModel.add({id: 3, guidHash: 'abcd', feedId: 2, lastModified: 13})
+		@ItemModel.add({id: 1, guidHash: 'abce', feedId: 2, lastModified: 15})
+		@ItemModel.add({id: 6, guidHash: 'abcf', feedId: 2, lastModified: 11})
+
+		expect(@ItemModel.getLastModified()).toBe(15)

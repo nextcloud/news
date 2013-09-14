@@ -1,3 +1,5 @@
+<div class="pull-refresh" ng-class="{refresh: refresh}"></div>
+
 <ul>
 	<li class="feed_item"
 		ng-repeat="item in itemBusinessLayer.getAll() | orderBy:['-id'] "

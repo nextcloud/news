@@ -157,6 +157,12 @@ $this->create('news_items', '/items')->get()->action(
 	}
 );
 
+$this->create('news_items_new', '/items/new')->get()->action(
+	function($params){
+		App::main('ItemController', 'newItems', $params, new DIContainer());
+	}
+);
+
 $this->create('news_items_read', '/items/{itemId}/read')->post()->action(
 	function($params){
 		App::main('ItemController', 'read', $params, new DIContainer());

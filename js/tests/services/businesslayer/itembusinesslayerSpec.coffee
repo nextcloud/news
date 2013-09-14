@@ -248,3 +248,19 @@ describe 'ItemBusinessLayer', ->
 
 		expect(@persistence.getItems).toHaveBeenCalledWith(
 			@FeedType.Feed, 3, 1, jasmine.any(Function))
+
+
+	it 'should load the next items', =>
+		@NewestItem.handle(13)
+		@persistence.getNewItems = jasmine.createSpy('loadnew')
+		callback = ->
+
+		@ItemModel.add({id: 2, guidHash: 'abc', feedId: 2, lastModified: 2})
+		@ItemModel.add({id: 3, guidHash: 'abcd', feedId: 2, lastModified: 4})
+		@ItemModel.add({id: 1, guidHash: 'abce', feedId: 2, lastModified: 3})
+		@ItemModel.add({id: 6, guidHash: 'abcf', feedId: 2, lastModified: 1})
+
+		@ItemBusinessLayer.loadNew(callback)
+
+		expect(@persistence.getNewItems).toHaveBeenCalledWith(
+			@FeedType.Feed, 3, 4, callback)

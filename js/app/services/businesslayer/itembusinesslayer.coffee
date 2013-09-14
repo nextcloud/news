@@ -116,8 +116,12 @@ StarredBusinessLayer, NewestItem) ->
 				callback()
 
 
-
-		loadNew: ->
+		loadNew: (onSuccess) ->
+			lastModified = @_itemModel.getLastModified()
+			@_persistence.getNewItems(@_activeFeed.getType(),
+			                          @_activeFeed.getId(),
+			                          lastModified,
+			                          onSuccess)
 
 
 

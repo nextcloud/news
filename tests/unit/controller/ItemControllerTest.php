@@ -84,10 +84,15 @@ class ItemControllerTest extends ControllerTestUtility {
 		$this->assertAnnotations($this->controller, $methodName, $annotations);
 	}
 
+	
 	public function testItemsAnnotations(){
 		$this->assertItemControllerAnnotations('items');
 	}
 
+
+	public function testNewItemsAnnotations(){
+		$this->assertItemControllerAnnotations('newItems');
+	}
 
 	public function testStarAnnotations(){
 		$this->assertItemControllerAnnotations('star');
@@ -445,6 +450,87 @@ class ItemControllerTest extends ControllerTestUtility {
 		$this->assertTrue($response instanceof JSONResponse);			
 	}
 
+
+	public function testNewItems(){
+		$feeds = array(new Feed());
+		$result = array(
+			'items' => array(new Item()),
+			'feeds' => $feeds,
+			'newestItemId' => $this->newestItemId,
+			'starred' => 3111
+		);
+		$post = array(
+			'lastModified' => 3,
+			'type' => FeedType::FEED,
+			'id' => 2
+		);
+		$this->controller = $this->getPostController($post);
+
+		$this->api->expects($this->once())
+			->method('getUserValue')
+			->with($this->equalTo('showAll'))
+			->will($this->returnValue('1'));
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+
+		$this->feedBusinessLayer->expects($this->once())
+			->method('findAll')
+			->with($this->equalTo($this->user))
+			->will($this->returnValue($feeds));
+
+		$this->itemBusinessLayer->expects($this->once())
+			->method('getNewestItemId')
+			->with($this->equalTo($this->user))
+			->will($this->returnValue($this->newestItemId));
+
+		$this->itemBusinessLayer->expects($this->once())
+			->method('starredCount')
+			->with($this->equalTo($this->user))
+			->will($this->returnValue(3111));
+
+		$this->itemBusinessLayer->expects($this->once())
+			->method('findAllNew')
+			->with(
+				$this->equalTo($post['id']), 
+				$this->equalTo($post['type']), 
+				$this->equalTo($post['lastModified']),
+				$this->equalTo(true), 
+				$this->equalTo($this->user))
+			->will($this->returnValue($result['items']));
+
+		$response = $this->controller->newItems();
+		$this->assertEquals($result, $response->getParams());
+		$this->assertTrue($response instanceof JSONResponse);
+	}
+
+
+	public function testGetNewItemsNoNewestItemsId(){
+		$result = array();
+		$post = array(
+			'lastModified' => 3,
+			'type' => FeedType::FEED,
+			'id' => 2
+		);
+		$this->controller = $this->getPostController($post);
+
+		$this->api->expects($this->once())
+			->method('getUserValue')
+			->with($this->equalTo('showAll'))
+			->will($this->returnValue('1'));
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+
+		$this->itemBusinessLayer->expects($this->once())
+			->method('getNewestItemId')
+			->with($this->equalTo($this->user))
+			->will($this->throwException(new BusinessLayerException('')));
+
+		$response = $this->controller->newItems();
+		$this->assertEquals($result, $response->getParams());
+		$this->assertTrue($response instanceof JSONResponse);			
+	}
 
 
 }

@@ -61,6 +61,7 @@ if($version[0] > 5 || ($version[0] >= 5 && $version[1] >= 80)) {
 		ng-show="initialized && !feedBusinessLayer.noFeeds()"
 		news-item-scroll="true"
 		item-shortcuts
+		news-pull-to-refresh="loadNew()"
 		tabindex="-1">
 		<?php print_unescaped($this->inc("part.items")); ?>
 	</div>

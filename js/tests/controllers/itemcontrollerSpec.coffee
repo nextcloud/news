@@ -169,3 +169,18 @@ describe 'ItemController', ->
 
 		expect(@persistence.getItems.callCount).toBe(2)
 
+
+	it 'should set refresh to true when pull to refresh is activated', =>
+		@ItemBusinessLayer.loadNew = ->
+
+		@scope.loadNew()
+		expect(@scope.refresh).toBe(true)
+
+
+	it 'should set refresh to false after load next was successful', =>
+		@ItemBusinessLayer.loadNew = jasmine.createSpy('loadNew')
+		@ItemBusinessLayer.loadNew.andCallFake (callback) ->
+			callback()
+
+		@scope.loadNew()
+		expect(@scope.refresh).toBe(false)

@@ -89,6 +89,35 @@ class ItemController extends Controller {
 	}
 
 
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
+	public function newItems() {
+		$userId = $this->api->getUserId();
+		$showAll = $this->api->getUserValue('showAll') === '1';
+
+		$type = (int) $this->params('type');
+		$id = (int) $this->params('id');
+		$lastModified = (int) $this->params('lastModified', 0);
+
+		$params = array();
+
+		try {
+			$params['newestItemId'] = $this->itemBusinessLayer->getNewestItemId($userId);
+			$params['feeds'] = $this->feedBusinessLayer->findAll($userId);
+			$params['starred'] = $this->itemBusinessLayer->starredCount($userId);			
+			$params['items'] = $this->itemBusinessLayer->findAllNew($id, $type, 
+				$lastModified, $showAll, $userId);
+		// this gets thrown if there are no items
+		// in that case just return an empty array
+		} catch(BusinessLayerException $ex) {}
+
+		return $this->renderJSON($params);
+	}
+
+
 	private function setStarred($isStarred){
 		$userId = $this->api->getUserId();
 		$feedId = (int) $this->params('feedId');

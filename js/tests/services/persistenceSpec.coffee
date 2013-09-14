@@ -74,6 +74,22 @@ describe 'Persistence', ->
 		expect(@req.get).toHaveBeenCalledWith('news_items', expected)
 
 
+	it 'should send a load new items request', =>
+		success = ->
+		params =
+			data:
+				type: 2
+				id: 5
+				lastModified: 3
+			onSuccess: success
+			onFailure: success
+
+		@Persistence.getNewItems(params.data.type, params.data.id,
+		                      params.data.lastModified, success)
+
+		expect(@req.get).toHaveBeenCalledWith('news_items_new', params)
+
+
 	it 'send a correct star item request', =>
 		params =
 			routeParams:
