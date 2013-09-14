@@ -23,12 +23,11 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 angular.module('News').directive 'newsPullToRefresh', ['$rootScope',
 ($rootScope) ->
 
-	allowed = false
+	allowed = true
 	$rootScope.$on 'loadingNewItems', ->
 		allowed = false
 	$rootScope.$on 'loadedNewItems', ->
 		allowed = true
-
 
 	directive =
 		restrict: 'A'
