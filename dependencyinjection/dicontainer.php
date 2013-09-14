@@ -260,7 +260,7 @@ class DIContainer extends BaseContainer {
 			// register fetchers in order
 			// the most generic enhancer should be the last one
 			$enhancer->registerEnhancer('explosm.net', $c['CyanideAndHappinessEnhancer']);
-			$enhancer->registerEnhancer('feedproxy.google.com', $c['ThemeRepublicEnhancer']);
+			$enhancer->registerEnhancer('themerepublic.net', $c['ThemeRepublicEnhancer']);
 
 			return $enhancer;
 		});
