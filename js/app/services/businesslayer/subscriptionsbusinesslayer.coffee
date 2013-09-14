@@ -23,15 +23,17 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 angular.module('News').factory 'SubscriptionsBusinessLayer',
 ['_BusinessLayer', 'FeedBusinessLayer', 'Persistence', 'ShowAll', 'ActiveFeed',
-'FeedType', 'ItemModel', 'FeedModel', 'NewestItem',
+'FeedType', 'ItemModel', 'FeedModel', 'NewestItem', '$rootScope',
 (_BusinessLayer, FeedBusinessLayer, Persistence, ShowAll, ActiveFeed, FeedType,
-ItemModel, FeedModel, NewestItem) ->
+ItemModel, FeedModel, NewestItem, $rootScope) ->
 
 	class SubscriptionsBusinessLayer extends _BusinessLayer
 
 		constructor: (@_feedBusinessLayer, @_showAll, feedType,
-			persistence, activeFeed, itemModel, @_feedModel, @_newestItem) ->
-			super(activeFeed, persistence, itemModel, feedType.Subscriptions)
+			persistence, activeFeed, itemModel, @_feedModel, @_newestItem,
+			$rootScope) ->
+			super(activeFeed, persistence, itemModel, feedType.Subscriptions,
+				$rootScope)
 
 		isVisible: ->
 			if @isActive(0) and @_feedBusinessLayer.getNumberOfFeeds() > 0
@@ -62,5 +64,5 @@ ItemModel, FeedModel, NewestItem) ->
 
 	return new SubscriptionsBusinessLayer(FeedBusinessLayer, ShowAll, FeedType,
 	                                      Persistence, ActiveFeed, ItemModel,
-	                                      FeedModel, NewestItem)
+	                                      FeedModel, NewestItem, $rootScope)
 ]

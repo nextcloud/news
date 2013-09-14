@@ -31,9 +31,9 @@ FeedModel, NewLoading, _ExistsError, Utils, $rootScope, NewestItem)->
 	class FeedBusinessLayer extends _BusinessLayer
 
 		constructor: (@_showAll, @_feedModel, persistence, activeFeed, feedType,
-			          itemModel, @_newLoading, @_utils, @_$rootScope,
+			          itemModel, @_newLoading, @_utils, $rootScope,
 			          @_newestItem) ->
-			super(activeFeed, persistence, itemModel, feedType.Feed)
+			super(activeFeed, persistence, itemModel, feedType.Feed, $rootScope)
 			@_feedType = feedType
 
 

@@ -23,14 +23,15 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 angular.module('News').factory 'StarredBusinessLayer',
 ['_BusinessLayer', 'StarredCount', 'Persistence', 'ActiveFeed', 'FeedType',
-'ItemModel',
-(_BusinessLayer, StarredCount, Persistence, ActiveFeed, FeedType, ItemModel) ->
+'ItemModel', '$rootScope',
+(_BusinessLayer, StarredCount, Persistence, ActiveFeed, FeedType, ItemModel,
+$rootScope) ->
 
 	class StarredBusinessLayer extends _BusinessLayer
 
 		constructor: (@_starredCount, feedType,
-			persistence, activeFeed, itemModel) ->
-			super(activeFeed, persistence, itemModel, feedType.Starred)
+			persistence, activeFeed, itemModel, $rootScope) ->
+			super(activeFeed, persistence, itemModel, feedType.Starred, $rootScope)
 
 		isVisible: ->
 			if @isActive(0)
@@ -51,5 +52,5 @@ angular.module('News').factory 'StarredBusinessLayer',
 			@_starredCount.setStarredCount(@_starredCount.getStarredCount() - 1)
 
 	return new StarredBusinessLayer(StarredCount, FeedType, Persistence,
-	                     ActiveFeed, ItemModel)
+	                     ActiveFeed, ItemModel, $rootScope)
 ]

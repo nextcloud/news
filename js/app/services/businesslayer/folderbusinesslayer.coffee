@@ -33,8 +33,8 @@ FeedModel, $rootScope) ->
 
 		constructor: (@_folderModel, @_feedBusinessLayer, @_showAll, activeFeed,
 			          persistence, @_feedType, itemModel, @_opmlParser,
-			          @_newestItem, @_feedModel, @_$rootScope) ->
-			super(activeFeed, persistence, itemModel, @_feedType.Folder)
+			          @_newestItem, @_feedModel, $rootScope) ->
+			super(activeFeed, persistence, itemModel, @_feedType.Folder, $rootScope)
 
 
 		getById: (folderId) ->

@@ -25,12 +25,15 @@ angular.module('News').factory '_BusinessLayer', ->
 
 	class BusinessLayer
 
-		constructor: (@_activeFeed, @_persistence, @_itemModel, @_type) ->
+		constructor: (@_activeFeed, @_persistence, @_itemModel, @_type,
+			@_$rootScope) ->
 
 
 		load: (id) ->
+			@_$rootScope.$broadcast 'loadingNewItems'
 			@_itemModel.clear()
-			@_persistence.getItems(@_type, id, 0)
+			@_persistence.getItems @_type, id, 0, =>
+				@_$rootScope.$broadcast 'loadedNewItems'
 			@_activeFeed.handle({id: id, type: @_type})
 
 

@@ -25,7 +25,10 @@ describe 'BusinessLayer', ->
 
 	beforeEach module 'News'
 
-	beforeEach inject (@_BusinessLayer, @ActiveFeed, @FeedType, @ItemModel) =>
+	beforeEach inject (@_BusinessLayer, @ActiveFeed, @FeedType, @ItemModel,
+		$rootScope) =>
+		@scope = $rootScope.$new()
+
 		type = @FeedType.Starred
 		
 		@getItemsSpy = jasmine.createSpy('getItems')
@@ -35,11 +38,11 @@ describe 'BusinessLayer', ->
 
 		class TestBusinessLayer extends @_BusinessLayer
 
-			constructor: (activeFeed, persistence, itemModel) ->
-				super(activeFeed, persistence, itemModel, type)
+			constructor: (activeFeed, persistence, itemModel, scope) ->
+				super(activeFeed, persistence, itemModel, type, scope)
 
 		@BusinessLayer = new TestBusinessLayer(@ActiveFeed, @persistence,
-		@ItemModel)
+		@ItemModel, @scope)
 
 
 	it 'should reset the item cache when a different feed is being loaded', =>
@@ -61,7 +64,7 @@ describe 'BusinessLayer', ->
 		@BusinessLayer.load(3)
 
 		expect(@persistence.getItems).toHaveBeenCalledWith(@FeedType.Starred, 3,
-			0)
+			0, jasmine.any(Function))
 
 
 	it 'should be active when its selected', =>

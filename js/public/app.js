@@ -452,21 +452,30 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 
 (function() {
-  angular.module('News').directive('newsPullToRefresh', function() {
-    var directive;
-    return directive = {
-      restrict: 'A',
-      link: function(scope, elm, attrs) {
-        var scrollTop;
-        scrollTop = 0;
-        return elm.scroll(function() {
-          if (this.scrollTop === 0) {
-            return scope.$apply(attrs.newsPullToRefresh);
-          }
-        });
-      }
-    };
-  });
+  angular.module('News').directive('newsPullToRefresh', [
+    '$rootScope', function($rootScope) {
+      var allowed, directive;
+      allowed = false;
+      $rootScope.$on('loadingNewItems', function() {
+        return allowed = false;
+      });
+      $rootScope.$on('loadedNewItems', function() {
+        return allowed = true;
+      });
+      return directive = {
+        restrict: 'A',
+        link: function(scope, elm, attrs) {
+          var scrollTop;
+          scrollTop = 0;
+          return elm.scroll(function() {
+            if (this.scrollTop === 0 && allowed) {
+              return scope.$apply(attrs.newsPullToRefresh);
+            }
+          });
+        }
+      };
+    }
+  ]);
 
 }).call(this);
 
@@ -948,16 +957,21 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
   angular.module('News').factory('_BusinessLayer', function() {
     var BusinessLayer;
     BusinessLayer = (function() {
-      function BusinessLayer(_activeFeed, _persistence, _itemModel, _type) {
+      function BusinessLayer(_activeFeed, _persistence, _itemModel, _type, _$rootScope) {
         this._activeFeed = _activeFeed;
         this._persistence = _persistence;
         this._itemModel = _itemModel;
         this._type = _type;
+        this._$rootScope = _$rootScope;
       }
 
       BusinessLayer.prototype.load = function(id) {
+        var _this = this;
+        this._$rootScope.$broadcast('loadingNewItems');
         this._itemModel.clear();
-        this._persistence.getItems(this._type, id, 0);
+        this._persistence.getItems(this._type, id, 0, function() {
+          return _this._$rootScope.$broadcast('loadedNewItems');
+        });
         return this._activeFeed.handle({
           id: id,
           type: this._type
@@ -1009,14 +1023,13 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
       FeedBusinessLayer = (function(_super) {
         __extends(FeedBusinessLayer, _super);
 
-        function FeedBusinessLayer(_showAll, _feedModel, persistence, activeFeed, feedType, itemModel, _newLoading, _utils, _$rootScope, _newestItem) {
+        function FeedBusinessLayer(_showAll, _feedModel, persistence, activeFeed, feedType, itemModel, _newLoading, _utils, $rootScope, _newestItem) {
           this._showAll = _showAll;
           this._feedModel = _feedModel;
           this._newLoading = _newLoading;
           this._utils = _utils;
-          this._$rootScope = _$rootScope;
           this._newestItem = _newestItem;
-          FeedBusinessLayer.__super__.constructor.call(this, activeFeed, persistence, itemModel, feedType.Feed);
+          FeedBusinessLayer.__super__.constructor.call(this, activeFeed, persistence, itemModel, feedType.Feed, $rootScope);
           this._feedType = feedType;
         }
 
@@ -1230,7 +1243,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
       FolderBusinessLayer = (function(_super) {
         __extends(FolderBusinessLayer, _super);
 
-        function FolderBusinessLayer(_folderModel, _feedBusinessLayer, _showAll, activeFeed, persistence, _feedType, itemModel, _opmlParser, _newestItem, _feedModel, _$rootScope) {
+        function FolderBusinessLayer(_folderModel, _feedBusinessLayer, _showAll, activeFeed, persistence, _feedType, itemModel, _opmlParser, _newestItem, _feedModel, $rootScope) {
           this._folderModel = _folderModel;
           this._feedBusinessLayer = _feedBusinessLayer;
           this._showAll = _showAll;
@@ -1238,8 +1251,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           this._opmlParser = _opmlParser;
           this._newestItem = _newestItem;
           this._feedModel = _feedModel;
-          this._$rootScope = _$rootScope;
-          FolderBusinessLayer.__super__.constructor.call(this, activeFeed, persistence, itemModel, this._feedType.Folder);
+          FolderBusinessLayer.__super__.constructor.call(this, activeFeed, persistence, itemModel, this._feedType.Folder, $rootScope);
         }
 
         FolderBusinessLayer.prototype.getById = function(folderId) {
@@ -1616,14 +1628,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   angular.module('News').factory('StarredBusinessLayer', [
-    '_BusinessLayer', 'StarredCount', 'Persistence', 'ActiveFeed', 'FeedType', 'ItemModel', function(_BusinessLayer, StarredCount, Persistence, ActiveFeed, FeedType, ItemModel) {
+    '_BusinessLayer', 'StarredCount', 'Persistence', 'ActiveFeed', 'FeedType', 'ItemModel', '$rootScope', function(_BusinessLayer, StarredCount, Persistence, ActiveFeed, FeedType, ItemModel, $rootScope) {
       var StarredBusinessLayer;
       StarredBusinessLayer = (function(_super) {
         __extends(StarredBusinessLayer, _super);
 
-        function StarredBusinessLayer(_starredCount, feedType, persistence, activeFeed, itemModel) {
+        function StarredBusinessLayer(_starredCount, feedType, persistence, activeFeed, itemModel, $rootScope) {
           this._starredCount = _starredCount;
-          StarredBusinessLayer.__super__.constructor.call(this, activeFeed, persistence, itemModel, feedType.Starred);
+          StarredBusinessLayer.__super__.constructor.call(this, activeFeed, persistence, itemModel, feedType.Starred, $rootScope);
         }
 
         StarredBusinessLayer.prototype.isVisible = function() {
@@ -1649,7 +1661,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         return StarredBusinessLayer;
 
       })(_BusinessLayer);
-      return new StarredBusinessLayer(StarredCount, FeedType, Persistence, ActiveFeed, ItemModel);
+      return new StarredBusinessLayer(StarredCount, FeedType, Persistence, ActiveFeed, ItemModel, $rootScope);
     }
   ]);
 
@@ -1683,17 +1695,17 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   angular.module('News').factory('SubscriptionsBusinessLayer', [
-    '_BusinessLayer', 'FeedBusinessLayer', 'Persistence', 'ShowAll', 'ActiveFeed', 'FeedType', 'ItemModel', 'FeedModel', 'NewestItem', function(_BusinessLayer, FeedBusinessLayer, Persistence, ShowAll, ActiveFeed, FeedType, ItemModel, FeedModel, NewestItem) {
+    '_BusinessLayer', 'FeedBusinessLayer', 'Persistence', 'ShowAll', 'ActiveFeed', 'FeedType', 'ItemModel', 'FeedModel', 'NewestItem', '$rootScope', function(_BusinessLayer, FeedBusinessLayer, Persistence, ShowAll, ActiveFeed, FeedType, ItemModel, FeedModel, NewestItem, $rootScope) {
       var SubscriptionsBusinessLayer;
       SubscriptionsBusinessLayer = (function(_super) {
         __extends(SubscriptionsBusinessLayer, _super);
 
-        function SubscriptionsBusinessLayer(_feedBusinessLayer, _showAll, feedType, persistence, activeFeed, itemModel, _feedModel, _newestItem) {
+        function SubscriptionsBusinessLayer(_feedBusinessLayer, _showAll, feedType, persistence, activeFeed, itemModel, _feedModel, _newestItem, $rootScope) {
           this._feedBusinessLayer = _feedBusinessLayer;
           this._showAll = _showAll;
           this._feedModel = _feedModel;
           this._newestItem = _newestItem;
-          SubscriptionsBusinessLayer.__super__.constructor.call(this, activeFeed, persistence, itemModel, feedType.Subscriptions);
+          SubscriptionsBusinessLayer.__super__.constructor.call(this, activeFeed, persistence, itemModel, feedType.Subscriptions, $rootScope);
         }
 
         SubscriptionsBusinessLayer.prototype.isVisible = function() {
@@ -1734,7 +1746,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         return SubscriptionsBusinessLayer;
 
       })(_BusinessLayer);
-      return new SubscriptionsBusinessLayer(FeedBusinessLayer, ShowAll, FeedType, Persistence, ActiveFeed, ItemModel, FeedModel, NewestItem);
+      return new SubscriptionsBusinessLayer(FeedBusinessLayer, ShowAll, FeedType, Persistence, ActiveFeed, ItemModel, FeedModel, NewestItem, $rootScope);
     }
   ]);
 

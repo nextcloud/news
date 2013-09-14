@@ -211,5 +211,5 @@ describe 'FeedController', ->
 		expect(@scope.feedUrl).toBe('')
 		expect(@scope.isAddingFeed()).toBe(false)
 		expect(@persistence.getItems).toHaveBeenCalledWith(
-			@FeedType.Feed, 3, 0
+			@FeedType.Feed, 3, 0, jasmine.any(Function)
 		)
