@@ -58,7 +58,8 @@ class ArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 			$this->fileFactory,
 			array(
 				'/explosm.net\/comics/' => '//*[@id=\'maincontent\']/div[2]/div/img',
-				'/explosm.net\/shorts/' => '//*[@id=\'maincontent\']/div/div'
+				'/explosm.net\/shorts/' => '//*[@id=\'maincontent\']/div/div',
+				'/themerepublic.net/' => '//*[@class=\'post hentry\']'
 			), 
 			$this->timeout
 		);
