@@ -1,3 +1,7 @@
+owncloud-news (1.602)
+* Remove removed class from container
+* Go back to allow feeds per url from input
+
 owncloud-news (1.601)
 * Remove Google Reader import
 * Replace Google Reader import with export and import of unread and starred articles

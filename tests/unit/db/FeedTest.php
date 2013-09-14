@@ -62,9 +62,9 @@ class FeedTest extends \PHPUnit_Framework_TestCase {
 	}
 
 
-	public function testSetLinkUpdatesHash() {
+	public function testSetUrlUpdatesHash() {
 		$feed = new Feed();
-		$feed->setLink('http://test');
+		$feed->setUrl('http://test');
 		$this->assertEquals(md5('http://test'), $feed->getUrlHash());
 	}
 

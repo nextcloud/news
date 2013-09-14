@@ -101,7 +101,7 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 						 $this->cacheDuration,
 						 $this->fetchTimeout,
 						 $this->purifier);
-		$this->url = 'tests';
+		$this->url = 'http://tests';
 
 		$this->permalink = 'http://permalink';
 		$this->title = 'my title&amp;lt;';
@@ -242,7 +242,6 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 		$feed->setTitle(html_entity_decode($this->feedTitle));
 		$feed->setUrl($this->url);
 		$feed->setLink($this->feedLink);
-		$feed->setUrlHash(md5($this->feedLink));
 		$feed->setAdded($this->time);
 
 		if($hasWebFavicon) {
@@ -287,7 +286,6 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 		$feed->setTitle($this->url);
 		$feed->setUrl($this->url);
 		$feed->setLink($this->feedLink);
-		$feed->setUrlHash(md5($this->feedLink));
 		$feed->setAdded($this->time);
 		$feed->setFaviconLink(null);
 
@@ -348,7 +346,6 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 		$feed->setTitle(html_entity_decode($this->feedTitle));
 		$feed->setUrl($this->url);
 		$feed->setLink($this->feedLink);
-		$feed->setUrlHash(md5($this->feedLink));
 		$feed->setAdded($this->time);
 		$feed->setFaviconLink($this->webFavicon);
 
@@ -375,7 +372,6 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 		$feed->setTitle(html_entity_decode($this->feedTitle));
 		$feed->setUrl($this->url);
 		$feed->setLink($this->feedLink);
-		$feed->setUrlHash(md5($this->feedLink));
 		$feed->setAdded($this->time);
 
 		$this->core->expects($this->once())

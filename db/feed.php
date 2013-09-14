@@ -72,6 +72,7 @@ class Feed extends Entity implements IAPI {
 		$url = trim($url);
 		if(strpos($url, 'http') === 0) {
 			parent::setUrl($url);
+			$this->setUrlHash(md5($url));
 		}
 	}
 
@@ -80,7 +81,6 @@ class Feed extends Entity implements IAPI {
 		$url = trim($url);
 		if(strpos($url, 'http') === 0) {
 			parent::setLink($url);
-			$this->setUrlHash(md5($url));
 		}
 	}
 
