@@ -79,6 +79,8 @@ describe 'FeedController', ->
 
 
 	it 'should set the window title to the total unread count', =>
+		@scope.translations =
+			appName: 'News'
 		expect(@$window.document.title).toBe('')
 
 		@scope.getTotalUnreadCount()
@@ -92,6 +94,8 @@ describe 'FeedController', ->
 
 
 	it 'should show 99+ if in window title when more than 99 unread count', =>
+		@scope.translations =
+			appName: 'News'
 		item = {id: 3, unreadCount: 1, faviconLink: 'test', url: 'hi'}
 		item1 = {id: 5, unreadCount: 999, faviconLink: 'test', url: 'his'}
 		@FeedModel.add(item)

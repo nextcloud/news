@@ -34,8 +34,8 @@ if($version[0] > 5 || ($version[0] >= 5 && $version[1] >= 80)) {
 			<a href="#"><?php p($l->t('Undo deletion of %s', '{{ getCaption() }}')); ?></a>
 		</div>
 	</div>
-
 	<div id="app-navigation" ng-controller="FeedController">
+		<news-translate key="appName"><?php p($l->t('News')); ?></news-translate>
 
 		<ul class="with-icon" data-id="0" droppable>
 			<?php print_unescaped($this->inc('part.addnew')) ?>

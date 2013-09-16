@@ -4,6 +4,7 @@ owncloud-news (1.602)
 * Added ThemeRepublic.net Enhancer
 * Remove unsigned from articles_per_update column to not fail with a weird error
 * Manually convert &apos; to ' in title and author fields of articles because its not build into PHP
+* Fix localisation of app name in tab title
 
 owncloud-news (1.601)
 * Remove Google Reader import

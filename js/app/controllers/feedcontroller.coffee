@@ -56,9 +56,9 @@ ActiveFeed, FeedType, $window) ->
 				# and it has nothing to do with the body structure
 				if count > 0
 					titleCount = @_unreadCountFormatter(count)
-					title =	'News (' + titleCount + ') | ownCloud'
+					title =	@_$scope.translations.appName + ' (' + titleCount + ') | ownCloud'
 				else
-					title = 'News | ownCloud'
+					title = @_$scope.translations.appName + ' | ownCloud'
 
 				# only update title when it changed to prevent highlighting the
 				# tab
