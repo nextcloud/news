@@ -508,11 +508,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     return directive = {
       restrict: 'E',
       link: function(scope, element, attributes) {
-        var $element;
-        $element = $(element);
-        scope.translations || (scope.translations = scope.translations);
-        scope.translations[attributes.key] = $element.text();
-        return $element.remove();
+        scope.translations = scope.translations || {};
+        scope.translations[attributes.key] = element.text();
+        return element.remove();
       }
     };
   });
@@ -682,13 +680,18 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           this._$scope.starredBusinessLayer = this._starredBusinessLayer;
           this._$scope.unreadCountFormatter = this._unreadCountFormatter;
           this._$scope.getTotalUnreadCount = function() {
-            var count, title, titleCount;
+            var appName, count, title, titleCount;
             count = _this._subscriptionsBusinessLayer.getUnreadCount(0);
+            if (_this._$scope.translations && _this._$scope.translations.appName) {
+              appName = _this._$scope.translations.appName;
+            } else {
+              appName = '';
+            }
             if (count > 0) {
               titleCount = _this._unreadCountFormatter(count);
-              title = _this._$scope.translations.appName + ' (' + titleCount + ') | ownCloud';
+              title = appName + ' (' + titleCount + ') | ownCloud';
             } else {
-              title = _this._$scope.translations.appName + ' | ownCloud';
+              title = appName + ' | ownCloud';
             }
             if (_this._$window.document.title !== title) {
               _this._$window.document.title = title;

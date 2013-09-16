@@ -26,7 +26,6 @@ angular.module('News').directive 'newsTranslate', ->
 	directive =
 		restrict: 'E'
 		link: (scope, element, attributes) ->
-			$element = $(element)
-			scope.translations or= scope.translations
-			scope.translations[attributes.key] = $element.text()
-			$element.remove()
+			scope.translations = scope.translations || {}
+			scope.translations[attributes.key] = element.text()
+			element.remove()

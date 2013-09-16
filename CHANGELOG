@@ -1,3 +1,6 @@
+owncloud-news (1.603)
+* Fix JavaScript errors which prevented the translation elements from being removed
+
 owncloud-news (1.602)
 * Remove removed class from container
 * Go back to allow feeds per url from input

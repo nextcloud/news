@@ -54,11 +54,16 @@ ActiveFeed, FeedType, $window) ->
 				# dont do this for other dom elements
 				# the title is some kind of exception since its always there
 				# and it has nothing to do with the body structure
+				if @_$scope.translations and @_$scope.translations.appName
+					appName = @_$scope.translations.appName
+				else
+					appName = ''
+				
 				if count > 0
 					titleCount = @_unreadCountFormatter(count)
-					title =	@_$scope.translations.appName + ' (' + titleCount + ') | ownCloud'
+					title =	appName + ' (' + titleCount + ') | ownCloud'
 				else
-					title = @_$scope.translations.appName + ' | ownCloud'
+					title = appName + ' | ownCloud'
 
 				# only update title when it changed to prevent highlighting the
 				# tab
