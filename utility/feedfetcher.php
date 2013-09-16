@@ -112,8 +112,15 @@ class FeedFetcher implements IFeedFetcher {
 
 
 	private function decodeTwice($string) {
-		return html_entity_decode(
-			html_entity_decode($string, ENT_COMPAT, 'UTF-8'), ENT_COMPAT, 'UTF-8'
+		// behold! &apos; is not converted by PHP thats why we need to do it
+		// manually (TM)
+		return str_replace('&apos;', '\'', 
+				html_entity_decode(
+					html_entity_decode(
+						$string, ENT_QUOTES, 'UTF-8'
+					), 
+				ENT_QUOTES, 'UTF-8'
+			)
 		);
 	}
 
