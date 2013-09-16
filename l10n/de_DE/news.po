@@ -22,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-09-13 19:48-0400\n"
-"PO-Revision-Date: 2013-09-13 23:48+0000\n"
-"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"POT-Creation-Date: 2013-09-16 10:28-0400\n"
+"PO-Revision-Date: 2013-09-15 15:00+0000\n"
+"Last-Translator: Mario Siegmann <mario_siegmann@web.de>\n"
 "Language-Team: German (Germany) <translations@owncloud.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -46,7 +46,7 @@ msgstr "Feed konnte nicht hinzugefügt werden: URL existiert nicht oder enthält
 
 #: businesslayer/feedbusinesslayer.php:267
 msgid "Articles without feed"
-msgstr ""
+msgstr "Artikel ohne Feed"
 
 #: businesslayer/folderbusinesslayer.php:66
 msgid "Can not add folder: Exists already"
@@ -135,19 +135,19 @@ msgstr "Als gelesen markieren"
 msgid "Welcome to the ownCloud News app!"
 msgstr "Willkommen in der ownCloud-News App!"
 
-#: templates/part.items.php:32
+#: templates/part.items.php:34
 msgid "from"
 msgstr "von"
 
-#: templates/part.items.php:37
+#: templates/part.items.php:39
 msgid "by"
 msgstr "von"
 
-#: templates/part.items.php:44
+#: templates/part.items.php:46
 msgid "Download"
 msgstr "Herunterladen"
 
-#: templates/part.items.php:57
+#: templates/part.items.php:59
 msgid "Keep unread"
 msgstr "Ungelesenes behalten"
 
@@ -169,7 +169,7 @@ msgstr "Ordner umbenennen"
 
 #: templates/part.settings.php:13
 msgid "Subscriptions (OPML)"
-msgstr ""
+msgstr "Abonnements (OPML)"
 
 #: templates/part.settings.php:17 templates/part.settings.php:20
 #: templates/part.settings.php:48 templates/part.settings.php:53
@@ -189,7 +189,7 @@ msgstr "Fehler beim Importieren: Datei enthält kein gültiges OPML"
 
 #: templates/part.settings.php:44
 msgid "Unread/Starred Articles"
-msgstr ""
+msgstr "Ungelese/Markierte Artikel"
 
 #: templates/part.settings.php:70
 msgid "Error when importing: file does not contain valid JSON"
