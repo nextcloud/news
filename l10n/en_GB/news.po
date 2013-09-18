@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-09-13 19:48-0400\n"
-"PO-Revision-Date: 2013-09-13 23:48+0000\n"
-"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"POT-Creation-Date: 2013-09-18 09:45-0400\n"
+"PO-Revision-Date: 2013-09-18 13:30+0000\n"
+"Last-Translator: mnestis <transifex@mnestis.net>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/owncloud/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Language: en_GB\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: appinfo/app.php:52
+#: appinfo/app.php:52 templates/main.php:38
 msgid "News"
 msgstr "News"
 
@@ -32,7 +32,7 @@ msgstr "Can not add feed: URL does not exist or has invalid xml"
 
 #: businesslayer/feedbusinesslayer.php:267
 msgid "Articles without feed"
-msgstr ""
+msgstr "Articles without feed"
 
 #: businesslayer/folderbusinesslayer.php:66
 msgid "Can not add folder: Exists already"
@@ -121,19 +121,19 @@ msgstr "Mark read"
 msgid "Welcome to the ownCloud News app!"
 msgstr "Welcome to the ownCloud News app!"
 
-#: templates/part.items.php:32
+#: templates/part.items.php:34
 msgid "from"
 msgstr "from"
 
-#: templates/part.items.php:37
+#: templates/part.items.php:39
 msgid "by"
 msgstr "by"
 
-#: templates/part.items.php:44
+#: templates/part.items.php:46
 msgid "Download"
 msgstr "Download"
 
-#: templates/part.items.php:57
+#: templates/part.items.php:59
 msgid "Keep unread"
 msgstr "Keep unread"
 
@@ -155,7 +155,7 @@ msgstr "Rename folder"
 
 #: templates/part.settings.php:13
 msgid "Subscriptions (OPML)"
-msgstr ""
+msgstr "Subscriptions (OPML)"
 
 #: templates/part.settings.php:17 templates/part.settings.php:20
 #: templates/part.settings.php:48 templates/part.settings.php:53
@@ -175,7 +175,7 @@ msgstr "Error when importing: file does not contain valid OPML"
 
 #: templates/part.settings.php:44
 msgid "Unread/Starred Articles"
-msgstr ""
+msgstr "Unread/Starred Articles"
 
 #: templates/part.settings.php:70
 msgid "Error when importing: file does not contain valid JSON"

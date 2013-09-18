@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-09-13 19:48-0400\n"
-"PO-Revision-Date: 2013-09-13 23:48+0000\n"
-"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"POT-Creation-Date: 2013-09-18 09:45-0400\n"
+"PO-Revision-Date: 2013-09-18 08:20+0000\n"
+"Last-Translator: pisike.sipelgas <pisike.sipelgas@gmail.com>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/projects/p/owncloud/language/et_EE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Language: et_EE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: appinfo/app.php:52
+#: appinfo/app.php:52 templates/main.php:38
 msgid "News"
 msgstr "Uudised"
 
@@ -33,7 +33,7 @@ msgstr "Voogu ei saa lisada: URL-i pole olemas või sisaldab vigast XML-i"
 
 #: businesslayer/feedbusinesslayer.php:267
 msgid "Articles without feed"
-msgstr ""
+msgstr "Artiklid ilma voota"
 
 #: businesslayer/folderbusinesslayer.php:66
 msgid "Can not add folder: Exists already"
@@ -122,19 +122,19 @@ msgstr "Märgi loetuks"
 msgid "Welcome to the ownCloud News app!"
 msgstr "Tere tulemast ownCloud News rakendisse!"
 
-#: templates/part.items.php:32
+#: templates/part.items.php:34
 msgid "from"
 msgstr "kohast"
 
-#: templates/part.items.php:37
+#: templates/part.items.php:39
 msgid "by"
 msgstr "lisas"
 
-#: templates/part.items.php:44
+#: templates/part.items.php:46
 msgid "Download"
 msgstr "Lae alla"
 
-#: templates/part.items.php:57
+#: templates/part.items.php:59
 msgid "Keep unread"
 msgstr "Hoia kui lugemata"
 
@@ -156,7 +156,7 @@ msgstr "Nimeta kaust ümber"
 
 #: templates/part.settings.php:13
 msgid "Subscriptions (OPML)"
-msgstr ""
+msgstr "Tellimused (OPML)"
 
 #: templates/part.settings.php:17 templates/part.settings.php:20
 #: templates/part.settings.php:48 templates/part.settings.php:53
@@ -176,7 +176,7 @@ msgstr "Viga importimisel: fail ei sisalda korrektset OPML-i"
 
 #: templates/part.settings.php:44
 msgid "Unread/Starred Articles"
-msgstr ""
+msgstr "Lugemata/Märgitud artiklid"
 
 #: templates/part.settings.php:70
 msgid "Error when importing: file does not contain valid JSON"

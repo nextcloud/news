@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-09-13 19:48-0400\n"
-"PO-Revision-Date: 2013-09-13 23:48+0000\n"
+"POT-Creation-Date: 2013-09-18 09:45-0400\n"
+"PO-Revision-Date: 2013-09-17 13:13+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Hindi (http://www.transifex.com/projects/p/owncloud/language/hi/)\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Language: hi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: appinfo/app.php:52
+#: appinfo/app.php:52 templates/main.php:38
 msgid "News"
 msgstr ""
 
@@ -101,7 +101,7 @@ msgstr ""
 
 #: templates/part.feed.starred.php:11
 msgid "Starred"
-msgstr ""
+msgstr "तारांकित "
 
 #: templates/part.feed.unread.php:10
 msgid "Unread articles"
@@ -120,19 +120,19 @@ msgstr ""
 msgid "Welcome to the ownCloud News app!"
 msgstr ""
 
-#: templates/part.items.php:32
+#: templates/part.items.php:34
 msgid "from"
 msgstr ""
 
-#: templates/part.items.php:37
+#: templates/part.items.php:39
 msgid "by"
 msgstr ""
 
-#: templates/part.items.php:44
+#: templates/part.items.php:46
 msgid "Download"
 msgstr ""
 
-#: templates/part.items.php:57
+#: templates/part.items.php:59
 msgid "Keep unread"
 msgstr ""
 
