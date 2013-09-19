@@ -138,6 +138,17 @@ Performance Notices
 Frequent Problems
 -----------------
 
+How do I reset the News app
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Delete the folder **owncloud/apps/news**, then connect to your database and run the following commands where **oc\_** is your table prefix (defaults to oc\_)
+
+.. code-block:: sql
+
+    DELETE FROM oc_appconfig WHERE appid = 'news';
+    DROP TABLE oc_news_items;
+    DROP TABLE oc_news_feeds;
+    DROP TABLE oc_news_folders;
+
 All feeds are not updated anymore
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 `This is a bug in the core backgroundjob system <https://github.com/owncloud/core/issues/3221>`_ deleting the :file:`owncloud/data/cron.lock` file gets the cron back up running
@@ -172,7 +183,7 @@ The configuration is in **INI** format and looks like this:
     useCronUpdates = true
 
 
-* **autoPurgeMinimumInterval**: Minimum amount of seconds after deleted feeds and folders are removed from the database. 
+* **autoPurgeMinimumInterval**: Minimum amount of seconds after deleted feeds and folders are removed from the database.
 * **autoPurgeCount**: Defines the minimum amount of articles that can be unread per feed before they get deleted
 * **simplePieCacheDuration**: Amount of seconds to cache feeds
 * **feedFetcherTimeout**: Maximum number of seconds to wait for an RSS or Atom feed to load. If a feed takes longer than that number of seconds to update, the update will be aborted
