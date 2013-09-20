@@ -32,7 +32,7 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 
 	private $mapper;
 	private $feeds;
-	
+
 	protected function setUp(){
 		$this->beforeEach();
 
@@ -59,21 +59,21 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$sql = 'SELECT `feeds`.*, COUNT(`items`.`id`) AS `unread_count` ' .
 			'FROM `*PREFIX*news_feeds` `feeds` ' .
 			'LEFT JOIN `*PREFIX*news_items` `items` ' .
-				'ON `feeds`.`id` = `items`.`feed_id` ' . 
-				'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' . 
+				'ON `feeds`.`id` = `items`.`feed_id` ' .
+				'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' .
 				StatusFlag::UNREAD . ' ' .
 			'WHERE `feeds`.`id` = ? ' .
 				'AND `feeds`.`user_id` = ? ' .
 		      	'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`,'.
 		        	'`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
-		        	'`feeds`.`favicon_link`, `feeds`.`added`,'.
+		        	'`feeds`.`favicon_link`, `feeds`.`added`, `feeds`.`articles_per_update`,'.
 		        	'`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
 		$params = array($id, $userId);
 		$this->setMapperResult($sql, $params, $rows);
-		
+
 		$result = $this->mapper->find($id, $userId);
 		$this->assertEquals($this->feeds[0], $result);
-		
+
 	}
 
 
@@ -83,22 +83,22 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$sql = 'SELECT `feeds`.*, COUNT(`items`.`id`) AS `unread_count` ' .
 			'FROM `*PREFIX*news_feeds` `feeds` ' .
 			'LEFT JOIN `*PREFIX*news_items` `items` ' .
-				'ON `feeds`.`id` = `items`.`feed_id` ' . 
-				'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' . 
+				'ON `feeds`.`id` = `items`.`feed_id` ' .
+				'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' .
 				StatusFlag::UNREAD . ' ' .
 			'WHERE `feeds`.`id` = ? ' .
 				'AND `feeds`.`user_id` = ? ' .
 		      	'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`,'.
 		        	'`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
-		        	'`feeds`.`favicon_link`, `feeds`.`added`,'.
+		        	'`feeds`.`favicon_link`, `feeds`.`added`, `feeds`.`articles_per_update`,'.
 		        	'`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
 		$params = array($id, $userId);
 		$this->setMapperResult($sql, $params);
-		
+
 		$this->setExpectedException('\OCA\AppFramework\Db\DoesNotExistException');
-		$result = $this->mapper->find($id, $userId);	
+		$result = $this->mapper->find($id, $userId);
 	}
-	
+
 
 	public function testFindMoreThanOneResultFound(){
 		$userId = 'john';
@@ -110,18 +110,18 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$sql = 'SELECT `feeds`.*, COUNT(`items`.`id`) AS `unread_count` ' .
 			'FROM `*PREFIX*news_feeds` `feeds` ' .
 			'LEFT JOIN `*PREFIX*news_items` `items` ' .
-				'ON `feeds`.`id` = `items`.`feed_id` ' . 
-				'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' . 
+				'ON `feeds`.`id` = `items`.`feed_id` ' .
+				'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' .
 				StatusFlag::UNREAD . ' ' .
 			'WHERE `feeds`.`id` = ? ' .
 				'AND `feeds`.`user_id` = ? ' .
 		      	'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`,'.
 		        	'`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
-		        	'`feeds`.`favicon_link`, `feeds`.`added`,'.
+		        	'`feeds`.`favicon_link`, `feeds`.`added`, `feeds`.`articles_per_update`,'.
 		        	'`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
 		$params = array($id, $userId);
 		$this->setMapperResult($sql, $params, $rows);
-				
+
 		$this->setExpectedException('\OCA\AppFramework\Db\MultipleObjectsReturnedException');
 		$result = $this->mapper->find($id, $userId);
 	}
@@ -140,9 +140,9 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			'LEFT JOIN `*PREFIX*news_items` `items` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` ' .
 				// WARNING: this is a desperate attempt at making this query work
-				// because prepared statements dont work. This is a possible 
+				// because prepared statements dont work. This is a possible
 				// SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
-				// think twice when changing this 
+				// think twice when changing this
 				'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' .
 				StatusFlag::UNREAD . ' ' .
 			'WHERE (`feeds`.`folder_id` = 0 ' .
@@ -151,11 +151,11 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			'AND `feeds`.`deleted_at` = 0 ' .
 			'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`,'.
 				'`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
-				'`feeds`.`favicon_link`, `feeds`.`added`,'.
+				'`feeds`.`favicon_link`, `feeds`.`added`, `feeds`.`articles_per_update`,'.
 				'`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
-		
+
 		$this->setMapperResult($sql, array(), $rows);
-		
+
 		$result = $this->mapper->findAll();
 		$this->assertEquals($this->feeds, $result);
 	}
@@ -174,9 +174,9 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			'LEFT JOIN `*PREFIX*news_items` `items` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` ' .
 				// WARNING: this is a desperate attempt at making this query work
-				// because prepared statements dont work. This is a possible 
+				// because prepared statements dont work. This is a possible
 				// SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
-				// think twice when changing this 
+				// think twice when changing this
 				'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' .
 				StatusFlag::UNREAD . ' ' .
 			'WHERE `feeds`.`user_id` = ? ' .
@@ -186,11 +186,11 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			'AND `feeds`.`deleted_at` = 0 ' .
 			'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`,'.
 				'`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
-				'`feeds`.`favicon_link`, `feeds`.`added`,'.
+				'`feeds`.`favicon_link`, `feeds`.`added`, `feeds`.`articles_per_update`,'.
 				'`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
-		$this->setMapperResult($sql, 
+		$this->setMapperResult($sql,
 			array($userId), $rows);
-		
+
 		$result = $this->mapper->findAllFromUser($userId);
 		$this->assertEquals($this->feeds, $result);
 	}
@@ -204,18 +204,18 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$sql = 'SELECT `feeds`.*, COUNT(`items`.`id`) AS `unread_count` ' .
 			'FROM `*PREFIX*news_feeds` `feeds` ' .
 			'LEFT JOIN `*PREFIX*news_items` `items` ' .
-				'ON `feeds`.`id` = `items`.`feed_id` ' . 
-				'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' . 
+				'ON `feeds`.`id` = `items`.`feed_id` ' .
+				'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' .
 				StatusFlag::UNREAD . ' ' .
 			'WHERE `feeds`.`url_hash` = ? ' .
 				'AND `feeds`.`user_id` = ? ' .
 		      	'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`,'.
 		        	'`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
-		        	'`feeds`.`favicon_link`, `feeds`.`added`,'.
+		        	'`feeds`.`favicon_link`, `feeds`.`added`, `feeds`.`articles_per_update`,'.
 		        	'`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
-		$this->setMapperResult($sql, 
+		$this->setMapperResult($sql,
 			array($urlHash, $this->user), $row);
-		
+
 		$result = $this->mapper->findByUrlHash($urlHash, $this->user);
 		$this->assertEquals($this->feeds[0], $result);
 	}
@@ -226,22 +226,22 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$sql = 'SELECT `feeds`.*, COUNT(`items`.`id`) AS `unread_count` ' .
 			'FROM `*PREFIX*news_feeds` `feeds` ' .
 			'LEFT JOIN `*PREFIX*news_items` `items` ' .
-				'ON `feeds`.`id` = `items`.`feed_id` ' . 
-				'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' . 
+				'ON `feeds`.`id` = `items`.`feed_id` ' .
+				'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' .
 				StatusFlag::UNREAD . ' ' .
 			'WHERE `feeds`.`url_hash` = ? ' .
 				'AND `feeds`.`user_id` = ? ' .
 		      	'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`,'.
 		        	'`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
-		        	'`feeds`.`favicon_link`, `feeds`.`added`,'.
+		        	'`feeds`.`favicon_link`, `feeds`.`added`, `feeds`.`articles_per_update`,'.
 		        	'`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
-		$this->setMapperResult($sql, 
+		$this->setMapperResult($sql,
 			array($urlHash, $this->user));
-			
+
 		$this->setExpectedException('\OCA\AppFramework\Db\DoesNotExistException');
-		$result = $this->mapper->findByUrlHash($urlHash, $this->user);	
+		$result = $this->mapper->findByUrlHash($urlHash, $this->user);
 	}
-	
+
 
 	public function testFindByUrlHashMoreThanOneResultFound(){
 		$urlHash = md5('hihi');
@@ -252,20 +252,20 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$sql = 'SELECT `feeds`.*, COUNT(`items`.`id`) AS `unread_count` ' .
 			'FROM `*PREFIX*news_feeds` `feeds` ' .
 			'LEFT JOIN `*PREFIX*news_items` `items` ' .
-				'ON `feeds`.`id` = `items`.`feed_id` ' . 
-				'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' . 
+				'ON `feeds`.`id` = `items`.`feed_id` ' .
+				'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' .
 				StatusFlag::UNREAD . ' ' .
 			'WHERE `feeds`.`url_hash` = ? ' .
 				'AND `feeds`.`user_id` = ? ' .
 		      	'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`,'.
 		        	'`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
-		        	'`feeds`.`favicon_link`, `feeds`.`added`,'.
+		        	'`feeds`.`favicon_link`, `feeds`.`added`, `feeds`.`articles_per_update`,'.
 		        	'`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
-		$this->setMapperResult($sql, 
+		$this->setMapperResult($sql,
 			array($urlHash, $this->user), $rows);
-		
+
 		$this->setExpectedException('\OCA\AppFramework\Db\MultipleObjectsReturnedException');
-		$result = $this->mapper->findByUrlHash($urlHash, $this->user);	
+		$result = $this->mapper->findByUrlHash($urlHash, $this->user);
 	}
 
 
@@ -279,12 +279,12 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$sql2 = 'DELETE FROM `*PREFIX*news_items` WHERE `feed_id` = ?';
 		$arguments2 = array($feed->getId());
 
-		$pdoResult = $this->getMock('Result', 
+		$pdoResult = $this->getMock('Result',
 			array('fetchRow'));
 		$pdoResult->expects($this->any())
 			->method('fetchRow');
-		
-		$query = $this->getMock('Query', 
+
+		$query = $this->getMock('Query',
 			array('execute'));
 		$query->expects($this->at(0))
 			->method('execute')
@@ -293,8 +293,8 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$this->api->expects($this->at(0))
 			->method('prepareQuery')
 			->with($this->equalTo($sql))
-			->will(($this->returnValue($query)));	
-		
+			->will(($this->returnValue($query)));
+
 		$query->expects($this->at(1))
 			->method('execute')
 			->with($this->equalTo($arguments2))
@@ -323,7 +323,7 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 
 		$this->assertEquals($this->feeds, $result);
 	}
-	
+
 
 	public function testGetPurgeDeletedFromUser(){
 		$rows = array(
@@ -341,7 +341,7 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$this->assertEquals($this->feeds, $result);
 	}
 
-	
+
 	public function testGetAllPurgeDeletedFromUser(){
 		$rows = array(
 			array('id' => $this->feeds[0]->getId()),
@@ -355,5 +355,5 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$result = $this->mapper->getToDelete(null, $this->user);
 
 		$this->assertEquals($this->feeds, $result);
-	}	
+	}
 }
