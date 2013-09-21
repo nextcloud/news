@@ -57,8 +57,9 @@ class ArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 			$this->purifier,
 			$this->fileFactory,
 			array(
-				'/explosm.net\/comics/' => '//*[@id=\'maincontent\']/div[2]/div/img',
+				'/explosm.net\/comics/' => '//*[@id=\'maincontent\']/div[2]/div/span',
 				'/explosm.net\/shorts/' => '//*[@id=\'maincontent\']/div/div',
+				'/explosm.net\/all/' => '//body/*',
 				'/themerepublic.net/' => '//*[@class=\'post hentry\']'
 			), 
 			$this->timeout
@@ -80,7 +81,7 @@ class ArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 			<body>
 				<div id="maincontent">
 					<div>nooo</div>
-					<div><div><img src="hiho"></div></div>
+					<div><div><span>hiho</span></div></div>
 				</div>
 			</body>
 		</html>';
@@ -95,11 +96,11 @@ class ArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->will($this->returnValue($file));
 		$this->purifier->expects($this->once())
 			->method('purify')
-			->with($this->equalTo('<img src="hiho">'))
-			->will($this->returnValue('<img src="hiho">'));
+			->with($this->equalTo('<span>hiho</span>'))
+			->will($this->returnValue('<span>hiho</span>'));
 
 		$result = $this->testEnhancer->enhance($item);
-		$this->assertEquals('<img src="hiho">', $result->getBody());
+		$this->assertEquals('<span>hiho</span>', $result->getBody());
 	}
 
 
@@ -211,5 +212,86 @@ class ArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->assertEquals(null, $result->getBody());
 	}
 
+
+	public function testTransformRelativeUrls() {
+		$file = new \stdClass;
+		$file->headers = array("content-type"=>"text/html; charset=utf-8");
+		$file->body = '<html>
+			<body>
+				<a href="../a/relative/url.html?a=1#b">link</a>
+				<a href="b/relative/url.html">link2</a>
+				<img src="/another/relative/link.jpg"></img>
+			</body>
+		</html>';
+		$item = new Item();
+		$item->setUrl('https://www.explosm.net/all/312');
+		$item->setBody('Hello thar');
+
+		$this->fileFactory->expects($this->once())
+			->method('getFile')
+			->with($this->equalTo($item->getUrl()),
+				$this->equalTo($this->timeout))
+			->will($this->returnValue($file));
+		$this->purifier->expects($this->once())
+			->method('purify')
+			->with($this->equalTo('<a href="https://www.explosm.net/a/relative/url.html?a=1#b">link</a><a href="https://www.explosm.net/all/b/relative/url.html">link2</a><img src="https://www.explosm.net/another/relative/link.jpg">'))
+			->will($this->returnValue('<a href="https://www.explosm.net/a/relative/url.html?a=1#b">link</a><a href="https://www.explosm.net/all/b/relative/url.html">link2</a><img src="https://www.explosm.net/another/relative/link.jpg">'));
+
+		$result = $this->testEnhancer->enhance($item);
+		$this->assertEquals('<a href="https://www.explosm.net/a/relative/url.html?a=1#b">link</a><a href="https://www.explosm.net/all/b/relative/url.html">link2</a><img src="https://www.explosm.net/another/relative/link.jpg">', $result->getBody());
+	}
+
+	public function testTransformRelativeUrlSpecials() {
+		$file = new \stdClass;
+		$file->headers = array("content-type"=>"text/html; charset=utf-8");
+		$file->body = '<html>
+			<body>
+				<img src="relative/url.png">
+			</body>
+		</html>';
+		$item = new Item();
+		$item->setUrl('https://username:secret@www.explosm.net/all/312');
+		$item->setBody('Hello thar');
+
+		$this->fileFactory->expects($this->once())
+			->method('getFile')
+			->with($this->equalTo($item->getUrl()),
+				$this->equalTo($this->timeout))
+			->will($this->returnValue($file));
+		$this->purifier->expects($this->once())
+			->method('purify')
+			->with($this->equalTo('<img src="https://username:secret@www.explosm.net/all/relative/url.png">'))
+			->will($this->returnValue('<img src="https://username:secret@www.explosm.net/all/relative/url.png">'));
+
+		$result = $this->testEnhancer->enhance($item);
+		$this->assertEquals('<img src="https://username:secret@www.explosm.net/all/relative/url.png">', $result->getBody());
+	}
+
+	public function testDontTransformAbsoluteUrlsAndMails() {
+		$file = new \stdClass;
+		$file->headers = array("content-type"=>"text/html; charset=utf-8");
+		$file->body = '<html>
+			<body>
+				<img src="http://www.url.com/absolute/url.png">
+				<a href="mailto:test@testsite.com">mail</a>
+			</body>
+		</html>';
+		$item = new Item();
+		$item->setUrl('https://www.explosm.net/all/312');
+		$item->setBody('Hello thar');
+
+		$this->fileFactory->expects($this->once())
+			->method('getFile')
+			->with($this->equalTo($item->getUrl()),
+				$this->equalTo($this->timeout))
+			->will($this->returnValue($file));
+		$this->purifier->expects($this->once())
+			->method('purify')
+			->with($this->equalTo('<img src="http://www.url.com/absolute/url.png"><a href="mailto:test@testsite.com">mail</a>'))
+			->will($this->returnValue('<img src="http://www.url.com/absolute/url.png"><a href="mailto:test@testsite.com">mail</a>'));
+
+		$result = $this->testEnhancer->enhance($item);
+		$this->assertEquals('<img src="http://www.url.com/absolute/url.png"><a href="mailto:test@testsite.com">mail</a>', $result->getBody());
+	}
 
 }
