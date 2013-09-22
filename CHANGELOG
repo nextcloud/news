@@ -1,3 +1,6 @@
+owncloud-news (1.605)
+* Adding feeds does not block the input box any more
+
 owncloud-news (1.604)
 * Use 64bit integers to prevent running out of ids after a year for large installations
 * Fix postgres feed queries with correct group by
