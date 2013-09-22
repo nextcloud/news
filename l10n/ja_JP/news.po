@@ -8,13 +8,14 @@
 # plazmism <gomidori@live.jp>, 2013
 # tt yn <tetuyano+transi@gmail.com>, 2012
 # tt yn <tetuyano+transi@gmail.com>, 2012
+# tt yn <tetuyano+transi@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-09-13 19:48-0400\n"
-"PO-Revision-Date: 2013-09-13 23:48+0000\n"
-"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"POT-Creation-Date: 2013-09-22 10:50-0400\n"
+"PO-Revision-Date: 2013-09-21 13:40+0000\n"
+"Last-Translator: tt yn <tetuyano+transi@gmail.com>\n"
 "Language-Team: Japanese (Japan) (http://www.transifex.com/projects/p/owncloud/language/ja_JP/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +23,7 @@ msgstr ""
 "Language: ja_JP\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: appinfo/app.php:52
+#: appinfo/app.php:52 templates/main.php:38
 msgid "News"
 msgstr "ニュース"
 
@@ -36,7 +37,7 @@ msgstr "フィードを追加できません: URLが存在しない、もしく�
 
 #: businesslayer/feedbusinesslayer.php:267
 msgid "Articles without feed"
-msgstr ""
+msgstr "フィード無し記事"
 
 #: businesslayer/folderbusinesslayer.php:66
 msgid "Can not add folder: Exists already"
@@ -44,16 +45,16 @@ msgstr "フォルダを追加できません: すでに存在します"
 
 #: js/vendor/angular-ui/build/angular-ui.min.js:7
 msgid " "
-msgstr ""
+msgstr " "
 
 #: js/vendor/angular-ui/build/angular-ui.min.js:7
 msgid "_"
-msgstr ""
+msgstr "_"
 
 #: js/vendor/jquery-ui/ui/minified/jquery-ui.min.js:8
 #: js/vendor/jquery-ui/ui/minified/jquery.ui.autocomplete.min.js:4
 msgid "status"
-msgstr ""
+msgstr "状態"
 
 #: templates/main.php:34
 #, php-format
@@ -125,19 +126,19 @@ msgstr "既読としてマーク"
 msgid "Welcome to the ownCloud News app!"
 msgstr "ownCloudニュースアプリへようこそ！"
 
-#: templates/part.items.php:32
+#: templates/part.items.php:34
 msgid "from"
 msgstr "から"
 
-#: templates/part.items.php:37
+#: templates/part.items.php:39
 msgid "by"
 msgstr "により"
 
-#: templates/part.items.php:44
+#: templates/part.items.php:46
 msgid "Download"
 msgstr "ダウンロード"
 
-#: templates/part.items.php:57
+#: templates/part.items.php:59
 msgid "Keep unread"
 msgstr "未読のままにする"
 
@@ -159,7 +160,7 @@ msgstr "フォルダの名前を変更"
 
 #: templates/part.settings.php:13
 msgid "Subscriptions (OPML)"
-msgstr ""
+msgstr "RSS購読リスト (OPML)"
 
 #: templates/part.settings.php:17 templates/part.settings.php:20
 #: templates/part.settings.php:48 templates/part.settings.php:53
@@ -179,7 +180,7 @@ msgstr "インポート中のエラー: ファイルは有効なOPMLを含んで
 
 #: templates/part.settings.php:44
 msgid "Unread/Starred Articles"
-msgstr ""
+msgstr "未読/注目記事"
 
 #: templates/part.settings.php:70
 msgid "Error when importing: file does not contain valid JSON"

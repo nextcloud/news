@@ -2,6 +2,7 @@
 "News" => "Новости",
 "Can not add feed: Exists already" => "Не удаётся добавить ленту: уже существует",
 "Can not add feed: URL does not exist or has invalid xml" => "Не удаётся добавить ленту: URL не существует или содержит неверный xml",
+"Articles without feed" => "Статьи без новостной ленты",
 "Can not add folder: Exists already" => "Не удаётся добавить папку: уже существует",
 " " => " ",
 "_" => "_",
