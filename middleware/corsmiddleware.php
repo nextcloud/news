@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ownCloud - App Framework
+ * ownCloud - News
  *
  * @author Bernhard Posselt
  * @copyright 2012 Bernhard Posselt dev@bernhard-posselt.com

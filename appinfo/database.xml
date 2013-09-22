@@ -13,10 +13,12 @@
 				<autoincrement>true</autoincrement>
 				<unsigned>true</unsigned>
 				<primary>true</primary>
+				<length>8</length>
 			</field>
 			<field>
 				<name>parent_id</name>
 				<type>integer</type>
+				<length>8</length>
 				<notnull>false</notnull>
 			</field>
 			<field>
@@ -41,6 +43,7 @@
 			<field>
 				<name>deleted_at</name>
 				<type>integer</type>
+				<length>8</length>
 				<default>0</default>
 				<notnull>false</notnull>
 				<unsigned>true</unsigned>
@@ -71,6 +74,7 @@
 				<notnull>true</notnull>
 				<autoincrement>true</autoincrement>
 				<primary>true</primary>
+				<length>8</length>
 				<unsigned>true</unsigned>
 			</field>
 			<field>
@@ -110,6 +114,7 @@
 				<name>added</name>
 				<type>integer</type>
 				<default></default>
+				<length>8</length>
 				<notnull>false</notnull>
 				<unsigned>true</unsigned>
 			</field>
@@ -117,6 +122,7 @@
 				<name>articles_per_update</name>
 				<type>integer</type>
 				<default>0</default>
+				<length>8</length>
 				<notnull>true</notnull>
 			</field>
 			<field>
@@ -124,11 +130,13 @@
 				<type>integer</type>
 				<default>0</default>
 				<notnull>false</notnull>
+				<length>8</length>
 				<unsigned>true</unsigned>
 			</field>
 			<field>
 				<name>folder_id</name>
 				<type>integer</type>
+				<length>8</length>
 				<notnull>true</notnull>
 			</field>
 			<field>
@@ -167,6 +175,7 @@
 			 <field>
 				<name>id</name>
 				<type>integer</type>
+				<length>8</length>
 				<notnull>true</notnull>
 				<autoincrement>true</autoincrement>
 				<primary>true</primary>
@@ -199,6 +208,7 @@
 			<field>
 				<name>pub_date</name>
 				<type>integer</type>
+				<length>8</length>
 				<unsigned>true</unsigned>
 				<notnull>false</notnull>
 			</field>
@@ -220,16 +230,19 @@
 			<field>
 				<name>feed_id</name>
 				<type>integer</type>
+				<length>8</length>
 				<notnull>true</notnull>
 			</field>
 			<field>
 				<name>status</name>
 				<type>integer</type>
+				<length>8</length>
 			</field>
 			<field>
 				<name>last_modified</name>
 				<type>integer</type>
 				<default></default>
+				<length>8</length>
 				<notnull>false</notnull>
 				<unsigned>true</unsigned>
 			</field>

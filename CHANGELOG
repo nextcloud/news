@@ -1,3 +1,8 @@
+owncloud-news (1.604)
+* Use 64bit integers to prevent running out of ids after a year for large installations
+* Fix postgres feed queries with correct group by
+* Article enhancers now transform relative links on a page to absolute links
+
 owncloud-news (1.603)
 * Fix JavaScript errors which prevented the translation elements from being removed
 
