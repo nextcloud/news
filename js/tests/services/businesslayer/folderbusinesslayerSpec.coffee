@@ -147,6 +147,7 @@ describe 'FolderBusinessLayer', ->
 
 
 	it 'should be visible if it has no feeds', =>
+		@FeedModel.add({id: 3, unreadCount:0, folderId: 3, url: 'a1'})
 		@FolderModel.add({id: 13, opened: false, name: 'ho'})
 		expect(@FolderBusinessLayer.isVisible(13)).toBe(true)
 
