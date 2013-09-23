@@ -138,10 +138,17 @@ describe 'FolderBusinessLayer', ->
 
 
 	it 'should be visible if show all is true', =>
+		@FolderModel.add({id: 3, opened: false, name: 'ho'})
+		@FeedModel.add({id: 3, unreadCount:0, folderId: 3, url: 'a1'})
 		expect(@FolderBusinessLayer.isVisible(3)).toBe(false)
 
 		@ShowAll.setShowAll(true)
 		expect(@FolderBusinessLayer.isVisible(3)).toBe(true)
+
+
+	it 'should be visible if it has no feeds', =>
+		@FolderModel.add({id: 13, opened: false, name: 'ho'})
+		expect(@FolderBusinessLayer.isVisible(13)).toBe(true)
 
 
 	it 'should be visible if its active', =>

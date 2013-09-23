@@ -105,7 +105,7 @@ FeedModel, $rootScope) ->
 			
 
 		isVisible: (folderId) ->
-			if @_showAll.getShowAll()
+			if @_showAll.getShowAll() || @_feedBusinessLayer.noFeeds()
 				return true
 			else
 				if @isActive(folderId) or

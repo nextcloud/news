@@ -1379,7 +1379,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
         FolderBusinessLayer.prototype.isVisible = function(folderId) {
           var feed, _i, _len, _ref;
-          if (this._showAll.getShowAll()) {
+          if (this._showAll.getShowAll() || this._feedBusinessLayer.noFeeds()) {
             return true;
           } else {
             if (this.isActive(folderId) || this._feedBusinessLayer.getFolderUnreadCount(folderId) > 0) {
