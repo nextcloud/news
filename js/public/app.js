@@ -715,8 +715,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
               if (parentFolderId !== 0) {
                 _this._folderBusinessLayer.open(parentFolderId);
               }
+              _this._$scope.feedUrl = '';
               return _this._feedBusinessLayer.create(feedUrl, parentFolderId, function(data) {
-                _this._$scope.feedUrl = '';
                 _this._isAddingFeed = false;
                 return _this._feedBusinessLayer.load(data['feeds'][0].id);
               }, function() {

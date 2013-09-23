@@ -86,10 +86,10 @@ ActiveFeed, FeedType, $window) ->
 					# set folder to open
 					if parentFolderId != 0
 						@_folderBusinessLayer.open(parentFolderId)
+					@_$scope.feedUrl = ''
 					@_feedBusinessLayer.create feedUrl, parentFolderId
 					# on success
 					, (data) =>
-						@_$scope.feedUrl = ''
 						@_isAddingFeed = false
 						@_feedBusinessLayer.load(data['feeds'][0].id)
 					# on error
