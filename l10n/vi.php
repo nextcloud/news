@@ -15,7 +15,5 @@
 "Delete folder" => "Xóa thư mục",
 "Rename folder" => "Đổi tên thư mục",
 "Import" => "Nhập vào",
-"Export" => "Xuất ra",
-"Show all" => "Hiên thị tất cả",
-"Show only unread" => "Hiển thị chưa đọc"
+"Export" => "Xuất ra"
 );

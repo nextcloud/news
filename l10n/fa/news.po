@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-09-13 19:48-0400\n"
-"PO-Revision-Date: 2013-09-13 23:48+0000\n"
+"POT-Creation-Date: 2013-09-24 11:51-0400\n"
+"PO-Revision-Date: 2013-09-24 15:51+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Persian (http://www.transifex.com/projects/p/owncloud/language/fa/)\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Language: fa\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: appinfo/app.php:52
+#: appinfo/app.php:52 templates/main.php:38
 msgid "News"
 msgstr "اخبار"
 
@@ -73,31 +73,31 @@ msgstr "خطا: پوشه در حال حاضر وجود دارد."
 msgid "Address"
 msgstr "آدرس"
 
-#: templates/part.addnew.php:35 templates/part.addnew.php:38
+#: templates/part.addnew.php:34 templates/part.addnew.php:37
 msgid "Add"
 msgstr "افزودن"
 
-#: templates/part.addnew.php:42 templates/part.addnew.php:50
+#: templates/part.addnew.php:41 templates/part.addnew.php:48
 msgid "New folder"
 msgstr "پوشه جدید"
 
-#: templates/part.addnew.php:43
+#: templates/part.addnew.php:42
 msgid "Folder"
 msgstr "پوشه"
 
-#: templates/part.addnew.php:48
+#: templates/part.addnew.php:46
 msgid "Choose folder"
 msgstr "انتخاب کردن پوشه"
 
-#: templates/part.addnew.php:60
+#: templates/part.addnew.php:57
 msgid "Folder name"
 msgstr "نام پوشه"
 
-#: templates/part.addnew.php:63
+#: templates/part.addnew.php:60
 msgid "Back to folder selection"
 msgstr "بازگشت به انتخاب پوشه"
 
-#: templates/part.addnew.php:68
+#: templates/part.addnew.php:64
 msgid "Create folder"
 msgstr "ایجاد پوشه"
 
@@ -122,19 +122,19 @@ msgstr "علامت خوانده شده"
 msgid "Welcome to the ownCloud News app!"
 msgstr ""
 
-#: templates/part.items.php:32
+#: templates/part.items.php:34
 msgid "from"
 msgstr "از"
 
-#: templates/part.items.php:37
+#: templates/part.items.php:39
 msgid "by"
 msgstr "با"
 
-#: templates/part.items.php:44
+#: templates/part.items.php:46
 msgid "Download"
 msgstr "دانلود"
 
-#: templates/part.items.php:57
+#: templates/part.items.php:59
 msgid "Keep unread"
 msgstr "خوانده نشده "
 
@@ -183,9 +183,9 @@ msgid "Error when importing: file does not contain valid JSON"
 msgstr "خطا هنگام وارد کردن: فایل حاوی JSON معتبر نیست."
 
 #: templates/part.showall.php:5
-msgid "Show all"
-msgstr "نمایش همه موارد"
+msgid "Show read articles"
+msgstr ""
 
 #: templates/part.showall.php:11
-msgid "Show only unread"
-msgstr "نمایش خوانده نشده ها"
+msgid "Hide read articles"
+msgstr ""

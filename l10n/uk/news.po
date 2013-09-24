@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-09-13 19:48-0400\n"
-"PO-Revision-Date: 2013-09-13 23:48+0000\n"
+"POT-Creation-Date: 2013-09-24 11:51-0400\n"
+"PO-Revision-Date: 2013-09-24 15:51+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/owncloud/language/uk/)\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Language: uk\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: appinfo/app.php:52
+#: appinfo/app.php:52 templates/main.php:38
 msgid "News"
 msgstr "Новини"
 
@@ -75,31 +75,31 @@ msgstr "Помилка: тека вже існує"
 msgid "Address"
 msgstr "Адреса"
 
-#: templates/part.addnew.php:35 templates/part.addnew.php:38
+#: templates/part.addnew.php:34 templates/part.addnew.php:37
 msgid "Add"
 msgstr "Додати"
 
-#: templates/part.addnew.php:42 templates/part.addnew.php:50
+#: templates/part.addnew.php:41 templates/part.addnew.php:48
 msgid "New folder"
 msgstr "Нова тека"
 
-#: templates/part.addnew.php:43
+#: templates/part.addnew.php:42
 msgid "Folder"
 msgstr "Папка"
 
-#: templates/part.addnew.php:48
+#: templates/part.addnew.php:46
 msgid "Choose folder"
 msgstr "Обрати теку"
 
-#: templates/part.addnew.php:60
+#: templates/part.addnew.php:57
 msgid "Folder name"
 msgstr "Ім'я теки"
 
-#: templates/part.addnew.php:63
+#: templates/part.addnew.php:60
 msgid "Back to folder selection"
 msgstr "Повернутися до вибору теки"
 
-#: templates/part.addnew.php:68
+#: templates/part.addnew.php:64
 msgid "Create folder"
 msgstr "Створити теку"
 
@@ -124,19 +124,19 @@ msgstr ""
 msgid "Welcome to the ownCloud News app!"
 msgstr ""
 
-#: templates/part.items.php:32
+#: templates/part.items.php:34
 msgid "from"
 msgstr "З"
 
-#: templates/part.items.php:37
+#: templates/part.items.php:39
 msgid "by"
 msgstr "по"
 
-#: templates/part.items.php:44
+#: templates/part.items.php:46
 msgid "Download"
 msgstr "Завантажити"
 
-#: templates/part.items.php:57
+#: templates/part.items.php:59
 msgid "Keep unread"
 msgstr "Залишити непрочитаним"
 
@@ -185,9 +185,9 @@ msgid "Error when importing: file does not contain valid JSON"
 msgstr ""
 
 #: templates/part.showall.php:5
-msgid "Show all"
-msgstr "Показати все"
+msgid "Show read articles"
+msgstr ""
 
 #: templates/part.showall.php:11
-msgid "Show only unread"
-msgstr "Показати тільки не прочитане"
+msgid "Hide read articles"
+msgstr ""

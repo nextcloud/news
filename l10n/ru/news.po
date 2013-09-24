@@ -21,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-09-22 10:50-0400\n"
-"PO-Revision-Date: 2013-09-21 11:20+0000\n"
-"Last-Translator: jekader <jekader@gmail.com>\n"
+"POT-Creation-Date: 2013-09-24 11:51-0400\n"
+"PO-Revision-Date: 2013-09-24 15:51+0000\n"
+"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/owncloud/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -85,31 +85,31 @@ msgstr "Ошибка: папка уже существует"
 msgid "Address"
 msgstr "Адрес"
 
-#: templates/part.addnew.php:35 templates/part.addnew.php:38
+#: templates/part.addnew.php:34 templates/part.addnew.php:37
 msgid "Add"
 msgstr "Добавить"
 
-#: templates/part.addnew.php:42 templates/part.addnew.php:50
+#: templates/part.addnew.php:41 templates/part.addnew.php:48
 msgid "New folder"
 msgstr "Новая папка"
 
-#: templates/part.addnew.php:43
+#: templates/part.addnew.php:42
 msgid "Folder"
 msgstr "Папка"
 
-#: templates/part.addnew.php:48
+#: templates/part.addnew.php:46
 msgid "Choose folder"
 msgstr "Выбрать папку"
 
-#: templates/part.addnew.php:60
+#: templates/part.addnew.php:57
 msgid "Folder name"
 msgstr "Имя папки"
 
-#: templates/part.addnew.php:63
+#: templates/part.addnew.php:60
 msgid "Back to folder selection"
 msgstr "Назад к выбору папки"
 
-#: templates/part.addnew.php:68
+#: templates/part.addnew.php:64
 msgid "Create folder"
 msgstr "Создать папку"
 
@@ -195,9 +195,9 @@ msgid "Error when importing: file does not contain valid JSON"
 msgstr "Ошибка при импорте: файл не содержит правильный JSON"
 
 #: templates/part.showall.php:5
-msgid "Show all"
-msgstr "Показать всё"
+msgid "Show read articles"
+msgstr ""
 
 #: templates/part.showall.php:11
-msgid "Show only unread"
-msgstr "Показать только непрочитанные"
+msgid "Hide read articles"
+msgstr ""

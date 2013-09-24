@@ -34,7 +34,5 @@
 "Import" => "Importer",
 "Export" => "Exporter",
 "Error when importing: file does not contain valid OPML" => "Fejl ved import: filen indeholder ingen gyldig OPML kode",
-"Error when importing: file does not contain valid JSON" => "Fejl ved import: filen indeholder ikke gyldig JSON kode",
-"Show all" => "Vis alt",
-"Show only unread" => "Vis kun ulæste"
+"Error when importing: file does not contain valid JSON" => "Fejl ved import: filen indeholder ikke gyldig JSON kode"
 );

@@ -13,6 +13,5 @@
 "Delete folder" => "Избриши папка",
 "Rename folder" => "Преименувај папка",
 "Import" => "Увези",
-"Export" => "Извези",
-"Show only unread" => "Прикажи само непрочитани"
+"Export" => "Извези"
 );

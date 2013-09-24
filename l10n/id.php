@@ -18,7 +18,5 @@
 "Delete folder" => "Hapus map",
 "Rename folder" => "Ubah nama map",
 "Import" => "impor",
-"Export" => "ekspor",
-"Show all" => "Tampilkan semua",
-"Show only unread" => "tampilkan yang belum dibaca saja"
+"Export" => "ekspor"
 );

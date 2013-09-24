@@ -30,7 +30,5 @@
 "Import" => "Importálás",
 "Export" => "Exportálás",
 "Error when importing: file does not contain valid OPML" => "Hiba az importálás során: az állomány nem tartalmaz érvényes OPML adatot",
-"Error when importing: file does not contain valid JSON" => "Hiba az importálás során: az állomány nem tartalmaz érvényes JSON adatokat",
-"Show all" => "Mutassuk mindet",
-"Show only unread" => "Csak az olvasatlanok megjelenítése"
+"Error when importing: file does not contain valid JSON" => "Hiba az importálás során: az állomány nem tartalmaz érvényes JSON adatokat"
 );

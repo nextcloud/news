@@ -14,6 +14,5 @@
 "Delete folder" => "Eyða möppu",
 "Rename folder" => "Endurskýra möppu",
 "Import" => "Flytja inn",
-"Export" => "Flytja út",
-"Show only unread" => "Sýna aðeins ólesið"
+"Export" => "Flytja út"
 );

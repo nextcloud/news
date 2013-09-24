@@ -37,7 +37,5 @@
 "Export" => "Eksportuoti",
 "Error when importing: file does not contain valid OPML" => "Klaida importuojant: failas neturi tinkamo OPML",
 "Unread/Starred Articles" => "Neskaityti/Paryškinti straipsniai",
-"Error when importing: file does not contain valid JSON" => "Klaida importuojant: failas neturi tinkamo JSON",
-"Show all" => "Rodyti visus",
-"Show only unread" => "Rodyti tik neskaitytus"
+"Error when importing: file does not contain valid JSON" => "Klaida importuojant: failas neturi tinkamo JSON"
 );

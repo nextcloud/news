@@ -8,6 +8,5 @@
 "Keep unread" => "Zadrži nepročitano",
 "Collapse" => "Proširi",
 "Delete folder" => "Izbriši fasciklu",
-"Rename folder" => "Preimenuj fasciklu",
-"Show only unread" => "Prikaži samo nepročitane"
+"Rename folder" => "Preimenuj fasciklu"
 );

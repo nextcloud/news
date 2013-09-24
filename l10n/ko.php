@@ -30,7 +30,5 @@
 "Import" => "가져오기",
 "Export" => "내보내기",
 "Error when importing: file does not contain valid OPML" => "가져오기 오류: 파일이 올바른 OPML을 포함하지 않음",
-"Error when importing: file does not contain valid JSON" => "가져오기 오류: 파일이 올바른 JSON을 포함하지 않음",
-"Show all" => "모두 보기",
-"Show only unread" => "읽지 않은 글만 보기"
+"Error when importing: file does not contain valid JSON" => "가져오기 오류: 파일이 올바른 JSON을 포함하지 않음"
 );

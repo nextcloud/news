@@ -12,6 +12,5 @@
 "Delete folder" => "מחק תיקייה",
 "Rename folder" => "שנה שם תיקייה",
 "Import" => "יבוא",
-"Export" => "ייצוא",
-"Show only unread" => "להציג רק כאלה שלא נקראו"
+"Export" => "ייצוא"
 );

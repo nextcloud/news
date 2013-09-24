@@ -13,6 +13,5 @@
 "Delete folder" => "Șterge director",
 "Rename folder" => "Redenumește director",
 "Import" => "Importă",
-"Export" => "Exportă",
-"Show only unread" => "Arată doar necitite"
+"Export" => "Exportă"
 );

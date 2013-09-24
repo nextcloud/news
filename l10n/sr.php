@@ -12,6 +12,5 @@
 "Delete folder" => "Обриши фасциклу",
 "Rename folder" => "Преименуј фасциклу",
 "Import" => "Увези",
-"Export" => "Извези",
-"Show only unread" => "Прикажи само непрочитане"
+"Export" => "Извези"
 );

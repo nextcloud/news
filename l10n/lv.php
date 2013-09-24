@@ -15,7 +15,5 @@
 "Delete folder" => "Dzēst mapi",
 "Rename folder" => "Pārsaukt mapi",
 "Import" => "Importēt",
-"Export" => "Eksportēt",
-"Show all" => "Rādīt visu",
-"Show only unread" => "Rādīt tikai nelasītos"
+"Export" => "Eksportēt"
 );

@@ -30,7 +30,5 @@
 "Import" => "İçe aktar",
 "Export" => "Dışa aktar",
 "Error when importing: file does not contain valid OPML" => "Hata ithal etmeye. dosya OPML gecirli icere etmiyor. ",
-"Error when importing: file does not contain valid JSON" => "Error, ithal icin, dosya gencerli JSAON icere etmiyor. ",
-"Show all" => "Hepsini göster",
-"Show only unread" => "Sadece okunmamışları göster"
+"Error when importing: file does not contain valid JSON" => "Error, ithal icin, dosya gencerli JSAON icere etmiyor. "
 );

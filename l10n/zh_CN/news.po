@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-09-13 19:48-0400\n"
-"PO-Revision-Date: 2013-09-13 23:48+0000\n"
+"POT-Creation-Date: 2013-09-24 11:51-0400\n"
+"PO-Revision-Date: 2013-09-24 15:51+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/owncloud/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: appinfo/app.php:52
+#: appinfo/app.php:52 templates/main.php:38
 msgid "News"
 msgstr "新闻"
 
@@ -78,31 +78,31 @@ msgstr "错误：目录不存在"
 msgid "Address"
 msgstr "地址"
 
-#: templates/part.addnew.php:35 templates/part.addnew.php:38
+#: templates/part.addnew.php:34 templates/part.addnew.php:37
 msgid "Add"
 msgstr "添加"
 
-#: templates/part.addnew.php:42 templates/part.addnew.php:50
+#: templates/part.addnew.php:41 templates/part.addnew.php:48
 msgid "New folder"
 msgstr "添加文件夹"
 
-#: templates/part.addnew.php:43
+#: templates/part.addnew.php:42
 msgid "Folder"
 msgstr "文件夹"
 
-#: templates/part.addnew.php:48
+#: templates/part.addnew.php:46
 msgid "Choose folder"
 msgstr "选择目录"
 
-#: templates/part.addnew.php:60
+#: templates/part.addnew.php:57
 msgid "Folder name"
 msgstr "目录名称"
 
-#: templates/part.addnew.php:63
+#: templates/part.addnew.php:60
 msgid "Back to folder selection"
 msgstr "返回到目录选择"
 
-#: templates/part.addnew.php:68
+#: templates/part.addnew.php:64
 msgid "Create folder"
 msgstr "创建目录"
 
@@ -127,19 +127,19 @@ msgstr "标记已读"
 msgid "Welcome to the ownCloud News app!"
 msgstr ""
 
-#: templates/part.items.php:32
+#: templates/part.items.php:34
 msgid "from"
 msgstr "来源"
 
-#: templates/part.items.php:37
+#: templates/part.items.php:39
 msgid "by"
 msgstr "被"
 
-#: templates/part.items.php:44
+#: templates/part.items.php:46
 msgid "Download"
 msgstr "下载"
 
-#: templates/part.items.php:57
+#: templates/part.items.php:59
 msgid "Keep unread"
 msgstr "保持未读"
 
@@ -188,9 +188,9 @@ msgid "Error when importing: file does not contain valid JSON"
 msgstr "导入出错：文件包含非法的JSON数据"
 
 #: templates/part.showall.php:5
-msgid "Show all"
-msgstr "显示所有"
+msgid "Show read articles"
+msgstr ""
 
 #: templates/part.showall.php:11
-msgid "Show only unread"
-msgstr "只看未读"
+msgid "Hide read articles"
+msgstr ""

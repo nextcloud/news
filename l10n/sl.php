@@ -30,7 +30,5 @@
 "Import" => "Uvozi",
 "Export" => "Izvozi",
 "Error when importing: file does not contain valid OPML" => "Napaka med uvažanjem: datoteka ne vsebuje veljavnega OPML",
-"Error when importing: file does not contain valid JSON" => "Napaka uvoza: datoteka ne vsebuje veljavnih podatkov JSON.",
-"Show all" => "Pokaži vse",
-"Show only unread" => "Prikaži le neprebrano"
+"Error when importing: file does not contain valid JSON" => "Napaka uvoza: datoteka ne vsebuje veljavnih podatkov JSON."
 );

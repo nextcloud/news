@@ -30,7 +30,5 @@
 "Import" => "Εισαγωγή",
 "Export" => "Εξαγωγή",
 "Error when importing: file does not contain valid OPML" => "Σφαλμα κατα την εισαγωγη: το αρχειο δεν περιεχει ενα εγκυρο OPML",
-"Error when importing: file does not contain valid JSON" => "Σφαλμα κατα την εισαγωγη: το αρχειο δεν περιεχει ενα εγκυρο JSON",
-"Show all" => "Εμφάνιση όλων",
-"Show only unread" => "Εμφάνιση μόνο αδιάβαστων"
+"Error when importing: file does not contain valid JSON" => "Σφαλμα κατα την εισαγωγη: το αρχειο δεν περιεχει ενα εγκυρο JSON"
 );

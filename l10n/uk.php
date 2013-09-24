@@ -27,7 +27,5 @@
 "Rename folder" => "Переіменувати теку",
 "Import" => "Імпорт",
 "Export" => "Експорт",
-"Error when importing: file does not contain valid OPML" => "Помилка при імпорті: файл не містить дійсний OPML",
-"Show all" => "Показати все",
-"Show only unread" => "Показати тільки не прочитане"
+"Error when importing: file does not contain valid OPML" => "Помилка при імпорті: файл не містить дійсний OPML"
 );

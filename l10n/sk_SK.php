@@ -30,7 +30,5 @@
 "Import" => "Import",
 "Export" => "Export",
 "Error when importing: file does not contain valid OPML" => "Chyba pri importe: Súbor neobsahuje platné OPML",
-"Error when importing: file does not contain valid JSON" => "Chyba pri importe: súbor neobsahuje platný JSON",
-"Show all" => "Zobraziť všetko",
-"Show only unread" => "Zobraziť iba neprečítané"
+"Error when importing: file does not contain valid JSON" => "Chyba pri importe: súbor neobsahuje platný JSON"
 );

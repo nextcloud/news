@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-09-13 19:48-0400\n"
-"PO-Revision-Date: 2013-09-13 23:48+0000\n"
+"POT-Creation-Date: 2013-09-24 11:51-0400\n"
+"PO-Revision-Date: 2013-09-24 15:51+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/owncloud/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: appinfo/app.php:52
+#: appinfo/app.php:52 templates/main.php:38
 msgid "News"
 msgstr "Ειδήσεις"
 
@@ -80,31 +80,31 @@ msgstr "Σφάλμα: Ο φάκελος υπάρχει ήδη"
 msgid "Address"
 msgstr "Διεύθυνση"
 
-#: templates/part.addnew.php:35 templates/part.addnew.php:38
+#: templates/part.addnew.php:34 templates/part.addnew.php:37
 msgid "Add"
 msgstr "Προσθήκη"
 
-#: templates/part.addnew.php:42 templates/part.addnew.php:50
+#: templates/part.addnew.php:41 templates/part.addnew.php:48
 msgid "New folder"
 msgstr "Νέος κατάλογος"
 
-#: templates/part.addnew.php:43
+#: templates/part.addnew.php:42
 msgid "Folder"
 msgstr "Φάκελος"
 
-#: templates/part.addnew.php:48
+#: templates/part.addnew.php:46
 msgid "Choose folder"
 msgstr "Επιλογή φακέλου"
 
-#: templates/part.addnew.php:60
+#: templates/part.addnew.php:57
 msgid "Folder name"
 msgstr "Όνομα φακέλου"
 
-#: templates/part.addnew.php:63
+#: templates/part.addnew.php:60
 msgid "Back to folder selection"
 msgstr "Επιστροφή στην επιλογή φακέλου"
 
-#: templates/part.addnew.php:68
+#: templates/part.addnew.php:64
 msgid "Create folder"
 msgstr "Δημιουργια φακελου"
 
@@ -129,19 +129,19 @@ msgstr "Σημείωση ως ανεγνωσμένων"
 msgid "Welcome to the ownCloud News app!"
 msgstr ""
 
-#: templates/part.items.php:32
+#: templates/part.items.php:34
 msgid "from"
 msgstr "από"
 
-#: templates/part.items.php:37
+#: templates/part.items.php:39
 msgid "by"
 msgstr "από"
 
-#: templates/part.items.php:44
+#: templates/part.items.php:46
 msgid "Download"
 msgstr "Λήψη"
 
-#: templates/part.items.php:57
+#: templates/part.items.php:59
 msgid "Keep unread"
 msgstr "Διατήρηση αδιάβαστου"
 
@@ -190,9 +190,9 @@ msgid "Error when importing: file does not contain valid JSON"
 msgstr "Σφαλμα κατα την εισαγωγη: το αρχειο δεν περιεχει ενα εγκυρο JSON"
 
 #: templates/part.showall.php:5
-msgid "Show all"
-msgstr "Εμφάνιση όλων"
+msgid "Show read articles"
+msgstr ""
 
 #: templates/part.showall.php:11
-msgid "Show only unread"
-msgstr "Εμφάνιση μόνο αδιάβαστων"
+msgid "Hide read articles"
+msgstr ""

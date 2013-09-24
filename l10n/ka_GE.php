@@ -29,7 +29,5 @@
 "Import" => "იმპორტი",
 "Export" => "ექსპორტი",
 "Error when importing: file does not contain valid OPML" => "შეცდომა იმპორტირების დროს: ფაილი არ უნდა შეიცავდეს მართებულ OPML–ს",
-"Error when importing: file does not contain valid JSON" => "შეცდომა იმპორტირებისას: ფაილი არ უნდა შეიცავდეს მართებულ  JSON–ს",
-"Show all" => "ყველაფრის გამოჩენა",
-"Show only unread" => "გამოაჩინე მხოლოდ წაუკითხავი"
+"Error when importing: file does not contain valid JSON" => "შეცდომა იმპორტირებისას: ფაილი არ უნდა შეიცავდეს მართებულ  JSON–ს"
 );

@@ -30,7 +30,5 @@
 "Import" => "Inportatu",
 "Export" => "Exportatu",
 "Error when importing: file does not contain valid OPML" => "Errorea inportatzean: fitxategiak ez du OPML baliogarria",
-"Error when importing: file does not contain valid JSON" => "Errorea inportatzean: fitxategiak ez du JSON baliogarria",
-"Show all" => "Bistartu denak",
-"Show only unread" => "Erakutsi bakarrik irakurri gabekoa"
+"Error when importing: file does not contain valid JSON" => "Errorea inportatzean: fitxategiak ez du JSON baliogarria"
 );

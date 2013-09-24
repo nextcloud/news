@@ -37,7 +37,5 @@
 "Export" => "Ekspordi",
 "Error when importing: file does not contain valid OPML" => "Viga importimisel: fail ei sisalda korrektset OPML-i",
 "Unread/Starred Articles" => "Lugemata/Märgitud artiklid",
-"Error when importing: file does not contain valid JSON" => "Viga importimisel: fail ei sisalda korrektset JSON-i",
-"Show all" => "Näita kõiki",
-"Show only unread" => "Näita ainult lugemata"
+"Error when importing: file does not contain valid JSON" => "Viga importimisel: fail ei sisalda korrektset JSON-i"
 );

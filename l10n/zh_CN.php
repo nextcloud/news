@@ -30,7 +30,5 @@
 "Import" => "导入",
 "Export" => "导出",
 "Error when importing: file does not contain valid OPML" => "导入时出错：文件不包含有效的OPML",
-"Error when importing: file does not contain valid JSON" => "导入出错：文件包含非法的JSON数据",
-"Show all" => "显示所有",
-"Show only unread" => "只看未读"
+"Error when importing: file does not contain valid JSON" => "导入出错：文件包含非法的JSON数据"
 );

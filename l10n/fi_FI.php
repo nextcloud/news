@@ -34,7 +34,5 @@
 "Import" => "Tuo",
 "Export" => "Vie",
 "Error when importing: file does not contain valid OPML" => "Virhe tuotaessa: tiedostossa ei ole kelvollista OPML:ää",
-"Error when importing: file does not contain valid JSON" => "Virhe tuotaessa: tiedosto ei sisällä kelvollista JSONia",
-"Show all" => "Näytä kaikki",
-"Show only unread" => "Näytä vain lukemattomat"
+"Error when importing: file does not contain valid JSON" => "Virhe tuotaessa: tiedosto ei sisällä kelvollista JSONia"
 );

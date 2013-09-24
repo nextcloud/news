@@ -34,7 +34,5 @@
 "Import" => "Importar",
 "Export" => "Exportar",
 "Error when importing: file does not contain valid OPML" => "Error al importar: el archivo no contiene OPML válido",
-"Error when importing: file does not contain valid JSON" => "Error al importar: el archivo no contiene JSON válido",
-"Show all" => "Mostrar todo",
-"Show only unread" => "Mostrar únicamente los no leidos"
+"Error when importing: file does not contain valid JSON" => "Error al importar: el archivo no contiene JSON válido"
 );

@@ -31,7 +31,5 @@
 "Import" => "Importera",
 "Export" => "Exportera",
 "Error when importing: file does not contain valid OPML" => "Fel vid import: filen innehåller ej giltig OPML",
-"Error when importing: file does not contain valid JSON" => "Fel vid import: filen innehåller ej giltig JSON",
-"Show all" => "Visa alla",
-"Show only unread" => "Visa endast olästa"
+"Error when importing: file does not contain valid JSON" => "Fel vid import: filen innehåller ej giltig JSON"
 );

@@ -30,7 +30,5 @@
 "Import" => "وارد کردن",
 "Export" => "گرفتن خروجی",
 "Error when importing: file does not contain valid OPML" => "خطا هنگام وارد کردن: فایل حاوی OPML  معتبر نیست.",
-"Error when importing: file does not contain valid JSON" => "خطا هنگام وارد کردن: فایل حاوی JSON معتبر نیست.",
-"Show all" => "نمایش همه موارد",
-"Show only unread" => "نمایش خوانده نشده ها"
+"Error when importing: file does not contain valid JSON" => "خطا هنگام وارد کردن: فایل حاوی JSON معتبر نیست."
 );

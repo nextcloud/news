@@ -30,7 +30,5 @@
 "Import" => "Enporti",
 "Export" => "Elporti",
 "Error when importing: file does not contain valid OPML" => "La enporto eraris: la dosiero ne enhavas validan OPML-on",
-"Error when importing: file does not contain valid JSON" => "La enporto eraris: la dosiero ne enhavas validan JSON-on",
-"Show all" => "Montri ĉion",
-"Show only unread" => "Montri nur legotajn"
+"Error when importing: file does not contain valid JSON" => "La enporto eraris: la dosiero ne enhavas validan JSON-on"
 );
