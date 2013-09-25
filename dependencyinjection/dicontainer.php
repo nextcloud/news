@@ -63,6 +63,7 @@ use \OCA\News\Utility\SimplePieFileFactory;
 use \OCA\News\Utility\ArticleEnhancer\Enhancer;
 use \OCA\News\Utility\ArticleEnhancer\CyanideAndHappinessEnhancer;
 use \OCA\News\Utility\ArticleEnhancer\ThemeRepublicEnhancer;
+use OCA\News\Utility\ArticleEnhancer\CADEnhancer;
 
 use \OCA\News\Middleware\CORSMiddleware;
 
@@ -261,6 +262,7 @@ class DIContainer extends BaseContainer {
 			// the most generic enhancer should be the last one
 			$enhancer->registerEnhancer('explosm.net', $c['CyanideAndHappinessEnhancer']);
 			$enhancer->registerEnhancer('themerepublic.net', $c['ThemeRepublicEnhancer']);
+			$enhancer->registerEnhancer('cad-comic.com', $c['CADEnhancer']);
 
 			return $enhancer;
 		});
@@ -279,6 +281,14 @@ class DIContainer extends BaseContainer {
 
 		$this['ThemeRepublicEnhancer'] = $this->share(function($c){
 			return new ThemeRepublicEnhancer(
+				$c['SimplePieFileFactory'],
+				$c['HTMLPurifier'],
+				$c['feedFetcherTimeout']
+			);
+		});
+
+		$this['CADEnhancer'] = $this->share(function($c){
+			return new CADEnhancer(
 				$c['SimplePieFileFactory'],
 				$c['HTMLPurifier'],
 				$c['feedFetcherTimeout']
