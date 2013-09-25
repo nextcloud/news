@@ -63,6 +63,11 @@ use \OCA\News\Utility\SimplePieFileFactory;
 use \OCA\News\Utility\ArticleEnhancer\Enhancer;
 use \OCA\News\Utility\ArticleEnhancer\CyanideAndHappinessEnhancer;
 use \OCA\News\Utility\ArticleEnhancer\ThemeRepublicEnhancer;
+use OCA\News\Utility\ArticleEnhancer\CADEnhancer;
+use OCA\News\Utility\ArticleEnhancer\PennyArcadeEnhancer;
+use OCA\News\Utility\ArticleEnhancer\TwoGAGEnhancer;
+use OCA\News\Utility\ArticleEnhancer\LeastICouldDoEnhancer;
+use OCA\News\Utility\ArticleEnhancer\EscapistComicEnhancer;
 
 use \OCA\News\Middleware\CORSMiddleware;
 
@@ -261,6 +266,18 @@ class DIContainer extends BaseContainer {
 			// the most generic enhancer should be the last one
 			$enhancer->registerEnhancer('explosm.net', $c['CyanideAndHappinessEnhancer']);
 			$enhancer->registerEnhancer('themerepublic.net', $c['ThemeRepublicEnhancer']);
+			$enhancer->registerEnhancer('cad-comic.com', $c['CADEnhancer']);
+			$enhancer->registerEnhancer('penny-arcade.com', $c['PennyArcadeEnhancer']);
+			$enhancer->registerEnhancer('twogag.com', $c['TwoGAGEnhancer']);
+			$enhancer->registerEnhancer('leasticoulddo.com', $c['LeastICouldDoEnhancer']);
+			$enhancer->registerEnhancer('escapistmagazine.com/articles/view/comics/critical-miss', $c['EscapistComicEnhancer']);
+			$enhancer->registerEnhancer('escapistmagazine.com/articles/view/comics/critical-miss', $c['EscapistComicEnhancer']);
+			$enhancer->registerEnhancer('escapistmagazine.com/articles/view/comics/namegame', $c['EscapistComicEnhancer']);
+			$enhancer->registerEnhancer('escapistmagazine.com/articles/view/comics/stolen-pixels', $c['EscapistComicEnhancer']);
+			$enhancer->registerEnhancer('escapistmagazine.com/articles/view/comics/bumhugparade', $c['EscapistComicEnhancer']);
+			$enhancer->registerEnhancer('escapistmagazine.com/articles/view/comics/escapistradiotheater', $c['EscapistComicEnhancer']);
+			$enhancer->registerEnhancer('escapistmagazine.com/articles/view/comics/paused', $c['EscapistComicEnhancer']);
+			$enhancer->registerEnhancer('escapistmagazine.com/articles/view/comics/fraughtwithperil', $c['EscapistComicEnhancer']);
 
 			return $enhancer;
 		});
@@ -279,6 +296,46 @@ class DIContainer extends BaseContainer {
 
 		$this['ThemeRepublicEnhancer'] = $this->share(function($c){
 			return new ThemeRepublicEnhancer(
+				$c['SimplePieFileFactory'],
+				$c['HTMLPurifier'],
+				$c['feedFetcherTimeout']
+			);
+		});
+
+		$this['CADEnhancer'] = $this->share(function($c){
+			return new CADEnhancer(
+				$c['SimplePieFileFactory'],
+				$c['HTMLPurifier'],
+				$c['feedFetcherTimeout']
+			);
+		});
+
+		$this['PennyArcadeEnhancer'] = $this->share(function($c){
+			return new PennyArcadeEnhancer(
+				$c['SimplePieFileFactory'],
+				$c['HTMLPurifier'],
+				$c['feedFetcherTimeout']
+			);
+		});
+
+		$this['TwoGAGEnhancer'] = $this->share(function($c){
+			return new TwoGAGEnhancer(
+				$c['SimplePieFileFactory'],
+				$c['HTMLPurifier'],
+				$c['feedFetcherTimeout']
+			);
+		});
+
+		$this['LeastICouldDoEnhancer'] = $this->share(function($c){
+			return new LeastICouldDoEnhancer(
+				$c['SimplePieFileFactory'],
+				$c['HTMLPurifier'],
+				$c['feedFetcherTimeout']
+			);
+		});
+
+		$this['EscapistComicEnhancer'] = $this->share(function($c){
+			return new EscapistComicEnhancer(
 				$c['SimplePieFileFactory'],
 				$c['HTMLPurifier'],
 				$c['feedFetcherTimeout']
