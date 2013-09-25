@@ -28,7 +28,7 @@ namespace OCA\News\Utility\ArticleEnhancer;
 use \OCA\News\Utility\SimplePieFileFactory;
 
 
-abstract class ArticleEnhancer {
+class ArticleEnhancer {
 
 
 	private $feedRegex;
