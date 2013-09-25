@@ -67,6 +67,7 @@ use OCA\News\Utility\ArticleEnhancer\CADEnhancer;
 use OCA\News\Utility\ArticleEnhancer\PennyArcadeEnhancer;
 use OCA\News\Utility\ArticleEnhancer\TwoGAGEnhancer;
 use OCA\News\Utility\ArticleEnhancer\LeastICouldDoEnhancer;
+use OCA\News\Utility\ArticleEnhancer\EscapistComicEnhancer;
 
 use \OCA\News\Middleware\CORSMiddleware;
 
@@ -269,6 +270,14 @@ class DIContainer extends BaseContainer {
 			$enhancer->registerEnhancer('penny-arcade.com', $c['PennyArcadeEnhancer']);
 			$enhancer->registerEnhancer('twogag.com', $c['TwoGAGEnhancer']);
 			$enhancer->registerEnhancer('leasticoulddo.com', $c['LeastICouldDoEnhancer']);
+			$enhancer->registerEnhancer('escapistmagazine.com/articles/view/comics/critical-miss', $c['EscapistComicEnhancer']);
+			$enhancer->registerEnhancer('escapistmagazine.com/articles/view/comics/critical-miss', $c['EscapistComicEnhancer']);
+			$enhancer->registerEnhancer('escapistmagazine.com/articles/view/comics/namegame', $c['EscapistComicEnhancer']);
+			$enhancer->registerEnhancer('escapistmagazine.com/articles/view/comics/stolen-pixels', $c['EscapistComicEnhancer']);
+			$enhancer->registerEnhancer('escapistmagazine.com/articles/view/comics/bumhugparade', $c['EscapistComicEnhancer']);
+			$enhancer->registerEnhancer('escapistmagazine.com/articles/view/comics/escapistradiotheater', $c['EscapistComicEnhancer']);
+			$enhancer->registerEnhancer('escapistmagazine.com/articles/view/comics/paused', $c['EscapistComicEnhancer']);
+			$enhancer->registerEnhancer('escapistmagazine.com/articles/view/comics/fraughtwithperil', $c['EscapistComicEnhancer']);
 
 			return $enhancer;
 		});
@@ -319,6 +328,14 @@ class DIContainer extends BaseContainer {
 
 		$this['LeastICouldDoEnhancer'] = $this->share(function($c){
 			return new LeastICouldDoEnhancer(
+				$c['SimplePieFileFactory'],
+				$c['HTMLPurifier'],
+				$c['feedFetcherTimeout']
+			);
+		});
+
+		$this['EscapistComicEnhancer'] = $this->share(function($c){
+			return new EscapistComicEnhancer(
 				$c['SimplePieFileFactory'],
 				$c['HTMLPurifier'],
 				$c['feedFetcherTimeout']
