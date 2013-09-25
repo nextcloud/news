@@ -65,6 +65,7 @@ use \OCA\News\Utility\ArticleEnhancer\CyanideAndHappinessEnhancer;
 use \OCA\News\Utility\ArticleEnhancer\ThemeRepublicEnhancer;
 use OCA\News\Utility\ArticleEnhancer\CADEnhancer;
 use OCA\News\Utility\ArticleEnhancer\PennyArcadeEnhancer;
+use OCA\News\Utility\ArticleEnhancer\TwoGAGEnhancer;
 
 use \OCA\News\Middleware\CORSMiddleware;
 
@@ -265,6 +266,7 @@ class DIContainer extends BaseContainer {
 			$enhancer->registerEnhancer('themerepublic.net', $c['ThemeRepublicEnhancer']);
 			$enhancer->registerEnhancer('cad-comic.com', $c['CADEnhancer']);
 			$enhancer->registerEnhancer('penny-arcade.com', $c['PennyArcadeEnhancer']);
+			$enhancer->registerEnhancer('twogag.com', $c['TwoGAGEnhancer']);
 
 			return $enhancer;
 		});
@@ -299,6 +301,14 @@ class DIContainer extends BaseContainer {
 
 		$this['PennyArcadeEnhancer'] = $this->share(function($c){
 			return new PennyArcadeEnhancer(
+				$c['SimplePieFileFactory'],
+				$c['HTMLPurifier'],
+				$c['feedFetcherTimeout']
+			);
+		});
+
+		$this['TwoGAGEnhancer'] = $this->share(function($c){
+			return new TwoGAGEnhancer(
 				$c['SimplePieFileFactory'],
 				$c['HTMLPurifier'],
 				$c['feedFetcherTimeout']
