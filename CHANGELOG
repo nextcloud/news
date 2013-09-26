@@ -4,6 +4,7 @@ owncloud-news (1.605)
 * Better description for hiding/showing read articles
 * More article enhancers
 * Make it easier to add simple article enhancers by moving the data into a JSON configuration file
+* Add regex based item enhancers
 
 owncloud-news (1.604)
 * Use 64bit integers to prevent running out of ids after a year for large installations
