@@ -119,10 +119,14 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 
 		foreach ($substitution as $attribute) {
 			$xpath = new \DOMXpath($dom);
-			$xpathResult = $xpath->query("//*[@".$attribute." and not(contains(@".$attribute.", '://')) and not(starts-with(@".$attribute.", 'mailto:'))]");
+			$xpathResult = $xpath->query(
+				"//*[@" . $attribute . " " .
+				"and not(contains(@" . $attribute . ", '://')) " . 
+				"and not(starts-with(@" . $attribute . ", 'mailto:'))]");
 			foreach ($xpathResult as $linkNode) {
 				$urlElement = $linkNode->attributes->getNamedItem($attribute);
-				$urlElement->nodeValue = $this->relativeToAbsoluteUrl( $urlElement->nodeValue, $absoluteUrl );
+				$abs = $this->relativeToAbsoluteUrl( $urlElement->nodeValue, $absoluteUrl );
+				$urlElement->nodeValue = htmlspecialchars($abs);
 			}
 		}
 
