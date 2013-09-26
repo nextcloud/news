@@ -246,7 +246,7 @@ class ArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$file->headers = array("content-type"=>"text/html; charset=utf-8");
 		$file->body = '<html>
 			<body>
-				<img src="relative/url.png">
+				<img src="relative/url.png?a=1&b=2">
 			</body>
 		</html>';
 		$item = new Item();
@@ -260,11 +260,11 @@ class ArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->will($this->returnValue($file));
 		$this->purifier->expects($this->once())
 			->method('purify')
-			->with($this->equalTo('<img src="https://username:secret@www.explosm.net/all/relative/url.png">'))
-			->will($this->returnValue('<img src="https://username:secret@www.explosm.net/all/relative/url.png">'));
+			->with($this->equalTo('<img src="https://username:secret@www.explosm.net/all/relative/url.png?a=1&amp;b=2">'))
+			->will($this->returnValue('<img src="https://username:secret@www.explosm.net/all/relative/url.png?a=1&amp;b=2">'));
 
 		$result = $this->testEnhancer->enhance($item);
-		$this->assertEquals('<img src="https://username:secret@www.explosm.net/all/relative/url.png">', $result->getBody());
+		$this->assertEquals('<img src="https://username:secret@www.explosm.net/all/relative/url.png?a=1&amp;b=2">', $result->getBody());
 	}
 
 	public function testDontTransformAbsoluteUrlsAndMails() {
