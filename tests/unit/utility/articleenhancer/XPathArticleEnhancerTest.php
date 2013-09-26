@@ -30,16 +30,7 @@ use \OCA\News\Db\Item;
 require_once(__DIR__ . "/../../../classloader.php");
 
 
-class TestEnhancer extends ArticleEnhancer {
-	public function __construct($purifier, $fileFactory, $regexXPathPair,
-	                            $timeout){
-		parent::__construct($purifier, $fileFactory, $regexXPathPair,
-		                    $timeout);
-	}
-}
-
-
-class ArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
+class XPathArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 	private $purifier;
 	private $testEnhancer;
@@ -53,7 +44,7 @@ class ArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->getMock();
 		$this->purifier = $this->getMock('purifier', array('purify'));
 
-		$this->testEnhancer = new TestEnhancer(
+		$this->testEnhancer = new XPathArticleEnhancer(
 			$this->purifier,
 			$this->fileFactory,
 			array(

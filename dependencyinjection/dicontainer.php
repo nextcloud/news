@@ -61,8 +61,8 @@ use \OCA\News\Utility\Updater;
 use \OCA\News\Utility\SimplePieFileFactory;
 
 use \OCA\News\Utility\ArticleEnhancer\Enhancer;
-use \OCA\News\Utility\ArticleEnhancer\ArticleEnhancer;
-use OCA\News\Utility\ArticleEnhancer\TwoGAGEnhancer;
+use \OCA\News\Utility\ArticleEnhancer\XPathArticleEnhancer;
+use OCA\News\Utility\ArticleEnhancer\RegexArticleEnhancer;
 
 use \OCA\News\Middleware\CORSMiddleware;
 
@@ -257,16 +257,13 @@ class DIContainer extends BaseContainer {
 		$this['Enhancer'] = $this->share(function($c){
 			$enhancer = new Enhancer();
 
-			// register enhancers which need special implementation
-			$enhancer->registerEnhancer('twogag.com', $c['TwoGAGEnhancer']);
-
 			// register simple enhancers from config json file
-			$enhancerConfig = file_get_contents(
-				__DIR__ . '/../utility/articleenhancer/enhancers.json'
+			$xpathEnhancerConfig = file_get_contents(
+				__DIR__ . '/../utility/articleenhancer/xpathenhancers.json'
 			);
-			//print_r( json_decode($enhancerConfig, true) );
-			foreach(json_decode($enhancerConfig, true) as $feed => $config) {
-				$articleEnhancer = new ArticleEnhancer(
+			
+			foreach(json_decode($xpathEnhancerConfig, true) as $feed => $config) {
+				$articleEnhancer = new XPathArticleEnhancer(
 					$c['HTMLPurifier'],
 					$c['SimplePieFileFactory'],
 					$config,
@@ -275,16 +272,17 @@ class DIContainer extends BaseContainer {
 				$enhancer->registerEnhancer($feed, $articleEnhancer);
 			}
 
-			return $enhancer;
-		});
-
-
-		$this['TwoGAGEnhancer'] = $this->share(function($c){
-			return new TwoGAGEnhancer(
-				$c['SimplePieFileFactory'],
-				$c['HTMLPurifier'],
-				$c['feedFetcherTimeout']
+			$regexEnhancerConfig = file_get_contents(
+				__DIR__ . '/../utility/articleenhancer/regexenhancers.json'
 			);
+			foreach(json_decode($regexEnhancerConfig, true) as $feed => $config) {
+				foreach ($config as $matchArticleUrl => $regex) {
+					$articleEnhancer = new RegexArticleEnhancer($matchArticleUrl, $regex);
+					$enhancer->registerEnhancer($feed, $articleEnhancer);
+				}
+			}
+
+			return $enhancer;
 		});
 
 		$this['Fetcher'] = $this->share(function($c){

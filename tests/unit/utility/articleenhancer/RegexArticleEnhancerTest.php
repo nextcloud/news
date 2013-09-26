@@ -27,7 +27,23 @@ namespace OCA\News\Utility\ArticleEnhancer;
 
 use \OCA\News\Db\Item;
 
+require_once(__DIR__ . "/../../../classloader.php");
 
-interface ArticleEnhancer {
-	public function enhance(Item $item);
+
+class RegexArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
+
+
+	public function testRegexEnhancer() {
+		$item = new Item();
+		$item->setBody('atests is a nice thing');
+		$item->setUrl('http://john.com');
+		$regex = array("%tes(ts)%" => "heho$1tests");
+		
+		$regexEnhancer = new RegexArticleEnhancer('%john.com%', $regex);
+		$item = $regexEnhancer->enhance($item);
+
+		$this->assertEquals('ahehotstests is a nice thing', $item->getBody());
+	}
+
+
 }
