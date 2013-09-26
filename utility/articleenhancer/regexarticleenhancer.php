@@ -26,27 +26,30 @@
 namespace OCA\News\Utility\ArticleEnhancer;
 
 use \OCA\News\Utility\SimplePieFileFactory;
+use \OCA\News\Db\Item;
 
 
-class TwoGAGEnhancer extends ArticleEnhancer {
+class RegexArticleEnhancer implements ArticleEnhancer {
 
+	private $matchArticleUrl;
+	private $regexPair;
 
-	public function __construct(SimplePieFileFactory $fileFactory, $purifier,
-								$timeout) {
-		parent::__construct(
-			$purifier,
-			$fileFactory,
-			array(),
-			$timeout
-		);
+	public function __construct($matchArticleUrl, array $regexPair) {
+		$this->matchArticleUrl = $matchArticleUrl;
+		$this->regexPair = $regexPair;
 	}
 
-	public function enhance($item) {
-		if (preg_match('/www.twogag.com\/archives/', $item->getUrl()) || preg_match('/feedproxy.google.com\/\~r\/TwoGuysAndGuy/', $item->getUrl())) {
+
+	public function enhance(Item $item) {
+		if (preg_match($this->matchArticleUrl, $item->getUrl())) {
 			$body = $item->getBody();
-			$body = preg_replace('/http\:\/\/www.twogag.com\/comics-rss\/([^.]+)\.jpg/', 'http://www.twogag.com/comics/$1.jpg', $body);
+			foreach($this->regexPair as $search => $replaceWith) { 
+				$body = preg_replace($search, $replaceWith, $body);
+			}
 			$item->setBody($body);
 		}
 		return $item;
 	}
+
+
 }
