@@ -61,13 +61,8 @@ use \OCA\News\Utility\Updater;
 use \OCA\News\Utility\SimplePieFileFactory;
 
 use \OCA\News\Utility\ArticleEnhancer\Enhancer;
-use \OCA\News\Utility\ArticleEnhancer\CyanideAndHappinessEnhancer;
-use \OCA\News\Utility\ArticleEnhancer\ThemeRepublicEnhancer;
-use OCA\News\Utility\ArticleEnhancer\CADEnhancer;
-use OCA\News\Utility\ArticleEnhancer\PennyArcadeEnhancer;
+use \OCA\News\Utility\ArticleEnhancer\ArticleEnhancer;
 use OCA\News\Utility\ArticleEnhancer\TwoGAGEnhancer;
-use OCA\News\Utility\ArticleEnhancer\LeastICouldDoEnhancer;
-use OCA\News\Utility\ArticleEnhancer\EscapistComicEnhancer;
 
 use \OCA\News\Middleware\CORSMiddleware;
 
@@ -262,61 +257,27 @@ class DIContainer extends BaseContainer {
 		$this['Enhancer'] = $this->share(function($c){
 			$enhancer = new Enhancer();
 
-			// register fetchers in order
-			// the most generic enhancer should be the last one
-			$enhancer->registerEnhancer('explosm.net', $c['CyanideAndHappinessEnhancer']);
-			$enhancer->registerEnhancer('themerepublic.net', $c['ThemeRepublicEnhancer']);
-			$enhancer->registerEnhancer('cad-comic.com', $c['CADEnhancer']);
-			$enhancer->registerEnhancer('penny-arcade.com', $c['PennyArcadeEnhancer']);
+			// register enhancers which need special implementation
 			$enhancer->registerEnhancer('twogag.com', $c['TwoGAGEnhancer']);
-			$enhancer->registerEnhancer('leasticoulddo.com', $c['LeastICouldDoEnhancer']);
-			$enhancer->registerEnhancer('escapistmagazine.com/articles/view/comics/critical-miss', $c['EscapistComicEnhancer']);
-			$enhancer->registerEnhancer('escapistmagazine.com/articles/view/comics/critical-miss', $c['EscapistComicEnhancer']);
-			$enhancer->registerEnhancer('escapistmagazine.com/articles/view/comics/namegame', $c['EscapistComicEnhancer']);
-			$enhancer->registerEnhancer('escapistmagazine.com/articles/view/comics/stolen-pixels', $c['EscapistComicEnhancer']);
-			$enhancer->registerEnhancer('escapistmagazine.com/articles/view/comics/bumhugparade', $c['EscapistComicEnhancer']);
-			$enhancer->registerEnhancer('escapistmagazine.com/articles/view/comics/escapistradiotheater', $c['EscapistComicEnhancer']);
-			$enhancer->registerEnhancer('escapistmagazine.com/articles/view/comics/paused', $c['EscapistComicEnhancer']);
-			$enhancer->registerEnhancer('escapistmagazine.com/articles/view/comics/fraughtwithperil', $c['EscapistComicEnhancer']);
+
+			// register simple enhancers from config json file
+			$enhancerConfig = file_get_contents(
+				__DIR__ . '/../utility/articleenhancer/enhancers.json'
+			);
+			//print_r( json_decode($enhancerConfig, true) );
+			foreach(json_decode($enhancerConfig, true) as $feed => $config) {
+				$articleEnhancer = new ArticleEnhancer(
+					$c['HTMLPurifier'],
+					$c['SimplePieFileFactory'],
+					$config,
+					$c['feedFetcherTimeout']
+				);
+				$enhancer->registerEnhancer($feed, $articleEnhancer);
+			}
 
 			return $enhancer;
 		});
 
-		$this['DefaultEnhancer'] = $this->share(function($c){
-			return new DefaultEnhancer();
-		});
-
-		$this['CyanideAndHappinessEnhancer'] = $this->share(function($c){
-			return new CyanideAndHappinessEnhancer(
-				$c['SimplePieFileFactory'],
-				$c['HTMLPurifier'],
-				$c['feedFetcherTimeout']
-			);
-		});
-
-		$this['ThemeRepublicEnhancer'] = $this->share(function($c){
-			return new ThemeRepublicEnhancer(
-				$c['SimplePieFileFactory'],
-				$c['HTMLPurifier'],
-				$c['feedFetcherTimeout']
-			);
-		});
-
-		$this['CADEnhancer'] = $this->share(function($c){
-			return new CADEnhancer(
-				$c['SimplePieFileFactory'],
-				$c['HTMLPurifier'],
-				$c['feedFetcherTimeout']
-			);
-		});
-
-		$this['PennyArcadeEnhancer'] = $this->share(function($c){
-			return new PennyArcadeEnhancer(
-				$c['SimplePieFileFactory'],
-				$c['HTMLPurifier'],
-				$c['feedFetcherTimeout']
-			);
-		});
 
 		$this['TwoGAGEnhancer'] = $this->share(function($c){
 			return new TwoGAGEnhancer(
@@ -325,23 +286,6 @@ class DIContainer extends BaseContainer {
 				$c['feedFetcherTimeout']
 			);
 		});
-
-		$this['LeastICouldDoEnhancer'] = $this->share(function($c){
-			return new LeastICouldDoEnhancer(
-				$c['SimplePieFileFactory'],
-				$c['HTMLPurifier'],
-				$c['feedFetcherTimeout']
-			);
-		});
-
-		$this['EscapistComicEnhancer'] = $this->share(function($c){
-			return new EscapistComicEnhancer(
-				$c['SimplePieFileFactory'],
-				$c['HTMLPurifier'],
-				$c['feedFetcherTimeout']
-			);
-		});
-
 
 		$this['Fetcher'] = $this->share(function($c){
 			$fetcher = new Fetcher();
