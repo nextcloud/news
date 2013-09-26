@@ -121,7 +121,7 @@ abstract class ArticleEnhancer {
 			$xpathResult = $xpath->query("//*[@".$attribute." and not(contains(@".$attribute.", '://')) and not(starts-with(@".$attribute.", 'mailto:'))]");
 			foreach ($xpathResult as $linkNode) {
 				$urlElement = $linkNode->attributes->getNamedItem($attribute);
-				$urlElement->nodeValue = $this->relativeToAbsoluteUrl( $urlElement->nodeValue, $absoluteUrl );
+				$urlElement->nodeValue = htmlentities( $this->relativeToAbsoluteUrl( $urlElement->nodeValue, $absoluteUrl ) );
 			}
 		}
 
