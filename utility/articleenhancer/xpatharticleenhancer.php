@@ -106,7 +106,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 		$dom->preserveWhiteSpace = false;
 
 		// return, if xml is empty or loading the HTML fails
-		if( trim($xmlString) == "" || !$dom->loadHTML($xmlString) ) {
+		if( trim($xmlString) == "" || !@$dom->loadHTML($xmlString) ) {
 			return $xmlString;
 		}
 
