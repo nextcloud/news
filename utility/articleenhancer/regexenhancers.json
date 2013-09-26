@@ -3,5 +3,10 @@
 		"%(?:www.twogag.com/archives)|(feedproxy.google.com/~r/TwoGuysAndGuy)%": {
 			"%http://www.twogag.com/comics-rss/([^.]+)\\.jpg%": "http://www.twogag.com/comics/$1.jpg"
 		}
+	},
+	"buttersafe.com": {
+		"%(?:buttersafe.com)|(feedproxy.google.com/~r/Buttersafe)%": {
+			"%buttersafe.com/comics/rss/([^.]+)RSS([^.]+)?.jpg%": "buttersafe.com/comics/$1$2.jpg"
+		}
 	}
 }

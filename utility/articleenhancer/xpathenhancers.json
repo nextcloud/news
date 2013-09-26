@@ -35,6 +35,23 @@
 	},
 	"escapistmagazine.com/articles/view/comics/fraughtwithperil": {
 		"%escapistmagazine.com/articles/view/comics/fraughtwithperil%": "//*[@class='body']"
+	},
+	"trenchescomic.com": {
+		"%trenchescomic.com/comic%": "//*[@class=\"top\"]/img",
+		"%trenchescomic.com/tales%": "//*[@class=\"copy\"]"
+	},
+	"lfgcomic.com": {
+		"%(lfgcomic.com/page)|(feedproxy.google.com/~r/LookingForGroup)%": "//*[@id=\"comic\"]/img | //*[@class=\"content\"]"
+	},
+	"sandraandwoo.com": {
+		"%sandraandwoo.com%": "//*[@id=\"comic\"]/img | //*[@class=\"post\"]"
+	},
+	"sandraandwoo.com/gaia": {
+		"%sandraandwoo.com%": "//*[@id=\"comic\"]/img | //*[@class=\"post\"]"
+	},
+	"theoatmeal.com": {
+		"%theoatmeal.com/blog%": "//*[@class=\"post_body\"]",
+		"%theoatmeal.com/comics%": "//*[@id=\"comic\"] | //*[@class=\"super_vacum\"] | //*[@class=\"pad\"]"
 	}
 }
 
