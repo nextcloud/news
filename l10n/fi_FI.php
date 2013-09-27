@@ -2,6 +2,7 @@
 "News" => "Uutiset",
 "Can not add feed: Exists already" => "Syötettä ei voi lisätä: se on jo olemassa",
 "Can not add feed: URL does not exist or has invalid xml" => "Syötettä ei voi lisätä: joko osoitetta ei ole olemassa tai siinä on virheellistä XML:ää",
+"Articles without feed" => "Vailla syötettä olevat artikkelit",
 "Can not add folder: Exists already" => "Kansiota ei voi lisätä: se on jo olemassa",
 " " => " ",
 "_" => "_",
@@ -31,8 +32,11 @@
 "Collapse" => "Kutista näkymää",
 "Delete folder" => "Poista kansio",
 "Rename folder" => "Muuta kansion nimeä",
+"Subscriptions (OPML)" => "Tilaukset (OPML)",
 "Import" => "Tuo",
 "Export" => "Vie",
 "Error when importing: file does not contain valid OPML" => "Virhe tuotaessa: tiedostossa ei ole kelvollista OPML:ää",
-"Error when importing: file does not contain valid JSON" => "Virhe tuotaessa: tiedosto ei sisällä kelvollista JSONia"
+"Error when importing: file does not contain valid JSON" => "Virhe tuotaessa: tiedosto ei sisällä kelvollista JSONia",
+"Show read articles" => "Näytä luetut artikkelit",
+"Hide read articles" => "Piilota luetut artikkelit"
 );

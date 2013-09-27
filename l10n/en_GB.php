@@ -37,5 +37,7 @@
 "Export" => "Export",
 "Error when importing: file does not contain valid OPML" => "Error when importing: file does not contain valid OPML",
 "Unread/Starred Articles" => "Unread/Starred Articles",
-"Error when importing: file does not contain valid JSON" => "Error when importing: file does not contain valid JSON"
+"Error when importing: file does not contain valid JSON" => "Error when importing: file does not contain valid JSON",
+"Show read articles" => "Show read articles",
+"Hide read articles" => "Hide read articles"
 );

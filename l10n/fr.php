@@ -32,9 +32,12 @@
 "Collapse" => "Replier",
 "Delete folder" => "Supprimer le répertoire",
 "Rename folder" => "Renommer le répertoire",
+"Subscriptions (OPML)" => "Abonnements (OPML)",
 "Import" => "Importer",
 "Export" => "Exporter",
 "Error when importing: file does not contain valid OPML" => "Erreur lors de l'import : le fichier spécifié n'est pas un fichier OPML valide",
 "Unread/Starred Articles" => "Articles non lus / Regardés ",
-"Error when importing: file does not contain valid JSON" => "Erreur lors de l'import : le fichier spécifié n'est pas un fichier JSON valide"
+"Error when importing: file does not contain valid JSON" => "Erreur lors de l'import : le fichier spécifié n'est pas un fichier JSON valide",
+"Show read articles" => "Montrer les articles lus",
+"Hide read articles" => "Cacher les articles lus"
 );

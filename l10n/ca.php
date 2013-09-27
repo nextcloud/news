@@ -37,5 +37,7 @@
 "Export" => "Exporta",
 "Error when importing: file does not contain valid OPML" => "Error en importar: el fitxer no conté un OPML vàlid",
 "Unread/Starred Articles" => "Articles no llegits/amb estrelles",
-"Error when importing: file does not contain valid JSON" => "Error en importar: el fitxer no conté un JSON vàlid"
+"Error when importing: file does not contain valid JSON" => "Error en importar: el fitxer no conté un JSON vàlid",
+"Show read articles" => "Mostra els articles llegits",
+"Hide read articles" => "Amaga els articles llegits"
 );

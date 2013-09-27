@@ -2,6 +2,7 @@
 "News" => "Nyheder",
 "Can not add feed: Exists already" => "Kan ikke tilføje feed: Det eksisterer allerede",
 "Can not add feed: URL does not exist or has invalid xml" => "Kan ikke tilføje feed: URL'et eksister ikke, eller indeholder ugyldig xml kode",
+"Articles without feed" => "Artikler uden feed",
 "Can not add folder: Exists already" => "Kan ike tilføje mappe: Den findes allerede",
 " " => " ",
 "_" => "_",
@@ -31,8 +32,12 @@
 "Collapse" => "Sammenfold",
 "Delete folder" => "Slet mappe",
 "Rename folder" => "Omdøb mappe",
+"Subscriptions (OPML)" => "Abonnementer (OPML)",
 "Import" => "Importer",
 "Export" => "Exporter",
 "Error when importing: file does not contain valid OPML" => "Fejl ved import: filen indeholder ingen gyldig OPML kode",
-"Error when importing: file does not contain valid JSON" => "Fejl ved import: filen indeholder ikke gyldig JSON kode"
+"Unread/Starred Articles" => "Ulæste/Markerede Artikler",
+"Error when importing: file does not contain valid JSON" => "Fejl ved import: filen indeholder ikke gyldig JSON kode",
+"Show read articles" => "Vis læste artikler",
+"Hide read articles" => "Skjul læste artikler"
 );

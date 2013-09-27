@@ -31,6 +31,7 @@
 "Collapse" => "Colapsar",
 "Delete folder" => "Eliminar carpeta",
 "Rename folder" => "Renombrar carpeta",
+"Subscriptions (OPML)" => "Subscripciones (OPML)",
 "Import" => "Importar",
 "Export" => "Exportar",
 "Error when importing: file does not contain valid OPML" => "Error al importar: el archivo no contiene OPML válido",
