@@ -229,7 +229,7 @@ class XPathArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->will($this->returnValue('<a href="https://www.explosm.net/a/relative/url.html?a=1#b">link</a><a href="https://www.explosm.net/all/b/relative/url.html">link2</a><img src="https://www.explosm.net/another/relative/link.jpg">'));
 
 		$result = $this->testEnhancer->enhance($item);
-		$this->assertEquals('<a href="https://www.explosm.net/a/relative/url.html?a=1#b">link</a><a href="https://www.explosm.net/all/b/relative/url.html">link2</a><img src="https://www.explosm.net/another/relative/link.jpg">', $result->getBody());
+		$this->assertEquals('<a target="_blank" href="https://www.explosm.net/a/relative/url.html?a=1#b">link</a><a target="_blank" href="https://www.explosm.net/all/b/relative/url.html">link2</a><img src="https://www.explosm.net/another/relative/link.jpg">', $result->getBody());
 	}
 
 	public function testTransformRelativeUrlSpecials() {
@@ -282,7 +282,7 @@ class XPathArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->will($this->returnValue('<img src="http://www.url.com/absolute/url.png"><a href="mailto:test@testsite.com">mail</a>'));
 
 		$result = $this->testEnhancer->enhance($item);
-		$this->assertEquals('<img src="http://www.url.com/absolute/url.png"><a href="mailto:test@testsite.com">mail</a>', $result->getBody());
+		$this->assertEquals('<img src="http://www.url.com/absolute/url.png"><a target="_blank" href="mailto:test@testsite.com">mail</a>', $result->getBody());
 	}
 
 }

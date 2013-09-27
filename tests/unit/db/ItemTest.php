@@ -200,9 +200,17 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testSetGuidUpdatesHash() {
-		$feed = new Item();
-		$feed->setGuid('http://test');
-		$this->assertEquals(md5('http://test'), $feed->getGuidHash());
+		$item = new Item();
+		$item->setGuid('http://test');
+		$this->assertEquals(md5('http://test'), $item->getGuidHash());
+	}
+
+
+	public function testMakeLinksInBodyOpenNewTab() {
+		$item = new Item();
+		$item->setBody("<a href=\"test\">ha</a>");
+		$this->assertEquals("<a target=\"_blank\" href=\"test\">ha</a>", 
+			$item->getBody());
 	}
 
 

@@ -199,7 +199,7 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 		$item->setTitle('my<\' title');
 		$item->setGuid($this->guid);
 		$item->setGuidHash(md5($this->guid));
-		$item->setBody($this->body2);
+		$item->setBody($this->body);
 		$item->setLastModified($this->time);
 		if($author) {
 			$mock = $this->getMock('author', array('get_name'));

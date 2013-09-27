@@ -176,5 +176,9 @@ class Item extends Entity implements IAPI {
 	}
 
 
+	public function setBody($body) {
+		parent::setBody(str_replace('<a', '<a target="_blank"',	$body));
+	}
+
 }
 

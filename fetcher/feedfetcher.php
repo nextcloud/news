@@ -138,10 +138,8 @@ class FeedFetcher implements IFeedFetcher {
 
 		// links should always open in a new window
 		$item->setBody(
-			str_replace(
-				'<a', '<a target="_blank"',	$this->purifier->purify(
-					$simplePieItem->get_content()
-				)
+			$this->purifier->purify(
+				$simplePieItem->get_content()
 			)
 		);
 
