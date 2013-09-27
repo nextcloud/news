@@ -52,6 +52,13 @@
 	"theoatmeal.com": {
 		"%theoatmeal.com/blog%": "//*[@class=\"post_body\"]",
 		"%theoatmeal.com/comics%": "//*[@id=\"comic\"] | //*[@class=\"super_vacum\"] | //*[@class=\"pad\"]"
+	},
+	"loldwell.com": {
+		"%loldwell.com/\\?p=%": "//*[@id=\"comic\"]"
+	},
+	"http://mokepon.smackjeeves.com/": {
+		"%mokepon.smackjeeves.com/comics%": "//*[@id=\"comic_area\"]/img | //*[@id=\"comic_area\"]/a/img"
 	}
 }
+
 
