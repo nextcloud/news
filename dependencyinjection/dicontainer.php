@@ -47,10 +47,10 @@ use \OCA\News\Db\ItemMapper;
 use \OCA\News\Db\StatusFlag;
 use \OCA\News\Db\MapperFactory;
 
-use \OCA\News\External\NewsAPI;
-use \OCA\News\External\FolderAPI;
-use \OCA\News\External\FeedAPI;
-use \OCA\News\External\ItemAPI;
+use \OCA\News\API\NewsAPI;
+use \OCA\News\API\FolderAPI;
+use \OCA\News\API\FeedAPI;
+use \OCA\News\API\ItemAPI;
 
 use \OCA\News\Utility\Config;
 use \OCA\News\Utility\OPMLExporter;

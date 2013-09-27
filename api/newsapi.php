@@ -23,7 +23,7 @@
 *
 */
 
-namespace OCA\News\External;
+namespace OCA\News\API;
 
 use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Controller\Controller;

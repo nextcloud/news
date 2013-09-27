@@ -23,7 +23,7 @@
 *
 */
 
-namespace OCA\News\External;
+namespace OCA\News\API;
 
 use \OCA\AppFramework\Http\Request;
 use \OCA\AppFramework\Http\JSONResponse;
