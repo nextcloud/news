@@ -32,8 +32,8 @@ use \OCA\AppFramework\Db\DoesNotExistException;
 
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\Item;
-use \OCA\News\Utility\Fetcher;
-use \OCA\News\Utility\FetcherException;
+use \OCA\News\Fetcher\Fetcher;
+use \OCA\News\Fetcher\FetcherException;
 
 class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
@@ -63,13 +63,13 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->feedMapper = $this->getMockBuilder('\OCA\News\Db\FeedMapper')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->fetcher = $this->getMockBuilder('\OCA\News\Utility\Fetcher')
+		$this->fetcher = $this->getMockBuilder('\OCA\News\Fetcher\Fetcher')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->itemMapper = $this->getMockBuilder('\OCA\News\Db\ItemMapper')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->enhancer = $this->getMockBuilder('\OCA\News\Utility\ArticleEnhancer\Enhancer')
+		$this->enhancer = $this->getMockBuilder('\OCA\News\ArticleEnhancer\Enhancer')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->feedBusinessLayer = new FeedBusinessLayer($this->feedMapper,

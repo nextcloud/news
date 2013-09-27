@@ -23,7 +23,7 @@
 *
 */
 
-namespace OCA\News\Utility;
+namespace OCA\News\Fetcher;
 
 use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Utility\FaviconFetcher;

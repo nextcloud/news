@@ -23,25 +23,16 @@
 *
 */
 
-namespace OCA\News\Utility;
+namespace OCA\News\Fetcher;
 
-interface IFeedFetcher {
-
-	/**
-	 * @param string url the url that the user entered in the add feed dialog
-	 * box
-	 * @throws FetcherException if the fetcher encounters a problem
-	 * @return array with the first element being the feed and the
-	 * second element being an array of items. Those items will be saved into
-	 * into the database
-	 */
-	function fetch($url, $getFavicon=true);
+class FetcherException extends \Exception {
 
 	/**
-	 * @param string $url the url that should be fetched
-	 * @return boolean if the fetcher can handle the url. This fetcher will be
-	 * used exclusively to fetch the feed and the items of the page
+	 * Constructor
+	 * @param string $msg the error message
 	 */
-	function canHandle($url);
+	public function __construct($msg){
+		parent::__construct($msg);
+	}
 
 }

@@ -53,16 +53,16 @@ use \OCA\News\External\FeedAPI;
 use \OCA\News\External\ItemAPI;
 
 use \OCA\News\Utility\Config;
-use \OCA\News\Utility\Fetcher;
-use \OCA\News\Utility\FeedFetcher;
-use \OCA\News\Utility\TwitterFetcher;
 use \OCA\News\Utility\OPMLExporter;
 use \OCA\News\Utility\Updater;
 use \OCA\News\Utility\SimplePieFileFactory;
 
-use \OCA\News\Utility\ArticleEnhancer\Enhancer;
-use \OCA\News\Utility\ArticleEnhancer\XPathArticleEnhancer;
-use OCA\News\Utility\ArticleEnhancer\RegexArticleEnhancer;
+use \OCA\News\Fetcher\Fetcher;
+use \OCA\News\Fetcher\FeedFetcher;
+
+use \OCA\News\ArticleEnhancer\Enhancer;
+use \OCA\News\ArticleEnhancer\XPathArticleEnhancer;
+use \OCA\News\ArticleEnhancer\RegexArticleEnhancer;
 
 use \OCA\News\Middleware\CORSMiddleware;
 
@@ -259,7 +259,7 @@ class DIContainer extends BaseContainer {
 
 			// register simple enhancers from config json file
 			$xpathEnhancerConfig = file_get_contents(
-				__DIR__ . '/../utility/articleenhancer/xpathenhancers.json'
+				__DIR__ . '/../articleenhancer/xpathenhancers.json'
 			);
 			
 			foreach(json_decode($xpathEnhancerConfig, true) as $feed => $config) {
@@ -273,7 +273,7 @@ class DIContainer extends BaseContainer {
 			}
 
 			$regexEnhancerConfig = file_get_contents(
-				__DIR__ . '/../utility/articleenhancer/regexenhancers.json'
+				__DIR__ . '/../articleenhancer/regexenhancers.json'
 			);
 			foreach(json_decode($regexEnhancerConfig, true) as $feed => $config) {
 				foreach ($config as $matchArticleUrl => $regex) {
@@ -290,7 +290,6 @@ class DIContainer extends BaseContainer {
 
 			// register fetchers in order
 			// the most generic fetcher should be the last one
-			$fetcher->registerFetcher($c['TwitterFetcher']); // twitter timeline
 			$fetcher->registerFetcher($c['FeedFetcher']);
 
 			return $fetcher;
@@ -306,10 +305,6 @@ class DIContainer extends BaseContainer {
 				$c['simplePieCacheDuration'],
 				$c['feedFetcherTimeout'],
 				$c['HTMLPurifier']);
-		});
-
-		$this['TwitterFetcher'] = $this->share(function($c){
-			return new TwitterFetcher($c['FeedFetcher']);
 		});
 
 		$this['StatusFlag'] = $this->share(function($c){

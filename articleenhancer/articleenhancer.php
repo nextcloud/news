@@ -23,30 +23,11 @@
 *
 */
 
-namespace OCA\News\Utility;
+namespace OCA\News\ArticleEnhancer;
+
+use \OCA\News\Db\Item;
 
 
-class Fetcher {
-
-	private $fetchers;
-
-	public function __construct(){
-		$this->fetchers = array();
-	}
-
-
-	public function registerFetcher(IFeedFetcher $fetcher){
-		array_push($this->fetchers, $fetcher);
-	}
-
-
-	public function fetch($url, $getFavicon=true){
-		foreach($this->fetchers as $fetcher){
-			if($fetcher->canHandle($url)){
-				return $fetcher->fetch($url, $getFavicon);
-			}
-		}
-	}
-
-
+interface ArticleEnhancer {
+	public function enhance(Item $item);
 }

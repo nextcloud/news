@@ -23,11 +23,11 @@
 *
 */
 
-namespace OCA\News\Utility\ArticleEnhancer;
+namespace OCA\News\ArticleEnhancer;
 
 use \OCA\News\Db\Item;
 
-require_once(__DIR__ . "/../../../classloader.php");
+require_once(__DIR__ . "/../../classloader.php");
 
 
 class EnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
@@ -39,7 +39,7 @@ class EnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 	protected function setUp(){
 		$this->enhancer = new Enhancer();
 		$this->articleEnhancer = $this->getMockBuilder(
-			'\OCA\News\Utility\ArticleEnhancer\ArticleEnhancer')
+			'\OCA\News\ArticleEnhancer\ArticleEnhancer')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->enhancer->registerEnhancer('test.com', $this->articleEnhancer);

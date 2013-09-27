@@ -23,11 +23,11 @@
 *
 */
 
-namespace OCA\News\Utility\ArticleEnhancer;
+namespace OCA\News\ArticleEnhancer;
 
 use \OCA\News\Db\Item;
 
-require_once(__DIR__ . "/../../../classloader.php");
+require_once(__DIR__ . "/../../classloader.php");
 
 
 class XPathArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {

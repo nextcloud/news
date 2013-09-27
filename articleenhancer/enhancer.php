@@ -23,7 +23,7 @@
 *
 */
 
-namespace OCA\News\Utility\ArticleEnhancer;
+namespace OCA\News\ArticleEnhancer;
 
 
 class Enhancer {

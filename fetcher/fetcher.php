@@ -23,26 +23,29 @@
 *
 */
 
-namespace OCA\News\Utility\ArticleEnhancer;
-
-use \OCA\News\Db\Item;
-
-require_once(__DIR__ . "/../../../classloader.php");
+namespace OCA\News\Fetcher;
 
 
-class RegexArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
+class Fetcher {
+
+	private $fetchers;
+
+	public function __construct(){
+		$this->fetchers = array();
+	}
 
 
-	public function testRegexEnhancer() {
-		$item = new Item();
-		$item->setBody('atests is a nice thing');
-		$item->setUrl('http://john.com');
-		$regex = array("%tes(ts)%" => "heho$1tests");
-		
-		$regexEnhancer = new RegexArticleEnhancer('%john.com%', $regex);
-		$item = $regexEnhancer->enhance($item);
+	public function registerFetcher(IFeedFetcher $fetcher){
+		array_push($this->fetchers, $fetcher);
+	}
 
-		$this->assertEquals('ahehotstests is a nice thing', $item->getBody());
+
+	public function fetch($url, $getFavicon=true){
+		foreach($this->fetchers as $fetcher){
+			if($fetcher->canHandle($url)){
+				return $fetcher->fetch($url, $getFavicon);
+			}
+		}
 	}
 
 

@@ -33,10 +33,9 @@ use \OCA\News\Db\Feed;
 use \OCA\News\Db\Item;
 use \OCA\News\Db\FeedMapper;
 use \OCA\News\Db\ItemMapper;
-use \OCA\News\Utility\Fetcher;
-use \OCA\News\Utility\FetcherException;
-
-use \OCA\News\Utility\ArticleEnhancer\Enhancer;
+use \OCA\News\Fetcher\Fetcher;
+use \OCA\News\Fetcher\FetcherException;
+use \OCA\News\ArticleEnhancer\Enhancer;
 
 class FeedBusinessLayer extends BusinessLayer {
 

@@ -23,7 +23,7 @@
 *
 */
 
-namespace OCA\News\Utility;
+namespace OCA\News\Fetcher;
 
 use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
@@ -143,7 +143,7 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->core->expects($this->once())
 			->method('set_cache_duration')
 			->with($this->equalTo($this->cacheDuration));
-		$this->setExpectedException('\OCA\News\Utility\FetcherException');
+		$this->setExpectedException('\OCA\News\Fetcher\FetcherException');
 		$this->fetcher->fetch($this->url);
 	}
 
@@ -155,7 +155,7 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->core->expects($this->once())
 			->method('get_items')
 			->will($this->throwException(new \Exception('oh noes!')));
-		$this->setExpectedException('\OCA\News\Utility\FetcherException');
+		$this->setExpectedException('\OCA\News\Fetcher\FetcherException');
 		$this->fetcher->fetch($this->url);
 	}
 
