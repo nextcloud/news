@@ -56,7 +56,7 @@
 	"loldwell.com": {
 		"%loldwell.com/\\?p=%": "//*[@id=\"comic\"]"
 	},
-	"http://mokepon.smackjeeves.com/": {
+	"mokepon.smackjeeves.com": {
 		"%mokepon.smackjeeves.com/comics%": "//*[@id=\"comic_area\"]/img | //*[@id=\"comic_area\"]/a/img"
 	}
 }

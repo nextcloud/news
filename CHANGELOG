@@ -2,9 +2,21 @@ owncloud-news (1.605)
 * Adding feeds does not block the input box any more
 * Always display empty folders
 * Better description for hiding/showing read articles
-* More article enhancers
 * Make it easier to add simple article enhancers by moving the data into a JSON configuration file
 * Add regex based item enhancers
+* Article enhancers for
+  - buttersafe.com
+  - twogag.com
+  - cad-comic.com
+  - penny-arcade.com
+  - leasticoulddo.com
+  - escapistmagazine.com
+  - trenchescomic.com
+  - lfgcomic.com
+  - sandraandwoo.com
+  - theoatmeal.com
+  - loldwell.com
+  - mokepon.smackjeeves.com
 
 owncloud-news (1.604)
 * Use 64bit integers to prevent running out of ids after a year for large installations
