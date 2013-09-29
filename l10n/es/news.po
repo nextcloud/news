@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-09-26 22:57-0400\n"
-"PO-Revision-Date: 2013-09-26 03:30+0000\n"
+"POT-Creation-Date: 2013-09-28 22:03-0400\n"
+"PO-Revision-Date: 2013-09-28 23:22+0000\n"
 "Last-Translator: Art O. Pal <artopal@fastmail.fm>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/owncloud/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -36,17 +36,17 @@ msgstr ""
 msgid "News"
 msgstr "Noticias"
 
-#: businesslayer/feedbusinesslayer.php:101
+#: businesslayer/feedbusinesslayer.php:100
 msgid "Can not add feed: Exists already"
 msgstr "No se puede agregar fuente: ya existe"
 
-#: businesslayer/feedbusinesslayer.php:138
+#: businesslayer/feedbusinesslayer.php:137
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "No se puede agregar fuente: el URL no existe o contiene XML inválido"
 
-#: businesslayer/feedbusinesslayer.php:267
+#: businesslayer/feedbusinesslayer.php:266
 msgid "Articles without feed"
-msgstr ""
+msgstr "Artículos sin fuente"
 
 #: businesslayer/folderbusinesslayer.php:66
 msgid "Can not add folder: Exists already"
@@ -189,7 +189,7 @@ msgstr "Error al importar: el archivo no contiene OPML válido"
 
 #: templates/part.settings.php:44
 msgid "Unread/Starred Articles"
-msgstr ""
+msgstr "Artículos no leídos y favoritos"
 
 #: templates/part.settings.php:70
 msgid "Error when importing: file does not contain valid JSON"
@@ -197,8 +197,8 @@ msgstr "Error al importar: el archivo no contiene JSON válido"
 
 #: templates/part.showall.php:5
 msgid "Show read articles"
-msgstr ""
+msgstr "Mostrar artículos leídos"
 
 #: templates/part.showall.php:11
 msgid "Hide read articles"
-msgstr ""
+msgstr "Ocultar artículos leídos"
