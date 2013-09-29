@@ -61,6 +61,9 @@
 	},
 	"twokinds.keenspot.com": {
 		"%twokinds.keenspot.com/(archive.php/)?\\?%": "//*[@class=\"comic\"]/div/a/img | //*[@id=\"cg_img\"]/img | //*[@id=\"cg_img\"]/a/img"
+	},
+	"niceteethcomic.com": {
+		"%niceteethcomic.com/archives%": "//*[@class=\"comicpane\"]/a/img"
 	}
 }
 
