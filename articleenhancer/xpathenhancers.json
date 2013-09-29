@@ -58,6 +58,9 @@
 	},
 	"mokepon.smackjeeves.com": {
 		"%mokepon.smackjeeves.com/comics%": "//*[@id=\"comic_area\"]/img | //*[@id=\"comic_area\"]/a/img"
+	},
+	"twokinds.keenspot.com": {
+		"%twokinds.keenspot.com/(archive.php/)?\\?%": "//*[@class=\"comic\"]/div/a/img | //*[@id=\"cg_img\"]/img | //*[@id=\"cg_img\"]/a/img"
 	}
 }
 
