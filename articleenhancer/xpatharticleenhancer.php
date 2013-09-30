@@ -61,7 +61,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 		foreach($this->regexXPathPair as $regex => $search) {
 
 			if(preg_match($regex, $item->getUrl())) {
-				$file = $this->fileFactory->getFile($item->getUrl(), $this->maximumTimeout);
+				$file = $this->fileFactory->getFile($item->getUrl(), $this->maximumTimeout, "Mozilla/5.0 AppleWebKit");
 				
 				// convert encoding by detecting charset from header
 				$contentType = $file->headers['content-type'];
