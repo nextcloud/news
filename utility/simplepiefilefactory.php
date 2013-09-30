@@ -28,8 +28,8 @@ namespace OCA\News\Utility;
 
 class SimplePieFileFactory {
 
-	public function getFile($url, $timeout) {
-		return new \SimplePie_File($url, $timeout);
+	public function getFile($url, $timeout, $userAgent = null) {
+		return new \SimplePie_File($url, $timeout, null, null, $userAgent);
 	}
 
 }
