@@ -3,6 +3,9 @@
 "Can not add feed: Exists already" => "Nie można dodać kanału: istnieje już",
 "Can not add feed: URL does not exist or has invalid xml" => "Nie można dodać kanału: adres URL nie istnieje lub ma nieprawidłowy kod xml",
 "Can not add folder: Exists already" => "Nie można dodać folderu: istnieje już",
+" " => " ",
+"_" => "_",
+"status" => "status",
 "Undo deletion of %s" => "Cofnij usunięcie %s",
 "Add Website" => "Dodaj stronę www",
 "Error: address exists already!" => "Błąd: adres już istnieje!",
@@ -28,8 +31,12 @@
 "Collapse" => "Zwiń",
 "Delete folder" => "Usuń folder",
 "Rename folder" => "Zmień nazwę folderu",
+"Subscriptions (OPML)" => "Subskrypcje (OPML)",
 "Import" => "Importuj",
 "Export" => "Eksportuj",
 "Error when importing: file does not contain valid OPML" => "Błąd podczas importowania: plik nie zawiera prawidłowego OPML",
-"Error when importing: file does not contain valid JSON" => "Błąd podczas importowania: plik nie zawiera prawidłowego JSON"
+"Unread/Starred Articles" => "Nieprzeczytane/Oznaczone Artykuły",
+"Error when importing: file does not contain valid JSON" => "Błąd podczas importowania: plik nie zawiera prawidłowego JSON",
+"Show read articles" => "Pokaż przeczytane artykuły",
+"Hide read articles" => "Ukryj przeczytane artykuły"
 );

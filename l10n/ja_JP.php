@@ -37,5 +37,7 @@
 "Export" => "エクスポート",
 "Error when importing: file does not contain valid OPML" => "インポート中のエラー: ファイルは有効なOPMLを含んでいません",
 "Unread/Starred Articles" => "未読/注目記事",
-"Error when importing: file does not contain valid JSON" => "インポート中のエラー: ファイルは有効なJSONを含んでいません"
+"Error when importing: file does not contain valid JSON" => "インポート中のエラー: ファイルは有効なJSONを含んでいません",
+"Show read articles" => "既読記事を表示",
+"Hide read articles" => "既読記事を非表示"
 );

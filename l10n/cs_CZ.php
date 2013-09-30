@@ -37,5 +37,7 @@
 "Export" => "Exportovat",
 "Error when importing: file does not contain valid OPML" => "Chyba při importu: soubor neobsahuje platná OPML data",
 "Unread/Starred Articles" => "Články nepřečtené a s hvězdičkou",
-"Error when importing: file does not contain valid JSON" => "Chyba při importování: soubor neobsahuje platná data JSON"
+"Error when importing: file does not contain valid JSON" => "Chyba při importování: soubor neobsahuje platná data JSON",
+"Show read articles" => "Zobrazit přečtené články",
+"Hide read articles" => "Skrýt přečtené články"
 );

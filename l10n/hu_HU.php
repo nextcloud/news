@@ -2,7 +2,11 @@
 "News" => "Hírek",
 "Can not add feed: Exists already" => "Nem sikerült hozzáadni a hírcsatornát: már létezik",
 "Can not add feed: URL does not exist or has invalid xml" => "Nem sikerült hozzáadni a hírcsatornát: hibás az URL vagy érvénytelen xml-t ad",
+"Articles without feed" => "Cikkek folyam(feed) nélkül",
 "Can not add folder: Exists already" => "A mappa nem hozható létre: már létezik",
+" " => " ",
+"_" => "-",
+"status" => "állapot",
 "Undo deletion of %s" => "%s törlésének visszavonása",
 "Add Website" => "Weboldal hozzáadása",
 "Error: address exists already!" => "Hiba: már létező cím!",
@@ -19,6 +23,7 @@
 "Unread articles" => "Olvasatlan cikkek",
 "All articles" => "Az összes cikk",
 "Mark read" => "Jelöljük meg olvasottként",
+"Welcome to the ownCloud News app!" => "Üdvözöljük az ownCloud Hírek alkalmazásban!",
 "from" => "innen:",
 "by" => "általa:",
 "Download" => "Letöltés",
@@ -27,8 +32,12 @@
 "Collapse" => "Összecsukás",
 "Delete folder" => "Mappa törlése",
 "Rename folder" => "Mappa átnevezése",
+"Subscriptions (OPML)" => "Feliratkozások (OPML)",
 "Import" => "Importálás",
 "Export" => "Exportálás",
 "Error when importing: file does not contain valid OPML" => "Hiba az importálás során: az állomány nem tartalmaz érvényes OPML adatot",
-"Error when importing: file does not contain valid JSON" => "Hiba az importálás során: az állomány nem tartalmaz érvényes JSON adatokat"
+"Unread/Starred Articles" => "Olvastlan/Csillagozott cikkek",
+"Error when importing: file does not contain valid JSON" => "Hiba az importálás során: az állomány nem tartalmaz érvényes JSON adatokat",
+"Show read articles" => "Megjeleníti olvasásra a cikkeket",
+"Hide read articles" => "Elrejteni a cikk olvasót"
 );

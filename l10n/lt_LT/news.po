@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-09-24 11:51-0400\n"
-"PO-Revision-Date: 2013-09-24 15:51+0000\n"
-"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"POT-Creation-Date: 2013-09-30 08:07-0400\n"
+"PO-Revision-Date: 2013-09-29 08:44+0000\n"
+"Last-Translator: Liudas Ališauskas <liudas.alisauskas@gmail.com>\n"
 "Language-Team: Lithuanian (Lithuania) (http://www.transifex.com/projects/p/owncloud/language/lt_LT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,15 +24,15 @@ msgstr ""
 msgid "News"
 msgstr "Naujienos"
 
-#: businesslayer/feedbusinesslayer.php:101
+#: businesslayer/feedbusinesslayer.php:100
 msgid "Can not add feed: Exists already"
 msgstr "Nepavyko pridėti srauto: Jau yra"
 
-#: businesslayer/feedbusinesslayer.php:138
+#: businesslayer/feedbusinesslayer.php:137
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "Nepavyko pridėti srauto: Nėra URL arba netinkamas xml"
 
-#: businesslayer/feedbusinesslayer.php:267
+#: businesslayer/feedbusinesslayer.php:266
 msgid "Articles without feed"
 msgstr "Straipsniai be sklaidos kanalų"
 
@@ -185,8 +185,8 @@ msgstr "Klaida importuojant: failas neturi tinkamo JSON"
 
 #: templates/part.showall.php:5
 msgid "Show read articles"
-msgstr ""
+msgstr "Rodyti skaitytus straipsnius"
 
 #: templates/part.showall.php:11
 msgid "Hide read articles"
-msgstr ""
+msgstr "Slėpti skaitytus straipsnius"
