@@ -64,7 +64,14 @@
 	},
 	"niceteethcomic.com": {
 		"%niceteethcomic.com/archives%": "//*[@class=\"comicpane\"]/a/img"
+	},
+	"awkwardzombie.com" :{
+		"%awkwardzombie.com/index.php\\?comic=%": "//*[@id=\"comic\"]/img"
+	},
+	"vgcats.com": {
+		"%vgcats.com/comics%": "//*[@align=\"center\"]/img"
+	},
+	"vgcats.com/super": {
+		"%vgcats.com/super%": "//div[@align=\"center\"]/p/img"
 	}
 }
-
-
