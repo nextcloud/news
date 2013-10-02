@@ -2,6 +2,7 @@
 "News" => "Aktualności",
 "Can not add feed: Exists already" => "Nie można dodać kanału: istnieje już",
 "Can not add feed: URL does not exist or has invalid xml" => "Nie można dodać kanału: adres URL nie istnieje lub ma nieprawidłowy kod xml",
+"Articles without feed" => "Artykuły nie z kanałów",
 "Can not add folder: Exists already" => "Nie można dodać folderu: istnieje już",
 " " => " ",
 "_" => "_",
