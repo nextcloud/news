@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-09-24 11:51-0400\n"
-"PO-Revision-Date: 2013-09-24 15:51+0000\n"
-"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"POT-Creation-Date: 2013-10-03 07:15-0400\n"
+"PO-Revision-Date: 2013-10-02 14:30+0000\n"
+"Last-Translator: Rivo Zängov <eraser@eraser.ee>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/projects/p/owncloud/language/et_EE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,15 +23,15 @@ msgstr ""
 msgid "News"
 msgstr "Uudised"
 
-#: businesslayer/feedbusinesslayer.php:101
+#: businesslayer/feedbusinesslayer.php:100
 msgid "Can not add feed: Exists already"
 msgstr "Voogu ei saa lisada:  on juba olemas"
 
-#: businesslayer/feedbusinesslayer.php:138
+#: businesslayer/feedbusinesslayer.php:137
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "Voogu ei saa lisada: URL-i pole olemas või sisaldab vigast XML-i"
 
-#: businesslayer/feedbusinesslayer.php:267
+#: businesslayer/feedbusinesslayer.php:266
 msgid "Articles without feed"
 msgstr "Artiklid ilma voota"
 
@@ -120,7 +120,7 @@ msgstr "Märgi loetuks"
 
 #: templates/part.firstrun.php:2
 msgid "Welcome to the ownCloud News app!"
-msgstr "Tere tulemast ownCloud News rakendisse!"
+msgstr "Tere tulemast ownCloud News rakendusse!"
 
 #: templates/part.items.php:34
 msgid "from"
@@ -184,8 +184,8 @@ msgstr "Viga importimisel: fail ei sisalda korrektset JSON-i"
 
 #: templates/part.showall.php:5
 msgid "Show read articles"
-msgstr ""
+msgstr "Näita loetud artikleid"
 
 #: templates/part.showall.php:11
 msgid "Hide read articles"
-msgstr ""
+msgstr "Peida loetud artiklid"

@@ -23,7 +23,7 @@
 "Unread articles" => "Lugemata artiklid",
 "All articles" => "Kõik artiklid",
 "Mark read" => "Märgi loetuks",
-"Welcome to the ownCloud News app!" => "Tere tulemast ownCloud News rakendisse!",
+"Welcome to the ownCloud News app!" => "Tere tulemast ownCloud News rakendusse!",
 "from" => "kohast",
 "by" => "lisas",
 "Download" => "Lae alla",
@@ -37,5 +37,7 @@
 "Export" => "Ekspordi",
 "Error when importing: file does not contain valid OPML" => "Viga importimisel: fail ei sisalda korrektset OPML-i",
 "Unread/Starred Articles" => "Lugemata/Märgitud artiklid",
-"Error when importing: file does not contain valid JSON" => "Viga importimisel: fail ei sisalda korrektset JSON-i"
+"Error when importing: file does not contain valid JSON" => "Viga importimisel: fail ei sisalda korrektset JSON-i",
+"Show read articles" => "Näita loetud artikleid",
+"Hide read articles" => "Peida loetud artiklid"
 );
