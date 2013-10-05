@@ -73,5 +73,11 @@
 	},
 	"vgcats.com/super": {
 		"%vgcats.com/super%": "//div[@align=\"center\"]/p/img"
+	},
+	"chaoslife.findchaos.com": {
+		"%chaoslife.findchaos.com%": "//div[@id=\"comic\"]"
+	},
+	"forlackofabettercomic.com/archive.php": {
+		"%forlackofabettercomic.com/\\?id=%": "//div[@id=\"comicset\"]/a/img"
 	}
 }
