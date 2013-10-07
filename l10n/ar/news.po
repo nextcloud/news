@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-09-24 11:51-0400\n"
-"PO-Revision-Date: 2013-09-24 15:51+0000\n"
+"POT-Creation-Date: 2013-10-07 10:31-0400\n"
+"PO-Revision-Date: 2013-10-05 22:00+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Arabic (http://www.transifex.com/projects/p/owncloud/language/ar/)\n"
 "MIME-Version: 1.0\n"
@@ -21,15 +21,15 @@ msgstr ""
 msgid "News"
 msgstr ""
 
-#: businesslayer/feedbusinesslayer.php:101
+#: businesslayer/feedbusinesslayer.php:100
 msgid "Can not add feed: Exists already"
 msgstr ""
 
-#: businesslayer/feedbusinesslayer.php:138
+#: businesslayer/feedbusinesslayer.php:137
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr ""
 
-#: businesslayer/feedbusinesslayer.php:267
+#: businesslayer/feedbusinesslayer.php:266
 msgid "Articles without feed"
 msgstr ""
 
@@ -101,7 +101,7 @@ msgstr ""
 
 #: templates/part.feed.starred.php:11
 msgid "Starred"
-msgstr ""
+msgstr "معلّم بنجمة."
 
 #: templates/part.feed.unread.php:10
 msgid "Unread articles"
