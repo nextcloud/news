@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-09-24 11:51-0400\n"
-"PO-Revision-Date: 2013-09-24 15:51+0000\n"
-"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"POT-Creation-Date: 2013-10-10 21:18-0400\n"
+"PO-Revision-Date: 2013-10-08 17:40+0000\n"
+"Last-Translator: Helder Meneses <helder.meneses@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/owncloud/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,15 +29,15 @@ msgstr ""
 msgid "News"
 msgstr "Noticias"
 
-#: businesslayer/feedbusinesslayer.php:101
+#: businesslayer/feedbusinesslayer.php:100
 msgid "Can not add feed: Exists already"
 msgstr "Não é possível adicionar o feed: Já existe"
 
-#: businesslayer/feedbusinesslayer.php:138
+#: businesslayer/feedbusinesslayer.php:137
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "Não é possível adicionar o feed: o endereço não existe ou contem um xml inválido"
 
-#: businesslayer/feedbusinesslayer.php:267
+#: businesslayer/feedbusinesslayer.php:266
 msgid "Articles without feed"
 msgstr "Artigos sem feed"
 
@@ -190,8 +190,8 @@ msgstr "Erro ao importar: ficheiro não contém JSON válido"
 
 #: templates/part.showall.php:5
 msgid "Show read articles"
-msgstr ""
+msgstr "Mostrar artigos lidos"
 
 #: templates/part.showall.php:11
 msgid "Hide read articles"
-msgstr ""
+msgstr "Esconder artigos lidos"
