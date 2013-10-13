@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-09-26 22:57-0400\n"
-"PO-Revision-Date: 2013-09-24 16:20+0000\n"
+"POT-Creation-Date: 2013-10-13 19:23-0400\n"
+"PO-Revision-Date: 2013-10-11 02:31+0000\n"
 "Last-Translator: Flávio Veras <flaviove@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/owncloud/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -28,15 +28,15 @@ msgstr ""
 msgid "News"
 msgstr "Notícias"
 
-#: businesslayer/feedbusinesslayer.php:101
+#: businesslayer/feedbusinesslayer.php:100
 msgid "Can not add feed: Exists already"
 msgstr "Não é possível adicionar alimentação: já existe"
 
-#: businesslayer/feedbusinesslayer.php:138
+#: businesslayer/feedbusinesslayer.php:137
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "Não é possível adicionar alimentação: URL não existe ou tem ml inválido"
 
-#: businesslayer/feedbusinesslayer.php:267
+#: businesslayer/feedbusinesslayer.php:266
 msgid "Articles without feed"
 msgstr "Artigos sem alimentação"
 

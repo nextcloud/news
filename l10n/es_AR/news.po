@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-09-24 11:51-0400\n"
-"PO-Revision-Date: 2013-09-24 15:51+0000\n"
+"POT-Creation-Date: 2013-10-13 19:23-0400\n"
+"PO-Revision-Date: 2013-10-11 02:31+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Spanish (Argentina) (http://www.transifex.com/projects/p/owncloud/language/es_AR/)\n"
 "MIME-Version: 1.0\n"
@@ -26,15 +26,15 @@ msgstr ""
 msgid "News"
 msgstr "Noticias"
 
-#: businesslayer/feedbusinesslayer.php:101
+#: businesslayer/feedbusinesslayer.php:100
 msgid "Can not add feed: Exists already"
 msgstr "No es posible agregar fuente: Ya existe"
 
-#: businesslayer/feedbusinesslayer.php:138
+#: businesslayer/feedbusinesslayer.php:137
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "No es posible agregar fuente: No existe o tiene un xml inválido"
 
-#: businesslayer/feedbusinesslayer.php:267
+#: businesslayer/feedbusinesslayer.php:266
 msgid "Articles without feed"
 msgstr ""
 
