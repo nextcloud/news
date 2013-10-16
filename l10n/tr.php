@@ -2,7 +2,11 @@
 "News" => "Haberler",
 "Can not add feed: Exists already" => "Daha mesaj goendermecek. Zaten varmi",
 "Can not add feed: URL does not exist or has invalid xml" => "Daha beslemek edeme.URL yok varmi veya xml gecerli. ",
+"Articles without feed" => "Beslemesiz makaleler",
 "Can not add folder: Exists already" => "Arkibv birlemedis.Zaten varmi. ",
+" " => " ",
+"_" => "_",
+"status" => "durum",
 "Undo deletion of %s" => "%s silmesini geri al",
 "Add Website" => "Website ekle",
 "Error: address exists already!" => "Hata. Adres zaten varmi",
@@ -19,6 +23,7 @@
 "Unread articles" => "Okunmamış makaleler",
 "All articles" => "Bütün makaleler",
 "Mark read" => "Okumus noktamak ",
+"Welcome to the ownCloud News app!" => "ownCloud Haber uygulamasına hoş geldiniz!",
 "from" => "dan ",
 "by" => "tarafından",
 "Download" => "İndir",
@@ -27,8 +32,12 @@
 "Collapse" => "çökme",
 "Delete folder" => "Dizini sil",
 "Rename folder" => "Dizini yeniden adlandır",
+"Subscriptions (OPML)" => "Abonelikler (OPML)",
 "Import" => "İçe aktar",
 "Export" => "Dışa aktar",
 "Error when importing: file does not contain valid OPML" => "Hata ithal etmeye. dosya OPML gecirli icere etmiyor. ",
-"Error when importing: file does not contain valid JSON" => "Error, ithal icin, dosya gencerli JSAON icere etmiyor. "
+"Unread/Starred Articles" => "Okunmamış/Yıldızlı Makaleler",
+"Error when importing: file does not contain valid JSON" => "Error, ithal icin, dosya gencerli JSAON icere etmiyor. ",
+"Show read articles" => "Okunmuş makaleleri göster",
+"Hide read articles" => "Okunmuş makaleleri gizle"
 );
