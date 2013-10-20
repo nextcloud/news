@@ -13,7 +13,7 @@
 		"%feeds.penny-arcade.com/~r/pa-mainsite%": "//*[starts-with(@class, \"post\")]"
 	},
 	"leasticoulddo.com": {
-		"%feedproxy.google.com/~r/LICD%": "//*[@id='comic-img']/a/img | //*[@id='comic-img']/img"
+		"%feedproxy.google.com/~r/LICD%": "//*[@id='comic-img']/a/img | //*[@id='comic-img']/img | //*[@id='post']"
 	},
 	"escapistmagazine.com/articles/view/comics/critical-miss": {
 		"%escapistmagazine.com/articles/view/comics/critical-miss%": "//*[@class='body']/span/img"
