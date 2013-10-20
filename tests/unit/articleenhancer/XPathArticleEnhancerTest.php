@@ -149,7 +149,7 @@ class XPathArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->will($this->returnValue(null));
 
 		$result = $this->testEnhancer->enhance($item);
-		$this->assertEquals(null, $result->getBody());
+		$this->assertEquals('Hello thar', $result->getBody());
 	}
 
 
@@ -172,7 +172,7 @@ class XPathArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->will($this->returnValue(null));
 
 		$result = $this->testEnhancer->enhance($item);
-		$this->assertEquals(null, $result->getBody());
+		$this->assertEquals('Hello thar', $result->getBody());
 	}
 
 
@@ -200,7 +200,7 @@ class XPathArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->will($this->returnValue(null));
 
 		$result = $this->testEnhancer->enhance($item);
-		$this->assertEquals(null, $result->getBody());
+		$this->assertEquals('Hello thar', $result->getBody());
 	}
 
 
