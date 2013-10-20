@@ -86,7 +86,9 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 				$xpathResult = $this->substituteRelativeLinks($xpathResult, $item->getUrl());
 
 				$sanitizedResult = $this->purifier->purify($xpathResult);
-				$item->setBody($sanitizedResult);
+				if( $sanitizedResult ) {
+					$item->setBody($sanitizedResult);
+				}
 			}
 		}
 
