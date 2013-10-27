@@ -36,6 +36,7 @@
 "Import" => "Tuo",
 "Export" => "Vie",
 "Error when importing: file does not contain valid OPML" => "Virhe tuotaessa: tiedostossa ei ole kelvollista OPML:ää",
+"Unread/Starred Articles" => "Lukemattomat/tähdellä varustetut artikkelit",
 "Error when importing: file does not contain valid JSON" => "Virhe tuotaessa: tiedosto ei sisällä kelvollista JSONia",
 "Show read articles" => "Näytä luetut artikkelit",
 "Hide read articles" => "Piilota luetut artikkelit"
