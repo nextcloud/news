@@ -2,7 +2,11 @@
 "News" => "Ειδήσεις",
 "Can not add feed: Exists already" => "Το feed δεν μπορεσε να προστεθει: Υπαρχει ηδη",
 "Can not add feed: URL does not exist or has invalid xml" => "Το feed δεν μπορεσε να προστεθει: Το URL δεν υπαρχει η περιεχει κατεστραμμενο xml",
+"Articles without feed" => "Άρθρα χωρίς ροές",
 "Can not add folder: Exists already" => "Ο χωρος αποθηκευσης δεν μπορει να προστεθει: Υπαρχει ηδη",
+" " => " ",
+"_" => "_",
+"status" => "κατάσταση",
 "Undo deletion of %s" => "Αναίρεση διαγραφής του %s",
 "Add Website" => "Προσθηκη ιστοσελιδας",
 "Error: address exists already!" => "Σφαλμα: η διευθυνση υπαρχει ηδη!",
@@ -19,6 +23,7 @@
 "Unread articles" => "Μη αναγνωσμένα άρθρα",
 "All articles" => "Όλα τα άρθρα",
 "Mark read" => "Σημείωση ως ανεγνωσμένων",
+"Welcome to the ownCloud News app!" => "Καλώς ήλθατε στην εφαρμογή νέων του ownCloud!",
 "from" => "από",
 "by" => "από",
 "Download" => "Λήψη",
@@ -27,8 +32,11 @@
 "Collapse" => "Σύμπτυξη",
 "Delete folder" => "Διαγραφή φακέλου",
 "Rename folder" => "Μετονομασία φακέλου",
+"Subscriptions (OPML)" => "Συνδρομές (OPML)",
 "Import" => "Εισαγωγή",
 "Export" => "Εξαγωγή",
 "Error when importing: file does not contain valid OPML" => "Σφαλμα κατα την εισαγωγη: το αρχειο δεν περιεχει ενα εγκυρο OPML",
-"Error when importing: file does not contain valid JSON" => "Σφαλμα κατα την εισαγωγη: το αρχειο δεν περιεχει ενα εγκυρο JSON"
+"Error when importing: file does not contain valid JSON" => "Σφαλμα κατα την εισαγωγη: το αρχειο δεν περιεχει ενα εγκυρο JSON",
+"Show read articles" => "Εμφάνιση αναγνωσμένων άρθρων.",
+"Hide read articles" => "Απόκρυψη αναγνωσμένων άρθρων"
 );
