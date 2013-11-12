@@ -226,6 +226,20 @@ class FeedBusinessLayer extends BusinessLayer {
 
 
 	/**
+	 * Rename a feed
+	 * @param int $feedId the id of the feed that should be moved
+	 * @param string $feedTitle the new title of the feed
+	 * @param string $userId the name of the user whose feed should be renamed
+	 * @throws BusinessLayerException if the feed does not exist
+	 */
+	public function rename($feedId, $feedTitle, $userId) {
+		$feed = $this->find($feedId, $userId);
+		$feed->setTitle($feedTitle);
+		$this->mapper->update($feed);
+	}
+
+
+	/**
 	 * Import articles
 	 * @param array $json the array with json
 	 * @param string userId the username

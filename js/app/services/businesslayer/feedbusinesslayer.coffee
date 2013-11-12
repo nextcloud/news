@@ -66,6 +66,14 @@ FeedModel, NewLoading, _ExistsError, Utils, $rootScope, NewestItem)->
 			@_persistence.deleteFeed(feedId)
 
 
+		renameFeed: (feedId, feedTitle) ->
+                        feed = @_feedModel.getById(feedId)
+                        feed.editing = false
+                        
+                        if angular.isDefined(feed) and feedTitle !== ""
+                                @_persistence.renameFeed(feedId, feedTitle)
+
+                        
 		markRead: (feedId) ->
 			feed = @_feedModel.getById(feedId)
 			newestItemId = @_newestItem.getId()

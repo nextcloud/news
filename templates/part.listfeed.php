@@ -16,12 +16,19 @@
 		scroll: true,
 		revert: true
 	}">
+
+	<div ng-show="feed.editing" class="rename-feed">
+          <input type="text" ng-model="feed.title">
+          <a href="#" ng-click="feedBusinessLayer.renameFeed(feed.id, feed.title)">Save</a>
+        </div>
+
 	<a 	ng-style="{ backgroundImage: feed.faviconLink }"
 		ng-click="feedBusinessLayer.load(feed.id)"
 		ng-class="{
 			'progress-icon': !feed.id,
 			'problem-icon': feed.error
 		}"
+		ng-hide="feed.editing"
 	   	href="#"
 	   	class="title"
 	   	title="{{ feed.title }}"
@@ -33,17 +40,26 @@
 	<span class="utils">
 		
 		<button ng-click="feedBusinessLayer.delete(feed.id)"
+			ng-hide="feed.editing"
 			class="svg action delete-icon delete-button"
 			title="<?php p($l->t('Delete website')); ?>"
 			ng-show="feed.id"
 			oc-tooltip></button>
 
 		<span class="unread-counter"
+			ng-hide="feed.editing"
 			ng-show="feed.id && feedBusinessLayer.getUnreadCount(feed.id) > 0">
 			{{ unreadCountFormatter(feedBusinessLayer.getUnreadCount(feed.id)) }}
 		</span>
 
+		<button class="svg action rename-feed-icon"
+			ng-hide="feed.editing"
+			ng-click="feed.editing = true"
+			title="<?php p($l->t('Rename feed')); ?>"
+			oc-tooltip></button>
+
 		<button class="svg action mark-read-icon"
+			ng-hide="feed.editing"
 			ng-show="feedBusinessLayer.getUnreadCount(feed.id) > 0 && feed.id"
 			ng-click="feedBusinessLayer.markRead(feed.id)"
 			title="<?php p($l->t('Mark read')); ?>"
@@ -51,6 +67,7 @@
 
 
 		<button class="svg action delete-icon"
+			ng-hide="feed.editing"
 			ng-click="feedBusinessLayer.markErrorRead(feed.url)"
 			title="<?php p($l->t('Delete website')); ?>"
 			ng-show="feed.error"

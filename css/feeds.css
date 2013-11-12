@@ -182,8 +182,20 @@ button.action:hover {
 	padding-left: 0;
 }
 
+#app-navigation .rename-feed > input{
+	height: 30px;
+}
+
+#app-navigation .rename-feed > a {
+        padding-left: 5px;
+}
+
 .delete-icon {
 	background-image: url('%webroot%/core/img/actions/delete.svg');
+}
+
+.rename-feed-icon {
+	background-image: url('%webroot%/core/img/actions/rename.svg');
 }
 
 .mark-read-icon {

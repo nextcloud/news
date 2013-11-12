@@ -243,6 +243,19 @@ $rootScope, $q) ->
 			@_request.post 'news_feeds_move', params
 
 
+		renameFeed: (feedId, feedTitle) ->
+			###
+			rename a feed
+			###
+			params =
+				routeParams:
+					feedId: feedId
+				data:
+					feedTitle: feedTitle
+
+			@_request.post 'news_feeds_rename', params
+
+
 		setFeedRead: (feedId, highestItemId) ->
 			###
 			sets all items of a feed as read
