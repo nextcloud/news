@@ -70,7 +70,7 @@ FeedModel, NewLoading, _ExistsError, Utils, $rootScope, NewestItem)->
                         feed = @_feedModel.getById(feedId)
                         feed.editing = false
                         
-                        if angular.isDefined(feed) and feedTitle !== ""
+                        if angular.isDefined(feed) and feedTitle != ""
                                 @_persistence.renameFeed(feedId, feedTitle)
 
                         

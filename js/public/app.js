@@ -1107,6 +1107,15 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return this._persistence.deleteFeed(feedId);
         };
 
+        FeedBusinessLayer.prototype.renameFeed = function(feedId, feedTitle) {
+          var feed;
+          feed = this._feedModel.getById(feedId);
+          feed.editing = false;
+          if (angular.isDefined(feed) && feedTitle !== "") {
+            return this._persistence.renameFeed(feedId, feedTitle);
+          }
+        };
+
         FeedBusinessLayer.prototype.markRead = function(feedId) {
           var feed, item, newestItemId, _i, _len, _ref;
           feed = this._feedModel.getById(feedId);
@@ -2892,6 +2901,23 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             }
           };
           return this._request.post('news_feeds_move', params);
+        };
+
+        Persistence.prototype.renameFeed = function(feedId, feedTitle) {
+          /*
+          			rename a feed
+          */
+
+          var params;
+          params = {
+            routeParams: {
+              feedId: feedId
+            },
+            data: {
+              feedTitle: feedTitle
+            }
+          };
+          return this._request.post('news_feeds_rename', params);
         };
 
         Persistence.prototype.setFeedRead = function(feedId, highestItemId) {
