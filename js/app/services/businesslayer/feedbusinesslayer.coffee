@@ -66,6 +66,18 @@ FeedModel, NewLoading, _ExistsError, Utils, $rootScope, NewestItem)->
 			@_persistence.deleteFeed(feedId)
 
 
+		renameFeedSet: (feedId) ->
+                        feed = @_feedModel.getById(feedId)
+                        feed.titleOrig = feed.title
+                        feed.editing = true
+
+
+		renameFeedUnset: (feedId) ->
+                        feed = @_feedModel.getById(feedId)
+                        feed.title = feed.titleOrig
+                        feed.editing = false
+
+
 		renameFeed: (feedId, feedTitle) ->
                         feed = @_feedModel.getById(feedId)
                         feed.editing = false

@@ -19,7 +19,13 @@
 
 	<div ui-if="feed.editing" class="rename-feed">
           <input type="text" ng-model="feed.title" autofocus>
-          <button ng-click="feedBusinessLayer.renameFeed(feed.id, feed.title)">Save</button>
+          <button title="<?php p($l->t('Cancel')); ?>" 
+		ng-click="feedBusinessLayer.renameFeedUnset(feed.id)"
+		class="action-button back-button action"></button>
+	  <button title="<?php p($l->t('Save')); ?>" 
+		ng-click="feedBusinessLayer.renameFeed(feed.id, feed.title)"
+		class="action-button create-button action">
+	  </button>
         </div>
 
 	<a 	ng-style="{ backgroundImage: feed.faviconLink }"
@@ -40,7 +46,6 @@
 	<span class="utils">
 		
 		<button ng-click="feedBusinessLayer.delete(feed.id)"
-			ng-hide="feed.editing"
 			class="svg action delete-icon delete-button"
 			title="<?php p($l->t('Delete website')); ?>"
 			ng-show="feed.id"
@@ -52,12 +57,6 @@
 			{{ unreadCountFormatter(feedBusinessLayer.getUnreadCount(feed.id)) }}
 		</span>
 
-		<button class="svg action rename-feed-icon"
-			ng-hide="feed.editing"
-			ng-click="feed.editing = true"
-			title="<?php p($l->t('Rename feed')); ?>"
-			oc-tooltip></button>
-
 		<button class="svg action mark-read-icon"
 			ng-hide="feed.editing"
 			ng-show="feedBusinessLayer.getUnreadCount(feed.id) > 0 && feed.id"
@@ -66,8 +65,13 @@
 			oc-tooltip></button>
 
 
-		<button class="svg action delete-icon"
+		<button class="svg action rename-feed-icon"
 			ng-hide="feed.editing"
+			ng-click="feedBusinessLayer.renameFeedSet(feed.id)"
+			title="<?php p($l->t('Rename feed')); ?>"
+			oc-tooltip></button>
+
+		<button class="svg action delete-icon"
 			ng-click="feedBusinessLayer.markErrorRead(feed.url)"
 			title="<?php p($l->t('Delete website')); ?>"
 			ng-show="feed.error"
