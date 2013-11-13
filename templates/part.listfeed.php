@@ -17,9 +17,9 @@
 		revert: true
 	}">
 
-	<div ng-show="feed.editing" class="rename-feed">
-          <input type="text" ng-model="feed.title">
-          <a href="#" ng-click="feedBusinessLayer.renameFeed(feed.id, feed.title)">Save</a>
+	<div ui-if="feed.editing" class="rename-feed">
+          <input type="text" ng-model="feed.title" autofocus>
+          <button ng-click="feedBusinessLayer.renameFeed(feed.id, feed.title)">Save</button>
         </div>
 
 	<a 	ng-style="{ backgroundImage: feed.faviconLink }"
