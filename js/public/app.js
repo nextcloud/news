@@ -1107,6 +1107,20 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return this._persistence.deleteFeed(feedId);
         };
 
+        FeedBusinessLayer.prototype.renameFeedSet = function(feedId) {
+          var feed;
+          feed = this._feedModel.getById(feedId);
+          feed.titleOrig = feed.title;
+          return feed.editing = true;
+        };
+
+        FeedBusinessLayer.prototype.renameFeedUnset = function(feedId) {
+          var feed;
+          feed = this._feedModel.getById(feedId);
+          feed.title = feed.titleOrig;
+          return feed.editing = false;
+        };
+
         FeedBusinessLayer.prototype.renameFeed = function(feedId, feedTitle) {
           var feed;
           feed = this._feedModel.getById(feedId);
