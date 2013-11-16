@@ -459,6 +459,28 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 	}
 
 
+	public function testRenameFeed(){
+		$feedId = 3;
+		$feedTitle = "New Feed Title";
+		$feed = new Feed();
+		$feed->setTitle("Feed Title");
+		$feed->setId($feedId);
+
+		$this->feedMapper->expects($this->once())
+			->method('find')
+			->with($this->equalTo($feedId), $this->equalTo($this->user))
+			->will($this->returnValue($feed));
+
+		$this->feedMapper->expects($this->once())
+			->method('update')
+			->with($this->equalTo($feed));
+
+		$this->feedBusinessLayer->rename($feedId, $feedTitle, $this->user);
+
+		$this->assertEquals($feedTitle, $feed->getTitle());
+	}
+
+
 	public function testImportArticles(){
 		$url = 'http://owncloud/nofeed';
 

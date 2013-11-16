@@ -543,6 +543,30 @@ class FeedControllerTest extends ControllerTestUtility {
 	}
 
 
+	public function testRename(){
+		$post = array(
+			'feedTitle' => "New Feed Title"
+		);
+		$url = array(
+			'feedId' => 4
+		);
+		$this->controller = $this->getPostController($post, $url);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->feedBusinessLayer->expects($this->once())
+			->method('rename')
+			->with($this->equalTo($url['feedId']),
+				$this->equalTo($post['feedTitle']),
+				$this->equalTo($this->user));
+
+		$response = $this->controller->rename();
+
+		$this->assertTrue($response instanceof JSONResponse);
+	}
+
+
 	public function testImportArticles() {
 		$feed = new Feed();
 

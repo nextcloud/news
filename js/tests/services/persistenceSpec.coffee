@@ -178,6 +178,18 @@ describe 'Persistence', ->
 		expect(@req.post).toHaveBeenCalledWith('news_feeds_move', params)
 
 
+	it 'create a correct request for renaming a feed', =>
+		params =
+			data:
+				feedTitle: "New Feed Title"
+			routeParams:
+				feedId: 3
+
+		@Persistence.renameFeed(params.routeParams.feedId, params.data.feedTitle)
+
+		expect(@req.post).toHaveBeenCalledWith('news_feeds_rename', params)
+
+
 	it 'shoud send a correct request for marking all items of a feed read', =>
 		params =
 			data:
