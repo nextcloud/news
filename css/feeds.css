@@ -184,7 +184,7 @@ button.action:hover {
 
 #app-navigation .rename-feed > input {
         width: 170px;
-        height: 30px;
+        height: 32px;
 }
 
 .delete-icon {
@@ -200,25 +200,23 @@ button.action:hover {
 }
 
 .rename-feed input {
-	margin: 0 0 5px 0;
+	margin: 1px 0 5px 5px;
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
 	border-right: 0;
 }
 
 .rename-feed button {
-	margin: 0 0 5px 0;
+	margin: 5px 0 5px 0;
 	display: inline-block;
-	float: left;
 	border-bottom-left-radius: 0;
 	border-top-left-radius: 0;
+	width: 30px !important;
 	height: 30px !important;
-	margin-top: 1px;
+        padding: 0.6em;
 }
 
 .rename-feed .action-button {
-	height: 25px;
-	width: 25px;
 	background-position: center;
 	background-repeat: no-repeat;	
 }
