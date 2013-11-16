@@ -10,10 +10,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
-"Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
-"POT-Creation-Date: 2013-10-13 19:23-0400\n"
-"PO-Revision-Date: 2013-10-11 02:31+0000\n"
-"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"Report-Msgid-Bugs-To: translations@owncloud.org\n"
+"POT-Creation-Date: 2013-11-15 20:58-0500\n"
+"PO-Revision-Date: 2013-11-15 20:53+0000\n"
+"Last-Translator: mateju <>\n"
 "Language-Team: Slovenian (http://www.transifex.com/projects/p/owncloud/language/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,7 +35,7 @@ msgstr "Ni mogoče dodati vira: naslov URL ne obstaja ali pa je okvarjen zapis"
 
 #: businesslayer/feedbusinesslayer.php:266
 msgid "Articles without feed"
-msgstr ""
+msgstr "Članki brez virov"
 
 #: businesslayer/folderbusinesslayer.php:66
 msgid "Can not add folder: Exists already"
@@ -43,16 +43,16 @@ msgstr "Ni mogoče dodati mape: mapa že obstaja."
 
 #: js/vendor/angular-ui/build/angular-ui.min.js:7
 msgid " "
-msgstr ""
+msgstr "  "
 
 #: js/vendor/angular-ui/build/angular-ui.min.js:7
 msgid "_"
-msgstr ""
+msgstr "_"
 
 #: js/vendor/jquery-ui/ui/minified/jquery-ui.min.js:8
 #: js/vendor/jquery-ui/ui/minified/jquery.ui.autocomplete.min.js:4
 msgid "status"
-msgstr ""
+msgstr "stanje"
 
 #: templates/main.php:34
 #, php-format
@@ -122,7 +122,7 @@ msgstr "Označi kot prebrano"
 
 #: templates/part.firstrun.php:2
 msgid "Welcome to the ownCloud News app!"
-msgstr ""
+msgstr "Dobrodošli v Novice ownCloud!"
 
 #: templates/part.items.php:34
 msgid "from"
@@ -158,7 +158,7 @@ msgstr "Preimenuj mapo"
 
 #: templates/part.settings.php:13
 msgid "Subscriptions (OPML)"
-msgstr ""
+msgstr "Naročnine (OPML)"
 
 #: templates/part.settings.php:17 templates/part.settings.php:20
 #: templates/part.settings.php:48 templates/part.settings.php:53
@@ -178,7 +178,7 @@ msgstr "Napaka med uvažanjem: datoteka ne vsebuje veljavnega OPML"
 
 #: templates/part.settings.php:44
 msgid "Unread/Starred Articles"
-msgstr ""
+msgstr "Neprebrani/Označeni prispevki"
 
 #: templates/part.settings.php:70
 msgid "Error when importing: file does not contain valid JSON"
@@ -186,8 +186,8 @@ msgstr "Napaka uvoza: datoteka ne vsebuje veljavnih podatkov JSON."
 
 #: templates/part.showall.php:5
 msgid "Show read articles"
-msgstr ""
+msgstr "Pokaži prebrane prispevke"
 
 #: templates/part.showall.php:11
 msgid "Hide read articles"
-msgstr ""
+msgstr "Skrij prebrane prispevke"
