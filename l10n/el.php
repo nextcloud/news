@@ -36,6 +36,7 @@
 "Import" => "Εισαγωγή",
 "Export" => "Εξαγωγή",
 "Error when importing: file does not contain valid OPML" => "Σφαλμα κατα την εισαγωγη: το αρχειο δεν περιεχει ενα εγκυρο OPML",
+"Unread/Starred Articles" => "Μη αναγνωσμένα/Χαρακτηρισμένα  Άρθρα",
 "Error when importing: file does not contain valid JSON" => "Σφαλμα κατα την εισαγωγη: το αρχειο δεν περιεχει ενα εγκυρο JSON",
 "Show read articles" => "Εμφάνιση αναγνωσμένων άρθρων.",
 "Hide read articles" => "Απόκρυψη αναγνωσμένων άρθρων"
