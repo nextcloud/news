@@ -8,6 +8,7 @@
 "Starred" => "Starred",
 "Unread articles" => "Bài chưa đọc",
 "All articles" => "Mọi bài viết",
+"from" => "từ",
 "by" => "bởi",
 "Download" => "Tải về",
 "Keep unread" => "Giữ chưa đọc",
