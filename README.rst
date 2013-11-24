@@ -41,7 +41,7 @@ Before reporting bugs:
 If you are not able to add a feed because its XML *does not validate* (see `this issue <https://github.com/owncloud/news/issues/133>`_ for an example),
 check if:
 
-* it is a valid RSS by running it through the `W3C validator <http://feed2.w3.org/>`_
+* it is a valid RSS by running it through the `W3C validator <http://validator.w3.org/feed/>`_
 * you are able to add the feed in other feed readers
 * it runs without error through `SimplePie demo <http://www.simplepie.org/demo/>`_
 
