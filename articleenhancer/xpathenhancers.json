@@ -88,5 +88,8 @@
 	},
 	"eqcomics.com": {
 		"%feedproxy.google.com/~r/eqcomics%": "//div[@id=\"comic\"]/div/a/img"
+	},
+	"loadingartist.com": {
+		"%feedproxy.google.com/~r/LoadingArtist%": "//div[@id=\"comic\"]"
 	}
 }
