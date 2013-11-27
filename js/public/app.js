@@ -807,6 +807,18 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           this._autoPaging = true;
           this._$scope.itemBusinessLayer = this._itemBusinessLayer;
           this._$scope.feedBusinessLayer = this._feedBusinessLayer;
+          this._$scope.edit = function(feedId) {
+            var feed;
+            feed = _this._feedModel.getById(feedId);
+            feed.editing = true;
+            return feed.originalValue = feed.title;
+          };
+          this._$scope.cancel = function(feedId) {
+            var feed;
+            feed = _this._feedModel.getById(feedId);
+            feed.editing = false;
+            return feed.title = feed.originalValue;
+          };
           this._$scope.isLoading = function() {
             return _this._feedLoading.isLoading();
           };
@@ -1105,20 +1117,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           };
           this._$rootScope.$broadcast('undoMessage', data);
           return this._persistence.deleteFeed(feedId);
-        };
-
-        FeedBusinessLayer.prototype.renameFeedSet = function(feedId) {
-          var feed;
-          feed = this._feedModel.getById(feedId);
-          feed.titleOrig = feed.title;
-          return feed.editing = true;
-        };
-
-        FeedBusinessLayer.prototype.renameFeedUnset = function(feedId) {
-          var feed;
-          feed = this._feedModel.getById(feedId);
-          feed.title = feed.titleOrig;
-          return feed.editing = false;
         };
 
         FeedBusinessLayer.prototype.renameFeed = function(feedId, feedTitle) {
