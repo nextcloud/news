@@ -4,6 +4,7 @@
 "Can not add feed: URL does not exist or has invalid xml" => "피드를 추가할 수 없음: URL이 존재하지 않거나 XML이 올바르지 않음",
 "Articles without feed" => "피드를 제외한 기사",
 "Can not add folder: Exists already" => "폴더를 추가할 수 없음: 이미 존재함",
+"_" => "_",
 "status" => "상태",
 "Undo deletion of %s" => "%s 삭제 실행 취소",
 "Add Website" => "웹 사이트 추가",
