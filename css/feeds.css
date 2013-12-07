@@ -122,8 +122,8 @@
 	border: 0;
 	box-shadow: none;
 	display: none;
-	height: 32px;
-	width: 32px;
+	height: 30px;
+	width: 22px;
 }
 
 #app-navigation li:hover > .utils button {
