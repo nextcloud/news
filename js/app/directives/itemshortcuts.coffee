@@ -105,27 +105,33 @@ angular.module('News').directive 'itemShortcuts', ['$window', ($window) ->
 				scrollArea = elm
 				# j or right or n
 				if e.keyCode == 74 or e.keyCode == 39 or e.keyCode == 78
+					e.preventDefault()
 					jumpToNextItem(scrollArea)
 
 				# k or left or p
 				else if e.keyCode == 75 or e.keyCode == 37 or e.keyCode == 80
+					e.preventDefault()
 					jumpToPreviousItem(scrollArea)
 
 				# u
 				else if e.keyCode == 85
+					e.preventDefault()
 					keepUnreadCurrentItem(scrollArea)
 
 				# s or i or l
 				else if e.keyCode == 73 or e.keyCode == 83 or e.keyCode == 76
+					e.preventDefault()
 					starCurrentItem(scrollArea)
 
 				# h
 				else if e.keyCode == 72
+					e.preventDefault()
 					starCurrentItem(scrollArea)
 					jumpToNextItem(scrollArea)
 
 				# o
 				else if e.keyCode == 79
+					e.preventDefault()
 					openCurrentItem(scrollArea)
 
 

@@ -275,17 +275,23 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           if (!(focused.is('input') || focused.is('select') || focused.is('textarea') || focused.is('checkbox') || focused.is('button'))) {
             scrollArea = elm;
             if (e.keyCode === 74 || e.keyCode === 39 || e.keyCode === 78) {
+              e.preventDefault();
               return jumpToNextItem(scrollArea);
             } else if (e.keyCode === 75 || e.keyCode === 37 || e.keyCode === 80) {
+              e.preventDefault();
               return jumpToPreviousItem(scrollArea);
             } else if (e.keyCode === 85) {
+              e.preventDefault();
               return keepUnreadCurrentItem(scrollArea);
             } else if (e.keyCode === 73 || e.keyCode === 83 || e.keyCode === 76) {
+              e.preventDefault();
               return starCurrentItem(scrollArea);
             } else if (e.keyCode === 72) {
+              e.preventDefault();
               starCurrentItem(scrollArea);
               return jumpToNextItem(scrollArea);
             } else if (e.keyCode === 79) {
+              e.preventDefault();
               return openCurrentItem(scrollArea);
             }
           }
