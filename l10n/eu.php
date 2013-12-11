@@ -2,7 +2,11 @@
 "News" => "Berriak",
 "Can not add feed: Exists already" => "Ezin da iturburua gehitu: Dagoeneko existitzen da",
 "Can not add feed: URL does not exist or has invalid xml" => "Ezin da iturburua gehitu: URL-a ez dago edo xml-a ez da egokia",
+"Articles without feed" => "Iturbururik gabeko artikuluak",
 "Can not add folder: Exists already" => "Ezin da karpeta gehitu: Dagoeneko existitzen da",
+" " => " ",
+"_" => "-",
+"status" => "egoera",
 "Undo deletion of %s" => "Desegin %sren ezabaketa",
 "Add Website" => "Webgunea Gehitu",
 "Error: address exists already!" => "Errorea: Helbidea dagoeneko existitzen da!",
@@ -19,6 +23,7 @@
 "Unread articles" => "Irakurri gabeko artikuluak",
 "All articles" => "Artikulu guztiak",
 "Mark read" => "Markatu irakurrita gisa",
+"Welcome to the ownCloud News app!" => "Ongi etorria ownCloud-eko Berrien aplikaziora!",
 "from" => "lekua",
 "by" => " Egilea:",
 "Download" => "Deskargatu",
@@ -27,8 +32,12 @@
 "Collapse" => "Tolestu",
 "Delete folder" => "Ezabatu karpeta",
 "Rename folder" => "Berrizendatu karpeta",
+"Subscriptions (OPML)" => "Harpidetzak (OPML)",
 "Import" => "Inportatu",
 "Export" => "Exportatu",
 "Error when importing: file does not contain valid OPML" => "Errorea inportatzean: fitxategiak ez du OPML baliogarria",
-"Error when importing: file does not contain valid JSON" => "Errorea inportatzean: fitxategiak ez du JSON baliogarria"
+"Unread/Starred Articles" => "Irakurri gabeko/markatutako artikuluak",
+"Error when importing: file does not contain valid JSON" => "Errorea inportatzean: fitxategiak ez du JSON baliogarria",
+"Show read articles" => "Erakutsi irakurritako artikuluak",
+"Hide read articles" => "Ezkutatu irakurritako artikuluak"
 );
