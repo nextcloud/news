@@ -152,20 +152,6 @@ class Item extends Entity implements IAPI {
 	}
 
 
-	public function fromRow(array $array) {
-		// sanitize them fucked up non utf-8 strings because PHP's glorious idea
-		// on how to handle non utf-8 srtings in json_encode is to just *BOOM*
-		// in your face, which results in a spinning wheel. Forever.
-		foreach($array as $key => $value) {
-			if($key === 'body' || $key === 'author' || $key === 'title' || 
-			   $key === 'guid' || $key === 'guidHash') {
-				$array[$key] === iconv('UTF-8', 'UTF-8//IGNORE', $value);
-			}
-		}
-		parent::fromRow($array);
-	}
-
-
 	public function setAuthor($name) {
 		parent::setAuthor(strip_tags($name));
 	}
