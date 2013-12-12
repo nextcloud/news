@@ -159,7 +159,7 @@ class Item extends Entity implements IAPI {
 		foreach($array as $key => $value) {
 			if($key === 'body' || $key === 'author' || $key === 'title' || 
 			   $key === 'guid' || $key === 'guidHash') {
-				$value = @iconv('UTF-8', 'UTF-8//IGNORE', $value);
+				$array[$key] === iconv('UTF-8', 'UTF-8//IGNORE', $value);
 			}
 		}
 		parent::fromRow($array);
