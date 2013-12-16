@@ -8,6 +8,11 @@
 	width: 299px;
 }
 
+#app-navigation .rename-feed > input {
+	width: 215px;
+	height: 32px;
+}
+
 #app-navigation .progress-icon, 
 #app-navigation .problem-icon {
 	width: 299px;

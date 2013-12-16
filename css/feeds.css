@@ -183,8 +183,8 @@ button.action:hover {
 }
 
 #app-navigation .rename-feed > input {
-        width: 170px;
-        height: 32px;
+        width: 155px;
+        height: 15px;
 }
 
 .delete-icon {
@@ -200,7 +200,7 @@ button.action:hover {
 }
 
 .rename-feed input {
-	margin: 1px 0 5px 5px;
+	margin: 1px 0 0px 5px;
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
 	border-right: 0;
