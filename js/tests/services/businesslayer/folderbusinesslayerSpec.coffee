@@ -372,7 +372,7 @@ describe 'FolderBusinessLayer', ->
 
 	it 'should import nested folders', =>
 		@persistence.createFolder = jasmine.createSpy('create folder')
-		@persistence.createFolder.andCallFake (name, parentId, onSuccess) =>
+		@persistence.createFolder.andCallFake (name, parentId, onSuccess) ->
 			data =
 				data:
 					folders: [

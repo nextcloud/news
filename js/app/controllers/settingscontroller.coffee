@@ -27,7 +27,7 @@ angular.module('News').controller 'SettingsController',
 
 	$scope.feedBusinessLayer = FeedBusinessLayer
 
-	$scope.import = (fileContent) =>
+	$scope.import = (fileContent) ->
 		$scope.error = false
 		ShowAll.setShowAll(true)
 
@@ -37,7 +37,7 @@ angular.module('News').controller 'SettingsController',
 			$scope.error = true
 
 
-	$scope.importArticles = (fileContent) =>
+	$scope.importArticles = (fileContent) ->
 		$scope.jsonError = false
 		$scope.loading = true
 

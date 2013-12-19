@@ -570,7 +570,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return caption;
         };
         return scope.$on('undoMessage', function(scope, data) {
-          var _this = this;
           if (timeout) {
             $timeout.cancel(timeout.promise);
           }
@@ -901,7 +900,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 (function() {
   angular.module('News').controller('SettingsController', [
     '$scope', 'FeedBusinessLayer', 'FolderBusinessLayer', 'ShowAll', function($scope, FeedBusinessLayer, FolderBusinessLayer, ShowAll) {
-      var _this = this;
       $scope.feedBusinessLayer = FeedBusinessLayer;
       $scope["import"] = function(fileContent) {
         var error;
@@ -1116,8 +1114,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           feed = this._feedModel.removeById(feedId);
           data = {
             undoCallback: function() {
-              _this._persistence.restoreFeed(feedId, function() {});
-              return _this._persistence.getAllFeeds();
+              return _this._persistence.restoreFeed(feedId, function() {
+                return this._persistence.getAllFeeds();
+              });
             },
             caption: feed.title
           };
@@ -1215,8 +1214,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         };
 
         FeedBusinessLayer.prototype.create = function(url, parentId, onSuccess, onFailure) {
-          var feed, success,
-            _this = this;
+          var feed, success;
           if (parentId == null) {
             parentId = 0;
           }
@@ -1263,8 +1261,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         };
 
         FeedBusinessLayer.prototype.importArticles = function(json, callback) {
-          var onSuccess,
-            _this = this;
+          var onSuccess;
           onSuccess = function(response) {
             return callback();
           };
@@ -1430,8 +1427,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         };
 
         FolderBusinessLayer.prototype.create = function(folderName, onSuccess, onFailure) {
-          var folder, success,
-            _this = this;
+          var folder, success;
           if (onSuccess == null) {
             onSuccess = null;
           }
@@ -2687,8 +2683,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 
         Persistence.prototype.getItems = function(type, id, offset, onSuccess) {
-          var failureCallbackWrapper, loading, params, successCallbackWrapper,
-            _this = this;
+          var failureCallbackWrapper, loading, params, successCallbackWrapper;
           if (onSuccess == null) {
             onSuccess = null;
           }

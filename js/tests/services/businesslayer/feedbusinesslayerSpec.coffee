@@ -335,7 +335,7 @@ describe 'FeedBusinessLayer', ->
 	it 'should create an import article request', =>
 		callback = jasmine.createSpy('called')
 		@persistence.importArticles = jasmine.createSpy('importArticles')
-		@persistence.importArticles.andCallFake (data, onSuccess) =>
+		@persistence.importArticles.andCallFake (data, onSuccess) ->
 			onSuccess()
 
 		json = {"test": "hi"}

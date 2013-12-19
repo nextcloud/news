@@ -48,7 +48,7 @@ angular.module('News').directive 'undoNotification',
 				$timeout.cancel(timeout.promise)
 				
 			# fade out if not reset with a new
-			timeout = $timeout =>
+			timeout = $timeout ->
 				$(elm).fadeOut()
 			, Config.undoTimeout
 				

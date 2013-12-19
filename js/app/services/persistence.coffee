@@ -68,10 +68,10 @@ $rootScope, $q) ->
 
 			# loading sign handling
 			loading.increase()
-			successCallbackWrapper = (data) =>
+			successCallbackWrapper = (data) ->
 				onSuccess(data)
 				loading.decrease()
-			failureCallbackWrapper = (data) =>
+			failureCallbackWrapper = (data) ->
 				loading.decrease()
 
 			params =
@@ -172,9 +172,9 @@ $rootScope, $q) ->
 				failureCallbackWrapper = (data) =>
 					@_feedLoading.decrease()
 			else
-				successCallbackWrapper = (data) =>
+				successCallbackWrapper = (data) ->
 					onSuccess()
-				failureCallbackWrapper = (data) =>
+				failureCallbackWrapper = (data) ->
 
 			params =
 				onSuccess: successCallbackWrapper
@@ -307,9 +307,9 @@ $rootScope, $q) ->
 				failureCallbackWrapper = (data) =>
 					@_feedLoading.decrease()
 			else
-				successCallbackWrapper = (data) =>
+				successCallbackWrapper = (data) ->
 					onSuccess()
-				failureCallbackWrapper = (data) =>
+				failureCallbackWrapper = (data) ->
 			
 
 			params =

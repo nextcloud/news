@@ -58,8 +58,8 @@ FeedModel, NewLoading, _ExistsError, Utils, $rootScope, NewestItem)->
 
 			data =
 				undoCallback: =>
-					@_persistence.restoreFeed feedId, =>
-					@_persistence.getAllFeeds()
+					@_persistence.restoreFeed feedId, ->
+						@_persistence.getAllFeeds()
 				caption: feed.title
 
 			@_$rootScope.$broadcast 'undoMessage', data
@@ -168,7 +168,7 @@ FeedModel, NewLoading, _ExistsError, Utils, $rootScope, NewestItem)->
 
 			@_feedModel.add(feed)
 
-			success = (response) =>
+			success = (response) ->
 				if response.status == 'error'
 					feed.error = response.msg
 					onFailure()
@@ -183,7 +183,7 @@ FeedModel, NewLoading, _ExistsError, Utils, $rootScope, NewestItem)->
 
 
 		importArticles: (json, callback) ->
-			onSuccess = (response) =>
+			onSuccess = (response) ->
 				callback()
 
 			@_persistence.importArticles(json, onSuccess)

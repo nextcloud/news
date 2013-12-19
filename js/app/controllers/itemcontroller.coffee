@@ -45,7 +45,7 @@ Language, AutoPageLoading) ->
 			@_$scope.cancel = (feedId) =>
 				feed = @_feedModel.getById(feedId)
 				feed.editing = false
-				feed.title = feed.originalValue                                 
+				feed.title = feed.originalValue
 
 			@_$scope.isLoading = =>
 				return @_feedLoading.isLoading()

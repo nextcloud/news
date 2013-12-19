@@ -105,7 +105,7 @@ FeedModel, $rootScope) ->
 			
 
 		isVisible: (folderId) ->
-			if @_showAll.getShowAll() || 
+			if @_showAll.getShowAll() ||
 			@_feedBusinessLayer.getFeedsOfFolder(folderId).length == 0
 				return true
 			else
@@ -141,7 +141,7 @@ FeedModel, $rootScope) ->
 
 			@_folderModel.add(folder)
 
-			success = (response) =>
+			success = (response) ->
 				if response.status == 'error'
 					folder.error = response.msg
 					onFailure()
