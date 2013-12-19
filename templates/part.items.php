@@ -4,7 +4,8 @@
 	<li class="feed_item"
 		ng-repeat="item in itemBusinessLayer.getAll() | orderBy:['-id'] "
 		ng-class="{ read: item.isRead() }"
-		data-id="{{ item.id }}">
+		data-id="{{ item.id }}"
+		ng-click="itemBusinessLayer.setRead(item.id)">
 		<h2 class="item_date">
 			<span class="timeago" title="{{item.pubDate*1000|date:'dd-MM-yyyy'}}">
 				{{ getRelativeDate(item.pubDate) }}
@@ -23,8 +24,7 @@
 
 		<h1 class="item_heading">{{ item.title }}</h1>
 		<h1 class="item_title">
-			<a ng-click="itemBusinessLayer.setRead(item.id)"
-				target="_blank" ng-href="{{ item.url }}">
+			<a target="_blank" ng-href="{{ item.url }}">
 				{{ item.title }}
 			</a>
 		</h1>
@@ -47,9 +47,7 @@
 			?></audio>
 		</div>
 
-		<div class="body"
-				ng-click="itemBusinessLayer.setRead(item.id)"
-				ng-bind-html-unsafe="item.body">
+		<div class="body" ng-bind-html-unsafe="item.body">
 		</div>
 
 		<div class="bottom_utils">
