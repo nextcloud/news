@@ -122,8 +122,8 @@
 	border: 0;
 	box-shadow: none;
 	display: none;
-	height: 32px;
-	width: 32px;
+	height: 30px;
+	width: 22px;
 }
 
 #app-navigation li:hover > .utils button {
@@ -182,11 +182,52 @@ button.action:hover {
 	padding-left: 0;
 }
 
+#app-navigation .rename-feed > input {
+        width: 155px;
+        height: 15px;
+}
+
 .delete-icon {
 	background-image: url('%webroot%/core/img/actions/delete.svg');
 }
 
+.rename-feed-icon {
+	background-image: url('%webroot%/core/img/actions/rename.svg');
+}
+
 .mark-read-icon {
+	background-image: url('%appswebroot%/news/img/mark_read.svg');
+}
+
+.rename-feed input {
+	margin: 1px 0 0px 5px;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+	border-right: 0;
+}
+
+.rename-feed button {
+	margin: 5px 0 5px 0;
+	display: inline-block;
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
+	width: 30px !important;
+	height: 30px !important;
+        padding: 0.6em;
+}
+
+.rename-feed .action-button {
+	background-position: center;
+	background-repeat: no-repeat;	
+}
+
+.rename-feed .back-button {
+	border-radius: 3px;
+	background-image: url('%webroot%/core/img/actions/delete.svg');
+}
+
+.rename-feed .create-button {
+	border-radius: 0;
 	background-image: url('%appswebroot%/news/img/mark_read.svg');
 }
 

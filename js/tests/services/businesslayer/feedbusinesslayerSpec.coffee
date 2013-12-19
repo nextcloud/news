@@ -345,3 +345,14 @@ describe 'FeedBusinessLayer', ->
 			jasmine.any(Function))
 		expect(callback).toHaveBeenCalled()
 
+
+	it 'should make a rename feed request and disable editing', =>
+		@persistence.renameFeed = jasmine.createSpy('Rename feed')
+		@FeedModel.add({id: 2, unreadCount:134, url: 'a1', folderId: 3})
+		@FeedBusinessLayer.renameFeed(2, "New Title")
+
+		expect(@persistence.renameFeed).toHaveBeenCalledWith(2, "New Title")
+		expect(@FeedModel.getById(2).editing).toBe(false)
+
+              
+

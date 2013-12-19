@@ -813,6 +813,18 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           this._autoPaging = true;
           this._$scope.itemBusinessLayer = this._itemBusinessLayer;
           this._$scope.feedBusinessLayer = this._feedBusinessLayer;
+          this._$scope.edit = function(feedId) {
+            var feed;
+            feed = _this._feedModel.getById(feedId);
+            feed.editing = true;
+            return feed.originalValue = feed.title;
+          };
+          this._$scope.cancel = function(feedId) {
+            var feed;
+            feed = _this._feedModel.getById(feedId);
+            feed.editing = false;
+            return feed.title = feed.originalValue;
+          };
           this._$scope.isLoading = function() {
             return _this._feedLoading.isLoading();
           };
@@ -1111,6 +1123,15 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           };
           this._$rootScope.$broadcast('undoMessage', data);
           return this._persistence.deleteFeed(feedId);
+        };
+
+        FeedBusinessLayer.prototype.renameFeed = function(feedId, feedTitle) {
+          var feed;
+          feed = this._feedModel.getById(feedId);
+          feed.editing = false;
+          if (angular.isDefined(feed) && feedTitle !== "") {
+            return this._persistence.renameFeed(feedId, feedTitle);
+          }
         };
 
         FeedBusinessLayer.prototype.markRead = function(feedId) {
@@ -2898,6 +2919,23 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             }
           };
           return this._request.post('news_feeds_move', params);
+        };
+
+        Persistence.prototype.renameFeed = function(feedId, feedTitle) {
+          /*
+          			rename a feed
+          */
+
+          var params;
+          params = {
+            routeParams: {
+              feedId: feedId
+            },
+            data: {
+              feedTitle: feedTitle
+            }
+          };
+          return this._request.post('news_feeds_rename', params);
         };
 
         Persistence.prototype.setFeedRead = function(feedId, highestItemId) {

@@ -221,6 +221,23 @@ class FeedController extends Controller {
 		}
 	}
 
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
+	public function rename() {
+		$feedId = (int) $this->params('feedId');
+		$feedTitle = $this->params('feedTitle');
+		$userId = $this->api->getUserId();
+
+		try {
+			$this->feedBusinessLayer->rename($feedId, $feedTitle, $userId);
+			return $this->renderJSON();	
+		} catch(BusinessLayerException $ex) {
+			return $this->renderJSON(array(), $ex->getMessage());
+		}
+	}
 
 	/**
 	 * @IsAdminExemption

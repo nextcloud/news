@@ -134,6 +134,12 @@ $this->create('news_feeds_move', '/feeds/{feedId}/move')->post()->action(
 	}
 );
 
+$this->create('news_feeds_rename', '/feeds/{feedId}/rename')->post()->action(
+	function($params){
+		App::main('FeedController', 'rename', $params, new DIContainer());
+	}
+);
+
 $this->create('news_feeds_read', '/feeds/{feedId}/read')->post()->action(
 	function($params){
 		App::main('FeedController', 'read', $params, new DIContainer());
