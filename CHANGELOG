@@ -1,5 +1,6 @@
 owncloud-news (1.801)
 * Add ability to rename feeds
+* Compact view
 
 owncloud-news (1.605)
 * Adding feeds does not block the input box any more

@@ -92,5 +92,31 @@ class UserSettingsController extends Controller {
 	}
 
 
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
+	public function isCompactView(){
+		$compact = $this->api->getUserValue('compact');
+		$params = array(
+			'compact' => $compact === '1'
+		);
+		return $this->renderJSON($params);
+	}
+
+
+	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @Ajax
+	 */
+	public function setCompactView(){
+		$isCompact = $this->params('compact');
+		$this->api->setUserValue('compact', $isCompact);
+
+		return $this->renderJSON();
+	}
+
 
 }

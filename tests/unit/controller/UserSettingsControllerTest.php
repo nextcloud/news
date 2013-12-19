@@ -63,6 +63,14 @@ class UserSettingsControllerTest extends ControllerTestUtility {
 		$this->assertUserSettingsControllerAnnotations('getLanguage');
 	}
 
+	public function testIsCompactViewAnnotations(){
+		$this->assertUserSettingsControllerAnnotations('isCompactView');
+	}
+
+	public function testSetCompactViewAnnotations(){
+		$this->assertUserSettingsControllerAnnotations('setCompactView');
+	}
+
 
 	public function testFoldersAnnotations(){
 		$this->assertUserSettingsControllerAnnotations('read');
@@ -131,5 +139,48 @@ class UserSettingsControllerTest extends ControllerTestUtility {
 		$this->assertTrue($response instanceof JSONResponse);	
 	}
 
+
+	public function testIsCompactView()	{
+		$result = array(
+			'compact' => true
+		);
+		$this->api->expects($this->once())
+			->method('getUserValue')
+			->with($this->equalTo('compact'))
+			->will($this->returnValue('1'));
+		
+		$response = $this->controller->isCompactView();
+		$this->assertEquals($result, $response->getParams());
+		$this->assertTrue($response instanceof JSONResponse);
+	}
+
+
+	public function testUnsetCompactView(){
+		$request = new Request(array('post' => array(
+			'compact' => false
+		)));
+		$this->controller = new UserSettingsController($this->api, $request);
+
+		$this->api->expects($this->once())
+			->method('setUserValue')
+			->with($this->equalTo('compact'), 
+				$this->equalTo(false));
+		$response = $this->controller->setCompactView();
+		$this->assertTrue($response instanceof JSONResponse);
+	}
+
+	public function testSetCompactView(){
+		$request = new Request(array('post' => array(
+			'compact' => true
+		)));
+		$this->controller = new UserSettingsController($this->api, $request);
+
+		$this->api->expects($this->once())
+			->method('setUserValue')
+			->with($this->equalTo('compact'), 
+				$this->equalTo(true));
+		$response = $this->controller->setCompactView();
+		$this->assertTrue($response instanceof JSONResponse);
+	}
 
 }
