@@ -39,9 +39,6 @@ $rootScope, $q) ->
 
 			@deferred = $q.defer()
 
-			# items can only be loaded after the active feed is known
-			@getActiveFeed =>
-				@getItems(@_activeFeed.getType(), @_activeFeed.getId())
 
 			@getAllFolders()
 
@@ -53,6 +50,10 @@ $rootScope, $q) ->
 			@userSettingsLanguage()
 			@userSettingsIsCompact()
 
+			# items can only be loaded after the active feed is known
+			@getActiveFeed =>
+				@getItems(@_activeFeed.getType(), @_activeFeed.getId())
+				
 			@deferred.promise
 
 		###

@@ -87,6 +87,15 @@ Language, AutoPageLoading, Compact) ->
 			@_$scope.isCompactView = =>
 				return @_compact.isCompact()
 
+			@_$scope.is =
+				active: 0
+
+			@_$scope.toggleOpen = (id) =>
+				if id == @_$scope.is.active
+					@_$scope.is.active = 0
+				else
+					@_$scope.is.active = id
+
 
 	return new ItemController($scope, ItemBusinessLayer, FeedModel, FeedLoading,
 	                          AutoPageLoading, FeedBusinessLayer, Language,

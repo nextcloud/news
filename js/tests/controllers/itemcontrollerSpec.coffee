@@ -190,3 +190,14 @@ describe 'ItemController', ->
 		expect(@scope.isCompactView()).toBe(false)
 		@Compact.handle(true)
 		expect(@scope.isCompactView()).toBe(true)
+
+
+	it 'should toggle active ones and close old ones', =>
+		expect(@scope.is.active).toBe(0)
+		
+		@scope.toggleOpen(3)
+		expect(@scope.is.active).toBe(3)
+
+		@scope.toggleOpen(3)
+		expect(@scope.is.active).toBe(0)
+

@@ -2,27 +2,49 @@
 
 <ul>
 	<li class="feed_item"
+
 		ng-repeat="item in itemBusinessLayer.getAll() | orderBy:['-id'] "
-		ng-class="{ read: item.isRead() }"
+		ng-class="{ read: item.isRead(), compact: isCompactView(), open: is.active==item.id}"
 		data-id="{{ item.id }}"
 		ng-click="itemBusinessLayer.setRead(item.id)">
+
+		<div class="item_heading">
+			<button ng-class="{ important: item.isStarred() }"
+					ng-click="itemBusinessLayer.toggleStarred(item.id)"
+					class="star"
+					>
+			</button>
+			<a class="external" 
+				target="_blank" 
+				ng-href="{{ item.url }}" 
+				title="<?php p($l->t('read on website')) ?>">
+			</a>
+			<span class="timeago" title="{{item.pubDate*1000|date:'dd-MM-yyyy'}}">
+				{{ getRelativeDate(item.pubDate) }}
+			</span>
+			<h1>
+				<a ng-click="toggleOpen(item.id)" href="#">{{ item.title }}</a>
+			</h1>
+		</div>
+		
 		<h2 class="item_date">
 			<span class="timeago" title="{{item.pubDate*1000|date:'dd-MM-yyyy'}}">
 				{{ getRelativeDate(item.pubDate) }}
 			</span>
 		</h2>
 
-		<div class="utils">
+		<div class="item_utils">
 			<ul class="primary_item_utils">
-				<li ng-class="{ important: item.isStarred() }"
+				<li>
+					<button 
+					title="<?php p($l->t('star')) ?>"
+					ng-class="{ important: item.isStarred() }"
 					ng-click="itemBusinessLayer.toggleStarred(item.id)"
-					class="star"
-					>
+					class="star"></button>
 				</li>
 			</ul>
 		</div>
 
-		<h1 class="item_heading">{{ item.title }}</h1>
 		<h1 class="item_title">
 			<a target="_blank" ng-href="{{ item.url }}">
 				{{ item.title }}
@@ -47,10 +69,10 @@
 			?></audio>
 		</div>
 
-		<div class="body" ng-bind-html-unsafe="item.body">
+		<div class="item_body" ng-bind-html-unsafe="item.body">
 		</div>
 
-		<div class="bottom_utils">
+		<div class="item_bottom_utils">
 			<ul class="secondary_item_utils"
 				ng-class="{ show_keep_unread: itemBusinessLayer.isKeptUnread(item.id) }">
 				<li ng-click="itemBusinessLayer.toggleKeepUnread(item.id)"
