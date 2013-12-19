@@ -65,14 +65,13 @@ angular.module('News').directive 'itemShortcuts', ['$window', ($window) ->
 				$scrollArea.scrollTop($scrollArea.prop('scrollHeight'))
 
 
-
 		getCurrentItem = (scrollArea) ->
 			$scrollArea = $(scrollArea)
 			$items = $scrollArea.find('.feed_item')
 			for item in $items
 				$item = $(item)
 				# 130px of the item should be visible
-				if ($item.height() + $item.position().top) > 110
+				if ($item.height() + $item.position().top) > 30
 					return $item
 
 
@@ -84,6 +83,10 @@ angular.module('News').directive 'itemShortcuts', ['$window', ($window) ->
 		starCurrentItem = (scrollArea) ->
 			$item = getCurrentItem(scrollArea)
 			$item.find('.star').trigger('click')
+
+		expandCurrentItem = (scrollArea) ->
+			$item = getCurrentItem(scrollArea)
+			$item.find('.item_heading a').trigger('click')
 
 
 		openCurrentItem = (scrollArea) ->
@@ -117,6 +120,11 @@ angular.module('News').directive 'itemShortcuts', ['$window', ($window) ->
 				else if e.keyCode == 85
 					e.preventDefault()
 					keepUnreadCurrentItem(scrollArea)
+
+				# e
+				else if e.keyCode == 69
+					e.preventDefault()
+					expandCurrentItem(scrollArea)
 
 				# s or i or l
 				else if e.keyCode == 73 or e.keyCode == 83 or e.keyCode == 76

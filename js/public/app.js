@@ -196,7 +196,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
   angular.module('News').directive('itemShortcuts', [
     '$window', function($window) {
       return function(scope, elm, attr) {
-        var getCurrentItem, jumpTo, jumpToNextItem, jumpToPreviousItem, keepUnreadCurrentItem, openCurrentItem, starCurrentItem;
+        var expandCurrentItem, getCurrentItem, jumpTo, jumpToNextItem, jumpToPreviousItem, keepUnreadCurrentItem, openCurrentItem, starCurrentItem;
         jumpTo = function($scrollArea, $item) {
           var position;
           position = $item.offset().top - $scrollArea.offset().top + $scrollArea.scrollTop();
@@ -248,7 +248,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           for (_i = 0, _len = $items.length; _i < _len; _i++) {
             item = $items[_i];
             $item = $(item);
-            if (($item.height() + $item.position().top) > 110) {
+            if (($item.height() + $item.position().top) > 30) {
               return $item;
             }
           }
@@ -262,6 +262,11 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           var $item;
           $item = getCurrentItem(scrollArea);
           return $item.find('.star').trigger('click');
+        };
+        expandCurrentItem = function(scrollArea) {
+          var $item;
+          $item = getCurrentItem(scrollArea);
+          return $item.find('.item_heading a').trigger('click');
         };
         openCurrentItem = function(scrollArea) {
           var $item;
@@ -283,6 +288,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             } else if (e.keyCode === 85) {
               e.preventDefault();
               return keepUnreadCurrentItem(scrollArea);
+            } else if (e.keyCode === 69) {
+              e.preventDefault();
+              return expandCurrentItem(scrollArea);
             } else if (e.keyCode === 73 || e.keyCode === 83 || e.keyCode === 76) {
               e.preventDefault();
               return starCurrentItem(scrollArea);

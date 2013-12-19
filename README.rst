@@ -128,7 +128,7 @@ Keyboard shortcuts
 * **Keep current item unread**: u
 * **Star item and jump to next one**: h
 * **Open current item**: o
-
+* **Toggle expand of current item in compact view**: e
 
 Performance Notices
 -------------------
