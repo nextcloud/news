@@ -207,10 +207,14 @@
 		border-bottom: 1px dashed #ddd;
 	}
 
-	.item_heading .star,
-	.item_heading .external {
+	.item_heading .star {
 		float: left;
 		margin: 7px 12px 0 0;
+	}
+
+	.item_heading .external {
+		float: left;
+		margin: 8px 12px 0 0;
 	}
 
 	.item_heading .timeago {
