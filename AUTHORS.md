@@ -26,3 +26,7 @@
 * [Lutz Schildt](https://github.com/lsmooth): <ls@lsmooth.de>
 * [Christopher](https://github.com/Kondou-ger): <kondou@ts.unde.re>
 * [Xemle](https://github.com/xemle): <xemle@phtagr.org>
+* [Blaimi](https://github.com/Blaimi)
+* [Davide Saurino](https://github.com/sub): <davide.saurino@alcacoop.it>
+* [Repat](http://repat.de/)
+* [David Luhmer](https://github.com/David-Development)
