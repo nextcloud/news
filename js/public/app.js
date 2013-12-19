@@ -261,7 +261,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         starCurrentItem = function(scrollArea) {
           var $item;
           $item = getCurrentItem(scrollArea);
-          return $item.find('.star').trigger('click');
+          return $item.find('.item_utils .star').trigger('click');
         };
         expandCurrentItem = function(scrollArea) {
           var $item;

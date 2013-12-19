@@ -82,7 +82,7 @@ angular.module('News').directive 'itemShortcuts', ['$window', ($window) ->
 
 		starCurrentItem = (scrollArea) ->
 			$item = getCurrentItem(scrollArea)
-			$item.find('.star').trigger('click')
+			$item.find('.item_utils .star').trigger('click')
 
 		expandCurrentItem = (scrollArea) ->
 			$item = getCurrentItem(scrollArea)
