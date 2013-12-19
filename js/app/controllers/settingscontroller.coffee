@@ -23,7 +23,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 angular.module('News').controller 'SettingsController',
 ['$scope', 'FeedBusinessLayer', 'FolderBusinessLayer', 'ShowAll',
-($scope, FeedBusinessLayer, FolderBusinessLayer, ShowAll) ->
+'Persistence', 'Compact',
+($scope, FeedBusinessLayer, FolderBusinessLayer, ShowAll, Persistence,
+Compact) ->
 
 	$scope.feedBusinessLayer = FeedBusinessLayer
 
@@ -48,5 +50,14 @@ angular.module('News').controller 'SettingsController',
 		catch error
 			$scope.jsonError = true
 			$scope.loading = false
+
+
+	$scope.setCompactView = (isCompact) ->
+		Compact.handle(!Compact.isCompact())
+
+		Persistence.userSettingsSetCompact(Compact.isCompact())
+
+	$scope.isCompactView = ->
+		return Compact.isCompact()
 
 ]

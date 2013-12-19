@@ -429,3 +429,20 @@ describe 'Persistence', ->
 
 		expect(@req.get).toHaveBeenCalledWith('news_usersettings_language',
 			expected)
+
+
+	it 'should send a get compact view request', =>
+		@Persistence.userSettingsIsCompact()
+
+		expect(@req.get).toHaveBeenCalledWith('news_usersettings_iscompact')
+
+
+	it 'should send a set compact view request', =>
+		@Persistence.userSettingsSetCompact(true)
+
+		expected =
+			data:
+				compact: true
+
+		expect(@req.post).toHaveBeenCalledWith('news_usersettings_setcompact',
+			expected)

@@ -40,7 +40,7 @@ describe 'ItemController', ->
 
 	beforeEach inject ($controller, @ItemBusinessLayer, @FeedBusinessLayer,
 		$rootScope, @FeedLoading, @AutoPageLoading, @FeedModel, @ItemModel,
-		@ActiveFeed, @FeedType, @NewestItem) =>
+		@ActiveFeed, @FeedType, @NewestItem, @Compact) =>
 		
 		@ActiveFeed.handle({type: @FeedType.Folder, id: 3})
 		@scope = $rootScope.$new()
@@ -184,3 +184,9 @@ describe 'ItemController', ->
 
 		@scope.loadNew()
 		expect(@scope.refresh).toBe(false)
+
+
+	it 'should bind the compact object', =>
+		expect(@scope.isCompactView()).toBe(false)
+		@Compact.handle(true)
+		expect(@scope.isCompactView()).toBe(true)

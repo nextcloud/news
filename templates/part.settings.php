@@ -10,6 +10,10 @@
 
 <div id="app-settings-content">
 	<fieldset class="personalblock">
+		<legend><strong><?php p($l->t('Settings')); ?></strong></legend>
+		<p ng-click="setCompactView()">
+			<input type="checkbox" ng-checked="isCompactView()"> <?php p($l->t('Use compact view')); ?>
+		</p>
 		<legend><strong><?php p($l->t('Subscriptions (OPML)')); ?></strong></legend>
 		
 		<input type="file" id="opml-upload" name="import" accept="text/x-opml, text/xml"

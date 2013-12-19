@@ -217,6 +217,18 @@ $this->create('news_export_articles', '/export/articles')->get()->action(
 /**
  * User Settings
  */
+$this->create('news_usersettings_iscompact', '/usersettings/compact')->get()->action(
+	function($params){
+		App::main('UserSettingsController', 'isCompactView', $params, new DIContainer());
+	}
+);
+
+$this->create('news_usersettings_setcompact', '/usersettings/compact')->post()->action(
+	function($params){
+		App::main('UserSettingsController', 'setCompactView', $params, new DIContainer());
+	}
+);
+
 $this->create('news_usersettings_read', '/usersettings/read')->get()->action(
 	function($params){
 		App::main('UserSettingsController', 'read', $params, new DIContainer());

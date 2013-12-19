@@ -30,7 +30,7 @@ describe 'SettingsController', ->
 		$provide.value 'Persistence', @persistence
 		return
 
-	beforeEach inject ($controller, @ShowAll) =>
+	beforeEach inject ($controller, @ShowAll, @Compact) =>
 		@scope = {}
 		@replace =
 			'$scope': @scope
@@ -38,6 +38,7 @@ describe 'SettingsController', ->
 				import: jasmine.createSpy('import')
 			'FeedBusinessLayer':
 				importArticles: jasmine.createSpy('import')
+			'Compact': @Compact
 		@controller = $controller('SettingsController', @replace)
 
 
@@ -88,3 +89,13 @@ describe 'SettingsController', ->
 		expect(@replace.FeedBusinessLayer.importArticles).toHaveBeenCalledWith(
 			expected, jasmine.any(Function)
 		)
+
+
+	it 'should set the compact view', =>
+		@persistence.userSettingsSetCompact = jasmine.createSpy('compact')
+
+		@Compact.handle(false)
+		@scope.setCompactView()
+
+		expect(@persistence.userSettingsSetCompact).toHaveBeenCalledWith(true)
+		expect(@scope.isCompactView()).toBe(true)

@@ -51,6 +51,7 @@ $rootScope, $q) ->
 			@getAllFeeds(successCallback)
 			@userSettingsRead()
 			@userSettingsLanguage()
+			@userSettingsIsCompact()
 
 			@deferred.promise
 
@@ -472,6 +473,21 @@ $rootScope, $q) ->
 				onFailure: failureCallbackWrapper
 
 			@_request.get 'news_usersettings_language', data
+
+
+		userSettingsIsCompact: ->
+			@_request.get 'news_usersettings_iscompact'
+
+
+		userSettingsSetCompact: (isCompact) ->
+			###
+			sets all items of a folder as read
+			###
+			params =
+				data:
+					compact: isCompact
+
+			@_request.post 'news_usersettings_setcompact', params
 
 
 		_triggerHideRead: ->

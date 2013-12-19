@@ -23,15 +23,15 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 angular.module('News').controller 'ItemController',
 ['$scope', 'ItemBusinessLayer', 'FeedModel', 'FeedLoading', 'FeedBusinessLayer',
-'Language', 'AutoPageLoading',
+'Language', 'AutoPageLoading', 'Compact',
 ($scope, ItemBusinessLayer, FeedModel, FeedLoading, FeedBusinessLayer,
-Language, AutoPageLoading) ->
+Language, AutoPageLoading, Compact) ->
 
 	class ItemController
 
 		constructor: (@_$scope, @_itemBusinessLayer, @_feedModel,
 		              @_feedLoading, @_autoPageLoading, @_feedBusinessLayer,
-		              @_language) ->
+		              @_language, @_compact) ->
 			@_autoPaging = true
 
 			@_$scope.itemBusinessLayer = @_itemBusinessLayer
@@ -84,6 +84,11 @@ Language, AutoPageLoading) ->
 						@_autoPaging = true
 
 
+			@_$scope.isCompactView = =>
+				return @_compact.isCompact()
+
+
 	return new ItemController($scope, ItemBusinessLayer, FeedModel, FeedLoading,
-	                          AutoPageLoading, FeedBusinessLayer, Language)
+	                          AutoPageLoading, FeedBusinessLayer, Language,
+	                          Compact)
 ]

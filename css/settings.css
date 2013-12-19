@@ -36,6 +36,10 @@
 	padding-bottom: 25px;
 }
 
+#app-settings-content p {
+	padding-left: 10px;
+}
+
 .upload-icon,
 .download-icon {
 	padding-left: 25px;
