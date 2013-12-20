@@ -84,11 +84,11 @@ $rootScope, $q) ->
 			do (lastChange, offset) =>
 				successCallbackWrapper = (data) =>
 					console.log data
-					console.log data.items
+					console.log data.data.items
 					console.log offset
 					console.log lastChange
 					console.log @_lastFeedChange
-					if data.items.length == 0 &&
+					if data.data.items.length == 0 &&
 					lastChange == @_lastFeedChange &&
 					offset != 0
 						@_preventUselessAutoPageRequest = true
