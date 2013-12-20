@@ -81,13 +81,8 @@ $rootScope, $q) ->
 			successCallbackWrapper = ->
 			lastChange = @_lastFeedChange
 			# back up last change value in closure so we can compare it properly
-			do (lastChange, offset) =>
+			do (lastChange, offset, loading) =>
 				successCallbackWrapper = (data) =>
-					console.log data
-					console.log data.data.items
-					console.log offset
-					console.log lastChange
-					console.log @_lastFeedChange
 					if data.data.items.length == 0 &&
 					lastChange == @_lastFeedChange &&
 					offset != 0
