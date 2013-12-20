@@ -30,7 +30,8 @@ $rootScope, $q) ->
 
 		constructor: (@_request, @_feedLoading, @_autoPageLoading, @_newLoading,
 		              @_config, @_activeFeed, @_$rootScope) ->
-
+			@_preventUselessAutoPageRequest = false
+			@_lastFeedChange = new Date().getTime()
 
 		init: ->
 			###
@@ -65,14 +66,32 @@ $rootScope, $q) ->
 			# show different loading signs
 			if offset == 0
 				loading = @_feedLoading
+				# every change of the feed should inevitably reset the
+				# autopage prevention
+				@_lastFeedChange = new Date().getTime()
+				@_preventUselessAutoPageRequest = false
 			else
 				loading = @_autoPageLoading
 
 			# loading sign handling
 			loading.increase()
-			successCallbackWrapper = (data) ->
-				onSuccess(data)
-				loading.decrease()
+
+
+			successCallbackWrapper = ->
+			lastChange = @_lastFeedChange
+			# back up last change value in closure so we can compare it properly
+			do (lastChange, offset) =>
+				successCallbackWrapper = (data) =>
+					console.log data
+					console.log offset
+					console.log lastChange
+					console.log @_lastFeedChange
+					if data.items.length == 0 &&
+					lastChange == @_lastFeedChange &&
+					offset != 0
+						@_preventUselessAutoPageRequest = true
+					onSuccess(data)
+					loading.decrease()
 			failureCallbackWrapper = (data) ->
 				loading.decrease()
 
@@ -85,7 +104,8 @@ $rootScope, $q) ->
 				onSuccess: successCallbackWrapper
 				onFailure: failureCallbackWrapper
 
-			@_request.get 'news_items', params
+			if not @_preventUselessAutoPageRequest
+				@_request.get 'news_items', params
 
 
 		getNewItems: (type, id, lastModified, onSuccess) ->

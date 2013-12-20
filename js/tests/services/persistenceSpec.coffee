@@ -74,6 +74,42 @@ describe 'Persistence', ->
 		expect(@req.get).toHaveBeenCalledWith('news_items', expected)
 
 
+	it 'should reset the autopage lock when loading a new feed', =>
+		data =
+			items: []
+		called = 0
+		@req.get.andCallFake (route, params) ->
+			params.onSuccess(data)
+			called++
+
+		success = ->
+		@Persistence.getItems(2, 3, 0, success)
+		@Persistence.getItems(2, 3, 4, success)
+		@Persistence.getItems(2, 3, 0, success)
+		@Persistence.getItems(2, 3, 4, success)
+
+		expect(called).toBe(4)
+
+
+	xit 'should not send autopage request if reqeust returned nothing', =>
+		data =
+			items: []
+		called = 0
+		@req.get.andCallFake (route, params) ->
+			params.onSuccess(data)
+			called++
+
+		success = ->
+		@Persistence.getItems(2, 3, 4, success)
+		@Persistence.getItems(2, 3, 4, success)
+		@Persistence.getItems(2, 3, 4, success)
+		@Persistence.getItems(2, 3, 0, success)
+		@Persistence.getItems(2, 3, 0, success)
+
+		expect(called).toBe(3)
+
+
+
 	it 'should send a load new items request', =>
 		success = ->
 		params =
@@ -446,3 +482,5 @@ describe 'Persistence', ->
 
 		expect(@req.post).toHaveBeenCalledWith('news_usersettings_setcompact',
 			expected)
+
+
