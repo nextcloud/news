@@ -264,3 +264,19 @@ describe 'ItemBusinessLayer', ->
 
 		expect(@persistence.getNewItems).toHaveBeenCalledWith(
 			@FeedType.Feed, 3, 4, callback)
+
+
+	it 'should autopage the next items if there are none', =>
+		@NewestItem.handle(13)
+		@persistence.getItems = jasmine.createSpy('autopage')
+		callback = ->
+
+		@ItemModel.add({id: 2, guidHash: 'abc', feedId: 2, status: 16})
+		@ItemModel.add({id: 3, guidHash: 'abcd', feedId: 2, status: 16})
+		@ItemModel.add({id: 1, guidHash: 'abce', feedId: 2, status: 16})
+		@ItemModel.add({id: 6, guidHash: 'abcf', feedId: 2, status: 16})
+
+		@ItemBusinessLayer.loadNext(callback)
+
+		expect(@persistence.getItems).toHaveBeenCalledWith(
+			@FeedType.Feed, 3, 1, jasmine.any(Function))
