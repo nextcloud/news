@@ -2809,7 +2809,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             console.log('request');
             return this._request.get('news_items', params);
           } else {
-            return console.log('no request');
+            return callback();
           }
         };
 
