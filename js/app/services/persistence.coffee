@@ -70,6 +70,7 @@ $rootScope, $q) ->
 				# autopage prevention
 				@_lastFeedChange = new Date().getTime()
 				@_preventUselessAutoPageRequest = false
+				console.log 'free'
 			else
 				loading = @_autoPageLoading
 
@@ -78,7 +79,6 @@ $rootScope, $q) ->
 
 
 			successCallbackWrapper = ->
-				console.log 'haha'
 			lastChange = @_lastFeedChange
 			# back up last change value in closure so we can compare it properly
 			do (lastChange, offset) =>
@@ -92,6 +92,7 @@ $rootScope, $q) ->
 					lastChange == @_lastFeedChange &&
 					offset != 0
 						@_preventUselessAutoPageRequest = true
+						console.log 'lock'
 					onSuccess(data)
 					loading.decrease()
 			failureCallbackWrapper = (data) ->

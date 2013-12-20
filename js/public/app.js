@@ -2775,13 +2775,12 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             loading = this._feedLoading;
             this._lastFeedChange = new Date().getTime();
             this._preventUselessAutoPageRequest = false;
+            console.log('free');
           } else {
             loading = this._autoPageLoading;
           }
           loading.increase();
-          successCallbackWrapper = function() {
-            return console.log('haha');
-          };
+          successCallbackWrapper = function() {};
           lastChange = this._lastFeedChange;
           (function(lastChange, offset) {
             return successCallbackWrapper = function(data) {
@@ -2792,6 +2791,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
               console.log(_this._lastFeedChange);
               if (data.data.items.length === 0 && lastChange === _this._lastFeedChange && offset !== 0) {
                 _this._preventUselessAutoPageRequest = true;
+                console.log('lock');
               }
               onSuccess(data);
               return loading.decrease();
