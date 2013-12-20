@@ -106,7 +106,7 @@ $rootScope, $q) ->
 				console.log 'request'
 				@_request.get 'news_items', params
 			else
-				callback()
+				onSuccess()
 
 
 		getNewItems: (type, id, lastModified, onSuccess) ->
