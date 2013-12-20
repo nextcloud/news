@@ -2764,6 +2764,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         Persistence.prototype.getItems = function(type, id, offset, onSuccess) {
           var failureCallbackWrapper, lastChange, loading, params, successCallbackWrapper,
             _this = this;
+          if (offset == null) {
+            offset = 0;
+          }
           if (onSuccess == null) {
             onSuccess = null;
           }
@@ -2776,11 +2779,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             loading = this._autoPageLoading;
           }
           loading.increase();
-          successCallbackWrapper = function() {};
+          successCallbackWrapper = function() {
+            return console.log('haha');
+          };
           lastChange = this._lastFeedChange;
           (function(lastChange, offset) {
             return successCallbackWrapper = function(data) {
               console.log(data);
+              console.log(data.items);
               console.log(offset);
               console.log(lastChange);
               console.log(_this._lastFeedChange);

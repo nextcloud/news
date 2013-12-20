@@ -60,7 +60,7 @@ $rootScope, $q) ->
 		###
 			ITEM CONTROLLER
 		###
-		getItems: (type, id, offset, onSuccess=null) ->
+		getItems: (type, id, offset=0, onSuccess=null) ->
 			onSuccess or= ->
 
 			# show different loading signs
@@ -78,11 +78,13 @@ $rootScope, $q) ->
 
 
 			successCallbackWrapper = ->
+				console.log 'haha'
 			lastChange = @_lastFeedChange
 			# back up last change value in closure so we can compare it properly
 			do (lastChange, offset) =>
 				successCallbackWrapper = (data) =>
 					console.log data
+					console.log data.items
 					console.log offset
 					console.log lastChange
 					console.log @_lastFeedChange
