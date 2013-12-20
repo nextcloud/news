@@ -2775,7 +2775,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             loading = this._feedLoading;
             this._lastFeedChange = new Date().getTime();
             this._preventUselessAutoPageRequest = false;
-            console.log('free');
           } else {
             loading = this._autoPageLoading;
           }
@@ -2786,7 +2785,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             return successCallbackWrapper = function(data) {
               if (data.data.items.length === 0 && lastChange === _this._lastFeedChange && offset !== 0) {
                 _this._preventUselessAutoPageRequest = true;
-                console.log('lock');
               }
               onSuccess(data);
               return loading.decrease();
@@ -2806,10 +2804,10 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             onFailure: failureCallbackWrapper
           };
           if (!this._preventUselessAutoPageRequest) {
-            console.log('request');
             return this._request.get('news_items', params);
           } else {
-            return onSuccess();
+            onSuccess();
+            return loading.decrease();
           }
         };
 

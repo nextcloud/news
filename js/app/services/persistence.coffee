@@ -70,7 +70,6 @@ $rootScope, $q) ->
 				# autopage prevention
 				@_lastFeedChange = new Date().getTime()
 				@_preventUselessAutoPageRequest = false
-				console.log 'free'
 			else
 				loading = @_autoPageLoading
 
@@ -87,7 +86,6 @@ $rootScope, $q) ->
 					lastChange == @_lastFeedChange &&
 					offset != 0
 						@_preventUselessAutoPageRequest = true
-						console.log 'lock'
 					onSuccess(data)
 					loading.decrease()
 			failureCallbackWrapper = (data) ->
@@ -103,10 +101,14 @@ $rootScope, $q) ->
 				onFailure: failureCallbackWrapper
 
 			if not @_preventUselessAutoPageRequest
-				console.log 'request'
 				@_request.get 'news_items', params
 			else
+				# this case happens if an autopage request is prevented if when
+				# there are no new items. we still have to remove the loading
+				# sign and call the success handler, otherwise the controller
+				# will block the request and the loading sign will not go away
 				onSuccess()
+				loading.decrease()
 
 
 		getNewItems: (type, id, lastModified, onSuccess) ->
