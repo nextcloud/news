@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2013-12-02 16:16-0500\n"
-"PO-Revision-Date: 2013-11-29 19:20+0000\n"
+"POT-Creation-Date: 2013-12-20 01:02-0500\n"
+"PO-Revision-Date: 2013-12-20 06:02+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Persian (http://www.transifex.com/projects/p/owncloud/language/fa/)\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr "خوراک خوان را نمی تواند اضافه کند: در حا�
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "خوراک خوان را نمی تواند اضافه کند: آدرس URL وجود ندارد یا xml نامعتبر است."
 
-#: businesslayer/feedbusinesslayer.php:266
+#: businesslayer/feedbusinesslayer.php:280
 msgid "Articles without feed"
 msgstr ""
 
@@ -113,7 +113,7 @@ msgstr "مطالب خوانده نشده"
 msgid "All articles"
 msgstr "تمام مطالب"
 
-#: templates/part.feed.unread.php:26 templates/part.listfeed.php:49
+#: templates/part.feed.unread.php:26 templates/part.listfeed.php:65
 #: templates/part.listfolder.php:43
 msgid "Mark read"
 msgstr "علامت خوانده شده"
@@ -122,25 +122,45 @@ msgstr "علامت خوانده شده"
 msgid "Welcome to the ownCloud News app!"
 msgstr ""
 
-#: templates/part.items.php:34
+#: templates/part.items.php:20
+msgid "read on website"
+msgstr ""
+
+#: templates/part.items.php:40
+msgid "star"
+msgstr ""
+
+#: templates/part.items.php:56
 msgid "from"
 msgstr "از"
 
-#: templates/part.items.php:39
+#: templates/part.items.php:61
 msgid "by"
 msgstr "با"
 
-#: templates/part.items.php:46
+#: templates/part.items.php:68
 msgid "Download"
 msgstr "دانلود"
 
-#: templates/part.items.php:59
+#: templates/part.items.php:79
 msgid "Keep unread"
 msgstr "خوانده نشده "
 
-#: templates/part.listfeed.php:37 templates/part.listfeed.php:55
+#: templates/part.listfeed.php:22
+msgid "Cancel"
+msgstr ""
+
+#: templates/part.listfeed.php:25
+msgid "Save"
+msgstr ""
+
+#: templates/part.listfeed.php:51 templates/part.listfeed.php:78
 msgid "Delete website"
 msgstr "پاک کردن سایت"
+
+#: templates/part.listfeed.php:73
+msgid "Rename feed"
+msgstr ""
 
 #: templates/part.listfolder.php:14
 msgid "Collapse"
@@ -155,30 +175,38 @@ msgid "Rename folder"
 msgstr "تغییر نام پوشه"
 
 #: templates/part.settings.php:13
+msgid "Settings"
+msgstr ""
+
+#: templates/part.settings.php:15
+msgid "Use compact view"
+msgstr ""
+
+#: templates/part.settings.php:17
 msgid "Subscriptions (OPML)"
 msgstr ""
 
-#: templates/part.settings.php:17 templates/part.settings.php:20
-#: templates/part.settings.php:48 templates/part.settings.php:53
+#: templates/part.settings.php:21 templates/part.settings.php:24
+#: templates/part.settings.php:52 templates/part.settings.php:57
 msgid "Import"
 msgstr "وارد کردن"
 
-#: templates/part.settings.php:24 templates/part.settings.php:28
-#: templates/part.settings.php:32 templates/part.settings.php:34
-#: templates/part.settings.php:56 templates/part.settings.php:60
-#: templates/part.settings.php:64 templates/part.settings.php:66
+#: templates/part.settings.php:28 templates/part.settings.php:32
+#: templates/part.settings.php:36 templates/part.settings.php:38
+#: templates/part.settings.php:60 templates/part.settings.php:64
+#: templates/part.settings.php:68 templates/part.settings.php:70
 msgid "Export"
 msgstr "گرفتن خروجی"
 
-#: templates/part.settings.php:38
+#: templates/part.settings.php:42
 msgid "Error when importing: file does not contain valid OPML"
 msgstr "خطا هنگام وارد کردن: فایل حاوی OPML  معتبر نیست."
 
-#: templates/part.settings.php:44
+#: templates/part.settings.php:48
 msgid "Unread/Starred Articles"
 msgstr ""
 
-#: templates/part.settings.php:70
+#: templates/part.settings.php:74
 msgid "Error when importing: file does not contain valid JSON"
 msgstr "خطا هنگام وارد کردن: فایل حاوی JSON معتبر نیست."
 
