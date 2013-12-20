@@ -2782,7 +2782,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           loading.increase();
           successCallbackWrapper = function() {};
           lastChange = this._lastFeedChange;
-          (function(lastChange, offset, loading) {
+          (function(lastChange, offset, loading, onSuccess) {
             return successCallbackWrapper = function(data) {
               if (data.data.items.length === 0 && lastChange === _this._lastFeedChange && offset !== 0) {
                 _this._preventUselessAutoPageRequest = true;
@@ -2791,7 +2791,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
               onSuccess(data);
               return loading.decrease();
             };
-          })(lastChange, offset, loading);
+          })(lastChange, offset, loading, onSuccess);
           failureCallbackWrapper = function(data) {
             return loading.decrease();
           };
