@@ -27,11 +27,9 @@ angular.module('News').factory '_BusinessLayer', ->
 
 		constructor: (@_activeFeed, @_persistence, @_itemModel, @_type,
 			@_$rootScope) ->
-			@_preventAutopage = false
 
 
 		load: (id) ->
-			@_preventAutopage = false
 			@_$rootScope.$broadcast 'loadingNewItems'
 			@_itemModel.clear()
 			@_persistence.getItems @_type, id, 0, =>

@@ -30,7 +30,7 @@ $rootScope, $q) ->
 
 		constructor: (@_request, @_feedLoading, @_autoPageLoading, @_newLoading,
 		              @_config, @_activeFeed, @_$rootScope) ->
-			@_preventUselessAutoPageRequest = false
+
 
 		init: ->
 			###
@@ -64,16 +64,13 @@ $rootScope, $q) ->
 
 			# show different loading signs
 			if offset == 0
-				@_preventUselessAutoPageRequest = false
 				loading = @_feedLoading
 			else
 				loading = @_autoPageLoading
 
 			# loading sign handling
 			loading.increase()
-			successCallbackWrapper = (data) =>
-				if data.items.length == 0
-					@_preventUselessAutoPageRequest = true
+			successCallbackWrapper = (data) ->
 				onSuccess(data)
 				loading.decrease()
 			failureCallbackWrapper = (data) ->
@@ -88,8 +85,7 @@ $rootScope, $q) ->
 				onSuccess: successCallbackWrapper
 				onFailure: failureCallbackWrapper
 
-			if not @_preventUselessAutoPageRequest
-				@_request.get 'news_items', params
+			@_request.get 'news_items', params
 
 
 		getNewItems: (type, id, lastModified, onSuccess) ->

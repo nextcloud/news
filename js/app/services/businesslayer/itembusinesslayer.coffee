@@ -106,7 +106,6 @@ StarredBusinessLayer, NewestItem) ->
 
 
 		loadNext: (callback) ->
-
 			lowestItemId = @_itemModel.getLowestId()
 			if lowestItemId != 0
 				@_persistence.getItems @_activeFeed.getType(),

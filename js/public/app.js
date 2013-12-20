@@ -1051,12 +1051,10 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         this._itemModel = _itemModel;
         this._type = _type;
         this._$rootScope = _$rootScope;
-        this._preventAutopage = false;
       }
 
       BusinessLayer.prototype.load = function(id) {
         var _this = this;
-        this._preventAutopage = false;
         this._$rootScope.$broadcast('loadingNewItems');
         this._itemModel.clear();
         this._persistence.getItems(this._type, id, 0, function() {
@@ -2732,7 +2730,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           this._config = _config;
           this._activeFeed = _activeFeed;
           this._$rootScope = _$rootScope;
-          this._preventUselessAutoPageRequest = false;
         }
 
         Persistence.prototype.init = function() {
@@ -2763,23 +2760,18 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 
         Persistence.prototype.getItems = function(type, id, offset, onSuccess) {
-          var failureCallbackWrapper, loading, params, successCallbackWrapper,
-            _this = this;
+          var failureCallbackWrapper, loading, params, successCallbackWrapper;
           if (onSuccess == null) {
             onSuccess = null;
           }
           onSuccess || (onSuccess = function() {});
           if (offset === 0) {
-            this._preventUselessAutoPageRequest = false;
             loading = this._feedLoading;
           } else {
             loading = this._autoPageLoading;
           }
           loading.increase();
           successCallbackWrapper = function(data) {
-            if (data.items.length === 0) {
-              _this._preventUselessAutoPageRequest = true;
-            }
             onSuccess(data);
             return loading.decrease();
           };
@@ -2796,9 +2788,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             onSuccess: successCallbackWrapper,
             onFailure: failureCallbackWrapper
           };
-          if (!this._preventUselessAutoPageRequest) {
-            return this._request.get('news_items', params);
-          }
+          return this._request.get('news_items', params);
         };
 
         Persistence.prototype.getNewItems = function(type, id, lastModified, onSuccess) {
