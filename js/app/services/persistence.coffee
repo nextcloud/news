@@ -103,7 +103,10 @@ $rootScope, $q) ->
 				onFailure: failureCallbackWrapper
 
 			if not @_preventUselessAutoPageRequest
+				console.log 'request'
 				@_request.get 'news_items', params
+			else
+				console.log 'no request'
 
 
 		getNewItems: (type, id, lastModified, onSuccess) ->

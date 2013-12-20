@@ -2806,7 +2806,10 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             onFailure: failureCallbackWrapper
           };
           if (!this._preventUselessAutoPageRequest) {
+            console.log('request');
             return this._request.get('news_items', params);
+          } else {
+            return console.log('no request');
           }
         };
 
