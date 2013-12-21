@@ -1,4 +1,6 @@
 <?php $TRANSLATIONS = array(
 "Add" => "डाले",
-"Starred" => "तारांकित "
+"Starred" => "तारांकित ",
+"Save" => "सहेजें",
+"Settings" => "सेटिंग्स"
 );

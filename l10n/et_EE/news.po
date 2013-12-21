@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2013-12-20 01:02-0500\n"
-"PO-Revision-Date: 2013-12-20 06:02+0000\n"
+"POT-Creation-Date: 2013-12-21 01:02-0500\n"
+"PO-Revision-Date: 2013-12-20 06:22+0000\n"
 "Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/projects/p/owncloud/language/et_EE/)\n"
 "MIME-Version: 1.0\n"
@@ -148,11 +148,11 @@ msgstr "Hoia kui lugemata"
 
 #: templates/part.listfeed.php:22
 msgid "Cancel"
-msgstr ""
+msgstr "Loobu"
 
 #: templates/part.listfeed.php:25
 msgid "Save"
-msgstr ""
+msgstr "Salvesta"
 
 #: templates/part.listfeed.php:51 templates/part.listfeed.php:78
 msgid "Delete website"
@@ -176,7 +176,7 @@ msgstr "Nimeta kaust ümber"
 
 #: templates/part.settings.php:13
 msgid "Settings"
-msgstr ""
+msgstr "Seaded"
 
 #: templates/part.settings.php:15
 msgid "Use compact view"

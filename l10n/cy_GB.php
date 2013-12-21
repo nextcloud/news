@@ -4,6 +4,9 @@
 "Folder" => "Plygell",
 "by" => "gan",
 "Download" => "Llwytho i lawr",
+"Cancel" => "Diddymu",
+"Save" => "Cadw",
+"Settings" => "Gosodiadau",
 "Import" => "Mewnforio",
 "Export" => "Allforio"
 );

@@ -9,8 +9,11 @@
 "by" => "על ידי",
 "Download" => "הורדה",
 "Keep unread" => "סמן כלא נקרא",
+"Cancel" => "ביטול",
+"Save" => "שמירה",
 "Delete folder" => "מחק תיקייה",
 "Rename folder" => "שנה שם תיקייה",
+"Settings" => "הגדרות",
 "Import" => "יבוא",
 "Export" => "ייצוא"
 );

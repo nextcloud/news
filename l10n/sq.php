@@ -5,6 +5,9 @@
 "Folder" => "Dosje",
 "by" => "nga",
 "Download" => "Shkarko",
+"Cancel" => "Anullo",
+"Save" => "Ruaj",
+"Settings" => "Konfigurime",
 "Import" => "Importo",
 "Export" => "Eksporto"
 );

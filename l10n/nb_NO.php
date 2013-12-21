@@ -13,9 +13,12 @@
 "by" => "av",
 "Download" => "Last ned",
 "Keep unread" => "Merk som ulest",
+"Cancel" => "Avbryt",
+"Save" => "Lagre",
 "Collapse" => "Skjul",
 "Delete folder" => "Slett mappe",
 "Rename folder" => "Gi mappen nytt navn",
+"Settings" => "Innstillinger",
 "Import" => "Importer",
 "Export" => "Eksporter"
 );

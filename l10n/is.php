@@ -10,9 +10,12 @@
 "by" => "af",
 "Download" => "Niðurhal",
 "Keep unread" => "Halda sem ólesnu",
+"Cancel" => "Hætta við",
+"Save" => "Vista",
 "Collapse" => "Fletja út",
 "Delete folder" => "Eyða möppu",
 "Rename folder" => "Endurskýra möppu",
+"Settings" => "Stillingar",
 "Import" => "Flytja inn",
 "Export" => "Flytja út"
 );

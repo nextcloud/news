@@ -5,6 +5,9 @@
 "from" => "ex",
 "by" => "per",
 "Download" => "Discargar",
+"Cancel" => "Cancellar",
+"Save" => "Salveguardar",
+"Settings" => "Configurationes",
 "Import" => "Importar",
 "Export" => "Exportar"
 );

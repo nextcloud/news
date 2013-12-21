@@ -2,5 +2,8 @@
 "Address" => "Adresa",
 "Add" => "Dodaj",
 "by" => "od",
-"Download" => "Preuzmi"
+"Download" => "Preuzmi",
+"Cancel" => "Otkaži",
+"Save" => "Snimi",
+"Settings" => "Podešavanja"
 );

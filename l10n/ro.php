@@ -9,9 +9,12 @@
 "by" => "după",
 "Download" => "Descarcă",
 "Keep unread" => "Păstrează necitite",
+"Cancel" => "Anulare",
+"Save" => "Salvează",
 "Collapse" => "Restrânge",
 "Delete folder" => "Șterge director",
 "Rename folder" => "Redenumește director",
+"Settings" => "Setări",
 "Import" => "Importă",
 "Export" => "Exportă"
 );

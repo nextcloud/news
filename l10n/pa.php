@@ -1,3 +1,5 @@
 <?php $TRANSLATIONS = array(
-"Download" => "ਡਾਊਨਲੋਡ"
+"Download" => "ਡਾਊਨਲੋਡ",
+"Cancel" => "ਰੱਦ ਕਰੋ",
+"Settings" => "ਸੈਟਿੰਗ"
 );

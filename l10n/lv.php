@@ -11,9 +11,12 @@
 "by" => "līdz",
 "Download" => "Lejupielādēt",
 "Keep unread" => "Atstāt nelasītu",
+"Cancel" => "Atcelt",
+"Save" => "Saglabāt",
 "Collapse" => "Sakļaut",
 "Delete folder" => "Dzēst mapi",
 "Rename folder" => "Pārsaukt mapi",
+"Settings" => "Iestatījumi",
 "Import" => "Importēt",
 "Export" => "Eksportēt"
 );

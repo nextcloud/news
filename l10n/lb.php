@@ -14,8 +14,11 @@
 "Mark read" => "Als gelies markéieren",
 "by" => "vun",
 "Download" => "Download",
+"Cancel" => "Ofbriechen",
+"Save" => "Späicheren",
 "Delete website" => "Website läschen",
 "Delete folder" => "Dossier läschen",
+"Settings" => "Astellungen",
 "Import" => "Import",
 "Export" => "Export"
 );
