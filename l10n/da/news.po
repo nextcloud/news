@@ -6,6 +6,7 @@
 # Sappe, 2013
 # Bawl <transifex@bawl.dk>, 2013
 # cronner <cronner@gmail.com>, 2012
+# lodahl <leiflodahl@gmail.com>, 2013
 # mikkel_ilu <mikkelbjerglarsen@gmail.com>, 2013
 # Morten Juhl-Johansen Zölde-Fejér <morten@writtenandread.net>, 2012-2013
 # Ole Holm Frandsen <froksen@gmail.com>, 2012
@@ -15,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2013-12-21 01:02-0500\n"
-"PO-Revision-Date: 2013-12-20 06:22+0000\n"
-"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"POT-Creation-Date: 2013-12-22 01:02-0500\n"
+"PO-Revision-Date: 2013-12-21 16:20+0000\n"
+"Last-Translator: lodahl <leiflodahl@gmail.com>\n"
 "Language-Team: Danish (http://www.transifex.com/projects/p/owncloud/language/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -130,11 +131,11 @@ msgstr "Velkommen til ownCloud News app'en!"
 
 #: templates/part.items.php:20
 msgid "read on website"
-msgstr ""
+msgstr "læs på hjemmeside"
 
 #: templates/part.items.php:40
 msgid "star"
-msgstr ""
+msgstr "stjerne"
 
 #: templates/part.items.php:56
 msgid "from"
@@ -166,7 +167,7 @@ msgstr "Slet hjemmeside"
 
 #: templates/part.listfeed.php:73
 msgid "Rename feed"
-msgstr ""
+msgstr "Omdøb feed"
 
 #: templates/part.listfolder.php:14
 msgid "Collapse"
@@ -186,7 +187,7 @@ msgstr "Indstillinger"
 
 #: templates/part.settings.php:15
 msgid "Use compact view"
-msgstr ""
+msgstr "Brug kompakt visning"
 
 #: templates/part.settings.php:17
 msgid "Subscriptions (OPML)"
