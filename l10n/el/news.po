@@ -9,6 +9,7 @@
 # Efstathios Iosifidis <iefstathios@gmail.com>, 2013
 # Efstathios Iosifidis <iosifidis@opensuse.org>, 2012
 # Marios Bekatoros <>, 2012-2013
+# vkehayas <vkehayas@gmail.com>, 2013
 # Wasilis <inactive+Wasilis@transifex.com>, 2013
 # KAT.RAT12 <spanish.katerina@gmail.com>, 2013
 # Γιάννης Ανθυμίδης <yannanth@gmail.com>, 2012
@@ -16,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2013-12-21 01:02-0500\n"
-"PO-Revision-Date: 2013-12-20 06:22+0000\n"
-"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"POT-Creation-Date: 2013-12-26 01:01-0500\n"
+"PO-Revision-Date: 2013-12-25 17:23+0000\n"
+"Last-Translator: vkehayas <vkehayas@gmail.com>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/owncloud/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -131,11 +132,11 @@ msgstr "Καλώς ήλθατε στην εφαρμογή νέων του ownClo
 
 #: templates/part.items.php:20
 msgid "read on website"
-msgstr ""
+msgstr "διαβάστε στον ιστότοπο"
 
 #: templates/part.items.php:40
 msgid "star"
-msgstr ""
+msgstr "αστέρι"
 
 #: templates/part.items.php:56
 msgid "from"
@@ -167,7 +168,7 @@ msgstr "Διαγραφη ιστοσελιδας"
 
 #: templates/part.listfeed.php:73
 msgid "Rename feed"
-msgstr ""
+msgstr "Μετονομασία ροής"
 
 #: templates/part.listfolder.php:14
 msgid "Collapse"
@@ -187,7 +188,7 @@ msgstr "Ρυθμίσεις"
 
 #: templates/part.settings.php:15
 msgid "Use compact view"
-msgstr ""
+msgstr "Χρήση συμπαγούς προβολής"
 
 #: templates/part.settings.php:17
 msgid "Subscriptions (OPML)"
