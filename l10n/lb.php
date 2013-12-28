@@ -12,6 +12,7 @@
 "Create folder" => "Dossier uleeën",
 "All articles" => "All Artikelen",
 "Mark read" => "Als gelies markéieren",
+"from" => "vun",
 "by" => "vun",
 "Download" => "Download",
 "Cancel" => "Ofbriechen",
