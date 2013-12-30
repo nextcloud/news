@@ -16,6 +16,10 @@ Maintainers
 * `Bernhard Posselt <https://github.com/Raydiation>`_
 * `Jan-Christoph Borchardt <https://github.com/jancborchardt>`_ (Design)
 
+Minimum PHP Version
+-------------------
+* PHP >= 5.3.6
+
 Supported Webservers
 --------------------
 * Apache
