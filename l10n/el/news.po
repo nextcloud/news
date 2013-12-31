@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2013-12-26 01:01-0500\n"
-"PO-Revision-Date: 2013-12-25 17:23+0000\n"
+"POT-Creation-Date: 2013-12-31 01:01-0500\n"
+"PO-Revision-Date: 2013-12-30 16:20+0000\n"
 "Last-Translator: vkehayas <vkehayas@gmail.com>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/owncloud/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -33,11 +33,11 @@ msgstr "Ειδήσεις"
 
 #: businesslayer/feedbusinesslayer.php:100
 msgid "Can not add feed: Exists already"
-msgstr "Το feed δεν μπορεσε να προστεθει: Υπαρχει ηδη"
+msgstr "Αδυναμία προσθήκης ροής: Υπάρχει ήδη"
 
 #: businesslayer/feedbusinesslayer.php:137
 msgid "Can not add feed: URL does not exist or has invalid xml"
-msgstr "Το feed δεν μπορεσε να προστεθει: Το URL δεν υπαρχει η περιεχει κατεστραμμενο xml"
+msgstr "Αδυναμία προσθήκης ροής: Το URL δεν υπάρχει ή περιέχει μη-έγκυρο xml"
 
 #: businesslayer/feedbusinesslayer.php:280
 msgid "Articles without feed"
@@ -45,7 +45,7 @@ msgstr "Άρθρα χωρίς ροές"
 
 #: businesslayer/folderbusinesslayer.php:66
 msgid "Can not add folder: Exists already"
-msgstr "Ο χωρος αποθηκευσης δεν μπορει να προστεθει: Υπαρχει ηδη"
+msgstr "Αδυναμία προσθήκης φακέλου: Υπάρχει ήδη"
 
 #: js/vendor/angular-ui/build/angular-ui.min.js:7
 msgid " "
@@ -67,11 +67,11 @@ msgstr "Αναίρεση διαγραφής του %s"
 
 #: templates/part.addnew.php:13
 msgid "Add Website"
-msgstr "Προσθηκη ιστοσελιδας"
+msgstr "Προσθήκη ιστοσελίδας"
 
 #: templates/part.addnew.php:21
 msgid "Error: address exists already!"
-msgstr "Σφαλμα: η διευθυνση υπαρχει ηδη!"
+msgstr "Σφάλμα: η διεύθυνση υπάρχει ήδη!"
 
 #: templates/part.addnew.php:24
 msgid "Error: folder exists already"
@@ -87,7 +87,7 @@ msgstr "Προσθήκη"
 
 #: templates/part.addnew.php:41 templates/part.addnew.php:48
 msgid "New folder"
-msgstr "Νέος κατάλογος"
+msgstr "Νέος φάκελος"
 
 #: templates/part.addnew.php:42
 msgid "Folder"
@@ -107,7 +107,7 @@ msgstr "Επιστροφή στην επιλογή φακέλου"
 
 #: templates/part.addnew.php:64
 msgid "Create folder"
-msgstr "Δημιουργια φακελου"
+msgstr "Δημιουργία φακέλου"
 
 #: templates/part.feed.starred.php:11
 msgid "Starred"
@@ -124,11 +124,11 @@ msgstr "Όλα τα άρθρα"
 #: templates/part.feed.unread.php:26 templates/part.listfeed.php:65
 #: templates/part.listfolder.php:43
 msgid "Mark read"
-msgstr "Σημείωση ως ανεγνωσμένων"
+msgstr "Σημείωση ως αναγνωσμένο"
 
 #: templates/part.firstrun.php:2
 msgid "Welcome to the ownCloud News app!"
-msgstr "Καλώς ήλθατε στην εφαρμογή νέων του ownCloud!"
+msgstr "Καλώς ήλθατε στην εφαρμογή Ειδήσεων του ownCloud!"
 
 #: templates/part.items.php:20
 msgid "read on website"
@@ -152,7 +152,7 @@ msgstr "Λήψη"
 
 #: templates/part.items.php:79
 msgid "Keep unread"
-msgstr "Διατήρηση αδιάβαστου"
+msgstr "Διατήρηση μη-αναγνωσμένου"
 
 #: templates/part.listfeed.php:22
 msgid "Cancel"
@@ -164,7 +164,7 @@ msgstr "Αποθήκευση"
 
 #: templates/part.listfeed.php:51 templates/part.listfeed.php:78
 msgid "Delete website"
-msgstr "Διαγραφη ιστοσελιδας"
+msgstr "Διαγραφή ιστοσελίδας"
 
 #: templates/part.listfeed.php:73
 msgid "Rename feed"
@@ -208,19 +208,19 @@ msgstr "Εξαγωγή"
 
 #: templates/part.settings.php:42
 msgid "Error when importing: file does not contain valid OPML"
-msgstr "Σφαλμα κατα την εισαγωγη: το αρχειο δεν περιεχει ενα εγκυρο OPML"
+msgstr "Σφάλμα κατα την εισαγωγή: το αρχείο δεν περιέχει έγκυρο OPML"
 
 #: templates/part.settings.php:48
 msgid "Unread/Starred Articles"
-msgstr "Μη αναγνωσμένα/Χαρακτηρισμένα  Άρθρα"
+msgstr "Με αστέρι/Μη αναγνωσμένα Άρθρα"
 
 #: templates/part.settings.php:74
 msgid "Error when importing: file does not contain valid JSON"
-msgstr "Σφαλμα κατα την εισαγωγη: το αρχειο δεν περιεχει ενα εγκυρο JSON"
+msgstr "Σφάλμα κατά την εισαγωγή: το αρχείο δεν περιέχει έγκυρο JSON"
 
 #: templates/part.showall.php:5
 msgid "Show read articles"
-msgstr "Εμφάνιση αναγνωσμένων άρθρων."
+msgstr "Εμφάνιση αναγνωσμένων άρθρων"
 
 #: templates/part.showall.php:11
 msgid "Hide read articles"
