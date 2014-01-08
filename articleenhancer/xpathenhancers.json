@@ -60,7 +60,7 @@
 		"%mokepon.smackjeeves.com/comics%": "//*[@id=\"comic_area\"]/img | //*[@id=\"comic_area\"]/a/img"
 	},
 	"twokinds.keenspot.com": {
-		"%twokinds.keenspot.com/(archive.php/)?\\?%": "//*[@class=\"comic\"]/div/a/img | //*[@id=\"cg_img\"]/img | //*[@id=\"cg_img\"]/a/img"
+		"%twokinds.keenspot.com/%": "//*[@class=\"comic\"]/div/a/img | //*[@class=\"comic\"]/div/img | //*[@id=\"cg_img\"]/img | //*[@id=\"cg_img\"]/a/img"
 	},
 	"niceteethcomic.com": {
 		"%niceteethcomic.com/archives%": "//*[@class=\"comicpane\"]/a/img"
