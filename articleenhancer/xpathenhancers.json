@@ -16,7 +16,7 @@
 		"%feedproxy.google.com/~r/LICD%": "//*[@id='comic-img']/a/img | //*[@id='comic-img']/img | //*[@id='post']"
 	},
 	"escapistmagazine.com/articles/view/comics/critical-miss": {
-		"%escapistmagazine.com/articles/view/comics/critical-miss%": "//*[@class='body']/span/img"
+		"%escapistmagazine.com/articles/view/comics/critical-miss%": "//*[@class='body']/span/img | //div[@class='folder_nav_links']/following::p"
 	},
 	"escapistmagazine.com/articles/view/comics/namegame": {
 		"%escapistmagazine.com/articles/view/comics/namegame%": "//*[@class='body']/span/p/img[@height != \"120\"]"
