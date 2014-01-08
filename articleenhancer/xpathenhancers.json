@@ -91,5 +91,8 @@
 	},
 	"loadingartist.com": {
 		"%feedproxy.google.com/~r/LoadingArtist%": "//div[@id=\"comic\"]"
+	},
+	"thegamercat.com": {
+		"%thegamercat.com%": "//div[@id=\"comic\"] | //div[@class=\"post-content\"]/div[@class=\"entry\"]/p"
 	}
 }
