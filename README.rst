@@ -12,7 +12,7 @@ For further developer and user documentation please visit `the wiki <https://git
 
 Maintainers
 -----------
-* `Alessandro Cosentino <https://github.com/zimba12>`_
+* `Alessandro Cosentino <https://github.com/cosenal>`_
 * `Bernhard Posselt <https://github.com/Raydiation>`_
 * `Jan-Christoph Borchardt <https://github.com/jancborchardt>`_ (Design)
 
