@@ -1,5 +1,5 @@
 # Authors
-* [Alessandro Cosentino](https://github.com/zimba12): <cosenal@gmail.com>
+* [Alessandro Cosentino](https://github.com/cosenal): <cosenal@gmail.com>
 * [Bernhard Posselt](https://github.com/Raydiation): <dev@bernhard-posselt.com>
 
 ## Designers
