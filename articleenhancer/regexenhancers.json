@@ -13,5 +13,10 @@
 		"%nichtlustig.de%": {
 			"%.*static.nichtlustig.de/comics/full/(\\d+).*%s": "<img src=\"http://static.nichtlustig.de/comics/full/$1.jpg\" />"
 		}
+	},
+	"geek-and-poke.com": {
+		"%(?:geek-and-poke.com/geekandpoke)|(feedproxy.google.com/~r/GeekAndPoke)%": {
+			"%<div>.*%s": ""
+		}
 	}
 }
