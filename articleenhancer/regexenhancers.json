@@ -18,5 +18,13 @@
 		"%(?:geek-and-poke.com/geekandpoke)|(feedproxy.google.com/~r/GeekAndPoke)%": {
 			"%<div>.*%s": ""
 		}
+	},
+	"nerfnow.com": {
+		"%feedproxy.google.com/~r/nerfnow%": {
+			"%(width|width)=\"\\d+\"%": "",
+			"%nerfnow.com/comic/thumb/(\\d+)/large%": "nerfnow.com/comic/image/$1",
+			"%<div><a target=\"_blank\" href=\"http://www.nerfnow.com/comic/\\d+\">Click for full size</a></div>%": "",
+			"%<img src=\"http://feeds.feedburner.com[^>]+>%": ""
+		}
 	}
 }
