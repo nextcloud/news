@@ -2,7 +2,7 @@
 /**
  * ownCloud News App - v0.0.1
  *
- * Copyright (c) 2013 - Bernhard Posselt <dev@bernhard-posselt.com>
+ * Copyright (c) 2014 - Bernhard Posselt <dev@bernhard-posselt.com>
  *
  * This file is licensed under the Affero General Public License version 3 or later.
  * See the COPYING file
@@ -278,29 +278,31 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           var focused, scrollArea;
           focused = $(':focus');
           if (!(focused.is('input') || focused.is('select') || focused.is('textarea') || focused.is('checkbox') || focused.is('button'))) {
-            scrollArea = elm;
-            if (e.keyCode === 74 || e.keyCode === 39 || e.keyCode === 78) {
-              e.preventDefault();
-              return jumpToNextItem(scrollArea);
-            } else if (e.keyCode === 75 || e.keyCode === 37 || e.keyCode === 80) {
-              e.preventDefault();
-              return jumpToPreviousItem(scrollArea);
-            } else if (e.keyCode === 85) {
-              e.preventDefault();
-              return keepUnreadCurrentItem(scrollArea);
-            } else if (e.keyCode === 69) {
-              e.preventDefault();
-              return expandCurrentItem(scrollArea);
-            } else if (e.keyCode === 73 || e.keyCode === 83 || e.keyCode === 76) {
-              e.preventDefault();
-              return starCurrentItem(scrollArea);
-            } else if (e.keyCode === 72) {
-              e.preventDefault();
-              starCurrentItem(scrollArea);
-              return jumpToNextItem(scrollArea);
-            } else if (e.keyCode === 79) {
-              e.preventDefault();
-              return openCurrentItem(scrollArea);
+            if (!(e.shiftKey || e.altKey || e.ctrlKey || e.metaKey)) {
+              scrollArea = elm;
+              if (e.keyCode === 74 || e.keyCode === 39 || e.keyCode === 78) {
+                e.preventDefault();
+                return jumpToNextItem(scrollArea);
+              } else if (e.keyCode === 75 || e.keyCode === 37 || e.keyCode === 80) {
+                e.preventDefault();
+                return jumpToPreviousItem(scrollArea);
+              } else if (e.keyCode === 85) {
+                e.preventDefault();
+                return keepUnreadCurrentItem(scrollArea);
+              } else if (e.keyCode === 69) {
+                e.preventDefault();
+                return expandCurrentItem(scrollArea);
+              } else if (e.keyCode === 73 || e.keyCode === 83 || e.keyCode === 76) {
+                e.preventDefault();
+                return starCurrentItem(scrollArea);
+              } else if (e.keyCode === 72) {
+                e.preventDefault();
+                starCurrentItem(scrollArea);
+                return jumpToNextItem(scrollArea);
+              } else if (e.keyCode === 79) {
+                e.preventDefault();
+                return openCurrentItem(scrollArea);
+              }
             }
           }
         });

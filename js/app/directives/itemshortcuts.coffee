@@ -105,42 +105,45 @@ angular.module('News').directive 'itemShortcuts', ['$window', ($window) ->
 			focused.is('checkbox') or
 			focused.is('button'))
 
-				scrollArea = elm
-				# j or right or n
-				if e.keyCode == 74 or e.keyCode == 39 or e.keyCode == 78
-					e.preventDefault()
-					jumpToNextItem(scrollArea)
+				# activate shortcuts only if modifier keys are not pressed
+				if not(e.shiftKey or e.altKey or e.ctrlKey or e.metaKey)
 
-				# k or left or p
-				else if e.keyCode == 75 or e.keyCode == 37 or e.keyCode == 80
-					e.preventDefault()
-					jumpToPreviousItem(scrollArea)
+					scrollArea = elm
+					# j or right or n
+					if e.keyCode == 74 or e.keyCode == 39 or e.keyCode == 78
+						e.preventDefault()
+						jumpToNextItem(scrollArea)
 
-				# u
-				else if e.keyCode == 85
-					e.preventDefault()
-					keepUnreadCurrentItem(scrollArea)
+					# k or left or p
+					else if e.keyCode == 75 or e.keyCode == 37 or e.keyCode == 80
+						e.preventDefault()
+						jumpToPreviousItem(scrollArea)
 
-				# e
-				else if e.keyCode == 69
-					e.preventDefault()
-					expandCurrentItem(scrollArea)
+					# u
+					else if e.keyCode == 85
+						e.preventDefault()
+						keepUnreadCurrentItem(scrollArea)
 
-				# s or i or l
-				else if e.keyCode == 73 or e.keyCode == 83 or e.keyCode == 76
-					e.preventDefault()
-					starCurrentItem(scrollArea)
+					# e
+					else if e.keyCode == 69
+						e.preventDefault()
+						expandCurrentItem(scrollArea)
 
-				# h
-				else if e.keyCode == 72
-					e.preventDefault()
-					starCurrentItem(scrollArea)
-					jumpToNextItem(scrollArea)
+					# s or i or l
+					else if e.keyCode == 73 or e.keyCode == 83 or e.keyCode == 76
+						e.preventDefault()
+						starCurrentItem(scrollArea)
 
-				# o
-				else if e.keyCode == 79
-					e.preventDefault()
-					openCurrentItem(scrollArea)
+					# h
+					else if e.keyCode == 72
+						e.preventDefault()
+						starCurrentItem(scrollArea)
+						jumpToNextItem(scrollArea)
+
+					# o
+					else if e.keyCode == 79
+						e.preventDefault()
+						openCurrentItem(scrollArea)
 
 
 ]
