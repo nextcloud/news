@@ -160,14 +160,14 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 	}
 
 
-	private function expectCore($method, $return) {
-		$this->core->expects($this->once())
+	private function expectCore($method, $return, $count = 1) {
+		$this->core->expects($this->exactly($count))
 			->method($method)
 			->will($this->returnValue($return));
 	}
 
-	private function expectItem($method, $return) {
-		$this->item->expects($this->once())
+	private function expectItem($method, $return, $count = 1) {
+		$this->item->expects($this->exactly($count))
 			->method($method)
 			->will($this->returnValue($return));
 	}
@@ -236,7 +236,7 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 
 	private function createFeed($hasFeedFavicon=false, $hasWebFavicon=false) {
 		$this->expectCore('get_title', $this->feedTitle);
-		$this->expectCore('get_permalink', $this->feedLink);
+		$this->expectCore('get_permalink', $this->feedLink, 2);
 
 		$feed = new Feed();
 		$feed->setTitle(html_entity_decode($this->feedTitle));
@@ -280,7 +280,7 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 
 	public function testFetchMapItemsNoFeedTitleUsesUrl(){
 		$this->expectCore('get_title', '');
-		$this->expectCore('get_permalink', $this->feedLink);
+		$this->expectCore('get_permalink', $this->feedLink, 2);
 
 		$feed = new Feed();
 		$feed->setTitle($this->url);
@@ -340,7 +340,7 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 
 	public function testFetchMapItemsGetFavicon() {
 		$this->expectCore('get_title', $this->feedTitle);
-		$this->expectCore('get_permalink', $this->feedLink);
+		$this->expectCore('get_permalink', $this->feedLink, 2);
 
 		$feed = new Feed();
 		$feed->setTitle(html_entity_decode($this->feedTitle));
@@ -366,7 +366,7 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 
 	public function testFetchMapItemsNoGetFavicon() {
 		$this->expectCore('get_title', $this->feedTitle);
-		$this->expectCore('get_permalink', $this->feedLink);
+		$this->expectCore('get_permalink', $this->feedLink, 2);
 
 		$feed = new Feed();
 		$feed->setTitle(html_entity_decode($this->feedTitle));

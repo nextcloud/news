@@ -94,9 +94,10 @@ class FeedFetcher implements IFeedFetcher {
 		try {
 			// somehow $simplePie turns into a feed after init
 			$items = array();
+			$permaLink = $simplePie->get_permalink();
 			if ($feedItems = $simplePie->get_items()) {
 				foreach($feedItems as $feedItem) {
-					array_push($items, $this->buildItem($feedItem, $simplePie->get_permalink()));
+					array_push($items, $this->buildItem($feedItem, $permaLink));
 				}
 			}
 
