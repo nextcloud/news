@@ -94,9 +94,10 @@ class FeedFetcher implements IFeedFetcher {
 		try {
 			// somehow $simplePie turns into a feed after init
 			$items = array();
+			$permaLink = $simplePie->get_permalink();
 			if ($feedItems = $simplePie->get_items()) {
 				foreach($feedItems as $feedItem) {
-					array_push($items, $this->buildItem($feedItem));
+					array_push($items, $this->buildItem($feedItem, $permaLink));
 				}
 			}
 
@@ -125,11 +126,15 @@ class FeedFetcher implements IFeedFetcher {
 	}
 
 
-	protected function buildItem($simplePieItem) {
+	protected function buildItem($simplePieItem, $feedLink) {
 		$item = new Item();
 		$item->setStatus(0);
 		$item->setUnread();
-		$item->setUrl($this->decodeTwice($simplePieItem->get_permalink()));
+		$url = $this->decodeTwice($simplePieItem->get_permalink());
+		if (!$url) {
+			$url = $feedLink;
+		}
+		$item->setUrl($url);
 		
 		// unescape content because angularjs helps against XSS
 		$item->setTitle($this->decodeTwice($simplePieItem->get_title()));
