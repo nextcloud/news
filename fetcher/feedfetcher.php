@@ -196,7 +196,13 @@ class FeedFetcher implements IFeedFetcher {
 
 		$feed->setTitle($title);
 		$feed->setUrl($url);
-		$feed->setLink($simplePieFeed->get_permalink());
+
+		$link = $simplePieFeed->get_permalink();
+		if (!$link) {
+			$link = $url;
+		}
+		$feed->setLink($link);
+
 		$feed->setAdded($this->time->getTime());
 
 		if ($getFavicon) {
