@@ -1,4 +1,5 @@
 owncloud-news (1.803)
+* Use the feed link if an item doesn't specificy a link
 * Don't fail if article url does not exist but fall back to feed url
 * Article enhancers for
   - nerfnow.com
