@@ -1,3 +1,13 @@
+owncloud-news (1.803)
+* Don't fail if article url does not exist but fall back to feed url
+* Article enhancers for
+  - nerfnow.com
+  - sandraandwo.com
+  - geek-and-poke.com
+  - nichtlustig.de
+  - thegamercat.com
+  - twokinds.keenspot.com
+
 owncloud-news (1.802)
 * Increase performance by not making auto page requests anymore if the last result didn't contain any articles
 
