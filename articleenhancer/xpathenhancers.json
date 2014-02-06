@@ -94,5 +94,8 @@
 	},
 	"thegamercat.com": {
 		"%thegamercat.com%": "//div[@id=\"comic\"] | //div[@class=\"post-content\"]/div[@class=\"entry\"]/p"
+	},
+	"niebezpiecznik.pl": {
+		"%feedproxy.google.com/~r/niebezpiecznik%": "//div[@class=\"entry\"]"
 	}
 }
