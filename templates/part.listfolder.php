@@ -45,12 +45,12 @@
 				oc-tooltip></button>
 
 		<span class="unread-counter"
-			ng-show="folderBusinessLayer.getUnreadCount(folder.id) > 0">
+			ng-show="folderBusinessLayer.getUnreadCount(folder.id) > 0 && !folder.editing">
 			{{ unreadCountFormatter(folderBusinessLayer.getUnreadCount(folder.id)) }}
 		</span>
 		
 		<button class="svg action mark-read-icon" 
-				ng-show="folderBusinessLayer.getUnreadCount(folder.id) > 0 && folder.id"
+				ng-show="folderBusinessLayer.getUnreadCount(folder.id) > 0 && folder.id && !folder.editing"
 				ng-click="folderBusinessLayer.markRead(folder.id)"
 				title="<?php p($l->t('Mark read')); ?>"
 				oc-tooltip></button>
