@@ -67,7 +67,7 @@
 
 
 		<button class="svg action rename-feed-icon"
-			ng-hide="feed.editing"
+			ng-hide="feed.editing || feed.error"
 			ng-controller="ItemController"
 			ng-click="edit(feed.id)"
 			title="<?php p($l->t('Rename feed')); ?>"
