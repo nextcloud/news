@@ -1494,6 +1494,27 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return this._folderModel.removeByName(folderName);
         };
 
+        FolderBusinessLayer.prototype.edit = function(folderId) {
+          var folder;
+          folder = this._folderModel.getById(folderId);
+          folder.editing = true;
+          return folder.originalValue = folder.name;
+        };
+
+        FolderBusinessLayer.prototype.rename = function(folderId, folderName) {
+          var folder;
+          folder = this._folderModel.getById(folderId);
+          folder.editing = false;
+          return this._persistence.renameFolder(folderId, folderName);
+        };
+
+        FolderBusinessLayer.prototype.cancel = function(folderId) {
+          var folder;
+          folder = this._folderModel.getById(folderId);
+          folder.editing = false;
+          return folder.name = folder.originalValue;
+        };
+
         FolderBusinessLayer.prototype["import"] = function(xml) {
           var opml;
           opml = this._opmlParser.parseXML(xml);

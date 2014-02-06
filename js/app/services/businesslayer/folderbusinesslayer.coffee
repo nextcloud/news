@@ -155,6 +155,24 @@ FeedModel, $rootScope) ->
 			@_folderModel.removeByName(folderName)
 
 
+		edit: (folderId) ->
+			folder = @_folderModel.getById(folderId)
+			folder.editing = true
+			folder.originalValue = folder.name
+
+
+		rename: (folderId, folderName) ->
+                        folder = @_folderModel.getById(folderId)
+                        folder.editing = false
+                        @_persistence.renameFolder(folderId, folderName)
+
+
+		cancel: (folderId) ->
+			folder = @_folderModel.getById(folderId)
+			folder.editing = false
+			folder.name = folder.originalValue
+
+
 		import: (xml) ->
 			opml = @_opmlParser.parseXML(xml)
 			@_importElement(opml, 0)
