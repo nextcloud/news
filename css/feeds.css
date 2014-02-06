@@ -257,6 +257,14 @@ button.action:hover {
 	font-weight: bold;
 }
 
+	.failed .title  {
+		width: 299px !important;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+		display: inline-block !important;
+	}
+
 	.failed a:hover,
 	.failed:hover a {
 		background-color: #F2FF63 !important;
