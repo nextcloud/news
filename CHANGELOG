@@ -1,6 +1,9 @@
 owncloud-news (1.804)
 * Make it possible to rename folders
 * Do not show rename action for feeds that could not be added
+* Trim URL in invalid feed modal
+* Article enhancer for
+  - niebezpiecznik.pl
 
 owncloud-news (1.803)
 * Use the feed link if an item doesn't specificy a link
