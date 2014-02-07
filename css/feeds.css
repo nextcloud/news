@@ -258,6 +258,7 @@ button.action:hover {
 }
 
 	.failed .title  {
+		background-color: #F2FF63 !important;
 		width: 299px !important;
 		text-overflow: ellipsis;
 		white-space: nowrap;
