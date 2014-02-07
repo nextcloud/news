@@ -1,5 +1,6 @@
 owncloud-news (1.805)
 * Hide editing tools in invalid feed dialog
+* Use local copies of icons to reflect changes in oc 7
 
 owncloud-news (1.804)
 * Make it possible to rename folders

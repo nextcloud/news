@@ -73,19 +73,19 @@
 
 .add-new .back-button {
 	border-radius: 0;
-	background-image: url('%webroot%/core/img/actions/delete.svg');
+	background-image: url('../img/delete.svg');
 }
 
 .add-new .new-button {
 	border-radius: 0;
-	background-image: url('%appswebroot%/news/img/add.svg');
+	background-image: url('../img/add.svg');
 	border-top-right-radius: 5px; 
 	border-bottom-right-radius: 5px; 
 }
 
 .add-new .create-button {
 	border-radius: 0;
-	background-image: url('%appswebroot%/news/img/mark_read.svg');
+	background-image: url('../img/mark_read.svg');
 	border-top-right-radius: 5px; 
 	border-bottom-right-radius: 5px; 
 }

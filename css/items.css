@@ -27,7 +27,7 @@
 
 #app-content.autopaging:after {
 	content: '';
-	background-image: url('%webroot%/core/img/loading.gif');
+	background-image: url('../img/loading.gif');
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: 18px;
@@ -36,7 +36,7 @@
 }
 
 #app-content.loading {
-	background-image: url('%webroot%/core/img/loading.gif');
+	background-image: url('../img/loading.gif');
 	background-position: center;
 	background-repeat: no-repeat;
 }
@@ -50,11 +50,11 @@
 	-webkit-transition: height 0.5s;
 	-moz-transition: height 0.5s;
 	transition: height 0.5s;
-	background-image: url('%webroot%/core/img/loading.gif'), linear-gradient(top, rgb(235,235,235) 0%, rgb(248,248,248) 100%);
-	background-image: url('%webroot%/core/img/loading.gif'), -o-linear-gradient(top, rgb(235,235,235) 0%, rgb(248,248,248) 100%);
-	background-image: url('%webroot%/core/img/loading.gif'), -moz-linear-gradient(top, rgb(235,235,235) 0%, rgb(248,248,248) 100%);
-	background-image: url('%webroot%/core/img/loading.gif'), -webkit-linear-gradient(top, rgb(235,235,235) 0%, rgb(248,248,248) 100%);
-	background-image: url('%webroot%/core/img/loading.gif'), -ms-linear-gradient(top, rgb(235,235,235) 0%, rgb(248,248,248) 100%);
+	background-image: url('../img/loading.gif'), linear-gradient(top, rgb(235,235,235) 0%, rgb(248,248,248) 100%);
+	background-image: url('../img/loading.gif'), -o-linear-gradient(top, rgb(235,235,235) 0%, rgb(248,248,248) 100%);
+	background-image: url('../img/loading.gif'), -moz-linear-gradient(top, rgb(235,235,235) 0%, rgb(248,248,248) 100%);
+	background-image: url('../img/loading.gif'), -webkit-linear-gradient(top, rgb(235,235,235) 0%, rgb(248,248,248) 100%);
+	background-image: url('../img/loading.gif'), -ms-linear-gradient(top, rgb(235,235,235) 0%, rgb(248,248,248) 100%);
 	background-position: center 45px, center;
 	background-repeat: no-repeat;
 	background-size: 18px, 100%;
@@ -132,11 +132,11 @@
 		}
 
 		.feed_item .star {
-			background-image: url('%appswebroot%/news/img/inactive_star.svg');
+			background-image: url('../img/inactive_star.svg');
 		}
 
 		.feed_item .external {
-			background-image: url('%webroot%/core/img/places/link.svg');
+			background-image: url('../img/link.svg');
 			opacity: 0.4;
 		}
 
@@ -146,7 +146,7 @@
 
 		.feed_item .star.important,
 		.feed_item .star:hover {
-			background-image: url('%appswebroot%/news/img/active_star.svg');
+			background-image: url('../img/active_star.svg');
 		}
 		.feed_item .star.important:hover {
 			opacity:1;
@@ -447,7 +447,7 @@
 		}
 
 		.feed_item li.share_link {
-			background-image: url('%webroot%/core/img/actions/share.svg');
+			background-image: url('../img/share.svg');
 			background-repeat: no-repeat;
 			background-position: right center;
 			padding-right: 20px;

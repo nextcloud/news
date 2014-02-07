@@ -54,11 +54,11 @@
 
 
 .starred-icon {
-	background-image: url('%appswebroot%/news/img/starred.png');
+	background-image: url('../img/starred.png');
 }
 
 .subscriptions-icon {
-	background-image: url('%appswebroot%/news/img/rss.svg');
+	background-image: url('../img/rss.svg');
 }
 
 .unread > a,
@@ -188,15 +188,15 @@ button.action:hover {
 }
 
 .delete-icon {
-	background-image: url('%webroot%/core/img/actions/delete.svg');
+	background-image: url('../img/delete.svg');
 }
 
 .rename-feed-icon {
-	background-image: url('%webroot%/core/img/actions/rename.svg');
+	background-image: url('../img/rename.svg');
 }
 
 .mark-read-icon {
-	background-image: url('%appswebroot%/news/img/mark_read.svg');
+	background-image: url('../img/mark_read.svg');
 }
 
 .rename-feed input {
@@ -223,16 +223,16 @@ button.action:hover {
 
 .rename-feed .back-button {
 	border-radius: 3px;
-	background-image: url('%webroot%/core/img/actions/delete.svg');
+	background-image: url('../img/delete.svg');
 }
 
 .rename-feed .create-button {
 	border-radius: 0;
-	background-image: url('%appswebroot%/news/img/mark_read.svg');
+	background-image: url('../img/mark_read.svg');
 }
 
 .rss-icon {
-	background-image: url('%appswebroot%/news/img/rss.svg');
+	background-image: url('../img/rss.svg');
 }
 
 #app-navigation .ui-draggable-dragging {
@@ -244,11 +244,11 @@ button.action:hover {
 }
 
 .progress-icon {
-	background-image: url('%webroot%/core/img/loading.gif'); 
+	background-image: url('../img/loading.gif'); 
 }
 
 .problem-icon {
-	background-image: url('%appswebroot%/news/img/problem.svg') !important;
+	background-image: url('../img/problem.svg') !important;
 }
 
 .failed {

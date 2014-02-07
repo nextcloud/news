@@ -48,15 +48,15 @@
 }
 
 .upload-icon {
-	background-image: url('%webroot%/core/img/actions/upload.svg');
+	background-image: url('../img/upload.svg');
 }
 
 .download-icon {
-	background-image: url('%appswebroot%/news/img/download.svg');
+	background-image: url('../img/download.svg');
 }
 
 #app-settings .importing {
-	background-image: url('%webroot%/core/img/loading.gif'); 
+	background-image: url('../img/loading.gif'); 
 	background-repeat: no-repeat;
 	background-position: 5px center;
 	background-size: 16px;
