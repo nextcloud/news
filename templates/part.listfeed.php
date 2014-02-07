@@ -26,7 +26,7 @@
 		ng-click="feedBusinessLayer.renameFeed(feed.id, feed.title)"
 		class="action-button create-button action">
 	  </button>
-        </div>
+    </div>
 
 	<a 	ng-style="{ backgroundImage: feed.faviconLink }"
 		ng-click="feedBusinessLayer.load(feed.id)"
@@ -46,21 +46,18 @@
 	<span class="utils">
 		
 		<button ng-click="feedBusinessLayer.delete(feed.id)"
-			ng-hide="feed.editing"
 			class="svg action delete-icon delete-button"
 			title="<?php p($l->t('Delete website')); ?>"
-			ng-show="feed.id"
+			ng-show="feed.id && !feed.editing && !feed.error"
 			oc-tooltip></button>
 
 		<span class="unread-counter"
-			ng-hide="feed.editing"
-			ng-show="feed.id && feedBusinessLayer.getUnreadCount(feed.id) > 0">
+			ng-show="feed.id && feedBusinessLayer.getUnreadCount(feed.id) > 0 && !feed.error && !feed.editing">
 			{{ unreadCountFormatter(feedBusinessLayer.getUnreadCount(feed.id)) }}
 		</span>
 
 		<button class="svg action mark-read-icon"
-			ng-hide="feed.editing"
-			ng-show="feedBusinessLayer.getUnreadCount(feed.id) > 0 && feed.id"
+			ng-show="feedBusinessLayer.getUnreadCount(feed.id) > 0 && feed.id && !feed.error && !feed.editing"
 			ng-click="feedBusinessLayer.markRead(feed.id)"
 			title="<?php p($l->t('Mark read')); ?>"
 			oc-tooltip></button>
