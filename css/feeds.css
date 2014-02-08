@@ -183,8 +183,12 @@ button.action:hover {
 }
 
 #app-navigation .rename-feed > input {
-        width: 155px;
-        height: 15px;
+	width: 155px;
+	height: 15px;
+}
+
+#app-navigation .rename-folder > input {
+	text-transform: uppercase;
 }
 
 .delete-icon {

@@ -14,16 +14,16 @@
 			ng-hide="folder.editing"
 			title="<?php p($l->t('Collapse'));?>"
 			ng-click="folderBusinessLayer.toggleFolder(folder.id)"></button>
-	<div ui-if="folder.editing" class="rename-feed">
-          <input type="text" ng-model="folder.name" autofocus>
-          <button title="<?php p($l->t('Cancel')); ?>"
-		ng-click="folderBusinessLayer.cancel(folder.id)"
-		class="action-button back-button action"></button>
-	  <button title="<?php p($l->t('Save')); ?>"
-		ng-click="folderBusinessLayer.rename(folder.id, folder.name)"
-		class="action-button create-button action">
+	<div ui-if="folder.editing" class="rename-feed rename-folder">
+        <input type="text" ng-model="folder.name" autofocus>
+        <button title="<?php p($l->t('Cancel')); ?>"
+			ng-click="folderBusinessLayer.cancel(folder.id)"
+			class="action-button back-button action"></button>
+		<button title="<?php p($l->t('Save')); ?>"
+			ng-click="folderBusinessLayer.rename(folder.id, folder.name)"
+			class="action-button create-button action">
 	  </button>
-        </div>
+    </div>
 	<a href="#" 
 	   class="title folder-icon"
 	   ng-hide="folder.editing"
