@@ -92,7 +92,7 @@ class FolderMapper extends Mapper implements IMapper {
 		$params = array($entity->getId());
 		$this->execute($sql, $params);
 
-		$sql = 'DELETE `items` FROM `*PREFIX*news_items` `items` '.
+		$sql = 'DELETE FROM `*PREFIX*news_items` `items` '.
 			'LEFT JOIN `*PREFIX*news_feeds` `feeds` ON '. 
 			'`items`.`feed_id` = `feeds`.`id` WHERE `feeds`.`id` IS NULL';
 		
