@@ -56,6 +56,7 @@
 						name="foldername"
 						placeholder="<?php p($l->t('Folder name')); ?>" 
 						autofocus
+						class="folder-input"
 						ui-keyup="{13: 'addFolder(folderName)'}"/>
 				<button title="<?php p($l->t('Back to folder selection')); ?>" 
 						ng-show="addNewFolder"

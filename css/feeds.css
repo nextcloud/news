@@ -187,7 +187,7 @@ button.action:hover {
 	height: 15px;
 }
 
-#app-navigation .rename-folder > input {
+#app-navigation .folder-input {
 	text-transform: uppercase;
 }
 
