@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud news 5.0.0\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-02-09 03:27-0500\n"
+"POT-Creation-Date: 2014-02-10 06:12-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -91,11 +91,11 @@ msgstr ""
 msgid "Folder name"
 msgstr ""
 
-#: templates/part.addnew.php:60
+#: templates/part.addnew.php:61
 msgid "Back to folder selection"
 msgstr ""
 
-#: templates/part.addnew.php:64
+#: templates/part.addnew.php:65
 msgid "Create folder"
 msgstr ""
 
