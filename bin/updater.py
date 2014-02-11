@@ -30,6 +30,7 @@ import threading
 import socket
 import urllib.request
 import urllib.error
+from http.client import HTTPException
 
 def get_basic_auth_opener(url, user, password):
     auth = urllib.request.HTTPPasswordMgrWithDefaultRealm()
@@ -72,7 +73,7 @@ class UpdateThread(threading.Thread):
             try:
                 opener = get_basic_auth_opener(url, self.user, self.password)
                 opener.open(url, timeout=self.timeout)
-            except (urllib.error.HTTPError, urllib.error.URLError, 
+            except (urllib.error.HTTPError, urllib.error.URLError, HTTPException,
                 socket.timeout) as e:
                 print('%s: %s' % (url, e))
 
@@ -130,7 +131,7 @@ class Updater:
                 # wait until the interval finished to run again
                 time.sleep(self.interval)
 
-            except (ValueError, urllib.error.HTTPError, 
+            except (ValueError, urllib.error.HTTPError, HTTPException,
                 urllib.error.URLError) as e:
                 print('%s: %s' % (self.base_url, e))
                 print('Trying again in 30 seconds')
