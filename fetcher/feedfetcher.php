@@ -42,8 +42,7 @@ class FeedFetcher implements IFeedFetcher {
 	private $faviconFetcher;
 	private $simplePieFactory;
 	private $fetchTimeout;
-	private $time;
-	private $purifier;
+	private $time;	
 
 	public function __construct(API $api,
 				    SimplePieAPIFactory $simplePieFactory,
@@ -51,15 +50,13 @@ class FeedFetcher implements IFeedFetcher {
 				    TimeFactory $time,
 				    $cacheDirectory,
 				    $cacheDuration,
-				    $fetchTimeout,
-				    $purifier){
+				    $fetchTimeout){
 		$this->api = $api;
 		$this->cacheDirectory = $cacheDirectory;
 		$this->cacheDuration = $cacheDuration;
 		$this->faviconFetcher = $faviconFetcher;
 		$this->simplePieFactory = $simplePieFactory;
 		$this->time = $time;
-		$this->purifier = $purifier;
 		$this->fetchTimeout = $fetchTimeout;
 	}
 
@@ -143,12 +140,8 @@ class FeedFetcher implements IFeedFetcher {
 		$guid = $simplePieItem->get_id();
 		$item->setGuid($guid);
 
-		// links should always open in a new window
-		$item->setBody(
-			$this->purifier->purify(
-				$simplePieItem->get_content()
-			)
-		);
+		// purification is done in the businesslayer
+		$item->setBody($simplePieItem->get_content());  
 
 		// pubdate is not required. if not given use the current date
 		$date = $simplePieItem->get_date('U');

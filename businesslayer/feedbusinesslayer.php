@@ -45,12 +45,14 @@ class FeedBusinessLayer extends BusinessLayer {
 	private $timeFactory;
 	private $autoPurgeMinimumInterval;
 	private $enhancer;
+	private $purifier;
 
 	public function __construct(FeedMapper $feedMapper, Fetcher $feedFetcher,
 		                        ItemMapper $itemMapper, API $api,
 		                        TimeFactory $timeFactory,
 		                        $autoPurgeMinimumInterval,
-		                        Enhancer $enhancer){
+		                        Enhancer $enhancer,
+		                        $purifier){
 		parent::__construct($feedMapper);
 		$this->feedFetcher = $feedFetcher;
 		$this->itemMapper = $itemMapper;
@@ -58,6 +60,7 @@ class FeedBusinessLayer extends BusinessLayer {
 		$this->timeFactory = $timeFactory;
 		$this->autoPurgeMinimumInterval = $autoPurgeMinimumInterval;
 		$this->enhancer = $enhancer;
+		$this->purifier = $purifier;
 	}
 
 	/**
@@ -122,6 +125,7 @@ class FeedBusinessLayer extends BusinessLayer {
 				} catch(DoesNotExistException $ex){
 					$unreadCount += 1;
 					$item = $this->enhancer->enhance($item, $feed->getLink());
+					$item->setBody($this->purifier->purify($item->getBody()));
 					$this->itemMapper->insert($item);
 				}
 			}
@@ -192,6 +196,7 @@ class FeedBusinessLayer extends BusinessLayer {
 					} catch(DoesNotExistException $ex){
 						$item = $this->enhancer->enhance($item, 
 							$existingFeed->getLink());
+						$item->setBody($this->purifier->purify($item->getBody()));
 						$this->itemMapper->insert($item);
 					}
 				}
@@ -294,6 +299,7 @@ class FeedBusinessLayer extends BusinessLayer {
 				$existingItem->setStatus($item->getStatus());
 				$this->itemMapper->update($existingItem);
 			} catch(DoesNotExistException $ex){
+				$item->setBody($this->purifier->purify($item->getBody()));
 				$this->itemMapper->insert($item);
 			}
 		}

@@ -32,7 +32,6 @@ require_once(__DIR__ . "/../../classloader.php");
 
 class XPathArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 
-	private $purifier;
 	private $testEnhancer;
 	private $fileFactory;
 	private $timeout;
@@ -42,10 +41,8 @@ class XPathArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->fileFactory = $this->getMockBuilder('\OCA\News\Utility\SimplePieFileFactory')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->purifier = $this->getMock('purifier', array('purify'));
 
 		$this->testEnhancer = new XPathArticleEnhancer(
-			$this->purifier,
 			$this->fileFactory,
 			array(
 				'/explosm.net\/comics/' => '//*[@id=\'maincontent\']/div[2]/div/span',
@@ -85,10 +82,6 @@ class XPathArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->with($this->equalTo($item->getUrl()),
 				$this->equalTo($this->timeout))
 			->will($this->returnValue($file));
-		$this->purifier->expects($this->once())
-			->method('purify')
-			->with($this->equalTo('<span>hiho</span>'))
-			->will($this->returnValue('<span>hiho</span>'));
 
 		$result = $this->testEnhancer->enhance($item);
 		$this->assertEquals('<span>hiho</span>', $result->getBody());
@@ -115,10 +108,6 @@ class XPathArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->with($this->equalTo($item->getUrl()),
 				$this->equalTo($this->timeout))
 			->will($this->returnValue($file));
-		$this->purifier->expects($this->once())
-			->method('purify')
-			->with($this->equalTo('<div>hiho</div><div>rawr</div>'))
-			->will($this->returnValue('<div>hiho</div><div>rawr</div>'));
 
 		$result = $this->testEnhancer->enhance($item);
 		$this->assertEquals('<div>hiho</div><div>rawr</div>', $result->getBody());
@@ -143,10 +132,6 @@ class XPathArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->with($this->equalTo($item->getUrl()),
 				$this->equalTo($this->timeout))
 			->will($this->returnValue($file));
-		$this->purifier->expects($this->once())
-			->method('purify')
-			->with($this->equalTo(null))
-			->will($this->returnValue(null));
 
 		$result = $this->testEnhancer->enhance($item);
 		$this->assertEquals('Hello thar', $result->getBody());
@@ -166,10 +151,6 @@ class XPathArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->with($this->equalTo($item->getUrl()),
 				$this->equalTo($this->timeout))
 			->will($this->returnValue($file));
-		$this->purifier->expects($this->once())
-			->method('purify')
-			->with($this->equalTo(null))
-			->will($this->returnValue(null));
 
 		$result = $this->testEnhancer->enhance($item);
 		$this->assertEquals('Hello thar', $result->getBody());
@@ -194,10 +175,6 @@ class XPathArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->with($this->equalTo($item->getUrl()),
 				$this->equalTo($this->timeout))
 			->will($this->returnValue($file));
-		$this->purifier->expects($this->once())
-			->method('purify')
-			->with($this->equalTo(null))
-			->will($this->returnValue(null));
 
 		$result = $this->testEnhancer->enhance($item);
 		$this->assertEquals('Hello thar', $result->getBody());
@@ -223,10 +200,6 @@ class XPathArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->with($this->equalTo($item->getUrl()),
 				$this->equalTo($this->timeout))
 			->will($this->returnValue($file));
-		$this->purifier->expects($this->once())
-			->method('purify')
-			->with($this->equalTo('<a href="https://www.explosm.net/a/relative/url.html?a=1#b">link</a><a href="https://www.explosm.net/all/b/relative/url.html">link2</a><img src="https://www.explosm.net/another/relative/link.jpg">'))
-			->will($this->returnValue('<a href="https://www.explosm.net/a/relative/url.html?a=1#b">link</a><a href="https://www.explosm.net/all/b/relative/url.html">link2</a><img src="https://www.explosm.net/another/relative/link.jpg">'));
 
 		$result = $this->testEnhancer->enhance($item);
 		$this->assertEquals('<a target="_blank" href="https://www.explosm.net/a/relative/url.html?a=1#b">link</a><a target="_blank" href="https://www.explosm.net/all/b/relative/url.html">link2</a><img src="https://www.explosm.net/another/relative/link.jpg">', $result->getBody());
@@ -249,10 +222,6 @@ class XPathArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->with($this->equalTo($item->getUrl()),
 				$this->equalTo($this->timeout))
 			->will($this->returnValue($file));
-		$this->purifier->expects($this->once())
-			->method('purify')
-			->with($this->equalTo('<img src="https://username:secret@www.explosm.net/all/relative/url.png?a=1&amp;b=2">'))
-			->will($this->returnValue('<img src="https://username:secret@www.explosm.net/all/relative/url.png?a=1&amp;b=2">'));
 
 		$result = $this->testEnhancer->enhance($item);
 		$this->assertEquals('<img src="https://username:secret@www.explosm.net/all/relative/url.png?a=1&amp;b=2">', $result->getBody());
@@ -276,10 +245,6 @@ class XPathArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->with($this->equalTo($item->getUrl()),
 				$this->equalTo($this->timeout))
 			->will($this->returnValue($file));
-		$this->purifier->expects($this->once())
-			->method('purify')
-			->with($this->equalTo('<img src="http://www.url.com/absolute/url.png"><a href="mailto:test@testsite.com">mail</a>'))
-			->will($this->returnValue('<img src="http://www.url.com/absolute/url.png"><a href="mailto:test@testsite.com">mail</a>'));
 
 		$result = $this->testEnhancer->enhance($item);
 		$this->assertEquals('<img src="http://www.url.com/absolute/url.png"><a target="_blank" href="mailto:test@testsite.com">mail</a>', $result->getBody());

@@ -33,23 +33,19 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 
 
 	private $feedRegex;
-	private $purifier;
 	private $fileFactory;
 	private $maximumTimeout;
 
 
 	/**
-	 * @param $purifier the purifier object to clean the html which will be
-	 * matched
 	 * @param SimplePieFileFactory a factory for getting a simple pie file instance
 	 * @param array $regexXPathPair an associative array containing regex to 
 	 * match the url and the xpath that should be used for it to extract the 
 	 * page
 	 * @param int $maximumTimeout maximum timeout in seconds, defaults to 10 sec
 	 */
-	public function __construct($purifier, SimplePieFileFactory $fileFactory, 
+	public function __construct(SimplePieFileFactory $fileFactory, 
 	                            array $regexXPathPair, $maximumTimeout=10){
-		$this->purifier = $purifier;
 		$this->regexXPathPair = $regexXPathPair;
 		$this->fileFactory = $fileFactory;
 		$this->maximumTimeout = $maximumTimeout;
@@ -85,9 +81,8 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 				// convert all relative to absolute URLs
 				$xpathResult = $this->substituteRelativeLinks($xpathResult, $item->getUrl());
 
-				$sanitizedResult = $this->purifier->purify($xpathResult);
-				if( $sanitizedResult ) {
-					$item->setBody($sanitizedResult);
+				if( $xpathResult ) {
+					$item->setBody($xpathResult);
 				}
 			}
 		}

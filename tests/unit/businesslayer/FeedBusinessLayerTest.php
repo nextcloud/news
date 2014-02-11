@@ -48,6 +48,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 	private $importParser;
 	private $autoPurgeMinimumInterval;
 	private $enhancer;
+	private $purifier;
 
 	protected function setUp(){
 		$this->api = $this->getAPIMock();
@@ -72,10 +73,11 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->enhancer = $this->getMockBuilder('\OCA\News\ArticleEnhancer\Enhancer')
 			->disableOriginalConstructor()
 			->getMock();
+		$this->purifier = $this->getMock('purifier', array('purify'));
 		$this->feedBusinessLayer = new FeedBusinessLayer($this->feedMapper,
 			$this->fetcher, $this->itemMapper, $this->api,
 			$timeFactory, $this->autoPurgeMinimumInterval,
-			$this->enhancer);
+			$this->enhancer, $this->purifier);
 		$this->user = 'jack';
 		$response = 'hi';
 	}
@@ -150,6 +152,10 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->with($this->equalTo($return[1][1]),
 				$this->equalTo($url))
 			->will($this->returnValue($return[1][1]));
+		$this->purifier->expects($this->at(0))
+			->method('purify')
+			->with($this->equalTo($return[1][1]->getBody()))
+			->will($this->returnValue($return[1][1]->getBody()));
 		$this->itemMapper->expects($this->at(1))
 			->method('insert')
 			->with($this->equalTo($return[1][1]));
@@ -165,6 +171,10 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->with($this->equalTo($return[1][0]),
 				$this->equalTo($url))
 			->will($this->returnValue($return[1][0]));
+		$this->purifier->expects($this->at(1))
+			->method('purify')
+			->with($this->equalTo($return[1][0]->getBody()))
+			->will($this->returnValue($return[1][0]->getBody()));
 		$this->itemMapper->expects($this->at(3))
 			->method('insert')
 			->with($this->equalTo($return[1][0]));
@@ -219,6 +229,10 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->with($this->equalTo($return[1][1]),
 				$this->equalTo($url))
 			->will($this->returnValue($return[1][1]));
+		$this->purifier->expects($this->at(0))
+			->method('purify')
+			->with($this->equalTo($return[1][1]->getBody()))
+			->will($this->returnValue($return[1][1]->getBody()));
 		$this->itemMapper->expects($this->at(1))
 			->method('insert')
 			->with($this->equalTo($return[1][1]));
@@ -274,6 +288,10 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->with($this->equalTo($items[0]),
 				$this->equalTo($feed->getUrl()))
 			->will($this->returnValue($items[0]));
+		$this->purifier->expects($this->at(0))
+			->method('purify')
+			->with($this->equalTo($items[0]->getBody()))
+			->will($this->returnValue($items[0]->getBody()));
 		$this->itemMapper->expects($this->once())
 			->method('insert')
 			->with($this->equalTo($items[0]));
@@ -525,6 +543,10 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('insert')
 			->with($this->equalTo($item));
 
+		$this->purifier->expects($this->once())
+			->method('purify')
+			->with($this->equalTo($item->getBody()))
+			->will($this->returnValue($item->getBody()));
 
 		$result = $this->feedBusinessLayer->importArticles($items, $this->user);
 
@@ -595,6 +617,10 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->itemMapper->expects($this->at(0))
 			->method('findByGuidHash')
 			->will($this->throwException(new DoesNotExistException('yo')));
+		$this->purifier->expects($this->once())
+			->method('purify')
+			->with($this->equalTo($item->getBody()))
+			->will($this->returnValue($item->getBody()));
 		$this->itemMapper->expects($this->at(1))
 			->method('insert')
 			->with($this->equalTo($item));

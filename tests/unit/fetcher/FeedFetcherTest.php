@@ -81,7 +81,6 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 			'\OCA\AppFramework\Utility\FaviconFetcher')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->purifier = $this->getMock('purifier', array('purify'));
 		$this->time = 2323;
 		$timeFactory = $this->getMockBuilder(
 			'\OCA\AppFramework\Utility\TimeFactory')
@@ -99,8 +98,7 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 						 $timeFactory,
 						 $this->cacheDirectory,
 						 $this->cacheDuration,
-						 $this->fetchTimeout,
-						 $this->purifier);
+						 $this->fetchTimeout);
 		$this->url = 'http://tests';
 
 		$this->permalink = 'http://permalink';
@@ -177,10 +175,6 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 
 
 	private function createItem($author=false, $enclosureType=null, $noPubDate=false) {
-		$this->purifier->expects($this->once())
-			->method('purify')
-			->with($this->equalTo($this->body))
-			->will($this->returnValue($this->body));
 		$this->expectItem('get_permalink', $this->permalink);
 		$this->expectItem('get_title', $this->title);
 		$this->expectItem('get_id', $this->guid);

@@ -194,7 +194,8 @@ class DIContainer extends BaseContainer {
 				$c['API'],
 				$c['TimeFactory'],
 				$c['autoPurgeMinimumInterval'],
-				$c['Enhancer']);
+				$c['Enhancer'],
+				$c['HTMLPurifier']);
 		});
 
 		$this['ItemBusinessLayer'] = $this->share(function($c){
@@ -264,7 +265,6 @@ class DIContainer extends BaseContainer {
 			
 			foreach(json_decode($xpathEnhancerConfig, true) as $feed => $config) {
 				$articleEnhancer = new XPathArticleEnhancer(
-					$c['HTMLPurifier'],
 					$c['SimplePieFileFactory'],
 					$config,
 					$c['feedFetcherTimeout']
@@ -303,8 +303,7 @@ class DIContainer extends BaseContainer {
 				$c['TimeFactory'],
 				$c['simplePieCacheDirectory'],
 				$c['simplePieCacheDuration'],
-				$c['feedFetcherTimeout'],
-				$c['HTMLPurifier']);
+				$c['feedFetcherTimeout']);
 		});
 
 		$this['StatusFlag'] = $this->share(function($c){
