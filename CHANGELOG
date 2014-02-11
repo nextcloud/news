@@ -2,6 +2,7 @@ owncloud-news (1.806)
 * Disable simple pie sanitation (we use HtmlPurifier) to speed up update
 * Only purify articles if they will be added to the database
 * Fix XSS vulnerability that was caused by not purifing the body of imported articles
+* Also float the first picture in the first div left (fixes ugly images for golem.de feed)
 
 owncloud-news (1.805)
 * Hide editing tools in invalid feed dialog
