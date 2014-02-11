@@ -82,6 +82,8 @@ class FeedFetcher implements IFeedFetcher {
 		$simplePie = $this->simplePieFactory->getCore();
 		$simplePie->set_feed_url($url);
 		$simplePie->enable_cache(true);
+		$simplePie->set_stupidly_fast(true);  // disable simple pie sanitation
+		                                      // we use htmlpurifier
 		$simplePie->set_timeout($this->fetchTimeout);
 		$simplePie->set_cache_location($this->cacheDirectory);
 		$simplePie->set_cache_duration($this->cacheDuration);

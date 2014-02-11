@@ -141,6 +141,9 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 			->method('set_cache_location')
 			->with($this->equalTo($this->cacheDirectory));
 		$this->core->expects($this->once())
+			->method('set_stupidly_fast')
+			->with($this->equalTo(true));
+		$this->core->expects($this->once())
 			->method('set_cache_duration')
 			->with($this->equalTo($this->cacheDuration));
 		$this->setExpectedException('\OCA\News\Fetcher\FetcherException');
