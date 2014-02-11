@@ -327,7 +327,8 @@
 			white-space:normal;
 		}
 
-		.feed_item .item_body > img:first-child {
+		.feed_item .item_body > img:first-child,
+		.feed_item .item_body > div:first-child > img:first-child {
 			padding: 0 14px 0 0;
 			float: left;
 		}
