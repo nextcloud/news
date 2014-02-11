@@ -6,6 +6,7 @@
 "Choose folder" => "נא לבחור בתיקייה",
 "Folder name" => "שם התיקייה",
 "Starred" => "מסומן",
+"from" => "מאת",
 "by" => "על ידי",
 "Download" => "הורדה",
 "Keep unread" => "סמן כלא נקרא",
