@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# suliman <291101251@std.qu.edu.sa>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-02-20 02:25-0500\n"
-"PO-Revision-Date: 2014-02-19 19:11+0000\n"
-"Last-Translator: I Robot\n"
+"POT-Creation-Date: 2014-02-21 01:02-0500\n"
+"PO-Revision-Date: 2014-02-20 15:30+0000\n"
+"Last-Translator: suliman <291101251@std.qu.edu.sa>\n"
 "Language-Team: Arabic (http://www.transifex.com/projects/p/owncloud/language/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,53 +20,53 @@ msgstr ""
 
 #: appinfo/app.php:52 templates/main.php:38
 msgid "News"
-msgstr ""
+msgstr "اخبار"
 
 #: businesslayer/feedbusinesslayer.php:103
 msgid "Can not add feed: Exists already"
-msgstr ""
+msgstr "لا يمكن اضافة هذا الملقم:هو موجود بالفعل"
 
 #: businesslayer/feedbusinesslayer.php:141
 msgid "Can not add feed: URL does not exist or has invalid xml"
-msgstr ""
+msgstr "لا يمكن اضافة هذا الملقم: عنوان URL غير موجود "
 
 #: businesslayer/feedbusinesslayer.php:285
 msgid "Articles without feed"
-msgstr ""
+msgstr "مقالات بدون ملقم"
 
 #: businesslayer/folderbusinesslayer.php:66
 msgid "Can not add folder: Exists already"
-msgstr ""
+msgstr "لا يمكن اضافة المجلد:موجود بالفعل"
 
 #: js/vendor/angular-ui/build/angular-ui.min.js:7
 msgid " "
-msgstr ""
+msgstr " "
 
 #: js/vendor/angular-ui/build/angular-ui.min.js:7
 msgid "_"
-msgstr ""
+msgstr "-"
 
 #: js/vendor/jquery-ui/ui/minified/jquery-ui.min.js:8
 #: js/vendor/jquery-ui/ui/minified/jquery.ui.autocomplete.min.js:4
 msgid "status"
-msgstr ""
+msgstr "الحالة"
 
 #: templates/main.php:34
 #, php-format
 msgid "Undo deletion of %s"
-msgstr ""
+msgstr "التراجع عن حذف %s"
 
 #: templates/part.addnew.php:13
 msgid "Add Website"
-msgstr ""
+msgstr "اضافة موقع الكتروني"
 
 #: templates/part.addnew.php:21
 msgid "Error: address exists already!"
-msgstr ""
+msgstr "خطا: العنوان موجود بالفعل"
 
 #: templates/part.addnew.php:24
 msgid "Error: folder exists already"
-msgstr ""
+msgstr "خطا: المجلد موجود بالفعل"
 
 #: templates/part.addnew.php:31
 msgid "Address"
@@ -77,7 +78,7 @@ msgstr "أدخل"
 
 #: templates/part.addnew.php:41 templates/part.addnew.php:48
 msgid "New folder"
-msgstr ""
+msgstr "مجلد جديد"
 
 #: templates/part.addnew.php:42
 msgid "Folder"
@@ -85,7 +86,7 @@ msgstr "مجلد"
 
 #: templates/part.addnew.php:46
 msgid "Choose folder"
-msgstr ""
+msgstr "اختر مجلد"
 
 #: templates/part.addnew.php:57
 msgid "Folder name"
@@ -93,11 +94,11 @@ msgstr "اسم المجلد"
 
 #: templates/part.addnew.php:61
 msgid "Back to folder selection"
-msgstr ""
+msgstr "الرجوع الى المجلد المحدد"
 
 #: templates/part.addnew.php:65
 msgid "Create folder"
-msgstr ""
+msgstr "انشئ مجلد"
 
 #: templates/part.feed.starred.php:11
 msgid "Starred"
@@ -105,28 +106,28 @@ msgstr "معلّم بنجمة."
 
 #: templates/part.feed.unread.php:10
 msgid "Unread articles"
-msgstr ""
+msgstr "مقال غير مقروء"
 
 #: templates/part.feed.unread.php:17
 msgid "All articles"
-msgstr ""
+msgstr "جميع المقالات"
 
 #: templates/part.feed.unread.php:26 templates/part.listfeed.php:62
 #: templates/part.listfolder.php:55
 msgid "Mark read"
-msgstr ""
+msgstr "تحديد كـ مقروء"
 
 #: templates/part.firstrun.php:2
 msgid "Welcome to the ownCloud News app!"
-msgstr ""
+msgstr "مرحبا بك في برنامج اخبار ownCloud!"
 
 #: templates/part.items.php:20
 msgid "read on website"
-msgstr ""
+msgstr "اقرء عن طريق الموقع الالكتروني"
 
 #: templates/part.items.php:40
 msgid "star"
-msgstr ""
+msgstr "نجمة"
 
 #: templates/part.items.php:56
 msgid "from"
@@ -142,7 +143,7 @@ msgstr "تحميل"
 
 #: templates/part.items.php:79
 msgid "Keep unread"
-msgstr ""
+msgstr "ابقاءة كـ غير مقروء"
 
 #: templates/part.listfeed.php:22 templates/part.listfolder.php:19
 msgid "Cancel"
@@ -154,23 +155,23 @@ msgstr "حفظ"
 
 #: templates/part.listfeed.php:50 templates/part.listfeed.php:75
 msgid "Delete website"
-msgstr ""
+msgstr "احذف الموقع الالكتروني"
 
 #: templates/part.listfeed.php:70
 msgid "Rename feed"
-msgstr ""
+msgstr "اعادة تسمية الملقم"
 
 #: templates/part.listfolder.php:15
 msgid "Collapse"
-msgstr ""
+msgstr "طوي"
 
 #: templates/part.listfolder.php:44 templates/part.listfolder.php:60
 msgid "Delete folder"
-msgstr ""
+msgstr "حذف المجلد"
 
 #: templates/part.listfolder.php:67
 msgid "Rename folder"
-msgstr ""
+msgstr "اعادة تسمية المجلد"
 
 #: templates/part.settings.php:13
 msgid "Settings"
@@ -178,11 +179,11 @@ msgstr "إعدادات"
 
 #: templates/part.settings.php:15
 msgid "Use compact view"
-msgstr ""
+msgstr "استخدم العرض المضغوط"
 
 #: templates/part.settings.php:17
 msgid "Subscriptions (OPML)"
-msgstr ""
+msgstr "اشتراك (OPML)"
 
 #: templates/part.settings.php:21 templates/part.settings.php:24
 #: templates/part.settings.php:52 templates/part.settings.php:57
@@ -198,20 +199,20 @@ msgstr "تصدير"
 
 #: templates/part.settings.php:42
 msgid "Error when importing: file does not contain valid OPML"
-msgstr ""
+msgstr "خطا عند الاستيراد: الملف لايحتوي على OPML صالح"
 
 #: templates/part.settings.php:48
 msgid "Unread/Starred Articles"
-msgstr ""
+msgstr "مقالات غير مقروءه/نجمة "
 
 #: templates/part.settings.php:74
 msgid "Error when importing: file does not contain valid JSON"
-msgstr ""
+msgstr "خطا عند الاستيراد: الملف لايحتوي على OPML صالح"
 
 #: templates/part.showall.php:5
 msgid "Show read articles"
-msgstr ""
+msgstr "عرض المقالات المقروءة"
 
 #: templates/part.showall.php:11
 msgid "Hide read articles"
-msgstr ""
+msgstr "اخف المقالات المقروؤة"
