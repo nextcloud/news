@@ -97,5 +97,8 @@
 	},
 	"niebezpiecznik.pl": {
 		"%feedproxy.google.com/~r/niebezpiecznik%": "//div[@class=\"entry\"]"
+	},
+	"maximumble.thebookofbiff.com": {
+		"%maximumble.thebookofbiff.com%": "//div[@id=\"comic\"]/div/a/img"
 	}
 }
