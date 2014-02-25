@@ -81,7 +81,7 @@
 		"%forlackofabettercomic.com/\\?id=%": "//div[@id=\"comicset\"]/a/img"
 	},
 	"heise.de/newsticker": {
-		"%heise.de%": "//*[@class='meldung_wrapper']"
+		"%heise.de%": "//*[@class='meldung_wrapper']/*[not(contains(@class, 'dossier'))]"
 	},
 	"spiegel.de": {
 		"%spiegel.de/(?!.*video).*%": "//p[@class='article-intro'] | //*[@itemprop='description' and not(ancestor::*[contains( normalize-space( @class ), 'article-section' )]) ] | //*[(@class='spPanoImageTeaserPic' or @class='spPanoGalleryTeaserPic' or @class='spPanoPlayerTeaserPic') and not(ancestor::*[contains( normalize-space( @class ), 'article-section' )])] | //*[@class='image-buttons-panel' and not(ancestor::*[contains( normalize-space( @class ), 'article-section' )])]/*[1]/img | //*[@class='article-image-description' and not(ancestor::*[contains( normalize-space( @class ), 'article-section' )]) ]/p | //*[@id='content-main']/*[@id='js-article-column']/div[contains( normalize-space( @class ), 'article-section' )]"
