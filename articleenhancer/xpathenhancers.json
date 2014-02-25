@@ -15,26 +15,26 @@
 	"leasticoulddo.com": {
 		"%feedproxy.google.com/~r/LICD%": "//*[@id='comic-img']/a/img | //*[@id='comic-img']/img | //*[@id='post']"
 	},
-	"escapistmagazine.com/articles/view/comics/critical-miss": {
-		"%escapistmagazine.com/articles/view/comics/critical-miss%": "//*[@class='body']/span/img | //div[@class='folder_nav_links']/following::p"
+	"escapistmagazine.com/articles/view/comicsandcosplay/comics/critical-miss": {
+		"%escapistmagazine.com/articles/view/comicsandcosplay/comics/critical-miss%": "//*[@class='body']/span/img | //div[@class='folder_nav_links']/following::p"
 	},
-	"escapistmagazine.com/articles/view/comics/namegame": {
-		"%escapistmagazine.com/articles/view/comics/namegame%": "//*[@class='body']/span/p/img[@height != \"120\"]"
+	"escapistmagazine.com/articles/view/comicsandcosplay/comics/namegame": {
+		"%escapistmagazine.com/articles/view/comicsandcosplay/comics/namegame%": "//*[@class='body']/span/p/img[@height != \"120\"]"
 	},
-	"escapistmagazine.com/articles/view/comics/stolen-pixels": {
-		"%escapistmagazine.com/articles/view/comics/stolen-pixels%": "//*[@class='body']/span/p[2]/img"
+	"escapistmagazine.com/articles/view/comicsandcosplay/comics/stolen-pixels": {
+		"%escapistmagazine.com/articles/view/comicsandcosplay/comics/stolen-pixels%": "//*[@class='body']/span/p[2]/img"
 	},
-	"escapistmagazine.com/articles/view/comics/bumhugparade": {
-		"%escapistmagazine.com/articles/view/comics/bumhugparade%": "//*[@class='body']/span/p[2]/img"
+	"escapistmagazine.com/articles/view/comicsandcosplay/comics/bumhugparade": {
+		"%escapistmagazine.com/articles/view/comicsandcosplay/comics/bumhugparade%": "//*[@class='body']/span/p[2]/img"
 	},
-	"escapistmagazine.com/articles/view/comics/escapistradiotheater": {
-		"%escapistmagazine.com/articles/view/comics/escapistradiotheater%": "//*[@class='body']/span/p[2]/img"
+	"escapistmagazine.com/articles/view/comicsandcosplay/comics/escapistradiotheater": {
+		"%escapistmagazine.com/articles/view/comicsandcosplay/comics/escapistradiotheater%": "//*[@class='body']/span/p[2]/img"
 	},
-	"escapistmagazine.com/articles/view/comics/paused": {
-		"%escapistmagazine.com/articles/view/comics/paused%": "//*[@class='body']/span/p[2]/img | //*[@class='body']/span/div/img"
+	"escapistmagazine.com/articles/view/comicsandcosplay/comics/paused": {
+		"%escapistmagazine.com/articles/view/comicsandcosplay/comics/paused%": "//*[@class='body']/span/p[2]/img | //*[@class='body']/span/div/img"
 	},
-	"escapistmagazine.com/articles/view/comics/fraughtwithperil": {
-		"%escapistmagazine.com/articles/view/comics/fraughtwithperil%": "//*[@class='body']"
+	"escapistmagazine.com/articles/view/comicsandcosplay/comics/fraughtwithperil": {
+		"%escapistmagazine.com/articles/view/comicsandcosplay/comics/fraughtwithperil%": "//*[@class='body']"
 	},
 	"trenchescomic.com": {
 		"%trenchescomic.com/comic%": "//*[@class=\"top\"]/img",
