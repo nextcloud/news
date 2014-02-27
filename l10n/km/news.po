@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# សុវិចិត្រ Sovichet ទេព Tep <sovichet.tep@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-02-25 01:02-0500\n"
-"PO-Revision-Date: 2014-02-24 12:10+0000\n"
-"Last-Translator: I Robot\n"
+"POT-Creation-Date: 2014-02-27 01:02-0500\n"
+"PO-Revision-Date: 2014-02-26 12:21+0000\n"
+"Last-Translator: សុវិចិត្រ Sovichet ទេព Tep <sovichet.tep@gmail.com>\n"
 "Language-Team: Khmer (http://www.transifex.com/projects/p/owncloud/language/km/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,15 +20,15 @@ msgstr ""
 
 #: appinfo/app.php:52 templates/main.php:38
 msgid "News"
-msgstr ""
+msgstr "ព័ត៌មាន"
 
 #: businesslayer/feedbusinesslayer.php:103
 msgid "Can not add feed: Exists already"
-msgstr ""
+msgstr "មិន​អាច​បន្ថែម​ព័ត៌មាន៖ មាន​រួច​ហើយ"
 
 #: businesslayer/feedbusinesslayer.php:141
 msgid "Can not add feed: URL does not exist or has invalid xml"
-msgstr ""
+msgstr "មិន​អាច​បន្ថែម​ព័ត៌មាន៖ មិន​មាន URL ឬ​មាន xml មិន​ត្រឹម​ត្រូវ"
 
 #: businesslayer/feedbusinesslayer.php:285
 msgid "Articles without feed"
@@ -35,37 +36,37 @@ msgstr ""
 
 #: businesslayer/folderbusinesslayer.php:66
 msgid "Can not add folder: Exists already"
-msgstr ""
+msgstr "មិន​អាច​បន្ថែម​ថត៖ មាន​រួច​ហើយ"
 
 #: js/vendor/angular-ui/build/angular-ui.min.js:7
 msgid " "
-msgstr ""
+msgstr " "
 
 #: js/vendor/angular-ui/build/angular-ui.min.js:7
 msgid "_"
-msgstr ""
+msgstr "_"
 
 #: js/vendor/jquery-ui/ui/minified/jquery-ui.min.js:8
 #: js/vendor/jquery-ui/ui/minified/jquery.ui.autocomplete.min.js:4
 msgid "status"
-msgstr ""
+msgstr "ស្ថានភាព"
 
 #: templates/main.php:34
 #, php-format
 msgid "Undo deletion of %s"
-msgstr ""
+msgstr "មិន​ធ្វើ​ការ​លុប %s វិញ"
 
 #: templates/part.addnew.php:13
 msgid "Add Website"
-msgstr ""
+msgstr "បន្ថែម​វេបសាយ"
 
 #: templates/part.addnew.php:21
 msgid "Error: address exists already!"
-msgstr ""
+msgstr "កំហុស៖ អាសយដ្ឋាន​មាន​រួច​ហើយ!"
 
 #: templates/part.addnew.php:24
 msgid "Error: folder exists already"
-msgstr ""
+msgstr "កំហុស៖ ថត​មាន​រួច​ហើយ"
 
 #: templates/part.addnew.php:31
 msgid "Address"
@@ -77,56 +78,56 @@ msgstr "បញ្ចូល"
 
 #: templates/part.addnew.php:41 templates/part.addnew.php:48
 msgid "New folder"
-msgstr ""
+msgstr "ថត​ថ្មី"
 
 #: templates/part.addnew.php:42
 msgid "Folder"
-msgstr ""
+msgstr "ថត"
 
 #: templates/part.addnew.php:46
 msgid "Choose folder"
-msgstr ""
+msgstr "ជ្រើស​ថត"
 
 #: templates/part.addnew.php:57
 msgid "Folder name"
-msgstr ""
+msgstr "ឈ្មោះ​ថត"
 
 #: templates/part.addnew.php:61
 msgid "Back to folder selection"
-msgstr ""
+msgstr "ត្រឡប់​ទៅ​ការ​ជ្រើស​រើស​ថត"
 
 #: templates/part.addnew.php:65
 msgid "Create folder"
-msgstr ""
+msgstr "បង្កើត​ថត"
 
 #: templates/part.feed.starred.php:11
 msgid "Starred"
-msgstr ""
+msgstr "បាន​ដាក់​ផ្កាយ"
 
 #: templates/part.feed.unread.php:10
 msgid "Unread articles"
-msgstr ""
+msgstr "អត្ថបទ​ដែល​មិន​បាន​អាន"
 
 #: templates/part.feed.unread.php:17
 msgid "All articles"
-msgstr ""
+msgstr "អត្ថបទ​ទាំង​អស់"
 
 #: templates/part.feed.unread.php:26 templates/part.listfeed.php:62
 #: templates/part.listfolder.php:55
 msgid "Mark read"
-msgstr ""
+msgstr "ទុក​ថា​បាន​អាន"
 
 #: templates/part.firstrun.php:2
 msgid "Welcome to the ownCloud News app!"
-msgstr ""
+msgstr "សូម​ស្វាគមន៍​មក​កាន់​កម្មវិធី ownCloud News!"
 
 #: templates/part.items.php:20
 msgid "read on website"
-msgstr ""
+msgstr "អាន​លើ​វេបសាយ"
 
 #: templates/part.items.php:40
 msgid "star"
-msgstr ""
+msgstr "ដាក់​ផ្កាយ"
 
 #: templates/part.items.php:56
 msgid "from"
@@ -134,7 +135,7 @@ msgstr "ពី"
 
 #: templates/part.items.php:61
 msgid "by"
-msgstr ""
+msgstr "ដោយ"
 
 #: templates/part.items.php:68
 msgid "Download"
@@ -142,7 +143,7 @@ msgstr "ទាញយក"
 
 #: templates/part.items.php:79
 msgid "Keep unread"
-msgstr ""
+msgstr "ទុក​ថា​មិន​បាន​អាន"
 
 #: templates/part.listfeed.php:22 templates/part.listfolder.php:19
 msgid "Cancel"
@@ -154,7 +155,7 @@ msgstr "រក្សាទុក"
 
 #: templates/part.listfeed.php:50 templates/part.listfeed.php:75
 msgid "Delete website"
-msgstr ""
+msgstr "លុប​វេបសាយ"
 
 #: templates/part.listfeed.php:70
 msgid "Rename feed"
@@ -162,15 +163,15 @@ msgstr ""
 
 #: templates/part.listfolder.php:15
 msgid "Collapse"
-msgstr ""
+msgstr "បង្រួម"
 
 #: templates/part.listfolder.php:44 templates/part.listfolder.php:60
 msgid "Delete folder"
-msgstr ""
+msgstr "លុប​ថត"
 
 #: templates/part.listfolder.php:67
 msgid "Rename folder"
-msgstr ""
+msgstr "ប្ដូរ​ឈ្មោះ​ថត"
 
 #: templates/part.settings.php:13
 msgid "Settings"
@@ -182,7 +183,7 @@ msgstr ""
 
 #: templates/part.settings.php:17
 msgid "Subscriptions (OPML)"
-msgstr ""
+msgstr "ការ​តាមដាន (OPML)"
 
 #: templates/part.settings.php:21 templates/part.settings.php:24
 #: templates/part.settings.php:52 templates/part.settings.php:57
@@ -198,20 +199,20 @@ msgstr "នាំចេញ"
 
 #: templates/part.settings.php:42
 msgid "Error when importing: file does not contain valid OPML"
-msgstr ""
+msgstr "កំហុស​ពេល​នាំ​ចូល៖ ឯកសារ​មិន​មាន OPML ត្រឹម​ត្រូវ"
 
 #: templates/part.settings.php:48
 msgid "Unread/Starred Articles"
-msgstr ""
+msgstr "អត្ថបទ​ដែល​មិន​បាន​អាន ឬ​បាន​ដាក់​ផ្កាយ"
 
 #: templates/part.settings.php:74
 msgid "Error when importing: file does not contain valid JSON"
-msgstr ""
+msgstr "កំហុស​ពេល​នាំ​ចូល៖ ឯកសារ​មិន​មាន JSON ត្រឹម​ត្រូវ"
 
 #: templates/part.showall.php:5
 msgid "Show read articles"
-msgstr ""
+msgstr "បង្ហាញ​អត្ថបទ​ដែល​បាន​អាន"
 
 #: templates/part.showall.php:11
 msgid "Hide read articles"
-msgstr ""
+msgstr "លាក់​អត្ថបទ​ដែល​បាន​អាន"
