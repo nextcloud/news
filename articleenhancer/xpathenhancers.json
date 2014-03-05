@@ -10,7 +10,8 @@
 		"%feedproxy.google.com/~r/blogspot/DngUJ%": "//*[@class='post hentry']"
 	},
 	"penny-arcade.com": {
-		"%feeds.penny-arcade.com/~r/pa-mainsite%": "//*[starts-with(@class, \"post\")]"
+		"%penny-arcade.com/comic%": "//*[@id='comicFrame']/a/img",
+		"%penny-arcade.com/news%": "//*[@class='postBody']/*"
 	},
 	"leasticoulddo.com": {
 		"%feedproxy.google.com/~r/LICD%": "//*[@id='comic-img']/a/img | //*[@id='comic-img']/img | //*[@id='post']"
