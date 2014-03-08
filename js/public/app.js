@@ -877,16 +877,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           this._$scope.isCompactView = function() {
             return _this._compact.isCompact();
           };
-          this._$scope.is = {
-            active: 0
-          };
-          this._$scope.toggleOpen = function(id) {
-            if (id === _this._$scope.is.active) {
-              return _this._$scope.is.active = 0;
-            } else {
-              return _this._$scope.is.active = id;
-            }
-          };
         }
 
         return ItemController;

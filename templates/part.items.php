@@ -4,7 +4,7 @@
 	<li class="feed_item"
 
 		ng-repeat="item in itemBusinessLayer.getAll() | orderBy:['-id'] "
-		ng-class="{ read: item.isRead(), compact: isCompactView(), open: is.active==item.id}"
+		ng-class="{ read: item.isRead(), compact: isCompactView(), open: item.active}"
 		data-id="{{ item.id }}"
 		ng-click="itemBusinessLayer.setRead(item.id)">
 
@@ -23,7 +23,7 @@
 				{{ getRelativeDate(item.pubDate) }}
 			</span>
 			<h1>
-				<a ng-click="toggleOpen(item.id)" href="#">{{ item.title }}</a>
+				<a ng-click="item.active = !item.active" href="#">{{ item.title }}</a>
 			</h1>
 		</div>
 		
