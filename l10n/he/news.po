@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-02-11 01:05-0500\n"
-"PO-Revision-Date: 2014-02-10 17:40+0000\n"
+"POT-Creation-Date: 2014-03-11 06:50-0400\n"
+"PO-Revision-Date: 2014-03-11 06:11+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: Hebrew (http://www.transifex.com/projects/p/owncloud/language/he/)\n"
 "MIME-Version: 1.0\n"
@@ -23,15 +23,15 @@ msgstr ""
 msgid "News"
 msgstr "חדשות"
 
-#: businesslayer/feedbusinesslayer.php:100
+#: businesslayer/feedbusinesslayer.php:103
 msgid "Can not add feed: Exists already"
 msgstr ""
 
-#: businesslayer/feedbusinesslayer.php:137
+#: businesslayer/feedbusinesslayer.php:141
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr ""
 
-#: businesslayer/feedbusinesslayer.php:280
+#: businesslayer/feedbusinesslayer.php:285
 msgid "Articles without feed"
 msgstr ""
 

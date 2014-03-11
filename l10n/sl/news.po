@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2013-12-22 01:02-0500\n"
-"PO-Revision-Date: 2013-12-21 21:30+0000\n"
+"POT-Creation-Date: 2014-03-11 06:50-0400\n"
+"PO-Revision-Date: 2014-03-11 06:11+0000\n"
 "Last-Translator: mateju <>\n"
 "Language-Team: Slovenian (http://www.transifex.com/projects/p/owncloud/language/sl/)\n"
 "MIME-Version: 1.0\n"
@@ -25,15 +25,15 @@ msgstr ""
 msgid "News"
 msgstr "Novice"
 
-#: businesslayer/feedbusinesslayer.php:100
+#: businesslayer/feedbusinesslayer.php:103
 msgid "Can not add feed: Exists already"
 msgstr "Vira ni mogoče dodati: ta že obstaja"
 
-#: businesslayer/feedbusinesslayer.php:137
+#: businesslayer/feedbusinesslayer.php:141
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "Ni mogoče dodati vira: naslov URL ne obstaja ali pa je okvarjen zapis"
 
-#: businesslayer/feedbusinesslayer.php:280
+#: businesslayer/feedbusinesslayer.php:285
 msgid "Articles without feed"
 msgstr "Članki brez virov"
 
@@ -95,11 +95,11 @@ msgstr "Izberi mapo"
 msgid "Folder name"
 msgstr "Ime mape"
 
-#: templates/part.addnew.php:60
+#: templates/part.addnew.php:61
 msgid "Back to folder selection"
 msgstr "Nazaj na odsek map"
 
-#: templates/part.addnew.php:64
+#: templates/part.addnew.php:65
 msgid "Create folder"
 msgstr "Ustvari mapo"
 
@@ -115,8 +115,8 @@ msgstr "Neprebrani prispevki"
 msgid "All articles"
 msgstr "Vsi prispevki"
 
-#: templates/part.feed.unread.php:26 templates/part.listfeed.php:65
-#: templates/part.listfolder.php:43
+#: templates/part.feed.unread.php:26 templates/part.listfeed.php:62
+#: templates/part.listfolder.php:55
 msgid "Mark read"
 msgstr "Označi kot prebrano"
 
@@ -148,31 +148,31 @@ msgstr "Prejmi"
 msgid "Keep unread"
 msgstr "Ohrani neprebrano"
 
-#: templates/part.listfeed.php:22
+#: templates/part.listfeed.php:22 templates/part.listfolder.php:19
 msgid "Cancel"
 msgstr "Prekliči"
 
-#: templates/part.listfeed.php:25
+#: templates/part.listfeed.php:25 templates/part.listfolder.php:22
 msgid "Save"
 msgstr "Shrani"
 
-#: templates/part.listfeed.php:51 templates/part.listfeed.php:78
+#: templates/part.listfeed.php:50 templates/part.listfeed.php:75
 msgid "Delete website"
 msgstr "Izbriši spletišče"
 
-#: templates/part.listfeed.php:73
+#: templates/part.listfeed.php:70
 msgid "Rename feed"
 msgstr "Preimenuj vir"
 
-#: templates/part.listfolder.php:14
+#: templates/part.listfolder.php:15
 msgid "Collapse"
 msgstr "Skrči"
 
-#: templates/part.listfolder.php:32 templates/part.listfolder.php:48
+#: templates/part.listfolder.php:44 templates/part.listfolder.php:60
 msgid "Delete folder"
 msgstr "Izbriši mapo"
 
-#: templates/part.listfolder.php:54
+#: templates/part.listfolder.php:67
 msgid "Rename folder"
 msgstr "Preimenuj mapo"
 

@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2013-12-21 01:02-0500\n"
-"PO-Revision-Date: 2013-12-20 10:10+0000\n"
+"POT-Creation-Date: 2014-03-11 06:50-0400\n"
+"PO-Revision-Date: 2014-03-11 06:11+0000\n"
 "Last-Translator: Flávio Veras <flaviove@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/owncloud/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -28,15 +28,15 @@ msgstr ""
 msgid "News"
 msgstr "Notícias"
 
-#: businesslayer/feedbusinesslayer.php:100
+#: businesslayer/feedbusinesslayer.php:103
 msgid "Can not add feed: Exists already"
 msgstr "Não é possível adicionar alimentação: já existe"
 
-#: businesslayer/feedbusinesslayer.php:137
+#: businesslayer/feedbusinesslayer.php:141
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "Não é possível adicionar alimentação: URL não existe ou tem ml inválido"
 
-#: businesslayer/feedbusinesslayer.php:280
+#: businesslayer/feedbusinesslayer.php:285
 msgid "Articles without feed"
 msgstr "Artigos sem alimentação"
 
@@ -98,11 +98,11 @@ msgstr "Escolher pasta"
 msgid "Folder name"
 msgstr "Nome da pasta"
 
-#: templates/part.addnew.php:60
+#: templates/part.addnew.php:61
 msgid "Back to folder selection"
 msgstr "Voltar à seleção de pasta"
 
-#: templates/part.addnew.php:64
+#: templates/part.addnew.php:65
 msgid "Create folder"
 msgstr "Criar pasta"
 
@@ -118,8 +118,8 @@ msgstr "Artigos não lidos"
 msgid "All articles"
 msgstr "Todos os artigos"
 
-#: templates/part.feed.unread.php:26 templates/part.listfeed.php:65
-#: templates/part.listfolder.php:43
+#: templates/part.feed.unread.php:26 templates/part.listfeed.php:62
+#: templates/part.listfolder.php:55
 msgid "Mark read"
 msgstr "Marcar como lido"
 
@@ -151,31 +151,31 @@ msgstr "Baixar"
 msgid "Keep unread"
 msgstr "Manter como não lido"
 
-#: templates/part.listfeed.php:22
+#: templates/part.listfeed.php:22 templates/part.listfolder.php:19
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: templates/part.listfeed.php:25
+#: templates/part.listfeed.php:25 templates/part.listfolder.php:22
 msgid "Save"
 msgstr "Guardar"
 
-#: templates/part.listfeed.php:51 templates/part.listfeed.php:78
+#: templates/part.listfeed.php:50 templates/part.listfeed.php:75
 msgid "Delete website"
 msgstr "Excluir website"
 
-#: templates/part.listfeed.php:73
+#: templates/part.listfeed.php:70
 msgid "Rename feed"
 msgstr "Renomear alimentação"
 
-#: templates/part.listfolder.php:14
+#: templates/part.listfolder.php:15
 msgid "Collapse"
 msgstr "Retrair"
 
-#: templates/part.listfolder.php:32 templates/part.listfolder.php:48
+#: templates/part.listfolder.php:44 templates/part.listfolder.php:60
 msgid "Delete folder"
 msgstr "Excluir pasta"
 
-#: templates/part.listfolder.php:54
+#: templates/part.listfolder.php:67
 msgid "Rename folder"
 msgstr "Renomear pasta"
 

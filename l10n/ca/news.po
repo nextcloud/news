@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-01-19 01:01-0500\n"
-"PO-Revision-Date: 2014-01-18 19:40+0000\n"
+"POT-Creation-Date: 2014-03-11 06:50-0400\n"
+"PO-Revision-Date: 2014-03-11 06:11+0000\n"
 "Last-Translator: rogerc\n"
 "Language-Team: Catalan (http://www.transifex.com/projects/p/owncloud/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -25,15 +25,15 @@ msgstr ""
 msgid "News"
 msgstr "Notícies"
 
-#: businesslayer/feedbusinesslayer.php:100
+#: businesslayer/feedbusinesslayer.php:103
 msgid "Can not add feed: Exists already"
 msgstr "No es pot afegir la font: ja existeix"
 
-#: businesslayer/feedbusinesslayer.php:137
+#: businesslayer/feedbusinesslayer.php:141
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "No es pot afegir la font: la URL no existeix o té un XML no vàlid"
 
-#: businesslayer/feedbusinesslayer.php:280
+#: businesslayer/feedbusinesslayer.php:285
 msgid "Articles without feed"
 msgstr "Articles sense font"
 
@@ -95,11 +95,11 @@ msgstr "Escolliu una carpeta"
 msgid "Folder name"
 msgstr "Nom de la carpeta"
 
-#: templates/part.addnew.php:60
+#: templates/part.addnew.php:61
 msgid "Back to folder selection"
 msgstr "Torna a la selecció de carpeta"
 
-#: templates/part.addnew.php:64
+#: templates/part.addnew.php:65
 msgid "Create folder"
 msgstr "Crea carpeta"
 
@@ -115,8 +115,8 @@ msgstr "Articles sense llegir"
 msgid "All articles"
 msgstr "Tots els articles"
 
-#: templates/part.feed.unread.php:26 templates/part.listfeed.php:65
-#: templates/part.listfolder.php:43
+#: templates/part.feed.unread.php:26 templates/part.listfeed.php:62
+#: templates/part.listfolder.php:55
 msgid "Mark read"
 msgstr "Marca com a llegit"
 
@@ -148,31 +148,31 @@ msgstr "Baixa"
 msgid "Keep unread"
 msgstr "Mantén com a sense llegir"
 
-#: templates/part.listfeed.php:22
+#: templates/part.listfeed.php:22 templates/part.listfolder.php:19
 msgid "Cancel"
 msgstr "Cancel·la"
 
-#: templates/part.listfeed.php:25
+#: templates/part.listfeed.php:25 templates/part.listfolder.php:22
 msgid "Save"
 msgstr "Desa"
 
-#: templates/part.listfeed.php:51 templates/part.listfeed.php:78
+#: templates/part.listfeed.php:50 templates/part.listfeed.php:75
 msgid "Delete website"
 msgstr "Elimina pàgina web"
 
-#: templates/part.listfeed.php:73
+#: templates/part.listfeed.php:70
 msgid "Rename feed"
 msgstr "Reanomena la font"
 
-#: templates/part.listfolder.php:14
+#: templates/part.listfolder.php:15
 msgid "Collapse"
 msgstr "Col·lapsa"
 
-#: templates/part.listfolder.php:32 templates/part.listfolder.php:48
+#: templates/part.listfolder.php:44 templates/part.listfolder.php:60
 msgid "Delete folder"
 msgstr "Elimina carpeta"
 
-#: templates/part.listfolder.php:54
+#: templates/part.listfolder.php:67
 msgid "Rename folder"
 msgstr "Reanomena carpeta"
 

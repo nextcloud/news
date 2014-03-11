@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2013-12-22 01:02-0500\n"
-"PO-Revision-Date: 2013-12-22 01:20+0000\n"
+"POT-Creation-Date: 2014-03-11 06:50-0400\n"
+"PO-Revision-Date: 2014-03-11 06:11+0000\n"
 "Last-Translator: Caner BAŞARAN <basaran.caner@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/owncloud/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -27,15 +27,15 @@ msgstr ""
 msgid "News"
 msgstr "Haberler"
 
-#: businesslayer/feedbusinesslayer.php:100
+#: businesslayer/feedbusinesslayer.php:103
 msgid "Can not add feed: Exists already"
 msgstr "Daha mesaj goendermecek. Zaten varmi"
 
-#: businesslayer/feedbusinesslayer.php:137
+#: businesslayer/feedbusinesslayer.php:141
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "Daha beslemek edeme.URL yok varmi veya xml gecerli. "
 
-#: businesslayer/feedbusinesslayer.php:280
+#: businesslayer/feedbusinesslayer.php:285
 msgid "Articles without feed"
 msgstr "Beslemesiz makaleler"
 
@@ -97,11 +97,11 @@ msgstr "Dizin seç"
 msgid "Folder name"
 msgstr "Dizin ismi"
 
-#: templates/part.addnew.php:60
+#: templates/part.addnew.php:61
 msgid "Back to folder selection"
 msgstr "Arkiv secene tekrar "
 
-#: templates/part.addnew.php:64
+#: templates/part.addnew.php:65
 msgid "Create folder"
 msgstr "Arkiv yapmak "
 
@@ -117,8 +117,8 @@ msgstr "Okunmamış makaleler"
 msgid "All articles"
 msgstr "Bütün makaleler"
 
-#: templates/part.feed.unread.php:26 templates/part.listfeed.php:65
-#: templates/part.listfolder.php:43
+#: templates/part.feed.unread.php:26 templates/part.listfeed.php:62
+#: templates/part.listfolder.php:55
 msgid "Mark read"
 msgstr "Okumus noktamak "
 
@@ -150,31 +150,31 @@ msgstr "İndir"
 msgid "Keep unread"
 msgstr "Okunmamış bırak"
 
-#: templates/part.listfeed.php:22
+#: templates/part.listfeed.php:22 templates/part.listfolder.php:19
 msgid "Cancel"
 msgstr "İptal"
 
-#: templates/part.listfeed.php:25
+#: templates/part.listfeed.php:25 templates/part.listfolder.php:22
 msgid "Save"
 msgstr "Kaydet"
 
-#: templates/part.listfeed.php:51 templates/part.listfeed.php:78
+#: templates/part.listfeed.php:50 templates/part.listfeed.php:75
 msgid "Delete website"
 msgstr "websitesi silmek "
 
-#: templates/part.listfeed.php:73
+#: templates/part.listfeed.php:70
 msgid "Rename feed"
 msgstr "Beslemeyi yeniden adlandır"
 
-#: templates/part.listfolder.php:14
+#: templates/part.listfolder.php:15
 msgid "Collapse"
 msgstr "çökme"
 
-#: templates/part.listfolder.php:32 templates/part.listfolder.php:48
+#: templates/part.listfolder.php:44 templates/part.listfolder.php:60
 msgid "Delete folder"
 msgstr "Dizini sil"
 
-#: templates/part.listfolder.php:54
+#: templates/part.listfolder.php:67
 msgid "Rename folder"
 msgstr "Dizini yeniden adlandır"
 

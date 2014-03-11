@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# cybertorture <cybertorture@gmail.com>, 2014
 # Stefan Ilivanov <ilivanov@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2013-12-21 01:02-0500\n"
-"PO-Revision-Date: 2013-12-20 06:22+0000\n"
-"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"POT-Creation-Date: 2014-03-11 06:50-0400\n"
+"PO-Revision-Date: 2014-03-11 06:11+0000\n"
+"Last-Translator: cybertorture <cybertorture@gmail.com>\n"
 "Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/projects/p/owncloud/language/bg_BG/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,21 +23,21 @@ msgstr ""
 msgid "News"
 msgstr "Новини"
 
-#: businesslayer/feedbusinesslayer.php:100
+#: businesslayer/feedbusinesslayer.php:103
 msgid "Can not add feed: Exists already"
-msgstr ""
+msgstr "Не може да се добави хранилище: Вече съществува"
 
-#: businesslayer/feedbusinesslayer.php:137
+#: businesslayer/feedbusinesslayer.php:141
 msgid "Can not add feed: URL does not exist or has invalid xml"
-msgstr ""
+msgstr "Не може да се добави хранилище: URL не съществува или има невалиден xml"
 
-#: businesslayer/feedbusinesslayer.php:280
+#: businesslayer/feedbusinesslayer.php:285
 msgid "Articles without feed"
-msgstr ""
+msgstr "Статии без съдържание"
 
 #: businesslayer/folderbusinesslayer.php:66
 msgid "Can not add folder: Exists already"
-msgstr ""
+msgstr "Не може да добави папка: Вече съществува"
 
 #: js/vendor/angular-ui/build/angular-ui.min.js:7
 msgid " "
@@ -44,17 +45,17 @@ msgstr ""
 
 #: js/vendor/angular-ui/build/angular-ui.min.js:7
 msgid "_"
-msgstr ""
+msgstr "-"
 
 #: js/vendor/jquery-ui/ui/minified/jquery-ui.min.js:8
 #: js/vendor/jquery-ui/ui/minified/jquery.ui.autocomplete.min.js:4
 msgid "status"
-msgstr ""
+msgstr "състояние"
 
 #: templates/main.php:34
 #, php-format
 msgid "Undo deletion of %s"
-msgstr ""
+msgstr "Върни изтриване на %s"
 
 #: templates/part.addnew.php:13
 msgid "Add Website"
@@ -62,11 +63,11 @@ msgstr "Добавете сайт"
 
 #: templates/part.addnew.php:21
 msgid "Error: address exists already!"
-msgstr ""
+msgstr "Грешка: адресът вече съществува!"
 
 #: templates/part.addnew.php:24
 msgid "Error: folder exists already"
-msgstr ""
+msgstr "Грешка: Папката вече съществува"
 
 #: templates/part.addnew.php:31
 msgid "Address"
@@ -92,17 +93,17 @@ msgstr "Изберете папка"
 msgid "Folder name"
 msgstr "Име на папката"
 
-#: templates/part.addnew.php:60
+#: templates/part.addnew.php:61
 msgid "Back to folder selection"
-msgstr ""
+msgstr "Върни се в началото"
 
-#: templates/part.addnew.php:64
+#: templates/part.addnew.php:65
 msgid "Create folder"
 msgstr "Нова папка"
 
 #: templates/part.feed.starred.php:11
 msgid "Starred"
-msgstr ""
+msgstr "Със звезда"
 
 #: templates/part.feed.unread.php:10
 msgid "Unread articles"
@@ -112,22 +113,22 @@ msgstr "Нови статии"
 msgid "All articles"
 msgstr "Всички статии"
 
-#: templates/part.feed.unread.php:26 templates/part.listfeed.php:65
-#: templates/part.listfolder.php:43
+#: templates/part.feed.unread.php:26 templates/part.listfeed.php:62
+#: templates/part.listfolder.php:55
 msgid "Mark read"
 msgstr "Маркирай като прочетено"
 
 #: templates/part.firstrun.php:2
 msgid "Welcome to the ownCloud News app!"
-msgstr ""
+msgstr "Добре дошли в ownCloud програма за новини!"
 
 #: templates/part.items.php:20
 msgid "read on website"
-msgstr ""
+msgstr "прочети в сайта"
 
 #: templates/part.items.php:40
 msgid "star"
-msgstr ""
+msgstr "звезда"
 
 #: templates/part.items.php:56
 msgid "from"
@@ -143,33 +144,33 @@ msgstr "Изтегляне"
 
 #: templates/part.items.php:79
 msgid "Keep unread"
-msgstr ""
+msgstr "Запази непрочетено"
 
-#: templates/part.listfeed.php:22
+#: templates/part.listfeed.php:22 templates/part.listfolder.php:19
 msgid "Cancel"
 msgstr "Отказ"
 
-#: templates/part.listfeed.php:25
+#: templates/part.listfeed.php:25 templates/part.listfolder.php:22
 msgid "Save"
 msgstr "Запис"
 
-#: templates/part.listfeed.php:51 templates/part.listfeed.php:78
+#: templates/part.listfeed.php:50 templates/part.listfeed.php:75
 msgid "Delete website"
 msgstr "Изтриване на сайт"
 
-#: templates/part.listfeed.php:73
+#: templates/part.listfeed.php:70
 msgid "Rename feed"
-msgstr ""
+msgstr "Преименуваи хранилище"
 
-#: templates/part.listfolder.php:14
+#: templates/part.listfolder.php:15
 msgid "Collapse"
-msgstr ""
+msgstr "Намали"
 
-#: templates/part.listfolder.php:32 templates/part.listfolder.php:48
+#: templates/part.listfolder.php:44 templates/part.listfolder.php:60
 msgid "Delete folder"
 msgstr "Изтриване на папка"
 
-#: templates/part.listfolder.php:54
+#: templates/part.listfolder.php:67
 msgid "Rename folder"
 msgstr "Преименуване на папка"
 
@@ -179,11 +180,11 @@ msgstr "Настройки"
 
 #: templates/part.settings.php:15
 msgid "Use compact view"
-msgstr ""
+msgstr "Ползваи компактен изглед"
 
 #: templates/part.settings.php:17
 msgid "Subscriptions (OPML)"
-msgstr ""
+msgstr "Абонаменти (OPML)"
 
 #: templates/part.settings.php:21 templates/part.settings.php:24
 #: templates/part.settings.php:52 templates/part.settings.php:57
@@ -199,20 +200,20 @@ msgstr "Експорт"
 
 #: templates/part.settings.php:42
 msgid "Error when importing: file does not contain valid OPML"
-msgstr ""
+msgstr "Грешка при внасяне: файлът няма валиден OPML"
 
 #: templates/part.settings.php:48
 msgid "Unread/Starred Articles"
-msgstr ""
+msgstr "Непрочетени/със звезда статии"
 
 #: templates/part.settings.php:74
 msgid "Error when importing: file does not contain valid JSON"
-msgstr ""
+msgstr "Грешка при внасяне: файлът няма валиден JSON"
 
 #: templates/part.showall.php:5
 msgid "Show read articles"
-msgstr ""
+msgstr "Покажи прочетени статии"
 
 #: templates/part.showall.php:11
 msgid "Hide read articles"
-msgstr ""
+msgstr "Скрии прочетени статии"
