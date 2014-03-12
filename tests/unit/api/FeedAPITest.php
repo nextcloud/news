@@ -437,6 +437,43 @@ class FeedAPITest extends ControllerTestUtility {
 	}
 
 
+	public function testRename() {
+		$feedId = 3;
+		$feedTitle = 'test';
+
+		$request = new Request(array(
+			'urlParams' => array(
+				'feedId' => $feedId
+			),
+			'params' => array(
+				'feedTitle' => $feedTitle
+			)
+		));
+		$this->feedAPI = new FeedAPI(
+			$this->api,
+			$request,
+			$this->folderBusinessLayer,
+			$this->feedBusinessLayer,
+			$this->itemBusinessLayer
+		);
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->feedBusinessLayer->expects($this->once())
+			->method('rename')
+			->with(
+				$this->equalTo($feedId),
+				$this->equalTo($feedTitle),
+				$this->equalTo($this->user));
+
+		$response = $this->feedAPI->rename();
+
+		$this->assertEmpty($response->getData());
+		$this->assertEquals(Http::STATUS_OK, $response->getStatus());
+	}
+
+
 	public function testMoveDoesNotExist() {
 		$this->api->expects($this->once())
 			->method('getUserId')
