@@ -354,6 +354,12 @@ $this->create('news_api_feeds_move', '/api/v1-2/feeds/{feedId}/move')->put()->ac
 	}
 );
 
+$this->create('news_api_feeds_rename', '/api/v1-2/feeds/{feedId}/rename')->put()->action(
+	function($params) {
+		return App::main('FeedAPI', 'rename', $params, new DIContainer());
+	}
+);
+
 $this->create('news_api_feeds_read', '/api/v1-2/feeds/{feedId}/read')->put()->action(
 	function($params) {
 		return App::main('FeedAPI', 'read', $params, new DIContainer());

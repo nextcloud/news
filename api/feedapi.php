@@ -183,6 +183,28 @@ class FeedAPI extends Controller {
 
 
 	/**
+	 * @IsAdminExemption
+	 * @IsSubAdminExemption
+	 * @CSRFExemption
+	 * @Ajax
+	 * @API
+	 */
+	public function rename() {
+		$userId = $this->api->getUserId();
+		$feedId = (int) $this->params('feedId');
+		$feedTitle = $this->params('feedTitle');
+
+		try {
+			$this->feedBusinessLayer->rename($feedId, $feedTitle, $userId);
+			return new JSONResponse();
+		} catch(BusinessLayerException $ex) {
+			return new JSONResponse(array('message' => $ex->getMessage()),
+				Http::STATUS_NOT_FOUND);
+		}
+	}
+
+
+	/**
 	 * @CSRFExemption
 	 * @Ajax
 	 * @API
