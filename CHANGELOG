@@ -1,5 +1,7 @@
 owncloud-news (1.807)
 * Don't crash if an HttpException occurs in the python updater
+* Add API call to rename a feed
+* Don't collapse articles in compact mode if you select a new article to prevent the scroll position from changing
 
 owncloud-news (1.806)
 * Disable simple pie sanitation (we use HtmlPurifier) to speed up update
