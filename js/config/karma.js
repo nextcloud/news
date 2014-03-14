@@ -30,7 +30,7 @@ module.exports = function(config) {
 		basePath: '../',
 		// list of files / patterns to load in the browser
 		files: [
-			'vendor/jquery/jquery.js',
+			'vendor/jquery/dist/jquery.js',
 			'vendor/jquery-ui/ui/jquery-ui.js',
 			'vendor/angular/angular.js',
 			'vendor/angular-mocks/angular-mocks.js',

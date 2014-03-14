@@ -25,7 +25,9 @@
 		"grunt-coffeelint": "*",
 		"grunt-karma": "*",
 		"grunt-wrap": "*",
-		"grunt-phpunit": "*"
+		"grunt-phpunit": "*",
+		"karma-jasmine": "*",
+		"karma-phantomjs-launcher": "*"
 	},
 	"engine": "node >= 0.8"
 }
