@@ -62,7 +62,8 @@ if($version[0] > 5 || ($version[0] >= 5 && $version[1] >= 80)) {
 		news-item-scroll="true"
 		item-shortcuts
 		news-pull-to-refresh="loadNew()"
-		tabindex="-1">
+		tabindex="-1"
+		news-auto-focus>
 		<?php print_unescaped($this->inc("part.items")); ?>
 	</div>
 	<div id="firstrun" ng-show="initialized && feedBusinessLayer.noFeeds()">
