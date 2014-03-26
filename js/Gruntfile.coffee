@@ -82,6 +82,8 @@ module.exports = (grunt) ->
 					'level': 'ignore'
 				'no_trailing_whitespace':
 					'level': 'warn'
+				'max_line_length':
+					'level': 'ignore'
 
 		watch:
 			concat:
