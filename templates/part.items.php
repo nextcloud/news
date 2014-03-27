@@ -69,7 +69,7 @@
 			?></audio>
 		</div>
 
-		<div class="item_body" ng-bind-html-unsafe="item.body">
+		<div class="item_body" news-bind-html-unsafe="item.body">
 		</div>
 
 		<div class="item_bottom_utils">
