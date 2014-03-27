@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-03-11 06:50-0400\n"
-"PO-Revision-Date: 2014-03-11 06:11+0000\n"
+"POT-Creation-Date: 2014-03-27 01:02-0400\n"
+"PO-Revision-Date: 2014-03-26 06:00+0000\n"
 "Last-Translator: pstast <petr@stastny.eu>\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/projects/p/owncloud/language/cs_CZ/)\n"
 "MIME-Version: 1.0\n"
@@ -53,7 +53,6 @@ msgid "_"
 msgstr "_"
 
 #: js/vendor/jquery-ui/ui/minified/jquery-ui.min.js:8
-#: js/vendor/jquery-ui/ui/minified/jquery.ui.autocomplete.min.js:4
 msgid "status"
 msgstr "stav"
 
@@ -110,15 +109,15 @@ msgstr "Vytvořit složku"
 msgid "Starred"
 msgstr "S hvězdičkou"
 
-#: templates/part.feed.unread.php:10
+#: templates/part.feed.unread.php:11
 msgid "Unread articles"
 msgstr "Nepřečtené články"
 
-#: templates/part.feed.unread.php:17
+#: templates/part.feed.unread.php:18
 msgid "All articles"
 msgstr "Všechny články"
 
-#: templates/part.feed.unread.php:26 templates/part.listfeed.php:62
+#: templates/part.feed.unread.php:27 templates/part.listfeed.php:62
 #: templates/part.listfolder.php:55
 msgid "Mark read"
 msgstr "Označit jako přečtené"

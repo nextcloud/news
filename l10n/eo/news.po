@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-03-11 06:50-0400\n"
-"PO-Revision-Date: 2014-03-11 06:11+0000\n"
+"POT-Creation-Date: 2014-03-27 01:02-0400\n"
+"PO-Revision-Date: 2014-03-26 06:00+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: Esperanto (http://www.transifex.com/projects/p/owncloud/language/eo/)\n"
 "MIME-Version: 1.0\n"
@@ -48,7 +48,6 @@ msgid "_"
 msgstr ""
 
 #: js/vendor/jquery-ui/ui/minified/jquery-ui.min.js:8
-#: js/vendor/jquery-ui/ui/minified/jquery.ui.autocomplete.min.js:4
 msgid "status"
 msgstr ""
 
@@ -105,15 +104,15 @@ msgstr "Krei dosierujon"
 msgid "Starred"
 msgstr "Markita"
 
-#: templates/part.feed.unread.php:10
+#: templates/part.feed.unread.php:11
 msgid "Unread articles"
 msgstr "Nelegitaj artikoloj"
 
-#: templates/part.feed.unread.php:17
+#: templates/part.feed.unread.php:18
 msgid "All articles"
 msgstr "Ĉiuj artikoloj"
 
-#: templates/part.feed.unread.php:26 templates/part.listfeed.php:62
+#: templates/part.feed.unread.php:27 templates/part.listfeed.php:62
 #: templates/part.listfolder.php:55
 msgid "Mark read"
 msgstr "Marki kiel legita"
