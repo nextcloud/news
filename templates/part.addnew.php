@@ -8,9 +8,7 @@
 		href="#"
 		oc-click-focus="{
 			selector: '.add-new-popup input[ng-model=feedUrl]'
-		}"
-		ng-class="{opened: initialized && feedBusinessLayer.noFeeds()}"
- 	>+ <span><?php p($l->t('Add Website'))?></span></a>
+		}">+ <span><?php p($l->t('Add Website'))?></span></a>
 
 	<div class="add-new-popup"
 		ng-show="initialized && feedBusinessLayer.noFeeds()">
