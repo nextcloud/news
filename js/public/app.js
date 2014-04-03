@@ -744,6 +744,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           this._$scope.subscriptionsBusinessLayer = this._subscriptionsBusinessLayer;
           this._$scope.starredBusinessLayer = this._starredBusinessLayer;
           this._$scope.unreadCountFormatter = this._unreadCountFormatter;
+          this._$scope.edit = function(feed) {
+            feed.editing = true;
+            return feed.originalValue = feed.title;
+          };
+          this._$scope.cancel = function(feed) {
+            feed.editing = false;
+            return feed.title = feed.originalValue;
+          };
           this._$scope.getTotalUnreadCount = function() {
             var appName, count, title, titleCount;
             count = _this._subscriptionsBusinessLayer.getUnreadCount(0);
@@ -873,18 +881,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           this._autoPaging = true;
           this._$scope.itemBusinessLayer = this._itemBusinessLayer;
           this._$scope.feedBusinessLayer = this._feedBusinessLayer;
-          this._$scope.edit = function(feedId) {
-            var feed;
-            feed = _this._feedModel.getById(feedId);
-            feed.editing = true;
-            return feed.originalValue = feed.title;
-          };
-          this._$scope.cancel = function(feedId) {
-            var feed;
-            feed = _this._feedModel.getById(feedId);
-            feed.editing = false;
-            return feed.title = feed.originalValue;
-          };
           this._$scope.isLoading = function() {
             return _this._feedLoading.isLoading();
           };

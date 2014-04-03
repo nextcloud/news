@@ -37,16 +37,6 @@ Language, AutoPageLoading, Compact) ->
 			@_$scope.itemBusinessLayer = @_itemBusinessLayer
 			@_$scope.feedBusinessLayer = @_feedBusinessLayer
 
-			@_$scope.edit = (feedId) =>
-				feed = @_feedModel.getById(feedId)
-				feed.editing = true
-				feed.originalValue = feed.title
-
-			@_$scope.cancel = (feedId) =>
-				feed = @_feedModel.getById(feedId)
-				feed.editing = false
-				feed.title = feed.originalValue
-
 			@_$scope.isLoading = =>
 				return @_feedLoading.isLoading()
 

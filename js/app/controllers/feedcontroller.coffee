@@ -47,6 +47,14 @@ ActiveFeed, FeedType, $window) ->
 			@_$scope.starredBusinessLayer = @_starredBusinessLayer
 			@_$scope.unreadCountFormatter = @_unreadCountFormatter
 
+			@_$scope.edit = (feed) ->
+				feed.editing = true
+				feed.originalValue = feed.title
+
+			@_$scope.cancel = (feed) ->
+				feed.editing = false
+				feed.title = feed.originalValue
+
 			@_$scope.getTotalUnreadCount = =>
 				# also update title based on unreadcount
 				count = @_subscriptionsBusinessLayer.getUnreadCount(0)

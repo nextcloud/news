@@ -17,10 +17,10 @@
 		revert: true
 	}">
 
-	<div ui-if="feed.editing" class="rename-feed" ng-controller="ItemController">
+	<div ui-if="feed.editing" class="rename-feed">
           <input type="text" ng-model="feed.title" autofocus>
           <button title="<?php p($l->t('Cancel')); ?>" 
-		ng-click="cancel(feed.id)"
+		ng-click="cancel(feed)"
 		class="action-button back-button action"></button>
 	  <button title="<?php p($l->t('Save')); ?>" 
 		ng-click="feedBusinessLayer.renameFeed(feed.id, feed.title)"
@@ -65,8 +65,7 @@
 
 		<button class="svg action rename-feed-icon"
 			ng-hide="feed.editing || feed.error"
-			ng-controller="ItemController"
-			ng-click="edit(feed.id)"
+			ng-click="edit(feed)"
 			title="<?php p($l->t('Rename feed')); ?>"
 			oc-tooltip></button>
 
