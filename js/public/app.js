@@ -327,7 +327,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         return $($window.document).keydown(function(e) {
           var focused, scrollArea;
           focused = $(':focus');
-          if (!(focused.is('input') || focused.is('select') || focused.is('textarea') || focused.is('checkbox') || focused.is('button'))) {
+          if (!(focused.is('input') || focused.is('select') || focused.is('textarea') || focused.is('checkbox'))) {
             if (!(e.shiftKey || e.altKey || e.ctrlKey || e.metaKey)) {
               scrollArea = elm;
               if (e.keyCode === 74 || e.keyCode === 39 || e.keyCode === 78) {

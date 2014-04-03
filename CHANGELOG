@@ -2,6 +2,7 @@ owncloud-news (1.808)
 * Also focus article area when clicking on all unread link
 * Autofocus article area by default on load
 * Instantiate only one itemcontroller, prevents tons of requests when autopaging
+* Fix bug that would disable keyboard shortcuts after the star icon has been clicked
 
 owncloud-news (1.807)
 * Don't crash if an HttpException occurs in the python updater

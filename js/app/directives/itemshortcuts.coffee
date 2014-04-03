@@ -102,8 +102,7 @@ angular.module('News').directive 'itemShortcuts', ['$window', ($window) ->
 			if not (focused.is('input') or
 			focused.is('select') or
 			focused.is('textarea') or
-			focused.is('checkbox') or
-			focused.is('button'))
+			focused.is('checkbox'))
 
 				# activate shortcuts only if modifier keys are not pressed
 				if not(e.shiftKey or e.altKey or e.ctrlKey or e.metaKey)
