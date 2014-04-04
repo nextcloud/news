@@ -157,38 +157,8 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$params2 = array($status, 30, 1);
 
 
-		$pdoResult = $this->getMock('Result',
-			array('fetchRow'));
-
-		$pdoResult->expects($this->at(0))
-			->method('fetchRow')
-			->will($this->returnValue($row));
-		$pdoResult->expects($this->at(1))
-			->method('fetchRow')
-			->will($this->returnValue(false));
-
-		$query = $this->getMock('Query',
-			array('execute'));
-		$query->expects($this->at(0))
-			->method('execute')
-			->with($this->equalTo($params1))
-			->will($this->returnValue($pdoResult));
-
-		$this->api->expects($this->at(0))
-			->method('prepareQuery')
-			->with($this->equalTo($sql1))
-			->will(($this->returnValue($query)));
-
-		$query2 = $this->getMock('Query',
-			array('execute'));
-		$query2->expects($this->at(0))
-			->method('execute')
-			->with($this->equalTo($params2));
-
-		$this->api->expects($this->at(1))
-			->method('prepareQuery')
-			->with($this->equalTo($sql2))
-			->will($this->returnValue($query2));
+		$this->setMapperResult($sql1, $params1, array($row));
+		$this->setMapperResult($sql2, $params2);
 
 		$result = $this->mapper->deleteReadOlderThanThreshold($threshold);
 	}

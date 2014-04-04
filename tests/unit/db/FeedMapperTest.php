@@ -284,25 +284,8 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$pdoResult->expects($this->any())
 			->method('fetchRow');
 
-		$query = $this->getMock('Query',
-			array('execute'));
-		$query->expects($this->at(0))
-			->method('execute')
-			->with($this->equalTo($arguments))
-			->will($this->returnValue($pdoResult));
-		$this->api->expects($this->at(0))
-			->method('prepareQuery')
-			->with($this->equalTo($sql))
-			->will(($this->returnValue($query)));
-
-		$query->expects($this->at(1))
-			->method('execute')
-			->with($this->equalTo($arguments2))
-			->will($this->returnValue($pdoResult));
-		$this->api->expects($this->at(1))
-			->method('prepareQuery')
-			->with($this->equalTo($sql2))
-			->will(($this->returnValue($query)));
+		$this->setMapperResult($sql, $arguments);
+		$this->setMapperResult($sql2, $arguments2);
 
 		$this->mapper->delete($feed);
 

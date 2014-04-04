@@ -151,38 +151,9 @@ class FolderMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			'`items`.`feed_id` = `feeds`.`id` WHERE `feeds`.`id` IS NULL';
 		$arguments2 = array($folder->getId());
 
-		$pdoResult = $this->getMock('Result', 
-			array('fetchRow'));
-		$pdoResult->expects($this->any())
-			->method('fetchRow');
-		
-		$query = $this->getMock('Query', 
-			array('execute'));
-		$query->expects($this->at(0))
-			->method('execute')
-			->with($this->equalTo($arguments))
-			->will($this->returnValue($pdoResult));
-		$this->api->expects($this->at(0))
-			->method('prepareQuery')
-			->with($this->equalTo($sql))
-			->will(($this->returnValue($query)));	
-		
-		$query->expects($this->at(1))
-			->method('execute')
-			->with($this->equalTo($arguments2))
-			->will($this->returnValue($pdoResult));
-		$this->api->expects($this->at(1))
-			->method('prepareQuery')
-			->with($this->equalTo($sql2))
-			->will(($this->returnValue($query)));
-
-		$query->expects($this->at(2))
-			->method('execute')
-			->will($this->returnValue($pdoResult));
-		$this->api->expects($this->at(2))
-			->method('prepareQuery')
-			->with($this->equalTo($sql3))
-			->will(($this->returnValue($query)));
+		$this->setMapperResult($sql, $arguments);
+		$this->setMapperResult($sql2, $arguments2);
+		$this->setMapperResult($sql3);
 
 		$this->folderMapper->delete($folder);
 	}
