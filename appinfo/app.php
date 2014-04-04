@@ -56,7 +56,7 @@ if(\OCP\App::isEnabled('appframework')){
 
 	$api->addRegularTask('OCA\News\Backgroundjob\Task', 'run');
 	$api->connectHook('OC_User', 'pre_deleteUser', 
-	                  'OCA\News\Hooks\UserHooks', 'deleteUser');
+	                  'OCA\News\Hooks\User', 'deleteUser');
 
 } else {
 	$msg = 'Can not enable the News app because the App Framework App is disabled';

@@ -28,7 +28,7 @@ namespace OCA\News\Hooks;
 use \OCA\News\DependencyInjection\DIContainer;
 
 
-class UserHooks {
+class User {
 
 
     public static deleteUser($params) {
