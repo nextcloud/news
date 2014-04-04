@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud news 5.0.0\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-04-03 01:02-0400\n"
+"POT-Creation-Date: 2014-04-04 01:02-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: appinfo/app.php:52 templates/main.php:38
+#: appinfo/app.php:53 templates/main.php:38
 msgid "News"
 msgstr ""
 
@@ -151,11 +151,11 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: templates/part.listfeed.php:50 templates/part.listfeed.php:75
+#: templates/part.listfeed.php:50 templates/part.listfeed.php:74
 msgid "Delete website"
 msgstr ""
 
-#: templates/part.listfeed.php:70
+#: templates/part.listfeed.php:69
 msgid "Rename feed"
 msgstr ""
 
