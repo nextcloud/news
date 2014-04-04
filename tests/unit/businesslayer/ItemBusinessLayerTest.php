@@ -360,6 +360,18 @@ class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 		$this->assertEquals($star, $result);
 	}
+
+
+	public function testDeleteUser() {
+		$this->mapper->expects($this->once())
+			->method('deleteUser')
+			->will($this->returnValue($this->user));
+
+		$this->itemBusinessLayer->deleteUser($this->user);
+	}
+
+
+
 }
 
 

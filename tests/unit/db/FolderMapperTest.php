@@ -237,4 +237,15 @@ class FolderMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$this->assertEquals($this->folders, $result);
 	}
 
+
+	public function testDeleteFromUser(){
+		$userId = 'john';
+		$sql = 'DELETE FROM `*PREFIX*news_folders` WHERE `user_id` = ?';
+
+		$this->setMapperResult($sql, array($userId));
+
+		$this->folderMapper->deleteUser($userId);
+	}
+
+
 }

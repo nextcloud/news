@@ -356,4 +356,16 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 
 		$this->assertEquals($this->feeds, $result);
 	}
+
+
+	public function testDeleteFromUser(){
+		$userId = 'john';
+		$sql = 'DELETE FROM `*PREFIX*news_feeds` WHERE `user_id` = ?';
+
+		$this->setMapperResult($sql, array($userId));
+
+		$this->mapper->deleteUser($userId);
+	}
+
+
 }

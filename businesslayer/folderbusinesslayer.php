@@ -171,4 +171,13 @@ class FolderBusinessLayer extends BusinessLayer {
 	}
 
 
+	/**
+	 * Deletes all folders of a user
+	 * @param string $userId the name of the user
+	 */
+	public function deleteUser($userId) {
+		$this->mapper->deleteUser($userId);
+	}
+
+
 }

@@ -285,4 +285,15 @@ class FolderBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 		$this->folderBusinessLayer->purgeDeleted($this->user, false);
 	}
+
+
+	public function testDeleteUser() {
+		$this->folderMapper->expects($this->once())
+			->method('deleteUser')
+			->will($this->returnValue($this->user));
+
+		$this->folderBusinessLayer->deleteUser($this->user);
+	}
+
+
 }

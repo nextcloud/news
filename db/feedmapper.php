@@ -198,4 +198,15 @@ class FeedMapper extends Mapper implements IMapper {
 	}
 
 
+	/**
+	 * Deletes all feeds of a user, delete items first since the user_id
+	 * is not defined in there
+	 * @param string $userId the name of the user
+	 */
+	public function deleteUser($userId) {
+		$sql = 'DELETE FROM `*PREFIX*news_feeds` WHERE `user_id` = ?';
+		$this->execute($sql, array($userId));
+	}
+
+
 }

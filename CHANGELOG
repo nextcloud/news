@@ -1,3 +1,6 @@
+owncloud-news (1.809)
+* Delete folders, feeds and articles if a user is deleted
+
 owncloud-news (1.808)
 * Also focus article area when clicking on all unread link
 * Autofocus article area by default on load

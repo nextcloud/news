@@ -435,4 +435,19 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$result = $this->mapper->getNewestItemId($this->user);
 	}
 
+
+	public function testDeleteFromUser(){
+		$userId = 'john';
+		$sql = 'DELETE FROM `*PREFIX*news_items` `items` ' . 
+			'WHERE `items`.`feed_id` IN (' .
+				'SELECT `feeds`.`id` FROM `*PREFIX*news_feeds` `feeds` ' .
+					'WHERE `feeds`.`user_id` = ?' .
+				')';
+
+		$this->setMapperResult($sql, array($userId));
+
+		$this->mapper->deleteUser($userId);
+	}
+
+
 }

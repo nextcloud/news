@@ -127,5 +127,14 @@ class FolderMapper extends Mapper implements IMapper {
 	}
 
 
+	/**
+	 * Deletes all folders of a user
+	 * @param string $userId the name of the user
+	 */
+	public function deleteUser($userId) {
+		$sql = 'DELETE FROM `*PREFIX*news_folders` WHERE `user_id` = ?';
+		$this->execute($sql, array($userId));
+	}
+
 
 }

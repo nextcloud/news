@@ -359,4 +359,14 @@ class FeedBusinessLayer extends BusinessLayer {
 	}
 
 
+	/**
+	 * Deletes all feeds of a user, delete items first since the user_id
+	 * is not defined in there
+	 * @param string $userId the name of the user
+	 */
+	public function deleteUser($userId) {
+		$this->mapper->deleteUser($userId);
+	}
+
+
 }

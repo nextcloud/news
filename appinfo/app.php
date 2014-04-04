@@ -26,6 +26,7 @@ namespace OCA\News;
 
 use \OCA\AppFramework\Core\API;
 
+
 // dont break owncloud when the appframework is not enabled
 if(\OCP\App::isEnabled('appframework')){
 
@@ -54,6 +55,8 @@ if(\OCP\App::isEnabled('appframework')){
 	));
 
 	$api->addRegularTask('OCA\News\Backgroundjob\Task', 'run');
+	$api->connectHook('OC_User', 'pre_deleteUser', 
+	                  'OCA\News\Hooks\UserHooks', 'deleteUser');
 
 } else {
 	$msg = 'Can not enable the News app because the App Framework App is disabled';

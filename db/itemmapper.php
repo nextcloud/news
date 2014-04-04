@@ -300,4 +300,20 @@ class ItemMapper extends Mapper implements IMapper {
 		return (int) $result['max_id'];
 	}
 
+
+	/**
+	 * Deletes all items of a user
+	 * @param string $userId the name of the user
+	 */
+	public function deleteUser($userId) {
+		$sql = 'DELETE FROM `*PREFIX*news_items` `items` ' . 
+			'WHERE `items`.`feed_id` IN (' .
+				'SELECT `feeds`.`id` FROM `*PREFIX*news_feeds` `feeds` ' .
+					'WHERE `feeds`.`user_id` = ?' .
+				')';
+
+		$this->execute($sql, array($userId));
+	}
+
+
 }

@@ -733,5 +733,14 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 	}
 
 
+	public function testDeleteUser() {
+		$this->feedMapper->expects($this->once())
+			->method('deleteUser')
+			->will($this->returnValue($this->user));
+
+		$this->feedBusinessLayer->deleteUser($this->user);
+	}
+
+
 }
 

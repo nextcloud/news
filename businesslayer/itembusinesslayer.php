@@ -237,4 +237,13 @@ class ItemBusinessLayer extends BusinessLayer {
 	}
 
 
+	/**
+	 * Deletes all items of a user
+	 * @param string $userId the name of the user
+	 */
+	public function deleteUser($userId) {
+		$this->mapper->deleteUser($userId);
+	}
+
+
 }
