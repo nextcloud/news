@@ -44,13 +44,13 @@ class Feed extends Entity implements IAPI {
 	public $articlesPerUpdate;
 
 	public function __construct(){
-		$this->addType('parentId', 'int');
-		$this->addType('added', 'int');
-		$this->addType('folderId', 'int');
-		$this->addType('unreadCount', 'int');
-		$this->addType('preventUpdate', 'bool');
-		$this->addType('deletedAt', 'int');
-		$this->addType('articlesPerUpdate', 'int');
+		$this->addType('parentId', 'integer');
+		$this->addType('added', 'integer');
+		$this->addType('folderId', 'integer');
+		$this->addType('unreadCount', 'integer');
+		$this->addType('preventUpdate', 'boolean');
+		$this->addType('deletedAt', 'integer');
+		$this->addType('articlesPerUpdate', 'integer');
 	}
 
 

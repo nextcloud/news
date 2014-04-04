@@ -37,9 +37,9 @@ class Folder extends Entity implements IAPI {
 	public $deletedAt;
 
 	public function __construct(){
-		$this->addType('parentId', 'int');
-		$this->addType('opened', 'bool');
-		$this->addType('deletedAt', 'int');
+		$this->addType('parentId', 'integer');
+		$this->addType('opened', 'boolean');
+		$this->addType('deletedAt', 'integer');
 	}
 
 

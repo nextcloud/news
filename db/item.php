@@ -45,10 +45,10 @@ class Item extends Entity implements IAPI {
 
 
 	public function __construct(){
-		$this->addType('pubDate', 'int');
-		$this->addType('feedId', 'int');
-		$this->addType('status', 'int');
-		$this->addType('lastModified', 'int');
+		$this->addType('pubDate', 'integer');
+		$this->addType('feedId', 'integer');
+		$this->addType('status', 'integer');
+		$this->addType('lastModified', 'integer');
 	}
 
 
