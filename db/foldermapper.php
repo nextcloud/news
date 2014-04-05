@@ -41,25 +41,7 @@ class FolderMapper extends Mapper implements IMapper {
 			'WHERE `id` = ? ' .
 			'AND `user_id` = ?';
 
-		$row = $this->findOneQuery($sql, array($id, $userId));
-		$folder = new Folder();
-		$folder->fromRow($row);
-
-		return $folder;
-	}
-
-
-	private function findAllRows($sql, $params=array()){
-		$result = $this->execute($sql, $params);
-		
-		$folders = array();
-		while($row = $result->fetchRow()){
-			$folder = new Folder();
-			$folder->fromRow($row);
-			array_push($folders, $folder);
-		}
-
-		return $folders;
+		return $this->findEntity($sql, array($id, $userId));
 	}
 
 
@@ -69,7 +51,7 @@ class FolderMapper extends Mapper implements IMapper {
 			'AND `deleted_at` = 0';
 		$params = array($userId);
 
-		return $this->findAllRows($sql, $params);
+		return $this->findEntities($sql, $params);
 	}
 
 
@@ -79,7 +61,7 @@ class FolderMapper extends Mapper implements IMapper {
 			'AND `user_id` = ?';
 		$params = array($folderName, $userId);
 
-		return $this->findAllRows($sql, $params);
+		return $this->findEntities($sql, $params);
 	}
 
 
@@ -123,7 +105,7 @@ class FolderMapper extends Mapper implements IMapper {
 			array_push($params, $userId);
 		}
 		
-		return $this->findAllRows($sql, $params);
+		return $this->findEntities($sql, $params);
 	}
 
 

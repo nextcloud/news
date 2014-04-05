@@ -36,22 +36,6 @@ class ItemMapper extends Mapper implements IMapper {
 	}
 
 
-	protected function findAllRows($sql, $params, $limit=null, $offset=null) {
-		$result = $this->execute($sql, $params, $limit, $offset);
-
-		$items = array();
-
-		while($row = $result->fetchRow()){
-			$item = new Item();
-			$item->fromRow($row);
-
-			array_push($items, $item);
-		}
-
-		return $items;
-	}
-
-
 	private function makeSelectQuery($prependTo){
 		return 'SELECT `items`.* FROM `*PREFIX*news_items` `items` '.
 			'JOIN `*PREFIX*news_feeds` `feeds` ' .
@@ -92,12 +76,7 @@ class ItemMapper extends Mapper implements IMapper {
 
 	public function find($id, $userId){
 		$sql = $this->makeSelectQuery('AND `items`.`id` = ? ');
-		$row = $this->findOneQuery($sql, array($userId, $id));
-
-		$item = new Item();
-		$item->fromRow($row);
-
-		return $item;
+		return $this->findEntity($sql, array($userId, $id));
 	}
 
 
@@ -172,7 +151,7 @@ class ItemMapper extends Mapper implements IMapper {
 		$sql = $this->makeSelectQueryStatus(
 			'AND `items`.`last_modified` >= ? ', $status);
 		$params = array($userId, $updatedSince);
-		return $this->findAllRows($sql, $params);
+		return $this->findEntities($sql, $params);
 	}
 
 
@@ -181,7 +160,7 @@ class ItemMapper extends Mapper implements IMapper {
 				'AND `items`.`last_modified` >= ? ';
 		$sql = $this->makeSelectQueryStatus($sql, $status);
 		$params = array($userId, $id, $updatedSince);
-		return $this->findAllRows($sql, $params);
+		return $this->findEntities($sql, $params);
 	}
 
 
@@ -190,7 +169,7 @@ class ItemMapper extends Mapper implements IMapper {
 				'AND `items`.`last_modified` >= ? ';
 		$sql = $this->makeSelectQueryStatus($sql, $status);
 		$params = array($userId, $id, $updatedSince);
-		return $this->findAllRows($sql, $params);
+		return $this->findEntities($sql, $params);
 	}
 
 
@@ -202,7 +181,7 @@ class ItemMapper extends Mapper implements IMapper {
 			array_push($params, $offset);
 		}
 		$sql = $this->makeSelectQueryStatus($sql, $status);
-		return $this->findAllRows($sql, $params, $limit);
+		return $this->findEntities($sql, $params, $limit);
 	}
 
 
@@ -214,7 +193,7 @@ class ItemMapper extends Mapper implements IMapper {
 			array_push($params, $offset);
 		}
 		$sql = $this->makeSelectQueryStatus($sql, $status);
-		return $this->findAllRows($sql, $params, $limit);
+		return $this->findEntities($sql, $params, $limit);
 	}
 
 
@@ -226,7 +205,7 @@ class ItemMapper extends Mapper implements IMapper {
 			array_push($params, $offset);
 		}
 		$sql = $this->makeSelectQueryStatus($sql, $status);
-		return $this->findAllRows($sql, $params, $limit);
+		return $this->findEntities($sql, $params, $limit);
 	}
 
 
@@ -235,7 +214,7 @@ class ItemMapper extends Mapper implements IMapper {
 		$status = StatusFlag::UNREAD | StatusFlag::STARRED;
 		$sql = 'AND ((`items`.`status` & ' . $status . ') > 0) ';
 		$sql = $this->makeSelectQuery($sql);
-		return $this->findAllRows($sql, $params);
+		return $this->findEntities($sql, $params);
 	}
 
 

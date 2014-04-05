@@ -57,25 +57,7 @@ class FeedMapper extends Mapper implements IMapper {
 				'`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
 		$params = array($id, $userId);
 
-		$row = $this->findOneQuery($sql, $params);
-		$feed = new Feed();
-		$feed->fromRow($row);
-
-		return $feed;
-	}
-
-
-	private function findAllRows($sql, $params=array(), $limit=null){
-		$result = $this->execute($sql, $params, $limit);
-
-		$feeds = array();
-		while($row = $result->fetchRow()){
-			$feed = new Feed();
-			$feed->fromRow($row);
-			array_push($feeds, $feed);
-		}
-
-		return $feeds;
+		return $this->findEntity($sql, $params);
 	}
 
 
@@ -103,7 +85,7 @@ class FeedMapper extends Mapper implements IMapper {
 				'`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
 		$params = array($userId);
 
-		return $this->findAllRows($sql, $params);
+		return $this->findEntities($sql, $params);
 	}
 
 
@@ -129,7 +111,7 @@ class FeedMapper extends Mapper implements IMapper {
 				'`feeds`.`favicon_link`, `feeds`.`added`, `feeds`.`articles_per_update`,'.
 				'`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
 
-		return $this->findAllRows($sql);
+		return $this->findEntities($sql);
 	}
 
 
@@ -194,7 +176,7 @@ class FeedMapper extends Mapper implements IMapper {
 			array_push($params, $userId);
 		}
 
-		return $this->findAllRows($sql, $params);
+		return $this->findEntities($sql, $params);
 	}
 
 
