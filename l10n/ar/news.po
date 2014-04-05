@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-03-27 01:02-0400\n"
-"PO-Revision-Date: 2014-03-26 06:00+0000\n"
+"POT-Creation-Date: 2014-04-05 01:02-0400\n"
+"PO-Revision-Date: 2014-04-04 05:30+0000\n"
 "Last-Translator: suliman <291101251@std.qu.edu.sa>\n"
 "Language-Team: Arabic (http://www.transifex.com/projects/p/owncloud/language/ar/)\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Language: ar\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
-#: appinfo/app.php:52 templates/main.php:38
+#: appinfo/app.php:53 templates/main.php:38
 msgid "News"
 msgstr "اخبار"
 
@@ -55,47 +55,47 @@ msgstr "الحالة"
 msgid "Undo deletion of %s"
 msgstr "التراجع عن حذف %s"
 
-#: templates/part.addnew.php:13
+#: templates/part.addnew.php:12
 msgid "Add Website"
 msgstr "اضافة موقع الكتروني"
 
-#: templates/part.addnew.php:21
+#: templates/part.addnew.php:19
 msgid "Error: address exists already!"
 msgstr "خطا: العنوان موجود بالفعل"
 
-#: templates/part.addnew.php:24
+#: templates/part.addnew.php:22
 msgid "Error: folder exists already"
 msgstr "خطا: المجلد موجود بالفعل"
 
-#: templates/part.addnew.php:31
+#: templates/part.addnew.php:29
 msgid "Address"
 msgstr "عنوان"
 
-#: templates/part.addnew.php:34 templates/part.addnew.php:37
+#: templates/part.addnew.php:32 templates/part.addnew.php:35
 msgid "Add"
 msgstr "أدخل"
 
-#: templates/part.addnew.php:41 templates/part.addnew.php:48
+#: templates/part.addnew.php:39 templates/part.addnew.php:46
 msgid "New folder"
 msgstr "مجلد جديد"
 
-#: templates/part.addnew.php:42
+#: templates/part.addnew.php:40
 msgid "Folder"
 msgstr "مجلد"
 
-#: templates/part.addnew.php:46
+#: templates/part.addnew.php:44
 msgid "Choose folder"
 msgstr "اختر مجلد"
 
-#: templates/part.addnew.php:57
+#: templates/part.addnew.php:55
 msgid "Folder name"
 msgstr "اسم المجلد"
 
-#: templates/part.addnew.php:61
+#: templates/part.addnew.php:59
 msgid "Back to folder selection"
 msgstr "الرجوع الى المجلد المحدد"
 
-#: templates/part.addnew.php:65
+#: templates/part.addnew.php:63
 msgid "Create folder"
 msgstr "انشئ مجلد"
 
@@ -152,11 +152,11 @@ msgstr "الغاء"
 msgid "Save"
 msgstr "حفظ"
 
-#: templates/part.listfeed.php:50 templates/part.listfeed.php:75
+#: templates/part.listfeed.php:50 templates/part.listfeed.php:74
 msgid "Delete website"
 msgstr "احذف الموقع الالكتروني"
 
-#: templates/part.listfeed.php:70
+#: templates/part.listfeed.php:69
 msgid "Rename feed"
 msgstr "اعادة تسمية الملقم"
 

@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-03-27 01:02-0400\n"
-"PO-Revision-Date: 2014-03-26 06:00+0000\n"
+"POT-Creation-Date: 2014-04-05 01:02-0400\n"
+"PO-Revision-Date: 2014-04-04 05:30+0000\n"
 "Last-Translator: mhh <marian.hvolka@stuba.sk>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/projects/p/owncloud/language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Language: sk_SK\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: appinfo/app.php:52 templates/main.php:38
+#: appinfo/app.php:53 templates/main.php:38
 msgid "News"
 msgstr "Novinky"
 
@@ -59,47 +59,47 @@ msgstr "stav"
 msgid "Undo deletion of %s"
 msgstr "Späť odstránenie %s"
 
-#: templates/part.addnew.php:13
+#: templates/part.addnew.php:12
 msgid "Add Website"
 msgstr "Pridať webstránku"
 
-#: templates/part.addnew.php:21
+#: templates/part.addnew.php:19
 msgid "Error: address exists already!"
 msgstr "Chyba: Adresa už existuje!"
 
-#: templates/part.addnew.php:24
+#: templates/part.addnew.php:22
 msgid "Error: folder exists already"
 msgstr "Chyba: Priečinok už existuje"
 
-#: templates/part.addnew.php:31
+#: templates/part.addnew.php:29
 msgid "Address"
 msgstr "Adresa"
 
-#: templates/part.addnew.php:34 templates/part.addnew.php:37
+#: templates/part.addnew.php:32 templates/part.addnew.php:35
 msgid "Add"
 msgstr "Pridať"
 
-#: templates/part.addnew.php:41 templates/part.addnew.php:48
+#: templates/part.addnew.php:39 templates/part.addnew.php:46
 msgid "New folder"
 msgstr "Nový priečinok"
 
-#: templates/part.addnew.php:42
+#: templates/part.addnew.php:40
 msgid "Folder"
 msgstr "Priečinok"
 
-#: templates/part.addnew.php:46
+#: templates/part.addnew.php:44
 msgid "Choose folder"
 msgstr "Zvoliť priečinok"
 
-#: templates/part.addnew.php:57
+#: templates/part.addnew.php:55
 msgid "Folder name"
 msgstr "Názov priečinka"
 
-#: templates/part.addnew.php:61
+#: templates/part.addnew.php:59
 msgid "Back to folder selection"
 msgstr "Naspäť na výber priečinka"
 
-#: templates/part.addnew.php:65
+#: templates/part.addnew.php:63
 msgid "Create folder"
 msgstr "Vytvoriť priečinok"
 
@@ -156,11 +156,11 @@ msgstr "Zrušiť"
 msgid "Save"
 msgstr "Uložiť"
 
-#: templates/part.listfeed.php:50 templates/part.listfeed.php:75
+#: templates/part.listfeed.php:50 templates/part.listfeed.php:74
 msgid "Delete website"
 msgstr "Zmazať webstránku"
 
-#: templates/part.listfeed.php:70
+#: templates/part.listfeed.php:69
 msgid "Rename feed"
 msgstr "Premenuj kanál"
 

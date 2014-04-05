@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-03-27 01:02-0400\n"
-"PO-Revision-Date: 2014-03-26 06:00+0000\n"
+"POT-Creation-Date: 2014-04-05 01:02-0400\n"
+"PO-Revision-Date: 2014-04-04 05:30+0000\n"
 "Last-Translator: ebela <bela@dandre.hu>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/owncloud/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Language: hu_HU\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: appinfo/app.php:52 templates/main.php:38
+#: appinfo/app.php:53 templates/main.php:38
 msgid "News"
 msgstr "Hírek"
 
@@ -58,47 +58,47 @@ msgstr "állapot"
 msgid "Undo deletion of %s"
 msgstr "%s törlésének visszavonása"
 
-#: templates/part.addnew.php:13
+#: templates/part.addnew.php:12
 msgid "Add Website"
 msgstr "Weboldal hozzáadása"
 
-#: templates/part.addnew.php:21
+#: templates/part.addnew.php:19
 msgid "Error: address exists already!"
 msgstr "Hiba: már létező cím!"
 
-#: templates/part.addnew.php:24
+#: templates/part.addnew.php:22
 msgid "Error: folder exists already"
 msgstr "Hiba: a mappa már létezik"
 
-#: templates/part.addnew.php:31
+#: templates/part.addnew.php:29
 msgid "Address"
 msgstr "Cím"
 
-#: templates/part.addnew.php:34 templates/part.addnew.php:37
+#: templates/part.addnew.php:32 templates/part.addnew.php:35
 msgid "Add"
 msgstr "Hozzáad"
 
-#: templates/part.addnew.php:41 templates/part.addnew.php:48
+#: templates/part.addnew.php:39 templates/part.addnew.php:46
 msgid "New folder"
 msgstr "Új mappa"
 
-#: templates/part.addnew.php:42
+#: templates/part.addnew.php:40
 msgid "Folder"
 msgstr "Mappa"
 
-#: templates/part.addnew.php:46
+#: templates/part.addnew.php:44
 msgid "Choose folder"
 msgstr "Mappa kiválasztása"
 
-#: templates/part.addnew.php:57
+#: templates/part.addnew.php:55
 msgid "Folder name"
 msgstr "Mappanév"
 
-#: templates/part.addnew.php:61
+#: templates/part.addnew.php:59
 msgid "Back to folder selection"
 msgstr "Vissza a mappa kiválasztásához"
 
-#: templates/part.addnew.php:65
+#: templates/part.addnew.php:63
 msgid "Create folder"
 msgstr "Mappa létrehozása"
 
@@ -155,11 +155,11 @@ msgstr "Mégsem"
 msgid "Save"
 msgstr "Mentés"
 
-#: templates/part.listfeed.php:50 templates/part.listfeed.php:75
+#: templates/part.listfeed.php:50 templates/part.listfeed.php:74
 msgid "Delete website"
 msgstr "A honlap törlése"
 
-#: templates/part.listfeed.php:70
+#: templates/part.listfeed.php:69
 msgid "Rename feed"
 msgstr "Hírfolyam átnevezése"
 

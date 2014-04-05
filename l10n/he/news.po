@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-03-27 01:02-0400\n"
-"PO-Revision-Date: 2014-03-26 06:00+0000\n"
+"POT-Creation-Date: 2014-04-05 01:02-0400\n"
+"PO-Revision-Date: 2014-04-04 05:30+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: Hebrew (http://www.transifex.com/projects/p/owncloud/language/he/)\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Language: he\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: appinfo/app.php:52 templates/main.php:38
+#: appinfo/app.php:53 templates/main.php:38
 msgid "News"
 msgstr "חדשות"
 
@@ -56,47 +56,47 @@ msgstr ""
 msgid "Undo deletion of %s"
 msgstr ""
 
-#: templates/part.addnew.php:13
+#: templates/part.addnew.php:12
 msgid "Add Website"
 msgstr ""
 
-#: templates/part.addnew.php:21
+#: templates/part.addnew.php:19
 msgid "Error: address exists already!"
 msgstr ""
 
-#: templates/part.addnew.php:24
+#: templates/part.addnew.php:22
 msgid "Error: folder exists already"
 msgstr ""
 
-#: templates/part.addnew.php:31
+#: templates/part.addnew.php:29
 msgid "Address"
 msgstr "כתובת"
 
-#: templates/part.addnew.php:34 templates/part.addnew.php:37
+#: templates/part.addnew.php:32 templates/part.addnew.php:35
 msgid "Add"
 msgstr "הוספה"
 
-#: templates/part.addnew.php:41 templates/part.addnew.php:48
+#: templates/part.addnew.php:39 templates/part.addnew.php:46
 msgid "New folder"
 msgstr ""
 
-#: templates/part.addnew.php:42
+#: templates/part.addnew.php:40
 msgid "Folder"
 msgstr "תיקייה"
 
-#: templates/part.addnew.php:46
+#: templates/part.addnew.php:44
 msgid "Choose folder"
 msgstr "נא לבחור בתיקייה"
 
-#: templates/part.addnew.php:57
+#: templates/part.addnew.php:55
 msgid "Folder name"
 msgstr "שם התיקייה"
 
-#: templates/part.addnew.php:61
+#: templates/part.addnew.php:59
 msgid "Back to folder selection"
 msgstr ""
 
-#: templates/part.addnew.php:65
+#: templates/part.addnew.php:63
 msgid "Create folder"
 msgstr ""
 
@@ -153,11 +153,11 @@ msgstr "ביטול"
 msgid "Save"
 msgstr "שמירה"
 
-#: templates/part.listfeed.php:50 templates/part.listfeed.php:75
+#: templates/part.listfeed.php:50 templates/part.listfeed.php:74
 msgid "Delete website"
 msgstr ""
 
-#: templates/part.listfeed.php:70
+#: templates/part.listfeed.php:69
 msgid "Rename feed"
 msgstr ""
 
