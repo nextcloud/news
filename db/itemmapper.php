@@ -222,12 +222,8 @@ class ItemMapper extends Mapper implements IMapper {
 		$sql = $this->makeSelectQuery(
 			'AND `items`.`guid_hash` = ? ' .
 			'AND `feeds`.`id` = ? ');
-		$row = $this->findOneQuery($sql, array($userId, $guidHash, $feedId));
 
-		$item = new Item();
-		$item->fromRow($row);
-
-		return $item;
+		return $this->findEntity($sql, array($userId, $guidHash, $feedId));
 	}
 
 

@@ -122,6 +122,7 @@ class ItemBusinessLayer extends BusinessLayer {
 	public function star($feedId, $guidHash, $isStarred, $userId){
 		try {
 			$item = $this->mapper->findByGuidHash($guidHash, $feedId, $userId);
+
 			$item->setLastModified($this->timeFactory->getTime());
 			if($isStarred){
 				$item->setStarred();
