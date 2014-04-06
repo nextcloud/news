@@ -216,7 +216,7 @@ describe 'FolderBusinessLayer', ->
 		
 		@FolderBusinessLayer.create(' johns ')
 		expect(@persistence.createFolder).toHaveBeenCalledWith('johns', 0,
-			jasmine.any(Function))
+			jasmine.any(Function), jasmine.any(Function))
 
 
 	it 'should call the onSuccess function on response status ok', =>
@@ -224,24 +224,23 @@ describe 'FolderBusinessLayer', ->
 		@persistence.createFolder = jasmine.createSpy('add folder')
 		@persistence.createFolder.andCallFake (folderName, parentId, success) =>
 			@response =
-				status: 'ok'
 				data: 'jooo'
 			success(@response)
 
 		@FolderBusinessLayer.create(' johns ', onSuccess)
 
-		expect(onSuccess).toHaveBeenCalledWith(@response.data)
+		expect(onSuccess).toHaveBeenCalledWith(@response)
 
 
 	it 'should call the handle a response error when creating a folder', =>
 		onSuccess = jasmine.createSpy('Success')
 		onFailure = jasmine.createSpy('Failure')
 		@persistence.createFolder = jasmine.createSpy('add folder')
-		@persistence.createFolder.andCallFake (folderName, parentId, success) =>
+		@persistence.createFolder.andCallFake (folderName, parentId, success,
+			onFailure) =>
 			@response =
-				status: 'error'
 				msg: 'this is an error'
-			success(@response)
+			onFailure(@response)
 
 		@FolderBusinessLayer.create(' johns ', onSuccess, onFailure)
 
@@ -332,7 +331,7 @@ describe 'FolderBusinessLayer', ->
 		@FolderBusinessLayer.import(xml)
 
 		expect(@persistence.createFolder).toHaveBeenCalledWith('test', 0,
-			jasmine.any(Function))
+			jasmine.any(Function), jasmine.any(Function))
 		expect(@persistence.createFeed).not.toHaveBeenCalled()
 
 
@@ -367,17 +366,17 @@ describe 'FolderBusinessLayer', ->
 
 		expect(@persistence.createFolder).not.toHaveBeenCalled()
 		expect(@persistence.createFeed).toHaveBeenCalledWith(
-			'http://worrydream.com/feed.xml', 0, jasmine.any(Function))
+			'http://worrydream.com/feed.xml', 0, jasmine.any(Function),
+			jasmine.any(Function))
 
 
 	it 'should import nested folders', =>
 		@persistence.createFolder = jasmine.createSpy('create folder')
 		@persistence.createFolder.andCallFake (name, parentId, onSuccess) ->
 			data =
-				data:
-					folders: [
-						{id: 3}
-					]
+				folders: [
+					{id: 3}
+				]
 			onSuccess(data)
 
 		@persistence.createFeed = jasmine.createSpy('create feed')
@@ -410,9 +409,10 @@ describe 'FolderBusinessLayer', ->
 		@FolderBusinessLayer.import(xml)
 
 		expect(@persistence.createFolder).toHaveBeenCalledWith('Design', 0,
-			jasmine.any(Function))
+			jasmine.any(Function), jasmine.any(Function))
 		expect(@persistence.createFeed).toHaveBeenCalledWith(
-			'http://worrydream.com/feed.xml', 3, jasmine.any(Function))
+			'http://worrydream.com/feed.xml', 3, jasmine.any(Function),
+			jasmine.any(Function))
 
 
 	it 'should use an existing folder when importing a folder', =>
@@ -451,7 +451,8 @@ describe 'FolderBusinessLayer', ->
 
 		expect(@persistence.createFolder).not.toHaveBeenCalled()
 		expect(@persistence.createFeed).toHaveBeenCalledWith(
-			'http://worrydream.com/feed.xml', 2, jasmine.any(Function))
+			'http://worrydream.com/feed.xml', 2, jasmine.any(Function),
+			jasmine.any(Function))
 		expect(folder.opened).toBe(true)
 		expect(@persistence.openFolder).toHaveBeenCalled()
 

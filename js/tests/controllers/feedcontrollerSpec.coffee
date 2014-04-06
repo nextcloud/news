@@ -144,13 +144,11 @@ describe 'FeedController', ->
 	it 'should reset the add folder form and set the created as selected', =>
 		@persistence.createFolder = jasmine.createSpy('create')
 		data =
-			data:
-				folders: [
-					{id: 3, name: 'soba'}
-				]
-			status: 'success'
+			folders: [
+				{id: 3, name: 'soba'}
+			]
 		@persistence.createFolder.andCallFake (id, parent, onSuccess) =>
-			@FolderModel.handle(data.data.folders)
+			@FolderModel.handle(data.folders)
 			onSuccess(data)
 
 		@scope.addFolder(' Soba')
@@ -201,13 +199,12 @@ describe 'FeedController', ->
 		@persistence.getItems = jasmine.createSpy('load')
 
 		data =
-			data:
-				feeds: [
-					{id: 3, url: 'http://soba', title: 'hi'}
-				]
+			feeds: [
+				{id: 3, url: 'http://soba', title: 'hi'}
+			]
 			status: 'success'
 		@persistence.createFeed.andCallFake (id, parent, onSuccess) =>
-			@FeedModel.handle(data.data.feeds)
+			@FeedModel.handle(data.feeds)
 			onSuccess(data)
 
 		@scope.addFeed(' Soba')

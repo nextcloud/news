@@ -287,7 +287,7 @@ describe 'FeedBusinessLayer', ->
 		
 		@FeedBusinessLayer.create(' johns ')
 		expect(@persistence.createFeed).toHaveBeenCalledWith('http://johns', 0,
-			jasmine.any(Function))
+			jasmine.any(Function), jasmine.any(Function))
 
 
 	it 'should call the onSuccess function on response status ok', =>
@@ -295,24 +295,23 @@ describe 'FeedBusinessLayer', ->
 		@persistence.createFeed = jasmine.createSpy('add feed')
 		@persistence.createFeed.andCallFake (folderName, parentId, success) =>
 			@response =
-				status: 'ok'
 				data: 'hi'
 			success(@response)
 
 		@FeedBusinessLayer.create(' johns ', 0, onSuccess)
 
-		expect(onSuccess).toHaveBeenCalledWith(@response.data)
+		expect(onSuccess).toHaveBeenCalledWith(@response)
 
 
 	it 'should call the handle a response error when creating a folder', =>
 		onSuccess = jasmine.createSpy('Success')
 		onFailure = jasmine.createSpy('Failure')
 		@persistence.createFeed = jasmine.createSpy('add feed')
-		@persistence.createFeed.andCallFake (folderName, parentId, success) =>
+		@persistence.createFeed.andCallFake (folderName, parentId, success,
+			failure) =>
 			@response =
-				status: 'error'
 				msg: 'this is an error'
-			success(@response)
+			failure(@response)
 
 		@FeedBusinessLayer.create(' johns ', 0, onSuccess, onFailure)
 

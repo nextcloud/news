@@ -142,13 +142,13 @@ FeedModel, $rootScope) ->
 			@_folderModel.add(folder)
 
 			success = (response) ->
-				if response.status == 'error'
-					folder.error = response.msg
-					onFailure()
-				else
-					onSuccess(response.data)
+				onSuccess(response)
 
-			@_persistence.createFolder folderName, 0, success
+			failure = (response) ->
+				folder.error = response.msg
+				onFailure()
+
+			@_persistence.createFolder folderName, 0, success, failure
 
 
 		markErrorRead: (folderName) ->

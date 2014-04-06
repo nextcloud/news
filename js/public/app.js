@@ -1281,7 +1281,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         };
 
         FeedBusinessLayer.prototype.create = function(url, parentId, onSuccess, onFailure) {
-          var feed, success;
+          var failure, feed, success;
           if (parentId == null) {
             parentId = 0;
           }
@@ -1313,14 +1313,13 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           };
           this._feedModel.add(feed);
           success = function(response) {
-            if (response.status === 'error') {
-              feed.error = response.msg;
-              return onFailure();
-            } else {
-              return onSuccess(response.data);
-            }
+            return onSuccess(response);
           };
-          return this._persistence.createFeed(url, parentId, success);
+          failure = function(response) {
+            feed.error = response.msg;
+            return onFailure();
+          };
+          return this._persistence.createFeed(url, parentId, success, failure);
         };
 
         FeedBusinessLayer.prototype.markErrorRead = function(url) {
@@ -1494,7 +1493,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         };
 
         FolderBusinessLayer.prototype.create = function(folderName, onSuccess, onFailure) {
-          var folder, success;
+          var failure, folder, success;
           if (onSuccess == null) {
             onSuccess = null;
           }
@@ -1516,14 +1515,13 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           };
           this._folderModel.add(folder);
           success = function(response) {
-            if (response.status === 'error') {
-              folder.error = response.msg;
-              return onFailure();
-            } else {
-              return onSuccess(response.data);
-            }
+            return onSuccess(response);
           };
-          return this._persistence.createFolder(folderName, 0, success);
+          failure = function(response) {
+            folder.error = response.msg;
+            return onFailure();
+          };
+          return this._persistence.createFolder(folderName, 0, success, failure);
         };
 
         FolderBusinessLayer.prototype.markErrorRead = function(folderName) {

@@ -169,13 +169,13 @@ FeedModel, NewLoading, _ExistsError, Utils, $rootScope, NewestItem)->
 			@_feedModel.add(feed)
 
 			success = (response) ->
-				if response.status == 'error'
-					feed.error = response.msg
-					onFailure()
-				else
-					onSuccess(response.data)
+				onSuccess(response)
 
-			@_persistence.createFeed(url, parentId, success)
+			failure = (response) ->
+				feed.error = response.msg
+				onFailure()
+
+			@_persistence.createFeed(url, parentId, success, failure)
 
 
 		markErrorRead: (url) ->
