@@ -281,8 +281,8 @@ class ItemMapper extends Mapper implements IMapper {
 	 * @param string $userId the name of the user
 	 */
 	public function deleteUser($userId) {
-		$sql = 'DELETE FROM `*PREFIX*news_items` `items` ' . 
-			'WHERE `items`.`feed_id` IN (' .
+		$sql = 'DELETE FROM `*PREFIX*news_items` ' . 
+			'WHERE `feed_id` IN (' .
 				'SELECT `feeds`.`id` FROM `*PREFIX*news_feeds` `feeds` ' .
 					'WHERE `feeds`.`user_id` = ?' .
 				')';

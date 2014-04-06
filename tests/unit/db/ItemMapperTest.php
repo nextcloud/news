@@ -407,8 +407,8 @@ class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 
 	public function testDeleteFromUser(){
 		$userId = 'john';
-		$sql = 'DELETE FROM `*PREFIX*news_items` `items` ' . 
-			'WHERE `items`.`feed_id` IN (' .
+		$sql = 'DELETE FROM `*PREFIX*news_items` ' . 
+			'WHERE `feed_id` IN (' .
 				'SELECT `feeds`.`id` FROM `*PREFIX*news_feeds` `feeds` ' .
 					'WHERE `feeds`.`user_id` = ?' .
 				')';
