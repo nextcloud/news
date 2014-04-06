@@ -16,7 +16,7 @@
 "New folder" => "Yeni klasör",
 "Folder" => "Klasör",
 "Choose folder" => "Dizin seç",
-"Folder name" => "Dizin ismi",
+"Folder name" => "Klasör ismi",
 "Back to folder selection" => "Arkiv secene tekrar ",
 "Create folder" => "Arkiv yapmak ",
 "Starred" => "Yıldızlı",
