@@ -146,9 +146,8 @@ class FolderMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 
 		$sql2 = 'DELETE FROM `*PREFIX*news_feeds` WHERE `folder_id` = ?';
 
-		$sql3 = 'DELETE FROM `*PREFIX*news_items` `items` '.
-			'LEFT JOIN `*PREFIX*news_feeds` `feeds` ON '. 
-			'`items`.`feed_id` = `feeds`.`id` WHERE `feeds`.`id` IS NULL';
+		$sql3 = 'DELETE FROM `*PREFIX*news_items` WHERE `feed_id` NOT IN '.
+			'(SELECT `feeds`.`id` FROM `*PREFIX*news_feeds` `feeds`)';
 		$arguments2 = array($folder->getId());
 
 		$this->setMapperResult($sql, $arguments);
