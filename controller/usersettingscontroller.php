@@ -28,7 +28,7 @@ namespace OCA\News\Controller;
 use \OCA\AppFramework\Controller\Controller;
 use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Http\Request;
-
+use \OCA\AppFramework\Http\JSONResponse;
 
 class UserSettingsController extends Controller {
 
@@ -49,7 +49,7 @@ class UserSettingsController extends Controller {
 			'showAll' => $showAll === '1'
 		);
 
-		return $this->renderJSON($params);
+		return new JSONResponse($params);
 	}
 
 
@@ -61,7 +61,7 @@ class UserSettingsController extends Controller {
 	public function show(){
 		$this->api->setUserValue('showAll', true);
 
-		return $this->renderJSON();
+		return new JSONResponse();
 	}
 
 
@@ -73,7 +73,7 @@ class UserSettingsController extends Controller {
 	public function hide(){
 		$this->api->setUserValue('showAll', false);
 
-		return $this->renderJSON();
+		return new JSONResponse();
 	}
 
 
@@ -88,7 +88,7 @@ class UserSettingsController extends Controller {
 		$params = array(
 			'language' => $language
 		);
-		return $this->renderJSON($params);
+		return new JSONResponse($params);
 	}
 
 
@@ -102,7 +102,7 @@ class UserSettingsController extends Controller {
 		$params = array(
 			'compact' => $compact === '1'
 		);
-		return $this->renderJSON($params);
+		return new JSONResponse($params);
 	}
 
 
@@ -115,7 +115,7 @@ class UserSettingsController extends Controller {
 		$isCompact = $this->params('compact');
 		$this->api->setUserValue('compact', $isCompact);
 
-		return $this->renderJSON();
+		return new JSONResponse();
 	}
 
 

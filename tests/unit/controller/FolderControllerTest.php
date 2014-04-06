@@ -30,11 +30,13 @@ use \OCA\AppFramework\Http\JSONResponse;
 use \OCA\AppFramework\Utility\ControllerTestUtility;
 use \OCA\AppFramework\Db\DoesNotExistException;
 use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
+use \OCA\AppFramework\Http\Http;
 
 use \OCA\News\Db\Folder;
 use \OCA\News\Db\Feed;
 use \OCA\News\BusinessLayer\BusinessLayerException;
 use \OCA\News\BusinessLayer\BusinessLayerConflictException;
+use \OCA\News\BusinessLayer\BusinessLayerValidationException;
 
 require_once(__DIR__ . "/../../classloader.php");
 
@@ -145,7 +147,7 @@ class FolderControllerTest extends ControllerTestUtility {
 		$expected = array(
 			'folders' => $return
 		);
-		$this->assertEquals($expected, $response->getParams());
+		$this->assertEquals($expected, $response->getData());
 		$this->assertTrue($response instanceof JSONResponse);
 	}
 
@@ -183,9 +185,9 @@ class FolderControllerTest extends ControllerTestUtility {
 
 		$params = json_decode($response->render(), true);
 
-		$this->assertEquals('error', $params['status']);
 		$this->assertEquals($this->msg, $params['msg']);
 		$this->assertTrue($response instanceof JSONResponse);
+		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
 	}
 
 
@@ -222,9 +224,9 @@ class FolderControllerTest extends ControllerTestUtility {
 
 		$params = json_decode($response->render(), true);
 
-		$this->assertEquals('error', $params['status']);
 		$this->assertEquals($this->msg, $params['msg']);
 		$this->assertTrue($response instanceof JSONResponse);
+		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
 	}
 
 
@@ -249,12 +251,34 @@ class FolderControllerTest extends ControllerTestUtility {
 		
 		$response = $this->controller->create();
 
-		$this->assertEquals($result, $response->getParams());
+		$this->assertEquals($result, $response->getData());
 		$this->assertTrue($response instanceof JSONResponse);	
 	}
 
 
 	public function testCreateReturnsErrorForInvalidCreate(){
+		$msg = 'except';
+		$ex = new BusinessLayerValidationException($msg);
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->folderBusinessLayer->expects($this->once())
+			->method('purgeDeleted')
+			->with($this->equalTo($this->user), $this->equalTo(false));
+		$this->folderBusinessLayer->expects($this->once())
+			->method('create')
+			->will($this->throwException($ex));
+
+		$response = $this->controller->create();
+		$params = json_decode($response->render(), true);
+
+		$this->assertEquals($response->getStatus(), Http::STATUS_UNPROCESSABLE_ENTITY);
+		$this->assertEquals($msg, $params['msg']);
+		$this->assertTrue($response instanceof JSONResponse);
+	}
+
+
+	public function testCreateReturnsErrorForDuplicateCreate(){
 		$msg = 'except';
 		$ex = new BusinessLayerConflictException($msg);
 		$this->api->expects($this->once())
@@ -270,7 +294,7 @@ class FolderControllerTest extends ControllerTestUtility {
 		$response = $this->controller->create();
 		$params = json_decode($response->render(), true);
 
-		$this->assertEquals('error', $params['status']);
+		$this->assertEquals($response->getStatus(), Http::STATUS_CONFLICT);
 		$this->assertEquals($msg, $params['msg']);
 		$this->assertTrue($response instanceof JSONResponse);
 	}
@@ -309,9 +333,9 @@ class FolderControllerTest extends ControllerTestUtility {
 
 		$params = json_decode($response->render(), true);
 
-		$this->assertEquals('error', $params['status']);
 		$this->assertEquals($this->msg, $params['msg']);
 		$this->assertTrue($response instanceof JSONResponse);
+		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
 	}
 
 
@@ -335,12 +359,44 @@ class FolderControllerTest extends ControllerTestUtility {
 		
 		$response = $this->controller->rename();
 
-		$this->assertEquals($result, $response->getParams());
+		$this->assertEquals($result, $response->getData());
 		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
 	public function testRenameReturnsErrorForInvalidCreate(){
+		$msg = 'except';
+		$ex = new BusinessLayerValidationException($msg);
+		$this->folderBusinessLayer->expects($this->once())
+			->method('rename')
+			->will($this->throwException($ex));
+
+		$response = $this->controller->rename();
+		$params = json_decode($response->render(), true);
+
+		$this->assertEquals($response->getStatus(), Http::STATUS_UNPROCESSABLE_ENTITY);
+		$this->assertEquals($msg, $params['msg']);
+		$this->assertTrue($response instanceof JSONResponse);
+	}
+
+
+	public function testRenameDoesNotExist(){
+		$msg = 'except';
+		$ex = new BusinessLayerException($msg);
+		$this->folderBusinessLayer->expects($this->once())
+			->method('rename')
+			->will($this->throwException($ex));
+
+		$response = $this->controller->rename();
+		$params = json_decode($response->render(), true);
+
+		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
+		$this->assertEquals($msg, $params['msg']);
+		$this->assertTrue($response instanceof JSONResponse);
+	}
+
+
+	public function testRenameReturnsErrorForDuplicateCreate(){
 		$msg = 'except';
 		$ex = new BusinessLayerConflictException($msg);
 		$this->folderBusinessLayer->expects($this->once())
@@ -350,10 +406,11 @@ class FolderControllerTest extends ControllerTestUtility {
 		$response = $this->controller->rename();
 		$params = json_decode($response->render(), true);
 
-		$this->assertEquals('error', $params['status']);
+		$this->assertEquals($response->getStatus(), Http::STATUS_CONFLICT);
 		$this->assertEquals($msg, $params['msg']);
 		$this->assertTrue($response instanceof JSONResponse);
 	}
+
 
 	
 	public function testRead(){
@@ -384,7 +441,7 @@ class FolderControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->read();
 		$this->assertTrue($response instanceof JSONResponse);
-		$this->assertEquals($expected, $response->getParams());
+		$this->assertEquals($expected, $response->getData());
 	}
 
 
@@ -421,7 +478,7 @@ class FolderControllerTest extends ControllerTestUtility {
 
 		$params = json_decode($response->render(), true);
 
-		$this->assertEquals('error', $params['status']);
+		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
 		$this->assertEquals($this->msg, $params['msg']);
 		$this->assertTrue($response instanceof JSONResponse);
 	}

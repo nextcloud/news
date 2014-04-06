@@ -28,6 +28,8 @@ namespace OCA\News\Controller;
 use \OCA\AppFramework\Controller\Controller;
 use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Http\Request;
+use \OCA\AppFramework\Http\JSONResponse;
+use \OCA\AppFramework\Http\Http;
 
 use \OCA\News\BusinessLayer\BusinessLayerException;
 use \OCA\News\BusinessLayer\ItemBusinessLayer;
@@ -85,7 +87,7 @@ class ItemController extends Controller {
 		// in that case just return an empty array
 		} catch(BusinessLayerException $ex) {}
 
-		return $this->renderJSON($params);
+		return new JSONResponse($params);
 	}
 
 
@@ -114,7 +116,7 @@ class ItemController extends Controller {
 		// in that case just return an empty array
 		} catch(BusinessLayerException $ex) {}
 
-		return $this->renderJSON($params);
+		return new JSONResponse($params);
 	}
 
 
@@ -135,9 +137,11 @@ class ItemController extends Controller {
 	public function star(){
 		try {
 			$this->setStarred(true);
-			return $this->renderJSON();
+			return new JSONResponse();
 		} catch(BusinessLayerException $ex) {
-			return $this->renderJSON(array(), $ex->getMessage());
+			return new JSONResponse(array(
+				'msg' => $ex->getMessage()
+			), Http::STATUS_NOT_FOUND);
 		}
 	}
 
@@ -150,9 +154,11 @@ class ItemController extends Controller {
 	public function unstar(){
 		try {
 			$this->setStarred(false);
-			return $this->renderJSON();
+			return new JSONResponse();
 		} catch(BusinessLayerException $ex) {
-			return $this->renderJSON(array(), $ex->getMessage());
+			return new JSONResponse(array(
+				'msg' => $ex->getMessage()
+			), Http::STATUS_NOT_FOUND);
 		}
 	}
 
@@ -173,9 +179,11 @@ class ItemController extends Controller {
 	public function read(){
 		try {
 			$this->setRead(true);
-			return $this->renderJSON();
+			return new JSONResponse();
 		} catch(BusinessLayerException $ex) {
-			return $this->renderJSON(array(), $ex->getMessage());
+			return new JSONResponse(array(
+				'msg' => $ex->getMessage()
+			), Http::STATUS_NOT_FOUND);
 		}
 	}
 
@@ -188,9 +196,11 @@ class ItemController extends Controller {
 	public function unread(){
 		try {
 			$this->setRead(false);
-			return $this->renderJSON();
+			return new JSONResponse();
 		} catch(BusinessLayerException $ex) {
-			return $this->renderJSON(array(), $ex->getMessage());
+			return new JSONResponse(array(
+				'msg' => $ex->getMessage()
+			), Http::STATUS_NOT_FOUND);
 		}
 	}
 
@@ -209,7 +219,7 @@ class ItemController extends Controller {
 		$params = array(
 			'feeds' => $this->feedBusinessLayer->findAll($userId)
 		);
-		return $this->renderJSON($params);
+		return new JSONResponse($params);
 	}
 
 

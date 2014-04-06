@@ -28,12 +28,15 @@ namespace OCA\News\Controller;
 use \OCA\AppFramework\Controller\Controller;
 use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Http\Request;
+use \OCA\AppFramework\Http\JSONResponse;
+use \OCA\AppFramework\Http\Http;
 
 use \OCA\News\BusinessLayer\FolderBusinessLayer;
 use \OCA\News\BusinessLayer\FeedBusinessLayer;
 use \OCA\News\BusinessLayer\ItemBusinessLayer;
 use \OCA\News\BusinessLayer\BusinessLayerException;
-
+use \OCA\News\BusinessLayer\BusinessLayerConflictException;
+use \OCA\News\BusinessLayer\BusinessLayerValidationException;
 
 class FolderController extends Controller {
 
@@ -62,7 +65,7 @@ class FolderController extends Controller {
 		$result = array(
 			'folders' => $folders
 		);
-		return $this->renderJSON($result);
+		return new JSONResponse($result);
 	}
 
 
@@ -82,9 +85,11 @@ class FolderController extends Controller {
 	public function open(){
 		try {
 			$this->setOpened(true);
-			return $this->renderJSON();
+			return new JSONResponse();
 		} catch(BusinessLayerException $ex) {
-			return $this->renderJSON(array(), $ex->getMessage());
+			return new JSONResponse(array(
+				'msg' => $ex->getMessage()
+			), Http::STATUS_NOT_FOUND);
 		}
 	}
 
@@ -97,9 +102,11 @@ class FolderController extends Controller {
 	public function collapse(){
 		try {
 			$this->setOpened(false);
-			return $this->renderJSON();
+			return new JSONResponse();
 		} catch(BusinessLayerException $ex) {
-			return $this->renderJSON(array(), $ex->getMessage());
+			return new JSONResponse(array(
+				'msg' => $ex->getMessage()
+			), Http::STATUS_NOT_FOUND);
 		}
 	}
 
@@ -123,10 +130,19 @@ class FolderController extends Controller {
 			$params = array(
 				'folders' => array($folder)
 			);
-			return $this->renderJSON($params);
+			return new JSONResponse($params);
 
-		} catch (BusinessLayerException $ex){
-			return $this->renderJSON(array(), $ex->getMessage());
+
+
+		} catch(BusinessLayerConflictException $ex) {
+			return new JSONResponse(array(
+				'msg' => $ex->getMessage()
+			), Http::STATUS_CONFLICT);
+		
+		} catch(BusinessLayerValidationException $ex) {
+			return new JSONResponse(array(
+				'msg' => $ex->getMessage()
+			), Http::STATUS_UNPROCESSABLE_ENTITY);
 		}
 		
 	}
@@ -143,9 +159,11 @@ class FolderController extends Controller {
 
 		try {
 			$this->folderBusinessLayer->markDeleted($folderId, $userId);
-			return $this->renderJSON();
+			return new JSONResponse();
 		} catch (BusinessLayerException $ex){
-			return $this->renderJSON(array(), $ex->getMessage());
+			return new JSONResponse(array(
+				'msg' => $ex->getMessage()
+			), Http::STATUS_NOT_FOUND);
 		}
 	}
 
@@ -166,10 +184,22 @@ class FolderController extends Controller {
 			$params = array(
 				'folders' => array($folder)
 			);
-			return $this->renderJSON($params);
-
+			return new JSONResponse($params);
+		
+		} catch(BusinessLayerConflictException $ex) {
+			return new JSONResponse(array(
+				'msg' => $ex->getMessage()
+			), Http::STATUS_CONFLICT);
+		
+		} catch(BusinessLayerValidationException $ex) {
+			return new JSONResponse(array(
+				'msg' => $ex->getMessage()
+			), Http::STATUS_UNPROCESSABLE_ENTITY);
+		
 		} catch (BusinessLayerException $ex){
-			return $this->renderJSON(array(), $ex->getMessage());
+			return new JSONResponse(array(
+				'msg' => $ex->getMessage()
+			), Http::STATUS_NOT_FOUND);
 		}
 	}
 
@@ -188,7 +218,7 @@ class FolderController extends Controller {
 		$params = array(
 			'feeds' => $this->feedBusinessLayer->findAll($userId)
 		);
-		return $this->renderJSON($params);
+		return new JSONResponse($params);
 	}
 
 
@@ -203,9 +233,11 @@ class FolderController extends Controller {
 
 		try {
 			$this->folderBusinessLayer->unmarkDeleted($folderId, $userId);
-			return $this->renderJSON();
+			return new JSONResponse();
 		} catch (BusinessLayerException $ex){
-			return $this->renderJSON(array(), $ex->getMessage());
+			return new JSONResponse(array(
+				'msg' => $ex->getMessage()
+			), Http::STATUS_NOT_FOUND);
 		}
 
 	}

@@ -27,6 +27,7 @@ namespace OCA\News\Controller;
 
 use \OCA\AppFramework\Http\Request;
 use \OCA\AppFramework\Http\JSONResponse;
+use \OCA\AppFramework\Http\Http;
 use \OCA\AppFramework\Utility\ControllerTestUtility;
 use \OCA\AppFramework\Db\DoesNotExistException;
 use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
@@ -34,7 +35,7 @@ use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\FeedType;
 use \OCA\News\BusinessLayer\BusinessLayerException;
-
+use \OCA\News\BusinessLayer\BusinessLayerConflictException;
 
 require_once(__DIR__ . "/../../classloader.php");
 
@@ -159,7 +160,7 @@ class FeedControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->feeds();
 
-		$this->assertEquals($result, $response->getParams());
+		$this->assertEquals($result, $response->getData());
 		$this->assertTrue($response instanceof JSONResponse);
 	}
 
@@ -190,7 +191,7 @@ class FeedControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->feeds();
 
-		$this->assertEquals($result, $response->getParams());
+		$this->assertEquals($result, $response->getData());
 		$this->assertTrue($response instanceof JSONResponse);
 	}
 
@@ -225,7 +226,7 @@ class FeedControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->active();
 
-		$this->assertEquals($result, $response->getParams());
+		$this->assertEquals($result, $response->getData());
 		$this->assertTrue($response instanceof JSONResponse);
 	}
 
@@ -249,7 +250,7 @@ class FeedControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->active();
 
-		$this->assertEquals($result, $response->getParams());
+		$this->assertEquals($result, $response->getData());
 		$this->assertTrue($response instanceof JSONResponse);
 	}
 
@@ -273,7 +274,7 @@ class FeedControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->active();
 
-		$this->assertEquals($result, $response->getParams());
+		$this->assertEquals($result, $response->getData());
 		$this->assertTrue($response instanceof JSONResponse);
 	}
 
@@ -292,7 +293,7 @@ class FeedControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->active();
 
-		$this->assertEquals($result, $response->getParams());
+		$this->assertEquals($result, $response->getData());
 		$this->assertTrue($response instanceof JSONResponse);
 	}
 
@@ -328,7 +329,7 @@ class FeedControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->create();
 
-		$this->assertEquals($result, $response->getParams());
+		$this->assertEquals($result, $response->getData());
 		$this->assertTrue($response instanceof JSONResponse);
 	}
 
@@ -364,7 +365,7 @@ class FeedControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->create();
 
-		$this->assertEquals($result, $response->getParams());
+		$this->assertEquals($result, $response->getData());
 		$this->assertTrue($response instanceof JSONResponse);
 	}
 
@@ -385,9 +386,31 @@ class FeedControllerTest extends ControllerTestUtility {
 		$response = $this->controller->create();
 		$params = json_decode($response->render(), true);
 
-		$this->assertEquals('error', $params['status']);
 		$this->assertEquals($msg, $params['msg']);
 		$this->assertTrue($response instanceof JSONResponse);
+		$this->assertEquals($response->getStatus(), Http::STATUS_UNPROCESSABLE_ENTITY);
+	}
+
+
+	public function testCreateReturnsErrorForDuplicateCreate(){
+		$msg = 'except';
+		$ex = new BusinessLayerConflictException($msg);
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->feedBusinessLayer->expects($this->once())
+			->method('purgeDeleted')
+			->with($this->equalTo($this->user), $this->equalTo(false));
+		$this->feedBusinessLayer->expects($this->once())
+			->method('create')
+			->will($this->throwException($ex));
+
+		$response = $this->controller->create();
+		$params = json_decode($response->render(), true);
+
+		$this->assertEquals($msg, $params['msg']);
+		$this->assertTrue($response instanceof JSONResponse);
+		$this->assertEquals($response->getStatus(), Http::STATUS_CONFLICT);
 	}
 
 
@@ -426,9 +449,9 @@ class FeedControllerTest extends ControllerTestUtility {
 		$response = $this->controller->delete();
 		$params = json_decode($response->render(), true);
 
-		$this->assertEquals('error', $params['status']);
 		$this->assertEquals($msg, $params['msg']);
 		$this->assertTrue($response instanceof JSONResponse);
+		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
 	}
 
 
@@ -460,7 +483,7 @@ class FeedControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->update();
 
-		$this->assertEquals($result, $response->getParams());
+		$this->assertEquals($result, $response->getData());
 		$this->assertTrue($response instanceof JSONResponse);
 	}
 
@@ -488,8 +511,9 @@ class FeedControllerTest extends ControllerTestUtility {
 		$response = $this->controller->update();
 		$render = $response->render();
 
-		$this->assertEquals('{"data":[],"status":"error","msg":"NO!"}', $render);
+		$this->assertEquals('{"msg":"NO!"}', $render);
 		$this->assertTrue($response instanceof JSONResponse);
+		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
 	}
 
 
@@ -537,9 +561,9 @@ class FeedControllerTest extends ControllerTestUtility {
 		$response = $this->controller->move();
 		$params = json_decode($response->render(), true);
 
-		$this->assertEquals('error', $params['status']);
 		$this->assertEquals($msg, $params['msg']);
 		$this->assertTrue($response instanceof JSONResponse);
+		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
 	}
 
 
@@ -567,6 +591,37 @@ class FeedControllerTest extends ControllerTestUtility {
 	}
 
 
+	public function testRenameDoesNotExist(){
+		$post = array(
+			'feedTitle' => "New Feed Title"
+		);
+		$url = array(
+			'feedId' => 4
+		);
+		$this->controller = $this->getPostController($post, $url);
+
+		$msg = 'hi';
+
+		$this->api->expects($this->once())
+			->method('getUserId')
+			->will($this->returnValue($this->user));
+		$this->feedBusinessLayer->expects($this->once())
+			->method('rename')
+			->with($this->equalTo($url['feedId']),
+				$this->equalTo($post['feedTitle']),
+				$this->equalTo($this->user))
+			->will($this->throwException(new BusinessLayerException($msg)));
+
+		$response = $this->controller->rename();
+
+		$params = $response->getData();
+
+		$this->assertEquals($msg, $params['msg']);
+		$this->assertTrue($response instanceof JSONResponse);
+		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
+	}
+
+
 	public function testImportArticles() {
 		$feed = new Feed();
 
@@ -589,7 +644,7 @@ class FeedControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->importArticles();
 
-		$this->assertEquals($expected, $response->getParams());
+		$this->assertEquals($expected, $response->getData());
 		$this->assertTrue($response instanceof JSONResponse);
 	}
 
@@ -614,7 +669,7 @@ class FeedControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->importArticles();
 
-		$this->assertEquals($expected, $response->getParams());
+		$this->assertEquals($expected, $response->getData());
 		$this->assertTrue($response instanceof JSONResponse);
 	}
 
@@ -645,7 +700,7 @@ class FeedControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->read();
 		$this->assertTrue($response instanceof JSONResponse);
-		$this->assertEquals($expected, $response->getParams());
+		$this->assertEquals($expected, $response->getData());
 	}
 
 
@@ -684,9 +739,9 @@ class FeedControllerTest extends ControllerTestUtility {
 		$response = $this->controller->restore();
 		$params = json_decode($response->render(), true);
 
-		$this->assertEquals('error', $params['status']);
 		$this->assertEquals($msg, $params['msg']);
 		$this->assertTrue($response instanceof JSONResponse);
+		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
 	}
 
 }

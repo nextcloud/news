@@ -2842,7 +2842,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           lastChange = this._lastFeedChange;
           (function(lastChange, offset, loading, onSuccess) {
             return successCallbackWrapper = function(data) {
-              if (data.data.items.length === 0 && lastChange === _this._lastFeedChange && offset !== 0) {
+              if (data.items.length === 0 && lastChange === _this._lastFeedChange && offset !== 0) {
                 _this._preventUselessAutoPageRequest = true;
               }
               onSuccess(data);

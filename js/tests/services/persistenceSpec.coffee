@@ -76,8 +76,7 @@ describe 'Persistence', ->
 
 	it 'should reset the autopage lock when loading a new feed', =>
 		data =
-			data:
-				items: []
+			items: []
 		called = 0
 		@req.get.andCallFake (route, params) ->
 			params.onSuccess(data)

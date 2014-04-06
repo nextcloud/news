@@ -28,11 +28,14 @@ namespace OCA\News\Controller;
 use \OCA\AppFramework\Controller\Controller;
 use \OCA\AppFramework\Core\API;
 use \OCA\AppFramework\Http\Request;
+use \OCA\AppFramework\Http\JSONResponse;
+use \OCA\AppFramework\Http\Http;
 
 use \OCA\News\BusinessLayer\ItemBusinessLayer;
 use \OCA\News\BusinessLayer\FeedBusinessLayer;
 use \OCA\News\BusinessLayer\FolderBusinessLayer;
 use \OCA\News\BusinessLayer\BusinessLayerException;
+use \OCA\News\BusinessLayer\BusinessLayerConflictException;
 use \OCA\News\Db\FeedType;
 
 
@@ -74,7 +77,7 @@ class FeedController extends Controller {
 				$this->itemBusinessLayer->getNewestItemId($userId);
 		} catch (BusinessLayerException $ex) {}
 
-		return $this->renderJSON($params);
+		return new JSONResponse($params);
 	}
 
 
@@ -118,7 +121,7 @@ class FeedController extends Controller {
 			)
 		);
 
-		return $this->renderJSON($params);
+		return new JSONResponse($params);
 	}
 
 
@@ -147,9 +150,17 @@ class FeedController extends Controller {
 					$this->itemBusinessLayer->getNewestItemId($userId);
 			} catch (BusinessLayerException $ex) {}
 
-			return $this->renderJSON($params);
+			return new JSONResponse($params);
+
+		} catch(BusinessLayerConflictException $ex) {
+			return new JSONResponse(array(
+				'msg' => $ex->getMessage()
+			), Http::STATUS_CONFLICT);
+		
 		} catch(BusinessLayerException $ex) {
-			return $this->renderJSON(array(), $ex->getMessage());
+			return new JSONResponse(array(
+				'msg' => $ex->getMessage()
+			), Http::STATUS_UNPROCESSABLE_ENTITY);
 		}
 	}
 
@@ -165,9 +176,11 @@ class FeedController extends Controller {
 
 		try {
 			$this->feedBusinessLayer->markDeleted($feedId, $userId);
-			return $this->renderJSON();
+			return new JSONResponse();
 		} catch(BusinessLayerException $ex) {
-			return $this->renderJSON(array(), $ex->getMessage());
+			return new JSONResponse(array(
+				'msg' => $ex->getMessage()
+			), Http::STATUS_NOT_FOUND);
 		}
 	}
 
@@ -195,10 +208,12 @@ class FeedController extends Controller {
 				)
 			);
 
-			return $this->renderJSON($params);
+			return new JSONResponse($params);
 
 		} catch(BusinessLayerException $ex) {
-			return $this->renderJSON(array(), $ex->getMessage());
+			return new JSONResponse(array(
+				'msg' => $ex->getMessage()
+			), Http::STATUS_NOT_FOUND);
 		}
 	}
 
@@ -215,9 +230,11 @@ class FeedController extends Controller {
 
 		try {
 			$this->feedBusinessLayer->move($feedId, $parentFolderId, $userId);
-			return $this->renderJSON();	
+			return new JSONResponse();	
 		} catch(BusinessLayerException $ex) {
-			return $this->renderJSON(array(), $ex->getMessage());
+			return new JSONResponse(array(
+				'msg' => $ex->getMessage()
+			), Http::STATUS_NOT_FOUND);
 		}
 	}
 
@@ -233,9 +250,11 @@ class FeedController extends Controller {
 
 		try {
 			$this->feedBusinessLayer->rename($feedId, $feedTitle, $userId);
-			return $this->renderJSON();	
+			return new JSONResponse();	
 		} catch(BusinessLayerException $ex) {
-			return $this->renderJSON(array(), $ex->getMessage());
+			return new JSONResponse(array(
+				'msg' => $ex->getMessage()
+			), Http::STATUS_NOT_FOUND);
 		}
 	}
 
@@ -255,7 +274,7 @@ class FeedController extends Controller {
 			$params['feeds'] = array($feed);
 		}
 
-		return $this->renderJSON($params);
+		return new JSONResponse($params);
 	}
 
 
@@ -279,7 +298,7 @@ class FeedController extends Controller {
 				)
 			)
 		);
-		return $this->renderJSON($params);
+		return new JSONResponse($params);
 	}
 
 
@@ -294,9 +313,11 @@ class FeedController extends Controller {
 
 		try {
 			$this->feedBusinessLayer->unmarkDeleted($feedId, $userId);
-			return $this->renderJSON();
+			return new JSONResponse();
 		} catch(BusinessLayerException $ex) {
-			return $this->renderJSON(array(), $ex->getMessage());
+			return new JSONResponse(array(
+				'msg' => $ex->getMessage()
+			), Http::STATUS_NOT_FOUND);
 		}
 	}
 

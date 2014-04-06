@@ -82,7 +82,7 @@ $rootScope, $q) ->
 			# back up last change value in closure so we can compare it properly
 			do (lastChange, offset, loading, onSuccess) =>
 				successCallbackWrapper = (data) =>
-					if data.data.items.length == 0 &&
+					if data.items.length == 0 &&
 					lastChange == @_lastFeedChange &&
 					offset != 0
 						@_preventUselessAutoPageRequest = true

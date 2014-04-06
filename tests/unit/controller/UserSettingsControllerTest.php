@@ -117,7 +117,7 @@ class UserSettingsControllerTest extends ControllerTestUtility {
 			->will($this->returnValue('1'));
 		
 		$response = $this->controller->read();
-		$this->assertEquals($result, $response->getParams());
+		$this->assertEquals($result, $response->getData());
 		$this->assertTrue($response instanceof JSONResponse);
 	}
 	
@@ -133,7 +133,7 @@ class UserSettingsControllerTest extends ControllerTestUtility {
 			->will($this->returnValue($lang));
 
 		$response = $this->controller->getLanguage();
-		$params = $response->getParams();
+		$params = $response->getData();
 
 		$this->assertEquals($language, $params['language']);
 		$this->assertTrue($response instanceof JSONResponse);	
@@ -150,7 +150,7 @@ class UserSettingsControllerTest extends ControllerTestUtility {
 			->will($this->returnValue('1'));
 		
 		$response = $this->controller->isCompactView();
-		$this->assertEquals($result, $response->getParams());
+		$this->assertEquals($result, $response->getData());
 		$this->assertTrue($response instanceof JSONResponse);
 	}
 
