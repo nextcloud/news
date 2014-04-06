@@ -31,7 +31,7 @@ use \OCA\News\DependencyInjection\DIContainer;
 class User {
 
 
-    public static deleteUser($params) {
+    public static function deleteUser($params) {
         $userId = $params['uid'];
         
         $container = new DIContainer();
