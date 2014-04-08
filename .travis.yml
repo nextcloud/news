@@ -9,6 +9,7 @@ before_install:
   - cd ..
   - ls
   - git clone https://github.com/owncloud/core.git
+  - mv news core/apps/
   - cd core
   - git submodule init
   - git submodule update
@@ -16,7 +17,6 @@ before_install:
   - git checkout stable6
   - cd ../apps
   - git clone https://github.com/owncloud/appframework
-  - mv ../../news core/apps/
 
 script:
   - sudo add-apt-repository -y ppa:chris-lea/node.js
