@@ -31,7 +31,7 @@ use \OCA\News\Db\Feed;
 require_once(__DIR__ . "/../../classloader.php");
 
 
-class OPMLExporterTest extends \OCA\AppFramework\Utility\TestUtility {
+class OPMLExporterTest extends \OCA\News\Utility\TestUtility {
 
 	private $exporter;
 	private $feed1;

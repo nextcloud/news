@@ -25,12 +25,12 @@
 
 namespace OCA\News\API;
 
-use \OCA\AppFramework\Core\API;
-use \OCA\AppFramework\Controller\Controller;
-use \OCA\AppFramework\Http\Request;
-use \OCA\AppFramework\Http\JSONResponse;
-use \OCA\AppFramework\Http\Http;
+use \OCP\IRequest;
+use \OCP\AppFramework\Controller;
+use \OCP\AppFramework\Http;
+use \OCP\AppFramework\Http\JSONResponse;
 
+use \OCA\News\Core\API;
 use \OCA\News\BusinessLayer\FeedBusinessLayer;
 use \OCA\News\BusinessLayer\FolderBusinessLayer;
 use \OCA\News\BusinessLayer\ItemBusinessLayer;
@@ -43,16 +43,18 @@ class FeedAPI extends Controller {
 	private $itemBusinessLayer;
 	private $feedBusinessLayer;
 	private $folderBusinessLayer;
+	private $api;
 
 	public function __construct(API $api,
-	                            Request $request,
+	                            IRequest $request,
 	                            FolderBusinessLayer $folderBusinessLayer,
 	                            FeedBusinessLayer $feedBusinessLayer,
 	                            ItemBusinessLayer $itemBusinessLayer){
-		parent::__construct($api, $request);
+		parent::__construct($api->getAppName(), $request);
 		$this->folderBusinessLayer = $folderBusinessLayer;
 		$this->feedBusinessLayer = $feedBusinessLayer;
 		$this->itemBusinessLayer = $itemBusinessLayer;
+		$this->api = $api;
 	}
 
 

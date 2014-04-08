@@ -28,7 +28,7 @@ namespace OCA\News\Utility;
 require_once(__DIR__ . "/../../classloader.php");
 
 
-class ConfigFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
+class ConfigFetcherTest extends \OCA\News\Utility\TestUtility {
 
 	private $fileSystem;
 	private $config;
@@ -36,7 +36,7 @@ class ConfigFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 
 	public function setUp() {
 		$this->api = $this->getMockBuilder(
-			'\OCA\AppFramework\Core\API')
+			'\OCA\News\Core\API')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->fileSystem = $this->getMock('FileSystem', array(

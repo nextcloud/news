@@ -25,11 +25,11 @@
 
 namespace OCA\News\API;
 
-use \OCA\AppFramework\Http\Request;
-use \OCA\AppFramework\Http\JSONResponse;
-use \OCA\AppFramework\Http\Http;
-use \OCA\AppFramework\Utility\ControllerTestUtility;
+use \OCP\IRequest;
+use \OCP\AppFramework\Http;
+use \OCP\AppFramework\Http\JSONResponse;
 
+use \OCA\News\Utility\ControllerTestUtility;
 use \OCA\News\BusinessLayer\BusinessLayerException;
 use \OCA\News\Db\Item;
 
@@ -47,11 +47,11 @@ class ItemAPITest extends ControllerTestUtility {
 
 	protected function setUp() {
 		$this->api = $this->getMockBuilder(
-			'\OCA\AppFramework\Core\API')
+			'\OCA\News\Core\API')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->request = $this->getMockBuilder(
-			'\OCA\AppFramework\Http\Request')
+			'\OCP\IRequest')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->itemBusinessLayer = $this->getMockBuilder(
@@ -134,7 +134,7 @@ class ItemAPITest extends ControllerTestUtility {
 		$items = array(
 			new Item()
 		);
-		$request = new Request(array('params' => array(
+		$request = $this->getRequest(array('params' => array(
 			'batchSize' => 30,
 			'offset' => 20,
 			'type' => 1,
@@ -174,7 +174,7 @@ class ItemAPITest extends ControllerTestUtility {
 		$items = array(
 			new Item()
 		);
-		$request = new Request(array('params' => array(
+		$request = $this->getRequest(array('params' => array(
 			'offset' => 20,
 			'type' => 1,
 			'id' => 2,
@@ -213,7 +213,7 @@ class ItemAPITest extends ControllerTestUtility {
 		$items = array(
 			new Item()
 		);
-		$request = new Request(array('params' => array(
+		$request = $this->getRequest(array('params' => array(
 			'lastModified' => 30,
 			'type' => 1,
 			'id' => 2,
@@ -247,7 +247,7 @@ class ItemAPITest extends ControllerTestUtility {
 
 
 	public function testRead() {
-		$request = new Request(array('urlParams' => array(
+		$request = $this->getRequest(array('urlParams' => array(
 			'itemId' => 2
 		)));
 		$this->itemAPI = new ItemAPI(
@@ -275,7 +275,7 @@ class ItemAPITest extends ControllerTestUtility {
 
 
 	public function testReadDoesNotExist() {
-		$request = new Request(array('urlParams' => array(
+		$request = $this->getRequest(array('urlParams' => array(
 			'itemId' => 2
 		)));
 		$this->itemAPI = new ItemAPI(
@@ -300,7 +300,7 @@ class ItemAPITest extends ControllerTestUtility {
 
 
 	public function testUnread() {
-		$request = new Request(array('urlParams' => array(
+		$request = $this->getRequest(array('urlParams' => array(
 			'itemId' => 2
 		)));
 		$this->itemAPI = new ItemAPI(
@@ -328,7 +328,7 @@ class ItemAPITest extends ControllerTestUtility {
 
 
 	public function testUnreadDoesNotExist() {
-		$request = new Request(array('urlParams' => array(
+		$request = $this->getRequest(array('urlParams' => array(
 			'itemId' => 2
 		)));
 		$this->itemAPI = new ItemAPI(
@@ -353,7 +353,7 @@ class ItemAPITest extends ControllerTestUtility {
 
 
 	public function testStar() {
-		$request = new Request(array('urlParams' => array(
+		$request = $this->getRequest(array('urlParams' => array(
 			'feedId' => 2,
 			'guidHash' => 'hash'
 		)));
@@ -383,7 +383,7 @@ class ItemAPITest extends ControllerTestUtility {
 
 
 	public function testStarDoesNotExist() {
-		$request = new Request(array('urlParams' => array(
+		$request = $this->getRequest(array('urlParams' => array(
 			'feedId' => 2,
 			'guidHash' => 'hash'
 		)));
@@ -409,7 +409,7 @@ class ItemAPITest extends ControllerTestUtility {
 
 
 	public function testUnstar() {
-		$request = new Request(array('urlParams' => array(
+		$request = $this->getRequest(array('urlParams' => array(
 			'feedId' => 2,
 			'guidHash' => 'hash'
 		)));
@@ -439,7 +439,7 @@ class ItemAPITest extends ControllerTestUtility {
 
 
 	public function testUnstarDoesNotExist() {
-		$request = new Request(array('urlParams' => array(
+		$request = $this->getRequest(array('urlParams' => array(
 			'feedId' => 2,
 			'guidHash' => 'hash'
 		)));
@@ -465,7 +465,7 @@ class ItemAPITest extends ControllerTestUtility {
 
 
 	public function testReadAll() {
-		$request = new Request(array(
+		$request = $this->getRequest(array(
 			'params' => array(
 				'newestItemId' => 30,
 			)
@@ -494,7 +494,7 @@ class ItemAPITest extends ControllerTestUtility {
 
 
 	public function testReadMultiple() {
-		$request = new Request(array('params' => array(
+		$request = $this->getRequest(array('params' => array(
 			'items' => array(2, 4)
 		)));
 		$this->itemAPI = new ItemAPI(
@@ -522,7 +522,7 @@ class ItemAPITest extends ControllerTestUtility {
 
 
 	public function testReadMultipleDoesntCareAboutException() {
-		$request = new Request(array('params' => array(
+		$request = $this->getRequest(array('params' => array(
 			'items' => array(2, 4)
 		)));
 		$this->itemAPI = new ItemAPI(
@@ -547,7 +547,7 @@ class ItemAPITest extends ControllerTestUtility {
 
 
 	public function testUnreadMultiple() {
-		$request = new Request(array('params' => array(
+		$request = $this->getRequest(array('params' => array(
 			'items' => array(2, 4)
 		)));
 		$this->itemAPI = new ItemAPI(
@@ -575,7 +575,7 @@ class ItemAPITest extends ControllerTestUtility {
 
 
 	public function testStarMultiple() {
-		$request = new Request(array('params' => array(
+		$request = $this->getRequest(array('params' => array(
 			'items' => array(
 				array(
 					'feedId' => 2,
@@ -614,7 +614,7 @@ class ItemAPITest extends ControllerTestUtility {
 
 
 	public function testStarMultipleDoesntCareAboutException() {
-		$request = new Request(array('params' => array(
+		$request = $this->getRequest(array('params' => array(
 			'items' => array(
 				array(
 					'feedId' => 2,
@@ -649,7 +649,7 @@ class ItemAPITest extends ControllerTestUtility {
 
 
 	public function testUnstarMultiple() {
-		$request = new Request(array('params' => array(
+		$request = $this->getRequest(array('params' => array(
 			'items' => array(
 				array(
 					'feedId' => 2,

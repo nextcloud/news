@@ -25,8 +25,7 @@
 
 namespace OCA\News\BusinessLayer;
 
-use \OCA\AppFramework\Core\API;
-
+use \OCA\News\Core\API;
 use \OCA\News\Db\DoesNotExistException;
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\Item;

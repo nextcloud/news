@@ -25,11 +25,12 @@
 
 namespace OCA\News\Controller;
 
-use \OCA\AppFramework\Http\Request;
-use \OCA\AppFramework\Http\TextDownloadResponse;
-use \OCA\AppFramework\Http\JSONResponse;
-use \OCA\AppFramework\Utility\ControllerTestUtility;
+use \OCP\IRequest;
+use \OCP\AppFramework\Http;
+use \OCP\AppFramework\Http\JSONResponse;
 
+use \OCA\News\Http\TextDownloadResponse;
+use \OCA\News\Utility\ControllerTestUtility;
 use \OCA\News\Utility\OPMLExporter;
 use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
@@ -62,7 +63,7 @@ class ExportControllerTest extends ControllerTestUtility {
 		$this->folderBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\FolderBusinessLayer')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->request = new Request();
+		$this->request = $this->getRequest();
 		$this->opmlExporter = new OPMLExporter();
 		$this->controller = new ExportController($this->api, $this->request,
 			$this->feedBusinessLayer, $this->folderBusinessLayer, 

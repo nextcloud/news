@@ -30,6 +30,8 @@ use \OC\Files\View;
 use \OCA\AppFramework\DependencyInjection\DIContainer as BaseContainer;
 use \OCA\AppFramework\Middleware\MiddlewareDispatcher;
 
+use \OCA\News\Core\API;
+
 use \OCA\News\Controller\PageController;
 use \OCA\News\Controller\FolderController;
 use \OCA\News\Controller\FeedController;
@@ -82,6 +84,10 @@ class DIContainer extends BaseContainer {
 	public function __construct(){
 		// tell parent container about the app name
 		parent::__construct('news');
+
+		$this['API'] = $this->share(function($c){
+			return new API($c['news']);
+		});
 
 		/**
 		 * Configuration values

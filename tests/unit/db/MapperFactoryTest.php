@@ -33,7 +33,7 @@ class MapperFactoryTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function setUp() {
-		$this->api = $this->getMockBuilder('\OCA\AppFramework\Core\API')
+		$this->api = $this->getMockBuilder('\OCA\News\Core\API')
 			->disableOriginalConstructor()
 			->getMock();
 	}

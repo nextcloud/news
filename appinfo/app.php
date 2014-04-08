@@ -24,7 +24,7 @@
 
 namespace OCA\News;
 
-use \OCA\AppFramework\Core\API;
+use \OCA\News\Core\API;
 
 
 // dont break owncloud when the appframework is not enabled

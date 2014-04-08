@@ -25,16 +25,19 @@
 
 namespace OCA\News\Controller;
 
-use \OCA\AppFramework\Controller\Controller;
-use \OCA\AppFramework\Core\API;
-use \OCA\AppFramework\Http\Request;
-use \OCA\AppFramework\Http\JSONResponse;
+use \OCP\IRequest;
+use \OCP\AppFramework\Controller;
+use \OCP\AppFramework\Http\JSONResponse;
+
+use \OCA\News\Core\API;
 
 class UserSettingsController extends Controller {
 
+	private $api;
 
-	public function __construct(API $api, Request $request){
-		parent::__construct($api, $request);
+	public function __construct(API $api, IRequest $request){
+		parent::__construct($api->getAppName(), $request);
+		$this->api = $api;
 	}
 
 

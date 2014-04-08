@@ -25,12 +25,14 @@
 
 namespace OCA\News\Controller;
 
-use \OCA\AppFramework\Controller\Controller;
-use \OCA\AppFramework\Core\API;
-use \OCA\AppFramework\Http\Request;
-use \OCA\AppFramework\Http\TextDownloadResponse;
-use \OCA\AppFramework\Http\JSONResponse;
+use \OCP\IRequest;
+use \OCP\AppFramework\Controller;
+use \OCP\AppFramework\Http;
+use \OCP\AppFramework\Http\JSONResponse;
+use \OCP\AppFramework\Http\Response;
 
+use \OCA\News\Http\TextDownloadResponse;
+use \OCA\News\Core\API;
 use \OCA\News\BusinessLayer\FeedBusinessLayer;
 use \OCA\News\BusinessLayer\FolderBusinessLayer;
 use \OCA\News\BusinessLayer\ItemBusinessLayer;
@@ -42,17 +44,19 @@ class ExportController extends Controller {
 	private $folderBusinessLayer;
 	private $feedBusinessLayer;
 	private $itemBusinessLayer;
+	private $api;
 
-	public function __construct(API $api, Request $request,
+	public function __construct(API $api, IRequest $request,
 	                            FeedBusinessLayer $feedBusinessLayer,
 	                            FolderBusinessLayer $folderBusinessLayer,
 	                            ItemBusinessLayer $itemBusinessLayer,
 	                            OPMLExporter $opmlExporter){
-		parent::__construct($api, $request);
+		parent::__construct($api->getAppName(), $request);
 		$this->feedBusinessLayer = $feedBusinessLayer;
 		$this->folderBusinessLayer = $folderBusinessLayer;
 		$this->opmlExporter = $opmlExporter;
 		$this->itemBusinessLayer = $itemBusinessLayer;
+		$this->api = $api;
 	}
 
 

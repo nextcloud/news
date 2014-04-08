@@ -25,8 +25,7 @@
 
 namespace OCA\News\BusinessLayer;
 
-use \OCA\AppFramework\Core\API;
-
+use \OCA\News\Core\API;
 use \OCA\News\Db\Folder;
 use \OCA\News\Db\FolderMapper;
 use \OCA\News\Utility\TimeFactory;

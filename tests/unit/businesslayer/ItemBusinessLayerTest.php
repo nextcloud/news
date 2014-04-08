@@ -33,7 +33,7 @@ use \OCA\News\Db\StatusFlag;
 use \OCA\News\Db\FeedType;
 
 
-class ItemBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
+class ItemBusinessLayerTest extends \OCA\News\Utility\TestUtility {
 
 	private $api;
 	private $mapper;

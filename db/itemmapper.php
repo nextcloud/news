@@ -24,7 +24,7 @@
 
 namespace OCA\News\Db;
 
-use \OCA\AppFramework\Core\API;
+use \OCA\News\Core\API;
 
 class ItemMapper extends Mapper implements IMapper {
 

@@ -25,11 +25,11 @@
 
 namespace OCA\News\Controller;
 
-use \OCA\AppFramework\Http\Request;
-use \OCA\AppFramework\Http\JSONResponse;
-use \OCA\AppFramework\Http\Http;
-use \OCA\AppFramework\Utility\ControllerTestUtility;
+use \OCP\IRequest;
+use \OCP\AppFramework\Http;
+use \OCP\AppFramework\Http\JSONResponse;
 
+use \OCA\News\Utility\ControllerTestUtility;
 use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\FeedType;
@@ -61,7 +61,7 @@ class ItemControllerTest extends ControllerTestUtility {
 		$this->getMockBuilder('\OCA\News\BusinessLayer\FeedBusinessLayer')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->request = new Request();
+		$this->request = $this->getRequest();
 		$this->controller = new ItemController($this->api, $this->request,
 				$this->feedBusinessLayer, $this->itemBusinessLayer);
 		$this->user = 'jackob';

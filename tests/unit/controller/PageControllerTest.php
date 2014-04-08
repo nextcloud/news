@@ -25,10 +25,10 @@
 
 namespace OCA\News\Controller;
 
-use \OCA\AppFramework\Http\Request;
-use \OCA\AppFramework\Http\TemplateResponse;
-use \OCA\AppFramework\Utility\ControllerTestUtility;
+use \OCP\IRequest;
+use \OCP\AppFramework\Http\TemplateResponse;
 
+use \OCA\News\Utility\ControllerTestUtility;
 
 require_once(__DIR__ . "/../../classloader.php");
 
@@ -45,7 +45,7 @@ class PageControllerTest extends ControllerTestUtility {
 	 */
 	public function setUp(){
 		$this->api = $this->getAPIMock();
-		$this->request = new Request();
+		$this->request = $this->getRequest();
 		$this->controller = new PageController($this->api, $this->request);
 	}
 

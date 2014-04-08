@@ -28,7 +28,7 @@ namespace OCA\News\Db;
 require_once(__DIR__ . "/../../classloader.php");
 
 
-class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
+class FeedMapperTest extends \OCA\News\Utility\MapperTestUtility {
 
 	private $mapper;
 	private $feeds;

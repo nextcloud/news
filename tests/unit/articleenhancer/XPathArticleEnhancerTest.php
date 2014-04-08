@@ -30,7 +30,7 @@ use \OCA\News\Db\Item;
 require_once(__DIR__ . "/../../classloader.php");
 
 
-class XPathArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
+class XPathArticleEnhancerTest extends \OCA\News\Utility\TestUtility {
 
 	private $testEnhancer;
 	private $fileFactory;

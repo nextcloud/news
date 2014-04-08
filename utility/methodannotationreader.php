@@ -25,31 +25,36 @@
 namespace OCA\News\Utility;
 
 
-class SimplePieAPIFactory {
+/**
+ * Reads and parses annotations from doc comments
+ */
+class MethodAnnotationReader {
+
+	private $annotations;
 
 	/**
-	 * Builds a simplepie file object. This is needed because
-	 * the file object contains logic in its constructor which makes it
-	 * impossible to inject and test
-	 * @return SimplePie_File a new object
+	 * @param object $object an object or classname
+	 * @param string $method the method which we want to inspect for annotations
 	 */
-	public function getFile($url, $timeout=10, $redirects=5, $headers=null,
-	                        $useragent=null, $force_fsockopen=false) {
+	public function __construct($object, $method){
+		$this->annotations = array();
 
-		return new \SimplePie_File($url, $timeout, $redirects, $headers,
-	                        $useragent, $force_fsockopen);
+		$reflection = new \ReflectionMethod($object, $method);
+		$docs = $reflection->getDocComment();
+
+		// extract everythin prefixed by @ and first letter uppercase
+		preg_match_all('/@([A-Z]\w+)/', $docs, $matches);
+		$this->annotations = $matches[1];
 	}
 
 
 	/**
-	 * Returns a new instance of a SimplePie_Core() object. This is needed
-	 * because the class relies on external dependencies which are not passed
-	 * in via the constructor and thus making it nearly impossible to unittest
-	 * code that uses this class
-	 * @return \SimplePie_Core instance
+	 * Check if a method contains an annotation
+	 * @param string $name the name of the annotation
+	 * @return bool true if the annotation is found
 	 */
-	public function getCore() {
-		return new \SimplePie_Core();
+	public function hasAnnotation($name){
+		return in_array($name, $this->annotations);
 	}
 
 

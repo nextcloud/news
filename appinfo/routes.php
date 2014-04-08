@@ -25,7 +25,7 @@
 
 namespace OCA\News;
 
-use \OCA\AppFramework\App;
+use \OCP\AppFramework\App;
 
 use \OCA\News\DependencyInjection\DIContainer;
 

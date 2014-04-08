@@ -22,7 +22,7 @@ Minimum PHP Version
 
 Minimum ownCloud Version
 -------------------
-* >= 6.0.2
+* >= 6.0.3
 
 Supported Webservers
 --------------------
@@ -40,7 +40,6 @@ Bugs
 Before reporting bugs:
 
 * We do not support Internet Explorer and Safari (Patches accepted though, except for IE < 10)
-* get the newest version of the App Framework
 * get the newest version of the News app
 * `check if they have already been reported <https://github.com/owncloud/news/issues?state=open>`_
 
@@ -65,7 +64,7 @@ Before you install the app check that the following requirements are met:
 - You can use a cron or webcron to call Background Jobs in ownCloud
 - Your **data/** directory is owned by your webserver user and write/readable
 - You have installed **php-curl** and activated it in the **php.ini**
-- Install ownCloud **5.0.6+** (important!)
+- Install ownCloud **6.0.3+** (important!)
 
 Should you have upgraded from a prior version, disable the CSS and JavaScript caching by adding this to :file:`owncloud/config/config.php`::
 
@@ -81,12 +80,12 @@ Installation
 ~~~~~~~~~~~~
 
 - Go to the ownCloud apps page
-- Activate the **App Framework** App first, then activate the **News** app in the apps menu
+- Activate the **News** app in the apps menu
 - `Set up ownCloud Background Jobs <http://doc.owncloud.org/server/5.0/admin_manual/configuration/background_jobs.html>`_ to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
 
 Keep up to date
 ~~~~~~~~~~~~~~~
-Both the **News** and **App Framework** App can be updated through the ownCloud apps page.
+The **News** App can be updated through the ownCloud apps page.
 
 
 Git (development version)
@@ -95,33 +94,16 @@ Git (development version)
 Installation
 ~~~~~~~~~~~~
 
-- Clone the **App Framework** app into the **/var/www** directory::
-
-	git clone https://github.com/owncloud/appframework.git
-
-- Clone the **News** app into the **/var/www** directory::
+- Clone the **News** app into the **/var/www/owncloud/apps** directory::
 
 	git clone https://github.com/owncloud/news.git
 
-
-- Link both into ownCloud's apps folder::
-
-	ln -s /var/www/appframework /var/www/owncloud/apps
-	ln -s /var/www/news /var/www/owncloud/apps
-
-- Activate the **App Framework** App first, then activate the **News** app in the apps menu
+- Activate the **News** app in the apps menu
 
 - `Set up ownCloud Background Jobs <http://doc.owncloud.org/server/5.0/admin_manual/configuration/background_jobs.html>`_ to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
 
 Keep up to date
 ~~~~~~~~~~~~~~~
-
-To get the newest update you can use git. To update the appframework use::
-
-    cd /var/www/appframework
-    git pull --rebase origin master
-
-
 To update the News app use::
 
     cd /var/www/news

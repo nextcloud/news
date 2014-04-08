@@ -31,7 +31,7 @@ require_once(__DIR__ . "/../../classloader.php");
 use \OCA\News\Db\Folder;
 
 
-class FolderBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
+class FolderBusinessLayerTest extends \OCA\News\Utility\TestUtility {
 
 	private $folderMapper;
 	private $folderBusinessLayer;

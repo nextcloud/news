@@ -25,9 +25,11 @@
 
 namespace OCA\News\API;
 
-use \OCA\AppFramework\Http\Request;
-use \OCA\AppFramework\Http\JSONResponse;
-use \OCA\AppFramework\Utility\ControllerTestUtility;
+use \OCP\IRequest;
+use \OCP\AppFramework\Http\JSONResponse;
+
+
+use \OCA\News\Utility\ControllerTestUtility;
 
 require_once(__DIR__ . "/../../classloader.php");
 
@@ -41,11 +43,11 @@ class NewsAPITest extends ControllerTestUtility {
 
 	protected function setUp() {
 		$this->api = $this->getMockBuilder(
-			'\OCA\AppFramework\Core\API')
+			'\OCA\News\Core\API')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->request = $this->getMockBuilder(
-			'\OCA\AppFramework\Http\Request')
+			'\OCP\IRequest')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->updater = $this->getMockBuilder(
@@ -114,7 +116,7 @@ class NewsAPITest extends ControllerTestUtility {
 
 
 	public function testCors() {
-		$this->request = new Request(array('server' => array()));
+		$this->request = $this->getRequest(array('server' => array()));
 		$this->newsAPI = new NewsAPI($this->api, $this->request, $this->updater);
 		$response = $this->newsAPI->cors();
 
@@ -129,7 +131,7 @@ class NewsAPITest extends ControllerTestUtility {
 
 
 	public function testCorsUsesOriginIfGiven() {
-		$this->request = new Request(array('server' => array('HTTP_ORIGIN' => 'test')));
+		$this->request = $this->getRequest(array('server' => array('HTTP_ORIGIN' => 'test')));
 		$this->newsAPI = new NewsAPI($this->api, $this->request, $this->updater);
 		$response = $this->newsAPI->cors();
 

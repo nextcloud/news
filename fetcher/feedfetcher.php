@@ -25,8 +25,7 @@
 
 namespace OCA\News\Fetcher;
 
-use \OCA\AppFramework\Core\API;
-
+use \OCA\News\Core\API;
 use \OCA\News\Utility\FaviconFetcher;
 use \OCA\News\Utility\SimplePieAPIFactory;
 use \OCA\News\Utility\TimeFactory;

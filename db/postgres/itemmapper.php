@@ -24,8 +24,7 @@
 
 namespace OCA\News\Db\Postgres;
 
-use \OCA\AppFramework\Core\API;
-
+use \OCA\News\Core\API;
 use \OCA\News\Db\DoesNotExistException;
 use \OCA\News\Db\MultipleObjectsReturnedException;
 use \OCA\News\Db\Mapper;

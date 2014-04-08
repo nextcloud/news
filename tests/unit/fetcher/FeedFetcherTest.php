@@ -31,7 +31,7 @@ use \OCA\News\Db\Feed;
 require_once(__DIR__ . "/../../classloader.php");
 
 
-class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
+class FeedFetcherTest extends \OCA\News\Utility\TestUtility {
 
 	private $fetcher;
 	private $core;

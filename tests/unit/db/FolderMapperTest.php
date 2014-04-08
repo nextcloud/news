@@ -28,7 +28,7 @@ namespace OCA\News\Db;
 require_once(__DIR__ . "/../../classloader.php");
 
 
-class FolderMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
+class FolderMapperTest extends \OCA\News\Utility\MapperTestUtility {
 
 	private $folderMapper;
 	private $folders;

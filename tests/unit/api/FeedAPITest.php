@@ -25,11 +25,11 @@
 
 namespace OCA\News\API;
 
-use \OCA\AppFramework\Http\Request;
-use \OCA\AppFramework\Http\JSONResponse;
-use \OCA\AppFramework\Http\Http;
-use \OCA\AppFramework\Utility\ControllerTestUtility;
+use \OCP\IRequest;
+use \OCP\AppFramework\Http;
+use \OCP\AppFramework\Http\JSONResponse;
 
+use \OCA\News\Utility\ControllerTestUtility;
 use \OCA\News\BusinessLayer\BusinessLayerException;
 use \OCA\News\BusinessLayer\BusinessLayerConflictException;
 use \OCA\News\Db\Folder;
@@ -52,11 +52,11 @@ class FeedAPITest extends ControllerTestUtility {
 
 	protected function setUp() {
 		$this->api = $this->getMockBuilder(
-			'\OCA\AppFramework\Core\API')
+			'\OCA\News\Core\API')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->request = $this->getMockBuilder(
-			'\OCA\AppFramework\Http\Request')
+			'\OCP\IRequest')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->folderBusinessLayer = $this->getMockBuilder(
@@ -192,7 +192,7 @@ class FeedAPITest extends ControllerTestUtility {
 
 
 	public function testDelete() {
-		$request = new Request(array('urlParams' => array(
+		$request = $this->getRequest(array('urlParams' => array(
 			'feedId' => 2
 		)));
 		$this->feedAPI = new FeedAPI(
@@ -220,7 +220,7 @@ class FeedAPITest extends ControllerTestUtility {
 
 
 	public function testDeleteDoesNotExist() {
-		$request = new Request(array('urlParams' => array(
+		$request = $this->getRequest(array('urlParams' => array(
 			'feedId' => 2
 		)));
 		$this->feedAPI = new FeedAPI(
@@ -250,7 +250,7 @@ class FeedAPITest extends ControllerTestUtility {
 		$feeds = array(
 			new Feed()
 		);
-		$request = new Request(array('params' => array(
+		$request = $this->getRequest(array('params' => array(
 			'url' => 'ho',
 			'folderId' => 3
 		)));
@@ -294,7 +294,7 @@ class FeedAPITest extends ControllerTestUtility {
 		$feeds = array(
 			new Feed()
 		);
-		$request = new Request(array('params' => array(
+		$request = $this->getRequest(array('params' => array(
 			'url' => 'ho',
 			'folderId' => 3
 		)));
@@ -370,7 +370,7 @@ class FeedAPITest extends ControllerTestUtility {
 
 
 	public function testRead() {
-		$request = new Request(array(
+		$request = $this->getRequest(array(
 			'urlParams' => array(
 				'feedId' => 3
 			),
@@ -404,7 +404,7 @@ class FeedAPITest extends ControllerTestUtility {
 
 
 	public function testMove() {
-		$request = new Request(array(
+		$request = $this->getRequest(array(
 			'urlParams' => array(
 				'feedId' => 3
 			),
@@ -441,7 +441,7 @@ class FeedAPITest extends ControllerTestUtility {
 		$feedId = 3;
 		$feedTitle = 'test';
 
-		$request = new Request(array(
+		$request = $this->getRequest(array(
 			'urlParams' => array(
 				'feedId' => $feedId
 			),
@@ -508,7 +508,7 @@ class FeedAPITest extends ControllerTestUtility {
 	public function testUpdate() {
 		$feedId = 3;
 		$userId = 'hi';
-		$request = new Request(array('params' => array(
+		$request = $this->getRequest(array('params' => array(
 			'feedId' => $feedId,
 			'userId' => $userId
 		)));

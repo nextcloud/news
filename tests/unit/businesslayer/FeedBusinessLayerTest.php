@@ -34,7 +34,7 @@ use \OCA\News\Db\Item;
 use \OCA\News\Fetcher\Fetcher;
 use \OCA\News\Fetcher\FetcherException;
 
-class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
+class FeedBusinessLayerTest extends \OCA\News\Utility\TestUtility {
 
 	private $feedMapper;
 	private $feedBusinessLayer;

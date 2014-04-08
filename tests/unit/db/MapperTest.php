@@ -24,8 +24,8 @@
 
 namespace OCA\News\Db;
 
-use OCA\AppFramework\Core\API;
-use OCA\AppFramework\Utility\MapperTestUtility;
+use OCA\News\Core\API;
+use OCA\News\Utility\MapperTestUtility;
 
 
 require_once(__DIR__ . "/../../classloader.php");

@@ -39,7 +39,7 @@ class TestBusinessLayer extends BusinessLayer {
 	}
 }
 
-class BusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
+class BusinessLayerTest extends \OCA\News\Utility\TestUtility {
 
 	protected $api;
 	protected $mapper;

@@ -25,7 +25,7 @@
 
 namespace OCA\News\Utility;
 
-use \OCA\AppFramework\Core\API;
+use \OCA\News\Core\API;
 
 
 class Config {

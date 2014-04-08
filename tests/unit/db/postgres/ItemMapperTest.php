@@ -32,7 +32,7 @@ use \OCA\News\Db\StatusFlag;
 require_once(__DIR__ . "/../../../classloader.php");
 
 
-class ItemMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
+class ItemMapperTest extends \OCA\News\Utility\MapperTestUtility {
 
 	private $mapper;
 	private $items;

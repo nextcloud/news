@@ -25,11 +25,11 @@
 
 namespace OCA\News\API;
 
-use \OCA\AppFramework\Http\Request;
-use \OCA\AppFramework\Http\JSONResponse;
-use \OCA\AppFramework\Utility\ControllerTestUtility;
-use \OCA\AppFramework\Http\Http;
+use \OCP\IRequest;
+use \OCP\AppFramework\Http;
+use \OCP\AppFramework\Http\JSONResponse;
 
+use \OCA\News\Utility\ControllerTestUtility;
 use \OCA\News\BusinessLayer\BusinessLayerException;
 use \OCA\News\BusinessLayer\BusinessLayerConflictException;
 use \OCA\News\BusinessLayer\BusinessLayerValidationException;
@@ -53,11 +53,11 @@ class FolderAPITest extends ControllerTestUtility {
 
 	protected function setUp() {
 		$this->api = $this->getMockBuilder(
-			'\OCA\AppFramework\Core\API')
+			'\OCA\News\Core\API')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->request = $this->getMockBuilder(
-			'\OCA\AppFramework\Http\Request')
+			'\OCP\IRequest')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->folderBusinessLayer = $this->getMockBuilder(
@@ -141,7 +141,7 @@ class FolderAPITest extends ControllerTestUtility {
 		);
 		$this->folderAPI = new FolderAPI(
 			$this->api,
-			new Request(array('params' => array(
+			$this->getRequest(array('params' => array(
 				'name' => $folderName
 			))),
 			$this->folderBusinessLayer,
@@ -214,7 +214,7 @@ class FolderAPITest extends ControllerTestUtility {
 
 		$this->folderAPI = new FolderAPI(
 			$this->api,
-			new Request(array('urlParams' => array(
+			$this->getRequest(array('urlParams' => array(
 				'folderId' => $folderId
 			))),
 			$this->folderBusinessLayer,
@@ -239,7 +239,7 @@ class FolderAPITest extends ControllerTestUtility {
 
 		$this->folderAPI = new FolderAPI(
 			$this->api,
-			new Request(array('urlParams' => array(
+			$this->getRequest(array('urlParams' => array(
 				'folderId' => $folderId
 			))),
 			$this->folderBusinessLayer,
@@ -267,7 +267,7 @@ class FolderAPITest extends ControllerTestUtility {
 
 		$this->folderAPI = new FolderAPI(
 			$this->api,
-			new Request(
+			$this->getRequest(
 				array(
 					'urlParams' => array(
 						'folderId' => $folderId
@@ -303,7 +303,7 @@ class FolderAPITest extends ControllerTestUtility {
 
 		$this->folderAPI = new FolderAPI(
 			$this->api,
-			new Request(
+			$this->getRequest(
 				array(
 					'urlParams' => array(
 						'folderId' => $folderId
@@ -339,7 +339,7 @@ class FolderAPITest extends ControllerTestUtility {
 
 		$this->folderAPI = new FolderAPI(
 			$this->api,
-			new Request(
+			$this->getRequest(
 				array(
 					'urlParams' => array(
 						'folderId' => $folderId
@@ -375,7 +375,7 @@ class FolderAPITest extends ControllerTestUtility {
 
 		$this->folderAPI = new FolderAPI(
 			$this->api,
-			new Request(
+			$this->getRequest(
 				array(
 					'urlParams' => array(
 						'folderId' => $folderId
@@ -406,7 +406,7 @@ class FolderAPITest extends ControllerTestUtility {
 
 
 	public function testRead() {
-		$request = new Request(array(
+		$request = $this->getRequest(array(
 			'urlParams' => array(
 				'folderId' => 3
 			),

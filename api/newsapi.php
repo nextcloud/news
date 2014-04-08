@@ -25,23 +25,24 @@
 
 namespace OCA\News\API;
 
-use \OCA\AppFramework\Core\API;
-use \OCA\AppFramework\Controller\Controller;
-use \OCA\AppFramework\Http\Request;
-use \OCA\AppFramework\Http\JSONResponse;
-use \OCA\AppFramework\Http\Response;
-use \OCA\AppFramework\Http\Http;
+use \OCP\IRequest;
+use \OCP\AppFramework\Controller;
+use \OCP\AppFramework\Http;
+use \OCP\AppFramework\Http\JSONResponse;
+use \OCP\AppFramework\Http\Response;
 
 use \OCA\News\Utility\Updater;
-
+use \OCA\News\Core\API;
 
 class NewsAPI extends Controller {
 
 	private $updater;
+	private $api;
 
-	public function __construct(API $api, Request $request, Updater $updater){
-		parent::__construct($api, $request);
+	public function __construct(API $api, IRequest $request, Updater $updater){
+		parent::__construct($api->getAppName(), $request);
 		$this->updater = $updater;
+		$this->api = $api;
 	}
 
 

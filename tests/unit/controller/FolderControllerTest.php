@@ -25,13 +25,11 @@
 
 namespace OCA\News\Controller;
 
-use \OCA\AppFramework\Http\Request;
-use \OCA\AppFramework\Http\JSONResponse;
-use \OCA\AppFramework\Utility\ControllerTestUtility;
-use \OCA\AppFramework\Db\DoesNotExistException;
-use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
-use \OCA\AppFramework\Http\Http;
+use \OCP\IRequest;
+use \OCP\AppFramework\Http;
+use \OCP\AppFramework\Http\JSONResponse;
 
+use \OCA\News\Utility\ControllerTestUtility;
 use \OCA\News\Db\Folder;
 use \OCA\News\Db\Feed;
 use \OCA\News\BusinessLayer\BusinessLayerException;
@@ -66,7 +64,7 @@ class FolderControllerTest extends ControllerTestUtility {
 		$this->itemBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\ItemBusinessLayer')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->request = new Request();
+		$this->request = $this->getRequest();
 		$this->controller = new FolderController($this->api, $this->request,
 				$this->folderBusinessLayer, 
 				$this->feedBusinessLayer,

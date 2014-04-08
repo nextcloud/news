@@ -25,16 +25,16 @@
 
 namespace OCA\News\Controller;
 
-use \OCA\AppFramework\Controller\Controller;
-use \OCA\AppFramework\Core\API;
-use \OCA\AppFramework\Http\Request;
+use \OCP\IRequest;
+use \OCP\AppFramework\Controller;
 
+use \OCA\News\Core\API;
 
 class PageController extends Controller {
 
 
-	public function __construct(API $api, Request $request){
-		parent::__construct($api, $request);
+	public function __construct(API $api, IRequest $request){
+		parent::__construct($api->getAppName(), $request);
 	}
 
 

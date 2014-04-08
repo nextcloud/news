@@ -25,10 +25,10 @@
 
 namespace OCA\News\Controller;
 
-use \OCA\AppFramework\Http\Request;
-use \OCA\AppFramework\Http\JSONResponse;
-use \OCA\AppFramework\Utility\ControllerTestUtility;
+use \OCP\AppFramework\Http;
+use \OCP\AppFramework\Http\JSONResponse;
 
+use \OCA\News\Utility\ControllerTestUtility;
 
 require_once(__DIR__ . "/../../classloader.php");
 
@@ -45,7 +45,7 @@ class UserSettingsControllerTest extends ControllerTestUtility {
 	 */
 	public function setUp(){
 		$this->api = $this->getAPIMock();
-		$this->request = new Request();
+		$this->request = $this->getRequest();
 		$this->controller = new UserSettingsController($this->api, $this->request);
 		$this->user = 'becka';
 	}
@@ -154,7 +154,7 @@ class UserSettingsControllerTest extends ControllerTestUtility {
 
 
 	public function testUnsetCompactView(){
-		$request = new Request(array('post' => array(
+		$request = $this->getRequest(array('post' => array(
 			'compact' => false
 		)));
 		$this->controller = new UserSettingsController($this->api, $request);
@@ -168,7 +168,7 @@ class UserSettingsControllerTest extends ControllerTestUtility {
 	}
 
 	public function testSetCompactView(){
-		$request = new Request(array('post' => array(
+		$request = $this->getRequest(array('post' => array(
 			'compact' => true
 		)));
 		$this->controller = new UserSettingsController($this->api, $request);

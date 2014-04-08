@@ -25,7 +25,7 @@
 
 namespace OCA\News\Db;
 
-use \OCA\AppFramework\Utility\MapperTestUtility;
+use \OCA\News\Utility\MapperTestUtility;
 
 require_once(__DIR__ . "/../../classloader.php");
 
@@ -64,7 +64,7 @@ class ItemMapperIntegrationTest extends MapperTestUtility {
 			return $db->prepare($sql);
 		};
 
-		$this->api = $this->getMock('OCA\AppFramework\Core\API', 
+		$this->api = $this->getMock('OCA\News\Core\API', 
 			array('prepareQuery', 'getInsertId'), array('news'));
 		$this->api->expects($this->any())
 			->method('prepareQuery')

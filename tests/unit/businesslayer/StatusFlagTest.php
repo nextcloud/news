@@ -25,13 +25,11 @@
 
 namespace OCA\News\Db;
 
-use \OCA\AppFramework\Utility\TestUtility;
-
 
 require_once(__DIR__ . "/../../classloader.php");
 
 
-class StatusFlagTest extends TestUtility {
+class StatusFlagTest extends \OCA\News\Utility\TestUtility {
 
 	private $statusFlag;
 

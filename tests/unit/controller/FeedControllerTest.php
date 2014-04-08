@@ -25,13 +25,11 @@
 
 namespace OCA\News\Controller;
 
-use \OCA\AppFramework\Http\Request;
-use \OCA\AppFramework\Http\JSONResponse;
-use \OCA\AppFramework\Http\Http;
-use \OCA\AppFramework\Utility\ControllerTestUtility;
-use \OCA\AppFramework\Db\DoesNotExistException;
-use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
+use \OCP\IRequest;
+use \OCP\AppFramework\Http;
+use \OCP\AppFramework\Http\JSONResponse;
 
+use \OCA\News\Utility\ControllerTestUtility;
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\FeedType;
 use \OCA\News\BusinessLayer\BusinessLayerException;
@@ -64,7 +62,7 @@ class FeedControllerTest extends ControllerTestUtility {
 		$this->folderBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\FolderBusinessLayer')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->request = new Request();
+		$this->request = $this->getRequest();
 		$this->controller = new FeedController($this->api, $this->request,
 				$this->folderBusinessLayer,
 				$this->feedBusinessLayer,

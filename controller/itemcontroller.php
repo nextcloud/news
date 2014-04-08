@@ -25,12 +25,12 @@
 
 namespace OCA\News\Controller;
 
-use \OCA\AppFramework\Controller\Controller;
-use \OCA\AppFramework\Core\API;
-use \OCA\AppFramework\Http\Request;
-use \OCA\AppFramework\Http\JSONResponse;
-use \OCA\AppFramework\Http\Http;
+use \OCP\IRequest;
+use \OCP\AppFramework\Controller;
+use \OCP\AppFramework\Http;
+use \OCP\AppFramework\Http\JSONResponse;
 
+use \OCA\News\Core\API;
 use \OCA\News\BusinessLayer\BusinessLayerException;
 use \OCA\News\BusinessLayer\ItemBusinessLayer;
 use \OCA\News\BusinessLayer\FeedBusinessLayer;
@@ -40,13 +40,15 @@ class ItemController extends Controller {
 
 	private $itemBusinessLayer;
 	private $feedBusinessLayer;
+	private $api;
 
-	public function __construct(API $api, Request $request, 
+	public function __construct(API $api, IRequest $request, 
 		                        FeedBusinessLayer $feedBusinessLayer,
 		                        ItemBusinessLayer $itemBusinessLayer){
-		parent::__construct($api, $request);
+		parent::__construct($api->getAppName(), $request);
 		$this->itemBusinessLayer = $itemBusinessLayer;
 		$this->feedBusinessLayer = $feedBusinessLayer;
+		$this->api = $api;
 	}
 
 

@@ -25,7 +25,7 @@
 
 namespace OCA\News\Db;
 
-use \OCA\AppFramework\Core\API;
+use \OCA\News\Core\API;
 
 
 class FeedMapper extends Mapper implements IMapper {

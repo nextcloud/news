@@ -27,8 +27,8 @@ namespace OCA\News\Middleware;
 use OCA\AppFramework\Http\Request;
 use OCA\AppFramework\Http\Response;
 use OCA\AppFramework\Middleware\Middleware;
-use OCA\AppFramework\Utility\MethodAnnotationReader;
 
+use OCA\News\Utility\MethodAnnotationReader;
 
 class CORSMiddleware extends Middleware {
 
