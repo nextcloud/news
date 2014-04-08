@@ -5,9 +5,7 @@ php:
   - 5.5
 
 before_install:
-  - ls
   - cd ..
-  - ls
   - git clone https://github.com/owncloud/core.git
   - mv news core/apps/
   - cd core
