@@ -25,66 +25,22 @@ describe '_Request', ->
 	beforeEach module 'News'
 
 	beforeEach inject (_Request, _Publisher) =>
-		@router =
-			generate: (route, values) ->
+		@utils =
+			generateUrl: (route, values) ->
 				return 'url'
-			registerLoadedCallback: (callback) ->
-				callback()
 		@publisher = new _Publisher()
 		@request = _Request
 
 
-
-	it 'should not send requests if not initialized', =>
-		http = jasmine.createSpy('http')
-		@router.registerLoadedCallback = ->
-		req = new @request(http, @publisher, @router)
-
-		req.request('route')
-
-		expect(http).not.toHaveBeenCalled()
-
-
-	it 'should send requests if initialized', =>
-		success =
-			success: ->
-				error: ->
-
-		@router.registerLoadedCallback = (callback) ->
-			@callback = callback
-		@router.call = ->
-			@callback()
-
-		http = jasmine.createSpy('http').andReturn(success)
-
-		config =
-			route: 'route'
-			data:
-				data:
-					abc: 'test'
-
-		called =
-			url: 'url'
-			data: config.data.data
-
-		req = new @request(http, @publisher, @router)
-		req.request(config.route, config.data)
-
-		@router.call()
-
-		expect(http).toHaveBeenCalledWith(called)
-		expect(http.callCount).toBe(1)
-
-
-	it 'should should call router', =>
+	it 'should should call utils', =>
 		success =
 			success: ->
 				error: ->
 
 		http = jasmine.createSpy('http').andReturn(success)
-		router =
-			generate: jasmine.createSpy('router').andReturn('url')
-			registerLoadedCallback: @router.registerLoadedCallback
+		utils =
+			generateUrl: jasmine.createSpy('utils').andReturn('url')
+			registerLoadedCallback: @utils.registerLoadedCallback
 
 		config =
 			route: 'route'
@@ -92,10 +48,10 @@ describe '_Request', ->
 				routeParams:
 					test: 'test'
 
-		req = new @request(http, @publisher, router)
+		req = new @request(http, @publisher, utils)
 		req.request(config.route, config.data)
 
-		expect(router.generate).toHaveBeenCalledWith(config.route,
+		expect(utils.generateUrl).toHaveBeenCalledWith(config.route,
 				config.data.routeParams)
 
 
@@ -112,7 +68,7 @@ describe '_Request', ->
 		onSuccess = jasmine.createSpy('onSucces')
 		onFailure = jasmine.createSpy('onFailure')
 
-		req = new @request(http, @publisher, @router)
+		req = new @request(http, @publisher, @utils)
 		data =
 			onSuccess: onSuccess
 			onFailure: onFailure
@@ -139,7 +95,7 @@ describe '_Request', ->
 
 		http = jasmine.createSpy('http').andReturn(success)
 
-		req = new @request(http, publisher, @router)
+		req = new @request(http, publisher, @utils)
 		req.request(null)
 
 		expect(publisher.publishDataTo).toHaveBeenCalledWith(
@@ -154,7 +110,7 @@ describe '_Request', ->
 				error: ->
 
 		http = jasmine.createSpy('http').andReturn(success)
-		req = new @request(http, @publisher, @router)
+		req = new @request(http, @publisher, @utils)
 
 		defaultConfig =
 			config:
@@ -174,7 +130,7 @@ describe '_Request', ->
 				error: ->
 
 		http = jasmine.createSpy('http').andReturn(success)
-		req = new @request(http, @publisher, @router)
+		req = new @request(http, @publisher, @utils)
 
 		defaultConfig =
 			config:
@@ -193,7 +149,7 @@ describe '_Request', ->
 				error: ->
 
 		http = jasmine.createSpy('http').andReturn(success)
-		req = new @request(http, @publisher, @router)
+		req = new @request(http, @publisher, @utils)
 
 		defaultConfig =
 			config:
@@ -214,7 +170,7 @@ describe '_Request', ->
 				error: ->
 
 		http = jasmine.createSpy('http').andReturn(success)
-		req = new @request(http, @publisher, @router)
+		req = new @request(http, @publisher, @utils)
 
 		data =
 			config:
@@ -239,7 +195,7 @@ describe '_Request', ->
 				error: ->
 
 		http = jasmine.createSpy('http').andReturn(success)
-		req = new @request(http, @publisher, @router)
+		req = new @request(http, @publisher, @utils)
 
 		defaultConfig =
 			config:
@@ -259,7 +215,7 @@ describe '_Request', ->
 				error: ->
 
 		http = jasmine.createSpy('http').andReturn(success)
-		req = new @request(http, @publisher, @router)
+		req = new @request(http, @publisher, @utils)
 
 		defaultConfig =
 			config:

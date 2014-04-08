@@ -26,14 +26,7 @@ angular.module('News').factory '_Request', ->
 
 	class Request
 
-		constructor: (@_$http, @_publisher, @_router) ->
-			@_initialized = false
-			@_shelvedRequests = []
-
-			@_router.registerLoadedCallback =>
-				@_initialized = true
-				@_executeShelvedRequests()
-				@_shelvedRequests = []
+		constructor: (@_$http, @_publisher, @_utils) ->
 
 
 		request: (route, data={}) ->
@@ -58,12 +51,7 @@ angular.module('News').factory '_Request', ->
 
 			angular.extend(defaultData, data)
 
-			# if routes are not ready yet, save the request
-			if not @_initialized
-				@_shelveRequest(route, defaultData)
-				return
-
-			url = @_router.generate(route, defaultData.routeParams)
+			url = @_utils.generateUrl(route, defaultData.routeParams)
 
 			defaultConfig =
 				url: url
@@ -124,27 +112,6 @@ angular.module('News').factory '_Request', ->
 			data.config or= {}
 			data.config.method = 'DELETE'
 			@request(route, data)
-
-
-		_shelveRequest: (route, data) ->
-			###
-			Saves requests for later if the routes have not been loaded
-			###
-			request =
-				route: route
-				data: data
-
-			@_shelvedRequests.push(request)
-
-
-		_executeShelvedRequests: ->
-			###
-			Run all saved requests that were done before routes were fully
-			loaded
-			###
-			for r in @_shelvedRequests
-				@request(r.route, r.data)
-
 
 
 	return Request

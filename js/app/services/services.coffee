@@ -23,9 +23,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 # request related stuff
 angular.module('News').factory 'Request',
-['_Request', '$http', 'Publisher', 'Router',
-(_Request, $http, Publisher, Router) ->
-	return new _Request($http, Publisher, Router)
+['_Request', '$http', 'Publisher', 'Utils',
+(_Request, $http, Publisher, Utils) ->
+	return new _Request($http, Publisher, Utils)
 ]
 
 
