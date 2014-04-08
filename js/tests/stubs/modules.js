@@ -20,4 +20,4 @@
  */
 
 // module definition for testing
-angular.module('News', ['OC', 'ngMock']);
+angular.module('News', ['ngMock']);

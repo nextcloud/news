@@ -32,6 +32,7 @@ module.exports = function(config) {
 		files: [
 			'vendor/jquery/dist/jquery.js',
 			'vendor/jquery-ui/ui/jquery-ui.js',
+			'vendor/bootstrap/tooltip.js',
 			'vendor/angular/angular.js',
 			'vendor/angular-mocks/angular-mocks.js',
 			'vendor/angular-ui/build/angular-ui.js',

@@ -22,7 +22,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 
 # app main
-angular.module('News', ['OC', 'ui']).config ($provide) ->
+angular.module('News', ['ui']).config ['$provide', '$httpProvider',
+($provide, $httpProvider) ->
 	$provide.value 'Config', config =
 		markReadTimeout: 500
 		scrollTimeout: 500
@@ -33,6 +34,9 @@ angular.module('News', ['OC', 'ui']).config ($provide) ->
 		# before it starts autopaging
 		autoPageFactor: 30
 
+	# Always send the CSRF token by default
+	$httpProvider.defaults.headers.common['requesttoken'] = oc_requesttoken
+]
 
 angular.module('News').run ['Persistence', 'Config',
 (Persistence, Config) ->
