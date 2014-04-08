@@ -5,7 +5,12 @@ php:
   - 5.5
 
 before_install:
-  - cd ..; git clone https://github.com/owncloud/appframework; cd news
+  - git clone https://github.com/owncloud/core.git
+  - cd core
+  - git submodule init
+  - git submodule update
+  - cd apps
+  - git clone https://github.com/owncloud/appframework
 
 script:
   - sudo add-apt-repository -y ppa:chris-lea/node.js
