@@ -5,7 +5,9 @@ php:
   - 5.5
 
 before_install:
+  - ls
   - cd ..
+  - ls
   - git clone https://github.com/owncloud/core.git
   - cd core
   - git submodule init
