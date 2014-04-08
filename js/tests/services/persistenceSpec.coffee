@@ -358,7 +358,7 @@ describe 'Persistence', ->
 		@Persistence.createFolder(params.data.folderName, params.data.parentFolderId,
 			params.onSuccess, params.onFailure)
 
-		expect(@req.post).toHaveBeenCalledWith('/apps/news/folders/create', params)
+		expect(@req.post).toHaveBeenCalledWith('/apps/news/folders', params)
 
 
 	it 'should do a proper folder delete request', =>

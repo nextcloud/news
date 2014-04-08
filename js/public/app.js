@@ -3807,7 +3807,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
             onSuccess: onSuccess,
             onFailure: onFailure
           };
-          return this._request.post('/apps/news/folders/create', params);
+          return this._request.post('/apps/news/folders', params);
         };
 
         Persistence.prototype.deleteFolder = function(folderId) {

@@ -378,7 +378,7 @@ $rootScope, $q) ->
 				onSuccess: onSuccess
 				onFailure: onFailure
 
-			@_request.post '/apps/news/folders/create', params
+			@_request.post '/apps/news/folders', params
 
 
 		deleteFolder: (folderId) ->
