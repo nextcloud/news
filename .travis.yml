@@ -10,7 +10,9 @@ before_install:
   - cd core
   - git submodule init
   - git submodule update
-  - cd apps
+  - cd 3rdparty
+  - git checkout stable6
+  - cd ../apps
   - git clone https://github.com/owncloud/appframework
   - mv news core/apps/
   - cd core/apps/news
