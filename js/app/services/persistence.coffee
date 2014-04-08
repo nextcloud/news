@@ -101,7 +101,7 @@ $rootScope, $q) ->
 				onFailure: failureCallbackWrapper
 
 			if not @_preventUselessAutoPageRequest
-				@_request.get 'news_items', params
+				@_request.get '/apps/news/items', params
 			else
 				# this case happens if an autopage request is prevented if when
 				# there are no new items. we still have to remove the loading
@@ -121,7 +121,7 @@ $rootScope, $q) ->
 				onSuccess: onSuccess
 				onFailure: onSuccess
 
-			@_request.get 'news_items_new', params
+			@_request.get '/apps/news/items/new', params
 
 
 		starItem: (feedId, guidHash) ->
@@ -133,7 +133,7 @@ $rootScope, $q) ->
 					feedId: feedId
 					guidHash: guidHash
 
-			@_request.post 'news_items_star', params
+			@_request.post '/apps/news/items/{feedId}/{guidHash}/star', params
 
 
 		unstarItem: (feedId, guidHash) ->
@@ -145,7 +145,7 @@ $rootScope, $q) ->
 					feedId: feedId
 					guidHash: guidHash
 
-			@_request.post 'news_items_unstar', params
+			@_request.post '/apps/news/items/{feedId}/{guidHash}/unstar', params
 
 
 		readItem: (itemId) ->
@@ -156,7 +156,7 @@ $rootScope, $q) ->
 				routeParams:
 					itemId: itemId
 
-			@_request.post 'news_items_read', params
+			@_request.post '/apps/news/items/{itemId}/read', params
 
 
 
@@ -168,7 +168,7 @@ $rootScope, $q) ->
 				routeParams:
 					itemId: itemId
 
-			@_request.post 'news_items_unread', params
+			@_request.post '/apps/news/items/{itemId}/unread', params
 
 
 		setAllRead: (highestItemId) ->
@@ -179,7 +179,7 @@ $rootScope, $q) ->
 				data:
 					highestItemId: highestItemId
 
-			@_request.post 'news_items_all_read', params
+			@_request.post '/apps/news/items/read', params
 
 
 		###
@@ -205,7 +205,7 @@ $rootScope, $q) ->
 				onSuccess: successCallbackWrapper
 				onFailure: failureCallbackWrapper
 
-			@_request.get 'news_feeds', params
+			@_request.get '/apps/news/feeds', params
 
 
 		getActiveFeed: (onSuccess) ->
@@ -221,7 +221,7 @@ $rootScope, $q) ->
 				onSuccess: successCallbackWrapper
 				onFailure: failureCallbackWrapper
 
-			@_request.get 'news_feeds_active', params
+			@_request.get '/apps/news/feeds/active', params
 
 
 		createFeed: (url, parentFolderId, onSuccess=null, onFailure=null) ->
@@ -234,7 +234,7 @@ $rootScope, $q) ->
 				onSuccess: onSuccess
 				onFailure: onFailure
 
-			@_request.post 'news_feeds_create', params
+			@_request.post '/apps/news/feeds', params
 
 
 		deleteFeed: (feedId) ->
@@ -242,7 +242,7 @@ $rootScope, $q) ->
 				routeParams:
 					feedId: feedId
 
-			@_request.delete 'news_feeds_delete', params
+			@_request.delete '/apps/news/feeds/{feedId}', params
 
 
 		restoreFeed: (feedId, onSuccess=null) ->
@@ -252,7 +252,7 @@ $rootScope, $q) ->
 				routeParams:
 					feedId: feedId
 
-			@_request.post 'news_feeds_restore', params
+			@_request.post '/apps/news/feeds/{feedId}/restore', params
 
 
 		moveFeed: (feedId, folderId) ->
@@ -265,7 +265,7 @@ $rootScope, $q) ->
 				data:
 					parentFolderId: folderId
 
-			@_request.post 'news_feeds_move', params
+			@_request.post '/apps/news/feeds/{feedId}/move', params
 
 
 		renameFeed: (feedId, feedTitle) ->
@@ -278,7 +278,7 @@ $rootScope, $q) ->
 				data:
 					feedTitle: feedTitle
 
-			@_request.post 'news_feeds_rename', params
+			@_request.post '/apps/news/feeds/{feedId}/rename', params
 
 
 		setFeedRead: (feedId, highestItemId) ->
@@ -291,7 +291,7 @@ $rootScope, $q) ->
 				data:
 					highestItemId: highestItemId
 
-			@_request.post 'news_feeds_read', params
+			@_request.post '/apps/news/feeds/{feedId}/read', params
 
 
 		updateFeed: (feedId) ->
@@ -302,7 +302,7 @@ $rootScope, $q) ->
 				routeParams:
 					feedId: feedId
 
-			@_request.post 'news_feeds_update', params
+			@_request.post '/apps/news/feeds/{feedId}/update', params
 
 
 		importArticles: (json, onSuccess) ->
@@ -313,7 +313,7 @@ $rootScope, $q) ->
 					@getAllFeeds()
 					onSuccess()
 
-			@_request.post 'news_feeds_import_articles', params
+			@_request.post '/apps/news/feeds/import/articles', params
 
 
 		###
@@ -341,7 +341,7 @@ $rootScope, $q) ->
 				onSuccess: successCallbackWrapper
 				onFailure: failureCallbackWrapper
 
-			@_request.get 'news_folders', params
+			@_request.get '/apps/news/folders', params
 
 	
 		openFolder: (folderId) ->
@@ -352,7 +352,7 @@ $rootScope, $q) ->
 				routeParams:
 					folderId: folderId
 
-			@_request.post 'news_folders_open', params
+			@_request.post '/apps/news/folders/{folderId}/open', params
 
 
 		collapseFolder: (folderId) ->
@@ -363,7 +363,7 @@ $rootScope, $q) ->
 				routeParams:
 					folderId: folderId
 
-			@_request.post 'news_folders_collapse', params
+			@_request.post '/apps/news/folders/{folderId}/collapse', params
 
 
 		createFolder: (folderName, parentFolderId=0, onSuccess=null,
@@ -378,7 +378,7 @@ $rootScope, $q) ->
 				onSuccess: onSuccess
 				onFailure: onFailure
 
-			@_request.post 'news_folders_create', params
+			@_request.post '/apps/news/folders/create', params
 
 
 		deleteFolder: (folderId) ->
@@ -389,7 +389,7 @@ $rootScope, $q) ->
 				routeParams:
 					folderId: folderId
 
-			@_request.delete 'news_folders_delete', params
+			@_request.delete '/apps/news/folders/{folderId}', params
 
 
 		restoreFolder: (folderId, onSuccess=null) ->
@@ -399,7 +399,7 @@ $rootScope, $q) ->
 				routeParams:
 					folderId: folderId
 
-			@_request.post 'news_folders_restore', params
+			@_request.post '/apps/news/folders/{folderId}/restore', params
 
 
 		renameFolder: (folderId, folderName) ->
@@ -412,7 +412,7 @@ $rootScope, $q) ->
 				data:
 					folderName: folderName
 
-			@_request.post 'news_folders_rename', params
+			@_request.post '/apps/news/folders/{folderId}/rename', params
 
 
 		setFolderRead: (folderId, highestItemId) ->
@@ -425,7 +425,7 @@ $rootScope, $q) ->
 				data:
 					highestItemId: highestItemId
 
-			@_request.post 'news_folders_read', params
+			@_request.post '/apps/news/folders/{folderId}/read', params
 
 
 
@@ -436,7 +436,7 @@ $rootScope, $q) ->
 			###
 			Prompts for an OPML download
 			###
-			@_request.get 'news_export_opml'
+			@_request.get '/apps/news/export/opml'
 
 
 		###
@@ -460,7 +460,7 @@ $rootScope, $q) ->
 				onSuccess: successCallbackWrapper
 				onFailure: failureCallbackWrapper
 
-			@_request.get 'news_usersettings_read', params
+			@_request.get '/apps/news/usersettings/read', params
 
 
 		userSettingsReadShow: (callback) ->
@@ -469,7 +469,7 @@ $rootScope, $q) ->
 			###
 			data =
 				onSuccess: callback
-			@_request.post 'news_usersettings_read_show', data
+			@_request.post '/apps/news/usersettings/read/show', data
 
 
 		userSettingsReadHide: (callback) ->
@@ -478,7 +478,7 @@ $rootScope, $q) ->
 			###
 			data =
 				onSuccess: callback
-			@_request.post 'news_usersettings_read_hide', data
+			@_request.post '/apps/news/usersettings/read/hide', data
 
 
 		userSettingsLanguage: (onSuccess=null) ->
@@ -496,11 +496,11 @@ $rootScope, $q) ->
 				onSuccess: successCallbackWrapper
 				onFailure: failureCallbackWrapper
 
-			@_request.get 'news_usersettings_language', data
+			@_request.get '/apps/news/usersettings/language', data
 
 
 		userSettingsIsCompact: ->
-			@_request.get 'news_usersettings_iscompact'
+			@_request.get '/apps/news/usersettings/compact'
 
 
 		userSettingsSetCompact: (isCompact) ->
@@ -511,7 +511,7 @@ $rootScope, $q) ->
 				data:
 					compact: isCompact
 
-			@_request.post 'news_usersettings_setcompact', params
+			@_request.post '/apps/news/usersettings/compact', params
 
 
 		_triggerHideRead: ->

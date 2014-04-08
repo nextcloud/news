@@ -71,7 +71,7 @@ describe 'Persistence', ->
 				limit: @config.itemBatchSize
 				offset: 3
 
-		expect(@req.get).toHaveBeenCalledWith('news_items', expected)
+		expect(@req.get).toHaveBeenCalledWith('/apps/news/items', expected)
 
 
 	it 'should reset the autopage lock when loading a new feed', =>
@@ -124,7 +124,7 @@ describe 'Persistence', ->
 		@Persistence.getNewItems(params.data.type, params.data.id,
 		                      params.data.lastModified, success)
 
-		expect(@req.get).toHaveBeenCalledWith('news_items_new', params)
+		expect(@req.get).toHaveBeenCalledWith('/apps/news/items/new', params)
 
 
 	it 'send a correct star item request', =>
@@ -135,7 +135,7 @@ describe 'Persistence', ->
 
 		@Persistence.starItem(params.routeParams.feedId, params.routeParams.guidHash)
 
-		expect(@req.post).toHaveBeenCalledWith('news_items_star', params)
+		expect(@req.post).toHaveBeenCalledWith('/apps/news/items/{feedId}/{guidHash}/star', params)
 
 
 	it 'send a correct unstar item request', =>
@@ -147,7 +147,7 @@ describe 'Persistence', ->
 		@Persistence.unstarItem(params.routeParams.feedId,
 			params.routeParams.guidHash)
 
-		expect(@req.post).toHaveBeenCalledWith('news_items_unstar', params)
+		expect(@req.post).toHaveBeenCalledWith('/apps/news/items/{feedId}/{guidHash}/unstar', params)
 
 
 	it 'send a correct read item request', =>
@@ -158,7 +158,7 @@ describe 'Persistence', ->
 
 		@Persistence.readItem(params.routeParams.itemId)
 
-		expect(@req.post).toHaveBeenCalledWith('news_items_read', params)
+		expect(@req.post).toHaveBeenCalledWith('/apps/news/items/{itemId}/read', params)
 
 
 	it 'send a correct unread item request', =>
@@ -168,10 +168,10 @@ describe 'Persistence', ->
 
 		@Persistence.unreadItem(params.routeParams.itemId)
 
-		expect(@req.post).toHaveBeenCalledWith('news_items_unread', params)
+		expect(@req.post).toHaveBeenCalledWith('/apps/news/items/{itemId}/unread', params)
 
 
-	it 'shoud send a correct request for marking all items read', =>
+	it 'should send a correct request for marking all items read', =>
 		params =
 			data:
 				highestItemId: 4
@@ -194,7 +194,7 @@ describe 'Persistence', ->
 			onSuccess: jasmine.any(Function)
 			onFailure: jasmine.any(Function)
 
-		expect(@req.get).toHaveBeenCalledWith('news_feeds', expected)
+		expect(@req.get).toHaveBeenCalledWith('/apps/news/feeds', expected)
 
 
 	it 'should not show loading sign if disabled', =>
@@ -212,7 +212,7 @@ describe 'Persistence', ->
 
 		@Persistence.moveFeed(params.routeParams.feedId, params.data.parentFolderId)
 
-		expect(@req.post).toHaveBeenCalledWith('news_feeds_move', params)
+		expect(@req.post).toHaveBeenCalledWith('/apps/news/feeds/{feedId}/move', params)
 
 
 	it 'create a correct request for renaming a feed', =>
@@ -224,7 +224,7 @@ describe 'Persistence', ->
 
 		@Persistence.renameFeed(params.routeParams.feedId, params.data.feedTitle)
 
-		expect(@req.post).toHaveBeenCalledWith('news_feeds_rename', params)
+		expect(@req.post).toHaveBeenCalledWith('/apps/news/feeds/{feedId}/rename', params)
 
 
 	it 'shoud send a correct request for marking all items of a feed read', =>
@@ -237,7 +237,7 @@ describe 'Persistence', ->
 		@Persistence.setFeedRead(params.routeParams.feedId, params.data.highestItemId)
 
 
-		expect(@req.post).toHaveBeenCalledWith('news_feeds_read', params)
+		expect(@req.post).toHaveBeenCalledWith('/apps/news/feeds/{feedId}/read', params)
 
 
 	it 'send a correct feed update request', =>
@@ -247,7 +247,7 @@ describe 'Persistence', ->
 
 		@Persistence.updateFeed(params.routeParams.feedId)
 
-		expect(@req.post).toHaveBeenCalledWith('news_feeds_update', params)
+		expect(@req.post).toHaveBeenCalledWith('/apps/news/feeds/{feedId}/update', params)
 
 
 	it 'send a correct get active feed request', =>
@@ -260,7 +260,7 @@ describe 'Persistence', ->
 			onSuccess: jasmine.any(Function)
 			onFailure: jasmine.any(Function)
 
-		expect(@req.get).toHaveBeenCalledWith('news_feeds_active', expected)
+		expect(@req.get).toHaveBeenCalledWith('/apps/news/feeds/active', expected)
 
 
 	it 'send a correct feed delete request', =>
@@ -270,7 +270,7 @@ describe 'Persistence', ->
 
 		@Persistence.deleteFeed(params.routeParams.feedId)
 
-		expect(@req.delete).toHaveBeenCalledWith('news_feeds_delete', params)
+		expect(@req.delete).toHaveBeenCalledWith('/apps/news/feeds/{feedId}', params)
 
 
 	it 'send a correct feed restore request', =>
@@ -281,7 +281,7 @@ describe 'Persistence', ->
 
 		@Persistence.restoreFeed(params.routeParams.feedId, params.onSuccess)
 
-		expect(@req.post).toHaveBeenCalledWith('news_feeds_restore', params)
+		expect(@req.post).toHaveBeenCalledWith('/apps/news/feeds/{feedId}/restore', params)
 
 
 	it 'send a correct feed create request', =>
@@ -295,7 +295,7 @@ describe 'Persistence', ->
 		@Persistence.createFeed(params.data.url, params.data.parentFolderId,
 						params.onSuccess, params.onFailure)
 
-		expect(@req.post).toHaveBeenCalledWith('news_feeds_create', params)
+		expect(@req.post).toHaveBeenCalledWith('/apps/news/feeds', params)
 
 
 	it 'should do a proper import articles request', =>
@@ -307,7 +307,7 @@ describe 'Persistence', ->
 		@Persistence.importArticles(params.data.json, ->)
 
 
-		expect(@req.post).toHaveBeenCalledWith('news_feeds_import_articles',
+		expect(@req.post).toHaveBeenCalledWith('/apps/news/feeds/import/articles',
 			params)
 
 
@@ -324,7 +324,7 @@ describe 'Persistence', ->
 			onSuccess: jasmine.any(Function)
 			onFailure: jasmine.any(Function)
 
-		expect(@req.get).toHaveBeenCalledWith('news_folders', expected)
+		expect(@req.get).toHaveBeenCalledWith('/apps/news/folders', expected)
 
 
 	it 'send a correct collapse folder request', =>
@@ -334,7 +334,7 @@ describe 'Persistence', ->
 
 		@Persistence.collapseFolder(params.routeParams.folderId)
 
-		expect(@req.post).toHaveBeenCalledWith('news_folders_collapse', params)
+		expect(@req.post).toHaveBeenCalledWith('/apps/news/folders/{folderId}/collapse', params)
 
 
 	it 'send a correct open folder request', =>
@@ -344,7 +344,7 @@ describe 'Persistence', ->
 
 		@Persistence.openFolder(params.routeParams.folderId)
 
-		expect(@req.post).toHaveBeenCalledWith('news_folders_open', params)
+		expect(@req.post).toHaveBeenCalledWith('/apps/news/folders/{folderId}/open', params)
 
 
 	it 'should do a proper folder create request', =>
@@ -358,7 +358,7 @@ describe 'Persistence', ->
 		@Persistence.createFolder(params.data.folderName, params.data.parentFolderId,
 			params.onSuccess, params.onFailure)
 
-		expect(@req.post).toHaveBeenCalledWith('news_folders_create', params)
+		expect(@req.post).toHaveBeenCalledWith('/apps/news/folders/create', params)
 
 
 	it 'should do a proper folder delete request', =>
@@ -368,7 +368,7 @@ describe 'Persistence', ->
 
 		@Persistence.deleteFolder(params.routeParams.folderId)
 
-		expect(@req.delete).toHaveBeenCalledWith('news_folders_delete', params)
+		expect(@req.delete).toHaveBeenCalledWith('/apps/news/folders/{folderId}', params)
 
 
 	it 'send a correct folder restore request', =>
@@ -379,7 +379,7 @@ describe 'Persistence', ->
 
 		@Persistence.restoreFolder(params.routeParams.folderId, params.onSuccess)
 
-		expect(@req.post).toHaveBeenCalledWith('news_folders_restore', params)
+		expect(@req.post).toHaveBeenCalledWith('/apps/news/folders/{folderId}/restore', params)
 
 
 	it 'should do a proper folder rename request', =>
@@ -391,7 +391,7 @@ describe 'Persistence', ->
 
 		@Persistence.renameFolder(params.routeParams.folderId, params.data.folderName)
 
-		expect(@req.post).toHaveBeenCalledWith('news_folders_rename', params)
+		expect(@req.post).toHaveBeenCalledWith('/apps/news/folders/{folderId}/rename', params)
 
 
 	it 'shoud send a correct request for marking all items of a folders read', =>
@@ -405,7 +405,7 @@ describe 'Persistence', ->
 		                           params.data.highestItemId)
 
 
-		expect(@req.post).toHaveBeenCalledWith('news_folders_read', params)
+		expect(@req.post).toHaveBeenCalledWith('/apps/news/folders/{folderId}/read', params)
 
 
 	###
@@ -414,7 +414,7 @@ describe 'Persistence', ->
 	it 'should have an export request', =>
 		@Persistence.exportOPML()
 
-		expect(@req.get).toHaveBeenCalledWith('news_export_opml')
+		expect(@req.get).toHaveBeenCalledWith('/apps/news/export/opml')
 
 
 	###
@@ -431,7 +431,7 @@ describe 'Persistence', ->
 			onSuccess: jasmine.any(Function)
 			onFailure: jasmine.any(Function)
 
-		expect(@req.get).toHaveBeenCalledWith('news_usersettings_read', expected)
+		expect(@req.get).toHaveBeenCalledWith('/apps/news/usersettings/read', expected)
 
 	
 
@@ -441,7 +441,7 @@ describe 'Persistence', ->
 
 		@Persistence.userSettingsReadShow(params.onSuccess)
 
-		expect(@req.post).toHaveBeenCalledWith('news_usersettings_read_show',
+		expect(@req.post).toHaveBeenCalledWith('/apps/news/usersettings/read/show',
 			params)
 
 
@@ -450,7 +450,7 @@ describe 'Persistence', ->
 			onSuccess: ->
 		@Persistence.userSettingsReadHide(params.onSuccess)
 
-		expect(@req.post).toHaveBeenCalledWith('news_usersettings_read_hide',
+		expect(@req.post).toHaveBeenCalledWith('/apps/news/usersettings/read/hide',
 			params)
 
 
@@ -464,14 +464,14 @@ describe 'Persistence', ->
 			onSuccess: jasmine.any(Function)
 			onFailure: jasmine.any(Function)
 
-		expect(@req.get).toHaveBeenCalledWith('news_usersettings_language',
+		expect(@req.get).toHaveBeenCalledWith('/apps/news/usersettings/language',
 			expected)
 
 
 	it 'should send a get compact view request', =>
 		@Persistence.userSettingsIsCompact()
 
-		expect(@req.get).toHaveBeenCalledWith('news_usersettings_iscompact')
+		expect(@req.get).toHaveBeenCalledWith('/apps/news/usersettings/compact')
 
 
 	it 'should send a set compact view request', =>
@@ -481,7 +481,7 @@ describe 'Persistence', ->
 			data:
 				compact: true
 
-		expect(@req.post).toHaveBeenCalledWith('news_usersettings_setcompact',
+		expect(@req.post).toHaveBeenCalledWith('/apps/news/usersettings/compact',
 			expected)
 
 
