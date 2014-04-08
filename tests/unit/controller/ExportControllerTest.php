@@ -29,8 +29,6 @@ use \OCA\AppFramework\Http\Request;
 use \OCA\AppFramework\Http\TextDownloadResponse;
 use \OCA\AppFramework\Http\JSONResponse;
 use \OCA\AppFramework\Utility\ControllerTestUtility;
-use \OCA\AppFramework\Db\DoesNotExistException;
-use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
 
 use \OCA\News\Utility\OPMLExporter;
 use \OCA\News\Db\Item;

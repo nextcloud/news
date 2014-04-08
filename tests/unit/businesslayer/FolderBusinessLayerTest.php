@@ -43,7 +43,7 @@ class FolderBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->api = $this->getAPIMock();
 		$this->time = 222;
 		$timeFactory = $this->getMockBuilder(
-			'\OCA\AppFramework\Utility\TimeFactory')
+			'\OCA\News\Utility\TimeFactory')
 			->disableOriginalConstructor()
 			->getMock();
 		$timeFactory->expects($this->any())

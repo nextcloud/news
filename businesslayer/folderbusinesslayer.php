@@ -26,10 +26,10 @@
 namespace OCA\News\BusinessLayer;
 
 use \OCA\AppFramework\Core\API;
-use \OCA\AppFramework\Utility\TimeFactory;
 
 use \OCA\News\Db\Folder;
 use \OCA\News\Db\FolderMapper;
+use \OCA\News\Utility\TimeFactory;
 
 
 class FolderBusinessLayer extends BusinessLayer {

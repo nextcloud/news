@@ -25,10 +25,9 @@
 
 namespace OCA\News\BusinessLayer;
 
-use \OCA\AppFramework\Db\DoesNotExistException;
-use \OCA\AppFramework\Utility\TimeFactory;
 use \OCA\AppFramework\Core\API;
 
+use \OCA\News\Db\DoesNotExistException;
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\Item;
 use \OCA\News\Db\FeedMapper;
@@ -36,6 +35,7 @@ use \OCA\News\Db\ItemMapper;
 use \OCA\News\Fetcher\Fetcher;
 use \OCA\News\Fetcher\FetcherException;
 use \OCA\News\ArticleEnhancer\Enhancer;
+use \OCA\News\Utility\TimeFactory;
 
 class FeedBusinessLayer extends BusinessLayer {
 

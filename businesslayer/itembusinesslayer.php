@@ -25,13 +25,12 @@
 
 namespace OCA\News\BusinessLayer;
 
-use \OCA\AppFramework\Utility\TimeFactory;
-use \OCA\AppFramework\Db\DoesNotExistException;
-
 use \OCA\News\Db\Item;
 use \OCA\News\Db\ItemMapper;
 use \OCA\News\Db\StatusFlag;
 use \OCA\News\Db\FeedType;
+use \OCA\News\Db\DoesNotExistException;
+use \OCA\News\Utility\TimeFactory;
 
 
 class ItemBusinessLayer extends BusinessLayer {

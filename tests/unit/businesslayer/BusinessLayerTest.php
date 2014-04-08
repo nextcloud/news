@@ -28,8 +28,8 @@ namespace OCA\News\BusinessLayer;
 require_once(__DIR__ . "/../../classloader.php");
 
 
-use \OCA\AppFramework\Db\DoesNotExistException;
-use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
+use \OCA\News\Db\DoesNotExistException;
+use \OCA\News\Db\MultipleObjectsReturnedException;
 use \OCA\News\Db\Folder;
 
 

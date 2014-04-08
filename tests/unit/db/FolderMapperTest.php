@@ -78,7 +78,7 @@ class FolderMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 			
 		$this->setMapperResult($sql, array($id, $userId));
 		
-		$this->setExpectedException('\OCA\AppFramework\Db\DoesNotExistException');
+		$this->setExpectedException('\OCA\News\Db\DoesNotExistException');
 		$result = $this->folderMapper->find($id, $userId);	
 	}
 	
@@ -96,7 +96,7 @@ class FolderMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		
 		$this->setMapperResult($sql, array($id, $userId), $rows);
 		
-		$this->setExpectedException('\OCA\AppFramework\Db\MultipleObjectsReturnedException');
+		$this->setExpectedException('\OCA\News\Db\MultipleObjectsReturnedException');
 		$result = $this->folderMapper->find($id, $userId);
 	}
 

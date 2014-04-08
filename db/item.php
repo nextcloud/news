@@ -25,8 +25,6 @@
 
 namespace OCA\News\Db;
 
-use \OCA\AppFramework\Db\Entity;
-
 
 class Item extends Entity implements IAPI {
 

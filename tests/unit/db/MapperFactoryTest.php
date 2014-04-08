@@ -29,7 +29,7 @@ require_once(__DIR__ . "/../../classloader.php");
 
 
 
-class MapperTest extends \PHPUnit_Framework_TestCase {
+class MapperFactoryTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function setUp() {

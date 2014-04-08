@@ -67,7 +67,7 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 			->disableOriginalConstructor()
 			->getMock();
 		$this->coreFactory = $this->getMockBuilder(
-			'\OCA\AppFramework\Utility\SimplePieAPIFactory')
+			'\OCA\News\Utility\SimplePieAPIFactory')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->coreFactory->expects($this->any())
@@ -78,12 +78,12 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 			->disableOriginalConstructor()
 			->getMock();
 		$this->faviconFetcher = $this->getMockBuilder(
-			'\OCA\AppFramework\Utility\FaviconFetcher')
+			'\OCA\News\Utility\FaviconFetcher')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->time = 2323;
 		$timeFactory = $this->getMockBuilder(
-			'\OCA\AppFramework\Utility\TimeFactory')
+			'\OCA\News\Utility\TimeFactory')
 			->disableOriginalConstructor()
 			->getMock();
 		$timeFactory->expects($this->any())

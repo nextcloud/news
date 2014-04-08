@@ -24,9 +24,6 @@
 
 namespace OCA\News\Db;
 
-use \OCA\AppFramework\Db\DoesNotExistException;
-use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
-use \OCA\AppFramework\Db\Mapper;
 use \OCA\AppFramework\Core\API;
 
 class ItemMapper extends Mapper implements IMapper {

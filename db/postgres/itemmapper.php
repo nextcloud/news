@@ -24,11 +24,11 @@
 
 namespace OCA\News\Db\Postgres;
 
-use \OCA\AppFramework\Db\DoesNotExistException;
-use \OCA\AppFramework\Db\MultipleObjectsReturnedException;
-use \OCA\AppFramework\Db\Mapper;
 use \OCA\AppFramework\Core\API;
 
+use \OCA\News\Db\DoesNotExistException;
+use \OCA\News\Db\MultipleObjectsReturnedException;
+use \OCA\News\Db\Mapper;
 use \OCA\News\Db\StatusFlag;
 
 

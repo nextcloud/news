@@ -25,9 +25,6 @@
 
 namespace OCA\News\Db;
 
-use \OCA\AppFramework\Db\Entity;
-
-
 interface IAPI {
 	public function toAPI();
 }

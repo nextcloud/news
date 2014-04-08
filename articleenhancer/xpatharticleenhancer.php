@@ -25,7 +25,7 @@
 
 namespace OCA\News\ArticleEnhancer;
 
-use \OCA\News\Utility\SimplePieFileFactory;
+use \OCA\News\Utility\SimplePieAPIFactory;
 use \OCA\News\Db\Item;
 
 
@@ -44,7 +44,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 	 * page
 	 * @param int $maximumTimeout maximum timeout in seconds, defaults to 10 sec
 	 */
-	public function __construct(SimplePieFileFactory $fileFactory, 
+	public function __construct(SimplePieAPIFactory $fileFactory, 
 	                            array $regexXPathPair, $maximumTimeout=10){
 		$this->regexXPathPair = $regexXPathPair;
 		$this->fileFactory = $fileFactory;

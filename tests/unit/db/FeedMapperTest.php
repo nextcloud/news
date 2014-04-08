@@ -95,7 +95,7 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$params = array($id, $userId);
 		$this->setMapperResult($sql, $params);
 
-		$this->setExpectedException('\OCA\AppFramework\Db\DoesNotExistException');
+		$this->setExpectedException('\OCA\News\Db\DoesNotExistException');
 		$result = $this->mapper->find($id, $userId);
 	}
 
@@ -122,7 +122,7 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$params = array($id, $userId);
 		$this->setMapperResult($sql, $params, $rows);
 
-		$this->setExpectedException('\OCA\AppFramework\Db\MultipleObjectsReturnedException');
+		$this->setExpectedException('\OCA\News\Db\MultipleObjectsReturnedException');
 		$result = $this->mapper->find($id, $userId);
 	}
 
@@ -238,7 +238,7 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$this->setMapperResult($sql,
 			array($urlHash, $this->user));
 
-		$this->setExpectedException('\OCA\AppFramework\Db\DoesNotExistException');
+		$this->setExpectedException('\OCA\News\Db\DoesNotExistException');
 		$result = $this->mapper->findByUrlHash($urlHash, $this->user);
 	}
 
@@ -264,7 +264,7 @@ class FeedMapperTest extends \OCA\AppFramework\Utility\MapperTestUtility {
 		$this->setMapperResult($sql,
 			array($urlHash, $this->user), $rows);
 
-		$this->setExpectedException('\OCA\AppFramework\Db\MultipleObjectsReturnedException');
+		$this->setExpectedException('\OCA\News\Db\MultipleObjectsReturnedException');
 		$result = $this->mapper->findByUrlHash($urlHash, $this->user);
 	}
 

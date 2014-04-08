@@ -26,10 +26,10 @@
 namespace OCA\News\Fetcher;
 
 use \OCA\AppFramework\Core\API;
-use \OCA\AppFramework\Utility\FaviconFetcher;
-use \OCA\AppFramework\Utility\SimplePieAPIFactory;
-use \OCA\AppFramework\Utility\TimeFactory;
 
+use \OCA\News\Utility\FaviconFetcher;
+use \OCA\News\Utility\SimplePieAPIFactory;
+use \OCA\News\Utility\TimeFactory;
 use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
 

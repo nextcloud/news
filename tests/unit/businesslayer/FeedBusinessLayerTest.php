@@ -28,8 +28,7 @@ namespace OCA\News\BusinessLayer;
 
 require_once(__DIR__ . "/../../classloader.php");
 
-use \OCA\AppFramework\Db\DoesNotExistException;
-
+use \OCA\News\Db\DoesNotExistException;
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\Item;
 use \OCA\News\Fetcher\Fetcher;
@@ -55,7 +54,7 @@ class FeedBusinessLayerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->time = 222;
 		$this->autoPurgeMinimumInterval = 10;
 		$timeFactory = $this->getMockBuilder(
-			'\OCA\AppFramework\Utility\TimeFactory')
+			'\OCA\News\Utility\TimeFactory')
 			->disableOriginalConstructor()
 			->getMock();
 		$timeFactory->expects($this->any())

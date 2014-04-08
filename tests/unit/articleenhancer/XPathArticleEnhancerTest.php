@@ -38,7 +38,7 @@ class XPathArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 
 	protected function setUp() {
 		$timeout = 30;
-		$this->fileFactory = $this->getMockBuilder('\OCA\News\Utility\SimplePieFileFactory')
+		$this->fileFactory = $this->getMockBuilder('\OCA\News\Utility\SimplePieAPIFactory')
 			->disableOriginalConstructor()
 			->getMock();
 

@@ -55,7 +55,9 @@ use \OCA\News\API\ItemAPI;
 use \OCA\News\Utility\Config;
 use \OCA\News\Utility\OPMLExporter;
 use \OCA\News\Utility\Updater;
-use \OCA\News\Utility\SimplePieFileFactory;
+use \OCA\News\Utility\SimplePieAPIFactory;
+use \OCA\News\Utility\TimeFactory;
+use \OCA\News\Utility\FaviconFetcher;
 
 use \OCA\News\Fetcher\Fetcher;
 use \OCA\News\Fetcher\FeedFetcher;
@@ -67,6 +69,9 @@ use \OCA\News\ArticleEnhancer\RegexArticleEnhancer;
 use \OCA\News\Middleware\CORSMiddleware;
 
 require_once __DIR__ . '/../3rdparty/htmlpurifier/library/HTMLPurifier.auto.php';
+
+// uncomment once appframework not required anymore
+//require_once __DIR__ . '/../3rdparty/simplepie/autoloader.php';
 
 class DIContainer extends BaseContainer {
 
@@ -266,7 +271,7 @@ class DIContainer extends BaseContainer {
 			
 			foreach(json_decode($xpathEnhancerConfig, true) as $feed => $config) {
 				$articleEnhancer = new XPathArticleEnhancer(
-					$c['SimplePieFileFactory'],
+					$c['SimplePieAPIFactory'],
 					$config,
 					$c['feedFetcherTimeout']
 				);
@@ -321,8 +326,16 @@ class DIContainer extends BaseContainer {
 			                   $c['ItemBusinessLayer']);
 		});
 
-		$this['SimplePieFileFactory'] = $this->share(function($c){
-			return new SimplePieFileFactory();
+		$this['SimplePieAPIFactory'] = $this->share(function($c){
+			return new SimplePieAPIFactory();
+		});
+
+		$this['FaviconFetcher'] = $this->share(function($c){
+			return new FaviconFetcher($c['SimplePieAPIFactory']);
+		});
+
+		$this['TimeFactory'] = $this->share(function($c){
+			return new TimeFactory();
 		});
 
 

@@ -25,8 +25,6 @@
 
 namespace OCA\News\Db;
 
-use \OCA\AppFramework\Db\Entity;
-
 
 class Feed extends Entity implements IAPI {
 
