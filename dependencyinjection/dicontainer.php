@@ -72,8 +72,10 @@ use \OCA\News\Middleware\CORSMiddleware;
 
 require_once __DIR__ . '/../3rdparty/htmlpurifier/library/HTMLPurifier.auto.php';
 
-// uncomment once appframework not required anymore
-//require_once __DIR__ . '/../3rdparty/simplepie/autoloader.php';
+// to prevent clashes with installed app framework versions
+if(!class_exists('\SimplePie')) {
+	require_once __DIR__ . '/../3rdparty/simplepie/autoloader.php';
+}
 
 class DIContainer extends BaseContainer {
 
