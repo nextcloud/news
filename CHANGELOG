@@ -2,7 +2,7 @@ owncloud-news (2.001)
 * Delete folders, feeds and articles if a user is deleted
 * Also remember collapsed folders on postgres
 * Fix bug that would prevent articles from being deleted if a folder is marked as deleted on sqlite and postgres
-* Require ownCloud 6
+* Require ownCloud 6.0.2
 
 owncloud-news (1.808)
 * Also focus article area when clicking on all unread link
