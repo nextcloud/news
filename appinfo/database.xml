@@ -237,6 +237,7 @@
 				<name>status</name>
 				<type>integer</type>
 				<length>8</length>
+				<notnull>true</notnull>
 			</field>
 			<field>
 				<name>last_modified</name>
