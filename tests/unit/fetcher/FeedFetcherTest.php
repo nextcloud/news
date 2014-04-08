@@ -110,7 +110,7 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->author = '&lt;boogieman';
 		$this->enclosureLink = 'http://enclosure.you';
 
-		$this->feedTitle = '&lte;its a title';
+		$this->feedTitle = '&lt;a&gt;&amp;its a&lt;/a&gt; title';
 		$this->feedLink = 'http://goatse';
 		$this->feedImage = '/an/image';
 		$this->webFavicon = 'http://anon.google.com';
@@ -236,7 +236,7 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->expectCore('get_permalink', $this->feedLink, 2);
 
 		$feed = new Feed();
-		$feed->setTitle(html_entity_decode($this->feedTitle));
+		$feed->setTitle('&its a title');
 		$feed->setUrl($this->url);
 		$feed->setLink($this->feedLink);
 		$feed->setAdded($this->time);
@@ -340,7 +340,7 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->expectCore('get_permalink', $this->feedLink, 2);
 
 		$feed = new Feed();
-		$feed->setTitle(html_entity_decode($this->feedTitle));
+		$feed->setTitle('&its a title');
 		$feed->setUrl($this->url);
 		$feed->setLink($this->feedLink);
 		$feed->setAdded($this->time);
@@ -366,7 +366,7 @@ class FeedFetcherTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->expectCore('get_permalink', $this->feedLink, 2);
 
 		$feed = new Feed();
-		$feed->setTitle(html_entity_decode($this->feedTitle));
+		$feed->setTitle('&its a title');
 		$feed->setUrl($this->url);
 		$feed->setLink($this->feedLink);
 		$feed->setAdded($this->time);
