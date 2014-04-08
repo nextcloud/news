@@ -1471,7 +1471,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           data = {
             undoCallback: function() {
               return _this._persistence.restoreFeed(feedId, function() {
-                return this._persistence.getAllFeeds();
+                return _this._persistence.getAllFeeds();
               });
             },
             caption: feed.title

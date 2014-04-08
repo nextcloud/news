@@ -58,7 +58,7 @@ FeedModel, NewLoading, _ExistsError, Utils, $rootScope, NewestItem)->
 
 			data =
 				undoCallback: =>
-					@_persistence.restoreFeed feedId, ->
+					@_persistence.restoreFeed feedId, =>
 						@_persistence.getAllFeeds()
 				caption: feed.title
 
