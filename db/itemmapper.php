@@ -32,7 +32,7 @@ use \OCA\AppFramework\Core\API;
 class ItemMapper extends Mapper implements IMapper {
 
 	public function __construct(API $api){
-		parent::__construct($api, 'news_items');
+		parent::__construct($api, 'news_items', '\OCA\News\Db\Item');
 	}
 
 
