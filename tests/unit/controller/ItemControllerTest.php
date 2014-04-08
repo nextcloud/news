@@ -81,7 +81,7 @@ class ItemControllerTest extends ControllerTestUtility {
 
 
 	private function assertItemControllerAnnotations($methodName){
-		$annotations = array('IsAdminExemption', 'IsSubAdminExemption', 'Ajax');
+		$annotations = array('NoAdminRequired');
 		$this->assertAnnotations($this->controller, $methodName, $annotations);
 	}
 

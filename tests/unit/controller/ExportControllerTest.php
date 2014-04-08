@@ -73,15 +73,13 @@ class ExportControllerTest extends ControllerTestUtility {
 
 
 	public function testOpmlAnnotations(){
-		$annotations = array('IsAdminExemption', 'IsSubAdminExemption', 
-			'CSRFExemption');
+		$annotations = array('NoAdminRequired', 'NoCSRFRequired');
 		$this->assertAnnotations($this->controller, 'opml', $annotations);
 	}
 
 
 	public function testArticlesAnnotations(){
-		$annotations = array('IsAdminExemption', 'IsSubAdminExemption', 
-			'CSRFExemption');
+		$annotations = array('NoAdminRequired', 'NoCSRFRequired');
 		$this->assertAnnotations($this->controller, 'articles', $annotations);
 	}
 

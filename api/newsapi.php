@@ -47,10 +47,8 @@ class NewsAPI extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @CSRFExemption
-	 * @Ajax
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
 	 * @API
 	 */
 	public function version() {
@@ -61,8 +59,7 @@ class NewsAPI extends Controller {
 
 
 	/**
-	 * @CSRFExemption
-	 * @Ajax
+	 * @NoCSRFRequired
 	 * @API
 	 */
 	public function beforeUpdate() {
@@ -72,8 +69,7 @@ class NewsAPI extends Controller {
 
 
 	/**
-	 * @CSRFExemption
-	 * @Ajax
+	 * @NoCSRFRequired
 	 * @API
 	 */
 	public function afterUpdate() {
@@ -83,11 +79,9 @@ class NewsAPI extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @CSRFExemption
-	 * @IsLoggedInExemption
-	 * @Ajax
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
+	 * @PublicPage
 	 */
 	public function cors() {
 		// needed for webapps access due to cross origin request policy

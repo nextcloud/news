@@ -75,7 +75,7 @@ class FolderControllerTest extends ControllerTestUtility {
 
 
 	private function assertFolderControllerAnnotations($methodName){
-		$annotations = array('IsAdminExemption', 'IsSubAdminExemption', 'Ajax');
+		$annotations = array('NoAdminRequired');
 		$this->assertAnnotations($this->controller, $methodName, $annotations);
 	}
 

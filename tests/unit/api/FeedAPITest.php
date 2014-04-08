@@ -84,8 +84,7 @@ class FeedAPITest extends ControllerTestUtility {
 
 
 	private function assertDefaultAnnotations($methodName){
-		$annotations = array('IsAdminExemption', 'IsSubAdminExemption',
-			'Ajax', 'CSRFExemption', 'API');
+		$annotations = array('NoAdminRequired', 'NoCSRFRequired', 'API');
 		$this->assertAnnotations($this->feedAPI, $methodName, $annotations);
 	}
 
@@ -116,13 +115,13 @@ class FeedAPITest extends ControllerTestUtility {
 
 
 	public function testGetAllFromUsersAnnotations(){
-		$annotations = array('Ajax', 'CSRFExemption', 'API');
+		$annotations = array('NoCSRFRequired', 'API');
 		$this->assertAnnotations($this->feedAPI, 'getAllFromAllUsers', $annotations);
 	}
 
 
 	public function testUpdateAnnotations(){
-		$annotations = array('Ajax', 'CSRFExemption', 'API');
+		$annotations = array('NoCSRFRequired', 'API');
 		$this->assertAnnotations($this->feedAPI, 'update', $annotations);
 	}
 

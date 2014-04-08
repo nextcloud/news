@@ -51,8 +51,7 @@ class PageControllerTest extends ControllerTestUtility {
 
 
 	public function testOpmlAnnotations(){
-		$annotations = array('IsAdminExemption', 'IsSubAdminExemption', 
-			'CSRFExemption');
+		$annotations = array('NoAdminRequired', 'NoCSRFRequired');
 		$this->assertAnnotations($this->controller, 'index', $annotations);
 	}
 

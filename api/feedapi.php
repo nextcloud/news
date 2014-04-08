@@ -59,10 +59,8 @@ class FeedAPI extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @CSRFExemption
-	 * @Ajax
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
 	 * @API
 	 */
 	public function getAll() {
@@ -88,10 +86,8 @@ class FeedAPI extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @CSRFExemption
-	 * @Ajax
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
 	 * @API
 	 */
 	public function create() {
@@ -125,10 +121,8 @@ class FeedAPI extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @CSRFExemption
-	 * @Ajax
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
 	 * @API
 	 */
 	public function delete() {
@@ -146,10 +140,8 @@ class FeedAPI extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @CSRFExemption
-	 * @Ajax
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
 	 * @API
 	 */
 	public function read() {
@@ -163,10 +155,8 @@ class FeedAPI extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @CSRFExemption
-	 * @Ajax
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
 	 * @API
 	 */
 	public function move() {
@@ -185,10 +175,8 @@ class FeedAPI extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @CSRFExemption
-	 * @Ajax
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
 	 * @API
 	 */
 	public function rename() {
@@ -207,8 +195,7 @@ class FeedAPI extends Controller {
 
 
 	/**
-	 * @CSRFExemption
-	 * @Ajax
+	 * @NoCSRFRequired
 	 * @API
 	 */
 	public function getAllFromAllUsers() {
@@ -227,8 +214,7 @@ class FeedAPI extends Controller {
 
 
 	/**
-	 * @CSRFExemption
-	 * @Ajax
+	 * @NoCSRFRequired
 	 * @API
 	 */
 	public function update() {

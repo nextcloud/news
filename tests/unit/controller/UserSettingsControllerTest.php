@@ -52,7 +52,7 @@ class UserSettingsControllerTest extends ControllerTestUtility {
 
 
 	private function assertUserSettingsControllerAnnotations($methodName){
-		$annotations = array('IsAdminExemption', 'IsSubAdminExemption', 'Ajax');
+		$annotations = array('NoAdminRequired');
 		$this->assertAnnotations($this->controller, $methodName, $annotations);
 	}
 

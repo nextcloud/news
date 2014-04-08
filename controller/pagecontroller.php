@@ -39,9 +39,8 @@ class PageController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @CSRFExemption
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
 	 */
 	public function index() {
 		return $this->render('main');

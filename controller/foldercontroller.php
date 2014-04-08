@@ -58,9 +58,7 @@ class FolderController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @NoAdminRequired
 	 */
 	public function folders(){
 		$folders = $this->folderBusinessLayer->findAll($this->api->getUserId());
@@ -80,9 +78,7 @@ class FolderController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @NoAdminRequired
 	 */
 	public function open(){
 		try {
@@ -97,9 +93,7 @@ class FolderController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @NoAdminRequired
 	 */
 	public function collapse(){
 		try {
@@ -114,9 +108,7 @@ class FolderController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @NoAdminRequired
 	 */
 	public function create(){
 		$userId = $this->api->getUserId();
@@ -151,9 +143,7 @@ class FolderController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @NoAdminRequired
 	 */
 	public function delete(){
 		$userId = $this->api->getUserId();
@@ -171,9 +161,7 @@ class FolderController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @NoAdminRequired
 	 */
 	public function rename(){
 		$userId = $this->api->getUserId();
@@ -206,9 +194,7 @@ class FolderController extends Controller {
 	}
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @NoAdminRequired
 	 */
 	public function read(){
 		$userId = $this->api->getUserId();
@@ -225,9 +211,7 @@ class FolderController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @NoAdminRequired
 	 */
 	public function restore(){
 		$userId = $this->api->getUserId();

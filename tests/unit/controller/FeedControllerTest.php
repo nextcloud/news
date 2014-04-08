@@ -71,7 +71,7 @@ class FeedControllerTest extends ControllerTestUtility {
 	}
 
 	private function assertFeedControllerAnnotations($methodName){
-		$annotations = array('IsAdminExemption', 'IsSubAdminExemption', 'Ajax');
+		$annotations = array('NoAdminRequired');
 		$this->assertAnnotations($this->controller, $methodName, $annotations);
 	}
 

@@ -49,10 +49,8 @@ class ItemAPI extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @CSRFExemption
-	 * @Ajax
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
 	 * @API
 	 */
 	public function getAll() {
@@ -91,10 +89,8 @@ class ItemAPI extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @CSRFExemption
-	 * @Ajax
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
 	 * @API
 	 */
 	public function getUpdated() {
@@ -151,10 +147,8 @@ class ItemAPI extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @CSRFExemption
-	 * @Ajax
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
 	 * @API
 	 */
 	public function read() {
@@ -163,10 +157,8 @@ class ItemAPI extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @CSRFExemption
-	 * @Ajax
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
 	 * @API
 	 */
 	public function unread() {
@@ -175,10 +167,8 @@ class ItemAPI extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @CSRFExemption
-	 * @Ajax
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
 	 * @API
 	 */
 	public function star() {
@@ -187,10 +177,8 @@ class ItemAPI extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @CSRFExemption
-	 * @Ajax
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
 	 * @API
 	 */
 	public function unstar() {
@@ -199,10 +187,8 @@ class ItemAPI extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @CSRFExemption
-	 * @Ajax
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
 	 * @API
 	 */
 	public function readAll() {
@@ -231,10 +217,8 @@ class ItemAPI extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @CSRFExemption
-	 * @Ajax
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
 	 * @API
 	 */
 	public function readMultiple() {
@@ -243,10 +227,8 @@ class ItemAPI extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @CSRFExemption
-	 * @Ajax
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
 	 * @API
 	 */
 	public function unreadMultiple() {
@@ -272,10 +254,8 @@ class ItemAPI extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @CSRFExemption
-	 * @Ajax
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
 	 * @API
 	 */
 	public function starMultiple() {
@@ -284,10 +264,8 @@ class ItemAPI extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @CSRFExemption
-	 * @Ajax
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
 	 * @API
 	 */
 	public function unstarMultiple() {

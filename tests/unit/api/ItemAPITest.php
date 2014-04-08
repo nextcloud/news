@@ -69,8 +69,7 @@ class ItemAPITest extends ControllerTestUtility {
 
 
 	private function assertDefaultAnnotations($methodName){
-		$annotations = array('IsAdminExemption', 'IsSubAdminExemption',
-			'Ajax', 'CSRFExemption', 'API');
+		$annotations = array('NoAdminRequired', 'NoCSRFRequired', 'API');
 		$this->assertAnnotations($this->itemAPI, $methodName, $annotations);
 	}
 

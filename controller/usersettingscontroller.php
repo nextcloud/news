@@ -42,9 +42,7 @@ class UserSettingsController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @NoAdminRequired
 	 */
 	public function read(){
 		$showAll = $this->api->getUserValue('showAll');
@@ -57,9 +55,7 @@ class UserSettingsController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @NoAdminRequired
 	 */
 	public function show(){
 		$this->api->setUserValue('showAll', true);
@@ -69,9 +65,7 @@ class UserSettingsController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @NoAdminRequired
 	 */
 	public function hide(){
 		$this->api->setUserValue('showAll', false);
@@ -81,9 +75,7 @@ class UserSettingsController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @NoAdminRequired
 	 */
 	public function getLanguage(){
 		$language = $this->api->getTrans()->findLanguage();
@@ -96,9 +88,7 @@ class UserSettingsController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @NoAdminRequired
 	 */
 	public function isCompactView(){
 		$compact = $this->api->getUserValue('compact');
@@ -110,9 +100,7 @@ class UserSettingsController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @NoAdminRequired
 	 */
 	public function setCompactView(){
 		$isCompact = $this->params('compact');

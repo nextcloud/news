@@ -61,9 +61,8 @@ class ExportController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @CSRFExemption
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
 	 */
 	public function opml(){
 		$userId = $this->api->getUserId();
@@ -75,9 +74,8 @@ class ExportController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @CSRFExemption
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
 	 */
 	public function articles(){
 		$userId = $this->api->getUserId();

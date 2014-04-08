@@ -59,9 +59,7 @@ class FeedController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @NoAdminRequired
 	 */
 	public function feeds(){
 		$userId = $this->api->getUserId();
@@ -84,9 +82,7 @@ class FeedController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @NoAdminRequired
 	 */
 	public function active(){
 		$userId = $this->api->getUserId();
@@ -128,9 +124,7 @@ class FeedController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @NoAdminRequired
 	 */
 	public function create(){
 		$url = $this->params('url');
@@ -168,9 +162,7 @@ class FeedController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @NoAdminRequired
 	 */
 	public function delete(){
 		$feedId = (int) $this->params('feedId');
@@ -188,9 +180,7 @@ class FeedController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @NoAdminRequired
 	 */
 	public function update(){
 		try {
@@ -221,9 +211,7 @@ class FeedController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @NoAdminRequired
 	 */
 	public function move(){
 		$feedId = (int) $this->params('feedId');
@@ -241,9 +229,7 @@ class FeedController extends Controller {
 	}
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @NoAdminRequired
 	 */
 	public function rename() {
 		$feedId = (int) $this->params('feedId');
@@ -261,9 +247,7 @@ class FeedController extends Controller {
 	}
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @NoAdminRequired
 	 */
 	public function importArticles() {
 		$json = $this->params('json');
@@ -281,9 +265,7 @@ class FeedController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @NoAdminRequired
 	 */
 	public function read(){
 		$userId = $this->api->getUserId();
@@ -305,9 +287,7 @@ class FeedController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @NoAdminRequired
 	 */
 	public function restore(){
 		$feedId = (int) $this->params('feedId');

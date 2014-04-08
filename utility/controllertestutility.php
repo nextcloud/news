@@ -43,11 +43,9 @@ abstract class ControllerTestUtility extends TestUtility {
 	protected function assertAnnotations($controller, $method, array $expected,
 										array $valid=array()){
 		$standard = array(
-			'Ajax',
-			'CSRFExemption',
-			'IsAdminExemption',
-			'IsSubAdminExemption',
-			'IsLoggedInExemption',
+			'PublicPage',
+			'NoAdminRequired',
+			'NoCSRFRequired',
 			'API'
 		);
 

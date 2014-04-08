@@ -53,9 +53,7 @@ class ItemController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @NoAdminRequired
 	 */
 	public function items(){
 		$userId = $this->api->getUserId();
@@ -94,9 +92,7 @@ class ItemController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @NoAdminRequired
 	 */
 	public function newItems() {
 		$userId = $this->api->getUserId();
@@ -132,9 +128,7 @@ class ItemController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @NoAdminRequired
 	 */
 	public function star(){
 		try {
@@ -149,9 +143,7 @@ class ItemController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @NoAdminRequired
 	 */
 	public function unstar(){
 		try {
@@ -174,9 +166,7 @@ class ItemController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @NoAdminRequired
 	 */
 	public function read(){
 		try {
@@ -191,9 +181,7 @@ class ItemController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @NoAdminRequired
 	 */
 	public function unread(){
 		try {
@@ -208,9 +196,7 @@ class ItemController extends Controller {
 
 
 	/**
-	 * @IsAdminExemption
-	 * @IsSubAdminExemption
-	 * @Ajax
+	 * @NoAdminRequired
 	 */
 	public function readAll(){
 		$userId = $this->api->getUserId();

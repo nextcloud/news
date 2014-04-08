@@ -59,8 +59,7 @@ class NewsAPITest extends ControllerTestUtility {
 
 
 	private function assertDefaultAnnotations($methodName){
-		$annotations = array('IsAdminExemption', 'IsSubAdminExemption',
-			'Ajax', 'CSRFExemption', 'API');
+		$annotations = array('NoAdminRequired', 'NoCSRFRequired', 'API');
 		$this->assertAnnotations($this->newsAPI, $methodName, $annotations);
 	}
 
@@ -69,12 +68,12 @@ class NewsAPITest extends ControllerTestUtility {
 	}
 
 	public function testBeforeUpdateAnnotations(){
-		$annotations = array('Ajax', 'CSRFExemption', 'API');
+		$annotations = array('NoCSRFRequired', 'API');
 		$this->assertAnnotations($this->newsAPI, 'beforeUpdate', $annotations);
 	}
 
 	public function testAfterUpdateAnnotations(){
-		$annotations = array('Ajax', 'CSRFExemption', 'API');
+		$annotations = array('NoCSRFRequired', 'API');
 		$this->assertAnnotations($this->newsAPI, 'afterUpdate', $annotations);
 	}
 
@@ -109,8 +108,7 @@ class NewsAPITest extends ControllerTestUtility {
 
 
 	public function testCorsAnnotations(){
-		$annotations = array('IsAdminExemption', 'IsSubAdminExemption',
-			'Ajax', 'CSRFExemption', 'IsLoggedInExemption');
+		$annotations = array('NoAdminRequired', 'NoCSRFRequired', 'PublicPage');
 		$this->assertAnnotations($this->newsAPI, 'cors', $annotations);
 	}
 
