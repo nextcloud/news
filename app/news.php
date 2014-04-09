@@ -89,82 +89,82 @@ class News extends App {
 		 */
 		$container->registerService('PageController', function($c) {
 			return new PageController(
-				$c['API'], 
-				$c['Request']
+				$c->query('API'), 
+				$c->query('Request')
 			);
 		});
 
 		$container->registerService('FolderController', function($c) {
 			return new FolderController(
-				$c['API'], 
-				$c['Request'],
-				$c['FolderBusinessLayer'],
-				$c['FeedBusinessLayer'],
-				$c['ItemBusinessLayer']
+				$c->query('API'), 
+				$c->query('Request'),
+				$c->query('FolderBusinessLayer'),
+				$c->query('FeedBusinessLayer'),
+				$c->query('ItemBusinessLayer')
 			);
 		});
 
 		$container->registerService('FeedController', function($c) {
 			return new FeedController(
-				$c['API'], 
-				$c['Request'],
-				$c['FolderBusinessLayer'],
-				$c['FeedBusinessLayer'],
-				$c['ItemBusinessLayer']
+				$c->query('API'), 
+				$c->query('Request'),
+				$c->query('FolderBusinessLayer'),
+				$c->query('FeedBusinessLayer'),
+				$c->query('ItemBusinessLayer')
 			);
 		});
 
 		$container->registerService('ItemController', function($c) {
 			return new ItemController(
-				$c['API'], 
-				$c['Request'],
-				$c['FeedBusinessLayer'],
-				$c['ItemBusinessLayer']
+				$c->query('API'), 
+				$c->query('Request'),
+				$c->query('FeedBusinessLayer'),
+				$c->query('ItemBusinessLayer')
 			);
 		});
 
 		$container->registerService('ExportController', function($c) {
 			return new ExportController(
-				$c['API'], 
-				$c['Request'],
-				$c['FeedBusinessLayer'],
-				$c['FolderBusinessLayer'],
-				$c['ItemBusinessLayer'],
-				$c['OPMLExporter']);
+				$c->query('API'), 
+				$c->query('Request'),
+				$c->query('FeedBusinessLayer'),
+				$c->query('FolderBusinessLayer'),
+				$c->query('ItemBusinessLayer'),
+				$c->query('OPMLExporter'));
 		});
 
 		$container->registerService('ApiController', function($c) {
 			return new ApiController(
-				$c['API'], 
-				$c['Request'], 
-				$c['Updater']
+				$c->query('API'), 
+				$c->query('Request'), 
+				$c->query('Updater')
 			);
 		});
 
 		$container->registerService('FolderApiController', function($c) {
 			return new FolderApiController(
-				$c['API'], 
-				$c['Request'],
-				$c['FolderBusinessLayer'],
-				$c['ItemBusinessLayer']
+				$c->query('API'), 
+				$c->query('Request'),
+				$c->query('FolderBusinessLayer'),
+				$c->query('ItemBusinessLayer')
 			);
 		});
 
 		$container->registerService('FeedApiController', function($c) {
 			return new FeedApiController(
-				$c['API'], 
-				$c['Request'],
-				$c['FolderBusinessLayer'],
-				$c['FeedBusinessLayer'],
-				$c['ItemBusinessLayer']
+				$c->query('API'), 
+				$c->query('Request'),
+				$c->query('FolderBusinessLayer'),
+				$c->query('FeedBusinessLayer'),
+				$c->query('ItemBusinessLayer')
 			);
 		});
 
 		$container->registerService('ItemApiController', function($c) {
 			return new ItemApiController(
-				$c['API'], 
-				$c['Request'],
-				$c['ItemBusinessLayer']
+				$c->query('API'), 
+				$c->query('Request'),
+				$c->query('ItemBusinessLayer')
 			);
 		});
 
@@ -174,32 +174,32 @@ class News extends App {
 		 */
 		$container->registerService('FolderBusinessLayer', function($c) {
 			return new FolderBusinessLayer(
-				$c['FolderMapper'],
-				$c['API'],
-				$c['TimeFactory'],
-				$c['Config']
+				$c->query('FolderMapper'),
+				$c->query('API'),
+				$c->query('TimeFactory'),
+				$c->query('Config')
 			);
 		});
 
 		$container->registerService('FeedBusinessLayer', function($c) {
 			return new FeedBusinessLayer(
-				$c['FeedMapper'],
-				$c['Fetcher'],
-				$c['ItemMapper'],
-				$c['API'],
-				$c['TimeFactory'],
-				$c['Config'],
-				$c['Enhancer'],
-				$c['HTMLPurifier']
+				$c->query('FeedMapper'),
+				$c->query('Fetcher'),
+				$c->query('ItemMapper'),
+				$c->query('API'),
+				$c->query('TimeFactory'),
+				$c->query('Config'),
+				$c->query('Enhancer'),
+				$c->query('HTMLPurifier')
 			);
 		});
 
 		$container->registerService('ItemBusinessLayer', function($c) {
 			return new ItemBusinessLayer(
-				$c['ItemMapper'],
-				$c['StatusFlag'],
-				$c['TimeFactory'],
-				$c['Config']
+				$c->query('ItemMapper'),
+				$c->query('StatusFlag'),
+				$c->query('TimeFactory'),
+				$c->query('Config')
 			);
 		});
 
@@ -209,25 +209,25 @@ class News extends App {
 		 */
 		$container->registerService('MapperFactory', function($c) {
 			return new MapperFactory(
-				$c['API']
+				$c->query('API')
 			);
 		});
 
 		$container->registerService('FolderMapper', function($c) {
 			return new FolderMapper(
-				$c['API']
+				$c->query('API')
 			);
 		});
 
 		$container->registerService('FeedMapper', function($c) {
 			return new FeedMapper(
-				$c['API']
+				$c->query('API')
 			);
 		});
 
 		$container->registerService('ItemMapper', function($c) {
-			return $c['MapperFactory']->getItemMapper(
-				$c['API']
+			return $c->query('MapperFactory')->getItemMapper(
+				$c->query('API')
 			);
 		});
 		
@@ -237,7 +237,7 @@ class News extends App {
 		 */
 		$container->registerService('API', function($c){
 			return new API(
-				$c['news']
+				$c->query('news')
 			);
 		});
 
@@ -251,13 +251,13 @@ class News extends App {
 		});
 
 		$container->registerService('Config', function($c) {
-			$config = new Config($c['ConfigView'], $c['API']);
+			$config = new Config($c->query('ConfigView'), $c->query('API'));
 			$config->read('config.ini', true);
 			return $config;
 		});
 
 		$container->registerService('simplePieCacheDirectory', function($c) {
-			$directory = $c['API']->getSystemValue('datadirectory') .
+			$directory = $c->query('API')->getSystemValue('datadirectory') .
 				'/news/cache/simplepie';
 
 			if(!is_dir($directory)) {
@@ -267,7 +267,7 @@ class News extends App {
 		});
 
 		$container->registerService('HTMLPurifier', function($c) {
-			$directory = $c['API']->getSystemValue('datadirectory') .
+			$directory = $c->query('API')->getSystemValue('datadirectory') .
 				'/news/cache/purifier';
 
 			if(!is_dir($directory)) {
@@ -295,9 +295,9 @@ class News extends App {
 			
 			foreach(json_decode($xpathEnhancerConfig, true) as $feed => $config) {
 				$articleEnhancer = new XPathArticleEnhancer(
-					$c['SimplePieAPIFactory'],
+					$c->query('SimplePieAPIFactory'),
 					$config,
-					$c['Config']
+					$c->query('Config')
 				);
 				$enhancer->registerEnhancer($feed, $articleEnhancer);
 			}
@@ -323,19 +323,19 @@ class News extends App {
 
 			// register fetchers in order
 			// the most generic fetcher should be the last one
-			$fetcher->registerFetcher($c['FeedFetcher']);
+			$fetcher->registerFetcher($c->query('FeedFetcher'));
 
 			return $fetcher;
 		});
 
 		$container->registerService('FeedFetcher', function($c) {
 			return new FeedFetcher(
-				$c['API'],
-				$c['SimplePieAPIFactory'],
-				$c['FaviconFetcher'],
-				$c['TimeFactory'],
-				$c['simplePieCacheDirectory'],
-				$c['Config']
+				$c->query('API'),
+				$c->query('SimplePieAPIFactory'),
+				$c->query('FaviconFetcher'),
+				$c->query('TimeFactory'),
+				$c->query('simplePieCacheDirectory'),
+				$c->query('Config')
 			);
 		});
 
@@ -349,9 +349,9 @@ class News extends App {
 
 		$container->registerService('Updater', function($c) {
 			return new Updater(
-				$c['FolderBusinessLayer'],
-				$c['FeedBusinessLayer'],
-				$c['ItemBusinessLayer']
+				$c->query('FolderBusinessLayer'),
+				$c->query('FeedBusinessLayer'),
+				$c->query('ItemBusinessLayer')
 			);
 		});
 
@@ -361,7 +361,7 @@ class News extends App {
 
 		$container->registerService('FaviconFetcher', function($c) {
 			return new FaviconFetcher(
-				$c['SimplePieAPIFactory']
+				$c->query('SimplePieAPIFactory')
 			);
 		});
 
@@ -370,7 +370,7 @@ class News extends App {
 		 */
 		$container->registerService('CORSMiddleware', function($c) {
 			return new CORSMiddleware(
-				$c['Request']
+				$c->query('Request')
 			);
 		});		
 

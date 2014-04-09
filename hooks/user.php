@@ -38,9 +38,9 @@ class User {
         $container = $app->getContainer();
 
         // order is important!
-        $container['ItemBusinessLayer']->deleteUser($userId);
-        $container['FeedBusinessLayer']->deleteUser($userId);
-        $container['FolderBusinessLayer']->deleteUser($userId);
+        $container->query('ItemBusinessLayer')->deleteUser($userId);
+        $container->query('FeedBusinessLayer')->deleteUser($userId);
+        $container->query('FolderBusinessLayer')->deleteUser($userId);
     }
 
 
