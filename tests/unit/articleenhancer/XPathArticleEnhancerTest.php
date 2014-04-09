@@ -35,6 +35,9 @@ class XPathArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 	private $testEnhancer;
 	private $fileFactory;
 	private $timeout;
+	private $redirects;
+	private $headers;
+	private $userAgent;
 
 	protected function setUp() {
 		$timeout = 30;
@@ -52,6 +55,9 @@ class XPathArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 			), 
 			$this->timeout
 		);
+		$this->redirects = 5;
+		$this->headers = null;
+		$this->userAgent = 'Mozilla/5.0 AppleWebKit';
 	}
 
 
@@ -80,7 +86,10 @@ class XPathArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->fileFactory->expects($this->once())
 			->method('getFile')
 			->with($this->equalTo($item->getUrl()),
-				$this->equalTo($this->timeout))
+				$this->equalTo($this->timeout),
+				$this->equalTo($this->redirects),
+				$this->equalTo($this->headers),
+				$this->equalTo($this->userAgent))
 			->will($this->returnValue($file));
 
 		$result = $this->testEnhancer->enhance($item);
@@ -106,7 +115,10 @@ class XPathArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->fileFactory->expects($this->once())
 			->method('getFile')
 			->with($this->equalTo($item->getUrl()),
-				$this->equalTo($this->timeout))
+				$this->equalTo($this->timeout),
+				$this->equalTo($this->redirects),
+				$this->equalTo($this->headers),
+				$this->equalTo($this->userAgent))
 			->will($this->returnValue($file));
 
 		$result = $this->testEnhancer->enhance($item);
@@ -130,7 +142,10 @@ class XPathArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->fileFactory->expects($this->once())
 			->method('getFile')
 			->with($this->equalTo($item->getUrl()),
-				$this->equalTo($this->timeout))
+				$this->equalTo($this->timeout),
+				$this->equalTo($this->redirects),
+				$this->equalTo($this->headers),
+				$this->equalTo($this->userAgent))
 			->will($this->returnValue($file));
 
 		$result = $this->testEnhancer->enhance($item);
@@ -149,7 +164,10 @@ class XPathArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->fileFactory->expects($this->once())
 			->method('getFile')
 			->with($this->equalTo($item->getUrl()),
-				$this->equalTo($this->timeout))
+				$this->equalTo($this->timeout),
+				$this->equalTo($this->redirects),
+				$this->equalTo($this->headers),
+				$this->equalTo($this->userAgent))
 			->will($this->returnValue($file));
 
 		$result = $this->testEnhancer->enhance($item);
@@ -173,7 +191,10 @@ class XPathArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->fileFactory->expects($this->once())
 			->method('getFile')
 			->with($this->equalTo($item->getUrl()),
-				$this->equalTo($this->timeout))
+				$this->equalTo($this->timeout),
+				$this->equalTo($this->redirects),
+				$this->equalTo($this->headers),
+				$this->equalTo($this->userAgent))
 			->will($this->returnValue($file));
 
 		$result = $this->testEnhancer->enhance($item);
@@ -198,7 +219,10 @@ class XPathArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->fileFactory->expects($this->once())
 			->method('getFile')
 			->with($this->equalTo($item->getUrl()),
-				$this->equalTo($this->timeout))
+				$this->equalTo($this->timeout),
+				$this->equalTo($this->redirects),
+				$this->equalTo($this->headers),
+				$this->equalTo($this->userAgent))
 			->will($this->returnValue($file));
 
 		$result = $this->testEnhancer->enhance($item);
@@ -220,7 +244,10 @@ class XPathArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->fileFactory->expects($this->once())
 			->method('getFile')
 			->with($this->equalTo($item->getUrl()),
-				$this->equalTo($this->timeout))
+				$this->equalTo($this->timeout),
+				$this->equalTo($this->redirects),
+				$this->equalTo($this->headers),
+				$this->equalTo($this->userAgent))
 			->will($this->returnValue($file));
 
 		$result = $this->testEnhancer->enhance($item);
@@ -243,7 +270,10 @@ class XPathArticleEnhancerTest extends \OCA\AppFramework\Utility\TestUtility {
 		$this->fileFactory->expects($this->once())
 			->method('getFile')
 			->with($this->equalTo($item->getUrl()),
-				$this->equalTo($this->timeout))
+				$this->equalTo($this->timeout),
+				$this->equalTo($this->redirects),
+				$this->equalTo($this->headers),
+				$this->equalTo($this->userAgent))
 			->will($this->returnValue($file));
 
 		$result = $this->testEnhancer->enhance($item);
