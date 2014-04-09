@@ -108,9 +108,9 @@ $app->registerRoutes(array(
     array('name' => 'item_api#star', 'url' => '/api/v1-2/feeds/{feedId}/{guidHash}/star', 'verb' => 'PUT'), // FIXME: POST would be more correct
     array('name' => 'item_api#unstar', 'url' => '/api/v1-2/feeds/{feedId}/{guidHash}/unstar', 'verb' => 'PUT'), // FIXME: POST would be more correct
     array('name' => 'item_api#star_multiple', 'url' => '/api/v1-2/feeds/star/multiple', 'verb' => 'PUT'), // FIXME: POST would be more correct
-    array('name' => 'item_api#unstar_multiple', 'url' => '/api/v1-2/feeds/unstar/multiple', 'verb' => 'PUT'), // FIXME: POST would be more correct
+    array('name' => 'item_api#unstar_multiple', 'url' => '/api/v1-2/feeds/unstar/multiple', 'verb' => 'PUT') // FIXME: POST would be more correct
   )
-);
+));
 
 /* TODO: FIX CORS
 $this->create('news_api_cors', '/api/v1-2/{path}')->method('options')->action(

@@ -1,3 +1,4 @@
+
 /**
  * ownCloud News App - v0.0.1
  *
@@ -3386,17 +3387,20 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           			Loads the initial data from the server
           */
 
-          var successCallback,
+          var successCallback, successCount,
             _this = this;
+          successCount = 0;
           this.deferred = $q.defer();
           this.getAllFolders();
           successCallback = function() {
-            return _this.deferred.resolve();
+            if (successCount === 1) {
+              return _this.deferred.resolve();
+            } else {
+              return successCount++;
+            }
           };
           this.getAllFeeds(successCallback);
-          this.userSettingsRead();
-          this.userSettingsLanguage();
-          this.userSettingsIsCompact();
+          this.getSettings(successCallback);
           this.getActiveFeed(function() {
             return _this.getItems(_this._activeFeed.getType(), _this._activeFeed.getId());
           });
@@ -3890,32 +3894,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         */
 
 
-        Persistence.prototype.userSettingsRead = function(onSuccess) {
-          var failureCallbackWrapper, params, successCallbackWrapper,
-            _this = this;
-          if (onSuccess == null) {
-            onSuccess = null;
-          }
-          /*
-          			Gets the configs for read settings
-          */
-
-          onSuccess || (onSuccess = function() {});
-          this._feedLoading.increase();
-          successCallbackWrapper = function(data) {
-            onSuccess();
-            return _this._feedLoading.decrease();
-          };
-          failureCallbackWrapper = function(data) {
-            return _this._feedLoading.decrease();
-          };
-          params = {
-            onSuccess: successCallbackWrapper,
-            onFailure: failureCallbackWrapper
-          };
-          return this._request.get('/apps/news/usersettings/read', params);
-        };
-
         Persistence.prototype.userSettingsReadShow = function(callback) {
           /*
           			Sets the reader mode to show all
@@ -3923,9 +3901,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
           var data;
           data = {
-            onSuccess: callback
+            showAll: true
           };
-          return this._request.post('/apps/news/usersettings/read/show', data);
+          return this.setSettings(data, callback);
         };
 
         Persistence.prototype.userSettingsReadHide = function(callback) {
@@ -3935,35 +3913,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
           var data;
           data = {
-            onSuccess: callback
+            showAll: false
           };
-          return this._request.post('/apps/news/usersettings/read/hide', data);
-        };
-
-        Persistence.prototype.userSettingsLanguage = function(onSuccess) {
-          var data, failureCallbackWrapper, successCallbackWrapper,
-            _this = this;
-          if (onSuccess == null) {
-            onSuccess = null;
-          }
-          onSuccess || (onSuccess = function() {});
-          this._feedLoading.increase();
-          successCallbackWrapper = function(data) {
-            onSuccess();
-            return _this._feedLoading.decrease();
-          };
-          failureCallbackWrapper = function(data) {
-            return _this._feedLoading.decrease();
-          };
-          data = {
-            onSuccess: successCallbackWrapper,
-            onFailure: failureCallbackWrapper
-          };
-          return this._request.get('/apps/news/usersettings/language', data);
-        };
-
-        Persistence.prototype.userSettingsIsCompact = function() {
-          return this._request.get('/apps/news/usersettings/compact');
+          return this.setSettings(data, callback);
         };
 
         Persistence.prototype.userSettingsSetCompact = function(isCompact) {
@@ -3971,13 +3923,25 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           			sets all items of a folder as read
           */
 
-          var params;
-          params = {
-            data: {
-              compact: isCompact
-            }
+          var data;
+          data = {
+            compact: isCompact
           };
-          return this._request.post('/apps/news/usersettings/compact', params);
+          return this.setSettings(data);
+        };
+
+        Persistence.prototype.setSettings = function(settings, onSuccess) {
+          var data;
+          onSuccess || (onSuccess = function() {});
+          data = {
+            onSuccess: onSuccess,
+            data: settings
+          };
+          return this._request.post('/apps/news/settings', data);
+        };
+
+        Persistence.prototype.getSettings = function() {
+          return this._request.get('/apps/news/settings');
         };
 
         Persistence.prototype._triggerHideRead = function() {
@@ -5172,3 +5136,4 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
   });
 
 }).call(this);
+

@@ -188,7 +188,7 @@ class News extends App {
 				$c['ItemMapper'],
 				$c['API'],
 				$c['TimeFactory'],
-				$c['Config']
+				$c['Config'],
 				$c['Enhancer'],
 				$c['HTMLPurifier']
 			);

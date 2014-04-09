@@ -37,19 +37,21 @@ $rootScope, $q) ->
 			###
 			Loads the initial data from the server
 			###
-
+			successCount = 0
 			@deferred = $q.defer()
 
 
 			@getAllFolders()
 
 			successCallback = =>
-				@deferred.resolve()
+				if successCount == 1
+					@deferred.resolve()
+				else
+					successCount++
 
 			@getAllFeeds(successCallback)
-			@userSettingsRead()
-			@userSettingsLanguage()
-			@userSettingsIsCompact()
+			@getSettings(successCallback)
+
 
 			# items can only be loaded after the active feed is known
 			@getActiveFeed =>
@@ -442,34 +444,13 @@ $rootScope, $q) ->
 		###
 			USERSETTINGS CONTROLLER
 		###
-		userSettingsRead: (onSuccess=null) ->
-			###
-			Gets the configs for read settings
-			###
-			onSuccess or= ->
-
-			# loading sign handling
-			@_feedLoading.increase()
-			successCallbackWrapper = (data) =>
-				onSuccess()
-				@_feedLoading.decrease()
-			failureCallbackWrapper = (data) =>
-				@_feedLoading.decrease()
-			
-			params =
-				onSuccess: successCallbackWrapper
-				onFailure: failureCallbackWrapper
-
-			@_request.get '/apps/news/usersettings/read', params
-
-
 		userSettingsReadShow: (callback) ->
 			###
 			Sets the reader mode to show all
 			###
 			data =
-				onSuccess: callback
-			@_request.post '/apps/news/usersettings/read/show', data
+				showAll: true
+			@setSettings data, callback
 
 
 		userSettingsReadHide: (callback) ->
@@ -477,41 +458,30 @@ $rootScope, $q) ->
 			Sets the reader mode to show only unread
 			###
 			data =
-				onSuccess: callback
-			@_request.post '/apps/news/usersettings/read/hide', data
-
-
-		userSettingsLanguage: (onSuccess=null) ->
-			onSuccess or= ->
-
-			# loading sign handling
-			@_feedLoading.increase()
-			successCallbackWrapper = (data) =>
-				onSuccess()
-				@_feedLoading.decrease()
-			failureCallbackWrapper = (data) =>
-				@_feedLoading.decrease()
-
-			data =
-				onSuccess: successCallbackWrapper
-				onFailure: failureCallbackWrapper
-
-			@_request.get '/apps/news/usersettings/language', data
-
-
-		userSettingsIsCompact: ->
-			@_request.get '/apps/news/usersettings/compact'
+				showAll: false
+			@setSettings data, callback
 
 
 		userSettingsSetCompact: (isCompact) ->
 			###
 			sets all items of a folder as read
 			###
-			params =
-				data:
-					compact: isCompact
+			data =
+				compact: isCompact
 
-			@_request.post '/apps/news/usersettings/compact', params
+			@setSettings data
+
+
+		setSettings: (settings, onSuccess) ->
+			onSuccess or= ->
+			data =
+				onSuccess: onSuccess
+				data: settings
+			@_request.post '/apps/news/settings', data
+
+
+		getSettings: ->
+			@_request.get '/apps/news/settings'
 
 
 		_triggerHideRead: ->

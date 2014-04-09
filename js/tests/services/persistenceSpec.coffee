@@ -420,58 +420,36 @@ describe 'Persistence', ->
 	###
 		USERSETTINGS CONTROLLER
 	###
-	it 'should do a proper get user settings read request', =>
-
-		params =
-			onSuccess: ->
-
-		@Persistence.userSettingsRead(params.onSuccess)
-
-		expected =
-			onSuccess: jasmine.any(Function)
-			onFailure: jasmine.any(Function)
-
-		expect(@req.get).toHaveBeenCalledWith('/apps/news/usersettings/read', expected)
-
-	
-
 	it 'should do a proper user settings read show request', =>
 		params =
 			onSuccess: ->
+			data:
+				showAll: true
 
 		@Persistence.userSettingsReadShow(params.onSuccess)
 
-		expect(@req.post).toHaveBeenCalledWith('/apps/news/usersettings/read/show',
+		expect(@req.post).toHaveBeenCalledWith('/apps/news/settings',
 			params)
 
 
 	it 'should do a proper user settings read hide request', =>
 		params =
 			onSuccess: ->
+			data:
+				showAll: false
+
 		@Persistence.userSettingsReadHide(params.onSuccess)
 
-		expect(@req.post).toHaveBeenCalledWith('/apps/news/usersettings/read/hide',
+		expect(@req.post).toHaveBeenCalledWith('/apps/news/settings',
 			params)
 
 
-	it 'should do a proper user settings language request', =>
-		params =
-			onSuccess: ->
-
-		@Persistence.userSettingsLanguage(params.onSuccess)
-
-		expected =
-			onSuccess: jasmine.any(Function)
-			onFailure: jasmine.any(Function)
-
-		expect(@req.get).toHaveBeenCalledWith('/apps/news/usersettings/language',
-			expected)
 
 
-	it 'should send a get compact view request', =>
-		@Persistence.userSettingsIsCompact()
+	it 'should send a get settings request', =>
+		@Persistence.getSettings()
 
-		expect(@req.get).toHaveBeenCalledWith('/apps/news/usersettings/compact')
+		expect(@req.get).toHaveBeenCalledWith('/apps/news/settings')
 
 
 	it 'should send a set compact view request', =>
@@ -480,8 +458,9 @@ describe 'Persistence', ->
 		expected =
 			data:
 				compact: true
+			onSuccess: jasmine.any(Function)
 
-		expect(@req.post).toHaveBeenCalledWith('/apps/news/usersettings/compact',
+		expect(@req.post).toHaveBeenCalledWith('/apps/news/settings',
 			expected)
 
 
