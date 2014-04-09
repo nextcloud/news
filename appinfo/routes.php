@@ -116,6 +116,6 @@ $app->registerRoutes($this, array(
 $this->create('news_api_cors', '/api/v1-2/{path}')->method('options')->action(
 	function($params) {
 		$app = new News($params);
-		$app->dispatch('NewsApiController', 'cors');
+		$app->dispatch('ApiController', 'cors');
 	}
 )->requirements(array('path' => '.+'));
