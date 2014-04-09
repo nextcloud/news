@@ -32,7 +32,7 @@ use \OCA\News\App\News;
 $app = new News();
 $app->registerRoutes($this, array(
 	'routes' => array(
-		///////////////// Website
+
 		// page
 		array('name' => 'page#index', 'url' => '/', 'verb' => 'GET'),
 		array('name' => 'page#settings', 'url' => '/settings', 'verb' => 'GET'),
@@ -73,12 +73,12 @@ $app->registerRoutes($this, array(
 		array('name' => 'export#opml', 'url' => '/export/opml', 'verb' => 'GET'),
 		array('name' => 'export#articles', 'url' => '/export/articles', 'verb' => 'GET'),
 
-		///////////////// API
-		// Generic
+		// API
 		array('name' => 'api#version', 'url' => '/api/v1-2/version', 'verb' => 'GET'),
 		array('name' => 'api#update', 'url' => '/api/v1-2/update', 'verb' => 'GET'),
 		array('name' => 'api#before_update', 'url' => '/api/v1-2/cleanup/before-update', 'verb' => 'GET'),
 		array('name' => 'api#after_update', 'url' => '/api/v1-2/cleanup/after-update', 'verb' => 'GET'),
+		array('name' => 'api#cors', 'url' => '/api/v1-2/{path}', 'verb' => 'OPTIONS', 'requirements' => array('path' => '.+')),
 
 		// folders
 		array('name' => 'folder_api#index', 'url' => '/api/v1-2/folders', 'verb' => 'GET'),
@@ -112,10 +112,3 @@ $app->registerRoutes($this, array(
 	)
 ));
 
-
-$this->create('news_api_cors', '/api/v1-2/{path}')->method('options')->action(
-	function($params) {
-		$app = new News($params);
-		$app->dispatch('ApiController', 'cors');
-	}
-)->requirements(array('path' => '.+'));
