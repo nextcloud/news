@@ -1,6 +1,12 @@
 <?php $TRANSLATIONS = array(
+"Address" => "Direición",
+"Add" => "Amestar",
 "from" => "Dende",
 "by" => "por",
 "Download" => "Descargar",
-"Import" => "Importar"
+"Cancel" => "Encaboxar",
+"Save" => "Guardar",
+"Settings" => "Axustes",
+"Import" => "Importar",
+"Export" => "Esportar"
 );
