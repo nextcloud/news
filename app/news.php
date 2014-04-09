@@ -237,7 +237,7 @@ class News extends App {
 		 */
 		$container->registerService('API', function($c){
 			return new API(
-				$c->query('news')
+				$c->query('AppName')
 			);
 		});
 
