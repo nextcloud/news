@@ -94,7 +94,7 @@ Git (development version)
 Installation
 ~~~~~~~~~~~~
 
-- Clone the **News** app into the **/var/www/owncloud/apps** directory::
+- Clone the **News** app into the **/var/www/owncloud/apps/** directory::
 
 	git clone https://github.com/owncloud/news.git
 
