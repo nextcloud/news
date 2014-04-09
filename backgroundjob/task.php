@@ -26,18 +26,19 @@
 
 namespace OCA\News\Backgroundjob;
 
-use \OCA\News\DependencyInjection\DIContainer;
+use \OCA\News\App\News;
 
 
 class Task {
 
 
 	static public function run() {
-		$container = new DIContainer();
+		$app = new News();
+		$container = $app->getContainer();
 
 		// make it possible to turn off cron updates if you use an external
 		// script to execute updates in paralell
-		if ($container['useCronUpdates']) {
+		if ($container['Config']->getUseCronUpdates()) {
 			$container['Updater']->beforeUpdate();
 			$container['Updater']->update();
 			$container['Updater']->afterUpdate();

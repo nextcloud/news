@@ -25,7 +25,7 @@
 
 namespace OCA\News\Hooks;
 
-use \OCA\News\DependencyInjection\DIContainer;
+use \OCA\News\App\News;
 
 
 class User {
@@ -34,7 +34,8 @@ class User {
     public static function deleteUser($params) {
         $userId = $params['uid'];
         
-        $container = new DIContainer();
+        $app = new News();
+        $container = $app->getContainer();
 
         // order is important!
         $container['ItemBusinessLayer']->deleteUser($userId);
