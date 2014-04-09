@@ -24,20 +24,22 @@
 
 namespace OCA\News\Middleware;
 
-use OCA\AppFramework\Http\Request;
-use OCA\AppFramework\Http\Response;
+use OCP\IRequest;
+use OCP\AppFramework\Http\Response;
+
+use OCA\News\Utility\ControllerTestUtility;
 
 require_once(__DIR__ . "/../../classloader.php");
 
 
-class CORSMiddlewareTest extends \PHPUnit_Framework_TestCase {
+class CORSMiddlewareTest extends ControllerTestUtility {
 
 
 	/**
 	 * @API
 	 */
 	public function testSetCORSAPIHeader() {
-		$request = new Request(
+		$request = $this->getRequest(
 			array('server' => array('HTTP_ORIGIN' => 'test'))
 		);
 		$middleware = new CORSMiddleware($request);
@@ -51,7 +53,7 @@ class CORSMiddlewareTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testNoAPINoCORSHEADER() {
-		$request = new Request();
+		$request = $this->getRequest();
 		$middleware = new CORSMiddleware($request);
 		$response = $middleware->afterController('\OCA\News\Middleware\CORSMiddlewareTest',
 			'testNoAPINoCORSHEADER',
@@ -65,7 +67,7 @@ class CORSMiddlewareTest extends \PHPUnit_Framework_TestCase {
 	 * @API
 	 */
 	public function testNoOriginHeaderNoCORSHEADER() {
-		$request = new Request();
+		$request = $this->getRequest();
 		$middleware = new CORSMiddleware($request);
 		$response = $middleware->afterController('\OCA\News\Middleware\CORSMiddlewareTest',
 			'testNoOriginHeaderNoCORSHEADER',

@@ -24,9 +24,9 @@
 
 namespace OCA\News\Middleware;
 
-use OCA\AppFramework\Http\Request;
-use OCA\AppFramework\Http\Response;
-use OCA\AppFramework\Middleware\Middleware;
+use OCP\IRequest;
+use OCP\AppFramework\Http\Response;
+use OCP\AppFramework\Middleware;
 
 use OCA\News\Utility\MethodAnnotationReader;
 
@@ -34,7 +34,7 @@ class CORSMiddleware extends Middleware {
 
 	private $request;
 
-	public function __construct(Request $request) {
+	public function __construct(IRequest $request) {
 		$this->request = $request;
 	}
 
