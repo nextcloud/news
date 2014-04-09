@@ -93,7 +93,7 @@ class ItemApiController extends Controller {
 	 * @NoCSRFRequired
 	 * @API
 	 */
-	public function getUpdated() {
+	public function updated() {
 		$result = array(
 			'items' => array()
 		);

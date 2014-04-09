@@ -79,8 +79,8 @@ class ItemApiControllerTest extends ControllerTestUtility {
 	}
 
 
-	public function testGetUpdatedAnnotations(){
-		$this->assertDefaultAnnotations('getUpdated');
+	public function testUpdatedAnnotations(){
+		$this->assertDefaultAnnotations('updated');
 	}
 
 
@@ -208,7 +208,7 @@ class ItemApiControllerTest extends ControllerTestUtility {
 	}
 
 
-	public function testGetUpdated() {
+	public function testUpdated() {
 		$items = array(
 			new Item()
 		);
@@ -237,7 +237,7 @@ class ItemApiControllerTest extends ControllerTestUtility {
 			)
 			->will($this->returnValue($items));
 
-		$response = $this->itemAPI->getUpdated();
+		$response = $this->itemAPI->updated();
 
 		$this->assertEquals(array(
 			'items' => array($items[0]->toAPI())
