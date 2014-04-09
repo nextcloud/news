@@ -26,39 +26,29 @@ namespace OCA\News;
 
 use \OCA\News\Core\API;
 
+$api = new API('news');
 
-// dont break owncloud when the appframework is not enabled
-if(\OCP\App::isEnabled('appframework')){
+$api->addNavigationEntry(array(
 
-	$api = new API('news');
+	// the string under which your app will be referenced in owncloud
+	'id' => $api->getAppName(),
 
-	$api->addNavigationEntry(array(
+	// sorting weight for the navigation. The higher the number, the higher
+	// will it be listed in the navigation
+	'order' => 10,
 
-		// the string under which your app will be referenced in owncloud
-		'id' => $api->getAppName(),
+	// the route that will be shown on startup
+	'href' => $api->linkToRoute('news.page.index'),
 
-		// sorting weight for the navigation. The higher the number, the higher
-		// will it be listed in the navigation
-		'order' => 10,
+	// the icon that will be shown in the navigation
+	// this file needs to exist in img/example.png
+	'icon' => $api->imagePath('news.svg'),
 
-		// the route that will be shown on startup
-		'href' => $api->linkToRoute('news.page.index'),
+	// the title of your application. This will be used in the
+	// navigation or on the settings page of your app
+	'name' => $api->getTrans()->t('News')
 
-		// the icon that will be shown in the navigation
-		// this file needs to exist in img/example.png
-		'icon' => $api->imagePath('news.svg'),
+));
 
-		// the title of your application. This will be used in the
-		// navigation or on the settings page of your app
-		'name' => $api->getTrans()->t('News')
-
-	));
-
-	$api->addRegularTask('OCA\News\Backgroundjob\Task', 'run');
-	$api->connectHook('OC_User', 'pre_deleteUser', 
-	                  'OCA\News\Hooks\User', 'deleteUser');
-
-} else {
-	$msg = 'Can not enable the News app because the App Framework App is disabled';
-	\OCP\Util::writeLog('news', $msg, \OCP\Util::ERROR);
-}
+$api->addRegularTask('OCA\News\Backgroundjob\Task', 'run');
+$api->connectHook('OC_User', 'pre_deleteUser', 'OCA\News\Hooks\User', 'deleteUser');
