@@ -26,7 +26,7 @@
 
 
 		<a title="<?php p($l->t('Export')); ?>" class="button download-icon svg"
-			href="<?php p(\OCP\Util::linkToRoute('news_export_opml')); ?>" 
+			href="<?php p(\OCP\Util::linkToRoute('news.export.opml')); ?>" 
 			target="_blank"
 			ng-show="feedBusinessLayer.getNumberOfFeeds() > 0">
 			<?php p($l->t('Export')); ?>
@@ -58,7 +58,7 @@
 		</button>
 
 		<a title="<?php p($l->t('Export')); ?>" class="button download-icon svg"
-			href="<?php p(\OCP\Util::linkToRoute('news_export_articles')); ?>" 
+			href="<?php p(\OCP\Util::linkToRoute('news.export.articles')); ?>" 
 			target="_blank"
 			ng-show="feedBusinessLayer.getNumberOfFeeds() > 0">
 			<?php p($l->t('Export')); ?>
