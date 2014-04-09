@@ -72,10 +72,16 @@ class PageController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function updateSettings() {
-		$isShowAll = $this->params('showAll');
-		$isCompact = $this->params('compact');
-		$this->api->setUserValue('showAll', $isShowAll);
-		$this->api->setUserValue('compact', $isCompact);
+		$isShowAll = $this->params('showAll', null);
+		$isCompact = $this->params('compact', null);
+		
+		if($isShowAll !== null) {
+			$this->api->setUserValue('showAll', $isShowAll);
+		}
+
+		if($isCompact !== null) {
+			$this->api->setUserValue('compact', $isCompact);
+		}
 
 		return new JSONResponse();
 	}

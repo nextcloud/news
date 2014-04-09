@@ -123,4 +123,21 @@ class PageControllerTest extends ControllerTestUtility {
 
 		$this->assertTrue($response instanceof JSONResponse);
 	}
+
+
+	public function testUpdateSettingsNoParameterShouldNotSetIt() {
+		$request = $this->getRequest(array('post' => array(
+			'showAll' => true
+		)));
+		$this->controller = new PageController($this->api, $request);
+
+		$this->api->expects($this->once())
+			->method('setUserValue')
+			->with($this->equalTo('showAll'), 
+				$this->equalTo(true));
+
+		$response = $this->controller->updateSettings();
+
+		$this->assertTrue($response instanceof JSONResponse);
+	}
 }
