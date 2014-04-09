@@ -374,7 +374,7 @@ class News extends App {
 			);
 		});		
 
-		$container->registerMiddleWare($container['CORSMiddleware']);
+		$container->registerMiddleWare('CORSMiddleware');
 
 	}
 }
