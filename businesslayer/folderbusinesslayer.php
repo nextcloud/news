@@ -28,7 +28,7 @@ namespace OCA\News\BusinessLayer;
 use \OCA\News\Core\API;
 use \OCA\News\Db\Folder;
 use \OCA\News\Db\FolderMapper;
-use \OCA\News\Utility\TimeFactory;
+use \OCA\News\Utility\Config;
 
 
 class FolderBusinessLayer extends BusinessLayer {
@@ -39,12 +39,12 @@ class FolderBusinessLayer extends BusinessLayer {
 
 	public function __construct(FolderMapper $folderMapper,
 	                            API $api,
-	                            TimeFactory $timeFactory,
-	                            $autoPurgeMinimumInterval){
+	                            $timeFactory,
+	                            Config $config){
 		parent::__construct($folderMapper);
 		$this->api = $api;
 		$this->timeFactory = $timeFactory;
-		$this->autoPurgeMinimumInterval = $autoPurgeMinimumInterval;
+		$this->autoPurgeMinimumInterval = $config->getAutoPurgeMinimumInterval();
 	}
 
 	/**

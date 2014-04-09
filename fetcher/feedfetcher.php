@@ -26,11 +26,11 @@
 namespace OCA\News\Fetcher;
 
 use \OCA\News\Core\API;
-use \OCA\News\Utility\FaviconFetcher;
-use \OCA\News\Utility\SimplePieAPIFactory;
-use \OCA\News\Utility\TimeFactory;
 use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
+use \OCA\News\Utility\FaviconFetcher;
+use \OCA\News\Utility\SimplePieAPIFactory;
+use \OCA\News\Utility\Config;
 
 
 class FeedFetcher implements IFeedFetcher {
@@ -46,17 +46,16 @@ class FeedFetcher implements IFeedFetcher {
 	public function __construct(API $api,
 				    SimplePieAPIFactory $simplePieFactory,
 				    FaviconFetcher $faviconFetcher,
-				    TimeFactory $time,
+				    $time,
 				    $cacheDirectory,
-				    $cacheDuration,
-				    $fetchTimeout){
+				    Config $config){
 		$this->api = $api;
 		$this->cacheDirectory = $cacheDirectory;
-		$this->cacheDuration = $cacheDuration;
+		$this->cacheDuration = $config->getSimplePieCacheDuration();
+		$this->fetchTimeout = $config->getFeedFetcherTimeout();
 		$this->faviconFetcher = $faviconFetcher;
 		$this->simplePieFactory = $simplePieFactory;
 		$this->time = $time;
-		$this->fetchTimeout = $fetchTimeout;
 	}
 
 

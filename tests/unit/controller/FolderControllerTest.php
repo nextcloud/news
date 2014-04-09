@@ -94,7 +94,7 @@ class FolderControllerTest extends ControllerTestUtility {
 	}
 
 	public function testFoldersAnnotations(){
-		$this->assertFolderControllerAnnotations('folders');
+		$this->assertFolderControllerAnnotations('index');
 	}
 
 
@@ -132,7 +132,7 @@ class FolderControllerTest extends ControllerTestUtility {
 		$this->assertFolderControllerAnnotations('read');
 	}
 	
-	public function testFolders(){
+	public function testIndex(){
 		$return = array(
 			new Folder(),
 			new Folder(),
@@ -141,7 +141,7 @@ class FolderControllerTest extends ControllerTestUtility {
 					->method('findAll')
 					->will($this->returnValue($return));
 
-		$response = $this->controller->folders();
+		$response = $this->controller->index();
 		$expected = array(
 			'folders' => $return
 		);

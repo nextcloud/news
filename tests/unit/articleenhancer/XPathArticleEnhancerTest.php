@@ -40,10 +40,17 @@ class XPathArticleEnhancerTest extends \OCA\News\Utility\TestUtility {
 	private $userAgent;
 
 	protected function setUp() {
-		$timeout = 30;
+		$this->timeout = 30;
 		$this->fileFactory = $this->getMockBuilder('\OCA\News\Utility\SimplePieAPIFactory')
 			->disableOriginalConstructor()
 			->getMock();
+		$config = $this->getMockBuilder(
+			'\OCA\News\Utility\Config')
+			->disableOriginalConstructor()
+			->getMock();
+		$config->expects($this->any())
+			->method('getFeedFetcherTimeout')
+			->will($this->returnValue($this->timeout));
 
 		$this->testEnhancer = new XPathArticleEnhancer(
 			$this->fileFactory,
@@ -53,7 +60,7 @@ class XPathArticleEnhancerTest extends \OCA\News\Utility\TestUtility {
 				'/explosm.net\/all/' => '//body/*',
 				'/themerepublic.net/' => '//*[@class=\'post hentry\']'
 			), 
-			$this->timeout
+			$config
 		);
 		$this->redirects = 5;
 		$this->headers = null;

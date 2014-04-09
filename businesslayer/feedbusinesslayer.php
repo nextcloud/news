@@ -34,7 +34,8 @@ use \OCA\News\Db\ItemMapper;
 use \OCA\News\Fetcher\Fetcher;
 use \OCA\News\Fetcher\FetcherException;
 use \OCA\News\ArticleEnhancer\Enhancer;
-use \OCA\News\Utility\TimeFactory;
+use \OCA\News\Utility\Config;
+
 
 class FeedBusinessLayer extends BusinessLayer {
 
@@ -48,8 +49,8 @@ class FeedBusinessLayer extends BusinessLayer {
 
 	public function __construct(FeedMapper $feedMapper, Fetcher $feedFetcher,
 		                        ItemMapper $itemMapper, API $api,
-		                        TimeFactory $timeFactory,
-		                        $autoPurgeMinimumInterval,
+		                        $timeFactory,
+		                        Config $config,
 		                        Enhancer $enhancer,
 		                        $purifier){
 		parent::__construct($feedMapper);
@@ -57,7 +58,7 @@ class FeedBusinessLayer extends BusinessLayer {
 		$this->itemMapper = $itemMapper;
 		$this->api = $api;
 		$this->timeFactory = $timeFactory;
-		$this->autoPurgeMinimumInterval = $autoPurgeMinimumInterval;
+		$this->autoPurgeMinimumInterval = $config->getAutoPurgeMinimumInterval();
 		$this->enhancer = $enhancer;
 		$this->purifier = $purifier;
 	}

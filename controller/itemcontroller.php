@@ -55,7 +55,7 @@ class ItemController extends Controller {
 	/**
 	 * @NoAdminRequired
 	 */
-	public function items(){
+	public function index(){
 		$userId = $this->api->getUserId();
 		$showAll = $this->api->getUserValue('showAll') === '1';
 

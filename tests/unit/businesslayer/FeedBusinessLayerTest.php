@@ -53,10 +53,7 @@ class FeedBusinessLayerTest extends \OCA\News\Utility\TestUtility {
 		$this->api = $this->getAPIMock();
 		$this->time = 222;
 		$this->autoPurgeMinimumInterval = 10;
-		$timeFactory = $this->getMockBuilder(
-			'\OCA\News\Utility\TimeFactory')
-			->disableOriginalConstructor()
-			->getMock();
+		$timeFactory = $this->getMock('TimeFactory', array('getTime'));
 		$timeFactory->expects($this->any())
 			->method('getTime')
 			->will($this->returnValue($this->time));
@@ -73,9 +70,17 @@ class FeedBusinessLayerTest extends \OCA\News\Utility\TestUtility {
 			->disableOriginalConstructor()
 			->getMock();
 		$this->purifier = $this->getMock('purifier', array('purify'));
+		$config = $this->getMockBuilder(
+			'\OCA\News\Utility\Config')
+			->disableOriginalConstructor()
+			->getMock();
+		$config->expects($this->any())
+			->method('getAutoPurgeMinimumInterval')
+			->will($this->returnValue($this->autoPurgeMinimumInterval));
+
 		$this->feedBusinessLayer = new FeedBusinessLayer($this->feedMapper,
 			$this->fetcher, $this->itemMapper, $this->api,
-			$timeFactory, $this->autoPurgeMinimumInterval,
+			$timeFactory, $config,
 			$this->enhancer, $this->purifier);
 		$this->user = 'jack';
 		$response = 'hi';

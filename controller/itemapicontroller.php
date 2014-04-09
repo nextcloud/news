@@ -23,7 +23,7 @@
 *
 */
 
-namespace OCA\News\API;
+namespace OCA\News\Controller;
 
 use \OCP\IRequest;
 use \OCP\AppFramework\Controller;
@@ -34,7 +34,7 @@ use \OCA\News\BusinessLayer\ItemBusinessLayer;
 use \OCA\News\BusinessLayer\BusinessLayerException;
 use \OCA\News\Core\API;
 
-class ItemAPI extends Controller {
+class ItemApiController extends Controller {
 
 	private $itemBusinessLayer;
 	private $api;
@@ -53,7 +53,7 @@ class ItemAPI extends Controller {
 	 * @NoCSRFRequired
 	 * @API
 	 */
-	public function getAll() {
+	public function index() {
 		$result = array(
 			'items' => array()
 		);

@@ -30,7 +30,7 @@ use \OCA\News\Db\ItemMapper;
 use \OCA\News\Db\StatusFlag;
 use \OCA\News\Db\FeedType;
 use \OCA\News\Db\DoesNotExistException;
-use \OCA\News\Utility\TimeFactory;
+use \OCA\News\Utility\Config;
 
 
 class ItemBusinessLayer extends BusinessLayer {
@@ -40,10 +40,10 @@ class ItemBusinessLayer extends BusinessLayer {
 	private $timeFactory;
 
 	public function __construct(ItemMapper $itemMapper, StatusFlag $statusFlag,
-								TimeFactory $timeFactory, $autoPurgeCount=0){
+								$timeFactory, Config $config){
 		parent::__construct($itemMapper);
 		$this->statusFlag = $statusFlag;
-		$this->autoPurgeCount = $autoPurgeCount;
+		$this->autoPurgeCount = $config->getAutoPurgeCount();
 		$this->timeFactory = $timeFactory;
 	}
 

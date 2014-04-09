@@ -23,7 +23,7 @@
 *
 */
 
-namespace OCA\News\API;
+namespace OCA\News\Controller;
 
 use \OCP\IRequest;
 use \OCP\AppFramework\Http;
@@ -41,7 +41,7 @@ use \OCA\News\Db\Item;
 require_once(__DIR__ . "/../../classloader.php");
 
 
-class FolderAPITest extends ControllerTestUtility {
+class FolderApiControllerTest extends ControllerTestUtility {
 
 	private $folderBusinessLayer;
 	private $itemBusinessLayer;
@@ -68,7 +68,7 @@ class FolderAPITest extends ControllerTestUtility {
 			'\OCA\News\BusinessLayer\ItemBusinessLayer')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->folderAPI = new FolderAPI(
+		$this->folderAPI = new FolderApiController(
 			$this->api,
 			$this->request,
 			$this->folderBusinessLayer,
@@ -85,8 +85,8 @@ class FolderAPITest extends ControllerTestUtility {
 	}
 
 
-	public function testGetAllAnnotations(){
-		$this->assertDefaultAnnotations('getAll');
+	public function testIndexAnnotations(){
+		$this->assertDefaultAnnotations('index');
 	}
 
 
@@ -110,7 +110,7 @@ class FolderAPITest extends ControllerTestUtility {
 	}
 
 
-	public function testGetAll() {
+	public function testIndex() {
 		$folders = array(
 			new Folder()
 		);
@@ -123,7 +123,7 @@ class FolderAPITest extends ControllerTestUtility {
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($folders));
 
-		$response = $this->folderAPI->getAll();
+		$response = $this->folderAPI->index();
 
 		$this->assertEquals(array(
 			'folders' => array($folders[0]->toAPI())
@@ -138,7 +138,7 @@ class FolderAPITest extends ControllerTestUtility {
 		$folders = array(
 			$folder
 		);
-		$this->folderAPI = new FolderAPI(
+		$this->folderAPI = new FolderApiController(
 			$this->api,
 			$this->getRequest(array('params' => array(
 				'name' => $folderName
@@ -211,7 +211,7 @@ class FolderAPITest extends ControllerTestUtility {
 	public function testDelete() {
 		$folderId = 23;
 
-		$this->folderAPI = new FolderAPI(
+		$this->folderAPI = new FolderApiController(
 			$this->api,
 			$this->getRequest(array('urlParams' => array(
 				'folderId' => $folderId
@@ -236,7 +236,7 @@ class FolderAPITest extends ControllerTestUtility {
 	public function testDeleteDoesNotExist() {
 		$folderId = 23;
 
-		$this->folderAPI = new FolderAPI(
+		$this->folderAPI = new FolderApiController(
 			$this->api,
 			$this->getRequest(array('urlParams' => array(
 				'folderId' => $folderId
@@ -264,7 +264,7 @@ class FolderAPITest extends ControllerTestUtility {
 		$folderId = 23;
 		$folderName = 'test';
 
-		$this->folderAPI = new FolderAPI(
+		$this->folderAPI = new FolderApiController(
 			$this->api,
 			$this->getRequest(
 				array(
@@ -300,7 +300,7 @@ class FolderAPITest extends ControllerTestUtility {
 		$folderId = 23;
 		$folderName = 'test';
 
-		$this->folderAPI = new FolderAPI(
+		$this->folderAPI = new FolderApiController(
 			$this->api,
 			$this->getRequest(
 				array(
@@ -336,7 +336,7 @@ class FolderAPITest extends ControllerTestUtility {
 		$folderId = 23;
 		$folderName = 'test';
 
-		$this->folderAPI = new FolderAPI(
+		$this->folderAPI = new FolderApiController(
 			$this->api,
 			$this->getRequest(
 				array(
@@ -372,7 +372,7 @@ class FolderAPITest extends ControllerTestUtility {
 		$folderId = 23;
 		$folderName = '';
 
-		$this->folderAPI = new FolderAPI(
+		$this->folderAPI = new FolderApiController(
 			$this->api,
 			$this->getRequest(
 				array(
@@ -413,7 +413,7 @@ class FolderAPITest extends ControllerTestUtility {
 				'newestItemId' => 30,
 			)
 		));
-		$this->folderAPI = new FolderAPI(
+		$this->folderAPI = new FolderApiController(
 			$this->api,
 			$request,
 			$this->folderBusinessLayer,

@@ -23,7 +23,7 @@
 *
 */
 
-namespace OCA\News\API;
+namespace OCA\News\Controller;
 
 use \OCP\IRequest;
 use \OCP\AppFramework\Controller;
@@ -38,7 +38,7 @@ use \OCA\News\BusinessLayer\BusinessLayerConflictException;
 use \OCA\News\BusinessLayer\BusinessLayerValidationException;
 
 
-class FolderAPI extends Controller {
+class FolderApiController extends Controller {
 
 	private $folderBusinessLayer;
 	private $itemBusinessLayer;
@@ -60,7 +60,7 @@ class FolderAPI extends Controller {
 	 * @NoCSRFRequired
 	 * @API
 	 */
-	public function getAll() {
+	public function index() {
 		$userId = $this->api->getUserId();
 		$result = array(
 			'folders' => array()

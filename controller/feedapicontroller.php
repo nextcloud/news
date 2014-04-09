@@ -23,7 +23,7 @@
 *
 */
 
-namespace OCA\News\API;
+namespace OCA\News\Controller;
 
 use \OCP\IRequest;
 use \OCP\AppFramework\Controller;
@@ -38,7 +38,7 @@ use \OCA\News\BusinessLayer\BusinessLayerException;
 use \OCA\News\BusinessLayer\BusinessLayerConflictException;
 
 
-class FeedAPI extends Controller {
+class FeedApiController extends Controller {
 
 	private $itemBusinessLayer;
 	private $feedBusinessLayer;
@@ -63,7 +63,7 @@ class FeedAPI extends Controller {
 	 * @NoCSRFRequired
 	 * @API
 	 */
-	public function getAll() {
+	public function index() {
 		$userId = $this->api->getUserId();
 
 		$result = array(
@@ -198,7 +198,7 @@ class FeedAPI extends Controller {
 	 * @NoCSRFRequired
 	 * @API
 	 */
-	public function getAllFromAllUsers() {
+	public function fromAllUsers() {
 		$feeds = $this->feedBusinessLayer->findAllFromAllUsers();
 		$result = array('feeds' => array());
 

@@ -23,7 +23,7 @@
 *
 */
 
-namespace OCA\News\API;
+namespace OCA\News\Controller;
 
 use \OCP\IRequest;
 use \OCP\AppFramework\Http;
@@ -39,7 +39,7 @@ use \OCA\News\Db\Item;
 require_once(__DIR__ . "/../../classloader.php");
 
 
-class FeedAPITest extends ControllerTestUtility {
+class FeedApiControllerTest extends ControllerTestUtility {
 
 	private $folderBusinessLayer;
 	private $feedBusinessLayer;
@@ -71,7 +71,7 @@ class FeedAPITest extends ControllerTestUtility {
 			'\OCA\News\BusinessLayer\ItemBusinessLayer')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->feedAPI = new FeedAPI(
+		$this->feedAPI = new FeedApiController(
 			$this->api,
 			$this->request,
 			$this->folderBusinessLayer,
@@ -90,7 +90,7 @@ class FeedAPITest extends ControllerTestUtility {
 
 
 	public function testGetAllAnnotations(){
-		$this->assertDefaultAnnotations('getAll');
+		$this->assertDefaultAnnotations('index');
 	}
 
 
@@ -114,9 +114,9 @@ class FeedAPITest extends ControllerTestUtility {
 	}
 
 
-	public function testGetAllFromUsersAnnotations(){
+	public function testFromUsersAnnotations(){
 		$annotations = array('NoCSRFRequired', 'API');
-		$this->assertAnnotations($this->feedAPI, 'getAllFromAllUsers', $annotations);
+		$this->assertAnnotations($this->feedAPI, 'fromAllUsers', $annotations);
 	}
 
 
@@ -126,7 +126,7 @@ class FeedAPITest extends ControllerTestUtility {
 	}
 
 
-	public function testGetAll() {
+	public function testIndex() {
 		$feeds = array(
 			new Feed()
 		);
@@ -149,7 +149,7 @@ class FeedAPITest extends ControllerTestUtility {
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($feeds));
 
-		$response = $this->feedAPI->getAll();
+		$response = $this->feedAPI->index();
 
 		$this->assertEquals(array(
 			'feeds' => array($feeds[0]->toAPI()),
@@ -159,7 +159,7 @@ class FeedAPITest extends ControllerTestUtility {
 	}
 
 
-	public function testGetAllNoNewestItemId() {
+	public function testIndexNoNewestItemId() {
 		$feeds = array(
 			new Feed()
 		);
@@ -181,7 +181,7 @@ class FeedAPITest extends ControllerTestUtility {
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($feeds));
 
-		$response = $this->feedAPI->getAll();
+		$response = $this->feedAPI->index();
 
 		$this->assertEquals(array(
 			'feeds' => array($feeds[0]->toAPI()),
@@ -194,7 +194,7 @@ class FeedAPITest extends ControllerTestUtility {
 		$request = $this->getRequest(array('urlParams' => array(
 			'feedId' => 2
 		)));
-		$this->feedAPI = new FeedAPI(
+		$this->feedAPI = new FeedApiController(
 			$this->api,
 			$request,
 			$this->folderBusinessLayer,
@@ -222,7 +222,7 @@ class FeedAPITest extends ControllerTestUtility {
 		$request = $this->getRequest(array('urlParams' => array(
 			'feedId' => 2
 		)));
-		$this->feedAPI = new FeedAPI(
+		$this->feedAPI = new FeedApiController(
 			$this->api,
 			$request,
 			$this->folderBusinessLayer,
@@ -253,7 +253,7 @@ class FeedAPITest extends ControllerTestUtility {
 			'url' => 'ho',
 			'folderId' => 3
 		)));
-		$this->feedAPI = new FeedAPI(
+		$this->feedAPI = new FeedApiController(
 			$this->api,
 			$request,
 			$this->folderBusinessLayer,
@@ -297,7 +297,7 @@ class FeedAPITest extends ControllerTestUtility {
 			'url' => 'ho',
 			'folderId' => 3
 		)));
-		$this->feedAPI = new FeedAPI(
+		$this->feedAPI = new FeedApiController(
 			$this->api,
 			$request,
 			$this->folderBusinessLayer,
@@ -377,7 +377,7 @@ class FeedAPITest extends ControllerTestUtility {
 				'newestItemId' => 30,
 			)
 		));
-		$this->feedAPI = new FeedAPI(
+		$this->feedAPI = new FeedApiController(
 			$this->api,
 			$request,
 			$this->folderBusinessLayer,
@@ -411,7 +411,7 @@ class FeedAPITest extends ControllerTestUtility {
 				'folderId' => 30,
 			)
 		));
-		$this->feedAPI = new FeedAPI(
+		$this->feedAPI = new FeedApiController(
 			$this->api,
 			$request,
 			$this->folderBusinessLayer,
@@ -448,7 +448,7 @@ class FeedAPITest extends ControllerTestUtility {
 				'feedTitle' => $feedTitle
 			)
 		));
-		$this->feedAPI = new FeedAPI(
+		$this->feedAPI = new FeedApiController(
 			$this->api,
 			$request,
 			$this->folderBusinessLayer,
@@ -489,7 +489,7 @@ class FeedAPITest extends ControllerTestUtility {
 	}
 
 
-	public function testGetAllFromAllUsers(){
+	public function testfromAllUsers(){
 		$feed = new Feed();
 		$feed->setUrl(3);
 		$feed->setId(1);
@@ -498,7 +498,7 @@ class FeedAPITest extends ControllerTestUtility {
 		$this->feedBusinessLayer->expects($this->once())
 			->method('findAllFromAllUsers')
 			->will($this->returnValue($feeds));
-		$response = $this->feedAPI->getAllFromAllUsers();
+		$response = $this->feedAPI->fromAllUsers();
 		$this->assertTrue($response instanceof JSONResponse);
 		$this->assertEquals('{"feeds":[{"id":1,"userId":"john"}]}', $response->render());
 	}
@@ -511,7 +511,7 @@ class FeedAPITest extends ControllerTestUtility {
 			'feedId' => $feedId,
 			'userId' => $userId
 		)));
-		$this->feedAPI = new FeedAPI(
+		$this->feedAPI = new FeedApiController(
 			$this->api,
 			$request,
 			$this->folderBusinessLayer,

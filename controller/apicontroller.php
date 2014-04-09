@@ -23,7 +23,7 @@
 *
 */
 
-namespace OCA\News\API;
+namespace OCA\News\Controller;
 
 use \OCP\IRequest;
 use \OCP\AppFramework\Controller;
@@ -34,7 +34,7 @@ use \OCP\AppFramework\Http\Response;
 use \OCA\News\Utility\Updater;
 use \OCA\News\Core\API;
 
-class NewsAPI extends Controller {
+class ApiController extends Controller {
 
 	private $updater;
 	private $api;

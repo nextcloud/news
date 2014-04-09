@@ -23,7 +23,7 @@
 *
 */
 
-namespace OCA\News\API;
+namespace OCA\News\Controller;
 
 use \OCP\IRequest;
 use \OCP\AppFramework\Http;
@@ -36,7 +36,7 @@ use \OCA\News\Db\Item;
 require_once(__DIR__ . "/../../classloader.php");
 
 
-class ItemAPITest extends ControllerTestUtility {
+class ItemApiControllerTest extends ControllerTestUtility {
 
 	private $itemBusinessLayer;
 	private $itemAPI;
@@ -59,7 +59,7 @@ class ItemAPITest extends ControllerTestUtility {
 			->disableOriginalConstructor()
 			->getMock();
 		$this->user = 'tom';
-		$this->itemAPI = new ItemAPI(
+		$this->itemAPI = new ItemApiController(
 			$this->api,
 			$this->request,
 			$this->itemBusinessLayer
@@ -74,8 +74,8 @@ class ItemAPITest extends ControllerTestUtility {
 	}
 
 
-	public function testGetAllAnnotations(){
-		$this->assertDefaultAnnotations('getAll');
+	public function testIndexAnnotations(){
+		$this->assertDefaultAnnotations('index');
 	}
 
 
@@ -129,7 +129,7 @@ class ItemAPITest extends ControllerTestUtility {
 	}
 
 
-	public function testGetAll() {
+	public function testIndex() {
 		$items = array(
 			new Item()
 		);
@@ -140,7 +140,7 @@ class ItemAPITest extends ControllerTestUtility {
 			'id' => 2,
 			'getRead' => 'false'
 		)));
-		$this->itemAPI = new ItemAPI(
+		$this->itemAPI = new ItemApiController(
 			$this->api,
 			$request,
 			$this->itemBusinessLayer
@@ -161,7 +161,7 @@ class ItemAPITest extends ControllerTestUtility {
 			)
 			->will($this->returnValue($items));
 
-		$response = $this->itemAPI->getAll();
+		$response = $this->itemAPI->index();
 
 		$this->assertEquals(array(
 			'items' => array($items[0]->toAPI())
@@ -169,7 +169,7 @@ class ItemAPITest extends ControllerTestUtility {
 	}
 
 
-	public function testGetAllDefaultBatchSize() {
+	public function testIndexDefaultBatchSize() {
 		$items = array(
 			new Item()
 		);
@@ -179,7 +179,7 @@ class ItemAPITest extends ControllerTestUtility {
 			'id' => 2,
 			'getRead' => 'false'
 		)));
-		$this->itemAPI = new ItemAPI(
+		$this->itemAPI = new ItemApiController(
 			$this->api,
 			$request,
 			$this->itemBusinessLayer
@@ -200,7 +200,7 @@ class ItemAPITest extends ControllerTestUtility {
 			)
 			->will($this->returnValue($items));
 
-		$response = $this->itemAPI->getAll();
+		$response = $this->itemAPI->index();
 
 		$this->assertEquals(array(
 			'items' => array($items[0]->toAPI())
@@ -217,7 +217,7 @@ class ItemAPITest extends ControllerTestUtility {
 			'type' => 1,
 			'id' => 2,
 		)));
-		$this->itemAPI = new ItemAPI(
+		$this->itemAPI = new ItemApiController(
 			$this->api,
 			$request,
 			$this->itemBusinessLayer
@@ -249,7 +249,7 @@ class ItemAPITest extends ControllerTestUtility {
 		$request = $this->getRequest(array('urlParams' => array(
 			'itemId' => 2
 		)));
-		$this->itemAPI = new ItemAPI(
+		$this->itemAPI = new ItemApiController(
 			$this->api,
 			$request,
 			$this->itemBusinessLayer
@@ -277,7 +277,7 @@ class ItemAPITest extends ControllerTestUtility {
 		$request = $this->getRequest(array('urlParams' => array(
 			'itemId' => 2
 		)));
-		$this->itemAPI = new ItemAPI(
+		$this->itemAPI = new ItemApiController(
 			$this->api,
 			$request,
 			$this->itemBusinessLayer
@@ -302,7 +302,7 @@ class ItemAPITest extends ControllerTestUtility {
 		$request = $this->getRequest(array('urlParams' => array(
 			'itemId' => 2
 		)));
-		$this->itemAPI = new ItemAPI(
+		$this->itemAPI = new ItemApiController(
 			$this->api,
 			$request,
 			$this->itemBusinessLayer
@@ -330,7 +330,7 @@ class ItemAPITest extends ControllerTestUtility {
 		$request = $this->getRequest(array('urlParams' => array(
 			'itemId' => 2
 		)));
-		$this->itemAPI = new ItemAPI(
+		$this->itemAPI = new ItemApiController(
 			$this->api,
 			$request,
 			$this->itemBusinessLayer
@@ -356,7 +356,7 @@ class ItemAPITest extends ControllerTestUtility {
 			'feedId' => 2,
 			'guidHash' => 'hash'
 		)));
-		$this->itemAPI = new ItemAPI(
+		$this->itemAPI = new ItemApiController(
 			$this->api,
 			$request,
 			$this->itemBusinessLayer
@@ -386,7 +386,7 @@ class ItemAPITest extends ControllerTestUtility {
 			'feedId' => 2,
 			'guidHash' => 'hash'
 		)));
-		$this->itemAPI = new ItemAPI(
+		$this->itemAPI = new ItemApiController(
 			$this->api,
 			$request,
 			$this->itemBusinessLayer
@@ -412,7 +412,7 @@ class ItemAPITest extends ControllerTestUtility {
 			'feedId' => 2,
 			'guidHash' => 'hash'
 		)));
-		$this->itemAPI = new ItemAPI(
+		$this->itemAPI = new ItemApiController(
 			$this->api,
 			$request,
 			$this->itemBusinessLayer
@@ -442,7 +442,7 @@ class ItemAPITest extends ControllerTestUtility {
 			'feedId' => 2,
 			'guidHash' => 'hash'
 		)));
-		$this->itemAPI = new ItemAPI(
+		$this->itemAPI = new ItemApiController(
 			$this->api,
 			$request,
 			$this->itemBusinessLayer
@@ -469,7 +469,7 @@ class ItemAPITest extends ControllerTestUtility {
 				'newestItemId' => 30,
 			)
 		));
-		$this->itemAPI = new ItemAPI(
+		$this->itemAPI = new ItemApiController(
 			$this->api,
 			$request,
 			$this->itemBusinessLayer
@@ -496,7 +496,7 @@ class ItemAPITest extends ControllerTestUtility {
 		$request = $this->getRequest(array('params' => array(
 			'items' => array(2, 4)
 		)));
-		$this->itemAPI = new ItemAPI(
+		$this->itemAPI = new ItemApiController(
 			$this->api,
 			$request,
 			$this->itemBusinessLayer
@@ -524,7 +524,7 @@ class ItemAPITest extends ControllerTestUtility {
 		$request = $this->getRequest(array('params' => array(
 			'items' => array(2, 4)
 		)));
-		$this->itemAPI = new ItemAPI(
+		$this->itemAPI = new ItemApiController(
 			$this->api,
 			$request,
 			$this->itemBusinessLayer
@@ -549,7 +549,7 @@ class ItemAPITest extends ControllerTestUtility {
 		$request = $this->getRequest(array('params' => array(
 			'items' => array(2, 4)
 		)));
-		$this->itemAPI = new ItemAPI(
+		$this->itemAPI = new ItemApiController(
 			$this->api,
 			$request,
 			$this->itemBusinessLayer
@@ -586,7 +586,7 @@ class ItemAPITest extends ControllerTestUtility {
 				)
 			)
 		)));
-		$this->itemAPI = new ItemAPI(
+		$this->itemAPI = new ItemApiController(
 			$this->api,
 			$request,
 			$this->itemBusinessLayer
@@ -625,7 +625,7 @@ class ItemAPITest extends ControllerTestUtility {
 				)
 			)
 		)));
-		$this->itemAPI = new ItemAPI(
+		$this->itemAPI = new ItemApiController(
 			$this->api,
 			$request,
 			$this->itemBusinessLayer
@@ -660,7 +660,7 @@ class ItemAPITest extends ControllerTestUtility {
 				)
 			)
 		)));
-		$this->itemAPI = new ItemAPI(
+		$this->itemAPI = new ItemApiController(
 			$this->api,
 			$request,
 			$this->itemBusinessLayer

@@ -61,7 +61,7 @@ class FeedController extends Controller {
 	/**
 	 * @NoAdminRequired
 	 */
-	public function feeds(){
+	public function index(){
 		$userId = $this->api->getUserId();
 
 		// this method is also used to update the interface
@@ -249,7 +249,7 @@ class FeedController extends Controller {
 	/**
 	 * @NoAdminRequired
 	 */
-	public function importArticles() {
+	public function import() {
 		$json = $this->params('json');
 		$userId = $this->api->getUserId();
 

@@ -87,7 +87,7 @@ class ItemControllerTest extends ControllerTestUtility {
 
 	
 	public function testItemsAnnotations(){
-		$this->assertItemControllerAnnotations('items');
+		$this->assertItemControllerAnnotations('index');
 	}
 
 
@@ -345,7 +345,7 @@ class ItemControllerTest extends ControllerTestUtility {
 	}
 
 
-	public function testItems(){
+	public function testIndex(){
 		$feeds = array(new Feed());
 		$result = array(
 			'items' => array(new Item()),
@@ -389,7 +389,7 @@ class ItemControllerTest extends ControllerTestUtility {
 				$this->equalTo($this->user))
 			->will($this->returnValue($result['items']));
 
-		$response = $this->controller->items();
+		$response = $this->controller->index();
 		$this->assertEquals($result, $response->getData());
 		$this->assertTrue($response instanceof JSONResponse);
 	}
@@ -422,7 +422,7 @@ class ItemControllerTest extends ControllerTestUtility {
 		$this->feedBusinessLayer->expects($this->never())
 			->method('findAll');
 
-		$response = $this->controller->items();
+		$response = $this->controller->index();
 		$this->assertEquals($result, $response->getData());
 		$this->assertTrue($response instanceof JSONResponse);
 	}
@@ -446,7 +446,7 @@ class ItemControllerTest extends ControllerTestUtility {
 			->with($this->equalTo($this->user))
 			->will($this->throwException(new BusinessLayerException('')));
 
-		$response = $this->controller->items();
+		$response = $this->controller->index();
 		$this->assertEquals($result, $response->getData());
 		$this->assertTrue($response instanceof JSONResponse);			
 	}

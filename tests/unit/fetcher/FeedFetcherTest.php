@@ -82,23 +82,29 @@ class FeedFetcherTest extends \OCA\News\Utility\TestUtility {
 			->disableOriginalConstructor()
 			->getMock();
 		$this->time = 2323;
-		$timeFactory = $this->getMockBuilder(
-			'\OCA\News\Utility\TimeFactory')
-			->disableOriginalConstructor()
-			->getMock();
+		$timeFactory = $this->getMock('TimeFactory', array('getTime'));
 		$timeFactory->expects($this->any())
 			->method('getTime')
 			->will($this->returnValue($this->time));
 		$this->cacheDuration = 100;
 		$this->cacheDirectory = 'dir/';
 		$this->fetchTimeout = 40;
+		$config = $this->getMockBuilder(
+			'\OCA\News\Utility\Config')
+			->disableOriginalConstructor()
+			->getMock();
+		$config->expects($this->any())
+			->method('getSimplePieCacheDuration')
+			->will($this->returnValue($this->cacheDuration));
+		$config->expects($this->any())
+			->method('getFeedFetcherTimeout')
+			->will($this->returnValue($this->fetchTimeout));
 		$this->fetcher = new FeedFetcher($this->getAPIMock(),
 						 $this->coreFactory,
 						 $this->faviconFetcher,
 						 $timeFactory,
 						 $this->cacheDirectory,
-						 $this->cacheDuration,
-						 $this->fetchTimeout);
+						 $config);
 		$this->url = 'http://tests';
 
 		$this->permalink = 'http://permalink';

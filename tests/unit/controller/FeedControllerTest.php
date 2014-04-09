@@ -91,7 +91,7 @@ class FeedControllerTest extends ControllerTestUtility {
 
 
 	public function testFeedsAnnotations(){
-		$this->assertFeedControllerAnnotations('feeds');
+		$this->assertFeedControllerAnnotations('index');
 	}
 
 
@@ -126,14 +126,14 @@ class FeedControllerTest extends ControllerTestUtility {
 
 
 	public function testImportArticlesAnnotations(){
-		$this->assertFeedControllerAnnotations('importArticles');
+		$this->assertFeedControllerAnnotations('import');
 	}
 
 	public function testReadAnnotations(){
 		$this->assertFeedControllerAnnotations('read');
 	}
 
-	public function testFeeds(){
+	public function testIndex(){
 		$result = array(
 			'feeds' => array(
 				array('a feed'),
@@ -156,14 +156,14 @@ class FeedControllerTest extends ControllerTestUtility {
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($result['starred']));
 
-		$response = $this->controller->feeds();
+		$response = $this->controller->index();
 
 		$this->assertEquals($result, $response->getData());
 		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
-	public function testFeedsHighestItemIdExists(){
+	public function testIndexHighestItemIdExists(){
 		$result = array(
 			'feeds' => array(
 				array('a feed'),
@@ -187,7 +187,7 @@ class FeedControllerTest extends ControllerTestUtility {
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($result['starred']));
 
-		$response = $this->controller->feeds();
+		$response = $this->controller->index();
 
 		$this->assertEquals($result, $response->getData());
 		$this->assertTrue($response instanceof JSONResponse);
@@ -620,7 +620,7 @@ class FeedControllerTest extends ControllerTestUtility {
 	}
 
 
-	public function testImportArticles() {
+	public function testImport() {
 		$feed = new Feed();
 
 		$post = array(
@@ -640,14 +640,14 @@ class FeedControllerTest extends ControllerTestUtility {
 				$this->equalTo($this->user))
 			->will($this->returnValue($feed));
 
-		$response = $this->controller->importArticles();
+		$response = $this->controller->import();
 
 		$this->assertEquals($expected, $response->getData());
 		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
-	public function testImportArticlesCreatesNoAdditionalFeed() {
+	public function testImportCreatesNoAdditionalFeed() {
 		$feed = new Feed();
 
 		$post = array(
@@ -665,7 +665,7 @@ class FeedControllerTest extends ControllerTestUtility {
 				$this->equalTo($this->user))
 			->will($this->returnValue(null));
 
-		$response = $this->controller->importArticles();
+		$response = $this->controller->import();
 
 		$this->assertEquals($expected, $response->getData());
 		$this->assertTrue($response instanceof JSONResponse);

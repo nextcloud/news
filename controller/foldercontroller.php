@@ -60,7 +60,7 @@ class FolderController extends Controller {
 	/**
 	 * @NoAdminRequired
 	 */
-	public function folders(){
+	public function index(){
 		$folders = $this->folderBusinessLayer->findAll($this->api->getUserId());
 		$result = array(
 			'folders' => $folders

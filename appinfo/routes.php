@@ -27,410 +27,95 @@ namespace OCA\News;
 
 use \OCP\AppFramework\App;
 
-use \OCA\News\DependencyInjection\DIContainer;
+use \OCA\News\App\News;
 
-/**
- * Webinterface
- */
-$this->create('news_index', '/')->get()->action(
-	function($params){
-		App::main('PageController', 'index', $params, new DIContainer());
-	}
+$app = new News();
+$app->registerRoutes(array(
+  'routes' => array(
+  	///////////////// Website
+  	// page
+    array('name' => 'page#index', 'url' => '/', 'verb' => 'GET'),
+    array('name' => 'page#settings', 'url' => '/settings', 'verb' => 'GET'),
+    array('name' => 'page#update_settings', 'url' => '/settings', 'verb' => 'POST'),
+
+    // folders
+    array('name' => 'folder#index', 'url' => '/folders', 'verb' => 'GET'),
+    array('name' => 'folder#create', 'url' => '/folders', 'verb' => 'POST'),
+    array('name' => 'folder#delete', 'url' => '/folders/{folderId}', 'verb' => 'DELETE'),
+    array('name' => 'folder#restore', 'url' => '/folders/{folderId}/restore', 'verb' => 'POST'),
+    array('name' => 'folder#rename', 'url' => '/folders/{folderId}/rename', 'verb' => 'POST'),
+    array('name' => 'folder#read', 'url' => '/folders/{folderId}/read', 'verb' => 'POST'),
+    array('name' => 'folder#open', 'url' => '/folders/{folderId}/open', 'verb' => 'POST'),
+    array('name' => 'folder#collapse', 'url' => '/folders/{folderId}/collapse', 'verb' => 'POST'),
+
+    // feeds
+    array('name' => 'feed#index', 'url' => '/feeds', 'verb' => 'GET'),
+    array('name' => 'feed#create', 'url' => '/feeds', 'verb' => 'POST'),
+    array('name' => 'feed#delete', 'url' => '/feeds/{feedId}', 'verb' => 'DELETE'),
+    array('name' => 'feed#restore', 'url' => '/feeds/{feedId}/restore', 'verb' => 'POST'),
+    array('name' => 'feed#move', 'url' => '/feeds/{feedId}/move', 'verb' => 'POST'),
+    array('name' => 'feed#rename', 'url' => '/feeds/{feedId}/rename', 'verb' => 'POST'),
+    array('name' => 'feed#read', 'url' => '/feeds/{feedId}/read', 'verb' => 'POST'),
+    array('name' => 'feed#update', 'url' => '/feeds/{feedId}/update', 'verb' => 'POST'),
+    array('name' => 'feed#active', 'url' => '/feeds/active', 'verb' => 'GET'),
+    array('name' => 'feed#import', 'url' => '/feeds/import/articles', 'verb' => 'POST'),
+
+    // items
+    array('name' => 'item#index', 'url' => '/items', 'verb' => 'GET'),
+    array('name' => 'item#new_items', 'url' => '/items/new', 'verb' => 'GET'),
+    array('name' => 'item#readAll', 'url' => '/items/read', 'verb' => 'POST'),
+    array('name' => 'item#read', 'url' => '/items/{itemId}/read', 'verb' => 'POST'),
+    array('name' => 'item#unread', 'url' => '/items/{itemId}/unread', 'verb' => 'POST'),
+    array('name' => 'item#star', 'url' => '/items/{feedId}/{guidHash}/star', 'verb' => 'POST'),
+    array('name' => 'item#unstar', 'url' => '/items/{feedId}/{guidHash}/unstar', 'verb' => 'POST'),
+
+    // export
+    array('name' => 'export#opml', 'url' => '/export/opml', 'verb' => 'GET'),
+    array('name' => 'export#articles', 'url' => '/export/articles', 'verb' => 'GET'),
+
+    ///////////////// API
+    // Generic
+    array('name' => 'api#version', 'url' => '/api/v1-2/version', 'verb' => 'GET'),
+    array('name' => 'api#update', 'url' => '/api/v1-2/update', 'verb' => 'GET'),
+    array('name' => 'api#before_update', 'url' => '/api/v1-2/cleanup/before-update', 'verb' => 'GET'),
+    array('name' => 'api#after_update', 'url' => '/api/v1-2/cleanup/after-update', 'verb' => 'GET'),
+
+    // folders
+    array('name' => 'folder_api#index', 'url' => '/api/v1-2/folders', 'verb' => 'GET'),
+    array('name' => 'folder_api#create', 'url' => '/api/v1-2/folders', 'verb' => 'POST'),
+    array('name' => 'folder_api#put', 'url' => '/api/v1-2/folders/{folderId}', 'verb' => 'PUT'),
+    array('name' => 'folder_api#delete', 'url' => '/api/v1-2/folders/{folderId}', 'verb' => 'DELETE'),
+    array('name' => 'folder_api#read', 'url' => '/api/v1-2/folders/{folderId}/read', 'verb' => 'PUT'), // FIXME: POST would be more correct
+
+    // feeds
+    array('name' => 'feed_api#index', 'url' => '/api/v1-2/feeds', 'verb' => 'GET'),
+    array('name' => 'feed_api#create', 'url' => '/api/v1-2/feeds', 'verb' => 'POST'),
+    array('name' => 'feed_api#put', 'url' => '/api/v1-2/feeds/{feedId}', 'verb' => 'PUT'),
+    array('name' => 'feed_api#delete', 'url' => '/api/v1-2/feeds/{feedId}', 'verb' => 'DELETE'),
+    array('name' => 'feed_api#from_all_users', 'url' => '/api/v1-2/feeds/all', 'verb' => 'GET'),
+    array('name' => 'feed_api#move', 'url' => '/api/v1-2/feeds/{feedId}/move', 'verb' => 'PUT'), // FIXME: POST would be more correct
+    array('name' => 'feed_api#rename', 'url' => '/api/v1-2/feeds/{feedId}/rename', 'verb' => 'PUT'), // FIXME: POST would be more correct
+    array('name' => 'feed_api#read', 'url' => '/api/v1-2/feeds/{feedId}/read', 'verb' => 'PUT'), // FIXME: POST would be more correct
+
+    // items
+    array('name' => 'item_api#index', 'url' => '/api/v1-2/items', 'verb' => 'GET'),
+    array('name' => 'item_api#updated', 'url' => '/api/v1-2/items/updated', 'verb' => 'GET'),
+    array('name' => 'item_api#read', 'url' => '/api/v1-2/feeds/{itemId}/read', 'verb' => 'PUT'), // FIXME: POST would be more correct
+    array('name' => 'item_api#unread', 'url' => '/api/v1-2/feeds/{itemId}/unread', 'verb' => 'PUT'), // FIXME: POST would be more correct
+    array('name' => 'item_api#read_all', 'url' => '/api/v1-2/feeds/read', 'verb' => 'PUT'), // FIXME: POST would be more correct
+    array('name' => 'item_api#read_multiple', 'url' => '/api/v1-2/feeds/read/multiple', 'verb' => 'PUT'), // FIXME: POST would be more correct
+    array('name' => 'item_api#unread_multiple', 'url' => '/api/v1-2/feeds/unread/multiple', 'verb' => 'PUT'), // FIXME: POST would be more correct
+    array('name' => 'item_api#star', 'url' => '/api/v1-2/feeds/{feedId}/{guidHash}/star', 'verb' => 'PUT'), // FIXME: POST would be more correct
+    array('name' => 'item_api#unstar', 'url' => '/api/v1-2/feeds/{feedId}/{guidHash}/unstar', 'verb' => 'PUT'), // FIXME: POST would be more correct
+    array('name' => 'item_api#star_multiple', 'url' => '/api/v1-2/feeds/star/multiple', 'verb' => 'PUT'), // FIXME: POST would be more correct
+    array('name' => 'item_api#unstar_multiple', 'url' => '/api/v1-2/feeds/unstar/multiple', 'verb' => 'PUT'), // FIXME: POST would be more correct
+  )
 );
 
-/**
- * Folders
- */
-$this->create('news_folders', '/folders')->get()->action(
-	function($params){
-		App::main('FolderController', 'folders', $params, new DIContainer());
-	}
-);
-
-$this->create('news_folders_open', '/folders/{folderId}/open')->post()->action(
-	function($params){
-		App::main('FolderController', 'open', $params, new DIContainer());
-	}
-);
-
-$this->create('news_folders_collapse', '/folders/{folderId}/collapse')->post()->action(
-	function($params){
-		App::main('FolderController', 'collapse', $params, new DIContainer());
-	}
-);
-
-$this->create('news_folders_create', '/folders')->post()->action(
-	function($params){
-		App::main('FolderController', 'create', $params, new DIContainer());
-	}
-);
-
-$this->create('news_folders_delete', '/folders/{folderId}')->delete()->action(
-	function($params){
-		App::main('FolderController', 'delete', $params, new DIContainer());
-	}
-);
-
-$this->create('news_folders_restore', '/folders/{folderId}/restore')->post()->action(
-	function($params){
-		App::main('FolderController', 'restore', $params, new DIContainer());
-	}
-);
-
-$this->create('news_folders_rename', '/folders/{folderId}/rename')->post()->action(
-	function($params){
-		App::main('FolderController', 'rename', $params, new DIContainer());
-	}
-);
-
-$this->create('news_folders_read', '/folders/{folderId}/read')->post()->action(
-	function($params){
-		App::main('FolderController', 'read', $params, new DIContainer());
-	}
-);
-
-/**
- * Feeds
- */
-$this->create('news_feeds', '/feeds')->get()->action(
-	function($params){
-		App::main('FeedController', 'feeds', $params, new DIContainer());
-	}
-);
-
-$this->create('news_feeds_active', '/feeds/active')->get()->action(
-	function($params){
-		App::main('FeedController', 'active', $params, new DIContainer());
-	}
-);
-
-$this->create('news_feeds_create', '/feeds')->post()->action(
-	function($params){
-		App::main('FeedController', 'create', $params, new DIContainer());
-	}
-);
-
-$this->create('news_feeds_delete', '/feeds/{feedId}')->delete()->action(
-	function($params){
-		App::main('FeedController', 'delete', $params, new DIContainer());
-	}
-);
-
-$this->create('news_feeds_restore', '/feeds/{feedId}/restore')->post()->action(
-	function($params){
-		App::main('FeedController', 'restore', $params, new DIContainer());
-	}
-);
-
-$this->create('news_feeds_update', '/feeds/{feedId}/update')->post()->action(
-	function($params){
-		App::main('FeedController', 'update', $params, new DIContainer());
-	}
-);
-
-$this->create('news_feeds_move', '/feeds/{feedId}/move')->post()->action(
-	function($params){
-		App::main('FeedController', 'move', $params, new DIContainer());
-	}
-);
-
-$this->create('news_feeds_rename', '/feeds/{feedId}/rename')->post()->action(
-	function($params){
-		App::main('FeedController', 'rename', $params, new DIContainer());
-	}
-);
-
-$this->create('news_feeds_read', '/feeds/{feedId}/read')->post()->action(
-	function($params){
-		App::main('FeedController', 'read', $params, new DIContainer());
-	}
-);
-
-$this->create('news_feeds_import_articles', '/feeds/import/articles')
-->post()->action(
-	function($params){
-		App::main('FeedController', 'importArticles', $params,
-			new DIContainer());
-	}
-);
-
-/**
- * Items
- */
-$this->create('news_items', '/items')->get()->action(
-	function($params){
-		App::main('ItemController', 'items', $params, new DIContainer());
-	}
-);
-
-$this->create('news_items_new', '/items/new')->get()->action(
-	function($params){
-		App::main('ItemController', 'newItems', $params, new DIContainer());
-	}
-);
-
-$this->create('news_items_read', '/items/{itemId}/read')->post()->action(
-	function($params){
-		App::main('ItemController', 'read', $params, new DIContainer());
-	}
-);
-
-$this->create('news_items_unread', '/items/{itemId}/unread')->post()->action(
-	function($params){
-		App::main('ItemController', 'unread', $params, new DIContainer());
-	}
-);
-
-$this->create('news_items_star', '/items/{feedId}/{guidHash}/star')->post()->action(
-	function($params){
-		App::main('ItemController', 'star', $params, new DIContainer());
-	}
-);
-
-$this->create('news_items_unstar', '/items/{feedId}/{guidHash}/unstar')->post()->action(
-	function($params){
-		App::main('ItemController', 'unstar', $params, new DIContainer());
-	}
-);
-
-$this->create('news_items_all_read', '/items/read')->post()->action(
-	function($params){
-		App::main('ItemController', 'readAll', $params, new DIContainer());
-	}
-);
-
-/**
- * Export
- */
-$this->create('news_export_opml', '/export/opml')->get()->action(
-	function($params){
-		App::main('ExportController', 'opml', $params, new DIContainer());
-	}
-);
-
-$this->create('news_export_articles', '/export/articles')->get()->action(
-	function($params){
-		App::main('ExportController', 'articles', $params, new DIContainer());
-	}
-);
-
-/**
- * User Settings
- */
-$this->create('news_usersettings_iscompact', '/usersettings/compact')->get()->action(
-	function($params){
-		App::main('UserSettingsController', 'isCompactView', $params, new DIContainer());
-	}
-);
-
-$this->create('news_usersettings_setcompact', '/usersettings/compact')->post()->action(
-	function($params){
-		App::main('UserSettingsController', 'setCompactView', $params, new DIContainer());
-	}
-);
-
-$this->create('news_usersettings_read', '/usersettings/read')->get()->action(
-	function($params){
-		App::main('UserSettingsController', 'read', $params, new DIContainer());
-	}
-);
-
-$this->create('news_usersettings_read_show', '/usersettings/read/show')->post()->action(
-	function($params){
-		App::main('UserSettingsController', 'show', $params, new DIContainer());
-	}
-);
-
-$this->create('news_usersettings_read_hide', '/usersettings/read/hide')->post()->action(
-	function($params){
-		App::main('UserSettingsController', 'hide', $params, new DIContainer());
-	}
-);
-
-$this->create('news_usersettings_language', '/usersettings/language')->get()->action(
-	function($params){
-		App::main('UserSettingsController', 'getLanguage', $params, new DIContainer());
-	}
-);
-
-
-/**
- * Generic API
- */
-$this->create('news_api_version', '/api/v1-2/version')->get()->action(
-	function($params) {
-		return App::main('NewsAPI', 'version', $params, new DIContainer());
-	}
-);
-
-$this->create('news_api_before_update', '/api/v1-2/cleanup/before-update')->get()->action(
-	function($params) {
-		return App::main('NewsAPI', 'beforeUpdate', $params, new DIContainer());
-	}
-);
-
-$this->create('news_api_after_update', '/api/v1-2/cleanup/after-update')->get()->action(
-	function($params) {
-		return App::main('NewsAPI', 'afterUpdate', $params, new DIContainer());
-	}
-);
-
-/**
- * Folder API
- */
-$this->create('news_api_folders_get_all', '/api/v1-2/folders')->get()->action(
-	function($params) {
-		return App::main('FolderAPI', 'getAll', $params, new DIContainer());
-	}
-);
-
-$this->create('news_api_folders_create', '/api/v1-2/folders')->post()->action(
-	function($params) {
-		return App::main('FolderAPI', 'create', $params, new DIContainer());
-	}
-);
-
-$this->create('news_api_folders_delete', '/api/v1-2/folders/{folderId}')->delete()->action(
-	function($params) {
-		return App::main('FolderAPI', 'delete', $params, new DIContainer());
-	}
-);
-
-$this->create('news_api_folders_update', '/api/v1-2/folders/{folderId}')->put()->action(
-	function($params) {
-		return App::main('FolderAPI', 'update', $params, new DIContainer());
-	}
-);
-
-$this->create('news_api_folders_read', '/api/v1-2/folders/{folderId}/read')->put()->action(
-	function($params) {
-		return App::main('FolderAPI', 'read', $params, new DIContainer());
-	}
-);
-
-/**
- * Feed API
- */
+/* TODO: FIX CORS
 $this->create('news_api_cors', '/api/v1-2/{path}')->method('options')->action(
 	function($params) {
 		return App::main('NewsAPI', 'cors', $params, new DIContainer());
 	}
 )->requirements(array('path' => '.+'));
-
-
-$this->create('news_api_feeds_get_all', '/api/v1-2/feeds')->get()->action(
-	function($params) {
-		return App::main('FeedAPI', 'getAll', $params, new DIContainer());
-	}
-);
-
-$this->create('news_api_feeds_get_all_from_all_users', '/api/v1-2/feeds/all')->get()->action(
-	function($params) {
-		return App::main('FeedAPI', 'getAllFromAllUsers', $params, new DIContainer());
-	}
-);
-
-$this->create('news_api_feeds_create', '/api/v1-2/feeds')->post()->action(
-	function($params) {
-		return App::main('FeedAPI', 'create', $params, new DIContainer());
-	}
-);
-
-$this->create('news_api_feeds_update', '/api/v1-2/feeds/update')->get()->action(
-	function($params) {
-		return App::main('FeedAPI', 'update', $params, new DIContainer());
-	}
-);
-
-$this->create('news_api_feeds_delete', '/api/v1-2/feeds/{feedId}')->delete()->action(
-	function($params) {
-		return App::main('FeedAPI', 'delete', $params, new DIContainer());
-	}
-);
-
-$this->create('news_api_feeds_move', '/api/v1-2/feeds/{feedId}/move')->put()->action(
-	function($params) {
-		return App::main('FeedAPI', 'move', $params, new DIContainer());
-	}
-);
-
-$this->create('news_api_feeds_rename', '/api/v1-2/feeds/{feedId}/rename')->put()->action(
-	function($params) {
-		return App::main('FeedAPI', 'rename', $params, new DIContainer());
-	}
-);
-
-$this->create('news_api_feeds_read', '/api/v1-2/feeds/{feedId}/read')->put()->action(
-	function($params) {
-		return App::main('FeedAPI', 'read', $params, new DIContainer());
-	}
-);
-
-/**
- * Item API
- */
-$this->create('news_api_items_get_all', '/api/v1-2/items')->get()->action(
-	function($params) {
-		return App::main('ItemAPI', 'getAll', $params, new DIContainer());
-	}
-);
-
-$this->create('news_api_items_updated', '/api/v1-2/items/updated')->get()->action(
-	function($params) {
-		return App::main('ItemAPI', 'getUpdated', $params, new DIContainer());
-	}
-);
-
-$this->create('news_api_items_read', '/api/v1-2/items/{itemId}/read')->put()->action(
-	function($params) {
-		return App::main('ItemAPI', 'read', $params, new DIContainer());
-	}
-);
-
-$this->create('news_api_items_unread', '/api/v1-2/items/{itemId}/unread')->put()->action(
-	function($params) {
-		return App::main('ItemAPI', 'unread', $params, new DIContainer());
-	}
-);
-
-$this->create('news_api_items_star', '/api/v1-2/items/{feedId}/{guidHash}/star')->put()->action(
-	function($params) {
-		return App::main('ItemAPI', 'star', $params, new DIContainer());
-	}
-);
-
-$this->create('news_api_items_unstar', '/api/v1-2/items/{feedId}/{guidHash}/unstar')->put()->action(
-	function($params) {
-		return App::main('ItemAPI', 'unstar', $params, new DIContainer());
-	}
-);
-
-$this->create('news_api_items_read_all', '/api/v1-2/items/read')->put()->action(
-	function($params) {
-		return App::main('ItemAPI', 'readAll', $params, new DIContainer());
-	}
-);
-
-$this->create('news_api_items_read_multiple', '/api/v1-2/items/read/multiple')->put()->action(
-	function($params) {
-		return App::main('ItemAPI', 'readMultiple', $params, new DIContainer());
-	}
-);
-
-$this->create('news_api_items_unread_multiple', '/api/v1-2/items/unread/multiple')->put()->action(
-	function($params) {
-		return App::main('ItemAPI', 'unreadMultiple', $params, new DIContainer());
-	}
-);
-
-$this->create('news_api_items_star_multiple', '/api/v1-2/items/star/multiple')->put()->action(
-	function($params) {
-		return App::main('ItemAPI', 'starMultiple', $params, new DIContainer());
-	}
-);
-
-$this->create('news_api_items_unstar_multiple', '/api/v1-2/items/unstar/multiple')->put()->action(
-	function($params) {
-		return App::main('ItemAPI', 'unstarMultiple', $params, new DIContainer());
-	}
-);
+*/

@@ -42,10 +42,7 @@ class FolderBusinessLayerTest extends \OCA\News\Utility\TestUtility {
 	protected function setUp(){
 		$this->api = $this->getAPIMock();
 		$this->time = 222;
-		$timeFactory = $this->getMockBuilder(
-			'\OCA\News\Utility\TimeFactory')
-			->disableOriginalConstructor()
-			->getMock();
+		$timeFactory = $this->getMock('TimeFactory', array('getTime'));
 		$timeFactory->expects($this->any())
 			->method('getTime')
 			->will($this->returnValue($this->time));
@@ -54,9 +51,16 @@ class FolderBusinessLayerTest extends \OCA\News\Utility\TestUtility {
 			->disableOriginalConstructor()
 			->getMock();
 		$this->autoPurgeMinimumInterval = 10;
+		$config = $this->getMockBuilder(
+			'\OCA\News\Utility\Config')
+			->disableOriginalConstructor()
+			->getMock();
+		$config->expects($this->any())
+			->method('getAutoPurgeMinimumInterval')
+			->will($this->returnValue($this->autoPurgeMinimumInterval));
 		$this->folderBusinessLayer = new FolderBusinessLayer(
 			$this->folderMapper, $this->api, $timeFactory, 
-			$this->autoPurgeMinimumInterval);
+			$config);
 		$this->user = 'hi';
 	}
 

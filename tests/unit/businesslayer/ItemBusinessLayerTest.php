@@ -47,10 +47,7 @@ class ItemBusinessLayerTest extends \OCA\News\Utility\TestUtility {
 
 	protected function setUp(){
 		$this->time = 222;
-		$timeFactory = $this->getMockBuilder(
-			'\OCA\News\Utility\TimeFactory')
-			->disableOriginalConstructor()
-			->getMock();
+		$timeFactory = $this->getMock('TimeFactory', array('getTime'));
 		$timeFactory->expects($this->any())
 			->method('getTime')
 			->will($this->returnValue($this->time));
@@ -66,8 +63,15 @@ class ItemBusinessLayerTest extends \OCA\News\Utility\TestUtility {
 			->method('typeToStatus')
 			->will($this->returnValue($this->status));
 		$this->threshold = 2;
+		$config = $this->getMockBuilder(
+			'\OCA\News\Utility\Config')
+			->disableOriginalConstructor()
+			->getMock();
+		$config->expects($this->any())
+			->method('getAutoPurgeCount')
+			->will($this->returnValue($this->threshold));
 		$this->itemBusinessLayer = new ItemBusinessLayer($this->mapper,
-			$statusFlag, $timeFactory, $this->threshold);
+			$statusFlag, $timeFactory, $config);
 		$this->user = 'jack';
 		$response = 'hi';
 		$this->id = 3;
