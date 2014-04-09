@@ -30,7 +30,7 @@ use \OCP\AppFramework\App;
 use \OCA\News\App\News;
 
 $app = new News();
-$app->registerRoutes(array(
+$app->registerRoutes($this, array(
   'routes' => array(
   	///////////////// Website
   	// page
