@@ -112,10 +112,10 @@ $app->registerRoutes($this, array(
 	)
 ));
 
-/* TODO: FIX CORS
+
 $this->create('news_api_cors', '/api/v1-2/{path}')->method('options')->action(
 	function($params) {
-		return App::main('NewsAPI', 'cors', $params, new DIContainer());
+		$app = new News($params);
+		$app->dispatch('NewsApiController', 'cors');
 	}
 )->requirements(array('path' => '.+'));
-*/
