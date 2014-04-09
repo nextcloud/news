@@ -3387,20 +3387,15 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           			Loads the initial data from the server
           */
 
-          var successCallback, successCount,
+          var successCallback,
             _this = this;
-          successCount = 0;
           this.deferred = $q.defer();
           this.getAllFolders();
           successCallback = function() {
-            if (successCount === 1) {
-              return _this.deferred.resolve();
-            } else {
-              return successCount++;
-            }
+            return _this.deferred.resolve();
           };
           this.getAllFeeds(successCallback);
-          this.getSettings(successCallback);
+          this.getSettings();
           this.getActiveFeed(function() {
             return _this.getItems(_this._activeFeed.getType(), _this._activeFeed.getId());
           });

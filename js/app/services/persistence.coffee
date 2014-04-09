@@ -37,20 +37,16 @@ $rootScope, $q) ->
 			###
 			Loads the initial data from the server
 			###
-			successCount = 0
 			@deferred = $q.defer()
 
 
 			@getAllFolders()
 
 			successCallback = =>
-				if successCount == 1
-					@deferred.resolve()
-				else
-					successCount++
+				@deferred.resolve()
 
 			@getAllFeeds(successCallback)
-			@getSettings(successCallback)
+			@getSettings()
 
 
 			# items can only be loaded after the active feed is known
