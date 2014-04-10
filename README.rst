@@ -171,6 +171,10 @@ The configuration is in **INI** format and looks like this:
     simplePieCacheDuration = 1800
     feedFetcherTimeout = 60
     useCronUpdates = true
+    proxyHost =
+    proxyPort = 8080
+    proxyUser =
+    proxyPassword =
 
 
 * **autoPurgeMinimumInterval**: Minimum amount of seconds after deleted feeds and folders are removed from the database.
