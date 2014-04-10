@@ -44,6 +44,10 @@ class FeedFetcherTest extends \OCA\News\Utility\TestUtility {
 	private $item;
 	private $purifier;
 	private $fetchTimeout;
+	private $proxyHost;
+	private $getProxyPort;
+	private $proxyAuth;
+	private $config;
 
 	// items
 	private $permalink;
@@ -62,10 +66,23 @@ class FeedFetcherTest extends \OCA\News\Utility\TestUtility {
 	private $webFavicon;
 
 	protected function setUp(){
-		$this->core = $this->getMockBuilder(
-			'\SimplePie_Core')
-			->disableOriginalConstructor()
-			->getMock();
+		$this->core = $this->getMock(
+			'\SimplePie_Core', array(
+				'set_timeout',
+				'set_feed_url',
+				'enable_cache',
+				'set_stupidly_fast',
+				'set_cache_location',
+				'set_cache_duration',
+				'set_proxyhost',
+				'set_proxyport',
+				'set_proxyuserpwd',
+				'init',
+				'get_permalink',
+				'get_items',
+				'get_title',
+				'get_image_url'
+			));
 		$this->coreFactory = $this->getMockBuilder(
 			'\OCA\News\Utility\SimplePieAPIFactory')
 			->disableOriginalConstructor()
@@ -88,15 +105,27 @@ class FeedFetcherTest extends \OCA\News\Utility\TestUtility {
 			->will($this->returnValue($this->time));
 		$this->cacheDuration = 100;
 		$this->cacheDirectory = 'dir/';
+		$this->proxyHost = 'test';
+		$this->proxyPort = 30;
+		$this->proxyAuth = 'hi';
 		$this->fetchTimeout = 40;
-		$config = $this->getMockBuilder(
+		$this->config = $this->getMockBuilder(
 			'\OCA\News\Utility\Config')
 			->disableOriginalConstructor()
 			->getMock();
-		$config->expects($this->any())
+		$this->config->expects($this->any())
 			->method('getSimplePieCacheDuration')
 			->will($this->returnValue($this->cacheDuration));
-		$config->expects($this->any())
+		$this->config->expects($this->any())
+			->method('getProxyHost')
+			->will($this->returnValue($this->proxyHost));
+		$this->config->expects($this->any())
+			->method('getProxyAuth')
+			->will($this->returnValue($this->proxyAuth));
+		$this->config->expects($this->any())
+			->method('getProxyPort')
+			->will($this->returnValue($this->proxyPort));
+		$this->config->expects($this->any())
 			->method('getFeedFetcherTimeout')
 			->will($this->returnValue($this->fetchTimeout));
 		$this->fetcher = new FeedFetcher($this->getAPIMock(),
@@ -104,7 +133,7 @@ class FeedFetcherTest extends \OCA\News\Utility\TestUtility {
 						 $this->faviconFetcher,
 						 $timeFactory,
 						 $this->cacheDirectory,
-						 $config);
+						 $this->config);
 		$this->url = 'http://tests';
 
 		$this->permalink = 'http://permalink';
@@ -131,6 +160,19 @@ class FeedFetcherTest extends \OCA\News\Utility\TestUtility {
 	}
 
 
+	public function testDoesNotUseProxyIfNotEnabled() {
+		$this->config->expects($this->any())
+			->method('getProxyHost')
+			->will($this->returnValue(''));
+		$this->core->expects($this->never())
+			->method('set_proxyhost');
+		$this->core->expects($this->never())
+			->method('set_proxyport');
+		$this->core->expects($this->never())
+			->method('set_proxyuserpwd');
+	}
+
+
 	public function testFetchThrowsExceptionWhenInitFailed() {
 		$this->core->expects($this->once())
 			->method('set_feed_url')
@@ -144,6 +186,15 @@ class FeedFetcherTest extends \OCA\News\Utility\TestUtility {
 		$this->core->expects($this->once())
 			->method('set_cache_location')
 			->with($this->equalTo($this->cacheDirectory));
+		$this->core->expects($this->once())
+			->method('set_proxyhost')
+			->with($this->equalTo($this->proxyHost));
+		$this->core->expects($this->once())
+			->method('set_proxyport')
+			->with($this->equalTo($this->proxyPort));
+		$this->core->expects($this->once())
+			->method('set_proxyuserpwd')
+			->with($this->equalTo($this->proxyAuth));
 		$this->core->expects($this->once())
 			->method('set_stupidly_fast')
 			->with($this->equalTo(true));

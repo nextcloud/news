@@ -42,6 +42,9 @@ class FeedFetcher implements IFeedFetcher {
 	private $simplePieFactory;
 	private $fetchTimeout;
 	private $time;	
+	private $proxyHost;
+	private $proxyPort;
+	private $proxyAuth;
 
 	public function __construct(API $api,
 				    SimplePieAPIFactory $simplePieFactory,
@@ -56,6 +59,9 @@ class FeedFetcher implements IFeedFetcher {
 		$this->faviconFetcher = $faviconFetcher;
 		$this->simplePieFactory = $simplePieFactory;
 		$this->time = $time;
+		$this->proxyHost = $config->getProxyHost();
+		$this->proxyPort = $config->getProxyPort();
+		$this->proxyAuth = $config->getProxyAuth();
 	}
 
 
@@ -82,6 +88,12 @@ class FeedFetcher implements IFeedFetcher {
 		$simplePie->set_timeout($this->fetchTimeout);
 		$simplePie->set_cache_location($this->cacheDirectory);
 		$simplePie->set_cache_duration($this->cacheDuration);
+
+		if(trim($this->proxyHost) !== '') {
+			$simplePie->set_proxyhost($this->proxyHost);
+			$simplePie->set_proxyport($this->proxyPort);
+			$simplePie->set_proxyuserpwd($this->proxyAuth);
+		}
 
 		if (!$simplePie->init()) {
 			throw new FetcherException('Could not initialize simple pie on feed with url ' . $url);

@@ -28,15 +28,16 @@ namespace OCA\News\Utility;
 class FaviconFetcher {
 
 	private $apiFactory;
-
+	private $config;
 
 	/**
 	 * Inject a factory to build a simplepie file object. This is needed because
 	 * the file object contains logic in its constructor which makes it
 	 * impossible to inject and test
 	 */
-	public function __construct(SimplePieAPIFactory $apiFactory) {
+	public function __construct(SimplePieAPIFactory $apiFactory, Config $config) {
 		$this->apiFactory = $apiFactory;
+		$this->config = $config;
 	}
 
 
@@ -80,7 +81,7 @@ class FaviconFetcher {
 			return null;
 		}
 
-		$file = $this->apiFactory->getFile($url);
+		$file = $this->getFile($url);
 
 		if($file->body !== '') {
 			$document = new \DOMDocument();
@@ -99,6 +100,19 @@ class FaviconFetcher {
 		}
 	}
 
+	
+	private function getFile($url) {
+		if(trim($this->config->getProxyHost()) === '') {
+			return $this->apiFactory->getFile($url, 10, 5, null, null, false,
+				null, null, null);
+		} else {
+			return $this->apiFactory->getFile($url, 10, 5, null, null, false,
+				$this->config->getProxyHost(),
+				$this->config->getProxyPort(),
+				$this->config->getProxyAuth());
+		}
+	}
+
 
 	/**
 	 * Test if the file is an image
@@ -111,7 +125,7 @@ class FaviconFetcher {
 			return false;
 		}
 
-		$file = $this->apiFactory->getFile($url);
+		$file = $this->getFile($url);
 		$sniffer = new \SimplePie_Content_Type_Sniffer($file);
 		return $sniffer->image() !== false;
 	}

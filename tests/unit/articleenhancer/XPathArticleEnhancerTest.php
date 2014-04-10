@@ -38,17 +38,32 @@ class XPathArticleEnhancerTest extends \OCA\News\Utility\TestUtility {
 	private $redirects;
 	private $headers;
 	private $userAgent;
+	private $proxyHost;
+	private $proxyPort;
+	private $proxyAuth;
 
 	protected function setUp() {
 		$this->timeout = 30;
 		$this->fileFactory = $this->getMockBuilder('\OCA\News\Utility\SimplePieAPIFactory')
 			->disableOriginalConstructor()
 			->getMock();
-		$config = $this->getMockBuilder(
+		$this->proxyHost = 'test';
+		$this->proxyPort = 3;
+		$this->proxyAuth = 'hi';
+		$this->config = $this->getMockBuilder(
 			'\OCA\News\Utility\Config')
 			->disableOriginalConstructor()
 			->getMock();
-		$config->expects($this->any())
+		$this->config->expects($this->any())
+			->method('getProxyHost')
+			->will($this->returnValue(''));
+		$this->config->expects($this->any())
+			->method('getProxyAuth')
+			->will($this->returnValue($this->proxyAuth));
+		$this->config->expects($this->any())
+			->method('getProxyPort')
+			->will($this->returnValue($this->proxyPort));
+		$this->config->expects($this->any())
 			->method('getFeedFetcherTimeout')
 			->will($this->returnValue($this->timeout));
 
@@ -60,12 +75,97 @@ class XPathArticleEnhancerTest extends \OCA\News\Utility\TestUtility {
 				'/explosm.net\/all/' => '//body/*',
 				'/themerepublic.net/' => '//*[@class=\'post hentry\']'
 			), 
-			$config
+			$this->config
 		);
 		$this->redirects = 5;
 		$this->headers = null;
 		$this->userAgent = 'Mozilla/5.0 AppleWebKit';
 	}
+
+
+	public function testXPathUsesNoProxy() {
+		$file = new \stdClass;
+		$file->headers = array("content-type"=>"text/html; charset=utf-8");
+		$file->body = '';
+		$item = new Item();
+		$item->setUrl('https://www.explosm.net/comics/312');
+		$item->setBody('Hello thar');
+
+		$this->fileFactory->expects($this->once())
+			->method('getFile')
+			->with($this->equalTo($item->getUrl()),
+				$this->equalTo($this->timeout),
+				$this->equalTo($this->redirects),
+				$this->equalTo($this->headers),
+				$this->equalTo($this->userAgent),
+				$this->equalTo(false),
+				$this->equalTo(null),
+				$this->equalTo(null),
+				$this->equalTo(null))
+			->will($this->returnValue($file));
+
+		$result = $this->testEnhancer->enhance($item);
+		$this->assertEquals('Hello thar', $result->getBody());
+	}
+
+
+	public function testXPathUsesProxy() {
+		$this->config = $this->getMockBuilder(
+			'\OCA\News\Utility\Config')
+			->disableOriginalConstructor()
+			->getMock();
+		$this->config->expects($this->any())
+			->method('getProxyHost')
+			->will($this->returnValue($this->proxyHost));
+		$this->config->expects($this->any())
+			->method('getProxyAuth')
+			->will($this->returnValue($this->proxyAuth));
+		$this->config->expects($this->any())
+			->method('getProxyPort')
+			->will($this->returnValue($this->proxyPort));
+		$this->config->expects($this->any())
+			->method('getFeedFetcherTimeout')
+			->will($this->returnValue($this->timeout));
+
+		$this->testEnhancer = new XPathArticleEnhancer(
+			$this->fileFactory,
+			array(
+				'/explosm.net\/comics/' => '//*[@id=\'maincontent\']/div[2]/div/span',
+				'/explosm.net\/shorts/' => '//*[@id=\'maincontent\']/div/div',
+				'/explosm.net\/all/' => '//body/*',
+				'/themerepublic.net/' => '//*[@class=\'post hentry\']'
+			), 
+			$this->config
+		);
+
+		$file = new \stdClass;
+		$file->headers = array("content-type"=>"text/html; charset=utf-8");
+		$file->body = '';
+		$item = new Item();
+		$item->setUrl('https://www.explosm.net/comics/312');
+		$item->setBody('Hello thar');
+
+		$this->config->expects($this->any())
+			->method('getProxyHost')
+			->will($this->returnValue($this->proxyHost));
+
+		$this->fileFactory->expects($this->once())
+			->method('getFile')
+			->with($this->equalTo($item->getUrl()),
+				$this->equalTo($this->timeout),
+				$this->equalTo($this->redirects),
+				$this->equalTo($this->headers),
+				$this->equalTo($this->userAgent),
+				$this->equalTo(false),
+				$this->equalTo($this->proxyHost),
+				$this->equalTo($this->proxyPort),
+				$this->equalTo($this->proxyAuth))
+			->will($this->returnValue($file));
+
+		$result = $this->testEnhancer->enhance($item);
+		$this->assertEquals('Hello thar', $result->getBody());
+	}
+
 
 
 	public function testDoesNotModifiyNotMatchingResults() {

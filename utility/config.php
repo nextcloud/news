@@ -41,7 +41,7 @@ class Config {
 	private $useCronUpdates;  // turn off updates run by owncloud cronjob
 	private $proxyHost;
 	private $proxyPort;
-	private $proxyPassword;
+	private $proxyAuth;
 	private $api;
 
 
@@ -55,7 +55,7 @@ class Config {
 		$this->api = $api;
 		$this->proxyHost = '';
 		$this->proxyPort = 8080;
-		$this->proxyPassword = '';
+		$this->proxyAuth = '';
 	}
 
 	public function getProxyPort() {
@@ -66,8 +66,8 @@ class Config {
 		return $this->proxyHost;
 	}
 
-	public function getProxyPassword() {
-		return $this->proxyPassword;
+	public function getProxyAuth() {
+		return $this->proxyAuth;
 	}
 
 	public function getAutoPurgeMinimumInterval() {
@@ -128,8 +128,8 @@ class Config {
 		$this->proxyHost = $value;
 	}
 
-	public function setProxyPassword($value) {
-		$this->proxyPassword = $value;
+	public function setProxyAuth($value) {
+		$this->proxyAuth = $value;
 	}
 
 
@@ -172,7 +172,7 @@ class Config {
 			"useCronUpdates = " . var_export($this->useCronUpdates, true) . "\n" .
 			"proxyHost = " . $this->proxyHost . "\n" .
 			"proxyPort = " . $this->proxyPort . "\n" .
-			"proxyPassword = " . $this->proxyPassword;
+			"proxyAuth = " . $this->proxyAuth;
 		;
 
 		$this->fileSystem->file_put_contents($configPath, $ini);

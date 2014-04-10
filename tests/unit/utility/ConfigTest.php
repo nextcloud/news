@@ -57,7 +57,7 @@ class ConfigFetcherTest extends \OCA\News\Utility\TestUtility {
 		$this->assertEquals(true, $this->config->getUseCronUpdates());
 		$this->assertEquals(8080, $this->config->getProxyPort());
 		$this->assertEquals('', $this->config->getProxyHost());
-		$this->assertEquals('', $this->config->getProxyPassword());
+		$this->assertEquals('', $this->config->getProxyAuth());
 	}
 
 
@@ -124,11 +124,11 @@ class ConfigFetcherTest extends \OCA\News\Utility\TestUtility {
 			"useCronUpdates = true\n" .
 			"proxyHost = yo man\n" .
 			"proxyPort = 12\n" .
-			"proxyPassword = this is a test";
+			"proxyAuth = this is a test";
 		$this->config->setAutoPurgeCount(3);
 		$this->config->setProxyHost("yo man");
 		$this->config->setProxyPort(12);
-		$this->config->setProxyPassword("this is a test");
+		$this->config->setProxyAuth("this is a test");
 
 		$this->fileSystem->expects($this->once())
 			->method('file_put_contents')
@@ -154,7 +154,7 @@ class ConfigFetcherTest extends \OCA\News\Utility\TestUtility {
 			"useCronUpdates = false\n" .
 			"proxyHost = \n" .
 			"proxyPort = 8080\n" .
-			"proxyPassword = ";
+			"proxyAuth = ";
 
 		$this->fileSystem->expects($this->once())
 			->method('file_put_contents')

@@ -361,7 +361,8 @@ class News extends App {
 
 		$container->registerService('FaviconFetcher', function($c) {
 			return new FaviconFetcher(
-				$c->query('SimplePieAPIFactory')
+				$c->query('SimplePieAPIFactory'),
+				$c->query('Config')
 			);
 		});
 

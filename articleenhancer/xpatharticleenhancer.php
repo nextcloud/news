@@ -36,6 +36,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 	private $feedRegex;
 	private $fileFactory;
 	private $maximumTimeout;
+	private $config;
 
 
 	/**
@@ -50,6 +51,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 		$this->regexXPathPair = $regexXPathPair;
 		$this->fileFactory = $fileFactory;
 		$this->maximumTimeout = $config->getFeedFetcherTimeout();
+		$this->config = $config;
 	}
 
 
@@ -58,13 +60,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 		foreach($this->regexXPathPair as $regex => $search) {
 
 			if(preg_match($regex, $item->getUrl())) {
-				$file = $this->fileFactory->getFile(
-					$item->getUrl(), 
-					$this->maximumTimeout, 
-					5,
-					null,
-					"Mozilla/5.0 AppleWebKit"
-				);
+				$file = $this->getFile($item->getUrl());
 				
 				// convert encoding by detecting charset from header
 				$contentType = $file->headers['content-type'];
@@ -95,6 +91,35 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 		}
 
 		return $item;
+	}
+
+
+	private function getFile($url) {
+		if(trim($this->config->getProxyHost()) === '') {
+			return $this->fileFactory->getFile(
+				$url, 
+				$this->maximumTimeout, 
+				5,
+				null,
+				"Mozilla/5.0 AppleWebKit",
+				false,
+				null,
+				null,
+				null
+			);
+		} else {
+			return $this->fileFactory->getFile(
+				$url, 
+				$this->maximumTimeout, 
+				5,
+				null,
+				"Mozilla/5.0 AppleWebKit",
+				false,
+				$this->config->getProxyHost(),
+				$this->config->getProxyPort(),
+				$this->config->getProxyAuth()
+			);
+		}
 	}
 
 
