@@ -57,7 +57,9 @@ class ConfigFetcherTest extends \OCA\News\Utility\TestUtility {
 		$this->assertEquals(true, $this->config->getUseCronUpdates());
 		$this->assertEquals(8080, $this->config->getProxyPort());
 		$this->assertEquals('', $this->config->getProxyHost());
-		$this->assertEquals('', $this->config->getProxyAuth());
+		$this->assertEquals(null, $this->config->getProxyAuth());
+		$this->assertEquals('', $this->config->getProxyUser());
+		$this->assertEquals('', $this->config->getProxyPassword());
 	}
 
 
@@ -124,11 +126,13 @@ class ConfigFetcherTest extends \OCA\News\Utility\TestUtility {
 			"useCronUpdates = true\n" .
 			"proxyHost = yo man\n" .
 			"proxyPort = 12\n" .
-			"proxyAuth = this is a test";
+			"proxyUser = this is a test\n".
+			"proxyPassword = se";
 		$this->config->setAutoPurgeCount(3);
 		$this->config->setProxyHost("yo man");
 		$this->config->setProxyPort(12);
-		$this->config->setProxyAuth("this is a test");
+		$this->config->setProxyUser("this is a test");
+		$this->config->setProxyPassword("se");
 
 		$this->fileSystem->expects($this->once())
 			->method('file_put_contents')
@@ -136,6 +140,11 @@ class ConfigFetcherTest extends \OCA\News\Utility\TestUtility {
 				$this->equalTo($json));
 
 		$this->config->write($this->configPath);
+	}
+
+
+	public function testNoProxyAuthReturnsNull() {
+		$this->assertNull($this->config->getProxyAuth());
 	}
 
 
@@ -154,7 +163,8 @@ class ConfigFetcherTest extends \OCA\News\Utility\TestUtility {
 			"useCronUpdates = false\n" .
 			"proxyHost = \n" .
 			"proxyPort = 8080\n" .
-			"proxyAuth = ";
+			"proxyUser = \n" .
+			"proxyPassword = ";
 
 		$this->fileSystem->expects($this->once())
 			->method('file_put_contents')
@@ -164,4 +174,11 @@ class ConfigFetcherTest extends \OCA\News\Utility\TestUtility {
 		$this->config->read($this->configPath, true);
 	}
 
+
+	public function testEncodesUserAndPasswordInHTTPBasicAuth() {
+		$this->config->setProxyUser("this is a test");
+		$this->config->setProxyPassword("se");
+
+		$this->assertEquals('this is a test:se', $this->config->getProxyAuth());
+	}
 }

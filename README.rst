@@ -178,13 +178,10 @@ The configuration is in **INI** format and looks like this:
 * **simplePieCacheDuration**: Amount of seconds to cache feeds
 * **feedFetcherTimeout**: Maximum number of seconds to wait for an RSS or Atom feed to load. If a feed takes longer than that number of seconds to update, the update will be aborted
 * **useCronUpdates**: To use a custom update/cron script you need to disable the cronjob which is run by ownCloud by default by setting this to false
-* **proxHost**: The adress of the proxy. Leave empty if no proxy should be used
+* **proxHost**: The adress of the proxy. Leave blank if no proxy should be used
 * **proxyPort**: The proxy port, defaults to 8080
-* **proxyAuth**: The proxy auth details. Provide these in HTTP basic auth format: 
-    
-    user:password
-
-
+* **proxyUser**: The proxy user name for the login. Must not container colons. Leave blank if there is none. 
+* **proxyPassword**: The proxy user password for the login
 
 
 
