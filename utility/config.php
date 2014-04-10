@@ -39,6 +39,9 @@ class Config {
 	private $simplePieCacheDuration;  // seconds
 	private $feedFetcherTimeout;  // seconds
 	private $useCronUpdates;  // turn off updates run by owncloud cronjob
+	private $proxyHost;
+	private $proxyPort;
+	private $proxyPassword;
 	private $api;
 
 
@@ -50,8 +53,22 @@ class Config {
 		$this->feedFetcherTimeout = 60;
 		$this->useCronUpdates = true;
 		$this->api = $api;
+		$this->proxyHost = '';
+		$this->proxyPort = 8080;
+		$this->proxyPassword = '';
 	}
 
+	public function getProxyPort() {
+		return $this->proxyPort;
+	}
+
+	public function getProxyHost() {
+		return $this->proxyHost;
+	}
+
+	public function getProxyPassword() {
+		return $this->proxyPassword;
+	}
 
 	public function getAutoPurgeMinimumInterval() {
 		return $this->autoPurgeMinimumInterval;
@@ -103,6 +120,19 @@ class Config {
 	}
 
 
+	public function setProxyPort($value) {
+		$this->proxyPort = $value;
+	}
+
+	public function setProxyHost($value) {
+		$this->proxyHost = $value;
+	}
+
+	public function setProxyPassword($value) {
+		$this->proxyPassword = $value;
+	}
+
+
 	public function read($configPath, $createIfNotExists=false) {
 		if($createIfNotExists && !$this->fileSystem->file_exists($configPath)) {
 
@@ -139,7 +169,10 @@ class Config {
 			"autoPurgeCount = " . $this->autoPurgeCount . "\n" .
 			"simplePieCacheDuration = " . $this->simplePieCacheDuration . "\n" .
 			"feedFetcherTimeout = " . $this->feedFetcherTimeout . "\n" .
-			"useCronUpdates = " . var_export($this->useCronUpdates, true)
+			"useCronUpdates = " . var_export($this->useCronUpdates, true) . "\n" .
+			"proxyHost = " . $this->proxyHost . "\n" .
+			"proxyPort = " . $this->proxyPort . "\n" .
+			"proxyPassword = " . $this->proxyPassword;
 		;
 
 		$this->fileSystem->file_put_contents($configPath, $ini);

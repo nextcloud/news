@@ -55,6 +55,9 @@ class ConfigFetcherTest extends \OCA\News\Utility\TestUtility {
 		$this->assertEquals(30*60, $this->config->getSimplePieCacheDuration());
 		$this->assertEquals(60, $this->config->getFeedFetcherTimeout());
 		$this->assertEquals(true, $this->config->getUseCronUpdates());
+		$this->assertEquals(8080, $this->config->getProxyPort());
+		$this->assertEquals('', $this->config->getProxyHost());
+		$this->assertEquals('', $this->config->getProxyPassword());
 	}
 
 
@@ -118,8 +121,14 @@ class ConfigFetcherTest extends \OCA\News\Utility\TestUtility {
 			"autoPurgeCount = 3\n" . 
 			"simplePieCacheDuration = 1800\n" . 
 			"feedFetcherTimeout = 60\n" . 
-			"useCronUpdates = true";
+			"useCronUpdates = true\n" .
+			"proxyHost = yo man\n" .
+			"proxyPort = 12\n" .
+			"proxyPassword = this is a test";
 		$this->config->setAutoPurgeCount(3);
+		$this->config->setProxyHost("yo man");
+		$this->config->setProxyPort(12);
+		$this->config->setProxyPassword("this is a test");
 
 		$this->fileSystem->expects($this->once())
 			->method('file_put_contents')
@@ -142,7 +151,10 @@ class ConfigFetcherTest extends \OCA\News\Utility\TestUtility {
 			"autoPurgeCount = 200\n" . 
 			"simplePieCacheDuration = 1800\n" . 
 			"feedFetcherTimeout = 60\n" . 
-			"useCronUpdates = false";
+			"useCronUpdates = false\n" .
+			"proxyHost = \n" .
+			"proxyPort = 8080\n" .
+			"proxyPassword = ";
 
 		$this->fileSystem->expects($this->once())
 			->method('file_put_contents')
