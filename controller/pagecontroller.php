@@ -45,7 +45,7 @@ class PageController extends Controller {
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 */
-	public function index($test, $abc) {
+	public function index() {
 		return $this->render('main');
 	}
 
