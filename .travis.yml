@@ -13,9 +13,7 @@ before_install:
   - git submodule update
   - cd 3rdparty
   - git checkout stable6
-  - cd ../apps
-  - git clone https://github.com/owncloud/appframework
-  - cd news
+  - cd ../apps/news
 
 script:
   - sudo add-apt-repository -y ppa:chris-lea/node.js
