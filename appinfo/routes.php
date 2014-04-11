@@ -98,14 +98,14 @@ $application->registerRoutes($this, array('routes' => array(
 	// items
 	array('name' => 'item_api#index', 'url' => '/api/v1-2/items', 'verb' => 'GET'),
 	array('name' => 'item_api#updated', 'url' => '/api/v1-2/items/updated', 'verb' => 'GET'),
-	array('name' => 'item_api#read', 'url' => '/api/v1-2/feeds/{itemId}/read', 'verb' => 'PUT'), // FIXME: POST would be more correct
-	array('name' => 'item_api#unread', 'url' => '/api/v1-2/feeds/{itemId}/unread', 'verb' => 'PUT'), // FIXME: POST would be more correct
-	array('name' => 'item_api#read_all', 'url' => '/api/v1-2/feeds/read', 'verb' => 'PUT'), // FIXME: POST would be more correct
-	array('name' => 'item_api#read_multiple', 'url' => '/api/v1-2/feeds/read/multiple', 'verb' => 'PUT'), // FIXME: POST would be more correct
-	array('name' => 'item_api#unread_multiple', 'url' => '/api/v1-2/feeds/unread/multiple', 'verb' => 'PUT'), // FIXME: POST would be more correct
-	array('name' => 'item_api#star', 'url' => '/api/v1-2/feeds/{feedId}/{guidHash}/star', 'verb' => 'PUT'), // FIXME: POST would be more correct
-	array('name' => 'item_api#unstar', 'url' => '/api/v1-2/feeds/{feedId}/{guidHash}/unstar', 'verb' => 'PUT'), // FIXME: POST would be more correct
-	array('name' => 'item_api#star_multiple', 'url' => '/api/v1-2/feeds/star/multiple', 'verb' => 'PUT'), // FIXME: POST would be more correct
-	array('name' => 'item_api#unstar_multiple', 'url' => '/api/v1-2/feeds/unstar/multiple', 'verb' => 'PUT') // FIXME: POST would be more correct
+	array('name' => 'item_api#read', 'url' => '/api/v1-2/items/{itemId}/read', 'verb' => 'PUT'), // FIXME: POST would be more correct
+	array('name' => 'item_api#unread', 'url' => '/api/v1-2/items/{itemId}/unread', 'verb' => 'PUT'), // FIXME: POST would be more correct
+	array('name' => 'item_api#read_all', 'url' => '/api/v1-2/items/read', 'verb' => 'PUT'), // FIXME: POST would be more correct
+	array('name' => 'item_api#read_multiple', 'url' => '/api/v1-2/items/read/multiple', 'verb' => 'PUT'), // FIXME: POST would be more correct
+	array('name' => 'item_api#unread_multiple', 'url' => '/api/v1-2/items/unread/multiple', 'verb' => 'PUT'), // FIXME: POST would be more correct
+	array('name' => 'item_api#star', 'url' => '/api/v1-2/items/{feedId}/{guidHash}/star', 'verb' => 'PUT'), // FIXME: POST would be more correct
+	array('name' => 'item_api#unstar', 'url' => '/api/v1-2/items/{feedId}/{guidHash}/unstar', 'verb' => 'PUT'), // FIXME: POST would be more correct
+	array('name' => 'item_api#star_multiple', 'url' => '/api/v1-2/items/star/multiple', 'verb' => 'PUT'), // FIXME: POST would be more correct
+	array('name' => 'item_api#unstar_multiple', 'url' => '/api/v1-2/items/unstar/multiple', 'verb' => 'PUT') // FIXME: POST would be more correct
 )));
 
