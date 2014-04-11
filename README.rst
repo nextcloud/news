@@ -106,7 +106,7 @@ Keep up to date
 ~~~~~~~~~~~~~~~
 To update the News app use::
 
-    cd /var/www/news
+    cd /var/www/owncloud/apps/news
     git pull --rebase origin master
 
 
