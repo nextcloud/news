@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-04-05 01:02-0400\n"
-"PO-Revision-Date: 2014-04-04 05:30+0000\n"
+"POT-Creation-Date: 2014-04-16 01:02-0400\n"
+"PO-Revision-Date: 2014-04-16 05:00+0000\n"
 "Last-Translator: ebela <bela@dandre.hu>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/owncloud/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Language: hu_HU\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: appinfo/app.php:53 templates/main.php:38
+#: appinfo/app.php:49 templates/main.php:36
 msgid "News"
 msgstr "Hírek"
 
@@ -37,7 +37,7 @@ msgstr "Nem sikerült hozzáadni a hírcsatornát: hibás az URL vagy érvényte
 msgid "Articles without feed"
 msgstr "Cikkek folyam(feed) nélkül"
 
-#: businesslayer/folderbusinesslayer.php:66
+#: businesslayer/folderbusinesslayer.php:65
 msgid "Can not add folder: Exists already"
 msgstr "A mappa nem hozható létre: már létezik"
 
@@ -53,7 +53,7 @@ msgstr "-"
 msgid "status"
 msgstr "állapot"
 
-#: templates/main.php:34
+#: templates/main.php:32
 #, php-format
 msgid "Undo deletion of %s"
 msgstr "%s törlésének visszavonása"

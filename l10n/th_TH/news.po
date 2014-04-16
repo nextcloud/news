@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-04-05 01:02-0400\n"
-"PO-Revision-Date: 2014-04-04 05:30+0000\n"
+"POT-Creation-Date: 2014-04-16 01:02-0400\n"
+"PO-Revision-Date: 2014-04-16 05:00+0000\n"
 "Last-Translator: minkbear beary <minkbear@gmail.com>\n"
 "Language-Team: Thai (Thailand) (http://www.transifex.com/projects/p/owncloud/language/th_TH/)\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Language: th_TH\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: appinfo/app.php:53 templates/main.php:38
+#: appinfo/app.php:49 templates/main.php:36
 msgid "News"
 msgstr "ข่าวสาร"
 
@@ -35,7 +35,7 @@ msgstr ""
 msgid "Articles without feed"
 msgstr ""
 
-#: businesslayer/folderbusinesslayer.php:66
+#: businesslayer/folderbusinesslayer.php:65
 msgid "Can not add folder: Exists already"
 msgstr ""
 
@@ -51,7 +51,7 @@ msgstr "_"
 msgid "status"
 msgstr "สถานะ"
 
-#: templates/main.php:34
+#: templates/main.php:32
 #, php-format
 msgid "Undo deletion of %s"
 msgstr ""

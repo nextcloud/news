@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-04-05 01:02-0400\n"
-"PO-Revision-Date: 2014-04-04 05:30+0000\n"
+"POT-Creation-Date: 2014-04-16 01:02-0400\n"
+"PO-Revision-Date: 2014-04-16 05:00+0000\n"
 "Last-Translator: mnestis <transifex@mnestis.net>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/owncloud/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Language: en_GB\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: appinfo/app.php:53 templates/main.php:38
+#: appinfo/app.php:49 templates/main.php:36
 msgid "News"
 msgstr "News"
 
@@ -34,7 +34,7 @@ msgstr "Can not add feed: URL does not exist or has invalid xml"
 msgid "Articles without feed"
 msgstr "Articles without feed"
 
-#: businesslayer/folderbusinesslayer.php:66
+#: businesslayer/folderbusinesslayer.php:65
 msgid "Can not add folder: Exists already"
 msgstr "Can not add folder: Exists already"
 
@@ -50,7 +50,7 @@ msgstr "_"
 msgid "status"
 msgstr "status"
 
-#: templates/main.php:34
+#: templates/main.php:32
 #, php-format
 msgid "Undo deletion of %s"
 msgstr "Undo deletion of %s"

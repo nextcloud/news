@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-04-05 01:02-0400\n"
-"PO-Revision-Date: 2014-04-04 05:30+0000\n"
+"POT-Creation-Date: 2014-04-16 01:02-0400\n"
+"PO-Revision-Date: 2014-04-16 05:00+0000\n"
 "Last-Translator: kuromabo <md81bird@hitaki.net>\n"
 "Language-Team: Japanese (Japan) (http://www.transifex.com/projects/p/owncloud/language/ja_JP/)\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Language: ja_JP\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: appinfo/app.php:53 templates/main.php:38
+#: appinfo/app.php:49 templates/main.php:36
 msgid "News"
 msgstr "ニュース"
 
@@ -41,7 +41,7 @@ msgstr "フィードを追加できません: URLが存在しない、もしく�
 msgid "Articles without feed"
 msgstr "フィード無し記事"
 
-#: businesslayer/folderbusinesslayer.php:66
+#: businesslayer/folderbusinesslayer.php:65
 msgid "Can not add folder: Exists already"
 msgstr "フォルダーを追加できません: すでに存在します"
 
@@ -57,7 +57,7 @@ msgstr "_"
 msgid "status"
 msgstr "状態"
 
-#: templates/main.php:34
+#: templates/main.php:32
 #, php-format
 msgid "Undo deletion of %s"
 msgstr "%s の削除を元に戻す"
