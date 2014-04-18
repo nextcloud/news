@@ -64,7 +64,7 @@
 	</h2>
 
 		<div class="enclosure" ui-if="item.enclosureLink">
-			<news-audio type="{{ item.enclosureType }}" src="{{ item.enclosureLink }}"/><?php
+			<news-audio type="{{ item.enclosureType }}" ng-src="{{ item.enclosureLink|trustUrl }}"/><?php
 				p($l->t('Download'))
 			?></audio>
 		</div>

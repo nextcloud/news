@@ -20,24 +20,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 ###
 
-angular.module('News').directive 'newsAudio', ->
-	directive =
-		restrict: 'E'
-		scope:
-			src: '@'
-			type: '@'
-		transclude: true
-		template: '' +
-		'<audio controls="controls" preload="none" ng-hide="cantPlay()">' +
-			'<source ng-src="{{ src|trustUrl }}">' +
-		'</audio>' +
-		'<a ng-href="{{ src|trustUrl }}" class="button" ng-show="cantPlay()" ' +
-			'ng-transclude></a>'
-		link: (scope, elm, attrs) ->
-			source = elm.children().children('source')[0]
-			cantPlay = false
-			source.addEventListener 'error', ->
-				scope.$apply ->
-					cantPlay = true
-
-			scope.cantPlay = -> cantPlay
+angular.module('News').filter 'trustUrl', ['$sce', ($sce) ->
+    return (url) -> $sce.trustAsResourceUrl(url)
+]

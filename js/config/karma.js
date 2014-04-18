@@ -41,6 +41,7 @@ module.exports = function(config) {
 			'tests/stubs/modules.js',
 			'build/app/directives/*.js',
 			'build/app/services/**/*.js',
+			'build/app/filters/**/*.js',
 			'build/app/controllers/**/*.js',
 			'build/tests/**/*Spec.js'
 		],

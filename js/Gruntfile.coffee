@@ -57,6 +57,7 @@ module.exports = (grunt) ->
 				src: [
 						'<%= meta.build %>app/app.js'
 						'<%= meta.build %>app/directives/*.js'
+						'<%= meta.build %>app/filters/*.js'
 						'<%= meta.build %>app/controllers/*.js'
 						'<%= meta.build %>app/services/**/*.js'
 					]
