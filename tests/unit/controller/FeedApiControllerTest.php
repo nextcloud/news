@@ -45,16 +45,19 @@ class FeedApiControllerTest extends ControllerTestUtility {
 	private $feedBusinessLayer;
 	private $itemBusinessLayer;
 	private $feedAPI;
-	private $api;
+	private $appName;
 	private $user;
 	private $request;
 	private $msg;
+	private $logger;
 
 	protected function setUp() {
-		$this->api = $this->getMockBuilder(
-			'\OCA\News\Core\API')
+		$this->user = 'tom';
+		$this->logger = $this->getMockBuilder(
+			'\OCA\News\Core\Logger')
 			->disableOriginalConstructor()
 			->getMock();
+		$this->appName = 'news';
 		$this->request = $this->getMockBuilder(
 			'\OCP\IRequest')
 			->disableOriginalConstructor()
@@ -72,13 +75,14 @@ class FeedApiControllerTest extends ControllerTestUtility {
 			->disableOriginalConstructor()
 			->getMock();
 		$this->feedAPI = new FeedApiController(
-			$this->api,
+			$this->appName,
 			$this->request,
 			$this->folderBusinessLayer,
 			$this->feedBusinessLayer,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->logger,
+			$this->user
 		);
-		$this->user = 'tom';
 		$this->msg = 'hohoho';
 	}
 
@@ -133,9 +137,6 @@ class FeedApiControllerTest extends ControllerTestUtility {
 		$starredCount = 3;
 		$newestItemId = 2;
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('starredCount')
 			->with($this->equalTo($this->user))
@@ -165,9 +166,6 @@ class FeedApiControllerTest extends ControllerTestUtility {
 		);
 		$starredCount = 3;
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('starredCount')
 			->with($this->equalTo($this->user))
@@ -195,16 +193,15 @@ class FeedApiControllerTest extends ControllerTestUtility {
 			'feedId' => 2
 		)));
 		$this->feedAPI = new FeedApiController(
-			$this->api,
+			$this->appName,
 			$request,
 			$this->folderBusinessLayer,
 			$this->feedBusinessLayer,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->logger,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('delete')
 			->with(
@@ -223,16 +220,15 @@ class FeedApiControllerTest extends ControllerTestUtility {
 			'feedId' => 2
 		)));
 		$this->feedAPI = new FeedApiController(
-			$this->api,
+			$this->appName,
 			$request,
 			$this->folderBusinessLayer,
 			$this->feedBusinessLayer,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->logger,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('delete')
 			->will($this->throwException(new BusinessLayerException($this->msg)));
@@ -254,16 +250,15 @@ class FeedApiControllerTest extends ControllerTestUtility {
 			'folderId' => 3
 		)));
 		$this->feedAPI = new FeedApiController(
-			$this->api,
+			$this->appName,
 			$request,
 			$this->folderBusinessLayer,
 			$this->feedBusinessLayer,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->logger,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('purgeDeleted')
 			->with($this->equalTo($this->user), $this->equalTo(false));
@@ -298,16 +293,15 @@ class FeedApiControllerTest extends ControllerTestUtility {
 			'folderId' => 3
 		)));
 		$this->feedAPI = new FeedApiController(
-			$this->api,
+			$this->appName,
 			$request,
 			$this->folderBusinessLayer,
 			$this->feedBusinessLayer,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->logger,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('purgeDeleted')
 			->with($this->equalTo($this->user), $this->equalTo(false));
@@ -334,9 +328,6 @@ class FeedApiControllerTest extends ControllerTestUtility {
 
 
 	public function testCreateExists() {
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('purgeDeleted')
 			->with($this->equalTo($this->user), $this->equalTo(false));
@@ -353,9 +344,6 @@ class FeedApiControllerTest extends ControllerTestUtility {
 
 
 	public function testCreateError() {
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('create')
 			->will($this->throwException(new BusinessLayerException($this->msg)));
@@ -378,16 +366,15 @@ class FeedApiControllerTest extends ControllerTestUtility {
 			)
 		));
 		$this->feedAPI = new FeedApiController(
-			$this->api,
+			$this->appName,
 			$request,
 			$this->folderBusinessLayer,
 			$this->feedBusinessLayer,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->logger,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('readFeed')
 			->with(
@@ -412,16 +399,15 @@ class FeedApiControllerTest extends ControllerTestUtility {
 			)
 		));
 		$this->feedAPI = new FeedApiController(
-			$this->api,
+			$this->appName,
 			$request,
 			$this->folderBusinessLayer,
 			$this->feedBusinessLayer,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->logger,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('move')
 			->with(
@@ -449,16 +435,15 @@ class FeedApiControllerTest extends ControllerTestUtility {
 			)
 		));
 		$this->feedAPI = new FeedApiController(
-			$this->api,
+			$this->appName,
 			$request,
 			$this->folderBusinessLayer,
 			$this->feedBusinessLayer,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->logger,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('rename')
 			->with(
@@ -474,9 +459,6 @@ class FeedApiControllerTest extends ControllerTestUtility {
 
 
 	public function testMoveDoesNotExist() {
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('move')
 			->will($this->throwException(new BusinessLayerException($this->msg)));
@@ -512,11 +494,13 @@ class FeedApiControllerTest extends ControllerTestUtility {
 			'userId' => $userId
 		)));
 		$this->feedAPI = new FeedApiController(
-			$this->api,
+			$this->appName,
 			$request,
 			$this->folderBusinessLayer,
 			$this->feedBusinessLayer,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->logger,
+			$this->user
 		);
 		$this->feedBusinessLayer->expects($this->once())
 			->method('update')
@@ -531,7 +515,7 @@ class FeedApiControllerTest extends ControllerTestUtility {
 		$this->feedBusinessLayer->expects($this->once())
 			->method('update')
 			->will($this->throwException(new \Exception($this->msg)));
-		$this->api->expects($this->once())
+		$this->logger->expects($this->once())
 			->method('log')
 			->with($this->equalTo('Could not update feed ' . $this->msg),
 				$this->equalTo('debug'));

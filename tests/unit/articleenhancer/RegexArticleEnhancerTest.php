@@ -30,7 +30,7 @@ use \OCA\News\Db\Item;
 require_once(__DIR__ . "/../../classloader.php");
 
 
-class RegexArticleEnhancerTest extends \OCA\News\Utility\TestUtility {
+class RegexArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testRegexEnhancer() {

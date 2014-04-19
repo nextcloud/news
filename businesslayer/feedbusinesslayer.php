@@ -24,8 +24,7 @@
 */
 
 namespace OCA\News\BusinessLayer;
-
-use \OCA\News\Core\API;
+use \OCA\News\Core\Logger;
 use \OCA\News\Db\DoesNotExistException;
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\Item;
@@ -41,14 +40,18 @@ class FeedBusinessLayer extends BusinessLayer {
 
 	private $feedFetcher;
 	private $itemMapper;
-	private $api;
+	private $logger;
+	private $l10n;
 	private $timeFactory;
 	private $autoPurgeMinimumInterval;
 	private $enhancer;
 	private $purifier;
 
-	public function __construct(FeedMapper $feedMapper, Fetcher $feedFetcher,
-		                        ItemMapper $itemMapper, API $api,
+	public function __construct(FeedMapper $feedMapper, 
+	                            Fetcher $feedFetcher,
+		                        ItemMapper $itemMapper, 
+		                        Logger $logger,
+		                        $l10n,
 		                        $timeFactory,
 		                        Config $config,
 		                        Enhancer $enhancer,
@@ -56,7 +59,8 @@ class FeedBusinessLayer extends BusinessLayer {
 		parent::__construct($feedMapper);
 		$this->feedFetcher = $feedFetcher;
 		$this->itemMapper = $itemMapper;
-		$this->api = $api;
+		$this->logger = $logger;
+		$this->l10n = $l10n;
 		$this->timeFactory = $timeFactory;
 		$this->autoPurgeMinimumInterval = $config->getAutoPurgeMinimumInterval();
 		$this->enhancer = $enhancer;
@@ -100,7 +104,7 @@ class FeedBusinessLayer extends BusinessLayer {
 			try {
 				$this->mapper->findByUrlHash($feed->getUrlHash(), $userId);
 				throw new BusinessLayerConflictException(
-					$this->api->getTrans()->t('Can not add feed: Exists already'));
+					$this->l10n->t('Can not add feed: Exists already'));
 			} catch(DoesNotExistException $ex){}
 
 			// insert feed
@@ -135,9 +139,9 @@ class FeedBusinessLayer extends BusinessLayer {
 
 			return $feed;
 		} catch(FetcherException $ex){
-			$this->api->log($ex->getMessage(), 'debug');
+			$this->logger->log($ex->getMessage(), 'debug');
 			throw new BusinessLayerException(
-				$this->api->getTrans()->t(
+				$this->l10n->t(
 					'Can not add feed: URL does not exist or has invalid xml'));
 		}
 	}
@@ -153,7 +157,7 @@ class FeedBusinessLayer extends BusinessLayer {
 			try {
 				$this->update($feed->getId(), $feed->getUserId());
 			} catch(BusinessLayerException $ex){
-				$this->api->log('Could not update feed ' . $ex->getMessage(),
+				$this->logger->log('Could not update feed ' . $ex->getMessage(),
 					'debug');
 			}
 		}
@@ -203,9 +207,9 @@ class FeedBusinessLayer extends BusinessLayer {
 
 			} catch(FetcherException $ex){
 				// failed updating is not really a problem, so only log it
-				$this->api->log('Can not update feed with url ' . $existingFeed->getUrl() .
+				$this->logger->log('Can not update feed with url ' . $existingFeed->getUrl() .
 					': Not found or bad source', 'debug');
-				$this->api->log($ex->getMessage(), 'debug');
+				$this->logger->log($ex->getMessage(), 'debug');
 			}
 
 			return $this->mapper->find($feedId, $userId);
@@ -282,7 +286,7 @@ class FeedBusinessLayer extends BusinessLayer {
 				$feed->setUserId($userId);
 				$feed->setLink($url);
 				$feed->setUrl($url);
-				$feed->setTitle($this->api->getTrans()->t('Articles without feed'));
+				$feed->setTitle($this->l10n->t('Articles without feed'));
 				$feed->setAdded($this->timeFactory->getTime());
 				$feed->setFolderId(0);
 				$feed->setPreventUpdate(true);	

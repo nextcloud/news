@@ -30,7 +30,7 @@ use \OCP\AppFramework\Controller;
 use \OCP\AppFramework\Http;
 use \OCP\AppFramework\Http\JSONResponse;
 
-use \OCA\News\Core\API;
+use \OCA\News\Core\Settings;
 use \OCA\News\BusinessLayer\ItemBusinessLayer;
 use \OCA\News\BusinessLayer\FeedBusinessLayer;
 use \OCA\News\BusinessLayer\FolderBusinessLayer;
@@ -44,17 +44,22 @@ class FeedController extends Controller {
 	private $feedBusinessLayer;
 	private $folderBusinessLayer;
 	private $itemBusinessLayer;
-	private $api;
+	private $userId;
+	private $settings;
 
-	public function __construct(API $api, IRequest $request, 
+	public function __construct($appName, 
+	                            IRequest $request, 
 		                        FolderBusinessLayer $folderBusinessLayer,
 	                            FeedBusinessLayer $feedBusinessLayer,
-		                        ItemBusinessLayer $itemBusinessLayer){
-		parent::__construct($api->getAppName(), $request);
+		                        ItemBusinessLayer $itemBusinessLayer,
+		                        $userId,
+		                        Settings $settings){
+		parent::__construct($appName, $request);
 		$this->feedBusinessLayer = $feedBusinessLayer;
 		$this->folderBusinessLayer = $folderBusinessLayer;
 		$this->itemBusinessLayer = $itemBusinessLayer;
-		$this->api = $api;
+		$this->userId = $userId;
+		$this->settings = $settings;
 	}
 
 
@@ -62,19 +67,18 @@ class FeedController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function index(){
-		$userId = $this->api->getUserId();
 
 		// this method is also used to update the interface
 		// because of this we also pass the starred count and the newest
 		// item id which will be used for marking feeds read
 		$params = array(
-			'feeds' => $this->feedBusinessLayer->findAll($userId),
-			'starred' => $this->itemBusinessLayer->starredCount($userId)
+			'feeds' => $this->feedBusinessLayer->findAll($this->userId),
+			'starred' => $this->itemBusinessLayer->starredCount($this->userId)
 		);
 
 		try {
 			$params['newestItemId'] = 
-				$this->itemBusinessLayer->getNewestItemId($userId);
+				$this->itemBusinessLayer->getNewestItemId($this->userId);
 		} catch (BusinessLayerException $ex) {}
 
 		return new JSONResponse($params);
@@ -85,9 +89,8 @@ class FeedController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function active(){
-		$userId = $this->api->getUserId();
-		$feedId = (int) $this->api->getUserValue('lastViewedFeedId');
-		$feedType = $this->api->getUserValue('lastViewedFeedType');
+		$feedId = (int) $this->settings->getUserValue('lastViewedFeedId');
+		$feedType = $this->settings->getUserValue('lastViewedFeedType');
 		
 		// cast from null to int is 0
 		if($feedType !== null){
@@ -97,10 +100,10 @@ class FeedController extends Controller {
 		// check if feed or folder exists
 		try {
 			if($feedType === FeedType::FOLDER){
-				$this->folderBusinessLayer->find($feedId, $userId);
+				$this->folderBusinessLayer->find($feedId, $this->userId);
 			
 			} elseif ($feedType === FeedType::FEED){
-				$this->feedBusinessLayer->find($feedId, $userId);
+				$this->feedBusinessLayer->find($feedId, $this->userId);
 			
 			// if its the first launch, those values will be null
 			} elseif($feedType === null){
@@ -129,21 +132,20 @@ class FeedController extends Controller {
 	public function create(){
 		$url = $this->params('url');
 		$parentFolderId = (int) $this->params('parentFolderId');
-		$userId = $this->api->getUserId();
 
 		try {
 			// we need to purge deleted feeds if a feed is created to 
 			// prevent already exists exceptions
-			$this->feedBusinessLayer->purgeDeleted($userId, false);
+			$this->feedBusinessLayer->purgeDeleted($this->userId, false);
 
-			$feed = $this->feedBusinessLayer->create($url, $parentFolderId, $userId);
+			$feed = $this->feedBusinessLayer->create($url, $parentFolderId, $this->userId);
 			$params = array(
 				'feeds' => array($feed)
 			);
 
 			try {
 				$params['newestItemId'] = 
-					$this->itemBusinessLayer->getNewestItemId($userId);
+					$this->itemBusinessLayer->getNewestItemId($this->userId);
 			} catch (BusinessLayerException $ex) {}
 
 			return new JSONResponse($params);
@@ -166,10 +168,9 @@ class FeedController extends Controller {
 	 */
 	public function delete(){
 		$feedId = (int) $this->params('feedId');
-		$userId = $this->api->getUserId();
 
 		try {
-			$this->feedBusinessLayer->markDeleted($feedId, $userId);
+			$this->feedBusinessLayer->markDeleted($feedId, $this->userId);
 			return new JSONResponse();
 		} catch(BusinessLayerException $ex) {
 			return new JSONResponse(array(
@@ -185,9 +186,8 @@ class FeedController extends Controller {
 	public function update(){
 		try {
 			$feedId = (int) $this->params('feedId');
-			$userId = $this->api->getUserId();
 
-			$feed = $this->feedBusinessLayer->update($feedId, $userId);
+			$feed = $this->feedBusinessLayer->update($feedId, $this->userId);
 
 			$params = array(
 				'feeds' => array(
@@ -216,10 +216,9 @@ class FeedController extends Controller {
 	public function move(){
 		$feedId = (int) $this->params('feedId');
 		$parentFolderId = (int) $this->params('parentFolderId');
-		$userId = $this->api->getUserId();
 
 		try {
-			$this->feedBusinessLayer->move($feedId, $parentFolderId, $userId);
+			$this->feedBusinessLayer->move($feedId, $parentFolderId, $this->userId);
 			return new JSONResponse();	
 		} catch(BusinessLayerException $ex) {
 			return new JSONResponse(array(
@@ -234,10 +233,9 @@ class FeedController extends Controller {
 	public function rename() {
 		$feedId = (int) $this->params('feedId');
 		$feedTitle = $this->params('feedTitle');
-		$userId = $this->api->getUserId();
 
 		try {
-			$this->feedBusinessLayer->rename($feedId, $feedTitle, $userId);
+			$this->feedBusinessLayer->rename($feedId, $feedTitle, $this->userId);
 			return new JSONResponse();	
 		} catch(BusinessLayerException $ex) {
 			return new JSONResponse(array(
@@ -251,9 +249,8 @@ class FeedController extends Controller {
 	 */
 	public function import() {
 		$json = $this->params('json');
-		$userId = $this->api->getUserId();
 
-		$feed = $this->feedBusinessLayer->importArticles($json, $userId);
+		$feed = $this->feedBusinessLayer->importArticles($json, $this->userId);
 
 		$params = array();
 		if($feed) {
@@ -268,11 +265,10 @@ class FeedController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function read(){
-		$userId = $this->api->getUserId();
 		$feedId = (int) $this->params('feedId');
 		$highestItemId = (int) $this->params('highestItemId');
 
-		$this->itemBusinessLayer->readFeed($feedId, $highestItemId, $userId);
+		$this->itemBusinessLayer->readFeed($feedId, $highestItemId, $this->userId);
 
 		$params = array(
 			'feeds' => array(
@@ -291,10 +287,9 @@ class FeedController extends Controller {
 	 */
 	public function restore(){
 		$feedId = (int) $this->params('feedId');
-		$userId = $this->api->getUserId();
 
 		try {
-			$this->feedBusinessLayer->unmarkDeleted($feedId, $userId);
+			$this->feedBusinessLayer->unmarkDeleted($feedId, $this->userId);
 			return new JSONResponse();
 		} catch(BusinessLayerException $ex) {
 			return new JSONResponse(array(

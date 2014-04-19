@@ -30,7 +30,6 @@ use \OCP\AppFramework\Controller;
 use \OCP\AppFramework\Http;
 use \OCP\AppFramework\Http\JSONResponse;
 
-use \OCA\News\Core\API;
 use \OCA\News\BusinessLayer\FolderBusinessLayer;
 use \OCA\News\BusinessLayer\ItemBusinessLayer;
 use \OCA\News\BusinessLayer\BusinessLayerException;
@@ -42,16 +41,17 @@ class FolderApiController extends Controller {
 
 	private $folderBusinessLayer;
 	private $itemBusinessLayer;
-	private $api;
+	private $userId;
 
-	public function __construct(API $api,
+	public function __construct($appName,
 	                            IRequest $request,
 	                            FolderBusinessLayer $folderBusinessLayer,
-	                            ItemBusinessLayer $itemBusinessLayer){
-		parent::__construct($api->getAppName(), $request);
+	                            ItemBusinessLayer $itemBusinessLayer,
+	                            $userId){
+		parent::__construct($appName, $request);
 		$this->folderBusinessLayer = $folderBusinessLayer;
 		$this->itemBusinessLayer = $itemBusinessLayer;
-		$this->api = $api;
+		$this->userId = $userId;
 	}
 
 
@@ -61,12 +61,11 @@ class FolderApiController extends Controller {
 	 * @API
 	 */
 	public function index() {
-		$userId = $this->api->getUserId();
 		$result = array(
 			'folders' => array()
 		);
 
-		foreach ($this->folderBusinessLayer->findAll($userId) as $folder) {
+		foreach ($this->folderBusinessLayer->findAll($this->userId) as $folder) {
 			array_push($result['folders'], $folder->toAPI());
 		}
 
@@ -80,15 +79,14 @@ class FolderApiController extends Controller {
 	 * @API
 	 */
 	public function create() {
-		$userId = $this->api->getUserId();
 		$folderName = $this->params('name');
 		$result = array(
 			'folders' => array()
 		);
 
 		try {
-			$this->folderBusinessLayer->purgeDeleted($userId, false);
-			$folder = $this->folderBusinessLayer->create($folderName, $userId);
+			$this->folderBusinessLayer->purgeDeleted($this->userId, false);
+			$folder = $this->folderBusinessLayer->create($folderName, $this->userId);
 			array_push($result['folders'], $folder->toAPI());
 
 			return new JSONResponse($result);
@@ -110,11 +108,10 @@ class FolderApiController extends Controller {
 	 * @API
 	 */
 	public function delete() {
-		$userId = $this->api->getUserId();
 		$folderId = (int) $this->params('folderId');
 
 		try {
-			$this->folderBusinessLayer->delete($folderId, $userId);
+			$this->folderBusinessLayer->delete($folderId, $this->userId);
 			return new JSONResponse();
 		} catch(BusinessLayerException $ex) {
 			return new JSONResponse(array('message' => $ex->getMessage()),
@@ -129,12 +126,11 @@ class FolderApiController extends Controller {
 	 * @API
 	 */
 	public function update() {
-		$userId = $this->api->getUserId();
 		$folderId = (int) $this->params('folderId');
 		$folderName = $this->params('name');
 
 		try {
-			$this->folderBusinessLayer->rename($folderId, $folderName, $userId);
+			$this->folderBusinessLayer->rename($folderId, $folderName, $this->userId);
 			return new JSONResponse();
 
 		} catch(BusinessLayerValidationException $ex) {
@@ -158,11 +154,10 @@ class FolderApiController extends Controller {
 	 * @API
 	 */
 	public function read() {
-		$userId = $this->api->getUserId();
 		$folderId = (int) $this->params('folderId');
 		$newestItemId = (int) $this->params('newestItemId');
 
-		$this->itemBusinessLayer->readFolder($folderId, $newestItemId, $userId);
+		$this->itemBusinessLayer->readFolder($folderId, $newestItemId, $this->userId);
 		return new JSONResponse();
 	}
 

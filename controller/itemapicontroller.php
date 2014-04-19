@@ -32,19 +32,19 @@ use \OCP\AppFramework\Http\JSONResponse;
 
 use \OCA\News\BusinessLayer\ItemBusinessLayer;
 use \OCA\News\BusinessLayer\BusinessLayerException;
-use \OCA\News\Core\API;
 
 class ItemApiController extends Controller {
 
 	private $itemBusinessLayer;
-	private $api;
+	private $userId;
 
-	public function __construct(API $api,
+	public function __construct($appName,
 	                            IRequest $request,
-	                            ItemBusinessLayer $itemBusinessLayer){
-		parent::__construct($api->getAppName(), $request);
+	                            ItemBusinessLayer $itemBusinessLayer,
+	                            $userId){
+		parent::__construct($appName, $request);
 		$this->itemBusinessLayer = $itemBusinessLayer;
-		$this->api = $api;
+		$this->userId = $userId;
 	}
 
 
@@ -58,7 +58,6 @@ class ItemApiController extends Controller {
 			'items' => array()
 		);
 
-		$userId = $this->api->getUserId();
 		$batchSize = (int) $this->params('batchSize', 20);
 		$offset = (int) $this->params('offset', 0);
 		$type = (int) $this->params('type');
@@ -77,7 +76,7 @@ class ItemApiController extends Controller {
 			$batchSize,
 			$offset,
 			$showAll,
-			$userId
+			$this->userId
 		);
 
 		foreach ($items as $item) {
@@ -98,7 +97,6 @@ class ItemApiController extends Controller {
 			'items' => array()
 		);
 
-		$userId = $this->api->getUserId();
 		$lastModified = (int) $this->params('lastModified', 0);
 		$type = (int) $this->params('type');
 		$id = (int) $this->params('id');
@@ -108,7 +106,7 @@ class ItemApiController extends Controller {
 			$type,
 			$lastModified,
 			true,
-			$userId
+			$this->userId
 		);
 
 		foreach ($items as $item) {
@@ -120,10 +118,9 @@ class ItemApiController extends Controller {
 
 
 	private function setRead($isRead) {
-		$userId = $this->api->getUserId();
 		$itemId = (int) $this->params('itemId');
 		try {
-			$this->itemBusinessLayer->read($itemId, $isRead, $userId);
+			$this->itemBusinessLayer->read($itemId, $isRead, $this->userId);
 			return new JSONResponse();
 		} catch(BusinessLayerException $ex){
 			return new JSONResponse(array('message' => $ex->getMessage()),
@@ -133,11 +130,10 @@ class ItemApiController extends Controller {
 
 
 	private function setStarred($isStarred) {
-		$userId = $this->api->getUserId();
 		$feedId = (int) $this->params('feedId');
 		$guidHash = $this->params('guidHash');
 		try {
-			$this->itemBusinessLayer->star($feedId, $guidHash, $isStarred, $userId);
+			$this->itemBusinessLayer->star($feedId, $guidHash, $isStarred, $this->userId);
 			return new JSONResponse();
 		} catch(BusinessLayerException $ex){
 			return new JSONResponse(array('message' => $ex->getMessage()),
@@ -192,21 +188,19 @@ class ItemApiController extends Controller {
 	 * @API
 	 */
 	public function readAll() {
-		$userId = $this->api->getUserId();
 		$newestItemId = (int) $this->params('newestItemId');
 
-		$this->itemBusinessLayer->readAll($newestItemId, $userId);
+		$this->itemBusinessLayer->readAll($newestItemId, $this->userId);
 		return new JSONResponse();
 	}
 
 
 	private function setMultipleRead($isRead) {
-		$userId = $this->api->getUserId();
 		$items = $this->params('items');
 
 		foreach($items as $id) {
 			try {
-				$this->itemBusinessLayer->read($id, $isRead, $userId);
+				$this->itemBusinessLayer->read($id, $isRead, $this->userId);
 			} catch(BusinessLayerException $ex) {
 				continue;
 			}
@@ -237,13 +231,12 @@ class ItemApiController extends Controller {
 
 
 	private function setMultipleStarred($isStarred) {
-		$userId = $this->api->getUserId();
 		$items = $this->params('items');
 
 		foreach($items as $item) {
 			try {
 				$this->itemBusinessLayer->star($item['feedId'],
-					$item['guidHash'], $isStarred, $userId);
+					$item['guidHash'], $isStarred, $this->userId);
 			} catch(BusinessLayerException $ex) {
 				continue;
 			}

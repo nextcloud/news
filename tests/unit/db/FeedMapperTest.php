@@ -36,7 +36,7 @@ class FeedMapperTest extends \OCA\News\Utility\MapperTestUtility {
 	protected function setUp(){
 		$this->beforeEach();
 
-		$this->mapper = new FeedMapper($this->api);
+		$this->mapper = new FeedMapper($this->db);
 
 		// create mock feeds
 		$feed1 = new Feed();

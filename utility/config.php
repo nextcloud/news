@@ -25,7 +25,7 @@
 
 namespace OCA\News\Utility;
 
-use \OCA\News\Core\API;
+use \OCA\News\Core\Logger;
 
 
 class Config {
@@ -43,17 +43,17 @@ class Config {
 	private $proxyPort;
 	private $proxyUser;
 	private $proxyPassword;
-	private $api;
+	private $logger;
 
 
-	public function __construct($fileSystem, API $api) {
+	public function __construct($fileSystem, Logger $logger) {
 		$this->fileSystem = $fileSystem;
 		$this->autoPurgeMinimumInterval = 60;
 		$this->autoPurgeCount = 200;
 		$this->simplePieCacheDuration = 30*60;
 		$this->feedFetcherTimeout = 60;
 		$this->useCronUpdates = true;
-		$this->api = $api;
+		$this->logger = $logger;
 		$this->proxyHost = '';
 		$this->proxyPort = 8080;
 		$this->proxyUser = '';
@@ -162,7 +162,7 @@ class Config {
 			$configValues = parse_ini_string($content);
 
 			if($configValues === false || count($configValues) === 0) {
-				$this->api->log('Configuration invalid. Ignoring values.' , 'warn');
+				$this->logger->log('Configuration invalid. Ignoring values.' , 'warn');
 			} else {
 
 				foreach($configValues as $key => $value) {
@@ -171,7 +171,7 @@ class Config {
 						settype($value, $type);
 						$this->$key = $value;
 					} else {
-						$this->api->log('Configuration value "' . $key . 
+						$this->logger->log('Configuration value "' . $key . 
 							'" does not exist. Ignored value.' , 'warn');
 					}
 				}

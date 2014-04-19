@@ -46,16 +46,14 @@ class FolderApiControllerTest extends ControllerTestUtility {
 	private $folderBusinessLayer;
 	private $itemBusinessLayer;
 	private $folderAPI;
-	private $api;
+	private $appName;
 	private $user;
 	private $request;
 	private $msg;
 
 	protected function setUp() {
-		$this->api = $this->getMockBuilder(
-			'\OCA\News\Core\API')
-			->disableOriginalConstructor()
-			->getMock();
+		$this->appName = 'news';
+		$this->user = 'tom';
 		$this->request = $this->getMockBuilder(
 			'\OCP\IRequest')
 			->disableOriginalConstructor()
@@ -69,12 +67,12 @@ class FolderApiControllerTest extends ControllerTestUtility {
 			->disableOriginalConstructor()
 			->getMock();
 		$this->folderAPI = new FolderApiController(
-			$this->api,
+			$this->appName,
 			$this->request,
 			$this->folderBusinessLayer,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->user
 		);
-		$this->user = 'tom';
 		$this->msg = 'test';
 	}
 
@@ -115,9 +113,6 @@ class FolderApiControllerTest extends ControllerTestUtility {
 			new Folder()
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->folderBusinessLayer->expects($this->once())
 			->method('findAll')
 			->with($this->equalTo($this->user))
@@ -139,17 +134,15 @@ class FolderApiControllerTest extends ControllerTestUtility {
 			$folder
 		);
 		$this->folderAPI = new FolderApiController(
-			$this->api,
+			$this->appName,
 			$this->getRequest(array('params' => array(
 				'name' => $folderName
 			))),
 			$this->folderBusinessLayer,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->folderBusinessLayer->expects($this->once())
 			->method('purgeDeleted')
 			->with($this->equalTo($this->user), $this->equalTo(false));
@@ -169,9 +162,6 @@ class FolderApiControllerTest extends ControllerTestUtility {
 	public function testCreateAlreadyExists() {
 		$msg = 'exists';
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->folderBusinessLayer->expects($this->once())
 			->method('purgeDeleted')
 			->with($this->equalTo($this->user), $this->equalTo(false));
@@ -190,9 +180,6 @@ class FolderApiControllerTest extends ControllerTestUtility {
 	public function testCreateInvalidFolderName() {
 		$msg = 'exists';
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->folderBusinessLayer->expects($this->once())
 			->method('purgeDeleted')
 			->with($this->equalTo($this->user), $this->equalTo(false));
@@ -212,17 +199,15 @@ class FolderApiControllerTest extends ControllerTestUtility {
 		$folderId = 23;
 
 		$this->folderAPI = new FolderApiController(
-			$this->api,
+			$this->appName,
 			$this->getRequest(array('urlParams' => array(
 				'folderId' => $folderId
 			))),
 			$this->folderBusinessLayer,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->folderBusinessLayer->expects($this->once())
 			->method('delete')
 			->with($this->equalTo($folderId), $this->equalTo($this->user));
@@ -237,17 +222,15 @@ class FolderApiControllerTest extends ControllerTestUtility {
 		$folderId = 23;
 
 		$this->folderAPI = new FolderApiController(
-			$this->api,
+			$this->appName,
 			$this->getRequest(array('urlParams' => array(
 				'folderId' => $folderId
 			))),
 			$this->folderBusinessLayer,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->folderBusinessLayer->expects($this->once())
 			->method('delete')
 			->will($this->throwException(new BusinessLayerException($this->msg)));
@@ -265,7 +248,7 @@ class FolderApiControllerTest extends ControllerTestUtility {
 		$folderName = 'test';
 
 		$this->folderAPI = new FolderApiController(
-			$this->api,
+			$this->appName,
 			$this->getRequest(
 				array(
 					'urlParams' => array(
@@ -278,12 +261,10 @@ class FolderApiControllerTest extends ControllerTestUtility {
 				)
 			),
 			$this->folderBusinessLayer,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->folderBusinessLayer->expects($this->once())
 			->method('rename')
 			->with($this->equalTo($folderId),
@@ -301,7 +282,7 @@ class FolderApiControllerTest extends ControllerTestUtility {
 		$folderName = 'test';
 
 		$this->folderAPI = new FolderApiController(
-			$this->api,
+			$this->appName,
 			$this->getRequest(
 				array(
 					'urlParams' => array(
@@ -314,12 +295,10 @@ class FolderApiControllerTest extends ControllerTestUtility {
 				)
 			),
 			$this->folderBusinessLayer,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->folderBusinessLayer->expects($this->once())
 			->method('rename')
 			->will($this->throwException(new BusinessLayerException($this->msg)));
@@ -337,7 +316,7 @@ class FolderApiControllerTest extends ControllerTestUtility {
 		$folderName = 'test';
 
 		$this->folderAPI = new FolderApiController(
-			$this->api,
+			$this->appName,
 			$this->getRequest(
 				array(
 					'urlParams' => array(
@@ -350,12 +329,10 @@ class FolderApiControllerTest extends ControllerTestUtility {
 				)
 			),
 			$this->folderBusinessLayer,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->folderBusinessLayer->expects($this->once())
 			->method('rename')
 			->will($this->throwException(new BusinessLayerConflictException($this->msg)));
@@ -373,7 +350,7 @@ class FolderApiControllerTest extends ControllerTestUtility {
 		$folderName = '';
 
 		$this->folderAPI = new FolderApiController(
-			$this->api,
+			$this->appName,
 			$this->getRequest(
 				array(
 					'urlParams' => array(
@@ -386,12 +363,10 @@ class FolderApiControllerTest extends ControllerTestUtility {
 				)
 			),
 			$this->folderBusinessLayer,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->folderBusinessLayer->expects($this->once())
 			->method('rename')
 			->will($this->throwException(new BusinessLayerValidationException($this->msg)));
@@ -414,15 +389,13 @@ class FolderApiControllerTest extends ControllerTestUtility {
 			)
 		));
 		$this->folderAPI = new FolderApiController(
-			$this->api,
+			$this->appName,
 			$request,
 			$this->folderBusinessLayer,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('readFolder')
 			->with(

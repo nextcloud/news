@@ -24,12 +24,12 @@
 
 namespace OCA\News\Db;
 
-use \OCA\News\Core\API;
+use \OCA\News\Core\Db;
 
 class ItemMapper extends Mapper implements IMapper {
 
-	public function __construct(API $api){
-		parent::__construct($api, 'news_items', '\OCA\News\Db\Item');
+	public function __construct(Db $db){
+		parent::__construct($db, 'news_items', '\OCA\News\Db\Item');
 	}
 
 

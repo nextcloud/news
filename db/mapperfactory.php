@@ -25,25 +25,27 @@
 
 namespace OCA\News\Db;
 
-use \OCA\News\Core\API;
+use \OCA\News\Core\Settings;
+use \OCA\News\Core\Db;
 
 
 class MapperFactory {
 
-	private $api;
+	private $settings;
 
-	public function __construct(API $api) {
-		$this->api = $api;
+	public function __construct(Settings $settings, Db $db) {
+		$this->settings = $settings;
+		$this->db = $db;
 	}
 
 
 	public function getItemMapper() {
-		switch($this->api->getSystemValue('dbtype')) {
+		switch($this->settings->getSystemValue('dbtype')) {
 			case 'pgsql':
-				return new \OCA\News\Db\Postgres\ItemMapper($this->api);
+				return new \OCA\News\Db\Postgres\ItemMapper($this->db);
 				break;
 			default:
-				return new ItemMapper($this->api);
+				return new ItemMapper($this->db);
 				break;
 		}
 	}

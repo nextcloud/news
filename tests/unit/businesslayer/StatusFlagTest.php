@@ -29,7 +29,7 @@ namespace OCA\News\Db;
 require_once(__DIR__ . "/../../classloader.php");
 
 
-class StatusFlagTest extends \OCA\News\Utility\TestUtility {
+class StatusFlagTest extends \PHPUnit_Framework_TestCase {
 
 	private $statusFlag;
 

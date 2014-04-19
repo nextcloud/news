@@ -36,14 +36,16 @@ require_once(__DIR__ . "/../../classloader.php");
 
 class ApiControllerTest extends ControllerTestUtility {
 
-	private $api;
+	private $settings;
 	private $request;
 	private $newsAPI;
 	private $updater;
+	private $appName;
 
 	protected function setUp() {
-		$this->api = $this->getMockBuilder(
-			'\OCA\News\Core\API')
+		$this->appName = 'news';
+		$this->settings = $this->getMockBuilder(
+			'\OCA\News\Core\Settings')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->request = $this->getMockBuilder(
@@ -54,7 +56,8 @@ class ApiControllerTest extends ControllerTestUtility {
 			'\OCA\News\Utility\Updater')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->newsAPI = new ApiController($this->api, $this->request, $this->updater);
+		$this->newsAPI = new ApiController($this->appName, $this->request, 
+			$this->updater, $this->settings);
 	}
 
 
@@ -78,7 +81,7 @@ class ApiControllerTest extends ControllerTestUtility {
 	}
 
 	public function testGetVersion(){
-		$this->api->expects($this->once())
+		$this->settings->expects($this->once())
 			->method('getAppValue')
 			->with($this->equalTo('installed_version'))
 			->will($this->returnValue('1.0'));
@@ -115,7 +118,8 @@ class ApiControllerTest extends ControllerTestUtility {
 
 	public function testCors() {
 		$this->request = $this->getRequest(array('server' => array()));
-		$this->newsAPI = new ApiController($this->api, $this->request, $this->updater);
+		$this->newsAPI = new ApiController($this->appName, $this->request, 
+			$this->updater, $this->settings);
 		$response = $this->newsAPI->cors();
 
 		$headers = $response->getHeaders();
@@ -130,7 +134,8 @@ class ApiControllerTest extends ControllerTestUtility {
 
 	public function testCorsUsesOriginIfGiven() {
 		$this->request = $this->getRequest(array('server' => array('HTTP_ORIGIN' => 'test')));
-		$this->newsAPI = new ApiController($this->api, $this->request, $this->updater);
+		$this->newsAPI = new ApiController($this->appName, $this->request, 
+			$this->updater, $this->settings);
 		$response = $this->newsAPI->cors();
 
 		$headers = $response->getHeaders();

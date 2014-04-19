@@ -30,7 +30,7 @@ use \OCP\AppFramework\Controller;
 use \OCP\AppFramework\Http;
 use \OCP\AppFramework\Http\JSONResponse;
 
-use \OCA\News\Core\API;
+use \OCA\News\Core\Logger;
 use \OCA\News\BusinessLayer\FeedBusinessLayer;
 use \OCA\News\BusinessLayer\FolderBusinessLayer;
 use \OCA\News\BusinessLayer\ItemBusinessLayer;
@@ -43,18 +43,22 @@ class FeedApiController extends Controller {
 	private $itemBusinessLayer;
 	private $feedBusinessLayer;
 	private $folderBusinessLayer;
-	private $api;
+	private $userId;
+	private $logger;
 
-	public function __construct(API $api,
+	public function __construct($appName,
 	                            IRequest $request,
 	                            FolderBusinessLayer $folderBusinessLayer,
 	                            FeedBusinessLayer $feedBusinessLayer,
-	                            ItemBusinessLayer $itemBusinessLayer){
-		parent::__construct($api->getAppName(), $request);
+	                            ItemBusinessLayer $itemBusinessLayer,
+	                            Logger $logger,
+	                            $userId){
+		parent::__construct($appName, $request);
 		$this->folderBusinessLayer = $folderBusinessLayer;
 		$this->feedBusinessLayer = $feedBusinessLayer;
 		$this->itemBusinessLayer = $itemBusinessLayer;
-		$this->api = $api;
+		$this->userId = $userId;
+		$this->logger = $logger;
 	}
 
 
@@ -64,21 +68,20 @@ class FeedApiController extends Controller {
 	 * @API
 	 */
 	public function index() {
-		$userId = $this->api->getUserId();
 
 		$result = array(
 			'feeds' => array(),
-			'starredCount' => $this->itemBusinessLayer->starredCount($userId)
+			'starredCount' => $this->itemBusinessLayer->starredCount($this->userId)
 		);
 
-		foreach ($this->feedBusinessLayer->findAll($userId) as $feed) {
+		foreach ($this->feedBusinessLayer->findAll($this->userId) as $feed) {
 			array_push($result['feeds'], $feed->toAPI());
 		}
 
 		// check case when there are no items
 		try {
 			$result['newestItemId'] =
-				$this->itemBusinessLayer->getNewestItemId($userId);
+				$this->itemBusinessLayer->getNewestItemId($this->userId);
 		} catch(BusinessLayerException $ex) {}
 
 		return new JSONResponse($result);
@@ -91,21 +94,20 @@ class FeedApiController extends Controller {
 	 * @API
 	 */
 	public function create() {
-		$userId = $this->api->getUserId();
 		$feedUrl = $this->params('url');
 		$folderId = (int) $this->params('folderId', 0);
 
 		try {
-			$this->feedBusinessLayer->purgeDeleted($userId, false);
+			$this->feedBusinessLayer->purgeDeleted($this->userId, false);
 
-			$feed = $this->feedBusinessLayer->create($feedUrl, $folderId, $userId);
+			$feed = $this->feedBusinessLayer->create($feedUrl, $folderId, $this->userId);
 			$result = array(
 				'feeds' => array($feed->toAPI())
 			);
 
 			try {
 				$result['newestItemId'] =
-					$this->itemBusinessLayer->getNewestItemId($userId);
+					$this->itemBusinessLayer->getNewestItemId($this->userId);
 			} catch(BusinessLayerException $ex) {}
 
 			return new JSONResponse($result);
@@ -126,11 +128,10 @@ class FeedApiController extends Controller {
 	 * @API
 	 */
 	public function delete() {
-		$userId = $this->api->getUserId();
 		$feedId = (int) $this->params('feedId');
 
 		try {
-			$this->feedBusinessLayer->delete($feedId, $userId);
+			$this->feedBusinessLayer->delete($feedId, $this->userId);
 			return new JSONResponse();
 		} catch(BusinessLayerException $ex) {
 			return new JSONResponse(array('message' => $ex->getMessage()),
@@ -145,11 +146,10 @@ class FeedApiController extends Controller {
 	 * @API
 	 */
 	public function read() {
-		$userId = $this->api->getUserId();
 		$feedId = (int) $this->params('feedId');
 		$newestItemId = (int) $this->params('newestItemId');
 
-		$this->itemBusinessLayer->readFeed($feedId, $newestItemId, $userId);
+		$this->itemBusinessLayer->readFeed($feedId, $newestItemId, $this->userId);
 		return new JSONResponse();
 	}
 
@@ -160,12 +160,11 @@ class FeedApiController extends Controller {
 	 * @API
 	 */
 	public function move() {
-		$userId = $this->api->getUserId();
 		$feedId = (int) $this->params('feedId');
 		$folderId = (int) $this->params('folderId');
 
 		try {
-			$this->feedBusinessLayer->move($feedId, $folderId, $userId);
+			$this->feedBusinessLayer->move($feedId, $folderId, $this->userId);
 			return new JSONResponse();
 		} catch(BusinessLayerException $ex) {
 			return new JSONResponse(array('message' => $ex->getMessage()),
@@ -180,12 +179,11 @@ class FeedApiController extends Controller {
 	 * @API
 	 */
 	public function rename() {
-		$userId = $this->api->getUserId();
 		$feedId = (int) $this->params('feedId');
 		$feedTitle = $this->params('feedTitle');
 
 		try {
-			$this->feedBusinessLayer->rename($feedId, $feedTitle, $userId);
+			$this->feedBusinessLayer->rename($feedId, $feedTitle, $this->userId);
 			return new JSONResponse();
 		} catch(BusinessLayerException $ex) {
 			return new JSONResponse(array('message' => $ex->getMessage()),
@@ -225,7 +223,7 @@ class FeedApiController extends Controller {
 			$this->feedBusinessLayer->update($feedId, $userId);
 		// ignore update failure (feed could not be reachable etc, we dont care)
 		} catch(\Exception $ex) {
-			$this->api->log('Could not update feed ' . $ex->getMessage(),
+			$this->logger->log('Could not update feed ' . $ex->getMessage(),
 					'debug');
 		}
 		return new JSONResponse();

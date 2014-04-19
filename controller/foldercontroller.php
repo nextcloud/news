@@ -30,7 +30,6 @@ use \OCP\AppFramework\Controller;
 use \OCP\AppFramework\Http;
 use \OCP\AppFramework\Http\JSONResponse;
 
-use \OCA\News\Core\API;
 use \OCA\News\BusinessLayer\FolderBusinessLayer;
 use \OCA\News\BusinessLayer\FeedBusinessLayer;
 use \OCA\News\BusinessLayer\ItemBusinessLayer;
@@ -43,17 +42,18 @@ class FolderController extends Controller {
 	private $folderBusinessLayer;
 	private $feedBusinessLayer;
 	private $itemBusinessLayer;
-	private $api;
+	private $userId;
 
-	public function __construct(API $api, IRequest $request, 
+	public function __construct($appName, IRequest $request, 
 	                            FolderBusinessLayer $folderBusinessLayer,
 	                            FeedBusinessLayer $feedBusinessLayer,
-	                            ItemBusinessLayer $itemBusinessLayer){
-		parent::__construct($api->getAppName(), $request);
+	                            ItemBusinessLayer $itemBusinessLayer,
+	                            $userId){
+		parent::__construct($appName, $request);
 		$this->folderBusinessLayer = $folderBusinessLayer;
 		$this->feedBusinessLayer = $feedBusinessLayer;
 		$this->itemBusinessLayer = $itemBusinessLayer;
-		$this->api = $api;
+		$this->userId = $userId;
 	}
 
 
@@ -61,7 +61,7 @@ class FolderController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function index(){
-		$folders = $this->folderBusinessLayer->findAll($this->api->getUserId());
+		$folders = $this->folderBusinessLayer->findAll($this->userId);
 		$result = array(
 			'folders' => $folders
 		);
@@ -70,10 +70,9 @@ class FolderController extends Controller {
 
 
 	private function setOpened($isOpened){
-		$userId = $this->api->getUserId();
 		$folderId = (int) $this->params('folderId');
 
-		$this->folderBusinessLayer->open($folderId, $isOpened, $userId);
+		$this->folderBusinessLayer->open($folderId, $isOpened, $this->userId);
 	}
 
 
@@ -111,15 +110,14 @@ class FolderController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function create(){
-		$userId = $this->api->getUserId();
 		$folderName = $this->params('folderName');
 
 		try {
 			// we need to purge deleted folders if a folder is created to 
 			// prevent already exists exceptions
-			$this->folderBusinessLayer->purgeDeleted($userId, false);
+			$this->folderBusinessLayer->purgeDeleted($this->userId, false);
 
-			$folder = $this->folderBusinessLayer->create($folderName, $userId);
+			$folder = $this->folderBusinessLayer->create($folderName, $this->userId);
 
 			$params = array(
 				'folders' => array($folder)
@@ -146,11 +144,10 @@ class FolderController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function delete(){
-		$userId = $this->api->getUserId();
 		$folderId = (int) $this->params('folderId');
 
 		try {
-			$this->folderBusinessLayer->markDeleted($folderId, $userId);
+			$this->folderBusinessLayer->markDeleted($folderId, $this->userId);
 			return new JSONResponse();
 		} catch (BusinessLayerException $ex){
 			return new JSONResponse(array(
@@ -164,12 +161,13 @@ class FolderController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function rename(){
-		$userId = $this->api->getUserId();
+		$userId = $this->userId;
 		$folderName = $this->params('folderName');
 		$folderId = (int) $this->params('folderId');
 
 		try {
-			$folder = $this->folderBusinessLayer->rename($folderId, $folderName, $userId);
+			$folder = $this->folderBusinessLayer->rename($folderId, $folderName, 
+				$this->userId);
 
 			$params = array(
 				'folders' => array($folder)
@@ -197,14 +195,13 @@ class FolderController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function read(){
-		$userId = $this->api->getUserId();
 		$folderId = (int) $this->params('folderId');
 		$highestItemId = (int) $this->params('highestItemId');
 
-		$this->itemBusinessLayer->readFolder($folderId, $highestItemId, $userId);
+		$this->itemBusinessLayer->readFolder($folderId, $highestItemId, $this->userId);
 
 		$params = array(
-			'feeds' => $this->feedBusinessLayer->findAll($userId)
+			'feeds' => $this->feedBusinessLayer->findAll($this->userId)
 		);
 		return new JSONResponse($params);
 	}
@@ -214,11 +211,10 @@ class FolderController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function restore(){
-		$userId = $this->api->getUserId();
 		$folderId = (int) $this->params('folderId');
 
 		try {
-			$this->folderBusinessLayer->unmarkDeleted($folderId, $userId);
+			$this->folderBusinessLayer->unmarkDeleted($folderId, $this->userId);
 			return new JSONResponse();
 		} catch (BusinessLayerException $ex){
 			return new JSONResponse(array(

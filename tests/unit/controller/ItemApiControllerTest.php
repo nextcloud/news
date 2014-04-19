@@ -46,10 +46,8 @@ class ItemApiControllerTest extends ControllerTestUtility {
 	private $msg;
 
 	protected function setUp() {
-		$this->api = $this->getMockBuilder(
-			'\OCA\News\Core\API')
-			->disableOriginalConstructor()
-			->getMock();
+		$this->user = 'tom';
+		$this->appName = 'news';
 		$this->request = $this->getMockBuilder(
 			'\OCP\IRequest')
 			->disableOriginalConstructor()
@@ -58,11 +56,11 @@ class ItemApiControllerTest extends ControllerTestUtility {
 			'\OCA\News\BusinessLayer\ItemBusinessLayer')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->user = 'tom';
 		$this->itemAPI = new ItemApiController(
-			$this->api,
+			$this->appName,
 			$this->request,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->user
 		);
 		$this->msg = 'hi';
 	}
@@ -141,14 +139,12 @@ class ItemApiControllerTest extends ControllerTestUtility {
 			'getRead' => 'false'
 		)));
 		$this->itemAPI = new ItemApiController(
-			$this->api,
+			$this->appName,
 			$request,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('findAll')
 			->with(
@@ -180,14 +176,12 @@ class ItemApiControllerTest extends ControllerTestUtility {
 			'getRead' => 'false'
 		)));
 		$this->itemAPI = new ItemApiController(
-			$this->api,
+			$this->appName,
 			$request,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('findAll')
 			->with(
@@ -218,14 +212,12 @@ class ItemApiControllerTest extends ControllerTestUtility {
 			'id' => 2,
 		)));
 		$this->itemAPI = new ItemApiController(
-			$this->api,
+			$this->appName,
 			$request,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('findAllNew')
 			->with(
@@ -250,14 +242,12 @@ class ItemApiControllerTest extends ControllerTestUtility {
 			'itemId' => 2
 		)));
 		$this->itemAPI = new ItemApiController(
-			$this->api,
+			$this->appName,
 			$request,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('read')
 			->with(
@@ -278,14 +268,12 @@ class ItemApiControllerTest extends ControllerTestUtility {
 			'itemId' => 2
 		)));
 		$this->itemAPI = new ItemApiController(
-			$this->api,
+			$this->appName,
 			$request,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('read')
 			->will($this->throwException(new BusinessLayerException($this->msg)));
@@ -303,14 +291,12 @@ class ItemApiControllerTest extends ControllerTestUtility {
 			'itemId' => 2
 		)));
 		$this->itemAPI = new ItemApiController(
-			$this->api,
+			$this->appName,
 			$request,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('read')
 			->with(
@@ -331,14 +317,12 @@ class ItemApiControllerTest extends ControllerTestUtility {
 			'itemId' => 2
 		)));
 		$this->itemAPI = new ItemApiController(
-			$this->api,
+			$this->appName,
 			$request,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('read')
 			->will($this->throwException(new BusinessLayerException($this->msg)));
@@ -357,14 +341,12 @@ class ItemApiControllerTest extends ControllerTestUtility {
 			'guidHash' => 'hash'
 		)));
 		$this->itemAPI = new ItemApiController(
-			$this->api,
+			$this->appName,
 			$request,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('star')
 			->with(
@@ -387,14 +369,12 @@ class ItemApiControllerTest extends ControllerTestUtility {
 			'guidHash' => 'hash'
 		)));
 		$this->itemAPI = new ItemApiController(
-			$this->api,
+			$this->appName,
 			$request,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('star')
 			->will($this->throwException(new BusinessLayerException($this->msg)));
@@ -413,14 +393,12 @@ class ItemApiControllerTest extends ControllerTestUtility {
 			'guidHash' => 'hash'
 		)));
 		$this->itemAPI = new ItemApiController(
-			$this->api,
+			$this->appName,
 			$request,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('star')
 			->with(
@@ -443,14 +421,12 @@ class ItemApiControllerTest extends ControllerTestUtility {
 			'guidHash' => 'hash'
 		)));
 		$this->itemAPI = new ItemApiController(
-			$this->api,
+			$this->appName,
 			$request,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('star')
 			->will($this->throwException(new BusinessLayerException($this->msg)));
@@ -470,14 +446,12 @@ class ItemApiControllerTest extends ControllerTestUtility {
 			)
 		));
 		$this->itemAPI = new ItemApiController(
-			$this->api,
+			$this->appName,
 			$request,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('readAll')
 			->with(
@@ -497,14 +471,12 @@ class ItemApiControllerTest extends ControllerTestUtility {
 			'items' => array(2, 4)
 		)));
 		$this->itemAPI = new ItemApiController(
-			$this->api,
+			$this->appName,
 			$request,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->at(0))
 			->method('read')
 			->with($this->equalTo(2),
@@ -525,14 +497,12 @@ class ItemApiControllerTest extends ControllerTestUtility {
 			'items' => array(2, 4)
 		)));
 		$this->itemAPI = new ItemApiController(
-			$this->api,
+			$this->appName,
 			$request,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->at(0))
 			->method('read')
 			->will($this->throwException(new BusinessLayerException('')));
@@ -550,14 +520,12 @@ class ItemApiControllerTest extends ControllerTestUtility {
 			'items' => array(2, 4)
 		)));
 		$this->itemAPI = new ItemApiController(
-			$this->api,
+			$this->appName,
 			$request,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->at(0))
 			->method('read')
 			->with($this->equalTo(2),
@@ -587,14 +555,12 @@ class ItemApiControllerTest extends ControllerTestUtility {
 			)
 		)));
 		$this->itemAPI = new ItemApiController(
-			$this->api,
+			$this->appName,
 			$request,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->at(0))
 			->method('star')
 			->with($this->equalTo(2),
@@ -626,14 +592,12 @@ class ItemApiControllerTest extends ControllerTestUtility {
 			)
 		)));
 		$this->itemAPI = new ItemApiController(
-			$this->api,
+			$this->appName,
 			$request,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->at(0))
 			->method('star')
 			->will($this->throwException(new BusinessLayerException('')));
@@ -661,14 +625,12 @@ class ItemApiControllerTest extends ControllerTestUtility {
 			)
 		)));
 		$this->itemAPI = new ItemApiController(
-			$this->api,
+			$this->appName,
 			$request,
-			$this->itemBusinessLayer
+			$this->itemBusinessLayer,
+			$this->user
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->at(0))
 			->method('star')
 			->with($this->equalTo(2),

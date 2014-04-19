@@ -30,7 +30,7 @@ use \OCA\News\Db\Item;
 require_once(__DIR__ . "/../../classloader.php");
 
 
-class EnhancerTest extends \OCA\News\Utility\TestUtility {
+class EnhancerTest extends \PHPUnit_Framework_TestCase {
 
 	private $enhancer;
 	private $articleEnhancer;

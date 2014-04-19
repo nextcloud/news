@@ -25,7 +25,6 @@
 
 namespace OCA\News\BusinessLayer;
 
-use \OCA\News\Core\API;
 use \OCA\News\Db\Folder;
 use \OCA\News\Db\FolderMapper;
 use \OCA\News\Utility\Config;
@@ -33,16 +32,16 @@ use \OCA\News\Utility\Config;
 
 class FolderBusinessLayer extends BusinessLayer {
 
-	private $api;
+	private $l10n;
 	private $timeFactory;
 	private $autoPurgeMinimumInterval;
 
 	public function __construct(FolderMapper $folderMapper,
-	                            API $api,
+	                            $l10n,
 	                            $timeFactory,
 	                            Config $config){
 		parent::__construct($folderMapper);
-		$this->api = $api;
+		$this->l10n = $l10n;
 		$this->timeFactory = $timeFactory;
 		$this->autoPurgeMinimumInterval = $config->getAutoPurgeMinimumInterval();
 	}
@@ -62,7 +61,7 @@ class FolderBusinessLayer extends BusinessLayer {
 		if(count($existingFolders) > 0){
 
 			throw new BusinessLayerConflictException(
-				$this->api->getTrans()->t('Can not add folder: Exists already'));
+				$this->l10n->t('Can not add folder: Exists already'));
 		}
 
 		if(mb_strlen($folderName) === 0) {

@@ -32,17 +32,18 @@ use \OCP\AppFramework\Http\JSONResponse;
 use \OCP\AppFramework\Http\Response;
 
 use \OCA\News\Utility\Updater;
-use \OCA\News\Core\API;
+use \OCA\News\Core\Settings;
 
 class ApiController extends Controller {
 
 	private $updater;
-	private $api;
+	private $settings;
 
-	public function __construct(API $api, IRequest $request, Updater $updater){
-		parent::__construct($api->getAppName(), $request);
+	public function __construct($appName, IRequest $request, Updater $updater,
+	                            Settings $settings){
+		parent::__construct($appName, $request);
 		$this->updater = $updater;
-		$this->api = $api;
+		$this->settings = $settings;
 	}
 
 
@@ -52,7 +53,7 @@ class ApiController extends Controller {
 	 * @API
 	 */
 	public function version() {
-		$version = $this->api->getAppValue('installed_version');
+		$version = $this->settings->getAppValue('installed_version');
 		$response = new JSONResponse(array('version' => $version));
 		return $response;
 	}

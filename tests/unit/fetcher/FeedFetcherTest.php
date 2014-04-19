@@ -31,7 +31,7 @@ use \OCA\News\Db\Feed;
 require_once(__DIR__ . "/../../classloader.php");
 
 
-class FeedFetcherTest extends \OCA\News\Utility\TestUtility {
+class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 
 	private $fetcher;
 	private $core;
@@ -128,8 +128,7 @@ class FeedFetcherTest extends \OCA\News\Utility\TestUtility {
 		$this->config->expects($this->any())
 			->method('getFeedFetcherTimeout')
 			->will($this->returnValue($this->fetchTimeout));
-		$this->fetcher = new FeedFetcher($this->getAPIMock(),
-						 $this->coreFactory,
+		$this->fetcher = new FeedFetcher($this->coreFactory,
 						 $this->faviconFetcher,
 						 $timeFactory,
 						 $this->cacheDirectory,

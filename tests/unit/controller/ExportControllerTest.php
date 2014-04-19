@@ -40,7 +40,7 @@ require_once(__DIR__ . "/../../classloader.php");
 
 class ExportControllerTest extends ControllerTestUtility {
 
-	private $api;
+	private $appName;
 	private $request;
 	private $controller;
 	private $user;
@@ -53,7 +53,8 @@ class ExportControllerTest extends ControllerTestUtility {
 	 * Gets run before each test
 	 */
 	public function setUp(){
-		$this->api = $this->getAPIMock();
+		$this->appName = 'news';
+		$this->user = 'john';
 		$this->itemBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\ItemBusinessLayer')
 			->disableOriginalConstructor()
 			->getMock();
@@ -65,10 +66,9 @@ class ExportControllerTest extends ControllerTestUtility {
 			->getMock();
 		$this->request = $this->getRequest();
 		$this->opmlExporter = new OPMLExporter();
-		$this->controller = new ExportController($this->api, $this->request,
+		$this->controller = new ExportController($this->appName, $this->request,
 			$this->feedBusinessLayer, $this->folderBusinessLayer, 
-			$this->itemBusinessLayer, $this->opmlExporter);
-		$this->user = 'john';
+			$this->itemBusinessLayer, $this->opmlExporter, $this->user);
 	}
 
 
@@ -94,9 +94,6 @@ class ExportControllerTest extends ControllerTestUtility {
 		"  <body/>\n" .
 		"</opml>\n";
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('findAll')
 			->with($this->equalTo($this->user))
@@ -130,9 +127,6 @@ class ExportControllerTest extends ControllerTestUtility {
 			$item1, $item2
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('findAll')
 			->with($this->equalTo($this->user))

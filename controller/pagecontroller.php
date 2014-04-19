@@ -29,15 +29,18 @@ use \OCP\IRequest;
 use \OCP\AppFramework\Http\JSONResponse;
 use \OCP\AppFramework\Controller;
 
-use \OCA\News\Core\API;
+use \OCA\News\Core\Settings;
 
 class PageController extends Controller {
 
-	private $api;
+	private $settings;
+	private $l10n;
 
-	public function __construct(API $api, IRequest $request){
-		parent::__construct($api->getAppName(), $request);
-		$this->api = $api;
+	public function __construct($appName, IRequest $request, Settings $settings,
+		$l10n){
+		parent::__construct($appName, $request);
+		$this->settings = $settings;
+		$this->l10n = $l10n;
 	}
 
 
@@ -54,9 +57,9 @@ class PageController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function settings() {
-		$showAll = $this->api->getUserValue('showAll');
-		$compact = $this->api->getUserValue('compact');
-		$language = $this->api->getTrans()->findLanguage();
+		$showAll = $this->settings->getUserValue('showAll');
+		$compact = $this->settings->getUserValue('compact');
+		$language = $this->l10n->findLanguage();
 
 		$settings = array(
 			'showAll' => $showAll === '1',
@@ -76,11 +79,11 @@ class PageController extends Controller {
 		$isCompact = $this->params('compact', null);
 		
 		if($isShowAll !== null) {
-			$this->api->setUserValue('showAll', $isShowAll);
+			$this->settings->setUserValue('showAll', $isShowAll);
 		}
 
 		if($isCompact !== null) {
-			$this->api->setUserValue('compact', $isCompact);
+			$this->settings->setUserValue('compact', $isCompact);
 		}
 
 		return new JSONResponse();

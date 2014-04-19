@@ -30,7 +30,7 @@ use \OCP\AppFramework\Controller;
 use \OCP\AppFramework\Http;
 use \OCP\AppFramework\Http\JSONResponse;
 
-use \OCA\News\Core\API;
+use \OCA\News\Core\Settings;
 use \OCA\News\BusinessLayer\BusinessLayerException;
 use \OCA\News\BusinessLayer\ItemBusinessLayer;
 use \OCA\News\BusinessLayer\FeedBusinessLayer;
@@ -40,15 +40,20 @@ class ItemController extends Controller {
 
 	private $itemBusinessLayer;
 	private $feedBusinessLayer;
-	private $api;
+	private $userId;
+	private $settings;
 
-	public function __construct(API $api, IRequest $request, 
+	public function __construct($appName, 
+	                            IRequest $request, 
 		                        FeedBusinessLayer $feedBusinessLayer,
-		                        ItemBusinessLayer $itemBusinessLayer){
-		parent::__construct($api->getAppName(), $request);
+		                        ItemBusinessLayer $itemBusinessLayer,
+		                        $userId,
+		                        Settings $settings){
+		parent::__construct($appName, $request);
 		$this->itemBusinessLayer = $itemBusinessLayer;
 		$this->feedBusinessLayer = $feedBusinessLayer;
-		$this->api = $api;
+		$this->userId = $userId;
+		$this->settings = $settings;
 	}
 
 
@@ -56,16 +61,15 @@ class ItemController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function index(){
-		$userId = $this->api->getUserId();
-		$showAll = $this->api->getUserValue('showAll') === '1';
+		$showAll = $this->settings->getUserValue('showAll') === '1';
 
 		$limit = $this->params('limit');
 		$type = (int) $this->params('type');
 		$id = (int) $this->params('id');
 		$offset = (int) $this->params('offset', 0);
 
-		$this->api->setUserValue('lastViewedFeedId', $id);
-		$this->api->setUserValue('lastViewedFeedType', $type);
+		$this->settings->setUserValue('lastViewedFeedId', $id);
+		$this->settings->setUserValue('lastViewedFeedType', $type);
 
 		$params = array();
 
@@ -76,13 +80,13 @@ class ItemController extends Controller {
 			// out of sync
 			if($offset === 0) {
 				$params['newestItemId'] = 
-					$this->itemBusinessLayer->getNewestItemId($userId);
-				$params['feeds'] = $this->feedBusinessLayer->findAll($userId);
-				$params['starred'] = $this->itemBusinessLayer->starredCount($userId);
+					$this->itemBusinessLayer->getNewestItemId($this->userId);
+				$params['feeds'] = $this->feedBusinessLayer->findAll($this->userId);
+				$params['starred'] = $this->itemBusinessLayer->starredCount($this->userId);
 			}
 						
 			$params['items'] = $this->itemBusinessLayer->findAll($id, $type, $limit, 
-				                                       $offset, $showAll, $userId);
+				                                       $offset, $showAll, $this->userId);
 		// this gets thrown if there are no items
 		// in that case just return an empty array
 		} catch(BusinessLayerException $ex) {}
@@ -95,8 +99,7 @@ class ItemController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function newItems() {
-		$userId = $this->api->getUserId();
-		$showAll = $this->api->getUserValue('showAll') === '1';
+		$showAll = $this->settings->getUserValue('showAll') === '1';
 
 		$type = (int) $this->params('type');
 		$id = (int) $this->params('id');
@@ -105,11 +108,11 @@ class ItemController extends Controller {
 		$params = array();
 
 		try {
-			$params['newestItemId'] = $this->itemBusinessLayer->getNewestItemId($userId);
-			$params['feeds'] = $this->feedBusinessLayer->findAll($userId);
-			$params['starred'] = $this->itemBusinessLayer->starredCount($userId);			
+			$params['newestItemId'] = $this->itemBusinessLayer->getNewestItemId($this->userId);
+			$params['feeds'] = $this->feedBusinessLayer->findAll($this->userId);
+			$params['starred'] = $this->itemBusinessLayer->starredCount($this->userId);			
 			$params['items'] = $this->itemBusinessLayer->findAllNew($id, $type, 
-				$lastModified, $showAll, $userId);
+				$lastModified, $showAll, $this->userId);
 		// this gets thrown if there are no items
 		// in that case just return an empty array
 		} catch(BusinessLayerException $ex) {}
@@ -119,11 +122,10 @@ class ItemController extends Controller {
 
 
 	private function setStarred($isStarred){
-		$userId = $this->api->getUserId();
 		$feedId = (int) $this->params('feedId');
 		$guidHash = $this->params('guidHash');
 
-		$this->itemBusinessLayer->star($feedId, $guidHash, $isStarred, $userId);
+		$this->itemBusinessLayer->star($feedId, $guidHash, $isStarred, $this->userId);
 	}
 
 
@@ -158,10 +160,9 @@ class ItemController extends Controller {
 
 
 	private function setRead($isRead){
-		$userId = $this->api->getUserId();
 		$itemId = (int) $this->params('itemId');
 
-		$this->itemBusinessLayer->read($itemId, $isRead, $userId);
+		$this->itemBusinessLayer->read($itemId, $isRead, $this->userId);
 	}
 
 
@@ -199,13 +200,12 @@ class ItemController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function readAll(){
-		$userId = $this->api->getUserId();
 		$highestItemId = (int) $this->params('highestItemId');
 
-		$this->itemBusinessLayer->readAll($highestItemId, $userId);
+		$this->itemBusinessLayer->readAll($highestItemId, $this->userId);
 
 		$params = array(
-			'feeds' => $this->feedBusinessLayer->findAll($userId)
+			'feeds' => $this->feedBusinessLayer->findAll($this->userId)
 		);
 		return new JSONResponse($params);
 	}

@@ -40,19 +40,25 @@ require_once(__DIR__ . "/../../classloader.php");
 
 class FeedControllerTest extends ControllerTestUtility {
 
-	private $api;
+	private $appName;
 	private $feedBusinessLayer;
 	private $request;
 	private $controller;
 	private $folderBusinessLayer;
 	private $itemBusinessLayer;
+	private $settings;
 
 
 	/**
 	 * Gets run before each test
 	 */
 	public function setUp(){
-		$this->api = $this->getAPIMock();
+		$this->appName = 'news';
+		$this->user = 'jack';
+		$this->settings = $this->getMockBuilder(
+			'\OCA\News\Core\Settings')
+			->disableOriginalConstructor()
+			->getMock();
 		$this->itemBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\ItemBusinessLayer')
 			->disableOriginalConstructor()
 			->getMock();
@@ -63,11 +69,12 @@ class FeedControllerTest extends ControllerTestUtility {
 			->disableOriginalConstructor()
 			->getMock();
 		$this->request = $this->getRequest();
-		$this->controller = new FeedController($this->api, $this->request,
+		$this->controller = new FeedController($this->appName, $this->request,
 				$this->folderBusinessLayer,
 				$this->feedBusinessLayer,
-				$this->itemBusinessLayer);
-		$this->user = 'jack';
+				$this->itemBusinessLayer,
+				$this->user,
+				$this->settings);
 	}
 
 	private function assertFeedControllerAnnotations($methodName){
@@ -83,10 +90,12 @@ class FeedControllerTest extends ControllerTestUtility {
 		);
 
 		$request = $this->getRequest($post);
-		return new FeedController($this->api, $request,
+		return new FeedController($this->appName, $request,
 			$this->folderBusinessLayer,
 			$this->feedBusinessLayer,
-			$this->itemBusinessLayer);
+			$this->itemBusinessLayer,
+			$this->user,
+			$this->settings);
 	}
 
 
@@ -140,9 +149,6 @@ class FeedControllerTest extends ControllerTestUtility {
 			),
 			'starred' => 13
 		);
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('findAll')
 			->with($this->equalTo($this->user))
@@ -171,9 +177,6 @@ class FeedControllerTest extends ControllerTestUtility {
 			'starred' => 13,
 			'newestItemId' => 5
 		);
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('findAll')
 			->with($this->equalTo($this->user))
@@ -196,14 +199,11 @@ class FeedControllerTest extends ControllerTestUtility {
 
 
 	private function activeInitMocks($id, $type){
-		$this->api->expects($this->at(0))
-			->method('getUserId')
-			->will($this->returnValue($this->user));
-		$this->api->expects($this->at(1))
+		$this->settings->expects($this->at(0))
 			->method('getUserValue')
 			->with($this->equalTo('lastViewedFeedId'))
 			->will($this->returnValue($id));
-		$this->api->expects($this->at(2))
+		$this->settings->expects($this->at(1))
 			->method('getUserValue')
 			->with($this->equalTo('lastViewedFeedType'))
 			->will($this->returnValue($type));
@@ -308,9 +308,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		);
 		$this->controller = $this->getPostController($post);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 
 		$this->itemBusinessLayer->expects($this->once())
 			->method('getNewestItemId')
@@ -343,9 +340,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		);
 		$this->controller = $this->getPostController($post);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('purgeDeleted')
 			->with($this->equalTo($this->user), $this->equalTo(false));
@@ -371,9 +365,6 @@ class FeedControllerTest extends ControllerTestUtility {
 	public function testCreateReturnsErrorForInvalidCreate(){
 		$msg = 'except';
 		$ex = new BusinessLayerException($msg);
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('purgeDeleted')
 			->with($this->equalTo($this->user), $this->equalTo(false));
@@ -393,9 +384,6 @@ class FeedControllerTest extends ControllerTestUtility {
 	public function testCreateReturnsErrorForDuplicateCreate(){
 		$msg = 'except';
 		$ex = new BusinessLayerConflictException($msg);
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('purgeDeleted')
 			->with($this->equalTo($this->user), $this->equalTo(false));
@@ -418,9 +406,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		);
 		$this->controller = $this->getPostController(array(), $url);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('markDeleted')
 			->with($this->equalTo($url['feedId']));
@@ -437,9 +422,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		$msg = 'hehe';
 		$this->controller = $this->getPostController(array(), $url);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('markDeleted')
 			->will($this->throwException(new BusinessLayerException($msg)));
@@ -471,9 +453,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		);
 		$this->controller = $this->getPostController(array(), $url);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('update')
 			->with($this->equalTo($url['feedId']), $this->equalTo($this->user))
@@ -498,9 +477,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		);
 		$this->controller = $this->getPostController(array(), $url);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('update')
 			->with($this->equalTo($url['feedId']), $this->equalTo($this->user))
@@ -524,9 +500,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		);
 		$this->controller = $this->getPostController($post, $url);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('move')
 			->with($this->equalTo($url['feedId']),
@@ -549,9 +522,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		$msg = 'john';
 		$this->controller = $this->getPostController($post, $url);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('move')
 			->will($this->throwException(new BusinessLayerException($msg)));
@@ -574,9 +544,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		);
 		$this->controller = $this->getPostController($post, $url);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('rename')
 			->with($this->equalTo($url['feedId']),
@@ -600,9 +567,6 @@ class FeedControllerTest extends ControllerTestUtility {
 
 		$msg = 'hi';
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('rename')
 			->with($this->equalTo($url['feedId']),
@@ -631,9 +595,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		);
 		$this->controller = $this->getPostController($post);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('importArticles')
 			->with($this->equalTo($post['json']),
@@ -656,9 +617,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		$expected = array();
 		$this->controller = $this->getPostController($post);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('importArticles')
 			->with($this->equalTo($post['json']),
@@ -689,9 +647,6 @@ class FeedControllerTest extends ControllerTestUtility {
 			)
 		);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->itemBusinessLayer->expects($this->once())
 			->method('readFeed')
 			->with($url['feedId'], $post['highestItemId'], $this->user);
@@ -708,9 +663,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		);
 		$this->controller = $this->getPostController(array(), $url);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('unmarkDeleted')
 			->with($this->equalTo($url['feedId']));
@@ -727,9 +679,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		$msg = 'hehe';
 		$this->controller = $this->getPostController(array(), $url);
 
-		$this->api->expects($this->once())
-			->method('getUserId')
-			->will($this->returnValue($this->user));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('unmarkDeleted')
 			->will($this->throwException(new BusinessLayerException($msg)));

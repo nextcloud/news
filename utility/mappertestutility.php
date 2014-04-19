@@ -24,16 +24,16 @@
 
 namespace OCA\News\Utility;
 
-use OCA\News\Core\Api;
+use OCA\News\Core\Db;
 
 
 /**
  * Simple utility class for testing mappers
  */
-abstract class MapperTestUtility extends TestUtility {
+abstract class MapperTestUtility extends \PHPUnit_Framework_TestCase {
 
 
-	protected $api;
+	protected $db;
 	private $query;
 	private $pdoResult;
 	private $queryAt;
@@ -44,12 +44,13 @@ abstract class MapperTestUtility extends TestUtility {
 
 	/**
 	 * Run this function before the actual test to either set or initialize the
-	 * api. After this the api can be accessed by using $this->api
+	 * db. After this the db can be accessed by using $this->db
 	 */
 	protected function beforeEach(){
-		$this->api = $this->getMock('\OCA\News\Core\API', 
-			array('prepareQuery', 'getInsertId'),
-			array('a'));
+		$this->db = $this->getMockBuilder(
+			'\OCA\News\Core\Db')
+			->disableOriginalConstructor()
+			->getMock();
 
 		$this->query = $this->getMock('Query', array('execute', 'bindValue'));
 		$this->pdoResult = $this->getMock('Result', array('fetchRow'));
@@ -127,24 +128,24 @@ abstract class MapperTestUtility extends TestUtility {
 		$this->queryAt++;
 
 		if($limit === null && $offset === null) {
-			$this->api->expects($this->at($this->prepareAt))
+			$this->db->expects($this->at($this->prepareAt))
 				->method('prepareQuery')
 				->with($this->equalTo($sql))
 				->will(($this->returnValue($this->query)));
 		} elseif($limit !== null && $offset === null) {
-			$this->api->expects($this->at($this->prepareAt))
+			$this->db->expects($this->at($this->prepareAt))
 				->method('prepareQuery')
 				->with($this->equalTo($sql), $this->equalTo($limit))
 				->will(($this->returnValue($this->query)));
 		} elseif($limit === null && $offset !== null) {
-			$this->api->expects($this->at($this->prepareAt))
+			$this->db->expects($this->at($this->prepareAt))
 				->method('prepareQuery')
 				->with($this->equalTo($sql), 
 					$this->equalTo(null),
 					$this->equalTo($offset))
 				->will(($this->returnValue($this->query)));
 		} else  {
-			$this->api->expects($this->at($this->prepareAt))
+			$this->db->expects($this->at($this->prepareAt))
 				->method('prepareQuery')
 				->with($this->equalTo($sql), 
 					$this->equalTo($limit),

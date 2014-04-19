@@ -24,7 +24,7 @@
 
 namespace OCA\News\Db\Postgres;
 
-use \OCA\News\Core\API;
+use \OCA\News\Core\Db;
 use \OCA\News\Db\DoesNotExistException;
 use \OCA\News\Db\MultipleObjectsReturnedException;
 use \OCA\News\Db\Mapper;
@@ -33,8 +33,8 @@ use \OCA\News\Db\StatusFlag;
 
 class ItemMapper extends \OCA\News\Db\ItemMapper {
 
-	public function __construct(API $api){
-		parent::__construct($api);
+	public function __construct(Db $db){
+		parent::__construct($db, 'news_items', '\OCA\News\Db\Item');
 	}
 
 

@@ -34,7 +34,7 @@ use \OCA\News\Db\Item;
 use \OCA\News\Fetcher\Fetcher;
 use \OCA\News\Fetcher\FetcherException;
 
-class FeedBusinessLayerTest extends \OCA\News\Utility\TestUtility {
+class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 
 	private $feedMapper;
 	private $feedBusinessLayer;
@@ -48,9 +48,15 @@ class FeedBusinessLayerTest extends \OCA\News\Utility\TestUtility {
 	private $autoPurgeMinimumInterval;
 	private $enhancer;
 	private $purifier;
+	private $l10n;
+	private $logger;
 
 	protected function setUp(){
-		$this->api = $this->getAPIMock();
+		$this->logger = $this->getMockBuilder(
+			'\OCA\News\Core\Logger')
+			->disableOriginalConstructor()
+			->getMock();
+		$this->l10n = $this->getMock('L10N', array('t'));
 		$this->time = 222;
 		$this->autoPurgeMinimumInterval = 10;
 		$timeFactory = $this->getMock('TimeFactory', array('getTime'));
@@ -79,7 +85,7 @@ class FeedBusinessLayerTest extends \OCA\News\Utility\TestUtility {
 			->will($this->returnValue($this->autoPurgeMinimumInterval));
 
 		$this->feedBusinessLayer = new FeedBusinessLayer($this->feedMapper,
-			$this->fetcher, $this->itemMapper, $this->api,
+			$this->fetcher, $this->itemMapper, $this->logger, $this->l10n,
 			$timeFactory, $config,
 			$this->enhancer, $this->purifier);
 		$this->user = 'jack';
@@ -101,12 +107,8 @@ class FeedBusinessLayerTest extends \OCA\News\Utility\TestUtility {
 	public function testCreateDoesNotFindFeed(){
 		$ex = new FetcherException('hi');
 		$url = 'test';
-		$trans = $this->getMock('Trans', array('t'));
-		$trans->expects($this->once())
+		$this->l10n->expects($this->once())
 			->method('t');
-		$this->api->expects($this->once())
-			->method('getTrans')
-			->will($this->returnValue($trans));
 		$this->fetcher->expects($this->once())
 			->method('fetch')
 			->with($this->equalTo($url))
@@ -361,7 +363,7 @@ class FeedBusinessLayerTest extends \OCA\News\Utility\TestUtility {
 		$this->fetcher->expects($this->once())
 			->method('fetch')
 			->will($this->throwException($ex));
-		$this->api->expects($this->any())
+		$this->logger->expects($this->any())
 			->method('log');
 
 		$this->feedMapper->expects($this->at(1))
@@ -601,17 +603,13 @@ class FeedBusinessLayerTest extends \OCA\News\Utility\TestUtility {
 		$insertFeed->setPreventUpdate(true);
 		$insertFeed->setFolderId(0);
 
-		$trans = $this->getMock('trans', array('t'));
-		$trans->expects($this->once())
+		$this->l10n->expects($this->once())
 			->method('t')
 			->will($this->returnValue('Articles without feed'));
 		$this->feedMapper->expects($this->once())
 			->method('findAllFromUser')
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($feeds));
-		$this->api->expects($this->once())
-			->method('getTrans')
-			->will($this->returnValue($trans));
 		$this->feedMapper->expects($this->once())
 			->method('insert')
 			->with($this->equalTo($insertFeed))

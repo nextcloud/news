@@ -37,7 +37,7 @@ class FolderMapperTest extends \OCA\News\Utility\MapperTestUtility {
 	protected function setUp(){
 		$this->beforeEach();
 
-		$this->folderMapper = new FolderMapper($this->api);
+		$this->folderMapper = new FolderMapper($this->db);
 
 		// create mock folders
 		$folder1 = new Folder();

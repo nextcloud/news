@@ -24,7 +24,7 @@
 
 namespace OCA\News\Db;
 
-use OCA\News\Core\API;
+use OCA\News\Core\Db;
 use OCA\News\Utility\MapperTestUtility;
 
 
@@ -38,7 +38,7 @@ class Example extends Entity {
 
 
 class ExampleMapper extends Mapper {
-	public function __construct(API $api){ parent::__construct($api, 'table'); }
+	public function __construct(Db $db){ parent::__construct($db, 'table'); }
 	public function find($table, $id){ return $this->findOneQuery($table, $id); }
 	public function findOneEntity($table, $id){ return $this->findEntity($table, $id); }
 	public function findAll($table){ return $this->findAllQuery($table); }
@@ -54,7 +54,11 @@ class MapperTest extends MapperTestUtility {
 
 	public function setUp(){
 		$this->beforeEach();
-		$this->mapper = new ExampleMapper($this->api);
+		$this->db = $this->getMockBuilder(
+			'\OCA\News\Core\Db')
+			->disableOriginalConstructor()
+			->getMock();
+		$this->mapper = new ExampleMapper($this->db);
 	}
 
 
@@ -141,11 +145,11 @@ class MapperTest extends MapperTestUtility {
 
 
 	public function testCreate(){
-		$this->api->expects($this->once())
+		$this->db->expects($this->once())
 			->method('getInsertId')
 			->with($this->equalTo('*PREFIX*table'))
 			->will($this->returnValue(3));
-		$this->mapper = new ExampleMapper($this->api);
+		$this->mapper = new ExampleMapper($this->db);
 
 		$sql = 'INSERT INTO `*PREFIX*table`(`pre_name`,`email`) ' .
 				'VALUES(?,?)';
@@ -161,11 +165,11 @@ class MapperTest extends MapperTestUtility {
 
 
 	public function testCreateShouldReturnItemWithCorrectInsertId(){
-		$this->api->expects($this->once())
+		$this->db->expects($this->once())
 			->method('getInsertId')
 			->with($this->equalTo('*PREFIX*table'))
 			->will($this->returnValue(3));
-		$this->mapper = new ExampleMapper($this->api);
+		$this->mapper = new ExampleMapper($this->db);
 
 		$sql = 'INSERT INTO `*PREFIX*table`(`pre_name`,`email`) ' .
 				'VALUES(?,?)';

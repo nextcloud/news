@@ -36,19 +36,27 @@ require_once(__DIR__ . "/../../classloader.php");
 
 class PageControllerTest extends ControllerTestUtility {
 
-	private $api;
+	private $settings;
+	private $appName;
 	private $request;
 	private $controller;
 	private $user;
+	private $l10n;
 
 
 	/**
 	 * Gets run before each test
 	 */
 	public function setUp(){
-		$this->api = $this->getAPIMock();
+		$this->appName = 'news';
+		$this->l10n = $this->getMock('L10N', array('findLanguage'));
+		$this->settings = $this->getMockBuilder(
+			'\OCA\News\Core\Settings')
+			->disableOriginalConstructor()
+			->getMock();
 		$this->request = $this->getRequest();
-		$this->controller = new PageController($this->api, $this->request);
+		$this->controller = new PageController($this->appName, $this->request, 
+			$this->settings, $this->l10n);
 		$this->user = 'becka';
 	}
 
@@ -82,18 +90,14 @@ class PageControllerTest extends ControllerTestUtility {
 			'language' => 'de'
 		);
 
-		$lang = $this->getMock('Lang', array('findLanguage'));
-		$lang->expects($this->once())
+		$this->l10n->expects($this->once())
 			->method('findLanguage')
 			->will($this->returnValue('de'));
-		$this->api->expects($this->once())
-			->method('getTrans')
-			->will($this->returnValue($lang));
-		$this->api->expects($this->at(0))
+		$this->settings->expects($this->at(0))
 			->method('getUserValue')
 			->with($this->equalTo('showAll'))
 			->will($this->returnValue('1'));
-		$this->api->expects($this->at(1))
+		$this->settings->expects($this->at(1))
 			->method('getUserValue')
 			->with($this->equalTo('compact'))
 			->will($this->returnValue('1'));
@@ -109,13 +113,14 @@ class PageControllerTest extends ControllerTestUtility {
 			'showAll' => true,
 			'compact' => true
 		)));
-		$this->controller = new PageController($this->api, $request);
+		$this->controller = new PageController($this->appName, $request, 
+			$this->settings, $this->l10n);
 
-		$this->api->expects($this->at(0))
+		$this->settings->expects($this->at(0))
 			->method('setUserValue')
 			->with($this->equalTo('showAll'), 
 				$this->equalTo(true));
-		$this->api->expects($this->at(1))
+		$this->settings->expects($this->at(1))
 			->method('setUserValue')
 			->with($this->equalTo('compact'), 
 				$this->equalTo(true));
@@ -129,9 +134,10 @@ class PageControllerTest extends ControllerTestUtility {
 		$request = $this->getRequest(array('post' => array(
 			'showAll' => true
 		)));
-		$this->controller = new PageController($this->api, $request);
+		$this->controller = new PageController($this->appName, $request, 
+			$this->settings, $this->l10n);
 
-		$this->api->expects($this->once())
+		$this->settings->expects($this->once())
 			->method('setUserValue')
 			->with($this->equalTo('showAll'), 
 				$this->equalTo(true));

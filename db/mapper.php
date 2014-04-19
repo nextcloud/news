@@ -26,7 +26,7 @@
 
 namespace OCA\News\Db;
 
-use \OCA\News\Core\API;
+use \OCA\News\Core\Db;
 
 
 /**
@@ -37,15 +37,16 @@ abstract class Mapper {
 
 	protected $tableName;
 	protected $entityClass;
+	private $db;
 
 	/**
-	 * @param API $api Instance of the API abstraction layer
+	 * @param Db $db Instance of the Db abstraction layer
 	 * @param string $tableName the name of the table. set this to allow entity 
 	 * @param string $entityClass the name of the entity that the sql should be
 	 * mapped to queries without using sql
 	 */
-	public function __construct(API $api, $tableName, $entityClass=null){
-		$this->api = $api;
+	public function __construct(Db $db, $tableName, $entityClass=null){
+		$this->db = $db;
 		$this->tableName = '*PREFIX*' . $tableName;
 
 		// if not given set the entity name to the class without the mapper part
@@ -114,7 +115,7 @@ abstract class Mapper {
 		
 		$this->execute($sql, $params);
 
-		$entity->setId((int) $this->api->getInsertId($this->tableName));
+		$entity->setId((int) $this->db->getInsertId($this->tableName));
 		return $entity;
 	}
 
@@ -177,7 +178,7 @@ abstract class Mapper {
 	 * @return \PDOStatement the database query result
 	 */
 	protected function execute($sql, array $params=array(), $limit=null, $offset=null){
-		$query = $this->api->prepareQuery($sql, $limit, $offset);
+		$query = $this->db->prepareQuery($sql, $limit, $offset);
 
 		$index = 1;  // bindParam is 1 indexed
 		foreach($params as $param) {

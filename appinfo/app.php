@@ -24,31 +24,28 @@
 
 namespace OCA\News;
 
-use \OCA\News\Core\API;
 
-$api = new API('news');
-
-$api->addNavigationEntry(array(
+\OCP\App::addNavigationEntry(array(
 
 	// the string under which your app will be referenced in owncloud
-	'id' => $api->getAppName(),
+	'id' => 'news',
 
 	// sorting weight for the navigation. The higher the number, the higher
 	// will it be listed in the navigation
 	'order' => 10,
 
 	// the route that will be shown on startup
-	'href' => $api->linkToRoute('news.page.index'),
+	'href' => \OCP\Util::linkToRoute('news.page.index'),
 
 	// the icon that will be shown in the navigation
 	// this file needs to exist in img/example.png
-	'icon' => $api->imagePath('news.svg'),
+	'icon' => \OCP\Util::imagePath('news', 'news.svg'),
 
 	// the title of your application. This will be used in the
 	// navigation or on the settings page of your app
-	'name' => $api->getTrans()->t('News')
+	'name' => \OC_L10N::get('news')->t('News')
 
 ));
 
-$api->addRegularTask('OCA\News\Backgroundjob\Task', 'run');
-$api->connectHook('OC_User', 'pre_deleteUser', 'OCA\News\Hooks\User', 'deleteUser');
+\OCP\Backgroundjob::addRegularTask('OCA\News\Backgroundjob\Task', 'run');
+\OCP\Util::connectHook('OC_User', 'pre_deleteUser', 'OCA\News\Hooks\User', 'deleteUser');

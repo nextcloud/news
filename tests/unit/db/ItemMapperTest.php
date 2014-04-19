@@ -44,7 +44,7 @@ class ItemMapperTest extends \OCA\News\Utility\MapperTestUtility {
 	{
 		$this->beforeEach();
 
-		$this->mapper = new ItemMapper($this->api);
+		$this->mapper = new ItemMapper($this->db);
 
 		// create mock items
 		$item1 = new Item();

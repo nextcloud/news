@@ -28,8 +28,9 @@ namespace OCA\News\App;
 use \OC\Files\View;
 use \OCP\AppFramework\App;
 
-
-use \OCA\News\Core\API;
+use \OCA\News\Core\Logger;
+use \OCA\News\Core\Db;
+use \OCA\News\Core\Settings;
 
 use \OCA\News\Controller\PageController;
 use \OCA\News\Controller\FolderController;
@@ -89,82 +90,96 @@ class News extends App {
 		 */
 		$container->registerService('PageController', function($c) {
 			return new PageController(
-				$c->query('API'), 
-				$c->query('Request')
+				$c->query('AppName'), 
+				$c->query('Request'),
+				$c->query('Settings'),
+				$c->query('L10N')
 			);
 		});
 
 		$container->registerService('FolderController', function($c) {
 			return new FolderController(
-				$c->query('API'), 
+				$c->query('AppName'), 
 				$c->query('Request'),
 				$c->query('FolderBusinessLayer'),
 				$c->query('FeedBusinessLayer'),
-				$c->query('ItemBusinessLayer')
+				$c->query('ItemBusinessLayer'),
+				$c->query('UserId')
 			);
 		});
 
 		$container->registerService('FeedController', function($c) {
 			return new FeedController(
-				$c->query('API'), 
+				$c->query('AppName'), 
 				$c->query('Request'),
 				$c->query('FolderBusinessLayer'),
 				$c->query('FeedBusinessLayer'),
-				$c->query('ItemBusinessLayer')
+				$c->query('ItemBusinessLayer'),
+				$c->query('UserId'),
+				$c->query('Settings')
 			);
 		});
 
 		$container->registerService('ItemController', function($c) {
 			return new ItemController(
-				$c->query('API'), 
+				$c->query('AppName'), 
 				$c->query('Request'),
 				$c->query('FeedBusinessLayer'),
-				$c->query('ItemBusinessLayer')
+				$c->query('ItemBusinessLayer'),
+				$c->query('UserId'),
+				$c->query('Settings')
 			);
 		});
 
 		$container->registerService('ExportController', function($c) {
 			return new ExportController(
-				$c->query('API'), 
+				$c->query('AppName'), 
 				$c->query('Request'),
 				$c->query('FeedBusinessLayer'),
 				$c->query('FolderBusinessLayer'),
 				$c->query('ItemBusinessLayer'),
-				$c->query('OPMLExporter'));
+				$c->query('OPMLExporter'),
+				$c->query('UserId')
+			);
 		});
 
 		$container->registerService('ApiController', function($c) {
 			return new ApiController(
-				$c->query('API'), 
+				$c->query('AppName'), 
 				$c->query('Request'), 
-				$c->query('Updater')
+				$c->query('Updater'),
+				$c->query('Settings')
 			);
 		});
 
 		$container->registerService('FolderApiController', function($c) {
 			return new FolderApiController(
-				$c->query('API'), 
+				$c->query('AppName'), 
 				$c->query('Request'),
 				$c->query('FolderBusinessLayer'),
-				$c->query('ItemBusinessLayer')
+				$c->query('ItemBusinessLayer'),
+				$c->query('UserId')
 			);
 		});
 
 		$container->registerService('FeedApiController', function($c) {
 			return new FeedApiController(
-				$c->query('API'), 
+				$c->query('AppName'), 
 				$c->query('Request'),
 				$c->query('FolderBusinessLayer'),
 				$c->query('FeedBusinessLayer'),
-				$c->query('ItemBusinessLayer')
+				$c->query('ItemBusinessLayer'),
+				$c->query('Logger'),
+				$c->query('UserId')
 			);
 		});
 
 		$container->registerService('ItemApiController', function($c) {
 			return new ItemApiController(
-				$c->query('API'), 
+				$c->query('AppName'), 
 				$c->query('Request'),
-				$c->query('ItemBusinessLayer')
+				$c->query('ItemBusinessLayer'),
+				$c->query('UserId')
 			);
 		});
 
@@ -175,7 +190,7 @@ class News extends App {
 		$container->registerService('FolderBusinessLayer', function($c) {
 			return new FolderBusinessLayer(
 				$c->query('FolderMapper'),
-				$c->query('API'),
+				$c->query('L10N'),
 				$c->query('TimeFactory'),
 				$c->query('Config')
 			);
@@ -186,7 +201,8 @@ class News extends App {
 				$c->query('FeedMapper'),
 				$c->query('Fetcher'),
 				$c->query('ItemMapper'),
-				$c->query('API'),
+				$c->query('Logger'),
+				$c->query('L10N'),
 				$c->query('TimeFactory'),
 				$c->query('Config'),
 				$c->query('Enhancer'),
@@ -209,38 +225,55 @@ class News extends App {
 		 */
 		$container->registerService('MapperFactory', function($c) {
 			return new MapperFactory(
-				$c->query('API')
+				$c->query('Settings'), $c->query('Db')
 			);
 		});
 
 		$container->registerService('FolderMapper', function($c) {
 			return new FolderMapper(
-				$c->query('API')
+				$c->query('Db')
 			);
 		});
 
 		$container->registerService('FeedMapper', function($c) {
 			return new FeedMapper(
-				$c->query('API')
+				$c->query('Db')
 			);
 		});
 
 		$container->registerService('ItemMapper', function($c) {
 			return $c->query('MapperFactory')->getItemMapper(
-				$c->query('API')
+				$c->query('Db')
 			);
 		});
-		
+
+		/**
+		 * Core
+		 */		
+		$container->registerService('L10N', function($c) {
+			return \OC_L10N::get($c['AppName']);
+		});
+
+		$container->registerService('UserId', function($c) {
+			return \OCP\User::getUser();
+		});
+
+		$container->registerService('Logger', function($c) {
+			return new Logger($c['AppName']);
+		});
+
+		$container->registerService('Db', function($c) {
+			return new Db($c['AppName']);
+		});
+
+		$container->registerService('Settings', function($c) {
+			return new Settings($c['AppName'], $c['UserId']);
+		});
+
 
 		/**
 		 * Utility
 		 */
-		$container->registerService('API', function($c){
-			return new API(
-				$c->query('AppName')
-			);
-		});
-
 		$container->registerService('ConfigView', function($c) {
 			$view = new View('/news/config');
 			if (!$view->file_exists('')) {
@@ -251,13 +284,13 @@ class News extends App {
 		});
 
 		$container->registerService('Config', function($c) {
-			$config = new Config($c->query('ConfigView'), $c->query('API'));
+			$config = new Config($c->query('ConfigView'), $c->query('Logger'));
 			$config->read('config.ini', true);
 			return $config;
 		});
 
 		$container->registerService('simplePieCacheDirectory', function($c) {
-			$directory = $c->query('API')->getSystemValue('datadirectory') .
+			$directory = $c->query('Settings')->getSystemValue('datadirectory') .
 				'/news/cache/simplepie';
 
 			if(!is_dir($directory)) {
@@ -267,7 +300,7 @@ class News extends App {
 		});
 
 		$container->registerService('HTMLPurifier', function($c) {
-			$directory = $c->query('API')->getSystemValue('datadirectory') .
+			$directory = $c->query('Settings')->getSystemValue('datadirectory') .
 				'/news/cache/purifier';
 
 			if(!is_dir($directory)) {
@@ -329,9 +362,7 @@ class News extends App {
 		});
 
 		$container->registerService('FeedFetcher', function($c) {
-			return new FeedFetcher(
-				$c->query('API'),
-				$c->query('SimplePieAPIFactory'),
+			return new FeedFetcher($c->query('SimplePieAPIFactory'),
 				$c->query('FaviconFetcher'),
 				$c->query('TimeFactory'),
 				$c->query('simplePieCacheDirectory'),

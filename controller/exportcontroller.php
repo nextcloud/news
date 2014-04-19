@@ -32,7 +32,6 @@ use \OCP\AppFramework\Http\JSONResponse;
 use \OCP\AppFramework\Http\Response;
 
 use \OCA\News\Http\TextDownloadResponse;
-use \OCA\News\Core\API;
 use \OCA\News\BusinessLayer\FeedBusinessLayer;
 use \OCA\News\BusinessLayer\FolderBusinessLayer;
 use \OCA\News\BusinessLayer\ItemBusinessLayer;
@@ -44,19 +43,21 @@ class ExportController extends Controller {
 	private $folderBusinessLayer;
 	private $feedBusinessLayer;
 	private $itemBusinessLayer;
-	private $api;
+	private $userId;
 
-	public function __construct(API $api, IRequest $request,
+	public function __construct($appName, 
+	                            IRequest $request,
 	                            FeedBusinessLayer $feedBusinessLayer,
 	                            FolderBusinessLayer $folderBusinessLayer,
 	                            ItemBusinessLayer $itemBusinessLayer,
-	                            OPMLExporter $opmlExporter){
-		parent::__construct($api->getAppName(), $request);
+	                            OPMLExporter $opmlExporter,
+	                            $userId){
+		parent::__construct($appName, $request);
 		$this->feedBusinessLayer = $feedBusinessLayer;
 		$this->folderBusinessLayer = $folderBusinessLayer;
 		$this->opmlExporter = $opmlExporter;
 		$this->itemBusinessLayer = $itemBusinessLayer;
-		$this->api = $api;
+		$this->userId = $userId;
 	}
 
 
@@ -65,9 +66,8 @@ class ExportController extends Controller {
 	 * @NoCSRFRequired
 	 */
 	public function opml(){
-		$userId = $this->api->getUserId();
-		$feeds = $this->feedBusinessLayer->findAll($userId);
-		$folders = $this->folderBusinessLayer->findAll($userId);
+		$feeds = $this->feedBusinessLayer->findAll($this->userId);
+		$folders = $this->folderBusinessLayer->findAll($this->userId);
 		$opml = $this->opmlExporter->build($folders, $feeds)->saveXML();
 		return new TextDownloadResponse($opml, 'subscriptions.opml', 'text/xml');
 	}
@@ -78,9 +78,8 @@ class ExportController extends Controller {
 	 * @NoCSRFRequired
 	 */
 	public function articles(){
-		$userId = $this->api->getUserId();
-		$feeds = $this->feedBusinessLayer->findAll($userId);
-		$items = $this->itemBusinessLayer->getUnreadOrStarred($userId);
+		$feeds = $this->feedBusinessLayer->findAll($this->userId);
+		$items = $this->itemBusinessLayer->getUnreadOrStarred($this->userId);
 
 		// build assoc array for fast access
 		$feedsDict = array();

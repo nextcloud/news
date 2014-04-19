@@ -31,16 +31,17 @@ require_once(__DIR__ . "/../../classloader.php");
 use \OCA\News\Db\Folder;
 
 
-class FolderBusinessLayerTest extends \OCA\News\Utility\TestUtility {
+class FolderBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 
 	private $folderMapper;
 	private $folderBusinessLayer;
 	private $time;
 	private $user;
 	private $autoPurgeMinimumInterval;
+	private $l10n;
 
 	protected function setUp(){
-		$this->api = $this->getAPIMock();
+		$this->l10n = $this->getMock('L10N', array('t'));
 		$this->time = 222;
 		$timeFactory = $this->getMock('TimeFactory', array('getTime'));
 		$timeFactory->expects($this->any())
@@ -59,7 +60,7 @@ class FolderBusinessLayerTest extends \OCA\News\Utility\TestUtility {
 			->method('getAutoPurgeMinimumInterval')
 			->will($this->returnValue($this->autoPurgeMinimumInterval));
 		$this->folderBusinessLayer = new FolderBusinessLayer(
-			$this->folderMapper, $this->api, $timeFactory, 
+			$this->folderMapper, $this->l10n, $timeFactory, 
 			$config);
 		$this->user = 'hi';
 	}
@@ -103,12 +104,8 @@ class FolderBusinessLayerTest extends \OCA\News\Utility\TestUtility {
 			array('id' => 1)
 		);
 
-		$trans = $this->getMock('Trans', array('t'));
-		$trans->expects($this->once())
+		$this->l10n->expects($this->once())
 			->method('t');
-		$this->api->expects($this->once())
-			->method('getTrans')
-			->will($this->returnValue($trans));
 		$this->folderMapper->expects($this->once())
 			->method('findByName')
 			->with($this->equalTo($folderName))
@@ -179,12 +176,8 @@ class FolderBusinessLayerTest extends \OCA\News\Utility\TestUtility {
 			array('id' => 1)
 		);
 		
-		$trans = $this->getMock('Trans', array('t'));
-		$trans->expects($this->once())
+		$this->l10n->expects($this->once())
 			->method('t');
-		$this->api->expects($this->once())
-			->method('getTrans')
-			->will($this->returnValue($trans));
 		$this->folderMapper->expects($this->once())
 			->method('findByName')
 			->with($this->equalTo($folderName))

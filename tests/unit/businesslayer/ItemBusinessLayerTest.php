@@ -33,9 +33,8 @@ use \OCA\News\Db\StatusFlag;
 use \OCA\News\Db\FeedType;
 
 
-class ItemBusinessLayerTest extends \OCA\News\Utility\TestUtility {
+class ItemBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 
-	private $api;
 	private $mapper;
 	private $itemBusinessLayer;
 	private $user;
@@ -51,7 +50,6 @@ class ItemBusinessLayerTest extends \OCA\News\Utility\TestUtility {
 		$timeFactory->expects($this->any())
 			->method('getTime')
 			->will($this->returnValue($this->time));
-		$this->api = $this->getAPIMock();
 		$this->mapper = $this->getMockBuilder('\OCA\News\Db\ItemMapper')
 			->disableOriginalConstructor()
 			->getMock();

@@ -39,14 +39,12 @@ class TestBusinessLayer extends BusinessLayer {
 	}
 }
 
-class BusinessLayerTest extends \OCA\News\Utility\TestUtility {
+class BusinessLayerTest extends \PHPUnit_Framework_TestCase {
 
-	protected $api;
 	protected $mapper;
 	protected $newsBusinessLayer;
 
 	protected function setUp(){
-		$this->api = $this->getAPIMock();
 		$this->mapper = $this->getMockBuilder('\OCA\News\Db\ItemMapper')
 			->disableOriginalConstructor()
 			->getMock();
