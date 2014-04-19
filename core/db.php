@@ -25,12 +25,6 @@ namespace OCA\News\Core;
 
 class Db {
 
-    protected $appName;
-
-    public function __construct($appName) {
-        $this->appName = $appName;
-    }
-
 
     /**
      * Used to abstract the owncloud database access away

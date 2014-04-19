@@ -263,7 +263,7 @@ class News extends App {
 		});
 
 		$container->registerService('Db', function($c) {
-			return new Db($c['AppName']);
+			return new Db();
 		});
 
 		$container->registerService('Settings', function($c) {
