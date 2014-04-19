@@ -1,26 +1,15 @@
 #!/usr/bin/env python
-
+"""
+Updater script for the news app which allows multiple feeds to be updated at
+once to speed up the update process. Built in cron has to be disabled in the 
+news config, see the README.rst file in the top directory for more information.
 """
 
-ownCloud - News
-
-@author Bernhard Posselt
-@copyright 2012 Bernhard Posselt dev@bernhard-posselt.com
-
-This library is free software; you can redistribute it and/or
-modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
-License as published by the Free Software Foundation; either
-version 3 of the License, or any later version.
-
-This library is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU AFFERO GENERAL PUBLIC LICENSE for more details.
-
-You should have received a copy of the GNU Affero General Public
-License along with this library.  If not, see <http://www.gnu.org/licenses/>.
-
-"""
+__author__ = 'Bernhard Posselt'
+__copyright__ = 'Copyright 2012-2014, Bernhard Posselt'
+__license__ = 'AGPL3+'
+__maintainer__ = 'Bernhard Posselt'
+__email__ = 'dev@bernhard-posselt.com'
 
 import sys
 import time
