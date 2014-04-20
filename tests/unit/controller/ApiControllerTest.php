@@ -33,7 +33,7 @@ class ApiControllerTest extends ControllerTestUtility {
 	protected function setUp() {
 		$this->appName = 'news';
 		$this->settings = $this->getMockBuilder(
-			'\OCA\News\Core\Settings')
+			'\OCP\IConfig')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->request = $this->getMockBuilder(
@@ -71,7 +71,8 @@ class ApiControllerTest extends ControllerTestUtility {
 	public function testGetVersion(){
 		$this->settings->expects($this->once())
 			->method('getAppValue')
-			->with($this->equalTo('installed_version'))
+			->with($this->equalTo($this->appName),
+				$this->equalTo('installed_version'))
 			->will($this->returnValue('1.0'));
 
 		$response = $this->newsAPI->version();

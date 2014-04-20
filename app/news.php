@@ -18,7 +18,6 @@ use \OCP\AppFramework\App;
 
 use \OCA\News\Core\Logger;
 use \OCA\News\Core\Db;
-use \OCA\News\Core\Settings;
 
 use \OCA\News\Controller\PageController;
 use \OCA\News\Controller\FolderController;
@@ -80,8 +79,9 @@ class News extends App {
 			return new PageController(
 				$c->query('AppName'), 
 				$c->query('Request'),
-				$c->query('Settings'),
-				$c->query('L10N')
+				$c->query('CoreConfig'),
+				$c->query('L10N'),
+				$c->query('UserId')
 			);
 		});
 
@@ -103,8 +103,8 @@ class News extends App {
 				$c->query('FolderBusinessLayer'),
 				$c->query('FeedBusinessLayer'),
 				$c->query('ItemBusinessLayer'),
-				$c->query('UserId'),
-				$c->query('Settings')
+				$c->query('CoreConfig'),
+				$c->query('UserId')
 			);
 		});
 
@@ -114,8 +114,8 @@ class News extends App {
 				$c->query('Request'),
 				$c->query('FeedBusinessLayer'),
 				$c->query('ItemBusinessLayer'),
-				$c->query('UserId'),
-				$c->query('Settings')
+				$c->query('CoreConfig'),
+				$c->query('UserId')
 			);
 		});
 
@@ -136,7 +136,8 @@ class News extends App {
 				$c->query('AppName'), 
 				$c->query('Request'), 
 				$c->query('Updater'),
-				$c->query('Settings')
+				$c->query('CoreConfig'),
+				$c->query('UserId')
 			);
 		});
 
@@ -213,7 +214,7 @@ class News extends App {
 		 */
 		$container->registerService('MapperFactory', function($c) {
 			return new MapperFactory(
-				$c->query('Settings'), $c->query('Db')
+				$c->query('CoreConfig'), $c->query('Db')
 			);
 		});
 
@@ -254,8 +255,8 @@ class News extends App {
 			return new Db();
 		});
 
-		$container->registerService('Settings', function($c) {
-			return new Settings($c['AppName'], $c['UserId']);
+		$container->registerService('CoreConfig', function($c) {
+			return $c->query('ServerContainer')->getConfig();
 		});
 
 
@@ -278,7 +279,7 @@ class News extends App {
 		});
 
 		$container->registerService('simplePieCacheDirectory', function($c) {
-			$directory = $c->query('Settings')->getSystemValue('datadirectory') .
+			$directory = $c->query('CoreConfig')->getSystemValue('datadirectory') .
 				'/news/cache/simplepie';
 
 			if(!is_dir($directory)) {
@@ -288,7 +289,7 @@ class News extends App {
 		});
 
 		$container->registerService('HTMLPurifier', function($c) {
-			$directory = $c->query('Settings')->getSystemValue('datadirectory') .
+			$directory = $c->query('CoreConfig')->getSystemValue('datadirectory') .
 				'/news/cache/purifier';
 
 			if(!is_dir($directory)) {

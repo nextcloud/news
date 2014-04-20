@@ -13,7 +13,8 @@
 
 namespace OCA\News\Db;
 
-use \OCA\News\Core\Settings;
+use \OCP\IConfig;
+
 use \OCA\News\Core\Db;
 
 
@@ -21,7 +22,7 @@ class MapperFactory {
 
 	private $settings;
 
-	public function __construct(Settings $settings, Db $db) {
+	public function __construct(IConfig $settings, Db $db) {
 		$this->settings = $settings;
 		$this->db = $db;
 	}

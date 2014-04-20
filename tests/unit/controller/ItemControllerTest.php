@@ -44,7 +44,7 @@ class ItemControllerTest extends ControllerTestUtility {
 		$this->appName = 'news';
 		$this->user = 'jackob';
 		$this->settings = $this->getMockBuilder(
-			'\OCA\News\Core\Settings')
+			'\OCP\IConfig')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->itemBusinessLayer = 
@@ -57,8 +57,8 @@ class ItemControllerTest extends ControllerTestUtility {
 			->getMock();
 		$this->request = $this->getRequest();
 		$this->controller = new ItemController($this->appName, $this->request,
-				$this->feedBusinessLayer, $this->itemBusinessLayer, $this->user,
-				$this->settings);
+				$this->feedBusinessLayer, $this->itemBusinessLayer, $this->settings,
+				$this->user);
 		$this->newestItemId = 12312;
 	}
 
@@ -70,8 +70,8 @@ class ItemControllerTest extends ControllerTestUtility {
 
 		$request = $this->getRequest($post);
 		return new ItemController($this->appName, $request,
-			$this->feedBusinessLayer, $this->itemBusinessLayer, $this->user,
-				$this->settings);
+			$this->feedBusinessLayer, $this->itemBusinessLayer, $this->settings,
+				$this->user);
 	}
 
 
@@ -297,15 +297,21 @@ class ItemControllerTest extends ControllerTestUtility {
 	private function itemsApiExpects($id, $type){
 		$this->settings->expects($this->once())
 			->method('getUserValue')
-			->with($this->equalTo('showAll'))
+			->with($this->equalTo($this->user),
+				$this->equalTo($this->appName),
+				$this->equalTo('showAll'))
 			->will($this->returnValue('1'));
 		$this->settings->expects($this->at(1))
 			->method('setUserValue')
-			->with($this->equalTo('lastViewedFeedId'),
+			->with($this->equalTo($this->user),
+				$this->equalTo($this->appName),
+				$this->equalTo('lastViewedFeedId'),
 				$this->equalTo($id));
 		$this->settings->expects($this->at(2))
 			->method('setUserValue')
-			->with($this->equalTo('lastViewedFeedType'),
+			->with($this->equalTo($this->user),
+				$this->equalTo($this->appName),
+				$this->equalTo('lastViewedFeedType'),
 				$this->equalTo($type));
 	}
 
@@ -434,7 +440,9 @@ class ItemControllerTest extends ControllerTestUtility {
 
 		$this->settings->expects($this->once())
 			->method('getUserValue')
-			->with($this->equalTo('showAll'))
+			->with($this->equalTo($this->user),
+				$this->equalTo($this->appName),
+				$this->equalTo('showAll'))
 			->will($this->returnValue('1'));
 
 		$this->feedBusinessLayer->expects($this->once())
@@ -479,7 +487,9 @@ class ItemControllerTest extends ControllerTestUtility {
 
 		$this->settings->expects($this->once())
 			->method('getUserValue')
-			->with($this->equalTo('showAll'))
+			->with($this->equalTo($this->user),
+				$this->equalTo($this->appName),
+				$this->equalTo('showAll'))
 			->will($this->returnValue('1'));
 
 		$this->itemBusinessLayer->expects($this->once())

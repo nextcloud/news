@@ -37,15 +37,15 @@ class PageControllerTest extends ControllerTestUtility {
 	 */
 	public function setUp(){
 		$this->appName = 'news';
+		$this->user = 'becka';
 		$this->l10n = $this->getMock('L10N', array('findLanguage'));
 		$this->settings = $this->getMockBuilder(
-			'\OCA\News\Core\Settings')
+			'\OCP\IConfig')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->request = $this->getRequest();
 		$this->controller = new PageController($this->appName, $this->request, 
-			$this->settings, $this->l10n);
-		$this->user = 'becka';
+			$this->settings, $this->l10n, $this->user);
 	}
 
 
@@ -83,11 +83,15 @@ class PageControllerTest extends ControllerTestUtility {
 			->will($this->returnValue('de'));
 		$this->settings->expects($this->at(0))
 			->method('getUserValue')
-			->with($this->equalTo('showAll'))
+			->with($this->equalTo($this->user),
+				$this->equalTo($this->appName),
+				$this->equalTo('showAll'))
 			->will($this->returnValue('1'));
 		$this->settings->expects($this->at(1))
 			->method('getUserValue')
-			->with($this->equalTo('compact'))
+			->with($this->equalTo($this->user),
+				$this->equalTo($this->appName),
+				$this->equalTo('compact'))
 			->will($this->returnValue('1'));
 
 		$response = $this->controller->settings();
@@ -102,15 +106,19 @@ class PageControllerTest extends ControllerTestUtility {
 			'compact' => true
 		)));
 		$this->controller = new PageController($this->appName, $request, 
-			$this->settings, $this->l10n);
+			$this->settings, $this->l10n, $this->user);
 
 		$this->settings->expects($this->at(0))
 			->method('setUserValue')
-			->with($this->equalTo('showAll'), 
+			->with($this->equalTo($this->user),
+				$this->equalTo($this->appName),
+				$this->equalTo('showAll'), 
 				$this->equalTo(true));
 		$this->settings->expects($this->at(1))
 			->method('setUserValue')
-			->with($this->equalTo('compact'), 
+			->with($this->equalTo($this->user),
+				$this->equalTo($this->appName),
+				$this->equalTo('compact'), 
 				$this->equalTo(true));
 		$response = $this->controller->updateSettings();
 
@@ -123,11 +131,13 @@ class PageControllerTest extends ControllerTestUtility {
 			'showAll' => true
 		)));
 		$this->controller = new PageController($this->appName, $request, 
-			$this->settings, $this->l10n);
+			$this->settings, $this->l10n, $this->user);
 
 		$this->settings->expects($this->once())
 			->method('setUserValue')
-			->with($this->equalTo('showAll'), 
+			->with($this->equalTo($this->user),
+				$this->equalTo($this->appName),
+				$this->equalTo('showAll'), 
 				$this->equalTo(true));
 
 		$response = $this->controller->updateSettings();

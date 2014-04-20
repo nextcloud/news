@@ -14,11 +14,11 @@
 namespace OCA\News\Controller;
 
 use \OCP\IRequest;
+use \OCP\IConfig;
 use \OCP\AppFramework\Controller;
 use \OCP\AppFramework\Http;
 use \OCP\AppFramework\Http\JSONResponse;
 
-use \OCA\News\Core\Settings;
 use \OCA\News\BusinessLayer\ItemBusinessLayer;
 use \OCA\News\BusinessLayer\FeedBusinessLayer;
 use \OCA\News\BusinessLayer\FolderBusinessLayer;
@@ -40,8 +40,8 @@ class FeedController extends Controller {
 		                        FolderBusinessLayer $folderBusinessLayer,
 	                            FeedBusinessLayer $feedBusinessLayer,
 		                        ItemBusinessLayer $itemBusinessLayer,
-		                        $userId,
-		                        Settings $settings){
+		                        IConfig $settings,
+	                            $userId){
 		parent::__construct($appName, $request);
 		$this->feedBusinessLayer = $feedBusinessLayer;
 		$this->folderBusinessLayer = $folderBusinessLayer;
@@ -77,8 +77,10 @@ class FeedController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function active(){
-		$feedId = (int) $this->settings->getUserValue('lastViewedFeedId');
-		$feedType = $this->settings->getUserValue('lastViewedFeedType');
+		$feedId = (int) $this->settings->getUserValue($this->userId, 
+			$this->appName,'lastViewedFeedId');
+		$feedType = $this->settings->getUserValue($this->userId, $this->appName,
+			'lastViewedFeedType');
 		
 		// cast from null to int is 0
 		if($feedType !== null){

@@ -44,7 +44,7 @@ class FeedControllerTest extends ControllerTestUtility {
 		$this->appName = 'news';
 		$this->user = 'jack';
 		$this->settings = $this->getMockBuilder(
-			'\OCA\News\Core\Settings')
+			'\OCP\IConfig')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->itemBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\ItemBusinessLayer')
@@ -61,8 +61,8 @@ class FeedControllerTest extends ControllerTestUtility {
 				$this->folderBusinessLayer,
 				$this->feedBusinessLayer,
 				$this->itemBusinessLayer,
-				$this->user,
-				$this->settings);
+				$this->settings,
+				$this->user);
 	}
 
 	private function assertFeedControllerAnnotations($methodName){
@@ -82,8 +82,8 @@ class FeedControllerTest extends ControllerTestUtility {
 			$this->folderBusinessLayer,
 			$this->feedBusinessLayer,
 			$this->itemBusinessLayer,
-			$this->user,
-			$this->settings);
+			$this->settings,
+			$this->user);
 	}
 
 
@@ -189,11 +189,15 @@ class FeedControllerTest extends ControllerTestUtility {
 	private function activeInitMocks($id, $type){
 		$this->settings->expects($this->at(0))
 			->method('getUserValue')
-			->with($this->equalTo('lastViewedFeedId'))
+			->with($this->equalTo($this->user),
+				$this->equalTo($this->appName),
+				$this->equalTo('lastViewedFeedId'))
 			->will($this->returnValue($id));
 		$this->settings->expects($this->at(1))
 			->method('getUserValue')
-			->with($this->equalTo('lastViewedFeedType'))
+			->with($this->equalTo($this->user),
+				$this->equalTo($this->appName),
+				$this->equalTo('lastViewedFeedType'))
 			->will($this->returnValue($type));
 	}
 

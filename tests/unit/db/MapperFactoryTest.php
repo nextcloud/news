@@ -23,7 +23,7 @@ class MapperFactoryTest extends \PHPUnit_Framework_TestCase {
 	private $settings;
 
 	public function setUp() {
-		$this->settings = $this->getMockBuilder('\OCA\News\Core\Settings')
+		$this->settings = $this->getMockBuilder('\OCP\IConfig')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->db = $this->getMockBuilder('\OCA\News\Core\Db')

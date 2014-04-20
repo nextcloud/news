@@ -14,11 +14,11 @@
 namespace OCA\News\Controller;
 
 use \OCP\IRequest;
+use \OCP\IConfig;
 use \OCP\AppFramework\Controller;
 use \OCP\AppFramework\Http;
 use \OCP\AppFramework\Http\JSONResponse;
 
-use \OCA\News\Core\Settings;
 use \OCA\News\BusinessLayer\BusinessLayerException;
 use \OCA\News\BusinessLayer\ItemBusinessLayer;
 use \OCA\News\BusinessLayer\FeedBusinessLayer;
@@ -35,8 +35,8 @@ class ItemController extends Controller {
 	                            IRequest $request, 
 		                        FeedBusinessLayer $feedBusinessLayer,
 		                        ItemBusinessLayer $itemBusinessLayer,
-		                        $userId,
-		                        Settings $settings){
+		                        IConfig $settings,
+		                        $userId){
 		parent::__construct($appName, $request);
 		$this->itemBusinessLayer = $itemBusinessLayer;
 		$this->feedBusinessLayer = $feedBusinessLayer;
@@ -49,15 +49,18 @@ class ItemController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function index(){
-		$showAll = $this->settings->getUserValue('showAll') === '1';
+		$showAll = $this->settings->getUserValue($this->userId, $this->appName,
+			'showAll') === '1';
 
 		$limit = $this->params('limit');
 		$type = (int) $this->params('type');
 		$id = (int) $this->params('id');
 		$offset = (int) $this->params('offset', 0);
 
-		$this->settings->setUserValue('lastViewedFeedId', $id);
-		$this->settings->setUserValue('lastViewedFeedType', $type);
+		$this->settings->setUserValue($this->userId, $this->appName,
+			'lastViewedFeedId', $id);
+		$this->settings->setUserValue($this->userId, $this->appName,
+			'lastViewedFeedType', $type);
 
 		$params = array();
 
@@ -87,7 +90,8 @@ class ItemController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function newItems() {
-		$showAll = $this->settings->getUserValue('showAll') === '1';
+		$showAll = $this->settings->getUserValue($this->userId, $this->appName,			
+			'showAll') === '1';
 
 		$type = (int) $this->params('type');
 		$id = (int) $this->params('id');

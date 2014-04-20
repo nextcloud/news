@@ -14,13 +14,13 @@
 namespace OCA\News\Controller;
 
 use \OCP\IRequest;
+use \OCP\IConfig;
 use \OCP\AppFramework\Controller;
 use \OCP\AppFramework\Http;
 use \OCP\AppFramework\Http\JSONResponse;
 use \OCP\AppFramework\Http\Response;
 
 use \OCA\News\Utility\Updater;
-use \OCA\News\Core\Settings;
 
 class ApiController extends Controller {
 
@@ -28,7 +28,7 @@ class ApiController extends Controller {
 	private $settings;
 
 	public function __construct($appName, IRequest $request, Updater $updater,
-	                            Settings $settings){
+	                            IConfig $settings){
 		parent::__construct($appName, $request);
 		$this->updater = $updater;
 		$this->settings = $settings;
@@ -41,7 +41,8 @@ class ApiController extends Controller {
 	 * @API
 	 */
 	public function version() {
-		$version = $this->settings->getAppValue('installed_version');
+		$version = $this->settings->getAppValue($this->appName,
+			'installed_version');
 		$response = new JSONResponse(array('version' => $version));
 		return $response;
 	}
