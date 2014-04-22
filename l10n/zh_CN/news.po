@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-04-16 01:02-0400\n"
-"PO-Revision-Date: 2014-04-16 05:00+0000\n"
+"POT-Creation-Date: 2014-04-22 01:01-0400\n"
+"PO-Revision-Date: 2014-04-21 14:43+0000\n"
 "Last-Translator: smartree <smartree@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/owncloud/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -26,23 +26,23 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: appinfo/app.php:49 templates/main.php:36
+#: appinfo/app.php:35 templates/main.php:36
 msgid "News"
 msgstr "新闻"
 
-#: businesslayer/feedbusinesslayer.php:103
+#: businesslayer/feedbusinesslayer.php:95
 msgid "Can not add feed: Exists already"
 msgstr "无法添加反馈：已经存在"
 
-#: businesslayer/feedbusinesslayer.php:141
+#: businesslayer/feedbusinesslayer.php:133
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "无法添加反馈：URL不存在或具有无效的xml"
 
-#: businesslayer/feedbusinesslayer.php:285
+#: businesslayer/feedbusinesslayer.php:277
 msgid "Articles without feed"
 msgstr "没有订阅的文章"
 
-#: businesslayer/folderbusinesslayer.php:65
+#: businesslayer/folderbusinesslayer.php:52
 msgid "Can not add folder: Exists already"
 msgstr "无法添加目录：目录已存在"
 
