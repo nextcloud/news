@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-04-16 01:02-0400\n"
-"PO-Revision-Date: 2014-04-16 05:00+0000\n"
+"POT-Creation-Date: 2014-04-23 01:01-0400\n"
+"PO-Revision-Date: 2014-04-22 16:40+0000\n"
 "Last-Translator: Flávio Veras <flaviove@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/owncloud/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -24,23 +24,23 @@ msgstr ""
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: appinfo/app.php:49 templates/main.php:36
+#: appinfo/app.php:35 templates/main.php:36
 msgid "News"
 msgstr "Notícias"
 
-#: businesslayer/feedbusinesslayer.php:103
+#: businesslayer/feedbusinesslayer.php:95
 msgid "Can not add feed: Exists already"
 msgstr "Não é possível adicionar alimentação: já existe"
 
-#: businesslayer/feedbusinesslayer.php:141
+#: businesslayer/feedbusinesslayer.php:133
 msgid "Can not add feed: URL does not exist or has invalid xml"
 msgstr "Não é possível adicionar alimentação: URL não existe ou tem ml inválido"
 
-#: businesslayer/feedbusinesslayer.php:285
+#: businesslayer/feedbusinesslayer.php:277
 msgid "Articles without feed"
 msgstr "Artigos sem alimentação"
 
-#: businesslayer/folderbusinesslayer.php:65
+#: businesslayer/folderbusinesslayer.php:52
 msgid "Can not add folder: Exists already"
 msgstr "Não é possível adicionar pasta: já existe"
 
