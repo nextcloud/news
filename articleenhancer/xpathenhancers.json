@@ -101,5 +101,8 @@
 	},
 	"maximumble.thebookofbiff.com": {
 		"%maximumble.thebookofbiff.com%": "//div[@id=\"comic\"]/div/a/img"
+	},
+	"omgubuntu.co.uk": {
+		"%www.omgubuntu.co.uk%": "//div[@class=\"entry-content\"]"
 	}
 }
