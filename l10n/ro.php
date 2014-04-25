@@ -2,6 +2,7 @@
 "News" => "Noutăți",
 "Address" => "Adresă",
 "Add" => "Adaugă",
+"New folder" => "Un nou dosar",
 "Folder" => "Dosar",
 "Folder name" => "Denumire director",
 "Starred" => "Marcat",
