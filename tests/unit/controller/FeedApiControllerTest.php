@@ -113,7 +113,7 @@ class FeedApiControllerTest extends ControllerTestUtility {
 
 
 	public function testUpdateAnnotations(){
-		$annotations = array('NoCSRFRequired', 'API');
+		$annotations = array('NoCSRFRequired');
 		$this->assertAnnotations($this->feedAPI, 'update', $annotations);
 	}
 

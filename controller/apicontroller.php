@@ -50,7 +50,6 @@ class ApiController extends Controller {
 
 	/**
 	 * @NoCSRFRequired
-	 * @API
 	 */
 	public function beforeUpdate() {
 		$this->updater->beforeUpdate();
@@ -60,7 +59,6 @@ class ApiController extends Controller {
 
 	/**
 	 * @NoCSRFRequired
-	 * @API
 	 */
 	public function afterUpdate() {
 		$this->updater->afterUpdate();

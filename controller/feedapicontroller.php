@@ -201,7 +201,6 @@ class FeedApiController extends Controller {
 
 	/**
 	 * @NoCSRFRequired
-	 * @API
 	 */
 	public function update() {
 		$userId = $this->params('userId');

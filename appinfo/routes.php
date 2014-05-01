@@ -81,7 +81,7 @@ $application->registerRoutes($this, array('routes' => array(
 	array('name' => 'feed_api#move', 'url' => '/api/v1-2/feeds/{feedId}/move', 'verb' => 'PUT'), // FIXME: POST would be more correct
 	array('name' => 'feed_api#rename', 'url' => '/api/v1-2/feeds/{feedId}/rename', 'verb' => 'PUT'), // FIXME: POST would be more correct
 	array('name' => 'feed_api#read', 'url' => '/api/v1-2/feeds/{feedId}/read', 'verb' => 'PUT'), // FIXME: POST would be more correct
-	array('name' => 'feed_api#update', 'url' => '/api/v1-2/update', 'verb' => 'GET'),
+	array('name' => 'feed_api#update', 'url' => '/api/v1-2/feeds/update', 'verb' => 'GET'),
 
 	// items
 	array('name' => 'item_api#index', 'url' => '/api/v1-2/items', 'verb' => 'GET'),

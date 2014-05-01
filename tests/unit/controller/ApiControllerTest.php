@@ -59,12 +59,12 @@ class ApiControllerTest extends ControllerTestUtility {
 	}
 
 	public function testBeforeUpdateAnnotations(){
-		$annotations = array('NoCSRFRequired', 'API');
+		$annotations = array('NoCSRFRequired');
 		$this->assertAnnotations($this->newsAPI, 'beforeUpdate', $annotations);
 	}
 
 	public function testAfterUpdateAnnotations(){
-		$annotations = array('NoCSRFRequired', 'API');
+		$annotations = array('NoCSRFRequired');
 		$this->assertAnnotations($this->newsAPI, 'afterUpdate', $annotations);
 	}
 
