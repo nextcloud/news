@@ -19,6 +19,11 @@ import threading
 import requests
 import urllib
 
+def check_status_code(response):
+    if response.status_code != 200:
+        raise Exception('Request failed with %i: %s' % (response.status_code, 
+            response.text))
+
 class UpdateThread(threading.Thread):
 
     lock = threading.Lock()
@@ -52,7 +57,8 @@ class UpdateThread(threading.Thread):
 
             try:
                 auth = (self.user, self.password)
-                requests.get(url, auth=auth, timeout=self.timeout)
+                request = requests.get(url, auth=auth, timeout=self.timeout)
+                check_status_code(request)
             except (Exception) as e:
                 print('%s: %s' % (url, e))
 
@@ -86,9 +92,12 @@ class Updater:
                 # run the cleanup request and get all the feeds to update
                 auth = (self.user, self.password)
 
-                requests.get(self.before_cleanup_url, auth=auth)
+                before = requests.get(self.before_cleanup_url, auth=auth)
+                check_status_code(before)
 
                 feeds_response = requests.get(self.all_feeds_url, auth=auth)
+                check_status_code(feeds_response)
+
                 feeds_json = feeds_response.text
                 feeds = json.loads(feeds_json)['feeds']
 
@@ -103,7 +112,8 @@ class Updater:
                 for thread in threads:
                     thread.join()
 
-                requests.get(self.after_cleanup_url, auth=auth)
+                after = requests.get(self.after_cleanup_url, auth=auth)
+                check_status_code(after)
 
                 if self.run_once:
                     return
