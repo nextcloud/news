@@ -61,7 +61,6 @@ $application->registerRoutes($this, array('routes' => array(
 
 	// API
 	array('name' => 'api#version', 'url' => '/api/v1-2/version', 'verb' => 'GET'),
-	array('name' => 'api#update', 'url' => '/api/v1-2/update', 'verb' => 'GET'),
 	array('name' => 'api#before_update', 'url' => '/api/v1-2/cleanup/before-update', 'verb' => 'GET'),
 	array('name' => 'api#after_update', 'url' => '/api/v1-2/cleanup/after-update', 'verb' => 'GET'),
 	array('name' => 'api#cors', 'url' => '/api/v1-2/{path}', 'verb' => 'OPTIONS', 'requirements' => array('path' => '.+')),
@@ -82,6 +81,7 @@ $application->registerRoutes($this, array('routes' => array(
 	array('name' => 'feed_api#move', 'url' => '/api/v1-2/feeds/{feedId}/move', 'verb' => 'PUT'), // FIXME: POST would be more correct
 	array('name' => 'feed_api#rename', 'url' => '/api/v1-2/feeds/{feedId}/rename', 'verb' => 'PUT'), // FIXME: POST would be more correct
 	array('name' => 'feed_api#read', 'url' => '/api/v1-2/feeds/{feedId}/read', 'verb' => 'PUT'), // FIXME: POST would be more correct
+	array('name' => 'feed_api#update', 'url' => '/api/v1-2/update', 'verb' => 'GET'),
 
 	// items
 	array('name' => 'item_api#index', 'url' => '/api/v1-2/items', 'verb' => 'GET'),
