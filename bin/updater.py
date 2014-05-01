@@ -16,17 +16,8 @@ import time
 import json
 import argparse
 import threading
-import socket
-import urllib.request
-import urllib.error
-from http.client import HTTPException
-
-def get_basic_auth_opener(url, user, password):
-    auth = urllib.request.HTTPPasswordMgrWithDefaultRealm()
-    auth.add_password(None, url, user, password)
-    auth_handler = urllib.request.HTTPBasicAuthHandler(auth)
-    return urllib.request.build_opener(auth_handler)
-
+import requests
+import urllib
 
 class UpdateThread(threading.Thread):
 
@@ -60,10 +51,9 @@ class UpdateThread(threading.Thread):
             url = '%s?%s' % (self.update_url, data)
 
             try:
-                opener = get_basic_auth_opener(url, self.user, self.password)
-                opener.open(url, timeout=self.timeout)
-            except (urllib.error.HTTPError, urllib.error.URLError, HTTPException,
-                socket.timeout) as e:
+                auth = (self.user, self.password)
+                requests.get(url, auth=auth, timeout=self.timeout)
+            except (Exception) as e:
                 print('%s: %s' % (url, e))
 
 
@@ -93,12 +83,13 @@ class Updater:
     def run(self):
         while True:
             try:
-                opener = get_basic_auth_opener(self.base_url, self.user,
-                    self.password)
                 # run the cleanup request and get all the feeds to update
-                opener.open(self.before_cleanup_url)
-                feeds_response = opener.open(self.all_feeds_url)
-                feeds_json = feeds_response.read().decode('utf-8')
+                auth = (self.user, self.password)
+
+                requests.get(self.before_cleanup_url, auth=auth)
+
+                feeds_response = requests.get(self.all_feeds_url, auth=auth)
+                feeds_json = feeds_response.text
                 feeds = json.loads(feeds_json)['feeds']
 
                 # start thread_num threads which update the feeds
@@ -112,7 +103,7 @@ class Updater:
                 for thread in threads:
                     thread.join()
 
-                opener.open(self.after_cleanup_url)
+                requests.get(self.after_cleanup_url, auth=auth)
 
                 if self.run_once:
                     return
@@ -120,8 +111,7 @@ class Updater:
                 # wait until the interval finished to run again
                 time.sleep(self.interval)
 
-            except (ValueError, urllib.error.HTTPError, HTTPException,
-                urllib.error.URLError) as e:
+            except (Exception) as e:
                 print('%s: %s' % (self.base_url, e))
                 print('Trying again in 30 seconds')
                 time.sleep(30)
