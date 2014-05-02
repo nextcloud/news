@@ -246,7 +246,7 @@ class News extends App {
 		$container->registerService('AppConfig', function($c) {
 			// not performant but well :/
 			// $config = $c->query('ServerContainer')->getAppConfig(); oc7 only
-			$config = OC_Appconfig;
+			$config = \OC_Appconfig;
 			$installedApps = $config::getApps();
 			$apps = array();
 			foreach($installedApps as $app) {
