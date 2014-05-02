@@ -119,7 +119,7 @@
       "type": "array",
       "items": {
         "type": "string",
-        "enum": ["pgsql", "mysql", "sqlite", "mssql", "oracle"]
+        "enum": ["pgsql", "mysql", "sqlite3", "mssql", "oracle"]
       },
       "uniqueItems": true
     },

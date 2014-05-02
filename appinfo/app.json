@@ -28,7 +28,7 @@
     "hooks": {
         "OC_User::pre_deleteUser": "OCA\\News\\Hooks\\User::deleteUser"
     },
-    "databases": ["pgsql", "sqlite", "mysql"],
+    "databases": ["pgsql", "sqlite3", "mysql"],
     "categories": ["Multimedia"], 
     "dependencies": {
         "php": ">=5.3",
