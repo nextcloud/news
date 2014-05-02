@@ -1,3 +1,6 @@
+owncloud-news (2.002)
+* Better check for news app dependencies
+
 owncloud-news (2.001)
 * Delete folders, feeds and articles if a user is deleted
 * Also remember collapsed folders on postgres
