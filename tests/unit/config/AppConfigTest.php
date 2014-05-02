@@ -42,7 +42,7 @@ class AppConfigTest extends \PHPUnit_Framework_TestCase {
 		$installedExtensions = array(
 			'curl' => '4.3'
 		);
-		$databaseType = 'postgresql';
+		$databaseType = 'oracle';
 
 		$this->config = new AppConfig($this->nav, $this->l10n,
 			$this->url, $phpVersion, $ownCloudVersion, $installedApps,
@@ -224,6 +224,19 @@ class AppConfigTest extends \PHPUnit_Framework_TestCase {
 					array(
 						'news' => '>=4.3,<=4.3'
 					)
+			)
+		));
+		$this->config->testDependencies();
+	}
+
+
+	/**
+	 * @expectedException \OCA\News\Config\DependencyException
+	 */
+	public function testSupportedDb() {
+		$this->config->loadConfig(array(
+			'databases' => array(
+				'pgsql', 'sqlite'
 			)
 		));
 		$this->config->testDependencies();

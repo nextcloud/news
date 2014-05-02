@@ -161,11 +161,21 @@ class AppConfig {
 	 * @throws \OCA\News\DependencyException if one version is not satisfied
 	 */
 	public function testDependencies() {
+		$msg = '';
+
+		// test databases
+		if(array_key_exists('databases', $this->config)) {
+			if(!in_array($this->databaseType, $this->config['databases'])) {
+				$msg .= 'Database ' . $this->databaseType . ' not supported.' .
+					'App is only compatible with ' . 
+					implode(', ', $this->config['databases']);
+			}
+		}
+		
+		// test dependencies
 		if(array_key_exists('dependencies', $this->config)) {
 		
 			$deps = $this->config['dependencies'];
-
-			$msg = '';
 
 			if(array_key_exists('php', $deps)) {
 				$msg .= $this->requireVersion($this->phpVersion, $deps['php'],
@@ -198,11 +208,10 @@ class AppConfig {
 					}
 				}
 			}
+		}
 
-			if($msg !== '') {
-				throw new DependencyException($msg);
-			}
-
+		if($msg !== '') {
+			throw new DependencyException($msg);
 		}
 	}
 
