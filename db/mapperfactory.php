@@ -20,16 +20,16 @@ use \OCA\News\Core\Db;
 
 class MapperFactory {
 
-	private $settings;
+	private $dbType;
 
-	public function __construct(IConfig $settings, Db $db) {
-		$this->settings = $settings;
+	public function __construct($dbType, Db $db) {
+		$this->dbType = $dbType;
 		$this->db = $db;
 	}
 
 
 	public function getItemMapper() {
-		switch($this->settings->getSystemValue('dbtype')) {
+		switch($this->dbType) {
 			case 'pgsql':
 				return new \OCA\News\Db\Postgres\ItemMapper($this->db);
 				break;

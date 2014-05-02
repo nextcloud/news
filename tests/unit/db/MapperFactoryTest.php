@@ -23,9 +23,6 @@ class MapperFactoryTest extends \PHPUnit_Framework_TestCase {
 	private $settings;
 
 	public function setUp() {
-		$this->settings = $this->getMockBuilder('\OCP\IConfig')
-			->disableOriginalConstructor()
-			->getMock();
 		$this->db = $this->getMockBuilder('\OCA\News\Core\Db')
 			->disableOriginalConstructor()
 			->getMock();
@@ -33,33 +30,21 @@ class MapperFactoryTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testGetItemMapperSqlite() {
-		$this->settings->expects($this->once())
-			->method('getSystemValue')
-			->with($this->equalTo('dbtype'))
-			->will($this->returnValue('sqlite'));
-		$factory = new MapperFactory($this->settings, $this->db);
+		$factory = new MapperFactory('sqlite', $this->db);
 
 		$this->assertTrue($factory->getItemMapper() instanceof ItemMapper);
 	}
 
 
 	public function testGetItemMapperMysql() {
-		$this->settings->expects($this->once())
-			->method('getSystemValue')
-			->with($this->equalTo('dbtype'))
-			->will($this->returnValue('mysql'));
-		$factory = new MapperFactory($this->settings, $this->db);
+		$factory = new MapperFactory('mysql', $this->db);
 
 		$this->assertTrue($factory->getItemMapper() instanceof ItemMapper);
 	}
 
 
 	public function testGetItemMapperPostgres() {
-		$this->settings->expects($this->once())
-			->method('getSystemValue')
-			->with($this->equalTo('dbtype'))
-			->will($this->returnValue('pgsql'));
-		$factory = new MapperFactory($this->settings, $this->db);
+		$factory = new MapperFactory('pgsql', $this->db);
 
 		$this->assertTrue($factory->getItemMapper() instanceof \OCA\News\Db\Postgres\ItemMapper);
 	}

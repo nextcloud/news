@@ -24,8 +24,7 @@ use OCP\IURLGenerator;
 // Used to parse app.json file, should be in core at some point
 class AppConfig {
 
-	public $config;
-
+	private $config = array();
 	private $navigationManager;
 	private $urlGenerator;
 	private $phpVersion;
@@ -60,10 +59,8 @@ class AppConfig {
 
 	/**
 	 * @param string|array $data path to the config file or an array with the config
-	 * @throws \OCA\News\Config\DependencyException if a required lib or version
-	 * is not satisfied by the current installation
 	 */
-	public function load($data) {
+	public function loadConfig($data) {
 		if(is_array($data)) {
 			$this->config = $data;
 		} else {
@@ -71,20 +68,9 @@ class AppConfig {
 			$this->config = json_decode($json, true);
 		}
 
-		$this->testDependencies();
-		$this->parseNavigation();
-		$this->parseJobs();
-		$this->parseHooks();
-	}
-
-
-	/**
-	 * Parses the navigation and creates a navigation entry if needed
-	 */
-	private function parseNavigation() {
-		// if key is missing, dont create a navigation
+		// fill config with default values if no navigation is added
 		if(array_key_exists('navigation', $this->config)) {
-			$nav = $this->config['navigation'];
+			$nav =& $this->config['navigation'];
 
 			// add defaults
 			$defaults = array(
@@ -100,7 +86,30 @@ class AppConfig {
 					$nav[$key] = $value;
 				}	
 			}
+		}
+	}
 
+	/**
+	 * @param string $key if given returns the value of the config at index $key
+	 * @return array|mixed the config
+	 */
+	public function getConfig($key=null) {
+		// FIXME: is this function interface a good idea?
+		if($key !== null) {
+			return $this->config[$key];
+		} else {
+			return $this->config; 
+		}
+	}
+
+
+	/**
+	 * Parses the navigation and creates a navigation entry if needed
+	 */
+	public function registerNavigation() {
+		// if key is missing, dont create a navigation
+		if(array_key_exists('navigation', $this->config)) {
+			$nav =& $this->config['navigation'];
 			
 			$navConfig = array(
 				'id' => $nav['id'],
@@ -118,13 +127,32 @@ class AppConfig {
 	}
 
 
-	private function parseJobs() {
-		
+	/**
+	 * Registers all jobs in the config
+	 */
+	public function registerBackgroundJobs() {
+		// FIXME: this is temporarily static because core jobs are not public 
+		// yet, therefore legacy code
+		foreach ($config['jobs'] as $job) {
+			\OCP\Backgroundjob::addRegularTask($job, 'run');
+		}
 	}
 
 
-	private function parseHooks() {
-		
+	/**
+	 * Registers all hooks in the config
+	 */
+	public function registerHooks() {
+		// FIXME: this is temporarily static because core emitters are not future 
+		// proof, therefore legacy code in here
+		foreach ($config['hooks'] as $listen => $react) {
+			$listener = explode('::', $listen);
+			$reaction = explode('::', $react);
+
+			// config is written like HookNamespace::method => Class::method
+			\OCP\Util::connectHook($listener[0], $listener[1], $reaction[0],
+			                       $reaction[1]);
+		}
 	}
 
 
@@ -132,7 +160,7 @@ class AppConfig {
 	 * Validates all dependencies that the app has
 	 * @throws \OCA\News\DependencyException if one version is not satisfied
 	 */
-	private function testDependencies() {
+	public function testDependencies() {
 		if(array_key_exists('dependencies', $this->config)) {
 		
 			$deps = $this->config['dependencies'];
@@ -170,7 +198,6 @@ class AppConfig {
 					}
 				}
 			}
-
 
 			if($msg !== '') {
 				throw new DependencyException($msg);

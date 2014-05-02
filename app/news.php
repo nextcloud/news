@@ -16,6 +16,8 @@ namespace OCA\News\App;
 use \OC\Files\View;
 use \OCP\AppFramework\App;
 
+use \OCA\News\Config\AppConfig;
+
 use \OCA\News\Core\Logger;
 use \OCA\News\Core\Db;
 
@@ -214,7 +216,8 @@ class News extends App {
 		 */
 		$container->registerService('MapperFactory', function($c) {
 			return new MapperFactory(
-				$c->query('CoreConfig'), $c->query('Db')
+				$c->query('DatabaseType'), 
+				$c->query('Db')
 			);
 		});
 
@@ -236,11 +239,45 @@ class News extends App {
 			);
 		});
 
+
+		/**
+		 * App config parser
+		 */
+		$container->registerService('AppConfig', function($c) {
+			// not performant but well :/
+			$config = $c->query('ServerContainer')->getAppConfig();
+			$installedApps = $config->getApps();
+			$apps = array();
+			foreach($installedApps as $app) {
+				$apps[] = array(
+					$app => $config->getValue($app, 'installed_version', '0')
+				);
+			}
+
+			// order extensions in name => version
+			$loadedExtensions = get_loaded_extensions();
+			$extensions = array();
+			foreach ($loadedExtensions as $extension) {
+				$extensions[$extension] = phpversion($extension);
+			}
+
+			return new AppConfig(
+				$c->query('ServerContainer')->getNavigationManager(),
+				$c->query('L10N'),
+				$c->query('ServerContainer')->getURLGenerator(),
+				phpversion(),
+				implode('.', \OCP\Util::getVersion()),
+				$apps,
+				$extensions,
+				$c->query('DatabaseType')
+			);
+		});
+
 		/**
 		 * Core
 		 */		
 		$container->registerService('L10N', function($c) {
-			return \OC_L10N::get($c['AppName']);
+			return $c->query('ServerContainer')->getL10N($c->query('AppName'));
 		});
 
 		$container->registerService('UserId', function($c) {
@@ -248,7 +285,7 @@ class News extends App {
 		});
 
 		$container->registerService('Logger', function($c) {
-			return new Logger($c['AppName']);
+			return new Logger($c->query('AppName'));
 		});
 
 		$container->registerService('Db', function($c) {
@@ -257,6 +294,10 @@ class News extends App {
 
 		$container->registerService('CoreConfig', function($c) {
 			return $c->query('ServerContainer')->getConfig();
+		});
+
+		$container->registerService('DatabaseType', function($c) {
+			return $c->query('ServerContainer')->getConfig()->getSystemValue('dbtype');
 		});
 
 
@@ -397,6 +438,15 @@ class News extends App {
 
 		$container->registerMiddleWare('CORSMiddleware');
 
+	}
+
+	public function getAppConfig() {
+		return $this->getContainer()->query('AppConfig');
+	}
+
+
+	public function getLogger() {
+		return $this->getContainer()->query('Logger');
 	}
 }
 

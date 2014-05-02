@@ -50,13 +50,13 @@ class AppConfigTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetId() {
-		$this->config->load(__DIR__ . '/../../../appinfo/app.json');
-		$this->assertEquals('news', $this->config->config['id']);
+		$this->config->loadConfig(__DIR__ . '/../../../appinfo/app.json');
+		$this->assertEquals('news', $this->config->getConfig('id'));
 	}
 
 
 	public function testNoNavigation() {
-		$this->config->load(array());
+		$this->config->loadConfig(array());
 
 		$this->nav->expects($this->never())
 			->method('add');
@@ -92,11 +92,12 @@ class AppConfigTest extends \PHPUnit_Framework_TestCase {
 			->method('add')
 			->with($this->equalTo($expected));
 
-		$this->config->load(array(
+		$this->config->loadConfig(array(
 			'id' => 'news',
 			'name' => 'News',
 			'navigation' => array()
 		));
+		$this->config->registerNavigation();
 	}
 
 
@@ -129,11 +130,12 @@ class AppConfigTest extends \PHPUnit_Framework_TestCase {
 			->method('add')
 			->with($this->equalTo($expected));
 
-		$this->config->load(array(
+		$this->config->loadConfig(array(
 			'id' => 'abc',
 			'name' => 'News',
 			'navigation' => $expected
 		));
+		$this->config->registerNavigation();
 	}
 
 
@@ -141,11 +143,12 @@ class AppConfigTest extends \PHPUnit_Framework_TestCase {
 	 * @expectedException \OCA\News\Config\DependencyException
 	 */
 	public function testPHPVersion() {
-		$this->config->load(array(
+		$this->config->loadConfig(array(
 			'dependencies' => array(
 				'php' => '5.7'
 			)
 		));
+		$this->config->testDependencies();
 	}
 
 
@@ -153,11 +156,12 @@ class AppConfigTest extends \PHPUnit_Framework_TestCase {
 	 * @expectedException \OCA\News\Config\DependencyException
 	 */
 	public function testOwnCloudVersion() {
-		$this->config->load(array(
+		$this->config->loadConfig(array(
 			'dependencies' => array(
 				'owncloud' => '>=4.5,<=6.0.2'
 			)
 		));
+		$this->config->testDependencies();
 	}
 
 
@@ -165,7 +169,7 @@ class AppConfigTest extends \PHPUnit_Framework_TestCase {
 	 * @expectedException \OCA\News\Config\DependencyException
 	 */
 	public function testAppVersion() {
-		$this->config->load(array(
+		$this->config->loadConfig(array(
 			'dependencies' => array(
 				'apps' => 
 					array(
@@ -174,6 +178,7 @@ class AppConfigTest extends \PHPUnit_Framework_TestCase {
 					)
 			)
 		));
+		$this->config->testDependencies();
 	}
 
 
@@ -181,7 +186,7 @@ class AppConfigTest extends \PHPUnit_Framework_TestCase {
 	 * @expectedException \OCA\News\Config\DependencyException
 	 */
 	public function testLibsVersion() {
-		$this->config->load(array(
+		$this->config->loadConfig(array(
 			'dependencies' => array(
 				'libs' => 
 					array(
@@ -189,6 +194,7 @@ class AppConfigTest extends \PHPUnit_Framework_TestCase {
 					)
 			)
 		));
+		$this->config->testDependencies();
 	}
 
 
@@ -196,7 +202,7 @@ class AppConfigTest extends \PHPUnit_Framework_TestCase {
 	 * @expectedException \OCA\News\Config\DependencyException
 	 */
 	public function testLibsExistence() {
-		$this->config->load(array(
+		$this->config->loadConfig(array(
 			'dependencies' => array(
 				'libs' => 
 					array(
@@ -204,6 +210,7 @@ class AppConfigTest extends \PHPUnit_Framework_TestCase {
 					)
 			)
 		));
+		$this->config->testDependencies();
 	}
 
 
@@ -211,7 +218,7 @@ class AppConfigTest extends \PHPUnit_Framework_TestCase {
 	 * @expectedException \OCA\News\Config\DependencyException
 	 */
 	public function testAppsExistence() {
-		$this->config->load(array(
+		$this->config->loadConfig(array(
 			'dependencies' => array(
 				'apps' => 
 					array(
@@ -219,5 +226,6 @@ class AppConfigTest extends \PHPUnit_Framework_TestCase {
 					)
 			)
 		));
+		$this->config->testDependencies();
 	}
 }

@@ -24,11 +24,11 @@
     "documentation": {
         "developer": "https://github.com/owncloud/news/wiki"
     },
-    "cron": ["OCA\\News\\BackgroundJob\\Task"],
+    "jobs": ["OCA\\News\\BackgroundJob\\Task"],
     "hooks": {
         "OC_User::pre_deleteUser": "OCA\\News\\Hooks\\User::deleteUser"
     },
-    "databases": ["postgresql", "sqlite", "mysql"],
+    "databases": ["pgsql", "sqlite", "mysql"],
     "categories": ["Multimedia"], 
     "dependencies": {
         "php": ">=5.3",
