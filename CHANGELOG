@@ -8,6 +8,7 @@ owncloud-news (2.001)
 * Fix bug that would break news if a feed contains audio enclosures
 * Prepare news to work with proxies once [Simple Pie is patched](https://github.com/simplepie/simplepie/pull/360)
 * Update HTMLPurifier to incorporate security fixes from the [newest release](http://htmlpurifier.org/news/2013/1130-4.6.0-released)
+* **New dependency**: python-requests library for the python updater script
 
 owncloud-news (1.808)
 * Also focus article area when clicking on all unread link
