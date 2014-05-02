@@ -245,12 +245,13 @@ class News extends App {
 		 */
 		$container->registerService('AppConfig', function($c) {
 			// not performant but well :/
-			$config = $c->query('ServerContainer')->getAppConfig();
-			$installedApps = $config->getApps();
+			// $config = $c->query('ServerContainer')->getAppConfig(); oc7 only
+			$config = OC_Appconfig;
+			$installedApps = $config::getApps();
 			$apps = array();
 			foreach($installedApps as $app) {
 				$apps[] = array(
-					$app => $config->getValue($app, 'installed_version', '0')
+					$app => $config::getValue($app, 'installed_version', '0')
 				);
 			}
 
