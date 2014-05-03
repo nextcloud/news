@@ -130,7 +130,8 @@ class FeedBusinessLayer extends BusinessLayer {
 			$this->logger->log($ex->getMessage(), 'debug');
 			throw new BusinessLayerException(
 				$this->l10n->t(
-					'Can not add feed: URL does not exist or has invalid xml'));
+					'Can not add feed: URL does not exist, SSL Certificate can not be validated
+					or feed has invalid xml'));
 		}
 	}
 
