@@ -1,12 +1,11 @@
 <?php $TRANSLATIONS = array(
-"News" => "Novas",
 "Can not add feed: Exists already" => "Non pote adder syndication: il jam es existente",
-"Can not add feed: URL does not exist or has invalid xml" => "Non pote adder syndication: URL non existe o ha un invalide xml",
 "Articles without feed" => "Articulos sin syndication",
 "Can not add folder: Exists already" => "Non pote adder dossier: il es jam existente",
 "_" => "--",
 "status" => "stato",
 "Undo deletion of %s" => "Annulla deletion de %s",
+"News" => "Novas",
 "Add Website" => "Adder sito web",
 "Error: address exists already!" => "Error: adresse jam existente!",
 "Error: folder exists already" => "Error: dossier jam existente",

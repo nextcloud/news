@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-04-23 01:01-0400\n"
-"PO-Revision-Date: 2014-04-22 22:46+0000\n"
+"POT-Creation-Date: 2014-05-04 01:02-0400\n"
+"PO-Revision-Date: 2014-05-04 05:02+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: Oriya (India) (http://www.transifex.com/projects/p/owncloud/language/or_IN/)\n"
 "MIME-Version: 1.0\n"
@@ -17,19 +17,17 @@ msgstr ""
 "Language: or_IN\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: appinfo/app.php:35 templates/main.php:36
-msgid "News"
-msgstr ""
-
 #: businesslayer/feedbusinesslayer.php:95
 msgid "Can not add feed: Exists already"
 msgstr ""
 
 #: businesslayer/feedbusinesslayer.php:133
-msgid "Can not add feed: URL does not exist or has invalid xml"
+msgid ""
+"Can not add feed: URL does not exist, SSL Certificate can not be validated "
+"or feed has invalid xml"
 msgstr ""
 
-#: businesslayer/feedbusinesslayer.php:277
+#: businesslayer/feedbusinesslayer.php:278
 msgid "Articles without feed"
 msgstr ""
 
@@ -52,6 +50,10 @@ msgstr ""
 #: templates/main.php:32
 #, php-format
 msgid "Undo deletion of %s"
+msgstr ""
+
+#: templates/main.php:36
+msgid "News"
 msgstr ""
 
 #: templates/part.addnew.php:12

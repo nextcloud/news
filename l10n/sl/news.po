@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-04-16 01:02-0400\n"
-"PO-Revision-Date: 2014-04-16 05:00+0000\n"
-"Last-Translator: mateju <>\n"
+"POT-Creation-Date: 2014-05-04 01:02-0400\n"
+"PO-Revision-Date: 2014-05-04 05:02+0000\n"
+"Last-Translator: I Robot\n"
 "Language-Team: Slovenian (http://www.transifex.com/projects/p/owncloud/language/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,23 +21,21 @@ msgstr ""
 "Language: sl\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 
-#: appinfo/app.php:49 templates/main.php:36
-msgid "News"
-msgstr "Novice"
-
-#: businesslayer/feedbusinesslayer.php:103
+#: businesslayer/feedbusinesslayer.php:95
 msgid "Can not add feed: Exists already"
 msgstr "Vira ni mogoče dodati: ta že obstaja"
 
-#: businesslayer/feedbusinesslayer.php:141
-msgid "Can not add feed: URL does not exist or has invalid xml"
-msgstr "Ni mogoče dodati vira: naslov URL ne obstaja ali pa je okvarjen zapis"
+#: businesslayer/feedbusinesslayer.php:133
+msgid ""
+"Can not add feed: URL does not exist, SSL Certificate can not be validated "
+"or feed has invalid xml"
+msgstr ""
 
-#: businesslayer/feedbusinesslayer.php:285
+#: businesslayer/feedbusinesslayer.php:278
 msgid "Articles without feed"
 msgstr "Članki brez virov"
 
-#: businesslayer/folderbusinesslayer.php:65
+#: businesslayer/folderbusinesslayer.php:52
 msgid "Can not add folder: Exists already"
 msgstr "Ni mogoče dodati mape: mapa že obstaja."
 
@@ -57,6 +55,10 @@ msgstr "stanje"
 #, php-format
 msgid "Undo deletion of %s"
 msgstr "Prekliči izbris %s"
+
+#: templates/main.php:36
+msgid "News"
+msgstr "Novice"
 
 #: templates/part.addnew.php:12
 msgid "Add Website"

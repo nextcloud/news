@@ -1,9 +1,8 @@
 <?php $TRANSLATIONS = array(
-"News" => "新聞",
 "Can not add feed: Exists already" => "無法新增反饋: 已經存在",
-"Can not add feed: URL does not exist or has invalid xml" => "無法新增反饋: URL不存在或具有無效的xml",
 "Can not add folder: Exists already" => "無法新增目錄: 目錄已存在",
 "Undo deletion of %s" => "復原刪除 %s",
+"News" => "新聞",
 "Add Website" => "新增網站",
 "Error: address exists already!" => "錯誤: 地址已存在",
 "Error: folder exists already" => "錯誤: 資料夾已存在",

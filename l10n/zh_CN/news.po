@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-04-22 01:01-0400\n"
-"PO-Revision-Date: 2014-04-21 14:43+0000\n"
-"Last-Translator: smartree <smartree@gmail.com>\n"
+"POT-Creation-Date: 2014-05-04 01:02-0400\n"
+"PO-Revision-Date: 2014-05-04 05:02+0000\n"
+"Last-Translator: I Robot\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/owncloud/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,19 +26,17 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: appinfo/app.php:35 templates/main.php:36
-msgid "News"
-msgstr "新闻"
-
 #: businesslayer/feedbusinesslayer.php:95
 msgid "Can not add feed: Exists already"
 msgstr "无法添加反馈：已经存在"
 
 #: businesslayer/feedbusinesslayer.php:133
-msgid "Can not add feed: URL does not exist or has invalid xml"
-msgstr "无法添加反馈：URL不存在或具有无效的xml"
+msgid ""
+"Can not add feed: URL does not exist, SSL Certificate can not be validated "
+"or feed has invalid xml"
+msgstr ""
 
-#: businesslayer/feedbusinesslayer.php:277
+#: businesslayer/feedbusinesslayer.php:278
 msgid "Articles without feed"
 msgstr "没有订阅的文章"
 
@@ -62,6 +60,10 @@ msgstr "状态"
 #, php-format
 msgid "Undo deletion of %s"
 msgstr "撤销删除 %s"
+
+#: templates/main.php:36
+msgid "News"
+msgstr "新闻"
 
 #: templates/part.addnew.php:12
 msgid "Add Website"

@@ -1,8 +1,7 @@
 <?php $TRANSLATIONS = array(
-"News" => "სიახლეები",
 "Can not add feed: Exists already" => "ფიდის დამატება შეუძლებელია: უკვე არსებობს",
-"Can not add feed: URL does not exist or has invalid xml" => "ფიდის დამატება შეუძლებელია: ასეთი URL არ არსებობს ან არ შეიცავს მართებულ xml–ს",
 "Can not add folder: Exists already" => "ფოლდერის დამატება შეუძლებელია: უკვე არსებობს",
+"News" => "სიახლეები",
 "Add Website" => "დაამატე ვებგვერდი",
 "Error: address exists already!" => "შეცდომა: მისამართი უკვე არსებობს!",
 "Error: folder exists already" => "შეცდომა: ფოლდერი უკვე არსებობს!",

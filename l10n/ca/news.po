@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-04-16 01:02-0400\n"
-"PO-Revision-Date: 2014-04-16 05:00+0000\n"
-"Last-Translator: rogerc\n"
+"POT-Creation-Date: 2014-05-04 01:02-0400\n"
+"PO-Revision-Date: 2014-05-04 05:02+0000\n"
+"Last-Translator: I Robot\n"
 "Language-Team: Catalan (http://www.transifex.com/projects/p/owncloud/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,23 +21,21 @@ msgstr ""
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: appinfo/app.php:49 templates/main.php:36
-msgid "News"
-msgstr "Notícies"
-
-#: businesslayer/feedbusinesslayer.php:103
+#: businesslayer/feedbusinesslayer.php:95
 msgid "Can not add feed: Exists already"
 msgstr "No es pot afegir la font: ja existeix"
 
-#: businesslayer/feedbusinesslayer.php:141
-msgid "Can not add feed: URL does not exist or has invalid xml"
-msgstr "No es pot afegir la font: la URL no existeix o té un XML no vàlid"
+#: businesslayer/feedbusinesslayer.php:133
+msgid ""
+"Can not add feed: URL does not exist, SSL Certificate can not be validated "
+"or feed has invalid xml"
+msgstr ""
 
-#: businesslayer/feedbusinesslayer.php:285
+#: businesslayer/feedbusinesslayer.php:278
 msgid "Articles without feed"
 msgstr "Articles sense font"
 
-#: businesslayer/folderbusinesslayer.php:65
+#: businesslayer/folderbusinesslayer.php:52
 msgid "Can not add folder: Exists already"
 msgstr "No es pot afegir la carpeta: ja existeix"
 
@@ -57,6 +55,10 @@ msgstr "estat"
 #, php-format
 msgid "Undo deletion of %s"
 msgstr "Desfés l'eliminació de %s"
+
+#: templates/main.php:36
+msgid "News"
+msgstr "Notícies"
 
 #: templates/part.addnew.php:12
 msgid "Add Website"

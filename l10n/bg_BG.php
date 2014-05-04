@@ -1,12 +1,11 @@
 <?php $TRANSLATIONS = array(
-"News" => "Новини",
 "Can not add feed: Exists already" => "Не може да се добави хранилище: Вече съществува",
-"Can not add feed: URL does not exist or has invalid xml" => "Не може да се добави хранилище: URL не съществува или има невалиден xml",
 "Articles without feed" => "Статии без съдържание",
 "Can not add folder: Exists already" => "Не може да добави папка: Вече съществува",
 "_" => "-",
 "status" => "състояние",
 "Undo deletion of %s" => "Върни изтриване на %s",
+"News" => "Новини",
 "Add Website" => "Добавете сайт",
 "Error: address exists already!" => "Грешка: адресът вече съществува!",
 "Error: folder exists already" => "Грешка: Папката вече съществува",

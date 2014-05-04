@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-04-16 01:02-0400\n"
-"PO-Revision-Date: 2014-04-16 05:00+0000\n"
-"Last-Translator: rtbfreitas\n"
+"POT-Creation-Date: 2014-05-04 01:02-0400\n"
+"PO-Revision-Date: 2014-05-04 05:02+0000\n"
+"Last-Translator: I Robot\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/owncloud/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,23 +26,21 @@ msgstr ""
 "Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: appinfo/app.php:49 templates/main.php:36
-msgid "News"
-msgstr "Noticias"
-
-#: businesslayer/feedbusinesslayer.php:103
+#: businesslayer/feedbusinesslayer.php:95
 msgid "Can not add feed: Exists already"
 msgstr "Não é possível adicionar o feed: Já existe"
 
-#: businesslayer/feedbusinesslayer.php:141
-msgid "Can not add feed: URL does not exist or has invalid xml"
-msgstr "Não é possível adicionar o feed: o endereço não existe ou contem um xml inválido"
+#: businesslayer/feedbusinesslayer.php:133
+msgid ""
+"Can not add feed: URL does not exist, SSL Certificate can not be validated "
+"or feed has invalid xml"
+msgstr ""
 
-#: businesslayer/feedbusinesslayer.php:285
+#: businesslayer/feedbusinesslayer.php:278
 msgid "Articles without feed"
 msgstr "Artigos sem feed"
 
-#: businesslayer/folderbusinesslayer.php:65
+#: businesslayer/folderbusinesslayer.php:52
 msgid "Can not add folder: Exists already"
 msgstr "Não é possivel adicionar a pasta: Já existe"
 
@@ -62,6 +60,10 @@ msgstr "estado"
 #, php-format
 msgid "Undo deletion of %s"
 msgstr "Anular o apagar de %s"
+
+#: templates/main.php:36
+msgid "News"
+msgstr "Noticias"
 
 #: templates/part.addnew.php:12
 msgid "Add Website"

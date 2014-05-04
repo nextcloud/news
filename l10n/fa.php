@@ -1,9 +1,8 @@
 <?php $TRANSLATIONS = array(
-"News" => "اخبار",
 "Can not add feed: Exists already" => "خوراک خوان را نمی تواند اضافه کند: در حال حاضر موجود است.",
-"Can not add feed: URL does not exist or has invalid xml" => "خوراک خوان را نمی تواند اضافه کند: آدرس URL وجود ندارد یا xml نامعتبر است.",
 "Can not add folder: Exists already" => "پوشه را نمی تواند اضافه کند: در حال حاضر وجود دارد.",
 "Undo deletion of %s" => "بازگشت از حذف %s",
+"News" => "اخبار",
 "Add Website" => "اضافه کردن سایت",
 "Error: address exists already!" => "خطا: در حال حاضرآدرس وجود دارد!",
 "Error: folder exists already" => "خطا: پوشه در حال حاضر وجود دارد.",

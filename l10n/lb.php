@@ -1,8 +1,8 @@
 <?php $TRANSLATIONS = array(
-"News" => "News",
 " " => " ",
 "_" => "_",
 "status" => "Status",
+"News" => "News",
 "Add Website" => "Website bäisetzen",
 "Address" => "Adress",
 "Add" => "Dobäisetzen",

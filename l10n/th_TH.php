@@ -1,7 +1,7 @@
 <?php $TRANSLATIONS = array(
-"News" => "ข่าวสาร",
 "_" => "_",
 "status" => "สถานะ",
+"News" => "ข่าวสาร",
 "Error: folder exists already" => "ข้อผิดพลาด: โฟลเดอร์มีอยู่แล้วในระบบ",
 "Address" => "ที่อยู่",
 "Add" => "เพิ่ม",

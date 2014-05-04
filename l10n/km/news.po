@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-04-16 01:02-0400\n"
-"PO-Revision-Date: 2014-04-16 05:00+0000\n"
-"Last-Translator: Pongsametrey SOK <metreysk@gmail.com>\n"
+"POT-Creation-Date: 2014-05-04 01:02-0400\n"
+"PO-Revision-Date: 2014-05-04 05:02+0000\n"
+"Last-Translator: I Robot\n"
 "Language-Team: Khmer (http://www.transifex.com/projects/p/owncloud/language/km/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,23 +19,21 @@ msgstr ""
 "Language: km\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: appinfo/app.php:49 templates/main.php:36
-msgid "News"
-msgstr "ព័ត៌មាន"
-
-#: businesslayer/feedbusinesslayer.php:103
+#: businesslayer/feedbusinesslayer.php:95
 msgid "Can not add feed: Exists already"
 msgstr "មិន​អាច​បន្ថែម​ព័ត៌មាន៖ មាន​រួច​ហើយ"
 
-#: businesslayer/feedbusinesslayer.php:141
-msgid "Can not add feed: URL does not exist or has invalid xml"
-msgstr "មិន​អាច​បន្ថែម​ព័ត៌មាន៖ មិន​មាន URL ឬ​មាន xml មិន​ត្រឹម​ត្រូវ"
+#: businesslayer/feedbusinesslayer.php:133
+msgid ""
+"Can not add feed: URL does not exist, SSL Certificate can not be validated "
+"or feed has invalid xml"
+msgstr ""
 
-#: businesslayer/feedbusinesslayer.php:285
+#: businesslayer/feedbusinesslayer.php:278
 msgid "Articles without feed"
 msgstr "អត្ថបទគ្មាន feed"
 
-#: businesslayer/folderbusinesslayer.php:65
+#: businesslayer/folderbusinesslayer.php:52
 msgid "Can not add folder: Exists already"
 msgstr "មិន​អាច​បន្ថែម​ថត៖ មាន​រួច​ហើយ"
 
@@ -55,6 +53,10 @@ msgstr "ស្ថានភាព"
 #, php-format
 msgid "Undo deletion of %s"
 msgstr "មិន​ធ្វើ​ការ​លុប %s វិញ"
+
+#: templates/main.php:36
+msgid "News"
+msgstr "ព័ត៌មាន"
 
 #: templates/part.addnew.php:12
 msgid "Add Website"

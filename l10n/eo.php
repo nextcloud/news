@@ -1,9 +1,8 @@
 <?php $TRANSLATIONS = array(
-"News" => "Novaĵoj",
 "Can not add feed: Exists already" => "Ne eblas aldoni fluon: ĝi jam ekzistas",
-"Can not add feed: URL does not exist or has invalid xml" => "Ne eblas aldoni fluon: sia URL ne ekzistas aŭ ĝi havas nevalidan XML-on",
 "Can not add folder: Exists already" => "Ne eblas aldoni dosierujon: ĝi jam ekzistas",
 "Undo deletion of %s" => "Malfari la forigon de %s",
+"News" => "Novaĵoj",
 "Add Website" => "Aldoni TTT-ejon",
 "Error: address exists already!" => "Eraro: la adreso jam ekzistas!",
 "Error: folder exists already" => "Eraro: la dosierujo jam ekzistas!",
