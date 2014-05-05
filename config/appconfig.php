@@ -133,7 +133,7 @@ class AppConfig {
 	public function registerBackgroundJobs() {
 		// FIXME: this is temporarily static because core jobs are not public 
 		// yet, therefore legacy code
-		foreach ($config['jobs'] as $job) {
+		foreach ($this->config['jobs'] as $job) {
 			\OCP\Backgroundjob::addRegularTask($job, 'run');
 		}
 	}
@@ -145,7 +145,7 @@ class AppConfig {
 	public function registerHooks() {
 		// FIXME: this is temporarily static because core emitters are not future 
 		// proof, therefore legacy code in here
-		foreach ($config['hooks'] as $listen => $react) {
+		foreach ($this->config['hooks'] as $listen => $react) {
 			$listener = explode('::', $listen);
 			$reaction = explode('::', $react);
 
