@@ -1,5 +1,6 @@
 <?php $TRANSLATIONS = array(
 "Can not add feed: Exists already" => "Feed konnte nicht hinzugefügt werden:  Existiert bereits",
+"Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Feed konnte nicht hinzugefügt werden: URL existiert nicht, SSL-Zertifikat kann nicht überprüft werden oder der Feed enthält ungültiges XML",
 "Articles without feed" => "Artikel ohne Feed",
 "Can not add folder: Exists already" => "Ordner kann nicht hinzgefügt werden: Existiert bereits",
 " " => " ",

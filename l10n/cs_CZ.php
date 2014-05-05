@@ -1,5 +1,6 @@
 <?php $TRANSLATIONS = array(
 "Can not add feed: Exists already" => "Nelze přidat kanál: již existuje",
+"Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Nelze přidat kanál: URL neexistuje, SSL certifikát nelze ověřit nebo obsahuje neplatné xml",
 "Articles without feed" => "Články bez zdroje",
 "Can not add folder: Exists already" => "Nelze přidat složku: již existuje",
 " " => " ",

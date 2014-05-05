@@ -1,5 +1,6 @@
 <?php $TRANSLATIONS = array(
 "Can not add feed: Exists already" => "Nie można dodać kanału: istnieje już",
+"Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Nie można dodać kanału: URL nie istnieje, certyfikat SSL nie może zostać uwierzytelniony lub kanał ma niewłaściwy xml",
 "Articles without feed" => "Artykuły nie z kanałów",
 "Can not add folder: Exists already" => "Nie można dodać folderu: istnieje już",
 " " => " ",
