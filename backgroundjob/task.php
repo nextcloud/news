@@ -12,7 +12,7 @@
  */
 
 
-namespace OCA\News\Backgroundjob;
+namespace OCA\News\BackgroundJob;
 
 use \OCA\News\App\News;
 
