@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# eng1fares <fares_ss202@hotmail.com>, 2014
 # suliman <291101251@std.qu.edu.sa>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-05-04 01:02-0400\n"
-"PO-Revision-Date: 2014-05-04 05:02+0000\n"
-"Last-Translator: I Robot\n"
+"POT-Creation-Date: 2014-05-07 01:02-0400\n"
+"PO-Revision-Date: 2014-05-06 11:50+0000\n"
+"Last-Translator: eng1fares <fares_ss202@hotmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/projects/p/owncloud/language/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,7 +27,7 @@ msgstr "لا يمكن اضافة هذا الملقم:هو موجود بالفع�
 msgid ""
 "Can not add feed: URL does not exist, SSL Certificate can not be validated "
 "or feed has invalid xml"
-msgstr ""
+msgstr "لا يمكن إضافة هذا الملقم: عنوان URL غير موجود, شهادة SSL لايمكن التحقق منه أو الملقم لديه xml غير صالح"
 
 #: businesslayer/feedbusinesslayer.php:278
 msgid "Articles without feed"
