@@ -112,6 +112,6 @@
 		"%www.omgubuntu.co.uk%": "//div[@class=\"entry-content\"]"
 	},
 	"tu-chemnitz.de/tu/presse/": {
-		"%tu-chemnitz.de%": "//div[contains(@class,'page-content')]/*[preceding-sibling::h1 and following-sibling::div[@id]]"
+		"%tu-chemnitz.de%": "//div[@id='content_inhalt']/*[preceding-sibling::h1 and following-sibling::div[@id]]"
 	}
 }
