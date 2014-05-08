@@ -1,5 +1,6 @@
 <?php $TRANSLATIONS = array(
 "Can not add feed: Exists already" => "Ezin da iturburua gehitu: Dagoeneko existitzen da",
+"Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Ezin da jarioa gehitu: URLa ez da existitzen, SSL Ziurtagiria ezin da balioztatu edo jarioak xml baliogabea du",
 "Articles without feed" => "Iturbururik gabeko artikuluak",
 "Can not add folder: Exists already" => "Ezin da karpeta gehitu: Dagoeneko existitzen da",
 " " => " ",
