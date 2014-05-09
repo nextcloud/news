@@ -1,5 +1,6 @@
 owncloud-news (2.002)
 * Better check for news app dependencies
+* Security: Don't send CORS Allow-Credentials header to prevent CSRF
 
 owncloud-news (2.001)
 * Delete folders, feeds and articles if a user is deleted

@@ -47,7 +47,7 @@ class CORSMiddleware extends Middleware {
 
 			$origin = $this->request->server['HTTP_ORIGIN'];
 			$response->addHeader('Access-Control-Allow-Origin', $origin);
-			$response->addHeader('Access-Control-Allow-Credentials', 'true');
+			$response->addHeader('Access-Control-Allow-Credentials', 'false');
 
 		}
 		return $response;
