@@ -83,7 +83,7 @@ class ApiController extends Controller {
 		$response->addHeader('Access-Control-Allow-Origin', $origin);
 		$response->addHeader('Access-Control-Allow-Methods', 
 			'PUT, POST, GET, DELETE');
-		$response->addHeader('Access-Control-Allow-Credentials', 'true');
+		$response->addHeader('Access-Control-Allow-Credentials', 'false');
 		$response->addHeader('Access-Control-Max-Age', '1728000');
 		$response->addHeader('Access-Control-Allow-Headers', 
 			'Authorization, Content-Type');
