@@ -35,7 +35,7 @@
     "databases": ["pgsql", "sqlite3", "mysql"],
     "categories": ["Multimedia"], 
     "dependencies": {
-        "php": ">=5.3",
+        "php": ">=5.3.6",
         "owncloud": ">=6.0.3",
         "libs": {
             "curl": "*"
