@@ -15,9 +15,9 @@ namespace OCA\News;
 
 use \OCP\AppFramework\App;
 
-use \OCA\News\App\News;
+use \OCA\News\AppInfo\Application;
 
-$application = new News();
+$application = new Application();
 $application->registerRoutes($this, array('routes' => array(
 	// page
 	array('name' => 'page#index', 'url' => '/', 'verb' => 'GET'),

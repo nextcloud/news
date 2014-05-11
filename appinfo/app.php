@@ -11,9 +11,9 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 
-namespace OCA\News\App;
+namespace OCA\News\AppInfo;
 
-$container = new News();
+$container = new Application();
 
 $config = $container->getAppConfig();
 $config->loadConfig(__DIR__ . '/app.json');

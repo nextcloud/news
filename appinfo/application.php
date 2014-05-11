@@ -11,7 +11,7 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 
-namespace OCA\News\App;
+namespace OCA\News\AppInfo;
 
 use \OC\Files\View;
 use \OCP\AppFramework\App;
@@ -66,7 +66,7 @@ if(!class_exists('\SimplePie')) {
 }
 
 
-class News extends App {
+class Application extends App {
 
 	public function __construct(array $urlParams=array()){
 		parent::__construct('news', $urlParams);

@@ -14,14 +14,14 @@
 
 namespace OCA\News\BackgroundJob;
 
-use \OCA\News\App\News;
+use \OCA\News\AppInfo\Application;
 
 
 class Task {
 
 
 	static public function run() {
-		$app = new News();
+		$app = new Application();
 		$container = $app->getContainer();
 
 		// make it possible to turn off cron updates if you use an external

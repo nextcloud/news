@@ -13,7 +13,7 @@
 
 namespace OCA\News\Hooks;
 
-use \OCA\News\App\News;
+use \OCA\News\AppInfo\Application;
 
 
 class User {
@@ -22,7 +22,7 @@ class User {
     public static function deleteUser($params) {
         $userId = $params['uid'];
         
-        $app = new News();
+        $app = new Application();
         $container = $app->getContainer();
 
         // order is important!
