@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Sappe, 2013
+# Sappe, 2013-2014
 # Bawl <transifex@bawl.dk>, 2013
 # cronner <cronner@gmail.com>, 2012
 # lodahl <leiflodahl@gmail.com>, 2013
@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-05-04 01:02-0400\n"
-"PO-Revision-Date: 2014-05-04 05:02+0000\n"
-"Last-Translator: I Robot\n"
+"POT-Creation-Date: 2014-05-11 01:02-0400\n"
+"PO-Revision-Date: 2014-05-10 14:40+0000\n"
+"Last-Translator: Sappe\n"
 "Language-Team: Danish (http://www.transifex.com/projects/p/owncloud/language/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,7 +34,7 @@ msgstr "Kan ikke tilføje feed: Det eksisterer allerede"
 msgid ""
 "Can not add feed: URL does not exist, SSL Certificate can not be validated "
 "or feed has invalid xml"
-msgstr ""
+msgstr "Kan ikke tilføje feed: URL'et eksister ikke, SSL certifikatet kan ikke verificeres, eller feedet indeholder ugyldig xml kode"
 
 #: businesslayer/feedbusinesslayer.php:278
 msgid "Articles without feed"
