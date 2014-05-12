@@ -239,8 +239,6 @@ class FaviconFetcherTest extends \PHPUnit_Framework_TestCase {
 
 	public function testEmptyFilePathDoesNotOpenFile() {
 		$faviconPath = "owncloud/core/img/favicon.png";
-		$html = $this->getFaviconHTML($faviconPath);
-
 		$url = '';
 
 		$this->fileFactory->expects($this->never())
@@ -251,8 +249,6 @@ class FaviconFetcherTest extends \PHPUnit_Framework_TestCase {
 
 	public function testInvalidHostnameDoesNotOpenFile() {
 		$faviconPath = "owncloud/core/img/favicon.png";
-		$html = $this->getFaviconHTML($faviconPath);
-
 		$url = "a.b_c.de";
 
 		$this->fileFactory->expects($this->never())
@@ -264,8 +260,6 @@ class FaviconFetcherTest extends \PHPUnit_Framework_TestCase {
 
 	public function testInvalidHostnameDoesNotOpenFileHttp() {
 		$faviconPath = "owncloud/core/img/favicon.png";
-		$html = $this->getFaviconHTML($faviconPath);
-
 		$url = "http://a.b_c.de";
 
 		$this->fileFactory->expects($this->never())

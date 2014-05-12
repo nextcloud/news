@@ -85,15 +85,6 @@ class ItemMapperTest extends \OCA\News\Utility\MapperTestUtility {
 			'ORDER BY `items`.`id` DESC';
 	}
 
-	private function makeSelectQueryStatus($prependTo, $status) {
-		$status = (int) $status;
-
-		return $this->makeSelectQuery(
-			'AND ((`items`.`status` & ' . $status . ') = ' . $status . ') ' .
-			$prependTo
-		);
-	}
-
 
 	public function testDeleteReadOlderThanThresholdDoesNotDeleteBelowThreshold(){
 		$status = StatusFlag::STARRED | StatusFlag::UNREAD;
