@@ -84,14 +84,14 @@ class ApiControllerTest extends ControllerTestUtility {
 	public function testBeforeUpdate(){
 		$this->updater->expects($this->once())
 			->method('beforeUpdate');
-		$response = $this->newsAPI->beforeUpdate();
+		$this->newsAPI->beforeUpdate();
 	}
 
 
 	public function testAfterUpdate(){
 		$this->updater->expects($this->once())
 			->method('afterUpdate');
-		$response = $this->newsAPI->afterUpdate();
+		$this->newsAPI->afterUpdate();
 	}
 
 

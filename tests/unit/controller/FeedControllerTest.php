@@ -391,7 +391,7 @@ class FeedControllerTest extends ControllerTestUtility {
 			->method('markDeleted')
 			->with($this->equalTo($url['feedId']));
 
-		$response = $this->controller->delete();
+		$this->controller->delete();
 	}
 
 
@@ -477,7 +477,7 @@ class FeedControllerTest extends ControllerTestUtility {
 				$this->equalTo($post['parentFolderId']),
 				$this->equalTo($this->user));
 
-		$response = $this->controller->move();
+		$this->controller->move();
 
 	}
 
@@ -519,8 +519,7 @@ class FeedControllerTest extends ControllerTestUtility {
 				$this->equalTo($post['feedTitle']),
 				$this->equalTo($this->user));
 
-		$response = $this->controller->rename();
-
+		$this->controller->rename();
 	}
 
 
@@ -629,7 +628,7 @@ class FeedControllerTest extends ControllerTestUtility {
 			->method('unmarkDeleted')
 			->with($this->equalTo($url['feedId']));
 
-		$response = $this->controller->restore();
+		$this->controller->restore();
 	}
 
 

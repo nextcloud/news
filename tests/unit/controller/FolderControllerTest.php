@@ -147,7 +147,7 @@ class FolderControllerTest extends ControllerTestUtility {
 			->with($this->equalTo($url['folderId']), 
 				$this->equalTo(true), $this->equalTo($this->user));
 		
-		$response = $this->controller->open();
+		$this->controller->open();
 
 	}
 
@@ -178,7 +178,7 @@ class FolderControllerTest extends ControllerTestUtility {
 			->with($this->equalTo($url['folderId']), 
 				$this->equalTo(false), $this->equalTo($this->user));
 		
-		$response = $this->controller->collapse();
+		$this->controller->collapse();
 
 	}
 
@@ -267,8 +267,7 @@ class FolderControllerTest extends ControllerTestUtility {
 			->with($this->equalTo($url['folderId']), 
 				$this->equalTo($this->user));
 		
-		$response = $this->controller->delete();
-
+		$this->controller->delete();
 	}
 
 
@@ -393,8 +392,7 @@ class FolderControllerTest extends ControllerTestUtility {
 			->with($this->equalTo($url['folderId']), 
 				$this->equalTo($this->user));
 		
-		$response = $this->controller->restore();
-
+		$this->controller->restore();
 	}
 
 

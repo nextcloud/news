@@ -492,7 +492,7 @@ class FeedApiControllerTest extends ControllerTestUtility {
 			->method('update')
 			->with($this->equalTo($feedId), $this->equalTo($userId));
 
-		$response = $this->feedAPI->update();
+		$this->feedAPI->update();
 	}
 
 
@@ -505,7 +505,7 @@ class FeedApiControllerTest extends ControllerTestUtility {
 			->with($this->equalTo('Could not update feed ' . $this->msg),
 				$this->equalTo('debug'));
 
-		$response = $this->feedAPI->update();
+		$this->feedAPI->update();
 
 
 	}
