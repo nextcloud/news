@@ -14,8 +14,6 @@
 namespace OCA\News\Controller;
 
 use \OCP\IRequest;
-use \OCP\AppFramework\Http\TemplateResponse;
-use \OCP\AppFramework\Http\JSONResponse;
 
 use \OCA\News\Utility\ControllerTestUtility;
 
@@ -67,7 +65,6 @@ class PageControllerTest extends ControllerTestUtility {
 	public function testIndex(){
 		$response = $this->controller->index();
 		$this->assertEquals('main', $response->getTemplateName());
-		$this->assertTrue($response instanceof TemplateResponse);
 	}
 
 
@@ -96,7 +93,6 @@ class PageControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->settings();
 		$this->assertEquals($result, $response->getData());
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -120,9 +116,8 @@ class PageControllerTest extends ControllerTestUtility {
 				$this->equalTo($this->appName),
 				$this->equalTo('compact'), 
 				$this->equalTo(true));
-		$response = $this->controller->updateSettings();
+		$this->controller->updateSettings();
 
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -140,8 +135,7 @@ class PageControllerTest extends ControllerTestUtility {
 				$this->equalTo('showAll'), 
 				$this->equalTo(true));
 
-		$response = $this->controller->updateSettings();
+		$this->controller->updateSettings();
 
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 }

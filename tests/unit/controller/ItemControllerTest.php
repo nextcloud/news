@@ -15,7 +15,6 @@ namespace OCA\News\Controller;
 
 use \OCP\IRequest;
 use \OCP\AppFramework\Http;
-use \OCP\AppFramework\Http\JSONResponse;
 
 use \OCA\News\Utility\ControllerTestUtility;
 use \OCA\News\Db\Item;
@@ -126,7 +125,6 @@ class ItemControllerTest extends ControllerTestUtility {
 
 
 		$result = $this->controller->read();
-		$this->assertTrue($result instanceof JSONResponse);
 	}
 
 
@@ -147,7 +145,6 @@ class ItemControllerTest extends ControllerTestUtility {
 
 		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
 		$this->assertEquals($msg, $params['msg']);
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -183,7 +180,6 @@ class ItemControllerTest extends ControllerTestUtility {
 
 		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
 		$this->assertEquals($msg, $params['msg']);
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -203,7 +199,6 @@ class ItemControllerTest extends ControllerTestUtility {
 				$this->equalTo($this->user));
 
 		$response = $this->controller->star();
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -224,7 +219,6 @@ class ItemControllerTest extends ControllerTestUtility {
 
 		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
 		$this->assertEquals($msg, $params['msg']);
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -244,7 +238,6 @@ class ItemControllerTest extends ControllerTestUtility {
 				$this->equalTo($this->user));
 
 		$response = $this->controller->unstar();
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -265,7 +258,6 @@ class ItemControllerTest extends ControllerTestUtility {
 
 		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
 		$this->assertEquals($msg, $params['msg']);
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -289,7 +281,6 @@ class ItemControllerTest extends ControllerTestUtility {
 			->will($this->returnValue(array($feed)));
 
 		$response = $this->controller->readAll();
-		$this->assertTrue($response instanceof JSONResponse);
 		$this->assertEquals($expected, $response->getData());
 	}
 
@@ -362,7 +353,6 @@ class ItemControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->index();
 		$this->assertEquals($result, $response->getData());
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -395,7 +385,6 @@ class ItemControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->index();
 		$this->assertEquals($result, $response->getData());
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -419,7 +408,6 @@ class ItemControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->index();
 		$this->assertEquals($result, $response->getData());
-		$this->assertTrue($response instanceof JSONResponse);			
 	}
 
 
@@ -472,7 +460,6 @@ class ItemControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->newItems();
 		$this->assertEquals($result, $response->getData());
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -499,7 +486,6 @@ class ItemControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->newItems();
 		$this->assertEquals($result, $response->getData());
-		$this->assertTrue($response instanceof JSONResponse);			
 	}
 
 
