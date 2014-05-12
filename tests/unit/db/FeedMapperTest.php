@@ -84,7 +84,7 @@ class FeedMapperTest extends \OCA\News\Utility\MapperTestUtility {
 		$this->setMapperResult($sql, $params);
 
 		$this->setExpectedException('\OCA\News\Db\DoesNotExistException');
-		$result = $this->mapper->find($id, $userId);
+		$this->mapper->find($id, $userId);
 	}
 
 
@@ -111,12 +111,11 @@ class FeedMapperTest extends \OCA\News\Utility\MapperTestUtility {
 		$this->setMapperResult($sql, $params, $rows);
 
 		$this->setExpectedException('\OCA\News\Db\MultipleObjectsReturnedException');
-		$result = $this->mapper->find($id, $userId);
+		$this->mapper->find($id, $userId);
 	}
 
 
 	public function testFindAll(){
-		$userId = 'john';
 		$rows = array(
 			array('id' => $this->feeds[0]->getId()),
 			array('id' => $this->feeds[1]->getId())
@@ -227,7 +226,7 @@ class FeedMapperTest extends \OCA\News\Utility\MapperTestUtility {
 			array($urlHash, $this->user));
 
 		$this->setExpectedException('\OCA\News\Db\DoesNotExistException');
-		$result = $this->mapper->findByUrlHash($urlHash, $this->user);
+		$this->mapper->findByUrlHash($urlHash, $this->user);
 	}
 
 
@@ -253,7 +252,7 @@ class FeedMapperTest extends \OCA\News\Utility\MapperTestUtility {
 			array($urlHash, $this->user), $rows);
 
 		$this->setExpectedException('\OCA\News\Db\MultipleObjectsReturnedException');
-		$result = $this->mapper->findByUrlHash($urlHash, $this->user);
+		$this->mapper->findByUrlHash($urlHash, $this->user);
 	}
 
 
@@ -318,7 +317,7 @@ class FeedMapperTest extends \OCA\News\Utility\MapperTestUtility {
 			array('id' => $this->feeds[0]->getId()),
 			array('id' => $this->feeds[1]->getId())
 		);
-		$deleteOlderThan = 110;
+
 		$sql = 'SELECT * FROM `*PREFIX*news_feeds` ' .
 			'WHERE `deleted_at` > 0 ' .
 			'AND `user_id` = ?';

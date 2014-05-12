@@ -59,7 +59,6 @@ class ItemBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 		$this->itemBusinessLayer = new ItemBusinessLayer($this->mapper,
 			$statusFlag, $timeFactory, $config);
 		$this->user = 'jack';
-		$response = 'hi';
 		$this->id = 3;
 		$this->updatedSince = 20333;
 		$this->showAll = true;

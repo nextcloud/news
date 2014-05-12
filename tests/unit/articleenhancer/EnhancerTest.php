@@ -46,7 +46,6 @@ class EnhancerTest extends \PHPUnit_Framework_TestCase {
 			'http://www.test.com'
 		);
 		for ($i=0; $i < count($urls); $i++) { 
-			$url = $urls[$i];
 			$this->articleEnhancer->expects($this->at($i))
 				->method('enhance')
 				->with($this->equalTo($item))

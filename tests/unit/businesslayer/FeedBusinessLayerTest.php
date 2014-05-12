@@ -374,7 +374,7 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->will($this->throwException($ex));
 
 		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
-		$return = $this->feedBusinessLayer->update($feed->getId(), $this->user);
+		$this->feedBusinessLayer->update($feed->getId(), $this->user);
 	}
 
 

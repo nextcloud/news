@@ -66,7 +66,7 @@ class BusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->method('find')
 			->with($this->equalTo($id), $this->equalTo($user));
 
-		$result = $this->newsBusinessLayer->find($id, $user);
+		$this->newsBusinessLayer->find($id, $user);
 	}
 
 

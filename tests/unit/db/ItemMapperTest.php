@@ -389,7 +389,7 @@ class ItemMapperTest extends \OCA\News\Utility\MapperTestUtility {
 		$this->setMapperResult($sql, $params, $rows);
 		$this->setExpectedException('\OCA\News\Db\DoesNotExistException');
 
-		$result = $this->mapper->getNewestItemId($this->user);
+		$this->mapper->getNewestItemId($this->user);
 	}
 
 

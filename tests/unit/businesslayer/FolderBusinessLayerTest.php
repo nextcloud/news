@@ -100,15 +100,12 @@ class FolderBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->will($this->returnValue($rows));
 
 		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
-		$result = $this->folderBusinessLayer->create($folderName, 'john', 3);
+		$this->folderBusinessLayer->create($folderName, 'john', 3);
 	}
 
 
 	public function testCreateThrowsExWhenFolderNameEmpty(){
 		$folderName = '';
-		$rows = array(
-			array('id' => 1)
-		);
 
 		$this->folderMapper->expects($this->once())
 			->method('findByName')
@@ -116,7 +113,7 @@ class FolderBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->will($this->returnValue(array()));
 
 		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerValidationException');
-		$result = $this->folderBusinessLayer->create($folderName, 'john', 3);
+		$this->folderBusinessLayer->create($folderName, 'john', 3);
 	}
 
 
@@ -172,15 +169,12 @@ class FolderBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->will($this->returnValue($rows));
 
 		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
-		$result = $this->folderBusinessLayer->rename(3, $folderName, 'john');
+		$this->folderBusinessLayer->rename(3, $folderName, 'john');
 	}
 
 
 	public function testRenameThrowsExWhenFolderNameEmpty(){
 		$folderName = '';
-		$rows = array(
-			array('id' => 1)
-		);
 		
 		$this->folderMapper->expects($this->once())
 			->method('findByName')
@@ -188,7 +182,7 @@ class FolderBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->will($this->returnValue(array()));
 
 		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
-		$result = $this->folderBusinessLayer->rename(3, $folderName, 'john');
+		$this->folderBusinessLayer->rename(3, $folderName, 'john');
 	}
 
 

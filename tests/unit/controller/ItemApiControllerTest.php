@@ -346,7 +346,6 @@ class ItemApiControllerTest extends ControllerTestUtility {
 
 		$response = $this->itemAPI->star();
 
-		$data = $response->getData();
 		$this->assertEquals(Http::STATUS_OK, $response->getStatus());
 	}
 

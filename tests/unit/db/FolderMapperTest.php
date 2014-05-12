@@ -67,7 +67,7 @@ class FolderMapperTest extends \OCA\News\Utility\MapperTestUtility {
 		$this->setMapperResult($sql, array($id, $userId));
 		
 		$this->setExpectedException('\OCA\News\Db\DoesNotExistException');
-		$result = $this->folderMapper->find($id, $userId);	
+		$this->folderMapper->find($id, $userId);	
 	}
 	
 
@@ -85,7 +85,7 @@ class FolderMapperTest extends \OCA\News\Utility\MapperTestUtility {
 		$this->setMapperResult($sql, array($id, $userId), $rows);
 		
 		$this->setExpectedException('\OCA\News\Db\MultipleObjectsReturnedException');
-		$result = $this->folderMapper->find($id, $userId);
+		$this->folderMapper->find($id, $userId);
 	}
 
 
@@ -185,7 +185,7 @@ class FolderMapperTest extends \OCA\News\Utility\MapperTestUtility {
 			array('id' => $this->folders[0]->getId()),
 			array('id' => $this->folders[1]->getId())
 		);
-		$deleteOlderThan = 110;
+
 		$sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
 			'WHERE `deleted_at` > 0 ' .
 			'AND `user_id` = ?';
