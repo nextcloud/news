@@ -17,5 +17,9 @@ use \OCA\News\Db\Item;
 
 
 interface ArticleEnhancer {
+    /**
+     * @param \OCA\News\Db\Item $item
+     * @return \OCA\News\Db\Item enhanced item
+     */
 	public function enhance(Item $item);
 }

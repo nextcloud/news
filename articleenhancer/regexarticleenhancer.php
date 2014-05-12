@@ -28,6 +28,10 @@ class RegexArticleEnhancer implements ArticleEnhancer {
 	}
 
 
+	/**
+	 * @param \OCA\News\Db\Item $item
+	 * @return \OCA\News\Db\Item enhanced item
+	 */
 	public function enhance(Item $item) {
 		if (preg_match($this->matchArticleUrl, $item->getUrl())) {
 			$body = $item->getBody();

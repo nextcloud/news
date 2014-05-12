@@ -37,6 +37,7 @@ class Enhancer {
 	/**
 	 * @param \OCA\News\Db\Item $item
 	 * @param string $feedUrl
+	 * @return \OCA\News\Db\Item enhanced item
 	 */
 	public function enhance($item, $feedUrl){
 		$feedUrl = $this->removeTrailingSlash($feedUrl);
