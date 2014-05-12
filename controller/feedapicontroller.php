@@ -70,6 +70,9 @@ class FeedApiController extends Controller {
 		try {
 			$result['newestItemId'] =
 				$this->itemBusinessLayer->getNewestItemId($this->userId);
+
+		// An exception occurs if there is a newest item. If there is none,
+		// simply ignore it and do not add the newestItemId
 		} catch(BusinessLayerException $ex) {}
 
 		return new JSONResponse($result);
@@ -96,6 +99,9 @@ class FeedApiController extends Controller {
 			try {
 				$result['newestItemId'] =
 					$this->itemBusinessLayer->getNewestItemId($this->userId);
+
+			// An exception occurs if there is a newest item. If there is none,
+			// simply ignore it and do not add the newestItemId
 			} catch(BusinessLayerException $ex) {}
 
 			return new JSONResponse($result);

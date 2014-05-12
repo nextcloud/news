@@ -93,6 +93,8 @@ class FeedBusinessLayer extends BusinessLayer {
 				$this->mapper->findByUrlHash($feed->getUrlHash(), $userId);
 				throw new BusinessLayerConflictException(
 					$this->l10n->t('Can not add feed: Exists already'));
+
+			// If no matchin feed was found everything was ok
 			} catch(DoesNotExistException $ex){}
 
 			// insert feed
