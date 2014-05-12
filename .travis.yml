@@ -22,5 +22,8 @@ script:
   - wget https://phantomjs.googlecode.com/files/phantomjs-1.9.0-linux-x86_64.tar.bz2
   - tar xjf phantomjs-1.9.0-linux-x86_64.tar.bz2
   - sudo ln -s $(pwd)/phantomjs-1.9.0-linux-x86_64/bin/phantomjs /usr/bin/phantomjs
-  - make unit-tests
   - make javascript-tests
+  - make unit-tests
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+

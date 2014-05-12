@@ -41,7 +41,7 @@ dist: clean
 test: javascript-tests unit-tests integration-tests acceptance-tests
 
 unit-tests:
-	phpunit tests/unit
+	phpunit --coverage-clover=coverage.clover tests/unit
 
 
 integration-tests:

@@ -6,6 +6,7 @@ node_modules/
 js/build/
 js/*.xml
 .rvm
+*.clover
 
 # just sane ignores
 .*.sw[po]
