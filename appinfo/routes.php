@@ -68,14 +68,14 @@ $application->registerRoutes($this, array('routes' => array(
 	// folders
 	array('name' => 'folder_api#index', 'url' => '/api/v1-2/folders', 'verb' => 'GET'),
 	array('name' => 'folder_api#create', 'url' => '/api/v1-2/folders', 'verb' => 'POST'),
-	array('name' => 'folder_api#put', 'url' => '/api/v1-2/folders/{folderId}', 'verb' => 'PUT'),
+	array('name' => 'folder_api#update', 'url' => '/api/v1-2/folders/{folderId}', 'verb' => 'PUT'),
 	array('name' => 'folder_api#delete', 'url' => '/api/v1-2/folders/{folderId}', 'verb' => 'DELETE'),
 	array('name' => 'folder_api#read', 'url' => '/api/v1-2/folders/{folderId}/read', 'verb' => 'PUT'), // FIXME: POST would be more correct
 
 	// feeds
 	array('name' => 'feed_api#index', 'url' => '/api/v1-2/feeds', 'verb' => 'GET'),
 	array('name' => 'feed_api#create', 'url' => '/api/v1-2/feeds', 'verb' => 'POST'),
-	array('name' => 'feed_api#put', 'url' => '/api/v1-2/feeds/{feedId}', 'verb' => 'PUT'),
+	array('name' => 'feed_api#update', 'url' => '/api/v1-2/feeds/{feedId}', 'verb' => 'PUT'),
 	array('name' => 'feed_api#delete', 'url' => '/api/v1-2/feeds/{feedId}', 'verb' => 'DELETE'),
 	array('name' => 'feed_api#from_all_users', 'url' => '/api/v1-2/feeds/all', 'verb' => 'GET'),
 	array('name' => 'feed_api#move', 'url' => '/api/v1-2/feeds/{feedId}/move', 'verb' => 'PUT'), // FIXME: POST would be more correct
