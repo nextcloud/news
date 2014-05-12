@@ -26,6 +26,7 @@ class ItemBusinessLayer extends BusinessLayer {
 	private $statusFlag;
 	private $autoPurgeCount;
 	private $timeFactory;
+	private $itemMapper;
 
 	public function __construct(ItemMapper $itemMapper, StatusFlag $statusFlag,
 								$timeFactory, Config $config){
@@ -33,6 +34,7 @@ class ItemBusinessLayer extends BusinessLayer {
 		$this->statusFlag = $statusFlag;
 		$this->autoPurgeCount = $config->getAutoPurgeCount();
 		$this->timeFactory = $timeFactory;
+		$this->itemMapper = $itemMapper;
 	}
 
 
@@ -51,15 +53,15 @@ class ItemBusinessLayer extends BusinessLayer {
 
 		switch($type){
 			case FeedType::FEED:
-				$items = $this->mapper->findAllNewFeed($id, $updatedSince,
+				$items = $this->itemMapper->findAllNewFeed($id, $updatedSince,
 					                                   $status, $userId);
 				break;
 			case FeedType::FOLDER:
-				$items = $this->mapper->findAllNewFolder($id, $updatedSince,
+				$items = $this->itemMapper->findAllNewFolder($id, $updatedSince,
 					                                   $status, $userId);
 				break;
 			default:
-				$items = $this->mapper->findAllNew($updatedSince, $status,
+				$items = $this->itemMapper->findAllNew($updatedSince, $status,
 					                               $userId);
 		}
 
@@ -82,15 +84,15 @@ class ItemBusinessLayer extends BusinessLayer {
 
 		switch($type){
 			case FeedType::FEED:
-				$items = $this->mapper->findAllFeed($id, $limit, $offset,
+				$items = $this->itemMapper->findAllFeed($id, $limit, $offset,
 					                                   $status, $userId);
 				break;
 			case FeedType::FOLDER:
-				$items = $this->mapper->findAllFolder($id, $limit, $offset,
+				$items = $this->itemMapper->findAllFolder($id, $limit, $offset,
 					                                   $status, $userId);
 				break;
 			default:
-				$items = $this->mapper->findAll($limit, $offset, $status,
+				$items = $this->itemMapper->findAll($limit, $offset, $status,
 					                               $userId);
 		}
 
@@ -108,7 +110,7 @@ class ItemBusinessLayer extends BusinessLayer {
 	 */
 	public function star($feedId, $guidHash, $isStarred, $userId){
 		try {
-			$item = $this->mapper->findByGuidHash($guidHash, $feedId, $userId);
+			$item = $this->itemMapper->findByGuidHash($guidHash, $feedId, $userId);
 
 			$item->setLastModified($this->timeFactory->getTime());
 			if($isStarred){
@@ -116,7 +118,7 @@ class ItemBusinessLayer extends BusinessLayer {
 			} else {
 				$item->setUnstarred();
 			}
-			$this->mapper->update($item);
+			$this->itemMapper->update($item);
 		} catch(DoesNotExistException $ex) {
 			throw new BusinessLayerException($ex->getMessage());
 		}
@@ -138,7 +140,7 @@ class ItemBusinessLayer extends BusinessLayer {
 		} else {
 			$item->setUnread();
 		}
-		$this->mapper->update($item);
+		$this->itemMapper->update($item);
 	}
 
 
@@ -150,7 +152,7 @@ class ItemBusinessLayer extends BusinessLayer {
 	 */
 	public function readAll($highestItemId, $userId){
 		$time = $this->timeFactory->getTime();
-		$this->mapper->readAll($highestItemId, $time, $userId);
+		$this->itemMapper->readAll($highestItemId, $time, $userId);
 	}
 
 
@@ -163,7 +165,7 @@ class ItemBusinessLayer extends BusinessLayer {
 	 */
 	public function readFolder($folderId, $highestItemId, $userId){
 		$time = $this->timeFactory->getTime();
-		$this->mapper->readFolder($folderId, $highestItemId, $time, $userId);
+		$this->itemMapper->readFolder($folderId, $highestItemId, $time, $userId);
 	}
 
 
@@ -176,7 +178,7 @@ class ItemBusinessLayer extends BusinessLayer {
 	 */
 	public function readFeed($feedId, $highestItemId, $userId){
 		$time = $this->timeFactory->getTime();
-		$this->mapper->readFeed($feedId, $highestItemId, $time, $userId);
+		$this->itemMapper->readFeed($feedId, $highestItemId, $time, $userId);
 	}
 
 
@@ -187,7 +189,7 @@ class ItemBusinessLayer extends BusinessLayer {
 	 * old, the id is taken
 	 */
 	public function autoPurgeOld(){
-		$this->mapper->deleteReadOlderThanThreshold($this->autoPurgeCount);
+		$this->itemMapper->deleteReadOlderThanThreshold($this->autoPurgeCount);
 	}
 
 
@@ -199,7 +201,7 @@ class ItemBusinessLayer extends BusinessLayer {
 	 */
 	public function getNewestItemId($userId) {
 		try {
-			return $this->mapper->getNewestItemId($userId);
+			return $this->itemMapper->getNewestItemId($userId);
 		} catch(DoesNotExistException $ex) {
 			throw new BusinessLayerException($ex->getMessage());
 		}
@@ -212,7 +214,7 @@ class ItemBusinessLayer extends BusinessLayer {
 	 * @return int the count
 	 */
 	public function starredCount($userId){
-		return $this->mapper->starredCount($userId);
+		return $this->itemMapper->starredCount($userId);
 	}
 
 
@@ -221,7 +223,7 @@ class ItemBusinessLayer extends BusinessLayer {
 	 * @return array of items which are starred or unread
 	 */
 	public function getUnreadOrStarred($userId) {
-		return $this->mapper->findAllUnreadOrStarred($userId);
+		return $this->itemMapper->findAllUnreadOrStarred($userId);
 	}
 
 
@@ -230,7 +232,7 @@ class ItemBusinessLayer extends BusinessLayer {
 	 * @param string $userId the name of the user
 	 */
 	public function deleteUser($userId) {
-		$this->mapper->deleteUser($userId);
+		$this->itemMapper->deleteUser($userId);
 	}
 
 

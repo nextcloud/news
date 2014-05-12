@@ -23,6 +23,7 @@ class FolderBusinessLayer extends BusinessLayer {
 	private $l10n;
 	private $timeFactory;
 	private $autoPurgeMinimumInterval;
+	private $folderMapper;
 
 	public function __construct(FolderMapper $folderMapper,
 	                            $l10n,
@@ -32,6 +33,7 @@ class FolderBusinessLayer extends BusinessLayer {
 		$this->l10n = $l10n;
 		$this->timeFactory = $timeFactory;
 		$this->autoPurgeMinimumInterval = $config->getAutoPurgeMinimumInterval();
+		$this->folderMapper = $folderMapper;
 	}
 
 	/**
@@ -40,12 +42,12 @@ class FolderBusinessLayer extends BusinessLayer {
 	 * @return array of folders
 	 */
 	public function findAll($userId) {
-		return $this->mapper->findAllFromUser($userId);
+		return $this->folderMapper->findAllFromUser($userId);
 	}
 
 
 	private function validateFolder($folderName, $userId){
-		$existingFolders = $this->mapper->findByName($folderName, $userId);
+		$existingFolders = $this->folderMapper->findByName($folderName, $userId);
 		if(count($existingFolders) > 0){
 
 			throw new BusinessLayerConflictException(
@@ -75,7 +77,7 @@ class FolderBusinessLayer extends BusinessLayer {
 		$folder->setUserId($userId);
 		$folder->setParentId($parentId);
 		$folder->setOpened(true);
-		return $this->mapper->insert($folder);
+		return $this->folderMapper->insert($folder);
 	}
 
 
@@ -85,7 +87,7 @@ class FolderBusinessLayer extends BusinessLayer {
 	public function open($folderId, $opened, $userId){
 		$folder = $this->find($folderId, $userId);
 		$folder->setOpened($opened);
-		$this->mapper->update($folder);
+		$this->folderMapper->update($folder);
 	}
 
 
@@ -104,7 +106,7 @@ class FolderBusinessLayer extends BusinessLayer {
 
 		$folder = $this->find($folderId, $userId);
 		$folder->setName($folderName);
-		return $this->mapper->update($folder);
+		return $this->folderMapper->update($folder);
 	}
 
 
@@ -117,7 +119,7 @@ class FolderBusinessLayer extends BusinessLayer {
 	public function markDeleted($folderId, $userId) {
 		$folder = $this->find($folderId, $userId);
 		$folder->setDeletedAt($this->timeFactory->getTime());
-		$this->mapper->update($folder);
+		$this->folderMapper->update($folder);
 	}
 
 
@@ -130,7 +132,7 @@ class FolderBusinessLayer extends BusinessLayer {
 	public function unmarkDeleted($folderId, $userId) {
 		$folder = $this->find($folderId, $userId);
 		$folder->setDeletedAt(0);
-		$this->mapper->update($folder);
+		$this->folderMapper->update($folder);
 	}
 
 
@@ -149,10 +151,10 @@ class FolderBusinessLayer extends BusinessLayer {
 			$deleteOlderThan = $now - $this->autoPurgeMinimumInterval;
 		}
 
-		$toDelete = $this->mapper->getToDelete($deleteOlderThan, $userId);
+		$toDelete = $this->folderMapper->getToDelete($deleteOlderThan, $userId);
 
 		foreach ($toDelete as $folder) {
-			$this->mapper->delete($folder);
+			$this->folderMapper->delete($folder);
 		}
 	}
 
@@ -162,7 +164,7 @@ class FolderBusinessLayer extends BusinessLayer {
 	 * @param string $userId the name of the user
 	 */
 	public function deleteUser($userId) {
-		$this->mapper->deleteUser($userId);
+		$this->folderMapper->deleteUser($userId);
 	}
 
 

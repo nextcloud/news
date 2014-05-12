@@ -28,6 +28,7 @@ class FeedBusinessLayer extends BusinessLayer {
 
 	private $feedFetcher;
 	private $itemMapper;
+	private $feedMapper;
 	private $logger;
 	private $l10n;
 	private $timeFactory;
@@ -53,6 +54,7 @@ class FeedBusinessLayer extends BusinessLayer {
 		$this->autoPurgeMinimumInterval = $config->getAutoPurgeMinimumInterval();
 		$this->enhancer = $enhancer;
 		$this->purifier = $purifier;
+		$this->feedMapper = $feedMapper;
 	}
 
 	/**
@@ -61,7 +63,7 @@ class FeedBusinessLayer extends BusinessLayer {
 	 * @return array of feeds
 	 */
 	public function findAll($userId){
-		return $this->mapper->findAllFromUser($userId);
+		return $this->feedMapper->findAllFromUser($userId);
 	}
 
 
@@ -70,7 +72,7 @@ class FeedBusinessLayer extends BusinessLayer {
 	 * @return array of feeds
 	 */
 	public function findAllFromAllUsers() {
-		return $this->mapper->findAll();
+		return $this->feedMapper->findAll();
 	}
 
 
@@ -90,7 +92,7 @@ class FeedBusinessLayer extends BusinessLayer {
 
 			// try again if feed exists depending on the reported link
 			try {
-				$this->mapper->findByUrlHash($feed->getUrlHash(), $userId);
+				$this->feedMapper->findByUrlHash($feed->getUrlHash(), $userId);
 				throw new BusinessLayerConflictException(
 					$this->l10n->t('Can not add feed: Exists already'));
 
@@ -101,7 +103,7 @@ class FeedBusinessLayer extends BusinessLayer {
 			$feed->setFolderId($folderId);
 			$feed->setUserId($userId);
 			$feed->setArticlesPerUpdate(count($items));
-			$feed = $this->mapper->insert($feed);
+			$feed = $this->feedMapper->insert($feed);
 
 			// insert items in reverse order because the first one is usually the
 			// newest item
@@ -143,7 +145,7 @@ class FeedBusinessLayer extends BusinessLayer {
 	 */
 	public function updateAll(){
 		// TODO: this method is not covered by any tests
-		$feeds = $this->mapper->findAll();
+		$feeds = $this->feedMapper->findAll();
 		foreach($feeds as $feed){
 			try {
 				$this->update($feed->getId(), $feed->getUserId());
@@ -164,7 +166,7 @@ class FeedBusinessLayer extends BusinessLayer {
 	 */
 	public function update($feedId, $userId){
 		try {
-			$existingFeed = $this->mapper->find($feedId, $userId);
+			$existingFeed = $this->feedMapper->find($feedId, $userId);
 
 			if($existingFeed->getPreventUpdate() === true) {
 				return;
@@ -177,7 +179,7 @@ class FeedBusinessLayer extends BusinessLayer {
 				// update number of articles on every feed update
 				if($existingFeed->getArticlesPerUpdate() !== count($items)) {
 					$existingFeed->setArticlesPerUpdate(count($items));
-					$this->mapper->update($existingFeed);
+					$this->feedMapper->update($existingFeed);
 				}
 
 				// insert items in reverse order because the first one is usually
@@ -203,7 +205,7 @@ class FeedBusinessLayer extends BusinessLayer {
 				$this->logger->log($ex->getMessage(), 'debug');
 			}
 
-			return $this->mapper->find($feedId, $userId);
+			return $this->feedMapper->find($feedId, $userId);
 
 		} catch (DoesNotExistException $ex){
 			throw new BusinessLayerException('Feed does not exist');
@@ -221,7 +223,7 @@ class FeedBusinessLayer extends BusinessLayer {
 	public function move($feedId, $folderId, $userId){
 		$feed = $this->find($feedId, $userId);
 		$feed->setFolderId($folderId);
-		$this->mapper->update($feed);
+		$this->feedMapper->update($feed);
 	}
 
 
@@ -235,7 +237,7 @@ class FeedBusinessLayer extends BusinessLayer {
 	public function rename($feedId, $feedTitle, $userId) {
 		$feed = $this->find($feedId, $userId);
 		$feed->setTitle($feedTitle);
-		$this->mapper->update($feed);
+		$this->feedMapper->update($feed);
 	}
 
 
@@ -281,7 +283,7 @@ class FeedBusinessLayer extends BusinessLayer {
 				$feed->setAdded($this->timeFactory->getTime());
 				$feed->setFolderId(0);
 				$feed->setPreventUpdate(true);	
-				$feed = $this->mapper->insert($feed);
+				$feed = $this->feedMapper->insert($feed);
 
 				$item->setFeedId($feed->getId());
 				$feedsDict[$feed->getLink()] = $feed;
@@ -300,7 +302,7 @@ class FeedBusinessLayer extends BusinessLayer {
 		}
 
 		if($createdFeed) {
-			return $this->mapper->findByUrlHash($urlHash, $userId);
+			return $this->feedMapper->findByUrlHash($urlHash, $userId);
 		}
 	}
 
@@ -314,7 +316,7 @@ class FeedBusinessLayer extends BusinessLayer {
 	public function markDeleted($feedId, $userId) {
 		$feed = $this->find($feedId, $userId);
 		$feed->setDeletedAt($this->timeFactory->getTime());
-		$this->mapper->update($feed);
+		$this->feedMapper->update($feed);
 	}
 
 
@@ -327,7 +329,7 @@ class FeedBusinessLayer extends BusinessLayer {
 	public function unmarkDeleted($feedId, $userId) {
 		$feed = $this->find($feedId, $userId);
 		$feed->setDeletedAt(0);
-		$this->mapper->update($feed);
+		$this->feedMapper->update($feed);
 	}
 
 
@@ -346,10 +348,10 @@ class FeedBusinessLayer extends BusinessLayer {
 			$deleteOlderThan = $now - $this->autoPurgeMinimumInterval;
 		}
 
-		$toDelete = $this->mapper->getToDelete($deleteOlderThan, $userId);
+		$toDelete = $this->feedMapper->getToDelete($deleteOlderThan, $userId);
 
 		foreach ($toDelete as $feed) {
-			$this->mapper->delete($feed);
+			$this->feedMapper->delete($feed);
 		}
 	}
 
@@ -360,7 +362,7 @@ class FeedBusinessLayer extends BusinessLayer {
 	 * @param string $userId the name of the user
 	 */
 	public function deleteUser($userId) {
-		$this->mapper->deleteUser($userId);
+		$this->feedMapper->deleteUser($userId);
 	}
 
 
