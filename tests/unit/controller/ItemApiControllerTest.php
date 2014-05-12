@@ -15,7 +15,6 @@ namespace OCA\News\Controller;
 
 use \OCP\IRequest;
 use \OCP\AppFramework\Http;
-use \OCP\AppFramework\Http\JSONResponse;
 
 use \OCA\News\Utility\ControllerTestUtility;
 use \OCA\News\BusinessLayer\BusinessLayerException;
