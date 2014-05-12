@@ -24,7 +24,7 @@ use OCP\IURLGenerator;
 // Used to parse app.json file, should be in core at some point
 class AppConfig {
 
-	private $config = array();
+	private $config;
 	private $navigationManager;
 	private $urlGenerator;
 	private $phpVersion;
@@ -32,6 +32,7 @@ class AppConfig {
 	private $installedApps;
 	private $installedExtensions;
 	private $databaseType;
+	private $l10n;
 
 	/**
 	 * TODO: External deps that are needed:
@@ -54,6 +55,7 @@ class AppConfig {
 		$this->installedApps = $installedApps;
 		$this->installedExtensions = $installedExtensions;
 		$this->databaseType = $databaseType;
+		$this->config = array();
 	}
 
 

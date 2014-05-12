@@ -13,7 +13,20 @@
 
 namespace OCA\News\Db;
 
-
+/**
+ * @method integer getId()
+ * @method void setId(integer $value)
+ * @method string getUserId()
+ * @method void setUserId(string $value)
+ * @method string getName()
+ * @method void setName(string $value)
+ * @method integer getParentId()
+ * @method void setParentId(integer $value)
+ * @method boolean getOpened()
+ * @method void setOpened(boolean $value)
+ * @method integer getDeletedAt()
+ * @method void setDeletedAt(integer $value)
+ */
 class Folder extends Entity implements IAPI {
 
 	public $parentId;

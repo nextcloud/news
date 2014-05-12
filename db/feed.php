@@ -13,7 +13,34 @@
 
 namespace OCA\News\Db;
 
-
+/**
+ * @method integer getId()
+ * @method void setId(integer $value)
+ * @method string getUserId()
+ * @method void setUserId(string $value)
+ * @method string getUrlHash()
+ * @method void setUrlHash(string $value)
+ * @method string getUrl()
+ * @method void setUrl(string $value)
+ * @method string getTitle()
+ * @method void setTitle(string $value)
+ * @method string getFaviconLink()
+ * @method void setFaviconLink(string $value)
+ * @method integer getAdded()
+ * @method void setAdded(integer $value)
+ * @method integer getFolderId()
+ * @method void setFolderId(integer $value)
+ * @method integer getUnreadCount()
+ * @method void setUnreadCount(integer $value)
+ * @method string getLink()
+ * @method void setLink(string $value)
+ * @method boolean getPreventUpdate()
+ * @method void setPreventUpdate(boolean $value)
+ * @method integer getDeletedAt()
+ * @method void setDeletedAt(integer $value)
+ * @method integer getArticlesPerUpdate()
+ * @method void setArticlesPerUpdate(integer $value)
+ */
 class Feed extends Entity implements IAPI {
 
 	public $userId;

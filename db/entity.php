@@ -13,7 +13,10 @@
 
 namespace OCA\News\Db;
 
-
+/**
+ * @method integer getId()
+ * @method void setId(integer $value)
+ */
 abstract class Entity {
 
 	public $id;

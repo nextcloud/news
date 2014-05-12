@@ -13,7 +13,34 @@
 
 namespace OCA\News\Db;
 
-
+/**
+ * @method integer getId()
+ * @method void setId(integer $value)
+ * @method string getGuidHash()
+ * @method void setGuidHash(string $value)
+ * @method string getGuid()
+ * @method void setGuid(string $value)
+ * @method string getUrl()
+ * @method void setUrl(string $value)
+ * @method string getTitle()
+ * @method void setTitle(string $value)
+ * @method string getAuthor()
+ * @method void setAuthor(string $value)
+ * @method integer getPubDate()
+ * @method void setPubDate(integer $value)
+ * @method string getBody()
+ * @method void setBody(string $value)
+ * @method string getEnclosureMime()
+ * @method void setEnclosureMime(string $value)
+ * @method string getEnclosureLink()
+ * @method void setEnclosureLink(string $value)
+ * @method integer getFeedId()
+ * @method void setFeedId(integer $value)
+ * @method integer getStatus()
+ * @method void setStatus(integer $value)
+ * @method integer getLastModified()
+ * @method void setLastModified(integer $value)
+ */
 class Item extends Entity implements IAPI {
 
 	public $guidHash;
