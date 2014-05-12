@@ -149,7 +149,6 @@ class FolderController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function rename(){
-		$userId = $this->userId;
 		$folderName = $this->params('folderName');
 		$folderId = (int) $this->params('folderId');
 

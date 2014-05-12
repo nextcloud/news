@@ -77,7 +77,6 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			$timeFactory, $config,
 			$this->enhancer, $this->purifier);
 		$this->user = 'jack';
-		$response = 'hi';
 	}
 
 
@@ -317,10 +316,6 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			$item
 		);
 
-		$ex = new DoesNotExistException('hi');
-
-		$fetchReturn = array($feed, $items);
-
 		$this->feedMapper->expects($this->any())
 			->method('find')
 			->will($this->returnValue($existingFeed));
@@ -425,13 +420,12 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->will($this->throwException($ex));
 
 		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
-		$return = $this->feedBusinessLayer->update($feed->getId(), $this->user);
+		$this->feedBusinessLayer->update($feed->getId(), $this->user);
 	}
 
 
 	public function testUpdateDoesntUpdateIfFeedIsPrevented() {
 		$feedId = 3;
-		$folderId = 4;
 		$feed = new Feed();
 		$feed->setFolderId(16);
 		$feed->setId($feedId);

@@ -44,7 +44,7 @@ class ItemMapper extends Mapper implements IMapper {
 
 		// prepare for the unexpected
 		if(!is_numeric($status)) {
-			die(); die(); die('If you can read this something is terribly wrong');
+			die('If you can read this something is terribly wrong');
 		}
 
 		// now im gonna slowly stick them in the query, be careful!

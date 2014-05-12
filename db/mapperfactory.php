@@ -33,10 +33,8 @@ class MapperFactory {
 		switch($this->dbType) {
 			case 'pgsql':
 				return new \OCA\News\Db\Postgres\ItemMapper($this->db);
-				break;
 			default:
 				return new ItemMapper($this->db);
-				break;
 		}
 	}
 

@@ -171,7 +171,7 @@ class FeedBusinessLayer extends BusinessLayer {
 			}
 
 			try {
-				list($feed, $items) = $this->feedFetcher->fetch(
+				list(, $items) = $this->feedFetcher->fetch(
 					$existingFeed->getUrl(), false);
 
 				// update number of articles on every feed update
