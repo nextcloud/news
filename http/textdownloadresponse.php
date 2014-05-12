@@ -20,8 +20,6 @@ namespace OCA\News\Http;
 class TextDownloadResponse extends DownloadResponse {
 
 	private $content;
-	private $filename;
-	private $contentType;
 
 	/**
 	 * Creates a response that prompts the user to download a file which
