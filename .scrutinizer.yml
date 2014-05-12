@@ -7,8 +7,8 @@ filter:
         - 'templates/*'
         - 'img/*'
         - 'css/*'
+        - 'bin/*'
         
 imports:
     - javascript
     - php
-    - python
