@@ -71,21 +71,6 @@ class ItemMapperTest extends \OCA\News\Utility\MapperTestUtility {
 	}
 
 
-	private function makeSelectQuery($prependTo){
-		return 'SELECT `items`.* FROM `*PREFIX*news_items` `items` '.
-			'JOIN `*PREFIX*news_feeds` `feeds` ' .
-				'ON `feeds`.`id` = `items`.`feed_id` '.
-				'AND `feeds`.`deleted_at` = 0 ' .
-				'AND `feeds`.`user_id` = ? ' .
-				$prependTo .
-			'LEFT OUTER JOIN `*PREFIX*news_folders` `folders` ' .
-				'ON `folders`.`id` = `feeds`.`folder_id` ' .
-			'WHERE `feeds`.`folder_id` = 0 ' .
-				'OR `folders`.`deleted_at` = 0 ' .
-			'ORDER BY `items`.`id` DESC';
-	}
-
-
 	public function testDeleteReadOlderThanThresholdDoesNotDeleteBelowThreshold(){
 		$status = StatusFlag::STARRED | StatusFlag::UNREAD;
 		$sql = 'SELECT COUNT(*) - `feeds`.`articles_per_update` AS `size`, ' .
