@@ -458,12 +458,6 @@ class FeedControllerTest extends ControllerTestUtility {
 
 
 	public function testUpdateReturnsJSONError(){
-		$result = array(
-			'feeds' => array(
-				new Feed()
-			)
-		);
-
 		$url = array(
 				'feedId' => 4
 		);
@@ -601,8 +595,6 @@ class FeedControllerTest extends ControllerTestUtility {
 
 
 	public function testImportCreatesNoAdditionalFeed() {
-		$feed = new Feed();
-
 		$post = array(
 			'json' => 'the json'
 		);

@@ -247,7 +247,6 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 	public function testUpdateCreatesNewEntry(){
 		$feed = new Feed();
 		$feed->setId(3);
-		$feed->getUrl('test');
 		$feed->setArticlesPerUpdate(1);
 		$feed->setUrlHash('yo');
 
@@ -303,7 +302,6 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 	public function testUpdateUpdatesArticlesPerFeedCount() {
 		$feed = new Feed();
 		$feed->setId(3);
-		$feed->getUrl('test');
 		$feed->setUrlHash('yo');
 
 		$existingFeed = new Feed();
@@ -335,7 +333,6 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 	public function testUpdateFails(){
 		$feed = new Feed();
 		$feed->setId(3);
-		$feed->getUrl('test');
 		$ex = new FetcherException('');
 
 		$this->feedMapper->expects($this->at(0))
@@ -363,7 +360,6 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 	public function testUpdateDoesNotFindEntry() {
 		$feed = new Feed();
 		$feed->setId(3);
-		$feed->getUrl('test');
 
 		$ex = new DoesNotExistException('');
 
@@ -381,7 +377,6 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 	public function testUpdateDoesNotFindUpdatedEntry() {
 		$feed = new Feed();
 		$feed->setId(3);
-		$feed->getUrl('test');
 		$feed->setArticlesPerUpdate(1);
 
 		$item = new Item();

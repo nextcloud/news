@@ -242,13 +242,11 @@ class FaviconFetcherTest extends \PHPUnit_Framework_TestCase {
 		$html = $this->getFaviconHTML($faviconPath);
 
 		$url = '';
-		$pageMock = $this->getFileMock($html);
-		$pngMock = $this->getFileMock($this->png);
 
 		$this->fileFactory->expects($this->never())
 			->method('getFile');
 
-		$favicon = $this->fetcher->fetch($url);
+		$this->fetcher->fetch($url);
 	}
 
 	public function testInvalidHostnameDoesNotOpenFile() {
@@ -256,13 +254,11 @@ class FaviconFetcherTest extends \PHPUnit_Framework_TestCase {
 		$html = $this->getFaviconHTML($faviconPath);
 
 		$url = "a.b_c.de";
-		$pageMock = $this->getFileMock($html);
-		$pngMock = $this->getFileMock($this->png);
 
 		$this->fileFactory->expects($this->never())
 			->method('getFile');
 
-		$favicon = $this->fetcher->fetch($url);
+		$this->fetcher->fetch($url);
 	}
 
 
@@ -271,13 +267,11 @@ class FaviconFetcherTest extends \PHPUnit_Framework_TestCase {
 		$html = $this->getFaviconHTML($faviconPath);
 
 		$url = "http://a.b_c.de";
-		$pageMock = $this->getFileMock($html);
-		$pngMock = $this->getFileMock($this->png);
 
 		$this->fileFactory->expects($this->never())
 			->method('getFile');
 
-		$favicon = $this->fetcher->fetch($url);
+		$this->fetcher->fetch($url);
 	}
 
 

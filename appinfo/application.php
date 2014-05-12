@@ -287,7 +287,7 @@ class Application extends App {
 			return new Logger($c->query('AppName'));
 		});
 
-		$container->registerService('Db', function($c) {
+		$container->registerService('Db', function() {
 			return new Db();
 		});
 
