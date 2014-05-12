@@ -23,11 +23,22 @@ class Fetcher {
 	}
 
 
+	/**
+	 * Add an additional fetcher
+	 * @param IFeedFetcher $fetcher the fetcher
+	 */
 	public function registerFetcher(IFeedFetcher $fetcher){
 		array_push($this->fetchers, $fetcher);
 	}
 
-
+	/**
+	 * Fetch a feed from remote
+	 * @param string url remote url of the feed
+	 * @param boolean $getFavicon if the favicon should also be fetched, defaults
+	 * to true
+	 * @throws FetcherException if simple pie fails
+	 * @return array an array containing the new feed and its items
+	 */
 	public function fetch($url, $getFavicon=true){
 		foreach($this->fetchers as $fetcher){
 			if($fetcher->canHandle($url)){

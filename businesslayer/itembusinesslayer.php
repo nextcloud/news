@@ -39,7 +39,7 @@ class ItemBusinessLayer extends BusinessLayer {
 	/**
 	 * Returns all new items
 	 * @param int $id the id of the feed, 0 for starred or all items
-	 * @param FeedType $type the type of the feed
+	 * @param int $type the type of the feed
 	 * @param int $updatedSince a timestamp with the last modification date
 	 * returns only items with a >= modified timestamp
 	 * @param boolean $showAll if unread items should also be returned
@@ -70,7 +70,7 @@ class ItemBusinessLayer extends BusinessLayer {
 	/**
 	 * Returns all items
 	 * @param int $id the id of the feed, 0 for starred or all items
-	 * @param FeedType $type the type of the feed
+	 * @param int $type the type of the feed
 	 * @param int $limit how many items should be returned
 	 * @param int $offset only items lower than this id are returned, 0 for no offset
 	 * @param boolean $showAll if unread items should also be returned

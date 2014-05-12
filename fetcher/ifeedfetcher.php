@@ -16,8 +16,9 @@ namespace OCA\News\Fetcher;
 interface IFeedFetcher {
 
 	/**
-	 * @param string url the url that the user entered in the add feed dialog
-	 * box
+	 * @param string url remote url of the feed
+	 * @param boolean $getFavicon if the favicon should also be fetched, defaults
+	 * to true
 	 * @throws FetcherException if the fetcher encounters a problem
 	 * @return array with the first element being the feed and the
 	 * second element being an array of items. Those items will be saved into
