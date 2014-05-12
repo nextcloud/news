@@ -15,7 +15,6 @@ namespace OCA\News\Controller;
 
 use \OCP\IRequest;
 use \OCP\AppFramework\Http;
-use \OCP\AppFramework\Http\JSONResponse;
 
 use \OCA\News\Utility\ControllerTestUtility;
 use \OCA\News\BusinessLayer\BusinessLayerException;
@@ -469,7 +468,6 @@ class FeedApiControllerTest extends ControllerTestUtility {
 			->method('findAllFromAllUsers')
 			->will($this->returnValue($feeds));
 		$response = $this->feedAPI->fromAllUsers();
-		$this->assertTrue($response instanceof JSONResponse);
 		$this->assertEquals('{"feeds":[{"id":1,"userId":"john"}]}', $response->render());
 	}
 
@@ -495,7 +493,6 @@ class FeedApiControllerTest extends ControllerTestUtility {
 			->with($this->equalTo($feedId), $this->equalTo($userId));
 
 		$response = $this->feedAPI->update();
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -510,7 +507,6 @@ class FeedApiControllerTest extends ControllerTestUtility {
 
 		$response = $this->feedAPI->update();
 
-		$this->assertTrue($response instanceof JSONResponse);
 
 	}
 

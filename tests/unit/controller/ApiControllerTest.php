@@ -14,8 +14,6 @@
 namespace OCA\News\Controller;
 
 use \OCP\IRequest;
-use \OCP\AppFramework\Http\JSONResponse;
-
 
 use \OCA\News\Utility\ControllerTestUtility;
 
@@ -87,7 +85,6 @@ class ApiControllerTest extends ControllerTestUtility {
 		$this->updater->expects($this->once())
 			->method('beforeUpdate');
 		$response = $this->newsAPI->beforeUpdate();
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -95,7 +92,6 @@ class ApiControllerTest extends ControllerTestUtility {
 		$this->updater->expects($this->once())
 			->method('afterUpdate');
 		$response = $this->newsAPI->afterUpdate();
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 

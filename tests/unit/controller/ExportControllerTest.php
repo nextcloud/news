@@ -15,7 +15,6 @@ namespace OCA\News\Controller;
 
 use \OCP\IRequest;
 use \OCP\AppFramework\Http;
-use \OCP\AppFramework\Http\JSONResponse;
 
 use \OCA\News\Http\TextDownloadResponse;
 use \OCA\News\Utility\ControllerTestUtility;
@@ -127,7 +126,6 @@ class ExportControllerTest extends ControllerTestUtility {
 
 		$return = $this->controller->articles();
 		$headers = $return->getHeaders();
-		$this->assertTrue($return instanceof JSONResponse);
 		$this->assertEquals('attachment; filename="articles.json"', $headers ['Content-Disposition']);
 
 		$this->assertEquals('[{"guid":null,"url":null,"title":null,' . 

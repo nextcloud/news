@@ -15,7 +15,6 @@ namespace OCA\News\Controller;
 
 use \OCP\IRequest;
 use \OCP\AppFramework\Http;
-use \OCP\AppFramework\Http\JSONResponse;
 
 use \OCA\News\Utility\ControllerTestUtility;
 use \OCA\News\Db\Feed;
@@ -153,7 +152,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		$response = $this->controller->index();
 
 		$this->assertEquals($result, $response->getData());
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -181,7 +179,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		$response = $this->controller->index();
 
 		$this->assertEquals($result, $response->getData());
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -217,7 +214,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		$response = $this->controller->active();
 
 		$this->assertEquals($result, $response->getData());
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -241,7 +237,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		$response = $this->controller->active();
 
 		$this->assertEquals($result, $response->getData());
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -265,7 +260,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		$response = $this->controller->active();
 
 		$this->assertEquals($result, $response->getData());
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -284,7 +278,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		$response = $this->controller->active();
 
 		$this->assertEquals($result, $response->getData());
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -317,7 +310,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		$response = $this->controller->create();
 
 		$this->assertEquals($result, $response->getData());
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -350,7 +342,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		$response = $this->controller->create();
 
 		$this->assertEquals($result, $response->getData());
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -368,7 +359,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		$params = json_decode($response->render(), true);
 
 		$this->assertEquals($msg, $params['msg']);
-		$this->assertTrue($response instanceof JSONResponse);
 		$this->assertEquals($response->getStatus(), Http::STATUS_UNPROCESSABLE_ENTITY);
 	}
 
@@ -387,7 +377,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		$params = json_decode($response->render(), true);
 
 		$this->assertEquals($msg, $params['msg']);
-		$this->assertTrue($response instanceof JSONResponse);
 		$this->assertEquals($response->getStatus(), Http::STATUS_CONFLICT);
 	}
 
@@ -403,7 +392,6 @@ class FeedControllerTest extends ControllerTestUtility {
 			->with($this->equalTo($url['feedId']));
 
 		$response = $this->controller->delete();
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -422,7 +410,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		$params = json_decode($response->render(), true);
 
 		$this->assertEquals($msg, $params['msg']);
-		$this->assertTrue($response instanceof JSONResponse);
 		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
 	}
 
@@ -453,7 +440,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		$response = $this->controller->update();
 
 		$this->assertEquals($result, $response->getData());
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -472,7 +458,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		$render = $response->render();
 
 		$this->assertEquals('{"msg":"NO!"}', $render);
-		$this->assertTrue($response instanceof JSONResponse);
 		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
 	}
 
@@ -494,7 +479,6 @@ class FeedControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->move();
 
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -516,7 +500,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		$params = json_decode($response->render(), true);
 
 		$this->assertEquals($msg, $params['msg']);
-		$this->assertTrue($response instanceof JSONResponse);
 		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
 	}
 
@@ -538,7 +521,6 @@ class FeedControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->rename();
 
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -565,7 +547,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		$params = $response->getData();
 
 		$this->assertEquals($msg, $params['msg']);
-		$this->assertTrue($response instanceof JSONResponse);
 		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
 	}
 
@@ -590,7 +571,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		$response = $this->controller->import();
 
 		$this->assertEquals($expected, $response->getData());
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -610,7 +590,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		$response = $this->controller->import();
 
 		$this->assertEquals($expected, $response->getData());
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -636,7 +615,6 @@ class FeedControllerTest extends ControllerTestUtility {
 			->with($url['feedId'], $post['highestItemId'], $this->user);
 
 		$response = $this->controller->read();
-		$this->assertTrue($response instanceof JSONResponse);
 		$this->assertEquals($expected, $response->getData());
 	}
 
@@ -652,7 +630,6 @@ class FeedControllerTest extends ControllerTestUtility {
 			->with($this->equalTo($url['feedId']));
 
 		$response = $this->controller->restore();
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -671,7 +648,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		$params = json_decode($response->render(), true);
 
 		$this->assertEquals($msg, $params['msg']);
-		$this->assertTrue($response instanceof JSONResponse);
 		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
 	}
 

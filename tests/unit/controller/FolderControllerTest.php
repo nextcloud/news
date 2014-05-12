@@ -15,7 +15,6 @@ namespace OCA\News\Controller;
 
 use \OCP\IRequest;
 use \OCP\AppFramework\Http;
-use \OCP\AppFramework\Http\JSONResponse;
 
 use \OCA\News\Utility\ControllerTestUtility;
 use \OCA\News\Db\Folder;
@@ -136,7 +135,6 @@ class FolderControllerTest extends ControllerTestUtility {
 			'folders' => $return
 		);
 		$this->assertEquals($expected, $response->getData());
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -151,7 +149,6 @@ class FolderControllerTest extends ControllerTestUtility {
 		
 		$response = $this->controller->open();
 
-		$this->assertTrue($response instanceof JSONResponse);	
 	}
 
 
@@ -168,7 +165,6 @@ class FolderControllerTest extends ControllerTestUtility {
 		$params = json_decode($response->render(), true);
 
 		$this->assertEquals($this->msg, $params['msg']);
-		$this->assertTrue($response instanceof JSONResponse);
 		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
 	}
 
@@ -184,7 +180,6 @@ class FolderControllerTest extends ControllerTestUtility {
 		
 		$response = $this->controller->collapse();
 
-		$this->assertTrue($response instanceof JSONResponse);	
 	}
 
 
@@ -201,7 +196,6 @@ class FolderControllerTest extends ControllerTestUtility {
 		$params = json_decode($response->render(), true);
 
 		$this->assertEquals($this->msg, $params['msg']);
-		$this->assertTrue($response instanceof JSONResponse);
 		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
 	}
 
@@ -225,7 +219,6 @@ class FolderControllerTest extends ControllerTestUtility {
 		$response = $this->controller->create();
 
 		$this->assertEquals($result, $response->getData());
-		$this->assertTrue($response instanceof JSONResponse);	
 	}
 
 
@@ -244,7 +237,6 @@ class FolderControllerTest extends ControllerTestUtility {
 
 		$this->assertEquals($response->getStatus(), Http::STATUS_UNPROCESSABLE_ENTITY);
 		$this->assertEquals($msg, $params['msg']);
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -263,7 +255,6 @@ class FolderControllerTest extends ControllerTestUtility {
 
 		$this->assertEquals($response->getStatus(), Http::STATUS_CONFLICT);
 		$this->assertEquals($msg, $params['msg']);
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -278,7 +269,6 @@ class FolderControllerTest extends ControllerTestUtility {
 		
 		$response = $this->controller->delete();
 
-		$this->assertTrue($response instanceof JSONResponse);	
 	}
 
 
@@ -295,7 +285,6 @@ class FolderControllerTest extends ControllerTestUtility {
 		$params = json_decode($response->render(), true);
 
 		$this->assertEquals($this->msg, $params['msg']);
-		$this->assertTrue($response instanceof JSONResponse);
 		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
 	}
 
@@ -318,7 +307,6 @@ class FolderControllerTest extends ControllerTestUtility {
 		$response = $this->controller->rename();
 
 		$this->assertEquals($result, $response->getData());
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -334,7 +322,6 @@ class FolderControllerTest extends ControllerTestUtility {
 
 		$this->assertEquals($response->getStatus(), Http::STATUS_UNPROCESSABLE_ENTITY);
 		$this->assertEquals($msg, $params['msg']);
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -350,7 +337,6 @@ class FolderControllerTest extends ControllerTestUtility {
 
 		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
 		$this->assertEquals($msg, $params['msg']);
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -366,7 +352,6 @@ class FolderControllerTest extends ControllerTestUtility {
 
 		$this->assertEquals($response->getStatus(), Http::STATUS_CONFLICT);
 		$this->assertEquals($msg, $params['msg']);
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 
@@ -395,7 +380,6 @@ class FolderControllerTest extends ControllerTestUtility {
 			->will($this->returnValue(array($feed)));
 
 		$response = $this->controller->read();
-		$this->assertTrue($response instanceof JSONResponse);
 		$this->assertEquals($expected, $response->getData());
 	}
 
@@ -411,7 +395,6 @@ class FolderControllerTest extends ControllerTestUtility {
 		
 		$response = $this->controller->restore();
 
-		$this->assertTrue($response instanceof JSONResponse);	
 	}
 
 
@@ -429,7 +412,6 @@ class FolderControllerTest extends ControllerTestUtility {
 
 		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
 		$this->assertEquals($this->msg, $params['msg']);
-		$this->assertTrue($response instanceof JSONResponse);
 	}
 
 }
