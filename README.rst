@@ -1,6 +1,6 @@
 README
 ======
-|travis-ci|_ |scrutinizer|_
+|travis-ci|_ |scrutinizer|_ |coverage|_
 
 The News app is a an RSS/Atom feed aggregator. It offers a `RESTful API <https://github.com/owncloud/news/wiki/API-1.2>`_ for app developers. The source code is `available on GitHub <https://github.com/owncloud/news>`_
 
@@ -11,6 +11,9 @@ For further developer and user documentation please visit `the wiki <https://git
 
 .. |scrutinizer| image:: https://scrutinizer-ci.com/g/owncloud/news/badges/quality-score.png?b=master
 .. _scrutinizer: https://scrutinizer-ci.com/g/owncloud/news
+
+.. |coverage| image:: https://scrutinizer-ci.com/g/owncloud/news/badges/coverage.png?b=master
+.. _coverage: https://scrutinizer-ci.com/g/owncloud/news
 
 
 
