@@ -20,9 +20,8 @@ interface IFeedFetcher {
 	 * @param boolean $getFavicon if the favicon should also be fetched, defaults
 	 * to true
 	 * @throws FetcherException if the fetcher encounters a problem
-	 * @return array with the first element being the feed and the
-	 * second element being an array of items. Those items will be saved into
-	 * into the database
+	 * @return array(\OCA\News\Db\Feed, \OCA\News\Db\Item[]) an array containing
+	 * the new feed and its items
 	 */
 	function fetch($url, $getFavicon=true);
 

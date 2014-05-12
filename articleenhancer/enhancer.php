@@ -18,6 +18,10 @@ class Enhancer {
 
 	private $enhancers = array();
 
+	/**
+	 * @param string $feedUrl
+	 * @param ArticleEnhancer $enhancer
+	 */
 	public function registerEnhancer($feedUrl, ArticleEnhancer $enhancer){
 		$feedUrl = $this->removeTrailingSlash($feedUrl);
 
@@ -30,6 +34,10 @@ class Enhancer {
 	}
 
 
+	/**
+	 * @param \OCA\News\Db\Item $item
+	 * @param string $feedUrl
+	 */
 	public function enhance($item, $feedUrl){
 		$feedUrl = $this->removeTrailingSlash($feedUrl);
 
@@ -41,6 +49,9 @@ class Enhancer {
 	}
 
 
+	/**
+	 * @param string $url
+	 */
 	private function removeTrailingSlash($url) {
 		if($url[strlen($url)-1] === '/') {
 			return substr($url, 0, -1);
