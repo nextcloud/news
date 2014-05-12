@@ -33,7 +33,7 @@ class Fetcher {
 
 	/**
 	 * Fetch a feed from remote
-	 * @param string url remote url of the feed
+	 * @param string $url remote url of the feed
 	 * @param boolean $getFavicon if the favicon should also be fetched, defaults
 	 * to true
 	 * @throws FetcherException if simple pie fails
