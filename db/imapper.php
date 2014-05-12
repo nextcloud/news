@@ -14,5 +14,9 @@
 namespace OCA\News\Db;
 
 interface IMapper {
+    /**
+     * @param int $id the id of the feed
+     * @param string $userId the id of the user
+     */
 	public function find($id, $userId);
 }
