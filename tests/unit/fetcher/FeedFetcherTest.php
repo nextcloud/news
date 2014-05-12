@@ -400,7 +400,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 
 		$item = $this->createItem(false, true);
 		$this->expectCore('get_items', array($this->item));
-		$result = $this->fetcher->fetch($this->url /*, true*/);
+		$result = $this->fetcher->fetch($this->url);
 
 		$this->assertEquals(array($feed, array($item)), $result);
 	}

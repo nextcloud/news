@@ -16,7 +16,7 @@ namespace OCA\News\Fetcher;
 interface IFeedFetcher {
 
 	/**
-	 * @param string url remote url of the feed
+	 * @param string $url remote url of the feed
 	 * @param boolean $getFavicon if the favicon should also be fetched, defaults
 	 * to true
 	 * @throws FetcherException if the fetcher encounters a problem
