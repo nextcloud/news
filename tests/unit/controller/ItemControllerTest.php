@@ -123,8 +123,7 @@ class ItemControllerTest extends ControllerTestUtility {
 			->method('read')
 			->with($url['itemId'], true, $this->user);
 
-
-		$result = $this->controller->read();
+		$this->controller->read();
 	}
 
 
@@ -198,7 +197,7 @@ class ItemControllerTest extends ControllerTestUtility {
 				$this->equalTo(true), 
 				$this->equalTo($this->user));
 
-		$response = $this->controller->star();
+		$this->controller->star();
 	}
 
 
@@ -237,7 +236,7 @@ class ItemControllerTest extends ControllerTestUtility {
 				$this->equalTo(false), 
 				$this->equalTo($this->user));
 
-		$response = $this->controller->unstar();
+		$this->controller->unstar();
 	}
 
 
