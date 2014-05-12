@@ -23,7 +23,7 @@ use \OCA\News\Db\StatusFlag;
 class ItemMapper extends \OCA\News\Db\ItemMapper {
 
 	public function __construct(Db $db){
-		parent::__construct($db, 'news_items', '\OCA\News\Db\Item');
+		parent::__construct($db);
 	}
 
 
