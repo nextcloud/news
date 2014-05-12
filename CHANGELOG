@@ -1,3 +1,6 @@
+owncloud-news (2.003)
+* Use correct url for folder and feed api update methods
+
 owncloud-news (2.002)
 * Better check for news app dependencies
 * Security: Don't send CORS Allow-Credentials header to prevent CSRF
