@@ -58,7 +58,7 @@ abstract class ControllerTestUtility extends \PHPUnit_Framework_TestCase {
 	 * @param Response $response the response which we want to test for headers
 	 */
 	protected function assertHeaders(array $expected=array(), Response $response){
-		$headers = $reponse->getHeaders();
+		$headers = $response->getHeaders();
 		foreach($expected as $header){
 			$this->assertTrue(in_array($header, $headers));
 		}

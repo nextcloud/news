@@ -21,6 +21,7 @@ use \OCA\News\Core\Db;
 class MapperFactory {
 
 	private $dbType;
+	private $db;
 
 	public function __construct($dbType, Db $db) {
 		$this->dbType = $dbType;

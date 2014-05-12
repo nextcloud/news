@@ -296,8 +296,7 @@ class ItemBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->method('deleteReadOlderThanThreshold')
 			->with($this->equalTo($this->threshold));
 
-		$result = $this->itemBusinessLayer->autoPurgeOld();
-
+		$this->itemBusinessLayer->autoPurgeOld();
 	}
 
 

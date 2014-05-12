@@ -54,7 +54,7 @@ class BusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->with($this->equalTo($id), $this->equalTo($user))
 			->will($this->returnValue($folder));
 
-		$result = $this->newsBusinessLayer->delete($id, $user);
+		$this->newsBusinessLayer->delete($id, $user);
 	}
 
 

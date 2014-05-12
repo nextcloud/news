@@ -148,7 +148,7 @@ class ItemMapperTest extends \OCA\News\Utility\MapperTestUtility {
 		$this->setMapperResult($sql1, $params1, array($row));
 		$this->setMapperResult($sql2, $params2);
 
-		$result = $this->mapper->deleteReadOlderThanThreshold($threshold);
+		$this->mapper->deleteReadOlderThanThreshold($threshold);
 	}
 
 

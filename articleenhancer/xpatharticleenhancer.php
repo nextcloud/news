@@ -25,6 +25,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 	private $fileFactory;
 	private $maximumTimeout;
 	private $config;
+	private $regexXPathPair;
 
 
 	/**
