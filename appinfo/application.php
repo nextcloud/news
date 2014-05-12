@@ -138,8 +138,7 @@ class Application extends App {
 				$c->query('AppName'), 
 				$c->query('Request'), 
 				$c->query('Updater'),
-				$c->query('CoreConfig'),
-				$c->query('UserId')
+				$c->query('CoreConfig')
 			);
 		});
 
@@ -280,7 +279,7 @@ class Application extends App {
 			return $c->query('ServerContainer')->getL10N($c->query('AppName'));
 		});
 
-		$container->registerService('UserId', function($c) {
+		$container->registerService('UserId', function() {
 			return \OCP\User::getUser();
 		});
 
@@ -304,7 +303,7 @@ class Application extends App {
 		/**
 		 * Utility
 		 */
-		$container->registerService('ConfigView', function($c) {
+		$container->registerService('ConfigView', function() {
 			$view = new View('/news/config');
 			if (!$view->file_exists('')) {
 				$view->mkdir('');
@@ -400,11 +399,11 @@ class Application extends App {
 			);
 		});
 
-		$container->registerService('StatusFlag', function($c) {
+		$container->registerService('StatusFlag', function() {
 			return new StatusFlag();
 		});
 
-		$container->registerService('OPMLExporter', function($c) {
+		$container->registerService('OPMLExporter', function() {
 			return new OPMLExporter();
 		});
 
@@ -416,7 +415,7 @@ class Application extends App {
 			);
 		});
 
-		$container->registerService('SimplePieAPIFactory', function($c) {
+		$container->registerService('SimplePieAPIFactory', function() {
 			return new SimplePieAPIFactory();
 		});
 
