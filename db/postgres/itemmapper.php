@@ -44,7 +44,7 @@ class ItemMapper extends \OCA\News\Db\ItemMapper {
 		$params = array($status, $threshold);
 		$result = $this->execute($sql, $params);
 
-		while($row = $result->fetchRow()) {
+		while($row = $result->fetch()) {
 
 			$size = (int) $row['size'];
 			$limit = $size - $threshold;

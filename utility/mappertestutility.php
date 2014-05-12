@@ -42,7 +42,7 @@ abstract class MapperTestUtility extends \PHPUnit_Framework_TestCase {
 			->getMock();
 
 		$this->query = $this->getMock('Query', array('execute', 'bindValue'));
-		$this->pdoResult = $this->getMock('Result', array('fetchRow'));
+		$this->pdoResult = $this->getMock('Result', array('fetch'));
 		$this->queryAt = 0;
 		$this->prepareAt = 0;
 		$this->iterators = array();
@@ -68,7 +68,7 @@ abstract class MapperTestUtility extends \PHPUnit_Framework_TestCase {
 		$fetchAt = $this->fetchAt;
 
 		$this->pdoResult->expects($this->any())
-			->method('fetchRow')
+			->method('fetch')
 			->will($this->returnCallback(
 				function() use ($iterators, $fetchAt){
 					$iterator = $iterators[$fetchAt];

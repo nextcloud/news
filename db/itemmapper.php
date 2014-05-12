@@ -80,7 +80,7 @@ class ItemMapper extends Mapper implements IMapper {
 
 		$params = array($userId);
 
-		$result = $this->execute($sql, $params)->fetchRow();
+		$result = $this->execute($sql, $params)->fetch();
 
 		return (int) $result['size'];
 	}
@@ -230,7 +230,7 @@ class ItemMapper extends Mapper implements IMapper {
 		$params = array($status, $threshold);
 		$result = $this->execute($sql, $params);
 
-		while($row = $result->fetchRow()) {
+		while($row = $result->fetch()) {
 
 			$size = (int) $row['size'];
 			$limit = $size - $threshold;
