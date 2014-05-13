@@ -15,7 +15,7 @@ namespace OCA\News\Db;
 
 use \OCP\IDb;
 use \OCP\AppFramework\Db\Mapper;
-
+use \OCP\AppFramework\Db\Entity;
 
 class FolderMapper extends Mapper implements IMapper {
 

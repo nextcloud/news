@@ -13,11 +13,9 @@
 
 namespace OCA\News\Controller;
 
-use \OCP\IRequest;
 use \OCP\AppFramework\Http;
 
 use \OCA\News\Http\TextDownloadResponse;
-use \OCA\News\Utility\ControllerTestUtility;
 use \OCA\News\Utility\OPMLExporter;
 use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
@@ -25,7 +23,7 @@ use \OCA\News\Db\Feed;
 require_once(__DIR__ . "/../../classloader.php");
 
 
-class ExportControllerTest extends ControllerTestUtility {
+class ExportControllerTest extends \PHPUnit_Framework_TestCase {
 
 	private $appName;
 	private $request;
@@ -51,23 +49,13 @@ class ExportControllerTest extends ControllerTestUtility {
 		$this->folderBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\FolderBusinessLayer')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->request = $this->getRequest();
+		$this->request = $this->getMockBuilder('\OCP\IRequest')
+			->disableOriginalConstructor()
+			->getMock();
 		$this->opmlExporter = new OPMLExporter();
 		$this->controller = new ExportController($this->appName, $this->request,
 			$this->feedBusinessLayer, $this->folderBusinessLayer, 
 			$this->itemBusinessLayer, $this->opmlExporter, $this->user);
-	}
-
-
-	public function testOpmlAnnotations(){
-		$annotations = array('NoAdminRequired', 'NoCSRFRequired');
-		$this->assertAnnotations($this->controller, 'opml', $annotations);
-	}
-
-
-	public function testArticlesAnnotations(){
-		$annotations = array('NoAdminRequired', 'NoCSRFRequired');
-		$this->assertAnnotations($this->controller, 'articles', $annotations);
 	}
 
 

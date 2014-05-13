@@ -163,7 +163,6 @@ class Item extends Entity implements IAPI {
 			$item->setUnstarred();
 		}
 		
-		$item->setFeedId(null);
 		return $item;
 	}
 

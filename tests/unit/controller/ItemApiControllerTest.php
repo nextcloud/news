@@ -13,17 +13,15 @@
 
 namespace OCA\News\Controller;
 
-use \OCP\IRequest;
 use \OCP\AppFramework\Http;
 
-use \OCA\News\Utility\ControllerTestUtility;
 use \OCA\News\BusinessLayer\BusinessLayerException;
 use \OCA\News\Db\Item;
 
 require_once(__DIR__ . "/../../classloader.php");
 
 
-class ItemApiControllerTest extends ControllerTestUtility {
+class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 	private $itemBusinessLayer;
 	private $itemAPI;
@@ -53,83 +51,9 @@ class ItemApiControllerTest extends ControllerTestUtility {
 	}
 
 
-	private function assertDefaultAnnotations($methodName){
-		$annotations = array('NoAdminRequired', 'NoCSRFRequired', 'API');
-		$this->assertAnnotations($this->itemAPI, $methodName, $annotations);
-	}
-
-
-	public function testIndexAnnotations(){
-		$this->assertDefaultAnnotations('index');
-	}
-
-
-	public function testUpdatedAnnotations(){
-		$this->assertDefaultAnnotations('updated');
-	}
-
-
-	public function testReadAllAnnotations(){
-		$this->assertDefaultAnnotations('readAll');
-	}
-
-
-	public function testReadAnnotations(){
-		$this->assertDefaultAnnotations('read');
-	}
-
-
-	public function testStarAnnotations(){
-		$this->assertDefaultAnnotations('star');
-	}
-
-
-	public function testUnreadAnnotations(){
-		$this->assertDefaultAnnotations('unread');
-	}
-
-
-	public function testUnstarAnnotations(){
-		$this->assertDefaultAnnotations('unstar');
-	}
-
-
-	public function testReadMultipleAnnotations(){
-		$this->assertDefaultAnnotations('readMultiple');
-	}
-
-
-	public function testStarMultipleAnnotations(){
-		$this->assertDefaultAnnotations('starMultiple');
-	}
-
-
-	public function testUnreadMultipleAnnotations(){
-		$this->assertDefaultAnnotations('unreadMultiple');
-	}
-
-
-	public function testUnstarMultipleAnnotations(){
-		$this->assertDefaultAnnotations('unstarMultiple');
-	}
-
-
 	public function testIndex() {
 		$items = array(
 			new Item()
-		);
-		$request = $this->getRequest(array('params' => array(
-			'batchSize' => 30,
-			'offset' => 20,
-			'type' => 1,
-			'id' => 2,
-			'getRead' => 'false'
-		)));
-		$this->itemAPI = new ItemApiController(
-			$this->appName,
-			$request,
-			$this->itemBusinessLayer,
-			$this->user
 		);
 
 		$this->itemBusinessLayer->expects($this->once())
@@ -144,29 +68,15 @@ class ItemApiControllerTest extends ControllerTestUtility {
 			)
 			->will($this->returnValue($items));
 
-		$response = $this->itemAPI->index();
+		$response = $this->itemAPI->index(1, 2, false, 30, 20);
 
-		$this->assertEquals(array(
-			'items' => array($items[0]->toAPI())
-		), $response->getData());
+		$this->assertEquals($items, $response);
 	}
 
 
 	public function testIndexDefaultBatchSize() {
 		$items = array(
 			new Item()
-		);
-		$request = $this->getRequest(array('params' => array(
-			'offset' => 20,
-			'type' => 1,
-			'id' => 2,
-			'getRead' => 'false'
-		)));
-		$this->itemAPI = new ItemApiController(
-			$this->appName,
-			$request,
-			$this->itemBusinessLayer,
-			$this->user
 		);
 
 		$this->itemBusinessLayer->expects($this->once())
@@ -175,34 +85,21 @@ class ItemApiControllerTest extends ControllerTestUtility {
 				$this->equalTo(2),
 				$this->equalTo(1),
 				$this->equalTo(20),
-				$this->equalTo(20),
+				$this->equalTo(0),
 				$this->equalTo(false),
 				$this->equalTo($this->user)
 			)
 			->will($this->returnValue($items));
 
-		$response = $this->itemAPI->index();
+		$response = $this->itemAPI->index(1, 2, false);
 
-		$this->assertEquals(array(
-			'items' => array($items[0]->toAPI())
-		), $response->getData());
+		$this->assertEquals($items, $response);
 	}
 
 
 	public function testUpdated() {
 		$items = array(
 			new Item()
-		);
-		$request = $this->getRequest(array('params' => array(
-			'lastModified' => 30,
-			'type' => 1,
-			'id' => 2,
-		)));
-		$this->itemAPI = new ItemApiController(
-			$this->appName,
-			$request,
-			$this->itemBusinessLayer,
-			$this->user
 		);
 
 		$this->itemBusinessLayer->expects($this->once())
@@ -216,25 +113,13 @@ class ItemApiControllerTest extends ControllerTestUtility {
 			)
 			->will($this->returnValue($items));
 
-		$response = $this->itemAPI->updated();
+		$response = $this->itemAPI->updated(1, 2, 30);
 
-		$this->assertEquals(array(
-			'items' => array($items[0]->toAPI())
-		), $response->getData());
+		$this->assertEquals($items, $response);
 	}
 
 
 	public function testRead() {
-		$request = $this->getRequest(array('urlParams' => array(
-			'itemId' => 2
-		)));
-		$this->itemAPI = new ItemApiController(
-			$this->appName,
-			$request,
-			$this->itemBusinessLayer,
-			$this->user
-		);
-
 		$this->itemBusinessLayer->expects($this->once())
 			->method('read')
 			->with(
@@ -243,29 +128,16 @@ class ItemApiControllerTest extends ControllerTestUtility {
 				$this->equalTo($this->user)
 			);
 
-		$response = $this->itemAPI->read();
-
-		$this->assertEmpty($response->getData());
-		$this->assertEquals(Http::STATUS_OK, $response->getStatus());
+		$this->itemAPI->read(2);
 	}
 
 
 	public function testReadDoesNotExist() {
-		$request = $this->getRequest(array('urlParams' => array(
-			'itemId' => 2
-		)));
-		$this->itemAPI = new ItemApiController(
-			$this->appName,
-			$request,
-			$this->itemBusinessLayer,
-			$this->user
-		);
-
 		$this->itemBusinessLayer->expects($this->once())
 			->method('read')
 			->will($this->throwException(new BusinessLayerException($this->msg)));
 
-		$response = $this->itemAPI->read();
+		$response = $this->itemAPI->read(2);
 
 		$data = $response->getData();
 		$this->assertEquals($this->msg, $data['message']);
@@ -274,16 +146,6 @@ class ItemApiControllerTest extends ControllerTestUtility {
 
 
 	public function testUnread() {
-		$request = $this->getRequest(array('urlParams' => array(
-			'itemId' => 2
-		)));
-		$this->itemAPI = new ItemApiController(
-			$this->appName,
-			$request,
-			$this->itemBusinessLayer,
-			$this->user
-		);
-
 		$this->itemBusinessLayer->expects($this->once())
 			->method('read')
 			->with(
@@ -292,29 +154,16 @@ class ItemApiControllerTest extends ControllerTestUtility {
 				$this->equalTo($this->user)
 			);
 
-		$response = $this->itemAPI->unread();
-
-		$this->assertEmpty($response->getData());
-		$this->assertEquals(Http::STATUS_OK, $response->getStatus());
+		$this->itemAPI->unread(2);
 	}
 
 
 	public function testUnreadDoesNotExist() {
-		$request = $this->getRequest(array('urlParams' => array(
-			'itemId' => 2
-		)));
-		$this->itemAPI = new ItemApiController(
-			$this->appName,
-			$request,
-			$this->itemBusinessLayer,
-			$this->user
-		);
-
 		$this->itemBusinessLayer->expects($this->once())
 			->method('read')
 			->will($this->throwException(new BusinessLayerException($this->msg)));
 
-		$response = $this->itemAPI->unread();
+		$response = $this->itemAPI->unread(2);
 
 		$data = $response->getData();
 		$this->assertEquals($this->msg, $data['message']);
@@ -323,17 +172,6 @@ class ItemApiControllerTest extends ControllerTestUtility {
 
 
 	public function testStar() {
-		$request = $this->getRequest(array('urlParams' => array(
-			'feedId' => 2,
-			'guidHash' => 'hash'
-		)));
-		$this->itemAPI = new ItemApiController(
-			$this->appName,
-			$request,
-			$this->itemBusinessLayer,
-			$this->user
-		);
-
 		$this->itemBusinessLayer->expects($this->once())
 			->method('star')
 			->with(
@@ -343,29 +181,16 @@ class ItemApiControllerTest extends ControllerTestUtility {
 				$this->equalTo($this->user)
 			);
 
-		$response = $this->itemAPI->star();
-
-		$this->assertEquals(Http::STATUS_OK, $response->getStatus());
+		$this->itemAPI->star(2, 'hash');
 	}
 
 
 	public function testStarDoesNotExist() {
-		$request = $this->getRequest(array('urlParams' => array(
-			'feedId' => 2,
-			'guidHash' => 'hash'
-		)));
-		$this->itemAPI = new ItemApiController(
-			$this->appName,
-			$request,
-			$this->itemBusinessLayer,
-			$this->user
-		);
-
 		$this->itemBusinessLayer->expects($this->once())
 			->method('star')
 			->will($this->throwException(new BusinessLayerException($this->msg)));
 
-		$response = $this->itemAPI->star();
+		$response = $this->itemAPI->star(2, 'test');
 
 		$data = $response->getData();
 		$this->assertEquals($this->msg, $data['message']);
@@ -374,17 +199,6 @@ class ItemApiControllerTest extends ControllerTestUtility {
 
 
 	public function testUnstar() {
-		$request = $this->getRequest(array('urlParams' => array(
-			'feedId' => 2,
-			'guidHash' => 'hash'
-		)));
-		$this->itemAPI = new ItemApiController(
-			$this->appName,
-			$request,
-			$this->itemBusinessLayer,
-			$this->user
-		);
-
 		$this->itemBusinessLayer->expects($this->once())
 			->method('star')
 			->with(
@@ -394,30 +208,16 @@ class ItemApiControllerTest extends ControllerTestUtility {
 				$this->equalTo($this->user)
 			);
 
-		$response = $this->itemAPI->unstar();
-
-		$this->assertEmpty($response->getData());
-		$this->assertEquals(Http::STATUS_OK, $response->getStatus());
+		$this->itemAPI->unstar(2, 'hash');
 	}
 
 
 	public function testUnstarDoesNotExist() {
-		$request = $this->getRequest(array('urlParams' => array(
-			'feedId' => 2,
-			'guidHash' => 'hash'
-		)));
-		$this->itemAPI = new ItemApiController(
-			$this->appName,
-			$request,
-			$this->itemBusinessLayer,
-			$this->user
-		);
-
 		$this->itemBusinessLayer->expects($this->once())
 			->method('star')
 			->will($this->throwException(new BusinessLayerException($this->msg)));
 
-		$response = $this->itemAPI->unstar();
+		$response = $this->itemAPI->unstar(2, 'test');
 
 		$data = $response->getData();
 		$this->assertEquals($this->msg, $data['message']);
@@ -426,43 +226,18 @@ class ItemApiControllerTest extends ControllerTestUtility {
 
 
 	public function testReadAll() {
-		$request = $this->getRequest(array(
-			'params' => array(
-				'newestItemId' => 30,
-			)
-		));
-		$this->itemAPI = new ItemApiController(
-			$this->appName,
-			$request,
-			$this->itemBusinessLayer,
-			$this->user
-		);
-
 		$this->itemBusinessLayer->expects($this->once())
 			->method('readAll')
 			->with(
 				$this->equalTo(30),
 				$this->equalTo($this->user));
 
-		$response = $this->itemAPI->readAll();
-
-		$this->assertEmpty($response->getData());
-		$this->assertEquals(Http::STATUS_OK, $response->getStatus());
+		$this->itemAPI->readAll(30);
 	}
 
 
 
 	public function testReadMultiple() {
-		$request = $this->getRequest(array('params' => array(
-			'items' => array(2, 4)
-		)));
-		$this->itemAPI = new ItemApiController(
-			$this->appName,
-			$request,
-			$this->itemBusinessLayer,
-			$this->user
-		);
-
 		$this->itemBusinessLayer->expects($this->at(0))
 			->method('read')
 			->with($this->equalTo(2),
@@ -473,22 +248,11 @@ class ItemApiControllerTest extends ControllerTestUtility {
 			->with($this->equalTo(4),
 				$this->equalTo(true),
 				$this->equalTo($this->user));
-		$response = $this->itemAPI->readMultiple();
-		$this->assertEquals(Http::STATUS_OK, $response->getStatus());
+		$this->itemAPI->readMultiple(array(2, 4));
 	}
 
 
 	public function testReadMultipleDoesntCareAboutException() {
-		$request = $this->getRequest(array('params' => array(
-			'items' => array(2, 4)
-		)));
-		$this->itemAPI = new ItemApiController(
-			$this->appName,
-			$request,
-			$this->itemBusinessLayer,
-			$this->user
-		);
-
 		$this->itemBusinessLayer->expects($this->at(0))
 			->method('read')
 			->will($this->throwException(new BusinessLayerException('')));
@@ -497,21 +261,11 @@ class ItemApiControllerTest extends ControllerTestUtility {
 			->with($this->equalTo(4),
 				$this->equalTo(true),
 				$this->equalTo($this->user));
-		$this->itemAPI->readMultiple();
+		$this->itemAPI->readMultiple(array(2, 4));
 	}
 
 
 	public function testUnreadMultiple() {
-		$request = $this->getRequest(array('params' => array(
-			'items' => array(2, 4)
-		)));
-		$this->itemAPI = new ItemApiController(
-			$this->appName,
-			$request,
-			$this->itemBusinessLayer,
-			$this->user
-		);
-
 		$this->itemBusinessLayer->expects($this->at(0))
 			->method('read')
 			->with($this->equalTo(2),
@@ -522,30 +276,21 @@ class ItemApiControllerTest extends ControllerTestUtility {
 			->with($this->equalTo(4),
 				$this->equalTo(false),
 				$this->equalTo($this->user));
-		$response = $this->itemAPI->unreadMultiple();
-		$this->assertEquals(Http::STATUS_OK, $response->getStatus());
+		$this->itemAPI->unreadMultiple(array(2, 4));
 	}
 
 
 	public function testStarMultiple() {
-		$request = $this->getRequest(array('params' => array(
-			'items' => array(
-				array(
-					'feedId' => 2,
-					'guidHash' => 'a'
-				),
-				array(
-					'feedId' => 4,
-					'guidHash' => 'b'
-				)
-			)
-		)));
-		$this->itemAPI = new ItemApiController(
-			$this->appName,
-			$request,
-			$this->itemBusinessLayer,
-			$this->user
-		);
+		$ids = array(
+					array(
+						'feedId' => 2,
+						'guidHash' => 'a'
+					),
+					array(
+						'feedId' => 4,
+						'guidHash' => 'b'
+					)
+				);
 
 		$this->itemBusinessLayer->expects($this->at(0))
 			->method('star')
@@ -559,30 +304,21 @@ class ItemApiControllerTest extends ControllerTestUtility {
 				$this->equalTo('b'),
 				$this->equalTo(true),
 				$this->equalTo($this->user));
-		$response = $this->itemAPI->starMultiple();
-		$this->assertEquals(Http::STATUS_OK, $response->getStatus());
+		$this->itemAPI->starMultiple($ids);
 	}
 
 
 	public function testStarMultipleDoesntCareAboutException() {
-		$request = $this->getRequest(array('params' => array(
-			'items' => array(
-				array(
-					'feedId' => 2,
-					'guidHash' => 'a'
-				),
-				array(
-					'feedId' => 4,
-					'guidHash' => 'b'
-				)
-			)
-		)));
-		$this->itemAPI = new ItemApiController(
-			$this->appName,
-			$request,
-			$this->itemBusinessLayer,
-			$this->user
-		);
+		$ids = array(
+					array(
+						'feedId' => 2,
+						'guidHash' => 'a'
+					),
+					array(
+						'feedId' => 4,
+						'guidHash' => 'b'
+					)
+				);
 
 		$this->itemBusinessLayer->expects($this->at(0))
 			->method('star')
@@ -593,29 +329,21 @@ class ItemApiControllerTest extends ControllerTestUtility {
 				$this->equalTo('b'),
 				$this->equalTo(true),
 				$this->equalTo($this->user));
-		$this->itemAPI->starMultiple();
+		$this->itemAPI->starMultiple($ids);
 	}
 
 
 	public function testUnstarMultiple() {
-		$request = $this->getRequest(array('params' => array(
-			'items' => array(
-				array(
-					'feedId' => 2,
-					'guidHash' => 'a'
-				),
-				array(
-					'feedId' => 4,
-					'guidHash' => 'b'
-				)
-			)
-		)));
-		$this->itemAPI = new ItemApiController(
-			$this->appName,
-			$request,
-			$this->itemBusinessLayer,
-			$this->user
-		);
+		$ids = array(
+					array(
+						'feedId' => 2,
+						'guidHash' => 'a'
+					),
+					array(
+						'feedId' => 4,
+						'guidHash' => 'b'
+					)
+				);
 
 		$this->itemBusinessLayer->expects($this->at(0))
 			->method('star')
@@ -629,8 +357,7 @@ class ItemApiControllerTest extends ControllerTestUtility {
 				$this->equalTo('b'),
 				$this->equalTo(false),
 				$this->equalTo($this->user));
-		$response = $this->itemAPI->unstarMultiple();
-		$this->assertEquals(Http::STATUS_OK, $response->getStatus());
+		$this->itemAPI->unstarMultiple($ids);
 	}
 
 

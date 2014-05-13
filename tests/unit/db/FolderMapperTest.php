@@ -16,14 +16,14 @@ namespace OCA\News\Db;
 require_once(__DIR__ . "/../../classloader.php");
 
 
-class FolderMapperTest extends \OCA\News\Utility\MapperTestUtility {
+class FolderMapperTest extends \OCP\AppFramework\Db\MapperTestUtility {
 
 	private $folderMapper;
 	private $folders;
 	private $user;
 	
 	protected function setUp(){
-		$this->beforeEach();
+		parent::setUp();
 
 		$this->folderMapper = new FolderMapper($this->db);
 
@@ -66,7 +66,7 @@ class FolderMapperTest extends \OCA\News\Utility\MapperTestUtility {
 			
 		$this->setMapperResult($sql, array($id, $userId));
 		
-		$this->setExpectedException('\OCA\News\Db\DoesNotExistException');
+		$this->setExpectedException('\OCP\AppFramework\Db\DoesNotExistException');
 		$this->folderMapper->find($id, $userId);	
 	}
 	
@@ -84,7 +84,7 @@ class FolderMapperTest extends \OCA\News\Utility\MapperTestUtility {
 		
 		$this->setMapperResult($sql, array($id, $userId), $rows);
 		
-		$this->setExpectedException('\OCA\News\Db\MultipleObjectsReturnedException');
+		$this->setExpectedException('\OCP\AppFramework\Db\MultipleObjectsReturnedException');
 		$this->folderMapper->find($id, $userId);
 	}
 

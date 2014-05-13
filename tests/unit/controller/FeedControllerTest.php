@@ -13,10 +13,8 @@
 
 namespace OCA\News\Controller;
 
-use \OCP\IRequest;
 use \OCP\AppFramework\Http;
 
-use \OCA\News\Utility\ControllerTestUtility;
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\FeedType;
 use \OCA\News\BusinessLayer\BusinessLayerException;
@@ -25,7 +23,7 @@ use \OCA\News\BusinessLayer\BusinessLayerConflictException;
 require_once(__DIR__ . "/../../classloader.php");
 
 
-class FeedControllerTest extends ControllerTestUtility {
+class FeedControllerTest extends \PHPUnit_Framework_TestCase {
 
 	private $appName;
 	private $feedBusinessLayer;
@@ -55,7 +53,10 @@ class FeedControllerTest extends ControllerTestUtility {
 		$this->folderBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\FolderBusinessLayer')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->request = $this->getRequest();
+		$this->request = $this->getMockBuilder(
+			'\OCP\IRequest')
+			->disableOriginalConstructor()
+			->getMock();
 		$this->controller = new FeedController($this->appName, $this->request,
 				$this->folderBusinessLayer,
 				$this->feedBusinessLayer,
@@ -64,70 +65,6 @@ class FeedControllerTest extends ControllerTestUtility {
 				$this->user);
 	}
 
-	private function assertFeedControllerAnnotations($methodName){
-		$annotations = array('NoAdminRequired');
-		$this->assertAnnotations($this->controller, $methodName, $annotations);
-	}
-
-
-	private function getPostController($postValue, $url=array()){
-		$post = array(
-			'post' => $postValue,
-			'urlParams' => $url
-		);
-
-		$request = $this->getRequest($post);
-		return new FeedController($this->appName, $request,
-			$this->folderBusinessLayer,
-			$this->feedBusinessLayer,
-			$this->itemBusinessLayer,
-			$this->settings,
-			$this->user);
-	}
-
-
-	public function testFeedsAnnotations(){
-		$this->assertFeedControllerAnnotations('index');
-	}
-
-
-	public function testActiveAnnotations(){
-		$this->assertFeedControllerAnnotations('active');
-	}
-
-
-	public function testCreateAnnotations(){
-		$this->assertFeedControllerAnnotations('create');
-	}
-
-
-	public function testDeleteAnnotations(){
-		$this->assertFeedControllerAnnotations('delete');
-	}
-
-
-	public function testRestoreAnnotations(){
-		$this->assertFeedControllerAnnotations('restore');
-	}
-
-
-	public function testUpdateAnnotations(){
-		$this->assertFeedControllerAnnotations('update');
-	}
-
-
-	public function testMoveAnnotations(){
-		$this->assertFeedControllerAnnotations('move');
-	}
-
-
-	public function testImportArticlesAnnotations(){
-		$this->assertFeedControllerAnnotations('import');
-	}
-
-	public function testReadAnnotations(){
-		$this->assertFeedControllerAnnotations('read');
-	}
 
 	public function testIndex(){
 		$result = array(
@@ -151,7 +88,7 @@ class FeedControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->index();
 
-		$this->assertEquals($result, $response->getData());
+		$this->assertEquals($result, $response);
 	}
 
 
@@ -178,7 +115,7 @@ class FeedControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->index();
 
-		$this->assertEquals($result, $response->getData());
+		$this->assertEquals($result, $response);
 	}
 
 
@@ -213,7 +150,7 @@ class FeedControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->active();
 
-		$this->assertEquals($result, $response->getData());
+		$this->assertEquals($result, $response);
 	}
 
 
@@ -236,7 +173,7 @@ class FeedControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->active();
 
-		$this->assertEquals($result, $response->getData());
+		$this->assertEquals($result, $response);
 	}
 
 
@@ -259,7 +196,7 @@ class FeedControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->active();
 
-		$this->assertEquals($result, $response->getData());
+		$this->assertEquals($result, $response);
 	}
 
 
@@ -277,7 +214,7 @@ class FeedControllerTest extends ControllerTestUtility {
 
 		$response = $this->controller->active();
 
-		$this->assertEquals($result, $response->getData());
+		$this->assertEquals($result, $response);
 	}
 
 
@@ -287,13 +224,6 @@ class FeedControllerTest extends ControllerTestUtility {
 			'newestItemId' => 3
 		);
 
-		$post = array(
-			'url' => 'hi',
-			'parentFolderId' => 4
-		);
-		$this->controller = $this->getPostController($post);
-
-
 		$this->itemBusinessLayer->expects($this->once())
 			->method('getNewestItemId')
 			->will($this->returnValue($result['newestItemId']));
@@ -302,14 +232,14 @@ class FeedControllerTest extends ControllerTestUtility {
 			->with($this->equalTo($this->user), $this->equalTo(false));
 		$this->feedBusinessLayer->expects($this->once())
 			->method('create')
-			->with($this->equalTo($post['url']),
-				$this->equalTo($post['parentFolderId']),
+			->with($this->equalTo('hi'),
+				$this->equalTo(4),
 				$this->equalTo($this->user))
 			->will($this->returnValue($result['feeds'][0]));
 
-		$response = $this->controller->create();
+		$response = $this->controller->create('hi', 4);
 
-		$this->assertEquals($result, $response->getData());
+		$this->assertEquals($result, $response);
 	}
 
 
@@ -317,12 +247,6 @@ class FeedControllerTest extends ControllerTestUtility {
 		$result = array(
 			'feeds' => array(new Feed())
 		);
-
-		$post = array(
-			'url' => 'hi',
-			'parentFolderId' => 4
-		);
-		$this->controller = $this->getPostController($post);
 
 		$this->feedBusinessLayer->expects($this->once())
 			->method('purgeDeleted')
@@ -334,14 +258,14 @@ class FeedControllerTest extends ControllerTestUtility {
 
 		$this->feedBusinessLayer->expects($this->once())
 			->method('create')
-			->with($this->equalTo($post['url']),
-				$this->equalTo($post['parentFolderId']),
+			->with($this->equalTo('hi'),
+				$this->equalTo(4),
 				$this->equalTo($this->user))
 			->will($this->returnValue($result['feeds'][0]));
 
-		$response = $this->controller->create();
+		$response = $this->controller->create('hi', 4);
 
-		$this->assertEquals($result, $response->getData());
+		$this->assertEquals($result, $response);
 	}
 
 
@@ -355,10 +279,10 @@ class FeedControllerTest extends ControllerTestUtility {
 			->method('create')
 			->will($this->throwException($ex));
 
-		$response = $this->controller->create();
+		$response = $this->controller->create('hi', 4);
 		$params = json_decode($response->render(), true);
 
-		$this->assertEquals($msg, $params['msg']);
+		$this->assertEquals($msg, $params['message']);
 		$this->assertEquals($response->getStatus(), Http::STATUS_UNPROCESSABLE_ENTITY);
 	}
 
@@ -373,43 +297,34 @@ class FeedControllerTest extends ControllerTestUtility {
 			->method('create')
 			->will($this->throwException($ex));
 
-		$response = $this->controller->create();
+		$response = $this->controller->create('hi', 4);
 		$params = json_decode($response->render(), true);
 
-		$this->assertEquals($msg, $params['msg']);
+		$this->assertEquals($msg, $params['message']);
 		$this->assertEquals($response->getStatus(), Http::STATUS_CONFLICT);
 	}
 
 
 	public function testDelete(){
-		$url = array(
-				'feedId' => 4
-		);
-		$this->controller = $this->getPostController(array(), $url);
-
 		$this->feedBusinessLayer->expects($this->once())
 			->method('markDeleted')
-			->with($this->equalTo($url['feedId']));
+			->with($this->equalTo(4));
 
-		$this->controller->delete();
+		$this->controller->delete(4);
 	}
 
 
 	public function testDeleteDoesNotExist(){
-		$url = array(
-				'feedId' => 4
-		);
 		$msg = 'hehe';
-		$this->controller = $this->getPostController(array(), $url);
 
 		$this->feedBusinessLayer->expects($this->once())
 			->method('markDeleted')
 			->will($this->throwException(new BusinessLayerException($msg)));
 
-		$response = $this->controller->delete();
+		$response = $this->controller->delete(4);
 		$params = json_decode($response->render(), true);
 
-		$this->assertEquals($msg, $params['msg']);
+		$this->assertEquals($msg, $params['message']);
 		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
 	}
 
@@ -427,125 +342,84 @@ class FeedControllerTest extends ControllerTestUtility {
 			)
 		);
 
-		$url = array(
-			'feedId' => 4
-		);
-		$this->controller = $this->getPostController(array(), $url);
-
 		$this->feedBusinessLayer->expects($this->once())
 			->method('update')
-			->with($this->equalTo($url['feedId']), $this->equalTo($this->user))
+			->with($this->equalTo(4), $this->equalTo($this->user))
 			->will($this->returnValue($feed));
 
-		$response = $this->controller->update();
+		$response = $this->controller->update(4);
 
-		$this->assertEquals($result, $response->getData());
+		$this->assertEquals($result, $response);
 	}
 
 
 	public function testUpdateReturnsJSONError(){
-		$url = array(
-				'feedId' => 4
-		);
-		$this->controller = $this->getPostController(array(), $url);
-
 		$this->feedBusinessLayer->expects($this->once())
 			->method('update')
-			->with($this->equalTo($url['feedId']), $this->equalTo($this->user))
+			->with($this->equalTo(4), $this->equalTo($this->user))
 			->will($this->throwException(new BusinessLayerException('NO!')));
 
-		$response = $this->controller->update();
+		$response = $this->controller->update(4);
 		$render = $response->render();
 
-		$this->assertEquals('{"msg":"NO!"}', $render);
+		$this->assertEquals('{"message":"NO!"}', $render);
 		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
 	}
 
 
 	public function testMove(){
-		$post = array(
-			'parentFolderId' => 3
-		);
-		$url = array(
-			'feedId' => 4
-		);
-		$this->controller = $this->getPostController($post, $url);
-
 		$this->feedBusinessLayer->expects($this->once())
 			->method('move')
-			->with($this->equalTo($url['feedId']),
-				$this->equalTo($post['parentFolderId']),
+			->with($this->equalTo(4),
+				$this->equalTo(3),
 				$this->equalTo($this->user));
 
-		$this->controller->move();
+		$this->controller->move(4, 3);
 
 	}
 
 
 	public function testMoveDoesNotExist(){
-		$post = array(
-			'parentFolderId' => 3
-		);
-		$url = array(
-			'feedId' => 4
-		);
 		$msg = 'john';
-		$this->controller = $this->getPostController($post, $url);
 
 		$this->feedBusinessLayer->expects($this->once())
 			->method('move')
 			->will($this->throwException(new BusinessLayerException($msg)));
 
-		$response = $this->controller->move();
+		$response = $this->controller->move(4, 3);
 		$params = json_decode($response->render(), true);
 
-		$this->assertEquals($msg, $params['msg']);
+		$this->assertEquals($msg, $params['message']);
 		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
 	}
 
 
 	public function testRename(){
-		$post = array(
-			'feedTitle' => "New Feed Title"
-		);
-		$url = array(
-			'feedId' => 4
-		);
-		$this->controller = $this->getPostController($post, $url);
-
 		$this->feedBusinessLayer->expects($this->once())
 			->method('rename')
-			->with($this->equalTo($url['feedId']),
-				$this->equalTo($post['feedTitle']),
+			->with($this->equalTo(4),
+				$this->equalTo('title'),
 				$this->equalTo($this->user));
 
-		$this->controller->rename();
+		$this->controller->rename(4, 'title');
 	}
 
 
 	public function testRenameDoesNotExist(){
-		$post = array(
-			'feedTitle' => "New Feed Title"
-		);
-		$url = array(
-			'feedId' => 4
-		);
-		$this->controller = $this->getPostController($post, $url);
-
 		$msg = 'hi';
 
 		$this->feedBusinessLayer->expects($this->once())
 			->method('rename')
-			->with($this->equalTo($url['feedId']),
-				$this->equalTo($post['feedTitle']),
+			->with($this->equalTo(4),
+				$this->equalTo('title'),
 				$this->equalTo($this->user))
 			->will($this->throwException(new BusinessLayerException($msg)));
 
-		$response = $this->controller->rename();
+		$response = $this->controller->rename(4, 'title');
 
 		$params = $response->getData();
 
-		$this->assertEquals($msg, $params['msg']);
+		$this->assertEquals($msg, $params['message']);
 		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
 	}
 
@@ -553,53 +427,36 @@ class FeedControllerTest extends ControllerTestUtility {
 	public function testImport() {
 		$feed = new Feed();
 
-		$post = array(
-			'json' => 'the json'
-		);
 		$expected = array(
 			'feeds' => array($feed)
 		);
-		$this->controller = $this->getPostController($post);
 
 		$this->feedBusinessLayer->expects($this->once())
 			->method('importArticles')
-			->with($this->equalTo($post['json']),
+			->with($this->equalTo('json'),
 				$this->equalTo($this->user))
 			->will($this->returnValue($feed));
 
-		$response = $this->controller->import();
+		$response = $this->controller->import('json');
 
-		$this->assertEquals($expected, $response->getData());
+		$this->assertEquals($expected, $response);
 	}
 
 
 	public function testImportCreatesNoAdditionalFeed() {
-		$post = array(
-			'json' => 'the json'
-		);
-		$expected = array();
-		$this->controller = $this->getPostController($post);
-
 		$this->feedBusinessLayer->expects($this->once())
 			->method('importArticles')
-			->with($this->equalTo($post['json']),
+			->with($this->equalTo('json'),
 				$this->equalTo($this->user))
 			->will($this->returnValue(null));
 
-		$response = $this->controller->import();
+		$response = $this->controller->import('json');
 
-		$this->assertEquals($expected, $response->getData());
+		$this->assertEquals(array(), $response);
 	}
 
 
 	public function testReadFeed(){
-		$url = array(
-			'feedId' => 4
-		);
-		$post = array(
-			'highestItemId' => 5
-		);
-		$this->controller = $this->getPostController($post, $url);
 		$expected = array(
 			'feeds' => array(
 				array(
@@ -611,42 +468,33 @@ class FeedControllerTest extends ControllerTestUtility {
 
 		$this->itemBusinessLayer->expects($this->once())
 			->method('readFeed')
-			->with($url['feedId'], $post['highestItemId'], $this->user);
+			->with($this->equalTo(4), $this->equalTo(5), $this->user);
 
-		$response = $this->controller->read();
-		$this->assertEquals($expected, $response->getData());
+		$response = $this->controller->read(4, 5);
+		$this->assertEquals($expected, $response);
 	}
 
 
 	public function testRestore() {
-		$url = array(
-				'feedId' => 4
-		);
-		$this->controller = $this->getPostController(array(), $url);
-
 		$this->feedBusinessLayer->expects($this->once())
 			->method('unmarkDeleted')
-			->with($this->equalTo($url['feedId']));
+			->with($this->equalTo(4));
 
-		$this->controller->restore();
+		$this->controller->restore(4);
 	}
 
 
 	public function testRestoreDoesNotExist(){
-		$url = array(
-				'feedId' => 4
-		);
 		$msg = 'hehe';
-		$this->controller = $this->getPostController(array(), $url);
 
 		$this->feedBusinessLayer->expects($this->once())
 			->method('unmarkDeleted')
 			->will($this->throwException(new BusinessLayerException($msg)));
 
-		$response = $this->controller->restore();
+		$response = $this->controller->restore(4);
 		$params = json_decode($response->render(), true);
 
-		$this->assertEquals($msg, $params['msg']);
+		$this->assertEquals($msg, $params['message']);
 		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
 	}
 

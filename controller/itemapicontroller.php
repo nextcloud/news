@@ -52,7 +52,7 @@ class ItemApiController extends ApiController {
 		$this->registerSerializer(new EntityApiSerializer('items'));
 
 		return $this->itemBusinessLayer->findAll($id, $type, $batchSize, $offset, 
-		                                         $showAll, $this->userId);
+		                                         $getRead, $this->userId);
 	}
 
 

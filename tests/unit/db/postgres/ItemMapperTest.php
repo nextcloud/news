@@ -20,7 +20,7 @@ use \OCA\News\Db\StatusFlag;
 require_once(__DIR__ . "/../../../classloader.php");
 
 
-class ItemMapperTest extends \OCA\News\Utility\MapperTestUtility {
+class ItemMapperTest extends \OCP\AppFramework\Db\MapperTestUtility {
 
 	private $mapper;
 	private $items;
@@ -32,9 +32,8 @@ class ItemMapperTest extends \OCA\News\Utility\MapperTestUtility {
 	private $status;
 
 
-	public function setUp()
-	{
-		$this->beforeEach();
+	public function setUp()	{
+		parent::setUp();
 
 		$this->mapper = new ItemMapper($this->db);
 

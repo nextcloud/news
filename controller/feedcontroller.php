@@ -213,7 +213,7 @@ class FeedController extends Controller {
 	 * @param int $feedId
 	 * @param string $feedTitle
 	 */
-	public function rename() {
+	public function rename($feedId, $feedTitle) {
 		try {
 			$this->feedBusinessLayer->rename($feedId, $feedTitle, $this->userId);
 		} catch(BusinessLayerException $ex) {
@@ -265,7 +265,7 @@ class FeedController extends Controller {
 	 *
 	 * @param int $feedId
 	 */
-	public function restore(){
+	public function restore($feedId){
 		try {
 			$this->feedBusinessLayer->unmarkDeleted($feedId, $this->userId);
 		} catch(BusinessLayerException $ex) {

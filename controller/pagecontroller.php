@@ -55,7 +55,7 @@ class PageController extends Controller {
 			'showAll');
 		$compact = $this->settings->getUserValue($this->userId, $this->appName, 
 			'compact');
-		$language = $this->l10n->findLanguage();
+		$language = $this->l10n->getLanguageCode();
 
 		return array(
 			'showAll' => $showAll === '1',

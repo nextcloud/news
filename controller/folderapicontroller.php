@@ -66,7 +66,7 @@ class FolderApiController extends ApiController {
 	public function create($name) {
 		try {
 			$this->folderBusinessLayer->purgeDeleted($this->userId, false);
-			$folder = $this->folderBusinessLayer->create($folderName, $this->userId);
+			$folder = $this->folderBusinessLayer->create($name, $this->userId);
 			
 			$this->registerSerializer(new EntityApiSerializer('folders'));
 			return $folder;
@@ -104,7 +104,7 @@ class FolderApiController extends ApiController {
 	 */
 	public function update($folderId, $name) {
 		try {
-			$this->folderBusinessLayer->rename($folderId, $folderName, $this->userId);
+			$this->folderBusinessLayer->rename($folderId, $name, $this->userId);
 
 		} catch(BusinessLayerValidationException $ex) {
 			return $this->error($ex, Http::STATUS_UNPROCESSABLE_ENTITY);

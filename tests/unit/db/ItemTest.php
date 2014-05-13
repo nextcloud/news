@@ -141,18 +141,24 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 		$item->setBody('body');
 		$item->setEnclosureMime('audio/ogg');
 		$item->setEnclosureLink('enclink');
-		$item->setFeedId(1);
 		$item->setUnread();
 		$item->setStarred();
 
-		$feed = new Feed();
-		$feed->setLink('http://test');
-		$feeds = array(
-			"feed1" => $feed
+		$import = array(
+			'guid' => $item->getGuid(),
+			'url' => $item->getUrl(),
+			'title' => $item->getTitle(),
+			'author' => $item->getAuthor(),
+			'pubDate' => $item->getPubDate(),
+			'body' => $item->getBody(),
+			'enclosureMime' => $item->getEnclosureMime(),
+			'enclosureLink' => $item->getEnclosureLink(),
+			'unread' => $item->isUnread(),
+			'starred' => $item->isStarred(),
 		);
 
-		$compareWith = Item::fromImport($item->toExport($feeds));
-		$item->setFeedId(null);
+		$compareWith = Item::fromImport($import);
+		
 		$this->assertEquals($item, $compareWith);
 	}
 

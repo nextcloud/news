@@ -13,14 +13,10 @@
 
 namespace OCA\News\Controller;
 
-use \OCP\IRequest;
-
-use \OCA\News\Utility\ControllerTestUtility;
-
 require_once(__DIR__ . "/../../classloader.php");
 
 
-class ApiControllerTest extends ControllerTestUtility {
+class UtilityApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 	private $settings;
 	private $request;
@@ -42,29 +38,10 @@ class ApiControllerTest extends ControllerTestUtility {
 			'\OCA\News\Utility\Updater')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->newsAPI = new ApiController($this->appName, $this->request, 
+		$this->newsAPI = new UtilityApiController($this->appName, $this->request, 
 			$this->updater, $this->settings);
 	}
 
-
-	private function assertDefaultAnnotations($methodName){
-		$annotations = array('NoAdminRequired', 'NoCSRFRequired', 'API');
-		$this->assertAnnotations($this->newsAPI, $methodName, $annotations);
-	}
-
-	public function testVersionAnnotations(){
-		$this->assertDefaultAnnotations('version');
-	}
-
-	public function testBeforeUpdateAnnotations(){
-		$annotations = array('NoCSRFRequired');
-		$this->assertAnnotations($this->newsAPI, 'beforeUpdate', $annotations);
-	}
-
-	public function testAfterUpdateAnnotations(){
-		$annotations = array('NoCSRFRequired');
-		$this->assertAnnotations($this->newsAPI, 'afterUpdate', $annotations);
-	}
 
 	public function testGetVersion(){
 		$this->settings->expects($this->once())
@@ -74,8 +51,7 @@ class ApiControllerTest extends ControllerTestUtility {
 			->will($this->returnValue('1.0'));
 
 		$response = $this->newsAPI->version();
-		$data = $response->getData();
-		$version = $data['version'];
+		$version = $response['version'];
 
 		$this->assertEquals('1.0', $version);
 	}
@@ -92,40 +68,6 @@ class ApiControllerTest extends ControllerTestUtility {
 		$this->updater->expects($this->once())
 			->method('afterUpdate');
 		$this->newsAPI->afterUpdate();
-	}
-
-
-	public function testCorsAnnotations(){
-		$annotations = array('NoAdminRequired', 'NoCSRFRequired', 'PublicPage');
-		$this->assertAnnotations($this->newsAPI, 'cors', $annotations);
-	}
-
-
-	public function testCors() {
-		$this->request = $this->getRequest(array('server' => array()));
-		$this->newsAPI = new ApiController($this->appName, $this->request, 
-			$this->updater, $this->settings);
-		$response = $this->newsAPI->cors();
-
-		$headers = $response->getHeaders();
-
-		$this->assertEquals('*', $headers['Access-Control-Allow-Origin']);
-		$this->assertEquals('PUT, POST, GET, DELETE', $headers['Access-Control-Allow-Methods']);
-		$this->assertEquals('false', $headers['Access-Control-Allow-Credentials']);
-		$this->assertEquals('Authorization, Content-Type', $headers['Access-Control-Allow-Headers']);
-		$this->assertEquals('1728000', $headers['Access-Control-Max-Age']);
-	}
-
-
-	public function testCorsUsesOriginIfGiven() {
-		$this->request = $this->getRequest(array('server' => array('HTTP_ORIGIN' => 'test')));
-		$this->newsAPI = new ApiController($this->appName, $this->request, 
-			$this->updater, $this->settings);
-		$response = $this->newsAPI->cors();
-
-		$headers = $response->getHeaders();
-
-		$this->assertEquals('test', $headers['Access-Control-Allow-Origin']);
 	}
 
 
