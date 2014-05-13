@@ -13,6 +13,8 @@
 
 namespace OCA\News\BusinessLayer;
 
+use \OCP\IL10N;
+
 use \OCA\News\Db\Folder;
 use \OCA\News\Db\FolderMapper;
 use \OCA\News\Utility\Config;
@@ -26,7 +28,7 @@ class FolderBusinessLayer extends BusinessLayer {
 	private $folderMapper;
 
 	public function __construct(FolderMapper $folderMapper,
-	                            $l10n,
+	                            IL10N $l10n,
 	                            $timeFactory,
 	                            Config $config){
 		parent::__construct($folderMapper);

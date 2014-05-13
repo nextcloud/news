@@ -82,7 +82,7 @@ class ItemController extends Controller {
 		// in that case just return an empty array
 		} catch(BusinessLayerException $ex) {}
 
-		return new JSONResponse($params);
+		return $params;
 	}
 
 
@@ -109,7 +109,7 @@ class ItemController extends Controller {
 		// in that case just return an empty array
 		} catch(BusinessLayerException $ex) {}
 
-		return new JSONResponse($params);
+		return new $params;
 	}
 
 
@@ -127,7 +127,6 @@ class ItemController extends Controller {
 	public function star(){
 		try {
 			$this->setStarred(true);
-			return new JSONResponse();
 		} catch(BusinessLayerException $ex) {
 			return new JSONResponse(array(
 				'msg' => $ex->getMessage()
@@ -142,7 +141,6 @@ class ItemController extends Controller {
 	public function unstar(){
 		try {
 			$this->setStarred(false);
-			return new JSONResponse();
 		} catch(BusinessLayerException $ex) {
 			return new JSONResponse(array(
 				'msg' => $ex->getMessage()
@@ -164,7 +162,6 @@ class ItemController extends Controller {
 	public function read(){
 		try {
 			$this->setRead(true);
-			return new JSONResponse();
 		} catch(BusinessLayerException $ex) {
 			return new JSONResponse(array(
 				'msg' => $ex->getMessage()
@@ -179,7 +176,6 @@ class ItemController extends Controller {
 	public function unread(){
 		try {
 			$this->setRead(false);
-			return new JSONResponse();
 		} catch(BusinessLayerException $ex) {
 			return new JSONResponse(array(
 				'msg' => $ex->getMessage()

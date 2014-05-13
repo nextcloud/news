@@ -14,8 +14,7 @@
 namespace OCA\News\Db;
 
 use \OCP\IConfig;
-
-use \OCA\News\Core\Db;
+use \OCP\IDb;
 
 
 class MapperFactory {
@@ -23,7 +22,7 @@ class MapperFactory {
 	private $dbType;
 	private $db;
 
-	public function __construct($dbType, Db $db) {
+	public function __construct($dbType, IDb $db) {
 		$this->dbType = $dbType;
 		$this->db = $db;
 	}

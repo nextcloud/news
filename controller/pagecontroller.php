@@ -15,6 +15,7 @@ namespace OCA\News\Controller;
 
 use \OCP\IRequest;
 use \OCP\IConfig;
+use \OCP\IL10N;
 use \OCP\AppFramework\Http\JSONResponse;
 use \OCP\AppFramework\Controller;
 
@@ -24,8 +25,11 @@ class PageController extends Controller {
 	private $l10n;
 	private $userId;
 
-	public function __construct($appName, IRequest $request, IConfig $settings,
-		$l10n, $userId){
+	public function __construct($appName, 
+	                            IRequest $request, 
+	                            IConfig $settings,
+	                            IL10N $l10n, 
+	                            $userId){
 		parent::__construct($appName, $request);
 		$this->settings = $settings;
 		$this->l10n = $l10n;
@@ -58,28 +62,25 @@ class PageController extends Controller {
 			'language' => $language
 		);
 
-		return new JSONResponse($settings);
+		return $settings;
 	}
 
 
 	/**
 	 * @NoAdminRequired
+	 *
+	 * 
 	 */
-	public function updateSettings() {
-		$isShowAll = $this->params('showAll', null);
-		$isCompact = $this->params('compact', null);
-		
-		if($isShowAll !== null) {
+	public function updateSettings($showAll, $compact) {
+		if($showAll !== null) {
 			$this->settings->setUserValue($this->userId, $this->appName, 
-				'showAll', $isShowAll);
+				'showAll', $showAll);
 		}
 
-		if($isCompact !== null) {
+		if($compact !== null) {
 			$this->settings->setUserValue($this->userId, $this->appName,
-				'compact', $isCompact);
+				'compact', $compact);
 		}
-
-		return new JSONResponse();
 	}
 
 }

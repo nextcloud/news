@@ -13,11 +13,12 @@
 
 namespace OCA\News\BusinessLayer;
 
+use \OCP\AppFramework\Db\DoesNotExistException;
+
 use \OCA\News\Db\Item;
 use \OCA\News\Db\ItemMapper;
 use \OCA\News\Db\StatusFlag;
 use \OCA\News\Db\FeedType;
-use \OCA\News\Db\DoesNotExistException;
 use \OCA\News\Utility\Config;
 
 
@@ -28,8 +29,10 @@ class ItemBusinessLayer extends BusinessLayer {
 	private $timeFactory;
 	private $itemMapper;
 
-	public function __construct(ItemMapper $itemMapper, StatusFlag $statusFlag,
-								$timeFactory, Config $config){
+	public function __construct(ItemMapper $itemMapper, 
+	                            StatusFlag $statusFlag,
+								$timeFactory, 
+	                            Config $config){
 		parent::__construct($itemMapper);
 		$this->statusFlag = $statusFlag;
 		$this->autoPurgeCount = $config->getAutoPurgeCount();

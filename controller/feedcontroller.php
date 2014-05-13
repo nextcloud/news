@@ -167,7 +167,6 @@ class FeedController extends Controller {
 
 		try {
 			$this->feedBusinessLayer->markDeleted($feedId, $this->userId);
-			return new JSONResponse();
 		} catch(BusinessLayerException $ex) {
 			return new JSONResponse(array(
 				'msg' => $ex->getMessage()
@@ -215,7 +214,6 @@ class FeedController extends Controller {
 
 		try {
 			$this->feedBusinessLayer->move($feedId, $parentFolderId, $this->userId);
-			return new JSONResponse();	
 		} catch(BusinessLayerException $ex) {
 			return new JSONResponse(array(
 				'msg' => $ex->getMessage()
@@ -232,7 +230,6 @@ class FeedController extends Controller {
 
 		try {
 			$this->feedBusinessLayer->rename($feedId, $feedTitle, $this->userId);
-			return new JSONResponse();	
 		} catch(BusinessLayerException $ex) {
 			return new JSONResponse(array(
 				'msg' => $ex->getMessage()
@@ -286,7 +283,6 @@ class FeedController extends Controller {
 
 		try {
 			$this->feedBusinessLayer->unmarkDeleted($feedId, $this->userId);
-			return new JSONResponse();
 		} catch(BusinessLayerException $ex) {
 			return new JSONResponse(array(
 				'msg' => $ex->getMessage()

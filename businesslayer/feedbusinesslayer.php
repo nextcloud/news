@@ -12,8 +12,11 @@
  */
 
 namespace OCA\News\BusinessLayer;
-use \OCA\News\Core\Logger;
-use \OCA\News\Db\DoesNotExistException;
+
+use \OCP\ILogger;
+use \OCP\IL10N;
+use \OCP\AppFramework\Db\DoesNotExistException;
+
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\Item;
 use \OCA\News\Db\FeedMapper;
@@ -35,16 +38,18 @@ class FeedBusinessLayer extends BusinessLayer {
 	private $autoPurgeMinimumInterval;
 	private $enhancer;
 	private $purifier;
+	private $loggerParams;
 
 	public function __construct(FeedMapper $feedMapper, 
 	                            Fetcher $feedFetcher,
 		                        ItemMapper $itemMapper, 
-		                        Logger $logger,
-		                        $l10n,
+		                        ILogger $logger,
+		                        IL10N $l10n,
 		                        $timeFactory,
 		                        Config $config,
 		                        Enhancer $enhancer,
-		                        $purifier){
+		                        $purifier,
+		                        $loggerParams){
 		parent::__construct($feedMapper);
 		$this->feedFetcher = $feedFetcher;
 		$this->itemMapper = $itemMapper;
@@ -55,6 +60,7 @@ class FeedBusinessLayer extends BusinessLayer {
 		$this->enhancer = $enhancer;
 		$this->purifier = $purifier;
 		$this->feedMapper = $feedMapper;
+		$this->loggerParams = $loggerParams;
 	}
 
 	/**
@@ -131,7 +137,7 @@ class FeedBusinessLayer extends BusinessLayer {
 
 			return $feed;
 		} catch(FetcherException $ex){
-			$this->logger->log($ex->getMessage(), 'debug');
+			$this->logger->debug($ex->getMessage(), $this->loggerParams);
 			throw new BusinessLayerException(
 				$this->l10n->t(
 					'Can not add feed: URL does not exist, SSL Certificate can not be validated ' .
@@ -150,8 +156,8 @@ class FeedBusinessLayer extends BusinessLayer {
 			try {
 				$this->update($feed->getId(), $feed->getUserId());
 			} catch(BusinessLayerException $ex){
-				$this->logger->log('Could not update feed ' . $ex->getMessage(),
-					'debug');
+				$this->logger->debug('Could not update feed ' . $ex->getMessage(),
+					$this->loggerParams);
 			}
 		}
 	}
@@ -200,9 +206,10 @@ class FeedBusinessLayer extends BusinessLayer {
 
 			} catch(FetcherException $ex){
 				// failed updating is not really a problem, so only log it
-				$this->logger->log('Can not update feed with url ' . $existingFeed->getUrl() .
-					': Not found or bad source', 'debug');
-				$this->logger->log($ex->getMessage(), 'debug');
+
+				$this->logger->debug('Can not update feed with url ' . $existingFeed->getUrl() .
+					': Not found or bad source', $this->loggerParams);
+				$this->logger->debug($ex->getMessage(), $this->loggerParams);
 			}
 
 			return $this->feedMapper->find($feedId, $userId);

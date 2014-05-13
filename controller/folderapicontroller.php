@@ -14,7 +14,7 @@
 namespace OCA\News\Controller;
 
 use \OCP\IRequest;
-use \OCP\AppFramework\Controller;
+use \OCP\AppFramework\ApiController;
 use \OCP\AppFramework\Http;
 use \OCP\AppFramework\Http\JSONResponse;
 
@@ -25,7 +25,7 @@ use \OCA\News\BusinessLayer\BusinessLayerConflictException;
 use \OCA\News\BusinessLayer\BusinessLayerValidationException;
 
 
-class FolderApiController extends Controller {
+class FolderApiController extends ApiController {
 
 	private $folderBusinessLayer;
 	private $itemBusinessLayer;
@@ -46,7 +46,7 @@ class FolderApiController extends Controller {
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 * @API
+	 * @CORS
 	 */
 	public function index() {
 		$result = array(
@@ -64,7 +64,7 @@ class FolderApiController extends Controller {
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 * @API
+	 * @CORS
 	 */
 	public function create() {
 		$folderName = $this->params('name');
@@ -93,14 +93,13 @@ class FolderApiController extends Controller {
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 * @API
+	 * @CORS
 	 */
 	public function delete() {
 		$folderId = (int) $this->params('folderId');
 
 		try {
 			$this->folderBusinessLayer->delete($folderId, $this->userId);
-			return new JSONResponse();
 		} catch(BusinessLayerException $ex) {
 			return new JSONResponse(array('message' => $ex->getMessage()),
 				Http::STATUS_NOT_FOUND);
@@ -111,7 +110,7 @@ class FolderApiController extends Controller {
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 * @API
+	 * @CORS
 	 */
 	public function update() {
 		$folderId = (int) $this->params('folderId');
@@ -119,7 +118,6 @@ class FolderApiController extends Controller {
 
 		try {
 			$this->folderBusinessLayer->rename($folderId, $folderName, $this->userId);
-			return new JSONResponse();
 
 		} catch(BusinessLayerValidationException $ex) {
 			return new JSONResponse(array('message' => $ex->getMessage()),
@@ -139,14 +137,13 @@ class FolderApiController extends Controller {
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 * @API
+	 * @CORS
 	 */
 	public function read() {
 		$folderId = (int) $this->params('folderId');
 		$newestItemId = (int) $this->params('newestItemId');
 
 		$this->itemBusinessLayer->readFolder($folderId, $newestItemId, $this->userId);
-		return new JSONResponse();
 	}
 
 

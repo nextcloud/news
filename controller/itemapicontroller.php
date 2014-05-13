@@ -14,14 +14,16 @@
 namespace OCA\News\Controller;
 
 use \OCP\IRequest;
-use \OCP\AppFramework\Controller;
+use \OCP\AppFramework\ApiController;
 use \OCP\AppFramework\Http;
 use \OCP\AppFramework\Http\JSONResponse;
 
 use \OCA\News\BusinessLayer\ItemBusinessLayer;
 use \OCA\News\BusinessLayer\BusinessLayerException;
 
-class ItemApiController extends Controller {
+class ItemApiController extends ApiController {
+
+	use JSONHttpError;
 
 	private $itemBusinessLayer;
 	private $userId;
@@ -39,24 +41,18 @@ class ItemApiController extends Controller {
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 * @API
+	 * @CORS
+	 * 
+	 * @param int $type
+	 * @param int $id
+	 * @param bool $getRead
+	 * @param int $batchSize
+	 * @param int $offset
 	 */
-	public function index() {
+	public function index($type, $id, $getRead, $batchSize=20, $offset=0) {
 		$result = array(
 			'items' => array()
 		);
-
-		$batchSize = (int) $this->params('batchSize', 20);
-		$offset = (int) $this->params('offset', 0);
-		$type = (int) $this->params('type');
-		$id = (int) $this->params('id');
-		$showAll = $this->params('getRead');
-
-		if($showAll === 'true' || $showAll === true) {
-			$showAll = true;
-		} else {
-			$showAll = false;
-		}
 
 		$items = $this->itemBusinessLayer->findAll(
 			$id,
@@ -71,23 +67,23 @@ class ItemApiController extends Controller {
 			array_push($result['items'], $item->toAPI());
 		}
 
-		return new JSONResponse($result);
+		return $result;
 	}
 
 
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 * @API
+	 * @CORS
+	 * 
+	 * @param int $type
+	 * @param int $id
+	 * @param int $lastModified
 	 */
-	public function updated() {
+	public function updated($type, $id, $lastModified=0) {
 		$result = array(
 			'items' => array()
 		);
-
-		$lastModified = (int) $this->params('lastModified', 0);
-		$type = (int) $this->params('type');
-		$id = (int) $this->params('id');
 
 		$items = $this->itemBusinessLayer->findAllNew(
 			$id,
@@ -101,31 +97,24 @@ class ItemApiController extends Controller {
 			array_push($result['items'], $item->toAPI());
 		}
 
-		return new JSONResponse($result);
+		$result;
 	}
 
 
-	private function setRead($isRead) {
-		$itemId = (int) $this->params('itemId');
+	private function setRead($isRead, $itemId) {
 		try {
 			$this->itemBusinessLayer->read($itemId, $isRead, $this->userId);
-			return new JSONResponse();
 		} catch(BusinessLayerException $ex){
-			return new JSONResponse(array('message' => $ex->getMessage()),
-				Http::STATUS_NOT_FOUND);
+			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
 
 
-	private function setStarred($isStarred) {
-		$feedId = (int) $this->params('feedId');
-		$guidHash = $this->params('guidHash');
+	private function setStarred($isStarred, $feedId, $guidHash) {
 		try {
 			$this->itemBusinessLayer->star($feedId, $guidHash, $isStarred, $this->userId);
-			return new JSONResponse();
 		} catch(BusinessLayerException $ex){
-			return new JSONResponse(array('message' => $ex->getMessage()),
-				Http::STATUS_NOT_FOUND);
+			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
 
@@ -133,59 +122,66 @@ class ItemApiController extends Controller {
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 * @API
+	 * @CORS
+	 *
+	 * @param int $itemId
 	 */
-	public function read() {
-		return $this->setRead(true);
+	public function read($itemId) {
+		return $this->setRead(true, $itemId);
 	}
 
 
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 * @API
+	 * @CORS
+	 *
+	 * @param int $itemId
 	 */
-	public function unread() {
-		return $this->setRead(false);
+	public function unread($itemId) {
+		return $this->setRead(false, $itemId);
 	}
 
 
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 * @API
+	 * @CORS
+	 *
+	 * @param int $feedId
+	 * @param string $guidHash
 	 */
-	public function star() {
-		return $this->setStarred(true);
+	public function star($feedId, $guidHash) {
+		return $this->setStarred(true, $feedId, $guidHash);
 	}
 
 
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 * @API
+	 * @CORS
+	 *
+	 * @param int $feedId
+	 * @param string $guidHash
 	 */
-	public function unstar() {
-		return $this->setStarred(false);
+	public function unstar($feedId, $guidHash) {
+		return $this->setStarred(false, $feedId, $guidHash);
 	}
 
 
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 * @API
+	 * @CORS
+	 *
+	 * @param int $newestItemId
 	 */
-	public function readAll() {
-		$newestItemId = (int) $this->params('newestItemId');
-
+	public function readAll($newestItemId) {
 		$this->itemBusinessLayer->readAll($newestItemId, $this->userId);
-		return new JSONResponse();
 	}
 
 
-	private function setMultipleRead($isRead) {
-		$items = $this->params('items');
-
+	private function setMultipleRead($isRead, $items) {
 		foreach($items as $id) {
 			try {
 				$this->itemBusinessLayer->read($id, $isRead, $this->userId);
@@ -193,34 +189,34 @@ class ItemApiController extends Controller {
 				continue;
 			}
 		}
-
-		return new JSONResponse();
 	}
 
 
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 * @API
+	 * @CORS
+	 *
+	 * @param int[] item ids
 	 */
-	public function readMultiple() {
-		return $this->setMultipleRead(true);
+	public function readMultiple($items) {
+		return $this->setMultipleRead(true, $items);
 	}
 
 
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 * @API
+	 * @CORS
+	 *
+	 * @param int[] item ids
 	 */
-	public function unreadMultiple() {
-		return $this->setMultipleRead(false);
+	public function unreadMultiple($items) {
+		return $this->setMultipleRead(false, $items);
 	}
 
 
-	private function setMultipleStarred($isStarred) {
-		$items = $this->params('items');
-
+	private function setMultipleStarred($isStarred, $items) {
 		foreach($items as $item) {
 			try {
 				$this->itemBusinessLayer->star($item['feedId'],
@@ -229,28 +225,30 @@ class ItemApiController extends Controller {
 				continue;
 			}
 		}
-
-		return new JSONResponse();
 	}
 
 
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 * @API
+	 * @CORS
+	 *
+	 * @param int[] item ids
 	 */
-	public function starMultiple() {
-		return $this->setMultipleStarred(true);
+	public function starMultiple($items) {
+		return $this->setMultipleStarred(true, $items);
 	}
 
 
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 * @API
+	 * @CORS
+	 * 
+	 * @param int[] item ids
 	 */
-	public function unstarMultiple() {
-		return $this->setMultipleStarred(false);
+	public function unstarMultiple($items) {
+		return $this->setMultipleStarred(false, $items);
 	}
 
 

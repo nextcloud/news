@@ -18,15 +18,12 @@ use \OCP\AppFramework\App;
 
 use \OCA\News\Config\AppConfig;
 
-use \OCA\News\Core\Logger;
-use \OCA\News\Core\Db;
-
 use \OCA\News\Controller\PageController;
 use \OCA\News\Controller\FolderController;
 use \OCA\News\Controller\FeedController;
 use \OCA\News\Controller\ItemController;
 use \OCA\News\Controller\ExportController;
-use \OCA\News\Controller\ApiController;
+use \OCA\News\Controller\UtilityApiController;
 use \OCA\News\Controller\FolderApiController;
 use \OCA\News\Controller\FeedApiController;
 use \OCA\News\Controller\ItemApiController;
@@ -54,8 +51,6 @@ use \OCA\News\Fetcher\FeedFetcher;
 use \OCA\News\ArticleEnhancer\Enhancer;
 use \OCA\News\ArticleEnhancer\XPathArticleEnhancer;
 use \OCA\News\ArticleEnhancer\RegexArticleEnhancer;
-
-use \OCA\News\Middleware\CORSMiddleware;
 
 
 require_once __DIR__ . '/../3rdparty/htmlpurifier/library/HTMLPurifier.auto.php';
@@ -133,8 +128,8 @@ class Application extends App {
 			);
 		});
 
-		$container->registerService('ApiController', function($c) {
-			return new ApiController(
+		$container->registerService('UtilityApiController', function($c) {
+			return new UtilityApiController(
 				$c->query('AppName'), 
 				$c->query('Request'), 
 				$c->query('Updater'),
@@ -160,7 +155,8 @@ class Application extends App {
 				$c->query('FeedBusinessLayer'),
 				$c->query('ItemBusinessLayer'),
 				$c->query('Logger'),
-				$c->query('UserId')
+				$c->query('UserId'),
+				$c->query('LoggerParameters')
 			);
 		});
 
@@ -196,7 +192,8 @@ class Application extends App {
 				$c->query('TimeFactory'),
 				$c->query('Config'),
 				$c->query('Enhancer'),
-				$c->query('HTMLPurifier')
+				$c->query('HTMLPurifier'),
+				$c->query('LoggerParameters')
 			);
 		});
 
@@ -284,11 +281,15 @@ class Application extends App {
 		});
 
 		$container->registerService('Logger', function($c) {
-			return new Logger($c->query('AppName'));
+			return $c->query('ServerContainer')->getLogger();
+		});
+
+		$container->registerService('LoggerParameters', function($c) {
+			return array('app' => $c->query('AppName'));
 		});
 
 		$container->registerService('Db', function() {
-			return new Db();
+			return $c->query('ServerContainer')->getDb();
 		});
 
 		$container->registerService('CoreConfig', function($c) {
@@ -313,7 +314,11 @@ class Application extends App {
 		});
 
 		$container->registerService('Config', function($c) {
-			$config = new Config($c->query('ConfigView'), $c->query('Logger'));
+			$config = new Config(
+				$c->query('ConfigView'), 
+				$c->query('Logger'),
+				$c->query('LoggerParameters')
+			);
 			$config->read('config.ini', true);
 			return $config;
 		});
@@ -426,17 +431,6 @@ class Application extends App {
 			);
 		});
 
-		/** 
-		 * Middleware
-		 */
-		$container->registerService('CORSMiddleware', function($c) {
-			return new CORSMiddleware(
-				$c->query('Request')
-			);
-		});		
-
-		$container->registerMiddleWare('CORSMiddleware');
-
 	}
 
 	public function getAppConfig() {
@@ -447,5 +441,12 @@ class Application extends App {
 	public function getLogger() {
 		return $this->getContainer()->query('Logger');
 	}
+
+
+	public function getLoggerParameters() {
+		return $this->getContainer()->query('LoggerParameters');
+	}
+
+
 }
 

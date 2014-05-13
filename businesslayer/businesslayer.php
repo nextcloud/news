@@ -13,8 +13,9 @@
 
 namespace OCA\News\BusinessLayer;
 
-use \OCA\News\Db\DoesNotExistException;
-use \OCA\News\Db\MultipleObjectsReturnedException;
+use \OCP\AppFramework\Db\DoesNotExistException;
+use \OCP\AppFramework\Db\MultipleObjectsReturnedException;
+
 use \OCA\News\Db\IMapper;
 
 

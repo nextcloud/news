@@ -13,6 +13,8 @@
 
 namespace OCA\News\Db;
 
+use \OCP\AppFramework\Db\Entity;
+
 /**
  * @method integer getId()
  * @method void setId(integer $value)

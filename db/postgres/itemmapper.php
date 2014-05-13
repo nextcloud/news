@@ -13,16 +13,14 @@
 
 namespace OCA\News\Db\Postgres;
 
-use \OCA\News\Core\Db;
-use \OCA\News\Db\DoesNotExistException;
-use \OCA\News\Db\MultipleObjectsReturnedException;
-use \OCA\News\Db\Mapper;
+use \OCP\IDb;
+
 use \OCA\News\Db\StatusFlag;
 
 
 class ItemMapper extends \OCA\News\Db\ItemMapper {
 
-	public function __construct(Db $db){
+	public function __construct(IDb $db){
 		parent::__construct($db);
 	}
 

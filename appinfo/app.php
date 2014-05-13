@@ -25,6 +25,8 @@ $config->registerHooks();
 try {
 	$config->testDependencies();
 } catch(\OCA\News\Config\DependencyException $e) {
-	$container->getLogger()->log($e->getMessage());
+	$logger = $container->getLogger();
+	$params = $container->getLoggerParameters();
+	$logger->warn($e->getMessage(), $params);
 }
 
