@@ -16,15 +16,16 @@ namespace OCA\News\Utility;
 require_once(__DIR__ . "/../../classloader.php");
 
 
-class ConfigFetcherTest extends \PHPUnit_Framework_TestCase {
+class ConfigTest extends \PHPUnit_Framework_TestCase {
 
 	private $fileSystem;
 	private $config;
 	private $configPath;
+	private $loggerParams;
 
 	public function setUp() {
 		$this->logger = $this->getMockBuilder(
-			'\OCA\News\Core\Logger')
+			'\OCP\ILogger')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->fileSystem = $this->getMock('FileSystem', array(
@@ -32,7 +33,8 @@ class ConfigFetcherTest extends \PHPUnit_Framework_TestCase {
 			'file_put_contents',
 			'file_exists'
 		));
-		$this->config = new Config($this->fileSystem, $this->logger);
+		$this->loggerParams = array('hi');
+		$this->config = new Config($this->fileSystem, $this->logger, $this->loggerParams);
 		$this->configPath = 'config.json';
 	}
 
@@ -83,10 +85,10 @@ class ConfigFetcherTest extends \PHPUnit_Framework_TestCase {
 			->with($this->equalTo($this->configPath))
 			->will($this->returnValue('autoPurgeCounts = 3'));
 		$this->logger->expects($this->once())
-			->method('log')
+			->method('warning')
 			->with($this->equalTo('Configuration value "autoPurgeCounts" ' . 
 				'does not exist. Ignored value.'), 
-				$this->equalTo('warn'));
+				$this->equalTo($this->loggerParams));
 
 		$this->config->read($this->configPath);
 	}
@@ -98,9 +100,9 @@ class ConfigFetcherTest extends \PHPUnit_Framework_TestCase {
 			->with($this->equalTo($this->configPath))
 			->will($this->returnValue(''));
 		$this->logger->expects($this->once())
-			->method('log')
+			->method('warning')
 			->with($this->equalTo('Configuration invalid. Ignoring values.'), 
-				$this->equalTo('warn'));
+				$this->equalTo($this->loggerParams));
 
 		$this->config->read($this->configPath);
 	}

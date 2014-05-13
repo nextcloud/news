@@ -15,7 +15,8 @@ namespace OCA\News\BusinessLayer;
 
 require_once(__DIR__ . "/../../classloader.php");
 
-use \OCA\News\Db\DoesNotExistException;
+use \OCP\AppFramework\Db\DoesNotExistException;
+
 use \OCA\News\Db\Item;
 use \OCA\News\Db\StatusFlag;
 use \OCA\News\Db\FeedType;

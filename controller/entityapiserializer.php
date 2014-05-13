@@ -14,7 +14,7 @@ namespace OCA\News\Controller;
 use \OCP\AppFramework\Http\IResponseSerializer;
 
 
-class EntityApiSeralizer implements IResponseSerializer {
+class EntityApiSerializer implements IResponseSerializer {
 
 
     public function __construct($level) {
@@ -32,12 +32,14 @@ class EntityApiSeralizer implements IResponseSerializer {
         }
 
         $response = array(
-            $this->level => array();
+            $this->level => array()
         );
 
         foreach($data as $entity) {
-            $response[$this->level][] = $entity->toAPI()
+            $response[$this->level][] = $entity->toAPI();
         }
+
+        return $response;
     }
 
 

@@ -16,7 +16,8 @@ namespace OCA\News\BusinessLayer;
 
 require_once(__DIR__ . "/../../classloader.php");
 
-use \OCA\News\Db\DoesNotExistException;
+use \OCP\AppFramework\Db\DoesNotExistException;
+
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\Item;
 use \OCA\News\Fetcher\Fetcher;
@@ -38,19 +39,23 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 	private $purifier;
 	private $l10n;
 	private $logger;
+	private $loggerParams;
 
 	protected function setUp(){
 		$this->logger = $this->getMockBuilder(
-			'\OCA\News\Core\Logger')
+			'\OCP\ILogger')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->l10n = $this->getMock('L10N', array('t'));
+		$this->loggerParams = array('hi');
 		$this->time = 222;
 		$this->autoPurgeMinimumInterval = 10;
 		$timeFactory = $this->getMock('TimeFactory', array('getTime'));
 		$timeFactory->expects($this->any())
 			->method('getTime')
 			->will($this->returnValue($this->time));
+		$this->l10n = $this->getMockBuilder('\OCP\IL10N')
+			->disableOriginalConstructor()
+			->getMock();
 		$this->feedMapper = $this->getMockBuilder('\OCA\News\Db\FeedMapper')
 			->disableOriginalConstructor()
 			->getMock();
@@ -74,8 +79,7 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 
 		$this->feedBusinessLayer = new FeedBusinessLayer($this->feedMapper,
 			$this->fetcher, $this->itemMapper, $this->logger, $this->l10n,
-			$timeFactory, $config,
-			$this->enhancer, $this->purifier);
+			$timeFactory, $config, $this->enhancer, $this->purifier, $this->loggerParams);
 		$this->user = 'jack';
 	}
 
@@ -344,7 +348,7 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->method('fetch')
 			->will($this->throwException($ex));
 		$this->logger->expects($this->any())
-			->method('log');
+			->method('debug');
 
 		$this->feedMapper->expects($this->at(1))
 			->method('find')

@@ -23,7 +23,7 @@ trait JSONHttpError {
 	 * @param int the http error code
 	 * @return \OCP\AppFramework\Http\JSONResponse
 	 */
-	protected function error($exception, $code) {
+	public function error($exception, $code) {
 		return new JSONResponse(
 			array('message' => $exception->getMessage()), 
 			$code

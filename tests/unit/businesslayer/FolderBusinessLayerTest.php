@@ -29,7 +29,9 @@ class FolderBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 	private $l10n;
 
 	protected function setUp(){
-		$this->l10n = $this->getMock('L10N', array('t'));
+		$this->l10n = $this->getMockBuilder('\OCP\IL10N')
+			->disableOriginalConstructor()
+			->getMock();
 		$this->time = 222;
 		$timeFactory = $this->getMock('TimeFactory', array('getTime'));
 		$timeFactory->expects($this->any())
@@ -48,8 +50,7 @@ class FolderBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->method('getAutoPurgeMinimumInterval')
 			->will($this->returnValue($this->autoPurgeMinimumInterval));
 		$this->folderBusinessLayer = new FolderBusinessLayer(
-			$this->folderMapper, $this->l10n, $timeFactory, 
-			$config);
+			$this->folderMapper, $this->l10n, $timeFactory, $config);
 		$this->user = 'hi';
 	}
 

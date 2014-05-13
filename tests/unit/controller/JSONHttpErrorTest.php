@@ -11,23 +11,21 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 
-
-namespace OCA\News\Http;
-
+namespace OCA\News\Controller;
 
 require_once(__DIR__ . "/../../classloader.php");
 
 
-class TextDownloadResponseTest extends \PHPUnit_Framework_TestCase {
+class JSONHttpErrorTest extends \PHPUnit_Framework_TestCase {
 
 
-	protected function setUp() {
-		$this->response = new TextDownloadResponse('sometext', 'file', 'content');
-	}
+    public function testError() {
+        $ex = new \Exception('hi');
+        $result = JSONHttpError::error($ex, 3);
 
+        $this->assertEquals(array('message' => 'hi'), $result->getData());
+        $this->assertEquals(3, $result->getStatus());
+    }
 
-	public function testRender() {
-		$this->assertEquals('sometext', $this->response->render());
-	}
 
 }
