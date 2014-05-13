@@ -25,11 +25,11 @@ Maintainers
 
 Minimum PHP Version
 -------------------
-* PHP >= 5.3.6
+* PHP >= 5.4
 
 Minimum ownCloud Version
 -------------------
-* >= 6.0.3
+* >= 7
 
 Supported Webservers
 --------------------
