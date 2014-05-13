@@ -172,7 +172,7 @@ FeedModel, NewLoading, _ExistsError, Utils, $rootScope, NewestItem)->
 				onSuccess(response)
 
 			failure = (response) ->
-				feed.error = response.msg
+				feed.error = response.message
 				onFailure()
 
 			@_persistence.createFeed(url, parentId, success, failure)

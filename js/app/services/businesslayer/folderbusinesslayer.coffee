@@ -145,7 +145,7 @@ FeedModel, $rootScope) ->
 				onSuccess(response)
 
 			failure = (response) ->
-				folder.error = response.msg
+				folder.error = response.message
 				onFailure()
 
 			@_persistence.createFolder folderName, 0, success, failure

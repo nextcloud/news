@@ -60,10 +60,10 @@ $application->registerRoutes($this, array('routes' => array(
 	array('name' => 'export#articles', 'url' => '/export/articles', 'verb' => 'GET'),
 
 	// API
-	array('name' => 'api#version', 'url' => '/api/v1-2/version', 'verb' => 'GET'),
-	array('name' => 'api#before_update', 'url' => '/api/v1-2/cleanup/before-update', 'verb' => 'GET'),
-	array('name' => 'api#after_update', 'url' => '/api/v1-2/cleanup/after-update', 'verb' => 'GET'),
-	array('name' => 'api#preflighted_cors', 'url' => '/api/v1-2/{path}', 'verb' => 'OPTIONS', 'requirements' => array('path' => '.+')),
+	array('name' => 'utility_api#version', 'url' => '/api/v1-2/version', 'verb' => 'GET'),
+	array('name' => 'utility_api#before_update', 'url' => '/api/v1-2/cleanup/before-update', 'verb' => 'GET'),
+	array('name' => 'utility_api#after_update', 'url' => '/api/v1-2/cleanup/after-update', 'verb' => 'GET'),
+	array('name' => 'utility_api#preflighted_cors', 'url' => '/api/v1-2/{path}', 'verb' => 'OPTIONS', 'requirements' => array('path' => '.+')),
 
 	// folders
 	array('name' => 'folder_api#index', 'url' => '/api/v1-2/folders', 'verb' => 'GET'),
