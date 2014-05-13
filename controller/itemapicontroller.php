@@ -16,7 +16,6 @@ namespace OCA\News\Controller;
 use \OCP\IRequest;
 use \OCP\AppFramework\ApiController;
 use \OCP\AppFramework\Http;
-use \OCP\AppFramework\Http\JSONResponse;
 
 use \OCA\News\BusinessLayer\ItemBusinessLayer;
 use \OCA\News\BusinessLayer\BusinessLayerException;
@@ -50,24 +49,10 @@ class ItemApiController extends ApiController {
 	 * @param int $offset
 	 */
 	public function index($type, $id, $getRead, $batchSize=20, $offset=0) {
-		$result = array(
-			'items' => array()
-		);
+		$this->registerSerializer(new EntityApiSerializer('items'));
 
-		$items = $this->itemBusinessLayer->findAll(
-			$id,
-			$type,
-			$batchSize,
-			$offset,
-			$showAll,
-			$this->userId
-		);
-
-		foreach ($items as $item) {
-			array_push($result['items'], $item->toAPI());
-		}
-
-		return $result;
+		return $this->itemBusinessLayer->findAll($id, $type, $batchSize, $offset, 
+		                                         $showAll, $this->userId);
 	}
 
 
@@ -81,23 +66,10 @@ class ItemApiController extends ApiController {
 	 * @param int $lastModified
 	 */
 	public function updated($type, $id, $lastModified=0) {
-		$result = array(
-			'items' => array()
-		);
+		$this->registerSerializer(new EntityApiSerializer('items'));
 
-		$items = $this->itemBusinessLayer->findAllNew(
-			$id,
-			$type,
-			$lastModified,
-			true,
-			$this->userId
-		);
-
-		foreach ($items as $item) {
-			array_push($result['items'], $item->toAPI());
-		}
-
-		$result;
+		return $this->itemBusinessLayer->findAllNew($id, $type, $lastModified,
+		                                            true, $this->userId);
 	}
 
 
@@ -219,8 +191,8 @@ class ItemApiController extends ApiController {
 	private function setMultipleStarred($isStarred, $items) {
 		foreach($items as $item) {
 			try {
-				$this->itemBusinessLayer->star($item['feedId'],
-					$item['guidHash'], $isStarred, $this->userId);
+				$this->itemBusinessLayer->star($item['feedId'], $item['guidHash'], 
+					                           $isStarred, $this->userId);
 			} catch(BusinessLayerException $ex) {
 				continue;
 			}

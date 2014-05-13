@@ -17,7 +17,6 @@ use \OCP\IRequest;
 use \OCP\IConfig;
 use \OCP\AppFramework\Controller;
 use \OCP\AppFramework\Http;
-use \OCP\AppFramework\Http\JSONResponse;
 
 use \OCA\News\BusinessLayer\ItemBusinessLayer;
 use \OCA\News\BusinessLayer\FeedBusinessLayer;
@@ -28,6 +27,8 @@ use \OCA\News\Db\FeedType;
 
 
 class FeedController extends Controller {
+
+	use JSONHttpError;
 
 	private $feedBusinessLayer;
 	private $folderBusinessLayer;
@@ -72,7 +73,7 @@ class FeedController extends Controller {
 		// simply ignore it and do not add the newestItemId
 		} catch (BusinessLayerException $ex) {}
 
-		return new JSONResponse($params);
+		return $params;
 	}
 
 
@@ -108,24 +109,22 @@ class FeedController extends Controller {
 			$feedType = FeedType::SUBSCRIPTIONS;
 		}
 
-		$params = array(
+		return array(
 			'activeFeed' => array(
 				'id' => $feedId,
 				'type' => $feedType
 			)
 		);
-
-		return new JSONResponse($params);
 	}
 
 
 	/**
 	 * @NoAdminRequired
+	 *
+	 * @param string $url
+	 * @param int $parentFolderId
 	 */
-	public function create(){
-		$url = $this->params('url');
-		$parentFolderId = (int) $this->params('parentFolderId');
-
+	public function create($url, $parentFolderId){
 		try {
 			// we need to purge deleted feeds if a feed is created to 
 			// prevent already exists exceptions
@@ -144,47 +143,40 @@ class FeedController extends Controller {
 			// simply ignore it and do not add the newestItemId
 			} catch (BusinessLayerException $ex) {}
 
-			return new JSONResponse($params);
+			return $params;
 
 		} catch(BusinessLayerConflictException $ex) {
-			return new JSONResponse(array(
-				'msg' => $ex->getMessage()
-			), Http::STATUS_CONFLICT);
-		
+			return $this->error($ex, Http::STATUS_CONFLICT);
 		} catch(BusinessLayerException $ex) {
-			return new JSONResponse(array(
-				'msg' => $ex->getMessage()
-			), Http::STATUS_UNPROCESSABLE_ENTITY);
+			return $this->error($ex, Http::STATUS_UNPROCESSABLE_ENTITY);
 		}
 	}
 
 
 	/**
 	 * @NoAdminRequired
+	 * 
+	 * @param int $feedId
 	 */
-	public function delete(){
-		$feedId = (int) $this->params('feedId');
-
+	public function delete($feedId){
 		try {
 			$this->feedBusinessLayer->markDeleted($feedId, $this->userId);
 		} catch(BusinessLayerException $ex) {
-			return new JSONResponse(array(
-				'msg' => $ex->getMessage()
-			), Http::STATUS_NOT_FOUND);
+			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
 
 
 	/**
 	 * @NoAdminRequired
+	 *
+	 * @param int $feedId
 	 */
-	public function update(){
+	public function update($feedId){
 		try {
-			$feedId = (int) $this->params('feedId');
-
 			$feed = $this->feedBusinessLayer->update($feedId, $this->userId);
 
-			$params = array(
+			return array(
 				'feeds' => array(
 					// only pass unreadcount to not accidentally readd
 					// the feed again
@@ -195,75 +187,69 @@ class FeedController extends Controller {
 				)
 			);
 
-			return new JSONResponse($params);
-
 		} catch(BusinessLayerException $ex) {
-			return new JSONResponse(array(
-				'msg' => $ex->getMessage()
-			), Http::STATUS_NOT_FOUND);
+			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
 
 
 	/**
 	 * @NoAdminRequired
+	 *
+	 * @param int $feedId
+	 * @param int $parentFolderId
 	 */
-	public function move(){
-		$feedId = (int) $this->params('feedId');
-		$parentFolderId = (int) $this->params('parentFolderId');
-
+	public function move($feedId, $parentFolderId){
 		try {
 			$this->feedBusinessLayer->move($feedId, $parentFolderId, $this->userId);
 		} catch(BusinessLayerException $ex) {
-			return new JSONResponse(array(
-				'msg' => $ex->getMessage()
-			), Http::STATUS_NOT_FOUND);
+			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
 
 	/**
 	 * @NoAdminRequired
+	 *
+	 * @param int $feedId
+	 * @param string $feedTitle
 	 */
 	public function rename() {
-		$feedId = (int) $this->params('feedId');
-		$feedTitle = $this->params('feedTitle');
-
 		try {
 			$this->feedBusinessLayer->rename($feedId, $feedTitle, $this->userId);
 		} catch(BusinessLayerException $ex) {
-			return new JSONResponse(array(
-				'msg' => $ex->getMessage()
-			), Http::STATUS_NOT_FOUND);
+			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
 
+
 	/**
 	 * @NoAdminRequired
+	 *
+	 * @param array $json
 	 */
-	public function import() {
-		$json = $this->params('json');
-
+	public function import($json) {
 		$feed = $this->feedBusinessLayer->importArticles($json, $this->userId);
 
 		$params = array();
+
 		if($feed) {
 			$params['feeds'] = array($feed);
 		}
 
-		return new JSONResponse($params);
+		return $params;
 	}
 
 
 	/**
 	 * @NoAdminRequired
+	 *
+	 * @param int $feedId
+	 * @param int $highestItemId
 	 */
-	public function read(){
-		$feedId = (int) $this->params('feedId');
-		$highestItemId = (int) $this->params('highestItemId');
-
+	public function read($feedId, $highestItemId){
 		$this->itemBusinessLayer->readFeed($feedId, $highestItemId, $this->userId);
 
-		$params = array(
+		return array(
 			'feeds' => array(
 				array(
 					'id' => $feedId,
@@ -271,22 +257,19 @@ class FeedController extends Controller {
 				)
 			)
 		);
-		return new JSONResponse($params);
 	}
 
 
 	/**
 	 * @NoAdminRequired
+	 *
+	 * @param int $feedId
 	 */
 	public function restore(){
-		$feedId = (int) $this->params('feedId');
-
 		try {
 			$this->feedBusinessLayer->unmarkDeleted($feedId, $this->userId);
 		} catch(BusinessLayerException $ex) {
-			return new JSONResponse(array(
-				'msg' => $ex->getMessage()
-			), Http::STATUS_NOT_FOUND);
+			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
 

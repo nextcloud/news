@@ -22,6 +22,7 @@ use \OCP\AppFramework\Http\Response;
 
 use \OCA\News\Utility\Updater;
 
+
 class UtilityApiController extends ApiController {
 
 	private $updater;

@@ -17,7 +17,6 @@ use \OCP\IRequest;
 use \OCP\IConfig;
 use \OCP\AppFramework\Controller;
 use \OCP\AppFramework\Http;
-use \OCP\AppFramework\Http\JSONResponse;
 
 use \OCA\News\BusinessLayer\BusinessLayerException;
 use \OCA\News\BusinessLayer\ItemBusinessLayer;
@@ -25,6 +24,8 @@ use \OCA\News\BusinessLayer\FeedBusinessLayer;
 
 
 class ItemController extends Controller {
+
+	use JSONHttpError;
 
 	private $itemBusinessLayer;
 	private $feedBusinessLayer;
@@ -47,15 +48,15 @@ class ItemController extends Controller {
 
 	/**
 	 * @NoAdminRequired
+	 *
+ 	 * @param int $type
+	 * @param int $id
+	 * @param int $limit
+	 * @param int $offset
 	 */
-	public function index(){
+	public function index($type, $id, $limit, $offset=0) {
 		$showAll = $this->settings->getUserValue($this->userId, $this->appName,
 			'showAll') === '1';
-
-		$limit = $this->params('limit');
-		$type = (int) $this->params('type');
-		$id = (int) $this->params('id');
-		$offset = (int) $this->params('offset', 0);
 
 		$this->settings->setUserValue($this->userId, $this->appName,
 			'lastViewedFeedId', $id);
@@ -78,6 +79,7 @@ class ItemController extends Controller {
 						
 			$params['items'] = $this->itemBusinessLayer->findAll($id, $type, $limit, 
 				                                       $offset, $showAll, $this->userId);
+			
 		// this gets thrown if there are no items
 		// in that case just return an empty array
 		} catch(BusinessLayerException $ex) {}
@@ -88,14 +90,14 @@ class ItemController extends Controller {
 
 	/**
 	 * @NoAdminRequired
+	 * 
+	 * @param int $type
+	 * @param int $id
+	 * @param int $lastModified
 	 */
-	public function newItems() {
+	public function newItems($type, $id, $lastModified=0) {
 		$showAll = $this->settings->getUserValue($this->userId, $this->appName,			
 			'showAll') === '1';
-
-		$type = (int) $this->params('type');
-		$id = (int) $this->params('id');
-		$lastModified = (int) $this->params('lastModified', 0);
 
 		$params = array();
 
@@ -105,97 +107,93 @@ class ItemController extends Controller {
 			$params['starred'] = $this->itemBusinessLayer->starredCount($this->userId);			
 			$params['items'] = $this->itemBusinessLayer->findAllNew($id, $type, 
 				$lastModified, $showAll, $this->userId);
+
 		// this gets thrown if there are no items
 		// in that case just return an empty array
 		} catch(BusinessLayerException $ex) {}
 
-		return new $params;
+		return $params;
 	}
 
 
-	private function setStarred($isStarred){
-		$feedId = (int) $this->params('feedId');
-		$guidHash = $this->params('guidHash');
-
+	private function setStarred($isStarred, $feedId, $guidHash){
 		$this->itemBusinessLayer->star($feedId, $guidHash, $isStarred, $this->userId);
 	}
 
 
 	/**
 	 * @NoAdminRequired
+	 *
+	 * @param int $feedId
+	 * @param string $guidHash
 	 */
-	public function star(){
+	public function star($feedId, $guidHash){
 		try {
-			$this->setStarred(true);
+			$this->setStarred(true, $feedId, $guidHash);
 		} catch(BusinessLayerException $ex) {
-			return new JSONResponse(array(
-				'msg' => $ex->getMessage()
-			), Http::STATUS_NOT_FOUND);
+			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
 
 
 	/**
 	 * @NoAdminRequired
+	 *
+	 * @param int $feedId
+	 * @param string $guidHash
 	 */
-	public function unstar(){
+	public function unstar($feedId, $guidHash){
 		try {
-			$this->setStarred(false);
+			$this->setStarred(false, $feedId, $guidHash);
 		} catch(BusinessLayerException $ex) {
-			return new JSONResponse(array(
-				'msg' => $ex->getMessage()
-			), Http::STATUS_NOT_FOUND);
+			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
 
 
-	private function setRead($isRead){
-		$itemId = (int) $this->params('itemId');
-
+	private function setRead($isRead, $itemId){
 		$this->itemBusinessLayer->read($itemId, $isRead, $this->userId);
 	}
 
 
 	/**
 	 * @NoAdminRequired
+	 *
+	 * @param int $itemId
 	 */
-	public function read(){
+	public function read($itemId){
 		try {
 			$this->setRead(true);
 		} catch(BusinessLayerException $ex) {
-			return new JSONResponse(array(
-				'msg' => $ex->getMessage()
-			), Http::STATUS_NOT_FOUND);
+			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
 
 
 	/**
 	 * @NoAdminRequired
+	 *
+	 * @param int $itemId
 	 */
-	public function unread(){
+	public function unread($itemId){
 		try {
 			$this->setRead(false);
 		} catch(BusinessLayerException $ex) {
-			return new JSONResponse(array(
-				'msg' => $ex->getMessage()
-			), Http::STATUS_NOT_FOUND);
+			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
 
 
 	/**
 	 * @NoAdminRequired
+	 * 
+	 * @param int $highestItemId
 	 */
-	public function readAll(){
-		$highestItemId = (int) $this->params('highestItemId');
-
+	public function readAll($highestItemId){
 		$this->itemBusinessLayer->readAll($highestItemId, $this->userId);
-
-		$params = array(
+		return array(
 			'feeds' => $this->feedBusinessLayer->findAll($this->userId)
 		);
-		return new JSONResponse($params);
 	}
 
 

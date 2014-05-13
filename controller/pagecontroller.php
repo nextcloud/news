@@ -19,6 +19,7 @@ use \OCP\IL10N;
 use \OCP\AppFramework\Http\JSONResponse;
 use \OCP\AppFramework\Controller;
 
+
 class PageController extends Controller {
 
 	private $settings;
@@ -56,20 +57,19 @@ class PageController extends Controller {
 			'compact');
 		$language = $this->l10n->findLanguage();
 
-		$settings = array(
+		return array(
 			'showAll' => $showAll === '1',
 			'compact' => $compact === '1',
 			'language' => $language
 		);
-
-		return $settings;
 	}
 
 
 	/**
 	 * @NoAdminRequired
 	 *
-	 * 
+	 * @param bool $showAll
+	 * @param bool $compact
 	 */
 	public function updateSettings($showAll, $compact) {
 		if($showAll !== null) {

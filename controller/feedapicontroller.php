@@ -28,6 +28,8 @@ use \OCA\News\BusinessLayer\BusinessLayerConflictException;
 
 class FeedApiController extends ApiController {
 
+	use JSONHttpError;
+
 	private $itemBusinessLayer;
 	private $feedBusinessLayer;
 	private $folderBusinessLayer;
@@ -66,6 +68,7 @@ class FeedApiController extends ApiController {
 		);
 
 		$feeds = $this->feedBusinessLayer->findAll($this->userId);
+
 		foreach ($feeds as $feed) {
 			array_push($result['feeds'], $feed->toAPI());
 		}
@@ -112,19 +115,9 @@ class FeedApiController extends ApiController {
 			return $result;
 
 		} catch(BusinessLayerConflictException $ex) {
-
-			return new JSONResponse(
-				array('message' => $ex->getMessage()),
-				Http::STATUS_CONFLICT
-			);
-
+			return $this->error($ex, Http::STATUS_CONFLICT);
 		} catch(BusinessLayerException $ex) {
-
-			return new JSONResponse(
-				array('message' => $ex->getMessage()),
-				Http::STATUS_NOT_FOUND
-			);
-
+			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
 
@@ -140,10 +133,7 @@ class FeedApiController extends ApiController {
 		try {
 			$this->feedBusinessLayer->delete($feedId, $this->userId);
 		} catch(BusinessLayerException $ex) {
-			return new JSONResponse(
-				array('message' => $ex->getMessage()),
-				Http::STATUS_NOT_FOUND
-			);
+			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
 
@@ -152,11 +142,11 @@ class FeedApiController extends ApiController {
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 * @CORS
+	 *
+	 * @param int $feedId
+	 * @param int $newestItemId
 	 */
-	public function read() {
-		$feedId = (int) $this->params('feedId');
-		$newestItemId = (int) $this->params('newestItemId');
-
+	public function read($feedId, $newestItemId) {
 		$this->itemBusinessLayer->readFeed($feedId, $newestItemId, $this->userId);
 	}
 
@@ -165,16 +155,15 @@ class FeedApiController extends ApiController {
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 * @CORS
+	 *
+	 * @param int $feedId
+	 * @param int $folderId
 	 */
-	public function move() {
-		$feedId = (int) $this->params('feedId');
-		$folderId = (int) $this->params('folderId');
-
+	public function move($feedId, $folderId) {
 		try {
 			$this->feedBusinessLayer->move($feedId, $folderId, $this->userId);
 		} catch(BusinessLayerException $ex) {
-			return new JSONResponse(array('message' => $ex->getMessage()),
-				Http::STATUS_NOT_FOUND);
+			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
 
@@ -183,16 +172,15 @@ class FeedApiController extends ApiController {
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 * @CORS
+	 *
+	 * @param int $feedId
+	 * @param string $feedTitle
 	 */
-	public function rename() {
-		$feedId = (int) $this->params('feedId');
-		$feedTitle = $this->params('feedTitle');
-
+	public function rename($feedId, $feedTitle) {
 		try {
 			$this->feedBusinessLayer->rename($feedId, $feedTitle, $this->userId);
 		} catch(BusinessLayerException $ex) {
-			return new JSONResponse(array('message' => $ex->getMessage()),
-				Http::STATUS_NOT_FOUND);
+			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
 
@@ -212,17 +200,17 @@ class FeedApiController extends ApiController {
 			));
 		}
 
-		return new JSONResponse($result);
+		return $result;
 	}
 
 
 	/**
 	 * @NoCSRFRequired
+	 *
+	 * @param string $userId
+	 * @param int $feedId
 	 */
-	public function update() {
-		$userId = $this->params('userId');
-		$feedId = (int) $this->params('feedId');
-
+	public function update($userId, $feedId) {
 		try {
 			$this->feedBusinessLayer->update($feedId, $userId);
 		// ignore update failure (feed could not be reachable etc, we dont care)

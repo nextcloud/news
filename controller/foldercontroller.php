@@ -16,7 +16,6 @@ namespace OCA\News\Controller;
 use \OCP\IRequest;
 use \OCP\AppFramework\Controller;
 use \OCP\AppFramework\Http;
-use \OCP\AppFramework\Http\JSONResponse;
 
 use \OCA\News\BusinessLayer\FolderBusinessLayer;
 use \OCA\News\BusinessLayer\FeedBusinessLayer;
@@ -24,6 +23,7 @@ use \OCA\News\BusinessLayer\ItemBusinessLayer;
 use \OCA\News\BusinessLayer\BusinessLayerException;
 use \OCA\News\BusinessLayer\BusinessLayerConflictException;
 use \OCA\News\BusinessLayer\BusinessLayerValidationException;
+
 
 class FolderController extends Controller {
 
@@ -53,10 +53,9 @@ class FolderController extends Controller {
 	 */
 	public function index(){
 		$folders = $this->folderBusinessLayer->findAll($this->userId);
-		$result = array(
+		return array(
 			'folders' => $folders
 		);
-		return $result;
 	}
 
 
@@ -105,10 +104,9 @@ class FolderController extends Controller {
 			$this->folderBusinessLayer->purgeDeleted($this->userId, false);
 			$folder = $this->folderBusinessLayer->create($folderName, $this->userId);
 
-			$params = array(
+			return array(
 				'folders' => array($folder)
 			);
-			return $params;
 
 		} catch(BusinessLayerConflictException $ex) {
 			return $this->error($ex, Http::STATUS_CONFLICT);
@@ -135,67 +133,54 @@ class FolderController extends Controller {
 
 	/**
 	 * @NoAdminRequired
+	 *
+	 * @param string $folderName
+	 * @param int $folderId
 	 */
-	public function rename(){
-		$folderName = $this->params('folderName');
-		$folderId = (int) $this->params('folderId');
-
+	public function rename($folderName, $folderId){
 		try {
 			$folder = $this->folderBusinessLayer->rename($folderId, $folderName, 
 				$this->userId);
 
-			$params = array(
+			return array(
 				'folders' => array($folder)
 			);
-			return new JSONResponse($params);
-		
+
 		} catch(BusinessLayerConflictException $ex) {
-			return new JSONResponse(array(
-				'msg' => $ex->getMessage()
-			), Http::STATUS_CONFLICT);
-		
+			return $this->error($ex, Http::STATUS_CONFLICT);
 		} catch(BusinessLayerValidationException $ex) {
-			return new JSONResponse(array(
-				'msg' => $ex->getMessage()
-			), Http::STATUS_UNPROCESSABLE_ENTITY);
-		
+			return $this->error($ex, Http::STATUS_UNPROCESSABLE_ENTITY);	
 		} catch (BusinessLayerException $ex){
-			return new JSONResponse(array(
-				'msg' => $ex->getMessage()
-			), Http::STATUS_NOT_FOUND);
+			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
 
 	/**
 	 * @NoAdminRequired
+	 *
+	 * @param int $folderId
+	 * @param int $highestItemId
 	 */
-	public function read(){
-		$folderId = (int) $this->params('folderId');
-		$highestItemId = (int) $this->params('highestItemId');
-
+	public function read($folderId, $highestItemId){
 		$this->itemBusinessLayer->readFolder($folderId, $highestItemId, $this->userId);
 
-		$params = array(
+		return array(
 			'feeds' => $this->feedBusinessLayer->findAll($this->userId)
 		);
-		return new JSONResponse($params);
 	}
 
 
 	/**
 	 * @NoAdminRequired
+	 * 
+	 * @param int $folderId
 	 */
-	public function restore(){
-		$folderId = (int) $this->params('folderId');
-
+	public function restore($folderId){
 		try {
 			$this->folderBusinessLayer->unmarkDeleted($folderId, $this->userId);
 		} catch (BusinessLayerException $ex){
-			return new JSONResponse(array(
-				'msg' => $ex->getMessage()
-			), Http::STATUS_NOT_FOUND);
+			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
-
 	}
 
 

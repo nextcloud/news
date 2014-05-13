@@ -27,6 +27,8 @@ use \OCA\News\BusinessLayer\BusinessLayerValidationException;
 
 class FolderApiController extends ApiController {
 
+	use JSONHttpError;
+
 	private $folderBusinessLayer;
 	private $itemBusinessLayer;
 	private $userId;
@@ -49,15 +51,9 @@ class FolderApiController extends ApiController {
 	 * @CORS
 	 */
 	public function index() {
-		$result = array(
-			'folders' => array()
-		);
+		$this->registerSerializer(new EntityApiSerializer('folders'));
 
-		foreach ($this->folderBusinessLayer->findAll($this->userId) as $folder) {
-			array_push($result['folders'], $folder->toAPI());
-		}
-
-		return new JSONResponse($result);
+		return $this->folderBusinessLayer->findAll($this->userId);
 	}
 
 
@@ -65,27 +61,21 @@ class FolderApiController extends ApiController {
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 * @CORS
+	 *
+	 * @param string $name
 	 */
-	public function create() {
-		$folderName = $this->params('name');
-		$result = array(
-			'folders' => array()
-		);
-
+	public function create($name) {
 		try {
 			$this->folderBusinessLayer->purgeDeleted($this->userId, false);
 			$folder = $this->folderBusinessLayer->create($folderName, $this->userId);
-			array_push($result['folders'], $folder->toAPI());
+			
+			$this->registerSerializer(new EntityApiSerializer('folders'));
+			return $folder;
 
-			return new JSONResponse($result);
-		
 		} catch(BusinessLayerValidationException $ex) {
-			return new JSONResponse(array('message' => $ex->getMessage()),
-				Http::STATUS_UNPROCESSABLE_ENTITY);
-
+			return $this->error($ex, Http::STATUS_UNPROCESSABLE_ENTITY);
 		} catch(BusinessLayerConflictException $ex) {
-			return new JSONResponse(array('message' => $ex->getMessage()),
-				Http::STATUS_CONFLICT);
+			return $this->error($ex, Http::STATUS_CONFLICT);
 		}
 	}
 
@@ -94,15 +84,14 @@ class FolderApiController extends ApiController {
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 * @CORS
+	 *
+	 * @param int $folderId
 	 */
-	public function delete() {
-		$folderId = (int) $this->params('folderId');
-
+	public function delete($folderId) {
 		try {
 			$this->folderBusinessLayer->delete($folderId, $this->userId);
 		} catch(BusinessLayerException $ex) {
-			return new JSONResponse(array('message' => $ex->getMessage()),
-				Http::STATUS_NOT_FOUND);
+			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
 
@@ -111,25 +100,19 @@ class FolderApiController extends ApiController {
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 * @CORS
+	 * @param int $folderId
+	 * @param string $name
 	 */
-	public function update() {
-		$folderId = (int) $this->params('folderId');
-		$folderName = $this->params('name');
-
+	public function update($folderId, $name) {
 		try {
 			$this->folderBusinessLayer->rename($folderId, $folderName, $this->userId);
 
 		} catch(BusinessLayerValidationException $ex) {
-			return new JSONResponse(array('message' => $ex->getMessage()),
-				Http::STATUS_UNPROCESSABLE_ENTITY);
-
+			return $this->error($ex, Http::STATUS_UNPROCESSABLE_ENTITY);
 		} catch(BusinessLayerConflictException $ex) {
-			return new JSONResponse(array('message' => $ex->getMessage()),
-				Http::STATUS_CONFLICT);
-
+			return $this->error($ex, Http::STATUS_CONFLICT);
 		} catch(BusinessLayerException $ex) {
-			return new JSONResponse(array('message' => $ex->getMessage()),
-				Http::STATUS_NOT_FOUND);
+			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
 
@@ -138,11 +121,11 @@ class FolderApiController extends ApiController {
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 * @CORS
+	 *
+	 * @param int $folderId
+	 * @param int $newestItemId
 	 */
-	public function read() {
-		$folderId = (int) $this->params('folderId');
-		$newestItemId = (int) $this->params('newestItemId');
-
+	public function read($folderId, $newestItemId) {
 		$this->itemBusinessLayer->readFolder($folderId, $newestItemId, $this->userId);
 	}
 
