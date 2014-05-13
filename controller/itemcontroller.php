@@ -116,11 +116,6 @@ class ItemController extends Controller {
 	}
 
 
-	private function setStarred($isStarred, $feedId, $guidHash){
-		$this->itemBusinessLayer->star($feedId, $guidHash, $isStarred, $this->userId);
-	}
-
-
 	/**
 	 * @NoAdminRequired
 	 *
@@ -129,7 +124,7 @@ class ItemController extends Controller {
 	 */
 	public function star($feedId, $guidHash){
 		try {
-			$this->setStarred(true, $feedId, $guidHash);
+			$this->itemBusinessLayer->star($feedId, $guidHash, true, $this->userId);
 		} catch(BusinessLayerException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
@@ -144,15 +139,10 @@ class ItemController extends Controller {
 	 */
 	public function unstar($feedId, $guidHash){
 		try {
-			$this->setStarred(false, $feedId, $guidHash);
+			$this->itemBusinessLayer->star($feedId, $guidHash, false, $this->userId);
 		} catch(BusinessLayerException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
-	}
-
-
-	private function setRead($isRead, $itemId){
-		$this->itemBusinessLayer->read($itemId, $isRead, $this->userId);
 	}
 
 
@@ -163,7 +153,7 @@ class ItemController extends Controller {
 	 */
 	public function read($itemId){
 		try {
-			$this->setRead(true);
+			$this->itemBusinessLayer->read($itemId, true, $this->userId);
 		} catch(BusinessLayerException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
@@ -177,7 +167,7 @@ class ItemController extends Controller {
 	 */
 	public function unread($itemId){
 		try {
-			$this->setRead(false);
+			$this->itemBusinessLayer->read($itemId, false, $this->userId);
 		} catch(BusinessLayerException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}

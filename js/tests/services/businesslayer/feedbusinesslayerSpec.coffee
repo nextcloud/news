@@ -310,7 +310,7 @@ describe 'FeedBusinessLayer', ->
 		@persistence.createFeed.andCallFake (folderName, parentId, success,
 			failure) =>
 			@response =
-				msg: 'this is an error'
+				message: 'this is an error'
 			failure(@response)
 
 		@FeedBusinessLayer.create(' johns ', 0, onSuccess, onFailure)
@@ -319,7 +319,7 @@ describe 'FeedBusinessLayer', ->
 		expect(onFailure).toHaveBeenCalled()
 
 		expect(@FeedModel.getByUrl('http://johns').error).toBe(
-			@response.msg)
+			@response.message)
 
 
 	it 'should mark a feed error as read by removing it', =>

@@ -239,7 +239,7 @@ describe 'FolderBusinessLayer', ->
 		@persistence.createFolder.andCallFake (folderName, parentId, success,
 			onFailure) =>
 			@response =
-				msg: 'this is an error'
+				message: 'this is an error'
 			onFailure(@response)
 
 		@FolderBusinessLayer.create(' johns ', onSuccess, onFailure)
@@ -247,7 +247,7 @@ describe 'FolderBusinessLayer', ->
 		expect(onSuccess).not.toHaveBeenCalled()
 		expect(onFailure).toHaveBeenCalled()
 
-		expect(@FolderModel.getByName('johns').error).toBe(@response.msg)
+		expect(@FolderModel.getByName('johns').error).toBe(@response.message)
 
 
 	it 'should mark a folder error as read by removing it', =>

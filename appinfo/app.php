@@ -27,6 +27,6 @@ try {
 } catch(\OCA\News\Config\DependencyException $e) {
 	$logger = $container->getLogger();
 	$params = $container->getLoggerParameters();
-	$logger->warn($e->getMessage(), $params);
+	$logger->warning($e->getMessage(), $params);
 }
 

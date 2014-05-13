@@ -82,15 +82,6 @@ class ItemApiController extends ApiController {
 	}
 
 
-	private function setStarred($isStarred, $feedId, $guidHash) {
-		try {
-			$this->itemBusinessLayer->star($feedId, $guidHash, $isStarred, $this->userId);
-		} catch(BusinessLayerException $ex){
-			return $this->error($ex, Http::STATUS_NOT_FOUND);
-		}
-	}
-
-
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
@@ -112,6 +103,15 @@ class ItemApiController extends ApiController {
 	 */
 	public function unread($itemId) {
 		return $this->setRead(false, $itemId);
+	}
+
+
+	private function setStarred($isStarred, $feedId, $guidHash) {
+		try {
+			$this->itemBusinessLayer->star($feedId, $guidHash, $isStarred, $this->userId);
+		} catch(BusinessLayerException $ex){
+			return $this->error($ex, Http::STATUS_NOT_FOUND);
+		}
 	}
 
 

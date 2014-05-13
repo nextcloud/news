@@ -152,7 +152,7 @@ class Config {
 			$configValues = parse_ini_string($content);
 
 			if($configValues === false || count($configValues) === 0) {
-				$this->logger->warn('Configuration invalid. Ignoring values.',
+				$this->logger->warning('Configuration invalid. Ignoring values.',
 					$this->loggerParams);
 			} else {
 
@@ -162,7 +162,7 @@ class Config {
 						settype($value, $type);
 						$this->$key = $value;
 					} else {
-						$this->logger->warn('Configuration value "' . $key . 
+						$this->logger->warning('Configuration value "' . $key . 
 							'" does not exist. Ignored value.' , $this->loggerParams);
 					}
 				}

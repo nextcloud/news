@@ -288,7 +288,7 @@ class Application extends App {
 			return array('app' => $c->query('AppName'));
 		});
 
-		$container->registerService('Db', function() {
+		$container->registerService('Db', function($c) {
 			return $c->query('ServerContainer')->getDb();
 		});
 

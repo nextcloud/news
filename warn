@@ -1,0 +1,12 @@
+./businesslayer/feedbusinesslayer.php:			$this->logger->debug($ex->getMessage(), $this->loggerParams);
+./businesslayer/feedbusinesslayer.php:				$this->logger->debug('Could not update feed ' . $ex->getMessage(),
+./businesslayer/feedbusinesslayer.php:				$this->logger->debug('Can not update feed with url ' . $existingFeed->getUrl() .
+./businesslayer/feedbusinesslayer.php:				$this->logger->debug($ex->getMessage(), $this->loggerParams);
+./controller/feedapicontroller.php:			$this->logger->debug('Could not update feed ' . $ex->getMessage(),
+./appinfo/app.php:	$logger->warning($e->getMessage(), $params);
+./tests/unit/businesslayer/FeedBusinessLayerTest.php:		$this->logger->expects($this->any())
+./tests/unit/controller/FeedApiControllerTest.php:		$this->logger->expects($this->once())
+./tests/unit/utility/ConfigTest.php:		$this->logger->expects($this->once())
+./tests/unit/utility/ConfigTest.php:		$this->logger->expects($this->once())
+./utility/config.php:				$this->logger->warn('Configuration invalid. Ignoring values.',
+./utility/config.php:						$this->logger->warn('Configuration value "' . $key . 
