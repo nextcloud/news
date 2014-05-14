@@ -166,12 +166,19 @@ class ItemMapper extends Mapper implements IMapper {
 		return $this->findEntities($sql, $params);
 	}
 
+	private function getOperator($oldestFirst) {
+		if($oldestFirst) {
+			return '>';
+		} else {
+			return '<';
+		}
+	}
 
 	public function findAllFeed($id, $limit, $offset, $status, $userId, $oldestFirst=false){
 		$params = [$userId, $id];
 		$sql = 'AND `items`.`feed_id` = ? ';
 		if($offset !== 0){
-			$sql .= 'AND `items`.`id` < ? ';
+			$sql .= 'AND `items`.`id` ' . $this->getOperator($oldestFirst) . ' ? ';
 			$params[] = $offset;
 		}
 		$sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst);
@@ -183,7 +190,7 @@ class ItemMapper extends Mapper implements IMapper {
 		$params = [$userId, $id];
 		$sql = 'AND `feeds`.`folder_id` = ? ';
 		if($offset !== 0){
-			$sql .= 'AND `items`.`id` < ? ';
+			$sql .= 'AND `items`.`id` ' . $this->getOperator($oldestFirst) . ' ? ';
 			$params[] = $offset;
 		}
 		$sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst);
@@ -195,7 +202,7 @@ class ItemMapper extends Mapper implements IMapper {
 		$params = [$userId];
 		$sql = '';
 		if($offset !== 0){
-			$sql .= 'AND `items`.`id` < ? ';
+			$sql .= 'AND `items`.`id` ' . $this->getOperator($oldestFirst) . ' ? ';
 			$params[] = $offset;
 		}
 		$sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst);

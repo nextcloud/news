@@ -234,7 +234,7 @@ class ItemMapperTest extends \OCP\AppFramework\Db\MapperTestUtility {
 
 	public function testFindAllFeedOldestFirst(){
 		$sql = 'AND `items`.`feed_id` = ? ' .
-			'AND `items`.`id` < ? ';
+			'AND `items`.`id` > ? ';
 		$sql = $this->makeSelectQueryStatus($sql, $this->status, true);
 		$params = [$this->user, $this->id, $this->offset];
 		$this->setMapperResult($sql, $params, $this->rows);
@@ -272,7 +272,7 @@ class ItemMapperTest extends \OCP\AppFramework\Db\MapperTestUtility {
 
 	public function testFindAllFolderOldestFirst(){
 		$sql = 'AND `feeds`.`folder_id` = ? ' .
-			'AND `items`.`id` < ? ';
+			'AND `items`.`id` > ? ';
 		$sql = $this->makeSelectQueryStatus($sql, $this->status, true);
 		$params = [$this->user, $this->id, $this->offset];
 		$this->setMapperResult($sql, $params, $this->rows);
@@ -308,7 +308,7 @@ class ItemMapperTest extends \OCP\AppFramework\Db\MapperTestUtility {
 
 
 	public function testFindAllOldestFirst(){
-		$sql = 'AND `items`.`id` < ? ';
+		$sql = 'AND `items`.`id` > ? ';
 		$sql = $this->makeSelectQueryStatus($sql, $this->status, true);
 		$params = [$this->user, $this->offset];
 		$this->setMapperResult($sql, $params, $this->rows);
