@@ -24,7 +24,13 @@ class ItemMapper extends Mapper implements IMapper {
 	}
 
 
-	private function makeSelectQuery($prependTo){
+	private function makeSelectQuery($prependTo, $oldestFirst=false){
+		if($oldestFirst) {
+			$ordering = 'ASC';
+		} else {
+			$ordering = 'DESC';
+		}
+
 		return 'SELECT `items`.* FROM `*PREFIX*news_items` `items` '.
 			'JOIN `*PREFIX*news_feeds` `feeds` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` '.
@@ -35,10 +41,10 @@ class ItemMapper extends Mapper implements IMapper {
 				'ON `folders`.`id` = `feeds`.`folder_id` ' .
 			'WHERE `feeds`.`folder_id` = 0 ' .
 				'OR `folders`.`deleted_at` = 0 ' .
-			'ORDER BY `items`.`id` DESC';
+			'ORDER BY `items`.`id` ' . $ordering;
 	}
 
-	private function makeSelectQueryStatus($prependTo, $status) {
+	private function makeSelectQueryStatus($prependTo, $status, $oldestFirst=false) {
 		// Hi this is Ray and you're watching Jack Ass
 		// Now look closely: this is how we adults handle weird bugs in our
 		// code: we take them variables and we cast the shit out of them
@@ -57,7 +63,7 @@ class ItemMapper extends Mapper implements IMapper {
 			// SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
 			// think twice when changing this
 			'AND ((`items`.`status` & ' . $status . ') = ' . $status . ') ' .
-			$prependTo
+			$prependTo, $oldestFirst
 		);
 	}
 
@@ -161,38 +167,38 @@ class ItemMapper extends Mapper implements IMapper {
 	}
 
 
-	public function findAllFeed($id, $limit, $offset, $status, $userId){
+	public function findAllFeed($id, $limit, $offset, $status, $userId, $oldestFirst=false){
 		$params = [$userId, $id];
 		$sql = 'AND `items`.`feed_id` = ? ';
 		if($offset !== 0){
 			$sql .= 'AND `items`.`id` < ? ';
 			$params[] = $offset;
 		}
-		$sql = $this->makeSelectQueryStatus($sql, $status);
+		$sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst);
 		return $this->findEntities($sql, $params, $limit);
 	}
 
 
-	public function findAllFolder($id, $limit, $offset, $status, $userId){
+	public function findAllFolder($id, $limit, $offset, $status, $userId, $oldestFirst=false){
 		$params = [$userId, $id];
 		$sql = 'AND `feeds`.`folder_id` = ? ';
 		if($offset !== 0){
 			$sql .= 'AND `items`.`id` < ? ';
 			$params[] = $offset;
 		}
-		$sql = $this->makeSelectQueryStatus($sql, $status);
+		$sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst);
 		return $this->findEntities($sql, $params, $limit);
 	}
 
 
-	public function findAll($limit, $offset, $status, $userId){
+	public function findAll($limit, $offset, $status, $userId, $oldestFirst=false){
 		$params = [$userId];
 		$sql = '';
 		if($offset !== 0){
 			$sql .= 'AND `items`.`id` < ? ';
 			$params[] = $offset;
 		}
-		$sql = $this->makeSelectQueryStatus($sql, $status);
+		$sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst);
 		return $this->findEntities($sql, $params, $limit);
 	}
 

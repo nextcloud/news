@@ -51,17 +51,17 @@ class PageController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function settings() {
-		$showAll = $this->settings->getUserValue($this->userId, $this->appName, 
-			'showAll');
-		$compact = $this->settings->getUserValue($this->userId, $this->appName, 
-			'compact');
-		$language = $this->l10n->getLanguageCode();
+		$settings = ['showAll', 'compact', 'readOnScroll', 'oldestFirst'];
 
-		return [
-			'showAll' => $showAll === '1',
-			'compact' => $compact === '1',
-			'language' => $language
-		];
+		$result = ['language' => $this->l10n->getLanguageCode()];
+
+		foreach ($settings as $setting) {
+			$result[$setting] = $this->settings->getUserValue(
+				$this->userId, $this->appName, $setting
+			) === '1';
+		}
+
+		return $result;
 	}
 
 
@@ -70,17 +70,19 @@ class PageController extends Controller {
 	 *
 	 * @param bool $showAll
 	 * @param bool $compact
+	 * @param bool $readOnScroll
+	 * @param bool $oldestFirst
 	 */
-	public function updateSettings($showAll, $compact) {
-		if($showAll !== null) {
-			$this->settings->setUserValue($this->userId, $this->appName, 
-				'showAll', $showAll);
-		}
-
-		if($compact !== null) {
-			$this->settings->setUserValue($this->userId, $this->appName,
-				'compact', $compact);
+	public function updateSettings($showAll, $compact, $readOnScroll, $oldestFirst) {
+		$settings = ['showAll', 'compact', 'readOnScroll', 'oldestFirst'];
+		
+		foreach ($settings as $setting) {
+			if(${$setting} !== null) {
+				$this->settings->setUserValue($this->userId, $this->appName, 
+				                              $setting, ${$setting});
+			}
 		}
 	}
+
 
 }

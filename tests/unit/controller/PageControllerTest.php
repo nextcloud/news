@@ -60,7 +60,9 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
 		$result = [
 			'showAll' => true,
 			'compact' => true,
-			'language' => 'de'
+			'readOnScroll' => true,
+			'oldestFirst' => true,
+			'language' => 'de',
 		];
 
 		$this->l10n->expects($this->once())
@@ -77,6 +79,18 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
 			->with($this->equalTo($this->user),
 				$this->equalTo($this->appName),
 				$this->equalTo('compact'))
+			->will($this->returnValue('1'));
+		$this->settings->expects($this->at(2))
+			->method('getUserValue')
+			->with($this->equalTo($this->user),
+				$this->equalTo($this->appName),
+				$this->equalTo('readOnScroll'))
+			->will($this->returnValue('1'));
+		$this->settings->expects($this->at(3))
+			->method('getUserValue')
+			->with($this->equalTo($this->user),
+				$this->equalTo($this->appName),
+				$this->equalTo('oldestFirst'))
 			->will($this->returnValue('1'));
 
 		$response = $this->controller->settings();
@@ -97,7 +111,19 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
 				$this->equalTo($this->appName),
 				$this->equalTo('compact'), 
 				$this->equalTo(true));
-		$this->controller->updateSettings(true, true);
+		$this->settings->expects($this->at(2))
+			->method('setUserValue')
+			->with($this->equalTo($this->user),
+				$this->equalTo($this->appName),
+				$this->equalTo('readOnScroll'), 
+				$this->equalTo(true));
+		$this->settings->expects($this->at(3))
+			->method('setUserValue')
+			->with($this->equalTo($this->user),
+				$this->equalTo($this->appName),
+				$this->equalTo('oldestFirst'), 
+				$this->equalTo(true));
+		$this->controller->updateSettings(true, true, true, true);
 
 	}
 
@@ -113,7 +139,7 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
 				$this->equalTo('showAll'), 
 				$this->equalTo(true));
 
-		$this->controller->updateSettings(true, null);
+		$this->controller->updateSettings(true, null, null, null);
 
 	}
 }

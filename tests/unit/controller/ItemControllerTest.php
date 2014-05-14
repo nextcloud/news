@@ -188,20 +188,26 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 	}
 
 
-	private function itemsApiExpects($id, $type){
-		$this->settings->expects($this->once())
+	private function itemsApiExpects($id, $type, $oldestFirst='1'){
+		$this->settings->expects($this->at(0))
 			->method('getUserValue')
 			->with($this->equalTo($this->user),
 				$this->equalTo($this->appName),
 				$this->equalTo('showAll'))
 			->will($this->returnValue('1'));
 		$this->settings->expects($this->at(1))
+			->method('getUserValue')
+			->with($this->equalTo($this->user),
+				$this->equalTo($this->appName),
+				$this->equalTo('oldestFirst'))
+			->will($this->returnValue($oldestFirst));
+		$this->settings->expects($this->at(2))
 			->method('setUserValue')
 			->with($this->equalTo($this->user),
 				$this->equalTo($this->appName),
 				$this->equalTo('lastViewedFeedId'),
 				$this->equalTo($id));
-		$this->settings->expects($this->at(2))
+		$this->settings->expects($this->at(3))
 			->method('setUserValue')
 			->with($this->equalTo($this->user),
 				$this->equalTo($this->appName),
@@ -219,7 +225,7 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 			'starred' => 3111
 		];
 
-		$this->itemsApiExpects(2, FeedType::FEED);
+		$this->itemsApiExpects(2, FeedType::FEED, '0');
 
 		$this->feedBusinessLayer->expects($this->once())
 			->method('findAll')
@@ -244,7 +250,8 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 				$this->equalTo(3), 
 				$this->equalTo(0),
 				$this->equalTo(true), 
-				$this->equalTo($this->user))
+				$this->equalTo($this->user),
+				$this->equalTo(false))
 			->will($this->returnValue($result['items']));
 
 		$response = $this->controller->index(FeedType::FEED, 2, 3);
@@ -264,13 +271,14 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 				$this->equalTo(3), 
 				$this->equalTo(10),
 				$this->equalTo(true), 
-				$this->equalTo($this->user))
+				$this->equalTo($this->user),
+				$this->equalTo(true))
 			->will($this->returnValue($result['items']));
 
 		$this->feedBusinessLayer->expects($this->never())
 			->method('findAll');
 
-		$response = $this->controller->index(FeedType::FEED, 2, 3, 10);
+		$response = $this->controller->index(FeedType::FEED, 2, 3, 10, true);
 		$this->assertEquals($result, $response);
 	}
 

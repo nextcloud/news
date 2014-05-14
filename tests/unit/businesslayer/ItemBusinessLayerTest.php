@@ -127,7 +127,8 @@ class ItemBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 					$this->equalTo($this->limit),
 					$this->equalTo($this->offset),
 					$this->equalTo($this->status),
-					$this->equalTo($this->user))
+					$this->equalTo($this->user),
+					$this->equalTo(false))
 			->will($this->returnValue($this->response));
 
 		$result = $this->itemBusinessLayer->findAll(
@@ -164,13 +165,14 @@ class ItemBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->with(	$this->equalTo($this->limit),
 					$this->equalTo($this->offset),
 					$this->equalTo($this->status),
-					$this->equalTo($this->user))
+					$this->equalTo($this->user),
+					$this->equalTo(true))
 			->will($this->returnValue($this->response));
 
 		$result = $this->itemBusinessLayer->findAll(
 			$this->id, $type, $this->limit,
 			$this->offset, $this->showAll,
-			$this->user);
+			$this->user, true);
 		$this->assertEquals($this->response, $result);
 	}
 

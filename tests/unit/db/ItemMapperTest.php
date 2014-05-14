@@ -63,7 +63,12 @@ class ItemMapperTest extends \OCP\AppFramework\Db\MapperTestUtility {
 	}
 
 
-	private function makeSelectQuery($prependTo){
+	private function makeSelectQuery($prependTo, $oldestFirst=false){
+		if($oldestFirst) {
+			$ordering = 'ASC';
+		} else {
+			$ordering = 'DESC';
+		}
 		return 'SELECT `items`.* FROM `*PREFIX*news_items` `items` '.
 			'JOIN `*PREFIX*news_feeds` `feeds` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` '.
@@ -74,15 +79,15 @@ class ItemMapperTest extends \OCP\AppFramework\Db\MapperTestUtility {
 				'ON `folders`.`id` = `feeds`.`folder_id` ' .
 			'WHERE `feeds`.`folder_id` = 0 ' .
 				'OR `folders`.`deleted_at` = 0 ' .
-			'ORDER BY `items`.`id` DESC';
+			'ORDER BY `items`.`id` ' . $ordering;
 	}
 
-	private function makeSelectQueryStatus($prependTo, $status) {
+	private function makeSelectQueryStatus($prependTo, $status, $oldestFirst=false) {
 		$status = (int) $status;
 
 		return $this->makeSelectQuery(
 			'AND ((`items`.`status` & ' . $status . ') = ' . $status . ') ' .
-			$prependTo
+			$prependTo, $oldestFirst
 		);
 	}
 
@@ -227,6 +232,19 @@ class ItemMapperTest extends \OCP\AppFramework\Db\MapperTestUtility {
 	}
 
 
+	public function testFindAllFeedOldestFirst(){
+		$sql = 'AND `items`.`feed_id` = ? ' .
+			'AND `items`.`id` < ? ';
+		$sql = $this->makeSelectQueryStatus($sql, $this->status, true);
+		$params = [$this->user, $this->id, $this->offset];
+		$this->setMapperResult($sql, $params, $this->rows);
+		$result = $this->mapper->findAllFeed($this->id, $this->limit,
+				$this->offset, $this->status, $this->user, true);
+
+		$this->assertEquals($this->items, $result);
+	}
+
+
 	public function testFindAllFeedOffsetZero(){
 		$sql = 'AND `items`.`feed_id` = ? ';
 		$sql = $this->makeSelectQueryStatus($sql, $this->status);
@@ -252,6 +270,19 @@ class ItemMapperTest extends \OCP\AppFramework\Db\MapperTestUtility {
 	}
 
 
+	public function testFindAllFolderOldestFirst(){
+		$sql = 'AND `feeds`.`folder_id` = ? ' .
+			'AND `items`.`id` < ? ';
+		$sql = $this->makeSelectQueryStatus($sql, $this->status, true);
+		$params = [$this->user, $this->id, $this->offset];
+		$this->setMapperResult($sql, $params, $this->rows);
+		$result = $this->mapper->findAllFolder($this->id, $this->limit,
+				$this->offset, $this->status, $this->user, true);
+
+		$this->assertEquals($this->items, $result);
+	}
+
+
 	public function testFindAllFolderOffsetZero(){
 		$sql = 'AND `feeds`.`folder_id` = ? ';
 		$sql = $this->makeSelectQueryStatus($sql, $this->status);
@@ -271,6 +302,18 @@ class ItemMapperTest extends \OCP\AppFramework\Db\MapperTestUtility {
 		$this->setMapperResult($sql, $params, $this->rows);
 		$result = $this->mapper->findAll($this->limit,
 				$this->offset, $this->status, $this->user);
+
+		$this->assertEquals($this->items, $result);
+	}
+
+
+	public function testFindAllOldestFirst(){
+		$sql = 'AND `items`.`id` < ? ';
+		$sql = $this->makeSelectQueryStatus($sql, $this->status, true);
+		$params = [$this->user, $this->offset];
+		$this->setMapperResult($sql, $params, $this->rows);
+		$result = $this->mapper->findAll($this->limit,
+				$this->offset, $this->status, $this->user, true);
 
 		$this->assertEquals($this->items, $result);
 	}

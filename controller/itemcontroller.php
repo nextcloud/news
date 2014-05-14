@@ -57,6 +57,8 @@ class ItemController extends Controller {
 	public function index($type, $id, $limit, $offset=0) {
 		$showAll = $this->settings->getUserValue($this->userId, $this->appName,
 			'showAll') === '1';
+		$oldestFirst = $this->settings->getUserValue($this->userId, $this->appName,
+			'oldestFirst') === '1';
 
 		$this->settings->setUserValue($this->userId, $this->appName,
 			'lastViewedFeedId', $id);
@@ -77,8 +79,9 @@ class ItemController extends Controller {
 				$params['starred'] = $this->itemBusinessLayer->starredCount($this->userId);
 			}
 						
-			$params['items'] = $this->itemBusinessLayer->findAll($id, $type, $limit, 
-				                                       $offset, $showAll, $this->userId);
+			$params['items'] = $this->itemBusinessLayer->findAll(
+				$id, $type, $limit, $offset, $showAll, $this->userId, $oldestFirst
+			);
 			
 		// this gets thrown if there are no items
 		// in that case just return an empty array

@@ -56,19 +56,18 @@ class ItemBusinessLayer extends BusinessLayer {
 
 		switch($type){
 			case FeedType::FEED:
-				$items = $this->itemMapper->findAllNewFeed($id, $updatedSince,
-					                                   $status, $userId);
-				break;
+				return $this->itemMapper->findAllNewFeed(
+					$id, $updatedSince, $status, $userId
+				);
 			case FeedType::FOLDER:
-				$items = $this->itemMapper->findAllNewFolder($id, $updatedSince,
-					                                   $status, $userId);
-				break;
+				return $this->itemMapper->findAllNewFolder(
+					$id, $updatedSince, $status, $userId
+				);
 			default:
-				$items = $this->itemMapper->findAllNew($updatedSince, $status,
-					                               $userId);
+				return $this->itemMapper->findAllNew(
+					$updatedSince, $status, $userId
+				);
 		}
-
-		return $items;
 	}
 
 
@@ -80,26 +79,27 @@ class ItemBusinessLayer extends BusinessLayer {
 	 * @param int $offset only items lower than this id are returned, 0 for no offset
 	 * @param boolean $showAll if unread items should also be returned
 	 * @param string $userId the name of the user
+	 * @param boolean $oldestFirst if it should be ordered by oldest first
 	 * @return array of items
 	 */
-	public function findAll($id, $type, $limit, $offset, $showAll, $userId){
+	public function findAll($id, $type, $limit, $offset, $showAll, $userId, 
+	                        $oldestFirst=false){
 		$status = $this->statusFlag->typeToStatus($type, $showAll);
 
 		switch($type){
 			case FeedType::FEED:
-				$items = $this->itemMapper->findAllFeed($id, $limit, $offset,
-					                                   $status, $userId);
-				break;
+				return $this->itemMapper->findAllFeed(
+					$id, $limit, $offset,$status, $userId, $oldestFirst
+				);
 			case FeedType::FOLDER:
-				$items = $this->itemMapper->findAllFolder($id, $limit, $offset,
-					                                   $status, $userId);
-				break;
+				return $this->itemMapper->findAllFolder(
+					$id, $limit, $offset, $status, $userId, $oldestFirst
+				);
 			default:
-				$items = $this->itemMapper->findAll($limit, $offset, $status,
-					                               $userId);
+				return $this->itemMapper->findAll(
+					$limit, $offset, $status, $userId, $oldestFirst
+				);
 		}
-
-		return $items;
 	}
 
 
