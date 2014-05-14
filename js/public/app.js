@@ -1200,10 +1200,10 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 (function() {
   angular.module('News').controller('ItemController', [
-    '$scope', 'ItemBusinessLayer', 'FeedModel', 'FeedLoading', 'FeedBusinessLayer', 'Language', 'AutoPageLoading', 'Compact', function($scope, ItemBusinessLayer, FeedModel, FeedLoading, FeedBusinessLayer, Language, AutoPageLoading, Compact) {
+    '$scope', 'ItemBusinessLayer', 'FeedModel', 'FeedLoading', 'FeedBusinessLayer', 'Language', 'AutoPageLoading', 'Settings', function($scope, ItemBusinessLayer, FeedModel, FeedLoading, FeedBusinessLayer, Language, AutoPageLoading, Settings) {
       var ItemController;
       ItemController = (function() {
-        function ItemController(_$scope, _itemBusinessLayer, _feedModel, _feedLoading, _autoPageLoading, _feedBusinessLayer, _language, _compact) {
+        function ItemController(_$scope, _itemBusinessLayer, _feedModel, _feedLoading, _autoPageLoading, _feedBusinessLayer, _language, _settings) {
           this._$scope = _$scope;
           this._itemBusinessLayer = _itemBusinessLayer;
           this._feedModel = _feedModel;
@@ -1211,7 +1211,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           this._autoPageLoading = _autoPageLoading;
           this._feedBusinessLayer = _feedBusinessLayer;
           this._language = _language;
-          this._compact = _compact;
+          this._settings = _settings;
           this._autoPaging = true;
           this._$scope.itemBusinessLayer = this._itemBusinessLayer;
           this._$scope.feedBusinessLayer = this._feedBusinessLayer;
@@ -1270,7 +1270,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           })(this));
           this._$scope.isCompactView = (function(_this) {
             return function() {
-              return _this._compact.isCompact();
+              return _this._settings.get('compact');
             };
           })(this);
         }
@@ -1278,7 +1278,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         return ItemController;
 
       })();
-      return new ItemController($scope, ItemBusinessLayer, FeedModel, FeedLoading, AutoPageLoading, FeedBusinessLayer, Language, Compact);
+      return new ItemController($scope, ItemBusinessLayer, FeedModel, FeedLoading, AutoPageLoading, FeedBusinessLayer, Language, Settings);
     }
   ]);
 
@@ -1309,12 +1309,12 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 (function() {
   angular.module('News').controller('SettingsController', [
-    '$scope', 'FeedBusinessLayer', 'FolderBusinessLayer', 'ShowAll', 'Persistence', 'Compact', function($scope, FeedBusinessLayer, FolderBusinessLayer, ShowAll, Persistence, Compact) {
+    '$scope', 'FeedBusinessLayer', 'FolderBusinessLayer', 'Persistence', 'Settings', function($scope, FeedBusinessLayer, FolderBusinessLayer, Persistence, Settings) {
       $scope.feedBusinessLayer = FeedBusinessLayer;
       $scope["import"] = function(fileContent) {
         var error;
         $scope.error = false;
-        ShowAll.setShowAll(true);
+        Settings.set('showAll', true);
         try {
           return FolderBusinessLayer["import"](fileContent);
         } catch (_error) {
@@ -1337,12 +1337,12 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
           return $scope.loading = false;
         }
       };
-      $scope.setCompactView = function(isCompact) {
-        Compact.handle(!Compact.isCompact());
-        return Persistence.userSettingsSetCompact(Compact.isCompact());
+      $scope.toggleSetting = function(key) {
+        Settings.set(key, !Settings.get(key));
+        return Persistence.setSettings(Settings.getSettings());
       };
-      return $scope.isCompactView = function() {
-        return Compact.isCompact();
+      return $scope.getSetting = function(key) {
+        return Settings.get(key);
       };
     }
   ]);
@@ -1495,13 +1495,13 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   angular.module('News').factory('FeedBusinessLayer', [
-    '_BusinessLayer', 'ShowAll', 'Persistence', 'ActiveFeed', 'FeedType', 'ItemModel', 'FeedModel', 'NewLoading', '_ExistsError', 'Utils', '$rootScope', 'NewestItem', function(_BusinessLayer, ShowAll, Persistence, ActiveFeed, FeedType, ItemModel, FeedModel, NewLoading, _ExistsError, Utils, $rootScope, NewestItem) {
+    '_BusinessLayer', 'Settings', 'Persistence', 'ActiveFeed', 'FeedType', 'ItemModel', 'FeedModel', 'NewLoading', '_ExistsError', 'Utils', '$rootScope', 'NewestItem', function(_BusinessLayer, Settings, Persistence, ActiveFeed, FeedType, ItemModel, FeedModel, NewLoading, _ExistsError, Utils, $rootScope, NewestItem) {
       var FeedBusinessLayer;
       FeedBusinessLayer = (function(_super) {
         __extends(FeedBusinessLayer, _super);
 
-        function FeedBusinessLayer(_showAll, _feedModel, persistence, activeFeed, feedType, itemModel, _newLoading, _utils, $rootScope, _newestItem) {
-          this._showAll = _showAll;
+        function FeedBusinessLayer(_settings, _feedModel, persistence, activeFeed, feedType, itemModel, _newLoading, _utils, $rootScope, _newestItem) {
+          this._settings = _settings;
           this._feedModel = _feedModel;
           this._newLoading = _newLoading;
           this._utils = _utils;
@@ -1578,7 +1578,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         };
 
         FeedBusinessLayer.prototype.isVisible = function(feedId) {
-          if (this.isActive(feedId) || this._showAll.getShowAll()) {
+          if (this.isActive(feedId) || this._settings.get('showAll')) {
             return true;
           } else {
             return this._feedModel.getFeedUnreadCount(feedId) > 0;
@@ -1600,7 +1600,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
         FeedBusinessLayer.prototype.setShowAll = function(showAll) {
           var callback;
-          this._showAll.setShowAll(showAll);
+          this._settings.set('showAll', showAll);
           callback = (function(_this) {
             return function() {
               _this._itemModel.clear();
@@ -1610,15 +1610,11 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
               });
             };
           })(this);
-          if (showAll) {
-            return this._persistence.userSettingsReadShow(callback);
-          } else {
-            return this._persistence.userSettingsReadHide(callback);
-          }
+          return this._persistence.setSettings(this._settings.getSettings(), callback);
         };
 
         FeedBusinessLayer.prototype.isShowAll = function() {
-          return this._showAll.getShowAll();
+          return this._settings.get('showAll');
         };
 
         FeedBusinessLayer.prototype.getAll = function() {
@@ -1690,7 +1686,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         return FeedBusinessLayer;
 
       })(_BusinessLayer);
-      return new FeedBusinessLayer(ShowAll, FeedModel, Persistence, ActiveFeed, FeedType, ItemModel, NewLoading, Utils, $rootScope, NewestItem);
+      return new FeedBusinessLayer(Settings, FeedModel, Persistence, ActiveFeed, FeedType, ItemModel, NewLoading, Utils, $rootScope, NewestItem);
     }
   ]);
 
@@ -1724,15 +1720,15 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   angular.module('News').factory('FolderBusinessLayer', [
-    '_BusinessLayer', 'FolderModel', 'FeedBusinessLayer', 'Persistence', 'FeedType', 'ActiveFeed', 'ItemModel', 'ShowAll', '_ExistsError', 'OPMLParser', 'NewestItem', 'FeedModel', '$rootScope', function(_BusinessLayer, FolderModel, FeedBusinessLayer, Persistence, FeedType, ActiveFeed, ItemModel, ShowAll, _ExistsError, OPMLParser, NewestItem, FeedModel, $rootScope) {
+    '_BusinessLayer', 'FolderModel', 'FeedBusinessLayer', 'Persistence', 'FeedType', 'ActiveFeed', 'ItemModel', 'Settings', '_ExistsError', 'OPMLParser', 'NewestItem', 'FeedModel', '$rootScope', function(_BusinessLayer, FolderModel, FeedBusinessLayer, Persistence, FeedType, ActiveFeed, ItemModel, Settings, _ExistsError, OPMLParser, NewestItem, FeedModel, $rootScope) {
       var FolderBusinessLayer;
       FolderBusinessLayer = (function(_super) {
         __extends(FolderBusinessLayer, _super);
 
-        function FolderBusinessLayer(_folderModel, _feedBusinessLayer, _showAll, activeFeed, persistence, _feedType, itemModel, _opmlParser, _newestItem, _feedModel, $rootScope) {
+        function FolderBusinessLayer(_folderModel, _feedBusinessLayer, _settings, activeFeed, persistence, _feedType, itemModel, _opmlParser, _newestItem, _feedModel, $rootScope) {
           this._folderModel = _folderModel;
           this._feedBusinessLayer = _feedBusinessLayer;
-          this._showAll = _showAll;
+          this._settings = _settings;
           this._feedType = _feedType;
           this._opmlParser = _opmlParser;
           this._newestItem = _newestItem;
@@ -1823,7 +1819,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
         FolderBusinessLayer.prototype.isVisible = function(folderId) {
           var feed, _i, _len, _ref;
-          if (this._showAll.getShowAll() || this._feedBusinessLayer.getFeedsOfFolder(folderId).length === 0) {
+          if (this._settings.get('showAll') || this._feedBusinessLayer.getFeedsOfFolder(folderId).length === 0) {
             return true;
           } else {
             if (this.isActive(folderId) || this._feedBusinessLayer.getFolderUnreadCount(folderId) > 0) {
@@ -1952,7 +1948,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         return FolderBusinessLayer;
 
       })(_BusinessLayer);
-      return new FolderBusinessLayer(FolderModel, FeedBusinessLayer, ShowAll, ActiveFeed, Persistence, FeedType, ItemModel, OPMLParser, NewestItem, FeedModel, $rootScope);
+      return new FolderBusinessLayer(FolderModel, FeedBusinessLayer, Settings, ActiveFeed, Persistence, FeedType, ItemModel, OPMLParser, NewestItem, FeedModel, $rootScope);
     }
   ]);
 
@@ -2283,53 +2279,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 (function() {
-  angular.module('News').factory('Compact', function() {
-    var Compact;
-    Compact = (function() {
-      function Compact() {
-        this._compact = false;
-      }
-
-      Compact.prototype.isCompact = function() {
-        return this._compact;
-      };
-
-      Compact.prototype.handle = function(data) {
-        return this._compact = data;
-      };
-
-      return Compact;
-
-    })();
-    return new Compact();
-  });
-
-}).call(this);
-
-// Generated by CoffeeScript 1.7.1
-
-/*
-
-ownCloud - News
-
-@author Bernhard Posselt
-@copyright 2012 Bernhard Posselt dev@bernhard-posselt.com
-
-This library is free software; you can redistribute it and/or
-modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
-License as published by the Free Software Foundation; either
-version 3 of the License, or any later version.
-
-This library is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU AFFERO GENERAL PUBLIC LICENSE for more details.
-
-You should have received a copy of the GNU Affero General Public
-License along with this library.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-(function() {
   angular.module('News').factory('_ExistsError', function() {
     var ExistsError;
     ExistsError = (function() {
@@ -2378,67 +2327,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
       Subscriptions: 3,
       Shared: 4
     };
-  });
-
-}).call(this);
-
-// Generated by CoffeeScript 1.7.1
-
-/*
-
-ownCloud - News
-
-@author Bernhard Posselt
-@copyright 2012 Bernhard Posselt dev@bernhard-posselt.com
-
-This library is free software; you can redistribute it and/or
-modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
-License as published by the Free Software Foundation; either
-version 3 of the License, or any later version.
-
-This library is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU AFFERO GENERAL PUBLIC LICENSE for more details.
-
-You should have received a copy of the GNU Affero General Public
-License along with this library.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-(function() {
-  var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
-
-  angular.module('News').factory('Language', function() {
-    var Language;
-    Language = (function() {
-      function Language() {
-        this._language = 'en';
-        this._langs = ['ar-ma', 'ar', 'bg', 'ca', 'cs', 'cv', 'da', 'de', 'el', 'en-ca', 'en-gb', 'eo', 'es', 'et', 'eu', 'fi', 'fr-ca', 'fr', 'gl', 'he', 'hi', 'hu', 'id', 'is', 'it', 'ja', 'ka', 'ko', 'lv', 'ms-my', 'nb', 'ne', 'nl', 'pl', 'pt-br', 'pt', 'ro', 'ru', 'sk', 'sl', 'sv', 'th', 'tr', 'tzm-la', 'tzm', 'uk', 'zh-cn', 'zh-tw'];
-      }
-
-      Language.prototype.handle = function(data) {
-        data = data.replace('_', '-').toLowerCase();
-        if (!(__indexOf.call(this._langs, data) >= 0)) {
-          data = data.split('-')[0];
-        }
-        if (!(__indexOf.call(this._langs, data) >= 0)) {
-          data = 'en';
-        }
-        return this._language = data;
-      };
-
-      Language.prototype.getLanguage = function() {
-        return this._language;
-      };
-
-      Language.prototype.getMomentFromTimestamp = function(timestamp) {
-        return moment.unix(timestamp).lang(this._language);
-      };
-
-      return Language;
-
-    })();
-    return new Language();
   });
 
 }).call(this);
@@ -3969,42 +3857,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
         			USERSETTINGS CONTROLLER
          */
 
-        Persistence.prototype.userSettingsReadShow = function(callback) {
-
-          /*
-          			Sets the reader mode to show all
-           */
-          var data;
-          data = {
-            showAll: true
-          };
-          return this.setSettings(data, callback);
-        };
-
-        Persistence.prototype.userSettingsReadHide = function(callback) {
-
-          /*
-          			Sets the reader mode to show only unread
-           */
-          var data;
-          data = {
-            showAll: false
-          };
-          return this.setSettings(data, callback);
-        };
-
-        Persistence.prototype.userSettingsSetCompact = function(isCompact) {
-
-          /*
-          			sets all items of a folder as read
-           */
-          var data;
-          data = {
-            compact: isCompact
-          };
-          return this.setSettings(data);
-        };
-
         Persistence.prototype.setSettings = function(settings, onSuccess) {
           var data;
           onSuccess || (onSuccess = function() {});
@@ -4993,18 +4845,17 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
   ]);
 
   angular.module('News').factory('Publisher', [
-    '_Publisher', 'ActiveFeed', 'ShowAll', 'StarredCount', 'ItemModel', 'FolderModel', 'FeedModel', 'Language', 'NewestItem', 'Compact', function(_Publisher, ActiveFeed, ShowAll, StarredCount, ItemModel, FolderModel, FeedModel, Language, NewestItem, Compact) {
+    '_Publisher', 'ActiveFeed', 'StarredCount', 'ItemModel', 'FolderModel', 'FeedModel', 'Language', 'NewestItem', 'Settings', function(_Publisher, ActiveFeed, StarredCount, ItemModel, FolderModel, FeedModel, Language, NewestItem, Settings) {
       var publisher;
       publisher = new _Publisher();
       publisher.subscribeObjectTo(ActiveFeed, 'activeFeed');
-      publisher.subscribeObjectTo(ShowAll, 'showAll');
       publisher.subscribeObjectTo(Language, 'language');
       publisher.subscribeObjectTo(StarredCount, 'starred');
       publisher.subscribeObjectTo(FolderModel, 'folders');
       publisher.subscribeObjectTo(FeedModel, 'feeds');
       publisher.subscribeObjectTo(ItemModel, 'items');
       publisher.subscribeObjectTo(NewestItem, 'newestItemId');
-      publisher.subscribeObjectTo(Compact, 'compact');
+      publisher.subscribeObjectTo(Settings, 'settings');
       return publisher;
     }
   ]);
@@ -5035,29 +4886,49 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 (function() {
-  angular.module('News').factory('ShowAll', function() {
-    var ShowAll;
-    ShowAll = (function() {
-      function ShowAll() {
-        this._showAll = false;
+  var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+
+  angular.module('News').factory('Settings', function() {
+    var Settings;
+    Settings = (function() {
+      function Settings() {
+        this._settings = {
+          compact: false,
+          preventReadOnScroll: false,
+          oldestFirst: false,
+          language: 'en'
+        };
+        this._langs = ['ar-ma', 'ar', 'bg', 'ca', 'cs', 'cv', 'da', 'de', 'el', 'en-ca', 'en-gb', 'eo', 'es', 'et', 'eu', 'fi', 'fr-ca', 'fr', 'gl', 'he', 'hi', 'hu', 'id', 'is', 'it', 'ja', 'ka', 'ko', 'lv', 'ms-my', 'nb', 'ne', 'nl', 'pl', 'pt-br', 'pt', 'ro', 'ru', 'sk', 'sl', 'sv', 'th', 'tr', 'tzm-la', 'tzm', 'uk', 'zh-cn', 'zh-tw'];
       }
 
-      ShowAll.prototype.handle = function(data) {
-        return this._showAll = data;
+      Settings.prototype.get = function(key) {
+        return this._settings[key];
       };
 
-      ShowAll.prototype.getShowAll = function() {
-        return this._showAll;
+      Settings.prototype.set = function(key, value) {
+        return this._settings[key] = value;
       };
 
-      ShowAll.prototype.setShowAll = function(showAll) {
-        return this._showAll = showAll;
+      Settings.prototype.getSettings = function() {
+        return this._settings;
       };
 
-      return ShowAll;
+      Settings.prototype.handle = function(data) {
+        var language;
+        language = data.language.replace('_', '-').toLowerCase();
+        if (!(__indexOf.call(this._langs, language) >= 0)) {
+          language = language.split('-')[0];
+        }
+        if (!(__indexOf.call(this._langs, language) >= 0)) {
+          language = 'en';
+        }
+        return this._settings = data;
+      };
+
+      return Settings;
 
     })();
-    return new ShowAll();
+    return new Settings();
   });
 
 }).call(this);

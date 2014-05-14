@@ -11,8 +11,14 @@
 <div id="app-settings-content">
 	<fieldset class="personalblock">
 		<legend><strong><?php p($l->t('Settings')); ?></strong></legend>
-		<p ng-click="setCompactView()">
-			<input type="checkbox" ng-checked="isCompactView()"> <?php p($l->t('Use compact view')); ?>
+		<p ng-click="getSetting('compact')">
+			<input type="checkbox" ng-checked="getSetting('compact')"> <?php p($l->t('Use compact view')); ?>
+		</p>
+		<p ng-click="getSetting('oldestFirst')">
+			<input type="checkbox" ng-checked="getSetting('oldestFirst')"> <?php p($l->t('Order by oldest first')); ?>
+		</p>
+		<p ng-click="getSetting('preventReadOnScroll')">
+			<input type="checkbox" ng-checked="getSetting('preventReadOnScroll')"> <?php p($l->t('Do not as mark read when scrolling')); ?>
 		</p>
 		<legend><strong><?php p($l->t('Subscriptions (OPML)')); ?></strong></legend>
 		

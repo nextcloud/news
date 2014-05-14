@@ -440,34 +440,6 @@ $rootScope, $q) ->
 		###
 			USERSETTINGS CONTROLLER
 		###
-		userSettingsReadShow: (callback) ->
-			###
-			Sets the reader mode to show all
-			###
-			data =
-				showAll: true
-			@setSettings data, callback
-
-
-		userSettingsReadHide: (callback) ->
-			###
-			Sets the reader mode to show only unread
-			###
-			data =
-				showAll: false
-			@setSettings data, callback
-
-
-		userSettingsSetCompact: (isCompact) ->
-			###
-			sets all items of a folder as read
-			###
-			data =
-				compact: isCompact
-
-			@setSettings data
-
-
 		setSettings: (settings, onSuccess) ->
 			onSuccess or= ->
 			data =

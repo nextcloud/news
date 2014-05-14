@@ -23,15 +23,15 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 angular.module('News').factory 'FolderBusinessLayer',
 ['_BusinessLayer', 'FolderModel', 'FeedBusinessLayer', 'Persistence',
-'FeedType', 'ActiveFeed', 'ItemModel', 'ShowAll', '_ExistsError', 'OPMLParser',
+'FeedType', 'ActiveFeed', 'ItemModel', 'Settings', '_ExistsError', 'OPMLParser',
 'NewestItem', 'FeedModel', '$rootScope',
 (_BusinessLayer, FolderModel, FeedBusinessLayer, Persistence, FeedType,
-ActiveFeed, ItemModel, ShowAll, _ExistsError, OPMLParser, NewestItem,
+ActiveFeed, ItemModel, Settings, _ExistsError, OPMLParser, NewestItem,
 FeedModel, $rootScope) ->
 
 	class FolderBusinessLayer extends _BusinessLayer
 
-		constructor: (@_folderModel, @_feedBusinessLayer, @_showAll, activeFeed,
+		constructor: (@_folderModel, @_feedBusinessLayer, @_settings, activeFeed,
 			          persistence, @_feedType, itemModel, @_opmlParser,
 			          @_newestItem, @_feedModel, $rootScope) ->
 			super(activeFeed, persistence, itemModel, @_feedType.Folder, $rootScope)
@@ -105,7 +105,7 @@ FeedModel, $rootScope) ->
 			
 
 		isVisible: (folderId) ->
-			if @_showAll.getShowAll() ||
+			if @_settings.get('showAll') ||
 			@_feedBusinessLayer.getFeedsOfFolder(folderId).length == 0
 				return true
 			else
@@ -201,7 +201,7 @@ FeedModel, $rootScope) ->
 								console.info error
 
 
-	return new FolderBusinessLayer(FolderModel, FeedBusinessLayer, ShowAll,
+	return new FolderBusinessLayer(FolderModel, FeedBusinessLayer, Settings,
 	                               ActiveFeed, Persistence, FeedType, ItemModel,
 	                               OPMLParser, NewestItem, FeedModel, $rootScope)
 

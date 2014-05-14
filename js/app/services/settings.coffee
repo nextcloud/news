@@ -20,12 +20,16 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 ###
 
-angular.module('News').factory 'Language', ->
+angular.module('News').factory 'Settings', ->
 
-	class Language
+	class Settings
 
 		constructor: ->
-			@_language = 'en'
+			@_settings =
+				compact: false
+				preventReadOnScroll: false
+				oldestFirst: false
+				language: 'en'
 			@_langs = [
 				'ar-ma'
 				'ar'
@@ -77,28 +81,28 @@ angular.module('News').factory 'Language', ->
 				'zh-tw'
 			]
 
+		get: (key) ->
+			return @_settings[key]
+
+		set: (key, value) ->
+			@_settings[key] = value
+
+		getSettings: ->
+			return @_settings
 
 		handle: (data) ->
 			# fix broken server locales
-			data = data.replace('_', '-').toLowerCase()
+			language = data.language.replace('_', '-').toLowerCase()
 
 			# check if the first part is available, if so use this
-			if not (data in @_langs)
-				data = data.split('-')[0]
+			if not (language in @_langs)
+				language = language.split('-')[0]
 
 			# if its not available default to english
-			if not (data in @_langs)
-				data = 'en'
+			if not (language in @_langs)
+				language = 'en'
 
-			@_language = data
-
-
-		getLanguage: ->
-			return @_language
+			@_settings = data
 
 
-		getMomentFromTimestamp: (timestamp) ->
-			return moment.unix(timestamp).lang(@_language)
-
-
-	return new Language()
+	return new Settings()

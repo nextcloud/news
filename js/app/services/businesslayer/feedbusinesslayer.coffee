@@ -22,15 +22,15 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 
 angular.module('News').factory 'FeedBusinessLayer',
-['_BusinessLayer', 'ShowAll', 'Persistence', 'ActiveFeed', 'FeedType',
+['_BusinessLayer', 'Settings', 'Persistence', 'ActiveFeed', 'FeedType',
 'ItemModel', 'FeedModel', 'NewLoading', '_ExistsError', 'Utils', '$rootScope',
 'NewestItem',
-(_BusinessLayer, ShowAll, Persistence, ActiveFeed, FeedType, ItemModel,
+(_BusinessLayer, Settings, Persistence, ActiveFeed, FeedType, ItemModel,
 FeedModel, NewLoading, _ExistsError, Utils, $rootScope, NewestItem)->
 
 	class FeedBusinessLayer extends _BusinessLayer
 
-		constructor: (@_showAll, @_feedModel, persistence, activeFeed, feedType,
+		constructor: (@_settings, @_feedModel, persistence, activeFeed, feedType,
 			          itemModel, @_newLoading, @_utils, $rootScope,
 			          @_newestItem) ->
 			super(activeFeed, persistence, itemModel, feedType.Feed, $rootScope)
@@ -94,7 +94,7 @@ FeedModel, NewLoading, _ExistsError, Utils, $rootScope, NewestItem)->
 
 		
 		isVisible: (feedId) ->
-			if @isActive(feedId) or @_showAll.getShowAll()
+			if @isActive(feedId) or @_settings.get('showAll')
 				return true
 			else
 				return @_feedModel.getFeedUnreadCount(feedId) > 0
@@ -111,7 +111,7 @@ FeedModel, NewLoading, _ExistsError, Utils, $rootScope, NewestItem)->
 
 
 		setShowAll: (showAll) ->
-			@_showAll.setShowAll(showAll)
+			@_settings.set('showAll', showAll)
 
 			# TODO: this callback is not tested with a unittest
 			callback = =>
@@ -124,14 +124,12 @@ FeedModel, NewLoading, _ExistsError, Utils, $rootScope, NewestItem)->
 					=>
 						@_newLoading.decrease()
 				)
-			if showAll
-				@_persistence.userSettingsReadShow(callback)
-			else
-				@_persistence.userSettingsReadHide(callback)
+
+			@_persistence.setSettings(@_settings.getSettings(), callback)
 
 
 		isShowAll: ->
-			return @_showAll.getShowAll()
+			return @_settings.get('showAll')
 
 
 		getAll: ->
@@ -189,7 +187,7 @@ FeedModel, NewLoading, _ExistsError, Utils, $rootScope, NewestItem)->
 			@_persistence.importArticles(json, onSuccess)
 
 
-	return new FeedBusinessLayer(ShowAll, FeedModel, Persistence, ActiveFeed,
+	return new FeedBusinessLayer(Settings, FeedModel, Persistence, ActiveFeed,
 	                             FeedType, ItemModel, NewLoading, Utils,
 	                             $rootScope, NewestItem)
 

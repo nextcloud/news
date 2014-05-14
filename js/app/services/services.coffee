@@ -44,22 +44,21 @@ angular.module('News').factory 'NewLoading', ['_Loading', (_Loading) ->
 
 
 angular.module('News').factory 'Publisher',
-['_Publisher', 'ActiveFeed', 'ShowAll', 'StarredCount', 'ItemModel',
-'FolderModel', 'FeedModel', 'Language', 'NewestItem', 'Compact',
-(_Publisher, ActiveFeed, ShowAll, StarredCount, ItemModel,
-FolderModel, FeedModel, Language, NewestItem, Compact) ->
+['_Publisher', 'ActiveFeed', 'StarredCount', 'ItemModel',
+'FolderModel', 'FeedModel', 'Language', 'NewestItem', 'Settings',
+(_Publisher, ActiveFeed, StarredCount, ItemModel,
+FolderModel, FeedModel, Language, NewestItem, Settings) ->
 
 	# register items at publisher to automatically add incoming items
 	publisher = new _Publisher()
 	publisher.subscribeObjectTo(ActiveFeed, 'activeFeed')
-	publisher.subscribeObjectTo(ShowAll, 'showAll')
 	publisher.subscribeObjectTo(Language, 'language')
 	publisher.subscribeObjectTo(StarredCount, 'starred')
 	publisher.subscribeObjectTo(FolderModel, 'folders')
 	publisher.subscribeObjectTo(FeedModel, 'feeds')
 	publisher.subscribeObjectTo(ItemModel, 'items')
 	publisher.subscribeObjectTo(NewestItem, 'newestItemId')
-	publisher.subscribeObjectTo(Compact, 'compact')
+	publisher.subscribeObjectTo(Settings, 'settings')
 
 	return publisher
 ]

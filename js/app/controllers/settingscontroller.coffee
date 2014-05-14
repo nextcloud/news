@@ -22,16 +22,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 
 angular.module('News').controller 'SettingsController',
-['$scope', 'FeedBusinessLayer', 'FolderBusinessLayer', 'ShowAll',
-'Persistence', 'Compact',
-($scope, FeedBusinessLayer, FolderBusinessLayer, ShowAll, Persistence,
-Compact) ->
+['$scope', 'FeedBusinessLayer', 'FolderBusinessLayer', 'Persistence', 'Settings',
+($scope, FeedBusinessLayer, FolderBusinessLayer, Persistence, Settings) ->
 
 	$scope.feedBusinessLayer = FeedBusinessLayer
 
 	$scope.import = (fileContent) ->
 		$scope.error = false
-		ShowAll.setShowAll(true)
+		Settings.set('showAll', true)
 
 		try
 			FolderBusinessLayer.import(fileContent)
@@ -52,12 +50,11 @@ Compact) ->
 			$scope.loading = false
 
 
-	$scope.setCompactView = (isCompact) ->
-		Compact.handle(!Compact.isCompact())
+	$scope.toggleSetting = (key) ->
+		Settings.set(key, !Settings.get(key))
+		Persistence.setSettings(Settings.getSettings())
 
-		Persistence.userSettingsSetCompact(Compact.isCompact())
-
-	$scope.isCompactView = ->
-		return Compact.isCompact()
+	$scope.getSetting = (key) ->
+		return Settings.get(key)
 
 ]
