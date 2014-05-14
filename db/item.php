@@ -44,21 +44,22 @@ use \OCP\AppFramework\Db\Entity;
  * @method integer getLastModified()
  * @method void setLastModified(integer $value)
  */
-class Item extends Entity implements IAPI {
+class Item extends Entity implements IAPI, \JsonSerializable {
 
-	public $guidHash;
-	public $guid;
-	public $url;
-	public $title;
-	public $author;
-	public $pubDate;
-	public $body;
-	public $enclosureMime;
-	public $enclosureLink;
-	public $feedId;
-	public $status = 0;
-	public $lastModified;
+	use EntityJSONSerializer;
 
+	protected $guidHash;
+	protected $guid;
+	protected $url;
+	protected $title;
+	protected $author;
+	protected $pubDate;
+	protected $body;
+	protected $enclosureMime;
+	protected $enclosureLink;
+	protected $feedId;
+	protected $status = 0;
+	protected $lastModified;
 
 	public function __construct(){
 		$this->addType('pubDate', 'integer');
@@ -104,6 +105,26 @@ class Item extends Entity implements IAPI {
 		return !$this->isStarred();
 	}
 
+	/**
+	 * Turns entitie attributes into an array
+	 */
+	public function jsonSerialize() {
+		return $this->serializeFields([
+			'id',
+			'guidHash',
+			'guid',
+			'url',
+			'title',
+			'author',
+			'pubDate',
+			'body',
+			'enclosureMime',
+			'enclosureLink',
+			'feedId',
+			'status',
+			'lastModified',
+		]);
+	}
 
 	public function toAPI() {
 		return [

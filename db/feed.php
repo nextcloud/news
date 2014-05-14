@@ -43,20 +43,22 @@ use \OCP\AppFramework\Db\Entity;
  * @method integer getArticlesPerUpdate()
  * @method void setArticlesPerUpdate(integer $value)
  */
-class Feed extends Entity implements IAPI {
+class Feed extends Entity implements IAPI, \JsonSerializable {
 
-	public $userId;
-	public $urlHash;
-	public $url;
-	public $title;
-	public $faviconLink;
-	public $added;
-	public $folderId;
-	public $unreadCount;
-	public $link;
-	public $preventUpdate;
-	public $deletedAt;
-	public $articlesPerUpdate;
+	use EntityJSONSerializer;
+
+	protected $userId;
+	protected $urlHash;
+	protected $url;
+	protected $title;
+	protected $faviconLink;
+	protected $added;
+	protected $folderId;
+	protected $unreadCount;
+	protected $link;
+	protected $preventUpdate;
+	protected $deletedAt;
+	protected $articlesPerUpdate;
 
 	public function __construct(){
 		$this->addType('parentId', 'integer');
@@ -69,17 +71,38 @@ class Feed extends Entity implements IAPI {
 	}
 
 
+	/**
+	 * Turns entitie attributes into an array
+	 */
+	public function jsonSerialize() {
+		return $this->serializeFields([
+			'id',
+			'userId',
+			'urlHash',
+			'url',
+			'title',
+			'faviconLink',
+			'added',
+			'folderId',
+			'unreadCount',
+			'link',
+			'preventUpdate',
+			'deletedAt',
+			'articlesPerUpdate',
+		]);
+	}
+
 	public function toAPI() {
-		return [
-			'id' => $this->getId(),
-			'url' => $this->getUrl(),
-			'title' => $this->getTitle(),
-			'faviconLink' => $this->getFaviconLink(),
-			'added' => $this->getAdded(),
-			'folderId' => $this->getFolderId(),
-			'unreadCount' => $this->getUnreadCount(),
-			'link' => $this->getLink()
-		];
+		return $this->serializeFields([
+			'id',
+			'url',
+			'title',
+			'faviconLink',
+			'added',
+			'folderId',
+			'unreadCount',
+			'link'
+		]);
 	}
 
 
