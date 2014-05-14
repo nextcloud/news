@@ -51,6 +51,7 @@ class FeedApiController extends ApiController {
 		$this->userId = $userId;
 		$this->logger = $logger;
 		$this->loggerParams = $loggerParams;
+		$this->registerSerializer(new EntityApiSerializer('feeds'));
 	}
 
 
@@ -63,22 +64,15 @@ class FeedApiController extends ApiController {
 
 		$result = array(
 			'feeds' => array(),
-			'starredCount' => $this->itemBusinessLayer->starredCount($this->userId)
+			'starredCount' => $this->itemBusinessLayer->starredCount($this->userId),
+			'feeds' => $this->feedBusinessLayer->findAll($this->userId)
 		);
 
-		$feeds = $this->feedBusinessLayer->findAll($this->userId);
-
-		foreach ($feeds as $feed) {
-			array_push($result['feeds'], $feed->toAPI());
-		}
-
-		// check case when there are no items
+		
 		try {
-			$result['newestItemId'] = $this->itemBusinessLayer
-				->getNewestItemId($this->userId);
-
-		// An exception occurs if there is a newest item. If there is none,
-		// simply ignore it and do not add the newestItemId
+			$result['newestItemId'] = $this->itemBusinessLayer->getNewestItemId($this->userId);
+		
+		// in case there are no items, ignore
 		} catch(BusinessLayerException $ex) {}
 
 		return $result;
@@ -97,18 +91,15 @@ class FeedApiController extends ApiController {
 		try {
 			$this->feedBusinessLayer->purgeDeleted($this->userId, false);
 
-			$feed = $this->feedBusinessLayer->create($url, $folderId, 
-			                                         $this->userId);
+			$feed = $this->feedBusinessLayer->create($url, $folderId, $this->userId);
 			$result = array(
-				'feeds' => array($feed->toAPI())
+				'feeds' => array($feed)
 			);
 
 			try {
-				$result['newestItemId'] = $this->itemBusinessLayer
-					->getNewestItemId($this->userId);
+				$result['newestItemId'] = $this->itemBusinessLayer->getNewestItemId($this->userId);
 
-			// An exception occurs if there is a newest item. If there is none,
-			// simply ignore it and do not add the newestItemId
+			// in case there are no items, ignore
 			} catch(BusinessLayerException $ex) {}
 
 			return $result;
@@ -193,10 +184,10 @@ class FeedApiController extends ApiController {
 		$result = array('feeds' => array());
 
 		foreach ($feeds as $feed) {
-			array_push($result['feeds'], array(
-				'id' => $feed->getId(),
+			$result['feeds'][] = array(
+				'id' => $feed->getId(), 
 				'userId' => $feed->getUserId()
-			));
+			);
 		}
 
 		return $result;

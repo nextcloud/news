@@ -41,6 +41,7 @@ class FolderApiController extends ApiController {
 		$this->folderBusinessLayer = $folderBusinessLayer;
 		$this->itemBusinessLayer = $itemBusinessLayer;
 		$this->userId = $userId;
+		$this->registerSerializer(new EntityApiSerializer('folders'));
 	}
 
 
@@ -50,8 +51,6 @@ class FolderApiController extends ApiController {
 	 * @CORS
 	 */
 	public function index() {
-		$this->registerSerializer(new EntityApiSerializer('folders'));
-
 		return $this->folderBusinessLayer->findAll($this->userId);
 	}
 
@@ -66,11 +65,7 @@ class FolderApiController extends ApiController {
 	public function create($name) {
 		try {
 			$this->folderBusinessLayer->purgeDeleted($this->userId, false);
-			$folder = $this->folderBusinessLayer->create($name, $this->userId);
-			
-			$this->registerSerializer(new EntityApiSerializer('folders'));
-			return $folder;
-
+			return $this->folderBusinessLayer->create($name, $this->userId);
 		} catch(BusinessLayerValidationException $ex) {
 			return $this->error($ex, Http::STATUS_UNPROCESSABLE_ENTITY);
 		} catch(BusinessLayerConflictException $ex) {

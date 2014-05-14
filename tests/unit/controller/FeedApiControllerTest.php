@@ -98,7 +98,7 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 		$response = $this->feedAPI->index();
 
 		$this->assertEquals(array(
-			'feeds' => array($feeds[0]->toAPI()),
+			'feeds' => $feeds,
 			'starredCount' => $starredCount,
 			'newestItemId' => $newestItemId
 		), $response);
@@ -127,7 +127,7 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 		$response = $this->feedAPI->index();
 
 		$this->assertEquals(array(
-			'feeds' => array($feeds[0]->toAPI()),
+			'feeds' => $feeds,
 			'starredCount' => $starredCount,
 		), $response);
 	}
@@ -179,7 +179,7 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 		$response = $this->feedAPI->create('url', 3);
 
 		$this->assertEquals(array(
-			'feeds' => array($feeds[0]->toAPI()),
+			'feeds' => $feeds,
 			'newestItemId' => 3
 		), $response);
 	}
@@ -207,7 +207,7 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 		$response = $this->feedAPI->create('ho', 3);
 
 		$this->assertEquals(array(
-			'feeds' => array($feeds[0]->toAPI())
+			'feeds' => $feeds
 		), $response);
 	}
 

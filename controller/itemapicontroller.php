@@ -34,6 +34,7 @@ class ItemApiController extends ApiController {
 		parent::__construct($appName, $request);
 		$this->itemBusinessLayer = $itemBusinessLayer;
 		$this->userId = $userId;
+		$this->registerSerializer(new EntityApiSerializer('items'));
 	}
 
 
@@ -49,8 +50,6 @@ class ItemApiController extends ApiController {
 	 * @param int $offset
 	 */
 	public function index($type, $id, $getRead, $batchSize=20, $offset=0) {
-		$this->registerSerializer(new EntityApiSerializer('items'));
-
 		return $this->itemBusinessLayer->findAll($id, $type, $batchSize, $offset, 
 		                                         $getRead, $this->userId);
 	}
@@ -66,8 +65,6 @@ class ItemApiController extends ApiController {
 	 * @param int $lastModified
 	 */
 	public function updated($type, $id, $lastModified=0) {
-		$this->registerSerializer(new EntityApiSerializer('items'));
-
 		return $this->itemBusinessLayer->findAllNew($id, $type, $lastModified,
 		                                            true, $this->userId);
 	}

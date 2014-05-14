@@ -15,6 +15,9 @@ namespace OCA\News\Controller;
 
 require_once(__DIR__ . "/../../classloader.php");
 
+
+use \OCP\AppFramework\Http\Response;
+
 use \OCA\News\Db\Item;
 
 
@@ -40,11 +43,59 @@ class EntityApiSerializerTest extends \PHPUnit_Framework_TestCase {
         $item2->setRead();
 
         $serializer = new EntityApiSerializer('items');
+
         $result = $serializer->serialize(array($item, $item2));
 
         $this->assertTrue($result['items'][0]['unread']);
         $this->assertFalse($result['items'][1]['unread']);
     }
 
+
+    public function testResponseNoChange() {
+        $response = new Response();
+        $serializer = new EntityApiSerializer('items');
+
+        $result = $serializer->serialize($response);
+
+        $this->assertEquals($response, $result);
+    }
+
+
+    public function testCompleteArraysTransformed() {
+        $item = new Item();
+        $item->setUnread();
+
+        $item2 = new Item();
+        $item2->setRead();
+
+        $serializer = new EntityApiSerializer('items');
+
+        $in = array(
+            'items' => array($item, $item2),
+            'test' => 1
+        );
+
+        $result = $serializer->serialize($in);
+
+        $this->assertTrue($result['items'][0]['unread']);
+        $this->assertFalse($result['items'][1]['unread']);
+        $this->assertEquals(1, $result['test']);
+    }
+
+
+    public function noEntityNoChange() {
+        $serializer = new EntityApiSerializer('items');
+
+        $in = array(
+            'items' => array('hi', '2'),
+            'test' => 1
+        );
+
+        $result = $serializer->serialize($in);
+
+        $this->assertEquals('hi', $result['items'][0]);
+        $this->assertEquals('2', $result['items'][1]);
+        $this->assertEquals(1, $result['test']);
+    }
 
 }
