@@ -69,7 +69,7 @@
 
 	</span>
 	<ul>
-		<?php print_unescaped($this->inc('part.listfeed', array('folderId' => 'folder.id'))); ?>
+		<?php print_unescaped($this->inc('part.listfeed', ['folderId' => 'folder.id'])); ?>
 	</ul>
 	
 	<div class="message" ng-show="folder.error">{{ folder.error }}</div>

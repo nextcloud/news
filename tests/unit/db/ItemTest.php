@@ -72,7 +72,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 		$item->setStarred();
 		$item->setLastModified(321);
 
-		$this->assertEquals(array(
+		$this->assertEquals([
 			'id' => 3,
 			'guid' => 'guid',
 			'guidHash' => 'hash',
@@ -87,7 +87,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 			'unread' => true,
 			'starred' => true,
 			'lastModified' => 321
-			), $item->toAPI());
+			], $item->toAPI());
 	}
 
 
@@ -111,11 +111,9 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 
 		$feed = new Feed();
 		$feed->setLink('http://test');
-		$feeds = array(
-			"feed1" => $feed
-		);
+		$feeds = ["feed1" => $feed];
 
-		$this->assertEquals(array(
+		$this->assertEquals([
 			'guid' => 'guid',
 			'url' => 'https://google',
 			'title' => 'title',
@@ -127,7 +125,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 			'unread' => false,
 			'starred' => true,
 			'feedLink' => 'http://test'
-			), $item->toExport($feeds));
+			], $item->toExport($feeds));
 	}
 
 
@@ -144,7 +142,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 		$item->setUnread();
 		$item->setStarred();
 
-		$import = array(
+		$import = [
 			'guid' => $item->getGuid(),
 			'url' => $item->getUrl(),
 			'title' => $item->getTitle(),
@@ -155,7 +153,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 			'enclosureLink' => $item->getEnclosureLink(),
 			'unread' => $item->isUnread(),
 			'starred' => $item->isStarred(),
-		);
+		];
 
 		$compareWith = Item::fromImport($import);
 		

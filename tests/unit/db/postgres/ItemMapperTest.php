@@ -41,23 +41,18 @@ class ItemMapperTest extends \OCP\AppFramework\Db\MapperTestUtility {
 		$item1 = new Item();
 		$item2 = new Item();
 
-		$this->items = array(
-			$item1,
-			$item2
-		);
+		$this->items = [$item1, $item2];
 
 		$this->userId = 'john';
 		$this->id = 3;
 		$this->folderId = 2;
 
-		$this->row = array(
-			array('id' => $this->items[0]->getId()),
-		);
+		$this->row = [['id' => $this->items[0]->getId()]];
 
-		$this->rows = array(
-			array('id' => $this->items[0]->getId()),
-			array('id' => $this->items[1]->getId())
-		);
+		$this->rows = [
+			['id' => $this->items[0]->getId()],
+			['id' => $this->items[1]->getId()]
+		];
 
 		$this->user = 'john';
 		$this->limit = 10;
@@ -82,8 +77,8 @@ class ItemMapperTest extends \OCP\AppFramework\Db\MapperTestUtility {
 			'HAVING COUNT(*) > ?';
 
 		$threshold = 10;
-		$rows = array(array('feed_id' => 30, 'size' => 9));
-		$params = array($status, $threshold);
+		$rows = [['feed_id' => 30, 'size' => 9]];
+		$params = [$status, $threshold];
 
 		$this->setMapperResult($sql, $params, $rows);
 		$this->mapper->deleteReadOlderThanThreshold($threshold);
@@ -104,10 +99,10 @@ class ItemMapperTest extends \OCP\AppFramework\Db\MapperTestUtility {
 			'WHERE NOT ((`items`.`status` & ?) > 0) ' .
 			'GROUP BY `items`.`feed_id`, `feeds`.`articles_per_update` ' .
 			'HAVING COUNT(*) > ?';
-		$params1 = array($status, $threshold);
+		$params1 = [$status, $threshold];
 
 
-		$row = array('feed_id' => 30, 'size' => 11);
+		$row = ['feed_id' => 30, 'size' => 11];
 
 		$sql2 = 'DELETE FROM `*PREFIX*news_items` ' .
 				'WHERE `id` IN (' .
@@ -117,10 +112,10 @@ class ItemMapperTest extends \OCP\AppFramework\Db\MapperTestUtility {
 					'ORDER BY `id` ASC ' .
 					'LIMIT ?' .
 				')';
-		$params2 = array($status, 30, 1);
+		$params2 = [$status, 30, 1];
 
 
-		$this->setMapperResult($sql1, $params1, array($row));
+		$this->setMapperResult($sql1, $params1, [$row]);
 		$this->setMapperResult($sql2, $params2);
 
 		$this->mapper->deleteReadOlderThanThreshold($threshold);

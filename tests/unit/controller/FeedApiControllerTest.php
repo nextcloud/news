@@ -39,7 +39,7 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 	protected function setUp() {
 		$this->user = 'tom';
-		$this->loggerParams = array('hi');
+		$this->loggerParams = ['hi'];
 		$this->logger = $this->getMockBuilder(
 			'\OCP\ILogger')
 			->disableOriginalConstructor()
@@ -76,9 +76,7 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testIndex() {
-		$feeds = array(
-			new Feed()
-		);
+		$feeds = [new Feed()];
 		$starredCount = 3;
 		$newestItemId = 2;
 
@@ -97,18 +95,16 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 		$response = $this->feedAPI->index();
 
-		$this->assertEquals(array(
+		$this->assertEquals([
 			'feeds' => $feeds,
 			'starredCount' => $starredCount,
 			'newestItemId' => $newestItemId
-		), $response);
+		], $response);
 	}
 
 
 	public function testIndexNoNewestItemId() {
-		$feeds = array(
-			new Feed()
-		);
+		$feeds = [new Feed()];
 		$starredCount = 3;
 
 		$this->itemBusinessLayer->expects($this->once())
@@ -126,10 +122,10 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 		$response = $this->feedAPI->index();
 
-		$this->assertEquals(array(
+		$this->assertEquals([
 			'feeds' => $feeds,
 			'starredCount' => $starredCount,
-		), $response);
+		], $response);
 	}
 
 
@@ -158,9 +154,7 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testCreate() {
-		$feeds = array(
-			new Feed()
-		);
+		$feeds = [new Feed()];
 
 		$this->feedBusinessLayer->expects($this->once())
 			->method('purgeDeleted')
@@ -178,17 +172,15 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 		$response = $this->feedAPI->create('url', 3);
 
-		$this->assertEquals(array(
+		$this->assertEquals([
 			'feeds' => $feeds,
 			'newestItemId' => 3
-		), $response);
+		], $response);
 	}
 
 
 	public function testCreateNoItems() {
-		$feeds = array(
-			new Feed()
-		);
+		$feeds = [new Feed()];
 
 		$this->feedBusinessLayer->expects($this->once())
 			->method('purgeDeleted')
@@ -206,9 +198,9 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 		$response = $this->feedAPI->create('ho', 3);
 
-		$this->assertEquals(array(
+		$this->assertEquals([
 			'feeds' => $feeds
-		), $response);
+		], $response);
 	}
 
 
@@ -299,7 +291,7 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 		$feed->setUrl(3);
 		$feed->setId(1);
 		$feed->setUserId('john');
-		$feeds = array($feed);
+		$feeds = [$feed];
 		$this->feedBusinessLayer->expects($this->once())
 			->method('findAllFromAllUsers')
 			->will($this->returnValue($feeds));

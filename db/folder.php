@@ -45,9 +45,9 @@ class Folder extends Entity implements IAPI {
 
 
 	public function toAPI() {
-		return array(
+		return [
 			'id' => $this->getId(),
 			'name' => $this->getName()
-		);
+		];
 	}
 }

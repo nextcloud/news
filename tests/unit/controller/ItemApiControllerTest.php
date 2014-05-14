@@ -52,9 +52,7 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testIndex() {
-		$items = array(
-			new Item()
-		);
+		$items = [new Item()];
 
 		$this->itemBusinessLayer->expects($this->once())
 			->method('findAll')
@@ -75,9 +73,7 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testIndexDefaultBatchSize() {
-		$items = array(
-			new Item()
-		);
+		$items = [new Item()];
 
 		$this->itemBusinessLayer->expects($this->once())
 			->method('findAll')
@@ -98,9 +94,7 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testUpdated() {
-		$items = array(
-			new Item()
-		);
+		$items = [new Item()];
 
 		$this->itemBusinessLayer->expects($this->once())
 			->method('findAllNew')
@@ -248,7 +242,7 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 			->with($this->equalTo(4),
 				$this->equalTo(true),
 				$this->equalTo($this->user));
-		$this->itemAPI->readMultiple(array(2, 4));
+		$this->itemAPI->readMultiple([2, 4]);
 	}
 
 
@@ -261,7 +255,7 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 			->with($this->equalTo(4),
 				$this->equalTo(true),
 				$this->equalTo($this->user));
-		$this->itemAPI->readMultiple(array(2, 4));
+		$this->itemAPI->readMultiple([2, 4]);
 	}
 
 
@@ -276,21 +270,21 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 			->with($this->equalTo(4),
 				$this->equalTo(false),
 				$this->equalTo($this->user));
-		$this->itemAPI->unreadMultiple(array(2, 4));
+		$this->itemAPI->unreadMultiple([2, 4]);
 	}
 
 
 	public function testStarMultiple() {
-		$ids = array(
-					array(
+		$ids = [
+					[
 						'feedId' => 2,
 						'guidHash' => 'a'
-					),
-					array(
+					],
+					[
 						'feedId' => 4,
 						'guidHash' => 'b'
-					)
-				);
+					]
+				];
 
 		$this->itemBusinessLayer->expects($this->at(0))
 			->method('star')
@@ -309,16 +303,16 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testStarMultipleDoesntCareAboutException() {
-		$ids = array(
-					array(
+		$ids = [
+					[
 						'feedId' => 2,
 						'guidHash' => 'a'
-					),
-					array(
+					],
+					[
 						'feedId' => 4,
 						'guidHash' => 'b'
-					)
-				);
+					]
+				];
 
 		$this->itemBusinessLayer->expects($this->at(0))
 			->method('star')
@@ -334,16 +328,16 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testUnstarMultiple() {
-		$ids = array(
-					array(
+		$ids = [
+					[
 						'feedId' => 2,
 						'guidHash' => 'a'
-					),
-					array(
+					],
+					[
 						'feedId' => 4,
 						'guidHash' => 'b'
-					)
-				);
+					]
+				];
 
 		$this->itemBusinessLayer->expects($this->at(0))
 			->method('star')

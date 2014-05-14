@@ -46,10 +46,10 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			'\OCP\ILogger')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->loggerParams = array('hi');
+		$this->loggerParams = ['hi'];
 		$this->time = 222;
 		$this->autoPurgeMinimumInterval = 10;
-		$timeFactory = $this->getMock('TimeFactory', array('getTime'));
+		$timeFactory = $this->getMock('TimeFactory', ['getTime']);
 		$timeFactory->expects($this->any())
 			->method('getTime')
 			->will($this->returnValue($this->time));
@@ -68,7 +68,7 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 		$this->enhancer = $this->getMockBuilder('\OCA\News\ArticleEnhancer\Enhancer')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->purifier = $this->getMock('purifier', array('purify'));
+		$this->purifier = $this->getMock('purifier', ['purify']);
 		$config = $this->getMockBuilder(
 			'\OCA\News\Utility\Config')
 			->disableOriginalConstructor()
@@ -120,10 +120,10 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 		$item1->setGuidHash('hi');
 		$item2 = new Item();
 		$item2->setGuidHash('yo');
-		$return = array(
+		$return = [
 			$createdFeed,
-			array($item1, $item2)
-		);
+			[$item1, $item2]
+		];
 
 		$this->feedMapper->expects($this->once())
 			->method('findByUrlHash')
@@ -196,10 +196,10 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 		$item1->setGuidHash('hi');
 		$item2 = new Item();
 		$item2->setGuidHash('yo');
-		$return = array(
+		$return = [
 			$createdFeed,
-			array($item1, $item2)
-		);
+			[$item1, $item2]
+		];
 
 		$this->feedMapper->expects($this->once())
 			->method('findByUrlHash')
@@ -257,13 +257,11 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 		$item = new Item();
 		$item->setGuidHash(md5('hi'));
 		$item->setFeedId(3);
-		$items = array(
-			$item
-		);
+		$items = [$item];
 
 		$ex = new DoesNotExistException('hi');
 
-		$fetchReturn = array($feed, $items);
+		$fetchReturn = [$feed, $items];
 
 		$this->feedMapper->expects($this->at(0))
 			->method('find')
@@ -314,9 +312,7 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 		$item = new Item();
 		$item->setGuidHash(md5('hi'));
 		$item->setFeedId(3);
-		$items = array(
-			$item
-		);
+		$items = [$item];
 
 		$this->feedMapper->expects($this->any())
 			->method('find')
@@ -324,7 +320,7 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 
 		$this->fetcher->expects($this->once())
 			->method('fetch')
-			->will($this->returnValue(array($feed, $items)));
+			->will($this->returnValue([$feed, $items]));
 
 		$this->feedMapper->expects($this->once())
 			->method('update')
@@ -387,14 +383,12 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 		$item->setGuidHash(md5('hi'));
 		$item->setPubDate(3333);
 		$item->setId(4);
-		$items = array(
-			$item
-		);
+		$items = [$item];
 
 		$item2 = new Item();
 		$item2->setPubDate(111);
 
-		$fetchReturn = array($feed, $items);
+		$fetchReturn = [$feed, $items];
 		$ex = new DoesNotExistException('');
 
 		$this->feedMapper->expects($this->at(0))
@@ -499,7 +493,7 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 		$feed->setFolderId(0);
 		$feed->setPreventUpdate(true);
 
-		$feeds = array($feed);
+		$feeds = [$feed];
 
 		$item = new Item();
 		$item->setFeedId(3);
@@ -514,9 +508,9 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 		$item->setUnstarred();
 		$item->setLastModified($this->time);
 
-		$json = $item->toExport(array('feed3' => $feed));
+		$json = $item->toExport(['feed3' => $feed]);
 
-		$items = array($json);
+		$items = [$json];
 
 		$this->feedMapper->expects($this->once())
 			->method('findAllFromUser')
@@ -554,7 +548,7 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 		$feed->setFolderId(0);
 		$feed->setPreventUpdate(true);
 
-		$feeds = array($feed);
+		$feeds = [$feed];
 
 		$item = new Item();
 		$item->setFeedId(3);
@@ -569,11 +563,11 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 		$item->setUnstarred();
 		$item->setLastModified($this->time);
 
-		$json = $item->toExport(array('feed3' => $feed));
+		$json = $item->toExport(['feed3' => $feed]);
 		$json2 = $json;
 		$json2['feedLink'] = 'http://test.com'; // believe it or not this copies stuff :D
 
-		$items = array($json, $json2);
+		$items = [$json, $json2];
 
 		$insertFeed = new Feed();
 		$insertFeed->setLink('http://owncloud/nofeed');
@@ -666,7 +660,7 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 		$feed1->setId(3);
 		$feed2 = new Feed();
 		$feed2->setId(5);
-		$feeds = array($feed1, $feed2);
+		$feeds = [$feed1, $feed2];
 
 		$time = $this->time - $this->autoPurgeMinimumInterval;
 		$this->feedMapper->expects($this->once())
@@ -689,7 +683,7 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 		$feed1->setId(3);
 		$feed2 = new Feed();
 		$feed2->setId(5);
-		$feeds = array($feed1, $feed2);
+		$feeds = [$feed1, $feed2];
 
 		$this->feedMapper->expects($this->once())
 			->method('getToDelete')

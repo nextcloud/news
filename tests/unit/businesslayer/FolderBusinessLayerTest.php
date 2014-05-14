@@ -33,7 +33,7 @@ class FolderBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 		$this->time = 222;
-		$timeFactory = $this->getMock('TimeFactory', array('getTime'));
+		$timeFactory = $this->getMock('TimeFactory', ['getTime']);
 		$timeFactory->expects($this->any())
 			->method('getTime')
 			->will($this->returnValue($this->time));
@@ -89,9 +89,7 @@ class FolderBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 
 	public function testCreateThrowsExWhenFolderNameExists(){
 		$folderName = 'hihi';
-		$rows = array(
-			array('id' => 1)
-		);
+		$rows = [['id' => 1]];
 
 		$this->l10n->expects($this->once())
 			->method('t');
@@ -111,7 +109,7 @@ class FolderBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 		$this->folderMapper->expects($this->once())
 			->method('findByName')
 			->with($this->equalTo($folderName))
-			->will($this->returnValue(array()));
+			->will($this->returnValue([]));
 
 		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerValidationException');
 		$this->folderBusinessLayer->create($folderName, 'john', 3);
@@ -158,9 +156,7 @@ class FolderBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 
 	public function testRenameThrowsExWhenFolderNameExists(){
 		$folderName = 'hihi';
-		$rows = array(
-			array('id' => 1)
-		);
+		$rows = [['id' => 1]];
 		
 		$this->l10n->expects($this->once())
 			->method('t');
@@ -180,7 +176,7 @@ class FolderBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 		$this->folderMapper->expects($this->once())
 			->method('findByName')
 			->with($this->equalTo($folderName))
-			->will($this->returnValue(array()));
+			->will($this->returnValue([]));
 
 		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
 		$this->folderBusinessLayer->rename(3, $folderName, 'john');
@@ -227,7 +223,7 @@ class FolderBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 		$folder1->setId(3);
 		$folder2 = new Folder();
 		$folder2->setId(5);
-		$feeds = array($folder1, $folder2);
+		$feeds = [$folder1, $folder2];
 
 		$time = $this->time - $this->autoPurgeMinimumInterval;
 		$this->folderMapper->expects($this->once())
@@ -250,7 +246,7 @@ class FolderBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 		$folder1->setId(3);
 		$folder2 = new Folder();
 		$folder2->setId(5);
-		$feeds = array($folder1, $folder2);
+		$feeds = [$folder1, $folder2];
 
 		$this->folderMapper->expects($this->once())
 			->method('getToDelete')

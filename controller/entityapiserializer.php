@@ -40,17 +40,13 @@ class EntityApiSerializer implements IResponseSerializer {
         }
 
         if($data instanceof IAPI) {
-            return array(
-                $this->level => array($data->toAPI())
-            );
+            return [$this->level => [$data->toAPI()]];
         }
 
         if(is_array($data) && array_key_exists($this->level, $data)) {
             $data[$this->level] = $this->convert($data[$this->level]);
         } elseif(is_array($data)) {
-            $data = array(
-                $this->level => $this->convert($data)
-            );
+            $data = [$this->level => $this->convert($data)];
         }
 
         return $data;
@@ -58,13 +54,15 @@ class EntityApiSerializer implements IResponseSerializer {
 
 
     private function convert($entities) {
-        $converted = array();
+        $converted = [];
 
         foreach($entities as $entity) {
             if($entity instanceof IAPI) {
                 $converted[] = $entity->toAPI();    
+
+            // break if it contains anything else than entities
             } else {
-                $converted[] = $entity;
+                return $entities;
             }
         }
         

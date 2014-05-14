@@ -70,14 +70,14 @@ class ExportController extends Controller {
 		$items = $this->itemBusinessLayer->getUnreadOrStarred($this->userId);
 
 		// build assoc array for fast access
-		$feedsDict = array();
+		$feedsDict = [];
 		foreach($feeds as $feed) {
 			$feedsDict['feed' . $feed->getId()] = $feed;
 		}
 
-		$articles = array();
+		$articles = [];
 		foreach($items as $item) {
-			array_push($articles, $item->toExport($feedsDict));
+			$articles[] = $item->toExport($feedsDict);
 		}
 		
 		$response = new JSONResponse($articles);

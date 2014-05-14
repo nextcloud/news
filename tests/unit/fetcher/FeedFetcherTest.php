@@ -55,7 +55,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 
 	protected function setUp(){
 		$this->core = $this->getMock(
-			'\SimplePie_Core', array(
+			'\SimplePie_Core', [
 				'set_timeout',
 				'set_feed_url',
 				'enable_cache',
@@ -70,7 +70,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 				'get_items',
 				'get_title',
 				'get_image_url'
-			));
+			]);
 		$this->coreFactory = $this->getMockBuilder(
 			'\OCA\News\Utility\SimplePieAPIFactory')
 			->disableOriginalConstructor()
@@ -87,7 +87,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 		$this->time = 2323;
-		$timeFactory = $this->getMock('TimeFactory', array('getTime'));
+		$timeFactory = $this->getMock('TimeFactory', ['getTime']);
 		$timeFactory->expects($this->any())
 			->method('getTime')
 			->will($this->returnValue($this->time));
@@ -243,14 +243,14 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 		$item->setBody($this->body);
 		$item->setLastModified($this->time);
 		if($author) {
-			$mock = $this->getMock('author', array('get_name'));
+			$mock = $this->getMock('author', ['get_name']);
 			$mock->expects($this->once())
 				->method('get_name')
 				->will($this->returnValue($this->author));
 			$this->expectItem('get_author', $mock);
 			$item->setAuthor(html_entity_decode($this->author));
 		} else {
-			$mock = $this->getMock('author', array('get_name', 'get_email'));
+			$mock = $this->getMock('author', ['get_name', 'get_email']);
 			$mock->expects($this->any())
 				->method('get_name')
 				->will($this->returnValue(''));
@@ -263,7 +263,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 		}
 
 		if($enclosureType === 'audio/ogg') {
-			$mock = $this->getMock('enclosure', array('get_type', 'get_link'));
+			$mock = $this->getMock('enclosure', ['get_type', 'get_link']);
 			$mock->expects($this->any())
 				->method('get_type')
 				->will($this->returnValue($enclosureType));
@@ -312,10 +312,10 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 			->will($this->returnValue(true));
 		$item = $this->createItem();
 		$feed = $this->createFeed();
-		$this->expectCore('get_items', array($this->item));
+		$this->expectCore('get_items', [$this->item]);
 		$result = $this->fetcher->fetch($this->url);
 
-		$this->assertEquals(array($feed, array($item)), $result);
+		$this->assertEquals([$feed, [$item]], $result);
 	}
 
 
@@ -334,10 +334,10 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 			->method('init')
 			->will($this->returnValue(true));
 		$item = $this->createItem();
-		$this->expectCore('get_items', array($this->item));
+		$this->expectCore('get_items', [$this->item]);
 		$result = $this->fetcher->fetch($this->url);
 
-		$this->assertEquals(array($feed, array($item)), $result);
+		$this->assertEquals([$feed, [$item]], $result);
 	}
 
 	public function testFetchMapItemsAuthorExists(){
@@ -346,10 +346,10 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 			->will($this->returnValue(true));
 		$item = $this->createItem(true);
 		$feed = $this->createFeed(true);
-		$this->expectCore('get_items', array($this->item));
+		$this->expectCore('get_items', [$this->item]);
 		$result = $this->fetcher->fetch($this->url);
 
-		$this->assertEquals(array($feed, array($item)), $result);
+		$this->assertEquals([$feed, [$item]], $result);
 	}
 
 
@@ -359,10 +359,10 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 			->will($this->returnValue(true));
 		$item = $this->createItem(false, true);
 		$feed = $this->createFeed(false, true);
-		$this->expectCore('get_items', array($this->item));
+		$this->expectCore('get_items', [$this->item]);
 		$result = $this->fetcher->fetch($this->url);
 
-		$this->assertEquals(array($feed, array($item)), $result);
+		$this->assertEquals([$feed, [$item]], $result);
 	}
 
 
@@ -372,10 +372,10 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 			->will($this->returnValue(true));
 		$item = $this->createItem(false, true, true);
 		$feed = $this->createFeed(false, true);
-		$this->expectCore('get_items', array($this->item));
+		$this->expectCore('get_items', [$this->item]);
 		$result = $this->fetcher->fetch($this->url);
 
-		$this->assertEquals(array($feed, array($item)), $result);
+		$this->assertEquals([$feed, [$item]], $result);
 	}
 
 
@@ -399,10 +399,10 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 				->will($this->returnValue($this->webFavicon));
 
 		$item = $this->createItem(false, true);
-		$this->expectCore('get_items', array($this->item));
+		$this->expectCore('get_items', [$this->item]);
 		$result = $this->fetcher->fetch($this->url);
 
-		$this->assertEquals(array($feed, array($item)), $result);
+		$this->assertEquals([$feed, [$item]], $result);
 	}
 
 	public function testFetchMapItemsNoGetFavicon() {
@@ -423,10 +423,10 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 				->method('fetch');
 
 		$item = $this->createItem(false, true);
-		$this->expectCore('get_items', array($this->item));
+		$this->expectCore('get_items', [$this->item]);
 		$result = $this->fetcher->fetch($this->url, false);
 
-		$this->assertEquals(array($feed, array($item)), $result);
+		$this->assertEquals([$feed, [$item]], $result);
 	}
 
 

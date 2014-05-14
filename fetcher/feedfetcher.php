@@ -89,7 +89,7 @@ class FeedFetcher implements IFeedFetcher {
 
 		try {
 			// somehow $simplePie turns into a feed after init
-			$items = array();
+			$items = [];
 			$permaLink = $simplePie->get_permalink();
 			if ($feedItems = $simplePie->get_items()) {
 				foreach($feedItems as $feedItem) {
@@ -99,7 +99,7 @@ class FeedFetcher implements IFeedFetcher {
 
 			$feed = $this->buildFeed($simplePie, $url, $getFavicon);
 
-			return array($feed, $items);
+			return [$feed, $items];
 
 		} catch(\Exception $ex){
 			throw new FetcherException($ex->getMessage());

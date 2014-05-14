@@ -53,9 +53,7 @@ class FolderController extends Controller {
 	 */
 	public function index(){
 		$folders = $this->folderBusinessLayer->findAll($this->userId);
-		return array(
-			'folders' => $folders
-		);
+		return ['folders' => $folders];
 	}
 
 
@@ -104,9 +102,7 @@ class FolderController extends Controller {
 			$this->folderBusinessLayer->purgeDeleted($this->userId, false);
 			$folder = $this->folderBusinessLayer->create($folderName, $this->userId);
 
-			return array(
-				'folders' => array($folder)
-			);
+			return ['folders' => [$folder]];
 
 		} catch(BusinessLayerConflictException $ex) {
 			return $this->error($ex, Http::STATUS_CONFLICT);
@@ -142,9 +138,7 @@ class FolderController extends Controller {
 			$folder = $this->folderBusinessLayer->rename($folderId, $folderName, 
 				$this->userId);
 
-			return array(
-				'folders' => array($folder)
-			);
+			return ['folders' => [$folder]];
 
 		} catch(BusinessLayerConflictException $ex) {
 			return $this->error($ex, Http::STATUS_CONFLICT);
@@ -164,9 +158,7 @@ class FolderController extends Controller {
 	public function read($folderId, $highestItemId){
 		$this->itemBusinessLayer->readFolder($folderId, $highestItemId, $this->userId);
 
-		return array(
-			'feeds' => $this->feedBusinessLayer->findAll($this->userId)
-		);
+		return ['feeds' => $this->feedBusinessLayer->findAll($this->userId)];
 	}
 
 

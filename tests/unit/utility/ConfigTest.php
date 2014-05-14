@@ -28,12 +28,12 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 			'\OCP\ILogger')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->fileSystem = $this->getMock('FileSystem', array(
+		$this->fileSystem = $this->getMock('FileSystem', [
 			'file_get_contents',
 			'file_put_contents',
 			'file_exists'
-		));
-		$this->loggerParams = array('hi');
+		]);
+		$this->loggerParams = ['hi'];
 		$this->config = new Config($this->fileSystem, $this->logger, $this->loggerParams);
 		$this->configPath = 'config.json';
 	}

@@ -136,7 +136,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 		// remove <html></html> 
 		$dom->replaceChild($dom->firstChild->firstChild, $dom->firstChild);
 		
-		$substitution = array("href", "src");
+		$substitution = ["href", "src"];
 
 		foreach ($substitution as $attribute) {
 			$xpath = new \DOMXpath($dom);

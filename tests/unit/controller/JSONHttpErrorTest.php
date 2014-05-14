@@ -23,7 +23,7 @@ class JSONHttpErrorTest extends \PHPUnit_Framework_TestCase {
         $ex = new \Exception('hi');
         $result = JSONHttpError::error($ex, 3);
 
-        $this->assertEquals(array('message' => 'hi'), $result->getData());
+        $this->assertEquals(['message' => 'hi'], $result->getData());
         $this->assertEquals(3, $result->getStatus());
     }
 

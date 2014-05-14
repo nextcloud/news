@@ -19,7 +19,7 @@ class Fetcher {
 	private $fetchers;
 
 	public function __construct(){
-		$this->fetchers = array();
+		$this->fetchers = [];
 	}
 
 
@@ -28,7 +28,7 @@ class Fetcher {
 	 * @param IFeedFetcher $fetcher the fetcher
 	 */
 	public function registerFetcher(IFeedFetcher $fetcher){
-		array_push($this->fetchers, $fetcher);
+		$this->fetchers[] = $fetcher;
 	}
 
 	/**

@@ -62,11 +62,11 @@ class FeedApiController extends ApiController {
 	 */
 	public function index() {
 
-		$result = array(
-			'feeds' => array(),
+		$result = [
+			'feeds' => [],
 			'starredCount' => $this->itemBusinessLayer->starredCount($this->userId),
 			'feeds' => $this->feedBusinessLayer->findAll($this->userId)
-		);
+		];
 
 		
 		try {
@@ -92,9 +92,7 @@ class FeedApiController extends ApiController {
 			$this->feedBusinessLayer->purgeDeleted($this->userId, false);
 
 			$feed = $this->feedBusinessLayer->create($url, $folderId, $this->userId);
-			$result = array(
-				'feeds' => array($feed)
-			);
+			$result = ['feeds' => [$feed]];
 
 			try {
 				$result['newestItemId'] = $this->itemBusinessLayer->getNewestItemId($this->userId);
@@ -181,13 +179,13 @@ class FeedApiController extends ApiController {
 	 */
 	public function fromAllUsers() {
 		$feeds = $this->feedBusinessLayer->findAllFromAllUsers();
-		$result = array('feeds' => array());
+		$result = ['feeds' => []];
 
 		foreach ($feeds as $feed) {
-			$result['feeds'][] = array(
+			$result['feeds'][] = [
 				'id' => $feed->getId(), 
 				'userId' => $feed->getUserId()
-			);
+			];
 		}
 
 		return $result;

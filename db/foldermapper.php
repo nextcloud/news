@@ -28,7 +28,7 @@ class FolderMapper extends Mapper implements IMapper {
 			'WHERE `id` = ? ' .
 			'AND `user_id` = ?';
 
-		return $this->findEntity($sql, array($id, $userId));
+		return $this->findEntity($sql, [$id, $userId]);
 	}
 
 
@@ -36,7 +36,7 @@ class FolderMapper extends Mapper implements IMapper {
 		$sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
 			'WHERE `user_id` = ? ' .
 			'AND `deleted_at` = 0';
-		$params = array($userId);
+		$params = [$userId];
 
 		return $this->findEntities($sql, $params);
 	}
@@ -46,7 +46,7 @@ class FolderMapper extends Mapper implements IMapper {
 		$sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
 			'WHERE `name` = ? ' .
 			'AND `user_id` = ?';
-		$params = array($folderName, $userId);
+		$params = [$folderName, $userId];
 
 		return $this->findEntities($sql, $params);
 	}
@@ -58,7 +58,7 @@ class FolderMapper extends Mapper implements IMapper {
 		// someone please slap me for doing this manually :P
 		// we needz CASCADE + FKs please
 		$sql = 'DELETE FROM `*PREFIX*news_feeds` WHERE `folder_id` = ?';
-		$params = array($entity->getId());
+		$params = [$entity->getId()];
 		$this->execute($sql, $params);
 
 		$sql = 'DELETE FROM `*PREFIX*news_items` WHERE `feed_id` NOT IN '.
@@ -77,18 +77,18 @@ class FolderMapper extends Mapper implements IMapper {
 	public function getToDelete($deleteOlderThan=null, $userId=null) {
 		$sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
 			'WHERE `deleted_at` > 0 ';
-		$params = array();
+		$params = [];
 
 		// sometimes we want to delete all entries
 		if ($deleteOlderThan !== null) {
 			$sql .= 'AND `deleted_at` < ? ';
-			array_push($params, $deleteOlderThan);
+			$params[] = $deleteOlderThan;
 		}
 
 		// we need to sometimes only delete feeds of a user
 		if($userId !== null) {
 			$sql .= 'AND `user_id` = ?';
-			array_push($params, $userId);
+			$params[] = $userId;
 		}
 		
 		return $this->findEntities($sql, $params);
@@ -101,7 +101,7 @@ class FolderMapper extends Mapper implements IMapper {
 	 */
 	public function deleteUser($userId) {
 		$sql = 'DELETE FROM `*PREFIX*news_folders` WHERE `user_id` = ?';
-		$this->execute($sql, array($userId));
+		$this->execute($sql, [$userId]);
 	}
 
 

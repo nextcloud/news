@@ -72,11 +72,11 @@ class ExportControllerTest extends \PHPUnit_Framework_TestCase {
 		$this->feedBusinessLayer->expects($this->once())
 			->method('findAll')
 			->with($this->equalTo($this->user))
-			->will($this->returnValue(array()));
+			->will($this->returnValue([]));
 		$this->folderBusinessLayer->expects($this->once())
 			->method('findAll')
 			->with($this->equalTo($this->user))
-			->will($this->returnValue(array()));
+			->will($this->returnValue([]));
 
 		$return = $this->controller->opml();
 		$this->assertTrue($return instanceof TextDownloadResponse);
@@ -96,11 +96,9 @@ class ExportControllerTest extends \PHPUnit_Framework_TestCase {
 		$feed2 = new Feed();
 		$feed2->setId(5);
 		$feed2->setLink('http://gee');
-		$feeds = array($feed1, $feed2);
+		$feeds = [$feed1, $feed2];
 
-		$articles = array(
-			$item1, $item2
-		);
+		$articles = [$item1, $item2];
 
 		$this->feedBusinessLayer->expects($this->once())
 			->method('findAll')

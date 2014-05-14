@@ -260,7 +260,7 @@ class FeedBusinessLayer extends BusinessLayer {
 
 		// build assoc array for fast access
 		$feeds = $this->findAll($userId);
-		$feedsDict = array();
+		$feedsDict = [];
 		foreach($feeds as $feed) {
 			$feedsDict[$feed->getLink()] = $feed;
 		}

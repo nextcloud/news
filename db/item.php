@@ -106,7 +106,7 @@ class Item extends Entity implements IAPI {
 
 
 	public function toAPI() {
-		return array(
+		return [
 			'id' => $this->getId(),
 			'guid' => $this->getGuid(),
 			'guidHash' => $this->getGuidHash(),
@@ -121,12 +121,12 @@ class Item extends Entity implements IAPI {
 			'unread' => $this->isUnread(),
 			'starred' => $this->isStarred(),
 			'lastModified' => $this->getLastModified()
-		);
+		];
 	}
 
 
 	public function toExport($feeds) {
-		return array(
+		return [
 			'guid' => $this->getGuid(),
 			'url' => $this->getUrl(),
 			'title' => $this->getTitle(),
@@ -138,7 +138,7 @@ class Item extends Entity implements IAPI {
 			'unread' => $this->isUnread(),
 			'starred' => $this->isStarred(),
 			'feedLink' => $feeds['feed'. $this->getFeedId()]->getLink()
-		);
+		];
 	}
 
 

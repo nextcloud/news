@@ -44,7 +44,7 @@ class EntityApiSerializerTest extends \PHPUnit_Framework_TestCase {
 
         $serializer = new EntityApiSerializer('items');
 
-        $result = $serializer->serialize(array($item, $item2));
+        $result = $serializer->serialize([$item, $item2]);
 
         $this->assertTrue($result['items'][0]['unread']);
         $this->assertFalse($result['items'][1]['unread']);
@@ -70,10 +70,10 @@ class EntityApiSerializerTest extends \PHPUnit_Framework_TestCase {
 
         $serializer = new EntityApiSerializer('items');
 
-        $in = array(
-            'items' => array($item, $item2),
+        $in = [
+            'items' => [$item, $item2],
             'test' => 1
-        );
+        ];
 
         $result = $serializer->serialize($in);
 
@@ -86,10 +86,10 @@ class EntityApiSerializerTest extends \PHPUnit_Framework_TestCase {
     public function noEntityNoChange() {
         $serializer = new EntityApiSerializer('items');
 
-        $in = array(
-            'items' => array('hi', '2'),
+        $in = [
+            'items' => ['hi', '2'],
             'test' => 1
-        );
+        ];
 
         $result = $serializer->serialize($in);
 

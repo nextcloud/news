@@ -64,7 +64,7 @@ class ItemMapper extends Mapper implements IMapper {
 
 	public function find($id, $userId){
 		$sql = $this->makeSelectQuery('AND `items`.`id` = ? ');
-		return $this->findEntity($sql, array($userId, $id));
+		return $this->findEntity($sql, [$userId, $id]);
 	}
 
 
@@ -80,7 +80,7 @@ class ItemMapper extends Mapper implements IMapper {
 			'WHERE ((`items`.`status` & ' . StatusFlag::STARRED . ') = ' .
 				StatusFlag::STARRED . ')';
 
-		$params = array($userId);
+		$params = [$userId];
 
 		$result = $this->execute($sql, $params)->fetch();
 
@@ -97,7 +97,7 @@ class ItemMapper extends Mapper implements IMapper {
 					'WHERE `user_id` = ? ' .
 				') '.
 			'AND `id` <= ?';
-		$params = array(~StatusFlag::UNREAD, $time, $userId, $highestItemId);
+		$params = [~StatusFlag::UNREAD, $time, $userId, $highestItemId];
 		$this->execute($sql, $params);
 	}
 
@@ -112,8 +112,8 @@ class ItemMapper extends Mapper implements IMapper {
 					'AND `user_id` = ? ' .
 				') '.
 			'AND `id` <= ?';
-		$params = array(~StatusFlag::UNREAD, $time, $folderId, $userId,
-			$highestItemId);
+		$params = [~StatusFlag::UNREAD, $time, $folderId, $userId,
+			$highestItemId];
 		$this->execute($sql, $params);
 	}
 
@@ -128,8 +128,8 @@ class ItemMapper extends Mapper implements IMapper {
 					'SELECT * FROM `*PREFIX*news_feeds` ' .
 					'WHERE `user_id` = ? ' .
 					'AND `id` = ? ) ';
-		$params = array(~StatusFlag::UNREAD, $time, $feedId, $highestItemId,
-			$userId, $feedId);
+		$params = [~StatusFlag::UNREAD, $time, $feedId, $highestItemId,
+			$userId, $feedId];
 
 		$this->execute($sql, $params);
 	}
@@ -138,7 +138,7 @@ class ItemMapper extends Mapper implements IMapper {
 	public function findAllNew($updatedSince, $status, $userId){
 		$sql = $this->makeSelectQueryStatus(
 			'AND `items`.`last_modified` >= ? ', $status);
-		$params = array($userId, $updatedSince);
+		$params = [$userId, $updatedSince];
 		return $this->findEntities($sql, $params);
 	}
 
@@ -147,7 +147,7 @@ class ItemMapper extends Mapper implements IMapper {
 		$sql = 'AND `feeds`.`folder_id` = ? ' .
 				'AND `items`.`last_modified` >= ? ';
 		$sql = $this->makeSelectQueryStatus($sql, $status);
-		$params = array($userId, $id, $updatedSince);
+		$params = [$userId, $id, $updatedSince];
 		return $this->findEntities($sql, $params);
 	}
 
@@ -156,17 +156,17 @@ class ItemMapper extends Mapper implements IMapper {
 		$sql = 'AND `items`.`feed_id` = ? ' .
 				'AND `items`.`last_modified` >= ? ';
 		$sql = $this->makeSelectQueryStatus($sql, $status);
-		$params = array($userId, $id, $updatedSince);
+		$params = [$userId, $id, $updatedSince];
 		return $this->findEntities($sql, $params);
 	}
 
 
 	public function findAllFeed($id, $limit, $offset, $status, $userId){
-		$params = array($userId, $id);
+		$params = [$userId, $id];
 		$sql = 'AND `items`.`feed_id` = ? ';
 		if($offset !== 0){
 			$sql .= 'AND `items`.`id` < ? ';
-			array_push($params, $offset);
+			$params[] = $offset;
 		}
 		$sql = $this->makeSelectQueryStatus($sql, $status);
 		return $this->findEntities($sql, $params, $limit);
@@ -174,11 +174,11 @@ class ItemMapper extends Mapper implements IMapper {
 
 
 	public function findAllFolder($id, $limit, $offset, $status, $userId){
-		$params = array($userId, $id);
+		$params = [$userId, $id];
 		$sql = 'AND `feeds`.`folder_id` = ? ';
 		if($offset !== 0){
 			$sql .= 'AND `items`.`id` < ? ';
-			array_push($params, $offset);
+			$params[] = $offset;
 		}
 		$sql = $this->makeSelectQueryStatus($sql, $status);
 		return $this->findEntities($sql, $params, $limit);
@@ -186,11 +186,11 @@ class ItemMapper extends Mapper implements IMapper {
 
 
 	public function findAll($limit, $offset, $status, $userId){
-		$params = array($userId);
+		$params = [$userId];
 		$sql = '';
 		if($offset !== 0){
 			$sql .= 'AND `items`.`id` < ? ';
-			array_push($params, $offset);
+			$params[] = $offset;
 		}
 		$sql = $this->makeSelectQueryStatus($sql, $status);
 		return $this->findEntities($sql, $params, $limit);
@@ -198,7 +198,7 @@ class ItemMapper extends Mapper implements IMapper {
 
 
 	public function findAllUnreadOrStarred($userId) {
-		$params = array($userId);
+		$params = [$userId];
 		$status = StatusFlag::UNREAD | StatusFlag::STARRED;
 		$sql = 'AND ((`items`.`status` & ' . $status . ') > 0) ';
 		$sql = $this->makeSelectQuery($sql);
@@ -211,7 +211,7 @@ class ItemMapper extends Mapper implements IMapper {
 			'AND `items`.`guid_hash` = ? ' .
 			'AND `feeds`.`id` = ? ');
 
-		return $this->findEntity($sql, array($userId, $guidHash, $feedId));
+		return $this->findEntity($sql, [$userId, $guidHash, $feedId]);
 	}
 
 
@@ -229,7 +229,7 @@ class ItemMapper extends Mapper implements IMapper {
 			'WHERE NOT ((`items`.`status` & ?) > 0) ' .
 			'GROUP BY `items`.`feed_id`, `feeds`.`articles_per_update` ' .
 			'HAVING COUNT(*) > ?';
-		$params = array($status, $threshold);
+		$params = [$status, $threshold];
 		$result = $this->execute($sql, $params);
 
 		while($row = $result->fetch()) {
@@ -238,7 +238,7 @@ class ItemMapper extends Mapper implements IMapper {
 			$limit = $size - $threshold;
 
 			if($limit > 0) {
-				$params = array($status, $row['feed_id']);
+				$params = [$status, $row['feed_id']];
 
 				$sql = 'DELETE FROM `*PREFIX*news_items` ' .
 				'WHERE NOT ((`status` & ?) > 0) ' .
@@ -256,7 +256,7 @@ class ItemMapper extends Mapper implements IMapper {
 			'JOIN `*PREFIX*news_feeds` `feeds` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` '.
 				'AND `feeds`.`user_id` = ?';
-		$params = array($userId);
+		$params = [$userId];
 
 		$result = $this->findOneQuery($sql, $params);
 
@@ -275,7 +275,7 @@ class ItemMapper extends Mapper implements IMapper {
 					'WHERE `feeds`.`user_id` = ?' .
 				')';
 
-		$this->execute($sql, array($userId));
+		$this->execute($sql, [$userId]);
 	}
 
 

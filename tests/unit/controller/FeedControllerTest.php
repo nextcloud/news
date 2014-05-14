@@ -32,6 +32,7 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
 	private $folderBusinessLayer;
 	private $itemBusinessLayer;
 	private $settings;
+	private $exampleResult;
 
 
 	/**
@@ -63,16 +64,22 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
 				$this->itemBusinessLayer,
 				$this->settings,
 				$this->user);
+		$this->exampleResult = [
+			'activeFeed' => [
+				'id' => 0,
+				'type' => FeedType::SUBSCRIPTIONS
+			]
+		];
 	}
 
 
 	public function testIndex(){
-		$result = array(
-			'feeds' => array(
-				array('a feed'),
-			),
+		$result = [
+			'feeds' => [
+				['a feed'],
+			],
 			'starred' => 13
-		);
+		];
 		$this->feedBusinessLayer->expects($this->once())
 			->method('findAll')
 			->with($this->equalTo($this->user))
@@ -93,13 +100,13 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testIndexHighestItemIdExists(){
-		$result = array(
-			'feeds' => array(
-				array('a feed'),
-			),
+		$result = [
+			'feeds' => [
+				['a feed'],
+			],
 			'starred' => 13,
 			'newestItemId' => 5
-		);
+		];
 		$this->feedBusinessLayer->expects($this->once())
 			->method('findAll')
 			->with($this->equalTo($this->user))
@@ -139,12 +146,12 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
 	public function testActive(){
 		$id = 3;
 		$type = FeedType::STARRED;
-		$result = array(
-			'activeFeed' => array(
+		$result = [
+			'activeFeed' => [
 				'id' => $id,
 				'type' => $type
-			)
-		);
+			]
+		];
 
 		$this->activeInitMocks($id, $type);
 
@@ -158,12 +165,8 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
 		$id = 3;
 		$type = FeedType::FEED;
 		$ex = new BusinessLayerException('hiu');
-		$result = array(
-			'activeFeed' => array(
-				'id' => 0,
-				'type' => FeedType::SUBSCRIPTIONS
-			)
-		);
+		$result = $this->exampleResult;
+
 		$this->feedBusinessLayer->expects($this->once())
 			->method('find')
 			->with($this->equalTo($id), $this->equalTo($this->user))
@@ -181,12 +184,8 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
 		$id = 3;
 		$type = FeedType::FOLDER;
 		$ex = new BusinessLayerException('hiu');
-		$result = array(
-			'activeFeed' => array(
-				'id' => 0,
-				'type' => FeedType::SUBSCRIPTIONS
-			)
-		);
+		$result = $this->exampleResult;
+
 		$this->folderBusinessLayer->expects($this->once())
 			->method('find')
 			->with($this->equalTo($id), $this->equalTo($this->user))
@@ -203,12 +202,8 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
 	public function testActiveActiveIsNull(){
 		$id = 3;
 		$type = null;
-		$result = array(
-			'activeFeed' => array(
-				'id' => 0,
-				'type' => FeedType::SUBSCRIPTIONS
-			)
-		);
+		$result = $this->exampleResult;
+
 
 		$this->activeInitMocks($id, $type);
 
@@ -219,10 +214,10 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testCreate(){
-		$result = array(
-			'feeds' => array(new Feed()),
+		$result = [
+			'feeds' => [new Feed()],
 			'newestItemId' => 3
-		);
+		];
 
 		$this->itemBusinessLayer->expects($this->once())
 			->method('getNewestItemId')
@@ -244,9 +239,7 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testCreateNoItems(){
-		$result = array(
-			'feeds' => array(new Feed())
-		);
+		$result = ['feeds' => [new Feed()]];
 
 		$this->feedBusinessLayer->expects($this->once())
 			->method('purgeDeleted')
@@ -333,14 +326,14 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
 		$feed = new Feed();
 		$feed->setId(3);
 		$feed->setUnreadCount(44);
-		$result = array(
-			'feeds' => array(
-				array(
+		$result = [
+			'feeds' => [
+				[
 					'id' => $feed->getId(),
 					'unreadCount' => $feed->getUnreadCount()
-				)
-			)
-		);
+				]
+			]
+		];
 
 		$this->feedBusinessLayer->expects($this->once())
 			->method('update')
@@ -427,9 +420,9 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
 	public function testImport() {
 		$feed = new Feed();
 
-		$expected = array(
-			'feeds' => array($feed)
-		);
+		$expected = [
+			'feeds' => [$feed]
+		];
 
 		$this->feedBusinessLayer->expects($this->once())
 			->method('importArticles')
@@ -452,19 +445,19 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
 
 		$response = $this->controller->import('json');
 
-		$this->assertEquals(array(), $response);
+		$this->assertEquals([], $response);
 	}
 
 
 	public function testReadFeed(){
-		$expected = array(
-			'feeds' => array(
-				array(
+		$expected = [
+			'feeds' => [
+				[
 					'id' => 4,
 					'unreadCount' => 0
-				)
-			)
-		);
+				]
+			]
+		];
 
 		$this->itemBusinessLayer->expects($this->once())
 			->method('readFeed')

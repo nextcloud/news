@@ -57,11 +57,11 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testSettings() {
-		$result = array(
+		$result = [
 			'showAll' => true,
 			'compact' => true,
 			'language' => 'de'
-		);
+		];
 
 		$this->l10n->expects($this->once())
 			->method('getLanguageCode')

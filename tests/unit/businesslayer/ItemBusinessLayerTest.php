@@ -35,7 +35,7 @@ class ItemBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 
 	protected function setUp(){
 		$this->time = 222;
-		$timeFactory = $this->getMock('TimeFactory', array('getTime'));
+		$timeFactory = $this->getMock('TimeFactory', ['getTime']);
 		$timeFactory->expects($this->any())
 			->method('getTime')
 			->will($this->returnValue($this->time));

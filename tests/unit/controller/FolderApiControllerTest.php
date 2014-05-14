@@ -64,9 +64,7 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testIndex() {
-		$folders = array(
-			new Folder()
-		);
+		$folders = [new Folder()];
 
 		$this->folderBusinessLayer->expects($this->once())
 			->method('findAll')
@@ -83,9 +81,7 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
 		$folderName = 'test';
 		$folder = new Folder();
 		$folder->setName($folderName);
-		$folders = array(
-			$folder
-		);
+		$folders = [$folder];
 		
 		$this->folderBusinessLayer->expects($this->once())
 			->method('purgeDeleted')

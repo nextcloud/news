@@ -70,7 +70,7 @@ class Feed extends Entity implements IAPI {
 
 
 	public function toAPI() {
-		return array(
+		return [
 			'id' => $this->getId(),
 			'url' => $this->getUrl(),
 			'title' => $this->getTitle(),
@@ -79,7 +79,7 @@ class Feed extends Entity implements IAPI {
 			'folderId' => $this->getFolderId(),
 			'unreadCount' => $this->getUnreadCount(),
 			'link' => $this->getLink()
-		);
+		];
 	}
 
 

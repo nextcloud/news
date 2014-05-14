@@ -46,7 +46,7 @@ class UtilityApiController extends ApiController {
 	public function version() {
 		$version = $this->settings->getAppValue($this->appName,
 			'installed_version');
-		return array('version' => $version);
+		return ['version' => $version];
 	}
 
 

@@ -55,7 +55,7 @@ class AppConfig {
 		$this->installedApps = $installedApps;
 		$this->installedExtensions = $installedExtensions;
 		$this->databaseType = $databaseType;
-		$this->config = array();
+		$this->config = [];
 	}
 
 
@@ -75,13 +75,13 @@ class AppConfig {
 			$nav =& $this->config['navigation'];
 
 			// add defaults
-			$defaults = array(
+			$defaults = [
 				'id' => $this->config['id'],
 				'route' => $this->config['id'] . '.page.index',
 				'order' => 10,
 				'icon' => 'app.svg',
 				'name' => $this->config['name']
-			);
+			];
 
 			foreach($defaults as $key => $value) {
 				if(!array_key_exists($key, $nav)) {
@@ -113,10 +113,10 @@ class AppConfig {
 		if(array_key_exists('navigation', $this->config)) {
 			$nav =& $this->config['navigation'];
 			
-			$navConfig = array(
+			$navConfig = [
 				'id' => $nav['id'],
 				'order' => $nav['order']
-			);
+			];
 
 			$navConfig['name'] = $this->l10n->t($nav['name']);
 			$navConfig['href'] = $this->urlGenerator->linkToRoute($nav['route']);
@@ -252,21 +252,21 @@ class AppConfig {
 	 * @return array of arrays with key=version value=operator
 	 */
 	private function splitVersions($versions) {
-		$result = array();
+		$result = [];
 		$versions = explode(',', $versions);
 
 		foreach($versions as $version) {
 			preg_match('/^(?<operator><|<=|>=|>|<>)?(?<version>.*)$/', $version, $matches);
 			if($matches['operator'] !== '') {
-				$required = array(
+				$required = [
 					'version' => $matches['version'],
 					'operator' => $matches['operator'],
-				);
+				];
 			} else {
-				$required = array(
+				$required = [
 					'version' => $matches['version'],
 					'operator' => '==',
-				);
+				];
 			}
 			$result[] = $required;
 		}

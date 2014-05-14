@@ -57,11 +57,11 @@ class PageController extends Controller {
 			'compact');
 		$language = $this->l10n->getLanguageCode();
 
-		return array(
+		return [
 			'showAll' => $showAll === '1',
 			'compact' => $compact === '1',
 			'language' => $language
-		);
+		];
 	}
 
 

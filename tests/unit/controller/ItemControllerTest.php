@@ -172,9 +172,7 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 	public function testReadAll(){
 		$feed = new Feed();
 
-		$expected = array(
-			'feeds' => array($feed)
-		);
+		$expected = ['feeds' => [$feed]];
 
 		$this->itemBusinessLayer->expects($this->once())
 			->method('readAll')
@@ -183,7 +181,7 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 		$this->feedBusinessLayer->expects($this->once())
 			->method('findAll')
 			->with($this->equalTo($this->user))
-			->will($this->returnValue(array($feed)));
+			->will($this->returnValue([$feed]));
 
 		$response = $this->controller->readAll(5);
 		$this->assertEquals($expected, $response);
@@ -213,13 +211,13 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testIndex(){
-		$feeds = array(new Feed());
-		$result = array(
-			'items' => array(new Item()),
+		$feeds = [new Feed()];
+		$result = [
+			'items' => [new Item()],
 			'feeds' => $feeds,
 			'newestItemId' => $this->newestItemId,
 			'starred' => 3111
-		);
+		];
 
 		$this->itemsApiExpects(2, FeedType::FEED);
 
@@ -255,9 +253,7 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testItemsOffsetNotZero(){
-		$result = array(
-			'items' => array(new Item())
-		);
+		$result = ['items' => [new Item()]];
 
 		$this->itemsApiExpects(2, FeedType::FEED);
 
@@ -288,18 +284,18 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 			->will($this->throwException(new BusinessLayerException('')));
 
 		$response = $this->controller->index(FeedType::FEED, 2, 3);
-		$this->assertEquals(array(), $response);
+		$this->assertEquals([], $response);
 	}
 
 
 	public function testNewItems(){
-		$feeds = array(new Feed());
-		$result = array(
-			'items' => array(new Item()),
+		$feeds = [new Feed()];
+		$result = [
+			'items' => [new Item()],
 			'feeds' => $feeds,
 			'newestItemId' => $this->newestItemId,
 			'starred' => 3111
-		);
+		];
 
 		$this->settings->expects($this->once())
 			->method('getUserValue')
@@ -352,7 +348,7 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 			->will($this->throwException(new BusinessLayerException('')));
 
 		$response = $this->controller->newItems(FeedType::FEED, 2, 3);
-		$this->assertEquals(array(), $response);
+		$this->assertEquals([], $response);
 	}
 
 

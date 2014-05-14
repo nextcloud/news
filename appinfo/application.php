@@ -243,16 +243,16 @@ class Application extends App {
 			// not performant but well :/
 			// $config = $c->query('ServerContainer')->getAppConfig(); oc7 only
 			$installedApps = \OC_Appconfig::getApps();
-			$apps = array();
+			$apps = [];
 			foreach($installedApps as $app) {
-				$apps[] = array(
+				$apps[] = [
 					$app => \OC_Appconfig::getValue($app, 'installed_version', '0')
-				);
+				];
 			}
 
 			// order extensions in name => version
 			$loadedExtensions = get_loaded_extensions();
-			$extensions = array();
+			$extensions = [];
 			foreach ($loadedExtensions as $extension) {
 				$extensions[$extension] = phpversion($extension);
 			}
@@ -285,7 +285,7 @@ class Application extends App {
 		});
 
 		$container->registerService('LoggerParameters', function($c) {
-			return array('app' => $c->query('AppName'));
+			return ['app' => $c->query('AppName')];
 		});
 
 		$container->registerService('Db', function($c) {

@@ -65,18 +65,13 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 
 	
 	public function testIndex(){
-		$return = array(
-			new Folder(),
-			new Folder(),
-		);
+		$return = [new Folder(), new Folder()];
 		$this->folderBusinessLayer->expects($this->once())
 					->method('findAll')
 					->will($this->returnValue($return));
 
 		$response = $this->controller->index();
-		$expected = array(
-			'folders' => $return
-		);
+		$expected = ['folders' => $return];
 		$this->assertEquals($expected, $response);
 	}
 
@@ -132,9 +127,7 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testCreate(){
-		$result = array(
-			'folders' => array(new Folder())
-		);
+		$result = ['folders' => [new Folder()]];
 
 		$this->folderBusinessLayer->expects($this->once())
 			->method('purgeDeleted')
@@ -212,9 +205,7 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testRename(){
-		$result = array(
-			'folders' => array(new Folder())
-		);
+		$result = ['folders' => [new Folder()]];
 
 		$this->folderBusinessLayer->expects($this->once())
 			->method('rename')
@@ -277,9 +268,7 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 	
 	public function testRead(){
 		$feed = new Feed();
-		$expected = array(
-			'feeds' => array($feed)
-		);
+		$expected = ['feeds' => [$feed]];
 
 		$this->itemBusinessLayer->expects($this->once())
 			->method('readFolder')
@@ -289,7 +278,7 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 		$this->feedBusinessLayer->expects($this->once())
 			->method('findAll')
 			->with($this->equalTo($this->user))
-			->will($this->returnValue(array($feed)));
+			->will($this->returnValue([$feed]));
 
 		$response = $this->controller->read(4, 5);
 		$this->assertEquals($expected, $response);

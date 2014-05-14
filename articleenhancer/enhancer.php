@@ -16,7 +16,7 @@ namespace OCA\News\ArticleEnhancer;
 
 class Enhancer {
 
-	private $enhancers = array();
+	private $enhancers = [];
 
 	/**
 	 * @param string $feedUrl

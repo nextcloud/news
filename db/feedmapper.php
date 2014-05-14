@@ -43,7 +43,7 @@ class FeedMapper extends Mapper implements IMapper {
 				'`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
 				'`feeds`.`favicon_link`, `feeds`.`added`, `feeds`.`articles_per_update`,'.
 				'`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
-		$params = array($id, $userId);
+		$params = [$id, $userId];
 
 		return $this->findEntity($sql, $params);
 	}
@@ -71,7 +71,7 @@ class FeedMapper extends Mapper implements IMapper {
 				'`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
 				'`feeds`.`favicon_link`, `feeds`.`added`, `feeds`.`articles_per_update`,'.
 				'`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
-		$params = array($userId);
+		$params = [$userId];
 
 		return $this->findEntities($sql, $params);
 	}
@@ -120,7 +120,7 @@ class FeedMapper extends Mapper implements IMapper {
 				'`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
 				'`feeds`.`favicon_link`, `feeds`.`added`, `feeds`.`articles_per_update`,'.
 				'`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
-		$params = array($hash, $userId);
+		$params = [$hash, $userId];
 
 		$row = $this->findOneQuery($sql, $params);
 		$feed = new Feed();
@@ -136,7 +136,7 @@ class FeedMapper extends Mapper implements IMapper {
 		// someone please slap me for doing this manually :P
 		// we needz CASCADE + FKs please
 		$sql = 'DELETE FROM `*PREFIX*news_items` WHERE `feed_id` = ?';
-		$params = array($entity->getId());
+		$params = [$entity->getId()];
 		$this->execute($sql, $params);
 	}
 
@@ -150,18 +150,18 @@ class FeedMapper extends Mapper implements IMapper {
 	public function getToDelete($deleteOlderThan=null, $userId=null) {
 		$sql = 'SELECT * FROM `*PREFIX*news_feeds` ' .
 			'WHERE `deleted_at` > 0 ';
-		$params = array();
+		$params = [];
 
 		// sometimes we want to delete all entries
 		if ($deleteOlderThan !== null) {
 			$sql .= 'AND `deleted_at` < ? ';
-			array_push($params, $deleteOlderThan);
+			$params[] = $deleteOlderThan;
 		}
 
 		// we need to sometimes only delete feeds of a user
 		if($userId !== null) {
 			$sql .= 'AND `user_id` = ?';
-			array_push($params, $userId);
+			$params[] = $userId;
 		}
 
 		return $this->findEntities($sql, $params);
@@ -175,7 +175,7 @@ class FeedMapper extends Mapper implements IMapper {
 	 */
 	public function deleteUser($userId) {
 		$sql = 'DELETE FROM `*PREFIX*news_feeds` WHERE `user_id` = ?';
-		$this->execute($sql, array($userId));
+		$this->execute($sql, [$userId]);
 	}
 
 

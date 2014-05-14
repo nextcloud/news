@@ -63,7 +63,7 @@ class ItemController extends Controller {
 		$this->settings->setUserValue($this->userId, $this->appName,
 			'lastViewedFeedType', $type);
 
-		$params = array();
+		$params = [];
 
 		try {
 
@@ -99,7 +99,7 @@ class ItemController extends Controller {
 		$showAll = $this->settings->getUserValue($this->userId, $this->appName,			
 			'showAll') === '1';
 
-		$params = array();
+		$params = [];
 
 		try {
 			$params['newestItemId'] = $this->itemBusinessLayer->getNewestItemId($this->userId);
@@ -181,9 +181,7 @@ class ItemController extends Controller {
 	 */
 	public function readAll($highestItemId){
 		$this->itemBusinessLayer->readAll($highestItemId, $this->userId);
-		return array(
-			'feeds' => $this->feedBusinessLayer->findAll($this->userId)
-		);
+		return ['feeds' => $this->feedBusinessLayer->findAll($this->userId)];
 	}
 
 

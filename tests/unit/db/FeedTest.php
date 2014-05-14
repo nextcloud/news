@@ -30,7 +30,7 @@ class FeedTest extends \PHPUnit_Framework_TestCase {
 		$feed->setUnreadCount(321);
 		$feed->setLink('https://google');
 
-		$this->assertEquals(array(
+		$this->assertEquals([
 			'id' => 3,
 			'url' => 'http://google',
 			'title' => 'title',
@@ -39,7 +39,7 @@ class FeedTest extends \PHPUnit_Framework_TestCase {
 			'folderId' => 1,
 			'unreadCount' => 321,
 			'link' => 'https://google'
-			), $feed->toAPI());
+			], $feed->toAPI());
 	}
 
 

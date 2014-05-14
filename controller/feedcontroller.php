@@ -60,10 +60,10 @@ class FeedController extends Controller {
 		// this method is also used to update the interface
 		// because of this we also pass the starred count and the newest
 		// item id which will be used for marking feeds read
-		$params = array(
+		$params = [
 			'feeds' => $this->feedBusinessLayer->findAll($this->userId),
 			'starred' => $this->itemBusinessLayer->starredCount($this->userId)
-		);
+		];
 
 		try {
 			$params['newestItemId'] = 
@@ -109,12 +109,12 @@ class FeedController extends Controller {
 			$feedType = FeedType::SUBSCRIPTIONS;
 		}
 
-		return array(
-			'activeFeed' => array(
+		return [
+			'activeFeed' => [
 				'id' => $feedId,
 				'type' => $feedType
-			)
-		);
+			]
+		];
 	}
 
 
@@ -131,9 +131,7 @@ class FeedController extends Controller {
 			$this->feedBusinessLayer->purgeDeleted($this->userId, false);
 
 			$feed = $this->feedBusinessLayer->create($url, $parentFolderId, $this->userId);
-			$params = array(
-				'feeds' => array($feed)
-			);
+			$params = ['feeds' => [$feed]];
 
 			try {
 				$params['newestItemId'] = 
@@ -176,16 +174,16 @@ class FeedController extends Controller {
 		try {
 			$feed = $this->feedBusinessLayer->update($feedId, $this->userId);
 
-			return array(
-				'feeds' => array(
+			return [
+				'feeds' => [
 					// only pass unreadcount to not accidentally readd
 					// the feed again
-					array(
+					[
 						'id' => $feed->getId(),
 						'unreadCount' => $feed->getUnreadCount()
-					)
-				)
-			);
+					]
+				]
+			];
 
 		} catch(BusinessLayerException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
@@ -230,10 +228,10 @@ class FeedController extends Controller {
 	public function import($json) {
 		$feed = $this->feedBusinessLayer->importArticles($json, $this->userId);
 
-		$params = array();
+		$params = [];
 
 		if($feed) {
-			$params['feeds'] = array($feed);
+			$params['feeds'] = [$feed];
 		}
 
 		return $params;
@@ -249,14 +247,14 @@ class FeedController extends Controller {
 	public function read($feedId, $highestItemId){
 		$this->itemBusinessLayer->readFeed($feedId, $highestItemId, $this->userId);
 
-		return array(
-			'feeds' => array(
-				array(
+		return [
+			'feeds' => [
+				[
 					'id' => $feedId,
 					'unreadCount' => 0
-				)
-			)
-		);
+				]
+			]
+		];
 	}
 
 
