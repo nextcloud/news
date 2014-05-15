@@ -10,14 +10,17 @@
 app.service('Loading', function () {
     'use strict';
 
-    this.loading = false;
-
-    this.setLoading = function (isLoading) {
-        this.loading = isLoading;
+    this.loading = {
+        global: false,
+        content: false
     };
 
-    this.isLoading = function () {
-        return this.loading;
+    this.setLoading = function (area, isLoading) {
+        this.loading[area] = isLoading;
+    };
+
+    this.isLoading = function (area) {
+        return this.loading[area];
     };
 
 });

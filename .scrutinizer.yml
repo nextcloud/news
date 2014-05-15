@@ -2,13 +2,13 @@ filter:
     excluded_paths:
         - '3rdparty/*'
         - 'js/vendor/*'
-        - 'js/public/*'
+        - 'js/build/*'
         - 'l10n/*'
         - 'templates/*'
         - 'img/*'
         - 'css/*'
         - 'bin/*'
-        
+
 imports:
     - javascript
     - php

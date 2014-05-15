@@ -13,12 +13,13 @@ describe('Loading', function () {
     beforeEach(module('News'));
 
     it('should be not load by default', inject(function (Loading) {
-        expect(Loading.isLoading()).toBe(false);
+        expect(Loading.isLoading('global')).toBe(false);
+        expect(Loading.isLoading('content')).toBe(false);
     }));
 
     it('should set loading', inject(function (Loading) {
-        Loading.setLoading(true);
-        expect(Loading.isLoading()).toBe(true);
+        Loading.setLoading('global', true);
+        expect(Loading.isLoading('global')).toBe(true);
     }));
 
 });

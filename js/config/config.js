@@ -23,12 +23,12 @@ app.config(function ($routeProvider, $provide) {
             templateUrl: 'content.html',
             resolve: {}
         })
-        .when('/items/feed/:feedId', {
+        .when('/items/feeds/:id', {
             controller: 'FeedItemsController',
             templateUrl: 'content.html',
             resolve: {}
         })
-        .when('/items/folder/:folderId', {
+        .when('/items/folders/:id', {
             controller: 'FolderItemsController',
             templateUrl: 'content.html',
             resolve: {}

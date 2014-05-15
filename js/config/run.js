@@ -7,15 +7,18 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2012, 2014
  */
-app.run(function ($rootScope, $location, Loading) {
+app.run(function ($rootScope, $location, Loading, Setup) {
     'use strict';
 
+    // load feeds, settings and last read feed
+    Setup.load();
+
     $rootScope.$on('$routeChangeStart', function () {
-        Loading.isActive = true;
+        Loading.setLoading('content', true);
     });
 
     $rootScope.$on('$routeChangeSuccess', function () {
-        Loading.isActive = false;
+        Loading.setLoading('content', false);
     });
 
     // in case of wrong id etc show all items

@@ -8,6 +8,23 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 
+var globals = [
+    '$',
+    'angular',
+    'app',
+    'OC',
+    'protractor',
+    'describe',
+    'beforeEach',
+    'module',
+    'it',
+    'browser',
+    'expect',
+    'By',
+    'inject',
+    'console'
+];
+
 module.exports = function(grunt) {
 
     // load needed modules
@@ -78,11 +95,7 @@ module.exports = function(grunt) {
                 ],
                 directives: {
                     browser: true,
-                    predef: [
-                        '$', 'angular', 'app', 'OC',
-                        'protractor', 'describe', 'beforeEach', 'module', 'it',
-                        'browser', 'expect', 'By', 'inject'
-                    ]
+                    predef: globals
                 }
             }
         },
