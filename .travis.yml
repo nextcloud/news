@@ -20,7 +20,6 @@ install:
   #- sudo apt-get -y install apache2 chromium-browser libapache2-mod-fastcgi php5-gd php5-json php5-mysql php5-curl php5-intl php5-mcrypt php5-imagick
   - sudo easy_install3 pip
   - sudo pip3 install ocdev
-  - sudo npm -g install grunt-cli
   # sudo npm -g install protractor
   # - sudo webdriver-manager update
   # get a newer phanomjs versin
@@ -57,6 +56,7 @@ script:
   - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
   - cd js/
   - npm install --deps
+  - npm -g install grunt-cli
   - npm test
   #- sudo chown -R www-data:www-data ../../data
   #- sudo chown -R www-data:www-data ../../config
