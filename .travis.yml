@@ -5,13 +5,9 @@ php:
 
 before_install:
   - cd ..
-  - git clone https://github.com/owncloud/core.git
+  - sudo pip3 install ocdev
+  - ocdev setup core --dir owncloud
   - mv news core/apps/
-  - cd core
-  - git submodule init
-  - git submodule update
-  - cd 3rdparty
-  - git checkout stable6
   - cd ../apps/news
 
 script:
@@ -27,9 +23,9 @@ script:
   - cd js/
   - npm install
   - npm test
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  - sudo npm install -g protractor
-  - sudo webdriver-manager update
-  - grunt e2e
+  #- export DISPLAY=:99.0
+  #- sh -e /etc/init.d/xvfb start
+  #- sudo npm install -g protractor
+  #- sudo webdriver-manager update
+  #- grunt e2e
 
