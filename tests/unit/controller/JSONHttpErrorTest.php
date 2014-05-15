@@ -15,13 +15,17 @@ namespace OCA\News\Controller;
 
 require_once(__DIR__ . "/../../classloader.php");
 
+class Test {
+    use JSONHttpError;
+}
 
 class JSONHttpErrorTest extends \PHPUnit_Framework_TestCase {
 
 
     public function testError() {
         $ex = new \Exception('hi');
-        $result = JSONHttpError::error($ex, 3);
+        $test = new Test();
+        $result = $test->error($ex, 3);
 
         $this->assertEquals(['message' => 'hi'], $result->getData());
         $this->assertEquals(3, $result->getStatus());
