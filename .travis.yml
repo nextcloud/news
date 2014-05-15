@@ -13,27 +13,24 @@ before_install:
   - sudo apt-get update
   - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
 
-
 install:
   - cd ..
   - sudo apt-get -y install nodejs python3-jinja2 python3-setuptools apache2 chromium-browser libapache2-mod-fastcgi php5-gd php5-json php5-mysql php5-curl php5-intl php5-mcrypt php5-imagick
   - sudo easy_install3 pip
   - sudo pip3 install ocdev
-  - npm -g install grunt-cli protractor
   - wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.7-linux-x86_64.tar.bz2
   - tar xjf phantomjs-1.9.7-linux-x86_64.tar.bz2
   - sudo ln -s $(pwd)/phantomjs-1.9.7-linux-x86_64/bin/phantomjs /usr/bin/phantomjs
   - ocdev setup core --dir owncloud
   - mv news owncloud/apps/
-  - cd owncloud
 
 before_script:
   - createuser -U travis -s oc_autotest
   - mysql -e 'create database oc_autotest;'
   - mysql -u root -e "CREATE USER 'oc_autotest'@'localhost'";
   - mysql -u root -e "grant all on oc_autotest.* to 'oc_autotest'@'localhost'";
-  - ocdev ci $DB
-  - cd apps/news
+  # FIXME: apache setup needs to work that the directory above is served from
+  #        httpd
   #- sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
   #- sudo a2enmod rewrite actions fastcgi alias
   #- echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
@@ -41,6 +38,9 @@ before_script:
   #- sudo cp -f tests/travis/travis-ci-apache /etc/apache2/sites-available/default
   #- sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
   #- sudo service apache2 restart  
+  - cd owncloud
+  - ocdev ci $DB
+  - cd apps/news
 
 script:
   - phpunit --coverage-clover=coverage.clover tests/unit
@@ -49,9 +49,10 @@ script:
   - cd js/
   - npm install --deps
   - npm test
+  - sudo npm install -g protractor
   - sudo webdriver-manager update
-  #- sudo chown -R www-data:www-data ../../data
-  #- sudo chown -R www-data:www-data ../../config
+  - sudo chown -R www-data:www-data ../../../data
+  - sudo chown -R www-data:www-data ../../../config
   #- grunt e2e
 
 addons:
