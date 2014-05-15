@@ -12,12 +12,12 @@
  */
 
 
-namespace OCA\News\BackgroundJob;
+namespace OCA\News\Cron;
 
 use \OCA\News\AppInfo\Application;
 
 
-class Task {
+class Updater {
 
 
 	static public function run() {

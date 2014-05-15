@@ -28,7 +28,7 @@
     "documentation": {
         "developer": "https://github.com/owncloud/news/wiki"
     },
-    "jobs": ["OCA\\News\\BackgroundJob\\Task"],
+    "jobs": ["OCA\\News\\Cron\\Updater"],
     "hooks": {
         "OC_User::pre_deleteUser": "OCA\\News\\Hooks\\User::deleteUser"
     },
