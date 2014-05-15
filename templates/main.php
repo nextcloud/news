@@ -2,6 +2,7 @@
 \OCP\Util::addScript('news', 'vendor/angular/angular');
 \OCP\Util::addScript('news', 'vendor/angular-route/angular-route');
 \OCP\Util::addScript('news', 'vendor/angular-sanitize/angular-sanitize');
+\OCP\Util::addScript('news', 'vendor/angular-animate/angular-animate');
 \OCP\Util::addScript('news', 'vendor/momentjs/moment');
 \OCP\Util::addScript('news', 'vendor/momentjs/min/langs');
 \OCP\Util::addScript('news', 'vendor/bootstrap/tooltip');
