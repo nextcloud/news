@@ -13,6 +13,7 @@ module.exports = function(grunt) {
     // load needed modules
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-jslint');
     grunt.loadNpmTasks('grunt-phpunit');
     grunt.loadNpmTasks('grunt-wrap');
@@ -145,6 +146,13 @@ module.exports = function(grunt) {
                     configFile: 'config/protractor.js'
                 }
             }
+        },
+        connect: {
+            server: {
+                options: {
+                    base: 'tests/static/'
+                }
+            }
         }
     });
 
@@ -152,6 +160,6 @@ module.exports = function(grunt) {
     grunt.registerTask('default', ['jslint', 'concat', 'ngmin', 'wrap']);
     grunt.registerTask('test', ['karma:unit']);
     grunt.registerTask('ci', ['default', 'karma:continuous']);
-    grunt.registerTask('e2e', ['protractor_webdriver', 'protractor']);
+    grunt.registerTask('e2e', ['protractor_webdriver', 'connect', 'protractor']);
 
 };
