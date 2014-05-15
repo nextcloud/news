@@ -7,18 +7,14 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2012, 2014
  */
-
-var auth = require('./include/auth.js');
-
 describe('news page', function () {
     'use strict';
 
     beforeEach(function () {
-        auth.login(browser);
+        browser.get('http://localhost/owncloud/index.php/apps/news/');
     });
 
     it('should go to the news page', function () {
-        browser.get('http://localhost/owncloud/index.php/apps/news/');
         browser.getTitle().then(function (title) {
             expect(title).toBe('News - ownCloud');
         });
