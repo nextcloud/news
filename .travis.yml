@@ -15,7 +15,7 @@ before_install:
 
 
 install:
-  - sudo apt-get -y install nodejs python3-jinja2 python3-setuptools apache2 chromium-browser libapache2-mod-fastcgi
+  - sudo apt-get -y install nodejs python3-jinja2 python3-setuptools apache2 chromium-browser libapache2-mod-fastcgi php5-gd php5-json php5-mysql php5-curl php5-intl php5-mcrypt php5-imagick
   - sudo easy_install3 pip
   - sudo pip3 install ocdev
   - sudo npm install -g grunt-cli protractor
