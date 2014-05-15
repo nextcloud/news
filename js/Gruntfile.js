@@ -13,7 +13,6 @@ module.exports = function(grunt) {
     // load needed modules
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-jslint');
     grunt.loadNpmTasks('grunt-phpunit');
     grunt.loadNpmTasks('grunt-wrap');
@@ -86,20 +85,6 @@ module.exports = function(grunt) {
                 }
             }
         },
-        jshint: {
-            all: [
-                '**/*.js',
-                '!config/karma.js',
-                '!config/protractor.js',
-                '!build/**/*',
-                '!coverage/**/*',
-                '!vendor/**/*',
-                '!node_modules/**/*'
-            ],
-            options: {
-                jshintrc: true
-            }
-        },
         watch: {
             concat: {
                 files: [
@@ -164,7 +149,7 @@ module.exports = function(grunt) {
     });
 
     // make tasks available under simpler commands
-    grunt.registerTask('default', ['jshint', 'jslint', 'concat', 'ngmin', 'wrap']);
+    grunt.registerTask('default', ['jslint', 'concat', 'ngmin', 'wrap']);
     grunt.registerTask('test', ['karma:unit']);
     grunt.registerTask('ci', ['default', 'karma:continuous']);
     grunt.registerTask('e2e', ['protractor_webdriver', 'protractor']);
