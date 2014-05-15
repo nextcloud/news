@@ -10,8 +10,32 @@
 app.config(function ($routeProvider, $provide) {
     'use strict';
 
-    $routeProvider.otherwise('/');
     $provide.constant('baseUrl', OC.generateUrl(''));
+
+    $routeProvider
+        .when('/items', {
+            controller: 'AllItemsController',
+            templateUrl: 'content.html',
+            resolve: {}
+        })
+        .when('/items/starred', {
+            controller: 'StarredItemsController',
+            templateUrl: 'content.html',
+            resolve: {}
+        })
+        .when('/items/feed/:feedId', {
+            controller: 'FeedItemsController',
+            templateUrl: 'content.html',
+            resolve: {}
+        })
+        .when('/items/folder/:folderId', {
+            controller: 'FolderItemsController',
+            templateUrl: 'content.html',
+            resolve: {}
+        })
+        .otherwise({
+            redirectTo: '/items'
+        });
 
 });
 

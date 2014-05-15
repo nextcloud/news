@@ -7,8 +7,19 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2012, 2014
  */
-app.run(function ($rootScope) {
+app.run(function ($rootScope, $location, Loading) {
     'use strict';
 
-    $rootScope.$on('$routeChangeError');
+    $rootScope.$on('$routeChangeStart', function () {
+        Loading.isActive = true;
+    });
+
+    $rootScope.$on('$routeChangeSuccess', function () {
+        Loading.isActive = false;
+    });
+
+    // in case of wrong id etc show all items
+    $rootScope.$on('$routeChangeError', function () {
+        $location.path('/items');
+    });
 });

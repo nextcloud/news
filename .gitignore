@@ -2,6 +2,7 @@
 node_modules/
 *.log
 /build/
+/js/coverage/
 js/build/
 js/*.xml
 .rvm

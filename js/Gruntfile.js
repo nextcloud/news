@@ -19,6 +19,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-wrap');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-ngmin');
+    grunt.loadNpmTasks('grunt-protractor-runner');
+    grunt.loadNpmTasks('grunt-protractor-webdriver');
 
     grunt.initConfig({
         meta: {
@@ -79,7 +81,7 @@ module.exports = function(grunt) {
                     predef: [
                         '$', 'angular', 'app', 'OC',
                         'protractor', 'describe', 'beforeEach', 'module', 'it',
-                        'browser', 'expect', 'By'
+                        'browser', 'expect', 'By', 'inject'
                     ]
                 }
             }
@@ -121,7 +123,8 @@ module.exports = function(grunt) {
         karma: {
             unit: {
                 configFile: 'config/karma.js',
-                browsers: ['PhantomJS']
+                browsers: ['PhantomJS'],
+                autoWatch: true
             },
             continuous: {
                 configFile: 'config/karma.js',
@@ -145,6 +148,18 @@ module.exports = function(grunt) {
             options: {
                 colors: true
             }
+        },
+        protractor_webdriver: {
+            app: {
+
+            }
+        },
+        protractor: {
+            phantomjs: {
+                options: {
+                    configFile: 'config/protractor.js'
+                }
+            }
         }
     });
 
@@ -152,5 +167,6 @@ module.exports = function(grunt) {
     grunt.registerTask('default', ['jshint', 'jslint', 'concat', 'ngmin', 'wrap']);
     grunt.registerTask('test', ['karma:unit']);
     grunt.registerTask('ci', ['default', 'karma:continuous']);
+    grunt.registerTask('e2e', ['protractor_webdriver', 'protractor']);
 
 };

@@ -33,10 +33,13 @@
     "grunt-karma": "^0.8.3",
     "grunt-ngmin": "0.0.3",
     "grunt-phpunit": "^0.3.3",
+    "grunt-protractor-runner": "^0.2.4",
+    "grunt-protractor-webdriver": "^0.1.6",
     "grunt-wrap": "^0.3.0",
     "karma": "^0.12.16",
     "karma-coverage": "^0.2.1",
     "karma-jasmine": "^0.1.5",
-    "karma-phantomjs-launcher": "^0.1.4"
+    "karma-phantomjs-launcher": "^0.1.4",
+    "protractor": "^0.22.0"
   }
 }
