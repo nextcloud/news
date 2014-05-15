@@ -1,6 +1,5 @@
 <?php
 \OCP\Util::addScript('news', 'vendor/angular/angular');
-\OCP\Util::addScript('news', 'vendor/angular-ui/build/angular-ui');
 \OCP\Util::addScript('news', 'vendor/momentjs/moment');
 \OCP\Util::addScript('news', 'vendor/momentjs/min/langs');
 \OCP\Util::addScript('news', 'vendor/bootstrap/tooltip');
