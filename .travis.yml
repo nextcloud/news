@@ -4,14 +4,15 @@ php:
   - 5.5
 
 before_install:
+  - sudo add-apt-repository ppa:fkrull/deadsnakes
   - sudo add-apt-repository -y ppa:chris-lea/node.js
   - sudo apt-get update
-  - sudo apt-get -y install nodejs python3-setuptools
-  - sudo easy_install3 pip
+  - sudo apt-get -y install nodejs python3.4
+  - sudo pip3 install ocdev
+  - sudo npm install -g grunt-cli
   - wget https://phantomjs.googlecode.com/files/phantomjs-1.9.0-linux-x86_64.tar.bz2
   - tar xjf phantomjs-1.9.0-linux-x86_64.tar.bz2
   - sudo ln -s $(pwd)/phantomjs-1.9.0-linux-x86_64/bin/phantomjs /usr/bin/phantomjs
-  - sudo pip3 install ocdev
   - cd ..
   - ocdev setup core
   - mv news core/apps/
@@ -22,7 +23,6 @@ script:
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
   - cd js/
-  - npm install -g grunt-cli
   - npm install
   - npm test
   #- export DISPLAY=:99.0
