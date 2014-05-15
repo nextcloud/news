@@ -22,3 +22,16 @@ Single run mode:
 
 	grunt phpunit
 	grunt ci
+
+### Running e2e tests
+Install protractor and set up selenium:
+
+	sudo npm install -g protractor
+	sudo webdriver-manager update
+
+then the selenium server can be started with:
+
+	webdriver-manager start
+	protractor conf/protractor.js
+
+

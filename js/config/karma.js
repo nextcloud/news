@@ -23,7 +23,7 @@ module.exports = function(config) {
       'vendor/angular-route/angular-route.js',
       'vendor/angular/angular-sanitize/angular-sanitize.js',
       'build/app.js',
-      'tests/**/*Spec.js'
+      'tests/unit/**/*.js'
     ],
 
 

@@ -76,7 +76,11 @@ module.exports = function(grunt) {
                 ],
                 directives: {
                     browser: true,
-                    predef: ['$', 'angular', 'app', 'OC']
+                    predef: [
+                        '$', 'angular', 'app', 'OC',
+                        'protractor', 'describe', 'beforeEach', 'module', 'it',
+                        'browser', 'expect', 'By'
+                    ]
                 }
             }
         },
@@ -84,6 +88,7 @@ module.exports = function(grunt) {
             all: [
                 '**/*.js',
                 '!config/karma.js',
+                '!config/protractor.js',
                 '!build/**/*',
                 '!coverage/**/*',
                 '!vendor/**/*',

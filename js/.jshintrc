@@ -5,6 +5,14 @@
         "$": true,
         "angular": true,
         "OC": true,
-        "app": true
+        "app": true,
+        "protractor": true,
+        "describe": true,
+        "beforeEach": true,
+        "module": true,
+        "browser": true,
+        "expect": true,
+        "By": true,
+        "it": true
     }
 }
