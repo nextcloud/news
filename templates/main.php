@@ -1,9 +1,11 @@
 <?php
 \OCP\Util::addScript('news', 'vendor/angular/angular');
+\OCP\Util::addScript('news', 'vendor/angular-route/angular-route');
+\OCP\Util::addScript('news', 'vendor/angular-sanitize/angular-sanitize');
 \OCP\Util::addScript('news', 'vendor/momentjs/moment');
 \OCP\Util::addScript('news', 'vendor/momentjs/min/langs');
 \OCP\Util::addScript('news', 'vendor/bootstrap/tooltip');
-\OCP\Util::addScript('news', 'public/app');
+\OCP\Util::addScript('news', 'build/app');
 
 \OCP\Util::addStyle('news', 'bootstrap/tooltip');
 \OCP\Util::addStyle('news', 'addnew');
