@@ -11,7 +11,7 @@ env:
 before_install:
   - sudo add-apt-repository -y ppa:chris-lea/node.js
   - sudo apt-get update
-  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
+  #- "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
 
 
 install:
@@ -22,7 +22,7 @@ install:
   - sudo pip3 install ocdev
   - sudo npm -g install grunt-cli
   # sudo npm -g install protractor
-  - sudo webdriver-manager update
+  # - sudo webdriver-manager update
   # get a newer phanomjs versin
   - wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.7-linux-x86_64.tar.bz2
   - tar xjf phantomjs-1.9.7-linux-x86_64.tar.bz2
