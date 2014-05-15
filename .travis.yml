@@ -13,7 +13,7 @@ before_install:
   - sudo apt-get update
 
 install:
-  - sudo apt-get -y install nodejs pyhton3-jinja2 python3-setuptools
+  - sudo apt-get -y install nodejs python3-jinja2 python3-setuptools
   - sudo easy_install3 pip
   - sudo pip3 install ocdev
   - sudo npm install -g grunt-cli protractor
