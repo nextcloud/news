@@ -19,15 +19,18 @@ install:
   - sudo easy_install3 pip
   - sudo pip3 install ocdev
   - sudo npm install -g grunt-cli protractor
+  - cd js/
+  - npm install
+  - cd ..
   - sudo webdriver-manager update
   - wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.7-linux-x86_64.tar.bz2
   - tar xjf phantomjs-1.9.7-linux-x86_64.tar.bz2
-  - sudo ln -s $(pwd)/phantomjs-1.9.7-linux-x86_64/bin/phantomjs /usr/bin/phantomjs
   - cd ..
   - ocdev setup core --dir owncloud
   - mv news owncloud/apps/
   - sudo cp -r -p owncloud /var/www/
   - cd /var/www/owncloud
+  - sudo ln -s $(pwd)/phantomjs-1.9.7-linux-x86_64/bin/phantomjs /usr/bin/phantomjs
 
 before_script:
   - createuser -U travis -s oc_autotest
@@ -42,7 +45,6 @@ script:
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
   - cd js/
-  - npm install
   - npm test
   - sudo chown -R www-data:www-data /var/www/owncloud
   - grunt e2e
