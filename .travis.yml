@@ -11,9 +11,11 @@ env:
 before_install:
   - sudo add-apt-repository -y ppa:chris-lea/node.js
   - sudo apt-get update
+  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
+
 
 install:
-  - sudo apt-get -y install nodejs python3-jinja2 python3-setuptools
+  - sudo apt-get -y install nodejs python3-jinja2 python3-setuptools apache2 chromium-browser
   - sudo easy_install3 pip
   - sudo pip3 install ocdev
   - sudo npm install -g grunt-cli protractor
@@ -22,9 +24,10 @@ install:
   - tar xjf phantomjs-1.9.7-linux-x86_64.tar.bz2
   - sudo ln -s $(pwd)/phantomjs-1.9.7-linux-x86_64/bin/phantomjs /usr/bin/phantomjs
   - cd ..
-  - ocdev setup core
-  - mv news core/apps/
-  - cd core
+  - ocdev setup core --dir owncloud
+  - mv news owncloud/apps/
+  - sudo cp -r -p owncloud /var/www/
+  - cd /var/www/owncloud
 
 before_script:
   - createuser -U travis -s oc_autotest
@@ -32,8 +35,6 @@ before_script:
   - mysql -u root -e "CREATE USER 'oc_autotest'@'localhost'";
   - mysql -u root -e "grant all on oc_autotest.* to 'oc_autotest'@'localhost'";
   - ocdev ci $DB
-  - sudo chown -R www-data:www-data data
-  - sudo chown -R www-data:www-data config
   - cd apps/news
 
 script:
@@ -43,9 +44,8 @@ script:
   - cd js/
   - npm install
   - npm test
-  #- export DISPLAY=:99.0
-  #- sh -e /etc/init.d/xvfb start
-  #- grunt e2e
+  - sudo chown -R www-data:www-data /var/www/owncloud
+  - grunt e2e
 
 addons:
   postgresql: "9.3"
