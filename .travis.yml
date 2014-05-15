@@ -9,7 +9,8 @@ before_install:
   - sudo apt-get update
   - sudo apt-get -y install nodejs python3.4
   - sudo pip3 install ocdev
-  - sudo npm install -g grunt-cli
+  - sudo npm install -g grunt-cli protractor
+  - sudo webdriver-manager update
   - wget https://phantomjs.googlecode.com/files/phantomjs-1.9.0-linux-x86_64.tar.bz2
   - tar xjf phantomjs-1.9.0-linux-x86_64.tar.bz2
   - sudo ln -s $(pwd)/phantomjs-1.9.0-linux-x86_64/bin/phantomjs /usr/bin/phantomjs
@@ -27,7 +28,5 @@ script:
   - npm test
   #- export DISPLAY=:99.0
   #- sh -e /etc/init.d/xvfb start
-  #- sudo npm install -g protractor
-  #- sudo webdriver-manager update
   #- grunt e2e
 
