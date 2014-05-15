@@ -16,10 +16,12 @@ before_install:
 
 install:
   - cd ..
-  - sudo apt-get -y install nodejs python3-jinja2 python3-setuptools apache2 chromium-browser libapache2-mod-fastcgi php5-gd php5-json php5-mysql php5-curl php5-intl php5-mcrypt php5-imagick
+  - sudo apt-get -y install nodejs python3-jinja2 python3-setuptools
+  #- sudo apt-get -y install apache2 chromium-browser libapache2-mod-fastcgi php5-gd php5-json php5-mysql php5-curl php5-intl php5-mcrypt php5-imagick
   - sudo easy_install3 pip
   - sudo pip3 install ocdev
-  - sudo npm install -g grunt-cli protractor
+  - sudo npm -g install grunt-cli
+  # sudo npm -g install protractor
   - sudo webdriver-manager update
   # get a newer phanomjs versin
   - wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.7-linux-x86_64.tar.bz2
@@ -47,19 +49,18 @@ before_script:
   # configure apache virtual hosts
   #- sudo cp -f tests/travis/travis-ci-apache /etc/apache2/sites-available/default
   #- sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
-  - sudo sed -i -e "s,/var/www,$(pwd)/web,g" /etc/apache2/sites-available/default
-  - sudo service apache2 restart  
+  #- sudo service apache2 restart  
 
 script:
   - phpunit --coverage-clover=coverage.clover tests/unit
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
   - cd js/
-  - npm install
+  - npm install --deps
   - npm test
-  - sudo chown -R www-data:www-data ../../data
-  - sudo chown -R www-data:www-data ../../config
-  - grunt e2e
+  #- sudo chown -R www-data:www-data ../../data
+  #- sudo chown -R www-data:www-data ../../config
+  #- grunt e2e
 
 addons:
   postgresql: "9.3"
