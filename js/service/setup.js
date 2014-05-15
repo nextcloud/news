@@ -5,7 +5,7 @@
  * later. See the COPYING file.
  *
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Bernhard Posselt 2012, 2014
+ * @copyright Bernhard Posselt 2014
  */
 app.service('Setup', function () {
     'use strict';
