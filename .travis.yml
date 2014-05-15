@@ -15,38 +15,48 @@ before_install:
 
 
 install:
-  - sudo apt-get -y install nodejs python3-jinja2 python3-setuptools apache2 chromium-browser
+  - sudo apt-get -y install nodejs python3-jinja2 python3-setuptools apache2 chromium-browser libapache2-mod-fastcgi
   - sudo easy_install3 pip
   - sudo pip3 install ocdev
   - sudo npm install -g grunt-cli protractor
-  - cd js/
-  - npm install
-  - cd ..
   - sudo webdriver-manager update
+  # get a newer phanomjs versin
   - wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.7-linux-x86_64.tar.bz2
   - tar xjf phantomjs-1.9.7-linux-x86_64.tar.bz2
+  - sudo ln -s $(pwd)/phantomjs-1.9.7-linux-x86_64/bin/phantomjs /usr/bin/phantomjs
   - cd ..
+  # clone core
   - ocdev setup core --dir owncloud
   - mv news owncloud/apps/
-  - sudo cp -r -p owncloud /var/www/
-  - cd /var/www/owncloud
-  - sudo ln -s $(pwd)/phantomjs-1.9.7-linux-x86_64/bin/phantomjs /usr/bin/phantomjs
 
 before_script:
+  # setup databases
   - createuser -U travis -s oc_autotest
   - mysql -e 'create database oc_autotest;'
   - mysql -u root -e "CREATE USER 'oc_autotest'@'localhost'";
   - mysql -u root -e "grant all on oc_autotest.* to 'oc_autotest'@'localhost'";
+  # install owncloud
   - ocdev ci $DB
   - cd apps/news
+  # enable php-fpm
+  - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
+  - sudo a2enmod rewrite actions fastcgi alias
+  - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
+  # configure apache virtual hosts
+  - sudo cp -f tests/travis/travis-ci-apache /etc/apache2/sites-available/default
+  - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
+  - sudo service apache2 restart  
 
 script:
   - phpunit --coverage-clover=coverage.clover tests/unit
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
   - cd js/
+  - npm install
   - npm test
-  - sudo chown -R www-data:www-data /var/www/owncloud
+  - sudo chown -R www-data:www-data ../../data
+  - sudo chown -R www-data:www-data ../../config
   - grunt e2e
 
 addons:
