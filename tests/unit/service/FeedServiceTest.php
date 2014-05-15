@@ -12,7 +12,7 @@
  */
 
 
-namespace OCA\News\BusinessLayer;
+namespace OCA\News\Service;
 
 require_once(__DIR__ . "/../../classloader.php");
 
@@ -23,10 +23,10 @@ use \OCA\News\Db\Item;
 use \OCA\News\Fetcher\Fetcher;
 use \OCA\News\Fetcher\FetcherException;
 
-class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
+class FeedServiceTest extends \PHPUnit_Framework_TestCase {
 
 	private $feedMapper;
-	private $feedBusinessLayer;
+	private $feedService;
 	private $user;
 	private $response;
 	private $fetcher;
@@ -77,7 +77,7 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->method('getAutoPurgeMinimumInterval')
 			->will($this->returnValue($this->autoPurgeMinimumInterval));
 
-		$this->feedBusinessLayer = new FeedBusinessLayer($this->feedMapper,
+		$this->feedService = new FeedService($this->feedMapper,
 			$this->fetcher, $this->itemMapper, $this->logger, $this->l10n,
 			$timeFactory, $config, $this->enhancer, $this->purifier, $this->loggerParams);
 		$this->user = 'jack';
@@ -90,7 +90,7 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($this->response));
 
-		$result = $this->feedBusinessLayer->findAll($this->user);
+		$result = $this->feedService->findAll($this->user);
 		$this->assertEquals($this->response, $result);
 	}
 
@@ -104,8 +104,8 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->method('fetch')
 			->with($this->equalTo($url))
 			->will($this->throwException($ex));
-		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
-		$this->feedBusinessLayer->create($url, 1, $this->user);
+		$this->setExpectedException('\OCA\News\Service\ServiceNotFoundException');
+		$this->feedService->create($url, 1, $this->user);
 	}
 
 	public function testCreate(){
@@ -176,7 +176,7 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->method('insert')
 			->with($this->equalTo($return[1][0]));
 
-		$feed = $this->feedBusinessLayer->create($url, $folderId, $this->user);
+		$feed = $this->feedService->create($url, $folderId, $this->user);
 
 		$this->assertEquals($feed->getFolderId(), $folderId);
 		$this->assertEquals($feed->getUrl(), $url);
@@ -240,7 +240,7 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 				$this->equalTo($item1->getFeedId()),
 				$this->equalTo($this->user));
 
-		$feed = $this->feedBusinessLayer->create($url, $folderId, $this->user);
+		$feed = $this->feedService->create($url, $folderId, $this->user);
 
 		$this->assertEquals($feed->getFolderId(), $folderId);
 		$this->assertEquals($feed->getUrl(), $url);
@@ -295,7 +295,7 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->with($feed->getId(), $this->user)
 			->will($this->returnValue($feed));
 
-		$return = $this->feedBusinessLayer->update($feed->getId(), $this->user);
+		$return = $this->feedService->update($feed->getId(), $this->user);
 
 		$this->assertEquals($return, $feed);
 	}
@@ -327,7 +327,7 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->with($this->equalTo($existingFeed));
 
 
-		$this->feedBusinessLayer->update($feed->getId(), $this->user);
+		$this->feedService->update($feed->getId(), $this->user);
 	}
 
 	public function testUpdateFails(){
@@ -351,7 +351,7 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->with($feed->getId(), $this->user)
 			->will($this->returnValue($feed));
 
-		$return = $this->feedBusinessLayer->update($feed->getId(), $this->user);
+		$return = $this->feedService->update($feed->getId(), $this->user);
 
 		$this->assertEquals($return, $feed);
 	}
@@ -369,8 +369,8 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 					$this->equalTo($this->user))
 			->will($this->throwException($ex));
 
-		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
-		$this->feedBusinessLayer->update($feed->getId(), $this->user);
+		$this->setExpectedException('\OCA\News\Service\ServiceNotFoundException');
+		$this->feedService->update($feed->getId(), $this->user);
 	}
 
 
@@ -412,8 +412,8 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 					$this->equalTo($this->user))
 			->will($this->throwException($ex));
 
-		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
-		$this->feedBusinessLayer->update($feed->getId(), $this->user);
+		$this->setExpectedException('\OCA\News\Service\ServiceNotFoundException');
+		$this->feedService->update($feed->getId(), $this->user);
 	}
 
 
@@ -432,7 +432,7 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 		$this->fetcher->expects($this->never())
 			->method('fetch');
 
-		$this->feedBusinessLayer->update($feedId, $this->user);
+		$this->feedService->update($feedId, $this->user);
 	}
 
 
@@ -452,7 +452,7 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->method('update')
 			->with($this->equalTo($feed));
 
-		$this->feedBusinessLayer->move($feedId, $folderId, $this->user);
+		$this->feedService->move($feedId, $folderId, $this->user);
 
 		$this->assertEquals($folderId, $feed->getFolderId());
 	}
@@ -474,7 +474,7 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->method('update')
 			->with($this->equalTo($feed));
 
-		$this->feedBusinessLayer->rename($feedId, $feedTitle, $this->user);
+		$this->feedService->rename($feedId, $feedTitle, $this->user);
 
 		$this->assertEquals($feedTitle, $feed->getTitle());
 	}
@@ -529,7 +529,7 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->with($this->equalTo($item->getBody()))
 			->will($this->returnValue($item->getBody()));
 
-		$result = $this->feedBusinessLayer->importArticles($items, $this->user);
+		$result = $this->feedService->importArticles($items, $this->user);
 
 		$this->assertEquals(null, $result);
 	}
@@ -613,7 +613,7 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->method('findByUrlHash')
 			->will($this->returnValue($feed));
 
-		$result = $this->feedBusinessLayer->importArticles($items, $this->user);
+		$result = $this->feedService->importArticles($items, $this->user);
 
 		$this->assertEquals($feed, $result);
 	}
@@ -633,7 +633,7 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->method('update')
 			->with($this->equalTo($feed2));
 
-		$this->feedBusinessLayer->markDeleted($id, $this->user);
+		$this->feedService->markDeleted($id, $this->user);
 	}
 
 
@@ -651,7 +651,7 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->method('update')
 			->with($this->equalTo($feed2));
 
-		$this->feedBusinessLayer->unmarkDeleted($id, $this->user);
+		$this->feedService->unmarkDeleted($id, $this->user);
 	}
 
 
@@ -674,7 +674,7 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->method('delete')
 			->with($this->equalTo($feed2));
 
-		$this->feedBusinessLayer->purgeDeleted($this->user);
+		$this->feedService->purgeDeleted($this->user);
 	}
 
 
@@ -696,7 +696,7 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->method('delete')
 			->with($this->equalTo($feed2));
 
-		$this->feedBusinessLayer->purgeDeleted($this->user, false);
+		$this->feedService->purgeDeleted($this->user, false);
 	}
 
 
@@ -705,7 +705,7 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 		$this->feedMapper->expects($this->once())
 			->method('findAll')
 			->will($this->returnValue($expected));
-		$result = $this->feedBusinessLayer->findAllFromAllUsers();
+		$result = $this->feedService->findAllFromAllUsers();
 		$this->assertEquals($expected, $result);
 	}
 
@@ -715,7 +715,7 @@ class FeedBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->method('deleteUser')
 			->will($this->returnValue($this->user));
 
-		$this->feedBusinessLayer->deleteUser($this->user);
+		$this->feedService->deleteUser($this->user);
 	}
 
 

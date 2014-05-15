@@ -11,7 +11,7 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 
-namespace OCA\News\BusinessLayer;
+namespace OCA\News\Service;
 
 require_once(__DIR__ . "/../../classloader.php");
 
@@ -22,10 +22,10 @@ use \OCA\News\Db\StatusFlag;
 use \OCA\News\Db\FeedType;
 
 
-class ItemBusinessLayerTest extends \PHPUnit_Framework_TestCase {
+class ItemServiceTest extends \PHPUnit_Framework_TestCase {
 
 	private $mapper;
-	private $itemBusinessLayer;
+	private $itemService;
 	private $user;
 	private $response;
 	private $status;
@@ -57,7 +57,7 @@ class ItemBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 		$config->expects($this->any())
 			->method('getAutoPurgeCount')
 			->will($this->returnValue($this->threshold));
-		$this->itemBusinessLayer = new ItemBusinessLayer($this->mapper,
+		$this->itemService = new ItemService($this->mapper,
 			$statusFlag, $timeFactory, $config);
 		$this->user = 'jack';
 		$this->id = 3;
@@ -79,7 +79,7 @@ class ItemBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 					$this->equalTo($this->user))
 			->will($this->returnValue($this->response));
 
-		$result = $this->itemBusinessLayer->findAllNew(
+		$result = $this->itemService->findAllNew(
 			$this->id, $type, $this->updatedSince, $this->showAll,
 			$this->user);
 		$this->assertEquals($this->response, $result);
@@ -96,7 +96,7 @@ class ItemBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 					$this->equalTo($this->user))
 			->will($this->returnValue($this->response));
 
-		$result = $this->itemBusinessLayer->findAllNew(
+		$result = $this->itemService->findAllNew(
 			$this->id, $type, $this->updatedSince, $this->showAll,
 			$this->user);
 		$this->assertEquals($this->response, $result);
@@ -112,7 +112,7 @@ class ItemBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 					$this->equalTo($this->user))
 			->will($this->returnValue($this->response));
 
-		$result = $this->itemBusinessLayer->findAllNew(
+		$result = $this->itemService->findAllNew(
 			$this->id, $type, $this->updatedSince, $this->showAll,
 			$this->user);
 		$this->assertEquals($this->response, $result);
@@ -131,7 +131,7 @@ class ItemBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 					$this->equalTo(false))
 			->will($this->returnValue($this->response));
 
-		$result = $this->itemBusinessLayer->findAll(
+		$result = $this->itemService->findAll(
 			$this->id, $type, $this->limit,
 			$this->offset, $this->showAll,
 			$this->user);
@@ -150,7 +150,7 @@ class ItemBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 					$this->equalTo($this->user))
 			->will($this->returnValue($this->response));
 
-		$result = $this->itemBusinessLayer->findAll(
+		$result = $this->itemService->findAll(
 			$this->id, $type, $this->limit,
 			$this->offset, $this->showAll,
 			$this->user);
@@ -169,7 +169,7 @@ class ItemBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 					$this->equalTo(true))
 			->will($this->returnValue($this->response));
 
-		$result = $this->itemBusinessLayer->findAll(
+		$result = $this->itemService->findAll(
 			$this->id, $type, $this->limit,
 			$this->offset, $this->showAll,
 			$this->user, true);
@@ -205,7 +205,7 @@ class ItemBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->method('update')
 			->with($this->equalTo($expectedItem));
 
-		$this->itemBusinessLayer->star($feedId, $guidHash, true, $this->user);
+		$this->itemService->star($feedId, $guidHash, true, $this->user);
 
 		$this->assertTrue($item->isStarred());
 	}
@@ -233,7 +233,7 @@ class ItemBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->method('update')
 			->with($this->equalTo($expectedItem));
 
-		$this->itemBusinessLayer->read($itemId, false, $this->user);
+		$this->itemService->read($itemId, false, $this->user);
 
 		$this->assertTrue($item->isUnread());
 	}
@@ -241,12 +241,12 @@ class ItemBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 
 	public function testStarDoesNotExist(){
 
-		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
+		$this->setExpectedException('\OCA\News\Service\ServiceNotFoundException');
 		$this->mapper->expects($this->once())
 			->method('findByGuidHash')
 			->will($this->throwException(new DoesNotExistException('')));
 
-		$this->itemBusinessLayer->star(1, 'hash', true, $this->user);
+		$this->itemService->star(1, 'hash', true, $this->user);
 	}
 
 
@@ -259,7 +259,7 @@ class ItemBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 				$this->equalTo($this->time),
 				$this->equalTo($this->user));
 
-		$this->itemBusinessLayer->readAll($highestItemId, $this->user);
+		$this->itemService->readAll($highestItemId, $this->user);
 	}
 
 
@@ -274,7 +274,7 @@ class ItemBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 				$this->equalTo($this->time),
 				$this->equalTo($this->user));
 
-		$this->itemBusinessLayer->readFolder($folderId, $highestItemId, $this->user);
+		$this->itemService->readFolder($folderId, $highestItemId, $this->user);
 	}
 
 
@@ -289,7 +289,7 @@ class ItemBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 				$this->equalTo($this->time),
 				$this->equalTo($this->user));
 
-		$this->itemBusinessLayer->readFeed($feedId, $highestItemId, $this->user);
+		$this->itemService->readFeed($feedId, $highestItemId, $this->user);
 	}
 
 
@@ -298,7 +298,7 @@ class ItemBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->method('deleteReadOlderThanThreshold')
 			->with($this->equalTo($this->threshold));
 
-		$this->itemBusinessLayer->autoPurgeOld();
+		$this->itemService->autoPurgeOld();
 	}
 
 
@@ -308,7 +308,7 @@ class ItemBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->with($this->equalTo($this->user))
 			->will($this->returnValue(12));
 
-		$result = $this->itemBusinessLayer->getNewestItemId($this->user);
+		$result = $this->itemService->getNewestItemId($this->user);
 		$this->assertEquals(12, $result);
 	}
 
@@ -319,8 +319,8 @@ class ItemBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->with($this->equalTo($this->user))
 			->will($this->throwException(new DoesNotExistException('There are no items')));
 
-		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
-		$this->itemBusinessLayer->getNewestItemId($this->user);
+		$this->setExpectedException('\OCA\News\Service\ServiceNotFoundException');
+		$this->itemService->getNewestItemId($this->user);
 	}
 
 
@@ -332,7 +332,7 @@ class ItemBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($star));
 
-		$result = $this->itemBusinessLayer->starredCount($this->user);
+		$result = $this->itemService->starredCount($this->user);
 
 		$this->assertEquals($star, $result);
 	}
@@ -346,7 +346,7 @@ class ItemBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($star));
 
-		$result = $this->itemBusinessLayer->getUnreadOrStarred($this->user);
+		$result = $this->itemService->getUnreadOrStarred($this->user);
 
 		$this->assertEquals($star, $result);
 	}
@@ -357,7 +357,7 @@ class ItemBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->method('deleteUser')
 			->will($this->returnValue($this->user));
 
-		$this->itemBusinessLayer->deleteUser($this->user);
+		$this->itemService->deleteUser($this->user);
 	}
 
 

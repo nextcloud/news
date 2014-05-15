@@ -28,9 +28,9 @@ use \OCA\News\Controller\FolderApiController;
 use \OCA\News\Controller\FeedApiController;
 use \OCA\News\Controller\ItemApiController;
 
-use \OCA\News\BusinessLayer\FolderBusinessLayer;
-use \OCA\News\BusinessLayer\FeedBusinessLayer;
-use \OCA\News\BusinessLayer\ItemBusinessLayer;
+use \OCA\News\Service\FolderService;
+use \OCA\News\Service\FeedService;
+use \OCA\News\Service\ItemService;
 
 use \OCA\News\Db\FolderMapper;
 use \OCA\News\Db\FeedMapper;
@@ -86,9 +86,9 @@ class Application extends App {
 			return new FolderController(
 				$c->query('AppName'), 
 				$c->query('Request'),
-				$c->query('FolderBusinessLayer'),
-				$c->query('FeedBusinessLayer'),
-				$c->query('ItemBusinessLayer'),
+				$c->query('FolderService'),
+				$c->query('FeedService'),
+				$c->query('ItemService'),
 				$c->query('UserId')
 			);
 		});
@@ -97,9 +97,9 @@ class Application extends App {
 			return new FeedController(
 				$c->query('AppName'), 
 				$c->query('Request'),
-				$c->query('FolderBusinessLayer'),
-				$c->query('FeedBusinessLayer'),
-				$c->query('ItemBusinessLayer'),
+				$c->query('FolderService'),
+				$c->query('FeedService'),
+				$c->query('ItemService'),
 				$c->query('CoreConfig'),
 				$c->query('UserId')
 			);
@@ -109,8 +109,8 @@ class Application extends App {
 			return new ItemController(
 				$c->query('AppName'), 
 				$c->query('Request'),
-				$c->query('FeedBusinessLayer'),
-				$c->query('ItemBusinessLayer'),
+				$c->query('FeedService'),
+				$c->query('ItemService'),
 				$c->query('CoreConfig'),
 				$c->query('UserId')
 			);
@@ -120,9 +120,9 @@ class Application extends App {
 			return new ExportController(
 				$c->query('AppName'), 
 				$c->query('Request'),
-				$c->query('FeedBusinessLayer'),
-				$c->query('FolderBusinessLayer'),
-				$c->query('ItemBusinessLayer'),
+				$c->query('FolderService'),
+				$c->query('FeedService'),
+				$c->query('ItemService'),
 				$c->query('OPMLExporter'),
 				$c->query('UserId')
 			);
@@ -141,8 +141,8 @@ class Application extends App {
 			return new FolderApiController(
 				$c->query('AppName'), 
 				$c->query('Request'),
-				$c->query('FolderBusinessLayer'),
-				$c->query('ItemBusinessLayer'),
+				$c->query('FolderService'),
+				$c->query('ItemService'),
 				$c->query('UserId')
 			);
 		});
@@ -151,9 +151,8 @@ class Application extends App {
 			return new FeedApiController(
 				$c->query('AppName'), 
 				$c->query('Request'),
-				$c->query('FolderBusinessLayer'),
-				$c->query('FeedBusinessLayer'),
-				$c->query('ItemBusinessLayer'),
+				$c->query('FeedService'),
+				$c->query('ItemService'),
 				$c->query('Logger'),
 				$c->query('UserId'),
 				$c->query('LoggerParameters')
@@ -164,7 +163,7 @@ class Application extends App {
 			return new ItemApiController(
 				$c->query('AppName'), 
 				$c->query('Request'),
-				$c->query('ItemBusinessLayer'),
+				$c->query('ItemService'),
 				$c->query('UserId')
 			);
 		});
@@ -173,8 +172,8 @@ class Application extends App {
 		/**
 		 * Business Layer
 		 */
-		$container->registerService('FolderBusinessLayer', function($c) {
-			return new FolderBusinessLayer(
+		$container->registerService('FolderService', function($c) {
+			return new FolderService(
 				$c->query('FolderMapper'),
 				$c->query('L10N'),
 				$c->query('TimeFactory'),
@@ -182,8 +181,8 @@ class Application extends App {
 			);
 		});
 
-		$container->registerService('FeedBusinessLayer', function($c) {
-			return new FeedBusinessLayer(
+		$container->registerService('FeedService', function($c) {
+			return new FeedService(
 				$c->query('FeedMapper'),
 				$c->query('Fetcher'),
 				$c->query('ItemMapper'),
@@ -197,8 +196,8 @@ class Application extends App {
 			);
 		});
 
-		$container->registerService('ItemBusinessLayer', function($c) {
-			return new ItemBusinessLayer(
+		$container->registerService('ItemService', function($c) {
+			return new ItemService(
 				$c->query('ItemMapper'),
 				$c->query('StatusFlag'),
 				$c->query('TimeFactory'),
@@ -414,9 +413,9 @@ class Application extends App {
 
 		$container->registerService('Updater', function($c) {
 			return new Updater(
-				$c->query('FolderBusinessLayer'),
-				$c->query('FeedBusinessLayer'),
-				$c->query('ItemBusinessLayer')
+				$c->query('FolderService'),
+				$c->query('FeedService'),
+				$c->query('ItemService')
 			);
 		});
 

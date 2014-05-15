@@ -17,9 +17,9 @@ use \OCP\AppFramework\Http;
 
 use \OCA\News\Db\Folder;
 use \OCA\News\Db\Feed;
-use \OCA\News\BusinessLayer\BusinessLayerException;
-use \OCA\News\BusinessLayer\BusinessLayerConflictException;
-use \OCA\News\BusinessLayer\BusinessLayerValidationException;
+use \OCA\News\Service\ServiceNotFoundException;
+use \OCA\News\Service\ServiceConflictException;
+use \OCA\News\Service\ServiceValidationException;
 
 require_once(__DIR__ . "/../../classloader.php");
 
@@ -27,9 +27,9 @@ require_once(__DIR__ . "/../../classloader.php");
 class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 
 	private $appName;
-	private $folderBusinessLayer;
-	private $itemBusinessLayer;
-	private $feedBusinessLayer;
+	private $folderService;
+	private $itemService;
+	private $feedService;
 	private $request;
 	private $controller;
 	private $msg;
@@ -41,13 +41,16 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 	public function setUp(){
 		$this->appName = 'news';
 		$this->user = 'jack';
-		$this->folderBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\FolderBusinessLayer')
+		$this->folderService = $this->getMockBuilder(
+			'\OCA\News\Service\FolderService')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->feedBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\FeedBusinessLayer')
+		$this->feedService = $this->getMockBuilder(
+			'\OCA\News\Service\FeedService')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->itemBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\ItemBusinessLayer')
+		$this->itemService = $this->getMockBuilder(
+			'\OCA\News\Service\ItemService')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->request = $this->getMockBuilder(
@@ -55,9 +58,9 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 		$this->controller = new FolderController($this->appName, $this->request,
-				$this->folderBusinessLayer, 
-				$this->feedBusinessLayer,
-				$this->itemBusinessLayer,
+				$this->folderService, 
+				$this->feedService,
+				$this->itemService,
 				$this->user);
 		$this->msg = 'ron';
 	}
@@ -66,7 +69,7 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 	
 	public function testIndex(){
 		$return = [new Folder(), new Folder()];
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 					->method('findAll')
 					->will($this->returnValue($return));
 
@@ -77,7 +80,7 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testOpen(){
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('open')
 			->with($this->equalTo(3), 
 				$this->equalTo(true), $this->equalTo($this->user));
@@ -88,9 +91,9 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testOpenDoesNotExist(){
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('open')
-			->will($this->throwException(new BusinessLayerException($this->msg)));
+			->will($this->throwException(new ServiceNotFoundException($this->msg)));
 		
 		$response = $this->controller->open(5);
 
@@ -102,7 +105,7 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testCollapse(){
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('open')
 			->with($this->equalTo(5), 
 				$this->equalTo(false), $this->equalTo($this->user));
@@ -113,9 +116,9 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testCollapseDoesNotExist(){
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('open')
-			->will($this->throwException(new BusinessLayerException($this->msg)));
+			->will($this->throwException(new ServiceNotFoundException($this->msg)));
 		
 		$response = $this->controller->collapse(5);
 
@@ -129,10 +132,10 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 	public function testCreate(){
 		$result = ['folders' => [new Folder()]];
 
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('purgeDeleted')
 			->with($this->equalTo($this->user), $this->equalTo(false));
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('create')
 			->with($this->equalTo('tech'), 
 				$this->equalTo($this->user))
@@ -146,11 +149,11 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 
 	public function testCreateReturnsErrorForInvalidCreate(){
 		$msg = 'except';
-		$ex = new BusinessLayerValidationException($msg);
-		$this->folderBusinessLayer->expects($this->once())
+		$ex = new ServiceValidationException($msg);
+		$this->folderService->expects($this->once())
 			->method('purgeDeleted')
 			->with($this->equalTo($this->user), $this->equalTo(false));
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('create')
 			->will($this->throwException($ex));
 
@@ -164,11 +167,11 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 
 	public function testCreateReturnsErrorForDuplicateCreate(){
 		$msg = 'except';
-		$ex = new BusinessLayerConflictException($msg);
-		$this->folderBusinessLayer->expects($this->once())
+		$ex = new ServiceConflictException($msg);
+		$this->folderService->expects($this->once())
 			->method('purgeDeleted')
 			->with($this->equalTo($this->user), $this->equalTo(false));
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('create')
 			->will($this->throwException($ex));
 
@@ -181,7 +184,7 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testDelete(){
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('markDeleted')
 			->with($this->equalTo(5), 
 				$this->equalTo($this->user));
@@ -191,9 +194,9 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testDeleteDoesNotExist(){
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('markDeleted')
-			->will($this->throwException(new BusinessLayerException($this->msg)));
+			->will($this->throwException(new ServiceNotFoundException($this->msg)));
 		
 		$response = $this->controller->delete(5);
 
@@ -207,7 +210,7 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 	public function testRename(){
 		$result = ['folders' => [new Folder()]];
 
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('rename')
 			->with($this->equalTo(4),
 				$this->equalTo('tech'), 
@@ -222,8 +225,8 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 
 	public function testRenameReturnsErrorForInvalidCreate(){
 		$msg = 'except';
-		$ex = new BusinessLayerValidationException($msg);
-		$this->folderBusinessLayer->expects($this->once())
+		$ex = new ServiceValidationException($msg);
+		$this->folderService->expects($this->once())
 			->method('rename')
 			->will($this->throwException($ex));
 
@@ -237,8 +240,8 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 
 	public function testRenameDoesNotExist(){
 		$msg = 'except';
-		$ex = new BusinessLayerException($msg);
-		$this->folderBusinessLayer->expects($this->once())
+		$ex = new ServiceNotFoundException($msg);
+		$this->folderService->expects($this->once())
 			->method('rename')
 			->will($this->throwException($ex));
 
@@ -252,8 +255,8 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 
 	public function testRenameReturnsErrorForDuplicateCreate(){
 		$msg = 'except';
-		$ex = new BusinessLayerConflictException($msg);
-		$this->folderBusinessLayer->expects($this->once())
+		$ex = new ServiceConflictException($msg);
+		$this->folderService->expects($this->once())
 			->method('rename')
 			->will($this->throwException($ex));
 
@@ -270,12 +273,12 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 		$feed = new Feed();
 		$expected = ['feeds' => [$feed]];
 
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('readFolder')
 			->with($this->equalTo(4), 
 				$this->equalTo(5), 
 				$this->equalTo($this->user));
-		$this->feedBusinessLayer->expects($this->once())
+		$this->feedService->expects($this->once())
 			->method('findAll')
 			->with($this->equalTo($this->user))
 			->will($this->returnValue([$feed]));
@@ -286,7 +289,7 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testRestore(){
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('unmarkDeleted')
 			->with($this->equalTo(5), 
 				$this->equalTo($this->user));
@@ -296,9 +299,9 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testRestoreDoesNotExist(){
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('unmarkDeleted')
-			->will($this->throwException(new BusinessLayerException($this->msg)));
+			->will($this->throwException(new ServiceNotFoundException($this->msg)));
 		
 		$response = $this->controller->restore(5);
 

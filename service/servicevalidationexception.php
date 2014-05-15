@@ -11,10 +11,10 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 
-namespace OCA\News\BusinessLayer;
+namespace OCA\News\Service;
 
 
-class BusinessLayerValidationException extends BusinessLayerException {
+class ServiceValidationException extends ServiceException {
 
 	/**
 	 * Constructor

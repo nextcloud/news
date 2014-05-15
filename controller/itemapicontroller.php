@@ -17,22 +17,22 @@ use \OCP\IRequest;
 use \OCP\AppFramework\ApiController;
 use \OCP\AppFramework\Http;
 
-use \OCA\News\BusinessLayer\ItemBusinessLayer;
-use \OCA\News\BusinessLayer\BusinessLayerException;
+use \OCA\News\Service\ItemService;
+use \OCA\News\Service\ServiceNotFoundException;
 
 class ItemApiController extends ApiController {
 
 	use JSONHttpError;
 
-	private $itemBusinessLayer;
+	private $itemService;
 	private $userId;
 
 	public function __construct($appName,
 	                            IRequest $request,
-	                            ItemBusinessLayer $itemBusinessLayer,
+	                            ItemService $itemService,
 	                            $userId){
 		parent::__construct($appName, $request);
-		$this->itemBusinessLayer = $itemBusinessLayer;
+		$this->itemService = $itemService;
 		$this->userId = $userId;
 		$this->registerSerializer(new EntityApiSerializer('items'));
 	}
@@ -50,7 +50,7 @@ class ItemApiController extends ApiController {
 	 * @param int $offset
 	 */
 	public function index($type, $id, $getRead, $batchSize=20, $offset=0) {
-		return $this->itemBusinessLayer->findAll($id, $type, $batchSize, $offset, 
+		return $this->itemService->findAll($id, $type, $batchSize, $offset, 
 		                                         $getRead, $this->userId);
 	}
 
@@ -65,15 +65,15 @@ class ItemApiController extends ApiController {
 	 * @param int $lastModified
 	 */
 	public function updated($type, $id, $lastModified=0) {
-		return $this->itemBusinessLayer->findAllNew($id, $type, $lastModified,
+		return $this->itemService->findAllNew($id, $type, $lastModified,
 		                                            true, $this->userId);
 	}
 
 
 	private function setRead($isRead, $itemId) {
 		try {
-			$this->itemBusinessLayer->read($itemId, $isRead, $this->userId);
-		} catch(BusinessLayerException $ex){
+			$this->itemService->read($itemId, $isRead, $this->userId);
+		} catch(ServiceNotFoundException $ex){
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
@@ -105,8 +105,8 @@ class ItemApiController extends ApiController {
 
 	private function setStarred($isStarred, $feedId, $guidHash) {
 		try {
-			$this->itemBusinessLayer->star($feedId, $guidHash, $isStarred, $this->userId);
-		} catch(BusinessLayerException $ex){
+			$this->itemService->star($feedId, $guidHash, $isStarred, $this->userId);
+		} catch(ServiceNotFoundException $ex){
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
@@ -146,15 +146,15 @@ class ItemApiController extends ApiController {
 	 * @param int $newestItemId
 	 */
 	public function readAll($newestItemId) {
-		$this->itemBusinessLayer->readAll($newestItemId, $this->userId);
+		$this->itemService->readAll($newestItemId, $this->userId);
 	}
 
 
 	private function setMultipleRead($isRead, $items) {
 		foreach($items as $id) {
 			try {
-				$this->itemBusinessLayer->read($id, $isRead, $this->userId);
-			} catch(BusinessLayerException $ex) {
+				$this->itemService->read($id, $isRead, $this->userId);
+			} catch(ServiceNotFoundException $ex) {
 				continue;
 			}
 		}
@@ -188,9 +188,9 @@ class ItemApiController extends ApiController {
 	private function setMultipleStarred($isStarred, $items) {
 		foreach($items as $item) {
 			try {
-				$this->itemBusinessLayer->star($item['feedId'], $item['guidHash'], 
+				$this->itemService->star($item['feedId'], $item['guidHash'], 
 					                           $isStarred, $this->userId);
-			} catch(BusinessLayerException $ex) {
+			} catch(ServiceNotFoundException $ex) {
 				continue;
 			}
 		}

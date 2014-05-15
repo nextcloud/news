@@ -11,7 +11,7 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 
-namespace OCA\News\BusinessLayer;
+namespace OCA\News\Service;
 
 use \OCP\ILogger;
 use \OCP\IL10N;
@@ -27,7 +27,7 @@ use \OCA\News\ArticleEnhancer\Enhancer;
 use \OCA\News\Utility\Config;
 
 
-class FeedBusinessLayer extends BusinessLayer {
+class FeedService extends Service {
 
 	private $feedFetcher;
 	private $itemMapper;
@@ -87,8 +87,8 @@ class FeedBusinessLayer extends BusinessLayer {
 	 * @param string $feedUrl the url to the feed
 	 * @param int $folderId the folder where it should be put into, 0 for root folder
 	 * @param string $userId for which user the feed should be created
-	 * @throws BusinessLayerConflictException if the feed exists already
-	 * @throws BusinessLayerException if the url points to an invalid feed
+	 * @throws ServiceConflictException if the feed exists already
+	 * @throws ServiceNotFoundException if the url points to an invalid feed
 	 * @return Feed the newly created feed
 	 */
 	public function create($feedUrl, $folderId, $userId){
@@ -99,7 +99,7 @@ class FeedBusinessLayer extends BusinessLayer {
 			// try again if feed exists depending on the reported link
 			try {
 				$this->feedMapper->findByUrlHash($feed->getUrlHash(), $userId);
-				throw new BusinessLayerConflictException(
+				throw new ServiceConflictException(
 					$this->l10n->t('Can not add feed: Exists already'));
 
 			// If no matchin feed was found everything was ok
@@ -138,7 +138,7 @@ class FeedBusinessLayer extends BusinessLayer {
 			return $feed;
 		} catch(FetcherException $ex){
 			$this->logger->debug($ex->getMessage(), $this->loggerParams);
-			throw new BusinessLayerException(
+			throw new ServiceNotFoundException(
 				$this->l10n->t(
 					'Can not add feed: URL does not exist, SSL Certificate can not be validated ' .
 					'or feed has invalid xml'));
@@ -155,7 +155,7 @@ class FeedBusinessLayer extends BusinessLayer {
 		foreach($feeds as $feed){
 			try {
 				$this->update($feed->getId(), $feed->getUserId());
-			} catch(BusinessLayerException $ex){
+			} catch(ServiceNotFoundException $ex){
 				$this->logger->debug('Could not update feed ' . $ex->getMessage(),
 					$this->loggerParams);
 			}
@@ -167,7 +167,7 @@ class FeedBusinessLayer extends BusinessLayer {
 	 * Updates a single feed
 	 * @param int $feedId the id of the feed that should be updated
 	 * @param string $userId the id of the user
-	 * @throws BusinessLayerException if the feed does not exist
+	 * @throws ServiceNotFoundException if the feed does not exist
 	 * @return Feed the updated feed entity
 	 */
 	public function update($feedId, $userId){
@@ -215,7 +215,7 @@ class FeedBusinessLayer extends BusinessLayer {
 			return $this->feedMapper->find($feedId, $userId);
 
 		} catch (DoesNotExistException $ex){
-			throw new BusinessLayerException('Feed does not exist');
+			throw new ServiceNotFoundException('Feed does not exist');
 		}
 	}
 
@@ -225,7 +225,7 @@ class FeedBusinessLayer extends BusinessLayer {
 	 * @param int $feedId the id of the feed that should be moved
 	 * @param int $folderId the id of the folder where the feed should be moved to
 	 * @param string $userId the name of the user whose feed should be moved
-	 * @throws BusinessLayerException if the feed does not exist
+	 * @throws ServiceNotFoundException if the feed does not exist
 	 */
 	public function move($feedId, $folderId, $userId){
 		$feed = $this->find($feedId, $userId);
@@ -239,7 +239,7 @@ class FeedBusinessLayer extends BusinessLayer {
 	 * @param int $feedId the id of the feed that should be moved
 	 * @param string $feedTitle the new title of the feed
 	 * @param string $userId the name of the user whose feed should be renamed
-	 * @throws BusinessLayerException if the feed does not exist
+	 * @throws ServiceNotFoundException if the feed does not exist
 	 */
 	public function rename($feedId, $feedTitle, $userId) {
 		$feed = $this->find($feedId, $userId);
@@ -318,7 +318,7 @@ class FeedBusinessLayer extends BusinessLayer {
 	 * Use this to mark a feed as deleted. That way it can be undeleted
 	 * @param int $feedId the id of the feed that should be deleted
 	 * @param string $userId the name of the user for security reasons
-	 * @throws BusinessLayerException when feed does not exist
+	 * @throws ServiceNotFoundException when feed does not exist
 	 */
 	public function markDeleted($feedId, $userId) {
 		$feed = $this->find($feedId, $userId);
@@ -331,7 +331,7 @@ class FeedBusinessLayer extends BusinessLayer {
 	 * Use this to undo a feed deletion
 	 * @param int $feedId the id of the feed that should be restored
 	 * @param string $userId the name of the user for security reasons
-	 * @throws BusinessLayerException when feed does not exist
+	 * @throws ServiceNotFoundException when feed does not exist
 	 */
 	public function unmarkDeleted($feedId, $userId) {
 		$feed = $this->find($feedId, $userId);

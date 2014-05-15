@@ -20,31 +20,31 @@ use \OCP\AppFramework\Http\JSONResponse;
 use \OCP\AppFramework\Http\Response;
 
 use \OCA\News\Http\TextDownloadResponse;
-use \OCA\News\BusinessLayer\FeedBusinessLayer;
-use \OCA\News\BusinessLayer\FolderBusinessLayer;
-use \OCA\News\BusinessLayer\ItemBusinessLayer;
+use \OCA\News\Service\FolderService;
+use \OCA\News\Service\FeedService;
+use \OCA\News\Service\ItemService;
 use \OCA\News\Utility\OPMLExporter;
 
 class ExportController extends Controller {
 
 	private $opmlExporter;
-	private $folderBusinessLayer;
-	private $feedBusinessLayer;
-	private $itemBusinessLayer;
+	private $folderService;
+	private $feedService;
+	private $itemService;
 	private $userId;
 
 	public function __construct($appName, 
 	                            IRequest $request,
-	                            FeedBusinessLayer $feedBusinessLayer,
-	                            FolderBusinessLayer $folderBusinessLayer,
-	                            ItemBusinessLayer $itemBusinessLayer,
+	                            FolderService $folderService,
+	                            FeedService $feedService,
+	                            ItemService $itemService,
 	                            OPMLExporter $opmlExporter,
 	                            $userId){
 		parent::__construct($appName, $request);
-		$this->feedBusinessLayer = $feedBusinessLayer;
-		$this->folderBusinessLayer = $folderBusinessLayer;
+		$this->feedService = $feedService;
+		$this->folderService = $folderService;
 		$this->opmlExporter = $opmlExporter;
-		$this->itemBusinessLayer = $itemBusinessLayer;
+		$this->itemService = $itemService;
 		$this->userId = $userId;
 	}
 
@@ -54,8 +54,8 @@ class ExportController extends Controller {
 	 * @NoCSRFRequired
 	 */
 	public function opml(){
-		$feeds = $this->feedBusinessLayer->findAll($this->userId);
-		$folders = $this->folderBusinessLayer->findAll($this->userId);
+		$feeds = $this->feedService->findAll($this->userId);
+		$folders = $this->folderService->findAll($this->userId);
 		$opml = $this->opmlExporter->build($folders, $feeds)->saveXML();
 		return new TextDownloadResponse($opml, 'subscriptions.opml', 'text/xml');
 	}
@@ -66,8 +66,8 @@ class ExportController extends Controller {
 	 * @NoCSRFRequired
 	 */
 	public function articles(){
-		$feeds = $this->feedBusinessLayer->findAll($this->userId);
-		$items = $this->itemBusinessLayer->getUnreadOrStarred($this->userId);
+		$feeds = $this->feedService->findAll($this->userId);
+		$items = $this->itemService->getUnreadOrStarred($this->userId);
 
 		// build assoc array for fast access
 		$feedsDict = [];

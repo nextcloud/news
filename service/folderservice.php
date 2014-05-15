@@ -11,7 +11,7 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 
-namespace OCA\News\BusinessLayer;
+namespace OCA\News\Service;
 
 use \OCP\IL10N;
 
@@ -20,7 +20,7 @@ use \OCA\News\Db\FolderMapper;
 use \OCA\News\Utility\Config;
 
 
-class FolderBusinessLayer extends BusinessLayer {
+class FolderService extends Service {
 
 	private $l10n;
 	private $timeFactory;
@@ -52,12 +52,12 @@ class FolderBusinessLayer extends BusinessLayer {
 		$existingFolders = $this->folderMapper->findByName($folderName, $userId);
 		if(count($existingFolders) > 0){
 
-			throw new BusinessLayerConflictException(
+			throw new ServiceConflictException(
 				$this->l10n->t('Can not add folder: Exists already'));
 		}
 
 		if(mb_strlen($folderName) === 0) {
-			throw new BusinessLayerValidationException('Folder name can not be empty');
+			throw new ServiceValidationException('Folder name can not be empty');
 		}
 	}
 
@@ -67,8 +67,8 @@ class FolderBusinessLayer extends BusinessLayer {
 	 * @param string $folderName the name of the folder
 	 * @param string $userId the name of the user for whom it should be created
 	 * @param int $parentId the parent folder id, deprecated we dont nest folders
-	 * @throws BusinessLayerConflictException if name exists already
-	 * @throws BusinessLayerValidationException if the folder has invalid parameters
+	 * @throws ServiceConflictException if name exists already
+	 * @throws ServiceValidationException if the folder has invalid parameters
 	 * @return Folder the newly created folder
 	 */
 	public function create($folderName, $userId, $parentId=0) {
@@ -84,7 +84,7 @@ class FolderBusinessLayer extends BusinessLayer {
 
 
 	/**
-	 * @throws BusinessLayerException if the folder does not exist
+	 * @throws ServiceException if the folder does not exist
 	 */
 	public function open($folderId, $opened, $userId){
 		$folder = $this->find($folderId, $userId);
@@ -98,9 +98,9 @@ class FolderBusinessLayer extends BusinessLayer {
 	 * @param int $folderId the id of the folder that should be deleted
 	 * @param string $folderName the new name of the folder
 	 * @param string $userId the name of the user for security reasons
-	 * @throws BusinessLayerConflictException if name exists already
-	 * @throws BusinessLayerValidationException if the folder has invalid parameters
-	 * @throws BusinessLayerException if the folder does not exist
+	 * @throws ServiceConflictException if name exists already
+	 * @throws ServiceValidationException if the folder has invalid parameters
+	 * @throws ServiceNotFoundException if the folder does not exist
 	 * @return Folder the updated folder
 	 */
 	public function rename($folderId, $folderName, $userId){
@@ -116,7 +116,7 @@ class FolderBusinessLayer extends BusinessLayer {
 	 * Use this to mark a folder as deleted. That way it can be undeleted
 	 * @param int $folderId the id of the folder that should be deleted
 	 * @param string $userId the name of the user for security reasons
-	 * @throws BusinessLayerException when folder does not exist
+	 * @throws ServiceNotFoundException when folder does not exist
 	 */
 	public function markDeleted($folderId, $userId) {
 		$folder = $this->find($folderId, $userId);
@@ -129,7 +129,7 @@ class FolderBusinessLayer extends BusinessLayer {
 	 * Use this to restore a folder
 	 * @param int $folderId the id of the folder that should be restored
 	 * @param string $userId the name of the user for security reasons
-	 * @throws BusinessLayerException when folder does not exist
+	 * @throws ServiceNotFoundException when folder does not exist
 	 */
 	public function unmarkDeleted($folderId, $userId) {
 		$folder = $this->find($folderId, $userId);

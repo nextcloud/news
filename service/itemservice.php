@@ -11,7 +11,7 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 
-namespace OCA\News\BusinessLayer;
+namespace OCA\News\Service;
 
 use \OCP\AppFramework\Db\DoesNotExistException;
 
@@ -22,7 +22,7 @@ use \OCA\News\Db\FeedType;
 use \OCA\News\Utility\Config;
 
 
-class ItemBusinessLayer extends BusinessLayer {
+class ItemService extends Service {
 
 	private $statusFlag;
 	private $autoPurgeCount;
@@ -109,7 +109,7 @@ class ItemBusinessLayer extends BusinessLayer {
 	 * @param string $guidHash the guidHash of the item that should be starred
 	 * @param boolean $isStarred if true the item will be marked as starred, if false unstar
 	 * @param $userId the name of the user for security reasons
-	 * @throws BusinessLayerException if the item does not exist
+	 * @throws ServiceNotFoundException if the item does not exist
 	 */
 	public function star($feedId, $guidHash, $isStarred, $userId){
 		try {
@@ -123,7 +123,7 @@ class ItemBusinessLayer extends BusinessLayer {
 			}
 			$this->itemMapper->update($item);
 		} catch(DoesNotExistException $ex) {
-			throw new BusinessLayerException($ex->getMessage());
+			throw new ServiceNotFoundException($ex->getMessage());
 		}
 	}
 
@@ -133,7 +133,7 @@ class ItemBusinessLayer extends BusinessLayer {
 	 * @param int $itemId the id of the item that should be read
 	 * @param boolean $isRead if true the item will be marked as read, if false unread
 	 * @param $userId the name of the user for security reasons
-	 * @throws BusinessLayerException if the item does not exist
+	 * @throws ServiceNotFoundException if the item does not exist
 	 */
 	public function read($itemId, $isRead, $userId){
 		$item = $this->find($itemId, $userId);
@@ -199,14 +199,14 @@ class ItemBusinessLayer extends BusinessLayer {
 	/**
 	 * Returns the newest itemd id, use this for marking feeds read
 	 * @param string $userId the name of the user
-	 * @throws BusinessLayerException if there is no newest item
+	 * @throws ServiceNotFoundException if there is no newest item
 	 * @return int
 	 */
 	public function getNewestItemId($userId) {
 		try {
 			return $this->itemMapper->getNewestItemId($userId);
 		} catch(DoesNotExistException $ex) {
-			throw new BusinessLayerException($ex->getMessage());
+			throw new ServiceNotFoundException($ex->getMessage());
 		}
 	}
 

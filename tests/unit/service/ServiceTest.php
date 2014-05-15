@@ -11,7 +11,7 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 
-namespace OCA\News\BusinessLayer;
+namespace OCA\News\Service;
 
 require_once(__DIR__ . "/../../classloader.php");
 
@@ -22,22 +22,22 @@ use \OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use \OCA\News\Db\Folder;
 
 
-class TestBusinessLayer extends BusinessLayer {
+class TestService extends Service {
 	public function __construct($mapper){
 		parent::__construct($mapper);
 	}
 }
 
-class BusinessLayerTest extends \PHPUnit_Framework_TestCase {
+class ServiceTest extends \PHPUnit_Framework_TestCase {
 
 	protected $mapper;
-	protected $newsBusinessLayer;
+	protected $newsService;
 
 	protected function setUp(){
 		$this->mapper = $this->getMockBuilder('\OCA\News\Db\ItemMapper')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->newsBusinessLayer = new TestBusinessLayer($this->mapper);
+		$this->newsService = new TestService($this->mapper);
 	}
 
 
@@ -55,7 +55,7 @@ class BusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->with($this->equalTo($id), $this->equalTo($user))
 			->will($this->returnValue($folder));
 
-		$this->newsBusinessLayer->delete($id, $user);
+		$this->newsService->delete($id, $user);
 	}
 
 
@@ -67,7 +67,7 @@ class BusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->method('find')
 			->with($this->equalTo($id), $this->equalTo($user));
 
-		$this->newsBusinessLayer->find($id, $user);
+		$this->newsService->find($id, $user);
 	}
 
 
@@ -78,8 +78,8 @@ class BusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->method('find')
 			->will($this->throwException($ex));
 
-		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
-		$this->newsBusinessLayer->find(1, '');
+		$this->setExpectedException('\OCA\News\Service\ServiceNotFoundException');
+		$this->newsService->find(1, '');
 	}
 
 
@@ -90,8 +90,8 @@ class BusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->method('find')
 			->will($this->throwException($ex));
 
-		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
-		$this->newsBusinessLayer->find(1, '');
+		$this->setExpectedException('\OCA\News\Service\ServiceNotFoundException');
+		$this->newsService->find(1, '');
 	}
 
 }

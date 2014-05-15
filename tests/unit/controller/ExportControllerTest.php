@@ -29,9 +29,9 @@ class ExportControllerTest extends \PHPUnit_Framework_TestCase {
 	private $request;
 	private $controller;
 	private $user;
-	private $feedBusinessLayer;
-	private $folderBusinessLayer;
-	private $itemBusinessLayer;
+	private $feedService;
+	private $folderService;
+	private $itemService;
 	private $opmlExporter;
 
 	/**
@@ -40,13 +40,16 @@ class ExportControllerTest extends \PHPUnit_Framework_TestCase {
 	public function setUp(){
 		$this->appName = 'news';
 		$this->user = 'john';
-		$this->itemBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\ItemBusinessLayer')
+		$this->itemService = $this->getMockBuilder(
+			'\OCA\News\Service\ItemService')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->feedBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\FeedBusinessLayer')
+		$this->feedService = $this->getMockBuilder(
+			'\OCA\News\Service\FeedService')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->folderBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\FolderBusinessLayer')
+		$this->folderService = $this->getMockBuilder(
+			'\OCA\News\Service\FolderService')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->request = $this->getMockBuilder('\OCP\IRequest')
@@ -54,8 +57,8 @@ class ExportControllerTest extends \PHPUnit_Framework_TestCase {
 			->getMock();
 		$this->opmlExporter = new OPMLExporter();
 		$this->controller = new ExportController($this->appName, $this->request,
-			$this->feedBusinessLayer, $this->folderBusinessLayer, 
-			$this->itemBusinessLayer, $this->opmlExporter, $this->user);
+			$this->folderService, $this->feedService, 
+			$this->itemService, $this->opmlExporter, $this->user);
 	}
 
 
@@ -69,11 +72,11 @@ class ExportControllerTest extends \PHPUnit_Framework_TestCase {
 		"  <body/>\n" .
 		"</opml>\n";
 
-		$this->feedBusinessLayer->expects($this->once())
+		$this->feedService->expects($this->once())
 			->method('findAll')
 			->with($this->equalTo($this->user))
 			->will($this->returnValue([]));
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('findAll')
 			->with($this->equalTo($this->user))
 			->will($this->returnValue([]));
@@ -100,11 +103,11 @@ class ExportControllerTest extends \PHPUnit_Framework_TestCase {
 
 		$articles = [$item1, $item2];
 
-		$this->feedBusinessLayer->expects($this->once())
+		$this->feedService->expects($this->once())
 			->method('findAll')
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($feeds));
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('getUnreadOrStarred')
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($articles));

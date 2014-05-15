@@ -17,29 +17,29 @@ use \OCP\IRequest;
 use \OCP\AppFramework\ApiController;
 use \OCP\AppFramework\Http;
 
-use \OCA\News\BusinessLayer\FolderBusinessLayer;
-use \OCA\News\BusinessLayer\ItemBusinessLayer;
-use \OCA\News\BusinessLayer\BusinessLayerException;
-use \OCA\News\BusinessLayer\BusinessLayerConflictException;
-use \OCA\News\BusinessLayer\BusinessLayerValidationException;
+use \OCA\News\Service\FolderService;
+use \OCA\News\Service\ItemService;
+use \OCA\News\Service\ServiceNotFoundException;
+use \OCA\News\Service\ServiceConflictException;
+use \OCA\News\Service\ServiceValidationException;
 
 
 class FolderApiController extends ApiController {
 
 	use JSONHttpError;
 
-	private $folderBusinessLayer;
-	private $itemBusinessLayer;
+	private $folderService;
+	private $itemService;
 	private $userId;
 
 	public function __construct($appName,
 	                            IRequest $request,
-	                            FolderBusinessLayer $folderBusinessLayer,
-	                            ItemBusinessLayer $itemBusinessLayer,
+	                            FolderService $folderService,
+	                            ItemService $itemService,
 	                            $userId){
 		parent::__construct($appName, $request);
-		$this->folderBusinessLayer = $folderBusinessLayer;
-		$this->itemBusinessLayer = $itemBusinessLayer;
+		$this->folderService = $folderService;
+		$this->itemService = $itemService;
 		$this->userId = $userId;
 		$this->registerSerializer(new EntityApiSerializer('folders'));
 	}
@@ -51,7 +51,7 @@ class FolderApiController extends ApiController {
 	 * @CORS
 	 */
 	public function index() {
-		return $this->folderBusinessLayer->findAll($this->userId);
+		return $this->folderService->findAll($this->userId);
 	}
 
 
@@ -64,11 +64,11 @@ class FolderApiController extends ApiController {
 	 */
 	public function create($name) {
 		try {
-			$this->folderBusinessLayer->purgeDeleted($this->userId, false);
-			return $this->folderBusinessLayer->create($name, $this->userId);
-		} catch(BusinessLayerValidationException $ex) {
+			$this->folderService->purgeDeleted($this->userId, false);
+			return $this->folderService->create($name, $this->userId);
+		} catch(ServiceValidationException $ex) {
 			return $this->error($ex, Http::STATUS_UNPROCESSABLE_ENTITY);
-		} catch(BusinessLayerConflictException $ex) {
+		} catch(ServiceConflictException $ex) {
 			return $this->error($ex, Http::STATUS_CONFLICT);
 		}
 	}
@@ -83,8 +83,8 @@ class FolderApiController extends ApiController {
 	 */
 	public function delete($folderId) {
 		try {
-			$this->folderBusinessLayer->delete($folderId, $this->userId);
-		} catch(BusinessLayerException $ex) {
+			$this->folderService->delete($folderId, $this->userId);
+		} catch(ServiceNotFoundException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
@@ -99,13 +99,13 @@ class FolderApiController extends ApiController {
 	 */
 	public function update($folderId, $name) {
 		try {
-			$this->folderBusinessLayer->rename($folderId, $name, $this->userId);
+			$this->folderService->rename($folderId, $name, $this->userId);
 
-		} catch(BusinessLayerValidationException $ex) {
+		} catch(ServiceValidationException $ex) {
 			return $this->error($ex, Http::STATUS_UNPROCESSABLE_ENTITY);
-		} catch(BusinessLayerConflictException $ex) {
+		} catch(ServiceConflictException $ex) {
 			return $this->error($ex, Http::STATUS_CONFLICT);
-		} catch(BusinessLayerException $ex) {
+		} catch(ServiceNotFoundException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
@@ -120,7 +120,7 @@ class FolderApiController extends ApiController {
 	 * @param int $newestItemId
 	 */
 	public function read($folderId, $newestItemId) {
-		$this->itemBusinessLayer->readFolder($folderId, $newestItemId, $this->userId);
+		$this->itemService->readFolder($folderId, $newestItemId, $this->userId);
 	}
 
 

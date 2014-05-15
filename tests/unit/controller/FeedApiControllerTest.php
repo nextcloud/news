@@ -15,8 +15,8 @@ namespace OCA\News\Controller;
 
 use \OCP\AppFramework\Http;
 
-use \OCA\News\BusinessLayer\BusinessLayerException;
-use \OCA\News\BusinessLayer\BusinessLayerConflictException;
+use \OCA\News\Service\ServiceNotFoundException;
+use \OCA\News\Service\ServiceConflictException;
 use \OCA\News\Db\Folder;
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\Item;
@@ -26,9 +26,8 @@ require_once(__DIR__ . "/../../classloader.php");
 
 class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 
-	private $folderBusinessLayer;
-	private $feedBusinessLayer;
-	private $itemBusinessLayer;
+	private $feedService;
+	private $itemService;
 	private $feedAPI;
 	private $appName;
 	private $user;
@@ -49,24 +48,19 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 			'\OCP\IRequest')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->folderBusinessLayer = $this->getMockBuilder(
-			'\OCA\News\BusinessLayer\FolderBusinessLayer')
+		$this->feedService = $this->getMockBuilder(
+			'\OCA\News\Service\FeedService')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->feedBusinessLayer = $this->getMockBuilder(
-			'\OCA\News\BusinessLayer\FeedBusinessLayer')
-			->disableOriginalConstructor()
-			->getMock();
-		$this->itemBusinessLayer = $this->getMockBuilder(
-			'\OCA\News\BusinessLayer\ItemBusinessLayer')
+		$this->itemService = $this->getMockBuilder(
+			'\OCA\News\Service\ItemService')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->feedAPI = new FeedApiController(
 			$this->appName,
 			$this->request,
-			$this->folderBusinessLayer,
-			$this->feedBusinessLayer,
-			$this->itemBusinessLayer,
+			$this->feedService,
+			$this->itemService,
 			$this->logger,
 			$this->user,
 			$this->loggerParams
@@ -80,15 +74,15 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 		$starredCount = 3;
 		$newestItemId = 2;
 
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('starredCount')
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($starredCount));
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('getNewestItemId')
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($newestItemId));
-		$this->feedBusinessLayer->expects($this->once())
+		$this->feedService->expects($this->once())
 			->method('findAll')
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($feeds));
@@ -107,15 +101,15 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 		$feeds = [new Feed()];
 		$starredCount = 3;
 
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('starredCount')
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($starredCount));
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('getNewestItemId')
 			->with($this->equalTo($this->user))
-			->will($this->throwException(new BusinessLayerException('')));
-		$this->feedBusinessLayer->expects($this->once())
+			->will($this->throwException(new ServiceNotFoundException('')));
+		$this->feedService->expects($this->once())
 			->method('findAll')
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($feeds));
@@ -130,7 +124,7 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testDelete() {
-		$this->feedBusinessLayer->expects($this->once())
+		$this->feedService->expects($this->once())
 			->method('delete')
 			->with(
 				$this->equalTo(2),
@@ -141,9 +135,9 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testDeleteDoesNotExist() {
-		$this->feedBusinessLayer->expects($this->once())
+		$this->feedService->expects($this->once())
 			->method('delete')
-			->will($this->throwException(new BusinessLayerException($this->msg)));
+			->will($this->throwException(new ServiceNotFoundException($this->msg)));
 
 		$response = $this->feedAPI->delete(2);
 
@@ -156,17 +150,17 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 	public function testCreate() {
 		$feeds = [new Feed()];
 
-		$this->feedBusinessLayer->expects($this->once())
+		$this->feedService->expects($this->once())
 			->method('purgeDeleted')
 			->with($this->equalTo($this->user), $this->equalTo(false));
-		$this->feedBusinessLayer->expects($this->once())
+		$this->feedService->expects($this->once())
 			->method('create')
 			->with(
 				$this->equalTo('url'),
 				$this->equalTo(3),
 				$this->equalTo($this->user))
 			->will($this->returnValue($feeds[0]));
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('getNewestItemId')
 			->will($this->returnValue(3));
 
@@ -182,19 +176,19 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 	public function testCreateNoItems() {
 		$feeds = [new Feed()];
 
-		$this->feedBusinessLayer->expects($this->once())
+		$this->feedService->expects($this->once())
 			->method('purgeDeleted')
 			->with($this->equalTo($this->user), $this->equalTo(false));
-		$this->feedBusinessLayer->expects($this->once())
+		$this->feedService->expects($this->once())
 			->method('create')
 			->with(
 				$this->equalTo('ho'),
 				$this->equalTo(3),
 				$this->equalTo($this->user))
 			->will($this->returnValue($feeds[0]));
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('getNewestItemId')
-			->will($this->throwException(new BusinessLayerException('')));
+			->will($this->throwException(new ServiceNotFoundException('')));
 
 		$response = $this->feedAPI->create('ho', 3);
 
@@ -206,12 +200,12 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testCreateExists() {
-		$this->feedBusinessLayer->expects($this->once())
+		$this->feedService->expects($this->once())
 			->method('purgeDeleted')
 			->with($this->equalTo($this->user), $this->equalTo(false));
-		$this->feedBusinessLayer->expects($this->once())
+		$this->feedService->expects($this->once())
 			->method('create')
-			->will($this->throwException(new BusinessLayerConflictException($this->msg)));
+			->will($this->throwException(new ServiceConflictException($this->msg)));
 
 		$response = $this->feedAPI->create('ho', 3);
 
@@ -222,9 +216,9 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testCreateError() {
-		$this->feedBusinessLayer->expects($this->once())
+		$this->feedService->expects($this->once())
 			->method('create')
-			->will($this->throwException(new BusinessLayerException($this->msg)));
+			->will($this->throwException(new ServiceNotFoundException($this->msg)));
 
 		$response = $this->feedAPI->create('ho', 3);
 
@@ -235,7 +229,7 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testRead() {
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('readFeed')
 			->with(
 				$this->equalTo(3),
@@ -247,7 +241,7 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testMove() {
-		$this->feedBusinessLayer->expects($this->once())
+		$this->feedService->expects($this->once())
 			->method('move')
 			->with(
 				$this->equalTo(3),
@@ -259,9 +253,9 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testMoveDoesNotExist() {
-		$this->feedBusinessLayer->expects($this->once())
+		$this->feedService->expects($this->once())
 			->method('move')
-			->will($this->throwException(new BusinessLayerException($this->msg)));
+			->will($this->throwException(new ServiceNotFoundException($this->msg)));
 
 		$response = $this->feedAPI->move(3, 4);
 
@@ -275,7 +269,7 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 		$feedId = 3;
 		$feedTitle = 'test';
 
-		$this->feedBusinessLayer->expects($this->once())
+		$this->feedService->expects($this->once())
 			->method('rename')
 			->with(
 				$this->equalTo($feedId),
@@ -292,7 +286,7 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 		$feed->setId(1);
 		$feed->setUserId('john');
 		$feeds = [$feed];
-		$this->feedBusinessLayer->expects($this->once())
+		$this->feedService->expects($this->once())
 			->method('findAllFromAllUsers')
 			->will($this->returnValue($feeds));
 		$response = json_encode($this->feedAPI->fromAllUsers());
@@ -304,7 +298,7 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 		$feedId = 3;
 		$userId = 'hi';
 
-		$this->feedBusinessLayer->expects($this->once())
+		$this->feedService->expects($this->once())
 			->method('update')
 			->with($this->equalTo($feedId), $this->equalTo($userId));
 
@@ -315,7 +309,7 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 	public function testUpdateError() {
 		$feedId = 3;
 		$userId = 'hi';
-		$this->feedBusinessLayer->expects($this->once())
+		$this->feedService->expects($this->once())
 			->method('update')
 			->will($this->throwException(new \Exception($this->msg)));
 		$this->logger->expects($this->once())

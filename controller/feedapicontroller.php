@@ -18,36 +18,32 @@ use \OCP\ILogger;
 use \OCP\AppFramework\ApiController;
 use \OCP\AppFramework\Http;
 
-use \OCA\News\BusinessLayer\FeedBusinessLayer;
-use \OCA\News\BusinessLayer\FolderBusinessLayer;
-use \OCA\News\BusinessLayer\ItemBusinessLayer;
-use \OCA\News\BusinessLayer\BusinessLayerException;
-use \OCA\News\BusinessLayer\BusinessLayerConflictException;
+use \OCA\News\Service\FeedService;
+use \OCA\News\Service\ItemService;
+use \OCA\News\Service\ServiceNotFoundException;
+use \OCA\News\Service\ServiceConflictException;
 
 
 class FeedApiController extends ApiController {
 
 	use JSONHttpError;
 
-	private $itemBusinessLayer;
-	private $feedBusinessLayer;
-	private $folderBusinessLayer;
+	private $itemService;
+	private $feedService;
 	private $userId;
 	private $logger;
 	private $loggerParams;
 
 	public function __construct($appName,
 	                            IRequest $request,
-	                            FolderBusinessLayer $folderBusinessLayer,
-	                            FeedBusinessLayer $feedBusinessLayer,
-	                            ItemBusinessLayer $itemBusinessLayer,
+	                            FeedService $feedService,
+	                            ItemService $itemService,
 	                            ILogger $logger,
 	                            $userId,
 	                            $loggerParams){
 		parent::__construct($appName, $request);
-		$this->folderBusinessLayer = $folderBusinessLayer;
-		$this->feedBusinessLayer = $feedBusinessLayer;
-		$this->itemBusinessLayer = $itemBusinessLayer;
+		$this->feedService = $feedService;
+		$this->itemService = $itemService;
 		$this->userId = $userId;
 		$this->logger = $logger;
 		$this->loggerParams = $loggerParams;
@@ -64,16 +60,16 @@ class FeedApiController extends ApiController {
 
 		$result = [
 			'feeds' => [],
-			'starredCount' => $this->itemBusinessLayer->starredCount($this->userId),
-			'feeds' => $this->feedBusinessLayer->findAll($this->userId)
+			'starredCount' => $this->itemService->starredCount($this->userId),
+			'feeds' => $this->feedService->findAll($this->userId)
 		];
 
 		
 		try {
-			$result['newestItemId'] = $this->itemBusinessLayer->getNewestItemId($this->userId);
+			$result['newestItemId'] = $this->itemService->getNewestItemId($this->userId);
 		
 		// in case there are no items, ignore
-		} catch(BusinessLayerException $ex) {}
+		} catch(ServiceNotFoundException $ex) {}
 
 		return $result;
 	}
@@ -89,22 +85,22 @@ class FeedApiController extends ApiController {
 	 */
 	public function create($url, $folderId=0) {
 		try {
-			$this->feedBusinessLayer->purgeDeleted($this->userId, false);
+			$this->feedService->purgeDeleted($this->userId, false);
 
-			$feed = $this->feedBusinessLayer->create($url, $folderId, $this->userId);
+			$feed = $this->feedService->create($url, $folderId, $this->userId);
 			$result = ['feeds' => [$feed]];
 
 			try {
-				$result['newestItemId'] = $this->itemBusinessLayer->getNewestItemId($this->userId);
+				$result['newestItemId'] = $this->itemService->getNewestItemId($this->userId);
 
 			// in case there are no items, ignore
-			} catch(BusinessLayerException $ex) {}
+			} catch(ServiceNotFoundException $ex) {}
 
 			return $result;
 
-		} catch(BusinessLayerConflictException $ex) {
+		} catch(ServiceConflictException $ex) {
 			return $this->error($ex, Http::STATUS_CONFLICT);
-		} catch(BusinessLayerException $ex) {
+		} catch(ServiceNotFoundException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
@@ -119,8 +115,8 @@ class FeedApiController extends ApiController {
 	 */
 	public function delete($feedId) {
 		try {
-			$this->feedBusinessLayer->delete($feedId, $this->userId);
-		} catch(BusinessLayerException $ex) {
+			$this->feedService->delete($feedId, $this->userId);
+		} catch(ServiceNotFoundException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
@@ -135,7 +131,7 @@ class FeedApiController extends ApiController {
 	 * @param int $newestItemId
 	 */
 	public function read($feedId, $newestItemId) {
-		$this->itemBusinessLayer->readFeed($feedId, $newestItemId, $this->userId);
+		$this->itemService->readFeed($feedId, $newestItemId, $this->userId);
 	}
 
 
@@ -149,8 +145,8 @@ class FeedApiController extends ApiController {
 	 */
 	public function move($feedId, $folderId) {
 		try {
-			$this->feedBusinessLayer->move($feedId, $folderId, $this->userId);
-		} catch(BusinessLayerException $ex) {
+			$this->feedService->move($feedId, $folderId, $this->userId);
+		} catch(ServiceNotFoundException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
@@ -166,8 +162,8 @@ class FeedApiController extends ApiController {
 	 */
 	public function rename($feedId, $feedTitle) {
 		try {
-			$this->feedBusinessLayer->rename($feedId, $feedTitle, $this->userId);
-		} catch(BusinessLayerException $ex) {
+			$this->feedService->rename($feedId, $feedTitle, $this->userId);
+		} catch(ServiceNotFoundException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
@@ -178,7 +174,7 @@ class FeedApiController extends ApiController {
 	 * @CORS
 	 */
 	public function fromAllUsers() {
-		$feeds = $this->feedBusinessLayer->findAllFromAllUsers();
+		$feeds = $this->feedService->findAllFromAllUsers();
 		$result = ['feeds' => []];
 
 		foreach ($feeds as $feed) {
@@ -200,7 +196,7 @@ class FeedApiController extends ApiController {
 	 */
 	public function update($userId, $feedId) {
 		try {
-			$this->feedBusinessLayer->update($feedId, $userId);
+			$this->feedService->update($feedId, $userId);
 		// ignore update failure (feed could not be reachable etc, we dont care)
 		} catch(\Exception $ex) {
 			$this->logger->debug('Could not update feed ' . $ex->getMessage(),

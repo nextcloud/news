@@ -16,9 +16,9 @@ namespace OCA\News\Controller;
 use \OCP\AppFramework\Http;
 use \OCP\AppFramework\Http\JSONResponse;
 
-use \OCA\News\BusinessLayer\BusinessLayerException;
-use \OCA\News\BusinessLayer\BusinessLayerConflictException;
-use \OCA\News\BusinessLayer\BusinessLayerValidationException;
+use \OCA\News\Service\ServiceNotFoundException;
+use \OCA\News\Service\ServiceConflictException;
+use \OCA\News\Service\ServiceValidationException;
 
 use \OCA\News\Db\Folder;
 use \OCA\News\Db\Feed;
@@ -29,8 +29,8 @@ require_once(__DIR__ . "/../../classloader.php");
 
 class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
 
-	private $folderBusinessLayer;
-	private $itemBusinessLayer;
+	private $folderService;
+	private $itemService;
 	private $folderAPI;
 	private $appName;
 	private $user;
@@ -44,19 +44,19 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
 			'\OCP\IRequest')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->folderBusinessLayer = $this->getMockBuilder(
-			'\OCA\News\BusinessLayer\FolderBusinessLayer')
+		$this->folderService = $this->getMockBuilder(
+			'\OCA\News\Service\FolderService')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->itemBusinessLayer = $this->getMockBuilder(
-			'\OCA\News\BusinessLayer\ItemBusinessLayer')
+		$this->itemService = $this->getMockBuilder(
+			'\OCA\News\Service\ItemService')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->folderAPI = new FolderApiController(
 			$this->appName,
 			$this->request,
-			$this->folderBusinessLayer,
-			$this->itemBusinessLayer,
+			$this->folderService,
+			$this->itemService,
 			$this->user
 		);
 		$this->msg = 'test';
@@ -66,7 +66,7 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
 	public function testIndex() {
 		$folders = [new Folder()];
 
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('findAll')
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($folders));
@@ -83,10 +83,10 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
 		$folder->setName($folderName);
 		$folders = [$folder];
 		
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('purgeDeleted')
 			->with($this->equalTo($this->user), $this->equalTo(false));
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('create')
 			->with($this->equalTo($folderName), $this->equalTo($this->user))
 			->will($this->returnValue($folder));
@@ -100,12 +100,12 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
 	public function testCreateAlreadyExists() {
 		$msg = 'exists';
 
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('purgeDeleted')
 			->with($this->equalTo($this->user), $this->equalTo(false));
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('create')
-			->will($this->throwException(new BusinessLayerConflictException($msg)));
+			->will($this->throwException(new ServiceConflictException($msg)));
 
 		$response = $this->folderAPI->create('hi');
 
@@ -118,12 +118,12 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
 	public function testCreateInvalidFolderName() {
 		$msg = 'exists';
 
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('purgeDeleted')
 			->with($this->equalTo($this->user), $this->equalTo(false));
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('create')
-			->will($this->throwException(new BusinessLayerValidationException($msg)));
+			->will($this->throwException(new ServiceValidationException($msg)));
 
 		$response = $this->folderAPI->create('hi');
 
@@ -135,7 +135,7 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 	public function testDelete() {
 		$folderId = 23;
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('delete')
 			->with($this->equalTo($folderId), $this->equalTo($this->user));
 
@@ -146,9 +146,9 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
 	public function testDeleteDoesNotExist() {
 		$folderId = 23;
 
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('delete')
-			->will($this->throwException(new BusinessLayerException($this->msg)));
+			->will($this->throwException(new ServiceNotFoundException($this->msg)));
 
 		$response = $this->folderAPI->delete($folderId);
 
@@ -162,7 +162,7 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
 		$folderId = 23;
 		$folderName = 'test';
 
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('rename')
 			->with($this->equalTo($folderId),
 				$this->equalTo($folderName),
@@ -175,9 +175,9 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
 		$folderId = 23;
 		$folderName = 'test';
 
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('rename')
-			->will($this->throwException(new BusinessLayerException($this->msg)));
+			->will($this->throwException(new ServiceNotFoundException($this->msg)));
 
 		$response = $this->folderAPI->update($folderId, $folderName);
 
@@ -191,9 +191,9 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
 		$folderId = 23;
 		$folderName = 'test';
 
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('rename')
-			->will($this->throwException(new BusinessLayerConflictException($this->msg)));
+			->will($this->throwException(new ServiceConflictException($this->msg)));
 
 		$response = $this->folderAPI->update($folderId, $folderName);
 
@@ -207,9 +207,9 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
 		$folderId = 23;
 		$folderName = '';
 
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('rename')
-			->will($this->throwException(new BusinessLayerValidationException($this->msg)));
+			->will($this->throwException(new ServiceValidationException($this->msg)));
 
 		$response = $this->folderAPI->update($folderId, $folderName);
 
@@ -220,7 +220,7 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testRead() {
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('readFolder')
 			->with(
 				$this->equalTo(3),

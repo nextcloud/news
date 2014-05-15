@@ -17,33 +17,33 @@ use \OCP\IRequest;
 use \OCP\AppFramework\Controller;
 use \OCP\AppFramework\Http;
 
-use \OCA\News\BusinessLayer\FolderBusinessLayer;
-use \OCA\News\BusinessLayer\FeedBusinessLayer;
-use \OCA\News\BusinessLayer\ItemBusinessLayer;
-use \OCA\News\BusinessLayer\BusinessLayerException;
-use \OCA\News\BusinessLayer\BusinessLayerConflictException;
-use \OCA\News\BusinessLayer\BusinessLayerValidationException;
+use \OCA\News\Service\FolderService;
+use \OCA\News\Service\FeedService;
+use \OCA\News\Service\ItemService;
+use \OCA\News\Service\ServiceNotFoundException;
+use \OCA\News\Service\ServiceConflictException;
+use \OCA\News\Service\ServiceValidationException;
 
 
 class FolderController extends Controller {
 
 	use JSONHttpError;
 
-	private $folderBusinessLayer;
-	private $feedBusinessLayer;
-	private $itemBusinessLayer;
+	private $folderService;
+	private $feedService;
+	private $itemService;
 	private $userId;
 
 	public function __construct($appName, 
 	                            IRequest $request, 
-	                            FolderBusinessLayer $folderBusinessLayer,
-	                            FeedBusinessLayer $feedBusinessLayer,
-	                            ItemBusinessLayer $itemBusinessLayer,
+	                            FolderService $folderService,
+	                            FeedService $feedService,
+	                            ItemService $itemService,
 	                            $userId){
 		parent::__construct($appName, $request);
-		$this->folderBusinessLayer = $folderBusinessLayer;
-		$this->feedBusinessLayer = $feedBusinessLayer;
-		$this->itemBusinessLayer = $itemBusinessLayer;
+		$this->folderService = $folderService;
+		$this->feedService = $feedService;
+		$this->itemService = $itemService;
 		$this->userId = $userId;
 	}
 
@@ -52,13 +52,13 @@ class FolderController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function index(){
-		$folders = $this->folderBusinessLayer->findAll($this->userId);
+		$folders = $this->folderService->findAll($this->userId);
 		return ['folders' => $folders];
 	}
 
 
 	private function setOpened($isOpened, $folderId){
-		$this->folderBusinessLayer->open($folderId, $isOpened, $this->userId);
+		$this->folderService->open($folderId, $isOpened, $this->userId);
 	}
 
 
@@ -70,7 +70,7 @@ class FolderController extends Controller {
 	public function open($folderId){
 		try {
 			$this->setOpened(true, $folderId);
-		} catch(BusinessLayerException $ex) {
+		} catch(ServiceNotFoundException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
@@ -84,7 +84,7 @@ class FolderController extends Controller {
 	public function collapse($folderId){
 		try {
 			$this->setOpened(false, $folderId);
-		} catch(BusinessLayerException $ex) {
+		} catch(ServiceNotFoundException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
@@ -99,14 +99,14 @@ class FolderController extends Controller {
 		try {
 			// we need to purge deleted folders if a folder is created to 
 			// prevent already exists exceptions
-			$this->folderBusinessLayer->purgeDeleted($this->userId, false);
-			$folder = $this->folderBusinessLayer->create($folderName, $this->userId);
+			$this->folderService->purgeDeleted($this->userId, false);
+			$folder = $this->folderService->create($folderName, $this->userId);
 
 			return ['folders' => [$folder]];
 
-		} catch(BusinessLayerConflictException $ex) {
+		} catch(ServiceConflictException $ex) {
 			return $this->error($ex, Http::STATUS_CONFLICT);
-		} catch(BusinessLayerValidationException $ex) {
+		} catch(ServiceValidationException $ex) {
 			return $this->error($ex, Http::STATUS_UNPROCESSABLE_ENTITY);
 		}
 		
@@ -120,8 +120,8 @@ class FolderController extends Controller {
 	 */
 	public function delete($folderId){
 		try {
-			$this->folderBusinessLayer->markDeleted($folderId, $this->userId);
-		} catch (BusinessLayerException $ex){
+			$this->folderService->markDeleted($folderId, $this->userId);
+		} catch (ServiceNotFoundException $ex){
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
@@ -135,16 +135,16 @@ class FolderController extends Controller {
 	 */
 	public function rename($folderName, $folderId){
 		try {
-			$folder = $this->folderBusinessLayer->rename($folderId, $folderName, 
+			$folder = $this->folderService->rename($folderId, $folderName, 
 				$this->userId);
 
 			return ['folders' => [$folder]];
 
-		} catch(BusinessLayerConflictException $ex) {
+		} catch(ServiceConflictException $ex) {
 			return $this->error($ex, Http::STATUS_CONFLICT);
-		} catch(BusinessLayerValidationException $ex) {
+		} catch(ServiceValidationException $ex) {
 			return $this->error($ex, Http::STATUS_UNPROCESSABLE_ENTITY);	
-		} catch (BusinessLayerException $ex){
+		} catch (ServiceNotFoundException $ex){
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
@@ -156,9 +156,9 @@ class FolderController extends Controller {
 	 * @param int $highestItemId
 	 */
 	public function read($folderId, $highestItemId){
-		$this->itemBusinessLayer->readFolder($folderId, $highestItemId, $this->userId);
+		$this->itemService->readFolder($folderId, $highestItemId, $this->userId);
 
-		return ['feeds' => $this->feedBusinessLayer->findAll($this->userId)];
+		return ['feeds' => $this->feedService->findAll($this->userId)];
 	}
 
 
@@ -169,8 +169,8 @@ class FolderController extends Controller {
 	 */
 	public function restore($folderId){
 		try {
-			$this->folderBusinessLayer->unmarkDeleted($folderId, $this->userId);
-		} catch (BusinessLayerException $ex){
+			$this->folderService->unmarkDeleted($folderId, $this->userId);
+		} catch (ServiceNotFoundException $ex){
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}

@@ -11,7 +11,7 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 
-namespace OCA\News\BusinessLayer;
+namespace OCA\News\Service;
 
 require_once(__DIR__ . "/../../classloader.php");
 
@@ -19,10 +19,10 @@ require_once(__DIR__ . "/../../classloader.php");
 use \OCA\News\Db\Folder;
 
 
-class FolderBusinessLayerTest extends \PHPUnit_Framework_TestCase {
+class FolderServiceTest extends \PHPUnit_Framework_TestCase {
 
 	private $folderMapper;
-	private $folderBusinessLayer;
+	private $folderService;
 	private $time;
 	private $user;
 	private $autoPurgeMinimumInterval;
@@ -49,7 +49,7 @@ class FolderBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 		$config->expects($this->any())
 			->method('getAutoPurgeMinimumInterval')
 			->will($this->returnValue($this->autoPurgeMinimumInterval));
-		$this->folderBusinessLayer = new FolderBusinessLayer(
+		$this->folderService = new FolderService(
 			$this->folderMapper, $this->l10n, $timeFactory, $config);
 		$this->user = 'hi';
 	}
@@ -63,7 +63,7 @@ class FolderBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->with($this->equalTo($userId))
 			->will($this->returnValue($return));
 
-		$result = $this->folderBusinessLayer->findAll($userId);
+		$result = $this->folderService->findAll($userId);
 
 		$this->assertEquals($return, $result);
 	}
@@ -81,7 +81,7 @@ class FolderBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->with($this->equalTo($folder))
 			->will($this->returnValue($folder));
 
-		$result = $this->folderBusinessLayer->create('hey', 'john', 5);
+		$result = $this->folderService->create('hey', 'john', 5);
 
 		$this->assertEquals($folder, $result);
 	}
@@ -98,8 +98,8 @@ class FolderBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->with($this->equalTo($folderName))
 			->will($this->returnValue($rows));
 
-		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
-		$this->folderBusinessLayer->create($folderName, 'john', 3);
+		$this->setExpectedException('\OCA\News\Service\ServiceConflictException');
+		$this->folderService->create($folderName, 'john', 3);
 	}
 
 
@@ -111,8 +111,8 @@ class FolderBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->with($this->equalTo($folderName))
 			->will($this->returnValue([]));
 
-		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerValidationException');
-		$this->folderBusinessLayer->create($folderName, 'john', 3);
+		$this->setExpectedException('\OCA\News\Service\ServiceValidationException');
+		$this->folderService->create($folderName, 'john', 3);
 	}
 
 
@@ -128,7 +128,7 @@ class FolderBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->method('update')
 			->with($this->equalTo($folder));
 
-		$this->folderBusinessLayer->open(3, false, '');
+		$this->folderService->open(3, false, '');
 
 		$this->assertFalse($folder->getOpened());
 
@@ -148,7 +148,7 @@ class FolderBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->method('update')
 			->with($this->equalTo($folder));
 
-		$this->folderBusinessLayer->rename(3, 'bogus', '');
+		$this->folderService->rename(3, 'bogus', '');
 
 		$this->assertEquals('bogus', $folder->getName());		
 	}
@@ -165,8 +165,8 @@ class FolderBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->with($this->equalTo($folderName))
 			->will($this->returnValue($rows));
 
-		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
-		$this->folderBusinessLayer->rename(3, $folderName, 'john');
+		$this->setExpectedException('\OCA\News\Service\ServiceConflictException');
+		$this->folderService->rename(3, $folderName, 'john');
 	}
 
 
@@ -178,8 +178,8 @@ class FolderBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->with($this->equalTo($folderName))
 			->will($this->returnValue([]));
 
-		$this->setExpectedException('\OCA\News\BusinessLayer\BusinessLayerException');
-		$this->folderBusinessLayer->rename(3, $folderName, 'john');
+		$this->setExpectedException('\OCA\News\Service\ServiceValidationException');
+		$this->folderService->rename(3, $folderName, 'john');
 	}
 
 
@@ -197,7 +197,7 @@ class FolderBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->method('update')
 			->with($this->equalTo($folder2));
 
-		$this->folderBusinessLayer->markDeleted($id, $this->user);
+		$this->folderService->markDeleted($id, $this->user);
 	}
 
 
@@ -215,7 +215,7 @@ class FolderBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->method('update')
 			->with($this->equalTo($folder2));
 
-		$this->folderBusinessLayer->unmarkDeleted($id, $this->user);
+		$this->folderService->unmarkDeleted($id, $this->user);
 	}
 
 	public function testPurgeDeleted(){
@@ -237,7 +237,7 @@ class FolderBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->method('delete')
 			->with($this->equalTo($folder2));
 
-		$this->folderBusinessLayer->purgeDeleted($this->user);
+		$this->folderService->purgeDeleted($this->user);
 	}
 
 
@@ -259,7 +259,7 @@ class FolderBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->method('delete')
 			->with($this->equalTo($folder2));
 
-		$this->folderBusinessLayer->purgeDeleted($this->user, false);
+		$this->folderService->purgeDeleted($this->user, false);
 	}
 
 
@@ -268,7 +268,7 @@ class FolderBusinessLayerTest extends \PHPUnit_Framework_TestCase {
 			->method('deleteUser')
 			->will($this->returnValue($this->user));
 
-		$this->folderBusinessLayer->deleteUser($this->user);
+		$this->folderService->deleteUser($this->user);
 	}
 
 

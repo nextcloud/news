@@ -15,7 +15,7 @@ namespace OCA\News\Controller;
 
 use \OCP\AppFramework\Http;
 
-use \OCA\News\BusinessLayer\BusinessLayerException;
+use \OCA\News\Service\ServiceNotFoundException;
 use \OCA\News\Db\Item;
 
 require_once(__DIR__ . "/../../classloader.php");
@@ -23,7 +23,7 @@ require_once(__DIR__ . "/../../classloader.php");
 
 class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 
-	private $itemBusinessLayer;
+	private $itemService;
 	private $itemAPI;
 	private $api;
 	private $user;
@@ -37,14 +37,14 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 			'\OCP\IRequest')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->itemBusinessLayer = $this->getMockBuilder(
-			'\OCA\News\BusinessLayer\ItemBusinessLayer')
+		$this->itemService = $this->getMockBuilder(
+			'\OCA\News\Service\ItemService')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->itemAPI = new ItemApiController(
 			$this->appName,
 			$this->request,
-			$this->itemBusinessLayer,
+			$this->itemService,
 			$this->user
 		);
 		$this->msg = 'hi';
@@ -54,7 +54,7 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 	public function testIndex() {
 		$items = [new Item()];
 
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('findAll')
 			->with(
 				$this->equalTo(2),
@@ -75,7 +75,7 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 	public function testIndexDefaultBatchSize() {
 		$items = [new Item()];
 
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('findAll')
 			->with(
 				$this->equalTo(2),
@@ -96,7 +96,7 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 	public function testUpdated() {
 		$items = [new Item()];
 
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('findAllNew')
 			->with(
 				$this->equalTo(2),
@@ -114,7 +114,7 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testRead() {
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('read')
 			->with(
 				$this->equalTo(2),
@@ -127,9 +127,9 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testReadDoesNotExist() {
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('read')
-			->will($this->throwException(new BusinessLayerException($this->msg)));
+			->will($this->throwException(new ServiceNotFoundException($this->msg)));
 
 		$response = $this->itemAPI->read(2);
 
@@ -140,7 +140,7 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testUnread() {
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('read')
 			->with(
 				$this->equalTo(2),
@@ -153,9 +153,9 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testUnreadDoesNotExist() {
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('read')
-			->will($this->throwException(new BusinessLayerException($this->msg)));
+			->will($this->throwException(new ServiceNotFoundException($this->msg)));
 
 		$response = $this->itemAPI->unread(2);
 
@@ -166,7 +166,7 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testStar() {
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('star')
 			->with(
 				$this->equalTo(2),
@@ -180,9 +180,9 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testStarDoesNotExist() {
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('star')
-			->will($this->throwException(new BusinessLayerException($this->msg)));
+			->will($this->throwException(new ServiceNotFoundException($this->msg)));
 
 		$response = $this->itemAPI->star(2, 'test');
 
@@ -193,7 +193,7 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testUnstar() {
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('star')
 			->with(
 				$this->equalTo(2),
@@ -207,9 +207,9 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testUnstarDoesNotExist() {
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('star')
-			->will($this->throwException(new BusinessLayerException($this->msg)));
+			->will($this->throwException(new ServiceNotFoundException($this->msg)));
 
 		$response = $this->itemAPI->unstar(2, 'test');
 
@@ -220,7 +220,7 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testReadAll() {
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('readAll')
 			->with(
 				$this->equalTo(30),
@@ -232,12 +232,12 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testReadMultiple() {
-		$this->itemBusinessLayer->expects($this->at(0))
+		$this->itemService->expects($this->at(0))
 			->method('read')
 			->with($this->equalTo(2),
 				$this->equalTo(true),
 				$this->equalTo($this->user));
-		$this->itemBusinessLayer->expects($this->at(1))
+		$this->itemService->expects($this->at(1))
 			->method('read')
 			->with($this->equalTo(4),
 				$this->equalTo(true),
@@ -247,10 +247,10 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testReadMultipleDoesntCareAboutException() {
-		$this->itemBusinessLayer->expects($this->at(0))
+		$this->itemService->expects($this->at(0))
 			->method('read')
-			->will($this->throwException(new BusinessLayerException('')));
-		$this->itemBusinessLayer->expects($this->at(1))
+			->will($this->throwException(new ServiceNotFoundException('')));
+		$this->itemService->expects($this->at(1))
 			->method('read')
 			->with($this->equalTo(4),
 				$this->equalTo(true),
@@ -260,12 +260,12 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testUnreadMultiple() {
-		$this->itemBusinessLayer->expects($this->at(0))
+		$this->itemService->expects($this->at(0))
 			->method('read')
 			->with($this->equalTo(2),
 				$this->equalTo(false),
 				$this->equalTo($this->user));
-		$this->itemBusinessLayer->expects($this->at(1))
+		$this->itemService->expects($this->at(1))
 			->method('read')
 			->with($this->equalTo(4),
 				$this->equalTo(false),
@@ -286,13 +286,13 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 					]
 				];
 
-		$this->itemBusinessLayer->expects($this->at(0))
+		$this->itemService->expects($this->at(0))
 			->method('star')
 			->with($this->equalTo(2),
 				$this->equalTo('a'),
 				$this->equalTo(true),
 				$this->equalTo($this->user));
-		$this->itemBusinessLayer->expects($this->at(1))
+		$this->itemService->expects($this->at(1))
 			->method('star')
 			->with($this->equalTo(4),
 				$this->equalTo('b'),
@@ -314,10 +314,10 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 					]
 				];
 
-		$this->itemBusinessLayer->expects($this->at(0))
+		$this->itemService->expects($this->at(0))
 			->method('star')
-			->will($this->throwException(new BusinessLayerException('')));
-		$this->itemBusinessLayer->expects($this->at(1))
+			->will($this->throwException(new ServiceNotFoundException('')));
+		$this->itemService->expects($this->at(1))
 			->method('star')
 			->with($this->equalTo(4),
 				$this->equalTo('b'),
@@ -339,13 +339,13 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 					]
 				];
 
-		$this->itemBusinessLayer->expects($this->at(0))
+		$this->itemService->expects($this->at(0))
 			->method('star')
 			->with($this->equalTo(2),
 				$this->equalTo('a'),
 				$this->equalTo(false),
 				$this->equalTo($this->user));
-		$this->itemBusinessLayer->expects($this->at(1))
+		$this->itemService->expects($this->at(1))
 			->method('star')
 			->with($this->equalTo(4),
 				$this->equalTo('b'),

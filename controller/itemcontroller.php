@@ -18,29 +18,29 @@ use \OCP\IConfig;
 use \OCP\AppFramework\Controller;
 use \OCP\AppFramework\Http;
 
-use \OCA\News\BusinessLayer\BusinessLayerException;
-use \OCA\News\BusinessLayer\ItemBusinessLayer;
-use \OCA\News\BusinessLayer\FeedBusinessLayer;
+use \OCA\News\Service\ServiceException;
+use \OCA\News\Service\ItemService;
+use \OCA\News\Service\FeedService;
 
 
 class ItemController extends Controller {
 
 	use JSONHttpError;
 
-	private $itemBusinessLayer;
-	private $feedBusinessLayer;
+	private $itemService;
+	private $feedService;
 	private $userId;
 	private $settings;
 
 	public function __construct($appName, 
 	                            IRequest $request, 
-		                        FeedBusinessLayer $feedBusinessLayer,
-		                        ItemBusinessLayer $itemBusinessLayer,
+		                        FeedService $feedService,
+		                        ItemService $itemService,
 		                        IConfig $settings,
 		                        $userId){
 		parent::__construct($appName, $request);
-		$this->itemBusinessLayer = $itemBusinessLayer;
-		$this->feedBusinessLayer = $feedBusinessLayer;
+		$this->itemService = $itemService;
+		$this->feedService = $feedService;
 		$this->userId = $userId;
 		$this->settings = $settings;
 	}
@@ -74,18 +74,18 @@ class ItemController extends Controller {
 			// out of sync
 			if($offset === 0) {
 				$params['newestItemId'] = 
-					$this->itemBusinessLayer->getNewestItemId($this->userId);
-				$params['feeds'] = $this->feedBusinessLayer->findAll($this->userId);
-				$params['starred'] = $this->itemBusinessLayer->starredCount($this->userId);
+					$this->itemService->getNewestItemId($this->userId);
+				$params['feeds'] = $this->feedService->findAll($this->userId);
+				$params['starred'] = $this->itemService->starredCount($this->userId);
 			}
 						
-			$params['items'] = $this->itemBusinessLayer->findAll(
+			$params['items'] = $this->itemService->findAll(
 				$id, $type, $limit, $offset, $showAll, $this->userId, $oldestFirst
 			);
 			
 		// this gets thrown if there are no items
 		// in that case just return an empty array
-		} catch(BusinessLayerException $ex) {}
+		} catch(ServiceException $ex) {}
 
 		return $params;
 	}
@@ -105,15 +105,15 @@ class ItemController extends Controller {
 		$params = [];
 
 		try {
-			$params['newestItemId'] = $this->itemBusinessLayer->getNewestItemId($this->userId);
-			$params['feeds'] = $this->feedBusinessLayer->findAll($this->userId);
-			$params['starred'] = $this->itemBusinessLayer->starredCount($this->userId);			
-			$params['items'] = $this->itemBusinessLayer->findAllNew($id, $type, 
+			$params['newestItemId'] = $this->itemService->getNewestItemId($this->userId);
+			$params['feeds'] = $this->feedService->findAll($this->userId);
+			$params['starred'] = $this->itemService->starredCount($this->userId);			
+			$params['items'] = $this->itemService->findAllNew($id, $type, 
 				$lastModified, $showAll, $this->userId);
 
 		// this gets thrown if there are no items
 		// in that case just return an empty array
-		} catch(BusinessLayerException $ex) {}
+		} catch(ServiceException $ex) {}
 
 		return $params;
 	}
@@ -127,8 +127,8 @@ class ItemController extends Controller {
 	 */
 	public function star($feedId, $guidHash){
 		try {
-			$this->itemBusinessLayer->star($feedId, $guidHash, true, $this->userId);
-		} catch(BusinessLayerException $ex) {
+			$this->itemService->star($feedId, $guidHash, true, $this->userId);
+		} catch(ServiceException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
@@ -142,8 +142,8 @@ class ItemController extends Controller {
 	 */
 	public function unstar($feedId, $guidHash){
 		try {
-			$this->itemBusinessLayer->star($feedId, $guidHash, false, $this->userId);
-		} catch(BusinessLayerException $ex) {
+			$this->itemService->star($feedId, $guidHash, false, $this->userId);
+		} catch(ServiceException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
@@ -156,8 +156,8 @@ class ItemController extends Controller {
 	 */
 	public function read($itemId){
 		try {
-			$this->itemBusinessLayer->read($itemId, true, $this->userId);
-		} catch(BusinessLayerException $ex) {
+			$this->itemService->read($itemId, true, $this->userId);
+		} catch(ServiceException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
@@ -170,8 +170,8 @@ class ItemController extends Controller {
 	 */
 	public function unread($itemId){
 		try {
-			$this->itemBusinessLayer->read($itemId, false, $this->userId);
-		} catch(BusinessLayerException $ex) {
+			$this->itemService->read($itemId, false, $this->userId);
+		} catch(ServiceException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
@@ -183,8 +183,8 @@ class ItemController extends Controller {
 	 * @param int $highestItemId
 	 */
 	public function readAll($highestItemId){
-		$this->itemBusinessLayer->readAll($highestItemId, $this->userId);
-		return ['feeds' => $this->feedBusinessLayer->findAll($this->userId)];
+		$this->itemService->readAll($highestItemId, $this->userId);
+		return ['feeds' => $this->feedService->findAll($this->userId)];
 	}
 
 

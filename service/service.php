@@ -11,7 +11,7 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 
-namespace OCA\News\BusinessLayer;
+namespace OCA\News\Service;
 
 use \OCP\AppFramework\Db\DoesNotExistException;
 use \OCP\AppFramework\Db\MultipleObjectsReturnedException;
@@ -19,7 +19,7 @@ use \OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use \OCA\News\Db\IMapper;
 
 
-abstract class BusinessLayer {
+abstract class Service {
 
 	protected $mapper;
 
@@ -53,9 +53,9 @@ abstract class BusinessLayer {
 		try {
 			return $this->mapper->find($id, $userId);
 		} catch(DoesNotExistException $ex){
-			throw new BusinessLayerException($ex->getMessage());
+			throw new ServiceNotFoundException($ex->getMessage());
 		} catch(MultipleObjectsReturnedException $ex){
-			throw new BusinessLayerException($ex->getMessage());
+			throw new ServiceNotFoundException($ex->getMessage());
 		}
 	}
 

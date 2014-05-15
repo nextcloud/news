@@ -18,7 +18,7 @@ use \OCP\AppFramework\Http;
 use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\FeedType;
-use \OCA\News\BusinessLayer\BusinessLayerException;
+use \OCA\News\Service\ServiceNotFoundException;
 
 require_once(__DIR__ . "/../../classloader.php");
 
@@ -27,8 +27,8 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 
 	private $appName;
 	private $settings;
-	private $itemBusinessLayer;
-	private $feedBusinessLayer;
+	private $itemService;
+	private $feedService;
 	private $request;
 	private $controller;
 	private $newestItemId;
@@ -44,12 +44,12 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 			'\OCP\IConfig')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->itemBusinessLayer = 
-		$this->getMockBuilder('\OCA\News\BusinessLayer\ItemBusinessLayer')
+		$this->itemService = 
+		$this->getMockBuilder('\OCA\News\Service\ItemService')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->feedBusinessLayer = 
-		$this->getMockBuilder('\OCA\News\BusinessLayer\FeedBusinessLayer')
+		$this->feedService = 
+		$this->getMockBuilder('\OCA\News\Service\FeedService')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->request = $this->getMockBuilder(
@@ -57,14 +57,14 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 		$this->controller = new ItemController($this->appName, $this->request,
-				$this->feedBusinessLayer, $this->itemBusinessLayer, $this->settings,
+				$this->feedService, $this->itemService, $this->settings,
 				$this->user);
 		$this->newestItemId = 12312;
 	}
 
 
 	public function testRead(){
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('read')
 			->with(4, true, $this->user);
 
@@ -75,9 +75,9 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 	public function testReadDoesNotExist(){
 		$msg = 'hi';
 
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('read')
-			->will($this->throwException(new BusinessLayerException($msg)));
+			->will($this->throwException(new ServiceNotFoundException($msg)));
 
 		$response = $this->controller->read(4);
 		$params = json_decode($response->render(), true);
@@ -88,7 +88,7 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testUnread(){
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('read')
 			->with(4, false, $this->user);
 
@@ -100,9 +100,9 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 	public function testUnreadDoesNotExist(){
 		$msg = 'hi';
 
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('read')
-			->will($this->throwException(new BusinessLayerException($msg)));
+			->will($this->throwException(new ServiceNotFoundException($msg)));
 
 
 		$response = $this->controller->unread(4);
@@ -114,7 +114,7 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testStar(){
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('star')
 			->with(
 				$this->equalTo(4), 
@@ -129,9 +129,9 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 	public function testStarDoesNotExist(){
 		$msg = 'ho';
 
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('star')
-			->will($this->throwException(new BusinessLayerException($msg)));;
+			->will($this->throwException(new ServiceNotFoundException($msg)));;
 
 		$response = $this->controller->star(4, 'test');
 		$params = json_decode($response->render(), true);
@@ -142,7 +142,7 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testUnstar(){
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('star')
 			->with(
 				$this->equalTo(4), 
@@ -157,9 +157,9 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 	public function testUnstarDoesNotExist(){
 		$msg = 'ho';
 
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('star')
-			->will($this->throwException(new BusinessLayerException($msg)));;
+			->will($this->throwException(new ServiceNotFoundException($msg)));;
 
 		$response = $this->controller->unstar(4, 'test');
 		$params = json_decode($response->render(), true);
@@ -174,11 +174,11 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 
 		$expected = ['feeds' => [$feed]];
 
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('readAll')
 			->with($this->equalTo(5), 
 				$this->equalTo($this->user));
-		$this->feedBusinessLayer->expects($this->once())
+		$this->feedService->expects($this->once())
 			->method('findAll')
 			->with($this->equalTo($this->user))
 			->will($this->returnValue([$feed]));
@@ -227,22 +227,22 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 
 		$this->itemsApiExpects(2, FeedType::FEED, '0');
 
-		$this->feedBusinessLayer->expects($this->once())
+		$this->feedService->expects($this->once())
 			->method('findAll')
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($feeds));
 
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('getNewestItemId')
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($this->newestItemId));
 
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('starredCount')
 			->with($this->equalTo($this->user))
 			->will($this->returnValue(3111));
 
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('findAll')
 			->with(
 				$this->equalTo(2), 
@@ -264,7 +264,7 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 
 		$this->itemsApiExpects(2, FeedType::FEED);
 
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('findAll')
 			->with($this->equalTo(2), 
 				$this->equalTo(FeedType::FEED), 
@@ -275,7 +275,7 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 				$this->equalTo(true))
 			->will($this->returnValue($result['items']));
 
-		$this->feedBusinessLayer->expects($this->never())
+		$this->feedService->expects($this->never())
 			->method('findAll');
 
 		$response = $this->controller->index(FeedType::FEED, 2, 3, 10, true);
@@ -286,10 +286,10 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 	public function testGetItemsNoNewestItemsId(){
 		$this->itemsApiExpects(2, FeedType::FEED);
 
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('getNewestItemId')
 			->with($this->equalTo($this->user))
-			->will($this->throwException(new BusinessLayerException('')));
+			->will($this->throwException(new ServiceNotFoundException('')));
 
 		$response = $this->controller->index(FeedType::FEED, 2, 3);
 		$this->assertEquals([], $response);
@@ -312,22 +312,22 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 				$this->equalTo('showAll'))
 			->will($this->returnValue('1'));
 
-		$this->feedBusinessLayer->expects($this->once())
+		$this->feedService->expects($this->once())
 			->method('findAll')
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($feeds));
 
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('getNewestItemId')
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($this->newestItemId));
 
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('starredCount')
 			->with($this->equalTo($this->user))
 			->will($this->returnValue(3111));
 
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('findAllNew')
 			->with(
 				$this->equalTo(2), 
@@ -350,10 +350,10 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 				$this->equalTo('showAll'))
 			->will($this->returnValue('1'));
 
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('getNewestItemId')
 			->with($this->equalTo($this->user))
-			->will($this->throwException(new BusinessLayerException('')));
+			->will($this->throwException(new ServiceNotFoundException('')));
 
 		$response = $this->controller->newItems(FeedType::FEED, 2, 3);
 		$this->assertEquals([], $response);
