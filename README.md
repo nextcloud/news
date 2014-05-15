@@ -92,7 +92,7 @@ To update the News app use:
 
 ## Performance Notices
 * Use MySQL or PostgreSQL for better database performance
-* Use the `updater script for large installations to thread the update <https://github.com/owncloud/news/wiki/Cron-1.2)
+* Use the [updater script to thread and speed up the update](https://github.com/owncloud/news/wiki/Cron-1.2)
 
 ## FAQ
 
