@@ -118,30 +118,15 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
 			->with($this->equalTo($this->user),
 				$this->equalTo($this->appName),
 				$this->equalTo('preventReadOnScroll'), 
-				$this->equalTo(true));
+				$this->equalTo(false));
 		$this->settings->expects($this->at(3))
 			->method('setUserValue')
 			->with($this->equalTo($this->user),
 				$this->equalTo($this->appName),
 				$this->equalTo('oldestFirst'), 
 				$this->equalTo(true));
-		$this->controller->updateSettings(true, true, true, true);
+		$this->controller->updateSettings(true, true, false, true);
 
 	}
 
-
-	public function testUpdateSettingsNoParameterShouldNotSetIt() {
-		$this->controller = new PageController($this->appName, $this->request, 
-			$this->settings, $this->l10n, $this->user);
-
-		$this->settings->expects($this->once())
-			->method('setUserValue')
-			->with($this->equalTo($this->user),
-				$this->equalTo($this->appName),
-				$this->equalTo('showAll'), 
-				$this->equalTo(true));
-
-		$this->controller->updateSettings(true, null, null, null);
-
-	}
 }

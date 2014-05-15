@@ -278,7 +278,7 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 		$this->feedService->expects($this->never())
 			->method('findAll');
 
-		$response = $this->controller->index(FeedType::FEED, 2, 3, 10, true);
+		$response = $this->controller->index(FeedType::FEED, 2, 3, 10);
 		$this->assertEquals($result, $response);
 	}
 

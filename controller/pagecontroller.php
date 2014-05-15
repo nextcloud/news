@@ -76,10 +76,8 @@ class PageController extends Controller {
 		$settings = ['showAll', 'compact', 'preventReadOnScroll', 'oldestFirst'];
 		
 		foreach ($settings as $setting) {
-			if(${$setting} !== null) {
-				$this->settings->setUserValue($this->userId, $this->appName, 
-				                              $setting, ${$setting});
-			}
+			$this->settings->setUserValue($this->userId, $this->appName, 
+			                              $setting, ${$setting});
 		}
 	}
 

@@ -426,11 +426,11 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
 
 		$this->feedService->expects($this->once())
 			->method('importArticles')
-			->with($this->equalTo('json'),
+			->with($this->equalTo(array('json')),
 				$this->equalTo($this->user))
 			->will($this->returnValue($feed));
 
-		$response = $this->controller->import('json');
+		$response = $this->controller->import(array('json'));
 
 		$this->assertEquals($expected, $response);
 	}
@@ -439,11 +439,11 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
 	public function testImportCreatesNoAdditionalFeed() {
 		$this->feedService->expects($this->once())
 			->method('importArticles')
-			->with($this->equalTo('json'),
+			->with($this->equalTo(array('json')),
 				$this->equalTo($this->user))
 			->will($this->returnValue(null));
 
-		$response = $this->controller->import('json');
+		$response = $this->controller->import(array('json'));
 
 		$this->assertEquals([], $response);
 	}

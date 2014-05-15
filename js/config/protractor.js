@@ -20,11 +20,11 @@ exports.config = {
         browser.findElement(By.id('password')).sendKeys('admin');
         browser.findElement(By.id('submit')).click();
 
-        browser.driver.wait(function() {
-            return browser.driver.getCurrentUrl().then(function(url) {
+        browser.driver.wait(function () {
+            return browser.driver.getCurrentUrl().then(function (url) {
                 return /apps/.test(url);
             });
         });
     },
     baseUrl: baseUrl
-}
+};

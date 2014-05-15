@@ -81,7 +81,6 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
 		$folderName = 'test';
 		$folder = new Folder();
 		$folder->setName($folderName);
-		$folders = [$folder];
 		
 		$this->folderService->expects($this->once())
 			->method('purgeDeleted')
@@ -139,7 +138,7 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
 			->method('delete')
 			->with($this->equalTo($folderId), $this->equalTo($this->user));
 
-		$response = $this->folderAPI->delete(23);
+		$this->folderAPI->delete(23);
 	}
 
 
