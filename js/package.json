@@ -1,0 +1,42 @@
+{
+  "name": "ownCloud-news",
+  "version": "0.0.0",
+  "description": "An RSS/Atom feed reader",
+  "main": "build/app.js",
+  "scripts": {
+    "test": "grunt ci"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/owncloud/news"
+  },
+  "keywords": [
+    "rss",
+    "atom",
+    "feed",
+    "reader",
+    "owncloud",
+    "app"
+  ],
+  "author": "Bernhard Posselt",
+  "license": "AGPL",
+  "bugs": {
+    "url": "https://github.com/owncloud/news/issues"
+  },
+  "homepage": "https://github.com/owncloud/news",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-concat": "^0.4.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-jslint": "^1.1.11",
+    "grunt-karma": "^0.8.3",
+    "grunt-ngmin": "0.0.3",
+    "grunt-phpunit": "^0.3.3",
+    "grunt-wrap": "^0.3.0",
+    "karma": "^0.12.16",
+    "karma-coverage": "^0.2.1",
+    "karma-jasmine": "^0.1.5",
+    "karma-phantomjs-launcher": "^0.1.4"
+  }
+}
