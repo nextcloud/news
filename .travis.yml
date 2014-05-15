@@ -11,41 +11,33 @@ env:
 before_install:
   - sudo add-apt-repository -y ppa:chris-lea/node.js
   - sudo apt-get update
-  #- "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
+  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
 
 
 install:
   - cd ..
-  - sudo apt-get -y install nodejs python3-jinja2 python3-setuptools
-  #- sudo apt-get -y install apache2 chromium-browser libapache2-mod-fastcgi php5-gd php5-json php5-mysql php5-curl php5-intl php5-mcrypt php5-imagick
+  - sudo apt-get -y install nodejs python3-jinja2 python3-setuptools apache2 chromium-browser libapache2-mod-fastcgi php5-gd php5-json php5-mysql php5-curl php5-intl php5-mcrypt php5-imagick
   - sudo easy_install3 pip
   - sudo pip3 install ocdev
-  # sudo npm -g install protractor
-  # - sudo webdriver-manager update
-  # get a newer phanomjs versin
+  - npm -g install grunt-cli protractor
   - wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.7-linux-x86_64.tar.bz2
   - tar xjf phantomjs-1.9.7-linux-x86_64.tar.bz2
   - sudo ln -s $(pwd)/phantomjs-1.9.7-linux-x86_64/bin/phantomjs /usr/bin/phantomjs
-  # clone core
   - ocdev setup core --dir owncloud
   - mv news owncloud/apps/
   - cd owncloud
 
 before_script:
-  # setup databases
   - createuser -U travis -s oc_autotest
   - mysql -e 'create database oc_autotest;'
   - mysql -u root -e "CREATE USER 'oc_autotest'@'localhost'";
   - mysql -u root -e "grant all on oc_autotest.* to 'oc_autotest'@'localhost'";
-  # install owncloud
   - ocdev ci $DB
   - cd apps/news
-  # enable php-fpm
   #- sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
   #- sudo a2enmod rewrite actions fastcgi alias
   #- echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   #- ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
-  # configure apache virtual hosts
   #- sudo cp -f tests/travis/travis-ci-apache /etc/apache2/sites-available/default
   #- sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
   #- sudo service apache2 restart  
@@ -56,8 +48,8 @@ script:
   - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
   - cd js/
   - npm install --deps
-  - npm -g install grunt-cli
   - npm test
+  - sudo webdriver-manager update
   #- sudo chown -R www-data:www-data ../../data
   #- sudo chown -R www-data:www-data ../../config
   #- grunt e2e
