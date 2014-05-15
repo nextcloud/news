@@ -29,6 +29,7 @@
     "angular-mocks": "~1.2.16",
     "angular-sanitize": "~1.2.16",
     "jquery": "~2.1.1",
-    "momentjs": "~2.6.0"
+    "momentjs": "~2.6.0",
+    "angular-animate": "~1.2.16"
   }
 }

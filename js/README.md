@@ -1,5 +1,9 @@
 # JavaScript Development
-Before starting, install nodejs 0.10 and run:
+Before starting, install nodejs 0.10 and grunt-cli:
+
+	sudo npm -g install grunt-cli
+
+then run:
 
 	npm install
 

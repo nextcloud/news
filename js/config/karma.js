@@ -22,6 +22,7 @@ module.exports = function(config) {
       'vendor/angular-mocks/angular-mocks.js',
       'vendor/angular-route/angular-route.js',
       'vendor/angular-sanitize/angular-sanitize.js',
+      'vendor/angular-animate/angular-animate.js',
       'tests/unit/stubs/*.js',
       'controller/**/*.js',
       'filter/**/*.js',
