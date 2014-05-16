@@ -60,6 +60,11 @@ script:
   # acceptance tests
   - webdriver-manager update
   - grunt ci-e2e --verbose
+  # debug section to check what went wrong
+  - sudo apt-get install curl
+  - curl http://admin:admin@localhost/owncloud/index.php
+  - curl http://admin:admin@localhost/owncloud/index.php/apps/news/
+  - sudo cat ../../../data/owncloud.log
 
 addons:
   postgresql: "9.3"
