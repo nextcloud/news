@@ -30,8 +30,8 @@ before_script:
   # set up databases and users for postgres and mysql
   - createuser -U travis -s oc_autotest
   - mysql -e 'create database oc_autotest;'
-  - mysql -u root -e "CREATE USER 'oc_autotest'@'localhost'";
-  - mysql -u root -e "grant all on oc_autotest.* to 'oc_autotest'@'localhost'";
+  - mysql -u root -e "CREATE USER 'oc_autotest'@'localhost';"
+  - mysql -u root -e "grant all on oc_autotest.* to 'oc_autotest'@'localhost';"
   # set up php under apache
   - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
   - sudo a2enmod rewrite actions fastcgi alias
