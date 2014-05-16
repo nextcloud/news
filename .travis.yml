@@ -49,10 +49,12 @@ script:
   - cd js/
   - npm install --deps # npm install needs to run before sudo npm install because otherwise it fails because a tmp file exists in the home dir
   - sudo npm -g install grunt-cli protractor
-  - sudo webdriver-manager update
+  - sudo webdriver-manager update --standalone
   - npm test
   - sudo chown -R www-data:www-data ../../../data
   - sudo chown -R www-data:www-data ../../../config
+  - grunt e2e --verbose
+  - webdriver-manager update
   - grunt e2e --verbose
 
 addons:
