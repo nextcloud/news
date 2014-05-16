@@ -44,7 +44,7 @@ before_script:
   - cd owncloud
   - ocdev ci $DB
   - php -f console.php app:enable news
-  - sudo echo 'DEFINE("DEBUG", true);' >> config/config.php
+  - sudo echo "DEFINE('DEBUG', true);" >> config/autoconfig.php
   - cd apps/news
 
 script:
@@ -60,6 +60,9 @@ script:
   - sudo npm -g install grunt-cli protractor
   - webdriver-manager update
   - grunt ci-e2e --verbose
+  - sudo apt-get install curl
+  - curl http://localhost/owncloud/index.php
+  - curl http://localhost/owncloud/index.php/apps/news/
   - sudo cat ../../../data/owncloud.log
 
 addons:
