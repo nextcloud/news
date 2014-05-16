@@ -26,5 +26,10 @@ exports.config = {
             });
         });
     },
+    capabilities: {
+        browserName: 'phantomjs',
+        version: '',
+        platform: 'ANY'
+    },
     baseUrl: baseUrl
 };
