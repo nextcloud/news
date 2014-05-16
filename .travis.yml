@@ -1,12 +1,12 @@
 language: php
 php:
   - 5.4
-  - 5.5
+#  - 5.5
 
 env:
   - DB=sqlite
-  - DB=postgresql
-  - DB=mysql
+#  - DB=postgresql
+#  - DB=mysql
 
 before_install:
   - sudo add-apt-repository -y ppa:chris-lea/node.js  # ubuntu 12.04 only
@@ -55,7 +55,9 @@ script:
   - npm test
   - sudo chown -R www-data:www-data ../../../data
   - sudo chown -R www-data:www-data ../../../config
-  - grunt e2e
+  - sudo webdriver-manager start
+  - protractor config/protractor.js
+  #- grunt e2e
 
 addons:
   postgresql: "9.3"
