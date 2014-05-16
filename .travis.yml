@@ -1,12 +1,12 @@
 language: php
 php:
   - 5.4
-  #- 5.5
+  - 5.5
 
 env:
   - DB=sqlite
-  #- DB=postgresql
-  #- DB=mysql
+  - DB=postgresql
+  - DB=mysql
 
 before_install:
   # get a newer node.js version
