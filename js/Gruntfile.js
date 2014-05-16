@@ -183,6 +183,6 @@ module.exports = function (grunt) {
     grunt.registerTask('default', ['jslint', 'concat', 'ngmin', 'wrap']);
     grunt.registerTask('test', ['karma:unit']);
     grunt.registerTask('e2e', ['protractor_webdriver', 'connect', 'protractor:chrome']);
-    grunt.registerTask('ci', ['default', 'karma:continuous', 'protractor_webdriver', 'connect', 'protractor:phantomjs']);
-
+    grunt.registerTask('ci-unit', ['default', 'karma:continuous']);
+    grunt.registerTask('ci-e2e', ['protractor_webdriver', 'connect', 'protractor:phantomjs']);
 };

@@ -4,7 +4,7 @@
   "description": "An RSS/Atom feed reader",
   "main": "build/app.js",
   "scripts": {
-    "test": "grunt ci"
+    "test": "grunt ci-unit"
   },
   "repository": {
     "type": "git",
