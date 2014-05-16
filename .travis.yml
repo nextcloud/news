@@ -41,15 +41,19 @@ before_script:
   - cd apps/news
 
 script:
+  # php unit tests
   - phpunit --coverage-clover=coverage.clover tests/unit
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
   - cd js/
+  # js unit tests
   - npm install --deps # npm install needs to run before sudo npm install because otherwise it fails because a tmp file exists in the home dir
+  - grunt ci-unit --verbose
+  # acceptance tests
   - sudo npm -g install grunt-cli protractor
   - webdriver-manager update
-  - sudo chown -R www-data:www-data ../../../data
-  - sudo chown -R www-data:www-data ../../../config
+  #- sudo chown -R www-data:www-data ../../../data
+  #- sudo chown -R www-data:www-data ../../../config
   - ls -l ../../../
   - ls -l ../../../../
   - ls -l ../../../../../
@@ -57,7 +61,6 @@ script:
   - cat /etc/apache2/sites-available/default
   - sudo apt-get install curl
   - curl http://localhost/owncloud/index.php
-  - grunt ci-unit --verbose
   - grunt ci-e2e --verbose
 
 addons:
