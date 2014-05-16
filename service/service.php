@@ -32,8 +32,8 @@ abstract class Service {
 	 * Delete an entity
 	 * @param int $id the id of the entity
 	 * @param string $userId the name of the user for security reasons
-	 * @throws DoesNotExistException if the entity does not exist
-	 * @throws MultipleObjectsReturnedException if more than one entity exists
+	 * @throws ServiceNotFoundException if the entity does not exist, or there
+	 * are more than one of it
 	 */
 	public function delete($id, $userId){
 		$entity = $this->find($id, $userId);
@@ -45,8 +45,8 @@ abstract class Service {
 	 * Finds an entity by id
 	 * @param int $id the id of the entity
 	 * @param string $userId the name of the user for security reasons
-	 * @throws DoesNotExistException if the entity does not exist
-	 * @throws MultipleObjectsReturnedException if more than one entity exists
+	 * @throws ServiceNotFoundException if the entity does not exist, or there
+	 * are more than one of it
 	 * @return Entity the entity
 	 */
 	public function find($id, $userId){

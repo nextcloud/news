@@ -13,10 +13,21 @@
 
 namespace OCA\News\Db;
 
+use \OCP\AppFramework\Db\Entity;
+
 interface IMapper {
+
     /**
      * @param int $id the id of the feed
      * @param string $userId the id of the user
      */
 	public function find($id, $userId);
+
+	/**
+	 * Delete an entity
+	 * @param Entity $entity the entity that should be deleted
+	 * @throws ServiceNotFoundException if the entity does not exist, or there
+	 * are more than one of it
+	 */
+	public function delete(Entity $entity);
 }
