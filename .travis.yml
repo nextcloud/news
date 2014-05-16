@@ -41,8 +41,6 @@ before_script:
   - ocdev ci $DB
   - php -f console.php app:enable news
   - cd apps/news
-  - sudo apt-get -y install curl
-  - curl http://localhost/owncloud/index.php
 
 script:
   - phpunit --coverage-clover=coverage.clover tests/unit
@@ -55,9 +53,7 @@ script:
   - npm test
   - sudo chown -R www-data:www-data ../../../data
   - sudo chown -R www-data:www-data ../../../config
-  - sudo webdriver-manager start
-  - protractor config/protractor.js
-  #- grunt e2e
+  - grunt e2e --verbose
 
 addons:
   postgresql: "9.3"
