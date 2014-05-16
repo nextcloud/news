@@ -14,7 +14,7 @@ before_install:
 
 install:
   - cd ..
-  - sudo apt-get -y install nodejs python3-jinja2 python3-setuptools apache2 chromium-browser libapache2-mod-fastcgi
+  - sudo apt-get -y install nodejs python3-jinja2 python3-setuptools apache2 libapache2-mod-fastcgi
   - sudo easy_install3 pip  # ubuntu 12.04 only
   - sudo pip3 install ocdev
   - wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.7-linux-x86_64.tar.bz2  # ubuntu 12.04 only
@@ -51,7 +51,10 @@ script:
   - sudo chown -R www-data:www-data ../../../data
   - sudo chown -R www-data:www-data ../../../config
   - ls -l ../../../
+  - ls -l ../../../../
+  - ls -l ../../../../../
   - ls -l ../../../config
+  - cat /etc/apache2/sites-available/default
   - sudo apt-get install curl
   - curl http://localhost/owncloud/index.php
   - grunt ci-unit --verbose
