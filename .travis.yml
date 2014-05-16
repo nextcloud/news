@@ -40,7 +40,7 @@ before_script:
   #- sudo service apache2 restart  
   - cd owncloud
   - ocdev ci $DB
-  - php -f console.php apps:enable news
+  - php -f console.php app:enable news
   - cd apps/news
 
 script:
