@@ -17,7 +17,7 @@ exports.config = {
         'use strict';
 
         browser.ignoreSynchronization = true;
-        browser.get(baseUrl + '/owncloud/');
+        browser.get(baseUrl + '/owncloud/index.php');
         browser.findElement(By.id('user')).sendKeys('admin');
         browser.findElement(By.id('password')).sendKeys('admin');
         browser.findElement(By.id('submit')).click();

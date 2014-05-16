@@ -52,6 +52,8 @@ script:
   - webdriver-manager update
   - sudo chown -R www-data:www-data ../../../data
   - sudo chown -R www-data:www-data ../../../config
+  - sudo apt-get install curl
+  - curl http://localhost/owncloud/index.php
   - grunt ci --verbose
 
 addons:
