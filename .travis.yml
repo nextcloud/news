@@ -11,10 +11,6 @@ env:
 before_install:
   - sudo add-apt-repository -y ppa:chris-lea/node.js  # ubuntu 12.04 only
   - sudo apt-get update
-  - ls -la ../../
-  - ls -la ../../../
-  - ls -la ../../../../
-  - sudo chown -R travis:travis ../../../.npm
   - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
 
 install:
@@ -26,11 +22,6 @@ install:
   - tar xjf phantomjs-1.9.7-linux-x86_64.tar.bz2  # ubuntu 12.04 only
   - sudo ln -s $(pwd)/phantomjs-1.9.7-linux-x86_64/bin/phantomjs /usr/bin/phantomjs  # ubuntu 12.04 only
   - ocdev setup core --dir owncloud
-  - cd news/js
-  - npm install --deps # npm install needs to run before sudo npm install because otherwise it fails because a tmp file exists in the home dir
-  - sudo npm -g install grunt-cli protractor
-  - sudo webdriver-manager update
-  - cd ../../
   - mv news owncloud/apps/
 
 before_script:
@@ -55,6 +46,9 @@ script:
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
   - cd js/
+  - npm install --deps # npm install needs to run before sudo npm install because otherwise it fails because a tmp file exists in the home dir
+  - sudo npm -g install grunt-cli protractor
+  - sudo webdriver-manager update
   - npm test
   - sudo chown -R www-data:www-data ../../../data
   - sudo chown -R www-data:www-data ../../../config
