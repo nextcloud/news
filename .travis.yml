@@ -43,8 +43,8 @@ before_script:
   # fill owncloud with default configs and enable news
   - cd owncloud
   - ocdev ci $DB
-  - php -f console.php app:enable news
   - sudo echo "DEFINE('DEBUG', true);" >> config/autoconfig.php
+  - php -f console.php app:enable news
   - cd apps/news
 
 script:

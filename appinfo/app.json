@@ -1,10 +1,10 @@
 {
-    "name": "News",  
+    "name": "News",
     "id": "news",
-    "description": "ownCloud News App",  
-    "licence": "AGPL",  
-    "version": "2.001",  
-    "authors": [  
+    "description": "ownCloud News App",
+    "licence": "AGPL",
+    "version": "2.001",
+    "authors": [
         {
             "name": "Bernhard Posselt",
             "email": "dev@bernhard-posselt.com"
@@ -33,10 +33,10 @@
         "OC_User::pre_deleteUser": "OCA\\News\\Hooks\\User::deleteUser"
     },
     "databases": ["pgsql", "sqlite3", "mysql"],
-    "categories": ["Multimedia"], 
+    "categories": ["Multimedia"],
     "dependencies": {
         "php": ">=5.4",
-        "owncloud": ">=7",
+        "owncloud": ">=6",
         "libs": {
             "curl": "*"
         }
