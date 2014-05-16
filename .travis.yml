@@ -1,14 +1,15 @@
 language: php
 php:
   - 5.4
-#  - 5.5
+  #- 5.5
 
 env:
   - DB=sqlite
-#  - DB=postgresql
-#  - DB=mysql
+  #- DB=postgresql
+  #- DB=mysql
 
 before_install:
+  # get a newer node.js version
   - sudo add-apt-repository -y ppa:chris-lea/node.js  # ubuntu 12.04 only
   - sudo apt-get update
 
@@ -17,17 +18,21 @@ install:
   - sudo apt-get -y install nodejs python3-jinja2 python3-setuptools apache2 libapache2-mod-fastcgi
   - sudo easy_install3 pip  # ubuntu 12.04 only
   - sudo pip3 install ocdev
+  # get a newer phantomjs version
   - wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.7-linux-x86_64.tar.bz2  # ubuntu 12.04 only
   - tar xjf phantomjs-1.9.7-linux-x86_64.tar.bz2  # ubuntu 12.04 only
   - sudo ln -s $(pwd)/phantomjs-1.9.7-linux-x86_64/bin/phantomjs /usr/bin/phantomjs  # ubuntu 12.04 only
+  # clone core
   - ocdev setup core --dir owncloud
   - mv news owncloud/apps/
 
 before_script:
+  # set up databases and users for postgres and mysql
   - createuser -U travis -s oc_autotest
   - mysql -e 'create database oc_autotest;'
   - mysql -u root -e "CREATE USER 'oc_autotest'@'localhost'";
   - mysql -u root -e "grant all on oc_autotest.* to 'oc_autotest'@'localhost'";
+  # set up php under apache
   - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
   - sudo a2enmod rewrite actions fastcgi alias
   - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
@@ -35,6 +40,7 @@ before_script:
   - sudo cp -f owncloud/apps/news/tests/travis/travis-ci-apache /etc/apache2/sites-available/default
   - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
   - sudo service apache2 restart
+  # fill owncloud with default configs and enable news
   - cd owncloud
   - ocdev ci $DB
   - php -f console.php app:enable news
@@ -48,7 +54,7 @@ script:
   - cd js/
   # js unit tests
   - npm install --deps # npm install needs to run before sudo npm install because otherwise it fails because a tmp file exists in the home dir
-  - grunt ci-unit --verbose
+  - grunt ci-unit
   # acceptance tests
   - sudo npm -g install grunt-cli protractor
   - webdriver-manager update
