@@ -55,7 +55,7 @@ script:
   - npm test
   - sudo chown -R www-data:www-data ../../../data
   - sudo chown -R www-data:www-data ../../../config
-  #- grunt e2e
+  - grunt e2e
 
 addons:
   postgresql: "9.3"
