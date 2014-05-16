@@ -36,7 +36,7 @@ before_script:
   - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
   - sudo cp -f owncloud/apps/news/tests/travis/travis-ci-apache /etc/apache2/sites-available/default
   - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
-  - sudo service apache2 restart  
+  - sudo service apache2 restart
   - cd owncloud
   - ocdev ci $DB
   - php -f console.php app:enable news
@@ -50,10 +50,9 @@ script:
   - npm install --deps # npm install needs to run before sudo npm install because otherwise it fails because a tmp file exists in the home dir
   - sudo npm -g install grunt-cli protractor
   - webdriver-manager update
-  - npm test
   - sudo chown -R www-data:www-data ../../../data
   - sudo chown -R www-data:www-data ../../../config
-  - grunt e2e --verbose
+  - grunt ci --verbose
 
 addons:
   postgresql: "9.3"

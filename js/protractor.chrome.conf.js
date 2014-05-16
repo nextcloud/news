@@ -12,8 +12,10 @@ var baseUrl = 'http://localhost';
 
 exports.config = {
     seleniumAddress: 'http://localhost:4444/wd/hub',
-    specs: ['../tests/e2e/**/*.js'],
+    specs: ['tests/e2e/**/*.js'],
     onPrepare: function () {
+        'use strict';
+
         browser.ignoreSynchronization = true;
         browser.get(baseUrl + '/owncloud/');
         browser.findElement(By.id('user')).sendKeys('admin');
@@ -22,14 +24,10 @@ exports.config = {
 
         browser.driver.wait(function () {
             return browser.driver.getCurrentUrl().then(function (url) {
-                return /apps/.test(url);
+                var regex = /apps/;
+                return regex.test(url);
             });
         });
-    },
-    capabilities: {
-        browserName: 'phantomjs',
-        version: '',
-        platform: 'ANY'
     },
     baseUrl: baseUrl
 };

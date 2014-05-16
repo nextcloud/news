@@ -22,10 +22,12 @@ var globals = [
     'expect',
     'By',
     'inject',
-    'console'
+    'console',
+    'exports'
 ];
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
+    'use strict';
 
     // load needed modules
     grunt.loadNpmTasks('grunt-contrib-concat');
@@ -52,13 +54,12 @@ module.exports = function(grunt) {
             },
             dist: {
                 src: [
-                    'config/app.js',
-                    'config/config.js',
-                    'config/run.js',
+                    'app/app.js',
+                    'app/config.js',
+                    'app/run.js',
                     'filter/**/*.js',
                     'service/**/*.js',
-                    'directive/**/*.js',
-                    'utilitie/**/*.js'
+                    'directive/**/*.js'
                 ],
                 dest: '<%= meta.production %>app.js'
             }
@@ -66,7 +67,7 @@ module.exports = function(grunt) {
         ngmin: {
             app: {
                 src: ['<%= meta.production %>app.js'],
-                dest: '<%= meta.production %>app.js',
+                dest: '<%= meta.production %>app.js'
             }
         },
         wrap: {
@@ -84,14 +85,14 @@ module.exports = function(grunt) {
         jslint: {
             browser: {
                 src: [
-                    'tests/**/*.js',
-                    'config/app.js',
-                    'config/config.js',
-                    'config/run.js',
-                    'controller/**/*.js',
-                    'directive/**/*.js',
+                    'app/**/*.js',
                     'filter/**/*.js',
                     'service/**/*.js',
+                    'directive/**/*.js',
+                    'tests/**/*.js',
+                    'Gruntfile.js',
+                    'karma.conf.js',
+                    'protractor*conf.js'
                 ],
                 directives: {
                     browser: true,
@@ -103,30 +104,34 @@ module.exports = function(grunt) {
             concat: {
                 files: [
                     'tests/**/*.js',
-                    'config/**/*.js',
+                    'app/**/*.js',
                     'controller/**/*.js',
                     'directive/**/*.js',
                     'filter/**/*.js',
                     'service/**/*.js',
+                    '../templates/**/*.php'
                 ],
+                options: {
+                    livereload: true
+                },
                 tasks: ['default']
             },
             phpunit: {
                 files: [
                     '../*/**.php',
-                    '!../3rdparty',
+                    '!../3rdparty'
                 ],
                 tasks: ['phpunit']
             }
         },
         karma: {
             unit: {
-                configFile: 'config/karma.js',
+                configFile: 'karma.conf.js',
                 browsers: ['PhantomJS'],
                 autoWatch: true
             },
             continuous: {
-                configFile: 'config/karma.js',
+                configFile: 'karma.conf.js',
                 singleRun: true,
                 browsers: ['PhantomJS'],
                 preprocessors: {
@@ -156,7 +161,12 @@ module.exports = function(grunt) {
         protractor: {
             phantomjs: {
                 options: {
-                    configFile: 'config/protractor.js'
+                    configFile: 'protractor.phantomjs.conf.js'
+                }
+            },
+            chrome: {
+                options: {
+                    configFile: 'protractor.chrome.conf.js'
                 }
             }
         },
@@ -172,7 +182,7 @@ module.exports = function(grunt) {
     // make tasks available under simpler commands
     grunt.registerTask('default', ['jslint', 'concat', 'ngmin', 'wrap']);
     grunt.registerTask('test', ['karma:unit']);
-    grunt.registerTask('ci', ['default', 'karma:continuous']);
-    grunt.registerTask('e2e', ['protractor_webdriver', 'connect', 'protractor']);
+    grunt.registerTask('e2e', ['protractor_webdriver', 'connect', 'protractor:chrome']);
+    grunt.registerTask('ci', ['default', 'karma:continuous', 'protractor_webdriver', 'connect', 'protractor:phantomjs']);
 
 };
