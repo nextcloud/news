@@ -16,7 +16,7 @@ describe('news page', function () {
 
     it('should go to the news page', function () {
         browser.getTitle().then(function (title) {
-            expect(title).toBe('News - ownClouds');
+            expect(title).toBe('News - ownCloud');
         });
     });
 
