@@ -1,12 +1,12 @@
 language: php
 php:
-  #- 5.4
+  - 5.4
   - 5.5
 
 env:
   - DB=sqlite
-  #- DB=postgresql
-  #- DB=mysql
+  - DB=postgresql
+  - DB=mysql
 
 before_install:
   # get a newer node.js version
@@ -60,10 +60,6 @@ script:
   # acceptance tests
   - webdriver-manager update
   - grunt ci-e2e --verbose
-  - sudo apt-get install curl
-  - curl http://admin:admin@localhost/owncloud/index.php
-  - curl http://admin:admin@localhost/owncloud/index.php/apps/news/
-  - sudo cat ../../../data/owncloud.log
 
 addons:
   postgresql: "9.3"
