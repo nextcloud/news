@@ -22,6 +22,11 @@ install:
   - tar xjf phantomjs-1.9.7-linux-x86_64.tar.bz2
   - sudo ln -s $(pwd)/phantomjs-1.9.7-linux-x86_64/bin/phantomjs /usr/bin/phantomjs
   - ocdev setup core --dir owncloud
+  - cd news/js
+  - npm install --deps
+  - sudo npm -g install grunt-cli protractor
+  - sudo webdriver-manager update
+  - cd ../../
   - mv news owncloud/apps/
 
 before_script:
@@ -47,11 +52,7 @@ script:
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
   - cd js/
-  - npm -g install grunt-cli
-  - npm install --deps
   - npm test
-  - sudo npm install -g protractor
-  - sudo webdriver-manager update
   - sudo chown -R www-data:www-data ../../../data
   - sudo chown -R www-data:www-data ../../../config
   #- grunt e2e
