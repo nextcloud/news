@@ -37,9 +37,9 @@ Supported Webservers
 
 Supported Databases
 -------------------
-* Postgresql
-* Sqlite
-* MySql
+* PostgreSQL
+* SQLite
+* MySQL
 
 
 Bugs
