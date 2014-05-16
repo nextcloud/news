@@ -37,9 +37,9 @@ Supported Webservers
 
 Supported Databases
 -------------------
-* Postgresql
-* Sqlite
-* MySql
+* PostgreSQL
+* SQLite
+* MySQL
 
 
 Bugs
@@ -75,7 +75,7 @@ Before you install the app check that the following requirements are met:
 
 Should you have upgraded from a prior version, disable the CSS and JavaScript caching by adding this to :file:`owncloud/config/config.php`::
 
-    DEFINE('DEBUG', true);
+    define('DEBUG', true);
 
 You can remove the line after a page reload
 
