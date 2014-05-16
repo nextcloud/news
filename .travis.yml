@@ -58,3 +58,6 @@ script:
 
 addons:
   postgresql: "9.3"
+
+matrix:
+  fast_finish: true
