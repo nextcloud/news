@@ -31,8 +31,7 @@ before_script:
   - mysql -u root -e "grant all on oc_autotest.* to 'oc_autotest'@'localhost'";
   - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
   - sudo a2enmod rewrite actions fastcgi alias
-  - sudo apt-get install lsof
-  - lsof -P | grep 9000
+  - netstat -a | grep LISTEN
   - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
   - sudo cp -f tests/travis/travis-ci-apache /etc/apache2/sites-available/default
