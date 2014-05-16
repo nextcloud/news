@@ -52,15 +52,6 @@ script:
   # acceptance tests
   - sudo npm -g install grunt-cli protractor
   - webdriver-manager update
-  #- sudo chown -R www-data:www-data ../../../data
-  #- sudo chown -R www-data:www-data ../../../config
-  - ls -l ../../../
-  - ls -l ../../../../
-  - ls -l ../../../../../
-  - ls -l ../../../config
-  - cat /etc/apache2/sites-available/default
-  - sudo apt-get install curl
-  - curl http://localhost/owncloud/index.php
   - grunt ci-e2e --verbose
 
 addons:
