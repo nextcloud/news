@@ -38,8 +38,19 @@ app.run([
   '$location',
   'Loading',
   'Setup',
-  function ($rootScope, $location, Loading, Setup) {
+  'Item',
+  'Feed',
+  'Folder',
+  'Publisher',
+  'Settings',
+  function ($rootScope, $location, Loading, Setup, Item, Feed, Folder, Publisher, Settings) {
     'use strict';
+    // listen to keys in returned queries to automatically distribute the
+    // incoming values to models
+    Publisher.subscribe(Item).toChannel('items');
+    Publisher.subscribe(Folder).toChannel('folders');
+    Publisher.subscribe(Feed).toChannel('feeds');
+    Publisher.subscribe(Settings).toChannel('settings');
     // load feeds, settings and last read feed
     Setup.load();
     $rootScope.$on('$routeChangeStart', function () {
@@ -175,22 +186,15 @@ app.service('Publisher', function () {
       }
     };
   };
-  this.publishAll = function (values) {
-    var key;
-    for (key in values) {
-      if (values.hasOwnProperty(key)) {
-        this.publish(values[key]).onChannel(key);
+  this.publishAll = function (data) {
+    var channel, counter;
+    for (channel in data) {
+      if (data.hasOwnProperty(channel)) {
+        for (counter = 0; counter < this.channels[channel].length; counter += 1) {
+          this.channels[channel][counter].receive(data[channel]);
+        }
       }
     }
-  };
-  this.publish = function (value) {
-    return {
-      onChannel: function (channel) {
-        self.channels[channel].forEach(function (object) {
-          object.receive(value);
-        });
-      }
-    };
   };
 });
 app.service('Setup', function () {

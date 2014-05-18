@@ -22,23 +22,17 @@ app.service('Publisher', function () {
         };
     };
 
-    this.publishAll = function (values) {
-        var key;
-        for (key in values) {
-            if (values.hasOwnProperty(key)) {
-                this.publish(values[key]).onChannel(key);
+    this.publishAll = function (data) {
+        var channel,
+            counter;
+
+        for (channel in data) {
+            if (data.hasOwnProperty(channel)) {
+                for (counter = 0; counter < this.channels[channel].length; counter += 1) {
+                    this.channels[channel][counter].receive(data[channel]);
+                }
             }
         }
-    };
-
-    this.publish = function (value) {
-        return {
-            onChannel: function (channel) {
-                self.channels[channel].forEach(function (object) {
-                    object.receive(value);
-                });
-            }
-        };
     };
 
 });

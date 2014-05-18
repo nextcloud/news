@@ -12,17 +12,6 @@ describe('Publisher', function () {
 
     beforeEach(module('News'));
 
-    it('should subscribe an object and publish a message', inject(function (Publisher) {
-        var obj = {
-            receive: jasmine.createSpy('receive')
-        };
-        Publisher.subscribe(obj).toChannel('test');
-
-        Publisher.publish('tom').onChannel('test');
-        expect(obj.receive).toHaveBeenCalledWith('tom');
-    }));
-
-
     it('should should publish on all possible channels', inject(function (Publisher) {
 
         var obj = {

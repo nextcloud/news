@@ -7,8 +7,16 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.run(function ($rootScope, $location, Loading, Setup) {
+app.run(function ($rootScope, $location, Loading, Setup, Item, Feed, Folder,
+                  Publisher, Settings) {
     'use strict';
+
+    // listen to keys in returned queries to automatically distribute the
+    // incoming values to models
+    Publisher.subscribe(Item).toChannel('items');
+    Publisher.subscribe(Folder).toChannel('folders');
+    Publisher.subscribe(Feed).toChannel('feeds');
+    Publisher.subscribe(Settings).toChannel('settings');
 
     // load feeds, settings and last read feed
     Setup.load();
