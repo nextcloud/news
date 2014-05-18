@@ -9,19 +9,27 @@
  */
 
 var globals = [
+    // libs
     '$',
     'angular',
+    // app
     'app',
     'OC',
+    // angular
+    'inject',
+    'module',
+
+    // protractor
     'protractor',
+    'browser',
+    'By',
+    // jasmine
+    'jasmine',
+    'it',
     'describe',
     'beforeEach',
-    'module',
-    'it',
-    'browser',
     'expect',
-    'By',
-    'inject',
+    // js
     'console',
     'exports'
 ];
