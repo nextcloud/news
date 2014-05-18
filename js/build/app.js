@@ -54,6 +54,39 @@ app.run([
     });
   }
 ]);
+app.factory('Feed', [
+  'Model',
+  function (Model) {
+    'use strict';
+    var Feed = function () {
+      Model.call(this, 'url');
+    };
+    Feed.prototype = Object.create(Model.prototype);
+    return new Feed();
+  }
+]);
+app.factory('Folder', [
+  'Model',
+  function (Model) {
+    'use strict';
+    var Folder = function () {
+      Model.call(this, 'name');
+    };
+    Folder.prototype = Object.create(Model.prototype);
+    return new Folder();
+  }
+]);
+app.factory('Item', [
+  'Model',
+  function (Model) {
+    'use strict';
+    var Item = function () {
+      Model.call(this, 'id');
+    };
+    Item.prototype = Object.create(Model.prototype);
+    return new Item();
+  }
+]);
 app.service('Loading', function () {
   'use strict';
   this.loading = {
@@ -117,6 +150,15 @@ app.factory('Model', function () {
       if (this.hashMap[id] !== undefined) {
         delete this.hashMap[id];
       }
+    },
+    clear: function () {
+      this.hashMap = {};
+      // http://stackoverflow.com/questions/1232040/how-to-empty-an-array-in-javascript
+      // this is the fastes way to empty an array when you want to keep the
+      // reference around
+      while (this.values.length > 0) {
+        this.values.pop();
+      }
     }
   };
   return Model;
@@ -132,6 +174,14 @@ app.service('Publisher', function () {
         self.channels[channel].push(object);
       }
     };
+  };
+  this.publishAll = function (values) {
+    var key;
+    for (key in values) {
+      if (values.hasOwnProperty(key)) {
+        this.publish(values[key]).onChannel(key);
+      }
+    }
   };
   this.publish = function (value) {
     return {

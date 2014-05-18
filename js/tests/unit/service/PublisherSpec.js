@@ -23,4 +23,19 @@ describe('Publisher', function () {
     }));
 
 
+    it('should should publish on all possible channels', inject(function (Publisher) {
+
+        var obj = {
+            receive: jasmine.createSpy('receive')
+        };
+        Publisher.subscribe(obj).toChannel('test');
+
+        Publisher.publishAll({
+            test: 'tom'
+        });
+
+        expect(obj.receive).toHaveBeenCalledWith('tom');
+
+    }));
+
 });

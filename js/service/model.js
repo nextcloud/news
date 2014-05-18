@@ -70,6 +70,17 @@ app.factory('Model', function () {
             if (this.hashMap[id] !== undefined) {
                 delete this.hashMap[id];
             }
+        },
+
+        clear: function () {
+            this.hashMap = {};
+
+            // http://stackoverflow.com/questions/1232040/how-to-empty-an-array-in-javascript
+            // this is the fastes way to empty an array when you want to keep the
+            // reference around
+            while (this.values.length > 0) {
+                this.values.pop();
+            }
         }
     };
 

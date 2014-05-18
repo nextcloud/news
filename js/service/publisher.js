@@ -22,6 +22,15 @@ app.service('Publisher', function () {
         };
     };
 
+    this.publishAll = function (values) {
+        var key;
+        for (key in values) {
+            if (values.hasOwnProperty(key)) {
+                this.publish(values[key]).onChannel(key);
+            }
+        }
+    };
+
     this.publish = function (value) {
         return {
             onChannel: function (channel) {

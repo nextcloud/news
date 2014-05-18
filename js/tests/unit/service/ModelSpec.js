@@ -100,4 +100,30 @@ describe('Model', function () {
         expect(childModel.size()).toBe(1);
     });
 
+
+    it('should clear all models', function () {
+        var object1,
+            object2;
+
+        object1 = {
+            id: 3,
+            name: 'test',
+            test: 'ho'
+        };
+
+        object2 = {
+            id: 4,
+            name: 'test2'
+        };
+
+        childModel.add(object1);
+        childModel.add(object2);
+
+        childModel.clear();
+
+        expect(childModel.get(3)).not.toBeDefined();
+        expect(childModel.get(4)).not.toBeDefined();
+        expect(childModel.size()).toBe(0);
+    });
+
 });
