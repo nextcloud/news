@@ -11,8 +11,10 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
     'use strict';
 
     // constants
+    $provide.constant('CONFIG', {
+        REFRESH_RATE: 60  // refresh feeds every 60 seconds
+    });
     $provide.constant('BASE_URL', OC.generateUrl('/apps/news'));
-
     $provide.constant('FEED_TYPE', {
         FEED: 0,
         FOLDER: 1,
@@ -38,7 +40,7 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
     // routing
     $routeProvider
         .when('/items', {
-            controller: 'ItemsController',
+            controller: 'ItemController',
             templateUrl: 'content.html',
             resolve: {}
         })

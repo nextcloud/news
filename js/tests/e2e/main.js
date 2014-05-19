@@ -23,14 +23,15 @@ describe('news page', function () {
 
 
     it('should show the first run page', function () {
-        var firstRun,
-            greeting;
+        var firstRun;
+
 
         firstRun = browser.findElement(By.id('first-run'));
-        greeting = firstRun.findElement(By.tagName('h1'));
+        firstRun.findElement(By.tagName('h1')).then(function (greeting) {
+            expect(greeting.getText()).toBe('Welcome to the ownCloud News app!');
+        });
 
         expect(firstRun.isDisplayed()).toBe(true);
-        expect(greeting.getText()).toBe('Welcome to the ownCloud News app!');
     });
 
 });

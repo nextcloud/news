@@ -15,6 +15,7 @@ app.config([
   function ($routeProvider, $provide, $httpProvider) {
     'use strict';
     // constants
+    $provide.constant('CONFIG', { REFRESH_RATE: 60 });
     $provide.constant('BASE_URL', OC.generateUrl('/apps/news'));
     $provide.constant('FEED_TYPE', {
       FEED: 0,
@@ -37,7 +38,7 @@ app.config([
     $httpProvider.interceptors.push('CSRFInterceptor');
     // routing
     $routeProvider.when('/items', {
-      controller: 'ItemsController',
+      controller: 'ItemController',
       templateUrl: 'content.html',
       resolve: {}
     }).when('/items/starred', {
@@ -60,6 +61,7 @@ app.run([
   '$location',
   '$http',
   '$q',
+  '$interval',
   'Loading',
   'Item',
   'Feed',
@@ -68,7 +70,8 @@ app.run([
   'Publisher',
   'BASE_URL',
   'FEED_TYPE',
-  function ($rootScope, $location, $http, $q, Loading, Item, Feed, Folder, Settings, Publisher, BASE_URL, FEED_TYPE) {
+  'CONFIG',
+  function ($rootScope, $location, $http, $q, $interval, Loading, Item, Feed, Folder, Settings, Publisher, BASE_URL, FEED_TYPE, CONFIG) {
     'use strict';
     // show Loading screen
     Loading.setLoading('global', true);
@@ -104,12 +107,18 @@ app.run([
       $location.path(url);
       activeFeedDeferred.resolve();
     });
+    // disable loading if all initial requests finished
     $q.all([
       settingsDeferred.promise,
       activeFeedDeferred.promise
     ]).then(function () {
       Loading.setLoading('global', false);
     });
+    // refresh feeds and folders
+    $interval(function () {
+      $http.get(BASE_URL + '/feeds');
+      $http.get(BASE_URL + '/folders');
+    }, CONFIG.REFRESH_RATE * 1000);
     $rootScope.$on('$routeChangeStart', function () {
       Loading.setLoading('content', true);
     });
@@ -134,7 +143,7 @@ app.controller('AppController', [
     };
   }
 ]);
-app.controller('ItemsController', function () {
+app.controller('ItemController', function () {
   'use strict';
   console.log('here');
 });

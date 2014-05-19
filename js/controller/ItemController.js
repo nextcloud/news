@@ -7,7 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.controller('ItemsController', function () {
+app.controller('ItemController', function () {
     'use strict';
 
     console.log('here');

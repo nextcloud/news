@@ -7,8 +7,9 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.run(function ($rootScope, $location, $http, $q, Loading, Item, Feed, Folder,
-                  Settings, Publisher, BASE_URL, FEED_TYPE) {
+app.run(function ($rootScope, $location, $http, $q, $interval, Loading, Item,
+                  Feed, Folder, Settings, Publisher, BASE_URL, FEED_TYPE,
+                  CONFIG) {
     'use strict';
 
     // show Loading screen
@@ -57,10 +58,17 @@ app.run(function ($rootScope, $location, $http, $q, Loading, Item, Feed, Folder,
         activeFeedDeferred.resolve();
     });
 
+    // disable loading if all initial requests finished
+    $q.all([settingsDeferred.promise, activeFeedDeferred.promise])
+        .then(function () {
+            Loading.setLoading('global', false);
+        });
 
-    $q.all([settingsDeferred.promise, activeFeedDeferred.promise]).then(function () {
-        Loading.setLoading('global', false);
-    });
+    // refresh feeds and folders
+    $interval(function () {
+        $http.get(BASE_URL + '/feeds');
+        $http.get(BASE_URL + '/folders');
+    }, CONFIG.REFRESH_RATE * 1000);
 
 
     $rootScope.$on('$routeChangeStart', function () {

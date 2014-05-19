@@ -7,7 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-describe('AllItemsController', function () {
+describe('ItemController', function () {
     'use strict';
 
     var controller;
