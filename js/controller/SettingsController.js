@@ -7,11 +7,8 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.service('Setup', function () {
+app.controller('SettingsController', function () {
     'use strict';
 
-    this.load = function () {
-        console.log('init');
-    };
-
+    console.log('here');
 });

@@ -1,4 +1,4 @@
-(function(angular, $, OC, undefined){
+(function(angular, $, OC, oc_requesttoken, undefined){
 
 'use strict';
 
@@ -11,23 +11,45 @@ var app = angular.module('News', [
 app.config([
   '$routeProvider',
   '$provide',
-  function ($routeProvider, $provide) {
+  '$httpProvider',
+  function ($routeProvider, $provide, $httpProvider) {
     'use strict';
-    $provide.constant('baseUrl', OC.generateUrl(''));
+    // constants
+    $provide.constant('BASE_URL', OC.generateUrl('/apps/news'));
+    $provide.constant('FEED_TYPE', {
+      FEED: 0,
+      FOLDER: 1,
+      STARRED: 2,
+      SUBSCRIPTIONS: 3,
+      SHARED: 4
+    });
+    // make sure that the CSRF header is only sent to the ownCloud domain
+    $provide.factory('CSRFInterceptor', function ($q, BASE_URL) {
+      return {
+        request: function (config) {
+          if (config.url.indexOf(BASE_URL) === 0) {
+            config.headers.requesttoken = oc_requesttoken;
+          }
+          return config || $q.when(config);
+        }
+      };
+    });
+    $httpProvider.interceptors.push('CSRFInterceptor');
+    // routing
     $routeProvider.when('/items', {
-      controller: 'AllItemsController',
+      controller: 'ItemsController',
       templateUrl: 'content.html',
       resolve: {}
     }).when('/items/starred', {
-      controller: 'StarredItemsController',
+      controller: 'StarredController',
       templateUrl: 'content.html',
       resolve: {}
     }).when('/items/feeds/:id', {
-      controller: 'FeedItemsController',
+      controller: 'FeedController',
       templateUrl: 'content.html',
       resolve: {}
     }).when('/items/folders/:id', {
-      controller: 'FolderItemsController',
+      controller: 'FolderController',
       templateUrl: 'content.html',
       resolve: {}
     }).otherwise({ redirectTo: '/items' });
@@ -36,15 +58,20 @@ app.config([
 app.run([
   '$rootScope',
   '$location',
+  '$http',
+  '$q',
   'Loading',
-  'Setup',
   'Item',
   'Feed',
   'Folder',
-  'Publisher',
   'Settings',
-  function ($rootScope, $location, Loading, Setup, Item, Feed, Folder, Publisher, Settings) {
+  'Publisher',
+  'BASE_URL',
+  'FEED_TYPE',
+  function ($rootScope, $location, $http, $q, Loading, Item, Feed, Folder, Settings, Publisher, BASE_URL, FEED_TYPE) {
     'use strict';
+    // show Loading screen
+    Loading.setLoading('global', true);
     // listen to keys in returned queries to automatically distribute the
     // incoming values to models
     Publisher.subscribe(Item).toChannel('items');
@@ -52,7 +79,37 @@ app.run([
     Publisher.subscribe(Feed).toChannel('feeds');
     Publisher.subscribe(Settings).toChannel('settings');
     // load feeds, settings and last read feed
-    Setup.load();
+    var settingsDeferred, activeFeedDeferred;
+    settingsDeferred = $q.defer();
+    $http.get(BASE_URL + '/settings').then(function (data) {
+      Publisher.publishAll(data);
+      settingsDeferred.resolve();
+    });
+    activeFeedDeferred = $q.defer();
+    $http.get(BASE_URL + '/feeds/active').then(function (data) {
+      var url;
+      switch (data.type) {
+      case FEED_TYPE.FEED:
+        url = '/items/feeds/' + data.id;
+        break;
+      case FEED_TYPE.FOLDER:
+        url = '/items/folders/' + data.id;
+        break;
+      case FEED_TYPE.STARRED:
+        url = '/items/starred';
+        break;
+      default:
+        url = '/items';
+      }
+      $location.path(url);
+      activeFeedDeferred.resolve();
+    });
+    $q.all([
+      settingsDeferred.promise,
+      activeFeedDeferred.promise
+    ]).then(function () {
+      Loading.setLoading('global', false);
+    });
     $rootScope.$on('$routeChangeStart', function () {
       Loading.setLoading('content', true);
     });
@@ -65,6 +122,30 @@ app.run([
     });
   }
 ]);
+app.controller('AppController', [
+  'Loading',
+  'Feed',
+  'Folder',
+  function (Loading, Feed, Folder) {
+    'use strict';
+    this.loading = Loading;
+    this.isFirstRun = function () {
+      return Feed.size() === 0 && Folder.size() === 0;
+    };
+  }
+]);
+app.controller('ItemsController', function () {
+  'use strict';
+  console.log('here');
+});
+app.controller('NavigationController', function () {
+  'use strict';
+  console.log('here');
+});
+app.controller('SettingsController', function () {
+  'use strict';
+  console.log('here');
+});
 app.factory('Feed', [
   'Model',
   function (Model) {
@@ -102,7 +183,8 @@ app.service('Loading', function () {
   'use strict';
   this.loading = {
     global: false,
-    content: false
+    content: false,
+    autopaging: false
   };
   this.setLoading = function (area, isLoading) {
     this.loading[area] = isLoading;
@@ -189,7 +271,7 @@ app.service('Publisher', function () {
   this.publishAll = function (data) {
     var channel, counter;
     for (channel in data) {
-      if (data.hasOwnProperty(channel)) {
+      if (data.hasOwnProperty(channel) && this.channels[channel] !== undefined) {
         for (counter = 0; counter < this.channels[channel].length; counter += 1) {
           this.channels[channel][counter].receive(data[channel]);
         }
@@ -197,11 +279,23 @@ app.service('Publisher', function () {
     }
   };
 });
-app.service('Setup', function () {
+app.service('Settings', function () {
   'use strict';
-  this.load = function () {
-    console.log('init');
+  this.settings = {};
+  this.receive = function (data) {
+    var key;
+    for (key in data) {
+      if (data.hasOwnProperty(key)) {
+        this.settings[key] = data[key];
+      }
+    }
+  };
+  this.get = function (key) {
+    return this.settings[key];
+  };
+  this.set = function (key, value) {
+    this.settings[key] = value;
   };
 });
 
-})(angular, jQuery, OC);
+})(angular, jQuery, OC, oc_requesttoken);

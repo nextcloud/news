@@ -19,16 +19,16 @@
  *
  */
 
-#undo-container { 
-	position: fixed; 
-	top: 0px; 
-	width: 100%; 
-	text-align: center; 
-	z-index: 101; 
+#undo-container {
+	position: fixed;
+	top: 0px;
+	width: 100%;
+	text-align: center;
+	z-index: 101;
 	line-height: 1.2;
 }
 
-#undo { 
+#undo {
 	z-index:101;
 	background-color:#fc4;
 	border:0;
@@ -144,7 +144,7 @@
 }
 
 .feed {
-	text-transform: none;	
+	text-transform: none;
 }
 
 .unread-counter {
@@ -182,11 +182,6 @@ button.action:hover {
 	padding-left: 0;
 }
 
-#app-navigation .rename-feed > input {
-	width: 155px;
-	height: 15px;
-}
-
 #app-navigation .folder-input {
 	text-transform: uppercase;
 }
@@ -205,9 +200,13 @@ button.action:hover {
 
 .rename-feed input {
 	margin: 1px 0 0px 5px;
+	border-right: 1px solid #ddd;
+	border-radius: 2px;
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
 	border-right: 0;
+	width: 208px;
+	height: 32px;
 }
 
 .rename-feed button {
@@ -222,7 +221,7 @@ button.action:hover {
 
 .rename-feed .action-button {
 	background-position: center;
-	background-repeat: no-repeat;	
+	background-repeat: no-repeat;
 }
 
 .rename-feed .back-button {
@@ -240,15 +239,21 @@ button.action:hover {
 }
 
 #app-navigation .ui-draggable-dragging {
-	width: 249px;
+	width: 100%;
 }
 
 #app-navigation .multiselect {
 	height:20px;
 }
 
+#app-navigation .progress-icon,
+#app-navigation .problem-icon {
+	width: 299px;
+	line-height: 44px;
+}
+
 .progress-icon {
-	background-image: url('../img/loading.gif'); 
+	background-image: url('../img/loading.gif');
 }
 
 .problem-icon {

@@ -14,7 +14,9 @@ var globals = [
     'angular',
     // app
     'app',
+    // ownCloud
     'OC',
+    'oc_requesttoken',
     // angular
     'inject',
     'module',
@@ -62,9 +64,10 @@ module.exports = function (grunt) {
             },
             dist: {
                 src: [
-                    'app/app.js',
-                    'app/config.js',
-                    'app/run.js',
+                    'app/App.js',
+                    'app/Config.js',
+                    'app/Run.js',
+                    'controller/**/*.js',
                     'filter/**/*.js',
                     'service/**/*.js',
                     'directive/**/*.js'
@@ -84,8 +87,8 @@ module.exports = function (grunt) {
                 dest: '<%= meta.production %>app.js',
                 options: {
                     wrapper: [
-                        '(function(angular, $, OC, undefined){\n\n\'use strict\';\n\n',
-                        '\n})(angular, jQuery, OC);'
+                        '(function(angular, $, OC, oc_requesttoken, undefined){\n\n\'use strict\';\n\n',
+                        '\n})(angular, jQuery, OC, oc_requesttoken);'
                     ]
                 }
             }
@@ -96,6 +99,7 @@ module.exports = function (grunt) {
                     'app/**/*.js',
                     'filter/**/*.js',
                     'service/**/*.js',
+                    'controller/**/*.js',
                     'directive/**/*.js',
                     'tests/**/*.js',
                     'Gruntfile.js',
@@ -119,10 +123,10 @@ module.exports = function (grunt) {
                     'service/**/*.js',
                     '../templates/**/*.php'
                 ],
+                tasks: ['default'],
                 options: {
                     livereload: true
-                },
-                tasks: ['default']
+                }
             },
             phpunit: {
                 files: [
@@ -189,7 +193,9 @@ module.exports = function (grunt) {
 
     // make tasks available under simpler commands
     grunt.registerTask('default', ['jslint', 'concat', 'ngmin', 'wrap']);
+    grunt.registerTask('dev', ['watch:concat']);
     grunt.registerTask('test', ['karma:unit']);
+    grunt.registerTask('phpunit', ['watch:phpunit']);
     grunt.registerTask('e2e', ['protractor_webdriver', 'connect', 'protractor:chrome']);
     grunt.registerTask('ci-unit', ['default', 'karma:continuous']);
     grunt.registerTask('ci-e2e', ['protractor_webdriver', 'connect', 'protractor:phantomjs']);

@@ -11,13 +11,26 @@ describe('news page', function () {
     'use strict';
 
     beforeEach(function () {
-        browser.get('http://localhost/owncloud/index.php/apps/news/');
+        browser.ignoreSynchronization = true;
+        browser.waitForAngular();
     });
 
     it('should go to the news page', function () {
         browser.getTitle().then(function (title) {
             expect(title).toContain('News');
         });
+    });
+
+
+    it('should show the first run page', function () {
+        var firstRun,
+            greeting;
+
+        firstRun = browser.findElement(By.id('first-run'));
+        greeting = firstRun.findElement(By.tagName('h1'));
+
+        expect(firstRun.isDisplayed()).toBe(true);
+        expect(greeting.getText()).toBe('Welcome to the ownCloud News app!');
     });
 
 });

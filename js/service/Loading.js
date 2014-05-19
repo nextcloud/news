@@ -12,7 +12,8 @@ app.service('Loading', function () {
 
     this.loading = {
         global: false,
-        content: false
+        content: false,
+        autopaging: false
     };
 
     this.setLoading = function (area, isLoading) {

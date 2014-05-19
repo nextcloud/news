@@ -24,7 +24,13 @@ describe('Publisher', function () {
         });
 
         expect(obj.receive).toHaveBeenCalledWith('tom');
+    }));
 
+
+    it('should not broadcast to not subscribed channels', inject(function (Publisher) {
+        Publisher.publishAll({
+            test: 'tom'
+        });
     }));
 
 });

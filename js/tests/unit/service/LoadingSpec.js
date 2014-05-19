@@ -15,6 +15,7 @@ describe('Loading', function () {
     it('should be not load by default', inject(function (Loading) {
         expect(Loading.isLoading('global')).toBe(false);
         expect(Loading.isLoading('content')).toBe(false);
+        expect(Loading.isLoading('autopaging')).toBe(false);
     }));
 
     it('should set loading', inject(function (Loading) {

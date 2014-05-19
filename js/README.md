@@ -10,7 +10,7 @@ then run:
 ## Building
 Watch mode:
 
-	grunt watch
+	grunt dev
 
 Single run mode:
 
@@ -19,7 +19,7 @@ Single run mode:
 ## Testing
 Watch mode:
 
-	grunt watch:phpunit
+	grunt phpunit
 	grunt test
 
 Single run mode:

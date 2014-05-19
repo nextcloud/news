@@ -19,6 +19,22 @@
  *
  */
 
+#first-run {
+    height: 100%;
+    width: 100%;
+    display: table;
+}
+
+#first-run h1 {
+    color: #888888;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-shadow: 0 1px 0 #FFFFFF;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
 #app-content:after {
 	content: '';
 	display: block;
@@ -35,11 +51,6 @@
 	height: 100%;
 }
 
-#app-content.loading {
-	background-image: url('../img/loading.gif');
-	background-position: center;
-	background-repeat: no-repeat;
-}
 
 #app-content.loading > ul {
 	display: none;

@@ -1,5 +1,3 @@
-<div class="pull-refresh" ng-class="{refresh: refresh}"></div>
-
 <ul>
 	<li class="feed_item"
 
@@ -14,9 +12,9 @@
 					class="star"
 					>
 			</button>
-			<a class="external" 
-				target="_blank" 
-				ng-href="{{ item.url }}" 
+			<a class="external"
+				target="_blank"
+				ng-href="{{ item.url }}"
 				title="<?php p($l->t('read on website')) ?>">
 			</a>
 			<span class="timeago" title="{{item.pubDate*1000|date:'dd-MM-yyyy'}}">
@@ -26,7 +24,7 @@
 				<a ng-click="item.active = !item.active" href="#">{{ item.title }}</a>
 			</h1>
 		</div>
-		
+
 		<h2 class="item_date">
 			<span class="timeago" title="{{item.pubDate*1000|date:'dd-MM-yyyy'}}">
 				{{ getRelativeDate(item.pubDate) }}
@@ -36,7 +34,7 @@
 		<div class="item_utils">
 			<ul class="primary_item_utils">
 				<li>
-					<button 
+					<button
 					title="<?php p($l->t('star')) ?>"
 					ng-class="{ important: item.isStarred() }"
 					ng-click="itemBusinessLayer.toggleStarred(item.id)"

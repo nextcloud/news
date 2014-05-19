@@ -27,7 +27,7 @@ app.service('Publisher', function () {
             counter;
 
         for (channel in data) {
-            if (data.hasOwnProperty(channel)) {
+            if (data.hasOwnProperty(channel) && this.channels[channel] !== undefined) {
                 for (counter = 0; counter < this.channels[channel].length; counter += 1) {
                     this.channels[channel][counter].receive(data[channel]);
                 }

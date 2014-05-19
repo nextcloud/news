@@ -1,0 +1,13 @@
+.loading-icon {
+    background-image: url('../img/loading.gif');
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#global-loading {
+    width: 100%;
+    height: 100%;
+}
+
+
+

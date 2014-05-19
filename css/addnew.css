@@ -31,11 +31,11 @@
 }
 
 .add-new input[type=text] {
-	width: 120px;
+	width: 170px;
 }
 
 .add-new select {
-	width: 133px;
+	width: 170px;
 	margin-top: 1px !important;
 	height: 30px;
 	background-color: #eee;
@@ -46,7 +46,7 @@
 	box-sizing: border-box;
 }
 
-.add-new input, 
+.add-new input,
 .add-new select {
 	margin: 0 0 5px 0;
 	display: inline-block;
@@ -69,7 +69,7 @@
 .add-new .action-button {
 	width: 30px;
 	background-position: center;
-	background-repeat: no-repeat;	
+	background-repeat: no-repeat;
 }
 
 .add-new .back-button {
@@ -80,15 +80,15 @@
 .add-new .new-button {
 	border-radius: 0;
 	background-image: url('../img/add.svg');
-	border-top-right-radius: 5px; 
-	border-bottom-right-radius: 5px; 
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
 }
 
 .add-new .create-button {
 	border-radius: 0;
 	background-image: url('../img/mark_read.svg');
-	border-top-right-radius: 5px; 
-	border-bottom-right-radius: 5px; 
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
 }
 
 .add-new .error {

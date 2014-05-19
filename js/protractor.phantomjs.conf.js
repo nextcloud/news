@@ -28,6 +28,14 @@ exports.config = {
                 return regex.test(url);
             });
         });
+
+        browser.get(baseUrl + '/owncloud/index.php/apps/news/');
+        browser.driver.wait(function () {
+            return browser.driver.getCurrentUrl().then(function (url) {
+                var regex = /apps\/news/;
+                return regex.test(url);
+            });
+        });
     },
     capabilities: {
         browserName: 'phantomjs',

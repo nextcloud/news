@@ -1,13 +1,4 @@
 /* Feeds */
-#app-navigation .add-new input,
-#app-navigation .add-new select {
-	width: 170px;
-}
-
-#app-navigation .ui-draggable-dragging {
-	width: 299px;
-}
-
 #app-navigation .rename-feed > input {
 	width: 208px;
 	height: 32px;
@@ -15,7 +6,7 @@
 	border-radius: 2px;
 }
 
-#app-navigation .progress-icon, 
+#app-navigation .progress-icon,
 #app-navigation .problem-icon {
 	width: 299px;
 	line-height: 44px;
