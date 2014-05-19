@@ -14,16 +14,21 @@ app.config([
   '$httpProvider',
   function ($routeProvider, $provide, $httpProvider) {
     'use strict';
-    // constants
-    $provide.constant('CONFIG', { REFRESH_RATE: 60 });
-    $provide.constant('BASE_URL', OC.generateUrl('/apps/news'));
-    $provide.constant('FEED_TYPE', {
+    var getResolve, feedType;
+    feedType = {
       FEED: 0,
       FOLDER: 1,
       STARRED: 2,
       SUBSCRIPTIONS: 3,
       SHARED: 4
-    });
+    };
+    // constants
+    $provide.constant('REFRESH_RATE', 60);
+    // seconds, how often feeds and folders shoudl be refreshed
+    $provide.constant('ITEM_BATCH_SIZE', 50);
+    // how many items to autopage by
+    $provide.constant('BASE_URL', OC.generateUrl('/apps/news'));
+    $provide.constant('FEED_TYPE', feedType);
     // make sure that the CSRF header is only sent to the ownCloud domain
     $provide.factory('CSRFInterceptor', function ($q, BASE_URL) {
       return {
@@ -37,22 +42,52 @@ app.config([
     });
     $httpProvider.interceptors.push('CSRFInterceptor');
     // routing
+    getResolve = function (type) {
+      return {
+        data: [
+          '$http',
+          '$route',
+          '$q',
+          'BASE_URL',
+          'ITEM_BATCH_SIZE',
+          function ($http, $route, $q, BASE_URL, ITEM_BATCH_SIZE) {
+            var parameters, deferred;
+            parameters = {
+              type: type,
+              limit: ITEM_BATCH_SIZE
+            };
+            if ($route.current.params.id !== undefined) {
+              parameters.id = $route.current.params.id;
+            }
+            deferred = $q.defer();
+            $http({
+              url: BASE_URL + '/items',
+              method: 'GET',
+              params: parameters
+            }).success(function (data) {
+              deferred.resolve(data);
+            });
+            return deferred.promise;
+          }
+        ]
+      };
+    };
     $routeProvider.when('/items', {
-      controller: 'ItemController',
+      controller: 'ContentController',
       templateUrl: 'content.html',
-      resolve: {}
+      resolve: getResolve(feedType.SUBSCRIPTIONS)
     }).when('/items/starred', {
-      controller: 'StarredController',
+      controller: 'ContentController',
       templateUrl: 'content.html',
-      resolve: {}
+      resolve: getResolve(feedType.STARRED)
     }).when('/items/feeds/:id', {
-      controller: 'FeedController',
+      controller: 'ContentController',
       templateUrl: 'content.html',
-      resolve: {}
+      resolve: getResolve(feedType.FEED)
     }).when('/items/folders/:id', {
-      controller: 'FolderController',
+      controller: 'ContentController',
       templateUrl: 'content.html',
-      resolve: {}
+      resolve: getResolve(feedType.FOLDER)
     }).otherwise({ redirectTo: '/items' });
   }
 ]);
@@ -70,26 +105,26 @@ app.run([
   'Publisher',
   'BASE_URL',
   'FEED_TYPE',
-  'CONFIG',
-  function ($rootScope, $location, $http, $q, $interval, Loading, Item, Feed, Folder, Settings, Publisher, BASE_URL, FEED_TYPE, CONFIG) {
+  'REFRESH_RATE',
+  function ($rootScope, $location, $http, $q, $interval, Loading, Item, Feed, Folder, Settings, Publisher, BASE_URL, FEED_TYPE, REFRESH_RATE) {
     'use strict';
     // show Loading screen
     Loading.setLoading('global', true);
     // listen to keys in returned queries to automatically distribute the
     // incoming values to models
-    Publisher.subscribe(Item).toChannel('items');
-    Publisher.subscribe(Folder).toChannel('folders');
-    Publisher.subscribe(Feed).toChannel('feeds');
-    Publisher.subscribe(Settings).toChannel('settings');
+    Publisher.subscribe(Item).toChannels('items', 'newestItemId', 'starred');
+    Publisher.subscribe(Folder).toChannels('folders');
+    Publisher.subscribe(Feed).toChannels('feeds');
+    Publisher.subscribe(Settings).toChannels('settings');
     // load feeds, settings and last read feed
-    var settingsDeferred, activeFeedDeferred;
+    var settingsDeferred, activeFeedDeferred, folderDeferred, feedDeferred;
     settingsDeferred = $q.defer();
-    $http.get(BASE_URL + '/settings').then(function (data) {
+    $http.get(BASE_URL + '/settings').success(function (data) {
       Publisher.publishAll(data);
       settingsDeferred.resolve();
     });
     activeFeedDeferred = $q.defer();
-    $http.get(BASE_URL + '/feeds/active').then(function (data) {
+    $http.get(BASE_URL + '/feeds/active').success(function (data) {
       var url;
       switch (data.type) {
       case FEED_TYPE.FEED:
@@ -107,10 +142,22 @@ app.run([
       $location.path(url);
       activeFeedDeferred.resolve();
     });
+    folderDeferred = $q.defer();
+    $http.get(BASE_URL + '/folders').success(function (data) {
+      Publisher.publishAll(data);
+      folderDeferred.resolve();
+    });
+    feedDeferred = $q.defer();
+    $http.get(BASE_URL + '/feeds').success(function (data) {
+      Publisher.publishAll(data);
+      feedDeferred.resolve();
+    });
     // disable loading if all initial requests finished
     $q.all([
       settingsDeferred.promise,
-      activeFeedDeferred.promise
+      activeFeedDeferred.promise,
+      feedDeferred.promise,
+      folderDeferred.promise
     ]).then(function () {
       Loading.setLoading('global', false);
     });
@@ -118,7 +165,7 @@ app.run([
     $interval(function () {
       $http.get(BASE_URL + '/feeds');
       $http.get(BASE_URL + '/folders');
-    }, CONFIG.REFRESH_RATE * 1000);
+    }, REFRESH_RATE * 1000);
     $rootScope.$on('$routeChangeStart', function () {
       Loading.setLoading('content', true);
     });
@@ -185,6 +232,24 @@ app.factory('Item', [
       Model.call(this, 'id');
     };
     Item.prototype = Object.create(Model.prototype);
+    Item.prototype.receive = function (value, channel) {
+      switch (channel) {
+      case 'newestItemId':
+        this.newestItemId = value;
+        break;
+      case 'starred':
+        this.starredCount = value;
+        break;
+      default:
+        Model.prototype.receive.call(this, value, channel);
+      }
+    };
+    Item.prototype.getNewestItemId = function () {
+      return this.newestItemId;
+    };
+    Item.prototype.getStarredCount = function () {
+      return this.starredCount;
+    };
     return new Item();
   }
 ]);
@@ -271,9 +336,13 @@ app.service('Publisher', function () {
   this.channels = {};
   this.subscribe = function (object) {
     return {
-      toChannel: function (channel) {
-        self.channels[channel] = self.channels[channel] || [];
-        self.channels[channel].push(object);
+      toChannels: function () {
+        var counter, channel;
+        for (counter = 0; counter < arguments.length; counter += 1) {
+          channel = arguments[counter];
+          self.channels[channel] = self.channels[channel] || [];
+          self.channels[channel].push(object);
+        }
       }
     };
   };
@@ -282,7 +351,7 @@ app.service('Publisher', function () {
     for (channel in data) {
       if (data.hasOwnProperty(channel) && this.channels[channel] !== undefined) {
         for (counter = 0; counter < this.channels[channel].length; counter += 1) {
-          this.channels[channel][counter].receive(data[channel]);
+          this.channels[channel][counter].receive(data[channel], channel);
         }
       }
     }

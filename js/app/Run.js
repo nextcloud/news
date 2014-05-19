@@ -9,7 +9,7 @@
  */
 app.run(function ($rootScope, $location, $http, $q, $interval, Loading, Item,
                   Feed, Folder, Settings, Publisher, BASE_URL, FEED_TYPE,
-                  CONFIG) {
+                  REFRESH_RATE) {
     'use strict';
 
     // show Loading screen
@@ -17,23 +17,25 @@ app.run(function ($rootScope, $location, $http, $q, $interval, Loading, Item,
 
     // listen to keys in returned queries to automatically distribute the
     // incoming values to models
-    Publisher.subscribe(Item).toChannel('items');
-    Publisher.subscribe(Folder).toChannel('folders');
-    Publisher.subscribe(Feed).toChannel('feeds');
-    Publisher.subscribe(Settings).toChannel('settings');
+    Publisher.subscribe(Item).toChannels('items', 'newestItemId', 'starred');
+    Publisher.subscribe(Folder).toChannels('folders');
+    Publisher.subscribe(Feed).toChannels('feeds');
+    Publisher.subscribe(Settings).toChannels('settings');
 
     // load feeds, settings and last read feed
     var settingsDeferred,
-        activeFeedDeferred;
+        activeFeedDeferred,
+        folderDeferred,
+        feedDeferred;
 
     settingsDeferred = $q.defer();
-    $http.get(BASE_URL + '/settings').then(function (data) {
+    $http.get(BASE_URL + '/settings').success(function (data) {
         Publisher.publishAll(data);
         settingsDeferred.resolve();
     });
 
     activeFeedDeferred = $q.defer();
-    $http.get(BASE_URL + '/feeds/active').then(function (data) {
+    $http.get(BASE_URL + '/feeds/active').success(function (data) {
         var url;
 
         switch (data.type) {
@@ -58,8 +60,27 @@ app.run(function ($rootScope, $location, $http, $q, $interval, Loading, Item,
         activeFeedDeferred.resolve();
     });
 
+    folderDeferred = $q.defer();
+    $http.get(BASE_URL + '/folders').success(function (data) {
+        Publisher.publishAll(data);
+        folderDeferred.resolve();
+    });
+
+    feedDeferred = $q.defer();
+    $http.get(BASE_URL + '/feeds').success(function (data) {
+        Publisher.publishAll(data);
+        feedDeferred.resolve();
+    });
+
     // disable loading if all initial requests finished
-    $q.all([settingsDeferred.promise, activeFeedDeferred.promise])
+    $q.all(
+        [
+            settingsDeferred.promise,
+            activeFeedDeferred.promise,
+            feedDeferred.promise,
+            folderDeferred.promise
+        ]
+    )
         .then(function () {
             Loading.setLoading('global', false);
         });
@@ -68,7 +89,7 @@ app.run(function ($rootScope, $location, $http, $q, $interval, Loading, Item,
     $interval(function () {
         $http.get(BASE_URL + '/feeds');
         $http.get(BASE_URL + '/folders');
-    }, CONFIG.REFRESH_RATE * 1000);
+    }, REFRESH_RATE * 1000);
 
 
     $rootScope.$on('$routeChangeStart', function () {

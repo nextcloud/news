@@ -9,19 +9,22 @@
  */
 app.config(function ($routeProvider, $provide, $httpProvider) {
     'use strict';
+    var getResolve,
+        feedType;
 
-    // constants
-    $provide.constant('CONFIG', {
-        REFRESH_RATE: 60  // refresh feeds every 60 seconds
-    });
-    $provide.constant('BASE_URL', OC.generateUrl('/apps/news'));
-    $provide.constant('FEED_TYPE', {
+    feedType = {
         FEED: 0,
         FOLDER: 1,
         STARRED: 2,
         SUBSCRIPTIONS: 3,
         SHARED: 4
-    });
+    };
+
+    // constants
+    $provide.constant('REFRESH_RATE', 60);  // seconds, how often feeds and folders shoudl be refreshed
+    $provide.constant('ITEM_BATCH_SIZE', 50);  // how many items to autopage by
+    $provide.constant('BASE_URL', OC.generateUrl('/apps/news'));
+    $provide.constant('FEED_TYPE', feedType);
 
     // make sure that the CSRF header is only sent to the ownCloud domain
     $provide.factory('CSRFInterceptor', function ($q, BASE_URL) {
@@ -38,26 +41,65 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
     $httpProvider.interceptors.push('CSRFInterceptor');
 
     // routing
+    getResolve = function (type) {
+        return {
+            // request to items also returns feeds
+            data: [
+                '$http',
+                '$route',
+                '$q',
+                'BASE_URL',
+                'ITEM_BATCH_SIZE',
+                function ($http, $route, $q, BASE_URL, ITEM_BATCH_SIZE) {
+
+                    var parameters,
+                        deferred;
+
+                    parameters = {
+                        type: type,
+                        limit: ITEM_BATCH_SIZE
+                    };
+
+                    if ($route.current.params.id !== undefined) {
+                        parameters.id = $route.current.params.id;
+                    }
+
+                    deferred = $q.defer();
+
+                    $http({
+                        url: BASE_URL + '/items',
+                        method: 'GET',
+                        params: parameters
+                    }).success(function (data) {
+                        deferred.resolve(data);
+                    });
+
+                    return deferred.promise;
+                }
+            ]
+        };
+    };
+
     $routeProvider
         .when('/items', {
-            controller: 'ItemController',
+            controller: 'ContentController',
             templateUrl: 'content.html',
-            resolve: {}
+            resolve: getResolve(feedType.SUBSCRIPTIONS)
         })
         .when('/items/starred', {
-            controller: 'StarredController',
+            controller: 'ContentController',
             templateUrl: 'content.html',
-            resolve: {}
+            resolve: getResolve(feedType.STARRED)
         })
         .when('/items/feeds/:id', {
-            controller: 'FeedController',
+            controller: 'ContentController',
             templateUrl: 'content.html',
-            resolve: {}
+            resolve: getResolve(feedType.FEED)
         })
         .when('/items/folders/:id', {
-            controller: 'FolderController',
+            controller: 'ContentController',
             templateUrl: 'content.html',
-            resolve: {}
+            resolve: getResolve(feedType.FOLDER)
         })
         .otherwise({
             redirectTo: '/items'

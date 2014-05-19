@@ -15,9 +15,14 @@ app.service('Publisher', function () {
 
     this.subscribe = function (object) {
         return {
-            toChannel: function (channel) {
-                self.channels[channel] = self.channels[channel] || [];
-                self.channels[channel].push(object);
+            toChannels: function () {
+                var counter,
+                    channel;
+                for (counter = 0; counter < arguments.length; counter += 1) {
+                    channel = arguments[counter];
+                    self.channels[channel] = self.channels[channel] || [];
+                    self.channels[channel].push(object);
+                }
             }
         };
     };
@@ -29,7 +34,7 @@ app.service('Publisher', function () {
         for (channel in data) {
             if (data.hasOwnProperty(channel) && this.channels[channel] !== undefined) {
                 for (counter = 0; counter < this.channels[channel].length; counter += 1) {
-                    this.channels[channel][counter].receive(data[channel]);
+                    this.channels[channel][counter].receive(data[channel], channel);
                 }
             }
         }

@@ -17,13 +17,28 @@ describe('Publisher', function () {
         var obj = {
             receive: jasmine.createSpy('receive')
         };
-        Publisher.subscribe(obj).toChannel('test');
+        Publisher.subscribe(obj).toChannels('test');
 
         Publisher.publishAll({
             test: 'tom'
         });
 
-        expect(obj.receive).toHaveBeenCalledWith('tom');
+        expect(obj.receive).toHaveBeenCalledWith('tom', 'test');
+    }));
+
+
+    it('should should publish on all possible channels', inject(function (Publisher) {
+
+        var obj = {
+            receive: jasmine.createSpy('receive')
+        };
+        Publisher.subscribe(obj).toChannels('test', 'tiny');
+
+        Publisher.publishAll({
+            tiny: 'tom'
+        });
+
+        expect(obj.receive).toHaveBeenCalledWith('tom', 'tiny');
     }));
 
 
