@@ -126,4 +126,26 @@ describe('Model', function () {
         expect(childModel.size()).toBe(0);
     });
 
+
+    it('should get all models', function () {
+        var object1,
+            object2;
+
+        object1 = {
+            id: 3,
+            name: 'test',
+            test: 'ho'
+        };
+
+        object2 = {
+            id: 4,
+            name: 'test2'
+        };
+
+        childModel.add(object1);
+        childModel.add(object2);
+
+        expect(childModel.getAll()[1].id).toBe(4);
+    });
+
 });

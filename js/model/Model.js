@@ -81,6 +81,10 @@ app.factory('Model', function () {
             while (this.values.length > 0) {
                 this.values.pop();
             }
+        },
+
+        getAll: function () {
+            return this.values;
         }
     };
 

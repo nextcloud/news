@@ -190,10 +190,23 @@ app.controller('AppController', [
     };
   }
 ]);
-app.controller('ItemController', function () {
-  'use strict';
-  console.log('here');
-});
+app.controller('ContentController', [
+  'Publisher',
+  'Feed',
+  'Item',
+  'data',
+  function (Publisher, Feed, Item, data) {
+    'use strict';
+    // distribute data to models based on key
+    Publisher.publishAll(data);
+    this.getItems = function () {
+      return Item.getAll();
+    };
+    this.getFeeds = function () {
+      return Feed.getAll();
+    };
+  }
+]);
 app.controller('NavigationController', function () {
   'use strict';
   console.log('here');
@@ -371,6 +384,9 @@ app.factory('Model', function () {
       while (this.values.length > 0) {
         this.values.pop();
       }
+    },
+    getAll: function () {
+      return this.values;
     }
   };
   return Model;
