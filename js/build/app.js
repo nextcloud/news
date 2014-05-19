@@ -202,6 +202,65 @@ app.controller('SettingsController', function () {
   'use strict';
   console.log('here');
 });
+app.service('Loading', function () {
+  'use strict';
+  this.loading = {
+    global: false,
+    content: false,
+    autopaging: false
+  };
+  this.setLoading = function (area, isLoading) {
+    this.loading[area] = isLoading;
+  };
+  this.isLoading = function (area) {
+    return this.loading[area];
+  };
+});
+app.service('Publisher', function () {
+  'use strict';
+  var self = this;
+  this.channels = {};
+  this.subscribe = function (object) {
+    return {
+      toChannels: function () {
+        var counter, channel;
+        for (counter = 0; counter < arguments.length; counter += 1) {
+          channel = arguments[counter];
+          self.channels[channel] = self.channels[channel] || [];
+          self.channels[channel].push(object);
+        }
+      }
+    };
+  };
+  this.publishAll = function (data) {
+    var channel, counter;
+    for (channel in data) {
+      if (data.hasOwnProperty(channel) && this.channels[channel] !== undefined) {
+        for (counter = 0; counter < this.channels[channel].length; counter += 1) {
+          this.channels[channel][counter].receive(data[channel], channel);
+        }
+      }
+    }
+  };
+});
+app.service('Settings', function () {
+  'use strict';
+  this.settings = {};
+  this.receive = function (data) {
+    var key;
+    for (key in data) {
+      if (data.hasOwnProperty(key)) {
+        this.settings[key] = data[key];
+      }
+    }
+  };
+  this.get = function (key) {
+    return this.settings[key];
+  };
+  this.set = function (key, value) {
+    this.settings[key] = value;
+  };
+});
 app.factory('Feed', [
   'Model',
   function (Model) {
@@ -253,20 +312,6 @@ app.factory('Item', [
     return new Item();
   }
 ]);
-app.service('Loading', function () {
-  'use strict';
-  this.loading = {
-    global: false,
-    content: false,
-    autopaging: false
-  };
-  this.setLoading = function (area, isLoading) {
-    this.loading[area] = isLoading;
-  };
-  this.isLoading = function (area) {
-    return this.loading[area];
-  };
-});
 app.factory('Model', function () {
   'use strict';
   var Model = function (id) {
@@ -329,51 +374,6 @@ app.factory('Model', function () {
     }
   };
   return Model;
-});
-app.service('Publisher', function () {
-  'use strict';
-  var self = this;
-  this.channels = {};
-  this.subscribe = function (object) {
-    return {
-      toChannels: function () {
-        var counter, channel;
-        for (counter = 0; counter < arguments.length; counter += 1) {
-          channel = arguments[counter];
-          self.channels[channel] = self.channels[channel] || [];
-          self.channels[channel].push(object);
-        }
-      }
-    };
-  };
-  this.publishAll = function (data) {
-    var channel, counter;
-    for (channel in data) {
-      if (data.hasOwnProperty(channel) && this.channels[channel] !== undefined) {
-        for (counter = 0; counter < this.channels[channel].length; counter += 1) {
-          this.channels[channel][counter].receive(data[channel], channel);
-        }
-      }
-    }
-  };
-});
-app.service('Settings', function () {
-  'use strict';
-  this.settings = {};
-  this.receive = function (data) {
-    var key;
-    for (key in data) {
-      if (data.hasOwnProperty(key)) {
-        this.settings[key] = data[key];
-      }
-    }
-  };
-  this.get = function (key) {
-    return this.settings[key];
-  };
-  this.set = function (key, value) {
-    this.settings[key] = value;
-  };
 });
 
 })(angular, jQuery, OC, oc_requesttoken);

@@ -13,10 +13,10 @@ describe('Publisher', function () {
     beforeEach(module('News'));
 
     it('should should publish on all possible channels', inject(function (Publisher) {
-
         var obj = {
             receive: jasmine.createSpy('receive')
         };
+
         Publisher.subscribe(obj).toChannels('test');
 
         Publisher.publishAll({
@@ -28,10 +28,10 @@ describe('Publisher', function () {
 
 
     it('should should publish on all possible channels', inject(function (Publisher) {
-
         var obj = {
             receive: jasmine.createSpy('receive')
         };
+
         Publisher.subscribe(obj).toChannels('test', 'tiny');
 
         Publisher.publishAll({

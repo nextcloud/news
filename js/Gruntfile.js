@@ -70,6 +70,7 @@ module.exports = function (grunt) {
                     'controller/**/*.js',
                     'filter/**/*.js',
                     'service/**/*.js',
+                    'model/**/*.js',
                     'directive/**/*.js'
                 ],
                 dest: '<%= meta.production %>app.js'
@@ -99,6 +100,7 @@ module.exports = function (grunt) {
                     'app/**/*.js',
                     'filter/**/*.js',
                     'service/**/*.js',
+                    'model/**/*.js',
                     'controller/**/*.js',
                     'directive/**/*.js',
                     'tests/**/*.js',
@@ -118,6 +120,7 @@ module.exports = function (grunt) {
                     'tests/**/*.js',
                     'app/**/*.js',
                     'controller/**/*.js',
+                    'model/**/*.js',
                     'directive/**/*.js',
                     'filter/**/*.js',
                     'service/**/*.js',
