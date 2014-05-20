@@ -395,5 +395,14 @@ app.service('Settings', function () {
     this.settings[key] = value;
   };
 });
+(function (document, $) {
+  'use strict';
+  $(document).on('keyup', function (event) {
+    var keyCode = event.keyCode;
+    console.log(undefined);
+    console.log(keyCode);
+  });
+  console.log('hi');
+}(document, jQuery));
 
 })(angular, jQuery, OC, oc_requesttoken);

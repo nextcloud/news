@@ -11,6 +11,7 @@
 var globals = [
     // libs
     '$',
+    'jQuery',
     'angular',
     // app
     'app',
@@ -70,6 +71,7 @@ module.exports = function (grunt) {
                     'controller/**/*.js',
                     'filter/**/*.js',
                     'service/**/*.js',
+                    'gui/**/*.js',
                     'model/**/*.js',
                     'directive/**/*.js'
                 ],
@@ -104,6 +106,7 @@ module.exports = function (grunt) {
                     'controller/**/*.js',
                     'directive/**/*.js',
                     'tests/**/*.js',
+                    'gui/**/*.js',
                     'Gruntfile.js',
                     'karma.conf.js',
                     'protractor*conf.js'
@@ -124,6 +127,7 @@ module.exports = function (grunt) {
                     'directive/**/*.js',
                     'filter/**/*.js',
                     'service/**/*.js',
+                    'gui/**/*.js',
                     '../templates/**/*.php'
                 ],
                 tasks: ['default'],
