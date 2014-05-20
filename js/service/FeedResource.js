@@ -7,14 +7,14 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.factory('Folder', function (Model) {
+app.factory('FeedResource', function (Resource, $http) {
     'use strict';
 
-    var Folder = function () {
-        Model.call(this, 'name');
+    var FeedResource = function ($http) {
+        Resource.call(this, 'url', $http);
     };
 
-    Folder.prototype = Object.create(Model.prototype);
+    FeedResource.prototype = Object.create(Resource.prototype);
 
-    return new Folder();
+    return new FeedResource($http);
 });

@@ -13,9 +13,11 @@ describe('ContentController', function () {
     beforeEach(module('News'));
 
 
-    it('should publish data to models', inject(function ($controller, Publisher, Feed, Item) {
-        Publisher.subscribe(Item).toChannels('items');
-        Publisher.subscribe(Feed).toChannels('feeds');
+    it('should publish data to models', inject(function ($controller, Publisher,
+        FeedResource, ItemResource) {
+
+        Publisher.subscribe(ItemResource).toChannels('items');
+        Publisher.subscribe(FeedResource).toChannels('feeds');
 
         var controller = $controller('ContentController', {
             data: {

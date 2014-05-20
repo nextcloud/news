@@ -7,9 +7,9 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.run(function ($rootScope, $location, $http, $q, $interval, Loading, Item,
-                  Feed, Folder, Settings, Publisher, BASE_URL, FEED_TYPE,
-                  REFRESH_RATE) {
+app.run(function ($rootScope, $location, $http, $q, $interval, Loading,
+                  ItemResource, FeedResource, FolderResource, Settings,
+                  Publisher, BASE_URL, FEED_TYPE, REFRESH_RATE) {
     'use strict';
 
     // show Loading screen
@@ -17,9 +17,9 @@ app.run(function ($rootScope, $location, $http, $q, $interval, Loading, Item,
 
     // listen to keys in returned queries to automatically distribute the
     // incoming values to models
-    Publisher.subscribe(Item).toChannels('items', 'newestItemId', 'starred');
-    Publisher.subscribe(Folder).toChannels('folders');
-    Publisher.subscribe(Feed).toChannels('feeds');
+    Publisher.subscribe(ItemResource).toChannels('items', 'newestItemId', 'starred');
+    Publisher.subscribe(FolderResource).toChannels('folders');
+    Publisher.subscribe(FeedResource).toChannels('feeds');
     Publisher.subscribe(Settings).toChannels('settings');
 
     // load feeds, settings and last read feed

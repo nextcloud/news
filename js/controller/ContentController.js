@@ -7,17 +7,17 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.controller('ContentController', function (Publisher, Feed, Item, data) {
+app.controller('ContentController', function (Publisher, FeedResource, ItemResource, data) {
     'use strict';
 
     // distribute data to models based on key
     Publisher.publishAll(data);
 
     this.getItems = function () {
-        return Item.getAll();
+        return ItemResource.getAll();
     };
 
     this.getFeeds = function () {
-        return Feed.getAll();
+        return FeedResource.getAll();
     };
 });

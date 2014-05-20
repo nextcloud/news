@@ -7,16 +7,17 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.factory('Model', function () {
+app.factory('Resource', function () {
     'use strict';
 
-    var Model = function (id) {
+    var Resource = function (id, http) {
         this.id = id;
         this.values = [];
         this.hashMap = {};
+        this.http = http;
     };
 
-    Model.prototype = {
+    Resource.prototype = {
         receive: function (values) {
             var self = this;
             values.forEach(function (value) {
@@ -88,5 +89,5 @@ app.factory('Model', function () {
         }
     };
 
-    return Model;
+    return Resource;
 });

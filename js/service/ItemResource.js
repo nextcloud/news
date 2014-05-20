@@ -7,16 +7,16 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.factory('Item', function (Model) {
+app.factory('ItemResource', function (Resource, $http) {
     'use strict';
 
-    var Item = function () {
-        Model.call(this, 'id');
+    var ItemResource = function ($http) {
+        Resource.call(this, 'id', $http);
     };
 
-    Item.prototype = Object.create(Model.prototype);
+    ItemResource.prototype = Object.create(Resource.prototype);
 
-    Item.prototype.receive = function (value, channel) {
+    ItemResource.prototype.receive = function (value, channel) {
         switch (channel) {
 
         case 'newestItemId':
@@ -27,18 +27,18 @@ app.factory('Item', function (Model) {
             this.starredCount = value;
             break;
         default:
-            Model.prototype.receive.call(this, value, channel);
+            Resource.prototype.receive.call(this, value, channel);
         }
     };
 
-    Item.prototype.getNewestItemId = function () {
+    ItemResource.prototype.getNewestItemId = function () {
         return this.newestItemId;
     };
 
-    Item.prototype.getStarredCount = function () {
+    ItemResource.prototype.getStarredCount = function () {
         return this.starredCount;
     };
 
 
-    return new Item();
+    return new ItemResource($http);
 });

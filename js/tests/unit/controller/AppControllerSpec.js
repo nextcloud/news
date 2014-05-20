@@ -29,15 +29,15 @@ describe('AppController', function () {
     }));
 
 
-    it('should expose set firstrun if feeds', inject(function (Feed) {
-        Feed.add({url: 'test'});
+    it('should expose set firstrun if feeds', inject(function (FeedResource) {
+        FeedResource.add({url: 'test'});
 
         expect(controller.isFirstRun()).toBe(false);
     }));
 
 
-    it('should expose set firstrun if folders', inject(function (Folder) {
-        Folder.add({name: 'test'});
+    it('should expose set firstrun if folders', inject(function (FolderResource) {
+        FolderResource.add({name: 'test'});
 
         expect(controller.isFirstRun()).toBe(false);
     }));

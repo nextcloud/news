@@ -7,18 +7,18 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-describe('Model', function () {
+describe('Resource', function () {
     'use strict';
 
     var childModel;
 
     beforeEach(module('News'));
 
-    beforeEach(inject(function (Model) {
+    beforeEach(inject(function (Resource) {
         var ChildModel = function () {
-            Model.call(this, 'id');
+            Resource.call(this, 'id');
         };
-        ChildModel.prototype = Object.create(Model.prototype);
+        ChildModel.prototype = Object.create(Resource.prototype);
 
         childModel = new ChildModel();
     }));
@@ -75,7 +75,7 @@ describe('Model', function () {
     });
 
 
-    it('should delete a model', function () {
+    it('should delete a Resource', function () {
         var object1,
             object2;
 

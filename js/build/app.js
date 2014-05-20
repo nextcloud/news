@@ -98,23 +98,23 @@ app.run([
   '$q',
   '$interval',
   'Loading',
-  'Item',
-  'Feed',
-  'Folder',
+  'ItemResource',
+  'FeedResource',
+  'FolderResource',
   'Settings',
   'Publisher',
   'BASE_URL',
   'FEED_TYPE',
   'REFRESH_RATE',
-  function ($rootScope, $location, $http, $q, $interval, Loading, Item, Feed, Folder, Settings, Publisher, BASE_URL, FEED_TYPE, REFRESH_RATE) {
+  function ($rootScope, $location, $http, $q, $interval, Loading, ItemResource, FeedResource, FolderResource, Settings, Publisher, BASE_URL, FEED_TYPE, REFRESH_RATE) {
     'use strict';
     // show Loading screen
     Loading.setLoading('global', true);
     // listen to keys in returned queries to automatically distribute the
     // incoming values to models
-    Publisher.subscribe(Item).toChannels('items', 'newestItemId', 'starred');
-    Publisher.subscribe(Folder).toChannels('folders');
-    Publisher.subscribe(Feed).toChannels('feeds');
+    Publisher.subscribe(ItemResource).toChannels('items', 'newestItemId', 'starred');
+    Publisher.subscribe(FolderResource).toChannels('folders');
+    Publisher.subscribe(FeedResource).toChannels('feeds');
     Publisher.subscribe(Settings).toChannels('settings');
     // load feeds, settings and last read feed
     var settingsDeferred, activeFeedDeferred, folderDeferred, feedDeferred;
@@ -180,30 +180,30 @@ app.run([
 ]);
 app.controller('AppController', [
   'Loading',
-  'Feed',
-  'Folder',
-  function (Loading, Feed, Folder) {
+  'FeedResource',
+  'FolderResource',
+  function (Loading, FeedResource, FolderResource) {
     'use strict';
     this.loading = Loading;
     this.isFirstRun = function () {
-      return Feed.size() === 0 && Folder.size() === 0;
+      return FeedResource.size() === 0 && FolderResource.size() === 0;
     };
   }
 ]);
 app.controller('ContentController', [
   'Publisher',
-  'Feed',
-  'Item',
+  'FeedResource',
+  'ItemResource',
   'data',
-  function (Publisher, Feed, Item, data) {
+  function (Publisher, FeedResource, ItemResource, data) {
     'use strict';
     // distribute data to models based on key
     Publisher.publishAll(data);
     this.getItems = function () {
-      return Item.getAll();
+      return ItemResource.getAll();
     };
     this.getFeeds = function () {
-      return Feed.getAll();
+      return FeedResource.getAll();
     };
   }
 ]);
@@ -215,6 +215,60 @@ app.controller('SettingsController', function () {
   'use strict';
   console.log('here');
 });
+app.factory('FeedResource', [
+  'Resource',
+  '$http',
+  function (Resource, $http) {
+    'use strict';
+    var FeedResource = function ($http) {
+      Resource.call(this, 'url', $http);
+    };
+    FeedResource.prototype = Object.create(Resource.prototype);
+    return new FeedResource($http);
+  }
+]);
+app.factory('FolderResource', [
+  'Resource',
+  '$http',
+  function (Resource, $http) {
+    'use strict';
+    var FolderResource = function ($http) {
+      Resource.call(this, 'name', $http);
+    };
+    FolderResource.prototype = Object.create(Resource.prototype);
+    return new FolderResource($http);
+  }
+]);
+app.factory('ItemResource', [
+  'Resource',
+  '$http',
+  function (Resource, $http) {
+    'use strict';
+    var ItemResource = function ($http) {
+      Resource.call(this, 'id', $http);
+    };
+    ItemResource.prototype = Object.create(Resource.prototype);
+    ItemResource.prototype.receive = function (value, channel) {
+      switch (channel) {
+      case 'newestItemId':
+        this.newestItemId = value;
+        break;
+      case 'starred':
+        this.starredCount = value;
+        break;
+      default:
+        Resource.prototype.receive.call(this, value, channel);
+      }
+    };
+    ItemResource.prototype.getNewestItemId = function () {
+      return this.newestItemId;
+    };
+    ItemResource.prototype.getStarredCount = function () {
+      return this.starredCount;
+    };
+    return new ItemResource($http);
+  }
+]);
 app.service('Loading', function () {
   'use strict';
   this.loading = {
@@ -256,83 +310,15 @@ app.service('Publisher', function () {
     }
   };
 });
-app.service('Settings', function () {
+app.factory('Resource', function () {
   'use strict';
-  this.settings = {};
-  this.receive = function (data) {
-    var key;
-    for (key in data) {
-      if (data.hasOwnProperty(key)) {
-        this.settings[key] = data[key];
-      }
-    }
-  };
-  this.get = function (key) {
-    return this.settings[key];
-  };
-  this.set = function (key, value) {
-    this.settings[key] = value;
-  };
-});
-app.factory('Feed', [
-  'Model',
-  function (Model) {
-    'use strict';
-    var Feed = function () {
-      Model.call(this, 'url');
-    };
-    Feed.prototype = Object.create(Model.prototype);
-    return new Feed();
-  }
-]);
-app.factory('Folder', [
-  'Model',
-  function (Model) {
-    'use strict';
-    var Folder = function () {
-      Model.call(this, 'name');
-    };
-    Folder.prototype = Object.create(Model.prototype);
-    return new Folder();
-  }
-]);
-app.factory('Item', [
-  'Model',
-  function (Model) {
-    'use strict';
-    var Item = function () {
-      Model.call(this, 'id');
-    };
-    Item.prototype = Object.create(Model.prototype);
-    Item.prototype.receive = function (value, channel) {
-      switch (channel) {
-      case 'newestItemId':
-        this.newestItemId = value;
-        break;
-      case 'starred':
-        this.starredCount = value;
-        break;
-      default:
-        Model.prototype.receive.call(this, value, channel);
-      }
-    };
-    Item.prototype.getNewestItemId = function () {
-      return this.newestItemId;
-    };
-    Item.prototype.getStarredCount = function () {
-      return this.starredCount;
-    };
-    return new Item();
-  }
-]);
-app.factory('Model', function () {
-  'use strict';
-  var Model = function (id) {
+  var Resource = function (id, http) {
     this.id = id;
     this.values = [];
     this.hashMap = {};
+    this.http = http;
   };
-  Model.prototype = {
+  Resource.prototype = {
     receive: function (values) {
       var self = this;
       values.forEach(function (value) {
@@ -389,7 +375,25 @@ app.factory('Model', function () {
       return this.values;
     }
   };
-  return Model;
+  return Resource;
+});
+app.service('Settings', function () {
+  'use strict';
+  this.settings = {};
+  this.receive = function (data) {
+    var key;
+    for (key in data) {
+      if (data.hasOwnProperty(key)) {
+        this.settings[key] = data[key];
+      }
+    }
+  };
+  this.get = function (key) {
+    return this.settings[key];
+  };
+  this.set = function (key, value) {
+    this.settings[key] = value;
+  };
 });
 
 })(angular, jQuery, OC, oc_requesttoken);
