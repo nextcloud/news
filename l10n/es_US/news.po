@@ -3,222 +3,216 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Caner BAŞARAN <basaran.caner@gmail.com>, 2013
-# ismail yenigül <ismail.yenigul@surgate.com>, 2013
-# Necdet Yücel <necdetyucel@gmail.com>, 2012
-# atakan96 <tayancatakan@gmail.com>, 2013
-# volkangezer <volkangezer@gmail.com>, 2013-2014
-# KAT.RAT12 <spanish.katerina@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2014-05-20 01:01-0400\n"
-"PO-Revision-Date: 2014-05-19 14:32+0000\n"
-"Last-Translator: volkangezer <volkangezer@gmail.com>\n"
-"Language-Team: Turkish (http://www.transifex.com/projects/p/owncloud/language/tr/)\n"
+"PO-Revision-Date: 2012-08-26 23:39+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Spanish (United States) (http://www.transifex.com/projects/p/owncloud/language/es_US/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: tr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: es_US\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: businesslayer/feedbusinesslayer.php:97
 msgid "Can not add feed: Exists already"
-msgstr "Besleme eklenemiyor: Zaten mevcut"
+msgstr ""
 
 #: businesslayer/feedbusinesslayer.php:137
 msgid ""
 "Can not add feed: URL does not exist, SSL Certificate can not be validated "
 "or feed has invalid xml"
-msgstr "Besleme eklenemiyor: Adres mevcut değil, SSL Sertifikası doğrulanamadı veya besleme geçersiz XML içeriyor"
+msgstr ""
 
 #: businesslayer/feedbusinesslayer.php:282
 msgid "Articles without feed"
-msgstr "Beslemesiz makaleler"
+msgstr ""
 
 #: businesslayer/folderbusinesslayer.php:54
 msgid "Can not add folder: Exists already"
-msgstr "Klasör eklenemiyor: Zaten mevcut"
+msgstr ""
 
 #: js/vendor/angular-ui/build/angular-ui.min.js:7
 msgid " "
-msgstr " "
+msgstr ""
 
 #: js/vendor/angular-ui/build/angular-ui.min.js:7
 msgid "_"
-msgstr "_"
+msgstr ""
 
 #: js/vendor/jquery-ui/ui/minified/jquery-ui.min.js:8
 msgid "status"
-msgstr "durum"
+msgstr ""
 
 #: templates/main.php:32
 #, php-format
 msgid "Undo deletion of %s"
-msgstr "%s silmesini geri al"
+msgstr ""
 
 #: templates/main.php:36
 msgid "News"
-msgstr "Haberler"
+msgstr ""
 
 #: templates/part.addnew.php:12
 msgid "Add Website"
-msgstr "Web Sitesi Ekle"
+msgstr ""
 
 #: templates/part.addnew.php:19
 msgid "Error: address exists already!"
-msgstr "Hata: adres zaten mevcut!"
+msgstr ""
 
 #: templates/part.addnew.php:22
 msgid "Error: folder exists already"
-msgstr "Hata: klasör zaten mevcut"
+msgstr ""
 
 #: templates/part.addnew.php:29
 msgid "Address"
-msgstr "Adres"
+msgstr ""
 
 #: templates/part.addnew.php:32 templates/part.addnew.php:35
 msgid "Add"
-msgstr "Ekle"
+msgstr ""
 
 #: templates/part.addnew.php:39 templates/part.addnew.php:46
 msgid "New folder"
-msgstr "Yeni klasör"
+msgstr ""
 
 #: templates/part.addnew.php:40
 msgid "Folder"
-msgstr "Klasör"
+msgstr ""
 
 #: templates/part.addnew.php:44
 msgid "Choose folder"
-msgstr "Klasör seç"
+msgstr ""
 
 #: templates/part.addnew.php:55
 msgid "Folder name"
-msgstr "Klasör adı"
+msgstr ""
 
 #: templates/part.addnew.php:59
 msgid "Back to folder selection"
-msgstr "Klasör seçimine dön"
+msgstr ""
 
 #: templates/part.addnew.php:63
 msgid "Create folder"
-msgstr "Klasör oluştur"
+msgstr ""
 
 #: templates/part.feed.starred.php:11
 msgid "Starred"
-msgstr "Yıldızlı"
+msgstr ""
 
 #: templates/part.feed.unread.php:11
 msgid "Unread articles"
-msgstr "Okunmamış makaleler"
+msgstr ""
 
 #: templates/part.feed.unread.php:18
 msgid "All articles"
-msgstr "Bütün makaleler"
+msgstr ""
 
 #: templates/part.feed.unread.php:27 templates/part.listfeed.php:62
 #: templates/part.listfolder.php:55
 msgid "Mark read"
-msgstr "Okundu işaretle"
+msgstr ""
 
 #: templates/part.firstrun.php:2
 msgid "Welcome to the ownCloud News app!"
-msgstr "ownCloud Haber uygulamasına hoş geldiniz!"
+msgstr ""
 
 #: templates/part.items.php:20
 msgid "read on website"
-msgstr "web sitesinde oku"
+msgstr ""
 
 #: templates/part.items.php:40
 msgid "star"
-msgstr "yıldız"
+msgstr ""
 
 #: templates/part.items.php:56
 msgid "from"
-msgstr "kaynak"
+msgstr ""
 
 #: templates/part.items.php:61
 msgid "by"
-msgstr "yazar"
+msgstr ""
 
 #: templates/part.items.php:68
 msgid "Download"
-msgstr "İndir"
+msgstr ""
 
 #: templates/part.items.php:79
 msgid "Keep unread"
-msgstr "Okunmamış bırak"
+msgstr ""
 
 #: templates/part.listfeed.php:22 templates/part.listfolder.php:19
 msgid "Cancel"
-msgstr "İptal"
+msgstr ""
 
 #: templates/part.listfeed.php:25 templates/part.listfolder.php:22
 msgid "Save"
-msgstr "Kaydet"
+msgstr ""
 
 #: templates/part.listfeed.php:50 templates/part.listfeed.php:74
 msgid "Delete website"
-msgstr "Web sitesini sil"
+msgstr ""
 
 #: templates/part.listfeed.php:69
 msgid "Rename feed"
-msgstr "Beslemeyi yeniden adlandır"
+msgstr ""
 
 #: templates/part.listfolder.php:15
 msgid "Collapse"
-msgstr "Daralt"
+msgstr ""
 
 #: templates/part.listfolder.php:44 templates/part.listfolder.php:60
 msgid "Delete folder"
-msgstr "Klasörü sil"
+msgstr ""
 
 #: templates/part.listfolder.php:67
 msgid "Rename folder"
-msgstr "Klasörü yeniden adlandır"
+msgstr ""
 
 #: templates/part.settings.php:13
 msgid "Settings"
-msgstr "Ayarlar"
+msgstr ""
 
 #: templates/part.settings.php:15
 msgid "Use compact view"
-msgstr "Küçük görünümü kullan"
+msgstr ""
 
 #: templates/part.settings.php:17
 msgid "Subscriptions (OPML)"
-msgstr "Abonelikler (OPML)"
+msgstr ""
 
 #: templates/part.settings.php:21 templates/part.settings.php:24
 #: templates/part.settings.php:52 templates/part.settings.php:57
 msgid "Import"
-msgstr "İçe aktar"
+msgstr ""
 
 #: templates/part.settings.php:28 templates/part.settings.php:32
 #: templates/part.settings.php:36 templates/part.settings.php:38
 #: templates/part.settings.php:60 templates/part.settings.php:64
 #: templates/part.settings.php:68 templates/part.settings.php:70
 msgid "Export"
-msgstr "Dışa aktar"
+msgstr ""
 
 #: templates/part.settings.php:42
 msgid "Error when importing: file does not contain valid OPML"
-msgstr "Dosya alımında hata: dosya geçerli OPML içermiyor"
+msgstr ""
 
 #: templates/part.settings.php:48
 msgid "Unread/Starred Articles"
-msgstr "Okunmamış/Yıldızlı Makaleler"
+msgstr ""
 
 #: templates/part.settings.php:74
 msgid "Error when importing: file does not contain valid JSON"
-msgstr "İçe alınırken hata: dosya geçerli JSON içermiyor"
+msgstr ""
 
 #: templates/part.showall.php:5
 msgid "Show read articles"
-msgstr "Okunmuş makaleleri göster"
+msgstr ""
 
 #: templates/part.showall.php:11
 msgid "Hide read articles"
-msgstr "Okunmuş makaleleri gizle"
+msgstr ""
