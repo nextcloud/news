@@ -7,19 +7,19 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-describe('ContentController', function () {
+describe('ContentController', () => {
     'use strict';
 
     beforeEach(module('News'));
 
 
-    it('should publish data to models', inject(function ($controller, Publisher,
-        FeedResource, ItemResource) {
+    it('should publish data to models', inject(($controller, Publisher,
+        FeedResource, ItemResource) => {
 
         Publisher.subscribe(ItemResource).toChannels('items');
         Publisher.subscribe(FeedResource).toChannels('feeds');
 
-        var controller = $controller('ContentController', {
+        let controller = $controller('ContentController', {
             data: {
                 'items': [
                     {

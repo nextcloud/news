@@ -7,57 +7,53 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.factory('Resource', function () {
+app.factory('Resource', () => {
     'use strict';
 
-    var Resource = function (id, http) {
-        this.id = id;
-        this.values = [];
-        this.hashMap = {};
-        this.http = http;
-    };
+    class Resource {
 
-    Resource.prototype = {
-        receive: function (values) {
-            var self = this;
-            values.forEach(function (value) {
-                self.add(value);
+        constructor (id, http) {
+            this.id = id;
+            this.values = [];
+            this.hashMap = {};
+            this.http = http;
+        }
+
+        receive (values) {
+            values.forEach((value) => {
+                this.add(value);
             });
-        },
+        }
 
-        add: function (value) {
-            var key,
-                existing;
-
-            existing = this.hashMap[value[this.id]];
+        add (value) {
+            let existing = this.hashMap[value[this.id]];
 
             if (existing === undefined) {
                 this.values.push(value);
                 this.hashMap[value[this.id]] = value;
             } else {
                 // copy values from new to old object if it exists already
-                for (key in value) {
+                for (let key in value) {
                     if (value.hasOwnProperty(key)) {
                         existing[key] = value[key];
                     }
                 }
             }
-        },
+        }
 
-        size: function () {
+        size () {
             return this.values.length;
-        },
+        }
 
-        get: function (id) {
+        get (id) {
             return this.hashMap[id];
-        },
+        }
 
-        delete: function (id) {
+        delete (id) {
             // find index of object that should be deleted
-            var i,
-                deleteAtIndex;
+            let deleteAtIndex;
 
-            for (i = 0; i < this.values.length; i += 1) {
+            for (let i = 0; i < this.values.length; i += 1) {
                 if (this.values[i][this.id] === id) {
                     deleteAtIndex = i;
                     break;
@@ -71,23 +67,23 @@ app.factory('Resource', function () {
             if (this.hashMap[id] !== undefined) {
                 delete this.hashMap[id];
             }
-        },
+        }
 
-        clear: function () {
+        clear () {
             this.hashMap = {};
 
-            // http://stackoverflow.com/questions/1232040/how-to-empty-an-array-in-javascript
-            // this is the fastes way to empty an array when you want to keep the
-            // reference around
+            // http://stackoverflow.com/questions/1232040
+            // this is the fastes way to empty an array when you want to keep
+            // the reference around
             while (this.values.length > 0) {
                 this.values.pop();
             }
-        },
+        }
 
-        getAll: function () {
+        getAll () {
             return this.values;
         }
-    };
+    }
 
     return Resource;
 });

@@ -16,53 +16,37 @@
 (function (window, document, $) {
     'use strict';
 
-    var noInputFocused,
-        noModifierKey,
-        scrollArea,
-        scrollToItem,
-        scrollToNextItem,
-        scrollToPreviousItem,
-        toggleStar,
-        toggleUnread,
-        expandItem,
-        openLink,
-        getActiveItem;
+    let scrollArea = $('#app-content');
 
-    scrollArea = $('#app-content');
-
-    noInputFocused = function (element) {
+    let noInputFocused = (element) => {
         return !(
-            element.is('input')
-            && element.is('select')
-            && element.is('textarea')
-            && element.is('checkbox')
+            element.is('input') &&
+            element.is('select') &&
+            element.is('textarea') &&
+            element.is('checkbox')
         );
     };
 
-    noModifierKey = function (event) {
+    let noModifierKey = (event) => {
         return !(
-            event.shiftKey
-            || event.altKey
-            || event.ctrlKey
-            || event.metaKey
+            event.shiftKey ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey
         );
     };
 
-    scrollToItem = function (item, scrollArea) {
+    let scrollToItem = (item, scrollArea) => {
         scrollArea.scrollTop(
             item.offset().top - scrollArea.offset().top + scrollArea.scrollTop()
         );
     };
 
-    scrollToNextItem = function (scrollArea) {
-        var items,
-            counter,
-            item;
+    let scrollToNextItem = (scrollArea) => {
+        let items = scrollArea.find('.feed_item');
 
-        items = scrollArea.find('.feed_item');
-
-        for (counter = 0; counter < items.length; counter += 1) {
-            item = $(items[counter]);
+        for (let item of items) {
+            item = $(item);
 
             if (item.position().top > 1) {
                 scrollToItem(scrollArea, item);
@@ -75,19 +59,14 @@
 
     };
 
-    scrollToPreviousItem = function (scrollArea) {
-        var items,
-            item,
-            counter,
-            previous;
+    let scrollToPreviousItem = (scrollArea) => {
+        let items = scrollArea.find('.feed_item');
 
-        items = scrollArea.find('.feed_item');
-
-        for (counter = 0; counter < items.length; counter += 1) {
-            item = $(items[counter]);
+        for (let item of items) {
+            item = $(item);
 
             if (item.position().top >= 0) {
-                previous = item.prev();
+                let previous = item.prev();
 
                 // if there are no items before the current one
                 if (previous.length > 0) {
@@ -104,15 +83,11 @@
         }
     };
 
-    getActiveItem = function (scrollArea) {
-        var items,
-            item,
-            counter;
+    let getActiveItem = (scrollArea) => {
+        let items = scrollArea.find('.feed_item');
 
-        items = scrollArea.find('.feed_item');
-
-        for (counter = 0; counter < items.length; counter += 1) {
-            item = $(items[counter]);
+        for (let item of items) {
+            item = $(item);
 
             // 130px of the item should be visible
             if ((item.height() + item.position().top) > 30) {
@@ -121,32 +96,29 @@
         }
     };
 
-    toggleUnread = function (scrollArea) {
-        var item = getActiveItem(scrollArea);
+    let toggleUnread = (scrollArea) => {
+        let item = getActiveItem(scrollArea);
         item.find('.keep_unread').trigger('click');
     };
 
-    toggleStar = function (scrollArea) {
-        var item = getActiveItem(scrollArea);
+    let toggleStar = (scrollArea) => {
+        let item = getActiveItem(scrollArea);
         item.find('.item_utils .star').trigger('click');
     };
 
-    expandItem = function (scrollArea) {
-        var item = getActiveItem(scrollArea);
+    let expandItem = (scrollArea) => {
+        let item = getActiveItem(scrollArea);
         item.find('.item_heading a').trigger('click');
     };
 
-    openLink = function (scrollArea) {
-        var item = getActiveItem(scrollArea).find('.item_title a');
+    let openLink = (scrollArea) => {
+        let item = getActiveItem(scrollArea).find('.item_title a');
         item.trigger('click');  // mark read
         window.open(item.attr('href'), '_blank');
     };
 
-    $(document).keyup(function (event) {
-        var keyCode;
-
-        keyCode = event.keyCode;
-
+    $(document).keyup((event) => {
+        let keyCode = event.keyCode;
 
         if (noInputFocused($(':focus')) && noModifierKey(event)) {
 

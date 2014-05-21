@@ -12,8 +12,25 @@ module.exports = function (config) {
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-        frameworks: ['jasmine'],
+        frameworks: ['jasmine', 'traceur'],
 
+        preprocessors: {
+            'tests/unit/stubs/*.js': ['traceur'],
+            'controller/**/*.js': ['traceur'],
+            'filter/**/*.js': ['traceur'],
+            'service/**/*.js': ['traceur'],
+            'directive/**/*.js': ['traceur'],
+            'tests/unit/**/*Spec.js': ['traceur']
+        },
+
+        traceurPreprocessor: {
+            options: {
+                blockBinding: true,
+                experimental: true,
+                sourceMap: false,
+                modules: 'inline'
+            }
+        },
 
         // list of files / patterns to load in the browser
         files: [
@@ -25,13 +42,13 @@ module.exports = function (config) {
             'vendor/angular-route/angular-route.js',
             'vendor/angular-sanitize/angular-sanitize.js',
             'vendor/angular-animate/angular-animate.js',
-            'tests/unit/stubs/*.js',
+            'tests/unit/stubs/App.js',
+            'tests/unit/stubs/OC.js',
             'controller/**/*.js',
             'filter/**/*.js',
             'service/**/*.js',
-            'model/**/*.js',
             'directive/**/*.js',
-            'tests/unit/**/*Spec.js'
+            'tests/unit/**/*Spec.js',
         ],
 
 
@@ -39,13 +56,6 @@ module.exports = function (config) {
         exclude: [
 
         ],
-
-
-        // preprocess matching files before serving them to the browser
-        // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-        preprocessors: {
-
-        },
 
 
         // test results reporter to use
@@ -73,7 +83,7 @@ module.exports = function (config) {
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: ['PhantomJS'],
+        browsers: ['Firefox'],
 
 
         // Continuous Integration mode

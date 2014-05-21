@@ -7,25 +7,26 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-describe('Resource', function () {
+describe('Resource', () => {
     'use strict';
 
-    var childModel;
+    let childResource;
 
     beforeEach(module('News'));
 
-    beforeEach(inject(function (Resource) {
-        var ChildModel = function () {
-            Resource.call(this, 'id');
-        };
-        ChildModel.prototype = Object.create(Resource.prototype);
+    beforeEach(inject((Resource, $http) => {
+        class ChildResource extends Resource {
+            constructor ($http) {
+                super('id', $http);
+            }
+        }
 
-        childModel = new ChildModel();
+        childResource = new ChildResource($http);
     }));
 
 
-    it('should receive an object', function () {
-        var objects = [
+    it('should receive an object', () => {
+        let objects = [
             {
                 id: 2
             },
@@ -34,118 +35,106 @@ describe('Resource', function () {
             }
         ];
 
-        childModel.receive(objects);
+        childResource.receive(objects);
 
-        expect(childModel.size()).toBe(2);
+        expect(childResource.size()).toBe(2);
     });
 
 
-    it('should add an object', function () {
-        var object = {
+    it('should add an object', () => {
+        let object = {
             id: 3,
             name: 'test'
         };
-        childModel.add(object);
+        childResource.add(object);
 
-        expect(childModel.get(3)).toBe(object);
+        expect(childResource.get(3)).toBe(object);
     });
 
 
-    it('should overwrite an object if it already exists', function () {
-        var object1,
-            object2;
-
-        object1 = {
+    it('should overwrite an object if it already exists', () => {
+        let object1 = {
             id: 3,
             name: 'test',
             test: 'ho'
         };
 
-        object2 = {
+        let object2 = {
             id: 3,
             name: 'test2'
         };
 
-        childModel.add(object1);
-        childModel.add(object2);
+        childResource.add(object1);
+        childResource.add(object2);
 
-        expect(childModel.get(3).name).toBe('test2');
-        expect(childModel.get(3).test).toBe('ho');
-        expect(childModel.size()).toBe(1);
+        expect(childResource.get(3).name).toBe('test2');
+        expect(childResource.get(3).test).toBe('ho');
+        expect(childResource.size()).toBe(1);
     });
 
 
-    it('should delete a Resource', function () {
-        var object1,
-            object2;
-
-        object1 = {
+    it('should delete a Resource', () => {
+        let object1 = {
             id: 3,
             name: 'test',
             test: 'ho'
         };
 
-        object2 = {
+        let object2 = {
             id: 4,
             name: 'test2'
         };
 
-        childModel.add(object1);
-        childModel.add(object2);
+        childResource.add(object1);
+        childResource.add(object2);
 
-        childModel.delete(3);
+        childResource.delete(3);
 
-        expect(childModel.get(3)).not.toBeDefined();
-        expect(childModel.get(4).name).toBe('test2');
-        expect(childModel.size()).toBe(1);
+        expect(childResource.get(3)).not.toBeDefined();
+        expect(childResource.get(4).name).toBe('test2');
+        expect(childResource.size()).toBe(1);
     });
 
 
-    it('should clear all models', function () {
-        var object1,
-            object2;
-
-        object1 = {
+    it('should clear all models', () => {
+        let object1 = {
             id: 3,
             name: 'test',
             test: 'ho'
         };
 
-        object2 = {
+        let object2 = {
             id: 4,
             name: 'test2'
         };
 
-        childModel.add(object1);
-        childModel.add(object2);
+        childResource.add(object1);
+        childResource.add(object2);
 
-        childModel.clear();
+        childResource.clear();
 
-        expect(childModel.get(3)).not.toBeDefined();
-        expect(childModel.get(4)).not.toBeDefined();
-        expect(childModel.size()).toBe(0);
+        expect(childResource.get(3)).not.toBeDefined();
+        expect(childResource.get(4)).not.toBeDefined();
+        expect(childResource.size()).toBe(0);
     });
 
 
-    it('should get all models', function () {
-        var object1,
-            object2;
-
-        object1 = {
+    it('should get all models', () => {
+        let object1 = {
             id: 3,
             name: 'test',
             test: 'ho'
         };
 
-        object2 = {
+        let object2 = {
             id: 4,
             name: 'test2'
         };
 
-        childModel.add(object1);
-        childModel.add(object2);
+        childResource.add(object1);
+        childResource.add(object2);
 
-        expect(childModel.getAll()[1].id).toBe(4);
+        expect(childResource.getAll()[1].id).toBe(4);
     });
 
 });

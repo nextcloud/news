@@ -7,36 +7,34 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.run(function ($rootScope, $location, $http, $q, $interval, Loading,
-                  ItemResource, FeedResource, FolderResource, Settings,
-                  Publisher, BASE_URL, FEED_TYPE, REFRESH_RATE) {
+app.run(($rootScope, $location, $http, $q, $interval, Loading, ItemResource,
+         FeedResource, FolderResource, Settings, Publisher, BASE_URL, FEED_TYPE,
+         REFRESH_RATE) => {
     'use strict';
+
+    console.log($location);
 
     // show Loading screen
     Loading.setLoading('global', true);
 
     // listen to keys in returned queries to automatically distribute the
     // incoming values to models
-    Publisher.subscribe(ItemResource).toChannels('items', 'newestItemId', 'starred');
+    Publisher.subscribe(ItemResource).toChannels('items', 'newestItemId',
+                                                 'starred');
     Publisher.subscribe(FolderResource).toChannels('folders');
     Publisher.subscribe(FeedResource).toChannels('feeds');
     Publisher.subscribe(Settings).toChannels('settings');
 
     // load feeds, settings and last read feed
-    var settingsDeferred,
-        activeFeedDeferred,
-        folderDeferred,
-        feedDeferred;
-
-    settingsDeferred = $q.defer();
-    $http.get(BASE_URL + '/settings').success(function (data) {
+    let settingsDeferred = $q.defer();
+    $http.get(BASE_URL + '/settings').success((data) => {
         Publisher.publishAll(data);
         settingsDeferred.resolve();
     });
 
-    activeFeedDeferred = $q.defer();
-    $http.get(BASE_URL + '/feeds/active').success(function (data) {
-        var url;
+    let activeFeedDeferred = $q.defer();
+    $http.get(BASE_URL + '/feeds/active').success((data) => {
+        let url;
 
         switch (data.type) {
 
@@ -60,14 +58,14 @@ app.run(function ($rootScope, $location, $http, $q, $interval, Loading,
         activeFeedDeferred.resolve();
     });
 
-    folderDeferred = $q.defer();
-    $http.get(BASE_URL + '/folders').success(function (data) {
+    let folderDeferred = $q.defer();
+    $http.get(BASE_URL + '/folders').success((data) => {
         Publisher.publishAll(data);
         folderDeferred.resolve();
     });
 
-    feedDeferred = $q.defer();
-    $http.get(BASE_URL + '/feeds').success(function (data) {
+    let feedDeferred = $q.defer();
+    $http.get(BASE_URL + '/feeds').success((data) => {
         Publisher.publishAll(data);
         feedDeferred.resolve();
     });
@@ -81,27 +79,27 @@ app.run(function ($rootScope, $location, $http, $q, $interval, Loading,
             folderDeferred.promise
         ]
     )
-        .then(function () {
+        .then(() => {
             Loading.setLoading('global', false);
         });
 
     // refresh feeds and folders
-    $interval(function () {
+    $interval(() => {
         $http.get(BASE_URL + '/feeds');
         $http.get(BASE_URL + '/folders');
     }, REFRESH_RATE * 1000);
 
 
-    $rootScope.$on('$routeChangeStart', function () {
+    $rootScope.$on('$routeChangeStart', () => {
         Loading.setLoading('content', true);
     });
 
-    $rootScope.$on('$routeChangeSuccess', function () {
+    $rootScope.$on('$routeChangeSuccess', () => {
         Loading.setLoading('content', false);
     });
 
     // in case of wrong id etc show all items
-    $rootScope.$on('$routeChangeError', function () {
+    $rootScope.$on('$routeChangeError', () => {
         $location.path('/items');
     });
 });

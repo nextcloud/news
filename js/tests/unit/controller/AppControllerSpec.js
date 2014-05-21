@@ -7,36 +7,36 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-describe('AppController', function () {
+describe('AppController', () => {
     'use strict';
 
-    var controller;
+    let controller;
 
     beforeEach(module('News'));
 
-    beforeEach(inject(function ($controller) {
+    beforeEach(inject(($controller) => {
         controller = $controller('AppController');
     }));
 
 
-    it('should expose Loading', inject(function (Loading) {
+    it('should expose Loading', inject((Loading) => {
         expect(controller.loading).toBe(Loading);
     }));
 
 
-    it('should expose set firstrun if no feeds and folders', inject(function () {
+    it('should expose set firstrun if no feeds and folders', inject(() => {
         expect(controller.isFirstRun()).toBe(true);
     }));
 
 
-    it('should expose set firstrun if feeds', inject(function (FeedResource) {
+    it('should expose set firstrun if feeds', inject((FeedResource) => {
         FeedResource.add({url: 'test'});
 
         expect(controller.isFirstRun()).toBe(false);
     }));
 
 
-    it('should expose set firstrun if folders', inject(function (FolderResource) {
+    it('should expose set firstrun if folders', inject((FolderResource) => {
         FolderResource.add({name: 'test'});
 
         expect(controller.isFirstRun()).toBe(false);

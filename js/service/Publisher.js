@@ -10,31 +10,25 @@
 app.service('Publisher', function () {
     'use strict';
 
-    var self = this;
     this.channels = {};
 
-    this.subscribe = function (object) {
+    this.subscribe = (obj) => {
         return {
-            toChannels: function () {
-                var counter,
-                    channel;
-                for (counter = 0; counter < arguments.length; counter += 1) {
-                    channel = arguments[counter];
-                    self.channels[channel] = self.channels[channel] || [];
-                    self.channels[channel].push(object);
+            toChannels: (...channels) => {
+                for (let channel of channels) {
+                    this.channels[channel] = this.channels[channel] || [];
+                    this.channels[channel].push(obj);
                 }
             }
         };
+
     };
 
-    this.publishAll = function (data) {
-        var channel,
-            counter;
-
-        for (channel in data) {
-            if (data.hasOwnProperty(channel) && this.channels[channel] !== undefined) {
-                for (counter = 0; counter < this.channels[channel].length; counter += 1) {
-                    this.channels[channel][counter].receive(data[channel], channel);
+    this.publishAll = (data) => {
+        for (let channel in data) {
+            if (this.channels[channel] !== undefined) {
+                for (let listener of this.channels[channel]) {
+                    listener.receive(data[channel], channel);
                 }
             }
         }

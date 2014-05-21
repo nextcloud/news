@@ -7,4 +7,9 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2012, 2014
  */
-var app = angular.module('News', ['ngRoute', 'ngSanitize', 'ngAnimate', 'ngMock']);
+window.app = angular.module('News', [
+    'ngRoute',
+    'ngSanitize',
+    'ngAnimate',
+    'ngMock'
+]);

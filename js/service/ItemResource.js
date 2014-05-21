@@ -7,38 +7,39 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.factory('ItemResource', function (Resource, $http) {
+app.factory('ItemResource', (Resource, $http) => {
     'use strict';
 
-    var ItemResource = function ($http) {
-        Resource.call(this, 'id', $http);
-    };
+    class ItemResource extends Resource {
 
-    ItemResource.prototype = Object.create(Resource.prototype);
-
-    ItemResource.prototype.receive = function (value, channel) {
-        switch (channel) {
-
-        case 'newestItemId':
-            this.newestItemId = value;
-            break;
-
-        case 'starred':
-            this.starredCount = value;
-            break;
-        default:
-            Resource.prototype.receive.call(this, value, channel);
+        constructor ($http) {
+            super('id', $http);
         }
-    };
 
-    ItemResource.prototype.getNewestItemId = function () {
-        return this.newestItemId;
-    };
+        receive (value, channel) {
+            switch (channel) {
 
-    ItemResource.prototype.getStarredCount = function () {
-        return this.starredCount;
-    };
+            case 'newestItemId':
+                this.newestItemId = value;
+                break;
 
+            case 'starred':
+                this.starredCount = value;
+                break;
+            default:
+                super.receive(value, channel);
+            }
+        }
+
+        getNewestItemId () {
+            return this.newestItemId;
+        }
+
+        getStarredCount () {
+            return this.starredCount;
+        }
+
+    }
 
     return new ItemResource($http);
 });

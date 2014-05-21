@@ -12,20 +12,17 @@ app.service('Settings', function () {
 
     this.settings = {};
 
-    this.receive = function (data) {
-        var key;
-        for (key in data) {
-            if (data.hasOwnProperty(key)) {
-                this.settings[key] = data[key];
-            }
+    this.receive = (data) => {
+        for (let key in data) {
+            this.settings[key] = data[key];
         }
     };
 
-    this.get = function (key) {
+    this.get = (key) => {
         return this.settings[key];
     };
 
-    this.set = function (key, value) {
+    this.set = (key, value) => {
         this.settings[key] = value;
     };
 

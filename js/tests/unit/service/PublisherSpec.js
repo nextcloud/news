@@ -7,13 +7,13 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-describe('Publisher', function () {
+describe('Publisher', () => {
     'use strict';
 
     beforeEach(module('News'));
 
-    it('should should publish on all possible channels', inject(function (Publisher) {
-        var obj = {
+    it('should should publish on all possible channels', inject((Publisher) => {
+        let obj = {
             receive: jasmine.createSpy('receive')
         };
 
@@ -27,7 +27,7 @@ describe('Publisher', function () {
     }));
 
 
-    it('should should publish on all possible channels', inject(function (Publisher) {
+    it('should should publish on all possible channels', inject((Publisher) => {
         var obj = {
             receive: jasmine.createSpy('receive')
         };
@@ -42,7 +42,7 @@ describe('Publisher', function () {
     }));
 
 
-    it('should not broadcast to not subscribed channels', inject(function (Publisher) {
+    it('should not broadcast not subscribed channels', inject((Publisher) => {
         Publisher.publishAll({
             test: 'tom'
         });

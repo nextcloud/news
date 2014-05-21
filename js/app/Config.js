@@ -9,10 +9,8 @@
  */
 app.config(function ($routeProvider, $provide, $httpProvider) {
     'use strict';
-    var getResolve,
-        feedType;
 
-    feedType = {
+    let feedType = {
         FEED: 0,
         FOLDER: 1,
         STARRED: 2,
@@ -21,17 +19,17 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
     };
 
     // constants
-    $provide.constant('REFRESH_RATE', 60);  // seconds, how often feeds and folders shoudl be refreshed
+    $provide.constant('REFRESH_RATE', 60);  // seconds
     $provide.constant('ITEM_BATCH_SIZE', 50);  // how many items to autopage by
     $provide.constant('BASE_URL', OC.generateUrl('/apps/news'));
     $provide.constant('FEED_TYPE', feedType);
 
     // make sure that the CSRF header is only sent to the ownCloud domain
-    $provide.factory('CSRFInterceptor', function ($q, BASE_URL) {
+    $provide.factory('CSRFInterceptor', ($q, BASE_URL) => {
         return {
-            request: function (config) {
+            request: (config) => {
                 if (config.url.indexOf(BASE_URL) === 0) {
-                    config.headers.requesttoken = oc_requesttoken;
+                    config.headers.requesttoken = csrfToken;
                 }
 
                 return config || $q.when(config);
@@ -41,7 +39,7 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
     $httpProvider.interceptors.push('CSRFInterceptor');
 
     // routing
-    getResolve = function (type) {
+    let getResolve = (type) => {
         return {
             // request to items also returns feeds
             data: [
@@ -50,12 +48,9 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
                 '$q',
                 'BASE_URL',
                 'ITEM_BATCH_SIZE',
-                function ($http, $route, $q, BASE_URL, ITEM_BATCH_SIZE) {
+                ($http, $route, $q, BASE_URL, ITEM_BATCH_SIZE) => {
 
-                    var parameters,
-                        deferred;
-
-                    parameters = {
+                    let parameters = {
                         type: type,
                         limit: ITEM_BATCH_SIZE
                     };
@@ -64,13 +59,13 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
                         parameters.id = $route.current.params.id;
                     }
 
-                    deferred = $q.defer();
+                    let deferred = $q.defer();
 
                     $http({
                         url: BASE_URL + '/items',
                         method: 'GET',
                         params: parameters
-                    }).success(function (data) {
+                    }).success((data) => {
                         deferred.resolve(data);
                     });
 

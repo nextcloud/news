@@ -7,36 +7,6 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2012, 2014
  */
-
-var globals = [
-    // libs
-    '$',
-    'jQuery',
-    'angular',
-    // app
-    'app',
-    // ownCloud
-    'OC',
-    'oc_requesttoken',
-    // angular
-    'inject',
-    'module',
-
-    // protractor
-    'protractor',
-    'browser',
-    'By',
-    // jasmine
-    'jasmine',
-    'it',
-    'describe',
-    'beforeEach',
-    'expect',
-    // js
-    'console',
-    'exports'
-];
-
 module.exports = function (grunt) {
     'use strict';
 
@@ -44,11 +14,12 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-connect');
-    grunt.loadNpmTasks('grunt-jslint');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-phpunit');
     grunt.loadNpmTasks('grunt-wrap');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-ngmin');
+    grunt.loadNpmTasks('grunt-traceur');
     grunt.loadNpmTasks('grunt-protractor-runner');
     grunt.loadNpmTasks('grunt-protractor-webdriver');
 
@@ -72,7 +43,6 @@ module.exports = function (grunt) {
                     'filter/**/*.js',
                     'service/**/*.js',
                     'gui/**/*.js',
-                    'model/**/*.js',
                     'directive/**/*.js'
                 ],
                 dest: '<%= meta.production %>app.js'
@@ -84,37 +54,50 @@ module.exports = function (grunt) {
                 dest: '<%= meta.production %>app.js'
             }
         },
+        traceur: {
+            app: {
+                files: {
+                    '<%= meta.production %>app.js': ['<%= meta.production %>app.js']
+                }
+            },
+            options: {
+                blockBinding: true,
+                sourceMap: false,
+                experimental: true,
+                modules: 'inline'
+            }
+        },
         wrap: {
             basic: {
                 src: ['<%= meta.production %>app.js'],
                 dest: '<%= meta.production %>app.js',
                 options: {
                     wrapper: [
-                        '(function(angular, $, OC, oc_requesttoken, undefined){\n\n\'use strict\';\n\n',
-                        '\n})(angular, jQuery, OC, oc_requesttoken);'
+                        '(function(window, document, angular, $, OC, ' +
+                            'csrfToken, undefined){\n\n\'use strict\';\n\n',
+
+                        '\n})(window, document, angular, jQuery, OC, ' +
+                            'oc_requesttoken);'
                     ]
                 }
             }
         },
-        jslint: {
-            browser: {
+        jshint: {
+            app: {
                 src: [
-                    'app/**/*.js',
+                    'app/Config.js',
+                    'app/Run.js',
                     'filter/**/*.js',
                     'service/**/*.js',
                     'model/**/*.js',
                     'controller/**/*.js',
                     'directive/**/*.js',
                     'tests/**/*.js',
-                    'gui/**/*.js',
-                    'Gruntfile.js',
-                    'karma.conf.js',
-                    'protractor*conf.js'
-                ],
-                directives: {
-                    browser: true,
-                    predef: globals
-                }
+                    'gui/**/*.js'
+                ]
+            },
+            options: {
+                jshintrc: true
             }
         },
         watch: {
@@ -146,7 +129,6 @@ module.exports = function (grunt) {
         karma: {
             unit: {
                 configFile: 'karma.conf.js',
-                browsers: ['PhantomJS'],
                 autoWatch: true
             },
             continuous: {
@@ -199,7 +181,7 @@ module.exports = function (grunt) {
     });
 
     // make tasks available under simpler commands
-    grunt.registerTask('default', ['jslint', 'concat', 'ngmin', 'wrap']);
+    grunt.registerTask('default', ['jshint', 'concat',  'wrap', 'traceur', 'ngmin']);
     grunt.registerTask('dev', ['watch:concat']);
     grunt.registerTask('test', ['karma:unit']);
     grunt.registerTask('phpunit', ['watch:phpunit']);

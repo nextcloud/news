@@ -30,6 +30,7 @@
     "angular-sanitize": "~1.2.16",
     "jquery": "~2.1.1",
     "momentjs": "~2.6.0",
-    "angular-animate": "~1.2.16"
+    "angular-animate": "~1.2.16",
+    "traceur-runtime": "~0.0.41"
   }
 }

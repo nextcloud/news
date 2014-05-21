@@ -7,14 +7,14 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.factory('FolderResource', function (Resource, $http) {
+app.factory('FolderResource', (Resource, $http) => {
     'use strict';
 
-    var FolderResource = function ($http) {
-        Resource.call(this, 'name', $http);
-    };
-
-    FolderResource.prototype = Object.create(Resource.prototype);
+    class FolderResource extends Resource {
+        constructor ($http) {
+            super('name', $http);
+        }
+    }
 
     return new FolderResource($http);
 });

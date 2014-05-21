@@ -7,12 +7,12 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-describe('Settings', function () {
+describe('Settings', () => {
     'use strict';
 
     beforeEach(module('News'));
 
-    it('should receive default settings', inject(function (Settings) {
+    it('should receive default settings', inject((Settings) => {
         Settings.receive({
             'showAll': true
         });
@@ -21,7 +21,7 @@ describe('Settings', function () {
     }));
 
 
-    it('should set values', inject(function (Settings) {
+    it('should set values', inject((Settings) => {
         Settings.set('showAll', true);
 
         expect(Settings.get('showAll')).toBe(true);
