@@ -399,32 +399,10 @@ var $__build_47_app__ = function () {
             return this.hashMap[$traceurRuntime.toProperty(id)];
           },
           delete: function (id) {
-            var deleteAtIndex;
-            for (var $__3 = enumerate(this.values)[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
-              try {
-                throw undefined;
-              } catch (value) {
-                try {
-                  throw undefined;
-                } catch (index) {
-                  try {
-                    throw undefined;
-                  } catch ($__8) {
-                    {
-                      $__8 = $traceurRuntime.assertObject($__4.value);
-                      index = $__8[0];
-                      value = $__8[1];
-                    }
-                    {
-                      if (value[$traceurRuntime.toProperty(this.id)] === id) {
-                        deleteAtIndex = index;
-                        break;
-                      }
-                    }
-                  }
-                }
-              }
-            }
+            var $__0 = this;
+            var deleteAtIndex = this.values.findIndex(function (e) {
+                return e[$traceurRuntime.toProperty($__0.id)] === id;
+              });
             if (deleteAtIndex !== undefined) {
               this.values.splice(deleteAtIndex, 1);
             }

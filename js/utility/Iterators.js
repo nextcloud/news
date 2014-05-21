@@ -13,7 +13,8 @@ const hasOwn = Object.prototype.hasOwnProperty;
 
 /**
  * From http://wiki.ecmascript.org/doku.php?id=harmony:iterators#standard_api
- * Allows to iterate over objects like for (let [key, value] of objects)
+ * Allows to iterate over objects
+ * like: for (let [key, value] of objects)
  */
 window.items = function (obj) {
     'use strict';
@@ -32,7 +33,7 @@ window.items = function (obj) {
 
 /**
  * Iterates over a list and returns the item and index
- * like: (let [index, value] of list)
+ * like: for (let [index, value] of enumerate(list))
  * Similar to Pythons enumerate() iterator function
  */
 window.enumerate = function (list) {

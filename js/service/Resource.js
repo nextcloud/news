@@ -49,14 +49,7 @@ app.factory('Resource', () => {
 
         delete (id) {
             // find index of object that should be deleted
-            let deleteAtIndex;
-
-            for (let [index, value] of enumerate(this.values)) {
-                if (value[this.id] === id) {
-                    deleteAtIndex = index;
-                    break;
-                }
-            }
+            let deleteAtIndex = this.values.findIndex(e => e[this.id] === id);
 
             if (deleteAtIndex !== undefined) {
                 this.values.splice(deleteAtIndex, 1);
