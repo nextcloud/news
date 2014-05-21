@@ -38,6 +38,7 @@
     "grunt-traceur": "^0.1.2",
     "grunt-wrap": "^0.3.0",
     "karma": "^0.12.16",
+    "karma-chrome-launcher": "^0.1.3",
     "karma-coverage": "^0.2.1",
     "karma-firefox-launcher": "^0.1.3",
     "karma-jasmine": "^0.1.5",

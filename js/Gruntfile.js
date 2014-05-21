@@ -133,6 +133,7 @@ module.exports = function (grunt) {
             },
             continuous: {
                 configFile: 'karma.conf.js',
+                browsers: ['Firefox', 'Chrome'],
                 singleRun: true,
             }
         },
