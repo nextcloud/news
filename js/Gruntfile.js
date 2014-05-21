@@ -134,16 +134,6 @@ module.exports = function (grunt) {
             continuous: {
                 configFile: 'karma.conf.js',
                 singleRun: true,
-                browsers: ['PhantomJS'],
-                preprocessors: {
-                    'build/app.js': 'coverage'
-                },
-                coverageReporter: {
-                    type: 'lcovonly',
-                    dir: 'coverage/',
-                    file: 'coverage.lcov'
-                },
-                reporters: ['coverage']
             }
         },
         phpunit: {

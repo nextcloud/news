@@ -1,4 +1,5 @@
 <?php
+\OCP\Util::addScript('news', 'vendor/traceur-runtime/traceur-runtime');
 \OCP\Util::addScript('news', 'vendor/angular/angular');
 \OCP\Util::addScript('news', 'vendor/angular-route/angular-route');
 \OCP\Util::addScript('news', 'vendor/angular-sanitize/angular-sanitize');

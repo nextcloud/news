@@ -15,6 +15,7 @@ module.exports = function (config) {
         frameworks: ['jasmine', 'traceur'],
 
         preprocessors: {
+            'build/app.js': ['coverage'],
             'tests/unit/stubs/*.js': ['traceur'],
             'controller/**/*.js': ['traceur'],
             'filter/**/*.js': ['traceur'],
@@ -57,11 +58,16 @@ module.exports = function (config) {
 
         ],
 
+        coverageReporter: {
+            type: 'lcovonly',
+            dir: 'coverage/',
+            file: 'coverage.lcov'
+        },
 
         // test results reporter to use
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ['progress'],
+        reporters: ['coverage'],
 
 
         // web server port
