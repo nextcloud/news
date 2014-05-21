@@ -12,7 +12,7 @@ app.factory('FeedResource', (Resource, $http) => {
 
     class FeedResource extends Resource {
         constructor ($http) {
-            super('url', $http);
+            super($http, 'url');
         }
     }
 

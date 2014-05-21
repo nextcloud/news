@@ -17,7 +17,7 @@ describe('Resource', () => {
     beforeEach(inject((Resource, $http) => {
         class ChildResource extends Resource {
             constructor ($http) {
-                super('id', $http);
+                super($http);
             }
         }
 

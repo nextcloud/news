@@ -12,17 +12,17 @@ app.factory('Resource', () => {
 
     class Resource {
 
-        constructor (id, http) {
+        constructor (http, id='id') {
             this.id = id;
             this.values = [];
             this.hashMap = {};
             this.http = http;
         }
 
-        receive (values) {
-            values.forEach((value) => {
-                this.add(value);
-            });
+        receive (objs) {
+            for (let obj of objs) {
+                this.add(obj);
+            }
         }
 
         add (obj) {
@@ -51,9 +51,9 @@ app.factory('Resource', () => {
             // find index of object that should be deleted
             let deleteAtIndex;
 
-            for (let i = 0; i < this.values.length; i += 1) {
-                if (this.values[i][this.id] === id) {
-                    deleteAtIndex = i;
+            for (let [index, value] of enumerate(this.values)) {
+                if (value[this.id] === id) {
+                    deleteAtIndex = index;
                     break;
                 }
             }

@@ -28,4 +28,23 @@ window.items = function (obj) {
             })();
         }
     };
-}
+};
+
+/**
+ * Iterates over a list and returns the item and index
+ * like: (let [index, value] of list)
+ * Similar to Pythons enumerate() iterator function
+ */
+window.enumerate = function (list) {
+    'use strict';
+
+    return {
+        [Symbol.iterator]: function () {
+            return (function*() {
+                for (let counter = 0; counter < list.length; counter += 1) {
+                    yield [counter, list[counter]];
+                }
+            })();
+        }
+    };
+};

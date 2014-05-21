@@ -13,7 +13,7 @@ app.factory('ItemResource', (Resource, $http) => {
     class ItemResource extends Resource {
 
         constructor ($http) {
-            super('id', $http);
+            super($http);
         }
 
         receive (value, channel) {

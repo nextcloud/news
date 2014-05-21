@@ -206,8 +206,8 @@ var $__build_47_app__ = function () {
           'use strict';
           var FeedResource = function FeedResource($http) {
             $traceurRuntime.superCall(this, $FeedResource.prototype, 'constructor', [
-              'url',
-              $http
+              $http,
+              'url'
             ]);
           };
           var $FeedResource = FeedResource;
@@ -222,8 +222,8 @@ var $__build_47_app__ = function () {
           'use strict';
           var FolderResource = function FolderResource($http) {
             $traceurRuntime.superCall(this, $FolderResource.prototype, 'constructor', [
-              'name',
-              $http
+              $http,
+              'name'
             ]);
           };
           var $FolderResource = FolderResource;
@@ -237,10 +237,7 @@ var $__build_47_app__ = function () {
         function (Resource, $http) {
           'use strict';
           var ItemResource = function ItemResource($http) {
-            $traceurRuntime.superCall(this, $ItemResource.prototype, 'constructor', [
-              'id',
-              $http
-            ]);
+            $traceurRuntime.superCall(this, $ItemResource.prototype, 'constructor', [$http]);
           };
           var $ItemResource = ItemResource;
           $traceurRuntime.createClass(ItemResource, {
@@ -345,18 +342,25 @@ var $__build_47_app__ = function () {
       });
       app.factory('Resource', function () {
         'use strict';
-        var Resource = function Resource(id, http) {
+        var Resource = function Resource(http) {
+          var id = arguments[1] !== void 0 ? arguments[1] : 'id';
           this.id = id;
           this.values = [];
           this.hashMap = {};
           this.http = http;
         };
         $traceurRuntime.createClass(Resource, {
-          receive: function (values) {
-            var $__0 = this;
-            values.forEach(function (value) {
-              $__0.add(value);
-            });
+          receive: function (objs) {
+            for (var $__3 = objs[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
+              try {
+                throw undefined;
+              } catch (obj) {
+                obj = $__4.value;
+                {
+                  this.add(obj);
+                }
+              }
+            }
           },
           add: function (obj) {
             var existing = this.hashMap[$traceurRuntime.toProperty(obj[$traceurRuntime.toProperty(this.id)])];
@@ -396,23 +400,26 @@ var $__build_47_app__ = function () {
           },
           delete: function (id) {
             var deleteAtIndex;
-            {
+            for (var $__3 = enumerate(this.values)[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
               try {
                 throw undefined;
-              } catch ($i) {
-                $i = 0;
-                for (; $i < this.values.length; $i += 1) {
+              } catch (value) {
+                try {
+                  throw undefined;
+                } catch (index) {
                   try {
                     throw undefined;
-                  } catch (i) {
-                    i = $i;
-                    try {
-                      if (this.values[$traceurRuntime.toProperty(i)][$traceurRuntime.toProperty(this.id)] === id) {
-                        deleteAtIndex = i;
+                  } catch ($__8) {
+                    {
+                      $__8 = $traceurRuntime.assertObject($__4.value);
+                      index = $__8[0];
+                      value = $__8[1];
+                    }
+                    {
+                      if (value[$traceurRuntime.toProperty(this.id)] === id) {
+                        deleteAtIndex = index;
                         break;
                       }
-                    } finally {
-                      $i = i;
                     }
                   }
                 }
@@ -673,6 +680,98 @@ var $__build_47_app__ = function () {
                   case 2:
                     $ctx.maybeThrow();
                     $ctx.state = 15;
+                    break;
+                  default:
+                    return $ctx.end();
+                  }
+              }, $__9, this);
+            })();
+          },
+          configurable: true,
+          enumerable: true,
+          writable: true
+        }), $__2;
+      };
+      window.enumerate = function (list) {
+        'use strict';
+        var $__2;
+        return $__2 = {}, Object.defineProperty($__2, Symbol.iterator, {
+          value: function () {
+            return $traceurRuntime.initGeneratorFunction(function $__9() {
+              var counter, $counter;
+              return $traceurRuntime.createGeneratorInstance(function ($ctx) {
+                while (true)
+                  switch ($ctx.state) {
+                  case 0:
+                    $ctx.pushTry(28, null);
+                    $ctx.state = 31;
+                    break;
+                  case 31:
+                    throw undefined;
+                    $ctx.state = 33;
+                    break;
+                  case 33:
+                    $ctx.popTry();
+                    $ctx.state = -2;
+                    break;
+                  case 28:
+                    $ctx.popTry();
+                    $counter = $ctx.storedException;
+                    $ctx.state = 26;
+                    break;
+                  case 26:
+                    $counter = 0;
+                    $ctx.state = 27;
+                    break;
+                  case 27:
+                    $ctx.state = $counter < list.length ? 17 : -2;
+                    break;
+                  case 22:
+                    $counter += 1;
+                    $ctx.state = 27;
+                    break;
+                  case 17:
+                    $ctx.pushTry(15, null);
+                    $ctx.state = 18;
+                    break;
+                  case 18:
+                    throw undefined;
+                    $ctx.state = 20;
+                    break;
+                  case 20:
+                    $ctx.popTry();
+                    $ctx.state = 22;
+                    break;
+                  case 15:
+                    $ctx.popTry();
+                    counter = $ctx.storedException;
+                    $ctx.state = 13;
+                    break;
+                  case 13:
+                    counter = $counter;
+                    $ctx.state = 14;
+                    break;
+                  case 14:
+                    $ctx.pushTry(null, 6);
+                    $ctx.state = 8;
+                    break;
+                  case 8:
+                    $ctx.state = 2;
+                    return [
+                      counter,
+                      list[$traceurRuntime.toProperty(counter)]
+                    ];
+                  case 2:
+                    $ctx.maybeThrow();
+                    $ctx.state = 22;
+                    break;
+                  case 6:
+                    $ctx.popTry();
+                    $ctx.state = 12;
+                    break;
+                  case 12:
+                    $counter = counter;
+                    $ctx.state = 10;
                     break;
                   default:
                     return $ctx.end();

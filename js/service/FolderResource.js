@@ -12,7 +12,7 @@ app.factory('FolderResource', (Resource, $http) => {
 
     class FolderResource extends Resource {
         constructor ($http) {
-            super('name', $http);
+            super($http, 'name');
         }
     }
 
