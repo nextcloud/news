@@ -101,7 +101,6 @@ var $__build_47_app__ = function () {
         'REFRESH_RATE',
         function ($rootScope, $location, $http, $q, $interval, Loading, ItemResource, FeedResource, FolderResource, Settings, Publisher, BASE_URL, FEED_TYPE, REFRESH_RATE) {
           'use strict';
-          console.log($location);
           Loading.setLoading('global', true);
           Publisher.subscribe(ItemResource).toChannels('items', 'newestItemId', 'starred');
           Publisher.subscribe(FolderResource).toChannels('folders');

@@ -12,8 +12,6 @@ app.run(($rootScope, $location, $http, $q, $interval, Loading, ItemResource,
          REFRESH_RATE) => {
     'use strict';
 
-    console.log($location);
-
     // show Loading screen
     Loading.setLoading('global', true);
 

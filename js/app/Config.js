@@ -10,7 +10,7 @@
 app.config(function ($routeProvider, $provide, $httpProvider) {
     'use strict';
 
-    let feedType = {
+    const feedType = {
         FEED: 0,
         FOLDER: 1,
         STARRED: 2,
@@ -39,7 +39,7 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
     $httpProvider.interceptors.push('CSRFInterceptor');
 
     // routing
-    let getResolve = (type) => {
+    const getResolve = (type) => {
         return {
             // request to items also returns feeds
             data: [
@@ -50,7 +50,7 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
                 'ITEM_BATCH_SIZE',
                 ($http, $route, $q, BASE_URL, ITEM_BATCH_SIZE) => {
 
-                    let parameters = {
+                    const parameters = {
                         type: type,
                         limit: ITEM_BATCH_SIZE
                     };
