@@ -7,6 +7,11 @@ then run:
 
 	npm install
 
+The news app uses [Traceur](https://github.com/google/traceur-compiler) to transpile ES6 into ES5. If you want to take a look at the features see [the language features reference](https://github.com/google/traceur-compiler/wiki/LanguageFeatures#language-features).
+
+* Modules can not be used since the code is inlined
+* The following iterators are available: **items**
+
 ## Building
 Watch mode:
 
@@ -25,7 +30,7 @@ Watch mode:
 Single run mode:
 
 	grunt phpunit
-	grunt ci
+	grunt ci-unit
 
 ### Running e2e tests
 Install protractor and set up selenium:
