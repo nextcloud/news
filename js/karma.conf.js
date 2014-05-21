@@ -21,6 +21,7 @@ module.exports = function (config) {
             'filter/**/*.js': ['traceur'],
             'service/**/*.js': ['traceur'],
             'directive/**/*.js': ['traceur'],
+            'utility/**/*.js': ['traceur'],
             'tests/unit/**/*Spec.js': ['traceur']
         },
 
@@ -45,6 +46,7 @@ module.exports = function (config) {
             'vendor/angular-animate/angular-animate.js',
             'tests/unit/stubs/App.js',
             'tests/unit/stubs/OC.js',
+            'utility/**/*.js',
             'controller/**/*.js',
             'filter/**/*.js',
             'service/**/*.js',

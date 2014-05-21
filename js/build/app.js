@@ -291,13 +291,13 @@ var $__build_47_app__ = function () {
         this.subscribe = function (obj) {
           return {
             toChannels: function () {
-              for (var channels = [], $__4 = 0; $__4 < arguments.length; $__4++)
-                $traceurRuntime.setProperty(channels, $__4, arguments[$traceurRuntime.toProperty($__4)]);
-              for (var $__2 = channels[$traceurRuntime.toProperty(Symbol.iterator)](), $__3; !($__3 = $__2.next()).done;) {
+              for (var channels = [], $__7 = 0; $__7 < arguments.length; $__7++)
+                $traceurRuntime.setProperty(channels, $__7, arguments[$traceurRuntime.toProperty($__7)]);
+              for (var $__3 = channels[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
                 try {
                   throw undefined;
                 } catch (channel) {
-                  channel = $__3.value;
+                  channel = $__4.value;
                   {
                     $traceurRuntime.setProperty($__0.channels, channel, $__0.channels[$traceurRuntime.toProperty(channel)] || []);
                     $__0.channels[$traceurRuntime.toProperty(channel)].push(obj);
@@ -308,19 +308,33 @@ var $__build_47_app__ = function () {
           };
         };
         this.publishAll = function (data) {
-          for (var $channel in data) {
+          for (var $__5 = items(data)[$traceurRuntime.toProperty(Symbol.iterator)](), $__6; !($__6 = $__5.next()).done;) {
             try {
               throw undefined;
-            } catch (channel) {
-              channel = $channel;
-              if ($__0.channels[$traceurRuntime.toProperty(channel)] !== undefined) {
-                for (var $__2 = $__0.channels[$traceurRuntime.toProperty(channel)][$traceurRuntime.toProperty(Symbol.iterator)](), $__3; !($__3 = $__2.next()).done;) {
-                  try {
-                    throw undefined;
-                  } catch (listener) {
-                    listener = $__3.value;
-                    {
-                      listener.receive(data[$traceurRuntime.toProperty(channel)], channel);
+            } catch (messages) {
+              try {
+                throw undefined;
+              } catch (channel) {
+                try {
+                  throw undefined;
+                } catch ($__8) {
+                  {
+                    $__8 = $traceurRuntime.assertObject($__6.value);
+                    channel = $__8[0];
+                    messages = $__8[1];
+                  }
+                  {
+                    if ($__0.channels[$traceurRuntime.toProperty(channel)] !== undefined) {
+                      for (var $__3 = $__0.channels[$traceurRuntime.toProperty(channel)][$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
+                        try {
+                          throw undefined;
+                        } catch (listener) {
+                          listener = $__4.value;
+                          {
+                            listener.receive(messages, channel);
+                          }
+                        }
+                      }
                     }
                   }
                 }
@@ -344,19 +358,31 @@ var $__build_47_app__ = function () {
               $__0.add(value);
             });
           },
-          add: function (value) {
-            var existing = this.hashMap[$traceurRuntime.toProperty(value[$traceurRuntime.toProperty(this.id)])];
+          add: function (obj) {
+            var existing = this.hashMap[$traceurRuntime.toProperty(obj[$traceurRuntime.toProperty(this.id)])];
             if (existing === undefined) {
-              this.values.push(value);
-              $traceurRuntime.setProperty(this.hashMap, value[$traceurRuntime.toProperty(this.id)], value);
+              this.values.push(obj);
+              $traceurRuntime.setProperty(this.hashMap, obj[$traceurRuntime.toProperty(this.id)], obj);
             } else {
-              for (var $key in value) {
+              for (var $__3 = items(obj)[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
                 try {
                   throw undefined;
-                } catch (key) {
-                  key = $key;
-                  if (value.hasOwnProperty(key)) {
-                    $traceurRuntime.setProperty(existing, key, value[$traceurRuntime.toProperty(key)]);
+                } catch (value) {
+                  try {
+                    throw undefined;
+                  } catch (key) {
+                    try {
+                      throw undefined;
+                    } catch ($__8) {
+                      {
+                        $__8 = $traceurRuntime.assertObject($__4.value);
+                        key = $__8[0];
+                        value = $__8[1];
+                      }
+                      {
+                        $traceurRuntime.setProperty(existing, key, value);
+                      }
+                    }
                   }
                 }
               }
@@ -416,12 +442,26 @@ var $__build_47_app__ = function () {
         var $__0 = this;
         this.settings = {};
         this.receive = function (data) {
-          for (var $key in data) {
+          for (var $__3 = items(data)[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
             try {
               throw undefined;
-            } catch (key) {
-              key = $key;
-              $traceurRuntime.setProperty($__0.settings, key, data[$traceurRuntime.toProperty(key)]);
+            } catch (value) {
+              try {
+                throw undefined;
+              } catch (key) {
+                try {
+                  throw undefined;
+                } catch ($__8) {
+                  {
+                    $__8 = $traceurRuntime.assertObject($__4.value);
+                    key = $__8[0];
+                    value = $__8[1];
+                  }
+                  {
+                    $traceurRuntime.setProperty($__0.settings, key, value);
+                  }
+                }
+              }
             }
           }
         };
@@ -446,11 +486,11 @@ var $__build_47_app__ = function () {
         };
         var scrollToNextItem = function (scrollArea) {
           var items = scrollArea.find('.feed_item');
-          for (var $__2 = items[$traceurRuntime.toProperty(Symbol.iterator)](), $__3; !($__3 = $__2.next()).done;) {
+          for (var $__3 = items[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
             try {
               throw undefined;
             } catch (item) {
-              item = $__3.value;
+              item = $__4.value;
               {
                 item = $(item);
                 if (item.position().top > 1) {
@@ -464,11 +504,11 @@ var $__build_47_app__ = function () {
         };
         var scrollToPreviousItem = function (scrollArea) {
           var items = scrollArea.find('.feed_item');
-          for (var $__2 = items[$traceurRuntime.toProperty(Symbol.iterator)](), $__3; !($__3 = $__2.next()).done;) {
+          for (var $__3 = items[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
             try {
               throw undefined;
             } catch (item) {
-              item = $__3.value;
+              item = $__4.value;
               {
                 item = $(item);
                 if (item.position().top >= 0) {
@@ -491,11 +531,11 @@ var $__build_47_app__ = function () {
         };
         var getActiveItem = function (scrollArea) {
           var items = scrollArea.find('.feed_item');
-          for (var $__2 = items[$traceurRuntime.toProperty(Symbol.iterator)](), $__3; !($__3 = $__2.next()).done;) {
+          for (var $__3 = items[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
             try {
               throw undefined;
             } catch (item) {
-              item = $__3.value;
+              item = $__4.value;
               {
                 item = $(item);
                 if (item.height() + item.position().top > 30) {
@@ -563,6 +603,88 @@ var $__build_47_app__ = function () {
           }
         });
       }(window, document, jQuery));
+      var call = Function.prototype.call.bind(Function.prototype.call);
+      var hasOwn = Object.prototype.hasOwnProperty;
+      window.items = function (obj) {
+        'use strict';
+        var $__2;
+        return $__2 = {}, Object.defineProperty($__2, Symbol.iterator, {
+          value: function () {
+            return $traceurRuntime.initGeneratorFunction(function $__9() {
+              var $__10, $__11, $__12, $__13, $x, x;
+              return $traceurRuntime.createGeneratorInstance(function ($ctx) {
+                while (true)
+                  switch ($ctx.state) {
+                  case 0:
+                    $__10 = [];
+                    $__11 = obj;
+                    for ($__12 in $__11)
+                      $__10.push($__12);
+                    $ctx.state = 26;
+                    break;
+                  case 26:
+                    $__13 = 0;
+                    $ctx.state = 24;
+                    break;
+                  case 24:
+                    $ctx.state = $__13 < $__10.length ? 20 : -2;
+                    break;
+                  case 15:
+                    $__13++;
+                    $ctx.state = 24;
+                    break;
+                  case 20:
+                    $x = $__10[$traceurRuntime.toProperty($__13)];
+                    $ctx.state = 21;
+                    break;
+                  case 21:
+                    $ctx.state = !($traceurRuntime.toProperty($x) in $__11) ? 15 : 18;
+                    break;
+                  case 18:
+                    $ctx.pushTry(8, null);
+                    $ctx.state = 11;
+                    break;
+                  case 11:
+                    throw undefined;
+                    $ctx.state = 13;
+                    break;
+                  case 13:
+                    $ctx.popTry();
+                    $ctx.state = 15;
+                    break;
+                  case 8:
+                    $ctx.popTry();
+                    x = $ctx.storedException;
+                    $ctx.state = 6;
+                    break;
+                  case 6:
+                    x = $x;
+                    $ctx.state = 7;
+                    break;
+                  case 7:
+                    $ctx.state = call(hasOwn, obj, x) ? 1 : 15;
+                    break;
+                  case 1:
+                    $ctx.state = 2;
+                    return [
+                      x,
+                      obj[$traceurRuntime.toProperty(x)]
+                    ];
+                  case 2:
+                    $ctx.maybeThrow();
+                    $ctx.state = 15;
+                    break;
+                  default:
+                    return $ctx.end();
+                  }
+              }, $__9, this);
+            })();
+          },
+          configurable: true,
+          enumerable: true,
+          writable: true
+        }), $__2;
+      };
     }(window, document, angular, jQuery, OC, oc_requesttoken));
     return {};
   }();

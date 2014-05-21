@@ -25,10 +25,10 @@ app.service('Publisher', function () {
     };
 
     this.publishAll = (data) => {
-        for (let channel in data) {
+        for (let [channel, messages] of items(data)) {
             if (this.channels[channel] !== undefined) {
                 for (let listener of this.channels[channel]) {
-                    listener.receive(data[channel], channel);
+                    listener.receive(messages, channel);
                 }
             }
         }

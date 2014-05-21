@@ -43,6 +43,7 @@ module.exports = function (grunt) {
                     'filter/**/*.js',
                     'service/**/*.js',
                     'gui/**/*.js',
+                    'utility/**/*.js',
                     'directive/**/*.js'
                 ],
                 dest: '<%= meta.production %>app.js'
@@ -89,7 +90,6 @@ module.exports = function (grunt) {
                     'app/Run.js',
                     'filter/**/*.js',
                     'service/**/*.js',
-                    'model/**/*.js',
                     'controller/**/*.js',
                     'directive/**/*.js',
                     'tests/**/*.js',
@@ -106,7 +106,7 @@ module.exports = function (grunt) {
                     'tests/**/*.js',
                     'app/**/*.js',
                     'controller/**/*.js',
-                    'model/**/*.js',
+                    'utility/**/*.js',
                     'directive/**/*.js',
                     'filter/**/*.js',
                     'service/**/*.js',

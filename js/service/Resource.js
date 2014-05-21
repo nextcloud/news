@@ -25,18 +25,16 @@ app.factory('Resource', () => {
             });
         }
 
-        add (value) {
-            let existing = this.hashMap[value[this.id]];
+        add (obj) {
+            let existing = this.hashMap[obj[this.id]];
 
             if (existing === undefined) {
-                this.values.push(value);
-                this.hashMap[value[this.id]] = value;
+                this.values.push(obj);
+                this.hashMap[obj[this.id]] = obj;
             } else {
                 // copy values from new to old object if it exists already
-                for (let key in value) {
-                    if (value.hasOwnProperty(key)) {
-                        existing[key] = value[key];
-                    }
+                for (let [key, value] of items(obj)) {
+                    existing[key] = value;
                 }
             }
         }

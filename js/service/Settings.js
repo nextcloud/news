@@ -13,8 +13,8 @@ app.service('Settings', function () {
     this.settings = {};
 
     this.receive = (data) => {
-        for (let key in data) {
-            this.settings[key] = data[key];
+        for (let [key, value] of items(data)) {
+            this.settings[key] = value;
         }
     };
 
