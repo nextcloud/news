@@ -9,7 +9,7 @@ then run:
 
 The news app uses [Traceur](https://github.com/google/traceur-compiler) to transpile ES6 into ES5. If you want to take a look at the features see [the language features reference](https://github.com/google/traceur-compiler/wiki/LanguageFeatures#language-features).
 
-### Iterator
+### Iterators
 The following iterators are defined and availabe:
 
 * **items**:
@@ -23,7 +23,7 @@ The following iterators are defined and availabe:
 * **enumerate**:
 
 	```js
-	// iterate over object key and value
+	// iterate over list and get the index and value
 	for (let [index, value] of enumerate(list)) {
 		console.log(`at position: ${index}, value is: ${value}`)
 	}
