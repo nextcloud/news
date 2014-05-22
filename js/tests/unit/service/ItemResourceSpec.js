@@ -35,20 +35,6 @@ describe('ItemResource', () => {
     }));
 
 
-    it('should receive items', inject((ItemResource) => {
-        ItemResource.receive([
-            {
-                id: 3
-            },
-            {
-                id: 4
-            }
-        ], 'items');
-
-        expect(ItemResource.size()).toBe(2);
-    }));
-
-
     it ('should keep item unread', inject((ItemResource) => {
         http.expectPOST('base/items/3/read', {isRead: false}).respond(200, {});
 
@@ -183,6 +169,60 @@ describe('ItemResource', () => {
         expect(ItemResource.get(3).unread).toBe(false);
         expect(ItemResource.get(4).unread).toBe(false);
         expect(ItemResource.get(5).unread).toBe(false);
+    }));
+
+
+    it ('should remember the highest id', inject((ItemResource) => {
+        ItemResource.receive([
+            {
+                id: 3,
+            },
+            {
+                id: 5,
+            },
+            {
+                id: 4,
+            }
+        ], 'items');
+
+        expect(ItemResource.getHighestId()).toBe(5);
+    }));
+
+
+    it ('should remember the lowest id', inject((ItemResource) => {
+        ItemResource.receive([
+            {
+                id: 3,
+            },
+            {
+                id: 5,
+            },
+            {
+                id: 4,
+            }
+        ], 'items');
+
+        expect(ItemResource.getLowestId()).toBe(3);
+    }));
+
+
+    it ('should clear the highest and lowest id', inject((ItemResource) => {
+        ItemResource.receive([
+            {
+                id: 3,
+            },
+            {
+                id: 5,
+            },
+            {
+                id: 4,
+            }
+        ], 'items');
+
+        ItemResource.clear();
+
+        expect(ItemResource.getHighestId()).toBe(0);
+        expect(ItemResource.getLowestId()).toBe(0);
     }));
 
 

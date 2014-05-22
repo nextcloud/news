@@ -43,4 +43,17 @@ describe('ContentController', () => {
         expect(controller.getFeeds().length).toBe(1);
     }));
 
+
+    it('should clear data on url change', inject(($controller,
+        ItemResource) => {
+
+        ItemResource.clear = jasmine.createSpy('clear');
+
+        $controller('ContentController', {
+            data: {}
+        });
+
+        expect(ItemResource.clear).toHaveBeenCalled();
+    }));
+
 });

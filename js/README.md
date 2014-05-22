@@ -29,6 +29,15 @@ The following iterators are defined and availabe:
 	}
 	```
 
+* **reverse**:
+
+	```js
+	// iterate over list in reverse order
+	for (let value of reverse(list)) {
+		console.log(`value is: ${value}`)
+	}
+	```
+
 ## Building
 Watch mode:
 

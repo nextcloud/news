@@ -18,7 +18,7 @@
     "unused": true,
     "strict": true,
     "maxparams": false,
-    "maxdepth": 3,
+    "maxdepth": 4,
     "maxlen": 80,
     "browser": true,
     "devel": true,

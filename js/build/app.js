@@ -182,6 +182,7 @@ var $__build_47_app__ = function () {
         'data',
         function (Publisher, FeedResource, ItemResource, data) {
           'use strict';
+          ItemResource.clear();
           Publisher.publishAll(data);
           this.getItems = function () {
             return ItemResource.getAll();
@@ -247,9 +248,21 @@ var $__build_47_app__ = function () {
               BASE_URL
             ]);
             this.starredCount = 0;
+            this.highestId = 0;
+            this.lowestId = 0;
           };
           var $ItemResource = ItemResource;
           $traceurRuntime.createClass(ItemResource, {
+            add: function (obj) {
+              var id = obj[$traceurRuntime.toProperty(this.id)];
+              if (this.highestId < id) {
+                this.highestId = id;
+              }
+              if (this.lowestId === 0 || this.lowestId > id) {
+                this.lowestId = id;
+              }
+              $traceurRuntime.superCall(this, $ItemResource.prototype, 'add', [obj]);
+            },
             receive: function (value, channel) {
               switch (channel) {
               case 'newestItemId':
@@ -325,9 +338,20 @@ var $__build_47_app__ = function () {
               }
               return this.http.post(this.BASE_URL + '/items/read');
             },
+            getHighestId: function () {
+              return this.highestId;
+            },
+            getLowestId: function () {
+              return this.lowestId;
+            },
             keepUnread: function (itemId) {
               this.get(itemId).keepUnread = true;
               return this.read(itemId, false);
+            },
+            clear: function () {
+              this.highestId = 0;
+              this.lowestId = 0;
+              $traceurRuntime.superCall(this, $ItemResource.prototype, 'clear', []);
             }
           }, {}, Resource);
           return new ItemResource($http, BASE_URL);
@@ -830,6 +854,199 @@ var $__build_47_app__ = function () {
           writable: true
         }), $__2;
       };
+      window.reverse = function (list) {
+        'use strict';
+        var $__2;
+        return $__2 = {}, Object.defineProperty($__2, Symbol.iterator, {
+          value: function () {
+            return $traceurRuntime.initGeneratorFunction(function $__9() {
+              var counter, $counter;
+              return $traceurRuntime.createGeneratorInstance(function ($ctx) {
+                while (true)
+                  switch ($ctx.state) {
+                  case 0:
+                    $ctx.pushTry(28, null);
+                    $ctx.state = 31;
+                    break;
+                  case 31:
+                    throw undefined;
+                    $ctx.state = 33;
+                    break;
+                  case 33:
+                    $ctx.popTry();
+                    $ctx.state = -2;
+                    break;
+                  case 28:
+                    $ctx.popTry();
+                    $counter = $ctx.storedException;
+                    $ctx.state = 26;
+                    break;
+                  case 26:
+                    $counter = list.length;
+                    $ctx.state = 27;
+                    break;
+                  case 27:
+                    $ctx.state = $counter >= 0 ? 17 : -2;
+                    break;
+                  case 22:
+                    $counter -= 1;
+                    $ctx.state = 27;
+                    break;
+                  case 17:
+                    $ctx.pushTry(15, null);
+                    $ctx.state = 18;
+                    break;
+                  case 18:
+                    throw undefined;
+                    $ctx.state = 20;
+                    break;
+                  case 20:
+                    $ctx.popTry();
+                    $ctx.state = 22;
+                    break;
+                  case 15:
+                    $ctx.popTry();
+                    counter = $ctx.storedException;
+                    $ctx.state = 13;
+                    break;
+                  case 13:
+                    counter = $counter;
+                    $ctx.state = 14;
+                    break;
+                  case 14:
+                    $ctx.pushTry(null, 6);
+                    $ctx.state = 8;
+                    break;
+                  case 8:
+                    $ctx.state = 2;
+                    return list[$traceurRuntime.toProperty(counter)];
+                  case 2:
+                    $ctx.maybeThrow();
+                    $ctx.state = 22;
+                    break;
+                  case 6:
+                    $ctx.popTry();
+                    $ctx.state = 12;
+                    break;
+                  case 12:
+                    $counter = counter;
+                    $ctx.state = 10;
+                    break;
+                  default:
+                    return $ctx.end();
+                  }
+              }, $__9, this);
+            })();
+          },
+          configurable: true,
+          enumerable: true,
+          writable: true
+        }), $__2;
+      };
+      app.directive('newsScroll', [
+        '$timeout',
+        function ($timeout) {
+          'use strict';
+          return {
+            restrict: 'A',
+            scope: {
+              'newsScrollAutoPage': '&',
+              'newsScrollMarkRead': '&',
+              'newsScrollDisabledMarkRead': '=',
+              'newsScrollDisabledAutoPage': '=',
+              'newsScrollMarkReadTimeout': '@',
+              'newsScrollTimeout': '@',
+              'newsScrollAutoPageWhenLeft': '@',
+              'newsScrollItemsSelector': '@'
+            },
+            link: function (scope, elem) {
+              var scrolling = false;
+              scope.newsScrollTimeout = scope.newsScrollTimeout || 1;
+              scope.newsScrollMarkReadTimeout = scope.newsScrollMarkReadTimeout || 1;
+              scope.newsScrollAutoPageWhenLeft = scope.newsScrollAutoPageWhenLeft || 50;
+              scope.newsScrollItemsSelector = scope.newsScrollItemsSelector || '.items';
+              elem.on('scroll', function () {
+                if (!scrolling) {
+                  try {
+                    throw undefined;
+                  } catch (markRead) {
+                    try {
+                      throw undefined;
+                    } catch (items) {
+                      scrolling = true;
+                      $timeout(function () {
+                        scrolling = false;
+                      }, scope.newsScrollTimeout * 1000);
+                      items = $(scope.newsScrollItemsSelector);
+                      if (!scope.newsScrollDisabledAutoPage) {
+                        try {
+                          throw undefined;
+                        } catch (counter) {
+                          counter = 0;
+                          for (var $__3 = reverse(items.find('.feed_item'))[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
+                            try {
+                              throw undefined;
+                            } catch (item) {
+                              item = $__4.value;
+                              {
+                                item = $(item);
+                                if (counter >= scope.newsScrollAutoPageWhenLeft) {
+                                  break;
+                                }
+                                if (item.position().top < 0) {
+                                  scope.newsScrollAutoPage();
+                                  break;
+                                }
+                                counter += 1;
+                              }
+                            }
+                          }
+                        }
+                      }
+                      markRead = function () {
+                        if (!scope.newsScrollDisabledMarkRead) {
+                          try {
+                            throw undefined;
+                          } catch (unread) {
+                            try {
+                              throw undefined;
+                            } catch (ids) {
+                              ids = [];
+                              unread = items.find('.feed_item:not(.read)');
+                              for (var $__5 = unread[$traceurRuntime.toProperty(Symbol.iterator)](), $__6; !($__6 = $__5.next()).done;) {
+                                try {
+                                  throw undefined;
+                                } catch (item) {
+                                  item = $__6.value;
+                                  {
+                                    item = $(item);
+                                    if (item.position().top <= -50) {
+                                      ids.push(parseInt($(item).data('id'), 10));
+                                    } else {
+                                      break;
+                                    }
+                                  }
+                                }
+                              }
+                              scope.newsScrollMarkRead(ids);
+                            }
+                          }
+                        }
+                      };
+                      $timeout(function () {
+                        markRead();
+                      }, scope.newsScrollMarkReadTimeout * 1000);
+                    }
+                  }
+                }
+              });
+              scope.$on('$destroy', function () {
+                element.off('scroll');
+              });
+            }
+          };
+        }
+      ]);
     }(window, document, angular, jQuery, OC, oc_requesttoken));
     return {};
   }();

@@ -16,6 +16,23 @@ app.factory('ItemResource', (Resource, $http, BASE_URL) => {
         constructor ($http, BASE_URL) {
             super($http, BASE_URL);
             this.starredCount = 0;
+            this.highestId = 0;
+            this.lowestId = 0;
+        }
+
+
+        add (obj) {
+            let id = obj[this.id];
+
+            if (this.highestId < id) {
+                this.highestId = id;
+            }
+
+            if (this.lowestId === 0 || this.lowestId > id) {
+                this.lowestId = id;
+            }
+
+            super.add(obj);
         }
 
 
@@ -95,11 +112,27 @@ app.factory('ItemResource', (Resource, $http, BASE_URL) => {
         }
 
 
+        getHighestId () {
+            return this.highestId;
+        }
+
+
+        getLowestId () {
+            return this.lowestId;
+        }
+
+
         keepUnread (itemId) {
             this.get(itemId).keepUnread = true;
             return this.read(itemId, false);
         }
 
+
+        clear () {
+            this.highestId = 0;
+            this.lowestId = 0;
+            super.clear();
+        }
 
     }
 

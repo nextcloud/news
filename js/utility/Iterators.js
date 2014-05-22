@@ -49,3 +49,22 @@ window.enumerate = function (list) {
         }
     };
 };
+
+
+/**
+ * Iterates over a list in reverse
+ * like: for (let value of reverse(list))
+ */
+window.reverse = function (list) {
+    'use strict';
+
+    return {
+        [Symbol.iterator]: function () {
+            return (function*() {
+                for (let counter = list.length; counter >= 0 ; counter -= 1) {
+                    yield list[counter];
+                }
+            })();
+        }
+    };
+};

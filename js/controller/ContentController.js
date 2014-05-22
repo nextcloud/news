@@ -11,6 +11,8 @@ app.controller('ContentController',
 function (Publisher, FeedResource, ItemResource, data) {
     'use strict';
 
+    ItemResource.clear();
+
     // distribute data to models based on key
     Publisher.publishAll(data);
 
