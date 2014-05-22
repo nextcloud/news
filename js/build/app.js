@@ -986,6 +986,14 @@ var $__build_47_app__ = function () {
           writable: true
         }), $__2;
       };
+      app.directive('newsBindHtmlUnsafe', function () {
+        'use strict';
+        return function (scope, elem, attr) {
+          scope.$watch(attr.newsBindHtmlUnsafe, function () {
+            elem.html(scope.$eval(attr.newsBindHtmlUnsafe));
+          });
+        };
+      });
       app.directive('newsReadFile', function () {
         'use strict';
         return function (scope, elem, attr) {
