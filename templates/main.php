@@ -39,7 +39,6 @@
 			<?php //print_unescaped($this->inc('part.feed.starred')) ?>
 			<?php //print_unescaped($this->inc('part.listfeed', ['folderId' => '0'])) ?>
 			<?php //print_unescaped($this->inc('part.listfolder')) ?>
-			<?php //print_unescaped($this->inc('part.showall')); ?>
 		</ul>
 
 		<div id="app-settings" ng-controller="SettingsController as Settings">
