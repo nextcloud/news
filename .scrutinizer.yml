@@ -16,3 +16,6 @@ imports:
 tools:
     external_code_coverage:
         timeout: 600
+    js_hint:
+        config:
+            esnext: true
