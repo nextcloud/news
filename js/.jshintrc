@@ -1,6 +1,6 @@
 {
     "esnext": true,
-    "bitwise": false,
+    "bitwise": true,
     "camelcase": true,
     "curly": true,
     "eqeqeq": true,
@@ -14,7 +14,7 @@
     "nonew": true,
     "plusplus": true,
     "quotmark": "single",
-    "undef": false,
+    "undef": true,
     "unused": true,
     "strict": true,
     "maxparams": false,
@@ -33,11 +33,15 @@
         "protractor": true,
         "browser": true,
         "By": true,
-        "jasmine": true,
         "it": true,
+        "afterEach": true,
+        "jasmine": true,
         "describe": true,
         "beforeEach": true,
         "expect": true,
-        "exports": true
+        "exports": true,
+        "reverse": true,
+        "items": true,
+        "enumerate": true
     }
 }

@@ -99,7 +99,7 @@ app.directive('newsScroll', ($timeout) => {
                     }, scope.newsScrollMarkReadTimeout*1000);
                 }
 
-            });
+            };
 
             elem.on('scroll', scrollHandler);
 

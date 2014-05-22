@@ -7,6 +7,8 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
+
+/*jshint undef:false*/
 app.service('Publisher', function () {
     'use strict';
 

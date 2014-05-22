@@ -7,7 +7,9 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.service('Settings', function () {
+
+ /*jshint unused:false*/
+app.service('Settings', function ($http, BASE_URL) {
     'use strict';
 
     this.settings = {};
@@ -24,6 +26,15 @@ app.service('Settings', function () {
 
     this.set = (key, value) => {
         this.settings[key] = value;
+
+        let data = {};
+        data[key] = value;
+
+        return $http({
+                url: `${BASE_URL}/settings`,
+                method: 'POST',
+                data: data
+            });
     };
 
 });

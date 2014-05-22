@@ -1,84 +1,106 @@
 <div id="app-settings-header">
-<button name="app settings" 
-		class="settings-button"
-		oc-click-slide-toggle="{
-			selector: '#app-settings-content',
-			hideOnFocusLost: true,
-			cssClass: 'opened'
-		}"></button>
+<button name="app settings"
+  class="settings-button"
+  oc-click-slide-toggle="{
+    selector: '#app-settings-content',
+    hideOnFocusLost: true,
+    cssClass: 'opened'
+  }"></button>
 </div>
 
-<div id="app-settings-content">
-	<fieldset class="personalblock">
-		<legend><strong><?php p($l->t('Settings')); ?></strong></legend>
-		<p ng-click="getSetting('compact')">
-			<input type="checkbox" ng-checked="getSetting('compact')"> <?php p($l->t('Use compact view')); ?>
-		</p>
-		<p ng-click="getSetting('oldestFirst')">
-			<input type="checkbox" ng-checked="getSetting('oldestFirst')"> <?php p($l->t('Order by oldest first')); ?>
-		</p>
-		<p ng-click="getSetting('preventReadOnScroll')">
-			<input type="checkbox" ng-checked="getSetting('preventReadOnScroll')"> <?php p($l->t('Do not as mark read when scrolling')); ?>
-		</p>
-		<legend><strong><?php p($l->t('Subscriptions (OPML)')); ?></strong></legend>
-		
-		<input type="file" id="opml-upload" name="import" accept="text/x-opml, text/xml"
-				oc-read-file="import($fileContent)"/>
-		<button title="<?php p($l->t('Import')); ?>" 
-			class="upload-icon svg"
-			oc-forward-click="{selector:'#opml-upload'}">
-			<?php p($l->t('Import')); ?>
-		</button>
+<div id="app-settings-content" ng-controller="SettingsController as Settings">
+  <h3><?php p($l->t('Settings')); ?></h3>
+
+  <p ng-click="Settings.toggleSetting('compact')">
+    <input type="checkbox" ng-checked="Settings.getSetting('compact')">
+    <?php p($l->t('Use compact view')); ?>
+  </p>
+
+  <p ng-click="Settings.toggleSetting('showAll')">
+    <input type="checkbox" ng-checked="Settings.getSetting('showAll')">
+    <?php p($l->t('Show unread articles')); ?>
+  </p>
+
+  <p ng-click="Settings.toggleSetting('oldestFirst')">
+    <input type="checkbox" ng-checked="Settings.getSetting('oldestFirst')">
+    <?php p($l->t('Order by oldest first')); ?>
+  </p>
+
+  <p ng-click="Settings.toggleSetting('preventReadOnScroll')">
+    <input type="checkbox" ng-checked="Settings.getSetting('preventReadOnScroll')">
+    <?php p($l->t('Do not as mark read when scrolling')); ?>
+  </p>
 
 
-		<a title="<?php p($l->t('Export')); ?>" class="button download-icon svg"
-			href="<?php p(\OCP\Util::linkToRoute('news.export.opml')); ?>" 
-			target="_blank"
-			ng-show="feedBusinessLayer.getNumberOfFeeds() > 0">
-			<?php p($l->t('Export')); ?>
-		</a>
-		<button
-			class="download-icon svg"
-			title="<?php p($l->t('Export')); ?>" 
-			ng-hide="feedBusinessLayer.getNumberOfFeeds() > 0" disabled>
-			<?php p($l->t('Export')); ?>
-		</button>
+  <h3><?php p($l->t('Subscriptions (OPML)')); ?></h3>
 
-		<p class="error" ng-show="error">
-			<?php p($l->t('Error when importing: file does not contain valid OPML')); ?>
-		</p>
+  <input type="file"
+         id="opml-upload"
+         name="import"
+         accept="text/x-opml, text/xml"
+         news-read-file="Settings.importOpml($fileContent)"/>
 
-	</fieldset>
+  <button title="<?php p($l->t('Import')); ?>"
+          class="upload-icon svg"
+          news-trigger-click="#opml-upload">
+    <?php p($l->t('Import')); ?>
+  </button>
 
-	<fieldset class="personalblock">
-		<legend><strong><?php p($l->t('Unread/Starred Articles')); ?></strong></legend>
-		<input type="file" id="google-upload" name="importgoogle" 
-			accept="application/json"
-			oc-read-file="importArticles($fileContent)"/>
-		<button title="<?php p($l->t('Import')); ?>" 
-			class="upload-icon svg"
-			ng-class="{loading: importing}"
-			ng-disabled="importing"
-			oc-forward-click="{selector:'#google-upload'}">
-			<?php p($l->t('Import')); ?>
-		</button>
 
-		<a title="<?php p($l->t('Export')); ?>" class="button download-icon svg"
-			href="<?php p(\OCP\Util::linkToRoute('news.export.articles')); ?>" 
-			target="_blank"
-			ng-show="feedBusinessLayer.getNumberOfFeeds() > 0">
-			<?php p($l->t('Export')); ?>
-		</a>
-		<button
-			class="download-icon svg"
-			title="<?php p($l->t('Export')); ?>" 
-			ng-hide="feedBusinessLayer.getNumberOfFeeds() > 0" disabled>
-			<?php p($l->t('Export')); ?>
-		</button>
+  <a title="<?php p($l->t('Export')); ?>"
+    class="button download-icon svg"
+    href="<?php p(\OCP\Util::linkToRoute('news.export.opml')); ?>"
+    target="_blank"
+    ng-show="feedSize() > 0">
+    <?php p($l->t('Export')); ?>
+  </a>
 
-		<p class="error" ng-show="jsonError">
-			<?php p($l->t('Error when importing: file does not contain valid JSON')); ?>
-		</p>
+  <button
+    class="download-icon svg"
+    title="<?php p($l->t('Export')); ?>"
+    ng-hide="feedSize() > 0"
+    disabled>
+    <?php p($l->t('Export')); ?>
+  </button>
 
-	</fieldset>
+  <p class="error" ng-show="Settings.opmlImportError">
+    <?php p($l->t('Error when importing: file does not contain valid OPML')); ?>
+  </p>
+
+
+  <h3><?php p($l->t('Unread/Starred Articles')); ?></h3>
+
+  <input
+    type="file"
+    id="article-upload"
+    name="importarticle"
+    accept="application/json"
+    news-read-file="Settings.importArticles($fileContent)"/>
+
+  <button title="<?php p($l->t('Import')); ?>"
+    class="upload-icon svg"
+    ng-class="{loading: Settings.importing}"
+    ng-disabled="importing"
+    news-trigger-click="#article-upload">
+    <?php p($l->t('Import')); ?>
+  </button>
+
+  <a title="<?php p($l->t('Export')); ?>" class="button download-icon svg"
+    href="<?php p(\OCP\Util::linkToRoute('news.export.articles')); ?>"
+    target="_blank"
+    ng-show="feedSize() > 0">
+    <?php p($l->t('Export')); ?>
+  </a>
+  <button
+    class="download-icon svg"
+    title="<?php p($l->t('Export')); ?>"
+    ng-hide="feedSize() > 0"
+    disabled>
+    <?php p($l->t('Export')); ?>
+  </button>
+
+  <p class="error" ng-show="Settings.articleImportError">
+    <?php p($l->t('Error when importing: file does not contain valid JSON')); ?>
+  </p>
+
 </div>

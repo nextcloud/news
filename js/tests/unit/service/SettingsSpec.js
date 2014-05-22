@@ -10,7 +10,16 @@
 describe('Settings', () => {
     'use strict';
 
-    beforeEach(module('News'));
+    let http;
+
+    beforeEach(module('News', ($provide) => {
+        $provide.value('BASE_URL', 'base');
+    }));
+
+    beforeEach(inject(($httpBackend) => {
+        http = $httpBackend;
+    }));
+
 
     it('should receive default settings', inject((Settings) => {
         Settings.receive({
@@ -22,9 +31,20 @@ describe('Settings', () => {
 
 
     it('should set values', inject((Settings) => {
+        http.expectPOST('base/settings', {showAll: true}).respond(200, {});
+
         Settings.set('showAll', true);
+
+        http.flush();
 
         expect(Settings.get('showAll')).toBe(true);
     }));
+
+
+    afterEach(() => {
+        http.verifyNoOutstandingExpectation();
+        http.verifyNoOutstandingRequest();
+    });
+
 
 });

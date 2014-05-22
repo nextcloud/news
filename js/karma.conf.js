@@ -29,7 +29,7 @@ module.exports = function (config) {
             options: {
                 blockBinding: true,
                 experimental: true,
-                sourceMap: false,
+                sourceMap: true,
                 modules: 'inline'
             }
         },

@@ -196,10 +196,42 @@ var $__build_47_app__ = function () {
         'use strict';
         console.log('here');
       });
-      app.controller('SettingsController', function () {
-        'use strict';
-        console.log('here');
-      });
+      app.controller('SettingsController', [
+        'Settings',
+        '$route',
+        'FeedResource',
+        function (Settings, $route, FeedResource) {
+          'use strict';
+          var $__0 = this;
+          this.importing = false;
+          this.opmlImportError = false;
+          this.articleImportError = false;
+          var set = function (key, value) {
+            Settings.set(key, value);
+            if ([
+                'showAll',
+                'oldestFirst'
+              ].indexOf(key) >= 0) {
+              $route.reload();
+            }
+          };
+          this.toggleSetting = function (key) {
+            set(key, !$__0.getSetting(key));
+          };
+          this.getSetting = function (key) {
+            return Settings.get(key);
+          };
+          this.importOpml = function (content) {
+            console.log(content);
+          };
+          this.importArticles = function (content) {
+            console.log(content);
+          };
+          this.feedSize = function () {
+            return FeedResource.size();
+          };
+        }
+      ]);
       app.factory('FeedResource', [
         'Resource',
         '$http',
@@ -514,41 +546,52 @@ var $__build_47_app__ = function () {
         }, {});
         return Resource;
       });
-      app.service('Settings', function () {
-        'use strict';
-        var $__0 = this;
-        this.settings = {};
-        this.receive = function (data) {
-          for (var $__3 = items(data)[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
-            try {
-              throw undefined;
-            } catch (value) {
+      app.service('Settings', [
+        '$http',
+        'BASE_URL',
+        function ($http, BASE_URL) {
+          'use strict';
+          var $__0 = this;
+          this.settings = {};
+          this.receive = function (data) {
+            for (var $__3 = items(data)[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
               try {
                 throw undefined;
-              } catch (key) {
+              } catch (value) {
                 try {
                   throw undefined;
-                } catch ($__8) {
-                  {
-                    $__8 = $traceurRuntime.assertObject($__4.value);
-                    key = $__8[0];
-                    value = $__8[1];
-                  }
-                  {
-                    $traceurRuntime.setProperty($__0.settings, key, value);
+                } catch (key) {
+                  try {
+                    throw undefined;
+                  } catch ($__8) {
+                    {
+                      $__8 = $traceurRuntime.assertObject($__4.value);
+                      key = $__8[0];
+                      value = $__8[1];
+                    }
+                    {
+                      $traceurRuntime.setProperty($__0.settings, key, value);
+                    }
                   }
                 }
               }
             }
-          }
-        };
-        this.get = function (key) {
-          return $__0.settings[$traceurRuntime.toProperty(key)];
-        };
-        this.set = function (key, value) {
-          $traceurRuntime.setProperty($__0.settings, key, value);
-        };
-      });
+          };
+          this.get = function (key) {
+            return $__0.settings[$traceurRuntime.toProperty(key)];
+          };
+          this.set = function (key, value) {
+            $traceurRuntime.setProperty($__0.settings, key, value);
+            var data = {};
+            $traceurRuntime.setProperty(data, key, value);
+            return $http({
+              url: BASE_URL + '/settings',
+              method: 'POST',
+              data: data
+            });
+          };
+        }
+      ]);
       (function (window, document, $) {
         'use strict';
         var scrollArea = $('#app-content');
@@ -943,17 +986,38 @@ var $__build_47_app__ = function () {
           writable: true
         }), $__2;
       };
+      app.directive('newsTriggerClick', function () {
+        'use strict';
+        return function (scope, elm, attr) {
+          elm.click(function () {
+            $(attr.newsTriggerClick).trigger('click');
+          });
+        };
+      });
+      app.directive('newsReadFile', function () {
+        'use strict';
+        return function (scope, elm, attr) {
+          var file = elm[0].files[0];
+          var reader = new FileReader();
+          reader.onload = function (event) {
+            elm[0].value = 0;
+            scope.$fileContent = event.target.result;
+            scope.$apply(attr.newsReadFile);
+          };
+          reader.reasAsText(file);
+        };
+      });
       app.directive('newsScroll', [
         '$timeout',
         function ($timeout) {
           'use strict';
-          var autoPage = function (enabled, limit, items, callback) {
+          var autoPage = function (enabled, limit, callback, elem) {
             if (enabled) {
               try {
                 throw undefined;
               } catch (counter) {
                 counter = 0;
-                for (var $__3 = reverse(items.find('.feed_item'))[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
+                for (var $__3 = reverse(elem.find('.feed_item'))[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
                   try {
                     throw undefined;
                   } catch (item) {
@@ -974,33 +1038,28 @@ var $__build_47_app__ = function () {
               }
             }
           };
-          var markRead = function (enabled, items, callback) {
+          var markRead = function (enabled, callback, elem) {
             if (enabled) {
               try {
                 throw undefined;
-              } catch (unreadItems) {
-                try {
-                  throw undefined;
-                } catch (ids) {
-                  ids = [];
-                  unreadItems = items.find('.feed_item:not(.read)');
-                  for (var $__3 = unreadItems[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
-                    try {
-                      throw undefined;
-                    } catch (item) {
-                      item = $__4.value;
-                      {
-                        item = $(item);
-                        if (item.position().top <= -50) {
-                          ids.push(parseInt($(item).data('id'), 10));
-                        } else {
-                          break;
-                        }
+              } catch (ids) {
+                ids = [];
+                for (var $__3 = elem.find('.feed_item:not(.read)')[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
+                  try {
+                    throw undefined;
+                  } catch (item) {
+                    item = $__4.value;
+                    {
+                      item = $(item);
+                      if (item.position().top <= -50) {
+                        ids.push(parseInt(item.data('id'), 10));
+                      } else {
+                        break;
                       }
                     }
                   }
-                  callback(ids);
                 }
+                callback(ids);
               }
             }
           };
@@ -1009,38 +1068,32 @@ var $__build_47_app__ = function () {
             scope: {
               'newsScrollAutoPage': '&',
               'newsScrollMarkRead': '&',
-              'newsScrollDisabledMarkRead': '=',
-              'newsScrollDisabledAutoPage': '=',
+              'newsScrollEnabledMarkRead': '=',
+              'newsScrollEnableAutoPage': '=',
               'newsScrollMarkReadTimeout': '@',
               'newsScrollTimeout': '@',
-              'newsScrollAutoPageWhenLeft': '@',
-              'newsScrollItemsSelector': '@'
+              'newsScrollAutoPageWhenLeft': '@'
             },
             link: function (scope, elem) {
-              var scrolling = false;
+              var allowScroll = true;
               scope.newsScrollTimeout = scope.newsScrollTimeout || 1;
               scope.newsScrollMarkReadTimeout = scope.newsScrollMarkReadTimeout || 1;
               scope.newsScrollAutoPageWhenLeft = scope.newsScrollAutoPageWhenLeft || 50;
-              scope.newsScrollItemsSelector = scope.newsScrollItemsSelector || '.items';
-              elem.on('scroll', function () {
-                if (!scrolling) {
-                  try {
-                    throw undefined;
-                  } catch (items) {
-                    scrolling = true;
-                    $timeout(function () {
-                      scrolling = false;
-                    }, scope.newsScrollTimeout * 1000);
-                    items = $(scope.newsScrollItemsSelector);
-                    autoPage(!scope.newsScrollDisabledAutoPage, scope.newsScrollAutoPageWhenLeft, items, scope.newsScrollAutoPage);
-                    $timeout(function () {
-                      markRead(!scope.newsScrollDisabledMarkRead, items, scope.newsScrollMarkRead);
-                    }, scope.newsScrollMarkReadTimeout * 1000);
-                  }
+              var scrollHandler = function () {
+                if (allowScroll) {
+                  allowScroll = false;
+                  $timeout(function () {
+                    allowScroll = true;
+                  }, scope.newsScrollTimeout * 1000);
+                  autoPage(scope.newsScrollEnableAutoPage, scope.newsScrollAutoPageWhenLeft, scope.newsScrollAutoPage, elem);
+                  $timeout(function () {
+                    markRead(scope.newsScrollEnabledMarkRead, scope.newsScrollMarkRead, elem);
+                  }, scope.newsScrollMarkReadTimeout * 1000);
                 }
-              });
+              };
+              elem.on('scroll', scrollHandler);
               scope.$on('$destroy', function () {
-                elem.off('scroll');
+                elem.off('scroll', scrollHandler);
               });
             }
           };
