@@ -62,7 +62,7 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
                     let deferred = $q.defer();
 
                     $http({
-                        url: BASE_URL + '/items',
+                        url:  `${BASE_URL}/items`,
                         method: 'GET',
                         params: parameters
                     }).success((data) => {

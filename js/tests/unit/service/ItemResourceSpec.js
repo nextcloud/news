@@ -99,7 +99,8 @@ describe('ItemResource', () => {
 
 
     it ('should star item', inject((ItemResource) => {
-        http.expectPOST('base/items/4/a/star', {isStarred: true}).respond(200, {});
+        http.expectPOST('base/items/4/a/star', {isStarred: true})
+            .respond(200, {});
 
         ItemResource.receive([
             {
@@ -120,6 +121,7 @@ describe('ItemResource', () => {
         http.flush();
 
         expect(ItemResource.get(3).starred).toBe(true);
+        expect(ItemResource.getStarredCount()).toBe(1);
     }));
 
 

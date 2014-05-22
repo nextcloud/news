@@ -25,23 +25,23 @@ app.run(($rootScope, $location, $http, $q, $interval, Loading, ItemResource,
 
     // load feeds, settings and last read feed
     let settingsDeferred = $q.defer();
-    $http.get(BASE_URL + '/settings').success((data) => {
+    $http.get(`${BASE_URL}/settings`).success((data) => {
         Publisher.publishAll(data);
         settingsDeferred.resolve();
     });
 
     let activeFeedDeferred = $q.defer();
-    $http.get(BASE_URL + '/feeds/active').success((data) => {
+    $http.get(`${BASE_URL}/feeds/active`).success((data) => {
         let url;
 
         switch (data.type) {
 
         case FEED_TYPE.FEED:
-            url = '/items/feeds/' + data.id;
+            url = '/items/feeds/${data.id}';
             break;
 
         case FEED_TYPE.FOLDER:
-            url = '/items/folders/' + data.id;
+            url = '/items/folders/${data.id}';
             break;
 
         case FEED_TYPE.STARRED:
@@ -57,13 +57,13 @@ app.run(($rootScope, $location, $http, $q, $interval, Loading, ItemResource,
     });
 
     let folderDeferred = $q.defer();
-    $http.get(BASE_URL + '/folders').success((data) => {
+    $http.get(`${BASE_URL}/folders`).success((data) => {
         Publisher.publishAll(data);
         folderDeferred.resolve();
     });
 
     let feedDeferred = $q.defer();
-    $http.get(BASE_URL + '/feeds').success((data) => {
+    $http.get(`${BASE_URL}/feeds`).success((data) => {
         Publisher.publishAll(data);
         feedDeferred.resolve();
     });
@@ -83,8 +83,8 @@ app.run(($rootScope, $location, $http, $q, $interval, Loading, ItemResource,
 
     // refresh feeds and folders
     $interval(() => {
-        $http.get(BASE_URL + '/feeds');
-        $http.get(BASE_URL + '/folders');
+        $http.get(`${BASE_URL}/feeds`);
+        $http.get(`${BASE_URL}/folders`);
     }, REFRESH_RATE * 1000);
 
 

@@ -15,6 +15,7 @@ app.factory('ItemResource', (Resource, $http, BASE_URL) => {
 
         constructor ($http, BASE_URL) {
             super($http, BASE_URL);
+            this.starredCount = 0;
         }
 
 
@@ -44,30 +45,35 @@ app.factory('ItemResource', (Resource, $http, BASE_URL) => {
         }
 
 
-        star (itemId, star=true) {
-            let item = this.get(itemId);
-            let base = this.BASE_URL;
-            let url = `${base}/items/${item.feedId}/${item.guidHash}/star`;
+        star (itemId, isStarred=true) {
+            let it = this.get(itemId);
+            let url = `${this.BASE_URL}/items/${it.feedId}/${it.guidHash}/star`;
 
-            item.starred = star;
+            it.starred = isStarred;
+
+            if (isStarred) {
+                this.starredCount += 1;
+            } else {
+                this.starredCount -= 1;
+            }
 
             return this.http({
                 url: url,
                 method: 'POST',
                 data: {
-                    isStarred: star
+                    isStarred: isStarred
                 }
             });
         }
 
 
-        read (itemId, read=true) {
-            this.get(itemId).unread = !read;
+        read (itemId, isRead=true) {
+            this.get(itemId).unread = !isRead;
             return this.http({
                 url: `${this.BASE_URL}/items/${itemId}/read`,
                 method: 'POST',
                 data: {
-                    isRead: read
+                    isRead: isRead
                 }
             });
         }

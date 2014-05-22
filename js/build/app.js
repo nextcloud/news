@@ -116,10 +116,10 @@ var $__build_47_app__ = function () {
             var url;
             switch (data.type) {
             case FEED_TYPE.FEED:
-              url = '/items/feeds/' + data.id;
+              url = '/items/feeds/${data.id}';
               break;
             case FEED_TYPE.FOLDER:
-              url = '/items/folders/' + data.id;
+              url = '/items/folders/${data.id}';
               break;
             case FEED_TYPE.STARRED:
               url = '/items/starred';
@@ -246,6 +246,7 @@ var $__build_47_app__ = function () {
               $http,
               BASE_URL
             ]);
+            this.starredCount = 0;
           };
           var $ItemResource = ItemResource;
           $traceurRuntime.createClass(ItemResource, {
@@ -270,16 +271,36 @@ var $__build_47_app__ = function () {
             getStarredCount: function () {
               return this.starredCount;
             },
-            markRead: function (itemId) {
-              var read = arguments[1] !== void 0 ? arguments[1] : true;
-              this.get(itemId).unread = !read;
+            star: function (itemId) {
+              var isStarred = arguments[1] !== void 0 ? arguments[1] : true;
+              var it = this.get(itemId);
+              var url = this.BASE_URL + '/items/' + it.feedId + '/' + it.guidHash + '/star';
+              it.starred = isStarred;
+              if (isStarred) {
+                this.starredCount += 1;
+              } else {
+                this.starredCount -= 1;
+              }
+              return this.http({
+                url: url,
+                method: 'POST',
+                data: { isStarred: isStarred }
+              });
+            },
+            read: function (itemId) {
+              var isRead = arguments[1] !== void 0 ? arguments[1] : true;
+              this.get(itemId).unread = !isRead;
               return this.http({
                 url: this.BASE_URL + '/items/' + itemId + '/read',
                 method: 'POST',
-                data: { isRead: read }
+                data: { isRead: isRead }
               });
             },
-            markFeedRead: function (feedId) {
+            keepUnread: function (itemId) {
+              this.get(itemId).keepUnread = true;
+              return this.read(itemId, false);
+            },
+            readFeed: function (feedId) {
               var read = arguments[1] !== void 0 ? arguments[1] : true;
               for (var $__3 = this.values.filter(function (i) {
                     return i.feedId === feedId;
