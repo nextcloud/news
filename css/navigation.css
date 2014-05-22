@@ -20,276 +20,276 @@
  */
 
 #undo-container {
-	position: fixed;
-	top: 0px;
-	width: 100%;
-	text-align: center;
-	z-index: 101;
-	line-height: 1.2;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    text-align: center;
+    z-index: 101;
+    line-height: 1.2;
 }
 
 #undo {
-	z-index:101;
-	background-color:#fc4;
-	border:0;
-	padding:0 .7em .3em;
-	display:none;
-	position: relative;
-	top:0;
-	-moz-border-radius-bottomleft:1em;
-	-webkit-border-bottom-left-radius:1em;
-	border-bottom-left-radius:1em;
-	-moz-border-radius-bottomright:1em;
-	-webkit-border-bottom-right-radius:1em;
-	border-bottom-right-radius:1em;
+    z-index:101;
+    background-color:#fc4;
+    border:0;
+    padding:0 .7em .3em;
+    display:none;
+    position: relative;
+    top:0;
+    -moz-border-radius-bottomleft:1em;
+    -webkit-border-bottom-left-radius:1em;
+    border-bottom-left-radius:1em;
+    -moz-border-radius-bottomright:1em;
+    -webkit-border-bottom-right-radius:1em;
+    border-bottom-right-radius:1em;
 }
 
 #undo a {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 #undo a:hover {
-	text-decoration: underline;
+    text-decoration: underline;
 }
 
 
 .starred-icon {
-	background-image: url('../img/starred.png');
+    background-image: url('../img/starred.png');
 }
 
 .subscriptions-icon {
-	background-image: url('../img/rss.svg');
+    background-image: url('../img/rss.svg');
 }
 
 .unread > a,
 .unread > .utils .unread-counter {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 #app-navigation .with-icon .list-title {
-	padding-left:16px;
+    padding-left:16px;
 }
 
 #app-navigation .with-icon .list-title span {
-	display:none;
-	margin-left:6px;
+    display:none;
+    margin-left:6px;
 }
 
 #app-navigation .with-icon .list-title:hover span {
-	display:inline;
+    display:inline;
 }
 
 #app-navigation .with-icon .opened span {
-	display:inline;
+    display:inline;
 }
 
 #app-navigation .unread > a {
-	padding-right: 32px;
+    padding-right: 32px;
 }
 
 #app-navigation .active > a {
-	padding-right: 40px;
+    padding-right: 40px;
 }
 
 #app-navigation .active.unread > a {
-	padding-right: 80px;
+    padding-right: 80px;
 }
 
 #app-navigation li:hover > a {
-	padding-right: 60px;
+    padding-right: 60px;
 }
 
 #app-navigation .add-new:hover > a {
-	padding-right: 0px;
+    padding-right: 0px;
 }
 
 #app-navigation .utils {
-	position: absolute;
-	right: 0;
-	top: 0;
-	bottom: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
 }
 
 #app-navigation .utils > * {
-	float: right;
+    float: right;
 }
 
 #app-navigation .utils button {
-	margin: 0;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-color: transparent;
-	border: 0;
-	box-shadow: none;
-	display: none;
-	height: 30px;
-	width: 22px;
+    margin: 0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: 0;
+    box-shadow: none;
+    display: none;
+    height: 30px;
+    width: 22px;
 }
 
 #app-navigation li:hover > .utils button {
-	display: block;
+    display: block;
 }
 
 /* only display the delete button when the feed is active */
 #app-navigation li:hover > .utils .delete-button {
-	display: none;
+    display: none;
 }
 
 #app-navigation li.active > .utils .delete-button {
-	display: block;
+    display: block;
 }
 
 .folder {
-	text-transform: uppercase;
+    text-transform: uppercase;
 }
 
 .feed {
-	text-transform: none;
+    text-transform: none;
 }
 
 .unread-counter {
-	padding: 8px 6px 8px 5px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	text-align: center;
-	font-size: 9pt;
-	display: none;
+    padding: 8px 6px 8px 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    font-size: 9pt;
+    display: none;
 }
 
 
 .unread .unread-counter {
-	display: block;
+    display: block;
 }
 .starred .unread-counter {
-	font-weight: normal !important;
+    font-weight: normal !important;
 }
 
 
 button.action {
-	opacity: .5;
+    opacity: .5;
 }
 
 button.action:hover {
-	opacity: 1;
+    opacity: 1;
 }
 
 
 #app-navigation li:hover > .utils {
-	display: block;
+    display: block;
 }
 
 #app-navigation li:hover > .utils .unread-counter {
-	padding-left: 0;
+    padding-left: 0;
 }
 
 #app-navigation .folder-input {
-	text-transform: uppercase;
+    text-transform: uppercase;
 }
 
 .delete-icon {
-	background-image: url('../img/delete.svg');
+    background-image: url('../img/delete.svg');
 }
 
 .rename-feed-icon {
-	background-image: url('../img/rename.svg');
+    background-image: url('../img/rename.svg');
 }
 
 .mark-read-icon {
-	background-image: url('../img/mark_read.svg');
+    background-image: url('../img/mark_read.svg');
 }
 
 .rename-feed input {
-	margin: 1px 0 0px 5px;
-	border-right: 1px solid #ddd;
-	border-radius: 2px;
-	border-top-right-radius: 0;
-	border-bottom-right-radius: 0;
-	border-right: 0;
-	width: 208px;
-	height: 32px;
+    margin: 1px 0 0px 5px;
+    border-right: 1px solid #ddd;
+    border-radius: 2px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: 0;
+    width: 208px;
+    height: 32px;
 }
 
 .rename-feed button {
-	margin: 5px 0 5px 0;
-	display: inline-block;
-	border-bottom-left-radius: 0;
-	border-top-left-radius: 0;
-	width: 30px !important;
-	height: 30px !important;
+    margin: 5px 0 5px 0;
+    display: inline-block;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    width: 30px !important;
+    height: 30px !important;
         padding: 0.6em;
 }
 
 .rename-feed .action-button {
-	background-position: center;
-	background-repeat: no-repeat;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .rename-feed .back-button {
-	border-radius: 3px;
-	background-image: url('../img/delete.svg');
+    border-radius: 3px;
+    background-image: url('../img/delete.svg');
 }
 
 .rename-feed .create-button {
-	border-radius: 0;
-	background-image: url('../img/mark_read.svg');
+    border-radius: 0;
+    background-image: url('../img/mark_read.svg');
 }
 
 .rss-icon {
-	background-image: url('../img/rss.svg');
+    background-image: url('../img/rss.svg');
 }
 
 #app-navigation .ui-draggable-dragging {
-	width: 100%;
+    width: 100%;
 }
 
 #app-navigation .multiselect {
-	height:20px;
+    height:20px;
 }
 
 #app-navigation .progress-icon,
 #app-navigation .problem-icon {
-	width: 299px;
-	line-height: 44px;
+    width: 299px;
+    line-height: 44px;
 }
 
 .progress-icon {
-	background-image: url('../img/loading.gif');
+    background-image: url('../img/loading.gif');
 }
 
 .problem-icon {
-	background-image: url('../img/problem.svg') !important;
+    background-image: url('../img/problem.svg') !important;
 }
 
 .failed {
-	background-color: #F2FF63 !important;
-	text-shadow: none !important;
-	font-weight: bold;
+    background-color: #F2FF63 !important;
+    text-shadow: none !important;
+    font-weight: bold;
 }
 
-	.failed .title  {
-		background-color: #F2FF63 !important;
-		width: 299px !important;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		overflow: hidden;
-		display: inline-block !important;
-	}
+    .failed .title  {
+        background-color: #F2FF63 !important;
+        width: 299px !important;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        display: inline-block !important;
+    }
 
-	.failed a:hover,
-	.failed:hover a {
-		background-color: #F2FF63 !important;
-	}
+    .failed a:hover,
+    .failed:hover a {
+        background-color: #F2FF63 !important;
+    }
 
-	.failed .message {
-		font-weight: normal;
-		padding: 5px 20px 5px 32px;
-	}
+    .failed .message {
+        font-weight: normal;
+        padding: 5px 20px 5px 32px;
+    }
 
-	.folder .feed.failed .message {
-		padding-left: 48px;
-	}
+    .folder .feed.failed .message {
+        padding-left: 48px;
+    }
 
 .tooltip {
-	text-shadow: none;
-	text-transform: none;
+    text-shadow: none;
+    text-transform: none;
 }

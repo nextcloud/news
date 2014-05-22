@@ -9,47 +9,47 @@
  */
 
 #app-settings input[type=file] {
-	opacity:0;
-	z-index:1001;
-	width:0;
-	height:0;
+    opacity:0;
+    z-index:1001;
+    width:0;
+    height:0;
 }
 
 #app-settings .opened:hover {
-	background-color: transparent !important;
+    background-color: transparent !important;
 }
 
 #app-settings-content {
-	padding-bottom: 25px;
+    padding-bottom: 25px;
 }
 
 #app-settings-content h3 {
-	padding: 5px 0;
-	font-weight: bold;
+    padding: 5px 0;
+    font-weight: bold;
 }
 
 #app-settings-content p {
-	padding-left: 10px;
+    padding-left: 10px;
 }
 
 .upload-icon,
 .download-icon {
-	padding-left: 25px;
-	background-repeat: no-repeat;
-	background-position: 5px center;
+    padding-left: 25px;
+    background-repeat: no-repeat;
+    background-position: 5px center;
 }
 
 .upload-icon {
-	background-image: url('../img/upload.svg');
+    background-image: url('../img/upload.svg');
 }
 
 .download-icon {
-	background-image: url('../img/download.svg');
+    background-image: url('../img/download.svg');
 }
 
 #app-settings .importing {
-	background-image: url('../img/loading.gif');
-	background-repeat: no-repeat;
-	background-position: 5px center;
-	background-size: 16px;
+    background-image: url('../img/loading.gif');
+    background-repeat: no-repeat;
+    background-position: 5px center;
+    background-size: 16px;
 }

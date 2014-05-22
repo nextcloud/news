@@ -22,75 +22,75 @@
 
 
 .add-new:hover a.opened {
-	background-color: transparent !important;
+    background-color: transparent !important;
 }
 
 .add-new-popup {
-	display: none;
-	padding: 15px 10px;
+    display: none;
+    padding: 15px 10px;
 }
 
 .add-new input[type=text] {
-	width: 170px;
+    width: 170px;
 }
 
 .add-new select {
-	width: 170px;
-	margin-top: 1px !important;
-	height: 30px;
-	background-color: #eee;
+    width: 170px;
+    margin-top: 1px !important;
+    height: 30px;
+    background-color: #eee;
 }
 
 .add-new input {
-	margin-top: 15px;
-	box-sizing: border-box;
+    margin-top: 15px;
+    box-sizing: border-box;
 }
 
 .add-new input,
 .add-new select {
-	margin: 0 0 5px 0;
-	display: inline-block;
-	float: left;
-	border-top-right-radius: 0;
-	border-bottom-right-radius: 0;
-	border-right: 0;
+    margin: 0 0 5px 0;
+    display: inline-block;
+    float: left;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: 0;
 }
 
 .add-new button {
-	margin: 0 0 5px 0;
-	display: inline-block;
-	float: left;
-	border-bottom-left-radius: 0;
-	border-top-left-radius: 0;
-	height: 30px !important;
-	margin-top: 1px;
+    margin: 0 0 5px 0;
+    display: inline-block;
+    float: left;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    height: 30px !important;
+    margin-top: 1px;
 }
 
 .add-new .action-button {
-	width: 30px;
-	background-position: center;
-	background-repeat: no-repeat;
+    width: 30px;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .add-new .back-button {
-	border-radius: 0;
-	background-image: url('../img/delete.svg');
+    border-radius: 0;
+    background-image: url('../img/delete.svg');
 }
 
 .add-new .new-button {
-	border-radius: 0;
-	background-image: url('../img/add.svg');
-	border-top-right-radius: 5px;
-	border-bottom-right-radius: 5px;
+    border-radius: 0;
+    background-image: url('../img/add.svg');
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .add-new .create-button {
-	border-radius: 0;
-	background-image: url('../img/mark_read.svg');
-	border-top-right-radius: 5px;
-	border-bottom-right-radius: 5px;
+    border-radius: 0;
+    background-image: url('../img/mark_read.svg');
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .add-new .error {
-	padding: 0 0 10px 0;
+    padding: 0 0 10px 0;
 }
