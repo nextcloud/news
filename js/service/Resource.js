@@ -12,6 +12,7 @@ app.factory('Resource', () => {
 
     class Resource {
 
+
         constructor (http, BASE_URL, id='id') {
             this.id = id;
             this.values = [];
@@ -20,11 +21,13 @@ app.factory('Resource', () => {
             this.BASE_URL = BASE_URL;
         }
 
+
         receive (objs) {
             for (let obj of objs) {
                 this.add(obj);
             }
         }
+
 
         add (obj) {
             let existing = this.hashMap[obj[this.id]];
@@ -40,13 +43,16 @@ app.factory('Resource', () => {
             }
         }
 
+
         size () {
             return this.values.length;
         }
 
+
         get (id) {
             return this.hashMap[id];
         }
+
 
         delete (id) {
             // find index of object that should be deleted
@@ -61,6 +67,7 @@ app.factory('Resource', () => {
             }
         }
 
+
         clear () {
             this.hashMap = {};
 
@@ -72,9 +79,11 @@ app.factory('Resource', () => {
             }
         }
 
+
         getAll () {
             return this.values;
         }
+
 
     }
 

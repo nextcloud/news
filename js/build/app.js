@@ -273,18 +273,27 @@ var $__build_47_app__ = function () {
             markRead: function (itemId) {
               var read = arguments[1] !== void 0 ? arguments[1] : true;
               this.get(itemId).unread = !read;
+              return this.http({
+                url: this.BASE_URL + '/items/' + itemId + '/read',
+                method: 'POST',
+                data: { isRead: read }
+              });
             },
             markFeedRead: function (feedId) {
-              for (var $item in this.values.filter(function (i) {
-                  return i.feedId === feedId;
-                })) {
+              var read = arguments[1] !== void 0 ? arguments[1] : true;
+              for (var $__3 = this.values.filter(function (i) {
+                    return i.feedId === feedId;
+                  })[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
                 try {
                   throw undefined;
                 } catch (item) {
-                  item = $item;
-                  this.markRead(item);
+                  item = $__4.value;
+                  {
+                    item.unread = !read;
+                  }
                 }
               }
+              return this.http.post(this.BASE_URL + '/feeds/' + feedId + '/read');
             }
           }, {}, Resource);
           return new ItemResource($http, BASE_URL);
