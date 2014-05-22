@@ -41,7 +41,7 @@ Single run mode:
 ## Testing
 Watch mode:
 
-	grunt phpunit
+	grunt php
 	grunt test
 
 Single run mode:

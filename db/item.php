@@ -109,21 +109,22 @@ class Item extends Entity implements IAPI, \JsonSerializable {
 	 * Turns entitie attributes into an array
 	 */
 	public function jsonSerialize() {
-		return $this->serializeFields([
-			'id',
-			'guidHash',
-			'guid',
-			'url',
-			'title',
-			'author',
-			'pubDate',
-			'body',
-			'enclosureMime',
-			'enclosureLink',
-			'feedId',
-			'status',
-			'lastModified',
-		]);
+		return [
+			'id' => $this->getId(),
+			'guid' => $this->getGuid(),
+			'guidHash' => $this->getGuidHash(),
+			'url' => $this->getUrl(),
+			'title' => $this->getTitle(),
+			'author' => $this->getAuthor(),
+			'pubDate' => $this->getPubDate(),
+			'body' => $this->getBody(),
+			'enclosureMime' => $this->getEnclosureMime(),
+			'enclosureLink' => $this->getEnclosureLink(),
+			'feedId' => $this->getFeedId(),
+			'unread' => $this->isUnread(),
+			'starred' => $this->isStarred(),
+			'lastModified' => $this->getLastModified()
+		];
 	}
 
 	public function toAPI() {
@@ -183,7 +184,7 @@ class Item extends Entity implements IAPI, \JsonSerializable {
 		} else {
 			$item->setUnstarred();
 		}
-		
+
 		return $item;
 	}
 

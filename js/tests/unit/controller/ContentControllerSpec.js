@@ -10,7 +10,9 @@
 describe('ContentController', () => {
     'use strict';
 
-    beforeEach(module('News'));
+    beforeEach(module('News', ($provide) => {
+        $provide.value('BASE_URL', 'base');
+    }));
 
 
     it('should publish data to models', inject(($controller, Publisher,

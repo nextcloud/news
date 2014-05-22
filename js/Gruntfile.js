@@ -139,7 +139,7 @@ module.exports = function (grunt) {
         },
         phpunit: {
             classes: {
-                dir: '../tests'
+                dir: '../tests/unit'
             },
             options: {
                 colors: true
@@ -175,7 +175,7 @@ module.exports = function (grunt) {
     grunt.registerTask('default', ['jshint', 'concat',  'wrap', 'traceur', 'ngmin']);
     grunt.registerTask('dev', ['watch:concat']);
     grunt.registerTask('test', ['karma:unit']);
-    grunt.registerTask('phpunit', ['watch:phpunit']);
+    grunt.registerTask('php', ['watch:phpunit']);
     grunt.registerTask('e2e', ['protractor_webdriver', 'connect', 'protractor:chrome']);
     grunt.registerTask('ci-unit', ['default', 'karma:continuous']);
     grunt.registerTask('ci-e2e', ['protractor_webdriver', 'connect', 'protractor:phantomjs']);

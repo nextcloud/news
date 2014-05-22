@@ -10,7 +10,9 @@
 describe('ItemResource', () => {
     'use strict';
 
-    beforeEach(module('News'));
+    beforeEach(module('News', ($provide) => {
+        $provide.value('BASE_URL', 'base');
+    }));
 
 
     it('should receive the newestItemId', inject((ItemResource) => {
@@ -38,6 +40,26 @@ describe('ItemResource', () => {
         ], 'items');
 
         expect(ItemResource.size()).toBe(2);
+    }));
+
+
+    it ('should mark item as read', inject((ItemResource) => {
+        ItemResource.receive([
+            {
+                id: 3,
+                feedId: 4,
+                unread: true
+            },
+            {
+                id: 4,
+                feedId: 3,
+                unread: true
+            }
+        ], 'items');
+
+        ItemResource.markRead(3);
+
+        expect(ItemResource.get(3).unread).toBe(false);
     }));
 
 });

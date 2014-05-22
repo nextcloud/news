@@ -32,8 +32,8 @@ class ItemController extends Controller {
 	private $userId;
 	private $settings;
 
-	public function __construct($appName, 
-	                            IRequest $request, 
+	public function __construct($appName,
+	                            IRequest $request,
 		                        FeedService $feedService,
 		                        ItemService $itemService,
 		                        IConfig $settings,
@@ -70,19 +70,19 @@ class ItemController extends Controller {
 		try {
 
 			// the offset is 0 if the user clicks on a new feed
-			// we need to pass the newest feeds to not let the unread count get 
+			// we need to pass the newest feeds to not let the unread count get
 			// out of sync
 			if($offset === 0) {
-				$params['newestItemId'] = 
+				$params['newestItemId'] =
 					$this->itemService->getNewestItemId($this->userId);
 				$params['feeds'] = $this->feedService->findAll($this->userId);
 				$params['starred'] = $this->itemService->starredCount($this->userId);
 			}
-						
+
 			$params['items'] = $this->itemService->findAll(
 				$id, $type, $limit, $offset, $showAll, $this->userId, $oldestFirst
 			);
-			
+
 		// this gets thrown if there are no items
 		// in that case just return an empty array
 		} catch(ServiceException $ex) {}
@@ -93,13 +93,13 @@ class ItemController extends Controller {
 
 	/**
 	 * @NoAdminRequired
-	 * 
+	 *
 	 * @param int $type
 	 * @param int $id
 	 * @param int $lastModified
 	 */
 	public function newItems($type, $id, $lastModified=0) {
-		$showAll = $this->settings->getUserValue($this->userId, $this->appName,			
+		$showAll = $this->settings->getUserValue($this->userId, $this->appName,
 			'showAll') === '1';
 
 		$params = [];
@@ -107,8 +107,8 @@ class ItemController extends Controller {
 		try {
 			$params['newestItemId'] = $this->itemService->getNewestItemId($this->userId);
 			$params['feeds'] = $this->feedService->findAll($this->userId);
-			$params['starred'] = $this->itemService->starredCount($this->userId);			
-			$params['items'] = $this->itemService->findAllNew($id, $type, 
+			$params['starred'] = $this->itemService->starredCount($this->userId);
+			$params['items'] = $this->itemService->findAllNew($id, $type,
 				$lastModified, $showAll, $this->userId);
 
 		// this gets thrown if there are no items
@@ -124,25 +124,12 @@ class ItemController extends Controller {
 	 *
 	 * @param int $feedId
 	 * @param string $guidHash
+	 * @param bool $isStarred
 	 */
-	public function star($feedId, $guidHash){
+	public function star($feedId, $guidHash, $isStarred){
 		try {
-			$this->itemService->star($feedId, $guidHash, true, $this->userId);
-		} catch(ServiceException $ex) {
-			return $this->error($ex, Http::STATUS_NOT_FOUND);
-		}
-	}
-
-
-	/**
-	 * @NoAdminRequired
-	 *
-	 * @param int $feedId
-	 * @param string $guidHash
-	 */
-	public function unstar($feedId, $guidHash){
-		try {
-			$this->itemService->star($feedId, $guidHash, false, $this->userId);
+			$this->itemService->star($feedId, $guidHash, $isStarred,
+				                     $this->userId);
 		} catch(ServiceException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
@@ -153,10 +140,11 @@ class ItemController extends Controller {
 	 * @NoAdminRequired
 	 *
 	 * @param int $itemId
+	 * @param bool $isRead
 	 */
-	public function read($itemId){
+	public function read($itemId, $isRead=true){
 		try {
-			$this->itemService->read($itemId, true, $this->userId);
+			$this->itemService->read($itemId, $isRead, $this->userId);
 		} catch(ServiceException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
@@ -166,20 +154,6 @@ class ItemController extends Controller {
 	/**
 	 * @NoAdminRequired
 	 *
-	 * @param int $itemId
-	 */
-	public function unread($itemId){
-		try {
-			$this->itemService->read($itemId, false, $this->userId);
-		} catch(ServiceException $ex) {
-			return $this->error($ex, Http::STATUS_NOT_FOUND);
-		}
-	}
-
-
-	/**
-	 * @NoAdminRequired
-	 * 
 	 * @param int $highestItemId
 	 */
 	public function readAll($highestItemId){

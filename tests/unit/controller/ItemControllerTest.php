@@ -44,11 +44,11 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 			'\OCP\IConfig')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->itemService = 
+		$this->itemService =
 		$this->getMockBuilder('\OCA\News\Service\ItemService')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->feedService = 
+		$this->feedService =
 		$this->getMockBuilder('\OCA\News\Service\FeedService')
 			->disableOriginalConstructor()
 			->getMock();
@@ -68,7 +68,7 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 			->method('read')
 			->with(4, true, $this->user);
 
-		$this->controller->read(4);
+		$this->controller->read(4, true);
 	}
 
 
@@ -87,42 +87,16 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 	}
 
 
-	public function testUnread(){
-		$this->itemService->expects($this->once())
-			->method('read')
-			->with(4, false, $this->user);
-
-		$this->controller->unread(4);
-	}
-
-
-
-	public function testUnreadDoesNotExist(){
-		$msg = 'hi';
-
-		$this->itemService->expects($this->once())
-			->method('read')
-			->will($this->throwException(new ServiceNotFoundException($msg)));
-
-
-		$response = $this->controller->unread(4);
-		$params = json_decode($response->render(), true);
-
-		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
-		$this->assertEquals($msg, $params['message']);
-	}
-
-
 	public function testStar(){
 		$this->itemService->expects($this->once())
 			->method('star')
 			->with(
-				$this->equalTo(4), 
+				$this->equalTo(4),
 				$this->equalTo('test'),
-				$this->equalTo(true), 
+				$this->equalTo(true),
 				$this->equalTo($this->user));
 
-		$this->controller->star(4, 'test');
+		$this->controller->star(4, 'test', true);
 	}
 
 
@@ -133,35 +107,7 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 			->method('star')
 			->will($this->throwException(new ServiceNotFoundException($msg)));;
 
-		$response = $this->controller->star(4, 'test');
-		$params = json_decode($response->render(), true);
-
-		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
-		$this->assertEquals($msg, $params['message']);
-	}
-
-
-	public function testUnstar(){
-		$this->itemService->expects($this->once())
-			->method('star')
-			->with(
-				$this->equalTo(4), 
-				$this->equalTo('test'),
-				$this->equalTo(false), 
-				$this->equalTo($this->user));
-
-		$this->controller->unstar(4, 'test');
-	}
-
-
-	public function testUnstarDoesNotExist(){
-		$msg = 'ho';
-
-		$this->itemService->expects($this->once())
-			->method('star')
-			->will($this->throwException(new ServiceNotFoundException($msg)));;
-
-		$response = $this->controller->unstar(4, 'test');
+		$response = $this->controller->star(4, 'test', false);
 		$params = json_decode($response->render(), true);
 
 		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
@@ -176,7 +122,7 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 
 		$this->itemService->expects($this->once())
 			->method('readAll')
-			->with($this->equalTo(5), 
+			->with($this->equalTo(5),
 				$this->equalTo($this->user));
 		$this->feedService->expects($this->once())
 			->method('findAll')
@@ -245,11 +191,11 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 		$this->itemService->expects($this->once())
 			->method('findAll')
 			->with(
-				$this->equalTo(2), 
-				$this->equalTo(FeedType::FEED), 
-				$this->equalTo(3), 
+				$this->equalTo(2),
+				$this->equalTo(FeedType::FEED),
+				$this->equalTo(3),
 				$this->equalTo(0),
-				$this->equalTo(true), 
+				$this->equalTo(true),
 				$this->equalTo($this->user),
 				$this->equalTo(false))
 			->will($this->returnValue($result['items']));
@@ -266,11 +212,11 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 
 		$this->itemService->expects($this->once())
 			->method('findAll')
-			->with($this->equalTo(2), 
-				$this->equalTo(FeedType::FEED), 
-				$this->equalTo(3), 
+			->with($this->equalTo(2),
+				$this->equalTo(FeedType::FEED),
+				$this->equalTo(3),
 				$this->equalTo(10),
-				$this->equalTo(true), 
+				$this->equalTo(true),
 				$this->equalTo($this->user),
 				$this->equalTo(true))
 			->will($this->returnValue($result['items']));
@@ -330,10 +276,10 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 		$this->itemService->expects($this->once())
 			->method('findAllNew')
 			->with(
-				$this->equalTo(2), 
-				$this->equalTo(FeedType::FEED), 
+				$this->equalTo(2),
+				$this->equalTo(FeedType::FEED),
 				$this->equalTo(3),
-				$this->equalTo(true), 
+				$this->equalTo(true),
 				$this->equalTo($this->user))
 			->will($this->returnValue($result['items']));
 

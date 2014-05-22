@@ -51,9 +51,7 @@ $application->registerRoutes($this, ['routes' => [
 	['name' => 'item#new_items', 'url' => '/items/new', 'verb' => 'GET'],
 	['name' => 'item#readAll', 'url' => '/items/read', 'verb' => 'POST'],
 	['name' => 'item#read', 'url' => '/items/{itemId}/read', 'verb' => 'POST'],
-	['name' => 'item#unread', 'url' => '/items/{itemId}/unread', 'verb' => 'POST'],
 	['name' => 'item#star', 'url' => '/items/{feedId}/{guidHash}/star', 'verb' => 'POST'],
-	['name' => 'item#unstar', 'url' => '/items/{feedId}/{guidHash}/unstar', 'verb' => 'POST'],
 
 	// export
 	['name' => 'export#opml', 'url' => '/export/opml', 'verb' => 'GET'],

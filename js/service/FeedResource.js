@@ -7,14 +7,16 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.factory('FeedResource', (Resource, $http) => {
+app.factory('FeedResource', (Resource, $http, BASE_URL) => {
     'use strict';
 
     class FeedResource extends Resource {
-        constructor ($http) {
-            super($http, 'url');
+
+        constructor ($http, BASE_URL) {
+            super($http, BASE_URL, 'url');
         }
+
     }
 
-    return new FeedResource($http);
+    return new FeedResource($http, BASE_URL);
 });

@@ -12,11 +12,12 @@ app.factory('Resource', () => {
 
     class Resource {
 
-        constructor (http, id='id') {
+        constructor (http, BASE_URL, id='id') {
             this.id = id;
             this.values = [];
             this.hashMap = {};
             this.http = http;
+            this.BASE_URL = BASE_URL;
         }
 
         receive (objs) {
@@ -74,6 +75,7 @@ app.factory('Resource', () => {
         getAll () {
             return this.values;
         }
+
     }
 
     return Resource;

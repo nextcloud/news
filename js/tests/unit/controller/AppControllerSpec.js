@@ -12,7 +12,9 @@ describe('AppController', () => {
 
     let controller;
 
-    beforeEach(module('News'));
+    beforeEach(module('News', ($provide) => {
+        $provide.value('BASE_URL', 'base');
+    }));
 
     beforeEach(inject(($controller) => {
         controller = $controller('AppController');

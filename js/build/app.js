@@ -202,42 +202,50 @@ var $__build_47_app__ = function () {
       app.factory('FeedResource', [
         'Resource',
         '$http',
-        function (Resource, $http) {
+        'BASE_URL',
+        function (Resource, $http, BASE_URL) {
           'use strict';
-          var FeedResource = function FeedResource($http) {
+          var FeedResource = function FeedResource($http, BASE_URL) {
             $traceurRuntime.superCall(this, $FeedResource.prototype, 'constructor', [
               $http,
+              BASE_URL,
               'url'
             ]);
           };
           var $FeedResource = FeedResource;
           $traceurRuntime.createClass(FeedResource, {}, {}, Resource);
-          return new FeedResource($http);
+          return new FeedResource($http, BASE_URL);
         }
       ]);
       app.factory('FolderResource', [
         'Resource',
         '$http',
-        function (Resource, $http) {
+        'BASE_URL',
+        function (Resource, $http, BASE_URL) {
           'use strict';
-          var FolderResource = function FolderResource($http) {
+          var FolderResource = function FolderResource($http, BASE_URL) {
             $traceurRuntime.superCall(this, $FolderResource.prototype, 'constructor', [
               $http,
+              BASE_URL,
               'name'
             ]);
           };
           var $FolderResource = FolderResource;
           $traceurRuntime.createClass(FolderResource, {}, {}, Resource);
-          return new FolderResource($http);
+          return new FolderResource($http, BASE_URL);
         }
       ]);
       app.factory('ItemResource', [
         'Resource',
         '$http',
-        function (Resource, $http) {
+        'BASE_URL',
+        function (Resource, $http, BASE_URL) {
           'use strict';
-          var ItemResource = function ItemResource($http) {
-            $traceurRuntime.superCall(this, $ItemResource.prototype, 'constructor', [$http]);
+          var ItemResource = function ItemResource($http, BASE_URL) {
+            $traceurRuntime.superCall(this, $ItemResource.prototype, 'constructor', [
+              $http,
+              BASE_URL
+            ]);
           };
           var $ItemResource = ItemResource;
           $traceurRuntime.createClass(ItemResource, {
@@ -261,9 +269,25 @@ var $__build_47_app__ = function () {
             },
             getStarredCount: function () {
               return this.starredCount;
+            },
+            markRead: function (itemId) {
+              var read = arguments[1] !== void 0 ? arguments[1] : true;
+              this.get(itemId).unread = !read;
+            },
+            markFeedRead: function (feedId) {
+              for (var $item in this.values.filter(function (i) {
+                  return i.feedId === feedId;
+                })) {
+                try {
+                  throw undefined;
+                } catch (item) {
+                  item = $item;
+                  this.markRead(item);
+                }
+              }
             }
           }, {}, Resource);
-          return new ItemResource($http);
+          return new ItemResource($http, BASE_URL);
         }
       ]);
       app.service('Loading', function () {
@@ -342,12 +366,13 @@ var $__build_47_app__ = function () {
       });
       app.factory('Resource', function () {
         'use strict';
-        var Resource = function Resource(http) {
-          var id = arguments[1] !== void 0 ? arguments[1] : 'id';
+        var Resource = function Resource(http, BASE_URL) {
+          var id = arguments[2] !== void 0 ? arguments[2] : 'id';
           this.id = id;
           this.values = [];
           this.hashMap = {};
           this.http = http;
+          this.BASE_URL = BASE_URL;
         };
         $traceurRuntime.createClass(Resource, {
           receive: function (objs) {
