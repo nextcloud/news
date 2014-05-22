@@ -79,17 +79,25 @@ app.factory('ItemResource', (Resource, $http, BASE_URL) => {
         }
 
 
-        keepUnread (itemId) {
-            this.get(itemId).keepUnread = true;
-            return this.read(itemId, false);
-        }
-
-
         readFeed (feedId, read=true) {
             for (let item of this.values.filter(i => i.feedId === feedId)) {
                 item.unread = !read;
             }
             return this.http.post(`${this.BASE_URL}/feeds/${feedId}/read`);
+        }
+
+
+        readAll () {
+            for (let item of this.values) {
+                item.unread = false;
+            }
+            return this.http.post(`${this.BASE_URL}/items/read`);
+        }
+
+
+        keepUnread (itemId) {
+            this.get(itemId).keepUnread = true;
+            return this.read(itemId, false);
         }
 
 

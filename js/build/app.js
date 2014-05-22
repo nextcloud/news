@@ -296,10 +296,6 @@ var $__build_47_app__ = function () {
                 data: { isRead: isRead }
               });
             },
-            keepUnread: function (itemId) {
-              this.get(itemId).keepUnread = true;
-              return this.read(itemId, false);
-            },
             readFeed: function (feedId) {
               var read = arguments[1] !== void 0 ? arguments[1] : true;
               for (var $__3 = this.values.filter(function (i) {
@@ -315,6 +311,23 @@ var $__build_47_app__ = function () {
                 }
               }
               return this.http.post(this.BASE_URL + '/feeds/' + feedId + '/read');
+            },
+            readAll: function () {
+              for (var $__3 = this.values[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
+                try {
+                  throw undefined;
+                } catch (item) {
+                  item = $__4.value;
+                  {
+                    item.unread = false;
+                  }
+                }
+              }
+              return this.http.post(this.BASE_URL + '/items/read');
+            },
+            keepUnread: function (itemId) {
+              this.get(itemId).keepUnread = true;
+              return this.read(itemId, false);
             }
           }, {}, Resource);
           return new ItemResource($http, BASE_URL);

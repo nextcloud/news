@@ -155,6 +155,37 @@ describe('ItemResource', () => {
     }));
 
 
+    it ('should mark all as read', inject((ItemResource) => {
+        http.expectPOST('base/items/read').respond(200, {});
+
+        ItemResource.receive([
+            {
+                id: 3,
+                feedId: 4,
+                unread: true
+            },
+            {
+                id: 4,
+                feedId: 3,
+                unread: true
+            },
+            {
+                id: 5,
+                feedId: 4,
+                unread: true
+            }
+        ], 'items');
+
+        ItemResource.readAll(4);
+
+        http.flush();
+
+        expect(ItemResource.get(3).unread).toBe(false);
+        expect(ItemResource.get(4).unread).toBe(false);
+        expect(ItemResource.get(5).unread).toBe(false);
+    }));
+
+
     afterEach(() => {
         http.verifyNoOutstandingExpectation();
         http.verifyNoOutstandingRequest();
