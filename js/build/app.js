@@ -1041,7 +1041,7 @@ var $__build_47_app__ = function () {
                 }
               });
               scope.$on('$destroy', function () {
-                element.off('scroll');
+                elem.off('scroll');
               });
             }
           };

@@ -103,7 +103,7 @@ app.directive('newsScroll', ($timeout) => {
 
             // remove scroll handler if element is destroyed
             scope.$on('$destroy', () => {
-                element.off('scroll');
+                elem.off('scroll');
             });
         }
     };
