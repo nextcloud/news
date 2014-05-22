@@ -15,7 +15,6 @@
 \OCP\Util::addStyle('news', 'app');
 \OCP\Util::addStyle('news', 'content');
 \OCP\Util::addStyle('news', 'settings');
-\OCP\Util::addStyle('news', 'showall');
 ?>
 
 
