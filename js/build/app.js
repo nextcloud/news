@@ -947,6 +947,63 @@ var $__build_47_app__ = function () {
         '$timeout',
         function ($timeout) {
           'use strict';
+          var autoPage = function (enabled, limit, items, callback) {
+            if (enabled) {
+              try {
+                throw undefined;
+              } catch (counter) {
+                counter = 0;
+                for (var $__3 = reverse(items.find('.feed_item'))[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
+                  try {
+                    throw undefined;
+                  } catch (item) {
+                    item = $__4.value;
+                    {
+                      item = $(item);
+                      if (counter >= limit) {
+                        break;
+                      }
+                      if (item.position().top < 0) {
+                        callback();
+                        break;
+                      }
+                      counter += 1;
+                    }
+                  }
+                }
+              }
+            }
+          };
+          var markRead = function (enabled, items, callback) {
+            if (enabled) {
+              try {
+                throw undefined;
+              } catch (unreadItems) {
+                try {
+                  throw undefined;
+                } catch (ids) {
+                  ids = [];
+                  unreadItems = items.find('.feed_item:not(.read)');
+                  for (var $__3 = unreadItems[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
+                    try {
+                      throw undefined;
+                    } catch (item) {
+                      item = $__4.value;
+                      {
+                        item = $(item);
+                        if (item.position().top <= -50) {
+                          ids.push(parseInt($(item).data('id'), 10));
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                  }
+                  callback(ids);
+                }
+              }
+            }
+          };
           return {
             restrict: 'A',
             scope: {
@@ -969,74 +1026,16 @@ var $__build_47_app__ = function () {
                 if (!scrolling) {
                   try {
                     throw undefined;
-                  } catch (markRead) {
-                    try {
-                      throw undefined;
-                    } catch (items) {
-                      scrolling = true;
-                      $timeout(function () {
-                        scrolling = false;
-                      }, scope.newsScrollTimeout * 1000);
-                      items = $(scope.newsScrollItemsSelector);
-                      if (!scope.newsScrollDisabledAutoPage) {
-                        try {
-                          throw undefined;
-                        } catch (counter) {
-                          counter = 0;
-                          for (var $__3 = reverse(items.find('.feed_item'))[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
-                            try {
-                              throw undefined;
-                            } catch (item) {
-                              item = $__4.value;
-                              {
-                                item = $(item);
-                                if (counter >= scope.newsScrollAutoPageWhenLeft) {
-                                  break;
-                                }
-                                if (item.position().top < 0) {
-                                  scope.newsScrollAutoPage();
-                                  break;
-                                }
-                                counter += 1;
-                              }
-                            }
-                          }
-                        }
-                      }
-                      markRead = function () {
-                        if (!scope.newsScrollDisabledMarkRead) {
-                          try {
-                            throw undefined;
-                          } catch (unread) {
-                            try {
-                              throw undefined;
-                            } catch (ids) {
-                              ids = [];
-                              unread = items.find('.feed_item:not(.read)');
-                              for (var $__5 = unread[$traceurRuntime.toProperty(Symbol.iterator)](), $__6; !($__6 = $__5.next()).done;) {
-                                try {
-                                  throw undefined;
-                                } catch (item) {
-                                  item = $__6.value;
-                                  {
-                                    item = $(item);
-                                    if (item.position().top <= -50) {
-                                      ids.push(parseInt($(item).data('id'), 10));
-                                    } else {
-                                      break;
-                                    }
-                                  }
-                                }
-                              }
-                              scope.newsScrollMarkRead(ids);
-                            }
-                          }
-                        }
-                      };
-                      $timeout(function () {
-                        markRead();
-                      }, scope.newsScrollMarkReadTimeout * 1000);
-                    }
+                  } catch (items) {
+                    scrolling = true;
+                    $timeout(function () {
+                      scrolling = false;
+                    }, scope.newsScrollTimeout * 1000);
+                    items = $(scope.newsScrollItemsSelector);
+                    autoPage(!scope.newsScrollDisabledAutoPage, scope.newsScrollAutoPageWhenLeft, items, scope.newsScrollAutoPage);
+                    $timeout(function () {
+                      markRead(!scope.newsScrollDisabledMarkRead, items, scope.newsScrollMarkRead);
+                    }, scope.newsScrollMarkReadTimeout * 1000);
                   }
                 }
               });

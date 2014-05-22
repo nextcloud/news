@@ -10,6 +10,54 @@
 app.directive('newsScroll', ($timeout) => {
     'use strict';
 
+    // autopaging
+    let autoPage = (enabled, limit, items, callback) => {
+        if (enabled) {
+            let counter = 0;
+            for (let item of reverse(items.find('.feed_item'))) {
+                item = $(item);
+
+
+                // if the counter is higher than the size it means
+                // that it didnt break to auto page yet and that
+                // there are more items, so break
+                if (counter >= limit) {
+                    break;
+                }
+
+                // this is only reached when the item is not is
+                // below the top and we didnt hit the factor yet so
+                // autopage and break
+                if (item.position().top < 0) {
+                    callback();
+                    break;
+                }
+
+                counter += 1;
+            }
+        }
+    };
+
+    // mark read
+    let markRead = (enabled, items, callback) => {
+        if (enabled) {
+            let ids = [];
+            let unreadItems = items.find('.feed_item:not(.read)');
+
+            for (let item of unreadItems) {
+                item = $(item);
+
+                if (item.position().top <= -50) {
+                    ids.push(parseInt($(item).data('id'), 10));
+                } else {
+                    break;
+                }
+            }
+
+            callback(ids);
+        }
+    };
+
     return {
         restrict: 'A',
         scope: {
@@ -48,54 +96,16 @@ app.directive('newsScroll', ($timeout) => {
                     let items = $(scope.newsScrollItemsSelector);
 
                     // autopaging
-                    if (!scope.newsScrollDisabledAutoPage) {
-                        let counter = 0;
-                        for (let item of reverse(items.find('.feed_item'))) {
-                            item = $(item);
+                    autoPage(!scope.newsScrollDisabledAutoPage,
+                             scope.newsScrollAutoPageWhenLeft,
+                             items, scope.newsScrollAutoPage);
 
 
-                            // if the counter is higher than the size it means
-                            // that it didnt break to auto page yet and that
-                            // there are more items, so break
-                            if (counter >= scope.newsScrollAutoPageWhenLeft) {
-                                break;
-                            }
-
-                            // this is only reached when the item is not is
-                            // below the top and we didnt hit the factor yet so
-                            // autopage and break
-                            if (item.position().top < 0) {
-                                scope.newsScrollAutoPage();
-                                break;
-                            }
-
-                            counter += 1;
-                        }
-                    }
-
-                    // mark read
-                    let markRead = () => {
-                        if (!scope.newsScrollDisabledMarkRead) {
-                            let ids = [];
-                            let unread = items.find('.feed_item:not(.read)');
-
-                            for (let item of unread) {
-                                item = $(item);
-
-                                if (item.position().top <= -50) {
-                                    ids.push(parseInt($(item).data('id'), 10));
-                                } else {
-                                    break;
-                                }
-                            }
-
-                            scope.newsScrollMarkRead(ids);
-                        }
-                    };
 
                     // allow user to undo accidental scroll
                     $timeout(() => {
-                        markRead();
+                        markRead(!scope.newsScrollDisabledMarkRead, items,
+                                 scope.newsScrollMarkRead);
                     }, scope.newsScrollMarkReadTimeout*1000);
                 }
 
