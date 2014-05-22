@@ -986,25 +986,19 @@ var $__build_47_app__ = function () {
           writable: true
         }), $__2;
       };
-      app.directive('newsTriggerClick', function () {
-        'use strict';
-        return function (scope, elm, attr) {
-          elm.click(function () {
-            $(attr.newsTriggerClick).trigger('click');
-          });
-        };
-      });
       app.directive('newsReadFile', function () {
         'use strict';
-        return function (scope, elm, attr) {
-          var file = elm[0].files[0];
-          var reader = new FileReader();
-          reader.onload = function (event) {
-            elm[0].value = 0;
-            scope.$fileContent = event.target.result;
-            scope.$apply(attr.newsReadFile);
-          };
-          reader.reasAsText(file);
+        return function (scope, elem, attr) {
+          elem.change(function () {
+            var file = elem[0].files[0];
+            var reader = new FileReader();
+            reader.onload = function (event) {
+              elem[0].value = 0;
+              scope.$fileContent = event.target.result;
+              scope.$apply(attr.newsReadFile);
+            };
+            reader.readAsText(file);
+          });
         };
       });
       app.directive('newsScroll', [
@@ -1099,10 +1093,72 @@ var $__build_47_app__ = function () {
           };
         }
       ]);
+      app.directive('newsSlideUp', [
+        '$rootScope',
+        '$document',
+        function ($rootScope, $document) {
+          'use strict';
+          return function (scope, elem, attr) {
+            var slideArea = elem;
+            var cssClass = false;
+            var options = scope.$eval(attr.newsSlideUp);
+            if (options) {
+              if (options.selector) {
+                slideArea = $(options.selector);
+              }
+              if (options.cssClass) {
+                cssClass = options.cssClass;
+              }
+              if (options.hideOnFocusLost) {
+                $($document[0].body).click(function () {
+                  $rootScope.$broadcast('newsSlideUp');
+                });
+                $rootScope.$on('newsSlideUp', function (scope, params) {
+                  if (params !== slideArea && slideArea.is(':visible') && !slideArea.is(':animated')) {
+                    slideArea.slideUp();
+                    if (cssClass) {
+                      elem.removeClass(cssClass);
+                    }
+                  }
+                });
+                slideArea.click(function (event) {
+                  $rootScope.$broadcast('newsSlideUp', slideArea);
+                  event.stopPropagation();
+                });
+                elem.click(function (event) {
+                  $rootScope.$broadcast('newsSlideUp', slideArea);
+                  event.stopPropagation();
+                });
+              }
+            }
+            elem.click(function () {
+              if (slideArea.is(':visible') && !slideArea.is(':animated')) {
+                slideArea.slideUp();
+                if (cssClass) {
+                  elem.removeClass(cssClass);
+                }
+              } else {
+                slideArea.slideDown();
+                if (cssClass) {
+                  elem.addClass(cssClass);
+                }
+              }
+            });
+          };
+        }
+      ]);
       app.directive('newsTooltip', function () {
         'use strict';
         return function (scope, elem) {
           elem.tooltip();
+        };
+      });
+      app.directive('newsTriggerClick', function () {
+        'use strict';
+        return function (scope, elm, attr) {
+          elm.click(function () {
+            $(attr.newsTriggerClick).trigger('click');
+          });
         };
       });
     }(window, document, angular, jQuery, OC, oc_requesttoken));

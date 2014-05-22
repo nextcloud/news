@@ -10,19 +10,22 @@
 app.directive('newsReadFile', () => {
     'use strict';
 
-    return (scope, elm, attr) => {
+    return (scope, elem, attr) => {
 
-        let file = elm[0].files[0];
-        let reader = new FileReader();
+        elem.change(() => {
 
-        reader.onload = (event) => {
-            elm[0].value = 0;
-            scope.$fileContent = event.target.result;
-            scope.$apply(attr.newsReadFile);  // FIXME: is there a more flexible
-                                              // solution where we dont have to
-                                              // bind the file to scope?
-        };
+            let file = elem[0].files[0];
+            let reader = new FileReader();
 
-        reader.reasAsText(file);
+            reader.onload = (event) => {
+                elem[0].value = 0;
+                // FIXME: is there a more flexible solution where we dont have
+                // to bind the file to scope?
+                scope.$fileContent = event.target.result;
+                scope.$apply(attr.newsReadFile);
+            };
+
+            reader.readAsText(file);
+        });
     };
 });

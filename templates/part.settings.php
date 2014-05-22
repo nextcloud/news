@@ -1,14 +1,14 @@
 <div id="app-settings-header">
 <button name="app settings"
   class="settings-button"
-  oc-click-slide-toggle="{
+  news-slide-up="{
     selector: '#app-settings-content',
     hideOnFocusLost: true,
     cssClass: 'opened'
   }"></button>
 </div>
 
-<div id="app-settings-content" ng-controller="SettingsController as Settings">
+<div id="app-settings-content">
   <h3><?php p($l->t('Settings')); ?></h3>
 
   <p ng-click="Settings.toggleSetting('compact')">

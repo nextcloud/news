@@ -42,8 +42,8 @@
 			<?php //print_unescaped($this->inc('part.showall')); ?>
 		</ul>
 
-		<div id="app-settings" ng-controller="SettingsController">
-			<!--<?php print_unescaped($this->inc('part.settings')) ?>-->
+		<div id="app-settings" ng-controller="SettingsController as Settings">
+			<?php print_unescaped($this->inc('part.settings')) ?>
 		</div>
 
 	</div>
