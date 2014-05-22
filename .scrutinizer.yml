@@ -17,5 +17,6 @@ tools:
     external_code_coverage:
         timeout: 600
     js_hint:
+        use_native_config: false
         config:
             esnext: true
