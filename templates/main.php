@@ -11,7 +11,6 @@
 
 \OCP\Util::addStyle('news', 'bootstrap/tooltip');
 \OCP\Util::addStyle('news', 'navigation');
-\OCP\Util::addStyle('news', 'addnew');
 \OCP\Util::addStyle('news', 'app');
 \OCP\Util::addStyle('news', 'content');
 \OCP\Util::addStyle('news', 'settings');

@@ -1,3 +1,12 @@
+/**
+ * ownCloud - News
+ *
+ * This file is licensed under the Affero General Public License version 3 or
+ * later. See the COPYING file.
+ *
+ * @author Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright Bernhard Posselt 2014
+ */
 .loading-icon {
     background-image: url('../img/loading.gif');
     background-position: center;
@@ -9,5 +18,37 @@
     height: 100%;
 }
 
+#undo-container {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    text-align: center;
+    z-index: 101;
+    line-height: 1.2;
+}
+
+#undo {
+    z-index:101;
+    background-color:#fc4;
+    border:0;
+    padding:0 .7em .3em;
+    display:none;
+    position: relative;
+    top:0;
+    -moz-border-radius-bottomleft:1em;
+    -webkit-border-bottom-left-radius:1em;
+    border-bottom-left-radius:1em;
+    -moz-border-radius-bottomright:1em;
+    -webkit-border-bottom-right-radius:1em;
+    border-bottom-right-radius:1em;
+}
+
+#undo a {
+    font-weight: bold;
+}
+
+#undo a:hover {
+    text-decoration: underline;
+}
 
 
