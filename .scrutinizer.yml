@@ -10,13 +10,9 @@ filter:
         - 'bin/*'
 
 imports:
-    - javascript
+    #- javascript  disabled because of es6 producing tons of errors
     - php
 
 tools:
     external_code_coverage:
         timeout: 600
-    js_hint:
-        use_native_config: false
-        config:
-            esnext: true
