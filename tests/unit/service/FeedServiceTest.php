@@ -116,6 +116,7 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
 		$createdFeed->setUrl($url);
 		$createdFeed->setUrlHash('hsssi');
 		$createdFeed->setLink($url);
+		$createdFeed->setTitle('hehoy');
 		$item1 = new Item();
 		$item1->setGuidHash('hi');
 		$item2 = new Item();
@@ -203,7 +204,7 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
 
 		$this->feedMapper->expects($this->once())
 			->method('findByUrlHash')
-			->with($this->equalTo($createdFeed->getUrlHash()), 
+			->with($this->equalTo($createdFeed->getUrlHash()),
 				$this->equalTo($this->user))
 			->will($this->throwException($ex));
 		$this->fetcher->expects($this->once())
@@ -601,7 +602,7 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
 		$this->itemMapper->expects($this->at(1))
 			->method('insert')
 			->with($this->equalTo($item));
-			
+
 		$this->itemMapper->expects($this->at(2))
 			->method('findByGuidHash')
 			->will($this->returnValue($item));

@@ -36,8 +36,8 @@ class FeedController extends Controller {
 	private $userId;
 	private $settings;
 
-	public function __construct($appName, 
-	                            IRequest $request, 
+	public function __construct($appName,
+	                            IRequest $request,
 		                        FolderService $folderService,
 	                            FeedService $feedService,
 		                        ItemService $itemService,
@@ -66,9 +66,9 @@ class FeedController extends Controller {
 		];
 
 		try {
-			$params['newestItemId'] = 
+			$params['newestItemId'] =
 				$this->itemService->getNewestItemId($this->userId);
-		
+
 		// An exception occurs if there is a newest item. If there is none,
 		// simply ignore it and do not add the newestItemId
 		} catch (ServiceNotFoundException $ex) {}
@@ -81,11 +81,11 @@ class FeedController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function active(){
-		$feedId = (int) $this->settings->getUserValue($this->userId, 
+		$feedId = (int) $this->settings->getUserValue($this->userId,
 			$this->appName,'lastViewedFeedId');
 		$feedType = $this->settings->getUserValue($this->userId, $this->appName,
 			'lastViewedFeedType');
-		
+
 		// cast from null to int is 0
 		if($feedType !== null){
 			$feedType = (int) $feedType;
@@ -95,15 +95,15 @@ class FeedController extends Controller {
 		try {
 			if($feedType === FeedType::FOLDER){
 				$this->folderService->find($feedId, $this->userId);
-			
+
 			} elseif ($feedType === FeedType::FEED){
 				$this->feedService->find($feedId, $this->userId);
-			
+
 			// if its the first launch, those values will be null
 			} elseif($feedType === null){
 				throw new ServiceNotFoundException('');
 			}
-	
+
 		} catch (ServiceNotFoundException $ex){
 			$feedId = 0;
 			$feedType = FeedType::SUBSCRIPTIONS;
@@ -123,18 +123,20 @@ class FeedController extends Controller {
 	 *
 	 * @param string $url
 	 * @param int $parentFolderId
+	 * @param string $title
 	 */
-	public function create($url, $parentFolderId){
+	public function create($url, $parentFolderId, $title){
 		try {
-			// we need to purge deleted feeds if a feed is created to 
+			// we need to purge deleted feeds if a feed is created to
 			// prevent already exists exceptions
 			$this->feedService->purgeDeleted($this->userId, false);
 
-			$feed = $this->feedService->create($url, $parentFolderId, $this->userId);
+			$feed = $this->feedService->create($url, $parentFolderId,
+				                               $this->userId, $title);
 			$params = ['feeds' => [$feed]];
 
 			try {
-				$params['newestItemId'] = 
+				$params['newestItemId'] =
 					$this->itemService->getNewestItemId($this->userId);
 
 			// An exception occurs if there is a newest item. If there is none,
@@ -153,7 +155,7 @@ class FeedController extends Controller {
 
 	/**
 	 * @NoAdminRequired
-	 * 
+	 *
 	 * @param int $feedId
 	 */
 	public function delete($feedId){

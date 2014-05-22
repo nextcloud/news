@@ -40,9 +40,9 @@ class FeedService extends Service {
 	private $purifier;
 	private $loggerParams;
 
-	public function __construct(FeedMapper $feedMapper, 
+	public function __construct(FeedMapper $feedMapper,
 	                            Fetcher $feedFetcher,
-		                        ItemMapper $itemMapper, 
+		                        ItemMapper $itemMapper,
 		                        ILogger $logger,
 		                        IL10N $l10n,
 		                        $timeFactory,
@@ -87,11 +87,12 @@ class FeedService extends Service {
 	 * @param string $feedUrl the url to the feed
 	 * @param int $folderId the folder where it should be put into, 0 for root folder
 	 * @param string $userId for which user the feed should be created
+	 * @param string $title if given, this is used for the opml feed title
 	 * @throws ServiceConflictException if the feed exists already
 	 * @throws ServiceNotFoundException if the url points to an invalid feed
 	 * @return Feed the newly created feed
 	 */
-	public function create($feedUrl, $folderId, $userId){
+	public function create($feedUrl, $folderId, $userId, $title=null){
 		// first try if the feed exists already
 		try {
 			list($feed, $items) = $this->feedFetcher->fetch($feedUrl);
@@ -109,6 +110,11 @@ class FeedService extends Service {
 			$feed->setFolderId($folderId);
 			$feed->setUserId($userId);
 			$feed->setArticlesPerUpdate(count($items));
+
+			if ($title) {
+				$feed->setTitle($title);
+			}
+
 			$feed = $this->feedMapper->insert($feed);
 
 			// insert items in reverse order because the first one is usually the
@@ -197,7 +203,7 @@ class FeedService extends Service {
 					try {
 						$this->itemMapper->findByGuidHash($item->getGuidHash(), $feedId, $userId);
 					} catch(DoesNotExistException $ex){
-						$item = $this->enhancer->enhance($item, 
+						$item = $this->enhancer->enhance($item,
 							$existingFeed->getLink());
 						$item->setBody($this->purifier->purify($item->getBody()));
 						$this->itemMapper->insert($item);
@@ -279,7 +285,7 @@ class FeedService extends Service {
 				$item->setFeedId($feed->getId());
 			} elseif(array_key_exists($url, $feedsDict)) {
 				$feed = $feedsDict[$url];
-				$item->setFeedId($feed->getId());				
+				$item->setFeedId($feed->getId());
 			} else {
 				$createdFeed = true;
 				$feed = new Feed();
@@ -289,7 +295,7 @@ class FeedService extends Service {
 				$feed->setTitle($this->l10n->t('Articles without feed'));
 				$feed->setAdded($this->timeFactory->getTime());
 				$feed->setFolderId(0);
-				$feed->setPreventUpdate(true);	
+				$feed->setPreventUpdate(true);
 				$feed = $this->feedMapper->insert($feed);
 
 				$item->setFeedId($feed->getId());

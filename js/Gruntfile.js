@@ -120,8 +120,7 @@ module.exports = function (grunt) {
             },
             phpunit: {
                 files: [
-                    '../*/**.php',
-                    '!../3rdparty'
+                    '../**/*.php'
                 ],
                 tasks: ['phpunit']
             }
@@ -139,7 +138,7 @@ module.exports = function (grunt) {
         },
         phpunit: {
             classes: {
-                dir: '../tests/unit'
+                dir: '../tests'
             },
             options: {
                 colors: true

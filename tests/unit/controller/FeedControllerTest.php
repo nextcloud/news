@@ -229,10 +229,11 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
 			->method('create')
 			->with($this->equalTo('hi'),
 				$this->equalTo(4),
-				$this->equalTo($this->user))
+				$this->equalTo($this->user),
+				$this->equalTo('yo'))
 			->will($this->returnValue($result['feeds'][0]));
 
-		$response = $this->controller->create('hi', 4);
+		$response = $this->controller->create('hi', 4, 'yo');
 
 		$this->assertEquals($result, $response);
 	}
@@ -253,10 +254,11 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
 			->method('create')
 			->with($this->equalTo('hi'),
 				$this->equalTo(4),
-				$this->equalTo($this->user))
+				$this->equalTo($this->user),
+				$this->equalTo('yo'))
 			->will($this->returnValue($result['feeds'][0]));
 
-		$response = $this->controller->create('hi', 4);
+		$response = $this->controller->create('hi', 4, 'yo');
 
 		$this->assertEquals($result, $response);
 	}
@@ -272,7 +274,7 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
 			->method('create')
 			->will($this->throwException($ex));
 
-		$response = $this->controller->create('hi', 4);
+		$response = $this->controller->create('hi', 4, 'test');
 		$params = json_decode($response->render(), true);
 
 		$this->assertEquals($msg, $params['message']);
@@ -290,7 +292,7 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
 			->method('create')
 			->will($this->throwException($ex));
 
-		$response = $this->controller->create('hi', 4);
+		$response = $this->controller->create('hi', 4, 'test');
 		$params = json_decode($response->render(), true);
 
 		$this->assertEquals($msg, $params['message']);
