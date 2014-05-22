@@ -1046,6 +1046,12 @@ var $__build_47_app__ = function () {
           };
         }
       ]);
+      app.directive('newsTooltip', function () {
+        'use strict';
+        return function (scope, elem) {
+          elem.tooltip();
+        };
+      });
     }(window, document, angular, jQuery, OC, oc_requesttoken));
     return {};
   }();
