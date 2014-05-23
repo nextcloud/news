@@ -84,7 +84,7 @@ app.factory('ItemResource', (Resource, $http, BASE_URL) => {
         }
 
 
-        read (itemId, isRead=true) {
+        markItemRead (itemId, isRead=true) {
             this.get(itemId).unread = !isRead;
             return this.http({
                 url: `${this.BASE_URL}/items/${itemId}/read`,
@@ -96,7 +96,7 @@ app.factory('ItemResource', (Resource, $http, BASE_URL) => {
         }
 
 
-        readFeed (feedId, read=true) {
+        markFeedRead (feedId, read=true) {
             for (let item of this.values.filter(i => i.feedId === feedId)) {
                 item.unread = !read;
             }
@@ -104,7 +104,7 @@ app.factory('ItemResource', (Resource, $http, BASE_URL) => {
         }
 
 
-        readAll () {
+        markRead () {
             for (let item of this.values) {
                 item.unread = false;
             }
@@ -124,7 +124,7 @@ app.factory('ItemResource', (Resource, $http, BASE_URL) => {
 
         keepUnread (itemId) {
             this.get(itemId).keepUnread = true;
-            return this.read(itemId, false);
+            return this.markItemRead(itemId, false);
         }
 
 

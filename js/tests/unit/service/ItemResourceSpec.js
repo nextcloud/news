@@ -76,7 +76,7 @@ describe('ItemResource', () => {
             }
         ], 'items');
 
-        ItemResource.read(3);
+        ItemResource.markItemRead(3);
 
         http.flush();
 
@@ -132,7 +132,7 @@ describe('ItemResource', () => {
             }
         ], 'items');
 
-        ItemResource.readFeed(4);
+        ItemResource.markFeedRead(4);
 
         http.flush();
 
@@ -162,7 +162,7 @@ describe('ItemResource', () => {
             }
         ], 'items');
 
-        ItemResource.readAll(4);
+        ItemResource.markRead();
 
         http.flush();
 

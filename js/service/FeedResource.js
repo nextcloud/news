@@ -15,6 +15,31 @@ app.factory('FeedResource', (Resource, $http, BASE_URL) => {
         constructor ($http, BASE_URL) {
             super($http, BASE_URL, 'url');
             this.ids = {};
+            this.unreadCount = 0;
+            this.folderUnreadCount = {};
+        }
+
+
+        receive (data) {
+            super.receive(data);
+            this.updateUnreadCache();
+        }
+
+
+        updateUnreadCache () {
+            this.unreadCount = 0;
+            this.folderUnreadCount = {};
+
+            for (let value of this.values) {
+                if (value.unreadCount) {
+                    this.unreadCount += value.unreadCount;
+                }
+                if (value.folderId !== undefined) {
+                    this.folderUnreadCount[value.folderId] =
+                        this.folderUnreadCount[value.folderId] || 0;
+                    this.folderUnreadCount[value.folderId] += value.unreadCount;
+                }
+            }
         }
 
 
@@ -37,28 +62,46 @@ app.factory('FeedResource', (Resource, $http, BASE_URL) => {
             for (let feed of this.values) {
                 feed.unreadCount = 0;
             }
+            this.unreadCount = 0;
+            this.folderUnreadCount = {};
         }
 
 
         markFeedRead (feedId) {
             this.ids[feedId].unreadCount = 0;
+            this.updateUnreadCache();
+        }
+
+        markFolderRead (folderId) {
+            for (let feed of this.values) {
+                if (feed.folderId === folderId) {
+                    feed.unreadCount = 0;
+                }
+            }
+            this.updateUnreadCache();
         }
 
 
         markItemOfFeedRead (feedId) {
             this.ids[feedId].unreadCount -= 1;
+            this.updateUnreadCache();
         }
 
 
         markItemOfFeedUnread (feedId) {
             this.ids[feedId].unreadCount += 1;
+            this.updateUnreadCache();
         }
 
 
         getUnreadCount () {
-            return this.values.reduce((sum, feed) => sum + feed.unreadCount, 0);
+            return this.unreadCount;
         }
 
+
+        getFolderUnreadCount (folderId) {
+            return this.folderUnreadCount[folderId] || 0;
+        }
 
     }
 

@@ -7,7 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-describe('ItemResource', () => {
+describe('FeedResource', () => {
     'use strict';
 
     let resource;
@@ -19,9 +19,11 @@ describe('ItemResource', () => {
 
     beforeEach(inject((FeedResource) => {
         resource = FeedResource;
-        FeedResource.add({id: 1, url: 'ye', unreadCount: 45});
-        FeedResource.add({id: 2, url: 'sye', unreadCount: 25});
-        FeedResource.add({id: 3, url: '1sye', unreadCount: 0});
+        FeedResource.receive([
+            {id: 1, folderId: 3, url: 'ye', unreadCount: 45},
+            {id: 2, folderId: 4, url: 'sye', unreadCount: 25},
+            {id: 3, folderId: 3, url: '1sye', unreadCount: 0}
+        ]);
     }));
 
     it('should mark all read', inject((FeedResource) => {
@@ -51,5 +53,39 @@ describe('ItemResource', () => {
         FeedResource.markItemOfFeedUnread(1);
 
         expect(FeedResource.get('ye').unreadCount).toBe(46);
+    }));
+
+
+    it('should cache unreadcount', inject((FeedResource) => {
+        expect(FeedResource.getUnreadCount()).toBe(70);
+
+        FeedResource.markItemOfFeedRead(3);
+        expect(FeedResource.getUnreadCount()).toBe(69);
+
+        FeedResource.markItemOfFeedUnread(3);
+        expect(FeedResource.getUnreadCount()).toBe(70);
+
+        FeedResource.markFolderRead(3);
+        expect(FeedResource.getUnreadCount()).toBe(25);
+
+        FeedResource.markRead();
+        expect(FeedResource.getUnreadCount()).toBe(0);
+    }));
+
+
+    it('should cache folder unreadcount', inject((FeedResource) => {
+        expect(FeedResource.getFolderUnreadCount(3)).toBe(45);
+
+        FeedResource.markItemOfFeedRead(3);
+        expect(FeedResource.getFolderUnreadCount(3)).toBe(44);
+
+        FeedResource.markItemOfFeedUnread(3);
+        expect(FeedResource.getFolderUnreadCount(3)).toBe(45);
+
+        FeedResource.markFolderRead(3);
+        expect(FeedResource.getFolderUnreadCount(3)).toBe(0);
+
+        FeedResource.markRead();
+        expect(FeedResource.getFolderUnreadCount(4)).toBe(0);
     }));
 });

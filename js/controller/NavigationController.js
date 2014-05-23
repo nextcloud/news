@@ -7,8 +7,18 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.controller('NavigationController', function () {
+app.controller('NavigationController',
+function (FeedResource, FolderResource, ItemResource) {
     'use strict';
 
-    console.log('here');
+    this.getFeeds = () => {
+        return FeedResource.getAll();
+    };
+
+    this.getFolders = () => {
+        return FolderResource.getAll();
+    };
+
+    console.log(ItemResource);
+
 });
