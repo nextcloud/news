@@ -21,10 +21,6 @@ install:
   - export CHROME_BIN=/usr/bin/chromium-browser
   - sudo easy_install3 pip  # ubuntu 12.04 only
   - sudo pip3 install ocdev
-  # get a newer phantomjs version
-  - wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.7-linux-x86_64.tar.bz2  # ubuntu 12.04 only
-  - tar xjf phantomjs-1.9.7-linux-x86_64.tar.bz2  # ubuntu 12.04 only
-  - sudo ln -s $(pwd)/phantomjs-1.9.7-linux-x86_64/bin/phantomjs /usr/bin/phantomjs  # ubuntu 12.04 only
   # clone core
   - ocdev setup core --dir owncloud
   - mv news owncloud/apps/

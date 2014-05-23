@@ -31,24 +31,8 @@
     padding-left: 10px;
 }
 
-.upload-icon,
-.download-icon {
-    padding-left: 25px;
-    background-repeat: no-repeat;
-    background-position: 5px center;
-}
-
-.upload-icon {
-    background-image: url('../img/upload.svg');
-}
-
-.download-icon {
-    background-image: url('../img/download.svg');
-}
-
-#app-settings .importing {
-    background-image: url('../img/loading.gif');
-    background-repeat: no-repeat;
+.button-icon-label {
     background-position: 5px center;
     background-size: 16px;
+    padding-left: 25px;
 }

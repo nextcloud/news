@@ -150,16 +150,11 @@ module.exports = function (grunt) {
             }
         },
         protractor: {
-            phantomjs: {
+            firefox: {
                 options: {
-                    configFile: 'protractor.phantomjs.conf.js'
+                    configFile: 'protractor.conf.js'
                 }
             },
-            chrome: {
-                options: {
-                    configFile: 'protractor.chrome.conf.js'
-                }
-            }
         },
         connect: {
             server: {
@@ -175,7 +170,7 @@ module.exports = function (grunt) {
     grunt.registerTask('dev', ['watch:concat']);
     grunt.registerTask('test', ['karma:unit']);
     grunt.registerTask('php', ['watch:phpunit']);
-    grunt.registerTask('e2e', ['protractor_webdriver', 'connect', 'protractor:chrome']);
+    grunt.registerTask('e2e', ['protractor_webdriver', 'connect', 'protractor']);
     grunt.registerTask('ci-unit', ['default', 'karma:continuous']);
-    grunt.registerTask('ci-e2e', ['protractor_webdriver', 'connect', 'protractor:phantomjs']);
+    grunt.registerTask('ci-e2e', ['protractor_webdriver', 'connect', 'protractor']);
 };

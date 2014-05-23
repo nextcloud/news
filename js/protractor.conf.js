@@ -37,5 +37,10 @@ exports.config = {
             });
         });
     },
+    capabilities: {
+        browserName: 'firefox',
+        version: '',
+        platform: 'ANY'
+    },
     baseUrl: baseUrl
 };

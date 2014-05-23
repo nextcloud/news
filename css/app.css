@@ -7,12 +7,6 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-.loading-icon {
-    background-image: url('../img/loading.gif');
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
 #global-loading {
     width: 100%;
     height: 100%;
@@ -35,20 +29,16 @@
     display:none;
     position: relative;
     top:0;
-    -moz-border-radius-bottomleft:1em;
-    -webkit-border-bottom-left-radius:1em;
     border-bottom-left-radius:1em;
-    -moz-border-radius-bottomright:1em;
-    -webkit-border-bottom-right-radius:1em;
     border-bottom-right-radius:1em;
 }
 
-#undo a {
-    font-weight: bold;
-}
+    #undo a {
+        font-weight: bold;
+    }
 
-#undo a:hover {
-    text-decoration: underline;
-}
+    #undo a:hover {
+        text-decoration: underline;
+    }
 
 

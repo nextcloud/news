@@ -1,11 +1,7 @@
 <div id="app-settings-header">
 <button name="app settings"
   class="settings-button"
-  news-slide-up="{
-    selector: '#app-settings-content',
-    hideOnFocusLost: true,
-    cssClass: 'opened'
-  }"></button>
+  data-apps-slide-up-area="#app-settings-content"></button>
 </div>
 
 <div id="app-settings-content">
@@ -41,14 +37,14 @@
          news-read-file="Settings.importOpml($fileContent)"/>
 
   <button title="<?php p($l->t('Import')); ?>"
-          class="upload-icon svg"
+          class="icon-upload svg button-icon-label"
           news-trigger-click="#opml-upload">
     <?php p($l->t('Import')); ?>
   </button>
 
 
   <a title="<?php p($l->t('Export')); ?>"
-    class="button download-icon svg"
+    class="button icon-download svg button-icon-label"
     href="<?php p(\OCP\Util::linkToRoute('news.export.opml')); ?>"
     target="_blank"
     ng-show="feedSize() > 0">
@@ -56,7 +52,7 @@
   </a>
 
   <button
-    class="download-icon svg"
+    class="icon-download svg button-icon-label"
     title="<?php p($l->t('Export')); ?>"
     ng-hide="feedSize() > 0"
     disabled>
@@ -78,21 +74,21 @@
     news-read-file="Settings.importArticles($fileContent)"/>
 
   <button title="<?php p($l->t('Import')); ?>"
-    class="upload-icon svg"
-    ng-class="{loading: Settings.importing}"
+    class="icon-upload svg button-icon-label"
+    ng-class="{'icon-loading-small': Settings.importing}"
     ng-disabled="importing"
     news-trigger-click="#article-upload">
     <?php p($l->t('Import')); ?>
   </button>
 
-  <a title="<?php p($l->t('Export')); ?>" class="button download-icon svg"
+  <a title="<?php p($l->t('Export')); ?>" class="button icon-download svg button-icon-label"
     href="<?php p(\OCP\Util::linkToRoute('news.export.articles')); ?>"
     target="_blank"
     ng-show="feedSize() > 0">
     <?php p($l->t('Export')); ?>
   </a>
   <button
-    class="download-icon svg"
+    class="icon-download svg button-icon-label"
     title="<?php p($l->t('Export')); ?>"
     ng-hide="feedSize() > 0"
     disabled>

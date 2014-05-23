@@ -882,6 +882,22 @@ var $__build_47_app__ = function () {
           }
         });
       }(window, document, jQuery));
+      (function (window, document, $) {
+        'use strict';
+        $(document).ready(function () {
+          var buttons = $(':not([data-app-slide-toggle-area=""])');
+          $(document).click(function (event) {
+            buttons.each(function (index, button) {
+              console.log(button);
+              var area = $(button).data('app-slide-toggle-area');
+              if (button === event.target) {
+                console.log(area);
+                event.stopPropagation();
+              }
+            });
+          });
+        });
+      }(window, document, jQuery));
       var call = Function.prototype.call.bind(Function.prototype.call);
       var hasOwn = Object.prototype.hasOwnProperty;
       window.items = function (obj) {
