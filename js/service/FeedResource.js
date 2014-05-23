@@ -72,6 +72,7 @@ app.factory('FeedResource', (Resource, $http, BASE_URL) => {
             this.updateUnreadCache();
         }
 
+
         markFolderRead (folderId) {
             for (let feed of this.values) {
                 if (feed.folderId === folderId) {
@@ -102,6 +103,12 @@ app.factory('FeedResource', (Resource, $http, BASE_URL) => {
         getFolderUnreadCount (folderId) {
             return this.folderUnreadCount[folderId] || 0;
         }
+
+
+        getByFolderId (folderId) {
+            return this.values.filter(v => v.folderId === folderId);
+        }
+
 
     }
 

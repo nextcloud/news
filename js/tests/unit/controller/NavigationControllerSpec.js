@@ -33,4 +33,71 @@ describe('NavigationController', () => {
     }));
 
 
+    it('should mark Folders read', inject(($controller) => {
+        let FeedResource = {
+            markFolderRead: jasmine.createSpy('folder'),
+            getByFolderId: () => {
+                return [
+                    {id: 3},
+                    {id: 4}
+                ];
+            }
+        };
+
+        let ItemResource = {
+            markFeedRead: jasmine.createSpy('feedfolder')
+        };
+
+        controller = $controller('NavigationController', {
+            FeedResource: FeedResource,
+            ItemResource: ItemResource
+        });
+
+        controller.markFolderRead(3);
+
+        expect(FeedResource.markFolderRead).toHaveBeenCalledWith(3);
+        expect(ItemResource.markFeedRead.callCount).toBe(2);
+    }));
+
+
+    it('should mark a feed read', inject(($controller) => {
+        let FeedResource = {
+            markFeedRead: jasmine.createSpy('folder'),
+        };
+
+        let ItemResource = {
+            markFeedRead: jasmine.createSpy('feedfolder')
+        };
+
+        controller = $controller('NavigationController', {
+            FeedResource: FeedResource,
+            ItemResource: ItemResource
+        });
+
+        controller.markFeedRead(3);
+
+        expect(FeedResource.markFeedRead).toHaveBeenCalledWith(3);
+        expect(ItemResource.markFeedRead).toHaveBeenCalledWith(3);
+    }));
+
+
+    it('should mark all read', inject(($controller) => {
+        let FeedResource = {
+            markRead: jasmine.createSpy('folder'),
+        };
+
+        let ItemResource = {
+            markRead: jasmine.createSpy('feedfolder')
+        };
+
+        controller = $controller('NavigationController', {
+            FeedResource: FeedResource,
+            ItemResource: ItemResource
+        });
+
+        controller.markRead();
+
+        expect(FeedResource.markRead).toHaveBeenCalled();
+        expect(ItemResource.markRead).toHaveBeenCalled();
+    }));
 });

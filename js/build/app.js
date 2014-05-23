@@ -204,7 +204,27 @@ var $__build_47_app__ = function () {
           this.getFolders = function () {
             return FolderResource.getAll();
           };
-          console.log(ItemResource);
+          this.markFolderRead = function (folderId) {
+            FeedResource.markFolderRead(folderId);
+            for (var $__3 = FeedResource.getByFolderId(folderId)[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
+              try {
+                throw undefined;
+              } catch (feed) {
+                feed = $__4.value;
+                {
+                  ItemResource.markFeedRead(feed.id);
+                }
+              }
+            }
+          };
+          this.markFeedRead = function (feedId) {
+            ItemResource.markFeedRead(feedId);
+            FeedResource.markFeedRead(feedId);
+          };
+          this.markRead = function () {
+            ItemResource.markRead();
+            FeedResource.markRead();
+          };
         }
       ]);
       app.controller('SettingsController', [
@@ -343,6 +363,11 @@ var $__build_47_app__ = function () {
             },
             getFolderUnreadCount: function (folderId) {
               return this.folderUnreadCount[$traceurRuntime.toProperty(folderId)] || 0;
+            },
+            getByFolderId: function (folderId) {
+              return this.values.filter(function (v) {
+                return v.folderId === folderId;
+              });
             }
           }, {}, Resource);
           return new FeedResource($http, BASE_URL);

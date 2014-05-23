@@ -56,6 +56,15 @@ describe('FeedResource', () => {
     }));
 
 
+    it('should get all of folder', inject((FeedResource) => {
+
+        let folders = FeedResource.getByFolderId(3);
+
+        expect(folders.length).toBe(2);
+    }));
+
+
+
     it('should cache unreadcount', inject((FeedResource) => {
         expect(FeedResource.getUnreadCount()).toBe(70);
 

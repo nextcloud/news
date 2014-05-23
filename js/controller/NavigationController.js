@@ -19,6 +19,22 @@ function (FeedResource, FolderResource, ItemResource) {
         return FolderResource.getAll();
     };
 
-    console.log(ItemResource);
+    this.markFolderRead = (folderId) => {
+        FeedResource.markFolderRead(folderId);
+
+        for (let feed of FeedResource.getByFolderId(folderId)) {
+            ItemResource.markFeedRead(feed.id);
+        }
+    };
+
+    this.markFeedRead = (feedId) => {
+        ItemResource.markFeedRead(feedId);
+        FeedResource.markFeedRead(feedId);
+    };
+
+    this.markRead = () => {
+        ItemResource.markRead();
+        FeedResource.markRead();
+    };
 
 });
