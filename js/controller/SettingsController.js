@@ -34,6 +34,12 @@ function ($route, SettingsResource, FeedResource) {
     };
 
 
+    this.feedSize = () => {
+        return FeedResource.size();
+    };
+
+
+    // TBD
     this.importOpml = (content) => {
         console.log(content);
     };
@@ -42,11 +48,5 @@ function ($route, SettingsResource, FeedResource) {
     this.importArticles = (content) => {
         console.log(content);
     };
-
-
-    this.feedSize = () => {
-        return FeedResource.size();
-    };
-
 
 });

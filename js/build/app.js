@@ -187,8 +187,17 @@ var $__build_47_app__ = function () {
           this.getItems = function () {
             return ItemResource.getAll();
           };
-          this.getFeeds = function () {
-            return FeedResource.getAll();
+          this.toggleStar = function (itemId) {
+            console.log(itemId);
+          };
+          this.markRead = function (itemId) {
+            console.log(itemId);
+          };
+          this.getFeed = function (feedId) {
+            console.log(feedId);
+          };
+          this.keepUnread = function (itemId) {
+            console.log(itemId);
           };
         }
       ]);
@@ -225,6 +234,33 @@ var $__build_47_app__ = function () {
             ItemResource.markRead();
             FeedResource.markRead();
           };
+          this.createFeed = function () {
+            console.log('TBD');
+          };
+          this.createFolder = function () {
+            console.log('TBD');
+          };
+          this.renameFeed = function () {
+            console.log('TBD');
+          };
+          this.renameFolder = function () {
+            console.log('TBD');
+          };
+          this.deleteFeed = function () {
+            console.log('TBD');
+          };
+          this.deleteFolder = function () {
+            console.log('TBD');
+          };
+          this.moveFeed = function () {
+            console.log('TBD');
+          };
+          this.isActive = function () {
+            console.log('TBD');
+          };
+          this.isVisible = function () {
+            console.log('TBD');
+          };
         }
       ]);
       app.controller('SettingsController', [
@@ -252,14 +288,14 @@ var $__build_47_app__ = function () {
           this.getSetting = function (key) {
             return SettingsResource.get(key);
           };
+          this.feedSize = function () {
+            return FeedResource.size();
+          };
           this.importOpml = function (content) {
             console.log(content);
           };
           this.importArticles = function (content) {
             console.log(content);
-          };
-          this.feedSize = function () {
-            return FeedResource.size();
           };
         }
       ]);

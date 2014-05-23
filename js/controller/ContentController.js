@@ -20,7 +20,21 @@ function (Publisher, FeedResource, ItemResource, data) {
         return ItemResource.getAll();
     };
 
-    this.getFeeds = () => {
-        return FeedResource.getAll();
+    // TBD
+    this.toggleStar = (itemId) => {
+        console.log(itemId);
     };
+
+    this.markRead = (itemId) => {
+        console.log(itemId);
+    };
+
+    this.getFeed = (feedId) => {
+        console.log(feedId);
+    };
+
+    this.keepUnread = (itemId) => {
+        console.log(itemId);
+    };
+
 });

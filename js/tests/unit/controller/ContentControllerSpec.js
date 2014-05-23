@@ -24,23 +24,13 @@ describe('ContentController', () => {
         let controller = $controller('ContentController', {
             data: {
                 'items': [
-                    {
-                        id: 3
-                    },
-                    {
-                        id: 4
-                    }
-                ],
-                'feeds': [
-                    {
-                        url: 'hi'
-                    }
+                    {id: 3},
+                    {id: 4}
                 ]
             }
         });
 
         expect(controller.getItems().length).toBe(2);
-        expect(controller.getFeeds().length).toBe(1);
     }));
 
 

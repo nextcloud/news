@@ -37,4 +37,41 @@ function (FeedResource, FolderResource, ItemResource) {
         FeedResource.markRead();
     };
 
+    // TBD
+    this.createFeed = () => {
+        console.log('TBD');
+    };
+
+    this.createFolder = () => {
+        console.log('TBD');
+    };
+
+    this.renameFeed = () => {
+        console.log('TBD');
+    };
+
+    this.renameFolder = () => {
+        console.log('TBD');
+    };
+
+    this.deleteFeed = () => {
+        console.log('TBD');
+    };
+
+    this.deleteFolder = () => {
+        console.log('TBD');
+    };
+
+    this.moveFeed = () => {
+        console.log('TBD');
+    };
+
+    this.isActive = () => {
+        console.log('TBD');
+    };
+
+    this.isVisible = () => {
+        console.log('TBD');
+    };
+
 });
