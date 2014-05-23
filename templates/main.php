@@ -22,11 +22,11 @@
 	<div id="global-loading" class="icon-loading" ng-show="App.loading.isLoading('global')"></div>
 
 	<!-- navigation -->
-	<div id="app-navigation" ng-controller="NavigationController" ng-hide="App.loading.isLoading('global')">
+	<div id="app-navigation" ng-controller="NavigationController as Navigation" ng-hide="App.loading.isLoading('global')">
 
 		<ul class="with-icon" data-folder-id="0" news-droppable>
-			<?php //print_unescaped($this->inc('part.addnew')) ?>
-			<?php //print_unescaped($this->inc('part.feed.unread')) ?>
+			<?php print_unescaped($this->inc('part.addnew')) ?>
+			<?php print_unescaped($this->inc('part.feed.unread')) ?>
 			<?php //print_unescaped($this->inc('part.feed.starred')) ?>
 			<?php //print_unescaped($this->inc('part.listfeed', ['folderId' => '0'])) ?>
 			<?php //print_unescaped($this->inc('part.listfolder')) ?>
@@ -41,6 +41,10 @@
 	<!-- content -->
 	<script type="text/ng-template" id="content.html"><?php print_unescaped($this->inc('part.content')) ?></script>
 
-	<div id="app-content" ng-class="{'icon-loading': App.loading.isLoading('content')}" ng-hide="App.loading.isLoading('global')" ng-view></div>
+	<div id="app-content"
+		ng-class="{'icon-loading': App.loading.isLoading('content')}"
+		ng-hide="App.loading.isLoading('global')"
+		ng-view
+		tabindex="-1"></div>
 
 </div>

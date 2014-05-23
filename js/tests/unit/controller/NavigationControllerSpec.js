@@ -100,4 +100,16 @@ describe('NavigationController', () => {
         expect(FeedResource.markRead).toHaveBeenCalled();
         expect(ItemResource.markRead).toHaveBeenCalled();
     }));
+
+
+    it('should mark all read', inject((SettingsResource, $controller) => {
+        let ctrl = $controller('NavigationController', {
+            SettingsResource: SettingsResource,
+        });
+
+        SettingsResource.set('showAll', true);
+
+        expect(ctrl.isShowAll()).toBe(true);
+
+    }));
 });

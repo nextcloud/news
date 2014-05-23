@@ -37,4 +37,15 @@ function (Publisher, FeedResource, ItemResource, data) {
         console.log(itemId);
     };
 
+    this.isContentView = () => {
+        console.log('tbd');
+    };
+
+    this.orderBy = () => {
+        console.log('tbd');
+    };
+
+    this.getRelativeDate = (timestamp) => {
+        console.log(timestamp);
+    };
 });

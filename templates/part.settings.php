@@ -1,7 +1,7 @@
 <div id="app-settings-header">
 <button name="app settings"
   class="settings-button"
-  data-apps-slide-up-area="#app-settings-content"></button>
+  data-apps-slide-toggle="#app-settings-content"></button>
 </div>
 
 <div id="app-settings-content">

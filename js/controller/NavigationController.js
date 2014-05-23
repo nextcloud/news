@@ -8,7 +8,7 @@
  * @copyright Bernhard Posselt 2014
  */
 app.controller('NavigationController',
-function (FeedResource, FolderResource, ItemResource) {
+function (FeedResource, FolderResource, ItemResource, SettingsResource) {
     'use strict';
 
     this.getFeeds = () => {
@@ -35,6 +35,10 @@ function (FeedResource, FolderResource, ItemResource) {
     this.markRead = () => {
         ItemResource.markRead();
         FeedResource.markRead();
+    };
+
+    this.isShowAll = () => {
+        return SettingsResource.get('showAll');
     };
 
     // TBD
@@ -73,5 +77,6 @@ function (FeedResource, FolderResource, ItemResource) {
     this.isVisible = () => {
         console.log('TBD');
     };
+
 
 });

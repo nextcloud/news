@@ -199,13 +199,23 @@ var $__build_47_app__ = function () {
           this.keepUnread = function (itemId) {
             console.log(itemId);
           };
+          this.isContentView = function () {
+            console.log('tbd');
+          };
+          this.orderBy = function () {
+            console.log('tbd');
+          };
+          this.getRelativeDate = function (timestamp) {
+            console.log(timestamp);
+          };
         }
       ]);
       app.controller('NavigationController', [
         'FeedResource',
         'FolderResource',
         'ItemResource',
-        function (FeedResource, FolderResource, ItemResource) {
+        'SettingsResource',
+        function (FeedResource, FolderResource, ItemResource, SettingsResource) {
           'use strict';
           this.getFeeds = function () {
             return FeedResource.getAll();
@@ -233,6 +243,9 @@ var $__build_47_app__ = function () {
           this.markRead = function () {
             ItemResource.markRead();
             FeedResource.markRead();
+          };
+          this.isShowAll = function () {
+            return SettingsResource.get('showAll');
           };
           this.createFeed = function () {
             console.log('TBD');
@@ -882,22 +895,6 @@ var $__build_47_app__ = function () {
           }
         });
       }(window, document, jQuery));
-      (function (window, document, $) {
-        'use strict';
-        $(document).ready(function () {
-          var buttons = $(':not([data-app-slide-toggle-area=""])');
-          $(document).click(function (event) {
-            buttons.each(function (index, button) {
-              console.log(button);
-              var area = $(button).data('app-slide-toggle-area');
-              if (button === event.target) {
-                console.log(area);
-                event.stopPropagation();
-              }
-            });
-          });
-        });
-      }(window, document, jQuery));
       var call = Function.prototype.call.bind(Function.prototype.call);
       var hasOwn = Object.prototype.hasOwnProperty;
       window.items = function (obj) {
@@ -1161,6 +1158,12 @@ var $__build_47_app__ = function () {
           writable: true
         }), $__2;
       };
+      app.directive('newsAutoFocus', function () {
+        'use strict';
+        return function (scope, elem, attrs) {
+          $(attrs.newsAutofocus).focus();
+        };
+      });
       app.directive('newsBindHtmlUnsafe', function () {
         'use strict';
         return function (scope, elem, attr) {
@@ -1273,60 +1276,6 @@ var $__build_47_app__ = function () {
                 elem.off('scroll', scrollHandler);
               });
             }
-          };
-        }
-      ]);
-      app.directive('newsSlideUp', [
-        '$rootScope',
-        '$document',
-        function ($rootScope, $document) {
-          'use strict';
-          return function (scope, elem, attr) {
-            var slideArea = elem;
-            var cssClass = false;
-            var options = scope.$eval(attr.newsSlideUp);
-            if (options) {
-              if (options.selector) {
-                slideArea = $(options.selector);
-              }
-              if (options.cssClass) {
-                cssClass = options.cssClass;
-              }
-              if (options.hideOnFocusLost) {
-                $($document[0].body).click(function () {
-                  $rootScope.$broadcast('newsSlideUp');
-                });
-                $rootScope.$on('newsSlideUp', function (scope, params) {
-                  if (params !== slideArea && slideArea.is(':visible') && !slideArea.is(':animated')) {
-                    slideArea.slideUp();
-                    if (cssClass) {
-                      elem.removeClass(cssClass);
-                    }
-                  }
-                });
-                slideArea.click(function (event) {
-                  $rootScope.$broadcast('newsSlideUp', slideArea);
-                  event.stopPropagation();
-                });
-                elem.click(function (event) {
-                  $rootScope.$broadcast('newsSlideUp', slideArea);
-                  event.stopPropagation();
-                });
-              }
-            }
-            elem.click(function () {
-              if (slideArea.is(':visible') && !slideArea.is(':animated')) {
-                slideArea.slideUp();
-                if (cssClass) {
-                  elem.removeClass(cssClass);
-                }
-              } else {
-                slideArea.slideDown();
-                if (cssClass) {
-                  elem.addClass(cssClass);
-                }
-              }
-            });
           };
         }
       ]);
