@@ -7,7 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-describe('Settings', () => {
+describe('SettingsResource', () => {
     'use strict';
 
     let http;
@@ -21,23 +21,23 @@ describe('Settings', () => {
     }));
 
 
-    it('should receive default settings', inject((Settings) => {
-        Settings.receive({
+    it('should receive default SettingsResource', inject((SettingsResource) => {
+        SettingsResource.receive({
             'showAll': true
         });
 
-        expect(Settings.get('showAll')).toBe(true);
+        expect(SettingsResource.get('showAll')).toBe(true);
     }));
 
 
-    it('should set values', inject((Settings) => {
+    it('should set values', inject((SettingsResource) => {
         http.expectPOST('base/settings', {showAll: true}).respond(200, {});
 
-        Settings.set('showAll', true);
+        SettingsResource.set('showAll', true);
 
         http.flush();
 
-        expect(Settings.get('showAll')).toBe(true);
+        expect(SettingsResource.get('showAll')).toBe(true);
     }));
 
 

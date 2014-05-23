@@ -9,7 +9,7 @@
  */
 
  /*jshint unused:false*/
-app.service('Settings', function ($http, BASE_URL) {
+app.service('SettingsResource', function ($http, BASE_URL) {
     'use strict';
 
     this.settings = {};

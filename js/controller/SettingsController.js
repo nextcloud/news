@@ -7,7 +7,8 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.controller('SettingsController', function (Settings, $route, FeedResource) {
+app.controller('SettingsController',
+function ($route, SettingsResource, FeedResource) {
     'use strict';
 
     this.importing = false;
@@ -15,7 +16,7 @@ app.controller('SettingsController', function (Settings, $route, FeedResource) {
     this.articleImportError = false;
 
     let set = (key, value) => {
-        Settings.set(key, value);
+        SettingsResource.set(key, value);
 
         if (['showAll', 'oldestFirst'].indexOf(key) >= 0) {
             $route.reload();
@@ -29,7 +30,7 @@ app.controller('SettingsController', function (Settings, $route, FeedResource) {
 
 
     this.getSetting = (key) => {
-        return Settings.get(key);
+        return SettingsResource.get(key);
     };
 
 

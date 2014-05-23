@@ -20,7 +20,9 @@ app.factory('FeedResource', (Resource, $http, BASE_URL) => {
 
         add (value) {
             super.add(value);
-            this.ids[value.id] = this.hashMap[value.url];
+            if (value.id !== undefined) {
+                this.ids[value.id] = this.hashMap[value.url];
+            }
         }
 
 
@@ -32,7 +34,7 @@ app.factory('FeedResource', (Resource, $http, BASE_URL) => {
 
 
         markRead () {
-            for(let feed of this.values) {
+            for (let feed of this.values) {
                 feed.unreadCount = 0;
             }
         }

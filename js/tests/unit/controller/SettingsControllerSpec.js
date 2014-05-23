@@ -23,37 +23,37 @@ describe('SettingsController', () => {
     });
 
     it('should set values', inject(($controller) => {
-        let Settings = {
-            set: jasmine.createSpy('Settings'),
+        let SettingsResource = {
+            set: jasmine.createSpy('SettingsResource'),
             get: key => key
         };
 
         let ctrl = $controller('SettingsController', {
-            Settings: Settings,
+            SettingsResource: SettingsResource,
             $route: route
         });
 
         ctrl.toggleSetting(3);
 
-        expect(Settings.set).toHaveBeenCalledWith(3, false);
+        expect(SettingsResource.set).toHaveBeenCalledWith(3, false);
     }));
 
 
     it('should reload page if set needed', inject(($controller) => {
-        let settings = {
-            set: jasmine.createSpy('Settings'),
+        let SettingsResource = {
+            set: jasmine.createSpy('SettingsResource'),
             get: key => key
         };
 
         let ctrl = $controller('SettingsController', {
-            Settings: settings,
+            SettingsResource: SettingsResource,
             $route: route
         });
 
         ctrl.toggleSetting('showAll');
         ctrl.toggleSetting('oldestFirst');
 
-        expect(settings.set).toHaveBeenCalledWith('showAll', false);
+        expect(SettingsResource.set).toHaveBeenCalledWith('showAll', false);
         expect(route.reload).toHaveBeenCalled();
         expect(route.reload.callCount).toBe(2);
     }));

@@ -197,17 +197,17 @@ var $__build_47_app__ = function () {
         console.log('here');
       });
       app.controller('SettingsController', [
-        'Settings',
         '$route',
+        'SettingsResource',
         'FeedResource',
-        function (Settings, $route, FeedResource) {
+        function ($route, SettingsResource, FeedResource) {
           'use strict';
           var $__0 = this;
           this.importing = false;
           this.opmlImportError = false;
           this.articleImportError = false;
           var set = function (key, value) {
-            Settings.set(key, value);
+            SettingsResource.set(key, value);
             if ([
                 'showAll',
                 'oldestFirst'
@@ -219,7 +219,7 @@ var $__build_47_app__ = function () {
             set(key, !$__0.getSetting(key));
           };
           this.getSetting = function (key) {
-            return Settings.get(key);
+            return SettingsResource.get(key);
           };
           this.importOpml = function (content) {
             console.log(content);
@@ -250,7 +250,9 @@ var $__build_47_app__ = function () {
           $traceurRuntime.createClass(FeedResource, {
             add: function (value) {
               $traceurRuntime.superCall(this, $FeedResource.prototype, 'add', [value]);
-              $traceurRuntime.setProperty(this.ids, value.id, this.hashMap[$traceurRuntime.toProperty(value.url)]);
+              if (value.id !== undefined) {
+                $traceurRuntime.setProperty(this.ids, value.id, this.hashMap[$traceurRuntime.toProperty(value.url)]);
+              }
             },
             delete: function (id) {
               var feed = this.get(id);
@@ -583,7 +585,7 @@ var $__build_47_app__ = function () {
         }, {});
         return Resource;
       });
-      app.service('Settings', [
+      app.service('SettingsResource', [
         '$http',
         'BASE_URL',
         function ($http, BASE_URL) {
