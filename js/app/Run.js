@@ -8,8 +8,8 @@
  * @copyright Bernhard Posselt 2014
  */
 app.run(($rootScope, $location, $http, $q, $interval, Loading, ItemResource,
-         FeedResource, FolderResource, Settings, Publisher, BASE_URL, FEED_TYPE,
-         REFRESH_RATE) => {
+         FeedResource, FolderResource, SettingsResource, Publisher, BASE_URL,
+         FEED_TYPE, REFRESH_RATE) => {
     'use strict';
 
     // show Loading screen
@@ -21,7 +21,7 @@ app.run(($rootScope, $location, $http, $q, $interval, Loading, ItemResource,
                                                  'starred');
     Publisher.subscribe(FolderResource).toChannels('folders');
     Publisher.subscribe(FeedResource).toChannels('feeds');
-    Publisher.subscribe(Settings).toChannels('settings');
+    Publisher.subscribe(SettingsResource).toChannels('settings');
 
     // load feeds, settings and last read feed
     let settingsDeferred = $q.defer();

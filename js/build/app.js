@@ -94,18 +94,18 @@ var $__build_47_app__ = function () {
         'ItemResource',
         'FeedResource',
         'FolderResource',
-        'Settings',
+        'SettingsResource',
         'Publisher',
         'BASE_URL',
         'FEED_TYPE',
         'REFRESH_RATE',
-        function ($rootScope, $location, $http, $q, $interval, Loading, ItemResource, FeedResource, FolderResource, Settings, Publisher, BASE_URL, FEED_TYPE, REFRESH_RATE) {
+        function ($rootScope, $location, $http, $q, $interval, Loading, ItemResource, FeedResource, FolderResource, SettingsResource, Publisher, BASE_URL, FEED_TYPE, REFRESH_RATE) {
           'use strict';
           Loading.setLoading('global', true);
           Publisher.subscribe(ItemResource).toChannels('items', 'newestItemId', 'starred');
           Publisher.subscribe(FolderResource).toChannels('folders');
           Publisher.subscribe(FeedResource).toChannels('feeds');
-          Publisher.subscribe(Settings).toChannels('settings');
+          Publisher.subscribe(SettingsResource).toChannels('settings');
           var settingsDeferred = $q.defer();
           $http.get(BASE_URL + '/settings').success(function (data) {
             Publisher.publishAll(data);
