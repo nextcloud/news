@@ -10,10 +10,17 @@
 describe('SettingsController', () => {
     'use strict';
 
+    let route;
+
     beforeEach(module('News', ($provide) => {
         $provide.value('BASE_URL', 'base');
     }));
 
+    beforeEach(() => {
+        route = {
+            reload: jasmine.createSpy('Route')
+        };
+    });
 
     it('should set values', inject(($controller) => {
         let Settings = {
@@ -22,7 +29,8 @@ describe('SettingsController', () => {
         };
 
         let ctrl = $controller('SettingsController', {
-            Settings: Settings
+            Settings: Settings,
+            $route: route
         });
 
         ctrl.toggleSetting(3);
@@ -35,10 +43,6 @@ describe('SettingsController', () => {
         let settings = {
             set: jasmine.createSpy('Settings'),
             get: key => key
-        };
-
-        let route = {
-            reload: jasmine.createSpy('Route')
         };
 
         let ctrl = $controller('SettingsController', {
@@ -59,7 +63,8 @@ describe('SettingsController', () => {
         FeedResource.add({url: 'hi'});
 
         let ctrl = $controller('SettingsController', {
-            FeedResource: FeedResource
+            FeedResource: FeedResource,
+            $route: route
         });
 
         expect(ctrl.feedSize()).toBe(1);

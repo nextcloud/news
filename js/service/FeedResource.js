@@ -14,7 +14,49 @@ app.factory('FeedResource', (Resource, $http, BASE_URL) => {
 
         constructor ($http, BASE_URL) {
             super($http, BASE_URL, 'url');
+            this.ids = {};
         }
+
+
+        add (value) {
+            super.add(value);
+            this.ids[value.id] = this.hashMap[value.url];
+        }
+
+
+        delete (id) {
+            let feed = this.get(id);
+            delete this.ids[feed.id];
+            super.delete(id);
+        }
+
+
+        markRead () {
+            for(let feed of this.values) {
+                feed.unreadCount = 0;
+            }
+        }
+
+
+        markFeedRead (feedId) {
+            this.ids[feedId].unreadCount = 0;
+        }
+
+
+        markItemOfFeedRead (feedId) {
+            this.ids[feedId].unreadCount -= 1;
+        }
+
+
+        markItemOfFeedUnread (feedId) {
+            this.ids[feedId].unreadCount += 1;
+        }
+
+
+        getUnreadCount () {
+            return this.values.reduce((sum, feed) => sum + feed.unreadCount, 0);
+        }
+
 
     }
 

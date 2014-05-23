@@ -244,9 +244,46 @@ var $__build_47_app__ = function () {
               BASE_URL,
               'url'
             ]);
+            this.ids = {};
           };
           var $FeedResource = FeedResource;
-          $traceurRuntime.createClass(FeedResource, {}, {}, Resource);
+          $traceurRuntime.createClass(FeedResource, {
+            add: function (value) {
+              $traceurRuntime.superCall(this, $FeedResource.prototype, 'add', [value]);
+              $traceurRuntime.setProperty(this.ids, value.id, this.hashMap[$traceurRuntime.toProperty(value.url)]);
+            },
+            delete: function (id) {
+              var feed = this.get(id);
+              delete this.ids[$traceurRuntime.toProperty(feed.id)];
+              $traceurRuntime.superCall(this, $FeedResource.prototype, 'delete', [id]);
+            },
+            markRead: function () {
+              for (var $__3 = this.values[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
+                try {
+                  throw undefined;
+                } catch (feed) {
+                  feed = $__4.value;
+                  {
+                    feed.unreadCount = 0;
+                  }
+                }
+              }
+            },
+            markFeedRead: function (feedId) {
+              this.ids[$traceurRuntime.toProperty(feedId)].unreadCount = 0;
+            },
+            markItemOfFeedRead: function (feedId) {
+              this.ids[$traceurRuntime.toProperty(feedId)].unreadCount -= 1;
+            },
+            markItemOfFeedUnread: function (feedId) {
+              this.ids[$traceurRuntime.toProperty(feedId)].unreadCount += 1;
+            },
+            getUnreadCount: function () {
+              return this.values.reduce(function (sum, feed) {
+                return sum + feed.unreadCount;
+              }, 0);
+            }
+          }, {}, Resource);
           return new FeedResource($http, BASE_URL);
         }
       ]);
