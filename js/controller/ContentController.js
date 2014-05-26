@@ -8,8 +8,11 @@
  * @copyright Bernhard Posselt 2014
  */
 app.controller('ContentController',
-function (Publisher, FeedResource, ItemResource, data) {
+function ($scope, Publisher, FeedResource, ItemResource, SettingsResource,
+          data) {
     'use strict';
+
+    $scope.Content = this;
 
     ItemResource.clear();
 
@@ -42,7 +45,11 @@ function (Publisher, FeedResource, ItemResource, data) {
     };
 
     this.orderBy = () => {
-        console.log('tbd');
+        if (SettingsResource.get('oldestFirst')) {
+            return '-id';
+        } else {
+            return 'id';
+        }
     };
 
     this.getRelativeDate = (timestamp) => {

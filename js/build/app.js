@@ -176,12 +176,15 @@ var $__build_47_app__ = function () {
         }
       ]);
       app.controller('ContentController', [
+        '$scope',
         'Publisher',
         'FeedResource',
         'ItemResource',
+        'SettingsResource',
         'data',
-        function (Publisher, FeedResource, ItemResource, data) {
+        function ($scope, Publisher, FeedResource, ItemResource, SettingsResource, data) {
           'use strict';
+          $scope.Content = this;
           ItemResource.clear();
           Publisher.publishAll(data);
           this.getItems = function () {
@@ -203,7 +206,11 @@ var $__build_47_app__ = function () {
             console.log('tbd');
           };
           this.orderBy = function () {
-            console.log('tbd');
+            if (SettingsResource.get('oldestFirst')) {
+              return '-id';
+            } else {
+              return 'id';
+            }
           };
           this.getRelativeDate = function (timestamp) {
             console.log(timestamp);

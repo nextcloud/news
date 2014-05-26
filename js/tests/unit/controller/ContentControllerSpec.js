@@ -10,8 +10,14 @@
 describe('ContentController', () => {
     'use strict';
 
+    let scope;
+
     beforeEach(module('News', ($provide) => {
         $provide.value('BASE_URL', 'base');
+    }));
+
+    beforeEach(inject(($rootScope) => {
+        scope = $rootScope.$new();
     }));
 
 
@@ -27,7 +33,8 @@ describe('ContentController', () => {
                     {id: 3},
                     {id: 4}
                 ]
-            }
+            },
+            $scope: scope
         });
 
         expect(controller.getItems().length).toBe(2);
@@ -40,10 +47,28 @@ describe('ContentController', () => {
         ItemResource.clear = jasmine.createSpy('clear');
 
         $controller('ContentController', {
-            data: {}
+            data: {},
+            $scope: scope
         });
 
         expect(ItemResource.clear).toHaveBeenCalled();
+    }));
+
+
+    it('should return order by', inject(($controller,
+        SettingsResource) => {
+
+        $controller('ContentController', {
+            SettingsResource: SettingsResource,
+            $scope: scope,
+            data: {},
+        });
+
+        expect(scope.Content.orderBy()).toBe('id');
+
+        SettingsResource.set('oldestFirst', true);
+
+        expect(scope.Content.orderBy()).toBe('-id');
     }));
 
 });
