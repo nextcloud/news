@@ -10,14 +10,9 @@
 describe('ContentController', () => {
     'use strict';
 
-    let scope;
 
     beforeEach(module('News', ($provide) => {
         $provide.value('BASE_URL', 'base');
-    }));
-
-    beforeEach(inject(($rootScope) => {
-        scope = $rootScope.$new();
     }));
 
 
@@ -34,7 +29,6 @@ describe('ContentController', () => {
                     {id: 4}
                 ]
             },
-            $scope: scope
         });
 
         expect(controller.getItems().length).toBe(2);
@@ -48,7 +42,6 @@ describe('ContentController', () => {
 
         $controller('ContentController', {
             data: {},
-            $scope: scope
         });
 
         expect(ItemResource.clear).toHaveBeenCalled();
@@ -58,17 +51,16 @@ describe('ContentController', () => {
     it('should return order by', inject(($controller,
         SettingsResource) => {
 
-        $controller('ContentController', {
+        let ctrl = $controller('ContentController', {
             SettingsResource: SettingsResource,
-            $scope: scope,
             data: {},
         });
 
-        expect(scope.Content.orderBy()).toBe('id');
+        expect(ctrl.orderBy()).toBe('id');
 
         SettingsResource.set('oldestFirst', true);
 
-        expect(scope.Content.orderBy()).toBe('-id');
+        expect(ctrl.orderBy()).toBe('-id');
     }));
 
 });

@@ -66,19 +66,19 @@ var $__build_47_app__ = function () {
             };
           };
           $routeProvider.when('/items', {
-            controller: 'ContentController',
+            controller: 'ContentController as Content',
             templateUrl: 'content.html',
             resolve: getResolve(feedType.SUBSCRIPTIONS)
           }).when('/items/starred', {
-            controller: 'ContentController',
+            controller: 'ContentController as Content',
             templateUrl: 'content.html',
             resolve: getResolve(feedType.STARRED)
           }).when('/items/feeds/:id', {
-            controller: 'ContentController',
+            controller: 'ContentController as Content',
             templateUrl: 'content.html',
             resolve: getResolve(feedType.FEED)
           }).when('/items/folders/:id', {
-            controller: 'ContentController',
+            controller: 'ContentController as Content',
             templateUrl: 'content.html',
             resolve: getResolve(feedType.FOLDER)
           }).otherwise({ redirectTo: '/items' });
@@ -176,15 +176,13 @@ var $__build_47_app__ = function () {
         }
       ]);
       app.controller('ContentController', [
-        '$scope',
         'Publisher',
         'FeedResource',
         'ItemResource',
         'SettingsResource',
         'data',
-        function ($scope, Publisher, FeedResource, ItemResource, SettingsResource, data) {
+        function (Publisher, FeedResource, ItemResource, SettingsResource, data) {
           'use strict';
-          $scope.Content = this;
           ItemResource.clear();
           Publisher.publishAll(data);
           this.getItems = function () {

@@ -77,22 +77,22 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
 
     $routeProvider
         .when('/items', {
-            controller: 'ContentController',
+            controller: 'ContentController as Content',
             templateUrl: 'content.html',
             resolve: getResolve(feedType.SUBSCRIPTIONS)
         })
         .when('/items/starred', {
-            controller: 'ContentController',
+            controller: 'ContentController as Content',
             templateUrl: 'content.html',
             resolve: getResolve(feedType.STARRED)
         })
         .when('/items/feeds/:id', {
-            controller: 'ContentController',
+            controller: 'ContentController as Content',
             templateUrl: 'content.html',
             resolve: getResolve(feedType.FEED)
         })
         .when('/items/folders/:id', {
-            controller: 'ContentController',
+            controller: 'ContentController as Content',
             templateUrl: 'content.html',
             resolve: getResolve(feedType.FOLDER)
         })

@@ -8,11 +8,8 @@
  * @copyright Bernhard Posselt 2014
  */
 app.controller('ContentController',
-function ($scope, Publisher, FeedResource, ItemResource, SettingsResource,
-          data) {
+function (Publisher, FeedResource, ItemResource, SettingsResource, data) {
     'use strict';
-
-    $scope.Content = this;
 
     ItemResource.clear();
 
