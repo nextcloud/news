@@ -21,5 +21,10 @@
 			"%<div><a target=\"_blank\" href=\"http://www.nerfnow.com/comic/\\d+\">Click for full size</a></div>%": "",
 			"%<img src=\"http://feeds.feedburner.com[^>]+>%": ""
 		}
+	},
+	"fowllanguagecomics.com": {
+		"%fowllanguagecomics.com/comic%": {
+			"%\\?resize=[^\"]+%": ""
+		}
 	}
 }
