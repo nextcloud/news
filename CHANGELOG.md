@@ -1,7 +1,7 @@
 owncloud-news (3.001)
 * Depend on ownCloud 7
 * Depend on PHP 5.4
-* Allow to turn of marking read when scrolling
+* Allow to turn off marking read when scrolling
 * Allow to order by oldest first
 * Order by publication date rather than by id
 * Add clientside routing
