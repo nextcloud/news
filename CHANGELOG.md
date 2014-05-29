@@ -9,6 +9,7 @@ owncloud-news (3.001)
 * Export OPML with feed title
 * Animate folder/feed disappearance if marking read
 * Design changes
+* Removed pull to refresh
 
 owncloud-news (2.003)
 * Use correct url for folder and feed api update methods
