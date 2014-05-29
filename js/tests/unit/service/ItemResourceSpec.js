@@ -35,31 +35,6 @@ describe('ItemResource', () => {
     }));
 
 
-    it ('should keep item unread', inject((ItemResource) => {
-        http.expectPOST('base/items/3/read', {isRead: false}).respond(200, {});
-
-        ItemResource.receive([
-            {
-                id: 3,
-                feedId: 4,
-                unread: false
-            },
-            {
-                id: 4,
-                feedId: 3,
-                unread: false
-            }
-        ], 'items');
-
-        ItemResource.keepUnread(3);
-
-        http.flush();
-
-        expect(ItemResource.get(3).keepUnread).toBe(true);
-        expect(ItemResource.get(3).unread).toBe(true);
-    }));
-
-
     it ('should mark item as read', inject((ItemResource) => {
         http.expectPOST('base/items/3/read', {isRead: true}).respond(200, {});
 
@@ -172,57 +147,25 @@ describe('ItemResource', () => {
     }));
 
 
-    it ('should remember the highest id', inject((ItemResource) => {
+    it ('toggle star', inject((ItemResource) => {
         ItemResource.receive([
             {
                 id: 3,
+                starred: true
             },
             {
                 id: 5,
-            },
-            {
-                id: 4,
+                starred: false
             }
         ], 'items');
 
-        expect(ItemResource.getHighestId()).toBe(5);
-    }));
+        ItemResource.star = jasmine.createSpy('star');
 
+        ItemResource.toggleStar(3);
+        expect(ItemResource.star).toHaveBeenCalledWith(3, false);
 
-    it ('should remember the lowest id', inject((ItemResource) => {
-        ItemResource.receive([
-            {
-                id: 3,
-            },
-            {
-                id: 5,
-            },
-            {
-                id: 4,
-            }
-        ], 'items');
-
-        expect(ItemResource.getLowestId()).toBe(3);
-    }));
-
-
-    it ('should clear the highest and lowest id', inject((ItemResource) => {
-        ItemResource.receive([
-            {
-                id: 3,
-            },
-            {
-                id: 5,
-            },
-            {
-                id: 4,
-            }
-        ], 'items');
-
-        ItemResource.clear();
-
-        expect(ItemResource.getHighestId()).toBe(0);
-        expect(ItemResource.getLowestId()).toBe(0);
+        ItemResource.toggleStar(5);
+        expect(ItemResource.star).toHaveBeenCalledWith(5, true);
     }));
 
 

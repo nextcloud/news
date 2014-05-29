@@ -34,12 +34,12 @@ class FolderController extends Controller {
 	private $itemService;
 	private $userId;
 
-	public function __construct($appName, 
-	                            IRequest $request, 
+	public function __construct($appName,
+	                            IRequest $request,
 	                            FolderService $folderService,
 	                            FeedService $feedService,
 	                            ItemService $itemService,
-	                            $userId){
+	                            $userId) {
 		parent::__construct($appName, $request);
 		$this->folderService = $folderService;
 		$this->feedService = $feedService;
@@ -51,23 +51,23 @@ class FolderController extends Controller {
 	/**
 	 * @NoAdminRequired
 	 */
-	public function index(){
+	public function index() {
 		$folders = $this->folderService->findAll($this->userId);
 		return ['folders' => $folders];
 	}
 
 
-	private function setOpened($isOpened, $folderId){
+	private function setOpened($isOpened, $folderId) {
 		$this->folderService->open($folderId, $isOpened, $this->userId);
 	}
 
 
 	/**
 	 * @NoAdminRequired
-	 * 
+	 *
 	 * @param int $folderId
 	 */
-	public function open($folderId){
+	public function open($folderId) {
 		try {
 			$this->setOpened(true, $folderId);
 		} catch(ServiceNotFoundException $ex) {
@@ -81,7 +81,7 @@ class FolderController extends Controller {
 	 *
 	 * @param int $folderId
 	 */
-	public function collapse($folderId){
+	public function collapse($folderId) {
 		try {
 			$this->setOpened(false, $folderId);
 		} catch(ServiceNotFoundException $ex) {
@@ -95,9 +95,9 @@ class FolderController extends Controller {
 	 *
 	 * @param string $folderName
 	 */
-	public function create($folderName){
+	public function create($folderName) {
 		try {
-			// we need to purge deleted folders if a folder is created to 
+			// we need to purge deleted folders if a folder is created to
 			// prevent already exists exceptions
 			$this->folderService->purgeDeleted($this->userId, false);
 			$folder = $this->folderService->create($folderName, $this->userId);
@@ -109,16 +109,16 @@ class FolderController extends Controller {
 		} catch(ServiceValidationException $ex) {
 			return $this->error($ex, Http::STATUS_UNPROCESSABLE_ENTITY);
 		}
-		
+
 	}
 
 
 	/**
 	 * @NoAdminRequired
-	 * 
+	 *
 	 * @param int $folderId
 	 */
-	public function delete($folderId){
+	public function delete($folderId) {
 		try {
 			$this->folderService->markDeleted($folderId, $this->userId);
 		} catch (ServiceNotFoundException $ex){
@@ -133,9 +133,9 @@ class FolderController extends Controller {
 	 * @param string $folderName
 	 * @param int $folderId
 	 */
-	public function rename($folderName, $folderId){
+	public function rename($folderName, $folderId) {
 		try {
-			$folder = $this->folderService->rename($folderId, $folderName, 
+			$folder = $this->folderService->rename($folderId, $folderName,
 				$this->userId);
 
 			return ['folders' => [$folder]];
@@ -143,7 +143,7 @@ class FolderController extends Controller {
 		} catch(ServiceConflictException $ex) {
 			return $this->error($ex, Http::STATUS_CONFLICT);
 		} catch(ServiceValidationException $ex) {
-			return $this->error($ex, Http::STATUS_UNPROCESSABLE_ENTITY);	
+			return $this->error($ex, Http::STATUS_UNPROCESSABLE_ENTITY);
 		} catch (ServiceNotFoundException $ex){
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
@@ -155,7 +155,7 @@ class FolderController extends Controller {
 	 * @param int $folderId
 	 * @param int $highestItemId
 	 */
-	public function read($folderId, $highestItemId){
+	public function read($folderId, $highestItemId) {
 		$this->itemService->readFolder($folderId, $highestItemId, $this->userId);
 
 		return ['feeds' => $this->feedService->findAll($this->userId)];
@@ -164,10 +164,10 @@ class FolderController extends Controller {
 
 	/**
 	 * @NoAdminRequired
-	 * 
+	 *
 	 * @param int $folderId
 	 */
-	public function restore($folderId){
+	public function restore($folderId) {
 		try {
 			$this->folderService->unmarkDeleted($folderId, $this->userId);
 		} catch (ServiceNotFoundException $ex){

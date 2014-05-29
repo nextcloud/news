@@ -80,7 +80,8 @@ class ItemController extends Controller {
 			}
 
 			$params['items'] = $this->itemService->findAll(
-				$id, $type, $limit, $offset, $showAll, $this->userId, $oldestFirst
+				$id, $type, $limit, $offset, $showAll, $oldestFirst,
+				$this->userId
 			);
 
 		// this gets thrown if there are no items

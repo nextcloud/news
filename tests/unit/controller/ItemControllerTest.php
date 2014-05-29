@@ -196,8 +196,8 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 				$this->equalTo(3),
 				$this->equalTo(0),
 				$this->equalTo(true),
-				$this->equalTo($this->user),
-				$this->equalTo(false))
+				$this->equalTo(false),
+				$this->equalTo($this->user))
 			->will($this->returnValue($result['items']));
 
 		$response = $this->controller->index(FeedType::FEED, 2, 3);
@@ -217,8 +217,8 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 				$this->equalTo(3),
 				$this->equalTo(10),
 				$this->equalTo(true),
-				$this->equalTo($this->user),
-				$this->equalTo(true))
+				$this->equalTo(true),
+				$this->equalTo($this->user))
 			->will($this->returnValue($result['items']));
 
 		$this->feedService->expects($this->never())

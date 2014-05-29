@@ -79,7 +79,7 @@ class ItemMapperTest extends \OCP\AppFramework\Db\MapperTestUtility {
 				'ON `folders`.`id` = `feeds`.`folder_id` ' .
 			'WHERE `feeds`.`folder_id` = 0 ' .
 				'OR `folders`.`deleted_at` = 0 ' .
-			'ORDER BY `items`.`id` ' . $ordering;
+			'ORDER BY `items`.`pub_date`, `items`.`id` ' . $ordering;
 	}
 
 	private function makeSelectQueryStatus($prependTo, $status, $oldestFirst=false) {
@@ -220,116 +220,75 @@ class ItemMapperTest extends \OCP\AppFramework\Db\MapperTestUtility {
 
 
 	public function testFindAllFeed(){
-		$sql = 'AND `items`.`feed_id` = ? ' .
-			'AND `items`.`id` < ? ';
+		$sql = 'AND `items`.`feed_id` = ? ';
 		$sql = $this->makeSelectQueryStatus($sql, $this->status);
-		$params = [$this->user, $this->id, $this->offset];
-		$this->setMapperResult($sql, $params, $this->rows);
+		$params = [$this->user, $this->id];
+		$this->setMapperResult($sql, $params, $this->rows, $this->limit, $this->offset);
 		$result = $this->mapper->findAllFeed($this->id, $this->limit,
-				$this->offset, $this->status, $this->user);
+				$this->offset, $this->status, false, $this->user);
 
 		$this->assertEquals($this->items, $result);
 	}
 
 
 	public function testFindAllFeedOldestFirst(){
-		$sql = 'AND `items`.`feed_id` = ? ' .
-			'AND `items`.`id` > ? ';
-		$sql = $this->makeSelectQueryStatus($sql, $this->status, true);
-		$params = [$this->user, $this->id, $this->offset];
-		$this->setMapperResult($sql, $params, $this->rows);
-		$result = $this->mapper->findAllFeed($this->id, $this->limit,
-				$this->offset, $this->status, $this->user, true);
-
-		$this->assertEquals($this->items, $result);
-	}
-
-
-	public function testFindAllFeedOffsetZero(){
 		$sql = 'AND `items`.`feed_id` = ? ';
-		$sql = $this->makeSelectQueryStatus($sql, $this->status);
+		$sql = $this->makeSelectQueryStatus($sql, $this->status, true);
 		$params = [$this->user, $this->id];
-		$this->setMapperResult($sql, $params, $this->rows);
+		$this->setMapperResult($sql, $params, $this->rows, $this->limit, $this->offset);
 		$result = $this->mapper->findAllFeed($this->id, $this->limit,
-				0, $this->status, $this->user);
+				$this->offset, $this->status, true, $this->user);
 
 		$this->assertEquals($this->items, $result);
 	}
 
 
 	public function testFindAllFolder(){
-		$sql = 'AND `feeds`.`folder_id` = ? ' .
-			'AND `items`.`id` < ? ';
+		$sql = 'AND `feeds`.`folder_id` = ? ';
 		$sql = $this->makeSelectQueryStatus($sql, $this->status);
-		$params = [$this->user, $this->id, $this->offset];
-		$this->setMapperResult($sql, $params, $this->rows);
+		$params = [$this->user, $this->id];
+		$this->setMapperResult($sql, $params, $this->rows, $this->limit, $this->offset);
 		$result = $this->mapper->findAllFolder($this->id, $this->limit,
-				$this->offset, $this->status, $this->user);
+				$this->offset, $this->status, false, $this->user);
 
 		$this->assertEquals($this->items, $result);
 	}
 
 
 	public function testFindAllFolderOldestFirst(){
-		$sql = 'AND `feeds`.`folder_id` = ? ' .
-			'AND `items`.`id` > ? ';
-		$sql = $this->makeSelectQueryStatus($sql, $this->status, true);
-		$params = [$this->user, $this->id, $this->offset];
-		$this->setMapperResult($sql, $params, $this->rows);
-		$result = $this->mapper->findAllFolder($this->id, $this->limit,
-				$this->offset, $this->status, $this->user, true);
-
-		$this->assertEquals($this->items, $result);
-	}
-
-
-	public function testFindAllFolderOffsetZero(){
 		$sql = 'AND `feeds`.`folder_id` = ? ';
-		$sql = $this->makeSelectQueryStatus($sql, $this->status);
+		$sql = $this->makeSelectQueryStatus($sql, $this->status, true);
 		$params = [$this->user, $this->id];
-		$this->setMapperResult($sql, $params, $this->rows);
+		$this->setMapperResult($sql, $params, $this->rows, $this->limit, $this->offset);
 		$result = $this->mapper->findAllFolder($this->id, $this->limit,
-				0, $this->status, $this->user);
+				$this->offset, $this->status, true, $this->user);
 
 		$this->assertEquals($this->items, $result);
 	}
 
 
 	public function testFindAll(){
-		$sql = 'AND `items`.`id` < ? ';
+		$sql = '';
 		$sql = $this->makeSelectQueryStatus($sql, $this->status);
-		$params = [$this->user, $this->offset];
-		$this->setMapperResult($sql, $params, $this->rows);
+		$params = [$this->user];
+		$this->setMapperResult($sql, $params, $this->rows, $this->limit, $this->offset);
 		$result = $this->mapper->findAll($this->limit,
-				$this->offset, $this->status, $this->user);
+				$this->offset, $this->status, false, $this->user);
 
 		$this->assertEquals($this->items, $result);
 	}
 
 
 	public function testFindAllOldestFirst(){
-		$sql = 'AND `items`.`id` > ? ';
+		$sql = '';
 		$sql = $this->makeSelectQueryStatus($sql, $this->status, true);
-		$params = [$this->user, $this->offset];
-		$this->setMapperResult($sql, $params, $this->rows);
-		$result = $this->mapper->findAll($this->limit,
-				$this->offset, $this->status, $this->user, true);
-
-		$this->assertEquals($this->items, $result);
-	}
-
-
-	public function testFindAllOffsetZero(){
-		$sql = $this->makeSelectQueryStatus('', $this->status);
 		$params = [$this->user];
-		$this->setMapperResult($sql, $params, $this->rows);
+		$this->setMapperResult($sql, $params, $this->rows, $this->limit, $this->offset);
 		$result = $this->mapper->findAll($this->limit,
-				0, $this->status, $this->user);
+				$this->offset, $this->status, true, $this->user);
 
 		$this->assertEquals($this->items, $result);
 	}
-
-
 
 
 	public function testFindByGuidHash(){
@@ -349,7 +308,7 @@ class ItemMapperTest extends \OCP\AppFramework\Db\MapperTestUtility {
 	public function testDeleteReadOlderThanThresholdDoesNotDeleteBelowThreshold(){
 		$status = StatusFlag::STARRED | StatusFlag::UNREAD;
 		$sql =  'SELECT COUNT(*) - `feeds`.`articles_per_update` AS `size`, ' .
-		'`items`.`feed_id` AS `feed_id` ' . 
+		'`items`.`feed_id` AS `feed_id` ' .
 			'FROM `*PREFIX*news_items` `items` ' .
 			'JOIN `*PREFIX*news_feeds` `feeds` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` ' .
@@ -373,7 +332,7 @@ class ItemMapperTest extends \OCP\AppFramework\Db\MapperTestUtility {
 		$status = StatusFlag::STARRED | StatusFlag::UNREAD;
 
 		$sql1 = 'SELECT COUNT(*) - `feeds`.`articles_per_update` AS `size`, ' .
-		'`items`.`feed_id` AS `feed_id` ' . 
+		'`items`.`feed_id` AS `feed_id` ' .
 			'FROM `*PREFIX*news_items` `items` ' .
 			'JOIN `*PREFIX*news_feeds` `feeds` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` ' .
@@ -430,7 +389,7 @@ class ItemMapperTest extends \OCP\AppFramework\Db\MapperTestUtility {
 
 	public function testDeleteFromUser(){
 		$userId = 'john';
-		$sql = 'DELETE FROM `*PREFIX*news_items` ' . 
+		$sql = 'DELETE FROM `*PREFIX*news_items` ' .
 			'WHERE `feed_id` IN (' .
 				'SELECT `feeds`.`id` FROM `*PREFIX*news_feeds` `feeds` ' .
 					'WHERE `feeds`.`user_id` = ?' .

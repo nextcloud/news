@@ -73,7 +73,9 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 		$response = $this->folderAPI->index();
 
-		$this->assertEquals($folders, $response);
+		$this->assertEquals([
+			'folders' => [$folders[0]->toAPI()]
+		], $response);
 	}
 
 
@@ -81,7 +83,7 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
 		$folderName = 'test';
 		$folder = new Folder();
 		$folder->setName($folderName);
-		
+
 		$this->folderService->expects($this->once())
 			->method('purgeDeleted')
 			->with($this->equalTo($this->user), $this->equalTo(false));
@@ -92,7 +94,9 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 		$response = $this->folderAPI->create($folderName);
 
-		$this->assertEquals($folder, $response);
+		$this->assertEquals([
+			'folders' => [$folder->toAPI()]
+		], $response);
 	}
 
 

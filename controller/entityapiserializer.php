@@ -11,13 +11,12 @@
 
 namespace OCA\News\Controller;
 
-use \OCP\AppFramework\Http\IResponseSerializer;
 use \OCP\AppFramework\Http\Response;
 
 use \OCA\News\Db\IAPI;
 
 
-class EntityApiSerializer implements IResponseSerializer {
+class EntityApiSerializer {
 
 
     public function __construct($level) {
@@ -34,10 +33,6 @@ class EntityApiSerializer implements IResponseSerializer {
      * * Response
      */
     public function serialize($data) {
-
-        if($data === null || $data instanceof Response) {
-            return $data;
-        }
 
         if($data instanceof IAPI) {
             return [$this->level => [$data->toAPI()]];
@@ -58,14 +53,14 @@ class EntityApiSerializer implements IResponseSerializer {
 
         foreach($entities as $entity) {
             if($entity instanceof IAPI) {
-                $converted[] = $entity->toAPI();    
+                $converted[] = $entity->toAPI();
 
             // break if it contains anything else than entities
             } else {
                 return $entities;
             }
         }
-        
+
         return $converted;
     }
 

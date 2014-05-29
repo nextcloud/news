@@ -26,6 +26,7 @@ class ItemApiController extends ApiController {
 
 	private $itemService;
 	private $userId;
+	private $serializer;
 
 	public function __construct($appName,
 	                            IRequest $request,
@@ -34,7 +35,7 @@ class ItemApiController extends ApiController {
 		parent::__construct($appName, $request);
 		$this->itemService = $itemService;
 		$this->userId = $userId;
-		$this->registerSerializer(new EntityApiSerializer('items'));
+		$this->serializer = new EntityApiSerializer('items');
 	}
 
 
@@ -42,16 +43,22 @@ class ItemApiController extends ApiController {
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 * @CORS
-	 * 
+	 *
 	 * @param int $type
 	 * @param int $id
 	 * @param bool $getRead
 	 * @param int $batchSize
 	 * @param int $offset
+	 * @param int $oldestFirst
 	 */
-	public function index($type, $id, $getRead, $batchSize=20, $offset=0) {
-		return $this->itemService->findAll($id, $type, $batchSize, $offset, 
-		                                         $getRead, $this->userId);
+	public function index($type, $id, $getRead, $batchSize=20, $offset=0,
+	                      $oldestFirst=false) {
+		return $this->serializer->serialize(
+			$this->itemService->findAll(
+				$id, $type, $batchSize, $offset, $getRead, $oldestFirst,
+				$this->userId
+			)
+		);
 	}
 
 
@@ -59,14 +66,16 @@ class ItemApiController extends ApiController {
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 * @CORS
-	 * 
+	 *
 	 * @param int $type
 	 * @param int $id
 	 * @param int $lastModified
 	 */
 	public function updated($type, $id, $lastModified=0) {
-		return $this->itemService->findAllNew($id, $type, $lastModified,
-		                                            true, $this->userId);
+		return $this->serializer->serialize(
+			$this->itemService->findAllNew($id, $type, $lastModified,
+		                                   true, $this->userId)
+		);
 	}
 
 
@@ -188,7 +197,7 @@ class ItemApiController extends ApiController {
 	private function setMultipleStarred($isStarred, $items) {
 		foreach($items as $item) {
 			try {
-				$this->itemService->star($item['feedId'], $item['guidHash'], 
+				$this->itemService->star($item['feedId'], $item['guidHash'],
 					                           $isStarred, $this->userId);
 			} catch(ServiceNotFoundException $ex) {
 				continue;
@@ -213,7 +222,7 @@ class ItemApiController extends ApiController {
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 * @CORS
-	 * 
+	 *
 	 * @param int[] item ids
 	 */
 	public function unstarMultiple($items) {

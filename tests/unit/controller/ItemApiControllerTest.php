@@ -61,14 +61,17 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 				$this->equalTo(1),
 				$this->equalTo(30),
 				$this->equalTo(20),
-				$this->equalTo(false),
+				$this->equalTo(true),
+				$this->equalTo(true),
 				$this->equalTo($this->user)
 			)
 			->will($this->returnValue($items));
 
-		$response = $this->itemAPI->index(1, 2, false, 30, 20);
+		$response = $this->itemAPI->index(1, 2, true, 30, 20, true);
 
-		$this->assertEquals($items, $response);
+		$this->assertEquals([
+			'items' => [$items[0]->toApi()]
+		], $response);
 	}
 
 
@@ -83,13 +86,16 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 				$this->equalTo(20),
 				$this->equalTo(0),
 				$this->equalTo(false),
+				$this->equalTo(false),
 				$this->equalTo($this->user)
 			)
 			->will($this->returnValue($items));
 
 		$response = $this->itemAPI->index(1, 2, false);
 
-		$this->assertEquals($items, $response);
+		$this->assertEquals([
+			'items' => [$items[0]->toApi()]
+		], $response);
 	}
 
 
@@ -109,7 +115,9 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 
 		$response = $this->itemAPI->updated(1, 2, 30);
 
-		$this->assertEquals($items, $response);
+		$this->assertEquals([
+			'items' => [$items[0]->toApi()]
+		], $response);
 	}
 
 

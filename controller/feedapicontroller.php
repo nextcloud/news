@@ -33,6 +33,7 @@ class FeedApiController extends ApiController {
 	private $userId;
 	private $logger;
 	private $loggerParams;
+	private $serializer;
 
 	public function __construct($appName,
 	                            IRequest $request,
@@ -47,7 +48,7 @@ class FeedApiController extends ApiController {
 		$this->userId = $userId;
 		$this->logger = $logger;
 		$this->loggerParams = $loggerParams;
-		$this->registerSerializer(new EntityApiSerializer('feeds'));
+		$this->serializer = new EntityApiSerializer('feeds');
 	}
 
 
@@ -64,14 +65,14 @@ class FeedApiController extends ApiController {
 			'feeds' => $this->feedService->findAll($this->userId)
 		];
 
-		
+
 		try {
 			$result['newestItemId'] = $this->itemService->getNewestItemId($this->userId);
-		
+
 		// in case there are no items, ignore
 		} catch(ServiceNotFoundException $ex) {}
 
-		return $result;
+		return $this->serializer->serialize($result);
 	}
 
 
@@ -96,7 +97,7 @@ class FeedApiController extends ApiController {
 			// in case there are no items, ignore
 			} catch(ServiceNotFoundException $ex) {}
 
-			return $result;
+			return $this->serializer->serialize($result);
 
 		} catch(ServiceConflictException $ex) {
 			return $this->error($ex, Http::STATUS_CONFLICT);
@@ -110,7 +111,7 @@ class FeedApiController extends ApiController {
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 * @CORS
-	 * 
+	 *
 	 * @param int $feedId
 	 */
 	public function delete($feedId) {
@@ -179,7 +180,7 @@ class FeedApiController extends ApiController {
 
 		foreach ($feeds as $feed) {
 			$result['feeds'][] = [
-				'id' => $feed->getId(), 
+				'id' => $feed->getId(),
 				'userId' => $feed->getUserId()
 			];
 		}

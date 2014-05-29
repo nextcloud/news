@@ -20,25 +20,29 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data) {
         return ItemResource.getAll();
     };
 
-    // TBD
     this.toggleStar = (itemId) => {
-        console.log(itemId);
+        ItemResource.toggleStar(itemId);
     };
 
     this.markRead = (itemId) => {
-        console.log(itemId);
+        ItemResource.markItemRead(itemId);
+
+        let item = ItemResource.get(itemId);
+        FeedResource.markItemOfFeedRead(item.feedId);
     };
 
     this.getFeed = (feedId) => {
-        console.log(feedId);
+        return FeedResource.getById(feedId);
     };
 
-    this.keepUnread = (itemId) => {
-        console.log(itemId);
-    };
+    this.toggleKeepUnread = (itemId) => {
+        let item = ItemResource.get(itemId);
+        if (!item.unread) {
+            FeedResource.markItemOfFeedUnread(item.feedId);
+            ItemResource.markItemRead(itemId, false);
+        }
 
-    this.isContentView = () => {
-        console.log('tbd');
+        item.keepUnread = !item.keepUnread;
     };
 
     this.orderBy = () => {
@@ -49,7 +53,21 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data) {
         }
     };
 
+    this.isCompactView = () => {
+        return SettingsResource.get('compact');
+    };
+
+    // TBD
     this.getRelativeDate = (timestamp) => {
         console.log(timestamp);
     };
+
+    this.autoPage = () => {
+        console.log('hi');
+    };
+
+    this.scrollRead = (itemIds) => {
+        console.log(itemIds);
+    };
+
 });

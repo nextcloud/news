@@ -29,9 +29,9 @@ class ItemService extends Service {
 	private $timeFactory;
 	private $itemMapper;
 
-	public function __construct(ItemMapper $itemMapper, 
+	public function __construct(ItemMapper $itemMapper,
 	                            StatusFlag $statusFlag,
-								$timeFactory, 
+								$timeFactory,
 	                            Config $config){
 		parent::__construct($itemMapper);
 		$this->statusFlag = $statusFlag;
@@ -76,28 +76,28 @@ class ItemService extends Service {
 	 * @param int $id the id of the feed, 0 for starred or all items
 	 * @param int $type the type of the feed
 	 * @param int $limit how many items should be returned
-	 * @param int $offset only items lower than this id are returned, 0 for no offset
+	 * @param int $offset the offset
 	 * @param boolean $showAll if unread items should also be returned
-	 * @param string $userId the name of the user
 	 * @param boolean $oldestFirst if it should be ordered by oldest first
+	 * @param string $userId the name of the user
 	 * @return array of items
 	 */
-	public function findAll($id, $type, $limit, $offset, $showAll, $userId, 
-	                        $oldestFirst=false){
+	public function findAll($id, $type, $limit, $offset, $showAll, $oldestFirst,
+	                        $userId){
 		$status = $this->statusFlag->typeToStatus($type, $showAll);
 
 		switch($type){
 			case FeedType::FEED:
 				return $this->itemMapper->findAllFeed(
-					$id, $limit, $offset,$status, $userId, $oldestFirst
+					$id, $limit, $offset, $status, $oldestFirst, $userId
 				);
 			case FeedType::FOLDER:
 				return $this->itemMapper->findAllFolder(
-					$id, $limit, $offset, $status, $userId, $oldestFirst
+					$id, $limit, $offset, $status, $oldestFirst, $userId
 				);
 			default:
 				return $this->itemMapper->findAll(
-					$limit, $offset, $status, $userId, $oldestFirst
+					$limit, $offset, $status, $oldestFirst, $userId
 				);
 		}
 	}

@@ -109,7 +109,9 @@ app.factory('FeedResource', (Resource, $http, BASE_URL) => {
             return this.values.filter(v => v.folderId === folderId);
         }
 
-
+        getById (feedId) {
+            return this.ids[feedId];
+        }
     }
 
     return new FeedResource($http, BASE_URL);

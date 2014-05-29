@@ -16,23 +16,6 @@ app.factory('ItemResource', (Resource, $http, BASE_URL) => {
         constructor ($http, BASE_URL) {
             super($http, BASE_URL);
             this.starredCount = 0;
-            this.highestId = 0;
-            this.lowestId = 0;
-        }
-
-
-        add (obj) {
-            let id = obj[this.id];
-
-            if (this.highestId < id) {
-                this.highestId = id;
-            }
-
-            if (this.lowestId === 0 || this.lowestId > id) {
-                this.lowestId = id;
-            }
-
-            super.add(obj);
         }
 
 
@@ -84,6 +67,15 @@ app.factory('ItemResource', (Resource, $http, BASE_URL) => {
         }
 
 
+        toggleStar (itemId) {
+            if (this.get(itemId).starred) {
+                this.star(itemId, false);
+            } else {
+                this.star(itemId, true);
+            }
+        }
+
+
         markItemRead (itemId, isRead=true) {
             this.get(itemId).unread = !isRead;
             return this.http({
@@ -112,25 +104,7 @@ app.factory('ItemResource', (Resource, $http, BASE_URL) => {
         }
 
 
-        getHighestId () {
-            return this.highestId;
-        }
-
-
-        getLowestId () {
-            return this.lowestId;
-        }
-
-
-        keepUnread (itemId) {
-            this.get(itemId).keepUnread = true;
-            return this.markItemRead(itemId, false);
-        }
-
-
         clear () {
-            this.highestId = 0;
-            this.lowestId = 0;
             super.clear();
         }
 

@@ -189,19 +189,23 @@ var $__build_47_app__ = function () {
             return ItemResource.getAll();
           };
           this.toggleStar = function (itemId) {
-            console.log(itemId);
+            ItemResource.toggleStar(itemId);
           };
           this.markRead = function (itemId) {
-            console.log(itemId);
+            ItemResource.markItemRead(itemId);
+            var item = ItemResource.get(itemId);
+            FeedResource.markItemOfFeedRead(item.feedId);
           };
           this.getFeed = function (feedId) {
-            console.log(feedId);
+            return FeedResource.getById(feedId);
           };
-          this.keepUnread = function (itemId) {
-            console.log(itemId);
-          };
-          this.isContentView = function () {
-            console.log('tbd');
+          this.toggleKeepUnread = function (itemId) {
+            var item = ItemResource.get(itemId);
+            if (!item.unread) {
+              FeedResource.markItemOfFeedUnread(item.feedId);
+              ItemResource.markItemRead(itemId, false);
+            }
+            item.keepUnread = !item.keepUnread;
           };
           this.orderBy = function () {
             if (SettingsResource.get('oldestFirst')) {
@@ -210,8 +214,17 @@ var $__build_47_app__ = function () {
               return 'id';
             }
           };
+          this.isCompactView = function () {
+            return SettingsResource.get('compact');
+          };
           this.getRelativeDate = function (timestamp) {
             console.log(timestamp);
+          };
+          this.autoPage = function () {
+            console.log('hi');
+          };
+          this.scrollRead = function (itemIds) {
+            console.log(itemIds);
           };
         }
       ]);
@@ -422,6 +435,9 @@ var $__build_47_app__ = function () {
               return this.values.filter(function (v) {
                 return v.folderId === folderId;
               });
+            },
+            getById: function (feedId) {
+              return this.ids[$traceurRuntime.toProperty(feedId)];
             }
           }, {}, Resource);
           return new FeedResource($http, BASE_URL);
@@ -457,21 +473,9 @@ var $__build_47_app__ = function () {
               BASE_URL
             ]);
             this.starredCount = 0;
-            this.highestId = 0;
-            this.lowestId = 0;
           };
           var $ItemResource = ItemResource;
           $traceurRuntime.createClass(ItemResource, {
-            add: function (obj) {
-              var id = obj[$traceurRuntime.toProperty(this.id)];
-              if (this.highestId < id) {
-                this.highestId = id;
-              }
-              if (this.lowestId === 0 || this.lowestId > id) {
-                this.lowestId = id;
-              }
-              $traceurRuntime.superCall(this, $ItemResource.prototype, 'add', [obj]);
-            },
             receive: function (value, channel) {
               switch (channel) {
               case 'newestItemId':
@@ -508,6 +512,13 @@ var $__build_47_app__ = function () {
                 method: 'POST',
                 data: { isStarred: isStarred }
               });
+            },
+            toggleStar: function (itemId) {
+              if (this.get(itemId).starred) {
+                this.star(itemId, false);
+              } else {
+                this.star(itemId, true);
+              }
             },
             markItemRead: function (itemId) {
               var isRead = arguments[1] !== void 0 ? arguments[1] : true;
@@ -547,19 +558,7 @@ var $__build_47_app__ = function () {
               }
               return this.http.post(this.BASE_URL + '/items/read');
             },
-            getHighestId: function () {
-              return this.highestId;
-            },
-            getLowestId: function () {
-              return this.lowestId;
-            },
-            keepUnread: function (itemId) {
-              this.get(itemId).keepUnread = true;
-              return this.markItemRead(itemId, false);
-            },
             clear: function () {
-              this.highestId = 0;
-              this.lowestId = 0;
               $traceurRuntime.superCall(this, $ItemResource.prototype, 'clear', []);
             }
           }, {}, Resource);

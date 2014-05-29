@@ -31,6 +31,7 @@ class FolderApiController extends ApiController {
 	private $folderService;
 	private $itemService;
 	private $userId;
+	private $serializer;
 
 	public function __construct($appName,
 	                            IRequest $request,
@@ -41,7 +42,7 @@ class FolderApiController extends ApiController {
 		$this->folderService = $folderService;
 		$this->itemService = $itemService;
 		$this->userId = $userId;
-		$this->registerSerializer(new EntityApiSerializer('folders'));
+		$this->serializer = new EntityApiSerializer('folders');
 	}
 
 
@@ -51,7 +52,9 @@ class FolderApiController extends ApiController {
 	 * @CORS
 	 */
 	public function index() {
-		return $this->folderService->findAll($this->userId);
+		return $this->serializer->serialize(
+			$this->folderService->findAll($this->userId)
+		);
 	}
 
 
@@ -65,7 +68,9 @@ class FolderApiController extends ApiController {
 	public function create($name) {
 		try {
 			$this->folderService->purgeDeleted($this->userId, false);
-			return $this->folderService->create($name, $this->userId);
+			return $this->serializer->serialize(
+				$this->folderService->create($name, $this->userId)
+			);
 		} catch(ServiceValidationException $ex) {
 			return $this->error($ex, Http::STATUS_UNPROCESSABLE_ENTITY);
 		} catch(ServiceConflictException $ex) {

@@ -41,7 +41,7 @@ class ItemMapper extends Mapper implements IMapper {
 				'ON `folders`.`id` = `feeds`.`folder_id` ' .
 			'WHERE `feeds`.`folder_id` = 0 ' .
 				'OR `folders`.`deleted_at` = 0 ' .
-			'ORDER BY `items`.`id` ' . $ordering;
+			'ORDER BY `items`.`pub_date`, `items`.`id` ' . $ordering;
 	}
 
 	private function makeSelectQueryStatus($prependTo, $status, $oldestFirst=false) {
@@ -174,39 +174,28 @@ class ItemMapper extends Mapper implements IMapper {
 		}
 	}
 
-	public function findAllFeed($id, $limit, $offset, $status, $userId, $oldestFirst=false){
+	public function findAllFeed($id, $limit, $offset, $status, $oldestFirst,
+	                            $userId){
 		$params = [$userId, $id];
 		$sql = 'AND `items`.`feed_id` = ? ';
-		if($offset !== 0){
-			$sql .= 'AND `items`.`id` ' . $this->getOperator($oldestFirst) . ' ? ';
-			$params[] = $offset;
-		}
 		$sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst);
-		return $this->findEntities($sql, $params, $limit);
+		return $this->findEntities($sql, $params, $limit, $offset);
 	}
 
 
-	public function findAllFolder($id, $limit, $offset, $status, $userId, $oldestFirst=false){
+	public function findAllFolder($id, $limit, $offset, $status, $oldestFirst,
+	                              $userId){
 		$params = [$userId, $id];
 		$sql = 'AND `feeds`.`folder_id` = ? ';
-		if($offset !== 0){
-			$sql .= 'AND `items`.`id` ' . $this->getOperator($oldestFirst) . ' ? ';
-			$params[] = $offset;
-		}
 		$sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst);
-		return $this->findEntities($sql, $params, $limit);
+		return $this->findEntities($sql, $params, $limit, $offset);
 	}
 
 
-	public function findAll($limit, $offset, $status, $userId, $oldestFirst=false){
+	public function findAll($limit, $offset, $status, $oldestFirst, $userId){
 		$params = [$userId];
-		$sql = '';
-		if($offset !== 0){
-			$sql .= 'AND `items`.`id` ' . $this->getOperator($oldestFirst) . ' ? ';
-			$params[] = $offset;
-		}
-		$sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst);
-		return $this->findEntities($sql, $params, $limit);
+		$sql = $this->makeSelectQueryStatus('', $status, $oldestFirst);
+		return $this->findEntities($sql, $params, $limit, $offset);
 	}
 
 
@@ -235,7 +224,7 @@ class ItemMapper extends Mapper implements IMapper {
 	public function deleteReadOlderThanThreshold($threshold){
 		$status = StatusFlag::STARRED | StatusFlag::UNREAD;
 		$sql = 'SELECT COUNT(*) - `feeds`.`articles_per_update` AS `size`, ' .
-		'`items`.`feed_id` AS `feed_id` ' . 
+		'`items`.`feed_id` AS `feed_id` ' .
 			'FROM `*PREFIX*news_items` `items` ' .
 			'JOIN `*PREFIX*news_feeds` `feeds` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` ' .
@@ -282,7 +271,7 @@ class ItemMapper extends Mapper implements IMapper {
 	 * @param string $userId the name of the user
 	 */
 	public function deleteUser($userId) {
-		$sql = 'DELETE FROM `*PREFIX*news_items` ' . 
+		$sql = 'DELETE FROM `*PREFIX*news_items` ' .
 			'WHERE `feed_id` IN (' .
 				'SELECT `feeds`.`id` FROM `*PREFIX*news_feeds` `feeds` ' .
 					'WHERE `feeds`.`user_id` = ?' .

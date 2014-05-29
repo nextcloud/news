@@ -127,14 +127,14 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
 					$this->equalTo($this->limit),
 					$this->equalTo($this->offset),
 					$this->equalTo($this->status),
-					$this->equalTo($this->user),
-					$this->equalTo(false))
+					$this->equalTo(false),
+					$this->equalTo($this->user))
 			->will($this->returnValue($this->response));
 
 		$result = $this->itemService->findAll(
-			$this->id, $type, $this->limit,
-			$this->offset, $this->showAll,
-			$this->user);
+			$this->id, $type, $this->limit, $this->offset,
+			$this->showAll, false, $this->user
+		);
 		$this->assertEquals($this->response, $result);
 	}
 
@@ -147,13 +147,14 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
 					$this->equalTo($this->limit),
 					$this->equalTo($this->offset),
 					$this->equalTo($this->status),
+					$this->equalTo(true),
 					$this->equalTo($this->user))
 			->will($this->returnValue($this->response));
 
 		$result = $this->itemService->findAll(
-			$this->id, $type, $this->limit,
-			$this->offset, $this->showAll,
-			$this->user);
+			$this->id, $type, $this->limit, $this->offset,
+			$this->showAll, true, $this->user
+		);
 		$this->assertEquals($this->response, $result);
 	}
 
@@ -165,14 +166,14 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
 			->with(	$this->equalTo($this->limit),
 					$this->equalTo($this->offset),
 					$this->equalTo($this->status),
-					$this->equalTo($this->user),
-					$this->equalTo(true))
+					$this->equalTo(true),
+					$this->equalTo($this->user))
 			->will($this->returnValue($this->response));
 
 		$result = $this->itemService->findAll(
-			$this->id, $type, $this->limit,
-			$this->offset, $this->showAll,
-			$this->user, true);
+			$this->id, $type, $this->limit, $this->offset,
+			$this->showAll, true, $this->user
+		);
 		$this->assertEquals($this->response, $result);
 	}
 
