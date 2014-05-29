@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 Updater script for the news app which allows multiple feeds to be updated at
-once to speed up the update process. Built in cron has to be disabled in the 
+once to speed up the update process. Built in cron has to be disabled in the
 news config, see the README.rst file in the top directory for more information.
 """
 
@@ -21,7 +21,7 @@ import urllib
 
 def check_status_code(response):
     if response.status_code != 200:
-        raise Exception('Request failed with %i: %s' % (response.status_code, 
+        raise Exception('Request failed with %i: %s' % (response.status_code,
             response.text))
 
 class UpdateThread(threading.Thread):
@@ -66,7 +66,7 @@ class UpdateThread(threading.Thread):
 
 class Updater:
 
-    def __init__(self, base_url, thread_num, interval, user, password, timeout, 
+    def __init__(self, base_url, thread_num, interval, user, password, timeout,
                  run_once):
         self.thread_num = thread_num
         self.interval = interval
@@ -78,7 +78,7 @@ class Updater:
 
         if self.base_url[-1] != '/':
             self.base_url += '/'
-        self.base_url += 'index.php/apps/news/api/v1-2'
+        self.base_url += 'index.php/apps/news/api/v1-4'
 
         self.before_cleanup_url = '%s/cleanup/before-update' % self.base_url
         self.after_cleanup_url = '%s/cleanup/after-update' % self.base_url
@@ -117,7 +117,7 @@ class Updater:
 
                 if self.run_once:
                     return
-                
+
                 # wait until the interval finished to run again
                 time.sleep(self.interval)
 
