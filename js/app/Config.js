@@ -79,22 +79,26 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
         .when('/items', {
             controller: 'ContentController as Content',
             templateUrl: 'content.html',
-            resolve: getResolve(feedType.SUBSCRIPTIONS)
+            resolve: getResolve(feedType.SUBSCRIPTIONS),
+            type: feedType.SUBSCRIPTIONS
         })
         .when('/items/starred', {
             controller: 'ContentController as Content',
             templateUrl: 'content.html',
-            resolve: getResolve(feedType.STARRED)
+            resolve: getResolve(feedType.STARRED),
+            type: feedType.STARRED
         })
         .when('/items/feeds/:id', {
             controller: 'ContentController as Content',
             templateUrl: 'content.html',
-            resolve: getResolve(feedType.FEED)
+            resolve: getResolve(feedType.FEED),
+            type: feedType.FEED
         })
         .when('/items/folders/:id', {
             controller: 'ContentController as Content',
             templateUrl: 'content.html',
-            resolve: getResolve(feedType.FOLDER)
+            resolve: getResolve(feedType.FOLDER),
+            type: feedType.FOLDER
         })
         .otherwise({
             redirectTo: '/items'

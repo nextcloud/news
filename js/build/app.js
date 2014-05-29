@@ -68,19 +68,23 @@ var $__build_47_app__ = function () {
           $routeProvider.when('/items', {
             controller: 'ContentController as Content',
             templateUrl: 'content.html',
-            resolve: getResolve(feedType.SUBSCRIPTIONS)
+            resolve: getResolve(feedType.SUBSCRIPTIONS),
+            type: feedType.SUBSCRIPTIONS
           }).when('/items/starred', {
             controller: 'ContentController as Content',
             templateUrl: 'content.html',
-            resolve: getResolve(feedType.STARRED)
+            resolve: getResolve(feedType.STARRED),
+            type: feedType.STARRED
           }).when('/items/feeds/:id', {
             controller: 'ContentController as Content',
             templateUrl: 'content.html',
-            resolve: getResolve(feedType.FEED)
+            resolve: getResolve(feedType.FEED),
+            type: feedType.FEED
           }).when('/items/folders/:id', {
             controller: 'ContentController as Content',
             templateUrl: 'content.html',
-            resolve: getResolve(feedType.FOLDER)
+            resolve: getResolve(feedType.FOLDER),
+            type: feedType.FOLDER
           }).otherwise({ redirectTo: '/items' });
         }
       ]);
@@ -181,7 +185,9 @@ var $__build_47_app__ = function () {
         'ItemResource',
         'SettingsResource',
         'data',
-        function (Publisher, FeedResource, ItemResource, SettingsResource, data) {
+        '$route',
+        '$routeParams',
+        function (Publisher, FeedResource, ItemResource, SettingsResource, data, $route, $routeParams) {
           'use strict';
           var $__0 = this;
           this.isAutoPagingEnabled = true;
@@ -194,9 +200,11 @@ var $__build_47_app__ = function () {
             ItemResource.toggleStar(itemId);
           };
           this.markRead = function (itemId) {
-            ItemResource.markItemRead(itemId);
             var item = ItemResource.get(itemId);
-            FeedResource.markItemOfFeedRead(item.feedId);
+            if (!item.keepUnread) {
+              ItemResource.markItemRead(itemId);
+              FeedResource.markItemOfFeedRead(item.feedId);
+            }
           };
           this.getFeed = function (feedId) {
             return FeedResource.getById(feedId);
@@ -219,20 +227,49 @@ var $__build_47_app__ = function () {
           this.isCompactView = function () {
             return SettingsResource.get('compact');
           };
-          this.getRelativeDate = function (timestamp) {
-            console.log(timestamp);
-          };
-          this.autoPage = function () {
-            console.log('hi');
-          };
-          this.scrollRead = function (itemIds) {
-            console.log(itemIds);
-          };
           this.autoPagingEnabled = function () {
             return $__0.isAutoPagingEnabled;
           };
           this.markReadEnabled = function () {
             return !SettingsResource.get('preventReadOnScroll');
+          };
+          this.scrollRead = function (itemIds) {
+            var ids = [];
+            for (var $__3 = itemIds[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
+              try {
+                throw undefined;
+              } catch (itemId) {
+                itemId = $__4.value;
+                {
+                  try {
+                    throw undefined;
+                  } catch (item) {
+                    item = ItemResource.get(itemId);
+                    if (!item.keepUnread) {
+                      ids.push(itemId);
+                      FeedResource.markItemOfFeedRead(item.feedId);
+                    }
+                  }
+                }
+              }
+            }
+            ItemResource.markItemsRead(ids);
+          };
+          this.autoPage = function () {
+            $__0.isAutoPagingEnabled = false;
+            var type = $route.current.$$route.type;
+            var id = $routeParams.id;
+            ItemResource.autoPage(type, id).success(function (data) {
+              Publisher.publishAll(data);
+              if (data.items.length > 0) {
+                $__0.isAutoPagingEnabled = true;
+              }
+            }).error(function () {
+              $__0.isAutoPagingEnabled = true;
+            });
+          };
+          this.getRelativeDate = function (timestamp) {
+            console.log(timestamp);
           };
         }
       ]);
@@ -473,14 +510,16 @@ var $__build_47_app__ = function () {
         'Resource',
         '$http',
         'BASE_URL',
-        function (Resource, $http, BASE_URL) {
+        'ITEM_BATCH_SIZE',
+        function (Resource, $http, BASE_URL, ITEM_BATCH_SIZE) {
           'use strict';
-          var ItemResource = function ItemResource($http, BASE_URL) {
+          var ItemResource = function ItemResource($http, BASE_URL, ITEM_BATCH_SIZE) {
             $traceurRuntime.superCall(this, $ItemResource.prototype, 'constructor', [
               $http,
               BASE_URL
             ]);
             this.starredCount = 0;
+            this.batchSize = ITEM_BATCH_SIZE;
           };
           var $ItemResource = ItemResource;
           $traceurRuntime.createClass(ItemResource, {
@@ -537,6 +576,23 @@ var $__build_47_app__ = function () {
                 data: { isRead: isRead }
               });
             },
+            markItemsRead: function (itemIds) {
+              for (var $__3 = itemIds[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
+                try {
+                  throw undefined;
+                } catch (itemId) {
+                  itemId = $__4.value;
+                  {
+                    this.get(itemId).unread = false;
+                  }
+                }
+              }
+              return this.http({
+                url: this.BASE_URL + '/items/read/multiple',
+                method: 'POST',
+                data: { itemIds: itemIds }
+              });
+            },
             markFeedRead: function (feedId) {
               var read = arguments[1] !== void 0 ? arguments[1] : true;
               for (var $__3 = this.values.filter(function (i) {
@@ -568,9 +624,21 @@ var $__build_47_app__ = function () {
             },
             clear: function () {
               $traceurRuntime.superCall(this, $ItemResource.prototype, 'clear', []);
+            },
+            autoPage: function (type, id) {
+              return this.http({
+                url: this.BASE_URL + '/items',
+                method: 'GET',
+                params: {
+                  type: type,
+                  id: id,
+                  offset: this.size(),
+                  limit: this.batchSize
+                }
+              });
             }
           }, {}, Resource);
-          return new ItemResource($http, BASE_URL);
+          return new ItemResource($http, BASE_URL, ITEM_BATCH_SIZE);
         }
       ]);
       app.service('Loading', function () {

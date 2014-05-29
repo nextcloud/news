@@ -12,7 +12,8 @@ describe('ContentController', () => {
 
 
     beforeEach(module('News', ($provide) => {
-        $provide.value('BASE_URL', 'base');
+        $provide.constant('BASE_URL', 'base');
+        $provide.constant('ITEM_BATCH_SIZE', 5);
     }));
 
 
@@ -78,14 +79,22 @@ describe('ContentController', () => {
                 'items': [{
                     id: 3,
                     feedId: 4
+                },
+                {
+                    id: 5,
+                    feedId: 4,
+                    keepUnread: true
                 }]
             },
         });
 
         ctrl.markRead(3);
+        ctrl.markRead(5);
 
         expect(ItemResource.markItemRead).toHaveBeenCalledWith(3);
         expect(FeedResource.markItemOfFeedRead).toHaveBeenCalledWith(4);
+        expect(ItemResource.markItemRead.callCount).toBe(1);
+        expect(FeedResource.markItemOfFeedRead.callCount).toBe(1);
     }));
 
 
@@ -208,5 +217,185 @@ describe('ContentController', () => {
         expect(ctrl.autoPagingEnabled()).toBe(true);
     }));
 
+
+    it('should mark multiple items read', inject(($controller,
+        ItemResource, FeedResource, Publisher) => {
+
+        Publisher.subscribe(ItemResource).toChannels('items');
+        ItemResource.markItemsRead = jasmine.createSpy('markRead');
+        FeedResource.markItemOfFeedRead = jasmine.createSpy('markRead');
+
+        let ctrl = $controller('ContentController', {
+            ItemResource: ItemResource,
+            FeedResource: FeedResource,
+            data: {
+                'items': [{
+                    id: 3,
+                    feedId: 4
+                },
+                {
+                    id: 2,
+                    feedId: 4,
+                    keepUnread: true
+                },
+                {
+                    id: 1,
+                    feedId: 4
+                },]
+            },
+        });
+
+        ctrl.scrollRead([3, 2, 1]);
+
+        expect(ItemResource.markItemsRead).toHaveBeenCalledWith([3, 1]);
+        expect(FeedResource.markItemOfFeedRead.callCount).toBe(2);
+    }));
+
+
+    it('should not autopage if less than 0 elements', inject((
+        $controller, ItemResource, Publisher) => {
+
+        let $route = {
+            current: {
+                $$route: {
+                    type: 3
+                }
+            }
+        };
+
+        let $routeParams = {
+            id: 2
+        };
+
+        Publisher.subscribe(ItemResource).toChannels('items');
+        ItemResource.autoPage = jasmine.createSpy('autoPage')
+            .andCallFake(() => {
+                return {
+                    success: (callback) => {
+                        callback({
+                            'items': []
+                        });
+
+                        return {
+                            error: () => {}
+                        };
+                    }
+                }
+        });
+
+        let ctrl = $controller('ContentController', {
+            $routeParams: $routeParams,
+            $route: $route,
+            Publisher: Publisher,
+            ItemResource: ItemResource,
+            data: {},
+        });
+
+        expect(ctrl.autoPagingEnabled()).toBe(true);
+
+        ctrl.autoPage();
+
+        expect(ctrl.autoPagingEnabled()).toBe(false);
+
+        expect(ItemResource.autoPage).toHaveBeenCalledWith(3, 2);
+
+    }));
+
+
+    it('should autopage if more than 0 elements', inject((
+        $controller, ItemResource, Publisher) => {
+
+        let $route = {
+            current: {
+                $$route: {
+                    type: 3
+                }
+            }
+        };
+
+        let $routeParams = {
+            id: 2
+        };
+
+        Publisher.subscribe(ItemResource).toChannels('items');
+        ItemResource.autoPage = jasmine.createSpy('autoPage')
+            .andCallFake(() => {
+                return {
+                    success: (callback) => {
+                        callback({
+                            'items': [{items: [{id: 3}]}]
+                        });
+
+                        return {
+                            error: () => {}
+                        };
+                    }
+                }
+        });
+
+        let ctrl = $controller('ContentController', {
+            $routeParams: $routeParams,
+            $route: $route,
+            Publisher: Publisher,
+            ItemResource: ItemResource,
+            data: {},
+        });
+
+        expect(ctrl.autoPagingEnabled()).toBe(true);
+
+        ctrl.autoPage();
+
+        expect(ctrl.autoPagingEnabled()).toBe(true);
+        expect(ItemResource.size()).toBe(1);
+    }));
+
+
+    it('should autopage if error', inject((
+        $controller, ItemResource, Publisher) => {
+
+        let $route = {
+            current: {
+                $$route: {
+                    type: 3
+                }
+            }
+        };
+
+        let $routeParams = {
+            id: 2
+        };
+
+        Publisher.subscribe(ItemResource).toChannels('items');
+        ItemResource.autoPage = jasmine.createSpy('autoPage')
+            .andCallFake(() => {
+                return {
+                    success: (callback) => {
+                        callback({
+                            'items': []
+                        });
+
+                        return {
+                            error: (callback) => {
+                                callback();
+                            }
+                        };
+                    }
+                }
+        });
+
+        let ctrl = $controller('ContentController', {
+            $routeParams: $routeParams,
+            $route: $route,
+            Publisher: Publisher,
+            ItemResource: ItemResource,
+            data: {},
+        });
+
+        expect(ctrl.autoPagingEnabled()).toBe(true);
+
+        ctrl.autoPage();
+
+        expect(ctrl.autoPagingEnabled()).toBe(true);
+    }));
 
 });

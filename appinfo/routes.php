@@ -51,6 +51,7 @@ $application->registerRoutes($this, ['routes' => [
 	['name' => 'item#new_items', 'url' => '/items/new', 'verb' => 'GET'],
 	['name' => 'item#readAll', 'url' => '/items/read', 'verb' => 'POST'],
 	['name' => 'item#read', 'url' => '/items/{itemId}/read', 'verb' => 'POST'],
+	['name' => 'item#read_multiple', 'url' => '/items/read/multiple', 'verb' => 'POST'],
 	['name' => 'item#star', 'url' => '/items/{feedId}/{guidHash}/star', 'verb' => 'POST'],
 
 	// export

@@ -14,6 +14,7 @@ describe('NavigationController', () => {
 
     beforeEach(module('News', ($provide) => {
         $provide.value('BASE_URL', 'base');
+        $provide.constant('ITEM_BATCH_SIZE', 5);
     }));
 
     beforeEach(inject(($controller) => {

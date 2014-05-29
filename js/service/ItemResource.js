@@ -7,15 +7,16 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.factory('ItemResource', (Resource, $http, BASE_URL) => {
+app.factory('ItemResource', (Resource, $http, BASE_URL, ITEM_BATCH_SIZE) => {
     'use strict';
 
     class ItemResource extends Resource {
 
 
-        constructor ($http, BASE_URL) {
+        constructor ($http, BASE_URL, ITEM_BATCH_SIZE) {
             super($http, BASE_URL);
             this.starredCount = 0;
+            this.batchSize = ITEM_BATCH_SIZE;
         }
 
 
@@ -88,6 +89,21 @@ app.factory('ItemResource', (Resource, $http, BASE_URL) => {
         }
 
 
+        markItemsRead (itemIds) {
+            for (let itemId of itemIds) {
+                this.get(itemId).unread = false;
+            }
+
+            return this.http({
+                url: `${this.BASE_URL}/items/read/multiple`,
+                method: 'POST',
+                data: {
+                    itemIds: itemIds
+                }
+            });
+        }
+
+
         markFeedRead (feedId, read=true) {
             for (let item of this.values.filter(i => i.feedId === feedId)) {
                 item.unread = !read;
@@ -108,7 +124,21 @@ app.factory('ItemResource', (Resource, $http, BASE_URL) => {
             super.clear();
         }
 
+
+        autoPage (type, id) {
+            return this.http({
+                url: `${this.BASE_URL}/items`,
+                method: 'GET',
+                params: {
+                    type: type,
+                    id: id,
+                    offset: this.size(),
+                    limit: this.batchSize
+                }
+            });
+        }
+
     }
 
-    return new ItemResource($http, BASE_URL);
+    return new ItemResource($http, BASE_URL, ITEM_BATCH_SIZE);
 });

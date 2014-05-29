@@ -14,6 +14,7 @@ describe('ItemResource', () => {
 
     beforeEach(module('News', ($provide) => {
         $provide.value('BASE_URL', 'base');
+        $provide.constant('ITEM_BATCH_SIZE', 5);
     }));
 
     beforeEach(inject(($httpBackend) => {
@@ -57,6 +58,34 @@ describe('ItemResource', () => {
 
         expect(ItemResource.get(3).unread).toBe(false);
     }));
+
+
+    it ('should mark multiple item as read', inject((ItemResource) => {
+        http.expectPOST('base/items/read/multiple', {
+            itemIds: [3, 4]
+        }).respond(200, {});
+
+        ItemResource.receive([
+            {
+                id: 3,
+                feedId: 4,
+                unread: true
+            },
+            {
+                id: 4,
+                feedId: 3,
+                unread: true
+            }
+        ], 'items');
+
+        ItemResource.markItemsRead([3, 4]);
+
+        http.flush();
+
+        expect(ItemResource.get(3).unread).toBe(false);
+        expect(ItemResource.get(4).unread).toBe(false);
+    }));
+
 
 
     it ('should star item', inject((ItemResource) => {
@@ -166,6 +195,34 @@ describe('ItemResource', () => {
 
         ItemResource.toggleStar(5);
         expect(ItemResource.star).toHaveBeenCalledWith(5, true);
+    }));
+
+
+    it ('should auto page', inject((ItemResource) => {
+        http.expectGET('base/items?id=4&limit=5&offset=3&type=3')
+            .respond(200, {});
+
+        ItemResource.receive([
+            {
+                id: 3,
+                feedId: 4,
+                unread: true
+            },
+            {
+                id: 4,
+                feedId: 3,
+                unread: true
+            },
+            {
+                id: 5,
+                feedId: 4,
+                unread: true
+            }
+        ], 'items');
+
+        ItemResource.autoPage(3, 4);
+
+        http.flush();
     }));
 
 

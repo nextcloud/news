@@ -54,7 +54,7 @@ class ItemController extends Controller {
 	 * @param int $limit
 	 * @param int $offset
 	 */
-	public function index($type, $id, $limit, $offset=0) {
+	public function index($type, $id, $limit=50, $offset=0) {
 		$showAll = $this->settings->getUserValue($this->userId, $this->appName,
 			'showAll') === '1';
 		$oldestFirst = $this->settings->getUserValue($this->userId, $this->appName,
@@ -160,6 +160,22 @@ class ItemController extends Controller {
 	public function readAll($highestItemId){
 		$this->itemService->readAll($highestItemId, $this->userId);
 		return ['feeds' => $this->feedService->findAll($this->userId)];
+	}
+
+
+	/**
+	 * @NoAdminRequired
+	 *
+	 * @param int[] item ids
+	 */
+	public function readMultiple($itemIds) {
+		foreach($itemIds as $id) {
+			try {
+				$this->itemService->read($id, true, $this->userId);
+			} catch(ServiceNotFoundException $ex) {
+				continue;
+			}
+		}
 	}
 
 

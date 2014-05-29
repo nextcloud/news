@@ -50,6 +50,6 @@
 		news-scroll-enabled-auto-page="Content.isAutoPaging()"
 		news-scroll-enabled-mark-read="Content.isMarkRead()"
 		news-scroll-auto-page="Content.autoPage()"
-		news-scroll-mark-read="Content.markRead($itemIds)"></div>
+		news-scroll-mark-read="Content.scrollRead($itemIds)"></div>
 
 </div>
