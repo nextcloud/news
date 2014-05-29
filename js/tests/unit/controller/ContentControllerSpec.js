@@ -280,7 +280,7 @@ describe('ContentController', () => {
                             error: () => {}
                         };
                     }
-                }
+                };
         });
 
         let ctrl = $controller('ContentController', {
@@ -330,7 +330,7 @@ describe('ContentController', () => {
                             error: () => {}
                         };
                     }
-                }
+                };
         });
 
         let ctrl = $controller('ContentController', {
@@ -380,7 +380,7 @@ describe('ContentController', () => {
                             }
                         };
                     }
-                }
+                };
         });
 
         let ctrl = $controller('ContentController', {
