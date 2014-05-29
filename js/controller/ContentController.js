@@ -11,6 +11,8 @@ app.controller('ContentController',
 function (Publisher, FeedResource, ItemResource, SettingsResource, data) {
     'use strict';
 
+    this.isAutoPagingEnabled = true;
+
     ItemResource.clear();
 
     // distribute data to models based on key
@@ -68,6 +70,14 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data) {
 
     this.scrollRead = (itemIds) => {
         console.log(itemIds);
+    };
+
+    this.autoPagingEnabled = () => {
+        return this.isAutoPagingEnabled;
+    };
+
+    this.markReadEnabled = () => {
+        return !SettingsResource.get('preventReadOnScroll');
     };
 
 });

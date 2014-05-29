@@ -185,4 +185,28 @@ describe('ContentController', () => {
 
         expect(ctrl.isCompactView()).toBe(true);
     }));
+
+
+    it('should publish markread', inject(($controller, SettingsResource) => {
+
+        SettingsResource.set('preventReadOnScroll', true);
+
+        let ctrl = $controller('ContentController', {
+            SettingsResource: SettingsResource,
+            data: {},
+        });
+
+        expect(ctrl.markReadEnabled()).toBe(false);
+    }));
+
+
+    it('should publish autopaging', inject(($controller) => {
+        let ctrl = $controller('ContentController', {
+            data: {},
+        });
+
+        expect(ctrl.autoPagingEnabled()).toBe(true);
+    }));
+
+
 });

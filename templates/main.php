@@ -45,6 +45,11 @@
 		ng-class="{'icon-loading': App.loading.isLoading('content')}"
 		ng-hide="App.loading.isLoading('global')"
 		ng-view
-		tabindex="-1"></div>
+		tabindex="-1"
+		news-scroll
+		news-scroll-enabled-auto-page="Content.isAutoPaging()"
+		news-scroll-enabled-mark-read="Content.isMarkRead()"
+		news-scroll-auto-page="Content.autoPage()"
+		news-scroll-mark-read="Content.markRead($itemIds)"></div>
 
 </div>

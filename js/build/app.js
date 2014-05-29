@@ -183,6 +183,8 @@ var $__build_47_app__ = function () {
         'data',
         function (Publisher, FeedResource, ItemResource, SettingsResource, data) {
           'use strict';
+          var $__0 = this;
+          this.isAutoPagingEnabled = true;
           ItemResource.clear();
           Publisher.publishAll(data);
           this.getItems = function () {
@@ -225,6 +227,12 @@ var $__build_47_app__ = function () {
           };
           this.scrollRead = function (itemIds) {
             console.log(itemIds);
+          };
+          this.autoPagingEnabled = function () {
+            return $__0.isAutoPagingEnabled;
+          };
+          this.markReadEnabled = function () {
+            return !SettingsResource.get('preventReadOnScroll');
           };
         }
       ]);
