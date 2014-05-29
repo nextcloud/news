@@ -120,11 +120,6 @@ app.factory('ItemResource', (Resource, $http, BASE_URL, ITEM_BATCH_SIZE) => {
         }
 
 
-        clear () {
-            super.clear();
-        }
-
-
         autoPage (type, id) {
             return this.http({
                 url: `${this.BASE_URL}/items`,

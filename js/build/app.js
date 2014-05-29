@@ -622,9 +622,6 @@ var $__build_47_app__ = function () {
               }
               return this.http.post(this.BASE_URL + '/items/read');
             },
-            clear: function () {
-              $traceurRuntime.superCall(this, $ItemResource.prototype, 'clear', []);
-            },
             autoPage: function (type, id) {
               return this.http({
                 url: this.BASE_URL + '/items',
