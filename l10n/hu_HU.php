@@ -1,5 +1,6 @@
 <?php $TRANSLATIONS = array(
 "Can not add feed: Exists already" => "Nem sikerült hozzáadni a hírcsatornát: már létezik",
+"Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "A hírcsatorna nem hozható létre: vagy a cím nem létezik, vagy érvénytelen a kiszolgáló SSL tanúsítványa, vagy hibás a csatorna XML állománya",
 "Articles without feed" => "Cikkek folyam(feed) nélkül",
 "Can not add folder: Exists already" => "A mappa nem hozható létre: már létezik",
 " " => " ",
@@ -23,10 +24,10 @@
 "All articles" => "Az összes cikk",
 "Mark read" => "Jelöljük meg olvasottként",
 "Welcome to the ownCloud News app!" => "Üdvözöljük az ownCloud Hírek alkalmazásban!",
-"read on website" => "olvasd el a weboldalon",
+"read on website" => "olvasott cikk a weboldalon",
 "star" => "csillag",
-"from" => "innen:",
-"by" => "általa:",
+"from" => "forrás:",
+"by" => "közreadta:",
 "Download" => "Letöltés",
 "Keep unread" => "Maradjon olvasatlan",
 "Cancel" => "Mégsem",
@@ -44,6 +45,6 @@
 "Error when importing: file does not contain valid OPML" => "Hiba az importálás során: az állomány nem tartalmaz érvényes OPML adatot",
 "Unread/Starred Articles" => "Olvastlan/Csillagozott cikkek",
 "Error when importing: file does not contain valid JSON" => "Hiba az importálás során: az állomány nem tartalmaz érvényes JSON adatokat",
-"Show read articles" => "Megjeleníti olvasásra a cikkeket",
-"Hide read articles" => "Elrejteni a cikk olvasót"
+"Show read articles" => "Mutassuk az olvasott cikkeket is",
+"Hide read articles" => "Az olvasott cikkeket ne mutassuk"
 );
