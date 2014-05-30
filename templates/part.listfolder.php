@@ -9,7 +9,7 @@
 	ng-show="folderBusinessLayer.isVisible(folder.id) || !folder.id"
 	class="folder"
 	data-id="{{ folder.id }}"
-	droppable>
+	news-droppable>
 	<button class="collapse"
 			ng-hide="folder.editing"
 			title="<?php p($l->t('Collapse'));?>"
