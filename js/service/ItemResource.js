@@ -30,6 +30,7 @@ app.factory('ItemResource', (Resource, $http, BASE_URL, ITEM_BATCH_SIZE) => {
             case 'starred':
                 this.starredCount = value;
                 break;
+
             default:
                 super.receive(value, channel);
             }

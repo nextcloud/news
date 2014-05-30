@@ -293,11 +293,13 @@ var $__build_47_app__ = function () {
         }
       ]);
       app.controller('NavigationController', [
+        '$route',
+        'FEED_TYPE',
         'FeedResource',
         'FolderResource',
         'ItemResource',
         'SettingsResource',
-        function (FeedResource, FolderResource, ItemResource, SettingsResource) {
+        function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource, SettingsResource) {
           'use strict';
           this.feedError = '';
           this.folderError = '';
@@ -334,14 +336,67 @@ var $__build_47_app__ = function () {
           this.getFeedsOfFolder = function (folderId) {
             return FeedResource.getByFolderId(folderId);
           };
-          this.createFeed = function () {
-            console.log('TBD');
+          this.getUnreadCount = function () {
+            return FeedResource.getUnreadCount();
           };
-          this.createFolder = function () {
-            console.log('TBD');
+          this.getFeedUnreadCount = function (feedId) {
+            return FeedResource.getById(feedId).unreadCount;
           };
-          this.renameFeed = function () {
-            console.log('TBD');
+          this.getFolderUnreadCount = function (folderId) {
+            return FeedResource.getFolderUnreadCount(folderId);
+          };
+          this.getStarredCount = function () {
+            return ItemResource.getStarredCount();
+          };
+          this.toggleFolder = function (folderName) {
+            FolderResource.toggleOpen(folderName);
+          };
+          this.hasFeeds = function (folderId) {
+            return FeedResource.getFolderUnreadCount(folderId) !== undefined;
+          };
+          this.subFeedActive = function (folderId) {
+            var type = $route.current.$$route.type;
+            if (type === FEED_TYPE.FEED) {
+              try {
+                throw undefined;
+              } catch (feed) {
+                feed = FeedResource.getById($route.current.params.id);
+                if (feed.folderId === folderId) {
+                  return true;
+                }
+              }
+            }
+            return false;
+          };
+          this.isSubscriptionsActive = function () {
+            return $route.current.$$route.type === FEED_TYPE.SUBSCRIPTIONS;
+          };
+          this.isStarredActive = function () {
+            return $route.current.$$route.type === FEED_TYPE.STARRED;
+          };
+          this.isFolderActive = function (folderId) {
+            return $route.current.$$route.type === FEED_TYPE.FOLDER && $route.current.params.id === folderId;
+          };
+          this.isFeedActive = function (feedId) {
+            return $route.current.$$route.type === FEED_TYPE.FEED && $route.current.params.id === feedId;
+          };
+          this.isAddingFolder = function () {
+            return true;
+          };
+          this.createFeed = function (feedUrl, folderId) {
+            console.log(feedUrl + folderId);
+          };
+          this.createFolder = function (folderName) {
+            console.log(folderName);
+          };
+          this.cancelRenameFolder = function (folderId) {
+            console.log(folderId);
+          };
+          this.renameFeed = function (feedId, feedTitle) {
+            console.log(feedId + feedTitle);
+          };
+          this.cancelRenameFeed = function (feedId) {
+            console.log(feedId);
           };
           this.renameFolder = function () {
             console.log('TBD');
@@ -353,12 +408,6 @@ var $__build_47_app__ = function () {
             console.log('TBD');
           };
           this.moveFeed = function () {
-            console.log('TBD');
-          };
-          this.isActive = function () {
-            console.log('TBD');
-          };
-          this.isVisible = function () {
             console.log('TBD');
           };
         }
@@ -408,6 +457,15 @@ var $__build_47_app__ = function () {
           };
         }
       ]);
+      app.filter('unreadCountFormatter', function () {
+        'use strict';
+        return function (unreadCount) {
+          if (unreadCount > 999) {
+            return '999+';
+          }
+          return unreadCount;
+        };
+      });
       app.factory('FeedResource', [
         'Resource',
         '$http',
@@ -541,7 +599,7 @@ var $__build_47_app__ = function () {
               return this.unreadCount;
             },
             getFolderUnreadCount: function (folderId) {
-              return this.folderUnreadCount[$traceurRuntime.toProperty(folderId)] || 0;
+              return this.folderUnreadCount[$traceurRuntime.toProperty(folderId)];
             },
             getByFolderId: function (folderId) {
               return this.folderIds[$traceurRuntime.toProperty(folderId)] || [];

@@ -10,7 +10,7 @@
 
 \OCP\Util::addStyle('news', 'bootstrap/tooltip');
 \OCP\Util::addStyle('news', 'app');
-//\OCP\Util::addStyle('news', 'navigation');
+\OCP\Util::addStyle('news', 'navigation');
 \OCP\Util::addStyle('news', 'content');
 \OCP\Util::addStyle('news', 'settings');
 ?>
@@ -26,7 +26,7 @@
 		<ul class="with-icon" data-folder-id="0" news-droppable>
 			<?php print_unescaped($this->inc('part.addnew')) ?>
 			<?php print_unescaped($this->inc('part.feed.unread')) ?>
-			<?php //print_unescaped($this->inc('part.feed.starred')) ?>
+			<?php print_unescaped($this->inc('part.feed.starred')) ?>
 			<?php print_unescaped($this->inc('part.listfeed', ['folderId' => '0'])) ?>
 			<?php print_unescaped($this->inc('part.listfolder')) ?>
 		</ul>

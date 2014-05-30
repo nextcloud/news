@@ -1,18 +1,14 @@
-<li ng-class="{	
-		active: starredBusinessLayer.isActive(0), 
-		unread: starredBusinessLayer.getUnreadCount() > 0
-	}" 
-	ng-show="starredBusinessLayer.isVisible(0)"
+<li ng-class="{
+		active: Navigation.isStarredActive(),
+		unread: Navigation.getStarredCount() > 0
+	}"
 	class="starred">
-	<a class="starred-icon"
-		href="#"
-		ng-click="starredBusinessLayer.load(0)"
-		oc-click-focus="{selector: '#app-content'}">
+	<a class="starred-icon" href="#/items/starred">
 	   <?php p($l->t('Starred')) ?>
 	</a>
 	<span class="utils">
 		<span class="unread-counter">
-			{{ unreadCountFormatter(starredBusinessLayer.getUnreadCount()) }}
+			{{ Navigation.getStarredCount() | unreadCountFormatter }}
 		</span>
 	</span>
 </li>

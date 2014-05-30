@@ -11,6 +11,8 @@ owncloud-news (3.001)
 * Port clientside code to JavaScript (ES6)
 * Removed pull to refresh
 * Push API to 1.4
+* Slim down appstore build
+* Make interface faster
 
 owncloud-news (2.003)
 * Use correct url for folder and feed api update methods

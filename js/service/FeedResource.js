@@ -130,7 +130,7 @@ app.factory('FeedResource', (Resource, $http, BASE_URL) => {
 
 
         getFolderUnreadCount (folderId) {
-            return this.folderUnreadCount[folderId] || 0;
+            return this.folderUnreadCount[folderId];
         }
 
 

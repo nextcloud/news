@@ -8,7 +8,8 @@
  * @copyright Bernhard Posselt 2014
  */
 app.controller('NavigationController',
-function (FeedResource, FolderResource, ItemResource, SettingsResource) {
+function ($route, FEED_TYPE,
+    FeedResource, FolderResource, ItemResource, SettingsResource) {
     'use strict';
 
     this.feedError = '';
@@ -48,17 +49,85 @@ function (FeedResource, FolderResource, ItemResource, SettingsResource) {
         return FeedResource.getByFolderId(folderId);
     };
 
+    this.getUnreadCount = () => {
+        return FeedResource.getUnreadCount();
+    };
+
+    this.getFeedUnreadCount = (feedId) => {
+        return FeedResource.getById(feedId).unreadCount;
+    };
+
+    this.getFolderUnreadCount= (folderId) => {
+        return FeedResource.getFolderUnreadCount(folderId);
+    };
+
+    this.getStarredCount = () => {
+        return ItemResource.getStarredCount();
+    };
+
+    this.toggleFolder = (folderName) => {
+        FolderResource.toggleOpen(folderName);
+    };
+
+    this.hasFeeds = (folderId) => {
+        return FeedResource.getFolderUnreadCount(folderId) !== undefined;
+    };
+
+    this.subFeedActive = (folderId) => {
+        let type = $route.current.$$route.type;
+
+        if (type === FEED_TYPE.FEED) {
+            let feed = FeedResource.getById($route.current.params.id);
+
+            if (feed.folderId === folderId) {
+                return true;
+            }
+        }
+
+        return false;
+    };
+
+    this.isSubscriptionsActive = () => {
+        return $route.current.$$route.type === FEED_TYPE.SUBSCRIPTIONS;
+    };
+
+    this.isStarredActive = () => {
+        return $route.current.$$route.type === FEED_TYPE.STARRED;
+    };
+
+    this.isFolderActive = (folderId) => {
+        return $route.current.$$route.type === FEED_TYPE.FOLDER &&
+            $route.current.params.id === folderId;
+    };
+
+    this.isFeedActive = (feedId) => {
+        return $route.current.$$route.type === FEED_TYPE.FEED &&
+            $route.current.params.id === feedId;
+    };
+
     // TBD
-    this.createFeed = () => {
-        console.log('TBD');
+    this.isAddingFolder = () => {
+        return true;
     };
 
-    this.createFolder = () => {
-        console.log('TBD');
+    this.createFeed = (feedUrl, folderId) => {
+        console.log(feedUrl + folderId);
     };
 
-    this.renameFeed = () => {
-        console.log('TBD');
+    this.createFolder = (folderName) => {
+        console.log(folderName);
+    };
+
+    this.cancelRenameFolder = (folderId) => {
+        console.log(folderId);
+    };
+
+    this.renameFeed = (feedId, feedTitle) => {
+        console.log(feedId + feedTitle);
+    };
+
+    this.cancelRenameFeed = (feedId) => {
+        console.log(feedId);
     };
 
     this.renameFolder = () => {
@@ -76,14 +145,5 @@ function (FeedResource, FolderResource, ItemResource, SettingsResource) {
     this.moveFeed = () => {
         console.log('TBD');
     };
-
-    this.isActive = () => {
-        console.log('TBD');
-    };
-
-    this.isVisible = () => {
-        console.log('TBD');
-    };
-
 
 });
