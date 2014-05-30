@@ -398,4 +398,24 @@ describe('ContentController', () => {
         expect(ctrl.autoPagingEnabled()).toBe(true);
     }));
 
+
+    it('should return relative date', inject(($controller,
+        SettingsResource) => {
+
+        SettingsResource.receive({language: 'en'});
+        let ctrl = $controller('ContentController', {
+            data: {},
+        });
+
+        expect(ctrl.getRelativeDate(12)).not.toBe('');
+    }));
+
+
+    it('should return relative date empty', inject(($controller) => {
+        let ctrl = $controller('ContentController', {
+            data: {},
+        });
+
+        expect(ctrl.getRelativeDate('')).toBe('');
+    }));
 });

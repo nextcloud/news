@@ -190,9 +190,9 @@ var $__build_47_app__ = function () {
         function (Publisher, FeedResource, ItemResource, SettingsResource, data, $route, $routeParams) {
           'use strict';
           var $__0 = this;
-          this.isAutoPagingEnabled = true;
           ItemResource.clear();
           Publisher.publishAll(data);
+          this.isAutoPagingEnabled = true;
           this.getItems = function () {
             return ItemResource.getAll();
           };
@@ -269,7 +269,16 @@ var $__build_47_app__ = function () {
             });
           };
           this.getRelativeDate = function (timestamp) {
-            console.log(timestamp);
+            if (timestamp !== undefined && timestamp !== '') {
+              try {
+                throw undefined;
+              } catch (languageCode) {
+                languageCode = SettingsResource.get('language');
+                return moment.unix(timestamp).lang(languageCode).fromNow();
+              }
+            } else {
+              return '';
+            }
           };
         }
       ]);
@@ -802,6 +811,57 @@ var $__build_47_app__ = function () {
           'use strict';
           var $__0 = this;
           this.settings = {};
+          this.defaultLanguageCode = 'en';
+          this.supportedLanguageCodes = [
+            'ar-ma',
+            'ar',
+            'bg',
+            'ca',
+            'cs',
+            'cv',
+            'da',
+            'de',
+            'el',
+            'en-ca',
+            'en-gb',
+            'eo',
+            'es',
+            'et',
+            'eu',
+            'fi',
+            'fr-ca',
+            'fr',
+            'gl',
+            'he',
+            'hi',
+            'hu',
+            'id',
+            'is',
+            'it',
+            'ja',
+            'ka',
+            'ko',
+            'lv',
+            'ms-my',
+            'nb',
+            'ne',
+            'nl',
+            'pl',
+            'pt-br',
+            'pt',
+            'ro',
+            'ru',
+            'sk',
+            'sl',
+            'sv',
+            'th',
+            'tr',
+            'tzm-la',
+            'tzm',
+            'uk',
+            'zh-cn',
+            'zh-tw'
+          ];
           this.receive = function (data) {
             for (var $__3 = items(data)[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
               try {
@@ -819,6 +879,9 @@ var $__build_47_app__ = function () {
                       value = $__8[1];
                     }
                     {
+                      if (key === 'language') {
+                        value = $__0.processLanguageCode(value);
+                      }
                       $traceurRuntime.setProperty($__0.settings, key, value);
                     }
                   }
@@ -838,6 +901,16 @@ var $__build_47_app__ = function () {
               method: 'POST',
               data: data
             });
+          };
+          this.processLanguageCode = function (languageCode) {
+            languageCode = languageCode.replace('_', '-').toLowerCase();
+            if ($__0.supportedLanguageCodes.indexOf(languageCode) < 0) {
+              languageCode = languageCode.split('-')[0];
+            }
+            if ($__0.supportedLanguageCodes.indexOf(languageCode) < 0) {
+              languageCode = $__0.defaultLanguageCode;
+            }
+            return languageCode;
           };
         }
       ]);

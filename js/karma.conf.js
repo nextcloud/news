@@ -38,6 +38,7 @@ module.exports = function (config) {
         files: [
             'vendor/jquery/dist/jquery.js',
             'vendor/momentjs/moment.js',
+            'vendor/momentjs/min/langs.js',
             'vendor/bootstrap/tooltip.js',
             'vendor/angular/angular.js',
             'vendor/angular-mocks/angular-mocks.js',

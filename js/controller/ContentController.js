@@ -12,12 +12,14 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data,
     $route, $routeParams) {
     'use strict';
 
-    this.isAutoPagingEnabled = true;
-
+    // dont cache items across multiple route changes
     ItemResource.clear();
 
     // distribute data to models based on key
     Publisher.publishAll(data);
+
+
+    this.isAutoPagingEnabled = true;
 
     this.getItems = () => {
         return ItemResource.getAll();
@@ -101,9 +103,13 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data,
         });
     };
 
-    // TBD
     this.getRelativeDate = (timestamp) => {
-        console.log(timestamp);
+        if (timestamp !== undefined && timestamp !== '') {
+            let languageCode = SettingsResource.get('language');
+            return moment.unix(timestamp).lang(languageCode).fromNow();
+        } else {
+            return '';
+        }
     };
 
 });
