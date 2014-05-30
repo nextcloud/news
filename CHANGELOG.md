@@ -6,7 +6,6 @@ owncloud-news (3.001)
 * Order by publication date rather than by id
 * Add clientside routing
 * When importing OPML use the feed title if given
-* Export OPML with feed title
 * Animate folder/feed disappearance if marking read
 * Design changes
 * Port clientside code to JavaScript (ES6)

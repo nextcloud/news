@@ -59,23 +59,22 @@
 				<?php p($l->t('by')) ?>
 				{{ item.author }}
 			</span>
-	</h2>
+		</h2>
 
-		<div class="enclosure" ui-if="item.enclosureLink">
+		<div class="enclosure" ng-if="item.enclosureLink">
 			<news-audio type="{{ item.enclosureType }}" ng-src="{{ item.enclosureLink|trustUrl }}"/><?php
 				p($l->t('Download'))
 			?></audio>
 		</div>
 
-		<div class="item_body" news-bind-html-unsafe="item.body">
+		<div class="body" news-bind-html-unsafe="item.body">
 		</div>
 
-		<div class="item_bottom_utils">
-			<ul class="secondary_item_utils"
-				ng-class="{ show_keep_unread: itemBusinessLayer.isKeptUnread(item.id) }">
-				<li ng-click="itemBusinessLayer.toggleKeepUnread(item.id)"
-					class="keep_unread"><?php p($l->t('Keep unread')); ?>
-					<input type="checkbox" ng-checked="itemBusinessLayer.isKeptUnread(item.id)"/>
+		<div class="bottom-utils">
+			<ul ng-show="item.keepUnread">
+				<li ng-click="Content.toggleKeepUnread(item.id)">
+					<label for="keep-unread"><?php p($l->t('Keep unread')); ?></label>
+					<input type="checkbox" name="keep-unread" ng-checked="item.keepUnread"/>
 				</li>
 			</ul>
 		</div>

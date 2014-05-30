@@ -12,7 +12,12 @@
 app.service('SettingsResource', function ($http, BASE_URL) {
     'use strict';
 
-    this.settings = {};
+    this.settings = {
+        language: 'en',
+        showAll: false,
+        compact: false,
+        oldestFirst: false
+    };
     this.defaultLanguageCode = 'en';
     this.supportedLanguageCodes = [
         'ar-ma', 'ar', 'bg', 'ca', 'cs', 'cv', 'da', 'de', 'el', 'en-ca',

@@ -223,7 +223,7 @@ describe('ContentController', () => {
 
         Publisher.subscribe(ItemResource).toChannels('items');
         ItemResource.markItemsRead = jasmine.createSpy('markRead');
-        FeedResource.markItemOfFeedRead = jasmine.createSpy('markRead');
+        FeedResource.markItemsOfFeedsRead = jasmine.createSpy('markRead');
 
         let ctrl = $controller('ContentController', {
             ItemResource: ItemResource,
@@ -231,7 +231,7 @@ describe('ContentController', () => {
             data: {
                 'items': [{
                     id: 3,
-                    feedId: 4
+                    feedId: 6
                 },
                 {
                     id: 2,
@@ -248,7 +248,7 @@ describe('ContentController', () => {
         ctrl.scrollRead([3, 2, 1]);
 
         expect(ItemResource.markItemsRead).toHaveBeenCalledWith([3, 1]);
-        expect(FeedResource.markItemOfFeedRead.callCount).toBe(2);
+        expect(FeedResource.markItemsOfFeedsRead).toHaveBeenCalledWith([6, 4]);
     }));
 
 

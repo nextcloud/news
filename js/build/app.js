@@ -235,6 +235,7 @@ var $__build_47_app__ = function () {
           };
           this.scrollRead = function (itemIds) {
             var ids = [];
+            var feedIds = [];
             for (var $__3 = itemIds[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
               try {
                 throw undefined;
@@ -247,12 +248,13 @@ var $__build_47_app__ = function () {
                     item = ItemResource.get(itemId);
                     if (!item.keepUnread) {
                       ids.push(itemId);
-                      FeedResource.markItemOfFeedRead(item.feedId);
+                      feedIds.push(item.feedId);
                     }
                   }
                 }
               }
             }
+            FeedResource.markItemsOfFeedsRead(feedIds);
             ItemResource.markItemsRead(ids);
           };
           this.autoPage = function () {
@@ -272,9 +274,14 @@ var $__build_47_app__ = function () {
             if (timestamp !== undefined && timestamp !== '') {
               try {
                 throw undefined;
-              } catch (languageCode) {
-                languageCode = SettingsResource.get('language');
-                return moment.unix(timestamp).lang(languageCode).fromNow();
+              } catch (date) {
+                try {
+                  throw undefined;
+                } catch (languageCode) {
+                  languageCode = SettingsResource.get('language');
+                  date = moment.unix(timestamp).lang(languageCode).fromNow() + '';
+                  return date;
+                }
               }
             } else {
               return '';
@@ -384,6 +391,15 @@ var $__build_47_app__ = function () {
           };
         }
       ]);
+      app.filter('trustUrl', [
+        '$sce',
+        function ($sce) {
+          'use strict';
+          return function (url) {
+            return $sce.trustAsResourceUrl(url);
+          };
+        }
+      ]);
       app.factory('FeedResource', [
         'Resource',
         '$http',
@@ -473,6 +489,19 @@ var $__build_47_app__ = function () {
             },
             markItemOfFeedRead: function (feedId) {
               this.ids[$traceurRuntime.toProperty(feedId)].unreadCount -= 1;
+              this.updateUnreadCache();
+            },
+            markItemsOfFeedsRead: function (feedIds) {
+              for (var $__3 = feedIds[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
+                try {
+                  throw undefined;
+                } catch (feedId) {
+                  feedId = $__4.value;
+                  {
+                    this.ids[$traceurRuntime.toProperty(feedId)].unreadCount -= 1;
+                  }
+                }
+              }
               this.updateUnreadCache();
             },
             markItemOfFeedUnread: function (feedId) {
@@ -810,7 +839,12 @@ var $__build_47_app__ = function () {
         function ($http, BASE_URL) {
           'use strict';
           var $__0 = this;
-          this.settings = {};
+          this.settings = {
+            language: 'en',
+            showAll: false,
+            compact: false,
+            oldestFirst: false
+          };
           this.defaultLanguageCode = 'en';
           this.supportedLanguageCodes = [
             'ar-ma',
@@ -1308,6 +1342,30 @@ var $__build_47_app__ = function () {
           writable: true
         }), $__2;
       };
+      app.directive('newsAudio', function () {
+        'use strict';
+        return {
+          restrict: 'E',
+          scope: {
+            src: '@',
+            type: '@'
+          },
+          transclude: true,
+          template: '' + '<audio controls="controls" preload="none" ng-hide="cantPlay()">' + '<source ng-src="{{ src|trustUrl }}">' + '</audio>' + '<a ng-href="{{ src|trustUrl }}" class="button" ng-show="cantPlay()" ' + 'ng-transclude></a>',
+          link: function (scope, elm) {
+            var source = elm.children().children('source')[0];
+            var cantPlay = false;
+            source.addEventListener('error', function () {
+              scope.$apply(function () {
+                cantPlay = true;
+              });
+            });
+            scope.cantPlay = function () {
+              return cantPlay;
+            };
+          }
+        };
+      });
       app.directive('newsAutoFocus', function () {
         'use strict';
         return function (scope, elem, attrs) {
@@ -1341,55 +1399,92 @@ var $__build_47_app__ = function () {
         '$timeout',
         function ($timeout) {
           'use strict';
-          var autoPage = function (enabled, limit, callback, elem) {
+          var autoPage = function (enabled, limit, elem, scope) {
             if (enabled) {
               try {
                 throw undefined;
-              } catch (counter) {
-                counter = 0;
-                for (var $__3 = reverse(elem.find('.feed_item'))[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
-                  try {
-                    throw undefined;
-                  } catch (item) {
-                    item = $__4.value;
-                    {
-                      item = $(item);
-                      if (counter >= limit) {
-                        break;
+              } catch (articles) {
+                try {
+                  throw undefined;
+                } catch (counter) {
+                  counter = 0;
+                  articles = elem.find('.item');
+                  {
+                    try {
+                      throw undefined;
+                    } catch ($i) {
+                      $i = articles.length - 1;
+                      for (; $i >= 0; $i -= 1) {
+                        try {
+                          throw undefined;
+                        } catch (i) {
+                          i = $i;
+                          try {
+                            try {
+                              throw undefined;
+                            } catch (item) {
+                              item = $(articles[$traceurRuntime.toProperty(i)]);
+                              if (counter >= limit) {
+                                break;
+                              }
+                              if (item.position().top < 0) {
+                                scope.$apply(scope.newsScrollAutoPage);
+                                break;
+                              }
+                              counter += 1;
+                            }
+                          } finally {
+                            $i = i;
+                          }
+                        }
                       }
-                      if (item.position().top < 0) {
-                        callback();
-                        break;
-                      }
-                      counter += 1;
                     }
                   }
                 }
               }
             }
           };
-          var markRead = function (enabled, callback, elem) {
+          var markRead = function (enabled, elem, scope) {
             if (enabled) {
               try {
                 throw undefined;
-              } catch (ids) {
-                ids = [];
-                for (var $__3 = elem.find('.feed_item:not(.read)')[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
-                  try {
-                    throw undefined;
-                  } catch (item) {
-                    item = $__4.value;
-                    {
-                      item = $(item);
-                      if (item.position().top <= -50) {
-                        ids.push(parseInt(item.data('id'), 10));
-                      } else {
-                        break;
+              } catch (articles) {
+                try {
+                  throw undefined;
+                } catch (ids) {
+                  ids = [];
+                  articles = elem.find('.item:not(.read)');
+                  {
+                    try {
+                      throw undefined;
+                    } catch ($i) {
+                      $i = 0;
+                      for (; $i < articles.length; $i += 1) {
+                        try {
+                          throw undefined;
+                        } catch (i) {
+                          i = $i;
+                          try {
+                            try {
+                              throw undefined;
+                            } catch (item) {
+                              item = $(articles[$traceurRuntime.toProperty(i)]);
+                              if (item.position().top <= -50) {
+                                ids.push(parseInt(item.data('id'), 10));
+                              } else {
+                                break;
+                              }
+                            }
+                          } finally {
+                            $i = i;
+                          }
+                        }
                       }
                     }
                   }
+                  scope.itemIds = ids;
+                  scope.$apply(scope.newsScrollMarkRead);
                 }
-                callback(ids);
               }
             }
           };
@@ -1399,26 +1494,26 @@ var $__build_47_app__ = function () {
               'newsScrollAutoPage': '&',
               'newsScrollMarkRead': '&',
               'newsScrollEnabledMarkRead': '=',
-              'newsScrollEnableAutoPage': '=',
+              'newsScrollEnabledAutoPage': '=',
               'newsScrollMarkReadTimeout': '@',
               'newsScrollTimeout': '@',
               'newsScrollAutoPageWhenLeft': '@'
             },
             link: function (scope, elem) {
               var allowScroll = true;
-              scope.newsScrollTimeout = scope.newsScrollTimeout || 1;
-              scope.newsScrollMarkReadTimeout = scope.newsScrollMarkReadTimeout || 1;
-              scope.newsScrollAutoPageWhenLeft = scope.newsScrollAutoPageWhenLeft || 50;
+              var scrollTimeout = scope.newsScrollTimeout || 1;
+              var markReadTimeout = scope.newsScrollMarkReadTimeout || 1;
+              var autoPageLimit = scope.newsScrollAutoPageWhenLeft || 50;
               var scrollHandler = function () {
                 if (allowScroll) {
                   allowScroll = false;
                   $timeout(function () {
                     allowScroll = true;
-                  }, scope.newsScrollTimeout * 1000);
-                  autoPage(scope.newsScrollEnableAutoPage, scope.newsScrollAutoPageWhenLeft, scope.newsScrollAutoPage, elem);
+                  }, scrollTimeout * 1000);
+                  autoPage(scope.newsScrollEnabledAutoPage, autoPageLimit, elem, scope);
                   $timeout(function () {
-                    markRead(scope.newsScrollEnabledMarkRead, scope.newsScrollMarkRead, elem);
-                  }, scope.newsScrollMarkReadTimeout * 1000);
+                    markRead(scope.newsScrollEnabledMarkRead, elem, scope);
+                  }, markReadTimeout * 1000);
                 }
               };
               elem.on('scroll', scrollHandler);

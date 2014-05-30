@@ -89,6 +89,14 @@ app.factory('FeedResource', (Resource, $http, BASE_URL) => {
         }
 
 
+        markItemsOfFeedsRead (feedIds) {
+            for (let feedId of feedIds) {
+                this.ids[feedId].unreadCount -= 1;
+            }
+            this.updateUnreadCache();
+        }
+
+
         markItemOfFeedUnread (feedId) {
             this.ids[feedId].unreadCount += 1;
             this.updateUnreadCache();

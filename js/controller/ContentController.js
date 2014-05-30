@@ -74,15 +74,17 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data,
 
     this.scrollRead = (itemIds) => {
         let ids = [];
+        let feedIds = [];
 
         for (let itemId of itemIds) {
             let item = ItemResource.get(itemId);
             if (!item.keepUnread) {
                 ids.push(itemId);
-                FeedResource.markItemOfFeedRead(item.feedId);
+                feedIds.push(item.feedId);
             }
         }
 
+        FeedResource.markItemsOfFeedsRead(feedIds);
         ItemResource.markItemsRead(ids);
     };
 
@@ -106,7 +108,8 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data,
     this.getRelativeDate = (timestamp) => {
         if (timestamp !== undefined && timestamp !== '') {
             let languageCode = SettingsResource.get('language');
-            return moment.unix(timestamp).lang(languageCode).fromNow();
+            let date = moment.unix(timestamp).lang(languageCode).fromNow() + '';
+            return date;
         } else {
             return '';
         }

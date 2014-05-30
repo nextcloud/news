@@ -12,7 +12,7 @@
 \OCP\Util::addStyle('news', 'bootstrap/tooltip');
 \OCP\Util::addStyle('news', 'app');
 //\OCP\Util::addStyle('news', 'navigation');
-//\OCP\Util::addStyle('news', 'content');
+\OCP\Util::addStyle('news', 'content');
 \OCP\Util::addStyle('news', 'settings');
 ?>
 
@@ -42,14 +42,17 @@
 	<script type="text/ng-template" id="content.html"><?php print_unescaped($this->inc('part.content')) ?></script>
 
 	<div id="app-content"
-		ng-class="{'icon-loading': App.loading.isLoading('content')}"
+		ng-class="{
+			'icon-loading': App.loading.isLoading('content'),
+			'autopaging': App.loading.isLoading('autopaging')
+		}"
 		ng-hide="App.loading.isLoading('global')"
 		ng-view
 		tabindex="-1"
 		news-scroll
 		news-scroll-enabled-auto-page="Content.autoPagingEnabled()"
 		news-scroll-enabled-mark-read="Content.markReadEnabled()"
-		news-scroll-auto-page="Content.autoPage"
-		news-scroll-mark-read="Content.scrollRead"></div>
+		news-scroll-auto-page="Content.autoPage()"
+		news-scroll-mark-read="Content.scrollRead(itemIds)"></div>
 
 </div>

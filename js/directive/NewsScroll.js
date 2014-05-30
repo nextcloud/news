@@ -11,11 +11,13 @@ app.directive('newsScroll', ($timeout) => {
     'use strict';
 
     // autopaging
-    let autoPage = (enabled, limit, callback, elem) => {
+    let autoPage = (enabled, limit, elem, scope) => {
         if (enabled) {
             let counter = 0;
-            for (let item of reverse(elem.find('.feed_item'))) {
-                item = $(item);
+            let articles = elem.find('.item');
+
+            for (let i = articles.length - 1; i >= 0; i -= 1) {
+                let item = $(articles[i]);
 
 
                 // if the counter is higher than the size it means
@@ -29,7 +31,7 @@ app.directive('newsScroll', ($timeout) => {
                 // below the top and we didnt hit the factor yet so
                 // autopage and break
                 if (item.position().top < 0) {
-                    callback();
+                    scope.$apply(scope.newsScrollAutoPage);
                     break;
                 }
 
@@ -39,12 +41,14 @@ app.directive('newsScroll', ($timeout) => {
     };
 
     // mark read
-    let markRead = (enabled, callback, elem) => {
+    let markRead = (enabled, elem, scope) => {
         if (enabled) {
             let ids = [];
 
-            for (let item of elem.find('.feed_item:not(.read)')) {
-                item = $(item);
+            let articles = elem.find('.item:not(.read)');
+
+            for (let i = 0; i < articles.length; i += 1) {
+                let item = $(articles[i]);
 
                 if (item.position().top <= -50) {
                     ids.push(parseInt(item.data('id'), 10));
@@ -53,7 +57,8 @@ app.directive('newsScroll', ($timeout) => {
                 }
             }
 
-            callback(ids);
+            scope.itemIds = ids;
+            scope.$apply(scope.newsScrollMarkRead);
         }
     };
 
@@ -63,7 +68,7 @@ app.directive('newsScroll', ($timeout) => {
             'newsScrollAutoPage': '&',
             'newsScrollMarkRead': '&',
             'newsScrollEnabledMarkRead': '=',
-            'newsScrollEnableAutoPage': '=',
+            'newsScrollEnabledAutoPage': '=',
             'newsScrollMarkReadTimeout': '@',  // optional, defaults to 1 second
             'newsScrollTimeout': '@',  // optional, defaults to 1 second
             'newsScrollAutoPageWhenLeft': '@'  // optional, defaults to 50
@@ -71,11 +76,9 @@ app.directive('newsScroll', ($timeout) => {
         link: (scope, elem) => {
             let allowScroll = true;
 
-            scope.newsScrollTimeout = scope.newsScrollTimeout || 1;
-            scope.newsScrollMarkReadTimeout =
-                scope.newsScrollMarkReadTimeout || 1;
-            scope.newsScrollAutoPageWhenLeft =
-                scope.newsScrollAutoPageWhenLeft || 50;
+            let scrollTimeout = scope.newsScrollTimeout || 1;
+            let markReadTimeout = scope.newsScrollMarkReadTimeout || 1;
+            let autoPageLimit = scope.newsScrollAutoPageWhenLeft || 50;
 
             let scrollHandler = () => {
                 // allow only one scroll event to trigger at once
@@ -84,19 +87,19 @@ app.directive('newsScroll', ($timeout) => {
 
                     $timeout(() => {
                         allowScroll = true;
-                    }, scope.newsScrollTimeout*1000);
+                    }, scrollTimeout*1000);
 
-                    autoPage(scope.newsScrollEnableAutoPage,
-                             scope.newsScrollAutoPageWhenLeft,
-                             scope.newsScrollAutoPage,
-                             elem);
+                    autoPage(scope.newsScrollEnabledAutoPage,
+                             autoPageLimit,
+                             elem,
+                             scope);
 
                     // allow user to undo accidental scroll
                     $timeout(() => {
                         markRead(scope.newsScrollEnabledMarkRead,
-                                 scope.newsScrollMarkRead,
-                                 elem);
-                    }, scope.newsScrollMarkReadTimeout*1000);
+                                 elem,
+                                 scope);
+                    }, markReadTimeout*1000);
                 }
 
             };

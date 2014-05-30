@@ -97,4 +97,11 @@ describe('FeedResource', () => {
         FeedResource.markRead();
         expect(FeedResource.getFolderUnreadCount(4)).toBe(0);
     }));
+
+
+    it('should cache unreadcount', inject((FeedResource) => {
+        FeedResource.markItemsOfFeedsRead([1, 2]);
+        expect(FeedResource.getUnreadCount()).toBe(68);
+    }));
+
 });
