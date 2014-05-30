@@ -8,8 +8,8 @@
  * @copyright Bernhard Posselt 2014
  */
 app.controller('NavigationController',
-function ($route, FEED_TYPE,
-    FeedResource, FolderResource, ItemResource, SettingsResource) {
+function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
+    SettingsResource) {
     'use strict';
 
     this.feedError = '';
@@ -88,20 +88,24 @@ function ($route, FEED_TYPE,
     };
 
     this.isSubscriptionsActive = () => {
-        return $route.current.$$route.type === FEED_TYPE.SUBSCRIPTIONS;
+        return $route.current &&
+            $route.current.$$route.type === FEED_TYPE.SUBSCRIPTIONS;
     };
 
     this.isStarredActive = () => {
-        return $route.current.$$route.type === FEED_TYPE.STARRED;
+        return $route.current &&
+            $route.current.$$route.type === FEED_TYPE.STARRED;
     };
 
     this.isFolderActive = (folderId) => {
-        return $route.current.$$route.type === FEED_TYPE.FOLDER &&
+        return $route.current &&
+            $route.current.$$route.type === FEED_TYPE.FOLDER &&
             $route.current.params.id === folderId;
     };
 
     this.isFeedActive = (feedId) => {
-        return $route.current.$$route.type === FEED_TYPE.FEED &&
+        return $route.current &&
+            $route.current.$$route.type === FEED_TYPE.FEED &&
             $route.current.params.id === feedId;
     };
 

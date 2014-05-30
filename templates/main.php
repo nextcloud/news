@@ -22,6 +22,7 @@
 
 	<!-- navigation -->
 	<div id="app-navigation" ng-controller="NavigationController as Navigation" ng-hide="App.loading.isLoading('global')">
+		<news-title-unread-count unread-count="{{ Navigation.getUnreadCount() }}"></news-title-unread-count>
 
 		<ul class="with-icon" data-folder-id="0" news-droppable>
 			<?php print_unescaped($this->inc('part.addnew')) ?>

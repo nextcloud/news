@@ -15,7 +15,7 @@
 
 	</div>
 	<span class="utils">
-		<span class="unread-counter" ng-show="getUnreadCount() > 0">
+		<span class="unread-counter" ng-show="Navigation.getUnreadCount() > 0">
 			{{ Navigation.getUnreadCount() | unreadCountFormatter }}
 		</span>
 		<!--

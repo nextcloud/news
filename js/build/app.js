@@ -369,16 +369,16 @@ var $__build_47_app__ = function () {
             return false;
           };
           this.isSubscriptionsActive = function () {
-            return $route.current.$$route.type === FEED_TYPE.SUBSCRIPTIONS;
+            return $route.current && $route.current.$$route.type === FEED_TYPE.SUBSCRIPTIONS;
           };
           this.isStarredActive = function () {
-            return $route.current.$$route.type === FEED_TYPE.STARRED;
+            return $route.current && $route.current.$$route.type === FEED_TYPE.STARRED;
           };
           this.isFolderActive = function (folderId) {
-            return $route.current.$$route.type === FEED_TYPE.FOLDER && $route.current.params.id === folderId;
+            return $route.current && $route.current.$$route.type === FEED_TYPE.FOLDER && $route.current.params.id === folderId;
           };
           this.isFeedActive = function (feedId) {
-            return $route.current.$$route.type === FEED_TYPE.FEED && $route.current.params.id === feedId;
+            return $route.current && $route.current.$$route.type === FEED_TYPE.FEED && $route.current.params.id === feedId;
           };
           this.isAddingFolder = function () {
             return true;
@@ -1745,6 +1745,25 @@ var $__build_47_app__ = function () {
               elem.on('scroll', scrollHandler);
               scope.$on('$destroy', function () {
                 elem.off('scroll', scrollHandler);
+              });
+            }
+          };
+        }
+      ]);
+      app.directive('newsTitleUnreadCount', [
+        '$window',
+        function ($window) {
+          'use strict';
+          var baseTitle = $window.document.title;
+          return {
+            restrict: 'E',
+            scope: { unreadCount: '@' },
+            link: function (scope, elem, attrs) {
+              attrs.$observe('unreadCount', function (value) {
+                var titles = baseTitle.split('-');
+                if (value !== '0') {
+                  $window.document.title = titles[0] + '(' + value + ') - ' + titles[1];
+                }
               });
             }
           };
