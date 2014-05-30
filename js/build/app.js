@@ -85,7 +85,7 @@ var $__build_47_app__ = function () {
             templateUrl: 'content.html',
             resolve: getResolve(feedType.FOLDER),
             type: feedType.FOLDER
-          }).otherwise({ redirectTo: '/items' });
+          });
         }
       ]);
       app.run([
@@ -116,14 +116,15 @@ var $__build_47_app__ = function () {
             settingsDeferred.resolve();
           });
           var activeFeedDeferred = $q.defer();
+          var path = $location.path();
           $http.get(BASE_URL + '/feeds/active').success(function (data) {
             var url;
-            switch (data.type) {
+            switch (data.activeFeed.type) {
             case FEED_TYPE.FEED:
-              url = '/items/feeds/${data.id}';
+              url = '/items/feeds/' + data.activeFeed.id;
               break;
             case FEED_TYPE.FOLDER:
-              url = '/items/folders/${data.id}';
+              url = '/items/folders/' + data.activeFeed.id;
               break;
             case FEED_TYPE.STARRED:
               url = '/items/starred';
@@ -131,7 +132,9 @@ var $__build_47_app__ = function () {
             default:
               url = '/items';
             }
-            $location.path(url);
+            if (path === '') {
+              $location.path(url);
+            }
             activeFeedDeferred.resolve();
           });
           var folderDeferred = $q.defer();
@@ -961,7 +964,7 @@ var $__build_47_app__ = function () {
           scrollArea.scrollTop(item.offset().top - scrollArea.offset().top + scrollArea.scrollTop());
         };
         var scrollToNextItem = function (scrollArea) {
-          var items = scrollArea.find('.feed_item');
+          var items = scrollArea.find('.item');
           for (var $__3 = items[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
             try {
               throw undefined;
@@ -979,7 +982,7 @@ var $__build_47_app__ = function () {
           scrollArea.scrollTop(scrollArea.prop('scrollHeight'));
         };
         var scrollToPreviousItem = function (scrollArea) {
-          var items = scrollArea.find('.feed_item');
+          var items = scrollArea.find('.item');
           for (var $__3 = items[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
             try {
               throw undefined;
@@ -1006,7 +1009,7 @@ var $__build_47_app__ = function () {
           }
         };
         var getActiveItem = function (scrollArea) {
-          var items = scrollArea.find('.feed_item');
+          var items = scrollArea.find('.item');
           for (var $__3 = items[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
             try {
               throw undefined;

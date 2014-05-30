@@ -99,9 +99,6 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
             templateUrl: 'content.html',
             resolve: getResolve(feedType.FOLDER),
             type: feedType.FOLDER
-        })
-        .otherwise({
-            redirectTo: '/items'
         });
 
 });

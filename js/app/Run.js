@@ -31,17 +31,18 @@ app.run(($rootScope, $location, $http, $q, $interval, Loading, ItemResource,
     });
 
     let activeFeedDeferred = $q.defer();
+    let path = $location.path();
     $http.get(`${BASE_URL}/feeds/active`).success((data) => {
         let url;
 
-        switch (data.type) {
+        switch (data.activeFeed.type) {
 
         case FEED_TYPE.FEED:
-            url = '/items/feeds/${data.id}';
+            url = `/items/feeds/${data.activeFeed.id}`;
             break;
 
         case FEED_TYPE.FOLDER:
-            url = '/items/folders/${data.id}';
+            url = `/items/folders/${data.activeFeed.id}`;
             break;
 
         case FEED_TYPE.STARRED:
@@ -52,7 +53,12 @@ app.run(($rootScope, $location, $http, $q, $interval, Loading, ItemResource,
             url = '/items';
         }
 
-        $location.path(url);
+        // only redirect if url is empty or faulty
+        // TODO check for faulty url
+        if (path === '') {
+            $location.path(url);
+        }
+
         activeFeedDeferred.resolve();
     });
 

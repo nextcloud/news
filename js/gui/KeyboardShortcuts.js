@@ -43,7 +43,7 @@
     };
 
     const scrollToNextItem = (scrollArea) => {
-        const items = scrollArea.find('.feed_item');
+        const items = scrollArea.find('.item');
 
         for (let item of items) {
             item = $(item);
@@ -60,7 +60,7 @@
     };
 
     const scrollToPreviousItem = (scrollArea) => {
-        const items = scrollArea.find('.feed_item');
+        const items = scrollArea.find('.item');
 
         for (let item of items) {
             item = $(item);
@@ -84,7 +84,7 @@
     };
 
     const getActiveItem = (scrollArea) => {
-        const items = scrollArea.find('.feed_item');
+        const items = scrollArea.find('.item');
 
         for (let item of items) {
             item = $(item);
