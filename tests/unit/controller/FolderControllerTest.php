@@ -58,7 +58,7 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 		$this->controller = new FolderController($this->appName, $this->request,
-				$this->folderService, 
+				$this->folderService,
 				$this->feedService,
 				$this->itemService,
 				$this->user);
@@ -66,7 +66,7 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 	}
 
 
-	
+
 	public function testIndex(){
 		$return = [new Folder(), new Folder()];
 		$this->folderService->expects($this->once())
@@ -82,10 +82,10 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 	public function testOpen(){
 		$this->folderService->expects($this->once())
 			->method('open')
-			->with($this->equalTo(3), 
+			->with($this->equalTo(3),
 				$this->equalTo(true), $this->equalTo($this->user));
-		
-		$this->controller->open(3);
+
+		$this->controller->open(3, true);
 
 	}
 
@@ -94,8 +94,8 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 		$this->folderService->expects($this->once())
 			->method('open')
 			->will($this->throwException(new ServiceNotFoundException($this->msg)));
-		
-		$response = $this->controller->open(5);
+
+		$response = $this->controller->open(5, true);
 
 		$params = json_decode($response->render(), true);
 
@@ -107,25 +107,11 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 	public function testCollapse(){
 		$this->folderService->expects($this->once())
 			->method('open')
-			->with($this->equalTo(5), 
+			->with($this->equalTo(5),
 				$this->equalTo(false), $this->equalTo($this->user));
-		
-		$this->controller->collapse(5);
 
-	}
+		$this->controller->open(5, false);
 
-
-	public function testCollapseDoesNotExist(){
-		$this->folderService->expects($this->once())
-			->method('open')
-			->will($this->throwException(new ServiceNotFoundException($this->msg)));
-		
-		$response = $this->controller->collapse(5);
-
-		$params = json_decode($response->render(), true);
-
-		$this->assertEquals($this->msg, $params['message']);
-		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
 	}
 
 
@@ -137,10 +123,10 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 			->with($this->equalTo($this->user), $this->equalTo(false));
 		$this->folderService->expects($this->once())
 			->method('create')
-			->with($this->equalTo('tech'), 
+			->with($this->equalTo('tech'),
 				$this->equalTo($this->user))
 			->will($this->returnValue($result['folders'][0]));
-		
+
 		$response = $this->controller->create('tech');
 
 		$this->assertEquals($result, $response);
@@ -186,9 +172,9 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 	public function testDelete(){
 		$this->folderService->expects($this->once())
 			->method('markDeleted')
-			->with($this->equalTo(5), 
+			->with($this->equalTo(5),
 				$this->equalTo($this->user));
-		
+
 		$this->controller->delete(5);
 	}
 
@@ -197,7 +183,7 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 		$this->folderService->expects($this->once())
 			->method('markDeleted')
 			->will($this->throwException(new ServiceNotFoundException($this->msg)));
-		
+
 		$response = $this->controller->delete(5);
 
 		$params = json_decode($response->render(), true);
@@ -213,10 +199,10 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 		$this->folderService->expects($this->once())
 			->method('rename')
 			->with($this->equalTo(4),
-				$this->equalTo('tech'), 
+				$this->equalTo('tech'),
 				$this->equalTo($this->user))
 			->will($this->returnValue($result['folders'][0]));
-		
+
 		$response = $this->controller->rename('tech', 4);
 
 		$this->assertEquals($result, $response);
@@ -268,15 +254,15 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 	}
 
 
-	
+
 	public function testRead(){
 		$feed = new Feed();
 		$expected = ['feeds' => [$feed]];
 
 		$this->itemService->expects($this->once())
 			->method('readFolder')
-			->with($this->equalTo(4), 
-				$this->equalTo(5), 
+			->with($this->equalTo(4),
+				$this->equalTo(5),
 				$this->equalTo($this->user));
 		$this->feedService->expects($this->once())
 			->method('findAll')
@@ -291,9 +277,9 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 	public function testRestore(){
 		$this->folderService->expects($this->once())
 			->method('unmarkDeleted')
-			->with($this->equalTo(5), 
+			->with($this->equalTo(5),
 				$this->equalTo($this->user));
-		
+
 		$this->controller->restore(5);
 	}
 
@@ -302,7 +288,7 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 		$this->folderService->expects($this->once())
 			->method('unmarkDeleted')
 			->will($this->throwException(new ServiceNotFoundException($this->msg)));
-		
+
 		$response = $this->controller->restore(5);
 
 		$params = json_decode($response->render(), true);

@@ -32,7 +32,6 @@ $application->registerRoutes($this, ['routes' => [
 	['name' => 'folder#rename', 'url' => '/folders/{folderId}/rename', 'verb' => 'POST'],
 	['name' => 'folder#read', 'url' => '/folders/{folderId}/read', 'verb' => 'POST'],
 	['name' => 'folder#open', 'url' => '/folders/{folderId}/open', 'verb' => 'POST'],
-	['name' => 'folder#collapse', 'url' => '/folders/{folderId}/collapse', 'verb' => 'POST'],
 
 	// feeds
 	['name' => 'feed#index', 'url' => '/feeds', 'verb' => 'GET'],

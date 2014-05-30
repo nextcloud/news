@@ -11,6 +11,9 @@ app.controller('NavigationController',
 function (FeedResource, FolderResource, ItemResource, SettingsResource) {
     'use strict';
 
+    this.feedError = '';
+    this.folderError = '';
+
     this.getFeeds = () => {
         return FeedResource.getAll();
     };
@@ -39,6 +42,10 @@ function (FeedResource, FolderResource, ItemResource, SettingsResource) {
 
     this.isShowAll = () => {
         return SettingsResource.get('showAll');
+    };
+
+    this.getFeedsOfFolder = (folderId) => {
+        return FeedResource.getByFolderId(folderId);
     };
 
     // TBD

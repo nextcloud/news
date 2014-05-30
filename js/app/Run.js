@@ -54,8 +54,7 @@ app.run(($rootScope, $location, $http, $q, $interval, Loading, ItemResource,
         }
 
         // only redirect if url is empty or faulty
-        // TODO check for faulty url
-        if (path === '') {
+        if (!/^\/items(\/(starred|feeds\/\d+|folders\/\d+))?$/.test(path)) {
             $location.path(url);
         }
 

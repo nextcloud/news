@@ -3,11 +3,11 @@
 		unread: feedBusinessLayer.getUnreadCount(feed.id) > 0,
 		failed: feed.error
 	}"
-	ng-repeat="feed in feedBusinessLayer.getFeedsOfFolder(<?php p($_['folderId']); ?>) | orderBy:'id':true"
+	ng-repeat="feed in .getFeedsOfFolder(<?php p($_['folderId']); ?>) | orderBy:'id':true"
 	ng-show="feedBusinessLayer.isVisible(feed.id) || !feed.id"
 	data-id="{{ feed.id }}"
 	class="feed"
-	oc-draggable="{
+	news-draggable="{
 		stack: '> li',
 		zIndex: 1000,
 		axis: 'y',
@@ -17,12 +17,12 @@
 		revert: true
 	}">
 
-	<div ui-if="feed.editing" class="rename-feed">
+	<div ng-show="feed.editing" class="rename-feed">
           <input type="text" ng-model="feed.title" autofocus>
-          <button title="<?php p($l->t('Cancel')); ?>" 
+          <button title="<?php p($l->t('Cancel')); ?>"
 		ng-click="cancel(feed)"
 		class="action-button back-button action"></button>
-	  <button title="<?php p($l->t('Save')); ?>" 
+	  <button title="<?php p($l->t('Save')); ?>"
 		ng-click="feedBusinessLayer.renameFeed(feed.id, feed.title)"
 		class="action-button create-button action">
 	  </button>
@@ -38,13 +38,12 @@
 	   	href="#"
 	   	class="title"
 	   	title="{{ feed.title }}"
-	   	oc-click-focus="{selector: '#app-content'}">
 
 	   {{ feed.title }}
 	</a>
 
 	<span class="utils">
-		
+
 		<button ng-click="feedBusinessLayer.delete(feed.id)"
 			class="svg action delete-icon delete-button"
 			title="<?php p($l->t('Delete website')); ?>"

@@ -111,6 +111,19 @@ describe('NavigationController', () => {
         SettingsResource.set('showAll', true);
 
         expect(ctrl.isShowAll()).toBe(true);
-
     }));
+
+
+    it('should get all of folder', inject((FeedResource, $controller) => {
+        let ctrl = $controller('NavigationController', {
+            FeedResource: FeedResource,
+        });
+
+        FeedResource.getByFolderId = jasmine.createSpy('getByFolderId');
+        ctrl.getFeedsOfFolder(3);
+
+        expect(FeedResource.getByFolderId).toHaveBeenCalledWith(3);
+    }));
+
+
 });

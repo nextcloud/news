@@ -57,33 +57,15 @@ class FolderController extends Controller {
 	}
 
 
-	private function setOpened($isOpened, $folderId) {
-		$this->folderService->open($folderId, $isOpened, $this->userId);
-	}
-
-
 	/**
 	 * @NoAdminRequired
 	 *
 	 * @param int $folderId
+	 * @param bool $open
 	 */
-	public function open($folderId) {
+	public function open($folderId, $open) {
 		try {
-			$this->setOpened(true, $folderId);
-		} catch(ServiceNotFoundException $ex) {
-			return $this->error($ex, Http::STATUS_NOT_FOUND);
-		}
-	}
-
-
-	/**
-	 * @NoAdminRequired
-	 *
-	 * @param int $folderId
-	 */
-	public function collapse($folderId) {
-		try {
-			$this->setOpened(false, $folderId);
+			$this->folderService->open($folderId, $open, $this->userId);
 		} catch(ServiceNotFoundException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}

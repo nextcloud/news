@@ -28,8 +28,8 @@
 			<?php print_unescaped($this->inc('part.addnew')) ?>
 			<?php print_unescaped($this->inc('part.feed.unread')) ?>
 			<?php //print_unescaped($this->inc('part.feed.starred')) ?>
-			<?php //print_unescaped($this->inc('part.listfeed', ['folderId' => '0'])) ?>
-			<?php //print_unescaped($this->inc('part.listfolder')) ?>
+			<?php print_unescaped($this->inc('part.listfeed', ['folderId' => '0'])) ?>
+			<?php print_unescaped($this->inc('part.listfolder')) ?>
 		</ul>
 
 		<div id="app-settings" ng-controller="SettingsController as Settings">

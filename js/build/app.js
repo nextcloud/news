@@ -132,7 +132,7 @@ var $__build_47_app__ = function () {
             default:
               url = '/items';
             }
-            if (path === '') {
+            if (!/^\/items(\/(starred|feeds\/\d+|folders\/\d+))?$/.test(path)) {
               $location.path(url);
             }
             activeFeedDeferred.resolve();
@@ -299,6 +299,8 @@ var $__build_47_app__ = function () {
         'SettingsResource',
         function (FeedResource, FolderResource, ItemResource, SettingsResource) {
           'use strict';
+          this.feedError = '';
+          this.folderError = '';
           this.getFeeds = function () {
             return FeedResource.getAll();
           };
@@ -328,6 +330,9 @@ var $__build_47_app__ = function () {
           };
           this.isShowAll = function () {
             return SettingsResource.get('showAll');
+          };
+          this.getFeedsOfFolder = function (folderId) {
+            return FeedResource.getByFolderId(folderId);
           };
           this.createFeed = function () {
             console.log('TBD');
@@ -418,12 +423,15 @@ var $__build_47_app__ = function () {
             this.ids = {};
             this.unreadCount = 0;
             this.folderUnreadCount = {};
+            this.folderIds = {};
+            this.deleted = null;
           };
           var $FeedResource = FeedResource;
           $traceurRuntime.createClass(FeedResource, {
             receive: function (data) {
               $traceurRuntime.superCall(this, $FeedResource.prototype, 'receive', [data]);
               this.updateUnreadCache();
+              this.updateFolderCache();
             },
             updateUnreadCache: function () {
               var $__14, $__15, $__16, $__17, $__18;
@@ -446,16 +454,34 @@ var $__build_47_app__ = function () {
                 }
               }
             },
+            updateFolderCache: function () {
+              this.folderIds = {};
+              for (var $__3 = this.values[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
+                try {
+                  throw undefined;
+                } catch (feed) {
+                  feed = $__4.value;
+                  {
+                    $traceurRuntime.setProperty(this.folderIds, feed.folderId, this.folderIds[$traceurRuntime.toProperty(feed.folderId)] || []);
+                    this.folderIds[$traceurRuntime.toProperty(feed.folderId)].push(feed);
+                  }
+                }
+              }
+            },
             add: function (value) {
               $traceurRuntime.superCall(this, $FeedResource.prototype, 'add', [value]);
               if (value.id !== undefined) {
                 $traceurRuntime.setProperty(this.ids, value.id, this.hashMap[$traceurRuntime.toProperty(value.url)]);
               }
             },
-            delete: function (id) {
-              var feed = this.get(id);
+            delete: function (url) {
+              var feed = this.get(url);
+              this.deleted = feed;
               delete this.ids[$traceurRuntime.toProperty(feed.id)];
-              $traceurRuntime.superCall(this, $FeedResource.prototype, 'delete', [id]);
+              $traceurRuntime.superCall(this, $FeedResource.prototype, 'delete', [url]);
+              this.updateUnreadCache();
+              this.updateFolderCache();
+              return this.http.delete(this.BASE_URL + '/feeds/' + feed.id);
             },
             markRead: function () {
               for (var $__3 = this.values[$traceurRuntime.toProperty(Symbol.iterator)](), $__4; !($__4 = $__3.next()).done;) {
@@ -518,12 +544,61 @@ var $__build_47_app__ = function () {
               return this.folderUnreadCount[$traceurRuntime.toProperty(folderId)] || 0;
             },
             getByFolderId: function (folderId) {
-              return this.values.filter(function (v) {
-                return v.folderId === folderId;
-              });
+              return this.folderIds[$traceurRuntime.toProperty(folderId)] || [];
             },
             getById: function (feedId) {
               return this.ids[$traceurRuntime.toProperty(feedId)];
+            },
+            rename: function (url, name) {
+              var feed = this.get(url);
+              feed.title = name;
+              return this.http({
+                method: 'POST',
+                url: this.BASE_URL + '/feeds/' + feed.id + '/rename',
+                data: { feedTitle: name }
+              });
+            },
+            move: function (url, folderId) {
+              var feed = this.get(url);
+              feed.folderId = folderId;
+              this.updateFolderCache();
+              return this.http({
+                method: 'POST',
+                url: this.BASE_URL + '/feeds/' + feed.id + '/move',
+                data: { parentFolderId: folderId }
+              });
+            },
+            create: function (url, folderId) {
+              var title = arguments[2] !== void 0 ? arguments[2] : null;
+              if (title) {
+                title = title.toUpperCase();
+              }
+              var feed = {
+                  url: url,
+                  folderId: folderId,
+                  title: title
+                };
+              if (!this.get(url)) {
+                this.add(feed);
+              }
+              this.updateFolderCache();
+              return this.http({
+                method: 'POST',
+                url: this.BASE_URL + '/feeds',
+                data: {
+                  url: url,
+                  parentFolderId: folderId,
+                  title: title
+                }
+              });
+            },
+            undoDelete: function () {
+              if (this.deleted) {
+                this.add(this.deleted);
+                return this.http.post(this.BASE_URL + '/feeds/' + this.deleted.id + '/restore');
+              }
+              this.updateFolderCache();
+              this.updateUnreadCache();
             }
           }, {}, Resource);
           return new FeedResource($http, BASE_URL);
@@ -541,9 +616,65 @@ var $__build_47_app__ = function () {
               BASE_URL,
               'name'
             ]);
+            this.deleted = null;
           };
           var $FolderResource = FolderResource;
-          $traceurRuntime.createClass(FolderResource, {}, {}, Resource);
+          $traceurRuntime.createClass(FolderResource, {
+            delete: function (folderName) {
+              var folder = this.get(folderName);
+              this.deleted = folder;
+              $traceurRuntime.superCall(this, $FolderResource.prototype, 'delete', [folderName]);
+              return this.http.delete(this.BASE_URL + '/folders/' + folder.id);
+            },
+            toggleOpen: function (folderName) {
+              var folder = this.get(folderName);
+              folder.opened = !folder.opened;
+              return this.http({
+                url: this.BASE_URL + '/folders/' + folder.id + '/open',
+                method: 'POST',
+                data: {
+                  folderId: folder.id,
+                  open: folder.opened
+                }
+              });
+            },
+            rename: function (folderName, toFolderName) {
+              toFolderName = toFolderName.toUpperCase();
+              var folder = this.get(folderName);
+              if (!this.get(toFolderName)) {
+                folder.name = toFolderName;
+                delete this.hashMap[$traceurRuntime.toProperty(folderName)];
+                $traceurRuntime.setProperty(this.hashMap, toFolderName, folder);
+              }
+              return this.http({
+                url: this.BASE_URL + '/folders/' + folder.id + '/rename',
+                method: 'POST',
+                data: { folderName: toFolderName }
+              });
+            },
+            create: function (folderName) {
+              folderName = folderName.toUpperCase();
+              if (!this.get(folderName)) {
+                try {
+                  throw undefined;
+                } catch (folder) {
+                  folder = { name: folderName };
+                  this.add(folder);
+                }
+              }
+              return this.http({
+                url: this.BASE_URL + '/folders',
+                method: 'POST',
+                data: { folderName: folderName }
+              });
+            },
+            undoDelete: function () {
+              if (this.deleted) {
+                this.add(this.deleted);
+                return this.http.post(this.BASE_URL + '/folders/' + this.deleted.id + '/restore');
+              }
+            }
+          }, {}, Resource);
           return new FolderResource($http, BASE_URL);
         }
       ]);
@@ -1383,6 +1514,40 @@ var $__build_47_app__ = function () {
           });
         };
       });
+      app.directive('newsDraggable', function () {
+        'use strict';
+        return function (scope, elem, attr) {
+          var options = scope.$eval(attr.newsDraggable);
+          if (angular.isDefined(options)) {
+            elem.draggable(options);
+          } else {
+            elem.draggable();
+          }
+        };
+      });
+      app.directive('newsDroppable', [
+        '$rootScope',
+        function ($rootScope) {
+          'use strict';
+          return function (scope, elem, attr) {
+            var details = {
+                accept: '.feed',
+                hoverClass: 'drag-and-drop',
+                greedy: true,
+                drop: function (event, ui) {
+                  $('.drag-and-drop').removeClass('drag-and-drop');
+                  var data = {
+                      folderId: parseInt(elem.data('id'), 10),
+                      feedId: parseInt($(ui.draggable).data('id'), 10)
+                    };
+                  $rootScope.$broadcast('moveFeedToFolder', data);
+                  scope.$apply(attr.droppable);
+                }
+              };
+            elem.droppable(details);
+          };
+        }
+      ]);
       app.directive('newsReadFile', function () {
         'use strict';
         return function (scope, elem, attr) {
