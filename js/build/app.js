@@ -401,14 +401,14 @@ var $__build_47_app__ = function () {
           this.renameFolder = function () {
             console.log('TBD');
           };
-          this.deleteFeed = function () {
-            console.log('TBD');
+          this.deleteFeed = function (feedUrl) {
+            console.log(feedUrl);
           };
-          this.deleteFolder = function () {
-            console.log('TBD');
+          this.deleteFolder = function (folderName) {
+            console.log(folderName);
           };
-          this.moveFeed = function () {
-            console.log('TBD');
+          this.moveFeed = function (feedId, folderId) {
+            console.log(feedId + folderId);
           };
         }
       ]);

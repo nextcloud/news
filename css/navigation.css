@@ -7,16 +7,9 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-.add-new:hover a.opened {
-    background-color: transparent !important;
-}
-
 .add-new .heading {
     height: 44px;
-    line-height: 44px;
     width: 100%;
-    display: block;
-    padding-top: 10px;
 }
 
 .add-new .heading:hover {
@@ -35,28 +28,32 @@
 }
 
 .add-new-popup {
-    display: none;
+    /*display: none;*/
+    height: 120px;
     padding: 15px 10px;
+    box-shadow: inset 0px -1px 10px #dedede;
+    border-top: 1px solid #dedede;
+    border-bottom: 1px solid #dedede;
 }
 
-.add-new input[type=text] {
+.add-new-popup input[type=text] {
     width: 170px;
 }
 
-.add-new select {
+.add-new-popup select {
     width: 170px;
     margin-top: 1px !important;
     height: 30px;
     background-color: #eee;
 }
 
-.add-new input {
+.add-new-popup input {
     margin-top: 15px;
     box-sizing: border-box;
 }
 
-.add-new input,
-.add-new select {
+.add-new-popup input,
+.add-new-popup select {
     margin: 0 0 5px 0;
     display: inline-block;
     float: left;
@@ -65,7 +62,7 @@
     border-right: 0;
 }
 
-.add-new button {
+.add-new-popup button {
     margin: 0 0 5px 0;
     display: inline-block;
     float: left;
@@ -75,32 +72,32 @@
     margin-top: 1px;
 }
 
-.add-new .action-button {
+.add-new-popup .action-button {
     width: 30px;
     background-position: center;
     background-repeat: no-repeat;
 }
 
-.add-new .back-button {
+.add-new-popup .back-button {
     border-radius: 0;
     background-image: url('../img/delete.svg');
 }
 
-.add-new .new-button {
+.add-new-popup .new-button {
     border-radius: 0;
     background-image: url('../img/add.svg');
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 }
 
-.add-new .create-button {
+.add-new-popup .create-button {
     border-radius: 0;
     background-image: url('../img/mark_read.svg');
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 }
 
-.add-new .error {
+.add-new-popup .error {
     padding: 0 0 10px 0;
 }
 

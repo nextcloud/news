@@ -138,16 +138,16 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
         console.log('TBD');
     };
 
-    this.deleteFeed = () => {
-        console.log('TBD');
+    this.deleteFeed = (feedUrl) => {
+        console.log(feedUrl);
     };
 
-    this.deleteFolder = () => {
-        console.log('TBD');
+    this.deleteFolder = (folderName) => {
+        console.log(folderName);
     };
 
-    this.moveFeed = () => {
-        console.log('TBD');
+    this.moveFeed = (feedId, folderId) => {
+        console.log(feedId + folderId);
     };
 
 });
