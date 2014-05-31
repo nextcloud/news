@@ -40,7 +40,7 @@
 }
 
 
-#app-content.icon-loading > ul {
+#app-content.icon-loading > * {
     display: none;
 }
 
