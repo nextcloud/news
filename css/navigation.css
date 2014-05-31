@@ -28,7 +28,7 @@
 }
 
 .add-new-popup {
-    /*display: none;*/
+    display: none;
     height: 120px;
     padding: 15px 10px;
     box-shadow: inset 0px -1px 10px #dedede;
