@@ -1,6 +1,8 @@
 <li class="add-new">
     <div class="list-title list-title-with-icon heading">
-        <button data-apps-slide-toggle=".add-new-popup">+ <?php p($l->t('Add Website'))?></button>
+        <button
+            data-apps-slide-toggle=".add-new-popup"
+            news-focus="[ng-model='feedUrl']">+ <?php p($l->t('Add Website'))?></button>
     </div>
 
     <div class="add-new-popup">

@@ -1606,6 +1606,20 @@ var $__build_47_app__ = function () {
           };
         }
       ]);
+      app.directive('newsFocus', [
+        '$timeout',
+        function ($timeout) {
+          'use strict';
+          return function (scope, elem, attrs) {
+            elem.click(function () {
+              var toReadd = $(attrs.newsFocus);
+              $timeout(function () {
+                toReadd.focus();
+              }, 500);
+            });
+          };
+        }
+      ]);
       app.directive('newsReadFile', function () {
         'use strict';
         return function (scope, elem, attr) {
