@@ -31,7 +31,7 @@
     display: none;
     height: 120px;
     padding: 15px 10px;
-    box-shadow: inset 0px -1px 10px #dedede;
+    box-shadow: inset 0px 0px 10px #dedede;
     border-top: 1px solid #dedede;
     border-bottom: 1px solid #dedede;
 }
