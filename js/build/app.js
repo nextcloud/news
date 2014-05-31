@@ -378,8 +378,6 @@ var $__build_47_app__ = function () {
             return $route.current && $route.current.$$route.type === FEED_TYPE.FOLDER && $route.current.params.id === folderId + '';
           };
           this.isFeedActive = function (feedId) {
-            console.log(feedId);
-            console.log($route.current.params);
             return $route.current && $route.current.$$route.type === FEED_TYPE.FEED && $route.current.params.id === feedId + '';
           };
           this.isAddingFolder = function () {
