@@ -32,6 +32,7 @@
 			<?php print_unescaped($this->inc('part.listfolder')) ?>
 		</ul>
 
+		<!-- settigns -->
 		<div id="app-settings" ng-controller="SettingsController as Settings">
 			<?php print_unescaped($this->inc('part.settings')) ?>
 		</div>

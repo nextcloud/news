@@ -11,6 +11,29 @@
     background-color: transparent !important;
 }
 
+.add-new .heading {
+    height: 44px;
+    line-height: 44px;
+    width: 100%;
+    display: block;
+    padding-top: 10px;
+}
+
+.add-new .heading:hover {
+    background-color: #ccc;
+}
+
+.add-new .heading button {
+    padding: 0;
+    height: 44px;
+    width: 100%;
+    border: 0;
+    margin: 0;
+    background: none;
+    text-align: left;
+    font-weight: normal;
+}
+
 .add-new-popup {
     display: none;
     padding: 15px 10px;

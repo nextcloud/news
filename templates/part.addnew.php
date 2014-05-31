@@ -1,7 +1,15 @@
 <li class="add-new">
-    <a class="list-title list-title-with-icon"
-        data-apps-slide-toggle=".add-new-popup"
-        href="#">+ <span><?php p($l->t('Add Website'))?></span></a>
+    <div class="list-title list-title-with-icon heading"
+        ng-mouseover="longadd=true"
+        ng-mouseleave="longadd=false">
+
+        <button data-apps-slide-toggle=".add-new-popup"
+            ng-hide="longadd"
+        >+ </button>
+        <button data-apps-slide-toggle=".add-new-popup"
+            ng-show="longadd"
+        >+ <?php p($l->t('Add Website'))?></button>
+    </div>
 
     <div class="add-new-popup">
 
