@@ -3,7 +3,7 @@
 		unread: Navigation.getFeedUnreadCount(feed.id) > 0,
 		failed: feed.error
 	}"
-	ng-repeat="feed in Navigation.getFeedsOfFolder(<?php p($_['folderId']); ?>) | orderBy:'id':true"
+	ng-repeat="feed in Navigation.getFeedsOfFolder(<?php p($_['folderId']); ?>) | orderBy:'id':true track by feed.url"
 	ng-show="Navigation.getFeedUnreadCount(feed.id) > 0
 			|| Navigation.isShowAll()
 			|| Navigation.isFeedActive(feed.id)
@@ -31,7 +31,7 @@
 	  </button>
     </div>
 
-	<a 	ng-style="{ backgroundImage: feed.faviconLink }"
+	<a 	ng-style="{ backgroundImage: 'url(' + feed.faviconLink + ')'}"
 		ng-class="{
 			'progress-icon': !feed.id,
 			'problem-icon': feed.error
