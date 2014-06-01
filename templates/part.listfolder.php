@@ -29,8 +29,7 @@
       </button>
     </div>
 
-    <a ng-href="#/items/folders/{{ folder.id }}"
-        news-route-reload
+    <a ng-href="#/items/folders/{{ folder.id }}/"
         class="title folder-icon"
         ng-hide="folder.editing"
         ng-class="{

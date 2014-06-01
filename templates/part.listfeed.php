@@ -37,8 +37,7 @@
             'problem-icon': feed.error
         }"
         ng-hide="feed.editing"
-        ng-href="#/items/feeds/{{ feed.id }}"
-        news-route-reload
+        ng-href="#/items/feeds/{{ feed.id }}/"
         class="title"
         title="{{ feed.title }}">
 

@@ -3,7 +3,7 @@
 		unread: Navigation.getStarredCount() > 0
 	}"
 	class="starred">
-	<a class="starred-icon" ng-href="#/items/starred" news-route-reload>
+	<a class="starred-icon" ng-href="#/items/starred/">
 	   <?php p($l->t('Starred')) ?>
 	</a>
 	<span class="utils">
