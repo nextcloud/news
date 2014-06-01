@@ -1635,6 +1635,24 @@ var $__build_47_app__ = function () {
           });
         };
       });
+      app.directive('newsRouteReload', [
+        '$location',
+        '$route',
+        function ($location, $route) {
+          'use strict';
+          return {
+            restrict: 'A',
+            scope: { 'ngHref': '@' },
+            link: function (scope, elem, attrs) {
+              elem.click(function () {
+                if ($location.path() === attrs.ngHref.substring(1)) {
+                  $route.reload();
+                }
+              });
+            }
+          };
+        }
+      ]);
       app.directive('newsScroll', [
         '$timeout',
         function ($timeout) {

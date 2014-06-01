@@ -3,11 +3,11 @@
 		unread: Navigation.getUnreadCount() > 0
 	}">
 
-	<a class="rss-icon" href="#/items" ng-if="!Navigation.isShowAll()">
+	<a class="rss-icon" ng-href="#/items" news-route-reload ng-if="!Navigation.isShowAll()">
 	   <?php p($l->t('Unread articles'))?>
 	</a>
 
-	<a class="rss-icon" href="#/items" ng-if="Navigation.isShowAll()">
+	<a class="rss-icon" ng-href="#/items" news-route-reload ng-if="Navigation.isShowAll()">
 	   <?php p($l->t('All articles'))?>
 	</a>
 

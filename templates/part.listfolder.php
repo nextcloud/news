@@ -29,10 +29,11 @@
       </button>
     </div>
 
-    <a href="#/items/folders/{{ folder.id }}"
-       class="title folder-icon"
-       ng-hide="folder.editing"
-       ng-class="{
+    <a ng-href="#/items/folders/{{ folder.id }}"
+        news-route-reload
+        class="title folder-icon"
+        ng-hide="folder.editing"
+        ng-class="{
             'progress-icon': !folder.id,
             'problem-icon': folder.error
         }">
