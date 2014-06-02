@@ -132,7 +132,7 @@ var $__build_47_app__ = function () {
             default:
               url = '/items';
             }
-            if (!/^\/items(\/(starred|feeds\/\d+|folders\/\d+))?$/.test(path)) {
+            if (!/^\/items(\/(starred|feeds\/\d+|folders\/\d+))?\/?$/.test(path)) {
               $location.path(url);
             }
             activeFeedDeferred.resolve();
