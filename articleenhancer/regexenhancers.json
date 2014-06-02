@@ -26,5 +26,11 @@
 		"%fowllanguagecomics.com/comic%": {
 			"%\\?resize=[^\"]+%": ""
 		}
+	},
+	"cheerupemokid.com": {
+		"%feedproxy.google.com/~r/cheerupemokid%": {
+			"%-\\d+x\\d+%": "",
+			"%(width|height)=\"\\d+\"%" : ""
+		}
 	}
 }
