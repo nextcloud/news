@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-05-08 01:02-0400\n"
-"PO-Revision-Date: 2014-05-07 06:50+0000\n"
+"POT-Creation-Date: 2014-06-05 01:01-0400\n"
+"PO-Revision-Date: 2014-06-04 06:12+0000\n"
 "Last-Translator: agonirena <agonirena@gmail.com>\n"
 "Language-Team: Basque (http://www.transifex.com/projects/p/owncloud/language/eu/)\n"
 "MIME-Version: 1.0\n"
@@ -21,21 +21,21 @@ msgstr ""
 "Language: eu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: businesslayer/feedbusinesslayer.php:95
+#: businesslayer/feedbusinesslayer.php:97
 msgid "Can not add feed: Exists already"
 msgstr "Ezin da iturburua gehitu: Dagoeneko existitzen da"
 
-#: businesslayer/feedbusinesslayer.php:133
+#: businesslayer/feedbusinesslayer.php:137
 msgid ""
 "Can not add feed: URL does not exist, SSL Certificate can not be validated "
 "or feed has invalid xml"
 msgstr "Ezin da jarioa gehitu: URLa ez da existitzen, SSL Ziurtagiria ezin da balioztatu edo jarioak xml baliogabea du"
 
-#: businesslayer/feedbusinesslayer.php:278
+#: businesslayer/feedbusinesslayer.php:282
 msgid "Articles without feed"
 msgstr "Iturbururik gabeko artikuluak"
 
-#: businesslayer/folderbusinesslayer.php:52
+#: businesslayer/folderbusinesslayer.php:54
 msgid "Can not add folder: Exists already"
 msgstr "Ezin da karpeta gehitu: Dagoeneko existitzen da"
 

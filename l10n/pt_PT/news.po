@@ -3,23 +3,23 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Mouxy <daniel@mouxy.net>, 2012
-# Mouxy <daniel@mouxy.net>, 2013
-# Duarte Velez Grilo <duartegrilo@gmail.com>, 2013
-# Duarte Velez Grilo <duartegrilo@gmail.com>, 2012
-# Gontxi <goncalo.baiao@gmail.com>, 2013
+# Daniel Pinto <daniel@mouxy.net>, 2012
+# Daniel Pinto <daniel@mouxy.net>, 2013
+# zedascouves <duartegrilo@gmail.com>, 2013
+# zedascouves <duartegrilo@gmail.com>, 2012
+# Goncalo Baiao <goncalo.baiao@gmail.com>, 2013
 # Helder Meneses <helder.meneses@gmail.com>, 2012-2013
 # Nelson Rosado <nelsontrosado@gmail.com>, 2012
-# Drew Melim <nokostya.translation@gmail.com>, 2014
+# Andrew_Melim <nokostya.translation@gmail.com>, 2014
 # rtbfreitas, 2014
-# victorix, 2013
+# Vitor, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-05-07 01:02-0400\n"
-"PO-Revision-Date: 2014-05-05 14:48+0000\n"
-"Last-Translator: Drew Melim <nokostya.translation@gmail.com>\n"
+"POT-Creation-Date: 2014-06-05 01:01-0400\n"
+"PO-Revision-Date: 2014-06-04 06:12+0000\n"
+"Last-Translator: Andrew_Melim <nokostya.translation@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/owncloud/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,21 +27,21 @@ msgstr ""
 "Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: businesslayer/feedbusinesslayer.php:95
+#: businesslayer/feedbusinesslayer.php:97
 msgid "Can not add feed: Exists already"
 msgstr "Não é possível adicionar o feed: Já existe"
 
-#: businesslayer/feedbusinesslayer.php:133
+#: businesslayer/feedbusinesslayer.php:137
 msgid ""
 "Can not add feed: URL does not exist, SSL Certificate can not be validated "
 "or feed has invalid xml"
 msgstr "Não é possível adicionar o feed: o endereço não existe, o cerificado SSL não é valido ou contem um xml inválido"
 
-#: businesslayer/feedbusinesslayer.php:278
+#: businesslayer/feedbusinesslayer.php:282
 msgid "Articles without feed"
 msgstr "Artigos sem feed"
 
-#: businesslayer/folderbusinesslayer.php:52
+#: businesslayer/folderbusinesslayer.php:54
 msgid "Can not add folder: Exists already"
 msgstr "Não é possivel adicionar a pasta: Já existe"
 

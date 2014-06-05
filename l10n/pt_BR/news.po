@@ -5,17 +5,17 @@
 # Translators:
 # dudanogueira <dudanogueira@gmail.com>, 2012
 # Flávio Veras <flaviove@gmail.com>, 2013-2014
-# FredMaranhao <fred.maranhao@gmail.com>, 2012
-# sedir <philippi.sedir@gmail.com>, 2012
+# Fred Ulisses Maranhão <fred.maranhao@gmail.com>, 2012
+# Sedir G. Morais <philippi.sedir@gmail.com>, 2012
 # Rodrigo Tavares <rodrigost23@gmail.com>, 2013
-# sedir <philippi.sedir@gmail.com>, 2013
-# thoriumbr <thoriumbr@gmail.com>, 2012
+# Sedir G. Morais <philippi.sedir@gmail.com>, 2013
+# Mauro Cesar <thoriumbr@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-05-07 01:02-0400\n"
-"PO-Revision-Date: 2014-05-05 14:48+0000\n"
+"POT-Creation-Date: 2014-06-05 01:01-0400\n"
+"PO-Revision-Date: 2014-06-04 06:12+0000\n"
 "Last-Translator: Flávio Veras <flaviove@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/owncloud/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -24,21 +24,21 @@ msgstr ""
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: businesslayer/feedbusinesslayer.php:95
+#: businesslayer/feedbusinesslayer.php:97
 msgid "Can not add feed: Exists already"
 msgstr "Não é possível adicionar alimentação: já existe"
 
-#: businesslayer/feedbusinesslayer.php:133
+#: businesslayer/feedbusinesslayer.php:137
 msgid ""
 "Can not add feed: URL does not exist, SSL Certificate can not be validated "
 "or feed has invalid xml"
 msgstr "Não é possível fazer alimentação: URL não existe, Certificado SSL não pode ser validado ou alimentação tem xml inválido"
 
-#: businesslayer/feedbusinesslayer.php:278
+#: businesslayer/feedbusinesslayer.php:282
 msgid "Articles without feed"
 msgstr "Artigos sem alimentação"
 
-#: businesslayer/folderbusinesslayer.php:52
+#: businesslayer/folderbusinesslayer.php:54
 msgid "Can not add folder: Exists already"
 msgstr "Não é possível adicionar pasta: já existe"
 

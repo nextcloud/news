@@ -4,21 +4,21 @@
 # 
 # Translators:
 # hanfeng <appweb.cn@gmail.com>, 2012
-# dtsang29 <dtsang29@hotmail.com>, 2013
+# Dennis <dtsang29@hotmail.com>, 2013
 # Dianjin Wang <1132321739qq@gmail.com>, 2013
 # Martin Liu <liuzh66@gmail.com>, 2014
-# houqp <dave2008713@gmail.com>, 2013
-# smartree <smartree@gmail.com>, 2014
+# Qingping Hou <dave2008713@gmail.com>, 2013
+# Smartree <smartree@gmail.com>, 2014
 # waterone <suiy02@gmail.com>, 2012
-# Xuetian Weng <wengxt@gmail.com>, 2013-2014
-# min zhang <zm1990s@gmail.com>, 2013
+# csslayer <wengxt@gmail.com>, 2013-2014
+# zhangmin <zm1990s@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-05-07 01:02-0400\n"
-"PO-Revision-Date: 2014-05-05 14:48+0000\n"
-"Last-Translator: Xuetian Weng <wengxt@gmail.com>\n"
+"POT-Creation-Date: 2014-06-05 01:01-0400\n"
+"PO-Revision-Date: 2014-06-04 06:12+0000\n"
+"Last-Translator: csslayer <wengxt@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/owncloud/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,21 +26,21 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: businesslayer/feedbusinesslayer.php:95
+#: businesslayer/feedbusinesslayer.php:97
 msgid "Can not add feed: Exists already"
 msgstr "无法添加反馈：已经存在"
 
-#: businesslayer/feedbusinesslayer.php:133
+#: businesslayer/feedbusinesslayer.php:137
 msgid ""
 "Can not add feed: URL does not exist, SSL Certificate can not be validated "
 "or feed has invalid xml"
 msgstr "无法添加源：URL 不存在，SSL 证书无法验证或者源包括无效的 xml"
 
-#: businesslayer/feedbusinesslayer.php:278
+#: businesslayer/feedbusinesslayer.php:282
 msgid "Articles without feed"
 msgstr "没有订阅的文章"
 
-#: businesslayer/folderbusinesslayer.php:52
+#: businesslayer/folderbusinesslayer.php:54
 msgid "Can not add folder: Exists already"
 msgstr "无法添加目录：目录已存在"
 
