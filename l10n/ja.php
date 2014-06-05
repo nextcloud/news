@@ -21,7 +21,7 @@
 "Create folder" => "フォルダーを作成",
 "Starred" => "共有",
 "Unread articles" => "未読の記事",
-"All articles" => "全ての記事",
+"All articles" => "すべての記事",
 "Mark read" => "既読としてマーク",
 "Welcome to the ownCloud News app!" => "ownCloudニュースアプリへようこそ！",
 "read on website" => "Web サイトで読む",

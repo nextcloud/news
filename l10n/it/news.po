@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# zimba12 <inactive+zimba12@transifex.com>, 2012
-# F0ca <staffhabbfoca@live.it>, 2013
+# Alessandro <inactive+zimba12@transifex.com>, 2012
+# Matt <staffhabbfoca@live.it>, 2013
 # Paolo Velati <paolo.velati@gmail.com>, 2013
 # Vincenzo Reale <vinx.reale@gmail.com>, 2012-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-05-07 01:02-0400\n"
-"PO-Revision-Date: 2014-05-05 14:48+0000\n"
+"POT-Creation-Date: 2014-06-05 01:01-0400\n"
+"PO-Revision-Date: 2014-06-04 06:12+0000\n"
 "Last-Translator: Vincenzo Reale <vinx.reale@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/owncloud/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -21,21 +21,21 @@ msgstr ""
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: businesslayer/feedbusinesslayer.php:95
+#: businesslayer/feedbusinesslayer.php:97
 msgid "Can not add feed: Exists already"
 msgstr "Impossible aggiungere la fonte: esiste già"
 
-#: businesslayer/feedbusinesslayer.php:133
+#: businesslayer/feedbusinesslayer.php:137
 msgid ""
 "Can not add feed: URL does not exist, SSL Certificate can not be validated "
 "or feed has invalid xml"
 msgstr "Impossibile aggiungere la fonte: l'URL non esiste, il certificato SSL non può essere verificato o la fonte ha codice xml non valido"
 
-#: businesslayer/feedbusinesslayer.php:278
+#: businesslayer/feedbusinesslayer.php:282
 msgid "Articles without feed"
 msgstr "Articoli senza fonte"
 
-#: businesslayer/folderbusinesslayer.php:52
+#: businesslayer/folderbusinesslayer.php:54
 msgid "Can not add folder: Exists already"
 msgstr "Impossibile aggiungere la cartella: esiste già"
 

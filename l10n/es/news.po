@@ -5,25 +5,25 @@
 # Translators:
 # Art O. Pal <artopal@fastmail.fm>, 2012-2014
 # Luis Medina <devianpctek@gmail.com>, 2012
-# qubitoz <qubitozcom@gmail.com>, 2013
+# Eduardo Viramontes <qubitozcom@gmail.com>, 2013
 # juanman <juanma@kde.org.ar>, 2012-2013
-# plaguna <laguna.sanchez@gmail.com>, 2013
+# Pablo Laguna <laguna.sanchez@gmail.com>, 2013
 # pedro.navia <pedro.navia@etecsa.cu>, 2012
 # Raul Fernandez Garcia <raulfg3@gmail.com>, 2012
-# Rubén del Campo <yo@rubendelcampo.es>, 2013
+# Rubén del Campo Gómez <yo@rubendelcampo.es>, 2013
 # Rubén Trujillo <rubentrf@gmail.com>, 2012
 # xsergiolpx <sergioballesterossolanas@gmail.com>, 2013
 # xsergiolpx <sergioballesterossolanas@gmail.com>, 2012
-# scambra <sergio@programatica.es>, 2013
-# scambra <sergio@programatica.es>, 2012
-# msvladimir <vladimirmartinezsierra@gmail.com>, 2013
+# Sergio Cambra <sergio@programatica.es>, 2013
+# Sergio Cambra <sergio@programatica.es>, 2012
+# Vladimir Martinez Sierra <vladimirmartinezsierra@gmail.com>, 2013
 # zebrastorm <zebrastorm@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-05-07 01:02-0400\n"
-"PO-Revision-Date: 2014-05-05 14:48+0000\n"
+"POT-Creation-Date: 2014-06-05 01:01-0400\n"
+"PO-Revision-Date: 2014-06-04 06:12+0000\n"
 "Last-Translator: Art O. Pal <artopal@fastmail.fm>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/owncloud/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -32,21 +32,21 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: businesslayer/feedbusinesslayer.php:95
+#: businesslayer/feedbusinesslayer.php:97
 msgid "Can not add feed: Exists already"
 msgstr "No se puede agregar fuente: ya existe"
 
-#: businesslayer/feedbusinesslayer.php:133
+#: businesslayer/feedbusinesslayer.php:137
 msgid ""
 "Can not add feed: URL does not exist, SSL Certificate can not be validated "
 "or feed has invalid xml"
 msgstr "No se puede agregar fuente: el URL no existe, el certificado SSL no puede ser validado o la fuente contiene XML inválido"
 
-#: businesslayer/feedbusinesslayer.php:278
+#: businesslayer/feedbusinesslayer.php:282
 msgid "Articles without feed"
 msgstr "Artículos sin fuente"
 
-#: businesslayer/folderbusinesslayer.php:52
+#: businesslayer/folderbusinesslayer.php:54
 msgid "Can not add folder: Exists already"
 msgstr "No se puede agregar carpeta: ya existe"
 
