@@ -222,7 +222,7 @@ button.action:hover {
 
 .rename-feed .action-button {
 	background-position: center;
-	background-repeat: no-repeat;	
+	background-repeat: no-repeat;
 }
 
 .rename-feed .back-button {
@@ -231,7 +231,7 @@ button.action:hover {
 }
 
 .rename-feed .create-button {
-	border-radius: 0;
+	border-radius: 3px;
 	background-image: url('../img/mark_read.svg');
 }
 

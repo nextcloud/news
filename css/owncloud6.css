@@ -9,10 +9,11 @@
 }
 
 #app-navigation .rename-feed > input {
-	width: 208px;
 	height: 32px;
 	border-right: 1px solid #ddd;
 	border-radius: 2px;
+	position: relative;
+	top: 5px;
 }
 
 #app-navigation .progress-icon, 
