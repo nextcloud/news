@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-06-08 01:01-0400\n"
-"PO-Revision-Date: 2014-06-07 06:11+0000\n"
+"POT-Creation-Date: 2014-06-11 01:01-0400\n"
+"PO-Revision-Date: 2014-06-10 13:12+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: Albanian (http://www.transifex.com/projects/p/owncloud/language/sq/)\n"
 "MIME-Version: 1.0\n"
@@ -91,7 +91,7 @@ msgstr ""
 
 #: templates/part.addnew.php:55
 msgid "Folder name"
-msgstr ""
+msgstr "Emri i Skedarit"
 
 #: templates/part.addnew.php:59
 msgid "Back to folder selection"

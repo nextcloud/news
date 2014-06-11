@@ -4,6 +4,7 @@
 "Add" => "Shto",
 "New folder" => "Dosje e're",
 "Folder" => "Dosje",
+"Folder name" => "Emri i Skedarit",
 "from" => "Nga",
 "by" => "nga",
 "Download" => "Shkarko",
