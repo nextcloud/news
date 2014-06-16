@@ -64,9 +64,15 @@
 	</h2>
 
 		<div class="enclosure" ui-if="item.enclosureLink">
-			<news-audio type="{{ item.enclosureType }}" ng-src="{{ item.enclosureLink|trustUrl }}"/><?php
+			<audio ui-if="item.enclosureMime.indexOf('audio/') == 0" type="{{ item.enclosureMime }}" ng-src="{{ item.enclosureLink|trustUrl }}" controls><?php
 				p($l->t('Download'))
 			?></audio>
+			<video ui-if="item.enclosureMime.indexOf('video/') == 0" type="{{ item.enclosureMime }}" ng-src="{{ item.enclosureLink|trustUrl }}" controls><?php
+				p($l->t('Download'))
+			?></video>
+			<a ui-if="item.enclosureMime.indexOf('audio/') != 0 && item.enclosureMime.indexOf('video/') != 0" type="{{ item.enclosureMime }}" ng-href="{{ item.enclosureLink|trustUrl }}"><?php
+				p($l->t('Download'))
+			?></a>
 		</div>
 
 		<div class="item_body" news-bind-html-unsafe="item.body">
