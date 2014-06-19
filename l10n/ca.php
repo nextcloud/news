@@ -1,5 +1,6 @@
 <?php $TRANSLATIONS = array(
 "Can not add feed: Exists already" => "No es pot afegir la font: ja existeix",
+"Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "No es pot afegir la font: la URL no existeix, el certificat SLL no es pot validar o la xml de la font no és vàlida",
 "Articles without feed" => "Articles sense font",
 "Can not add folder: Exists already" => "No es pot afegir la carpeta: ja existeix",
 " " => " ",
