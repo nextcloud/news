@@ -4,7 +4,7 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/owncloud/news/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/owncloud/news/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/owncloud/news/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/owncloud/news/?branch=master)
 
-[![Build with PHPStorm](http://www.jetbrains.com/img/banners/ps7.png)=50x](http://www.jetbrains.com/phpstorm/)
+[![Build with PHPStorm](http://www.jetbrains.com/img/banners/ps7.png)](http://www.jetbrains.com/phpstorm/)
 
 
 The News app is a an RSS/Atom feed aggregator. It offers a [RESTful API](https://github.com/owncloud/news/wiki/API-1.2) for app developers. The source code is [available on GitHub](https://github.com/owncloud/news)
