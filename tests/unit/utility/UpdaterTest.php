@@ -13,13 +13,6 @@
 
 namespace OCA\News\Utility;
 
-use \OCA\News\Service\FolderService;
-use \OCA\News\Service\FeedService;
-use \OCA\News\Service\ItemService;
-
-
-require_once(__DIR__ . "/../../classloader.php");
-
 
 class UpdaterTest extends \PHPUnit_Framework_TestCase {
 

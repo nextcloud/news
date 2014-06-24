@@ -16,8 +16,6 @@ namespace OCA\News\Utility;
 use \OCA\News\Db\Folder;
 use \OCA\News\Db\Feed;
 
-require_once(__DIR__ . "/../../classloader.php");
-
 
 class OPMLExporterTest extends \PHPUnit_Framework_TestCase {
 

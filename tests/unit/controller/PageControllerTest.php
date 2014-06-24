@@ -14,9 +14,6 @@
 namespace OCA\News\Controller;
 
 
-require_once(__DIR__ . "/../../classloader.php");
-
-
 class PageControllerTest extends \PHPUnit_Framework_TestCase {
 
 	private $settings;

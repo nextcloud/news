@@ -17,9 +17,6 @@ use \OCA\News\Db\Item;
 use \OCA\News\Db\StatusFlag;
 
 
-require_once(__DIR__ . "/../../../classloader.php");
-
-
 class ItemMapperTest extends \OCP\AppFramework\Db\MapperTestUtility {
 
 	private $mapper;

@@ -13,7 +13,6 @@
 
 namespace OCA\News\Controller;
 
-require_once(__DIR__ . "/../../classloader.php");
 
 class Test {
     use JSONHttpError;

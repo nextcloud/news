@@ -20,8 +20,6 @@ use \OCA\News\Db\Feed;
 use \OCA\News\Db\FeedType;
 use \OCA\News\Service\ServiceNotFoundException;
 
-require_once(__DIR__ . "/../../classloader.php");
-
 
 class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 

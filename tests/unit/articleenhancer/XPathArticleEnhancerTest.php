@@ -15,8 +15,6 @@ namespace OCA\News\ArticleEnhancer;
 
 use \OCA\News\Db\Item;
 
-require_once(__DIR__ . "/../../classloader.php");
-
 
 class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 

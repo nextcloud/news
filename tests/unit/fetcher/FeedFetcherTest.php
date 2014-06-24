@@ -16,8 +16,6 @@ namespace OCA\News\Fetcher;
 use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
 
-require_once(__DIR__ . "/../../classloader.php");
-
 
 class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 

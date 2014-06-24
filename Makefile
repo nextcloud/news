@@ -26,6 +26,7 @@ appstore: clean
 	--exclude-vcs \
 	--exclude=$(project_dir)/build/artifacts \
 	--exclude=$(project_dir)/js/node_modules \
+	--exclude=$(project_dir)/js/phpunit.xml \
 	--exclude=$(project_dir)/js/.bowerrc \
 	--exclude=$(project_dir)/js/.jshintrc \
 	--exclude=$(project_dir)/js/Gruntfile.js \

@@ -24,8 +24,6 @@ use \OCA\News\Db\Folder;
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\Item;
 
-require_once(__DIR__ . "/../../classloader.php");
-
 
 class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
 

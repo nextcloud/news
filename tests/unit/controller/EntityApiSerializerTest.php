@@ -13,8 +13,6 @@
 
 namespace OCA\News\Controller;
 
-require_once(__DIR__ . "/../../classloader.php");
-
 
 use \OCP\AppFramework\Http\Response;
 

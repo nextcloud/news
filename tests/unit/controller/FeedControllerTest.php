@@ -20,8 +20,6 @@ use \OCA\News\Db\FeedType;
 use \OCA\News\Service\ServiceNotFoundException;
 use \OCA\News\Service\ServiceConflictException;
 
-require_once(__DIR__ . "/../../classloader.php");
-
 
 class FeedControllerTest extends \PHPUnit_Framework_TestCase {
 

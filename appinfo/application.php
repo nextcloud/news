@@ -34,7 +34,6 @@ use \OCA\News\Service\ItemService;
 
 use \OCA\News\Db\FolderMapper;
 use \OCA\News\Db\FeedMapper;
-use \OCA\News\Db\ItemMapper;
 use \OCA\News\Db\StatusFlag;
 use \OCA\News\Db\MapperFactory;
 

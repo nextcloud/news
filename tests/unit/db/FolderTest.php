@@ -13,8 +13,6 @@
 
 namespace OCA\News\Db;
 
-require_once(__DIR__ . "/../../classloader.php");
-
 
 class FolderTest extends \PHPUnit_Framework_TestCase {
 

@@ -25,8 +25,6 @@
 
 namespace OCA\News\Fetcher;
 
-require_once(__DIR__ . "/../../classloader.php");
-
 
 class FetcherTest extends \PHPUnit_Framework_TestCase {
 

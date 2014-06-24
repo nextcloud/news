@@ -18,8 +18,6 @@ use \OCP\AppFramework\Http;
 use \OCA\News\Service\ServiceNotFoundException;
 use \OCA\News\Db\Item;
 
-require_once(__DIR__ . "/../../classloader.php");
-
 
 class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 

@@ -13,9 +13,6 @@
 
 namespace OCA\News\Db;
 
-require_once(__DIR__ . "/../../classloader.php");
-
-
 
 class MapperFactoryTest extends \PHPUnit_Framework_TestCase {
 

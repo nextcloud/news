@@ -14,9 +14,6 @@
 namespace OCA\News\Config;
 
 
-require_once(__DIR__ . '/../../classloader.php');
-
-
 class AppConfigTest extends \PHPUnit_Framework_TestCase {
 
 	private $nav;

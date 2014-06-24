@@ -13,9 +13,6 @@
 
 namespace OCA\News\Service;
 
-require_once(__DIR__ . "/../../classloader.php");
-
-
 use \OCP\AppFramework\Db\DoesNotExistException;
 use \OCP\AppFramework\Db\MultipleObjectsReturnedException;
 

@@ -21,8 +21,6 @@ use \OCA\News\Service\ServiceNotFoundException;
 use \OCA\News\Service\ServiceConflictException;
 use \OCA\News\Service\ServiceValidationException;
 
-require_once(__DIR__ . "/../../classloader.php");
-
 
 class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 
