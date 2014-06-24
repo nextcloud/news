@@ -23,7 +23,6 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
 	private $user;
 	private $l10n;
 
-
 	/**
 	 * Gets run before each test
 	 */
