@@ -39,18 +39,19 @@ class ItemApiController extends ApiController {
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * @CORS
-	 *
-	 * @param int $type
-	 * @param int $id
-	 * @param bool $getRead
-	 * @param int $batchSize
-	 * @param int $offset
-	 * @param int $oldestFirst
-	 */
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param int $type
+     * @param int $id
+     * @param bool $getRead
+     * @param int $batchSize
+     * @param int $offset
+     * @param bool $oldestFirst
+     * @return array|mixed
+     */
 	public function index($type, $id, $getRead, $batchSize=20, $offset=0,
 	                      $oldestFirst=false) {
 		return $this->serializer->serialize(
@@ -62,15 +63,16 @@ class ItemApiController extends ApiController {
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * @CORS
-	 *
-	 * @param int $type
-	 * @param int $id
-	 * @param int $lastModified
-	 */
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param int $type
+     * @param int $id
+     * @param int $lastModified
+     * @return array|mixed
+     */
 	public function updated($type, $id, $lastModified=0) {
 		return $this->serializer->serialize(
 			$this->itemService->findAllNew($id, $type, $lastModified,
@@ -85,28 +87,32 @@ class ItemApiController extends ApiController {
 		} catch(ServiceNotFoundException $ex){
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
+
+        return [];
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * @CORS
-	 *
-	 * @param int $itemId
-	 */
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param int $itemId
+     * @return array|\OCP\AppFramework\Http\JSONResponse
+     */
 	public function read($itemId) {
 		return $this->setRead(true, $itemId);
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * @CORS
-	 *
-	 * @param int $itemId
-	 */
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param int $itemId
+     * @return array|\OCP\AppFramework\Http\JSONResponse
+     */
 	public function unread($itemId) {
 		return $this->setRead(false, $itemId);
 	}
@@ -118,30 +124,34 @@ class ItemApiController extends ApiController {
 		} catch(ServiceNotFoundException $ex){
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
+
+        return [];
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * @CORS
-	 *
-	 * @param int $feedId
-	 * @param string $guidHash
-	 */
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param int $feedId
+     * @param string $guidHash
+     * @return \OCP\AppFramework\Http\JSONResponse
+     */
 	public function star($feedId, $guidHash) {
 		return $this->setStarred(true, $feedId, $guidHash);
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * @CORS
-	 *
-	 * @param int $feedId
-	 * @param string $guidHash
-	 */
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param int $feedId
+     * @param string $guidHash
+     * @return array|\OCP\AppFramework\Http\JSONResponse
+     */
 	public function unstar($feedId, $guidHash) {
 		return $this->setStarred(false, $feedId, $guidHash);
 	}
@@ -178,7 +188,7 @@ class ItemApiController extends ApiController {
 	 * @param int[] item ids
 	 */
 	public function readMultiple($items) {
-		return $this->setMultipleRead(true, $items);
+		$this->setMultipleRead(true, $items);
 	}
 
 
@@ -190,7 +200,7 @@ class ItemApiController extends ApiController {
 	 * @param int[] item ids
 	 */
 	public function unreadMultiple($items) {
-		return $this->setMultipleRead(false, $items);
+		$this->setMultipleRead(false, $items);
 	}
 
 
@@ -214,7 +224,7 @@ class ItemApiController extends ApiController {
 	 * @param int[] item ids
 	 */
 	public function starMultiple($items) {
-		return $this->setMultipleStarred(true, $items);
+		$this->setMultipleStarred(true, $items);
 	}
 
 
@@ -226,7 +236,7 @@ class ItemApiController extends ApiController {
 	 * @param int[] item ids
 	 */
 	public function unstarMultiple($items) {
-		return $this->setMultipleStarred(false, $items);
+		$this->setMultipleStarred(false, $items);
 	}
 
 

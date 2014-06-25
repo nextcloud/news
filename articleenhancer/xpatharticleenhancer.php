@@ -21,20 +21,21 @@ use \OCA\News\Utility\Config;
 class XPathArticleEnhancer implements ArticleEnhancer {
 
 
-	private $feedRegex;
 	private $fileFactory;
 	private $maximumTimeout;
 	private $config;
 	private $regexXPathPair;
 
 
-	/**
-	 * @param SimplePieFileFactory a factory for getting a simple pie file instance
-	 * @param array $regexXPathPair an associative array containing regex to 
-	 * match the url and the xpath that should be used for it to extract the 
-	 * page
-	 * @param int $maximumTimeout maximum timeout in seconds, defaults to 10 sec
-	 */
+    /**
+     * @param \OCA\News\Utility\SimplePieAPIFactory $fileFactory
+     * @param array $regexXPathPair an associative array containing regex to
+     * match the url and the xpath that should be used for it to extract the
+     * page
+     * @param \OCA\News\Utility\Config $config
+     * @internal param \OCA\News\ArticleEnhancer\a $SimplePieFileFactory factory for getting a simple pie file instance
+     * @internal param int $maximumTimeout maximum timeout in seconds, defaults to 10 sec
+     */
 	public function __construct(SimplePieAPIFactory $fileFactory, 
 	                            array $regexXPathPair, Config $config){
 		$this->regexXPathPair = $regexXPathPair;

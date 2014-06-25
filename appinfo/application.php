@@ -15,6 +15,8 @@ namespace OCA\News\AppInfo;
 
 use \OC\Files\View;
 use \OCP\AppFramework\App;
+use \OCP\Util;
+use \OCP\User;
 
 use \OCA\News\Config\AppConfig;
 
@@ -260,7 +262,7 @@ class Application extends App {
 				$c->query('L10N'),
 				$c->query('ServerContainer')->getURLGenerator(),
 				phpversion(),
-				implode('.', \OCP\Util::getVersion()),
+				implode('.', Util::getVersion()),
 				$apps,
 				$extensions,
 				$c->query('DatabaseType')
@@ -275,7 +277,7 @@ class Application extends App {
 		});
 
 		$container->registerService('UserId', function() {
-			return \OCP\User::getUser();
+			return User::getUser();
 		});
 
 		$container->registerService('Logger', function($c) {

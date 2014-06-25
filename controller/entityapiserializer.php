@@ -26,11 +26,13 @@ class EntityApiSerializer {
 
     /**
      * Call toAPI() method on all entities. Works on
-     * @param mixed $data:
+     *
+     * @param mixed $data :
      * * Entity
      * * Entity[]
      * * array('level' => Entity[])
      * * Response
+     * @return array|mixed
      */
     public function serialize($data) {
 

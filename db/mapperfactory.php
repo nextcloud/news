@@ -15,7 +15,7 @@ namespace OCA\News\Db;
 
 use \OCP\IConfig;
 use \OCP\IDb;
-
+use \OCA\News\Db\Postgres\ItemMapper as PostgresItemMapper;
 
 class MapperFactory {
 
@@ -31,7 +31,7 @@ class MapperFactory {
 	public function getItemMapper() {
 		switch($this->dbType) {
 			case 'pgsql':
-				return new \OCA\News\Db\Postgres\ItemMapper($this->db);
+				return new PostgresItemMapper($this->db);
 			default:
 				return new ItemMapper($this->db);
 		}

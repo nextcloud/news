@@ -46,14 +46,15 @@ class ItemController extends Controller {
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 *
- 	 * @param int $type
-	 * @param int $id
-	 * @param int $limit
-	 * @param int $offset
-	 */
+    /**
+     * @NoAdminRequired
+     *
+     * @param int $type
+     * @param int $id
+     * @param int $limit
+     * @param int $offset
+     * @return array
+     */
 	public function index($type, $id, $limit=50, $offset=0) {
 		$showAll = $this->settings->getUserValue($this->userId, $this->appName,
 			'showAll') === '1';
@@ -92,13 +93,14 @@ class ItemController extends Controller {
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 *
-	 * @param int $type
-	 * @param int $id
-	 * @param int $lastModified
-	 */
+    /**
+     * @NoAdminRequired
+     *
+     * @param int $type
+     * @param int $id
+     * @param int $lastModified
+     * @return array
+     */
 	public function newItems($type, $id, $lastModified=0) {
 		$showAll = $this->settings->getUserValue($this->userId, $this->appName,
 			'showAll') === '1';
@@ -120,13 +122,14 @@ class ItemController extends Controller {
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 *
-	 * @param int $feedId
-	 * @param string $guidHash
-	 * @param bool $isStarred
-	 */
+    /**
+     * @NoAdminRequired
+     *
+     * @param int $feedId
+     * @param string $guidHash
+     * @param bool $isStarred
+     * @return array|\OCP\AppFramework\Http\JSONResponse
+     */
 	public function star($feedId, $guidHash, $isStarred){
 		try {
 			$this->itemService->star($feedId, $guidHash, $isStarred,
@@ -134,29 +137,35 @@ class ItemController extends Controller {
 		} catch(ServiceException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
+
+        return [];
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 *
-	 * @param int $itemId
-	 * @param bool $isRead
-	 */
+    /**
+     * @NoAdminRequired
+     *
+     * @param int $itemId
+     * @param bool $isRead
+     * @return array|\OCP\AppFramework\Http\JSONResponse
+     */
 	public function read($itemId, $isRead=true){
 		try {
 			$this->itemService->read($itemId, $isRead, $this->userId);
 		} catch(ServiceException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
+
+        return [];
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 *
-	 * @param int $highestItemId
-	 */
+    /**
+     * @NoAdminRequired
+     *
+     * @param int $highestItemId
+     * @return array
+     */
 	public function readAll($highestItemId){
 		$this->itemService->readAll($highestItemId, $this->userId);
 		return ['feeds' => $this->feedService->findAll($this->userId)];

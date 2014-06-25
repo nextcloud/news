@@ -57,26 +57,30 @@ class FolderController extends Controller {
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 *
-	 * @param int $folderId
-	 * @param bool $open
-	 */
+    /**
+     * @NoAdminRequired
+     *
+     * @param int $folderId
+     * @param bool $open
+     * @return array|\OCP\AppFramework\Http\JSONResponse
+     */
 	public function open($folderId, $open) {
 		try {
 			$this->folderService->open($folderId, $open, $this->userId);
 		} catch(ServiceNotFoundException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
+
+        return [];
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 *
-	 * @param string $folderName
-	 */
+    /**
+     * @NoAdminRequired
+     *
+     * @param string $folderName
+     * @return array|\OCP\AppFramework\Http\JSONResponse
+     */
 	public function create($folderName) {
 		try {
 			// we need to purge deleted folders if a folder is created to
@@ -95,26 +99,30 @@ class FolderController extends Controller {
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 *
-	 * @param int $folderId
-	 */
+    /**
+     * @NoAdminRequired
+     *
+     * @param int $folderId
+     * @return array|\OCP\AppFramework\Http\JSONResponse
+     */
 	public function delete($folderId) {
 		try {
 			$this->folderService->markDeleted($folderId, $this->userId);
 		} catch (ServiceNotFoundException $ex){
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
+
+        return [];
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 *
-	 * @param string $folderName
-	 * @param int $folderId
-	 */
+    /**
+     * @NoAdminRequired
+     *
+     * @param string $folderName
+     * @param int $folderId
+     * @return array|\OCP\AppFramework\Http\JSONResponse
+     */
 	public function rename($folderName, $folderId) {
 		try {
 			$folder = $this->folderService->rename($folderId, $folderName,
@@ -129,14 +137,16 @@ class FolderController extends Controller {
 		} catch (ServiceNotFoundException $ex){
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
+
 	}
 
-	/**
-	 * @NoAdminRequired
-	 *
-	 * @param int $folderId
-	 * @param int $highestItemId
-	 */
+    /**
+     * @NoAdminRequired
+     *
+     * @param int $folderId
+     * @param int $highestItemId
+     * @return array
+     */
 	public function read($folderId, $highestItemId) {
 		$this->itemService->readFolder($folderId, $highestItemId, $this->userId);
 
@@ -144,17 +154,20 @@ class FolderController extends Controller {
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 *
-	 * @param int $folderId
-	 */
+    /**
+     * @NoAdminRequired
+     *
+     * @param int $folderId
+     * @return array|\OCP\AppFramework\Http\JSONResponse
+     */
 	public function restore($folderId) {
 		try {
 			$this->folderService->unmarkDeleted($folderId, $this->userId);
 		} catch (ServiceNotFoundException $ex){
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
+
+        return [];
 	}
 
 

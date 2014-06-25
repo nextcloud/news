@@ -18,7 +18,7 @@ trait JSONHttpError {
 
 
 	/**
-	 * @param \Excpetion $exception the message that is returned taken from the
+	 * @param \Exception $exception the message that is returned taken from the
 	 * exception
 	 * @param int the http error code
 	 * @return \OCP\AppFramework\Http\JSONResponse

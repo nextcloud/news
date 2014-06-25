@@ -118,13 +118,14 @@ class FeedController extends Controller {
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 *
-	 * @param string $url
-	 * @param int $parentFolderId
-	 * @param string $title
-	 */
+    /**
+     * @NoAdminRequired
+     *
+     * @param string $url
+     * @param int $parentFolderId
+     * @param string $title
+     * @return array|\OCP\AppFramework\Http\JSONResponse
+     */
 	public function create($url, $parentFolderId, $title){
 		try {
 			// we need to purge deleted feeds if a feed is created to
@@ -150,28 +151,33 @@ class FeedController extends Controller {
 		} catch(ServiceNotFoundException $ex) {
 			return $this->error($ex, Http::STATUS_UNPROCESSABLE_ENTITY);
 		}
+
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 *
-	 * @param int $feedId
-	 */
+    /**
+     * @NoAdminRequired
+     *
+     * @param int $feedId
+     * @return \OCP\AppFramework\Http\JSONResponse
+     */
 	public function delete($feedId){
 		try {
 			$this->feedService->markDeleted($feedId, $this->userId);
 		} catch(ServiceNotFoundException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
+
+        return [];
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 *
-	 * @param int $feedId
-	 */
+    /**
+     * @NoAdminRequired
+     *
+     * @param int $feedId
+     * @return array|\OCP\AppFramework\Http\JSONResponse
+     */
 	public function update($feedId){
 		try {
 			$feed = $this->feedService->update($feedId, $this->userId);
@@ -190,43 +196,51 @@ class FeedController extends Controller {
 		} catch(ServiceNotFoundException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
+
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 *
-	 * @param int $feedId
-	 * @param int $parentFolderId
-	 */
+    /**
+     * @NoAdminRequired
+     *
+     * @param int $feedId
+     * @param int $parentFolderId
+     * @return \OCP\AppFramework\Http\JSONResponse
+     */
 	public function move($feedId, $parentFolderId){
 		try {
 			$this->feedService->move($feedId, $parentFolderId, $this->userId);
 		} catch(ServiceNotFoundException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
+
+        return [];
 	}
 
-	/**
-	 * @NoAdminRequired
-	 *
-	 * @param int $feedId
-	 * @param string $feedTitle
-	 */
+    /**
+     * @NoAdminRequired
+     *
+     * @param int $feedId
+     * @param string $feedTitle
+     * @return \OCP\AppFramework\Http\JSONResponse
+     */
 	public function rename($feedId, $feedTitle) {
 		try {
 			$this->feedService->rename($feedId, $feedTitle, $this->userId);
 		} catch(ServiceNotFoundException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
+
+        return [];
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 *
-	 * @param array $json
-	 */
+    /**
+     * @NoAdminRequired
+     *
+     * @param array $json
+     * @return array
+     */
 	public function import($json) {
 		$feed = $this->feedService->importArticles($json, $this->userId);
 
@@ -240,12 +254,13 @@ class FeedController extends Controller {
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 *
-	 * @param int $feedId
-	 * @param int $highestItemId
-	 */
+    /**
+     * @NoAdminRequired
+     *
+     * @param int $feedId
+     * @param int $highestItemId
+     * @return array
+     */
 	public function read($feedId, $highestItemId){
 		$this->itemService->readFeed($feedId, $highestItemId, $this->userId);
 
@@ -260,17 +275,20 @@ class FeedController extends Controller {
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 *
-	 * @param int $feedId
-	 */
+    /**
+     * @NoAdminRequired
+     *
+     * @param int $feedId
+     * @return \OCP\AppFramework\Http\JSONResponse
+     */
 	public function restore($feedId){
 		try {
 			$this->feedService->unmarkDeleted($feedId, $this->userId);
 		} catch(ServiceNotFoundException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
+
+        return [];
 	}
 
 

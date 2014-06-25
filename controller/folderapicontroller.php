@@ -58,13 +58,14 @@ class FolderApiController extends ApiController {
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * @CORS
-	 *
-	 * @param string $name
-	 */
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param string $name
+     * @return array|mixed|\OCP\AppFramework\Http\JSONResponse
+     */
 	public function create($name) {
 		try {
 			$this->folderService->purgeDeleted($this->userId, false);
@@ -79,29 +80,33 @@ class FolderApiController extends ApiController {
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * @CORS
-	 *
-	 * @param int $folderId
-	 */
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param int $folderId
+     * @return array|\OCP\AppFramework\Http\JSONResponse
+     */
 	public function delete($folderId) {
 		try {
 			$this->folderService->delete($folderId, $this->userId);
 		} catch(ServiceNotFoundException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
+
+        return [];
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * @CORS
-	 * @param int $folderId
-	 * @param string $name
-	 */
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     * @param int $folderId
+     * @param string $name
+     * @return array|\OCP\AppFramework\Http\JSONResponse
+     */
 	public function update($folderId, $name) {
 		try {
 			$this->folderService->rename($folderId, $name, $this->userId);
@@ -113,6 +118,8 @@ class FolderApiController extends ApiController {
 		} catch(ServiceNotFoundException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
+
+        return [];
 	}
 
 

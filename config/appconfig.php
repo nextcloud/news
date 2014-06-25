@@ -19,6 +19,8 @@ use OCP\BackgroundJob\IJobList;
 use OCP\INavigationManager;
 use OCP\IL10N;
 use OCP\IURLGenerator;
+use \OCP\Backgroundjob;
+use \OCP\Util;
 
 
 // Used to parse app.json file, should be in core at some point
@@ -136,7 +138,7 @@ class AppConfig {
 		// FIXME: this is temporarily static because core jobs are not public 
 		// yet, therefore legacy code
 		foreach ($this->config['jobs'] as $job) {
-			\OCP\Backgroundjob::addRegularTask($job, 'run');
+			Backgroundjob::addRegularTask($job, 'run');
 		}
 	}
 
@@ -152,7 +154,7 @@ class AppConfig {
 			$reaction = explode('::', $react);
 
 			// config is written like HookNamespace::method => Class::method
-			\OCP\Util::connectHook($listener[0], $listener[1], $reaction[0],
+			Util::connectHook($listener[0], $listener[1], $reaction[0],
 			                       $reaction[1]);
 		}
 	}

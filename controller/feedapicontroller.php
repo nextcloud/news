@@ -60,7 +60,6 @@ class FeedApiController extends ApiController {
 	public function index() {
 
 		$result = [
-			'feeds' => [],
 			'starredCount' => $this->itemService->starredCount($this->userId),
 			'feeds' => $this->feedService->findAll($this->userId)
 		];
@@ -76,14 +75,15 @@ class FeedApiController extends ApiController {
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * @CORS
-	 *
-	 * @param string $url
-	 * @param int $folderId
-	 */
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param string $url
+     * @param int $folderId
+     * @return array|mixed|\OCP\AppFramework\Http\JSONResponse
+     */
 	public function create($url, $folderId=0) {
 		try {
 			$this->feedService->purgeDeleted($this->userId, false);
@@ -107,19 +107,22 @@ class FeedApiController extends ApiController {
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * @CORS
-	 *
-	 * @param int $feedId
-	 */
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param int $feedId
+     * @return array|\OCP\AppFramework\Http\JSONResponse
+     */
 	public function delete($feedId) {
 		try {
 			$this->feedService->delete($feedId, $this->userId);
 		} catch(ServiceNotFoundException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
+
+        return [];
 	}
 
 
@@ -136,37 +139,43 @@ class FeedApiController extends ApiController {
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * @CORS
-	 *
-	 * @param int $feedId
-	 * @param int $folderId
-	 */
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param int $feedId
+     * @param int $folderId
+     * @return \OCP\AppFramework\Http\JSONResponse
+     */
 	public function move($feedId, $folderId) {
 		try {
 			$this->feedService->move($feedId, $folderId, $this->userId);
 		} catch(ServiceNotFoundException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
+
+        return [];
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * @CORS
-	 *
-	 * @param int $feedId
-	 * @param string $feedTitle
-	 */
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param int $feedId
+     * @param string $feedTitle
+     * @return \OCP\AppFramework\Http\JSONResponse
+     */
 	public function rename($feedId, $feedTitle) {
 		try {
 			$this->feedService->rename($feedId, $feedTitle, $this->userId);
 		} catch(ServiceNotFoundException $ex) {
 			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
+
+        return [];
 	}
 
 

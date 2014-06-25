@@ -13,6 +13,8 @@
 
 namespace OCA\News\AppInfo;
 
+use \OCA\News\Config\DependencyException;
+
 $container = new Application();
 
 $config = $container->getAppConfig();
@@ -24,7 +26,7 @@ $config->registerHooks();
 // check for correct app dependencies
 try {
 	$config->testDependencies();
-} catch(\OCA\News\Config\DependencyException $e) {
+} catch(DependencyException $e) {
 	$logger = $container->getLogger();
 	$params = $container->getLoggerParameters();
 	$logger->emergency($e->getMessage(), $params);

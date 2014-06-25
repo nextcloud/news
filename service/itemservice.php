@@ -15,7 +15,6 @@ namespace OCA\News\Service;
 
 use \OCP\AppFramework\Db\DoesNotExistException;
 
-use \OCA\News\Db\Item;
 use \OCA\News\Db\ItemMapper;
 use \OCA\News\Db\StatusFlag;
 use \OCA\News\Db\FeedType;

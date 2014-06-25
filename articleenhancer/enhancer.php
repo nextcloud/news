@@ -50,9 +50,10 @@ class Enhancer {
 	}
 
 
-	/**
-	 * @param string $url
-	 */
+    /**
+     * @param string $url
+     * @return string
+     */
 	private function removeTrailingSlash($url) {
 		if($url[strlen($url)-1] === '/') {
 			return substr($url, 0, -1);

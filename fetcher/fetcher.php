@@ -46,6 +46,8 @@ class Fetcher {
 				return $fetcher->fetch($url, $getFavicon);
 			}
 		}
+
+        return [null, []];
 	}
 
 

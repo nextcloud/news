@@ -181,7 +181,7 @@ class FeedService extends Service {
 			$existingFeed = $this->feedMapper->find($feedId, $userId);
 
 			if($existingFeed->getPreventUpdate() === true) {
-				return;
+				return $existingFeed;
 			}
 
 			try {
@@ -223,6 +223,7 @@ class FeedService extends Service {
 		} catch (DoesNotExistException $ex){
 			throw new ServiceNotFoundException('Feed does not exist');
 		}
+
 	}
 
 
@@ -317,6 +318,8 @@ class FeedService extends Service {
 		if($createdFeed) {
 			return $this->feedMapper->findByUrlHash($urlHash, $userId);
 		}
+
+        return null;
 	}
 
 
