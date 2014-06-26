@@ -207,7 +207,7 @@ class FeedApiController extends ApiController {
 	public function update($userId, $feedId) {
 		try {
 			$this->feedService->update($feedId, $userId);
-		// ignore update failure (feed could not be reachable etc, we dont care)
+		// ignore update failure (feed could not be reachable etc, we don't care)
 		} catch(\Exception $ex) {
 			$this->logger->debug('Could not update feed ' . $ex->getMessage(),
 					$this->loggerParams);

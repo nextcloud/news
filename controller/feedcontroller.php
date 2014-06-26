@@ -184,7 +184,7 @@ class FeedController extends Controller {
 
 			return [
 				'feeds' => [
-					// only pass unreadcount to not accidentally readd
+					// only pass unread count to not accidentally readd
 					// the feed again
 					[
 						'id' => $feed->getId(),

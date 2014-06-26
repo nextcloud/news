@@ -66,7 +66,7 @@ class FolderService extends Service {
 	 * Creates a new folder
 	 * @param string $folderName the name of the folder
 	 * @param string $userId the name of the user for whom it should be created
-	 * @param int $parentId the parent folder id, deprecated we dont nest folders
+	 * @param int $parentId the parent folder id, deprecated we don't nest folders
 	 * @throws ServiceConflictException if name exists already
 	 * @throws ServiceValidationException if the folder has invalid parameters
 	 * @return Folder the newly created folder

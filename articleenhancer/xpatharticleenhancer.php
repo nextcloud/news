@@ -164,7 +164,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 	/**
 	 * Method which builds a URL by taking a relative URL and its corresponding
 	 * absolute URL
-	 * For examle relative URL "../example/path/file.php?a=1#anchor" and
+	 * For example relative URL "../example/path/file.php?a=1#anchor" and
 	 * absolute URL "https://username:password@www.website.com/subfolder/index.html"
 	 * will result in "https://username:password@www.website.com/example/path/file.php?a=1#anchor"
 	 * @param string $relativeUrl the relative URL

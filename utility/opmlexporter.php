@@ -21,8 +21,8 @@ class OPMLExporter {
     /**
      * Generates the OPML for the active user
      *
-     * @param Folder[] $folders
-     * @param Feed[] $feeds
+     * @param \OCA\News\Db\Folder[] $folders
+     * @param \OCA\News\Db\Feed[] $feeds
      * @return \DomDocument the document
      */
 	public function build($folders, $feeds){

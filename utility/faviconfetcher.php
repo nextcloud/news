@@ -89,6 +89,8 @@ class FaviconFetcher {
 				}
 			}
 		}
+
+        return null;
 	}
 
 	
@@ -117,7 +119,8 @@ class FaviconFetcher {
 		}
 
 		$file = $this->getFile($url);
-		$sniffer = new \SimplePie_Content_Type_Sniffer($file);
+        /** @noinspection PhpParamsInspection */
+        $sniffer = new \SimplePie_Content_Type_Sniffer($file);
 		return $sniffer->image() !== false;
 	}
 
