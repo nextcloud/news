@@ -98,15 +98,17 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
     };
 
     this.isFolderActive = (folderId) => {
+        let currentId = parseInt($route.current.params.id, 10);
         return $route.current &&
             $route.current.$$route.type === FEED_TYPE.FOLDER &&
-            $route.current.params.id === folderId + '';
+            currentId === folderId;
     };
 
     this.isFeedActive = (feedId) => {
+        let currentId = parseInt($route.current.params.id, 10);
         return $route.current &&
             $route.current.$$route.type === FEED_TYPE.FEED &&
-            $route.current.params.id === feedId + '';
+            currentId === feedId;
     };
 
     // TBD

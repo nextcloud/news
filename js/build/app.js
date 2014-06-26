@@ -375,10 +375,12 @@ var $__build_47_app__ = function () {
             return $route.current && $route.current.$$route.type === FEED_TYPE.STARRED;
           };
           this.isFolderActive = function (folderId) {
-            return $route.current && $route.current.$$route.type === FEED_TYPE.FOLDER && $route.current.params.id === folderId + '';
+            var currentId = parseInt($route.current.params.id, 10);
+            return $route.current && $route.current.$$route.type === FEED_TYPE.FOLDER && currentId === folderId;
           };
           this.isFeedActive = function (feedId) {
-            return $route.current && $route.current.$$route.type === FEED_TYPE.FEED && $route.current.params.id === feedId + '';
+            var currentId = parseInt($route.current.params.id, 10);
+            return $route.current && $route.current.$$route.type === FEED_TYPE.FEED && currentId === feedId;
           };
           this.isAddingFolder = function () {
             return true;
