@@ -47,7 +47,7 @@ abstract class Service {
 	 * @param string $userId the name of the user for security reasons
 	 * @throws ServiceNotFoundException if the entity does not exist, or there
 	 * are more than one of it
-	 * @return Entity the entity
+	 * @return \OCP\AppFramework\Db\Entity the entity
 	 */
 	public function find($id, $userId){
 		try {

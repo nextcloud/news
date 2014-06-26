@@ -218,8 +218,8 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 	/**
 	 * Method which turns an xpath result to a string
 	 * you can customize it by overwriting this method
-	 * @param $xpathResult the result from the xpath query
-	 * @return the result as a string
+	 * @param mixed $xpathResult the result from the xpath query
+	 * @return string the result as a string
 	 */
 	protected function domToString($xpathResult) {
 		$result = "";

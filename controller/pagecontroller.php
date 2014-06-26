@@ -13,10 +13,10 @@
 
 namespace OCA\News\Controller;
 
+use OCP\AppFramework\Http\TemplateResponse;
 use \OCP\IRequest;
 use \OCP\IConfig;
 use \OCP\IL10N;
-use \OCP\AppFramework\Http\JSONResponse;
 use \OCP\AppFramework\Controller;
 
 
@@ -43,7 +43,7 @@ class PageController extends Controller {
 	 * @NoCSRFRequired
 	 */
 	public function index() {
-		return $this->render('main');
+		return new TemplateResponse($this->appName, 'main');
 	}
 
 

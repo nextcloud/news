@@ -17,7 +17,6 @@ use \OCP\IRequest;
 use \OCP\AppFramework\Controller;
 use \OCP\AppFramework\Http;
 use \OCP\AppFramework\Http\JSONResponse;
-use \OCP\AppFramework\Http\Response;
 
 use \OCA\News\Http\TextDownloadResponse;
 use \OCA\News\Service\FolderService;

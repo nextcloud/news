@@ -59,8 +59,10 @@
             <div class="bottom-utils">
                 <ul>
                     <li ng-click="Content.toggleKeepUnread(item.id)">
-                        <label for="keep-unread"><?php p($l->t('Keep unread')); ?></label>
-                        <input type="checkbox" name="keep-unread" ng-checked="item.keepUnread"/>
+                        <label for="keep-unread">
+                            <input type="checkbox" name="keep-unread" ng-checked="item.keepUnread"/>
+                            <?php p($l->t('Keep unread')); ?>
+                        </label>
                     </li>
                 </ul>
             </div>

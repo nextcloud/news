@@ -66,7 +66,7 @@ class FeedService extends Service {
 	/**
 	 * Finds all feeds of a user
 	 * @param string $userId the name of the user
-	 * @return array of feeds
+	 * @return Feed[]
 	 */
 	public function findAll($userId){
 		return $this->feedMapper->findAllFromUser($userId);
@@ -103,7 +103,7 @@ class FeedService extends Service {
 				throw new ServiceConflictException(
 					$this->l10n->t('Can not add feed: Exists already'));
 
-			// If no matchin feed was found everything was ok
+			// If no matching feed was found everything was ok
 			} catch(DoesNotExistException $ex){}
 
 			// insert feed
@@ -258,7 +258,7 @@ class FeedService extends Service {
 	/**
 	 * Import articles
 	 * @param array $json the array with json
-	 * @param string userId the username
+	 * @param string $userId the username
 	 * @return Feed if one had to be created for nonexistent feeds
 	 */
 	public function importArticles($json, $userId) {
@@ -275,7 +275,7 @@ class FeedService extends Service {
 		$createdFeed = false;
 
 		// loop over all items and get the corresponding feed
-		// if the feed does not exist, create a seperate feed for them
+		// if the feed does not exist, create a separate feed for them
 		foreach ($json as $entry) {
 			$item = Item::fromImport($entry);
 			$item->setLastModified($this->timeFactory->getTime());
@@ -324,7 +324,7 @@ class FeedService extends Service {
 
 
 	/**
-	 * Use this to mark a feed as deleted. That way it can be undeleted
+	 * Use this to mark a feed as deleted. That way it can be un-deleted
 	 * @param int $feedId the id of the feed that should be deleted
 	 * @param string $userId the name of the user for security reasons
 	 * @throws ServiceNotFoundException when feed does not exist

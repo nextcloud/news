@@ -17,11 +17,14 @@ namespace OCA\News\Utility;
 * Exports the OPML
 */
 class OPMLExporter {
-	
-	/**
-	 * Generates the OPML for the active user
-	 * @return the OPML as string
-	 */
+
+    /**
+     * Generates the OPML for the active user
+     *
+     * @param Folder[] $folders
+     * @param Feed[] $feeds
+     * @return \DomDocument the document
+     */
 	public function build($folders, $feeds){
 		$document = new \DomDocument('1.0', 'UTF-8');
 		$document->formatOutput = true;

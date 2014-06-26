@@ -17,8 +17,6 @@ use \OCP\IRequest;
 use \OCP\IConfig;
 use \OCP\AppFramework\ApiController;
 use \OCP\AppFramework\Http;
-use \OCP\AppFramework\Http\JSONResponse;
-use \OCP\AppFramework\Http\Response;
 
 use \OCA\News\Utility\Updater;
 

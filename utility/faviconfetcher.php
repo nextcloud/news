@@ -30,10 +30,12 @@ class FaviconFetcher {
 	}
 
 
-	/**
-	 * Fetches a favicon from a given URL
-	 * @param string|null $url the url where to fetch it from
-	 */
+    /**
+     * Fetches a favicon from a given URL
+     *
+     * @param string|null $url the url where to fetch it from
+     * @return null|string
+     */
 	public function fetch($url) {
 		try {
 			$url = $this->buildURL($url);

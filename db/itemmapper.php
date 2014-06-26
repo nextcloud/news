@@ -80,7 +80,7 @@ class ItemMapper extends Mapper implements IMapper {
 				'ON `items`.`feed_id` = `feeds`.`id` ' .
 				'AND `feeds`.`user_id` = ? ' .
 			// WARNING: this is a desperate attempt at making this query work
-			// because prepared statements dont work. This is a possible
+			// because prepared statements don't work. This is a possible
 			// SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
 			// think twice when changing this
 			'WHERE ((`items`.`status` & ' . StatusFlag::STARRED . ') = ' .

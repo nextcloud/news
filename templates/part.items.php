@@ -55,7 +55,7 @@
 				<a 	target="_blank" ng-href="{{ feedBusinessLayer.getFeedLink(item.feedId) }}"
 					class="from_feed">{{ itemBusinessLayer.getFeedTitle(item.id) }}</a>
 			</span>
-			<span ui-if="item.author">
+			<span ng-if="item.author">
 				<?php p($l->t('by')) ?>
 				{{ item.author }}
 			</span>
@@ -73,8 +73,10 @@
 		<div class="bottom-utils">
 			<ul ng-show="item.keepUnread">
 				<li ng-click="Content.toggleKeepUnread(item.id)">
-					<label for="keep-unread"><?php p($l->t('Keep unread')); ?></label>
-					<input type="checkbox" name="keep-unread" ng-checked="item.keepUnread"/>
+					<label for="keep-unread">
+                        <input type="checkbox" name="keep-unread" ng-checked="item.keepUnread"/>
+                        <?php p($l->t('Keep unread')); ?>
+                    </label>
 				</li>
 			</ul>
 		</div>

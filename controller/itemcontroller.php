@@ -19,6 +19,7 @@ use \OCP\AppFramework\Controller;
 use \OCP\AppFramework\Http;
 
 use \OCA\News\Service\ServiceException;
+use \OCA\News\Service\ServiceNotFoundException;
 use \OCA\News\Service\ItemService;
 use \OCA\News\Service\FeedService;
 

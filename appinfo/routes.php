@@ -13,8 +13,6 @@
 
 namespace OCA\News;
 
-use \OCP\AppFramework\App;
-
 use \OCA\News\AppInfo\Application;
 
 $application = new Application();

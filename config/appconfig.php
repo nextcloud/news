@@ -13,9 +13,6 @@
 
 namespace OCA\News\Config;
 
-use OCP\AppFramework\IApi;
-use OCP\BackgroundJob\IJob;
-use OCP\BackgroundJob\IJobList;
 use OCP\INavigationManager;
 use OCP\IL10N;
 use OCP\IURLGenerator;
@@ -111,7 +108,7 @@ class AppConfig {
 	 * Parses the navigation and creates a navigation entry if needed
 	 */
 	public function registerNavigation() {
-		// if key is missing, dont create a navigation
+		// if key is missing, don't create a navigation
 		if(array_key_exists('navigation', $this->config)) {
 			$nav =& $this->config['navigation'];
 			
@@ -162,7 +159,7 @@ class AppConfig {
 
 	/**
 	 * Validates all dependencies that the app has
-	 * @throws \OCA\News\DependencyException if one version is not satisfied
+	 * @throws DependencyException if one version is not satisfied
 	 */
 	public function testDependencies() {
 		$msg = '';
@@ -224,10 +221,11 @@ class AppConfig {
 	 * Compares a version with a version requirement string
 	 * @param string $actual the actual version that is there
 	 * @param string $required a version requirement in the form of 
-	 * <=5.3,>4.5 versions are seperated with a comma
+	 * <=5.3,>4.5 versions are separated with a comma
 	 * @param string $versionType a description of the string that is prepended 
 	 * to the error message
-	 * @return an error message if the version is not met, empty string if ok
+	 * @return string an error message if the version is not met,
+     * empty string if ok
 	 */
 	private function requireVersion($actual, $required, $versionType) {
 		$requiredVersions = $this->splitVersions($required);
@@ -248,9 +246,9 @@ class AppConfig {
 
 
 	/**
-	 * Versions can be seperated by a comma so split them
+	 * Versions can be separated by a comma so split them
 	 * @param string $versions a version requirement in the form of 
-	 * <=5.3,>4.5 versions are seperated with a comma
+	 * <=5.3,>4.5 versions are separated with a comma
 	 * @return array of arrays with key=version value=operator
 	 */
 	private function splitVersions($versions) {

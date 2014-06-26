@@ -113,7 +113,7 @@ class FolderService extends Service {
 
 
 	/**
-	 * Use this to mark a folder as deleted. That way it can be undeleted
+	 * Use this to mark a folder as deleted. That way it can be un-deleted
 	 * @param int $folderId the id of the folder that should be deleted
 	 * @param string $userId the name of the user for security reasons
 	 * @throws ServiceNotFoundException when folder does not exist

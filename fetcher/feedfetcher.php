@@ -109,7 +109,7 @@ class FeedFetcher implements IFeedFetcher {
 
 
 	private function decodeTwice($string) {
-		// behold! &apos; is not converted by PHP thats why we need to do it
+		// behold! &apos; is not converted by PHP that's why we need to do it
 		// manually (TM)
 		return str_replace('&apos;', '\'', 
 				html_entity_decode(
@@ -137,7 +137,7 @@ class FeedFetcher implements IFeedFetcher {
 		$guid = $simplePieItem->get_id();
 		$item->setGuid($guid);
 
-		// purification is done in the businesslayer
+		// purification is done in the service layer
 		$item->setBody($simplePieItem->get_content());  
 
 		// pubdate is not required. if not given use the current date

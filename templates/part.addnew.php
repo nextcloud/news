@@ -20,7 +20,7 @@
             <input type="text"
                 ng-model="feedUrl"
                 placeholder="<?php p($l->t('Address')); ?>"
-                name="adress"
+                name="address"
                 autofocus>
             <button title="<?php p($l->t('Add')); ?>"
                     class="primary"

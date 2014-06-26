@@ -8,23 +8,32 @@
   <h3><?php p($l->t('Settings')); ?></h3>
 
   <p ng-click="Settings.toggleSetting('compact')">
-    <input type="checkbox" ng-checked="Settings.getSetting('compact')" name="compact">
-    <label for="compact"><?php p($l->t('Use compact view')); ?></label>
+    <label for="compact">
+        <input type="checkbox" ng-checked="Settings.getSetting('compact')" name="compact">
+        <?php p($l->t('Use compact view')); ?>
+    </label>
   </p>
 
   <p ng-click="Settings.toggleSetting('showAll')">
-    <input type="checkbox" ng-checked="Settings.getSetting('showAll')" name="showAll">
-    <label for="showAll"><?php p($l->t('Show unread articles')); ?></label>
+
+    <label for="showAll">
+        <input type="checkbox" ng-checked="Settings.getSetting('showAll')" name="showAll">
+        <?php p($l->t('Show unread articles')); ?>
+    </label>
   </p>
 
   <p ng-click="Settings.toggleSetting('oldestFirst')">
-    <input type="checkbox" ng-checked="Settings.getSetting('oldestFirst')" name="oldestFirst">
-    <label for="oldestFirst"><?php p($l->t('Order by oldest first')); ?></label>
+    <label for="oldestFirst">
+        <input type="checkbox" ng-checked="Settings.getSetting('oldestFirst')" name="oldestFirst">
+        <?php p($l->t('Order by oldest first')); ?>
+    </label>
   </p>
 
   <p ng-click="Settings.toggleSetting('preventReadOnScroll')">
-    <input type="checkbox" ng-checked="Settings.getSetting('preventReadOnScroll')" name="preventReadOnScroll">
-    <label for="preventReadOnScroll"><?php p($l->t('Do not as mark read when scrolling')); ?></label>
+    <label for="preventReadOnScroll">
+        <input type="checkbox" ng-checked="Settings.getSetting('preventReadOnScroll')" name="preventReadOnScroll">
+        <?php p($l->t('Do not as mark read when scrolling')); ?>
+    </label>
   </p>
 
 

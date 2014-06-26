@@ -13,7 +13,6 @@
 
 namespace OCA\News\Db;
 
-use \OCP\IConfig;
 use \OCP\IDb;
 use \OCA\News\Db\Postgres\ItemMapper as PostgresItemMapper;
 

@@ -20,13 +20,15 @@ interface IMapper {
     /**
      * @param int $id the id of the feed
      * @param string $userId the id of the user
+     * @return \OCP\AppFramework\Db\Entity
      */
 	public function find($id, $userId);
 
 	/**
 	 * Delete an entity
 	 * @param Entity $entity the entity that should be deleted
-	 * @throws ServiceNotFoundException if the entity does not exist, or there
+	 * @throws \OCP\AppFramework\Db\DoesNotExistException if the entity does
+     * not exist, or there
 	 * are more than one of it
 	 */
 	public function delete(Entity $entity);

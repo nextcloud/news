@@ -17,7 +17,7 @@ use \OCP\AppFramework\Http\DownloadResponse;
 
 
 /**
- * Prompts the user to download the a textfile
+ * Prompts the user to download the a text file
  */
 class TextDownloadResponse extends DownloadResponse {
 

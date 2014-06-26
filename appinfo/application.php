@@ -43,7 +43,6 @@ use \OCA\News\Utility\Config;
 use \OCA\News\Utility\OPMLExporter;
 use \OCA\News\Utility\Updater;
 use \OCA\News\Utility\SimplePieAPIFactory;
-use \OCA\News\Utility\TimeFactory;
 use \OCA\News\Utility\FaviconFetcher;
 
 use \OCA\News\Fetcher\Fetcher;

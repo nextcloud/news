@@ -11,8 +11,6 @@
 
 namespace OCA\News\Controller;
 
-use \OCP\AppFramework\Http\Response;
-
 use \OCA\News\Db\IAPI;
 
 
