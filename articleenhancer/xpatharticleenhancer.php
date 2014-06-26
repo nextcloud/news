@@ -56,11 +56,14 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 				$file = $this->getFile($item->getUrl());
 				
 				// convert encoding by detecting charset from header
-				$contentType = $file->headers['content-type'];
+                /** @noinspection PhpUndefinedFieldInspection */
+                $contentType = $file->headers['content-type'];
 				if( preg_match( '/(?<=charset=)[^;]*/', $contentType, $matches ) ) {
-					$body = mb_convert_encoding($file->body, 'HTML-ENTITIES', $matches[0]);
+                    /** @noinspection PhpUndefinedFieldInspection */
+                    $body = mb_convert_encoding($file->body, 'HTML-ENTITIES', $matches[0]);
 				} else {
-					$body = $file->body;
+                    /** @noinspection PhpUndefinedFieldInspection */
+                    $body = $file->body;
 				}
 
 				$dom = new \DOMDocument();

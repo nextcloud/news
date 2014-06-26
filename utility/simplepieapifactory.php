@@ -31,7 +31,7 @@ class SimplePieAPIFactory {
      * @param null $proxyHost
      * @param null $proxyPort
      * @param null $proxyAuth
-     * @return SimplePie_File a new object
+     * @return \SimplePie_File a new object
      */
 	public function getFile($url, $timeout=10, $redirects=5, $headers=null,
 	                        $useragent=null, $force_fsockopen=false,
