@@ -70,7 +70,8 @@
 			<video ui-if="item.enclosureMime.indexOf('video/') == 0" type="{{ item.enclosureMime }}" ng-src="{{ item.enclosureLink|trustUrl }}" controls><?php
 				p($l->t('Download'))
 			?></video>
-			<a ui-if="item.enclosureMime.indexOf('audio/') != 0 && item.enclosureMime.indexOf('video/') != 0" type="{{ item.enclosureMime }}" ng-href="{{ item.enclosureLink|trustUrl }}"><?php
+			<img ui-if="item.enclosureMime.indexOf('image/') == 0" type="{{ item.enclosureMime }}" ng-src="{{ item.enclosureLink|trustUrl }}" alt="" />
+			<a ui-if="item.enclosureMime.indexOf('audio/') != 0 && item.enclosureMime.indexOf('video/') != 0 && item.enclosureMime.indexOf('image/') != 0" type="{{ item.enclosureMime }}" ng-href="{{ item.enclosureLink|trustUrl }}"><?php
 				p($l->t('Download'))
 			?></a>
 		</div>
