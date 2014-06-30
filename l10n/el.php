@@ -1,6 +1,6 @@
 <?php $TRANSLATIONS = array(
 "Can not add feed: Exists already" => "Αδυναμία προσθήκης ροής: Υπάρχει ήδη",
-"Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Το feed δεν ήταν δυνατό να προστεθεί: Το URL δεν υπάρχει, το πιστοποιητικό SSL δεν είναι δυνατό να επαληθευτεί ή περιέχει κατεστραμμένο xml",
+"Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Η ροή δεν ήταν δυνατό να προστεθεί: Το URL δεν υπάρχει, το πιστοποιητικό SSL δεν είναι δυνατό να επικυρωθεί ή περιέχει άκυρο xml",
 "Articles without feed" => "Άρθρα χωρίς ροές",
 "Can not add folder: Exists already" => "Αδυναμία προσθήκης φακέλου: Υπάρχει ήδη",
 " " => " ",
