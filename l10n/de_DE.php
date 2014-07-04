@@ -9,7 +9,7 @@
 "Undo deletion of %s" => "Löschen von %s rückgängig machen",
 "News" => "Nachrichten",
 "Add Website" => "Website hinzufügen",
-"Error: address exists already!" => "Fehler: Adresse existier bereits!",
+"Error: address exists already!" => "Fehler: Adresse existiert bereits!",
 "Error: folder exists already" => "Fehler: Ordner existiert bereits",
 "Address" => "Adresse",
 "Add" => "Hinzufügen",
