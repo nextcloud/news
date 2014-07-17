@@ -2,6 +2,7 @@
 "Can not add feed: Exists already" => "Не може да се добави хранилище: Вече съществува",
 "Articles without feed" => "Статии без съдържание",
 "Can not add folder: Exists already" => "Не може да добави папка: Вече съществува",
+" " => " ",
 "_" => "-",
 "status" => "състояние",
 "Undo deletion of %s" => "Върни изтриване на %s",
