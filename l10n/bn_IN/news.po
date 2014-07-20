@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# ishita mukherjee <ishitamukh91@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-07-17 01:01-0400\n"
-"PO-Revision-Date: 2012-08-26 23:39+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2014-07-20 01:01-0400\n"
+"PO-Revision-Date: 2014-07-19 20:50+0000\n"
+"Last-Translator: ishita mukherjee <ishitamukh91@gmail.com>\n"
 "Language-Team: Bengali (India) (http://www.transifex.com/projects/p/owncloud/language/bn_IN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,54 +20,54 @@ msgstr ""
 
 #: businesslayer/feedbusinesslayer.php:97
 msgid "Can not add feed: Exists already"
-msgstr ""
+msgstr "ফিড যুক্ত করা যাবে না:আগে থেকেই আছে"
 
 #: businesslayer/feedbusinesslayer.php:137
 msgid ""
 "Can not add feed: URL does not exist, SSL Certificate can not be validated "
 "or feed has invalid xml"
-msgstr ""
+msgstr "ফিড যুক্ত করা যাবে না:URL টি উপস্থিত না,SSL সার্টিফিকেট যাচাই করা যাবে না বা ফিডে অবৈধ XML আছে"
 
 #: businesslayer/feedbusinesslayer.php:282
 msgid "Articles without feed"
-msgstr ""
+msgstr "ফিড ছাড়া প্রবন্ধ"
 
 #: businesslayer/folderbusinesslayer.php:54
 msgid "Can not add folder: Exists already"
-msgstr ""
+msgstr "ফোল্ডার যুক্ত করা যাবে না:আগে থেকেই আছে"
 
 #: js/vendor/angular-ui/build/angular-ui.min.js:7
 msgid " "
-msgstr ""
+msgstr "  "
 
 #: js/vendor/angular-ui/build/angular-ui.min.js:7
 msgid "_"
-msgstr ""
+msgstr "_"
 
 #: js/vendor/jquery-ui/ui/minified/jquery-ui.min.js:8
 msgid "status"
-msgstr ""
+msgstr "স্ট্যাটাস"
 
 #: templates/main.php:32
 #, php-format
 msgid "Undo deletion of %s"
-msgstr ""
+msgstr "%s এর মুছে ফেলার আগের পূর্বাবস্থায় ফিরুন"
 
 #: templates/main.php:36
 msgid "News"
-msgstr ""
+msgstr "খবর"
 
 #: templates/part.addnew.php:12
 msgid "Add Website"
-msgstr ""
+msgstr "ওয়েবসাইট যোগ করুন"
 
 #: templates/part.addnew.php:19
 msgid "Error: address exists already!"
-msgstr ""
+msgstr "ত্রুটি:ঠিকানা আগে থেকেই আছে!"
 
 #: templates/part.addnew.php:22
 msgid "Error: folder exists already"
-msgstr ""
+msgstr "ত্রুটি:ফোল্ডার আগে থেকেই আছে"
 
 #: templates/part.addnew.php:29
 msgid "Address"
@@ -78,72 +79,72 @@ msgstr "যোগ করা"
 
 #: templates/part.addnew.php:39 templates/part.addnew.php:46
 msgid "New folder"
-msgstr ""
+msgstr "নতুন ফোল্ডার"
 
 #: templates/part.addnew.php:40
 msgid "Folder"
-msgstr ""
+msgstr "ফোল্ডার"
 
 #: templates/part.addnew.php:44
 msgid "Choose folder"
-msgstr ""
+msgstr "ফোল্ডার চয়ন করুন"
 
 #: templates/part.addnew.php:55
 msgid "Folder name"
-msgstr ""
+msgstr "ফোল্ডারের নাম"
 
 #: templates/part.addnew.php:59
 msgid "Back to folder selection"
-msgstr ""
+msgstr "ফোল্ডার নির্বাচনে ফিরে যান"
 
 #: templates/part.addnew.php:63
 msgid "Create folder"
-msgstr ""
+msgstr "ফোল্ডার বানান"
 
 #: templates/part.feed.starred.php:11
 msgid "Starred"
-msgstr ""
+msgstr "তারকাচিহ্নিত"
 
 #: templates/part.feed.unread.php:11
 msgid "Unread articles"
-msgstr ""
+msgstr "অপঠিত নিবন্ধ"
 
 #: templates/part.feed.unread.php:18
 msgid "All articles"
-msgstr ""
+msgstr "সব নিবন্ধ"
 
 #: templates/part.feed.unread.php:27 templates/part.listfeed.php:62
 #: templates/part.listfolder.php:55
 msgid "Mark read"
-msgstr ""
+msgstr "পড়া মার্ক করুন"
 
 #: templates/part.firstrun.php:2
 msgid "Welcome to the ownCloud News app!"
-msgstr ""
+msgstr "OwnCloud সংবাদ অ্যাপ থেকে আপনাকে স্বাগতম!"
 
 #: templates/part.items.php:20
 msgid "read on website"
-msgstr ""
+msgstr "ওয়েবসাইটে পড়ুন"
 
 #: templates/part.items.php:40
 msgid "star"
-msgstr ""
+msgstr "চিহ্নিত"
 
 #: templates/part.items.php:56
 msgid "from"
-msgstr ""
+msgstr "থেকে"
 
 #: templates/part.items.php:61
 msgid "by"
-msgstr ""
+msgstr "দ্বারা"
 
 #: templates/part.items.php:68
 msgid "Download"
-msgstr ""
+msgstr "ডাউনলোড করুন"
 
 #: templates/part.items.php:79
 msgid "Keep unread"
-msgstr ""
+msgstr "অপঠিত রাখুন"
 
 #: templates/part.listfeed.php:22 templates/part.listfolder.php:19
 msgid "Cancel"
@@ -155,23 +156,23 @@ msgstr "সেভ"
 
 #: templates/part.listfeed.php:50 templates/part.listfeed.php:74
 msgid "Delete website"
-msgstr ""
+msgstr "ওয়েবসাইট মুছে ফেলুন"
 
 #: templates/part.listfeed.php:69
 msgid "Rename feed"
-msgstr ""
+msgstr "ফিডের পুনঃনামকরণ"
 
 #: templates/part.listfolder.php:15
 msgid "Collapse"
-msgstr ""
+msgstr "পতন"
 
 #: templates/part.listfolder.php:44 templates/part.listfolder.php:60
 msgid "Delete folder"
-msgstr ""
+msgstr "ফোল্ডার মুছে দিন"
 
 #: templates/part.listfolder.php:67
 msgid "Rename folder"
-msgstr ""
+msgstr "ফোল্ডারের পুনঃনামকরণ"
 
 #: templates/part.settings.php:13
 msgid "Settings"
@@ -179,11 +180,11 @@ msgstr "সেটিংস"
 
 #: templates/part.settings.php:15
 msgid "Use compact view"
-msgstr ""
+msgstr "কম্প্যাক্ট ভিউ ব্যবহার করুন"
 
 #: templates/part.settings.php:17
 msgid "Subscriptions (OPML)"
-msgstr ""
+msgstr "সাবস্ক্রিপশন (OPML)"
 
 #: templates/part.settings.php:21 templates/part.settings.php:24
 #: templates/part.settings.php:52 templates/part.settings.php:57
@@ -199,20 +200,20 @@ msgstr "এক্সপোর্ট"
 
 #: templates/part.settings.php:42
 msgid "Error when importing: file does not contain valid OPML"
-msgstr ""
+msgstr "ইম্পোর্ট করার সময় ত্রুটি:ফাইলে বৈধ OPML থাকে না"
 
 #: templates/part.settings.php:48
 msgid "Unread/Starred Articles"
-msgstr ""
+msgstr "অপঠিত/তারকাচিহ্নিত প্রবন্ধ"
 
 #: templates/part.settings.php:74
 msgid "Error when importing: file does not contain valid JSON"
-msgstr ""
+msgstr "ইম্পোর্ট করার সময় ত্রুটি:ফাইলে বৈধ JSON থাকে না"
 
 #: templates/part.showall.php:5
 msgid "Show read articles"
-msgstr ""
+msgstr "পড়া নিবন্ধগুলি দেখান "
 
 #: templates/part.showall.php:11
 msgid "Hide read articles"
-msgstr ""
+msgstr "লোকানো নিবন্ধগুলি দেখান "
