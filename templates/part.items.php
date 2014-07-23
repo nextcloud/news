@@ -63,15 +63,15 @@
 			</span>
 	</h2>
 
-		<div class="enclosure" ui-if="item.enclosureLink">
-			<audio ui-if="item.enclosureMime.indexOf('audio/') == 0" type="{{ item.enclosureMime }}" ng-src="{{ item.enclosureLink|trustUrl }}" controls><?php
+		<div class="enclosure" ui-if="item.enclosureLink" ng-switch="item.enclosureMime.split('/')[0]">
+			<audio ng-switch-when="audio" type="{{ item.enclosureMime }}" ng-src="{{ item.enclosureLink|trustUrl }}" controls><?php
 				p($l->t('Download'))
 			?></audio>
-			<video ui-if="item.enclosureMime.indexOf('video/') == 0" type="{{ item.enclosureMime }}" ng-src="{{ item.enclosureLink|trustUrl }}" controls><?php
+			<video ng-switch-when="video" type="{{ item.enclosureMime }}" ng-src="{{ item.enclosureLink|trustUrl }}" controls><?php
 				p($l->t('Download'))
 			?></video>
-			<img ui-if="item.enclosureMime.indexOf('image/') == 0" type="{{ item.enclosureMime }}" ng-src="{{ item.enclosureLink|trustUrl }}" alt="" />
-			<a ui-if="item.enclosureMime.indexOf('audio/') != 0 && item.enclosureMime.indexOf('video/') != 0 && item.enclosureMime.indexOf('image/') != 0" type="{{ item.enclosureMime }}" ng-href="{{ item.enclosureLink|trustUrl }}"><?php
+			<img ng-switch-when="image" type="{{ item.enclosureMime }}" ng-src="{{ item.enclosureLink|trustUrl }}" alt="" />
+			<a ng-switch-default type="{{ item.enclosureMime }}" ng-href="{{ item.enclosureLink|trustUrl }}"><?php
 				p($l->t('Download'))
 			?></a>
 		</div>
