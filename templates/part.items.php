@@ -75,7 +75,7 @@
 				?></news-video>
 			</div>
 			<img ng-switch-when="image" type="{{ item.enclosureMime }}" ng-src="{{ item.enclosureLink|trustUrl }}" alt="" />
-			<a ng-switch-default type="{{ item.enclosureMime }}" ng-href="{{ item.enclosureLink|trustUrl }}"><?php
+			<a class="button" ng-switch-default type="{{ item.enclosureMime }}" ng-href="{{ item.enclosureLink|trustUrl }}"><?php
 				p($l->t('Download'))
 			?></a>
 		</div>
