@@ -63,10 +63,21 @@
 			</span>
 	</h2>
 
-		<div class="enclosure" ui-if="item.enclosureLink">
-			<news-audio type="{{ item.enclosureType }}" ng-src="{{ item.enclosureLink|trustUrl }}"/><?php
+		<div class="enclosure" ui-if="item.enclosureLink" ng-switch="item.enclosureMime.split('/')[0]">
+			<div ng-switch-when="audio">
+				<news-audio type="{{ item.enclosureMime }}" ng-src="{{ item.enclosureLink|trustUrl }}"><?php
+					p($l->t('Download'))
+				?></news-audio>
+			</div>
+			<div ng-switch-when="video">
+				<news-video type="{{ item.enclosureMime }}" ng-src="{{ item.enclosureLink|trustUrl }}"><?php
+					p($l->t('Download'))
+				?></news-video>
+			</div>
+			<img ng-switch-when="image" type="{{ item.enclosureMime }}" ng-src="{{ item.enclosureLink|trustUrl }}" alt="" />
+			<a class="button" ng-switch-default type="{{ item.enclosureMime }}" ng-href="{{ item.enclosureLink|trustUrl }}"><?php
 				p($l->t('Download'))
-			?></audio>
+			?></a>
 		</div>
 
 		<div class="item_body" news-bind-html-unsafe="item.body">

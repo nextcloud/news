@@ -300,6 +300,10 @@
 		padding: 14px 42px 0 49px;
 	}
 
+	.feed_item .enclosure img {
+		max-width: 100%;
+	}
+
 	.feed_item .item_body {
 		padding: 10px 42px 0 42px;
 		max-width: 770px;

@@ -160,14 +160,10 @@ class FeedFetcher implements IFeedFetcher {
 			}
 		}
 
-		// TODO: make it work for video files also
 		$enclosure = $simplePieItem->get_enclosure();
 		if($enclosure !== null) {
-			$enclosureType = $enclosure->get_type();
-			if(stripos($enclosureType, "audio/") !== false) {
-				$item->setEnclosureMime($enclosureType);
-				$item->setEnclosureLink($enclosure->get_link());
-			}
+			$item->setEnclosureMime($enclosure->get_type());
+			$item->setEnclosureLink($enclosure->get_link());
 		}
 
 		return $item;
