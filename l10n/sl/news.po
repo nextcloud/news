@@ -5,15 +5,15 @@
 # Translators:
 # Matej Urbančič <>, 2012
 # barbarak <barbarak@arnes.si>, 2013
-# Matej Urbančič <>, 2013
+# Matej Urbančič <>, 2013-2014
 # Peter Peroša <peter.perosa@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-07-09 01:01-0400\n"
-"PO-Revision-Date: 2014-07-08 06:12+0000\n"
-"Last-Translator: I Robot\n"
+"POT-Creation-Date: 2014-07-28 01:01-0400\n"
+"PO-Revision-Date: 2014-07-27 20:00+0000\n"
+"Last-Translator: Matej Urbančič <>\n"
 "Language-Team: Slovenian (http://www.transifex.com/projects/p/owncloud/language/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,7 +29,7 @@ msgstr "Vira ni mogoče dodati: ta že obstaja"
 msgid ""
 "Can not add feed: URL does not exist, SSL Certificate can not be validated "
 "or feed has invalid xml"
-msgstr ""
+msgstr "Ni mogoče dodati vira: naslov URL ne obstaja, potrdila SSL ni mogoče overiti ali pa je neveljaven zapis XML vira."
 
 #: businesslayer/feedbusinesslayer.php:282
 msgid "Articles without feed"
@@ -141,11 +141,12 @@ msgstr "od"
 msgid "by"
 msgstr "od"
 
-#: templates/part.items.php:68
+#: templates/part.items.php:69 templates/part.items.php:74
+#: templates/part.items.php:79
 msgid "Download"
 msgstr "Prejmi"
 
-#: templates/part.items.php:79
+#: templates/part.items.php:90
 msgid "Keep unread"
 msgstr "Ohrani neprebrano"
 
