@@ -182,10 +182,11 @@
 	}
 
 	.item_heading h1 a {
+		display: block;
 		font-weight: bold;
 		font-size: 13pt;
 		padding: 0 5px;
-		margin: 0;
+		margin: 0 0 0 70px;
 		line-height: 40px;
 	}
 
@@ -221,6 +222,7 @@
 		display: block;
 		float: right;
 		line-height: 40px;
+		pointer-events: none;
 	}
 
 
