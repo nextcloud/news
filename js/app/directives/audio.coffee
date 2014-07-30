@@ -34,8 +34,8 @@ angular.module('News').directive 'newsAudio', ->
 		'<a ng-href="{{ src|trustUrl }}" class="button" ng-show="cantPlay()" ' +
 			'ng-transclude></a>'
 		link: (scope, elm, attrs) ->
-			source = elm.children('audio').children('source')[0]
-			cantPlay = !document.createElement('audio').canPlayType(attrs['type']);
+			source = elm.children().children('source')[0]
+			cantPlay = false
 			source.addEventListener 'error', ->
 				scope.$apply ->
 					cantPlay = true
