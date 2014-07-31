@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud news 5.0.0\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-07-30 01:01-0400\n"
+"POT-Creation-Date: 2014-07-31 01:01-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -137,12 +137,11 @@ msgstr ""
 msgid "by"
 msgstr ""
 
-#: templates/part.items.php:69 templates/part.items.php:74
-#: templates/part.items.php:79
+#: templates/part.items.php:68
 msgid "Download"
 msgstr ""
 
-#: templates/part.items.php:90
+#: templates/part.items.php:79
 msgid "Keep unread"
 msgstr ""
 
