@@ -113,5 +113,8 @@
 	},
 	"tu-chemnitz.de/tu/presse/": {
 		"%tu-chemnitz.de%": "//div[@id='content_inhalt']/*[preceding-sibling::h1 and following-sibling::div[@id]]"
+	},
+	"cliquerefresh.com": {
+		"%cliquerefresh.com/comic%": "//div[@class=\"comicImg\"]/img | //div[@class=\"comicImg\"]/a/img"
 	}
 }
