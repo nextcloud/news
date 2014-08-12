@@ -116,5 +116,8 @@
 	},
 	"cliquerefresh.com": {
 		"%cliquerefresh.com/comic%": "//div[@class=\"comicImg\"]/img | //div[@class=\"comicImg\"]/a/img"
+	},
+	"satwcomic.com": {
+		"%feedproxy.google.com/~r/satwcomic%": "//div[@class=\"comicmid\"]/center/a/img"
 	}
 }
