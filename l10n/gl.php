@@ -23,7 +23,7 @@
 "Unread articles" => "Artigos sen ler",
 "All articles" => "Todos os artigos",
 "Mark read" => "Marcar como lido",
-"Welcome to the ownCloud News app!" => "Benvido/a ao aplicativo de novas do ownCloud!",
+"Welcome to the ownCloud News app!" => "Benvido/a á aplicación de novas do ownCloud!",
 "read on website" => "ler no sitio web",
 "star" => "estrela",
 "from" => "desde",
