@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-07-09 01:01-0400\n"
-"PO-Revision-Date: 2014-07-08 06:12+0000\n"
+"POT-Creation-Date: 2014-08-15 01:01-0400\n"
+"PO-Revision-Date: 2014-08-14 18:11+0000\n"
 "Last-Translator: Miguel Anxo Bouzada <mbouzada@gmail.com>\n"
 "Language-Team: Galician (http://www.transifex.com/projects/p/owncloud/language/gl/)\n"
 "MIME-Version: 1.0\n"
@@ -123,7 +123,7 @@ msgstr "Marcar como lido"
 
 #: templates/part.firstrun.php:2
 msgid "Welcome to the ownCloud News app!"
-msgstr "Benvido/a ao aplicativo de novas do ownCloud!"
+msgstr "Benvido/a á aplicación de novas do ownCloud!"
 
 #: templates/part.items.php:20
 msgid "read on website"
