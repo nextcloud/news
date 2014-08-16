@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-07-28 01:01-0400\n"
-"PO-Revision-Date: 2014-07-27 20:00+0000\n"
+"POT-Creation-Date: 2014-08-16 01:01-0400\n"
+"PO-Revision-Date: 2014-08-15 20:22+0000\n"
 "Last-Translator: Matej Urbančič <>\n"
 "Language-Team: Slovenian (http://www.transifex.com/projects/p/owncloud/language/sl/)\n"
 "MIME-Version: 1.0\n"
@@ -141,12 +141,11 @@ msgstr "od"
 msgid "by"
 msgstr "od"
 
-#: templates/part.items.php:69 templates/part.items.php:74
-#: templates/part.items.php:79
+#: templates/part.items.php:68
 msgid "Download"
 msgstr "Prejmi"
 
-#: templates/part.items.php:90
+#: templates/part.items.php:79
 msgid "Keep unread"
 msgstr "Ohrani neprebrano"
 
