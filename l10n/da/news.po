@@ -7,7 +7,7 @@
 # Bawl <transifex@bawl.dk>, 2013
 # Thomas <cronner@gmail.com>, 2012
 # Leif Lodahl <leiflodahl@gmail.com>, 2013
-# mikkel_ilu <mikkelbjerglarsen@gmail.com>, 2013
+# Mikkel Bjerg Larsen <mikkelbjerglarsen@gmail.com>, 2013
 # Morten Juhl-Johansen Zölde-Fejér <morten@writtenandread.net>, 2012-2013
 # Ole Holm Frandsen <froksen@gmail.com>, 2012
 # Peter Jespersen <flywheeldk@gmail.com>, 2013
@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-07-09 01:01-0400\n"
-"PO-Revision-Date: 2014-07-08 06:12+0000\n"
+"POT-Creation-Date: 2014-08-16 01:01-0400\n"
+"PO-Revision-Date: 2014-08-15 20:22+0000\n"
 "Last-Translator: Anders J. Sørensen\n"
 "Language-Team: Danish (http://www.transifex.com/projects/p/owncloud/language/da/)\n"
 "MIME-Version: 1.0\n"
