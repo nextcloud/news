@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-08-18 01:01-0400\n"
-"PO-Revision-Date: 2014-08-17 05:22+0000\n"
+"POT-Creation-Date: 2014-08-19 01:01-0400\n"
+"PO-Revision-Date: 2014-08-18 13:20+0000\n"
 "Last-Translator: unixidzero <unixidzero@gmail.com>\n"
 "Language-Team: Azerbaijani (http://www.transifex.com/projects/p/owncloud/language/az/)\n"
 "MIME-Version: 1.0\n"
@@ -55,19 +55,19 @@ msgstr ""
 
 #: templates/main.php:36
 msgid "News"
-msgstr ""
+msgstr "Xəbərlər"
 
 #: templates/part.addnew.php:12
 msgid "Add Website"
-msgstr ""
+msgstr "Web səhifəni əlavə et"
 
 #: templates/part.addnew.php:19
 msgid "Error: address exists already!"
-msgstr ""
+msgstr "Səhv: ünvan artıq mövcuddur!"
 
 #: templates/part.addnew.php:22
 msgid "Error: folder exists already"
-msgstr ""
+msgstr "Səhv: qovluq artıq mövcuddur"
 
 #: templates/part.addnew.php:29
 msgid "Address"
@@ -75,7 +75,7 @@ msgstr ""
 
 #: templates/part.addnew.php:32 templates/part.addnew.php:35
 msgid "Add"
-msgstr ""
+msgstr "Əlavə etmək"
 
 #: templates/part.addnew.php:39 templates/part.addnew.php:46
 msgid "New folder"

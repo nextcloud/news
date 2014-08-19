@@ -10,7 +10,7 @@
 "News" => "Nieuws",
 "Add Website" => "Toevoegen website",
 "Error: address exists already!" => "Fout: adres bestaat al!",
-"Error: folder exists already" => "Fout: map bestaat al!",
+"Error: folder exists already" => "Fout: map bestaat al",
 "Address" => "Adres",
 "Add" => "Toevoegen",
 "New folder" => "Nieuwe map",
