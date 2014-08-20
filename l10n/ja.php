@@ -26,7 +26,7 @@
 "Welcome to the ownCloud News app!" => "ownCloudニュースアプリへようこそ！",
 "read on website" => "Web サイトで読む",
 "star" => "スター",
-"from" => "から",
+"from" => "開始",
 "by" => "により",
 "Download" => "ダウンロード",
 "Keep unread" => "未読のままにする",
