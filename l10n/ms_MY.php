@@ -2,6 +2,7 @@
 "Address" => "Alamat",
 "Add" => "Tambah",
 "Folder" => "Folder",
+"from" => "dari",
 "by" => "oleh",
 "Download" => "Muat turun",
 "Cancel" => "Batal",
