@@ -44,18 +44,34 @@
        {{ feed.title }}
     </a>
 
-    <span class="utils">
+    <div class="app-navigation-entry-utils">
+        <ul>
+            <li class="app-navigation-entry-utils-counter"
+                ng-show="feed.id && Navigation.getUnreadCount(feed.id) > 0 && !feed.error && !feed.editing">
+                {{ Navigation.getFeedUnreadCount(feed.id) | unreadCountFormatter }}
+            </li>
+            <li><button class="app-navigation-entry-utils-menu-button" ng-click="optionsId = (optionsId == feed.id ? -1 : feed.id)"></button></li>
+        </ul>
+    </div>
 
+    <div class="app-navigation-entry-options" ng-class="{'app-navigation-entry-options-open': optionsId == feed.id}">
+        <ul>
+            <li><button class="icon-rename" title="<?php p($l->t('Rename feed')); ?>"></button></li>
+            <li><button class="icon-delete" title="<?php p($l->t('Delete website')); ?>"></button></li>
+        </ul>
+    </div>
+
+    <!--<span class="utils">
+        <span class="unread-counter"
+            >
+
+        </span>-->
         <!--<button ng-click="Navigation.deleteFeed(feed.id)"
             class="svg action delete-icon delete-button"
             title="<?php p($l->t('Delete website')); ?>"
             ng-show="feed.id && !feed.editing && !feed.error"
             oc-tooltip></button>-->
 
-        <span class="unread-counter"
-            ng-show="feed.id && Navigation.getUnreadCount(feed.id) > 0 && !feed.error && !feed.editing">
-            {{ Navigation.getFeedUnreadCount(feed.id) | unreadCountFormatter }}
-        </span>
 
     <!--
         <button class="svg action mark-read-icon"
@@ -76,8 +92,8 @@
             title="<?php p($l->t('Delete website')); ?>"
             ng-show="feed.error"
             oc-tooltip></button>
-    -->
     </span>
+    -->
 
     <div class="message" ng-show="feed.error">{{ feed.error }}</div>
 </li>

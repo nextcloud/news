@@ -196,19 +196,6 @@
     text-transform: none;
 }
 
-.unread-counter {
-    padding: 8px 6px 8px 5px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: center;
-    font-size: 9pt;
-    display: none;
-}
-
-
-.unread .unread-counter {
-    display: block;
-}
 .starred .unread-counter {
     font-weight: normal !important;
 }
