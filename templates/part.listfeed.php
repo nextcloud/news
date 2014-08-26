@@ -54,7 +54,7 @@
         </ul>
     </div>
 
-    <div class="app-navigation-entry-options" ng-class="{'app-navigation-entry-options-open': optionsId == feed.id}">
+    <div class="app-navigation-entry-menu" ng-class="{'app-navigation-entry-menu-open': optionsId == feed.id}">
         <ul>
             <li><button class="icon-rename" title="<?php p($l->t('Rename feed')); ?>"></button></li>
             <li><button class="icon-delete" title="<?php p($l->t('Delete website')); ?>"></button></li>

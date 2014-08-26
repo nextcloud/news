@@ -48,7 +48,7 @@
 /**
  * Rules for a single feed item
  */
-.item {
+#app-content .item {
     border-top: 1px solid #ccc;
     min-height: 120px;
     background-image: linear-gradient(top, #F8F8F8 0, #FFF 84px);
@@ -56,19 +56,19 @@
     cursor: default;
 }
 
-.item.viewed {
+#app-content .item.viewed {
     border-right: 5px solid #F28627;
 }
 
 
-.item:first-child {
+#app-content .item:first-child {
     border-top: 0;
 }
 
     /**
      * Utils panel
      */
-    .item .star {
+    #app-content .item .star {
         height: 25px;
         width: 25px;
         margin: 2px 0 0 6px;
@@ -80,37 +80,37 @@
         background-image: url('../img/inactive_star.svg');
     }
 
-    .item .starred,
-    .item .star:hover {
+    #app-content .item .starred,
+    #app-content .item .star:hover {
         background-image: url('../img/active_star.svg');
     }
 
     /**
      * Heading for compact view
      */
-    .compact .item .body,
-    .compact .item .title,
-    .compact .item .author,
-    .compact .item .date,
-    .compact .item .bottom-utils,
-    .item .heading,
-    .item .link {
+    #app-content .compact .item .body,
+    #app-content .compact .item .title,
+    #app-content .compact .item .author,
+    #app-content .compact .item .date,
+    #app-content .compact .item .bottom-utils,
+    #app-content .item .heading,
+    #app-content .item .link {
         display: none;
     }
-    .compact .item.open .body,
-    .compact .item.open .author,
-    .compact .item.open .bottom-utils,
-    .compact .item .heading,
-    .item .link {
+    #app-content .compact .item.open .body,
+    #app-content .compact .item.open .author,
+    #app-content .compact .item.open .bottom-utils,
+    #app-content .compact .item .heading,
+    #app-content .item .link {
         display: block;
     }
 
-    .heading {
+    #app-content .heading {
         padding: 5px 20px;
         background-color: #fafafa;
     }
 
-    .heading h1 a {
+    #app-content .heading h1 a {
         font-weight: bold;
         font-size: 13pt;
         padding: 0 5px;
@@ -118,35 +118,35 @@
         line-height: 40px;
     }
 
-    .read .heading h1 a {
+    #app-content .read .heading h1 a {
         color: #888;
     }
 
-    .compact .item {
+    #app-content .compact .item {
         padding: 0 !important;
         min-height: 0;
     }
 
-    .compact .item .body {
+    #app-content .compact .item .body {
         padding-bottom: 40px;
     }
 
-    .compact .item.open .heading {
+    #app-content .compact .item.open .heading {
         margin-bottom: 15px;
         border-bottom: 1px dashed #ddd;
     }
 
-    .heading .star {
+    #app-content .heading .star {
         float: left;
         margin: 7px 12px 0 0;
     }
 
-    .heading .external {
+    #app-content .heading .external {
         float: left;
         margin: 8px 12px 0 0;
     }
 
-    .heading .timeago {
+    #app-content .heading .timeago {
         display: block;
         float: right;
         line-height: 40px;
@@ -156,17 +156,17 @@
     /**
      * Feed title
      */
-    .item .title {
+    #app-content .item .title {
         font-size: 19px;
         margin: 4px 182px 4px 42px;
         font-weight: bold;
         word-wrap: break-word;
     }
 
-        .item .title a {
+        #app-content .item .title a {
             color: #222;
         }
-            .item .title a:hover {
+            #app-content .item .title a:hover {
                 color: #222;
                 text-decoration: underline;
             }
@@ -174,39 +174,39 @@
     /**
      * Feed title when read
      */
-    .item.read .title {
+    #app-content .item.read .title {
         font-weight: normal;
     }
 
-        .item.read .title a {
+        #app-content .item.read .title a {
             color: #888;
         }
 
     /**
      * Author of the item
      */
-    .item .author {
+    #app-content .item .author {
         color: #aaa;
         font-size: 15px;
         margin: 3px 0 5px 42px;
     }
 
-        .item .author a {
+        #app-content .item .author a {
             color: inherit;
         }
 
-            .item .author a:hover {
+            #app-content .item .author a:hover {
                 text-decoration: underline;
             }
 
-    .timestamp {
+    #app-content .timestamp {
         display: none;
     }
 
     /**
      * Feed timestamp
      */
-    .timeago {
+    #app-content .timeago {
         float: right;
         color: #aaa;
         margin: 4px 17px 0 0;
@@ -216,11 +216,11 @@
     /**
      * Body of the feed item
      */
-    .item .enclosure {
+    #app-content .item .enclosure {
         padding: 14px 42px 0 49px;
     }
 
-    .item .body {
+    #app-content .item .body {
         padding: 10px 42px 0 42px;
         max-width: 770px;
         font-size: 14px;
@@ -230,16 +230,17 @@
         height: 80px;*/
     }
 
-    .item .body.opened {
+    #app-content .item .body.opened {
 
     }
 
-        .item .body p {
+        #app-content .item .body p {
             line-height: 1.5;
             margin: 7px 0 14px 0;
         }
 
-        .item .body img, .item .body table {
+        #app-content .item .body img,
+        #app-content .item .body table {
             max-width: 100%;
             height: auto;
             overflow: auto;
@@ -247,20 +248,21 @@
             white-space:normal;
         }
 
-        .item .body > img:first-child,
-        .item .body > div:first-child > img:first-child {
+        #app-content .item .body > img:first-child,
+        #app-content .item .body > div:first-child > img:first-child {
             padding: 0 14px 0 0;
             float: left;
         }
 
-        .item .body h1, .item .body h2 {
+        #app-content .item .body h1,
+        #app-content .item .body h2 {
             font-size: 17px;
             font-weight: bold;
             color: #222;
             margin: 21px 0 0 0;
         }
 
-        .item .body h3 {
+        #app-content .item .body h3 {
             font-size: 15px;
             font-weight: bold;
             color: #222;
@@ -268,57 +270,57 @@
             text-decoration: underline;
         }
 
-        .item .body > div {
+        #app-content .item .body > div {
             margin: 7px 0;
         }
 
-        .item .body a {
+        #app-content .item .body a {
             color: #0000ff;
             text-decoration: underline;
         }
 
-        .item .body ul {
+        #app-content .item .body ul {
             margin: 7px 0;
             padding-left: 14px;
             list-style-type: disc;
         }
 
-        .item .body ol {
+        #app-content .item .body ol {
             margin: 7px 0;
             padding-left: 21px;
         }
 
-            .item .body ul li {
+            #app-content .item .body ul li {
                 cursor: default;
                 line-height: 21px;
             }
 
-        .item .body pre {
+        #app-content .item .body pre {
             padding: 7px 7px 7px 14px;
             background-color: #dadada;
             border: 1px solid #ccc;
             margin: 7px 0 14px 0;
             overflow-y: auto;
         }
-            .item .body pre::-webkit-scrollbar {
+            #app-content .item .body pre::-webkit-scrollbar {
                 height: 10px;
             }
 
-            .item .body pre::-webkit-scrollbar-thumb {
+            #app-content .item .body pre::-webkit-scrollbar-thumb {
                 background: #333;
             }
 
-            .item .body pre::-webkit-scrollbar-track-piece {
+            #app-content .item .body pre::-webkit-scrollbar-track-piece {
                 background: #ddd;
             }
 
-            .item .body code,
-            .item .body pre {
+            #app-content .item .body code,
+            #app-content .item .body pre {
                 font-family: monospace;
                 font-size: 16px;
             }
 
-        .item .body blockquote {
+        #app-content .item .body blockquote {
             border-left: 1px solid rgb(210,210,210);
             margin: 25px 0;
             padding: 0 0 0 15px;
@@ -329,7 +331,7 @@
 /**
  * Line with utils at the bottom
  */
-.item .bottom-utils  {
+#app-content .item .bottom-utils  {
     width: 100%;
     height: 35px;
     margin: 0;
@@ -338,25 +340,25 @@
     -moz-box-sizing: border-box;
 }
 
-    .item .bottom-utils ul {
+    #app-content .item .bottom-utils ul {
         float: right;
         margin: 0 17px;
     }
 
 
-    .item .bottom-utils,
-    .item .bottom-utils a {
+    #app-content .item .bottom-utils,
+    #app-content .item .bottom-utils a {
         color: #000;
     }
 
-    .item:hover .bottom-utils li {
+    #app-content .item:hover .bottom-utils li {
         display: inline-block;
     }
 
-        .item .bottom-utils li {
+        #app-content .item .bottom-utils li {
             padding-left: 25px;
         }
 
-        .item .bottom-utils li input[type=checkbox]{
+        #app-content .item .bottom-utils li input[type=checkbox]{
             margin-left: 5px;
         }

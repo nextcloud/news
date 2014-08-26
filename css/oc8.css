@@ -135,3 +135,5 @@
     opacity: 1;
     background-color: transparent;
 }
+
+/* Loading sign instead of icon by adding the loading class to the list item */

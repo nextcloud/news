@@ -1,8 +1,8 @@
 <li class="add-new">
-    <div class="list-title list-title-with-icon heading">
+    <div class="heading icon-add">
         <button
             data-apps-slide-toggle=".add-new-popup"
-            news-focus="[ng-model='feedUrl']">+ <?php p($l->t('Add Website'))?></button>
+            news-focus="[ng-model='feedUrl']"><?php p($l->t('Add Website'))?></button>
     </div>
 
     <div class="add-new-popup">
@@ -15,19 +15,13 @@
                 <?php p($l->t('Error: folder exists already')); ?>
             </span>
         </p>
-        <form>
 
+        <form>
             <input type="text"
                 ng-model="feedUrl"
                 placeholder="<?php p($l->t('Address')); ?>"
                 name="address"
                 autofocus>
-            <button title="<?php p($l->t('Add')); ?>"
-                    class="primary"
-                    ng-disabled="!feedUrl.trim()"
-                    ng-click="createFeed(feedUrl, folderId.id)"><?php p($l->t('Add')); ?></button>
-        </form>
-        <form>
             <select name="folder"
                     data-create="<?php p($l->t('New folder')); ?>"
                     title="<?php p($l->t('Folder')); ?>"
@@ -59,6 +53,10 @@
                     ng-class="{loading: Navigation.isAddingFolder()}"
                     class="action-button create-button action">
             </button>
+            <button title="<?php p($l->t('Add')); ?>"
+                    class="primary"
+                    ng-disabled="!feedUrl.trim()"
+                    ng-click="createFeed(feedUrl, folderId.id)"><?php p($l->t('Add')); ?></button>
         </form>
 
     </div>

@@ -7,17 +7,20 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-.add-new .heading {
+
+/* add new feed or folder */
+#app-navigation .add-new .heading {
     height: 44px;
     width: 100%;
-    padding: 0;
+    padding: 0 0 0 44px;
+    background-position: 14px center;
 }
 
-.add-new .heading:hover {
+#app-navigation .add-new .heading:hover {
     background-color: #ccc;
 }
 
-.add-new .heading button {
+#app-navigation .add-new .heading button {
     padding: 0;
     line-height: 44px;
     width: 100%;
@@ -28,33 +31,33 @@
     font-weight: normal;
 }
 
-.add-new-popup {
+#app-navigation .add-new-popup {
     display: none;
-    height: 120px;
+    height: 150px;
     padding: 15px 10px;
     box-shadow: inset 0px 0px 10px #dedede;
     border-top: 1px solid #dedede;
     border-bottom: 1px solid #dedede;
 }
 
-.add-new-popup input[type=text] {
+#app-navigation .add-new-popup input[type=text] {
     width: 170px;
 }
 
-.add-new-popup select {
+#app-navigation .add-new-popup select {
     width: 170px;
     margin-top: 1px !important;
     height: 30px;
     background-color: #eee;
 }
 
-.add-new-popup input {
+#app-navigation .add-new-popup input {
     margin-top: 15px;
     box-sizing: border-box;
 }
 
-.add-new-popup input,
-.add-new-popup select {
+#app-navigation .add-new-popup input,
+#app-navigation .add-new-popup select {
     margin: 0 0 5px 0;
     display: inline-block;
     float: left;
@@ -63,7 +66,7 @@
     border-right: 0;
 }
 
-.add-new-popup button {
+#app-navigation .add-new-popup button {
     margin: 0 0 5px 0;
     display: inline-block;
     float: left;
@@ -73,66 +76,46 @@
     margin-top: 1px;
 }
 
-.add-new-popup .action-button {
+#app-navigation .add-new-popup .action-button {
     width: 30px;
     background-position: center;
     background-repeat: no-repeat;
 }
 
-.add-new-popup .back-button {
+#app-navigation .add-new-popup .back-button {
     border-radius: 0;
     background-image: url('../img/delete.svg');
 }
 
-.add-new-popup .new-button {
+#app-navigation .add-new-popup .new-button {
     border-radius: 0;
     background-image: url('../img/add.svg');
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 }
 
-.add-new-popup .create-button {
+#app-navigation .add-new-popup .create-button {
     border-radius: 0;
     background-image: url('../img/mark_read.svg');
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 }
 
-.add-new-popup .error {
+#app-navigation .add-new-popup .error {
     padding: 0 0 10px 0;
 }
 
-.starred-icon {
+/* navigation */
+#app-navigation .starred-icon {
     background-image: url('../img/starred.png');
 }
 
-.subscriptions-icon {
+#app-navigation .subscriptions-icon {
     background-image: url('../img/rss.svg');
 }
 
-.unread > a,
-.unread > .utils .unread-counter {
-    font-weight: bold;
-}
-
-#app-navigation .with-icon .list-title {
-    padding-left:16px;
-}
-
-#app-navigation .with-icon .list-title span {
-    display:none;
-    margin-left:6px;
-}
-
-#app-navigation .with-icon .list-title:hover span {
-    display:inline;
-}
-
-#app-navigation .with-icon .opened span {
-    display:inline;
-}
-
 #app-navigation .unread > a {
+    font-weight: bold;
     padding-right: 32px;
 }
 
