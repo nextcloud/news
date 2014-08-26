@@ -7,7 +7,7 @@
 [![Build with PHPStorm](http://www.jetbrains.com/img/banners/ps7.png)](http://www.jetbrains.com/phpstorm/)
 
 
-The News app is a an RSS/Atom feed aggregator. It offers a [RESTful API](https://github.com/owncloud/news/wiki/API-1.2) for app developers. The source code is [available on GitHub](https://github.com/owncloud/news)
+The News app is an RSS/Atom feed aggregator. It offers a [RESTful API](https://github.com/owncloud/news/wiki/API-1.2) for app developers. The source code is [available on GitHub](https://github.com/owncloud/news)
 
 For further developer and user documentation please visit [the wiki](https://github.com/owncloud/news/wiki)
 
@@ -22,8 +22,8 @@ For further developer and user documentation please visit [the wiki](https://git
 * ownCloud >= 7
 
 ## Supported Databases
-* Postgresql
-* Sqlite
+* PostgreSQL
+* SQLite
 * MySql
 
 
@@ -153,7 +153,7 @@ proxyPassword =
 ### Not working (not yet)
 * **proxHost**: The adress of the proxy. Leave blank if no proxy should be used
 * **proxyPort**: The proxy port, defaults to 8080
-* **proxyUser**: The proxy user name for the login. Must not container colons. Leave blank if there is none. 
+* **proxyUser**: The proxy user name for the login. Must not container colons. Leave blank if there is none.
 * **proxyPassword**: The proxy user password for the login
 
 
