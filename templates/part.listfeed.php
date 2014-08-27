@@ -34,9 +34,6 @@
 
     <div ng-if="feed.editing" class="app-navigation-entry-edit">
         <input name="feedRename" type="text" value="{{ feed.title }}" news-auto-focus>
-        <button title="<?php p($l->t('Cancel')); ?>"
-                ng-click="feed.editing=false"
-                class="action icon-close"></button>
         <button title="<?php p($l->t('Rename')); ?>"
                 ng-click="Navigation.renameFeed(feed.id, feed.title)"
                 class="action icon-checkmark">

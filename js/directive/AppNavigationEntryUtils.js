@@ -20,7 +20,6 @@ app.directive('appNavigationEntryUtils', () => {
         restrict: 'C',
         link: (scope, elm) => {
             let menu = elm.siblings('.app-navigation-entry-menu');
-            menu.hide();
             let button = $(elm)
                 .find('.app-navigation-entry-utils-menu-button button');
 

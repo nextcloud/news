@@ -1552,7 +1552,6 @@ var $__build_47_app__ = function () {
           restrict: 'C',
           link: function (scope, elm) {
             var menu = elm.siblings('.app-navigation-entry-menu');
-            menu.hide();
             var button = $(elm).find('.app-navigation-entry-utils-menu-button button');
             button.click(function () {
               menu.toggle();
