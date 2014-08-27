@@ -38,7 +38,7 @@
         }"
         ng-hide="feed.editing"
         ng-href="#/items/feeds/{{ feed.id }}/"
-        class="title"
+        class="title  icon-loading"
         title="{{ feed.title }}">
 
        {{ feed.title }}
