@@ -7,12 +7,12 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsFocus', ($timeout) => {
+app.directive('newsFocus', ($timeout, $interpolate) => {
     'use strict';
 
     return (scope, elem, attrs) => {
         elem.click(() => {
-            let toReadd = $(attrs.newsFocus);
+            let toReadd = $($interpolate(attrs.newsFocus)(scope));
             $timeout(() => {
                 toReadd.focus();
             }, 500);

@@ -278,4 +278,6 @@ describe('NavigationController', () => {
 
         expect(ctrl.isFolderActive(3)).toBe(true);
     }));
+
+
 });

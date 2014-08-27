@@ -21,7 +21,7 @@
         </ul>
     </div>
 
-    <div class="app-navigation-entry-menu" ng-class="{'app-navigation-entry-menu-open': optionsId == 'all'}">
+    <div class="app-navigation-entry-menu">
         <ul>
         	<li><button class="icon-checkmark" title="<?php p($l->t('Read all')); ?>" ng-click="Navigation.markRead()"></button></li>
         </ul>

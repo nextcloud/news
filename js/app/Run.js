@@ -105,4 +105,5 @@ app.run(($rootScope, $location, $http, $q, $interval, Loading, ItemResource,
     $rootScope.$on('$routeChangeError', () => {
         $location.path('/items');
     });
+
 });

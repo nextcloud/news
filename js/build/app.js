@@ -1536,6 +1536,35 @@ var $__build_47_app__ = function () {
           writable: true
         }), $__2;
       };
+      app.run([
+        '$document',
+        '$rootScope',
+        function ($document, $rootScope) {
+          'use strict';
+          $document.click(function (event) {
+            $rootScope.$broadcast('documentClicked', event);
+          });
+        }
+      ]);
+      app.directive('appNavigationEntryUtils', function () {
+        'use strict';
+        return {
+          restrict: 'C',
+          link: function (scope, elm) {
+            var menu = elm.siblings('.app-navigation-entry-menu');
+            menu.hide();
+            var button = $(elm).find('.app-navigation-entry-utils-menu-button button');
+            button.click(function () {
+              menu.toggle();
+            });
+            scope.$on('documentClicked', function (scope, event) {
+              if (event.target !== button[0]) {
+                menu.hide();
+              }
+            });
+          }
+        };
+      });
       app.directive('newsAudio', function () {
         'use strict';
         return {
@@ -1563,7 +1592,11 @@ var $__build_47_app__ = function () {
       app.directive('newsAutoFocus', function () {
         'use strict';
         return function (scope, elem, attrs) {
-          $(attrs.newsAutofocus).focus();
+          if (attrs.newsAutofocus) {
+            $(attrs.newsAutofocus).focus();
+          } else {
+            elem.focus();
+          }
         };
       });
       app.directive('newsBindHtmlUnsafe', function () {
@@ -1610,11 +1643,12 @@ var $__build_47_app__ = function () {
       ]);
       app.directive('newsFocus', [
         '$timeout',
-        function ($timeout) {
+        '$interpolate',
+        function ($timeout, $interpolate) {
           'use strict';
           return function (scope, elem, attrs) {
             elem.click(function () {
-              var toReadd = $(attrs.newsFocus);
+              var toReadd = $($interpolate(attrs.newsFocus)(scope));
               $timeout(function () {
                 toReadd.focus();
               }, 500);

@@ -34,6 +34,7 @@
                        ng-model="folderName"
                        placeholder="<?php p($l->t('Folder-Name')); ?>"
                        name="folderName"
+                       class="folder-input"
                        ng-if="Navigation.newFolder">
                 <button class="icon-checkmark add-new-folder-primary"
                         title="<?php p($l->t('Create folder')); ?>"

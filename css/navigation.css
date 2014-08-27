@@ -117,118 +117,14 @@
     padding-right: 0px;
 }
 
-.folder {
+#app-navigation .folder {
     text-transform: uppercase;
 }
 
-.feed {
+#app-navigation .feed {
     text-transform: none;
-}
-
-#app-navigation li:hover > .utils {
-    display: block;
-}
-
-#app-navigation li:hover > .utils .unread-counter {
-    padding-left: 0;
 }
 
 #app-navigation .folder-input {
     text-transform: uppercase;
-}
-
-.rename-feed input {
-    margin: 1px 0 0px 5px;
-    border-right: 1px solid #ddd;
-    border-radius: 2px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    border-right: 0;
-    width: 208px;
-    height: 32px;
-}
-
-.rename-feed button {
-    margin: 5px 0 5px 0;
-    display: inline-block;
-    border-bottom-left-radius: 0;
-    border-top-left-radius: 0;
-    width: 30px !important;
-    height: 30px !important;
-        padding: 0.6em;
-}
-
-.rename-feed .action-button {
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-.rename-feed .back-button {
-    border-radius: 3px;
-    background-image: url('../img/delete.svg');
-}
-
-.rename-feed .create-button {
-    border-radius: 0;
-    background-image: url('../img/mark_read.svg');
-}
-
-.rss-icon {
-    background-image: url('../img/rss.svg');
-}
-
-#app-navigation .ui-draggable-dragging {
-    width: 100%;
-}
-
-#app-navigation .multiselect {
-    height:20px;
-}
-
-#app-navigation .progress-icon,
-#app-navigation .problem-icon {
-    width: 299px;
-    line-height: 44px;
-}
-
-.progress-icon {
-    background-image: url('../img/loading.gif');
-}
-
-.problem-icon {
-    background-image: url('../img/problem.svg') !important;
-}
-
-.failed {
-    background-color: #F2FF63 !important;
-    text-shadow: none !important;
-    font-weight: bold;
-}
-
-    .failed .title  {
-        background-color: #F2FF63 !important;
-        width: 299px !important;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
-        display: inline-block !important;
-    }
-
-    .failed a:hover,
-    .failed:hover a {
-        background-color: #F2FF63 !important;
-    }
-
-    .failed .message {
-        font-weight: normal;
-        padding: 5px 20px 5px 32px;
-    }
-
-    .folder .feed.failed .message {
-        padding-left: 48px;
-    }
-
-.tooltip {
-    text-shadow: none;
-    text-transform: none;
 }
