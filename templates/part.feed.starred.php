@@ -3,12 +3,16 @@
 		unread: Navigation.getStarredCount() > 0
 	}"
 	class="starred">
-	<a class="starred-icon" ng-href="#/items/starred/">
+	<a class="icon-starred" ng-href="#/items/starred/">
 	   <?php p($l->t('Starred')) ?>
 	</a>
-	<span class="utils">
-		<span class="unread-counter">
-			{{ Navigation.getStarredCount() | unreadCountFormatter }}
-		</span>
-	</span>
+
+	<div class="app-navigation-entry-utils">
+        <ul>
+            <li class="app-navigation-entry-utils-counter"
+                ng-show="Navigation.getStarredCount() > 0">
+                {{ Navigation.getStarredCount() | unreadCountFormatter }}
+            </li>
+        </ul>
+    </div>
 </li>

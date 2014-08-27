@@ -50,7 +50,7 @@
                 ng-show="feed.id && Navigation.getUnreadCount(feed.id) > 0 && !feed.error && !feed.editing">
                 {{ Navigation.getFeedUnreadCount(feed.id) | unreadCountFormatter }}
             </li>
-            <li><button class="app-navigation-entry-utils-menu-button" ng-click="optionsId = (optionsId == feed.id ? -1 : feed.id)"></button></li>
+            <li class="app-navigation-entry-utils-menu-button"><button ng-click="optionsId = (optionsId == feed.id ? -1 : feed.id)"></button></li>
         </ul>
     </div>
 
@@ -58,6 +58,7 @@
         <ul>
             <li><button class="icon-rename" title="<?php p($l->t('Rename feed')); ?>"></button></li>
             <li><button class="icon-delete" title="<?php p($l->t('Delete website')); ?>"></button></li>
+            <li><button class="icon-checkmark" title="<?php p($l->t('Read all')); ?>"></button></li>
         </ul>
     </div>
 
