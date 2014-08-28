@@ -23,13 +23,18 @@
     vertical-align: middle;
 }
 
-#app-content:after {
+#content-container {
+    min-width: 100%;
+    min-height: 100%;
+}
+
+#content-container:after {
     content: '';
     display: block;
     height: 100%;
 }
 
-#app-content.autopaging:after {
+#content-container.autopaging:after {
     content: '';
     background-image: url('../img/loading.gif');
     background-position: center;
@@ -40,9 +45,11 @@
 }
 
 
-#app-content.icon-loading > * {
+#content-container.icon-loading > * {
     display: none;
 }
+
+
 
 
 /**
