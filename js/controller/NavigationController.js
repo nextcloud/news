@@ -111,6 +111,14 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
             currentId === feedId;
     };
 
+    this.folderNameExists = (folderName) => {
+        return FolderResource.get(folderName) !== undefined;
+    };
+
+    this.createFolder = (folderName) => {
+        console.log(folderName);
+    };
+
     // TBD
     this.isAddingFolder = () => {
         return true;
@@ -118,10 +126,6 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
 
     this.createFeed = (feedUrl, folderId) => {
         console.log(feedUrl + folderId);
-    };
-
-    this.createFolder = (folderName) => {
-        console.log(folderName);
     };
 
     this.cancelRenameFolder = (folderId) => {

@@ -183,7 +183,8 @@ app.factory('FeedResource', (Resource, $http, BASE_URL) => {
             let feed = {
                 url: url,
                 folderId: folderId,
-                title: title
+                title: title,
+                faviconLink: '../css/loading.gif'
             };
 
             if (!this.get(url)) {
@@ -192,7 +193,9 @@ app.factory('FeedResource', (Resource, $http, BASE_URL) => {
 
             this.updateFolderCache();
 
-            return this.http({
+            console.log(feed);
+
+            /*return this.http({
                 method: 'POST',
                 url: `${this.BASE_URL}/feeds`,
                 data: {
@@ -200,7 +203,7 @@ app.factory('FeedResource', (Resource, $http, BASE_URL) => {
                     parentFolderId: folderId,
                     title: title
                 }
-            });
+            });*/
         }
 
 

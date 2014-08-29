@@ -20,9 +20,9 @@
 
     const noInputFocused = (element) => {
         return !(
-            element.is('input') &&
-            element.is('select') &&
-            element.is('textarea') &&
+            element.is('input') ||
+            element.is('select') ||
+            element.is('textarea') ||
             element.is('checkbox')
         );
     };

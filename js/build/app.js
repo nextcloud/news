@@ -382,14 +382,17 @@ var $__build_47_app__ = function () {
             var currentId = parseInt($route.current.params.id, 10);
             return $route.current && $route.current.$$route.type === FEED_TYPE.FEED && currentId === feedId;
           };
+          this.folderNameExists = function (folderName) {
+            return FolderResource.get(folderName) !== undefined;
+          };
+          this.createFolder = function (folderName) {
+            console.log(folderName);
+          };
           this.isAddingFolder = function () {
             return true;
           };
           this.createFeed = function (feedUrl, folderId) {
             console.log(feedUrl + folderId);
-          };
-          this.createFolder = function (folderName) {
-            console.log(folderName);
           };
           this.cancelRenameFolder = function (folderId) {
             console.log(folderId);
@@ -636,21 +639,14 @@ var $__build_47_app__ = function () {
               var feed = {
                   url: url,
                   folderId: folderId,
-                  title: title
+                  title: title,
+                  faviconLink: '../css/loading.gif'
                 };
               if (!this.get(url)) {
                 this.add(feed);
               }
               this.updateFolderCache();
-              return this.http({
-                method: 'POST',
-                url: this.BASE_URL + '/feeds',
-                data: {
-                  url: url,
-                  parentFolderId: folderId,
-                  title: title
-                }
-              });
+              console.log(feed);
             },
             undoDelete: function () {
               if (this.deleted) {
@@ -1146,7 +1142,7 @@ var $__build_47_app__ = function () {
         'use strict';
         var scrollArea = $('#app-content');
         var noInputFocused = function (element) {
-          return !(element.is('input') && element.is('select') && element.is('textarea') && element.is('checkbox'));
+          return !(element.is('input') || element.is('select') || element.is('textarea') || element.is('checkbox'));
         };
         var noModifierKey = function (event) {
           return !(event.shiftKey || event.altKey || event.ctrlKey || event.metaKey);
@@ -1554,11 +1550,11 @@ var $__build_47_app__ = function () {
             var menu = elm.siblings('.app-navigation-entry-menu');
             var button = $(elm).find('.app-navigation-entry-utils-menu-button button');
             button.click(function () {
-              menu.toggle();
+              menu.toggleClass('open');
             });
             scope.$on('documentClicked', function (scope, event) {
               if (event.target !== button[0]) {
-                menu.hide();
+                menu.removeClass('open');
               }
             });
           }

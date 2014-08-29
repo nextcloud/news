@@ -49,7 +49,8 @@
     margin-right: 0;
 }
 
-#app-navigation .add-new-popup select {
+#app-navigation .add-new-popup select,
+#app-navigation .add-new-popup .folder-input {
     width: calc(100% - 36px);
     border-right: 0;
     border-top-right-radius: 0;
@@ -57,8 +58,7 @@
     float: left;
 }
 
-#app-navigation .add-new-popup .add-new-folder-primary,
-#app-navigation .add-new-popup .add-new-folder-secondary {
+#app-navigation .add-new-popup .add-new-folder-primary {
     float: right;
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
@@ -66,20 +66,6 @@
     height: 36px;
     margin-left: 0;
     margin-right: 0;
-}
-
-#app-navigation .add-new-popup .add-new-folder-secondary {
-    border-radius: 0;
-    border-right: 0;
-    border-left: 0;
-    margin-left: 0;
-}
-
-#app-navigation .add-new-popup input[name='folderName'] {
-    width: calc(100% - 72px);
-    border-bottom-right-radius: 0;
-    border-top-right-radius: 0;
-    float: left;
 }
 
 

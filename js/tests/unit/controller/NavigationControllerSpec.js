@@ -280,4 +280,10 @@ describe('NavigationController', () => {
     }));
 
 
+    it('should expose check if folder exists', inject((FolderResource) => {
+        expect(controller.folderNameExists('hi')).toBe(false);
+        FolderResource.add({name: 'hi'});
+        expect(controller.folderNameExists('hi')).toBe(true);
+    }));
+
 });

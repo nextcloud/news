@@ -24,12 +24,12 @@ app.directive('appNavigationEntryUtils', () => {
                 .find('.app-navigation-entry-utils-menu-button button');
 
             button.click(() => {
-                menu.toggle();
+                menu.toggleClass('open');
             });
 
             scope.$on('documentClicked', (scope, event) => {
                 if (event.target !== button[0]) {
-                    menu.hide();
+                    menu.removeClass('open');
                 }
             });
         }

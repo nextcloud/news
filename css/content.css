@@ -23,11 +23,6 @@
     vertical-align: middle;
 }
 
-#content-container {
-    min-width: 100%;
-    min-height: 100%;
-}
-
 #content-container:after {
     content: '';
     display: block;
