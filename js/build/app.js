@@ -384,8 +384,7 @@ var $__build_47_app__ = function () {
             return $route.current && $route.current.$$route.type === FEED_TYPE.FEED && currentId === feedId;
           };
           this.folderNameExists = function (folderName) {
-            $__0.something = folderName;
-            return folderName === 'test';
+            return FolderResource.get(folderName) !== undefined;
           };
           this.isAddingFolder = function () {
             return true;
