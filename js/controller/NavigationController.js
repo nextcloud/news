@@ -112,7 +112,9 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
     };
 
     this.folderNameExists = (folderName) => {
-        return FolderResource.get(folderName) !== undefined;
+        this.something = folderName;
+        return folderName === 'test';
+        //return FolderResource.get(folderName) !== undefined;
     };
 
     // TBD

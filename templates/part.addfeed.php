@@ -19,7 +19,7 @@
             <select name="folder"
                 title="<?php p($l->t('Folder')); ?>"
                 ng-if="!Navigation.newFolder"
-                ng-model="feed.folder"
+                ng-model="$parent.feed.folderId"
                 ng-options="folder.name for folder in Navigation.getAllFolders() track by folder.name">
                 <option value="" selected="selected">-- <?php p($l->t('None')); ?> --</option>
             </select>
@@ -31,7 +31,8 @@
 
             <!-- add a folder -->
             <input type="text"
-                   ng-model="feed.folder"
+                   ng-model="$parent.feed.folder"
+                   ng-class="{'ng-invalid': Navigation.newFolder && Navigation.folderNameExists($parent.feed.folder)}"
                    placeholder="<?php p($l->t('Folder name')); ?>"
                    name="folderName"
                    class="folder-input"
@@ -44,9 +45,13 @@
                     title="<?php p($l->t('Go back')); ?>"
                     ng-click="Navigation.newFolder=false"></button>
 
+
+            <p class="error" ng-show="Navigation.folderNameExists(feed.folder)"><?php p($l->t('Folder exists already!')); ?></p>
+
             <input type="submit"
                 value="<?php p($l->t('Subscribe')); ?>"
-                class="primary">
+                class="primary"
+                ng-disabled="Navigation.newFolder && Navigation.folderNameExists(folder.name)">
         </form>
     </div>
 </li>

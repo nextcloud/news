@@ -41,6 +41,11 @@
     border-bottom: 1px solid #dedede;
 }
 
+
+#app-navigation input.ng-invalid {
+    border: 1px solid #dd1144;
+}
+
 #app-navigation .add-new-popup input,
 #app-navigation .add-new-popup select {
     width: 100%;
@@ -50,12 +55,16 @@
 }
 
 #app-navigation .add-new-popup select,
-#app-navigation .add-new-popup .folder-input {
+#app-navigation #new-feed .folder-input {
     width: calc(100% - 36px);
     border-right: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     float: left;
+}
+
+#app-navigation .folder-input {
+    text-transform: uppercase;
 }
 
 #app-navigation .add-new-popup .add-new-folder-primary {
@@ -111,6 +120,4 @@
     text-transform: none;
 }
 
-#app-navigation .folder-input {
-    text-transform: uppercase;
-}
+

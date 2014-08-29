@@ -11,17 +11,21 @@
 
             <!-- add a folder -->
             <input type="text"
+                   ng-class="{'ng-invalid': Navigation.folderNameExists(folder.name)}"
                    ng-model="folder.name"
+                   class="folder-input"
                    placeholder="<?php p($l->t('Folder name')); ?>"
                    title="<?php p($l->t('Folder name')); ?>"
                    name="folderName"
                    required
                    news-auto-focus>
 
+            <p class="error" ng-show="Navigation.folderNameExists(folder.name)"><?php p($l->t('Folder exists already!')); ?></p>
+
             <input type="submit"
                 value="<?php p($l->t('Subscribe')); ?>"
                 class="primary"
-                ng-disabled="folderNameExists(folder.name)">
+                ng-disabled="Navigation.folderNameExists(folder.name)">
         </form>
     </div>
 </li>
