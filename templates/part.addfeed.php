@@ -7,7 +7,7 @@
 
     <div class="add-new-popup" id="new-feed">
 
-        <form ng-submit="Navigation.createFeed(feed.url, feed.folder)" name="feedform">
+        <form ng-submit="Navigation.createFeed(feed)" name="feedform">
             <input type="text"
                 ng-model="feed.url"
                 placeholder="<?php p($l->t('Web address')); ?>"

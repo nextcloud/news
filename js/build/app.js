@@ -301,6 +301,7 @@ var $__build_47_app__ = function () {
         'SettingsResource',
         function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource, SettingsResource) {
           'use strict';
+          var $__0 = this;
           this.feedError = '';
           this.folderError = '';
           this.getFeeds = function () {
@@ -385,14 +386,17 @@ var $__build_47_app__ = function () {
           this.folderNameExists = function (folderName) {
             return FolderResource.get(folderName) !== undefined;
           };
-          this.createFolder = function (folderName) {
-            console.log(folderName);
-          };
           this.isAddingFolder = function () {
             return true;
           };
-          this.createFeed = function (feedUrl, folderId) {
-            console.log(feedUrl + folderId);
+          this.createFolder = function (folder) {
+            console.log(folder.name);
+            folder.name = '';
+          };
+          this.createFeed = function (feed) {
+            $__0.newFolder = false;
+            console.log(feed.url + feed.folder);
+            feed.url = '';
           };
           this.cancelRenameFolder = function (folderId) {
             console.log(folderId);

@@ -115,17 +115,20 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
         return FolderResource.get(folderName) !== undefined;
     };
 
-    this.createFolder = (folderName) => {
-        console.log(folderName);
-    };
-
     // TBD
     this.isAddingFolder = () => {
         return true;
     };
 
-    this.createFeed = (feedUrl, folderId) => {
-        console.log(feedUrl + folderId);
+    this.createFolder = (folder) => {
+        console.log(folder.name);
+        folder.name = '';
+    };
+
+    this.createFeed = (feed) => {
+        this.newFolder = false;
+        console.log(feed.url + feed.folder);
+        feed.url = '';
     };
 
     this.cancelRenameFolder = (folderId) => {

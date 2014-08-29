@@ -7,11 +7,11 @@
 
     <div class="add-new-popup" id="new-folder">
 
-        <form ng-submit="Navigation.createFolder(folderName)" name="folderform">
+        <form ng-submit="Navigation.createFolder(folder)" name="folderform">
 
             <!-- add a folder -->
             <input type="text"
-                   ng-model="folderName"
+                   ng-model="folder.name"
                    placeholder="<?php p($l->t('Folder name')); ?>"
                    title="<?php p($l->t('Folder name')); ?>"
                    name="folderName"
