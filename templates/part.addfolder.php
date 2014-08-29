@@ -20,7 +20,8 @@
 
             <input type="submit"
                 value="<?php p($l->t('Subscribe')); ?>"
-                class="primary">
+                class="primary"
+                ng-disabled="folderNameExists(folder.name)">
         </form>
     </div>
 </li>
