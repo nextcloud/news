@@ -43,7 +43,7 @@
                     ng-show="Navigation.newFolder"
                     class="icon-close add-new-folder-primary"
                     title="<?php p($l->t('Go back')); ?>"
-                    ng-click="Navigation.newFolder=false"></button>
+                    ng-click="Navigation.newFolder=false; feed.folder=''"></button>
 
 
             <p class="error" ng-show="Navigation.folderNameExists(feed.folder)"><?php p($l->t('Folder exists already!')); ?></p>
