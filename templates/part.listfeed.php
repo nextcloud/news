@@ -9,7 +9,7 @@
             || Navigation.isFeedActive(feed.id)
             || !feed.id"
     data-id="{{ feed.id }}"
-    class="feed"
+    class="feed has-counter"
     news-draggable="{
         stack: '> li',
         zIndex: 1000,

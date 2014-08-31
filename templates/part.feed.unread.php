@@ -1,7 +1,8 @@
 <li ng-class="{
 		active: Navigation.isSubscriptionsActive(),
 		unread: Navigation.getUnreadCount() > 0
-	}">
+	}"
+    class="has-counter">
 
 	<a class="icon-rss" ng-href="#/items/" ng-if="!Navigation.isShowAll()">
 	   <?php p($l->t('Unread articles'))?>

@@ -93,23 +93,6 @@
 
 #app-navigation .unread > a {
     font-weight: bold;
-    padding-right: 32px;
-}
-
-#app-navigation .active > a {
-    padding-right: 40px;
-}
-
-#app-navigation .active.unread > a {
-    padding-right: 80px;
-}
-
-#app-navigation li:hover > a {
-    padding-right: 60px;
-}
-
-#app-navigation .add-new:hover > a {
-    padding-right: 0px;
 }
 
 #app-navigation .folder {
