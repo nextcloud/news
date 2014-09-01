@@ -11,7 +11,7 @@
             || Navigation.isFolderActive(folder.id)
             || Navigation.subFeedActive(folder.id)
             || !folder.id"
-    class="folder has-counter"
+    class="folder has-counter has-menu"
     data-id="{{ folder.id }}"
     news-droppable>
     <button class="collapse"

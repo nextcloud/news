@@ -17,7 +17,7 @@ use \OCA\News\Db\Item;
 use \OCA\News\Db\StatusFlag;
 
 
-class ItemMapperTest extends \OCP\AppFramework\Db\MapperTestUtility {
+class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 
 	private $mapper;
 	private $items;
@@ -65,7 +65,7 @@ class ItemMapperTest extends \OCP\AppFramework\Db\MapperTestUtility {
 	public function testDeleteReadOlderThanThresholdDoesNotDeleteBelowThreshold(){
 		$status = StatusFlag::STARRED | StatusFlag::UNREAD;
 		$sql = 'SELECT COUNT(*) - `feeds`.`articles_per_update` AS `size`, ' .
-		'`items`.`feed_id` AS `feed_id` ' . 
+		'`items`.`feed_id` AS `feed_id` ' .
 			'FROM `*PREFIX*news_items` `items` ' .
 			'JOIN `*PREFIX*news_feeds` `feeds` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` ' .
@@ -89,7 +89,7 @@ class ItemMapperTest extends \OCP\AppFramework\Db\MapperTestUtility {
 		$status = StatusFlag::STARRED | StatusFlag::UNREAD;
 
 		$sql1 = 'SELECT COUNT(*) - `feeds`.`articles_per_update` AS `size`, ' .
-		'`items`.`feed_id` AS `feed_id` ' . 
+		'`items`.`feed_id` AS `feed_id` ' .
 			'FROM `*PREFIX*news_items` `items` ' .
 			'JOIN `*PREFIX*news_feeds` `feeds` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` ' .

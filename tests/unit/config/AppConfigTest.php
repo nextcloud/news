@@ -32,12 +32,11 @@ class AppConfigTest extends \PHPUnit_Framework_TestCase {
 			->getMock();
 		$phpVersion = '5.3';
 		$ownCloudVersion = '6.0.3';
-		$installedApps = ['contacts' => '5.3', 'calendar' => '2.3'];
 		$installedExtensions = ['curl' => '4.3'];
 		$databaseType = 'oracle';
 
 		$this->config = new AppConfig($this->nav, $this->l10n,
-			$this->url, $phpVersion, $ownCloudVersion, $installedApps,
+			$this->url, $phpVersion, $ownCloudVersion,
 			$installedExtensions, $databaseType);
 	}
 
@@ -160,22 +159,6 @@ class AppConfigTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @expectedException \OCA\News\Config\DependencyException
 	 */
-	public function testAppVersion() {
-		$this->config->loadConfig([
-			'dependencies' => [
-				'apps' => [
-					'contacts' => '5.3',
-					'calendar' => '>2.3'
-				]
-			]
-		]);
-		$this->config->testDependencies();
-	}
-
-
-	/**
-	 * @expectedException \OCA\News\Config\DependencyException
-	 */
 	public function testLibsVersion() {
 		$this->config->loadConfig([
 			'dependencies' => [
@@ -202,20 +185,6 @@ class AppConfigTest extends \PHPUnit_Framework_TestCase {
 		$this->config->testDependencies();
 	}
 
-
-	/**
-	 * @expectedException \OCA\News\Config\DependencyException
-	 */
-	public function testAppsExistence() {
-		$this->config->loadConfig([
-			'dependencies' => [
-				'apps' => [
-					'news' => '>=4.3,<=4.3'
-				]
-			]
-		]);
-		$this->config->testDependencies();
-	}
 
 
 	/**

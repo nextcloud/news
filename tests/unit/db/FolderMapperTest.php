@@ -14,12 +14,12 @@
 namespace OCA\News\Db;
 
 
-class FolderMapperTest extends \OCP\AppFramework\Db\MapperTestUtility {
+class FolderMapperTest extends \Test\AppFramework\Db\MapperTestUtility {
 
 	private $folderMapper;
 	private $folders;
 	private $user;
-	
+
 	protected function setUp(){
 		parent::setUp();
 
@@ -45,12 +45,12 @@ class FolderMapperTest extends \OCP\AppFramework\Db\MapperTestUtility {
 		$sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
 			'WHERE `id` = ? ' .
 			'AND `user_id` = ?';
-			
+
 		$this->setMapperResult($sql, [$id, $userId], $rows);
-		
+
 		$result = $this->folderMapper->find($id, $userId);
 		$this->assertEquals($this->folders[0], $result);
-		
+
 	}
 
 
@@ -60,13 +60,13 @@ class FolderMapperTest extends \OCP\AppFramework\Db\MapperTestUtility {
 		$sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
 			'WHERE `id` = ? ' .
 			'AND `user_id` = ?';
-			
+
 		$this->setMapperResult($sql, [$id, $userId]);
-		
+
 		$this->setExpectedException('\OCP\AppFramework\Db\DoesNotExistException');
-		$this->folderMapper->find($id, $userId);	
+		$this->folderMapper->find($id, $userId);
 	}
-	
+
 
 	public function testFindMoreThanOneResultFound(){
 		$userId = 'john';
@@ -75,9 +75,9 @@ class FolderMapperTest extends \OCP\AppFramework\Db\MapperTestUtility {
 		$sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
 			'WHERE `id` = ? ' .
 			'AND `user_id` = ?';
-		
+
 		$this->setMapperResult($sql, [$id, $userId], $rows);
-		
+
 		$this->setExpectedException('\OCP\AppFramework\Db\MultipleObjectsReturnedException');
 		$this->folderMapper->find($id, $userId);
 	}
@@ -90,9 +90,9 @@ class FolderMapperTest extends \OCP\AppFramework\Db\MapperTestUtility {
 		$sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
 			'WHERE `user_id` = ? ' .
 			'AND `deleted_at` = 0';
-		
+
 		$this->setMapperResult($sql, [$userId], $rows);
-		
+
 		$result = $this->folderMapper->findAllFromUser($userId);
 		$this->assertEquals($this->folders, $result);
 	}
@@ -105,9 +105,9 @@ class FolderMapperTest extends \OCP\AppFramework\Db\MapperTestUtility {
 		$sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
 			'WHERE `name` = ? ' .
 			'AND `user_id` = ?';
-		
+
 		$this->setMapperResult($sql, [$folderName, $userId], $rows);
-		
+
 		$result = $this->folderMapper->findByName($folderName, $userId);
 		$this->assertEquals($this->folders, $result);
 	}

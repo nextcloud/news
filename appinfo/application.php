@@ -74,7 +74,7 @@ class Application extends App {
 		 */
 		$container->registerService('PageController', function($c) {
 			return new PageController(
-				$c->query('AppName'), 
+				$c->query('AppName'),
 				$c->query('Request'),
 				$c->query('CoreConfig'),
 				$c->query('L10N'),
@@ -84,7 +84,7 @@ class Application extends App {
 
 		$container->registerService('FolderController', function($c) {
 			return new FolderController(
-				$c->query('AppName'), 
+				$c->query('AppName'),
 				$c->query('Request'),
 				$c->query('FolderService'),
 				$c->query('FeedService'),
@@ -95,7 +95,7 @@ class Application extends App {
 
 		$container->registerService('FeedController', function($c) {
 			return new FeedController(
-				$c->query('AppName'), 
+				$c->query('AppName'),
 				$c->query('Request'),
 				$c->query('FolderService'),
 				$c->query('FeedService'),
@@ -107,7 +107,7 @@ class Application extends App {
 
 		$container->registerService('ItemController', function($c) {
 			return new ItemController(
-				$c->query('AppName'), 
+				$c->query('AppName'),
 				$c->query('Request'),
 				$c->query('FeedService'),
 				$c->query('ItemService'),
@@ -118,7 +118,7 @@ class Application extends App {
 
 		$container->registerService('ExportController', function($c) {
 			return new ExportController(
-				$c->query('AppName'), 
+				$c->query('AppName'),
 				$c->query('Request'),
 				$c->query('FolderService'),
 				$c->query('FeedService'),
@@ -130,8 +130,8 @@ class Application extends App {
 
 		$container->registerService('UtilityApiController', function($c) {
 			return new UtilityApiController(
-				$c->query('AppName'), 
-				$c->query('Request'), 
+				$c->query('AppName'),
+				$c->query('Request'),
 				$c->query('Updater'),
 				$c->query('CoreConfig')
 			);
@@ -139,7 +139,7 @@ class Application extends App {
 
 		$container->registerService('FolderApiController', function($c) {
 			return new FolderApiController(
-				$c->query('AppName'), 
+				$c->query('AppName'),
 				$c->query('Request'),
 				$c->query('FolderService'),
 				$c->query('ItemService'),
@@ -149,7 +149,7 @@ class Application extends App {
 
 		$container->registerService('FeedApiController', function($c) {
 			return new FeedApiController(
-				$c->query('AppName'), 
+				$c->query('AppName'),
 				$c->query('Request'),
 				$c->query('FeedService'),
 				$c->query('ItemService'),
@@ -161,7 +161,7 @@ class Application extends App {
 
 		$container->registerService('ItemApiController', function($c) {
 			return new ItemApiController(
-				$c->query('AppName'), 
+				$c->query('AppName'),
 				$c->query('Request'),
 				$c->query('ItemService'),
 				$c->query('UserId')
@@ -211,7 +211,7 @@ class Application extends App {
 		 */
 		$container->registerService('MapperFactory', function($c) {
 			return new MapperFactory(
-				$c->query('DatabaseType'), 
+				$c->query('DatabaseType'),
 				$c->query('Db')
 			);
 		});
@@ -239,16 +239,6 @@ class Application extends App {
 		 * App config parser
 		 */
 		$container->registerService('AppConfig', function($c) {
-			// not performant but well :/
-			// $config = $c->query('ServerContainer')->getAppConfig(); oc7 only
-			$installedApps = \OC_Appconfig::getApps();
-			$apps = [];
-			foreach($installedApps as $app) {
-				$apps[] = [
-					$app => \OC_Appconfig::getValue($app, 'installed_version', '0')
-				];
-			}
-
 			// order extensions in name => version
 			$loadedExtensions = get_loaded_extensions();
 			$extensions = [];
@@ -262,7 +252,6 @@ class Application extends App {
 				$c->query('ServerContainer')->getURLGenerator(),
 				phpversion(),
 				implode('.', Util::getVersion()),
-				$apps,
 				$extensions,
 				$c->query('DatabaseType')
 			);
@@ -270,7 +259,7 @@ class Application extends App {
 
 		/**
 		 * Core
-		 */		
+		 */
 		$container->registerService('L10N', function($c) {
 			return $c->query('ServerContainer')->getL10N($c->query('AppName'));
 		});
@@ -314,7 +303,7 @@ class Application extends App {
 
 		$container->registerService('Config', function($c) {
 			$config = new Config(
-				$c->query('ConfigView'), 
+				$c->query('ConfigView'),
 				$c->query('Logger'),
 				$c->query('LoggerParameters')
 			);
@@ -345,7 +334,7 @@ class Application extends App {
 			$config->set('Cache.SerializerPath', $directory);
 			$config->set('HTML.SafeIframe', true);
 			$config->set('URI.SafeIframeRegexp',
-				'%^(?:https?:)?//(' . 
+				'%^(?:https?:)?//(' .
 				'www.youtube(?:-nocookie)?.com/embed/|' .
 				'player.vimeo.com/video/)%'); //allow YouTube and Vimeo
 			return new \HTMLPurifier($config);
@@ -358,7 +347,7 @@ class Application extends App {
 			$xpathEnhancerConfig = file_get_contents(
 				__DIR__ . '/../articleenhancer/xpathenhancers.json'
 			);
-			
+
 			foreach(json_decode($xpathEnhancerConfig, true) as $feed => $config) {
 				$articleEnhancer = new XPathArticleEnhancer(
 					$c->query('SimplePieAPIFactory'),

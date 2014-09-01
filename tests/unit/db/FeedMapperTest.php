@@ -14,7 +14,7 @@
 namespace OCA\News\Db;
 
 
-class FeedMapperTest extends \OCP\AppFramework\Db\MapperTestUtility {
+class FeedMapperTest extends \Test\AppFramework\Db\MapperTestUtility {
 
 	private $mapper;
 	private $feeds;
