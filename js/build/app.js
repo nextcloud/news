@@ -282,7 +282,7 @@ var $__build_47_app__ = function () {
                   throw undefined;
                 } catch (languageCode) {
                   languageCode = SettingsResource.get('language');
-                  date = moment.unix(timestamp).lang(languageCode).fromNow() + '';
+                  date = moment.unix(timestamp).locale(languageCode).fromNow() + '';
                   return date;
                 }
               }

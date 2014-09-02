@@ -108,7 +108,8 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data,
     this.getRelativeDate = (timestamp) => {
         if (timestamp !== undefined && timestamp !== '') {
             let languageCode = SettingsResource.get('language');
-            let date = moment.unix(timestamp).lang(languageCode).fromNow() + '';
+            let date =
+                moment.unix(timestamp).locale(languageCode).fromNow() + '';
             return date;
         } else {
             return '';
