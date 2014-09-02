@@ -1,6 +1,6 @@
 {
   "name": "traceur-runtime",
-  "version": "0.0.41",
+  "version": "0.0.58",
   "main": "./traceur-runtime.js",
   "ignore": [
     "node_modules",
@@ -9,14 +9,13 @@
     ".*"
   ],
   "homepage": "https://github.com/jmcriffey/bower-traceur-runtime",
-  "_release": "0.0.41",
+  "_release": "0.0.58",
   "_resolution": {
     "type": "version",
-    "tag": "0.0.41",
-    "commit": "1327dd26531cc4c5371bbab30f72c908e1abab2e"
+    "tag": "0.0.58",
+    "commit": "b75049784a03c21776238a8d2e58b639cc399efc"
   },
   "_source": "git://github.com/jmcriffey/bower-traceur-runtime.git",
   "_target": "~0.0.41",
-  "_originalSource": "traceur-runtime",
-  "_direct": true
+  "_originalSource": "traceur-runtime"
 }
