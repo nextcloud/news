@@ -27,9 +27,7 @@ module.exports = function (config) {
 
         traceurPreprocessor: {
             options: {
-                blockBinding: true,
                 experimental: true,
-                sourceMap: true,
                 modules: 'inline'
             }
         },
@@ -37,9 +35,7 @@ module.exports = function (config) {
         // list of files / patterns to load in the browser
         files: [
             'vendor/jquery/dist/jquery.js',
-            'vendor/momentjs/moment.js',
-            'vendor/momentjs/min/langs.js',
-            'vendor/bootstrap/tooltip.js',
+            'vendor/momentjs/min/moment-with-locales.js',
             'vendor/angular/angular.js',
             'vendor/angular-mocks/angular-mocks.js',
             'vendor/angular-route/angular-route.js',
