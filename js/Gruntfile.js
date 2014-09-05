@@ -19,7 +19,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-wrap');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-ng-annotate');
-    grunt.loadNpmTasks('grunt-traceur');
+    // buggy, wait until it uses traceur 0.0.60
+    // grunt.loadNpmTasks('grunt-traceur');
+    grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks('grunt-protractor-runner');
     grunt.loadNpmTasks('grunt-protractor-webdriver');
 
@@ -55,19 +57,26 @@ module.exports = function (grunt) {
                 dest: '<%= meta.production %>app.js'
             }
         },
-        traceur: {
+        // in place because grunt-traceur is buggy, remove when traceur 0.0.60
+        // is supported
+        shell: {
+            traceur: {
+                command: 'node_modules/traceur/traceur --modules inline --out build/app.js --experimental build/app.js '
+            }
+        },
+        /*traceur: {
             app: {
                 files: [{
                     src: ['<%= meta.production %>app.js'],
-                    dest: '<%= meta.production %>app.js'
+                    dest: '<%= meta.production %>test.js'
                 }]
             },
             options: {
-                blockBinding: true,
                 experimental: true,
                 modules: 'inline'
             }
-        },
+        },*/
+
         wrap: {
             basic: {
                 src: ['<%= meta.production %>app.js'],
@@ -166,7 +175,7 @@ module.exports = function (grunt) {
     });
 
     // make tasks available under simpler commands
-    grunt.registerTask('default', ['jshint', 'concat',  'wrap', 'traceur', 'ngAnnotate']);
+    grunt.registerTask('default', ['jshint', 'concat',  'wrap', 'shell:traceur', 'ngAnnotate']);
     grunt.registerTask('dev', ['watch:concat']);
     grunt.registerTask('test', ['karma:unit']);
     grunt.registerTask('php', ['watch:phpunit']);

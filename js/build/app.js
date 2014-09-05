@@ -4,7 +4,7 @@ var $__app__ = (function() {
   (function(window, document, angular, $, OC, csrfToken, undefined) {
     'use strict';
     var app = angular.module('News', ['ngRoute', 'ngSanitize', 'ngAnimate']);
-    app.config(function($routeProvider, $provide, $httpProvider) {
+    app.config(["$routeProvider", "$provide", "$httpProvider", function($routeProvider, $provide, $httpProvider) {
       'use strict';
       var feedType = {
         FEED: 0,
@@ -17,14 +17,14 @@ var $__app__ = (function() {
       $provide.constant('ITEM_BATCH_SIZE', 50);
       $provide.constant('BASE_URL', OC.generateUrl('/apps/news'));
       $provide.constant('FEED_TYPE', feedType);
-      $provide.factory('CSRFInterceptor', (function($q, BASE_URL) {
+      $provide.factory('CSRFInterceptor', (["$q", "BASE_URL", function($q, BASE_URL) {
         return {request: (function(config) {
             if (config.url.indexOf(BASE_URL) === 0) {
               config.headers.requesttoken = csrfToken;
             }
             return config || $q.when(config);
           })};
-      }));
+      }]));
       $httpProvider.interceptors.push('CSRFInterceptor');
       var getResolve = (function(type) {
         return {data: ['$http', '$route', '$q', 'BASE_URL', 'ITEM_BATCH_SIZE', (function($http, $route, $q, BASE_URL, ITEM_BATCH_SIZE) {
@@ -67,8 +67,8 @@ var $__app__ = (function() {
         resolve: getResolve(feedType.FOLDER),
         type: feedType.FOLDER
       });
-    });
-    app.run((function($rootScope, $location, $http, $q, $interval, Loading, ItemResource, FeedResource, FolderResource, SettingsResource, Publisher, BASE_URL, FEED_TYPE, REFRESH_RATE) {
+    }]);
+    app.run((["$rootScope", "$location", "$http", "$q", "$interval", "Loading", "ItemResource", "FeedResource", "FolderResource", "SettingsResource", "Publisher", "BASE_URL", "FEED_TYPE", "REFRESH_RATE", function($rootScope, $location, $http, $q, $interval, Loading, ItemResource, FeedResource, FolderResource, SettingsResource, Publisher, BASE_URL, FEED_TYPE, REFRESH_RATE) {
       'use strict';
       Loading.setLoading('global', true);
       Publisher.subscribe(ItemResource).toChannels('items', 'newestItemId', 'starred');
@@ -128,15 +128,15 @@ var $__app__ = (function() {
       $rootScope.$on('$routeChangeError', (function() {
         $location.path('/items');
       }));
-    }));
-    app.controller('AppController', function(Loading, FeedResource, FolderResource) {
+    }]));
+    app.controller('AppController', ["Loading", "FeedResource", "FolderResource", function(Loading, FeedResource, FolderResource) {
       'use strict';
       this.loading = Loading;
       this.isFirstRun = (function() {
         return FeedResource.size() === 0 && FolderResource.size() === 0;
       });
-    });
-    app.controller('ContentController', function(Publisher, FeedResource, ItemResource, SettingsResource, data, $route, $routeParams) {
+    }]);
+    app.controller('ContentController', ["Publisher", "FeedResource", "ItemResource", "SettingsResource", "data", "$route", "$routeParams", function(Publisher, FeedResource, ItemResource, SettingsResource, data, $route, $routeParams) {
       'use strict';
       var $__0 = this;
       ItemResource.clear();
@@ -225,8 +225,8 @@ var $__app__ = (function() {
           return '';
         }
       });
-    });
-    app.controller('NavigationController', function($route, FEED_TYPE, FeedResource, FolderResource, ItemResource, SettingsResource) {
+    }]);
+    app.controller('NavigationController', ["$route", "FEED_TYPE", "FeedResource", "FolderResource", "ItemResource", "SettingsResource", function($route, FEED_TYPE, FeedResource, FolderResource, ItemResource, SettingsResource) {
       'use strict';
       var $__0 = this;
       this.feedError = '';
@@ -341,8 +341,8 @@ var $__app__ = (function() {
       this.moveFeed = (function(feedId, folderId) {
         console.log(feedId + folderId);
       });
-    });
-    app.controller('SettingsController', function($route, SettingsResource, FeedResource) {
+    }]);
+    app.controller('SettingsController', ["$route", "SettingsResource", "FeedResource", function($route, SettingsResource, FeedResource) {
       'use strict';
       var $__0 = this;
       this.importing = false;
@@ -369,13 +369,13 @@ var $__app__ = (function() {
       this.importArticles = (function(content) {
         console.log(content);
       });
-    });
-    app.filter('trustUrl', (function($sce) {
+    }]);
+    app.filter('trustUrl', (["$sce", function($sce) {
       'use strict';
       return (function(url) {
         return $sce.trustAsResourceUrl(url);
       });
-    }));
+    }]));
     app.filter('unreadCountFormatter', (function() {
       'use strict';
       return (function(unreadCount) {
@@ -385,7 +385,7 @@ var $__app__ = (function() {
         return unreadCount;
       });
     }));
-    app.factory('FeedResource', (function(Resource, $http, BASE_URL) {
+    app.factory('FeedResource', (["Resource", "$http", "BASE_URL", function(Resource, $http, BASE_URL) {
       'use strict';
       var FeedResource = function FeedResource($http, BASE_URL) {
         $traceurRuntime.superCall(this, $FeedResource.prototype, "constructor", [$http, BASE_URL, 'url']);
@@ -558,8 +558,8 @@ var $__app__ = (function() {
         }
       }, {}, Resource);
       return new FeedResource($http, BASE_URL);
-    }));
-    app.factory('FolderResource', (function(Resource, $http, BASE_URL) {
+    }]));
+    app.factory('FolderResource', (["Resource", "$http", "BASE_URL", function(Resource, $http, BASE_URL) {
       'use strict';
       var FolderResource = function FolderResource($http, BASE_URL) {
         $traceurRuntime.superCall(this, $FolderResource.prototype, "constructor", [$http, BASE_URL, 'name']);
@@ -620,8 +620,8 @@ var $__app__ = (function() {
         }
       }, {}, Resource);
       return new FolderResource($http, BASE_URL);
-    }));
-    app.factory('ItemResource', (function(Resource, $http, BASE_URL, ITEM_BATCH_SIZE) {
+    }]));
+    app.factory('ItemResource', (["Resource", "$http", "BASE_URL", "ITEM_BATCH_SIZE", function(Resource, $http, BASE_URL, ITEM_BATCH_SIZE) {
       'use strict';
       var ItemResource = function ItemResource($http, BASE_URL, ITEM_BATCH_SIZE) {
         $traceurRuntime.superCall(this, $ItemResource.prototype, "constructor", [$http, BASE_URL]);
@@ -734,7 +734,7 @@ var $__app__ = (function() {
         }
       }, {}, Resource);
       return new ItemResource($http, BASE_URL, ITEM_BATCH_SIZE);
-    }));
+    }]));
     app.service('Loading', function() {
       'use strict';
       var $__0 = this;
@@ -865,7 +865,7 @@ var $__app__ = (function() {
       }, {});
       return Resource;
     }));
-    app.service('SettingsResource', function($http, BASE_URL) {
+    app.service('SettingsResource', ["$http", "BASE_URL", function($http, BASE_URL) {
       'use strict';
       var $__0 = this;
       this.settings = {
@@ -916,7 +916,7 @@ var $__app__ = (function() {
         }
         return languageCode;
       });
-    });
+    }]);
     (function(window, document, $) {
       'use strict';
       var scrollArea = $('#app-content');
@@ -1167,12 +1167,12 @@ var $__app__ = (function() {
         writable: true
       }), $__2);
     };
-    app.run((function($document, $rootScope) {
+    app.run((["$document", "$rootScope", function($document, $rootScope) {
       'use strict';
       $document.click((function(event) {
         $rootScope.$broadcast('documentClicked', event);
       }));
-    }));
+    }]));
     app.directive('appNavigationEntryUtils', (function() {
       'use strict';
       return {
@@ -1244,7 +1244,7 @@ var $__app__ = (function() {
         }
       });
     }));
-    app.directive('newsDroppable', (function($rootScope) {
+    app.directive('newsDroppable', (["$rootScope", function($rootScope) {
       'use strict';
       return (function(scope, elem, attr) {
         var details = {
@@ -1263,8 +1263,8 @@ var $__app__ = (function() {
         };
         elem.droppable(details);
       });
-    }));
-    app.directive('newsFocus', (function($timeout, $interpolate) {
+    }]));
+    app.directive('newsFocus', (["$timeout", "$interpolate", function($timeout, $interpolate) {
       'use strict';
       return (function(scope, elem, attrs) {
         elem.click((function() {
@@ -1274,7 +1274,7 @@ var $__app__ = (function() {
           }), 500);
         }));
       });
-    }));
+    }]));
     app.directive('newsReadFile', (function() {
       'use strict';
       return (function(scope, elem, attr) {
@@ -1290,7 +1290,7 @@ var $__app__ = (function() {
         }));
       });
     }));
-    app.directive('newsScroll', (function($timeout) {
+    app.directive('newsScroll', (["$timeout", function($timeout) {
       'use strict';
       var autoPage = (function(enabled, limit, elem, scope) {
         var counter$__43;
@@ -1365,8 +1365,8 @@ var $__app__ = (function() {
           }));
         })
       };
-    }));
-    app.directive('newsTitleUnreadCount', (function($window) {
+    }]));
+    app.directive('newsTitleUnreadCount', (["$window", function($window) {
       'use strict';
       var baseTitle = $window.document.title;
       return {
@@ -1381,7 +1381,7 @@ var $__app__ = (function() {
           }));
         })
       };
-    }));
+    }]));
     app.directive('newsTriggerClick', (function() {
       'use strict';
       return (function(scope, elm, attr) {

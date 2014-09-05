@@ -35,6 +35,7 @@
     "grunt-phpunit": "^0.3.4",
     "grunt-protractor-runner": "^1.1.4",
     "grunt-protractor-webdriver": "^0.1.8",
+    "grunt-shell": "^1.1.1",
     "grunt-traceur": "^0.2.4",
     "grunt-wrap": "^0.3.0",
     "karma": "^0.12.23",
@@ -46,6 +47,5 @@
     "karma-traceur-preprocessor": "^0.3.1",
     "traceur": "^0.0.60"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
