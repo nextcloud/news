@@ -323,8 +323,8 @@ var $__app__ = (function() {
       this.cancelRenameFolder = (function(folderId) {
         console.log(folderId);
       });
-      this.renameFeed = (function(feedId, feedTitle) {
-        console.log(feedId + feedTitle);
+      this.renameFeed = (function(feed) {
+        feed.editing = false;
       });
       this.cancelRenameFeed = (function(feedId) {
         console.log(feedId);
@@ -332,8 +332,14 @@ var $__app__ = (function() {
       this.renameFolder = (function() {
         console.log('TBD');
       });
-      this.deleteFeed = (function(feedUrl) {
-        console.log(feedUrl);
+      this.deleteFeed = (function(feed) {
+        feed.deleted = true;
+      });
+      this.undeleteFeed = (function(feed) {
+        feed.deleted = false;
+      });
+      this.removeFeed = (function(feed) {
+        console.log(feed);
       });
       this.deleteFolder = (function(folderName) {
         console.log(folderName);

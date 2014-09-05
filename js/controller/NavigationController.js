@@ -135,8 +135,9 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
         console.log(folderId);
     };
 
-    this.renameFeed = (feedId, feedTitle) => {
-        console.log(feedId + feedTitle);
+    this.renameFeed = (feed) => {
+        feed.editing = false;
+        // todo remote stuff
     };
 
     this.cancelRenameFeed = (feedId) => {
@@ -147,8 +148,18 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
         console.log('TBD');
     };
 
-    this.deleteFeed = (feedUrl) => {
-        console.log(feedUrl);
+    this.deleteFeed = (feed) => {
+        feed.deleted = true;
+        // todo remote stuff
+    };
+
+    this.undeleteFeed = (feed) => {
+        feed.deleted = false;
+        // todo remote stuff
+    };
+
+    this.removeFeed = (feed) => {
+        console.log(feed);
     };
 
     this.deleteFolder = (folderName) => {
