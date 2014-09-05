@@ -159,7 +159,7 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
     };
 
     this.removeFeed = (feed) => {
-        console.log(feed);
+        console.log('remove ' + feed);
     };
 
     this.deleteFolder = (folderName) => {

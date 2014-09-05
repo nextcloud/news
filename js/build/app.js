@@ -339,7 +339,7 @@ var $__app__ = (function() {
         feed.deleted = false;
       });
       this.removeFeed = (function(feed) {
-        console.log(feed);
+        console.log('remove ' + feed);
       });
       this.deleteFolder = (function(folderName) {
         console.log(folderName);
@@ -1368,6 +1368,20 @@ var $__app__ = (function() {
           elem.on('scroll', scrollHandler);
           scope.$on('$destroy', (function() {
             elem.off('scroll', scrollHandler);
+          }));
+        })
+      };
+    }]));
+    app.directive('newsTimeout', (["$timeout", function($timeout) {
+      'use strict';
+      return {
+        restrict: 'A',
+        scope: {'newsTimeout': '&'},
+        link: (function(scope) {
+          var seconds = 7;
+          var timer = $timeout(scope.newsTimeout, seconds * 1000);
+          scope.$on('$destroy', (function() {
+            $timeout.cancel(timer);
           }));
         })
       };
