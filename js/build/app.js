@@ -320,14 +320,8 @@ var $__app__ = (function() {
         console.log(feed.url + feed.folder);
         feed.url = '';
       });
-      this.cancelRenameFolder = (function(folderId) {
-        console.log(folderId);
-      });
       this.renameFeed = (function(feed) {
         feed.editing = false;
-      });
-      this.cancelRenameFeed = (function(feedId) {
-        console.log(feedId);
       });
       this.renameFolder = (function() {
         console.log('TBD');

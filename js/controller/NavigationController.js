@@ -131,17 +131,9 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
         feed.url = '';
     };
 
-    this.cancelRenameFolder = (folderId) => {
-        console.log(folderId);
-    };
-
     this.renameFeed = (feed) => {
         feed.editing = false;
         // todo remote stuff
-    };
-
-    this.cancelRenameFeed = (feedId) => {
-        console.log(feedId);
     };
 
     this.renameFolder = () => {
