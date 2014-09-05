@@ -5,7 +5,7 @@
 \OCP\Util::addScript('news', 'vendor/angular-sanitize/angular-sanitize.min');
 \OCP\Util::addScript('news', 'vendor/angular-animate/angular-animate.min');
 \OCP\Util::addScript('news', 'vendor/momentjs/min/moment-with-locales.min');
-\OCP\Util::addScript('news', 'build/app');
+\OCP\Util::addScript('news', 'build/app.min');
 
 \OCP\Util::addStyle('news', 'app');
 \OCP\Util::addStyle('news', 'navigation');

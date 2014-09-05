@@ -15,6 +15,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-phpunit');
     grunt.loadNpmTasks('grunt-wrap');
     grunt.loadNpmTasks('grunt-karma');
@@ -55,6 +56,13 @@ module.exports = function (grunt) {
             app: {
                 src: ['<%= meta.production %>app.js'],
                 dest: '<%= meta.production %>app.js'
+            }
+        },
+        uglify: {
+            app: {
+                files: {
+                    '<%= meta.production %>app.min.js': ['<%= meta.production %>app.js']
+                }
             }
         },
         // in place because grunt-traceur is buggy, remove when traceur 0.0.60
@@ -175,7 +183,7 @@ module.exports = function (grunt) {
     });
 
     // make tasks available under simpler commands
-    grunt.registerTask('default', ['jshint', 'concat',  'wrap', 'shell:traceur', 'ngAnnotate']);
+    grunt.registerTask('default', ['jshint', 'concat',  'wrap', 'shell:traceur', 'ngAnnotate', 'uglify']);
     grunt.registerTask('dev', ['watch:concat']);
     grunt.registerTask('test', ['karma:unit']);
     grunt.registerTask('php', ['watch:phpunit']);

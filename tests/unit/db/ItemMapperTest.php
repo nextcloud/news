@@ -27,7 +27,7 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 
 
 	public function setUp()	{
-		parent::setUp();
+		parent::setup();
 
 		$this->mapper = new ItemMapper($this->db);
 
@@ -35,20 +35,23 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 		$item1 = new Item();
 		$item2 = new Item();
 
-		$this->items = [$item1, $item2];
+		$this->items = array(
+			$item1,
+			$item2
+		);
 
 		$this->userId = 'john';
 		$this->id = 3;
 		$this->folderId = 2;
 
-		$this->row = [
-			['id' => $this->items[0]->getId()],
-		];
+		$this->row = array(
+			array('id' => $this->items[0]->getId()),
+		);
 
-		$this->rows = [
-			['id' => $this->items[0]->getId()],
-			['id' => $this->items[1]->getId()]
-		];
+		$this->rows = array(
+			array('id' => $this->items[0]->getId()),
+			array('id' => $this->items[1]->getId())
+		);
 
 		$this->user = 'john';
 		$this->limit = 10;
@@ -61,12 +64,7 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 	}
 
 
-	private function makeSelectQuery($prependTo, $oldestFirst=false){
-		if($oldestFirst) {
-			$ordering = 'ASC';
-		} else {
-			$ordering = 'DESC';
-		}
+	private function makeSelectQuery($prependTo){
 		return 'SELECT `items`.* FROM `*PREFIX*news_items` `items` '.
 			'JOIN `*PREFIX*news_feeds` `feeds` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` '.
@@ -77,15 +75,15 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 				'ON `folders`.`id` = `feeds`.`folder_id` ' .
 			'WHERE `feeds`.`folder_id` = 0 ' .
 				'OR `folders`.`deleted_at` = 0 ' .
-			'ORDER BY `items`.`pub_date`, `items`.`id` ' . $ordering;
+			'ORDER BY `items`.`id` DESC';
 	}
 
-	private function makeSelectQueryStatus($prependTo, $status, $oldestFirst=false) {
+	private function makeSelectQueryStatus($prependTo, $status) {
 		$status = (int) $status;
 
 		return $this->makeSelectQuery(
 			'AND ((`items`.`status` & ' . $status . ') = ' . $status . ') ' .
-			$prependTo, $oldestFirst
+			$prependTo
 		);
 	}
 
@@ -93,7 +91,7 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 	public function testFind(){
 		$sql = $this->makeSelectQuery('AND `items`.`id` = ? ');
 
-		$this->setMapperResult($sql, [$this->userId, $this->id], $this->row);
+		$this->setMapperResult($sql, array($this->userId, $this->id), $this->row);
 
 		$result = $this->mapper->find($this->id, $this->userId);
 		$this->assertEquals($this->items[0], $result);
@@ -102,7 +100,9 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 
 	public function testGetStarredCount(){
 		$userId = 'john';
-		$row = [['size' => 9]];
+		$row = array(
+			array('size' => 9)
+		);
 		$sql = 'SELECT COUNT(*) AS size FROM `*PREFIX*news_feeds` `feeds` ' .
 			'JOIN `*PREFIX*news_items` `items` ' .
 				'ON `items`.`feed_id` = `feeds`.`id` ' .
@@ -110,7 +110,7 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 			'WHERE ((`items`.`status` & ' . StatusFlag::STARRED . ') = '
 				. StatusFlag::STARRED . ')';
 
-		$this->setMapperResult($sql, [$userId], $row);
+		$this->setMapperResult($sql, array($userId), $row);
 
 		$result = $this->mapper->starredCount($userId);
 		$this->assertEquals($row[0]['size'], $result);
@@ -126,7 +126,7 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 					'WHERE `user_id` = ? ' .
 				') '.
 			'AND `id` <= ?';
-		$params = [~StatusFlag::UNREAD, $this->updatedSince, $this->user, 3];
+		$params = array(~StatusFlag::UNREAD, $this->updatedSince, $this->user, 3);
 		$this->setMapperResult($sql, $params);
 		$this->mapper->readAll(3, $this->updatedSince, $this->user);
 	}
@@ -142,7 +142,7 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 					'AND `user_id` = ? ' .
 				') '.
 			'AND `id` <= ?';
-		$params = [~StatusFlag::UNREAD, $this->updatedSince, 3, $this->user, 6];
+		$params = array(~StatusFlag::UNREAD, $this->updatedSince, 3, $this->user, 6);
 		$this->setMapperResult($sql, $params);
 		$this->mapper->readFolder(3, 6, $this->updatedSince, $this->user);
 	}
@@ -158,7 +158,8 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 					'SELECT * FROM `*PREFIX*news_feeds` ' .
 					'WHERE `user_id` = ? ' .
 					'AND `id` = ? ) ';
-		$params = [~StatusFlag::UNREAD, $this->updatedSince, 3, 6, $this->user, 3];
+		$params = array(~StatusFlag::UNREAD, $this->updatedSince, 3, 6,
+			$this->user, 3);
 		$this->setMapperResult($sql, $params);
 		$this->mapper->readFeed(3, 6, $this->updatedSince, $this->user);
 	}
@@ -167,7 +168,7 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 	public function testFindAllNew(){
 		$sql = 'AND `items`.`last_modified` >= ? ';
 		$sql = $this->makeSelectQueryStatus($sql, $this->status);
-		$params = [$this->user, $this->updatedSince];
+		$params = array($this->user, $this->updatedSince);
 
 		$this->setMapperResult($sql, $params, $this->rows);
 		$result = $this->mapper->findAllNew($this->updatedSince,
@@ -182,7 +183,7 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 				'AND `items`.`last_modified` >= ? ';
 		$sql = $this->makeSelectQueryStatus($sql, $this->status);
 
-		$params = [$this->user, $this->id, $this->updatedSince];
+		$params = array($this->user, $this->id, $this->updatedSince);
 		$this->setMapperResult($sql, $params, $this->rows);
 		$result = $this->mapper->findAllNewFolder($this->id, $this->updatedSince,
 			$this->status, $this->user);
@@ -195,7 +196,7 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 		$sql = 'AND `items`.`feed_id` = ? ' .
 				'AND `items`.`last_modified` >= ? ';
 		$sql = $this->makeSelectQueryStatus($sql, $this->status);
-		$params = [$this->user, $this->id, $this->updatedSince];
+		$params = array($this->user, $this->id, $this->updatedSince);
 
 		$this->setMapperResult($sql, $params, $this->rows);
 		$result = $this->mapper->findAllNewFeed($this->id, $this->updatedSince,
@@ -209,7 +210,7 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 		$status = StatusFlag::UNREAD | StatusFlag::STARRED;
 		$sql = 'AND ((`items`.`status` & ' . $status . ') > 0) ';
 		$sql = $this->makeSelectQuery($sql);
-		$params = [$this->user];
+		$params = array($this->user);
 		$this->setMapperResult($sql, $params, $this->rows);
 		$result = $this->mapper->findAllUnreadOrStarred($this->user);
 
@@ -218,10 +219,11 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 
 
 	public function testFindAllFeed(){
-		$sql = 'AND `items`.`feed_id` = ? ';
+		$sql = 'AND `items`.`feed_id` = ? ' .
+			'AND `items`.`id` < ? ';
 		$sql = $this->makeSelectQueryStatus($sql, $this->status);
-		$params = [$this->user, $this->id];
-		$this->setMapperResult($sql, $params, $this->rows, $this->limit, $this->offset);
+		$params = array($this->user, $this->id, $this->offset);
+		$this->setMapperResult($sql, $params, $this->rows);
 		$result = $this->mapper->findAllFeed($this->id, $this->limit,
 				$this->offset, $this->status, false, $this->user);
 
@@ -230,10 +232,11 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 
 
 	public function testFindAllFeedOldestFirst(){
-		$sql = 'AND `items`.`feed_id` = ? ';
-		$sql = $this->makeSelectQueryStatus($sql, $this->status, true);
-		$params = [$this->user, $this->id];
-		$this->setMapperResult($sql, $params, $this->rows, $this->limit, $this->offset);
+		$sql = 'AND `items`.`feed_id` = ? ' .
+			'AND `items`.`id` > ? ';
+		$sql = $this->makeSelectQueryStatus($sql, $this->status);
+		$params = array($this->user, $this->id, $this->offset);
+		$this->setMapperResult($sql, $params, $this->rows);
 		$result = $this->mapper->findAllFeed($this->id, $this->limit,
 				$this->offset, $this->status, true, $this->user);
 
@@ -241,11 +244,25 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 	}
 
 
-	public function testFindAllFolder(){
-		$sql = 'AND `feeds`.`folder_id` = ? ';
+	public function testFindAllFeedOffsetZero(){
+		$sql = 'AND `items`.`feed_id` = ? ';
 		$sql = $this->makeSelectQueryStatus($sql, $this->status);
-		$params = [$this->user, $this->id];
-		$this->setMapperResult($sql, $params, $this->rows, $this->limit, $this->offset);
+		$params = array($this->user, $this->id);
+		$this->setMapperResult($sql, $params, $this->rows);
+		$result = $this->mapper->findAllFeed($this->id, $this->limit,
+				0, $this->status, false, $this->user);
+
+		$this->assertEquals($this->items, $result);
+	}
+
+
+	public function testFindAllFolder(){
+		$sql = 'AND `feeds`.`folder_id` = ? ' .
+			'AND `items`.`id` < ? ';
+		$sql = $this->makeSelectQueryStatus($sql, $this->status);
+		$params = array($this->user, $this->id,
+			$this->offset);
+		$this->setMapperResult($sql, $params, $this->rows);
 		$result = $this->mapper->findAllFolder($this->id, $this->limit,
 				$this->offset, $this->status, false, $this->user);
 
@@ -254,10 +271,12 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 
 
 	public function testFindAllFolderOldestFirst(){
-		$sql = 'AND `feeds`.`folder_id` = ? ';
-		$sql = $this->makeSelectQueryStatus($sql, $this->status, true);
-		$params = [$this->user, $this->id];
-		$this->setMapperResult($sql, $params, $this->rows, $this->limit, $this->offset);
+		$sql = 'AND `feeds`.`folder_id` = ? ' .
+			'AND `items`.`id` > ? ';
+		$sql = $this->makeSelectQueryStatus($sql, $this->status);
+		$params = array($this->user, $this->id,
+			$this->offset);
+		$this->setMapperResult($sql, $params, $this->rows);
 		$result = $this->mapper->findAllFolder($this->id, $this->limit,
 				$this->offset, $this->status, true, $this->user);
 
@@ -265,11 +284,23 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 	}
 
 
-	public function testFindAll(){
-		$sql = '';
+	public function testFindAllFolderOffsetZero(){
+		$sql = 'AND `feeds`.`folder_id` = ? ';
 		$sql = $this->makeSelectQueryStatus($sql, $this->status);
-		$params = [$this->user];
-		$this->setMapperResult($sql, $params, $this->rows, $this->limit, $this->offset);
+		$params = array($this->user, $this->id);
+		$this->setMapperResult($sql, $params, $this->rows);
+		$result = $this->mapper->findAllFolder($this->id, $this->limit,
+				0, $this->status, false, $this->user);
+
+		$this->assertEquals($this->items, $result);
+	}
+
+
+	public function testFindAll(){
+		$sql = 'AND `items`.`id` < ? ';
+		$sql = $this->makeSelectQueryStatus($sql, $this->status);
+		$params = array($this->user, $this->offset);
+		$this->setMapperResult($sql, $params, $this->rows);
 		$result = $this->mapper->findAll($this->limit,
 				$this->offset, $this->status, false, $this->user);
 
@@ -278,15 +309,28 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 
 
 	public function testFindAllOldestFirst(){
-		$sql = '';
-		$sql = $this->makeSelectQueryStatus($sql, $this->status, true);
-		$params = [$this->user];
-		$this->setMapperResult($sql, $params, $this->rows, $this->limit, $this->offset);
+		$sql = 'AND `items`.`id` > ? ';
+		$sql = $this->makeSelectQueryStatus($sql, $this->status);
+		$params = array($this->user, $this->offset);
+		$this->setMapperResult($sql, $params, $this->rows);
 		$result = $this->mapper->findAll($this->limit,
 				$this->offset, $this->status, true, $this->user);
 
 		$this->assertEquals($this->items, $result);
 	}
+
+
+	public function testFindAllOffsetZero(){
+		$sql = $this->makeSelectQueryStatus('', $this->status);
+		$params = array($this->user);
+		$this->setMapperResult($sql, $params, $this->rows);
+		$result = $this->mapper->findAll($this->limit,
+				0, $this->status, false, $this->user);
+
+		$this->assertEquals($this->items, $result);
+	}
+
+
 
 
 	public function testFindByGuidHash(){
@@ -296,7 +340,7 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 			'AND `items`.`guid_hash` = ? ' .
 			'AND `feeds`.`id` = ? ');
 
-		$this->setMapperResult($sql, [$this->userId, $hash, $feedId], $this->row);
+		$this->setMapperResult($sql, array($this->userId, $hash, $feedId), $this->row);
 
 		$result = $this->mapper->findByGuidHash($hash, $feedId, $this->userId);
 		$this->assertEquals($this->items[0], $result);
@@ -315,8 +359,8 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 			'HAVING COUNT(*) > ?';
 
 		$threshold = 10;
-		$rows = [['feed_id' => 30, 'size' => 9]];
-		$params = [$status, $threshold];
+		$rows = array(array('feed_id' => 30, 'size' => 9));
+		$params = array($status, $threshold);
 
 		$this->setMapperResult($sql, $params, $rows);
 		$this->mapper->deleteReadOlderThanThreshold($threshold);
@@ -337,18 +381,18 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 			'WHERE NOT ((`items`.`status` & ?) > 0) ' .
 			'GROUP BY `items`.`feed_id`, `feeds`.`articles_per_update` ' .
 			'HAVING COUNT(*) > ?';
-		$params1 = [$status, $threshold];
+		$params1 = array($status, $threshold);
 
 
-		$row = ['feed_id' => 30, 'size' => 11];
+		$row = array('feed_id' => 30, 'size' => 11);
 
 		$sql2 = 'DELETE FROM `*PREFIX*news_items` ' .
 				'WHERE NOT ((`status` & ?) > 0) ' .
 				'AND `feed_id` = ? ' .
 				'ORDER BY `id` ASC';
-		$params2 = [$status, 30];
+		$params2 = array($status, 30);
 
-		$this->setMapperResult($sql1, $params1, [$row]);
+		$this->setMapperResult($sql1, $params1, array($row));
 		$this->setMapperResult($sql2, $params2);
 
 		$this->mapper->deleteReadOlderThanThreshold($threshold);
@@ -360,8 +404,8 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 			'JOIN `*PREFIX*news_feeds` `feeds` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` '.
 				'AND `feeds`.`user_id` = ?';
-		$params = [$this->user];
-		$rows = [['max_id' => 3]];
+		$params = array($this->user);
+		$rows = array(array('max_id' => 3));
 
 		$this->setMapperResult($sql, $params, $rows);
 
@@ -375,8 +419,8 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 			'JOIN `*PREFIX*news_feeds` `feeds` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` '.
 				'AND `feeds`.`user_id` = ?';
-		$params = [$this->user];
-		$rows = [];
+		$params = array($this->user);
+		$rows = array();
 
 		$this->setMapperResult($sql, $params, $rows);
 		$this->setExpectedException('\OCP\AppFramework\Db\DoesNotExistException');
@@ -393,7 +437,7 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 					'WHERE `feeds`.`user_id` = ?' .
 				')';
 
-		$this->setMapperResult($sql, [$userId]);
+		$this->setMapperResult($sql, array($userId));
 
 		$this->mapper->deleteUser($userId);
 	}

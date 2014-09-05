@@ -41,7 +41,7 @@ class ItemMapper extends Mapper implements IMapper {
 				'ON `folders`.`id` = `feeds`.`folder_id` ' .
 			'WHERE `feeds`.`folder_id` = 0 ' .
 				'OR `folders`.`deleted_at` = 0 ' .
-			'ORDER BY `items`.`pub_date`, `items`.`id` ' . $ordering;
+			'ORDER BY `items`.`id` ' . $ordering;
 	}
 
 	private function makeSelectQueryStatus($prependTo, $status, $oldestFirst=false) {
@@ -141,6 +141,15 @@ class ItemMapper extends Mapper implements IMapper {
 	}
 
 
+	private function getOperator($oldestFirst) {
+		if($oldestFirst) {
+			return '>';
+		} else {
+			return '<';
+		}
+	}
+
+
 	public function findAllNew($updatedSince, $status, $userId){
 		$sql = $this->makeSelectQueryStatus(
 			'AND `items`.`last_modified` >= ? ', $status);
@@ -166,36 +175,40 @@ class ItemMapper extends Mapper implements IMapper {
 		return $this->findEntities($sql, $params);
 	}
 
-	private function getOperator($oldestFirst) {
-		if($oldestFirst) {
-			return '>';
-		} else {
-			return '<';
-		}
-	}
 
-	public function findAllFeed($id, $limit, $offset, $status, $oldestFirst,
-	                            $userId){
+	public function findAllFeed($id, $limit, $offset, $status, $oldestFirst, $userId){
 		$params = [$userId, $id];
 		$sql = 'AND `items`.`feed_id` = ? ';
-		$sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst);
-		return $this->findEntities($sql, $params, $limit, $offset);
+		if($offset !== 0){
+			$sql .= 'AND `items`.`id` ' . $this->getOperator($oldestFirst) . ' ? ';
+			$params[] = $offset;
+		}
+		$sql = $this->makeSelectQueryStatus($sql, $status);
+		return $this->findEntities($sql, $params, $limit);
 	}
 
 
-	public function findAllFolder($id, $limit, $offset, $status, $oldestFirst,
-	                              $userId){
+	public function findAllFolder($id, $limit, $offset, $status, $oldestFirst, $userId){
 		$params = [$userId, $id];
 		$sql = 'AND `feeds`.`folder_id` = ? ';
-		$sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst);
-		return $this->findEntities($sql, $params, $limit, $offset);
+		if($offset !== 0){
+			$sql .= 'AND `items`.`id` ' . $this->getOperator($oldestFirst) . ' ? ';
+			$params[] = $offset;
+		}
+		$sql = $this->makeSelectQueryStatus($sql, $status);
+		return $this->findEntities($sql, $params, $limit);
 	}
 
 
 	public function findAll($limit, $offset, $status, $oldestFirst, $userId){
 		$params = [$userId];
-		$sql = $this->makeSelectQueryStatus('', $status, $oldestFirst);
-		return $this->findEntities($sql, $params, $limit, $offset);
+		$sql = '';
+		if($offset !== 0){
+			$sql .= 'AND `items`.`id` ' . $this->getOperator($oldestFirst) . ' ? ';
+			$params[] = $offset;
+		}
+		$sql = $this->makeSelectQueryStatus($sql, $status);
+		return $this->findEntities($sql, $params, $limit);
 	}
 
 
