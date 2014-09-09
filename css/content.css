@@ -39,6 +39,7 @@
     height: 100%;
 }
 
+
 #app-content-wrapper.autopaging:after {
     content: '';
     background-image: url('../img/loading.gif') no-repeat;
@@ -53,10 +54,6 @@
     min-height: 120px;
     cursor: default;
     border-top: 1px solid #eee;
-}
-
-#app-content .item:first-child {
-    border-top: 0;
 }
 
 /**
@@ -84,7 +81,7 @@
     }
 
     #app-content .utils .util {
-        padding: 5px 15px 5px 0;
+        padding: 5px 20px 5px 0;
     }
 
     #app-content .utils button,
@@ -131,7 +128,6 @@
     }
 
     #app-content .utils .title a {
-        display: block;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
@@ -152,6 +148,22 @@
         font-weight: normal;
         color: #888;
     }
+
+    /**
+     * Source
+     */
+    #app-content .utils .source {
+        width: 200px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        padding: 0 15px;
+        font-size: 15px;
+    }
+
+        #app-content .utils .source a {
+            color: #aaa;
+        }
 
     /**
      * Timestamp

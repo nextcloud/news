@@ -26,6 +26,9 @@
                     </a>
                 </h1>
             </li>
+            <li class="source">
+                <a ng-href="#/items/feeds/{{ item.feedId }}">{{ Content.getFeed(item.feedId).title }}</a>
+            </li>
             <li class="date">
                 <time title="{{ item.pubDate*1000|date:'yyyy-MM-dd HH:mm:ss' }}"
                     datetime="{{ item.pubDate*1000|date:'yyyy-MM-ddTHH:mm:ssZ' }}">
@@ -36,16 +39,8 @@
     </div>
 
     <div class="article" ng-hide="item.hide">
-        <h2 class="author">
-            <span>
-                <?php p($l->t('from')) ?>
-                <a ng-href="#/items/feeds/{{ item.feedId }}"
-                    class="from_feed">{{ Content.getFeed(item.feedId).title }}</a>
-            </span>
-            <span ng-show="item.author">
-                <?php p($l->t('by')) ?>
-                {{ item.author }}
-            </span>
+        <h2 class="author" ng-show="item.author">
+            <?php p($l->t('by')) ?> {{ item.author }}
         </h2>
 
         <div class="enclosure" ng-if="item.enclosureLink">
