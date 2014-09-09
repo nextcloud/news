@@ -33,7 +33,7 @@
     display: none;
 }
 
-#app-content-wrapper:after {
+#app-content:after {
     content: '';
     display: block;
     height: 100%;
@@ -51,9 +51,11 @@
  * Rules for a single feed item
  */
 #app-content .item {
-    min-height: 120px;
     cursor: default;
-    border-top: 1px solid #eee;
+}
+
+#app-content .item:last-child .article {
+    border-bottom: 0;
 }
 
 /**
@@ -165,6 +167,10 @@
             color: #aaa;
         }
 
+        #app-content .utils .source a:hover {
+            text-decoration: underline;
+        }
+
     /**
      * Timestamp
      */
@@ -178,7 +184,9 @@
  * Actual content
  */
 #app-content .article {
-    padding: 30px 45px 30px 45px;
+    min-height: 69px;
+    padding: 25px 45px 45px 45px;
+    border-bottom: 1px solid #eee;
 }
 
 /**
@@ -188,27 +196,11 @@
     padding: 14px 42px 0 49px;
 }
 
-/**
- * Author
- */
-#app-content .author {
-    color: #aaa;
-    font-size: 15px;
-}
-
-    #app-content .author a {
-        color: inherit;
-    }
-
-        #app-content .author a:hover {
-            text-decoration: underline;
-        }
 
 /**
  * Article body
  */
 #app-content .body {
-    margin-top: 15px;
     max-width: 770px;
     font-size: 14px;
     clear: both;
@@ -309,3 +301,20 @@
     }
 
 
+
+/**
+ * Author
+ */
+#app-content .author {
+    color: #aaa;
+    font-size: 15px;
+    padding: 20px 0 10px 0;
+}
+
+    #app-content .author a {
+        color: inherit;
+    }
+
+        #app-content .author a:hover {
+            text-decoration: underline;
+        }

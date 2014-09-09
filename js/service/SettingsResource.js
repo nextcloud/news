@@ -16,7 +16,8 @@ app.service('SettingsResource', function ($http, BASE_URL) {
         language: 'en',
         showAll: false,
         compact: false,
-        oldestFirst: false
+        oldestFirst: false,
+        preventReadOnScroll: false
     };
     this.defaultLanguageCode = 'en';
     this.supportedLanguageCodes = [
@@ -43,13 +44,10 @@ app.service('SettingsResource', function ($http, BASE_URL) {
     this.set = (key, value) => {
         this.settings[key] = value;
 
-        let data = {};
-        data[key] = value;
-
         return $http({
                 url: `${BASE_URL}/settings`,
-                method: 'POST',
-                data: data
+                method: 'PUT',
+                data: this.settings
             });
     };
 

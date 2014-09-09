@@ -872,7 +872,8 @@ var $__app__ = (function() {
         language: 'en',
         showAll: false,
         compact: false,
-        oldestFirst: false
+        oldestFirst: false,
+        preventReadOnScroll: false
       };
       this.defaultLanguageCode = 'en';
       this.supportedLanguageCodes = ['ar-ma', 'ar', 'bg', 'ca', 'cs', 'cv', 'da', 'de', 'el', 'en-ca', 'en-gb', 'eo', 'es', 'et', 'eu', 'fi', 'fr-ca', 'fr', 'gl', 'he', 'hi', 'hu', 'id', 'is', 'it', 'ja', 'ka', 'ko', 'lv', 'ms-my', 'nb', 'ne', 'nl', 'pl', 'pt-br', 'pt', 'ro', 'ru', 'sk', 'sl', 'sv', 'th', 'tr', 'tzm-la', 'tzm', 'uk', 'zh-cn', 'zh-tw'];
@@ -898,12 +899,10 @@ var $__app__ = (function() {
       });
       this.set = (function(key, value) {
         $traceurRuntime.setProperty($__0.settings, key, value);
-        var data = {};
-        $traceurRuntime.setProperty(data, key, value);
         return $http({
           url: (BASE_URL + "/settings"),
-          method: 'POST',
-          data: data
+          method: 'PUT',
+          data: $__0.settings
         });
       });
       this.processLanguageCode = (function(languageCode) {

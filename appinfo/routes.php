@@ -20,7 +20,7 @@ $application->registerRoutes($this, ['routes' => [
 	// page
 	['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
 	['name' => 'page#settings', 'url' => '/settings', 'verb' => 'GET'],
-	['name' => 'page#update_settings', 'url' => '/settings', 'verb' => 'POST'],
+	['name' => 'page#update_settings', 'url' => '/settings', 'verb' => 'PUT'],
 
 	// folders
 	['name' => 'folder#index', 'url' => '/folders', 'verb' => 'GET'],
