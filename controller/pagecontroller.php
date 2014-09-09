@@ -26,10 +26,10 @@ class PageController extends Controller {
 	private $l10n;
 	private $userId;
 
-	public function __construct($appName, 
-	                            IRequest $request, 
+	public function __construct($appName,
+	                            IRequest $request,
 	                            IConfig $settings,
-	                            IL10N $l10n, 
+	                            IL10N $l10n,
 	                            $userId){
 		parent::__construct($appName, $request);
 		$this->settings = $settings;
@@ -43,7 +43,7 @@ class PageController extends Controller {
 	 * @NoCSRFRequired
 	 */
 	public function index() {
-		return new TemplateResponse($this->appName, 'main');
+		return new TemplateResponse($this->appName, 'index');
 	}
 
 
@@ -74,9 +74,9 @@ class PageController extends Controller {
 	 */
 	public function updateSettings($showAll, $compact, $preventReadOnScroll, $oldestFirst) {
 		$settings = ['showAll', 'compact', 'preventReadOnScroll', 'oldestFirst'];
-		
+
 		foreach ($settings as $setting) {
-			$this->settings->setUserValue($this->userId, $this->appName, 
+			$this->settings->setUserValue($this->userId, $this->appName,
 			                              $setting, ${$setting});
 		}
 	}

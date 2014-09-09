@@ -1,16 +1,16 @@
 <?php
-\OCP\Util::addScript('news', 'vendor/traceur-runtime/traceur-runtime.min');
-\OCP\Util::addScript('news', 'vendor/angular/angular.min');
-\OCP\Util::addScript('news', 'vendor/angular-route/angular-route.min');
-\OCP\Util::addScript('news', 'vendor/angular-sanitize/angular-sanitize.min');
-\OCP\Util::addScript('news', 'vendor/angular-animate/angular-animate.min');
-\OCP\Util::addScript('news', 'vendor/momentjs/min/moment-with-locales.min');
-\OCP\Util::addScript('news', 'build/app.min');
+script('news', 'vendor/traceur-runtime/traceur-runtime.min');
+script('news', 'vendor/angular/angular.min');
+script('news', 'vendor/angular-route/angular-route.min');
+script('news', 'vendor/angular-sanitize/angular-sanitize.min');
+script('news', 'vendor/angular-animate/angular-animate.min');
+script('news', 'vendor/momentjs/min/moment-with-locales.min');
+script('news', 'build/app.min');
 
-\OCP\Util::addStyle('news', 'app');
-\OCP\Util::addStyle('news', 'navigation');
-\OCP\Util::addStyle('news', 'content');
-\OCP\Util::addStyle('news', 'settings');
+style('news', 'app');
+style('news', 'navigation');
+style('news', 'content');
+style('news', 'settings');
 ?>
 
 
@@ -23,12 +23,12 @@
 		<news-title-unread-count unread-count="{{ Navigation.getUnreadCount() }}"></news-title-unread-count>
 
 		<ul class="with-icon" data-folder-id="0" news-droppable>
-			<?php print_unescaped($this->inc('part.addfeed')) ?>
-			<?php print_unescaped($this->inc('part.addfolder')) ?>
-			<?php print_unescaped($this->inc('part.feed.unread')) ?>
-			<?php print_unescaped($this->inc('part.feed.starred')) ?>
-			<?php print_unescaped($this->inc('part.listfeed', ['folderId' => '0'])) ?>
-			<?php print_unescaped($this->inc('part.listfolder')) ?>
+			<?php print_unescaped($this->inc('part.navigation.addfeed')) ?>
+			<?php print_unescaped($this->inc('part.navigation.addfolder')) ?>
+			<?php print_unescaped($this->inc('part.navigation.unreadfeed')) ?>
+			<?php print_unescaped($this->inc('part.navigation.starredfeed')) ?>
+			<?php print_unescaped($this->inc('part.navigation.feed', ['folderId' => '0'])) ?>
+			<?php print_unescaped($this->inc('part.navigation.folder')) ?>
 		</ul>
 
 		<!-- settings -->
@@ -50,6 +50,7 @@
 			ng-hide="App.loading.isLoading('global')"
 			ng-view
 			tabindex="-1"
+			news-auto-focus
 			news-scroll
 			news-scroll-enabled-auto-page="Content.autoPagingEnabled()"
 			news-scroll-enabled-mark-read="Content.markReadEnabled()"

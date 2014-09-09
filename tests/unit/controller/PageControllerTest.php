@@ -41,14 +41,14 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
 			'\OCP\IRequest')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->controller = new PageController($this->appName, $this->request, 
+		$this->controller = new PageController($this->appName, $this->request,
 			$this->settings, $this->l10n, $this->user);
 	}
 
 
 	public function testIndex(){
 		$response = $this->controller->index();
-		$this->assertEquals('main', $response->getTemplateName());
+		$this->assertEquals('index', $response->getTemplateName());
 	}
 
 
@@ -101,25 +101,25 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
 			->method('setUserValue')
 			->with($this->equalTo($this->user),
 				$this->equalTo($this->appName),
-				$this->equalTo('showAll'), 
+				$this->equalTo('showAll'),
 				$this->equalTo(true));
 		$this->settings->expects($this->at(1))
 			->method('setUserValue')
 			->with($this->equalTo($this->user),
 				$this->equalTo($this->appName),
-				$this->equalTo('compact'), 
+				$this->equalTo('compact'),
 				$this->equalTo(true));
 		$this->settings->expects($this->at(2))
 			->method('setUserValue')
 			->with($this->equalTo($this->user),
 				$this->equalTo($this->appName),
-				$this->equalTo('preventReadOnScroll'), 
+				$this->equalTo('preventReadOnScroll'),
 				$this->equalTo(false));
 		$this->settings->expects($this->at(3))
 			->method('setUserValue')
 			->with($this->equalTo($this->user),
 				$this->equalTo($this->appName),
-				$this->equalTo('oldestFirst'), 
+				$this->equalTo('oldestFirst'),
 				$this->equalTo(true));
 		$this->controller->updateSettings(true, true, false, true);
 
