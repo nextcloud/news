@@ -170,9 +170,9 @@
     });
     this.orderBy = (function() {
       if (SettingsResource.get('oldestFirst')) {
-        return '-id';
-      } else {
         return 'id';
+      } else {
+        return '-id';
       }
     });
     this.isCompactView = (function() {
@@ -1028,7 +1028,7 @@
         }
       }
     }));
-  }(window, document, jQuery));
+  }(window, document, $));
   var call = Function.prototype.call.bind(Function.prototype.call);
   var hasOwn = Object.prototype.hasOwnProperty;
   window.items = function(obj) {
