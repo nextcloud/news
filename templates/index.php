@@ -6,7 +6,7 @@ script('news', [
     'vendor/angular-sanitize/angular-sanitize.min',
     'vendor/angular-animate/angular-animate.min',
     'vendor/momentjs/min/moment-with-locales.min',
-    'build/app.min',
+    'build/app',
 ]);
 
 style('news', [
