@@ -16,8 +16,6 @@
 (function (window, document, $) {
     'use strict';
 
-    const scrollArea = $('#app-content');
-
     const noInputFocused = (element) => {
         return !(
             element.is('input') ||
@@ -62,7 +60,7 @@
     const scrollToPreviousItem = (scrollArea) => {
         const items = scrollArea.find('.item');
 
-        for (let item of items) {
+        for (var item of items) {
             item = $(item);
 
             if (item.position().top >= 0) {
@@ -118,12 +116,12 @@
     };
 
     $(document).keyup((event) => {
-        const keyCode = event.keyCode;
-
         if (noInputFocused($(':focus')) && noModifierKey(event)) {
+            const keyCode = event.keyCode;
+            const scrollArea = $('#app-content');
 
             // j, n, right arrow
-            if ([74, 78, 34].indexOf(keyCode) >= 0) {
+            if ([74, 78, 33].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
                 scrollToNextItem(scrollArea);

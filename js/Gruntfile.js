@@ -69,7 +69,7 @@ module.exports = function (grunt) {
         // is supported
         shell: {
             traceur: {
-                command: 'node_modules/traceur/traceur --modules inline --out build/app.js --experimental build/app.js '
+                command: 'node_modules/traceur/traceur --block-binding true --out build/app.js --experimental --script build/app.js'
             }
         },
         /*traceur: {

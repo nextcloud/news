@@ -9,7 +9,6 @@
  */
 app.directive('newsAutoFocus', () => {
     'use strict';
-
     return (scope, elem, attrs) => {
         if (attrs.newsAutofocus) {
             $(attrs.newsAutofocus).focus();
@@ -17,5 +16,4 @@ app.directive('newsAutoFocus', () => {
             elem.focus();
         }
     };
-
 });
