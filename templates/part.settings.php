@@ -10,7 +10,7 @@
   <p ng-click="Settings.toggleSetting('compact')">
     <label for="compact">
         <input type="checkbox" ng-checked="Settings.getSetting('compact')" name="compact">
-        <?php p($l->t('Use compact view')); ?>
+        <?php p($l->t('Compact view')); ?>
     </label>
   </p>
 
@@ -32,7 +32,7 @@
   <p ng-click="Settings.toggleSetting('preventReadOnScroll')">
     <label for="preventReadOnScroll">
         <input type="checkbox" ng-checked="Settings.getSetting('preventReadOnScroll')" name="preventReadOnScroll">
-        <?php p($l->t('Do not as mark read when scrolling')); ?>
+        <?php p($l->t('Disable mark read during scrolling')); ?>
     </label>
   </p>
 

@@ -39,7 +39,6 @@
     height: 100%;
 }
 
-
 #app-content-wrapper.autopaging:after {
     content: '';
     background-image: url('../img/loading.gif') no-repeat;
@@ -66,7 +65,7 @@
     border-bottom: 1px solid #eee;
     line-height: 52px;
     box-sizing: border-box;
-    padding: 5px 40px;
+    padding: 0 40px;
 }
 
 #app-content .utils ul {
@@ -83,15 +82,15 @@
     }
 
     #app-content .utils .util {
-        padding: 5px 20px 5px 0;
+        padding: 9px 20px 9px 0;
     }
 
     #app-content .utils button,
     #app-content .utils .external {
         padding: 0;
         margin: 0;
-        height: 30px;
-        width: 30px;
+        height: 24px;
+        width: 24px;
         border: 0;
         float: left;
         background-color: transparent;
@@ -154,6 +153,16 @@
     /**
      * Source
      */
+    @media (max-width: 700px) {
+        #app-content .utils .source {
+            display: none;
+        }
+
+        #app-content .utils .date {
+            display: none;
+        }
+    }
+
     #app-content .utils .source {
         width: 200px;
         text-overflow: ellipsis;
@@ -177,6 +186,7 @@
     #app-content .date {
         color: #aaa;
         font-size: 15px;
+        padding-right: 40px;
         white-space: nowrap;
     }
 
@@ -185,7 +195,7 @@
  */
 #app-content .article {
     min-height: 69px;
-    padding: 25px 45px 45px 45px;
+    padding: 35px 45px 45px 45px;
     border-bottom: 1px solid #eee;
 }
 
@@ -193,7 +203,7 @@
  * Enclosure
  */
 #app-content .enclosure {
-    padding: 14px 42px 0 49px;
+    padding: 20px 0;
 }
 
 

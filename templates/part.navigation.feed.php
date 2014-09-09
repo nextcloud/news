@@ -58,7 +58,8 @@
                 {{ Navigation.getFeedUnreadCount(feed.id) | unreadCountFormatter }}
             </li>
             <li class="app-navigation-entry-utils-menu-button">
-                <button ng-click="App.toggleMenu('f' + feed.id)"></button>
+                <button ng-click="App.toggleMenu('f' + feed.id)"
+                        title="<?php p($l->t('Menu')); ?>"></button>
             </li>
         </ul>
     </div>
