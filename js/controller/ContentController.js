@@ -29,6 +29,12 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data,
         ItemResource.toggleStar(itemId);
     };
 
+    this.toggleItem = (item) => {
+        if (this.isCompactView()) {
+            item.show = !item.show;
+        }
+    };
+
     this.markRead = (itemId) => {
         let item = ItemResource.get(itemId);
 

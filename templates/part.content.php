@@ -10,30 +10,31 @@
 		    ng-class="{read: !item.unread}"
 		    data-id="{{ item.id }}">
 
-		    <div class="utils">
+		    <div class="utils" ng-click="Content.toggleItem(item)">
 		        <ul>
-		            <li ng-click="Content.toggleStar(item.id)" class="util">
+		            <li ng-click="Content.toggleStar(item.id)" class="util" news-stop-propagation>
 		                <button class="star svg" ng-class="{'starred': item.starred}" title="<?php p($l->t('Star')); ?>"></button>
 		            </li>
 		            <li class="util">
 		                <a class="external icon-link"
 		                    target="_blank"
 		                    ng-href="{{ item.url }}"
-		                    title="<?php p($l->t('Open website')) ?>">
+		                    title="<?php p($l->t('Open website')) ?>"
+		                    news-stop-propagation>
 		                </a>
 		            </li>
-		            <li ng-click="Content.toggleKeepUnread(item.id)" class="util">
+		            <li ng-click="Content.toggleKeepUnread(item.id)" class="util" news-stop-propagation>
 		                <button class="icon-toggle" ng-class="{'keep-unread': item.keepUnread}" title="<?php p($l->t('Keep unread')); ?>"></button>
 		            </li>
 		            <li class="title">
 		                <h1>
-		                    <a target="_blank" ng-click="item.show=!item.show">
+		                    <a target="_blank" >
 		                        {{ item.title }}
 		                    </a>
 		                </h1>
 		            </li>
 		            <li class="source">
-		                <a ng-href="#/items/feeds/{{ item.feedId }}/">{{ Content.getFeed(item.feedId).title }}</a>
+		                <a ng-href="#/items/feeds/{{ item.feedId }}/" news-stop-propagation>{{ Content.getFeed(item.feedId).title }}</a>
 		            </li>
 		            <li class="date">
 		                <time title="{{ item.pubDate*1000|date:'yyyy-MM-dd HH:mm:ss' }}"

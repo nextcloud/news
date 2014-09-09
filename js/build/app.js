@@ -148,6 +148,11 @@ var $__app__ = (function() {
       this.toggleStar = (function(itemId) {
         ItemResource.toggleStar(itemId);
       });
+      this.toggleItem = (function(item) {
+        if ($__0.isCompactView()) {
+          item.show = !item.show;
+        }
+      });
       this.markRead = (function(itemId) {
         var item = ItemResource.get(itemId);
         if (!item.keepUnread) {
@@ -1365,6 +1370,17 @@ var $__app__ = (function() {
         })
       };
     }]));
+    app.directive('newsStopPropagation', (function() {
+      'use strict';
+      return {
+        restrict: 'A',
+        link: (function(scope, element) {
+          element.bind('click', (function(e) {
+            e.stopPropagation();
+          }));
+        })
+      };
+    }));
     app.directive('newsTimeout', (["$timeout", function($timeout) {
       'use strict';
       return {
