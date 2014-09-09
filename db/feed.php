@@ -101,6 +101,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
 		return $serialized;
 	}
 
+
 	public function toAPI() {
 		return $this->serializeFields([
 			'id',

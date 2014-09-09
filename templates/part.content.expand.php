@@ -6,27 +6,36 @@
 
     <div class="utils">
         <ul>
-            <li ng-click="Content.toggleStar(item.id)">
+            <li ng-click="Content.toggleStar(item.id)" class="util">
                 <button class="star svg" ng-class="{'starred': item.starred}" title="<?php p($l->t('Star')); ?>"></button>
             </li>
-            <li ng-click="Content.toggleKeepUnread(item.id)">
-                <button class="star svg" ng-class="{'starred': item.keepUnread}" title="<?php p($l->t('Keep unread')); ?>"></button>
+            <li class="util">
+                <a class="external icon-link"
+                    target="_blank"
+                    ng-href="{{ item.url }}"
+                    title="<?php p($l->t('Open website')) ?>">
+                </a>
+            </li>
+            <li ng-click="Content.toggleKeepUnread(item.id)" class="util">
+                <button class="icon-toggle" ng-class="{'keep-unread': item.keepUnread}" title="<?php p($l->t('Keep unread')); ?>"></button>
+            </li>
+            <li class="title">
+                <h1>
+                    <a target="_blank" ng-click="item.hide=!item.hide">
+                        {{ item.title }}
+                    </a>
+                </h1>
+            </li>
+            <li class="date">
+                <time title="{{ item.pubDate*1000|date:'yyyy-MM-dd HH:mm:ss' }}"
+                    datetime="{{ item.pubDate*1000|date:'yyyy-MM-ddTHH:mm:ssZ' }}">
+                    {{ Content.getRelativeDate(item.pubDate) }}
+                </time>
             </li>
         </ul>
     </div>
 
-    <div class="article">
-        <time class="date" title="{{ item.pubDate*1000|date:'yyyy-MM-dd HH:mm:ss' }}"
-            datetime="{{ item.pubDate*1000|date:'yyyy-MM-ddTHH:mm:ssZ' }}"">
-            {{ Content.getRelativeDate(item.pubDate) }}
-        </time>
-
-        <h1 class="title">
-            <a target="_blank" ng-href="{{ item.url }}">
-                {{ item.title }}
-            </a>
-        </h1>
-
+    <div class="article" ng-hide="item.hide">
         <h2 class="author">
             <span>
                 <?php p($l->t('from')) ?>
