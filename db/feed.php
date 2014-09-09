@@ -73,7 +73,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
 	 * Turns entitie attributes into an array
 	 */
 	public function jsonSerialize() {
-		return $this->serializeFields([
+		$serialized = $this->serializeFields([
 			'id',
 			'userId',
 			'urlHash',
@@ -88,6 +88,17 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
 			'deletedAt',
 			'articlesPerUpdate',
 		]);
+
+		$url = parse_url($this->link)['host'];
+
+		// strip leading www. to avoid css class confusion
+		if (strpos($url, 'www.') === 0) {
+			$url = substr($url, 4);
+		}
+
+		$serialized['cssClass'] = str_replace('.', '-', $url);
+
+		return $serialized;
 	}
 
 	public function toAPI() {

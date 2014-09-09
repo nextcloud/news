@@ -3,7 +3,7 @@
 </div>
 
 <div ng-if="!App.isFirstRun()">
-    <ul ng-if="Content.isCompactView()">
+	<ul ng-if="Content.isCompactView()">
         <?php print_unescaped($this->inc('part.content.compact')); ?>
     </ul>
 

@@ -205,6 +205,16 @@ class Application extends App {
 			);
 		});
 
+		// compability for plugins pre 3.0
+		$container->registerService('FolderBusinessLayer', function($c) {
+			return $c->query('FolderService');
+		});
+		$container->registerService('FeedBusinessLayer', function($c) {
+			return $c->query('FeedService');
+		});
+		$container->registerService('ItemBusinessLayer', function($c) {
+			return $c->query('ItemService');
+		});
 
 		/**
 		 * Mappers

@@ -23,344 +23,259 @@
     vertical-align: middle;
 }
 
-#content-container:after {
-    content: '';
-    display: block;
-    height: 100%;
+
+#app-content.loading-content {
+    background: url('../img/loading.gif') no-repeat;
+    background-position: calc(50% - 16px) calc(50% - 16px);
 }
 
-#content-container.autopaging:after {
-    content: '';
-    background-image: url('../img/loading.gif');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 18px;
-    display: block;
-    height: 100%;
-}
-
-
-#content-container.icon-loading > * {
+#app-content.loading-content > * {
     display: none;
 }
 
+#app-content-wrapper:after {
+    content: '';
+    display: block;
+    height: 100%;
+}
 
+#app-content-wrapper.autopaging:after {
+    content: '';
+    background-image: url('../img/loading.gif') no-repeat;
+    background-position: calc(50% - 16px) calc(50% - 16px);
+}
 
 
 /**
  * Rules for a single feed item
  */
 #app-content .item {
-    border-top: 1px solid #ccc;
     min-height: 120px;
-    background-image: linear-gradient(top, #F8F8F8 0, #FFF 84px);
-    padding: 35px 5px 20px 5px;
     cursor: default;
 }
 
-#app-content .item.viewed {
-    border-right: 5px solid #F28627;
+/**
+ * Utils panel
+ */
+#app-content .utils {
+    width: 100%;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    line-height: 40px;
+    padding: 5px 40px;
 }
 
-
-#app-content .item:first-child {
-    border-top: 0;
+#app-content .utils ul {
+    width: 100%;
+    line-height: 40px;
+    height: 40px;
+    list-style-type: none;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
-    /**
-     * Utils panel
-     */
-    #app-content .item .star {
-        height: 25px;
-        width: 25px;
-        margin: 2px 0 0 6px;
-        float: left;
+    #app-content .utils li {
+        display: inline-block;
+        line-height: 40px;
+        height: 40px;
+        padding-right: 15px;
+    }
+
+    #app-content .utils button {
+        padding: 0;
+        margin: 5px;
+        height: 30px;
+        width: 30px;
         border: 0;
-        background-color: #FFF;
+        background-color: transparent;
         background-size: 100%;
         background-repeat: no-repeat;
+    }
+
+    #app-content .utils .star {
         background-image: url('../img/inactive_star.svg');
     }
 
-    #app-content .item .starred,
-    #app-content .item .star:hover {
+    #app-content .utils .starred,
+    #app-content .utils .star:hover {
         background-image: url('../img/active_star.svg');
     }
 
-    /**
-     * Heading for compact view
-     */
-    #app-content .compact .item .body,
-    #app-content .compact .item .title,
-    #app-content .compact .item .author,
-    #app-content .compact .item .date,
-    #app-content .compact .item .bottom-utils,
-    #app-content .item .heading,
-    #app-content .item .link {
-        display: none;
-    }
-    #app-content .compact .item.open .body,
-    #app-content .compact .item.open .author,
-    #app-content .compact .item.open .bottom-utils,
-    #app-content .compact .item .heading,
-    #app-content .item .link {
-        display: block;
+/**
+ * Actual content
+ */
+#app-content .article {
+    padding: 30px 45px 30px 45px;
+}
+
+/**
+ * Article title
+ */
+#app-content .title {
+    font-size: 19px;
+    line-height: 25px;
+    margin-right: 200px;
+    font-weight: bold;
+    word-wrap: break-word;
+    display: inline-block;
+}
+
+    #app-content .title a {
+        color: #222;
     }
 
-    #app-content .heading {
-        padding: 5px 20px;
-        background-color: #fafafa;
+    #app-content .title a:hover {
+        color: #222;
+        text-decoration: underline;
     }
 
-    #app-content .heading h1 a {
-        font-weight: bold;
-        font-size: 13pt;
-        padding: 0 5px;
-        margin: 0;
-        line-height: 40px;
-    }
+#app-content .read .title {
+    font-weight: normal;
+}
 
-    #app-content .read .heading h1 a {
+    #app-content .read .title a {
         color: #888;
     }
 
-    #app-content .compact .item {
-        padding: 0 !important;
-        min-height: 0;
-    }
-
-    #app-content .compact .item .body {
-        padding-bottom: 40px;
-    }
-
-    #app-content .compact .item.open .heading {
-        margin-bottom: 15px;
-        border-bottom: 1px dashed #ddd;
-    }
-
-    #app-content .heading .star {
-        float: left;
-        margin: 7px 12px 0 0;
-    }
-
-    #app-content .heading .external {
-        float: left;
-        margin: 8px 12px 0 0;
-    }
-
-    #app-content .heading .timeago {
-        display: block;
-        float: right;
-        line-height: 40px;
-    }
-
-
-    /**
-     * Feed title
-     */
-    #app-content .item .title {
-        font-size: 19px;
-        margin: 4px 182px 4px 42px;
-        font-weight: bold;
-        word-wrap: break-word;
-    }
-
-        #app-content .item .title a {
-            color: #222;
-        }
-            #app-content .item .title a:hover {
-                color: #222;
-                text-decoration: underline;
-            }
-
-    /**
-     * Feed title when read
-     */
-    #app-content .item.read .title {
-        font-weight: normal;
-    }
-
-        #app-content .item.read .title a {
-            color: #888;
-        }
-
-    /**
-     * Author of the item
-     */
-    #app-content .item .author {
-        color: #aaa;
-        font-size: 15px;
-        margin: 3px 0 5px 42px;
-    }
-
-        #app-content .item .author a {
-            color: inherit;
-        }
-
-            #app-content .item .author a:hover {
-                text-decoration: underline;
-            }
-
-    #app-content .timestamp {
-        display: none;
-    }
-
-    /**
-     * Feed timestamp
-     */
-    #app-content .timeago {
-        float: right;
-        color: #aaa;
-        margin: 4px 17px 0 0;
-        font-size: 15px;
-    }
-
-    /**
-     * Body of the feed item
-     */
-    #app-content .item .enclosure {
-        padding: 14px 42px 0 49px;
-    }
-
-    #app-content .item .body {
-        padding: 10px 42px 0 42px;
-        max-width: 770px;
-        font-size: 14px;
-        clear: both;
-        overflow-x: auto;
-        /*overflow-y: hidden;
-        height: 80px;*/
-    }
-
-    #app-content .item .body.opened {
-
-    }
-
-        #app-content .item .body p {
-            line-height: 1.5;
-            margin: 7px 0 14px 0;
-        }
-
-        #app-content .item .body img,
-        #app-content .item .body table {
-            max-width: 100%;
-            height: auto;
-            overflow: auto;
-            word-wrap: break-word;
-            white-space:normal;
-        }
-
-        #app-content .item .body > img:first-child,
-        #app-content .item .body > div:first-child > img:first-child {
-            padding: 0 14px 0 0;
-            float: left;
-        }
-
-        #app-content .item .body h1,
-        #app-content .item .body h2 {
-            font-size: 17px;
-            font-weight: bold;
-            color: #222;
-            margin: 21px 0 0 0;
-        }
-
-        #app-content .item .body h3 {
-            font-size: 15px;
-            font-weight: bold;
-            color: #222;
-            margin: 21px 0 0 0;
-            text-decoration: underline;
-        }
-
-        #app-content .item .body > div {
-            margin: 7px 0;
-        }
-
-        #app-content .item .body a {
-            color: #0000ff;
-            text-decoration: underline;
-        }
-
-        #app-content .item .body ul {
-            margin: 7px 0;
-            padding-left: 14px;
-            list-style-type: disc;
-        }
-
-        #app-content .item .body ol {
-            margin: 7px 0;
-            padding-left: 21px;
-        }
-
-            #app-content .item .body ul li {
-                cursor: default;
-                line-height: 21px;
-            }
-
-        #app-content .item .body pre {
-            padding: 7px 7px 7px 14px;
-            background-color: #dadada;
-            border: 1px solid #ccc;
-            margin: 7px 0 14px 0;
-            overflow-y: auto;
-        }
-            #app-content .item .body pre::-webkit-scrollbar {
-                height: 10px;
-            }
-
-            #app-content .item .body pre::-webkit-scrollbar-thumb {
-                background: #333;
-            }
-
-            #app-content .item .body pre::-webkit-scrollbar-track-piece {
-                background: #ddd;
-            }
-
-            #app-content .item .body code,
-            #app-content .item .body pre {
-                font-family: monospace;
-                font-size: 16px;
-            }
-
-        #app-content .item .body blockquote {
-            border-left: 1px solid rgb(210,210,210);
-            margin: 25px 0;
-            padding: 0 0 0 15px;
-            font-style: italic;
-        }
 
 
 /**
- * Line with utils at the bottom
+ * Timestamp
  */
-#app-content .item .bottom-utils  {
-    width: 100%;
-    height: 35px;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
+#app-content .date {
+    float: right;
+    display: block;
+    color: #aaa;
+    line-height: 25px;
+    margin-right: 20px;
+    font-size: 15px;
 }
 
-    #app-content .item .bottom-utils ul {
-        float: right;
-        margin: 0 17px;
+/**
+ * Enclosure
+ */
+#app-content .enclosure {
+    padding: 14px 42px 0 49px;
+}
+
+/**
+ * Author
+ */
+#app-content .author {
+    color: #aaa;
+    font-size: 15px;
+}
+
+    #app-content .author a {
+        color: inherit;
     }
 
-
-    #app-content .item .bottom-utils,
-    #app-content .item .bottom-utils a {
-        color: #000;
-    }
-
-    #app-content .item:hover .bottom-utils li {
-        display: inline-block;
-    }
-
-        #app-content .item .bottom-utils li {
-            padding-left: 25px;
+        #app-content .author a:hover {
+            text-decoration: underline;
         }
 
-        #app-content .item .bottom-utils li input[type=checkbox]{
-            margin-left: 5px;
+/**
+ * Article body
+ */
+#app-content .body {
+    margin-top: 15px;
+    max-width: 770px;
+    font-size: 14px;
+    clear: both;
+    overflow-x: auto;
+}
+
+    #app-content .body p {
+        line-height: 1.5;
+        margin: 7px 0 14px 0;
+    }
+
+    #app-content .body img,
+    #app-content .body table {
+        max-width: 100%;
+        height: auto;
+        overflow: auto;
+        word-wrap: break-word;
+        white-space:normal;
+    }
+
+    #app-content .body > img:first-child,
+    #app-content .body > div:first-child > img:first-child {
+        padding: 0 14px 0 0;
+        float: left;
+    }
+
+    #app-content .body h1,
+    #app-content .body h2 {
+        font-size: 17px;
+        font-weight: bold;
+        color: #222;
+        margin: 21px 0 0 0;
+    }
+
+    #app-content .body h3 {
+        font-size: 15px;
+        font-weight: bold;
+        color: #222;
+        margin: 21px 0 0 0;
+        text-decoration: underline;
+    }
+
+    #app-content .body > div {
+        margin: 7px 0;
+    }
+
+    #app-content .body a {
+        color: #0000ff;
+        text-decoration: underline;
+    }
+
+    #app-content .body ul {
+        margin: 7px 0;
+        padding-left: 14px;
+        list-style-type: disc;
+    }
+
+    #app-content .body ol {
+        margin: 7px 0;
+        padding-left: 21px;
+    }
+
+        #app-content .body ul li {
+            cursor: default;
+            line-height: 21px;
         }
+
+    #app-content .body pre {
+        padding: 7px 7px 7px 14px;
+        background-color: #dadada;
+        border: 1px solid #ccc;
+        margin: 7px 0 14px 0;
+        overflow-y: auto;
+    }
+        #app-content .body pre::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        #app-content .body pre::-webkit-scrollbar-thumb {
+            background: #333;
+        }
+
+        #app-content .body pre::-webkit-scrollbar-track-piece {
+            background: #ddd;
+        }
+
+        #app-content .body code,
+        #app-content .body pre {
+            font-family: monospace;
+            font-size: 16px;
+        }
+
+    #app-content .body blockquote {
+        border-left: 1px solid rgb(210,210,210);
+        margin: 25px 0;
+        padding: 0 0 0 15px;
+        font-style: italic;
+    }
+
+
