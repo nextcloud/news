@@ -30,6 +30,7 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data,
     };
 
     this.toggleItem = (item) => {
+        // TODO: unittest
         if (this.isCompactView()) {
             item.show = !item.show;
         }
