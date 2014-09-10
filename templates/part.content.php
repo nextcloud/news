@@ -7,7 +7,7 @@
         <li class="item {{ Content.getFeed(item.feedId).cssClass }}"
             ng-repeat="item in Content.getItems() | orderBy:[Content.orderBy()] track by item.id"
             ng-click="Content.markRead(item.id)"
-            ng-class="{read: !item.unread}"
+            ng-class="{read: !item.unread, expanded: !Content.isCompactView() || item.show}"
             data-id="{{ item.id }}">
 
             <div class="utils" ng-click="Content.toggleItem(item)">
@@ -38,11 +38,12 @@
                 </ul>
             </div>
 
-            <div class="article" ng-show="!Content.isCompactView() || item.show">
+            <div class="article">
 
                 <div class="subtitle">
-                    <span class="author" ng-show="item.author"><?php p($l->t('By')) ?> {{ item.author }}</span>
-                    <time class="date" title="{{ item.pubDate*1000|date:'yyyy-MM-dd HH:mm:ss' }}"
+                    <span class="author" ng-show="item.author"><?php p($l->t('by')) ?> {{ item.author }}</span>
+                    <?php p($l->t('from')) ?> <a ng-href="#/items/feeds/{{ item.feedId }}">{{ Content.getFeed(item.feedId).title }}</a>
+                    <time class="date" class="date" title="{{ item.pubDate*1000|date:'yyyy-MM-dd HH:mm:ss' }}"
                         datetime="{{ item.pubDate*1000|date:'yyyy-MM-ddTHH:mm:ssZ' }}">
                         {{ Content.getRelativeDate(item.pubDate) }}
                     </time>
