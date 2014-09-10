@@ -65,7 +65,7 @@
     border-bottom: 1px solid #eee;
     line-height: 52px;
     box-sizing: border-box;
-    padding: 0 40px;
+    padding: 0 45px;
 }
 
 #app-content .utils ul {
@@ -81,8 +81,12 @@
         vertical-align: middle;
     }
 
+    #app-content .utils li:last-child {
+        padding-right: 0;
+    }
+
     #app-content .utils .util {
-        padding: 9px 20px 9px 0;
+        padding: 9px;
     }
 
     #app-content .utils button,
@@ -126,6 +130,10 @@
      */
     #app-content .utils .title {
         width: 100%;
+        padding-left: 35px;
+        background-position: left center;
+        background-size: 20px 20px;
+        background-repeat: no-repeat;
     }
 
     #app-content .utils .title a {
@@ -133,7 +141,6 @@
         white-space: nowrap;
         overflow: hidden;
         width: 100%;
-        padding: 0 20px;
         line-height: 40px;
         display: inline-block;
         color: #222;
@@ -150,54 +157,47 @@
         color: #888;
     }
 
-    /**
-     * Source
-     */
-    @media (max-width: 700px) {
-        #app-content .utils .source {
-            display: none;
-        }
-
-        #app-content .utils .date {
-            display: none;
-        }
-    }
-
-    #app-content .utils .source {
-        width: 200px;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
-        padding: 0 15px;
-        font-size: 15px;
-    }
-
-        #app-content .utils .source a {
-            color: #aaa;
-        }
-
-        #app-content .utils .source a:hover {
-            text-decoration: underline;
-        }
-
-    /**
-     * Timestamp
-     */
-    #app-content .date {
-        color: #aaa;
-        font-size: 15px;
-        padding-right: 40px;
-        white-space: nowrap;
-    }
 
 /**
  * Actual content
  */
 #app-content .article {
     min-height: 69px;
-    padding: 35px 45px 45px 45px;
+    padding: 10px 45px 45px 45px;
     border-bottom: 1px solid #eee;
+    background-image: -moz-linear-gradient(center top , #F8F8F8 0px, #FFF 69px);
 }
+
+/**
+ * Timestamp
+ */
+#app-content .subtitle {
+    color: #aaa;
+    font-size: 15px;
+    width: 100%;
+    padding-bottom: 25px;
+}
+
+#app-content .date {
+    float: right;
+    display: inline-block;
+}
+
+/**
+ * Author
+ */
+#app-content .author {
+    color: #aaa;
+    font-size: 15px;
+}
+
+    #app-content .author a {
+        color: inherit;
+    }
+
+        #app-content .author a:hover {
+            text-decoration: underline;
+        }
 
 /**
  * Enclosure
@@ -312,19 +312,3 @@
 
 
 
-/**
- * Author
- */
-#app-content .author {
-    color: #aaa;
-    font-size: 15px;
-    padding: 20px 0 10px 0;
-}
-
-    #app-content .author a {
-        color: inherit;
-    }
-
-        #app-content .author a:hover {
-            text-decoration: underline;
-        }

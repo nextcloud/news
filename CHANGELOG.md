@@ -20,7 +20,7 @@ owncloud-news (3.001)
 * Move undo feed/folder deletion button into the navigation bar
 * Add create folder form in addition to the subscribe form
 * Loading icon is now displayed until all feeds and folders are loaded
-
+* Optimize for mobile
 
 owncloud-news (2.003)
 * Use correct url for folder and feed api update methods

@@ -12,6 +12,15 @@
 
             <div class="utils" ng-click="Content.toggleItem(item)">
                 <ul>
+                    <li class="title"
+                        title="{{ item.title }}"
+                        ng-style="{ backgroundImage: 'url(' + Content.getFeed(item.feedId).faviconLink + ')'}">
+                        <h1>
+                            <a target="_blank" >
+                                {{ item.title }}
+                            </a>
+                        </h1>
+                    </li>
                     <li ng-click="Content.toggleStar(item.id)" class="util" news-stop-propagation>
                         <button class="star svg" ng-class="{'starred': item.starred}" title="<?php p($l->t('Star')); ?>"></button>
                     </li>
@@ -26,26 +35,18 @@
                             news-stop-propagation>
                         </a>
                     </li>
-                    <li class="title" title="{{ item.title }}">
-                        <h1>
-                            <a target="_blank" >
-                                {{ item.title }}
-                            </a>
-                        </h1>
-                    </li>
-                    <li class="source">
-                        <a ng-href="#/items/feeds/{{ item.feedId }}/" news-stop-propagation>{{ Content.getFeed(item.feedId).title }}</a>
-                    </li>
-                    <li class="date">
-                        <time title="{{ item.pubDate*1000|date:'yyyy-MM-dd HH:mm:ss' }}"
-                            datetime="{{ item.pubDate*1000|date:'yyyy-MM-ddTHH:mm:ssZ' }}">
-                            {{ Content.getRelativeDate(item.pubDate) }}
-                        </time>
-                    </li>
                 </ul>
             </div>
 
             <div class="article" ng-show="!Content.isCompactView() || item.show">
+
+                <div class="subtitle">
+                    <span class="author" ng-show="item.author"><?php p($l->t('By')) ?> {{ item.author }}</span>
+                    <time class="date" title="{{ item.pubDate*1000|date:'yyyy-MM-dd HH:mm:ss' }}"
+                        datetime="{{ item.pubDate*1000|date:'yyyy-MM-ddTHH:mm:ssZ' }}">
+                        {{ Content.getRelativeDate(item.pubDate) }}
+                    </time>
+                </div>
 
                 <div class="enclosure" ng-if="item.enclosureLink">
                     <news-audio type="{{ item.enclosureType }}"
@@ -56,7 +57,6 @@
 
                 <div class="body" news-bind-html-unsafe="item.body"></div>
 
-                <h2 class="author" ng-show="item.author">© {{ item.author }}</h2>
             </div>
         </li>
     </ul>
