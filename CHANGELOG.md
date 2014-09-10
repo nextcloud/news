@@ -1,18 +1,26 @@
 owncloud-news (3.001)
-* Depend on ownCloud 7
-* Depend on PHP 5.4
+* Breaking Change: Depend on ownCloud 7.0.3
+* Breaking Change: Depend on PHP 5.4
+* Breaking Change: Plugin API: BusinessLayer has been renamed to Service, (FeedBusinessLayer -> FeedService) and different exceptions are now thrown to make failure better distinguishable
 * Allow to turn off marking read when scrolling
 * Allow to order by oldest first
-* Order by publication date rather than by id
 * Add clientside routing
 * When importing OPML use the feed title if given
 * Animate folder/feed disappearance if marking read
-* Design changes
-* Port clientside code to JavaScript (ES6)
+* Make hover buttons available under a menu button
+* Import feeds from a very large OPML file in chunks to prevent server slowdown
+* Port clientside code to JavaScript
 * Removed pull to refresh
 * Push API to 1.4
 * Slim down appstore build
-* Make interface faster
+* Allow to specifiy custom CSS rules for each feed
+* Compact view: Title ellipsis
+* Compact view: Show source
+* Compact view: Add keep unread button
+* Move undo feed/folder deletion button into the navigation bar
+* Add create folder form in addition to the subscribe form
+* Loading icon is now displayed until all feeds and folders are loaded
+
 
 owncloud-news (2.003)
 * Use correct url for folder and feed api update methods
