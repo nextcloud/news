@@ -65,7 +65,7 @@
     width: 100%;
     line-height: 52px;
     box-sizing: border-box;
-    padding: 35px 45px 0 15px;
+    padding: 35px 45px 0 10px;
 }
 
 #app-content .compact .utils {
@@ -135,7 +135,7 @@
      */
     #app-content .utils .title {
         width: 100%;
-        padding-left: 30px;
+        padding-left: 35px;
         background-position: left center;
         background-size: 20px 20px;
         background-repeat: no-repeat;
