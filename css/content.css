@@ -65,7 +65,7 @@
     width: 100%;
     line-height: 52px;
     box-sizing: border-box;
-    padding: 35px 45px 0 10px;
+    padding: 35px 50px 0 15px;
 }
 
 #app-content .compact .utils {
@@ -170,7 +170,7 @@
  */
 #app-content .article {
     min-height: 69px;
-    padding: 10px 45px 45px 45px;
+    padding: 10px 50px 50px 50px;
 }
 
 #app-content .compact .article {
