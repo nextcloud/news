@@ -23,7 +23,7 @@
             <p class="error" ng-show="Navigation.folderNameExists(folder.name)"><?php p($l->t('Folder exists already!')); ?></p>
 
             <input type="submit"
-                value="<?php p($l->t('Subscribe')); ?>"
+                value="<?php p($l->t('Create')); ?>"
                 class="primary"
                 ng-disabled="Navigation.folderNameExists(folder.name)">
         </form>
