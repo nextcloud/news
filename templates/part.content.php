@@ -7,7 +7,7 @@
         <li class="item {{ Content.getFeed(item.feedId).cssClass }}"
             ng-repeat="item in Content.getItems() | orderBy:[Content.orderBy()] track by item.id"
             ng-click="Content.markRead(item.id)"
-            ng-class="{read: !item.unread, expanded: !Content.isCompactView() || item.show}"
+            ng-class="{read: !item.unread, open: item.show, compact: Content.isCompactView()}"
             data-id="{{ item.id }}">
 
             <div class="utils" ng-click="Content.toggleItem(item)">

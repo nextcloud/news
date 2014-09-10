@@ -65,12 +65,12 @@
     width: 100%;
     line-height: 52px;
     box-sizing: border-box;
-    padding: 0 45px;
-    cursor: pointer;
+    padding: 35px 45px 0 15px;
 }
 
-#app-content .expanded .utils {
-    padding-top: 45px;
+#app-content .compact .utils {
+    cursor: pointer;
+    padding-top: 0;
 }
 
 #app-content .utils ul {
@@ -135,7 +135,7 @@
      */
     #app-content .utils .title {
         width: 100%;
-        padding-left: 35px;
+        padding-left: 30px;
         background-position: left center;
         background-size: 20px 20px;
         background-repeat: no-repeat;
@@ -169,12 +169,15 @@
  * Actual content
  */
 #app-content .article {
-    display: none;
     min-height: 69px;
     padding: 10px 45px 45px 45px;
 }
 
-#app-content .expanded .article {
+#app-content .compact .article {
+    display: none;
+}
+
+#app-content .open .article {
     display: block;
 }
 
