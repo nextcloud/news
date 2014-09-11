@@ -63,10 +63,6 @@
     float: left;
 }
 
-#app-navigation .folder-input {
-    text-transform: uppercase;
-}
-
 #app-navigation .add-new-popup .add-new-folder-primary {
     float: right;
     border-bottom-left-radius: 0;
@@ -93,10 +89,6 @@
 
 #app-navigation .unread > a {
     font-weight: bold;
-}
-
-#app-navigation .folder {
-    text-transform: uppercase;
 }
 
 #app-navigation .feed {

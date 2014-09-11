@@ -44,7 +44,6 @@ app.factory('FolderResource', function (Resource, $http, BASE_URL, $q) {
 
 
     FolderResource.prototype.rename = function (folderName, toFolderName) {
-        toFolderName = toFolderName.toUpperCase();
         var folder = this.get(folderName);
 
         folder.name = toFolderName;
@@ -65,8 +64,6 @@ app.factory('FolderResource', function (Resource, $http, BASE_URL, $q) {
 
 
     FolderResource.prototype.create = function (folderName) {
-        folderName = folderName.toUpperCase();
-
         var folder = {
             name: folderName
         };

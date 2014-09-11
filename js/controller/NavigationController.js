@@ -113,7 +113,7 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
 
     this.folderNameExists = function (folderName) {
         folderName = folderName || '';
-        return FolderResource.get(folderName.toUpperCase()) !== undefined;
+        return FolderResource.get(folderName) !== undefined;
     };
 
     this.createFeed = function (feed) {

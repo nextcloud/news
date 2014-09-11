@@ -440,7 +440,7 @@ app.controller('NavigationController',
 
     this.folderNameExists = function (folderName) {
         folderName = folderName || '';
-        return FolderResource.get(folderName.toUpperCase()) !== undefined;
+        return FolderResource.get(folderName) !== undefined;
     };
 
     this.createFeed = function (feed) {
@@ -848,7 +848,6 @@ app.factory('FolderResource', ["Resource", "$http", "BASE_URL", "$q", function (
 
 
     FolderResource.prototype.rename = function (folderName, toFolderName) {
-        toFolderName = toFolderName.toUpperCase();
         var folder = this.get(folderName);
 
         folder.name = toFolderName;
@@ -869,8 +868,6 @@ app.factory('FolderResource', ["Resource", "$http", "BASE_URL", "$q", function (
 
 
     FolderResource.prototype.create = function (folderName) {
-        folderName = folderName.toUpperCase();
-
         var folder = {
             name: folderName
         };

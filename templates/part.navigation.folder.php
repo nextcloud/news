@@ -30,7 +30,7 @@
     </div>
 
     <div ng-if="folder.editing" class="app-navigation-entry-edit">
-        <input name="folderRename" class="folder-input" type="text" value="{{ folder.name }}" news-auto-focus>
+        <input name="folderRename" type="text" value="{{ folder.name }}" news-auto-focus>
         <button title="<?php p($l->t('Rename')); ?>"
                 ng-click="Navigation.renameFolder(folder)"
                 class="action icon-checkmark">

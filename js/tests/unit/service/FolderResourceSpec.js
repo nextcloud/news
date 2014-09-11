@@ -47,14 +47,14 @@ describe('FolderResource', function () {
 
     it ('should rename a folder', inject(function (FolderResource) {
         http.expectPOST('base/folders/1/rename', {
-            folderName: 'HEHO'
+            folderName: 'heho'
         }).respond(200, {});
 
         FolderResource.rename('ye', 'heho');
 
         http.flush();
 
-        expect(FolderResource.get('HEHO').id).toBe(1);
+        expect(FolderResource.get('heho').id).toBe(1);
     }));
 
 
@@ -74,7 +74,7 @@ describe('FolderResource', function () {
 
     it ('should create a folder', inject(function (FolderResource) {
         http.expectPOST('base/folders', {
-            folderName: 'HEY'
+            folderName: 'hey'
         }).respond(200, {});
 
         FolderResource.create('hey');
@@ -87,14 +87,14 @@ describe('FolderResource', function () {
 
     it ('should set a folder error message', inject(function (FolderResource) {
         http.expectPOST('base/folders', {
-            folderName: 'HEY'
+            folderName: 'hey'
         }).respond(400, {message: 'carramba'});
 
         FolderResource.create('hey');
 
         http.flush();
 
-        expect(FolderResource.get('HEY').error).toBe('carramba');
+        expect(FolderResource.get('hey').error).toBe('carramba');
     }));
 
 

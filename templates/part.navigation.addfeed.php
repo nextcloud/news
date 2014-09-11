@@ -36,7 +36,6 @@
                    ng-class="{'ng-invalid': Navigation.newFolder && Navigation.folderNameExists($parent.feed.folder)}"
                    placeholder="<?php p($l->t('Folder name')); ?>"
                    name="folderName"
-                   class="folder-input"
                    ng-if="Navigation.newFolder"
                    required>
             <button type="button"

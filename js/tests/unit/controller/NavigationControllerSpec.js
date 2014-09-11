@@ -286,9 +286,8 @@ describe('NavigationController', function () {
     it('should expose check if folder exists', inject(function (
     FolderResource) {
         expect(controller.folderNameExists('hi')).toBe(false);
-        FolderResource.add({name: 'HI'});
+        FolderResource.add({name: 'hi'});
         expect(controller.folderNameExists('hi')).toBe(true);
-        expect(controller.folderNameExists('HI')).toBe(true);
     }));
 
 

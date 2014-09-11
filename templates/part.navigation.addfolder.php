@@ -13,7 +13,6 @@
             <input type="text"
                    ng-class="{'ng-invalid': Navigation.folderNameExists(folder.name)}"
                    ng-model="folder.name"
-                   class="folder-input"
                    placeholder="<?php p($l->t('Folder name')); ?>"
                    title="<?php p($l->t('Folder name')); ?>"
                    name="folderName"
