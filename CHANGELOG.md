@@ -17,6 +17,7 @@ owncloud-news (3.001)
 * Compact view: Title ellipsis
 * Compact view: Show source
 * Compact view: Add keep unread button
+* Compact view: Expand item when jumping to it with a keyboard shortcut
 * Move undo feed/folder deletion button into the navigation bar
 * Add create folder form in addition to the subscribe form
 * Loading icon is now displayed until all feeds and folders are loaded

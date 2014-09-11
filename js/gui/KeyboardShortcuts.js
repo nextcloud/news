@@ -34,31 +34,89 @@
         );
     };
 
-    var scrollToItem = function (item, scrollArea) {
-        scrollArea.scrollTop(
-            item.offset().top - scrollArea.offset().top + scrollArea.scrollTop()
-        );
-    };
-
-    var scrollToNextItem = function (scrollArea) {
+    var onActiveItem = function (scrollArea, callback) {
         var items = scrollArea.find('.item');
 
         items.each(function (index, item) {
             item = $(item);
 
+            // 130px of the item should be visible
+            if ((item.height() + item.position().top) > 30) {
+                callback(item);
+
+                return false;
+            }
+        });
+
+    };
+
+    var toggleUnread = function (scrollArea) {
+        onActiveItem(scrollArea, function (item) {
+            item.find('.toggle-keep-unread').trigger('click');
+        });
+    };
+
+    var toggleStar = function (scrollArea) {
+        onActiveItem(scrollArea, function (item) {
+            item.find('.star').trigger('click');
+        });
+    };
+
+    var expandItem = function (scrollArea) {
+        onActiveItem(scrollArea, function (item) {
+            item.find('.utils').trigger('click');
+        });
+    };
+
+    var openLink = function (scrollArea) {
+        onActiveItem(scrollArea, function (item) {
+            item.trigger('click');  // mark read
+            window.open(item.find('.external').attr('href'), '_blank');
+        });
+    };
+
+    var scrollToItem = function (scrollArea, item, isCompactMode) {
+        // if you go to the next article in compact view, it should
+        // expand the current one
+        scrollArea.scrollTop(
+            item.offset().top - scrollArea.offset().top + scrollArea.scrollTop()
+        );
+
+        if (isCompactMode) {
+            onActiveItem(scrollArea, function (item) {
+                if (!item.hasClass('open')) {
+                    item.find('.utils').trigger('click');
+                }
+            });
+        }
+    };
+
+    var scrollToNextItem = function (scrollArea, isCompactMode) {
+        var items = scrollArea.find('.item');
+        var jumped = false;
+
+        items.each(function (index, item) {
+            item = $(item);
+
             if (item.position().top > 1) {
-                scrollToItem(scrollArea, item);
+                scrollToItem(scrollArea, item, isCompactMode);
+
+                jumped = true;
+
                 return false;
             }
         });
 
         // in case this is the last item it should still scroll below the top
-        scrollArea.scrollTop(scrollArea.prop('scrollHeight'));
+        if (!jumped) {
+            scrollArea.scrollTop(scrollArea.prop('scrollHeight'));
+        }
 
     };
 
-    var scrollToPreviousItem = function (scrollArea) {
+    var scrollToPreviousItem = function (scrollArea, isCompactMode) {
         var items = scrollArea.find('.item');
+        var jumped = false;
 
         items.each(function (index, item) {
             item = $(item);
@@ -68,69 +126,40 @@
 
                 // if there are no items before the current one
                 if (previous.length > 0) {
-                    scrollToItem(scrollArea, previous);
+                    scrollToItem(scrollArea, previous, isCompactMode);
                 }
+
+                jumped = true;
 
                 return false;
             }
         });
 
         // if there was no jump jump to the last element
-        if (items.length > 0) {
+        if (!jumped && items.length > 0) {
             scrollToItem(scrollArea, items.last());
         }
+
     };
 
-    var getActiveItem = function (scrollArea) {
-        var items = scrollArea.find('.item');
-
-        items.each(function (index, item) {
-            item = $(item);
-
-            // 130px of the item should be visible
-            if ((item.height() + item.position().top) > 30) {
-                return item;
-            }
-        });
-    };
-
-    var toggleUnread = function (scrollArea) {
-        var item = getActiveItem(scrollArea);
-        item.find('.keep-unread').trigger('click');
-    };
-
-    var toggleStar = function (scrollArea) {
-        var item = getActiveItem(scrollArea);
-        item.find('.star').trigger('click');
-    };
-
-    var expandItem = function (scrollArea) {
-        var item = getActiveItem(scrollArea);
-        item.find('.title').trigger('click');
-    };
-
-    var openLink = function (scrollArea) {
-        var item = getActiveItem(scrollArea).find('.title a');
-        item.trigger('click');  // mark read
-        window.open(item.attr('href'), '_blank');
-    };
 
     $(document).keyup(function (event) {
         if (noInputFocused($(':focus')) && noModifierKey(event)) {
             var keyCode = event.keyCode;
             var scrollArea = $('#app-content');
+            var isCompactMode = $('#app-content-wrapper > .compact').length > 0;
 
             // j, n, right arrow
-            if ([74, 78, 33].indexOf(keyCode) >= 0) {
+            if ([74, 78, 39].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
-                scrollToNextItem(scrollArea);
+                scrollToNextItem(scrollArea, isCompactMode);
 
             // k, p, left arrow
             } else if ([75, 80, 37].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
-                scrollToPreviousItem(scrollArea);
+                scrollToPreviousItem(scrollArea, isCompactMode);
 
             // u
             } else if ([85].indexOf(keyCode) >= 0) {
