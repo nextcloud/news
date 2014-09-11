@@ -14,6 +14,13 @@ describe('ContentController', function () {
     beforeEach(module('News', function ($provide) {
         $provide.constant('BASE_URL', 'base');
         $provide.constant('ITEM_BATCH_SIZE', 5);
+        $provide.constant('FEED_TYPE', {
+            FEED: 0,
+            FOLDER: 1,
+            STARRED: 2,
+            SUBSCRIPTIONS: 3,
+            SHARED: 4
+        });
     }));
 
 
@@ -428,4 +435,35 @@ describe('ContentController', function () {
 
         expect(ctrl.getRelativeDate('')).toBe('');
     }));
+
+
+    it('should tell if a feed is shown', inject(function ($controller,
+        FEED_TYPE) {
+
+        var $route = {
+            current: {
+                $$route: {
+                    type: 0
+                }
+            }
+        };
+
+        var ctrl = $controller('ContentController', {
+            $route: $route,
+            FEED_TYPE: FEED_TYPE,
+            data: {}
+        });
+
+
+        Object.keys(FEED_TYPE).forEach(function (key) {
+            $route.current.$$route.type = FEED_TYPE[key];
+            if (key === 'FEED') {
+                expect(ctrl.isFeed()).toBe(true);
+            } else {
+                expect(ctrl.isFeed()).toBe(false);
+            }
+        });
+
+    }));
+
 });

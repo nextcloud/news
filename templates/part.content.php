@@ -2,12 +2,14 @@
     <h1><?php p($l->t('Welcome to the ownCloud News app!')) ?></h1>
 </div>
 
-<div ng-if="!App.isFirstRun()" news-auto-focus="#app-content">
+<div ng-if="!App.isFirstRun()"
+     news-auto-focus="#app-content"
+     ng-class="{compact: Content.isCompactView(), 'feed-view': Content.isFeed()}">
     <ul>
         <li class="item {{ Content.getFeed(item.feedId).cssClass }}"
             ng-repeat="item in Content.getItems() | orderBy:[Content.orderBy()] track by item.id"
             ng-click="Content.markRead(item.id)"
-            ng-class="{read: !item.unread, open: item.show, compact: Content.isCompactView()}"
+            ng-class="{read: !item.unread, open: item.show}"
             data-id="{{ item.id }}">
 
             <div class="utils" ng-click="Content.toggleItem(item)">

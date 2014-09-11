@@ -9,7 +9,7 @@
  */
 app.controller('ContentController',
 function (Publisher, FeedResource, ItemResource, SettingsResource, data,
-    $route, $routeParams) {
+    $route, $routeParams, FEED_TYPE) {
     'use strict';
 
     // dont cache items across multiple route changes
@@ -93,6 +93,10 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data,
 
         FeedResource.markItemsOfFeedsRead(feedIds);
         ItemResource.markItemsRead(ids);
+    };
+
+    this.isFeed = function () {
+        return $route.current.$$route.type === FEED_TYPE.FEED;
     };
 
     this.autoPage = function () {

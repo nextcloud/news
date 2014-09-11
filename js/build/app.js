@@ -213,8 +213,8 @@ app.controller('AppController',
 
 }]);
 app.controller('ContentController',
-["Publisher", "FeedResource", "ItemResource", "SettingsResource", "data", "$route", "$routeParams", function (Publisher, FeedResource, ItemResource, SettingsResource, data,
-    $route, $routeParams) {
+["Publisher", "FeedResource", "ItemResource", "SettingsResource", "data", "$route", "$routeParams", "FEED_TYPE", function (Publisher, FeedResource, ItemResource, SettingsResource, data,
+    $route, $routeParams, FEED_TYPE) {
     'use strict';
 
     // dont cache items across multiple route changes
@@ -298,6 +298,10 @@ app.controller('ContentController',
 
         FeedResource.markItemsOfFeedsRead(feedIds);
         ItemResource.markItemsRead(ids);
+    };
+
+    this.isFeed = function () {
+        return $route.current.$$route.type === FEED_TYPE.FEED;
     };
 
     this.autoPage = function () {
