@@ -9,7 +9,7 @@
  */
 app.controller('NavigationController',
 function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
-    SettingsResource, Publisher) {
+    SettingsResource, Publisher, $rootScope) {
     'use strict';
 
     this.feedError = '';
@@ -187,5 +187,10 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
     this.removeFolder = function (folder) {
         console.log('remove ' + folder);
     };
+
+    var self = this;
+    $rootScope.$on('moveFeedToFolder', function (scope, data) {
+        self.moveFeed(data.feedId, data.folderId);
+    });
 
 });

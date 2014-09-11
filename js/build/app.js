@@ -331,8 +331,8 @@ app.controller('ContentController',
 
 }]);
 app.controller('NavigationController',
-["$route", "FEED_TYPE", "FeedResource", "FolderResource", "ItemResource", "SettingsResource", "Publisher", function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
-    SettingsResource, Publisher) {
+["$route", "FEED_TYPE", "FeedResource", "FolderResource", "ItemResource", "SettingsResource", "Publisher", "$rootScope", function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
+    SettingsResource, Publisher, $rootScope) {
     'use strict';
 
     this.feedError = '';
@@ -510,6 +510,11 @@ app.controller('NavigationController',
     this.removeFolder = function (folder) {
         console.log('remove ' + folder);
     };
+
+    var self = this;
+    $rootScope.$on('moveFeedToFolder', function (scope, data) {
+        self.moveFeed(data.feedId, data.folderId);
+    });
 
 }]);
 app.controller('SettingsController',
