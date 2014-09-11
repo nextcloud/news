@@ -96,7 +96,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
 			$url = substr($url, 4);
 		}
 
-		$serialized['cssClass'] = str_replace('.', '-', $url);
+		$serialized['cssClass'] = 'custom-' . str_replace('.', '-', $url);
 
 		return $serialized;
 	}

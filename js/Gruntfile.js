@@ -135,7 +135,8 @@ module.exports = function (grunt) {
                 dir: '../tests'
             },
             options: {
-                colors: true
+                colors: true,
+                configuration: '../phpunit.xml'
             }
         },
         protractor_webdriver: {
