@@ -63,7 +63,7 @@ You can remove the line after a page reload
 
 * Go to the ownCloud apps page
 * Activate the **News** app in the apps menu
-* [Set up ownCloud Background Jobs](http://doc.owncloud.org/server/5.0/admin_manual/configuration/background_jobs.html) to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
+* [Set up ownCloud Background Jobs](http://doc.owncloud.org/server/7.0/admin_manual/configuration/background_jobs.html) to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
 
 The **News** App can be updated through the ownCloud apps page.
 
@@ -76,7 +76,7 @@ The **News** App can be updated through the ownCloud apps page.
 
 * Activate the **News** app in the apps menu
 
-* [Set up ownCloud Background Jobs](http://doc.owncloud.org/server/5.0/admin_manual/configuration/background_jobs.html) to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
+* [Set up ownCloud Background Jobs](http://doc.owncloud.org/server/7.0/admin_manual/configuration/background_jobs.html) to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
 
 To update the News app use:
 
