@@ -279,18 +279,18 @@ describe('ContentController', function () {
 
         Publisher.subscribe(ItemResource).toChannels(['items']);
         ItemResource.autoPage = jasmine.createSpy('autoPage')
-            .andCallFake(function () {
-                return {
-                    success: function (callback) {
-                        callback({
-                            'items': []
-                        });
+        .andCallFake(function () {
+            return {
+                success: function (callback) {
+                    callback({
+                        'items': []
+                    });
 
-                        return {
-                            error: function () {}
-                        };
-                    }
-                };
+                    return {
+                        error: function () {}
+                    };
+                }
+            };
         });
 
         var ctrl = $controller('ContentController', {
@@ -329,18 +329,18 @@ describe('ContentController', function () {
 
         Publisher.subscribe(ItemResource).toChannels(['items']);
         ItemResource.autoPage = jasmine.createSpy('autoPage')
-            .andCallFake(function () {
-                return {
-                    success: function (callback) {
-                        callback({
-                            'items': [{items: [{id: 3}]}]
-                        });
+        .andCallFake(function () {
+            return {
+                success: function (callback) {
+                    callback({
+                        'items': [{items: [{id: 3}]}]
+                    });
 
-                        return {
-                            error: function () {}
-                        };
-                    }
-                };
+                    return {
+                        error: function () {}
+                    };
+                }
+            };
         });
 
         var ctrl = $controller('ContentController', {
@@ -377,20 +377,20 @@ describe('ContentController', function () {
 
         Publisher.subscribe(ItemResource).toChannels(['items']);
         ItemResource.autoPage = jasmine.createSpy('autoPage')
-            .andCallFake(function () {
-                return {
-                    success: function (callback) {
-                        callback({
-                            'items': []
-                        });
+        .andCallFake(function () {
+            return {
+                success: function (callback) {
+                    callback({
+                        'items': []
+                    });
 
-                        return {
-                            error: function (callback) {
-                                callback();
-                            }
-                        };
-                    }
-                };
+                    return {
+                        error: function (callback) {
+                            callback();
+                        }
+                    };
+                }
+            };
         });
 
         var ctrl = $controller('ContentController', {

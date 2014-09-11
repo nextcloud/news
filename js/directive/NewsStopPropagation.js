@@ -8,7 +8,7 @@
  * @copyright Bernhard Posselt 2014
  */
 app.directive('newsStopPropagation', function () {
-	'use strict';
+    'use strict';
     return {
         restrict: 'A',
         link: function (scope, element) {

@@ -1627,7 +1627,7 @@ app.directive('newsScroll', ["$timeout", function ($timeout) {
     };
 }]);
 app.directive('newsStopPropagation', function () {
-	'use strict';
+    'use strict';
     return {
         restrict: 'A',
         link: function (scope, element) {

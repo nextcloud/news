@@ -58,7 +58,8 @@ module.exports = function (grunt) {
         uglify: {
             app: {
                 files: {
-                    '<%= meta.production %>app.min.js': ['<%= meta.production %>app.js']
+                    '<%= meta.production %>app.min.js':
+                        ['<%= meta.production %>app.js']
                 }
             }
         },
@@ -161,11 +162,14 @@ module.exports = function (grunt) {
     });
 
     // make tasks available under simpler commands
-    grunt.registerTask('default', ['jshint', 'concat',  'wrap', 'ngAnnotate', 'uglify']);
+    grunt.registerTask('default', ['jshint', 'concat',  'wrap', 'ngAnnotate',
+                                   'uglify']);
     grunt.registerTask('dev', ['watch:concat']);
     grunt.registerTask('test', ['karma:unit']);
     grunt.registerTask('php', ['watch:phpunit']);
-    grunt.registerTask('e2e', ['protractor_webdriver', 'connect', 'protractor']);
+    grunt.registerTask('e2e', ['protractor_webdriver', 'connect',
+                               'protractor']);
     grunt.registerTask('ci-unit', ['default', 'karma:continuous']);
-    grunt.registerTask('ci-e2e', ['protractor_webdriver', 'connect', 'protractor']);
+    grunt.registerTask('ci-e2e', ['protractor_webdriver', 'connect',
+                                  'protractor']);
 };
