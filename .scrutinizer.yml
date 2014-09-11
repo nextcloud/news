@@ -16,3 +16,8 @@ imports:
 tools:
     external_code_coverage:
         timeout: 600
+
+checks:
+    php:
+        # not helpful because there is no setting to tweek the threshold
+        duplication: false

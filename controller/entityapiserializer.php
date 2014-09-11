@@ -16,6 +16,7 @@ use \OCA\News\Db\IAPI;
 
 class EntityApiSerializer {
 
+    private $level;
 
     public function __construct($level) {
         $this->level = $level;
