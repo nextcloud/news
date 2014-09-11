@@ -30,22 +30,11 @@
     </div>
 
     <div ng-if="folder.editing" class="app-navigation-entry-edit">
-        <input name="feedRename" type="text" value="{{ folder.title }}" news-auto-focus>
+        <input name="folderRename" class="folder-input" type="text" value="{{ folder.name }}" news-auto-focus>
         <button title="<?php p($l->t('Rename')); ?>"
                 ng-click="Navigation.renameFolder(folder)"
                 class="action icon-checkmark">
         </button>
-    </div>
-
-    <div ng-if="folder.editing">
-        <input type="text" ng-model="folder.name" class="folder-input" autofocus>
-        <button title="<?php p($l->t('Cancel')); ?>"
-            ng-click="Navigation.cancelRenameFolder(folder.id)"
-            class="action-button back-button action"></button>
-        <button title="<?php p($l->t('Save')); ?>"
-            ng-click="Navigation.renameFolder(folder.id, folder.name)"
-            class="action-button create-button action">
-      </button>
     </div>
 
     <a ng-href="#/items/folders/{{ folder.id }}/"

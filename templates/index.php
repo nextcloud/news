@@ -45,13 +45,11 @@ style('news', [
     <!-- content -->
     <script type="text/ng-template" id="content.html"><?php print_unescaped($this->inc('part.content')) ?></script>
 
-    <div id="app-content" ng-class="{'loading-content': App.loading.isLoading('content') && !App.loading.isLoading('global')}">
+    <div id="app-content" ng-class="{'loading-content': App.loading.isLoading('content') && !App.loading.isLoading('global')}" tabindex="-1">
         <div id="app-content-wrapper"
             ng-class="{'autopaging': App.loading.isLoading('autopaging')}"
             ng-hide="App.loading.isLoading('global')"
             ng-view
-            tabindex="-1"
-            news-auto-focus
             news-scroll
             news-scroll-enabled-auto-page="Content.autoPagingEnabled()"
             news-scroll-enabled-mark-read="Content.markReadEnabled()"

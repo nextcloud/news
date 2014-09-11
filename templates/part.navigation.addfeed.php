@@ -27,7 +27,8 @@
                     class="icon-add add-new-folder-primary"
                     ng-hide="Navigation.newFolder"
                     title="<?php p($l->t('New folder')); ?>"
-                    ng-click="Navigation.newFolder=true"></button>
+                    ng-click="Navigation.newFolder=true"
+                    news-focus="#new-feed [name='folderName']"></button>
 
             <!-- add a folder -->
             <input type="text"
@@ -37,8 +38,7 @@
                    name="folderName"
                    class="folder-input"
                    ng-if="Navigation.newFolder"
-                   required
-                   news-auto-focus>
+                   required>
             <button type="button"
                     ng-show="Navigation.newFolder"
                     class="icon-close add-new-folder-primary"

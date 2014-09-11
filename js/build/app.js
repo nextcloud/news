@@ -1471,11 +1471,13 @@ app.directive('newsAudio', function () {
 app.directive('newsAutoFocus', function () {
     'use strict';
     return function (scope, elem, attrs) {
-        if (attrs.newsAutofocus) {
-            $(attrs.newsAutofocus).focus();
-        } else {
-            elem.focus();
+        var toFocus = elem;
+
+        if (attrs.newsAutoFocus) {
+            toFocus = $(attrs.newsAutoFocus);
         }
+
+        toFocus.focus();
     };
 });
 app.directive('newsBindHtmlUnsafe', function () {
