@@ -147,6 +147,7 @@ describe('FeedResource', function () {
         http.flush();
 
         expect(FeedResource.get('sye').folderId).toBe(5);
+        expect(FeedResource.getFolderUnreadCount(5)).toBe(25);
     }));
 
 

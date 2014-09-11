@@ -169,6 +169,7 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
         feed.folderId = folderId;
 
         this.updateFolderCache();
+        this.updateUnreadCache();
 
         return this.http({
             method: 'POST',

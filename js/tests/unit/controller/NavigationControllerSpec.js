@@ -298,6 +298,7 @@ describe('NavigationController', function () {
                 return {
                     then: function (callback) {
                         callback({
+                            id: 3,
                             url: url,
                             folderId: folderId
                         });
@@ -306,13 +307,18 @@ describe('NavigationController', function () {
             })
         };
 
+        var location = {
+            path: jasmine.createSpy('path')
+        };
+
         var Publisher = {
             publishAll: jasmine.createSpy('publishAll')
         };
 
         var ctrl = $controller('NavigationController', {
             FeedResource: FeedResource,
-            Publisher: Publisher
+            Publisher: Publisher,
+            $location: location
         });
 
         var feed = {
@@ -327,9 +333,11 @@ describe('NavigationController', function () {
             undefined);
         expect(Publisher.publishAll).toHaveBeenCalledWith({
             url: 'test',
-            folderId: 3
+            folderId: 3,
+            id: 3
         });
         expect(feed.url).toBe('');
+        expect(location.path).toHaveBeenCalledWith('/items/feeds/3');
     }));
 
 
@@ -433,17 +441,86 @@ describe('NavigationController', function () {
     }));
 
 
-    it('should move a folder', inject(function ($controller) {
-        var FeedResource = {
-            move: jasmine.createSpy('move')
+    it('should move a folder', inject(function ($controller, FEED_TYPE,
+    FeedResource) {
+        FeedResource.move = jasmine.createSpy('move');
+
+        var route = {
+            reload: jasmine.createSpy('reload'),
+            current: {
+                $$route: {
+                    type: FEED_TYPE.FOLDER
+                },
+                params: {
+                    id: 2
+                }
+            }
         };
 
         var ctrl = $controller('NavigationController', {
-            FeedResource: FeedResource
+            FeedResource: FeedResource,
+            $route: route
         });
 
         ctrl.moveFeed(1, 3);
 
         expect(FeedResource.move).toHaveBeenCalledWith(1, 3);
+        expect(route.reload).not.toHaveBeenCalled();
     }));
+
+
+    it('should reload if a feed is moved from active folder', inject(
+    function ($controller, FEED_TYPE, FeedResource) {
+        FeedResource.move = jasmine.createSpy('move');
+
+        var route = {
+            reload: jasmine.createSpy('reload'),
+            current: {
+                $$route: {
+                    type: FEED_TYPE.FOLDER
+                },
+                params: {
+                    id: 3
+                }
+            }
+        };
+
+        var ctrl = $controller('NavigationController', {
+            FeedResource: FeedResource,
+            $route: route
+        });
+
+        ctrl.moveFeed(3, 5);
+
+        expect(route.reload).toHaveBeenCalled();
+    }));
+
+
+    it('should reload if a feed is moved into active folder', inject(
+    function ($controller, FEED_TYPE, FeedResource) {
+        FeedResource.move = jasmine.createSpy('move');
+
+        var route = {
+            reload: jasmine.createSpy('reload'),
+            current: {
+                $$route: {
+                    type: FEED_TYPE.FOLDER
+                },
+                params: {
+                    id: 5
+                }
+            }
+        };
+
+        var ctrl = $controller('NavigationController', {
+            FeedResource: FeedResource,
+            $route: route
+        });
+
+        ctrl.moveFeed(3, 5);
+
+        expect(route.reload).toHaveBeenCalled();
+    }));
+
+
 });

@@ -2,7 +2,7 @@
         active: Navigation.isFolderActive(folder.id),
         open: folder.opened && Navigation.hasFeeds(folder.id),
         collapsible: Navigation.hasFeeds(folder.id),
-        unread: Navigation.getFolderUnreadCount(folder.id) != 0,
+        unread: Navigation.getFolderUnreadCount(folder.id) > 0,
         failed: folder.error
     }"
     ng-repeat="folder in Navigation.getFolders() | orderBy:'id':true"
@@ -39,7 +39,10 @@
 
     <a ng-href="#/items/folders/{{ folder.id }}/"
         class="title icon-folder"
-        ng-hide="folder.editing">
+        ng-hide="folder.editing"
+        ng-class="{
+            'icon-loading': !folder.id
+        }">
        {{ folder.name }}
     </a>
 

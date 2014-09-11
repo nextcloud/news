@@ -9,7 +9,7 @@
  */
 app.controller('NavigationController',
 function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
-    SettingsResource, Publisher, $rootScope) {
+    SettingsResource, Publisher, $rootScope, $location) {
     'use strict';
 
     this.feedError = '';
@@ -126,6 +126,7 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
             FeedResource.create(feed.url, feed.folderId, undefined)
             .then(function (data) {
                 Publisher.publishAll(data);
+                $location.path('/items/feeds/' + data.id);
             });
         } else {
             // create folder first and then the feed
@@ -153,7 +154,19 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
     };
 
     this.moveFeed = function (feedId, folderId) {
+        var reload = false;
+        var feed = FeedResource.getById(feedId);
+
+        if (this.isFolderActive(feed.folderId) ||
+            this.isFolderActive(folderId)) {
+            reload = true;
+        }
+
         FeedResource.move(feedId, folderId);
+
+        if (reload) {
+            $route.reload();
+        }
     };
 
     // TBD

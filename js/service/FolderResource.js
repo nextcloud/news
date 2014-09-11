@@ -72,7 +72,10 @@ app.factory('FolderResource', function (Resource, $http, BASE_URL, $q) {
 
         var deferred = this.$q.defer();
 
-        this.http({
+        var self = this;
+        setTimeout(function () {
+
+        self.http({
             url: this.BASE_URL + '/folders',
             method: 'POST',
             data: {
@@ -83,6 +86,7 @@ app.factory('FolderResource', function (Resource, $http, BASE_URL, $q) {
         }).error(function (data) {
             folder.error = data.message;
         });
+        }, 30000);
 
         return deferred.promise;
     };

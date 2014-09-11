@@ -335,8 +335,8 @@ app.controller('ContentController',
 
 }]);
 app.controller('NavigationController',
-["$route", "FEED_TYPE", "FeedResource", "FolderResource", "ItemResource", "SettingsResource", "Publisher", "$rootScope", function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
-    SettingsResource, Publisher, $rootScope) {
+["$route", "FEED_TYPE", "FeedResource", "FolderResource", "ItemResource", "SettingsResource", "Publisher", "$rootScope", "$location", function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
+    SettingsResource, Publisher, $rootScope, $location) {
     'use strict';
 
     this.feedError = '';
@@ -453,6 +453,7 @@ app.controller('NavigationController',
             FeedResource.create(feed.url, feed.folderId, undefined)
             .then(function (data) {
                 Publisher.publishAll(data);
+                $location.path('/items/feeds/' + data.id);
             });
         } else {
             // create folder first and then the feed
@@ -480,7 +481,19 @@ app.controller('NavigationController',
     };
 
     this.moveFeed = function (feedId, folderId) {
+        var reload = false;
+        var feed = FeedResource.getById(feedId);
+
+        if (this.isFolderActive(feed.folderId) ||
+            this.isFolderActive(folderId)) {
+            reload = true;
+        }
+
         FeedResource.move(feedId, folderId);
+
+        if (reload) {
+            $route.reload();
+        }
     };
 
     // TBD
@@ -743,6 +756,7 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
         feed.folderId = folderId;
 
         this.updateFolderCache();
+        this.updateUnreadCache();
 
         return this.http({
             method: 'POST',
@@ -876,7 +890,10 @@ app.factory('FolderResource', ["Resource", "$http", "BASE_URL", "$q", function (
 
         var deferred = this.$q.defer();
 
-        this.http({
+        var self = this;
+        setTimeout(function () {
+
+        self.http({
             url: this.BASE_URL + '/folders',
             method: 'POST',
             data: {
@@ -887,6 +904,7 @@ app.factory('FolderResource', ["Resource", "$http", "BASE_URL", "$q", function (
         }).error(function (data) {
             folder.error = data.message;
         });
+        }, 30000);
 
         return deferred.promise;
     };

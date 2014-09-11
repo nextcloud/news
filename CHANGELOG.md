@@ -23,6 +23,7 @@ owncloud-news (3.001)
 * Loading icon is now displayed until all feeds and folders are loaded
 * Optimize for mobile
 * Folder names are not uppercased anymore due to possible conflicts when using the API
+* Reload current folder if a feed is moved into or out of it
 
 owncloud-news (2.003)
 * Use correct url for folder and feed api update methods
