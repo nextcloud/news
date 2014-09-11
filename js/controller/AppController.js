@@ -9,12 +9,11 @@
  */
 app.controller('AppController',
 function (Loading, FeedResource, FolderResource) {
-
     'use strict';
 
     this.loading = Loading;
 
-    this.isFirstRun = () => {
+    this.isFirstRun = function () {
         return FeedResource.size() === 0 && FolderResource.size() === 0;
     };
 

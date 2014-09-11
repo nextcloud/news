@@ -12,28 +12,15 @@ module.exports = function (config) {
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-        frameworks: ['jasmine', 'traceur'],
+        frameworks: ['jasmine'],
 
         preprocessors: {
-            'build/app.js': ['coverage'],
-            'tests/unit/stubs/*.js': ['traceur'],
-            'controller/**/*.js': ['traceur'],
-            'filter/**/*.js': ['traceur'],
-            'service/**/*.js': ['traceur'],
-            'directive/**/*.js': ['traceur'],
-            'utility/**/*.js': ['traceur'],
-            'tests/unit/**/*Spec.js': ['traceur']
-        },
-
-        traceurPreprocessor: {
-            options: {
-                experimental: true,
-                modules: 'inline'
-            }
+            'build/app.js': ['coverage']
         },
 
         // list of files / patterns to load in the browser
         files: [
+            'vendor/es6-shim/es6-shim.min.js',
             'vendor/jquery/dist/jquery.js',
             'vendor/momentjs/min/moment-with-locales.js',
             'vendor/angular/angular.js',

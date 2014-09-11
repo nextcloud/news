@@ -15,7 +15,7 @@ function ($route, SettingsResource, FeedResource) {
     this.opmlImportError = false;
     this.articleImportError = false;
 
-    let set = (key, value) => {
+    var set = function (key, value) {
         SettingsResource.set(key, value);
 
         if (['showAll', 'oldestFirst'].indexOf(key) >= 0) {
@@ -24,28 +24,28 @@ function ($route, SettingsResource, FeedResource) {
     };
 
 
-    this.toggleSetting = (key) => {
+    this.toggleSetting = function (key) {
         set(key, !this.getSetting(key));
     };
 
 
-    this.getSetting = (key) => {
+    this.getSetting = function (key) {
         return SettingsResource.get(key);
     };
 
 
-    this.feedSize = () => {
+    this.feedSize = function () {
         return FeedResource.size();
     };
 
 
     // TBD
-    this.importOpml = (content) => {
+    this.importOpml = function (content) {
         console.log(content);
     };
 
 
-    this.importArticles = (content) => {
+    this.importArticles = function (content) {
         console.log(content);
     };
 

@@ -28,30 +28,34 @@ app.service('SettingsResource', function ($http, BASE_URL) {
         'tzm-la', 'tzm', 'uk', 'zh-cn', 'zh-tw'
     ];
 
-    this.receive = (data) => {
-        for (let [key, value] of items(data)) {
+    this.receive = function (data) {
+        var self = this;
+        Object.keys(data).forEach(function (key) {
+            var value = data[key];
+
             if (key === 'language') {
-                value = this.processLanguageCode(value);
+                value = self.processLanguageCode(value);
             }
-            this.settings[key] = value;
-        }
+
+            self.settings[key] = value;
+        });
     };
 
-    this.get = (key) => {
+    this.get = function (key) {
         return this.settings[key];
     };
 
-    this.set = (key, value) => {
+    this.set = function (key, value) {
         this.settings[key] = value;
 
         return $http({
-                url: `${BASE_URL}/settings`,
+                url: BASE_URL + '/settings',
                 method: 'PUT',
                 data: this.settings
             });
     };
 
-    this.processLanguageCode = (languageCode) => {
+    this.processLanguageCode = function (languageCode) {
         languageCode = languageCode.replace('_', '-').toLowerCase();
 
         if (this.supportedLanguageCodes.indexOf(languageCode) < 0) {

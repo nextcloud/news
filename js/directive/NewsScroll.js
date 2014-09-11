@@ -7,17 +7,17 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsScroll', ($timeout) => {
+app.directive('newsScroll', function ($timeout) {
     'use strict';
 
     // autopaging
-    let autoPage = (enabled, limit, elem, scope) => {
+    var autoPage = function (enabled, limit, elem, scope) {
         if (enabled) {
-            let counter = 0;
-            let articles = elem.find('.item');
+            var counter = 0;
+            var articles = elem.find('.item');
 
-            for (let i = articles.length - 1; i >= 0; i -= 1) {
-                let item = $(articles[i]);
+            for (var i = articles.length - 1; i >= 0; i -= 1) {
+                var item = $(articles[i]);
 
 
                 // if the counter is higher than the size it means
@@ -41,21 +41,20 @@ app.directive('newsScroll', ($timeout) => {
     };
 
     // mark read
-    let markRead = (enabled, elem, scope) => {
+    var markRead = function (enabled, elem, scope) {
         if (enabled) {
-            let ids = [];
+            var ids = [];
+            var articles = elem.find('.item:not(.read)');
 
-            let articles = elem.find('.item:not(.read)');
-
-            for (let i = 0; i < articles.length; i += 1) {
-                let item = $(articles[i]);
+            articles.each(function(index, article) {
+                var item = $(article);
 
                 if (item.position().top <= -50) {
                     ids.push(parseInt(item.data('id'), 10));
                 } else {
-                    break;
+                    return false;
                 }
-            }
+            });
 
             scope.itemIds = ids;
             scope.$apply(scope.newsScrollMarkRead);
@@ -73,19 +72,19 @@ app.directive('newsScroll', ($timeout) => {
             'newsScrollTimeout': '@',  // optional, defaults to 1 second
             'newsScrollAutoPageWhenLeft': '@'  // optional, defaults to 50
         },
-        link: (scope, elem) => {
-            let allowScroll = true;
+        link: function (scope, elem) {
+            var allowScroll = true;
 
-            let scrollTimeout = scope.newsScrollTimeout || 1;
-            let markReadTimeout = scope.newsScrollMarkReadTimeout || 1;
-            let autoPageLimit = scope.newsScrollAutoPageWhenLeft || 50;
+            var scrollTimeout = scope.newsScrollTimeout || 1;
+            var markReadTimeout = scope.newsScrollMarkReadTimeout || 1;
+            var autoPageLimit = scope.newsScrollAutoPageWhenLeft || 50;
 
-            let scrollHandler = () => {
+            var scrollHandler = function () {
                 // allow only one scroll event to trigger at once
                 if (allowScroll) {
                     allowScroll = false;
 
-                    $timeout(() => {
+                    $timeout(function () {
                         allowScroll = true;
                     }, scrollTimeout*1000);
 
@@ -95,7 +94,7 @@ app.directive('newsScroll', ($timeout) => {
                              scope);
 
                     // allow user to undo accidental scroll
-                    $timeout(() => {
+                    $timeout(function () {
                         markRead(scope.newsScrollEnabledMarkRead,
                                  elem,
                                  scope);
@@ -107,7 +106,7 @@ app.directive('newsScroll', ($timeout) => {
             elem.on('scroll', scrollHandler);
 
             // remove scroll handler if element is destroyed
-            scope.$on('$destroy', () => {
+            scope.$on('$destroy', function () {
                 elem.off('scroll', scrollHandler);
             });
         }

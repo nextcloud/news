@@ -7,10 +7,10 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.filter('unreadCountFormatter', () => {
+app.filter('unreadCountFormatter', function () {
     'use strict';
 
-    return (unreadCount) => {
+    return function (unreadCount) {
         if (unreadCount > 999) {
             return '999+';
         }

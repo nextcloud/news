@@ -14,26 +14,31 @@ app.service('Publisher', function () {
 
     this.channels = {};
 
-    this.subscribe = (obj) => {
+    this.subscribe = function (obj) {
+        var self = this;
+
         return {
-            toChannels: (...channels) => {
-                for (let channel of channels) {
-                    this.channels[channel] = this.channels[channel] || [];
-                    this.channels[channel].push(obj);
-                }
+            toChannels: function (channels) {
+                channels.forEach(function (channel) {
+                    self.channels[channel] = self.channels[channel] || [];
+                    self.channels[channel].push(obj);
+                });
             }
         };
 
     };
 
-    this.publishAll = (data) => {
-        for (let [channel, messages] of items(data)) {
-            if (this.channels[channel] !== undefined) {
-                for (let listener of this.channels[channel]) {
-                    listener.receive(messages, channel);
-                }
+    this.publishAll = function (data) {
+        var self = this;
+
+        Object.keys(data).forEach(function (channel) {
+            var listeners = self.channels[channel];
+            if (listeners !== undefined) {
+                listeners.forEach(function (listener) {
+                    listener.receive(data[channel], channel);
+                });
             }
-        }
+        });
     };
 
 });

@@ -7,11 +7,11 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsTriggerClick', () => {
+app.directive('newsTriggerClick', function () {
     'use strict';
 
-    return (scope, elm, attr) => {
-        elm.click(() => {
+    return function (scope, elm, attr) {
+        elm.click(function () {
             $(attr.newsTriggerClick).trigger('click');
         });
     };

@@ -7,19 +7,19 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsTitleUnreadCount', ($window) => {
+app.directive('newsTitleUnreadCount', function ($window) {
     'use strict';
 
-    let baseTitle = $window.document.title;
+    var baseTitle = $window.document.title;
 
     return {
         restrict: 'E',
         scope: {
             unreadCount: '@'
         },
-        link: (scope, elem, attrs) => {
-            attrs.$observe('unreadCount', (value) => {
-                let titles = baseTitle.split('-');
+        link: function (scope, elem, attrs) {
+            attrs.$observe('unreadCount', function (value) {
+                var titles = baseTitle.split('-');
 
                 if (value !== '0') {
                     $window.document.title = titles[0] +

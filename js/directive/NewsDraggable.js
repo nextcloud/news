@@ -7,11 +7,11 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsDraggable', () => {
+app.directive('newsDraggable', function () {
     'use strict';
 
-    return (scope, elem, attr) => {
-        let options = scope.$eval(attr.newsDraggable);
+    return function (scope, elem, attr) {
+        var options = scope.$eval(attr.newsDraggable);
 
         if (angular.isDefined(options)) {
             elem.draggable(options);

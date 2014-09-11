@@ -7,19 +7,19 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsDroppable', ($rootScope) => {
+app.directive('newsDroppable', function ($rootScope) {
     'use strict';
 
-    return (scope, elem, attr) => {
-        let details = {
+    return function (scope, elem, attr) {
+        var details = {
             accept: '.feed',
             hoverClass: 'drag-and-drop',
             greedy: true,
-            drop: (event, ui) => {
+            drop: function (event, ui) {
 
                 $('.drag-and-drop').removeClass('drag-and-drop');
 
-                let data = {
+                var data = {
                     folderId: parseInt(elem.data('id'), 10),
                     feedId: parseInt($(ui.draggable).data('id'), 10)
                 };

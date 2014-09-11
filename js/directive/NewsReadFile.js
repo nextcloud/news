@@ -7,17 +7,17 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsReadFile', () => {
+app.directive('newsReadFile', function () {
     'use strict';
 
-    return (scope, elem, attr) => {
+    return function (scope, elem, attr) {
 
-        elem.change(() => {
+        elem.change(function () {
 
-            let file = elem[0].files[0];
-            let reader = new FileReader();
+            var file = elem[0].files[0];
+            var reader = new FileReader();
 
-            reader.onload = (event) => {
+            reader.onload = function (event) {
                 elem[0].value = 0;
                 // FIXME: is there a more flexible solution where we dont have
                 // to bind the file to scope?

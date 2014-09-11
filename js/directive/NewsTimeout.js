@@ -7,7 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsTimeout', ($timeout) => {
+app.directive('newsTimeout', function ($timeout) {
     'use strict';
 
     return {
@@ -15,13 +15,13 @@ app.directive('newsTimeout', ($timeout) => {
         scope: {
             'newsTimeout': '&'
         },
-        link: (scope) => {
-            let seconds = 7;
-            let timer = $timeout(scope.newsTimeout, seconds * 1000);
+        link: function (scope) {
+            var seconds = 7;
+            var timer = $timeout(scope.newsTimeout, seconds * 1000);
 
             // remove timeout if element is being removed by
             // for instance clicking on the x button
-            scope.$on('$destroy', () => {
+            scope.$on('$destroy', function () {
                 $timeout.cancel(timer);
             });
         }

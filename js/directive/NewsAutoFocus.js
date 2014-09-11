@@ -7,9 +7,9 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsAutoFocus', () => {
+app.directive('newsAutoFocus', function () {
     'use strict';
-    return (scope, elem, attrs) => {
+    return function (scope, elem, attrs) {
         if (attrs.newsAutofocus) {
             $(attrs.newsAutofocus).focus();
         } else {

@@ -16,11 +16,11 @@ app.service('Loading', function () {
         autopaging: false
     };
 
-    this.setLoading = (area, isLoading) => {
+    this.setLoading = function (area, isLoading) {
         this.loading[area] = isLoading;
     };
 
-    this.isLoading = (area) => {
+    this.isLoading = function (area) {
         return this.loading[area];
     };
 

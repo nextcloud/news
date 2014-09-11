@@ -7,13 +7,13 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsStopPropagation', () => {
+app.directive('newsStopPropagation', function () {
 	'use strict';
     return {
         restrict: 'A',
-        link: (scope, element) => {
-            element.bind('click', (e) => {
-                e.stopPropagation();
+        link: function (scope, element) {
+            element.bind('click', function (event) {
+                event.stopPropagation();
             });
         }
     };

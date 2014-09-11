@@ -7,7 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsAudio', () => {
+app.directive('newsAudio', function () {
     'use strict';
     return {
         restrict: 'E',
@@ -22,16 +22,17 @@ app.directive('newsAudio', () => {
         '</audio>' +
         '<a ng-href="{{ src|trustUrl }}" class="button" ng-show="cantPlay()" ' +
             'ng-transclude></a>',
-        link: (scope, elm) => {
-            let source = elm.children().children('source')[0];
-            let cantPlay = false;
-            source.addEventListener('error', () =>  {
-                scope.$apply(() => {
+        link: function (scope, elm) {
+            var source = elm.children().children('source')[0];
+            var cantPlay = false;
+
+            source.addEventListener('error', function () {
+                scope.$apply(function () {
                     cantPlay = true;
                 });
             });
 
-            scope.cantPlay = () => {
+            scope.cantPlay = function () {
                 return cantPlay;
             };
         }

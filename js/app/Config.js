@@ -10,7 +10,7 @@
 app.config(function ($routeProvider, $provide, $httpProvider) {
     'use strict';
 
-    const feedType = {
+    var feedType = {
         FEED: 0,
         FOLDER: 1,
         STARRED: 2,
@@ -25,9 +25,9 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
     $provide.constant('FEED_TYPE', feedType);
 
     // make sure that the CSRF header is only sent to the ownCloud domain
-    $provide.factory('CSRFInterceptor', ($q, BASE_URL) => {
+    $provide.factory('CSRFInterceptor', function ($q, BASE_URL) {
         return {
-            request: (config) => {
+            request: function (config) {
                 if (config.url.indexOf(BASE_URL) === 0) {
                     config.headers.requesttoken = csrfToken;
                 }
@@ -39,7 +39,7 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
     $httpProvider.interceptors.push('CSRFInterceptor');
 
     // routing
-    const getResolve = (type) => {
+    var getResolve = function (type) {
         return {
             // request to items also returns feeds
             data: [
@@ -48,9 +48,9 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
                 '$q',
                 'BASE_URL',
                 'ITEM_BATCH_SIZE',
-                ($http, $route, $q, BASE_URL, ITEM_BATCH_SIZE) => {
+                function ($http, $route, $q, BASE_URL, ITEM_BATCH_SIZE) {
 
-                    const parameters = {
+                    var parameters = {
                         type: type,
                         limit: ITEM_BATCH_SIZE
                     };
@@ -59,13 +59,13 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
                         parameters.id = $route.current.params.id;
                     }
 
-                    let deferred = $q.defer();
+                    var deferred = $q.defer();
 
                     $http({
-                        url:  `${BASE_URL}/items`,
+                        url:  BASE_URL + '/items',
                         method: 'GET',
                         params: parameters
-                    }).success((data) => {
+                    }).success(function (data) {
                         deferred.resolve(data);
                     });
 

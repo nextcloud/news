@@ -7,134 +7,155 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.factory('ItemResource', (Resource, $http, BASE_URL, ITEM_BATCH_SIZE) => {
+app.factory('ItemResource', function (Resource, $http, BASE_URL,
+                                      ITEM_BATCH_SIZE) {
     'use strict';
 
-    class ItemResource extends Resource {
+
+    var ItemResource = function ($http, BASE_URL, ITEM_BATCH_SIZE) {
+        Resource.call(this, $http, BASE_URL);
+        this.starredCount = 0;
+        this.batchSize = ITEM_BATCH_SIZE;
+    };
+
+    ItemResource.prototype = Object.create(Resource.prototype);
 
 
-        constructor ($http, BASE_URL, ITEM_BATCH_SIZE) {
-            super($http, BASE_URL);
-            this.starredCount = 0;
-            this.batchSize = ITEM_BATCH_SIZE;
+    ItemResource.prototype.receive = function (value, channel) {
+        switch (channel) {
+
+        case 'newestItemId':
+            this.newestItemId = value;
+            break;
+
+        case 'starred':
+            this.starredCount = value;
+            break;
+
+        default:
+            Resource.prototype.receive.call(this, value, channel);
+        }
+    };
+
+
+    ItemResource.prototype.getNewestItemId = function () {
+        return this.newestItemId;
+    };
+
+
+    ItemResource.prototype.getStarredCount = function () {
+        return this.starredCount;
+    };
+
+
+    ItemResource.prototype.star = function (itemId, isStarred) {
+        if (isStarred === undefined) {
+            isStarred = true;
         }
 
+        var it = this.get(itemId);
+        var url = this.BASE_URL +
+            '/items/' + it.feedId + '/' + it.guidHash + '/star';
 
-        receive (value, channel) {
-            switch (channel) {
+        it.starred = isStarred;
 
-            case 'newestItemId':
-                this.newestItemId = value;
-                break;
+        if (isStarred) {
+            this.starredCount += 1;
+        } else {
+            this.starredCount -= 1;
+        }
 
-            case 'starred':
-                this.starredCount = value;
-                break;
-
-            default:
-                super.receive(value, channel);
+        return this.http({
+            url: url,
+            method: 'POST',
+            data: {
+                isStarred: isStarred
             }
+        });
+    };
+
+
+    ItemResource.prototype.toggleStar = function (itemId) {
+        if (this.get(itemId).starred) {
+            this.star(itemId, false);
+        } else {
+            this.star(itemId, true);
+        }
+    };
+
+
+    ItemResource.prototype.markItemRead = function (itemId, isRead) {
+        if (isRead === undefined) {
+            isRead = true;
         }
 
-
-        getNewestItemId () {
-            return this.newestItemId;
-        }
-
-
-        getStarredCount () {
-            return this.starredCount;
-        }
-
-
-        star (itemId, isStarred=true) {
-            let it = this.get(itemId);
-            let url = `${this.BASE_URL}/items/${it.feedId}/${it.guidHash}/star`;
-
-            it.starred = isStarred;
-
-            if (isStarred) {
-                this.starredCount += 1;
-            } else {
-                this.starredCount -= 1;
+        this.get(itemId).unread = !isRead;
+        return this.http({
+            url: this.BASE_URL + '/items/' + itemId + '/read',
+            method: 'POST',
+            data: {
+                isRead: isRead
             }
-
-            return this.http({
-                url: url,
-                method: 'POST',
-                data: {
-                    isStarred: isStarred
-                }
-            });
-        }
+        });
+    };
 
 
-        toggleStar (itemId) {
-            if (this.get(itemId).starred) {
-                this.star(itemId, false);
-            } else {
-                this.star(itemId, true);
+    ItemResource.prototype.markItemsRead = function (itemIds) {
+        var self = this;
+
+        itemIds.forEach(function(itemId) {
+            self.get(itemId).unread = false;
+        });
+
+        return this.http({
+            url: this.BASE_URL + '/items/read/multiple',
+            method: 'POST',
+            data: {
+                itemIds: itemIds
             }
+        });
+    };
+
+
+    ItemResource.prototype.markFeedRead = function (feedId, read) {
+        if (read === undefined) {
+            read = true;
         }
 
+        var items = this.values.filter(function (element) {
+            return element.feedId === feedId;
+        });
 
-        markItemRead (itemId, isRead=true) {
-            this.get(itemId).unread = !isRead;
-            return this.http({
-                url: `${this.BASE_URL}/items/${itemId}/read`,
-                method: 'POST',
-                data: {
-                    isRead: isRead
-                }
-            });
-        }
+        items.forEach(function (item) {
+            item.unread = !read;
+        });
+
+        return this.http.post(this.BASE_URL + '/feeds/' + 'feedId' + '/read');
+    };
 
 
-        markItemsRead (itemIds) {
-            for (let itemId of itemIds) {
-                this.get(itemId).unread = false;
+    ItemResource.prototype.markRead = function () {
+        this.values.forEach(function (item) {
+            item.unread = false;
+        });
+
+        return this.http.post(this.BASE_URL + '/items/read');
+    };
+
+
+    ItemResource.prototype.autoPage = function (type, id) {
+        return this.http({
+            url: this.BASE_URL + '/items',
+            method: 'GET',
+            params: {
+                type: type,
+                id: id,
+                offset: this.size(),
+                limit: this.batchSize
             }
+        });
+    };
 
-            return this.http({
-                url: `${this.BASE_URL}/items/read/multiple`,
-                method: 'POST',
-                data: {
-                    itemIds: itemIds
-                }
-            });
-        }
-
-
-        markFeedRead (feedId, read=true) {
-            for (let item of this.values.filter(i => i.feedId === feedId)) {
-                item.unread = !read;
-            }
-            return this.http.post(`${this.BASE_URL}/feeds/${feedId}/read`);
-        }
-
-
-        markRead () {
-            for (let item of this.values) {
-                item.unread = false;
-            }
-            return this.http.post(`${this.BASE_URL}/items/read`);
-        }
-
-
-        autoPage (type, id) {
-            return this.http({
-                url: `${this.BASE_URL}/items`,
-                method: 'GET',
-                params: {
-                    type: type,
-                    id: id,
-                    offset: this.size(),
-                    limit: this.batchSize
-                }
-            });
-        }
-
-    }
 
     return new ItemResource($http, BASE_URL, ITEM_BATCH_SIZE);
 });

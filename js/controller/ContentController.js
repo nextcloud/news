@@ -21,23 +21,23 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data,
 
     this.isAutoPagingEnabled = true;
 
-    this.getItems = () => {
+    this.getItems = function () {
         return ItemResource.getAll();
     };
 
-    this.toggleStar = (itemId) => {
+    this.toggleStar = function (itemId) {
         ItemResource.toggleStar(itemId);
     };
 
-    this.toggleItem = (item) => {
+    this.toggleItem = function (item) {
         // TODO: unittest
         if (this.isCompactView()) {
             item.show = !item.show;
         }
     };
 
-    this.markRead = (itemId) => {
-        let item = ItemResource.get(itemId);
+    this.markRead = function (itemId) {
+        var item = ItemResource.get(itemId);
 
         if (!item.keepUnread) {
             ItemResource.markItemRead(itemId);
@@ -45,12 +45,12 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data,
         }
     };
 
-    this.getFeed = (feedId) => {
+    this.getFeed = function (feedId) {
         return FeedResource.getById(feedId);
     };
 
-    this.toggleKeepUnread = (itemId) => {
-        let item = ItemResource.get(itemId);
+    this.toggleKeepUnread = function (itemId) {
+        var item = ItemResource.get(itemId);
         if (!item.unread) {
             FeedResource.markItemOfFeedUnread(item.feedId);
             ItemResource.markItemRead(itemId, false);
@@ -59,7 +59,7 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data,
         item.keepUnread = !item.keepUnread;
     };
 
-    this.orderBy = () => {
+    this.orderBy = function () {
         if (SettingsResource.get('oldestFirst')) {
             return 'id';
         } else {
@@ -67,55 +67,55 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data,
         }
     };
 
-    this.isCompactView = () => {
+    this.isCompactView = function () {
         return SettingsResource.get('compact');
     };
 
-    this.autoPagingEnabled = () => {
+    this.autoPagingEnabled = function () {
         return this.isAutoPagingEnabled;
     };
 
-    this.markReadEnabled = () => {
+    this.markReadEnabled = function () {
         return !SettingsResource.get('preventReadOnScroll');
     };
 
-    this.scrollRead = (itemIds) => {
-        let ids = [];
-        let feedIds = [];
+    this.scrollRead = function (itemIds) {
+        var ids = [];
+        var feedIds = [];
 
-        for (let itemId of itemIds) {
-            let item = ItemResource.get(itemId);
+        itemIds.forEach(function (itemId) {
+            var item = ItemResource.get(itemId);
             if (!item.keepUnread) {
                 ids.push(itemId);
                 feedIds.push(item.feedId);
             }
-        }
+        });
 
         FeedResource.markItemsOfFeedsRead(feedIds);
         ItemResource.markItemsRead(ids);
     };
 
-    this.autoPage = () => {
+    this.autoPage = function () {
         this.isAutoPagingEnabled = false;
 
-        let type = $route.current.$$route.type;
-        let id = $routeParams.id;
+        var type = $route.current.$$route.type;
+        var id = $routeParams.id;
 
-        ItemResource.autoPage(type, id).success((data) => {
+        ItemResource.autoPage(type, id).success(function (data) {
             Publisher.publishAll(data);
 
             if (data.items.length > 0) {
                 this.isAutoPagingEnabled = true;
             }
-        }).error(() => {
+        }).error(function () {
             this.isAutoPagingEnabled = true;
         });
     };
 
-    this.getRelativeDate = (timestamp) => {
+    this.getRelativeDate = function (timestamp) {
         if (timestamp !== undefined && timestamp !== '') {
-            let languageCode = SettingsResource.get('language');
-            let date =
+            var languageCode = SettingsResource.get('language');
+            var date =
                 moment.unix(timestamp).locale(languageCode).fromNow() + '';
             return date;
         } else {

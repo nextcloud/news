@@ -7,85 +7,84 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.factory('Resource', () => {
+app.factory('Resource', function () {
     'use strict';
 
-    class Resource {
+    var Resource = function (http, BASE_URL, id) {
+        this.id = id || 'id';
+        this.values = [];
+        this.hashMap = {};
+        this.http = http;
+        this.BASE_URL = BASE_URL;
+    };
 
 
-        constructor (http, BASE_URL, id='id') {
-            this.id = id;
-            this.values = [];
-            this.hashMap = {};
-            this.http = http;
-            this.BASE_URL = BASE_URL;
+    Resource.prototype.receive = function (objs) {
+        var self = this;
+        objs.forEach(function (obj) {
+            self.add(obj);
+        });
+    };
+
+
+    Resource.prototype.add = function (obj) {
+        var existing = this.hashMap[obj[this.id]];
+
+        if (existing === undefined) {
+            this.values.push(obj);
+            this.hashMap[obj[this.id]] = obj;
+        } else {
+            // copy values from new to old object if it exists already
+            Object.keys(obj).forEach(function (key) {
+                existing[key] = obj[key];
+            });
+        }
+    };
+
+
+    Resource.prototype.size = function () {
+        return this.values.length;
+    };
+
+
+    Resource.prototype.get = function (id) {
+        return this.hashMap[id];
+    };
+
+
+    Resource.prototype.delete = function (id) {
+        // find index of object that should be deleted
+        var self = this;
+        var deleteAtIndex = this.values.findIndex(function(element) {
+            return element[self.id] === id;
+        });
+
+        if (deleteAtIndex !== undefined) {
+            this.values.splice(deleteAtIndex, 1);
         }
 
-
-        receive (objs) {
-            for (let obj of objs) {
-                this.add(obj);
-            }
+        if (this.hashMap[id] !== undefined) {
+            delete this.hashMap[id];
         }
+    };
 
 
-        add (obj) {
-            let existing = this.hashMap[obj[this.id]];
+    Resource.prototype.clear = function () {
+        this.hashMap = {};
 
-            if (existing === undefined) {
-                this.values.push(obj);
-                this.hashMap[obj[this.id]] = obj;
-            } else {
-                // copy values from new to old object if it exists already
-                for (let [key, value] of items(obj)) {
-                    existing[key] = value;
-                }
-            }
+        // http://stackoverflow.com/questions/1232040
+        // this is the fastes way to empty an array when you want to keep
+        // the reference around
+        while (this.values.length > 0) {
+            this.values.pop();
         }
+    };
 
 
-        size () {
-            return this.values.length;
-        }
+    Resource.prototype.getAll = function () {
+        return this.values;
+    };
 
-
-        get (id) {
-            return this.hashMap[id];
-        }
-
-
-        delete (id) {
-            // find index of object that should be deleted
-            let deleteAtIndex = this.values.findIndex(e => e[this.id] === id);
-
-            if (deleteAtIndex !== undefined) {
-                this.values.splice(deleteAtIndex, 1);
-            }
-
-            if (this.hashMap[id] !== undefined) {
-                delete this.hashMap[id];
-            }
-        }
-
-
-        clear () {
-            this.hashMap = {};
-
-            // http://stackoverflow.com/questions/1232040
-            // this is the fastes way to empty an array when you want to keep
-            // the reference around
-            while (this.values.length > 0) {
-                this.values.pop();
-            }
-        }
-
-
-        getAll () {
-            return this.values;
-        }
-
-
-    }
 
     return Resource;
 });

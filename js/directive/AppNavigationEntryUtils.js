@@ -7,27 +7,27 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.run(($document, $rootScope) => {
+app.run(function ($document, $rootScope) {
     'use strict';
-    $document.click((event) => {
+    $document.click(function (event) {
         $rootScope.$broadcast('documentClicked', event);
     });
 });
 
-app.directive('appNavigationEntryUtils', () => {
+app.directive('appNavigationEntryUtils', function () {
     'use strict';
     return {
         restrict: 'C',
-        link: (scope, elm) => {
-            let menu = elm.siblings('.app-navigation-entry-menu');
-            let button = $(elm)
+        link: function (scope, elm) {
+            var menu = elm.siblings('.app-navigation-entry-menu');
+            var button = $(elm)
                 .find('.app-navigation-entry-utils-menu-button button');
 
-            button.click(() => {
+            button.click(function () {
                 menu.toggleClass('open');
             });
 
-            scope.$on('documentClicked', (scope, event) => {
+            scope.$on('documentClicked', function (scope, event) {
                 if (event.target !== button[0]) {
                     menu.removeClass('open');
                 }

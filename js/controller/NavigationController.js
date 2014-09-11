@@ -15,69 +15,69 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
     this.feedError = '';
     this.folderError = '';
 
-    this.getFeeds = () => {
+    this.getFeeds = function () {
         return FeedResource.getAll();
     };
 
-    this.getFolders = () => {
+    this.getFolders = function () {
         return FolderResource.getAll();
     };
 
-    this.markFolderRead = (folderId) => {
+    this.markFolderRead = function (folderId) {
         FeedResource.markFolderRead(folderId);
 
-        for (let feed of FeedResource.getByFolderId(folderId)) {
+        FeedResource.getByFolderId(folderId).forEach(function (feed) {
             ItemResource.markFeedRead(feed.id);
-        }
+        });
     };
 
-    this.markFeedRead = (feedId) => {
+    this.markFeedRead = function (feedId) {
         ItemResource.markFeedRead(feedId);
         FeedResource.markFeedRead(feedId);
     };
 
-    this.markRead = () => {
+    this.markRead = function () {
         ItemResource.markRead();
         FeedResource.markRead();
     };
 
-    this.isShowAll = () => {
+    this.isShowAll = function () {
         return SettingsResource.get('showAll');
     };
 
-    this.getFeedsOfFolder = (folderId) => {
+    this.getFeedsOfFolder = function (folderId) {
         return FeedResource.getByFolderId(folderId);
     };
 
-    this.getUnreadCount = () => {
+    this.getUnreadCount = function () {
         return FeedResource.getUnreadCount();
     };
 
-    this.getFeedUnreadCount = (feedId) => {
+    this.getFeedUnreadCount = function (feedId) {
         return FeedResource.getById(feedId).unreadCount;
     };
 
-    this.getFolderUnreadCount= (folderId) => {
+    this.getFolderUnreadCount= function (folderId) {
         return FeedResource.getFolderUnreadCount(folderId);
     };
 
-    this.getStarredCount = () => {
+    this.getStarredCount = function () {
         return ItemResource.getStarredCount();
     };
 
-    this.toggleFolder = (folderName) => {
+    this.toggleFolder = function (folderName) {
         FolderResource.toggleOpen(folderName);
     };
 
-    this.hasFeeds = (folderId) => {
+    this.hasFeeds = function (folderId) {
         return FeedResource.getFolderUnreadCount(folderId) !== undefined;
     };
 
-    this.subFeedActive = (folderId) => {
-        let type = $route.current.$$route.type;
+    this.subFeedActive = function (folderId) {
+        var type = $route.current.$$route.type;
 
         if (type === FEED_TYPE.FEED) {
-            let feed = FeedResource.getById($route.current.params.id);
+            var feed = FeedResource.getById($route.current.params.id);
 
             if (feed.folderId === folderId) {
                 return true;
@@ -87,78 +87,78 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
         return false;
     };
 
-    this.isSubscriptionsActive = () => {
+    this.isSubscriptionsActive = function () {
         return $route.current &&
             $route.current.$$route.type === FEED_TYPE.SUBSCRIPTIONS;
     };
 
-    this.isStarredActive = () => {
+    this.isStarredActive = function () {
         return $route.current &&
             $route.current.$$route.type === FEED_TYPE.STARRED;
     };
 
-    this.isFolderActive = (folderId) => {
-        let currentId = parseInt($route.current.params.id, 10);
+    this.isFolderActive = function (folderId) {
+        var currentId = parseInt($route.current.params.id, 10);
         return $route.current &&
             $route.current.$$route.type === FEED_TYPE.FOLDER &&
             currentId === folderId;
     };
 
-    this.isFeedActive = (feedId) => {
-        let currentId = parseInt($route.current.params.id, 10);
+    this.isFeedActive = function (feedId) {
+        var currentId = parseInt($route.current.params.id, 10);
         return $route.current &&
             $route.current.$$route.type === FEED_TYPE.FEED &&
             currentId === feedId;
     };
 
-    this.folderNameExists = (folderName) => {
+    this.folderNameExists = function (folderName) {
         return FolderResource.get(folderName) !== undefined;
     };
 
     // TBD
-    this.isAddingFolder = () => {
+    this.isAddingFolder = function () {
         return true;
     };
 
-    this.createFolder = (folder) => {
+    this.createFolder = function (folder) {
         console.log(folder.name);
         folder.name = '';
     };
 
-    this.createFeed = (feed) => {
+    this.createFeed = function (feed) {
         this.newFolder = false;
         console.log(feed.url + feed.folder);
         feed.url = '';
     };
 
-    this.renameFeed = (feed) => {
+    this.renameFeed = function (feed) {
         feed.editing = false;
         // todo remote stuff
     };
 
-    this.renameFolder = () => {
+    this.renameFolder = function () {
         console.log('TBD');
     };
 
-    this.deleteFeed = (feed) => {
+    this.deleteFeed = function (feed) {
         feed.deleted = true;
         // todo remote stuff
     };
 
-    this.undeleteFeed = (feed) => {
+    this.undeleteFeed = function (feed) {
         feed.deleted = false;
         // todo remote stuff
     };
 
-    this.removeFeed = (feed) => {
+    this.removeFeed = function (feed) {
         console.log('remove ' + feed);
     };
 
-    this.deleteFolder = (folderName) => {
+    this.deleteFolder = function (folderName) {
         console.log(folderName);
     };
 
-    this.moveFeed = (feedId, folderId) => {
+    this.moveFeed = function (feedId, folderId) {
         console.log(feedId + folderId);
     };
 

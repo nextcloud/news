@@ -16,7 +16,7 @@
 (function (window, document, $) {
     'use strict';
 
-    const noInputFocused = (element) => {
+    var noInputFocused = function (element) {
         return !(
             element.is('input') ||
             element.is('select') ||
@@ -25,7 +25,7 @@
         );
     };
 
-    const noModifierKey = (event) => {
+    var noModifierKey = function (event) {
         return !(
             event.shiftKey ||
             event.altKey ||
@@ -34,46 +34,46 @@
         );
     };
 
-    const scrollToItem = (item, scrollArea) => {
+    var scrollToItem = function (item, scrollArea) {
         scrollArea.scrollTop(
             item.offset().top - scrollArea.offset().top + scrollArea.scrollTop()
         );
     };
 
-    const scrollToNextItem = (scrollArea) => {
-        const items = scrollArea.find('.item');
+    var scrollToNextItem = function (scrollArea) {
+        var items = scrollArea.find('.item');
 
-        for (let item of items) {
+        items.each(function (index, item) {
             item = $(item);
 
             if (item.position().top > 1) {
                 scrollToItem(scrollArea, item);
-                return;
+                return false;
             }
-        }
+        });
 
         // in case this is the last item it should still scroll below the top
         scrollArea.scrollTop(scrollArea.prop('scrollHeight'));
 
     };
 
-    const scrollToPreviousItem = (scrollArea) => {
-        const items = scrollArea.find('.item');
+    var scrollToPreviousItem = function (scrollArea) {
+        var items = scrollArea.find('.item');
 
-        for (var item of items) {
+        items.each(function (index, item) {
             item = $(item);
 
             if (item.position().top >= 0) {
-                let previous = item.prev();
+                var previous = item.prev();
 
                 // if there are no items before the current one
                 if (previous.length > 0) {
                     scrollToItem(scrollArea, previous);
                 }
 
-                return;
+                return false;
             }
-        }
+        });
 
         // if there was no jump jump to the last element
         if (items.length > 0) {
@@ -81,44 +81,44 @@
         }
     };
 
-    const getActiveItem = (scrollArea) => {
-        const items = scrollArea.find('.item');
+    var getActiveItem = function (scrollArea) {
+        var items = scrollArea.find('.item');
 
-        for (let item of items) {
+        items.each(function (index, item) {
             item = $(item);
 
             // 130px of the item should be visible
             if ((item.height() + item.position().top) > 30) {
                 return item;
             }
-        }
+        });
     };
 
-    const toggleUnread = (scrollArea) => {
-        const item = getActiveItem(scrollArea);
-        item.find('.keep_unread').trigger('click');
+    var toggleUnread = function (scrollArea) {
+        var item = getActiveItem(scrollArea);
+        item.find('.keep-unread').trigger('click');
     };
 
-    const toggleStar = (scrollArea) => {
-        const item = getActiveItem(scrollArea);
-        item.find('.item_utils .star').trigger('click');
+    var toggleStar = function (scrollArea) {
+        var item = getActiveItem(scrollArea);
+        item.find('.star').trigger('click');
     };
 
-    const expandItem = (scrollArea) => {
-        const item = getActiveItem(scrollArea);
-        item.find('.item_heading a').trigger('click');
+    var expandItem = function (scrollArea) {
+        var item = getActiveItem(scrollArea);
+        item.find('.title').trigger('click');
     };
 
-    const openLink = (scrollArea) => {
-        const item = getActiveItem(scrollArea).find('.item_title a');
+    var openLink = function (scrollArea) {
+        var item = getActiveItem(scrollArea).find('.title a');
         item.trigger('click');  // mark read
         window.open(item.attr('href'), '_blank');
     };
 
-    $(document).keyup((event) => {
+    $(document).keyup(function (event) {
         if (noInputFocused($(':focus')) && noModifierKey(event)) {
-            const keyCode = event.keyCode;
-            const scrollArea = $('#app-content');
+            var keyCode = event.keyCode;
+            var scrollArea = $('#app-content');
 
             // j, n, right arrow
             if ([74, 78, 33].indexOf(keyCode) >= 0) {
