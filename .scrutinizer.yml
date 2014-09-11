@@ -12,6 +12,7 @@ filter:
 imports:
     #- javascript  disabled because of es6 producing tons of errors
     - php
+    - javascript
 
 tools:
     external_code_coverage:
