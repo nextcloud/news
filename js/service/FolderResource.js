@@ -7,12 +7,13 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.factory('FolderResource', function (Resource, $http, BASE_URL) {
+app.factory('FolderResource', function (Resource, $http, BASE_URL, $q) {
     'use strict';
 
-    var FolderResource = function ($http, BASE_URL) {
+    var FolderResource = function ($http, BASE_URL, $q) {
         Resource.call(this, $http, BASE_URL, 'name');
         this.deleted = null;
+        this.$q = $q;
     };
 
     FolderResource.prototype = Object.create(Resource.prototype);
@@ -46,15 +47,13 @@ app.factory('FolderResource', function (Resource, $http, BASE_URL) {
         toFolderName = toFolderName.toUpperCase();
         var folder = this.get(folderName);
 
-        // still do http request if folder exists but dont change the name
-        // to have one point of failure
-        if (!this.get(toFolderName)) {
-            folder.name = toFolderName;
+        folder.name = toFolderName;
 
-            delete this.hashMap[folderName];
-            this.hashMap[toFolderName] = folder;
-        }
+        delete this.hashMap[folderName];
+        this.hashMap[toFolderName] = folder;
 
+        // FIXME: check for errors
+        // FIXME: transfer feeds
         return this.http({
             url: this.BASE_URL + '/folders/' + folder.id + '/rename',
             method: 'POST',
@@ -68,27 +67,32 @@ app.factory('FolderResource', function (Resource, $http, BASE_URL) {
     FolderResource.prototype.create = function (folderName) {
         folderName = folderName.toUpperCase();
 
-        // still do http request if folder exists but dont change the name
-        // to have one point of failure
-        if (!this.get(folderName)) {
-            var folder = {
-                name: folderName
-            };
+        var folder = {
+            name: folderName
+        };
 
-            this.add(folder);
-        }
+        this.add(folder);
 
-        return this.http({
+        var deferred = this.$q.defer();
+
+        this.http({
             url: this.BASE_URL + '/folders',
             method: 'POST',
             data: {
                 folderName: folderName
             }
+        }).success(function (data) {
+            deferred.resolve(data);
+        }).error(function (data) {
+            folder.error = data.message;
         });
+
+        return deferred.promise;
     };
 
 
     FolderResource.prototype.undoDelete = function () {
+        // TODO: check for errors
         if (this.deleted) {
             this.add(this.deleted);
 
@@ -99,5 +103,5 @@ app.factory('FolderResource', function (Resource, $http, BASE_URL) {
     };
 
 
-    return new FolderResource($http, BASE_URL);
+    return new FolderResource($http, BASE_URL, $q);
 });

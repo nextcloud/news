@@ -9,7 +9,7 @@
             || Navigation.isFeedActive(feed.id)
             || !feed.id"
     data-id="{{ feed.id }}"
-    class="feed has-counter has-menu"
+    class="feed with-counter with-menu"
     news-draggable="{
         stack: '> li',
         zIndex: 1000,
@@ -21,13 +21,9 @@
     }">
 
     <a  ng-style="{ backgroundImage: 'url(' + feed.faviconLink + ')'}"
-        ng-class="{
-            'progress-icon': !feed.id,
-            'problem-icon': feed.error
-        }"
         ng-if="!feed.editing && !feed.deleted"
         ng-href="#/items/feeds/{{ feed.id }}/"
-        class="title icon-loading"
+        class="title"
         title="{{ feed.title }}">
        {{ feed.title }}
     </a>
@@ -58,8 +54,7 @@
                 {{ Navigation.getFeedUnreadCount(feed.id) | unreadCountFormatter }}
             </li>
             <li class="app-navigation-entry-utils-menu-button">
-                <button ng-click="App.toggleMenu('f' + feed.id)"
-                        title="<?php p($l->t('Menu')); ?>"></button>
+                <button title="<?php p($l->t('Menu')); ?>"></button>
             </li>
         </ul>
     </div>
@@ -71,9 +66,10 @@
                         title="<?php p($l->t('Rename feed')); ?>"></button></li>
             <li><button ng-click="Navigation.deleteFeed(feed)"
                         class="icon-delete"
-                        title="<?php p($l->t('Delete website')); ?>"></button></li>
+                        title="<?php p($l->t('Delete feed')); ?>"></button></li>
             <li><button ng-show="Navigation.getFeedUnreadCount(feed.id) > 0"
                         class="icon-checkmark"
+                        ng-click="Navigation.markFeedRead(feed.id)"
                         title="<?php p($l->t('Read all')); ?>"></button></li>
         </ul>
     </div>

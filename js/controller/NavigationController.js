@@ -9,7 +9,7 @@
  */
 app.controller('NavigationController',
 function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
-    SettingsResource) {
+    SettingsResource, Publisher) {
     'use strict';
 
     this.feedError = '';
@@ -112,32 +112,58 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
     };
 
     this.folderNameExists = function (folderName) {
-        return FolderResource.get(folderName) !== undefined;
-    };
-
-    // TBD
-    this.isAddingFolder = function () {
-        return true;
-    };
-
-    this.createFolder = function (folder) {
-        console.log(folder.name);
-        folder.name = '';
+        folderName = folderName || '';
+        return FolderResource.get(folderName.toUpperCase()) !== undefined;
     };
 
     this.createFeed = function (feed) {
         this.newFolder = false;
-        console.log(feed.url + feed.folder);
+
+        var self = this;
+
+        // we dont need to create a new folder
+        if (feed.folder === undefined) {
+            FeedResource.create(feed.url, feed.folderId, undefined)
+            .then(function (data) {
+                Publisher.publishAll(data);
+            });
+        } else {
+            // create folder first and then the feed
+            FolderResource.create(feed.folder).then(function (data) {
+                Publisher.publishAll(data);
+
+                self.createFeed({
+                    url: feed.url,
+                    folderId: data.name
+                });
+
+                feed.folderId = data.name;
+                feed.folder = '';
+            });
+        }
+
         feed.url = '';
     };
 
+    this.createFolder = function (folder) {
+        FolderResource.create(folder.name).then(function (data) {
+            Publisher.publishAll(data);
+        });
+        folder.name = '';
+    };
+
+    this.moveFeed = function (feedId, folderId) {
+        FeedResource.move(feedId, folderId);
+    };
+
+    // TBD
     this.renameFeed = function (feed) {
         feed.editing = false;
         // todo remote stuff
     };
 
-    this.renameFolder = function () {
-        console.log('TBD');
+    this.renameFolder = function (folder) {
+        console.log(folder);
     };
 
     this.deleteFeed = function (feed) {
@@ -158,8 +184,8 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
         console.log(folderName);
     };
 
-    this.moveFeed = function (feedId, folderId) {
-        console.log(feedId + folderId);
+    this.removeFolder = function (folder) {
+        console.log('remove ' + folder);
     };
 
 });

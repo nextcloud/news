@@ -7,16 +7,17 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.factory('FeedResource', function (Resource, $http, BASE_URL) {
+app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
     'use strict';
 
-    var FeedResource = function ($http, BASE_URL) {
+    var FeedResource = function ($http, BASE_URL, $q) {
         Resource.call(this, $http, BASE_URL, 'url');
         this.ids = {};
         this.unreadCount = 0;
         this.folderUnreadCount = {};
         this.folderIds = {};
         this.deleted = null;
+        this.$q = $q;
     };
 
     FeedResource.prototype = Object.create(Resource.prototype);
@@ -163,8 +164,8 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL) {
     };
 
 
-    FeedResource.prototype.move = function (url, folderId) {
-        var feed = this.get(url);
+    FeedResource.prototype.move = function (feedId, folderId) {
+        var feed = this.getById(feedId);
         feed.folderId = folderId;
 
         this.updateFolderCache();
@@ -185,11 +186,12 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL) {
             title = title.toUpperCase();
         }
 
+        // FIXME: use OC.generateUrl()
         var feed = {
             url: url,
-            folderId: folderId,
+            folderId: folderId || 0,
             title: title,
-            faviconLink: '../css/loading.gif'
+            faviconLink: OC.generateUrl('/apps/news/css/loading.gif')
         };
 
         if (!this.get(url)) {
@@ -198,17 +200,24 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL) {
 
         this.updateFolderCache();
 
-        console.log(feed);
+        var deferred = this.$q.defer();
 
-        return this.http({
+        this.http({
             method: 'POST',
             url: this.BASE_URL + '/feeds',
             data: {
-                url: url,
-                parentFolderId: folderId,
-                title: title
+                url: feed.url,
+                parentFolderId: feed.folderId,
+                title: feed.title
             }
+        }).success(function (data) {
+            deferred.resolve(data);
+        }).error(function (data) {
+            feed.faviconLink = '';
+            feed.error = data.message;
         });
+
+        return deferred.promise;
     };
 
 
@@ -226,5 +235,5 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL) {
     };
 
 
-    return new FeedResource($http, BASE_URL);
+    return new FeedResource($http, BASE_URL, $q);
 });

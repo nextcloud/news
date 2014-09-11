@@ -58,20 +58,6 @@ describe('FolderResource', function () {
     }));
 
 
-    it ('should not rename a folder if it exists', inject(function (
-    FolderResource) {
-        http.expectPOST('base/folders/1/rename', {
-            folderName: 'SYE'
-        }).respond(200, {});
-
-        FolderResource.rename('ye', 'sye');
-
-        http.flush();
-
-        expect(FolderResource.get('ye').id).toBe(1);
-    }));
-
-
     it ('should open a folder', inject(function (FolderResource) {
         http.expectPOST('base/folders/3/open', {
             folderId: 3,
@@ -99,17 +85,16 @@ describe('FolderResource', function () {
     }));
 
 
-    it ('should not create a folder if it exists', inject(function (
-    FolderResource) {
+    it ('should set a folder error message', inject(function (FolderResource) {
         http.expectPOST('base/folders', {
-            folderName: 'SYE'
-        }).respond(200, {});
+            folderName: 'HEY'
+        }).respond(400, {message: 'carramba'});
 
-        FolderResource.create('SYE');
+        FolderResource.create('hey');
 
         http.flush();
 
-        expect(FolderResource.size()).toBe(3);
+        expect(FolderResource.get('HEY').error).toBe('carramba');
     }));
 
 

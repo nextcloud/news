@@ -8,9 +8,9 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 window.OC = {
-    generateUrl: function () {
+    generateUrl: function (url) {
         'use strict';
 
-        return '';
+        return '/base' + url;
     }
 };

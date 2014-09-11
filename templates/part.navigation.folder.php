@@ -5,20 +5,39 @@
         unread: Navigation.getFolderUnreadCount(folder.id) != 0,
         failed: folder.error
     }"
-    ng-repeat="folder in Navigation.getAllFolders() | orderBy:'id':true"
+    ng-repeat="folder in Navigation.getFolders() | orderBy:'id':true"
     ng-show="Navigation.getFolderUnreadCount(folder.id) != 0
             || Navigation.isShowAll()
             || Navigation.isFolderActive(folder.id)
             || Navigation.subFeedActive(folder.id)
             || !folder.id"
-    class="folder has-counter has-menu"
+    class="folder with-counter with-menu"
     data-id="{{ folder.id }}"
     news-droppable>
     <button class="collapse"
             ng-hide="folder.editing"
             title="<?php p($l->t('Collapse'));?>"
             ng-click="Navigation.toggleFolder(folder.name)"></button>
-    <div ng-if="folder.editing" class="rename-feed">
+
+    <div ng-if="folder.deleted" class="app-navigation-entry-deleted" news-timeout="Navigation.removeFeed(feed)">
+        <div class="app-navigation-entry-deleted-description"><?php p($l->t('Deleted')); ?> {{ feed.title }}</div>
+        <button class="icon-history"
+                title="<?php p($l->t('Undo')); ?>"
+                ng-click="Navigation.undeleteFolder(folder)"></button>
+        <button class="icon-close"
+                title="<?php p($l->t('Remove notification')); ?>"
+                ng-click="Navigation.removeFolder(folder)"></button>
+    </div>
+
+    <div ng-if="folder.editing" class="app-navigation-entry-edit">
+        <input name="feedRename" type="text" value="{{ folder.title }}" news-auto-focus>
+        <button title="<?php p($l->t('Rename')); ?>"
+                ng-click="Navigation.renameFolder(folder)"
+                class="action icon-checkmark">
+        </button>
+    </div>
+
+    <div ng-if="folder.editing">
         <input type="text" ng-model="folder.name" class="folder-input" autofocus>
         <button title="<?php p($l->t('Cancel')); ?>"
             ng-click="Navigation.cancelRenameFolder(folder.id)"
@@ -30,49 +49,38 @@
     </div>
 
     <a ng-href="#/items/folders/{{ folder.id }}/"
-        class="title folder-icon"
-        ng-hide="folder.editing"
-        ng-class="{
-            'progress-icon': !folder.id,
-            'problem-icon': folder.error
-        }">
+        class="title icon-folder"
+        ng-hide="folder.editing">
        {{ folder.name }}
     </a>
 
-    <span class="utils">
+    <div class="app-navigation-entry-utils"
+         ng-show="folder.id && !folder.editing && !folder.error && !folder.deleted">
+        <ul>
+            <li class="app-navigation-entry-utils-counter"
+                ng-show="folder.id && Navigation.getFolderUnreadCount(folder.id) > 0">
+                {{ Navigation.getFolderUnreadCount(folder.id) | unreadCountFormatter }}
+            </li>
+            <li class="app-navigation-entry-utils-menu-button">
+                <button title="<?php p($l->t('Menu')); ?>"></button>
+            </li>
+        </ul>
+    </div>
 
-
-        <span class="unread-counter"
-            ng-show="Navigation.getFolderUnreadCount(folder.id) > 0 && !folder.editing">
-            {{ Navigation.getFolderUnreadCount(folder.id) | unreadCountFormatter }}
-        </span>
-
-        <!--
-        <button ng-click="Navigation.delete(folder.id)"
-                ng-hide="folder.editing || !folder.id"
-                class="svg action delete-icon delete-button"
-                title="<?php p($l->t('Delete folder')); ?>"
-                oc-tooltip></button>
-
-        <button class="svg action mark-read-icon"
-                ng-show="Navigation.getFolderUnreadCount(folder.id) > 0 && folder.id && !folder.editing"
-                ng-click="Navigation.markRead(folder.id)"
-                title="<?php p($l->t('Mark read')); ?>"
-                oc-tooltip></button>
-
-        <button class="svg action delete-icon"
-            ng-click="Navigation.markErrorRead(folder.name)"
-            title="<?php p($l->t('Delete folder')); ?>"
-            ng-show="folder.error"
-            oc-tooltip></button>
-
-        <button class="svg action rename-feed-icon"
-                    ng-hide="folder.editing"
-            ng-click="Navigation.edit(folder.id)"
-            title="<?php p($l->t('Rename folder')); ?>"
-                    oc-tooltip></button>
-        -->
-    </span>
+    <div class="app-navigation-entry-menu">
+        <ul>
+            <li><button ng-click="folder.editing=true"
+                        class="icon-rename"
+                        title="<?php p($l->t('Rename folder')); ?>"></button></li>
+            <li><button ng-click="Navigation.deleteFolder(folder)"
+                        class="icon-delete"
+                        title="<?php p($l->t('Delete folder')); ?>"></button></li>
+            <li><button ng-show="Navigation.getFolderUnreadCount(folder.id) > 0"
+                        class="icon-checkmark"
+                        ng-click="Navigation.markFolderRead(folder.id)"
+                        title="<?php p($l->t('Read all')); ?>"></button></li>
+        </ul>
+    </div>
     <ul>
         <?php print_unescaped($this->inc('part.navigation.feed', ['folderId' => 'folder.id'])); ?>
     </ul>

@@ -207,6 +207,7 @@ describe('NavigationController', function () {
         expect(ctrl.subFeedActive(3)).toBe(true);
     }));
 
+
     it('should check if a subscriptions is active', inject(function (
     FeedResource, FEED_TYPE, $controller) {
         var ctrl = $controller('NavigationController', {
@@ -285,8 +286,165 @@ describe('NavigationController', function () {
     it('should expose check if folder exists', inject(function (
     FolderResource) {
         expect(controller.folderNameExists('hi')).toBe(false);
-        FolderResource.add({name: 'hi'});
+        FolderResource.add({name: 'HI'});
         expect(controller.folderNameExists('hi')).toBe(true);
+        expect(controller.folderNameExists('HI')).toBe(true);
     }));
 
+
+    it('should create a feed with a folderId', inject(function ($controller) {
+        var FeedResource = {
+            create: jasmine.createSpy('create').andCallFake(
+            function (url, folderId) {
+                return {
+                    then: function (callback) {
+                        callback({
+                            url: url,
+                            folderId: folderId
+                        });
+                    }
+                };
+            })
+        };
+
+        var Publisher = {
+            publishAll: jasmine.createSpy('publishAll')
+        };
+
+        var ctrl = $controller('NavigationController', {
+            FeedResource: FeedResource,
+            Publisher: Publisher
+        });
+
+        var feed = {
+            url: 'test',
+            folderId: 3
+        };
+
+        ctrl.createFeed(feed);
+
+        expect(ctrl.newFolder).toBe(false);
+        expect(FeedResource.create).toHaveBeenCalledWith('test', 3,
+            undefined);
+        expect(Publisher.publishAll).toHaveBeenCalledWith({
+            url: 'test',
+            folderId: 3
+        });
+        expect(feed.url).toBe('');
+    }));
+
+
+    it('should create a feed with a foldername', inject(function ($controller) {
+
+        var FeedResource = {
+            create: jasmine.createSpy('create').andCallFake(
+            function (url, folderId) {
+                return {
+                    then: function (callback) {
+                        callback({
+                            url: url,
+                            folderId: folderId
+                        });
+                    }
+                };
+            })
+        };
+
+        var FolderResource = {
+            create: jasmine.createSpy('create').andCallFake(
+            function (folder) {
+                return {
+                    then: function (callback) {
+                        callback({
+                            name: folder
+                        });
+                    }
+                };
+            })
+        };
+
+        var Publisher = {
+            publishAll: jasmine.createSpy('publishAll')
+        };
+
+        var ctrl = $controller('NavigationController', {
+            FeedResource: FeedResource,
+            Publisher: Publisher,
+            FolderResource: FolderResource
+        });
+
+        var feed = {
+            url: 'test',
+            folder: 'john'
+        };
+
+        ctrl.createFeed(feed);
+
+        expect(ctrl.newFolder).toBe(false);
+        expect(FeedResource.create).toHaveBeenCalledWith('test', 'john',
+            undefined);
+        expect(FolderResource.create).toHaveBeenCalledWith('john');
+        expect(Publisher.publishAll).toHaveBeenCalledWith({
+            url: 'test',
+            folderId: 'john'
+        });
+        expect(Publisher.publishAll).toHaveBeenCalledWith({
+            name: 'john'
+        });
+        expect(feed.url).toBe('');
+        expect(feed.folder).toBe('');
+        expect(feed.folderId).toBe('john');
+    }));
+
+
+    it('should create a folder', inject(function ($controller) {
+        var FolderResource = {
+            create: jasmine.createSpy('create').andCallFake(
+            function (folder) {
+                return {
+                    then: function (callback) {
+                        callback({
+                            name: folder
+                        });
+                    }
+                };
+            })
+        };
+
+        var Publisher = {
+            publishAll: jasmine.createSpy('publishAll')
+        };
+
+        var ctrl = $controller('NavigationController', {
+            Publisher: Publisher,
+            FolderResource: FolderResource
+        });
+
+        var folder = {
+            name: 'test',
+        };
+
+        ctrl.createFolder(folder);
+
+        expect(FolderResource.create).toHaveBeenCalledWith('test');
+        expect(Publisher.publishAll).toHaveBeenCalledWith({
+            name: 'test'
+        });
+        expect(folder.name).toBe('');
+    }));
+
+
+    it('should move a folder', inject(function ($controller) {
+        var FeedResource = {
+            move: jasmine.createSpy('move')
+        };
+
+        var ctrl = $controller('NavigationController', {
+            FeedResource: FeedResource
+        });
+
+        ctrl.moveFeed(1, 3);
+
+        expect(FeedResource.move).toHaveBeenCalledWith(1, 3);
+    }));
 });

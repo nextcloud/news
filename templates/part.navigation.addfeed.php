@@ -20,8 +20,8 @@
                 title="<?php p($l->t('Folder')); ?>"
                 ng-if="!Navigation.newFolder"
                 ng-model="$parent.feed.folderId"
-                ng-options="folder.name for folder in Navigation.getAllFolders() track by folder.name">
-                <option value="" selected="selected">-- <?php p($l->t('None')); ?> --</option>
+                ng-options="folder.name for folder in Navigation.getFolders() track by folder.name">
+                <option value="">-- <?php p($l->t('No folder')); ?> --</option>
             </select>
             <button type="button"
                     class="icon-add add-new-folder-primary"

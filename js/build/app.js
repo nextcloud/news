@@ -331,8 +331,8 @@ app.controller('ContentController',
 
 }]);
 app.controller('NavigationController',
-["$route", "FEED_TYPE", "FeedResource", "FolderResource", "ItemResource", "SettingsResource", function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
-    SettingsResource) {
+["$route", "FEED_TYPE", "FeedResource", "FolderResource", "ItemResource", "SettingsResource", "Publisher", function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
+    SettingsResource, Publisher) {
     'use strict';
 
     this.feedError = '';
@@ -435,32 +435,58 @@ app.controller('NavigationController',
     };
 
     this.folderNameExists = function (folderName) {
-        return FolderResource.get(folderName) !== undefined;
-    };
-
-    // TBD
-    this.isAddingFolder = function () {
-        return true;
-    };
-
-    this.createFolder = function (folder) {
-        console.log(folder.name);
-        folder.name = '';
+        folderName = folderName || '';
+        return FolderResource.get(folderName.toUpperCase()) !== undefined;
     };
 
     this.createFeed = function (feed) {
         this.newFolder = false;
-        console.log(feed.url + feed.folder);
+
+        var self = this;
+
+        // we dont need to create a new folder
+        if (feed.folder === undefined) {
+            FeedResource.create(feed.url, feed.folderId, undefined)
+            .then(function (data) {
+                Publisher.publishAll(data);
+            });
+        } else {
+            // create folder first and then the feed
+            FolderResource.create(feed.folder).then(function (data) {
+                Publisher.publishAll(data);
+
+                self.createFeed({
+                    url: feed.url,
+                    folderId: data.name
+                });
+
+                feed.folderId = data.name;
+                feed.folder = '';
+            });
+        }
+
         feed.url = '';
     };
 
+    this.createFolder = function (folder) {
+        FolderResource.create(folder.name).then(function (data) {
+            Publisher.publishAll(data);
+        });
+        folder.name = '';
+    };
+
+    this.moveFeed = function (feedId, folderId) {
+        FeedResource.move(feedId, folderId);
+    };
+
+    // TBD
     this.renameFeed = function (feed) {
         feed.editing = false;
         // todo remote stuff
     };
 
-    this.renameFolder = function () {
-        console.log('TBD');
+    this.renameFolder = function (folder) {
+        console.log(folder);
     };
 
     this.deleteFeed = function (feed) {
@@ -481,8 +507,8 @@ app.controller('NavigationController',
         console.log(folderName);
     };
 
-    this.moveFeed = function (feedId, folderId) {
-        console.log(feedId + folderId);
+    this.removeFolder = function (folder) {
+        console.log('remove ' + folder);
     };
 
 }]);
@@ -546,16 +572,17 @@ app.filter('unreadCountFormatter', function () {
         return unreadCount;
     };
 });
-app.factory('FeedResource', ["Resource", "$http", "BASE_URL", function (Resource, $http, BASE_URL) {
+app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Resource, $http, BASE_URL, $q) {
     'use strict';
 
-    var FeedResource = function ($http, BASE_URL) {
+    var FeedResource = function ($http, BASE_URL, $q) {
         Resource.call(this, $http, BASE_URL, 'url');
         this.ids = {};
         this.unreadCount = 0;
         this.folderUnreadCount = {};
         this.folderIds = {};
         this.deleted = null;
+        this.$q = $q;
     };
 
     FeedResource.prototype = Object.create(Resource.prototype);
@@ -702,8 +729,8 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", function (Resource
     };
 
 
-    FeedResource.prototype.move = function (url, folderId) {
-        var feed = this.get(url);
+    FeedResource.prototype.move = function (feedId, folderId) {
+        var feed = this.getById(feedId);
         feed.folderId = folderId;
 
         this.updateFolderCache();
@@ -724,11 +751,12 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", function (Resource
             title = title.toUpperCase();
         }
 
+        // FIXME: use OC.generateUrl()
         var feed = {
             url: url,
-            folderId: folderId,
+            folderId: folderId || 0,
             title: title,
-            faviconLink: '../css/loading.gif'
+            faviconLink: OC.generateUrl('/apps/news/css/loading.gif')
         };
 
         if (!this.get(url)) {
@@ -737,17 +765,24 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", function (Resource
 
         this.updateFolderCache();
 
-        console.log(feed);
+        var deferred = this.$q.defer();
 
-        return this.http({
+        this.http({
             method: 'POST',
             url: this.BASE_URL + '/feeds',
             data: {
-                url: url,
-                parentFolderId: folderId,
-                title: title
+                url: feed.url,
+                parentFolderId: feed.folderId,
+                title: feed.title
             }
+        }).success(function (data) {
+            deferred.resolve(data);
+        }).error(function (data) {
+            feed.faviconLink = '';
+            feed.error = data.message;
         });
+
+        return deferred.promise;
     };
 
 
@@ -765,14 +800,15 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", function (Resource
     };
 
 
-    return new FeedResource($http, BASE_URL);
+    return new FeedResource($http, BASE_URL, $q);
 }]);
-app.factory('FolderResource', ["Resource", "$http", "BASE_URL", function (Resource, $http, BASE_URL) {
+app.factory('FolderResource', ["Resource", "$http", "BASE_URL", "$q", function (Resource, $http, BASE_URL, $q) {
     'use strict';
 
-    var FolderResource = function ($http, BASE_URL) {
+    var FolderResource = function ($http, BASE_URL, $q) {
         Resource.call(this, $http, BASE_URL, 'name');
         this.deleted = null;
+        this.$q = $q;
     };
 
     FolderResource.prototype = Object.create(Resource.prototype);
@@ -806,15 +842,13 @@ app.factory('FolderResource', ["Resource", "$http", "BASE_URL", function (Resour
         toFolderName = toFolderName.toUpperCase();
         var folder = this.get(folderName);
 
-        // still do http request if folder exists but dont change the name
-        // to have one point of failure
-        if (!this.get(toFolderName)) {
-            folder.name = toFolderName;
+        folder.name = toFolderName;
 
-            delete this.hashMap[folderName];
-            this.hashMap[toFolderName] = folder;
-        }
+        delete this.hashMap[folderName];
+        this.hashMap[toFolderName] = folder;
 
+        // FIXME: check for errors
+        // FIXME: transfer feeds
         return this.http({
             url: this.BASE_URL + '/folders/' + folder.id + '/rename',
             method: 'POST',
@@ -828,27 +862,32 @@ app.factory('FolderResource', ["Resource", "$http", "BASE_URL", function (Resour
     FolderResource.prototype.create = function (folderName) {
         folderName = folderName.toUpperCase();
 
-        // still do http request if folder exists but dont change the name
-        // to have one point of failure
-        if (!this.get(folderName)) {
-            var folder = {
-                name: folderName
-            };
+        var folder = {
+            name: folderName
+        };
 
-            this.add(folder);
-        }
+        this.add(folder);
 
-        return this.http({
+        var deferred = this.$q.defer();
+
+        this.http({
             url: this.BASE_URL + '/folders',
             method: 'POST',
             data: {
                 folderName: folderName
             }
+        }).success(function (data) {
+            deferred.resolve(data);
+        }).error(function (data) {
+            folder.error = data.message;
         });
+
+        return deferred.promise;
     };
 
 
     FolderResource.prototype.undoDelete = function () {
+        // TODO: check for errors
         if (this.deleted) {
             this.add(this.deleted);
 
@@ -859,7 +898,7 @@ app.factory('FolderResource', ["Resource", "$http", "BASE_URL", function (Resour
     };
 
 
-    return new FolderResource($http, BASE_URL);
+    return new FolderResource($http, BASE_URL, $q);
 }]);
 app.factory('ItemResource', ["Resource", "$http", "BASE_URL", "ITEM_BATCH_SIZE", function (Resource, $http, BASE_URL,
                                       ITEM_BATCH_SIZE) {
