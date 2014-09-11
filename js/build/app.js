@@ -266,9 +266,9 @@ app.controller('ContentController',
 
     this.orderBy = function () {
         if (SettingsResource.get('oldestFirst')) {
-            return '-id';
-        } else {
             return 'id';
+        } else {
+            return '-id';
         }
     };
 

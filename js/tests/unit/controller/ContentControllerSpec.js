@@ -64,11 +64,11 @@ describe('ContentController', function () {
             data: {},
         });
 
-        expect(ctrl.orderBy()).toBe('id');
+        expect(ctrl.orderBy()).toBe('-id');
 
         SettingsResource.set('oldestFirst', true);
 
-        expect(ctrl.orderBy()).toBe('-id');
+        expect(ctrl.orderBy()).toBe('id');
     }));
 
 
