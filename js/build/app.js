@@ -1636,7 +1636,7 @@ app.directive('newsStopPropagation', function () {
             });
         }
     };
- });
+});
 app.directive('newsTimeout', ["$timeout", function ($timeout) {
     'use strict';
 

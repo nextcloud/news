@@ -17,4 +17,4 @@ app.directive('newsStopPropagation', function () {
             });
         }
     };
- });
+});
