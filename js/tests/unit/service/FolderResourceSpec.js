@@ -7,18 +7,23 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-describe('FolderResource', () => {
+describe('FolderResource', function () {
     'use strict';
 
-    let resource,
+    var resource,
         http;
 
-    beforeEach(module('News', ($provide) => {
+    beforeEach(module('News', function ($provide) {
         $provide.value('BASE_URL', 'base');
     }));
 
+    afterEach(function () {
+        http.verifyNoOutstandingExpectation();
+        http.verifyNoOutstandingRequest();
+    });
 
-    beforeEach(inject((FolderResource, $httpBackend) => {
+
+    beforeEach(inject(function (FolderResource, $httpBackend) {
         resource = FolderResource;
         http = $httpBackend;
         FolderResource.receive([
@@ -29,7 +34,7 @@ describe('FolderResource', () => {
     }));
 
 
-    it ('should delete a folder', inject((FolderResource) => {
+    it ('should delete a folder', inject(function (FolderResource) {
         http.expectDELETE('base/folders/1').respond(200, {});
 
         FolderResource.delete('ye');
@@ -40,7 +45,7 @@ describe('FolderResource', () => {
     }));
 
 
-    it ('should rename a folder', inject((FolderResource) => {
+    it ('should rename a folder', inject(function (FolderResource) {
         http.expectPOST('base/folders/1/rename', {
             folderName: 'HEHO'
         }).respond(200, {});
@@ -53,7 +58,8 @@ describe('FolderResource', () => {
     }));
 
 
-    it ('should not rename a folder if it exists', inject((FolderResource) => {
+    it ('should not rename a folder if it exists', inject(function (
+    FolderResource) {
         http.expectPOST('base/folders/1/rename', {
             folderName: 'SYE'
         }).respond(200, {});
@@ -66,7 +72,7 @@ describe('FolderResource', () => {
     }));
 
 
-    it ('should open a folder', inject((FolderResource) => {
+    it ('should open a folder', inject(function (FolderResource) {
         http.expectPOST('base/folders/3/open', {
             folderId: 3,
             open: false,
@@ -80,7 +86,7 @@ describe('FolderResource', () => {
     }));
 
 
-    it ('should create a folder', inject((FolderResource) => {
+    it ('should create a folder', inject(function (FolderResource) {
         http.expectPOST('base/folders', {
             folderName: 'HEY'
         }).respond(200, {});
@@ -93,7 +99,8 @@ describe('FolderResource', () => {
     }));
 
 
-    it ('should not create a folder if it exists', inject((FolderResource) => {
+    it ('should not create a folder if it exists', inject(function (
+    FolderResource) {
         http.expectPOST('base/folders', {
             folderName: 'SYE'
         }).respond(200, {});
@@ -106,7 +113,7 @@ describe('FolderResource', () => {
     }));
 
 
-    it ('should undo a delete folder', inject((FolderResource) => {
+    it ('should undo a delete folder', inject(function (FolderResource) {
         http.expectDELETE('base/folders/1').respond(200, {});
 
         FolderResource.delete('ye');
@@ -122,12 +129,6 @@ describe('FolderResource', () => {
 
         expect(FolderResource.get('ye').id).toBe(1);
     }));
-
-
-    afterEach(() => {
-        http.verifyNoOutstandingExpectation();
-        http.verifyNoOutstandingRequest();
-    });
 
 
 });

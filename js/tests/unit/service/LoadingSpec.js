@@ -7,18 +7,18 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-describe('Loading', () => {
+describe('Loading', function () {
     'use strict';
 
     beforeEach(module('News'));
 
-    it('should be not load by default', inject((Loading) => {
+    it('should be not load by default', inject(function (Loading) {
         expect(Loading.isLoading('global')).toBe(false);
         expect(Loading.isLoading('content')).toBe(false);
         expect(Loading.isLoading('autopaging')).toBe(false);
     }));
 
-    it('should set loading', inject((Loading) => {
+    it('should set loading', inject(function (Loading) {
         Loading.setLoading('global', true);
         expect(Loading.isLoading('global')).toBe(true);
     }));

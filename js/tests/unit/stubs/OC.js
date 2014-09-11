@@ -8,7 +8,7 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 window.OC = {
-    generateUrl () {
+    generateUrl: function () {
         'use strict';
 
         return '';

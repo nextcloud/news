@@ -7,36 +7,41 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-describe('ItemResource', () => {
+describe('ItemResource', function () {
     'use strict';
 
-    let http;
+    var http;
 
-    beforeEach(module('News', ($provide) => {
+    beforeEach(module('News', function ($provide) {
         $provide.value('BASE_URL', 'base');
         $provide.constant('ITEM_BATCH_SIZE', 5);
     }));
 
-    beforeEach(inject(($httpBackend) => {
+    beforeEach(inject(function ($httpBackend) {
         http = $httpBackend;
     }));
 
+    afterEach(function () {
+        http.verifyNoOutstandingExpectation();
+        http.verifyNoOutstandingRequest();
+    });
 
-    it('should receive the newestItemId', inject((ItemResource) => {
+
+    it('should receive the newestItemId', inject(function (ItemResource) {
         ItemResource.receive(3, 'newestItemId');
 
         expect(ItemResource.getNewestItemId()).toBe(3);
     }));
 
 
-    it('should receive the newestItemId', inject((ItemResource) => {
+    it('should receive the newestItemId', inject(function (ItemResource) {
         ItemResource.receive(2, 'starred');
 
         expect(ItemResource.getStarredCount()).toBe(2);
     }));
 
 
-    it ('should mark item as read', inject((ItemResource) => {
+    it ('should mark item as read', inject(function (ItemResource) {
         http.expectPOST('base/items/3/read', {isRead: true}).respond(200, {});
 
         ItemResource.receive([
@@ -60,7 +65,7 @@ describe('ItemResource', () => {
     }));
 
 
-    it ('should mark multiple item as read', inject((ItemResource) => {
+    it ('should mark multiple item as read', inject(function (ItemResource) {
         http.expectPOST('base/items/read/multiple', {
             itemIds: [3, 4]
         }).respond(200, {});
@@ -88,7 +93,7 @@ describe('ItemResource', () => {
 
 
 
-    it ('should star item', inject((ItemResource) => {
+    it ('should star item', inject(function (ItemResource) {
         http.expectPOST('base/items/4/a/star', {isStarred: true})
             .respond(200, {});
 
@@ -115,7 +120,7 @@ describe('ItemResource', () => {
     }));
 
 
-    it ('should mark feed as read', inject((ItemResource) => {
+    it ('should mark feed as read', inject(function (ItemResource) {
         http.expectPOST('base/feeds/4/read').respond(200, {});
 
         ItemResource.receive([
@@ -145,7 +150,7 @@ describe('ItemResource', () => {
     }));
 
 
-    it ('should mark all as read', inject((ItemResource) => {
+    it ('should mark all as read', inject(function (ItemResource) {
         http.expectPOST('base/items/read').respond(200, {});
 
         ItemResource.receive([
@@ -176,7 +181,7 @@ describe('ItemResource', () => {
     }));
 
 
-    it ('toggle star', inject((ItemResource) => {
+    it ('toggle star', inject(function (ItemResource) {
         ItemResource.receive([
             {
                 id: 3,
@@ -198,7 +203,7 @@ describe('ItemResource', () => {
     }));
 
 
-    it ('should auto page', inject((ItemResource) => {
+    it ('should auto page', inject(function (ItemResource) {
         http.expectGET('base/items?id=4&limit=5&offset=3&type=3')
             .respond(200, {});
 
@@ -224,12 +229,6 @@ describe('ItemResource', () => {
 
         http.flush();
     }));
-
-
-    afterEach(() => {
-        http.verifyNoOutstandingExpectation();
-        http.verifyNoOutstandingRequest();
-    });
 
 
 });

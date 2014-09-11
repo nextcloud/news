@@ -141,7 +141,7 @@
         background-repeat: no-repeat;
     }
 
-    #app-content .utils .title a {
+    #app-content .utils .title h1 {
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
@@ -153,11 +153,7 @@
         font-size: 19px;
     }
 
-    #app-content .utils .title a:hover {
-        text-decoration: underline;
-    }
-
-    #app-content .read .utils .title a {
+    #app-content .read .utils .title h1 {
         font-weight: normal;
         color: #888;
     }
@@ -170,7 +166,7 @@
  */
 #app-content .article {
     min-height: 69px;
-    padding: 10px 50px 50px 50px;
+    padding: 0 50px 50px 50px;
 }
 
 #app-content .compact .article {
@@ -202,7 +198,6 @@
 #app-content .date {
     color: #aaa;
     white-space: nowrap;
-    float: right;
 }
 
 /**

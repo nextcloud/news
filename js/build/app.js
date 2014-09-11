@@ -244,7 +244,7 @@ app.controller('ContentController',
     this.markRead = function (itemId) {
         var item = ItemResource.get(itemId);
 
-        if (!item.keepUnread) {
+        if (!item.keepUnread && item.unread === true) {
             ItemResource.markItemRead(itemId);
             FeedResource.markItemOfFeedRead(item.feedId);
         }
@@ -266,9 +266,9 @@ app.controller('ContentController',
 
     this.orderBy = function () {
         if (SettingsResource.get('oldestFirst')) {
-            return 'id';
-        } else {
             return '-id';
+        } else {
+            return 'id';
         }
     };
 
@@ -306,14 +306,15 @@ app.controller('ContentController',
         var type = $route.current.$$route.type;
         var id = $routeParams.id;
 
+        var self = this;
         ItemResource.autoPage(type, id).success(function (data) {
             Publisher.publishAll(data);
 
             if (data.items.length > 0) {
-                this.isAutoPagingEnabled = true;
+                self.isAutoPagingEnabled = true;
             }
         }).error(function () {
-            this.isAutoPagingEnabled = true;
+            self.isAutoPagingEnabled = true;
         });
     };
 
@@ -738,7 +739,7 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", function (Resource
 
         console.log(feed);
 
-        /*return this.http({
+        return this.http({
             method: 'POST',
             url: this.BASE_URL + '/feeds',
             data: {
@@ -746,7 +747,7 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", function (Resource
                 parentFolderId: folderId,
                 title: title
             }
-        });*/
+        });
     };
 
 
@@ -755,7 +756,7 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", function (Resource
             this.add(this.deleted);
 
             return this.http.post(
-                this.BASE_URL + '/feeds/${this.deleted.id}/restore'
+                this.BASE_URL + '/feeds/' + this.deleted.id + '/restore'
             );
         }
 
@@ -943,6 +944,7 @@ app.factory('ItemResource', ["Resource", "$http", "BASE_URL", "ITEM_BATCH_SIZE",
         }
 
         this.get(itemId).unread = !isRead;
+
         return this.http({
             url: this.BASE_URL + '/items/' + itemId + '/read',
             method: 'POST',
@@ -983,7 +985,7 @@ app.factory('ItemResource', ["Resource", "$http", "BASE_URL", "ITEM_BATCH_SIZE",
             item.unread = !read;
         });
 
-        return this.http.post(this.BASE_URL + '/feeds/' + 'feedId' + '/read');
+        return this.http.post(this.BASE_URL + '/feeds/' + feedId + '/read');
     };
 
 
@@ -1186,10 +1188,10 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
         this.settings[key] = value;
 
         return $http({
-                url: BASE_URL + '/settings',
-                method: 'PUT',
-                data: this.settings
-            });
+            url: BASE_URL + '/settings',
+            method: 'PUT',
+            data: this.settings
+        });
     };
 
     this.processLanguageCode = function (languageCode) {

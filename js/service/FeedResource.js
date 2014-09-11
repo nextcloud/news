@@ -200,7 +200,7 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL) {
 
         console.log(feed);
 
-        /*return this.http({
+        return this.http({
             method: 'POST',
             url: this.BASE_URL + '/feeds',
             data: {
@@ -208,7 +208,7 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL) {
                 parentFolderId: folderId,
                 title: title
             }
-        });*/
+        });
     };
 
 
@@ -217,7 +217,7 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL) {
             this.add(this.deleted);
 
             return this.http.post(
-                this.BASE_URL + '/feeds/${this.deleted.id}/restore'
+                this.BASE_URL + '/feeds/' + this.deleted.id + '/restore'
             );
         }
 

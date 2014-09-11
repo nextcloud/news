@@ -7,17 +7,18 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-describe('Publisher', () => {
+describe('Publisher', function () {
     'use strict';
 
     beforeEach(module('News'));
 
-    it('should should publish on all possible channels', inject((Publisher) => {
-        let obj = {
+    it('should should publish on all possible channels',
+    inject(function (Publisher) {
+        var obj = {
             receive: jasmine.createSpy('receive')
         };
 
-        Publisher.subscribe(obj).toChannels('test');
+        Publisher.subscribe(obj).toChannels(['test']);
 
         Publisher.publishAll({
             test: 'tom'
@@ -27,12 +28,13 @@ describe('Publisher', () => {
     }));
 
 
-    it('should should publish on all possible channels', inject((Publisher) => {
+    it('should should publish on all possible channels',
+    inject(function (Publisher) {
         var obj = {
             receive: jasmine.createSpy('receive')
         };
 
-        Publisher.subscribe(obj).toChannels('test', 'tiny');
+        Publisher.subscribe(obj).toChannels(['test', 'tiny']);
 
         Publisher.publishAll({
             tiny: 'tom'
@@ -42,7 +44,8 @@ describe('Publisher', () => {
     }));
 
 
-    it('should not broadcast not subscribed channels', inject((Publisher) => {
+    it('should not broadcast not subscribed channels',
+    inject(function (Publisher) {
         Publisher.publishAll({
             test: 'tom'
         });

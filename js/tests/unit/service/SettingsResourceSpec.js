@@ -7,21 +7,27 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-describe('SettingsResource', () => {
+describe('SettingsResource', function () {
     'use strict';
 
-    let http;
+    var http;
 
-    beforeEach(module('News', ($provide) => {
+    beforeEach(module('News', function ($provide) {
         $provide.value('BASE_URL', 'base');
     }));
 
-    beforeEach(inject(($httpBackend) => {
+    beforeEach(inject(function ($httpBackend) {
         http = $httpBackend;
     }));
 
+    afterEach(function () {
+        http.verifyNoOutstandingExpectation();
+        http.verifyNoOutstandingRequest();
+    });
 
-    it('should receive default SettingsResource', inject((SettingsResource) => {
+
+    it('should receive default SettingsResource', inject(
+    function (SettingsResource) {
         SettingsResource.receive({
             'showAll': true
         });
@@ -30,8 +36,14 @@ describe('SettingsResource', () => {
     }));
 
 
-    it('should set values', inject((SettingsResource) => {
-        http.expectPOST('base/settings', {showAll: true}).respond(200, {});
+    it('should set values', inject(function (SettingsResource) {
+        http.expectPUT('base/settings',  {
+            'language':'en',
+            'showAll':true,
+            'compact':false,
+            'oldestFirst':false,
+            'preventReadOnScroll':false
+        }).respond(200, {});
 
         SettingsResource.set('showAll', true);
 
@@ -41,14 +53,8 @@ describe('SettingsResource', () => {
     }));
 
 
-    afterEach(() => {
-        http.verifyNoOutstandingExpectation();
-        http.verifyNoOutstandingRequest();
-    });
-
-
-    it('should set language codes', inject((SettingsResource) => {
-        let codes = [
+    it('should set language codes', inject(function (SettingsResource) {
+        var codes = [
             'ar-ma', 'ar', 'bg', 'ca', 'cs', 'cv', 'da', 'de', 'el', 'en-ca',
             'en-gb', 'eo', 'es', 'et', 'eu', 'fi', 'fr-ca', 'fr', 'gl', 'he',
             'hu', 'id', 'is', 'it', 'ja', 'ka', 'ko', 'lv', 'ms-my', 'nb', 'ne',
@@ -56,16 +62,16 @@ describe('SettingsResource', () => {
             'tzm-la', 'tzm', 'uk', 'zh-cn', 'zh-tw', 'hi'
         ];
 
-        for (let code of codes) {
+        codes.forEach(function (code) {
             SettingsResource.receive({
                 language: code
             });
             expect(SettingsResource.get('language')).toBe(code);
-        }
+        });
     }));
 
 
-    it('should set default language codes', inject((SettingsResource) => {
+    it('should set default language codes', inject(function (SettingsResource) {
         SettingsResource.receive({
             language: 'abc'
         });
@@ -73,7 +79,7 @@ describe('SettingsResource', () => {
     }));
 
 
-    it('should fix broken language codes', inject((SettingsResource) => {
+    it('should fix broken language codes', inject(function (SettingsResource) {
         SettingsResource.receive({
             language: 'EN_CA'
         });
@@ -81,8 +87,8 @@ describe('SettingsResource', () => {
     }));
 
 
-    it('should fall back to more general language code', inject((
-        SettingsResource) => {
+    it('should fall back to more general language code', inject(function (
+        SettingsResource) {
 
         SettingsResource.receive({
             language: 'EN_US'

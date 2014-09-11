@@ -1,6 +1,6 @@
 <?php
 script('news', [
-    'vendor/traceur-runtime/traceur-runtime.min',
+    'vendor/es6-shim/es6-shim.min',
     'vendor/angular/angular.min',
     'vendor/angular-route/angular-route.min',
     'vendor/angular-sanitize/angular-sanitize.min',

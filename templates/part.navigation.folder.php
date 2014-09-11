@@ -43,7 +43,7 @@
 
 
         <span class="unread-counter"
-            ng-show="Navigation.getUnreadCount(folder.id) > 0 && !folder.editing">
+            ng-show="Navigation.getFolderUnreadCount(folder.id) > 0 && !folder.editing">
             {{ Navigation.getFolderUnreadCount(folder.id) | unreadCountFormatter }}
         </span>
 
@@ -55,7 +55,7 @@
                 oc-tooltip></button>
 
         <button class="svg action mark-read-icon"
-                ng-show="Navigation.getUnreadCount(folder.id) > 0 && folder.id && !folder.editing"
+                ng-show="Navigation.getFolderUnreadCount(folder.id) > 0 && folder.id && !folder.editing"
                 ng-click="Navigation.markRead(folder.id)"
                 title="<?php p($l->t('Mark read')); ?>"
                 oc-tooltip></button>

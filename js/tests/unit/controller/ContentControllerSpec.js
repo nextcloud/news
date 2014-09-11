@@ -7,37 +7,37 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-describe('ContentController', () => {
+describe('ContentController', function () {
     'use strict';
 
 
-    beforeEach(module('News', ($provide) => {
+    beforeEach(module('News', function ($provide) {
         $provide.constant('BASE_URL', 'base');
         $provide.constant('ITEM_BATCH_SIZE', 5);
     }));
 
 
-    it('should publish data to models', inject(($controller, Publisher,
-        FeedResource, ItemResource) => {
+    it('should publish data to models', inject(function ($controller, Publisher,
+        FeedResource, ItemResource) {
 
-        Publisher.subscribe(ItemResource).toChannels('items');
-        Publisher.subscribe(FeedResource).toChannels('feeds');
+        Publisher.subscribe(ItemResource).toChannels(['items']);
+        Publisher.subscribe(FeedResource).toChannels(['feeds']);
 
-        let controller = $controller('ContentController', {
+        var controller = $controller('ContentController', {
             data: {
                 'items': [
                     {id: 3},
                     {id: 4}
                 ]
-            },
+            }
         });
 
         expect(controller.getItems().length).toBe(2);
     }));
 
 
-    it('should clear data on url change', inject(($controller,
-        ItemResource) => {
+    it('should clear data on url change', inject(function ($controller,
+        ItemResource) {
 
         ItemResource.clear = jasmine.createSpy('clear');
 
@@ -49,10 +49,10 @@ describe('ContentController', () => {
     }));
 
 
-    it('should return order by', inject(($controller,
-        SettingsResource) => {
+    it('should return order by', inject(function ($controller,
+        SettingsResource) {
 
-        let ctrl = $controller('ContentController', {
+        var ctrl = $controller('ContentController', {
             SettingsResource: SettingsResource,
             data: {},
         });
@@ -65,31 +65,38 @@ describe('ContentController', () => {
     }));
 
 
-    it('should mark read', inject(($controller,
-        ItemResource, FeedResource, Publisher) => {
+    it('should mark read', inject(function ($controller, ItemResource,
+        FeedResource, Publisher) {
 
-        Publisher.subscribe(ItemResource).toChannels('items');
+        Publisher.subscribe(ItemResource).toChannels(['items']);
         ItemResource.markItemRead = jasmine.createSpy('markRead');
         FeedResource.markItemOfFeedRead = jasmine.createSpy('markRead');
 
-        let ctrl = $controller('ContentController', {
+        var ctrl = $controller('ContentController', {
             ItemResource: ItemResource,
             FeedResource: FeedResource,
             data: {
                 'items': [{
                     id: 3,
-                    feedId: 4
+                    feedId: 4,
+                    unread: true
                 },
                 {
                     id: 5,
                     feedId: 4,
                     keepUnread: true
+                },
+                {
+                    id: 9,
+                    feedId: 5,
+                    unread: false
                 }]
             },
         });
 
         ctrl.markRead(3);
         ctrl.markRead(5);
+        ctrl.markRead(9);
 
         expect(ItemResource.markItemRead).toHaveBeenCalledWith(3);
         expect(FeedResource.markItemOfFeedRead).toHaveBeenCalledWith(4);
@@ -98,12 +105,12 @@ describe('ContentController', () => {
     }));
 
 
-    it('should toggle keep unread when unread', inject(($controller,
-        ItemResource, FeedResource, Publisher) => {
+    it('should toggle keep unread when unread', inject(function ($controller,
+        ItemResource, FeedResource, Publisher) {
 
-        Publisher.subscribe(ItemResource).toChannels('items');
+        Publisher.subscribe(ItemResource).toChannels(['items']);
 
-        let ctrl = $controller('ContentController', {
+        var ctrl = $controller('ContentController', {
             ItemResource: ItemResource,
             FeedResource: FeedResource,
             data: {
@@ -121,14 +128,14 @@ describe('ContentController', () => {
     }));
 
 
-    it('should toggle keep unread when read', inject(($controller,
-        ItemResource, FeedResource, Publisher) => {
+    it('should toggle keep unread when read', inject(function ($controller,
+        ItemResource, FeedResource, Publisher) {
 
-        Publisher.subscribe(ItemResource).toChannels('items');
+        Publisher.subscribe(ItemResource).toChannels(['items']);
         ItemResource.markItemRead = jasmine.createSpy('markRead');
         FeedResource.markItemOfFeedUnread = jasmine.createSpy('markRead');
 
-        let ctrl = $controller('ContentController', {
+        var ctrl = $controller('ContentController', {
             ItemResource: ItemResource,
             FeedResource: FeedResource,
             data: {
@@ -149,11 +156,12 @@ describe('ContentController', () => {
     }));
 
 
-    it('should get a feed', inject(($controller, FeedResource, Publisher) => {
+    it('should get a feed', inject(function ($controller, FeedResource,
+    Publisher) {
 
-        Publisher.subscribe(FeedResource).toChannels('feeds');
+        Publisher.subscribe(FeedResource).toChannels(['feeds']);
 
-        let ctrl = $controller('ContentController', {
+        var ctrl = $controller('ContentController', {
             FeedResource: FeedResource,
             data: {
                 'feeds': [{
@@ -167,11 +175,11 @@ describe('ContentController', () => {
     }));
 
 
-    it('should toggle starred', inject(($controller, ItemResource) => {
+    it('should toggle starred', inject(function ($controller, ItemResource) {
 
         ItemResource.toggleStar = jasmine.createSpy('star');
 
-        let ctrl = $controller('ContentController', {
+        var ctrl = $controller('ContentController', {
             ItemResource: ItemResource,
             data: {},
         });
@@ -183,11 +191,12 @@ describe('ContentController', () => {
 
 
 
-    it('should publish compactview', inject(($controller, SettingsResource) => {
+    it('should publish compactview', inject(function ($controller,
+    SettingsResource) {
 
         SettingsResource.set('compact', true);
 
-        let ctrl = $controller('ContentController', {
+        var ctrl = $controller('ContentController', {
             SettingsResource: SettingsResource,
             data: {},
         });
@@ -196,11 +205,12 @@ describe('ContentController', () => {
     }));
 
 
-    it('should publish markread', inject(($controller, SettingsResource) => {
+    it('should publish markread', inject(function ($controller,
+    SettingsResource) {
 
         SettingsResource.set('preventReadOnScroll', true);
 
-        let ctrl = $controller('ContentController', {
+        var ctrl = $controller('ContentController', {
             SettingsResource: SettingsResource,
             data: {},
         });
@@ -209,8 +219,8 @@ describe('ContentController', () => {
     }));
 
 
-    it('should publish autopaging', inject(($controller) => {
-        let ctrl = $controller('ContentController', {
+    it('should publish autopaging', inject(function ($controller) {
+        var ctrl = $controller('ContentController', {
             data: {},
         });
 
@@ -218,14 +228,14 @@ describe('ContentController', () => {
     }));
 
 
-    it('should mark multiple items read', inject(($controller,
-        ItemResource, FeedResource, Publisher) => {
+    it('should mark multiple items read', inject(function ($controller,
+        ItemResource, FeedResource, Publisher) {
 
-        Publisher.subscribe(ItemResource).toChannels('items');
+        Publisher.subscribe(ItemResource).toChannels(['items']);
         ItemResource.markItemsRead = jasmine.createSpy('markRead');
         FeedResource.markItemsOfFeedsRead = jasmine.createSpy('markRead');
 
-        let ctrl = $controller('ContentController', {
+        var ctrl = $controller('ContentController', {
             ItemResource: ItemResource,
             FeedResource: FeedResource,
             data: {
@@ -252,10 +262,10 @@ describe('ContentController', () => {
     }));
 
 
-    it('should not autopage if less than 0 elements', inject((
-        $controller, ItemResource, Publisher) => {
+    it('should not autopage if less than 0 elements', inject(function (
+        $controller, ItemResource, Publisher) {
 
-        let $route = {
+        var $route = {
             current: {
                 $$route: {
                     type: 3
@@ -263,27 +273,27 @@ describe('ContentController', () => {
             }
         };
 
-        let $routeParams = {
+        var $routeParams = {
             id: 2
         };
 
-        Publisher.subscribe(ItemResource).toChannels('items');
+        Publisher.subscribe(ItemResource).toChannels(['items']);
         ItemResource.autoPage = jasmine.createSpy('autoPage')
-            .andCallFake(() => {
+            .andCallFake(function () {
                 return {
-                    success: (callback) => {
+                    success: function (callback) {
                         callback({
                             'items': []
                         });
 
                         return {
-                            error: () => {}
+                            error: function () {}
                         };
                     }
                 };
         });
 
-        let ctrl = $controller('ContentController', {
+        var ctrl = $controller('ContentController', {
             $routeParams: $routeParams,
             $route: $route,
             Publisher: Publisher,
@@ -302,10 +312,10 @@ describe('ContentController', () => {
     }));
 
 
-    it('should autopage if more than 0 elements', inject((
-        $controller, ItemResource, Publisher) => {
+    it('should autopage if more than 0 elements', inject(function (
+        $controller, ItemResource, Publisher) {
 
-        let $route = {
+        var $route = {
             current: {
                 $$route: {
                     type: 3
@@ -313,27 +323,27 @@ describe('ContentController', () => {
             }
         };
 
-        let $routeParams = {
+        var $routeParams = {
             id: 2
         };
 
-        Publisher.subscribe(ItemResource).toChannels('items');
+        Publisher.subscribe(ItemResource).toChannels(['items']);
         ItemResource.autoPage = jasmine.createSpy('autoPage')
-            .andCallFake(() => {
+            .andCallFake(function () {
                 return {
-                    success: (callback) => {
+                    success: function (callback) {
                         callback({
                             'items': [{items: [{id: 3}]}]
                         });
 
                         return {
-                            error: () => {}
+                            error: function () {}
                         };
                     }
                 };
         });
 
-        let ctrl = $controller('ContentController', {
+        var ctrl = $controller('ContentController', {
             $routeParams: $routeParams,
             $route: $route,
             Publisher: Publisher,
@@ -350,10 +360,10 @@ describe('ContentController', () => {
     }));
 
 
-    it('should autopage if error', inject((
-        $controller, ItemResource, Publisher) => {
+    it('should autopage if error', inject(function (
+        $controller, ItemResource, Publisher) {
 
-        let $route = {
+        var $route = {
             current: {
                 $$route: {
                     type: 3
@@ -361,21 +371,21 @@ describe('ContentController', () => {
             }
         };
 
-        let $routeParams = {
+        var $routeParams = {
             id: 2
         };
 
-        Publisher.subscribe(ItemResource).toChannels('items');
+        Publisher.subscribe(ItemResource).toChannels(['items']);
         ItemResource.autoPage = jasmine.createSpy('autoPage')
-            .andCallFake(() => {
+            .andCallFake(function () {
                 return {
-                    success: (callback) => {
+                    success: function (callback) {
                         callback({
                             'items': []
                         });
 
                         return {
-                            error: (callback) => {
+                            error: function (callback) {
                                 callback();
                             }
                         };
@@ -383,7 +393,7 @@ describe('ContentController', () => {
                 };
         });
 
-        let ctrl = $controller('ContentController', {
+        var ctrl = $controller('ContentController', {
             $routeParams: $routeParams,
             $route: $route,
             Publisher: Publisher,
@@ -399,11 +409,11 @@ describe('ContentController', () => {
     }));
 
 
-    it('should return relative date', inject(($controller,
-        SettingsResource) => {
+    it('should return relative date', inject(function ($controller,
+        SettingsResource) {
 
         SettingsResource.receive({language: 'en'});
-        let ctrl = $controller('ContentController', {
+        var ctrl = $controller('ContentController', {
             data: {},
         });
 
@@ -411,8 +421,8 @@ describe('ContentController', () => {
     }));
 
 
-    it('should return relative date empty', inject(($controller) => {
-        let ctrl = $controller('ContentController', {
+    it('should return relative date empty', inject(function ($controller) {
+        var ctrl = $controller('ContentController', {
             data: {},
         });
 

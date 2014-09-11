@@ -7,26 +7,26 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-describe('Resource', () => {
+describe('Resource', function () {
     'use strict';
 
-    let childResource;
+    var childResource;
 
     beforeEach(module('News'));
 
-    beforeEach(inject((Resource, $http) => {
-        class ChildResource extends Resource {
-            constructor ($http) {
-                super($http, 'base');
-            }
-        }
+    beforeEach(inject(function (Resource, $http) {
+        var ChildResource = function ($http) {
+            Resource.call(this, $http, 'base');
+        };
+
+        ChildResource.prototype = Object.create(Resource.prototype);
 
         childResource = new ChildResource($http);
     }));
 
 
-    it('should receive an object', () => {
-        let objects = [
+    it('should receive an object', function () {
+        var objects = [
             {
                 id: 2
             },
@@ -41,8 +41,8 @@ describe('Resource', () => {
     });
 
 
-    it('should add an object', () => {
-        let object = {
+    it('should add an object', function () {
+        var object = {
             id: 3,
             name: 'test'
         };
@@ -52,14 +52,14 @@ describe('Resource', () => {
     });
 
 
-    it('should overwrite an object if it already exists', () => {
-        let object1 = {
+    it('should overwrite an object if it already exists', function () {
+        var object1 = {
             id: 3,
             name: 'test',
             test: 'ho'
         };
 
-        let object2 = {
+        var object2 = {
             id: 3,
             name: 'test2'
         };
@@ -73,14 +73,14 @@ describe('Resource', () => {
     });
 
 
-    it('should delete a Resource', () => {
-        let object1 = {
+    it('should delete a Resource', function () {
+        var object1 = {
             id: 3,
             name: 'test',
             test: 'ho'
         };
 
-        let object2 = {
+        var object2 = {
             id: 4,
             name: 'test2'
         };
@@ -96,14 +96,14 @@ describe('Resource', () => {
     });
 
 
-    it('should clear all models', () => {
-        let object1 = {
+    it('should clear all models', function () {
+        var object1 = {
             id: 3,
             name: 'test',
             test: 'ho'
         };
 
-        let object2 = {
+        var object2 = {
             id: 4,
             name: 'test2'
         };
@@ -119,14 +119,14 @@ describe('Resource', () => {
     });
 
 
-    it('should get all models', () => {
-        let object1 = {
+    it('should get all models', function () {
+        var object1 = {
             id: 3,
             name: 'test',
             test: 'ho'
         };
 
-        let object2 = {
+        var object2 = {
             id: 4,
             name: 'test2'
         };

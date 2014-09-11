@@ -90,6 +90,7 @@ app.factory('ItemResource', function (Resource, $http, BASE_URL,
         }
 
         this.get(itemId).unread = !isRead;
+
         return this.http({
             url: this.BASE_URL + '/items/' + itemId + '/read',
             method: 'POST',
@@ -130,7 +131,7 @@ app.factory('ItemResource', function (Resource, $http, BASE_URL,
             item.unread = !read;
         });
 
-        return this.http.post(this.BASE_URL + '/feeds/' + 'feedId' + '/read');
+        return this.http.post(this.BASE_URL + '/feeds/' + feedId + '/read');
     };
 
 

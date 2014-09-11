@@ -7,18 +7,18 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-describe('unreadCountFormatter', () => {
+describe('unreadCountFormatter', function () {
     'use strict';
 
-    let filter;
+    var filter;
 
     beforeEach(module('News'));
 
-    beforeEach(inject(($filter) => {
+    beforeEach(inject(function ($filter) {
         filter = $filter('unreadCountFormatter');
     }));
 
-    it('should format the unread count', () => {
+    it('should format the unread count', function () {
         expect(filter(999)).toBe(999);
         expect(filter(1000)).toBe('999+');
     });

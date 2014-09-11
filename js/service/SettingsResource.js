@@ -49,10 +49,10 @@ app.service('SettingsResource', function ($http, BASE_URL) {
         this.settings[key] = value;
 
         return $http({
-                url: BASE_URL + '/settings',
-                method: 'PUT',
-                data: this.settings
-            });
+            url: BASE_URL + '/settings',
+            method: 'PUT',
+            data: this.settings
+        });
     };
 
     this.processLanguageCode = function (languageCode) {

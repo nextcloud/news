@@ -7,12 +7,12 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-describe('NavigationController', () => {
+describe('NavigationController', function () {
     'use strict';
 
-    let controller;
+    var controller;
 
-    beforeEach(module('News', ($provide) => {
+    beforeEach(module('News', function ($provide) {
         $provide.value('BASE_URL', 'base');
         $provide.value('FEED_TYPE', {
             FEED: 0,
@@ -24,7 +24,7 @@ describe('NavigationController', () => {
         $provide.constant('ITEM_BATCH_SIZE', 5);
     }));
 
-    beforeEach(inject(($controller, FeedResource) => {
+    beforeEach(inject(function ($controller, FeedResource) {
         controller = $controller('NavigationController');
         FeedResource.receive([
             {id: 1, folderId: 3, url: 'ye', unreadCount: 45},
@@ -35,22 +35,22 @@ describe('NavigationController', () => {
     }));
 
 
-    it('should expose Feeds', inject((FeedResource) => {
+    it('should expose Feeds', inject(function (FeedResource) {
         FeedResource.add({url: 1});
         expect(controller.getFeeds()).toBe(FeedResource.getAll());
     }));
 
 
-    it('should expose Folders', inject((FolderResource) => {
+    it('should expose Folders', inject(function (FolderResource) {
         FolderResource.add({name: 1});
         expect(controller.getFolders()).toBe(FolderResource.getAll());
     }));
 
 
-    it('should mark Folders read', inject(($controller) => {
-        let FeedResource = {
+    it('should mark Folders read', inject(function ($controller) {
+        var FeedResource = {
             markFolderRead: jasmine.createSpy('folder'),
-            getByFolderId: () => {
+            getByFolderId: function () {
                 return [
                     {id: 3},
                     {id: 4}
@@ -58,7 +58,7 @@ describe('NavigationController', () => {
             }
         };
 
-        let ItemResource = {
+        var ItemResource = {
             markFeedRead: jasmine.createSpy('feedfolder')
         };
 
@@ -74,12 +74,12 @@ describe('NavigationController', () => {
     }));
 
 
-    it('should mark a feed read', inject(($controller) => {
-        let FeedResource = {
+    it('should mark a feed read', inject(function ($controller) {
+        var FeedResource = {
             markFeedRead: jasmine.createSpy('folder'),
         };
 
-        let ItemResource = {
+        var ItemResource = {
             markFeedRead: jasmine.createSpy('feedfolder')
         };
 
@@ -95,12 +95,12 @@ describe('NavigationController', () => {
     }));
 
 
-    it('should mark all read', inject(($controller) => {
-        let FeedResource = {
+    it('should mark all read', inject(function ($controller) {
+        var FeedResource = {
             markRead: jasmine.createSpy('folder'),
         };
 
-        let ItemResource = {
+        var ItemResource = {
             markRead: jasmine.createSpy('feedfolder')
         };
 
@@ -116,8 +116,8 @@ describe('NavigationController', () => {
     }));
 
 
-    it('should mark all read', inject((SettingsResource, $controller) => {
-        let ctrl = $controller('NavigationController', {
+    it('should mark all read', inject(function (SettingsResource, $controller) {
+        var ctrl = $controller('NavigationController', {
             SettingsResource: SettingsResource,
         });
 
@@ -127,8 +127,8 @@ describe('NavigationController', () => {
     }));
 
 
-    it('should get all of folder', inject((FeedResource, $controller) => {
-        let ctrl = $controller('NavigationController', {
+    it('should get all of folder', inject(function (FeedResource, $controller) {
+        var ctrl = $controller('NavigationController', {
             FeedResource: FeedResource,
         });
 
@@ -139,8 +139,9 @@ describe('NavigationController', () => {
     }));
 
 
-    it('should get the unreadcount', inject((FeedResource, $controller) => {
-        let ctrl = $controller('NavigationController', {
+    it('should get the unreadcount', inject(function (FeedResource,
+    $controller) {
+        var ctrl = $controller('NavigationController', {
             FeedResource: FeedResource,
         });
 
@@ -151,8 +152,9 @@ describe('NavigationController', () => {
     }));
 
 
-    it('should get the starred count', inject((ItemResource, $controller) => {
-        let ctrl = $controller('NavigationController', {
+    it('should get the starred count', inject(function (ItemResource,
+    $controller) {
+        var ctrl = $controller('NavigationController', {
             ItemResource: ItemResource,
         });
 
@@ -162,8 +164,8 @@ describe('NavigationController', () => {
     }));
 
 
-    it('should toggle a folder', inject((FolderResource, $controller) => {
-        let ctrl = $controller('NavigationController', {
+    it('should toggle a folder', inject(function (FolderResource, $controller) {
+        var ctrl = $controller('NavigationController', {
             FolderResource: FolderResource,
         });
 
@@ -175,9 +177,9 @@ describe('NavigationController', () => {
     }));
 
 
-    it('should check if a folder has feeds', inject((FeedResource,
-        $controller) => {
-        let ctrl = $controller('NavigationController', {
+    it('should check if a folder has feeds', inject(function (FeedResource,
+        $controller) {
+        var ctrl = $controller('NavigationController', {
             FeedResource: FeedResource,
         });
 
@@ -186,9 +188,9 @@ describe('NavigationController', () => {
     }));
 
 
-    it('should check if a subfeed is active', inject((FeedResource,
-        FEED_TYPE, $controller) => {
-        let ctrl = $controller('NavigationController', {
+    it('should check if a subfeed is active', inject(function (FeedResource,
+        FEED_TYPE, $controller) {
+        var ctrl = $controller('NavigationController', {
             FeedResource: FeedResource,
             $route: {
                 current: {
@@ -205,9 +207,9 @@ describe('NavigationController', () => {
         expect(ctrl.subFeedActive(3)).toBe(true);
     }));
 
-    it('should check if a subscriptions is active', inject((FeedResource,
-        FEED_TYPE, $controller) => {
-        let ctrl = $controller('NavigationController', {
+    it('should check if a subscriptions is active', inject(function (
+    FeedResource, FEED_TYPE, $controller) {
+        var ctrl = $controller('NavigationController', {
             FeedResource: FeedResource,
             $route: {
                 current: {
@@ -222,9 +224,9 @@ describe('NavigationController', () => {
     }));
 
 
-    it('should check if a starred is active', inject((FeedResource,
-        FEED_TYPE, $controller) => {
-        let ctrl = $controller('NavigationController', {
+    it('should check if a starred is active', inject(function (FeedResource,
+        FEED_TYPE, $controller) {
+        var ctrl = $controller('NavigationController', {
             FeedResource: FeedResource,
             $route: {
                 current: {
@@ -240,9 +242,9 @@ describe('NavigationController', () => {
 
 
 
-    it('should check if a feed is active', inject((FeedResource,
-        FEED_TYPE, $controller) => {
-        let ctrl = $controller('NavigationController', {
+    it('should check if a feed is active', inject(function (FeedResource,
+        FEED_TYPE, $controller) {
+        var ctrl = $controller('NavigationController', {
             FeedResource: FeedResource,
             $route: {
                 current: {
@@ -260,9 +262,9 @@ describe('NavigationController', () => {
     }));
 
 
-    it('should check if a folder is active', inject((FeedResource,
-        FEED_TYPE, $controller) => {
-        let ctrl = $controller('NavigationController', {
+    it('should check if a folder is active', inject(function (FeedResource,
+        FEED_TYPE, $controller) {
+        var ctrl = $controller('NavigationController', {
             FeedResource: FeedResource,
             $route: {
                 current: {
@@ -280,7 +282,8 @@ describe('NavigationController', () => {
     }));
 
 
-    it('should expose check if folder exists', inject((FolderResource) => {
+    it('should expose check if folder exists', inject(function (
+    FolderResource) {
         expect(controller.folderNameExists('hi')).toBe(false);
         FolderResource.add({name: 'hi'});
         expect(controller.folderNameExists('hi')).toBe(true);

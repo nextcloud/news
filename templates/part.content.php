@@ -15,11 +15,7 @@
                     <li class="title"
                         title="{{ item.title }}"
                         ng-style="{ backgroundImage: 'url(' + Content.getFeed(item.feedId).faviconLink + ')'}">
-                        <h1>
-                            <a target="_blank" >
-                                {{ item.title }}
-                            </a>
-                        </h1>
+                        <h1>{{ item.title }}</h1>
                     </li>
                     <li ng-click="Content.toggleStar(item.id)" class="util" news-stop-propagation>
                         <button class="star svg" ng-class="{'starred': item.starred}" title="<?php p($l->t('Star')); ?>"></button>
@@ -41,12 +37,10 @@
             <div class="article">
 
                 <div class="subtitle">
-                    <span class="author" ng-show="item.author"><?php p($l->t('by')) ?> {{ item.author }}</span>
-                    <?php p($l->t('from')) ?> <a ng-href="#/items/feeds/{{ item.feedId }}">{{ Content.getFeed(item.feedId).title }}</a>
                     <time class="date" class="date" title="{{ item.pubDate*1000|date:'yyyy-MM-dd HH:mm:ss' }}"
-                        datetime="{{ item.pubDate*1000|date:'yyyy-MM-ddTHH:mm:ssZ' }}">
-                        {{ Content.getRelativeDate(item.pubDate) }}
-                    </time>
+                        datetime="{{ item.pubDate*1000|date:'yyyy-MM-ddTHH:mm:ssZ' }}">{{ Content.getRelativeDate(item.pubDate) }}</time>,
+                    <span class="author" ng-show="item.author"><?php p($l->t('by')) ?> {{ item.author }}</span>
+                    <!--<?php p($l->t('from')) ?> <a ng-href="#/items/feeds/{{ item.feedId }}">{{ Content.getFeed(item.feedId).title }}</a>-->
                 </div>
 
                 <div class="enclosure" ng-if="item.enclosureLink">

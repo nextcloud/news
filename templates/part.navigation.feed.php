@@ -54,7 +54,7 @@
          ng-show="feed.id && !feed.editing && !feed.error && !feed.deleted">
         <ul>
             <li class="app-navigation-entry-utils-counter"
-                ng-show="feed.id && Navigation.getUnreadCount(feed.id) > 0">
+                ng-show="feed.id && Navigation.getFeedUnreadCount(feed.id) > 0">
                 {{ Navigation.getFeedUnreadCount(feed.id) | unreadCountFormatter }}
             </li>
             <li class="app-navigation-entry-utils-menu-button">
@@ -72,7 +72,7 @@
             <li><button ng-click="Navigation.deleteFeed(feed)"
                         class="icon-delete"
                         title="<?php p($l->t('Delete website')); ?>"></button></li>
-            <li><button ng-show="Navigation.getUnreadCount(feed.id) > 0"
+            <li><button ng-show="Navigation.getFeedUnreadCount(feed.id) > 0"
                         class="icon-checkmark"
                         title="<?php p($l->t('Read all')); ?>"></button></li>
         </ul>

@@ -7,28 +7,28 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-describe('SettingsController', () => {
+describe('SettingsController', function () {
     'use strict';
 
-    let route;
+    var route;
 
-    beforeEach(module('News', ($provide) => {
+    beforeEach(module('News', function ($provide) {
         $provide.value('BASE_URL', 'base');
     }));
 
-    beforeEach(() => {
+    beforeEach(function () {
         route = {
             reload: jasmine.createSpy('Route')
         };
     });
 
-    it('should set values', inject(($controller) => {
-        let SettingsResource = {
+    it('should set values', inject(function ($controller) {
+        var SettingsResource = {
             set: jasmine.createSpy('SettingsResource'),
-            get: key => key
+            get: function (key) { return key; }
         };
 
-        let ctrl = $controller('SettingsController', {
+        var ctrl = $controller('SettingsController', {
             SettingsResource: SettingsResource,
             $route: route
         });
@@ -39,13 +39,13 @@ describe('SettingsController', () => {
     }));
 
 
-    it('should reload page if set needed', inject(($controller) => {
-        let SettingsResource = {
+    it('should reload page if set needed', inject(function ($controller) {
+        var SettingsResource = {
             set: jasmine.createSpy('SettingsResource'),
-            get: key => key
+            get: function (key) { return key; }
         };
 
-        let ctrl = $controller('SettingsController', {
+        var ctrl = $controller('SettingsController', {
             SettingsResource: SettingsResource,
             $route: route
         });
@@ -59,10 +59,10 @@ describe('SettingsController', () => {
     }));
 
 
-    it('should return feed size', inject(($controller, FeedResource) => {
+    it('should return feed size', inject(function ($controller, FeedResource) {
         FeedResource.add({url: 'hi'});
 
-        let ctrl = $controller('SettingsController', {
+        var ctrl = $controller('SettingsController', {
             FeedResource: FeedResource,
             $route: route
         });

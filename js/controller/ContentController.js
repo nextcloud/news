@@ -39,7 +39,7 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data,
     this.markRead = function (itemId) {
         var item = ItemResource.get(itemId);
 
-        if (!item.keepUnread) {
+        if (!item.keepUnread && item.unread === true) {
             ItemResource.markItemRead(itemId);
             FeedResource.markItemOfFeedRead(item.feedId);
         }
@@ -61,9 +61,9 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data,
 
     this.orderBy = function () {
         if (SettingsResource.get('oldestFirst')) {
-            return 'id';
-        } else {
             return '-id';
+        } else {
+            return 'id';
         }
     };
 
@@ -101,14 +101,15 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data,
         var type = $route.current.$$route.type;
         var id = $routeParams.id;
 
+        var self = this;
         ItemResource.autoPage(type, id).success(function (data) {
             Publisher.publishAll(data);
 
             if (data.items.length > 0) {
-                this.isAutoPagingEnabled = true;
+                self.isAutoPagingEnabled = true;
             }
         }).error(function () {
-            this.isAutoPagingEnabled = true;
+            self.isAutoPagingEnabled = true;
         });
     };
 

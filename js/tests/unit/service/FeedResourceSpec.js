@@ -7,18 +7,23 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-describe('FeedResource', () => {
+describe('FeedResource', function () {
     'use strict';
 
-    let resource,
+    var resource,
         http;
 
-    beforeEach(module('News', ($provide) => {
+    beforeEach(module('News', function ($provide) {
         $provide.value('BASE_URL', 'base');
     }));
 
+    afterEach(function () {
+        http.verifyNoOutstandingExpectation();
+        http.verifyNoOutstandingRequest();
+    });
 
-    beforeEach(inject((FeedResource, $httpBackend) => {
+
+    beforeEach(inject(function (FeedResource, $httpBackend) {
         resource = FeedResource;
         http = $httpBackend;
         FeedResource.receive([
@@ -28,14 +33,14 @@ describe('FeedResource', () => {
         ]);
     }));
 
-    it('should mark all read', inject((FeedResource) => {
+    it('should mark all read', inject(function (FeedResource) {
 
         FeedResource.markRead();
 
         expect(FeedResource.getUnreadCount()).toBe(0);
     }));
 
-    it('should mark a feed read', inject((FeedResource) => {
+    it('should mark a feed read', inject(function (FeedResource) {
 
         FeedResource.markFeedRead(1);
 
@@ -43,14 +48,14 @@ describe('FeedResource', () => {
     }));
 
 
-    it('should mark an item read', inject((FeedResource) => {
+    it('should mark an item read', inject(function (FeedResource) {
 
         FeedResource.markItemOfFeedRead(1);
 
         expect(FeedResource.get('ye').unreadCount).toBe(44);
     }));
 
-    it('should mark an item unread', inject((FeedResource) => {
+    it('should mark an item unread', inject(function (FeedResource) {
 
         FeedResource.markItemOfFeedUnread(1);
 
@@ -58,16 +63,16 @@ describe('FeedResource', () => {
     }));
 
 
-    it('should get all of folder', inject((FeedResource) => {
+    it('should get all of folder', inject(function (FeedResource) {
 
-        let folders = FeedResource.getByFolderId(3);
+        var folders = FeedResource.getByFolderId(3);
 
         expect(folders.length).toBe(2);
     }));
 
 
 
-    it('should cache unreadcount', inject((FeedResource) => {
+    it('should cache unreadcount', inject(function (FeedResource) {
         expect(FeedResource.getUnreadCount()).toBe(70);
 
         FeedResource.markItemOfFeedRead(3);
@@ -84,7 +89,7 @@ describe('FeedResource', () => {
     }));
 
 
-    it('should cache folder unreadcount', inject((FeedResource) => {
+    it('should cache folder unreadcount', inject(function (FeedResource) {
         expect(FeedResource.getFolderUnreadCount(3)).toBe(45);
 
         FeedResource.markItemOfFeedRead(3);
@@ -101,14 +106,14 @@ describe('FeedResource', () => {
     }));
 
 
-    it('should cache unreadcount', inject((FeedResource) => {
+    it('should cache unreadcount', inject(function (FeedResource) {
         FeedResource.markItemsOfFeedsRead([1, 2]);
         expect(FeedResource.getUnreadCount()).toBe(68);
     }));
 
 
 
-    it ('should delete a feed', inject((FeedResource) => {
+    it ('should delete a feed', inject(function (FeedResource) {
         http.expectDELETE('base/feeds/1').respond(200, {});
 
         FeedResource.delete('ye');
@@ -119,7 +124,7 @@ describe('FeedResource', () => {
     }));
 
 
-    it ('should rename a feed', inject((FeedResource) => {
+    it ('should rename a feed', inject(function (FeedResource) {
         http.expectPOST('base/feeds/3/rename', {
             feedTitle: 'heho'
         }).respond(200, {});
@@ -132,7 +137,7 @@ describe('FeedResource', () => {
     }));
 
 
-    it ('should move a feed', inject((FeedResource) => {
+    it ('should move a feed', inject(function (FeedResource) {
         http.expectPOST('base/feeds/3/move', {
             parentFolderId: 5
         }).respond(200, {});
@@ -145,7 +150,7 @@ describe('FeedResource', () => {
     }));
 
 
-    it ('should create a feed', inject((FeedResource) => {
+    it ('should create a feed', inject(function (FeedResource) {
         http.expectPOST('base/feeds', {
             parentFolderId: 5,
             url: 'hey',
@@ -160,7 +165,8 @@ describe('FeedResource', () => {
     }));
 
 
-    it ('should not create a feed if it exists', inject((FeedResource) => {
+    it ('should not create a feed if it exists', inject(function (
+    FeedResource) {
         http.expectPOST('base/feeds', {
             parentFolderId: 5,
             url: 'ye',
@@ -175,7 +181,7 @@ describe('FeedResource', () => {
     }));
 
 
-    it ('should undo a delete folder', inject((FeedResource) => {
+    it ('should undo a delete folder', inject(function (FeedResource) {
         http.expectDELETE('base/feeds/1').respond(200, {});
 
         FeedResource.delete('ye');
@@ -191,14 +197,6 @@ describe('FeedResource', () => {
 
         expect(FeedResource.get('ye').id).toBe(1);
     }));
-
-
-
-
-    afterEach(() => {
-        http.verifyNoOutstandingExpectation();
-        http.verifyNoOutstandingRequest();
-    });
 
 
 });
