@@ -305,11 +305,11 @@ describe('NavigationController', function () {
             function (url, folderId) {
                 return {
                     then: function (callback) {
-                        callback({
+                        callback({feeds: [{
                             id: 3,
                             url: url,
                             folderId: folderId
-                        });
+                        }]});
                     }
                 };
             })
@@ -339,11 +339,11 @@ describe('NavigationController', function () {
         expect(ctrl.newFolder).toBe(false);
         expect(FeedResource.create).toHaveBeenCalledWith('test', 3,
             undefined);
-        expect(Publisher.publishAll).toHaveBeenCalledWith({
+        expect(Publisher.publishAll).toHaveBeenCalledWith({feeds: [{
+            id: 3,
             url: 'test',
-            folderId: 3,
-            id: 3
-        });
+            folderId: 3
+        }]});
         expect(feed.url).toBe('');
         expect(location.path).toHaveBeenCalledWith('/items/feeds/3');
     }));
@@ -356,10 +356,11 @@ describe('NavigationController', function () {
             function (url, folderId) {
                 return {
                     then: function (callback) {
-                        callback({
+                        callback({feeds: [{
+                            id: 2,
                             url: url,
                             folderId: folderId
-                        });
+                        }]});
                     }
                 };
             })
@@ -399,10 +400,11 @@ describe('NavigationController', function () {
         expect(FeedResource.create).toHaveBeenCalledWith('test', 'john',
             undefined);
         expect(FolderResource.create).toHaveBeenCalledWith('john');
-        expect(Publisher.publishAll).toHaveBeenCalledWith({
+        expect(Publisher.publishAll).toHaveBeenCalledWith({feeds:[{
+            id: 2,
             url: 'test',
             folderId: 'john'
-        });
+        }]});
         expect(Publisher.publishAll).toHaveBeenCalledWith({
             name: 'john'
         });

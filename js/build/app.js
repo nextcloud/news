@@ -467,7 +467,7 @@ app.controller('NavigationController',
                 Publisher.publishAll(data);
 
                 // load created feed
-                $location.path('/items/feeds/' + data.id);
+                $location.path('/items/feeds/' + data.feeds[0].id);
             });
         } else {
             // create folder first and then the feed
