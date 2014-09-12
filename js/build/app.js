@@ -459,28 +459,34 @@ app.controller('NavigationController',
         this.newFolder = false;
 
         var self = this;
+        var folderName = feed.folder;
+        var folderId = feed.folderId || {id: 0};
 
         // we dont need to create a new folder
-        if (feed.folder === undefined) {
-            FeedResource.create(feed.url, feed.folderId, undefined)
+        if (folderName === undefined) {
+            folderId.getsFeed = true;
+
+            FeedResource.create(feed.url, folderId.id, undefined)
             .then(function (data) {
                 Publisher.publishAll(data);
 
+                // set folder as default
+                var createdFeed = data.feeds[0];
+
                 // load created feed
-                $location.path('/items/feeds/' + data.feeds[0].id);
+                $location.path('/items/feeds/' + createdFeed.id);
+                folderId.getsFeed = undefined;
+            }, function () {
+                folderId.getsFeed = undefined;
             });
         } else {
             // create folder first and then the feed
-            FolderResource.create(feed.folder).then(function (data) {
+            FolderResource.create(folderName).then(function (data) {
                 Publisher.publishAll(data);
 
-                self.createFeed({
-                    url: feed.url,
-                    folderId: data.name
-                });
-
-                feed.folderId = data.name;
-                feed.folder = '';
+                feed.folderId = data.folders[0];
+                feed.folder = undefined;
+                self.createFeed(feed);
             });
         }
 
@@ -788,31 +794,25 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
 
 
     FeedResource.prototype.create = function (url, folderId, title) {
-        if (title) {
-            title = title.toUpperCase();
-        }
-
         url = url.trim();
-
-        if (title !== undefined) {
-            title = title.trim();
-        }
-
         if (!url.startsWith('http')) {
             url = 'http://' + url;
         }
 
-        // FIXME: use OC.generateUrl()
+        if (title !== undefined) {
+            title = title.trim();
+        } else {
+            title = url;
+        }
+
         var feed = {
             url: url,
             folderId: folderId || 0,
             title: title,
-            faviconLink: OC.generateUrl('/apps/news/css/loading.gif'),
             unreadCount: 0
         };
 
         this.add(feed);
-
         this.updateFolderCache();
 
         var deferred = this.$q.defer();
@@ -830,6 +830,7 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
         }).error(function (data) {
             feed.faviconLink = '';
             feed.error = data.message;
+            deferred.reject();
         });
 
         return deferred.promise;

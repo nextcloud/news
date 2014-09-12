@@ -91,7 +91,7 @@
     font-weight: bold;
 }
 
-#app-navigation .folder-loading {
+#app-navigation .entry-loading {
     background-image: url('../img/loading.gif') !important;
 }
 

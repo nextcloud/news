@@ -183,31 +183,25 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
 
 
     FeedResource.prototype.create = function (url, folderId, title) {
-        if (title) {
-            title = title.toUpperCase();
-        }
-
         url = url.trim();
-
-        if (title !== undefined) {
-            title = title.trim();
-        }
-
         if (!url.startsWith('http')) {
             url = 'http://' + url;
         }
 
-        // FIXME: use OC.generateUrl()
+        if (title !== undefined) {
+            title = title.trim();
+        } else {
+            title = url;
+        }
+
         var feed = {
             url: url,
             folderId: folderId || 0,
             title: title,
-            faviconLink: OC.generateUrl('/apps/news/css/loading.gif'),
             unreadCount: 0
         };
 
         this.add(feed);
-
         this.updateFolderCache();
 
         var deferred = this.$q.defer();
@@ -225,6 +219,7 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
         }).error(function (data) {
             feed.faviconLink = '';
             feed.error = data.message;
+            deferred.reject();
         });
 
         return deferred.promise;

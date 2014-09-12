@@ -1,15 +1,16 @@
 <li ng-class="{
         active: Navigation.isFolderActive(folder.id),
-        open: folder.opened && Navigation.hasFeeds(folder.id),
-        collapsible: Navigation.hasFeeds(folder.id),
+        open: folder.opened || folder.getsFeed,
+        collapsible: Navigation.hasFeeds(folder.id) || folder.getsFeed,
         unread: Navigation.getFolderUnreadCount(folder.id) > 0
     }"
     ng-repeat="folder in Navigation.getFolders() | orderBy:'id':true"
-    ng-show="Navigation.getFolderUnreadCount(folder.id) != 0
+    ng-show="Navigation.getFolderUnreadCount(folder.id) > 0
             || Navigation.isShowAll()
             || Navigation.isFolderActive(folder.id)
             || Navigation.subFeedActive(folder.id)
-            || !folder.id"
+            || !folder.id
+            || folder.getsFeed"
     class="folder with-counter with-menu"
     data-id="{{ folder.id }}"
     news-droppable>
@@ -38,10 +39,11 @@
 
     <a ng-href="#/items/folders/{{ folder.id }}/"
         class="title icon-folder"
-        ng-hide="folder.editing || folder.error"
-        ng-class="{
-            'folder-loading': !folder.id
-        }">
+        ng-show="!folder.editing && !folder.error && folder.id">
+       {{ folder.name }}
+    </a>
+
+    <a class="title entry-loading" ng-hide="folder.id">
        {{ folder.name }}
     </a>
 

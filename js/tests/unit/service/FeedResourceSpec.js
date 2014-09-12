@@ -156,7 +156,7 @@ describe('FeedResource', function () {
         http.expectPOST('base/feeds', {
             parentFolderId: 5,
             url: 'http://hey',
-            title: 'ABC'
+            title: 'abc'
         }).respond(200, {});
 
         FeedResource.create(' hey ', 5, ' abc');
@@ -171,7 +171,7 @@ describe('FeedResource', function () {
         http.expectPOST('base/feeds', {
             parentFolderId: 5,
             url: 'http://hey',
-            title: 'ABC'
+            title: 'abc'
         }).respond(200, {});
 
         FeedResource.create('http://hey', 5, 'abc');
@@ -186,7 +186,7 @@ describe('FeedResource', function () {
         http.expectPOST('base/feeds', {
             parentFolderId: 5,
             url: 'https://hey',
-            title: 'ABC'
+            title: 'abc'
         }).respond(400, {message: 'noo'});
 
         FeedResource.create('https://hey', 5, 'abc');
@@ -202,16 +202,14 @@ describe('FeedResource', function () {
         http.expectPOST('base/feeds', {
             parentFolderId: 0,
             url: 'http://hey',
-            title: 'ABC'
+            title: 'http://hey'
         }).respond(200, {});
 
-        FeedResource.create('hey', undefined, 'abc');
+        FeedResource.create('hey', undefined);
 
         http.flush();
 
         expect(FeedResource.get('http://hey').folderId).toBe(0);
-        expect(FeedResource.get('http://hey').faviconLink).toBe(
-            '/base/apps/news/css/loading.gif');
     }));
 
 

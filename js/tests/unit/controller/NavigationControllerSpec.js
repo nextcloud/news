@@ -326,12 +326,14 @@ describe('NavigationController', function () {
         var ctrl = $controller('NavigationController', {
             FeedResource: FeedResource,
             Publisher: Publisher,
-            $location: location
+            $location: location,
         });
 
         var feed = {
             url: 'test',
-            folderId: 3
+            folderId: {
+                id: 3
+            }
         };
 
         ctrl.createFeed(feed);
@@ -345,6 +347,7 @@ describe('NavigationController', function () {
             folderId: 3
         }]});
         expect(feed.url).toBe('');
+        expect(feed.folderId.id).toBe(3);
         expect(location.path).toHaveBeenCalledWith('/items/feeds/3');
     }));
 
@@ -372,7 +375,10 @@ describe('NavigationController', function () {
                 return {
                     then: function (callback) {
                         callback({
-                            name: folder
+                            folders: [{
+                                name: folder,
+                                id: 19
+                            }]
                         });
                     }
                 };
@@ -397,20 +403,23 @@ describe('NavigationController', function () {
         ctrl.createFeed(feed);
 
         expect(ctrl.newFolder).toBe(false);
-        expect(FeedResource.create).toHaveBeenCalledWith('test', 'john',
+        expect(FeedResource.create).toHaveBeenCalledWith('test', 19,
             undefined);
         expect(FolderResource.create).toHaveBeenCalledWith('john');
+        expect(Publisher.publishAll).toHaveBeenCalledWith({
+            folders: [{
+                name: 'john',
+                id: 19
+            }]
+        });
         expect(Publisher.publishAll).toHaveBeenCalledWith({feeds:[{
             id: 2,
             url: 'test',
-            folderId: 'john'
+            folderId: 19
         }]});
-        expect(Publisher.publishAll).toHaveBeenCalledWith({
-            name: 'john'
-        });
         expect(feed.url).toBe('');
-        expect(feed.folder).toBe('');
-        expect(feed.folderId).toBe('john');
+        expect(feed.folderId.getsFeed).toBe(undefined);
+        expect(feed.folderId.id).toBe(19);
     }));
 
 

@@ -9,7 +9,7 @@
             || !feed.id"
     data-id="{{ feed.id }}"
     class="feed with-counter with-menu"
-    news-draggable-disable="{{ feed.error.length > 0 }}"
+    news-draggable-disable="{{ feed.error.length > 0 || !feed.id }}"
     news-draggable="{
         stack: '> li',
         zIndex: 1000,
@@ -21,9 +21,15 @@
     }">
 
     <a  ng-style="{ backgroundImage: 'url(' + feed.faviconLink + ')'}"
-        ng-if="!feed.editing && !feed.deleted && !feed.error"
+        ng-show="!feed.editing && !feed.deleted && !feed.error && feed.id"
         ng-href="#/items/feeds/{{ feed.id }}/"
         class="title"
+        title="{{ feed.title }}">
+       {{ feed.title }}
+    </a>
+
+    <a ng-hide="feed.id"
+        class="entry-loading title"
         title="{{ feed.title }}">
        {{ feed.title }}
     </a>

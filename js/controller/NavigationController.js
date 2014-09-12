@@ -132,28 +132,34 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
         this.newFolder = false;
 
         var self = this;
+        var folderName = feed.folder;
+        var folderId = feed.folderId || {id: 0};
 
         // we dont need to create a new folder
-        if (feed.folder === undefined) {
-            FeedResource.create(feed.url, feed.folderId, undefined)
+        if (folderName === undefined) {
+            folderId.getsFeed = true;
+
+            FeedResource.create(feed.url, folderId.id, undefined)
             .then(function (data) {
                 Publisher.publishAll(data);
 
+                // set folder as default
+                var createdFeed = data.feeds[0];
+
                 // load created feed
-                $location.path('/items/feeds/' + data.feeds[0].id);
+                $location.path('/items/feeds/' + createdFeed.id);
+                folderId.getsFeed = undefined;
+            }, function () {
+                folderId.getsFeed = undefined;
             });
         } else {
             // create folder first and then the feed
-            FolderResource.create(feed.folder).then(function (data) {
+            FolderResource.create(folderName).then(function (data) {
                 Publisher.publishAll(data);
 
-                self.createFeed({
-                    url: feed.url,
-                    folderId: data.name
-                });
-
-                feed.folderId = data.name;
-                feed.folder = '';
+                feed.folderId = data.folders[0];
+                feed.folder = undefined;
+                self.createFeed(feed);
             });
         }
 
