@@ -801,14 +801,12 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
 
         if (title !== undefined) {
             title = title.trim();
-        } else {
-            title = url;
         }
 
         var feed = {
             url: url,
             folderId: folderId || 0,
-            title: title,
+            title: title || url,
             unreadCount: 0
         };
 
@@ -821,9 +819,9 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
             method: 'POST',
             url: this.BASE_URL + '/feeds',
             data: {
-                url: feed.url,
-                parentFolderId: feed.folderId,
-                title: feed.title
+                url: url,
+                parentFolderId: folderId || 0,
+                title: title
             }
         }).success(function (data) {
             deferred.resolve(data);

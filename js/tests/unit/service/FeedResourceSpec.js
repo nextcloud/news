@@ -202,11 +202,11 @@ describe('FeedResource', function () {
         http.expectPOST('base/feeds', {
             parentFolderId: 0,
             url: 'http://hey',
-            title: 'http://hey'
         }).respond(200, {});
 
         FeedResource.create('hey', undefined);
 
+        expect(FeedResource.get('http://hey').title).toBe('http://hey');
         http.flush();
 
         expect(FeedResource.get('http://hey').folderId).toBe(0);
