@@ -287,7 +287,15 @@ describe('NavigationController', function () {
     FolderResource) {
         expect(controller.folderNameExists('hi')).toBe(false);
         FolderResource.add({name: 'hi'});
-        expect(controller.folderNameExists('hi')).toBe(true);
+        expect(controller.folderNameExists(' hi ')).toBe(true);
+    }));
+
+    it('should expose check if a feed url exists', inject(function (
+    FeedResource) {
+        expect(controller.feedUrlExists('hi')).toBe(false);
+        FeedResource.add({url: 'http://hi'});
+        expect(controller.feedUrlExists('hi ')).toBe(true);
+        expect(controller.feedUrlExists('http://hi')).toBe(true);
     }));
 
 

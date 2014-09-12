@@ -187,17 +187,26 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
             title = title.toUpperCase();
         }
 
+        url = url.trim();
+
+        if (title !== undefined) {
+            title = title.trim();
+        }
+
+        if (!url.startsWith('http')) {
+            url = 'http://' + url;
+        }
+
         // FIXME: use OC.generateUrl()
         var feed = {
             url: url,
             folderId: folderId || 0,
             title: title,
-            faviconLink: OC.generateUrl('/apps/news/css/loading.gif')
+            faviconLink: OC.generateUrl('/apps/news/css/loading.gif'),
+            unreadCount: 0
         };
 
-        if (!this.get(url)) {
-            this.add(feed);
-        }
+        this.add(feed);
 
         this.updateFolderCache();
 

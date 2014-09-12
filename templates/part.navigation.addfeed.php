@@ -10,10 +10,13 @@
         <form ng-submit="Navigation.createFeed(feed)" name="feedform">
             <input type="text"
                 ng-model="feed.url"
+                ng-class="{'ng-invalid': Navigation.feedUrlExists(feed.url)}"
                 placeholder="<?php p($l->t('Web address')); ?>"
                 name="address"
                 pattern="[^\s]+"
                 required>
+
+            <p class="error" ng-show="Navigation.feedUrlExists(feed.url)"><?php p($l->t('Feed exists already!')); ?></p>
 
             <!-- select a folder -->
             <select name="folder"
@@ -50,7 +53,8 @@
             <input type="submit"
                 value="<?php p($l->t('Subscribe')); ?>"
                 class="primary"
-                ng-disabled="Navigation.newFolder && Navigation.folderNameExists(folder.name)">
+                ng-disabled="Navigation.feedUrlExists(feed.url) ||
+                            (Navigation.newFolder && Navigation.folderNameExists(folder.name))">
         </form>
     </div>
 </li>

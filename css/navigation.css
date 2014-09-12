@@ -55,7 +55,7 @@
 }
 
 #app-navigation .add-new-popup select,
-#app-navigation #new-feed .folder-input {
+#app-navigation #new-feed [name="folderName"] {
     width: calc(100% - 36px);
     border-right: 0;
     border-top-right-radius: 0;
@@ -91,9 +91,10 @@
     font-weight: bold;
 }
 
-#app-navigation .feed {
-    text-transform: none;
+#app-navigation .folder-loading {
+    background-image: url('../img/loading.gif') !important;
 }
+
 /**
  * Error message
  */
@@ -142,3 +143,4 @@
 #app-navigation .error-message button:hover {
     opacity: 1;
 }
+

@@ -77,7 +77,7 @@ describe('FolderResource', function () {
             folderName: 'hey'
         }).respond(200, {});
 
-        FolderResource.create('hey');
+        FolderResource.create(' hey ');
 
         http.flush();
 

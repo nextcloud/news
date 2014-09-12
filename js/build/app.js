@@ -381,7 +381,12 @@ app.controller('NavigationController',
     };
 
     this.getFeedUnreadCount = function (feedId) {
-        return FeedResource.getById(feedId).unreadCount;
+        var feed = FeedResource.getById(feedId);
+        if (feed !== undefined) {
+            return feed.unreadCount;
+        } else {
+            return 0;
+        }
     };
 
     this.getFolderUnreadCount= function (folderId) {
@@ -440,7 +445,14 @@ app.controller('NavigationController',
 
     this.folderNameExists = function (folderName) {
         folderName = folderName || '';
-        return FolderResource.get(folderName) !== undefined;
+        return FolderResource.get(folderName.trim()) !== undefined;
+    };
+
+    this.feedUrlExists = function (url) {
+        url = url || '';
+        url = url.trim();
+        return FeedResource.get(url) !== undefined ||
+            FeedResource.get('http://' + url) !== undefined;
     };
 
     this.createFeed = function (feed) {
@@ -780,17 +792,26 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
             title = title.toUpperCase();
         }
 
+        url = url.trim();
+
+        if (title !== undefined) {
+            title = title.trim();
+        }
+
+        if (!url.startsWith('http')) {
+            url = 'http://' + url;
+        }
+
         // FIXME: use OC.generateUrl()
         var feed = {
             url: url,
             folderId: folderId || 0,
             title: title,
-            faviconLink: OC.generateUrl('/apps/news/css/loading.gif')
+            faviconLink: OC.generateUrl('/apps/news/css/loading.gif'),
+            unreadCount: 0
         };
 
-        if (!this.get(url)) {
-            this.add(feed);
-        }
+        this.add(feed);
 
         this.updateFolderCache();
 
@@ -888,6 +909,7 @@ app.factory('FolderResource', ["Resource", "$http", "BASE_URL", "$q", function (
 
 
     FolderResource.prototype.create = function (folderName) {
+        folderName = folderName.trim();
         var folder = {
             name: folderName
         };
@@ -896,10 +918,7 @@ app.factory('FolderResource', ["Resource", "$http", "BASE_URL", "$q", function (
 
         var deferred = this.$q.defer();
 
-        var self = this;
-        setTimeout(function () {
-
-        self.http({
+        this.http({
             url: this.BASE_URL + '/folders',
             method: 'POST',
             data: {
@@ -910,7 +929,6 @@ app.factory('FolderResource', ["Resource", "$http", "BASE_URL", "$q", function (
         }).error(function (data) {
             folder.error = data.message;
         });
-        }, 30000);
 
         return deferred.promise;
     };

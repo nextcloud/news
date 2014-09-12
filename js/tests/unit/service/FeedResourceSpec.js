@@ -151,41 +151,57 @@ describe('FeedResource', function () {
     }));
 
 
-    it ('should create a feed', inject(function (FeedResource) {
+    it ('should create a feed and prepend http if not given', inject(function (
+    FeedResource) {
         http.expectPOST('base/feeds', {
             parentFolderId: 5,
-            url: 'hey',
+            url: 'http://hey',
             title: 'ABC'
         }).respond(200, {});
 
-        FeedResource.create('hey', 5, 'abc');
+        FeedResource.create(' hey ', 5, ' abc');
 
         http.flush();
 
-        expect(FeedResource.get('hey').folderId).toBe(5);
+        expect(FeedResource.get('http://hey').folderId).toBe(5);
+    }));
+
+
+    it ('should create a feed', inject(function (FeedResource) {
+        http.expectPOST('base/feeds', {
+            parentFolderId: 5,
+            url: 'http://hey',
+            title: 'ABC'
+        }).respond(200, {});
+
+        FeedResource.create('http://hey', 5, 'abc');
+
+        http.flush();
+
+        expect(FeedResource.get('http://hey').folderId).toBe(5);
     }));
 
 
     it ('should display a feed error', inject(function (FeedResource) {
         http.expectPOST('base/feeds', {
             parentFolderId: 5,
-            url: 'hey',
+            url: 'https://hey',
             title: 'ABC'
         }).respond(400, {message: 'noo'});
 
-        FeedResource.create('hey', 5, 'abc');
+        FeedResource.create('https://hey', 5, 'abc');
 
         http.flush();
 
-        expect(FeedResource.get('hey').error).toBe('noo');
-        expect(FeedResource.get('hey').faviconLink).toBe('');
+        expect(FeedResource.get('https://hey').error).toBe('noo');
+        expect(FeedResource.get('https://hey').faviconLink).toBe('');
     }));
 
 
     it ('should create a feed with no folder', inject(function (FeedResource) {
         http.expectPOST('base/feeds', {
             parentFolderId: 0,
-            url: 'hey',
+            url: 'http://hey',
             title: 'ABC'
         }).respond(200, {});
 
@@ -193,26 +209,9 @@ describe('FeedResource', function () {
 
         http.flush();
 
-        expect(FeedResource.get('hey').folderId).toBe(0);
-        expect(FeedResource.get('hey').faviconLink).toBe(
+        expect(FeedResource.get('http://hey').folderId).toBe(0);
+        expect(FeedResource.get('http://hey').faviconLink).toBe(
             '/base/apps/news/css/loading.gif');
-    }));
-
-
-
-    it ('should not create a feed if it exists', inject(function (
-    FeedResource) {
-        http.expectPOST('base/feeds', {
-            parentFolderId: 5,
-            url: 'ye',
-            title: 'ABC'
-        }).respond(200, {});
-
-        FeedResource.create('ye', 5, 'abc');
-
-        http.flush();
-
-        expect(FeedResource.size()).toBe(3);
     }));
 
 

@@ -40,7 +40,7 @@
         class="title icon-folder"
         ng-hide="folder.editing || folder.error"
         ng-class="{
-            'icon-loading': !folder.id
+            'folder-loading': !folder.id
         }">
        {{ folder.name }}
     </a>

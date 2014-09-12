@@ -54,7 +54,12 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
     };
 
     this.getFeedUnreadCount = function (feedId) {
-        return FeedResource.getById(feedId).unreadCount;
+        var feed = FeedResource.getById(feedId);
+        if (feed !== undefined) {
+            return feed.unreadCount;
+        } else {
+            return 0;
+        }
     };
 
     this.getFolderUnreadCount= function (folderId) {
@@ -113,7 +118,14 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
 
     this.folderNameExists = function (folderName) {
         folderName = folderName || '';
-        return FolderResource.get(folderName) !== undefined;
+        return FolderResource.get(folderName.trim()) !== undefined;
+    };
+
+    this.feedUrlExists = function (url) {
+        url = url || '';
+        url = url.trim();
+        return FeedResource.get(url) !== undefined ||
+            FeedResource.get('http://' + url) !== undefined;
     };
 
     this.createFeed = function (feed) {
