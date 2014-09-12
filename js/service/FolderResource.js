@@ -45,21 +45,26 @@ app.factory('FolderResource', function (Resource, $http, BASE_URL, $q) {
 
     FolderResource.prototype.rename = function (folderName, toFolderName) {
         var folder = this.get(folderName);
+        var deferred = this.$q.defer();
+        var self = this;
 
-        folder.name = toFolderName;
-
-        delete this.hashMap[folderName];
-        this.hashMap[toFolderName] = folder;
-
-        // FIXME: check for errors
-        // FIXME: transfer feeds
-        return this.http({
+        this.http({
             url: this.BASE_URL + '/folders/' + folder.id + '/rename',
             method: 'POST',
             data: {
                 folderName: toFolderName
             }
+        }).success(function () {
+            folder.name = toFolderName;
+            delete self.hashMap[folderName];
+            self.hashMap[toFolderName] = folder;
+
+            deferred.resolve();
+        }).error(function (data) {
+            deferred.reject(data.message);
         });
+
+        return deferred.promise;
     };
 
 

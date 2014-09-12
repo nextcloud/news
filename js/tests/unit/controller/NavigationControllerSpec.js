@@ -595,8 +595,7 @@ describe('NavigationController', function () {
     }));
 
 
-    it('should rename a feed', inject(
-    function ($controller, FEED_TYPE, FeedResource) {
+    it('should rename a feed', inject(function ($controller, FeedResource) {
         FeedResource.rename = jasmine.createSpy('rename');
 
         var ctrl = $controller('NavigationController', {
@@ -613,6 +612,99 @@ describe('NavigationController', function () {
 
         expect(FeedResource.rename).toHaveBeenCalledWith(3, 'test');
         expect(feed.editing).toBe(false);
+    }));
+
+
+    it('should rename a folder', inject(function ($controller, FolderResource) {
+        FolderResource.rename = jasmine.createSpy('rename')
+        .andCallFake(function () {
+            return {
+                then: function (success) {
+                    success();
+                    return {
+                        finally: function (callback) {
+                            callback();
+                        }
+                    };
+                }
+            };
+        });
+
+        var ctrl = $controller('NavigationController', {
+            FolderResource: FolderResource,
+        });
+
+        var folder = {
+            id: 3,
+            name: 'test',
+            renameError: 'nope',
+            editing: true
+        };
+
+        ctrl.renameFolder(folder, 'abc');
+
+        expect(FolderResource.rename).toHaveBeenCalledWith('test', 'abc');
+        expect(folder.renameError).toBe('');
+        expect(folder.editing).toBe(false);
+    }));
+
+
+    it('should handle rename folder error', inject(function ($controller,
+    FolderResource) {
+        FolderResource.rename = jasmine.createSpy('rename')
+        .andCallFake(function () {
+            return {
+                then: function (success, error) {
+                    error('no');
+                    return {
+                        finally: function (callback) {
+                            callback();
+                        }
+                    };
+                }
+            };
+        });
+
+        var ctrl = $controller('NavigationController', {
+            FolderResource: FolderResource,
+        });
+
+        var folder = {
+            id: 3,
+            name: 'test',
+            renameError: 'nope',
+            editing: true
+        };
+
+        ctrl.renameFolder(folder, 'abc');
+
+        expect(FolderResource.rename).toHaveBeenCalledWith('test', 'abc');
+        expect(folder.renameError).toBe('no');
+        expect(folder.editing).toBe(true);
+    }));
+
+
+    it('should handle rename a folder if the name did not change',
+    inject(function ($controller, FolderResource) {
+        FolderResource.rename = jasmine.createSpy('rename');
+
+        var ctrl = $controller('NavigationController', {
+            FolderResource: FolderResource,
+        });
+
+        var folder = {
+            id: 3,
+            name: 'test',
+            renameError: 'nope',
+            editing: true
+        };
+
+        ctrl.renameFolder(folder, 'test');
+
+        expect(FolderResource.rename).not.toHaveBeenCalled();
+        expect(folder.renameError).toBe('');
+        expect(folder.editing).toBe(false);
+        expect(ctrl.renamingFolder).toBe(false);
     }));
 
 });

@@ -58,6 +58,19 @@ describe('FolderResource', function () {
     }));
 
 
+    it ('should handle a folderrename error', inject(function (FolderResource) {
+        http.expectPOST('base/folders/1/rename', {
+            folderName: 'heho'
+        }).respond(400, {});
+
+        FolderResource.rename('ye', 'heho');
+
+        http.flush();
+
+        expect(FolderResource.get('ye').id).toBe(1);
+    }));
+
+
     it ('should open a folder', inject(function (FolderResource) {
         http.expectPOST('base/folders/3/open', {
             folderId: 3,

@@ -534,8 +534,25 @@ app.controller('NavigationController',
         feed.editing = false;
     };
 
-    this.renameFolder = function (folder) {
-        console.log(folder);
+    this.renameFolder = function (folder, name) {
+        folder.renameError = '';
+        this.renamingFolder = true;
+        var self = this;
+
+        if (folder.name === name) {
+            folder.renameError = '';
+            folder.editing = false;
+            this.renamingFolder = false;
+        } else {
+            FolderResource.rename(folder.name, name).then(function () {
+                folder.renameError = '';
+                folder.editing = false;
+            }, function (message) {
+                folder.renameError = message;
+            }).finally(function () {
+                self.renamingFolder = false;
+            });
+        }
     };
 
     // TBD
@@ -895,21 +912,26 @@ app.factory('FolderResource', ["Resource", "$http", "BASE_URL", "$q", function (
 
     FolderResource.prototype.rename = function (folderName, toFolderName) {
         var folder = this.get(folderName);
+        var deferred = this.$q.defer();
+        var self = this;
 
-        folder.name = toFolderName;
-
-        delete this.hashMap[folderName];
-        this.hashMap[toFolderName] = folder;
-
-        // FIXME: check for errors
-        // FIXME: transfer feeds
-        return this.http({
+        this.http({
             url: this.BASE_URL + '/folders/' + folder.id + '/rename',
             method: 'POST',
             data: {
                 folderName: toFolderName
             }
+        }).success(function () {
+            folder.name = toFolderName;
+            delete self.hashMap[folderName];
+            self.hashMap[toFolderName] = folder;
+
+            deferred.resolve();
+        }).error(function (data) {
+            deferred.reject(data.message);
         });
+
+        return deferred.promise;
     };
 
 

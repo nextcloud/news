@@ -30,12 +30,30 @@
                 ng-click="Navigation.removeFolder(folder)"></button>
     </div>
 
-    <div ng-if="folder.editing" class="app-navigation-entry-edit">
-        <input name="folderRename" type="text" value="{{ folder.name }}" news-auto-focus>
-        <button title="<?php p($l->t('Rename')); ?>"
-                ng-click="Navigation.renameFolder(folder)"
-                class="action icon-checkmark">
-        </button>
+    <div ng-if="folder.editing" class="app-navigation-entry-edit"
+        ng-class="{'folder-rename-error': folder.renameError || (folderName != folder.name && !Navigation.renamingFolder && Navigation.folderNameExists(folderName))}">
+        <form ng-submit="Navigation.renameFolder(folder, folderName)">
+            <fieldset ng-disabled="Navigation.renamingFolder">
+                <input name="folderName"
+                    type="text"
+                    ng-init="folderName=folder.name"
+                    ng-class="{'ng-invalid': folderName != folder.name && !Navigation.renamingFolder && Navigation.folderNameExists(folderName)}"
+                    ng-model="folderName"
+                    required
+                    news-auto-focus>
+                <input type="submit"
+                    value=""
+                    ng-class="{'entry-loading': Navigation.renamingFolder}"
+                    title="<?php p($l->t('Rename')); ?>"
+                    class="action icon-checkmark"
+                    ng-disabled="folderName != folder.name && !Navigation.renamingFolder && Navigation.folderNameExists(folderName)">
+                </button>
+            </fieldset>
+            <p class="error" ng-show="folderName != folder.name && !Navigation.renamingFolder && Navigation.folderNameExists(folderName)">
+                <?php p($l->t('Folder exists already!')); ?>
+            </p>
+            <p class="error" ng-show="folder.renameError">{{ folder.renameError }}</p>
+        </form>
     </div>
 
     <a ng-href="#/items/folders/{{ folder.id }}/"

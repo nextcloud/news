@@ -27,6 +27,8 @@ owncloud-news (3.001)
 * Move show unread articles setting into the settings area
 * Disable drag and drop if a feed is in an invalid state
 * Also focus scrollable area if the page is loaded
+* Pixel perfect folder and feed inputs
+* New add feed design
 
 owncloud-news (2.003)
 * Use correct url for folder and feed api update methods

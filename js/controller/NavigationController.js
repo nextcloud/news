@@ -207,8 +207,25 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
         feed.editing = false;
     };
 
-    this.renameFolder = function (folder) {
-        console.log(folder);
+    this.renameFolder = function (folder, name) {
+        folder.renameError = '';
+        this.renamingFolder = true;
+        var self = this;
+
+        if (folder.name === name) {
+            folder.renameError = '';
+            folder.editing = false;
+            this.renamingFolder = false;
+        } else {
+            FolderResource.rename(folder.name, name).then(function () {
+                folder.renameError = '';
+                folder.editing = false;
+            }, function (message) {
+                folder.renameError = message;
+            }).finally(function () {
+                self.renamingFolder = false;
+            });
+        }
     };
 
     // TBD
