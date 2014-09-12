@@ -595,4 +595,24 @@ describe('NavigationController', function () {
     }));
 
 
+    it('should rename a feed', inject(
+    function ($controller, FEED_TYPE, FeedResource) {
+        FeedResource.rename = jasmine.createSpy('rename');
+
+        var ctrl = $controller('NavigationController', {
+            FeedResource: FeedResource,
+        });
+
+        var feed = {
+            id: 3,
+            title: 'test',
+            editing: true
+        };
+
+        ctrl.renameFeed(feed);
+
+        expect(FeedResource.rename).toHaveBeenCalledWith(3, 'test');
+        expect(feed.editing).toBe(false);
+    }));
+
 });

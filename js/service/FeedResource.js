@@ -150,15 +150,12 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
     };
 
 
-    FeedResource.prototype.rename = function (url, name) {
-        var feed = this.get(url);
-        feed.title = name;
-
+    FeedResource.prototype.rename = function (id, title) {
         return this.http({
             method: 'POST',
-            url: this.BASE_URL + '/feeds/' + feed.id + '/rename',
+            url: this.BASE_URL + '/feeds/' + id + '/rename',
             data: {
-                feedTitle: name
+                feedTitle: title
             }
         });
     };

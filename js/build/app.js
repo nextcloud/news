@@ -529,16 +529,16 @@ app.controller('NavigationController',
         }
     };
 
-    // TBD
     this.renameFeed = function (feed) {
+        FeedResource.rename(feed.id, feed.title);
         feed.editing = false;
-        // todo remote stuff
     };
 
     this.renameFolder = function (folder) {
         console.log(folder);
     };
 
+    // TBD
     this.deleteFeed = function (feed) {
         feed.deleted = true;
         // todo remote stuff
@@ -770,15 +770,12 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
     };
 
 
-    FeedResource.prototype.rename = function (url, name) {
-        var feed = this.get(url);
-        feed.title = name;
-
+    FeedResource.prototype.rename = function (id, title) {
         return this.http({
             method: 'POST',
-            url: this.BASE_URL + '/feeds/' + feed.id + '/rename',
+            url: this.BASE_URL + '/feeds/' + id + '/rename',
             data: {
-                feedTitle: name
+                feedTitle: title
             }
         });
     };

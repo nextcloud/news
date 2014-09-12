@@ -202,16 +202,16 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
         }
     };
 
-    // TBD
     this.renameFeed = function (feed) {
+        FeedResource.rename(feed.id, feed.title);
         feed.editing = false;
-        // todo remote stuff
     };
 
     this.renameFolder = function (folder) {
         console.log(folder);
     };
 
+    // TBD
     this.deleteFeed = function (feed) {
         feed.deleted = true;
         // todo remote stuff

@@ -129,11 +129,9 @@ describe('FeedResource', function () {
             feedTitle: 'heho'
         }).respond(200, {});
 
-        FeedResource.rename('1sye', 'heho');
+        FeedResource.rename(3, 'heho');
 
         http.flush();
-
-        expect(FeedResource.get('1sye').title).toBe('heho');
     }));
 
 

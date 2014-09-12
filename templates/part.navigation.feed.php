@@ -46,11 +46,17 @@
     </div>
 
     <div ng-if="feed.editing" class="app-navigation-entry-edit">
-        <input name="feedRename" type="text" value="{{ feed.title }}" news-auto-focus>
-        <button title="<?php p($l->t('Rename')); ?>"
-                ng-click="Navigation.renameFeed(feed)"
-                class="action icon-checkmark">
-        </button>
+        <form ng-submit="Navigation.renameFeed(feed)">
+            <input name="feedRename"
+                type="text"
+                ng-model="feed.title"
+                news-auto-focus
+                required>
+            <input type="submit"
+                value=""
+                title="<?php p($l->t('Rename')); ?>"
+                    class="action icon-checkmark">
+        </form>
     </div>
 
     <div class="app-navigation-entry-utils"
