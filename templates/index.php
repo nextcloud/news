@@ -45,7 +45,12 @@ style('news', [
     <!-- content -->
     <script type="text/ng-template" id="content.html"><?php print_unescaped($this->inc('part.content')) ?></script>
 
-    <div id="app-content" ng-class="{'loading-content': App.loading.isLoading('content') && !App.loading.isLoading('global')}" tabindex="-1">
+    <div id="app-content"
+        ng-class="{
+            'loading-content': App.loading.isLoading('content') && !App.loading.isLoading('global'),
+            'first-run': App.isFirstRun()
+        }"
+        tabindex="-1">
         <div id="app-content-wrapper"
             ng-class="{'autopaging': App.loading.isLoading('autopaging')}"
             ng-hide="App.loading.isLoading('global')"

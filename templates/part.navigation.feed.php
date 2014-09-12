@@ -9,7 +9,7 @@
             || !feed.id"
     data-id="{{ feed.id }}"
     class="feed with-counter with-menu"
-    news-draggable-disable="{{ feed.error.length > 0 || !feed.id }}"
+    news-draggable-disable="{{ feed.error.length > 0 || !feed.id || !feed.deleted || !feed.editing}}"
     news-draggable="{
         stack: '> li',
         zIndex: 1000,
@@ -28,7 +28,7 @@
        {{ feed.title }}
     </a>
 
-    <a ng-hide="feed.id"
+    <a ng-hide="feed.id || feed.error"
         class="entry-loading title"
         title="{{ feed.title }}">
        {{ feed.title }}

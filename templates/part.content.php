@@ -1,9 +1,12 @@
-<div id="first-run" ng-if="App.isFirstRun()">
-    <h1><?php p($l->t('Welcome to the ownCloud News app!')) ?></h1>
+<div id="first-run">
+    <div>
+        <div class="helper"><h1><?php p($l->t('Add a feed')) ?></h1></div>
+        <div class="title"><h1><?php p($l->t('There are no feeds yet. Go ahead and add some')) ?> :)</h1></div>
+        <div class="helper"><h1><?php p($l->t('Import feeds and articles')) ?></h1></div>
+    </div>
 </div>
 
-<div ng-if="!App.isFirstRun()"
-     news-auto-focus="#app-content"
+<div news-auto-focus="#app-content"
      ng-class="{compact: Content.isCompactView(), 'feed-view': Content.isFeed()}">
     <ul>
         <li class="item {{ Content.getFeed(item.feedId).cssClass }}"
@@ -46,10 +49,10 @@
                 </div>
 
                 <div class="enclosure" ng-if="item.enclosureLink">
-                    <news-audio type="{{ item.enclosureType }}"
+                    <!--<news-audio type="{{ item.enclosureType }}"
                                 ng-src="{{ item.enclosureLink|trustUrl }}">
                         <?php p($l->t('Download')) ?>
-                    </news-audio>
+                    </news-audio>-->
                 </div>
 
                 <div class="body" news-bind-html-unsafe="item.body"></div>

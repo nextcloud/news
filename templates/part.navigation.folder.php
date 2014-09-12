@@ -43,7 +43,7 @@
        {{ folder.name }}
     </a>
 
-    <a class="title entry-loading" ng-hide="folder.id">
+    <a class="title entry-loading" ng-hide="folder.id || folder.error">
        {{ folder.name }}
     </a>
 
@@ -68,8 +68,7 @@
             <li><button ng-click="Navigation.deleteFolder(folder)"
                         class="icon-delete"
                         title="<?php p($l->t('Delete folder')); ?>"></button></li>
-            <li><button ng-show="Navigation.getFolderUnreadCount(folder.id) > 0"
-                        class="icon-checkmark"
+            <li ng-show="Navigation.getFolderUnreadCount(folder.id) > 0"><button class="icon-checkmark"
                         ng-click="Navigation.markFolderRead(folder.id)"
                         title="<?php p($l->t('Read all')); ?>"></button></li>
         </ul>

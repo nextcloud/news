@@ -7,7 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsAutoFocus', function () {
+app.directive('newsAutoFocus', function ($timeout) {
     'use strict';
     return function (scope, elem, attrs) {
         var toFocus = elem;
@@ -16,6 +16,9 @@ app.directive('newsAutoFocus', function () {
             toFocus = $(attrs.newsAutoFocus);
         }
 
-        toFocus.focus();
+        // to combat $digest already in process error when route changes
+        $timeout(function () {
+        	toFocus.focus();
+        }, 0);
     };
 });

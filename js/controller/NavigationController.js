@@ -84,7 +84,7 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
         if (type === FEED_TYPE.FEED) {
             var feed = FeedResource.getById($route.current.params.id);
 
-            if (feed.folderId === folderId) {
+            if (feed !== undefined && feed.folderId === folderId) {
                 return true;
             }
         }
@@ -129,48 +129,57 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
     };
 
     this.createFeed = function (feed) {
-        this.newFolder = false;
-
         var self = this;
-        var folderName = feed.folder;
-        var folderId = feed.folderId || {id: 0};
+        this.newFolder = false;
+        this.addingFeed = true;
+
+        var newFolder = feed.newFolder;
+        var existingFolder = feed.existingFolder || {id: 0};
 
         // we dont need to create a new folder
-        if (folderName === undefined) {
-            folderId.getsFeed = true;
+        if (newFolder === undefined) {
+            // this is set to display the feed in any folder, even if the folder
+            // is closed or has no unread articles
+            existingFolder.getsFeed = true;
 
-            FeedResource.create(feed.url, folderId.id, undefined)
+            FeedResource.create(feed.url, existingFolder.id, undefined)
             .then(function (data) {
+
                 Publisher.publishAll(data);
 
                 // set folder as default
-                var createdFeed = data.feeds[0];
+                $location.path('/items/feeds/' + data.feeds[0].id + '/');
 
-                // load created feed
-                $location.path('/items/feeds/' + createdFeed.id);
-                folderId.getsFeed = undefined;
-            }, function () {
-                folderId.getsFeed = undefined;
+            }).finally(function () {
+                existingFolder.getsFeed = undefined;
+                feed.url = '';
+                self.addingFeed = false;
             });
+
         } else {
             // create folder first and then the feed
-            FolderResource.create(folderName).then(function (data) {
+            FolderResource.create(newFolder).then(function (data) {
+
                 Publisher.publishAll(data);
 
-                feed.folderId = data.folders[0];
-                feed.folder = undefined;
+                // set the created folder on scope so its preselected for the
+                // next addition
+                feed.existingFolder = FolderResource.get(data.folders[0].name);
+                feed.newFolder = undefined;
                 self.createFeed(feed);
             });
         }
-
-        feed.url = '';
     };
 
     this.createFolder = function (folder) {
+        var self = this;
+        this.addingFolder = true;
         FolderResource.create(folder.name).then(function (data) {
             Publisher.publishAll(data);
+        }).finally(function () {
+            self.addingFolder = false;
+            folder.name = '';
         });
-        folder.name = '';
     };
 
     this.moveFeed = function (feedId, folderId) {

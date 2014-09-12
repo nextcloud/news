@@ -310,6 +310,11 @@ describe('NavigationController', function () {
                             url: url,
                             folderId: folderId
                         }]});
+                        return {
+                            finally: function (callback) {
+                                callback();
+                            }
+                        };
                     }
                 };
             })
@@ -331,7 +336,7 @@ describe('NavigationController', function () {
 
         var feed = {
             url: 'test',
-            folderId: {
+            existingFolder: {
                 id: 3
             }
         };
@@ -347,8 +352,10 @@ describe('NavigationController', function () {
             folderId: 3
         }]});
         expect(feed.url).toBe('');
-        expect(feed.folderId.id).toBe(3);
-        expect(location.path).toHaveBeenCalledWith('/items/feeds/3');
+        expect(feed.existingFolder.getsFeed).toBe(undefined);
+        expect(ctrl.addingFeed).toBe(false);
+        expect(feed.existingFolder.id).toBe(3);
+        expect(location.path).toHaveBeenCalledWith('/items/feeds/3/');
     }));
 
 
@@ -364,14 +371,18 @@ describe('NavigationController', function () {
                             url: url,
                             folderId: folderId
                         }]});
+                        return {
+                            finally: function (callback) {
+                                callback();
+                            }
+                        };
                     }
                 };
             })
         };
 
         var FolderResource = {
-            create: jasmine.createSpy('create').andCallFake(
-            function (folder) {
+            create: jasmine.createSpy('create').andCallFake(function (folder) {
                 return {
                     then: function (callback) {
                         callback({
@@ -381,6 +392,12 @@ describe('NavigationController', function () {
                             }]
                         });
                     }
+                };
+            }),
+            get: jasmine.createSpy('get').andCallFake(function (name) {
+                return {
+                    name: name,
+                    id: 19
                 };
             })
         };
@@ -397,7 +414,7 @@ describe('NavigationController', function () {
 
         var feed = {
             url: 'test',
-            folder: 'john'
+            newFolder: 'john'
         };
 
         ctrl.createFeed(feed);
@@ -418,8 +435,9 @@ describe('NavigationController', function () {
             folderId: 19
         }]});
         expect(feed.url).toBe('');
-        expect(feed.folderId.getsFeed).toBe(undefined);
-        expect(feed.folderId.id).toBe(19);
+        expect(feed.existingFolder.getsFeed).toBe(undefined);
+        expect(feed.existingFolder.id).toBe(19);
+        expect(ctrl.addingFeed).toBe(false);
     }));
 
 
@@ -432,6 +450,11 @@ describe('NavigationController', function () {
                         callback({
                             name: folder
                         });
+                        return {
+                            finally: function (callback) {
+                                callback();
+                            }
+                        };
                     }
                 };
             })
@@ -457,6 +480,7 @@ describe('NavigationController', function () {
             name: 'test'
         });
         expect(folder.name).toBe('');
+        expect(ctrl.addingFolder).toBe(false);
     }));
 
 

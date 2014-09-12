@@ -24,6 +24,7 @@ owncloud-news (3.001)
 * Optimize for mobile
 * Folder names are not uppercased anymore due to possible conflicts when using the API
 * Reload current folder if a feed is moved into or out of it
+* Immediate feedback if folder/feed exists already on the client side
 
 owncloud-news (2.003)
 * Use correct url for folder and feed api update methods
