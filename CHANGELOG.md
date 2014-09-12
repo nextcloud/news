@@ -1,30 +1,32 @@
 owncloud-news (3.001)
 * Breaking Change: Depend on ownCloud 7.0.3
 * Breaking Change: Depend on PHP 5.4
-* Breaking Change: Plugin API: BusinessLayer has been renamed to Service, (FeedBusinessLayer -> FeedService) and different exceptions are now thrown to make failure better distinguishable
+* Breaking Change: Plugin API: BusinessLayer has been renamed to Service, (FeedBusinessLayer -> FeedService) and different exceptions are now thrown to make failure better distinguishable, accessing the BusinessLayer links to the Service equivalents to keep compability
 * Allow to turn off marking read when scrolling
 * Allow to order by oldest first
 * Add clientside routing
 * When importing OPML use the feed title if given
-* Animate folder/feed disappearance if marking read
 * Make hover buttons available under a menu button
 * Import feeds from a very large OPML file in chunks to prevent server slowdown
-* Port clientside code to JavaScript
-* Removed pull to refresh
+* Port clientside code from CoffeeScript to JavaScript
+* Removed pull to refresh since it had many issues
 * Push API to 1.4
 * Slim down appstore build
 * Allow to specifiy custom CSS rules for each feed
 * Compact view: Title ellipsis
-* Compact view: Show source
+* Compact view: Show source as favicon
 * Compact view: Add keep unread button
 * Compact view: Expand item when jumping to it with a keyboard shortcut
 * Move undo feed/folder deletion button into the navigation bar
 * Add create folder form in addition to the subscribe form
 * Loading icon is now displayed until all feeds and folders are loaded
 * Optimize for mobile
-* Folder names are not uppercased anymore due to possible conflicts when using the API
+* Folder names are not uppercased anymore due to possible conflicts from folders being created through the API
 * Reload current folder if a feed is moved into or out of it
 * Immediate feedback if folder/feed exists already on the client side
+* Move show unread articles setting into the settings area
+* Disable drag and drop if a feed is in an invalid state
+* Also focus scrollable area if the page is loaded
 
 owncloud-news (2.003)
 * Use correct url for folder and feed api update methods

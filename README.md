@@ -16,6 +16,10 @@ For further developer and user documentation please visit [the wiki](https://git
 * [Bernhard Posselt](https://github.com/Raydiation)
 * [Jan-Christoph Borchardt](https://github.com/jancborchardt) (Design)
 
+## Sync Clients
+* [Mobile](https://github.com/owncloud/news/wiki/mobile-clients)
+* [Desktop](https://github.com/owncloud/news/wiki/desktop-clients)
+
 ## Dependencies
 * PHP >= 5.4
 * php-curl

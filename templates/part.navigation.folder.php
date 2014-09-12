@@ -5,6 +5,7 @@
         unread: Navigation.getFolderUnreadCount(folder.id) > 0
     }"
     ng-repeat="folder in Navigation.getFolders() | orderBy:'id':true"
+    ng-animate="animate"
     ng-show="Navigation.getFolderUnreadCount(folder.id) > 0
             || Navigation.isShowAll()
             || Navigation.isFolderActive(folder.id)
