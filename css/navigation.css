@@ -94,5 +94,51 @@
 #app-navigation .feed {
     text-transform: none;
 }
+/**
+ * Error message
+ */
+#app-navigation .error-message {
+    padding: 15px;
+    background-color: #DE1212;
+    color: #fff;
+    position: relative;
+}
 
+#app-navigation .ui-state-disabled {
+    opacity: 1;
+}
 
+#app-navigation .error-message .title {
+    font-weight: bold;
+    padding-right: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#app-navigation .error-message:hover .title
+#app-navigation .error-message:hover .message {
+
+}
+
+#app-navigation .error-message button {
+    top: 0;
+    right: 0;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    height: 44px;
+    width: 44px;
+    padding: 15px;
+    border: 0;
+    background-size: 25px;
+    background-color: transparent;
+    background-image: url('../img/close.svg');
+    background-repeat: no-repeat;
+    background-position: right 5px top 5px;
+    opacity: .9;
+}
+
+#app-navigation .error-message button:hover {
+    opacity: 1;
+}

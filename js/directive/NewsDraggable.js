@@ -18,5 +18,13 @@ app.directive('newsDraggable', function () {
         } else {
             elem.draggable();
         }
+
+        attr.$observe('newsDraggableDisable', function (value) {
+        	if (value === 'true') {
+        		elem.draggable('disable');
+        	} else {
+        		elem.draggable('enable');
+        	}
+        });
     };
 });

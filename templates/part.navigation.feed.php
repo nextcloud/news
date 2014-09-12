@@ -10,6 +10,7 @@
             || !feed.id"
     data-id="{{ feed.id }}"
     class="feed with-counter with-menu"
+    news-draggable-disable="{{ feed.error.length > 0 }}"
     news-draggable="{
         stack: '> li',
         zIndex: 1000,
@@ -21,7 +22,7 @@
     }">
 
     <a  ng-style="{ backgroundImage: 'url(' + feed.faviconLink + ')'}"
-        ng-if="!feed.editing && !feed.deleted"
+        ng-if="!feed.editing && !feed.deleted && !feed.error"
         ng-href="#/items/feeds/{{ feed.id }}/"
         class="title"
         title="{{ feed.title }}">
@@ -74,6 +75,12 @@
         </ul>
     </div>
 
-    <div class="message" ng-show="feed.error">{{ feed.error }}</div>
+    <div class="error-message" ng-show="feed.error">
+        <h2 class="title">{{ feed.url }}</h2>
+        <span class="message">{{ feed.error }}</span>
+        <button type="button "
+                title="<?php p($l->t('Dismiss')); ?>"
+                ng-click="Navigation.removeFeed(feed)"></button>
+    </div>
 </li>
 

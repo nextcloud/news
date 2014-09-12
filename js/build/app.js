@@ -453,6 +453,8 @@ app.controller('NavigationController',
             FeedResource.create(feed.url, feed.folderId, undefined)
             .then(function (data) {
                 Publisher.publishAll(data);
+
+                // load created feed
                 $location.path('/items/feeds/' + data.id);
             });
         } else {
@@ -483,6 +485,10 @@ app.controller('NavigationController',
     this.moveFeed = function (feedId, folderId) {
         var reload = false;
         var feed = FeedResource.getById(feedId);
+
+        if (feed.folderId === folderId) {
+            return;
+        }
 
         if (this.isFolderActive(feed.folderId) ||
             this.isFolderActive(folderId)) {
@@ -1553,6 +1559,14 @@ app.directive('newsDraggable', function () {
         } else {
             elem.draggable();
         }
+
+        attr.$observe('newsDraggableDisable', function (value) {
+        	if (value === 'true') {
+        		elem.draggable('disable');
+        	} else {
+        		elem.draggable('enable');
+        	}
+        });
     };
 });
 app.directive('newsDroppable', ["$rootScope", function ($rootScope) {

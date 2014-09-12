@@ -126,6 +126,8 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
             FeedResource.create(feed.url, feed.folderId, undefined)
             .then(function (data) {
                 Publisher.publishAll(data);
+
+                // load created feed
                 $location.path('/items/feeds/' + data.id);
             });
         } else {
@@ -156,6 +158,10 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
     this.moveFeed = function (feedId, folderId) {
         var reload = false;
         var feed = FeedResource.getById(feedId);
+
+        if (feed.folderId === folderId) {
+            return;
+        }
 
         if (this.isFolderActive(feed.folderId) ||
             this.isFolderActive(folderId)) {
