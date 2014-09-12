@@ -9,7 +9,7 @@ owncloud-news (3.001)
 * Make hover buttons available under a menu button
 * Import feeds from a very large OPML file in chunks to prevent server slowdown
 * Port clientside code from CoffeeScript to JavaScript
-* Removed pull to refresh since it had many issues
+* Removed pull to refresh since it had many issues and needs a better concept with oldest first ordering
 * Push API to 1.4
 * Slim down appstore build
 * Allow to specifiy custom CSS rules for each feed
