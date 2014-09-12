@@ -960,7 +960,6 @@ app.factory('ItemResource', ["Resource", "$http", "BASE_URL", "ITEM_BATCH_SIZE",
                                       ITEM_BATCH_SIZE) {
     'use strict';
 
-
     var ItemResource = function ($http, BASE_URL, ITEM_BATCH_SIZE) {
         Resource.call(this, $http, BASE_URL);
         this.starredCount = 0;
@@ -1080,7 +1079,9 @@ app.factory('ItemResource', ["Resource", "$http", "BASE_URL", "ITEM_BATCH_SIZE",
             item.unread = !read;
         });
 
-        return this.http.post(this.BASE_URL + '/feeds/' + feedId + '/read');
+        return this.http.post(this.BASE_URL + '/feeds/' + feedId + '/read', {
+            highestItemId: this.getNewestItemId()
+        });
     };
 
 
@@ -1089,7 +1090,13 @@ app.factory('ItemResource', ["Resource", "$http", "BASE_URL", "ITEM_BATCH_SIZE",
             item.unread = false;
         });
 
-        return this.http.post(this.BASE_URL + '/items/read');
+        return this.http({
+            url: this.BASE_URL + '/items/read',
+            method: 'POST',
+            data: {
+                highestItemId: this.getNewestItemId()
+            }
+        });
     };
 
 

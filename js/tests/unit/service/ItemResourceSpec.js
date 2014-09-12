@@ -121,7 +121,9 @@ describe('ItemResource', function () {
 
 
     it ('should mark feed as read', inject(function (ItemResource) {
-        http.expectPOST('base/feeds/4/read').respond(200, {});
+        http.expectPOST('base/feeds/4/read', {
+            highestItemId: 5
+        }).respond(200, {});
 
         ItemResource.receive([
             {
@@ -140,6 +142,7 @@ describe('ItemResource', function () {
                 unread: true
             }
         ], 'items');
+        ItemResource.receive(5, 'newestItemId');
 
         ItemResource.markFeedRead(4);
 
@@ -151,7 +154,9 @@ describe('ItemResource', function () {
 
 
     it ('should mark all as read', inject(function (ItemResource) {
-        http.expectPOST('base/items/read').respond(200, {});
+        http.expectPOST('base/items/read', {
+            highestItemId: 5
+        }).respond(200, {});
 
         ItemResource.receive([
             {
@@ -160,16 +165,17 @@ describe('ItemResource', function () {
                 unread: true
             },
             {
-                id: 4,
+                id: 5,
                 feedId: 3,
                 unread: true
             },
             {
-                id: 5,
+                id: 4,
                 feedId: 4,
                 unread: true
             }
         ], 'items');
+        ItemResource.receive(5, 'newestItemId');
 
         ItemResource.markRead();
 

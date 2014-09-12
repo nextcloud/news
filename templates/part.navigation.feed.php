@@ -9,7 +9,7 @@
             || !feed.id"
     data-id="{{ feed.id }}"
     class="feed with-counter with-menu"
-    news-draggable-disable="{{ feed.error.length > 0 || !feed.id || !feed.deleted || !feed.editing}}"
+    news-draggable-disable="{{ feed.error.length > 0 || !feed.id || feed.deleted || feed.editing}}"
     news-draggable="{
         stack: '> li',
         zIndex: 1000,
