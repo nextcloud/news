@@ -35,14 +35,13 @@
        {{ feed.title }}
     </a>
 
-    <div ng-if="feed.deleted" class="app-navigation-entry-deleted" news-timeout="Navigation.removeFeed(feed)">
-        <div class="app-navigation-entry-deleted-description"><?php p($l->t('Deleted')); ?> {{ feed.title }}</div>
+    <div ng-if="feed.deleted"
+         class="app-navigation-entry-deleted"
+         news-timeout="Navigation.deleteFeed(feed)">
+        <div class="app-navigation-entry-deleted-description"><?php p($l->t('Deleted feed')); ?> {{ feed.title }}</div>
         <button class="icon-history"
-                title="<?php p($l->t('Undo')); ?>"
-                ng-click="Navigation.undeleteFeed(feed)"></button>
-        <button class="icon-close"
-                title="<?php p($l->t('Remove notification')); ?>"
-                ng-click="Navigation.removeFeed(feed)"></button>
+                title="<?php p($l->t('Undo delete feed')); ?>"
+                ng-click="Navigation.undoDeleteFeed(feed)"></button>
     </div>
 
     <div ng-if="feed.editing" class="app-navigation-entry-edit">
@@ -77,11 +76,10 @@
             <li><button ng-click="feed.editing=true"
                         class="icon-rename"
                         title="<?php p($l->t('Rename feed')); ?>"></button></li>
-            <li><button ng-click="Navigation.deleteFeed(feed)"
+            <li><button ng-click="Navigation.reversiblyDeleteFeed(feed)"
                         class="icon-delete"
                         title="<?php p($l->t('Delete feed')); ?>"></button></li>
-            <li><button ng-show="Navigation.getFeedUnreadCount(feed.id) > 0"
-                        class="icon-checkmark"
+            <li ng-show="Navigation.getFeedUnreadCount(feed.id) > 0"><button class="icon-checkmark"
                         ng-click="Navigation.markFeedRead(feed.id)"
                         title="<?php p($l->t('Read all')); ?>"></button></li>
         </ul>
@@ -92,7 +90,7 @@
         <span class="message">{{ feed.error }}</span>
         <button type="button "
                 title="<?php p($l->t('Dismiss')); ?>"
-                ng-click="Navigation.removeFeed(feed)"></button>
+                ng-click="Navigation.deleteFeed(feed)"></button>
     </div>
 </li>
 

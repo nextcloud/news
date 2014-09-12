@@ -228,26 +228,34 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
         }
     };
 
-    // TBD
-    this.deleteFeed = function (feed) {
+    this.reversiblyDeleteFeed = function (feed) {
         feed.deleted = true;
-        // todo remote stuff
+        FeedResource.reversiblyDelete(feed.id);
     };
 
-    this.undeleteFeed = function (feed) {
+    this.undoDeleteFeed = function (feed) {
         feed.deleted = false;
+        FeedResource.undoDelete(feed.id);
+    };
+
+    this.deleteFeed = function (feed) {
+        FeedResource.delete(feed.id);
+    };
+
+
+    // TBD
+    this.reversiblyDeleteFolder = function (folder) {
+        folder.deleted = true;
+        console.log(folder);
+    };
+
+    this.undoDeleteFolder = function (folder) {
+        console.log(folder);
         // todo remote stuff
     };
 
-    this.removeFeed = function (feed) {
-        console.log('remove ' + feed);
-    };
-
-    this.deleteFolder = function (folderName) {
-        console.log(folderName);
-    };
-
-    this.removeFolder = function (folder) {
+    this.deleteFolder = function (folder) {
+        //folder.deleted = false;
         console.log('remove ' + folder);
     };
 

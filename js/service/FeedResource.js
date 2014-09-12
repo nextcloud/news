@@ -16,7 +16,6 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
         this.unreadCount = 0;
         this.folderUnreadCount = {};
         this.folderIds = {};
-        this.deleted = null;
         this.$q = $q;
     };
 
@@ -64,20 +63,6 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
         if (value.id !== undefined) {
             this.ids[value.id] = this.hashMap[value.url];
         }
-    };
-
-
-    FeedResource.prototype.delete = function (url) {
-        var feed = this.get(url);
-        this.deleted = feed;
-        delete this.ids[feed.id];
-
-        Resource.prototype.delete.call(this, url);
-
-        this.updateUnreadCache();
-        this.updateFolderCache();
-
-        return this.http.delete(this.BASE_URL + '/feeds/' + feed.id);
     };
 
 
@@ -221,17 +206,25 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
     };
 
 
-    FeedResource.prototype.undoDelete = function () {
-        if (this.deleted) {
-            this.add(this.deleted);
+    FeedResource.prototype.reversiblyDelete = function (id) {
+        return this.http.delete(this.BASE_URL + '/feeds/' + id);
+    };
 
-            return this.http.post(
-                this.BASE_URL + '/feeds/' + this.deleted.id + '/restore'
-            );
-        }
 
-        this.updateFolderCache();
+    FeedResource.prototype.delete = function (id) {
+        var feed = this.ids[id];
+        var url = feed.url;
+        delete this.ids[id];
+
+        Resource.prototype.delete.call(this, url);
+
         this.updateUnreadCache();
+        this.updateFolderCache();
+    };
+
+
+    FeedResource.prototype.undoDelete = function (id) {
+        return this.http.post(this.BASE_URL + '/feeds/' + id + '/restore');
     };
 
 

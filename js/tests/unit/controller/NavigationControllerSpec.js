@@ -707,4 +707,63 @@ describe('NavigationController', function () {
         expect(ctrl.renamingFolder).toBe(false);
     }));
 
+
+    it('should reversibly delete a feed', inject(function (
+    $controller, FeedResource) {
+        FeedResource.reversiblyDelete = jasmine.createSpy('reversiblyDelete');
+
+        var ctrl = $controller('NavigationController', {
+            FeedResource: FeedResource,
+        });
+
+        var feed = {
+            id: 3,
+            deleted: false
+        };
+
+        ctrl.reversiblyDeleteFeed(feed);
+
+        expect(FeedResource.reversiblyDelete).toHaveBeenCalledWith(3);
+        expect(feed.deleted).toBe(true);
+    }));
+
+
+    it('should undo delete a feed', inject(function (
+    $controller, FeedResource) {
+        FeedResource.undoDelete = jasmine.createSpy('undoDelete');
+
+        var ctrl = $controller('NavigationController', {
+            FeedResource: FeedResource,
+        });
+
+        var feed = {
+            id: 3,
+            deleted: false
+        };
+
+        ctrl.undoDeleteFeed(feed);
+
+        expect(FeedResource.undoDelete).toHaveBeenCalledWith(3);
+        expect(feed.deleted).toBe(false);
+    }));
+
+
+    it('should delete a feed', inject(function (
+    $controller, FeedResource) {
+        FeedResource.delete = jasmine.createSpy('undoDelete');
+
+        var ctrl = $controller('NavigationController', {
+            FeedResource: FeedResource,
+        });
+
+        var feed = {
+            id: 3
+        };
+
+        ctrl.deleteFeed(feed);
+
+        expect(FeedResource.delete).toHaveBeenCalledWith(3);
+    }));
+
+
 });

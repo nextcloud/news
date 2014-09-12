@@ -113,14 +113,13 @@ describe('FeedResource', function () {
 
 
 
-    it ('should delete a feed', inject(function (FeedResource) {
-        http.expectDELETE('base/feeds/1').respond(200, {});
+    it ('should reversibly delete a feed', inject(function (FeedResource) {
+        http.expectDELETE('base/feeds/2').respond(200, {});
 
-        FeedResource.delete('ye');
+        FeedResource.reversiblyDelete(2);
 
         http.flush();
 
-        expect(FeedResource.size()).toBe(2);
     }));
 
 
@@ -211,21 +210,28 @@ describe('FeedResource', function () {
     }));
 
 
-    it ('should undo a delete folder', inject(function (FeedResource) {
-        http.expectDELETE('base/feeds/1').respond(200, {});
+    it ('should undo a delete feed', inject(function (FeedResource) {
+        http.expectDELETE('base/feeds/2').respond(200, {});
 
-        FeedResource.delete('ye');
-
-        http.flush();
-
-
-        http.expectPOST('base/feeds/1/restore').respond(200, {});
-
-        FeedResource.undoDelete();
+        FeedResource.reversiblyDelete(2);
 
         http.flush();
 
-        expect(FeedResource.get('ye').id).toBe(1);
+
+        http.expectPOST('base/feeds/2/restore').respond(200, {});
+
+        FeedResource.undoDelete(2);
+
+        http.flush();
+
+        expect(FeedResource.get('sye').id).toBe(2);
+    }));
+
+
+    it ('should delete a feed', inject(function (FeedResource) {
+        FeedResource.delete(2);
+        expect(FeedResource.get('sye')).toBe(undefined);
+        expect(FeedResource.size()).toBe(2);
     }));
 
 

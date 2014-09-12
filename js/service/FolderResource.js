@@ -94,6 +94,11 @@ app.factory('FolderResource', function (Resource, $http, BASE_URL, $q) {
     };
 
 
+    FolderResource.prototype.reversiblyDeleteFolder = function (id) {
+        return this.http.delete(this.BASE_URL + '/folders/' + id);
+    };
+
+
     FolderResource.prototype.undoDelete = function () {
         // TODO: check for errors
         if (this.deleted) {

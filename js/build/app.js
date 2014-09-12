@@ -555,26 +555,34 @@ app.controller('NavigationController',
         }
     };
 
-    // TBD
-    this.deleteFeed = function (feed) {
+    this.reversiblyDeleteFeed = function (feed) {
         feed.deleted = true;
-        // todo remote stuff
+        FeedResource.reversiblyDelete(feed.id);
     };
 
-    this.undeleteFeed = function (feed) {
+    this.undoDeleteFeed = function (feed) {
         feed.deleted = false;
+        FeedResource.undoDelete(feed.id);
+    };
+
+    this.deleteFeed = function (feed) {
+        FeedResource.delete(feed.id);
+    };
+
+
+    // TBD
+    this.reversiblyDeleteFolder = function (folder) {
+        folder.deleted = true;
+        console.log(folder);
+    };
+
+    this.undoDeleteFolder = function (folder) {
+        console.log(folder);
         // todo remote stuff
     };
 
-    this.removeFeed = function (feed) {
-        console.log('remove ' + feed);
-    };
-
-    this.deleteFolder = function (folderName) {
-        console.log(folderName);
-    };
-
-    this.removeFolder = function (folder) {
+    this.deleteFolder = function (folder) {
+        //folder.deleted = false;
         console.log('remove ' + folder);
     };
 
@@ -653,7 +661,6 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
         this.unreadCount = 0;
         this.folderUnreadCount = {};
         this.folderIds = {};
-        this.deleted = null;
         this.$q = $q;
     };
 
@@ -701,20 +708,6 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
         if (value.id !== undefined) {
             this.ids[value.id] = this.hashMap[value.url];
         }
-    };
-
-
-    FeedResource.prototype.delete = function (url) {
-        var feed = this.get(url);
-        this.deleted = feed;
-        delete this.ids[feed.id];
-
-        Resource.prototype.delete.call(this, url);
-
-        this.updateUnreadCache();
-        this.updateFolderCache();
-
-        return this.http.delete(this.BASE_URL + '/feeds/' + feed.id);
     };
 
 
@@ -858,17 +851,25 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
     };
 
 
-    FeedResource.prototype.undoDelete = function () {
-        if (this.deleted) {
-            this.add(this.deleted);
+    FeedResource.prototype.reversiblyDelete = function (id) {
+        return this.http.delete(this.BASE_URL + '/feeds/' + id);
+    };
 
-            return this.http.post(
-                this.BASE_URL + '/feeds/' + this.deleted.id + '/restore'
-            );
-        }
 
-        this.updateFolderCache();
+    FeedResource.prototype.delete = function (id) {
+        var feed = this.ids[id];
+        var url = feed.url;
+        delete this.ids[id];
+
+        Resource.prototype.delete.call(this, url);
+
         this.updateUnreadCache();
+        this.updateFolderCache();
+    };
+
+
+    FeedResource.prototype.undoDelete = function (id) {
+        return this.http.post(this.BASE_URL + '/feeds/' + id + '/restore');
     };
 
 
@@ -958,6 +959,11 @@ app.factory('FolderResource', ["Resource", "$http", "BASE_URL", "$q", function (
         });
 
         return deferred.promise;
+    };
+
+
+    FolderResource.prototype.reversiblyDeleteFolder = function (id) {
+        return this.http.delete(this.BASE_URL + '/folders/' + id);
     };
 
 

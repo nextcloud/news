@@ -16,18 +16,17 @@
     data-id="{{ folder.id }}"
     news-droppable>
     <button class="collapse"
-            ng-hide="folder.editing"
+            ng-hide="folder.editing || folder.deleted"
             title="<?php p($l->t('Collapse'));?>"
             ng-click="Navigation.toggleFolder(folder.name)"></button>
 
-    <div ng-if="folder.deleted" class="app-navigation-entry-deleted" news-timeout="Navigation.removeFeed(feed)">
-        <div class="app-navigation-entry-deleted-description"><?php p($l->t('Deleted')); ?> {{ feed.title }}</div>
+    <div ng-if="folder.deleted"
+        class="app-navigation-entry-deleted"
+        news-timeout="Navigation.deleteFolder(folder)">
+        <div class="app-navigation-entry-deleted-description"><?php p($l->t('Deleted folder')); ?> {{ folder.name }}</div>
         <button class="icon-history"
-                title="<?php p($l->t('Undo')); ?>"
-                ng-click="Navigation.undeleteFolder(folder)"></button>
-        <button class="icon-close"
-                title="<?php p($l->t('Remove notification')); ?>"
-                ng-click="Navigation.removeFolder(folder)"></button>
+                title="<?php p($l->t('Undo delete folder')); ?>"
+                ng-click="Navigation.undoDeleteFolder(folder)"></button>
     </div>
 
     <div ng-if="folder.editing" class="app-navigation-entry-edit"
@@ -58,7 +57,7 @@
 
     <a ng-href="#/items/folders/{{ folder.id }}/"
         class="title icon-folder"
-        ng-show="!folder.editing && !folder.error && folder.id">
+        ng-show="!folder.editing && !folder.error && !folder.deleted && folder.id">
        {{ folder.name }}
     </a>
 
@@ -84,7 +83,7 @@
             <li><button ng-click="folder.editing=true"
                         class="icon-rename"
                         title="<?php p($l->t('Rename folder')); ?>"></button></li>
-            <li><button ng-click="Navigation.deleteFolder(folder)"
+            <li><button ng-click="Navigation.reversiblyDeleteFolder(folder)"
                         class="icon-delete"
                         title="<?php p($l->t('Delete folder')); ?>"></button></li>
             <li ng-show="Navigation.getFolderUnreadCount(folder.id) > 0"><button class="icon-checkmark"
@@ -92,7 +91,7 @@
                         title="<?php p($l->t('Read all')); ?>"></button></li>
         </ul>
     </div>
-    <ul ng-hide="folder.error">
+    <ul ng-hide="folder.error || folder.deleted">
         <?php print_unescaped($this->inc('part.navigation.feed', ['folderId' => 'folder.id'])); ?>
     </ul>
 
@@ -101,6 +100,6 @@
         <span class="message">{{ folder.error }}</span>
         <button type="button "
                 title="<?php p($l->t('Dismiss')); ?>"
-                ng-click="Navigation.removeFolder(folder)"></button>
+                ng-click="Navigation.deleteFolder(folder)"></button>
     </div>
 </li>
