@@ -1,7 +1,6 @@
 <li ng-class="{
         active: Navigation.isFeedActive(feed.id),
-        unread: Navigation.getFeedUnreadCount(feed.id) > 0,
-        failed: feed.error
+        unread: Navigation.getFeedUnreadCount(feed.id) > 0
     }"
     ng-repeat="feed in Navigation.getFeedsOfFolder(<?php p($_['folderId']); ?>) | orderBy:'id':true track by feed.url"
     ng-show="Navigation.getFeedUnreadCount(feed.id) > 0

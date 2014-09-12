@@ -2,8 +2,7 @@
         active: Navigation.isFolderActive(folder.id),
         open: folder.opened && Navigation.hasFeeds(folder.id),
         collapsible: Navigation.hasFeeds(folder.id),
-        unread: Navigation.getFolderUnreadCount(folder.id) > 0,
-        failed: folder.error
+        unread: Navigation.getFolderUnreadCount(folder.id) > 0
     }"
     ng-repeat="folder in Navigation.getFolders() | orderBy:'id':true"
     ng-show="Navigation.getFolderUnreadCount(folder.id) != 0
@@ -39,7 +38,7 @@
 
     <a ng-href="#/items/folders/{{ folder.id }}/"
         class="title icon-folder"
-        ng-hide="folder.editing"
+        ng-hide="folder.editing || folder.error"
         ng-class="{
             'icon-loading': !folder.id
         }">
@@ -73,9 +72,15 @@
                         title="<?php p($l->t('Read all')); ?>"></button></li>
         </ul>
     </div>
-    <ul>
+    <ul ng-hide="folder.error">
         <?php print_unescaped($this->inc('part.navigation.feed', ['folderId' => 'folder.id'])); ?>
     </ul>
 
-    <div class="message" ng-show="folder.error">{{ folder.error }}</div>
+    <div class="error-message" ng-show="folder.error">
+        <h2 class="title">{{ folder.name }}</h2>
+        <span class="message">{{ folder.error }}</span>
+        <button type="button "
+                title="<?php p($l->t('Dismiss')); ?>"
+                ng-click="Navigation.removeFolder(folder)"></button>
+    </div>
 </li>
