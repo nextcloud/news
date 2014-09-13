@@ -54,7 +54,7 @@ style('news', [
             ng-class="{'autopaging': App.loading.isLoading('autopaging')}"
             ng-hide="App.loading.isLoading('global')"
             ng-view
-            news-scroll
+            news-scroll="#app-content"
             news-scroll-enabled-auto-page="Content.autoPagingEnabled()"
             news-scroll-enabled-mark-read="Content.markReadEnabled()"
             news-scroll-auto-page="Content.autoPage()"

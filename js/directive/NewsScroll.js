@@ -64,6 +64,7 @@ app.directive('newsScroll', function ($timeout) {
     return {
         restrict: 'A',
         scope: {
+            'newsScroll': '@',
             'newsScrollAutoPage': '&',
             'newsScrollMarkRead': '&',
             'newsScrollEnabledMarkRead': '=',
@@ -74,6 +75,11 @@ app.directive('newsScroll', function ($timeout) {
         },
         link: function (scope, elem) {
             var allowScroll = true;
+            var scrollArea = elem;
+
+            if (scope.newsScroll) {
+                scrollArea = $(scope.newsScroll);
+            }
 
             var scrollTimeout = scope.newsScrollTimeout || 1;
             var markReadTimeout = scope.newsScrollMarkReadTimeout || 1;
@@ -100,14 +106,13 @@ app.directive('newsScroll', function ($timeout) {
                                  scope);
                     }, markReadTimeout*1000);
                 }
-
             };
 
-            elem.on('scroll', scrollHandler);
+            scrollArea.on('scroll', scrollHandler);
 
             // remove scroll handler if element is destroyed
             scope.$on('$destroy', function () {
-                elem.off('scroll', scrollHandler);
+                scrollArea.off('scroll', scrollHandler);
             });
         }
     };
