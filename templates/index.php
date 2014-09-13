@@ -4,7 +4,6 @@ script('news', [
     'vendor/angular/angular.min',
     'vendor/angular-route/angular-route.min',
     'vendor/angular-sanitize/angular-sanitize.min',
-    'vendor/angular-animate/angular-animate.min',
     'vendor/momentjs/min/moment-with-locales.min',
     'build/app',
 ]);

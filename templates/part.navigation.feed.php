@@ -3,7 +3,6 @@
         unread: Navigation.getFeedUnreadCount(feed.id) > 0
     }"
     ng-repeat="feed in Navigation.getFeedsOfFolder(<?php p($_['folderId']); ?>) | orderBy:'id':true track by feed.url"
-    ng-animate="animate"
     ng-show="Navigation.getFeedUnreadCount(feed.id) > 0
             || Navigation.isShowAll()
             || Navigation.isFeedActive(feed.id)

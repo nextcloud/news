@@ -3,7 +3,7 @@
 'use strict';
 
 
-var app = angular.module('News', ['ngRoute', 'ngSanitize', 'ngAnimate']);
+var app = angular.module('News', ['ngRoute', 'ngSanitize']);
 app.config(["$routeProvider", "$provide", "$httpProvider", function ($routeProvider, $provide, $httpProvider) {
     'use strict';
 
