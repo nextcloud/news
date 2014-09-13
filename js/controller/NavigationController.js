@@ -229,12 +229,10 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
     };
 
     this.reversiblyDeleteFeed = function (feed) {
-        feed.deleted = true;
         FeedResource.reversiblyDelete(feed.id);
     };
 
     this.undoDeleteFeed = function (feed) {
-        feed.deleted = false;
         FeedResource.undoDelete(feed.id);
     };
 
@@ -243,42 +241,18 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
     };
 
 
-    this._deletedFeedsBackup = {};
     this.reversiblyDeleteFolder = function (folder) {
-        folder.deleted = true;
-
-        var self = this;
-        var feeds = FeedResource.getByFolderId(folder.id);
-
-        // keep feeds for undo
-        feeds.forEach(function (feed) {
-            self._deletedFeedsBackup[folder.name] =
-                self._deletedFeedsBackup[folder.name] || [];
-            self._deletedFeedsBackup[folder.name].push(feed);
-            FeedResource.delete(feed.url);
-            self.reversiblyDeleteFeed(feed);
-        });
-
-        FolderResource.reversiblyDelete(folder.id);
+        FeedResource.reversiblyDeleteFolder(folder.id);
+        FolderResource.reversiblyDelete(folder.name);
     };
 
     this.undoDeleteFolder = function (folder) {
-        folder.deleted = false;
-
-        var deletedFeeds = this._deletedFeedsBackup[folder.name];
-        if (deletedFeeds !== undefined) {
-            deletedFeeds.forEach(function (feed) {
-                self.undoDeleteFeed(feed);
-            });
-            FeedResource.receive(deletedFeeds);
-        }
-
-        FolderResource.undoDelete(folder.id);
-        delete this._deletedFeedsBackup[folder.name];
+        FeedResource.undoDeleteFolder(folder.id);
+        FolderResource.undoDelete(folder.name);
     };
 
     this.deleteFolder = function (folder) {
-        delete this._deletedFeedsBackup[folder.name];
+        FeedResource.deleteFolder(folder.id);
         FolderResource.delete(folder.name);
     };
 

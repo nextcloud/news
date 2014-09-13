@@ -725,7 +725,6 @@ describe('NavigationController', function () {
         ctrl.reversiblyDeleteFeed(feed);
 
         expect(FeedResource.reversiblyDelete).toHaveBeenCalledWith(3);
-        expect(feed.deleted).toBe(true);
     }));
 
 
@@ -745,7 +744,6 @@ describe('NavigationController', function () {
         ctrl.undoDeleteFeed(feed);
 
         expect(FeedResource.undoDelete).toHaveBeenCalledWith(3);
-        expect(feed.deleted).toBe(false);
     }));
 
 
@@ -771,7 +769,8 @@ describe('NavigationController', function () {
     it('should reversibly delete a folder', inject(function (
     $controller, FolderResource, FeedResource) {
         FolderResource.reversiblyDelete = jasmine.createSpy('reversiblyDelete');
-        FeedResource.reversiblyDelete = jasmine.createSpy('reversiblyDelete');
+        FeedResource.reversiblyDeleteFolder =
+            jasmine.createSpy('reversiblyDelete');
 
         var ctrl = $controller('NavigationController', {
             FolderResource: FolderResource,
@@ -786,19 +785,15 @@ describe('NavigationController', function () {
 
         ctrl.reversiblyDeleteFolder(folder);
 
-        expect(FolderResource.reversiblyDelete).toHaveBeenCalledWith(3);
-        expect(FeedResource.reversiblyDelete).toHaveBeenCalledWith(1);
-        expect(FeedResource.reversiblyDelete).toHaveBeenCalledWith(3);
-        expect(folder.deleted).toBe(true);
-        expect(FeedResource.size(2)).toBe(1);
-        expect(ctrl._deletedFeedsBackup.test.length).toBe(2);
+        expect(FolderResource.reversiblyDelete).toHaveBeenCalledWith('test');
+        expect(FeedResource.reversiblyDeleteFolder).toHaveBeenCalledWith(3);
     }));
 
 
     it('should undo delete a folder', inject(function (
     $controller, FolderResource, FeedResource) {
         FolderResource.undoDelete = jasmine.createSpy('undoDelete');
-        FeedResource.undoDelete = jasmine.createSpy('undoDelete');
+        FeedResource.undoDeleteFolder = jasmine.createSpy('undoDelete');
 
         var ctrl = $controller('NavigationController', {
             FolderResource: FolderResource,
@@ -811,28 +806,17 @@ describe('NavigationController', function () {
             name: 'test'
         };
 
-        var feed1 = FeedResource.delete('ye');
-        var feed2 = FeedResource.delete('1sye');
-        expect(FeedResource.size()).toBe(1);
-
-        ctrl._deletedFeedsBackup.test = [feed1, feed2];
-
         ctrl.undoDeleteFolder(folder);
 
-        expect(FolderResource.undoDelete).toHaveBeenCalledWith(3);
-        expect(FeedResource.undoDelete).toHaveBeenCalledWith(1);
-        expect(FeedResource.undoDelete).toHaveBeenCalledWith(3);
-        expect(folder.deleted).toBe(false);
-        expect(feed1.deleted).toBe(false);
-        expect(feed2.deleted).toBe(false);
-        expect(FeedResource.size()).toBe(3);
-        expect(ctrl._deletedFeedsBackup.test).toBe(undefined);
+        expect(FolderResource.undoDelete).toHaveBeenCalledWith('test');
+        expect(FeedResource.undoDeleteFolder).toHaveBeenCalledWith(3);
     }));
 
 
     it('should delete a folder', inject(function (
-    $controller, FolderResource) {
+    $controller, FolderResource, FeedResource) {
         FolderResource.delete = jasmine.createSpy('delete');
+        FeedResource.deleteFolder = jasmine.createSpy('undoDelete');
 
         var ctrl = $controller('NavigationController', {
             FolderResource: FolderResource,
@@ -843,12 +827,10 @@ describe('NavigationController', function () {
             name: 'test'
         };
 
-        ctrl._deletedFeedsBackup.test = [1, 2];
-
         ctrl.deleteFolder(folder);
 
         expect(FolderResource.delete).toHaveBeenCalledWith('test');
-        expect(ctrl._deletedFeedsBackup.test).toBe(undefined);
+        expect(FeedResource.deleteFolder).toHaveBeenCalledWith(3);
     }));
 
 

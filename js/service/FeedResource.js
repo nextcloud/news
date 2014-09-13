@@ -34,6 +34,10 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
 
         var self = this;
         this.values.forEach(function (feed) {
+            // deleted feeds should not add to the unread count
+            if (feed.deleted) {
+                return;
+            }
             if (feed.unreadCount) {
                 self.unreadCount += feed.unreadCount;
             }
@@ -206,12 +210,32 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
     };
 
 
-    FeedResource.prototype.reversiblyDelete = function (id) {
+    FeedResource.prototype.reversiblyDelete = function (id, updateCache) {
+        var feed = this.getById(id);
+
+        if (feed) {
+            feed.deleted = true;
+        }
+
+        if (updateCache !== false) {
+            this.updateUnreadCache();
+        }
+
         return this.http.delete(this.BASE_URL + '/feeds/' + id);
     };
 
 
-    FeedResource.prototype.delete = function (url) {
+    FeedResource.prototype.reversiblyDeleteFolder = function (folderId) {
+        var self = this;
+        this.getByFolderId(folderId).forEach(function (feed) {
+            self.reversiblyDelete(feed.id, false);
+        });
+
+        this.updateUnreadCache();
+    };
+
+
+    FeedResource.prototype.delete = function (url, updateCache) {
         var feed = this.get(url);
         if (feed.id) {
             delete this.ids[feed.id];
@@ -219,15 +243,48 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
 
         Resource.prototype.delete.call(this, url);
 
-        this.updateUnreadCache();
-        this.updateFolderCache();
+        if (updateCache !== false) {
+            this.updateUnreadCache();
+            this.updateFolderCache();
+        }
 
         return feed;
     };
 
 
-    FeedResource.prototype.undoDelete = function (id) {
+    FeedResource.prototype.deleteFolder = function (folderId) {
+        var self = this;
+        this.getByFolderId(folderId).forEach(function (feed) {
+            self.delete(feed.url, false);
+        });
+
+        this.updateUnreadCache();
+        this.updateFolderCache();
+    };
+
+
+    FeedResource.prototype.undoDelete = function (id, updateCache) {
+        var feed = this.getById(id);
+
+        if (feed) {
+            feed.deleted = false;
+        }
+
+        if (updateCache !== false) {
+            this.updateUnreadCache();
+        }
+
         return this.http.post(this.BASE_URL + '/feeds/' + id + '/restore');
+    };
+
+
+    FeedResource.prototype.undoDeleteFolder = function (folderId) {
+        var self = this;
+        this.getByFolderId(folderId).forEach(function (feed) {
+            self.undoDelete(feed.id, false);
+        });
+
+        this.updateUnreadCache();
     };
 
 

@@ -120,6 +120,8 @@ describe('FeedResource', function () {
 
         http.flush();
 
+        expect(FeedResource.getById(2).deleted).toBe(true);
+        expect(FeedResource.getUnreadCount()).toBe(45);
     }));
 
 
@@ -225,6 +227,8 @@ describe('FeedResource', function () {
         http.flush();
 
         expect(FeedResource.get('sye').id).toBe(2);
+        expect(FeedResource.get('sye').deleted).toBe(false);
+        expect(FeedResource.getUnreadCount()).toBe(70);
     }));
 
 
@@ -237,5 +241,49 @@ describe('FeedResource', function () {
         expect(FeedResource.size()).toBe(2);
     }));
 
+
+    it ('should delete feeds of a folder', inject(function (FeedResource) {
+        FeedResource.deleteFolder(3);
+
+        expect(FeedResource.get('ye')).toBe(undefined);
+        expect(FeedResource.get('1sye')).toBe(undefined);
+        expect(FeedResource.getUnreadCount()).toBe(25);
+        expect(FeedResource.size()).toBe(1);
+    }));
+
+
+    it ('should reversibly delete a folder', inject(function (FeedResource) {
+        http.expectDELETE('base/feeds/1').respond(200, {});
+        http.expectDELETE('base/feeds/3').respond(200, {});
+
+        FeedResource.reversiblyDeleteFolder(3);
+
+        http.flush();
+
+        expect(FeedResource.getById(1).deleted).toBe(true);
+        expect(FeedResource.getById(3).deleted).toBe(true);
+        expect(FeedResource.getUnreadCount()).toBe(25);
+    }));
+
+
+    it ('should reversibly undelete a folder', inject(function (FeedResource) {
+        http.expectDELETE('base/feeds/1').respond(200, {});
+        http.expectDELETE('base/feeds/3').respond(200, {});
+
+        FeedResource.reversiblyDeleteFolder(3);
+
+        http.flush();
+
+        http.expectPOST('base/feeds/1/restore').respond(200, {});
+        http.expectPOST('base/feeds/3/restore').respond(200, {});
+
+        FeedResource.undoDeleteFolder(3);
+
+        http.flush();
+
+        expect(FeedResource.getById(1).deleted).toBe(false);
+        expect(FeedResource.getById(3).deleted).toBe(false);
+        expect(FeedResource.getUnreadCount()).toBe(70);
+    }));
 
 });

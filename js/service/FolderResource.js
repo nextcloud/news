@@ -85,12 +85,18 @@ app.factory('FolderResource', function (Resource, $http, BASE_URL, $q) {
     };
 
 
-    FolderResource.prototype.reversiblyDelete = function (id) {
+    FolderResource.prototype.reversiblyDelete = function (name) {
+        var folder = this.get(name);
+        var id = folder.id;
+        folder.deleted = true;
         return this.http.delete(this.BASE_URL + '/folders/' + id);
     };
 
 
-    FolderResource.prototype.undoDelete = function (id) {
+    FolderResource.prototype.undoDelete = function (name) {
+        var folder = this.get(name);
+        var id = folder.id;
+        folder.deleted = false;
         return this.http.post(this.BASE_URL + '/folders/' + id + '/restore');
     };
 
