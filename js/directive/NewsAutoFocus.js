@@ -18,7 +18,7 @@ app.directive('newsAutoFocus', function ($timeout) {
 
         // to combat $digest already in process error when route changes
         $timeout(function () {
-        	toFocus.focus();
+            toFocus.focus();
         }, 0);
     };
 });

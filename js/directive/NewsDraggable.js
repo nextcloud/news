@@ -20,11 +20,11 @@ app.directive('newsDraggable', function () {
         }
 
         attr.$observe('newsDraggableDisable', function (value) {
-        	if (value === 'true') {
-        		elem.draggable('disable');
-        	} else {
-        		elem.draggable('enable');
-        	}
+            if (value === 'true') {
+                elem.draggable('disable');
+            } else {
+                elem.draggable('enable');
+            }
         });
     };
 });
