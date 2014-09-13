@@ -231,6 +231,12 @@
         margin-right: 25px;
     }
 
+    @media (max-width: 770px) {
+        #app-content .utils .date {
+            display: none;
+        }
+    }
+
 /**
  * Expanded content
  */
