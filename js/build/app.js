@@ -1275,6 +1275,69 @@ app.service('Loading', function () {
     };
 
 });
+app.service('OPMLParser', function () {
+    'use strict';
+
+    var parseOutline = function (outline) {
+        outline = $(outline);
+
+        var url = outline.attr('xmlUrl') || outline.attr('htmlUrl');
+        var title = outline.attr('title') || outline.attr('text') || url;
+
+        // folder
+        if (url === undefined) {
+            return {
+                type: 'folder',
+                title: title,
+                feeds: []
+            };
+
+        // feed
+        } else {
+            return {
+                type: 'feed',
+                title: title,
+                url: url
+            };
+        }
+    };
+
+    // there is only one level, so feeds in a folder in a folder should be
+    // attached to the root folder
+    var recursivelyParse = function (level, root, firstLevel) {
+        $(root).each(function (index, outline) {
+            outline = $(outline);
+
+            var type = parseOutline(outline);
+
+            if (type === 'feed') {
+                root.feeds.push(type);
+            } else {
+                // only first level should append folders
+                if (firstLevel) {
+                    root.folders.push(type);
+                }
+
+                recursivelyParse(outline.children('outline'), type);
+            }
+
+            return root;
+        });
+    };
+
+    this.parse = function (xml) {
+        xml = $.parseXml(xml);
+        var root = $(xml).find('body');
+
+        var parsed = {
+            'feeds': [],
+            'folders': []
+        };
+
+        return recursivelyParse(root, parsed, true);
+    };
+
+});
 /*jshint undef:false*/
 app.service('Publisher', function () {
     'use strict';
