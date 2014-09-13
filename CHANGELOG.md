@@ -10,7 +10,6 @@ owncloud-news (3.001)
 * Import feeds from a very large OPML file in chunks to prevent server slowdown
 * Port clientside code from CoffeeScript to JavaScript
 * Removed pull to refresh since it had many issues and needs a better concept with oldest first ordering
-* Push API to 1.4
 * Slim down appstore build
 * Allow to specifiy custom CSS rules for each feed
 * Compact view: Title ellipsis
@@ -29,6 +28,8 @@ owncloud-news (3.001)
 * Also focus scrollable area if the page is loaded
 * Pixel perfect folder and feed inputs
 * New add feed design
+* API: add parameter to get items by oldest first
+* Do not include starred count of deleted folders and feeds
 
 owncloud-news (2.003)
 * Use correct url for folder and feed api update methods

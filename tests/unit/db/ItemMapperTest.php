@@ -103,12 +103,17 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 		$row = array(
 			array('size' => 9)
 		);
-		$sql = 'SELECT COUNT(*) AS size FROM `*PREFIX*news_feeds` `feeds` ' .
-			'JOIN `*PREFIX*news_items` `items` ' .
-				'ON `items`.`feed_id` = `feeds`.`id` ' .
+		$sql = 'SELECT COUNT(*) AS size FROM `*PREFIX*news_items` `items` '.
+			'JOIN `*PREFIX*news_feeds` `feeds` ' .
+				'ON `feeds`.`id` = `items`.`feed_id` '.
+				'AND `feeds`.`deleted_at` = 0 ' .
 				'AND `feeds`.`user_id` = ? ' .
-			'WHERE ((`items`.`status` & ' . StatusFlag::STARRED . ') = '
-				. StatusFlag::STARRED . ')';
+				'AND ((`items`.`status` & ' . StatusFlag::STARRED . ') = ' .
+				StatusFlag::STARRED . ')' .
+			'LEFT OUTER JOIN `*PREFIX*news_folders` `folders` ' .
+				'ON `folders`.`id` = `feeds`.`folder_id` ' .
+			'WHERE `feeds`.`folder_id` = 0 ' .
+				'OR `folders`.`deleted_at` = 0';
 
 		$this->setMapperResult($sql, array($userId), $row);
 

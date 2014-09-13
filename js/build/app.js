@@ -335,8 +335,8 @@ app.controller('ContentController',
 
 }]);
 app.controller('NavigationController',
-["$route", "FEED_TYPE", "FeedResource", "FolderResource", "ItemResource", "SettingsResource", "Publisher", "$rootScope", "$location", function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
-    SettingsResource, Publisher, $rootScope, $location) {
+["$route", "FEED_TYPE", "FeedResource", "FolderResource", "ItemResource", "SettingsResource", "Publisher", "$rootScope", "$location", "$q", function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
+    SettingsResource, Publisher, $rootScope, $location, $q) {
     'use strict';
 
     this.feedError = '';
@@ -556,11 +556,15 @@ app.controller('NavigationController',
     };
 
     this.reversiblyDeleteFeed = function (feed) {
-        FeedResource.reversiblyDelete(feed.id);
+        FeedResource.reversiblyDelete(feed.id).finally(function () {
+            $route.reload();
+        });
     };
 
     this.undoDeleteFeed = function (feed) {
-        FeedResource.undoDelete(feed.id);
+        FeedResource.undoDelete(feed.id).finally(function () {
+            $route.reload();
+        });
     };
 
     this.deleteFeed = function (feed) {
@@ -569,13 +573,21 @@ app.controller('NavigationController',
 
 
     this.reversiblyDeleteFolder = function (folder) {
-        FeedResource.reversiblyDeleteFolder(folder.id);
-        FolderResource.reversiblyDelete(folder.name);
+        $q.all(
+            FeedResource.reversiblyDeleteFolder(folder.id),
+            FolderResource.reversiblyDelete(folder.name)
+        ).finally(function () {
+            $route.reload();
+        });
     };
 
     this.undoDeleteFolder = function (folder) {
-        FeedResource.undoDeleteFolder(folder.id);
-        FolderResource.undoDelete(folder.name);
+        $q.all(
+            FeedResource.undoDeleteFolder(folder.id),
+            FolderResource.undoDelete(folder.name)
+        ).finally(function () {
+            $route.reload();
+        });
     };
 
     this.deleteFolder = function (folder) {
@@ -869,11 +881,15 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
 
     FeedResource.prototype.reversiblyDeleteFolder = function (folderId) {
         var self = this;
+        var promises = [];
         this.getByFolderId(folderId).forEach(function (feed) {
-            self.reversiblyDelete(feed.id, false);
+            promises.push(self.reversiblyDelete(feed.id, false));
         });
 
         this.updateUnreadCache();
+
+        var deferred = this.$q.all(promises);
+        return deferred.promise;
     };
 
 
@@ -922,11 +938,16 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
 
     FeedResource.prototype.undoDeleteFolder = function (folderId) {
         var self = this;
+        var promises = [];
+
         this.getByFolderId(folderId).forEach(function (feed) {
-            self.undoDelete(feed.id, false);
+            promises.push(self.undoDelete(feed.id, false));
         });
 
         this.updateUnreadCache();
+
+        var deferred = this.$q.all(promises);
+        return deferred.promise;
     };
 
 

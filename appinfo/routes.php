@@ -91,42 +91,5 @@ $application->registerRoutes($this, ['routes' => [
 	['name' => 'item_api#unstar', 'url' => '/api/v1-2/items/{feedId}/{guidHash}/unstar', 'verb' => 'PUT'], // FIXME: POST would be more correct
 	['name' => 'item_api#star_multiple', 'url' => '/api/v1-2/items/star/multiple', 'verb' => 'PUT'], // FIXME: POST would be more correct
 	['name' => 'item_api#unstar_multiple', 'url' => '/api/v1-2/items/unstar/multiple', 'verb' => 'PUT'], // FIXME: POST would be more correct
-
-	// API 1.4
-	['name' => 'utility_api#version', 'url' => '/api/v1-4/version', 'verb' => 'GET'],
-	['name' => 'utility_api#before_update', 'url' => '/api/v1-4/cleanup/before-update', 'verb' => 'GET'],
-	['name' => 'utility_api#after_update', 'url' => '/api/v1-4/cleanup/after-update', 'verb' => 'GET'],
-	['name' => 'utility_api#preflighted_cors', 'url' => '/api/v1-4/{path}', 'verb' => 'OPTIONS', 'requirements' => ['path' => '.+']],
-
-	// folders
-	['name' => 'folder_api#index', 'url' => '/api/v1-4/folders', 'verb' => 'GET'],
-	['name' => 'folder_api#create', 'url' => '/api/v1-4/folders', 'verb' => 'POST'],
-	['name' => 'folder_api#update', 'url' => '/api/v1-4/folders/{folderId}', 'verb' => 'PUT'],
-	['name' => 'folder_api#delete', 'url' => '/api/v1-4/folders/{folderId}', 'verb' => 'DELETE'],
-	['name' => 'folder_api#read', 'url' => '/api/v1-4/folders/{folderId}/read', 'verb' => 'POST'],
-
-	// feeds
-	['name' => 'feed_api#index', 'url' => '/api/v1-4/feeds', 'verb' => 'GET'],
-	['name' => 'feed_api#create', 'url' => '/api/v1-4/feeds', 'verb' => 'POST'],
-	['name' => 'feed_api#update', 'url' => '/api/v1-4/feeds/{feedId}', 'verb' => 'PUT'],
-	['name' => 'feed_api#delete', 'url' => '/api/v1-4/feeds/{feedId}', 'verb' => 'DELETE'],
-	['name' => 'feed_api#from_all_users', 'url' => '/api/v1-4/feeds/all', 'verb' => 'GET'],
-	['name' => 'feed_api#move', 'url' => '/api/v1-4/feeds/{feedId}/move', 'verb' => 'POST'],
-	['name' => 'feed_api#rename', 'url' => '/api/v1-4/feeds/{feedId}/rename', 'verb' => 'POST'],
-	['name' => 'feed_api#read', 'url' => '/api/v1-4/feeds/{feedId}/read', 'verb' => 'POST'],
-	['name' => 'feed_api#update', 'url' => '/api/v1-4/feeds/update', 'verb' => 'GET'],
-
-	// items
-	['name' => 'item_api#index', 'url' => '/api/v1-4/items', 'verb' => 'GET'],
-	['name' => 'item_api#updated', 'url' => '/api/v1-4/items/updated', 'verb' => 'GET'],
-	['name' => 'item_api#read', 'url' => '/api/v1-4/items/{itemId}/read', 'verb' => 'POST'],
-	['name' => 'item_api#unread', 'url' => '/api/v1-4/items/{itemId}/unread', 'verb' => 'POST'],
-	['name' => 'item_api#read_all', 'url' => '/api/v1-4/items/read', 'verb' => 'POST'],
-	['name' => 'item_api#read_multiple', 'url' => '/api/v1-4/items/read/multiple', 'verb' => 'POST'],
-	['name' => 'item_api#unread_multiple', 'url' => '/api/v1-4/items/unread/multiple', 'verb' => 'POST'],
-	['name' => 'item_api#star', 'url' => '/api/v1-4/items/{feedId}/{guidHash}/star', 'verb' => 'POST'],
-	['name' => 'item_api#unstar', 'url' => '/api/v1-4/items/{feedId}/{guidHash}/unstar', 'verb' => 'POST'],
-	['name' => 'item_api#star_multiple', 'url' => '/api/v1-4/items/star/multiple', 'verb' => 'POST'],
-	['name' => 'item_api#unstar_multiple', 'url' => '/api/v1-4/items/unstar/multiple', 'verb' => 'POST']
 ]]);
 

@@ -709,11 +709,17 @@ describe('NavigationController', function () {
 
 
     it('should reversibly delete a feed', inject(function (
-    $controller, FeedResource) {
-        FeedResource.reversiblyDelete = jasmine.createSpy('reversiblyDelete');
+    $controller, FeedResource, $q, $rootScope) {
+        var deferred = $q.defer();
+        FeedResource.reversiblyDelete = jasmine.createSpy('reversiblyDelete')
+            .andReturn(deferred.promise);
+        var route = {
+            reload: jasmine.createSpy('reload')
+        };
 
         var ctrl = $controller('NavigationController', {
             FeedResource: FeedResource,
+            $route: route
         });
 
         var feed = {
@@ -724,16 +730,27 @@ describe('NavigationController', function () {
 
         ctrl.reversiblyDeleteFeed(feed);
 
+        // $q is triggered by $digest on $rootScope
+        deferred.resolve();
+        $rootScope.$digest();
+
         expect(FeedResource.reversiblyDelete).toHaveBeenCalledWith(3);
+        expect(route.reload).toHaveBeenCalled();
     }));
 
 
     it('should undo delete a feed', inject(function (
-    $controller, FeedResource) {
-        FeedResource.undoDelete = jasmine.createSpy('undoDelete');
+    $controller, FeedResource, $q, $rootScope) {
+        var deferred = $q.defer();
+        FeedResource.undoDelete = jasmine.createSpy('undoDelete')
+        .andReturn(deferred.promise);
+        var route = {
+            reload: jasmine.createSpy('reload')
+        };
 
         var ctrl = $controller('NavigationController', {
             FeedResource: FeedResource,
+            $route: route
         });
 
         var feed = {
@@ -743,7 +760,12 @@ describe('NavigationController', function () {
 
         ctrl.undoDeleteFeed(feed);
 
+        // $q is triggered by $digest on $rootScope
+        deferred.resolve();
+        $rootScope.$digest();
+
         expect(FeedResource.undoDelete).toHaveBeenCalledWith(3);
+        expect(route.reload).toHaveBeenCalled();
     }));
 
 
@@ -767,14 +789,24 @@ describe('NavigationController', function () {
 
 
     it('should reversibly delete a folder', inject(function (
-    $controller, FolderResource, FeedResource) {
-        FolderResource.reversiblyDelete = jasmine.createSpy('reversiblyDelete');
+    $controller, FolderResource, FeedResource, $q, $rootScope) {
+        var deferredFeed = $q.defer();
+        var deferredFolder = $q.defer();
+
+        FolderResource.reversiblyDelete = jasmine.createSpy('reversiblyDelete')
+        .andReturn(deferredFolder.promise);
         FeedResource.reversiblyDeleteFolder =
-            jasmine.createSpy('reversiblyDelete');
+            jasmine.createSpy('reversiblyDelete')
+            .andReturn(deferredFolder.promise);
+
+        var route = {
+            reload: jasmine.createSpy('reload')
+        };
 
         var ctrl = $controller('NavigationController', {
             FolderResource: FolderResource,
-            FeedResource: FeedResource
+            FeedResource: FeedResource,
+            $route: route
         });
 
         var folder = {
@@ -785,19 +817,33 @@ describe('NavigationController', function () {
 
         ctrl.reversiblyDeleteFolder(folder);
 
+        // $q is triggered by $digest on $rootScope
+        deferredFeed.resolve();
+        deferredFolder.resolve();
+        $rootScope.$digest();
+
         expect(FolderResource.reversiblyDelete).toHaveBeenCalledWith('test');
         expect(FeedResource.reversiblyDeleteFolder).toHaveBeenCalledWith(3);
+        expect(route.reload).toHaveBeenCalled();
     }));
 
 
     it('should undo delete a folder', inject(function (
-    $controller, FolderResource, FeedResource) {
-        FolderResource.undoDelete = jasmine.createSpy('undoDelete');
-        FeedResource.undoDeleteFolder = jasmine.createSpy('undoDelete');
+    $controller, FolderResource, FeedResource, $q, $rootScope) {
+        var deferredFeed = $q.defer();
+        var deferredFolder = $q.defer();
+        FolderResource.undoDelete = jasmine.createSpy('undoDelete')
+        .andReturn(deferredFolder.promise);
+        FeedResource.undoDeleteFolder = jasmine.createSpy('undoDelete')
+        .andReturn(deferredFeed.promise);
+        var route = {
+            reload: jasmine.createSpy('reload')
+        };
 
         var ctrl = $controller('NavigationController', {
             FolderResource: FolderResource,
-            FeedResource: FeedResource
+            FeedResource: FeedResource,
+            $route: route
         });
 
         var folder = {
@@ -808,8 +854,14 @@ describe('NavigationController', function () {
 
         ctrl.undoDeleteFolder(folder);
 
+        // $q is triggered by $digest on $rootScope
+        deferredFeed.resolve();
+        deferredFolder.resolve();
+        $rootScope.$digest();
+
         expect(FolderResource.undoDelete).toHaveBeenCalledWith('test');
         expect(FeedResource.undoDeleteFolder).toHaveBeenCalledWith(3);
+        expect(route.reload).toHaveBeenCalled();
     }));
 
 

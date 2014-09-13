@@ -9,7 +9,7 @@
  */
 app.controller('NavigationController',
 function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
-    SettingsResource, Publisher, $rootScope, $location) {
+    SettingsResource, Publisher, $rootScope, $location, $q) {
     'use strict';
 
     this.feedError = '';
@@ -229,11 +229,15 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
     };
 
     this.reversiblyDeleteFeed = function (feed) {
-        FeedResource.reversiblyDelete(feed.id);
+        FeedResource.reversiblyDelete(feed.id).finally(function () {
+            $route.reload();
+        });
     };
 
     this.undoDeleteFeed = function (feed) {
-        FeedResource.undoDelete(feed.id);
+        FeedResource.undoDelete(feed.id).finally(function () {
+            $route.reload();
+        });
     };
 
     this.deleteFeed = function (feed) {
@@ -242,13 +246,21 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
 
 
     this.reversiblyDeleteFolder = function (folder) {
-        FeedResource.reversiblyDeleteFolder(folder.id);
-        FolderResource.reversiblyDelete(folder.name);
+        $q.all(
+            FeedResource.reversiblyDeleteFolder(folder.id),
+            FolderResource.reversiblyDelete(folder.name)
+        ).finally(function () {
+            $route.reload();
+        });
     };
 
     this.undoDeleteFolder = function (folder) {
-        FeedResource.undoDeleteFolder(folder.id);
-        FolderResource.undoDelete(folder.name);
+        $q.all(
+            FeedResource.undoDeleteFolder(folder.id),
+            FolderResource.undoDelete(folder.name)
+        ).finally(function () {
+            $route.reload();
+        });
     };
 
     this.deleteFolder = function (folder) {

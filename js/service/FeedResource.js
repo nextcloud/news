@@ -227,11 +227,15 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
 
     FeedResource.prototype.reversiblyDeleteFolder = function (folderId) {
         var self = this;
+        var promises = [];
         this.getByFolderId(folderId).forEach(function (feed) {
-            self.reversiblyDelete(feed.id, false);
+            promises.push(self.reversiblyDelete(feed.id, false));
         });
 
         this.updateUnreadCache();
+
+        var deferred = this.$q.all(promises);
+        return deferred.promise;
     };
 
 
@@ -280,11 +284,16 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
 
     FeedResource.prototype.undoDeleteFolder = function (folderId) {
         var self = this;
+        var promises = [];
+
         this.getByFolderId(folderId).forEach(function (feed) {
-            self.undoDelete(feed.id, false);
+            promises.push(self.undoDelete(feed.id, false));
         });
 
         this.updateUnreadCache();
+
+        var deferred = this.$q.all(promises);
+        return deferred.promise;
     };
 
 

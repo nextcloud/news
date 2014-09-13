@@ -75,16 +75,17 @@ class ItemMapper extends Mapper implements IMapper {
 
 
 	public function starredCount($userId){
-		$sql = 'SELECT COUNT(*) AS size FROM `*PREFIX*news_feeds` `feeds` ' .
-			'JOIN `*PREFIX*news_items` `items` ' .
-				'ON `items`.`feed_id` = `feeds`.`id` ' .
+		$sql = 'SELECT COUNT(*) AS size FROM `*PREFIX*news_items` `items` '.
+			'JOIN `*PREFIX*news_feeds` `feeds` ' .
+				'ON `feeds`.`id` = `items`.`feed_id` '.
+				'AND `feeds`.`deleted_at` = 0 ' .
 				'AND `feeds`.`user_id` = ? ' .
-			// WARNING: this is a desperate attempt at making this query work
-			// because prepared statements don't work. This is a possible
-			// SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
-			// think twice when changing this
-			'WHERE ((`items`.`status` & ' . StatusFlag::STARRED . ') = ' .
-				StatusFlag::STARRED . ')';
+				'AND ((`items`.`status` & ' . StatusFlag::STARRED . ') = ' .
+				StatusFlag::STARRED . ')' .
+			'LEFT OUTER JOIN `*PREFIX*news_folders` `folders` ' .
+				'ON `folders`.`id` = `feeds`.`folder_id` ' .
+			'WHERE `feeds`.`folder_id` = 0 ' .
+				'OR `folders`.`deleted_at` = 0';
 
 		$params = [$userId];
 
