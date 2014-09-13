@@ -35,7 +35,7 @@ app.service('OPMLParser', function () {
     // there is only one level, so feeds in a folder in a folder should be
     // attached to the root folder
     var recursivelyParse = function (level, root, firstLevel) {
-        for (var i=0; i<level.length; i++) {
+        for (var i=0; i<level.length; i+=1) {
             var outline = $(level[i]);
 
             var entry = parseOutline(outline);
