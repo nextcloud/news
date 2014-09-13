@@ -36,3 +36,13 @@
     background-size: 16px;
     padding-left: 25px;
 }
+
+#app-settings .import-export button,
+#app-settings .import-export a {
+    width: 105px;
+}
+
+#app-settings .import-export a {
+    display: inline-block;
+    padding-left: 40px;
+}
