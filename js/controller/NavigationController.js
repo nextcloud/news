@@ -256,6 +256,7 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
                 self._deletedFeedsBackup[folder.name] || [];
             self._deletedFeedsBackup[folder.name].push(feed);
             FeedResource.delete(feed.url);
+            self.reversiblyDeleteFeed(feed);
         });
 
         FolderResource.reversiblyDelete(folder.id);
@@ -266,10 +267,14 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
 
         var deletedFeeds = this._deletedFeedsBackup[folder.name];
         if (deletedFeeds !== undefined) {
+            deletedFeeds.forEach(function (feed) {
+                self.undoDeleteFeed(feed);
+            });
             FeedResource.receive(deletedFeeds);
         }
 
         FolderResource.undoDelete(folder.id);
+        delete this._deletedFeedsBackup[folder.name];
     };
 
     this.deleteFolder = function (folder) {

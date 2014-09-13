@@ -583,6 +583,7 @@ app.controller('NavigationController',
                 self._deletedFeedsBackup[folder.name] || [];
             self._deletedFeedsBackup[folder.name].push(feed);
             FeedResource.delete(feed.url);
+            self.reversiblyDeleteFeed(feed);
         });
 
         FolderResource.reversiblyDelete(folder.id);
@@ -593,10 +594,14 @@ app.controller('NavigationController',
 
         var deletedFeeds = this._deletedFeedsBackup[folder.name];
         if (deletedFeeds !== undefined) {
+            deletedFeeds.forEach(function (feed) {
+                self.undoDeleteFeed(feed);
+            });
             FeedResource.receive(deletedFeeds);
         }
 
         FolderResource.undoDelete(folder.id);
+        delete this._deletedFeedsBackup[folder.name];
     };
 
     this.deleteFolder = function (folder) {

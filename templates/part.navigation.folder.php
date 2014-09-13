@@ -10,7 +10,8 @@
             || Navigation.isFolderActive(folder.id)
             || Navigation.subFeedActive(folder.id)
             || !folder.id
-            || folder.getsFeed"
+            || folder.getsFeed
+            || !Navigation.hasFeeds(folder.id)"
     class="folder with-counter with-menu"
     data-id="{{ folder.id }}"
     news-droppable>
