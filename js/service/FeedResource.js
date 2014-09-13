@@ -220,6 +220,8 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
 
         this.updateUnreadCache();
         this.updateFolderCache();
+
+        return feed;
     };
 
 

@@ -35,13 +35,9 @@ describe('FolderResource', function () {
 
 
     it ('should delete a folder', inject(function (FolderResource) {
-        http.expectDELETE('base/folders/1').respond(200, {});
-
         FolderResource.delete('ye');
-
-        http.flush();
-
         expect(FolderResource.size()).toBe(2);
+        expect(FolderResource.get('ye')).toBe(undefined);
     }));
 
 
@@ -111,21 +107,21 @@ describe('FolderResource', function () {
     }));
 
 
-    it ('should undo a delete folder', inject(function (FolderResource) {
+    it ('should reversibly delete a folder', inject(function (FolderResource) {
         http.expectDELETE('base/folders/1').respond(200, {});
 
-        FolderResource.delete('ye');
+        FolderResource.reversiblyDelete(1);
 
         http.flush();
+    }));
 
 
+    it ('should undo a delete folder', inject(function (FolderResource) {
         http.expectPOST('base/folders/1/restore').respond(200, {});
 
-        FolderResource.undoDelete();
+        FolderResource.undoDelete(1);
 
         http.flush();
-
-        expect(FolderResource.get('ye').id).toBe(1);
     }));
 
 

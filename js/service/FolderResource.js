@@ -18,15 +18,6 @@ app.factory('FolderResource', function (Resource, $http, BASE_URL, $q) {
 
     FolderResource.prototype = Object.create(Resource.prototype);
 
-    FolderResource.prototype.delete = function (folderName) {
-        var folder = this.get(folderName);
-        this.deleted = folder;
-
-        Resource.prototype.delete.call(this, folderName);
-
-        return this.http.delete(this.BASE_URL + '/folders/' + folder.id);
-    };
-
 
     FolderResource.prototype.toggleOpen = function (folderName) {
         var folder = this.get(folderName);
@@ -94,20 +85,13 @@ app.factory('FolderResource', function (Resource, $http, BASE_URL, $q) {
     };
 
 
-    FolderResource.prototype.reversiblyDeleteFolder = function (id) {
+    FolderResource.prototype.reversiblyDelete = function (id) {
         return this.http.delete(this.BASE_URL + '/folders/' + id);
     };
 
 
-    FolderResource.prototype.undoDelete = function () {
-        // TODO: check for errors
-        if (this.deleted) {
-            this.add(this.deleted);
-
-            return this.http.post(
-                this.BASE_URL + '/folders/' + this.deleted.id + '/restore'
-            );
-        }
+    FolderResource.prototype.undoDelete = function (id) {
+        return this.http.post(this.BASE_URL + '/folders/' + id + '/restore');
     };
 
 

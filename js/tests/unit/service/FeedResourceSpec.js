@@ -229,7 +229,10 @@ describe('FeedResource', function () {
 
 
     it ('should delete a feed', inject(function (FeedResource) {
-        FeedResource.delete(2);
+        var feed = FeedResource.getById(2);
+        var deletedFeed = FeedResource.delete(2);
+
+        expect(deletedFeed).toBe(feed);
         expect(FeedResource.get('sye')).toBe(undefined);
         expect(FeedResource.size()).toBe(2);
     }));

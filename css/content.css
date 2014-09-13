@@ -83,7 +83,7 @@
     border-bottom: 1px solid #eee;
 }
 
-#app-content .item:last-child .article {
+#app-content .item:last-child {
     border-bottom: 0;
 }
 

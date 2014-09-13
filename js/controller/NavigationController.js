@@ -243,20 +243,38 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
     };
 
 
-    // TBD
+    this._deletedFeedsBackup = {};
     this.reversiblyDeleteFolder = function (folder) {
         folder.deleted = true;
-        console.log(folder);
+
+        var self = this;
+        var feeds = FeedResource.getByFolderId(folder.id);
+
+        // keep feeds for undo
+        feeds.forEach(function (feed) {
+            self._deletedFeedsBackup[folder.name] =
+                self._deletedFeedsBackup[folder.name] || [];
+            self._deletedFeedsBackup[folder.name].push(feed);
+            FeedResource.delete(feed.id);
+        });
+
+        FolderResource.reversiblyDelete(folder.id);
     };
 
     this.undoDeleteFolder = function (folder) {
-        console.log(folder);
-        // todo remote stuff
+        folder.deleted = false;
+
+        var deletedFeeds = this._deletedFeedsBackup[folder.name];
+        if (deletedFeeds !== undefined) {
+            FeedResource.receive(deletedFeeds);
+        }
+
+        FolderResource.undoDelete(folder.id);
     };
 
     this.deleteFolder = function (folder) {
-        //folder.deleted = false;
-        console.log('remove ' + folder);
+        delete this._deletedFeedsBackup[folder.name];
+        FolderResource.delete(folder.name);
     };
 
     var self = this;
