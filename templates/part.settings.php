@@ -47,23 +47,23 @@
 
   <button title="<?php p($l->t('Import')); ?>"
           class="icon-upload svg button-icon-label"
-          news-trigger-click="#opml-upload">
+          news-trigger-click="#opml-upload"
+          ng-disabled="Settings.isImporting()">
     <?php p($l->t('Import')); ?>
   </button>
-
 
   <a title="<?php p($l->t('Export')); ?>"
     class="button icon-download svg button-icon-label"
     href="<?php p(\OCP\Util::linkToRoute('news.export.opml')); ?>"
     target="_blank"
-    ng-show="feedSize() > 0">
+    ng-hide="App.isFirstRun()">
     <?php p($l->t('Export')); ?>
   </a>
 
   <button
     class="icon-download svg button-icon-label"
     title="<?php p($l->t('Export')); ?>"
-    ng-hide="feedSize() > 0"
+    ng-show="App.isFirstRun()"
     disabled>
     <?php p($l->t('Export')); ?>
   </button>
@@ -85,7 +85,7 @@
   <button title="<?php p($l->t('Import')); ?>"
     class="icon-upload svg button-icon-label"
     ng-class="{'icon-loading-small': Settings.importing}"
-    ng-disabled="importing"
+    ng-disabled="Settings.isImporting()"
     news-trigger-click="#article-upload">
     <?php p($l->t('Import')); ?>
   </button>
@@ -93,13 +93,13 @@
   <a title="<?php p($l->t('Export')); ?>" class="button icon-download svg button-icon-label"
     href="<?php p(\OCP\Util::linkToRoute('news.export.articles')); ?>"
     target="_blank"
-    ng-show="feedSize() > 0">
+    ng-hide="App.isFirstRun()">
     <?php p($l->t('Export')); ?>
   </a>
   <button
     class="icon-download svg button-icon-label"
     title="<?php p($l->t('Export')); ?>"
-    ng-hide="feedSize() > 0"
+    ng-show="App.isFirstRun()"
     disabled>
     <?php p($l->t('Export')); ?>
   </button>
