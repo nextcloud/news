@@ -13,12 +13,12 @@ clean:
 	rm -rf $(build_dir)
 
 dist: clean
-	appstore: clean
 	mkdir -p $(source_dir)
 	tar cvzf $(source_dir)/$(package_name).tar.gz $(project_dir) \
 	--exclude-vcs \
 	--exclude=$(project_dir)/build/artifacts \
-	--exclude=$(project_dir)/js/node_modules
+	--exclude=$(project_dir)/js/node_modules \
+	--exclude=$(project_dir)/js/coverage
 
 appstore: clean
 	mkdir -p $(appstore_dir)
@@ -26,7 +26,6 @@ appstore: clean
 	--exclude-vcs \
 	--exclude=$(project_dir)/build/artifacts \
 	--exclude=$(project_dir)/js/node_modules \
-	--exclude=$(project_dir)/js/phpunit.xml \
 	--exclude=$(project_dir)/js/.bowerrc \
 	--exclude=$(project_dir)/js/.jshintrc \
 	--exclude=$(project_dir)/js/Gruntfile.js \
@@ -42,29 +41,12 @@ appstore: clean
 	--exclude=$(project_dir)/js/filter \
 	--exclude=$(project_dir)/js/gui \
 	--exclude=$(project_dir)/js/service \
-	--exclude=$(project_dir)/js/utility \
 	--exclude=$(project_dir)/js/tests \
 	--exclude=$(project_dir)/js/vendor/jquery \
 	--exclude=$(project_dir)/js/vendor/angular-mocks \
-	--exclude=$(project_dir)/js/vendor/angular/angular.js \
-	--exclude=$(project_dir)/js/vendor/angular/angular.min.js.gzip \
-	--exclude=$(project_dir)/js/vendor/angular/angular.min.js.map \
-	--exclude=$(project_dir)/js/vendor/angular-animate/angular-animate.js \
-	--exclude=$(project_dir)/js/vendor/angular-animate/angular-animate.min.js.map \
-	--exclude=$(project_dir)/js/vendor/angular-route/angular-route.js \
-	--exclude=$(project_dir)/js/vendor/angular-route/angular-route.min.js.map \
-	--exclude=$(project_dir)/js/vendor/angular-sanitize/angular-sanitize.js \
-	--exclude=$(project_dir)/js/vendor/angular-sanitize/angular-sanitize.min.js.map \
-	--exclude=$(project_dir)/js/vendor/momentjs/lang \
-	--exclude=$(project_dir)/js/vendor/momentjs/moment.js \
-	--exclude=$(project_dir)/js/vendor/momentjs/min/langs.js \
-	--exclude=$(project_dir)/js/vendor/momentjs/min/langs.min.js \
-	--exclude=$(project_dir)/js/vendor/momentjs/min/moment.min.js \
-	--exclude=$(project_dir)/js/vendor/momentjs/min/moment-with-langs.js \
-	--exclude=$(project_dir)/js/vendor/traceur-runtime/traceur-runtime.js \
-	--exclude=$(project_dir)/js/vendor/traceur-runtime/traceur-runtime.min.map \
 	--exclude=$(project_dir)/.travis.yml \
 	--exclude=$(project_dir)/.scrutinizer.yml \
+	--exclude=$(project_dir)/phpunit.xml \
 	--exclude=$(project_dir)/Makefile \
 	--exclude=$(project_dir)/tests \
 	--exclude=$(project_dir)/3rdparty/simplepie/README.markdown \
