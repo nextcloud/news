@@ -37,8 +37,9 @@
     padding-left: 25px;
 }
 
-#app-settings .import-export {
-    padding-top: 10px;
+#app-settings .import-export h3 {
+    padding-top: 15px;
+    padding-bottom: 5px;
 }
 
 #app-settings .import-export button,
