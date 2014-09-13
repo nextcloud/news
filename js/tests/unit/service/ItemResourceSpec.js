@@ -209,8 +209,9 @@ describe('ItemResource', function () {
     }));
 
 
-    it ('should auto page', inject(function (ItemResource) {
-        http.expectGET('base/items?id=4&limit=5&offset=3&type=3')
+    it ('should auto page newest first', inject(function (ItemResource) {
+        http.expectGET(
+            'base/items?id=4&limit=5&offset=3&oldestFirst=false&type=3')
             .respond(200, {});
 
         ItemResource.receive([
@@ -220,20 +221,80 @@ describe('ItemResource', function () {
                 unread: true
             },
             {
-                id: 4,
+                id: 5,
                 feedId: 3,
                 unread: true
             },
             {
-                id: 5,
+                id: 4,
                 feedId: 4,
                 unread: true
             }
         ], 'items');
 
-        ItemResource.autoPage(3, 4);
+        ItemResource.autoPage(3, 4, false);
 
         http.flush();
+    }));
+
+
+    it ('should auto page oldest first', inject(function (ItemResource) {
+        http.expectGET(
+            'base/items?id=4&limit=5&offset=5&oldestFirst=true&type=3')
+            .respond(200, {});
+
+        ItemResource.receive([
+            {
+                id: 3,
+                feedId: 4,
+                unread: true
+            },
+            {
+                id: 5,
+                feedId: 3,
+                unread: true
+            },
+            {
+                id: 4,
+                feedId: 4,
+                unread: true
+            }
+        ], 'items');
+
+        ItemResource.autoPage(3, 4, true);
+
+        http.flush();
+    }));
+
+
+
+    it ('should clear all state', inject(function (ItemResource) {
+        ItemResource.receive([
+            {
+                id: 3,
+                feedId: 4,
+                unread: true
+            },
+            {
+                id: 5,
+                feedId: 3,
+                unread: true
+            },
+            {
+                id: 4,
+                feedId: 4,
+                unread: true
+            }
+        ], 'items');
+        ItemResource.receive(5, 'newestItemId');
+        ItemResource.receive(4, 'starred');
+
+        ItemResource.clear();
+
+        expect(ItemResource.size()).toBe(0);
+        expect(ItemResource.highestId).toBe(0);
+        expect(ItemResource.lowestId).toBe(0);
+        expect(ItemResource.starredCount).toBe(0);
     }));
 
 

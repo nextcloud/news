@@ -13,12 +13,18 @@ app.factory('ItemResource', function (Resource, $http, BASE_URL,
 
     var ItemResource = function ($http, BASE_URL, ITEM_BATCH_SIZE) {
         Resource.call(this, $http, BASE_URL);
-        this.starredCount = 0;
         this.batchSize = ITEM_BATCH_SIZE;
+        this.clear();
     };
 
     ItemResource.prototype = Object.create(Resource.prototype);
 
+    ItemResource.prototype.clear = function () {
+        this.starredCount = 0;
+        this.lowestId = 0;
+        this.highestId = 0;
+        Resource.prototype.clear.call(this);
+    };
 
     ItemResource.prototype.receive = function (value, channel) {
         switch (channel) {
@@ -32,6 +38,24 @@ app.factory('ItemResource', function (Resource, $http, BASE_URL,
             break;
 
         default:
+            var self = this;
+            value.forEach(function (item) {
+                // initialize lowest and highest id
+                if (self.lowestId === 0) {
+                    self.lowestId = item.id;
+                }
+                if (self.highestId === 0) {
+                    self.highestId = item.id;
+                }
+
+                if (item.id > self.highestId) {
+                    self.highestId = item.id;
+                }
+                if (item.id < self.lowestId) {
+                    self.lowestId = item.id;
+                }
+            });
+
             Resource.prototype.receive.call(this, value, channel);
         }
     };
@@ -151,15 +175,24 @@ app.factory('ItemResource', function (Resource, $http, BASE_URL,
     };
 
 
-    ItemResource.prototype.autoPage = function (type, id) {
+    ItemResource.prototype.autoPage = function (type, id, oldestFirst) {
+        var offset;
+
+        if (oldestFirst) {
+            offset = this.highestId;
+        } else {
+            offset = this.lowestId;
+        }
+
         return this.http({
             url: this.BASE_URL + '/items',
             method: 'GET',
             params: {
                 type: type,
                 id: id,
-                offset: this.size(),
-                limit: this.batchSize
+                offset: offset,
+                limit: this.batchSize,
+                oldestFirst: oldestFirst
             }
         });
     };

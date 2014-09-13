@@ -64,7 +64,13 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 	}
 
 
-	private function makeSelectQuery($prependTo){
+	private function makeSelectQuery($prependTo, $oldestFirst=false){
+		if ($oldestFirst) {
+			$ordering = 'ASC';
+		} else {
+			$ordering = 'DESC';
+		}
+
 		return 'SELECT `items`.* FROM `*PREFIX*news_items` `items` '.
 			'JOIN `*PREFIX*news_feeds` `feeds` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` '.
@@ -75,15 +81,16 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 				'ON `folders`.`id` = `feeds`.`folder_id` ' .
 			'WHERE `feeds`.`folder_id` = 0 ' .
 				'OR `folders`.`deleted_at` = 0 ' .
-			'ORDER BY `items`.`id` DESC';
+			'ORDER BY `items`.`id` ' . $ordering;
 	}
 
-	private function makeSelectQueryStatus($prependTo, $status) {
+	private function makeSelectQueryStatus($prependTo, $status,
+		                                   $oldestFirst=false) {
 		$status = (int) $status;
 
 		return $this->makeSelectQuery(
 			'AND ((`items`.`status` & ' . $status . ') = ' . $status . ') ' .
-			$prependTo
+			$prependTo, $oldestFirst
 		);
 	}
 
@@ -239,7 +246,7 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 	public function testFindAllFeedOldestFirst(){
 		$sql = 'AND `items`.`feed_id` = ? ' .
 			'AND `items`.`id` > ? ';
-		$sql = $this->makeSelectQueryStatus($sql, $this->status);
+		$sql = $this->makeSelectQueryStatus($sql, $this->status, true);
 		$params = array($this->user, $this->id, $this->offset);
 		$this->setMapperResult($sql, $params, $this->rows);
 		$result = $this->mapper->findAllFeed($this->id, $this->limit,
@@ -278,7 +285,7 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 	public function testFindAllFolderOldestFirst(){
 		$sql = 'AND `feeds`.`folder_id` = ? ' .
 			'AND `items`.`id` > ? ';
-		$sql = $this->makeSelectQueryStatus($sql, $this->status);
+		$sql = $this->makeSelectQueryStatus($sql, $this->status, true);
 		$params = array($this->user, $this->id,
 			$this->offset);
 		$this->setMapperResult($sql, $params, $this->rows);
@@ -315,7 +322,7 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 
 	public function testFindAllOldestFirst(){
 		$sql = 'AND `items`.`id` > ? ';
-		$sql = $this->makeSelectQueryStatus($sql, $this->status);
+		$sql = $this->makeSelectQueryStatus($sql, $this->status, true);
 		$params = array($this->user, $this->offset);
 		$this->setMapperResult($sql, $params, $this->rows);
 		$result = $this->mapper->findAll($this->limit,

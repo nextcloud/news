@@ -184,7 +184,7 @@ class ItemMapper extends Mapper implements IMapper {
 			$sql .= 'AND `items`.`id` ' . $this->getOperator($oldestFirst) . ' ? ';
 			$params[] = $offset;
 		}
-		$sql = $this->makeSelectQueryStatus($sql, $status);
+		$sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst);
 		return $this->findEntities($sql, $params, $limit);
 	}
 
@@ -196,7 +196,7 @@ class ItemMapper extends Mapper implements IMapper {
 			$sql .= 'AND `items`.`id` ' . $this->getOperator($oldestFirst) . ' ? ';
 			$params[] = $offset;
 		}
-		$sql = $this->makeSelectQueryStatus($sql, $status);
+		$sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst);
 		return $this->findEntities($sql, $params, $limit);
 	}
 
@@ -208,7 +208,7 @@ class ItemMapper extends Mapper implements IMapper {
 			$sql .= 'AND `items`.`id` ' . $this->getOperator($oldestFirst) . ' ? ';
 			$params[] = $offset;
 		}
-		$sql = $this->makeSelectQueryStatus($sql, $status);
+		$sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst);
 		return $this->findEntities($sql, $params, $limit);
 	}
 

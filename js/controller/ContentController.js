@@ -91,8 +91,10 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data,
             }
         });
 
-        FeedResource.markItemsOfFeedsRead(feedIds);
-        ItemResource.markItemsRead(ids);
+        if (ids.length > 0) {
+            FeedResource.markItemsOfFeedsRead(feedIds);
+            ItemResource.markItemsRead(ids);
+        }
     };
 
     this.isFeed = function () {
@@ -100,17 +102,30 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data,
     };
 
     this.autoPage = function () {
+        // in case a subsequent autopage request comes in wait until
+        // the current one finished and execute a request immediately afterwards
+        if (!this.isAutoPagingEnabled) {
+            this.autoPageAgain = true;
+            return;
+        }
+
         this.isAutoPagingEnabled = false;
+        this.autoPageAgain = false;
 
         var type = $route.current.$$route.type;
         var id = $routeParams.id;
-
+        var oldestFirst = SettingsResource.get('oldestFirst');
         var self = this;
-        ItemResource.autoPage(type, id).success(function (data) {
+
+        ItemResource.autoPage(type, id, oldestFirst).success(function (data) {
             Publisher.publishAll(data);
 
             if (data.items.length > 0) {
                 self.isAutoPagingEnabled = true;
+            }
+
+            if (self.isAutoPagingEnabled && self.autoPageAgain) {
+                self.autoPage();
             }
         }).error(function () {
             self.isAutoPagingEnabled = true;

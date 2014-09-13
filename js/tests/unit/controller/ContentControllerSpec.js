@@ -270,7 +270,8 @@ describe('ContentController', function () {
 
 
     it('should not autopage if less than 0 elements', inject(function (
-        $controller, ItemResource, Publisher) {
+        $controller, ItemResource, Publisher, SettingsResource) {
+        SettingsResource.set('oldestFirst', true);
 
         var $route = {
             current: {
@@ -305,6 +306,7 @@ describe('ContentController', function () {
             $route: $route,
             Publisher: Publisher,
             ItemResource: ItemResource,
+            SettingsResource: SettingsResource,
             data: {},
         });
 
@@ -314,7 +316,7 @@ describe('ContentController', function () {
 
         expect(ctrl.autoPagingEnabled()).toBe(false);
 
-        expect(ItemResource.autoPage).toHaveBeenCalledWith(3, 2);
+        expect(ItemResource.autoPage).toHaveBeenCalledWith(3, 2, true);
 
     }));
 

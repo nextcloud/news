@@ -17,7 +17,7 @@ app.config(["$routeProvider", "$provide", "$httpProvider", function ($routeProvi
 
     // constants
     $provide.constant('REFRESH_RATE', 60);  // seconds
-    $provide.constant('ITEM_BATCH_SIZE', 50);  // how many items to autopage by
+    $provide.constant('ITEM_BATCH_SIZE', 3);  // how many items to autopage by
     $provide.constant('BASE_URL', OC.generateUrl('/apps/news'));
     $provide.constant('FEED_TYPE', feedType);
 
@@ -296,8 +296,10 @@ app.controller('ContentController',
             }
         });
 
-        FeedResource.markItemsOfFeedsRead(feedIds);
-        ItemResource.markItemsRead(ids);
+        if (ids.length > 0) {
+            FeedResource.markItemsOfFeedsRead(feedIds);
+            ItemResource.markItemsRead(ids);
+        }
     };
 
     this.isFeed = function () {
@@ -305,17 +307,30 @@ app.controller('ContentController',
     };
 
     this.autoPage = function () {
+        // in case a subsequent autopage request comes in wait until
+        // the current one finished and execute a request immediately afterwards
+        if (!this.isAutoPagingEnabled) {
+            this.autoPageAgain = true;
+            return;
+        }
+
         this.isAutoPagingEnabled = false;
+        this.autoPageAgain = false;
 
         var type = $route.current.$$route.type;
         var id = $routeParams.id;
-
+        var oldestFirst = SettingsResource.get('oldestFirst');
         var self = this;
-        ItemResource.autoPage(type, id).success(function (data) {
+
+        ItemResource.autoPage(type, id, oldestFirst).success(function (data) {
             Publisher.publishAll(data);
 
             if (data.items.length > 0) {
                 self.isAutoPagingEnabled = true;
+            }
+
+            if (self.isAutoPagingEnabled && self.autoPageAgain) {
+                self.autoPage();
             }
         }).error(function () {
             self.isAutoPagingEnabled = true;
@@ -1055,12 +1070,18 @@ app.factory('ItemResource', ["Resource", "$http", "BASE_URL", "ITEM_BATCH_SIZE",
 
     var ItemResource = function ($http, BASE_URL, ITEM_BATCH_SIZE) {
         Resource.call(this, $http, BASE_URL);
-        this.starredCount = 0;
         this.batchSize = ITEM_BATCH_SIZE;
+        this.clear();
     };
 
     ItemResource.prototype = Object.create(Resource.prototype);
 
+    ItemResource.prototype.clear = function () {
+        this.starredCount = 0;
+        this.lowestId = 0;
+        this.highestId = 0;
+        Resource.prototype.clear.call(this);
+    };
 
     ItemResource.prototype.receive = function (value, channel) {
         switch (channel) {
@@ -1074,6 +1095,24 @@ app.factory('ItemResource', ["Resource", "$http", "BASE_URL", "ITEM_BATCH_SIZE",
             break;
 
         default:
+            var self = this;
+            value.forEach(function (item) {
+                // initialize lowest and highest id
+                if (self.lowestId === 0) {
+                    self.lowestId = item.id;
+                }
+                if (self.highestId === 0) {
+                    self.highestId = item.id;
+                }
+
+                if (item.id > self.highestId) {
+                    self.highestId = item.id;
+                }
+                if (item.id < self.lowestId) {
+                    self.lowestId = item.id;
+                }
+            });
+
             Resource.prototype.receive.call(this, value, channel);
         }
     };
@@ -1193,15 +1232,24 @@ app.factory('ItemResource', ["Resource", "$http", "BASE_URL", "ITEM_BATCH_SIZE",
     };
 
 
-    ItemResource.prototype.autoPage = function (type, id) {
+    ItemResource.prototype.autoPage = function (type, id, oldestFirst) {
+        var offset;
+
+        if (oldestFirst) {
+            offset = this.highestId;
+        } else {
+            offset = this.lowestId;
+        }
+
         return this.http({
             url: this.BASE_URL + '/items',
             method: 'GET',
             params: {
                 type: type,
                 id: id,
-                offset: this.size(),
-                limit: this.batchSize
+                offset: offset,
+                limit: this.batchSize,
+                oldestFirst: oldestFirst
             }
         });
     };
@@ -1760,34 +1808,33 @@ app.directive('newsReadFile', function () {
 });
 app.directive('newsScroll', ["$timeout", function ($timeout) {
     'use strict';
+    var timer;
 
     // autopaging
-    var autoPage = function (enabled, limit, elem, scope) {
-        if (enabled) {
-            var counter = 0;
-            var articles = elem.find('.item');
+    var autoPage = function (limit, elem, scope) {
+        var counter = 0;
+        var articles = elem.find('.item');
 
-            for (var i = articles.length - 1; i >= 0; i -= 1) {
-                var item = $(articles[i]);
+        for (var i = articles.length - 1; i >= 0; i -= 1) {
+            var item = $(articles[i]);
 
 
-                // if the counter is higher than the size it means
-                // that it didnt break to auto page yet and that
-                // there are more items, so break
-                if (counter >= limit) {
-                    break;
-                }
-
-                // this is only reached when the item is not is
-                // below the top and we didnt hit the factor yet so
-                // autopage and break
-                if (item.position().top < 0) {
-                    scope.$apply(scope.newsScrollAutoPage);
-                    break;
-                }
-
-                counter += 1;
+            // if the counter is higher than the size it means
+            // that it didnt break to auto page yet and that
+            // there are more items, so break
+            if (counter >= limit) {
+                break;
             }
+
+            // this is only reached when the item is not is
+            // below the top and we didnt hit the factor yet so
+            // autopage and break
+            if (item.position().top < 0) {
+                scope.$apply(scope.newsScrollAutoPage);
+                break;
+            }
+
+            counter += 1;
         }
     };
 
@@ -1819,7 +1866,6 @@ app.directive('newsScroll', ["$timeout", function ($timeout) {
             'newsScrollAutoPage': '&',
             'newsScrollMarkRead': '&',
             'newsScrollEnabledMarkRead': '=',
-            'newsScrollEnabledAutoPage': '=',
             'newsScrollMarkReadTimeout': '@',  // optional, defaults to 1 second
             'newsScrollTimeout': '@',  // optional, defaults to 1 second
             'newsScrollAutoPageWhenLeft': '@'  // optional, defaults to 50
@@ -1837,24 +1883,27 @@ app.directive('newsScroll', ["$timeout", function ($timeout) {
             var autoPageLimit = scope.newsScrollAutoPageWhenLeft || 50;
 
             var scrollHandler = function () {
-                // allow only one scroll event to trigger at once
+                // allow only one scroll event to trigger every 300ms
                 if (allowScroll) {
                     allowScroll = false;
 
                     $timeout(function () {
                         allowScroll = true;
-                    }, scrollTimeout*1000);
+                    }, scrollTimeout*100);
 
-                    autoPage(scope.newsScrollEnabledAutoPage,
-                             autoPageLimit,
-                             elem,
-                             scope);
+                    autoPage(autoPageLimit, elem, scope);
+
+                    // dont stack mark read requests
+                    if (timer) {
+                        $timeout.cancel(timer);
+                    }
 
                     // allow user to undo accidental scroll
-                    $timeout(function () {
+                    timer = $timeout(function () {
                         markRead(scope.newsScrollEnabledMarkRead,
                                  elem,
                                  scope);
+                        timer = undefined;
                     }, markReadTimeout*1000);
                 }
             };
