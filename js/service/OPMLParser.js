@@ -52,7 +52,7 @@ app.service('OPMLParser', function () {
                     recursivelyParse(outline.children('outline'), root, false);
                 }
             }
-        };
+        }
 
         return root;
     };

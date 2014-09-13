@@ -1279,16 +1279,14 @@ app.service('OPMLParser', function () {
     'use strict';
 
     var parseOutline = function (outline) {
-        outline = $(outline);
-
         var url = outline.attr('xmlUrl') || outline.attr('htmlUrl');
-        var title = outline.attr('title') || outline.attr('text') || url;
+        var name = outline.attr('title') || outline.attr('text') || url;
 
         // folder
         if (url === undefined) {
             return {
                 type: 'folder',
-                title: title,
+                name: name,
                 feeds: []
             };
 
@@ -1296,7 +1294,7 @@ app.service('OPMLParser', function () {
         } else {
             return {
                 type: 'feed',
-                title: title,
+                name: name,
                 url: url
             };
         }
@@ -1305,36 +1303,38 @@ app.service('OPMLParser', function () {
     // there is only one level, so feeds in a folder in a folder should be
     // attached to the root folder
     var recursivelyParse = function (level, root, firstLevel) {
-        $(root).each(function (index, outline) {
-            outline = $(outline);
+        for (var i=0; i<level.length; i+=1) {
+            var outline = $(level[i]);
 
-            var type = parseOutline(outline);
+            var entry = parseOutline(outline);
 
-            if (type === 'feed') {
-                root.feeds.push(type);
+            if (entry.type === 'feed') {
+                root.feeds.push(entry);
             } else {
+
                 // only first level should append folders
                 if (firstLevel) {
-                    root.folders.push(type);
+                    recursivelyParse(outline.children('outline'), entry, false);
+                    root.folders.push(entry);
+                } else {
+                    recursivelyParse(outline.children('outline'), root, false);
                 }
-
-                recursivelyParse(outline.children('outline'), type);
             }
+        }
 
-            return root;
-        });
+        return root;
     };
 
     this.parse = function (xml) {
-        xml = $.parseXml(xml);
-        var root = $(xml).find('body');
+        xml = $.parseXML(xml);
+        var firstLevel = $(xml).find('body > outline');
 
-        var parsed = {
+        var root = {
             'feeds': [],
             'folders': []
         };
 
-        return recursivelyParse(root, parsed, true);
+        return recursivelyParse(firstLevel, root, true);
     };
 
 });
