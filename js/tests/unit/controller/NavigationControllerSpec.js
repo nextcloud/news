@@ -718,6 +718,7 @@ describe('NavigationController', function () {
 
         var feed = {
             id: 3,
+            url: 'yo',
             deleted: false
         };
 
@@ -757,12 +758,13 @@ describe('NavigationController', function () {
         });
 
         var feed = {
-            id: 3
+            id: 3,
+            url: 'hi'
         };
 
         ctrl.deleteFeed(feed);
 
-        expect(FeedResource.delete).toHaveBeenCalledWith(3);
+        expect(FeedResource.delete).toHaveBeenCalledWith('hi');
     }));
 
 
@@ -804,8 +806,8 @@ describe('NavigationController', function () {
             name: 'test'
         };
 
-        var feed1 = FeedResource.delete(1);
-        var feed2 = FeedResource.delete(3);
+        var feed1 = FeedResource.delete('ye');
+        var feed2 = FeedResource.delete('1sye');
         expect(FeedResource.size()).toBe(1);
 
         ctrl._deletedFeedsBackup.test = [feed1, feed2];

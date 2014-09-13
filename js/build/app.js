@@ -566,7 +566,7 @@ app.controller('NavigationController',
     };
 
     this.deleteFeed = function (feed) {
-        FeedResource.delete(feed.id);
+        FeedResource.delete(feed.url);
     };
 
 
@@ -582,7 +582,7 @@ app.controller('NavigationController',
             self._deletedFeedsBackup[folder.name] =
                 self._deletedFeedsBackup[folder.name] || [];
             self._deletedFeedsBackup[folder.name].push(feed);
-            FeedResource.delete(feed.id);
+            FeedResource.delete(feed.url);
         });
 
         FolderResource.reversiblyDelete(folder.id);
@@ -874,10 +874,11 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
     };
 
 
-    FeedResource.prototype.delete = function (id) {
-        var feed = this.ids[id];
-        var url = feed.url;
-        delete this.ids[id];
+    FeedResource.prototype.delete = function (url) {
+        var feed = this.get(url);
+        if (feed.id) {
+            delete this.ids[feed.id];
+        }
 
         Resource.prototype.delete.call(this, url);
 

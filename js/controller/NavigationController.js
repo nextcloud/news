@@ -239,7 +239,7 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
     };
 
     this.deleteFeed = function (feed) {
-        FeedResource.delete(feed.id);
+        FeedResource.delete(feed.url);
     };
 
 
@@ -255,7 +255,7 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
             self._deletedFeedsBackup[folder.name] =
                 self._deletedFeedsBackup[folder.name] || [];
             self._deletedFeedsBackup[folder.name].push(feed);
-            FeedResource.delete(feed.id);
+            FeedResource.delete(feed.url);
         });
 
         FolderResource.reversiblyDelete(folder.id);

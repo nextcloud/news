@@ -211,10 +211,11 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
     };
 
 
-    FeedResource.prototype.delete = function (id) {
-        var feed = this.ids[id];
-        var url = feed.url;
-        delete this.ids[id];
+    FeedResource.prototype.delete = function (url) {
+        var feed = this.get(url);
+        if (feed.id) {
+            delete this.ids[feed.id];
+        }
 
         Resource.prototype.delete.call(this, url);
 
