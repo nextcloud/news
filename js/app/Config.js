@@ -20,7 +20,7 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
 
     // constants
     $provide.constant('REFRESH_RATE', 60);  // seconds
-    $provide.constant('ITEM_BATCH_SIZE', 3);  // how many items to autopage by
+    $provide.constant('ITEM_BATCH_SIZE', 50);  // how many items to autopage by
     $provide.constant('BASE_URL', OC.generateUrl('/apps/news'));
     $provide.constant('FEED_TYPE', feedType);
 

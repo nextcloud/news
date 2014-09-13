@@ -17,7 +17,7 @@ app.config(["$routeProvider", "$provide", "$httpProvider", function ($routeProvi
 
     // constants
     $provide.constant('REFRESH_RATE', 60);  // seconds
-    $provide.constant('ITEM_BATCH_SIZE', 3);  // how many items to autopage by
+    $provide.constant('ITEM_BATCH_SIZE', 50);  // how many items to autopage by
     $provide.constant('BASE_URL', OC.generateUrl('/apps/news'));
     $provide.constant('FEED_TYPE', feedType);
 
@@ -1515,7 +1515,7 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
     var openLink = function (scrollArea) {
         onActiveItem(scrollArea, function (item) {
             item.trigger('click');  // mark read
-            window.open(item.find('.external').attr('href'), '_blank');
+            window.open(item.find('.external:visible').attr('href'), '_blank');
         });
     };
 
@@ -1738,11 +1738,11 @@ app.directive('newsDraggable', function () {
         }
 
         attr.$observe('newsDraggableDisable', function (value) {
-        	if (value === 'true') {
-        		elem.draggable('disable');
-        	} else {
-        		elem.draggable('enable');
-        	}
+            if (value === 'true') {
+                elem.draggable('disable');
+            } else {
+                elem.draggable('enable');
+            }
         });
     };
 });

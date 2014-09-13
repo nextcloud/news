@@ -7,6 +7,10 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
+
+/**
+ * First run styles
+ */
 #first-run {
     display: none;
     height: 100%;
@@ -48,8 +52,13 @@
     background-image: url('../img/arrow.svg');
     background-repeat: no-repeat;
 }
+.first-run #app-content-wrapper {
+    height: 100%;
+}
 
-
+/**
+ * Content styles
+ */
 #app-content.loading-content {
     background: url('../img/loading.gif') no-repeat;
     background-position: calc(50% - 16px) calc(50% - 16px);
@@ -71,16 +80,32 @@
     background-position: calc(50% - 16px) calc(50% - 16px);
 }
 
-.first-run #app-content-wrapper {
-    height: 100%;
-}
-
 /**
  * Rules for a single feed item
  */
+#app-content .only-in-expanded {
+    display: block;
+}
+
+#app-content .compact .only-in-expanded {
+    display: none;
+}
+
+#app-content .only-in-compact {
+    display: none;
+}
+
+#app-content .compact .only-in-compact {
+    display: block;
+}
+
 #app-content .item {
     cursor: default;
     border-bottom: 1px solid #eee;
+    background-image: linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 84px);
+}
+
+#app-content :not(.compact) .item {
 }
 
 #app-content .item:last-child {
@@ -94,7 +119,7 @@
     width: 100%;
     line-height: 52px;
     box-sizing: border-box;
-    padding: 30px 50px 0 15px;
+    padding: 15px 50px 0 15px;
 }
 
 #app-content .compact .utils {
@@ -191,8 +216,42 @@
         color: #888;
     }
 
+/**
+ * Expanded content
+ */
+#app-content .heading {
+    padding: 25px 0 10px 0;
+}
 
+#app-content .heading h1 {
+    font-size: 19px;
+    margin-right: 182px;
+    word-wrap: break-word;
+}
 
+    #app-content .heading a {
+        font-weight: bold;
+        color: #000;
+    }
+        #app-content .heading a:hover {
+            color: #222;
+            text-decoration: underline;
+        }
+
+#app-content .heading .date {
+    float: right;
+    display: inline-block;
+    font-size: 15px;
+}
+
+#app-content .read .heading a {
+    font-weight: normal !important;
+    color: #888;
+}
+
+#app-content .feed-view .source {
+    display: none;
+}
 
 /**
  * Actual content

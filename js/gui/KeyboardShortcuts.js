@@ -71,7 +71,7 @@
     var openLink = function (scrollArea) {
         onActiveItem(scrollArea, function (item) {
             item.trigger('click');  // mark read
-            window.open(item.find('.external').attr('href'), '_blank');
+            window.open(item.find('.external:visible').attr('href'), '_blank');
         });
     };
 

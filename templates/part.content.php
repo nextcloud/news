@@ -17,7 +17,8 @@
 
             <div class="utils" ng-click="Content.toggleItem(item)">
                 <ul>
-                    <li class="title"
+                    <li class="util only-in-expanded"></li>
+                    <li class="title only-in-compact"
                         title="{{ item.title }}"
                         ng-style="{ backgroundImage: 'url(' + Content.getFeed(item.feedId).faviconLink + ')'}">
                         <h1>{{ item.title }}</h1>
@@ -28,7 +29,7 @@
                     <li ng-click="Content.toggleKeepUnread(item.id)" class="util" news-stop-propagation>
                         <button class="icon-toggle toggle-keep-unread" ng-class="{'keep-unread': item.keepUnread}" title="<?php p($l->t('Keep unread')); ?>"></button>
                     </li>
-                    <li class="util">
+                    <li class="util only-in-compact">
                         <a class="external icon-link"
                             target="_blank"
                             ng-href="{{ item.url }}"
@@ -41,12 +42,29 @@
 
             <div class="article">
 
-                <div class="subtitle">
-                    <time class="date" class="date" title="{{ item.pubDate*1000|date:'yyyy-MM-dd HH:mm:ss' }}"
-                        datetime="{{ item.pubDate*1000|date:'yyyy-MM-ddTHH:mm:ssZ' }}">{{ Content.getRelativeDate(item.pubDate) }}</time>,
-                    <span class="author" ng-show="item.author"><?php p($l->t('by')) ?> {{ item.author }}</span>
-                    <!--<?php p($l->t('from')) ?> <a ng-href="#/items/feeds/{{ item.feedId }}">{{ Content.getFeed(item.feedId).title }}</a>-->
+                <div class="heading only-in-expanded">
+                    <time class="date" title="{{ item.pubDate*1000|date:'yyyy-MM-dd HH:mm:ss' }}"
+                        datetime="{{ item.pubDate*1000|date:'yyyy-MM-ddTHH:mm:ssZ' }}">{{ Content.getRelativeDate(item.pubDate) }}</time>
+                    <a class="external"
+                        target="_blank"
+                        ng-href="{{ item.url }}"
+                        title="{{ item.title }}">
+                        <h1>{{ item.title }}</h1>
+                    </a>
                 </div>
+
+                <div class="subtitle only-in-compact">
+                    <time class="date" title="{{ item.pubDate*1000|date:'yyyy-MM-dd HH:mm:ss' }}"
+                        datetime="{{ item.pubDate*1000|date:'yyyy-MM-ddTHH:mm:ssZ' }}">{{ Content.getRelativeDate(item.pubDate) }}</time>
+                    <span class="author" ng-show="item.author">, <?php p($l->t('by')) ?> {{ item.author }}</span>
+                </div>
+
+                <div class="subtitle only-in-expanded">
+                    <span class="author" ng-show="item.author"> <?php p($l->t('by')) ?> {{ item.author }}</span>
+                    <span class="source"><?php p($l->t('from')) ?> <a ng-href="#/items/feeds/{{ item.feedId }}/">{{ Content.getFeed(item.feedId).title }}</a></span>
+                </div>
+
+
 
                 <div class="enclosure" ng-if="item.enclosureLink">
                     <news-audio type="{{ item.enclosureType }}"
