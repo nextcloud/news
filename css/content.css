@@ -135,6 +135,10 @@
     padding: 0;
 }
 
+    #app-content .util-spacer {
+        width: 20px;
+    }
+
     #app-content .utils li {
         line-height: 40px;
         vertical-align: middle;
@@ -144,21 +148,27 @@
         padding-right: 0;
     }
 
+    #app-content .utils li:first-child {
+        padding-left: 0;
+    }
+
     #app-content .utils .util {
-        padding: 9px 12px;
+        padding: 0 6px;
     }
 
     #app-content .utils button,
     #app-content .utils .external {
         padding: 0;
         margin: 0;
-        height: 24px;
-        width: 24px;
+        height: 40px;
+        width: 40px;
         border: 0;
         float: left;
         background-color: transparent;
         background-size: 100%;
         background-repeat: no-repeat;
+        background-size: 25px;
+        background-position: center;
     }
 
     #app-content .utils .external,
@@ -199,7 +209,7 @@
         background: none !important;
     }
 
-    #app-content .utils .title h1 {
+    #app-content .utils .title h1 a {
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
@@ -211,9 +221,14 @@
         font-size: 19px;
     }
 
-    #app-content .read .utils .title h1 {
+    #app-content .read .utils .title h1 a {
         font-weight: normal;
         color: #888;
+    }
+
+    #app-content .utils .date {
+        padding: 0 15px;
+        margin-right: 25px;
     }
 
 /**

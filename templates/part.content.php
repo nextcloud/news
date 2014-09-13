@@ -17,11 +17,16 @@
 
             <div class="utils" ng-click="Content.toggleItem(item)">
                 <ul>
-                    <li class="util only-in-expanded"></li>
+                    <li class="util-spacer only-in-expanded"></li>
                     <li class="title only-in-compact"
                         title="{{ item.title }}"
                         ng-style="{ backgroundImage: 'url(' + Content.getFeed(item.feedId).faviconLink + ')'}">
-                        <h1>{{ item.title }}</h1>
+                        <h1><a>{{ item.title }}</a></h1>
+                    </li>
+                    <li class="only-in-compact">
+                        <time class="date" title="{{ item.pubDate*1000|date:'yyyy-MM-dd HH:mm:ss' }}"
+                            datetime="{{ item.pubDate*1000|date:'yyyy-MM-ddTHH:mm:ssZ' }}">{{ Content.getRelativeDate(item.pubDate) }}
+                        </time>
                     </li>
                     <li ng-click="Content.toggleStar(item.id)" class="util" news-stop-propagation>
                         <button class="star svg" ng-class="{'starred': item.starred}" title="<?php p($l->t('Star')); ?>"></button>
@@ -53,13 +58,7 @@
                     </a>
                 </div>
 
-                <div class="subtitle only-in-compact">
-                    <time class="date" title="{{ item.pubDate*1000|date:'yyyy-MM-dd HH:mm:ss' }}"
-                        datetime="{{ item.pubDate*1000|date:'yyyy-MM-ddTHH:mm:ssZ' }}">{{ Content.getRelativeDate(item.pubDate) }}</time>
-                    <span class="author" ng-show="item.author">, <?php p($l->t('by')) ?> {{ item.author }}</span>
-                </div>
-
-                <div class="subtitle only-in-expanded">
+                <div class="subtitle">
                     <span class="author" ng-show="item.author"> <?php p($l->t('by')) ?> {{ item.author }}</span>
                     <span class="source"><?php p($l->t('from')) ?> <a ng-href="#/items/feeds/{{ item.feedId }}/">{{ Content.getFeed(item.feedId).title }}</a></span>
                 </div>

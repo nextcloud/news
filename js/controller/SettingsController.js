@@ -18,7 +18,7 @@ function ($route, SettingsResource, FeedResource) {
     var set = function (key, value) {
         SettingsResource.set(key, value);
 
-        if (['showAll', 'oldestFirst'].indexOf(key) >= 0) {
+        if (['showAll', 'oldestFirst', 'compact'].indexOf(key) >= 0) {
             $route.reload();
         }
     };
