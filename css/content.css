@@ -328,6 +328,15 @@
  */
 #app-content .enclosure {
     padding: 20px 0;
+    text-align: center;
+    max-width: 770px;
+    margin-bottom: 15px;
+}
+
+#app-content .enclosure audio,
+#app-content .enclosure video,
+#app-content .enclosure img {
+    width: 100%;
 }
 
 
