@@ -49,10 +49,10 @@
                 </div>
 
                 <div class="enclosure" ng-if="item.enclosureLink">
-                    <!--<news-audio type="{{ item.enclosureType }}"
+                    <news-audio type="{{ item.enclosureType }}"
                                 ng-src="{{ item.enclosureLink|trustUrl }}">
                         <?php p($l->t('Download')) ?>
-                    </news-audio>-->
+                    </news-audio>
                 </div>
 
                 <div class="body" news-bind-html-unsafe="item.body"></div>
