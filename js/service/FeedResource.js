@@ -34,10 +34,6 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
 
         var self = this;
         this.values.forEach(function (feed) {
-            // deleted feeds should not add to the unread count
-            if (feed.deleted) {
-                return;
-            }
             if (feed.unreadCount) {
                 self.unreadCount += feed.unreadCount;
             }

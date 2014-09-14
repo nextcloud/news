@@ -121,7 +121,7 @@ describe('FeedResource', function () {
         http.flush();
 
         expect(FeedResource.getById(2).deleted).toBe(true);
-        expect(FeedResource.getUnreadCount()).toBe(45);
+        expect(FeedResource.getUnreadCount()).toBe(70);
     }));
 
 
@@ -262,7 +262,7 @@ describe('FeedResource', function () {
 
         expect(FeedResource.getById(1).deleted).toBe(true);
         expect(FeedResource.getById(3).deleted).toBe(true);
-        expect(FeedResource.getUnreadCount()).toBe(25);
+        expect(FeedResource.getUnreadCount()).toBe(70);
     }));
 
 
