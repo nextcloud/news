@@ -39,11 +39,11 @@
     };
 
     var getParentFolder = function (element) {
-        return element.parent('ul').parent('li:visible');
+        return element.parent('ul').parent('.folder:visible');
     };
 
     var getChildFeed = function (element) {
-        return element.children('ul').children('li:visible');
+        return element.children('ul').children('.feed:visible');
     };
 
     var nextFeed = function (navigationArea) {

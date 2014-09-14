@@ -1663,7 +1663,7 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
     };
 
     var getParentFolder = function (element) {
-        return element.parent('ul').parent('li:visible');
+        return element.parent('ul').parent('.folder:visible');
     };
 
     var getChildFeed = function (element) {
