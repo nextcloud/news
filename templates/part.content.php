@@ -32,7 +32,7 @@
                         <button class="star svg" ng-class="{'starred': item.starred}" title="<?php p($l->t('Star')); ?>"></button>
                     </li>
                     <li ng-click="Content.toggleKeepUnread(item.id)" class="util" news-stop-propagation>
-                        <button class="icon-toggle toggle-keep-unread" ng-class="{'keep-unread': item.keepUnread}" title="<?php p($l->t('Keep unread')); ?>"></button>
+                        <button class="icon-toggle toggle-keep-unread" ng-class="{'keep-unread': item.keepUnread}" title="<?php p($l->t('Keep article unread')); ?>"></button>
                     </li>
                     <li class="util only-in-compact">
                         <a class="external icon-link"

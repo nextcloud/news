@@ -31,6 +31,9 @@ owncloud-news (3.001)
 * API: add parameter to get items by oldest first
 * Do not include starred count of deleted folders and feeds
 * Display error messages when folder rename failed
+* Keyboard Shortcut: r to reload the current feed
+* Keyboard Shortcut: f to load the next feed/folder
+* Keyboard Shortcut: d to load the previous feed/folder
 
 owncloud-news (2.003)
 * Use correct url for folder and feed api update methods
