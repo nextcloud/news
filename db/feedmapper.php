@@ -122,11 +122,7 @@ class FeedMapper extends Mapper implements IMapper {
 				'`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
 		$params = [$hash, $userId];
 
-		$row = $this->findOneQuery($sql, $params);
-		$feed = new Feed();
-		$feed->fromRow($row);
-
-		return $feed;
+		return $this->findEntity($sql, $params);
 	}
 
 

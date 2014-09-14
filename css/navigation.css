@@ -84,7 +84,7 @@
 }
 
 #app-navigation .icon-rss {
-    background-image: url('../img/rss.svg');
+    background-image: url('../img/rss.svg') !important;
 }
 
 #app-navigation .unread > a {

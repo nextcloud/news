@@ -244,7 +244,9 @@ class FeedController extends Controller {
 	public function import($json) {
 		$feed = $this->feedService->importArticles($json, $this->userId);
 
-		$params = [];
+		$params = [
+			'starred' => $this->itemService->starredCount($this->userId)
+		];
 
 		if($feed) {
 			$params['feeds'] = [$feed];

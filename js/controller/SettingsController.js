@@ -8,10 +8,12 @@
  * @copyright Bernhard Posselt 2014
  */
 app.controller('SettingsController',
-function ($route, SettingsResource, FeedResource) {
+function ($route, $q, SettingsResource, ItemResource, OPMLParser,
+          OPMLImporter, Publisher) {
     'use strict';
 
-    this.importing = false;
+    this.isOPMLImporting = false;
+    this.isArticlesImporting = false;
     this.opmlImportError = false;
     this.articleImportError = false;
 
@@ -23,30 +25,57 @@ function ($route, SettingsResource, FeedResource) {
         }
     };
 
-
     this.toggleSetting = function (key) {
         set(key, !this.getSetting(key));
     };
-
 
     this.getSetting = function (key) {
         return SettingsResource.get(key);
     };
 
+    this.importOPML = function (content) {
+        this.opmlImportError = false;
+        this.articleImportError = false;
 
-    this.feedSize = function () {
-        return FeedResource.size();
+        try {
+            this.isOPMLImporting = false;
+            var parsedContent = OPMLParser.parse(content);
+
+            var self = this;
+            var jobSize = 5;
+
+            OPMLImporter.importFolders(parsedContent)
+            .then(function (feedQueue) {
+                return OPMLImporter.importFeedQueue(feedQueue, jobSize);
+            }).finally(function () {
+                self.isOPMLImporting = false;
+            });
+
+        } catch (error) {
+            this.isOPMLImporting = false;
+            this.opmlImportError = true;
+        }
     };
-
-
-    // TBD
-    this.importOpml = function (content) {
-        console.log(content);
-    };
-
 
     this.importArticles = function (content) {
-        console.log(content);
+        this.opmlImportError = false;
+        this.articleImportError = false;
+
+        try {
+            this.isArticlesImporting = true;
+            var articles = JSON.parse(content);
+
+            var self = this;
+            ItemResource.importArticles(articles).success(function (data) {
+                Publisher.publishAll(data);
+            }).finally(function () {
+                self.isArticlesImporting = false;
+            });
+
+        } catch (error) {
+            this.articleImportError = true;
+            this.isArticlesImporting = false;
+        }
     };
 
 });

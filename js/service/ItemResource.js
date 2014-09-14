@@ -198,5 +198,16 @@ app.factory('ItemResource', function (Resource, $http, BASE_URL,
     };
 
 
+    ItemResource.prototype.importArticles = function (json) {
+        return this.http({
+            url: this.BASE_URL + '/feeds/import/articles',
+            method: 'POST',
+            data: {
+                json: json
+            }
+        });
+    };
+
+
     return new ItemResource($http, BASE_URL, ITEM_BATCH_SIZE);
 });

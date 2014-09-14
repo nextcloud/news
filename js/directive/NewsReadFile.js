@@ -18,7 +18,6 @@ app.directive('newsReadFile', function () {
             var reader = new FileReader();
 
             reader.onload = function (event) {
-                elem[0].value = 0;
                 // FIXME: is there a more flexible solution where we dont have
                 // to bind the file to scope?
                 scope.$fileContent = event.target.result;

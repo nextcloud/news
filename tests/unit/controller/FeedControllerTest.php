@@ -421,6 +421,7 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
 		$feed = new Feed();
 
 		$expected = [
+			'starred' => 3,
 			'feeds' => [$feed]
 		];
 
@@ -429,6 +430,11 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
 			->with($this->equalTo(array('json')),
 				$this->equalTo($this->user))
 			->will($this->returnValue($feed));
+
+		$this->itemService->expects($this->once())
+			->method('starredCount')
+			->with($this->equalTo($this->user))
+			->will($this->returnValue(3));
 
 		$response = $this->controller->import(array('json'));
 
@@ -443,9 +449,14 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
 				$this->equalTo($this->user))
 			->will($this->returnValue(null));
 
+		$this->itemService->expects($this->once())
+			->method('starredCount')
+			->with($this->equalTo($this->user))
+			->will($this->returnValue(3));
+
 		$response = $this->controller->import(array('json'));
 
-		$this->assertEquals([], $response);
+		$this->assertEquals(['starred' => 3], $response);
 	}
 
 

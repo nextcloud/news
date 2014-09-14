@@ -24,6 +24,7 @@
         ng-show="!feed.editing && !feed.deleted && !feed.error && feed.id"
         ng-href="#/items/feeds/{{ feed.id }}/"
         class="title"
+        ng-class="{'icon-rss': !feed.faviconLink}"
         title="{{ feed.title }}">
        {{ feed.title }}
     </a>

@@ -298,4 +298,19 @@ describe('ItemResource', function () {
     }));
 
 
+
+    it ('should import articles', inject(function (ItemResource) {
+        var json = 'test';
+
+        http.expectPOST('base/feeds/import/articles', {
+            json: json
+        }).respond(200, {});
+
+        ItemResource.importArticles(json);
+
+        http.flush();
+
+    }));
+
+
 });

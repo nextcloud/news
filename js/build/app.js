@@ -617,10 +617,12 @@ app.controller('NavigationController',
 
 }]);
 app.controller('SettingsController',
-["$route", "SettingsResource", "FeedResource", function ($route, SettingsResource, FeedResource) {
+["$route", "$q", "SettingsResource", "ItemResource", "OPMLParser", "OPMLImporter", "Publisher", function ($route, $q, SettingsResource, ItemResource, OPMLParser,
+          OPMLImporter, Publisher) {
     'use strict';
 
-    this.importing = false;
+    this.isOPMLImporting = false;
+    this.isArticlesImporting = false;
     this.opmlImportError = false;
     this.articleImportError = false;
 
@@ -632,30 +634,57 @@ app.controller('SettingsController',
         }
     };
 
-
     this.toggleSetting = function (key) {
         set(key, !this.getSetting(key));
     };
-
 
     this.getSetting = function (key) {
         return SettingsResource.get(key);
     };
 
+    this.importOPML = function (content) {
+        this.opmlImportError = false;
+        this.articleImportError = false;
 
-    this.feedSize = function () {
-        return FeedResource.size();
+        try {
+            this.isOPMLImporting = false;
+            var parsedContent = OPMLParser.parse(content);
+
+            var self = this;
+            var jobSize = 5;
+
+            OPMLImporter.importFolders(parsedContent)
+            .then(function (feedQueue) {
+                return OPMLImporter.importFeedQueue(feedQueue, jobSize);
+            }).finally(function () {
+                self.isOPMLImporting = false;
+            });
+
+        } catch (error) {
+            this.isOPMLImporting = false;
+            this.opmlImportError = true;
+        }
     };
-
-
-    // TBD
-    this.importOpml = function (content) {
-        console.log(content);
-    };
-
 
     this.importArticles = function (content) {
-        console.log(content);
+        this.opmlImportError = false;
+        this.articleImportError = false;
+
+        try {
+            this.isArticlesImporting = true;
+            var articles = JSON.parse(content);
+
+            var self = this;
+            ItemResource.importArticles(articles).success(function (data) {
+                Publisher.publishAll(data);
+            }).finally(function () {
+                self.isArticlesImporting = false;
+            });
+
+        } catch (error) {
+            this.articleImportError = true;
+            this.isArticlesImporting = false;
+        }
     };
 
 }]);
@@ -1255,6 +1284,17 @@ app.factory('ItemResource', ["Resource", "$http", "BASE_URL", "ITEM_BATCH_SIZE",
     };
 
 
+    ItemResource.prototype.importArticles = function (json) {
+        return this.http({
+            url: this.BASE_URL + '/feeds/import/articles',
+            method: 'POST',
+            data: {
+                json: json
+            }
+        });
+    };
+
+
     return new ItemResource($http, BASE_URL, ITEM_BATCH_SIZE);
 }]);
 app.service('Loading', function () {
@@ -1275,6 +1315,83 @@ app.service('Loading', function () {
     };
 
 });
+app.service('OPMLImporter', ["FeedResource", "FolderResource", "$q", function (FeedResource, FolderResource, $q) {
+    'use strict';
+    var startFeedJob = function (queue) {
+        var deferred = $q.defer();
+
+        if (queue.lenght > 0) {
+            var feed = queue.pop();
+            var url = feed.url;
+            var title = feed.title;
+            var folderId = 0;
+            var folderName = feed.folderName;
+
+            if (folderName !== undefined &&
+                FeedResource.get(folderName) !== undefined) {
+                folderId = FeedResource.get(feed.folderName).id;
+            }
+
+            // make sure to not add already existing feeds
+            if (url !== undefined && FeedResource.get(url) === undefined) {
+                FeedResource.create(url, folderId, title)
+                .finally(function () {
+                    startFeedJob(queue);
+                });
+            }
+        } else {
+            deferred.resolve();
+        }
+
+        return deferred.promise;
+    };
+
+    this.importFolders = function (content) {
+        // assumption: folders are fast to create and we dont need a queue for
+        // them
+        var feedQueue = [];
+        var folderPromises = [];
+        content.folders.forEach(function (folder) {
+            if (folder.name !== undefined) {
+                // skip already created folders
+                if (FolderResource.get(folder.name) !== undefined) {
+                    folderPromises.push(FolderResource.create(folder.name));
+                }
+
+                folder.feeds.forEach(function (feed) {
+                    feed.folderName = folder.name;
+                    feedQueue.push(feed);
+                });
+            }
+        });
+        feedQueue = feedQueue.concat(content.feeds);
+
+        var deferred = $q.defer();
+
+        $q.all(folderPromises).finally(function () {
+            deferred.resolve(feedQueue);
+        });
+
+        return deferred.promise;
+    };
+
+    this.importFeedQueue = function (feedQueue, jobSize) {
+        // queue feeds to prevent server slowdown
+        var deferred = $q.defer();
+
+        var jobPromises = [];
+        for (var i=0; i<jobSize; i+=1) {
+            jobPromises.push(startFeedJob(feedQueue));
+        }
+
+        $q.all(jobPromises).then(function () {
+            deferred.resolve();
+        });
+
+        return deferred.promise;
+    };
+
+}]);
 app.service('OPMLParser', function () {
     'use strict';
 
@@ -1858,7 +1975,6 @@ app.directive('newsReadFile', function () {
             var reader = new FileReader();
 
             reader.onload = function (event) {
-                elem[0].value = 0;
                 // FIXME: is there a more flexible solution where we dont have
                 // to bind the file to scope?
                 scope.$fileContent = event.target.result;
