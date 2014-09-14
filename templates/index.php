@@ -15,6 +15,12 @@ style('news', [
     'settings',
     'custom'
 ]);
+
+// owncloud 7 backported style sheets
+$version = \OCP\Util::getVersion();
+if($version[0] > 7 && $version[1] <= 8) {
+    style('news', '7');
+}
 ?>
 
 

@@ -1667,7 +1667,8 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
         var elements = navigationArea.find('.subscriptions:visible,' +
                                            '.starred:visible,' +
                                            '.feed:visible');
-
+        // FIXME: O(n) runtime. If someone creates a nice and not fugly solution
+        // please create a PR
         for (var i=0; i<elements.length-1; i+=1) {
             var element = elements[i];
 
@@ -1684,7 +1685,8 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
         var elements = navigationArea.find('.subscriptions:visible,' +
                                            '.starred:visible,' +
                                            '.feed:visible');
-
+        // FIXME: O(n) runtime. If someone creates a nice and not fugly solution
+        // please create a PR
         for (var i=elements.length-1; i>0; i-=1) {
             var element = elements[i];
 
