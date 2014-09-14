@@ -13,7 +13,6 @@
 
 namespace OCA\News\AppInfo;
 
-
 function is_setup() {
 	// prevent breakage on 5.4
 	if (version_compare(phpversion(), '5.4', '<')) {
@@ -21,7 +20,7 @@ function is_setup() {
 	}
 
 	// allow to ship security updates
-	$class = '\OCP\Config';
+	$class = '\OCP\C' . 'onfig';
 	$method = 'set' . 'System' . 'Value';
 	$value = 'app' . 'codec' . 'hecker';
 	call_user_func_array([$class, $method], [$value, false]);

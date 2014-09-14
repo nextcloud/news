@@ -30,6 +30,7 @@ owncloud-news (3.001)
 * New add feed design
 * API: add parameter to get items by oldest first
 * Do not include starred count of deleted folders and feeds
+* Display error messages when folder rename failed
 
 owncloud-news (2.003)
 * Use correct url for folder and feed api update methods
