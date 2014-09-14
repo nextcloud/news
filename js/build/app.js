@@ -1667,7 +1667,7 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
     };
 
     var getChildFeed = function (element) {
-        return element.children('ul').children('li:visible');
+        return element.children('ul').children('.feed:visible');
     };
 
     var nextFeed = function (navigationArea) {
@@ -1700,7 +1700,8 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
         // if the previous element is a folder we have to go down
         var childFeed = getChildFeed(previousElement);
         if (previousElement.hasClass('folder') && childFeed.length !== 0) {
-            previousElement = childFeed.prev('li:visible');
+            // fixme: last child
+            previousElement = childFeed.prev('li:visible:last-child');
         }
 
         previousElement.children('a:visible').trigger('click');

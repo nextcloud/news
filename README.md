@@ -97,8 +97,8 @@ To update the News app use:
 * **Open current item**: o
 * **Toggle expand of current item in compact view**: e
 * **Reload the currently active feed**: r
-* **Load the next feed/folder**: f
-* **Load the previous feed/folder**: d
+* **Load the next feed**: f
+* **Load the previous feed**: d
 
 ## Performance Notices
 * Use MySQL or PostgreSQL for better database performance

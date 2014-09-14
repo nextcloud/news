@@ -36,7 +36,7 @@
     "categories": ["Multimedia"],
     "dependencies": {
         "php": ">=5.4",
-        "owncloud": ">=7.8",
+        "owncloud": ">=7.0.3",
         "libs": {
             "curl": "*"
         }
