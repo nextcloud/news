@@ -2,7 +2,7 @@
 		active: Navigation.isSubscriptionsActive(),
 		unread: Navigation.getUnreadCount() > 0
 	}"
-    class="has-counter has-menu">
+    class="subscriptions has-counter has-menu">
 
 	<a class="icon-rss" ng-href="#/items/" ng-if="!Navigation.isShowAll()">
 	   <?php p($l->t('Unread articles'))?>

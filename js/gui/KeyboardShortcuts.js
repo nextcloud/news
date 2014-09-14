@@ -38,49 +38,38 @@
         navigationArea.find('.active > a:visible').trigger('click');
     };
 
-    var getParentFolder = function (element) {
-        return element.parent('ul').parent('.folder:visible');
-    };
-
-    var getChildFeed = function (element) {
-        return element.children('ul').children('.feed:visible');
-    };
-
     var nextFeed = function (navigationArea) {
-        var nextElement = navigationArea.find('.active').next('li:visible');
+        var current = navigationArea.find('.active');
+        var elements = navigationArea.find('.subscriptions:visible,' +
+                                           '.starred:visible,' +
+                                           '.feed:visible');
 
-        // in case the last feed of a folder is reached we need to go up
-        var parentFolder = getParentFolder(nextElement);
-        if (nextElement.length === 0 && parentFolder.lenght !== 0) {
-            nextElement = parentFolder.next('li:visible');
+        for (var i=0; i<elements.length-1; i+=1) {
+            var element = elements[i];
+
+            if (element === current[0]) {
+                var next = elements[i+1];
+                $(next).children('a:visible').trigger('click');
+                break;
+            }
         }
-
-        // if the next element is a folder we have to go down
-        var childFeed = getChildFeed(nextElement);
-        if (nextElement.hasClass('folder') && childFeed.length !== 0) {
-            nextElement = childFeed.next('li:visible');
-        }
-
-        nextElement.children('a:visible').trigger('click');
     };
 
     var previousFeed = function (navigationArea) {
-        var previousElement = navigationArea.find('.active').prev('li:visible');
+        var current = navigationArea.find('.active');
+        var elements = navigationArea.find('.subscriptions:visible,' +
+                                           '.starred:visible,' +
+                                           '.feed:visible');
 
-        // in case the first feed of a folder is reached we need to go up
-        var parentFolder = getParentFolder(previousElement);
-        if (previousElement.length === 0 && parentFolder.lenght !== 0) {
-            previousElement = parentFolder.prev('li:visible');
+        for (var i=elements.length-1; i>0; i-=1) {
+            var element = elements[i];
+
+            if (element === current[0]) {
+                var previous = elements[i-1];
+                $(previous).children('a:visible').trigger('click');
+                break;
+            }
         }
-
-        // if the previous element is a folder we have to go down
-        var childFeed = getChildFeed(previousElement);
-        if (previousElement.hasClass('folder') && childFeed.length !== 0) {
-            // fixme: last child
-            previousElement = childFeed.prev('li:visible:last-child');
-        }
-
-        previousElement.children('a:visible').trigger('click');
     };
 
     var onActiveItem = function (scrollArea, callback) {
