@@ -38,14 +38,48 @@
         navigationArea.find('.active > a:visible').trigger('click');
     };
 
+    var getParentFolder = function (element) {
+        return element.parent('ul').parent('li:visible');
+    };
+
+    var getChildFeed = function (element) {
+        return element.children('ul').children('li:visible');
+    };
+
     var nextFeed = function (navigationArea) {
-        navigationArea.find('.active')
-            .next('li').children('a:visible').trigger('click');
+        var nextElement = navigationArea.find('.active').next('li:visible');
+
+        // in case the last feed of a folder is reached we need to go up
+        var parentFolder = getParentFolder(nextElement);
+        if (nextElement.length === 0 && parentFolder.lenght !== 0) {
+            nextElement = parentFolder.next('li:visible');
+        }
+
+        // if the next element is a folder we have to go down
+        var childFeed = getChildFeed(nextElement);
+        if (nextElement.hasClass('folder') && childFeed.length !== 0) {
+            nextElement = childFeed.next('li:visible');
+        }
+
+        nextElement.children('a:visible').trigger('click');
     };
 
     var previousFeed = function (navigationArea) {
-        navigationArea.find('.active').prev('li')
-            .children('a:visible').trigger('click');
+        var previousElement = navigationArea.find('.active').prev('li:visible');
+
+        // in case the first feed of a folder is reached we need to go up
+        var parentFolder = getParentFolder(previousElement);
+        if (previousElement.length === 0 && parentFolder.lenght !== 0) {
+            previousElement = parentFolder.prev('li:visible');
+        }
+
+        // if the previous element is a folder we have to go down
+        var childFeed = getChildFeed(previousElement);
+        if (previousElement.hasClass('folder') && childFeed.length !== 0) {
+            previousElement = childFeed.prev('li:visible');
+        }
+
+        previousElement.children('a:visible').trigger('click');
     };
 
     var onActiveItem = function (scrollArea, callback) {
