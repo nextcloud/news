@@ -139,6 +139,10 @@
         width: 20px;
     }
 
+    #app-content .compact .util-spacer {
+        width: 45px;
+    }
+
     #app-content .utils li {
         line-height: 40px;
         vertical-align: middle;
@@ -207,6 +211,7 @@
 
     #app-content .feed-view .utils .title {
         background: none !important;
+        padding-left: 0;
     }
 
     #app-content .utils .title h1 a {
@@ -255,7 +260,6 @@
         color: #000;
     }
         #app-content .heading a:hover {
-            color: #222;
             text-decoration: underline;
         }
 

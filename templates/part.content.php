@@ -17,7 +17,7 @@
 
             <div class="utils" ng-click="Content.toggleItem(item)">
                 <ul>
-                    <li class="util-spacer only-in-expanded"></li>
+                    <li class="util-spacer"></li>
                     <li class="title only-in-compact"
                         title="{{ item.title }}"
                         ng-style="{ backgroundImage: 'url(' + Content.getFeed(item.feedId).faviconLink + ')'}">
