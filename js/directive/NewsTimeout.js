@@ -7,7 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsTimeout', function ($timeout) {
+app.directive('newsTimeout', function ($timeout, $rootScope) {
     'use strict';
 
     return {
@@ -15,7 +15,7 @@ app.directive('newsTimeout', function ($timeout) {
         scope: {
             'newsTimeout': '&'
         },
-        link: function (scope) {
+        link: function (scope, element) {
             var seconds = 7;
             var timer = $timeout(scope.newsTimeout, seconds * 1000);
 
@@ -23,6 +23,11 @@ app.directive('newsTimeout', function ($timeout) {
             // for instance clicking on the x button
             scope.$on('$destroy', function () {
                 $timeout.cancel(timer);
+            });
+
+            // route change also triggers the timeout
+            $rootScope.$on('$locationChangeStart', function () {
+                element.remove();
             });
         }
     };
