@@ -2019,6 +2019,33 @@ app.directive('newsFocus', ["$timeout", "$interpolate", function ($timeout, $int
     };
 
 }]);
+app.directive('newsPullToRefresh', ["$route", "$rootScope", function ($route, $rootScope) {
+    'use strict';
+
+    var scrolled = false;
+
+    return {
+        restrict: 'A',
+        scope: {
+            'newsTimeout': '&'
+        },
+        link: function (scope, element) {
+
+            // change in the route means the content is refreshed
+            // so reset the var
+            $rootScope.$on('$routeChangeStart', function () {
+                scrolled = false;
+            });
+
+            element.on('scroll', function () {
+                if (element.scrollTop() === 0 && scrolled) {
+                    $route.reload();
+                }
+                scrolled = true;
+            });
+        }
+    };
+}]);
 app.directive('newsReadFile', function () {
     'use strict';
 
@@ -2180,7 +2207,8 @@ app.directive('newsTimeout', ["$timeout", "$rootScope", function ($timeout, $roo
                 $timeout.cancel(timer);
             });
 
-            // route change also triggers the timeout
+            // also delete the entry if undo is ignored and the url
+            // is changed
             $rootScope.$on('$locationChangeStart', function () {
                 element.remove();
             });

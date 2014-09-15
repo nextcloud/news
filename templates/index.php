@@ -55,7 +55,8 @@ if($version[0] > 7 && $version[1] <= 8) {
             'loading-content': App.loading.isLoading('content') && !App.loading.isLoading('global'),
             'first-run': App.isFirstRun()
         }"
-        tabindex="-1">
+        tabindex="-1"
+        news-pull-to-refresh>
         <div id="app-content-wrapper"
             ng-class="{'autopaging': App.loading.isLoading('autopaging')}"
             ng-hide="App.loading.isLoading('global')"

@@ -25,7 +25,8 @@ app.directive('newsTimeout', function ($timeout, $rootScope) {
                 $timeout.cancel(timer);
             });
 
-            // route change also triggers the timeout
+            // also delete the entry if undo is ignored and the url
+            // is changed
             $rootScope.$on('$locationChangeStart', function () {
                 element.remove();
             });
