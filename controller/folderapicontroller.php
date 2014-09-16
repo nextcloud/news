@@ -14,139 +14,125 @@
 namespace OCA\News\Controller;
 
 use \OCP\IRequest;
-use \OCP\AppFramework\Controller;
+use \OCP\AppFramework\ApiController;
 use \OCP\AppFramework\Http;
-use \OCP\AppFramework\Http\JSONResponse;
 
-use \OCA\News\BusinessLayer\FolderBusinessLayer;
-use \OCA\News\BusinessLayer\ItemBusinessLayer;
-use \OCA\News\BusinessLayer\BusinessLayerException;
-use \OCA\News\BusinessLayer\BusinessLayerConflictException;
-use \OCA\News\BusinessLayer\BusinessLayerValidationException;
+use \OCA\News\Service\FolderService;
+use \OCA\News\Service\ItemService;
+use \OCA\News\Service\ServiceNotFoundException;
+use \OCA\News\Service\ServiceConflictException;
+use \OCA\News\Service\ServiceValidationException;
 
 
-class FolderApiController extends Controller {
+class FolderApiController extends ApiController {
 
-	private $folderBusinessLayer;
-	private $itemBusinessLayer;
+	use JSONHttpError;
+
+	private $folderService;
+	private $itemService;
 	private $userId;
+	private $serializer;
 
 	public function __construct($appName,
 	                            IRequest $request,
-	                            FolderBusinessLayer $folderBusinessLayer,
-	                            ItemBusinessLayer $itemBusinessLayer,
+	                            FolderService $folderService,
+	                            ItemService $itemService,
 	                            $userId){
 		parent::__construct($appName, $request);
-		$this->folderBusinessLayer = $folderBusinessLayer;
-		$this->itemBusinessLayer = $itemBusinessLayer;
+		$this->folderService = $folderService;
+		$this->itemService = $itemService;
 		$this->userId = $userId;
+		$this->serializer = new EntityApiSerializer('folders');
 	}
 
 
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 * @API
+	 * @CORS
 	 */
 	public function index() {
-		$result = array(
-			'folders' => array()
+		return $this->serializer->serialize(
+			$this->folderService->findAll($this->userId)
 		);
-
-		foreach ($this->folderBusinessLayer->findAll($this->userId) as $folder) {
-			array_push($result['folders'], $folder->toAPI());
-		}
-
-		return new JSONResponse($result);
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * @API
-	 */
-	public function create() {
-		$folderName = $this->params('name');
-		$result = array(
-			'folders' => array()
-		);
-
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param string $name
+     * @return array|mixed|\OCP\AppFramework\Http\JSONResponse
+     */
+	public function create($name) {
 		try {
-			$this->folderBusinessLayer->purgeDeleted($this->userId, false);
-			$folder = $this->folderBusinessLayer->create($folderName, $this->userId);
-			array_push($result['folders'], $folder->toAPI());
-
-			return new JSONResponse($result);
-		
-		} catch(BusinessLayerValidationException $ex) {
-			return new JSONResponse(array('message' => $ex->getMessage()),
-				Http::STATUS_UNPROCESSABLE_ENTITY);
-
-		} catch(BusinessLayerConflictException $ex) {
-			return new JSONResponse(array('message' => $ex->getMessage()),
-				Http::STATUS_CONFLICT);
+			$this->folderService->purgeDeleted($this->userId, false);
+			return $this->serializer->serialize(
+				$this->folderService->create($name, $this->userId)
+			);
+		} catch(ServiceValidationException $ex) {
+			return $this->error($ex, Http::STATUS_UNPROCESSABLE_ENTITY);
+		} catch(ServiceConflictException $ex) {
+			return $this->error($ex, Http::STATUS_CONFLICT);
 		}
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * @API
-	 */
-	public function delete() {
-		$folderId = (int) $this->params('folderId');
-
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param int $folderId
+     * @return array|\OCP\AppFramework\Http\JSONResponse
+     */
+	public function delete($folderId) {
 		try {
-			$this->folderBusinessLayer->delete($folderId, $this->userId);
-			return new JSONResponse();
-		} catch(BusinessLayerException $ex) {
-			return new JSONResponse(array('message' => $ex->getMessage()),
-				Http::STATUS_NOT_FOUND);
+			$this->folderService->delete($folderId, $this->userId);
+		} catch(ServiceNotFoundException $ex) {
+			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
+
+        return [];
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * @API
-	 */
-	public function update() {
-		$folderId = (int) $this->params('folderId');
-		$folderName = $this->params('name');
-
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     * @param int $folderId
+     * @param string $name
+     * @return array|\OCP\AppFramework\Http\JSONResponse
+     */
+	public function update($folderId, $name) {
 		try {
-			$this->folderBusinessLayer->rename($folderId, $folderName, $this->userId);
-			return new JSONResponse();
+			$this->folderService->rename($folderId, $name, $this->userId);
 
-		} catch(BusinessLayerValidationException $ex) {
-			return new JSONResponse(array('message' => $ex->getMessage()),
-				Http::STATUS_UNPROCESSABLE_ENTITY);
-
-		} catch(BusinessLayerConflictException $ex) {
-			return new JSONResponse(array('message' => $ex->getMessage()),
-				Http::STATUS_CONFLICT);
-
-		} catch(BusinessLayerException $ex) {
-			return new JSONResponse(array('message' => $ex->getMessage()),
-				Http::STATUS_NOT_FOUND);
+		} catch(ServiceValidationException $ex) {
+			return $this->error($ex, Http::STATUS_UNPROCESSABLE_ENTITY);
+		} catch(ServiceConflictException $ex) {
+			return $this->error($ex, Http::STATUS_CONFLICT);
+		} catch(ServiceNotFoundException $ex) {
+			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
+
+        return [];
 	}
 
 
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 * @API
+	 * @CORS
+	 *
+	 * @param int $folderId
+	 * @param int $newestItemId
 	 */
-	public function read() {
-		$folderId = (int) $this->params('folderId');
-		$newestItemId = (int) $this->params('newestItemId');
-
-		$this->itemBusinessLayer->readFolder($folderId, $newestItemId, $this->userId);
-		return new JSONResponse();
+	public function read($folderId, $newestItemId) {
+		$this->itemService->readFolder($folderId, $newestItemId, $this->userId);
 	}
 
 

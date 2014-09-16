@@ -13,27 +13,23 @@
 
 namespace OCA\News\Controller;
 
-use \OCP\IRequest;
 use \OCP\AppFramework\Http;
 
 use \OCA\News\Http\TextDownloadResponse;
-use \OCA\News\Utility\ControllerTestUtility;
 use \OCA\News\Utility\OPMLExporter;
 use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
 
-require_once(__DIR__ . "/../../classloader.php");
 
-
-class ExportControllerTest extends ControllerTestUtility {
+class ExportControllerTest extends \PHPUnit_Framework_TestCase {
 
 	private $appName;
 	private $request;
 	private $controller;
 	private $user;
-	private $feedBusinessLayer;
-	private $folderBusinessLayer;
-	private $itemBusinessLayer;
+	private $feedService;
+	private $folderService;
+	private $itemService;
 	private $opmlExporter;
 
 	/**
@@ -42,32 +38,25 @@ class ExportControllerTest extends ControllerTestUtility {
 	public function setUp(){
 		$this->appName = 'news';
 		$this->user = 'john';
-		$this->itemBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\ItemBusinessLayer')
+		$this->itemService = $this->getMockBuilder(
+			'\OCA\News\Service\ItemService')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->feedBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\FeedBusinessLayer')
+		$this->feedService = $this->getMockBuilder(
+			'\OCA\News\Service\FeedService')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->folderBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\FolderBusinessLayer')
+		$this->folderService = $this->getMockBuilder(
+			'\OCA\News\Service\FolderService')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->request = $this->getRequest();
+		$this->request = $this->getMockBuilder('\OCP\IRequest')
+			->disableOriginalConstructor()
+			->getMock();
 		$this->opmlExporter = new OPMLExporter();
 		$this->controller = new ExportController($this->appName, $this->request,
-			$this->feedBusinessLayer, $this->folderBusinessLayer, 
-			$this->itemBusinessLayer, $this->opmlExporter, $this->user);
-	}
-
-
-	public function testOpmlAnnotations(){
-		$annotations = array('NoAdminRequired', 'NoCSRFRequired');
-		$this->assertAnnotations($this->controller, 'opml', $annotations);
-	}
-
-
-	public function testArticlesAnnotations(){
-		$annotations = array('NoAdminRequired', 'NoCSRFRequired');
-		$this->assertAnnotations($this->controller, 'articles', $annotations);
+			$this->folderService, $this->feedService, 
+			$this->itemService, $this->opmlExporter, $this->user);
 	}
 
 
@@ -81,14 +70,14 @@ class ExportControllerTest extends ControllerTestUtility {
 		"  <body/>\n" .
 		"</opml>\n";
 
-		$this->feedBusinessLayer->expects($this->once())
+		$this->feedService->expects($this->once())
 			->method('findAll')
 			->with($this->equalTo($this->user))
-			->will($this->returnValue(array()));
-		$this->folderBusinessLayer->expects($this->once())
+			->will($this->returnValue([]));
+		$this->folderService->expects($this->once())
 			->method('findAll')
 			->with($this->equalTo($this->user))
-			->will($this->returnValue(array()));
+			->will($this->returnValue([]));
 
 		$return = $this->controller->opml();
 		$this->assertTrue($return instanceof TextDownloadResponse);
@@ -108,17 +97,15 @@ class ExportControllerTest extends ControllerTestUtility {
 		$feed2 = new Feed();
 		$feed2->setId(5);
 		$feed2->setLink('http://gee');
-		$feeds = array($feed1, $feed2);
+		$feeds = [$feed1, $feed2];
 
-		$articles = array(
-			$item1, $item2
-		);
+		$articles = [$item1, $item2];
 
-		$this->feedBusinessLayer->expects($this->once())
+		$this->feedService->expects($this->once())
 			->method('findAll')
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($feeds));
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('getUnreadOrStarred')
 			->with($this->equalTo($this->user))
 			->will($this->returnValue($articles));

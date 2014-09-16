@@ -15,9 +15,6 @@
 namespace OCA\News\Utility;
 
 
-require_once(__DIR__ . "/../../classloader.php");
-
-
 class FaviconFetcherTest extends \PHPUnit_Framework_TestCase {
 
 	private $fetcher;

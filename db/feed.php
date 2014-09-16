@@ -13,6 +13,8 @@
 
 namespace OCA\News\Db;
 
+use \OCP\AppFramework\Db\Entity;
+
 /**
  * @method integer getId()
  * @method void setId(integer $value)
@@ -21,7 +23,6 @@ namespace OCA\News\Db;
  * @method string getUrlHash()
  * @method void setUrlHash(string $value)
  * @method string getUrl()
- * @method void setUrl(string $value)
  * @method string getTitle()
  * @method void setTitle(string $value)
  * @method string getFaviconLink()
@@ -33,7 +34,6 @@ namespace OCA\News\Db;
  * @method integer getUnreadCount()
  * @method void setUnreadCount(integer $value)
  * @method string getLink()
- * @method void setLink(string $value)
  * @method boolean getPreventUpdate()
  * @method void setPreventUpdate(boolean $value)
  * @method integer getDeletedAt()
@@ -41,20 +41,22 @@ namespace OCA\News\Db;
  * @method integer getArticlesPerUpdate()
  * @method void setArticlesPerUpdate(integer $value)
  */
-class Feed extends Entity implements IAPI {
+class Feed extends Entity implements IAPI, \JsonSerializable {
 
-	public $userId;
-	public $urlHash;
-	public $url;
-	public $title;
-	public $faviconLink;
-	public $added;
-	public $folderId;
-	public $unreadCount;
-	public $link;
-	public $preventUpdate;
-	public $deletedAt;
-	public $articlesPerUpdate;
+	use EntityJSONSerializer;
+
+	protected $userId;
+	protected $urlHash;
+	protected $url;
+	protected $title;
+	protected $faviconLink;
+	protected $added;
+	protected $folderId;
+	protected $unreadCount;
+	protected $link;
+	protected $preventUpdate;
+	protected $deletedAt;
+	protected $articlesPerUpdate;
 
 	public function __construct(){
 		$this->addType('parentId', 'integer');
@@ -67,17 +69,50 @@ class Feed extends Entity implements IAPI {
 	}
 
 
+	/**
+	 * Turns entitie attributes into an array
+	 */
+	public function jsonSerialize() {
+		$serialized = $this->serializeFields([
+			'id',
+			'userId',
+			'urlHash',
+			'url',
+			'title',
+			'faviconLink',
+			'added',
+			'folderId',
+			'unreadCount',
+			'link',
+			'preventUpdate',
+			'deletedAt',
+			'articlesPerUpdate',
+		]);
+
+		$url = parse_url($this->link)['host'];
+
+		// strip leading www. to avoid css class confusion
+		if (strpos($url, 'www.') === 0) {
+			$url = substr($url, 4);
+		}
+
+		$serialized['cssClass'] = 'custom-' . str_replace('.', '-', $url);
+
+		return $serialized;
+	}
+
+
 	public function toAPI() {
-		return array(
-			'id' => $this->getId(),
-			'url' => $this->getUrl(),
-			'title' => $this->getTitle(),
-			'faviconLink' => $this->getFaviconLink(),
-			'added' => $this->getAdded(),
-			'folderId' => $this->getFolderId(),
-			'unreadCount' => $this->getUnreadCount(),
-			'link' => $this->getLink()
-		);
+		return $this->serializeFields([
+			'id',
+			'url',
+			'title',
+			'faviconLink',
+			'added',
+			'folderId',
+			'unreadCount',
+			'link'
+		]);
 	}
 
 

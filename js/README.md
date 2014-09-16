@@ -1,38 +1,40 @@
-# News CoffeeScript/JavaScript development
+# JavaScript Development
+Before starting, install nodejs 0.10 and grunt-cli:
 
-You will need node.js version >= 0.8
+	sudo npm -g install grunt-cli
 
-## Compile coffeescript
-To compile the coffeescript run:
+then run:
 
-    make
-    
-If you want to autocompile on change run:
+	npm install
 
-    make watch
 
-## Running unittests
-Unittests are run with the testacular:
+## Building
+Watch mode:
 
-	make testacular
+	grunt dev
 
-afterwards the watch command can be run in a new terminal:
+Single run mode:
 
-	make watch
+	grunt
 
-This will automatically execute unittests when a coffeescript file has been changed and saved.
+## Testing
+Watch mode:
 
-### PHPUnit
-To run phpunittests once a file changed, simply run
+	grunt php
+	grunt test
 
-    make phpunit
+Single run mode:
 
-## Clear compiled folder
-To clear the build/ folder run:
+	grunt phpunit
+	grunt ci-unit
 
-    make clean
+### Running e2e tests
+Install protractor and set up selenium:
 
-## Run js unittests
-To run js unittests with the ci server, use 
+	sudo npm install -g protractor
+	sudo webdriver-manager update
 
-	make test
+then the tests can be started with:
+
+	grunt e2e
+

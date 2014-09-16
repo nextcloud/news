@@ -21,20 +21,21 @@ use \OCA\News\Utility\Config;
 class XPathArticleEnhancer implements ArticleEnhancer {
 
 
-	private $feedRegex;
 	private $fileFactory;
 	private $maximumTimeout;
 	private $config;
 	private $regexXPathPair;
 
 
-	/**
-	 * @param SimplePieFileFactory a factory for getting a simple pie file instance
-	 * @param array $regexXPathPair an associative array containing regex to 
-	 * match the url and the xpath that should be used for it to extract the 
-	 * page
-	 * @param int $maximumTimeout maximum timeout in seconds, defaults to 10 sec
-	 */
+    /**
+     * @param \OCA\News\Utility\SimplePieAPIFactory $fileFactory
+     * @param array $regexXPathPair an associative array containing regex to
+     * match the url and the xpath that should be used for it to extract the
+     * page
+     * @param \OCA\News\Utility\Config $config
+     * @internal param \OCA\News\ArticleEnhancer\a $SimplePieFileFactory factory for getting a simple pie file instance
+     * @internal param int $maximumTimeout maximum timeout in seconds, defaults to 10 sec
+     */
 	public function __construct(SimplePieAPIFactory $fileFactory, 
 	                            array $regexXPathPair, Config $config){
 		$this->regexXPathPair = $regexXPathPair;
@@ -55,11 +56,14 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 				$file = $this->getFile($item->getUrl());
 				
 				// convert encoding by detecting charset from header
-				$contentType = $file->headers['content-type'];
+                /** @noinspection PhpUndefinedFieldInspection */
+                $contentType = $file->headers['content-type'];
 				if( preg_match( '/(?<=charset=)[^;]*/', $contentType, $matches ) ) {
-					$body = mb_convert_encoding($file->body, 'HTML-ENTITIES', $matches[0]);
+                    /** @noinspection PhpUndefinedFieldInspection */
+                    $body = mb_convert_encoding($file->body, 'HTML-ENTITIES', $matches[0]);
 				} else {
-					$body = $file->body;
+                    /** @noinspection PhpUndefinedFieldInspection */
+                    $body = $file->body;
 				}
 
 				$dom = new \DOMDocument();
@@ -136,7 +140,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 		// remove <html></html> 
 		$dom->replaceChild($dom->firstChild->firstChild, $dom->firstChild);
 		
-		$substitution = array("href", "src");
+		$substitution = ["href", "src"];
 
 		foreach ($substitution as $attribute) {
 			$xpath = new \DOMXpath($dom);
@@ -163,7 +167,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 	/**
 	 * Method which builds a URL by taking a relative URL and its corresponding
 	 * absolute URL
-	 * For examle relative URL "../example/path/file.php?a=1#anchor" and
+	 * For example relative URL "../example/path/file.php?a=1#anchor" and
 	 * absolute URL "https://username:password@www.website.com/subfolder/index.html"
 	 * will result in "https://username:password@www.website.com/example/path/file.php?a=1#anchor"
 	 * @param string $relativeUrl the relative URL
@@ -217,8 +221,8 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 	/**
 	 * Method which turns an xpath result to a string
 	 * you can customize it by overwriting this method
-	 * @param $xpathResult the result from the xpath query
-	 * @return the result as a string
+	 * @param mixed $xpathResult the result from the xpath query
+	 * @return string the result as a string
 	 */
 	protected function domToString($xpathResult) {
 		$result = "";

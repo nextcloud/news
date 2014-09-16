@@ -15,11 +15,7 @@
 namespace OCA\News\Http;
 
 
-require_once(__DIR__ . "/../../classloader.php");
-require_once(__DIR__ . "/DownloadResponseTest.php");
-
-
-class TextDownloadResponseTest extends DownloadResponseTest {
+class TextDownloadResponseTest extends \PHPUnit_Framework_TestCase {
 
 
 	protected function setUp() {

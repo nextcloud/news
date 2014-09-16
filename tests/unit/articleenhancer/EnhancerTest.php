@@ -15,8 +15,6 @@ namespace OCA\News\ArticleEnhancer;
 
 use \OCA\News\Db\Item;
 
-require_once(__DIR__ . "/../../classloader.php");
-
 
 class EnhancerTest extends \PHPUnit_Framework_TestCase {
 
@@ -37,14 +35,14 @@ class EnhancerTest extends \PHPUnit_Framework_TestCase {
 	public function testEnhanceSetsCorrectHash(){
 		$item = new Item();
 		$item->setUrl('hi');
-		$urls = array(
+		$urls = [
 			'https://test.com',
 			'https://www.test.com',
 			'https://test.com/',
 			'http://test.com',
 			'http://test.com/',
 			'http://www.test.com'
-		);
+		];
 		for ($i=0; $i < count($urls); $i++) { 
 			$this->articleEnhancer->expects($this->at($i))
 				->method('enhance')

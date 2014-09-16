@@ -13,10 +13,12 @@
 
 namespace OCA\News\Controller;
 
+use OCP\AppFramework\Http\TemplateResponse;
 use \OCP\IRequest;
 use \OCP\IConfig;
-use \OCP\AppFramework\Http\JSONResponse;
+use \OCP\IL10N;
 use \OCP\AppFramework\Controller;
+
 
 class PageController extends Controller {
 
@@ -24,8 +26,11 @@ class PageController extends Controller {
 	private $l10n;
 	private $userId;
 
-	public function __construct($appName, IRequest $request, IConfig $settings,
-		$l10n, $userId){
+	public function __construct($appName,
+	                            IRequest $request,
+	                            IConfig $settings,
+	                            IL10N $l10n,
+	                            $userId){
 		parent::__construct($appName, $request);
 		$this->settings = $settings;
 		$this->l10n = $l10n;
@@ -38,7 +43,7 @@ class PageController extends Controller {
 	 * @NoCSRFRequired
 	 */
 	public function index() {
-		return $this->render('main');
+		return new TemplateResponse($this->appName, 'index');
 	}
 
 
@@ -46,40 +51,35 @@ class PageController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function settings() {
-		$showAll = $this->settings->getUserValue($this->userId, $this->appName, 
-			'showAll');
-		$compact = $this->settings->getUserValue($this->userId, $this->appName, 
-			'compact');
-		$language = $this->l10n->findLanguage();
+		$settings = ['showAll', 'compact', 'preventReadOnScroll', 'oldestFirst'];
 
-		$settings = array(
-			'showAll' => $showAll === '1',
-			'compact' => $compact === '1',
-			'language' => $language
-		);
+		$result = ['language' => $this->l10n->getLanguageCode()];
 
-		return new JSONResponse($settings);
+		foreach ($settings as $setting) {
+			$result[$setting] = $this->settings->getUserValue(
+				$this->userId, $this->appName, $setting
+			) === '1';
+		}
+		return ['settings' => $result];
 	}
 
 
 	/**
 	 * @NoAdminRequired
+	 *
+	 * @param bool $showAll
+	 * @param bool $compact
+	 * @param bool $preventReadOnScroll
+	 * @param bool $oldestFirst
 	 */
-	public function updateSettings() {
-		$isShowAll = $this->params('showAll', null);
-		$isCompact = $this->params('compact', null);
-		
-		if($isShowAll !== null) {
-			$this->settings->setUserValue($this->userId, $this->appName, 
-				'showAll', $isShowAll);
-		}
+	public function updateSettings($showAll, $compact, $preventReadOnScroll, $oldestFirst) {
+		$settings = ['showAll', 'compact', 'preventReadOnScroll', 'oldestFirst'];
 
-		if($isCompact !== null) {
+		foreach ($settings as $setting) {
 			$this->settings->setUserValue($this->userId, $this->appName,
-				'compact', $isCompact);
+			                              $setting, ${$setting});
 		}
-
-		return new JSONResponse();
 	}
+
 
 }

@@ -13,9 +13,6 @@
 
 namespace OCA\News\Db;
 
-require_once(__DIR__ . "/../../classloader.php");
-
-
 
 class MapperFactoryTest extends \PHPUnit_Framework_TestCase {
 
@@ -23,7 +20,7 @@ class MapperFactoryTest extends \PHPUnit_Framework_TestCase {
 	private $settings;
 
 	public function setUp() {
-		$this->db = $this->getMockBuilder('\OCA\News\Core\Db')
+		$this->db = $this->getMockBuilder('\OCP\IDb')
 			->disableOriginalConstructor()
 			->getMock();
 	}

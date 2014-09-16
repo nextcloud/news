@@ -13,25 +13,21 @@
 
 namespace OCA\News\Controller;
 
-use \OCP\IRequest;
 use \OCP\AppFramework\Http;
 
-use \OCA\News\Utility\ControllerTestUtility;
 use \OCA\News\Db\Folder;
 use \OCA\News\Db\Feed;
-use \OCA\News\BusinessLayer\BusinessLayerException;
-use \OCA\News\BusinessLayer\BusinessLayerConflictException;
-use \OCA\News\BusinessLayer\BusinessLayerValidationException;
-
-require_once(__DIR__ . "/../../classloader.php");
+use \OCA\News\Service\ServiceNotFoundException;
+use \OCA\News\Service\ServiceConflictException;
+use \OCA\News\Service\ServiceValidationException;
 
 
-class FolderControllerTest extends ControllerTestUtility {
+class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 
 	private $appName;
-	private $folderBusinessLayer;
-	private $itemBusinessLayer;
-	private $feedBusinessLayer;
+	private $folderService;
+	private $itemService;
+	private $feedService;
 	private $request;
 	private $controller;
 	private $msg;
@@ -43,373 +39,260 @@ class FolderControllerTest extends ControllerTestUtility {
 	public function setUp(){
 		$this->appName = 'news';
 		$this->user = 'jack';
-		$this->folderBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\FolderBusinessLayer')
+		$this->folderService = $this->getMockBuilder(
+			'\OCA\News\Service\FolderService')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->feedBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\FeedBusinessLayer')
+		$this->feedService = $this->getMockBuilder(
+			'\OCA\News\Service\FeedService')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->itemBusinessLayer = $this->getMockBuilder('\OCA\News\BusinessLayer\ItemBusinessLayer')
+		$this->itemService = $this->getMockBuilder(
+			'\OCA\News\Service\ItemService')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->request = $this->getRequest();
+		$this->request = $this->getMockBuilder(
+			'\OCP\IRequest')
+			->disableOriginalConstructor()
+			->getMock();
 		$this->controller = new FolderController($this->appName, $this->request,
-				$this->folderBusinessLayer, 
-				$this->feedBusinessLayer,
-				$this->itemBusinessLayer,
+				$this->folderService,
+				$this->feedService,
+				$this->itemService,
 				$this->user);
 		$this->msg = 'ron';
 	}
 
 
-	private function assertFolderControllerAnnotations($methodName){
-		$annotations = array('NoAdminRequired');
-		$this->assertAnnotations($this->controller, $methodName, $annotations);
-	}
 
-
-	private function getPostController($postValue, $url=array()){
-		$post = array(
-			'post' => $postValue,
-			'urlParams' => $url
-		);
-
-		$request = $this->getRequest($post);
-		return new FolderController($this->appName, $request,
-			$this->folderBusinessLayer, 
-			$this->feedBusinessLayer,
-			$this->itemBusinessLayer,
-			$this->user);
-	}
-
-	public function testFoldersAnnotations(){
-		$this->assertFolderControllerAnnotations('index');
-	}
-
-
-	public function testOpenAnnotations(){
-		$this->assertFolderControllerAnnotations('open');
-	}
-
-
-	public function testCollapseAnnotations(){
-		$this->assertFolderControllerAnnotations('collapse');
-	}
-
-
-	public function testCreateAnnotations(){
-		$this->assertFolderControllerAnnotations('create');
-	}
-
-
-	public function testDeleteAnnotations(){
-		$this->assertFolderControllerAnnotations('delete');
-	}
-
-
-	public function testRestoreAnnotations(){
-		$this->assertFolderControllerAnnotations('restore');
-	}
-
-
-	public function testRenameAnnotations(){
-		$this->assertFolderControllerAnnotations('rename');
-	}
-
-
-	public function testReadAnnotations(){
-		$this->assertFolderControllerAnnotations('read');
-	}
-	
 	public function testIndex(){
-		$return = array(
-			new Folder(),
-			new Folder(),
-		);
-		$this->folderBusinessLayer->expects($this->once())
+		$return = [new Folder(), new Folder()];
+		$this->folderService->expects($this->once())
 					->method('findAll')
 					->will($this->returnValue($return));
 
 		$response = $this->controller->index();
-		$expected = array(
-			'folders' => $return
-		);
-		$this->assertEquals($expected, $response->getData());
+		$expected = ['folders' => $return];
+		$this->assertEquals($expected, $response);
 	}
 
 
 	public function testOpen(){
-		$url = array('folderId' => 5);
-		$this->controller = $this->getPostController(array(), $url);
-
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('open')
-			->with($this->equalTo($url['folderId']), 
+			->with($this->equalTo(3),
 				$this->equalTo(true), $this->equalTo($this->user));
-		
-		$this->controller->open();
+
+		$this->controller->open(3, true);
 
 	}
 
 
 	public function testOpenDoesNotExist(){
-		$url = array('folderId' => 5);
-		$this->controller = $this->getPostController(array(), $url);
-
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('open')
-			->will($this->throwException(new BusinessLayerException($this->msg)));
-		
-		$response = $this->controller->open();
+			->will($this->throwException(new ServiceNotFoundException($this->msg)));
+
+		$response = $this->controller->open(5, true);
 
 		$params = json_decode($response->render(), true);
 
-		$this->assertEquals($this->msg, $params['msg']);
+		$this->assertEquals($this->msg, $params['message']);
 		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
 	}
 
 
 	public function testCollapse(){
-		$url = array('folderId' => 5);
-		$this->controller = $this->getPostController(array(), $url);
-
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('open')
-			->with($this->equalTo($url['folderId']), 
+			->with($this->equalTo(5),
 				$this->equalTo(false), $this->equalTo($this->user));
-		
-		$this->controller->collapse();
 
-	}
+		$this->controller->open(5, false);
 
-
-	public function testCollapseDoesNotExist(){
-		$url = array('folderId' => 5);
-		$this->controller = $this->getPostController(array(), $url);
-
-		$this->folderBusinessLayer->expects($this->once())
-			->method('open')
-			->will($this->throwException(new BusinessLayerException($this->msg)));
-		
-		$response = $this->controller->collapse();
-
-		$params = json_decode($response->render(), true);
-
-		$this->assertEquals($this->msg, $params['msg']);
-		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
 	}
 
 
 	public function testCreate(){
-		$post = array('folderName' => 'tech');
-		$this->controller = $this->getPostController($post);
-		$result = array(
-			'folders' => array(new Folder())
-		);
+		$result = ['folders' => [new Folder()]];
 
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('purgeDeleted')
 			->with($this->equalTo($this->user), $this->equalTo(false));
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('create')
-			->with($this->equalTo($post['folderName']), 
+			->with($this->equalTo('tech'),
 				$this->equalTo($this->user))
 			->will($this->returnValue($result['folders'][0]));
-		
-		$response = $this->controller->create();
 
-		$this->assertEquals($result, $response->getData());
+		$response = $this->controller->create('tech');
+
+		$this->assertEquals($result, $response);
 	}
 
 
 	public function testCreateReturnsErrorForInvalidCreate(){
 		$msg = 'except';
-		$ex = new BusinessLayerValidationException($msg);
-		$this->folderBusinessLayer->expects($this->once())
+		$ex = new ServiceValidationException($msg);
+		$this->folderService->expects($this->once())
 			->method('purgeDeleted')
 			->with($this->equalTo($this->user), $this->equalTo(false));
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('create')
 			->will($this->throwException($ex));
 
-		$response = $this->controller->create();
+		$response = $this->controller->create('tech');
 		$params = json_decode($response->render(), true);
 
 		$this->assertEquals($response->getStatus(), Http::STATUS_UNPROCESSABLE_ENTITY);
-		$this->assertEquals($msg, $params['msg']);
+		$this->assertEquals($msg, $params['message']);
 	}
 
 
 	public function testCreateReturnsErrorForDuplicateCreate(){
 		$msg = 'except';
-		$ex = new BusinessLayerConflictException($msg);
-		$this->folderBusinessLayer->expects($this->once())
+		$ex = new ServiceConflictException($msg);
+		$this->folderService->expects($this->once())
 			->method('purgeDeleted')
 			->with($this->equalTo($this->user), $this->equalTo(false));
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('create')
 			->will($this->throwException($ex));
 
-		$response = $this->controller->create();
+		$response = $this->controller->create('tech');
 		$params = json_decode($response->render(), true);
 
 		$this->assertEquals($response->getStatus(), Http::STATUS_CONFLICT);
-		$this->assertEquals($msg, $params['msg']);
+		$this->assertEquals($msg, $params['message']);
 	}
 
 
 	public function testDelete(){
-		$url = array('folderId' => 5);
-		$this->controller = $this->getPostController(array(), $url);
-
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('markDeleted')
-			->with($this->equalTo($url['folderId']), 
+			->with($this->equalTo(5),
 				$this->equalTo($this->user));
-		
-		$this->controller->delete();
+
+		$this->controller->delete(5);
 	}
 
 
 	public function testDeleteDoesNotExist(){
-		$url = array('folderId' => 5);
-		$this->controller = $this->getPostController(array(), $url);
-
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('markDeleted')
-			->will($this->throwException(new BusinessLayerException($this->msg)));
-		
-		$response = $this->controller->delete();
+			->will($this->throwException(new ServiceNotFoundException($this->msg)));
+
+		$response = $this->controller->delete(5);
 
 		$params = json_decode($response->render(), true);
 
-		$this->assertEquals($this->msg, $params['msg']);
+		$this->assertEquals($this->msg, $params['message']);
 		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
 	}
 
 
 	public function testRename(){
-		$post = array('folderName' => 'tech');
-		$url = array('folderId' => 4);
-		$this->controller = $this->getPostController($post, $url);
-		$result = array(
-			'folders' => array(new Folder())
-		);
+		$result = ['folders' => [new Folder()]];
 
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('rename')
-			->with($this->equalTo($url['folderId']),
-				$this->equalTo($post['folderName']), 
+			->with($this->equalTo(4),
+				$this->equalTo('tech'),
 				$this->equalTo($this->user))
 			->will($this->returnValue($result['folders'][0]));
-		
-		$response = $this->controller->rename();
 
-		$this->assertEquals($result, $response->getData());
+		$response = $this->controller->rename('tech', 4);
+
+		$this->assertEquals($result, $response);
 	}
 
 
 	public function testRenameReturnsErrorForInvalidCreate(){
 		$msg = 'except';
-		$ex = new BusinessLayerValidationException($msg);
-		$this->folderBusinessLayer->expects($this->once())
+		$ex = new ServiceValidationException($msg);
+		$this->folderService->expects($this->once())
 			->method('rename')
 			->will($this->throwException($ex));
 
-		$response = $this->controller->rename();
+		$response = $this->controller->rename('tech', 4);
 		$params = json_decode($response->render(), true);
 
 		$this->assertEquals($response->getStatus(), Http::STATUS_UNPROCESSABLE_ENTITY);
-		$this->assertEquals($msg, $params['msg']);
+		$this->assertEquals($msg, $params['message']);
 	}
 
 
 	public function testRenameDoesNotExist(){
 		$msg = 'except';
-		$ex = new BusinessLayerException($msg);
-		$this->folderBusinessLayer->expects($this->once())
+		$ex = new ServiceNotFoundException($msg);
+		$this->folderService->expects($this->once())
 			->method('rename')
 			->will($this->throwException($ex));
 
-		$response = $this->controller->rename();
+		$response = $this->controller->rename('tech', 5);
 		$params = json_decode($response->render(), true);
 
 		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
-		$this->assertEquals($msg, $params['msg']);
+		$this->assertEquals($msg, $params['message']);
 	}
 
 
 	public function testRenameReturnsErrorForDuplicateCreate(){
 		$msg = 'except';
-		$ex = new BusinessLayerConflictException($msg);
-		$this->folderBusinessLayer->expects($this->once())
+		$ex = new ServiceConflictException($msg);
+		$this->folderService->expects($this->once())
 			->method('rename')
 			->will($this->throwException($ex));
 
-		$response = $this->controller->rename();
+		$response = $this->controller->rename('tech', 1);
 		$params = json_decode($response->render(), true);
 
 		$this->assertEquals($response->getStatus(), Http::STATUS_CONFLICT);
-		$this->assertEquals($msg, $params['msg']);
+		$this->assertEquals($msg, $params['message']);
 	}
 
 
-	
+
 	public function testRead(){
 		$feed = new Feed();
-		$url = array(
-			'folderId' => 4
-		);
-		$post = array(
-			'highestItemId' => 5
-		);
-		$this->controller = $this->getPostController($post, $url);
-		$expected = array(
-			'feeds' => array($feed)
-		);
+		$expected = ['feeds' => [$feed]];
 
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('readFolder')
-			->with($this->equalTo($url['folderId']), 
-				$this->equalTo($post['highestItemId']), 
+			->with($this->equalTo(4),
+				$this->equalTo(5),
 				$this->equalTo($this->user));
-		$this->feedBusinessLayer->expects($this->once())
+		$this->feedService->expects($this->once())
 			->method('findAll')
 			->with($this->equalTo($this->user))
-			->will($this->returnValue(array($feed)));
+			->will($this->returnValue([$feed]));
 
-		$response = $this->controller->read();
-		$this->assertEquals($expected, $response->getData());
+		$response = $this->controller->read(4, 5);
+		$this->assertEquals($expected, $response);
 	}
 
 
 	public function testRestore(){
-		$url = array('folderId' => 5);
-		$this->controller = $this->getPostController(array(), $url);
-
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('unmarkDeleted')
-			->with($this->equalTo($url['folderId']), 
+			->with($this->equalTo(5),
 				$this->equalTo($this->user));
-		
-		$this->controller->restore();
+
+		$this->controller->restore(5);
 	}
 
 
 	public function testRestoreDoesNotExist(){
-		$url = array('folderId' => 5);
-		$this->controller = $this->getPostController(array(), $url);
-
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('unmarkDeleted')
-			->will($this->throwException(new BusinessLayerException($this->msg)));
-		
-		$response = $this->controller->restore();
+			->will($this->throwException(new ServiceNotFoundException($this->msg)));
+
+		$response = $this->controller->restore(5);
 
 		$params = json_decode($response->render(), true);
 
 		$this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
-		$this->assertEquals($this->msg, $params['msg']);
+		$this->assertEquals($this->msg, $params['message']);
 	}
 
 }

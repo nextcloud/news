@@ -15,9 +15,6 @@
 namespace OCA\News\Http;
 
 
-require_once(__DIR__ . "/../../classloader.php");
-
-
 class TextResponseTest extends \PHPUnit_Framework_TestCase {
 
 

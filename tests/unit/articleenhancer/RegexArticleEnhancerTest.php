@@ -15,8 +15,6 @@ namespace OCA\News\ArticleEnhancer;
 
 use \OCA\News\Db\Item;
 
-require_once(__DIR__ . "/../../classloader.php");
-
 
 class RegexArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 
@@ -25,7 +23,7 @@ class RegexArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 		$item = new Item();
 		$item->setBody('atests is a nice thing');
 		$item->setUrl('http://john.com');
-		$regex = array("%tes(ts)%" => "heho$1tests");
+		$regex = ["%tes(ts)%" => "heho$1tests"];
 		
 		$regexEnhancer = new RegexArticleEnhancer('%john.com%', $regex);
 		$item = $regexEnhancer->enhance($item);

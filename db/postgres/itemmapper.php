@@ -13,16 +13,14 @@
 
 namespace OCA\News\Db\Postgres;
 
-use \OCA\News\Core\Db;
-use \OCA\News\Db\DoesNotExistException;
-use \OCA\News\Db\MultipleObjectsReturnedException;
-use \OCA\News\Db\Mapper;
+use \OCP\IDb;
+
 use \OCA\News\Db\StatusFlag;
 
 
 class ItemMapper extends \OCA\News\Db\ItemMapper {
 
-	public function __construct(Db $db){
+	public function __construct(IDb $db){
 		parent::__construct($db);
 	}
 
@@ -41,7 +39,7 @@ class ItemMapper extends \OCA\News\Db\ItemMapper {
 			'WHERE NOT ((`items`.`status` & ?) > 0) ' .
 			'GROUP BY `items`.`feed_id`, `feeds`.`articles_per_update` ' .
 			'HAVING COUNT(*) > ?';
-		$params = array($status, $threshold);
+		$params = [$status, $threshold];
 		$result = $this->execute($sql, $params);
 
 		while($row = $result->fetch()) {
@@ -50,7 +48,7 @@ class ItemMapper extends \OCA\News\Db\ItemMapper {
 			$limit = $size - $threshold;
 
 			if($limit > 0) {
-				$params = array($status, $row['feed_id'], $limit);
+				$params = [$status, $row['feed_id'], $limit];
 
 				$sql = 'DELETE FROM `*PREFIX*news_items` ' .
 				'WHERE `id` IN (' .

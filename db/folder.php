@@ -13,6 +13,8 @@
 
 namespace OCA\News\Db;
 
+use \OCP\AppFramework\Db\Entity;
+
 /**
  * @method integer getId()
  * @method void setId(integer $value)
@@ -27,13 +29,15 @@ namespace OCA\News\Db;
  * @method integer getDeletedAt()
  * @method void setDeletedAt(integer $value)
  */
-class Folder extends Entity implements IAPI {
+class Folder extends Entity implements IAPI, \JsonSerializable {
 
-	public $parentId;
-	public $name;
-	public $userId;
-	public $opened;
-	public $deletedAt;
+	use EntityJSONSerializer;
+
+	protected $parentId;
+	protected $name;
+	protected $userId;
+	protected $opened;
+	protected $deletedAt;
 
 	public function __construct(){
 		$this->addType('parentId', 'integer');
@@ -41,11 +45,24 @@ class Folder extends Entity implements IAPI {
 		$this->addType('deletedAt', 'integer');
 	}
 
+	/**
+	 * Turns entitie attributes into an array
+	 */
+	public function jsonSerialize() {
+		return $this->serializeFields([
+			'id',
+			'parentId',
+			'name',
+			'userId',
+			'opened',
+			'deletedAt',
+		]);
+	}
 
 	public function toAPI() {
-		return array(
-			'id' => $this->getId(),
-			'name' => $this->getName()
-		);
+		return $this->serializeFields([
+			'id',
+			'name'
+		]);
 	}
 }

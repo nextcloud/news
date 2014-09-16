@@ -13,8 +13,6 @@
 
 namespace OCA\News\Db;
 
-require_once(__DIR__ . "/../../classloader.php");
-
 
 class ItemTest extends \PHPUnit_Framework_TestCase {
 
@@ -72,7 +70,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 		$item->setStarred();
 		$item->setLastModified(321);
 
-		$this->assertEquals(array(
+		$this->assertEquals([
 			'id' => 3,
 			'guid' => 'guid',
 			'guidHash' => 'hash',
@@ -87,7 +85,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 			'unread' => true,
 			'starred' => true,
 			'lastModified' => 321
-			), $item->toAPI());
+			], $item->toAPI());
 	}
 
 
@@ -111,11 +109,9 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 
 		$feed = new Feed();
 		$feed->setLink('http://test');
-		$feeds = array(
-			"feed1" => $feed
-		);
+		$feeds = ["feed1" => $feed];
 
-		$this->assertEquals(array(
+		$this->assertEquals([
 			'guid' => 'guid',
 			'url' => 'https://google',
 			'title' => 'title',
@@ -127,7 +123,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 			'unread' => false,
 			'starred' => true,
 			'feedLink' => 'http://test'
-			), $item->toExport($feeds));
+			], $item->toExport($feeds));
 	}
 
 
@@ -141,18 +137,24 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 		$item->setBody('body');
 		$item->setEnclosureMime('audio/ogg');
 		$item->setEnclosureLink('enclink');
-		$item->setFeedId(1);
 		$item->setUnread();
 		$item->setStarred();
 
-		$feed = new Feed();
-		$feed->setLink('http://test');
-		$feeds = array(
-			"feed1" => $feed
-		);
+		$import = [
+			'guid' => $item->getGuid(),
+			'url' => $item->getUrl(),
+			'title' => $item->getTitle(),
+			'author' => $item->getAuthor(),
+			'pubDate' => $item->getPubDate(),
+			'body' => $item->getBody(),
+			'enclosureMime' => $item->getEnclosureMime(),
+			'enclosureLink' => $item->getEnclosureLink(),
+			'unread' => $item->isUnread(),
+			'starred' => $item->isStarred(),
+		];
 
-		$compareWith = Item::fromImport($item->toExport($feeds));
-		$item->setFeedId(null);
+		$compareWith = Item::fromImport($import);
+		
 		$this->assertEquals($item, $compareWith);
 	}
 

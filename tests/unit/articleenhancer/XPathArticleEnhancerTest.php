@@ -15,8 +15,6 @@ namespace OCA\News\ArticleEnhancer;
 
 use \OCA\News\Db\Item;
 
-require_once(__DIR__ . "/../../classloader.php");
-
 
 class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 
@@ -57,12 +55,12 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 
 		$this->testEnhancer = new XPathArticleEnhancer(
 			$this->fileFactory,
-			array(
+			[
 				'/explosm.net\/comics/' => '//*[@id=\'maincontent\']/div[2]/div/span',
 				'/explosm.net\/shorts/' => '//*[@id=\'maincontent\']/div/div',
 				'/explosm.net\/all/' => '//body/*',
 				'/themerepublic.net/' => '//*[@class=\'post hentry\']'
-			), 
+			], 
 			$this->config
 		);
 		$this->redirects = 5;
@@ -73,7 +71,7 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 
 	public function testXPathUsesNoProxy() {
 		$file = new \stdClass;
-		$file->headers = array("content-type"=>"text/html; charset=utf-8");
+		$file->headers = ["content-type"=>"text/html; charset=utf-8"];
 		$file->body = '';
 		$item = new Item();
 		$item->setUrl('https://www.explosm.net/comics/312');
@@ -117,17 +115,17 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 
 		$this->testEnhancer = new XPathArticleEnhancer(
 			$this->fileFactory,
-			array(
+			[
 				'/explosm.net\/comics/' => '//*[@id=\'maincontent\']/div[2]/div/span',
 				'/explosm.net\/shorts/' => '//*[@id=\'maincontent\']/div/div',
 				'/explosm.net\/all/' => '//body/*',
 				'/themerepublic.net/' => '//*[@class=\'post hentry\']'
-			), 
+			], 
 			$this->config
 		);
 
 		$file = new \stdClass;
-		$file->headers = array("content-type"=>"text/html; charset=utf-8");
+		$file->headers = ["content-type"=>"text/html; charset=utf-8"];
 		$file->body = '';
 		$item = new Item();
 		$item->setUrl('https://www.explosm.net/comics/312');
@@ -165,7 +163,7 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 	
 	public function testDoesModifiyArticlesThatMatch() {
 		$file = new \stdClass;
-		$file->headers = array("content-type"=>"text/html; charset=utf-8");
+		$file->headers = ["content-type"=>"text/html; charset=utf-8"];
 		$file->body = '<html>
 			<body>
 				<div id="maincontent">
@@ -194,7 +192,7 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 
 	public function testDoesModifiyAllArticlesThatMatch() {
 		$file = new \stdClass;
-		$file->headers = array("content-type"=>"text/html; charset=utf-8");
+		$file->headers = ["content-type"=>"text/html; charset=utf-8"];
 		$file->body = '<html>
 			<body>
 				<div id="maincontent">
@@ -223,7 +221,7 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 
 	public function testModificationHandlesEmptyResults() {
 		$file = new \stdClass;
-		$file->headers = array("content-type"=>"text/html; charset=utf-8");
+		$file->headers = ["content-type"=>"text/html; charset=utf-8"];
 		$file->body = '<html>
 			<body>
 				<div id="maincontent">
@@ -250,7 +248,7 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 
 	public function testModificationDoesNotBreakOnEmptyDom() {
 		$file = new \stdClass;
-		$file->headers = array("content-type"=>"text/html; charset=utf-8");
+		$file->headers = ["content-type"=>"text/html; charset=utf-8"];
 		$file->body = '';
 		$item = new Item();
 		$item->setUrl('https://www.explosm.net/comics/312');
@@ -272,7 +270,7 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 
 	public function testModificationDoesNotBreakOnBrokenDom() {
 		$file = new \stdClass;
-		$file->headers = array("content-type"=>"text/html; charset=utf-8");
+		$file->headers = ["content-type"=>"text/html; charset=utf-8"];
 		$file->body = '<html/><p>
 			<body>
 				<div id="maincontent">
@@ -299,7 +297,7 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 
 	public function testTransformRelativeUrls() {
 		$file = new \stdClass;
-		$file->headers = array("content-type"=>"text/html; charset=utf-8");
+		$file->headers = ["content-type"=>"text/html; charset=utf-8"];
 		$file->body = '<html>
 			<body>
 				<a href="../a/relative/url.html?a=1#b">link</a>
@@ -326,7 +324,7 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 
 	public function testTransformRelativeUrlSpecials() {
 		$file = new \stdClass;
-		$file->headers = array("content-type"=>"text/html; charset=utf-8");
+		$file->headers = ["content-type"=>"text/html; charset=utf-8"];
 		$file->body = '<html>
 			<body>
 				<img src="relative/url.png?a=1&b=2">
@@ -351,7 +349,7 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 
 	public function testDontTransformAbsoluteUrlsAndMails() {
 		$file = new \stdClass;
-		$file->headers = array("content-type"=>"text/html; charset=utf-8");
+		$file->headers = ["content-type"=>"text/html; charset=utf-8"];
 		$file->body = '<html>
 			<body>
 				<img src="http://www.url.com/absolute/url.png">

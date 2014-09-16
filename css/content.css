@@ -1,0 +1,457 @@
+/**
+ * ownCloud - News
+ *
+ * This file is licensed under the Affero General Public License version 3 or
+ * later. See the COPYING file.
+ *
+ * @author Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright Bernhard Posselt 2014
+ */
+
+/**
+ * First run styles
+ */
+#first-run {
+    display: none;
+    height: 100%;
+    width: 100%;
+}
+
+.first-run #first-run {
+    display: block;
+}
+
+#first-run > div {
+    width: 100%;
+    height: 100%;
+    display: table;
+}
+
+#first-run > div > div {
+    display: table-row;
+}
+
+#first-run > div > div > * {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+
+#first-run .title h1 {
+    color: #222;
+    font-size: 18px;
+    text-align: center;
+}
+
+#first-run .helper h1 {
+    color: #222;
+    font-size: 18px;
+    height: 44px;
+    padding-left: 45px;
+    background-position: 15px center;
+    background-image: url('../img/arrow.svg');
+    background-repeat: no-repeat;
+}
+.first-run #app-content-wrapper {
+    height: 100%;
+}
+
+/**
+ * Content styles
+ */
+#app-content.loading-content {
+    background: url('../img/loading.gif') no-repeat;
+    background-position: calc(50% - 16px) calc(50% - 16px);
+}
+
+#app-content.loading-content > * {
+    display: none;
+}
+
+#app-content:not(.first-run):after {
+    content: '';
+    display: block;
+    height: 100%;
+}
+
+#app-content-wrapper.autopaging:after {
+    content: '';
+    background-image: url('../img/loading.gif') no-repeat;
+    background-position: calc(50% - 16px) calc(50% - 16px);
+}
+
+/**
+ * Rules for a single feed item
+ */
+#app-content .only-in-expanded {
+    display: block;
+}
+
+#app-content .compact .only-in-expanded {
+    display: none;
+}
+
+#app-content .only-in-compact {
+    display: none;
+}
+
+#app-content .compact .only-in-compact {
+    display: block;
+}
+
+#app-content .item {
+    cursor: default;
+    border-bottom: 1px solid #eee;
+    background-image: linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 84px);
+}
+
+#app-content :not(.compact) .item {
+}
+
+#app-content .item:last-child {
+    border-bottom: 0;
+}
+
+/**
+ * Utils panel
+ */
+#app-content .utils {
+    width: 100%;
+    line-height: 52px;
+    box-sizing: border-box;
+    padding: 15px 50px 0 15px;
+}
+
+#app-content .compact .utils {
+    cursor: pointer;
+    padding-top: 0;
+}
+
+#app-content .utils ul {
+    height: 40px;
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+    #app-content .util-spacer {
+        width: 20px;
+    }
+
+    #app-content .compact .util-spacer {
+        width: 45px;
+    }
+
+    #app-content .utils li {
+        line-height: 40px;
+        vertical-align: middle;
+    }
+
+    #app-content .utils li:last-child {
+        padding-right: 0;
+    }
+
+    #app-content .utils li:first-child {
+        padding-left: 0;
+    }
+
+    #app-content .utils .util {
+        padding: 0 6px;
+    }
+
+    #app-content .utils button,
+    #app-content .utils .external {
+        padding: 0;
+        margin: 0;
+        height: 40px;
+        width: 40px;
+        border: 0;
+        float: left;
+        background-color: transparent;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        background-size: 25px;
+        background-position: center;
+    }
+
+    #app-content .utils .external,
+    #app-content .utils .menu button,
+    #app-content .utils .icon-toggle {
+        display: inline-block;
+        opacity: 0.3;
+    }
+
+    #app-content .utils .external:hover,
+    #app-content .utils .menu button:hover,
+    #app-content .utils .icon-toggle:hover,
+    #app-content .utils .icon-toggle.keep-unread {
+        opacity: 1;
+    }
+
+    #app-content .utils .star {
+        background-image: url('../img/inactive_star.svg');
+    }
+
+    #app-content .utils .starred,
+    #app-content .utils .star:hover {
+        background-image: url('../img/active_star.svg');
+    }
+
+    /**
+     * Article title
+     */
+    #app-content .utils .title {
+        width: 100%;
+        padding-left: 35px;
+        background-position: left center;
+        background-size: 20px 20px;
+        background-repeat: no-repeat;
+    }
+
+    #app-content .feed-view .utils .title {
+        background: none !important;
+        padding-left: 0;
+    }
+
+    #app-content .utils .title h1 a {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 100%;
+        line-height: 40px;
+        display: inline-block;
+        color: #222;
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    #app-content .read .utils .title h1 a {
+        font-weight: normal;
+        color: #888;
+    }
+
+    #app-content .utils .date {
+        padding: 0 15px;
+        margin-right: 25px;
+    }
+
+    @media (max-width: 770px) {
+        #app-content .utils .date {
+            display: none;
+        }
+    }
+
+/**
+ * Expanded content
+ */
+#app-content .heading {
+    padding: 25px 0 10px 0;
+}
+
+#app-content .heading h1 {
+    font-size: 19px;
+    margin-right: 182px;
+    word-wrap: break-word;
+}
+
+    #app-content .heading a {
+        font-weight: bold;
+        color: #000;
+    }
+        #app-content .heading a:hover {
+            text-decoration: underline;
+        }
+
+#app-content .heading .date {
+    float: right;
+    display: inline-block;
+    font-size: 15px;
+}
+
+#app-content .read .heading a {
+    font-weight: normal !important;
+    color: #888;
+}
+
+#app-content .feed-view .source {
+    display: none;
+}
+
+/**
+ * Actual content
+ */
+#app-content .article {
+    min-height: 69px;
+    padding: 0 50px 50px 50px;
+}
+
+#app-content .compact .article {
+    display: none;
+}
+
+#app-content .open .article {
+    display: block;
+}
+
+/**
+ * Timestamp
+ */
+#app-content .subtitle {
+    color: #aaa;
+    font-size: 15px;
+    width: 100%;
+    padding-bottom: 25px;
+}
+
+#app-content .subtitle a {
+    color: #aaa;
+}
+
+#app-content .subtitle a:hover {
+    text-decoration: underline;
+}
+
+#app-content .date {
+    color: #aaa;
+    white-space: nowrap;
+}
+
+/**
+ * Author
+ */
+#app-content .author {
+    color: #aaa;
+    font-size: 15px;
+}
+
+    #app-content .author a {
+        color: inherit;
+    }
+
+        #app-content .author a:hover {
+            text-decoration: underline;
+        }
+
+/**
+ * Enclosure
+ */
+#app-content .enclosure {
+    padding: 20px 0;
+    text-align: center;
+    max-width: 770px;
+    margin-bottom: 15px;
+}
+
+#app-content .enclosure audio,
+#app-content .enclosure video,
+#app-content .enclosure img {
+    width: 100%;
+}
+
+
+/**
+ * Article body
+ */
+#app-content .body {
+    max-width: 770px;
+    font-size: 14px;
+    clear: both;
+    overflow-x: auto;
+}
+
+    #app-content .body p {
+        line-height: 1.5;
+        margin: 7px 0 14px 0;
+    }
+
+    #app-content .body img,
+    #app-content .body table {
+        max-width: 100%;
+        height: auto;
+        overflow: auto;
+        word-wrap: break-word;
+        white-space:normal;
+    }
+
+    #app-content .body > img:first-child,
+    #app-content .body > div:first-child > img:first-child {
+        padding: 0 14px 0 0;
+        float: left;
+    }
+
+    #app-content .body h1,
+    #app-content .body h2 {
+        font-size: 17px;
+        font-weight: bold;
+        color: #222;
+        margin: 21px 0 0 0;
+    }
+
+    #app-content .body h3 {
+        font-size: 15px;
+        font-weight: bold;
+        color: #222;
+        margin: 21px 0 0 0;
+        text-decoration: underline;
+    }
+
+    #app-content .body > div {
+        margin: 7px 0;
+    }
+
+    #app-content .body a {
+        color: #0000ff;
+        text-decoration: underline;
+    }
+
+    #app-content .body ul {
+        margin: 7px 0;
+        padding-left: 14px;
+        list-style-type: disc;
+    }
+
+    #app-content .body ol {
+        margin: 7px 0;
+        padding-left: 21px;
+    }
+
+        #app-content .body ul li {
+            cursor: default;
+            line-height: 21px;
+        }
+
+    #app-content .body pre {
+        padding: 7px 7px 7px 14px;
+        background-color: #dadada;
+        border: 1px solid #ccc;
+        margin: 7px 0 14px 0;
+        overflow-y: auto;
+    }
+        #app-content .body pre::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        #app-content .body pre::-webkit-scrollbar-thumb {
+            background: #333;
+        }
+
+        #app-content .body pre::-webkit-scrollbar-track-piece {
+            background: #ddd;
+        }
+
+        #app-content .body code,
+        #app-content .body pre {
+            font-family: monospace;
+            font-size: 16px;
+        }
+
+    #app-content .body blockquote {
+        border-left: 1px solid rgb(210,210,210);
+        margin: 25px 0;
+        padding: 0 0 0 15px;
+        font-style: italic;
+    }
+
+
+

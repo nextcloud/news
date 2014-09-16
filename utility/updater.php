@@ -14,40 +14,40 @@
 
 namespace OCA\News\Utility;
 
-use \OCA\News\BusinessLayer\FolderBusinessLayer;
-use \OCA\News\BusinessLayer\FeedBusinessLayer;
-use \OCA\News\BusinessLayer\ItemBusinessLayer;
+use \OCA\News\Service\FolderService;
+use \OCA\News\Service\FeedService;
+use \OCA\News\Service\ItemService;
 
 
 class Updater {
 
 
-	private $folderBusinessLayer;
-	private $feedBusinessLayer;
-	private $itemBusinessLayer;
+	private $folderService;
+	private $feedService;
+	private $itemService;
 
-	public function __construct(FolderBusinessLayer $folderBusinessLayer,
-	                            FeedBusinessLayer $feedBusinessLayer,
-	                            ItemBusinessLayer $itemBusinessLayer) {
-		$this->folderBusinessLayer = $folderBusinessLayer;
-		$this->feedBusinessLayer = $feedBusinessLayer;
-		$this->itemBusinessLayer = $itemBusinessLayer;
+	public function __construct(FolderService $folderService,
+	                            FeedService $feedService,
+	                            ItemService $itemService) {
+		$this->folderService = $folderService;
+		$this->feedService = $feedService;
+		$this->itemService = $itemService;
 	}
 
 
 	public function beforeUpdate() {
-		$this->folderBusinessLayer->purgeDeleted();
-		$this->feedBusinessLayer->purgeDeleted();
+		$this->folderService->purgeDeleted();
+		$this->feedService->purgeDeleted();
 	}
 
 
 	public function update() {
-		$this->feedBusinessLayer->updateAll();
+		$this->feedService->updateAll();
 	}
 
 
 	public function afterUpdate() {
-		$this->itemBusinessLayer->autoPurgeOld();
+		$this->itemService->autoPurgeOld();
 	}
 
 

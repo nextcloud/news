@@ -13,23 +13,21 @@
 
 namespace OCA\News\Db;
 
+use \OCP\AppFramework\Db\Entity;
+
+
 /**
  * @method integer getId()
  * @method void setId(integer $value)
  * @method string getGuidHash()
  * @method void setGuidHash(string $value)
  * @method string getGuid()
- * @method void setGuid(string $value)
  * @method string getUrl()
- * @method void setUrl(string $value)
  * @method string getTitle()
- * @method void setTitle(string $value)
  * @method string getAuthor()
- * @method void setAuthor(string $value)
  * @method integer getPubDate()
  * @method void setPubDate(integer $value)
  * @method string getBody()
- * @method void setBody(string $value)
  * @method string getEnclosureMime()
  * @method void setEnclosureMime(string $value)
  * @method string getEnclosureLink()
@@ -41,21 +39,22 @@ namespace OCA\News\Db;
  * @method integer getLastModified()
  * @method void setLastModified(integer $value)
  */
-class Item extends Entity implements IAPI {
+class Item extends Entity implements IAPI, \JsonSerializable {
 
-	public $guidHash;
-	public $guid;
-	public $url;
-	public $title;
-	public $author;
-	public $pubDate;
-	public $body;
-	public $enclosureMime;
-	public $enclosureLink;
-	public $feedId;
-	public $status = 0;
-	public $lastModified;
+	use EntityJSONSerializer;
 
+	protected $guidHash;
+	protected $guid;
+	protected $url;
+	protected $title;
+	protected $author;
+	protected $pubDate;
+	protected $body;
+	protected $enclosureMime;
+	protected $enclosureLink;
+	protected $feedId;
+	protected $status = 0;
+	protected $lastModified;
 
 	public function __construct(){
 		$this->addType('pubDate', 'integer');
@@ -101,9 +100,11 @@ class Item extends Entity implements IAPI {
 		return !$this->isStarred();
 	}
 
-
-	public function toAPI() {
-		return array(
+	/**
+	 * Turns entitie attributes into an array
+	 */
+	public function jsonSerialize() {
+		return [
 			'id' => $this->getId(),
 			'guid' => $this->getGuid(),
 			'guidHash' => $this->getGuidHash(),
@@ -118,12 +119,31 @@ class Item extends Entity implements IAPI {
 			'unread' => $this->isUnread(),
 			'starred' => $this->isStarred(),
 			'lastModified' => $this->getLastModified()
-		);
+		];
+	}
+
+	public function toAPI() {
+		return [
+			'id' => $this->getId(),
+			'guid' => $this->getGuid(),
+			'guidHash' => $this->getGuidHash(),
+			'url' => $this->getUrl(),
+			'title' => $this->getTitle(),
+			'author' => $this->getAuthor(),
+			'pubDate' => $this->getPubDate(),
+			'body' => $this->getBody(),
+			'enclosureMime' => $this->getEnclosureMime(),
+			'enclosureLink' => $this->getEnclosureLink(),
+			'feedId' => $this->getFeedId(),
+			'unread' => $this->isUnread(),
+			'starred' => $this->isStarred(),
+			'lastModified' => $this->getLastModified()
+		];
 	}
 
 
 	public function toExport($feeds) {
-		return array(
+		return [
 			'guid' => $this->getGuid(),
 			'url' => $this->getUrl(),
 			'title' => $this->getTitle(),
@@ -135,7 +155,7 @@ class Item extends Entity implements IAPI {
 			'unread' => $this->isUnread(),
 			'starred' => $this->isStarred(),
 			'feedLink' => $feeds['feed'. $this->getFeedId()]->getLink()
-		);
+		];
 	}
 
 
@@ -159,8 +179,7 @@ class Item extends Entity implements IAPI {
 		} else {
 			$item->setUnstarred();
 		}
-		
-		$item->setFeedId(null);
+
 		return $item;
 	}
 

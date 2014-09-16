@@ -17,189 +17,175 @@ use \OCP\IRequest;
 use \OCP\IConfig;
 use \OCP\AppFramework\Controller;
 use \OCP\AppFramework\Http;
-use \OCP\AppFramework\Http\JSONResponse;
 
-use \OCA\News\BusinessLayer\BusinessLayerException;
-use \OCA\News\BusinessLayer\ItemBusinessLayer;
-use \OCA\News\BusinessLayer\FeedBusinessLayer;
+use \OCA\News\Service\ServiceException;
+use \OCA\News\Service\ServiceNotFoundException;
+use \OCA\News\Service\ItemService;
+use \OCA\News\Service\FeedService;
 
 
 class ItemController extends Controller {
 
-	private $itemBusinessLayer;
-	private $feedBusinessLayer;
+	use JSONHttpError;
+
+	private $itemService;
+	private $feedService;
 	private $userId;
 	private $settings;
 
-	public function __construct($appName, 
-	                            IRequest $request, 
-		                        FeedBusinessLayer $feedBusinessLayer,
-		                        ItemBusinessLayer $itemBusinessLayer,
+	public function __construct($appName,
+	                            IRequest $request,
+		                        FeedService $feedService,
+		                        ItemService $itemService,
 		                        IConfig $settings,
 		                        $userId){
 		parent::__construct($appName, $request);
-		$this->itemBusinessLayer = $itemBusinessLayer;
-		$this->feedBusinessLayer = $feedBusinessLayer;
+		$this->itemService = $itemService;
+		$this->feedService = $feedService;
 		$this->userId = $userId;
 		$this->settings = $settings;
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 */
-	public function index(){
+    /**
+     * @NoAdminRequired
+     *
+     * @param int $type
+     * @param int $id
+     * @param int $limit
+     * @param int $offset
+     * @return array
+     */
+	public function index($type, $id, $limit=50, $offset=0) {
 		$showAll = $this->settings->getUserValue($this->userId, $this->appName,
 			'showAll') === '1';
-
-		$limit = $this->params('limit');
-		$type = (int) $this->params('type');
-		$id = (int) $this->params('id');
-		$offset = (int) $this->params('offset', 0);
+		$oldestFirst = $this->settings->getUserValue($this->userId, $this->appName,
+			'oldestFirst') === '1';
 
 		$this->settings->setUserValue($this->userId, $this->appName,
 			'lastViewedFeedId', $id);
 		$this->settings->setUserValue($this->userId, $this->appName,
 			'lastViewedFeedType', $type);
 
-		$params = array();
+		$params = [];
 
 		try {
 
 			// the offset is 0 if the user clicks on a new feed
-			// we need to pass the newest feeds to not let the unread count get 
+			// we need to pass the newest feeds to not let the unread count get
 			// out of sync
 			if($offset === 0) {
-				$params['newestItemId'] = 
-					$this->itemBusinessLayer->getNewestItemId($this->userId);
-				$params['feeds'] = $this->feedBusinessLayer->findAll($this->userId);
-				$params['starred'] = $this->itemBusinessLayer->starredCount($this->userId);
+				$params['newestItemId'] =
+					$this->itemService->getNewestItemId($this->userId);
+				$params['feeds'] = $this->feedService->findAll($this->userId);
+				$params['starred'] = $this->itemService->starredCount($this->userId);
 			}
-						
-			$params['items'] = $this->itemBusinessLayer->findAll($id, $type, $limit, 
-				                                       $offset, $showAll, $this->userId);
+
+			$params['items'] = $this->itemService->findAll(
+				$id, $type, $limit, $offset, $showAll, $oldestFirst,
+				$this->userId
+			);
+
 		// this gets thrown if there are no items
 		// in that case just return an empty array
-		} catch(BusinessLayerException $ex) {}
+		} catch(ServiceException $ex) {}
 
-		return new JSONResponse($params);
+		return $params;
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 */
-	public function newItems() {
-		$showAll = $this->settings->getUserValue($this->userId, $this->appName,			
+    /**
+     * @NoAdminRequired
+     *
+     * @param int $type
+     * @param int $id
+     * @param int $lastModified
+     * @return array
+     */
+	public function newItems($type, $id, $lastModified=0) {
+		$showAll = $this->settings->getUserValue($this->userId, $this->appName,
 			'showAll') === '1';
 
-		$type = (int) $this->params('type');
-		$id = (int) $this->params('id');
-		$lastModified = (int) $this->params('lastModified', 0);
-
-		$params = array();
+		$params = [];
 
 		try {
-			$params['newestItemId'] = $this->itemBusinessLayer->getNewestItemId($this->userId);
-			$params['feeds'] = $this->feedBusinessLayer->findAll($this->userId);
-			$params['starred'] = $this->itemBusinessLayer->starredCount($this->userId);			
-			$params['items'] = $this->itemBusinessLayer->findAllNew($id, $type, 
+			$params['newestItemId'] = $this->itemService->getNewestItemId($this->userId);
+			$params['feeds'] = $this->feedService->findAll($this->userId);
+			$params['starred'] = $this->itemService->starredCount($this->userId);
+			$params['items'] = $this->itemService->findAllNew($id, $type,
 				$lastModified, $showAll, $this->userId);
+
 		// this gets thrown if there are no items
 		// in that case just return an empty array
-		} catch(BusinessLayerException $ex) {}
+		} catch(ServiceException $ex) {}
 
-		return new JSONResponse($params);
+		return $params;
 	}
 
 
-	private function setStarred($isStarred){
-		$feedId = (int) $this->params('feedId');
-		$guidHash = $this->params('guidHash');
-
-		$this->itemBusinessLayer->star($feedId, $guidHash, $isStarred, $this->userId);
-	}
-
-
-	/**
-	 * @NoAdminRequired
-	 */
-	public function star(){
+    /**
+     * @NoAdminRequired
+     *
+     * @param int $feedId
+     * @param string $guidHash
+     * @param bool $isStarred
+     * @return array|\OCP\AppFramework\Http\JSONResponse
+     */
+	public function star($feedId, $guidHash, $isStarred){
 		try {
-			$this->setStarred(true);
-			return new JSONResponse();
-		} catch(BusinessLayerException $ex) {
-			return new JSONResponse(array(
-				'msg' => $ex->getMessage()
-			), Http::STATUS_NOT_FOUND);
+			$this->itemService->star($feedId, $guidHash, $isStarred,
+				                     $this->userId);
+		} catch(ServiceException $ex) {
+			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
+
+        return [];
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 */
-	public function unstar(){
+    /**
+     * @NoAdminRequired
+     *
+     * @param int $itemId
+     * @param bool $isRead
+     * @return array|\OCP\AppFramework\Http\JSONResponse
+     */
+	public function read($itemId, $isRead=true){
 		try {
-			$this->setStarred(false);
-			return new JSONResponse();
-		} catch(BusinessLayerException $ex) {
-			return new JSONResponse(array(
-				'msg' => $ex->getMessage()
-			), Http::STATUS_NOT_FOUND);
+			$this->itemService->read($itemId, $isRead, $this->userId);
+		} catch(ServiceException $ex) {
+			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
+
+        return [];
 	}
 
 
-	private function setRead($isRead){
-		$itemId = (int) $this->params('itemId');
-
-		$this->itemBusinessLayer->read($itemId, $isRead, $this->userId);
+    /**
+     * @NoAdminRequired
+     *
+     * @param int $highestItemId
+     * @return array
+     */
+	public function readAll($highestItemId){
+		$this->itemService->readAll($highestItemId, $this->userId);
+		return ['feeds' => $this->feedService->findAll($this->userId)];
 	}
 
 
 	/**
 	 * @NoAdminRequired
+	 *
+	 * @param int[] item ids
 	 */
-	public function read(){
-		try {
-			$this->setRead(true);
-			return new JSONResponse();
-		} catch(BusinessLayerException $ex) {
-			return new JSONResponse(array(
-				'msg' => $ex->getMessage()
-			), Http::STATUS_NOT_FOUND);
+	public function readMultiple($itemIds) {
+		foreach($itemIds as $id) {
+			try {
+				$this->itemService->read($id, true, $this->userId);
+			} catch(ServiceNotFoundException $ex) {
+				continue;
+			}
 		}
-	}
-
-
-	/**
-	 * @NoAdminRequired
-	 */
-	public function unread(){
-		try {
-			$this->setRead(false);
-			return new JSONResponse();
-		} catch(BusinessLayerException $ex) {
-			return new JSONResponse(array(
-				'msg' => $ex->getMessage()
-			), Http::STATUS_NOT_FOUND);
-		}
-	}
-
-
-	/**
-	 * @NoAdminRequired
-	 */
-	public function readAll(){
-		$highestItemId = (int) $this->params('highestItemId');
-
-		$this->itemBusinessLayer->readAll($highestItemId, $this->userId);
-
-		$params = array(
-			'feeds' => $this->feedBusinessLayer->findAll($this->userId)
-		);
-		return new JSONResponse($params);
 	}
 
 

@@ -89,7 +89,7 @@ class FeedFetcher implements IFeedFetcher {
 
 		try {
 			// somehow $simplePie turns into a feed after init
-			$items = array();
+			$items = [];
 			$permaLink = $simplePie->get_permalink();
 			if ($feedItems = $simplePie->get_items()) {
 				foreach($feedItems as $feedItem) {
@@ -99,7 +99,7 @@ class FeedFetcher implements IFeedFetcher {
 
 			$feed = $this->buildFeed($simplePie, $url, $getFavicon);
 
-			return array($feed, $items);
+			return [$feed, $items];
 
 		} catch(\Exception $ex){
 			throw new FetcherException($ex->getMessage());
@@ -109,7 +109,7 @@ class FeedFetcher implements IFeedFetcher {
 
 
 	private function decodeTwice($string) {
-		// behold! &apos; is not converted by PHP thats why we need to do it
+		// behold! &apos; is not converted by PHP that's why we need to do it
 		// manually (TM)
 		return str_replace('&apos;', '\'', 
 				html_entity_decode(
@@ -137,7 +137,7 @@ class FeedFetcher implements IFeedFetcher {
 		$guid = $simplePieItem->get_id();
 		$item->setGuid($guid);
 
-		// purification is done in the businesslayer
+		// purification is done in the service layer
 		$item->setBody($simplePieItem->get_content());  
 
 		// pubdate is not required. if not given use the current date

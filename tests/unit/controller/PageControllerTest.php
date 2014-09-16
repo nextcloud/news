@@ -13,14 +13,8 @@
 
 namespace OCA\News\Controller;
 
-use \OCP\IRequest;
 
-use \OCA\News\Utility\ControllerTestUtility;
-
-require_once(__DIR__ . "/../../classloader.php");
-
-
-class PageControllerTest extends ControllerTestUtility {
+class PageControllerTest extends \PHPUnit_Framework_TestCase {
 
 	private $settings;
 	private $appName;
@@ -29,54 +23,48 @@ class PageControllerTest extends ControllerTestUtility {
 	private $user;
 	private $l10n;
 
-
 	/**
 	 * Gets run before each test
 	 */
 	public function setUp(){
 		$this->appName = 'news';
 		$this->user = 'becka';
-		$this->l10n = $this->getMock('L10N', array('findLanguage'));
+		$this->l10n = $this->request = $this->getMockBuilder(
+			'\OCP\IL10n')
+			->disableOriginalConstructor()
+			->getMock();
 		$this->settings = $this->getMockBuilder(
 			'\OCP\IConfig')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->request = $this->getRequest();
-		$this->controller = new PageController($this->appName, $this->request, 
+		$this->request = $this->getMockBuilder(
+			'\OCP\IRequest')
+			->disableOriginalConstructor()
+			->getMock();
+		$this->controller = new PageController($this->appName, $this->request,
 			$this->settings, $this->l10n, $this->user);
 	}
 
 
-	public function testIndexAnnotations(){
-		$annotations = array('NoAdminRequired', 'NoCSRFRequired');
-		$this->assertAnnotations($this->controller, 'index', $annotations);
-	}
-
-	public function testSettingsAnnotations(){
-		$annotations = array('NoAdminRequired');
-		$this->assertAnnotations($this->controller, 'settings', $annotations);
-	}
-
-	public function testUpdateSettingsAnnotations(){
-		$annotations = array('NoAdminRequired');
-		$this->assertAnnotations($this->controller, 'updateSettings', $annotations);
-	}
-
 	public function testIndex(){
 		$response = $this->controller->index();
-		$this->assertEquals('main', $response->getTemplateName());
+		$this->assertEquals('index', $response->getTemplateName());
 	}
 
 
 	public function testSettings() {
-		$result = array(
-			'showAll' => true,
-			'compact' => true,
-			'language' => 'de'
-		);
+		$result = [
+			'settings' => [
+				'showAll' => true,
+				'compact' => true,
+				'preventReadOnScroll' => true,
+				'oldestFirst' => true,
+				'language' => 'de',
+			]
+		];
 
 		$this->l10n->expects($this->once())
-			->method('findLanguage')
+			->method('getLanguageCode')
 			->will($this->returnValue('de'));
 		$this->settings->expects($this->at(0))
 			->method('getUserValue')
@@ -90,52 +78,51 @@ class PageControllerTest extends ControllerTestUtility {
 				$this->equalTo($this->appName),
 				$this->equalTo('compact'))
 			->will($this->returnValue('1'));
+		$this->settings->expects($this->at(2))
+			->method('getUserValue')
+			->with($this->equalTo($this->user),
+				$this->equalTo($this->appName),
+				$this->equalTo('preventReadOnScroll'))
+			->will($this->returnValue('1'));
+		$this->settings->expects($this->at(3))
+			->method('getUserValue')
+			->with($this->equalTo($this->user),
+				$this->equalTo($this->appName),
+				$this->equalTo('oldestFirst'))
+			->will($this->returnValue('1'));
 
 		$response = $this->controller->settings();
-		$this->assertEquals($result, $response->getData());
+		$this->assertEquals($result, $response);
 	}
 
 
 	public function testUpdateSettings() {
-		$request = $this->getRequest(array('post' => array(
-			'showAll' => true,
-			'compact' => true
-		)));
-		$this->controller = new PageController($this->appName, $request, 
-			$this->settings, $this->l10n, $this->user);
-
 		$this->settings->expects($this->at(0))
 			->method('setUserValue')
 			->with($this->equalTo($this->user),
 				$this->equalTo($this->appName),
-				$this->equalTo('showAll'), 
+				$this->equalTo('showAll'),
 				$this->equalTo(true));
 		$this->settings->expects($this->at(1))
 			->method('setUserValue')
 			->with($this->equalTo($this->user),
 				$this->equalTo($this->appName),
-				$this->equalTo('compact'), 
+				$this->equalTo('compact'),
 				$this->equalTo(true));
-		$this->controller->updateSettings();
-
-	}
-
-
-	public function testUpdateSettingsNoParameterShouldNotSetIt() {
-		$request = $this->getRequest(array('post' => array(
-			'showAll' => true
-		)));
-		$this->controller = new PageController($this->appName, $request, 
-			$this->settings, $this->l10n, $this->user);
-
-		$this->settings->expects($this->once())
+		$this->settings->expects($this->at(2))
 			->method('setUserValue')
 			->with($this->equalTo($this->user),
 				$this->equalTo($this->appName),
-				$this->equalTo('showAll'), 
+				$this->equalTo('preventReadOnScroll'),
+				$this->equalTo(false));
+		$this->settings->expects($this->at(3))
+			->method('setUserValue')
+			->with($this->equalTo($this->user),
+				$this->equalTo($this->appName),
+				$this->equalTo('oldestFirst'),
 				$this->equalTo(true));
-
-		$this->controller->updateSettings();
+		$this->controller->updateSettings(true, true, false, true);
 
 	}
+
 }

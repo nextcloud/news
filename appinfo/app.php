@@ -13,18 +13,28 @@
 
 namespace OCA\News\AppInfo;
 
-$container = new Application();
+use \OCA\News\Config\DependencyException;
 
-$config = $container->getAppConfig();
-$config->loadConfig(__DIR__ . '/app.json');
-$config->registerNavigation();
-$config->registerBackgroundJobs();
-$config->registerHooks();
 
-// check for correct app dependencies
-try {
-	$config->testDependencies();
-} catch(\OCA\News\Config\DependencyException $e) {
-	$container->getLogger()->log($e->getMessage());
+require_once __DIR__ . '/setup.php';
+
+if (is_setup()) {
+
+	$container = new Application();
+
+	$config = $container->getAppConfig();
+	$config->loadConfig(__DIR__ . '/app.json');
+	$config->registerNavigation();
+	$config->registerBackgroundJobs();
+	$config->registerHooks();
+
+	// check for correct app dependencies
+	try {
+		$config->testDependencies();
+	} catch(DependencyException $e) {
+		$logger = $container->getLogger();
+		$params = $container->getLoggerParameters();
+		$logger->emergency($e->getMessage(), $params);
+	}
+
 }
-

@@ -13,8 +13,6 @@
 
 namespace OCA\News\Db;
 
-require_once(__DIR__ . "/../../classloader.php");
-
 
 class FolderTest extends \PHPUnit_Framework_TestCase {
 
@@ -24,10 +22,10 @@ class FolderTest extends \PHPUnit_Framework_TestCase {
 		$folder->setId(3);
 		$folder->setName('name');
 
-		$this->assertEquals(array(
+		$this->assertEquals([
 			'id' => 3,
 			'name' => 'name'
-			), $folder->toAPI());
+			], $folder->toAPI());
 	}
 
 }

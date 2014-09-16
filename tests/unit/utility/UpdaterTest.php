@@ -13,56 +13,49 @@
 
 namespace OCA\News\Utility;
 
-use \OCA\News\BusinessLayer\FolderBusinessLayer;
-use \OCA\News\BusinessLayer\FeedBusinessLayer;
-use \OCA\News\BusinessLayer\ItemBusinessLayer;
-
-
-require_once(__DIR__ . "/../../classloader.php");
-
 
 class UpdaterTest extends \PHPUnit_Framework_TestCase {
 
-	private $folderBusinessLayer;
-	private $feedBusinessLayer;
-	private $itemBusinessLayer;
+	private $folderService;
+	private $feedService;
+	private $itemService;
 	private $updater;
 
 	protected function setUp() {
-		$this->folderBusinessLayer = $this->getMockBuilder(
-			'\OCA\News\BusinessLayer\FolderBusinessLayer')
+		$this->folderService = $this->getMockBuilder(
+			'\OCA\News\Service\FolderService')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->feedBusinessLayer = $this->getMockBuilder(
-			'\OCA\News\BusinessLayer\FeedBusinessLayer')
+		$this->feedService = $this->getMockBuilder(
+			'\OCA\News\Service\FeedService')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->itemBusinessLayer = $this->getMockBuilder(
-			'\OCA\News\BusinessLayer\ItemBusinessLayer')
+		$this->itemService = $this->getMockBuilder(
+			'\OCA\News\Service\ItemService')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->updater = new Updater($this->folderBusinessLayer,
-			$this->feedBusinessLayer,
-			$this->itemBusinessLayer);
+		$this->updater = new Updater($this->folderService,
+			$this->feedService,
+			$this->itemService);
 	}
 
 	public function testBeforeUpdate() {
-		$this->folderBusinessLayer->expects($this->once())
+		$this->folderService->expects($this->once())
 			->method('purgeDeleted');
-		$this->feedBusinessLayer->expects($this->once())
+		$this->feedService->expects($this->once())
 			->method('purgeDeleted');
 		$this->updater->beforeUpdate();
 	}
 
 
 	public function testAfterUpdate() {
-		$this->itemBusinessLayer->expects($this->once())
+		$this->itemService->expects($this->once())
 			->method('autoPurgeOld');
 		$this->updater->afterUpdate();
 	}
 
 	public function testUpdate() {
-		$this->feedBusinessLayer->expects($this->once())
+		$this->feedService->expects($this->once())
 			->method('updateAll');
 		$this->updater->update();
 	}

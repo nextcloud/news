@@ -13,17 +13,15 @@
 
 namespace OCA\News\Db;
 
-require_once(__DIR__ . "/../../classloader.php");
 
-
-class FolderMapperTest extends \OCA\News\Utility\MapperTestUtility {
+class FolderMapperTest extends \Test\AppFramework\Db\MapperTestUtility {
 
 	private $folderMapper;
 	private $folders;
 	private $user;
-	
+
 	protected function setUp(){
-		$this->beforeEach();
+		parent::setUp();
 
 		$this->folderMapper = new FolderMapper($this->db);
 
@@ -31,29 +29,28 @@ class FolderMapperTest extends \OCA\News\Utility\MapperTestUtility {
 		$folder1 = new Folder();
 		$folder2 = new Folder();
 
-		$this->folders = array(
-			$folder1,
-			$folder2
-		);
+		$this->folders = [$folder1, $folder2];
 		$this->user = 'hh';
+		$this->twoRows = [
+			['id' => $this->folders[0]->getId()],
+			['id' => $this->folders[1]->getId()]
+		];
 	}
 
 
 	public function testFind(){
 		$userId = 'john';
 		$id = 3;
-		$rows = array(
-		  array('id' => $this->folders[0]->getId()),
-		);
+		$rows = [['id' => $this->folders[0]->getId()]];
 		$sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
 			'WHERE `id` = ? ' .
 			'AND `user_id` = ?';
-			
-		$this->setMapperResult($sql, array($id, $userId), $rows);
-		
+
+		$this->setMapperResult($sql, [$id, $userId], $rows);
+
 		$result = $this->folderMapper->find($id, $userId);
 		$this->assertEquals($this->folders[0], $result);
-		
+
 	}
 
 
@@ -63,28 +60,25 @@ class FolderMapperTest extends \OCA\News\Utility\MapperTestUtility {
 		$sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
 			'WHERE `id` = ? ' .
 			'AND `user_id` = ?';
-			
-		$this->setMapperResult($sql, array($id, $userId));
-		
-		$this->setExpectedException('\OCA\News\Db\DoesNotExistException');
-		$this->folderMapper->find($id, $userId);	
+
+		$this->setMapperResult($sql, [$id, $userId]);
+
+		$this->setExpectedException('\OCP\AppFramework\Db\DoesNotExistException');
+		$this->folderMapper->find($id, $userId);
 	}
-	
+
 
 	public function testFindMoreThanOneResultFound(){
 		$userId = 'john';
 		$id = 3;
-		$rows = array(
-			array('id' => $this->folders[0]->getId()),
-			array('id' => $this->folders[1]->getId())
-		);
+		$rows = $this->twoRows;
 		$sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
 			'WHERE `id` = ? ' .
 			'AND `user_id` = ?';
-		
-		$this->setMapperResult($sql, array($id, $userId), $rows);
-		
-		$this->setExpectedException('\OCA\News\Db\MultipleObjectsReturnedException');
+
+		$this->setMapperResult($sql, [$id, $userId], $rows);
+
+		$this->setExpectedException('\OCP\AppFramework\Db\MultipleObjectsReturnedException');
 		$this->folderMapper->find($id, $userId);
 	}
 
@@ -92,16 +86,13 @@ class FolderMapperTest extends \OCA\News\Utility\MapperTestUtility {
 
 	public function testFindAllFromUser(){
 		$userId = 'john';
-		$rows = array(
-			array('id' => $this->folders[0]->getId()),
-			array('id' => $this->folders[1]->getId())
-		);
+		$rows = $this->twoRows;
 		$sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
 			'WHERE `user_id` = ? ' .
 			'AND `deleted_at` = 0';
-		
-		$this->setMapperResult($sql, array($userId), $rows);
-		
+
+		$this->setMapperResult($sql, [$userId], $rows);
+
 		$result = $this->folderMapper->findAllFromUser($userId);
 		$this->assertEquals($this->folders, $result);
 	}
@@ -110,16 +101,13 @@ class FolderMapperTest extends \OCA\News\Utility\MapperTestUtility {
 	public function testFindByName(){
 		$folderName = 'heheh';
 		$userId = 'john';
-		$rows = array(
-			array('id' => $this->folders[0]->getId()),
-			array('id' => $this->folders[1]->getId())
-		);
+		$rows = $this->twoRows;
 		$sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
 			'WHERE `name` = ? ' .
 			'AND `user_id` = ?';
-		
-		$this->setMapperResult($sql, array($folderName, $userId), $rows);
-		
+
+		$this->setMapperResult($sql, [$folderName, $userId], $rows);
+
 		$result = $this->folderMapper->findByName($folderName, $userId);
 		$this->assertEquals($this->folders, $result);
 	}
@@ -130,13 +118,13 @@ class FolderMapperTest extends \OCA\News\Utility\MapperTestUtility {
 		$folder->setId(3);
 
 		$sql = 'DELETE FROM `*PREFIX*news_folders` WHERE `id` = ?';
-		$arguments = array($folder->getId());
+		$arguments = [$folder->getId()];
 
 		$sql2 = 'DELETE FROM `*PREFIX*news_feeds` WHERE `folder_id` = ?';
 
 		$sql3 = 'DELETE FROM `*PREFIX*news_items` WHERE `feed_id` NOT IN '.
 			'(SELECT `feeds`.`id` FROM `*PREFIX*news_feeds` `feeds`)';
-		$arguments2 = array($folder->getId());
+		$arguments2 = [$folder->getId()];
 
 		$this->setMapperResult($sql, $arguments);
 		$this->setMapperResult($sql2, $arguments2);
@@ -147,15 +135,12 @@ class FolderMapperTest extends \OCA\News\Utility\MapperTestUtility {
 
 
 	public function testGetPurgeDeleted(){
-		$rows = array(
-			array('id' => $this->folders[0]->getId()),
-			array('id' => $this->folders[1]->getId())
-		);
+		$rows = $this->twoRows;
 		$deleteOlderThan = 110;
 		$sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
 			'WHERE `deleted_at` > 0 ' .
 			'AND `deleted_at` < ? ';
-		$this->setMapperResult($sql, array($deleteOlderThan), $rows);
+		$this->setMapperResult($sql, [$deleteOlderThan], $rows);
 		$result = $this->folderMapper->getToDelete($deleteOlderThan);
 
 		$this->assertEquals($this->folders, $result);
@@ -164,16 +149,13 @@ class FolderMapperTest extends \OCA\News\Utility\MapperTestUtility {
 
 
 	public function testGetPurgeDeletedUser(){
-		$rows = array(
-			array('id' => $this->folders[0]->getId()),
-			array('id' => $this->folders[1]->getId())
-		);
+		$rows = $this->twoRows;
 		$deleteOlderThan = 110;
 		$sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
 			'WHERE `deleted_at` > 0 ' .
 			'AND `deleted_at` < ? ' .
 			'AND `user_id` = ?';
-		$this->setMapperResult($sql, array($deleteOlderThan, $this->user), $rows);
+		$this->setMapperResult($sql, [$deleteOlderThan, $this->user], $rows);
 		$result = $this->folderMapper->getToDelete($deleteOlderThan, $this->user);
 
 		$this->assertEquals($this->folders, $result);
@@ -181,15 +163,12 @@ class FolderMapperTest extends \OCA\News\Utility\MapperTestUtility {
 
 
 	public function testGetAllPurgeDeletedUser(){
-		$rows = array(
-			array('id' => $this->folders[0]->getId()),
-			array('id' => $this->folders[1]->getId())
-		);
+		$rows = $this->twoRows;
 
 		$sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
 			'WHERE `deleted_at` > 0 ' .
 			'AND `user_id` = ?';
-		$this->setMapperResult($sql, array($this->user), $rows);
+		$this->setMapperResult($sql, [$this->user], $rows);
 		$result = $this->folderMapper->getToDelete(null, $this->user);
 
 		$this->assertEquals($this->folders, $result);
@@ -200,7 +179,7 @@ class FolderMapperTest extends \OCA\News\Utility\MapperTestUtility {
 		$userId = 'john';
 		$sql = 'DELETE FROM `*PREFIX*news_folders` WHERE `user_id` = ?';
 
-		$this->setMapperResult($sql, array($userId));
+		$this->setMapperResult($sql, [$userId]);
 
 		$this->folderMapper->deleteUser($userId);
 	}

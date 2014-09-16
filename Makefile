@@ -1,57 +1,82 @@
-# ownCloud - News
-#
-# @author Bernhard Posselt
-# @copyright 2012 Bernhard Posselt dev@bernhard-posselt.com
-#
-# This library is free software; you can redistribute it and/or
-# modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
-# License as published by the Free Software Foundation; either
-# version 3 of the License, or any later version.
-#
-# This library is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU AFFERO GENERAL PUBLIC LICENSE for more details.
-#
-# You should have received a copy of the GNU Affero General Public
-# License along with this library.  If not, see <http://www.gnu.org/licenses/>.
-
-# This makefile is for general project specific stuff like packaging a new 
-# release for the app store and running php unittests which require core
+# Makefile for building the project
 
 app_name=news
-build_directory=build/
-package_name=$(build_directory)$(app_name)
+project_dir=$(CURDIR)/../$(app_name)
+build_dir=$(CURDIR)/build/artifacts
+appstore_dir=$(build_dir)/appstore
+source_dir=$(build_dir)/source
+package_name=$(app_name)
 
-all:
-	# compile the coffeescript
-	cd js; make
-
+all: dist
 
 clean:
-	rm -rf $(build_directory)
-
+	rm -rf $(build_dir)
 
 dist: clean
-	mkdir -p $(build_directory)
-	git archive HEAD --format=zip --prefix=$(app_name)/ > $(package_name).zip
+	mkdir -p $(source_dir)
+	tar cvzf $(source_dir)/$(package_name).tar.gz $(project_dir) \
+	--exclude-vcs \
+	--exclude=$(project_dir)/build/artifacts \
+	--exclude=$(project_dir)/js/node_modules \
+	--exclude=$(project_dir)/js/coverage
 
-
-# tests
-test: javascript-tests unit-tests integration-tests acceptance-tests
-
-unit-tests:
-	phpunit --coverage-clover=coverage.clover tests/unit
-
-
-integration-tests:
-	phpunit tests/integration
-
-
-acceptance-tests:
-	cd tests/acceptance; make headless
-
-
-javascript-tests:
-	cd js; make test
-	
+appstore: clean
+	mkdir -p $(appstore_dir)
+	tar cvzf $(appstore_dir)/$(package_name).tar.gz $(project_dir) \
+	--exclude-vcs \
+	--exclude=$(project_dir)/build/artifacts \
+	--exclude=$(project_dir)/js/node_modules \
+	--exclude=$(project_dir)/js/.bowerrc \
+	--exclude=$(project_dir)/js/.jshintrc \
+	--exclude=$(project_dir)/js/Gruntfile.js \
+	--exclude=$(project_dir)/js/*.json \
+	--exclude=$(project_dir)/js/*.conf.js \
+	--exclude=$(project_dir)/js/*.log \
+	--exclude=$(project_dir)/js/README.md \
+	--exclude=$(project_dir)/js/.bowerrc \
+	--exclude=$(project_dir)/js/app \
+	--exclude=$(project_dir)/js/controller \
+	--exclude=$(project_dir)/js/coverage \
+	--exclude=$(project_dir)/js/directive \
+	--exclude=$(project_dir)/js/filter \
+	--exclude=$(project_dir)/js/gui \
+	--exclude=$(project_dir)/js/service \
+	--exclude=$(project_dir)/js/tests \
+	--exclude=$(project_dir)/js/vendor/jquery \
+	--exclude=$(project_dir)/js/vendor/angular-mocks \
+	--exclude=$(project_dir)/.travis.yml \
+	--exclude=$(project_dir)/.scrutinizer.yml \
+	--exclude=$(project_dir)/phpunit.xml \
+	--exclude=$(project_dir)/Makefile \
+	--exclude=$(project_dir)/tests \
+	--exclude=$(project_dir)/3rdparty/simplepie/README.markdown \
+	--exclude=$(project_dir)/3rdparty/simplepie/tests \
+	--exclude=$(project_dir)/3rdparty/simplepie/build \
+	--exclude=$(project_dir)/3rdparty/simplepie/compatibility_test \
+	--exclude=$(project_dir)/3rdparty/simplepie/demo \
+	--exclude=$(project_dir)/3rdparty/simplepie/idn \
+	--exclude=$(project_dir)/3rdparty/simplepie/.travis.yml \
+	--exclude=$(project_dir)/3rdparty/simplepie/composer.json \
+	--exclude=$(project_dir)/3rdparty/simplepie/db.sql \
+	--exclude=$(project_dir)/3rdparty/simplepie/phpunit.xml.dist \
+	--exclude=$(project_dir)/3rdparty/htmlpurifier/.gitattributes \
+	--exclude=$(project_dir)/3rdparty/htmlpurifier/composer.json \
+	--exclude=$(project_dir)/3rdparty/htmlpurifier/Doxyfile \
+	--exclude=$(project_dir)/3rdparty/htmlpurifier/FOCUS \
+	--exclude=$(project_dir)/3rdparty/htmlpurifier/INSTALL* \
+	--exclude=$(project_dir)/3rdparty/htmlpurifier/NEWS \
+	--exclude=$(project_dir)/3rdparty/htmlpurifier/phpdoc.ini \
+	--exclude=$(project_dir)/3rdparty/htmlpurifier/README \
+	--exclude=$(project_dir)/3rdparty/htmlpurifier/TODO \
+	--exclude=$(project_dir)/3rdparty/htmlpurifier/VERSION \
+	--exclude=$(project_dir)/3rdparty/htmlpurifier/WHATSNEW \
+	--exclude=$(project_dir)/3rdparty/htmlpurifier/WYSIWYG \
+	--exclude=$(project_dir)/3rdparty/htmlpurifier/art \
+	--exclude=$(project_dir)/3rdparty/htmlpurifier/benchmarks \
+	--exclude=$(project_dir)/3rdparty/htmlpurifier/configdoc \
+	--exclude=$(project_dir)/3rdparty/htmlpurifier/docs \
+	--exclude=$(project_dir)/3rdparty/htmlpurifier/extras \
+	--exclude=$(project_dir)/3rdparty/htmlpurifier/maintenance \
+	--exclude=$(project_dir)/3rdparty/htmlpurifier/plugins \
+	--exclude=$(project_dir)/3rdparty/htmlpurifier/smoketests \
+	--exclude=$(project_dir)/3rdparty/htmlpurifier/tests

@@ -15,29 +15,27 @@ namespace OCA\News\AppInfo;
 
 use \OC\Files\View;
 use \OCP\AppFramework\App;
+use \OCP\Util;
+use \OCP\User;
 
 use \OCA\News\Config\AppConfig;
-
-use \OCA\News\Core\Logger;
-use \OCA\News\Core\Db;
 
 use \OCA\News\Controller\PageController;
 use \OCA\News\Controller\FolderController;
 use \OCA\News\Controller\FeedController;
 use \OCA\News\Controller\ItemController;
 use \OCA\News\Controller\ExportController;
-use \OCA\News\Controller\ApiController;
+use \OCA\News\Controller\UtilityApiController;
 use \OCA\News\Controller\FolderApiController;
 use \OCA\News\Controller\FeedApiController;
 use \OCA\News\Controller\ItemApiController;
 
-use \OCA\News\BusinessLayer\FolderBusinessLayer;
-use \OCA\News\BusinessLayer\FeedBusinessLayer;
-use \OCA\News\BusinessLayer\ItemBusinessLayer;
+use \OCA\News\Service\FolderService;
+use \OCA\News\Service\FeedService;
+use \OCA\News\Service\ItemService;
 
 use \OCA\News\Db\FolderMapper;
 use \OCA\News\Db\FeedMapper;
-use \OCA\News\Db\ItemMapper;
 use \OCA\News\Db\StatusFlag;
 use \OCA\News\Db\MapperFactory;
 
@@ -45,7 +43,6 @@ use \OCA\News\Utility\Config;
 use \OCA\News\Utility\OPMLExporter;
 use \OCA\News\Utility\Updater;
 use \OCA\News\Utility\SimplePieAPIFactory;
-use \OCA\News\Utility\TimeFactory;
 use \OCA\News\Utility\FaviconFetcher;
 
 use \OCA\News\Fetcher\Fetcher;
@@ -54,8 +51,6 @@ use \OCA\News\Fetcher\FeedFetcher;
 use \OCA\News\ArticleEnhancer\Enhancer;
 use \OCA\News\ArticleEnhancer\XPathArticleEnhancer;
 use \OCA\News\ArticleEnhancer\RegexArticleEnhancer;
-
-use \OCA\News\Middleware\CORSMiddleware;
 
 
 require_once __DIR__ . '/../3rdparty/htmlpurifier/library/HTMLPurifier.auto.php';
@@ -79,7 +74,7 @@ class Application extends App {
 		 */
 		$container->registerService('PageController', function($c) {
 			return new PageController(
-				$c->query('AppName'), 
+				$c->query('AppName'),
 				$c->query('Request'),
 				$c->query('CoreConfig'),
 				$c->query('L10N'),
@@ -89,22 +84,22 @@ class Application extends App {
 
 		$container->registerService('FolderController', function($c) {
 			return new FolderController(
-				$c->query('AppName'), 
+				$c->query('AppName'),
 				$c->query('Request'),
-				$c->query('FolderBusinessLayer'),
-				$c->query('FeedBusinessLayer'),
-				$c->query('ItemBusinessLayer'),
+				$c->query('FolderService'),
+				$c->query('FeedService'),
+				$c->query('ItemService'),
 				$c->query('UserId')
 			);
 		});
 
 		$container->registerService('FeedController', function($c) {
 			return new FeedController(
-				$c->query('AppName'), 
+				$c->query('AppName'),
 				$c->query('Request'),
-				$c->query('FolderBusinessLayer'),
-				$c->query('FeedBusinessLayer'),
-				$c->query('ItemBusinessLayer'),
+				$c->query('FolderService'),
+				$c->query('FeedService'),
+				$c->query('ItemService'),
 				$c->query('CoreConfig'),
 				$c->query('UserId')
 			);
@@ -112,10 +107,10 @@ class Application extends App {
 
 		$container->registerService('ItemController', function($c) {
 			return new ItemController(
-				$c->query('AppName'), 
+				$c->query('AppName'),
 				$c->query('Request'),
-				$c->query('FeedBusinessLayer'),
-				$c->query('ItemBusinessLayer'),
+				$c->query('FeedService'),
+				$c->query('ItemService'),
 				$c->query('CoreConfig'),
 				$c->query('UserId')
 			);
@@ -123,20 +118,20 @@ class Application extends App {
 
 		$container->registerService('ExportController', function($c) {
 			return new ExportController(
-				$c->query('AppName'), 
+				$c->query('AppName'),
 				$c->query('Request'),
-				$c->query('FeedBusinessLayer'),
-				$c->query('FolderBusinessLayer'),
-				$c->query('ItemBusinessLayer'),
+				$c->query('FolderService'),
+				$c->query('FeedService'),
+				$c->query('ItemService'),
 				$c->query('OPMLExporter'),
 				$c->query('UserId')
 			);
 		});
 
-		$container->registerService('ApiController', function($c) {
-			return new ApiController(
-				$c->query('AppName'), 
-				$c->query('Request'), 
+		$container->registerService('UtilityApiController', function($c) {
+			return new UtilityApiController(
+				$c->query('AppName'),
+				$c->query('Request'),
 				$c->query('Updater'),
 				$c->query('CoreConfig')
 			);
@@ -144,31 +139,31 @@ class Application extends App {
 
 		$container->registerService('FolderApiController', function($c) {
 			return new FolderApiController(
-				$c->query('AppName'), 
+				$c->query('AppName'),
 				$c->query('Request'),
-				$c->query('FolderBusinessLayer'),
-				$c->query('ItemBusinessLayer'),
+				$c->query('FolderService'),
+				$c->query('ItemService'),
 				$c->query('UserId')
 			);
 		});
 
 		$container->registerService('FeedApiController', function($c) {
 			return new FeedApiController(
-				$c->query('AppName'), 
+				$c->query('AppName'),
 				$c->query('Request'),
-				$c->query('FolderBusinessLayer'),
-				$c->query('FeedBusinessLayer'),
-				$c->query('ItemBusinessLayer'),
+				$c->query('FeedService'),
+				$c->query('ItemService'),
 				$c->query('Logger'),
-				$c->query('UserId')
+				$c->query('UserId'),
+				$c->query('LoggerParameters')
 			);
 		});
 
 		$container->registerService('ItemApiController', function($c) {
 			return new ItemApiController(
-				$c->query('AppName'), 
+				$c->query('AppName'),
 				$c->query('Request'),
-				$c->query('ItemBusinessLayer'),
+				$c->query('ItemService'),
 				$c->query('UserId')
 			);
 		});
@@ -177,8 +172,8 @@ class Application extends App {
 		/**
 		 * Business Layer
 		 */
-		$container->registerService('FolderBusinessLayer', function($c) {
-			return new FolderBusinessLayer(
+		$container->registerService('FolderService', function($c) {
+			return new FolderService(
 				$c->query('FolderMapper'),
 				$c->query('L10N'),
 				$c->query('TimeFactory'),
@@ -186,8 +181,8 @@ class Application extends App {
 			);
 		});
 
-		$container->registerService('FeedBusinessLayer', function($c) {
-			return new FeedBusinessLayer(
+		$container->registerService('FeedService', function($c) {
+			return new FeedService(
 				$c->query('FeedMapper'),
 				$c->query('Fetcher'),
 				$c->query('ItemMapper'),
@@ -196,12 +191,13 @@ class Application extends App {
 				$c->query('TimeFactory'),
 				$c->query('Config'),
 				$c->query('Enhancer'),
-				$c->query('HTMLPurifier')
+				$c->query('HTMLPurifier'),
+				$c->query('LoggerParameters')
 			);
 		});
 
-		$container->registerService('ItemBusinessLayer', function($c) {
-			return new ItemBusinessLayer(
+		$container->registerService('ItemService', function($c) {
+			return new ItemService(
 				$c->query('ItemMapper'),
 				$c->query('StatusFlag'),
 				$c->query('TimeFactory'),
@@ -209,13 +205,23 @@ class Application extends App {
 			);
 		});
 
+		// compability for plugins pre 3.0
+		$container->registerService('FolderBusinessLayer', function($c) {
+			return $c->query('FolderService');
+		});
+		$container->registerService('FeedBusinessLayer', function($c) {
+			return $c->query('FeedService');
+		});
+		$container->registerService('ItemBusinessLayer', function($c) {
+			return $c->query('ItemService');
+		});
 
 		/**
 		 * Mappers
 		 */
 		$container->registerService('MapperFactory', function($c) {
 			return new MapperFactory(
-				$c->query('DatabaseType'), 
+				$c->query('DatabaseType'),
 				$c->query('Db')
 			);
 		});
@@ -243,19 +249,9 @@ class Application extends App {
 		 * App config parser
 		 */
 		$container->registerService('AppConfig', function($c) {
-			// not performant but well :/
-			// $config = $c->query('ServerContainer')->getAppConfig(); oc7 only
-			$installedApps = \OC_Appconfig::getApps();
-			$apps = array();
-			foreach($installedApps as $app) {
-				$apps[] = array(
-					$app => \OC_Appconfig::getValue($app, 'installed_version', '0')
-				);
-			}
-
 			// order extensions in name => version
 			$loadedExtensions = get_loaded_extensions();
-			$extensions = array();
+			$extensions = [];
 			foreach ($loadedExtensions as $extension) {
 				$extensions[$extension] = phpversion($extension);
 			}
@@ -265,8 +261,7 @@ class Application extends App {
 				$c->query('L10N'),
 				$c->query('ServerContainer')->getURLGenerator(),
 				phpversion(),
-				implode('.', \OCP\Util::getVersion()),
-				$apps,
+				implode('.', Util::getVersion()),
 				$extensions,
 				$c->query('DatabaseType')
 			);
@@ -274,21 +269,25 @@ class Application extends App {
 
 		/**
 		 * Core
-		 */		
+		 */
 		$container->registerService('L10N', function($c) {
 			return $c->query('ServerContainer')->getL10N($c->query('AppName'));
 		});
 
 		$container->registerService('UserId', function() {
-			return \OCP\User::getUser();
+			return User::getUser();
 		});
 
 		$container->registerService('Logger', function($c) {
-			return new Logger($c->query('AppName'));
+			return $c->query('ServerContainer')->getLogger();
 		});
 
-		$container->registerService('Db', function() {
-			return new Db();
+		$container->registerService('LoggerParameters', function($c) {
+			return ['app' => $c->query('AppName')];
+		});
+
+		$container->registerService('Db', function($c) {
+			return $c->query('ServerContainer')->getDb();
 		});
 
 		$container->registerService('CoreConfig', function($c) {
@@ -313,7 +312,11 @@ class Application extends App {
 		});
 
 		$container->registerService('Config', function($c) {
-			$config = new Config($c->query('ConfigView'), $c->query('Logger'));
+			$config = new Config(
+				$c->query('ConfigView'),
+				$c->query('Logger'),
+				$c->query('LoggerParameters')
+			);
 			$config->read('config.ini', true);
 			return $config;
 		});
@@ -341,7 +344,7 @@ class Application extends App {
 			$config->set('Cache.SerializerPath', $directory);
 			$config->set('HTML.SafeIframe', true);
 			$config->set('URI.SafeIframeRegexp',
-				'%^(?:https?:)?//(' . 
+				'%^(?:https?:)?//(' .
 				'www.youtube(?:-nocookie)?.com/embed/|' .
 				'player.vimeo.com/video/)%'); //allow YouTube and Vimeo
 			return new \HTMLPurifier($config);
@@ -354,7 +357,7 @@ class Application extends App {
 			$xpathEnhancerConfig = file_get_contents(
 				__DIR__ . '/../articleenhancer/xpathenhancers.json'
 			);
-			
+
 			foreach(json_decode($xpathEnhancerConfig, true) as $feed => $config) {
 				$articleEnhancer = new XPathArticleEnhancer(
 					$c->query('SimplePieAPIFactory'),
@@ -409,9 +412,9 @@ class Application extends App {
 
 		$container->registerService('Updater', function($c) {
 			return new Updater(
-				$c->query('FolderBusinessLayer'),
-				$c->query('FeedBusinessLayer'),
-				$c->query('ItemBusinessLayer')
+				$c->query('FolderService'),
+				$c->query('FeedService'),
+				$c->query('ItemService')
 			);
 		});
 
@@ -426,17 +429,6 @@ class Application extends App {
 			);
 		});
 
-		/** 
-		 * Middleware
-		 */
-		$container->registerService('CORSMiddleware', function($c) {
-			return new CORSMiddleware(
-				$c->query('Request')
-			);
-		});		
-
-		$container->registerMiddleWare('CORSMiddleware');
-
 	}
 
 	public function getAppConfig() {
@@ -447,5 +439,12 @@ class Application extends App {
 	public function getLogger() {
 		return $this->getContainer()->query('Logger');
 	}
+
+
+	public function getLoggerParameters() {
+		return $this->getContainer()->query('LoggerParameters');
+	}
+
+
 }
 

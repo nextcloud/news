@@ -64,7 +64,7 @@
 			</index>
 		</declaration>
 	</table>
-	
+
 	<table>
 		<name>*dbprefix*news_feeds</name>
 		<declaration>
@@ -109,7 +109,7 @@
 				<name>favicon_link</name>
 				<type>clob</type>
 				<notnull>false</notnull>
-			</field>  
+			</field>
 			<field>
 				<name>added</name>
 				<type>integer</type>
@@ -159,7 +159,7 @@
 					<name>folder_id</name>
 				</field>
 			</index>
-			
+
 			<index>
 				<name>news_feeds_url_hash_index</name>
 				<field>
@@ -168,7 +168,7 @@
 			</index>
 		</declaration>
 	</table>
-	
+
 	<table>
 		<name>*dbprefix*news_items</name>
 		<declaration>
@@ -247,17 +247,16 @@
 				<notnull>false</notnull>
 				<unsigned>true</unsigned>
 			</field>
-				
+
 			<index>
 				<name>news_items_feed_id_index</name>
 				<field>
 					<name>feed_id</name>
 				</field>
 			</index>
-			
+
 			<index>
 				<name>news_items_item_guid</name>
-				<unique>true</unique>
 				<field>
 					<name>guid_hash</name>
 				</field>

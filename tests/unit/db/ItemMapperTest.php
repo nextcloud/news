@@ -13,10 +13,8 @@
 
 namespace OCA\News\Db;
 
-require_once(__DIR__ . "/../../classloader.php");
 
-
-class ItemMapperTest extends \OCA\News\Utility\MapperTestUtility {
+class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 
 	private $mapper;
 	private $items;
@@ -28,9 +26,8 @@ class ItemMapperTest extends \OCA\News\Utility\MapperTestUtility {
 	private $status;
 
 
-	public function setUp()
-	{
-		$this->beforeEach();
+	public function setUp()	{
+		parent::setup();
 
 		$this->mapper = new ItemMapper($this->db);
 
@@ -67,7 +64,13 @@ class ItemMapperTest extends \OCA\News\Utility\MapperTestUtility {
 	}
 
 
-	private function makeSelectQuery($prependTo){
+	private function makeSelectQuery($prependTo, $oldestFirst=false){
+		if ($oldestFirst) {
+			$ordering = 'ASC';
+		} else {
+			$ordering = 'DESC';
+		}
+
 		return 'SELECT `items`.* FROM `*PREFIX*news_items` `items` '.
 			'JOIN `*PREFIX*news_feeds` `feeds` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` '.
@@ -78,15 +81,16 @@ class ItemMapperTest extends \OCA\News\Utility\MapperTestUtility {
 				'ON `folders`.`id` = `feeds`.`folder_id` ' .
 			'WHERE `feeds`.`folder_id` = 0 ' .
 				'OR `folders`.`deleted_at` = 0 ' .
-			'ORDER BY `items`.`id` DESC';
+			'ORDER BY `items`.`id` ' . $ordering;
 	}
 
-	private function makeSelectQueryStatus($prependTo, $status) {
+	private function makeSelectQueryStatus($prependTo, $status,
+		                                   $oldestFirst=false) {
 		$status = (int) $status;
 
 		return $this->makeSelectQuery(
 			'AND ((`items`.`status` & ' . $status . ') = ' . $status . ') ' .
-			$prependTo
+			$prependTo, $oldestFirst
 		);
 	}
 
@@ -106,12 +110,17 @@ class ItemMapperTest extends \OCA\News\Utility\MapperTestUtility {
 		$row = array(
 			array('size' => 9)
 		);
-		$sql = 'SELECT COUNT(*) AS size FROM `*PREFIX*news_feeds` `feeds` ' .
-			'JOIN `*PREFIX*news_items` `items` ' .
-				'ON `items`.`feed_id` = `feeds`.`id` ' .
+		$sql = 'SELECT COUNT(*) AS size FROM `*PREFIX*news_items` `items` '.
+			'JOIN `*PREFIX*news_feeds` `feeds` ' .
+				'ON `feeds`.`id` = `items`.`feed_id` '.
+				'AND `feeds`.`deleted_at` = 0 ' .
 				'AND `feeds`.`user_id` = ? ' .
-			'WHERE ((`items`.`status` & ' . StatusFlag::STARRED . ') = '
-				. StatusFlag::STARRED . ')';
+				'AND ((`items`.`status` & ' . StatusFlag::STARRED . ') = ' .
+				StatusFlag::STARRED . ')' .
+			'LEFT OUTER JOIN `*PREFIX*news_folders` `folders` ' .
+				'ON `folders`.`id` = `feeds`.`folder_id` ' .
+			'WHERE `feeds`.`folder_id` = 0 ' .
+				'OR `folders`.`deleted_at` = 0';
 
 		$this->setMapperResult($sql, array($userId), $row);
 
@@ -228,7 +237,20 @@ class ItemMapperTest extends \OCA\News\Utility\MapperTestUtility {
 		$params = array($this->user, $this->id, $this->offset);
 		$this->setMapperResult($sql, $params, $this->rows);
 		$result = $this->mapper->findAllFeed($this->id, $this->limit,
-				$this->offset, $this->status, $this->user);
+				$this->offset, $this->status, false, $this->user);
+
+		$this->assertEquals($this->items, $result);
+	}
+
+
+	public function testFindAllFeedOldestFirst(){
+		$sql = 'AND `items`.`feed_id` = ? ' .
+			'AND `items`.`id` > ? ';
+		$sql = $this->makeSelectQueryStatus($sql, $this->status, true);
+		$params = array($this->user, $this->id, $this->offset);
+		$this->setMapperResult($sql, $params, $this->rows);
+		$result = $this->mapper->findAllFeed($this->id, $this->limit,
+				$this->offset, $this->status, true, $this->user);
 
 		$this->assertEquals($this->items, $result);
 	}
@@ -240,7 +262,7 @@ class ItemMapperTest extends \OCA\News\Utility\MapperTestUtility {
 		$params = array($this->user, $this->id);
 		$this->setMapperResult($sql, $params, $this->rows);
 		$result = $this->mapper->findAllFeed($this->id, $this->limit,
-				0, $this->status, $this->user);
+				0, $this->status, false, $this->user);
 
 		$this->assertEquals($this->items, $result);
 	}
@@ -254,7 +276,21 @@ class ItemMapperTest extends \OCA\News\Utility\MapperTestUtility {
 			$this->offset);
 		$this->setMapperResult($sql, $params, $this->rows);
 		$result = $this->mapper->findAllFolder($this->id, $this->limit,
-				$this->offset, $this->status, $this->user);
+				$this->offset, $this->status, false, $this->user);
+
+		$this->assertEquals($this->items, $result);
+	}
+
+
+	public function testFindAllFolderOldestFirst(){
+		$sql = 'AND `feeds`.`folder_id` = ? ' .
+			'AND `items`.`id` > ? ';
+		$sql = $this->makeSelectQueryStatus($sql, $this->status, true);
+		$params = array($this->user, $this->id,
+			$this->offset);
+		$this->setMapperResult($sql, $params, $this->rows);
+		$result = $this->mapper->findAllFolder($this->id, $this->limit,
+				$this->offset, $this->status, true, $this->user);
 
 		$this->assertEquals($this->items, $result);
 	}
@@ -266,7 +302,7 @@ class ItemMapperTest extends \OCA\News\Utility\MapperTestUtility {
 		$params = array($this->user, $this->id);
 		$this->setMapperResult($sql, $params, $this->rows);
 		$result = $this->mapper->findAllFolder($this->id, $this->limit,
-				0, $this->status, $this->user);
+				0, $this->status, false, $this->user);
 
 		$this->assertEquals($this->items, $result);
 	}
@@ -278,7 +314,19 @@ class ItemMapperTest extends \OCA\News\Utility\MapperTestUtility {
 		$params = array($this->user, $this->offset);
 		$this->setMapperResult($sql, $params, $this->rows);
 		$result = $this->mapper->findAll($this->limit,
-				$this->offset, $this->status, $this->user);
+				$this->offset, $this->status, false, $this->user);
+
+		$this->assertEquals($this->items, $result);
+	}
+
+
+	public function testFindAllOldestFirst(){
+		$sql = 'AND `items`.`id` > ? ';
+		$sql = $this->makeSelectQueryStatus($sql, $this->status, true);
+		$params = array($this->user, $this->offset);
+		$this->setMapperResult($sql, $params, $this->rows);
+		$result = $this->mapper->findAll($this->limit,
+				$this->offset, $this->status, true, $this->user);
 
 		$this->assertEquals($this->items, $result);
 	}
@@ -289,7 +337,7 @@ class ItemMapperTest extends \OCA\News\Utility\MapperTestUtility {
 		$params = array($this->user);
 		$this->setMapperResult($sql, $params, $this->rows);
 		$result = $this->mapper->findAll($this->limit,
-				0, $this->status, $this->user);
+				0, $this->status, false, $this->user);
 
 		$this->assertEquals($this->items, $result);
 	}
@@ -314,7 +362,7 @@ class ItemMapperTest extends \OCA\News\Utility\MapperTestUtility {
 	public function testDeleteReadOlderThanThresholdDoesNotDeleteBelowThreshold(){
 		$status = StatusFlag::STARRED | StatusFlag::UNREAD;
 		$sql =  'SELECT COUNT(*) - `feeds`.`articles_per_update` AS `size`, ' .
-		'`items`.`feed_id` AS `feed_id` ' . 
+		'`items`.`feed_id` AS `feed_id` ' .
 			'FROM `*PREFIX*news_items` `items` ' .
 			'JOIN `*PREFIX*news_feeds` `feeds` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` ' .
@@ -338,7 +386,7 @@ class ItemMapperTest extends \OCA\News\Utility\MapperTestUtility {
 		$status = StatusFlag::STARRED | StatusFlag::UNREAD;
 
 		$sql1 = 'SELECT COUNT(*) - `feeds`.`articles_per_update` AS `size`, ' .
-		'`items`.`feed_id` AS `feed_id` ' . 
+		'`items`.`feed_id` AS `feed_id` ' .
 			'FROM `*PREFIX*news_items` `items` ' .
 			'JOIN `*PREFIX*news_feeds` `feeds` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` ' .
@@ -387,7 +435,7 @@ class ItemMapperTest extends \OCA\News\Utility\MapperTestUtility {
 		$rows = array();
 
 		$this->setMapperResult($sql, $params, $rows);
-		$this->setExpectedException('\OCA\News\Db\DoesNotExistException');
+		$this->setExpectedException('\OCP\AppFramework\Db\DoesNotExistException');
 
 		$this->mapper->getNewestItemId($this->user);
 	}
@@ -395,7 +443,7 @@ class ItemMapperTest extends \OCA\News\Utility\MapperTestUtility {
 
 	public function testDeleteFromUser(){
 		$userId = 'john';
-		$sql = 'DELETE FROM `*PREFIX*news_items` ' . 
+		$sql = 'DELETE FROM `*PREFIX*news_items` ' .
 			'WHERE `feed_id` IN (' .
 				'SELECT `feeds`.`id` FROM `*PREFIX*news_feeds` `feeds` ' .
 					'WHERE `feeds`.`user_id` = ?' .

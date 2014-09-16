@@ -16,8 +16,6 @@ namespace OCA\News\Utility;
 use \OCA\News\Db\Folder;
 use \OCA\News\Db\Feed;
 
-require_once(__DIR__ . "/../../classloader.php");
-
 
 class OPMLExporterTest extends \PHPUnit_Framework_TestCase {
 
@@ -48,7 +46,7 @@ class OPMLExporterTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testBuildEmpty(){
-		$result = $this->exporter->build(array(), array());
+		$result = $this->exporter->build([], []);
 		$xpath = new \DOMXpath($result);
 
 		$this->assertEquals(0, $xpath->query('//outline')->length);
@@ -56,8 +54,7 @@ class OPMLExporterTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testBuildReturnsFolders() {
-		$result = $this->exporter->build(array(
-			$this->folder1, $this->folder2), array());
+		$result = $this->exporter->build([$this->folder1, $this->folder2], []);
 		$xpath = new \DOMXpath($result);
 		$elems = $xpath->query('/opml/body/outline');
 
@@ -70,8 +67,7 @@ class OPMLExporterTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testBuildReturnsOnlyOneFeedIfParentFolderNotThere() {
-		$result = $this->exporter->build(array(), 
-			array($this->feed1, $this->feed2));
+		$result = $this->exporter->build([], [$this->feed1, $this->feed2]);
 		$xpath = new \DOMXpath($result);
 		$elems = $xpath->query('//outline');
 
@@ -85,8 +81,9 @@ class OPMLExporterTest extends \PHPUnit_Framework_TestCase {
 
 	public function testBuildReturnsFeedsAndFolders() {
 		$result = $this->exporter->build(
-			array($this->folder1, $this->folder2), 
-			array($this->feed1, $this->feed2));
+			[$this->folder1, $this->folder2], 
+			[$this->feed1, $this->feed2]
+		);
 		$xpath = new \DOMXpath($result);
 		$elems = $xpath->query('/opml/body/outline');
 

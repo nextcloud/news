@@ -13,13 +13,15 @@
 
 namespace OCA\News\Db;
 
-use \OCA\News\Core\Db;
+use \OCP\IDb;
+use \OCP\AppFramework\Db\Mapper;
+use \OCP\AppFramework\Db\Entity;
 
 
 class FeedMapper extends Mapper implements IMapper {
 
 
-	public function __construct(Db $db) {
+	public function __construct(IDb $db) {
 		parent::__construct($db, 'news_feeds', '\OCA\News\Db\Feed');
 	}
 
@@ -41,7 +43,7 @@ class FeedMapper extends Mapper implements IMapper {
 				'`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
 				'`feeds`.`favicon_link`, `feeds`.`added`, `feeds`.`articles_per_update`,'.
 				'`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
-		$params = array($id, $userId);
+		$params = [$id, $userId];
 
 		return $this->findEntity($sql, $params);
 	}
@@ -69,7 +71,7 @@ class FeedMapper extends Mapper implements IMapper {
 				'`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
 				'`feeds`.`favicon_link`, `feeds`.`added`, `feeds`.`articles_per_update`,'.
 				'`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
-		$params = array($userId);
+		$params = [$userId];
 
 		return $this->findEntities($sql, $params);
 	}
@@ -83,7 +85,7 @@ class FeedMapper extends Mapper implements IMapper {
 			'LEFT JOIN `*PREFIX*news_items` `items` ' .
 				'ON `feeds`.`id` = `items`.`feed_id` ' .
 				// WARNING: this is a desperate attempt at making this query work
-				// because prepared statements dont work. This is a possible
+				// because prepared statements don't work. This is a possible
 				// SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
 				// think twice when changing this
 				'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' .
@@ -118,13 +120,9 @@ class FeedMapper extends Mapper implements IMapper {
 				'`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
 				'`feeds`.`favicon_link`, `feeds`.`added`, `feeds`.`articles_per_update`,'.
 				'`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
-		$params = array($hash, $userId);
+		$params = [$hash, $userId];
 
-		$row = $this->findOneQuery($sql, $params);
-		$feed = new Feed();
-		$feed->fromRow($row);
-
-		return $feed;
+		return $this->findEntity($sql, $params);
 	}
 
 
@@ -134,7 +132,7 @@ class FeedMapper extends Mapper implements IMapper {
 		// someone please slap me for doing this manually :P
 		// we needz CASCADE + FKs please
 		$sql = 'DELETE FROM `*PREFIX*news_items` WHERE `feed_id` = ?';
-		$params = array($entity->getId());
+		$params = [$entity->getId()];
 		$this->execute($sql, $params);
 	}
 
@@ -148,18 +146,18 @@ class FeedMapper extends Mapper implements IMapper {
 	public function getToDelete($deleteOlderThan=null, $userId=null) {
 		$sql = 'SELECT * FROM `*PREFIX*news_feeds` ' .
 			'WHERE `deleted_at` > 0 ';
-		$params = array();
+		$params = [];
 
 		// sometimes we want to delete all entries
 		if ($deleteOlderThan !== null) {
 			$sql .= 'AND `deleted_at` < ? ';
-			array_push($params, $deleteOlderThan);
+			$params[] = $deleteOlderThan;
 		}
 
 		// we need to sometimes only delete feeds of a user
 		if($userId !== null) {
 			$sql .= 'AND `user_id` = ?';
-			array_push($params, $userId);
+			$params[] = $userId;
 		}
 
 		return $this->findEntities($sql, $params);
@@ -173,7 +171,7 @@ class FeedMapper extends Mapper implements IMapper {
 	 */
 	public function deleteUser($userId) {
 		$sql = 'DELETE FROM `*PREFIX*news_feeds` WHERE `user_id` = ?';
-		$this->execute($sql, array($userId));
+		$this->execute($sql, [$userId]);
 	}
 
 

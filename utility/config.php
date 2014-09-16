@@ -13,7 +13,7 @@
 
 namespace OCA\News\Utility;
 
-use \OCA\News\Core\Logger;
+use \OCP\ILogger;
 
 
 class Config {
@@ -32,9 +32,10 @@ class Config {
 	private $proxyUser;
 	private $proxyPassword;
 	private $logger;
+	private $loggerParams;
 
 
-	public function __construct($fileSystem, Logger $logger) {
+	public function __construct($fileSystem, ILogger $logger, $loggerParams) {
 		$this->fileSystem = $fileSystem;
 		$this->autoPurgeMinimumInterval = 60;
 		$this->autoPurgeCount = 200;
@@ -46,6 +47,7 @@ class Config {
 		$this->proxyPort = 8080;
 		$this->proxyUser = '';
 		$this->proxyPassword = '';
+		$this->loggerParams = $loggerParams;
 	}
 
 	public function getProxyPort() {
@@ -150,7 +152,8 @@ class Config {
 			$configValues = parse_ini_string($content);
 
 			if($configValues === false || count($configValues) === 0) {
-				$this->logger->log('Configuration invalid. Ignoring values.' , 'warn');
+				$this->logger->warning('Configuration invalid. Ignoring values.',
+					$this->loggerParams);
 			} else {
 
 				foreach($configValues as $key => $value) {
@@ -159,8 +162,8 @@ class Config {
 						settype($value, $type);
 						$this->$key = $value;
 					} else {
-						$this->logger->log('Configuration value "' . $key . 
-							'" does not exist. Ignored value.' , 'warn');
+						$this->logger->warning('Configuration value "' . $key . 
+							'" does not exist. Ignored value.' , $this->loggerParams);
 					}
 				}
 

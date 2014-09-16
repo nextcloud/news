@@ -13,12 +13,11 @@
 
 namespace OCA\News\Config;
 
-use OCP\AppFramework\IApi;
-use OCP\BackgroundJob\IJob;
-use OCP\BackgroundJob\IJobList;
 use OCP\INavigationManager;
 use OCP\IL10N;
 use OCP\IURLGenerator;
+use \OCP\Backgroundjob;
+use \OCP\Util;
 
 
 // Used to parse app.json file, should be in core at some point
@@ -29,7 +28,6 @@ class AppConfig {
 	private $urlGenerator;
 	private $phpVersion;
 	private $ownCloudVersion;
-	private $installedApps;
 	private $installedExtensions;
 	private $databaseType;
 	private $l10n;
@@ -44,7 +42,6 @@ class AppConfig {
 	                            IURLGenerator $urlGenerator,
 	                            $phpVersion,
 	                            $ownCloudVersion,
-	                            $installedApps,
 	                            $installedExtensions,
 	                            $databaseType) {
 		$this->navigationManager = $navigationManager;
@@ -52,10 +49,9 @@ class AppConfig {
 		$this->urlGenerator = $urlGenerator;
 		$this->ownCloudVersion = $ownCloudVersion;
 		$this->phpVersion = $phpVersion;
-		$this->installedApps = $installedApps;
 		$this->installedExtensions = $installedExtensions;
 		$this->databaseType = $databaseType;
-		$this->config = array();
+		$this->config = [];
 	}
 
 
@@ -75,18 +71,18 @@ class AppConfig {
 			$nav =& $this->config['navigation'];
 
 			// add defaults
-			$defaults = array(
+			$defaults = [
 				'id' => $this->config['id'],
 				'route' => $this->config['id'] . '.page.index',
 				'order' => 10,
 				'icon' => 'app.svg',
 				'name' => $this->config['name']
-			);
+			];
 
 			foreach($defaults as $key => $value) {
 				if(!array_key_exists($key, $nav)) {
 					$nav[$key] = $value;
-				}	
+				}
 			}
 		}
 	}
@@ -100,7 +96,7 @@ class AppConfig {
 		if($key !== null) {
 			return $this->config[$key];
 		} else {
-			return $this->config; 
+			return $this->config;
 		}
 	}
 
@@ -109,18 +105,18 @@ class AppConfig {
 	 * Parses the navigation and creates a navigation entry if needed
 	 */
 	public function registerNavigation() {
-		// if key is missing, dont create a navigation
+		// if key is missing, don't create a navigation
 		if(array_key_exists('navigation', $this->config)) {
 			$nav =& $this->config['navigation'];
-			
-			$navConfig = array(
+
+			$navConfig = [
 				'id' => $nav['id'],
 				'order' => $nav['order']
-			);
+			];
 
 			$navConfig['name'] = $this->l10n->t($nav['name']);
 			$navConfig['href'] = $this->urlGenerator->linkToRoute($nav['route']);
-			$navConfig['icon'] = $this->urlGenerator->imagePath($nav['id'], 
+			$navConfig['icon'] = $this->urlGenerator->imagePath($nav['id'],
 				$nav['icon']);
 
 			$this->navigationManager->add($navConfig);
@@ -133,10 +129,10 @@ class AppConfig {
 	 * Registers all jobs in the config
 	 */
 	public function registerBackgroundJobs() {
-		// FIXME: this is temporarily static because core jobs are not public 
+		// FIXME: this is temporarily static because core jobs are not public
 		// yet, therefore legacy code
 		foreach ($this->config['jobs'] as $job) {
-			\OCP\Backgroundjob::addRegularTask($job, 'run');
+			Backgroundjob::addRegularTask($job, 'run');
 		}
 	}
 
@@ -145,14 +141,14 @@ class AppConfig {
 	 * Registers all hooks in the config
 	 */
 	public function registerHooks() {
-		// FIXME: this is temporarily static because core emitters are not future 
+		// FIXME: this is temporarily static because core emitters are not future
 		// proof, therefore legacy code in here
 		foreach ($this->config['hooks'] as $listen => $react) {
 			$listener = explode('::', $listen);
 			$reaction = explode('::', $react);
 
 			// config is written like HookNamespace::method => Class::method
-			\OCP\Util::connectHook($listener[0], $listener[1], $reaction[0],
+			Util::connectHook($listener[0], $listener[1], $reaction[0],
 			                       $reaction[1]);
 		}
 	}
@@ -160,7 +156,7 @@ class AppConfig {
 
 	/**
 	 * Validates all dependencies that the app has
-	 * @throws \OCA\News\DependencyException if one version is not satisfied
+	 * @throws DependencyException if one version is not satisfied
 	 */
 	public function testDependencies() {
 		$msg = '';
@@ -169,14 +165,14 @@ class AppConfig {
 		if(array_key_exists('databases', $this->config)) {
 			if(!in_array($this->databaseType, $this->config['databases'])) {
 				$msg .= 'Database ' . $this->databaseType . ' not supported.' .
-					'App is only compatible with ' . 
+					'App is only compatible with ' .
 					implode(', ', $this->config['databases']);
 			}
 		}
-		
+
 		// test dependencies
 		if(array_key_exists('dependencies', $this->config)) {
-		
+
 			$deps = $this->config['dependencies'];
 
 			if(array_key_exists('php', $deps)) {
@@ -185,25 +181,14 @@ class AppConfig {
 			}
 
 			if(array_key_exists('owncloud', $deps)) {
-				$msg .= $this->requireVersion($this->ownCloudVersion, 
+				$msg .= $this->requireVersion($this->ownCloudVersion,
 					$deps['owncloud'], 'ownCloud');
-			}
-
-			if(array_key_exists('apps', $deps)) {
-				foreach ($deps['apps'] as $app => $versions) {
-					if(array_key_exists($app, $this->installedApps)) {
-						$msg .= $this->requireVersion($this->installedApps[$app], 
-							$versions, 'App ' . $app);
-					} else {
-						$msg .= 'ownCloud app ' . $app . ' required but not installed';
-					}
-				}
 			}
 
 			if(array_key_exists('libs', $deps)) {
 				foreach ($deps['libs'] as $lib => $versions) {
 					if(array_key_exists($lib, $this->installedExtensions)) {
-						$msg .= $this->requireVersion($this->installedExtensions[$lib], 
+						$msg .= $this->requireVersion($this->installedExtensions[$lib],
 							$versions, 'PHP extension ' . $lib);
 					} else {
 						$msg .= 'PHP extension ' . $lib . ' required but not installed';
@@ -221,11 +206,12 @@ class AppConfig {
 	/**
 	 * Compares a version with a version requirement string
 	 * @param string $actual the actual version that is there
-	 * @param string $required a version requirement in the form of 
-	 * <=5.3,>4.5 versions are seperated with a comma
-	 * @param string $versionType a description of the string that is prepended 
+	 * @param string $required a version requirement in the form of
+	 * <=5.3,>4.5 versions are separated with a comma
+	 * @param string $versionType a description of the string that is prepended
 	 * to the error message
-	 * @return an error message if the version is not met, empty string if ok
+	 * @return string an error message if the version is not met,
+     * empty string if ok
 	 */
 	private function requireVersion($actual, $required, $versionType) {
 		$requiredVersions = $this->splitVersions($required);
@@ -236,8 +222,8 @@ class AppConfig {
 				continue;
 			}
 			if(!version_compare($actual, $version['version'], $version['operator'])) {
-				return $versionType . ' Version not satisfied: ' . $version['operator'] . 
-					$version['version'] . ' required but found ' . $actual . '\n';				
+				return $versionType . ' Version not satisfied: ' . $version['operator'] .
+					$version['version'] . ' required but found ' . $actual . '\n';
 			}
 		}
 
@@ -246,27 +232,27 @@ class AppConfig {
 
 
 	/**
-	 * Versions can be seperated by a comma so split them
-	 * @param string $versions a version requirement in the form of 
-	 * <=5.3,>4.5 versions are seperated with a comma
+	 * Versions can be separated by a comma so split them
+	 * @param string $versions a version requirement in the form of
+	 * <=5.3,>4.5 versions are separated with a comma
 	 * @return array of arrays with key=version value=operator
 	 */
 	private function splitVersions($versions) {
-		$result = array();
+		$result = [];
 		$versions = explode(',', $versions);
 
 		foreach($versions as $version) {
 			preg_match('/^(?<operator><|<=|>=|>|<>)?(?<version>.*)$/', $version, $matches);
 			if($matches['operator'] !== '') {
-				$required = array(
+				$required = [
 					'version' => $matches['version'],
 					'operator' => $matches['operator'],
-				);
+				];
 			} else {
-				$required = array(
+				$required = [
 					'version' => $matches['version'],
 					'operator' => '==',
-				);
+				];
 			}
 			$result[] = $required;
 		}

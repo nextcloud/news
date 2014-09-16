@@ -1,9 +1,8 @@
 #specific to news app
-coffee/build/
 node_modules/
 *.log
 /build/
-js/build/
+/js/coverage/
 js/*.xml
 .rvm
 *.clover
@@ -34,7 +33,7 @@ RCS/*
 .project
 .settings
 
-# netbeans 
+# netbeans
 nbproject
 
 # phpStorm
@@ -48,7 +47,7 @@ nbproject
 
 # vim ex mode
 .vimrc
-  
+
 # Mac OS
 .DS_Store
 

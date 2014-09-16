@@ -30,10 +30,12 @@ class FaviconFetcher {
 	}
 
 
-	/**
-	 * Fetches a favicon from a given URL
-	 * @param string|null $url the url where to fetch it from
-	 */
+    /**
+     * Fetches a favicon from a given URL
+     *
+     * @param string|null $url the url where to fetch it from
+     * @return null|string
+     */
 	public function fetch($url) {
 		try {
 			$url = $this->buildURL($url);
@@ -72,21 +74,26 @@ class FaviconFetcher {
 
 		$file = $this->getFile($url);
 
-		if($file->body !== '') {
+        /** @noinspection PhpUndefinedFieldInspection */
+        if($file->body !== '') {
 			$document = new \DOMDocument();
-			@$document->loadHTML($file->body);
+            /** @noinspection PhpUndefinedFieldInspection */
+            @$document->loadHTML($file->body);
 
 			if($document) {
 				$xpath = new \DOMXpath($document);
 				$elements = $xpath->query("//link[contains(@rel, 'icon')]");
 
 				if ($elements->length > 0) {
-					$iconPath = $elements->item(0)->getAttribute('href');
+                    /** @noinspection PhpUndefinedMethodInspection */
+                    $iconPath = $elements->item(0)->getAttribute('href');
 					$absPath = \SimplePie_Misc::absolutize_url($iconPath, $url);
 					return $absPath;
 				}
 			}
 		}
+
+        return null;
 	}
 
 	
@@ -115,7 +122,8 @@ class FaviconFetcher {
 		}
 
 		$file = $this->getFile($url);
-		$sniffer = new \SimplePie_Content_Type_Sniffer($file);
+        /** @noinspection PhpParamsInspection */
+        $sniffer = new \SimplePie_Content_Type_Sniffer($file);
 		return $sniffer->image() !== false;
 	}
 

@@ -14,243 +14,229 @@
 namespace OCA\News\Controller;
 
 use \OCP\IRequest;
-use \OCP\AppFramework\Controller;
+use \OCP\AppFramework\ApiController;
 use \OCP\AppFramework\Http;
-use \OCP\AppFramework\Http\JSONResponse;
 
-use \OCA\News\BusinessLayer\ItemBusinessLayer;
-use \OCA\News\BusinessLayer\BusinessLayerException;
+use \OCA\News\Service\ItemService;
+use \OCA\News\Service\ServiceNotFoundException;
 
-class ItemApiController extends Controller {
+class ItemApiController extends ApiController {
 
-	private $itemBusinessLayer;
+	use JSONHttpError;
+
+	private $itemService;
 	private $userId;
+	private $serializer;
 
 	public function __construct($appName,
 	                            IRequest $request,
-	                            ItemBusinessLayer $itemBusinessLayer,
+	                            ItemService $itemService,
 	                            $userId){
 		parent::__construct($appName, $request);
-		$this->itemBusinessLayer = $itemBusinessLayer;
+		$this->itemService = $itemService;
 		$this->userId = $userId;
+		$this->serializer = new EntityApiSerializer('items');
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * @API
-	 */
-	public function index() {
-		$result = array(
-			'items' => array()
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param int $type
+     * @param int $id
+     * @param bool $getRead
+     * @param int $batchSize
+     * @param int $offset
+     * @param bool $oldestFirst
+     * @return array|mixed
+     */
+	public function index($type, $id, $getRead, $batchSize=20, $offset=0,
+	                      $oldestFirst=false) {
+		return $this->serializer->serialize(
+			$this->itemService->findAll(
+				$id, $type, $batchSize, $offset, $getRead, $oldestFirst,
+				$this->userId
+			)
 		);
-
-		$batchSize = (int) $this->params('batchSize', 20);
-		$offset = (int) $this->params('offset', 0);
-		$type = (int) $this->params('type');
-		$id = (int) $this->params('id');
-		$showAll = $this->params('getRead');
-
-		if($showAll === 'true' || $showAll === true) {
-			$showAll = true;
-		} else {
-			$showAll = false;
-		}
-
-		$items = $this->itemBusinessLayer->findAll(
-			$id,
-			$type,
-			$batchSize,
-			$offset,
-			$showAll,
-			$this->userId
-		);
-
-		foreach ($items as $item) {
-			array_push($result['items'], $item->toAPI());
-		}
-
-		return new JSONResponse($result);
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * @API
-	 */
-	public function updated() {
-		$result = array(
-			'items' => array()
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param int $type
+     * @param int $id
+     * @param int $lastModified
+     * @return array|mixed
+     */
+	public function updated($type, $id, $lastModified=0) {
+		return $this->serializer->serialize(
+			$this->itemService->findAllNew($id, $type, $lastModified,
+		                                   true, $this->userId)
 		);
-
-		$lastModified = (int) $this->params('lastModified', 0);
-		$type = (int) $this->params('type');
-		$id = (int) $this->params('id');
-
-		$items = $this->itemBusinessLayer->findAllNew(
-			$id,
-			$type,
-			$lastModified,
-			true,
-			$this->userId
-		);
-
-		foreach ($items as $item) {
-			array_push($result['items'], $item->toAPI());
-		}
-
-		return new JSONResponse($result);
 	}
 
 
-	private function setRead($isRead) {
-		$itemId = (int) $this->params('itemId');
+	private function setRead($isRead, $itemId) {
 		try {
-			$this->itemBusinessLayer->read($itemId, $isRead, $this->userId);
-			return new JSONResponse();
-		} catch(BusinessLayerException $ex){
-			return new JSONResponse(array('message' => $ex->getMessage()),
-				Http::STATUS_NOT_FOUND);
+			$this->itemService->read($itemId, $isRead, $this->userId);
+		} catch(ServiceNotFoundException $ex){
+			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
+
+        return [];
 	}
 
 
-	private function setStarred($isStarred) {
-		$feedId = (int) $this->params('feedId');
-		$guidHash = $this->params('guidHash');
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param int $itemId
+     * @return array|\OCP\AppFramework\Http\JSONResponse
+     */
+	public function read($itemId) {
+		return $this->setRead(true, $itemId);
+	}
+
+
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param int $itemId
+     * @return array|\OCP\AppFramework\Http\JSONResponse
+     */
+	public function unread($itemId) {
+		return $this->setRead(false, $itemId);
+	}
+
+
+	private function setStarred($isStarred, $feedId, $guidHash) {
 		try {
-			$this->itemBusinessLayer->star($feedId, $guidHash, $isStarred, $this->userId);
-			return new JSONResponse();
-		} catch(BusinessLayerException $ex){
-			return new JSONResponse(array('message' => $ex->getMessage()),
-				Http::STATUS_NOT_FOUND);
+			$this->itemService->star($feedId, $guidHash, $isStarred, $this->userId);
+		} catch(ServiceNotFoundException $ex){
+			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
+
+        return [];
+	}
+
+
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param int $feedId
+     * @param string $guidHash
+     * @return \OCP\AppFramework\Http\JSONResponse
+     */
+	public function star($feedId, $guidHash) {
+		return $this->setStarred(true, $feedId, $guidHash);
+	}
+
+
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param int $feedId
+     * @param string $guidHash
+     * @return array|\OCP\AppFramework\Http\JSONResponse
+     */
+	public function unstar($feedId, $guidHash) {
+		return $this->setStarred(false, $feedId, $guidHash);
 	}
 
 
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 * @API
+	 * @CORS
+	 *
+	 * @param int $newestItemId
 	 */
-	public function read() {
-		return $this->setRead(true);
+	public function readAll($newestItemId) {
+		$this->itemService->readAll($newestItemId, $this->userId);
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * @API
-	 */
-	public function unread() {
-		return $this->setRead(false);
-	}
-
-
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * @API
-	 */
-	public function star() {
-		return $this->setStarred(true);
-	}
-
-
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * @API
-	 */
-	public function unstar() {
-		return $this->setStarred(false);
-	}
-
-
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * @API
-	 */
-	public function readAll() {
-		$newestItemId = (int) $this->params('newestItemId');
-
-		$this->itemBusinessLayer->readAll($newestItemId, $this->userId);
-		return new JSONResponse();
-	}
-
-
-	private function setMultipleRead($isRead) {
-		$items = $this->params('items');
-
+	private function setMultipleRead($isRead, $items) {
 		foreach($items as $id) {
 			try {
-				$this->itemBusinessLayer->read($id, $isRead, $this->userId);
-			} catch(BusinessLayerException $ex) {
+				$this->itemService->read($id, $isRead, $this->userId);
+			} catch(ServiceNotFoundException $ex) {
 				continue;
 			}
 		}
-
-		return new JSONResponse();
 	}
 
 
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 * @API
+	 * @CORS
+	 *
+	 * @param int[] item ids
 	 */
-	public function readMultiple() {
-		return $this->setMultipleRead(true);
+	public function readMultiple($items) {
+		$this->setMultipleRead(true, $items);
 	}
 
 
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 * @API
+	 * @CORS
+	 *
+	 * @param int[] item ids
 	 */
-	public function unreadMultiple() {
-		return $this->setMultipleRead(false);
+	public function unreadMultiple($items) {
+		$this->setMultipleRead(false, $items);
 	}
 
 
-	private function setMultipleStarred($isStarred) {
-		$items = $this->params('items');
-
+	private function setMultipleStarred($isStarred, $items) {
 		foreach($items as $item) {
 			try {
-				$this->itemBusinessLayer->star($item['feedId'],
-					$item['guidHash'], $isStarred, $this->userId);
-			} catch(BusinessLayerException $ex) {
+				$this->itemService->star($item['feedId'], $item['guidHash'],
+					                           $isStarred, $this->userId);
+			} catch(ServiceNotFoundException $ex) {
 				continue;
 			}
 		}
-
-		return new JSONResponse();
 	}
 
 
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 * @API
+	 * @CORS
+	 *
+	 * @param int[] item ids
 	 */
-	public function starMultiple() {
-		return $this->setMultipleStarred(true);
+	public function starMultiple($items) {
+		$this->setMultipleStarred(true, $items);
 	}
 
 
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 * @API
+	 * @CORS
+	 *
+	 * @param int[] item ids
 	 */
-	public function unstarMultiple() {
-		return $this->setMultipleStarred(false);
+	public function unstarMultiple($items) {
+		$this->setMultipleStarred(false, $items);
 	}
 
 

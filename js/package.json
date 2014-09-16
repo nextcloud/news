@@ -1,35 +1,48 @@
 {
-	"name": "owncloud-news",
-	"description": "ownCloud News App",
-	"version": "0.0.1",
-	"author": {
-		"name": "Bernhard Posselt",
-		"email": "dev@bernhard-posselt.com"
-	},
-	"private": true,
-	"homepage": "https://github.com/owncloud/news",
-	"repository": {
-		"type": "git",
-		"url": "git@github.com:owncloud/news.git"
-	},
-	"bugs": "https://github.com/owncloud/news/issues",
-	"contributors": [],
-	"dependencies": {},
-	"devDependencies": {
-		"bower": "*",
-		"grunt": "*",
-		"grunt-cli": "*",
-		"coffee-script": "*",
-		"grunt-contrib-concat": "*",
-		"grunt-contrib-watch": "*",
-		"grunt-coffeelint": "*",
-		"grunt-karma": "*",
-		"grunt-wrap": "*",
-		"grunt-phpunit": "*",
-		"karma-jasmine": "*",
-		"karma-phantomjs-launcher": "*",
-		"karma-chrome-launcher": "*",
-		"karma-firefox-launcher": "*"
-	},
-	"engine": "node >= 0.8"
+  "name": "ownCloud-news",
+  "version": "0.0.0",
+  "description": "An RSS/Atom feed reader",
+  "main": "build/app.js",
+  "scripts": {
+    "test": "grunt ci-unit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/owncloud/news"
+  },
+  "keywords": [
+    "rss",
+    "atom",
+    "feed",
+    "reader",
+    "owncloud",
+    "app"
+  ],
+  "author": "Bernhard Posselt",
+  "license": "AGPL",
+  "bugs": {
+    "url": "https://github.com/owncloud/news/issues"
+  },
+  "homepage": "https://github.com/owncloud/news",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-concat": "^0.5.0",
+    "grunt-contrib-connect": "^0.8.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-uglify": "^0.5.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-karma": "^0.9.0",
+    "grunt-ng-annotate": "^0.3.2",
+    "grunt-phpunit": "^0.3.5",
+    "grunt-protractor-runner": "^1.1.4",
+    "grunt-protractor-webdriver": "^0.1.8",
+    "grunt-wrap": "^0.3.0",
+    "karma": "^0.12.23",
+    "karma-chrome-launcher": "^0.1.4",
+    "karma-coverage": "^0.2.6",
+    "karma-firefox-launcher": "^0.1.3",
+    "karma-jasmine": "^0.1.5",
+    "karma-phantomjs-launcher": "^0.1.4"
+  },
+  "dependencies": {}
 }

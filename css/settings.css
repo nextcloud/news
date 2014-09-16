@@ -1,63 +1,56 @@
 /**
  * ownCloud - News
  *
- * @author Bernhard Posselt
- * @copyright 2012 Bernhard Posselt dev@bernhard-posselt.com
+ * This file is licensed under the Affero General Public License version 3 or
+ * later. See the COPYING file.
  *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- *
- * You should have received a copy of the GNU Affero General Public
- * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright Bernhard Posselt 2014
  */
-
-
 #app-settings input[type=file] {
-	opacity:0;
-	z-index:1001;
-	width:0;
-	height:0;
+    opacity:0;
+    z-index:1001;
+    width:0;
+    height:0;
 }
 
 #app-settings .opened:hover {
-	background-color: transparent !important;
+    background-color: transparent !important;
 }
 
-
 #app-settings-content {
-	padding-bottom: 25px;
+    padding-bottom: 25px;
+}
+
+#app-settings-content h3 {
+    padding: 5px 0;
+    font-weight: bold;
 }
 
 #app-settings-content p {
-	padding-left: 10px;
+    padding-left: 10px;
 }
 
-.upload-icon,
-.download-icon {
-	padding-left: 25px;
-	background-repeat: no-repeat;
-	background-position: 5px center;
+.button-icon-label {
+    background-position: 10px center;
+    background-size: 16px;
+    padding-left: 25px;
 }
 
-.upload-icon {
-	background-image: url('../img/upload.svg');
+#app-settings .import-export h3 {
+    padding-top: 15px;
+    padding-bottom: 5px;
 }
 
-.download-icon {
-	background-image: url('../img/download.svg');
+#app-settings .import-export button,
+#app-settings .import-export a {
+    width: 110px;
+    height: 30px;
+    margin: 0;
+    vertical-align: middle;
 }
 
-#app-settings .importing {
-	background-image: url('../img/loading.gif'); 
-	background-repeat: no-repeat;
-	background-position: 5px center;
-	background-size: 16px;
+#app-settings .import-export a {
+    display: inline-block;
+    padding-left: 38px;
 }

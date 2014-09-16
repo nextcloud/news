@@ -14,213 +14,204 @@
 namespace OCA\News\Controller;
 
 use \OCP\IRequest;
-use \OCP\AppFramework\Controller;
+use \OCP\ILogger;
+use \OCP\AppFramework\ApiController;
 use \OCP\AppFramework\Http;
-use \OCP\AppFramework\Http\JSONResponse;
 
-use \OCA\News\Core\Logger;
-use \OCA\News\BusinessLayer\FeedBusinessLayer;
-use \OCA\News\BusinessLayer\FolderBusinessLayer;
-use \OCA\News\BusinessLayer\ItemBusinessLayer;
-use \OCA\News\BusinessLayer\BusinessLayerException;
-use \OCA\News\BusinessLayer\BusinessLayerConflictException;
+use \OCA\News\Service\FeedService;
+use \OCA\News\Service\ItemService;
+use \OCA\News\Service\ServiceNotFoundException;
+use \OCA\News\Service\ServiceConflictException;
 
 
-class FeedApiController extends Controller {
+class FeedApiController extends ApiController {
 
-	private $itemBusinessLayer;
-	private $feedBusinessLayer;
-	private $folderBusinessLayer;
+	use JSONHttpError;
+
+	private $itemService;
+	private $feedService;
 	private $userId;
 	private $logger;
+	private $loggerParams;
+	private $serializer;
 
 	public function __construct($appName,
 	                            IRequest $request,
-	                            FolderBusinessLayer $folderBusinessLayer,
-	                            FeedBusinessLayer $feedBusinessLayer,
-	                            ItemBusinessLayer $itemBusinessLayer,
-	                            Logger $logger,
-	                            $userId){
+	                            FeedService $feedService,
+	                            ItemService $itemService,
+	                            ILogger $logger,
+	                            $userId,
+	                            $loggerParams){
 		parent::__construct($appName, $request);
-		$this->folderBusinessLayer = $folderBusinessLayer;
-		$this->feedBusinessLayer = $feedBusinessLayer;
-		$this->itemBusinessLayer = $itemBusinessLayer;
+		$this->feedService = $feedService;
+		$this->itemService = $itemService;
 		$this->userId = $userId;
 		$this->logger = $logger;
+		$this->loggerParams = $loggerParams;
+		$this->serializer = new EntityApiSerializer('feeds');
 	}
 
 
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 * @API
+	 * @CORS
 	 */
 	public function index() {
 
-		$result = array(
-			'feeds' => array(),
-			'starredCount' => $this->itemBusinessLayer->starredCount($this->userId)
-		);
+		$result = [
+			'starredCount' => $this->itemService->starredCount($this->userId),
+			'feeds' => $this->feedService->findAll($this->userId)
+		];
 
-		foreach ($this->feedBusinessLayer->findAll($this->userId) as $feed) {
-			array_push($result['feeds'], $feed->toAPI());
-		}
 
-		// check case when there are no items
 		try {
-			$result['newestItemId'] =
-				$this->itemBusinessLayer->getNewestItemId($this->userId);
+			$result['newestItemId'] = $this->itemService->getNewestItemId($this->userId);
 
-		// An exception occurs if there is a newest item. If there is none,
-		// simply ignore it and do not add the newestItemId
-		} catch(BusinessLayerException $ex) {}
+		// in case there are no items, ignore
+		} catch(ServiceNotFoundException $ex) {}
 
-		return new JSONResponse($result);
+		return $this->serializer->serialize($result);
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * @API
-	 */
-	public function create() {
-		$feedUrl = $this->params('url');
-		$folderId = (int) $this->params('folderId', 0);
-
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param string $url
+     * @param int $folderId
+     * @return array|mixed|\OCP\AppFramework\Http\JSONResponse
+     */
+	public function create($url, $folderId=0) {
 		try {
-			$this->feedBusinessLayer->purgeDeleted($this->userId, false);
+			$this->feedService->purgeDeleted($this->userId, false);
 
-			$feed = $this->feedBusinessLayer->create($feedUrl, $folderId, $this->userId);
-			$result = array(
-				'feeds' => array($feed->toAPI())
-			);
+			$feed = $this->feedService->create($url, $folderId, $this->userId);
+			$result = ['feeds' => [$feed]];
 
 			try {
-				$result['newestItemId'] =
-					$this->itemBusinessLayer->getNewestItemId($this->userId);
+				$result['newestItemId'] = $this->itemService->getNewestItemId($this->userId);
 
-			// An exception occurs if there is a newest item. If there is none,
-			// simply ignore it and do not add the newestItemId
-			} catch(BusinessLayerException $ex) {}
+			// in case there are no items, ignore
+			} catch(ServiceNotFoundException $ex) {}
 
-			return new JSONResponse($result);
+			return $this->serializer->serialize($result);
 
-		} catch(BusinessLayerConflictException $ex) {
-			return new JSONResponse(array('message' => $ex->getMessage()),
-				Http::STATUS_CONFLICT);
-		} catch(BusinessLayerException $ex) {
-			return new JSONResponse(array('message' => $ex->getMessage()),
-				Http::STATUS_NOT_FOUND);
+		} catch(ServiceConflictException $ex) {
+			return $this->error($ex, Http::STATUS_CONFLICT);
+		} catch(ServiceNotFoundException $ex) {
+			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * @API
-	 */
-	public function delete() {
-		$feedId = (int) $this->params('feedId');
-
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param int $feedId
+     * @return array|\OCP\AppFramework\Http\JSONResponse
+     */
+	public function delete($feedId) {
 		try {
-			$this->feedBusinessLayer->delete($feedId, $this->userId);
-			return new JSONResponse();
-		} catch(BusinessLayerException $ex) {
-			return new JSONResponse(array('message' => $ex->getMessage()),
-				Http::STATUS_NOT_FOUND);
+			$this->feedService->delete($feedId, $this->userId);
+		} catch(ServiceNotFoundException $ex) {
+			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
+
+        return [];
 	}
 
 
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 * @API
+	 * @CORS
+	 *
+	 * @param int $feedId
+	 * @param int $newestItemId
 	 */
-	public function read() {
-		$feedId = (int) $this->params('feedId');
-		$newestItemId = (int) $this->params('newestItemId');
-
-		$this->itemBusinessLayer->readFeed($feedId, $newestItemId, $this->userId);
-		return new JSONResponse();
+	public function read($feedId, $newestItemId) {
+		$this->itemService->readFeed($feedId, $newestItemId, $this->userId);
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * @API
-	 */
-	public function move() {
-		$feedId = (int) $this->params('feedId');
-		$folderId = (int) $this->params('folderId');
-
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param int $feedId
+     * @param int $folderId
+     * @return \OCP\AppFramework\Http\JSONResponse
+     */
+	public function move($feedId, $folderId) {
 		try {
-			$this->feedBusinessLayer->move($feedId, $folderId, $this->userId);
-			return new JSONResponse();
-		} catch(BusinessLayerException $ex) {
-			return new JSONResponse(array('message' => $ex->getMessage()),
-				Http::STATUS_NOT_FOUND);
+			$this->feedService->move($feedId, $folderId, $this->userId);
+		} catch(ServiceNotFoundException $ex) {
+			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
+
+        return [];
 	}
 
 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * @API
-	 */
-	public function rename() {
-		$feedId = (int) $this->params('feedId');
-		$feedTitle = $this->params('feedTitle');
-
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param int $feedId
+     * @param string $feedTitle
+     * @return \OCP\AppFramework\Http\JSONResponse
+     */
+	public function rename($feedId, $feedTitle) {
 		try {
-			$this->feedBusinessLayer->rename($feedId, $feedTitle, $this->userId);
-			return new JSONResponse();
-		} catch(BusinessLayerException $ex) {
-			return new JSONResponse(array('message' => $ex->getMessage()),
-				Http::STATUS_NOT_FOUND);
+			$this->feedService->rename($feedId, $feedTitle, $this->userId);
+		} catch(ServiceNotFoundException $ex) {
+			return $this->error($ex, Http::STATUS_NOT_FOUND);
 		}
+
+        return [];
 	}
 
 
 	/**
 	 * @NoCSRFRequired
-	 * @API
+	 * @CORS
 	 */
 	public function fromAllUsers() {
-		$feeds = $this->feedBusinessLayer->findAllFromAllUsers();
-		$result = array('feeds' => array());
+		$feeds = $this->feedService->findAllFromAllUsers();
+		$result = ['feeds' => []];
 
 		foreach ($feeds as $feed) {
-			array_push($result['feeds'], array(
+			$result['feeds'][] = [
 				'id' => $feed->getId(),
 				'userId' => $feed->getUserId()
-			));
+			];
 		}
 
-		return new JSONResponse($result);
+		return $result;
 	}
 
 
 	/**
 	 * @NoCSRFRequired
+	 *
+	 * @param string $userId
+	 * @param int $feedId
 	 */
-	public function update() {
-		$userId = $this->params('userId');
-		$feedId = (int) $this->params('feedId');
-
+	public function update($userId, $feedId) {
 		try {
-			$this->feedBusinessLayer->update($feedId, $userId);
-		// ignore update failure (feed could not be reachable etc, we dont care)
+			$this->feedService->update($feedId, $userId);
+		// ignore update failure (feed could not be reachable etc, we don't care)
 		} catch(\Exception $ex) {
-			$this->logger->log('Could not update feed ' . $ex->getMessage(),
-					'debug');
+			$this->logger->debug('Could not update feed ' . $ex->getMessage(),
+					$this->loggerParams);
 		}
-		return new JSONResponse();
-
 	}
 
 
