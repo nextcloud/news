@@ -83,7 +83,7 @@
     background-image: url('../img/starred.png');
 }
 
-#app-navigation .icon-rss {
+.icon-rss {
     background-image: url('../img/rss.svg') !important;
 }
 

@@ -353,6 +353,11 @@
     background-color: #000;
 }
 
+#app-content .enclosure-error {
+    line-height: 1.5;
+    height: 40px;
+}
+
 /**
  * Article body
  */

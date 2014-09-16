@@ -20,6 +20,7 @@
                     <li class="util-spacer"></li>
                     <li class="title only-in-compact"
                         title="{{ item.title }}"
+                        ng-class="{'icon-rss': !Content.getFeed(item.feedId).faviconLink }"
                         ng-style="{ backgroundImage: 'url(' + Content.getFeed(item.feedId).faviconLink + ')'}">
                         <h1><a>{{ item.title }}</a></h1>
                     </li>
@@ -68,8 +69,12 @@
                 <div class="enclosure" ng-if="item.enclosureLink">
                     <news-enclosure type="{{ item.enclosureMime }}"
                                 link="{{ item.enclosureLink }}">
+                        <p class="enclosure-error">
+                            <?php p($l->t('Browser can not play media type')) ?>
+                            {{ item.enclosureMime }}
+                        </p>
                         <a class="button"
-                           ng-href="{{ item.enclosureLink | trustUrl}}"
+                           ng-href="{{ item.enclosureLink | trustUrl }}"
                            target="_blank">
                             <?php p($l->t('Download')) ?>
                         </a>
