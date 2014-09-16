@@ -23,7 +23,7 @@ For further developer and user documentation please visit [the wiki](https://git
 ## Dependencies
 * PHP >= 5.4
 * php-curl
-* ownCloud >= 7.0.3
+* ownCloud >= 7
 
 ## Supported Databases
 * PostgreSQL
