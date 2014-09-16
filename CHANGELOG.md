@@ -1,5 +1,5 @@
 owncloud-news (3.001)
-* Breaking Change: Depend on ownCloud 7.0.3
+* Breaking Change: Depend on ownCloud 7
 * Breaking Change: Depend on PHP 5.4
 * Breaking Change: Plugin API: BusinessLayer has been renamed to Service, (FeedBusinessLayer -> FeedService) and different exceptions are now thrown to make failure better distinguishable, accessing the BusinessLayer links to the Service equivalents to keep compability
 * Allow to turn off marking read when scrolling
