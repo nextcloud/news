@@ -1905,37 +1905,6 @@ app.directive('appNavigationEntryUtils', function () {
         }
     };
 });
-app.directive('newsAudio', function () {
-    'use strict';
-    return {
-        restrict: 'E',
-        scope: {
-            src: '@',
-            type: '@'
-        },
-        transclude: true,
-        template: '' +
-        '<audio controls="controls" preload="none" ng-hide="cantPlay()">' +
-            '<source ng-src="{{ src|trustUrl }}">' +
-        '</audio>' +
-        '<a ng-href="{{ src|trustUrl }}" class="button" ng-show="cantPlay()" ' +
-            'ng-transclude></a>',
-        link: function (scope, elm) {
-            var source = elm.children().children('source')[0];
-            var cantPlay = false;
-
-            source.addEventListener('error', function () {
-                scope.$apply(function () {
-                    cantPlay = true;
-                });
-            });
-
-            scope.cantPlay = function () {
-                return cantPlay;
-            };
-        }
-    };
-});
 app.directive('newsAutoFocus', ["$timeout", function ($timeout) {
     'use strict';
     return function (scope, elem, attrs) {
@@ -2006,6 +1975,50 @@ app.directive('newsDroppable', ["$rootScope", function ($rootScope) {
         elem.droppable(details);
     };
 }]);
+app.directive('newsEnclosure', function () {
+    'use strict';
+    return {
+        restrict: 'E',
+        scope: {
+            link: '@',
+            type: '@'
+        },
+        transclude: true,
+        template: '<div>' +
+            '<video controls preload="none" ' +
+                'ng-show="mediaType==\'video\' && !cantPlay()">' +
+                '<source ng-src="{{ link|trustUrl }}" type="{{ type }}">' +
+            '</video>' +
+            '<audio controls preload="none" ' +
+                'ng-show="mediaType==\'audio\' && !cantPlay()">' +
+                '<source ng-src="{{ link|trustUrl }}" type="{{ type }}">' +
+            '</audio>' +
+            '<div ng-transclude ng-show="cantPlay()"></div>' +
+        '</div>',
+        link: function (scope, elem) {
+            if (scope.type.indexOf('audio') === 0) {
+                scope.mediaType = 'audio';
+            } else {
+                scope.mediaType = 'video';
+            }
+            var source = elem.children()
+                .children(scope.mediaType)
+                .children('source')[0];
+
+            var cantPlay = false;
+
+            scope.cantPlay = function () {
+                return cantPlay;
+            };
+
+            source.addEventListener('error', function () {
+                scope.$apply(function () {
+                    cantPlay = true;
+                });
+            });
+        }
+    };
+});
 app.directive('newsFocus', ["$timeout", "$interpolate", function ($timeout, $interpolate) {
     'use strict';
 

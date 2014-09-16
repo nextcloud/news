@@ -66,10 +66,14 @@
 
 
                 <div class="enclosure" ng-if="item.enclosureLink">
-                    <news-audio type="{{ item.enclosureType }}"
-                                ng-src="{{ item.enclosureLink|trustUrl }}">
-                        <?php p($l->t('Download')) ?>
-                    </news-audio>
+                    <news-enclosure type="{{ item.enclosureMime }}"
+                                link="{{ item.enclosureLink }}">
+                        <a class="button"
+                           ng-href="{{ item.enclosureLink | trustUrl}}"
+                           target="_blank">
+                            <?php p($l->t('Download')) ?>
+                        </a>
+                    </news-enclosure>
                 </div>
 
                 <div class="body" news-bind-html-unsafe="item.body"></div>

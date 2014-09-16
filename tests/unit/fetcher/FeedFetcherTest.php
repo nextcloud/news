@@ -34,6 +34,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 	private $getProxyPort;
 	private $proxyAuth;
 	private $config;
+	private $appconfig;
 
 	// items
 	private $permalink;
@@ -63,6 +64,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 				'set_proxyhost',
 				'set_proxyport',
 				'set_proxyuserpwd',
+				'set_useragent',
 				'init',
 				'get_permalink',
 				'get_items',
@@ -82,6 +84,10 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 			->getMock();
 		$this->faviconFetcher = $this->getMockBuilder(
 			'\OCA\News\Utility\FaviconFetcher')
+			->disableOriginalConstructor()
+			->getMock();
+		$this->appconfig = $this->getMockBuilder(
+			'\OCA\News\Config\AppConfig')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->time = 2323;
@@ -114,11 +120,16 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 		$this->config->expects($this->any())
 			->method('getFeedFetcherTimeout')
 			->will($this->returnValue($this->fetchTimeout));
+		$this->appconfig->expects($this->any())
+			->method('getConfig')
+			->with($this->equalTo('version'))
+			->will($this->returnValue(3));
 		$this->fetcher = new FeedFetcher($this->coreFactory,
 						 $this->faviconFetcher,
 						 $timeFactory,
 						 $this->cacheDirectory,
-						 $this->config);
+						 $this->config,
+						 $this->appconfig);
 		$this->url = 'http://tests';
 
 		$this->permalink = 'http://permalink';
@@ -186,6 +197,9 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 		$this->core->expects($this->once())
 			->method('set_cache_duration')
 			->with($this->equalTo($this->cacheDuration));
+		$this->core->expects($this->once())
+			->method('set_useragent')
+			->with($this->equalTo('ownCloud News/3 (+https://owncloud.org/; 1 subscriber)'));
 		$this->setExpectedException('\OCA\News\Fetcher\FetcherException');
 		$this->fetcher->fetch($this->url);
 	}
@@ -265,7 +279,21 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 			$mock->expects($this->any())
 				->method('get_type')
 				->will($this->returnValue($enclosureType));
-			$this->expectItem('get_enclosure', $this->mock);
+			$mock->expects($this->any())
+				->method('get_link')
+				->will($this->returnValue($this->enclosureLink));
+			$this->expectItem('get_enclosure', $mock);
+			$item->setEnclosureMime($enclosureType);
+			$item->setEnclosureLink($this->enclosureLink);
+		} elseif ($enclosureType === 'video/ogg') {
+			$mock = $this->getMock('enclosure', ['get_type', 'get_link']);
+			$mock->expects($this->any())
+				->method('get_type')
+				->will($this->returnValue($enclosureType));
+			$mock->expects($this->any())
+				->method('get_link')
+				->will($this->returnValue($this->enclosureLink));
+			$this->expectItem('get_enclosure', $mock);
 			$item->setEnclosureMime($enclosureType);
 			$item->setEnclosureLink($this->enclosureLink);
 		}
@@ -308,7 +336,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 		$this->core->expects($this->once())
 			->method('init')
 			->will($this->returnValue(true));
-		$item = $this->createItem();
+		$item = $this->createItem(false, 'audio/ogg');
 		$feed = $this->createFeed();
 		$this->expectCore('get_items', [$this->item]);
 		$result = $this->fetcher->fetch($this->url);
@@ -396,7 +424,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 				->method('fetch')
 				->will($this->returnValue($this->webFavicon));
 
-		$item = $this->createItem(false, true);
+		$item = $this->createItem(false, 'video/ogg');
 		$this->expectCore('get_items', [$this->item]);
 		$result = $this->fetcher->fetch($this->url);
 

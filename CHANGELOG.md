@@ -34,6 +34,8 @@ owncloud-news (3.001)
 * Keyboard Shortcut: f to load the next feed/folder
 * Keyboard Shortcut: d to load the previous feed/folder
 * Enter works now as submitting the form for every input
+* Set useragent for fetching feeds
+* Also support video enclosures
 
 owncloud-news (2.003)
 * Use correct url for folder and feed api update methods

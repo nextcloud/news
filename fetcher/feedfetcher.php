@@ -18,6 +18,7 @@ use \OCA\News\Db\Feed;
 use \OCA\News\Utility\FaviconFetcher;
 use \OCA\News\Utility\SimplePieAPIFactory;
 use \OCA\News\Utility\Config;
+use \OCA\News\Config\AppConfig;
 
 
 class FeedFetcher implements IFeedFetcher {
@@ -27,16 +28,18 @@ class FeedFetcher implements IFeedFetcher {
 	private $faviconFetcher;
 	private $simplePieFactory;
 	private $fetchTimeout;
-	private $time;	
+	private $time;
 	private $proxyHost;
 	private $proxyPort;
 	private $proxyAuth;
+	private $appConfig;
 
 	public function __construct(SimplePieAPIFactory $simplePieFactory,
 				    FaviconFetcher $faviconFetcher,
 				    $time,
 				    $cacheDirectory,
-				    Config $config){
+				    Config $config,
+				    AppConfig $appConfig){
 		$this->cacheDirectory = $cacheDirectory;
 		$this->cacheDuration = $config->getSimplePieCacheDuration();
 		$this->fetchTimeout = $config->getFeedFetcherTimeout();
@@ -46,6 +49,7 @@ class FeedFetcher implements IFeedFetcher {
 		$this->proxyHost = $config->getProxyHost();
 		$this->proxyPort = $config->getProxyPort();
 		$this->proxyAuth = $config->getProxyAuth();
+		$this->appConfig = $appConfig;
 	}
 
 
@@ -70,6 +74,7 @@ class FeedFetcher implements IFeedFetcher {
 		$simplePie = $this->simplePieFactory->getCore();
 		$simplePie->set_feed_url($url);
 		$simplePie->enable_cache(true);
+		$simplePie->set_useragent('ownCloud News/' . $this->appConfig->getConfig('version') . ' (+https://owncloud.org/; 1 subscriber)');
 		$simplePie->set_stupidly_fast(true);  // disable simple pie sanitation
 		                                      // we use htmlpurifier
 		$simplePie->set_timeout($this->fetchTimeout);
@@ -111,11 +116,11 @@ class FeedFetcher implements IFeedFetcher {
 	private function decodeTwice($string) {
 		// behold! &apos; is not converted by PHP that's why we need to do it
 		// manually (TM)
-		return str_replace('&apos;', '\'', 
+		return str_replace('&apos;', '\'',
 				html_entity_decode(
 					html_entity_decode(
 						$string, ENT_QUOTES, 'UTF-8'
-					), 
+					),
 				ENT_QUOTES, 'UTF-8'
 			)
 		);
@@ -131,14 +136,14 @@ class FeedFetcher implements IFeedFetcher {
 			$url = $feedLink;
 		}
 		$item->setUrl($url);
-		
+
 		// unescape content because angularjs helps against XSS
 		$item->setTitle($this->decodeTwice($simplePieItem->get_title()));
 		$guid = $simplePieItem->get_id();
 		$item->setGuid($guid);
 
 		// purification is done in the service layer
-		$item->setBody($simplePieItem->get_content());  
+		$item->setBody($simplePieItem->get_content());
 
 		// pubdate is not required. if not given use the current date
 		$date = $simplePieItem->get_date('U');
@@ -147,7 +152,7 @@ class FeedFetcher implements IFeedFetcher {
 		}
 
 		$item->setPubDate($date);
-		
+
 		$item->setLastModified($this->time->getTime());
 
 		$author = $simplePieItem->get_author();
@@ -164,7 +169,8 @@ class FeedFetcher implements IFeedFetcher {
 		$enclosure = $simplePieItem->get_enclosure();
 		if($enclosure !== null) {
 			$enclosureType = $enclosure->get_type();
-			if(stripos($enclosureType, "audio/") !== false) {
+			if(stripos($enclosureType, 'audio/') !== false ||
+			   stripos($enclosureType, 'video/') !== false) {
 				$item->setEnclosureMime($enclosureType);
 				$item->setEnclosureLink($enclosure->get_link());
 			}
