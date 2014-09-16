@@ -74,7 +74,9 @@ class FeedFetcher implements IFeedFetcher {
 		$simplePie = $this->simplePieFactory->getCore();
 		$simplePie->set_feed_url($url);
 		$simplePie->enable_cache(true);
-		$simplePie->set_useragent('ownCloud News/' . $this->appConfig->getConfig('version') . ' (+https://owncloud.org/; 1 subscriber)');
+		$simplePie->set_useragent('ownCloud News/' .
+				$this->appConfig->getConfig('version') .
+				' (+https://owncloud.org/; 1 subscriber; feed-url=' . $url . ')');
 		$simplePie->set_stupidly_fast(true);  // disable simple pie sanitation
 		                                      // we use htmlpurifier
 		$simplePie->set_timeout($this->fetchTimeout);

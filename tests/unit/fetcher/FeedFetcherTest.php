@@ -199,7 +199,9 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 			->with($this->equalTo($this->cacheDuration));
 		$this->core->expects($this->once())
 			->method('set_useragent')
-			->with($this->equalTo('ownCloud News/3 (+https://owncloud.org/; 1 subscriber)'));
+			->with($this->equalTo(
+				'ownCloud News/3 (+https://owncloud.org/; 1 subscriber; ' .
+					'feed-url=http://tests)'));
 		$this->setExpectedException('\OCA\News\Fetcher\FetcherException');
 		$this->fetcher->fetch($this->url);
 	}
