@@ -137,8 +137,6 @@ Another way to fix this is to run a custom [updater script](https://github.com/o
 * If your cron works fine but owncloud's cronjobs are never executed, file a bug in [core](https://github.com/owncloud/core/)
 * Try the [updater script](https://github.com/owncloud/news/wiki/Cron-1.2)
 
-### News always redirects to files
-This problem is related to opcode caching, [check the issue tracker for how to solve it](https://github.com/owncloud/news/issues/319)
 
 Configuration
 -------------
