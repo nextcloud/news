@@ -1,3 +1,6 @@
+owncloud-news (3.002)
+* **Bugfix**: If a folder is selected, the f and d shortcuts will jump to the previous or next folder subfeeds
+
 owncloud-news (3.001)
 * **New dependency**: Minimum ownCloud version: 8
 * **New dependency**: Minimum PHP version: 5.4

@@ -38,11 +38,27 @@
         navigationArea.find('.active > a:visible').trigger('click');
     };
 
+
     var nextFeed = function (navigationArea) {
         var current = navigationArea.find('.active');
         var elements = navigationArea.find('.subscriptions:visible,' +
                                            '.starred:visible,' +
                                            '.feed:visible');
+
+        if (current.hasClass('folder')) {
+            while (current.length > 0) {
+                var subfeeds = current.find('.feed:visible');
+                if (subfeeds.length > 0) {
+                    $(subfeeds[0]).children('a:visible').trigger('click');
+                    return;
+                }
+                current = current.next('.folder');
+            }
+
+            // no subfeed found
+            return;
+        }
+
         // FIXME: O(n) runtime. If someone creates a nice and not fugly solution
         // please create a PR
         for (var i=0; i<elements.length-1; i+=1) {
@@ -61,6 +77,27 @@
         var elements = navigationArea.find('.subscriptions:visible,' +
                                            '.starred:visible,' +
                                            '.feed:visible');
+
+        if (current.hasClass('folder')) {
+            current = current.prev('.folder');
+            while (current.length > 0) {
+                var subfeeds = current.find('.feed:visible');
+                if (subfeeds.length > 0) {
+                    $(subfeeds[subfeeds.length-1])
+                        .children('a:visible').trigger('click');
+                    return;
+                }
+            }
+
+            // no subfeed found
+            var starred = $('.starred:visible');
+            if (starred.length > 0) {
+                starred.children('a:visible').trigger('click');
+            }
+
+            return;
+        }
+
         // FIXME: O(n) runtime. If someone creates a nice and not fugly solution
         // please create a PR
         for (var i=elements.length-1; i>0; i-=1) {
