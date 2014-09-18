@@ -2211,19 +2211,24 @@ app.directive('newsTimeout', ["$timeout", "$rootScope", function ($timeout, $roo
             'newsTimeout': '&'
         },
         link: function (scope, element) {
+            var destroyed = false;
             var seconds = 7;
             var timer = $timeout(scope.newsTimeout, seconds * 1000);
 
             // remove timeout if element is being removed by
             // for instance clicking on the x button
-            scope.$on('$destroy', function () {
+            element.on('$destroy', function () {
                 $timeout.cancel(timer);
             });
 
             // also delete the entry if undo is ignored and the url
             // is changed
             $rootScope.$on('$locationChangeStart', function () {
-                element.remove();
+                if (!destroyed) {
+                    destroyed = true;
+                    element.remove();
+                    scope.newsTimeout();
+                }
             });
         }
     };

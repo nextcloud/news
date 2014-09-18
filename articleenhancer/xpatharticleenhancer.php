@@ -36,7 +36,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
      * @internal param \OCA\News\ArticleEnhancer\a $SimplePieFileFactory factory for getting a simple pie file instance
      * @internal param int $maximumTimeout maximum timeout in seconds, defaults to 10 sec
      */
-	public function __construct(SimplePieAPIFactory $fileFactory, 
+	public function __construct(SimplePieAPIFactory $fileFactory,
 	                            array $regexXPathPair, Config $config){
 		$this->regexXPathPair = $regexXPathPair;
 		$this->fileFactory = $fileFactory;
@@ -54,7 +54,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 
 			if(preg_match($regex, $item->getUrl())) {
 				$file = $this->getFile($item->getUrl());
-				
+
 				// convert encoding by detecting charset from header
                 /** @noinspection PhpUndefinedFieldInspection */
                 $contentType = $file->headers['content-type'];
@@ -72,11 +72,11 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 				$xpath = new \DOMXpath($dom);
 				$xpathResult = $xpath->evaluate($search);
 
-				// in case it wasnt a text query assume its a single 
+				// in case it wasnt a text query assume its a single
 				if(!is_string($xpathResult)) {
 					$xpathResult = $this->domToString($xpathResult);
 				}
-				
+
 				// convert all relative to absolute URLs
 				$xpathResult = $this->substituteRelativeLinks($xpathResult, $item->getUrl());
 
@@ -93,8 +93,8 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 	private function getFile($url) {
 		if(trim($this->config->getProxyHost()) === '') {
 			return $this->fileFactory->getFile(
-				$url, 
-				$this->maximumTimeout, 
+				$url,
+				$this->maximumTimeout,
 				5,
 				null,
 				"Mozilla/5.0 AppleWebKit",
@@ -105,8 +105,8 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 			);
 		} else {
 			return $this->fileFactory->getFile(
-				$url, 
-				$this->maximumTimeout, 
+				$url,
+				$this->maximumTimeout,
 				5,
 				null,
 				"Mozilla/5.0 AppleWebKit",
@@ -135,19 +135,20 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 			return $xmlString;
 		}
 
-		// remove <!DOCTYPE 
-		$dom->removeChild($dom->firstChild);            
-		// remove <html></html> 
+		// remove <!DOCTYPE
+		$dom->removeChild($dom->firstChild);
+		// remove <html></html>
 		$dom->replaceChild($dom->firstChild->firstChild, $dom->firstChild);
-		
+
 		$substitution = ["href", "src"];
 
 		foreach ($substitution as $attribute) {
 			$xpath = new \DOMXpath($dom);
 			$xpathResult = $xpath->query(
 				"//*[@" . $attribute . " " .
-				"and not(contains(@" . $attribute . ", '://')) " . 
-				"and not(starts-with(@" . $attribute . ", 'mailto:'))]");
+				"and not(contains(@" . $attribute . ", '://')) " .
+				"and not(starts-with(@" . $attribute . ", 'mailto:')) " .
+				"and not(starts-with(@" . $attribute . ", '//'))]");
 			foreach ($xpathResult as $linkNode) {
 				$urlElement = $linkNode->attributes->getNamedItem($attribute);
 				$abs = $this->relativeToAbsoluteUrl( $urlElement->nodeValue, $absoluteUrl );

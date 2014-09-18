@@ -13,6 +13,7 @@ owncloud-news (3.001)
 * **Bugfix**: Import feeds from a very large OPML file in chunks to prevent server slowdown
 * **Bugfix**: Folder names are not uppercased anymore due to possible naming conflicts caused by folders being created through the API
 * **Bugfix**: Loading icon is now displayed until all feeds and folders are loaded
+* **Enhancement**: Correctly float heise.de info box
 * **Enhancement**: Allow to turn off marking read when scrolling
 * **Enhancement**: Allow to order by oldest first
 * **Enhancement**: Add clientside routing
