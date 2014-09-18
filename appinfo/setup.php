@@ -19,7 +19,7 @@ function is_setup() {
 		return false;
 	}
 
-	// disable useless codechecker in case security up dates are shipped but
+	// disable useless codechecker in case security updates are shipped but
 	// blocked because of a bug in the checker
 	if (\OCP\Config::getSystemValue('appcodechecker') !== false) {
 		\OCP\Config::setSystemValue('appcodechecker', false);
