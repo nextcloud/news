@@ -51,12 +51,14 @@
                 <div class="heading only-in-expanded">
                     <time class="date" title="{{ item.pubDate*1000|date:'yyyy-MM-dd HH:mm:ss' }}"
                         datetime="{{ item.pubDate*1000|date:'yyyy-MM-ddTHH:mm:ssZ' }}">{{ Content.getRelativeDate(item.pubDate) }}</time>
-                    <a class="external"
-                        target="_blank"
-                        ng-href="{{ item.url }}"
-                        title="{{ item.title }}">
-                        <h1>{{ item.title }}</h1>
-                    </a>
+                    <h1>
+                        <a class="external"
+                            target="_blank"
+                            ng-href="{{ item.url }}"
+                            title="{{ item.title }}">
+                            {{ item.title }}
+                        </a>
+                    </h1>
                 </div>
 
                 <div class="subtitle">

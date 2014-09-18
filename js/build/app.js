@@ -1335,12 +1335,12 @@ app.service('OPMLImporter', ["FeedResource", "FolderResource", "Publisher", "$q"
                 FolderResource.get(folderName) !== undefined) {
                 var folder = FolderResource.get(folderName);
                 folder.opened = true;
+                folderId = folder.id;
 
                 // display folder while adding the feed
                 folder.getsFeed = true;
                 folder.getsFeedCounter = folder.getsFeedCounter || 0;
                 folder.getsFeedCounter += 1;
-                folderId = folder.id;
             }
 
             // make sure to not add already existing feeds

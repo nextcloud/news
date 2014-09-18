@@ -1,5 +1,6 @@
 owncloud-news (3.002)
 * **Bugfix**: If a folder is selected, the f and d shortcuts will jump to the previous or next folder subfeeds
+* **Bugfix**: o also opens articles in expanded view
 
 owncloud-news (3.001)
 * **New dependency**: Minimum ownCloud version: 8
