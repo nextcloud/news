@@ -7,7 +7,8 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsScroll', function ($timeout) {
+app.directive('newsScroll', function ($timeout, ITEM_BATCH_SIZE,
+    MARK_READ_TIMEOUT, SCROLL_TIMEOUT) {
     'use strict';
     var timer;
 
@@ -67,9 +68,6 @@ app.directive('newsScroll', function ($timeout) {
             'newsScrollAutoPage': '&',
             'newsScrollMarkRead': '&',
             'newsScrollEnabledMarkRead': '=',
-            'newsScrollMarkReadTimeout': '@',  // optional, defaults to 1 second
-            'newsScrollTimeout': '@',  // optional, defaults to 1 second
-            'newsScrollAutoPageWhenLeft': '@'  // optional, defaults to 50
         },
         link: function (scope, elem) {
             var allowScroll = true;
@@ -79,10 +77,6 @@ app.directive('newsScroll', function ($timeout) {
                 scrollArea = $(scope.newsScroll);
             }
 
-            var scrollTimeout = scope.newsScrollTimeout || 1;
-            var markReadTimeout = scope.newsScrollMarkReadTimeout || 1;
-            var autoPageLimit = scope.newsScrollAutoPageWhenLeft || 50;
-
             var scrollHandler = function () {
                 // allow only one scroll event to trigger every 300ms
                 if (allowScroll) {
@@ -90,9 +84,9 @@ app.directive('newsScroll', function ($timeout) {
 
                     $timeout(function () {
                         allowScroll = true;
-                    }, scrollTimeout*1000);
+                    }, SCROLL_TIMEOUT*1000);
 
-                    autoPage(autoPageLimit, elem, scope);
+                    autoPage(ITEM_BATCH_SIZE, elem, scope);
 
                     // dont stack mark read requests
                     if (timer) {
@@ -105,7 +99,7 @@ app.directive('newsScroll', function ($timeout) {
                                  elem,
                                  scope);
                         timer = undefined;
-                    }, markReadTimeout*1000);
+                    }, MARK_READ_TIMEOUT*1000);
                 }
             };
 

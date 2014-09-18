@@ -23,6 +23,8 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
     $provide.constant('ITEM_BATCH_SIZE', 50);  // how many items to autopage by
     $provide.constant('BASE_URL', OC.generateUrl('/apps/news'));
     $provide.constant('FEED_TYPE', feedType);
+    $provide.constant('MARK_READ_TIMEOUT', 0.5);
+    $provide.constant('SCROLL_TIMEOUT', 0.1);
 
     // make sure that the CSRF header is only sent to the ownCloud domain
     $provide.factory('CSRFInterceptor', function ($q, BASE_URL) {

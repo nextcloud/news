@@ -56,8 +56,6 @@ style('news', [
             ng-hide="App.loading.isLoading('global')"
             ng-view
             news-scroll="#app-content"
-            news-scroll-timeout="0.1"
-            news-scroll-mark-read-timeout="0.5"
             news-scroll-enabled-mark-read="Content.markReadEnabled()"
             news-scroll-auto-page="Content.autoPage()"
             news-scroll-mark-read="Content.scrollRead(itemIds)"></div>

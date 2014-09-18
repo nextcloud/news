@@ -20,6 +20,8 @@ app.config(["$routeProvider", "$provide", "$httpProvider", function ($routeProvi
     $provide.constant('ITEM_BATCH_SIZE', 50);  // how many items to autopage by
     $provide.constant('BASE_URL', OC.generateUrl('/apps/news'));
     $provide.constant('FEED_TYPE', feedType);
+    $provide.constant('MARK_READ_TIMEOUT', 0.5);
+    $provide.constant('SCROLL_TIMEOUT', 0.1);
 
     // make sure that the CSRF header is only sent to the ownCloud domain
     $provide.factory('CSRFInterceptor', ["$q", "BASE_URL", function ($q, BASE_URL) {
@@ -2146,7 +2148,8 @@ app.directive('newsReadFile', function () {
         });
     };
 });
-app.directive('newsScroll', ["$timeout", function ($timeout) {
+app.directive('newsScroll', ["$timeout", "ITEM_BATCH_SIZE", "MARK_READ_TIMEOUT", "SCROLL_TIMEOUT", function ($timeout, ITEM_BATCH_SIZE,
+    MARK_READ_TIMEOUT, SCROLL_TIMEOUT) {
     'use strict';
     var timer;
 
@@ -2206,9 +2209,6 @@ app.directive('newsScroll', ["$timeout", function ($timeout) {
             'newsScrollAutoPage': '&',
             'newsScrollMarkRead': '&',
             'newsScrollEnabledMarkRead': '=',
-            'newsScrollMarkReadTimeout': '@',  // optional, defaults to 1 second
-            'newsScrollTimeout': '@',  // optional, defaults to 1 second
-            'newsScrollAutoPageWhenLeft': '@'  // optional, defaults to 50
         },
         link: function (scope, elem) {
             var allowScroll = true;
@@ -2218,10 +2218,6 @@ app.directive('newsScroll', ["$timeout", function ($timeout) {
                 scrollArea = $(scope.newsScroll);
             }
 
-            var scrollTimeout = scope.newsScrollTimeout || 1;
-            var markReadTimeout = scope.newsScrollMarkReadTimeout || 1;
-            var autoPageLimit = scope.newsScrollAutoPageWhenLeft || 50;
-
             var scrollHandler = function () {
                 // allow only one scroll event to trigger every 300ms
                 if (allowScroll) {
@@ -2229,9 +2225,9 @@ app.directive('newsScroll', ["$timeout", function ($timeout) {
 
                     $timeout(function () {
                         allowScroll = true;
-                    }, scrollTimeout*1000);
+                    }, SCROLL_TIMEOUT*1000);
 
-                    autoPage(autoPageLimit, elem, scope);
+                    autoPage(ITEM_BATCH_SIZE, elem, scope);
 
                     // dont stack mark read requests
                     if (timer) {
@@ -2244,7 +2240,7 @@ app.directive('newsScroll', ["$timeout", function ($timeout) {
                                  elem,
                                  scope);
                         timer = undefined;
-                    }, markReadTimeout*1000);
+                    }, MARK_READ_TIMEOUT*1000);
                 }
             };
 
