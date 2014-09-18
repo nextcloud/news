@@ -7,12 +7,13 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.service('OPMLImporter', function (FeedResource, FolderResource, $q) {
+app.service('OPMLImporter', function (FeedResource, FolderResource, Publisher,
+                                      $q) {
     'use strict';
     var startFeedJob = function (queue) {
         var deferred = $q.defer();
 
-        if (queue.lenght > 0) {
+        if (queue.length > 0) {
             var feed = queue.pop();
             var url = feed.url;
             var title = feed.title;
@@ -20,13 +21,18 @@ app.service('OPMLImporter', function (FeedResource, FolderResource, $q) {
             var folderName = feed.folderName;
 
             if (folderName !== undefined &&
-                FeedResource.get(folderName) !== undefined) {
-                folderId = FeedResource.get(feed.folderName).id;
+                FolderResource.get(folderName) !== undefined) {
+                var folder = FolderResource.get(folderName);
+                folder.opened = true;
+                folderId = folder.id;
             }
 
             // make sure to not add already existing feeds
             if (url !== undefined && FeedResource.get(url) === undefined) {
                 FeedResource.create(url, folderId, title)
+                .then(function (data) {
+                    Publisher.publishAll(data);
+                })
                 .finally(function () {
                     startFeedJob(queue);
                 });
@@ -46,8 +52,12 @@ app.service('OPMLImporter', function (FeedResource, FolderResource, $q) {
         content.folders.forEach(function (folder) {
             if (folder.name !== undefined) {
                 // skip already created folders
-                if (FolderResource.get(folder.name) !== undefined) {
-                    folderPromises.push(FolderResource.create(folder.name));
+                if (FolderResource.get(folder.name) === undefined) {
+                    var promise = FolderResource.create(folder.name)
+                    .then(function (data) {
+                        Publisher.publishAll(data);
+                    });
+                    folderPromises.push(promise);
                 }
 
                 folder.feeds.forEach(function (feed) {

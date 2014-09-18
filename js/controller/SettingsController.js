@@ -52,6 +52,7 @@ function ($route, $q, SettingsResource, ItemResource, OPMLParser,
             });
 
         } catch (error) {
+            console.error(error);
             this.isOPMLImporting = false;
             this.opmlImportError = true;
         }
@@ -73,6 +74,7 @@ function ($route, $q, SettingsResource, ItemResource, OPMLParser,
             });
 
         } catch (error) {
+            console.error(error);
             this.articleImportError = true;
             this.isArticlesImporting = false;
         }

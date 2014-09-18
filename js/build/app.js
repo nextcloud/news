@@ -661,6 +661,7 @@ app.controller('SettingsController',
             });
 
         } catch (error) {
+            console.error(error);
             this.isOPMLImporting = false;
             this.opmlImportError = true;
         }
@@ -682,6 +683,7 @@ app.controller('SettingsController',
             });
 
         } catch (error) {
+            console.error(error);
             this.articleImportError = true;
             this.isArticlesImporting = false;
         }
@@ -1311,12 +1313,13 @@ app.service('Loading', function () {
     };
 
 });
-app.service('OPMLImporter', ["FeedResource", "FolderResource", "$q", function (FeedResource, FolderResource, $q) {
+app.service('OPMLImporter', ["FeedResource", "FolderResource", "Publisher", "$q", function (FeedResource, FolderResource, Publisher,
+                                      $q) {
     'use strict';
     var startFeedJob = function (queue) {
         var deferred = $q.defer();
 
-        if (queue.lenght > 0) {
+        if (queue.length > 0) {
             var feed = queue.pop();
             var url = feed.url;
             var title = feed.title;
@@ -1324,13 +1327,18 @@ app.service('OPMLImporter', ["FeedResource", "FolderResource", "$q", function (F
             var folderName = feed.folderName;
 
             if (folderName !== undefined &&
-                FeedResource.get(folderName) !== undefined) {
-                folderId = FeedResource.get(feed.folderName).id;
+                FolderResource.get(folderName) !== undefined) {
+                var folder = FolderResource.get(folderName);
+                folder.opened = true;
+                folderId = folder.id;
             }
 
             // make sure to not add already existing feeds
             if (url !== undefined && FeedResource.get(url) === undefined) {
                 FeedResource.create(url, folderId, title)
+                .then(function (data) {
+                    Publisher.publishAll(data);
+                })
                 .finally(function () {
                     startFeedJob(queue);
                 });
@@ -1350,8 +1358,12 @@ app.service('OPMLImporter', ["FeedResource", "FolderResource", "$q", function (F
         content.folders.forEach(function (folder) {
             if (folder.name !== undefined) {
                 // skip already created folders
-                if (FolderResource.get(folder.name) !== undefined) {
-                    folderPromises.push(FolderResource.create(folder.name));
+                if (FolderResource.get(folder.name) === undefined) {
+                    var promise = FolderResource.create(folder.name)
+                    .then(function (data) {
+                        Publisher.publishAll(data);
+                    });
+                    folderPromises.push(promise);
                 }
 
                 folder.feeds.forEach(function (feed) {
@@ -2224,6 +2236,9 @@ app.directive('newsTimeout', ["$timeout", "$rootScope", function ($timeout, $roo
             // also delete the entry if undo is ignored and the url
             // is changed
             $rootScope.$on('$locationChangeStart', function () {
+                // $locationChangeStart triggers twice because of the trailing
+                // slash on the link which is kinda a hack to reload the route
+                // if you click on the link when the route is the same
                 if (!destroyed) {
                     destroyed = true;
                     element.remove();

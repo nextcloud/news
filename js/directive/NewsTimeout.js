@@ -29,6 +29,9 @@ app.directive('newsTimeout', function ($timeout, $rootScope) {
             // also delete the entry if undo is ignored and the url
             // is changed
             $rootScope.$on('$locationChangeStart', function () {
+                // $locationChangeStart triggers twice because of the trailing
+                // slash on the link which is kinda a hack to reload the route
+                // if you click on the link when the route is the same
                 if (!destroyed) {
                     destroyed = true;
                     element.remove();
