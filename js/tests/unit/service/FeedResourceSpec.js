@@ -260,8 +260,8 @@ describe('FeedResource', function () {
 
         http.flush();
 
-        expect(FeedResource.getById(1).deleted).toBe(true);
-        expect(FeedResource.getById(3).deleted).toBe(true);
+        expect(FeedResource.getById(1).deleted).toBe(undefined);
+        expect(FeedResource.getById(3).deleted).toBe(undefined);
         expect(FeedResource.getUnreadCount()).toBe(70);
     }));
 

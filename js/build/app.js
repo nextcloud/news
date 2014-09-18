@@ -583,7 +583,6 @@ app.controller('NavigationController',
     };
 
     this.deleteFeed = function (feed) {
-        console.log('deleted!');
         FeedResource.delete(feed.url);
     };
 
@@ -907,10 +906,15 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
     };
 
 
-    FeedResource.prototype.reversiblyDelete = function (id, updateCache) {
+    FeedResource.prototype.reversiblyDelete = function (id, updateCache,
+                                                        isFolder) {
         var feed = this.getById(id);
 
-        if (feed) {
+        // if a folder is deleted it does not have to trigger the delete
+        // attribute for the feed because the feed is not deleted, its just not
+        // displayed. Otherwise this causes the feed to also be deleted again
+        // because the folder destroys the feed's scope
+        if (feed && isFolder !== true) {
             feed.deleted = true;
         }
 
@@ -926,7 +930,7 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
         var self = this;
         var promises = [];
         this.getByFolderId(folderId).forEach(function (feed) {
-            promises.push(self.reversiblyDelete(feed.id, false));
+            promises.push(self.reversiblyDelete(feed.id, false, true));
         });
 
         this.updateUnreadCache();
@@ -938,7 +942,7 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
 
     FeedResource.prototype.delete = function (url, updateCache) {
         var feed = this.get(url);
-        if (feed.id) {
+        if (feed !== undefined && feed.id) {
             delete this.ids[feed.id];
         }
 
@@ -1331,6 +1335,11 @@ app.service('OPMLImporter', ["FeedResource", "FolderResource", "Publisher", "$q"
                 FolderResource.get(folderName) !== undefined) {
                 var folder = FolderResource.get(folderName);
                 folder.opened = true;
+
+                // display folder while adding the feed
+                folder.getsFeed = true;
+                folder.getsFeedCounter = folder.getsFeedCounter || 0;
+                folder.getsFeedCounter += 1;
                 folderId = folder.id;
             }
 
@@ -1341,6 +1350,10 @@ app.service('OPMLImporter', ["FeedResource", "FolderResource", "Publisher", "$q"
                     Publisher.publishAll(data);
                 })
                 .finally(function () {
+                    folder.getsFeedCounter -= 1;
+                    if (folderId !== 0 && folder.getsFeedCounter === 0) {
+                        folder.getsFeed = false;
+                    }
                     startFeedJob(queue);
                 });
             }
@@ -2242,7 +2255,6 @@ app.directive('newsTimeout', ["$timeout", "$rootScope", function ($timeout, $roo
                 // slash on the link which is kinda a hack to reload the route
                 // if you click on the link when the route is the same
                 $timeout.cancel(timer);
-
                 if (!destroyed) {
                     destroyed = true;
                     element.remove();

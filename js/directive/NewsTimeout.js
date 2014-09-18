@@ -34,7 +34,6 @@ app.directive('newsTimeout', function ($timeout, $rootScope) {
                 // slash on the link which is kinda a hack to reload the route
                 // if you click on the link when the route is the same
                 $timeout.cancel(timer);
-
                 if (!destroyed) {
                     destroyed = true;
                     element.remove();

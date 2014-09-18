@@ -206,10 +206,15 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
     };
 
 
-    FeedResource.prototype.reversiblyDelete = function (id, updateCache) {
+    FeedResource.prototype.reversiblyDelete = function (id, updateCache,
+                                                        isFolder) {
         var feed = this.getById(id);
 
-        if (feed) {
+        // if a folder is deleted it does not have to trigger the delete
+        // attribute for the feed because the feed is not deleted, its just not
+        // displayed. Otherwise this causes the feed to also be deleted again
+        // because the folder destroys the feed's scope
+        if (feed && isFolder !== true) {
             feed.deleted = true;
         }
 
@@ -225,7 +230,7 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
         var self = this;
         var promises = [];
         this.getByFolderId(folderId).forEach(function (feed) {
-            promises.push(self.reversiblyDelete(feed.id, false));
+            promises.push(self.reversiblyDelete(feed.id, false, true));
         });
 
         this.updateUnreadCache();
@@ -237,7 +242,7 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
 
     FeedResource.prototype.delete = function (url, updateCache) {
         var feed = this.get(url);
-        if (feed.id) {
+        if (feed !== undefined && feed.id) {
             delete this.ids[feed.id];
         }
 

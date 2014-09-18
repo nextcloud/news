@@ -24,6 +24,11 @@ app.service('OPMLImporter', function (FeedResource, FolderResource, Publisher,
                 FolderResource.get(folderName) !== undefined) {
                 var folder = FolderResource.get(folderName);
                 folder.opened = true;
+
+                // display folder while adding the feed
+                folder.getsFeed = true;
+                folder.getsFeedCounter = folder.getsFeedCounter || 0;
+                folder.getsFeedCounter += 1;
                 folderId = folder.id;
             }
 
@@ -34,6 +39,10 @@ app.service('OPMLImporter', function (FeedResource, FolderResource, Publisher,
                     Publisher.publishAll(data);
                 })
                 .finally(function () {
+                    folder.getsFeedCounter -= 1;
+                    if (folderId !== 0 && folder.getsFeedCounter === 0) {
+                        folder.getsFeed = false;
+                    }
                     startFeedJob(queue);
                 });
             }
