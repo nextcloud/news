@@ -64,11 +64,9 @@ You can remove the line after a page reload
 
 * Go to the ownCloud apps page
 * Activate the **News** app in the apps menu
-* If the app fails to install, add this at the bottom of the file
+* If the app fails to install, add this at the bottom of the file **config/config.php**:
 
 	  $CONFIG["appcodechecker"] = false;
-
- to your **config/config.php**
 
 * [Set up ownCloud Background Jobs](http://doc.owncloud.org/server/7.0/admin_manual/configuration/background_jobs.html) to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
 
@@ -83,6 +81,10 @@ The **News** App can be updated through the ownCloud apps page.
 	git clone -b $YOUR_BRANCH https://github.com/owncloud/news.git
 
  where $YOUR_BRANCH is the branch that you want to use
+
+* If the app fails to install, add this at the bottom of the file **config/config.php**:
+
+	  $CONFIG["appcodechecker"] = false;
 
 * Activate the **News** app in the apps menu
 
