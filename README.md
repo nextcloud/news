@@ -64,9 +64,9 @@ You can remove the line after a page reload
 
 * Go to the ownCloud apps page
 * Activate the **News** app in the apps menu
-* If the app fails to install, add
+* If the app fails to install, add this at the bottom of the file
 
-	"appcodechecker" => false,
+	  $CONFIG["appcodechecker"] = false;
 
  to your **config/config.php**
 
