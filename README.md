@@ -93,7 +93,7 @@ The **News** App can be updated through the ownCloud apps page.
 To update the News app use:
 
     cd /var/www/owncloud/apps/news
-    git pull --rebase origin master
+    git pull --rebase origin $YOUR_BRANCH
 
 
 ## Keyboard shortcuts
