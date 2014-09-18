@@ -2229,7 +2229,7 @@ app.directive('newsScroll', ["$timeout", function ($timeout) {
 
                     $timeout(function () {
                         allowScroll = true;
-                    }, scrollTimeout*100);
+                    }, scrollTimeout*1000);
 
                     autoPage(autoPageLimit, elem, scope);
 
