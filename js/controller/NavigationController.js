@@ -241,6 +241,7 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
     };
 
     this.deleteFeed = function (feed) {
+        console.log('deleted!');
         FeedResource.delete(feed.url);
     };
 

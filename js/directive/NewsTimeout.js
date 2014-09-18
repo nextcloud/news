@@ -22,7 +22,8 @@ app.directive('newsTimeout', function ($timeout, $rootScope) {
 
             // remove timeout if element is being removed by
             // for instance clicking on the x button
-            element.on('$destroy', function () {
+            scope.$on('$destroy', function () {
+                destroyed = true;
                 $timeout.cancel(timer);
             });
 
@@ -32,6 +33,8 @@ app.directive('newsTimeout', function ($timeout, $rootScope) {
                 // $locationChangeStart triggers twice because of the trailing
                 // slash on the link which is kinda a hack to reload the route
                 // if you click on the link when the route is the same
+                $timeout.cancel(timer);
+
                 if (!destroyed) {
                     destroyed = true;
                     element.remove();
