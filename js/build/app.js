@@ -17,7 +17,9 @@ app.config(["$routeProvider", "$provide", "$httpProvider", function ($routeProvi
 
     // constants
     $provide.constant('REFRESH_RATE', 60);  // seconds
-    $provide.constant('ITEM_BATCH_SIZE', 50);  // how many items to autopage by
+    $provide.constant('ITEM_BATCH_SIZE', 40);  // how many items should be
+                                               // fetched initially
+    $provide.constant('ITEM_AUTO_PAGE_SIZE', 20);
     $provide.constant('BASE_URL', OC.generateUrl('/apps/news'));
     $provide.constant('FEED_TYPE', feedType);
     $provide.constant('MARK_READ_TIMEOUT', 0.5);
@@ -2148,7 +2150,7 @@ app.directive('newsReadFile', function () {
         });
     };
 });
-app.directive('newsScroll', ["$timeout", "ITEM_BATCH_SIZE", "MARK_READ_TIMEOUT", "SCROLL_TIMEOUT", function ($timeout, ITEM_BATCH_SIZE,
+app.directive('newsScroll', ["$timeout", "ITEM_AUTO_PAGE_SIZE", "MARK_READ_TIMEOUT", "SCROLL_TIMEOUT", function ($timeout, ITEM_AUTO_PAGE_SIZE,
     MARK_READ_TIMEOUT, SCROLL_TIMEOUT) {
     'use strict';
     var timer;
@@ -2227,7 +2229,7 @@ app.directive('newsScroll', ["$timeout", "ITEM_BATCH_SIZE", "MARK_READ_TIMEOUT",
                         allowScroll = true;
                     }, SCROLL_TIMEOUT*1000);
 
-                    autoPage(ITEM_BATCH_SIZE, elem, scope);
+                    autoPage(ITEM_AUTO_PAGE_SIZE, elem, scope);
 
                     // dont stack mark read requests
                     if (timer) {

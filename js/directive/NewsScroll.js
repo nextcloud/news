@@ -7,7 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsScroll', function ($timeout, ITEM_BATCH_SIZE,
+app.directive('newsScroll', function ($timeout, ITEM_AUTO_PAGE_SIZE,
     MARK_READ_TIMEOUT, SCROLL_TIMEOUT) {
     'use strict';
     var timer;
@@ -86,7 +86,7 @@ app.directive('newsScroll', function ($timeout, ITEM_BATCH_SIZE,
                         allowScroll = true;
                     }, SCROLL_TIMEOUT*1000);
 
-                    autoPage(ITEM_BATCH_SIZE, elem, scope);
+                    autoPage(ITEM_AUTO_PAGE_SIZE, elem, scope);
 
                     // dont stack mark read requests
                     if (timer) {
