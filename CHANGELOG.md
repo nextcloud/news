@@ -1,41 +1,41 @@
 owncloud-news (3.001)
-* Breaking Change: Depend on ownCloud 7
-* Breaking Change: Depend on PHP 5.4
-* Breaking Change: Plugin API: BusinessLayer has been renamed to Service, (FeedBusinessLayer -> FeedService) and different exceptions are now thrown to make failure better distinguishable, accessing the BusinessLayer links to the Service equivalents to keep compability
-* Allow to turn off marking read when scrolling
-* Allow to order by oldest first
-* Add clientside routing
-* When importing OPML use the feed title if given
-* Make hover buttons available under a menu button
-* Import feeds from a very large OPML file in chunks to prevent server slowdown
-* Port clientside code from CoffeeScript to JavaScript
-* Slim down appstore build
-* Allow to specifiy custom CSS rules for each feed
-* Compact view: Title ellipsis
-* Compact view: Show source as favicon
-* Compact view: Add keep unread button
-* Compact view: Expand item when jumping to it with a keyboard shortcut
-* Move undo feed/folder deletion button into the navigation bar
-* Add create folder form in addition to the subscribe form
-* Loading icon is now displayed until all feeds and folders are loaded
-* Optimize for mobile
-* Folder names are not uppercased anymore due to possible conflicts from folders being created through the API
-* Reload current folder if a feed is moved into or out of it
-* Immediate feedback if folder/feed exists already on the client side
-* Move show unread articles setting into the settings area
-* Disable drag and drop if a feed is in an invalid state
-* Also focus scrollable area if the page is loaded
-* Pixel perfect folder and feed inputs
-* New add feed design
-* API: add parameter to get items by oldest first
-* Do not include starred count of deleted folders and feeds
-* Display error messages when folder rename failed
-* Keyboard Shortcut: r to reload the current feed
-* Keyboard Shortcut: f to load the next feed/folder
-* Keyboard Shortcut: d to load the previous feed/folder
-* Enter works now as submitting the form for every input
-* Set useragent for fetching feeds
-* Also support video enclosures
+* **New dependency**: Minimum ownCloud version: 7
+* **New dependency**: Minimum PHP version: 5.4
+* **Breaking Change**: Plugin API: BusinessLayer has been renamed to Service, (FeedBusinessLayer -> FeedService) and different exceptions are now thrown to make failure better distinguishable, accessing the BusinessLayer links to the Service equivalents to keep compability
+* **Bugfix**: Disable drag and drop if a feed is in an invalid state
+* **Bugfix**: Also focus scrollable area if the page is loaded
+* **Bugfix**: Immediate feedback if folder/feed exists already on the client side
+* **Bugfix**: Reload current folder if a feed is moved into or out of it
+* **Bugfix**: Pixel perfect folder and feed inputs
+* **Bugfix**: Do not include starred count of deleted folders and feeds
+* **Bugfix**: Display error messages when folder rename failed
+* **Bugfix**: Enter works now as submitting the form for every input
+* **Bugfix**: Import feeds from a very large OPML file in chunks to prevent server slowdown
+* **Bugfix**: Folder names are not uppercased anymore due to possible conflicts from folders being created through the API
+* **Enhancement**: Allow to turn off marking read when scrolling
+* **Enhancement**: Allow to order by oldest first
+* **Enhancement**: Add clientside routing
+* **Enhancement**: When importing OPML use the feed title if given
+* **Enhancement**: Make hover buttons available under a menu button
+* **Enhancement**: Slim down appstore build
+* **Enhancement**: Allow to specifiy custom CSS rules for each feed
+* **Enhancement**: Compact view: Title ellipsis
+* **Enhancement**: Compact view: Show source as favicon
+* **Enhancement**: Compact view: Add keep unread button
+* **Enhancement**: Compact view: Expand item when jumping to it with a keyboard shortcut
+* **Enhancement**: Move undo feed/folder deletion button into the navigation bar
+* **Enhancement**: Add create folder form in addition to the subscribe form
+* **Enhancement**: Loading icon is now displayed until all feeds and folders are loaded
+* **Enhancement**: Optimize for mobile
+* **Enhancement**: Move show unread articles setting into the settings area
+* **Enhancement**: New add feed design
+* **Enhancement**: API: add parameter to get items by oldest first
+* **Enhancement**: Keyboard Shortcut: r to reload the current feed
+* **Enhancement**: Keyboard Shortcut: f to load the next feed/folder
+* **Enhancement**: Keyboard Shortcut: d to load the previous feed/folder
+* **Enhancement**: Set useragent for fetching feeds
+* **Enhancement**: Also support video enclosures
+* **Enhancement**: Port clientside code from CoffeeScript to JavaScript
 
 owncloud-news (2.003)
 * Use correct url for folder and feed api update methods
