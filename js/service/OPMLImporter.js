@@ -39,9 +39,12 @@ app.service('OPMLImporter', function (FeedResource, FolderResource, Publisher,
                     Publisher.publishAll(data);
                 })
                 .finally(function () {
-                    folder.getsFeedCounter -= 1;
-                    if (folderId !== 0 && folder.getsFeedCounter === 0) {
-                        folder.getsFeed = false;
+                    if (folderId !== 0) {
+                        folder.getsFeedCounter -= 1;
+
+                        if (folder.getsFeedCounter === 0) {
+                            folder.getsFeed = false;
+                        }
                     }
                     startFeedJob(queue);
                 });
