@@ -3,15 +3,16 @@ owncloud-news (3.001)
 * **New dependency**: Minimum PHP version: 5.4
 * **Breaking Change**: Plugin API: BusinessLayer has been renamed to Service, (FeedBusinessLayer -> FeedService) and different exceptions are now thrown to make failure better distinguishable, accessing the BusinessLayer links to the Service equivalents to keep compability
 * **Bugfix**: Disable drag and drop if a feed is in an invalid state
-* **Bugfix**: Also focus scrollable area if the page is loaded
+* **Bugfix**: Focus scrollable area if the page is loaded initially
 * **Bugfix**: Immediate feedback if folder/feed exists already on the client side
 * **Bugfix**: Reload current folder if a feed is moved into or out of it
 * **Bugfix**: Pixel perfect folder and feed inputs
 * **Bugfix**: Do not include starred count of deleted folders and feeds
 * **Bugfix**: Display error messages when folder rename failed
-* **Bugfix**: Enter works now as submitting the form for every input
+* **Bugfix**: Enter works now as submitting a form for every input
 * **Bugfix**: Import feeds from a very large OPML file in chunks to prevent server slowdown
-* **Bugfix**: Folder names are not uppercased anymore due to possible conflicts from folders being created through the API
+* **Bugfix**: Folder names are not uppercased anymore due to possible naming conflicts caused by folders being created through the API
+* **Bugfix**: Loading icon is now displayed until all feeds and folders are loaded
 * **Enhancement**: Allow to turn off marking read when scrolling
 * **Enhancement**: Allow to order by oldest first
 * **Enhancement**: Add clientside routing
@@ -25,7 +26,6 @@ owncloud-news (3.001)
 * **Enhancement**: Compact view: Expand item when jumping to it with a keyboard shortcut
 * **Enhancement**: Move undo feed/folder deletion button into the navigation bar
 * **Enhancement**: Add create folder form in addition to the subscribe form
-* **Enhancement**: Loading icon is now displayed until all feeds and folders are loaded
 * **Enhancement**: Optimize for mobile
 * **Enhancement**: Move show unread articles setting into the settings area
 * **Enhancement**: New add feed design
