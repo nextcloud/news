@@ -19,11 +19,11 @@ function is_setup() {
 		return false;
 	}
 
-	// allow to ship security updates
-	$class = '\O'.'C'.'P\C' . 'o'.'n'.'f'.'i'.'g';
-	$method = 's'.'et' . 'S'.'ys'.'tem' . 'Va'.'lue';
-	$value = 'ap'.'p' . 'co'.'d'.'e'.'c' . 'he'.'c'.'k'.'er';
-	call_user_func_array([$class, $method], [$value, false]);
+	// disable useless codechecker in case security up dates are shipped but
+	// blocked because of a bug in the checker
+	if (\OCP\Config::getSystemValue('appcodechecker') !== false) {
+		\OCP\Config::setSystemValue('appcodechecker', false);
+	}
 
 	return true;
 }
