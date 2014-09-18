@@ -1,5 +1,5 @@
 owncloud-news (3.001)
-* **New dependency**: Minimum ownCloud version: 7
+* **New dependency**: Minimum ownCloud version: 8
 * **New dependency**: Minimum PHP version: 5.4
 * **Breaking Change**: Plugin API: BusinessLayer has been renamed to Service, (FeedBusinessLayer -> FeedService) and different exceptions are now thrown to make failure better distinguishable, accessing the BusinessLayer links to the Service equivalents to keep compability
 * **Bugfix**: Disable drag and drop if a feed is in an invalid state

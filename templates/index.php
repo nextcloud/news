@@ -1,15 +1,4 @@
 <?php
-// owncloud 7 backported style sheets
-$version = \OCP\Util::getVersion();
-
-if ($version[0] === 7 && $version[1] === 0 && $version[2] < 3) {
-    require_once __DIR__ . '/7.php';
-}
-
-if($version[0] > 7 && $version[1] <= 8) {
-    style('news', '7');
-}
-
 script('news', [
     'vendor/es6-shim/es6-shim.min',
     'vendor/angular/angular.min',

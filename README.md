@@ -20,7 +20,7 @@ For further developer and user documentation please visit [the wiki](https://git
 ## Dependencies
 * PHP >= 5.4
 * php-curl
-* ownCloud >= 7
+* ownCloud >= 8
 
 ## Supported Databases
 * PostgreSQL
@@ -70,10 +70,13 @@ The **News** App can be updated through the ownCloud apps page.
 
 
 ### Git (development version)
-
+* The master branch will always be stable in conjunction with the latest master branch from ownCloud
+* If you are using an earlier ownCloud version, use the stableX branch (ownCloud 7 -> stable7)
 * Clone the **News** app into the **/var/www/owncloud/apps/** directory:
 
-	git clone https://github.com/owncloud/news.git
+	git clone -b $YOUR_BRANCH https://github.com/owncloud/news.git
+
+ where $YOUR_BRANCH is the branch that you want to use
 
 * Activate the **News** app in the apps menu
 

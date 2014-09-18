@@ -1,3 +1,9 @@
 /**
  * Add your custom styles here
  */
+#app-content .custom-heise-de .body p > span:first-child {
+    display: inline-block;
+    float: left;
+    margin-right: 10px;
+    padding: 6px 0;
+}
