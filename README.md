@@ -51,7 +51,7 @@ Before you install the app check that the following requirements are met:
 * You can use a cron or webcron to call Background Jobs in ownCloud
 * Your **data/** directory is owned by your webserver user and write/readable
 * You have installed **php-curl** and activated it in the **php.ini**
-* You run **ownCloud 7**
+* You run **ownCloud 8**
 
 Should you have upgraded from a prior version, disable the CSS and JavaScript caching by adding this to **owncloud/config/config.php**:
 
