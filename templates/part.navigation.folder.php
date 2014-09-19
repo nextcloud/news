@@ -69,7 +69,8 @@
          ng-show="folder.id && !folder.editing && !folder.error && !folder.deleted">
         <ul>
             <li class="app-navigation-entry-utils-counter"
-                ng-show="folder.id && Navigation.getFolderUnreadCount(folder.id) > 0">
+                ng-show="folder.id && Navigation.getFolderUnreadCount(folder.id) > 0"
+                title="{{ Navigation.getFolderUnreadCount(folder.id) }}">
                 {{ Navigation.getFolderUnreadCount(folder.id) | unreadCountFormatter }}
             </li>
             <li class="app-navigation-entry-utils-menu-button">

@@ -3,6 +3,7 @@ owncloud-news (3.002)
 * **Bugfix**: Fix o shortcut in expanded view
 * **Bugfix**: Make **em** tag cursive and black
 * **Enhancement**: Cut mark read timeout in half
+* **Enhancement**: Show full unread count when hovering over the unread count
 
 owncloud-news (3.001)
 * **New dependency**: Minimum ownCloud version: 8

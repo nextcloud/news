@@ -62,7 +62,8 @@
          ng-show="feed.id && !feed.editing && !feed.error && !feed.deleted">
         <ul>
             <li class="app-navigation-entry-utils-counter"
-                ng-show="feed.id && Navigation.getFeedUnreadCount(feed.id) > 0">
+                ng-show="feed.id && Navigation.getFeedUnreadCount(feed.id) > 0"
+                title="{{ Navigation.getFeedUnreadCount(feed.id) }}">
                 {{ Navigation.getFeedUnreadCount(feed.id) | unreadCountFormatter }}
             </li>
             <li class="app-navigation-entry-utils-menu-button">
