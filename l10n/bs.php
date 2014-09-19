@@ -1,13 +1,8 @@
 <?php $TRANSLATIONS = array(
-"News" => "Vijesti",
-"Address" => "Adresa",
-"Add" => "Dodaj",
-"New folder" => "Nova fascikla",
 "Folder" => "Fasikla",
-"Starred" => "Označeno",
-"Keep unread" => "Zadrži nepročitano",
-"Save" => "Spasi",
+"New folder" => "Nova fascikla",
 "Collapse" => "Proširi",
+"Rename folder" => "Preimenuj fasciklu",
 "Delete folder" => "Izbriši fasciklu",
-"Rename folder" => "Preimenuj fasciklu"
+"Starred" => "Označeno"
 );
