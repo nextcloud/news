@@ -1,3 +1,6 @@
+owncloud-news (3.003)
+* **Bugfix**: Correctly toggle title of star and keep unread icons"
+
 owncloud-news (3.002)
 * **Bugfix**: If a folder is selected, the f and d shortcuts will jump to the previous or next folder subfeeds
 * **Bugfix**: Fix o shortcut in expanded view
