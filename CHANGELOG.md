@@ -1,5 +1,6 @@
 owncloud-news (3.003)
-* **Bugfix**: Correctly toggle title of star and keep unread icons"
+* **Bugfix**: Correctly toggle title of star and keep unread icons
+* **Bugfix**: Fix bug that prevented the webinterface's update every 60 seconds
 
 owncloud-news (3.002)
 * **Bugfix**: If a folder is selected, the f and d shortcuts will jump to the previous or next folder subfeeds

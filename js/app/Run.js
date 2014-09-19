@@ -88,8 +88,12 @@ app.run(function ($rootScope, $location, $http, $q, $interval, Loading,
 
     // refresh feeds and folders
     $interval(function () {
-        $http.get(BASE_URL + '/feeds');
-        $http.get(BASE_URL + '/folders');
+        $http.get(BASE_URL + '/feeds').success(function (data) {
+            Publisher.publishAll(data);
+        });
+        $http.get(BASE_URL + '/folders').success(function (data) {
+            Publisher.publishAll(data);
+        });
     }, REFRESH_RATE * 1000);
 
 
