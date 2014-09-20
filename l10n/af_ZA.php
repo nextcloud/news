@@ -1,5 +1,4 @@
 <?php $TRANSLATIONS = array(
-"Add" => "Voeg by",
-"Cancel" => "Kanseleer",
+"Folder" => "Omslag",
 "Settings" => "Instellings"
 );

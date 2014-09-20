@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-09-19 01:01-0400\n"
-"PO-Revision-Date: 2014-09-19 05:01+0000\n"
+"POT-Creation-Date: 2014-09-20 01:01-0400\n"
+"PO-Revision-Date: 2014-09-20 05:01+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: Low German (http://www.transifex.com/projects/p/owncloud/language/nds/)\n"
 "MIME-Version: 1.0\n"
@@ -48,30 +48,38 @@ msgid "Import feeds and articles"
 msgstr ""
 
 #: templates/part.content.php:33
-msgid "Star"
+msgid "Star article"
 msgstr ""
 
-#: templates/part.content.php:36
+#: templates/part.content.php:34
+msgid "Unstar article"
+msgstr ""
+
+#: templates/part.content.php:37
 msgid "Keep article unread"
 msgstr ""
 
-#: templates/part.content.php:42
+#: templates/part.content.php:38
+msgid "Remove keep article unread"
+msgstr ""
+
+#: templates/part.content.php:44
 msgid "Open website"
 msgstr ""
 
-#: templates/part.content.php:65
+#: templates/part.content.php:67
 msgid "by"
 msgstr ""
 
-#: templates/part.content.php:66
+#: templates/part.content.php:68
 msgid "from"
 msgstr ""
 
-#: templates/part.content.php:75
+#: templates/part.content.php:77
 msgid "Browser can not play media type"
 msgstr ""
 
-#: templates/part.content.php:81
+#: templates/part.content.php:83
 msgid "Download"
 msgstr ""
 
@@ -137,27 +145,27 @@ msgstr ""
 msgid "Rename"
 msgstr ""
 
-#: templates/part.navigation.feed.php:69
-#: templates/part.navigation.folder.php:76
+#: templates/part.navigation.feed.php:70
+#: templates/part.navigation.folder.php:77
 msgid "Menu"
 msgstr ""
 
-#: templates/part.navigation.feed.php:78
+#: templates/part.navigation.feed.php:79
 msgid "Rename feed"
 msgstr ""
 
-#: templates/part.navigation.feed.php:81
+#: templates/part.navigation.feed.php:82
 msgid "Delete feed"
 msgstr ""
 
-#: templates/part.navigation.feed.php:84
-#: templates/part.navigation.folder.php:91
-#: templates/part.navigation.unreadfeed.php:28
+#: templates/part.navigation.feed.php:85
+#: templates/part.navigation.folder.php:92
+#: templates/part.navigation.unreadfeed.php:29
 msgid "Read all"
 msgstr ""
 
-#: templates/part.navigation.feed.php:92
-#: templates/part.navigation.folder.php:102
+#: templates/part.navigation.feed.php:93
+#: templates/part.navigation.folder.php:103
 msgid "Dismiss"
 msgstr ""
 
@@ -173,11 +181,11 @@ msgstr ""
 msgid "Undo delete folder"
 msgstr ""
 
-#: templates/part.navigation.folder.php:85
+#: templates/part.navigation.folder.php:86
 msgid "Rename folder"
 msgstr ""
 
-#: templates/part.navigation.folder.php:88
+#: templates/part.navigation.folder.php:89
 msgid "Delete folder"
 msgstr ""
 

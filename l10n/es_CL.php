@@ -1,8 +1,8 @@
 <?php $TRANSLATIONS = array(
+"Download" => "Descargar",
 "New folder" => "Nuevo directorio",
 "Folder name" => "Nombre del directorio",
-"Download" => "Descargar",
-"Cancel" => "Cancelar",
+"Rename" => "Renombrar",
 "Settings" => "Configuración",
 "Import" => "Importar",
 "Export" => "Exportar"

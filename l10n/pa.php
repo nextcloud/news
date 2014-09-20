@@ -1,5 +1,6 @@
 <?php $TRANSLATIONS = array(
 "Download" => "ਡਾਊਨਲੋਡ",
-"Cancel" => "ਰੱਦ ਕਰੋ",
+"Web address" => "ਵੈੱਬ ਐਡਰੈਸ",
+"Rename" => "ਨਾਂ ਬਦਲੋ",
 "Settings" => "ਸੈਟਿੰਗ"
 );

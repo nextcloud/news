@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-08-26 01:01-0400\n"
-"PO-Revision-Date: 2014-08-25 05:22+0000\n"
+"POT-Creation-Date: 2014-09-20 01:01-0400\n"
+"PO-Revision-Date: 2014-09-20 05:01+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: Croatian (http://www.transifex.com/projects/p/owncloud/language/hr/)\n"
 "MIME-Version: 1.0\n"
@@ -17,202 +17,234 @@ msgstr ""
 "Language: hr\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: businesslayer/feedbusinesslayer.php:97
+#: service/feedservice.php:104
 msgid "Can not add feed: Exists already"
 msgstr ""
 
-#: businesslayer/feedbusinesslayer.php:137
+#: service/feedservice.php:149
 msgid ""
 "Can not add feed: URL does not exist, SSL Certificate can not be validated "
 "or feed has invalid xml"
 msgstr ""
 
-#: businesslayer/feedbusinesslayer.php:282
+#: service/feedservice.php:296
 msgid "Articles without feed"
 msgstr ""
 
-#: businesslayer/folderbusinesslayer.php:54
+#: service/folderservice.php:56
 msgid "Can not add folder: Exists already"
 msgstr ""
 
-#: js/vendor/angular-ui/build/angular-ui.min.js:7
-msgid " "
+#: templates/part.content.php:3
+msgid "Add a feed"
 msgstr ""
 
-#: js/vendor/angular-ui/build/angular-ui.min.js:7
-msgid "_"
+#: templates/part.content.php:4
+msgid "There are no feeds yet. Go ahead and add some"
 msgstr ""
 
-#: js/vendor/jquery-ui/ui/minified/jquery-ui.min.js:8
-msgid "status"
+#: templates/part.content.php:5
+msgid "Import feeds and articles"
 msgstr ""
 
-#: templates/main.php:32
-#, php-format
-msgid "Undo deletion of %s"
+#: templates/part.content.php:33
+msgid "Star article"
 msgstr ""
 
-#: templates/main.php:36
-msgid "News"
+#: templates/part.content.php:34
+msgid "Unstar article"
 msgstr ""
 
-#: templates/part.addnew.php:12
-msgid "Add Website"
+#: templates/part.content.php:37
+msgid "Keep article unread"
 msgstr ""
 
-#: templates/part.addnew.php:19
-msgid "Error: address exists already!"
+#: templates/part.content.php:38
+msgid "Remove keep article unread"
 msgstr ""
 
-#: templates/part.addnew.php:22
-msgid "Error: folder exists already"
+#: templates/part.content.php:44
+msgid "Open website"
 msgstr ""
 
-#: templates/part.addnew.php:29
-msgid "Address"
-msgstr "Adresa"
-
-#: templates/part.addnew.php:32 templates/part.addnew.php:35
-msgid "Add"
-msgstr "Dodaj"
-
-#: templates/part.addnew.php:39 templates/part.addnew.php:46
-msgid "New folder"
-msgstr ""
-
-#: templates/part.addnew.php:40
-msgid "Folder"
-msgstr "mapa"
-
-#: templates/part.addnew.php:44
-msgid "Choose folder"
-msgstr ""
-
-#: templates/part.addnew.php:55
-msgid "Folder name"
-msgstr ""
-
-#: templates/part.addnew.php:59
-msgid "Back to folder selection"
-msgstr ""
-
-#: templates/part.addnew.php:63
-msgid "Create folder"
-msgstr ""
-
-#: templates/part.feed.starred.php:11
-msgid "Starred"
-msgstr ""
-
-#: templates/part.feed.unread.php:11
-msgid "Unread articles"
-msgstr ""
-
-#: templates/part.feed.unread.php:18
-msgid "All articles"
-msgstr ""
-
-#: templates/part.feed.unread.php:27 templates/part.listfeed.php:62
-#: templates/part.listfolder.php:55
-msgid "Mark read"
-msgstr ""
-
-#: templates/part.firstrun.php:2
-msgid "Welcome to the ownCloud News app!"
-msgstr ""
-
-#: templates/part.items.php:20
-msgid "read on website"
-msgstr ""
-
-#: templates/part.items.php:40
-msgid "star"
-msgstr ""
-
-#: templates/part.items.php:56
-msgid "from"
-msgstr ""
-
-#: templates/part.items.php:61
+#: templates/part.content.php:67
 msgid "by"
 msgstr "preko"
 
-#: templates/part.items.php:68
+#: templates/part.content.php:68
+msgid "from"
+msgstr "od"
+
+#: templates/part.content.php:77
+msgid "Browser can not play media type"
+msgstr ""
+
+#: templates/part.content.php:83
 msgid "Download"
 msgstr "Preuzimanje"
 
-#: templates/part.items.php:79
-msgid "Keep unread"
+#: templates/part.navigation.addfeed.php:5
+#: templates/part.navigation.addfeed.php:58
+msgid "Subscribe"
 msgstr ""
 
-#: templates/part.listfeed.php:22 templates/part.listfolder.php:19
-msgid "Cancel"
-msgstr "Odustani"
+#: templates/part.navigation.addfeed.php:15
+msgid "Web address"
+msgstr "Web adresa"
 
-#: templates/part.listfeed.php:25 templates/part.listfolder.php:22
-msgid "Save"
-msgstr "Snimi"
-
-#: templates/part.listfeed.php:50 templates/part.listfeed.php:74
-msgid "Delete website"
+#: templates/part.navigation.addfeed.php:22
+msgid "Feed exists already!"
 msgstr ""
 
-#: templates/part.listfeed.php:69
+#: templates/part.navigation.addfeed.php:27
+msgid "Folder"
+msgstr "mapa"
+
+#: templates/part.navigation.addfeed.php:31
+msgid "No folder"
+msgstr ""
+
+#: templates/part.navigation.addfeed.php:36
+msgid "New folder"
+msgstr "Nova mapa"
+
+#: templates/part.navigation.addfeed.php:44
+#: templates/part.navigation.addfolder.php:16
+#: templates/part.navigation.addfolder.php:17
+msgid "Folder name"
+msgstr "Naziv mape"
+
+#: templates/part.navigation.addfeed.php:51
+msgid "Go back"
+msgstr ""
+
+#: templates/part.navigation.addfeed.php:55
+#: templates/part.navigation.addfolder.php:21
+#: templates/part.navigation.folder.php:52
+msgid "Folder exists already!"
+msgstr ""
+
+#: templates/part.navigation.addfolder.php:5
+msgid "New Folder"
+msgstr "Nova Mapa"
+
+#: templates/part.navigation.addfolder.php:24
+msgid "Create"
+msgstr "Kreirajte"
+
+#: templates/part.navigation.feed.php:41
+msgid "Deleted feed"
+msgstr ""
+
+#: templates/part.navigation.feed.php:43
+msgid "Undo delete feed"
+msgstr ""
+
+#: templates/part.navigation.feed.php:56
+#: templates/part.navigation.folder.php:46
+msgid "Rename"
+msgstr "Preimenujte"
+
+#: templates/part.navigation.feed.php:70
+#: templates/part.navigation.folder.php:77
+msgid "Menu"
+msgstr ""
+
+#: templates/part.navigation.feed.php:79
 msgid "Rename feed"
 msgstr ""
 
-#: templates/part.listfolder.php:15
+#: templates/part.navigation.feed.php:82
+msgid "Delete feed"
+msgstr ""
+
+#: templates/part.navigation.feed.php:85
+#: templates/part.navigation.folder.php:92
+#: templates/part.navigation.unreadfeed.php:29
+msgid "Read all"
+msgstr ""
+
+#: templates/part.navigation.feed.php:93
+#: templates/part.navigation.folder.php:103
+msgid "Dismiss"
+msgstr ""
+
+#: templates/part.navigation.folder.php:20
 msgid "Collapse"
 msgstr ""
 
-#: templates/part.listfolder.php:44 templates/part.listfolder.php:60
-msgid "Delete folder"
+#: templates/part.navigation.folder.php:26
+msgid "Deleted folder"
 msgstr ""
 
-#: templates/part.listfolder.php:67
+#: templates/part.navigation.folder.php:28
+msgid "Undo delete folder"
+msgstr ""
+
+#: templates/part.navigation.folder.php:86
 msgid "Rename folder"
 msgstr ""
 
-#: templates/part.settings.php:13
+#: templates/part.navigation.folder.php:89
+msgid "Delete folder"
+msgstr ""
+
+#: templates/part.navigation.starredfeed.php:8
+msgid "Starred"
+msgstr ""
+
+#: templates/part.navigation.unreadfeed.php:8
+msgid "Unread articles"
+msgstr ""
+
+#: templates/part.navigation.unreadfeed.php:12
+msgid "All articles"
+msgstr ""
+
+#: templates/part.settings.php:8
 msgid "Settings"
 msgstr "Postavke"
 
-#: templates/part.settings.php:15
-msgid "Use compact view"
+#: templates/part.settings.php:13
+msgid "Compact view"
 msgstr ""
 
-#: templates/part.settings.php:17
+#: templates/part.settings.php:20
+msgid "Show unread articles"
+msgstr ""
+
+#: templates/part.settings.php:27
+msgid "Order by oldest first"
+msgstr ""
+
+#: templates/part.settings.php:34
+msgid "Disable mark read during scrolling"
+msgstr ""
+
+#: templates/part.settings.php:40
 msgid "Subscriptions (OPML)"
 msgstr ""
 
-#: templates/part.settings.php:21 templates/part.settings.php:24
-#: templates/part.settings.php:52 templates/part.settings.php:57
+#: templates/part.settings.php:47 templates/part.settings.php:52
+#: templates/part.settings.php:84 templates/part.settings.php:89
 msgid "Import"
 msgstr "Uvezi"
 
-#: templates/part.settings.php:28 templates/part.settings.php:32
-#: templates/part.settings.php:36 templates/part.settings.php:38
-#: templates/part.settings.php:60 templates/part.settings.php:64
-#: templates/part.settings.php:68 templates/part.settings.php:70
+#: templates/part.settings.php:55 templates/part.settings.php:60
+#: templates/part.settings.php:65 templates/part.settings.php:68
+#: templates/part.settings.php:92 templates/part.settings.php:96
+#: templates/part.settings.php:100 templates/part.settings.php:103
 msgid "Export"
 msgstr "Izvoz"
 
-#: templates/part.settings.php:42
+#: templates/part.settings.php:72
 msgid "Error when importing: file does not contain valid OPML"
 msgstr ""
 
-#: templates/part.settings.php:48
+#: templates/part.settings.php:76
 msgid "Unread/Starred Articles"
 msgstr ""
 
-#: templates/part.settings.php:74
+#: templates/part.settings.php:107
 msgid "Error when importing: file does not contain valid JSON"
-msgstr ""
-
-#: templates/part.showall.php:5
-msgid "Show read articles"
-msgstr ""
-
-#: templates/part.showall.php:11
-msgid "Hide read articles"
 msgstr ""

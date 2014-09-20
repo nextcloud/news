@@ -1,11 +1,9 @@
 <?php $TRANSLATIONS = array(
-"Address" => "Cyfeiriad",
-"Add" => "Ychwanegu",
-"Folder" => "Plygell",
 "by" => "gan",
 "Download" => "Llwytho i lawr",
-"Cancel" => "Diddymu",
-"Save" => "Cadw",
+"Web address" => "Cyfeiriad gwe",
+"Folder" => "Plygell",
+"Rename" => "Ailenwi",
 "Settings" => "Gosodiadau",
 "Import" => "Mewnforio",
 "Export" => "Allforio"

@@ -1,10 +1,9 @@
 <?php $TRANSLATIONS = array(
-"Address" => "Adresa",
-"Add" => "Dodaj",
-"Folder" => "Direktorijum",
 "by" => "od",
 "Download" => "Preuzmi",
-"Cancel" => "Otkaži",
-"Save" => "Snimi",
+"Folder" => "Direktorijum",
+"New Folder" => "Nova fascikla",
+"Create" => "Napravi",
+"Rename" => "Preimenij",
 "Settings" => "Podešavanja"
 );

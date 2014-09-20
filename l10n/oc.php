@@ -1,10 +1,10 @@
 <?php $TRANSLATIONS = array(
-"Add" => "Ajusta",
-"Folder" => "Dorsièr",
 "by" => "per",
 "Download" => "Avalcarga",
-"Cancel" => "Annula",
-"Save" => "Enregistra",
+"Web address" => "Adreiça web",
+"Folder" => "Dorsièr",
+"Create" => "Crea",
+"Rename" => "Torna nomenar",
 "Settings" => "Configuracion",
 "Import" => "Importa",
 "Export" => "Exporta"
