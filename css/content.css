@@ -135,6 +135,10 @@
     padding: 0;
 }
 
+#app-content .open .utils ul {
+    height: auto;
+}
+
     #app-content .util-spacer {
         width: 20px;
     }
@@ -226,6 +230,11 @@
         font-size: 16px;
     }
 
+    #app-content .open .utils .title h1 a {
+        overflow: scroll;
+        white-space: normal;
+    }
+
     #app-content .read .utils .title h1 a {
         font-weight: normal;
         color: #888;
@@ -236,11 +245,6 @@
         margin-right: 25px;
     }
 
-    @media (max-width: 770px) {
-        #app-content .utils .date {
-            display: none;
-        }
-    }
 
 /**
  * Expanded content

@@ -13,6 +13,7 @@ style('news', [
     'navigation',
     'content',
     'settings',
+    'mobile',
     'custom'
 ]);
 ?>

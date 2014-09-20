@@ -1,0 +1,20 @@
+@media (max-width: 770px) {
+    #app-content .utils .date {
+        display: none;
+    }
+}
+
+@media (max-width: 500px) {
+    #app-content .heading .date {
+        display: none;
+    }
+
+    #app-content .heading h1 {
+    	margin-right: 0;
+    }
+
+    #app-content .article {
+    	padding-right: 5px;
+    	padding-left: 44px;
+    }
+}

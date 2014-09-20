@@ -1,6 +1,9 @@
 owncloud-news (3.003)
 * **Bugfix**: Correctly toggle title of star and keep unread icons
 * **Bugfix**: Fix bug that prevented the webinterface's update every 60 seconds
+* **Enhancement**: Less padding right on mobile phone
+* **Enhancement**: Expanded view: remove date on mobile phone
+* **Enhancement**: Compact view: click on title should remove ellipsis
 
 owncloud-news (3.002)
 * **Bugfix**: If a folder is selected, the f and d shortcuts will jump to the previous or next folder subfeeds
