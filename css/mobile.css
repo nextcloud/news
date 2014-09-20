@@ -13,6 +13,10 @@
     	margin-right: 0;
     }
 
+    #app-content .utils {
+    	padding-right: 15px;
+    }
+
     #app-content .article {
     	padding-right: 5px;
     	padding-left: 44px;
