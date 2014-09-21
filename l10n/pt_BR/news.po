@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-09-20 01:01-0400\n"
-"PO-Revision-Date: 2014-09-20 05:01+0000\n"
-"Last-Translator: I Robot\n"
+"POT-Creation-Date: 2014-09-21 01:01-0400\n"
+"PO-Revision-Date: 2014-09-20 14:00+0000\n"
+"Last-Translator: Flávio Veras <flaviove@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/owncloud/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -56,11 +56,11 @@ msgstr "Importar feeds e artigos"
 
 #: templates/part.content.php:33
 msgid "Star article"
-msgstr ""
+msgstr "Iniciar artigo"
 
 #: templates/part.content.php:34
 msgid "Unstar article"
-msgstr ""
+msgstr "Remover estrela do artigo"
 
 #: templates/part.content.php:37
 msgid "Keep article unread"
@@ -68,7 +68,7 @@ msgstr "Manter artigo não lido"
 
 #: templates/part.content.php:38
 msgid "Remove keep article unread"
-msgstr ""
+msgstr "Remover a marca, manter artigo não lido"
 
 #: templates/part.content.php:44
 msgid "Open website"

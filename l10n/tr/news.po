@@ -5,6 +5,7 @@
 # Translators:
 # Caner Başaran <basaran.caner@gmail.com>, 2013
 # ismail yenigul <ismail.yenigul@surgate.com>, 2013
+# Mert Salih Kaplan <mail@mertskaplan.com>, 2014
 # Necdet Yücel <necdetyucel@gmail.com>, 2012
 # TayançKILIÇLI <tayancatakan@gmail.com>, 2013
 # Volkan Gezer <volkangezer@gmail.com>, 2013-2014
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-09-20 01:01-0400\n"
-"PO-Revision-Date: 2014-09-20 05:01+0000\n"
-"Last-Translator: I Robot\n"
+"POT-Creation-Date: 2014-09-21 01:01-0400\n"
+"PO-Revision-Date: 2014-09-20 23:00+0000\n"
+"Last-Translator: Volkan Gezer <volkangezer@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/owncloud/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -55,11 +56,11 @@ msgstr "Besleme ve makaleleri içe aktar"
 
 #: templates/part.content.php:33
 msgid "Star article"
-msgstr ""
+msgstr "Makaleyi yıldızla"
 
 #: templates/part.content.php:34
 msgid "Unstar article"
-msgstr ""
+msgstr "Makale yıldızını kaldır"
 
 #: templates/part.content.php:37
 msgid "Keep article unread"
@@ -67,7 +68,7 @@ msgstr "Makaleyi okunmadı olarak bırak"
 
 #: templates/part.content.php:38
 msgid "Remove keep article unread"
-msgstr ""
+msgstr "Makaleyi okunmadı olarak bırak"
 
 #: templates/part.content.php:44
 msgid "Open website"
@@ -96,7 +97,7 @@ msgstr "Abone ol"
 
 #: templates/part.navigation.addfeed.php:15
 msgid "Web address"
-msgstr "Web adres"
+msgstr "Web adresi"
 
 #: templates/part.navigation.addfeed.php:22
 msgid "Feed exists already!"
@@ -162,7 +163,7 @@ msgstr "Beslemeyi yeniden adlandır"
 
 #: templates/part.navigation.feed.php:82
 msgid "Delete feed"
-msgstr "Beslemeyi Sil"
+msgstr "Beslemeyi sil"
 
 #: templates/part.navigation.feed.php:85
 #: templates/part.navigation.folder.php:92

@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-09-20 01:01-0400\n"
-"PO-Revision-Date: 2014-09-20 05:01+0000\n"
-"Last-Translator: I Robot\n"
+"POT-Creation-Date: 2014-09-21 01:01-0400\n"
+"PO-Revision-Date: 2014-09-20 12:50+0000\n"
+"Last-Translator: Ivo\n"
 "Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/projects/p/owncloud/language/bg_BG/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -40,35 +40,35 @@ msgstr "Неможа да добави папката: Вече съществу
 
 #: templates/part.content.php:3
 msgid "Add a feed"
-msgstr ""
+msgstr "Добави поток"
 
 #: templates/part.content.php:4
 msgid "There are no feeds yet. Go ahead and add some"
-msgstr ""
+msgstr "Все още няма потоци. Добави няколко"
 
 #: templates/part.content.php:5
 msgid "Import feeds and articles"
-msgstr ""
+msgstr "Внеси потоци и статии"
 
 #: templates/part.content.php:33
 msgid "Star article"
-msgstr ""
+msgstr "Обележи статия"
 
 #: templates/part.content.php:34
 msgid "Unstar article"
-msgstr ""
+msgstr "Премахни отбелезка за статия"
 
 #: templates/part.content.php:37
 msgid "Keep article unread"
-msgstr ""
+msgstr "Запази статията като непрочетена"
 
 #: templates/part.content.php:38
 msgid "Remove keep article unread"
-msgstr ""
+msgstr "Премахни отбелязването на статията като непрочетена"
 
 #: templates/part.content.php:44
 msgid "Open website"
-msgstr ""
+msgstr "Отвори интернет станица"
 
 #: templates/part.content.php:67
 msgid "by"
@@ -80,7 +80,7 @@ msgstr "от"
 
 #: templates/part.content.php:77
 msgid "Browser can not play media type"
-msgstr ""
+msgstr "Браузърът не може да пусне медийния тип"
 
 #: templates/part.content.php:83
 msgid "Download"
@@ -97,7 +97,7 @@ msgstr "Уеб адрес"
 
 #: templates/part.navigation.addfeed.php:22
 msgid "Feed exists already!"
-msgstr ""
+msgstr "Потокът вече съществува!"
 
 #: templates/part.navigation.addfeed.php:27
 msgid "Folder"
@@ -119,17 +119,17 @@ msgstr "Име на папката"
 
 #: templates/part.navigation.addfeed.php:51
 msgid "Go back"
-msgstr ""
+msgstr "Назад"
 
 #: templates/part.navigation.addfeed.php:55
 #: templates/part.navigation.addfolder.php:21
 #: templates/part.navigation.folder.php:52
 msgid "Folder exists already!"
-msgstr ""
+msgstr "Папката вече съществува!"
 
 #: templates/part.navigation.addfolder.php:5
 msgid "New Folder"
-msgstr ""
+msgstr "Нова папка"
 
 #: templates/part.navigation.addfolder.php:24
 msgid "Create"
@@ -137,11 +137,11 @@ msgstr "Създай"
 
 #: templates/part.navigation.feed.php:41
 msgid "Deleted feed"
-msgstr ""
+msgstr "Изтрий потока"
 
 #: templates/part.navigation.feed.php:43
 msgid "Undo delete feed"
-msgstr ""
+msgstr "Върни изтриване на потока"
 
 #: templates/part.navigation.feed.php:56
 #: templates/part.navigation.folder.php:46
@@ -151,7 +151,7 @@ msgstr "Преименуване"
 #: templates/part.navigation.feed.php:70
 #: templates/part.navigation.folder.php:77
 msgid "Menu"
-msgstr ""
+msgstr "Меню"
 
 #: templates/part.navigation.feed.php:79
 msgid "Rename feed"
@@ -159,18 +159,18 @@ msgstr "Преименувай потока"
 
 #: templates/part.navigation.feed.php:82
 msgid "Delete feed"
-msgstr ""
+msgstr "Изтрий потока"
 
 #: templates/part.navigation.feed.php:85
 #: templates/part.navigation.folder.php:92
 #: templates/part.navigation.unreadfeed.php:29
 msgid "Read all"
-msgstr ""
+msgstr "Прочети всички"
 
 #: templates/part.navigation.feed.php:93
 #: templates/part.navigation.folder.php:103
 msgid "Dismiss"
-msgstr ""
+msgstr "Затвори"
 
 #: templates/part.navigation.folder.php:20
 msgid "Collapse"
@@ -178,11 +178,11 @@ msgstr "Намали"
 
 #: templates/part.navigation.folder.php:26
 msgid "Deleted folder"
-msgstr ""
+msgstr "Изтрий папка"
 
 #: templates/part.navigation.folder.php:28
 msgid "Undo delete folder"
-msgstr ""
+msgstr "Върни изтриване на папка"
 
 #: templates/part.navigation.folder.php:86
 msgid "Rename folder"
@@ -210,19 +210,19 @@ msgstr "Настройки"
 
 #: templates/part.settings.php:13
 msgid "Compact view"
-msgstr ""
+msgstr "Компактен изглед"
 
 #: templates/part.settings.php:20
 msgid "Show unread articles"
-msgstr ""
+msgstr "Покажи непрочетени статии"
 
 #: templates/part.settings.php:27
 msgid "Order by oldest first"
-msgstr ""
+msgstr "Подреди по намаляваща възраст"
 
 #: templates/part.settings.php:34
 msgid "Disable mark read during scrolling"
-msgstr ""
+msgstr "Премахни отбелижи като прочетено по време на скролиране"
 
 #: templates/part.settings.php:40
 msgid "Subscriptions (OPML)"
