@@ -351,7 +351,7 @@ class Application extends App {
 			return new \HTMLPurifier($config);
 		});
 
-		$container->registerService('GlobalArticleEnhancer', function($c) {
+		$container->registerService('GlobalArticleEnhancer', function() {
 			return new GlobalArticleEnhancer();
 		});
 

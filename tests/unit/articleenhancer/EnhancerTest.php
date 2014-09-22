@@ -95,7 +95,7 @@ class EnhancerTest extends \PHPUnit_Framework_TestCase {
 
 		$result = $this->enhancer->enhance($item, 'test');
 
-		$this->assertEquals(3, $item->getBody());
+		$this->assertEquals(3, $result->getBody());
 	}
 
 }

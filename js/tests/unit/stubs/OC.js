@@ -12,8 +12,5 @@ window.OC = {
         'use strict';
 
         return '/base' + url;
-    },
-    theme: {
-    	name: 'test-theme'
     }
 };
