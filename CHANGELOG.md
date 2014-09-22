@@ -4,7 +4,7 @@ owncloud-news (3.102)
 
 owncloud-news (3.101)
 * **Bugfix**: Fix remove YouTube autoplay on libxml versions < 2.6
-* **Enhancement**: Backport to stable7
+* **Enhancement**: Backport to ownCloud 7
 
 owncloud-news (3.003)
 * **Bugfix**: Correctly toggle title of star and keep unread icons
