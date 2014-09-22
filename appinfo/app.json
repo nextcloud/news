@@ -3,7 +3,7 @@
     "id": "news",
     "description": "ownCloud News App",
     "licence": "AGPL",
-    "version": "3.002",
+    "version": "3.003",
     "authors": [
         {
             "name": "Bernhard Posselt",
