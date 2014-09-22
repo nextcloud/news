@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-09-20 01:01-0400\n"
-"PO-Revision-Date: 2014-09-20 05:01+0000\n"
-"Last-Translator: I Robot\n"
+"POT-Creation-Date: 2014-09-22 01:01-0400\n"
+"PO-Revision-Date: 2014-09-21 07:10+0000\n"
+"Last-Translator: Aputsiaĸ Niels Janussen <aj@isit.gl>\n"
 "Language-Team: Danish (http://www.transifex.com/projects/p/owncloud/language/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -59,11 +59,11 @@ msgstr "Importér feeds og artikler"
 
 #: templates/part.content.php:33
 msgid "Star article"
-msgstr ""
+msgstr "Stjernemarkér artiklen"
 
 #: templates/part.content.php:34
 msgid "Unstar article"
-msgstr ""
+msgstr "Fjern stjerne fra artiklen"
 
 #: templates/part.content.php:37
 msgid "Keep article unread"
@@ -71,7 +71,7 @@ msgstr "Bevar artikel ulæst"
 
 #: templates/part.content.php:38
 msgid "Remove keep article unread"
-msgstr ""
+msgstr "Fjern \"bevar artikel ulæst\""
 
 #: templates/part.content.php:44
 msgid "Open website"
@@ -201,7 +201,7 @@ msgstr "Slet mappe"
 
 #: templates/part.navigation.starredfeed.php:8
 msgid "Starred"
-msgstr "Markéret"
+msgstr "Stjernemarkéret"
 
 #: templates/part.navigation.unreadfeed.php:8
 msgid "Unread articles"
@@ -253,7 +253,7 @@ msgstr "Fejl ved import: filen indeholder ingen gyldig OPML-kode"
 
 #: templates/part.settings.php:76
 msgid "Unread/Starred Articles"
-msgstr "Ulæste/Markerede Artikler"
+msgstr "Ulæste/stjernemarkerede artikler"
 
 #: templates/part.settings.php:107
 msgid "Error when importing: file does not contain valid JSON"

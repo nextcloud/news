@@ -6,7 +6,10 @@
 "Add a feed" => "Tilføj et feed",
 "There are no feeds yet. Go ahead and add some" => "Der er endnu ingen feeds. Du er velkommen til at tilføje nogle",
 "Import feeds and articles" => "Importér feeds og artikler",
+"Star article" => "Stjernemarkér artiklen",
+"Unstar article" => "Fjern stjerne fra artiklen",
 "Keep article unread" => "Bevar artikel ulæst",
+"Remove keep article unread" => "Fjern \"bevar artikel ulæst\"",
 "Open website" => "Åbn websted",
 "by" => "af",
 "from" => "fra",
@@ -36,7 +39,7 @@
 "Undo delete folder" => "Fortryd sletning af mappe",
 "Rename folder" => "Omdøb mappe",
 "Delete folder" => "Slet mappe",
-"Starred" => "Markéret",
+"Starred" => "Stjernemarkéret",
 "Unread articles" => "Ulæste artikler",
 "All articles" => "Alle artikler",
 "Settings" => "Indstillinger",
@@ -48,6 +51,6 @@
 "Import" => "Importer",
 "Export" => "Eksportér",
 "Error when importing: file does not contain valid OPML" => "Fejl ved import: filen indeholder ingen gyldig OPML-kode",
-"Unread/Starred Articles" => "Ulæste/Markerede Artikler",
+"Unread/Starred Articles" => "Ulæste/stjernemarkerede artikler",
 "Error when importing: file does not contain valid JSON" => "Fejl ved import: filen indeholder ikke gyldig JSON kode"
 );

@@ -9,7 +9,7 @@
 "Star article" => "Artikel markieren",
 "Unstar article" => "Markierung aufheben",
 "Keep article unread" => "Artikel ungelesenen lassen",
-"Remove keep article unread" => "Nicht gelesen entfernen",
+"Remove keep article unread" => "Markierung Artikel ungelesenen lassen entfernen",
 "Open website" => "Webseite öffnen",
 "by" => "von",
 "from" => "von",
