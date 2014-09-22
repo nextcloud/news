@@ -89,12 +89,11 @@ class FeedFetcher implements IFeedFetcher {
 			$simplePie->set_proxyuserpwd($this->proxyAuth);
 		}
 
-		if (!$simplePie->init()) {
-			throw new FetcherException('Could not initialize simple pie on feed with url ' . $url);
-		}
-
-
 		try {
+			if (!$simplePie->init()) {
+				throw new \Exception('Could not initialize simple pie on feed with url ' . $url);
+			}
+
 			// somehow $simplePie turns into a feed after init
 			$items = [];
 			$permaLink = $simplePie->get_permalink();

@@ -1,3 +1,6 @@
+owncloud-news (3.103)
+* **Bugfix**: Turn all errors into exceptions to prevent failing of all feeds if one feed runs into an error
+
 owncloud-news (3.102)
 * **Bugfix**: Fix z-index for stable7 so menu buttons dont overlap content in mobile view
 * **Bugfix**: Use public namespace for template script and style template functions
