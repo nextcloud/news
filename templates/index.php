@@ -1,4 +1,13 @@
 <?php
+
+// backports
+if (version_compare(implode('.', \OCP\Util::getVersion()), '7.8', '<=')) {
+    if (!function_exists('style')) {
+        require_once __DIR__ . '/7.php';
+    }
+    style('news', '7');
+}
+
 script('news', [
     'vendor/es6-shim/es6-shim.min',
     'vendor/angular/angular.min',
@@ -16,6 +25,8 @@ style('news', [
     'mobile',
     'custom'
 ]);
+
+
 ?>
 
 
