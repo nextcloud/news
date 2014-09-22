@@ -49,6 +49,7 @@ use \OCA\News\Fetcher\Fetcher;
 use \OCA\News\Fetcher\FeedFetcher;
 
 use \OCA\News\ArticleEnhancer\Enhancer;
+use \OCA\News\ArticleEnhancer\GlobalArticleEnhancer;
 use \OCA\News\ArticleEnhancer\XPathArticleEnhancer;
 use \OCA\News\ArticleEnhancer\RegexArticleEnhancer;
 
@@ -350,6 +351,10 @@ class Application extends App {
 			return new \HTMLPurifier($config);
 		});
 
+		$container->registerService('GlobalArticleEnhancer', function($c) {
+			return new GlobalArticleEnhancer();
+		});
+
 		$container->registerService('Enhancer', function($c) {
 			$enhancer = new Enhancer();
 
@@ -376,6 +381,8 @@ class Application extends App {
 					$enhancer->registerEnhancer($feed, $articleEnhancer);
 				}
 			}
+
+			$enhancer->registerGlobalEnhancer($c->query('GlobalArticleEnhancer'));
 
 			return $enhancer;
 		});

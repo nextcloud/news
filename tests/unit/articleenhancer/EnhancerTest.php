@@ -16,6 +16,15 @@ namespace OCA\News\ArticleEnhancer;
 use \OCA\News\Db\Item;
 
 
+class AddEnhancer implements ArticleEnhancer {
+	public function enhance(Item $item) {
+		$body = $item->getBody();
+		$item->setBody($body += 1);
+		return $item;
+	}
+}
+
+
 class EnhancerTest extends \PHPUnit_Framework_TestCase {
 
 	private $enhancer;
@@ -43,19 +52,19 @@ class EnhancerTest extends \PHPUnit_Framework_TestCase {
 			'http://test.com/',
 			'http://www.test.com'
 		];
-		for ($i=0; $i < count($urls); $i++) { 
+		for ($i=0; $i < count($urls); $i++) {
 			$this->articleEnhancer->expects($this->at($i))
 				->method('enhance')
 				->with($this->equalTo($item))
 				->will($this->returnValue($item));
 		}
 
-		for ($i=0; $i < count($urls); $i++) { 
+		for ($i=0; $i < count($urls); $i++) {
 			$url = $urls[$i];
 			$result = $this->enhancer->enhance($item, $url);
 			$this->assertEquals($item, $result);
 		}
-		
+
 	}
 
 
@@ -67,10 +76,26 @@ class EnhancerTest extends \PHPUnit_Framework_TestCase {
 		$this->articleEnhancer->expects($this->never())
 				->method('enhance');
 
-		$result = $this->enhancer->enhance($item, $url);	
+		$result = $this->enhancer->enhance($item, $url);
 		$this->assertEquals($item, $result);
-		
 	}
 
+
+	public function testGlobalEnhancer() {
+		$this->enhancer->registerGlobalEnhancer(
+			new AddEnhancer()
+		);
+
+		$this->enhancer->registerGlobalEnhancer(
+			new AddEnhancer()
+		);
+
+		$item = new Item();
+		$item->setBody(1);
+
+		$result = $this->enhancer->enhance($item, 'test');
+
+		$this->assertEquals(3, $item->getBody());
+	}
 
 }

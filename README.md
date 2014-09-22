@@ -157,7 +157,7 @@ proxyPassword =
 ```
 
 
-* **autoPurgeMinimumInterval**: Minimum amount of seconds after deleted feeds and folders are removed from the database.
+* **autoPurgeMinimumInterval**: Minimum amount of seconds after deleted feeds and folders are removed from the database. Values below 60 seconds are ignored
 * **autoPurgeCount**: Defines the minimum amount of articles that can be unread per feed before they get deleted
 * **simplePieCacheDuration**: Amount of seconds to cache feeds
 * **feedFetcherTimeout**: Maximum number of seconds to wait for an RSS or Atom feed to load. If a feed takes longer than that number of seconds to update, the update will be aborted

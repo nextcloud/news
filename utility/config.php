@@ -18,7 +18,7 @@ use \OCP\ILogger;
 
 class Config {
 
-	private $fileSystem; 
+	private $fileSystem;
 	private $autoPurgeMinimumInterval;  // seconds, used to define how
 	                                    // long deleted folders and feeds
 	                                    // should still be kept for an
@@ -75,7 +75,11 @@ class Config {
 	}
 
 	public function getAutoPurgeMinimumInterval() {
-		return $this->autoPurgeMinimumInterval;
+		if ($this->autoPurgeMinimumInterval > 60) {
+			return $this->autoPurgeMinimumInterval;
+		} else {
+			return 60;
+		}
 	}
 
 
@@ -162,7 +166,7 @@ class Config {
 						settype($value, $type);
 						$this->$key = $value;
 					} else {
-						$this->logger->warning('Configuration value "' . $key . 
+						$this->logger->warning('Configuration value "' . $key .
 							'" does not exist. Ignored value.' , $this->loggerParams);
 					}
 				}
@@ -173,7 +177,7 @@ class Config {
 
 
 	public function write($configPath) {
-		$ini = 
+		$ini =
 			"autoPurgeMinimumInterval = " . $this->autoPurgeMinimumInterval . "\n" .
 			"autoPurgeCount = " . $this->autoPurgeCount . "\n" .
 			"simplePieCacheDuration = " . $this->simplePieCacheDuration . "\n" .

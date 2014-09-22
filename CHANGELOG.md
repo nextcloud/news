@@ -4,6 +4,8 @@ owncloud-news (3.003)
 * **Enhancement**: Less padding right on mobile phone
 * **Enhancement**: Expanded view: remove date on mobile phone
 * **Enhancement**: Compact view: click on title should remove ellipsis
+* **Enhancement**: Ignore autoPurgeMinimumInterval setting if it is below 60 seconds since anything lower than that may hurt user experience
+* **Enhancement**: Remove YouTube autoplay from all articles
 
 owncloud-news (3.002)
 * **Bugfix**: If a folder is selected, the f and d shortcuts will jump to the previous or next folder subfeeds

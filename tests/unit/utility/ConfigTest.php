@@ -59,9 +59,22 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 
 		$this->config->read($this->configPath);
 
-		$this->assertTrue(3 === $this->config->getAutoPurgeCount());
-		$this->assertTrue(true === $this->config->getUseCronUpdates());
+		$this->assertSame(3, $this->config->getAutoPurgeCount());
+		$this->assertSame(true, $this->config->getUseCronUpdates());
 	}
+
+
+	public function testReadIgnoresVeryLowPurgeInterval () {
+		$this->fileSystem->expects($this->once())
+			->method('file_get_contents')
+			->with($this->equalTo($this->configPath))
+			->will($this->returnValue("autoPurgeMinimumInterval = 59"));
+
+		$this->config->read($this->configPath);
+
+		$this->assertSame(60, $this->config->getAutoPurgeMinimumInterval());
+	}
+
 
 
 	public function testReadBool () {
@@ -72,8 +85,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 
 		$this->config->read($this->configPath);
 
-		$this->assertTrue(3 === $this->config->getAutoPurgeCount());
-		$this->assertTrue(false === $this->config->getUseCronUpdates());
+		$this->assertSame(3, $this->config->getAutoPurgeCount());
+		$this->assertSame(false, $this->config->getUseCronUpdates());
 	}
 
 
@@ -84,8 +97,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 			->will($this->returnValue('autoPurgeCounts = 3'));
 		$this->logger->expects($this->once())
 			->method('warning')
-			->with($this->equalTo('Configuration value "autoPurgeCounts" ' . 
-				'does not exist. Ignored value.'), 
+			->with($this->equalTo('Configuration value "autoPurgeCounts" ' .
+				'does not exist. Ignored value.'),
 				$this->equalTo($this->loggerParams));
 
 		$this->config->read($this->configPath);
@@ -99,7 +112,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 			->will($this->returnValue(''));
 		$this->logger->expects($this->once())
 			->method('warning')
-			->with($this->equalTo('Configuration invalid. Ignoring values.'), 
+			->with($this->equalTo('Configuration invalid. Ignoring values.'),
 				$this->equalTo($this->loggerParams));
 
 		$this->config->read($this->configPath);
@@ -107,10 +120,10 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testWrite () {
-		$json = "autoPurgeMinimumInterval = 60\n" . 
-			"autoPurgeCount = 3\n" . 
-			"simplePieCacheDuration = 1800\n" . 
-			"feedFetcherTimeout = 60\n" . 
+		$json = "autoPurgeMinimumInterval = 60\n" .
+			"autoPurgeCount = 3\n" .
+			"simplePieCacheDuration = 1800\n" .
+			"feedFetcherTimeout = 60\n" .
 			"useCronUpdates = true\n" .
 			"proxyHost = yo man\n" .
 			"proxyPort = 12\n" .
@@ -141,13 +154,13 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 			->method('file_exists')
 			->with($this->equalTo($this->configPath))
 			->will($this->returnValue(false));
-		
+
 		$this->config->setUseCronUpdates(false);
 
-		$json = "autoPurgeMinimumInterval = 60\n" . 
-			"autoPurgeCount = 200\n" . 
-			"simplePieCacheDuration = 1800\n" . 
-			"feedFetcherTimeout = 60\n" . 
+		$json = "autoPurgeMinimumInterval = 60\n" .
+			"autoPurgeCount = 200\n" .
+			"simplePieCacheDuration = 1800\n" .
+			"feedFetcherTimeout = 60\n" .
 			"useCronUpdates = false\n" .
 			"proxyHost = \n" .
 			"proxyPort = 8080\n" .

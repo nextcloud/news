@@ -17,6 +17,7 @@ namespace OCA\News\ArticleEnhancer;
 class Enhancer {
 
 	private $enhancers = [];
+	private $globalEnhancers = [];
 
 	/**
 	 * @param string $feedUrl
@@ -35,6 +36,16 @@ class Enhancer {
 
 
 	/**
+	 * Registers enhancers that are run for every item and after all previous
+	 * enhancers have been run
+	 * @param ArticleEnhancer $enhancer
+	 */
+	public function registerGlobalEnhancer (ArticleEnhancer $enhancer) {
+		$this->globalEnhancers[] = $enhancer;
+	}
+
+
+	/**
 	 * @param \OCA\News\Db\Item $item
 	 * @param string $feedUrl
 	 * @return \OCA\News\Db\Item enhanced item
@@ -43,10 +54,16 @@ class Enhancer {
 		$feedUrl = $this->removeTrailingSlash($feedUrl);
 
 		if(array_key_exists($feedUrl, $this->enhancers)) {
-			return $this->enhancers[$feedUrl]->enhance($item);
+			$result = $this->enhancers[$feedUrl]->enhance($item);
 		} else {
-			return $item;
+			$result = $item;
 		}
+
+		foreach ($this->globalEnhancers as $enhancer) {
+			$result = $enhancer->enhance($result);
+		}
+
+		return $result;
 	}
 
 
