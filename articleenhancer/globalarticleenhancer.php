@@ -24,8 +24,7 @@ class GlobalArticleEnhancer implements ArticleEnhancer {
 	 */
 	public function enhance(Item $item) {
 		$dom = new \DOMDocument();
-		@$dom->loadHTML($item->getBody(), LIBXML_HTML_NOIMPLIED |
-			                              LIBXML_HTML_NODEFDTD);
+		@$dom->loadHTML($item->getBody());
 		$xpath = new \DOMXpath($dom);
 
 		// remove youtube autoplay
@@ -45,6 +44,12 @@ class GlobalArticleEnhancer implements ArticleEnhancer {
 				$element->setAttribute('src', $replaced);
 			}
 		}
+
+		// remove <!DOCTYPE
+		$dom->removeChild($dom->firstChild);
+
+		// remove <html><body></body></html>
+		$dom->replaceChild($dom->firstChild->firstChild->firstChild, $dom->firstChild);
 
 		// save all changes back to the item
 		$item->setBody(trim($dom->saveHTML()));
