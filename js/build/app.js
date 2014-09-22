@@ -2310,6 +2310,9 @@ app.directive('newsTitleUnreadCount', ["$window", function ($window) {
     'use strict';
 
     var baseTitle = $window.document.title;
+    var titles = baseTitle.split('-');
+    var appName = titles[0] || 'News';
+    var ownCloudName = titles[1] || 'ownCloud';
 
     return {
         restrict: 'E',
@@ -2318,11 +2321,9 @@ app.directive('newsTitleUnreadCount', ["$window", function ($window) {
         },
         link: function (scope, elem, attrs) {
             attrs.$observe('unreadCount', function (value) {
-                var titles = baseTitle.split('-');
-
                 if (value !== '0') {
-                    $window.document.title = titles[0] +
-                        '(' + value + ') - ' + titles[1];
+                    $window.document.title = appName +
+                        '(' + value + ') - ' + ownCloudName;
                 }
             });
         }
