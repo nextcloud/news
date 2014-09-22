@@ -38,7 +38,7 @@ class GlobalArticleEnhancer implements ArticleEnhancer {
 			// src needs to be matched against regex to prevent false positives
 			// and because theres no XPath matches function available
 			$src = $element->getAttribute('src');
-			$regex = '%^(http://|https://|//)(www\.)?youtube.com/.*autoplay=1.*%i';
+			$regex = '%^(http://|https://|//)(www\.)?youtube.com/.*\?.*autoplay=1.*%i';
 
 			if (preg_match($regex, $src)) {
 				$replaced = str_replace('autoplay=1', 'autoplay=0', $src);

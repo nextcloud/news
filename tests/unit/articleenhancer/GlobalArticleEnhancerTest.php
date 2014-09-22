@@ -26,8 +26,8 @@ class GlobalArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testNoReplaceYoutubeAutoplay() {
-		$body = '<iframe width="728" height="410" src="//www.youtube.com/embed/AWE6UpXQoGU?autoplay=0" frameborder="0" allowfullscreen=""></iframe>';
-		$expected = '<iframe width="728" height="410" src="//www.youtube.com/embed/AWE6UpXQoGU?autoplay=0" frameborder="0" allowfullscreen=""></iframe>';
+		$body = '<iframe width="728" height="410" src="//www.youtube.com/embed/autoplay=1/AWE6UpXQoGU" frameborder="0" allowfullscreen=""></iframe>';
+		$expected = '<iframe width="728" height="410" src="//www.youtube.com/embed/autoplay=1/AWE6UpXQoGU" frameborder="0" allowfullscreen=""></iframe>';
 		$item = new Item();
 		$item->setBody($body);
 
