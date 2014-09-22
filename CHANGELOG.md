@@ -4,7 +4,6 @@ owncloud-news (3.003)
 * **Enhancement**: Less padding right on mobile phone
 * **Enhancement**: Expanded view: remove date on mobile phone
 * **Enhancement**: Compact view: click on title should remove ellipsis
-* **Enhancement**: Respect theme name in tab title
 
 owncloud-news (3.002)
 * **Bugfix**: If a folder is selected, the f and d shortcuts will jump to the previous or next folder subfeeds
@@ -52,6 +51,7 @@ owncloud-news (3.001)
 * **Enhancement**: Set useragent for fetching feeds
 * **Enhancement**: Also support video enclosures
 * **Enhancement**: Port clientside code from CoffeeScript to JavaScript
+* **Enhancement**: Respect theme name in tab title
 
 owncloud-news (2.003)
 * Use correct url for folder and feed api update methods
