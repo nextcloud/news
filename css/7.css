@@ -256,3 +256,12 @@
 		border-left: 0;
 		margin-right: 0;
 	}
+
+#app-content {
+	z-index: 5000;
+}
+
+#app-settings,
+#expanddiv {
+	z-index: 2000;
+}

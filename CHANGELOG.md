@@ -1,3 +1,7 @@
+owncloud-news (3.102)
+* **Bugfix**: Fix z-index for stable7 so menu buttons dont overlap content in mobile view
+* **Bugfix**: Use public namespace for template script and style template functions
+
 owncloud-news (3.101)
 * **Bugfix**: Fix remove YouTube autoplay on libxml versions < 2.6
 * **Enhancement**: Backport to stable7
