@@ -20,7 +20,7 @@ For further developer and user documentation please visit [the wiki](https://git
 ## Dependencies
 * PHP >= 5.4
 * php-curl
-* ownCloud >= 8
+* ownCloud >= 7
 
 ## Supported Databases
 * PostgreSQL
@@ -51,7 +51,7 @@ Before you install the app check that the following requirements are met:
 * You can use a cron or webcron to call Background Jobs in ownCloud
 * Your **data/** directory is owned by your webserver user and write/readable
 * You have installed **php-curl** and activated it in the **php.ini**
-* You run **ownCloud 8**
+* You run **ownCloud 7**
 
 Should you have upgraded from a prior version, disable the CSS and JavaScript caching by adding this to **owncloud/config/config.php**:
 
@@ -75,12 +75,9 @@ The **News** App can be updated through the ownCloud apps page.
 
 ### Git (development version)
 * The master branch will always be stable in conjunction with the latest master branch from ownCloud
-* If you are using an earlier ownCloud version, use the stableX branch (ownCloud 7 -> stable7)
 * Clone the **News** app into the **/var/www/owncloud/apps/** directory:
 
-	git clone -b $YOUR_BRANCH https://github.com/owncloud/news.git
-
- where $YOUR_BRANCH is the branch that you want to use
+	git clone https://github.com/owncloud/news.git
 
 * If the app fails to install, add this at the bottom of the file **config/config.php**:
 
@@ -93,7 +90,7 @@ The **News** App can be updated through the ownCloud apps page.
 To update the News app use:
 
     cd /var/www/owncloud/apps/news
-    git pull --rebase origin $YOUR_BRANCH
+    git pull --rebase origin master
 
 
 ## Keyboard shortcuts
