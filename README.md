@@ -29,7 +29,8 @@ For further developer and user documentation please visit [the wiki](https://git
 
 
 ## Bugs
-Before reporting bugs:
+
+### Before reporting bugs
 
 * We do not support Internet Explorer and Safari (Patches accepted though, except for IE < 10)
 * get the newest version of the News app
@@ -44,6 +45,15 @@ check if:
 
 In the case the third condition is not met, please file a bug on [SimplePie issue tracker](https://github.com/simplepie/simplepie).
 
+### When reporting bugs
+Please provide the following details so that your problem can be fixed:
+
+* **data/owncloud.log** (important!)
+* ownCloud version
+* News version
+* Browser and version
+* PHP version
+* Distribution
 
 ## Before you install the News app
 Before you install the app check that the following requirements are met:
