@@ -49,7 +49,6 @@
             news-trigger-click="#opml-upload"
             ng-class="{'entry-loading': Settings.isOPMLImporting}"
             ng-disabled="Settings.isOPMLImporting || Settings.isArticlesImporting">
-            <?php p($l->t('Import')); ?>
         </button>
 
         <a title="<?php p($l->t('Export')); ?>"
@@ -57,7 +56,6 @@
             href="<?php p(\OCP\Util::linkToRoute('news.export.opml')); ?>"
             target="_blank"
             ng-hide="App.isFirstRun()">
-            <?php p($l->t('Export')); ?>
         </a>
 
         <button
@@ -65,7 +63,6 @@
             title="<?php p($l->t('Export')); ?>"
             ng-show="App.isFirstRun()"
             disabled>
-            <?php p($l->t('Export')); ?>
         </button>
 
         <p class="error" ng-show="Settings.opmlImportError">
@@ -86,21 +83,18 @@
             ng-class="{'entry-loading': Settings.isArticlesImporting}"
             ng-disabled="Settings.isOPMLImporting || Settings.isArticlesImporting"
             news-trigger-click="#article-upload">
-            <?php p($l->t('Import')); ?>
         </button>
 
         <a title="<?php p($l->t('Export')); ?>" class="button icon-download svg button-icon-label"
             href="<?php p(\OCP\Util::linkToRoute('news.export.articles')); ?>"
             target="_blank"
             ng-hide="App.isFirstRun()">
-            <?php p($l->t('Export')); ?>
         </a>
         <button
             class="icon-download svg button-icon-label"
             title="<?php p($l->t('Export')); ?>"
             ng-show="App.isFirstRun()"
             disabled>
-            <?php p($l->t('Export')); ?>
         </button>
 
         <p class="error" ng-show="Settings.articleImportError">

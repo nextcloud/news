@@ -8,10 +8,8 @@
  * @copyright Bernhard Posselt 2014
  */
 #app-settings input[type=file] {
-    opacity:0;
-    z-index:1001;
-    width:0;
-    height:0;
+    position: absolute;
+    left: -30000px;
 }
 
 #app-settings .opened:hover {
@@ -44,13 +42,13 @@
 
 #app-settings .import-export button,
 #app-settings .import-export a {
-    width: 110px;
+    width: 113px;
     height: 30px;
     margin: 0;
     vertical-align: middle;
+    background-position: center;
 }
 
 #app-settings .import-export a {
     display: inline-block;
-    padding-left: 38px;
 }
