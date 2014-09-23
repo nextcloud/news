@@ -24,7 +24,7 @@
     <p ng-click="Settings.toggleSetting('oldestFirst')">
         <label for="oldestFirst">
             <input type="checkbox" ng-checked="Settings.getSetting('oldestFirst')" name="oldestFirst">
-            <?php p($l->t('Ordering: oldest -> newest')); ?>
+            <?php p($l->t('Reverse ordering')); ?>
         </label>
     </p>
 
