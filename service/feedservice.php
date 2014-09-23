@@ -161,7 +161,7 @@ class FeedService extends Service {
 		foreach($feeds as $feed){
 			try {
 				$this->update($feed->getId(), $feed->getUserId());
-			} catch(ServiceNotFoundException $ex){
+			} catch(\Exception $ex){
 				$this->logger->debug('Could not update feed ' . $ex->getMessage(),
 					$this->loggerParams);
 			}
