@@ -17,7 +17,7 @@
     <p ng-click="Settings.toggleSetting('showAll')">
         <label for="showAll">
             <input type="checkbox" ng-checked="Settings.getSetting('showAll')" name="showAll">
-            <?php p($l->t('Show unread articles')); ?>
+            <?php p($l->t('Show all articles')); ?>
         </label>
     </p>
 
