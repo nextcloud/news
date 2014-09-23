@@ -1,3 +1,6 @@
+owncloud-news (3.104)
+* **Bugfix**: Backport ownCloud CSS z-index fix to ownCloud 7 for settings popup that made it difficult to access the administration tab
+
 owncloud-news (3.103)
 * **Bugfix**: Turn all errors into exceptions to prevent failing all feed updates if one update runs into an error
 
