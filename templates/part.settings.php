@@ -24,14 +24,14 @@
     <p ng-click="Settings.toggleSetting('oldestFirst')">
         <label for="oldestFirst">
             <input type="checkbox" ng-checked="Settings.getSetting('oldestFirst')" name="oldestFirst">
-            <?php p($l->t('Order by oldest first')); ?>
+            <?php p($l->t('Ordering: oldest -> newest')); ?>
         </label>
     </p>
 
     <p ng-click="Settings.toggleSetting('preventReadOnScroll')">
         <label for="preventReadOnScroll">
             <input type="checkbox" ng-checked="Settings.getSetting('preventReadOnScroll')" name="preventReadOnScroll">
-            <?php p($l->t('Disable mark read during scrolling')); ?>
+            <?php p($l->t('Disable mark read through scrolling')); ?>
         </label>
     </p>
 
