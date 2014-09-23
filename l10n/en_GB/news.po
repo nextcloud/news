@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-09-20 01:01-0400\n"
-"PO-Revision-Date: 2014-09-20 05:01+0000\n"
-"Last-Translator: I Robot\n"
+"POT-Creation-Date: 2014-09-23 01:47-0400\n"
+"PO-Revision-Date: 2014-09-22 12:01+0000\n"
+"Last-Translator: Darren Richardson <transifex@mnestis.net>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/owncloud/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,35 +38,35 @@ msgstr "Can not add folder: Exists already"
 
 #: templates/part.content.php:3
 msgid "Add a feed"
-msgstr ""
+msgstr "Add a feed"
 
 #: templates/part.content.php:4
 msgid "There are no feeds yet. Go ahead and add some"
-msgstr ""
+msgstr "There are no feeds yet. Go ahead and add some"
 
 #: templates/part.content.php:5
 msgid "Import feeds and articles"
-msgstr ""
+msgstr "Import feeds and articles"
 
 #: templates/part.content.php:33
 msgid "Star article"
-msgstr ""
+msgstr "Star article"
 
 #: templates/part.content.php:34
 msgid "Unstar article"
-msgstr ""
+msgstr "Unstar article"
 
 #: templates/part.content.php:37
 msgid "Keep article unread"
-msgstr ""
+msgstr "Keep article unread"
 
 #: templates/part.content.php:38
 msgid "Remove keep article unread"
-msgstr ""
+msgstr "Remove keep article unread"
 
 #: templates/part.content.php:44
 msgid "Open website"
-msgstr ""
+msgstr "Open website"
 
 #: templates/part.content.php:67
 msgid "by"
@@ -78,7 +78,7 @@ msgstr "from"
 
 #: templates/part.content.php:77
 msgid "Browser can not play media type"
-msgstr ""
+msgstr "Browser cannot play media type"
 
 #: templates/part.content.php:83
 msgid "Download"
@@ -87,7 +87,7 @@ msgstr "Download"
 #: templates/part.navigation.addfeed.php:5
 #: templates/part.navigation.addfeed.php:58
 msgid "Subscribe"
-msgstr ""
+msgstr "Subscribe"
 
 #: templates/part.navigation.addfeed.php:15
 msgid "Web address"
@@ -95,7 +95,7 @@ msgstr "Web address"
 
 #: templates/part.navigation.addfeed.php:22
 msgid "Feed exists already!"
-msgstr ""
+msgstr "Feed exists already!"
 
 #: templates/part.navigation.addfeed.php:27
 msgid "Folder"
@@ -103,7 +103,7 @@ msgstr "Folder"
 
 #: templates/part.navigation.addfeed.php:31
 msgid "No folder"
-msgstr ""
+msgstr "No folder"
 
 #: templates/part.navigation.addfeed.php:36
 msgid "New folder"
@@ -117,17 +117,17 @@ msgstr "Folder name"
 
 #: templates/part.navigation.addfeed.php:51
 msgid "Go back"
-msgstr ""
+msgstr "Go back"
 
 #: templates/part.navigation.addfeed.php:55
 #: templates/part.navigation.addfolder.php:21
 #: templates/part.navigation.folder.php:52
 msgid "Folder exists already!"
-msgstr ""
+msgstr "Folder exists already!"
 
 #: templates/part.navigation.addfolder.php:5
 msgid "New Folder"
-msgstr ""
+msgstr "New Folder"
 
 #: templates/part.navigation.addfolder.php:24
 msgid "Create"
@@ -135,11 +135,11 @@ msgstr "Create"
 
 #: templates/part.navigation.feed.php:41
 msgid "Deleted feed"
-msgstr ""
+msgstr "Deleted feed"
 
 #: templates/part.navigation.feed.php:43
 msgid "Undo delete feed"
-msgstr ""
+msgstr "Undo delete feed"
 
 #: templates/part.navigation.feed.php:56
 #: templates/part.navigation.folder.php:46
@@ -149,7 +149,7 @@ msgstr "Rename"
 #: templates/part.navigation.feed.php:70
 #: templates/part.navigation.folder.php:77
 msgid "Menu"
-msgstr ""
+msgstr "Menu"
 
 #: templates/part.navigation.feed.php:79
 msgid "Rename feed"
@@ -157,18 +157,18 @@ msgstr "Rename feed"
 
 #: templates/part.navigation.feed.php:82
 msgid "Delete feed"
-msgstr ""
+msgstr "Delete feed"
 
 #: templates/part.navigation.feed.php:85
 #: templates/part.navigation.folder.php:92
 #: templates/part.navigation.unreadfeed.php:29
 msgid "Read all"
-msgstr ""
+msgstr "Read all"
 
 #: templates/part.navigation.feed.php:93
 #: templates/part.navigation.folder.php:103
 msgid "Dismiss"
-msgstr ""
+msgstr "Dismiss"
 
 #: templates/part.navigation.folder.php:20
 msgid "Collapse"
@@ -176,11 +176,11 @@ msgstr "Collapse"
 
 #: templates/part.navigation.folder.php:26
 msgid "Deleted folder"
-msgstr ""
+msgstr "Deleted folder"
 
 #: templates/part.navigation.folder.php:28
 msgid "Undo delete folder"
-msgstr ""
+msgstr "Undo delete folder"
 
 #: templates/part.navigation.folder.php:86
 msgid "Rename folder"
@@ -208,19 +208,19 @@ msgstr "Settings"
 
 #: templates/part.settings.php:13
 msgid "Compact view"
-msgstr ""
+msgstr "Compact view"
 
 #: templates/part.settings.php:20
 msgid "Show unread articles"
-msgstr ""
+msgstr "Show unread articles"
 
 #: templates/part.settings.php:27
 msgid "Order by oldest first"
-msgstr ""
+msgstr "Order by oldest first"
 
 #: templates/part.settings.php:34
 msgid "Disable mark read during scrolling"
-msgstr ""
+msgstr "Disable mark read during scrolling"
 
 #: templates/part.settings.php:40
 msgid "Subscriptions (OPML)"

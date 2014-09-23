@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-09-20 01:01-0400\n"
-"PO-Revision-Date: 2014-09-20 05:01+0000\n"
-"Last-Translator: I Robot\n"
+"POT-Creation-Date: 2014-09-23 01:47-0400\n"
+"PO-Revision-Date: 2014-09-22 19:00+0000\n"
+"Last-Translator: azizul <aziz.murad3@gmail.com>\n"
 "Language-Team: Bengali (Bangladesh) (http://www.transifex.com/projects/p/owncloud/language/bn_BD/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -79,7 +79,7 @@ msgstr "হইতে"
 
 #: templates/part.content.php:77
 msgid "Browser can not play media type"
-msgstr ""
+msgstr "এই মিডিয়া ব্রউজার চালাতে পারবেনা"
 
 #: templates/part.content.php:83
 msgid "Download"
@@ -88,7 +88,7 @@ msgstr "ডাউনলোড"
 #: templates/part.navigation.addfeed.php:5
 #: templates/part.navigation.addfeed.php:58
 msgid "Subscribe"
-msgstr ""
+msgstr "গ্রাহক হোন"
 
 #: templates/part.navigation.addfeed.php:15
 msgid "Web address"
@@ -96,7 +96,7 @@ msgstr "ওয়েব ঠিকানা"
 
 #: templates/part.navigation.addfeed.php:22
 msgid "Feed exists already!"
-msgstr ""
+msgstr "ফিড পূর্বে থেকেই বিদ্যমান"
 
 #: templates/part.navigation.addfeed.php:27
 msgid "Folder"
@@ -118,17 +118,17 @@ msgstr "ফোলডারের নাম"
 
 #: templates/part.navigation.addfeed.php:51
 msgid "Go back"
-msgstr ""
+msgstr "ফিরে যাও"
 
 #: templates/part.navigation.addfeed.php:55
 #: templates/part.navigation.addfolder.php:21
 #: templates/part.navigation.folder.php:52
 msgid "Folder exists already!"
-msgstr ""
+msgstr "ফোল্ডার ইতোমধ্যে বিদ্যমান!"
 
 #: templates/part.navigation.addfolder.php:5
 msgid "New Folder"
-msgstr ""
+msgstr "নতুন ফোল্ডার"
 
 #: templates/part.navigation.addfolder.php:24
 msgid "Create"
@@ -136,7 +136,7 @@ msgstr "তৈরী কর"
 
 #: templates/part.navigation.feed.php:41
 msgid "Deleted feed"
-msgstr ""
+msgstr "মুছে ফেলা ফিড"
 
 #: templates/part.navigation.feed.php:43
 msgid "Undo delete feed"

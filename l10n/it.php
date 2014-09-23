@@ -6,6 +6,8 @@
 "Add a feed" => "Aggiungi una fonte",
 "There are no feeds yet. Go ahead and add some" => "Non ci sono ancora fonti. Vai avanti e aggiungine",
 "Import feeds and articles" => "Importa fonti e articoli",
+"Star article" => "Aggiungi ai preferiti",
+"Unstar article" => "Rimuovi dai preferiti",
 "Keep article unread" => "Mantieni l'articolo come non letto",
 "Open website" => "Apri sito web",
 "by" => "da",

@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Alessandro <inactive+zimba12@transifex.com>, 2012
+# Mrkappa <il.kobo@gmail.com>, 2014
 # Matt <staffhabbfoca@live.it>, 2013
 # Paolo Velati <paolo.velati@gmail.com>, 2013
 # Vincenzo Reale <vinx.reale@gmail.com>, 2012-2014
@@ -11,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-09-20 01:01-0400\n"
-"PO-Revision-Date: 2014-09-20 05:01+0000\n"
-"Last-Translator: I Robot\n"
+"POT-Creation-Date: 2014-09-23 01:47-0400\n"
+"PO-Revision-Date: 2014-09-22 10:12+0000\n"
+"Last-Translator: Mrkappa <il.kobo@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/owncloud/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -53,11 +54,11 @@ msgstr "Importa fonti e articoli"
 
 #: templates/part.content.php:33
 msgid "Star article"
-msgstr ""
+msgstr "Aggiungi ai preferiti"
 
 #: templates/part.content.php:34
 msgid "Unstar article"
-msgstr ""
+msgstr "Rimuovi dai preferiti"
 
 #: templates/part.content.php:37
 msgid "Keep article unread"

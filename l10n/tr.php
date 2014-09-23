@@ -32,7 +32,7 @@
 "Menu" => "Menü",
 "Rename feed" => "Beslemeyi yeniden adlandır",
 "Delete feed" => "Beslemeyi sil",
-"Read all" => "Tümünü ok",
+"Read all" => "Tümünü oku",
 "Dismiss" => "İptal et",
 "Collapse" => "Daralt",
 "Deleted folder" => "Klasör silindi",
