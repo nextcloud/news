@@ -1,6 +1,6 @@
 {
   "name": "ownCloud-news",
-  "version": "3",
+  "version": "3.1.4",
   "description": "An RSS/Atom feed reader",
   "main": "build/app.js",
   "scripts": {
