@@ -258,10 +258,11 @@
 	}
 
 #app-content {
-	z-index: 5000;
+	z-index: 25;
 }
 
 #app-settings,
 #expanddiv {
-	z-index: 2000;
+	z-index: 6000;
 }
+
