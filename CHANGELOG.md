@@ -2,6 +2,8 @@ owncloud-news (3.105)
 * **Bugfix**: Various wording fixes
 * **Bugfix**: Do not use Import/Export caption for settings buttons to avoid UX bugs in translated versions
 * **Bugfix**: Catch all exceptions for feed update to not stop on db errors
+* **Bugfix**: Register error handler only once
+* **Bugfix**: Fix German translation
 
 owncloud-news (3.104)
 * **Bugfix**: Backport ownCloud CSS z-index fix to ownCloud 7 for settings popup that made it difficult to access the administration tab
