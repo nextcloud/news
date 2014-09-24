@@ -9,8 +9,8 @@ The News app is an RSS/Atom feed aggregator. It offers a [RESTful API](https://g
 For further developer and user documentation please visit [the wiki](https://github.com/owncloud/news/wiki)
 
 ## Maintainers
-* [Alessandro Cosentino](https://github.com/cosenal)
 * [Bernhard Posselt](https://github.com/Raydiation)
+* [Alessandro Cosentino](https://github.com/cosenal)
 * [Jan-Christoph Borchardt](https://github.com/jancborchardt) (Design)
 
 ## Sync Clients
@@ -21,6 +21,10 @@ For further developer and user documentation please visit [the wiki](https://git
 * PHP >= 5.4
 * php-curl
 * ownCloud >= 7
+
+## Supported Browsers
+* Firefox (Desktop, Android, Firefox OS)
+* Chrome (Desktop, Android)
 
 ## Supported Databases
 * PostgreSQL
