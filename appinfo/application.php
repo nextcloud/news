@@ -257,7 +257,7 @@ class Application extends App {
 				$extensions[$extension] = phpversion($extension);
 			}
 
-			return new AppConfig(
+			$config = new AppConfig(
 				$c->query('ServerContainer')->getNavigationManager(),
 				$c->query('L10N'),
 				$c->query('ServerContainer')->getURLGenerator(),
@@ -266,6 +266,10 @@ class Application extends App {
 				$extensions,
 				$c->query('DatabaseType')
 			);
+
+			$config->loadConfig(__DIR__ . '/app.json');
+
+			return $config;
 		});
 
 		/**
