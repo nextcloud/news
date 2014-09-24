@@ -13,16 +13,10 @@
 
 namespace OCA\News\AppInfo;
 
-function is_setup() {
+function is_compatible() {
 	// prevent breakage on 5.4
 	if (version_compare(phpversion(), '5.4', '<')) {
 		return false;
-	}
-
-	// disable useless codechecker in case security updates are shipped but
-	// blocked because of a bug in the checker
-	if (\OCP\Config::getSystemValue('appcodechecker') !== false) {
-		\OCP\Config::setSystemValue('appcodechecker', false);
 	}
 
 	return true;

@@ -18,7 +18,7 @@ use \OCA\News\Config\DependencyException;
 
 require_once __DIR__ . '/setup.php';
 
-if (is_setup()) {
+if (is_compatible()) {
 	// Turn all errors into exceptions to combat shitty library behavior
 	set_error_handler(function ($code, $message) {
 		if ($code === E_ERROR || $code === E_USER_ERROR) {

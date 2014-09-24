@@ -1,6 +1,6 @@
 owncloud-news (3.105)
 * **Bugfix**: Various wording fixes
-* **Bugfix**: Do not use Import/Export caption for settings buttons to avoid UX bugs in translated versions
+* **Bugfix**: Do not use Import/Export caption for settings buttons to avoid UI bugs in translated versions
 * **Bugfix**: Catch all exceptions for feed update to not stop on db errors
 * **Bugfix**: Register error handler only once
 * **Bugfix**: Fix German translation

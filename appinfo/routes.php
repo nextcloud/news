@@ -18,7 +18,7 @@ use \OCA\News\AppInfo\Application;
 
 require_once __DIR__ . '/setup.php';
 
-if (is_setup()) {
+if (is_compatible()) {
 	$application = new Application();
 	$application->registerRoutes($this, ['routes' => [
 		// page
