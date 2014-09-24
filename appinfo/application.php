@@ -67,14 +67,6 @@ class Application extends App {
 	public function __construct(array $urlParams=array()){
 		parent::__construct('news', $urlParams);
 
-		// Turn all errors into exceptions to combat shitty library behavior
-		set_error_handler(function ($code, $message) {
-			if ($code === E_ERROR || $code === E_USER_ERROR) {
-				throw new \Exception($message, $code);
-			}
-		});
-
-
 		$container = $this->getContainer();
 
 

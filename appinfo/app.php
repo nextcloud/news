@@ -19,6 +19,12 @@ use \OCA\News\Config\DependencyException;
 require_once __DIR__ . '/setup.php';
 
 if (is_setup()) {
+	// Turn all errors into exceptions to combat shitty library behavior
+	set_error_handler(function ($code, $message) {
+		if ($code === E_ERROR || $code === E_USER_ERROR) {
+			throw new \Exception($message, $code);
+		}
+	});
 
 	$container = new Application();
 
