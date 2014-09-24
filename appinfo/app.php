@@ -29,7 +29,6 @@ if (is_compatible()) {
 	$container = new Application();
 
 	$config = $container->getAppConfig();
-	$config->loadConfig(__DIR__ . '/app.json');
 	$config->registerNavigation();
 	$config->registerBackgroundJobs();
 	$config->registerHooks();
