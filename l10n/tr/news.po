@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-09-23 01:47-0400\n"
-"PO-Revision-Date: 2014-09-22 23:30+0000\n"
-"Last-Translator: Volkan Gezer <volkangezer@gmail.com>\n"
+"POT-Creation-Date: 2014-09-24 01:01-0400\n"
+"PO-Revision-Date: 2014-09-24 05:01+0000\n"
+"Last-Translator: I Robot\n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/owncloud/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -217,41 +217,38 @@ msgid "Compact view"
 msgstr "Sıkışık görünüm"
 
 #: templates/part.settings.php:20
-msgid "Show unread articles"
-msgstr "Okunmamış makaleleri göser"
+msgid "Show all articles"
+msgstr ""
 
 #: templates/part.settings.php:27
-msgid "Order by oldest first"
-msgstr "En eskiden sıralamaya başla"
+msgid "Reverse ordering"
+msgstr ""
 
 #: templates/part.settings.php:34
-msgid "Disable mark read during scrolling"
-msgstr "Kaydırma sırasında okundu olarak işaretlemeyi kapat"
+msgid "Disable mark read through scrolling"
+msgstr ""
 
 #: templates/part.settings.php:40
 msgid "Subscriptions (OPML)"
 msgstr "Abonelikler (OPML)"
 
-#: templates/part.settings.php:47 templates/part.settings.php:52
-#: templates/part.settings.php:84 templates/part.settings.php:89
+#: templates/part.settings.php:47 templates/part.settings.php:81
 msgid "Import"
 msgstr "İçe aktar"
 
-#: templates/part.settings.php:55 templates/part.settings.php:60
-#: templates/part.settings.php:65 templates/part.settings.php:68
-#: templates/part.settings.php:92 templates/part.settings.php:96
-#: templates/part.settings.php:100 templates/part.settings.php:103
+#: templates/part.settings.php:54 templates/part.settings.php:63
+#: templates/part.settings.php:88 templates/part.settings.php:95
 msgid "Export"
 msgstr "Dışa aktar"
 
-#: templates/part.settings.php:72
+#: templates/part.settings.php:69
 msgid "Error when importing: file does not contain valid OPML"
 msgstr "Dosya alımında hata: dosya geçerli OPML içermiyor"
 
-#: templates/part.settings.php:76
+#: templates/part.settings.php:73
 msgid "Unread/Starred Articles"
 msgstr "Okunmamış/Yıldızlı Makaleler"
 
-#: templates/part.settings.php:107
+#: templates/part.settings.php:101
 msgid "Error when importing: file does not contain valid JSON"
 msgstr "İçe alınırken hata: dosya geçerli JSON içermiyor"

@@ -8,6 +8,7 @@
 # Eduardo Viramontes <qubitozcom@gmail.com>, 2013
 # Jose Luis <joseluis.tirado@gmail.com>, 2014
 # juanman <juanma@kde.org.ar>, 2012-2013
+# Juan Rey Saura <email@juanrey.net>, 2014
 # Pablo Laguna <pablolaguna@vera.com.uy>, 2013
 # pedro.navia <pedro.navia@etecsa.cu>, 2012
 # Raul Fernandez Garcia <raulfg3@gmail.com>, 2012
@@ -23,8 +24,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-09-20 01:01-0400\n"
-"PO-Revision-Date: 2014-09-20 05:01+0000\n"
+"POT-Creation-Date: 2014-09-24 01:01-0400\n"
+"PO-Revision-Date: 2014-09-24 05:01+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/owncloud/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -65,11 +66,11 @@ msgstr "Importar fuentes y artículos"
 
 #: templates/part.content.php:33
 msgid "Star article"
-msgstr ""
+msgstr "Añadir artículo a favoritos"
 
 #: templates/part.content.php:34
 msgid "Unstar article"
-msgstr ""
+msgstr "Quitar artículo de favoritos"
 
 #: templates/part.content.php:37
 msgid "Keep article unread"
@@ -77,7 +78,7 @@ msgstr "Mantener el artículo como no-leído."
 
 #: templates/part.content.php:38
 msgid "Remove keep article unread"
-msgstr ""
+msgstr "Elimina mantener el artículo como no-leído."
 
 #: templates/part.content.php:44
 msgid "Open website"
@@ -226,41 +227,38 @@ msgid "Compact view"
 msgstr "Vista compacta"
 
 #: templates/part.settings.php:20
-msgid "Show unread articles"
-msgstr "Mostrar artículos no leídos"
+msgid "Show all articles"
+msgstr ""
 
 #: templates/part.settings.php:27
-msgid "Order by oldest first"
-msgstr "Ordenar por más antiguo primero"
+msgid "Reverse ordering"
+msgstr ""
 
 #: templates/part.settings.php:34
-msgid "Disable mark read during scrolling"
-msgstr "Desactivar marca de lectura durante el desplazamiento"
+msgid "Disable mark read through scrolling"
+msgstr ""
 
 #: templates/part.settings.php:40
 msgid "Subscriptions (OPML)"
 msgstr "Subscripciones (OPML)"
 
-#: templates/part.settings.php:47 templates/part.settings.php:52
-#: templates/part.settings.php:84 templates/part.settings.php:89
+#: templates/part.settings.php:47 templates/part.settings.php:81
 msgid "Import"
 msgstr "Importar"
 
-#: templates/part.settings.php:55 templates/part.settings.php:60
-#: templates/part.settings.php:65 templates/part.settings.php:68
-#: templates/part.settings.php:92 templates/part.settings.php:96
-#: templates/part.settings.php:100 templates/part.settings.php:103
+#: templates/part.settings.php:54 templates/part.settings.php:63
+#: templates/part.settings.php:88 templates/part.settings.php:95
 msgid "Export"
 msgstr "Exportar"
 
-#: templates/part.settings.php:72
+#: templates/part.settings.php:69
 msgid "Error when importing: file does not contain valid OPML"
 msgstr "Error al importar: el archivo no contiene OPML válido"
 
-#: templates/part.settings.php:76
+#: templates/part.settings.php:73
 msgid "Unread/Starred Articles"
 msgstr "Artículos no leídos y favoritos"
 
-#: templates/part.settings.php:107
+#: templates/part.settings.php:101
 msgid "Error when importing: file does not contain valid JSON"
 msgstr "Error al importar: el archivo no contiene JSON válido"

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-09-20 01:01-0400\n"
-"PO-Revision-Date: 2014-09-20 05:01+0000\n"
+"POT-Creation-Date: 2014-09-24 01:01-0400\n"
+"PO-Revision-Date: 2014-09-24 05:01+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: English (New Zealand) (http://www.transifex.com/projects/p/owncloud/language/en_NZ/)\n"
 "MIME-Version: 1.0\n"
@@ -210,41 +210,38 @@ msgid "Compact view"
 msgstr ""
 
 #: templates/part.settings.php:20
-msgid "Show unread articles"
+msgid "Show all articles"
 msgstr ""
 
 #: templates/part.settings.php:27
-msgid "Order by oldest first"
+msgid "Reverse ordering"
 msgstr ""
 
 #: templates/part.settings.php:34
-msgid "Disable mark read during scrolling"
+msgid "Disable mark read through scrolling"
 msgstr ""
 
 #: templates/part.settings.php:40
 msgid "Subscriptions (OPML)"
 msgstr ""
 
-#: templates/part.settings.php:47 templates/part.settings.php:52
-#: templates/part.settings.php:84 templates/part.settings.php:89
+#: templates/part.settings.php:47 templates/part.settings.php:81
 msgid "Import"
 msgstr ""
 
-#: templates/part.settings.php:55 templates/part.settings.php:60
-#: templates/part.settings.php:65 templates/part.settings.php:68
-#: templates/part.settings.php:92 templates/part.settings.php:96
-#: templates/part.settings.php:100 templates/part.settings.php:103
+#: templates/part.settings.php:54 templates/part.settings.php:63
+#: templates/part.settings.php:88 templates/part.settings.php:95
 msgid "Export"
 msgstr ""
 
-#: templates/part.settings.php:72
+#: templates/part.settings.php:69
 msgid "Error when importing: file does not contain valid OPML"
 msgstr ""
 
-#: templates/part.settings.php:76
+#: templates/part.settings.php:73
 msgid "Unread/Starred Articles"
 msgstr ""
 
-#: templates/part.settings.php:107
+#: templates/part.settings.php:101
 msgid "Error when importing: file does not contain valid JSON"
 msgstr ""

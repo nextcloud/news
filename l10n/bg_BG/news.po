@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-09-21 01:01-0400\n"
-"PO-Revision-Date: 2014-09-20 12:50+0000\n"
-"Last-Translator: Ivo\n"
+"POT-Creation-Date: 2014-09-24 01:01-0400\n"
+"PO-Revision-Date: 2014-09-24 05:01+0000\n"
+"Last-Translator: I Robot\n"
 "Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/projects/p/owncloud/language/bg_BG/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -213,41 +213,38 @@ msgid "Compact view"
 msgstr "Компактен изглед"
 
 #: templates/part.settings.php:20
-msgid "Show unread articles"
-msgstr "Покажи непрочетени статии"
+msgid "Show all articles"
+msgstr ""
 
 #: templates/part.settings.php:27
-msgid "Order by oldest first"
-msgstr "Подреди по намаляваща възраст"
+msgid "Reverse ordering"
+msgstr ""
 
 #: templates/part.settings.php:34
-msgid "Disable mark read during scrolling"
-msgstr "Премахни отбелижи като прочетено по време на скролиране"
+msgid "Disable mark read through scrolling"
+msgstr ""
 
 #: templates/part.settings.php:40
 msgid "Subscriptions (OPML)"
 msgstr "Абонаменти (OPML)"
 
-#: templates/part.settings.php:47 templates/part.settings.php:52
-#: templates/part.settings.php:84 templates/part.settings.php:89
+#: templates/part.settings.php:47 templates/part.settings.php:81
 msgid "Import"
 msgstr "Внасяне"
 
-#: templates/part.settings.php:55 templates/part.settings.php:60
-#: templates/part.settings.php:65 templates/part.settings.php:68
-#: templates/part.settings.php:92 templates/part.settings.php:96
-#: templates/part.settings.php:100 templates/part.settings.php:103
+#: templates/part.settings.php:54 templates/part.settings.php:63
+#: templates/part.settings.php:88 templates/part.settings.php:95
 msgid "Export"
 msgstr "Експорт"
 
-#: templates/part.settings.php:72
+#: templates/part.settings.php:69
 msgid "Error when importing: file does not contain valid OPML"
 msgstr "Грешка при внасяне: файлът няма валиден OPML"
 
-#: templates/part.settings.php:76
+#: templates/part.settings.php:73
 msgid "Unread/Starred Articles"
 msgstr "Непрочетени/Отбелязани статии"
 
-#: templates/part.settings.php:107
+#: templates/part.settings.php:101
 msgid "Error when importing: file does not contain valid JSON"
 msgstr "Грешка при внасяне: файлът няма валиден JSON"
