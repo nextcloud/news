@@ -38,7 +38,7 @@
     <div ng-if="feed.deleted"
          class="app-navigation-entry-deleted"
          news-timeout="Navigation.deleteFeed(feed)">
-        <div class="app-navigation-entry-deleted-description"><?php p($l->t('Deleted feed')); ?> {{ feed.title }}</div>
+        <div class="app-navigation-entry-deleted-description"><?php p($l->t('Deleted feed')); ?>: {{ feed.title }}</div>
         <button class="icon-history app-navigation-entry-deleted-button"
                 title="<?php p($l->t('Undo delete feed')); ?>"
                 ng-click="Navigation.undoDeleteFeed(feed)"></button>

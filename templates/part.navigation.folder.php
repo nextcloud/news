@@ -23,7 +23,7 @@
     <div ng-if="folder.deleted"
         class="app-navigation-entry-deleted"
         news-timeout="Navigation.deleteFolder(folder)">
-        <div class="app-navigation-entry-deleted-description"><?php p($l->t('Deleted folder')); ?> {{ folder.name }}</div>
+        <div class="app-navigation-entry-deleted-description"><?php p($l->t('Deleted folder')); ?>: {{ folder.name }}</div>
         <button class="icon-history app-navigation-entry-deleted-button"
                 title="<?php p($l->t('Undo delete folder')); ?>"
                 ng-click="Navigation.undoDeleteFolder(folder)"></button>
