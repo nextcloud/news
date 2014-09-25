@@ -23,9 +23,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-09-24 01:01-0400\n"
-"PO-Revision-Date: 2014-09-24 05:01+0000\n"
-"Last-Translator: I Robot\n"
+"POT-Creation-Date: 2014-09-25 01:01-0400\n"
+"PO-Revision-Date: 2014-09-24 12:31+0000\n"
+"Last-Translator: Tobias Bannert\n"
 "Language-Team: German (Germany) (http://www.transifex.com/projects/p/owncloud/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,7 +41,7 @@ msgstr "Feed konnte nicht hinzugefügt werden:  Existiert bereits"
 msgid ""
 "Can not add feed: URL does not exist, SSL Certificate can not be validated "
 "or feed has invalid xml"
-msgstr "Feed konnte nicht hinzugefügt werden: URL existiert nicht, SSL-Zertifikat kann nicht überprüft werden oder der Feed enthält ungültiges XML"
+msgstr "Feed konnte nicht hinzugefügt werden: Adresse ist nicht vorhanden, SSL-Zertifikat kann nicht überprüft werden oder der Feed enthält nicht gültiges XML"
 
 #: service/feedservice.php:296
 msgid "Articles without feed"
@@ -57,7 +57,7 @@ msgstr "Neuen Feed hinzufügen"
 
 #: templates/part.content.php:4
 msgid "There are no feeds yet. Go ahead and add some"
-msgstr "Keine Feeds vorhanden. Gehen Sie nach oben und fügen Sie einige hinzu"
+msgstr "Keine Feeds vorhanden. Bitte nach oben gehen und einige hinzufügen"
 
 #: templates/part.content.php:5
 msgid "Import feeds and articles"
@@ -77,11 +77,11 @@ msgstr "Artikel ungelesenen lassen"
 
 #: templates/part.content.php:38
 msgid "Remove keep article unread"
-msgstr "Markierung Artikel ungelesenen lassen entfernen"
+msgstr "»Artikel ungelesenen lassen« entfernen"
 
 #: templates/part.content.php:44
 msgid "Open website"
-msgstr "Webseite öffnen"
+msgstr "Internetseite öffnen"
 
 #: templates/part.content.php:67
 msgid "by"
@@ -150,7 +150,7 @@ msgstr "Erstellen"
 
 #: templates/part.navigation.feed.php:41
 msgid "Deleted feed"
-msgstr "gelöschter Feed"
+msgstr "Gelöschter Feed"
 
 #: templates/part.navigation.feed.php:43
 msgid "Undo delete feed"

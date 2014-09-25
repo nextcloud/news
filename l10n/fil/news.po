@@ -3,252 +3,245 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# dudanogueira <dudanogueira@gmail.com>, 2012
-# Flávio Veras <flaviove@gmail.com>, 2013-2014
-# Fred Ulisses Maranhão <fred.maranhao@gmail.com>, 2012
-# Sedir G. Morais <philippi.sedir@gmail.com>, 2012
-# Rodrigo Tavares <rodrigost23@gmail.com>, 2013
-# Sedir G. Morais <philippi.sedir@gmail.com>, 2013
-# Mauro Cesar <thoriumbr@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2014-09-25 01:01-0400\n"
-"PO-Revision-Date: 2014-09-24 20:35+0000\n"
-"Last-Translator: Flávio Veras <flaviove@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/owncloud/language/pt_BR/)\n"
+"PO-Revision-Date: 2012-08-26 23:39+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Filipino (http://www.transifex.com/projects/p/owncloud/language/fil/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_BR\n"
+"Language: fil\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: service/feedservice.php:104
 msgid "Can not add feed: Exists already"
-msgstr "Não é possível adicionar alimentação: já existe"
+msgstr ""
 
 #: service/feedservice.php:149
 msgid ""
 "Can not add feed: URL does not exist, SSL Certificate can not be validated "
 "or feed has invalid xml"
-msgstr "Não é possível fazer alimentação: URL não existe, Certificado SSL não pode ser validado ou alimentação tem xml inválido"
+msgstr ""
 
 #: service/feedservice.php:296
 msgid "Articles without feed"
-msgstr "Artigos sem alimentação"
+msgstr ""
 
 #: service/folderservice.php:56
 msgid "Can not add folder: Exists already"
-msgstr "Não é possível adicionar pasta: já existe"
+msgstr ""
 
 #: templates/part.content.php:3
 msgid "Add a feed"
-msgstr "Adicionar uma feed"
+msgstr ""
 
 #: templates/part.content.php:4
 msgid "There are no feeds yet. Go ahead and add some"
-msgstr "Ainda não existe nenhum feed. Vá em frente e adicione algum"
+msgstr ""
 
 #: templates/part.content.php:5
 msgid "Import feeds and articles"
-msgstr "Importar feeds e artigos"
+msgstr ""
 
 #: templates/part.content.php:33
 msgid "Star article"
-msgstr "Iniciar artigo"
+msgstr ""
 
 #: templates/part.content.php:34
 msgid "Unstar article"
-msgstr "Remover estrela do artigo"
+msgstr ""
 
 #: templates/part.content.php:37
 msgid "Keep article unread"
-msgstr "Manter artigo não lido"
+msgstr ""
 
 #: templates/part.content.php:38
 msgid "Remove keep article unread"
-msgstr "Remover a marca, manter artigo não lido"
+msgstr ""
 
 #: templates/part.content.php:44
 msgid "Open website"
-msgstr "Abrir website"
+msgstr ""
 
 #: templates/part.content.php:67
 msgid "by"
-msgstr "por"
+msgstr ""
 
 #: templates/part.content.php:68
 msgid "from"
-msgstr "de"
+msgstr ""
 
 #: templates/part.content.php:77
 msgid "Browser can not play media type"
-msgstr "O navegador não suporta esse tipo de mídia"
+msgstr ""
 
 #: templates/part.content.php:83
 msgid "Download"
-msgstr "Baixar"
+msgstr ""
 
 #: templates/part.navigation.addfeed.php:5
 #: templates/part.navigation.addfeed.php:58
 msgid "Subscribe"
-msgstr "Assinar"
+msgstr ""
 
 #: templates/part.navigation.addfeed.php:15
 msgid "Web address"
-msgstr "Endereço Web"
+msgstr ""
 
 #: templates/part.navigation.addfeed.php:22
 msgid "Feed exists already!"
-msgstr "Este feed já existe!"
+msgstr ""
 
 #: templates/part.navigation.addfeed.php:27
 msgid "Folder"
-msgstr "Pasta"
+msgstr ""
 
 #: templates/part.navigation.addfeed.php:31
 msgid "No folder"
-msgstr "Nenhuma pasta"
+msgstr ""
 
 #: templates/part.navigation.addfeed.php:36
 msgid "New folder"
-msgstr "Nova pasta"
+msgstr ""
 
 #: templates/part.navigation.addfeed.php:44
 #: templates/part.navigation.addfolder.php:16
 #: templates/part.navigation.addfolder.php:17
 msgid "Folder name"
-msgstr "Nome da pasta"
+msgstr ""
 
 #: templates/part.navigation.addfeed.php:51
 msgid "Go back"
-msgstr "Retornar"
+msgstr ""
 
 #: templates/part.navigation.addfeed.php:55
 #: templates/part.navigation.addfolder.php:21
 #: templates/part.navigation.folder.php:52
 msgid "Folder exists already!"
-msgstr "Esta pasta já existe!"
+msgstr ""
 
 #: templates/part.navigation.addfolder.php:5
 msgid "New Folder"
-msgstr "Nova Pasta"
+msgstr ""
 
 #: templates/part.navigation.addfolder.php:24
 msgid "Create"
-msgstr "Criar"
+msgstr ""
 
 #: templates/part.navigation.feed.php:41
 msgid "Deleted feed"
-msgstr "Eliminar feed"
+msgstr ""
 
 #: templates/part.navigation.feed.php:43
 msgid "Undo delete feed"
-msgstr "Desfazer exclusão de feed"
+msgstr ""
 
 #: templates/part.navigation.feed.php:56
 #: templates/part.navigation.folder.php:46
 msgid "Rename"
-msgstr "Renomear"
+msgstr ""
 
 #: templates/part.navigation.feed.php:70
 #: templates/part.navigation.folder.php:77
 msgid "Menu"
-msgstr "Menu"
+msgstr ""
 
 #: templates/part.navigation.feed.php:79
 msgid "Rename feed"
-msgstr "Renomear alimentação"
+msgstr ""
 
 #: templates/part.navigation.feed.php:82
 msgid "Delete feed"
-msgstr "Excluir feed"
+msgstr ""
 
 #: templates/part.navigation.feed.php:85
 #: templates/part.navigation.folder.php:92
 #: templates/part.navigation.unreadfeed.php:29
 msgid "Read all"
-msgstr "Ler tudo"
+msgstr ""
 
 #: templates/part.navigation.feed.php:93
 #: templates/part.navigation.folder.php:103
 msgid "Dismiss"
-msgstr "Dispensar"
+msgstr ""
 
 #: templates/part.navigation.folder.php:20
 msgid "Collapse"
-msgstr "Retrair"
+msgstr ""
 
 #: templates/part.navigation.folder.php:26
 msgid "Deleted folder"
-msgstr "Pasta eliminada"
+msgstr ""
 
 #: templates/part.navigation.folder.php:28
 msgid "Undo delete folder"
-msgstr "Desfazer a eliminação de pasta"
+msgstr ""
 
 #: templates/part.navigation.folder.php:86
 msgid "Rename folder"
-msgstr "Renomear pasta"
+msgstr ""
 
 #: templates/part.navigation.folder.php:89
 msgid "Delete folder"
-msgstr "Excluir pasta"
+msgstr ""
 
 #: templates/part.navigation.starredfeed.php:8
 msgid "Starred"
-msgstr "Destacado"
+msgstr ""
 
 #: templates/part.navigation.unreadfeed.php:8
 msgid "Unread articles"
-msgstr "Artigos não lidos"
+msgstr ""
 
 #: templates/part.navigation.unreadfeed.php:12
 msgid "All articles"
-msgstr "Todos os artigos"
+msgstr ""
 
 #: templates/part.settings.php:8
 msgid "Settings"
-msgstr "Configurações"
+msgstr ""
 
 #: templates/part.settings.php:13
 msgid "Compact view"
-msgstr "Versão reduzida"
+msgstr ""
 
 #: templates/part.settings.php:20
 msgid "Show all articles"
-msgstr "Mostrar todos os arquivos"
+msgstr ""
 
 #: templates/part.settings.php:27
 msgid "Reverse ordering"
-msgstr "Ordenação reversa"
+msgstr ""
 
 #: templates/part.settings.php:34
 msgid "Disable mark read through scrolling"
-msgstr "Desativar a marca de lido durante a rolagem"
+msgstr ""
 
 #: templates/part.settings.php:40
 msgid "Subscriptions (OPML)"
-msgstr "Assinaturas (OPML) "
+msgstr ""
 
 #: templates/part.settings.php:47 templates/part.settings.php:81
 msgid "Import"
-msgstr "Importar"
+msgstr ""
 
 #: templates/part.settings.php:54 templates/part.settings.php:63
 #: templates/part.settings.php:88 templates/part.settings.php:95
 msgid "Export"
-msgstr "Exportar"
+msgstr ""
 
 #: templates/part.settings.php:69
 msgid "Error when importing: file does not contain valid OPML"
-msgstr "Erro ao importar: arquivo não contém OPML válido"
+msgstr ""
 
 #: templates/part.settings.php:73
 msgid "Unread/Starred Articles"
-msgstr "Não lidas/Artigos Destacados"
+msgstr ""
 
 #: templates/part.settings.php:101
 msgid "Error when importing: file does not contain valid JSON"
-msgstr "Erro ao importar: arquivo não contém JSON válido"
+msgstr ""

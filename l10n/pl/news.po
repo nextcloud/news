@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-09-24 01:01-0400\n"
-"PO-Revision-Date: 2014-09-24 05:01+0000\n"
-"Last-Translator: I Robot\n"
+"POT-Creation-Date: 2014-09-25 01:01-0400\n"
+"PO-Revision-Date: 2014-09-24 06:11+0000\n"
+"Last-Translator: Maciej Przybecki <maciej.przybecki@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/owncloud/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -46,35 +46,35 @@ msgstr "Nie można dodać folderu: istnieje już"
 
 #: templates/part.content.php:3
 msgid "Add a feed"
-msgstr ""
+msgstr "Dodaj kanał"
 
 #: templates/part.content.php:4
 msgid "There are no feeds yet. Go ahead and add some"
-msgstr ""
+msgstr "Nie ma żadnych kanałów. Dodaj kilka"
 
 #: templates/part.content.php:5
 msgid "Import feeds and articles"
-msgstr ""
+msgstr "Importuj kanały i artykuły"
 
 #: templates/part.content.php:33
 msgid "Star article"
-msgstr ""
+msgstr "Oznacz gwiazdką"
 
 #: templates/part.content.php:34
 msgid "Unstar article"
-msgstr ""
+msgstr "Odznacz gwiazdkę"
 
 #: templates/part.content.php:37
 msgid "Keep article unread"
-msgstr ""
+msgstr "Zachowaj jako nieprzeczytany"
 
 #: templates/part.content.php:38
 msgid "Remove keep article unread"
-msgstr ""
+msgstr "Usuń \"zachowanie\" jako nieprzeczytany"
 
 #: templates/part.content.php:44
 msgid "Open website"
-msgstr ""
+msgstr "Otwórz stronę"
 
 #: templates/part.content.php:67
 msgid "by"
@@ -86,7 +86,7 @@ msgstr "z"
 
 #: templates/part.content.php:77
 msgid "Browser can not play media type"
-msgstr ""
+msgstr "Przeglądarka nie może odtworzyć mediów"
 
 #: templates/part.content.php:83
 msgid "Download"
@@ -125,17 +125,17 @@ msgstr "Nazwa folderu"
 
 #: templates/part.navigation.addfeed.php:51
 msgid "Go back"
-msgstr ""
+msgstr "Wróć"
 
 #: templates/part.navigation.addfeed.php:55
 #: templates/part.navigation.addfolder.php:21
 #: templates/part.navigation.folder.php:52
 msgid "Folder exists already!"
-msgstr ""
+msgstr "Folder już istnieje!"
 
 #: templates/part.navigation.addfolder.php:5
 msgid "New Folder"
-msgstr ""
+msgstr "Nowy folder"
 
 #: templates/part.navigation.addfolder.php:24
 msgid "Create"
@@ -143,11 +143,11 @@ msgstr "Utwórz"
 
 #: templates/part.navigation.feed.php:41
 msgid "Deleted feed"
-msgstr ""
+msgstr "Usuń kanał"
 
 #: templates/part.navigation.feed.php:43
 msgid "Undo delete feed"
-msgstr ""
+msgstr "Cofnij \"usuń kanał\""
 
 #: templates/part.navigation.feed.php:56
 #: templates/part.navigation.folder.php:46
@@ -157,7 +157,7 @@ msgstr "Zmień nazwę"
 #: templates/part.navigation.feed.php:70
 #: templates/part.navigation.folder.php:77
 msgid "Menu"
-msgstr ""
+msgstr "Menu"
 
 #: templates/part.navigation.feed.php:79
 msgid "Rename feed"
@@ -171,12 +171,12 @@ msgstr "Usuń kanał"
 #: templates/part.navigation.folder.php:92
 #: templates/part.navigation.unreadfeed.php:29
 msgid "Read all"
-msgstr ""
+msgstr "Przeczytaj wszystkie"
 
 #: templates/part.navigation.feed.php:93
 #: templates/part.navigation.folder.php:103
 msgid "Dismiss"
-msgstr ""
+msgstr "Anuluj"
 
 #: templates/part.navigation.folder.php:20
 msgid "Collapse"
@@ -184,11 +184,11 @@ msgstr "Zwiń"
 
 #: templates/part.navigation.folder.php:26
 msgid "Deleted folder"
-msgstr ""
+msgstr "Usuń folder"
 
 #: templates/part.navigation.folder.php:28
 msgid "Undo delete folder"
-msgstr ""
+msgstr "Cofnij \"usuń folder\""
 
 #: templates/part.navigation.folder.php:86
 msgid "Rename folder"
@@ -216,19 +216,19 @@ msgstr "Ustawienia"
 
 #: templates/part.settings.php:13
 msgid "Compact view"
-msgstr ""
+msgstr "Widok scalony"
 
 #: templates/part.settings.php:20
 msgid "Show all articles"
-msgstr ""
+msgstr "Pokaż wszystkie artykuły"
 
 #: templates/part.settings.php:27
 msgid "Reverse ordering"
-msgstr ""
+msgstr "Odwróć kolejność"
 
 #: templates/part.settings.php:34
 msgid "Disable mark read through scrolling"
-msgstr ""
+msgstr "Zablokuj oznaczanie jako przeczytane podczas przewijania"
 
 #: templates/part.settings.php:40
 msgid "Subscriptions (OPML)"
