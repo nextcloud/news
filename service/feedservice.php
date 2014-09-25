@@ -143,7 +143,7 @@ class FeedService extends Service {
 
 			return $feed;
 		} catch(FetcherException $ex){
-			$this->logger->debug($ex->getMessage(), $this->loggerParams);
+			$this->logger->error($ex->getMessage(), $this->loggerParams);
 			throw new ServiceNotFoundException(
 				$this->l10n->t(
 					'Can not add feed: URL does not exist, SSL Certificate can not be validated ' .
@@ -162,7 +162,7 @@ class FeedService extends Service {
 			try {
 				$this->update($feed->getId(), $feed->getUserId());
 			} catch(\Exception $ex){
-				$this->logger->debug('Could not update feed ' . $ex->getMessage(),
+				$this->logger->error('Could not update feed ' . $ex->getMessage(),
 					$this->loggerParams);
 			}
 		}
@@ -213,9 +213,9 @@ class FeedService extends Service {
 			} catch(FetcherException $ex){
 				// failed updating is not really a problem, so only log it
 
-				$this->logger->debug('Can not update feed with url ' . $existingFeed->getUrl() .
+				$this->logger->error('Can not update feed with url ' . $existingFeed->getUrl() .
 					': Not found or bad source', $this->loggerParams);
-				$this->logger->debug($ex->getMessage(), $this->loggerParams);
+				$this->logger->error($ex->getMessage(), $this->loggerParams);
 			}
 
 			return $this->feedMapper->find($feedId, $userId);

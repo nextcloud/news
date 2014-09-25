@@ -5,6 +5,7 @@ owncloud-news (3.105)
 * **Bugfix**: Register error handler only once
 * **Bugfix**: Fix German translation
 * **Bugfix**: Load app config also when in cron mode
+* **Bugfix**: Log feed create and update errors to owncloud log as error because debug is broken
 
 owncloud-news (3.104)
 * **Bugfix**: Backport ownCloud CSS z-index fix to ownCloud 7 for settings popup that made it difficult to access the administration tab
