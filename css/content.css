@@ -231,7 +231,7 @@
     }
 
     #app-content .open .utils .title h1 a {
-        overflow: scroll;
+        overflow: auto;
         white-space: normal;
     }
 
