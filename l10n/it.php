@@ -44,6 +44,8 @@
 "All articles" => "Tutti gli articoli",
 "Settings" => "Impostazioni",
 "Compact view" => "Visualizzazione compatta",
+"Show all articles" => "Mostra tutti gli articoli",
+"Reverse ordering" => "Ordine inverso",
 "Subscriptions (OPML)" => "Sottoscrizioni (OPML)",
 "Import" => "Importa",
 "Export" => "Esporta",
