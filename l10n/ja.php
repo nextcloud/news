@@ -3,6 +3,7 @@
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "フィードを追加できません：URLが存在しないか、SSL認証が正しくない、もしくはフィードが不正なXMLです。",
 "Articles without feed" => "フィードなし記事",
 "Can not add folder: Exists already" => "フォルダーを追加できません: すでに存在します",
+"Add a feed" => "フィードを追加",
 "by" => "により",
 "from" => "開始",
 "Download" => "ダウンロード",

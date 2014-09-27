@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-09-24 01:01-0400\n"
-"PO-Revision-Date: 2014-09-24 05:01+0000\n"
-"Last-Translator: I Robot\n"
+"POT-Creation-Date: 2014-09-27 01:01-0400\n"
+"PO-Revision-Date: 2014-09-26 07:27+0000\n"
+"Last-Translator: Jaroslav Lichtblau <jlichtblau@seznam.cz>\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/projects/p/owncloud/language/cs_CZ/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -220,15 +220,15 @@ msgstr "Kompaktní zobrazení"
 
 #: templates/part.settings.php:20
 msgid "Show all articles"
-msgstr ""
+msgstr "Zobrazit všechny články"
 
 #: templates/part.settings.php:27
 msgid "Reverse ordering"
-msgstr ""
+msgstr "Opačné řazení"
 
 #: templates/part.settings.php:34
 msgid "Disable mark read through scrolling"
-msgstr ""
+msgstr "Vypnout označování jako přečtené při posunu"
 
 #: templates/part.settings.php:40
 msgid "Subscriptions (OPML)"

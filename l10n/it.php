@@ -46,6 +46,7 @@
 "Compact view" => "Visualizzazione compatta",
 "Show all articles" => "Mostra tutti gli articoli",
 "Reverse ordering" => "Ordine inverso",
+"Disable mark read through scrolling" => "Disabilita la marcatura come letto durante lo scorrimento",
 "Subscriptions (OPML)" => "Sottoscrizioni (OPML)",
 "Import" => "Importa",
 "Export" => "Esporta",
