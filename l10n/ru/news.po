@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-09-27 01:01-0400\n"
-"PO-Revision-Date: 2014-09-27 05:00+0000\n"
+"POT-Creation-Date: 2014-09-28 01:01-0400\n"
+"PO-Revision-Date: 2014-09-27 05:20+0000\n"
 "Last-Translator: Владислав <split7fire@yandex.ru>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/owncloud/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -134,7 +134,7 @@ msgstr "Имя папки"
 
 #: templates/part.navigation.addfeed.php:51
 msgid "Go back"
-msgstr ""
+msgstr "Вернуться назад"
 
 #: templates/part.navigation.addfeed.php:55
 #: templates/part.navigation.addfolder.php:21
@@ -180,12 +180,12 @@ msgstr "Удалить ленту"
 #: templates/part.navigation.folder.php:92
 #: templates/part.navigation.unreadfeed.php:29
 msgid "Read all"
-msgstr ""
+msgstr "Прочесть всё"
 
 #: templates/part.navigation.feed.php:93
 #: templates/part.navigation.folder.php:103
 msgid "Dismiss"
-msgstr ""
+msgstr "Прекратить"
 
 #: templates/part.navigation.folder.php:20
 msgid "Collapse"
@@ -193,11 +193,11 @@ msgstr "Свернуть"
 
 #: templates/part.navigation.folder.php:26
 msgid "Deleted folder"
-msgstr ""
+msgstr "Удаленная папка"
 
 #: templates/part.navigation.folder.php:28
 msgid "Undo delete folder"
-msgstr ""
+msgstr "Отменить удаление папки"
 
 #: templates/part.navigation.folder.php:86
 msgid "Rename folder"
@@ -237,7 +237,7 @@ msgstr "В обратном порядке"
 
 #: templates/part.settings.php:34
 msgid "Disable mark read through scrolling"
-msgstr ""
+msgstr "Отключить чтение пометок при прокручивании"
 
 #: templates/part.settings.php:40
 msgid "Subscriptions (OPML)"

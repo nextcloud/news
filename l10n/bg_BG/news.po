@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-09-24 01:01-0400\n"
-"PO-Revision-Date: 2014-09-24 05:01+0000\n"
-"Last-Translator: I Robot\n"
+"POT-Creation-Date: 2014-09-28 01:01-0400\n"
+"PO-Revision-Date: 2014-09-27 21:50+0000\n"
+"Last-Translator: Ivo\n"
 "Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/projects/p/owncloud/language/bg_BG/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -214,15 +214,15 @@ msgstr "Компактен изглед"
 
 #: templates/part.settings.php:20
 msgid "Show all articles"
-msgstr ""
+msgstr "Покажи всички статии"
 
 #: templates/part.settings.php:27
 msgid "Reverse ordering"
-msgstr ""
+msgstr "В обратен ред"
 
 #: templates/part.settings.php:34
 msgid "Disable mark read through scrolling"
-msgstr ""
+msgstr "Премахни отбележи като прочетено по време на скролиране"
 
 #: templates/part.settings.php:40
 msgid "Subscriptions (OPML)"
