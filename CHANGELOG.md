@@ -1,3 +1,6 @@
+owncloud-news (3.203)
+* **Enhancement**: Provide manifest to make News an installable web app   
+
 owncloud-news (3.202)
 * **Enhancement**: Switch keep unread and star icon
 
