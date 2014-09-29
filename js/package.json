@@ -35,7 +35,7 @@
     "grunt-ng-annotate": "^0.4.0",
     "grunt-phpunit": "^0.3.5",
     "grunt-protractor-runner": "^1.1.4",
-    "grunt-protractor-webdriver": "^0.1.8",
+    "grunt-protractor-webdriver": "^0.1.9",
     "grunt-wrap": "^0.3.0",
     "karma": "^0.12.23",
     "karma-chrome-launcher": "^0.1.4",
