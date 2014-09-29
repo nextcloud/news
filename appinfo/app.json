@@ -39,7 +39,7 @@
         "owncloud": ">=7",
         "libs": {
             "curl": "*",
-            "libxml": ">=2.9"
+            "libxml": ">=2.7.8"
         }
     }
 }
