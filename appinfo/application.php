@@ -29,6 +29,7 @@ use \OCA\News\Controller\UtilityApiController;
 use \OCA\News\Controller\FolderApiController;
 use \OCA\News\Controller\FeedApiController;
 use \OCA\News\Controller\ItemApiController;
+use \OCA\News\Controller\AppController;
 
 use \OCA\News\Service\FolderService;
 use \OCA\News\Service\FeedService;
@@ -169,6 +170,14 @@ class Application extends App {
 			);
 		});
 
+		$container->registerService('AppController', function($c) {
+			return new AppController(
+				$c->query('AppName'),
+				$c->query('Request'),
+				$c->query('ServerContainer')->getURLGenerator(),
+				$c->query('AppConfig')
+			);
+		});
 
 		/**
 		 * Business Layer
