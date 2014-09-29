@@ -74,7 +74,7 @@
                     <news-enclosure type="{{ item.enclosureMime }}"
                                 link="{{ item.enclosureLink }}">
                         <p class="enclosure-error">
-                            <?php p($l->t('Browser can not play media type')) ?>
+                            <?php p($l->t('Browser can not play media type')) ?>:
                             {{ item.enclosureMime }}
                         </p>
                         <a class="button"
