@@ -4,6 +4,7 @@ owncloud-news (3.201)
 * **Bugfix**: SimplePie: Do not break if url encoded links contain non ASCII chars
 * **Bugfix**: Favicon should stay in place if you expand an article in compact view
 * **Bugfix**: Go back to debug level logging for feed updates
+* **Bugfix**: Fix heise.de feeds
 
 owncloud-news (3.105)
 * **Bugfix**: Various wording fixes
