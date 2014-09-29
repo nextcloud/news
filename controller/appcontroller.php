@@ -38,13 +38,13 @@ class AppController extends Controller {
     /**
      * @NoCSRFRequired
      * @PublicPage
-     * 
+     *
      * Generates a web app manifest, according to specs in:
      * https://developer.mozilla.org/en-US/Apps/Build/Manifest
      */
     public function manifest() {
         $config = $this->appConfig->getConfig();
-        
+
         // size of the icons: 128x128 is required by FxOS for all app manifests
         $iconSizes = ['128', '512'];
         $icons = [];
@@ -57,19 +57,17 @@ class AppController extends Controller {
             }
         }
 
-        $params = [
+        return [
             "name" => $config['name'],
             "description" => $config['description'],
             "launch_path" => $this->urlGenerator->linkToRoute(
                 $config['id'] . '.page.index'),
-            "icons" => $icons, 
+            "icons" => $icons,
             "developer" => [
                 "name" => "ownCloud community",
                 "url" => $config['homepage']
-            ],
+            ]
         ];
-        
-        return $params;
     }
 
 }

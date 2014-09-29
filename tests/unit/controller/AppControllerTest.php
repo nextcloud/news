@@ -40,9 +40,9 @@ class AppControllerTest extends \PHPUnit_Framework_TestCase {
             '\OCA\News\Config\AppConfig')
             ->disableOriginalConstructor()
             ->getMock();
- 
+
         $this->configData = [
-            "name" => "AppTest", 
+            "name" => "AppTest",
             "id" => "apptest",
             "description" => "This is a test app",
             "homepage" => "https://github.com/owncloud/test"
@@ -57,12 +57,11 @@ class AppControllerTest extends \PHPUnit_Framework_TestCase {
             ->method('getConfig')
             ->will($this->returnValue($this->configData));
         $result = $this->controller->manifest();
-        $jsonResult = json_decode($result->render(), true);
-        $this->assertEquals($jsonResult['name'], 
+        $this->assertEquals($result['name'],
             $this->configData['name']);
-        $this->assertEquals($jsonResult['description'], 
+        $this->assertEquals($result['description'],
             $this->configData['description']);
-        $this->assertEquals($jsonResult['developer']['url'], 
+        $this->assertEquals($result['developer']['url'],
             $this->configData['homepage']);
     }
 
