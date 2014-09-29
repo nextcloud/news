@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-09-24 01:01-0400\n"
-"PO-Revision-Date: 2014-09-24 05:01+0000\n"
-"Last-Translator: I Robot\n"
+"POT-Creation-Date: 2014-09-29 01:01-0400\n"
+"PO-Revision-Date: 2014-09-28 13:30+0000\n"
+"Last-Translator: vidaren <news@vidartysse.net>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/projects/p/owncloud/language/nb_NO/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,35 +43,35 @@ msgstr "Kan ikke legge til mappe: Finnes allerede"
 
 #: templates/part.content.php:3
 msgid "Add a feed"
-msgstr ""
+msgstr "Legg til en feed"
 
 #: templates/part.content.php:4
 msgid "There are no feeds yet. Go ahead and add some"
-msgstr ""
+msgstr "Der er ingen feeds ennå. Legg inn noen"
 
 #: templates/part.content.php:5
 msgid "Import feeds and articles"
-msgstr ""
+msgstr "Importer feeds og artikler"
 
 #: templates/part.content.php:33
 msgid "Star article"
-msgstr ""
+msgstr "Merk artikkelen"
 
 #: templates/part.content.php:34
 msgid "Unstar article"
-msgstr ""
+msgstr "Fjern merking av artikkelen"
 
 #: templates/part.content.php:37
 msgid "Keep article unread"
-msgstr ""
+msgstr "Behold artikkelen ulest"
 
 #: templates/part.content.php:38
 msgid "Remove keep article unread"
-msgstr ""
+msgstr "Fjern behold artikkelen ulest"
 
 #: templates/part.content.php:44
 msgid "Open website"
-msgstr ""
+msgstr "Åpne webside"
 
 #: templates/part.content.php:67
 msgid "by"
@@ -83,7 +83,7 @@ msgstr "fra"
 
 #: templates/part.content.php:77
 msgid "Browser can not play media type"
-msgstr ""
+msgstr "Nettleseren kan ikke spille media-typen"
 
 #: templates/part.content.php:83
 msgid "Download"
@@ -122,17 +122,17 @@ msgstr "Mappenavn"
 
 #: templates/part.navigation.addfeed.php:51
 msgid "Go back"
-msgstr ""
+msgstr "Gå tilbake"
 
 #: templates/part.navigation.addfeed.php:55
 #: templates/part.navigation.addfolder.php:21
 #: templates/part.navigation.folder.php:52
 msgid "Folder exists already!"
-msgstr ""
+msgstr "Mappe finnes allerede!"
 
 #: templates/part.navigation.addfolder.php:5
 msgid "New Folder"
-msgstr ""
+msgstr "Ny mappe"
 
 #: templates/part.navigation.addfolder.php:24
 msgid "Create"
@@ -140,11 +140,11 @@ msgstr "Opprett"
 
 #: templates/part.navigation.feed.php:41
 msgid "Deleted feed"
-msgstr ""
+msgstr "Slettet feed"
 
 #: templates/part.navigation.feed.php:43
 msgid "Undo delete feed"
-msgstr ""
+msgstr "Angre sletting av feed"
 
 #: templates/part.navigation.feed.php:56
 #: templates/part.navigation.folder.php:46
@@ -154,7 +154,7 @@ msgstr "Gi nytt navn"
 #: templates/part.navigation.feed.php:70
 #: templates/part.navigation.folder.php:77
 msgid "Menu"
-msgstr ""
+msgstr "Meny"
 
 #: templates/part.navigation.feed.php:79
 msgid "Rename feed"
@@ -168,12 +168,12 @@ msgstr "Slett nyhetskilden"
 #: templates/part.navigation.folder.php:92
 #: templates/part.navigation.unreadfeed.php:29
 msgid "Read all"
-msgstr ""
+msgstr "Les alle"
 
 #: templates/part.navigation.feed.php:93
 #: templates/part.navigation.folder.php:103
 msgid "Dismiss"
-msgstr ""
+msgstr "Forkast"
 
 #: templates/part.navigation.folder.php:20
 msgid "Collapse"
@@ -181,11 +181,11 @@ msgstr "Skjul"
 
 #: templates/part.navigation.folder.php:26
 msgid "Deleted folder"
-msgstr ""
+msgstr "Slettet mappe"
 
 #: templates/part.navigation.folder.php:28
 msgid "Undo delete folder"
-msgstr ""
+msgstr "Angre sletting av mappe"
 
 #: templates/part.navigation.folder.php:86
 msgid "Rename folder"
@@ -213,19 +213,19 @@ msgstr "Innstillinger"
 
 #: templates/part.settings.php:13
 msgid "Compact view"
-msgstr ""
+msgstr "Kompakt visning"
 
 #: templates/part.settings.php:20
 msgid "Show all articles"
-msgstr ""
+msgstr "Vis alle artikler"
 
 #: templates/part.settings.php:27
 msgid "Reverse ordering"
-msgstr ""
+msgstr "Motsatt sortering"
 
 #: templates/part.settings.php:34
 msgid "Disable mark read through scrolling"
-msgstr ""
+msgstr "Slå av merk som lest ved blading"
 
 #: templates/part.settings.php:40
 msgid "Subscriptions (OPML)"
