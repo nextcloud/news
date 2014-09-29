@@ -30,11 +30,5 @@ $config->registerNavigation();
 $config->registerBackgroundJobs();
 $config->registerHooks();
 
-// check for correct app dependencies
-try {
-	$config->testDependencies();
-} catch(DependencyException $e) {
-	$logger = $container->getLogger();
-	$params = $container->getLoggerParameters();
-	$logger->emergency($e->getMessage(), $params);
-}
+// check for correct app dependencies and fail if possible
+$config->testDependencies();
