@@ -5,6 +5,6 @@
 	<description>An RSS/Atom feed reader. Requires ownCloud backgroundjobs or an updater script to be enabled to update your feeds. See the README.rst in the apps top directory</description>
 	<licence>AGPL</licence>
 	<author>Bernhard Posselt, Alessandro Cosentino, Jan-Christoph Borchardt</author>
-	<version>3.201</version>
+	<version>3.202</version>
 	<require>7</require>
 </info>
