@@ -57,6 +57,11 @@ class AppController extends Controller {
             }
         }
 
+        $authors = [];
+        foreach ($config['authors'] as $author) {
+            $authors[] = $author['name'];
+        }
+
         return [
             "name" => $config['name'],
             "description" => $config['description'],
@@ -64,7 +69,7 @@ class AppController extends Controller {
                 $config['id'] . '.page.index'),
             "icons" => $icons,
             "developer" => [
-                "name" => "ownCloud community",
+                "name" => implode(', ', $authors),
                 "url" => $config['homepage']
             ]
         ];

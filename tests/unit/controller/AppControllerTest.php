@@ -42,10 +42,14 @@ class AppControllerTest extends \PHPUnit_Framework_TestCase {
             ->getMock();
 
         $this->configData = [
-            "name" => "AppTest",
-            "id" => "apptest",
-            "description" => "This is a test app",
-            "homepage" => "https://github.com/owncloud/test"
+            'name' => 'AppTest',
+            'id' => 'apptest',
+            'authors' => [
+                ['name' => 'john'],
+                ['name' => 'test']
+            ],
+            'description' => 'This is a test app',
+            'homepage' => 'https://github.com/owncloud/test'
         ];
 
         $this->controller = new AppController($this->appName, $this->request,
@@ -57,12 +61,10 @@ class AppControllerTest extends \PHPUnit_Framework_TestCase {
             ->method('getConfig')
             ->will($this->returnValue($this->configData));
         $result = $this->controller->manifest();
-        $this->assertEquals($result['name'],
-            $this->configData['name']);
-        $this->assertEquals($result['description'],
-            $this->configData['description']);
-        $this->assertEquals($result['developer']['url'],
-            $this->configData['homepage']);
+        $this->assertEquals($this->configData['name'], $result['name']);
+        $this->assertEquals($this->configData['description'], $result['description']);
+        $this->assertEquals($this->configData['homepage'], $result['developer']['url']);
+        $this->assertEquals('john, test', $result['developer']['name']);
     }
 
 }
