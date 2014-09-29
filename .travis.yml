@@ -14,7 +14,7 @@ before_install:
   - "sh -e /etc/init.d/xvfb start"
   - sudo add-apt-repository -y ppa:chris-lea/node.js  # ubuntu 12.04 only
   - sudo apt-get update
-  - sudo upgrade -o DPkg::Options::="--force-confold" -y
+  - sudo apt-get -o DPkg::Options::="--force-confold" -y upgrade
 
 install:
   - cd ..
