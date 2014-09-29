@@ -14,7 +14,7 @@ before_install:
   - "sh -e /etc/init.d/xvfb start"
   - sudo add-apt-repository -y ppa:chris-lea/node.js  # ubuntu 12.04 only
   - sudo apt-get update
-  - export DEBIAN_FRONTEND=noninteractive && sudo apt-get upgrade -y
+  - sudo export DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
 
 install:
   - cd ..
