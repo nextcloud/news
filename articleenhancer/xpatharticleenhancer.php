@@ -67,7 +67,10 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 				}
 
 				$dom = new \DOMDocument();
+				
+				$loadEntities = libxml_disable_entity_loader(true);
 				@$dom->loadHTML($body);
+				libxml_disable_entity_loader($loadEntities);
 
 				$xpath = new \DOMXpath($dom);
 				$xpathResult = $xpath->evaluate($search);
@@ -131,9 +134,12 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 		$dom->preserveWhiteSpace = false;
 
 		// return, if xml is empty or loading the HTML fails
+		$loadEntities = libxml_disable_entity_loader(true);
 		if( trim($xmlString) == "" || !@$dom->loadHTML($xmlString) ) {
+			libxml_disable_entity_loader($loadEntities);
 			return $xmlString;
 		}
+		libxml_disable_entity_loader($loadEntities);
 
 		// remove <!DOCTYPE
 		$dom->removeChild($dom->firstChild);

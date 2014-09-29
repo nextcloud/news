@@ -78,7 +78,9 @@ class FaviconFetcher {
         if($file->body !== '') {
 			$document = new \DOMDocument();
             /** @noinspection PhpUndefinedFieldInspection */
+            $loadEntities = libxml_disable_entity_loader(true);
             @$document->loadHTML($file->body);
+            libxml_disable_entity_loader($loadEntities);
 
 			if($document) {
 				$xpath = new \DOMXpath($document);

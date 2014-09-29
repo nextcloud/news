@@ -23,13 +23,17 @@ class GlobalArticleEnhancer implements ArticleEnhancer {
 	 * This method is run after all enhancers and for every item
 	 */
 	public function enhance(Item $item) {
+		
 		$dom = new \DOMDocument();
 
 		// wrap it inside a div if there is none to prevent invalid wrapping
 		// inside <p> tags
 		$body = '<div>' . $item->getBody() . '</div>';
 
+		$loadEntities = libxml_disable_entity_loader(true);
 		@$dom->loadHTML($body, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+		libxml_disable_entity_loader($loadEntities);
+		
 		$xpath = new \DOMXpath($dom);
 
 		// remove youtube autoplay
