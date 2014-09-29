@@ -670,7 +670,7 @@ class SimplePie_Enclosure
 	{
 		if ($this->link !== null)
 		{
-			return urldecode($this->link);
+			return $this->link;
 		}
 		else
 		{

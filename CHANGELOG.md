@@ -1,5 +1,6 @@
 owncloud-news (3.106)
 * **Bugfix**: Move open website icon in compact view to the left of the title
+* **Bugfix**: SimplePie: Do not break if url encoded links contain non ASCII chars
 
 owncloud-news (3.105)
 * **Bugfix**: Various wording fixes
