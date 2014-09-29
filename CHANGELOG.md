@@ -1,3 +1,6 @@
+owncloud-news (3.202)
+* **Enhancement**: Switch keep unread and star icon
+
 owncloud-news (3.201)
 * **New dependency**: Minimum libxml version: 2.7.8
 * **Bugfix**: Move open website icon in compact view to the left of the title
