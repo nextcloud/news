@@ -22,6 +22,9 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
 	private $controller;
 	private $user;
 	private $l10n;
+	private $urlGenerator;
+	private $appConfig;
+	private $configData;
 
 	/**
 	 * Gets run before each test
@@ -29,6 +32,16 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
 	public function setUp(){
 		$this->appName = 'news';
 		$this->user = 'becka';
+		$this->configData = [
+            'name' => 'AppTest',
+            'id' => 'apptest',
+            'authors' => [
+                ['name' => 'john'],
+                ['name' => 'test']
+            ],
+            'description' => 'This is a test app',
+            'homepage' => 'https://github.com/owncloud/test'
+        ];
 		$this->l10n = $this->request = $this->getMockBuilder(
 			'\OCP\IL10n')
 			->disableOriginalConstructor()
@@ -41,8 +54,17 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
 			'\OCP\IRequest')
 			->disableOriginalConstructor()
 			->getMock();
+		$this->urlGenerator = $this->getMockBuilder(
+            '\OCP\IURLGenerator')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->appConfig = $this->getMockBuilder(
+            '\OCA\News\Config\AppConfig')
+            ->disableOriginalConstructor()
+            ->getMock();
 		$this->controller = new PageController($this->appName, $this->request,
-			$this->settings, $this->l10n, $this->user);
+			$this->settings, $this->urlGenerator, $this->appConfig, $this->l10n,
+			$this->user);
 	}
 
 
@@ -124,5 +146,24 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
 		$this->controller->updateSettings(true, true, false, true);
 
 	}
+
+
+	public function testManifest(){
+        $this->appConfig->expects($this->once())
+            ->method('getConfig')
+            ->will($this->returnValue($this->configData));
+        $this->l10n->expects($this->once())
+            ->method('getLanguageCode')
+            ->will($this->returnValue('de_DE'));
+
+        $result = $this->controller->manifest();
+        $this->assertEquals($this->configData['name'], $result['name']);
+        $this->assertEquals('web', $result['type']);
+        $this->assertEquals($this->configData['description'], $result['description']);
+        $this->assertEquals('de-DE', $result['default_locale']);
+        $this->assertEquals($this->configData['homepage'], $result['developer']['url']);
+        $this->assertEquals('john, test', $result['developer']['name']);
+    }
+
 
 }

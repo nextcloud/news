@@ -29,7 +29,6 @@ use \OCA\News\Controller\UtilityApiController;
 use \OCA\News\Controller\FolderApiController;
 use \OCA\News\Controller\FeedApiController;
 use \OCA\News\Controller\ItemApiController;
-use \OCA\News\Controller\AppController;
 
 use \OCA\News\Service\FolderService;
 use \OCA\News\Service\FeedService;
@@ -79,6 +78,8 @@ class Application extends App {
 				$c->query('AppName'),
 				$c->query('Request'),
 				$c->query('CoreConfig'),
+				$c->query('URLGenerator'),
+				$c->query('AppConfig'),
 				$c->query('L10N'),
 				$c->query('UserId')
 			);
@@ -167,15 +168,6 @@ class Application extends App {
 				$c->query('Request'),
 				$c->query('ItemService'),
 				$c->query('UserId')
-			);
-		});
-
-		$container->registerService('AppController', function($c) {
-			return new AppController(
-				$c->query('AppName'),
-				$c->query('Request'),
-				$c->query('ServerContainer')->getURLGenerator(),
-				$c->query('AppConfig')
 			);
 		});
 
@@ -271,7 +263,7 @@ class Application extends App {
 			$config = new AppConfig(
 				$c->query('ServerContainer')->getNavigationManager(),
 				$c->query('L10N'),
-				$c->query('ServerContainer')->getURLGenerator(),
+				$c->query('URLGenerator'),
 				phpversion(),
 				implode('.', Util::getVersion()),
 				$extensions,
@@ -288,6 +280,10 @@ class Application extends App {
 		 */
 		$container->registerService('L10N', function($c) {
 			return $c->query('ServerContainer')->getL10N($c->query('AppName'));
+		});
+
+		$container->registerService('URLGenerator', function($c) {
+			return $c->query('ServerContainer')->getURLGenerator();
 		});
 
 		$container->registerService('UserId', function() {
