@@ -36,7 +36,6 @@ class AppController extends Controller {
     }
 
     /**
-     * @NoAdminRequired
      * @NoCSRFRequired
      * @PublicPage
      * 
@@ -70,7 +69,7 @@ class AppController extends Controller {
             ],
         ];
         
-        return new JSONResponse($params);
+        return $params;
     }
 
 }
