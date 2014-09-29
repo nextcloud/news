@@ -51,6 +51,10 @@ check if:
 In the case the third condition is not met, please file a bug on [SimplePie issue tracker](https://github.com/simplepie/simplepie).
 
 ### When reporting bugs
+
+* Turn on debug level debug by adding **"loglevel" => 0,** to your **config/config.php** and reproduce the problem
+* check **data/owncloud.log**
+
 Please provide the following details so that your problem can be fixed:
 
 * **data/owncloud.log** (important!)
