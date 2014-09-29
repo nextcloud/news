@@ -20,7 +20,7 @@ For further developer and user documentation please visit [the wiki](https://git
 ## Dependencies
 * ownCloud >= 7
 * PHP >= 5.4
-* libxml >= 2.7.8
+* libxml >= 2.9
 * php-curl
 
 ## Supported Browsers
