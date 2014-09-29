@@ -1,3 +1,6 @@
+owncloud-news (3.106)
+* **Bugfix**: Move open website icon in compact view to the left of the title
+
 owncloud-news (3.105)
 * **Bugfix**: Various wording fixes
 * **Bugfix**: Do not use Import/Export caption for settings buttons to avoid UI bugs in translated versions

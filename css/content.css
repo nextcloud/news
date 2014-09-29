@@ -144,7 +144,7 @@
     }
 
     #app-content .compact .util-spacer {
-        width: 45px;
+        width: 19px;
     }
 
     #app-content .utils li {
@@ -207,15 +207,15 @@
      */
     #app-content .utils .title {
         width: 100%;
-        padding-left: 35px;
-        background-position: left center;
+        padding-left: 45px;
+        background-position: 10px 10px;
         background-size: 20px 20px;
         background-repeat: no-repeat;
     }
 
     #app-content .feed-view .utils .title {
         background: none !important;
-        padding-left: 0;
+        padding-left: 10px;
     }
 
     #app-content .utils .title h1 a {
