@@ -18,9 +18,10 @@ For further developer and user documentation please visit [the wiki](https://git
 * [Desktop](https://github.com/owncloud/news/wiki/desktop-clients)
 
 ## Dependencies
-* PHP >= 5.4
-* php-curl
 * ownCloud >= 7
+* PHP >= 5.4
+* libxml >= 2.7.8
+* php-curl
 
 ## Supported Browsers
 * Firefox (Desktop, Android, Firefox OS)

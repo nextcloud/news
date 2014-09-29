@@ -27,7 +27,7 @@ class GlobalArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 
 	public function testNoReplaceYoutubeAutoplay() {
 		$body = '<iframe width="728" height="410" src="//www.youtube.com/embed/autoplay=1/AWE6UpXQoGU" frameborder="0" allowfullscreen=""></iframe>';
-		$expected = '<iframe width="728" height="410" src="//www.youtube.com/embed/autoplay=1/AWE6UpXQoGU" frameborder="0" allowfullscreen=""></iframe>';
+		$expected = '<div><iframe width="728" height="410" src="//www.youtube.com/embed/autoplay=1/AWE6UpXQoGU" frameborder="0" allowfullscreen=""></iframe></div>';
 		$item = new Item();
 		$item->setBody($body);
 
@@ -38,7 +38,29 @@ class GlobalArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 
 	public function testReplaceYoutubeAutoplay() {
 		$body = 'test <iframe width="728" height="410" src="//www.youtube.com/embed/AWE6UpXQoGU?tst=1&autoplay=1&abc=1" frameborder="0" allowfullscreen=""></iframe>';
-		$expected = '<p>test <iframe width="728" height="410" src="//www.youtube.com/embed/AWE6UpXQoGU?tst=1&amp;autoplay=0&amp;abc=1" frameborder="0" allowfullscreen=""></iframe></p>';
+		$expected = '<div>test <iframe width="728" height="410" src="//www.youtube.com/embed/AWE6UpXQoGU?tst=1&amp;autoplay=0&amp;abc=1" frameborder="0" allowfullscreen=""></iframe></div>';
+		$item = new Item();
+		$item->setBody($body);
+
+		$result = $this->enhancer->enhance($item);
+		$this->assertEquals($expected, $result->getBody());
+	}
+
+
+	public function testMultipleParagraphs() {
+		$body = '<p>paragraph 1</p><p>paragraph 2</p>';
+		$expected = '<div>' . $body . '</div>';
+		$item = new Item();
+		$item->setBody($body);
+
+		$result = $this->enhancer->enhance($item);
+		$this->assertEquals($expected, $result->getBody());
+	}
+
+
+	public function testMultipleParagraphsInDiv() {
+		$body = '<p>paragraph 1</p><p>paragraph 2</p>';
+		$expected = '<div>' . $body . '</div>';
 		$item = new Item();
 		$item->setBody($body);
 

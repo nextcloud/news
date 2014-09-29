@@ -257,6 +257,8 @@ class Application extends App {
 				$extensions[$extension] = phpversion($extension);
 			}
 
+			$extensions['libxml'] = LIBXML_DOTTED_VERSION;
+
 			$config = new AppConfig(
 				$c->query('ServerContainer')->getNavigationManager(),
 				$c->query('L10N'),

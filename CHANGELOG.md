@@ -1,6 +1,9 @@
-owncloud-news (3.106)
+owncloud-news (3.201)
+* **New dependency**: Minimum libxml version: 2.7.8
 * **Bugfix**: Move open website icon in compact view to the left of the title
 * **Bugfix**: SimplePie: Do not break if url encoded links contain non ASCII chars
+* **Bugfix**: Favicon should stay in place if you expand an article in compact view
+* **Bugfix**: Go back to debug level logging for feed updates
 
 owncloud-news (3.105)
 * **Bugfix**: Various wording fixes
