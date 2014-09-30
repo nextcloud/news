@@ -2324,6 +2324,8 @@ app.directive('newsTitleUnreadCount', ["$window", function ($window) {
                 if (value !== '0') {
                     $window.document.title = appName +
                         '(' + value + ') - ' + ownCloudName;
+                } else {
+                    $window.document.title = appName + ' - ' + ownCloudName;
                 }
             });
         }

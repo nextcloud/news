@@ -42,7 +42,8 @@ try {
 	// ForbiddenException
 	// NotFoundException
 	// MaximumRedirectException
-	// BadSourceException
+	// MalformedXMLException
+	//
 }
 
 /*

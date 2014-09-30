@@ -1,3 +1,6 @@
+owncloud-news (3.203)
+* **Bugfix**: Fix issue that prevented going below 1 unread count in the window title
+
 owncloud-news (3.202)
 * **Security**: Fix [XEE](https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Processing) on systems with libxml < 2.9 which allows attackers to add a malicious feeds that can include any file content that is readable by the webserver
 * **Enhancement**: Provide manifest to make News an installable web app on Firefox OS
