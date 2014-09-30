@@ -2,6 +2,7 @@
 // TODO: atom has type attribute for values that have html/xhtml if given and have to be decoded
 // TODO: link attribute (rel etc)
 // TODO: can we distinguish between CDATA and plain content?
+// TODO: steal from https://github.com/gothfox/Tiny-Tiny-RSS/blob/master/classes/feedparser.php
 
 $ownFeed = new OwnFeed([
 	'user_agent' => 'ownFeed version 1',
