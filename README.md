@@ -14,8 +14,7 @@ For further developer and user documentation please visit [the wiki](https://git
 * [Jan-Christoph Borchardt](https://github.com/jancborchardt) (Design)
 
 ## Sync Clients
-* [Mobile](https://github.com/owncloud/news/wiki/mobile-clients)
-* [Desktop](https://github.com/owncloud/news/wiki/desktop-clients)
+are listed on the [ownCloud apps overview](https://github.com/owncloud/core/wiki/Apps)
 
 ## Dependencies
 * ownCloud >= 7
