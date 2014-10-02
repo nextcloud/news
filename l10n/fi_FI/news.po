@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-09-25 01:01-0400\n"
-"PO-Revision-Date: 2014-09-24 06:37+0000\n"
+"POT-Creation-Date: 2014-10-02 01:01-0400\n"
+"PO-Revision-Date: 2014-10-01 21:50+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish (Finland) (http://www.transifex.com/projects/p/owncloud/language/fi_FI/)\n"
 "MIME-Version: 1.0\n"
@@ -51,25 +51,25 @@ msgstr "Ei syötteitä vielä. Lisää joitakin syötteitä"
 msgid "Import feeds and articles"
 msgstr "Tuo syötteitä ja artikkeleita"
 
-#: templates/part.content.php:33
+#: templates/part.content.php:25
+msgid "Open website"
+msgstr "Avaa verkkosivu"
+
+#: templates/part.content.php:41
 msgid "Star article"
 msgstr "Merkitse artikkeli tähdellä"
 
-#: templates/part.content.php:34
+#: templates/part.content.php:42
 msgid "Unstar article"
 msgstr "Poista artikkelin tähtimerkintä"
 
-#: templates/part.content.php:37
+#: templates/part.content.php:45
 msgid "Keep article unread"
 msgstr "Pidä artikkeli lukemattomana"
 
-#: templates/part.content.php:38
+#: templates/part.content.php:46
 msgid "Remove keep article unread"
 msgstr "Poista artikkelin pitäminen lukemattomana"
-
-#: templates/part.content.php:44
-msgid "Open website"
-msgstr "Avaa verkkosivu"
 
 #: templates/part.content.php:67
 msgid "by"

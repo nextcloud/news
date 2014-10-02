@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-09-25 01:01-0400\n"
-"PO-Revision-Date: 2014-09-24 20:35+0000\n"
+"POT-Creation-Date: 2014-10-02 01:01-0400\n"
+"PO-Revision-Date: 2014-10-01 21:50+0000\n"
 "Last-Translator: Aputsiaĸ Niels Janussen <aj@isit.gl>\n"
 "Language-Team: Danish (http://www.transifex.com/projects/p/owncloud/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -57,25 +57,25 @@ msgstr "Der er endnu ingen feeds. Du er velkommen til at tilføje nogle"
 msgid "Import feeds and articles"
 msgstr "Importér feeds og artikler"
 
-#: templates/part.content.php:33
+#: templates/part.content.php:25
+msgid "Open website"
+msgstr "Åbn websted"
+
+#: templates/part.content.php:41
 msgid "Star article"
 msgstr "Stjernemarkér artiklen"
 
-#: templates/part.content.php:34
+#: templates/part.content.php:42
 msgid "Unstar article"
 msgstr "Fjern stjerne fra artiklen"
 
-#: templates/part.content.php:37
+#: templates/part.content.php:45
 msgid "Keep article unread"
 msgstr "Bevar artikel ulæst"
 
-#: templates/part.content.php:38
+#: templates/part.content.php:46
 msgid "Remove keep article unread"
 msgstr "Fjern \"bevar artikel ulæst\""
-
-#: templates/part.content.php:44
-msgid "Open website"
-msgstr "Åbn websted"
 
 #: templates/part.content.php:67
 msgid "by"

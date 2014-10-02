@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-09-29 01:01-0400\n"
-"PO-Revision-Date: 2014-09-29 00:20+0000\n"
+"POT-Creation-Date: 2014-10-02 01:01-0400\n"
+"PO-Revision-Date: 2014-10-01 21:50+0000\n"
 "Last-Translator: Volkan Gezer <volkangezer@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/owncloud/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -54,25 +54,25 @@ msgstr "Henüz besleme yok. Devam edin ve birkaç tane ekleyin"
 msgid "Import feeds and articles"
 msgstr "Besleme ve makaleleri içe aktar"
 
-#: templates/part.content.php:33
+#: templates/part.content.php:25
+msgid "Open website"
+msgstr "Web sitesini aç"
+
+#: templates/part.content.php:41
 msgid "Star article"
 msgstr "Makaleyi yıldızla"
 
-#: templates/part.content.php:34
+#: templates/part.content.php:42
 msgid "Unstar article"
 msgstr "Makale yıldızını kaldır"
 
-#: templates/part.content.php:37
+#: templates/part.content.php:45
 msgid "Keep article unread"
 msgstr "Makaleyi okunmadı olarak bırak"
 
-#: templates/part.content.php:38
+#: templates/part.content.php:46
 msgid "Remove keep article unread"
 msgstr "Makaleyi okunmadı olarak bırak"
-
-#: templates/part.content.php:44
-msgid "Open website"
-msgstr "Web sitesini aç"
 
 #: templates/part.content.php:67
 msgid "by"

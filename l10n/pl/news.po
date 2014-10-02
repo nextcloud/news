@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-09-25 01:01-0400\n"
-"PO-Revision-Date: 2014-09-24 06:11+0000\n"
+"POT-Creation-Date: 2014-10-02 01:01-0400\n"
+"PO-Revision-Date: 2014-10-01 21:50+0000\n"
 "Last-Translator: Maciej Przybecki <maciej.przybecki@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/owncloud/language/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -56,25 +56,25 @@ msgstr "Nie ma żadnych kanałów. Dodaj kilka"
 msgid "Import feeds and articles"
 msgstr "Importuj kanały i artykuły"
 
-#: templates/part.content.php:33
+#: templates/part.content.php:25
+msgid "Open website"
+msgstr "Otwórz stronę"
+
+#: templates/part.content.php:41
 msgid "Star article"
 msgstr "Oznacz gwiazdką"
 
-#: templates/part.content.php:34
+#: templates/part.content.php:42
 msgid "Unstar article"
 msgstr "Odznacz gwiazdkę"
 
-#: templates/part.content.php:37
+#: templates/part.content.php:45
 msgid "Keep article unread"
 msgstr "Zachowaj jako nieprzeczytany"
 
-#: templates/part.content.php:38
+#: templates/part.content.php:46
 msgid "Remove keep article unread"
 msgstr "Usuń \"zachowanie\" jako nieprzeczytany"
-
-#: templates/part.content.php:44
-msgid "Open website"
-msgstr "Otwórz stronę"
 
 #: templates/part.content.php:67
 msgid "by"

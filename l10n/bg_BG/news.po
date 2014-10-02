@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-09-28 01:01-0400\n"
-"PO-Revision-Date: 2014-09-27 21:50+0000\n"
+"POT-Creation-Date: 2014-10-02 01:01-0400\n"
+"PO-Revision-Date: 2014-10-01 21:50+0000\n"
 "Last-Translator: Ivo\n"
 "Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/projects/p/owncloud/language/bg_BG/)\n"
 "MIME-Version: 1.0\n"
@@ -50,25 +50,25 @@ msgstr "Все още няма потоци. Добави няколко"
 msgid "Import feeds and articles"
 msgstr "Внеси потоци и статии"
 
-#: templates/part.content.php:33
+#: templates/part.content.php:25
+msgid "Open website"
+msgstr "Отвори интернет станица"
+
+#: templates/part.content.php:41
 msgid "Star article"
 msgstr "Обележи статия"
 
-#: templates/part.content.php:34
+#: templates/part.content.php:42
 msgid "Unstar article"
 msgstr "Премахни отбелезка за статия"
 
-#: templates/part.content.php:37
+#: templates/part.content.php:45
 msgid "Keep article unread"
 msgstr "Запази статията като непрочетена"
 
-#: templates/part.content.php:38
+#: templates/part.content.php:46
 msgid "Remove keep article unread"
 msgstr "Премахни отбелязването на статията като непрочетена"
-
-#: templates/part.content.php:44
-msgid "Open website"
-msgstr "Отвори интернет станица"
 
 #: templates/part.content.php:67
 msgid "by"

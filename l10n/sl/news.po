@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-09-24 01:01-0400\n"
-"PO-Revision-Date: 2014-09-24 05:01+0000\n"
+"POT-Creation-Date: 2014-10-02 01:01-0400\n"
+"PO-Revision-Date: 2014-10-01 21:50+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: Slovenian (http://www.transifex.com/projects/p/owncloud/language/sl/)\n"
 "MIME-Version: 1.0\n"
@@ -51,25 +51,25 @@ msgstr "Ni še določenih virov. Najprej je treba kakšen vir dodati."
 msgid "Import feeds and articles"
 msgstr "Uvozi vire in prispevke"
 
-#: templates/part.content.php:33
+#: templates/part.content.php:25
+msgid "Open website"
+msgstr "Odpri spletišče"
+
+#: templates/part.content.php:41
 msgid "Star article"
 msgstr "Označi prispevek z zvezdico"
 
-#: templates/part.content.php:34
+#: templates/part.content.php:42
 msgid "Unstar article"
 msgstr "Odstrani oznako prispevka"
 
-#: templates/part.content.php:37
+#: templates/part.content.php:45
 msgid "Keep article unread"
 msgstr "Obdrži kot neprebrano"
 
-#: templates/part.content.php:38
+#: templates/part.content.php:46
 msgid "Remove keep article unread"
 msgstr "Odstrani možnost neprebrano"
-
-#: templates/part.content.php:44
-msgid "Open website"
-msgstr "Odpri spletišče"
 
 #: templates/part.content.php:67
 msgid "by"

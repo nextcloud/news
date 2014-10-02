@@ -10,15 +10,15 @@
 # Jaroslav Lichtblau <jlichtblau@seznam.cz>, 2014
 # Jaroslav Lichtblau <jlichtblau@seznam.cz>, 2014
 # Martin Skopal <fireball@atlas.cz>, 2012
-# Petr Šťastný <petr@stastny.eu>, 2013
+# Petr Šťastný <petr@stastny.eu>, 2013-2014
 # Tomáš Chvátal <tomas.chvatal@gmail.com>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-09-27 01:01-0400\n"
-"PO-Revision-Date: 2014-09-26 07:27+0000\n"
-"Last-Translator: Jaroslav Lichtblau <jlichtblau@seznam.cz>\n"
+"POT-Creation-Date: 2014-10-02 01:01-0400\n"
+"PO-Revision-Date: 2014-10-01 21:50+0000\n"
+"Last-Translator: Petr Šťastný <petr@stastny.eu>\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/projects/p/owncloud/language/cs_CZ/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -56,25 +56,25 @@ msgstr "Ještě zde nejsou přidány žádné kanály. Chopte se toho a nějaké
 msgid "Import feeds and articles"
 msgstr "Importovat kanály a články"
 
-#: templates/part.content.php:33
+#: templates/part.content.php:25
+msgid "Open website"
+msgstr "Otevřít webovou stránku"
+
+#: templates/part.content.php:41
 msgid "Star article"
 msgstr "Ocenit článek hvězdičkou"
 
-#: templates/part.content.php:34
+#: templates/part.content.php:42
 msgid "Unstar article"
 msgstr "Odebrat článku hvězdičku"
 
-#: templates/part.content.php:37
+#: templates/part.content.php:45
 msgid "Keep article unread"
 msgstr "Ponechat článek jako nepřečtený"
 
-#: templates/part.content.php:38
+#: templates/part.content.php:46
 msgid "Remove keep article unread"
 msgstr "Odstranit označení článku jako nepřečtený"
-
-#: templates/part.content.php:44
-msgid "Open website"
-msgstr "Otevřít webovou stránku"
 
 #: templates/part.content.php:67
 msgid "by"
@@ -103,7 +103,7 @@ msgstr "Webová adresa"
 
 #: templates/part.navigation.addfeed.php:22
 msgid "Feed exists already!"
-msgstr "Kanál již existuje."
+msgstr "Kanál již existuje!"
 
 #: templates/part.navigation.addfeed.php:27
 msgid "Folder"
@@ -131,11 +131,11 @@ msgstr "Jít zpět"
 #: templates/part.navigation.addfolder.php:21
 #: templates/part.navigation.folder.php:52
 msgid "Folder exists already!"
-msgstr "Složka již existuje"
+msgstr "Složka již existuje!"
 
 #: templates/part.navigation.addfolder.php:5
 msgid "New Folder"
-msgstr "Nový adresář"
+msgstr "Nová složka"
 
 #: templates/part.navigation.addfolder.php:24
 msgid "Create"
@@ -143,7 +143,7 @@ msgstr "Vytvořit"
 
 #: templates/part.navigation.feed.php:41
 msgid "Deleted feed"
-msgstr "Kanál smazán"
+msgstr "Smazaný kanál"
 
 #: templates/part.navigation.feed.php:43
 msgid "Undo delete feed"
@@ -184,11 +184,11 @@ msgstr "Sbalit"
 
 #: templates/part.navigation.folder.php:26
 msgid "Deleted folder"
-msgstr "Adresář smazán"
+msgstr "Smazaná složka"
 
 #: templates/part.navigation.folder.php:28
 msgid "Undo delete folder"
-msgstr "Vzít zpět smazání adresáře"
+msgstr "Vzít zpět smazání složky"
 
 #: templates/part.navigation.folder.php:86
 msgid "Rename folder"

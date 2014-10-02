@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-09-27 01:01-0400\n"
-"PO-Revision-Date: 2014-09-26 18:51+0000\n"
+"POT-Creation-Date: 2014-10-02 01:01-0400\n"
+"PO-Revision-Date: 2014-10-01 21:50+0000\n"
 "Last-Translator: Vincenzo Reale <vinx.reale@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/owncloud/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -52,25 +52,25 @@ msgstr "Non ci sono ancora fonti. Vai avanti e aggiungine"
 msgid "Import feeds and articles"
 msgstr "Importa fonti e articoli"
 
-#: templates/part.content.php:33
+#: templates/part.content.php:25
+msgid "Open website"
+msgstr "Apri sito web"
+
+#: templates/part.content.php:41
 msgid "Star article"
 msgstr "Aggiungi ai preferiti"
 
-#: templates/part.content.php:34
+#: templates/part.content.php:42
 msgid "Unstar article"
 msgstr "Rimuovi dai preferiti"
 
-#: templates/part.content.php:37
+#: templates/part.content.php:45
 msgid "Keep article unread"
 msgstr "Mantieni l'articolo come non letto"
 
-#: templates/part.content.php:38
+#: templates/part.content.php:46
 msgid "Remove keep article unread"
 msgstr "Rimuovi il mantenimento dell'articolo come non letto"
-
-#: templates/part.content.php:44
-msgid "Open website"
-msgstr "Apri sito web"
 
 #: templates/part.content.php:67
 msgid "by"

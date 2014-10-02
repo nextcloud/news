@@ -6,7 +6,7 @@
 # Achilleas Pipinellis, 2013
 # Dimitris M. <monopatis@gmail.com>, 2013
 # Efstathios Iosifidis <iefstathios@gmail.com>, 2012
-# Efstathios Iosifidis <iefstathios@gmail.com>, 2013
+# Efstathios Iosifidis <iefstathios@gmail.com>, 2013-2014
 # Efstathios Iosifidis <iosifidis@opensuse.org>, 2012
 # Marios Bekatoros <>, 2012-2013
 # Spyros Melissovas <peppe@cs.uoi.gr>, 2014
@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-09-24 01:01-0400\n"
-"PO-Revision-Date: 2014-09-24 05:01+0000\n"
-"Last-Translator: I Robot\n"
+"POT-Creation-Date: 2014-10-02 01:01-0400\n"
+"PO-Revision-Date: 2014-10-01 21:50+0000\n"
+"Last-Translator: Efstathios Iosifidis <iefstathios@gmail.com>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/owncloud/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,35 +48,35 @@ msgstr "Αδυναμία προσθήκης φακέλου: Υπάρχει ήδ�
 
 #: templates/part.content.php:3
 msgid "Add a feed"
-msgstr ""
+msgstr "Προσθήκη ροής"
 
 #: templates/part.content.php:4
 msgid "There are no feeds yet. Go ahead and add some"
-msgstr ""
+msgstr "Δεν υπάρχουν ακόμα ροές. Προσθέστε μερικές"
 
 #: templates/part.content.php:5
 msgid "Import feeds and articles"
-msgstr ""
+msgstr "Εισαγωγή ροών και άρθρων"
 
-#: templates/part.content.php:33
-msgid "Star article"
-msgstr ""
-
-#: templates/part.content.php:34
-msgid "Unstar article"
-msgstr ""
-
-#: templates/part.content.php:37
-msgid "Keep article unread"
-msgstr ""
-
-#: templates/part.content.php:38
-msgid "Remove keep article unread"
-msgstr ""
-
-#: templates/part.content.php:44
+#: templates/part.content.php:25
 msgid "Open website"
-msgstr ""
+msgstr "Άνοιγμα φυλλομετρητή"
+
+#: templates/part.content.php:41
+msgid "Star article"
+msgstr "Επισήμανση με αστέρι"
+
+#: templates/part.content.php:42
+msgid "Unstar article"
+msgstr "Αναίρεση επισήμανσης με αστέρι"
+
+#: templates/part.content.php:45
+msgid "Keep article unread"
+msgstr "Διατήρηση άρθρου μη αναγνωσμένου"
+
+#: templates/part.content.php:46
+msgid "Remove keep article unread"
+msgstr "Αφαίρεση διατήρησης άρθρου ως μη αναγνωσμένου"
 
 #: templates/part.content.php:67
 msgid "by"
@@ -88,7 +88,7 @@ msgstr "από"
 
 #: templates/part.content.php:77
 msgid "Browser can not play media type"
-msgstr ""
+msgstr "Ο φυλλομετρητής δεν μπορεί να αναπαράγει πολυμέσα"
 
 #: templates/part.content.php:83
 msgid "Download"
@@ -127,7 +127,7 @@ msgstr "Όνομα φακέλου"
 
 #: templates/part.navigation.addfeed.php:51
 msgid "Go back"
-msgstr ""
+msgstr "Μετακίνηση πίσω"
 
 #: templates/part.navigation.addfeed.php:55
 #: templates/part.navigation.addfolder.php:21
@@ -137,7 +137,7 @@ msgstr "Ο φάκελος υπάρχει ήδη!"
 
 #: templates/part.navigation.addfolder.php:5
 msgid "New Folder"
-msgstr ""
+msgstr "Νέος φάκελος"
 
 #: templates/part.navigation.addfolder.php:24
 msgid "Create"
@@ -145,11 +145,11 @@ msgstr "Δημιουργία"
 
 #: templates/part.navigation.feed.php:41
 msgid "Deleted feed"
-msgstr ""
+msgstr "Διαγραφή ροής"
 
 #: templates/part.navigation.feed.php:43
 msgid "Undo delete feed"
-msgstr ""
+msgstr "Αναίρεση διαγραφής ροής"
 
 #: templates/part.navigation.feed.php:56
 #: templates/part.navigation.folder.php:46
@@ -159,7 +159,7 @@ msgstr "Μετονομασία"
 #: templates/part.navigation.feed.php:70
 #: templates/part.navigation.folder.php:77
 msgid "Menu"
-msgstr ""
+msgstr "Μενού"
 
 #: templates/part.navigation.feed.php:79
 msgid "Rename feed"
@@ -173,12 +173,12 @@ msgstr "Διαγραφή ροής"
 #: templates/part.navigation.folder.php:92
 #: templates/part.navigation.unreadfeed.php:29
 msgid "Read all"
-msgstr ""
+msgstr "Ανάγνωση όλων"
 
 #: templates/part.navigation.feed.php:93
 #: templates/part.navigation.folder.php:103
 msgid "Dismiss"
-msgstr ""
+msgstr "Απόρριψη"
 
 #: templates/part.navigation.folder.php:20
 msgid "Collapse"
@@ -186,11 +186,11 @@ msgstr "Σύμπτυξη"
 
 #: templates/part.navigation.folder.php:26
 msgid "Deleted folder"
-msgstr ""
+msgstr "Διαγφραφή φακέλου"
 
 #: templates/part.navigation.folder.php:28
 msgid "Undo delete folder"
-msgstr ""
+msgstr "Αναίρεση διαγραφής φακέλου"
 
 #: templates/part.navigation.folder.php:86
 msgid "Rename folder"
@@ -218,11 +218,11 @@ msgstr "Ρυθμίσεις"
 
 #: templates/part.settings.php:13
 msgid "Compact view"
-msgstr ""
+msgstr "Συμπαγής προβολή"
 
 #: templates/part.settings.php:20
 msgid "Show all articles"
-msgstr ""
+msgstr "Εμφάνιση όλων των άρθρων"
 
 #: templates/part.settings.php:27
 msgid "Reverse ordering"

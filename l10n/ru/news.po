@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-09-28 01:01-0400\n"
-"PO-Revision-Date: 2014-09-27 05:20+0000\n"
+"POT-Creation-Date: 2014-10-02 01:01-0400\n"
+"PO-Revision-Date: 2014-10-01 21:50+0000\n"
 "Last-Translator: Владислав <split7fire@yandex.ru>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/owncloud/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -65,25 +65,25 @@ msgstr "До сих пор нет новостных лент. Пойди и д�
 msgid "Import feeds and articles"
 msgstr "Импортировать новостные ленты и статьи"
 
-#: templates/part.content.php:33
+#: templates/part.content.php:25
+msgid "Open website"
+msgstr "Открыть веб-сайт"
+
+#: templates/part.content.php:41
 msgid "Star article"
 msgstr "Отметить статью"
 
-#: templates/part.content.php:34
+#: templates/part.content.php:42
 msgid "Unstar article"
 msgstr "Снять отметку"
 
-#: templates/part.content.php:37
+#: templates/part.content.php:45
 msgid "Keep article unread"
 msgstr "Оставить статью непрочитанной"
 
-#: templates/part.content.php:38
+#: templates/part.content.php:46
 msgid "Remove keep article unread"
 msgstr "Удалить отметку от непрочтении"
-
-#: templates/part.content.php:44
-msgid "Open website"
-msgstr "Открыть веб-сайт"
 
 #: templates/part.content.php:67
 msgid "by"
