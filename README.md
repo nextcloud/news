@@ -31,6 +31,9 @@ are listed on the [ownCloud apps overview](https://github.com/owncloud/core/wiki
 * SQLite
 * MySql
 
+## Supported Webservers
+* Apache + mod_php
+
 
 ## Bugs
 
