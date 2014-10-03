@@ -34,6 +34,7 @@ are listed on the [ownCloud apps overview](https://github.com/owncloud/core/wiki
 ## Supported Webservers
 * Apache + mod_php
 
+**Use of nginx is discouraged because of thead safety issues that lead to security issues**
 
 ## Bugs
 
