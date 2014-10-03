@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """
 Updater script for the news app which allows multiple feeds to be updated at
 once to speed up the update process. Built in cron has to be disabled in the
