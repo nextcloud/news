@@ -428,6 +428,12 @@
         text-decoration: underline;
     }
 
+    #app-content .body h4,
+    #app-content .body h5,
+    #app-content .body h6 {
+        font-weight: bold;
+    }
+
     #app-content .body > div {
         margin: 7px 0;
     }
