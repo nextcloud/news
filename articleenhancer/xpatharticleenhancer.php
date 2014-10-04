@@ -13,10 +13,10 @@
 
 namespace OCA\News\ArticleEnhancer;
 
-require_once __DIR__ . '/../3rdparty/Net_URL2/Net/URL2.php';
+use \DOMDocument;
+use \DOMXpath;
 
 use \ZendXml\Security;
-use \Net_URL2;
 
 use \OCA\News\Db\Item;
 use \OCA\News\Utility\SimplePieAPIFactory;
@@ -43,11 +43,12 @@ class XPathArticleEnhancer implements ArticleEnhancer {
      * @internal param int $maximumTimeout maximum timeout in seconds, defaults to 10 sec
      */
 	public function __construct(SimplePieAPIFactory $fileFactory,
-	                            array $regexXPathPair, Config $config){
-		$this->regexXPathPair = $regexXPathPair;
+	                            array $regexXPathPair,
+	                            Config $config){
 		$this->fileFactory = $fileFactory;
-		$this->maximumTimeout = $config->getFeedFetcherTimeout();
+		$this->regexXPathPair = $regexXPathPair;
 		$this->config = $config;
+		$this->maximumTimeout = $config->getFeedFetcherTimeout();
 	}
 
 	/**
@@ -69,19 +70,21 @@ class XPathArticleEnhancer implements ArticleEnhancer {
                     $body = mb_convert_encoding($body, 'HTML-ENTITIES', $matches[0]);
 				}
 
-				$dom = new \DOMDocument();
+				$dom = new DOMDocument();
 
 				Security::scan($body, $dom, function ($xml, $dom) {
 					return @$dom->loadHTML($xml, LIBXML_NONET);
 				});
 
-				$xpath = new \DOMXpath($dom);
+				$xpath = new DOMXpath($dom);
 				$xpathResult = $xpath->evaluate($search);
 
-				// in case it wasnt a text query assume its a single entry
+				// in case it wasnt a text query assume its a dom element
 				if(!is_string($xpathResult)) {
 					$xpathResult = $this->domToString($xpathResult);
 				}
+
+				$xpathResult = trim($xpathResult);
 
 				// convert all relative to absolute URLs
 				$xpathResult = $this->substituteRelativeLinks($xpathResult, $item->getUrl());
@@ -112,7 +115,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 	 * @return string the result HTML snippet as a string
 	 */
 	protected function substituteRelativeLinks($xmlString, $absoluteUrl) {
-		$dom = new \DOMDocument();
+		$dom = new DOMDocument();
 		$dom->preserveWhiteSpace = false;
 
 		// return, if xml is empty or loading the HTML fails
@@ -120,7 +123,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 			return @$dom->loadHTML($xml, LIBXML_NONET);
 		});
 
-		if(trim($xmlString) === '' || !$isLoaded) {
+		if($xmlString === '' || !$isLoaded) {
 			return $xmlString;
 		}
 
@@ -130,7 +133,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 		$dom->replaceChild($dom->firstChild->firstChild, $dom->firstChild);
 
 		foreach (['href', 'src'] as $attribute) {
-			$xpath = new \DOMXpath($dom);
+			$xpath = new DOMXpath($dom);
 			$xpathResult = $xpath->query(
 				"//*[@" . $attribute . " " .
 				"and not(contains(@" . $attribute . ", '://')) " .
@@ -163,7 +166,11 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 	 * @return string the resulting absolute URL
 	 */
 	protected function relativeToAbsoluteUrl($relativeUrl, $absoluteUrl) {
-		$base = new Net_URL2($absoluteUrl);
+		if (!class_exists('\Net_URL2')) {
+			require_once __DIR__ . '/../3rdparty/Net_URL2/Net/URL2.php';
+		}
+
+		$base = new \Net_URL2($absoluteUrl);
 		return $base->resolve($relativeUrl);
 	}
 
@@ -184,7 +191,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 
 
 	protected function toInnerHTML($node) {
-		$dom = new \DOMDocument();
+		$dom = new DOMDocument();
 		$dom->appendChild($dom->importNode($node, true));
 		return trim($dom->saveHTML($dom->documentElement));
 	}
