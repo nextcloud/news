@@ -13,11 +13,15 @@
 
 namespace OCA\News\ArticleEnhancer;
 
+require_once __DIR__ . '/../3rdparty/Net_URL2/Net/URL2.php';
+
 use \ZendXml\Security;
+use \Net_URL2;
 
 use \OCA\News\Db\Item;
 use \OCA\News\Utility\SimplePieAPIFactory;
 use \OCA\News\Utility\Config;
+
 
 
 class XPathArticleEnhancer implements ArticleEnhancer {
@@ -58,14 +62,11 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 				$file = $this->getFile($item->getUrl());
 
 				// convert encoding by detecting charset from header
-                /** @noinspection PhpUndefinedFieldInspection */
                 $contentType = $file->headers['content-type'];
+                $body = $file->body;
+
 				if( preg_match( '/(?<=charset=)[^;]*/', $contentType, $matches ) ) {
-                    /** @noinspection PhpUndefinedFieldInspection */
-                    $body = mb_convert_encoding($file->body, 'HTML-ENTITIES', $matches[0]);
-				} else {
-                    /** @noinspection PhpUndefinedFieldInspection */
-                    $body = $file->body;
+                    $body = mb_convert_encoding($body, 'HTML-ENTITIES', $matches[0]);
 				}
 
 				$dom = new \DOMDocument();
@@ -77,7 +78,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 				$xpath = new \DOMXpath($dom);
 				$xpathResult = $xpath->evaluate($search);
 
-				// in case it wasnt a text query assume its a single
+				// in case it wasnt a text query assume its a single entry
 				if(!is_string($xpathResult)) {
 					$xpathResult = $this->domToString($xpathResult);
 				}
@@ -85,7 +86,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 				// convert all relative to absolute URLs
 				$xpathResult = $this->substituteRelativeLinks($xpathResult, $item->getUrl());
 
-				if( $xpathResult ) {
+				if($xpathResult) {
 					$item->setBody($xpathResult);
 				}
 			}
@@ -96,31 +97,10 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 
 
 	private function getFile($url) {
-		if(trim($this->config->getProxyHost()) === '') {
-			return $this->fileFactory->getFile(
-				$url,
-				$this->maximumTimeout,
-				5,
-				null,
-				"Mozilla/5.0 AppleWebKit",
-				false,
-				null,
-				null,
-				null
-			);
-		} else {
-			return $this->fileFactory->getFile(
-				$url,
-				$this->maximumTimeout,
-				5,
-				null,
-				"Mozilla/5.0 AppleWebKit",
-				false,
-				$this->config->getProxyHost(),
-				$this->config->getProxyPort(),
-				$this->config->getProxyAuth()
-			);
-		}
+		return $this->fileFactory->getFile(
+			$url, $this->maximumTimeout, 5, null, 'Mozilla/5.0 AppleWebKit',
+			false, null, null, null
+		);
 	}
 
 
@@ -140,7 +120,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 			return @$dom->loadHTML($xml, LIBXML_NONET);
 		});
 
-		if( trim($xmlString) == "" || !$isLoaded ) {
+		if(trim($xmlString) === '' || !$isLoaded) {
 			return $xmlString;
 		}
 
@@ -149,9 +129,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 		// remove <html></html>
 		$dom->replaceChild($dom->firstChild->firstChild, $dom->firstChild);
 
-		$substitution = ["href", "src"];
-
-		foreach ($substitution as $attribute) {
+		foreach (['href', 'src'] as $attribute) {
 			$xpath = new \DOMXpath($dom);
 			$xpathResult = $xpath->query(
 				"//*[@" . $attribute . " " .
@@ -160,7 +138,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 				"and not(starts-with(@" . $attribute . ", '//'))]");
 			foreach ($xpathResult as $linkNode) {
 				$urlElement = $linkNode->attributes->getNamedItem($attribute);
-				$abs = $this->relativeToAbsoluteUrl( $urlElement->nodeValue, $absoluteUrl );
+				$abs = $this->relativeToAbsoluteUrl($urlElement->nodeValue, $absoluteUrl);
 				$urlElement->nodeValue = htmlspecialchars($abs);
 			}
 		}
@@ -168,7 +146,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 		// save dom to string and remove <body></body>
 		$xmlString = substr(trim($dom->saveHTML()), 6, -7);
 		// domdocument spoils the string with line breaks between the elements. strip them.
-		$xmlString = str_replace("\n", "", $xmlString);
+		$xmlString = str_replace('\n', '', $xmlString);
 
 		return $xmlString;
 	}
@@ -185,46 +163,8 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 	 * @return string the resulting absolute URL
 	 */
 	protected function relativeToAbsoluteUrl($relativeUrl, $absoluteUrl) {
-		$abs = parse_url($absoluteUrl);
-
-		$newUrl =	$abs["scheme"]."://"
-					.( (isset($abs["user"])) ? $abs["user"] . ( (isset($abs["pass"])) ? ":".$abs["pass"] : "") . "@" : "" )
-					.$abs["host"]
-					.( (isset($abs["port"])) ? ":".$abs["port"] : "" );
-
-		if(substr(trim($relativeUrl), 0, 1) == "/") {
-			// we have a relative url like "/a/path/file"
-			return $newUrl . $relativeUrl;
-		} else {
-			// we have a relative url like "a/path/file", handle "."" and ".." directories
-
-			// the starting point is the absolute path, but with out the last part (we don't need the file name)
-			$newPath = explode("/", substr($abs["path"], 1) );
-			array_pop($newPath);
-
-			$relPath = parse_url($relativeUrl, PHP_URL_PATH);
-			$relPath = explode("/", $relPath);
-
-			// cross the relative and the absolute path
-			for($i=0; $i<count($relPath)-1; $i++) {
-				if($relPath[$i] == ".") {
-					continue;
-				} elseif($relPath[$i] == "..") {
-					array_pop($newPath);
-				} else {
-					$newPath[] = $relPath[$i];
-				}
-			}
-
-			// add the last part (the file name) of the relative URL
-			$newPath[] = $relPath[ count($relPath)-1 ];
-			$newPath = implode("/", $newPath);
-
-			$rel = parse_url($relativeUrl);
-			return $newUrl . "/" . $newPath
-					. ( (isset($rel["query"]))		? "?".$rel["query"]		: "")
-					. ( (isset($rel["fragment"]))	? "#".$rel["fragment"]	: "");
-		}
+		$base = new Net_URL2($absoluteUrl);
+		return $base->resolve($relativeUrl);
 	}
 
 
@@ -235,7 +175,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 	 * @return string the result as a string
 	 */
 	protected function domToString($xpathResult) {
-		$result = "";
+		$result = '';
 		foreach($xpathResult as $node) {
 			$result .= $this->toInnerHTML($node);
 		}

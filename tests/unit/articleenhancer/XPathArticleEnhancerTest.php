@@ -95,65 +95,6 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 	}
 
 
-	public function testXPathUsesProxy() {
-		$this->config = $this->getMockBuilder(
-			'\OCA\News\Utility\Config')
-			->disableOriginalConstructor()
-			->getMock();
-		$this->config->expects($this->any())
-			->method('getProxyHost')
-			->will($this->returnValue($this->proxyHost));
-		$this->config->expects($this->any())
-			->method('getProxyAuth')
-			->will($this->returnValue($this->proxyAuth));
-		$this->config->expects($this->any())
-			->method('getProxyPort')
-			->will($this->returnValue($this->proxyPort));
-		$this->config->expects($this->any())
-			->method('getFeedFetcherTimeout')
-			->will($this->returnValue($this->timeout));
-
-		$this->testEnhancer = new XPathArticleEnhancer(
-			$this->fileFactory,
-			[
-				'/explosm.net\/comics/' => '//*[@id=\'maincontent\']/div[2]/div/span',
-				'/explosm.net\/shorts/' => '//*[@id=\'maincontent\']/div/div',
-				'/explosm.net\/all/' => '//body/*',
-				'/themerepublic.net/' => '//*[@class=\'post hentry\']'
-			],
-			$this->config
-		);
-
-		$file = new \stdClass;
-		$file->headers = ["content-type"=>"text/html; charset=utf-8"];
-		$file->body = '';
-		$item = new Item();
-		$item->setUrl('https://www.explosm.net/comics/312');
-		$item->setBody('Hello thar');
-
-		$this->config->expects($this->any())
-			->method('getProxyHost')
-			->will($this->returnValue($this->proxyHost));
-
-		$this->fileFactory->expects($this->once())
-			->method('getFile')
-			->with($this->equalTo($item->getUrl()),
-				$this->equalTo($this->timeout),
-				$this->equalTo($this->redirects),
-				$this->equalTo($this->headers),
-				$this->equalTo($this->userAgent),
-				$this->equalTo(false),
-				$this->equalTo($this->proxyHost),
-				$this->equalTo($this->proxyPort),
-				$this->equalTo($this->proxyAuth))
-			->will($this->returnValue($file));
-
-		$result = $this->testEnhancer->enhance($item);
-		$this->assertEquals('Hello thar', $result->getBody());
-	}
-
-
-
 	public function testDoesNotModifiyNotMatchingResults() {
 		$item = new Item();
 		$item->setUrl('http://explosm.net');
