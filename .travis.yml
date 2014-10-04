@@ -16,6 +16,7 @@ before_install:
   - sudo add-apt-repository -y ppa:chris-lea/node.js  # ubuntu 12.04 only
   - sudo apt-get update
   - sudo apt-get -o DPkg::Options::="--force-confold" -y upgrade
+  - npm install -g npm@latest
 
 install:
   - cd ..
