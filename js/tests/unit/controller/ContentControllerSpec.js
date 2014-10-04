@@ -438,6 +438,19 @@ describe('ContentController', function () {
         expect(ctrl.getRelativeDate('')).toBe('');
     }));
 
+    it('should refresh the page', inject(function ($controller) {
+        var route = {
+            reload: jasmine.createSpy('reload')
+        };
+        var ctrl = $controller('ContentController', {
+            data: {},
+            $route: route
+        });
+
+        ctrl.refresh();
+
+        expect(route.reload).toHaveBeenCalled();
+    }));
 
     it('should tell if a feed is shown', inject(function ($controller,
         FEED_TYPE) {

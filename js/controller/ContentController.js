@@ -143,4 +143,8 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data,
         }
     };
 
+    this.refresh = function () {
+        $route.reload();
+    };
+
 });

@@ -1,10 +1,6 @@
 <?php
-
 // backports
 if (version_compare(implode('.', \OCP\Util::getVersion()), '7.8', '<=')) {
-    if (!function_exists('style')) {
-        require_once __DIR__ . '/7.php';
-    }
     style('news', '7');
 }
 
@@ -62,7 +58,7 @@ style('news', [
             'first-run': App.isFirstRun()
         }"
         tabindex="-1"
-        news-pull-to-refresh>
+        news-pull-to-refresh="showPullToRefresh">
         <div id="app-content-wrapper"
             ng-class="{'autopaging': App.loading.isLoading('autopaging')}"
             ng-hide="App.loading.isLoading('global')"

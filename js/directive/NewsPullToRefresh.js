@@ -7,7 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsPullToRefresh', function ($route, $rootScope) {
+app.directive('newsPullToRefresh', function ($rootScope) {
     'use strict';
 
     var scrolled = false;
@@ -15,7 +15,7 @@ app.directive('newsPullToRefresh', function ($route, $rootScope) {
     return {
         restrict: 'A',
         scope: {
-            'newsTimeout': '&'
+            newsPullToRefresh: '='
         },
         link: function (scope, element) {
 
@@ -23,11 +23,12 @@ app.directive('newsPullToRefresh', function ($route, $rootScope) {
             // so reset the var
             $rootScope.$on('$routeChangeStart', function () {
                 scrolled = false;
+                scope.newsPullToRefresh = false;
             });
 
             element.on('scroll', function () {
                 if (element.scrollTop() === 0 && scrolled) {
-                    $route.reload();
+                    scope.newsPullToRefresh = true;
                 }
                 scrolled = true;
             });

@@ -356,6 +356,10 @@ app.controller('ContentController',
         }
     };
 
+    this.refresh = function () {
+        $route.reload();
+    };
+
 }]);
 app.controller('NavigationController',
 ["$route", "FEED_TYPE", "FeedResource", "FolderResource", "ItemResource", "SettingsResource", "Publisher", "$rootScope", "$location", "$q", function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
@@ -2106,7 +2110,7 @@ app.directive('newsFocus', ["$timeout", "$interpolate", function ($timeout, $int
     };
 
 }]);
-app.directive('newsPullToRefresh', ["$route", "$rootScope", function ($route, $rootScope) {
+app.directive('newsPullToRefresh', ["$rootScope", function ($rootScope) {
     'use strict';
 
     var scrolled = false;
@@ -2114,7 +2118,7 @@ app.directive('newsPullToRefresh', ["$route", "$rootScope", function ($route, $r
     return {
         restrict: 'A',
         scope: {
-            'newsTimeout': '&'
+            newsPullToRefresh: '='
         },
         link: function (scope, element) {
 
@@ -2122,11 +2126,12 @@ app.directive('newsPullToRefresh', ["$route", "$rootScope", function ($route, $r
             // so reset the var
             $rootScope.$on('$routeChangeStart', function () {
                 scrolled = false;
+                scope.newsPullToRefresh = false;
             });
 
             element.on('scroll', function () {
                 if (element.scrollTop() === 0 && scrolled) {
-                    $route.reload();
+                    scope.newsPullToRefresh = true;
                 }
                 scrolled = true;
             });

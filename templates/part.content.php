@@ -8,6 +8,9 @@
 
 <div news-auto-focus="#app-content"
      ng-class="{compact: Content.isCompactView(), 'feed-view': Content.isFeed()}">
+    <div class="pull-to-refresh" ng-class="{'show-pull-to-refresh': showPullToRefresh}">
+        <button ng-click="Content.refresh()"><?php p($l->t('Refresh')) ?></button>
+    </div>
     <ul>
         <li class="item {{ Content.getFeed(item.feedId).cssClass }}"
             ng-repeat="item in Content.getItems() | orderBy:[Content.orderBy()] track by item.id"

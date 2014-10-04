@@ -81,6 +81,26 @@
 }
 
 /**
+ *
+ */
+.pull-to-refresh {
+    height: 0;
+    overflow: hidden;
+    text-align: center;
+    background-image:-moz-linear-gradient(top, #eee 0%, #fefefe 100%);
+    background-image:-webkit-linear-gradient(top, #eee 0%, #fefefe 100%);
+    background-image:-ms-linear-gradient(top, #eee 0%, #fefefe 100%);
+    background-image:linear-gradient(top, #eee 0%, #fefefe 100%);
+}
+
+.pull-to-refresh.show-pull-to-refresh {
+    transition: all 0.5s ease;
+    padding-top: 10px;
+    height: 54px;
+}
+
+
+/**
  * Rules for a single feed item
  */
 #app-content .only-in-expanded {

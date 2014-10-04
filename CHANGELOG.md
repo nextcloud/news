@@ -1,5 +1,8 @@
-owncloud-news (3.203)
+owncloud-news (3.301)
+* **New dependency**: ownCloud >= 7.0.3
 * **Bugfix**: Fix issue that prevented going below 1 unread count in the window title
+* **Enhancement**: Show a button to refresh the page instead of reloading the route for pull to refresh
+
 
 owncloud-news (3.202)
 * **Security**: Fix [XEE](https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Processing) on systems with libxml < 2.9 which allows attackers to add a malicious feeds that can include any file content that is readable by the webserver
