@@ -117,14 +117,14 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 		$dom = new DOMDocument();
 		$dom->preserveWhiteSpace = false;
 
-		$noHTMLError = Security::scan($xmlString, $dom, function ($xml, $dom) {
+		$isOk = Security::scan($xmlString, $dom, function ($xml, $dom) {
 			// wrap in div to prevent loadHTML from inserting weird elements
 			$xml = '<div>' . $xml . '</div>';
 			return @$dom->loadHTML($xml, LIBXML_NONET | LIBXML_HTML_NODEFDTD
 				| LIBXML_HTML_NOIMPLIED);
 		});
 
-		if($xmlString === '' || !$noHTMLError) {
+		if($xmlString === '' || !$isOk) {
 			return false;
 		}
 
@@ -142,7 +142,6 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 			}
 		}
 
-		// save dom to string and remove <body></body>
 		$xmlString = $dom->saveHTML();
 
 		// domdocument spoils the string with line breaks between the elements. strip them.
