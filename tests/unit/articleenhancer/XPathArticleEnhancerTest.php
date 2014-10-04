@@ -60,7 +60,7 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 				'/explosm.net\/shorts/' => '//*[@id=\'maincontent\']/div/div',
 				'/explosm.net\/all/' => '//body/*',
 				'/themerepublic.net/' => '//*[@class=\'post hentry\']'
-			], 
+			],
 			$this->config
 		);
 		$this->redirects = 5;
@@ -120,7 +120,7 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 				'/explosm.net\/shorts/' => '//*[@id=\'maincontent\']/div/div',
 				'/explosm.net\/all/' => '//body/*',
 				'/themerepublic.net/' => '//*[@class=\'post hentry\']'
-			], 
+			],
 			$this->config
 		);
 
@@ -160,7 +160,7 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals($item, $this->testEnhancer->enhance($item));
 	}
 
-	
+
 	public function testDoesModifiyArticlesThatMatch() {
 		$file = new \stdClass;
 		$file->headers = ["content-type"=>"text/html; charset=utf-8"];
@@ -370,7 +370,11 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 			->will($this->returnValue($file));
 
 		$result = $this->testEnhancer->enhance($item);
-		$this->assertEquals('<img src="http://www.url.com/absolute/url.png"><a target="_blank" href="mailto:test@testsite.com">mail</a>', $result->getBody());
+		$this->assertEquals(
+			'<img src="http://www.url.com/absolute/url.png">' .
+			'<a target="_blank" href="mailto:test@testsite.com">mail</a>',
+			$result->getBody()
+		);
 	}
 
 }

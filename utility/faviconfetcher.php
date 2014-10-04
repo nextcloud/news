@@ -80,7 +80,7 @@ class FaviconFetcher {
         if($file->body !== '') {
 			$dom = new \DOMDocument();
 
-			$dom = Security::scan($file->body, $dom, function ($xml, $dom) {
+			Security::scan($file->body, $dom, function ($xml, $dom) {
 				return @$dom->loadHTML($xml, LIBXML_NONET);
 			});
 

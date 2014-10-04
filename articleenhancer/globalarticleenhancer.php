@@ -32,7 +32,7 @@ class GlobalArticleEnhancer implements ArticleEnhancer {
 		// inside <p> tags
 		$body = '<div>' . $item->getBody() . '</div>';
 
-		$dom = Security::scan($body, $dom, function ($xml, $dom) {
+		Security::scan($body, $dom, function ($xml, $dom) {
 			return @$dom->loadHTML($xml, LIBXML_HTML_NOIMPLIED
 				| LIBXML_HTML_NODEFDTD | LIBXML_NONET);
 		});
