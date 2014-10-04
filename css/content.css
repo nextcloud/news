@@ -96,7 +96,7 @@
 .pull-to-refresh.show-pull-to-refresh {
     transition: all 0.5s ease;
     padding-top: 10px;
-    height: 54px;
+    height: 44px;
 }
 
 
