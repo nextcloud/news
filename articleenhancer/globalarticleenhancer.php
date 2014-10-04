@@ -32,10 +32,10 @@ class GlobalArticleEnhancer implements ArticleEnhancer {
 		// inside <p> tags
 		$body = '<div>' . $item->getBody() . '</div>';
 
-		$loadEntities = libxml_disable_entity_loader(true);
-		@$dom->loadHTML($body, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
-			| LIBXML_NONET);
-		libxml_disable_entity_loader($loadEntities);
+		$dom = Security::scan($body, $dom, function ($xml, $dom) {
+			return @$dom->loadHTML($xml, LIBXML_HTML_NOIMPLIED
+				| LIBXML_HTML_NODEFDTD | LIBXML_NONET);
+		});
 
 		$xpath = new \DOMXpath($dom);
 
