@@ -78,14 +78,14 @@ class FaviconFetcher {
 
         /** @noinspection PhpUndefinedFieldInspection */
         if($file->body !== '') {
-			$document = new \DOMDocument();
-            /** @noinspection PhpUndefinedFieldInspection */
-            $loadEntities = libxml_disable_entity_loader(true);
-            @$document->loadHTML($file->body, LIBXML_NONET);
-            libxml_disable_entity_loader($loadEntities);
+			$dom = new \DOMDocument();
 
-			if($document) {
-				$xpath = new \DOMXpath($document);
+			$dom = Security::scan($file->body, $dom, function ($xml, $dom) {
+				return @$dom->loadHTML($xml, LIBXML_NONET);
+			});
+
+			if($dom) {
+				$xpath = new \DOMXpath($dom);
 				$elements = $xpath->query("//link[contains(@rel, 'icon')]");
 
 				if ($elements->length > 0) {
