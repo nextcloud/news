@@ -1,3 +1,6 @@
+owncloud-news (3.302)
+* **Bugfix**: Fix text overflow for subscriptions and starred feed
+
 owncloud-news (3.301)
 * **New dependency**: ownCloud >= 7.0.3
 * **Security**: Fix possible [XEE](https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Processing) due to race conditions on php systems using **php-fpm**

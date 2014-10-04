@@ -2,7 +2,7 @@
 		active: Navigation.isStarredActive(),
 		unread: Navigation.getStarredCount() > 0
 	}"
-	class="starred has-counter">
+	class="with-counter starred-feed">
 
 	<a class="icon-starred" ng-href="#/items/starred/">
 	   <?php p($l->t('Starred')) ?>

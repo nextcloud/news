@@ -1702,8 +1702,8 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
 
     var nextFeed = function (navigationArea) {
         var current = navigationArea.find('.active');
-        var elements = navigationArea.find('.subscriptions:visible,' +
-                                           '.starred:visible,' +
+        var elements = navigationArea.find('.subscriptions-feed:visible,' +
+                                           '.starred-feed:visible,' +
                                            '.feed:visible');
 
         if (current.hasClass('folder')) {
@@ -1735,8 +1735,8 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
 
     var previousFeed = function (navigationArea) {
         var current = navigationArea.find('.active');
-        var elements = navigationArea.find('.subscriptions:visible,' +
-                                           '.starred:visible,' +
+        var elements = navigationArea.find('.subscriptions-feed:visible,' +
+                                           '.starred-feed:visible,' +
                                            '.feed:visible');
 
         if (current.hasClass('folder')) {
@@ -1751,7 +1751,7 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
             }
 
             // no subfeed found
-            var starred = $('.starred:visible');
+            var starred = $('.starred-feed:visible');
             if (starred.length > 0) {
                 starred.children('a:visible').trigger('click');
             }
