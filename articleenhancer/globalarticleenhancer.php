@@ -13,6 +13,8 @@
 
 namespace OCA\News\ArticleEnhancer;
 
+use \ZendXml\Security;
+
 use \OCA\News\Db\Item;
 
 
@@ -23,7 +25,7 @@ class GlobalArticleEnhancer implements ArticleEnhancer {
 	 * This method is run after all enhancers and for every item
 	 */
 	public function enhance(Item $item) {
-		
+
 		$dom = new \DOMDocument();
 
 		// wrap it inside a div if there is none to prevent invalid wrapping
@@ -31,9 +33,10 @@ class GlobalArticleEnhancer implements ArticleEnhancer {
 		$body = '<div>' . $item->getBody() . '</div>';
 
 		$loadEntities = libxml_disable_entity_loader(true);
-		@$dom->loadHTML($body, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+		@$dom->loadHTML($body, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
+			| LIBXML_NONET);
 		libxml_disable_entity_loader($loadEntities);
-		
+
 		$xpath = new \DOMXpath($dom);
 
 		// remove youtube autoplay

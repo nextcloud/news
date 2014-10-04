@@ -13,6 +13,8 @@
 
 namespace OCA\News\ArticleEnhancer;
 
+use \ZendXml\Security;
+
 use \OCA\News\Db\Item;
 use \OCA\News\Utility\SimplePieAPIFactory;
 use \OCA\News\Utility\Config;
@@ -67,9 +69,9 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 				}
 
 				$dom = new \DOMDocument();
-				
+
 				$loadEntities = libxml_disable_entity_loader(true);
-				@$dom->loadHTML($body);
+				@$dom->loadHTML($body, LIBXML_NONET);
 				libxml_disable_entity_loader($loadEntities);
 
 				$xpath = new \DOMXpath($dom);
@@ -135,7 +137,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 
 		// return, if xml is empty or loading the HTML fails
 		$loadEntities = libxml_disable_entity_loader(true);
-		if( trim($xmlString) == "" || !@$dom->loadHTML($xmlString) ) {
+		if( trim($xmlString) == "" || !@$dom->loadHTML($xmlString, LIBXML_NONET) ) {
 			libxml_disable_entity_loader($loadEntities);
 			return $xmlString;
 		}

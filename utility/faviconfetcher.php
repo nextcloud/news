@@ -13,6 +13,8 @@
 
 namespace OCA\News\Utility;
 
+use \ZendXml\Security;
+
 
 class FaviconFetcher {
 
@@ -79,7 +81,7 @@ class FaviconFetcher {
 			$document = new \DOMDocument();
             /** @noinspection PhpUndefinedFieldInspection */
             $loadEntities = libxml_disable_entity_loader(true);
-            @$document->loadHTML($file->body);
+            @$document->loadHTML($file->body, LIBXML_NONET);
             libxml_disable_entity_loader($loadEntities);
 
 			if($document) {
@@ -98,7 +100,7 @@ class FaviconFetcher {
         return null;
 	}
 
-	
+
 	private function getFile($url) {
 		if(trim($this->config->getProxyHost()) === '') {
 			return $this->apiFactory->getFile($url, 10, 5, null, null, false,
