@@ -21,7 +21,6 @@ are listed on the [ownCloud apps overview](https://github.com/owncloud/core/wiki
 * PHP >= 5.4
 * libxml >= 2.7.8 (2.9 recommended)
 * php-curl
-* **NO PHP-FPM (FastCGI Process Manager)**
 
 ## Supported Browsers
 * Firefox (Desktop, Android, Firefox OS)
@@ -31,7 +30,6 @@ are listed on the [ownCloud apps overview](https://github.com/owncloud/core/wiki
 * PostgreSQL
 * SQLite
 * MySql
-
 
 ## Bugs
 

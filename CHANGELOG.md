@@ -1,5 +1,6 @@
 owncloud-news (3.301)
 * **New dependency**: ownCloud >= 7.0.3
+* **Security**: Fix possible [XEE](https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Processing) due to race conditions on php systems using **php-fpm**
 * **Bugfix**: Fix issue that prevented going below 1 unread count in the window title
 * **Enhancement**: Show a button to refresh the page instead of reloading the route for pull to refresh
 
