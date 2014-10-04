@@ -127,7 +127,7 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 			->will($this->returnValue($file));
 
 		$result = $this->testEnhancer->enhance($item);
-		$this->assertEquals('<span>hiho</span>', $result->getBody());
+		$this->assertEquals('<div><span>hiho</span></div>', $result->getBody());
 	}
 
 
@@ -156,7 +156,8 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 			->will($this->returnValue($file));
 
 		$result = $this->testEnhancer->enhance($item);
-		$this->assertEquals('<div>hiho</div><div>rawr</div>', $result->getBody());
+		$this->assertEquals('<div><div>hiho</div><div>rawr</div></div>',
+			$result->getBody());
 	}
 
 
@@ -260,7 +261,11 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 			->will($this->returnValue($file));
 
 		$result = $this->testEnhancer->enhance($item);
-		$this->assertEquals('<a target="_blank" href="https://www.explosm.net/a/relative/url.html?a=1#b">link</a><a target="_blank" href="https://www.explosm.net/all/b/relative/url.html">link2</a><img src="https://www.explosm.net/another/relative/link.jpg">', $result->getBody());
+		$this->assertEquals('<div>' .
+			'<a target="_blank" href="https://www.explosm.net/a/relative/url.html?a=1#b">link</a>' .
+			'<a target="_blank" href="https://www.explosm.net/all/b/relative/url.html">link2</a>' .
+			'<img src="https://www.explosm.net/another/relative/link.jpg">' .
+			'</div>', $result->getBody());
 	}
 
 	public function testTransformRelativeUrlSpecials() {
@@ -285,7 +290,9 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 			->will($this->returnValue($file));
 
 		$result = $this->testEnhancer->enhance($item);
-		$this->assertEquals('<img src="https://username:secret@www.explosm.net/all/relative/url.png?a=1&amp;b=2">', $result->getBody());
+		$this->assertEquals(
+			'<div><img src="https://username:secret@www.explosm.net/all/relative/url.png?a=1&amp;b=2"></div>',
+			$result->getBody());
 	}
 
 	public function testDontTransformAbsoluteUrlsAndMails() {
@@ -312,8 +319,10 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 
 		$result = $this->testEnhancer->enhance($item);
 		$this->assertEquals(
+			'<div>' .
 			'<img src="http://www.url.com/absolute/url.png">' .
-			'<a target="_blank" href="mailto:test@testsite.com">mail</a>',
+			'<a target="_blank" href="mailto:test@testsite.com">mail</a>' .
+			'</div>',
 			$result->getBody()
 		);
 	}

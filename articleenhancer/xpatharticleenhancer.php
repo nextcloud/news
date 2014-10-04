@@ -39,8 +39,6 @@ class XPathArticleEnhancer implements ArticleEnhancer {
      * match the url and the xpath that should be used for it to extract the
      * page
      * @param \OCA\News\Utility\Config $config
-     * @internal param \OCA\News\ArticleEnhancer\a $SimplePieFileFactory factory for getting a simple pie file instance
-     * @internal param int $maximumTimeout maximum timeout in seconds, defaults to 10 sec
      */
 	public function __construct(SimplePieAPIFactory $fileFactory,
 	                            array $regexXPathPair,
@@ -79,7 +77,8 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 				$xpath = new DOMXpath($dom);
 				$xpathResult = $xpath->evaluate($search);
 
-				// in case it wasnt a text query assume its a dom element
+				// in case it wasnt a text query assume its a dom element and
+				// convert it to text
 				if(!is_string($xpathResult)) {
 					$xpathResult = $this->domToString($xpathResult);
 				}
@@ -118,19 +117,16 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 		$dom = new DOMDocument();
 		$dom->preserveWhiteSpace = false;
 
-		// return, if xml is empty or loading the HTML fails
-		$isLoaded = Security::scan($xmlString, $dom, function ($xml, $dom) {
-			return @$dom->loadHTML($xml, LIBXML_NONET);
+		$noHTMLError = Security::scan($xmlString, $dom, function ($xml, $dom) {
+			// wrap in div to prevent loadHTML from inserting weird elements
+			$xml = '<div>' . $xml . '</div>';
+			return @$dom->loadHTML($xml, LIBXML_NONET | LIBXML_HTML_NODEFDTD
+				| LIBXML_HTML_NOIMPLIED);
 		});
 
-		if($xmlString === '' || !$isLoaded) {
-			return $xmlString;
+		if($xmlString === '' || !$noHTMLError) {
+			return false;
 		}
-
-		// remove <!DOCTYPE
-		$dom->removeChild($dom->firstChild);
-		// remove <html></html>
-		$dom->replaceChild($dom->firstChild->firstChild, $dom->firstChild);
 
 		foreach (['href', 'src'] as $attribute) {
 			$xpath = new DOMXpath($dom);
@@ -147,9 +143,10 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 		}
 
 		// save dom to string and remove <body></body>
-		$xmlString = substr(trim($dom->saveHTML()), 6, -7);
+		$xmlString = $dom->saveHTML();
+
 		// domdocument spoils the string with line breaks between the elements. strip them.
-		$xmlString = str_replace('\n', '', $xmlString);
+		$xmlString = str_replace("\n", '', $xmlString);
 
 		return $xmlString;
 	}
