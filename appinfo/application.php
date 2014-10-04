@@ -57,10 +57,13 @@ use \OCA\News\ArticleEnhancer\RegexArticleEnhancer;
 require_once __DIR__ . '/../3rdparty/htmlpurifier/library/HTMLPurifier.auto.php';
 
 // to prevent clashes with installed app framework versions
-if(!class_exists('\SimplePie')) {
+if (!class_exists('\SimplePie')) {
 	require_once __DIR__ . '/../3rdparty/simplepie/autoloader.php';
 }
 
+if (!class_exists('\ZendXML\Security')) {
+	require_once __DIR__ . '/../3rdparty/ZendXml/vendor/autoload.php';
+}
 
 class Application extends App {
 
