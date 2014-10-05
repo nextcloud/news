@@ -39,7 +39,7 @@
 "Undo delete folder" => "Gelöschten Ordner wiederherstellen",
 "Rename folder" => "Ordner umbenennen",
 "Delete folder" => "Ordner löschen",
-"Starred" => "Markiert",
+"Starred" => "Favoriten",
 "Unread articles" => "Ungelesene Artikel",
 "All articles" => "Alle Artikel",
 "Settings" => "Einstellungen",

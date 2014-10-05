@@ -25,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-10-02 01:01-0400\n"
-"PO-Revision-Date: 2014-10-01 21:50+0000\n"
-"Last-Translator: Владислав <split7fire@yandex.ru>\n"
+"POT-Creation-Date: 2014-10-05 01:01-0400\n"
+"PO-Revision-Date: 2014-10-05 05:01+0000\n"
+"Last-Translator: I Robot\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/owncloud/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -65,39 +65,43 @@ msgstr "До сих пор нет новостных лент. Пойди и д�
 msgid "Import feeds and articles"
 msgstr "Импортировать новостные ленты и статьи"
 
-#: templates/part.content.php:25
+#: templates/part.content.php:12
+msgid "Refresh"
+msgstr ""
+
+#: templates/part.content.php:28
 msgid "Open website"
 msgstr "Открыть веб-сайт"
 
-#: templates/part.content.php:41
+#: templates/part.content.php:44
 msgid "Star article"
 msgstr "Отметить статью"
 
-#: templates/part.content.php:42
+#: templates/part.content.php:45
 msgid "Unstar article"
 msgstr "Снять отметку"
 
-#: templates/part.content.php:45
+#: templates/part.content.php:48
 msgid "Keep article unread"
 msgstr "Оставить статью непрочитанной"
 
-#: templates/part.content.php:46
+#: templates/part.content.php:49
 msgid "Remove keep article unread"
 msgstr "Удалить отметку от непрочтении"
 
-#: templates/part.content.php:67
+#: templates/part.content.php:70
 msgid "by"
 msgstr "автор"
 
-#: templates/part.content.php:68
+#: templates/part.content.php:71
 msgid "from"
 msgstr "от"
 
-#: templates/part.content.php:77
+#: templates/part.content.php:80
 msgid "Browser can not play media type"
 msgstr "Браузер не может воспроизвести данный тип медиафайла."
 
-#: templates/part.content.php:83
+#: templates/part.content.php:86
 msgid "Download"
 msgstr "Скачать"
 

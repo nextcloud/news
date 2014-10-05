@@ -24,9 +24,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-10-02 01:01-0400\n"
-"PO-Revision-Date: 2014-10-01 21:50+0000\n"
-"Last-Translator: Raul Fernandez Garcia <raulfg3@gmail.com>\n"
+"POT-Creation-Date: 2014-10-05 01:01-0400\n"
+"PO-Revision-Date: 2014-10-05 05:01+0000\n"
+"Last-Translator: I Robot\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/owncloud/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -64,39 +64,43 @@ msgstr "No hay fuentes todavía. Continúe y añada alguna"
 msgid "Import feeds and articles"
 msgstr "Importar fuentes y artículos"
 
-#: templates/part.content.php:25
+#: templates/part.content.php:12
+msgid "Refresh"
+msgstr ""
+
+#: templates/part.content.php:28
 msgid "Open website"
 msgstr "Abrir página web"
 
-#: templates/part.content.php:41
+#: templates/part.content.php:44
 msgid "Star article"
 msgstr "Añadir artículo a favoritos"
 
-#: templates/part.content.php:42
+#: templates/part.content.php:45
 msgid "Unstar article"
 msgstr "Quitar artículo de favoritos"
 
-#: templates/part.content.php:45
+#: templates/part.content.php:48
 msgid "Keep article unread"
 msgstr "Mantener el artículo como no-leído."
 
-#: templates/part.content.php:46
+#: templates/part.content.php:49
 msgid "Remove keep article unread"
 msgstr "Elimina mantener el artículo como no-leído."
 
-#: templates/part.content.php:67
+#: templates/part.content.php:70
 msgid "by"
 msgstr "por"
 
-#: templates/part.content.php:68
+#: templates/part.content.php:71
 msgid "from"
 msgstr "de"
 
-#: templates/part.content.php:77
+#: templates/part.content.php:80
 msgid "Browser can not play media type"
 msgstr "El navegador no puede reproducir tipos multimedia"
 
-#: templates/part.content.php:83
+#: templates/part.content.php:86
 msgid "Download"
 msgstr "Descargar"
 
