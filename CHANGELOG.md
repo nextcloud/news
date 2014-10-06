@@ -1,6 +1,8 @@
 owncloud-news (3.302)
 * **Bugfix**: Fix text overflow for subscriptions and starred feed
 * **Bugfix**: Styles for h4, h5 and h6
+* **Enhancement**: Minify CSS
+* **Enhancement**: Minify JavaScript
 
 owncloud-news (3.301)
 * **New dependency**: ownCloud >= 7.0.3
