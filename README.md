@@ -128,10 +128,6 @@ To update the News app use:
 
 ## FAQ
 
-### Installation from App Store fails with "archive can not be opened"
-
-Your PHP installation is missing gzip support, see https://github.com/owncloud/core/issues/9283
-
 ### How do I reset the News app
 Delete the folder **owncloud/apps/news/** and **owncloud/data/news/**, then connect to your database and run the following commands where **oc\_** is your table prefix (defaults to oc\_)
 
