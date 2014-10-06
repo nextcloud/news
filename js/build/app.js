@@ -363,6 +363,10 @@ app.controller('NavigationController',
     this.feedError = '';
     this.folderError = '';
 
+    var getRouteId = function () {
+        return parseInt($route.current.params.id, 10);
+    };
+
     this.getFeeds = function () {
         return FeedResource.getAll();
     };
@@ -430,7 +434,7 @@ app.controller('NavigationController',
         var type = $route.current.$$route.type;
 
         if (type === FEED_TYPE.FEED) {
-            var feed = FeedResource.getById($route.current.params.id);
+            var feed = FeedResource.getById(getRouteId());
 
             if (feed !== undefined && feed.folderId === folderId) {
                 return true;
@@ -451,17 +455,15 @@ app.controller('NavigationController',
     };
 
     this.isFolderActive = function (folderId) {
-        var currentId = parseInt($route.current.params.id, 10);
         return $route.current &&
             $route.current.$$route.type === FEED_TYPE.FOLDER &&
-            currentId === folderId;
+            getRouteId() === folderId;
     };
 
     this.isFeedActive = function (feedId) {
-        var currentId = parseInt($route.current.params.id, 10);
         return $route.current &&
             $route.current.$$route.type === FEED_TYPE.FEED &&
-            currentId === feedId;
+            getRouteId() === feedId;
     };
 
     this.folderNameExists = function (folderName) {
