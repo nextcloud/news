@@ -1,3 +1,6 @@
+owncloud-news (3.303)
+* **Enhancement**: Added Slashdot.org enhancer to get rid of tons of advertising that create a lot of whitespace when using adblock
+
 owncloud-news (3.302)
 * **Bugfix**: Fix text overflow for subscriptions and starred feed
 * **Bugfix**: Styles for h4, h5 and h6

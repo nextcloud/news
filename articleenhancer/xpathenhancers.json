@@ -2,6 +2,9 @@
 	"cad-comic.com": {
 		"%cad-comic.com/cad/\\d+/$%": "//*[@id='content']/img"
 	},
+	"slashdot.org": {
+		"%rss.slashdot.org%": "//article/div"
+	},
 	"explosm.net": {
 		"%explosm.net/comics%": "//*[@id='maincontent']/div[2]/div/img",
 		"%explosm.net/show%": "//*[@id='videoPlayer']/iframe"
