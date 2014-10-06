@@ -3,7 +3,7 @@
     "id": "news",
     "description": "An RSS/Atom feed reader. Requires ownCloud backgroundjobs or an updater script to be enabled to update your feeds. See the README.rst in the apps top directory",
     "licence": "AGPL",
-    "version": "3.301",
+    "version": "3.302",
     "authors": [
         {
             "name": "Bernhard Posselt",

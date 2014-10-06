@@ -14,11 +14,7 @@ script('news', [
     'vendor/momentjs/min/moment-with-locales.min',
     'build/app.min',
 ]);
-
-
-
 ?>
-
 
 <div id="app" ng-app="News" ng-cloak ng-strict-di ng-controller="AppController as App">
 
