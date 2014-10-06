@@ -16,6 +16,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-phpunit');
     grunt.loadNpmTasks('grunt-wrap');
     grunt.loadNpmTasks('grunt-karma');
@@ -61,6 +62,31 @@ module.exports = function (grunt) {
                     '<%= meta.production %>app.min.js':
                         ['<%= meta.production %>app.js']
                 }
+            },
+            options: {
+            }
+        },
+        cssmin: {
+            newsBackport: {
+                files: {'../css/news-owncloud7.min.css': [
+                    '../css/7.css',
+                    '../css/app.css',
+                    '../css/content.css',
+                    '../css/custom.css',
+                    '../css/mobile.css',
+                    '../css/navigation.css',
+                    '../css/settings.css'
+                ]}
+            },
+            news: {
+                files: {'../css/news.min.css': [
+                    '../css/app.css',
+                    '../css/content.css',
+                    '../css/custom.css',
+                    '../css/mobile.css',
+                    '../css/navigation.css',
+                    '../css/settings.css'
+                ]}
             }
         },
         wrap: {
@@ -98,6 +124,8 @@ module.exports = function (grunt) {
         watch: {
             concat: {
                 files: [
+                    '../css/*.css',
+                    '!../css/*.min.css',
                     'tests/**/*.js',
                     'app/**/*.js',
                     'controller/**/*.js',
@@ -163,7 +191,7 @@ module.exports = function (grunt) {
 
     // make tasks available under simpler commands
     grunt.registerTask('default', ['jshint', 'concat',  'wrap', 'ngAnnotate',
-                                   'uglify']);
+                                   'uglify', 'cssmin']);
     grunt.registerTask('dev', ['watch:concat']);
     grunt.registerTask('test', ['karma:unit']);
     grunt.registerTask('php', ['watch:phpunit']);

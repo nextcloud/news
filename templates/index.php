@@ -1,7 +1,9 @@
 <?php
 // backports
 if (version_compare(implode('.', \OCP\Util::getVersion()), '7.8', '<=')) {
-    style('news', '7');
+    style('news', 'news-owncloud7.min');
+} else {
+    style('news', 'news.min');
 }
 
 script('news', [
@@ -13,14 +15,6 @@ script('news', [
     'build/app.min',
 ]);
 
-style('news', [
-    'app',
-    'navigation',
-    'content',
-    'settings',
-    'mobile',
-    'custom'
-]);
 
 
 ?>
