@@ -21,6 +21,7 @@ are listed on the [ownCloud apps overview](https://github.com/owncloud/core/wiki
 * PHP >= 5.4
 * libxml >= 2.7.8 (2.9 recommended)
 * php-curl
+* zlib (if installed from the appstore)
 
 ## Supported Browsers
 * Firefox (Desktop, Android, Firefox OS)
