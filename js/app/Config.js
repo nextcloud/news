@@ -46,36 +46,30 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
     var getResolve = function (type) {
         return {
             // request to items also returns feeds
-            data: [
-                '$http',
-                '$route',
-                '$q',
-                'BASE_URL',
-                'ITEM_BATCH_SIZE',
-                function ($http, $route, $q, BASE_URL, ITEM_BATCH_SIZE) {
+            data: /* @ngInject */ function (
+                $http, $route, $q, BASE_URL, ITEM_BATCH_SIZE) {
 
-                    var parameters = {
-                        type: type,
-                        limit: ITEM_BATCH_SIZE
-                    };
+                var parameters = {
+                    type: type,
+                    limit: ITEM_BATCH_SIZE
+                };
 
-                    if ($route.current.params.id !== undefined) {
-                        parameters.id = $route.current.params.id;
-                    }
-
-                    var deferred = $q.defer();
-
-                    $http({
-                        url:  BASE_URL + '/items',
-                        method: 'GET',
-                        params: parameters
-                    }).success(function (data) {
-                        deferred.resolve(data);
-                    });
-
-                    return deferred.promise;
+                if ($route.current.params.id !== undefined) {
+                    parameters.id = $route.current.params.id;
                 }
-            ]
+
+                var deferred = $q.defer();
+
+                $http({
+                    url:  BASE_URL + '/items',
+                    method: 'GET',
+                    params: parameters
+                }).success(function (data) {
+                    deferred.resolve(data);
+                });
+
+                return deferred.promise;
+            }
         };
     };
 
