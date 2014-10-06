@@ -1,4 +1,5 @@
 <?php $TRANSLATIONS = array(
+"Refresh" => "รีเฟรช",
 "by" => "โดย",
 "from" => "จาก",
 "Download" => "ดาวน์โหลด",

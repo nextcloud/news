@@ -6,6 +6,7 @@
 "Add a feed" => "Voeg feed toe",
 "There are no feeds yet. Go ahead and add some" => "Er zijn nog geen feeds. Ga verder en voeg wat toe",
 "Import feeds and articles" => "Importeer feeds en artikelen",
+"Refresh" => "Vernieuwen",
 "Open website" => "Open website",
 "Star article" => "Markeer artikel",
 "Unstar article" => "Demarkeer artikel",

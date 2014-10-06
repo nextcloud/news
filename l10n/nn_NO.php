@@ -1,4 +1,5 @@
 <?php $TRANSLATIONS = array(
+"Refresh" => "Oppfrisk",
 "by" => "av",
 "from" => "frå",
 "Download" => "Last ned",

@@ -1,4 +1,5 @@
 <?php $TRANSLATIONS = array(
+"Refresh" => "רענון",
 "by" => "על ידי",
 "from" => "מאת",
 "Download" => "הורדה",

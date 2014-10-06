@@ -6,6 +6,7 @@
 "Add a feed" => "Legg til en feed",
 "There are no feeds yet. Go ahead and add some" => "Der er ingen feeds ennå. Legg inn noen",
 "Import feeds and articles" => "Importer feeds og artikler",
+"Refresh" => "Oppdater",
 "Open website" => "Åpne webside",
 "Star article" => "Merk artikkelen",
 "Unstar article" => "Fjern merking av artikkelen",

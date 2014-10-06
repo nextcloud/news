@@ -1,4 +1,5 @@
 <?php $TRANSLATIONS = array(
+"Refresh" => "Refresh",
 "by" => "oleh",
 "from" => "dari",
 "Download" => "Muat turun",

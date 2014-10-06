@@ -1,6 +1,7 @@
 <?php $TRANSLATIONS = array(
 "Can not add feed: Exists already" => "ფიდის დამატება შეუძლებელია: უკვე არსებობს",
 "Can not add folder: Exists already" => "ფოლდერის დამატება შეუძლებელია: უკვე არსებობს",
+"Refresh" => "განახლება",
 "by" => "მიერ",
 "from" => "დან",
 "Download" => "ჩამოტვირთვა",

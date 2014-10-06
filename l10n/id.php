@@ -2,6 +2,7 @@
 "Can not add feed: Exists already" => "Tidak dapat menambah umpan: Sudah ada",
 "Articles without feed" => "Artikel tanpa umpan",
 "Can not add folder: Exists already" => "Tidak dapat menambah folder: Sudah ada",
+"Refresh" => "Segarkan",
 "by" => "oleh",
 "from" => "dari",
 "Download" => "Unduh",

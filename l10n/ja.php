@@ -4,6 +4,7 @@
 "Articles without feed" => "フィードなし記事",
 "Can not add folder: Exists already" => "フォルダーを追加できません: すでに存在します",
 "Add a feed" => "フィードを追加",
+"Refresh" => "同期",
 "by" => "により",
 "from" => "開始",
 "Download" => "ダウンロード",

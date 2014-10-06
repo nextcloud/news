@@ -3,6 +3,7 @@
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Voogu ei saa lisada: URL-i pole olemas, ei suuda kontrollida SSL sertifikaati või voog sisaldab vigast XML-i",
 "Articles without feed" => "Artiklid ilma voota",
 "Can not add folder: Exists already" => "Kausta ei saa lisada: on juba olemas",
+"Refresh" => "Värskenda",
 "by" => "lisas",
 "from" => "kohast",
 "Download" => "Lae alla",

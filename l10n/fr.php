@@ -6,6 +6,7 @@
 "Add a feed" => "Ajouter un flux",
 "There are no feeds yet. Go ahead and add some" => "Il n'y a pas encore de flux. Commencez et ajoutez en",
 "Import feeds and articles" => "Importer des flux et des articles",
+"Refresh" => "Rafraîchir",
 "Open website" => "Ouvrir le site web",
 "Star article" => "Epingler l'article",
 "Unstar article" => "Désépingler l'article",

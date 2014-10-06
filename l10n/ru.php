@@ -6,6 +6,7 @@
 "Add a feed" => "Добавить новостную ленту",
 "There are no feeds yet. Go ahead and add some" => "До сих пор нет новостных лент. Пойди и добавь какие-нибудь",
 "Import feeds and articles" => "Импортировать новостные ленты и статьи",
+"Refresh" => "Обновить",
 "Open website" => "Открыть веб-сайт",
 "Star article" => "Отметить статью",
 "Unstar article" => "Снять отметку",

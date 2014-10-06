@@ -6,6 +6,7 @@
 "Add a feed" => "Añadir fuente",
 "There are no feeds yet. Go ahead and add some" => "No hay fuentes todavía. Continúe y añada alguna",
 "Import feeds and articles" => "Importar fuentes y artículos",
+"Refresh" => "Actualizar",
 "Open website" => "Abrir página web",
 "Star article" => "Añadir artículo a favoritos",
 "Unstar article" => "Quitar artículo de favoritos",

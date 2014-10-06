@@ -6,6 +6,7 @@
 "Add a feed" => "Добави поток",
 "There are no feeds yet. Go ahead and add some" => "Все още няма потоци. Добави няколко",
 "Import feeds and articles" => "Внеси потоци и статии",
+"Refresh" => "Опресняване",
 "Open website" => "Отвори интернет станица",
 "Star article" => "Обележи статия",
 "Unstar article" => "Премахни отбелезка за статия",

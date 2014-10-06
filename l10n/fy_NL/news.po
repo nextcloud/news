@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2014-10-06 01:01-0400\n"
-"PO-Revision-Date: 2014-10-05 05:20+0000\n"
-"Last-Translator: I Robot\n"
-"Language-Team: Uighur (http://www.transifex.com/projects/p/owncloud/language/ug/)\n"
+"PO-Revision-Date: 2012-08-26 23:39+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Western Frisian (Netherlands) (http://www.transifex.com/projects/p/owncloud/language/fy_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ug\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: fy_NL\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: service/feedservice.php:104
 msgid "Can not add feed: Exists already"
@@ -49,7 +49,7 @@ msgstr ""
 
 #: templates/part.content.php:12
 msgid "Refresh"
-msgstr "يېڭىلا"
+msgstr ""
 
 #: templates/part.content.php:28
 msgid "Open website"
@@ -73,7 +73,7 @@ msgstr ""
 
 #: templates/part.content.php:70
 msgid "by"
-msgstr "سەنئەتكار"
+msgstr ""
 
 #: templates/part.content.php:71
 msgid "from"
@@ -85,7 +85,7 @@ msgstr ""
 
 #: templates/part.content.php:86
 msgid "Download"
-msgstr "چۈشۈر"
+msgstr ""
 
 #: templates/part.navigation.addfeed.php:5
 #: templates/part.navigation.addfeed.php:58
@@ -94,7 +94,7 @@ msgstr ""
 
 #: templates/part.navigation.addfeed.php:15
 msgid "Web address"
-msgstr "تور ئادرېسى"
+msgstr ""
 
 #: templates/part.navigation.addfeed.php:22
 msgid "Feed exists already!"
@@ -102,7 +102,7 @@ msgstr ""
 
 #: templates/part.navigation.addfeed.php:27
 msgid "Folder"
-msgstr "قىسقۇچ"
+msgstr ""
 
 #: templates/part.navigation.addfeed.php:31
 msgid "No folder"
@@ -110,13 +110,13 @@ msgstr ""
 
 #: templates/part.navigation.addfeed.php:36
 msgid "New folder"
-msgstr "يېڭى قىسقۇچ"
+msgstr ""
 
 #: templates/part.navigation.addfeed.php:44
 #: templates/part.navigation.addfolder.php:16
 #: templates/part.navigation.addfolder.php:17
 msgid "Folder name"
-msgstr "قىسقۇچ ئاتى"
+msgstr ""
 
 #: templates/part.navigation.addfeed.php:51
 msgid "Go back"
@@ -134,7 +134,7 @@ msgstr ""
 
 #: templates/part.navigation.addfolder.php:24
 msgid "Create"
-msgstr "قۇر"
+msgstr ""
 
 #: templates/part.navigation.feed.php:41
 msgid "Deleted feed"
@@ -147,7 +147,7 @@ msgstr ""
 #: templates/part.navigation.feed.php:56
 #: templates/part.navigation.folder.php:46
 msgid "Rename"
-msgstr "ئات ئۆزگەرت"
+msgstr ""
 
 #: templates/part.navigation.feed.php:70
 #: templates/part.navigation.folder.php:77
@@ -187,15 +187,15 @@ msgstr ""
 
 #: templates/part.navigation.folder.php:86
 msgid "Rename folder"
-msgstr "قىسقۇچ ئاتىنى ئۆزگەرت"
+msgstr ""
 
 #: templates/part.navigation.folder.php:89
 msgid "Delete folder"
-msgstr "قىسقۇچ ئۆچۈر"
+msgstr ""
 
 #: templates/part.navigation.starredfeed.php:8
 msgid "Starred"
-msgstr "يۇلتۇزلۇق"
+msgstr ""
 
 #: templates/part.navigation.unreadfeed.php:8
 msgid "Unread articles"
@@ -207,7 +207,7 @@ msgstr ""
 
 #: templates/part.settings.php:8
 msgid "Settings"
-msgstr "تەڭشەكلەر"
+msgstr ""
 
 #: templates/part.settings.php:13
 msgid "Compact view"
@@ -231,12 +231,12 @@ msgstr ""
 
 #: templates/part.settings.php:47 templates/part.settings.php:81
 msgid "Import"
-msgstr "ئەكىر"
+msgstr ""
 
 #: templates/part.settings.php:54 templates/part.settings.php:63
 #: templates/part.settings.php:88 templates/part.settings.php:95
 msgid "Export"
-msgstr "چىقار"
+msgstr ""
 
 #: templates/part.settings.php:69
 msgid "Error when importing: file does not contain valid OPML"

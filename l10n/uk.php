@@ -2,6 +2,7 @@
 "Can not add feed: Exists already" => "Неможливо додати стрічку: вона вже існує",
 "Articles without feed" => "Статті без стрічки",
 "Can not add folder: Exists already" => "Неможливо додати теку: вона вже існує",
+"Refresh" => "Оновити",
 "by" => "по",
 "from" => "З",
 "Download" => "Завантажити",

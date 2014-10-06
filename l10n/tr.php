@@ -6,6 +6,7 @@
 "Add a feed" => "Bir besleme ekle",
 "There are no feeds yet. Go ahead and add some" => "Henüz besleme yok. Devam edin ve birkaç tane ekleyin",
 "Import feeds and articles" => "Besleme ve makaleleri içe aktar",
+"Refresh" => "Yenile",
 "Open website" => "Web sitesini aç",
 "Star article" => "Makaleyi yıldızla",
 "Unstar article" => "Makale yıldızını kaldır",

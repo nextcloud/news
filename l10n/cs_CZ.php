@@ -6,6 +6,7 @@
 "Add a feed" => "Přidat kanál",
 "There are no feeds yet. Go ahead and add some" => "Ještě zde nejsou přidány žádné kanály. Chopte se toho a nějaké přidejte",
 "Import feeds and articles" => "Importovat kanály a články",
+"Refresh" => "Obnovit",
 "Open website" => "Otevřít webovou stránku",
 "Star article" => "Ocenit článek hvězdičkou",
 "Unstar article" => "Odebrat článku hvězdičku",

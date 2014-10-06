@@ -2,6 +2,7 @@
 "Can not add feed: Exists already" => "No se puede agregar fuente: ya existe",
 "Articles without feed" => "Artículos sin fuente",
 "Can not add folder: Exists already" => "No se puede agregar carpeta: ya existe",
+"Refresh" => "Actualizar",
 "by" => "por",
 "from" => "de",
 "Download" => "Descargar",

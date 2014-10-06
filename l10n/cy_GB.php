@@ -1,4 +1,5 @@
 <?php $TRANSLATIONS = array(
+"Refresh" => "Adnewyddu",
 "by" => "gan",
 "Download" => "Llwytho i lawr",
 "Web address" => "Cyfeiriad gwe",

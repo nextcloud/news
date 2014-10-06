@@ -1,4 +1,5 @@
 <?php $TRANSLATIONS = array(
+"Refresh" => "Làm mới",
 "by" => "bởi",
 "from" => "từ",
 "Download" => "Tải về",

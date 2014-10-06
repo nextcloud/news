@@ -1,4 +1,5 @@
 <?php $TRANSLATIONS = array(
+"Refresh" => "නැවුම් කරන්න",
 "by" => "විසින්",
 "from" => "වෙතින්",
 "Download" => "බාන්න",

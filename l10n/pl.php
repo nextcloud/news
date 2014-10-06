@@ -6,6 +6,7 @@
 "Add a feed" => "Dodaj kanał",
 "There are no feeds yet. Go ahead and add some" => "Nie ma żadnych kanałów. Dodaj kilka",
 "Import feeds and articles" => "Importuj kanały i artykuły",
+"Refresh" => "Odśwież",
 "Open website" => "Otwórz stronę",
 "Star article" => "Oznacz gwiazdką",
 "Unstar article" => "Odznacz gwiazdkę",

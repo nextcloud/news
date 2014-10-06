@@ -6,6 +6,7 @@
 "Add a feed" => "Dodaj vir",
 "There are no feeds yet. Go ahead and add some" => "Ni še določenih virov. Najprej je treba kakšen vir dodati.",
 "Import feeds and articles" => "Uvozi vire in prispevke",
+"Refresh" => "Osveži",
 "Open website" => "Odpri spletišče",
 "Star article" => "Označi prispevek z zvezdico",
 "Unstar article" => "Odstrani oznako prispevka",

@@ -1,4 +1,5 @@
 <?php $TRANSLATIONS = array(
+"Refresh" => "重新整理",
 "Download" => "下載",
 "Web address" => "網絡地址",
 "Folder" => "資料夾",

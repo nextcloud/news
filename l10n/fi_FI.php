@@ -6,6 +6,7 @@
 "Add a feed" => "Lisää syöte",
 "There are no feeds yet. Go ahead and add some" => "Ei syötteitä vielä. Lisää joitakin syötteitä",
 "Import feeds and articles" => "Tuo syötteitä ja artikkeleita",
+"Refresh" => "Päivitä",
 "Open website" => "Avaa verkkosivu",
 "Star article" => "Merkitse artikkeli tähdellä",
 "Unstar article" => "Poista artikkelin tähtimerkintä",

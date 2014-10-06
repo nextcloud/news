@@ -3,6 +3,7 @@
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Ötürücünü əlavə etmək mümkün olmadı: URL mövcud deyil, SSL sertifikat yoxlanıla bilmir yada ötürücüdə XML yalnışdır",
 "Articles without feed" => "Ötürməsiz məqalələr",
 "Can not add folder: Exists already" => "Qovluğu əlave etmək mümkün deyil: Artıq movcuddur",
+"Refresh" => "Yenilə",
 "by" => "onunla",
 "from" => "ondan",
 "Download" => "Yüklə",

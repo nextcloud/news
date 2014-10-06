@@ -6,6 +6,7 @@
 "Add a feed" => "Προσθήκη ροής",
 "There are no feeds yet. Go ahead and add some" => "Δεν υπάρχουν ακόμα ροές. Προσθέστε μερικές",
 "Import feeds and articles" => "Εισαγωγή ροών και άρθρων",
+"Refresh" => "Ανανέωση ",
 "Open website" => "Άνοιγμα φυλλομετρητή",
 "Star article" => "Επισήμανση με αστέρι",
 "Unstar article" => "Αναίρεση επισήμανσης με αστέρι",

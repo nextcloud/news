@@ -6,6 +6,7 @@
 "Add a feed" => "Add a feed",
 "There are no feeds yet. Go ahead and add some" => "There are no feeds yet. Go ahead and add some",
 "Import feeds and articles" => "Import feeds and articles",
+"Refresh" => "Refresh",
 "Open website" => "Open website",
 "Star article" => "Star article",
 "Unstar article" => "Unstar article",

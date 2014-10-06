@@ -1,4 +1,5 @@
 <?php $TRANSLATIONS = array(
+"Refresh" => "Osvježi",
 "by" => "preko",
 "from" => "od",
 "Download" => "Preuzimanje",

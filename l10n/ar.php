@@ -3,6 +3,7 @@
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "لا يمكن إضافة هذا الملقم: عنوان URL غير موجود, شهادة SSL لايمكن التحقق منه أو الملقم لديه xml غير صالح",
 "Articles without feed" => "مقالات بدون ملقم",
 "Can not add folder: Exists already" => "لا يمكن اضافة المجلد:موجود بالفعل",
+"Refresh" => "تحديث",
 "by" => "من قبل",
 "from" => "من",
 "Download" => "تحميل",

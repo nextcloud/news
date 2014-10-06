@@ -1,4 +1,5 @@
 <?php $TRANSLATIONS = array(
+"Refresh" => "Refresca",
 "by" => "per",
 "Download" => "Avalcarga",
 "Web address" => "Adreiça web",

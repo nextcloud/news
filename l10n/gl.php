@@ -3,6 +3,7 @@
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Non é posíbel engadir a fonte: Non existe o URL, non é posíbel validar o certificado SSL ou a fonte é un XML incorrecto.",
 "Articles without feed" => "Artigos sen fonte",
 "Can not add folder: Exists already" => "Non é posíbel engadir o cartafol: xa existe",
+"Refresh" => "Actualizar",
 "by" => "por",
 "from" => "desde",
 "Download" => "Descargar",

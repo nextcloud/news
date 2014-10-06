@@ -6,6 +6,7 @@
 "Add a feed" => "Neuen Feed hinzufügen",
 "There are no feeds yet. Go ahead and add some" => "Keine Feeds vorhanden. Na los, abonniere welche",
 "Import feeds and articles" => "Feeds und Artikel importieren",
+"Refresh" => "Aktualisieren",
 "Open website" => "Internetseite öffnen",
 "Star article" => "Artikel zu Favoriten hinzufügen",
 "Unstar article" => "Artikel aus Favoriten entfernen",

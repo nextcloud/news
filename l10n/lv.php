@@ -1,4 +1,5 @@
 <?php $TRANSLATIONS = array(
+"Refresh" => "Atsvaidzināt",
 "by" => "līdz",
 "Download" => "Lejupielādēt",
 "Subscribe" => "Abonēt",

@@ -1,6 +1,7 @@
 <?php $TRANSLATIONS = array(
 "Can not add feed: Exists already" => "無法新增反饋: 已經存在",
 "Can not add folder: Exists already" => "無法新增目錄: 目錄已存在",
+"Refresh" => "重新整理",
 "by" => "由",
 "from" => "從",
 "Download" => "下載",

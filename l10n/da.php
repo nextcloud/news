@@ -6,6 +6,7 @@
 "Add a feed" => "Tilføj et feed",
 "There are no feeds yet. Go ahead and add some" => "Der er endnu ingen feeds. Du er velkommen til at tilføje nogle",
 "Import feeds and articles" => "Importér feeds og artikler",
+"Refresh" => "Opdatér",
 "Open website" => "Åbn websted",
 "Star article" => "Stjernemarkér artiklen",
 "Unstar article" => "Fjern stjerne fra artiklen",

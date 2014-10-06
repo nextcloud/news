@@ -3,6 +3,7 @@
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Nun pue amestase'l feed: la URL nun esiste, el certificáu SSL nun pue validase o'l feed tien un xml inválidu",
 "Articles without feed" => "Artículos ensin fonte",
 "Can not add folder: Exists already" => "Nun pue amestase la carpeta: Yá esiste",
+"Refresh" => "Anovar",
 "by" => "por",
 "from" => "Dende",
 "Download" => "Descargar",

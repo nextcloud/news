@@ -3,6 +3,7 @@
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "A hírcsatorna nem hozható létre: vagy a cím nem létezik, vagy érvénytelen a kiszolgáló SSL tanúsítványa, vagy hibás a csatorna XML állománya",
 "Articles without feed" => "Cikkek folyam(feed) nélkül",
 "Can not add folder: Exists already" => "A mappa nem hozható létre: már létezik",
+"Refresh" => "Frissítés",
 "by" => "közreadta:",
 "from" => "forrás:",
 "Download" => "Letöltés",

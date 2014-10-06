@@ -1,4 +1,5 @@
 <?php $TRANSLATIONS = array(
+"Refresh" => "يېڭىلا",
 "by" => "سەنئەتكار",
 "Download" => "چۈشۈر",
 "Web address" => "تور ئادرېسى",

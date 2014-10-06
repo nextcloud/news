@@ -2,6 +2,7 @@
 "Can not add feed: Exists already" => "Nepavyko pridėti srauto: Jau yra",
 "Articles without feed" => "Straipsniai be sklaidos kanalų",
 "Can not add folder: Exists already" => "Nepavyko pridėti aplanko: Jau yra",
+"Refresh" => "Atnaujinti",
 "by" => " ",
 "from" => "iš",
 "Download" => "Atsisiųsti",
