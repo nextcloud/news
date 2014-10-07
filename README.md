@@ -141,6 +141,12 @@ DROP TABLE oc_news_feeds;
 DROP TABLE oc_news_folders;
 ```
 
+### App is stuck in maintenance mode after failed update
+
+Check the **owncloud/data/owncloud.log** for hints why it failed. After the issues are fixed, turn off the maintenance mode by editing your **owncloud/config/config.php** by setting the **maintenance** key to false:
+
+    "maintenance" => false,
+
 ### All feeds are not updated anymore
 [This is a bug in the core backgroundjob system](https://github.com/owncloud/core/issues/3221) deleting the **owncloud/data/cron.lock** file gets the cron back up running
 
