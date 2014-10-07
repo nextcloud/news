@@ -1,4 +1,5 @@
-owncloud-news (3.303)
+owncloud-news (3.401)
+* **New dependency**: SimpleXML
 * **Enhancement**: Added Slashdot.org enhancer to get rid of tons of advertising that create a lot of whitespace when using adblock
 * **Enhancement**: When a folder or feed of a folder is selected, select that folder in the add new feed section
 

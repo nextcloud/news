@@ -22,6 +22,7 @@ are listed on the [ownCloud apps overview](https://github.com/owncloud/core/wiki
 * libxml >= 2.7.8 (2.9 recommended)
 * php-curl
 * zlib (if installed from the appstore)
+* SimpleXML
 
 ## Supported Browsers
 * Firefox (Desktop, Android, Firefox OS)
