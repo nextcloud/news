@@ -5,6 +5,51 @@
 	"slashdot.org": {
 		"%rss.slashdot.org%": "//article/div[@class='body'] | //article[@class='layout-article']/div"
 	},
+	"derstandard.at": {
+		"%derstandard.at%": "//*[@id='content-main']"
+	},
+	"derstandard.at/Web": {
+		"%derstandard.at%": "//*[@id='content-main']"
+	},
+	"derstandard.at/International": {
+		"%derstandard.at%": "//*[@id='content-main']"
+	},
+	"derstandard.at/Inland": {
+		"%derstandard.at%": "//*[@id='content-main']"
+	},
+	"derstandard.at/Wirtschaft": {
+		"%derstandard.at%": "//*[@id='content-main']"
+	},
+	"derstandard.at/Sport": {
+		"%derstandard.at%": "//*[@id='content-main']"
+	},
+	"derstandard.at/Panorama": {
+		"%derstandard.at%": "//*[@id='content-main']"
+	},
+	"derstandard.at/Etat": {
+		"%derstandard.at%": "//*[@id='content-main']"
+	},
+	"derstandard.at/Kultur": {
+		"%derstandard.at%": "//*[@id='content-main']"
+	},
+	"derstandard.at/Wissenschaft": {
+		"%derstandard.at%": "//*[@id='content-main']"
+	},
+	"derstandard.at/Gesundheit": {
+		"%derstandard.at%": "//*[@id='content-main']"
+	},
+	"derstandard.at/Bildung": {
+		"%derstandard.at%": "//*[@id='content-main']"
+	},
+	"derstandard.at/Reisen": {
+		"%derstandard.at%": "//*[@id='content-main']"
+	},
+	"derstandard.at/Lifestyle": {
+		"%derstandard.at%": "//*[@id='content-main']"
+	},
+	"derstandard.at/Familie": {
+		"%derstandard.at%": "//*[@id='content-main']"
+	},
 	"explosm.net": {
 		"%explosm.net/comics%": "//*[@id='maincontent']/div[2]/div/img",
 		"%explosm.net/show%": "//*[@id='videoPlayer']/iframe"
