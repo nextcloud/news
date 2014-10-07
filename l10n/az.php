@@ -10,6 +10,7 @@
 "Folder" => "Qovluq",
 "New folder" => "Yeni qovluq",
 "Folder name" => "Qovluq adı",
+"Rename" => "Adı dəyiş",
 "Rename feed" => "Kanalın adını dəyiş",
 "Collapse" => "Yığılma",
 "Rename folder" => "Qovluğun adını dəyiş",
