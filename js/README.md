@@ -1,4 +1,4 @@
-# JavaScript Development
+# JavaScript && CSS Development
 Before starting, install nodejs 0.10 and grunt-cli:
 
 	sudo npm -g install grunt-cli

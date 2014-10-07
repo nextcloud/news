@@ -35,6 +35,6 @@
     "commit": "0b6d1dda46c13dfc9d1240a4f5e1b31ed78c8c0b"
   },
   "_source": "git://github.com/paulmillr/es6-shim.git",
-  "_target": "~0.18.0",
+  "_target": "~0.18.*",
   "_originalSource": "es6-shim"
 }
