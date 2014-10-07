@@ -1,7 +1,6 @@
 owncloud-news (3.303)
 * **Enhancement**: Added Slashdot.org enhancer to get rid of tons of advertising that create a lot of whitespace when using adblock
 * **Enhancement**: When a folder or feed of a folder is selected, select that folder in the add new feed section
-* **Enhancement**: Added derstandard.at enhancer for the main sections
 
 owncloud-news (3.302)
 * **Bugfix**: Fix text overflow for subscriptions and starred feed
