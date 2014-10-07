@@ -14,10 +14,34 @@ app.factory('FolderResource', function (Resource, $http, BASE_URL, $q) {
         Resource.call(this, $http, BASE_URL, 'name');
         this.deleted = null;
         this.$q = $q;
+        this.ids = {};
     };
 
     FolderResource.prototype = Object.create(Resource.prototype);
 
+
+    FolderResource.prototype.add = function (value) {
+        Resource.prototype.add.call(this, value);
+        if (value.id !== undefined) {
+            this.ids[value.id] = this.hashMap[value.name];
+        }
+    };
+
+    FolderResource.prototype.clear = function () {
+        Resource.prototype.clear.call(this);
+        this.ids = {};
+    };
+
+    FolderResource.prototype.delete = function (name) {
+        var folder = this.get(name);
+        if (folder !== undefined && folder.id) {
+            delete this.ids[folder.id];
+        }
+
+        Resource.prototype.delete.call(this, name);
+
+        return folder;
+    };
 
     FolderResource.prototype.toggleOpen = function (folderName) {
         var folder = this.get(folderName);
@@ -58,6 +82,9 @@ app.factory('FolderResource', function (Resource, $http, BASE_URL, $q) {
         return deferred.promise;
     };
 
+    FolderResource.prototype.getById = function (id) {
+        return this.ids[id];
+    };
 
     FolderResource.prototype.create = function (folderName) {
         folderName = folderName.trim();

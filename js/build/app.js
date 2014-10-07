@@ -361,7 +361,13 @@ app.controller('NavigationController',
     'use strict';
 
     this.feedError = '';
+    this.showNewFolder = false;
+    this.renamingFolder = false;
+    this.addingFeed = false;
+    this.addingFolder = false;
     this.folderError = '';
+    this.renameError = '';
+    this.feed = {};
 
     var getRouteId = function () {
         return parseInt($route.current.params.id, 10);
@@ -480,14 +486,14 @@ app.controller('NavigationController',
 
     this.createFeed = function (feed) {
         var self = this;
-        this.newFolder = false;
+        this.showNewFolder = false;
         this.addingFeed = true;
 
         var newFolder = feed.newFolder;
         var existingFolder = feed.existingFolder || {id: 0};
 
         // we dont need to create a new folder
-        if (newFolder === undefined) {
+        if (newFolder === undefined || newFolder === '') {
             // this is set to display the feed in any folder, even if the folder
             // is closed or has no unread articles
             existingFolder.getsFeed = true;
@@ -619,8 +625,41 @@ app.controller('NavigationController',
     };
 
     var self = this;
+
     $rootScope.$on('moveFeedToFolder', function (scope, data) {
         self.moveFeed(data.feedId, data.folderId);
+    });
+
+    // based on the route we want to preselect a folder in the add new feed
+    // drop down
+    var setSelectedFolderForRoute = function () {
+        var type;
+        if ($route.current) {
+            type = $route.current.$$route.type;
+        }
+
+        var folderId = 0;
+
+        if (type === FEED_TYPE.FOLDER) {
+            folderId = getRouteId();
+        } else if (type === FEED_TYPE.FEED) {
+            var feed = FeedResource.getById(getRouteId());
+
+            if (feed) {
+                folderId = feed.folderId;
+            }
+        }
+
+        var folder;
+        if (folderId !== 0) {
+            folder = FolderResource.getById(folderId);
+        }
+
+        self.feed.existingFolder = folder;
+    };
+
+    $rootScope.$on('$routeChangeSuccess', function () {
+        setSelectedFolderForRoute();
     });
 
 }]);
@@ -735,6 +774,13 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
         this.updateFolderCache();
     };
 
+    FeedResource.prototype.clear = function () {
+        Resource.prototype.clear.call(this);
+        this.unreadCount = 0;
+        this.folderUnreadCount = {};
+        this.folderIds = {};
+        this.ids = {};
+    };
 
     FeedResource.prototype.updateUnreadCache = function () {
         this.unreadCount = 0;
@@ -1015,10 +1061,34 @@ app.factory('FolderResource', ["Resource", "$http", "BASE_URL", "$q", function (
         Resource.call(this, $http, BASE_URL, 'name');
         this.deleted = null;
         this.$q = $q;
+        this.ids = {};
     };
 
     FolderResource.prototype = Object.create(Resource.prototype);
 
+
+    FolderResource.prototype.add = function (value) {
+        Resource.prototype.add.call(this, value);
+        if (value.id !== undefined) {
+            this.ids[value.id] = this.hashMap[value.name];
+        }
+    };
+
+    FolderResource.prototype.clear = function () {
+        Resource.prototype.clear.call(this);
+        this.ids = {};
+    };
+
+    FolderResource.prototype.delete = function (name) {
+        var folder = this.get(name);
+        if (folder !== undefined && folder.id) {
+            delete this.ids[folder.id];
+        }
+
+        Resource.prototype.delete.call(this, name);
+
+        return folder;
+    };
 
     FolderResource.prototype.toggleOpen = function (folderName) {
         var folder = this.get(folderName);
@@ -1059,6 +1129,9 @@ app.factory('FolderResource', ["Resource", "$http", "BASE_URL", "$q", function (
         return deferred.promise;
     };
 
+    FolderResource.prototype.getById = function (id) {
+        return this.ids[id];
+    };
 
     FolderResource.prototype.create = function (folderName) {
         folderName = folderName.trim();

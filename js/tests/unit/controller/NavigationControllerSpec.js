@@ -343,7 +343,7 @@ describe('NavigationController', function () {
 
         ctrl.createFeed(feed);
 
-        expect(ctrl.newFolder).toBe(false);
+        expect(ctrl.showNewFolder).toBe(false);
         expect(FeedResource.create).toHaveBeenCalledWith('test', 3,
             undefined);
         expect(Publisher.publishAll).toHaveBeenCalledWith({feeds: [{
@@ -419,7 +419,7 @@ describe('NavigationController', function () {
 
         ctrl.createFeed(feed);
 
-        expect(ctrl.newFolder).toBe(false);
+        expect(ctrl.showNewFolder).toBe(false);
         expect(FeedResource.create).toHaveBeenCalledWith('test', 19,
             undefined);
         expect(FolderResource.create).toHaveBeenCalledWith('john');
@@ -883,6 +883,116 @@ describe('NavigationController', function () {
 
         expect(FolderResource.delete).toHaveBeenCalledWith('test');
         expect(FeedResource.deleteFolder).toHaveBeenCalledWith(3);
+    }));
+
+    var createRoute = function (type, id) {
+        return {
+            current: {
+                $$route: {
+                    type: type
+                },
+                params: {
+                    id: id
+                }
+            }
+        };
+    };
+
+    it ('should select a folder on route change for add feed section',
+        inject(function ($controller, FolderResource, FeedResource, $rootScope,
+            FEED_TYPE) {
+
+        FolderResource.add({id: 3, name: 'test'});
+        var route = createRoute(FEED_TYPE.FOLDER, 3);
+        var ctrl = $controller('NavigationController', {
+            $route: route
+        });
+
+        expect(ctrl.feed.existingFolder).toBe(undefined);
+
+        $rootScope.$broadcast('$routeChangeSuccess');
+
+        expect(ctrl.feed.existingFolder).toBe(FolderResource.getById(3));
+    }));
+
+
+    it ('should select a folder on route change for add feed section if a sub' +
+        ' feed is selected',
+        inject(function ($controller, FolderResource, FeedResource, $rootScope,
+            FEED_TYPE) {
+
+        FeedResource.add({id: 2, url: 'http://test.com', folderId: 3});
+        FolderResource.add({id: 3, name: 'test'});
+        var route = createRoute(FEED_TYPE.FEED, 2);
+        var ctrl = $controller('NavigationController', {
+            $route: route
+        });
+
+        expect(ctrl.feed.existingFolder).toBe(undefined);
+
+        $rootScope.$broadcast('$routeChangeSuccess');
+
+        expect(ctrl.feed.existingFolder).toBe(FolderResource.getById(3));
+    }));
+
+
+    it ('should not select a folder on route change for add feed section if ' +
+        'no subfeed is selected',
+        inject(function ($controller, FolderResource, FeedResource, $rootScope,
+            FEED_TYPE) {
+
+        FeedResource.add({id: 2, url: 'http://test.com', folderId: 2});
+        FolderResource.add({id: 3, name: 'test'});
+        var route = createRoute(FEED_TYPE.FEED, 2);
+        var ctrl = $controller('NavigationController', {
+            $route: route
+        });
+
+        expect(ctrl.feed.existingFolder).toBe(undefined);
+
+        $rootScope.$broadcast('$routeChangeSuccess');
+
+        expect(ctrl.feed.existingFolder).toBe(undefined);
+    }));
+
+
+    it ('should not select a folder on route change for add feed section if ' +
+        'starred feed is selected',
+        inject(function ($controller, FolderResource, FeedResource, $rootScope,
+            FEED_TYPE) {
+
+        FeedResource.add({id: 2, url: 'http://test.com', folderId: 3});
+        FolderResource.add({id: 3, name: 'test'});
+        var route = createRoute(FEED_TYPE.STARRED);
+        var ctrl = $controller('NavigationController', {
+            $route: route
+        });
+
+        expect(ctrl.feed.existingFolder).toBe(undefined);
+
+        $rootScope.$broadcast('$routeChangeSuccess');
+
+        expect(ctrl.feed.existingFolder).toBe(undefined);
+    }));
+
+
+    it ('should not select a folder on route change for add feed section if ' +
+        'all articles feed is selected',
+        inject(function ($controller, FolderResource, FeedResource, $rootScope,
+            FEED_TYPE) {
+
+        FeedResource.add({id: 2, url: 'http://test.com', folderId: 3});
+        FolderResource.add({id: 3, name: 'test'});
+        var route = createRoute(FEED_TYPE.SUBSCRIPTIONS);
+        var ctrl = $controller('NavigationController', {
+            $route: route
+        });
+
+        expect(ctrl.feed.existingFolder).toBe(undefined);
+
+        $rootScope.$broadcast('$routeChangeSuccess');
+
+        expect(ctrl.feed.existingFolder).toBe(undefined);
     }));
 
 

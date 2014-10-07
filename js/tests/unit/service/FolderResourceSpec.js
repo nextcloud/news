@@ -135,4 +135,14 @@ describe('FolderResource', function () {
     }));
 
 
+    it ('should get a folder by id', inject(function (FolderResource) {
+        expect(FolderResource.getById(1).name).toBe('ye');
+    }));
+
+
+    it ('should delete a folder and its id cache', inject(
+    function (FolderResource) {
+        FolderResource.delete('ye');
+        expect(FolderResource.getById(1)).toBe(undefined);
+    }));
 });

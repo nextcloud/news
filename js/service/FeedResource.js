@@ -27,6 +27,13 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
         this.updateFolderCache();
     };
 
+    FeedResource.prototype.clear = function () {
+        Resource.prototype.clear.call(this);
+        this.unreadCount = 0;
+        this.folderUnreadCount = {};
+        this.folderIds = {};
+        this.ids = {};
+    };
 
     FeedResource.prototype.updateUnreadCache = function () {
         this.unreadCount = 0;

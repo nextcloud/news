@@ -13,7 +13,13 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
     'use strict';
 
     this.feedError = '';
+    this.showNewFolder = false;
+    this.renamingFolder = false;
+    this.addingFeed = false;
+    this.addingFolder = false;
     this.folderError = '';
+    this.renameError = '';
+    this.feed = {};
 
     var getRouteId = function () {
         return parseInt($route.current.params.id, 10);
@@ -132,14 +138,14 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
 
     this.createFeed = function (feed) {
         var self = this;
-        this.newFolder = false;
+        this.showNewFolder = false;
         this.addingFeed = true;
 
         var newFolder = feed.newFolder;
         var existingFolder = feed.existingFolder || {id: 0};
 
         // we dont need to create a new folder
-        if (newFolder === undefined) {
+        if (newFolder === undefined || newFolder === '') {
             // this is set to display the feed in any folder, even if the folder
             // is closed or has no unread articles
             existingFolder.getsFeed = true;
@@ -271,8 +277,41 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
     };
 
     var self = this;
+
     $rootScope.$on('moveFeedToFolder', function (scope, data) {
         self.moveFeed(data.feedId, data.folderId);
+    });
+
+    // based on the route we want to preselect a folder in the add new feed
+    // drop down
+    var setSelectedFolderForRoute = function () {
+        var type;
+        if ($route.current) {
+            type = $route.current.$$route.type;
+        }
+
+        var folderId = 0;
+
+        if (type === FEED_TYPE.FOLDER) {
+            folderId = getRouteId();
+        } else if (type === FEED_TYPE.FEED) {
+            var feed = FeedResource.getById(getRouteId());
+
+            if (feed) {
+                folderId = feed.folderId;
+            }
+        }
+
+        var folder;
+        if (folderId !== 0) {
+            folder = FolderResource.getById(folderId);
+        }
+
+        self.feed.existingFolder = folder;
+    };
+
+    $rootScope.$on('$routeChangeSuccess', function () {
+        setSelectedFolderForRoute();
     });
 
 });
