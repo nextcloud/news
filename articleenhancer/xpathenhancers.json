@@ -3,7 +3,7 @@
 		"%cad-comic.com/cad/\\d+/$%": "//*[@id='content']/img"
 	},
 	"slashdot.org": {
-		"%rss.slashdot.org%": "//article/div"
+		"%rss.slashdot.org%": "//article/div[@class='body'] | //article[@class='layout-article']/div"
 	},
 	"explosm.net": {
 		"%explosm.net/comics%": "//*[@id='maincontent']/div[2]/div/img",
