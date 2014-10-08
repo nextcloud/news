@@ -107,6 +107,7 @@ module.exports = function (grunt) {
         jshint: {
             app: {
                 src: [
+                    'app/App.js',
                     'app/Config.js',
                     'app/Run.js',
                     'filter/**/*.js',
