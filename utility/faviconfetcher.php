@@ -48,10 +48,26 @@ class FaviconFetcher {
 		// check the url for a valid image
 		if($faviconUrl && $this->isImage($faviconUrl)) {
 			return $faviconUrl;
-		} elseif($url) {
+		} elseif ($url) {
 			// try /favicon.ico as fallback
 			$parts = parse_url($url);
-			$faviconUrl = $parts['scheme'] . "://" . $parts['host'] . (array_key_exists("port", $parts) ? $parts['port'] : '') . "/favicon.ico";
+
+			// malformed url
+			if ($parts === false || !array_key_exists('host', $parts)) {
+				return null;
+			}
+
+			$port = '';
+			if (array_key_exists("port", $parts)) {
+				$port = $parts['port'];
+			}
+
+			$scheme = 'http';
+			if (array_key_exists("scheme", $parts)) {
+				$scheme = $parts['scheme'];
+			}
+
+			$faviconUrl = $scheme . "://" . $parts['host'] . $port . "/favicon.ico";
 
 			if($this->isImage($faviconUrl)) {
 				return $faviconUrl;
@@ -59,6 +75,18 @@ class FaviconFetcher {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Get the attribute if its a DOMElement, otherwise return null
+	 */
+	private function getAttribute($item, $name) {
+		// used to fix scrutinizer errors
+		if ($item instanceof \DOMElement) {
+			return $item->getAttribute($name);
+		} else {
+			return null;
+		}
 	}
 
 
@@ -88,7 +116,7 @@ class FaviconFetcher {
 
 				if ($elements->length > 0) {
                     /** @noinspection PhpUndefinedMethodInspection */
-                    $iconPath = $elements->item(0)->getAttribute('href');
+                    $iconPath = $this->getAttribute($elements->item(0), 'href');
 					$absPath = \SimplePie_Misc::absolutize_url($iconPath, $url);
 					return $absPath;
 				}
