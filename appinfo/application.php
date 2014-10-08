@@ -54,16 +54,20 @@ use \OCA\News\ArticleEnhancer\XPathArticleEnhancer;
 use \OCA\News\ArticleEnhancer\RegexArticleEnhancer;
 
 
-require_once __DIR__ . '/../3rdparty/htmlpurifier/library/HTMLPurifier.auto.php';
+$thirdPartyLibs = [
+	'\HTMLPurifier' => 'htmlpurifier/library/HTMLPurifier.auto.php',
+	'\SimplePie' => 'simplepie/autoloader.php',
+	'\ZendXML\Security' => 'ZendXml/vendor/autoload.php',
+	'\Net_URL2' => 'Net_URL2/Net/URL2.php'
+];
 
 // to prevent clashes with installed app framework versions
-if (!class_exists('\SimplePie')) {
-	require_once __DIR__ . '/../3rdparty/simplepie/autoloader.php';
+foreach ($thirdPartyLibs as $class => $path) {
+	if (!class_exists($class)) {
+		require_once __DIR__ . '/../3rdparty/' . $path;
+	}
 }
 
-if (!class_exists('\ZendXML\Security')) {
-	require_once __DIR__ . '/../3rdparty/ZendXml/vendor/autoload.php';
-}
 
 class Application extends App {
 

@@ -161,10 +161,6 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 	 * @return string the resulting absolute URL
 	 */
 	protected function relativeToAbsoluteUrl($relativeUrl, $absoluteUrl) {
-		if (!class_exists('\Net_URL2')) {
-			require_once __DIR__ . '/../3rdparty/Net_URL2/Net/URL2.php';
-		}
-
 		$base = new \Net_URL2($absoluteUrl);
 		return $base->resolve($relativeUrl);
 	}

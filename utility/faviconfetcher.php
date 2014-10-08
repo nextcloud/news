@@ -49,25 +49,8 @@ class FaviconFetcher {
 		if($faviconUrl && $this->isImage($faviconUrl)) {
 			return $faviconUrl;
 		} elseif ($url) {
-			// try /favicon.ico as fallback
-			$parts = parse_url($url);
-
-			// malformed url
-			if ($parts === false || !array_key_exists('host', $parts)) {
-				return null;
-			}
-
-			$port = '';
-			if (array_key_exists("port", $parts)) {
-				$port = $parts['port'];
-			}
-
-			$scheme = 'http';
-			if (array_key_exists("scheme", $parts)) {
-				$scheme = $parts['scheme'];
-			}
-
-			$faviconUrl = $scheme . "://" . $parts['host'] . $port . "/favicon.ico";
+			$base = new \Net_URL2($url);
+			$faviconUrl = (string) $base->resolve('/favicon.ico');
 
 			if($this->isImage($faviconUrl)) {
 				return $faviconUrl;
@@ -117,7 +100,8 @@ class FaviconFetcher {
 				if ($elements->length > 0) {
                     /** @noinspection PhpUndefinedMethodInspection */
                     $iconPath = $this->getAttribute($elements->item(0), 'href');
-					$absPath = \SimplePie_Misc::absolutize_url($iconPath, $url);
+                    $base = new \Net_URL2($url);
+					$absPath = (string) $base->resolve($iconPath, $url);
 					return $absPath;
 				}
 			}
@@ -177,10 +161,4 @@ class FaviconFetcher {
 		throw new NoValidUrlException();
 	}
 
-}
-
-/**
- * Thrown when no valid url was found by faviconfetcher
- */
-class NoValidUrlException extends \Exception {
 }
