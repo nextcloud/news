@@ -107,6 +107,7 @@ module.exports = function (grunt) {
         jshint: {
             app: {
                 src: [
+                    'Gruntfile.js',
                     'app/App.js',
                     'app/Config.js',
                     'app/Run.js',
@@ -169,6 +170,7 @@ module.exports = function (grunt) {
                 configuration: '../phpunit.xml'
             }
         },
+        /* jshint camelcase: false */
         protractor_webdriver: {
             app: {
 
