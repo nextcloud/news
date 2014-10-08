@@ -24,6 +24,14 @@ are listed on the [ownCloud apps overview](https://github.com/owncloud/core/wiki
 * zlib (if installed from the appstore)
 * SimpleXML
 
+## Supported Operating Systems
+All of the listed stable Linux distributions will be supported until their next stable version is released:
+
+* Ubuntu 14.04
+* Debian 7 (Wheezy)
+* CentOS 7
+* Arch Linux
+
 ## Supported Browsers
 * Firefox (Desktop, Android, Firefox OS)
 * Chrome (Desktop, Android)
