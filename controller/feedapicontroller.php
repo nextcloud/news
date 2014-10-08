@@ -146,7 +146,7 @@ class FeedApiController extends ApiController {
      *
      * @param int $feedId
      * @param int $folderId
-     * @return \OCP\AppFramework\Http\JSONResponse
+     * @return array|\OCP\AppFramework\Http\JSONResponse
      */
 	public function move($feedId, $folderId) {
 		try {
@@ -166,7 +166,7 @@ class FeedApiController extends ApiController {
      *
      * @param int $feedId
      * @param string $feedTitle
-     * @return \OCP\AppFramework\Http\JSONResponse
+     * @return array|\OCP\AppFramework\Http\JSONResponse
      */
 	public function rename($feedId, $feedTitle) {
 		try {
