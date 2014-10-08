@@ -33,8 +33,8 @@ All of the listed stable Linux distributions will be supported until their next 
 * Arch Linux
 
 ## Supported Browsers
-* Firefox (Desktop, Android, Firefox OS)
-* Chrome (Desktop, Android)
+* Newest Firefox (Desktop, Android, Firefox OS)
+* Newest Chrome/Chromium (Desktop, Android)
 
 ## Supported Databases
 * PostgreSQL
