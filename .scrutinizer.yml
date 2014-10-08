@@ -24,3 +24,5 @@ checks:
     php:
         # not helpful because there is no setting to tweek the threshold
         duplication: false
+        # this is not working properly with core exceptions
+        catch_class_exists: false
