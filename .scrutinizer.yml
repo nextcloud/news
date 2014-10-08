@@ -8,6 +8,7 @@ filter:
         - 'img/*'
         - 'css/*'
         - 'bin/*'
+        - 'tmp/*'
         - 'appinfo/application.php'
 
 imports:
@@ -23,3 +24,12 @@ checks:
     php:
         # not helpful because there is no setting to tweek the threshold
         duplication: false
+
+build:
+    project_setup:
+        before:
+            - mkdir tmp
+            - cd tmp
+            - wget https://raw.githubusercontent.com/owncloud/core/master/lib/public/appframework/db/doesnotexistexception.php
+            - wget https://raw.githubusercontent.com/owncloud/core/master/lib/public/appframework/db/multipleobjectsreturnedexception.php
+            - cd ..
