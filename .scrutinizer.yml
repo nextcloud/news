@@ -26,3 +26,4 @@ checks:
         duplication: false
         # this is not working properly with core exceptions
         catch_class_exists: false
+        
