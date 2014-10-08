@@ -146,19 +146,6 @@ class AppConfigTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @expectedException \OCA\News\Config\DependencyException
 	 */
-	public function testOwnCloudVersion() {
-		$this->config->loadConfig([
-			'dependencies' => [
-				'owncloud' => '>=4.5,<=6.0.2'
-			]
-		]);
-		$this->config->testDependencies();
-	}
-
-
-	/**
-	 * @expectedException \OCA\News\Config\DependencyException
-	 */
 	public function testLibsVersion() {
 		$this->config->loadConfig([
 			'dependencies' => [

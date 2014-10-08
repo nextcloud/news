@@ -175,17 +175,12 @@ class AppConfig {
 
 			$deps = $this->config['dependencies'];
 
-			if(array_key_exists('php', $deps)) {
+			if (array_key_exists('php', $deps)) {
 				$msg .= $this->requireVersion($this->phpVersion, $deps['php'],
 					'PHP');
 			}
 
-			if(array_key_exists('owncloud', $deps)) {
-				$msg .= $this->requireVersion($this->ownCloudVersion,
-					$deps['owncloud'], 'ownCloud');
-			}
-
-			if(array_key_exists('libs', $deps)) {
+			if (array_key_exists('libs', $deps)) {
 				foreach ($deps['libs'] as $lib => $versions) {
 					if(array_key_exists($lib, $this->installedExtensions)) {
 						$msg .= $this->requireVersion($this->installedExtensions[$lib],
