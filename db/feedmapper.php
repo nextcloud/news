@@ -14,11 +14,10 @@
 namespace OCA\News\Db;
 
 use \OCP\IDb;
-use \OCP\AppFramework\Db\Mapper;
 use \OCP\AppFramework\Db\Entity;
 
 
-class FeedMapper extends Mapper implements IMapper {
+class FeedMapper extends NewsMapper {
 
 
 	public function __construct(IDb $db) {

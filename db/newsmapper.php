@@ -13,23 +13,22 @@
 
 namespace OCA\News\Db;
 
+use \OCP\IDb;
 use \OCP\AppFramework\Db\Entity;
+use \OCP\AppFramework\Db\Mapper;
 
-interface IMapper {
+abstract class NewsMapper extends Mapper {
+
+    public function __construct(IDb $db, $table, $entity) {
+        parent::__construct($db, $table, $entity);
+    }
 
     /**
      * @param int $id the id of the feed
      * @param string $userId the id of the user
      * @return \OCP\AppFramework\Db\Entity
      */
-	public function find($id, $userId);
+	public abstract function find($id, $userId);
 
-	/**
-	 * Delete an entity
-	 * @param Entity $entity the entity that should be deleted
-	 * @throws \OCP\AppFramework\Db\DoesNotExistException if the entity does
-     * not exist, or there
-	 * are more than one of it
-	 */
-	public function delete(Entity $entity);
+
 }

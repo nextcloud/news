@@ -14,10 +14,9 @@
 namespace OCA\News\Db;
 
 use \OCP\IDb;
-use \OCP\AppFramework\Db\Mapper;
 
 
-class ItemMapper extends Mapper implements IMapper {
+class ItemMapper extends NewsMapper {
 
 	public function __construct(IDb $db){
 		parent::__construct($db, 'news_items', '\OCA\News\Db\Item');

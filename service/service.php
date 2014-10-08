@@ -16,14 +16,14 @@ namespace OCA\News\Service;
 use \OCP\AppFramework\Db\DoesNotExistException;
 use \OCP\AppFramework\Db\MultipleObjectsReturnedException;
 
-use \OCA\News\Db\IMapper;
+use \OCA\News\Db\NewsMapper;
 
 
 abstract class Service {
 
 	protected $mapper;
 
-	public function __construct(IMapper $mapper){
+	public function __construct(NewsMapper $mapper){
 		$this->mapper = $mapper;
 	}
 

@@ -14,10 +14,9 @@
 namespace OCA\News\Db;
 
 use \OCP\IDb;
-use \OCP\AppFramework\Db\Mapper;
 use \OCP\AppFramework\Db\Entity;
 
-class FolderMapper extends Mapper implements IMapper {
+class FolderMapper extends NewsMapper {
 
 	public function __construct(IDb $db) {
 		parent::__construct($db, 'news_folders', '\OCA\News\Db\Folder');
@@ -63,7 +62,7 @@ class FolderMapper extends Mapper implements IMapper {
 
 		$sql = 'DELETE FROM `*PREFIX*news_items` WHERE `feed_id` NOT IN '.
 			'(SELECT `feeds`.`id` FROM `*PREFIX*news_feeds` `feeds`)';
-		
+
 		$this->execute($sql);
 	}
 
@@ -90,7 +89,7 @@ class FolderMapper extends Mapper implements IMapper {
 			$sql .= 'AND `user_id` = ?';
 			$params[] = $userId;
 		}
-		
+
 		return $this->findEntities($sql, $params);
 	}
 
