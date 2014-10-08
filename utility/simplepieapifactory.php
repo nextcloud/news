@@ -25,21 +25,16 @@ class SimplePieAPIFactory {
      * @param $url
      * @param int $timeout
      * @param int $redirects
-     * @param null $headers
-     * @param null $useragent
+     * @param string $headers
+     * @param string $useragent
      * @param bool $force_fsockopen
-     * @param null $proxyHost
-     * @param null $proxyPort
-     * @param null $proxyAuth
      * @return \SimplePie_File a new object
      */
 	public function getFile($url, $timeout=10, $redirects=5, $headers=null,
-	                        $useragent=null, $force_fsockopen=false,
-	                        $proxyHost=null, $proxyPort=null, $proxyAuth=null) {
+	                        $useragent=null, $force_fsockopen=false) {
 
 		return new \SimplePie_File($url, $timeout, $redirects, $headers,
-	                        $useragent, $force_fsockopen, $proxyHost, $proxyPort,
-	                        $proxyAuth);
+	                        $useragent, $force_fsockopen);
 	}
 
 
