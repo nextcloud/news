@@ -6,8 +6,9 @@ php:
 
 env:
   - DB=sqlite
-  - DB=postgresql
-  - DB=mysql
+  # enable if there are tests for it
+  # - DB=postgresql
+  # - DB=mysql
 
 before_install:
   # get a newer node.js version
