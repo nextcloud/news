@@ -136,7 +136,7 @@ class ItemApiController extends ApiController {
      *
      * @param int $feedId
      * @param string $guidHash
-     * @return \OCP\AppFramework\Http\JSONResponse
+     * @return array|\OCP\AppFramework\Http\JSONResponse
      */
 	public function star($feedId, $guidHash) {
 		return $this->setStarred(true, $feedId, $guidHash);

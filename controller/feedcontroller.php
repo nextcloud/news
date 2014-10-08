@@ -159,7 +159,7 @@ class FeedController extends Controller {
      * @NoAdminRequired
      *
      * @param int $feedId
-     * @return \OCP\AppFramework\Http\JSONResponse
+     * @return array|\OCP\AppFramework\Http\JSONResponse
      */
 	public function delete($feedId){
 		try {
@@ -205,7 +205,7 @@ class FeedController extends Controller {
      *
      * @param int $feedId
      * @param int $parentFolderId
-     * @return \OCP\AppFramework\Http\JSONResponse
+     * @return array|\OCP\AppFramework\Http\JSONResponse
      */
 	public function move($feedId, $parentFolderId){
 		try {
@@ -222,7 +222,7 @@ class FeedController extends Controller {
      *
      * @param int $feedId
      * @param string $feedTitle
-     * @return \OCP\AppFramework\Http\JSONResponse
+     * @return array|\OCP\AppFramework\Http\JSONResponse
      */
 	public function rename($feedId, $feedTitle) {
 		try {
@@ -281,7 +281,7 @@ class FeedController extends Controller {
      * @NoAdminRequired
      *
      * @param int $feedId
-     * @return \OCP\AppFramework\Http\JSONResponse
+     * @return array|\OCP\AppFramework\Http\JSONResponse
      */
 	public function restore($feedId){
 		try {
