@@ -45,6 +45,16 @@ class OPMLExporterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 
+	private function getAttribute($item, $name) {
+		// used to fix scrutinizer errors
+		if ($item instanceof \DOMElement) {
+			return $item->getAttribute($name);
+		} else {
+			return null;
+		}
+	}
+
+
 	public function testBuildEmpty(){
 		$result = $this->exporter->build([], []);
 		$xpath = new \DOMXpath($result);
@@ -59,10 +69,10 @@ class OPMLExporterTest extends \PHPUnit_Framework_TestCase {
 		$elems = $xpath->query('/opml/body/outline');
 
 		$this->assertEquals(2, $elems->length);
-		$this->assertEquals($this->folder1->getName(), $elems->item(0)->getAttribute('title'));
-		$this->assertEquals($this->folder1->getName(), $elems->item(0)->getAttribute('text'));
-		$this->assertEquals($this->folder2->getName(), $elems->item(1)->getAttribute('title'));
-		$this->assertEquals($this->folder2->getName(), $elems->item(1)->getAttribute('text'));
+		$this->assertEquals($this->folder1->getName(), $this->getAttribute($elems->item(0), 'title'));
+		$this->assertEquals($this->folder1->getName(), $this->getAttribute($elems->item(0), 'text'));
+		$this->assertEquals($this->folder2->getName(), $this->getAttribute($elems->item(1), 'title'));
+		$this->assertEquals($this->folder2->getName(), $this->getAttribute($elems->item(1), 'text'));
 	}
 
 
@@ -72,16 +82,16 @@ class OPMLExporterTest extends \PHPUnit_Framework_TestCase {
 		$elems = $xpath->query('//outline');
 
 		$this->assertEquals(1, $elems->length);
-		$this->assertEquals($this->feed1->getTitle(), $elems->item(0)->getAttribute('title'));
-		$this->assertEquals($this->feed1->getTitle(), $elems->item(0)->getAttribute('text'));
-		$this->assertEquals($this->feed1->getUrl(), $elems->item(0)->getAttribute('xmlUrl'));
-		$this->assertEquals('', $elems->item(0)->getAttribute('htmlUrl'));
+		$this->assertEquals($this->feed1->getTitle(), $this->getAttribute($elems->item(0), 'title'));
+		$this->assertEquals($this->feed1->getTitle(), $this->getAttribute($elems->item(0), 'text'));
+		$this->assertEquals($this->feed1->getUrl(), $this->getAttribute($elems->item(0), 'xmlUrl'));
+		$this->assertEquals('', $this->getAttribute($elems->item(0), 'htmlUrl'));
 	}
 
 
 	public function testBuildReturnsFeedsAndFolders() {
 		$result = $this->exporter->build(
-			[$this->folder1, $this->folder2], 
+			[$this->folder1, $this->folder2],
 			[$this->feed1, $this->feed2]
 		);
 		$xpath = new \DOMXpath($result);
@@ -90,10 +100,10 @@ class OPMLExporterTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(3, $elems->length);
 
 
-		$this->assertEquals($this->folder1->getName(), $elems->item(0)->getAttribute('title'));
-		$this->assertEquals($this->folder2->getName(), $elems->item(1)->getAttribute('text'));
-		$this->assertEquals($this->feed1->getUrl(), $elems->item(2)->getAttribute('xmlUrl'));
-		$this->assertEquals($this->feed2->getLink(), $elems->item(1)->childNodes->item(0)->getAttribute('htmlUrl'));
+		$this->assertEquals($this->folder1->getName(), $this->getAttribute($elems->item(0), 'title'));
+		$this->assertEquals($this->folder2->getName(), $this->getAttribute($elems->item(1), 'text'));
+		$this->assertEquals($this->feed1->getUrl(), $this->getAttribute($elems->item(2), 'xmlUrl'));
+		$this->assertEquals($this->feed2->getLink(), $this->getAttribute($elems->item(1)->childNodes->item(0), 'htmlUrl'));
 	}
 
 

@@ -36,10 +36,10 @@ class OPMLExporter {
 		$head = $document->createElement('head');
 
 		$title = $document->createElement('title', 'Subscriptions');
-		$head->appendChild( $title );
-		
+		$head->appendChild($title);
+
 		$root->appendChild($head);
-		
+
 		// body
 		$body = $document->createElement('body');
 
@@ -48,7 +48,7 @@ class OPMLExporter {
 			$folderOutline = $document->createElement('outline');
 			$folderOutline->setAttribute('title', $folder->getName());
 			$folderOutline->setAttribute('text', $folder->getName());
-			
+
 			// feeds in folders
 			foreach ($feeds as $feed) {
 				if ($feed->getFolderId() === $folder->getId()) {
