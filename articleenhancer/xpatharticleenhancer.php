@@ -100,8 +100,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 
 	private function getFile($url) {
 		return $this->fileFactory->getFile(
-			$url, $this->maximumTimeout, 5, null, 'Mozilla/5.0 AppleWebKit',
-			false, null, null, null
+			$url, $this->maximumTimeout, 5, null, 'Mozilla/5.0 AppleWebKit'
 		);
 	}
 

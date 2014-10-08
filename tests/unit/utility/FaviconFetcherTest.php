@@ -89,11 +89,7 @@ class FaviconFetcherTest extends \PHPUnit_Framework_TestCase {
 				$this->equalTo(10),
 				$this->equalTo(5),
 				$this->equalTo(null),
-				$this->equalTo(null),
-				$this->equalTo(false),
-				$this->equalTo(null),
-				$this->equalTo(null),
-				$this->equalTo(null))
+				$this->equalTo('Mozilla/5.0 AppleWebKit'))
 			->will($this->returnValue($pngMock));
 
 		$favicon = $this->fetcher->fetch($url);

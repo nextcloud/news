@@ -84,10 +84,7 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 				$this->equalTo($this->redirects),
 				$this->equalTo($this->headers),
 				$this->equalTo($this->userAgent),
-				$this->equalTo(false),
-				$this->equalTo(null),
-				$this->equalTo(null),
-				$this->equalTo(null))
+				$this->equalTo(false))
 			->will($this->returnValue($file));
 
 		$result = $this->testEnhancer->enhance($item);

@@ -100,8 +100,9 @@ class FaviconFetcher {
 
 
 	private function getFile($url) {
-		return $this->apiFactory->getFile($url, 10, 5, null, null, false,
-				null, null, null);
+		return $this->apiFactory->getFile(
+			$url, 10, 5, null, 'Mozilla/5.0 AppleWebKit'
+		);
 	}
 
 
