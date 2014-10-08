@@ -19,16 +19,14 @@ use \ZendXml\Security;
 class FaviconFetcher {
 
 	private $apiFactory;
-	private $config;
 
 	/**
 	 * Inject a factory to build a simplepie file object. This is needed because
 	 * the file object contains logic in its constructor which makes it
 	 * impossible to inject and test
 	 */
-	public function __construct(SimplePieAPIFactory $apiFactory, Config $config) {
+	public function __construct(SimplePieAPIFactory $apiFactory) {
 		$this->apiFactory = $apiFactory;
-		$this->config = $config;
 	}
 
 
@@ -102,15 +100,8 @@ class FaviconFetcher {
 
 
 	private function getFile($url) {
-		if(trim($this->config->getProxyHost()) === '') {
-			return $this->apiFactory->getFile($url, 10, 5, null, null, false,
+		return $this->apiFactory->getFile($url, 10, 5, null, null, false,
 				null, null, null);
-		} else {
-			return $this->apiFactory->getFile($url, 10, 5, null, null, false,
-				$this->config->getProxyHost(),
-				$this->config->getProxyPort(),
-				$this->config->getProxyAuth());
-		}
 	}
 
 

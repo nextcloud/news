@@ -446,8 +446,7 @@ class Application extends App {
 
 		$container->registerService('FaviconFetcher', function($c) {
 			return new FaviconFetcher(
-				$c->query('SimplePieAPIFactory'),
-				$c->query('Config')
+				$c->query('SimplePieAPIFactory')
 			);
 		});
 
