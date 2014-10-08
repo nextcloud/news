@@ -153,6 +153,15 @@ class AppConfig {
 		}
 	}
 
+	private function testDatabaseDependencies($databases, $databaseType) {
+		if(!in_array($databaseType, $databases)) {
+			return 'Database ' . $databaseType . ' not supported.' .
+				'App is only compatible with ' .
+				implode(', ', $databases);
+		} else {
+			return '';
+		}
+	}
 
 	/**
 	 * Validates all dependencies that the app has
@@ -163,11 +172,9 @@ class AppConfig {
 
 		// test databases
 		if(array_key_exists('databases', $this->config)) {
-			if(!in_array($this->databaseType, $this->config['databases'])) {
-				$msg .= 'Database ' . $this->databaseType . ' not supported.' .
-					'App is only compatible with ' .
-					implode(', ', $this->config['databases']);
-			}
+			$msg .= $this->testDatabaseDependencies(
+				$this->config['databases'], $this->databaseType
+			);
 		}
 
 		// test dependencies
