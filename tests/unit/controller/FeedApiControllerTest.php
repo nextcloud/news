@@ -278,6 +278,27 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 	}
 
 
+	public function testRenameError() {
+		$feedId = 3;
+		$feedTitle = 'test';
+
+		$this->feedService->expects($this->once())
+			->method('rename')
+			->with(
+				$this->equalTo($feedId),
+				$this->equalTo($feedTitle),
+				$this->equalTo($this->user))
+			->will($this->throwException(new ServiceNotFoundException('hi')));
+
+		$result = $this->feedAPI->rename($feedId, $feedTitle);
+		$data = $result->getData();
+		$code = $result->getStatus();
+
+		$this->assertSame(Http::STATUS_NOT_FOUND, $code);
+		$this->assertSame('hi', $data['message']);
+	}
+
+
 	public function testfromAllUsers(){
 		$feed = new Feed();
 		$feed->setUrl(3);

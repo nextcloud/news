@@ -100,6 +100,22 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 	}
 
 
+	public function testReadMultipleDontStopOnException() {
+		$this->itemService->expects($this->at(0))
+			->method('read')
+			->with($this->equalTo(2),
+				$this->equalTo(true),
+				$this->equalTo($this->user))
+			->will($this->throwException(new ServiceNotFoundException('yo')));
+		$this->itemService->expects($this->at(1))
+			->method('read')
+			->with($this->equalTo(4),
+				$this->equalTo(true),
+				$this->equalTo($this->user));
+		$this->controller->readMultiple([2, 4]);
+	}
+
+
 	public function testStar(){
 		$this->itemService->expects($this->once())
 			->method('star')
