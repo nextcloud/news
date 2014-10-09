@@ -163,7 +163,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 	}
 
 
-	public function testFromImport() {
+	private function createImportItem($isRead) {
 		$item = new Item();
 		$item->setGuid('guid');
 		$item->setUrl('https://google');
@@ -173,8 +173,20 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 		$item->setBody('body');
 		$item->setEnclosureMime('audio/ogg');
 		$item->setEnclosureLink('enclink');
-		$item->setUnread();
 		$item->setStarred();
+
+		if ($isRead) {
+			$item->setUnread();
+		} else {
+			$item->setRead();
+		}
+
+		return $item;
+	}
+
+
+	public function testFromImport() {
+		$item = $this->createImportItem(false);
 
 		$import = [
 			'guid' => $item->getGuid(),
@@ -194,18 +206,9 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals($item, $compareWith);
 	}
 
+
 	public function testFromImportRead() {
-		$item = new Item();
-		$item->setGuid('guid');
-		$item->setUrl('https://google');
-		$item->setTitle('title');
-		$item->setAuthor('author');
-		$item->setPubDate(123);
-		$item->setBody('body');
-		$item->setEnclosureMime('audio/ogg');
-		$item->setEnclosureLink('enclink');
-		$item->setRead();
-		$item->setStarred();
+		$item = $this->createImportItem(true);
 
 		$import = [
 			'guid' => $item->getGuid(),

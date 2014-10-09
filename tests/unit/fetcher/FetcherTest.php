@@ -50,6 +50,30 @@ class FetcherTest extends \PHPUnit_Framework_TestCase {
 	}
 
 
+	public function testNoFetchers(){
+		$url = 'hi';
+		$mockFetcher = $this->getMockBuilder('\OCA\News\Fetcher\IFeedFetcher')
+			->disableOriginalConstructor()
+			->getMock();
+		$mockFetcher->expects($this->once())
+			->method('canHandle')
+			->with($this->equalTo($url))
+			->will($this->returnValue(false));
+		$mockFetcher2 = $this->getMockBuilder('\OCA\News\Fetcher\IFeedFetcher')
+			->disableOriginalConstructor()
+			->getMock();
+		$mockFetcher2->expects($this->once())
+			->method('canHandle')
+			->with($this->equalTo($url))
+			->will($this->returnValue(false));
+
+		$this->fetcher->registerFetcher($mockFetcher);
+		$this->fetcher->registerFetcher($mockFetcher2);
+
+		$result = $this->fetcher->fetch($url);
+		$this->assertEquals([null, []], $result);
+	}
+
 	public function testMultipleFetchers(){
 		$url = 'hi';
 		$mockFetcher = $this->getMockBuilder('\OCA\News\Fetcher\IFeedFetcher')

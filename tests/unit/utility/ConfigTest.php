@@ -184,11 +184,19 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 	}
 
 
-	public function testMinimumAutoPurgeInterval() {
-		$this->config->setAutoPurgeMinimumInterval(30);
+	public function testNoLowMinimumAutoPurgeInterval() {
+		$this->config->setAutoPurgeMinimumInterval(59);
 		$interval = $this->config->getAutoPurgeMinimumInterval();
 
 		$this->assertSame(60, $interval);
+	}
+
+
+	public function testMinimumAutoPurgeInterval() {
+		$this->config->setAutoPurgeMinimumInterval(61);
+		$interval = $this->config->getAutoPurgeMinimumInterval();
+
+		$this->assertSame(61, $interval);
 	}
 
 	public function testCacheDuration() {
