@@ -49,11 +49,6 @@ class ItemMapper extends NewsMapper {
 		// code: we take them variables and we cast the shit out of them
 		$status = (int) $status;
 
-		// prepare for the unexpected
-		if(!is_numeric($status)) {
-			die('If you can read this something is terribly wrong');
-		}
-
 		// now im gonna slowly stick them in the query, be careful!
 		return $this->makeSelectQuery(
 

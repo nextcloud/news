@@ -194,6 +194,38 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals($item, $compareWith);
 	}
 
+	public function testFromImportRead() {
+		$item = new Item();
+		$item->setGuid('guid');
+		$item->setUrl('https://google');
+		$item->setTitle('title');
+		$item->setAuthor('author');
+		$item->setPubDate(123);
+		$item->setBody('body');
+		$item->setEnclosureMime('audio/ogg');
+		$item->setEnclosureLink('enclink');
+		$item->setRead();
+		$item->setStarred();
+
+		$import = [
+			'guid' => $item->getGuid(),
+			'url' => $item->getUrl(),
+			'title' => $item->getTitle(),
+			'author' => $item->getAuthor(),
+			'pubDate' => $item->getPubDate(),
+			'body' => $item->getBody(),
+			'enclosureMime' => $item->getEnclosureMime(),
+			'enclosureLink' => $item->getEnclosureLink(),
+			'unread' => $item->isUnread(),
+			'starred' => $item->isStarred(),
+		];
+
+		$compareWith = Item::fromImport($import);
+
+		$this->assertEquals($item, $compareWith);
+	}
+
+
 
 	public function testSetAuthor(){
 		$item = new Item();

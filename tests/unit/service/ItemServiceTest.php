@@ -210,6 +210,39 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
 	}
 
 
+	public function testUnstar(){
+		$itemId = 3;
+		$feedId = 5;
+		$guidHash = md5('hihi');
+
+		$item = new Item();
+		$item->setStatus(128);
+		$item->setId($itemId);
+		$item->setStarred();
+
+		$expectedItem = new Item();
+		$expectedItem->setStatus(128);
+		$expectedItem->setUnstarred();
+		$expectedItem->setId($itemId);
+		$expectedItem->setLastModified($this->time);
+
+		$this->mapper->expects($this->once())
+			->method('findByGuidHash')
+			->with(
+				$this->equalTo($guidHash),
+				$this->equalTo($feedId),
+				$this->equalTo($this->user))
+			->will($this->returnValue($item));
+
+		$this->mapper->expects($this->once())
+			->method('update')
+			->with($this->equalTo($expectedItem));
+
+		$this->itemService->star($feedId, $guidHash, false, $this->user);
+
+		$this->assertTrue($item->isUnstarred());
+	}
+
 	public function testRead(){
 		$itemId = 3;
 		$item = new Item();
