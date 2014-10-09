@@ -182,4 +182,26 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertEquals('this is a test:se', $this->config->getProxyAuth());
 	}
+
+
+	public function testMinimumAutoPurgeInterval() {
+		$this->config->setAutoPurgeMinimumInterval(30);
+		$interval = $this->config->getAutoPurgeMinimumInterval();
+
+		$this->assertSame(60, $interval);
+	}
+
+	public function testCacheDuration() {
+		$this->config->setSimplePieCacheDuration(21);
+		$duration = $this->config->getSimplePieCacheDuration();
+
+		$this->assertSame(21, $duration);
+	}
+
+	public function testFeedFetcherTimeout() {
+		$this->config->setFeedFetcherTimeout(2);
+		$timout = $this->config->getFeedFetcherTimeout();
+
+		$this->assertSame(2, $timout);
+	}
 }

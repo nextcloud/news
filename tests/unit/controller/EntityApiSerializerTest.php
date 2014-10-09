@@ -15,8 +15,13 @@ namespace OCA\News\Controller;
 
 
 use \OCP\AppFramework\Http\Response;
+use \OCP\AppFramework\Db\Entity;
 
 use \OCA\News\Db\Item;
+
+class TestEntity extends Entity {
+
+}
 
 
 class EntityApiSerializerTest extends \PHPUnit_Framework_TestCase {
@@ -81,7 +86,7 @@ class EntityApiSerializerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function noEntityNoChange() {
+    public function testNoEntityNoChange() {
         $serializer = new EntityApiSerializer('items');
 
         $in = [
@@ -96,4 +101,16 @@ class EntityApiSerializerTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(1, $result['test']);
     }
 
+
+    public function testEntitiesNoChange() {
+        $serializer = new EntityApiSerializer('items');
+
+        $in = [
+            'items' => [new TestEntity()]
+        ];
+
+        $result = $serializer->serialize($in);
+
+        $this->assertEquals($in, $result);
+    }
 }
