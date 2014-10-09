@@ -4,7 +4,7 @@
 "Articles without feed" => "Articles sans flux",
 "Can not add folder: Exists already" => "Impossible d'ajouter le dossier : déjà présent",
 "Add a feed" => "Ajouter un flux",
-"There are no feeds yet. Go ahead and add some" => "Il n'y a pas encore de flux. Commencez et ajoutez en",
+"There are no feeds yet. Go ahead and add some" => "Il n'y a pas encore de flux. Ajoutez-en un!",
 "Import feeds and articles" => "Importer des flux et des articles",
 "Refresh" => "Rafraîchir",
 "Open website" => "Ouvrir le site web",
