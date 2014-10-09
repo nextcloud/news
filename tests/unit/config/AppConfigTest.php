@@ -46,6 +46,21 @@ class AppConfigTest extends \PHPUnit_Framework_TestCase {
 	}
 
 
+	public function testGetConfig() {
+		$config = file_get_contents(__DIR__ . '/../../../appinfo/app.json');
+		$config = json_decode($config, true);
+		$this->config->loadConfig($config);
+		$config['navigation'] = [
+			'id' => 'news',
+			'order' => 10,
+			'route' => 'news.page.index',
+			'icon' => 'app.svg',
+			'name' => 'News',
+		];
+		$this->assertEquals($config, $this->config->getConfig());
+	}
+
+
 	public function testNoNavigation() {
 		$this->config->loadConfig([]);
 
