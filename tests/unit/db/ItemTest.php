@@ -89,6 +89,42 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 	}
 
 
+	public function testJSONSerialize() {
+		$item = new Item();
+		$item->setId(3);
+		$item->setGuid('guid');
+		$item->setGuidHash('hash');
+		$item->setUrl('https://google');
+		$item->setTitle('title');
+		$item->setAuthor('author');
+		$item->setPubDate(123);
+		$item->setBody('body');
+		$item->setEnclosureMime('audio/ogg');
+		$item->setEnclosureLink('enclink');
+		$item->setFeedId(1);
+		$item->setStatus(0);
+		$item->setUnread();
+		$item->setStarred();
+		$item->setLastModified(321);
+
+		$this->assertEquals([
+			'id' => 3,
+			'guid' => 'guid',
+			'guidHash' => 'hash',
+			'url' => 'https://google',
+			'title' => 'title',
+			'author' => 'author',
+			'pubDate' => 123,
+			'body' => 'body',
+			'enclosureMime' => 'audio/ogg',
+			'enclosureLink' => 'enclink',
+			'feedId' => 1,
+			'unread' => true,
+			'starred' => true,
+			'lastModified' => 321
+			], $item->jsonSerialize());
+	}
+
 	public function testToExport() {
 		$item = new Item();
 		$item->setId(3);
@@ -154,7 +190,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 		];
 
 		$compareWith = Item::fromImport($import);
-		
+
 		$this->assertEquals($item, $compareWith);
 	}
 
@@ -199,7 +235,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 	public function testMakeLinksInBodyOpenNewTab() {
 		$item = new Item();
 		$item->setBody("<a href=\"test\">ha</a>");
-		$this->assertEquals("<a target=\"_blank\" href=\"test\">ha</a>", 
+		$this->assertEquals("<a target=\"_blank\" href=\"test\">ha</a>",
 			$item->getBody());
 	}
 

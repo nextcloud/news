@@ -153,51 +153,65 @@ class AppConfig {
 		}
 	}
 
-	private function testDatabaseDependencies($databases, $databaseType) {
-		if(!in_array($databaseType, $databases)) {
+
+	private function testDatabaseDependencies() {
+		if(array_key_exists('databases', $this->config)) {
+			$databases = $this->config['databases'];
+			$databaseType = $this->databaseType;
+
+			if(!in_array($databaseType, $databases)) {
 			return 'Database ' . $databaseType . ' not supported.' .
 				'App is only compatible with ' .
 				implode(', ', $databases);
-		} else {
-			return '';
+			}
 		}
+		return '';
 	}
+
+
+	private function testPHPDependencies() {
+		if(array_key_exists('dependencies', $this->config)) {
+
+			$deps = $this->config['dependencies'];
+
+			if (array_key_exists('php', $deps)) {
+				return $this->requireVersion($this->phpVersion, $deps['php'],
+					'PHP');
+			}
+
+		}
+		return '';
+	}
+
+
+	private function testLibraryDependencies() {
+		if(array_key_exists('dependencies', $this->config)) {
+
+			$deps = $this->config['dependencies'];
+
+			if (array_key_exists('libs', $deps)) {
+				foreach ($deps['libs'] as $lib => $versions) {
+					if(array_key_exists($lib, $this->installedExtensions)) {
+						return $this->requireVersion($this->installedExtensions[$lib],
+							$versions, 'PHP extension ' . $lib);
+					} else {
+						return 'PHP extension ' . $lib . ' required but not installed';
+					}
+				}
+			}
+		}
+		return '';
+	}
+
 
 	/**
 	 * Validates all dependencies that the app has
 	 * @throws DependencyException if one version is not satisfied
 	 */
 	public function testDependencies() {
-		$msg = '';
-
-		// test databases
-		if(array_key_exists('databases', $this->config)) {
-			$msg .= $this->testDatabaseDependencies(
-				$this->config['databases'], $this->databaseType
-			);
-		}
-
-		// test dependencies
-		if(array_key_exists('dependencies', $this->config)) {
-
-			$deps = $this->config['dependencies'];
-
-			if (array_key_exists('php', $deps)) {
-				$msg .= $this->requireVersion($this->phpVersion, $deps['php'],
-					'PHP');
-			}
-
-			if (array_key_exists('libs', $deps)) {
-				foreach ($deps['libs'] as $lib => $versions) {
-					if(array_key_exists($lib, $this->installedExtensions)) {
-						$msg .= $this->requireVersion($this->installedExtensions[$lib],
-							$versions, 'PHP extension ' . $lib);
-					} else {
-						$msg .= 'PHP extension ' . $lib . ' required but not installed';
-					}
-				}
-			}
-		}
+		$msg = $this->testDatabaseDependencies();
+		$msg .= $this->testPHPDependencies();
+		$msg .= $this->testLibraryDependencies();
 
 		if($msg !== '') {
 			throw new DependencyException($msg);
