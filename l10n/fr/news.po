@@ -26,8 +26,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-10-09 01:01-0400\n"
-"PO-Revision-Date: 2014-10-08 22:00+0000\n"
+"POT-Creation-Date: 2014-10-10 01:01-0400\n"
+"PO-Revision-Date: 2014-10-09 20:01+0000\n"
 "Last-Translator: Thomas Imbreckx <zinks@iozero.be>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/owncloud/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -263,7 +263,7 @@ msgstr "Erreur lors de l'import : le fichier spécifié n'est pas un fichier OP
 
 #: templates/part.settings.php:73
 msgid "Unread/Starred Articles"
-msgstr "Articles non lus / Regardés "
+msgstr "Articles non lus / épinglés"
 
 #: templates/part.settings.php:101
 msgid "Error when importing: file does not contain valid JSON"
