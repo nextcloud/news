@@ -190,5 +190,12 @@ useCronUpdates = true
 * **feedFetcherTimeout**: Maximum number of seconds to wait for an RSS or Atom feed to load. If a feed takes longer than that number of seconds to update, the update will be aborted
 * **useCronUpdates**: To use a custom update/cron script you need to disable the cronjob which is run by ownCloud by default by setting this to false
 
+Translations
+------------
+For translations in other languages than English, we rely on the [Transifex](https://www.transifex.com/) platform. 
+
+If you want to help with translating the app, please do not create a pull request. Instead, head over to https://www.transifex.com/projects/p/owncloud/resource/news/ and join the team of your native language.
+
+If approved, the translation will be automatically ported to the code within 24 hours.
 
 
