@@ -269,7 +269,6 @@ class Application extends App {
 
 			$config = new AppConfig(
 				$c->query('ServerContainer')->getNavigationManager(),
-				$c->query('L10N'),
 				$c->query('URLGenerator'),
 				phpversion(),
 				implode('.', Util::getVersion()),

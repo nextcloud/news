@@ -14,7 +14,6 @@
 namespace OCA\News\Config;
 
 use OCP\INavigationManager;
-use OCP\IL10N;
 use OCP\IURLGenerator;
 use \OCP\Backgroundjob;
 use \OCP\Util;
@@ -30,7 +29,6 @@ class AppConfig {
 	private $ownCloudVersion;
 	private $installedExtensions;
 	private $databaseType;
-	private $l10n;
 
 	/**
 	 * TODO: External deps that are needed:
@@ -38,14 +36,12 @@ class AppConfig {
 	 * - connect to hooks
 	 */
 	public function __construct(INavigationManager $navigationManager,
-	                            IL10N $l10n,
 	                            IURLGenerator $urlGenerator,
 	                            $phpVersion,
 	                            $ownCloudVersion,
 	                            $installedExtensions,
 	                            $databaseType) {
 		$this->navigationManager = $navigationManager;
-		$this->l10n = $l10n;
 		$this->urlGenerator = $urlGenerator;
 		$this->ownCloudVersion = $ownCloudVersion;
 		$this->phpVersion = $phpVersion;
@@ -111,10 +107,10 @@ class AppConfig {
 
 			$navConfig = [
 				'id' => $nav['id'],
-				'order' => $nav['order']
+				'order' => $nav['order'],
+				'name' => $nav['name']
 			];
 
-			$navConfig['name'] = $this->l10n->t($nav['name']);
 			$navConfig['href'] = $this->urlGenerator->linkToRoute($nav['route']);
 			$navConfig['icon'] = $this->urlGenerator->imagePath($nav['id'],
 				$nav['icon']);

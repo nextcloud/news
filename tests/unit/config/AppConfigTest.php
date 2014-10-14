@@ -24,9 +24,6 @@ class AppConfigTest extends \PHPUnit_Framework_TestCase {
 		$this->nav = $this->getMockBuilder('\OCP\INavigationManager')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->l10n = $this->getMockBuilder('\OCP\IL10N')
-			->disableOriginalConstructor()
-			->getMock();
 		$this->url = $this->getMockBuilder('\OCP\IURLGenerator')
 			->disableOriginalConstructor()
 			->getMock();
@@ -35,9 +32,8 @@ class AppConfigTest extends \PHPUnit_Framework_TestCase {
 		$installedExtensions = ['curl' => '4.3'];
 		$databaseType = 'oracle';
 
-		$this->config = new AppConfig($this->nav, $this->l10n,
-			$this->url, $phpVersion, $ownCloudVersion,
-			$installedExtensions, $databaseType);
+		$this->config = new AppConfig($this->nav, $this->url, $phpVersion,
+			$ownCloudVersion, $installedExtensions, $databaseType);
 	}
 
 	public function testGetId() {
@@ -78,11 +74,6 @@ class AppConfigTest extends \PHPUnit_Framework_TestCase {
 			'name' => 'News'
 		];
 
-		$this->l10n->expects($this->once())
-			->method('t')
-			->with($this->equalTo('News'))
-			->will($this->returnValue('News'));
-
 		$this->url->expects($this->once())
 			->method('linkToRoute')
 			->with($this->equalTo('news.page.index'))
@@ -115,11 +106,6 @@ class AppConfigTest extends \PHPUnit_Framework_TestCase {
 			'icon' => 'test.svg',
 			'name' => 'haha'
 		];
-
-		$this->l10n->expects($this->once())
-			->method('t')
-			->with($this->equalTo('haha'))
-			->will($this->returnValue('haha'));
 
 		$this->url->expects($this->once())
 			->method('linkToRoute')

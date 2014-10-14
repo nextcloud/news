@@ -1,3 +1,6 @@
+owncloud-news (3.402)
+* **Bugfix**: Use **News** as the app navigation entry name across all languages
+
 owncloud-news (3.401)
 * **New dependency**: SimpleXML
 * **Enhancement**: Added Slashdot.org enhancer to get rid of tons of advertising that create a lot of whitespace when using adblock
