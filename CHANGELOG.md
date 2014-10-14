@@ -1,5 +1,5 @@
 owncloud-news (3.402)
-* **Bugfix**: Use **News** as the app navigation entry name across all languages
+* **Bugfix**: Use **News** as the app navigation entry name across all languages to fix translation errors and because it makes sense
 
 owncloud-news (3.401)
 * **New dependency**: SimpleXML
