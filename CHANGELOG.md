@@ -1,4 +1,5 @@
 owncloud-news (3.402)
+* **New dependency**: Bump required ownCloud version to 7.0.3 (RC1 is also supported)
 * **Bugfix**: Use **News** as the app navigation entry name across all languages to fix translation errors and because it makes sense
 
 owncloud-news (3.401)

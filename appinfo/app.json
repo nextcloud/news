@@ -3,7 +3,7 @@
     "id": "news",
     "description": "An RSS/Atom feed reader. Requires ownCloud backgroundjobs or an updater script to be enabled to update your feeds. See the README.md in the apps top directory",
     "licence": "AGPL",
-    "version": "3.401",
+    "version": "3.4.2",
     "authors": [
         {
             "name": "Bernhard Posselt",
@@ -36,7 +36,7 @@
     "categories": ["Multimedia"],
     "dependencies": {
         "php": ">=5.4",
-        "owncloud": ">=7.0.2.2",
+        "owncloud": ">=7.0.3",
         "libs": {
             "curl": "*",
             "libxml": ">=2.7.8",
