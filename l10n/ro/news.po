@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-10-06 01:01-0400\n"
-"PO-Revision-Date: 2014-10-05 05:20+0000\n"
+"POT-Creation-Date: 2014-10-17 01:01-0400\n"
+"PO-Revision-Date: 2014-10-16 06:11+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: Romanian (http://www.transifex.com/projects/p/owncloud/language/ro/)\n"
 "MIME-Version: 1.0\n"
@@ -92,41 +92,41 @@ msgid "Download"
 msgstr "Descarcă"
 
 #: templates/part.navigation.addfeed.php:5
-#: templates/part.navigation.addfeed.php:58
+#: templates/part.navigation.addfeed.php:66
 msgid "Subscribe"
 msgstr "Abonare"
 
-#: templates/part.navigation.addfeed.php:15
+#: templates/part.navigation.addfeed.php:18
 msgid "Web address"
 msgstr "Adresă web"
 
-#: templates/part.navigation.addfeed.php:22
+#: templates/part.navigation.addfeed.php:25
 msgid "Feed exists already!"
 msgstr ""
 
-#: templates/part.navigation.addfeed.php:27
+#: templates/part.navigation.addfeed.php:30
 msgid "Folder"
 msgstr "Dosar"
 
-#: templates/part.navigation.addfeed.php:31
+#: templates/part.navigation.addfeed.php:34
 msgid "No folder"
 msgstr ""
 
-#: templates/part.navigation.addfeed.php:36
+#: templates/part.navigation.addfeed.php:39
 msgid "New folder"
 msgstr "Un nou dosar"
 
-#: templates/part.navigation.addfeed.php:44
+#: templates/part.navigation.addfeed.php:52
 #: templates/part.navigation.addfolder.php:16
 #: templates/part.navigation.addfolder.php:17
 msgid "Folder name"
 msgstr "Denumire director"
 
-#: templates/part.navigation.addfeed.php:51
+#: templates/part.navigation.addfeed.php:59
 msgid "Go back"
 msgstr ""
 
-#: templates/part.navigation.addfeed.php:55
+#: templates/part.navigation.addfeed.php:63
 #: templates/part.navigation.addfolder.php:21
 #: templates/part.navigation.folder.php:52
 msgid "Folder exists already!"

@@ -1,4 +1,5 @@
 <?php $TRANSLATIONS = array(
+"by" => "له‌لایه‌ن",
 "Download" => "داگرتن",
 "Subscribe" => "به‌شداربوون",
 "Folder" => "بوخچه",
