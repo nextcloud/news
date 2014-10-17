@@ -78,7 +78,7 @@ class Updater:
 
         if self.base_url[-1] != '/':
             self.base_url += '/'
-        self.base_url += 'index.php/apps/news/api/v1-4'
+        self.base_url += 'index.php/apps/news/api/v1-2'
 
         self.before_cleanup_url = '%s/cleanup/before-update' % self.base_url
         self.after_cleanup_url = '%s/cleanup/after-update' % self.base_url
