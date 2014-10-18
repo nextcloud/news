@@ -25,7 +25,7 @@ are listed on the [ownCloud apps overview](https://github.com/owncloud/core/wiki
 * SimpleXML
 
 ## Supported Operating Systems
-All of the listed stable Linux distributions will be supported until their next stable version is released:
+All of the listed stable Linux distributions will be supported until their next stable version's first bugfix release is released (e.g. Debian 7 is supported until Debian 8.1 is released):
 
 * Ubuntu 14.04
 * Debian 7 (Wheezy)
@@ -192,7 +192,7 @@ useCronUpdates = true
 
 Translations
 ------------
-For translations in other languages than English, we rely on the [Transifex](https://www.transifex.com/) platform. 
+For translations in other languages than English, we rely on the [Transifex](https://www.transifex.com/) platform.
 
 If you want to help with translating the app, please do not create a pull request. Instead, head over to https://www.transifex.com/projects/p/owncloud/resource/news/ and join the team of your native language.
 
