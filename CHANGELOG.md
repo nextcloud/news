@@ -2,6 +2,7 @@ owncloud-news (3.405)
 * **Bugfix**: Fix mobile view for ownCloud 7
 * **Enhancement**: Add shortcuts for jumping to next/previous folder
 * **Enhancement**: Add keyboard shortcuts overview
+* **Enhancement**: More space for checkboxes in settings overview
 
 owncloud-news (3.404)
 * **Bugfix**: Fix freeze when a folder is selected, the previous folder has 0 visible subfeeds and the **d** shortcut is pressed to jump the the previous feed
