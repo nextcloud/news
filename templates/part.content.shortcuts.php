@@ -31,7 +31,7 @@
             </tr>
             <tr>
                 <td>e</td>
-                <td><?php p($l->t('Expand article in compact view')); ?></td>
+                <td><?php p($l->t('Toggle expand article in compact view')); ?></td>
             </tr>
             <tr>
                 <td>r</td>
