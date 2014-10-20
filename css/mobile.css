@@ -2,6 +2,11 @@
     #app-content .utils .date {
         display: none;
     }
+
+    #app-shortcuts th:first-child {
+        padding-left: 44px;
+    }
+
 }
 
 @media (max-width: 600px) {

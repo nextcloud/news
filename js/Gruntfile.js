@@ -74,6 +74,7 @@ module.exports = function (grunt) {
                     '../css/content.css',
                     '../css/custom.css',
                     '../css/mobile.css',
+                    '../css/shortcuts.css',
                     '../css/navigation.css',
                     '../css/settings.css'
                 ]}
@@ -83,6 +84,7 @@ module.exports = function (grunt) {
                     '../css/app.css',
                     '../css/content.css',
                     '../css/custom.css',
+                    '../css/shortcuts.css',
                     '../css/mobile.css',
                     '../css/navigation.css',
                     '../css/settings.css'

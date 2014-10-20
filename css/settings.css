@@ -25,8 +25,14 @@
     font-weight: bold;
 }
 
+#app-settings-content a {
+    color: #0000FF;
+    text-decoration: underline;
+}
+
+
 #app-settings-content p {
-    padding-left: 10px;
+    padding: 2px 2px 2px 10px;
 }
 
 .button-icon-label {

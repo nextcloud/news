@@ -97,6 +97,9 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
             templateUrl: 'content.html',
             resolve: getResolve(feedType.FOLDER),
             type: feedType.FOLDER
+        }).when('/shortcuts', {
+            templateUrl: 'shortcuts.html',
+            type: -1
         });
 
 });

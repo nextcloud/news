@@ -120,21 +120,6 @@ To update the News app use:
     git pull --rebase origin master
 
 
-## Keyboard shortcuts
-* **Next item**: n / j / right arrow
-* **Previous item**: p / k / left arrow
-* **Star current item**: s / i
-* **Keep current item unread**: u
-* **Star item and jump to next one**: h
-* **Open current item**: o
-* **Toggle expand of current item in compact view**: e
-* **Reload the currently active feed**: r
-* **Load the next feed**: f
-* **Load the previous feed**: d
-* **Load the next folder**: c
-* **Load the previous folder**: v
-
-
 ## Performance Notices
 * Use MySQL or PostgreSQL for better database performance
 * Use the [updater script to thread and speed up the update](https://github.com/owncloud/news/wiki/Cron-1.2)

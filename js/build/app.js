@@ -95,6 +95,9 @@ app.config(["$routeProvider", "$provide", "$httpProvider", function ($routeProvi
             templateUrl: 'content.html',
             resolve: getResolve(feedType.FOLDER),
             type: feedType.FOLDER
+        }).when('/shortcuts', {
+            templateUrl: 'shortcuts.html',
+            type: -1
         });
 
 }]);
@@ -1764,6 +1767,10 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
             event.metaKey
         );
     };
+
+    /*var showShortcuts = function () {
+        $('*[data-apps-slide-toggle="#app-shortcuts"]').trigger('click');
+    };*/
 
     var reloadFeed = function (navigationArea) {
         navigationArea.find('.active > a:visible').trigger('click');

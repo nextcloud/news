@@ -89,7 +89,7 @@
 	position: absolute;
 	top: 0;
 	right: 0;
-	z-index: 105;
+	z-index: 10;
 }
 
 	#app-navigation .app-navigation-entry-utils ul {
@@ -263,6 +263,6 @@
 
 #app-settings,
 #expanddiv {
-	z-index: 6000;
+	z-index: 15;
 }
 

@@ -41,6 +41,7 @@ script('news', [
 
     <!-- content -->
     <script type="text/ng-template" id="content.html"><?php print_unescaped($this->inc('part.content')) ?></script>
+    <script type="text/ng-template" id="shortcuts.html"><?php print_unescaped($this->inc('part.content.shortcuts')) ?></script>
 
     <div id="app-content"
         ng-class="{

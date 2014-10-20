@@ -7,6 +7,10 @@
 <div id="app-settings-content">
     <h3><?php p($l->t('Settings')); ?></h3>
 
+    <p>
+        <a href="#/shortcuts"><?php p($l->t('Keyboard shortcuts')); ?></a>
+    </p>
+
     <p ng-click="Settings.toggleSetting('compact')">
         <label for="compact">
             <input type="checkbox" ng-checked="Settings.getSetting('compact')" name="compact">
@@ -34,7 +38,6 @@
             <?php p($l->t('Disable mark read through scrolling')); ?>
         </label>
     </p>
-
 
     <div class="import-export">
         <h3><?php p($l->t('Subscriptions (OPML)')); ?></h3>
@@ -100,5 +103,6 @@
         <p class="error" ng-show="Settings.articleImportError">
             <?php p($l->t('Error when importing: file does not contain valid JSON')); ?>
         </p>
+
     </div>
 </div>

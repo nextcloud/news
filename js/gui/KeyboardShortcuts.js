@@ -34,6 +34,10 @@
         );
     };
 
+    /*var showShortcuts = function () {
+        $('*[data-apps-slide-toggle="#app-shortcuts"]').trigger('click');
+    };*/
+
     var reloadFeed = function (navigationArea) {
         navigationArea.find('.active > a:visible').trigger('click');
     };
