@@ -12,7 +12,7 @@ script('news', [
     'vendor/angular-route/angular-route.min',
     'vendor/angular-sanitize/angular-sanitize.min',
     'vendor/momentjs/min/moment-with-locales.min',
-    'build/app',
+    'build/app.min',
 ]);
 ?>
 
