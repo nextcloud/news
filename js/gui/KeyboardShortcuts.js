@@ -78,18 +78,31 @@
                                            '.starred-feed:visible,' +
                                            '.feed:visible');
 
+        // special case: folder selected
         if (current.hasClass('folder')) {
-            current = current.prev('.folder');
-            while (current.length > 0) {
-                var subfeeds = current.find('.feed:visible');
+            var previousFolder = current.prev('.folder');
+
+            while (previousFolder.length > 0) {
+                var subfeeds = previousFolder.find('.feed:visible');
                 if (subfeeds.length > 0) {
                     $(subfeeds[subfeeds.length-1])
                         .children('a:visible').trigger('click');
                     return;
                 }
+                previousFolder = previousFolder.prev('.folder');
             }
 
-            // no subfeed found
+            // no subfeed found try visible feeds
+            var feeds = current.siblings('.feed');
+
+            if (feeds.length > 0) {
+                (feeds[feeds.length-1])
+                    .children('a:visible').trigger('click');
+                return;
+            }
+
+
+            // no feed found, go to starred
             var starred = $('.starred-feed:visible');
             if (starred.length > 0) {
                 starred.children('a:visible').trigger('click');

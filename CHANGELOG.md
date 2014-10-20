@@ -1,3 +1,6 @@
+owncloud-news (3.404)
+* **Bugfix**: Fix freeze when a folder is selected, the previous folder has 0 visible subfeeds and the **d** shortcut is pressed to jump the the previous feed
+
 owncloud-news (3.403)
 * **Bugfix**: Use correct route for python updater
 
