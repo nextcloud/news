@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Sergiy, 2014
 # Сергей Коптев <skoptev@ukr.net>, 2012
 # Victor Dubiniuk <victor.dubiniuk@gmail.com>, 2012
 # пан Володимир <volodya327@gmail.com>, 2012
@@ -11,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-10-17 01:01-0400\n"
-"PO-Revision-Date: 2014-10-16 06:11+0000\n"
-"Last-Translator: I Robot\n"
+"POT-Creation-Date: 2014-10-20 01:01-0400\n"
+"PO-Revision-Date: 2014-10-19 19:20+0000\n"
+"Last-Translator: Sergiy\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/owncloud/language/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,7 +30,7 @@ msgstr "Неможливо додати стрічку: вона вже існу
 msgid ""
 "Can not add feed: URL does not exist, SSL Certificate can not be validated "
 "or feed has invalid xml"
-msgstr ""
+msgstr "Неможливо додати стрічку: URL не існує, SSL-сертифікат не можна перевірити, або ресурс має неприпустимий XML"
 
 #: service/feedservice.php:296
 msgid "Articles without feed"
@@ -41,15 +42,15 @@ msgstr "Неможливо додати теку: вона вже існує"
 
 #: templates/part.content.php:3
 msgid "Add a feed"
-msgstr ""
+msgstr "Додати стрічку"
 
 #: templates/part.content.php:4
 msgid "There are no feeds yet. Go ahead and add some"
-msgstr ""
+msgstr "Поки що не має жодної стрічки новин. Додайте щось"
 
 #: templates/part.content.php:5
 msgid "Import feeds and articles"
-msgstr ""
+msgstr "Імпортувати стрічки та статті"
 
 #: templates/part.content.php:12
 msgid "Refresh"
@@ -57,23 +58,23 @@ msgstr "Оновити"
 
 #: templates/part.content.php:28
 msgid "Open website"
-msgstr ""
+msgstr "Відкрити веб-сайт"
 
 #: templates/part.content.php:44
 msgid "Star article"
-msgstr ""
+msgstr "Позначити статтю"
 
 #: templates/part.content.php:45
 msgid "Unstar article"
-msgstr ""
+msgstr "Зняти позначку статті"
 
 #: templates/part.content.php:48
 msgid "Keep article unread"
-msgstr ""
+msgstr "Залишити статтю непрочитаною"
 
 #: templates/part.content.php:49
 msgid "Remove keep article unread"
-msgstr ""
+msgstr "Позначити статтю як прочитану"
 
 #: templates/part.content.php:70
 msgid "by"
@@ -85,7 +86,7 @@ msgstr "З"
 
 #: templates/part.content.php:80
 msgid "Browser can not play media type"
-msgstr ""
+msgstr "Браузер не може відтворити цей тип медіафайлу"
 
 #: templates/part.content.php:86
 msgid "Download"
@@ -124,7 +125,7 @@ msgstr "Ім'я теки"
 
 #: templates/part.navigation.addfeed.php:59
 msgid "Go back"
-msgstr ""
+msgstr "Повернутися назад"
 
 #: templates/part.navigation.addfeed.php:63
 #: templates/part.navigation.addfolder.php:21
@@ -134,7 +135,7 @@ msgstr "Тека вже існує !"
 
 #: templates/part.navigation.addfolder.php:5
 msgid "New Folder"
-msgstr ""
+msgstr "Нова тека"
 
 #: templates/part.navigation.addfolder.php:24
 msgid "Create"
@@ -142,11 +143,11 @@ msgstr "Створити"
 
 #: templates/part.navigation.feed.php:41
 msgid "Deleted feed"
-msgstr ""
+msgstr "Видалена стрічка"
 
 #: templates/part.navigation.feed.php:43
 msgid "Undo delete feed"
-msgstr ""
+msgstr "Відмінити видалення стрічки"
 
 #: templates/part.navigation.feed.php:56
 #: templates/part.navigation.folder.php:46
@@ -156,11 +157,11 @@ msgstr "Перейменувати"
 #: templates/part.navigation.feed.php:70
 #: templates/part.navigation.folder.php:77
 msgid "Menu"
-msgstr ""
+msgstr "Меню"
 
 #: templates/part.navigation.feed.php:79
 msgid "Rename feed"
-msgstr ""
+msgstr "Перейменувати стрічку"
 
 #: templates/part.navigation.feed.php:82
 msgid "Delete feed"
@@ -170,12 +171,12 @@ msgstr "Видалити стрічку"
 #: templates/part.navigation.folder.php:92
 #: templates/part.navigation.unreadfeed.php:29
 msgid "Read all"
-msgstr ""
+msgstr "Прочитати все"
 
 #: templates/part.navigation.feed.php:93
 #: templates/part.navigation.folder.php:103
 msgid "Dismiss"
-msgstr ""
+msgstr "Припинити"
 
 #: templates/part.navigation.folder.php:20
 msgid "Collapse"
@@ -183,11 +184,11 @@ msgstr "Згорнути"
 
 #: templates/part.navigation.folder.php:26
 msgid "Deleted folder"
-msgstr ""
+msgstr "Видалені теки"
 
 #: templates/part.navigation.folder.php:28
 msgid "Undo delete folder"
-msgstr ""
+msgstr "Відмінити видалення теки"
 
 #: templates/part.navigation.folder.php:86
 msgid "Rename folder"
@@ -215,19 +216,19 @@ msgstr "Налаштування"
 
 #: templates/part.settings.php:13
 msgid "Compact view"
-msgstr ""
+msgstr "Компактний вигляд"
 
 #: templates/part.settings.php:20
 msgid "Show all articles"
-msgstr ""
+msgstr "Показати всі статті"
 
 #: templates/part.settings.php:27
 msgid "Reverse ordering"
-msgstr ""
+msgstr "Зворотній порядок"
 
 #: templates/part.settings.php:34
 msgid "Disable mark read through scrolling"
-msgstr ""
+msgstr "Вимкнути читання поміток при прокрутці"
 
 #: templates/part.settings.php:40
 msgid "Subscriptions (OPML)"
