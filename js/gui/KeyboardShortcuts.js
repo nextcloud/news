@@ -72,6 +72,65 @@
         }
     };
 
+    var getParentFolder = function (current) {
+        return current.parent().parent('.folder');
+    };
+
+    var selectFirstOrLastFolder = function (navigationArea, isLast) {
+        var folders = navigationArea.find('.folder:visible');
+
+        var index;
+        if (isLast) {
+            index = folders.length - 1;
+        } else {
+            index = 0;
+        }
+
+        if (folders.length > 0) {
+            $(folders[index]).children('a').trigger('click');
+        }
+    };
+
+    var previousFolder = function (navigationArea) {
+        var current = navigationArea.find('.active');
+
+        // cases: folder active, subfeed active, feed active, none active
+        if (current.hasClass('folder')) {
+            current.prevAll('.folder:visible').first()
+                .children('a').trigger('click');
+        } else if (current.hasClass('feed')) {
+            var parentFolder = getParentFolder(current);
+            if (parentFolder.length > 0) {
+                // first go to previous folder should select the parent folder
+                parentFolder.children('a').trigger('click');
+            } else {
+                selectFirstOrLastFolder(navigationArea, true);
+            }
+        } else {
+            selectFirstOrLastFolder(navigationArea, true);
+        }
+    };
+
+    var nextFolder = function (navigationArea) {
+        var current = navigationArea.find('.active');
+
+        // cases: folder active, subfeed active, feed active, none active
+        if (current.hasClass('folder')) {
+            current.nextAll('.folder:visible').first()
+                .children('a').trigger('click');
+        } else if (current.hasClass('feed')) {
+            var parentFolder = getParentFolder(current);
+            if (parentFolder.length > 0) {
+                parentFolder.nextAll('.folder:visible').first()
+                    .children('a').trigger('click');
+            } else {
+                selectFirstOrLastFolder(navigationArea);
+            }
+        } else {
+            selectFirstOrLastFolder(navigationArea);
+        }
+    };
+
     var previousFeed = function (navigationArea) {
         var current = navigationArea.find('.active');
         var elements = navigationArea.find('.subscriptions-feed:visible,' +
@@ -300,6 +359,18 @@
 
                 event.preventDefault();
                 previousFeed(navigationArea);
+
+            // c
+            } else if ([67].indexOf(keyCode) >= 0) {
+
+                event.preventDefault();
+                previousFolder(navigationArea);
+
+            // v
+            } else if ([86].indexOf(keyCode) >= 0) {
+
+                event.preventDefault();
+                nextFolder(navigationArea);
 
             }
 

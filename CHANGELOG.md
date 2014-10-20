@@ -1,3 +1,6 @@
+owncloud-news (3.405)
+* **Enhancement**: Add shortcuts for jumping to next/previous folder
+
 owncloud-news (3.404)
 * **Bugfix**: Fix freeze when a folder is selected, the previous folder has 0 visible subfeeds and the **d** shortcut is pressed to jump the the previous feed
 

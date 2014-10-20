@@ -131,6 +131,9 @@ To update the News app use:
 * **Reload the currently active feed**: r
 * **Load the next feed**: f
 * **Load the previous feed**: d
+* **Load the next folder**: c
+* **Load the previous folder**: v
+
 
 ## Performance Notices
 * Use MySQL or PostgreSQL for better database performance
