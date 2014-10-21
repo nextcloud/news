@@ -183,7 +183,9 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
     public function testDeleteDoesNotExist(){
         $this->folderService->expects($this->once())
             ->method('markDeleted')
-            ->will($this->throwException(new ServiceNotFoundException($this->msg)));
+            ->will(
+                $this->throwException(new ServiceNotFoundException($this->msg))
+            );
 
         $response = $this->controller->delete(5);
 
