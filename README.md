@@ -159,7 +159,7 @@ Another way to fix this is to run a custom [updater script](https://github.com/o
 
 Configuration
 -------------
-All configuration values are set inside **owncloud/data/news/config/config.ini**
+All configuration values are set inside **owncloud/data/news/config/config.ini** and can be edited in the admin panel.
 
 The configuration is in **INI** format and looks like this:
 
