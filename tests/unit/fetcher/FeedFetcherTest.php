@@ -102,7 +102,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 		$this->proxyAuth = 'hi';
 		$this->fetchTimeout = 40;
 		$this->config = $this->getMockBuilder(
-			'\OCA\News\Utility\Config')
+			'\OCA\News\Config\Config')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->config->expects($this->any())

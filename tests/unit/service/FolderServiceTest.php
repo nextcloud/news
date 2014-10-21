@@ -40,7 +40,7 @@ class FolderServiceTest extends \PHPUnit_Framework_TestCase {
 			->getMock();
 		$this->autoPurgeMinimumInterval = 10;
 		$config = $this->getMockBuilder(
-			'\OCA\News\Utility\Config')
+			'\OCA\News\Config\Config')
 			->disableOriginalConstructor()
 			->getMock();
 		$config->expects($this->any())
@@ -147,14 +147,14 @@ class FolderServiceTest extends \PHPUnit_Framework_TestCase {
 
 		$this->folderService->rename(3, 'bogus', '');
 
-		$this->assertEquals('bogus', $folder->getName());		
+		$this->assertEquals('bogus', $folder->getName());
 	}
 
 
 	public function testRenameThrowsExWhenFolderNameExists(){
 		$folderName = 'hihi';
 		$rows = [['id' => 1]];
-		
+
 		$this->l10n->expects($this->once())
 			->method('t');
 		$this->folderMapper->expects($this->once())
@@ -169,7 +169,7 @@ class FolderServiceTest extends \PHPUnit_Framework_TestCase {
 
 	public function testRenameThrowsExWhenFolderNameEmpty(){
 		$folderName = '';
-		
+
 		$this->folderMapper->expects($this->once())
 			->method('findByName')
 			->with($this->equalTo($folderName))

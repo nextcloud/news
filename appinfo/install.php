@@ -16,16 +16,7 @@ namespace OCA\News\AppInfo;
 use \OCA\News\Config\DependencyException;
 
 
-// Turn all errors into exceptions to combat shitty library behavior
-set_error_handler(function ($code, $message) {
-	if ($code === E_ERROR || $code === E_USER_ERROR) {
-		throw new \Exception($message, $code);
-	}
-});
-
+// check for correct app dependencies and fail if possible
 $container = new Application();
-
 $config = $container->getAppConfig();
-$config->registerNavigation();
-$config->registerBackgroundJobs();
-$config->registerHooks();
+$config->testDependencies();

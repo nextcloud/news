@@ -11,7 +11,7 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 
-namespace OCA\News\Utility;
+namespace OCA\News\Config;
 
 use \OCP\ILogger;
 

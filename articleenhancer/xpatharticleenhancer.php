@@ -20,7 +20,7 @@ use \ZendXml\Security;
 
 use \OCA\News\Db\Item;
 use \OCA\News\Utility\SimplePieAPIFactory;
-use \OCA\News\Utility\Config;
+use \OCA\News\Config\Config;
 
 
 
@@ -38,7 +38,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
      * @param array $regexXPathPair an associative array containing regex to
      * match the url and the xpath that should be used for it to extract the
      * page
-     * @param \OCA\News\Utility\Config $config
+     * @param \OCA\News\Config\Config $config
      */
 	public function __construct(SimplePieAPIFactory $fileFactory,
 	                            array $regexXPathPair,

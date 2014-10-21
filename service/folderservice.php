@@ -17,7 +17,7 @@ use \OCP\IL10N;
 
 use \OCA\News\Db\Folder;
 use \OCA\News\Db\FolderMapper;
-use \OCA\News\Utility\Config;
+use \OCA\News\Config\Config;
 
 
 class FolderService extends Service {

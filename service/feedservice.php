@@ -24,7 +24,7 @@ use \OCA\News\Db\ItemMapper;
 use \OCA\News\Fetcher\Fetcher;
 use \OCA\News\Fetcher\FetcherException;
 use \OCA\News\ArticleEnhancer\Enhancer;
-use \OCA\News\Utility\Config;
+use \OCA\News\Config\Config;
 
 
 class FeedService extends Service {

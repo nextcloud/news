@@ -69,7 +69,7 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
 			->getMock();
 		$this->purifier = $this->getMock('purifier', ['purify']);
 		$config = $this->getMockBuilder(
-			'\OCA\News\Utility\Config')
+			'\OCA\News\Config\Config')
 			->disableOriginalConstructor()
 			->getMock();
 		$config->expects($this->any())

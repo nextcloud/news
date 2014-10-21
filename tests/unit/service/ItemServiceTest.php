@@ -49,7 +49,7 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
 			->will($this->returnValue($this->status));
 		$this->threshold = 2;
 		$config = $this->getMockBuilder(
-			'\OCA\News\Utility\Config')
+			'\OCA\News\Config\Config')
 			->disableOriginalConstructor()
 			->getMock();
 		$config->expects($this->any())

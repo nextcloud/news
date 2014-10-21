@@ -19,6 +19,7 @@ use \OCP\Util;
 use \OCP\User;
 
 use \OCA\News\Config\AppConfig;
+use \OCA\News\Config\Config;
 
 use \OCA\News\Controller\PageController;
 use \OCA\News\Controller\FolderController;
@@ -39,7 +40,6 @@ use \OCA\News\Db\FeedMapper;
 use \OCA\News\Db\StatusFlag;
 use \OCA\News\Db\MapperFactory;
 
-use \OCA\News\Utility\Config;
 use \OCA\News\Utility\OPMLExporter;
 use \OCA\News\Utility\Updater;
 use \OCA\News\Utility\SimplePieAPIFactory;
@@ -470,5 +470,6 @@ class Application extends App {
 	}
 
 
+	public function dispatchPart($controller, $)
 }
 

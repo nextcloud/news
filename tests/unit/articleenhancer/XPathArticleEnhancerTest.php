@@ -37,7 +37,7 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 		$this->proxyPort = 3;
 		$this->proxyAuth = 'hi';
 		$this->config = $this->getMockBuilder(
-			'\OCA\News\Utility\Config')
+			'\OCA\News\Config\Config')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->config->expects($this->any())

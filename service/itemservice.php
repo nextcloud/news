@@ -18,7 +18,7 @@ use \OCP\AppFramework\Db\DoesNotExistException;
 use \OCA\News\Db\ItemMapper;
 use \OCA\News\Db\StatusFlag;
 use \OCA\News\Db\FeedType;
-use \OCA\News\Utility\Config;
+use \OCA\News\Config\Config;
 
 
 class ItemService extends Service {

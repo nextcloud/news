@@ -17,7 +17,7 @@ use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
 use \OCA\News\Utility\FaviconFetcher;
 use \OCA\News\Utility\SimplePieAPIFactory;
-use \OCA\News\Utility\Config;
+use \OCA\News\Config\Config;
 use \OCA\News\Config\AppConfig;
 
 
