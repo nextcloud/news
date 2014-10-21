@@ -12,7 +12,7 @@ style('news', 'admin');
             <?php p($l->t('Use ownCloud cron to for updates')); ?></label>
         <p>
             <em><?php p($l->t(
-                'Disable this if you run a custom updater such as the Python' .
+                'Disable this if you run a custom updater such as the Python ' .
                 'updater included in the app.'
             )); ?></em>
         </p>

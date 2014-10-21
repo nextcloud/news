@@ -73,7 +73,7 @@
                 useCronUpdatesInput.prop('checked', data.useCronUpdates);
             });
 
-        }
+        };
 
         $('#news input[type="text"]').blur(submit);
         $('#news input[type="checkbox"]').change(submit);
