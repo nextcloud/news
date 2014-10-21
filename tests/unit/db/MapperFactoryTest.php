@@ -16,35 +16,35 @@ namespace OCA\News\Db;
 
 class MapperFactoryTest extends \PHPUnit_Framework_TestCase {
 
-	private $db;
-	private $settings;
+    private $db;
+    private $settings;
 
-	public function setUp() {
-		$this->db = $this->getMockBuilder('\OCP\IDb')
-			->disableOriginalConstructor()
-			->getMock();
-	}
-
-
-	public function testGetItemMapperSqlite() {
-		$factory = new MapperFactory('sqlite', $this->db);
-
-		$this->assertTrue($factory->getItemMapper() instanceof ItemMapper);
-	}
+    public function setUp() {
+        $this->db = $this->getMockBuilder('\OCP\IDb')
+            ->disableOriginalConstructor()
+            ->getMock();
+    }
 
 
-	public function testGetItemMapperMysql() {
-		$factory = new MapperFactory('mysql', $this->db);
+    public function testGetItemMapperSqlite() {
+        $factory = new MapperFactory('sqlite', $this->db);
 
-		$this->assertTrue($factory->getItemMapper() instanceof ItemMapper);
-	}
+        $this->assertTrue($factory->getItemMapper() instanceof ItemMapper);
+    }
 
 
-	public function testGetItemMapperPostgres() {
-		$factory = new MapperFactory('pgsql', $this->db);
+    public function testGetItemMapperMysql() {
+        $factory = new MapperFactory('mysql', $this->db);
 
-		$this->assertTrue($factory->getItemMapper() instanceof \OCA\News\Db\Postgres\ItemMapper);
-	}
+        $this->assertTrue($factory->getItemMapper() instanceof ItemMapper);
+    }
+
+
+    public function testGetItemMapperPostgres() {
+        $factory = new MapperFactory('pgsql', $this->db);
+
+        $this->assertTrue($factory->getItemMapper() instanceof \OCA\News\Db\Postgres\ItemMapper);
+    }
 
 
 }

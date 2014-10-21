@@ -19,17 +19,17 @@ use \OCA\News\Db\Item;
 class RegexArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 
 
-	public function testRegexEnhancer() {
-		$item = new Item();
-		$item->setBody('atests is a nice thing');
-		$item->setUrl('http://john.com');
-		$regex = ["%tes(ts)%" => "heho$1tests"];
-		
-		$regexEnhancer = new RegexArticleEnhancer('%john.com%', $regex);
-		$item = $regexEnhancer->enhance($item);
+    public function testRegexEnhancer() {
+        $item = new Item();
+        $item->setBody('atests is a nice thing');
+        $item->setUrl('http://john.com');
+        $regex = ["%tes(ts)%" => "heho$1tests"];
 
-		$this->assertEquals('ahehotstests is a nice thing', $item->getBody());
-	}
+        $regexEnhancer = new RegexArticleEnhancer('%john.com%', $regex);
+        $item = $regexEnhancer->enhance($item);
+
+        $this->assertEquals('ahehotstests is a nice thing', $item->getBody());
+    }
 
 
 }

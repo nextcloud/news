@@ -20,27 +20,27 @@ use \OCP\AppFramework\Http\Response;
  */
 class TextResponse extends Response {
 
-	private $content;
+    private $content;
 
-	/**
-	 * Creates a response that just outputs text
-	 * @param string $content the content that should be written into the file
-	 * @param string $contentType the mimetype. text/ is added automatically so
-	 * only plain or html can be added to get text/plain or text/html
-	 */
-	public function __construct($content, $contentType='plain'){
-		$this->content = $content;
-		$this->addHeader('Content-type', 'text/' . $contentType);
-	}
+    /**
+     * Creates a response that just outputs text
+     * @param string $content the content that should be written into the file
+     * @param string $contentType the mimetype. text/ is added automatically so
+     * only plain or html can be added to get text/plain or text/html
+     */
+    public function __construct($content, $contentType='plain'){
+        $this->content = $content;
+        $this->addHeader('Content-type', 'text/' . $contentType);
+    }
 
 
-	/**
-	 * Simply sets the headers and returns the file contents
-	 * @return string the file contents
-	 */
-	public function render(){
-		return $this->content;
-	}
+    /**
+     * Simply sets the headers and returns the file contents
+     * @return string the file contents
+     */
+    public function render(){
+        return $this->content;
+    }
 
 
 }

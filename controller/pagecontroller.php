@@ -24,70 +24,70 @@ use \OCA\News\Config\AppConfig;
 
 class PageController extends Controller {
 
-	private $settings;
-	private $l10n;
-	private $userId;
-	private $appConfig;
-	private $urlGenerator;
+    private $settings;
+    private $l10n;
+    private $userId;
+    private $appConfig;
+    private $urlGenerator;
 
-	public function __construct($appName,
-	                            IRequest $request,
-	                            IConfig $settings,
-	                            IURLGenerator $urlGenerator,
+    public function __construct($appName,
+                                IRequest $request,
+                                IConfig $settings,
+                                IURLGenerator $urlGenerator,
                                 AppConfig $appConfig,
-	                            IL10N $l10n,
-	                            $userId){
-		parent::__construct($appName, $request);
-		$this->settings = $settings;
-		$this->urlGenerator = $urlGenerator;
-		$this->appConfig = $appConfig;
-		$this->l10n = $l10n;
-		$this->userId = $userId;
-	}
+                                IL10N $l10n,
+                                $userId){
+        parent::__construct($appName, $request);
+        $this->settings = $settings;
+        $this->urlGenerator = $urlGenerator;
+        $this->appConfig = $appConfig;
+        $this->l10n = $l10n;
+        $this->userId = $userId;
+    }
 
 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 */
-	public function index() {
-		return new TemplateResponse($this->appName, 'index');
-	}
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     */
+    public function index() {
+        return new TemplateResponse($this->appName, 'index');
+    }
 
 
-	/**
-	 * @NoAdminRequired
-	 */
-	public function settings() {
-		$settings = ['showAll', 'compact', 'preventReadOnScroll', 'oldestFirst'];
+    /**
+     * @NoAdminRequired
+     */
+    public function settings() {
+        $settings = ['showAll', 'compact', 'preventReadOnScroll', 'oldestFirst'];
 
-		$result = ['language' => $this->l10n->getLanguageCode()];
+        $result = ['language' => $this->l10n->getLanguageCode()];
 
-		foreach ($settings as $setting) {
-			$result[$setting] = $this->settings->getUserValue(
-				$this->userId, $this->appName, $setting
-			) === '1';
-		}
-		return ['settings' => $result];
-	}
+        foreach ($settings as $setting) {
+            $result[$setting] = $this->settings->getUserValue(
+                $this->userId, $this->appName, $setting
+            ) === '1';
+        }
+        return ['settings' => $result];
+    }
 
 
-	/**
-	 * @NoAdminRequired
-	 *
-	 * @param bool $showAll
-	 * @param bool $compact
-	 * @param bool $preventReadOnScroll
-	 * @param bool $oldestFirst
-	 */
-	public function updateSettings($showAll, $compact, $preventReadOnScroll, $oldestFirst) {
-		$settings = ['showAll', 'compact', 'preventReadOnScroll', 'oldestFirst'];
+    /**
+     * @NoAdminRequired
+     *
+     * @param bool $showAll
+     * @param bool $compact
+     * @param bool $preventReadOnScroll
+     * @param bool $oldestFirst
+     */
+    public function updateSettings($showAll, $compact, $preventReadOnScroll, $oldestFirst) {
+        $settings = ['showAll', 'compact', 'preventReadOnScroll', 'oldestFirst'];
 
-		foreach ($settings as $setting) {
-			$this->settings->setUserValue($this->userId, $this->appName,
-			                              $setting, ${$setting});
-		}
-	}
+        foreach ($settings as $setting) {
+            $this->settings->setUserValue($this->userId, $this->appName,
+                                          $setting, ${$setting});
+        }
+    }
 
 
     /**

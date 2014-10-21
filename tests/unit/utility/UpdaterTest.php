@@ -16,47 +16,47 @@ namespace OCA\News\Utility;
 
 class UpdaterTest extends \PHPUnit_Framework_TestCase {
 
-	private $folderService;
-	private $feedService;
-	private $itemService;
-	private $updater;
+    private $folderService;
+    private $feedService;
+    private $itemService;
+    private $updater;
 
-	protected function setUp() {
-		$this->folderService = $this->getMockBuilder(
-			'\OCA\News\Service\FolderService')
-			->disableOriginalConstructor()
-			->getMock();
-		$this->feedService = $this->getMockBuilder(
-			'\OCA\News\Service\FeedService')
-			->disableOriginalConstructor()
-			->getMock();
-		$this->itemService = $this->getMockBuilder(
-			'\OCA\News\Service\ItemService')
-			->disableOriginalConstructor()
-			->getMock();
-		$this->updater = new Updater($this->folderService,
-			$this->feedService,
-			$this->itemService);
-	}
+    protected function setUp() {
+        $this->folderService = $this->getMockBuilder(
+            '\OCA\News\Service\FolderService')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->feedService = $this->getMockBuilder(
+            '\OCA\News\Service\FeedService')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->itemService = $this->getMockBuilder(
+            '\OCA\News\Service\ItemService')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->updater = new Updater($this->folderService,
+            $this->feedService,
+            $this->itemService);
+    }
 
-	public function testBeforeUpdate() {
-		$this->folderService->expects($this->once())
-			->method('purgeDeleted');
-		$this->feedService->expects($this->once())
-			->method('purgeDeleted');
-		$this->updater->beforeUpdate();
-	}
+    public function testBeforeUpdate() {
+        $this->folderService->expects($this->once())
+            ->method('purgeDeleted');
+        $this->feedService->expects($this->once())
+            ->method('purgeDeleted');
+        $this->updater->beforeUpdate();
+    }
 
 
-	public function testAfterUpdate() {
-		$this->itemService->expects($this->once())
-			->method('autoPurgeOld');
-		$this->updater->afterUpdate();
-	}
+    public function testAfterUpdate() {
+        $this->itemService->expects($this->once())
+            ->method('autoPurgeOld');
+        $this->updater->afterUpdate();
+    }
 
-	public function testUpdate() {
-		$this->feedService->expects($this->once())
-			->method('updateAll');
-		$this->updater->update();
-	}
+    public function testUpdate() {
+        $this->feedService->expects($this->once())
+            ->method('updateAll');
+        $this->updater->update();
+    }
 }

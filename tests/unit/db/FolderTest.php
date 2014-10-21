@@ -17,34 +17,34 @@ namespace OCA\News\Db;
 class FolderTest extends \PHPUnit_Framework_TestCase {
 
 
-	public function testToAPI() {
-		$folder = new Folder();
-		$folder->setId(3);
-		$folder->setName('name');
+    public function testToAPI() {
+        $folder = new Folder();
+        $folder->setId(3);
+        $folder->setName('name');
 
-		$this->assertEquals([
-			'id' => 3,
-			'name' => 'name'
-			], $folder->toAPI());
-	}
+        $this->assertEquals([
+            'id' => 3,
+            'name' => 'name'
+            ], $folder->toAPI());
+    }
 
 
-	public function testSerialize() {
-		$folder = new Folder();
-		$folder->setId(3);
-		$folder->setName('john');
-		$folder->setParentId(4);
-		$folder->setUserId('abc');
-		$folder->setOpened(true);
-		$folder->setDeletedAt(9);
+    public function testSerialize() {
+        $folder = new Folder();
+        $folder->setId(3);
+        $folder->setName('john');
+        $folder->setParentId(4);
+        $folder->setUserId('abc');
+        $folder->setOpened(true);
+        $folder->setDeletedAt(9);
 
-		$this->assertEquals([
-			'id' => 3,
-			'parentId' => 4,
-			'name' => 'john',
-			'userId' => 'abc',
-			'opened' => true,
-			'deletedAt' => 9,
-		], $folder->jsonSerialize());
-	}
+        $this->assertEquals([
+            'id' => 3,
+            'parentId' => 4,
+            'name' => 'john',
+            'userId' => 'abc',
+            'opened' => true,
+            'deletedAt' => 9,
+        ], $folder->jsonSerialize());
+    }
 }

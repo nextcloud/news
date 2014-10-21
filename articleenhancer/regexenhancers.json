@@ -1,36 +1,36 @@
 {
-	"twogag.com": {
-		"%(?:www.twogag.com/archives)|(feedproxy.google.com/~r/TwoGuysAndGuy)%": {
-			"%http://www.twogag.com/comics-rss/([^.]+)\\.jpg%": "http://www.twogag.com/comics/$1.jpg"
-		}
-	},
-	"buttersafe.com": {
-		"%(?:buttersafe.com)|(feedproxy.google.com/~r/Buttersafe)%": {
-			"%buttersafe.com/comics/rss/([^.]+)RSS([^.]+)?.jpg%": "buttersafe.com/comics/$1$2.jpg"
-		}
-	},
-	"nichtlustig.de": {
-		"%nichtlustig.de%": {
-			"%.*static.nichtlustig.de/comics/full/(\\d+).*%s": "<img src=\"http://static.nichtlustig.de/comics/full/$1.jpg\" />"
-		}
-	},
-	"nerfnow.com": {
-		"%feedproxy.google.com/~r/nerfnow%": {
-			"%(width|width)=\"\\d+\"%": "",
-			"%nerfnow.com/comic/thumb/(\\d+)/large%": "nerfnow.com/comic/image/$1",
-			"%<div><a target=\"_blank\" href=\"http://www.nerfnow.com/comic/\\d+\">Click for full size</a></div>%": "",
-			"%<img src=\"http://feeds.feedburner.com[^>]+>%": ""
-		}
-	},
-	"fowllanguagecomics.com": {
-		"%fowllanguagecomics.com/comic%": {
-			"%\\?resize=[^\"]+%": ""
-		}
-	},
-	"cheerupemokid.com": {
-		"%feedproxy.google.com/~r/cheerupemokid%": {
-			"%-\\d+x\\d+%": "",
-			"%(width|height)=\"\\d+\"%" : ""
-		}
-	}
+    "twogag.com": {
+        "%(?:www.twogag.com/archives)|(feedproxy.google.com/~r/TwoGuysAndGuy)%": {
+            "%http://www.twogag.com/comics-rss/([^.]+)\\.jpg%": "http://www.twogag.com/comics/$1.jpg"
+        }
+    },
+    "buttersafe.com": {
+        "%(?:buttersafe.com)|(feedproxy.google.com/~r/Buttersafe)%": {
+            "%buttersafe.com/comics/rss/([^.]+)RSS([^.]+)?.jpg%": "buttersafe.com/comics/$1$2.jpg"
+        }
+    },
+    "nichtlustig.de": {
+        "%nichtlustig.de%": {
+            "%.*static.nichtlustig.de/comics/full/(\\d+).*%s": "<img src=\"http://static.nichtlustig.de/comics/full/$1.jpg\" />"
+        }
+    },
+    "nerfnow.com": {
+        "%feedproxy.google.com/~r/nerfnow%": {
+            "%(width|width)=\"\\d+\"%": "",
+            "%nerfnow.com/comic/thumb/(\\d+)/large%": "nerfnow.com/comic/image/$1",
+            "%<div><a target=\"_blank\" href=\"http://www.nerfnow.com/comic/\\d+\">Click for full size</a></div>%": "",
+            "%<img src=\"http://feeds.feedburner.com[^>]+>%": ""
+        }
+    },
+    "fowllanguagecomics.com": {
+        "%fowllanguagecomics.com/comic%": {
+            "%\\?resize=[^\"]+%": ""
+        }
+    },
+    "cheerupemokid.com": {
+        "%feedproxy.google.com/~r/cheerupemokid%": {
+            "%-\\d+x\\d+%": "",
+            "%(width|height)=\"\\d+\"%" : ""
+        }
+    }
 }

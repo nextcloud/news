@@ -30,24 +30,24 @@ class SimplePieAPIFactory {
      * @param bool $force_fsockopen
      * @return \SimplePie_File a new object
      */
-	public function getFile($url, $timeout=10, $redirects=5, $headers=null,
-	                        $useragent=null, $force_fsockopen=false) {
+    public function getFile($url, $timeout=10, $redirects=5, $headers=null,
+                            $useragent=null, $force_fsockopen=false) {
 
-		return new \SimplePie_File($url, $timeout, $redirects, $headers,
-	                        $useragent, $force_fsockopen);
-	}
+        return new \SimplePie_File($url, $timeout, $redirects, $headers,
+                            $useragent, $force_fsockopen);
+    }
 
 
-	/**
-	 * Returns a new instance of a SimplePie_Core() object. This is needed
-	 * because the class relies on external dependencies which are not passed
-	 * in via the constructor and thus making it nearly impossible to unit test
-	 * code that uses this class
-	 * @return \SimplePie_Core instance
-	 */
-	public function getCore() {
-		return new \SimplePie();
-	}
+    /**
+     * Returns a new instance of a SimplePie_Core() object. This is needed
+     * because the class relies on external dependencies which are not passed
+     * in via the constructor and thus making it nearly impossible to unit test
+     * code that uses this class
+     * @return \SimplePie_Core instance
+     */
+    public function getCore() {
+        return new \SimplePie();
+    }
 
 
 }

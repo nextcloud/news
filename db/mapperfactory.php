@@ -18,23 +18,23 @@ use \OCA\News\Db\Postgres\ItemMapper as PostgresItemMapper;
 
 class MapperFactory {
 
-	private $dbType;
-	private $db;
+    private $dbType;
+    private $db;
 
-	public function __construct($dbType, IDb $db) {
-		$this->dbType = $dbType;
-		$this->db = $db;
-	}
+    public function __construct($dbType, IDb $db) {
+        $this->dbType = $dbType;
+        $this->db = $db;
+    }
 
 
-	public function getItemMapper() {
-		switch($this->dbType) {
-			case 'pgsql':
-				return new PostgresItemMapper($this->db);
-			default:
-				return new ItemMapper($this->db);
-		}
-	}
+    public function getItemMapper() {
+        switch($this->dbType) {
+            case 'pgsql':
+                return new PostgresItemMapper($this->db);
+            default:
+                return new ItemMapper($this->db);
+        }
+    }
 
 
 }

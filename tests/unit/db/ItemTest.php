@@ -16,263 +16,263 @@ namespace OCA\News\Db;
 
 class ItemTest extends \PHPUnit_Framework_TestCase {
 
-	private $item;
+    private $item;
 
-	protected function setUp(){
-		$this->item = new Item();
-		$this->item->setStatus(0);
-	}
-
-
-	public function testSetRead(){
-		$this->item->setRead();
-
-		$this->assertTrue($this->item->isRead());
-	}
+    protected function setUp(){
+        $this->item = new Item();
+        $this->item->setStatus(0);
+    }
 
 
-	public function testSetUnread(){
-		$this->item->setUnread();
+    public function testSetRead(){
+        $this->item->setRead();
 
-		$this->assertTrue($this->item->isUnread());
-	}
-
-
-	public function testSetStarred(){
-		$this->item->setStarred();
-
-		$this->assertTrue($this->item->isStarred());
-	}
+        $this->assertTrue($this->item->isRead());
+    }
 
 
-	public function testSetUnstarred(){
-		$this->item->setUnstarred();
+    public function testSetUnread(){
+        $this->item->setUnread();
 
-		$this->assertTrue($this->item->isUnstarred());
-	}
-
-
-	public function testToAPI() {
-		$item = new Item();
-		$item->setId(3);
-		$item->setGuid('guid');
-		$item->setGuidHash('hash');
-		$item->setUrl('https://google');
-		$item->setTitle('title');
-		$item->setAuthor('author');
-		$item->setPubDate(123);
-		$item->setBody('body');
-		$item->setEnclosureMime('audio/ogg');
-		$item->setEnclosureLink('enclink');
-		$item->setFeedId(1);
-		$item->setStatus(0);
-		$item->setUnread();
-		$item->setStarred();
-		$item->setLastModified(321);
-
-		$this->assertEquals([
-			'id' => 3,
-			'guid' => 'guid',
-			'guidHash' => 'hash',
-			'url' => 'https://google',
-			'title' => 'title',
-			'author' => 'author',
-			'pubDate' => 123,
-			'body' => 'body',
-			'enclosureMime' => 'audio/ogg',
-			'enclosureLink' => 'enclink',
-			'feedId' => 1,
-			'unread' => true,
-			'starred' => true,
-			'lastModified' => 321
-			], $item->toAPI());
-	}
+        $this->assertTrue($this->item->isUnread());
+    }
 
 
-	public function testJSONSerialize() {
-		$item = new Item();
-		$item->setId(3);
-		$item->setGuid('guid');
-		$item->setGuidHash('hash');
-		$item->setUrl('https://google');
-		$item->setTitle('title');
-		$item->setAuthor('author');
-		$item->setPubDate(123);
-		$item->setBody('body');
-		$item->setEnclosureMime('audio/ogg');
-		$item->setEnclosureLink('enclink');
-		$item->setFeedId(1);
-		$item->setStatus(0);
-		$item->setUnread();
-		$item->setStarred();
-		$item->setLastModified(321);
+    public function testSetStarred(){
+        $this->item->setStarred();
 
-		$this->assertEquals([
-			'id' => 3,
-			'guid' => 'guid',
-			'guidHash' => 'hash',
-			'url' => 'https://google',
-			'title' => 'title',
-			'author' => 'author',
-			'pubDate' => 123,
-			'body' => 'body',
-			'enclosureMime' => 'audio/ogg',
-			'enclosureLink' => 'enclink',
-			'feedId' => 1,
-			'unread' => true,
-			'starred' => true,
-			'lastModified' => 321
-			], $item->jsonSerialize());
-	}
-
-	public function testToExport() {
-		$item = new Item();
-		$item->setId(3);
-		$item->setGuid('guid');
-		$item->setGuidHash('hash');
-		$item->setUrl('https://google');
-		$item->setTitle('title');
-		$item->setAuthor('author');
-		$item->setPubDate(123);
-		$item->setBody('body');
-		$item->setEnclosureMime('audio/ogg');
-		$item->setEnclosureLink('enclink');
-		$item->setFeedId(1);
-		$item->setStatus(0);
-		$item->setRead();
-		$item->setStarred();
-		$item->setLastModified(321);
-
-		$feed = new Feed();
-		$feed->setLink('http://test');
-		$feeds = ["feed1" => $feed];
-
-		$this->assertEquals([
-			'guid' => 'guid',
-			'url' => 'https://google',
-			'title' => 'title',
-			'author' => 'author',
-			'pubDate' => 123,
-			'body' => 'body',
-			'enclosureMime' => 'audio/ogg',
-			'enclosureLink' => 'enclink',
-			'unread' => false,
-			'starred' => true,
-			'feedLink' => 'http://test'
-			], $item->toExport($feeds));
-	}
+        $this->assertTrue($this->item->isStarred());
+    }
 
 
-	private function createImportItem($isRead) {
-		$item = new Item();
-		$item->setGuid('guid');
-		$item->setUrl('https://google');
-		$item->setTitle('title');
-		$item->setAuthor('author');
-		$item->setPubDate(123);
-		$item->setBody('body');
-		$item->setEnclosureMime('audio/ogg');
-		$item->setEnclosureLink('enclink');
-		$item->setStarred();
+    public function testSetUnstarred(){
+        $this->item->setUnstarred();
 
-		if ($isRead) {
-			$item->setUnread();
-		} else {
-			$item->setRead();
-		}
-
-		return $item;
-	}
+        $this->assertTrue($this->item->isUnstarred());
+    }
 
 
-	public function testFromImport() {
-		$item = $this->createImportItem(false);
+    public function testToAPI() {
+        $item = new Item();
+        $item->setId(3);
+        $item->setGuid('guid');
+        $item->setGuidHash('hash');
+        $item->setUrl('https://google');
+        $item->setTitle('title');
+        $item->setAuthor('author');
+        $item->setPubDate(123);
+        $item->setBody('body');
+        $item->setEnclosureMime('audio/ogg');
+        $item->setEnclosureLink('enclink');
+        $item->setFeedId(1);
+        $item->setStatus(0);
+        $item->setUnread();
+        $item->setStarred();
+        $item->setLastModified(321);
 
-		$import = [
-			'guid' => $item->getGuid(),
-			'url' => $item->getUrl(),
-			'title' => $item->getTitle(),
-			'author' => $item->getAuthor(),
-			'pubDate' => $item->getPubDate(),
-			'body' => $item->getBody(),
-			'enclosureMime' => $item->getEnclosureMime(),
-			'enclosureLink' => $item->getEnclosureLink(),
-			'unread' => $item->isUnread(),
-			'starred' => $item->isStarred(),
-		];
-
-		$compareWith = Item::fromImport($import);
-
-		$this->assertEquals($item, $compareWith);
-	}
-
-
-	public function testFromImportRead() {
-		$item = $this->createImportItem(true);
-
-		$import = [
-			'guid' => $item->getGuid(),
-			'url' => $item->getUrl(),
-			'title' => $item->getTitle(),
-			'author' => $item->getAuthor(),
-			'pubDate' => $item->getPubDate(),
-			'body' => $item->getBody(),
-			'enclosureMime' => $item->getEnclosureMime(),
-			'enclosureLink' => $item->getEnclosureLink(),
-			'unread' => $item->isUnread(),
-			'starred' => $item->isStarred(),
-		];
-
-		$compareWith = Item::fromImport($import);
-
-		$this->assertEquals($item, $compareWith);
-	}
+        $this->assertEquals([
+            'id' => 3,
+            'guid' => 'guid',
+            'guidHash' => 'hash',
+            'url' => 'https://google',
+            'title' => 'title',
+            'author' => 'author',
+            'pubDate' => 123,
+            'body' => 'body',
+            'enclosureMime' => 'audio/ogg',
+            'enclosureLink' => 'enclink',
+            'feedId' => 1,
+            'unread' => true,
+            'starred' => true,
+            'lastModified' => 321
+            ], $item->toAPI());
+    }
 
 
+    public function testJSONSerialize() {
+        $item = new Item();
+        $item->setId(3);
+        $item->setGuid('guid');
+        $item->setGuidHash('hash');
+        $item->setUrl('https://google');
+        $item->setTitle('title');
+        $item->setAuthor('author');
+        $item->setPubDate(123);
+        $item->setBody('body');
+        $item->setEnclosureMime('audio/ogg');
+        $item->setEnclosureLink('enclink');
+        $item->setFeedId(1);
+        $item->setStatus(0);
+        $item->setUnread();
+        $item->setStarred();
+        $item->setLastModified(321);
 
-	public function testSetAuthor(){
-		$item = new Item();
-		$item->setAuthor('<a>my link</li>');
-		$this->assertEquals('my link', $item->getAuthor());
-		$this->assertContains('author', $item->getUpdatedFields());
-	}
+        $this->assertEquals([
+            'id' => 3,
+            'guid' => 'guid',
+            'guidHash' => 'hash',
+            'url' => 'https://google',
+            'title' => 'title',
+            'author' => 'author',
+            'pubDate' => 123,
+            'body' => 'body',
+            'enclosureMime' => 'audio/ogg',
+            'enclosureLink' => 'enclink',
+            'feedId' => 1,
+            'unread' => true,
+            'starred' => true,
+            'lastModified' => 321
+            ], $item->jsonSerialize());
+    }
+
+    public function testToExport() {
+        $item = new Item();
+        $item->setId(3);
+        $item->setGuid('guid');
+        $item->setGuidHash('hash');
+        $item->setUrl('https://google');
+        $item->setTitle('title');
+        $item->setAuthor('author');
+        $item->setPubDate(123);
+        $item->setBody('body');
+        $item->setEnclosureMime('audio/ogg');
+        $item->setEnclosureLink('enclink');
+        $item->setFeedId(1);
+        $item->setStatus(0);
+        $item->setRead();
+        $item->setStarred();
+        $item->setLastModified(321);
+
+        $feed = new Feed();
+        $feed->setLink('http://test');
+        $feeds = ["feed1" => $feed];
+
+        $this->assertEquals([
+            'guid' => 'guid',
+            'url' => 'https://google',
+            'title' => 'title',
+            'author' => 'author',
+            'pubDate' => 123,
+            'body' => 'body',
+            'enclosureMime' => 'audio/ogg',
+            'enclosureLink' => 'enclink',
+            'unread' => false,
+            'starred' => true,
+            'feedLink' => 'http://test'
+            ], $item->toExport($feeds));
+    }
 
 
-	public function testSetTitle(){
-		$item = new Item();
-		$item->setTitle('<a>my link</li>');
-		$this->assertEquals('my link', $item->getTitle());
-		$this->assertContains('title', $item->getUpdatedFields());
-	}
+    private function createImportItem($isRead) {
+        $item = new Item();
+        $item->setGuid('guid');
+        $item->setUrl('https://google');
+        $item->setTitle('title');
+        $item->setAuthor('author');
+        $item->setPubDate(123);
+        $item->setBody('body');
+        $item->setEnclosureMime('audio/ogg');
+        $item->setEnclosureLink('enclink');
+        $item->setStarred();
+
+        if ($isRead) {
+            $item->setUnread();
+        } else {
+            $item->setRead();
+        }
+
+        return $item;
+    }
 
 
-	public function testSetXSSUrl() {
-		$item = new Item();
-		$item->setUrl('javascript:alert()');
-		$this->assertEquals('', $item->getUrl());
-	}
+    public function testFromImport() {
+        $item = $this->createImportItem(false);
+
+        $import = [
+            'guid' => $item->getGuid(),
+            'url' => $item->getUrl(),
+            'title' => $item->getTitle(),
+            'author' => $item->getAuthor(),
+            'pubDate' => $item->getPubDate(),
+            'body' => $item->getBody(),
+            'enclosureMime' => $item->getEnclosureMime(),
+            'enclosureLink' => $item->getEnclosureLink(),
+            'unread' => $item->isUnread(),
+            'starred' => $item->isStarred(),
+        ];
+
+        $compareWith = Item::fromImport($import);
+
+        $this->assertEquals($item, $compareWith);
+    }
 
 
-	public function testSetMagnetUrl() {
-		$item = new Item();
-		$item->setUrl('magnet://link.com');
-		$this->assertEquals('magnet://link.com', $item->getUrl());
-	}
+    public function testFromImportRead() {
+        $item = $this->createImportItem(true);
+
+        $import = [
+            'guid' => $item->getGuid(),
+            'url' => $item->getUrl(),
+            'title' => $item->getTitle(),
+            'author' => $item->getAuthor(),
+            'pubDate' => $item->getPubDate(),
+            'body' => $item->getBody(),
+            'enclosureMime' => $item->getEnclosureMime(),
+            'enclosureLink' => $item->getEnclosureLink(),
+            'unread' => $item->isUnread(),
+            'starred' => $item->isStarred(),
+        ];
+
+        $compareWith = Item::fromImport($import);
+
+        $this->assertEquals($item, $compareWith);
+    }
 
 
-	public function testSetGuidUpdatesHash() {
-		$item = new Item();
-		$item->setGuid('http://test');
-		$this->assertEquals(md5('http://test'), $item->getGuidHash());
-	}
+
+    public function testSetAuthor(){
+        $item = new Item();
+        $item->setAuthor('<a>my link</li>');
+        $this->assertEquals('my link', $item->getAuthor());
+        $this->assertContains('author', $item->getUpdatedFields());
+    }
 
 
-	public function testMakeLinksInBodyOpenNewTab() {
-		$item = new Item();
-		$item->setBody("<a href=\"test\">ha</a>");
-		$this->assertEquals("<a target=\"_blank\" href=\"test\">ha</a>",
-			$item->getBody());
-	}
+    public function testSetTitle(){
+        $item = new Item();
+        $item->setTitle('<a>my link</li>');
+        $this->assertEquals('my link', $item->getTitle());
+        $this->assertContains('title', $item->getUpdatedFields());
+    }
+
+
+    public function testSetXSSUrl() {
+        $item = new Item();
+        $item->setUrl('javascript:alert()');
+        $this->assertEquals('', $item->getUrl());
+    }
+
+
+    public function testSetMagnetUrl() {
+        $item = new Item();
+        $item->setUrl('magnet://link.com');
+        $this->assertEquals('magnet://link.com', $item->getUrl());
+    }
+
+
+    public function testSetGuidUpdatesHash() {
+        $item = new Item();
+        $item->setGuid('http://test');
+        $this->assertEquals(md5('http://test'), $item->getGuidHash());
+    }
+
+
+    public function testMakeLinksInBodyOpenNewTab() {
+        $item = new Item();
+        $item->setBody("<a href=\"test\">ha</a>");
+        $this->assertEquals("<a target=\"_blank\" href=\"test\">ha</a>",
+            $item->getBody());
+    }
 
 
 }

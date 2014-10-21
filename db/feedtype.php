@@ -15,9 +15,9 @@ namespace OCA\News\Db;
 
 
 class FeedType {
-	const FEED          = 0;
-	const FOLDER        = 1;
-	const STARRED       = 2;
-	const SUBSCRIPTIONS = 3;
-	const SHARED        = 4;
+    const FEED          = 0;
+    const FOLDER        = 1;
+    const STARRED       = 2;
+    const SUBSCRIPTIONS = 3;
+    const SHARED        = 4;
 };

@@ -23,45 +23,45 @@ use \OCA\News\Utility\Updater;
 
 class UtilityApiController extends ApiController {
 
-	private $updater;
-	private $settings;
+    private $updater;
+    private $settings;
 
-	public function __construct($appName,
-	                            IRequest $request,
-	                            Updater $updater,
-	                            IConfig $settings){
-		parent::__construct($appName, $request);
-		$this->updater = $updater;
-		$this->settings = $settings;
-	}
-
-
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * @API
-	 */
-	public function version() {
-		$version = $this->settings->getAppValue($this->appName,
-			'installed_version');
-		return ['version' => $version];
-	}
+    public function __construct($appName,
+                                IRequest $request,
+                                Updater $updater,
+                                IConfig $settings){
+        parent::__construct($appName, $request);
+        $this->updater = $updater;
+        $this->settings = $settings;
+    }
 
 
-	/**
-	 * @NoCSRFRequired
-	 */
-	public function beforeUpdate() {
-		$this->updater->beforeUpdate();
-	}
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @API
+     */
+    public function version() {
+        $version = $this->settings->getAppValue($this->appName,
+            'installed_version');
+        return ['version' => $version];
+    }
 
 
-	/**
-	 * @NoCSRFRequired
-	 */
-	public function afterUpdate() {
-		$this->updater->afterUpdate();
-	}
+    /**
+     * @NoCSRFRequired
+     */
+    public function beforeUpdate() {
+        $this->updater->beforeUpdate();
+    }
+
+
+    /**
+     * @NoCSRFRequired
+     */
+    public function afterUpdate() {
+        $this->updater->afterUpdate();
+    }
 
 
 }

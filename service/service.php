@@ -21,42 +21,42 @@ use \OCA\News\Db\NewsMapper;
 
 abstract class Service {
 
-	protected $mapper;
+    protected $mapper;
 
-	public function __construct(NewsMapper $mapper){
-		$this->mapper = $mapper;
-	}
-
-
-	/**
-	 * Delete an entity
-	 * @param int $id the id of the entity
-	 * @param string $userId the name of the user for security reasons
-	 * @throws ServiceNotFoundException if the entity does not exist, or there
-	 * are more than one of it
-	 */
-	public function delete($id, $userId){
-		$entity = $this->find($id, $userId);
-		$this->mapper->delete($entity);
-	}
+    public function __construct(NewsMapper $mapper){
+        $this->mapper = $mapper;
+    }
 
 
-	/**
-	 * Finds an entity by id
-	 * @param int $id the id of the entity
-	 * @param string $userId the name of the user for security reasons
-	 * @throws ServiceNotFoundException if the entity does not exist, or there
-	 * are more than one of it
-	 * @return \OCP\AppFramework\Db\Entity the entity
-	 */
-	public function find($id, $userId){
-		try {
-			return $this->mapper->find($id, $userId);
-		} catch(DoesNotExistException $ex){
-			throw new ServiceNotFoundException($ex->getMessage());
-		} catch(MultipleObjectsReturnedException $ex){
-			throw new ServiceNotFoundException($ex->getMessage());
-		}
-	}
+    /**
+     * Delete an entity
+     * @param int $id the id of the entity
+     * @param string $userId the name of the user for security reasons
+     * @throws ServiceNotFoundException if the entity does not exist, or there
+     * are more than one of it
+     */
+    public function delete($id, $userId){
+        $entity = $this->find($id, $userId);
+        $this->mapper->delete($entity);
+    }
+
+
+    /**
+     * Finds an entity by id
+     * @param int $id the id of the entity
+     * @param string $userId the name of the user for security reasons
+     * @throws ServiceNotFoundException if the entity does not exist, or there
+     * are more than one of it
+     * @return \OCP\AppFramework\Db\Entity the entity
+     */
+    public function find($id, $userId){
+        try {
+            return $this->mapper->find($id, $userId);
+        } catch(DoesNotExistException $ex){
+            throw new ServiceNotFoundException($ex->getMessage());
+        } catch(MultipleObjectsReturnedException $ex){
+            throw new ServiceNotFoundException($ex->getMessage());
+        }
+    }
 
 }

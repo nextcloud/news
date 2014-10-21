@@ -17,15 +17,15 @@ use \OCP\AppFramework\Http\JSONResponse;
 trait JSONHttpError {
 
 
-	/**
-	 * @param \Exception $exception the message that is returned taken from the
-	 * exception
-	 * @param int $code the http error code
-	 * @return \OCP\AppFramework\Http\JSONResponse
-	 */
-	public function error(\Exception $exception, $code) {
-		return new JSONResponse(['message' => $exception->getMessage()], $code);
-	}
+    /**
+     * @param \Exception $exception the message that is returned taken from the
+     * exception
+     * @param int $code the http error code
+     * @return \OCP\AppFramework\Http\JSONResponse
+     */
+    public function error(\Exception $exception, $code) {
+        return new JSONResponse(['message' => $exception->getMessage()], $code);
+    }
 
 
 }

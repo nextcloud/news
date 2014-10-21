@@ -25,66 +25,66 @@ class OPMLExporter {
      * @param \OCA\News\Db\Feed[] $feeds
      * @return \DomDocument the document
      */
-	public function build($folders, $feeds){
-		$document = new \DomDocument('1.0', 'UTF-8');
-		$document->formatOutput = true;
+    public function build($folders, $feeds){
+        $document = new \DomDocument('1.0', 'UTF-8');
+        $document->formatOutput = true;
 
-		$root = $document->createElement('opml');
-		$root->setAttribute('version', '2.0');
+        $root = $document->createElement('opml');
+        $root->setAttribute('version', '2.0');
 
-		// head
-		$head = $document->createElement('head');
+        // head
+        $head = $document->createElement('head');
 
-		$title = $document->createElement('title', 'Subscriptions');
-		$head->appendChild($title);
+        $title = $document->createElement('title', 'Subscriptions');
+        $head->appendChild($title);
 
-		$root->appendChild($head);
+        $root->appendChild($head);
 
-		// body
-		$body = $document->createElement('body');
+        // body
+        $body = $document->createElement('body');
 
-		// feeds with folders
-		foreach($folders as $folder) {
-			$folderOutline = $document->createElement('outline');
-			$folderOutline->setAttribute('title', $folder->getName());
-			$folderOutline->setAttribute('text', $folder->getName());
+        // feeds with folders
+        foreach($folders as $folder) {
+            $folderOutline = $document->createElement('outline');
+            $folderOutline->setAttribute('title', $folder->getName());
+            $folderOutline->setAttribute('text', $folder->getName());
 
-			// feeds in folders
-			foreach ($feeds as $feed) {
-				if ($feed->getFolderId() === $folder->getId()) {
-					$feedOutline = $this->createFeedOutline($feed, $document);
-					$folderOutline->appendChild($feedOutline);
-				}
-			}
+            // feeds in folders
+            foreach ($feeds as $feed) {
+                if ($feed->getFolderId() === $folder->getId()) {
+                    $feedOutline = $this->createFeedOutline($feed, $document);
+                    $folderOutline->appendChild($feedOutline);
+                }
+            }
 
-			$body->appendChild($folderOutline);
-		}
+            $body->appendChild($folderOutline);
+        }
 
-		// feeds without folders
-		foreach ($feeds as $feed) {
-			if ($feed->getFolderId() === 0) {
-				$feedOutline = $this->createFeedOutline($feed, $document);
-				$body->appendChild($feedOutline);
-			}
-		}
+        // feeds without folders
+        foreach ($feeds as $feed) {
+            if ($feed->getFolderId() === 0) {
+                $feedOutline = $this->createFeedOutline($feed, $document);
+                $body->appendChild($feedOutline);
+            }
+        }
 
-		$root->appendChild($body);
+        $root->appendChild($body);
 
-		$document->appendChild($root);
+        $document->appendChild($root);
 
-		return $document;
-	}
+        return $document;
+    }
 
 
-	protected function createFeedOutline($feed, $document) {
-		$feedOutline = $document->createElement('outline');
-		$feedOutline->setAttribute('title', $feed->getTitle());
-		$feedOutline->setAttribute('text', $feed->getTitle());
-		$feedOutline->setAttribute('type', 'rss');
-		$feedOutline->setAttribute('xmlUrl', $feed->getUrl());
-		$feedOutline->setAttribute('htmlUrl', $feed->getLink());
-		return $feedOutline;
-	}
+    protected function createFeedOutline($feed, $document) {
+        $feedOutline = $document->createElement('outline');
+        $feedOutline->setAttribute('title', $feed->getTitle());
+        $feedOutline->setAttribute('text', $feed->getTitle());
+        $feedOutline->setAttribute('type', 'rss');
+        $feedOutline->setAttribute('xmlUrl', $feed->getUrl());
+        $feedOutline->setAttribute('htmlUrl', $feed->getLink());
+        return $feedOutline;
+    }
 
 
 }

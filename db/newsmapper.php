@@ -28,7 +28,7 @@ abstract class NewsMapper extends Mapper {
      * @param string $userId the id of the user
      * @return \OCP\AppFramework\Db\Entity
      */
-	public abstract function find($id, $userId);
+    public abstract function find($id, $userId);
 
 
 }

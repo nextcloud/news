@@ -17,18 +17,18 @@ namespace OCA\News\Utility;
 class SimplePieAPIFactoryTest extends \PHPUnit_Framework_TestCase {
 
 
-	public function testGetFile() {
-		$factory = new SimplePieAPIFactory();
-		$file = $factory->getFile('php://input', 10, 5, $headers='headers',
-	                        $useragent='flashce', $force_fsockopen=true);
-		$this->assertTrue($file instanceof \SimplePie_File);
-	}
+    public function testGetFile() {
+        $factory = new SimplePieAPIFactory();
+        $file = $factory->getFile('php://input', 10, 5, $headers='headers',
+                            $useragent='flashce', $force_fsockopen=true);
+        $this->assertTrue($file instanceof \SimplePie_File);
+    }
 
 
-	public function testGetCore() {
-		$factory = new SimplePieAPIFactory();
-		$this->assertTrue($factory->getCore() instanceof \SimplePie);
-	}
+    public function testGetCore() {
+        $factory = new SimplePieAPIFactory();
+        $this->assertTrue($factory->getCore() instanceof \SimplePie);
+    }
 
 
 }

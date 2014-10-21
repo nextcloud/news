@@ -16,200 +16,200 @@ namespace OCA\News\Config;
 
 class ConfigTest extends \PHPUnit_Framework_TestCase {
 
-	private $fileSystem;
-	private $config;
-	private $configPath;
-	private $loggerParams;
+    private $fileSystem;
+    private $config;
+    private $configPath;
+    private $loggerParams;
 
-	public function setUp() {
-		$this->logger = $this->getMockBuilder(
-			'\OCP\ILogger')
-			->disableOriginalConstructor()
-			->getMock();
-		$this->fileSystem = $this->getMock('FileSystem', [
-			'file_get_contents',
-			'file_put_contents',
-			'file_exists'
-		]);
-		$this->loggerParams = ['hi'];
-		$this->config = new Config($this->fileSystem, $this->logger, $this->loggerParams);
-		$this->configPath = 'config.json';
-	}
-
-
-	public function testDefaults() {
-		$this->assertEquals(60, $this->config->getAutoPurgeMinimumInterval());
-		$this->assertEquals(200, $this->config->getAutoPurgeCount());
-		$this->assertEquals(30*60, $this->config->getSimplePieCacheDuration());
-		$this->assertEquals(60, $this->config->getFeedFetcherTimeout());
-		$this->assertEquals(true, $this->config->getUseCronUpdates());
-		$this->assertEquals(8080, $this->config->getProxyPort());
-		$this->assertEquals('', $this->config->getProxyHost());
-		$this->assertEquals(null, $this->config->getProxyAuth());
-		$this->assertEquals('', $this->config->getProxyUser());
-		$this->assertEquals('', $this->config->getProxyPassword());
-	}
+    public function setUp() {
+        $this->logger = $this->getMockBuilder(
+            '\OCP\ILogger')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->fileSystem = $this->getMock('FileSystem', [
+            'file_get_contents',
+            'file_put_contents',
+            'file_exists'
+        ]);
+        $this->loggerParams = ['hi'];
+        $this->config = new Config($this->fileSystem, $this->logger, $this->loggerParams);
+        $this->configPath = 'config.json';
+    }
 
 
-	public function testRead () {
-		$this->fileSystem->expects($this->once())
-			->method('file_get_contents')
-			->with($this->equalTo($this->configPath))
-			->will($this->returnValue("autoPurgeCount = 3\nuseCronUpdates = true"));
-
-		$this->config->read($this->configPath);
-
-		$this->assertSame(3, $this->config->getAutoPurgeCount());
-		$this->assertSame(true, $this->config->getUseCronUpdates());
-	}
-
-
-	public function testReadIgnoresVeryLowPurgeInterval () {
-		$this->fileSystem->expects($this->once())
-			->method('file_get_contents')
-			->with($this->equalTo($this->configPath))
-			->will($this->returnValue("autoPurgeMinimumInterval = 59"));
-
-		$this->config->read($this->configPath);
-
-		$this->assertSame(60, $this->config->getAutoPurgeMinimumInterval());
-	}
+    public function testDefaults() {
+        $this->assertEquals(60, $this->config->getAutoPurgeMinimumInterval());
+        $this->assertEquals(200, $this->config->getAutoPurgeCount());
+        $this->assertEquals(30*60, $this->config->getSimplePieCacheDuration());
+        $this->assertEquals(60, $this->config->getFeedFetcherTimeout());
+        $this->assertEquals(true, $this->config->getUseCronUpdates());
+        $this->assertEquals(8080, $this->config->getProxyPort());
+        $this->assertEquals('', $this->config->getProxyHost());
+        $this->assertEquals(null, $this->config->getProxyAuth());
+        $this->assertEquals('', $this->config->getProxyUser());
+        $this->assertEquals('', $this->config->getProxyPassword());
+    }
 
 
+    public function testRead () {
+        $this->fileSystem->expects($this->once())
+            ->method('file_get_contents')
+            ->with($this->equalTo($this->configPath))
+            ->will($this->returnValue("autoPurgeCount = 3\nuseCronUpdates = true"));
 
-	public function testReadBool () {
-		$this->fileSystem->expects($this->once())
-			->method('file_get_contents')
-			->with($this->equalTo($this->configPath))
-			->will($this->returnValue("autoPurgeCount = 3\nuseCronUpdates = false"));
+        $this->config->read($this->configPath);
 
-		$this->config->read($this->configPath);
-
-		$this->assertSame(3, $this->config->getAutoPurgeCount());
-		$this->assertSame(false, $this->config->getUseCronUpdates());
-	}
-
-
-	public function testReadLogsInvalidValue() {
-		$this->fileSystem->expects($this->once())
-			->method('file_get_contents')
-			->with($this->equalTo($this->configPath))
-			->will($this->returnValue('autoPurgeCounts = 3'));
-		$this->logger->expects($this->once())
-			->method('warning')
-			->with($this->equalTo('Configuration value "autoPurgeCounts" ' .
-				'does not exist. Ignored value.'),
-				$this->equalTo($this->loggerParams));
-
-		$this->config->read($this->configPath);
-	}
+        $this->assertSame(3, $this->config->getAutoPurgeCount());
+        $this->assertSame(true, $this->config->getUseCronUpdates());
+    }
 
 
-	public function testReadLogsInvalidINI() {
-		$this->fileSystem->expects($this->once())
-			->method('file_get_contents')
-			->with($this->equalTo($this->configPath))
-			->will($this->returnValue(''));
-		$this->logger->expects($this->once())
-			->method('warning')
-			->with($this->equalTo('Configuration invalid. Ignoring values.'),
-				$this->equalTo($this->loggerParams));
+    public function testReadIgnoresVeryLowPurgeInterval () {
+        $this->fileSystem->expects($this->once())
+            ->method('file_get_contents')
+            ->with($this->equalTo($this->configPath))
+            ->will($this->returnValue("autoPurgeMinimumInterval = 59"));
 
-		$this->config->read($this->configPath);
-	}
+        $this->config->read($this->configPath);
+
+        $this->assertSame(60, $this->config->getAutoPurgeMinimumInterval());
+    }
 
 
-	public function testWrite () {
-		$json = "autoPurgeMinimumInterval = 60\n" .
-			"autoPurgeCount = 3\n" .
-			"simplePieCacheDuration = 1800\n" .
-			"feedFetcherTimeout = 60\n" .
-			"useCronUpdates = true\n" .
-			"proxyHost = yo man\n" .
-			"proxyPort = 12\n" .
-			"proxyUser = this is a test\n".
-			"proxyPassword = se";
-		$this->config->setAutoPurgeCount(3);
-		$this->config->setProxyHost("yo man");
-		$this->config->setProxyPort(12);
-		$this->config->setProxyUser("this is a test");
-		$this->config->setProxyPassword("se");
 
-		$this->fileSystem->expects($this->once())
-			->method('file_put_contents')
-			->with($this->equalTo($this->configPath),
-				$this->equalTo($json));
+    public function testReadBool () {
+        $this->fileSystem->expects($this->once())
+            ->method('file_get_contents')
+            ->with($this->equalTo($this->configPath))
+            ->will($this->returnValue("autoPurgeCount = 3\nuseCronUpdates = false"));
 
-		$this->config->write($this->configPath);
-	}
+        $this->config->read($this->configPath);
+
+        $this->assertSame(3, $this->config->getAutoPurgeCount());
+        $this->assertSame(false, $this->config->getUseCronUpdates());
+    }
 
 
-	public function testNoProxyAuthReturnsNull() {
-		$this->assertNull($this->config->getProxyAuth());
-	}
+    public function testReadLogsInvalidValue() {
+        $this->fileSystem->expects($this->once())
+            ->method('file_get_contents')
+            ->with($this->equalTo($this->configPath))
+            ->will($this->returnValue('autoPurgeCounts = 3'));
+        $this->logger->expects($this->once())
+            ->method('warning')
+            ->with($this->equalTo('Configuration value "autoPurgeCounts" ' .
+                'does not exist. Ignored value.'),
+                $this->equalTo($this->loggerParams));
+
+        $this->config->read($this->configPath);
+    }
 
 
-	public function testReadingNonExistentConfigWillWriteDefaults() {
-		$this->fileSystem->expects($this->once())
-			->method('file_exists')
-			->with($this->equalTo($this->configPath))
-			->will($this->returnValue(false));
+    public function testReadLogsInvalidINI() {
+        $this->fileSystem->expects($this->once())
+            ->method('file_get_contents')
+            ->with($this->equalTo($this->configPath))
+            ->will($this->returnValue(''));
+        $this->logger->expects($this->once())
+            ->method('warning')
+            ->with($this->equalTo('Configuration invalid. Ignoring values.'),
+                $this->equalTo($this->loggerParams));
 
-		$this->config->setUseCronUpdates(false);
-
-		$json = "autoPurgeMinimumInterval = 60\n" .
-			"autoPurgeCount = 200\n" .
-			"simplePieCacheDuration = 1800\n" .
-			"feedFetcherTimeout = 60\n" .
-			"useCronUpdates = false\n" .
-			"proxyHost = \n" .
-			"proxyPort = 8080\n" .
-			"proxyUser = \n" .
-			"proxyPassword = ";
-
-		$this->fileSystem->expects($this->once())
-			->method('file_put_contents')
-			->with($this->equalTo($this->configPath),
-				$this->equalTo($json));
-
-		$this->config->read($this->configPath, true);
-	}
+        $this->config->read($this->configPath);
+    }
 
 
-	public function testEncodesUserAndPasswordInHTTPBasicAuth() {
-		$this->config->setProxyUser("this is a test");
-		$this->config->setProxyPassword("se");
+    public function testWrite () {
+        $json = "autoPurgeMinimumInterval = 60\n" .
+            "autoPurgeCount = 3\n" .
+            "simplePieCacheDuration = 1800\n" .
+            "feedFetcherTimeout = 60\n" .
+            "useCronUpdates = true\n" .
+            "proxyHost = yo man\n" .
+            "proxyPort = 12\n" .
+            "proxyUser = this is a test\n".
+            "proxyPassword = se";
+        $this->config->setAutoPurgeCount(3);
+        $this->config->setProxyHost("yo man");
+        $this->config->setProxyPort(12);
+        $this->config->setProxyUser("this is a test");
+        $this->config->setProxyPassword("se");
 
-		$this->assertEquals('this is a test:se', $this->config->getProxyAuth());
-	}
+        $this->fileSystem->expects($this->once())
+            ->method('file_put_contents')
+            ->with($this->equalTo($this->configPath),
+                $this->equalTo($json));
+
+        $this->config->write($this->configPath);
+    }
 
 
-	public function testNoLowMinimumAutoPurgeInterval() {
-		$this->config->setAutoPurgeMinimumInterval(59);
-		$interval = $this->config->getAutoPurgeMinimumInterval();
-
-		$this->assertSame(60, $interval);
-	}
+    public function testNoProxyAuthReturnsNull() {
+        $this->assertNull($this->config->getProxyAuth());
+    }
 
 
-	public function testMinimumAutoPurgeInterval() {
-		$this->config->setAutoPurgeMinimumInterval(61);
-		$interval = $this->config->getAutoPurgeMinimumInterval();
+    public function testReadingNonExistentConfigWillWriteDefaults() {
+        $this->fileSystem->expects($this->once())
+            ->method('file_exists')
+            ->with($this->equalTo($this->configPath))
+            ->will($this->returnValue(false));
 
-		$this->assertSame(61, $interval);
-	}
+        $this->config->setUseCronUpdates(false);
 
-	public function testCacheDuration() {
-		$this->config->setSimplePieCacheDuration(21);
-		$duration = $this->config->getSimplePieCacheDuration();
+        $json = "autoPurgeMinimumInterval = 60\n" .
+            "autoPurgeCount = 200\n" .
+            "simplePieCacheDuration = 1800\n" .
+            "feedFetcherTimeout = 60\n" .
+            "useCronUpdates = false\n" .
+            "proxyHost = \n" .
+            "proxyPort = 8080\n" .
+            "proxyUser = \n" .
+            "proxyPassword = ";
 
-		$this->assertSame(21, $duration);
-	}
+        $this->fileSystem->expects($this->once())
+            ->method('file_put_contents')
+            ->with($this->equalTo($this->configPath),
+                $this->equalTo($json));
 
-	public function testFeedFetcherTimeout() {
-		$this->config->setFeedFetcherTimeout(2);
-		$timout = $this->config->getFeedFetcherTimeout();
+        $this->config->read($this->configPath, true);
+    }
 
-		$this->assertSame(2, $timout);
-	}
+
+    public function testEncodesUserAndPasswordInHTTPBasicAuth() {
+        $this->config->setProxyUser("this is a test");
+        $this->config->setProxyPassword("se");
+
+        $this->assertEquals('this is a test:se', $this->config->getProxyAuth());
+    }
+
+
+    public function testNoLowMinimumAutoPurgeInterval() {
+        $this->config->setAutoPurgeMinimumInterval(59);
+        $interval = $this->config->getAutoPurgeMinimumInterval();
+
+        $this->assertSame(60, $interval);
+    }
+
+
+    public function testMinimumAutoPurgeInterval() {
+        $this->config->setAutoPurgeMinimumInterval(61);
+        $interval = $this->config->getAutoPurgeMinimumInterval();
+
+        $this->assertSame(61, $interval);
+    }
+
+    public function testCacheDuration() {
+        $this->config->setSimplePieCacheDuration(21);
+        $duration = $this->config->getSimplePieCacheDuration();
+
+        $this->assertSame(21, $duration);
+    }
+
+    public function testFeedFetcherTimeout() {
+        $this->config->setFeedFetcherTimeout(2);
+        $timout = $this->config->getFeedFetcherTimeout();
+
+        $this->assertSame(2, $timout);
+    }
 }

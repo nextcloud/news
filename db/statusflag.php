@@ -14,30 +14,30 @@
 namespace OCA\News\Db;
 
 class StatusFlag {
-	const UNREAD    = 0x02;
-	const STARRED   = 0x04;
-	const DELETED   = 0x08;
-	const UPDATED   = 0x16;
+    const UNREAD    = 0x02;
+    const STARRED   = 0x04;
+    const DELETED   = 0x08;
+    const UPDATED   = 0x16;
 
 
-	/**
-	 * Get status for query
-	 */
-	public function typeToStatus($type, $showAll){
-		if($type === FeedType::STARRED){
-			return self::STARRED;
-		} else {
-			$status = 0;
-		}
+    /**
+     * Get status for query
+     */
+    public function typeToStatus($type, $showAll){
+        if($type === FeedType::STARRED){
+            return self::STARRED;
+        } else {
+            $status = 0;
+        }
 
-		if($showAll){
-			$status &= ~self::UNREAD;
-		} else {
-			$status |= self::UNREAD;
-		}
+        if($showAll){
+            $status &= ~self::UNREAD;
+        } else {
+            $status |= self::UNREAD;
+        }
 
-		return $status;
-	}
+        return $status;
+    }
 
 
 }

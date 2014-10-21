@@ -21,7 +21,7 @@ class User {
 
     public static function deleteUser($params) {
         $userId = $params['uid'];
-        
+
         $app = new Application();
         $container = $app->getContainer();
 

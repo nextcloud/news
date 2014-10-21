@@ -43,94 +43,94 @@ use \OCP\AppFramework\Db\Entity;
  */
 class Feed extends Entity implements IAPI, \JsonSerializable {
 
-	use EntityJSONSerializer;
+    use EntityJSONSerializer;
 
-	protected $userId;
-	protected $urlHash;
-	protected $url;
-	protected $title;
-	protected $faviconLink;
-	protected $added;
-	protected $folderId;
-	protected $unreadCount;
-	protected $link;
-	protected $preventUpdate;
-	protected $deletedAt;
-	protected $articlesPerUpdate;
+    protected $userId;
+    protected $urlHash;
+    protected $url;
+    protected $title;
+    protected $faviconLink;
+    protected $added;
+    protected $folderId;
+    protected $unreadCount;
+    protected $link;
+    protected $preventUpdate;
+    protected $deletedAt;
+    protected $articlesPerUpdate;
 
-	public function __construct(){
-		$this->addType('parentId', 'integer');
-		$this->addType('added', 'integer');
-		$this->addType('folderId', 'integer');
-		$this->addType('unreadCount', 'integer');
-		$this->addType('preventUpdate', 'boolean');
-		$this->addType('deletedAt', 'integer');
-		$this->addType('articlesPerUpdate', 'integer');
-	}
-
-
-	/**
-	 * Turns entitie attributes into an array
-	 */
-	public function jsonSerialize() {
-		$serialized = $this->serializeFields([
-			'id',
-			'userId',
-			'urlHash',
-			'url',
-			'title',
-			'faviconLink',
-			'added',
-			'folderId',
-			'unreadCount',
-			'link',
-			'preventUpdate',
-			'deletedAt',
-			'articlesPerUpdate',
-		]);
-
-		$url = parse_url($this->link)['host'];
-
-		// strip leading www. to avoid css class confusion
-		if (strpos($url, 'www.') === 0) {
-			$url = substr($url, 4);
-		}
-
-		$serialized['cssClass'] = 'custom-' . str_replace('.', '-', $url);
-
-		return $serialized;
-	}
+    public function __construct(){
+        $this->addType('parentId', 'integer');
+        $this->addType('added', 'integer');
+        $this->addType('folderId', 'integer');
+        $this->addType('unreadCount', 'integer');
+        $this->addType('preventUpdate', 'boolean');
+        $this->addType('deletedAt', 'integer');
+        $this->addType('articlesPerUpdate', 'integer');
+    }
 
 
-	public function toAPI() {
-		return $this->serializeFields([
-			'id',
-			'url',
-			'title',
-			'faviconLink',
-			'added',
-			'folderId',
-			'unreadCount',
-			'link'
-		]);
-	}
+    /**
+     * Turns entitie attributes into an array
+     */
+    public function jsonSerialize() {
+        $serialized = $this->serializeFields([
+            'id',
+            'userId',
+            'urlHash',
+            'url',
+            'title',
+            'faviconLink',
+            'added',
+            'folderId',
+            'unreadCount',
+            'link',
+            'preventUpdate',
+            'deletedAt',
+            'articlesPerUpdate',
+        ]);
+
+        $url = parse_url($this->link)['host'];
+
+        // strip leading www. to avoid css class confusion
+        if (strpos($url, 'www.') === 0) {
+            $url = substr($url, 4);
+        }
+
+        $serialized['cssClass'] = 'custom-' . str_replace('.', '-', $url);
+
+        return $serialized;
+    }
 
 
-	public function setUrl($url) {
-		$url = trim($url);
-		if(strpos($url, 'http') === 0) {
-			parent::setUrl($url);
-			$this->setUrlHash(md5($url));
-		}
-	}
+    public function toAPI() {
+        return $this->serializeFields([
+            'id',
+            'url',
+            'title',
+            'faviconLink',
+            'added',
+            'folderId',
+            'unreadCount',
+            'link'
+        ]);
+    }
 
 
-	public function setLink($url) {
-		$url = trim($url);
-		if(strpos($url, 'http') === 0) {
-			parent::setLink($url);
-		}
-	}
+    public function setUrl($url) {
+        $url = trim($url);
+        if(strpos($url, 'http') === 0) {
+            parent::setUrl($url);
+            $this->setUrlHash(md5($url));
+        }
+    }
+
+
+    public function setLink($url) {
+        $url = trim($url);
+        if(strpos($url, 'http') === 0) {
+            parent::setLink($url);
+        }
+    }
 
 
 }

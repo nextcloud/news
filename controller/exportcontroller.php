@@ -26,64 +26,64 @@ use \OCA\News\Utility\OPMLExporter;
 
 class ExportController extends Controller {
 
-	private $opmlExporter;
-	private $folderService;
-	private $feedService;
-	private $itemService;
-	private $userId;
+    private $opmlExporter;
+    private $folderService;
+    private $feedService;
+    private $itemService;
+    private $userId;
 
-	public function __construct($appName, 
-	                            IRequest $request,
-	                            FolderService $folderService,
-	                            FeedService $feedService,
-	                            ItemService $itemService,
-	                            OPMLExporter $opmlExporter,
-	                            $userId){
-		parent::__construct($appName, $request);
-		$this->feedService = $feedService;
-		$this->folderService = $folderService;
-		$this->opmlExporter = $opmlExporter;
-		$this->itemService = $itemService;
-		$this->userId = $userId;
-	}
-
-
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 */
-	public function opml(){
-		$feeds = $this->feedService->findAll($this->userId);
-		$folders = $this->folderService->findAll($this->userId);
-		$opml = $this->opmlExporter->build($folders, $feeds)->saveXML();
-		return new TextDownloadResponse($opml, 'subscriptions.opml', 'text/xml');
-	}
+    public function __construct($appName,
+                                IRequest $request,
+                                FolderService $folderService,
+                                FeedService $feedService,
+                                ItemService $itemService,
+                                OPMLExporter $opmlExporter,
+                                $userId){
+        parent::__construct($appName, $request);
+        $this->feedService = $feedService;
+        $this->folderService = $folderService;
+        $this->opmlExporter = $opmlExporter;
+        $this->itemService = $itemService;
+        $this->userId = $userId;
+    }
 
 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 */
-	public function articles(){
-		$feeds = $this->feedService->findAll($this->userId);
-		$items = $this->itemService->getUnreadOrStarred($this->userId);
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     */
+    public function opml(){
+        $feeds = $this->feedService->findAll($this->userId);
+        $folders = $this->folderService->findAll($this->userId);
+        $opml = $this->opmlExporter->build($folders, $feeds)->saveXML();
+        return new TextDownloadResponse($opml, 'subscriptions.opml', 'text/xml');
+    }
 
-		// build assoc array for fast access
-		$feedsDict = [];
-		foreach($feeds as $feed) {
-			$feedsDict['feed' . $feed->getId()] = $feed;
-		}
 
-		$articles = [];
-		foreach($items as $item) {
-			$articles[] = $item->toExport($feedsDict);
-		}
-		
-		$response = new JSONResponse($articles);
-		$response->addHeader('Content-Disposition', 
-			'attachment; filename="articles.json"');
-		return $response;
-	}
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     */
+    public function articles(){
+        $feeds = $this->feedService->findAll($this->userId);
+        $items = $this->itemService->getUnreadOrStarred($this->userId);
+
+        // build assoc array for fast access
+        $feedsDict = [];
+        foreach($feeds as $feed) {
+            $feedsDict['feed' . $feed->getId()] = $feed;
+        }
+
+        $articles = [];
+        foreach($items as $item) {
+            $articles[] = $item->toExport($feedsDict);
+        }
+
+        $response = new JSONResponse($articles);
+        $response->addHeader('Content-Disposition',
+            'attachment; filename="articles.json"');
+        return $response;
+    }
 
 
 }

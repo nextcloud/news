@@ -21,5 +21,5 @@ interface ArticleEnhancer {
      * @param \OCA\News\Db\Item $item
      * @return \OCA\News\Db\Item enhanced item
      */
-	public function enhance(Item $item);
+    public function enhance(Item $item);
 }

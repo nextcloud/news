@@ -17,85 +17,85 @@ use \OCA\News\Db\Item;
 
 
 class AddEnhancer implements ArticleEnhancer {
-	public function enhance(Item $item) {
-		$body = $item->getBody();
-		$item->setBody($body += 1);
-		return $item;
-	}
+    public function enhance(Item $item) {
+        $body = $item->getBody();
+        $item->setBody($body += 1);
+        return $item;
+    }
 }
 
 
 class EnhancerTest extends \PHPUnit_Framework_TestCase {
 
-	private $enhancer;
-	private $articleEnhancer;
-	private $articleEnhancer2;
+    private $enhancer;
+    private $articleEnhancer;
+    private $articleEnhancer2;
 
-	protected function setUp(){
-		$this->enhancer = new Enhancer();
-		$this->articleEnhancer = $this->getMockBuilder(
-			'\OCA\News\ArticleEnhancer\ArticleEnhancer')
-			->disableOriginalConstructor()
-			->getMock();
-		$this->enhancer->registerEnhancer('test.com', $this->articleEnhancer);
-	}
-
-
-	public function testEnhanceSetsCorrectHash(){
-		$item = new Item();
-		$item->setUrl('hi');
-		$urls = [
-			'https://test.com',
-			'https://www.test.com',
-			'https://test.com/',
-			'http://test.com',
-			'http://test.com/',
-			'http://www.test.com'
-		];
-		for ($i=0; $i < count($urls); $i++) {
-			$this->articleEnhancer->expects($this->at($i))
-				->method('enhance')
-				->with($this->equalTo($item))
-				->will($this->returnValue($item));
-		}
-
-		for ($i=0; $i < count($urls); $i++) {
-			$url = $urls[$i];
-			$result = $this->enhancer->enhance($item, $url);
-			$this->assertEquals($item, $result);
-		}
-
-	}
+    protected function setUp(){
+        $this->enhancer = new Enhancer();
+        $this->articleEnhancer = $this->getMockBuilder(
+            '\OCA\News\ArticleEnhancer\ArticleEnhancer')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->enhancer->registerEnhancer('test.com', $this->articleEnhancer);
+    }
 
 
-	public function testNotMatchShouldJustReturnItem() {
-		$item = new Item();
-		$item->setUrl('hi');
+    public function testEnhanceSetsCorrectHash(){
+        $item = new Item();
+        $item->setUrl('hi');
+        $urls = [
+            'https://test.com',
+            'https://www.test.com',
+            'https://test.com/',
+            'http://test.com',
+            'http://test.com/',
+            'http://www.test.com'
+        ];
+        for ($i=0; $i < count($urls); $i++) {
+            $this->articleEnhancer->expects($this->at($i))
+                ->method('enhance')
+                ->with($this->equalTo($item))
+                ->will($this->returnValue($item));
+        }
 
-		$url = 'https://tests.com';
-		$this->articleEnhancer->expects($this->never())
-				->method('enhance');
+        for ($i=0; $i < count($urls); $i++) {
+            $url = $urls[$i];
+            $result = $this->enhancer->enhance($item, $url);
+            $this->assertEquals($item, $result);
+        }
 
-		$result = $this->enhancer->enhance($item, $url);
-		$this->assertEquals($item, $result);
-	}
+    }
 
 
-	public function testGlobalEnhancer() {
-		$this->enhancer->registerGlobalEnhancer(
-			new AddEnhancer()
-		);
+    public function testNotMatchShouldJustReturnItem() {
+        $item = new Item();
+        $item->setUrl('hi');
 
-		$this->enhancer->registerGlobalEnhancer(
-			new AddEnhancer()
-		);
+        $url = 'https://tests.com';
+        $this->articleEnhancer->expects($this->never())
+                ->method('enhance');
 
-		$item = new Item();
-		$item->setBody(1);
+        $result = $this->enhancer->enhance($item, $url);
+        $this->assertEquals($item, $result);
+    }
 
-		$result = $this->enhancer->enhance($item, 'test');
 
-		$this->assertEquals(3, $result->getBody());
-	}
+    public function testGlobalEnhancer() {
+        $this->enhancer->registerGlobalEnhancer(
+            new AddEnhancer()
+        );
+
+        $this->enhancer->registerGlobalEnhancer(
+            new AddEnhancer()
+        );
+
+        $item = new Item();
+        $item->setBody(1);
+
+        $result = $this->enhancer->enhance($item, 'test');
+
+        $this->assertEquals(3, $result->getBody());
+    }
 
 }

@@ -21,28 +21,28 @@ use \OCP\AppFramework\Http\DownloadResponse;
  */
 class TextDownloadResponse extends DownloadResponse {
 
-	private $content;
+    private $content;
 
-	/**
-	 * Creates a response that prompts the user to download a file which
-	 * contains the passed string
-	 * @param string $content the content that should be written into the file
-	 * @param string $filename the name that the downloaded file should have
-	 * @param string $contentType the mimetype that the downloaded file should have
-	 */
-	public function __construct($content, $filename, $contentType){
-		parent::__construct($filename, $contentType);
-		$this->content = $content;
-	}
+    /**
+     * Creates a response that prompts the user to download a file which
+     * contains the passed string
+     * @param string $content the content that should be written into the file
+     * @param string $filename the name that the downloaded file should have
+     * @param string $contentType the mimetype that the downloaded file should have
+     */
+    public function __construct($content, $filename, $contentType){
+        parent::__construct($filename, $contentType);
+        $this->content = $content;
+    }
 
 
-	/**
-	 * Simply sets the headers and returns the file contents
-	 * @return string the file contents
-	 */
-	public function render(){
-		return $this->content;
-	}
+    /**
+     * Simply sets the headers and returns the file contents
+     * @return string the file contents
+     */
+    public function render(){
+        return $this->content;
+    }
 
 
 }

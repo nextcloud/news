@@ -16,68 +16,68 @@ namespace OCA\News\ArticleEnhancer;
 
 class Enhancer {
 
-	private $enhancers = [];
-	private $globalEnhancers = [];
+    private $enhancers = [];
+    private $globalEnhancers = [];
 
-	/**
-	 * @param string $feedUrl
-	 * @param ArticleEnhancer $enhancer
-	 */
-	public function registerEnhancer($feedUrl, ArticleEnhancer $enhancer){
-		$feedUrl = $this->removeTrailingSlash($feedUrl);
+    /**
+     * @param string $feedUrl
+     * @param ArticleEnhancer $enhancer
+     */
+    public function registerEnhancer($feedUrl, ArticleEnhancer $enhancer){
+        $feedUrl = $this->removeTrailingSlash($feedUrl);
 
-		// create hashkeys for all supported protocols for quick access
-		$this->enhancers[$feedUrl] = $enhancer;
-		$this->enhancers['https://' . $feedUrl] = $enhancer;
-		$this->enhancers['http://' . $feedUrl] = $enhancer;
-		$this->enhancers['https://www.' . $feedUrl] = $enhancer;
-		$this->enhancers['http://www.' . $feedUrl] = $enhancer;
-	}
-
-
-	/**
-	 * Registers enhancers that are run for every item and after all previous
-	 * enhancers have been run
-	 * @param ArticleEnhancer $enhancer
-	 */
-	public function registerGlobalEnhancer (ArticleEnhancer $enhancer) {
-		$this->globalEnhancers[] = $enhancer;
-	}
+        // create hashkeys for all supported protocols for quick access
+        $this->enhancers[$feedUrl] = $enhancer;
+        $this->enhancers['https://' . $feedUrl] = $enhancer;
+        $this->enhancers['http://' . $feedUrl] = $enhancer;
+        $this->enhancers['https://www.' . $feedUrl] = $enhancer;
+        $this->enhancers['http://www.' . $feedUrl] = $enhancer;
+    }
 
 
-	/**
-	 * @param \OCA\News\Db\Item $item
-	 * @param string $feedUrl
-	 * @return \OCA\News\Db\Item enhanced item
-	 */
-	public function enhance($item, $feedUrl){
-		$feedUrl = $this->removeTrailingSlash($feedUrl);
+    /**
+     * Registers enhancers that are run for every item and after all previous
+     * enhancers have been run
+     * @param ArticleEnhancer $enhancer
+     */
+    public function registerGlobalEnhancer (ArticleEnhancer $enhancer) {
+        $this->globalEnhancers[] = $enhancer;
+    }
 
-		if(array_key_exists($feedUrl, $this->enhancers)) {
-			$result = $this->enhancers[$feedUrl]->enhance($item);
-		} else {
-			$result = $item;
-		}
 
-		foreach ($this->globalEnhancers as $enhancer) {
-			$result = $enhancer->enhance($result);
-		}
+    /**
+     * @param \OCA\News\Db\Item $item
+     * @param string $feedUrl
+     * @return \OCA\News\Db\Item enhanced item
+     */
+    public function enhance($item, $feedUrl){
+        $feedUrl = $this->removeTrailingSlash($feedUrl);
 
-		return $result;
-	}
+        if(array_key_exists($feedUrl, $this->enhancers)) {
+            $result = $this->enhancers[$feedUrl]->enhance($item);
+        } else {
+            $result = $item;
+        }
+
+        foreach ($this->globalEnhancers as $enhancer) {
+            $result = $enhancer->enhance($result);
+        }
+
+        return $result;
+    }
 
 
     /**
      * @param string $url
      * @return string
      */
-	private function removeTrailingSlash($url) {
-		if($url[strlen($url)-1] === '/') {
-			return substr($url, 0, -1);
-		} else {
-			return $url;
-		}
-	}
+    private function removeTrailingSlash($url) {
+        if($url[strlen($url)-1] === '/') {
+            return substr($url, 0, -1);
+        } else {
+            return $url;
+        }
+    }
 
 
 }

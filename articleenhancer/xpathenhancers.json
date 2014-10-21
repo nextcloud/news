@@ -1,126 +1,126 @@
 {
-	"cad-comic.com": {
-		"%cad-comic.com/cad/\\d+/$%": "//*[@id='content']/img"
-	},
-	"slashdot.org": {
-		"%rss.slashdot.org%": "//article/div[@class='body'] | //article[@class='layout-article']/div"
-	},
-	"explosm.net": {
-		"%explosm.net/comics%": "//*[@id='maincontent']/div[2]/div/img",
-		"%explosm.net/show%": "//*[@id='videoPlayer']/iframe"
-	},
-	"themerepublic.net": {
-		"%feedproxy.google.com/~r/blogspot/DngUJ%": "//*[@class='post hentry']"
-	},
-	"penny-arcade.com": {
-		"%penny-arcade.com/comic%": "//*[@id='comicFrame']/a/img",
-		"%penny-arcade.com/news%": "//*[@class='postBody']/*"
-	},
-	"leasticoulddo.com": {
-		"%feedproxy.google.com/~r/LICD%": "//*[@id='comic-img']/a/img | //*[@id='comic-img']/img | //*[@id='post']"
-	},
-	"escapistmagazine.com/articles/view/comicsandcosplay/comics/critical-miss": {
-		"%escapistmagazine.com/articles/view/comicsandcosplay/comics/critical-miss%": "//*[@class='body']/span/img | //div[@class='folder_nav_links']/following::p"
-	},
-	"escapistmagazine.com/articles/view/comicsandcosplay/comics/namegame": {
-		"%escapistmagazine.com/articles/view/comicsandcosplay/comics/namegame%": "//*[@class='body']/span/p/img[@height != \"120\"]"
-	},
-	"escapistmagazine.com/articles/view/comicsandcosplay/comics/stolen-pixels": {
-		"%escapistmagazine.com/articles/view/comicsandcosplay/comics/stolen-pixels%": "//*[@class='body']/span/p[2]/img"
-	},
-	"escapistmagazine.com/articles/view/comicsandcosplay/comics/bumhugparade": {
-		"%escapistmagazine.com/articles/view/comicsandcosplay/comics/bumhugparade%": "//*[@class='body']/span/p[2]/img"
-	},
-	"escapistmagazine.com/articles/view/comicsandcosplay/comics/escapistradiotheater": {
-		"%escapistmagazine.com/articles/view/comicsandcosplay/comics/escapistradiotheater%": "//*[@class='body']/span/p[2]/img"
-	},
-	"escapistmagazine.com/articles/view/comicsandcosplay/comics/paused": {
-		"%escapistmagazine.com/articles/view/comicsandcosplay/comics/paused%": "//*[@class='body']/span/p[2]/img | //*[@class='body']/span/div/img"
-	},
-	"escapistmagazine.com/articles/view/comicsandcosplay/comics/fraughtwithperil": {
-		"%escapistmagazine.com/articles/view/comicsandcosplay/comics/fraughtwithperil%": "//*[@class='body']"
-	},
-	"trenchescomic.com": {
-		"%trenchescomic.com/comic%": "//*[@class=\"top\"]/img",
-		"%trenchescomic.com/tales%": "//*[@class=\"copy\"]"
-	},
-	"lfgcomic.com": {
-		"%(lfgcomic.com/page)|(feedproxy.google.com/~r/LookingForGroup)%": "//*[@id=\"comic\"]/img | //*[@class=\"content\"]"
-	},
-	"sandraandwoo.com": {
-		"%feedproxy.google.com/~r/sandraandwoo%": "//*[@id=\"comic\"]/img | //*[@class=\"post\"]/div[@class=\"entry\"] | //*[@class=\"transcript\"]"
-	},
-	"sandraandwoo.com/gaia": {
-		"%feedproxy.google.com/~r/gaiacomic%": "//*[@id=\"comic\"]/img | //*[@class=\"post\"]/div[@class=\"entry\"] | //*[@class=\"transcript\"]"
-	},
-	"theoatmeal.com": {
-		"%theoatmeal.com/blog%": "//*[@class=\"post_body\"]",
-		"%theoatmeal.com/comics%": "//*[@id=\"comic\"] | //*[@class=\"super_vacum\"] | //*[@class=\"pad\"]"
-	},
-	"loldwell.com": {
-		"%loldwell.com/\\?p=%": "//*[@id=\"comic\"]"
-	},
-	"mokepon.smackjeeves.com": {
-		"%mokepon.smackjeeves.com/comics%": "//*[@id=\"comic_area\"]/img | //*[@id=\"comic_area\"]/a/img"
-	},
-	"twokinds.keenspot.com": {
-		"%twokinds.keenspot.com/%": "//*[@class=\"comic\"]/div/a/img | //*[@class=\"comic\"]/div/img | //*[@id=\"cg_img\"]/img | //*[@id=\"cg_img\"]/a/img"
-	},
-	"niceteethcomic.com": {
-		"%niceteethcomic.com/archives%": "//*[@class=\"comicpane\"]/a/img"
-	},
-	"awkwardzombie.com" :{
-		"%awkwardzombie.com/index.php\\?comic=%": "//*[@id=\"comic\"]/img"
-	},
-	"vgcats.com": {
-		"%vgcats.com/comics%": "//*[@align=\"center\"]/img"
-	},
-	"vgcats.com/super": {
-		"%vgcats.com/super%": "//div[@align=\"center\"]/p/img"
-	},
-	"chaoslife.findchaos.com": {
-		"%chaoslife.findchaos.com%": "//div[@id=\"comic\"]"
-	},
-	"forlackofabettercomic.com/archive.php": {
-		"%forlackofabettercomic.com/\\?id=%": "//div[@id=\"comicset\"]/a/img"
-	},
-	"heise.de/newsticker": {
-		"%heise.de%": "//*[@class='meldung_wrapper']/*[not(contains(@class, 'dossier'))]"
-	},
-	"heise.de/developer": {
-		"%heise.de%": "//*[@class='meldung_wrapper']/*[not(contains(@class, 'dossier'))]"
-	},
-	"heise.de/open/news": {
-		"%heise.de%": "//*[@class='meldung_wrapper']/*[not(contains(@class, 'dossier'))]"
-	},
-	"spiegel.de": {
-		"%spiegel.de/(?!.*video).*%": "//p[@class='article-intro'] | //*[@itemprop='description' and not(ancestor::*[contains( normalize-space( @class ), 'article-section' )]) ] | //*[(@class='spPanoImageTeaserPic' or @class='spPanoGalleryTeaserPic' or @class='spPanoPlayerTeaserPic') and not(ancestor::*[contains( normalize-space( @class ), 'article-section' )])] | //*[@class='image-buttons-panel' and not(ancestor::*[contains( normalize-space( @class ), 'article-section' )])]/*[1]/img | //*[@class='article-image-description' and not(ancestor::*[contains( normalize-space( @class ), 'article-section' )]) ]/p | //*[@id='content-main']/*[@id='js-article-column']/div[contains( normalize-space( @class ), 'article-section' )]"
-	},
-	"eqcomics.com": {
-		"%feedproxy.google.com/~r/eqcomics%": "//div[@id=\"comic\"]/div/a/img"
-	},
-	"loadingartist.com": {
-		"%feedproxy.google.com/~r/LoadingArtist%": "//div[@id=\"comic\"]"
-	},
-	"thegamercat.com": {
-		"%thegamercat.com%": "//div[@id=\"comic\"] | //div[@class=\"post-content\"]/div[@class=\"entry\"]/p"
-	},
-	"niebezpiecznik.pl": {
-		"%feedproxy.google.com/~r/niebezpiecznik%": "//div[@class=\"entry\"]"
-	},
-	"maximumble.thebookofbiff.com": {
-		"%maximumble.thebookofbiff.com%": "//div[@id=\"comic\"]/div/a/img"
-	},
-	"omgubuntu.co.uk": {
-		"%www.omgubuntu.co.uk%": "//div[@class=\"entry-content\"]"
-	},
-	"tu-chemnitz.de/tu/presse/": {
-		"%tu-chemnitz.de%": "//div[@id='content_inhalt']/*[preceding-sibling::h1 and following-sibling::div[@id]]"
-	},
-	"cliquerefresh.com": {
-		"%cliquerefresh.com/comic%": "//div[@class=\"comicImg\"]/img | //div[@class=\"comicImg\"]/a/img"
-	},
-	"satwcomic.com": {
-		"%feedproxy.google.com/~r/satwcomic%": "//div[@class=\"comicmid\"]/center/a/img"
-	}
+    "cad-comic.com": {
+        "%cad-comic.com/cad/\\d+/$%": "//*[@id='content']/img"
+    },
+    "slashdot.org": {
+        "%rss.slashdot.org%": "//article/div[@class='body'] | //article[@class='layout-article']/div"
+    },
+    "explosm.net": {
+        "%explosm.net/comics%": "//*[@id='maincontent']/div[2]/div/img",
+        "%explosm.net/show%": "//*[@id='videoPlayer']/iframe"
+    },
+    "themerepublic.net": {
+        "%feedproxy.google.com/~r/blogspot/DngUJ%": "//*[@class='post hentry']"
+    },
+    "penny-arcade.com": {
+        "%penny-arcade.com/comic%": "//*[@id='comicFrame']/a/img",
+        "%penny-arcade.com/news%": "//*[@class='postBody']/*"
+    },
+    "leasticoulddo.com": {
+        "%feedproxy.google.com/~r/LICD%": "//*[@id='comic-img']/a/img | //*[@id='comic-img']/img | //*[@id='post']"
+    },
+    "escapistmagazine.com/articles/view/comicsandcosplay/comics/critical-miss": {
+        "%escapistmagazine.com/articles/view/comicsandcosplay/comics/critical-miss%": "//*[@class='body']/span/img | //div[@class='folder_nav_links']/following::p"
+    },
+    "escapistmagazine.com/articles/view/comicsandcosplay/comics/namegame": {
+        "%escapistmagazine.com/articles/view/comicsandcosplay/comics/namegame%": "//*[@class='body']/span/p/img[@height != \"120\"]"
+    },
+    "escapistmagazine.com/articles/view/comicsandcosplay/comics/stolen-pixels": {
+        "%escapistmagazine.com/articles/view/comicsandcosplay/comics/stolen-pixels%": "//*[@class='body']/span/p[2]/img"
+    },
+    "escapistmagazine.com/articles/view/comicsandcosplay/comics/bumhugparade": {
+        "%escapistmagazine.com/articles/view/comicsandcosplay/comics/bumhugparade%": "//*[@class='body']/span/p[2]/img"
+    },
+    "escapistmagazine.com/articles/view/comicsandcosplay/comics/escapistradiotheater": {
+        "%escapistmagazine.com/articles/view/comicsandcosplay/comics/escapistradiotheater%": "//*[@class='body']/span/p[2]/img"
+    },
+    "escapistmagazine.com/articles/view/comicsandcosplay/comics/paused": {
+        "%escapistmagazine.com/articles/view/comicsandcosplay/comics/paused%": "//*[@class='body']/span/p[2]/img | //*[@class='body']/span/div/img"
+    },
+    "escapistmagazine.com/articles/view/comicsandcosplay/comics/fraughtwithperil": {
+        "%escapistmagazine.com/articles/view/comicsandcosplay/comics/fraughtwithperil%": "//*[@class='body']"
+    },
+    "trenchescomic.com": {
+        "%trenchescomic.com/comic%": "//*[@class=\"top\"]/img",
+        "%trenchescomic.com/tales%": "//*[@class=\"copy\"]"
+    },
+    "lfgcomic.com": {
+        "%(lfgcomic.com/page)|(feedproxy.google.com/~r/LookingForGroup)%": "//*[@id=\"comic\"]/img | //*[@class=\"content\"]"
+    },
+    "sandraandwoo.com": {
+        "%feedproxy.google.com/~r/sandraandwoo%": "//*[@id=\"comic\"]/img | //*[@class=\"post\"]/div[@class=\"entry\"] | //*[@class=\"transcript\"]"
+    },
+    "sandraandwoo.com/gaia": {
+        "%feedproxy.google.com/~r/gaiacomic%": "//*[@id=\"comic\"]/img | //*[@class=\"post\"]/div[@class=\"entry\"] | //*[@class=\"transcript\"]"
+    },
+    "theoatmeal.com": {
+        "%theoatmeal.com/blog%": "//*[@class=\"post_body\"]",
+        "%theoatmeal.com/comics%": "//*[@id=\"comic\"] | //*[@class=\"super_vacum\"] | //*[@class=\"pad\"]"
+    },
+    "loldwell.com": {
+        "%loldwell.com/\\?p=%": "//*[@id=\"comic\"]"
+    },
+    "mokepon.smackjeeves.com": {
+        "%mokepon.smackjeeves.com/comics%": "//*[@id=\"comic_area\"]/img | //*[@id=\"comic_area\"]/a/img"
+    },
+    "twokinds.keenspot.com": {
+        "%twokinds.keenspot.com/%": "//*[@class=\"comic\"]/div/a/img | //*[@class=\"comic\"]/div/img | //*[@id=\"cg_img\"]/img | //*[@id=\"cg_img\"]/a/img"
+    },
+    "niceteethcomic.com": {
+        "%niceteethcomic.com/archives%": "//*[@class=\"comicpane\"]/a/img"
+    },
+    "awkwardzombie.com" :{
+        "%awkwardzombie.com/index.php\\?comic=%": "//*[@id=\"comic\"]/img"
+    },
+    "vgcats.com": {
+        "%vgcats.com/comics%": "//*[@align=\"center\"]/img"
+    },
+    "vgcats.com/super": {
+        "%vgcats.com/super%": "//div[@align=\"center\"]/p/img"
+    },
+    "chaoslife.findchaos.com": {
+        "%chaoslife.findchaos.com%": "//div[@id=\"comic\"]"
+    },
+    "forlackofabettercomic.com/archive.php": {
+        "%forlackofabettercomic.com/\\?id=%": "//div[@id=\"comicset\"]/a/img"
+    },
+    "heise.de/newsticker": {
+        "%heise.de%": "//*[@class='meldung_wrapper']/*[not(contains(@class, 'dossier'))]"
+    },
+    "heise.de/developer": {
+        "%heise.de%": "//*[@class='meldung_wrapper']/*[not(contains(@class, 'dossier'))]"
+    },
+    "heise.de/open/news": {
+        "%heise.de%": "//*[@class='meldung_wrapper']/*[not(contains(@class, 'dossier'))]"
+    },
+    "spiegel.de": {
+        "%spiegel.de/(?!.*video).*%": "//p[@class='article-intro'] | //*[@itemprop='description' and not(ancestor::*[contains( normalize-space( @class ), 'article-section' )]) ] | //*[(@class='spPanoImageTeaserPic' or @class='spPanoGalleryTeaserPic' or @class='spPanoPlayerTeaserPic') and not(ancestor::*[contains( normalize-space( @class ), 'article-section' )])] | //*[@class='image-buttons-panel' and not(ancestor::*[contains( normalize-space( @class ), 'article-section' )])]/*[1]/img | //*[@class='article-image-description' and not(ancestor::*[contains( normalize-space( @class ), 'article-section' )]) ]/p | //*[@id='content-main']/*[@id='js-article-column']/div[contains( normalize-space( @class ), 'article-section' )]"
+    },
+    "eqcomics.com": {
+        "%feedproxy.google.com/~r/eqcomics%": "//div[@id=\"comic\"]/div/a/img"
+    },
+    "loadingartist.com": {
+        "%feedproxy.google.com/~r/LoadingArtist%": "//div[@id=\"comic\"]"
+    },
+    "thegamercat.com": {
+        "%thegamercat.com%": "//div[@id=\"comic\"] | //div[@class=\"post-content\"]/div[@class=\"entry\"]/p"
+    },
+    "niebezpiecznik.pl": {
+        "%feedproxy.google.com/~r/niebezpiecznik%": "//div[@class=\"entry\"]"
+    },
+    "maximumble.thebookofbiff.com": {
+        "%maximumble.thebookofbiff.com%": "//div[@id=\"comic\"]/div/a/img"
+    },
+    "omgubuntu.co.uk": {
+        "%www.omgubuntu.co.uk%": "//div[@class=\"entry-content\"]"
+    },
+    "tu-chemnitz.de/tu/presse/": {
+        "%tu-chemnitz.de%": "//div[@id='content_inhalt']/*[preceding-sibling::h1 and following-sibling::div[@id]]"
+    },
+    "cliquerefresh.com": {
+        "%cliquerefresh.com/comic%": "//div[@class=\"comicImg\"]/img | //div[@class=\"comicImg\"]/a/img"
+    },
+    "satwcomic.com": {
+        "%feedproxy.google.com/~r/satwcomic%": "//div[@class=\"comicmid\"]/center/a/img"
+    }
 }

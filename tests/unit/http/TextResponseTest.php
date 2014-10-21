@@ -18,27 +18,27 @@ namespace OCA\News\Http;
 class TextResponseTest extends \PHPUnit_Framework_TestCase {
 
 
-	protected function setUp() {
-		$this->response = new TextResponse('sometext');
-	}
+    protected function setUp() {
+        $this->response = new TextResponse('sometext');
+    }
 
 
-	public function testRender() {
-		$this->assertEquals('sometext', $this->response->render());
-	}
+    public function testRender() {
+        $this->assertEquals('sometext', $this->response->render());
+    }
 
-	public function testContentTypeDefaultsToText(){
-		$headers = $this->response->getHeaders();
+    public function testContentTypeDefaultsToText(){
+        $headers = $this->response->getHeaders();
 
-		$this->assertEquals('text/plain', $headers['Content-type']);
-	}
+        $this->assertEquals('text/plain', $headers['Content-type']);
+    }
 
 
-	public function testContentTypeIsSetableViaConstructor(){
-		$response = new TextResponse('sometext', 'html');
-		$headers = $response->getHeaders();
+    public function testContentTypeIsSetableViaConstructor(){
+        $response = new TextResponse('sometext', 'html');
+        $headers = $response->getHeaders();
 
-		$this->assertEquals('text/html', $headers['Content-type']);
-	}
+        $this->assertEquals('text/html', $headers['Content-type']);
+    }
 
 }

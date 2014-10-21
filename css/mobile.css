@@ -15,15 +15,15 @@
     }
 
     #app-content .heading h1 {
-    	margin-right: 0;
+        margin-right: 0;
     }
 
     #app-content .utils {
-    	padding-right: 15px;
+        padding-right: 15px;
     }
 
     #app-content .article {
-    	padding-right: 15px;
-    	padding-left: 44px;
+        padding-right: 15px;
+        padding-left: 44px;
     }
 }

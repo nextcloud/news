@@ -22,33 +22,33 @@ use \OCA\News\Service\ItemService;
 class Updater {
 
 
-	private $folderService;
-	private $feedService;
-	private $itemService;
+    private $folderService;
+    private $feedService;
+    private $itemService;
 
-	public function __construct(FolderService $folderService,
-	                            FeedService $feedService,
-	                            ItemService $itemService) {
-		$this->folderService = $folderService;
-		$this->feedService = $feedService;
-		$this->itemService = $itemService;
-	}
-
-
-	public function beforeUpdate() {
-		$this->folderService->purgeDeleted();
-		$this->feedService->purgeDeleted();
-	}
+    public function __construct(FolderService $folderService,
+                                FeedService $feedService,
+                                ItemService $itemService) {
+        $this->folderService = $folderService;
+        $this->feedService = $feedService;
+        $this->itemService = $itemService;
+    }
 
 
-	public function update() {
-		$this->feedService->updateAll();
-	}
+    public function beforeUpdate() {
+        $this->folderService->purgeDeleted();
+        $this->feedService->purgeDeleted();
+    }
 
 
-	public function afterUpdate() {
-		$this->itemService->autoPurgeOld();
-	}
+    public function update() {
+        $this->feedService->updateAll();
+    }
+
+
+    public function afterUpdate() {
+        $this->itemService->autoPurgeOld();
+    }
 
 
 }

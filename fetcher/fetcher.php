@@ -16,39 +16,39 @@ namespace OCA\News\Fetcher;
 
 class Fetcher {
 
-	private $fetchers;
+    private $fetchers;
 
-	public function __construct(){
-		$this->fetchers = [];
-	}
+    public function __construct(){
+        $this->fetchers = [];
+    }
 
 
-	/**
-	 * Add an additional fetcher
-	 * @param IFeedFetcher $fetcher the fetcher
-	 */
-	public function registerFetcher(IFeedFetcher $fetcher){
-		$this->fetchers[] = $fetcher;
-	}
+    /**
+     * Add an additional fetcher
+     * @param IFeedFetcher $fetcher the fetcher
+     */
+    public function registerFetcher(IFeedFetcher $fetcher){
+        $this->fetchers[] = $fetcher;
+    }
 
-	/**
-	 * Fetch a feed from remote
-	 * @param string $url remote url of the feed
-	 * @param boolean $getFavicon if the favicon should also be fetched, defaults
-	 * to true
-	 * @throws FetcherException if simple pie fails
-	 * @return array an array containing the new feed and its items, first
-	 * element being the Feed and second element being an array of Items
-	 */
-	public function fetch($url, $getFavicon=true){
-		foreach($this->fetchers as $fetcher){
-			if($fetcher->canHandle($url)){
-				return $fetcher->fetch($url, $getFavicon);
-			}
-		}
+    /**
+     * Fetch a feed from remote
+     * @param string $url remote url of the feed
+     * @param boolean $getFavicon if the favicon should also be fetched, defaults
+     * to true
+     * @throws FetcherException if simple pie fails
+     * @return array an array containing the new feed and its items, first
+     * element being the Feed and second element being an array of Items
+     */
+    public function fetch($url, $getFavicon=true){
+        foreach($this->fetchers as $fetcher){
+            if($fetcher->canHandle($url)){
+                return $fetcher->fetch($url, $getFavicon);
+            }
+        }
 
-		return [null, []];
-	}
+        return [null, []];
+    }
 
 
 }

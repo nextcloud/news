@@ -16,12 +16,12 @@ namespace OCA\News\Service;
 
 class ServiceException extends \Exception {
 
-	/**
-	 * Constructor
-	 * @param string $msg the error message
-	 */
-	public function __construct($msg){
-		parent::__construct($msg);
-	}
+    /**
+     * Constructor
+     * @param string $msg the error message
+     */
+    public function __construct($msg){
+        parent::__construct($msg);
+    }
 
 }

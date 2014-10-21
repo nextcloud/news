@@ -18,13 +18,13 @@ namespace OCA\News\Http;
 class TextDownloadResponseTest extends \PHPUnit_Framework_TestCase {
 
 
-	protected function setUp() {
-		$this->response = new TextDownloadResponse('sometext', 'file', 'content');
-	}
+    protected function setUp() {
+        $this->response = new TextDownloadResponse('sometext', 'file', 'content');
+    }
 
 
-	public function testRender() {
-		$this->assertEquals('sometext', $this->response->render());
-	}
+    public function testRender() {
+        $this->assertEquals('sometext', $this->response->render());
+    }
 
 }

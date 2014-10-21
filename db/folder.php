@@ -31,38 +31,38 @@ use \OCP\AppFramework\Db\Entity;
  */
 class Folder extends Entity implements IAPI, \JsonSerializable {
 
-	use EntityJSONSerializer;
+    use EntityJSONSerializer;
 
-	protected $parentId;
-	protected $name;
-	protected $userId;
-	protected $opened;
-	protected $deletedAt;
+    protected $parentId;
+    protected $name;
+    protected $userId;
+    protected $opened;
+    protected $deletedAt;
 
-	public function __construct(){
-		$this->addType('parentId', 'integer');
-		$this->addType('opened', 'boolean');
-		$this->addType('deletedAt', 'integer');
-	}
+    public function __construct(){
+        $this->addType('parentId', 'integer');
+        $this->addType('opened', 'boolean');
+        $this->addType('deletedAt', 'integer');
+    }
 
-	/**
-	 * Turns entitie attributes into an array
-	 */
-	public function jsonSerialize() {
-		return $this->serializeFields([
-			'id',
-			'parentId',
-			'name',
-			'userId',
-			'opened',
-			'deletedAt',
-		]);
-	}
+    /**
+     * Turns entitie attributes into an array
+     */
+    public function jsonSerialize() {
+        return $this->serializeFields([
+            'id',
+            'parentId',
+            'name',
+            'userId',
+            'opened',
+            'deletedAt',
+        ]);
+    }
 
-	public function toAPI() {
-		return $this->serializeFields([
-			'id',
-			'name'
-		]);
-	}
+    public function toAPI() {
+        return $this->serializeFields([
+            'id',
+            'name'
+        ]);
+    }
 }
