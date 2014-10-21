@@ -26,6 +26,8 @@
     },
     "navigation": {},
     "documentation": {
+        "user": "https://github.com/owncloud/news/wiki#user-documentation",
+        "admin": "https://github.com/owncloud/news#readme",
         "developer": "https://github.com/owncloud/news/wiki"
     },
     "jobs": ["OCA\\News\\Cron\\Updater"],
