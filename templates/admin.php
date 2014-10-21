@@ -55,17 +55,19 @@ style('news', 'admin');
     </div>
     <div class="form-line">
         <p>
-            <label for="news-cache-duration">
-                <?php p($l->t('Cache duration')); ?>
+            <label for="news-max-redirects">
+                <?php p($l->t('Maximum redirects')); ?>
             </label>
         </p>
         <p>
             <em>
-                <?php p($l->t('How many seconds a feed should be cached')); ?>
+                <?php p($l->t(
+                    'How many redirects the feed fetcher should follow'
+                )); ?>
             </em>
         </p>
-        <p><input type="text" name="news-cache-duration"
-               value="<?php p($_['cacheDuration']); ?>"></p>
+        <p><input type="text" name="news-max-redirects"
+               value="<?php p($_['maxRedirects']); ?>"></p>
     </div>
     <div class="form-line">
         <p>

@@ -20,21 +20,14 @@ use \OCA\News\Db\Feed;
 class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 
     private $fetcher;
-    private $core;
-    private $coreFactory;
+    private $parser;
+    private $reader;
+    private $client;
     private $faviconFetcher;
+    private $parsedFeed;
     private $url;
-    private $cacheDirectory;
-    private $cacheDuration;
     private $time;
     private $item;
-    private $purifier;
-    private $fetchTimeout;
-    private $proxyHost;
-    private $getProxyPort;
-    private $proxyAuth;
-    private $config;
-    private $appconfig;
 
     // items
     private $permalink;
@@ -53,41 +46,25 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
     private $webFavicon;
 
     protected function setUp(){
-        $this->core = $this->getMock(
-            '\SimplePie_Core', [
-                'set_timeout',
-                'set_feed_url',
-                'enable_cache',
-                'set_stupidly_fast',
-                'set_cache_location',
-                'set_cache_duration',
-                'set_proxyhost',
-                'set_proxyport',
-                'set_proxyuserpwd',
-                'set_useragent',
-                'init',
-                'get_permalink',
-                'get_items',
-                'get_title',
-                'get_image_url'
-            ]);
-        $this->coreFactory = $this->getMockBuilder(
-            '\OCA\News\Utility\SimplePieAPIFactory')
+        $this->reader = $this->getMockBuilder(
+            '\PicoFeed\Reader')
             ->disableOriginalConstructor()
             ->getMock();
-        $this->coreFactory->expects($this->any())
-            ->method('getCore')
-            ->will($this->returnValue($this->core));
-        $this->item = $this->getMockBuilder(
-            '\SimplePie_Item')
+        $this->parser = $this->getMockBuilder(
+            '\PicoFeed\Parser')
             ->disableOriginalConstructor()
             ->getMock();
+        $this->client = $this->getMockBuilder(
+            '\PicoFeed\Client')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->parsedFeed = $this->getMockBuilder(
+            '\PicoFeed\Feed')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->faviconFetcher = $this->getMockBuilder(
             '\PicoFeed\Favicon')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $this->appconfig = $this->getMockBuilder(
-            '\OCA\News\Config\AppConfig')
             ->disableOriginalConstructor()
             ->getMock();
         $this->time = 2323;
@@ -95,41 +72,9 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $timeFactory->expects($this->any())
             ->method('getTime')
             ->will($this->returnValue($this->time));
-        $this->cacheDuration = 100;
-        $this->cacheDirectory = 'dir/';
-        $this->proxyHost = 'test';
-        $this->proxyPort = 30;
-        $this->proxyAuth = 'hi';
-        $this->fetchTimeout = 40;
-        $this->config = $this->getMockBuilder(
-            '\OCA\News\Config\Config')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $this->config->expects($this->any())
-            ->method('getCacheDuration')
-            ->will($this->returnValue($this->cacheDuration));
-        $this->config->expects($this->any())
-            ->method('getProxyHost')
-            ->will($this->returnValue($this->proxyHost));
-        $this->config->expects($this->any())
-            ->method('getProxyAuth')
-            ->will($this->returnValue($this->proxyAuth));
-        $this->config->expects($this->any())
-            ->method('getProxyPort')
-            ->will($this->returnValue($this->proxyPort));
-        $this->config->expects($this->any())
-            ->method('getFeedFetcherTimeout')
-            ->will($this->returnValue($this->fetchTimeout));
-        $this->appconfig->expects($this->any())
-            ->method('getConfig')
-            ->with($this->equalTo('version'))
-            ->will($this->returnValue(3));
-        $this->fetcher = new FeedFetcher($this->coreFactory,
+        $this->fetcher = new FeedFetcher($this->reader,
                          $this->faviconFetcher,
-                         $timeFactory,
-                         $this->cacheDirectory,
-                         $this->config,
-                         $this->appconfig);
+                         $timeFactory);
         $this->url = 'http://tests';
 
         $this->permalink = 'http://permalink';
@@ -156,65 +101,35 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($this->fetcher->canHandle($url));
     }
 
-
-    public function testDoesNotUseProxyIfNotEnabled() {
-        $this->config->expects($this->any())
-            ->method('getProxyHost')
-            ->will($this->returnValue(''));
-        $this->core->expects($this->never())
-            ->method('set_proxyhost');
-        $this->core->expects($this->never())
-            ->method('set_proxyport');
-        $this->core->expects($this->never())
-            ->method('set_proxyuserpwd');
+    private function setUpReader($url='', $modified=true) {
+        $this->reader->expects($this->once())
+            ->method('download')
+            ->with($this->equalTo($url))
+            ->will($this->returnValue($this->client));
+        $this->client->expects($this->once())
+            ->method('getLastModified')
+            ->with()
+            ->will($this->returnValue($modified));
     }
 
 
-    public function testFetchThrowsExceptionWhenInitFailed() {
-        $this->core->expects($this->once())
-            ->method('set_feed_url')
-            ->with($this->equalTo($this->url));
-        $this->core->expects($this->once())
-            ->method('enable_cache')
-            ->with($this->equalTo(true));
-        $this->core->expects($this->once())
-            ->method('set_timeout')
-            ->with($this->equalTo($this->fetchTimeout));
-        $this->core->expects($this->once())
-            ->method('set_cache_location')
-            ->with($this->equalTo($this->cacheDirectory));
-        $this->core->expects($this->once())
-            ->method('set_proxyhost')
-            ->with($this->equalTo($this->proxyHost));
-        $this->core->expects($this->once())
-            ->method('set_proxyport')
-            ->with($this->equalTo($this->proxyPort));
-        $this->core->expects($this->once())
-            ->method('set_proxyuserpwd')
-            ->with($this->equalTo($this->proxyAuth));
-        $this->core->expects($this->once())
-            ->method('set_stupidly_fast')
-            ->with($this->equalTo(true));
-        $this->core->expects($this->once())
-            ->method('set_cache_duration')
-            ->with($this->equalTo($this->cacheDuration));
-        $this->core->expects($this->once())
-            ->method('set_useragent')
-            ->with($this->equalTo(
-                'ownCloud News/3 (+https://owncloud.org/; 1 subscriber; ' .
-                    'feed-url=http://tests)'));
+    public function testFetchThrowsExceptionWhenFetchingFailed() {
+        $this->setUpReader($this->url);
+        $this->reader->expects($this->once())
+            ->method('getParser')
+            ->will($this->returnValue(false));
+
         $this->setExpectedException('\OCA\News\Fetcher\FetcherException');
         $this->fetcher->fetch($this->url);
     }
 
 
-    public function testShouldCatchExceptionsAndThrowOwnException() {
-        $this->core->expects($this->once())
-            ->method('init')
-            ->will($this->returnValue(true));
-        $this->core->expects($this->once())
-            ->method('get_items')
-            ->will($this->throwException(new \Exception('oh noes!')));
+    public function testFetchThrowsExceptionWhenParsingFailed() {
+        $this->setUpReader($this->url);
+        $this->reader->expects($this->once())
+            ->method('getParser')
+            ->will($this->returnValue(false));
+
         $this->setExpectedException('\OCA\News\Fetcher\FetcherException');
         $this->fetcher->fetch($this->url);
     }

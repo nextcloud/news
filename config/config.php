@@ -24,13 +24,9 @@ class Config {
                                         // should still be kept for an
                                         // undo actions
     private $autoPurgeCount;  // number of allowed unread articles per feed
-    private $cacheDuration;  // seconds
+    private $maxRedirects;  // seconds
     private $feedFetcherTimeout;  // seconds
     private $useCronUpdates;  // turn off updates run by owncloud cronjob
-    private $proxyHost;
-    private $proxyPort;
-    private $proxyUser;
-    private $proxyPassword;
     private $logger;
     private $loggerParams;
 
@@ -39,7 +35,7 @@ class Config {
         $this->fileSystem = $fileSystem;
         $this->autoPurgeMinimumInterval = 60;
         $this->autoPurgeCount = 200;
-        $this->cacheDuration = 30*60;
+        $this->maxRedirects = 10;
         $this->feedFetcherTimeout = 60;
         $this->useCronUpdates = true;
         $this->logger = $logger;
@@ -88,8 +84,8 @@ class Config {
     }
 
 
-    public function getCacheDuration() {
-        return $this->cacheDuration;
+    public function getMaxRedirects() {
+        return $this->maxRedirects;
     }
 
 
@@ -113,8 +109,8 @@ class Config {
     }
 
 
-    public function setCacheDuration($value) {
-        $this->cacheDuration = $value;
+    public function setMaxRedirects($value) {
+        $this->maxRedirects = $value;
     }
 
 
@@ -187,17 +183,12 @@ class Config {
                 $this->autoPurgeMinimumInterval . "\n" .
             'autoPurgeCount = ' .
                 $this->autoPurgeCount . "\n" .
-            'cacheDuration = ' .
-                $this->cacheDuration . "\n" .
+            'maxRedirects = ' .
+                $this->maxRedirects . "\n" .
             'feedFetcherTimeout = ' .
                 $this->feedFetcherTimeout . "\n" .
             'useCronUpdates = ' .
-                var_export($this->useCronUpdates, true) . "\n" .
-
-            'proxyHost = ' . $this->proxyHost . "\n" .
-            'proxyPort = ' . $this->proxyPort . "\n" .
-            'proxyUser = ' . $this->proxyUser . "\n" .
-            'proxyPassword = ' . $this->proxyPassword;
+                var_export($this->useCronUpdates, true);
         ;
 
         $this->fileSystem->file_put_contents($configPath, $ini);

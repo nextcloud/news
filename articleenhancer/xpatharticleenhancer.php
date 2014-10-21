@@ -17,36 +17,27 @@ use \DOMDocument;
 use \DOMXpath;
 
 use \ZendXml\Security;
+use \OCA\News\Utility\PicoFeedClientFactory;
 
 use \OCA\News\Db\Item;
-use \OCA\News\Utility\SimplePieAPIFactory;
-use \OCA\News\Config\Config;
-
-
 
 class XPathArticleEnhancer implements ArticleEnhancer {
 
-
-    private $fileFactory;
     private $maximumTimeout;
-    private $config;
+    private $clientFactory;
     private $regexXPathPair;
 
 
     /**
-     * @param \OCA\News\Utility\SimplePieAPIFactory $fileFactory
+     * @param \Utility\PicoFeedClientFactory $clientFactory
      * @param array $regexXPathPair an associative array containing regex to
      * match the url and the xpath that should be used for it to extract the
      * page
-     * @param \OCA\News\Config\Config $config
      */
-    public function __construct(SimplePieAPIFactory $fileFactory,
-                                array $regexXPathPair,
-                                Config $config){
-        $this->fileFactory = $fileFactory;
+    public function __construct(PicoFeedClientFactory $clientFactory,
+                                array $regexXPathPair){
+        $this->clientFactory = $clientFactory;
         $this->regexXPathPair = $regexXPathPair;
-        $this->config = $config;
-        $this->maximumTimeout = $config->getFeedFetcherTimeout();
     }
 
     /**
@@ -58,12 +49,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
         foreach($this->regexXPathPair as $regex => $search) {
 
             if(preg_match($regex, $item->getUrl())) {
-                $file = $this->getFile($item->getUrl());
-
-                // convert encoding by detecting charset from header
-                $contentType = $file->headers['content-type'];
-                $body = $file->body;
-
+                list($body, $contentType) = $this->getFile($item->getUrl());
                 if(preg_match('/(?<=charset=)[^;]*/', $contentType, $matches)) {
                     $encoding = $matches[0];
                     $body = mb_convert_encoding($body, 'HTML-ENTITIES',
@@ -103,9 +89,13 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 
 
     private function getFile($url) {
-        return $this->fileFactory->getFile(
-            $url, $this->maximumTimeout, 5, null, 'Mozilla/5.0 AppleWebKit'
-        );
+        $client = $this->clientFactory->build();
+        $client->execute($url);
+        $client->setUserAgent('Mozilla/5.0 AppleWebKit');
+        return [
+            $client->getContent(),
+            $client->getEncoding()
+        ];
     }
 
 

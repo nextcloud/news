@@ -38,7 +38,7 @@ class AdminController extends Controller {
             'autoPurgeMinimumInterval' =>
                 $this->config->getAutoPurgeMinimumInterval(),
             'autoPurgeCount' => $this->config->getAutoPurgeCount(),
-            'cacheDuration' => $this->config->getCacheDuration(),
+            'maxRedirects' => $this->config->getMaxRedirects(),
             'feedFetcherTimeout' => $this->config->getFeedFetcherTimeout(),
             'useCronUpdates' => $this->config->getUseCronUpdates(),
         ];
@@ -49,17 +49,17 @@ class AdminController extends Controller {
     /**
      * @param int $autoPurgeMinimumInterval
      * @param int $autoPurgeCount
-     * @param int $cacheDuration
+     * @param int $maxRedirects
      * @param int $feedFetcherTimeout
      * @param bool $useCronUpdates
      * @return array with the updated values
      */
     public function update($autoPurgeMinimumInterval, $autoPurgeCount,
-                           $cacheDuration, $feedFetcherTimeout,
+                           $maxRedirects, $feedFetcherTimeout,
                            $useCronUpdates) {
         $this->config->setAutoPurgeMinimumInterval($autoPurgeMinimumInterval);
         $this->config->setAutoPurgeCount($autoPurgeCount);
-        $this->config->setCacheDuration($cacheDuration);
+        $this->config->setMaxRedirects($maxRedirects);
         $this->config->setFeedFetcherTimeout($feedFetcherTimeout);
         $this->config->setUseCronUpdates($useCronUpdates);
         $this->config->write($this->configPath);
@@ -68,7 +68,7 @@ class AdminController extends Controller {
             'autoPurgeMinimumInterval' =>
                 $this->config->getAutoPurgeMinimumInterval(),
             'autoPurgeCount' => $this->config->getAutoPurgeCount(),
-            'cacheDuration' => $this->config->getCacheDuration(),
+            'maxRedirects' => $this->config->getMaxRedirects(),
             'feedFetcherTimeout' => $this->config->getFeedFetcherTimeout(),
             'useCronUpdates' => $this->config->getUseCronUpdates(),
         ];

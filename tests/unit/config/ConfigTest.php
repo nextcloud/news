@@ -42,7 +42,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
     public function testDefaults() {
         $this->assertEquals(60, $this->config->getAutoPurgeMinimumInterval());
         $this->assertEquals(200, $this->config->getAutoPurgeCount());
-        $this->assertEquals(30*60, $this->config->getCacheDuration());
+        $this->assertEquals(10, $this->config->getMaxRedirects());
         $this->assertEquals(60, $this->config->getFeedFetcherTimeout());
         $this->assertEquals(true, $this->config->getUseCronUpdates());
         $this->assertEquals(8080, $this->config->getProxyPort());
@@ -128,13 +128,9 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
     public function testWrite () {
         $json = 'autoPurgeMinimumInterval = 60' . "\n" .
             'autoPurgeCount = 3' . "\n" .
-            'cacheDuration = 1800' . "\n" .
+            'maxRedirects = 10' . "\n" .
             'feedFetcherTimeout = 60' . "\n" .
-            'useCronUpdates = true' . "\n" .
-            'proxyHost = yo man' . "\n" .
-            'proxyPort = 12' . "\n" .
-            'proxyUser = this is a test' . "\n".
-            'proxyPassword = se';
+            'useCronUpdates = true';
         $this->config->setAutoPurgeCount(3);
         $this->config->setProxyHost('yo man');
         $this->config->setProxyPort(12);
@@ -165,13 +161,9 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 
         $json = 'autoPurgeMinimumInterval = 60' . "\n" .
             'autoPurgeCount = 200' . "\n" .
-            'cacheDuration = 1800' . "\n" .
+            'maxRedirects = 10' . "\n" .
             'feedFetcherTimeout = 60' . "\n" .
-            'useCronUpdates = false' . "\n" .
-            'proxyHost = ' . "\n" .
-            'proxyPort = 8080' . "\n" .
-            'proxyUser = ' . "\n" .
-            'proxyPassword = ';
+            'useCronUpdates = false';
 
         $this->fileSystem->expects($this->once())
             ->method('file_put_contents')
@@ -205,11 +197,11 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame(61, $interval);
     }
 
-    public function testCacheDuration() {
-        $this->config->setCacheDuration(21);
-        $duration = $this->config->getCacheDuration();
+    public function testMaxRedirects() {
+        $this->config->setMaxRedirects(21);
+        $redirects = $this->config->getMaxRedirects();
 
-        $this->assertSame(21, $duration);
+        $this->assertSame(21, $redirects);
     }
 
     public function testFeedFetcherTimeout() {

@@ -1,5 +1,5 @@
 owncloud-news (4.001)
-* **Enhancement**: Use cacheDuration instead of simplePieCacheDuration in config.ini
+* **Enhancement**: Get rid of cacheCuration setting and add maxRedirects setting in config.ini
 
 owncloud-news (3.406)
 * **Enhancement**: Make config.ini editable in the admin interface

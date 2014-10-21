@@ -19,78 +19,49 @@ use \OCA\News\Db\Item;
 class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 
     private $testEnhancer;
-    private $fileFactory;
-    private $timeout;
-    private $redirects;
-    private $headers;
-    private $userAgent;
-    private $proxyHost;
-    private $proxyPort;
-    private $proxyAuth;
+    private $client;
+    private $clientFactory;
 
     protected function setUp() {
         $this->timeout = 30;
-        $this->fileFactory = $this
-            ->getMockBuilder('\OCA\News\Utility\SimplePieAPIFactory')
+        $this->clientFactory = $this
+            ->getMockBuilder('\OCA\News\Utility\PicoFeedClientFactory')
             ->disableOriginalConstructor()
             ->getMock();
-        $this->proxyHost = 'test';
-        $this->proxyPort = 3;
-        $this->proxyAuth = 'hi';
-        $this->config = $this->getMockBuilder(
-            '\OCA\News\Config\Config')
+        $this->client = $this
+            ->getMockBuilder('\PicoFeed\Client')
             ->disableOriginalConstructor()
             ->getMock();
-        $this->config->expects($this->any())
-            ->method('getProxyHost')
-            ->will($this->returnValue(''));
-        $this->config->expects($this->any())
-            ->method('getProxyAuth')
-            ->will($this->returnValue($this->proxyAuth));
-        $this->config->expects($this->any())
-            ->method('getProxyPort')
-            ->will($this->returnValue($this->proxyPort));
-        $this->config->expects($this->any())
-            ->method('getFeedFetcherTimeout')
-            ->will($this->returnValue($this->timeout));
 
         $this->testEnhancer = new XPathArticleEnhancer(
-            $this->fileFactory,
+            $this->clientFactory,
             [
                 '/explosm.net\/comics/' =>
                     '//*[@id=\'maincontent\']/div[2]/div/span',
                 '/explosm.net\/shorts/' => '//*[@id=\'maincontent\']/div/div',
                 '/explosm.net\/all/' => '//body/*',
                 '/themerepublic.net/' => '//*[@class=\'post hentry\']'
-            ],
-            $this->config
+            ]
         );
-        $this->redirects = 5;
-        $this->headers = null;
         $this->userAgent = 'Mozilla/5.0 AppleWebKit';
     }
 
-
-    public function testXPathUsesNoProxy() {
-        $file = new \stdClass;
-        $file->headers = ["content-type"=>"text/html; charset=utf-8"];
-        $file->body = '';
-        $item = new Item();
-        $item->setUrl('https://www.explosm.net/comics/312');
-        $item->setBody('Hello thar');
-
-        $this->fileFactory->expects($this->once())
-            ->method('getFile')
-            ->with($this->equalTo($item->getUrl()),
-                $this->equalTo($this->timeout),
-                $this->equalTo($this->redirects),
-                $this->equalTo($this->headers),
-                $this->equalTo($this->userAgent),
-                $this->equalTo(false))
-            ->will($this->returnValue($file));
-
-        $result = $this->testEnhancer->enhance($item);
-        $this->assertEquals('Hello thar', $result->getBody());
+    private function setUpFile($body, $encoding, $url) {
+        $this->clientFactory->expects($this->once())
+            ->method('build')
+            ->will($this->returnValue($this->client));
+        $this->client->expects($this->once())
+            ->method('execute')
+            ->with($this->equalTo($url));
+        $this->client->expects($this->once())
+            ->method('setUserAgent')
+            ->with($this->equalTo($this->userAgent));
+        $this->client->expects($this->once())
+            ->method('getContent')
+            ->will($this->returnValue($body));
+        $this->client->expects($this->once())
+            ->method('getEncoding')
+            ->will($this->returnValue($encoding));
     }
 
 
@@ -102,9 +73,8 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 
 
     public function testDoesModifiyArticlesThatMatch() {
-        $file = new \stdClass;
-        $file->headers = ["content-type"=>"text/html; charset=utf-8"];
-        $file->body = '<html>
+        $encoding = 'utf-8';
+        $body = '<html>
             <body>
                 <div id="maincontent">
                     <div>nooo</div>
@@ -116,14 +86,7 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
         $item->setUrl('https://www.explosm.net/comics/312');
         $item->setBody('Hello thar');
 
-        $this->fileFactory->expects($this->once())
-            ->method('getFile')
-            ->with($this->equalTo($item->getUrl()),
-                $this->equalTo($this->timeout),
-                $this->equalTo($this->redirects),
-                $this->equalTo($this->headers),
-                $this->equalTo($this->userAgent))
-            ->will($this->returnValue($file));
+        $this->setUpFile($body, $encoding, $item->getUrl());
 
         $result = $this->testEnhancer->enhance($item);
         $this->assertEquals('<div><span>hiho</span></div>', $result->getBody());
@@ -131,9 +94,8 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 
 
     public function testDoesModifiyAllArticlesThatMatch() {
-        $file = new \stdClass;
-        $file->headers = ["content-type"=>"text/html; charset=utf-8"];
-        $file->body = '<html>
+        $encoding = 'utf-8';
+        $body = '<html>
             <body>
                 <div id="maincontent">
                     <div>nooo<div>hiho</div></div>
@@ -145,14 +107,7 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
         $item->setUrl('https://www.explosm.net/shorts/312');
         $item->setBody('Hello thar');
 
-        $this->fileFactory->expects($this->once())
-            ->method('getFile')
-            ->with($this->equalTo($item->getUrl()),
-                $this->equalTo($this->timeout),
-                $this->equalTo($this->redirects),
-                $this->equalTo($this->headers),
-                $this->equalTo($this->userAgent))
-            ->will($this->returnValue($file));
+        $this->setUpFile($body, $encoding, $item->getUrl());
 
         $result = $this->testEnhancer->enhance($item);
         $this->assertEquals('<div><div>hiho</div><div>rawr</div></div>',
@@ -161,9 +116,8 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 
 
     public function testModificationHandlesEmptyResults() {
-        $file = new \stdClass;
-        $file->headers = ["content-type"=>"text/html; charset=utf-8"];
-        $file->body = '<html>
+        $encoding = 'utf-8';
+        $body = '<html>
             <body>
                 <div id="maincontent">
                 </div>
@@ -173,14 +127,7 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
         $item->setUrl('https://www.explosm.net/comics/312');
         $item->setBody('Hello thar');
 
-        $this->fileFactory->expects($this->once())
-            ->method('getFile')
-            ->with($this->equalTo($item->getUrl()),
-                $this->equalTo($this->timeout),
-                $this->equalTo($this->redirects),
-                $this->equalTo($this->headers),
-                $this->equalTo($this->userAgent))
-            ->will($this->returnValue($file));
+        $this->setUpFile($body, $encoding, $item->getUrl());
 
         $result = $this->testEnhancer->enhance($item);
         $this->assertEquals('Hello thar', $result->getBody());
@@ -188,21 +135,13 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 
 
     public function testModificationDoesNotBreakOnEmptyDom() {
-        $file = new \stdClass;
-        $file->headers = ["content-type"=>"text/html; charset=utf-8"];
-        $file->body = '';
+        $encoding = 'utf-8';
+        $body = '';
         $item = new Item();
         $item->setUrl('https://www.explosm.net/comics/312');
         $item->setBody('Hello thar');
 
-        $this->fileFactory->expects($this->once())
-            ->method('getFile')
-            ->with($this->equalTo($item->getUrl()),
-                $this->equalTo($this->timeout),
-                $this->equalTo($this->redirects),
-                $this->equalTo($this->headers),
-                $this->equalTo($this->userAgent))
-            ->will($this->returnValue($file));
+        $this->setUpFile($body, $encoding, $item->getUrl());
 
         $result = $this->testEnhancer->enhance($item);
         $this->assertEquals('Hello thar', $result->getBody());
@@ -210,9 +149,8 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 
 
     public function testModificationDoesNotBreakOnBrokenDom() {
-        $file = new \stdClass;
-        $file->headers = ["content-type"=>"text/html; charset=utf-8"];
-        $file->body = '<html/><p>
+        $encoding = 'utf-8';
+        $body = '<html/><p>
             <body>
                 <div id="maincontent">
                 </div>
@@ -222,14 +160,7 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
         $item->setUrl('https://www.explosm.net/comics/312');
         $item->setBody('Hello thar');
 
-        $this->fileFactory->expects($this->once())
-            ->method('getFile')
-            ->with($this->equalTo($item->getUrl()),
-                $this->equalTo($this->timeout),
-                $this->equalTo($this->redirects),
-                $this->equalTo($this->headers),
-                $this->equalTo($this->userAgent))
-            ->will($this->returnValue($file));
+        $this->setUpFile($body, $encoding, $item->getUrl());
 
         $result = $this->testEnhancer->enhance($item);
         $this->assertEquals('Hello thar', $result->getBody());
@@ -237,9 +168,8 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 
 
     public function testTransformRelativeUrls() {
-        $file = new \stdClass;
-        $file->headers = ["content-type"=>"text/html; charset=utf-8"];
-        $file->body = '<html>
+        $encoding = 'utf-8';
+        $body = '<html>
             <body>
                 <a href="../a/relative/url.html?a=1#b">link</a>
                 <a href="b/relative/url.html">link2</a>
@@ -250,14 +180,7 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
         $item->setUrl('https://www.explosm.net/all/312');
         $item->setBody('Hello thar');
 
-        $this->fileFactory->expects($this->once())
-            ->method('getFile')
-            ->with($this->equalTo($item->getUrl()),
-                $this->equalTo($this->timeout),
-                $this->equalTo($this->redirects),
-                $this->equalTo($this->headers),
-                $this->equalTo($this->userAgent))
-            ->will($this->returnValue($file));
+        $this->setUpFile($body, $encoding, $item->getUrl());
 
         $result = $this->testEnhancer->enhance($item);
         $this->assertEquals('<div>' .
@@ -272,9 +195,8 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testTransformRelativeUrlSpecials() {
-        $file = new \stdClass;
-        $file->headers = ["content-type"=>"text/html; charset=utf-8"];
-        $file->body = '<html>
+        $encoding = 'utf-8';
+        $body = '<html>
             <body>
                 <img src="relative/url.png?a=1&b=2">
             </body>
@@ -283,14 +205,7 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
         $item->setUrl('https://username:secret@www.explosm.net/all/312');
         $item->setBody('Hello thar');
 
-        $this->fileFactory->expects($this->once())
-            ->method('getFile')
-            ->with($this->equalTo($item->getUrl()),
-                $this->equalTo($this->timeout),
-                $this->equalTo($this->redirects),
-                $this->equalTo($this->headers),
-                $this->equalTo($this->userAgent))
-            ->will($this->returnValue($file));
+        $this->setUpFile($body, $encoding, $item->getUrl());
 
         $result = $this->testEnhancer->enhance($item);
         $this->assertEquals(
@@ -301,9 +216,8 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testDontTransformAbsoluteUrlsAndMails() {
-        $file = new \stdClass;
-        $file->headers = ["content-type"=>"text/html; charset=utf-8"];
-        $file->body = '<html>
+        $encoding = 'utf-8';
+        $body = '<html>
             <body>
                 <img src="http://www.url.com/absolute/url.png">
                 <a href="mailto:test@testsite.com">mail</a>
@@ -313,14 +227,7 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
         $item->setUrl('https://www.explosm.net/all/312');
         $item->setBody('Hello thar');
 
-        $this->fileFactory->expects($this->once())
-            ->method('getFile')
-            ->with($this->equalTo($item->getUrl()),
-                $this->equalTo($this->timeout),
-                $this->equalTo($this->redirects),
-                $this->equalTo($this->headers),
-                $this->equalTo($this->userAgent))
-            ->will($this->returnValue($file));
+        $this->setUpFile($body, $encoding, $item->getUrl());
 
         $result = $this->testEnhancer->enhance($item);
         $this->assertEquals(

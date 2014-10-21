@@ -20,7 +20,6 @@ require_once __DIR__ . '/../3rdparty/autoload.php';
 
 // non composer libs
 $thirdPartyLibs = [
-    '\SimplePie' => 'simplepie/autoloader.php',
     '\ZendXML\Security' => 'ZendXml/vendor/autoload.php',
 ];
 

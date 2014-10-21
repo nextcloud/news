@@ -45,7 +45,7 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase {
         $expected = [
             'autoPurgeMinimumInterval' => 1,
             'autoPurgeCount' => 2,
-            'cacheDuration' => 3,
+            'maxRedirects' => 3,
             'feedFetcherTimeout' => 4,
             'useCronUpdates' => 5
         ];
@@ -56,8 +56,8 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase {
             ->method('getAutoPurgeCount')
             ->will($this->returnValue($expected['autoPurgeCount']));
         $this->config->expects($this->once())
-            ->method('getCacheDuration')
-            ->will($this->returnValue($expected['cacheDuration']));
+            ->method('getMaxRedirects')
+            ->will($this->returnValue($expected['maxRedirects']));
         $this->config->expects($this->once())
             ->method('getFeedFetcherTimeout')
             ->will($this->returnValue($expected['feedFetcherTimeout']));
@@ -80,7 +80,7 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase {
         $expected = [
             'autoPurgeMinimumInterval' => 1,
             'autoPurgeCount' => 2,
-            'cacheDuration' => 3,
+            'maxRedirects' => 3,
             'feedFetcherTimeout' => 4,
             'useCronUpdates' => 5
         ];
@@ -92,8 +92,8 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase {
             ->method('setAutoPurgeCount')
             ->with($this->equalTo($expected['autoPurgeCount']));
         $this->config->expects($this->once())
-            ->method('setCacheDuration')
-            ->with($this->equalTo($expected['cacheDuration']));
+            ->method('setMaxRedirects')
+            ->with($this->equalTo($expected['maxRedirects']));
         $this->config->expects($this->once())
             ->method('setFeedFetcherTimeout')
             ->with($this->equalTo($expected['feedFetcherTimeout']));
@@ -111,8 +111,8 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase {
             ->method('getAutoPurgeCount')
             ->will($this->returnValue($expected['autoPurgeCount']));
         $this->config->expects($this->once())
-            ->method('getCacheDuration')
-            ->will($this->returnValue($expected['cacheDuration']));
+            ->method('getMaxRedirects')
+            ->will($this->returnValue($expected['maxRedirects']));
         $this->config->expects($this->once())
             ->method('getFeedFetcherTimeout')
             ->will($this->returnValue($expected['feedFetcherTimeout']));
@@ -123,7 +123,7 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase {
         $response = $this->controller->update(
             $expected['autoPurgeMinimumInterval'],
             $expected['autoPurgeCount'],
-            $expected['cacheDuration'],
+            $expected['maxRedirects'],
             $expected['feedFetcherTimeout'],
             $expected['useCronUpdates']
         );

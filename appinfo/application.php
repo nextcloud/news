@@ -17,7 +17,8 @@ require_once __DIR__ . '/autoload.php';
 
 use \PicoFeed\Reader as PicoFeedReader;
 use \PicoFeed\Config as PicoFeedConfig;
-use \PicoFeed\Favicon;
+use \PicoFeed\Client as PicoFeedClient;
+use \PicoFeed\Favicon as PicoFeedFavicon;
 
 use \OC\Files\View;
 use \OCP\AppFramework\App;
@@ -49,7 +50,7 @@ use \OCA\News\Db\MapperFactory;
 
 use \OCA\News\Utility\OPMLExporter;
 use \OCA\News\Utility\Updater;
-use \OCA\News\Utility\SimplePieAPIFactory;
+use \OCA\News\Utility\PicoFeedClientFactory;
 use \OCA\News\Utility\FaviconFetcher;
 
 use \OCA\News\Fetcher\Fetcher;
@@ -346,16 +347,6 @@ class Application extends App {
             return $config;
         });
 
-        $container->registerService('simplePieCacheDirectory', function($c) {
-            $directory = $c->query('CoreConfig')
-                ->getSystemValue('datadirectory') . '/news/cache/simplepie';
-
-            if(!is_dir($directory)) {
-                mkdir($directory, 0770, true);
-            }
-            return $directory;
-        });
-
         $container->registerService('HTMLPurifier', function($c) {
             $directory = $c->query('CoreConfig')
                 ->getSystemValue('datadirectory') . '/news/cache/purifier';
@@ -390,9 +381,8 @@ class Application extends App {
             $xpathEnhancerConfig = json_decode($xpathEnhancerConfig, true);
             foreach($xpathEnhancerConfig as $feed => $config) {
                 $articleEnhancer = new XPathArticleEnhancer(
-                    $c->query('SimplePieAPIFactory'),
-                    $config,
-                    $c->query('Config')
+                    $c->query('PicoFeedClientFactory'),
+                    $config
                 );
                 $enhancer->registerEnhancer($feed, $articleEnhancer);
             }
@@ -430,7 +420,7 @@ class Application extends App {
                     ' (+https://owncloud.org/; 1 subscriber;)'
                 )
                 ->setClientTimeout($config->getFeedFetcherTimeout())
-                ->setMaxRedirections(10)
+                ->setMaxRedirections($config->getMaxRedirects())
                 ->setContentFiltering(false);
 
             // proxy settings
@@ -459,6 +449,15 @@ class Application extends App {
             return $pico;
         });
 
+        $container->registerService('PicoFeedReader', function($c) {
+            return new PicoFeedReader($c->query('PicoFeedConfig'));
+        });
+
+        $container->registerService('PicoFeedClientFactory', function($c) {
+            return new PicoFeedClientFactory($c->query('PicoFeedConfig'));
+        });
+
+
         $container->registerService('Fetcher', function($c) {
             $fetcher = new Fetcher();
 
@@ -470,12 +469,10 @@ class Application extends App {
         });
 
         $container->registerService('FeedFetcher', function($c) {
-            return new FeedFetcher($c->query('SimplePieAPIFactory'),
+            return new FeedFetcher(
+                $c->query('PicoFeedReader'),
                 $c->query('FaviconFetcher'),
-                $c->query('TimeFactory'),
-                $c->query('simplePieCacheDirectory'),
-                $c->query('Config'),
-                $c->query('AppConfig')
+                $c->query('TimeFactory')
             );
         });
 
@@ -495,12 +492,9 @@ class Application extends App {
             );
         });
 
-        $container->registerService('SimplePieAPIFactory', function() {
-            return new SimplePieAPIFactory();
-        });
 
         $container->registerService('FaviconFetcher', function($c) {
-            return new Favicon(
+            return new PicoFeedFavicon(
                 $c->query('PicoFeedConfig')
             );
         });

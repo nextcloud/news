@@ -21,8 +21,8 @@
             $('#news input[name="news-auto-purge-minimum-interval"]');
         var autoPurgeCountInput =
             $('#news input[name="news-auto-purge-count"]');
-        var cacheDurationInput =
-            $('#news input[name="news-cache-duration"]');
+        var maxRedirectsInput =
+            $('#news input[name="news-max-redirects"]');
         var feedFetcherTimeoutInput =
             $('#news input[name="news-feed-fetcher-timeout"]');
         var savedMessage = $('#news-saved-message');
@@ -42,7 +42,7 @@
         var submit = function () {
             var autoPurgeMinimumInterval = autoPurgeMinimumIntervalInput.val();
             var autoPurgeCount = autoPurgeCountInput.val();
-            var cacheDuration = cacheDurationInput.val();
+            var maxRedirects = maxRedirectsInput.val();
             var feedFetcherTimeout = feedFetcherTimeoutInput.val();
             var useCronUpdates = useCronUpdatesInput.is(':checked');
 
@@ -50,7 +50,7 @@
                 autoPurgeMinimumInterval:
                     parseInt(autoPurgeMinimumInterval, 10),
                 autoPurgeCount: parseInt(autoPurgeCount, 10),
-                cacheDuration: parseInt(cacheDuration, 10),
+                maxRedirects: parseInt(maxRedirects, 10),
                 feedFetcherTimeout: parseInt(feedFetcherTimeout, 10),
                 useCronUpdates: useCronUpdates
             };
@@ -68,7 +68,7 @@
                 autoPurgeMinimumIntervalInput
                     .val(data.autoPurgeMinimumInterval);
                 autoPurgeCountInput.val(data.autoPurgeCount);
-                cacheDurationInput.val(data.cacheDuration);
+                maxRedirectsInput.val(data.maxRedirects);
                 feedFetcherTimeoutInput.val(data.feedFetcherTimeout);
                 useCronUpdatesInput.prop('checked', data.useCronUpdates);
             });
