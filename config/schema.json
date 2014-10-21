@@ -115,19 +115,11 @@
       },
       "additionalProperties": false
     },
-    "databases": {
-      "type": "array",
-      "items": {
-        "type": "string",
-        "enum": ["pgsql", "mysql", "sqlite3", "mssql", "oracle"]
-      },
-      "uniqueItems": true
-    },
     "categories": {
       "type": "array",
       "items": {
         "type": "string",
-        "enum": ["Filesystem", "Authentication", "PIM", "Multimedia", 
+        "enum": ["Filesystem", "Authentication", "PIM", "Multimedia",
                  "Productivity", "Games", "Tools", "Other"]
       },
       "minItems": 1,
@@ -136,6 +128,14 @@
     "dependencies": {
       "type": "object",
       "properties": {
+        "databases": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["pgsql", "mysql", "sqlite3", "mssql", "oracle"]
+          },
+          "uniqueItems": true
+        },
         "php": {
           "type": "string",
           "pattern": "^((=|<|>|<=|>=)?[0-9]+(\\.[0-9]+)*(,(=|<|>|<=|>=)?[0-9]+(\\.[0-9]+)*)*|\\*)$"
@@ -167,11 +167,11 @@
     }
   },
   "required": [
-    "name", 
-    "id", 
-    "description", 
-    "licence", 
-    "version", 
+    "name",
+    "id",
+    "description",
+    "licence",
+    "version",
     "authors",
     "repository"
   ],

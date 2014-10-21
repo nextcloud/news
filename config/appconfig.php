@@ -150,9 +150,9 @@ class AppConfig {
 	}
 
 
-	private function testDatabaseDependencies() {
-		if(array_key_exists('databases', $this->config)) {
-			$databases = $this->config['databases'];
+	private function testDatabaseDependencies($deps) {
+		if(array_key_exists('databases', $deps)) {
+			$databases = $deps['databases'];
 			$databaseType = $this->databaseType;
 
 			if(!in_array($databaseType, $databases)) {
@@ -161,41 +161,33 @@ class AppConfig {
 				implode(', ', $databases);
 			}
 		}
+
 		return '';
 	}
 
 
-	private function testPHPDependencies() {
-		if(array_key_exists('dependencies', $this->config)) {
-
-			$deps = $this->config['dependencies'];
-
-			if (array_key_exists('php', $deps)) {
-				return $this->requireVersion($this->phpVersion, $deps['php'],
-					'PHP');
-			}
-
+	private function testPHPDependencies($deps) {
+		if (array_key_exists('php', $deps)) {
+			return $this->requireVersion($this->phpVersion, $deps['php'],
+				'PHP');
 		}
+
 		return '';
 	}
 
 
-	private function testLibraryDependencies() {
-		if(array_key_exists('dependencies', $this->config)) {
-
-			$deps = $this->config['dependencies'];
-
-			if (array_key_exists('libs', $deps)) {
-				foreach ($deps['libs'] as $lib => $versions) {
-					if(array_key_exists($lib, $this->installedExtensions)) {
-						return $this->requireVersion($this->installedExtensions[$lib],
-							$versions, 'PHP extension ' . $lib);
-					} else {
-						return 'PHP extension ' . $lib . ' required but not installed';
-					}
+	private function testLibraryDependencies($deps) {
+		if (array_key_exists('libs', $deps)) {
+			foreach ($deps['libs'] as $lib => $versions) {
+				if(array_key_exists($lib, $this->installedExtensions)) {
+					return $this->requireVersion($this->installedExtensions[$lib],
+						$versions, 'PHP extension ' . $lib);
+				} else {
+					return 'PHP extension ' . $lib . ' required but not installed';
 				}
 			}
 		}
+
 		return '';
 	}
 
@@ -205,12 +197,16 @@ class AppConfig {
 	 * @throws DependencyException if one version is not satisfied
 	 */
 	public function testDependencies() {
-		$msg = $this->testDatabaseDependencies();
-		$msg .= $this->testPHPDependencies();
-		$msg .= $this->testLibraryDependencies();
+		if(array_key_exists('dependencies', $this->config)) {
+			$deps = $this->config['dependencies'];
 
-		if($msg !== '') {
-			throw new DependencyException($msg);
+			$msg = $this->testDatabaseDependencies($deps);
+			$msg .= $this->testPHPDependencies($deps);
+			$msg .= $this->testLibraryDependencies($deps);
+
+			if($msg !== '') {
+				throw new DependencyException($msg);
+			}
 		}
 	}
 

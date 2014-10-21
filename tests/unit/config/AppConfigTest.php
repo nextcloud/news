@@ -180,8 +180,8 @@ class AppConfigTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testSupportedDb() {
 		$this->config->loadConfig([
-			'databases' => [
-				'pgsql', 'sqlite'
+			'dependencies' => [
+				"databases" => ['pgsql', 'sqlite']
 			]
 		]);
 		$this->config->testDependencies();
