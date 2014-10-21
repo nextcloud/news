@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-10-05 01:01-0400\n"
-"PO-Revision-Date: 2014-10-05 05:01+0000\n"
+"POT-Creation-Date: 2014-10-21 01:01-0400\n"
+"PO-Revision-Date: 2014-10-21 05:01+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: Spanish (Uruguay) (http://www.transifex.com/projects/p/owncloud/language/es_UY/)\n"
 "MIME-Version: 1.0\n"
@@ -35,94 +35,154 @@ msgstr ""
 msgid "Can not add folder: Exists already"
 msgstr ""
 
-#: templates/part.content.php:3
+#: templates/part.content.firstrun.php:3
 msgid "Add a feed"
 msgstr ""
 
-#: templates/part.content.php:4
+#: templates/part.content.firstrun.php:4
 msgid "There are no feeds yet. Go ahead and add some"
 msgstr ""
 
-#: templates/part.content.php:5
+#: templates/part.content.firstrun.php:5
 msgid "Import feeds and articles"
 msgstr ""
 
-#: templates/part.content.php:12
+#: templates/part.content.php:7 templates/part.content.shortcuts.php:38
 msgid "Refresh"
 msgstr ""
 
-#: templates/part.content.php:28
+#: templates/part.content.php:23
 msgid "Open website"
 msgstr ""
 
-#: templates/part.content.php:44
+#: templates/part.content.php:39
 msgid "Star article"
 msgstr ""
 
-#: templates/part.content.php:45
+#: templates/part.content.php:40
 msgid "Unstar article"
 msgstr ""
 
-#: templates/part.content.php:48
+#: templates/part.content.php:43
 msgid "Keep article unread"
 msgstr ""
 
-#: templates/part.content.php:49
+#: templates/part.content.php:44
 msgid "Remove keep article unread"
 msgstr ""
 
-#: templates/part.content.php:70
+#: templates/part.content.php:65
 msgid "by"
 msgstr ""
 
-#: templates/part.content.php:71
+#: templates/part.content.php:66
 msgid "from"
 msgstr ""
 
-#: templates/part.content.php:80
+#: templates/part.content.php:75
 msgid "Browser can not play media type"
 msgstr ""
 
-#: templates/part.content.php:86
+#: templates/part.content.php:81
 msgid "Download"
 msgstr ""
 
+#: templates/part.content.shortcuts.php:5
+msgid "Keyboard shortcut"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:6
+msgid "Description"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:9
+msgid "right"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:10
+msgid "Jump to next article"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:13
+msgid "left"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:14
+msgid "Jump to previous article"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:18
+msgid "Toggle star article"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:22
+msgid "Star article and jump to next one"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:26
+msgid "Toggle keep current article unread"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:30
+msgid "Open article in new tab"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:34
+msgid "Toggle expand article in compact view"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:42
+msgid "Load next feed"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:46
+msgid "Load previous feed"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:50
+msgid "Load next folder"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:54
+msgid "Load previous folder"
+msgstr ""
+
 #: templates/part.navigation.addfeed.php:5
-#: templates/part.navigation.addfeed.php:58
+#: templates/part.navigation.addfeed.php:66
 msgid "Subscribe"
 msgstr ""
 
-#: templates/part.navigation.addfeed.php:15
+#: templates/part.navigation.addfeed.php:18
 msgid "Web address"
 msgstr ""
 
-#: templates/part.navigation.addfeed.php:22
+#: templates/part.navigation.addfeed.php:25
 msgid "Feed exists already!"
 msgstr ""
 
-#: templates/part.navigation.addfeed.php:27
+#: templates/part.navigation.addfeed.php:30
 msgid "Folder"
 msgstr ""
 
-#: templates/part.navigation.addfeed.php:31
+#: templates/part.navigation.addfeed.php:34
 msgid "No folder"
 msgstr ""
 
-#: templates/part.navigation.addfeed.php:36
+#: templates/part.navigation.addfeed.php:39
 msgid "New folder"
 msgstr ""
 
-#: templates/part.navigation.addfeed.php:44
+#: templates/part.navigation.addfeed.php:52
 #: templates/part.navigation.addfolder.php:16
 #: templates/part.navigation.addfolder.php:17
 msgid "Folder name"
 msgstr ""
 
-#: templates/part.navigation.addfeed.php:51
+#: templates/part.navigation.addfeed.php:59
 msgid "Go back"
 msgstr ""
 
-#: templates/part.navigation.addfeed.php:55
+#: templates/part.navigation.addfeed.php:63
 #: templates/part.navigation.addfolder.php:21
 #: templates/part.navigation.folder.php:52
 msgid "Folder exists already!"
@@ -209,43 +269,47 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: templates/part.settings.php:13
+#: templates/part.settings.php:11
+msgid "Keyboard shortcuts"
+msgstr ""
+
+#: templates/part.settings.php:17
 msgid "Compact view"
 msgstr ""
 
-#: templates/part.settings.php:20
+#: templates/part.settings.php:24
 msgid "Show all articles"
 msgstr ""
 
-#: templates/part.settings.php:27
+#: templates/part.settings.php:31
 msgid "Reverse ordering"
 msgstr ""
 
-#: templates/part.settings.php:34
+#: templates/part.settings.php:38
 msgid "Disable mark read through scrolling"
 msgstr ""
 
-#: templates/part.settings.php:40
+#: templates/part.settings.php:43
 msgid "Subscriptions (OPML)"
 msgstr ""
 
-#: templates/part.settings.php:47 templates/part.settings.php:81
+#: templates/part.settings.php:50 templates/part.settings.php:84
 msgid "Import"
 msgstr ""
 
-#: templates/part.settings.php:54 templates/part.settings.php:63
-#: templates/part.settings.php:88 templates/part.settings.php:95
+#: templates/part.settings.php:57 templates/part.settings.php:66
+#: templates/part.settings.php:91 templates/part.settings.php:98
 msgid "Export"
 msgstr ""
 
-#: templates/part.settings.php:69
+#: templates/part.settings.php:72
 msgid "Error when importing: file does not contain valid OPML"
 msgstr ""
 
-#: templates/part.settings.php:73
+#: templates/part.settings.php:76
 msgid "Unread/Starred Articles"
 msgstr ""
 
-#: templates/part.settings.php:101
+#: templates/part.settings.php:104
 msgid "Error when importing: file does not contain valid JSON"
 msgstr ""

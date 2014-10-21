@@ -24,8 +24,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-10-17 01:01-0400\n"
-"PO-Revision-Date: 2014-10-16 06:11+0000\n"
+"POT-Creation-Date: 2014-10-21 01:01-0400\n"
+"PO-Revision-Date: 2014-10-21 05:01+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/owncloud/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -52,57 +52,117 @@ msgstr "Artículos sin fuente"
 msgid "Can not add folder: Exists already"
 msgstr "No se puede agregar carpeta: ya existe"
 
-#: templates/part.content.php:3
+#: templates/part.content.firstrun.php:3
 msgid "Add a feed"
 msgstr "Añadir fuente"
 
-#: templates/part.content.php:4
+#: templates/part.content.firstrun.php:4
 msgid "There are no feeds yet. Go ahead and add some"
 msgstr "No hay fuentes todavía. Continúe y añada alguna"
 
-#: templates/part.content.php:5
+#: templates/part.content.firstrun.php:5
 msgid "Import feeds and articles"
 msgstr "Importar fuentes y artículos"
 
-#: templates/part.content.php:12
+#: templates/part.content.php:7 templates/part.content.shortcuts.php:38
 msgid "Refresh"
 msgstr "Actualizar"
 
-#: templates/part.content.php:28
+#: templates/part.content.php:23
 msgid "Open website"
 msgstr "Abrir página web"
 
-#: templates/part.content.php:44
+#: templates/part.content.php:39
 msgid "Star article"
 msgstr "Añadir artículo a favoritos"
 
-#: templates/part.content.php:45
+#: templates/part.content.php:40
 msgid "Unstar article"
 msgstr "Quitar artículo de favoritos"
 
-#: templates/part.content.php:48
+#: templates/part.content.php:43
 msgid "Keep article unread"
 msgstr "Mantener el artículo como no-leído."
 
-#: templates/part.content.php:49
+#: templates/part.content.php:44
 msgid "Remove keep article unread"
 msgstr "Elimina mantener el artículo como no-leído."
 
-#: templates/part.content.php:70
+#: templates/part.content.php:65
 msgid "by"
 msgstr "por"
 
-#: templates/part.content.php:71
+#: templates/part.content.php:66
 msgid "from"
 msgstr "de"
 
-#: templates/part.content.php:80
+#: templates/part.content.php:75
 msgid "Browser can not play media type"
 msgstr "El navegador no puede reproducir tipos multimedia"
 
-#: templates/part.content.php:86
+#: templates/part.content.php:81
 msgid "Download"
 msgstr "Descargar"
+
+#: templates/part.content.shortcuts.php:5
+msgid "Keyboard shortcut"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:6
+msgid "Description"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:9
+msgid "right"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:10
+msgid "Jump to next article"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:13
+msgid "left"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:14
+msgid "Jump to previous article"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:18
+msgid "Toggle star article"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:22
+msgid "Star article and jump to next one"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:26
+msgid "Toggle keep current article unread"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:30
+msgid "Open article in new tab"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:34
+msgid "Toggle expand article in compact view"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:42
+msgid "Load next feed"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:46
+msgid "Load previous feed"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:50
+msgid "Load next folder"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:54
+msgid "Load previous folder"
+msgstr ""
 
 #: templates/part.navigation.addfeed.php:5
 #: templates/part.navigation.addfeed.php:66
@@ -226,43 +286,47 @@ msgstr "Todos los artículos"
 msgid "Settings"
 msgstr "Ajustes"
 
-#: templates/part.settings.php:13
+#: templates/part.settings.php:11
+msgid "Keyboard shortcuts"
+msgstr ""
+
+#: templates/part.settings.php:17
 msgid "Compact view"
 msgstr "Vista compacta"
 
-#: templates/part.settings.php:20
+#: templates/part.settings.php:24
 msgid "Show all articles"
 msgstr "Mostrar todos los artículos"
 
-#: templates/part.settings.php:27
+#: templates/part.settings.php:31
 msgid "Reverse ordering"
 msgstr "Orden inverso"
 
-#: templates/part.settings.php:34
+#: templates/part.settings.php:38
 msgid "Disable mark read through scrolling"
 msgstr "Deshabilitar la marca de lectura al realizar el desplazamiento."
 
-#: templates/part.settings.php:40
+#: templates/part.settings.php:43
 msgid "Subscriptions (OPML)"
 msgstr "Subscripciones (OPML)"
 
-#: templates/part.settings.php:47 templates/part.settings.php:81
+#: templates/part.settings.php:50 templates/part.settings.php:84
 msgid "Import"
 msgstr "Importar"
 
-#: templates/part.settings.php:54 templates/part.settings.php:63
-#: templates/part.settings.php:88 templates/part.settings.php:95
+#: templates/part.settings.php:57 templates/part.settings.php:66
+#: templates/part.settings.php:91 templates/part.settings.php:98
 msgid "Export"
 msgstr "Exportar"
 
-#: templates/part.settings.php:69
+#: templates/part.settings.php:72
 msgid "Error when importing: file does not contain valid OPML"
 msgstr "Error al importar: el archivo no contiene OPML válido"
 
-#: templates/part.settings.php:73
+#: templates/part.settings.php:76
 msgid "Unread/Starred Articles"
 msgstr "Artículos no leídos y favoritos"
 
-#: templates/part.settings.php:101
+#: templates/part.settings.php:104
 msgid "Error when importing: file does not contain valid JSON"
 msgstr "Error al importar: el archivo no contiene JSON válido"

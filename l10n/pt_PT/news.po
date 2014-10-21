@@ -9,6 +9,7 @@
 # zedascouves <duartegrilo@gmail.com>, 2012
 # Goncalo Baiao <goncalo.baiao@gmail.com>, 2013
 # Helder Meneses <helder.meneses@gmail.com>, 2012-2013
+# Hugo Bettencourt, 2014
 # Nelson Rosado <nelsontrosado@gmail.com>, 2012
 # Andrew_Melim <nokostya.translation@gmail.com>, 2014
 # rtbfreitas, 2014
@@ -17,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-10-17 01:01-0400\n"
-"PO-Revision-Date: 2014-10-16 06:11+0000\n"
+"POT-Creation-Date: 2014-10-21 01:01-0400\n"
+"PO-Revision-Date: 2014-10-21 05:01+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/owncloud/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -45,57 +46,117 @@ msgstr "Artigos sem feed"
 msgid "Can not add folder: Exists already"
 msgstr "Não é possivel adicionar a pasta: Já existe"
 
-#: templates/part.content.php:3
+#: templates/part.content.firstrun.php:3
 msgid "Add a feed"
-msgstr ""
+msgstr "Adicionar feed"
 
-#: templates/part.content.php:4
+#: templates/part.content.firstrun.php:4
 msgid "There are no feeds yet. Go ahead and add some"
-msgstr ""
+msgstr "Ainda não existem feeds. Adiciona algumas"
 
-#: templates/part.content.php:5
+#: templates/part.content.firstrun.php:5
 msgid "Import feeds and articles"
-msgstr ""
+msgstr "Importar feeds e artigos"
 
-#: templates/part.content.php:12
+#: templates/part.content.php:7 templates/part.content.shortcuts.php:38
 msgid "Refresh"
 msgstr "Actualizar"
 
-#: templates/part.content.php:28
+#: templates/part.content.php:23
 msgid "Open website"
-msgstr ""
+msgstr "Abrir site"
+
+#: templates/part.content.php:39
+msgid "Star article"
+msgstr "Destacar artigo"
+
+#: templates/part.content.php:40
+msgid "Unstar article"
+msgstr "Retirar destaque"
+
+#: templates/part.content.php:43
+msgid "Keep article unread"
+msgstr "Marcar artigo como não lido"
 
 #: templates/part.content.php:44
-msgid "Star article"
-msgstr ""
-
-#: templates/part.content.php:45
-msgid "Unstar article"
-msgstr ""
-
-#: templates/part.content.php:48
-msgid "Keep article unread"
-msgstr ""
-
-#: templates/part.content.php:49
 msgid "Remove keep article unread"
-msgstr ""
+msgstr "Remover marca de artigo não lido"
 
-#: templates/part.content.php:70
+#: templates/part.content.php:65
 msgid "by"
 msgstr "por"
 
-#: templates/part.content.php:71
+#: templates/part.content.php:66
 msgid "from"
 msgstr "de"
 
-#: templates/part.content.php:80
+#: templates/part.content.php:75
 msgid "Browser can not play media type"
-msgstr ""
+msgstr "Browser não pode reproduzir média"
 
-#: templates/part.content.php:86
+#: templates/part.content.php:81
 msgid "Download"
 msgstr "Transferir"
+
+#: templates/part.content.shortcuts.php:5
+msgid "Keyboard shortcut"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:6
+msgid "Description"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:9
+msgid "right"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:10
+msgid "Jump to next article"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:13
+msgid "left"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:14
+msgid "Jump to previous article"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:18
+msgid "Toggle star article"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:22
+msgid "Star article and jump to next one"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:26
+msgid "Toggle keep current article unread"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:30
+msgid "Open article in new tab"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:34
+msgid "Toggle expand article in compact view"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:42
+msgid "Load next feed"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:46
+msgid "Load previous feed"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:50
+msgid "Load next folder"
+msgstr ""
+
+#: templates/part.content.shortcuts.php:54
+msgid "Load previous folder"
+msgstr ""
 
 #: templates/part.navigation.addfeed.php:5
 #: templates/part.navigation.addfeed.php:66
@@ -130,7 +191,7 @@ msgstr "Nome da pasta"
 
 #: templates/part.navigation.addfeed.php:59
 msgid "Go back"
-msgstr ""
+msgstr "Voltar"
 
 #: templates/part.navigation.addfeed.php:63
 #: templates/part.navigation.addfolder.php:21
@@ -140,7 +201,7 @@ msgstr "A pasta já existe!"
 
 #: templates/part.navigation.addfolder.php:5
 msgid "New Folder"
-msgstr ""
+msgstr "Nova Pasta"
 
 #: templates/part.navigation.addfolder.php:24
 msgid "Create"
@@ -148,11 +209,11 @@ msgstr "Criar"
 
 #: templates/part.navigation.feed.php:41
 msgid "Deleted feed"
-msgstr ""
+msgstr "Apagar feed"
 
 #: templates/part.navigation.feed.php:43
 msgid "Undo delete feed"
-msgstr ""
+msgstr "Desfazer apagar feed"
 
 #: templates/part.navigation.feed.php:56
 #: templates/part.navigation.folder.php:46
@@ -162,7 +223,7 @@ msgstr "Renomear"
 #: templates/part.navigation.feed.php:70
 #: templates/part.navigation.folder.php:77
 msgid "Menu"
-msgstr ""
+msgstr "Menu"
 
 #: templates/part.navigation.feed.php:79
 msgid "Rename feed"
@@ -176,12 +237,12 @@ msgstr "Eliminar Feed"
 #: templates/part.navigation.folder.php:92
 #: templates/part.navigation.unreadfeed.php:29
 msgid "Read all"
-msgstr ""
+msgstr "Ler tudo"
 
 #: templates/part.navigation.feed.php:93
 #: templates/part.navigation.folder.php:103
 msgid "Dismiss"
-msgstr ""
+msgstr "Descartar"
 
 #: templates/part.navigation.folder.php:20
 msgid "Collapse"
@@ -189,11 +250,11 @@ msgstr "Expandir"
 
 #: templates/part.navigation.folder.php:26
 msgid "Deleted folder"
-msgstr ""
+msgstr "Apagar pasta"
 
 #: templates/part.navigation.folder.php:28
 msgid "Undo delete folder"
-msgstr ""
+msgstr "Desfazer apagar pasta"
 
 #: templates/part.navigation.folder.php:86
 msgid "Rename folder"
@@ -219,43 +280,47 @@ msgstr "Todos os artigos"
 msgid "Settings"
 msgstr "Configurações"
 
-#: templates/part.settings.php:13
+#: templates/part.settings.php:11
+msgid "Keyboard shortcuts"
+msgstr ""
+
+#: templates/part.settings.php:17
 msgid "Compact view"
-msgstr ""
+msgstr "Vista compacta"
 
-#: templates/part.settings.php:20
+#: templates/part.settings.php:24
 msgid "Show all articles"
-msgstr ""
+msgstr "Mostrar todos os artigos"
 
-#: templates/part.settings.php:27
+#: templates/part.settings.php:31
 msgid "Reverse ordering"
-msgstr ""
+msgstr "Ordem inversa"
 
-#: templates/part.settings.php:34
+#: templates/part.settings.php:38
 msgid "Disable mark read through scrolling"
-msgstr ""
+msgstr "Desactivar marcar ler através de scrolling"
 
-#: templates/part.settings.php:40
+#: templates/part.settings.php:43
 msgid "Subscriptions (OPML)"
 msgstr "Subscrições (OPML)"
 
-#: templates/part.settings.php:47 templates/part.settings.php:81
+#: templates/part.settings.php:50 templates/part.settings.php:84
 msgid "Import"
 msgstr "Importar"
 
-#: templates/part.settings.php:54 templates/part.settings.php:63
-#: templates/part.settings.php:88 templates/part.settings.php:95
+#: templates/part.settings.php:57 templates/part.settings.php:66
+#: templates/part.settings.php:91 templates/part.settings.php:98
 msgid "Export"
 msgstr "Exportar"
 
-#: templates/part.settings.php:69
+#: templates/part.settings.php:72
 msgid "Error when importing: file does not contain valid OPML"
 msgstr "Erro na importação: o ficheiro não contém um OPML válido"
 
-#: templates/part.settings.php:73
+#: templates/part.settings.php:76
 msgid "Unread/Starred Articles"
 msgstr "Artigos por ler"
 
-#: templates/part.settings.php:101
+#: templates/part.settings.php:104
 msgid "Error when importing: file does not contain valid JSON"
 msgstr "Erro ao importar: ficheiro não contém JSON válido"
