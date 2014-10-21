@@ -4,7 +4,7 @@
     id="articles"
      ng-class="{compact: Content.isCompactView(), 'feed-view': Content.isFeed()}">
     <div class="pull-to-refresh" ng-class="{'show-pull-to-refresh': showPullToRefresh}">
-        <button ng-click="Content.refresh()"><?php p($l->t('Refresh')) ?></button>
+        <button ng-click="Content.refresh()"><?php p($l->t('Refresh')) ?> (r)</button>
     </div>
     <ul>
         <li class="item {{ Content.getFeed(item.feedId).cssClass }}"
