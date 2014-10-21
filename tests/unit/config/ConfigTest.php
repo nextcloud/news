@@ -42,7 +42,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
     public function testDefaults() {
         $this->assertEquals(60, $this->config->getAutoPurgeMinimumInterval());
         $this->assertEquals(200, $this->config->getAutoPurgeCount());
-        $this->assertEquals(30*60, $this->config->getSimplePieCacheDuration());
+        $this->assertEquals(30*60, $this->config->getCacheDuration());
         $this->assertEquals(60, $this->config->getFeedFetcherTimeout());
         $this->assertEquals(true, $this->config->getUseCronUpdates());
         $this->assertEquals(8080, $this->config->getProxyPort());
@@ -128,7 +128,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
     public function testWrite () {
         $json = 'autoPurgeMinimumInterval = 60' . "\n" .
             'autoPurgeCount = 3' . "\n" .
-            'simplePieCacheDuration = 1800' . "\n" .
+            'cacheDuration = 1800' . "\n" .
             'feedFetcherTimeout = 60' . "\n" .
             'useCronUpdates = true' . "\n" .
             'proxyHost = yo man' . "\n" .
@@ -165,7 +165,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 
         $json = 'autoPurgeMinimumInterval = 60' . "\n" .
             'autoPurgeCount = 200' . "\n" .
-            'simplePieCacheDuration = 1800' . "\n" .
+            'cacheDuration = 1800' . "\n" .
             'feedFetcherTimeout = 60' . "\n" .
             'useCronUpdates = false' . "\n" .
             'proxyHost = ' . "\n" .
@@ -206,8 +206,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testCacheDuration() {
-        $this->config->setSimplePieCacheDuration(21);
-        $duration = $this->config->getSimplePieCacheDuration();
+        $this->config->setCacheDuration(21);
+        $duration = $this->config->getCacheDuration();
 
         $this->assertSame(21, $duration);
     }

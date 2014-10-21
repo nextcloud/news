@@ -13,6 +13,12 @@
 
 namespace OCA\News\AppInfo;
 
+require_once __DIR__ . '/autoload.php';
+
+use \PicoFeed\Reader as PicoFeedReader;
+use \PicoFeed\Config as PicoFeedConfig;
+use \PicoFeed\Favicon;
+
 use \OC\Files\View;
 use \OCP\AppFramework\App;
 use \OCP\Util;
@@ -55,7 +61,6 @@ use \OCA\News\ArticleEnhancer\XPathArticleEnhancer;
 use \OCA\News\ArticleEnhancer\RegexArticleEnhancer;
 
 
-require_once __DIR__ . '/autoload.php';
 
 class Application extends App {
 
@@ -415,7 +420,43 @@ class Application extends App {
          * Fetchers
          */
         $container->registerService('PicoFeedConfig', function($c) {
+            // FIXME: move this into a separate class for testing?
+            $config = $c->query('Config');
+            $appConfig = $c->query('AppConfig');
 
+            $pico = new PicoFeedConfig();
+            $pico->setClientUserAgent(
+                    'ownCloud News/' . $appConfig->getConfig('version') .
+                    ' (+https://owncloud.org/; 1 subscriber;)'
+                )
+                ->setClientTimeout($config->getFeedFetcherTimeout())
+                ->setMaxRedirections(10)
+                ->setContentFiltering(false);
+
+            // proxy settings
+            $proxy = \OCP\Config::getSystemValue('proxy');
+            if ($proxy) {
+                // we need to filter out the port -.-
+                $url = new \Net_URL2($proxy);
+                $port = $url->getPort();
+                $url->setPort(false);
+                $host = $url->getUrl();
+
+                if ($port) {
+                    $pico->setProxyPort($port);
+                }
+
+                $pico->setProxyHostname($host);
+            }
+
+            $proxyAuth = \OCP\Config::getSystemValue('proxyuserpwd');
+            if ($proxyAuth) {
+                $auth = explode(':', $proxyAuth, 2);
+                $pico->setProxyUsername($auth[0])
+                    ->setProxyPassword($auth[1]);
+            }
+
+            return $pico;
         });
 
         $container->registerService('Fetcher', function($c) {
@@ -459,8 +500,8 @@ class Application extends App {
         });
 
         $container->registerService('FaviconFetcher', function($c) {
-            return new FaviconFetcher(
-                $c->query('SimplePieAPIFactory')
+            return new Favicon(
+                $c->query('PicoFeedConfig')
             );
         });
 

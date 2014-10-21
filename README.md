@@ -166,7 +166,7 @@ The configuration is in **INI** format and looks like this:
 ```ini
 autoPurgeMinimumInterval = 60
 autoPurgeCount = 200
-simplePieCacheDuration = 1800
+cacheDuration = 1800
 feedFetcherTimeout = 60
 useCronUpdates = true
 ```

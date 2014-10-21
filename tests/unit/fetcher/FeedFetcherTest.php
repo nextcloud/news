@@ -83,7 +83,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
             ->disableOriginalConstructor()
             ->getMock();
         $this->faviconFetcher = $this->getMockBuilder(
-            '\OCA\News\Utility\FaviconFetcher')
+            '\PicoFeed\Favicon')
             ->disableOriginalConstructor()
             ->getMock();
         $this->appconfig = $this->getMockBuilder(
@@ -106,7 +106,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
             ->disableOriginalConstructor()
             ->getMock();
         $this->config->expects($this->any())
-            ->method('getSimplePieCacheDuration')
+            ->method('getCacheDuration')
             ->will($this->returnValue($this->cacheDuration));
         $this->config->expects($this->any())
             ->method('getProxyHost')
@@ -317,7 +317,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 
         if($hasWebFavicon) {
             $this->faviconFetcher->expects($this->once())
-                ->method('fetch')
+                ->method('find')
                 ->with($this->equalTo($this->feedLink))
                 ->will($this->returnValue($this->webFavicon));
             $feed->setFaviconLink($this->webFavicon);
@@ -425,7 +425,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
                 ->will($this->returnValue(true));
 
         $this->faviconFetcher->expects($this->once())
-                ->method('fetch')
+                ->method('find')
                 ->will($this->returnValue($this->webFavicon));
 
         $item = $this->createItem(false, 'video/ogg');

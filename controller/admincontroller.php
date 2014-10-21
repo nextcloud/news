@@ -38,7 +38,7 @@ class AdminController extends Controller {
             'autoPurgeMinimumInterval' =>
                 $this->config->getAutoPurgeMinimumInterval(),
             'autoPurgeCount' => $this->config->getAutoPurgeCount(),
-            'cacheDuration' => $this->config->getSimplePieCacheDuration(),
+            'cacheDuration' => $this->config->getCacheDuration(),
             'feedFetcherTimeout' => $this->config->getFeedFetcherTimeout(),
             'useCronUpdates' => $this->config->getUseCronUpdates(),
         ];
@@ -59,7 +59,7 @@ class AdminController extends Controller {
                            $useCronUpdates) {
         $this->config->setAutoPurgeMinimumInterval($autoPurgeMinimumInterval);
         $this->config->setAutoPurgeCount($autoPurgeCount);
-        $this->config->setSimplePieCacheDuration($cacheDuration);
+        $this->config->setCacheDuration($cacheDuration);
         $this->config->setFeedFetcherTimeout($feedFetcherTimeout);
         $this->config->setUseCronUpdates($useCronUpdates);
         $this->config->write($this->configPath);
@@ -68,7 +68,7 @@ class AdminController extends Controller {
             'autoPurgeMinimumInterval' =>
                 $this->config->getAutoPurgeMinimumInterval(),
             'autoPurgeCount' => $this->config->getAutoPurgeCount(),
-            'cacheDuration' => $this->config->getSimplePieCacheDuration(),
+            'cacheDuration' => $this->config->getCacheDuration(),
             'feedFetcherTimeout' => $this->config->getFeedFetcherTimeout(),
             'useCronUpdates' => $this->config->getUseCronUpdates(),
         ];

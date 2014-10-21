@@ -1,3 +1,6 @@
+owncloud-news (4.001)
+* **Enhancement**: Use cacheDuration instead of simplePieCacheDuration in config.ini
+
 owncloud-news (3.406)
 * **Enhancement**: Make config.ini editable in the admin interface
 

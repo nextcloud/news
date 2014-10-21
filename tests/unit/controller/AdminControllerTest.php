@@ -56,7 +56,7 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase {
             ->method('getAutoPurgeCount')
             ->will($this->returnValue($expected['autoPurgeCount']));
         $this->config->expects($this->once())
-            ->method('getSimplePieCacheDuration')
+            ->method('getCacheDuration')
             ->will($this->returnValue($expected['cacheDuration']));
         $this->config->expects($this->once())
             ->method('getFeedFetcherTimeout')
@@ -92,7 +92,7 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase {
             ->method('setAutoPurgeCount')
             ->with($this->equalTo($expected['autoPurgeCount']));
         $this->config->expects($this->once())
-            ->method('setSimplePieCacheDuration')
+            ->method('setCacheDuration')
             ->with($this->equalTo($expected['cacheDuration']));
         $this->config->expects($this->once())
             ->method('setFeedFetcherTimeout')
@@ -111,7 +111,7 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase {
             ->method('getAutoPurgeCount')
             ->will($this->returnValue($expected['autoPurgeCount']));
         $this->config->expects($this->once())
-            ->method('getSimplePieCacheDuration')
+            ->method('getCacheDuration')
             ->will($this->returnValue($expected['cacheDuration']));
         $this->config->expects($this->once())
             ->method('getFeedFetcherTimeout')

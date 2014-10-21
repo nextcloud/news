@@ -13,6 +13,8 @@
 
 namespace OCA\News\Fetcher;
 
+use \PicoFeed\Favicon;
+
 use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
 use \OCA\News\Utility\FaviconFetcher;
@@ -35,13 +37,13 @@ class FeedFetcher implements IFeedFetcher {
     private $appConfig;
 
     public function __construct(SimplePieAPIFactory $simplePieFactory,
-                    FaviconFetcher $faviconFetcher,
+                    Favicon $faviconFetcher,
                     $time,
                     $cacheDirectory,
                     Config $config,
                     AppConfig $appConfig){
         $this->cacheDirectory = $cacheDirectory;
-        $this->cacheDuration = $config->getSimplePieCacheDuration();
+        $this->cacheDuration = $config->getCacheDuration();
         $this->fetchTimeout = $config->getFeedFetcherTimeout();
         $this->faviconFetcher = $faviconFetcher;
         $this->simplePieFactory = $simplePieFactory;
@@ -211,7 +213,7 @@ class FeedFetcher implements IFeedFetcher {
         if ($getFavicon) {
             // use the favicon from the page first since most feeds use a weird
             // image
-            $favicon = $this->faviconFetcher->fetch($feed->getLink());
+            $favicon = $this->faviconFetcher->find($feed->getLink());
 
             if (!$favicon) {
                 $favicon = $simplePieFeed->get_image_url();

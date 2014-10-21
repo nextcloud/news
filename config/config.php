@@ -24,7 +24,7 @@ class Config {
                                         // should still be kept for an
                                         // undo actions
     private $autoPurgeCount;  // number of allowed unread articles per feed
-    private $simplePieCacheDuration;  // seconds
+    private $cacheDuration;  // seconds
     private $feedFetcherTimeout;  // seconds
     private $useCronUpdates;  // turn off updates run by owncloud cronjob
     private $proxyHost;
@@ -39,7 +39,7 @@ class Config {
         $this->fileSystem = $fileSystem;
         $this->autoPurgeMinimumInterval = 60;
         $this->autoPurgeCount = 200;
-        $this->simplePieCacheDuration = 30*60;
+        $this->cacheDuration = 30*60;
         $this->feedFetcherTimeout = 60;
         $this->useCronUpdates = true;
         $this->logger = $logger;
@@ -88,8 +88,8 @@ class Config {
     }
 
 
-    public function getSimplePieCacheDuration() {
-        return $this->simplePieCacheDuration;
+    public function getCacheDuration() {
+        return $this->cacheDuration;
     }
 
 
@@ -113,8 +113,8 @@ class Config {
     }
 
 
-    public function setSimplePieCacheDuration($value) {
-        $this->simplePieCacheDuration = $value;
+    public function setCacheDuration($value) {
+        $this->cacheDuration = $value;
     }
 
 
@@ -187,8 +187,8 @@ class Config {
                 $this->autoPurgeMinimumInterval . "\n" .
             'autoPurgeCount = ' .
                 $this->autoPurgeCount . "\n" .
-            'simplePieCacheDuration = ' .
-                $this->simplePieCacheDuration . "\n" .
+            'cacheDuration = ' .
+                $this->cacheDuration . "\n" .
             'feedFetcherTimeout = ' .
                 $this->feedFetcherTimeout . "\n" .
             'useCronUpdates = ' .
