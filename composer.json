@@ -7,16 +7,19 @@
         {
             "name": "Bernhard Posselt",
             "email": "dev@bernhard-posselt.com",
+            "homepage": "https://bernhard-posselt.com",
             "role": "Developer"
         },
         {
             "name": "Alessandro Cosentino",
+            "homepage": "http://algorithmsforthekitchen.com/",
             "email": "cosenal@gmail.com",
             "role": "Developer"
         },
         {
             "name": "Jan-Christoph Borchardt",
             "email": "hey@jancborchardt.net",
+            "homepage": "http://jancborchardt.net/",
             "role": "Designer"
         }
     ],
