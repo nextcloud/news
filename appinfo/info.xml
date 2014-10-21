@@ -3,8 +3,57 @@
 	<id>news</id>
 	<name>News</name>
 	<description>An RSS/Atom feed reader. Requires ownCloud backgroundjobs or an updater script to be enabled to update your feeds. See the README.md in the apps top directory</description>
-	<licence>AGPL</licence>
-	<author>Bernhard Posselt, Alessandro Cosentino, Jan-Christoph Borchardt</author>
+    <licence>AGPL</licence>
 	<version>3.405</version>
 	<require>7.0.3</require>
+    <author>Bernhard Posselt, Alessandro Cosentino, Jan-Christoph Borchardt</author>
+
+    <authors>
+        <author>
+            <name>Bernhard Posselt</name>
+            <email>dev@bernhard-posselt.com</email>
+        </author>
+        <author>
+            <name>Alessandro Cosentino</name>
+            <email>cosenal@gmail.com</email>
+        </author>
+        <author>
+            <name>Jan-Christoph Borchardt</name>
+            <email>hey@jancborchardt.net</email>
+        </author>
+    </authors>
+
+    <homepage>https://github.com/owncloud/news</homepage>
+    <bugs>https://github.com/owncloud/news/issues</bugs>
+    <documentation>
+        <admin>https://github.com/owncloud/news#readme</admin>
+        <user>https://github.com/owncloud/news/wiki#user-documentation</user>
+        <developer>https://github.com/owncloud/news/wiki#developer-documentation</developer>
+    </documentation>
+    <repositories>
+        <repository type="git">https://github.com/owncloud/news.git</repository>
+    </repositories>
+
+    <navigation />
+
+    <jobs>
+        <job>OCA\News\Cron\Updater</job>
+    </jobs>
+
+    <hooks>
+        <hook listen="OC_User::pre_deleteUser">OCA\News\Hooks\User::deleteUser</hook>
+    </hooks>
+
+    <categories>
+        <category>Multimedia</category>
+    </categories>
+
+    <dependencies>
+        <databases>
+            <database>sqlite3</database>
+            <database>pgsql</database>
+            <database>mysql</database>
+        </databases>
+        <php>5.4</php>
+    </dependencies>
 </info>
