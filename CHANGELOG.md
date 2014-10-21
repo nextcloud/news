@@ -1,3 +1,6 @@
+owncloud-news (3.406)
+* **Enhancement**: Make config.ini editable in the admin interface
+
 owncloud-news (3.405)
 * **Bugfix**: Fix mobile view for ownCloud 7
 * **Enhancement**: Add shortcuts for jumping to next/previous folder

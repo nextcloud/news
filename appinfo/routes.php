@@ -23,6 +23,9 @@ $application->registerRoutes($this, ['routes' => [
 	['name' => 'page#update_settings', 'url' => '/settings', 'verb' => 'PUT'],
 	['name' => 'page#manifest', 'url' => '/manifest.webapp', 'verb' => 'GET'],
 
+	// admin
+	['name' => 'admin#update', 'url' => '/admin', 'verb' => 'PUT'],
+
 	// folders
 	['name' => 'folder#index', 'url' => '/folders', 'verb' => 'GET'],
 	['name' => 'folder#create', 'url' => '/folders', 'verb' => 'POST'],

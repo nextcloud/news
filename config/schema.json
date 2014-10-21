@@ -16,6 +16,9 @@
       "type": "string",
       "enum": ["AGPL", "MIT", "GPL", "LGPL", "BSD","Apache"]
     },
+    "admin": {
+      "type": "boolean"
+    },
     "version": {
       "type": "string",
       "pattern": "^[0-9]+(\\.[0-9]+)*$"

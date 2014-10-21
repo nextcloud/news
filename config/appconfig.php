@@ -13,11 +13,11 @@
 
 namespace OCA\News\Config;
 
-use OCP\INavigationManager;
-use OCP\IURLGenerator;
+use \OCP\INavigationManager;
+use \OCP\IURLGenerator;
 use \OCP\Backgroundjob;
 use \OCP\Util;
-
+use \OCP\App;
 
 // Used to parse app.json file, should be in core at some point
 class AppConfig {
@@ -98,6 +98,17 @@ class AppConfig {
 
 
 	/**
+	 * Registers all config options
+	 */
+	public function registerAll() {
+		$this->registerNavigation();
+		$this->registerBackgroundJobs();
+		$this->registerHooks();
+		$this->registerAdmin();
+	}
+
+
+	/**
 	 * Parses the navigation and creates a navigation entry if needed
 	 */
 	public function registerNavigation() {
@@ -118,6 +129,15 @@ class AppConfig {
 			$this->navigationManager->add($navConfig);
 		}
 
+	}
+
+	/**
+	 * Registers admin pages
+	 */
+	public function registerAdmin() {
+		if ($this->config['admin']) {
+			App::registerAdmin($this->config['id'], 'admin/admin');
+		}
 	}
 
 

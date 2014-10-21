@@ -26,6 +26,5 @@ set_error_handler(function ($code, $message) {
 $container = new Application();
 
 $config = $container->getAppConfig();
-$config->registerNavigation();
-$config->registerBackgroundJobs();
-$config->registerHooks();
+$config->registerAll();
+$config->testDependencies();

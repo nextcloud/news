@@ -21,6 +21,7 @@ use \OCP\User;
 use \OCA\News\Config\AppConfig;
 use \OCA\News\Config\Config;
 
+use \OCA\News\Controller\AdminController;
 use \OCA\News\Controller\PageController;
 use \OCA\News\Controller\FolderController;
 use \OCA\News\Controller\FeedController;
@@ -89,6 +90,15 @@ class Application extends App {
 				$c->query('AppConfig'),
 				$c->query('L10N'),
 				$c->query('UserId')
+			);
+		});
+
+		$container->registerService('AdminController', function($c) {
+			return new AdminController(
+				$c->query('AppName'),
+				$c->query('Request'),
+				$c->query('Config'),
+				$c->query('ConfigPath')
 			);
 		});
 
@@ -329,13 +339,17 @@ class Application extends App {
 			return $view;
 		});
 
+		$container->registerService('ConfigPath', function() {
+			return 'config.ini';
+		});
+
 		$container->registerService('Config', function($c) {
 			$config = new Config(
 				$c->query('ConfigView'),
 				$c->query('Logger'),
 				$c->query('LoggerParameters')
 			);
-			$config->read('config.ini', true);
+			$config->read($c->query('ConfigPath'), true);
 			return $config;
 		});
 
@@ -470,6 +484,5 @@ class Application extends App {
 	}
 
 
-	public function dispatchPart($controller, $)
 }
 

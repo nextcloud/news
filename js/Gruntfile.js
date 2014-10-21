@@ -118,7 +118,8 @@ module.exports = function (grunt) {
                     'controller/**/*.js',
                     'directive/**/*.js',
                     'tests/**/*.js',
-                    'gui/**/*.js'
+                    'gui/**/*.js',
+                    'admin/**/*.js'
                 ]
             },
             options: {
@@ -130,6 +131,7 @@ module.exports = function (grunt) {
                 files: [
                     '../css/*.css',
                     '!../css/*.min.css',
+                    'admin/**/*.js',
                     'tests/**/*.js',
                     'app/**/*.js',
                     'controller/**/*.js',
