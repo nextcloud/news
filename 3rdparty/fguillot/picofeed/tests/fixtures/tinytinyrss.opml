@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<opml version="1.0">
+  <head>
+    <dateCreated>Tue, 19 Mar 2013 10:21:06 +0000</dateCreated>
+    <title>Tiny Tiny RSS Feed Export</title>
+  </head>
+  <body>
+    <outline text="coding">
+      <outline text="La Ferme du web" xmlUrl="http://feeds.lafermeduweb.net/LaFermeDuWeb" htmlUrl="http://www.lafermeduweb.net"/>
+      <outline text="Planète jQuery" xmlUrl="http://feeds.feedburner.com/PlaneteJqueryFr" htmlUrl="http://planete-jquery.fr"/>
+    </outline>
+  </body>
+</opml>

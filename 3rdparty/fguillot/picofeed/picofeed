@@ -1,0 +1,109 @@
+#!/usr/bin/env php
+<?php
+
+require 'lib/PicoFeed/PicoFeed.php';
+
+use PicoFeed\Reader;
+use PicoFeed\Logging;
+
+function get_feed($url, $disable_filtering = false)
+{
+    $reader = new Reader;
+    $reader->download($url);
+
+    $parser = $reader->getParser();
+
+    if ($disable_filtering) {
+        $parser->disableContentFiltering();
+    }
+
+    if ($parser !== false) {
+
+        $feed = $parser->execute();
+
+        if ($feed !== false) {
+            return $feed;
+        }
+    }
+
+    return false;
+}
+
+function get_item($feed, $item_id)
+{
+    foreach ($feed->items as $item) {
+        if ($item->getId() === $item_id) {
+            echo $item;
+            echo "============= CONTENT ================\n";
+            echo $item->getContent();
+            echo "\n============= CONTENT ================\n";
+            break;
+        }
+    }
+}
+
+function dump_feed($url)
+{
+    $feed = get_feed($url);
+
+    if ($feed === false) {
+        die("Unable to fetch the feed\n");
+    }
+
+    echo $feed;
+}
+
+function debug_feed($url)
+{
+    get_feed($url);
+    print_r(Logging::getMessages());
+}
+
+function dump_item($url, $item_id)
+{
+    $feed = get_feed($url);
+
+    if ($feed === false) {
+        die("Unable to fetch the feed\n");
+    }
+
+    get_item($feed, $item_id);
+}
+
+function nofilter_item($url, $item_id)
+{
+    $feed = get_feed($url, true);
+
+    if ($feed === false) {
+        die("Unable to fetch the feed\n");
+    }
+
+    get_item($feed, $item_id);
+}
+
+if ($argc === 4) {
+    switch ($argv[1]) {
+        case 'item':
+            dump_item($argv[2], $argv[3]);
+            die;
+        case 'nofilter':
+            nofilter_item($argv[2], $argv[3]);
+            die;
+    }
+}
+else if ($argc === 3) {
+    switch ($argv[1]) {
+        case 'feed':
+            dump_feed($argv[2]);
+            die;
+        case 'debug':
+            debug_feed($argv[2]);
+            die;
+    }
+}
+
+printf("Usage:\n");
+printf("%s feed <feed-url>\n", $argv[0]);
+printf("%s debug <feed-url>\n", $argv[0]);
+printf("%s item <feed-url> <item-id>\n", $argv[0]);
+printf("%s nofilter <feed-url> <item-id>\n", $argv[0]);

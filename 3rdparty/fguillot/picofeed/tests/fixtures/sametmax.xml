@@ -1,0 +1,1067 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Sam &#38; Max: Python, Django, Git et du cul</title>
+	<atom:link href="http://sametmax.com/feed/" rel="self" type="application/rss+xml" />
+	<link>http://sametmax.com</link>
+	<description>Deux développeurs en vadrouille qui se sortent les doigts du code</description>
+	<lastBuildDate>Sun, 15 Dec 2013 13:51:38 +0000</lastBuildDate>
+	<language>en</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.3.1</generator>
+	<atom:link rel="payment" title="Flattr this!" href="https://flattr.com/submit/auto?user_id=sam_et_max&amp;popout=1&amp;url=http%3A%2F%2Fsametmax.com%2F&amp;language=en_US&amp;category=text&amp;title=Sam+%26amp%3B+Max%3A+Python%2C+Django%2C+Git+et+du+cul&amp;description=Deux+d%C3%A9veloppeurs+en+vadrouille+qui+se+sortent+les+doigts+du+code&amp;tags=blog" type="text/html" />
+		<item>
+		<title>Les mensonges des DSL</title>
+		<link>http://sametmax.com/les-mensonges-des-dsl/</link>
+		<comments>http://sametmax.com/les-mensonges-des-dsl/#comments</comments>
+		<pubDate>Sun, 15 Dec 2013 01:36:55 +0000</pubDate>
+		<dc:creator>Sam</dc:creator>
+				<category><![CDATA[Programmation]]></category>
+		<category><![CDATA[dsl]]></category>
+		<category><![CDATA[lisp]]></category>
+		<category><![CDATA[python]]></category>
+		<category><![CDATA[ruby]]></category>
+
+		<guid isPermaLink="false">http://sametmax.com/?p=8327</guid>
+		<description><![CDATA[Un DSL, ou Domaine Specific Language, est un langage qui est dédié à un usage très pointu, et pour lequel il est donc particulièrement efficace.]]></description>
+			<content:encoded><![CDATA[<p>Un DSL, ou Domaine Specific Language, est un langage qui est dédié à un usage très pointu, et pour lequel il est donc particulièrement efficace.</p>
+<p>Par exemple, le langage de Matlab est un DSL, dédié à l&#8217;expression mathématique. SQL est un DSL, orienté requête. PHP a commencé comme un DSL, optimisé pour le Web.</p>
+<p>En théorie, un DSL doit vous rendre plus productif. En théorie. En pratique, une fois qu&#8217;un DSL sort de son domaine de prédilection, il est extrêmement inéficace. C&#8217;est le prix de la spécialisation.</p>
+<p>Or, dernièrement, on a fait beaucoup l&#8217;apanage des DSL dans le cadre d&#8217;autres langages. Car oui, certains langages permettent de créer des DSL. Les macros du C et les capacités de meta programmations de Lisp permettent par exemple de créer des langages complets, avec des dialectes spécialisés.</p>
+<p>Vient alors le premier problème : on créé un nouveau langage. Récent. Supporté et donc débuggé et (mal) documenté par l&#8217;auteur. Ensuite, on se rajoute un niveau d&#8217;indirection. Car du coup ça nous fait une abstraction supplémentaire, et il faut savoir ce que ça fait sous le capot. En prime, on freine l&#8217;entrée de nouveaux venus dans le projet, puisqu&#8217;il faut qu&#8217;ils apprenent à faire avec le DSL en plus, là où une simple lib aurait pu faire l&#8217;affaire.</p>
+<p>Et on touche ici à une seconde problématique, les faux DSL : des libs ordinnaires qui se déguisent en DSL. Typiquement, je pense à Ruby, ici.</p>
+<p>Les rubistes prétendent partout qu&#8217;ils peuvent créer des DSL avec leur langage. Encore un mensonge, puisque tout ce qu&#8217;ils font c&#8217;est utiliser le chaînage de méthode, le namespacing, la surcharge des opérateurs et les parenthèses/virgules facultatives pour donner l&#8217;impression qu&#8217;un nouveau langage est créé.</p>
+<p>Tout comme on donne l&#8217;illusion de retourner deux paramètres dans une fonction en Python en retournant un tuple et en faisant de l&#8217;unpacking. C&#8217;est du sucre syntaxique, mais on est très loin de ce que ça prétend être.</p>
+<p>Pourquoi c&#8217;est important ? Parce que cela laisse à croire qu&#8217;il y a quelque chose de spéciale là dedans, alors qu&#8217;il s&#8217;agit ni plus ni moins que d&#8217;une bête lib avec une API fluide. Ce qu&#8217;on peut faire dans tout autre langage (excepté l&#8217;absence de parenthèses, sur lequel il faudra que j&#8217;écrive un article tellement c&#8217;est une FBI).</p>
+<p>Donc plutôt que de faire du bruit et du hype autour de cela, et amener les gens à se concentrer sur l&#8217;aspect &#8220;comment obtenir une syntaxe exotique&#8221;, il serait plus intéressant de dire tout simplement : voilà comment on peut faire une belle API, voici les bonnes pratiques, appliquez les.</p>
+<p>Et aussi écrire une doc&#8230;</p>
+<p>J&#8217;ai horreur en informatique quand on donne 40 noms différents à la même chose. Comme par exemple pour les promises, les futures, les deferred, etc. Merde, non seulement ça n&#8217;aide personne, mais en plus ça rend la comprehension de principes plus difficile. Déjà que c&#8217;est rarement bien expliqué&#8230;</p>
+<p>Au final, un DSL est rarement une bonne idée, que ce soit un vrai ou un faux. SQL nous aura bien servi, il faut le reconnaitre, <a href="http://yinwang0.wordpress.com/2013/04/05/database/">même si on aurait pu faire mieux</a>. Mais la plupart du temps, ce sont quelques heures de gagnées en redaction de code, et des jours de formation et maintenance perdus, ou alors juste une masquarade cachant simplement derrière le hype des principes sains de programmation.</p>
+<blockquote><p>Languages are more than just languages, they are a form of culture, and by being culture they tend to enforce (indirecty or directly) a certain way of doing things, i.e. standards or conventions. This means that if you know the language and its culture, there are less surprises and a longer learning or adaptation curve</p></blockquote>
+<p>(Extrait de <a href="http://c2.com/cgi/wiki?LispIsTooPowerful">Is Lisp Too Powerful</a> ?)</p>
+ <p><a href="http://sametmax.com/?flattrss_redirect&amp;id=8327&amp;md5=aa6bf4c0a958dd4b3f2c998f329621d5" title="Flattr" target="_blank"><img src="http://sametmax.com/wp-content/plugins/flattr/img/flattr-badge-large.png" alt="flattr this!"/></a></p>]]></content:encoded>
+			<wfw:commentRss>http://sametmax.com/les-mensonges-des-dsl/feed/</wfw:commentRss>
+		<slash:comments>5</slash:comments>
+		<atom:link rel="payment" title="Flattr this!" href="https://flattr.com/submit/auto?user_id=sam_et_max&amp;popout=1&amp;url=http%3A%2F%2Fsametmax.com%2Fles-mensonges-des-dsl%2F&amp;language=en_GB&amp;category=text&amp;title=Les+mensonges+des+DSL&amp;description=Un+DSL%2C+ou+Domaine+Specific+Language%2C+est+un+langage+qui+est+d%C3%A9di%C3%A9+%C3%A0+un+usage+tr%C3%A8s+pointu%2C+et+pour+lequel+il+est+donc+particuli%C3%A8rement+efficace.+Par+exemple%2C+le+langage+de...&amp;tags=dsl%2Clisp%2Cpython%2Cruby%2Cblog" type="text/html" />
+<enclosure url="http://sametmax.com/wp-content/uploads/2013/12/mOMU7AC.jpg" length="10394" type="image/jpg" />	</item>
+		<item>
+		<title>Remplacer sed, awk, cut et Perl par Python (= orgasme pour sysadmin)</title>
+		<link>http://sametmax.com/remplacer-sed-awk-cut-et-perl-par-python-orgasme-pour-sysadmin/</link>
+		<comments>http://sametmax.com/remplacer-sed-awk-cut-et-perl-par-python-orgasme-pour-sysadmin/#comments</comments>
+		<pubDate>Sat, 14 Dec 2013 08:28:41 +0000</pubDate>
+		<dc:creator>Sam</dc:creator>
+				<category><![CDATA[Administration System]]></category>
+		<category><![CDATA[awk]]></category>
+		<category><![CDATA[bash]]></category>
+		<category><![CDATA[perl]]></category>
+		<category><![CDATA[python]]></category>
+		<category><![CDATA[sed]]></category>
+		<category><![CDATA[sysadmin]]></category>
+
+		<guid isPermaLink="false">http://sametmax.com/?p=8261</guid>
+		<description><![CDATA[La force de perl c'est qu'il permettait de piper des données directement via la ligne de commande pour faire des manipulations rapides.
+
+C'est pour cela que c'était devenu les choix des sysadmins. Parce que jusqu'ici, le choix c'était soit de faire un truc simple en connaissant par coeur la tool box GNU, soit ouvrir un fichier et faire un script.
+
+Python ne permet pas de piper des données directement dans la commande, mais des projets ont vu le jour pour le faire.]]></description>
+			<content:encoded><![CDATA[<p>La force de Perl c&#8217;est qu&#8217;il permettait de piper des données directement via la ligne de commande pour faire des manipulations rapides.</p>
+<p>C&#8217;est pour cela que c&#8217;était devenu les choix des sysadmins. Parce que jusqu&#8217;ici, le choix c&#8217;était soit de faire un truc simple en connaissant par coeur la tool box GNU, soit ouvrir un fichier et faire un script.</p>
+<p>Python ne permet pas de piper des données directement dans la commande, mais des projets ont vu le jour pour le faire.</p>
+<p>Il y a le projet <a href="http://code.google.com/p/pyp/">pyp</a>, que l&#8217;on doit à Sony Pictures Imageworks qui avait besoin de se simplifier l&#8217;automatisation des tâches de build pour ses films.</p>
+<p>Et il y a <a href="https://pypi.python.org/pypi/Pyped/1.0">pyped</a>, dont j&#8217;avais brièvement parlé <a href="http://sametmax.com/sept-petites-libs-qui-changent-la-vie-dun-dev-python/">ici</a> (article qui mérite d&#8217;être mis à jour vu que j&#8217;ai remplace dateutils par <a href="http://sametmax.com/les-time-zones-en-python/">arrow</a>).</p>
+<p>Les deux étaient sympas, mais avait des syntaxes alambiquées. Cependant, pyped est récemment passé en v1.0, donc stable, et a une toute nouvelle approche de syntaxe qui rend la bestiole super agréable à utiliser.</p>
+<p>Présentation.</p>
+<h2>Stdin, ligne à ligne</h2>
+<p>L&#8217;installation est bateau, c&#8217;est du <a href="http://sametmax.com/votre-python-aime-les-pip/">pip</a> :</p>
+
+<div class="wp_syntax"><div class="code"><pre class="bash" style="font-family:monospace;">pip <span style="color: #c20cb9; font-weight: bold;">install</span> <span style="color: #660033;">--user</span> pyped</pre></div></div>
+
+<p>Et derrirère, on obtient la commande <code>py</code>. Elle s&#8217;utilise essentiellement à la suite d&#8217;une autre commande. Typiquement :</p>
+
+<div class="wp_syntax"><div class="code"><pre class="bash" style="font-family:monospace;"><span style="color: #c20cb9; font-weight: bold;">cat</span> <span style="color: #000000; font-weight: bold;">/</span>etc<span style="color: #000000; font-weight: bold;">/</span>fsta <span style="color: #000000; font-weight: bold;">|</span> py <span style="color: #ff0000;">&quot;un truc&quot;</span></pre></div></div>
+
+<p>L&#8217;astuce, c&#8217;est que &#8220;un truc&#8221; peut être n&#8217;importe quelle expression Python. Généralement une expression qui <code>print()</code> quelque chose.</p>
+<p>Or, Pyped met automatiquement à disposition de cette expression deux variables :</p>
+<ul>
+<li>La ligne en cours, dans la variable <code>x</code>.</li>
+<li>Le numéro de la ligne en cours, dans la variable <code>i</code>.</li>
+</ul>
+<p>L&#8217;expression Python est appelée une fois pour chaque ligne.</p>
+<p>Par exemple, supposons que j&#8217;ai un fichier &#8220;fortune.txt&#8221; contenant :</p>
+
+<div class="wp_syntax"><div class="code"><pre class="bash" style="font-family:monospace;">bitcoin <span style="color: #7a0874; font-weight: bold;">&#40;</span>btc<span style="color: #7a0874; font-weight: bold;">&#41;</span> : <span style="color: #000000;">5</span>
+euros <span style="color: #7a0874; font-weight: bold;">&#40;</span>€<span style="color: #7a0874; font-weight: bold;">&#41;</span> : <span style="color: #000000;">100</span>
+dollars <span style="color: #7a0874; font-weight: bold;">&#40;</span>$<span style="color: #7a0874; font-weight: bold;">&#41;</span> : <span style="color: #000000;">80</span></pre></div></div>
+
+<p>Si je veut tout mettre en majuscule, je fais :</p>
+
+<div class="wp_syntax"><div class="code"><pre class="bash" style="font-family:monospace;">$ <span style="color: #c20cb9; font-weight: bold;">cat</span> fortune.txt <span style="color: #000000; font-weight: bold;">|</span> py <span style="color: #ff0000;">&quot;print(x.upper())&quot;</span>
+BITCOIN <span style="color: #7a0874; font-weight: bold;">&#40;</span>BTC<span style="color: #7a0874; font-weight: bold;">&#41;</span> : <span style="color: #000000;">5</span>
+EUROS <span style="color: #7a0874; font-weight: bold;">&#40;</span>€<span style="color: #7a0874; font-weight: bold;">&#41;</span> : <span style="color: #000000;">100</span>
+DOLLARS <span style="color: #7a0874; font-weight: bold;">&#40;</span>$<span style="color: #7a0874; font-weight: bold;">&#41;</span> : <span style="color: #000000;">80</span></pre></div></div>
+
+<p>On peut mettre plusieurs expressions d&#8217;affilé. Ainsi, si je veux récupérer la somme et le symbole uniquement :</p>
+
+<div class="wp_syntax"><div class="code"><pre class="bash" style="font-family:monospace;">$ <span style="color: #c20cb9; font-weight: bold;">cat</span> fortune.txt <span style="color: #000000; font-weight: bold;">|</span> py <span style="color: #ff0000;">&quot;devise, sign, _, value = x.split()&quot;</span> <span style="color: #ff0000;">&quot;sign = sign.strip('()')&quot;</span> <span style="color: #ff0000;">&quot;print('%s%s' % (value, sign))&quot;</span>
+5btc
+<span style="color: #000000;">100</span>€
+<span style="color: #000000;">80</span>$</pre></div></div>
+
+<p>Ok, c&#8217;est plus long que perl, mais vachement plus facile à écrire et à relire. Et j&#8217;utilise un langage que je connais déjà. Et pas besoin de faire un mix incompréhensible de sed, awk et autre cut.</p>
+<p>Si j&#8217;ai vraiment besoin de lisibilité, je peux même le mettre sur plusieurs lignes :</p>
+
+<div class="wp_syntax"><div class="code"><pre class="bash" style="font-family:monospace;">$ <span style="color: #c20cb9; font-weight: bold;">cat</span> fortune.txt <span style="color: #000000; font-weight: bold;">|</span> py <span style="color: #ff0000;">&quot;                                                                                                 
+devise, sign, _, value = x.split() 
+sign = sign.strip('()') 
+print('%s%s' % (value, sign))  
+&quot;</span>
+5btc
+<span style="color: #000000;">100</span>€
+<span style="color: #000000;">80</span>$</pre></div></div>
+
+<p>Vous aurez noté que j&#8217;utilise <code>print()</code> et que je semble ne pas me soucier de l&#8217;unicode. C&#8217;est parceque pyped fait ça au début du script :</p>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;"><span style="color: #ff7700;font-weight:bold;">from</span> <span style="color: #dc143c;">__future__</span> <span style="color: #ff7700;font-weight:bold;">import</span> print_function, unicode_literals, division, absolute_imports</pre></div></div>
+
+<p>Du coup, on est bien en Python 2.7, mais on bénéficie de la division améliorée, de la fonction pour printer, des imports absolus et surtout, de l&#8217;unicode partout. D&#8217;ailleurs pyped vous transforme <code>x</code> pour que ce soit un objet unicode. </p>
+<h2>Tout traiter d&#8217;un coup</h2>
+<p>Parfois, on a besoin d&#8217;avoir accès à toutes les lignes, pas juste les lignes une à une. pyped permet cela avec l&#8217;option <code>-i</code>. Les variables <code>x</code> et <code>i</code> disparaissent au profit de la variable <code>l</code>, qui contient un itérable sur toutes les lignes.</p>
+<p>Par exemple, envie de trier tout ça ?</p>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;">cat fortune.<span style="color: black;">txt</span> | py -i <span style="color: #483d8b;">&quot;
+lignes = (x.split() for x in l)
+lignes = sorted((v, s.strip('()')) for d, s, _, v in lignes)
+for ligne in lignes: print('%s%s' % ligne)
+&quot;</span>
+<span style="color: #ff4500;">100</span>€
+5btc
+<span style="color: #ff4500;">80</span>$</pre></div></div>
+
+<h2>Moar options</h2>
+<p>Lisez la doc, car il y a d&#8217;autres options du genre éviter que pyped vous strip automatiquement le ligne break, forcer l&#8217;encoding, etc.</p>
+<p>Parmi les trucs les plus utiles, il y a l&#8217;option <code>-b</code> qui permet de lancer un code avant la boucle. Pratique pour importer des trucs genre le module <code>tarfile</code> pour extraire une archive avant d&#8217;utiliser son contenu.</p>
+<p>Néanmoins la plupart du temps on a rien besoin d&#8217;importer car pyped importe déjà automatiquement les modules les plus utiles : maths, datetime, re, json, hashlib, uuid, etc. </p>
+ <p><a href="http://sametmax.com/?flattrss_redirect&amp;id=8261&amp;md5=83a66390fd625dd860b54e895ddffdee" title="Flattr" target="_blank"><img src="http://sametmax.com/wp-content/plugins/flattr/img/flattr-badge-large.png" alt="flattr this!"/></a></p>]]></content:encoded>
+			<wfw:commentRss>http://sametmax.com/remplacer-sed-awk-cut-et-perl-par-python-orgasme-pour-sysadmin/feed/</wfw:commentRss>
+		<slash:comments>9</slash:comments>
+		<atom:link rel="payment" title="Flattr this!" href="https://flattr.com/submit/auto?user_id=sam_et_max&amp;popout=1&amp;url=http%3A%2F%2Fsametmax.com%2Fremplacer-sed-awk-cut-et-perl-par-python-orgasme-pour-sysadmin%2F&amp;language=en_GB&amp;category=text&amp;title=Remplacer+sed%2C+awk%2C+cut+et+Perl+par+Python+%28%3D+orgasme+pour+sysadmin%29&amp;description=La+force+de+Perl+c%26%238217%3Best+qu%26%238217%3Bil+permettait+de+piper+des+donn%C3%A9es+directement+via+la+ligne+de+commande+pour+faire+des+manipulations+rapides.+C%26%238217%3Best+pour+cela+que+c%26%238217%3B%C3%A9tait+devenu+les+choix...&amp;tags=awk%2Cbash%2Cperl%2Cpython%2Csed%2Csysadmin%2Cblog" type="text/html" />
+<enclosure url="http://sametmax.com/wp-content/uploads/2013/12/hsmFx9T.jpg" length="182812" type="image/jpg" />	</item>
+		<item>
+		<title>Pourquoi j&#8217;ai horreur d&#8217;acheter</title>
+		<link>http://sametmax.com/pourquoi-jai-horreur-dacheter/</link>
+		<comments>http://sametmax.com/pourquoi-jai-horreur-dacheter/#comments</comments>
+		<pubDate>Fri, 13 Dec 2013 08:20:53 +0000</pubDate>
+		<dc:creator>Sam</dc:creator>
+				<category><![CDATA[Philo et culture]]></category>
+		<category><![CDATA[gadget]]></category>
+		<category><![CDATA[meta]]></category>
+		<category><![CDATA[rhaaaa]]></category>
+
+		<guid isPermaLink="false">http://sametmax.com/?p=8312</guid>
+		<description><![CDATA[J'achète rarement des trucs neufs. Déjà, il faut que ça soit utile, que ça prenne pas trop de place, et que ça se déplace facilement vu que je bouge tout le temps.
+
+Mais en plus, le problème d'un achat, c'est que ça bouffe énormément de temps, surtout si on l'achète pas en ligne.]]></description>
+			<content:encoded><![CDATA[<p>J&#8217;achète rarement des trucs neufs. Déjà, il faut que ça soit utile, que ça prenne pas trop de place, et que ça se déplace facilement vu que je bouge tout le temps.</p>
+<p>Mais en plus, le problème d&#8217;un achat, c&#8217;est que ça bouffe énormément de temps, surtout si on l&#8217;achète pas en ligne.</p>
+<p>Exemple, je vais à la fnac pour acheter un bidule à 150 euros. Je dois prendre la voiture (j&#8217;ai horreur de conduire) pour aller en centre ville, ce qui prend une bonne demi-heure. Il faut se garer, puis se taper la foule de mongoliens dans le magasin, en arpentant les étages pour trouver le bon rayon. </p>
+<p>Là, je prends le produit dont j&#8217;ai fait le choix préalablement sur le net (encore du temps&#8230; pour un putain d&#8217;objet !) car les vendeurs n&#8217;y connaissent que dalle. Il faut se farcir la queue, payer en caisse, retourner chez soit. Une bonne heure et demi de perdue que j&#8217;aurais pu passer à faire des choses plus importantes, comme jouer à <a href="http://www.gog.com/game/dont_starve">Don&#8217;t Starve</a>, et encore, si on sait exactement ce qu&#8217;on fait.</p>
+<p>Maintenant ça s&#8217;arrête là si tout va bien, mais évidement, l&#8217;histoire ne mériterait pas un article si c&#8217;était le cas.</p>
+<p>Il se trouve qu&#8217;arrivé chez moi, le produit ne me satisfait pas. Pour 150 euros, je vais donc faire l&#8217;effort de le rapporter. Je le remballe, et on reprend la caisse. Ai-je précisé que je déteste conduire ?</p>
+<p>Je demande à un vigile à l&#8217;entrée où est l&#8217;accueil.</p>
+<p>Je vais à l&#8217;accueil pour demander à ce qu&#8217;on me le change. Je fais donc la queue.</p>
+<p>L&#8217;accueil me renvoie vers un autre accueil un étage au dessus, qui s&#8217;en occupe. Je fais donc la queue.</p>
+<p>L&#8217;autre accueil me dit que pour l&#8217;électronique, ce sont les vendeurs qui s&#8217;en occupent. Je cherche un vendeur, et tombe sur un mec qui est en fait vendeur Microsoft, pas fnac. Donc je vais en trouver un autre, qui est entouré de personnes qui lui posent des questions essentielles comme la couleur des barrettes de RAM, si l&#8217;anti-virus le protège contre le terrorisme et où sont les toilettes. Je fais donc la queue.</p>
+<p>Le vendeur me signale qu&#8217;il me faut un bon de circulation pour cela, qu&#8217;il faut demander au vigile. Je retourne voir mon vigile à l&#8217;entrée, qui fouille le sac d&#8217;un mec alors que bien entendu seule la police est autorisée à faire ça. J&#8217;attends, mon tour. Je fais donc la queue.</p>
+<p>Je chope le bon, retourne voir le vendeur, qui entre temps a changé de place alors qu&#8217;il avait dit qu&#8217;il m&#8217;attendrait. Je le retrouve, traitant un autre client. Je fais donc la queue.</p>
+<p>Il me fais mon retour produit et m&#8217;annonce la couleur : ce sera un avoir. Donc uniquement valable dans les magasins fnac, et à utiliser dans les 3 mois. La partie fun maintenant : on ne peut pas le diviser, il va falloir que je fasse un achat de 150 euros. Joie.</p>
+<p>Je note mentalement que j&#8217;achèterai avec 150 euros de carte cadeau, utilisable un an et divisible. Quand on fait une coloscopie, on choisit son hôpital.</p>
+<p>Mais l&#8217;avoir n&#8217;est pas valable tant qu&#8217;il n&#8217;est pas validé en caisse, donc j&#8217;y vais pour, vous l&#8217;avez deviné, faire la queue.</p>
+<p>A ce stade, la magasin ferme. Si, si. Je suis parti de chez moi en fin début d&#8217;après midi, et je sors du magasin à la fermeture. Pour me faire faire fouiller mon sac par le vigile. </p>
+<p>Je hais les magasins. Je hais acheter des trucs.</p>
+<p>Parce que même quand tout se passe bien (en supposant que ça ne tombe pas en panne, parce que là, c&#8217;est reparti pour l&#8217;Iliade version longue avec bonus DVD et sous-titrage en russe), l&#8217;histoire ne s&#8217;arrête pas là. L&#8217;objet prend de la place. Il faut le ranger. Occasionnellement le nettoyer ou l&#8217;entretenir. Et le transporter quand on déménage. Puis en disposer quand il arrive en fin de vie, ce qui, si on est sensible à l&#8217;écologie, suppose l&#8217;amener au bon point de recyclage. En l’occurrence, la fnac.</p>
+<p>Je ne comprends pas comment &#8220;faire du shopping&#8221; peut être considéré comme un passe temps. </p>
+ <p><a href="http://sametmax.com/?flattrss_redirect&amp;id=8312&amp;md5=c1d545fa718679ade1bd5c04c792ca06" title="Flattr" target="_blank"><img src="http://sametmax.com/wp-content/plugins/flattr/img/flattr-badge-large.png" alt="flattr this!"/></a></p>]]></content:encoded>
+			<wfw:commentRss>http://sametmax.com/pourquoi-jai-horreur-dacheter/feed/</wfw:commentRss>
+		<slash:comments>25</slash:comments>
+		<atom:link rel="payment" title="Flattr this!" href="https://flattr.com/submit/auto?user_id=sam_et_max&amp;popout=1&amp;url=http%3A%2F%2Fsametmax.com%2Fpourquoi-jai-horreur-dacheter%2F&amp;language=en_GB&amp;category=text&amp;title=Pourquoi+j%26%238217%3Bai+horreur+d%26%238217%3Bacheter&amp;description=J%26%238217%3Bach%C3%A8te+rarement+des+trucs+neufs.+D%C3%A9j%C3%A0%2C+il+faut+que+%C3%A7a+soit+utile%2C+que+%C3%A7a+prenne+pas+trop+de+place%2C+et+que+%C3%A7a+se+d%C3%A9place+facilement+vu+que+je+bouge+tout...&amp;tags=gadget%2Cmeta%2Crhaaaa%2Cblog" type="text/html" />
+<enclosure url="http://sametmax.com/wp-content/uploads/2013/12/fzRDSep.jpg" length="438658" type="image/jpg" />	</item>
+		<item>
+		<title>Du Darwinisme pythonien</title>
+		<link>http://sametmax.com/du-darwinisme-pythonien/</link>
+		<comments>http://sametmax.com/du-darwinisme-pythonien/#comments</comments>
+		<pubDate>Thu, 12 Dec 2013 10:13:22 +0000</pubDate>
+		<dc:creator>golgotha</dc:creator>
+				<category><![CDATA[Programmation]]></category>
+		<category><![CDATA[algorithme]]></category>
+		<category><![CDATA[génétique]]></category>
+		<category><![CDATA[python]]></category>
+
+		<guid isPermaLink="false">http://sametmax.com/?p=8171</guid>
+		<description><![CDATA[Qui n'a jamais rêvé de cloner des <del datetime="2013-12-02T19:59:20+00:00">moutons</del> clara morgane et de s'adonner à des expérimentations scientifiques de haut niveau ?]]></description>
+			<content:encoded><![CDATA[<p style="text-align: center;"><em><small>Ceci est un post invité de <a href="http://sametmax.com/author/golgotha/">golgotha</a> posté sous licence <a href="http://creativecommons.org/licenses/by/3.0/">creative common 3.0 unported</a>.</small></em></p>
+<p>Qui n&#8217;a jamais rêvé de cloner des <del datetime="2013-12-02T19:59:20+00:00">moutons</del> clara morgane et de s&#8217;adonner à des expérimentations scientifiques de haut niveau ?</p>
+<p>Bon ici, nous n&#8217;avons pas de clara morgane sous la main pour notre expérience mais, avec le python et les théories scientifiques de Darwin, on peut faire quelques trucs sympas : On va essayer de déterminer le plus court chemin à prendre pour relier plusieurs points entre eux, le truc cool c&#8217;est que pour solutionner le problème on va utiliser un algorithme génétique.</p>
+<p>De la génétique dans du python ?!</p>
+<p>En fait c&#8217;est assez simple (encore des termes barbares pour épater les copains..), écoutez bien, je vous explique le concept : on va faire des individus, chaque individu va faire un parcours en fonction des points du tracé en paramètre. A la fin, on note chaque individu avec un score, le score étant la longueur du parcours de l&#8217;individu. Vous suivez toujours ? Bien. On prend les meilleurs (Normal) et on les accouple avec des moins bons (faut les pousser un peu, au début ils sont timides mais, après ça va tout seul, c&#8217;est même l&#8217;orgie parfois&#8230;) ce qui donne une nouvelle population, normalement un poil meilleure que l&#8217;ancienne qu&#8217;on va vite mettre à la poubelle. On recommence le processus <code>n</code> fois et à la fin, on devrait arriver à des super individus, genre blonds aux yeux bleus qui parlent 14 langues : ça c&#8217;est notre solution.</p>
+<p>Passons aux travaux pratiques !</p>
+<p>Je commence par déclarer deux variables globales, la population et la liste de points.</p>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;">population = <span style="color: black;">&#91;</span><span style="color: black;">&#93;</span>
+a_map = <span style="color: black;">&#91;</span><span style="color: black;">&#93;</span></pre></div></div>
+
+<p>Ensuite on créer une classe Point standard :</p>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;"><span style="color: #ff7700;font-weight:bold;">class</span> Point<span style="color: black;">&#40;</span><span style="color: #008000;">object</span><span style="color: black;">&#41;</span>:
+&nbsp;
+    COUNT = <span style="color: #ff4500;">0</span>
+&nbsp;
+    <span style="color: #ff7700;font-weight:bold;">def</span> <span style="color: #0000cd;">__init__</span><span style="color: black;">&#40;</span><span style="color: #008000;">self</span>, x, y<span style="color: black;">&#41;</span>:
+        <span style="color: #008000;">self</span>.<span style="color: black;">X</span> = x
+        <span style="color: #008000;">self</span>.<span style="color: black;">Y</span> = y
+&nbsp;
+    <span style="color: #ff7700;font-weight:bold;">def</span> <span style="color: #0000cd;">__str__</span><span style="color: black;">&#40;</span><span style="color: #008000;">self</span><span style="color: black;">&#41;</span>:
+        <span style="color: #ff7700;font-weight:bold;">return</span> <span style="color: #483d8b;">&quot;Point(%s,%s)&quot;</span><span style="color: #66cc66;">%</span><span style="color: black;">&#40;</span><span style="color: #008000;">self</span>.<span style="color: black;">X</span>, <span style="color: #008000;">self</span>.<span style="color: black;">Y</span><span style="color: black;">&#41;</span> 
+&nbsp;
+    <span style="color: #ff7700;font-weight:bold;">def</span> distance<span style="color: black;">&#40;</span><span style="color: #008000;">self</span>, other<span style="color: black;">&#41;</span>:
+        dx = <span style="color: #008000;">self</span>.<span style="color: black;">X</span> - other.<span style="color: black;">X</span>
+        dy = <span style="color: #008000;">self</span>.<span style="color: black;">Y</span> - other.<span style="color: black;">Y</span>
+        <span style="color: #ff7700;font-weight:bold;">return</span> sqrt<span style="color: black;">&#40;</span>dx<span style="color: #66cc66;">**</span><span style="color: #ff4500;">2</span> + dy<span style="color: #66cc66;">**</span><span style="color: #ff4500;">2</span><span style="color: black;">&#41;</span></pre></div></div>
+
+<p>Rien de particulier ici, l&#8217;objet nous sera utile plus tard.</p>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;"><span style="color: #ff7700;font-weight:bold;">class</span> Individu<span style="color: black;">&#40;</span><span style="color: #008000;">object</span><span style="color: black;">&#41;</span>:
+&nbsp;
+    <span style="color: #808080; font-style: italic;"># le constructeur de l'objet.</span>
+    <span style="color: #808080; font-style: italic;"># on met le score à zéro.</span>
+    <span style="color: #808080; font-style: italic;"># on peut aussi lui passer la liste de points</span>
+    <span style="color: #808080; font-style: italic;"># pour qu'il initialise une route au hasard.</span>
+    <span style="color: #ff7700;font-weight:bold;">def</span> <span style="color: #0000cd;">__init__</span><span style="color: black;">&#40;</span><span style="color: #008000;">self</span>, init = <span style="color: #008000;">False</span>, map_point = <span style="color: black;">&#91;</span><span style="color: black;">&#93;</span><span style="color: black;">&#41;</span>:
+        <span style="color: #008000;">self</span>.<span style="color: black;">score</span> = <span style="color: #ff4500;">0</span>
+        <span style="color: #008000;">self</span>.<span style="color: black;">route</span> = <span style="color: black;">&#91;</span><span style="color: black;">&#93;</span>
+        <span style="color: #ff7700;font-weight:bold;">if</span> init :
+            <span style="color: #008000;">self</span>.<span style="color: black;">set_route</span><span style="color: black;">&#40;</span>map_point<span style="color: black;">&#41;</span>
+&nbsp;
+    <span style="color: #808080; font-style: italic;"># ici on créé une route avec un mélange des points</span>
+    <span style="color: #808080; font-style: italic;"># on utilise shuffle pour mélanger les points.</span>
+    <span style="color: #808080; font-style: italic;"># ensuite on calcul le score, c'est à dire la longueur du trajet.</span>
+    <span style="color: #ff7700;font-weight:bold;">def</span> set_route<span style="color: black;">&#40;</span><span style="color: #008000;">self</span>, map_point<span style="color: black;">&#41;</span> :
+        shuffle<span style="color: black;">&#40;</span>map_point<span style="color: black;">&#41;</span>
+        <span style="color: #008000;">self</span>.<span style="color: black;">route</span> = map_point
+        <span style="color: #ff7700;font-weight:bold;">for</span> p <span style="color: #ff7700;font-weight:bold;">in</span> <span style="color: #008000;">range</span><span style="color: black;">&#40;</span><span style="color: #008000;">len</span><span style="color: black;">&#40;</span>map_point<span style="color: black;">&#41;</span> - <span style="color: #ff4500;">1</span><span style="color: black;">&#41;</span> :
+            <span style="color: #008000;">self</span>.<span style="color: black;">score</span> += map_point<span style="color: black;">&#91;</span>p<span style="color: black;">&#93;</span>.<span style="color: black;">distance</span><span style="color: black;">&#40;</span>map_point<span style="color: black;">&#91;</span>p+<span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span><span style="color: black;">&#41;</span>
+&nbsp;
+    <span style="color: #808080; font-style: italic;"># ici on donne à l'objet la capacité de faire un enfant</span>
+    <span style="color: #808080; font-style: italic;"># ça prend comme paramètre l'objet (lui même), et un autre individu.</span>
+    <span style="color: #808080; font-style: italic;"># on prend la moitié du trajet de l'objet et on complète avec</span>
+    <span style="color: #808080; font-style: italic;"># les points de l'autre individu.</span>
+    <span style="color: #808080; font-style: italic;"># on retourne un enfant, qui est un individu.</span>
+    <span style="color: #ff7700;font-weight:bold;">def</span> croisement<span style="color: black;">&#40;</span><span style="color: #008000;">self</span>, other<span style="color: black;">&#41;</span>:
+        child = Individu<span style="color: black;">&#40;</span><span style="color: black;">&#41;</span>
+        <span style="color: #808080; font-style: italic;"># je prends la moitier de moi-même.</span>
+        wdth = <span style="color: #008000;">len</span><span style="color: black;">&#40;</span><span style="color: #008000;">self</span>.<span style="color: black;">route</span><span style="color: black;">&#41;</span>/<span style="color: #ff4500;">2</span>
+        first_segment = <span style="color: #008000;">self</span>.<span style="color: black;">route</span><span style="color: black;">&#91;</span>:wdth/<span style="color: #ff4500;">2</span><span style="color: black;">&#93;</span>
+        last_segment  = <span style="color: black;">&#91;</span><span style="color: black;">&#93;</span>
+        <span style="color: #808080; font-style: italic;"># je complète avec l'autre</span>
+        <span style="color: #ff7700;font-weight:bold;">for</span> i <span style="color: #ff7700;font-weight:bold;">in</span> <span style="color: #008000;">range</span><span style="color: black;">&#40;</span><span style="color: #008000;">len</span><span style="color: black;">&#40;</span><span style="color: #008000;">self</span>.<span style="color: black;">route</span><span style="color: black;">&#41;</span><span style="color: black;">&#41;</span> :
+            <span style="color: #ff7700;font-weight:bold;">if</span> other.<span style="color: black;">route</span><span style="color: black;">&#91;</span>i<span style="color: black;">&#93;</span> <span style="color: #ff7700;font-weight:bold;">not</span> <span style="color: #ff7700;font-weight:bold;">in</span> first_segment :
+                last_segment.<span style="color: black;">append</span><span style="color: black;">&#40;</span>other.<span style="color: black;">route</span><span style="color: black;">&#91;</span>i<span style="color: black;">&#93;</span><span style="color: black;">&#41;</span>
+        child.<span style="color: black;">set_route</span><span style="color: black;">&#40;</span>first_segment + last_segment<span style="color: black;">&#41;</span>
+        <span style="color: #ff7700;font-weight:bold;">return</span> child
+&nbsp;
+    <span style="color: #808080; font-style: italic;"># ici on défini une fonction pour que l'objet puisse se dessiner.</span>
+    <span style="color: #808080; font-style: italic;"># pour cela on utilisera Turtle de python.</span>
+    <span style="color: #ff7700;font-weight:bold;">def</span> show_me<span style="color: black;">&#40;</span><span style="color: #008000;">self</span><span style="color: black;">&#41;</span>:
+        <span style="color: #dc143c;">turtle</span>.<span style="color: black;">clearscreen</span><span style="color: black;">&#40;</span><span style="color: black;">&#41;</span>
+        pen = <span style="color: #dc143c;">turtle</span>.<span style="color: black;">Turtle</span><span style="color: black;">&#40;</span><span style="color: black;">&#41;</span>
+        pen.<span style="color: black;">speed</span><span style="color: black;">&#40;</span><span style="color: #ff4500;">0</span><span style="color: black;">&#41;</span>
+        pen.<span style="color: black;">up</span><span style="color: black;">&#40;</span><span style="color: black;">&#41;</span>
+        pen.<span style="color: black;">setpos</span><span style="color: black;">&#40;</span><span style="color: #008000;">self</span>.<span style="color: black;">route</span><span style="color: black;">&#91;</span><span style="color: #ff4500;">0</span><span style="color: black;">&#93;</span>.<span style="color: black;">X</span>, <span style="color: #008000;">self</span>.<span style="color: black;">route</span><span style="color: black;">&#91;</span><span style="color: #ff4500;">0</span><span style="color: black;">&#93;</span>.<span style="color: black;">Y</span><span style="color: black;">&#41;</span>
+        <span style="color: #ff7700;font-weight:bold;">for</span> point <span style="color: #ff7700;font-weight:bold;">in</span> <span style="color: #008000;">self</span>.<span style="color: black;">route</span> :
+            pen.<span style="color: black;">goto</span><span style="color: black;">&#40;</span>point.<span style="color: black;">X</span>, point.<span style="color: black;">Y</span><span style="color: black;">&#41;</span>
+            pen.<span style="color: black;">down</span><span style="color: black;">&#40;</span><span style="color: black;">&#41;</span>
+            pen.<span style="color: black;">dot</span><span style="color: black;">&#40;</span><span style="color: black;">&#41;</span>
+&nbsp;
+        pen.<span style="color: black;">goto</span><span style="color: black;">&#40;</span><span style="color: #008000;">self</span>.<span style="color: black;">route</span><span style="color: black;">&#91;</span><span style="color: #ff4500;">0</span><span style="color: black;">&#93;</span>.<span style="color: black;">X</span>, <span style="color: #008000;">self</span>.<span style="color: black;">route</span><span style="color: black;">&#91;</span><span style="color: #ff4500;">0</span><span style="color: black;">&#93;</span>.<span style="color: black;">Y</span><span style="color: black;">&#41;</span></pre></div></div>
+
+<p>Voilà pour l&#8217;objet individu (pas très inspiré sur le nom j&#8217;avoue..) qui est donc capable maintenant de faire pas mal de choses qui sera utile: se montrer, faire un petit (capacité que beaucoup d&#8217;objet lui envie déjà) et choisir une route parmi une liste de points.</p>
+<p>La suite, j&#8217;ai écris ça dans des fonctions, il y a surement plus propre mais bon, le but est de vous montrer comment fonctionne un algo génétique, je laisserai le soin aux pro du python d&#8217;améliorer le code en lui-même (je ne vais pas faire tout le boulot non plus !)</p>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;"><span style="color: #808080; font-style: italic;"># initialisation des points de la carte.</span>
+<span style="color: #808080; font-style: italic;"># prend en paramètre un nombre de points.</span>
+<span style="color: #ff7700;font-weight:bold;">def</span> init_map<span style="color: black;">&#40;</span>nb<span style="color: black;">&#41;</span>:
+    <span style="color: #ff7700;font-weight:bold;">global</span> a_map
+    <span style="color: #ff7700;font-weight:bold;">del</span> a_map<span style="color: black;">&#91;</span>:<span style="color: black;">&#93;</span>
+    <span style="color: #ff7700;font-weight:bold;">for</span> i <span style="color: #ff7700;font-weight:bold;">in</span> <span style="color: #008000;">range</span><span style="color: black;">&#40;</span>nb<span style="color: black;">&#41;</span>:
+        p = Point<span style="color: black;">&#40;</span>randint<span style="color: black;">&#40;</span><span style="color: #ff4500;">1</span>, <span style="color: #ff4500;">300</span><span style="color: black;">&#41;</span>, randint<span style="color: black;">&#40;</span><span style="color: #ff4500;">1</span>, <span style="color: #ff4500;">300</span><span style="color: black;">&#41;</span><span style="color: black;">&#41;</span>
+        a_map.<span style="color: black;">append</span><span style="color: black;">&#40;</span>p<span style="color: black;">&#41;</span></pre></div></div>
+
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;"><span style="color: #808080; font-style: italic;"># initialisation de la population.</span>
+<span style="color: #808080; font-style: italic;"># prend en paramètre le nombre d'individus à créer.</span>
+<span style="color: #ff7700;font-weight:bold;">def</span> init_pop<span style="color: black;">&#40;</span>nb, map_point<span style="color: black;">&#41;</span>:
+    <span style="color: #ff7700;font-weight:bold;">global</span> population
+    <span style="color: #ff7700;font-weight:bold;">del</span> population<span style="color: black;">&#91;</span>:<span style="color: black;">&#93;</span>
+    <span style="color: #ff7700;font-weight:bold;">for</span> i <span style="color: #ff7700;font-weight:bold;">in</span> <span style="color: #008000;">range</span><span style="color: black;">&#40;</span>nb<span style="color: black;">&#41;</span>:
+        i = Individu<span style="color: black;">&#40;</span><span style="color: #008000;">True</span>, map_point<span style="color: black;">&#41;</span>
+        population.<span style="color: black;">append</span><span style="color: black;">&#40;</span>i<span style="color: black;">&#41;</span></pre></div></div>
+
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;"><span style="color: #808080; font-style: italic;"># fonction qui sert à trier les individus suivant leur score.</span>
+<span style="color: #808080; font-style: italic;"># utile pour trouver les meilleurs.</span>
+<span style="color: #ff7700;font-weight:bold;">def</span> selection<span style="color: black;">&#40;</span>pop<span style="color: black;">&#41;</span>:
+    pop.<span style="color: black;">sort</span><span style="color: black;">&#40;</span>key=<span style="color: #ff7700;font-weight:bold;">lambda</span> x: x.<span style="color: black;">score</span>, reverse=<span style="color: #008000;">True</span><span style="color: black;">&#41;</span></pre></div></div>
+
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;"><span style="color: #808080; font-style: italic;"># dans cette fonction, on sélectionne les 15 meilleurs individus de la population</span>
+<span style="color: #808080; font-style: italic;"># que l'on croise avec les autres individus.</span>
+<span style="color: #808080; font-style: italic;"># la nouvelle population est constituée des 15 meilleurs plus les enfants.</span>
+<span style="color: #ff7700;font-weight:bold;">def</span> croisement<span style="color: black;">&#40;</span>pop<span style="color: black;">&#41;</span>:
+    new_pop = <span style="color: black;">&#91;</span><span style="color: black;">&#93;</span>
+    best_pop = population<span style="color: black;">&#91;</span><span style="color: #ff4500;">85</span>:<span style="color: black;">&#93;</span>
+    <span style="color: #ff7700;font-weight:bold;">for</span> i <span style="color: #ff7700;font-weight:bold;">in</span> <span style="color: #008000;">range</span><span style="color: black;">&#40;</span><span style="color: #008000;">len</span><span style="color: black;">&#40;</span>pop<span style="color: black;">&#41;</span>-<span style="color: #ff4500;">15</span><span style="color: black;">&#41;</span> :
+        new_pop.<span style="color: black;">append</span><span style="color: black;">&#40;</span>choice<span style="color: black;">&#40;</span>best_pop<span style="color: black;">&#41;</span>.<span style="color: black;">croisement</span><span style="color: black;">&#40;</span>choice<span style="color: black;">&#40;</span>population<span style="color: black;">&#91;</span><span style="color: #ff4500;">20</span>:<span style="color: #ff4500;">85</span><span style="color: black;">&#93;</span><span style="color: black;">&#41;</span><span style="color: black;">&#41;</span><span style="color: black;">&#41;</span>
+    <span style="color: #ff7700;font-weight:bold;">return</span> new_pop + best_pop</pre></div></div>
+
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;"><span style="color: #808080; font-style: italic;"># la fonction principal.</span>
+<span style="color: #808080; font-style: italic;"># on passe en paramètre le nombre de générations que l'on souhaite faire</span>
+<span style="color: #808080; font-style: italic;"># et le nombre de points. </span>
+<span style="color: #808080; font-style: italic;"># Ensuite, on itère selon un algorithme précis :</span>
+<span style="color: #808080; font-style: italic;"># Création d'une population initiale.</span>
+<span style="color: #808080; font-style: italic;"># Sélection puis croisement de la population</span>
+<span style="color: #808080; font-style: italic;"># à chaque génération on regarde si on a un meilleur score</span>
+<span style="color: #808080; font-style: italic;"># si oui, on l'affiche.</span>
+<span style="color: #ff7700;font-weight:bold;">def</span> play<span style="color: black;">&#40;</span>nb_gene, nb_point<span style="color: black;">&#41;</span> :
+    init_map<span style="color: black;">&#40;</span>nb_point<span style="color: black;">&#41;</span>
+    init_pop<span style="color: black;">&#40;</span><span style="color: #ff4500;">100</span>, a_map<span style="color: black;">&#41;</span>
+    best_score = <span style="color: #ff4500;">1000000</span>
+    <span style="color: #ff7700;font-weight:bold;">for</span> i <span style="color: #ff7700;font-weight:bold;">in</span> <span style="color: #008000;">range</span><span style="color: black;">&#40;</span>nb_gene<span style="color: black;">&#41;</span> :
+        <span style="color: #ff7700;font-weight:bold;">global</span> population
+        population = croisement<span style="color: black;">&#40;</span>population<span style="color: black;">&#41;</span>
+        selection<span style="color: black;">&#40;</span>population<span style="color: black;">&#41;</span>
+        <span style="color: #ff7700;font-weight:bold;">if</span> best_score <span style="color: #66cc66;">&gt;</span> population<span style="color: black;">&#91;</span><span style="color: #ff4500;">99</span><span style="color: black;">&#93;</span>.<span style="color: black;">score</span> :
+            best_score = population<span style="color: black;">&#91;</span><span style="color: #ff4500;">99</span><span style="color: black;">&#93;</span>.<span style="color: black;">score</span>
+            <span style="color: #ff7700;font-weight:bold;">print</span> <span style="color: #483d8b;">'meilleur score : '</span> + <span style="color: #008000;">str</span><span style="color: black;">&#40;</span>population<span style="color: black;">&#91;</span><span style="color: #ff4500;">99</span><span style="color: black;">&#93;</span>.<span style="color: black;">score</span><span style="color: black;">&#41;</span>
+            population<span style="color: black;">&#91;</span><span style="color: #ff4500;">99</span><span style="color: black;">&#93;</span>.<span style="color: black;">show_me</span><span style="color: black;">&#40;</span><span style="color: black;">&#41;</span></pre></div></div>
+
+<p>Voilà le morceau, je pense que j&#8217;ai laissé assez de commentaires dans le code pour bien comprendre comment ça fonctionne et au niveau du python en lui-même il n&#8217;y a vraiment rien de spécial, ici ce qui compte c&#8217;est que vous voyez rapidement comment fonctionne l&#8217;algorithme.</p>
+<p>Alors, maintenant : Pourquoi s&#8217;emmerder à accoupler des objets à 2,78 Ghz ?</p>
+<p>Le problème ci-dessus, un problème dit <a href="http://fr.wikipedia.org/wiki/Problème_NP-complet" title="nb-complet" target="_blank">np-complet</a>, c&#8217;est-à-dire que c&#8217;est la merde pour trouver une solution dans un temps raisonnable si on l&#8217;a fait de façon traditionnelle : pour trouver le meilleur trajet sur 10 points, on sera obligé dans un premier temps de trouver tous les trajets possibles, avec N villes on a (N-1)!/2 trajet possible, le nombre de trajets explose littéralement si N augmente. Avec 100 points il est déjà pratiquement impossible de calculer tous les trajets possibles en un temps raisonnable.</p>
+<p>C&#8217;est là que l&#8217;algorithme génétique est très fort, on arrive très vite à une solution approchée, il est tout de même à noter que le résultat obtenu par l&#8217;algorithme génétique n&#8217;est pas LA solution exact au problème, il donne une solution approchée.</p>
+<p>Dernier point sur le code ci-dessus, ce n&#8217;est que les bases de l&#8217;algorithme génétique, avec ce code vous ne pourrez pas venir à bout d&#8217;un parcours de plus de 20 ou 30 villes, pour cela il faut améliorer l&#8217;algorithme, par exemple le croisement entre deux individus peut être fait de plusieurs façons différentes, dans mon exemple je prends la moitié du &#8220;code génétique&#8221; d&#8217;un individu que je colle à une autre moitié, on peut aussi faire du crossover : c&#8217;est-à-dire qu&#8217;on prend des bouts du code génétique des deux individus alternativement. Ensuite, il y a aussi des mutations génétiques à introduire dans le croisement, à un certain taux, par exemple 1% des croisements entre individus produira une mutation génétique, concrètement : on fait le croisement puis on change aléatoirement des données du code génétique, dans notre exemple on échangera deux points sur le parcours. Cela a pour effet de produire des individus potentiellement meilleurs que les autres, en terme mathématique ça permet aussi de ne pas s&#8217;enfermer dans une solution locale, ce qui est souvent le cas.</p>
+<p>J&#8217;espère ne pas vous avoir complètement perdu avec mes explications et vous avoir donné envie de regarder de plus près cet algorithme que je trouve très élégant.</p>
+ <p><a href="http://sametmax.com/?flattrss_redirect&amp;id=8171&amp;md5=26fc8689f0d88eeb190a0fc3b82bd4c7" title="Flattr" target="_blank"><img src="http://sametmax.com/wp-content/plugins/flattr/img/flattr-badge-large.png" alt="flattr this!"/></a></p>]]></content:encoded>
+			<wfw:commentRss>http://sametmax.com/du-darwinisme-pythonien/feed/</wfw:commentRss>
+		<slash:comments>33</slash:comments>
+		<atom:link rel="payment" title="Flattr this!" href="https://flattr.com/submit/auto?user_id=sam_et_max&amp;popout=1&amp;url=http%3A%2F%2Fsametmax.com%2Fdu-darwinisme-pythonien%2F&amp;language=en_GB&amp;category=text&amp;title=Du+Darwinisme+pythonien&amp;description=Ceci+est+un+post+invit%C3%A9+de+golgotha+post%C3%A9+sous+licence+creative+common+3.0+unported.+Qui+n%26%238217%3Ba+jamais+r%C3%AAv%C3%A9+de+cloner+des+moutons+clara+morgane+et+de+s%26%238217%3Badonner+%C3%A0+des+exp%C3%A9rimentations...&amp;tags=algorithme%2Cg%C3%A9n%C3%A9tique%2Cpython%2Cblog" type="text/html" />
+<enclosure url="http://sametmax.com/wp-content/uploads/2013/12/yO8DJCe.jpg" length="30561" type="image/jpg" />	</item>
+		<item>
+		<title>Qu&#8217;est-de que MVC et à quoi ça sert ?</title>
+		<link>http://sametmax.com/quest-de-que-mvc-et-a-quoi-ca-sert/</link>
+		<comments>http://sametmax.com/quest-de-que-mvc-et-a-quoi-ca-sert/#comments</comments>
+		<pubDate>Tue, 10 Dec 2013 08:39:53 +0000</pubDate>
+		<dc:creator>Sam</dc:creator>
+				<category><![CDATA[Programmation]]></category>
+		<category><![CDATA[csv]]></category>
+		<category><![CDATA[mvc]]></category>
+		<category><![CDATA[php]]></category>
+		<category><![CDATA[python]]></category>
+
+		<guid isPermaLink="false">http://sametmax.com/?p=7440</guid>
+		<description><![CDATA[MVC, pour "Modèle, Vue, Contrôleur", est le nom donné à une manière d'organiser son code. C'est une façon d'appliquer le principe de séparation des responsabilités, en l’occurrence celles du traitement de l'information et de sa mise en forme.
+
+Une fois n'est pas coutume je vais donner un exemple en Python <strong>et PHP</strong>, car c'est une question qui hante les codeurs de ce langage. En effet on leur rabâche qu'il faut utiliser MVC, que tel framework est MVC, que leur code à eux ne l'est pas, etc. Sans que nul part, évidement, on ne donne une explication correcte de la notion.]]></description>
+			<content:encoded><![CDATA[<p>MVC, pour &#8220;Modèle, Vue, Contrôleur&#8221;, est le nom donné à une manière d&#8217;organiser son code. C&#8217;est une façon d&#8217;appliquer le principe de séparation des responsabilités, en l’occurrence celles du traitement de l&#8217;information et de sa mise en forme.</p>
+<p>Une fois n&#8217;est pas coutume je vais donner un exemple en Python <strong>et PHP</strong>, car c&#8217;est une question qui hante les codeurs de ce langage. En effet on leur rabâche qu&#8217;il faut utiliser MVC, que tel framework est MVC, que leur code à eux ne l&#8217;est pas, etc. Sans que nulle part, évidement, on ne donne une explication correcte de la notion.</p>
+<p>Long article, petite musique.</p>
+
+<!-- iframe plugin v:2.3 - wordpress.org/extend/plugins/iframe/ -->
+<iframe width="420" height="315" src="//www.youtube.com/embed/Bb1_zqQ-BUA" frameborder="0" scrolling="no" class="iframe-class"></iframe>
+<p><em>(piqué à What the cut :-))</em></p>
+<h2>Principe de base</h2>
+<p>Il n&#8217;y a pas de Tables De La Loi qui disent ce qu&#8217;est le MVC, il y a donc autant de manières de le faire que de programmes. En fait, c&#8217;est un simple principe d&#8217;organisation de code, et il y en a d&#8217;<a href="http://cirw.in//blog/time-to-move-on.html">autres</a>. Mais généralement, c&#8217;est basé sur la répartition suivante :</p>
+<ul>
+<li>Une part du code gère l&#8217;affichage. C&#8217;est la partie &#8220;Vue&#8221;.</li>
+<li>Une part du code gère la manipulation des données. C&#8217;est la partie &#8220;Modèle&#8221;.</li>
+<li>Tout le reste. L&#8217;espèce de merdier qu&#8217;on va mettre en place pour faire marcher le programme, c&#8217;est le contrôleur. Souvent, c&#8217;est le code qui réagit à l&#8217;action de l&#8217;utilisateur, mais pas seulement.</li>
+</ul>
+<p>MVC est typiquement quelque chose d&#8217;abstrait qu&#8217;on ne peut pas comprendre avec une explication seule. Passons donc rapidement à un exemple.</p>
+<p>Imaginons que l&#8217;on ait des tas de fichiers CSV ainsi faits :</p>
+<pre>"Jeu";"Nombre de joueurs Max";"Support"
+"Secret of Mana";"3";"Super Nintendo"
+"Bomberman";"8";"Super Nintendo"
+"Mario Kart";"4";"Nintendo 64"
+"Age of Empire 2";"8";"PC"</pre>
+<p>Et que nous voulions un programme qui fasse un rapport sur le CSV, affichant :</p>
+<pre>Nombre de jeux analysés : 10
+
+Détails
+--------
+
+Support: Super Nintendo
+Nombre de jeux : 2
+Nombre de joueurs max : 8
+
+Support: Nintendo 64
+Nombre de jeux : 1
+Nombre de joueurs max : 4
+
+etc</pre>
+<p>Il y a de nombreuses manières de coder ce programme. Si on le fait en suivant le principe du modèle MVC, on va faire 3 fichiers : un pour le modèle, un pour la vue, et un pour le contrôleur. On peut avoir plus ou moins de 3 fichiers, j&#8217;ai choisi 3 fichiers pour bien illustrer le principe de séparation des responsabilités.</p>
+<h3>Le modèle</h3>
+<p>Le modèle manipule la donnée. Dans un site Web, le modèle est souvent le code qui permet de faire de requêtes à la base de données. Dans notre cas, c&#8217;est le code qui va manipuler le CSV. Encore une fois, il n&#8217;y a pas de définition divine de ce qu&#8217;est un modèle, ceci n&#8217;est qu&#8217;un exemple de ce que cela PEUT être. C&#8217;est le choix du dev.</p>
+<p><em>modele.py</em></p>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;">&nbsp;
+<span style="color: #ff7700;font-weight:bold;">from</span> <span style="color: #dc143c;">__future__</span> <span style="color: #ff7700;font-weight:bold;">import</span> unicode_literals, absolute_import
+&nbsp;
+<span style="color: #ff7700;font-weight:bold;">from</span> <span style="color: #dc143c;">csv</span> <span style="color: #ff7700;font-weight:bold;">import</span> DictReader
+<span style="color: #ff7700;font-weight:bold;">from</span> <span style="color: #dc143c;">collections</span> <span style="color: #ff7700;font-weight:bold;">import</span> OrderedDict
+&nbsp;
+<span style="color: #ff7700;font-weight:bold;">class</span> Modele<span style="color: black;">&#40;</span><span style="color: #008000;">object</span><span style="color: black;">&#41;</span>:
+&nbsp;
+    <span style="color: #ff7700;font-weight:bold;">def</span> <span style="color: #0000cd;">__init__</span><span style="color: black;">&#40;</span><span style="color: #008000;">self</span>, <span style="color: #dc143c;">csv</span><span style="color: black;">&#41;</span>:
+        <span style="color: #008000;">self</span>.<span style="color: black;">total_jeux</span> = <span style="color: #ff4500;">0</span>
+        <span style="color: #008000;">self</span>.<span style="color: black;">supports</span> = OrderedDict<span style="color: black;">&#40;</span><span style="color: black;">&#41;</span>
+        <span style="color: #ff7700;font-weight:bold;">with</span> <span style="color: #008000;">open</span><span style="color: black;">&#40;</span><span style="color: #dc143c;">csv</span><span style="color: black;">&#41;</span> <span style="color: #ff7700;font-weight:bold;">as</span> f:
+            <span style="color: #808080; font-style: italic;"># on parse le csv</span>
+            <span style="color: #ff7700;font-weight:bold;">for</span> data <span style="color: #ff7700;font-weight:bold;">in</span> DictReader<span style="color: black;">&#40;</span>f, delimiter=b<span style="color: #483d8b;">';'</span>, quotechar=b<span style="color: #483d8b;">'&quot;'</span><span style="color: black;">&#41;</span>:
+                <span style="color: #808080; font-style: italic;"># on calcule les stats pour que ligne du csv</span>
+                support = <span style="color: #008000;">self</span>.<span style="color: black;">supports</span>.<span style="color: black;">setdefault</span><span style="color: black;">&#40;</span>data<span style="color: black;">&#91;</span><span style="color: #483d8b;">'Support'</span><span style="color: black;">&#93;</span>, <span style="color: black;">&#123;</span><span style="color: black;">&#125;</span><span style="color: black;">&#41;</span>
+                support<span style="color: black;">&#91;</span><span style="color: #483d8b;">'nombre_de_jeux'</span><span style="color: black;">&#93;</span> = support.<span style="color: black;">get</span><span style="color: black;">&#40;</span><span style="color: #483d8b;">'nombre_de_jeux'</span>, <span style="color: #ff4500;">0</span><span style="color: black;">&#41;</span> + <span style="color: #ff4500;">1</span>
+                <span style="color: #008000;">self</span>.<span style="color: black;">total_jeux</span> += <span style="color: #ff4500;">1</span>
+                <span style="color: #ff7700;font-weight:bold;">if</span> support.<span style="color: black;">get</span><span style="color: black;">&#40;</span><span style="color: #483d8b;">'joueurs_max'</span>, <span style="color: #ff4500;">0</span><span style="color: black;">&#41;</span> <span style="color: #66cc66;">&lt;</span> data<span style="color: black;">&#91;</span><span style="color: #483d8b;">'Nombre de joueurs Max'</span><span style="color: black;">&#93;</span>:
+                    support<span style="color: black;">&#91;</span><span style="color: #483d8b;">'joueurs_max'</span><span style="color: black;">&#93;</span> = data<span style="color: black;">&#91;</span><span style="color: #483d8b;">'Nombre de joueurs Max'</span><span style="color: black;">&#93;</span>
+&nbsp;
+    <span style="color: #ff7700;font-weight:bold;">def</span> <span style="color: #0000cd;">__iter__</span><span style="color: black;">&#40;</span><span style="color: #008000;">self</span><span style="color: black;">&#41;</span>:
+        <span style="color: #808080; font-style: italic;"># goodies pour pouvoir itérer sur le modèle</span>
+        <span style="color: #ff7700;font-weight:bold;">return</span> <span style="color: #008000;">self</span>.<span style="color: black;">supports</span>.<span style="color: black;">iteritems</span><span style="color: black;">&#40;</span><span style="color: black;">&#41;</span></pre></div></div>
+
+<p>Ca s&#8217;utilise comme ça :</p>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;"><span style="color: #66cc66;">&gt;&gt;&gt;</span> modele = Modele<span style="color: black;">&#40;</span><span style="color: #483d8b;">&quot;Bureau/jeux.csv&quot;</span><span style="color: black;">&#41;</span>
+<span style="color: #66cc66;">&gt;&gt;&gt;</span> modele.<span style="color: black;">total_jeux</span>
+<span style="color: #ff4500;">4</span>
+<span style="color: #66cc66;">&gt;&gt;&gt;</span> <span style="color: #ff7700;font-weight:bold;">for</span> support, data <span style="color: #ff7700;font-weight:bold;">in</span> modele:
+    <span style="color: #ff7700;font-weight:bold;">print</span> support
+    <span style="color: #ff7700;font-weight:bold;">print</span> data
+...
+<span style="color: black;">Super</span> Nintendo
+<span style="color: black;">&#123;</span>u<span style="color: #483d8b;">'nombre_de_jeux'</span>: <span style="color: #ff4500;">2</span>, u<span style="color: #483d8b;">'joueurs_max'</span>: <span style="color: #483d8b;">'8'</span><span style="color: black;">&#125;</span>
+Nintendo <span style="color: #ff4500;">64</span>
+<span style="color: black;">&#123;</span>u<span style="color: #483d8b;">'nombre_de_jeux'</span>: <span style="color: #ff4500;">1</span>, u<span style="color: #483d8b;">'joueurs_max'</span>: <span style="color: #483d8b;">'4'</span><span style="color: black;">&#125;</span>
+PC
+<span style="color: black;">&#123;</span>u<span style="color: #483d8b;">'nombre_de_jeux'</span>: <span style="color: #ff4500;">1</span>, u<span style="color: #483d8b;">'joueurs_max'</span>: <span style="color: #483d8b;">'8'</span><span style="color: black;">&#125;</span></pre></div></div>
+
+<p>On voit ici le principe : le modèle ne fait que manipuler la donnée, et rien d&#8217;autre. Il extrait, regroupe, calcule, raffine, et donne une belle interface propre pour que le reste du programme puisse utiliser le résultat sans avoir à connaitre les détails du traitement.</p>
+<h3>La vue</h3>
+<p>La vue, c&#8217;est de la présentation. C&#8217;est comment on veut que la donnée soit présentée à l&#8217;utilisateur. Ça peut être le code qui pond du HTML ou produit un CSV, ou fait configurer de jolis boutons dans une UI.</p>
+<p>Dans notre cas, c&#8217;est le code qui va formater le texte pour la console.</p>
+<p>On veut un truc comme ça :</p>
+<pre>
+Nombre de jeux analysés : 10
+
+Détails
+--------
+
+Support: Super Nintendo
+Nombre de jeux : 2
+Nombre de joueurs max : 8
+
+Support: Nintendo 64
+Nombre de jeux : 1
+Nombre de joueurs max : 4</pre>
+<p>Normalement, on voudrait un template. Mais on a pas de langage de template qui accepte les boucles dans la lib standard, alors on va faire comme la norme WSGI et retourner un générateur de strings.</p>
+<p><em>vue.py</em></p>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;"><span style="color: #ff7700;font-weight:bold;">from</span> <span style="color: #dc143c;">__future__</span> <span style="color: #ff7700;font-weight:bold;">import</span> unicode_literals, absolute_import
+&nbsp;
+<span style="color: #ff7700;font-weight:bold;">def</span> rapport<span style="color: black;">&#40;</span>modele<span style="color: black;">&#41;</span>:
+    <span style="color: #808080; font-style: italic;"># affichage de l'en-tête</span>
+    <span style="color: #ff7700;font-weight:bold;">yield</span> <span style="color: black;">&#40;</span><span style="color: #483d8b;">&quot;Nombre de jeux analysés : {total_jeux}<span style="color: #000099; font-weight: bold;">\n</span><span style="color: #000099; font-weight: bold;">\n</span>&quot;</span>
+           <span style="color: #483d8b;">&quot;Détails<span style="color: #000099; font-weight: bold;">\n</span>--------<span style="color: #000099; font-weight: bold;">\n</span>&quot;</span><span style="color: black;">&#41;</span>.<span style="color: black;">format</span><span style="color: black;">&#40;</span>total_jeux=modele.<span style="color: black;">total_jeux</span><span style="color: black;">&#41;</span>
+&nbsp;
+    <span style="color: #808080; font-style: italic;"># affichage des stats pour chaque console</span>
+    <span style="color: #ff7700;font-weight:bold;">for</span> support, data <span style="color: #ff7700;font-weight:bold;">in</span> modele:
+        <span style="color: #ff7700;font-weight:bold;">yield</span> <span style="color: black;">&#40;</span><span style="color: #483d8b;">&quot;Support: {support}<span style="color: #000099; font-weight: bold;">\n</span>&quot;</span>
+               <span style="color: #483d8b;">&quot;Nombre de jeux : {nombre_de_jeux}<span style="color: #000099; font-weight: bold;">\n</span>&quot;</span>
+               <span style="color: #483d8b;">&quot;Nombre de joueurs max : {joueurs_max}<span style="color: #000099; font-weight: bold;">\n</span>&quot;</span><span style="color: black;">&#41;</span>.<span style="color: black;">format</span><span style="color: black;">&#40;</span>
+               support=support, <span style="color: #66cc66;">**</span>data<span style="color: black;">&#41;</span></pre></div></div>
+
+<p>Et ça s&#8217;utilise comme ça :</p>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;"><span style="color: #66cc66;">&gt;&gt;&gt;</span> m = Modele<span style="color: black;">&#40;</span><span style="color: #483d8b;">&quot;Bureau/jeux.csv&quot;</span><span style="color: black;">&#41;</span>
+<span style="color: #66cc66;">&gt;&gt;&gt;</span> <span style="color: #008000;">list</span><span style="color: black;">&#40;</span>rapport<span style="color: black;">&#40;</span>m<span style="color: black;">&#41;</span><span style="color: black;">&#41;</span>
+<span style="color: black;">&#91;</span>u<span style="color: #483d8b;">'Nombre de jeux analys<span style="color: #000099; font-weight: bold;">\x</span>e9s : 4<span style="color: #000099; font-weight: bold;">\n</span><span style="color: #000099; font-weight: bold;">\n</span>D<span style="color: #000099; font-weight: bold;">\x</span>e9tails<span style="color: #000099; font-weight: bold;">\n</span>--------<span style="color: #000099; font-weight: bold;">\n</span>'</span>, u<span style="color: #483d8b;">'Support: Super Nintendo<span style="color: #000099; font-weight: bold;">\n</span>Nombre de jeux : 2<span style="color: #000099; font-weight: bold;">\n</span>Nombre de joueurs max : 8<span style="color: #000099; font-weight: bold;">\n</span>'</span>, u<span style="color: #483d8b;">'Support: Nintendo 64<span style="color: #000099; font-weight: bold;">\n</span>Nombre de jeux : 1<span style="color: #000099; font-weight: bold;">\n</span>Nombre de joueurs max : 4<span style="color: #000099; font-weight: bold;">\n</span>'</span>, u<span style="color: #483d8b;">'Support: PC<span style="color: #000099; font-weight: bold;">\n</span>Nombre de jeux : 1<span style="color: #000099; font-weight: bold;">\n</span>Nombre de joueurs max : 8<span style="color: #000099; font-weight: bold;">\n</span>'</span><span style="color: black;">&#93;</span></pre></div></div>
+
+<p>Encore une fois, ceci n&#8217;est pas LA manière de faire une vue. Ceci est UNE manière de faire une vue. Le but de la vue est de contenir le code qui se charge de formater la donnée pour l&#8217;utilisateur. </p>
+<p>Il est plus courant d&#8217;utiliser un template pour cela, c&#8217;est à dire une sorte lib de texte à trou à remplir plus tard avec le modèle. C&#8217;est plus facile et flexible qu&#8217;une fonction. Il y a des tas de <a href="https://wiki.python.org/moin/Templating">libs de templates en Python</a>. Je ferai sans doute un article dessus un jour. Si vous voulez un truc simple et rapide, utilisez <a href="http://www.joonis.de/en/code/templite">templite</a> : rien besoin d&#8217;installer, ça tient dans un fichier. Si vous voulez le truc le plus standard possible, utiliser <a href="http://jinja.pocoo.org/docs/">jinja2</a>, c&#8217;est plus ou moins la lib la plus connue actuellement.</p>
+<h3>Le contrôleur</h3>
+<p>Le contrôleur, c&#8217;est tout le reste. Essayer de définir le contrôleur est généralement voué à l&#8217;échec, tant sa nature change d&#8217;une application à l&#8217;autre. Certains disent que c&#8217;est le code glue qui permet de lier le modèle et la vue. D&#8217;autres qu&#8217;il contient la logique de flux du programme. Personnellement, je vous invite à vous fier à la définition &#8220;c&#8217;est tout le reste&#8221;. Avec l&#8217;expérience, vous en viendrez à faire des modèles et des vues de plus en plus adaptées, et la partie contrôleur découlera d&#8217;elle-même.</p>
+<p>De toute façon, aucun MVC n&#8217;est parfait, et un peu de vue dégouline parfois sur le contrôleur, un peu de contrôleur coule dans le modèle, ou inversement. Il ne sert à rien d&#8217;être un nazi du MVC, c&#8217;est une bonne pratique, pas un dogme religieux.</p>
+<p>Dans notre cas le programme a besoin d&#8217;un code qui :</p>
+<ul>
+<li>Importe notre vue et notre modèle.</li>
+<li>Prend en paramètre le fichier CSV via la ligne de commande.</li>
+<li>Mélange tout ça pour afficher le résultat dans la console.</li>
+</ul>
+<p>Le contrôleur est par ailleurs le point d&#8217;entrée d&#8217;un programme. Et ce sera essentiellement ça, le contrôleur de notre programme : un point d&#8217;entrée.</p>
+<p><em>controlleur.py</em></p>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;"><span style="color: #ff7700;font-weight:bold;">from</span> <span style="color: #dc143c;">__future__</span> <span style="color: #ff7700;font-weight:bold;">import</span> unicode_literals, absolute_import
+&nbsp;
+<span style="color: #ff7700;font-weight:bold;">import</span> <span style="color: #dc143c;">os</span>
+<span style="color: #ff7700;font-weight:bold;">import</span> <span style="color: #dc143c;">sys</span>
+&nbsp;
+<span style="color: #ff7700;font-weight:bold;">from</span> vue <span style="color: #ff7700;font-weight:bold;">import</span> rapport
+<span style="color: #ff7700;font-weight:bold;">from</span> modele <span style="color: #ff7700;font-weight:bold;">import</span> Modele
+&nbsp;
+<span style="color: #808080; font-style: italic;"># on prend le csv en paramètre du script</span>
+<span style="color: #ff7700;font-weight:bold;">try</span>:
+    f = <span style="color: #dc143c;">sys</span>.<span style="color: black;">argv</span><span style="color: black;">&#91;</span><span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span>
+<span style="color: #ff7700;font-weight:bold;">except</span> <span style="color: #008000;">IndexError</span>:
+    <span style="color: #dc143c;">sys</span>.<span style="color: black;">exit</span><span style="color: black;">&#40;</span><span style="color: #483d8b;">&quot;Veuillez passer le chemin d'un fichier CSV en paramètre.&quot;</span><span style="color: black;">&#41;</span>
+&nbsp;
+<span style="color: #808080; font-style: italic;"># on vérifie que le csv existe</span>
+<span style="color: #ff7700;font-weight:bold;">if</span> <span style="color: #ff7700;font-weight:bold;">not</span> <span style="color: #dc143c;">os</span>.<span style="color: black;">path</span>.<span style="color: black;">isfile</span><span style="color: black;">&#40;</span>f<span style="color: black;">&#41;</span>:
+    <span style="color: #dc143c;">sys</span>.<span style="color: black;">exit</span><span style="color: black;">&#40;</span><span style="color: #483d8b;">&quot;Le fichier '%s' n'existe pas&quot;</span> <span style="color: #66cc66;">%</span> f<span style="color: black;">&#41;</span>
+&nbsp;
+<span style="color: #808080; font-style: italic;"># on analyse le CSV et on affiche le rapport</span>
+<span style="color: #ff7700;font-weight:bold;">for</span> texte <span style="color: #ff7700;font-weight:bold;">in</span> rapport<span style="color: black;">&#40;</span>Modele<span style="color: black;">&#40;</span>f<span style="color: black;">&#41;</span><span style="color: black;">&#41;</span>:
+    <span style="color: #ff7700;font-weight:bold;">print</span> texte</pre></div></div>
+
+<h3>Résultat final</h3>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;">$ python controlleur.<span style="color: black;">py</span> jeux.<span style="color: #dc143c;">csv</span>
+Nombre de jeux analysés : <span style="color: #ff4500;">4</span>
+&nbsp;
+Détails
+--------
+&nbsp;
+Support: Super Nintendo
+Nombre de jeux : <span style="color: #ff4500;">2</span>
+Nombre de joueurs <span style="color: #008000;">max</span> : <span style="color: #ff4500;">8</span>
+&nbsp;
+Support: Nintendo <span style="color: #ff4500;">64</span>
+Nombre de jeux : <span style="color: #ff4500;">1</span>
+Nombre de joueurs <span style="color: #008000;">max</span> : <span style="color: #ff4500;">4</span>
+&nbsp;
+Support: PC
+Nombre de jeux : <span style="color: #ff4500;">1</span>
+Nombre de joueurs <span style="color: #008000;">max</span> : <span style="color: #ff4500;">8</span></pre></div></div>
+
+<p>Vous pouvez <a href="https://github.com/sametmax/codes-des-articles/tree/master/2013/decembre">télécharger le code Python de cet article</a>.</p>
+<h2>Exemple en PHP</h2>
+<p>Le PHP a eu beaucoup de succès du fait de la facilité avec laquelle on pouvait coder un site Web, en mélangeant code et HTML. Malheureusement cela a donné lieu à des codes très sales, où on trouvait les requêtes SQL à côté de l&#8217;affichage d&#8217;un tableau, l&#8217;analyse des paramètres <code>$_GET</code> à deux pas de la vérification du mot de passe.</p>
+<p>MVC a été une réponse à cela.</p>
+<p>Un modèle MVC propre sera généralement très riche et complexe, mais il est possible de bricoler un site en MVC basique à la main sans trop de problème. Je ne vous recommande pas d&#8217;utiliser ce code en prod, mais c&#8217;est un bon début pour comprendre comment ça marche. Une fois que vous serez à l&#8217;aise avec l&#8217;idée, n&#8217;hésitez pas à coder le votre sur un petit projet, puis à tester un framework. <a href="http://symfony.com/">Symfony</a>, par exemple, est une valeur sûre en PHP.</p>
+<p>Admettons que notre site ait deux pages : <em>accueil</em> et <em>liste des utilisateurs</em>.</p>
+<p>L&#8217;accueil dit juste bonjour, la liste affiche tous les utilisateurs du site Web. Passionnant.</p>
+<h3>Le modèle</h3>
+<p>L&#8217;idée est de mettre toutes les requêtes SQL au même endroit.</p>
+<p>Les vieux routards du PHP m&#8217;excuseront, mais je n&#8217;ai plus codé dans ce langage depuis des années, donc mon style va dater un peu :-) Et honnêtement tous ces points-virgules, ces dollars et ces brackets dans tous les sens, sans compter la flèche comme caractère de look up, ça me perturbe grandement.</p>
+<p><em>modele.php</em></p>
+
+<div class="wp_syntax"><div class="code"><pre class="php" style="font-family:monospace;"><span style="color: #000000; font-weight: bold;">&lt;?php</span>
+&nbsp;
+<span style="color: #000088;">$con</span> <span style="color: #339933;">=</span> <span style="color: #990000;">mysqli_connect</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;127.0.0.1&quot;</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'root'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'admin123'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'ma_db'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #000000; font-weight: bold;">class</span> User <span style="color: #009900;">&#123;</span>
+&nbsp;
+    <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000088;">$name</span><span style="color: #339933;">;</span>
+    <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000088;">$age</span><span style="color: #339933;">;</span>
+&nbsp;
+    <span style="color: #000000; font-weight: bold;">function</span> __construct<span style="color: #009900;">&#40;</span><span style="color: #000088;">$name</span><span style="color: #339933;">,</span> <span style="color: #000088;">$age</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+        <span style="color: #000088;">$this</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">name</span> <span style="color: #339933;">=</span> <span style="color: #000088;">$name</span><span style="color: #339933;">;</span>
+        <span style="color: #000088;">$this</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">age</span> <span style="color: #339933;">=</span> <span style="color: #000088;">$age</span><span style="color: #339933;">;</span>
+    <span style="color: #009900;">&#125;</span>
+&nbsp;
+    static <span style="color: #000000; font-weight: bold;">function</span> liste<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+&nbsp;
+        <span style="color: #000088;">$users</span> <span style="color: #339933;">=</span> <span style="color: #990000;">array</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+        <span style="color: #000088;">$query</span> <span style="color: #339933;">=</span>  <span style="color: #990000;">mysqli_query</span><span style="color: #009900;">&#40;</span><span style="color: #000088;">$con</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'SELECT * FROM `user`'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+        <span style="color: #b1b100;">while</span> <span style="color: #009900;">&#40;</span><span style="color: #000088;">$row</span> <span style="color: #339933;">=</span> <span style="color: #990000;">mysql_fetch_assoc</span><span style="color: #009900;">&#40;</span><span style="color: #000088;">$query</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span>
+        <span style="color: #009900;">&#123;</span>
+            <span style="color: #000088;">$users</span><span style="color: #009900;">&#91;</span><span style="color: #009900;">&#93;</span> <span style="color: #339933;">=</span> User<span style="color: #009900;">&#40;</span><span style="color: #000088;">$row</span><span style="color: #009900;">&#91;</span><span style="color: #cc66cc;">0</span><span style="color: #009900;">&#93;</span><span style="color: #339933;">,</span> <span style="color: #000088;">$row</span><span style="color: #009900;">&#91;</span><span style="color: #cc66cc;">1</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+        <span style="color: #009900;">&#125;</span>
+&nbsp;
+        <span style="color: #b1b100;">return</span> users<span style="color: #339933;">;</span>
+    <span style="color: #009900;">&#125;</span>
+&nbsp;
+<span style="color: #009900;">&#125;</span></pre></div></div>
+
+<p>Et ça s&#8217;utilise comme ça :</p>
+
+<div class="wp_syntax"><div class="code"><pre class="php" style="font-family:monospace;"><span style="color: #000088;">$users</span> <span style="color: #339933;">=</span> User<span style="color: #339933;">-&gt;</span><span style="color: #004000;">liste</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #b1b100;">foreach</span> <span style="color: #009900;">&#40;</span><span style="color: #000088;">$users</span> <span style="color: #b1b100;">as</span> <span style="color: #000088;">$user</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+    <span style="color: #b1b100;">echo</span> <span style="color: #000088;">$user</span><span style="color: #339933;">.</span>name <span style="color: #339933;">.</span> <span style="color: #0000ff;">'('</span> <span style="color: #339933;">.</span> <span style="color: #000088;">$users</span><span style="color: #339933;">.</span>age<span style="color: #339933;">.</span> <span style="color: #0000ff;">'ans)'</span><span style="color: #339933;">;</span>
+<span style="color: #009900;">&#125;</span></pre></div></div>
+
+<p>Ce qui affiche tous les noms et les ages des utilisateurs.</p>
+<p>Bien, on a isolé l&#8217;accès aux données, maintenant on va isoler la mise en forme.</p>
+<h3>La vue</h3>
+<p>Ou plutôt, les vues, puisqu&#8217;on a deux pages, et donc deux vues.</p>
+<p>Vous ne le savez peut être pas, mais PHP vient avec une <a href="http://www.php.net/manual/fr/control-structures.alternative-syntax.php">syntaxe alternativ</a>e spécialement conçue pour être utilisée dans le HTML. Elle est similaire à la syntaxe originale, mais les blocs sont ouverts avec <code>:</code> au lieux de <code>{</code> et fermés par <code>endinstruction</code>. Les variables sont affichées avec <<code>?=$nom_de_variable?></code>.</p>
+<p>Par exemple:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="php" style="font-family:monospace;"><span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">if</span> <span style="color: #000088;">$truc</span><span style="color: #339933;">:</span> <span style="color: #000000; font-weight: bold;">?&gt;</span>
+    &lt;p&gt;
+        <span style="color: #000000; font-weight: bold;">&lt;?=</span><span style="color: #000088;">$machin</span><span style="color: #000000; font-weight: bold;">?&gt;</span>
+    &lt;/p&gt;
+<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">endif</span><span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span></pre></div></div>
+
+<p>Cette syntaxe permet de bien séparer le texte du code PHP, et donc sera utilisée pour la vue.</p>
+<p><em>accueil.php</em></p>
+
+<div class="wp_syntax"><div class="code"><pre class="php" style="font-family:monospace;"><span style="color: #339933;">&lt;</span>html<span style="color: #339933;">&gt;&lt;</span>body<span style="color: #339933;">&gt;&lt;</span>h1<span style="color: #339933;">&gt;</span>Bonjour<span style="color: #339933;">&lt;/</span>h1<span style="color: #339933;">&gt;&lt;/</span>body<span style="color: #339933;">&gt;&lt;/</span>html<span style="color: #339933;">&gt;</span></pre></div></div>
+
+<p><em>liste_utilisateurs.php</em></p>
+
+<div class="wp_syntax"><div class="code"><pre class="php" style="font-family:monospace;">&lt;html&gt;
+    &lt;body&gt;
+        &lt;h1&gt;Utilisateurs&lt;/h1&gt;
+&nbsp;
+        &lt;ul&gt;http://www.php.net/manual/fr/control-structures.alternative-syntax.php
+            <span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">foreach</span> <span style="color: #000088;">$users</span> <span style="color: #b1b100;">as</span> <span style="color: #000088;">$user</span><span style="color: #339933;">:</span> <span style="color: #000000; font-weight: bold;">?&gt;</span>
+                &lt;li&gt;<span style="color: #000000; font-weight: bold;">&lt;?=</span><span style="color: #000088;">$user</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">name</span><span style="color: #000000; font-weight: bold;">?&gt;</span> (<span style="color: #000000; font-weight: bold;">&lt;?=</span><span style="color: #000088;">$user</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">age</span><span style="color: #000000; font-weight: bold;">?&gt;</span> ans)&lt;/li&gt;
+            <span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">endforeach</span><span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span>
+        &lt;/ul&gt;
+&nbsp;
+    &lt;/body&gt;
+&lt;/html&gt;</pre></div></div>
+
+<p>Et voilà, on a deux pages, et la deuxième affiche notre liste d'utilisateur. Vous remarquerez qu'il n'y a pas de requête ou de logique de choix de page, pas d'accès à <code>mysql_*</code> ou à <code>$_GET</code> dans ce code. Que de l'affichage.</p>
+<h3>Le contrôleur</h3>
+<p>Puisque le contrôleur, c'est le reste, ce sera à la fois notre point d'entrée, notre code glue et notre routing.</p>
+
+<div class="wp_syntax"><div class="code"><pre class="php" style="font-family:monospace;">&nbsp;
+<span style="color: #000000; font-weight: bold;">&lt;?php</span>
+&nbsp;
+<span style="color: #b1b100;">if</span> <span style="color: #009900;">&#40;</span><span style="color: #990000;">isset</span><span style="color: #009900;">&#40;</span><span style="color: #000088;">$_GET</span><span style="color: #009900;">&#91;</span><span style="color: #0000ff;">'page'</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span> <span style="color: #339933;">&amp;&amp;</span> <span style="color: #000088;">$_GET</span><span style="color: #009900;">&#91;</span><span style="color: #0000ff;">'page'</span><span style="color: #009900;">&#93;</span> <span style="color: #339933;">==</span> <span style="color: #0000ff;">'liste'</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+    <span style="color: #b1b100;">require</span> <span style="color: #0000ff;">'modele.php'</span>
+    <span style="color: #b1b100;">require</span> <span style="color: #0000ff;">'liste_utilisateurs.php'</span>
+<span style="color: #009900;">&#125;</span> <span style="color: #b1b100;">else</span> <span style="color: #009900;">&#123;</span>
+    <span style="color: #b1b100;">require</span> <span style="color: #0000ff;">'accueil.php'</span>
+<span style="color: #009900;">&#125;</span></pre></div></div>
+
+<p>Et c'est tout.</p>
+<p>Si l'utilisateur va sur l'adresse <em>monsite.com/</em>, il va arriver sur l'accueil, si il va sur <em>monsite.com/?page=liste</em>, il va atterrir sur la liste des utilisateurs.</p>
+<p>Si on veut changer le look de la page, on modifie la vue. Si on veut changer de base de source de données (et lire par exemple depuis un fichier), on change le modèle. Si on veut rajouter des pages, on change le contrôleur. L'avantage de la séparation des responsabilités, c'est la facilité de lecture et donc de maintenance et d'évolution.</p>
+<p>J'insiste sur le fait que c'est un exemple pédagogique, et pas quelque chose à utiliser en prod (par exemple à cause des URLs très moches). Mais il va vous permettre de coder votre premier site en MVC, et plus tard, aller vers des versions plus sérieuses.</p>
+<p>L'important, c'est la séparation donnée / formatage / reste du code.</p>
+<h2>MVC dans la vraie vie vivante</h2>
+<p>Créer un modèle MVC à la main propre et efficace, c'est énormément de taff. C'est pour cela qu'on utilise des outils tout fait comme des frameworks Web ou des libs graphiques (Qt, wxWidget et Gtk ont toutes des outils MVC, ex : Qt possède <a href="http://en.wikipedia.org/wiki/QML">QML</a>, un dialecte type CSS pour manipuler des vues).</p>
+<p>Un modèle MVC simple, mais propre, est celui du micro-framework Web Python <a href="http://bottlepy.org">bottle</a>, dont Max vous avait parlé <a href="http://sametmax.com/creer-un-site-avec-bottle-en-5-minutes-parceque-7-cest-impossible-voyons/">ici</a>. Lisez l'article, et revenez à ce paragraphe, et vous comprendrez que :</p>
+<ul>
+<li>La vue, c'est le template.</li>
+<li>Le modèle n'est inclus dans bottle, il faut le faire à la main ou utiliser quelque chose comme un ORM (<a href="http://sametmax.com/sept-petites-libs-qui-changent-la-vie-dun-dev-python/">peewee</a> est très bien adapté).</li>
+<li>Le contrôleur, ce sont les fonctions qu'on trouve sous les décorateurs <code>@url</code>.</li>
+</ul>
+<p>Comme je l'ai dit précédemment, il y a de nombreuses manières de séparer le contenu de sa présentation.</p>
+<p>Django par exemple n'utilise pas un modèle MVC au sens traditionnel, mais plutôt du MVT (Modèle - Vue - Template). Ce qu'il appelle les vues sont en fait ce qu'on appelle le contrôleur dans bottle : les fonctions qui mélangent les données avec le template. Django propose par contre un ORM, qui est bel est bien un système de modèle très élaboré.</p>
+<p>C'est une question de sémantique, et au final, qu'importe le flacon, pourvu qu'on ait l'ivresse.</p>
+ <p><a href="http://sametmax.com/?flattrss_redirect&amp;id=7440&amp;md5=ef13aa60b7ec25234daadd5374a73798" title="Flattr" target="_blank"><img src="http://sametmax.com/wp-content/plugins/flattr/img/flattr-badge-large.png" alt="flattr this!"/></a></p>]]></content:encoded>
+			<wfw:commentRss>http://sametmax.com/quest-de-que-mvc-et-a-quoi-ca-sert/feed/</wfw:commentRss>
+		<slash:comments>23</slash:comments>
+		<atom:link rel="payment" title="Flattr this!" href="https://flattr.com/submit/auto?user_id=sam_et_max&amp;popout=1&amp;url=http%3A%2F%2Fsametmax.com%2Fquest-de-que-mvc-et-a-quoi-ca-sert%2F&amp;language=en_GB&amp;category=text&amp;title=Qu%26%238217%3Best-de+que+MVC+et+%C3%A0+quoi+%C3%A7a+sert+%3F&amp;description=MVC%2C+pour+%26%238220%3BMod%C3%A8le%2C+Vue%2C+Contr%C3%B4leur%26%238221%3B%2C+est+le+nom+donn%C3%A9+%C3%A0+une+mani%C3%A8re+d%26%238217%3Borganiser+son+code.+C%26%238217%3Best+une+fa%C3%A7on+d%26%238217%3Bappliquer+le+principe+de+s%C3%A9paration+des+responsabilit%C3%A9s%2C+en+l%E2%80%99occurrence+celles+du+traitement...&amp;tags=csv%2Cmvc%2Cphp%2Cpython%2Cblog" type="text/html" />
+<enclosure url="http://sametmax.com/wp-content/uploads/2013/12/65XmWyF.jpg" length="75561" type="image/jpg" />	</item>
+		<item>
+		<title>Ignorer certains caractères spéciaux dans un template django</title>
+		<link>http://sametmax.com/ignorer-certains-caracteres-speciaux-dans-un-template-django/</link>
+		<comments>http://sametmax.com/ignorer-certains-caracteres-speciaux-dans-un-template-django/#comments</comments>
+		<pubDate>Mon, 09 Dec 2013 07:04:51 +0000</pubDate>
+		<dc:creator>Sam</dc:creator>
+				<category><![CDATA[Programmation]]></category>
+		<category><![CDATA[django]]></category>
+		<category><![CDATA[javascript]]></category>
+		<category><![CDATA[python]]></category>
+		<category><![CDATA[tag]]></category>
+		<category><![CDATA[template]]></category>
+		<category><![CDATA[verbatime]]></category>
+
+		<guid isPermaLink="false">http://sametmax.com/?p=8268</guid>
+		<description><![CDATA[Hier Max me demandait comment mettre un template Javascript dans un template Django s'ils utilisent la même syntaxe.]]></description>
+			<content:encoded><![CDATA[<p>Hier Max me demandait comment mettre un template Javascript dans un template Django s&#8217;ils utilisent la même syntaxe.</p>
+<p>La réponse : utiliser le tag &#8220;verbatim&#8221; :</p>
+<pre>{% verbatim %}
+  Mettre ici le code que django doit afficher tel quel, sans interpréter.
+{% endverbatim %}</pre>
+ <p><a href="http://sametmax.com/?flattrss_redirect&amp;id=8268&amp;md5=8befa07ac1d855e17ce1f253e695bef8" title="Flattr" target="_blank"><img src="http://sametmax.com/wp-content/plugins/flattr/img/flattr-badge-large.png" alt="flattr this!"/></a></p>]]></content:encoded>
+			<wfw:commentRss>http://sametmax.com/ignorer-certains-caracteres-speciaux-dans-un-template-django/feed/</wfw:commentRss>
+		<slash:comments>6</slash:comments>
+		<atom:link rel="payment" title="Flattr this!" href="https://flattr.com/submit/auto?user_id=sam_et_max&amp;popout=1&amp;url=http%3A%2F%2Fsametmax.com%2Fignorer-certains-caracteres-speciaux-dans-un-template-django%2F&amp;language=en_GB&amp;category=text&amp;title=Ignorer+certains+caract%C3%A8res+sp%C3%A9ciaux+dans+un+template+django&amp;description=Hier+Max+me+demandait+comment+mettre+un+template+Javascript+dans+un+template+Django+s%26%238217%3Bils+utilisent+la+m%C3%AAme+syntaxe.+La+r%C3%A9ponse+%3A+utiliser+le+tag+%26%238220%3Bverbatim%26%238221%3B+%3A+%7B%25+verbatim+%25%7D+Mettre...&amp;tags=django%2Cjavascript%2Cpython%2Ctag%2Ctemplate%2Cverbatime%2Cblog" type="text/html" />
+<enclosure url="http://sametmax.com/wp-content/uploads/2013/12/rkMxVfI.jpg" length="43698" type="image/jpg" />	</item>
+		<item>
+		<title>Anecdotes sexuelles à travers le monde</title>
+		<link>http://sametmax.com/anecdotes-sexuelles-a-travers-le-monde/</link>
+		<comments>http://sametmax.com/anecdotes-sexuelles-a-travers-le-monde/#comments</comments>
+		<pubDate>Sun, 08 Dec 2013 11:26:17 +0000</pubDate>
+		<dc:creator>Sam</dc:creator>
+				<category><![CDATA[Cul]]></category>
+		<category><![CDATA[aucune]]></category>
+		<category><![CDATA[cul]]></category>
+		<category><![CDATA[idee]]></category>
+		<category><![CDATA[poil ?]]></category>
+
+		<guid isPermaLink="false">http://sametmax.com/?p=8269</guid>
+		<description><![CDATA[Je péroquette, mais Max et moi on a pas mal voyagé. Et j'ai pu voir pas mal de manières différentes d'aborder la sexualité.]]></description>
+			<content:encoded><![CDATA[<p>Franchement c&#8217;était mal parti. Je voulais écrire un article de cul ce matin, mais malgré un dépassement de nos <a href="http://sametmax.com/129-drafts/">129 drafts</a> (oui, ça continue à augmenter&#8230;), j&#8217;avais envie de rien.</p>
+<p>J&#8217;ai demandé à Max si il avait fini son retour d&#8217;expérience sur l&#8217;épilation permanente des poils des couilles, mais il a laissé la machine en France sans avoir pu terminer ses séances. Du coup, c&#8217;est pas concluant. Un indice toute de même : ça fait mal.</p>
+<p>Et puis je suis tombé sur ça :</p>
+<div id="attachment_8270" class="wp-caption aligncenter" style="width: 523px"><a href="http://sametmax.com/wp-content/uploads/2013/12/1t4lgDS.jpg"><img src="http://sametmax.com/wp-content/uploads/2013/12/1t4lgDS.jpg" alt="Photo d&#039;une manif &quot;we want porn in iraq&quot;" title="La cruauté de l&#039;homme n&#039;a-t-elle donc pas de limite ?" width="513" height="627" class="size-full wp-image-8270" /></a><p class="wp-caption-text">La cruauté de l&#039;homme n&#039;a-t-elle donc pas de limite ?</p></div>
+<h2>Et ça a fait tilt</h2>
+<p>Je péroquette, mais Max et moi on a pas mal voyagé. Et j&#8217;ai pu voir pas mal de manières différentes d&#8217;aborder la sexualité. Par exemple il est très difficile de baiser dans certains pays. </p>
+<p>Que quelqu&#8217;un m&#8217;éclaire, impossible de coucher avec une indienne (je ne parle pas de prostitution, bien entendu). Je suis arrivé jusqu&#8217;à boire un verre. J&#8217;ai eu tous les signes d’intérêts possibles, mais impossible d&#8217;aller plus loin. Je dois être complètement à côté de la plaque sur le marché indien.</p>
+<p>Il y a aussi bien évidement, le Japon. On vous avait déjà parlé de l&#8217;espèce de dichotomie qu&#8217;il y a entre une part de la population japonaise super inhibée (mon frère en revient, et j&#8217;ai des amis qui y ont vécu qui en témoignent) et la <a href="http://sametmax.com/les-japonais-et-le-sexe-des-gros-malades-ou-pas/">représentation pornographique qui peut en être faite</a>. </p>
+<p>Apparemment, il y a un pan de la population, appelé &#8220;herbivore&#8221;, qui est <a href="http://fortune.fdesouche.com/327861-japon-une-generation-dherbivores-asexues">complètement asexuée</a>. Pourtant les témoignages que j&#8217;en ai, c&#8217;est qu&#8217;il y aussi un monde de la nuit particulièrement décontracté sur le sujet.</p>
+<p>Mais je ne parle pas ici d&#8217;expérience, puisque je n&#8217;y suis pas encore allé en personne.</p>
+<h2>Par contre, ce qui m&#8217;a bluffé, c&#8217;est l&#8217;Afrique</h2>
+<p>Par exemple, en Algérie, le sexe est super taboo. Du coup, quand j&#8217;entrais dans les cyber café, je voyais que des mecs sur des sites pornos.</p>
+<p>Et uniquement sur ça :</p>
+<div id="attachment_8271" class="wp-caption aligncenter" style="width: 460px"><a href="http://sametmax.com/wp-content/uploads/2013/12/4.jpg"><img src="http://sametmax.com/wp-content/uploads/2013/12/4.jpg" alt="Photo d&#039;une jeune femme blonde utilisant une godmichet" title="Avec le voile, ça rend moins bien il faut avouer" width="450" height="300" class="size-full wp-image-8271" /></a><p class="wp-caption-text">Avec le voile, ça rend moins bien il faut avouer</p></div>
+<p>Des blanches, blondes.</p>
+<p>Rien d&#8217;autre. Pas l&#8217;actu. Pas de jeux flash. Même pas facebook.</p>
+<p>Du cul, partout, sur tous les postes.</p>
+<p>Au mali, j&#8217;ai donné un cours de Python avec un de mes exercices habituels : un téléchargeur d&#8217;image pornos. Je sais, je suis un super prof.</p>
+<p>Cet exercice passe super bien en Europe, mais là, choc culturel, les mecs ont rougi. Si si, rougi. Un noir qui rougi, c&#8217;est trop choupinet.</p>
+<p>On parle du même pays qui a pour coutume d&#8217;enfermer les jeunes mariés pendant une semaine dans leur chambre. Enfermer. Je le promet. Ils sont nourris par un membre de la famille, et ne sortent pas avant la fin de la lune de miel.</p>
+<p>Mon collègue marié sur place m&#8217;a confié qu&#8217;il avait pris ses précautions avec wifi + DVD&#8230;</p>
+<p>En Uganda, un soir à mon hôtel, je commande, tard, un coca. Apparemment, ça doit être un mot de passe pour &#8220;envoyez moi une pute svp&#8221;, parce que ma serveuse d&#8217;étage était habillée sexy, bien maquillée, et après avoir servi mon soda a attendu là, sans rien dire, en me regardant. Généralement le service de chambre fait mine de demander un pourboire et se casse le plus vite possible.</p>
+<p> Devant mon air intrigué, elle me demande si je n&#8217;ai VRAIMENT pas besoin d&#8217;autre chose&#8230; En sortant de ma chambre, je croise un vieux accompagné de deux paires de jambes de 3 mètres 12, et je comprends le principe.</p>
+<h2> Chez nous, c&#8217;est pas mal aussi</h2>
+<p>Bon, l&#8217;Europe de l&#8217;Est, c&#8217;est hyper sexualisé dans les grandes villes, mais ça toute personne qui y va s&#8217;en rend compte. On vous a déjà aussi parlé <a href="http://sametmax.com/une-journee-dans-un-fkk-maison-close-allemande/">des FKK en Allemagne</a>.</p>
+<p>Non, ce qui est étonnant, c&#8217;est de voir de ses propres yeux le bordel de la sexualité aux USA. Vous avez d&#8217;un côté le monde de la pub qui montre des éphèbes, et de l&#8217;autre la population réelle qui est remplie de gens en mauvaise santé, souvent gros, rarement beaux, et mal dans leur peau. </p>
+<p>Vous avez des bars où les nanas se bourrent la gueule, et on peut venir les ramasser limite sans rien dire, comme en Angleterre après 23h. Et vous avez les meufs hyper prudes qui ne couchent pas avant le mariage. C&#8217;est vrai, ce n&#8217;est pas un sitecom, c&#8217;est la réalité de tous les jours.</p>
+<p>Max a tendance à me dire que la France est un pays de frustrés sexuels, avec des meufs hyper-éxigentes par rapport à ce qu&#8217;elle ont à offrir et qui ont peur de tout, et des gars sans couilles qui ne respectent pas leurs envies et en deviennent des boulets avec une vie de merde.</p>
+<p>Analyse agressive, mais j&#8217;ai du mal à le contredire certains jours. Et je pense que c&#8217;est une caricature qui peut s&#8217;appliquer à la plupart des pays occidentaux industrialisés. C&#8217;est triste.</p>
+<p>Dans le domaine du cul, je n&#8217;ai pas encore croisé un pays où la société ait une approche globalement saine. C&#8217;est à dire des gens qui ne tombent pas systématiquement dans un excès. Après tout, attendre le mariage, pourquoi pas. Mettre une meuf à poil pour vendre une voiture, pourquoi pas. Regarder du porno hardcore dans un cyber, pourquoi pas. Mais quand on est dans une systématisation d&#8217;un comportement qui est en plus éloigné de la réalité, ça craint. <strong>Qu&#8217;on ne viennent pas me dire que ce sont des causes, ce sont des symptômes.</strong> </p>
+ <p><a href="http://sametmax.com/?flattrss_redirect&amp;id=8269&amp;md5=1e0ce6be9eb9eabd86eaa7fb8356fb4b" title="Flattr" target="_blank"><img src="http://sametmax.com/wp-content/plugins/flattr/img/flattr-badge-large.png" alt="flattr this!"/></a></p>]]></content:encoded>
+			<wfw:commentRss>http://sametmax.com/anecdotes-sexuelles-a-travers-le-monde/feed/</wfw:commentRss>
+		<slash:comments>21</slash:comments>
+		<atom:link rel="payment" title="Flattr this!" href="https://flattr.com/submit/auto?user_id=sam_et_max&amp;popout=1&amp;url=http%3A%2F%2Fsametmax.com%2Fanecdotes-sexuelles-a-travers-le-monde%2F&amp;language=en_GB&amp;category=text&amp;title=Anecdotes+sexuelles+%C3%A0+travers+le+monde&amp;description=Franchement+c%26%238217%3B%C3%A9tait+mal+parti.+Je+voulais+%C3%A9crire+un+article+de+cul+ce+matin%2C+mais+malgr%C3%A9+un+d%C3%A9passement+de+nos+129+drafts+%28oui%2C+%C3%A7a+continue+%C3%A0+augmenter%26%238230%3B%29%2C+j%26%238217%3Bavais+envie+de+rien....&amp;tags=aucune%2Ccul%2Cidee%2Cpoil+%3F%2Cblog" type="text/html" />
+<enclosure url="http://sametmax.com/wp-content/uploads/2013/12/J6132kZ.jpg" length="66118" type="image/jpg" />	</item>
+		<item>
+		<title>Petite astuce d&#8217;unpacking en Python</title>
+		<link>http://sametmax.com/petite-astuce-dunpacking-en-python/</link>
+		<comments>http://sametmax.com/petite-astuce-dunpacking-en-python/#comments</comments>
+		<pubDate>Sat, 07 Dec 2013 08:46:44 +0000</pubDate>
+		<dc:creator>Sam</dc:creator>
+				<category><![CDATA[Programmation]]></category>
+		<category><![CDATA[python]]></category>
+		<category><![CDATA[unpacking]]></category>
+
+		<guid isPermaLink="false">http://sametmax.com/?p=8245</guid>
+		<description><![CDATA[L'unpacking, fonction géniale de Python s'il en est, peut se faire sur un seul element]]></description>
+			<content:encoded><![CDATA[<p>L&#8217;<a href="http://sametmax.com/operateur-splat-ou-etoile-en-python/">unpacking</a>, fonction géniale de Python s&#8217;il en est, peut se faire sur un seul element :</p>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;"><span style="color: #66cc66;">&gt;&gt;&gt;</span> a = <span style="color: black;">&#91;</span><span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span>
+<span style="color: #66cc66;">&gt;&gt;&gt;</span> b, = a
+<span style="color: #66cc66;">&gt;&gt;&gt;</span> b
+<span style="color: #ff4500;">1</span></pre></div></div>
+
+<p>Pour cet exemple, pas super utile. Par contre dans une boucle :</p>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;"><span style="color: #66cc66;">&gt;&gt;&gt;</span> l = <span style="color: black;">&#40;</span><span style="color: black;">&#91;</span><span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span>, <span style="color: black;">&#91;</span><span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span>, <span style="color: black;">&#91;</span><span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span><span style="color: black;">&#41;</span>
+<span style="color: #66cc66;">&gt;&gt;&gt;</span> <span style="color: #ff7700;font-weight:bold;">for</span> i, <span style="color: #ff7700;font-weight:bold;">in</span> l:
+...     <span style="color: #ff7700;font-weight:bold;">print</span><span style="color: black;">&#40;</span>i<span style="color: black;">&#41;</span>
+...     
+<span style="color: #ff4500;">1</span>
+<span style="color: #ff4500;">1</span>
+<span style="color: #ff4500;">1</span></pre></div></div>
+
+ <p><a href="http://sametmax.com/?flattrss_redirect&amp;id=8245&amp;md5=b6c322772bea30ecaf2728f2b4e40409" title="Flattr" target="_blank"><img src="http://sametmax.com/wp-content/plugins/flattr/img/flattr-badge-large.png" alt="flattr this!"/></a></p>]]></content:encoded>
+			<wfw:commentRss>http://sametmax.com/petite-astuce-dunpacking-en-python/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		<atom:link rel="payment" title="Flattr this!" href="https://flattr.com/submit/auto?user_id=sam_et_max&amp;popout=1&amp;url=http%3A%2F%2Fsametmax.com%2Fpetite-astuce-dunpacking-en-python%2F&amp;language=en_GB&amp;category=text&amp;title=Petite+astuce+d%26%238217%3Bunpacking+en+Python&amp;description=L%26%238217%3Bunpacking%2C+fonction+g%C3%A9niale+de+Python+s%26%238217%3Bil+en+est%2C+peut+se+faire+sur+un+seul+element+%3A+%26gt%3B%26gt%3B%26gt%3B+a+%3D+%26%2391%3B1%26%2393%3B+%26gt%3B%26gt%3B%26gt%3B+b%2C+%3D+a+%26gt%3B%26gt%3B%26gt%3B+b+1+Pour+cet+exemple%2C...&amp;tags=python%2Cunpacking%2Cblog" type="text/html" />
+<enclosure url="http://sametmax.com/wp-content/uploads/2013/12/i6lzOd7.jpg" length="67620" type="image/jpg" />	</item>
+		<item>
+		<title>Introduction à Ansible: l’outil du sysadmin paresseux mais pragmatique</title>
+		<link>http://sametmax.com/introduction-a-ansible-loutil-du-sysadmin-paresseux-mais-pragmatique/</link>
+		<comments>http://sametmax.com/introduction-a-ansible-loutil-du-sysadmin-paresseux-mais-pragmatique/#comments</comments>
+		<pubDate>Fri, 06 Dec 2013 10:43:19 +0000</pubDate>
+		<dc:creator>VonTenia</dc:creator>
+				<category><![CDATA[Administration System]]></category>
+
+		<guid isPermaLink="false">http://sametmax.com/?p=8177</guid>
+		<description><![CDATA[Ceci est un post invité de VonTenia posté sous licence creative common 3.0 unported. Je profite du fait que Sam &#038; Max me donnent la parole pour vous parler d’Ansible, un programme très puissant et relativement simple dont je me sers depuis récemment (beaucoup trop tardivement à mon goût), mais qui a radicalement changé ma [...]]]></description>
+			<content:encoded><![CDATA[<p style="text-align: center;"><em><small>Ceci est un post invité de <a href="http://sametmax.com/author/VonTenia/">VonTenia</a> posté sous licence <a href="http://creativecommons.org/licenses/by/3.0/">creative common 3.0 unported</a>.</small></em></p>
+<p>Je profite du fait que Sam &#038; Max me donnent la parole pour vous parler d’Ansible, un programme très puissant et relativement simple dont je me sers depuis récemment (beaucoup trop tardivement à mon goût), mais qui a radicalement changé ma façon de gérer mes déploiements d’appli sur serveur.</p>
+<p><strong>Avant-propos</strong> : Ce guide s’adresse avant tout à ceux et celles ayant le minimum d’aisance avec les systèmes linux. Je pense qu’il est nécessaire de savoir marcher avant d’apprendre à courir, l’automatisation de configuration est une bonne chose (vous allez voir que vous ne pourrez plus vous en passer), mais si vous n’avez aucune idée de comment éditer un fichier de configuration, ou comment redémarrer un service, vous risqueriez bien d&#8217;être pris au dépourvu&#8230; Mieux vaut alors pour vous commencer par apprendre les bases de l’administration système puis revenir une fois à l’aise avec le concept.</p>
+<h3>Pourquoi utiliser un “Configuration Management Tool”</h3>
+<p>Vous vous dites : mon boulot c’est de coder, l’administration système c’est sympa 5 minutes mais ça me gonfle… Et pourtant, au final votre application sera accédée via vos serveurs, et selon leur fragilité, la satisfaction de vos clients pourrait en pâtir (ce malgré votre excellent code parfaitement testé).</p>
+<p>En tant que dev, il serait risible pour vous de ne pas versionner votre code ou ne pas le tester. Pourtant c’est ce que vous faites avec vos systèmes en n’utilisant pas de CfM. Et personne n’est à l&#8217;abri des aléas de la vie, par exemple:</p>
+<ul>
+<li>vous êtes hébergé dans le cloud et votre voisin d’hyperviseur s&#8217;avère maintenir un site Tor de trafic d’organes et de prostitution animalière (tout ça pour blanchir des bitcoins)… Vous apprécierez moyennement le downtime lorsque le FBI saisira le serveur que vous partagiez avec cet indélicat voisin.</li>
+<li>Votre sysadmin ultra compètent pourrait se trouver dans l&#8217;incapacité d’exercer à la suite d’une banale auto-asphyxie érotique qui aurait mal tournée. Et bien évidemment il n’a rien documenté avant, le saligaud…</li>
+</ul>
+<p>Bref, le genre de risque qu&#8217;on apprend à identifier quand on passe sa certif ITIL&#8230;</p>
+<h3>Les alternatives aux CfM</h3>
+<p>Je vous vois venir, me disant que vous ne m’avez pas attendu pour envisager les situations précédentes. Vous avez déjà un plan de secours, à savoir :</p>
+<ul>
+<li>
+<p><strong>Des scripts :</strong> Si vous êtes déjà un peu plus malin que la moyenne, vous vous êtes aperçu que pour déployer une nouvelle machine, vous tapez toujours les mêmes commandes : installer vos packages, les configurer, démarrer les services. Vous aurez donc votre collection de scripts shell ou fabric pour vous aider à la tâche.</p>
+<p>Inconvénient : il faut être très organisé, gérer les différents fichiers de config peut prendre du temps lorsqu’il faut les modifier pour chaque serveur. Il est aussi parfois dangereux de relancer le script plusieurs fois sur la même machine, cela peut avoir des conséquences pour le moins hasardeuses.</p>
+</li>
+<li>
+<p><strong>Une image disque :</strong> Une fois votre serveur configuré et parfaitement fonctionnel, vous avez pris soin d’en prendre une image disque. Le saint Graal de la prod, contenant la vérité absolue. En cas de crash vous serez opérationnel en un rien de temps.</p>
+<p>Inconvénient : Les besoins de votre application vont évoluer avec le temps, les fichiers de configuration auront probablement changé aussi. A chaque changement vous devez refaire votre image… Ça devient assez lourd à la longue, et c’est facile d’oublier de le faire jusqu’au jour où “the shit hit the fan”.</p>
+</li>
+<li>
+<p><strong>Rien (ou presque) :</strong> Si vous êtes comme moi, d’un naturel optimiste, vous n’avez quasiment pas de solution de secours (à part des backups). Le jour ou votre serveur crash, vous essayez de fixer le problème, et au pire vous en re-configurez un nouveau, ce qui vous prends entre 2 heures et 2 jours, en fonction de la dernière fois où vous avez eu à le faire (je n’ai jamais prétendu être un sysadmin très compètent&#8230;). Sans aller jusqu’au crash irrécupérable, le simple fait de vouloir changer d’hébergeur peut vous faire perdre un temps précieux. Vous perdez donc en flexibilité.</p>
+<p>Inutile de vous dire que si vous faites parti de cette catégorie, je vous invite d’autant plus à continuer de lire.</p>
+</li>
+</ul>
+<h3>Ansible à votre secours</h3>
+<p>Ansible est un outil open-source de gestion de configuration écrit en python (aussi dispo en version commerciale avec une interface graphique et un service de déploiement). La configuration se fait via des fichiers appelés “Playbooks”. Citons parmi les avantages :</p>
+<ul>
+<li>Un système déclaratif : syntaxe YAML facilement lisible, ce qui rend l’apprentissage très rapide (plus qu’avec Chef à mon goût, où l’on s&#8217;empêtre très vite dans des problèmes de dépendance, et en plus je ne suis pas très fluent en ruby).</li>
+<li>Templating des fichiers de configuration : qui permet d’avoir des fichiers dynamiquement générés en fonction de ce que vous voulez, tel que le rôle du serveur, ou bien dépendant d’un autre serveur. En plus le langage de template par défaut est Jinja2, ça plaira aux amateurs de Django.</li>
+<li>Quasiment rien à installer. A part Ansible sur votre machine hôte, tout ce dont vous avez besoin c’est d’un accès root via SSH sur vos serveurs cibles.</li>
+</ul>
+<p>Ansible ne sert pas qu’à déployer votre infrastructure, il peut aussi servir à tester et s’assurer que tous les services qui sont censés fonctionner soient bien tous actifs, et que tous les fichiers de configurations sont bien à jour. Autant vous dire que plus vous avez de machines, plus ça devient intéressant.</p>
+<p>Je sens que j&#8217;écris beaucoup et que j’ai déjà perdu la moitié des lecteurs. Aussi je vous invite à suivre ce petit tutoriel que j’ai préparé rien que pour vous parce que vous êtes quand même sympa.</p>
+<h3>Tutoriel : Déployer une app django</h3>
+<p>Nous allons essayer de déployer l’application <a href="https://github.com/sametmax/Django--an-app-at-a-time">Django&#8211;an-app-at-a-time</a> sur un système Debian wheezy en utilisant Ansible.</p>
+<h4>1. Préparer la machine cible</h4>
+<p>Pour les besoins du test, créer un serveur tout neuf sous Debian Wheezy :</p>
+<ul>
+<li>Soit en utilisant Virtualbox (dans ce cas utilisez <a href="http://www.debian.org/CD/netinst/">Debian netinstall</a>). N&#8217;installez que le système de base et le serveur SSH. Seul impératif: un accès ssh via root sur la machine.</li>
+<li>Si vous avez les moyens, vous pouvez aussi vous créer temporairement une machine cloud sur OVH ou digital ocean, ça pourrait être plus rapide.</li>
+</ul>
+<h4>2. Installer Ansible</h4>
+<p>Sur votre machine hôte (que j’assume être sous Ubuntu pour simplifier):</p>
+<p>
+Installez Ansible, via pip (de façon globale sans passer par virtualenv) :<br />
+<code>$ sudo pip install ansible</code></p>
+<p>Générez clefs privée/publique si vous n’en avez pas déjà :<br />
+<code>$ ssh-keygen</code></p>
+<p>Copiez la clef publique sur le serveur cible (qui sera désigné par 192.168.1.1 dans ce tutoriel, mais bien entendu remplacez par l’adresse de votre serveur cible).<br />
+<code>$ ssh-copy-id -i ~/.ssh/id_rsa.pub root@192.168.1.1</code></p>
+<p>Créez le fichier <strong>/etc/ansible/hosts</strong> qui contiendra la liste des serveurs à gérer, et placez-y l&#8217;adresse de votre serveur:<br />
+<code>$ sudo vim /etc/ansible/hosts</code><br />
+<code>192.168.1.1</code></p>
+<p>Testez que le serveur soit bien accessible:<br />
+<code>$ ansible all -m ping -u root </code><br />
+devrait retourner:<br />
+<code>192.168.1.1 | success >> {<br />
+    "changed": false,<br />
+    "ping": "pong"<br />
+}</code></p>
+<p>Bravo, Ansible est installé et peut communiquer avec votre serveur cible. En avant pour la magie !</p>
+<p><img src="http://sametmax.com/wp-content/uploads/2013/12/its-Magic.gif" alt="" title="its-Magic" width="350" height="196" class="alignnone size-full wp-image-8192" /><br />
+
+</p>
+<h4>3. Récupérer le Playbook de démo et l&#8217;exécuter</h4>
+<p>Clonez mon repo github concocté avec amour et exécutez le playbook:</p>
+<p><code>$ git clone https://github.com/Remiz/playbook-demo.git<br />
+$ cd playbook-demo/<br />
+$ ansible-playbook site.yml</code></p>
+<p>Maintenant, plus qu&#8217;à attendre&#8230;</p>
+<p><img src="http://sametmax.com/wp-content/uploads/2013/12/cookie-monster.gif" alt="" title="cookie monster is waiting..." width="250" height="143" class="alignnone size-full wp-image-8203" /></p>
+<h4>3. Admirer le résultat</h4>
+<p>Visitez le site hébergé à l’adresse de votre serveur (dans mon exemple <a href="http://192.168.1.1">http://192.168.1.1</a>)</p>
+<p>Votre réaction la plus normale devrait être la suivante :</p>
+<p><img src="http://sametmax.com/wp-content/uploads/2013/12/areyouawizard.png" alt="" title="areyouawizard" width="200" height="259" class="alignnone size-full wp-image-8209" /></p>
+<p>Je vous invite maintenant à ouvrir le playbook <a href="https://github.com/Remiz/playbook-demo/blob/master/site.yml">site.yml</a> et essayer de comprendre. Durant ce court laps de temps, nous avons:</p>
+<ul>
+<li>Créé un utilisateur “myproject”</li>
+<li>Ajouté cet utilisateur aux sudoers</li>
+<li>Ajouté votre clef privée locale</li>
+<li>Mis a jour la date du serveur</li>
+<li>Installé/activé le serveur NTP</li>
+<li>Sécurisé le serveur en installant fail2ban et en configurant le firewall iptables (laissant ouvert les ports 22, 80, 443 et 4949 pour le monitoring sous munin)</li>
+<li>Installé quelques outils systèmes bien utiles tel que git ou htop</li>
+<li>Installé/configuré Nginx, Supervisor, Pip, virtualenv</li>
+<li>Cloné le repo Django&#8211;an-app-at-a-time</li>
+<li>Créé un virtualenv avec django/gunicorn</li>
+<li>Configuré gunicorn pour être lancé via supervisor</li>
+<li>et finalement deployé les fichiers statiques&#8230;</li>
+</ul>
+<p>Pas mal en 5 minutes, non ? Maintenant si vous ne me croyez pas, je vous invite à vous connecter sur votre serveur</p>
+<p><code>$ ssh myproject@192.168.1.1</code></p>
+<p>et tester les commandes suivantes :</p>
+<p><code>$ date<br />
+$ sudo iptables -L<br />
+$ ps -ef | grep fail2ban<br />
+$ ps -ef | grep gunicorn</code></p>
+<p>Notez que je n’ai pas utilisé runserver de Django, tout est proprement déployé sur une stack gunicorn/supervisor/virtualenv, bref je me suis pas foutu de votre gueule. Le Playbook est à vous, c’est cadeau. J&#8217;espère qu’il vous servira comme base pour vos futurs déploiements, et si jamais vous vous rendez compte que vous gagnez un temps fou à l&#8217;utiliser, n&#8217;hésitez pas à me payer une pinte si vous êtes de passage au Canada.</p>
+<p>Une autre expérience intéressante consiste à relancer l&#8217;exécution du playbook :</p>
+<p><code>$ ansible-playbook site.yml</code></p>
+<p>Tout devrait aller beaucoup plus vite, et à la place de “changed” après chaque instruction, vous devriez lire “ok”. Ce qui veut dire qu’un playbook est plus intelligent qu’un bête script, et ne se contente pas d&#8217;exécuter des instructions, Ansible va garantir quel tel service soit bien actif et qu’il utilise bien le dernier fichier de conf. Ce qui en fait l’outil parfait pour tester vos systèmes automatiquement.</p>
+<h3>La syntaxe Playbook</h3>
+<p>Le but de ce tutoriel n’est que de vous présenter Ansible, aussi je ne rentrerai pas trop dans les détails et je vous inviterai à vous rendre sur le site officiel pour une <a href="http://www.ansibleworks.com/docs/">documentation</a> plus complète.</p>
+<p>Un playbook est avant tout composé de tâches :</p>
+<p><code>- name: Texte qui décris votre tâche<br />
+    module: option=value</code></p>
+<p>Une tâche va donc appeler un <a href="http://www.ansibleworks.com/docs/modules.html">module</a> Ansible, dont la fonction peut être de copier un fichier, démarrer un service, clôner un repository… Il y en a vraiment beaucoup. Chaque module reçoit des paramètres tels que : un fichier de configuration source (sur votre machine hôte), un path de destination, un package apt à installer… Référez vous à la doc pour savoir quels paramètres sont acceptés.</p>
+<p>Exemples :</p>
+<p><code>- name: Démarrer fail2ban<br />
+    service: name=fail2ban state=started enabled=true</code></p>
+<p>va s’assurer que le service appelé fail2ban soit bien démarré (le démarrer si ce n’est pas le cas), mais aussi s’assurer qu’il soit bien présent au démarrage du système. Quand je vous disait que la syntaxe est très simple (même plus simple qu’avec des scripts shell).</p>
+<p>Autre exemple:</p>
+<p><code>- name: Configurer Nginx<br />
+          template: src=templates/nginx.conf.j2<br />
+          dest=/etc/nginx/sites-enabled/{{ user }}.conf<br />
+notify: restart nginx</code></p>
+<p>se traduit par : récupérer le template de conf dans le répertoire local templates/ (le parser avec les bonnes valeurs), et placer le résultat dans le répertoire de conf de Nginx (en utilisant le nom d’utilisateur comme nom du fichier). Enfin redémarrer nginx via un handler (uniquement si le contenu du fichier de conf a changé).</p>
+<h3>Conclusion (et aller plus loin)</h3>
+<p>Je vous conseille de lire la documentation officielle, elle est plutôt bien faite, dites-vous que je ne connaissais pas du tout cet outil il y a deux semaines et je m’en sert désormais régulièrement (et je suis du genre slow-learner). Renseignez vous particulièrement sur les <a href="http://www.ansibleworks.com/docs/playbooks_roles.html#id5">rôles</a> que vous pouvez donner à vos serveurs, ce qui vous permet de diviser vos playbooks (frontend, cluster DB, worker celery…), et ce qui encourage aussi la réutilisation (par exemple j’ai toujours un rôle “common” qui inclus tout ce qui est nécessaire à l&#8217;ensemble de mes serveurs : utilisateur admin, sécurité, timezone…). Comme on n’apprend jamais aussi bien que par l’exemple, n&#8217;hésitez pas à vous inspirer des <a href="https://github.com/ansible/ansible-examples">exemples</a> issus de la doc (l’outil évolue vite et certains ne sont plus entièrement valides, mais c’est toujours bon à prendre).</p>
+<p>Si vous voulez pousser l’automatisation jusqu&#8217;à l&#8217;extrême, il est aussi possible de configurer Ansible sur vos serveurs pour se connecter à un repo git, récupérer les playbooks et fichiers de conf appropriés et s’auto-configurer&#8230;</p>
+<p>Voila, mon rôle s&#8217;arrête ici et libre à vous d’en apprendre plus. Au final j&#8217;espère avoir tenu ma promesse d&#8217;éclairer vos esprit sur les miracles de l’automatisation.</p>
+<p><img src="http://sametmax.com/wp-content/uploads/2013/12/mind-blown1.gif" alt="" title="mind-blown" width="200" height="200" class="alignnone size-full wp-image-8212" /></p>
+ <p><a href="http://sametmax.com/?flattrss_redirect&amp;id=8177&amp;md5=0929d9232ef6125d29da5de891ac4d52" title="Flattr" target="_blank"><img src="http://sametmax.com/wp-content/plugins/flattr/img/flattr-badge-large.png" alt="flattr this!"/></a></p>]]></content:encoded>
+			<wfw:commentRss>http://sametmax.com/introduction-a-ansible-loutil-du-sysadmin-paresseux-mais-pragmatique/feed/</wfw:commentRss>
+		<slash:comments>28</slash:comments>
+		<atom:link rel="payment" title="Flattr this!" href="https://flattr.com/submit/auto?user_id=sam_et_max&amp;popout=1&amp;url=http%3A%2F%2Fsametmax.com%2Fintroduction-a-ansible-loutil-du-sysadmin-paresseux-mais-pragmatique%2F&amp;language=en_GB&amp;category=text&amp;title=Introduction+%C3%A0+Ansible%3A+l%E2%80%99outil+du+sysadmin+paresseux+mais+pragmatique&amp;description=Ceci+est+un+post+invit%C3%A9+de+VonTenia+post%C3%A9+sous+licence+creative+common+3.0+unported.+Je+profite+du+fait+que+Sam+%26%23038%3B+Max+me+donnent+la+parole+pour+vous+parler+d%E2%80%99Ansible%2C...&amp;tags=blog" type="text/html" />
+<enclosure url="http://sametmax.com/wp-content/uploads/2013/12/sysadmin-hanged.jpg" length="167782" type="image/jpg" />	</item>
+		<item>
+		<title>En Python 3, le type bytes est un array d&#8217;entiers</title>
+		<link>http://sametmax.com/en-python-3-le-type-bytes-est-un-array-dentiers/</link>
+		<comments>http://sametmax.com/en-python-3-le-type-bytes-est-un-array-dentiers/#comments</comments>
+		<pubDate>Thu, 05 Dec 2013 16:00:32 +0000</pubDate>
+		<dc:creator>Sam</dc:creator>
+				<category><![CDATA[Programmation]]></category>
+		<category><![CDATA[ascii]]></category>
+		<category><![CDATA[bytes]]></category>
+		<category><![CDATA[encoding]]></category>
+		<category><![CDATA[python]]></category>
+		<category><![CDATA[str]]></category>
+		<category><![CDATA[unicode]]></category>
+		<category><![CDATA[utf8]]></category>
+
+		<guid isPermaLink="false">http://sametmax.com/?p=8160</guid>
+		<description><![CDATA[Le plus gros changement quand on passe de Python 2 à Python 3, c'est la gestion des chaînes de caractères.]]></description>
+			<content:encoded><![CDATA[<p>Le plus gros changement quand on passe de Python 2 à Python 3, c&#8217;est la gestion des chaînes de caractères.</p>
+<p>Pour rappel :</p>
+<ul>
+<li>En 2.7, les chaînes sont par défaut des arrays d&#8217;octets, et il faut les décoder pour obtenir de l&#8217;unicode.</li>
+<li>En 3, les chaînes sont par défaut de type &#8216;unicode&#8217;, et il faut les encoder pour obtenir de un array d&#8217;octets.</li>
+</ul>
+<p>Si vous avez besoin d&#8217;une mise à jour sur l&#8217;encoding en Python, on <a href="http://sametmax.com/lencoding-en-python-une-bonne-fois-pour-toute/">a un article pour ça</a>.</p>
+<p>Comme toute entrée ou sortie est forcément un flux d&#8217;octets, mais pas forcément dans le même encodage, Python 2.7 pouvait poser problème pour le débutant qui essayait de comprendre pourquoi son programme plantait, bordel de merde.</p>
+<p>La version 3 prend plusieurs mesures pour éviter les bugs vicieux liés à l&#8217;encodage de caractères:</p>
+<ul>
+<li>L&#8217;encodage par défaut du code est UTF8.</li>
+<li>L&#8217;encodage par défaut de lecture et d&#8217;écriture est UTF8.</li>
+<li>On ne peut plus mélanger &#8216;bytes&#8217; et &#8216;unicode&#8217;.</li>
+<li>Les messages d&#8217;erreur expliquent clairement et tôt tout problème.</li>
+</ul>
+<p>La plupart du temps, quand on va manipuler du texte, on va donc toujours manipuler de l&#8217;unicode, en Python 3. Ce dernier va nous forcer à faire le décodage / encodage au bon moment.</p>
+<p>Mais il restera quelques fois le besoin de manipuler du <code>bytes</code>, et ce type a subi un lifting&#8230;</p>
+<h2>La base</h2>
+<p>Créer un array d&#8217;octets (le type <code>bytes</code>&#8216;, en Python 3) demande de préfixer une chaîne avec &#8216;b&#8217; :</p>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;"><span style="color: #66cc66;">&gt;&gt;&gt;</span> s = b<span style="color: #483d8b;">'I am evil, stop laughing!'</span>
+<span style="color: #66cc66;">&gt;&gt;&gt;</span> <span style="color: #008000;">type</span><span style="color: black;">&#40;</span>s<span style="color: black;">&#41;</span>
+<span style="color: #66cc66;">&lt;</span>class <span style="color: #483d8b;">'bytes'</span><span style="color: #66cc66;">&gt;</span>
+<span style="color: #66cc66;">&gt;&gt;&gt;</span> <span style="color: #ff7700;font-weight:bold;">print</span><span style="color: black;">&#40;</span>s<span style="color: black;">&#41;</span>
+b<span style="color: #483d8b;">'I am evil, stop laughing!'</span></pre></div></div>
+
+<p>Première remarque, on ne peut plus utiliser ce type pour afficher quoi que ce soit, puisque l&#8217;affichage est une représentation du type (appel à <code>__repr__</code>), et pas du texte mis en forme. Déjà Python vous indique la couleur : si vous voulez manipulez du texte, n&#8217;utilisez pas ce type.</p>
+<p>Comparez avec le type unicode :</p>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;"><span style="color: #66cc66;">&gt;&gt;&gt;</span> u = s.<span style="color: black;">decode</span><span style="color: black;">&#40;</span><span style="color: #483d8b;">'utf8'</span><span style="color: black;">&#41;</span>
+<span style="color: #66cc66;">&gt;&gt;&gt;</span> <span style="color: #008000;">type</span><span style="color: black;">&#40;</span>u<span style="color: black;">&#41;</span>
+<span style="color: #66cc66;">&lt;</span>class <span style="color: #483d8b;">'str'</span><span style="color: #66cc66;">&gt;</span>
+<span style="color: #66cc66;">&gt;&gt;&gt;</span> <span style="color: #ff7700;font-weight:bold;">print</span><span style="color: black;">&#40;</span>u<span style="color: black;">&#41;</span>
+I am evil, stop laughing<span style="color: #66cc66;">!</span></pre></div></div>
+
+<p>L&#8217;affichage marche comme on s&#8217;y attend. Bref, vous êtes forcé de toujours rester sur de l&#8217;unicode (le type <code>str</code> en Python 3, ce qui porte à confusion) si vous manipulez du texte. Heureusement, c&#8217;est quasiment toujours ce que vous aurez.</p>
+<p>Par exemple, si vous ouvrez un fichier en Python 3 :</p>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;"><span style="color: #66cc66;">&gt;&gt;&gt;</span> content = <span style="color: #008000;">open</span><span style="color: black;">&#40;</span><span style="color: #483d8b;">'/etc/fstab'</span><span style="color: black;">&#41;</span>.<span style="color: black;">read</span><span style="color: black;">&#40;</span><span style="color: black;">&#41;</span>
+<span style="color: #66cc66;">&gt;&gt;&gt;</span> <span style="color: #008000;">type</span><span style="color: black;">&#40;</span>content<span style="color: black;">&#41;</span>
+<span style="color: #66cc66;">&lt;</span>class <span style="color: #483d8b;">'str'</span><span style="color: #66cc66;">&gt;</span></pre></div></div>
+
+<p>C&#8217;est du texte. A moins de demander qu&#8217;il soit ouvert en mode binaire :</p>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;"><span style="color: #66cc66;">&gt;&gt;&gt;&gt;</span> content = <span style="color: #008000;">open</span><span style="color: black;">&#40;</span><span style="color: #483d8b;">'/etc/fstab'</span>, <span style="color: #483d8b;">'rb'</span><span style="color: black;">&#41;</span>.<span style="color: black;">read</span><span style="color: black;">&#40;</span><span style="color: black;">&#41;</span>
+<span style="color: #66cc66;">&gt;&gt;&gt;</span> <span style="color: #008000;">type</span><span style="color: black;">&#40;</span>content<span style="color: black;">&#41;</span>
+<span style="color: #66cc66;">&lt;</span>class <span style="color: #483d8b;">'bytes'</span><span style="color: #66cc66;">&gt;</span></pre></div></div>
+
+<p>Une autre différence MAJEURE, c&#8217;est que, si dans Python 2.7, les arrays d&#8217;octets pouvaient être manipulés comme un array de lettres :</p>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;"><span style="color: #66cc66;">&gt;&gt;&gt;</span> s = <span style="color: #483d8b;">'I put the goal in golem...'</span> 
+<span style="color: #66cc66;">&gt;&gt;&gt;</span> s<span style="color: black;">&#91;</span><span style="color: #ff4500;">0</span><span style="color: black;">&#93;</span> <span style="color: #808080; font-style: italic;"># en Python 2.7</span>
+<span style="color: #66cc66;">&gt;&gt;&gt;</span> <span style="color: #483d8b;">'I'</span></pre></div></div>
+
+<p>En Python 3, les array d&#8217;octets sont au mieux manipulables comme un array d&#8217;entiers :</p>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;"><span style="color: #66cc66;">&gt;&gt;&gt;</span> s = b<span style="color: #483d8b;">'I put the goal in golem...'</span>
+<span style="color: #66cc66;">&gt;&gt;&gt;</span> s<span style="color: black;">&#91;</span><span style="color: #ff4500;">0</span><span style="color: black;">&#93;</span> <span style="color: #808080; font-style: italic;"># en Python 3</span>
+<span style="color: #ff4500;">73</span></pre></div></div>
+
+<p>La représentation sous forme de lettre est gardée pour l&#8217;initialisation pour des raisons pratiques, mais sous le capot, il se passe ça:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;"><span style="color: #66cc66;">&gt;&gt;&gt;</span> <span style="color: #dc143c;">bytes</span><span style="color: black;">&#40;</span><span style="color: black;">&#91;</span><span style="color: #ff4500;">73</span>, <span style="color: #ff4500;">32</span>, <span style="color: #ff4500;">112</span>, <span style="color: #ff4500;">117</span>, <span style="color: #ff4500;">116</span>, <span style="color: #ff4500;">32</span>, <span style="color: #ff4500;">116</span>, <span style="color: #ff4500;">104</span>, <span style="color: #ff4500;">101</span>, <span style="color: #ff4500;">32</span>, <span style="color: #ff4500;">103</span>, <span style="color: #ff4500;">111</span>, <span style="color: #ff4500;">97</span>, <span style="color: #ff4500;">108</span>, <span style="color: #ff4500;">32</span>, <span style="color: #ff4500;">105</span>, <span style="color: #ff4500;">110</span>, <span style="color: #ff4500;">32</span>, <span style="color: #ff4500;">103</span>, <span style="color: #ff4500;">111</span>, <span style="color: #ff4500;">108</span>, <span style="color: #ff4500;">101</span>, <span style="color: #ff4500;">109</span>, <span style="color: #ff4500;">46</span>, <span style="color: #ff4500;">46</span>, <span style="color: #ff4500;">46</span><span style="color: black;">&#93;</span><span style="color: black;">&#41;</span>
+b<span style="color: #483d8b;">'I put the goal in golem...'</span></pre></div></div>
+
+<p>D&#8217;ailleurs, on ne peut même plus faire d&#8217;opérations de formatage avec des octets comme en Python 2.7 :</p>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;"><span style="color: #66cc66;">&gt;&gt;&gt;</span> b<span style="color: #483d8b;">&quot;Welcome to the league of %s&quot;</span> <span style="color: #66cc66;">%</span> <span style="color: #008000;">input</span><span style="color: black;">&#40;</span><span style="color: #483d8b;">''</span><span style="color: black;">&#41;</span>
+Draven
+Traceback <span style="color: black;">&#40;</span>most recent call last<span style="color: black;">&#41;</span>:
+  File <span style="color: #483d8b;">&quot;&lt;stdin&gt;&quot;</span>, line <span style="color: #ff4500;">1</span>, <span style="color: #ff7700;font-weight:bold;">in</span> <span style="color: #66cc66;">&lt;</span>module<span style="color: #66cc66;">&gt;</span>
+<span style="color: #008000;">TypeError</span>: unsupported operand <span style="color: #008000;">type</span><span style="color: black;">&#40;</span>s<span style="color: black;">&#41;</span> <span style="color: #ff7700;font-weight:bold;">for</span> <span style="color: #66cc66;">%</span>: <span style="color: #483d8b;">'bytes'</span> <span style="color: #ff7700;font-weight:bold;">and</span> <span style="color: #483d8b;">'str'</span></pre></div></div>
+
+<p><code>format()</code> ne marche pas non plus. On est assez proche du tableau d&#8217;octets en C, sauf qu&#8217;en plus, on ne peut pas le modifier :</p>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;"><span style="color: #66cc66;">&gt;&gt;&gt;</span> s = b<span style="color: #483d8b;">&quot;My right arm is a lot stronger than my left arm.&quot;</span>
+<span style="color: #66cc66;">&gt;&gt;&gt;</span> s<span style="color: black;">&#91;</span><span style="color: #ff4500;">0</span><span style="color: black;">&#93;</span> = <span style="color: #ff4500;">1</span>
+Traceback <span style="color: black;">&#40;</span>most recent call last<span style="color: black;">&#41;</span>:
+  File <span style="color: #483d8b;">&quot;&lt;stdin&gt;&quot;</span>, line <span style="color: #ff4500;">1</span>, <span style="color: #ff7700;font-weight:bold;">in</span> <span style="color: #66cc66;">&lt;</span>module<span style="color: #66cc66;">&gt;</span>
+<span style="color: #008000;">TypeError</span>: <span style="color: #483d8b;">'bytes'</span> <span style="color: #008000;">object</span> does <span style="color: #ff7700;font-weight:bold;">not</span> support item assignment</pre></div></div>
+
+<p>Les arrays d&#8217;octets sont donc maintenant essentiellement des outils de communication avec le monde extérieur.</p>
+<h2>Bytearray</h2>
+<p>Il existe encore des raisons de manipuler des arrays d&#8217;octets : les applications scientifiques. Typiquement, les algos de crypto opérent sur des arrays d&#8217;octets.</p>
+<p>Pour cette raison, Python 3 vient également avec un nouveau type de base : <code>bytearray</code>, un array d&#8217;octets modifiable.</p>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;"><span style="color: #66cc66;">&gt;&gt;&gt;</span> s = <span style="color: #dc143c;">bytearray</span><span style="color: black;">&#40;</span>b<span style="color: #483d8b;">&quot;this tasted purple !&quot;</span><span style="color: black;">&#41;</span>
+<span style="color: #66cc66;">&gt;&gt;&gt;</span> s<span style="color: black;">&#91;</span><span style="color: #ff4500;">2</span>:<span style="color: #ff4500;">4</span><span style="color: black;">&#93;</span> = b<span style="color: #483d8b;">'at'</span>
+<span style="color: #66cc66;">&gt;&gt;&gt;</span> <span style="color: #ff7700;font-weight:bold;">print</span><span style="color: black;">&#40;</span>s<span style="color: black;">&#41;</span>
+<span style="color: #dc143c;">bytearray</span><span style="color: black;">&#40;</span>b<span style="color: #483d8b;">'that tasted purple !'</span><span style="color: black;">&#41;</span></pre></div></div>
+
+<p>Et on a toutes les opérations de liste dessus, comme <code>append</code>, <code>pop()</code>, etc :</p>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;"><span style="color: #66cc66;">&gt;&gt;&gt;</span> <span style="color: #ff7700;font-weight:bold;">for</span> x <span style="color: #ff7700;font-weight:bold;">in</span> b<span style="color: #483d8b;">' ,puY'</span>:
+...     <span style="color: black;">s</span>.<span style="color: black;">insert</span><span style="color: black;">&#40;</span><span style="color: #ff4500;">0</span>, x<span style="color: black;">&#41;</span>
+... 
+<span style="color: #66cc66;">&gt;&gt;&gt;</span> <span style="color: #ff7700;font-weight:bold;">print</span><span style="color: black;">&#40;</span>s<span style="color: black;">&#41;</span>
+<span style="color: #dc143c;">bytearray</span><span style="color: black;">&#40;</span>b<span style="color: #483d8b;">'Yup, that tasted purple !'</span><span style="color: black;">&#41;</span></pre></div></div>
+
+<p>Attention par contre, ces opérations attendent un entier en paramètres et NON un array d&#8217;octets.</p>
+<p>Et un dernier détail :</p>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;"><span style="color: #66cc66;">&gt;&gt;&gt;</span> <span style="color: #008000;">isinstance</span><span style="color: black;">&#40;</span><span style="color: #dc143c;">bytes</span>, <span style="color: #dc143c;">bytearray</span><span style="color: black;">&#41;</span>
+<span style="color: #008000;">False</span>
+<span style="color: #66cc66;">&gt;&gt;&gt;</span> <span style="color: #008000;">isinstance</span><span style="color: black;">&#40;</span><span style="color: #dc143c;">bytearray</span>, <span style="color: #dc143c;">bytes</span><span style="color: black;">&#41;</span>
+<span style="color: #008000;">False</span></pre></div></div>
+
+<h2>Différence entre string et array d&#8217;octets</h2>
+<p>Il est facile de confondre tout ce merdier.</p>
+<p>En Python 2.7, le type <code>str</code> était un array d&#8217;octets, et on le manipulait comme une chaîne, d&#8217;où la difficulté de transition.</p>
+<p>En Python 3, bien qu&#8217;on puisse créer un array d&#8217;octets avec une syntaxe utilisant des lettres, ils ne sont plus du tout utilisés pour la manipulation de texte. Si vous voulez manipuler du texte qui vient de l&#8217;extérieur de votre programme, il faudra toujours le décoder pour obtenir un type <code>str</code> (qui est l&#8217;ancien type <code>unicode</code> de Python 2.7).</p>
+<p>Le décodage sera fait automatiquement dans la plupart des cas, et plantera si on tombe sur un cas où vous devez le faire à la main et que vous ne le faites pas. Du coup, plus de difficulté à trouver d&#8217;où vient ce bug d&#8217;encoding, car on a toujours l&#8217;erreur à la source. </p>
+<p>En ce sens, Python 3 est beaucoup plus clair : les octets d&#8217;un côté, le texte de l&#8217;autre. Bon, tout ça c&#8217;est de la surcouche, au final, tout est octet. Mais on a rarement envie de manipuler un octet directement, sinon on coderait encore en assembleur.</p>
+<p>Avec ce système, Python 3 est le langage le plus sain que j&#8217;ai pu rencontrer dans sa gestion de l&#8217;encodage : il ne cache rien, oblige l&#8217;utilisateur à coder avec de bonnes habitudes, facilite le débugage et met sur le devant de la scène la problématique de l&#8217;encoding, qui est le plus souvent cachée vite fait sous le tapis.</p>
+<p>L&#8217;alternative intelligente la plus proche étant celle de node.js, qui <a href="https://github.com/joyent/node/blob/master/lib/buffer.js#L126">interdit tout simplement la plupart des encodings dans son API</a>.</p>
+<p>La bonne nouvelle ? 99% du temps, vous n&#8217;aurez même pas à vous en soucier, car ASCII est inclus dans UTF8, et ce sont les encodings les plus utilisés. Avec Python 3 forçant UTF8 par défaut partout et des chaînes en unicode dès le départ, il n&#8217;y a presque rien à faire. Je doute que la plupart des gens aient même à manipuler le type <code>bytes</code>.</p>
+ <p><a href="http://sametmax.com/?flattrss_redirect&amp;id=8160&amp;md5=71b1c2304c867db19a765d673fbf002f" title="Flattr" target="_blank"><img src="http://sametmax.com/wp-content/plugins/flattr/img/flattr-badge-large.png" alt="flattr this!"/></a></p>]]></content:encoded>
+			<wfw:commentRss>http://sametmax.com/en-python-3-le-type-bytes-est-un-array-dentiers/feed/</wfw:commentRss>
+		<slash:comments>16</slash:comments>
+		<atom:link rel="payment" title="Flattr this!" href="https://flattr.com/submit/auto?user_id=sam_et_max&amp;popout=1&amp;url=http%3A%2F%2Fsametmax.com%2Fen-python-3-le-type-bytes-est-un-array-dentiers%2F&amp;language=en_GB&amp;category=text&amp;title=En+Python+3%2C+le+type+bytes+est+un+array+d%26%238217%3Bentiers&amp;description=Le+plus+gros+changement+quand+on+passe+de+Python+2+%C3%A0+Python+3%2C+c%26%238217%3Best+la+gestion+des+cha%C3%AEnes+de+caract%C3%A8res.+Pour+rappel+%3A+En+2.7%2C+les+cha%C3%AEnes+sont+par+d%C3%A9faut...&amp;tags=ascii%2Cbytes%2Cencoding%2Cpython%2Cstr%2Cunicode%2Cutf8%2Cblog" type="text/html" />
+<enclosure url="http://sametmax.com/wp-content/uploads/2013/12/CRutQrO.jpg" length="140436" type="image/jpg" />	</item>
+	</channel>
+</rss>

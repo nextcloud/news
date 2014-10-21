@@ -1,12 +1,7 @@
 {
     "type": "project",
-    "require": {
-        "fguillot/picofeed": "dev-master",
-        "ezyang/htmlpurifier": "v4.6.0",
-        "pear/net_url2": "v2.1.0"
-    },
     "license": "AGPL",
-    "An RSS/Atom feed reader. Requires ownCloud backgroundjobs or an updater script to be enabled to update your feeds. See the README.md in the apps top directory",
+    "description": "An RSS/Atom feed reader. Requires ownCloud backgroundjobs or an updater script to be enabled to update your feeds. See the README.md in the apps top directory",
     "homepage": "https://github.com/owncloud/news",
     "authors": [
         {
@@ -29,9 +24,14 @@
         "irc": "irc://irc.freenode.org/owncloud-dev",
         "issues": "https://github.com/owncloud/news/issues",
         "wiki": "https://github.com/owncloud/news/wiki",
-        "source" "https://github.com/owncloud/news/"
+        "source": "https://github.com/owncloud/news/"
     },
     "config": {
         "vendor-dir": "3rdparty"
+    },
+    "require": {
+        "pear/net_url2": "~2.1",
+        "ezyang/htmlpurifier": "~4.6",
+        "fguillot/picofeed": "dev-master"
     }
 }

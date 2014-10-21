@@ -1,0 +1,7 @@
+<phpunit>
+    <testsuites>
+        <testsuite name="PicoFeed">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

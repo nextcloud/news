@@ -11,9 +11,8 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 
-require_once __DIR__ . '/../3rdparty/ZendXml/vendor/autoload.php';
-require_once __DIR__ . '/../3rdparty/simplepie/autoloader.php';
-require_once __DIR__ . '/../3rdparty/Net_URL2/Net/URL2.php';
+require_once __DIR__ . '/../appinfo/autoload.php';
+
 require_once
     __DIR__ . '/../../../tests/lib/appframework/db/mappertestutility.php';
 

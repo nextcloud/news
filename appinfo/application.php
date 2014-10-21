@@ -55,20 +55,7 @@ use \OCA\News\ArticleEnhancer\XPathArticleEnhancer;
 use \OCA\News\ArticleEnhancer\RegexArticleEnhancer;
 
 
-$thirdPartyLibs = [
-    '\HTMLPurifier' => 'htmlpurifier/library/HTMLPurifier.auto.php',
-    '\SimplePie' => 'simplepie/autoloader.php',
-    '\ZendXML\Security' => 'ZendXml/vendor/autoload.php',
-    '\Net_URL2' => 'Net_URL2/Net/URL2.php'
-];
-
-// to prevent clashes with installed app framework versions
-foreach ($thirdPartyLibs as $class => $path) {
-    if (!class_exists($class)) {
-        require_once __DIR__ . '/../3rdparty/' . $path;
-    }
-}
-
+require_once __DIR__ . '/autoload.php';
 
 class Application extends App {
 
@@ -427,6 +414,10 @@ class Application extends App {
         /**
          * Fetchers
          */
+        $container->registerService('PicoFeedConfig', function($c) {
+
+        });
+
         $container->registerService('Fetcher', function($c) {
             $fetcher = new Fetcher();
 
