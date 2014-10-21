@@ -1,0 +1,36 @@
+{
+    "type": "project",
+    "require": {
+        "fguillot/picofeed": "dev-master",
+        "ezyang/htmlpurifier": "v4.6.0"
+    },
+    "license": "AGPL",
+    "An RSS/Atom feed reader. Requires ownCloud backgroundjobs or an updater script to be enabled to update your feeds. See the README.md in the apps top directory",
+    "homepage": "https://github.com/owncloud/news",
+    "authors": [
+        {
+            "name": "Bernhard Posselt",
+            "email": "dev@bernhard-posselt.com",
+            "role": "Developer"
+        },
+        {
+            "name": "Alessandro Cosentino",
+            "email": "cosenal@gmail.com",
+            "role": "Developer"
+        },
+        {
+            "name": "Jan-Christoph Borchardt",
+            "email": "hey@jancborchardt.net",
+            "role": "Designer"
+        }
+    ],
+    "support": {
+        "irc": "irc://irc.freenode.org/owncloud-dev",
+        "issues": "https://github.com/owncloud/news/issues",
+        "wiki": "https://github.com/owncloud/news/wiki",
+        "source" "https://github.com/owncloud/news/"
+    },
+    "config": {
+        "vendor-dir": "3rdparty"
+    }
+}
