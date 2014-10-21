@@ -2,7 +2,8 @@
     "type": "project",
     "require": {
         "fguillot/picofeed": "dev-master",
-        "ezyang/htmlpurifier": "v4.6.0"
+        "ezyang/htmlpurifier": "v4.6.0",
+        "pear/net_url2": "v2.1.0"
     },
     "license": "AGPL",
     "An RSS/Atom feed reader. Requires ownCloud backgroundjobs or an updater script to be enabled to update your feeds. See the README.md in the apps top directory",
