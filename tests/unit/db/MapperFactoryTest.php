@@ -43,7 +43,8 @@ class MapperFactoryTest extends \PHPUnit_Framework_TestCase {
     public function testGetItemMapperPostgres() {
         $factory = new MapperFactory('pgsql', $this->db);
 
-        $this->assertTrue($factory->getItemMapper() instanceof \OCA\News\Db\Postgres\ItemMapper);
+        $this->assertTrue($factory->getItemMapper()
+            instanceof \OCA\News\Db\Postgres\ItemMapper);
     }
 
 

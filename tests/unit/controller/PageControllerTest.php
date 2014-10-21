@@ -159,9 +159,13 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
         $result = $this->controller->manifest();
         $this->assertEquals($this->configData['name'], $result['name']);
         $this->assertEquals('web', $result['type']);
-        $this->assertEquals($this->configData['description'], $result['description']);
+        $this->assertEquals(
+            $this->configData['description'], $result['description']
+        );
         $this->assertEquals('de-DE', $result['default_locale']);
-        $this->assertEquals($this->configData['homepage'], $result['developer']['url']);
+        $this->assertEquals(
+            $this->configData['homepage'], $result['developer']['url']
+        );
         $this->assertEquals('john, test', $result['developer']['name']);
     }
 

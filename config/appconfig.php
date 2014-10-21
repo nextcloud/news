@@ -52,7 +52,8 @@ class AppConfig {
 
 
     /**
-     * @param string|array $data path to the config file or an array with the config
+     * @param string|array $data path to the config file or an array with the
+     * config
      */
     public function loadConfig($data) {
         if(is_array($data)) {
@@ -122,7 +123,8 @@ class AppConfig {
                 'name' => $nav['name']
             ];
 
-            $navConfig['href'] = $this->urlGenerator->linkToRoute($nav['route']);
+            $navConfig['href'] =
+                $this->urlGenerator->linkToRoute($nav['route']);
             $navConfig['icon'] = $this->urlGenerator->imagePath($nav['id'],
                 $nav['icon']);
 
@@ -157,8 +159,8 @@ class AppConfig {
      * Registers all hooks in the config
      */
     public function registerHooks() {
-        // FIXME: this is temporarily static because core emitters are not future
-        // proof, therefore legacy code in here
+        // FIXME: this is temporarily static because core emitters are not
+        // future proof, therefore legacy code in here
         foreach ($this->config['hooks'] as $listen => $react) {
             $listener = explode('::', $listen);
             $reaction = explode('::', $react);
@@ -200,10 +202,13 @@ class AppConfig {
         if (array_key_exists('libs', $deps)) {
             foreach ($deps['libs'] as $lib => $versions) {
                 if(array_key_exists($lib, $this->installedExtensions)) {
-                    return $this->requireVersion($this->installedExtensions[$lib],
-                        $versions, 'PHP extension ' . $lib);
+                    return $this->requireVersion(
+                        $this->installedExtensions[$lib],
+                        $versions, 'PHP extension ' . $lib
+                    );
                 } else {
-                    return 'PHP extension ' . $lib . ' required but not installed';
+                    return 'PHP extension ' . $lib .
+                           ' required but not installed';
                 }
             }
         }
@@ -249,9 +254,11 @@ class AppConfig {
             if($version['version'] === '*') {
                 continue;
             }
-            if(!version_compare($actual, $version['version'], $version['operator'])) {
-                return $versionType . ' Version not satisfied: ' . $version['operator'] .
-                    $version['version'] . ' required but found ' . $actual . '\n';
+            $operator = $version['operator'];
+            $requiredVersion = $version['version'];
+            if(!version_compare($actual, $requiredVersion, $operator)) {
+                return $versionType . ' Version not satisfied: ' . $operator .
+                    $requiredVersion . ' required but found ' . $actual . '\n';
             }
         }
 
@@ -270,7 +277,8 @@ class AppConfig {
         $versions = explode(',', $versions);
 
         foreach($versions as $version) {
-            preg_match('/^(?<operator><|<=|>=|>|<>)?(?<version>.*)$/', $version, $matches);
+            preg_match('/^(?<operator><|<=|>=|>|<>)?(?<version>.*)$/', $version,
+                       $matches);
             if($matches['operator'] !== '') {
                 $required = [
                     'version' => $matches['version'],

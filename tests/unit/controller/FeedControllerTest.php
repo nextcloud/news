@@ -43,13 +43,16 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
             '\OCP\IConfig')
             ->disableOriginalConstructor()
             ->getMock();
-        $this->itemService = $this->getMockBuilder('\OCA\News\Service\ItemService')
+        $this->itemService = $this
+            ->getMockBuilder('\OCA\News\Service\ItemService')
             ->disableOriginalConstructor()
             ->getMock();
-        $this->feedService = $this->getMockBuilder('\OCA\News\Service\FeedService')
+        $this->feedService = $this
+            ->getMockBuilder('\OCA\News\Service\FeedService')
             ->disableOriginalConstructor()
             ->getMock();
-        $this->folderService = $this->getMockBuilder('\OCA\News\Service\FolderService')
+        $this->folderService = $this
+            ->getMockBuilder('\OCA\News\Service\FolderService')
             ->disableOriginalConstructor()
             ->getMock();
         $this->request = $this->getMockBuilder(
@@ -276,7 +279,9 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
         $params = json_decode($response->render(), true);
 
         $this->assertEquals($msg, $params['message']);
-        $this->assertEquals($response->getStatus(), Http::STATUS_UNPROCESSABLE_ENTITY);
+        $this->assertEquals(
+            $response->getStatus(), Http::STATUS_UNPROCESSABLE_ENTITY
+        );
     }
 
 
@@ -427,7 +432,7 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
 
         $this->feedService->expects($this->once())
             ->method('importArticles')
-            ->with($this->equalTo(array('json')),
+            ->with($this->equalTo(['json']),
                 $this->equalTo($this->user))
             ->will($this->returnValue($feed));
 
@@ -436,7 +441,7 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
             ->with($this->equalTo($this->user))
             ->will($this->returnValue(3));
 
-        $response = $this->controller->import(array('json'));
+        $response = $this->controller->import(['json']);
 
         $this->assertEquals($expected, $response);
     }
@@ -445,7 +450,7 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
     public function testImportCreatesNoAdditionalFeed() {
         $this->feedService->expects($this->once())
             ->method('importArticles')
-            ->with($this->equalTo(array('json')),
+            ->with($this->equalTo(['json']),
                 $this->equalTo($this->user))
             ->will($this->returnValue(null));
 
@@ -454,7 +459,7 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
             ->with($this->equalTo($this->user))
             ->will($this->returnValue(3));
 
-        $response = $this->controller->import(array('json'));
+        $response = $this->controller->import(['json']);
 
         $this->assertEquals(['starred' => 3], $response);
     }

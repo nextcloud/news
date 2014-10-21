@@ -47,10 +47,12 @@ class FeedMapperTest extends \Test\AppFramework\Db\MapperTestUtility {
                 StatusFlag::UNREAD . ' ' .
             'WHERE `feeds`.`id` = ? ' .
                 'AND `feeds`.`user_id` = ? ' .
-                'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`,'.
-                    '`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
-                    '`feeds`.`favicon_link`, `feeds`.`added`, `feeds`.`articles_per_update`,'.
-                    '`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
+                'GROUP BY `feeds`.`id`, `feeds`.`user_id`, ' .
+                    '`feeds`.`url_hash`, '.
+                    '`feeds`.`url`, `feeds`.`title`, `feeds`.`link`, '.
+                    '`feeds`.`favicon_link`, `feeds`.`added`, ' .
+                    '`feeds`.`articles_per_update`, `feeds`.`folder_id`, ' .
+                    '`feeds`.`prevent_update`, `feeds`.`deleted_at`';
         $params = [$id, $userId];
         $this->setMapperResult($sql, $params, $rows);
 
@@ -71,14 +73,18 @@ class FeedMapperTest extends \Test\AppFramework\Db\MapperTestUtility {
                 StatusFlag::UNREAD . ' ' .
             'WHERE `feeds`.`id` = ? ' .
                 'AND `feeds`.`user_id` = ? ' .
-                'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`,'.
-                    '`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
-                    '`feeds`.`favicon_link`, `feeds`.`added`, `feeds`.`articles_per_update`,'.
-                    '`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
+                'GROUP BY `feeds`.`id`, `feeds`.`user_id`, ' .
+                    '`feeds`.`url_hash`, '.
+                    '`feeds`.`url`, `feeds`.`title`, `feeds`.`link`, '.
+                    '`feeds`.`favicon_link`, `feeds`.`added`, ' .
+                    '`feeds`.`articles_per_update`, `feeds`.`folder_id`, ' .
+                    '`feeds`.`prevent_update`, `feeds`.`deleted_at`';
         $params = [$id, $userId];
         $this->setMapperResult($sql, $params);
 
-        $this->setExpectedException('\OCP\AppFramework\Db\DoesNotExistException');
+        $this->setExpectedException(
+            '\OCP\AppFramework\Db\DoesNotExistException'
+        );
         $this->mapper->find($id, $userId);
     }
 
@@ -98,14 +104,18 @@ class FeedMapperTest extends \Test\AppFramework\Db\MapperTestUtility {
                 StatusFlag::UNREAD . ' ' .
             'WHERE `feeds`.`id` = ? ' .
                 'AND `feeds`.`user_id` = ? ' .
-                'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`,'.
-                    '`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
-                    '`feeds`.`favicon_link`, `feeds`.`added`, `feeds`.`articles_per_update`,'.
-                    '`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
+                'GROUP BY `feeds`.`id`, `feeds`.`user_id`, ' .
+                    '`feeds`.`url_hash`, '.
+                    '`feeds`.`url`, `feeds`.`title`, `feeds`.`link`, '.
+                    '`feeds`.`favicon_link`, `feeds`.`added`, ' .
+                    '`feeds`.`articles_per_update`, `feeds`.`folder_id`, ' .
+                    '`feeds`.`prevent_update`, `feeds`.`deleted_at`';
         $params = [$id, $userId];
         $this->setMapperResult($sql, $params, $rows);
 
-        $this->setExpectedException('\OCP\AppFramework\Db\MultipleObjectsReturnedException');
+        $this->setExpectedException(
+            '\OCP\AppFramework\Db\MultipleObjectsReturnedException'
+        );
         $this->mapper->find($id, $userId);
     }
 
@@ -121,10 +131,6 @@ class FeedMapperTest extends \Test\AppFramework\Db\MapperTestUtility {
                 'ON `feeds`.`folder_id` = `folders`.`id` ' .
             'LEFT JOIN `*PREFIX*news_items` `items` ' .
                 'ON `feeds`.`id` = `items`.`feed_id` ' .
-                // WARNING: this is a desperate attempt at making this query work
-                // because prepared statements dont work. This is a possible
-                // SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
-                // think twice when changing this
                 'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' .
                 StatusFlag::UNREAD . ' ' .
             'WHERE (`feeds`.`folder_id` = 0 ' .
@@ -133,8 +139,9 @@ class FeedMapperTest extends \Test\AppFramework\Db\MapperTestUtility {
             'AND `feeds`.`deleted_at` = 0 ' .
             'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`,'.
                 '`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
-                '`feeds`.`favicon_link`, `feeds`.`added`, `feeds`.`articles_per_update`,'.
-                '`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
+                '`feeds`.`favicon_link`, `feeds`.`added`, ' .
+                '`feeds`.`articles_per_update`, `feeds`.`folder_id`, ' .
+                '`feeds`.`prevent_update`, `feeds`.`deleted_at`';
 
         $this->setMapperResult($sql, [], $rows);
 
@@ -155,10 +162,6 @@ class FeedMapperTest extends \Test\AppFramework\Db\MapperTestUtility {
                 'ON `feeds`.`folder_id` = `folders`.`id` ' .
             'LEFT JOIN `*PREFIX*news_items` `items` ' .
                 'ON `feeds`.`id` = `items`.`feed_id` ' .
-                // WARNING: this is a desperate attempt at making this query work
-                // because prepared statements dont work. This is a possible
-                // SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
-                // think twice when changing this
                 'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' .
                 StatusFlag::UNREAD . ' ' .
             'WHERE `feeds`.`user_id` = ? ' .
@@ -168,8 +171,9 @@ class FeedMapperTest extends \Test\AppFramework\Db\MapperTestUtility {
             'AND `feeds`.`deleted_at` = 0 ' .
             'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`,'.
                 '`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
-                '`feeds`.`favicon_link`, `feeds`.`added`, `feeds`.`articles_per_update`,'.
-                '`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
+                '`feeds`.`favicon_link`, `feeds`.`added`, ' .
+                '`feeds`.`articles_per_update`, `feeds`.`folder_id`, ' .
+                '`feeds`.`prevent_update`, `feeds`.`deleted_at`';
         $this->setMapperResult($sql, [$userId], $rows);
 
         $result = $this->mapper->findAllFromUser($userId);
@@ -190,8 +194,9 @@ class FeedMapperTest extends \Test\AppFramework\Db\MapperTestUtility {
                 'AND `feeds`.`user_id` = ? ' .
                 'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`,'.
                     '`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
-                    '`feeds`.`favicon_link`, `feeds`.`added`, `feeds`.`articles_per_update`,'.
-                    '`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
+                    '`feeds`.`favicon_link`, `feeds`.`added`, ' .
+                    '`feeds`.`articles_per_update`, `feeds`.`folder_id`, ' .
+                    '`feeds`.`prevent_update`, `feeds`.`deleted_at`';
         $this->setMapperResult($sql, [$urlHash, $this->user], $row);
 
         $result = $this->mapper->findByUrlHash($urlHash, $this->user);
@@ -211,11 +216,14 @@ class FeedMapperTest extends \Test\AppFramework\Db\MapperTestUtility {
                 'AND `feeds`.`user_id` = ? ' .
                 'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`,'.
                     '`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
-                    '`feeds`.`favicon_link`, `feeds`.`added`, `feeds`.`articles_per_update`,'.
-                    '`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
+                    '`feeds`.`favicon_link`, `feeds`.`added`, ' .
+                    '`feeds`.`articles_per_update`, `feeds`.`folder_id`, ' .
+                    '`feeds`.`prevent_update`, `feeds`.`deleted_at`';
         $this->setMapperResult($sql, [$urlHash, $this->user]);
 
-        $this->setExpectedException('\OCP\AppFramework\Db\DoesNotExistException');
+        $this->setExpectedException(
+            '\OCP\AppFramework\Db\DoesNotExistException'
+        );
         $this->mapper->findByUrlHash($urlHash, $this->user);
     }
 
@@ -236,11 +244,14 @@ class FeedMapperTest extends \Test\AppFramework\Db\MapperTestUtility {
                 'AND `feeds`.`user_id` = ? ' .
                 'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`,'.
                     '`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
-                    '`feeds`.`favicon_link`, `feeds`.`added`, `feeds`.`articles_per_update`,'.
-                    '`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
+                    '`feeds`.`favicon_link`, `feeds`.`added`, ' .
+                    '`feeds`.`articles_per_update`, `feeds`.`folder_id`, ' .
+                    '`feeds`.`prevent_update`, `feeds`.`deleted_at`';
         $this->setMapperResult($sql, [$urlHash, $this->user], $rows);
 
-        $this->setExpectedException('\OCP\AppFramework\Db\MultipleObjectsReturnedException');
+        $this->setExpectedException(
+            '\OCP\AppFramework\Db\MultipleObjectsReturnedException'
+        );
         $this->mapper->findByUrlHash($urlHash, $this->user);
     }
 

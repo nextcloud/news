@@ -32,7 +32,9 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
             'file_exists'
         ]);
         $this->loggerParams = ['hi'];
-        $this->config = new Config($this->fileSystem, $this->logger, $this->loggerParams);
+        $this->config = new Config(
+            $this->fileSystem, $this->logger, $this->loggerParams
+        );
         $this->configPath = 'config.json';
     }
 
@@ -55,7 +57,9 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
         $this->fileSystem->expects($this->once())
             ->method('file_get_contents')
             ->with($this->equalTo($this->configPath))
-            ->will($this->returnValue("autoPurgeCount = 3\nuseCronUpdates = true"));
+            ->will($this->returnValue(
+                'autoPurgeCount = 3' . "\n" . 'useCronUpdates = true')
+            );
 
         $this->config->read($this->configPath);
 
@@ -68,7 +72,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
         $this->fileSystem->expects($this->once())
             ->method('file_get_contents')
             ->with($this->equalTo($this->configPath))
-            ->will($this->returnValue("autoPurgeMinimumInterval = 59"));
+            ->will($this->returnValue('autoPurgeMinimumInterval = 59'));
 
         $this->config->read($this->configPath);
 
@@ -81,7 +85,9 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
         $this->fileSystem->expects($this->once())
             ->method('file_get_contents')
             ->with($this->equalTo($this->configPath))
-            ->will($this->returnValue("autoPurgeCount = 3\nuseCronUpdates = false"));
+            ->will($this->returnValue(
+                'autoPurgeCount = 3' . "\n" . 'useCronUpdates = false')
+            );
 
         $this->config->read($this->configPath);
 
@@ -120,20 +126,20 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 
 
     public function testWrite () {
-        $json = "autoPurgeMinimumInterval = 60\n" .
-            "autoPurgeCount = 3\n" .
-            "simplePieCacheDuration = 1800\n" .
-            "feedFetcherTimeout = 60\n" .
-            "useCronUpdates = true\n" .
-            "proxyHost = yo man\n" .
-            "proxyPort = 12\n" .
-            "proxyUser = this is a test\n".
-            "proxyPassword = se";
+        $json = 'autoPurgeMinimumInterval = 60' . "\n" .
+            'autoPurgeCount = 3' . "\n" .
+            'simplePieCacheDuration = 1800' . "\n" .
+            'feedFetcherTimeout = 60' . "\n" .
+            'useCronUpdates = true' . "\n" .
+            'proxyHost = yo man' . "\n" .
+            'proxyPort = 12' . "\n" .
+            'proxyUser = this is a test' . "\n".
+            'proxyPassword = se';
         $this->config->setAutoPurgeCount(3);
-        $this->config->setProxyHost("yo man");
+        $this->config->setProxyHost('yo man');
         $this->config->setProxyPort(12);
-        $this->config->setProxyUser("this is a test");
-        $this->config->setProxyPassword("se");
+        $this->config->setProxyUser('this is a test');
+        $this->config->setProxyPassword('se');
 
         $this->fileSystem->expects($this->once())
             ->method('file_put_contents')
@@ -157,15 +163,15 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 
         $this->config->setUseCronUpdates(false);
 
-        $json = "autoPurgeMinimumInterval = 60\n" .
-            "autoPurgeCount = 200\n" .
-            "simplePieCacheDuration = 1800\n" .
-            "feedFetcherTimeout = 60\n" .
-            "useCronUpdates = false\n" .
-            "proxyHost = \n" .
-            "proxyPort = 8080\n" .
-            "proxyUser = \n" .
-            "proxyPassword = ";
+        $json = 'autoPurgeMinimumInterval = 60' . "\n" .
+            'autoPurgeCount = 200' . "\n" .
+            'simplePieCacheDuration = 1800' . "\n" .
+            'feedFetcherTimeout = 60' . "\n" .
+            'useCronUpdates = false' . "\n" .
+            'proxyHost = ' . "\n" .
+            'proxyPort = 8080' . "\n" .
+            'proxyUser = ' . "\n" .
+            'proxyPassword = ';
 
         $this->fileSystem->expects($this->once())
             ->method('file_put_contents')
@@ -177,8 +183,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 
 
     public function testEncodesUserAndPasswordInHTTPBasicAuth() {
-        $this->config->setProxyUser("this is a test");
-        $this->config->setProxyPassword("se");
+        $this->config->setProxyUser('this is a test');
+        $this->config->setProxyPassword('se');
 
         $this->assertEquals('this is a test:se', $this->config->getProxyAuth());
     }

@@ -28,7 +28,8 @@ class TextDownloadResponse extends DownloadResponse {
      * contains the passed string
      * @param string $content the content that should be written into the file
      * @param string $filename the name that the downloaded file should have
-     * @param string $contentType the mimetype that the downloaded file should have
+     * @param string $contentType the mimetype that the downloaded file should
+     * have
      */
     public function __construct($content, $filename, $contentType){
         parent::__construct($filename, $contentType);

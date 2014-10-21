@@ -36,8 +36,9 @@ class UtilityApiControllerTest extends \PHPUnit_Framework_TestCase {
             '\OCA\News\Utility\Updater')
             ->disableOriginalConstructor()
             ->getMock();
-        $this->newsAPI = new UtilityApiController($this->appName, $this->request,
-            $this->updater, $this->settings);
+        $this->newsAPI = new UtilityApiController(
+            $this->appName, $this->request, $this->updater, $this->settings
+        );
     }
 
 

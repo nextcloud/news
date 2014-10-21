@@ -27,8 +27,9 @@ style('news', 'admin');
         <p>
             <em>
             <?php p($l->t(
-                'Minimum amount of seconds after deleted feeds and folders are ' .
-                'removed from the database; values below 60 seconds are ignored'
+                'Minimum amount of seconds after deleted feeds and folders ' .
+                'are removed from the database; values below 60 seconds are ' .
+                'ignored'
             )); ?></em>
         </p>
         <p><input type="text" name="news-auto-purge-minimum-interval"
@@ -59,7 +60,9 @@ style('news', 'admin');
             </label>
         </p>
         <p>
-            <em><?php p($l->t('How many seconds a feed should be cached')); ?></em>
+            <em>
+                <?php p($l->t('How many seconds a feed should be cached')); ?>
+            </em>
         </p>
         <p><input type="text" name="news-cache-duration"
                value="<?php p($_['cacheDuration']); ?>"></p>
@@ -73,8 +76,8 @@ style('news', 'admin');
         <p>
             <em>
             <?php p($l->t(
-                'Maximum number of seconds to wait for an RSS or Atom feed to ' .
-                'load; if it takes longer the update will be aborted.'
+                'Maximum number of seconds to wait for an RSS or Atom feed ' .
+                'to load; if it takes longer the update will be aborted.'
             )); ?></em>
         </p>
         <p><input type="text" name="news-feed-fetcher-timeout"

@@ -34,7 +34,8 @@ class FolderService extends Service {
         parent::__construct($folderMapper);
         $this->l10n = $l10n;
         $this->timeFactory = $timeFactory;
-        $this->autoPurgeMinimumInterval = $config->getAutoPurgeMinimumInterval();
+        $this->autoPurgeMinimumInterval =
+            $config->getAutoPurgeMinimumInterval();
         $this->folderMapper = $folderMapper;
     }
 
@@ -49,7 +50,8 @@ class FolderService extends Service {
 
 
     private function validateFolder($folderName, $userId){
-        $existingFolders = $this->folderMapper->findByName($folderName, $userId);
+        $existingFolders =
+            $this->folderMapper->findByName($folderName, $userId);
         if(count($existingFolders) > 0){
 
             throw new ServiceConflictException(
@@ -57,7 +59,9 @@ class FolderService extends Service {
         }
 
         if(mb_strlen($folderName) === 0) {
-            throw new ServiceValidationException('Folder name can not be empty');
+            throw new ServiceValidationException(
+                'Folder name can not be empty'
+            );
         }
     }
 
@@ -66,7 +70,8 @@ class FolderService extends Service {
      * Creates a new folder
      * @param string $folderName the name of the folder
      * @param string $userId the name of the user for whom it should be created
-     * @param int $parentId the parent folder id, deprecated we don't nest folders
+     * @param int $parentId the parent folder id, deprecated we don't nest
+     * folders
      * @throws ServiceConflictException if name exists already
      * @throws ServiceValidationException if the folder has invalid parameters
      * @return Folder the newly created folder

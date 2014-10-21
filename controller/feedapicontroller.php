@@ -66,7 +66,8 @@ class FeedApiController extends ApiController {
 
 
         try {
-            $result['newestItemId'] = $this->itemService->getNewestItemId($this->userId);
+            $result['newestItemId'] =
+                $this->itemService->getNewestItemId($this->userId);
 
         // in case there are no items, ignore
         } catch(ServiceNotFoundException $ex) {}
@@ -92,7 +93,8 @@ class FeedApiController extends ApiController {
             $result = ['feeds' => [$feed]];
 
             try {
-                $result['newestItemId'] = $this->itemService->getNewestItemId($this->userId);
+                $result['newestItemId'] =
+                    $this->itemService->getNewestItemId($this->userId);
 
             // in case there are no items, ignore
             } catch(ServiceNotFoundException $ex) {}
@@ -207,7 +209,7 @@ class FeedApiController extends ApiController {
     public function update($userId, $feedId) {
         try {
             $this->feedService->update($feedId, $userId);
-        // ignore update failure (feed could not be reachable etc, we don't care)
+        // ignore update failure
         } catch(\Exception $ex) {
             $this->logger->debug('Could not update feed ' . $ex->getMessage(),
                     $this->loggerParams);

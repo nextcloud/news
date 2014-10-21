@@ -135,7 +135,9 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
     public function testReadDoesNotExist() {
         $this->itemService->expects($this->once())
             ->method('read')
-            ->will($this->throwException(new ServiceNotFoundException($this->msg)));
+            ->will($this->throwException(
+                new ServiceNotFoundException($this->msg))
+            );
 
         $response = $this->itemAPI->read(2);
 
@@ -161,7 +163,9 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
     public function testUnreadDoesNotExist() {
         $this->itemService->expects($this->once())
             ->method('read')
-            ->will($this->throwException(new ServiceNotFoundException($this->msg)));
+            ->will($this->throwException(
+                new ServiceNotFoundException($this->msg))
+            );
 
         $response = $this->itemAPI->unread(2);
 
@@ -188,7 +192,9 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
     public function testStarDoesNotExist() {
         $this->itemService->expects($this->once())
             ->method('star')
-            ->will($this->throwException(new ServiceNotFoundException($this->msg)));
+            ->will($this->throwException(
+                new ServiceNotFoundException($this->msg))
+            );
 
         $response = $this->itemAPI->star(2, 'test');
 
@@ -215,7 +221,9 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
     public function testUnstarDoesNotExist() {
         $this->itemService->expects($this->once())
             ->method('star')
-            ->will($this->throwException(new ServiceNotFoundException($this->msg)));
+            ->will($this->throwException(
+                new ServiceNotFoundException($this->msg))
+            );
 
         $response = $this->itemAPI->unstar(2, 'test');
 

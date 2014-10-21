@@ -64,8 +64,8 @@ class FeedFetcher implements IFeedFetcher {
     /**
      * Fetch a feed from remote
      * @param string $url remote url of the feed
-     * @param boolean $getFavicon if the favicon should also be fetched, defaults
-     * to true
+     * @param boolean $getFavicon if the favicon should also be fetched,
+     * defaults to true
      * @throws FetcherException if simple pie fails
      * @return array an array containing the new feed and its items, first
      * element being the Feed and second element being an array of Items
@@ -74,9 +74,12 @@ class FeedFetcher implements IFeedFetcher {
         $simplePie = $this->simplePieFactory->getCore();
         $simplePie->set_feed_url($url);
         $simplePie->enable_cache(true);
-        $simplePie->set_useragent('ownCloud News/' .
+        $simplePie->set_useragent(
+                'ownCloud News/' .
                 $this->appConfig->getConfig('version') .
-                ' (+https://owncloud.org/; 1 subscriber; feed-url=' . $url . ')');
+                ' (+https://owncloud.org/; 1 subscriber; ' .
+                'feed-url=' . $url . ')'
+        );
         $simplePie->set_stupidly_fast(true);  // disable simple pie sanitation
                                               // we use htmlpurifier
         $simplePie->set_timeout($this->fetchTimeout);
@@ -91,7 +94,9 @@ class FeedFetcher implements IFeedFetcher {
 
         try {
             if (!$simplePie->init()) {
-                throw new \Exception('Could not initialize simple pie on feed with url ' . $url);
+                throw new \Exception(
+                    'Could not initialize simple pie on feed with url ' . $url
+                );
             }
 
             // somehow $simplePie turns into a feed after init
@@ -204,7 +209,8 @@ class FeedFetcher implements IFeedFetcher {
         $feed->setAdded($this->time->getTime());
 
         if ($getFavicon) {
-            // use the favicon from the page first since most feeds use a weird image
+            // use the favicon from the page first since most feeds use a weird
+            // image
             $favicon = $this->faviconFetcher->fetch($feed->getLink());
 
             if (!$favicon) {

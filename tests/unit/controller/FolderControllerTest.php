@@ -91,7 +91,9 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
     public function testOpenDoesNotExist(){
         $this->folderService->expects($this->once())
             ->method('open')
-            ->will($this->throwException(new ServiceNotFoundException($this->msg)));
+            ->will($this->throwException(
+                new ServiceNotFoundException($this->msg))
+            );
 
         $response = $this->controller->open(5, true);
 
@@ -144,7 +146,8 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
         $response = $this->controller->create('tech');
         $params = json_decode($response->render(), true);
 
-        $this->assertEquals($response->getStatus(), Http::STATUS_UNPROCESSABLE_ENTITY);
+        $this->assertEquals($response->getStatus(),
+            Http::STATUS_UNPROCESSABLE_ENTITY);
         $this->assertEquals($msg, $params['message']);
     }
 
@@ -217,7 +220,8 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
         $response = $this->controller->rename('tech', 4);
         $params = json_decode($response->render(), true);
 
-        $this->assertEquals($response->getStatus(), Http::STATUS_UNPROCESSABLE_ENTITY);
+        $this->assertEquals($response->getStatus(),
+            Http::STATUS_UNPROCESSABLE_ENTITY);
         $this->assertEquals($msg, $params['message']);
     }
 
@@ -285,7 +289,9 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
     public function testRestoreDoesNotExist(){
         $this->folderService->expects($this->once())
             ->method('unmarkDeleted')
-            ->will($this->throwException(new ServiceNotFoundException($this->msg)));
+            ->will(
+                $this->throwException(new ServiceNotFoundException($this->msg))
+            );
 
         $response = $this->controller->restore(5);
 

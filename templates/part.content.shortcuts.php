@@ -19,11 +19,15 @@
             </tr>
             <tr>
                 <td>h</td>
-                <td><?php p($l->t('Star article and jump to next one')); ?></td>
+                <td>
+                    <?php p($l->t('Star article and jump to next one')); ?>
+                </td>
             </tr>
             <tr>
                 <td>u</td>
-                <td><?php p($l->t('Toggle keep current article unread')); ?></td>
+                <td>
+                    <?php p($l->t('Toggle keep current article unread')); ?>
+                </td>
             </tr>
             <tr>
                 <td>o</td>
@@ -31,7 +35,9 @@
             </tr>
             <tr>
                 <td>e</td>
-                <td><?php p($l->t('Toggle expand article in compact view')); ?></td>
+                <td>
+                    <?php p($l->t('Toggle expand article in compact view')); ?>
+                </td>
             </tr>
             <tr>
                 <td>r</td>

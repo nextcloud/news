@@ -135,7 +135,9 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
     public function testDeleteDoesNotExist() {
         $this->feedService->expects($this->once())
             ->method('delete')
-            ->will($this->throwException(new ServiceNotFoundException($this->msg)));
+            ->will($this->throwException(
+                new ServiceNotFoundException($this->msg))
+            );
 
         $response = $this->feedAPI->delete(2);
 
@@ -203,7 +205,9 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
             ->with($this->equalTo($this->user), $this->equalTo(false));
         $this->feedService->expects($this->once())
             ->method('create')
-            ->will($this->throwException(new ServiceConflictException($this->msg)));
+            ->will(
+                $this->throwException(new ServiceConflictException($this->msg))
+            );
 
         $response = $this->feedAPI->create('ho', 3);
 
@@ -216,7 +220,9 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
     public function testCreateError() {
         $this->feedService->expects($this->once())
             ->method('create')
-            ->will($this->throwException(new ServiceNotFoundException($this->msg)));
+            ->will(
+                $this->throwException(new ServiceNotFoundException($this->msg))
+            );
 
         $response = $this->feedAPI->create('ho', 3);
 
@@ -253,7 +259,9 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
     public function testMoveDoesNotExist() {
         $this->feedService->expects($this->once())
             ->method('move')
-            ->will($this->throwException(new ServiceNotFoundException($this->msg)));
+            ->will(
+                $this->throwException(new ServiceNotFoundException($this->msg))
+            );
 
         $response = $this->feedAPI->move(3, 4);
 

@@ -56,7 +56,8 @@ class FeedService extends Service {
         $this->logger = $logger;
         $this->l10n = $l10n;
         $this->timeFactory = $timeFactory;
-        $this->autoPurgeMinimumInterval = $config->getAutoPurgeMinimumInterval();
+        $this->autoPurgeMinimumInterval =
+            $config->getAutoPurgeMinimumInterval();
         $this->enhancer = $enhancer;
         $this->purifier = $purifier;
         $this->feedMapper = $feedMapper;
@@ -85,7 +86,8 @@ class FeedService extends Service {
     /**
      * Creates a new feed
      * @param string $feedUrl the url to the feed
-     * @param int $folderId the folder where it should be put into, 0 for root folder
+     * @param int $folderId the folder where it should be put into, 0 for root
+     * folder
      * @param string $userId for which user the feed should be created
      * @param string $title if given, this is used for the opml feed title
      * @throws ServiceConflictException if the feed exists already
@@ -117,8 +119,8 @@ class FeedService extends Service {
 
             $feed = $this->feedMapper->insert($feed);
 
-            // insert items in reverse order because the first one is usually the
-            // newest item
+            // insert items in reverse order because the first one is usually
+            // the newest item
             $unreadCount = 0;
             for($i=count($items)-1; $i>=0; $i--){
                 $item = $items[$i];
@@ -146,8 +148,11 @@ class FeedService extends Service {
             $this->logger->debug($ex->getMessage(), $this->loggerParams);
             throw new ServiceNotFoundException(
                 $this->l10n->t(
-                    'Can not add feed: URL does not exist, SSL Certificate can not be validated ' .
-                    'or feed has invalid xml'));
+                    'Can not add feed: URL does not exist, ' .
+                    'SSL Certificate can not be validated ' .
+                    'or feed has invalid xml'
+                )
+            );
         }
     }
 
@@ -162,8 +167,10 @@ class FeedService extends Service {
             try {
                 $this->update($feed->getId(), $feed->getUserId());
             } catch(\Exception $ex){
-                $this->logger->debug('Could not update feed ' . $ex->getMessage(),
-                    $this->loggerParams);
+                $this->logger->debug(
+                    'Could not update feed ' . $ex->getMessage(),
+                    $this->loggerParams
+                );
             }
         }
     }
@@ -194,18 +201,22 @@ class FeedService extends Service {
                     $this->feedMapper->update($existingFeed);
                 }
 
-                // insert items in reverse order because the first one is usually
-                // the newest item
+                // insert items in reverse order because the first one is
+                // usually the newest item
                 for($i=count($items)-1; $i>=0; $i--){
                     $item = $items[$i];
                     $item->setFeedId($existingFeed->getId());
 
                     try {
-                        $this->itemMapper->findByGuidHash($item->getGuidHash(), $feedId, $userId);
+                        $this->itemMapper->findByGuidHash(
+                            $item->getGuidHash(), $feedId, $userId
+                        );
                     } catch(DoesNotExistException $ex){
                         $item = $this->enhancer->enhance($item,
                             $existingFeed->getLink());
-                        $item->setBody($this->purifier->purify($item->getBody()));
+                        $item->setBody(
+                            $this->purifier->purify($item->getBody())
+                        );
                         $this->itemMapper->insert($item);
                     }
                 }
@@ -213,8 +224,11 @@ class FeedService extends Service {
             } catch(FetcherException $ex){
                 // failed updating is not really a problem, so only log it
 
-                $this->logger->debug('Can not update feed with url ' . $existingFeed->getUrl() .
-                    ': Not found or bad source', $this->loggerParams);
+                $this->logger->debug(
+                    'Can not update feed with url ' . $existingFeed->getUrl() .
+                    ': Not found or bad source',
+                    $this->loggerParams
+                );
                 $this->logger->debug($ex->getMessage(), $this->loggerParams);
             }
 
@@ -230,7 +244,8 @@ class FeedService extends Service {
     /**
      * Moves a feed into a different folder
      * @param int $feedId the id of the feed that should be moved
-     * @param int $folderId the id of the folder where the feed should be moved to
+     * @param int $folderId the id of the folder where the feed should be moved
+     * to
      * @param string $userId the name of the user whose feed should be moved
      * @throws ServiceNotFoundException if the feed does not exist
      */

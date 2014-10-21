@@ -130,7 +130,9 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
 
         $data = $response->getData();
         $this->assertEquals($msg, $data['message']);
-        $this->assertEquals(Http::STATUS_UNPROCESSABLE_ENTITY, $response->getStatus());
+        $this->assertEquals(
+            Http::STATUS_UNPROCESSABLE_ENTITY, $response->getStatus()
+        );
     }
 
 
@@ -149,7 +151,11 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
 
         $this->folderService->expects($this->once())
             ->method('delete')
-            ->will($this->throwException(new ServiceNotFoundException($this->msg)));
+            ->will(
+                $this->throwException(
+                    new ServiceNotFoundException($this->msg)
+                )
+            );
 
         $response = $this->folderAPI->delete($folderId);
 
@@ -178,7 +184,11 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
 
         $this->folderService->expects($this->once())
             ->method('rename')
-            ->will($this->throwException(new ServiceNotFoundException($this->msg)));
+            ->will(
+                $this->throwException(
+                    new ServiceNotFoundException($this->msg)
+                )
+            );
 
         $response = $this->folderAPI->update($folderId, $folderName);
 
@@ -194,7 +204,11 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
 
         $this->folderService->expects($this->once())
             ->method('rename')
-            ->will($this->throwException(new ServiceConflictException($this->msg)));
+            ->will(
+                $this->throwException(
+                    new ServiceConflictException($this->msg)
+                )
+            );
 
         $response = $this->folderAPI->update($folderId, $folderName);
 
@@ -210,13 +224,19 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
 
         $this->folderService->expects($this->once())
             ->method('rename')
-            ->will($this->throwException(new ServiceValidationException($this->msg)));
+            ->will(
+                $this->throwException(
+                    new ServiceValidationException($this->msg)
+                )
+            );
 
         $response = $this->folderAPI->update($folderId, $folderName);
 
         $data = $response->getData();
         $this->assertEquals($this->msg, $data['message']);
-        $this->assertEquals(Http::STATUS_UNPROCESSABLE_ENTITY, $response->getStatus());
+        $this->assertEquals(
+            Http::STATUS_UNPROCESSABLE_ENTITY, $response->getStatus()
+        );
     }
 
 

@@ -62,7 +62,7 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
     }
 
 
-    public function testDeleteReadOlderThanThresholdDoesNotDeleteBelowThreshold(){
+    public function testDeleteReadOlderThanThresholdDoesntDelete(){
         $status = StatusFlag::STARRED | StatusFlag::UNREAD;
         $sql = 'SELECT COUNT(*) - `feeds`.`articles_per_update` AS `size`, ' .
         '`items`.`feed_id` AS `feed_id` ' .

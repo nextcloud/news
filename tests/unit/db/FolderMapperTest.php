@@ -63,7 +63,9 @@ class FolderMapperTest extends \Test\AppFramework\Db\MapperTestUtility {
 
         $this->setMapperResult($sql, [$id, $userId]);
 
-        $this->setExpectedException('\OCP\AppFramework\Db\DoesNotExistException');
+        $this->setExpectedException(
+            '\OCP\AppFramework\Db\DoesNotExistException'
+        );
         $this->folderMapper->find($id, $userId);
     }
 
@@ -78,7 +80,9 @@ class FolderMapperTest extends \Test\AppFramework\Db\MapperTestUtility {
 
         $this->setMapperResult($sql, [$id, $userId], $rows);
 
-        $this->setExpectedException('\OCP\AppFramework\Db\MultipleObjectsReturnedException');
+        $this->setExpectedException(
+            '\OCP\AppFramework\Db\MultipleObjectsReturnedException'
+        );
         $this->folderMapper->find($id, $userId);
     }
 
@@ -156,7 +160,9 @@ class FolderMapperTest extends \Test\AppFramework\Db\MapperTestUtility {
             'AND `deleted_at` < ? ' .
             'AND `user_id` = ?';
         $this->setMapperResult($sql, [$deleteOlderThan, $this->user], $rows);
-        $result = $this->folderMapper->getToDelete($deleteOlderThan, $this->user);
+        $result = $this->folderMapper->getToDelete(
+            $deleteOlderThan, $this->user
+        );
 
         $this->assertEquals($this->folders, $result);
     }

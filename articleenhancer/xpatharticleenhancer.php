@@ -64,8 +64,10 @@ class XPathArticleEnhancer implements ArticleEnhancer {
                 $contentType = $file->headers['content-type'];
                 $body = $file->body;
 
-                if( preg_match( '/(?<=charset=)[^;]*/', $contentType, $matches ) ) {
-                    $body = mb_convert_encoding($body, 'HTML-ENTITIES', $matches[0]);
+                if(preg_match('/(?<=charset=)[^;]*/', $contentType, $matches)) {
+                    $encoding = $matches[0];
+                    $body = mb_convert_encoding($body, 'HTML-ENTITIES',
+                                                $encoding);
                 }
 
                 $dom = new DOMDocument();
@@ -86,7 +88,9 @@ class XPathArticleEnhancer implements ArticleEnhancer {
                 $xpathResult = trim($xpathResult);
 
                 // convert all relative to absolute URLs
-                $xpathResult = $this->substituteRelativeLinks($xpathResult, $item->getUrl());
+                $xpathResult = $this->substituteRelativeLinks(
+                    $xpathResult, $item->getUrl()
+                );
 
                 if($xpathResult) {
                     $item->setBody($xpathResult);
@@ -108,8 +112,10 @@ class XPathArticleEnhancer implements ArticleEnhancer {
     /**
      * Method which converts all relative "href" and "src" URLs of
      * a HTML snippet with their absolute equivalent
-     * @param string $xmlString a HTML snippet as string with the relative URLs to be replaced
-     * @param string $absoluteUrl the approptiate absolute url of the HTML snippet
+     * @param string $xmlString a HTML snippet as string with the relative URLs
+     * to be replaced
+     * @param string $absoluteUrl the approptiate absolute url of the HTML
+     * snippet
      * @return string the result HTML snippet as a string
      */
     protected function substituteRelativeLinks($xmlString, $absoluteUrl) {
@@ -136,14 +142,17 @@ class XPathArticleEnhancer implements ArticleEnhancer {
                 "and not(starts-with(@" . $attribute . ", '//'))]");
             foreach ($xpathResult as $linkNode) {
                 $urlElement = $linkNode->attributes->getNamedItem($attribute);
-                $abs = $this->relativeToAbsoluteUrl($urlElement->nodeValue, $absoluteUrl);
+                $abs = $this->relativeToAbsoluteUrl(
+                    $urlElement->nodeValue, $absoluteUrl
+                );
                 $urlElement->nodeValue = htmlspecialchars($abs);
             }
         }
 
         $xmlString = $dom->saveHTML();
 
-        // domdocument spoils the string with line breaks between the elements. strip them.
+        // domdocument spoils the string with line breaks between the elements
+        // strip them
         $xmlString = str_replace("\n", '', $xmlString);
 
         return $xmlString;
@@ -153,9 +162,6 @@ class XPathArticleEnhancer implements ArticleEnhancer {
     /**
      * Method which builds a URL by taking a relative URL and its corresponding
      * absolute URL
-     * For example relative URL "../example/path/file.php?a=1#anchor" and
-     * absolute URL "https://username:password@www.website.com/subfolder/index.html"
-     * will result in "https://username:password@www.website.com/example/path/file.php?a=1#anchor"
      * @param string $relativeUrl the relative URL
      * @param string $absoluteUrl the absolute URL with at least scheme and host
      * @return string the resulting absolute URL

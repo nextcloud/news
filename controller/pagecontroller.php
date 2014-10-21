@@ -59,7 +59,12 @@ class PageController extends Controller {
      * @NoAdminRequired
      */
     public function settings() {
-        $settings = ['showAll', 'compact', 'preventReadOnScroll', 'oldestFirst'];
+        $settings = [
+          'showAll',
+          'compact',
+          'preventReadOnScroll',
+          'oldestFirst'
+        ];
 
         $result = ['language' => $this->l10n->getLanguageCode()];
 
@@ -80,8 +85,13 @@ class PageController extends Controller {
      * @param bool $preventReadOnScroll
      * @param bool $oldestFirst
      */
-    public function updateSettings($showAll, $compact, $preventReadOnScroll, $oldestFirst) {
-        $settings = ['showAll', 'compact', 'preventReadOnScroll', 'oldestFirst'];
+    public function updateSettings($showAll, $compact, $preventReadOnScroll,
+                                   $oldestFirst) {
+        $settings = ['showAll',
+            'compact',
+            'preventReadOnScroll',
+            'oldestFirst'
+        ];
 
         foreach ($settings as $setting) {
             $this->settings->setUserValue($this->userId, $this->appName,

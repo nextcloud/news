@@ -120,7 +120,9 @@ class ItemApiController extends ApiController {
 
     private function setStarred($isStarred, $feedId, $guidHash) {
         try {
-            $this->itemService->star($feedId, $guidHash, $isStarred, $this->userId);
+            $this->itemService->star(
+                $feedId, $guidHash, $isStarred, $this->userId
+            );
         } catch(ServiceNotFoundException $ex){
             return $this->error($ex, Http::STATUS_NOT_FOUND);
         }

@@ -94,7 +94,8 @@ class FaviconFetcherTest extends \PHPUnit_Framework_TestCase {
 
         $favicon = $this->fetcher->fetch($url);
 
-        $this->assertEquals('http://google.com/owncloud/core/img/favicon.png', $favicon);
+        $this->assertEquals('http://google.com/owncloud/core/img/favicon.png',
+            $favicon);
     }
 
 
@@ -163,7 +164,8 @@ class FaviconFetcherTest extends \PHPUnit_Framework_TestCase {
 
         $favicon = $this->fetcher->fetch($url);
 
-        $this->assertEquals('http://google.com/owncloud/core/img/favicon.png', $favicon);
+        $this->assertEquals('http://google.com/owncloud/core/img/favicon.png',
+            $favicon);
     }
 
 

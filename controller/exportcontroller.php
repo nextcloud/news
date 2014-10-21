@@ -56,7 +56,9 @@ class ExportController extends Controller {
         $feeds = $this->feedService->findAll($this->userId);
         $folders = $this->folderService->findAll($this->userId);
         $opml = $this->opmlExporter->build($folders, $feeds)->saveXML();
-        return new TextDownloadResponse($opml, 'subscriptions.opml', 'text/xml');
+        $name = 'subscriptions.opml';
+        $mimeType = 'text/xml';
+        return new TextDownloadResponse($opml, $name, $mimeType);
     }
 
 

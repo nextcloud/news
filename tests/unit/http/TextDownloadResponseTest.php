@@ -19,7 +19,9 @@ class TextDownloadResponseTest extends \PHPUnit_Framework_TestCase {
 
 
     protected function setUp() {
-        $this->response = new TextDownloadResponse('sometext', 'file', 'content');
+        $this->response = new TextDownloadResponse(
+            'sometext', 'file', 'content'
+        );
     }
 
 

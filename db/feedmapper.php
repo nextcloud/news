@@ -30,18 +30,19 @@ class FeedMapper extends NewsMapper {
             'FROM `*PREFIX*news_feeds` `feeds` ' .
             'LEFT JOIN `*PREFIX*news_items` `items` ' .
                 'ON `feeds`.`id` = `items`.`feed_id` ' .
-                // WARNING: this is a desperate attempt at making this query work
-                // because prepared statements dont work. This is a possible
-                // SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
+                // WARNING: this is a desperate attempt at making this query
+                // work because prepared statements dont work. This is a
+                // POSSIBLE SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
                 // think twice when changing this
                 'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' .
                 StatusFlag::UNREAD . ' ' .
             'WHERE `feeds`.`id` = ? ' .
                 'AND `feeds`.`user_id` = ? ' .
-            'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`,'.
-                '`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
-                '`feeds`.`favicon_link`, `feeds`.`added`, `feeds`.`articles_per_update`,'.
-                '`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
+            'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`, '.
+                '`feeds`.`url`, `feeds`.`title`, `feeds`.`link`, '.
+                '`feeds`.`favicon_link`, `feeds`.`added`, ' .
+                '`feeds`.`articles_per_update`, `feeds`.`folder_id`, ' .
+                '`feeds`.`prevent_update`, `feeds`.`deleted_at`';
         $params = [$id, $userId];
 
         return $this->findEntity($sql, $params);
@@ -55,9 +56,9 @@ class FeedMapper extends NewsMapper {
                 'ON `feeds`.`folder_id` = `folders`.`id` ' .
             'LEFT JOIN `*PREFIX*news_items` `items` ' .
                 'ON `feeds`.`id` = `items`.`feed_id` ' .
-                // WARNING: this is a desperate attempt at making this query work
-                // because prepared statements dont work. This is a possible
-                // SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
+                // WARNING: this is a desperate attempt at making this query
+                // work because prepared statements dont work. This is a
+                // POSSIBLE SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
                 // think twice when changing this
                 'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' .
                 StatusFlag::UNREAD . ' ' .
@@ -68,8 +69,9 @@ class FeedMapper extends NewsMapper {
             'AND `feeds`.`deleted_at` = 0 ' .
             'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`,'.
                 '`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
-                '`feeds`.`favicon_link`, `feeds`.`added`, `feeds`.`articles_per_update`,'.
-                '`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
+                '`feeds`.`favicon_link`, `feeds`.`added`, ' .
+                '`feeds`.`articles_per_update`, `feeds`.`folder_id`, ' .
+                '`feeds`.`prevent_update`, `feeds`.`deleted_at`';
         $params = [$userId];
 
         return $this->findEntities($sql, $params);
@@ -83,9 +85,9 @@ class FeedMapper extends NewsMapper {
                 'ON `feeds`.`folder_id` = `folders`.`id` ' .
             'LEFT JOIN `*PREFIX*news_items` `items` ' .
                 'ON `feeds`.`id` = `items`.`feed_id` ' .
-                // WARNING: this is a desperate attempt at making this query work
-                // because prepared statements don't work. This is a possible
-                // SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
+                // WARNING: this is a desperate attempt at making this query
+                // work because prepared statements dont work. This is a
+                // POSSIBLE SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
                 // think twice when changing this
                 'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' .
                 StatusFlag::UNREAD . ' ' .
@@ -95,8 +97,9 @@ class FeedMapper extends NewsMapper {
             'AND `feeds`.`deleted_at` = 0 ' .
             'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`,'.
                 '`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
-                '`feeds`.`favicon_link`, `feeds`.`added`, `feeds`.`articles_per_update`,'.
-                '`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
+                '`feeds`.`favicon_link`, `feeds`.`added`, ' .
+                '`feeds`.`articles_per_update`, `feeds`.`folder_id`, ' .
+                '`feeds`.`prevent_update`, `feeds`.`deleted_at`';
 
         return $this->findEntities($sql);
     }
@@ -107,9 +110,9 @@ class FeedMapper extends NewsMapper {
             'FROM `*PREFIX*news_feeds` `feeds` ' .
             'LEFT JOIN `*PREFIX*news_items` `items` ' .
                 'ON `feeds`.`id` = `items`.`feed_id` ' .
-                // WARNING: this is a desperate attempt at making this query work
-                // because prepared statements dont work. This is a possible
-                // SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
+                // WARNING: this is a desperate attempt at making this query
+                // work because prepared statements dont work. This is a
+                // POSSIBLE SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
                 // think twice when changing this
                 'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' .
                 StatusFlag::UNREAD . ' ' .
@@ -117,8 +120,9 @@ class FeedMapper extends NewsMapper {
                 'AND `feeds`.`user_id` = ? ' .
             'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`,'.
                 '`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
-                '`feeds`.`favicon_link`, `feeds`.`added`, `feeds`.`articles_per_update`,'.
-                '`feeds`.`folder_id`, `feeds`.`prevent_update`, `feeds`.`deleted_at`';
+                '`feeds`.`favicon_link`, `feeds`.`added`, ' .
+                '`feeds`.`articles_per_update`, `feeds`.`folder_id`, ' .
+                '`feeds`.`prevent_update`, `feeds`.`deleted_at`';
         $params = [$hash, $userId];
 
         return $this->findEntity($sql, $params);

@@ -19,7 +19,11 @@
                 title="{{ Navigation.getUnreadCount() }}">
                 {{ Navigation.getUnreadCount() | unreadCountFormatter }}
             </li>
-            <li class="app-navigation-entry-utils-menu-button"><button ng-click="optionsId = (optionsId == 'all' ? -1 : 'all')"></button></li>
+            <li class="app-navigation-entry-utils-menu-button">
+                <button
+                    ng-click="optionsId = (optionsId == 'all' ? -1 : 'all')">
+                </button>
+            </li>
         </ul>
     </div>
 

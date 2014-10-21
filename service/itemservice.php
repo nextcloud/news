@@ -106,13 +106,16 @@ class ItemService extends Service {
      * Star or unstar an item
      * @param int $feedId the id of the item's feed that should be starred
      * @param string $guidHash the guidHash of the item that should be starred
-     * @param boolean $isStarred if true the item will be marked as starred, if false unstar
+     * @param boolean $isStarred if true the item will be marked as starred,
+     * if false unstar
      * @param string $userId the name of the user for security reasons
      * @throws ServiceNotFoundException if the item does not exist
      */
     public function star($feedId, $guidHash, $isStarred, $userId){
         try {
-            $item = $this->itemMapper->findByGuidHash($guidHash, $feedId, $userId);
+            $item = $this->itemMapper->findByGuidHash(
+                $guidHash, $feedId, $userId
+            );
 
             $item->setLastModified($this->timeFactory->getTime());
             if($isStarred){
@@ -130,7 +133,8 @@ class ItemService extends Service {
     /**
      * Read or unread an item
      * @param int $itemId the id of the item that should be read
-     * @param boolean $isRead if true the item will be marked as read, if false unread
+     * @param boolean $isRead if true the item will be marked as read,
+     * if false unread
      * @param string $userId the name of the user for security reasons
      * @throws ServiceNotFoundException if the item does not exist
      */
@@ -148,8 +152,8 @@ class ItemService extends Service {
 
     /**
      * Set all items read
-     * @param int $highestItemId all items below that are marked read. This is used
-     * to prevent marking items as read that the users hasn't seen yet
+     * @param int $highestItemId all items below that are marked read. This is
+     * used to prevent marking items as read that the users hasn't seen yet
      * @param string $userId the name of the user
      */
     public function readAll($highestItemId, $userId){
@@ -161,21 +165,23 @@ class ItemService extends Service {
     /**
      * Set a folder read
      * @param int $folderId the id of the folder that should be marked read
-     * @param int $highestItemId all items below that are marked read. This is used
-     * to prevent marking items as read that the users hasn't seen yet
+     * @param int $highestItemId all items below that are marked read. This is
+     * used to prevent marking items as read that the users hasn't seen yet
      * @param string $userId the name of the user
      */
     public function readFolder($folderId, $highestItemId, $userId){
         $time = $this->timeFactory->getTime();
-        $this->itemMapper->readFolder($folderId, $highestItemId, $time, $userId);
+        $this->itemMapper->readFolder(
+            $folderId, $highestItemId, $time, $userId
+        );
     }
 
 
     /**
      * Set a feed read
      * @param int $feedId the id of the feed that should be marked read
-     * @param int $highestItemId all items below that are marked read. This is used
-     * to prevent marking items as read that the users hasn't seen yet
+     * @param int $highestItemId all items below that are marked read. This is
+     * used to prevent marking items as read that the users hasn't seen yet
      * @param string $userId the name of the user
      */
     public function readFeed($feedId, $highestItemId, $userId){

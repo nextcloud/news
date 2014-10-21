@@ -59,8 +59,8 @@ class ItemController extends Controller {
     public function index($type, $id, $limit=50, $offset=0) {
         $showAll = $this->settings->getUserValue($this->userId, $this->appName,
             'showAll') === '1';
-        $oldestFirst = $this->settings->getUserValue($this->userId, $this->appName,
-            'oldestFirst') === '1';
+        $oldestFirst = $this->settings->getUserValue($this->userId,
+            $this->appName, 'oldestFirst') === '1';
 
         $this->settings->setUserValue($this->userId, $this->appName,
             'lastViewedFeedId', $id);
@@ -78,7 +78,8 @@ class ItemController extends Controller {
                 $params['newestItemId'] =
                     $this->itemService->getNewestItemId($this->userId);
                 $params['feeds'] = $this->feedService->findAll($this->userId);
-                $params['starred'] = $this->itemService->starredCount($this->userId);
+                $params['starred'] =
+                    $this->itemService->starredCount($this->userId);
             }
 
             $params['items'] = $this->itemService->findAll(
@@ -109,9 +110,11 @@ class ItemController extends Controller {
         $params = [];
 
         try {
-            $params['newestItemId'] = $this->itemService->getNewestItemId($this->userId);
+            $params['newestItemId'] =
+                $this->itemService->getNewestItemId($this->userId);
             $params['feeds'] = $this->feedService->findAll($this->userId);
-            $params['starred'] = $this->itemService->starredCount($this->userId);
+            $params['starred'] =
+                $this->itemService->starredCount($this->userId);
             $params['items'] = $this->itemService->findAllNew($id, $type,
                 $lastModified, $showAll, $this->userId);
 

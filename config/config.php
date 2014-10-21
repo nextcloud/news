@@ -156,8 +156,10 @@ class Config {
             $configValues = parse_ini_string($content);
 
             if($configValues === false || count($configValues) === 0) {
-                $this->logger->warning('Configuration invalid. Ignoring values.',
-                    $this->loggerParams);
+                $this->logger->warning(
+                    'Configuration invalid. Ignoring values.',
+                    $this->loggerParams
+                );
             } else {
 
                 foreach($configValues as $key => $value) {
@@ -166,8 +168,11 @@ class Config {
                         settype($value, $type);
                         $this->$key = $value;
                     } else {
-                        $this->logger->warning('Configuration value "' . $key .
-                            '" does not exist. Ignored value.' , $this->loggerParams);
+                        $this->logger->warning(
+                            'Configuration value "' . $key .
+                            '" does not exist. Ignored value.' ,
+                            $this->loggerParams
+                        );
                     }
                 }
 
@@ -178,15 +183,21 @@ class Config {
 
     public function write($configPath) {
         $ini =
-            "autoPurgeMinimumInterval = " . $this->autoPurgeMinimumInterval . "\n" .
-            "autoPurgeCount = " . $this->autoPurgeCount . "\n" .
-            "simplePieCacheDuration = " . $this->simplePieCacheDuration . "\n" .
-            "feedFetcherTimeout = " . $this->feedFetcherTimeout . "\n" .
-            "useCronUpdates = " . var_export($this->useCronUpdates, true) . "\n" .
-            "proxyHost = " . $this->proxyHost . "\n" .
-            "proxyPort = " . $this->proxyPort . "\n" .
-            "proxyUser = " . $this->proxyUser . "\n" .
-            "proxyPassword = " . $this->proxyPassword;
+            'autoPurgeMinimumInterval = ' .
+                $this->autoPurgeMinimumInterval . "\n" .
+            'autoPurgeCount = ' .
+                $this->autoPurgeCount . "\n" .
+            'simplePieCacheDuration = ' .
+                $this->simplePieCacheDuration . "\n" .
+            'feedFetcherTimeout = ' .
+                $this->feedFetcherTimeout . "\n" .
+            'useCronUpdates = ' .
+                var_export($this->useCronUpdates, true) . "\n" .
+
+            'proxyHost = ' . $this->proxyHost . "\n" .
+            'proxyPort = ' . $this->proxyPort . "\n" .
+            'proxyUser = ' . $this->proxyUser . "\n" .
+            'proxyPassword = ' . $this->proxyPassword;
         ;
 
         $this->fileSystem->file_put_contents($configPath, $ini);

@@ -55,16 +55,20 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
         $this->l10n = $this->getMockBuilder('\OCP\IL10N')
             ->disableOriginalConstructor()
             ->getMock();
-        $this->feedMapper = $this->getMockBuilder('\OCA\News\Db\FeedMapper')
+        $this->feedMapper = $this
+            ->getMockBuilder('\OCA\News\Db\FeedMapper')
             ->disableOriginalConstructor()
             ->getMock();
-        $this->fetcher = $this->getMockBuilder('\OCA\News\Fetcher\Fetcher')
+        $this->fetcher = $this
+            ->getMockBuilder('\OCA\News\Fetcher\Fetcher')
             ->disableOriginalConstructor()
             ->getMock();
-        $this->itemMapper = $this->getMockBuilder('\OCA\News\Db\ItemMapper')
+        $this->itemMapper = $this
+            ->getMockBuilder('\OCA\News\Db\ItemMapper')
             ->disableOriginalConstructor()
             ->getMock();
-        $this->enhancer = $this->getMockBuilder('\OCA\News\ArticleEnhancer\Enhancer')
+        $this->enhancer = $this
+            ->getMockBuilder('\OCA\News\ArticleEnhancer\Enhancer')
             ->disableOriginalConstructor()
             ->getMock();
         $this->purifier = $this->getMock('purifier', ['purify']);
@@ -78,7 +82,8 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
 
         $this->feedService = new FeedService($this->feedMapper,
             $this->fetcher, $this->itemMapper, $this->logger, $this->l10n,
-            $timeFactory, $config, $this->enhancer, $this->purifier, $this->loggerParams);
+            $timeFactory, $config, $this->enhancer, $this->purifier,
+            $this->loggerParams);
         $this->user = 'jack';
     }
 
@@ -103,7 +108,9 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
             ->method('fetch')
             ->with($this->equalTo($url))
             ->will($this->throwException($ex));
-        $this->setExpectedException('\OCA\News\Service\ServiceNotFoundException');
+        $this->setExpectedException(
+            '\OCA\News\Service\ServiceNotFoundException'
+        );
         $this->feedService->create($url, 1, $this->user);
     }
 
@@ -127,7 +134,10 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
 
         $this->feedMapper->expects($this->once())
             ->method('findByUrlHash')
-            ->with($this->equalTo($createdFeed->getUrlHash()), $this->equalTo($this->user))
+            ->with(
+                $this->equalTo($createdFeed->getUrlHash()),
+                $this->equalTo($this->user)
+            )
             ->will($this->throwException($ex));
         $this->fetcher->expects($this->once())
             ->method('fetch')
@@ -369,7 +379,9 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
                     $this->equalTo($this->user))
             ->will($this->throwException($ex));
 
-        $this->setExpectedException('\OCA\News\Service\ServiceNotFoundException');
+        $this->setExpectedException(
+            '\OCA\News\Service\ServiceNotFoundException'
+        );
         $this->feedService->update($feed->getId(), $this->user);
     }
 
@@ -412,7 +424,9 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
                     $this->equalTo($this->user))
             ->will($this->throwException($ex));
 
-        $this->setExpectedException('\OCA\News\Service\ServiceNotFoundException');
+        $this->setExpectedException(
+            '\OCA\News\Service\ServiceNotFoundException'
+        );
         $this->feedService->update($feed->getId(), $this->user);
     }
 
@@ -565,7 +579,8 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
 
         $json = $item->toExport(['feed3' => $feed]);
         $json2 = $json;
-        $json2['feedLink'] = 'http://test.com'; // believe it or not this copies stuff :D
+        // believe it or not this copies stuff :D
+        $json2['feedLink'] = 'http://test.com';
 
         $items = [$json, $json2];
 

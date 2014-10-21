@@ -136,7 +136,8 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $this->title = 'my&amp;lt;&apos; title';
         $this->guid = 'hey guid here';
         $this->body = 'let the bodies hit the floor <a href="test">test</a>';
-        $this->body2 = 'let the bodies hit the floor <a target="_blank" href="test">test</a>';
+        $this->body2 = 'let the bodies hit the floor ' .
+            '<a target="_blank" href="test">test</a>';
         $this->pub = 23111;
         $this->author = '&lt;boogieman';
         $this->enclosureLink = 'http://enclosure.you';
@@ -232,7 +233,8 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    private function createItem($author=false, $enclosureType=null, $noPubDate=false) {
+    private function createItem($author=false, $enclosureType=null,
+                                $noPubDate=false) {
         $this->expectItem('get_permalink', $this->permalink);
         $this->expectItem('get_title', $this->title);
         $this->expectItem('get_id', $this->guid);

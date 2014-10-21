@@ -43,7 +43,8 @@ class ItemMapper extends NewsMapper {
             'ORDER BY `items`.`id` ' . $ordering;
     }
 
-    private function makeSelectQueryStatus($prependTo, $status, $oldestFirst=false) {
+    private function makeSelectQueryStatus($prependTo, $status,
+                                           $oldestFirst=false) {
         // Hi this is Ray and you're watching Jack Ass
         // Now look closely: this is how we adults handle weird bugs in our
         // code: we take them variables and we cast the shit out of them
@@ -171,11 +172,13 @@ class ItemMapper extends NewsMapper {
     }
 
 
-    public function findAllFeed($id, $limit, $offset, $status, $oldestFirst, $userId){
+    public function findAllFeed($id, $limit, $offset, $status, $oldestFirst,
+                                $userId){
         $params = [$userId, $id];
         $sql = 'AND `items`.`feed_id` = ? ';
         if($offset !== 0){
-            $sql .= 'AND `items`.`id` ' . $this->getOperator($oldestFirst) . ' ? ';
+            $sql .= 'AND `items`.`id` ' .
+                $this->getOperator($oldestFirst) . ' ? ';
             $params[] = $offset;
         }
         $sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst);
@@ -183,11 +186,13 @@ class ItemMapper extends NewsMapper {
     }
 
 
-    public function findAllFolder($id, $limit, $offset, $status, $oldestFirst, $userId){
+    public function findAllFolder($id, $limit, $offset, $status, $oldestFirst,
+                                  $userId){
         $params = [$userId, $id];
         $sql = 'AND `feeds`.`folder_id` = ? ';
         if($offset !== 0){
-            $sql .= 'AND `items`.`id` ' . $this->getOperator($oldestFirst) . ' ? ';
+            $sql .= 'AND `items`.`id` ' .
+                $this->getOperator($oldestFirst) . ' ? ';
             $params[] = $offset;
         }
         $sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst);
@@ -199,7 +204,8 @@ class ItemMapper extends NewsMapper {
         $params = [$userId];
         $sql = '';
         if($offset !== 0){
-            $sql .= 'AND `items`.`id` ' . $this->getOperator($oldestFirst) . ' ? ';
+            $sql .= 'AND `items`.`id` ' .
+                $this->getOperator($oldestFirst) . ' ? ';
             $params[] = $offset;
         }
         $sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst);
@@ -262,7 +268,8 @@ class ItemMapper extends NewsMapper {
 
 
     public function getNewestItemId($userId) {
-        $sql = 'SELECT MAX(`items`.`id`) AS `max_id` FROM `*PREFIX*news_items` `items` '.
+        $sql = 'SELECT MAX(`items`.`id`) AS `max_id` ' .
+            'FROM `*PREFIX*news_items` `items` '.
             'JOIN `*PREFIX*news_feeds` `feeds` ' .
                 'ON `feeds`.`id` = `items`.`feed_id` '.
                 'AND `feeds`.`user_id` = ?';

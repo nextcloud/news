@@ -30,7 +30,8 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 
     protected function setUp() {
         $this->timeout = 30;
-        $this->fileFactory = $this->getMockBuilder('\OCA\News\Utility\SimplePieAPIFactory')
+        $this->fileFactory = $this
+            ->getMockBuilder('\OCA\News\Utility\SimplePieAPIFactory')
             ->disableOriginalConstructor()
             ->getMock();
         $this->proxyHost = 'test';
@@ -56,7 +57,8 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
         $this->testEnhancer = new XPathArticleEnhancer(
             $this->fileFactory,
             [
-                '/explosm.net\/comics/' => '//*[@id=\'maincontent\']/div[2]/div/span',
+                '/explosm.net\/comics/' =>
+                    '//*[@id=\'maincontent\']/div[2]/div/span',
                 '/explosm.net\/shorts/' => '//*[@id=\'maincontent\']/div/div',
                 '/explosm.net\/all/' => '//body/*',
                 '/themerepublic.net/' => '//*[@class=\'post hentry\']'
@@ -259,8 +261,12 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 
         $result = $this->testEnhancer->enhance($item);
         $this->assertEquals('<div>' .
-            '<a target="_blank" href="https://www.explosm.net/a/relative/url.html?a=1#b">link</a>' .
-            '<a target="_blank" href="https://www.explosm.net/all/b/relative/url.html">link2</a>' .
+            '<a target="_blank" ' .
+                'href="https://www.explosm.net/a/relative/url.html?a=1#b">' .
+                'link</a>' .
+            '<a target="_blank" ' .
+                'href="https://www.explosm.net/all/b/relative/url.html">' .
+                'link2</a>' .
             '<img src="https://www.explosm.net/another/relative/link.jpg">' .
             '</div>', $result->getBody());
     }
@@ -288,7 +294,9 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 
         $result = $this->testEnhancer->enhance($item);
         $this->assertEquals(
-            '<div><img src="https://username:secret@www.explosm.net/all/relative/url.png?a=1&amp;b=2"></div>',
+            '<div><img src="' .
+            'https://username:secret@www.explosm.net' .
+            '/all/relative/url.png?a=1&amp;b=2"></div>',
             $result->getBody());
     }
 

@@ -134,7 +134,7 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 
         $this->itemService->expects($this->once())
             ->method('star')
-            ->will($this->throwException(new ServiceNotFoundException($msg)));;
+            ->will($this->throwException(new ServiceNotFoundException($msg)));
 
         $response = $this->controller->star(4, 'test', false);
         $params = json_decode($response->render(), true);

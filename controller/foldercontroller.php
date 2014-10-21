@@ -148,7 +148,9 @@ class FolderController extends Controller {
      * @return array
      */
     public function read($folderId, $highestItemId) {
-        $this->itemService->readFolder($folderId, $highestItemId, $this->userId);
+        $this->itemService->readFolder(
+            $folderId, $highestItemId, $this->userId
+        );
 
         return ['feeds' => $this->feedService->findAll($this->userId)];
     }

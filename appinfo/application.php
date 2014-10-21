@@ -72,7 +72,7 @@ foreach ($thirdPartyLibs as $class => $path) {
 
 class Application extends App {
 
-    public function __construct(array $urlParams=array()){
+    public function __construct(array $urlParams=[]) {
         parent::__construct('news', $urlParams);
 
         $container = $this->getContainer();
@@ -323,7 +323,8 @@ class Application extends App {
         });
 
         $container->registerService('DatabaseType', function($c) {
-            return $c->query('ServerContainer')->getConfig()->getSystemValue('dbtype');
+            return $c->query('ServerContainer')
+                ->getConfig()->getSystemValue('dbtype');
         });
 
 
@@ -354,8 +355,8 @@ class Application extends App {
         });
 
         $container->registerService('simplePieCacheDirectory', function($c) {
-            $directory = $c->query('CoreConfig')->getSystemValue('datadirectory') .
-                '/news/cache/simplepie';
+            $directory = $c->query('CoreConfig')
+                ->getSystemValue('datadirectory') . '/news/cache/simplepie';
 
             if(!is_dir($directory)) {
                 mkdir($directory, 0770, true);
@@ -364,8 +365,8 @@ class Application extends App {
         });
 
         $container->registerService('HTMLPurifier', function($c) {
-            $directory = $c->query('CoreConfig')->getSystemValue('datadirectory') .
-                '/news/cache/purifier';
+            $directory = $c->query('CoreConfig')
+                ->getSystemValue('datadirectory') . '/news/cache/purifier';
 
             if(!is_dir($directory)) {
                 mkdir($directory, 0770, true);
@@ -394,7 +395,8 @@ class Application extends App {
                 __DIR__ . '/../articleenhancer/xpathenhancers.json'
             );
 
-            foreach(json_decode($xpathEnhancerConfig, true) as $feed => $config) {
+            $xpathEnhancerConfig = json_decode($xpathEnhancerConfig, true);
+            foreach($xpathEnhancerConfig as $feed => $config) {
                 $articleEnhancer = new XPathArticleEnhancer(
                     $c->query('SimplePieAPIFactory'),
                     $config,
@@ -406,14 +408,18 @@ class Application extends App {
             $regexEnhancerConfig = file_get_contents(
                 __DIR__ . '/../articleenhancer/regexenhancers.json'
             );
-            foreach(json_decode($regexEnhancerConfig, true) as $feed => $config) {
+            $regexEnhancerConfig = json_decode($regexEnhancerConfig, true);
+            foreach($regexEnhancerConfig as $feed => $config) {
                 foreach ($config as $matchArticleUrl => $regex) {
-                    $articleEnhancer = new RegexArticleEnhancer($matchArticleUrl, $regex);
+                    $articleEnhancer =
+                        new RegexArticleEnhancer($matchArticleUrl, $regex);
                     $enhancer->registerEnhancer($feed, $articleEnhancer);
                 }
             }
 
-            $enhancer->registerGlobalEnhancer($c->query('GlobalArticleEnhancer'));
+            $enhancer->registerGlobalEnhancer(
+                $c->query('GlobalArticleEnhancer')
+            );
 
             return $enhancer;
         });

@@ -301,7 +301,9 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
 
     public function testStarDoesNotExist(){
 
-        $this->setExpectedException('\OCA\News\Service\ServiceNotFoundException');
+        $this->setExpectedException(
+            '\OCA\News\Service\ServiceNotFoundException'
+        );
         $this->mapper->expects($this->once())
             ->method('findByGuidHash')
             ->will($this->throwException(new DoesNotExistException('')));
@@ -377,9 +379,13 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
         $this->mapper->expects($this->once())
             ->method('getNewestItemId')
             ->with($this->equalTo($this->user))
-            ->will($this->throwException(new DoesNotExistException('There are no items')));
+            ->will($this->throwException(
+                new DoesNotExistException('There are no items'))
+            );
 
-        $this->setExpectedException('\OCA\News\Service\ServiceNotFoundException');
+        $this->setExpectedException(
+            '\OCA\News\Service\ServiceNotFoundException'
+        );
         $this->itemService->getNewestItemId($this->user);
     }
 

@@ -113,7 +113,10 @@ class ExportControllerTest extends \PHPUnit_Framework_TestCase {
 
         $return = $this->controller->articles();
         $headers = $return->getHeaders();
-        $this->assertEquals('attachment; filename="articles.json"', $headers ['Content-Disposition']);
+        $this->assertEquals(
+            'attachment; filename="articles.json"',
+            $headers ['Content-Disposition']
+        );
 
         $this->assertEquals('[{"guid":null,"url":null,"title":null,' .
             '"author":null,"pubDate":null,"body":null,"enclosureMime":null,' .

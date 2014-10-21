@@ -75,7 +75,9 @@ class ServiceTest extends \PHPUnit_Framework_TestCase {
             ->method('find')
             ->will($this->throwException($ex));
 
-        $this->setExpectedException('\OCA\News\Service\ServiceNotFoundException');
+        $this->setExpectedException(
+            '\OCA\News\Service\ServiceNotFoundException'
+        );
         $this->newsService->find(1, '');
     }
 
@@ -87,7 +89,9 @@ class ServiceTest extends \PHPUnit_Framework_TestCase {
             ->method('find')
             ->will($this->throwException($ex));
 
-        $this->setExpectedException('\OCA\News\Service\ServiceNotFoundException');
+        $this->setExpectedException(
+            '\OCA\News\Service\ServiceNotFoundException'
+        );
         $this->newsService->find(1, '');
     }
 

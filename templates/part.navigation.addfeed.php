@@ -7,7 +7,8 @@
 
     <div class="add-new-popup" id="new-feed">
 
-        <form ng-submit="Navigation.createFeed(Navigation.feed)" name="feedform">
+        <form ng-submit="Navigation.createFeed(Navigation.feed)"
+              name="feedform">
             <fieldset ng-disabled="Navigation.addingFeed">
                 <input type="text"
                     ng-model="Navigation.feed.url"
@@ -21,7 +22,8 @@
                     required>
 
                 <p class="error"
-                    ng-show="!Navigation.addingFeed && Navigation.feedUrlExists(Navigation.feed.url)">
+                    ng-show="!Navigation.addingFeed &&
+                        Navigation.feedUrlExists(Navigation.feed.url)">
                     <?php p($l->t('Feed exists already!')); ?>
                 </p>
 
@@ -30,8 +32,10 @@
                     title="<?php p($l->t('Folder')); ?>"
                     ng-if="!Navigation.showNewFolder"
                     ng-model="Navigation.feed.existingFolder"
-                    ng-options="folder.name for folder in Navigation.getFolders() track by folder.name">
-                    <option value="">-- <?php p($l->t('No folder')); ?> --</option>
+                    ng-options="folder.name for folder in
+                        Navigation.getFolders() track by folder.name">
+                    <option value=""
+                        >-- <?php p($l->t('No folder')); ?> --</option>
                 </select>
                 <button type="button"
                         class="icon-add add-new-folder-primary"
@@ -47,7 +51,9 @@
                             !Navigation.addingFeed &&
                             !Navigation.addingFeed &&
                             Navigation.showNewFolder &&
-                            Navigation.folderNameExists(Navigation.feed.newFolder)
+                            Navigation.folderNameExists(
+                                Navigation.feed.newFolder
+                            )
                         }"
                        placeholder="<?php p($l->t('Folder name')); ?>"
                        name="folderName"
@@ -57,16 +63,25 @@
                         ng-show="Navigation.showNewFolder"
                         class="icon-close add-new-folder-primary"
                         title="<?php p($l->t('Go back')); ?>"
-                        ng-click="Navigation.showNewFolder=false; Navigation.feed.newFolder=''"></button>
+                        ng-click="Navigation.showNewFolder=false;
+                                  Navigation.feed.newFolder=''">
+                </button>
 
 
-                <p class="error" ng-show="!Navigation.addingFeed && Navigation.folderNameExists(Navigation.feed.newFolder)"><?php p($l->t('Folder exists already!')); ?></p>
+                <p class="error" ng-show="!Navigation.addingFeed &&
+                    Navigation.folderNameExists(Navigation.feed.newFolder)">
+                    <?php p($l->t('Folder exists already!')); ?>
+                </p>
 
                 <input type="submit"
                     value="<?php p($l->t('Subscribe')); ?>"
                     class="primary"
-                    ng-disabled="Navigation.feedUrlExists(Navigation.feed.url) ||
-                                (Navigation.showNewFolder && Navigation.folderNameExists(folder.name))">
+                    ng-disabled="
+                        Navigation.feedUrlExists(Navigation.feed.url) ||
+                                (
+                                    Navigation.showNewFolder &&
+                                    Navigation.folderNameExists(folder.name)
+                                )">
             </fieldset>
         </form>
     </div>

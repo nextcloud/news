@@ -95,7 +95,9 @@ class FolderServiceTest extends \PHPUnit_Framework_TestCase {
             ->with($this->equalTo($folderName))
             ->will($this->returnValue($rows));
 
-        $this->setExpectedException('\OCA\News\Service\ServiceConflictException');
+        $this->setExpectedException(
+            '\OCA\News\Service\ServiceConflictException'
+        );
         $this->folderService->create($folderName, 'john', 3);
     }
 
@@ -108,7 +110,9 @@ class FolderServiceTest extends \PHPUnit_Framework_TestCase {
             ->with($this->equalTo($folderName))
             ->will($this->returnValue([]));
 
-        $this->setExpectedException('\OCA\News\Service\ServiceValidationException');
+        $this->setExpectedException(
+            '\OCA\News\Service\ServiceValidationException'
+        );
         $this->folderService->create($folderName, 'john', 3);
     }
 
@@ -162,7 +166,9 @@ class FolderServiceTest extends \PHPUnit_Framework_TestCase {
             ->with($this->equalTo($folderName))
             ->will($this->returnValue($rows));
 
-        $this->setExpectedException('\OCA\News\Service\ServiceConflictException');
+        $this->setExpectedException(
+            '\OCA\News\Service\ServiceConflictException'
+        );
         $this->folderService->rename(3, $folderName, 'john');
     }
 
@@ -175,7 +181,9 @@ class FolderServiceTest extends \PHPUnit_Framework_TestCase {
             ->with($this->equalTo($folderName))
             ->will($this->returnValue([]));
 
-        $this->setExpectedException('\OCA\News\Service\ServiceValidationException');
+        $this->setExpectedException(
+            '\OCA\News\Service\ServiceValidationException'
+        );
         $this->folderService->rename(3, $folderName, 'john');
     }
 

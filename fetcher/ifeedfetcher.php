@@ -17,8 +17,8 @@ interface IFeedFetcher {
 
     /**
      * @param string $url remote url of the feed
-     * @param boolean $getFavicon if the favicon should also be fetched, defaults
-     * to true
+     * @param boolean $getFavicon if the favicon should also be fetched,
+     * defaults to true
      * @throws FetcherException if the fetcher encounters a problem
      * @return array an array containing the new feed and its items, first
      * element being the Feed and second element being an array of Items

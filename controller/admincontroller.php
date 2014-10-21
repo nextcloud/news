@@ -35,7 +35,8 @@ class AdminController extends Controller {
     // in admin/admin.php
     public function index() {
         $data = [
-            'autoPurgeMinimumInterval' => $this->config->getAutoPurgeMinimumInterval(),
+            'autoPurgeMinimumInterval' =>
+                $this->config->getAutoPurgeMinimumInterval(),
             'autoPurgeCount' => $this->config->getAutoPurgeCount(),
             'cacheDuration' => $this->config->getSimplePieCacheDuration(),
             'feedFetcherTimeout' => $this->config->getFeedFetcherTimeout(),
@@ -64,7 +65,8 @@ class AdminController extends Controller {
         $this->config->write($this->configPath);
 
         return [
-            'autoPurgeMinimumInterval' => $this->config->getAutoPurgeMinimumInterval(),
+            'autoPurgeMinimumInterval' =>
+                $this->config->getAutoPurgeMinimumInterval(),
             'autoPurgeCount' => $this->config->getAutoPurgeCount(),
             'cacheDuration' => $this->config->getSimplePieCacheDuration(),
             'feedFetcherTimeout' => $this->config->getFeedFetcherTimeout(),
