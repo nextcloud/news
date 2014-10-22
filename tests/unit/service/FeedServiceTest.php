@@ -262,7 +262,11 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
         $feed = new Feed();
         $feed->setId(3);
         $feed->setArticlesPerUpdate(1);
+        $feed->setLink('http://test');
+        $feed->setUrl('http://test');
         $feed->setUrlHash('yo');
+        $feed->setLastModified(3);
+        $feed->setEtag(4);
 
         $item = new Item();
         $item->setGuidHash(md5('hi'));
@@ -280,7 +284,16 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
             ->will($this->returnValue($feed));
         $this->fetcher->expects($this->once())
             ->method('fetch')
+            ->with(
+                $this->equalTo('http://test'),
+                $this->equalTo(false),
+                $this->equalTo(3),
+                $this->equalTo(4)
+            )
             ->will($this->returnValue($fetchReturn));
+        $this->feedMapper->expects($this->at(1))
+            ->method('update')
+            ->with($this->equalTo($feed));
         $this->itemMapper->expects($this->once())
             ->method('findByGuidHash')
             ->with($this->equalTo($items[0]->getGuidHash()),
@@ -300,10 +313,11 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
             ->method('insert')
             ->with($this->equalTo($items[0]));
 
-        $this->feedMapper->expects($this->at(1))
+        $this->feedMapper->expects($this->at(2))
             ->method('find')
             ->with($feed->getId(), $this->user)
             ->will($this->returnValue($feed));
+
 
         $return = $this->feedService->update($feed->getId(), $this->user);
 
@@ -408,6 +422,9 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
             ->with($this->equalTo($feed->getId()),
                     $this->equalTo($this->user))
             ->will($this->returnValue($feed));
+        $this->feedMapper->expects($this->at(1))
+            ->method('update')
+            ->with($this->equalTo($feed));
         $this->fetcher->expects($this->once())
             ->method('fetch')
             ->will($this->returnValue($fetchReturn));
@@ -418,7 +435,7 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
                     $this->equalTo($this->user))
             ->will($this->returnValue($item2));;
 
-        $this->feedMapper->expects($this->at(1))
+        $this->feedMapper->expects($this->at(2))
             ->method('find')
             ->with($this->equalTo($feed->getId()),
                     $this->equalTo($this->user))
@@ -447,6 +464,26 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
             ->method('fetch');
 
         $this->feedService->update($feedId, $this->user);
+    }
+
+
+    public function testUpdateDoesntUpdateIfNoFeed() {
+        $feedId = 3;
+        $feed = new Feed();
+        $feed->setFolderId(16);
+        $feed->setId($feedId);
+
+        $this->feedMapper->expects($this->once())
+            ->method('find')
+            ->with($this->equalTo($feedId),
+                $this->equalTo($this->user))
+            ->will($this->returnValue($feed));
+        $this->fetcher->expects($this->once())
+            ->method('fetch')
+            ->will($this->returnValue([null, null]));
+
+        $return = $this->feedService->update($feedId, $this->user);
+        $this->assertEquals($feed, $return);
     }
 
 

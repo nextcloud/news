@@ -62,10 +62,13 @@ class FeedFetcher implements IFeedFetcher {
         $modified = $resource->getLastModified();
         $etag = $resource->getEtag();
 
+        if (!$resource->isModified()) {
+            return [null, null];
+        }
+
         try {
             $parser = $this->reader->getParser();
 
-            // TBD: if ($resource->isModified()) { }
             if (!$parser) {
                 throw new \Exception(
                     'Could not find a valid feed at url ' . $url
@@ -83,7 +86,6 @@ class FeedFetcher implements IFeedFetcher {
 
             $link = $parsedFeed->getUrl();
             foreach($parsedFeed->getItems() as $item) {
-                //throw new \Exception($resource->getEncoding() . '' . $item->getContent());
                 $items[] = $this->buildItem($item);
             }
 

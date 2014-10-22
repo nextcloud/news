@@ -121,7 +121,10 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
             ->method('getEtag')
             ->will($this->returnValue($this->etag));
 
-        if ($noParser) {
+        if (!$modified) {
+            $this->reader->expects($this->never())
+                ->method('getParser');
+        } else if ($noParser) {
             $this->reader->expects($this->once())
                 ->method('getParser')
                 ->will($this->returnValue(false));
@@ -141,10 +144,9 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
             }
         }
 
-        // uncomment if testing caching
-        /*$this->client->expects($this->once())
+        $this->client->expects($this->once())
             ->method('isModified')
-            ->will($this->returnValue($modified));*/
+            ->will($this->returnValue($modified));
     }
 
 
@@ -232,6 +234,11 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 
         $this->setExpectedException('\OCA\News\Fetcher\FetcherException');
         $this->fetcher->fetch($this->url);
+    }
+
+    public function testNoFetchIfNotModified(){
+        $this->setUpReader($this->url, false);;
+        $result = $this->fetcher->fetch($this->url);
     }
 
     public function testFetch(){

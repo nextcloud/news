@@ -192,14 +192,25 @@ class FeedService extends Service {
             }
 
             try {
-                list(, $items) = $this->feedFetcher->fetch(
-                    $existingFeed->getUrl(), false);
+                list($fetchedFeed, $items) = $this->feedFetcher->fetch(
+                    $existingFeed->getUrl(),
+                    false,
+                    $existingFeed->getLastModified(),
+                    $existingFeed->getEtag()
+                );
+
+                // if there is no feed it means that no update took place
+                if (!$fetchedFeed) {
+                    return $existingFeed;
+                }
 
                 // update number of articles on every feed update
                 if($existingFeed->getArticlesPerUpdate() !== count($items)) {
                     $existingFeed->setArticlesPerUpdate(count($items));
-                    $this->feedMapper->update($existingFeed);
                 }
+                $existingFeed->setLastModified($fetchedFeed->getLastModified());
+                $existingFeed->setEtag($fetchedFeed->getEtag());
+                $this->feedMapper->update($existingFeed);
 
                 // insert items in reverse order because the first one is
                 // usually the newest item
