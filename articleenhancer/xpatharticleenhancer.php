@@ -53,7 +53,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
                 if(preg_match('/(?<=charset=)[^;]*/', $contentType, $matches)) {
                     $encoding = $matches[0];
                     $body = mb_convert_encoding($body, 'HTML-ENTITIES',
-                                                $encoding);
+                                                strtoupper($encoding));
                 }
 
                 $dom = new DOMDocument();

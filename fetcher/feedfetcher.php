@@ -129,7 +129,9 @@ class FeedFetcher implements IFeedFetcher {
         $item->setGuid($guid);
 
         // purification is done in the service layer
-        $item->setBody($parsedItem->getContent());
+        $body = $parsedItem->getContent();
+        $body = mb_convert_encoding($body, 'HTML-ENTITIES', 'UTF-8');
+        $item->setBody($body);
 
         // pubdate is not required. if not given use the current date
         $date = $parsedItem->getDate();

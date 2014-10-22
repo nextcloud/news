@@ -9,7 +9,7 @@ style('news', 'admin');
         <p><input type="checkbox" name="news-use-cron-updates"
                <?php if ($_['useCronUpdates']) p('checked'); ?>>
             <label for="news-use-cron-updates">
-                <?php p($l->t('Use ownCloud cron to for updates')); ?>
+                <?php p($l->t('Use ownCloud cron for updates')); ?>
             </label>
         </p>
         <p>
