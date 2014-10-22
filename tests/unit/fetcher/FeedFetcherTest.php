@@ -25,6 +25,8 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
     private $client;
     private $faviconFetcher;
     private $parsedFeed;
+    private $faviconFactory;
+    private $readerFactory;
     private $url;
     private $time;
     private $item;
@@ -71,14 +73,22 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
             '\PicoFeed\Favicon')
             ->disableOriginalConstructor()
             ->getMock();
+        $this->readerFactory = $this->getMockBuilder(
+            '\OCA\News\Utility\PicoFeedReaderFactory')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->faviconFactory = $this->getMockBuilder(
+            '\OCA\News\Utility\PicoFeedFaviconFactory')
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->time = 2323;
         $timeFactory = $this->getMock('TimeFactory', ['getTime']);
         $timeFactory->expects($this->any())
             ->method('getTime')
             ->will($this->returnValue($this->time));
-        $this->fetcher = new FeedFetcher($this->reader,
-                         $this->faviconFetcher,
+        $this->fetcher = new FeedFetcher($this->readerFactory,
+                         $this->faviconFactory,
                          $timeFactory);
         $this->url = 'http://tests';
 
@@ -110,6 +120,9 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 
     private function setUpReader($url='', $modified=true, $noParser=false,
                                  $noFeed=false) {
+        $this->readerFactory->expects($this->once())
+            ->method('build')
+            ->will($this->returnValue($this->reader));
         $this->reader->expects($this->once())
             ->method('download')
             ->with($this->equalTo($url))
@@ -210,6 +223,9 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $feed->setEtag($this->etag);
 
         if($hasFavicon) {
+            $this->faviconFactory->expects($this->once())
+                ->method('build')
+                ->will($this->returnValue($this->faviconFetcher));
             $this->faviconFetcher->expects($this->once())
                 ->method('find')
                 ->with($this->equalTo($this->feedLink))
@@ -225,7 +241,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $this->setUpReader($this->url, true, false);
 
         $this->setExpectedException('\OCA\News\Fetcher\FetcherException');
-        $this->fetcher->fetch($this->url);
+        $this->fetcher->fetch($this->url, false);
     }
 
 
@@ -233,12 +249,12 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $this->setUpReader($this->url, true, true, false);
 
         $this->setExpectedException('\OCA\News\Fetcher\FetcherException');
-        $this->fetcher->fetch($this->url);
+        $this->fetcher->fetch($this->url, false);
     }
 
     public function testNoFetchIfNotModified(){
         $this->setUpReader($this->url, false);;
-        $result = $this->fetcher->fetch($this->url);
+        $result = $this->fetcher->fetch($this->url, false);
     }
 
     public function testFetch(){
@@ -246,7 +262,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $item = $this->createItem();
         $feed = $this->createFeed();
         $this->expectFeed('getItems', [$this->item]);
-        $result = $this->fetcher->fetch($this->url);
+        $result = $this->fetcher->fetch($this->url, false);
 
         $this->assertEquals([$feed, [$item]], $result);
     }
@@ -268,7 +284,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 
         $item = $this->createItem();
         $this->expectFeed('getItems', [$this->item]);
-        $result = $this->fetcher->fetch($this->url);
+        $result = $this->fetcher->fetch($this->url, false);
 
         $this->assertEquals([$feed, [$item]], $result);
     }
@@ -279,7 +295,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $item = $this->createItem('audio/ogg');
         $feed = $this->createFeed();
         $this->expectFeed('getItems', [$this->item]);
-        $result = $this->fetcher->fetch($this->url);
+        $result = $this->fetcher->fetch($this->url, false);
 
         $this->assertEquals([$feed, [$item]], $result);
     }
@@ -290,7 +306,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $item = $this->createItem('video/ogg');
         $feed = $this->createFeed();
         $this->expectFeed('getItems', [$this->item]);
-        $result = $this->fetcher->fetch($this->url);
+        $result = $this->fetcher->fetch($this->url, false);
 
         $this->assertEquals([$feed, [$item]], $result);
     }

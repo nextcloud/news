@@ -13,21 +13,22 @@
 
 namespace OCA\News\Fetcher;
 
-use \PicoFeed\Favicon;
-use \PicoFeed\Reader;
-
 use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
+use \OCA\News\Utility\PicoFeedFaviconFactory;
+use \OCA\News\Utility\PicoFeedReaderFactory;
 
 class FeedFetcher implements IFeedFetcher {
 
-    private $faviconFetcher;
-    private $reader;
+    private $faviconFactory;
+    private $readerFactory;
     private $time;
 
-    public function __construct(Reader $reader, Favicon $faviconFetcher, $time){
-        $this->faviconFetcher = $faviconFetcher;
-        $this->reader = $reader;
+    public function __construct(PicoFeedReaderFactory $readerFactory,
+                                PicoFeedFaviconFactory $faviconFactory,
+                                $time){
+        $this->faviconFactory = $faviconFactory;
+        $this->readerFactory = $readerFactory;
         $this->time = $time;
     }
 
@@ -57,7 +58,8 @@ class FeedFetcher implements IFeedFetcher {
      */
     public function fetch($url, $getFavicon=true, $lastModified=null,
                           $etag=null) {
-        $resource = $this->reader->download($url, $lastModified, $etag);
+        $reader = $this->readerFactory->build();
+        $resource = $reader->download($url, $lastModified, $etag);
 
         $modified = $resource->getLastModified();
         $etag = $resource->getEtag();
@@ -67,7 +69,7 @@ class FeedFetcher implements IFeedFetcher {
         }
 
         try {
-            $parser = $this->reader->getParser();
+            $parser = $reader->getParser();
 
             if (!$parser) {
                 throw new \Exception(
@@ -184,7 +186,8 @@ class FeedFetcher implements IFeedFetcher {
         $feed->setAdded($this->time->getTime());
 
         if ($getFavicon) {
-            $favicon = $this->faviconFetcher->find($feed->getLink());
+            $faviconFetcher = $this->faviconFactory->build();
+            $favicon = $faviconFetcher->find($feed->getLink());
             $feed->setFaviconLink($favicon);
         }
 

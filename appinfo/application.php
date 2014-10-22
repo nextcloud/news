@@ -15,10 +15,7 @@ namespace OCA\News\AppInfo;
 
 require_once __DIR__ . '/autoload.php';
 
-use \PicoFeed\Reader as PicoFeedReader;
 use \PicoFeed\Config as PicoFeedConfig;
-use \PicoFeed\Client as PicoFeedClient;
-use \PicoFeed\Favicon as PicoFeedFavicon;
 
 use \OC\Files\View;
 use \OCP\AppFramework\App;
@@ -51,6 +48,8 @@ use \OCA\News\Db\MapperFactory;
 use \OCA\News\Utility\OPMLExporter;
 use \OCA\News\Utility\Updater;
 use \OCA\News\Utility\PicoFeedClientFactory;
+use \OCA\News\Utility\PicoFeedReaderFactory;
+use \OCA\News\Utility\PicoFeedFaviconFactory;
 use \OCA\News\Utility\ProxyConfigParser;
 
 use \OCA\News\Fetcher\Fetcher;
@@ -447,14 +446,17 @@ class Application extends App {
             return $pico;
         });
 
-        $container->registerService('PicoFeedReader', function($c) {
-            return new PicoFeedReader($c->query('PicoFeedConfig'));
+        $container->registerService('PicoFeedReaderFactory', function($c) {
+            return new PicoFeedReaderFactory($c->query('PicoFeedConfig'));
         });
 
         $container->registerService('PicoFeedClientFactory', function($c) {
             return new PicoFeedClientFactory($c->query('PicoFeedConfig'));
         });
 
+        $container->registerService('PicoFeedFaviconFactory', function($c) {
+            return new PicoFeedFaviconFactory($c->query('PicoFeedConfig'));
+        });
 
         $container->registerService('Fetcher', function($c) {
             $fetcher = new Fetcher();
@@ -468,8 +470,8 @@ class Application extends App {
 
         $container->registerService('FeedFetcher', function($c) {
             return new FeedFetcher(
-                $c->query('PicoFeedReader'),
-                $c->query('FaviconFetcher'),
+                $c->query('PicoFeedReaderFactory'),
+                $c->query('PicoFeedFaviconFactory'),
                 $c->query('TimeFactory')
             );
         });
@@ -496,12 +498,6 @@ class Application extends App {
             );
         });
 
-
-        $container->registerService('FaviconFetcher', function($c) {
-            return new PicoFeedFavicon(
-                $c->query('PicoFeedConfig')
-            );
-        });
 
     }
 
