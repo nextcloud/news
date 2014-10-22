@@ -51,7 +51,7 @@ use \OCA\News\Db\MapperFactory;
 use \OCA\News\Utility\OPMLExporter;
 use \OCA\News\Utility\Updater;
 use \OCA\News\Utility\PicoFeedClientFactory;
-use \OCA\News\Utility\FaviconFetcher;
+use \OCA\News\Utility\ProxyConfigParser;
 
 use \OCA\News\Fetcher\Fetcher;
 use \OCA\News\Fetcher\FeedFetcher;
@@ -413,6 +413,7 @@ class Application extends App {
             // FIXME: move this into a separate class for testing?
             $config = $c->query('Config');
             $appConfig = $c->query('AppConfig');
+            $proxy =  $c->query('ProxyConfigParser');
 
             $pico = new PicoFeedConfig();
             $pico->setClientUserAgent(
@@ -424,26 +425,23 @@ class Application extends App {
                 ->setContentFiltering(false);
 
             // proxy settings
-            $proxy = \OCP\Config::getSystemValue('proxy');
-            if ($proxy) {
-                // we need to filter out the port -.-
-                $url = new \Net_URL2($proxy);
-                $port = $url->getPort();
-                $url->setPort(false);
-                $host = $url->getUrl();
+            $proxySettings = $proxy->parse();
+            $host = $proxySettings['host'];
+            $port = $proxySettings['port'];
+            $user = $proxySettings['user'];
+            $password = $proxySettings['password'];
+
+            if ($host) {
+                $pico->setProxyHostname($host);
 
                 if ($port) {
                     $pico->setProxyPort($port);
                 }
-
-                $pico->setProxyHostname($host);
             }
 
-            $proxyAuth = \OCP\Config::getSystemValue('proxyuserpwd');
-            if ($proxyAuth) {
-                $auth = explode(':', $proxyAuth, 2);
-                $pico->setProxyUsername($auth[0])
-                    ->setProxyPassword($auth[1]);
+            if ($user) {
+                $pico->setProxyUsername($user)
+                    ->setProxyPassword($password);
             }
 
             return $pico;
@@ -482,6 +480,12 @@ class Application extends App {
 
         $container->registerService('OPMLExporter', function() {
             return new OPMLExporter();
+        });
+
+        $container->registerService('ProxyConfigParser', function($c) {
+            return new ProxyConfigParser(
+                $c->query('CoreConfig')
+            );
         });
 
         $container->registerService('Updater', function($c) {

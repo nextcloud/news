@@ -79,4 +79,6 @@ appstore: clean
 	--exclude=$(project_dir)/3rdparty/ezyang/htmlpurifier/maintenance \
 	--exclude=$(project_dir)/3rdparty/ezyang/htmlpurifier/plugins \
 	--exclude=$(project_dir)/3rdparty/ezyang/htmlpurifier/smoketests \
-	--exclude=$(project_dir)/3rdparty/ezyang/htmlpurifier/tests
+	--exclude=$(project_dir)/3rdparty/ezyang/htmlpurifier/tests \
+	--exclude=$(project_dir)/3rdparty/fguillot/picofeed/docs \
+	--exclude=$(project_dir)/3rdparty/fguillot/picofeed/tests

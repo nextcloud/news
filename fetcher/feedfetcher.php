@@ -51,6 +51,7 @@ class FeedFetcher implements IFeedFetcher {
      */
     public function fetch($url, $getFavicon=true) {
         $resource = $this->reader->download($url);
+
         $modified = $resource->getLastModified();
 
         try {
@@ -74,7 +75,8 @@ class FeedFetcher implements IFeedFetcher {
 
             $link = $parsedFeed->getUrl();
             foreach($parsedFeed->getItems() as $item) {
-                $items[] = $this->buildItem($item, $link);
+                //throw new \Exception($resource->getEncoding() . '' . $item->getContent());
+                $items[] = $this->buildItem($item);
             }
 
             $feed = $this->buildFeed($parsedFeed, $url, $getFavicon, $modified);
@@ -102,14 +104,11 @@ class FeedFetcher implements IFeedFetcher {
     }
 
 
-    protected function buildItem($parsedItem, $feedLink) {
+    protected function buildItem($parsedItem) {
         $item = new Item();
         $item->setStatus(0);
         $item->setUnread();
         $url = $this->decodeTwice($parsedItem->getUrl());
-        if (!$url) {
-            $url = $feedLink;
-        }
         $item->setUrl($url);
 
         // unescape content because angularjs helps against XSS
@@ -118,7 +117,7 @@ class FeedFetcher implements IFeedFetcher {
         $item->setGuid($guid);
 
         // purification is done in the service layer
-        $item->setBody($parsedItem->getContent());
+        $item->setBody(utf8_decode($parsedItem->getContent()));
 
         // pubdate is not required. if not given use the current date
         $date = $parsedItem->getDate();
