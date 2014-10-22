@@ -79,7 +79,7 @@ style('news', 'admin');
             <em>
             <?php p($l->t(
                 'Maximum number of seconds to wait for an RSS or Atom feed ' .
-                'to load; if it takes longer the update will be aborted.'
+                'to load; if it takes longer the update will be aborted'
             )); ?></em>
         </p>
         <p><input type="text" name="news-feed-fetcher-timeout"
