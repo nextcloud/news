@@ -44,6 +44,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
     private $feedImage;
     private $webFavicon;
     private $modified;
+    private $etag;
 
     protected function setUp(){
         $this->reader = $this->getMockBuilder(
@@ -97,6 +98,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $this->webFavicon = 'http://anon.google.com';
         $this->authorMail = 'doe@joes.com';
         $this->modified = 3;
+        $this->etag = 'yo';
     }
 
 
@@ -115,6 +117,9 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $this->client->expects($this->once())
             ->method('getLastModified')
             ->will($this->returnValue($this->modified));
+        $this->client->expects($this->once())
+            ->method('getEtag')
+            ->will($this->returnValue($this->etag));
 
         if ($noParser) {
             $this->reader->expects($this->once())
@@ -199,6 +204,8 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $feed->setUrl($this->url);
         $feed->setLink($this->feedLink);
         $feed->setAdded($this->time);
+        $feed->setLastModified($this->modified);
+        $feed->setEtag($this->etag);
 
         if($hasFavicon) {
             $this->faviconFetcher->expects($this->once())
@@ -249,6 +256,8 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $feed->setLink($this->feedLink);
         $feed->setAdded($this->time);
         $feed->setFaviconLink(null);
+        $feed->setLastModified($this->modified);
+        $feed->setEtag($this->etag);
 
         $item = $this->createItem();
         $this->expectFeed('getItems', [$this->item]);

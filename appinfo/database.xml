@@ -111,6 +111,16 @@
                 <notnull>false</notnull>
             </field>
             <field>
+                <name>last_modified</name>
+                <type>clob</type>
+                <notnull>false</notnull>
+            </field>
+            <field>
+                <name>etag</name>
+                <type>clob</type>
+                <notnull>false</notnull>
+            </field>
+            <field>
                 <name>added</name>
                 <type>integer</type>
                 <default></default>

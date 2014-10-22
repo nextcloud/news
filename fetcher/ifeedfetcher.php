@@ -19,11 +19,17 @@ interface IFeedFetcher {
      * @param string $url remote url of the feed
      * @param boolean $getFavicon if the favicon should also be fetched,
      * defaults to true
+     * @param string $lastModified a last modified value from an http header
+     * defaults to false. If lastModified matches the http header from the feed
+     * no results are fetched
+     * @param string $etag an etag from an http header.
+     * If lastModified matches the http header from the feed
+     * no results are fetched
      * @throws FetcherException if the fetcher encounters a problem
      * @return array an array containing the new feed and its items, first
      * element being the Feed and second element being an array of Items
      */
-    function fetch($url, $getFavicon=true);
+    function fetch($url, $getFavicon=true, $lastModified=null, $etag=null);
 
     /**
      * @param string $url the url that should be fetched

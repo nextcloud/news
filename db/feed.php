@@ -25,6 +25,10 @@ use \OCP\AppFramework\Db\Entity;
  * @method string getUrl()
  * @method string getTitle()
  * @method void setTitle(string $value)
+ * @method string getLastModified()
+ * @method void setLastModified(string $value)
+ * @method string getEtag()
+ * @method void setEtag(string $value)
  * @method string getFaviconLink()
  * @method void setFaviconLink(string $value)
  * @method integer getAdded()
@@ -57,6 +61,8 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
     protected $preventUpdate;
     protected $deletedAt;
     protected $articlesPerUpdate;
+    protected $lastModified;
+    protected $etag;
 
     public function __construct(){
         $this->addType('parentId', 'integer');
@@ -111,6 +117,8 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
             'added',
             'folderId',
             'unreadCount',
+            'lastModified',
+            'etag',
             'link'
         ]);
     }

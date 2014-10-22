@@ -45,14 +45,22 @@ class FeedFetcher implements IFeedFetcher {
      * @param string $url remote url of the feed
      * @param boolean $getFavicon if the favicon should also be fetched,
      * defaults to true
+     * @param string $lastModified a last modified value from an http header
+     * defaults to false. If lastModified matches the http header from the feed
+     * no results are fetched
+     * @param string $etag an etag from an http header.
+     * If lastModified matches the http header from the feed
+     * no results are fetched
      * @throws FetcherException if simple pie fails
      * @return array an array containing the new feed and its items, first
      * element being the Feed and second element being an array of Items
      */
-    public function fetch($url, $getFavicon=true) {
-        $resource = $this->reader->download($url);
+    public function fetch($url, $getFavicon=true, $lastModified=null,
+                          $etag=null) {
+        $resource = $this->reader->download($url, $lastModified, $etag);
 
         $modified = $resource->getLastModified();
+        $etag = $resource->getEtag();
 
         try {
             $parser = $this->reader->getParser();
@@ -79,7 +87,9 @@ class FeedFetcher implements IFeedFetcher {
                 $items[] = $this->buildItem($item);
             }
 
-            $feed = $this->buildFeed($parsedFeed, $url, $getFavicon, $modified);
+            $feed = $this->buildFeed(
+                $parsedFeed, $url, $getFavicon, $modified, $etag
+            );
 
             return [$feed, $items];
 
@@ -144,7 +154,8 @@ class FeedFetcher implements IFeedFetcher {
     }
 
 
-    protected function buildFeed($parsedFeed, $url, $getFavicon, $modified) {
+    protected function buildFeed($parsedFeed, $url, $getFavicon, $modified,
+                                 $etag) {
         $feed = new Feed();
 
         // unescape content because angularjs helps against XSS
@@ -157,6 +168,8 @@ class FeedFetcher implements IFeedFetcher {
 
         $feed->setTitle($title);
         $feed->setUrl($url);
+        $feed->setLastModified($modified);
+        $feed->setEtag($etag);
 
         $link = $parsedFeed->getUrl();
         if (!$link) {
