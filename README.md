@@ -54,9 +54,7 @@ check if:
 
 * it is a valid RSS by running it through the [W3C validator](http://validator.w3.org/feed/)
 * you are able to add the feed in other feed readers
-* it runs without error through [SimplePie demo](http://www.simplepie.org/demo/)
 
-In the case the third condition is not met, please file a bug on [SimplePie issue tracker](https://github.com/simplepie/simplepie).
 
 ### When reporting bugs
 
