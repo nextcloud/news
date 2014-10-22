@@ -2,6 +2,7 @@
 "by" => "vun",
 "from" => "vun",
 "Download" => "Download",
+"Description" => "Beschreiwung",
 "Web address" => "Link",
 "Folder" => "Dossier",
 "Folder name" => "Dossiers Numm:",

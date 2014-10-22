@@ -3,6 +3,7 @@
 "by" => "โดย",
 "from" => "จาก",
 "Download" => "ดาวน์โหลด",
+"Description" => "คำอธิบาย",
 "Subscribe" => "สมัครรับข้อมูล",
 "Web address" => "ที่อยู่เว็บ",
 "Feed exists already!" => "feed มีอยู่แล้วในระบบ!",
@@ -20,6 +21,7 @@
 "Unread articles" => "บทความที่ยังไม่ได้อ่าน",
 "All articles" => "บทความทั้งหมด",
 "Settings" => "ตั้งค่า",
+"Keyboard shortcuts" => "ปุ่มลัด",
 "Import" => "นำเข้า",
 "Export" => "ส่งออก"
 );

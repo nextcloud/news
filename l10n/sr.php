@@ -2,6 +2,7 @@
 "Refresh" => "Освежи",
 "by" => "од",
 "Download" => "Преузми",
+"Description" => "Опис",
 "Subscribe" => "Пријави ме",
 "Web address" => "Веб адреса",
 "Feed exists already!" => "Довод већ постоји.",

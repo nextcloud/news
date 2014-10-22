@@ -1,3 +1,4 @@
 <?php $TRANSLATIONS = array(
-"Download" => "Բեռնել"
+"Download" => "Բեռնել",
+"Description" => "Նկարագրություն"
 );

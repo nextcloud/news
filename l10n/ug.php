@@ -2,6 +2,7 @@
 "Refresh" => "يېڭىلا",
 "by" => "سەنئەتكار",
 "Download" => "چۈشۈر",
+"Description" => "چۈشەندۈرۈش",
 "Web address" => "تور ئادرېسى",
 "Folder" => "قىسقۇچ",
 "New folder" => "يېڭى قىسقۇچ",

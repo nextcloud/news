@@ -3,6 +3,7 @@
 "by" => "oleh",
 "from" => "dari",
 "Download" => "Muat turun",
+"Description" => "Keterangan",
 "Web address" => "Alamat sesawang",
 "Folder" => "Folder",
 "Create" => "Buat",

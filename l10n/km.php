@@ -5,6 +5,7 @@
 "by" => "ដោយ",
 "from" => "ពី",
 "Download" => "ទាញយក",
+"Description" => "ការ​អធិប្បាយ",
 "Folder" => "ថត",
 "New folder" => "ថត​ថ្មី",
 "Folder name" => "ឈ្មោះ​ថត",

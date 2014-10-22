@@ -3,6 +3,7 @@
 "by" => "preko",
 "from" => "od",
 "Download" => "Preuzimanje",
+"Description" => "Opis",
 "Web address" => "Web adresa",
 "Folder" => "mapa",
 "New folder" => "Nova mapa",
@@ -11,6 +12,7 @@
 "Create" => "Kreirajte",
 "Rename" => "Preimenujte",
 "Settings" => "Postavke",
+"Keyboard shortcuts" => "Tipkovni prečaci",
 "Import" => "Uvezi",
 "Export" => "Izvoz"
 );

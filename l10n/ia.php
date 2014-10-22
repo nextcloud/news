@@ -5,6 +5,7 @@
 "by" => "per",
 "from" => "ex",
 "Download" => "Discargar",
+"Description" => "Description",
 "Folder" => "Dossier",
 "New folder" => "Nove dossier",
 "Folder name" => "Nomine de dossier",

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-10-21 01:01-0400\n"
-"PO-Revision-Date: 2014-10-21 05:01+0000\n"
+"POT-Creation-Date: 2014-10-22 01:01-0400\n"
+"PO-Revision-Date: 2014-10-22 05:01+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/owncloud/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -18,219 +18,272 @@ msgstr ""
 "Language: en_GB\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: service/feedservice.php:104
+#: service/feedservice.php:106
 msgid "Can not add feed: Exists already"
 msgstr "Can not add feed: Exists already"
 
-#: service/feedservice.php:149
+#: service/feedservice.php:151
 msgid ""
 "Can not add feed: URL does not exist, SSL Certificate can not be validated "
 "or feed has invalid xml"
 msgstr "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid XML"
 
-#: service/feedservice.php:296
+#: service/feedservice.php:311
 msgid "Articles without feed"
 msgstr "Articles without feed"
 
-#: service/folderservice.php:56
+#: service/folderservice.php:58
 msgid "Can not add folder: Exists already"
 msgstr "Can not add folder: Exists already"
+
+#: templates/admin.php:12
+msgid "Use ownCloud cron to for updates"
+msgstr ""
+
+#: templates/admin.php:17
+msgid ""
+"Disable this if you run a custom updater such as the Python updater included"
+" in the app"
+msgstr ""
+
+#: templates/admin.php:25
+msgid "Purge interval"
+msgstr ""
+
+#: templates/admin.php:30
+msgid ""
+"Minimum amount of seconds after deleted feeds and folders are removed from "
+"the database; values below 60 seconds are ignored"
+msgstr ""
+
+#: templates/admin.php:41
+msgid "Maximum read count per feed"
+msgstr ""
+
+#: templates/admin.php:47
+msgid ""
+"Defines the maximum amount of articles that can be read per feed which won't"
+" be deleted by the cleanup job; if old articles reappear after being read, "
+"increase this value"
+msgstr ""
+
+#: templates/admin.php:59
+msgid "Maximum redirects"
+msgstr ""
+
+#: templates/admin.php:65
+msgid "How many redirects the feed fetcher should follow"
+msgstr ""
+
+#: templates/admin.php:75
+msgid "Feed fetcher timeout"
+msgstr ""
+
+#: templates/admin.php:81
+msgid ""
+"Maximum number of seconds to wait for an RSS or Atom feed to load; if it "
+"takes longer the update will be aborted."
+msgstr ""
+
+#: templates/admin.php:89
+msgid "Saved"
+msgstr ""
 
 #: templates/part.content.firstrun.php:3
 msgid "Add a feed"
 msgstr "Add a feed"
 
-#: templates/part.content.firstrun.php:4
+#: templates/part.content.firstrun.php:7
 msgid "There are no feeds yet. Go ahead and add some"
 msgstr "There are no feeds yet. Go ahead and add some"
 
-#: templates/part.content.firstrun.php:5
+#: templates/part.content.firstrun.php:12
 msgid "Import feeds and articles"
 msgstr "Import feeds and articles"
 
-#: templates/part.content.php:7 templates/part.content.shortcuts.php:38
+#: templates/part.content.php:13 templates/part.content.shortcuts.php:44
 msgid "Refresh"
 msgstr "Refresh"
 
-#: templates/part.content.php:23
+#: templates/part.content.php:31
 msgid "Open website"
 msgstr "Open website"
 
-#: templates/part.content.php:39
+#: templates/part.content.php:63
 msgid "Star article"
 msgstr "Star article"
 
-#: templates/part.content.php:40
+#: templates/part.content.php:67
 msgid "Unstar article"
 msgstr "Unstar article"
 
-#: templates/part.content.php:43
+#: templates/part.content.php:75
 msgid "Keep article unread"
 msgstr "Keep article unread"
 
-#: templates/part.content.php:44
+#: templates/part.content.php:81
 msgid "Remove keep article unread"
 msgstr "Remove keep article unread"
 
-#: templates/part.content.php:65
+#: templates/part.content.php:110
 msgid "by"
 msgstr "by"
 
-#: templates/part.content.php:66
+#: templates/part.content.php:112
 msgid "from"
 msgstr "from"
 
-#: templates/part.content.php:75
+#: templates/part.content.php:126
 msgid "Browser can not play media type"
 msgstr "Browser cannot play media type"
 
-#: templates/part.content.php:81
+#: templates/part.content.php:132
 msgid "Download"
 msgstr "Download"
 
 #: templates/part.content.shortcuts.php:5
 msgid "Keyboard shortcut"
-msgstr ""
+msgstr "Keyboard shortcut"
 
 #: templates/part.content.shortcuts.php:6
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 #: templates/part.content.shortcuts.php:9
 msgid "right"
-msgstr ""
+msgstr "right"
 
 #: templates/part.content.shortcuts.php:10
 msgid "Jump to next article"
-msgstr ""
+msgstr "Jump to next article"
 
 #: templates/part.content.shortcuts.php:13
 msgid "left"
-msgstr ""
+msgstr "left"
 
 #: templates/part.content.shortcuts.php:14
 msgid "Jump to previous article"
-msgstr ""
+msgstr "Jump to previous article"
 
 #: templates/part.content.shortcuts.php:18
 msgid "Toggle star article"
-msgstr ""
+msgstr "Toggle star article"
 
-#: templates/part.content.shortcuts.php:22
+#: templates/part.content.shortcuts.php:23
 msgid "Star article and jump to next one"
-msgstr ""
+msgstr "Star article and jump to next one"
 
-#: templates/part.content.shortcuts.php:26
+#: templates/part.content.shortcuts.php:29
 msgid "Toggle keep current article unread"
-msgstr ""
-
-#: templates/part.content.shortcuts.php:30
-msgid "Open article in new tab"
-msgstr ""
+msgstr "Toggle keep current article unread"
 
 #: templates/part.content.shortcuts.php:34
+msgid "Open article in new tab"
+msgstr "Open article in new tab"
+
+#: templates/part.content.shortcuts.php:39
 msgid "Toggle expand article in compact view"
-msgstr ""
+msgstr "Toggle expand article in compact view"
 
-#: templates/part.content.shortcuts.php:42
+#: templates/part.content.shortcuts.php:48
 msgid "Load next feed"
-msgstr ""
+msgstr "Load next feed"
 
-#: templates/part.content.shortcuts.php:46
+#: templates/part.content.shortcuts.php:52
 msgid "Load previous feed"
-msgstr ""
+msgstr "Load previous feed"
 
-#: templates/part.content.shortcuts.php:50
+#: templates/part.content.shortcuts.php:56
 msgid "Load next folder"
-msgstr ""
+msgstr "Load next folder"
 
-#: templates/part.content.shortcuts.php:54
+#: templates/part.content.shortcuts.php:60
 msgid "Load previous folder"
-msgstr ""
+msgstr "Load previous folder"
 
 #: templates/part.navigation.addfeed.php:5
-#: templates/part.navigation.addfeed.php:66
+#: templates/part.navigation.addfeed.php:77
 msgid "Subscribe"
 msgstr "Subscribe"
 
-#: templates/part.navigation.addfeed.php:18
+#: templates/part.navigation.addfeed.php:19
 msgid "Web address"
 msgstr "Web address"
 
-#: templates/part.navigation.addfeed.php:25
+#: templates/part.navigation.addfeed.php:27
 msgid "Feed exists already!"
 msgstr "Feed exists already!"
 
-#: templates/part.navigation.addfeed.php:30
+#: templates/part.navigation.addfeed.php:32
 msgid "Folder"
 msgstr "Folder"
 
-#: templates/part.navigation.addfeed.php:34
+#: templates/part.navigation.addfeed.php:38
 msgid "No folder"
 msgstr "No folder"
 
-#: templates/part.navigation.addfeed.php:39
+#: templates/part.navigation.addfeed.php:43
 msgid "New folder"
 msgstr "New folder"
 
-#: templates/part.navigation.addfeed.php:52
-#: templates/part.navigation.addfolder.php:16
-#: templates/part.navigation.addfolder.php:17
+#: templates/part.navigation.addfeed.php:58
+#: templates/part.navigation.addfolder.php:21
+#: templates/part.navigation.addfolder.php:22
 msgid "Folder name"
 msgstr "Folder name"
 
-#: templates/part.navigation.addfeed.php:59
+#: templates/part.navigation.addfeed.php:65
 msgid "Go back"
 msgstr "Go back"
 
-#: templates/part.navigation.addfeed.php:63
-#: templates/part.navigation.addfolder.php:21
-#: templates/part.navigation.folder.php:52
+#: templates/part.navigation.addfeed.php:73
+#: templates/part.navigation.addfolder.php:28
+#: templates/part.navigation.folder.php:69
 msgid "Folder exists already!"
 msgstr "Folder exists already!"
 
-#: templates/part.navigation.addfolder.php:5
+#: templates/part.navigation.addfolder.php:6
 msgid "New Folder"
 msgstr "New Folder"
 
-#: templates/part.navigation.addfolder.php:24
+#: templates/part.navigation.addfolder.php:32
 msgid "Create"
 msgstr "Create"
 
-#: templates/part.navigation.feed.php:41
+#: templates/part.navigation.feed.php:48
 msgid "Deleted feed"
 msgstr "Deleted feed"
 
-#: templates/part.navigation.feed.php:43
+#: templates/part.navigation.feed.php:51
 msgid "Undo delete feed"
 msgstr "Undo delete feed"
 
-#: templates/part.navigation.feed.php:56
-#: templates/part.navigation.folder.php:46
+#: templates/part.navigation.feed.php:64
+#: templates/part.navigation.folder.php:59
 msgid "Rename"
 msgstr "Rename"
 
-#: templates/part.navigation.feed.php:70
-#: templates/part.navigation.folder.php:77
+#: templates/part.navigation.feed.php:79
+#: templates/part.navigation.folder.php:104
 msgid "Menu"
 msgstr "Menu"
 
-#: templates/part.navigation.feed.php:79
+#: templates/part.navigation.feed.php:89
 msgid "Rename feed"
 msgstr "Rename feed"
 
-#: templates/part.navigation.feed.php:82
+#: templates/part.navigation.feed.php:95
 msgid "Delete feed"
 msgstr "Delete feed"
 
-#: templates/part.navigation.feed.php:85
-#: templates/part.navigation.folder.php:92
-#: templates/part.navigation.unreadfeed.php:29
+#: templates/part.navigation.feed.php:101
+#: templates/part.navigation.folder.php:126
+#: templates/part.navigation.unreadfeed.php:33
 msgid "Read all"
 msgstr "Read all"
 
-#: templates/part.navigation.feed.php:93
-#: templates/part.navigation.folder.php:103
+#: templates/part.navigation.feed.php:111
+#: templates/part.navigation.folder.php:141
 msgid "Dismiss"
 msgstr "Dismiss"
 
@@ -238,19 +291,19 @@ msgstr "Dismiss"
 msgid "Collapse"
 msgstr "Collapse"
 
-#: templates/part.navigation.folder.php:26
+#: templates/part.navigation.folder.php:27
 msgid "Deleted folder"
 msgstr "Deleted folder"
 
-#: templates/part.navigation.folder.php:28
+#: templates/part.navigation.folder.php:30
 msgid "Undo delete folder"
 msgstr "Undo delete folder"
 
-#: templates/part.navigation.folder.php:86
+#: templates/part.navigation.folder.php:114
 msgid "Rename folder"
 msgstr "Rename folder"
 
-#: templates/part.navigation.folder.php:89
+#: templates/part.navigation.folder.php:120
 msgid "Delete folder"
 msgstr "Delete folder"
 
@@ -272,45 +325,45 @@ msgstr "Settings"
 
 #: templates/part.settings.php:11
 msgid "Keyboard shortcuts"
-msgstr ""
+msgstr "Keyboard shortcuts"
 
-#: templates/part.settings.php:17
+#: templates/part.settings.php:18
 msgid "Compact view"
 msgstr "Compact view"
 
-#: templates/part.settings.php:24
+#: templates/part.settings.php:26
 msgid "Show all articles"
 msgstr "Show all articles"
 
-#: templates/part.settings.php:31
+#: templates/part.settings.php:35
 msgid "Reverse ordering"
 msgstr "Reverse ordering"
 
-#: templates/part.settings.php:38
+#: templates/part.settings.php:44
 msgid "Disable mark read through scrolling"
 msgstr "Disable mark read through scrolling"
 
-#: templates/part.settings.php:43
+#: templates/part.settings.php:49
 msgid "Subscriptions (OPML)"
 msgstr "Subscriptions (OPML)"
 
-#: templates/part.settings.php:50 templates/part.settings.php:84
+#: templates/part.settings.php:56 templates/part.settings.php:93
 msgid "Import"
 msgstr "Import"
 
-#: templates/part.settings.php:57 templates/part.settings.php:66
-#: templates/part.settings.php:91 templates/part.settings.php:98
+#: templates/part.settings.php:64 templates/part.settings.php:73
+#: templates/part.settings.php:101 templates/part.settings.php:109
 msgid "Export"
 msgstr "Export"
 
-#: templates/part.settings.php:72
+#: templates/part.settings.php:80
 msgid "Error when importing: file does not contain valid OPML"
 msgstr "Error when importing: file does not contain valid OPML"
 
-#: templates/part.settings.php:76
+#: templates/part.settings.php:85
 msgid "Unread/Starred Articles"
 msgstr "Unread/Starred Articles"
 
-#: templates/part.settings.php:104
+#: templates/part.settings.php:116
 msgid "Error when importing: file does not contain valid JSON"
 msgstr "Error when importing: file does not contain valid JSON"

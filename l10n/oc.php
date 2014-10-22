@@ -2,6 +2,7 @@
 "Refresh" => "Refresca",
 "by" => "per",
 "Download" => "Avalcarga",
+"Description" => "Descripcion",
 "Web address" => "Adreiça web",
 "Folder" => "Dorsièr",
 "Create" => "Crea",

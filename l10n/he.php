@@ -3,6 +3,7 @@
 "by" => "על ידי",
 "from" => "מאת",
 "Download" => "הורדה",
+"Description" => "תיאור",
 "Web address" => "כתובת אתר",
 "Folder" => "תיקייה",
 "New folder" => "תיקייה חדשה",
@@ -14,6 +15,7 @@
 "Delete folder" => "מחק תיקייה",
 "Starred" => "מסומן",
 "Settings" => "הגדרות",
+"Keyboard shortcuts" => "קיצורי מקלדת",
 "Import" => "יבוא",
 "Export" => "ייצוא"
 );
