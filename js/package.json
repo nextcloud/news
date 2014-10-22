@@ -1,6 +1,6 @@
 {
     "name": "ownCloud-news",
-    "version": "3.4.6",
+    "version": "4.0.1",
     "description": "An RSS/Atom feed reader",
     "main": "build/app.js",
     "scripts": {
@@ -34,7 +34,7 @@
         "grunt-contrib-watch": "^0.6.1",
         "grunt-karma": "^0.9.0",
         "grunt-ng-annotate": "^0.4.0",
-        "grunt-phpunit": "^0.3.5",
+        "grunt-phpunit": "^0.3.6",
         "grunt-protractor-runner": "^1.1.4",
         "grunt-protractor-webdriver": "^0.1.9",
         "grunt-wrap": "^0.3.0",
