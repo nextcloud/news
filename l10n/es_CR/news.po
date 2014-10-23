@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-10-22 01:01-0400\n"
-"PO-Revision-Date: 2014-10-22 05:01+0000\n"
+"POT-Creation-Date: 2014-10-23 01:01-0400\n"
+"PO-Revision-Date: 2014-10-23 05:01+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: Spanish (Costa Rica) (http://www.transifex.com/projects/p/owncloud/language/es_CR/)\n"
 "MIME-Version: 1.0\n"
@@ -27,7 +27,7 @@ msgid ""
 "or feed has invalid xml"
 msgstr ""
 
-#: service/feedservice.php:311
+#: service/feedservice.php:322
 msgid "Articles without feed"
 msgstr ""
 
@@ -36,7 +36,7 @@ msgid "Can not add folder: Exists already"
 msgstr ""
 
 #: templates/admin.php:12
-msgid "Use ownCloud cron to for updates"
+msgid "Use ownCloud cron for updates"
 msgstr ""
 
 #: templates/admin.php:17
@@ -81,7 +81,7 @@ msgstr ""
 #: templates/admin.php:81
 msgid ""
 "Maximum number of seconds to wait for an RSS or Atom feed to load; if it "
-"takes longer the update will be aborted."
+"takes longer the update will be aborted"
 msgstr ""
 
 #: templates/admin.php:89

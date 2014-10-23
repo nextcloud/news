@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Artopal <artopal@fastmail.fm>, 2012-2014
+# Artopal <artopal@fastmail.fm>, 2014
 # Luis Medina <devianpctek@gmail.com>, 2012
 # Eduardo Viramontes <qubitozcom@gmail.com>, 2013
 # Jose Luis <joseluis.tirado@gmail.com>, 2014
@@ -24,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-10-22 01:01-0400\n"
-"PO-Revision-Date: 2014-10-22 05:01+0000\n"
+"POT-Creation-Date: 2014-10-23 01:01-0400\n"
+"PO-Revision-Date: 2014-10-23 05:01+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/owncloud/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -44,7 +45,7 @@ msgid ""
 "or feed has invalid xml"
 msgstr "No se puede agregar fuente: el URL no existe, el certificado SSL no puede ser validado o la fuente contiene XML inválido"
 
-#: service/feedservice.php:311
+#: service/feedservice.php:322
 msgid "Articles without feed"
 msgstr "Artículos sin fuente"
 
@@ -53,7 +54,7 @@ msgid "Can not add folder: Exists already"
 msgstr "No se puede agregar carpeta: ya existe"
 
 #: templates/admin.php:12
-msgid "Use ownCloud cron to for updates"
+msgid "Use ownCloud cron for updates"
 msgstr ""
 
 #: templates/admin.php:17
@@ -70,7 +71,7 @@ msgstr ""
 msgid ""
 "Minimum amount of seconds after deleted feeds and folders are removed from "
 "the database; values below 60 seconds are ignored"
-msgstr ""
+msgstr "Número mínimo de segundos antes de que las fuentes y carpetas eliminadas sean eliminadas definitivamente de la base de datos; valores por debajo de 60 segundos serán ignorados."
 
 #: templates/admin.php:41
 msgid "Maximum read count per feed"
@@ -98,12 +99,12 @@ msgstr ""
 #: templates/admin.php:81
 msgid ""
 "Maximum number of seconds to wait for an RSS or Atom feed to load; if it "
-"takes longer the update will be aborted."
+"takes longer the update will be aborted"
 msgstr ""
 
 #: templates/admin.php:89
 msgid "Saved"
-msgstr ""
+msgstr "Guardado"
 
 #: templates/part.content.firstrun.php:3
 msgid "Add a feed"
@@ -111,7 +112,7 @@ msgstr "Añadir fuente"
 
 #: templates/part.content.firstrun.php:7
 msgid "There are no feeds yet. Go ahead and add some"
-msgstr "No hay fuentes todavía. Continúe y añada alguna"
+msgstr "Aún no hay fuentes. Continúe y agregue algunas"
 
 #: templates/part.content.firstrun.php:12
 msgid "Import feeds and articles"
@@ -159,7 +160,7 @@ msgstr "Descargar"
 
 #: templates/part.content.shortcuts.php:5
 msgid "Keyboard shortcut"
-msgstr ""
+msgstr "Atajo de teclado"
 
 #: templates/part.content.shortcuts.php:6
 msgid "Description"
@@ -171,7 +172,7 @@ msgstr "derecha"
 
 #: templates/part.content.shortcuts.php:10
 msgid "Jump to next article"
-msgstr ""
+msgstr "Ir al artículo siguiente"
 
 #: templates/part.content.shortcuts.php:13
 msgid "left"
@@ -179,43 +180,43 @@ msgstr "izquierda"
 
 #: templates/part.content.shortcuts.php:14
 msgid "Jump to previous article"
-msgstr ""
+msgstr "Ir al artículo anterior"
 
 #: templates/part.content.shortcuts.php:18
 msgid "Toggle star article"
-msgstr ""
+msgstr "Marcar como favorito"
 
 #: templates/part.content.shortcuts.php:23
 msgid "Star article and jump to next one"
-msgstr ""
+msgstr "Marcar como favorito e ir al siguiente"
 
 #: templates/part.content.shortcuts.php:29
 msgid "Toggle keep current article unread"
-msgstr ""
+msgstr "Marcar como no leído"
 
 #: templates/part.content.shortcuts.php:34
 msgid "Open article in new tab"
-msgstr ""
+msgstr "Abrir artículo en una nueva pestaña"
 
 #: templates/part.content.shortcuts.php:39
 msgid "Toggle expand article in compact view"
-msgstr ""
+msgstr "Expandir artículo en vista compacta"
 
 #: templates/part.content.shortcuts.php:48
 msgid "Load next feed"
-msgstr ""
+msgstr "Cargar fuente siguiente"
 
 #: templates/part.content.shortcuts.php:52
 msgid "Load previous feed"
-msgstr ""
+msgstr "Cargar fuente anterior"
 
 #: templates/part.content.shortcuts.php:56
 msgid "Load next folder"
-msgstr ""
+msgstr "Cargar carpeta siguiente"
 
 #: templates/part.content.shortcuts.php:60
 msgid "Load previous folder"
-msgstr ""
+msgstr "Cargar carpeta anterior"
 
 #: templates/part.navigation.addfeed.php:5
 #: templates/part.navigation.addfeed.php:77
@@ -228,7 +229,7 @@ msgstr "Dirección web"
 
 #: templates/part.navigation.addfeed.php:27
 msgid "Feed exists already!"
-msgstr "Los feed ya existen!"
+msgstr "Esa fuente ya existe."
 
 #: templates/part.navigation.addfeed.php:32
 msgid "Folder"

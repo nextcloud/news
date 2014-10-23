@@ -3,6 +3,7 @@
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Η ροή δεν ήταν δυνατό να προστεθεί: Το URL δεν υπάρχει, το πιστοποιητικό SSL δεν είναι δυνατό να επικυρωθεί ή περιέχει άκυρο xml",
 "Articles without feed" => "Άρθρα χωρίς ροές",
 "Can not add folder: Exists already" => "Αδυναμία προσθήκης φακέλου: Υπάρχει ήδη",
+"Saved" => "Αποθηκεύτηκαν",
 "Add a feed" => "Προσθήκη ροής",
 "There are no feeds yet. Go ahead and add some" => "Δεν υπάρχουν ακόμα ροές. Προσθέστε μερικές",
 "Import feeds and articles" => "Εισαγωγή ροών και άρθρων",

@@ -3,6 +3,7 @@
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Неуспешно добавяне на поток: интернет адресът не съществува, SSL сертификатът не може да бъде проверен или потокът има невалиден xml.",
 "Articles without feed" => "Статии без свързан поток",
 "Can not add folder: Exists already" => "Неможа да добави папката: Вече съществува",
+"Saved" => "Запазено",
 "Add a feed" => "Добави поток",
 "There are no feeds yet. Go ahead and add some" => "Все още няма потоци. Добави няколко",
 "Import feeds and articles" => "Внеси потоци и статии",

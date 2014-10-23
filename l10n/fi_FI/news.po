@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-10-22 01:01-0400\n"
-"PO-Revision-Date: 2014-10-22 05:01+0000\n"
+"POT-Creation-Date: 2014-10-23 01:01-0400\n"
+"PO-Revision-Date: 2014-10-23 05:01+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: Finnish (Finland) (http://www.transifex.com/projects/p/owncloud/language/fi_FI/)\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgid ""
 "or feed has invalid xml"
 msgstr "Syötteen lisääminen ei onnistu: osoitetta ei ole olemassa, SSL-varmennetta ei voi varmentaa tai syöte sisältää virheellistä xml:ää"
 
-#: service/feedservice.php:311
+#: service/feedservice.php:322
 msgid "Articles without feed"
 msgstr "Vailla syötettä olevat artikkelit"
 
@@ -40,7 +40,7 @@ msgid "Can not add folder: Exists already"
 msgstr "Kansiota ei voi lisätä: se on jo olemassa"
 
 #: templates/admin.php:12
-msgid "Use ownCloud cron to for updates"
+msgid "Use ownCloud cron for updates"
 msgstr ""
 
 #: templates/admin.php:17
@@ -51,7 +51,7 @@ msgstr ""
 
 #: templates/admin.php:25
 msgid "Purge interval"
-msgstr ""
+msgstr "Hävitysväli"
 
 #: templates/admin.php:30
 msgid ""
@@ -72,25 +72,25 @@ msgstr ""
 
 #: templates/admin.php:59
 msgid "Maximum redirects"
-msgstr ""
+msgstr "Uudelleenohjausten enimmäismäärä"
 
 #: templates/admin.php:65
 msgid "How many redirects the feed fetcher should follow"
-msgstr ""
+msgstr "Kuinka montaa uudelleenohjausta noutajan tulisi seurata"
 
 #: templates/admin.php:75
 msgid "Feed fetcher timeout"
-msgstr ""
+msgstr "Syötteen hakemisen aikakatkaisu"
 
 #: templates/admin.php:81
 msgid ""
 "Maximum number of seconds to wait for an RSS or Atom feed to load; if it "
-"takes longer the update will be aborted."
+"takes longer the update will be aborted"
 msgstr ""
 
 #: templates/admin.php:89
 msgid "Saved"
-msgstr ""
+msgstr "Tallennettu"
 
 #: templates/part.content.firstrun.php:3
 msgid "Add a feed"

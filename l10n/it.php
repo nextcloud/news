@@ -3,6 +3,7 @@
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Impossibile aggiungere la fonte: l'URL non esiste, il certificato SSL non può essere verificato o la fonte ha codice xml non valido",
 "Articles without feed" => "Articoli senza fonte",
 "Can not add folder: Exists already" => "Impossibile aggiungere la cartella: esiste già",
+"Saved" => "Salvato",
 "Add a feed" => "Aggiungi una fonte",
 "There are no feeds yet. Go ahead and add some" => "Non ci sono ancora fonti. Vai avanti e aggiungine",
 "Import feeds and articles" => "Importa fonti e articoli",

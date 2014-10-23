@@ -2,6 +2,7 @@
 "Can not add feed: Exists already" => "Non pote adder syndication: il jam es existente",
 "Articles without feed" => "Articulos sin syndication",
 "Can not add folder: Exists already" => "Non pote adder dossier: il es jam existente",
+"Saved" => "Salveguardate",
 "by" => "per",
 "from" => "ex",
 "Download" => "Discargar",

@@ -1,5 +1,6 @@
 <?php $TRANSLATIONS = array(
 "Can not add folder: Exists already" => "Nu se poate adăuga director : Exista deja",
+"Saved" => "Salvat",
 "Refresh" => "Împrospătare",
 "by" => "după",
 "from" => "de la",

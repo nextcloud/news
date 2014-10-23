@@ -3,6 +3,7 @@
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Ni mogoče dodati vira: naslov URL ne obstaja, potrdila SSL ni mogoče overiti ali pa je neveljaven zapis XML vira.",
 "Articles without feed" => "Članki brez virov",
 "Can not add folder: Exists already" => "Ni mogoče dodati mape: mapa že obstaja.",
+"Saved" => "Shranjeno",
 "Add a feed" => "Dodaj vir",
 "There are no feeds yet. Go ahead and add some" => "Ni še določenih virov. Najprej je treba kakšen vir dodati.",
 "Import feeds and articles" => "Uvozi vire in prispevke",

@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-10-22 01:01-0400\n"
-"PO-Revision-Date: 2014-10-22 05:01+0000\n"
+"POT-Creation-Date: 2014-10-23 01:01-0400\n"
+"PO-Revision-Date: 2014-10-23 05:01+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/owncloud/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,7 @@ msgid ""
 "or feed has invalid xml"
 msgstr "Não é possível adicionar o feed: o endereço não existe, o cerificado SSL não é valido ou contem um xml inválido"
 
-#: service/feedservice.php:311
+#: service/feedservice.php:322
 msgid "Articles without feed"
 msgstr "Artigos sem feed"
 
@@ -47,57 +47,57 @@ msgid "Can not add folder: Exists already"
 msgstr "Não é possivel adicionar a pasta: Já existe"
 
 #: templates/admin.php:12
-msgid "Use ownCloud cron to for updates"
+msgid "Use ownCloud cron for updates"
 msgstr ""
 
 #: templates/admin.php:17
 msgid ""
 "Disable this if you run a custom updater such as the Python updater included"
 " in the app"
-msgstr ""
+msgstr "Desactive isto se estiver a utilizar um actualizador personalizado como o actualizador Python incluído na aplicação"
 
 #: templates/admin.php:25
 msgid "Purge interval"
-msgstr ""
+msgstr "Intervalo de Purgar"
 
 #: templates/admin.php:30
 msgid ""
 "Minimum amount of seconds after deleted feeds and folders are removed from "
 "the database; values below 60 seconds are ignored"
-msgstr ""
+msgstr "Número mínimo de segundos após remover feeds e pastas da base de dados; valores abaixo de 60 segundos são ignorados"
 
 #: templates/admin.php:41
 msgid "Maximum read count per feed"
-msgstr ""
+msgstr "Número máximo de leituras por feed"
 
 #: templates/admin.php:47
 msgid ""
 "Defines the maximum amount of articles that can be read per feed which won't"
 " be deleted by the cleanup job; if old articles reappear after being read, "
 "increase this value"
-msgstr ""
+msgstr "Define o número máximo de artigos que pode ser lido por feed que não serão removidos pela limpeza; se artigos antigos reaparecerem após serem lidos, aumente este valor"
 
 #: templates/admin.php:59
 msgid "Maximum redirects"
-msgstr ""
+msgstr "Máximo de redireccionamentos"
 
 #: templates/admin.php:65
 msgid "How many redirects the feed fetcher should follow"
-msgstr ""
+msgstr "Quantos redireccionamentos é que o feed fetcher deve seguir"
 
 #: templates/admin.php:75
 msgid "Feed fetcher timeout"
-msgstr ""
+msgstr "Timeout do feed fetcher"
 
 #: templates/admin.php:81
 msgid ""
 "Maximum number of seconds to wait for an RSS or Atom feed to load; if it "
-"takes longer the update will be aborted."
+"takes longer the update will be aborted"
 msgstr ""
 
 #: templates/admin.php:89
 msgid "Saved"
-msgstr ""
+msgstr "Guardado"
 
 #: templates/part.content.firstrun.php:3
 msgid "Add a feed"

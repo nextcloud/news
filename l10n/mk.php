@@ -3,6 +3,7 @@
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Не можам да додадам фид: URL-то не постои, SSL сертификатот не може да биде валидиран или фидот има невалиден xml",
 "Articles without feed" => "Статии без фид",
 "Can not add folder: Exists already" => "Не можам да додадам папка: Веќе постои",
+"Saved" => "Снимено",
 "Refresh" => "Освежи",
 "by" => "од",
 "from" => "од",

@@ -3,6 +3,7 @@
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Nie można dodać kanału: URL nie istnieje, certyfikat SSL nie może zostać uwierzytelniony lub kanał ma niewłaściwy xml",
 "Articles without feed" => "Artykuły nie z kanałów",
 "Can not add folder: Exists already" => "Nie można dodać folderu: istnieje już",
+"Saved" => "Zapisano",
 "Add a feed" => "Dodaj kanał",
 "There are no feeds yet. Go ahead and add some" => "Nie ma żadnych kanałów. Dodaj kilka",
 "Import feeds and articles" => "Importuj kanały i artykuły",

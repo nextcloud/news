@@ -3,6 +3,7 @@
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Не удаётся добавить ленту: адрес не существует, SSL-сертификат не может быть проверен или ресурс содержит неверный xml",
 "Articles without feed" => "Статьи без новостной ленты",
 "Can not add folder: Exists already" => "Не удаётся добавить папку: уже существует",
+"Saved" => "Сохранено",
 "Add a feed" => "Добавить новостную ленту",
 "There are no feeds yet. Go ahead and add some" => "До сих пор нет новостных лент. Пойди и добавь какие-нибудь",
 "Import feeds and articles" => "Импортировать новостные ленты и статьи",

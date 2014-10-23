@@ -1,6 +1,7 @@
 <?php $TRANSLATIONS = array(
 "Can not add feed: Exists already" => "Feed konnte nicht hinzugefügt werden:  Existiert bereits",
 "Can not add folder: Exists already" => "Ordner kann nicht hinzgefügt werden: Existiert bereits",
+"Saved" => "Gespeichert",
 "Refresh" => "Aktualisieren",
 "by" => "von",
 "from" => "von",

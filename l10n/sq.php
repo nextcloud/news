@@ -1,4 +1,5 @@
 <?php $TRANSLATIONS = array(
+"Saved" => "U ruajt",
 "by" => "nga",
 "from" => "Nga",
 "Download" => "Shkarko",

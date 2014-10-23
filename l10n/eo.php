@@ -1,6 +1,7 @@
 <?php $TRANSLATIONS = array(
 "Can not add feed: Exists already" => "Ne eblas aldoni fluon: ĝi jam ekzistas",
 "Can not add folder: Exists already" => "Ne eblas aldoni dosierujon: ĝi jam ekzistas",
+"Saved" => "Konservita",
 "Refresh" => "Refreŝigi",
 "by" => "de",
 "from" => "el",

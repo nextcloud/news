@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-10-22 01:01-0400\n"
-"PO-Revision-Date: 2014-10-22 05:01+0000\n"
+"POT-Creation-Date: 2014-10-23 01:01-0400\n"
+"PO-Revision-Date: 2014-10-23 05:01+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/projects/p/owncloud/language/cs_CZ/)\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,7 @@ msgid ""
 "or feed has invalid xml"
 msgstr "Nelze přidat kanál: URL neexistuje, SSL certifikát nelze ověřit nebo obsahuje neplatné xml"
 
-#: service/feedservice.php:311
+#: service/feedservice.php:322
 msgid "Articles without feed"
 msgstr "Články bez zdroje"
 
@@ -45,57 +45,57 @@ msgid "Can not add folder: Exists already"
 msgstr "Nelze přidat složku: již existuje"
 
 #: templates/admin.php:12
-msgid "Use ownCloud cron to for updates"
+msgid "Use ownCloud cron for updates"
 msgstr ""
 
 #: templates/admin.php:17
 msgid ""
 "Disable this if you run a custom updater such as the Python updater included"
 " in the app"
-msgstr ""
+msgstr "Toto vypněte, pokud používáte vlastní aplikaci pro aktualizace jako například dostupnou aktualizační službu Python"
 
 #: templates/admin.php:25
 msgid "Purge interval"
-msgstr ""
+msgstr "Vynulovat interval"
 
 #: templates/admin.php:30
 msgid ""
 "Minimum amount of seconds after deleted feeds and folders are removed from "
 "the database; values below 60 seconds are ignored"
-msgstr ""
+msgstr "Minimální časový interval v sekundách po kterém jsou smazány z databáze odstraněné zdroje novinek a adresáře; hodnoty kratší než 60 sekund jsou ignorovány"
 
 #: templates/admin.php:41
 msgid "Maximum read count per feed"
-msgstr ""
+msgstr "Maximální počet novinek pro zdroj"
 
 #: templates/admin.php:47
 msgid ""
 "Defines the maximum amount of articles that can be read per feed which won't"
 " be deleted by the cleanup job; if old articles reappear after being read, "
 "increase this value"
-msgstr ""
+msgstr "Určuje nejvyšší počet článků, které jsou dostupné ke čtení z jednotlivých zdrojů a nebudou smazány při čištění; pokud se staré články po přečtení znovu objevují, navyšte tuto hodnotu"
 
 #: templates/admin.php:59
 msgid "Maximum redirects"
-msgstr ""
+msgstr "Nejvyšší počet přesměrování"
 
 #: templates/admin.php:65
 msgid "How many redirects the feed fetcher should follow"
-msgstr ""
+msgstr "Kolik přesměrování se má sledovat při stahování článků"
 
 #: templates/admin.php:75
 msgid "Feed fetcher timeout"
-msgstr ""
+msgstr "Interval vypršení pro stahování článků"
 
 #: templates/admin.php:81
 msgid ""
 "Maximum number of seconds to wait for an RSS or Atom feed to load; if it "
-"takes longer the update will be aborted."
+"takes longer the update will be aborted"
 msgstr ""
 
 #: templates/admin.php:89
 msgid "Saved"
-msgstr ""
+msgstr "Uloženo"
 
 #: templates/part.content.firstrun.php:3
 msgid "Add a feed"

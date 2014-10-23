@@ -1,4 +1,5 @@
 <?php $TRANSLATIONS = array(
+"Saved" => "נשמר",
 "Refresh" => "רענון",
 "by" => "על ידי",
 "from" => "מאת",

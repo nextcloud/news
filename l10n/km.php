@@ -2,6 +2,7 @@
 "Can not add feed: Exists already" => "មិន​អាច​បន្ថែម​ព័ត៌មាន៖ មាន​រួច​ហើយ",
 "Articles without feed" => "អត្ថបទគ្មាន feed",
 "Can not add folder: Exists already" => "មិន​អាច​បន្ថែម​ថត៖ មាន​រួច​ហើយ",
+"Saved" => "បាន​រក្សាទុក",
 "by" => "ដោយ",
 "from" => "ពី",
 "Download" => "ទាញយក",

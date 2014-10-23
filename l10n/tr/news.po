@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-10-22 01:01-0400\n"
-"PO-Revision-Date: 2014-10-22 05:01+0000\n"
+"POT-Creation-Date: 2014-10-23 01:01-0400\n"
+"PO-Revision-Date: 2014-10-23 05:01+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/owncloud/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -34,7 +34,7 @@ msgid ""
 "or feed has invalid xml"
 msgstr "Besleme eklenemiyor: Adres mevcut değil, SSL Sertifikası doğrulanamadı veya besleme geçersiz XML içeriyor"
 
-#: service/feedservice.php:311
+#: service/feedservice.php:322
 msgid "Articles without feed"
 msgstr "Beslemesiz makaleler"
 
@@ -43,18 +43,18 @@ msgid "Can not add folder: Exists already"
 msgstr "Klasör eklenemiyor: Zaten mevcut"
 
 #: templates/admin.php:12
-msgid "Use ownCloud cron to for updates"
+msgid "Use ownCloud cron for updates"
 msgstr ""
 
 #: templates/admin.php:17
 msgid ""
 "Disable this if you run a custom updater such as the Python updater included"
 " in the app"
-msgstr ""
+msgstr "Uygulamaya dahil edilmiş Python güncelleyicisi gibi bir özel güncelleştirici çalıştırıyorsanız bunu devre dışı bırakın"
 
 #: templates/admin.php:25
 msgid "Purge interval"
-msgstr ""
+msgstr "Temizleme aralığı"
 
 #: templates/admin.php:30
 msgid ""
@@ -75,25 +75,25 @@ msgstr ""
 
 #: templates/admin.php:59
 msgid "Maximum redirects"
-msgstr ""
+msgstr "En fazla yeniden yönlendirme"
 
 #: templates/admin.php:65
 msgid "How many redirects the feed fetcher should follow"
-msgstr ""
+msgstr "Besleme getirici kaç yönlendirmeyi takip etmeli"
 
 #: templates/admin.php:75
 msgid "Feed fetcher timeout"
-msgstr ""
+msgstr "Besleme getirici zaman aşımı"
 
 #: templates/admin.php:81
 msgid ""
 "Maximum number of seconds to wait for an RSS or Atom feed to load; if it "
-"takes longer the update will be aborted."
+"takes longer the update will be aborted"
 msgstr ""
 
 #: templates/admin.php:89
 msgid "Saved"
-msgstr ""
+msgstr "Kaydedildi"
 
 #: templates/part.content.firstrun.php:3
 msgid "Add a feed"
@@ -181,11 +181,11 @@ msgstr "Makaleyi yıldızla ve sonrakine atla"
 
 #: templates/part.content.shortcuts.php:29
 msgid "Toggle keep current article unread"
-msgstr ""
+msgstr "Geçerli makaleyi okunmamış tut özelliğini aç/kapat"
 
 #: templates/part.content.shortcuts.php:34
 msgid "Open article in new tab"
-msgstr ""
+msgstr "Makaleyi yeni sekmede aç"
 
 #: templates/part.content.shortcuts.php:39
 msgid "Toggle expand article in compact view"
@@ -193,19 +193,19 @@ msgstr ""
 
 #: templates/part.content.shortcuts.php:48
 msgid "Load next feed"
-msgstr ""
+msgstr "Sonraki beslemeyi yükle"
 
 #: templates/part.content.shortcuts.php:52
 msgid "Load previous feed"
-msgstr ""
+msgstr "Önceki beslemeyi yükle"
 
 #: templates/part.content.shortcuts.php:56
 msgid "Load next folder"
-msgstr ""
+msgstr "Sonraki klasörü yükle"
 
 #: templates/part.content.shortcuts.php:60
 msgid "Load previous folder"
-msgstr ""
+msgstr "Önceki klasörü yükle"
 
 #: templates/part.navigation.addfeed.php:5
 #: templates/part.navigation.addfeed.php:77

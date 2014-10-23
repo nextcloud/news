@@ -3,6 +3,7 @@
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "无法增加源：URL 不存在，SSL 证书无法验证或者源包括无效的 xml",
 "Articles without feed" => "没有订阅的文章",
 "Can not add folder: Exists already" => "无法增加目录：目录已存在",
+"Saved" => "已保存",
 "Refresh" => "刷新",
 "by" => "被",
 "from" => "来源",

@@ -3,6 +3,7 @@
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Kan ikke tilføje feed: URL'et eksisterer ikke, SSL-certifikatet kan ikke verificeres, eller feedet indeholder ugyldig xml-kode",
 "Articles without feed" => "Artikler uden feed",
 "Can not add folder: Exists already" => "Kan ike tilføje mappe: Den findes allerede",
+"Saved" => "Gemt",
 "Add a feed" => "Tilføj et feed",
 "There are no feeds yet. Go ahead and add some" => "Der er endnu ingen feeds. Du er velkommen til at tilføje nogle",
 "Import feeds and articles" => "Importér feeds og artikler",

@@ -26,8 +26,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-10-22 01:01-0400\n"
-"PO-Revision-Date: 2014-10-22 05:01+0000\n"
+"POT-Creation-Date: 2014-10-23 01:01-0400\n"
+"PO-Revision-Date: 2014-10-23 05:01+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: French (http://www.transifex.com/projects/p/owncloud/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -46,7 +46,7 @@ msgid ""
 "or feed has invalid xml"
 msgstr "Vous ne pouvez pas l'ajouter ce flux: l'URL n'existe pas, le Certificat SSL n'a pas été validé ou alors le fichier XML du flux est invalide."
 
-#: service/feedservice.php:311
+#: service/feedservice.php:322
 msgid "Articles without feed"
 msgstr "Articles sans flux"
 
@@ -55,7 +55,7 @@ msgid "Can not add folder: Exists already"
 msgstr "Impossible d'ajouter le dossier : déjà présent"
 
 #: templates/admin.php:12
-msgid "Use ownCloud cron to for updates"
+msgid "Use ownCloud cron for updates"
 msgstr ""
 
 #: templates/admin.php:17
@@ -100,12 +100,12 @@ msgstr ""
 #: templates/admin.php:81
 msgid ""
 "Maximum number of seconds to wait for an RSS or Atom feed to load; if it "
-"takes longer the update will be aborted."
+"takes longer the update will be aborted"
 msgstr ""
 
 #: templates/admin.php:89
 msgid "Saved"
-msgstr ""
+msgstr "Sauvegardé"
 
 #: templates/part.content.firstrun.php:3
 msgid "Add a feed"
@@ -161,7 +161,7 @@ msgstr "Télécharger"
 
 #: templates/part.content.shortcuts.php:5
 msgid "Keyboard shortcut"
-msgstr ""
+msgstr "Raccourcis clavier"
 
 #: templates/part.content.shortcuts.php:6
 msgid "Description"
@@ -197,7 +197,7 @@ msgstr ""
 
 #: templates/part.content.shortcuts.php:34
 msgid "Open article in new tab"
-msgstr ""
+msgstr "Ouvrir l'article dans un nouvel onglet"
 
 #: templates/part.content.shortcuts.php:39
 msgid "Toggle expand article in compact view"
@@ -205,19 +205,19 @@ msgstr ""
 
 #: templates/part.content.shortcuts.php:48
 msgid "Load next feed"
-msgstr ""
+msgstr "Charger le flux suivant"
 
 #: templates/part.content.shortcuts.php:52
 msgid "Load previous feed"
-msgstr ""
+msgstr "Charger le flux précédent"
 
 #: templates/part.content.shortcuts.php:56
 msgid "Load next folder"
-msgstr ""
+msgstr "Charger le dossier suivant"
 
 #: templates/part.content.shortcuts.php:60
 msgid "Load previous folder"
-msgstr ""
+msgstr "Charger le dossier précédent"
 
 #: templates/part.navigation.addfeed.php:5
 #: templates/part.navigation.addfeed.php:77

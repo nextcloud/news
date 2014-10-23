@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-10-22 01:01-0400\n"
-"PO-Revision-Date: 2014-10-22 05:01+0000\n"
+"POT-Creation-Date: 2014-10-23 01:01-0400\n"
+"PO-Revision-Date: 2014-10-23 05:01+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/owncloud/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +33,7 @@ msgid ""
 "or feed has invalid xml"
 msgstr "Kan feed niet toevoegen: URL bestaat niet, het SSL certificaat ka niet worden geverifieerd of de feed bevat geen geldige xml"
 
-#: service/feedservice.php:311
+#: service/feedservice.php:322
 msgid "Articles without feed"
 msgstr "Artikelen zonder feed"
 
@@ -42,57 +42,57 @@ msgid "Can not add folder: Exists already"
 msgstr "Kan map niet toevoegen, bestaat al"
 
 #: templates/admin.php:12
-msgid "Use ownCloud cron to for updates"
+msgid "Use ownCloud cron for updates"
 msgstr ""
 
 #: templates/admin.php:17
 msgid ""
 "Disable this if you run a custom updater such as the Python updater included"
 " in the app"
-msgstr ""
+msgstr "Schakel dit uit als u een maatwerk updater gebruikt, zoals de Python updater bij de app"
 
 #: templates/admin.php:25
 msgid "Purge interval"
-msgstr ""
+msgstr "Opruim interval"
 
 #: templates/admin.php:30
 msgid ""
 "Minimum amount of seconds after deleted feeds and folders are removed from "
 "the database; values below 60 seconds are ignored"
-msgstr ""
+msgstr "Minimum aantal seconden waarna verwijderde feeds en mappen worden opgeruimd uit de database; waarden onder 60 seconden worden genegeerd"
 
 #: templates/admin.php:41
 msgid "Maximum read count per feed"
-msgstr ""
+msgstr "Maximaal aantal gelezen per feed"
 
 #: templates/admin.php:47
 msgid ""
 "Defines the maximum amount of articles that can be read per feed which won't"
 " be deleted by the cleanup job; if old articles reappear after being read, "
 "increase this value"
-msgstr ""
+msgstr "Bepaalt het maximale aantal artikelen dat per feed kan worden gelezen voordat ze door de schoonmaak job worden verwijderd. Als oude artikelen opnieuw verschijnen na het lezen, verhoog dan de waarde"
 
 #: templates/admin.php:59
 msgid "Maximum redirects"
-msgstr ""
+msgstr "Maximum redirects"
 
 #: templates/admin.php:65
 msgid "How many redirects the feed fetcher should follow"
-msgstr ""
+msgstr "Hoeveel redirects de feed ophaler moet volgen"
 
 #: templates/admin.php:75
 msgid "Feed fetcher timeout"
-msgstr ""
+msgstr "Feed ophaler timeout"
 
 #: templates/admin.php:81
 msgid ""
 "Maximum number of seconds to wait for an RSS or Atom feed to load; if it "
-"takes longer the update will be aborted."
+"takes longer the update will be aborted"
 msgstr ""
 
 #: templates/admin.php:89
 msgid "Saved"
-msgstr ""
+msgstr "Bewaard"
 
 #: templates/part.content.firstrun.php:3
 msgid "Add a feed"

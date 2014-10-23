@@ -3,6 +3,7 @@
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Nemožno pridať kanál: URL neexistuje, SSL certifikát nemožno overiť alebo obsahuje neplatné xml",
 "Articles without feed" => "Články bez zdroja",
 "Can not add folder: Exists already" => "Nemožno pridať priečinok: Už existuje",
+"Saved" => "Uložené",
 "Refresh" => "Obnoviť",
 "by" => "od",
 "from" => "z",

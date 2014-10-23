@@ -3,6 +3,7 @@
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Неможливо додати стрічку: URL не існує, SSL-сертифікат не можна перевірити, або ресурс має неприпустимий XML",
 "Articles without feed" => "Статті без стрічки",
 "Can not add folder: Exists already" => "Неможливо додати теку: вона вже існує",
+"Saved" => "Збереженно",
 "Add a feed" => "Додати стрічку",
 "There are no feeds yet. Go ahead and add some" => "Поки що не має жодної стрічки новин. Додайте щось",
 "Import feeds and articles" => "Імпортувати стрічки та статті",

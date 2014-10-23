@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-10-22 01:01-0400\n"
-"PO-Revision-Date: 2014-10-22 05:01+0000\n"
+"POT-Creation-Date: 2014-10-23 01:01-0400\n"
+"PO-Revision-Date: 2014-10-23 05:01+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/projects/p/owncloud/language/et_EE/)\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,7 @@ msgid ""
 "or feed has invalid xml"
 msgstr "Voogu ei saa lisada: URL-i pole olemas, ei suuda kontrollida SSL sertifikaati või voog sisaldab vigast XML-i"
 
-#: service/feedservice.php:311
+#: service/feedservice.php:322
 msgid "Articles without feed"
 msgstr "Artiklid ilma voota"
 
@@ -38,57 +38,57 @@ msgid "Can not add folder: Exists already"
 msgstr "Kausta ei saa lisada: on juba olemas"
 
 #: templates/admin.php:12
-msgid "Use ownCloud cron to for updates"
+msgid "Use ownCloud cron for updates"
 msgstr ""
 
 #: templates/admin.php:17
 msgid ""
 "Disable this if you run a custom updater such as the Python updater included"
 " in the app"
-msgstr ""
+msgstr "Keela see kui sa kasutada kohandatud uuendajat nagu rakendites olevat Python updater-it"
 
 #: templates/admin.php:25
 msgid "Purge interval"
-msgstr ""
+msgstr "Puhastuse intervall"
 
 #: templates/admin.php:30
 msgid ""
 "Minimum amount of seconds after deleted feeds and folders are removed from "
 "the database; values below 60 seconds are ignored"
-msgstr ""
+msgstr "Maksimaalne aeg sekundites peale mida voog ja kataloogid eemaldatakse andmebaasist; väärtusi alla 60 sekundi ignoreeritakse"
 
 #: templates/admin.php:41
 msgid "Maximum read count per feed"
-msgstr ""
+msgstr "Maksimaalne lugemiste arv voo kohta"
 
 #: templates/admin.php:47
 msgid ""
 "Defines the maximum amount of articles that can be read per feed which won't"
 " be deleted by the cleanup job; if old articles reappear after being read, "
 "increase this value"
-msgstr ""
+msgstr "Määrab maksimaalse loetavate artiklite koguse voo kohta mida ei kustutata puhastus toimingute poolt; kui vanad artiklid tekivad uuesti peale lugemist, suurenda seda väärtust"
 
 #: templates/admin.php:59
 msgid "Maximum redirects"
-msgstr ""
+msgstr "Maksimaalsed ümbersuunamised"
 
 #: templates/admin.php:65
 msgid "How many redirects the feed fetcher should follow"
-msgstr ""
+msgstr "Kui palju ümbersuunamisi peaks voo uuendaja järgima"
 
 #: templates/admin.php:75
 msgid "Feed fetcher timeout"
-msgstr ""
+msgstr "Voo ühenduse aegumine"
 
 #: templates/admin.php:81
 msgid ""
 "Maximum number of seconds to wait for an RSS or Atom feed to load; if it "
-"takes longer the update will be aborted."
+"takes longer the update will be aborted"
 msgstr ""
 
 #: templates/admin.php:89
 msgid "Saved"
-msgstr ""
+msgstr "Salvestatud"
 
 #: templates/part.content.firstrun.php:3
 msgid "Add a feed"
@@ -144,7 +144,7 @@ msgstr "Lae alla"
 
 #: templates/part.content.shortcuts.php:5
 msgid "Keyboard shortcut"
-msgstr ""
+msgstr "Klvaiatuuri otsetee"
 
 #: templates/part.content.shortcuts.php:6
 msgid "Description"
@@ -156,7 +156,7 @@ msgstr "paremal"
 
 #: templates/part.content.shortcuts.php:10
 msgid "Jump to next article"
-msgstr ""
+msgstr "Hüppar järgmisele artiklile"
 
 #: templates/part.content.shortcuts.php:13
 msgid "left"
@@ -164,43 +164,43 @@ msgstr "vasakul"
 
 #: templates/part.content.shortcuts.php:14
 msgid "Jump to previous article"
-msgstr ""
+msgstr "Hüppa eelmisele artiklile"
 
 #: templates/part.content.shortcuts.php:18
 msgid "Toggle star article"
-msgstr ""
+msgstr "Lülita artikli tähtekest"
 
 #: templates/part.content.shortcuts.php:23
 msgid "Star article and jump to next one"
-msgstr ""
+msgstr "Märgi tähekesega ning hüppa järgmisele"
 
 #: templates/part.content.shortcuts.php:29
 msgid "Toggle keep current article unread"
-msgstr ""
+msgstr "Lülita 'hoia olemasolev artikkel lugemata'"
 
 #: templates/part.content.shortcuts.php:34
 msgid "Open article in new tab"
-msgstr ""
+msgstr "Ava artikkel uuel kaardil"
 
 #: templates/part.content.shortcuts.php:39
 msgid "Toggle expand article in compact view"
-msgstr ""
+msgstr "Lülita 'laienda artikli kopaktne vaade'"
 
 #: templates/part.content.shortcuts.php:48
 msgid "Load next feed"
-msgstr ""
+msgstr "Laadi järgmine voog"
 
 #: templates/part.content.shortcuts.php:52
 msgid "Load previous feed"
-msgstr ""
+msgstr "Kaadi eelmine voog"
 
 #: templates/part.content.shortcuts.php:56
 msgid "Load next folder"
-msgstr ""
+msgstr "Laadi järgmine kataloog"
 
 #: templates/part.content.shortcuts.php:60
 msgid "Load previous folder"
-msgstr ""
+msgstr "Laadi eelmine kataloog"
 
 #: templates/part.navigation.addfeed.php:5
 #: templates/part.navigation.addfeed.php:77

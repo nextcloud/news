@@ -2,6 +2,7 @@
 "Can not add feed: Exists already" => "피드를 추가할 수 없음: 이미 존재함",
 "Articles without feed" => "피드가 없는 글",
 "Can not add folder: Exists already" => "폴더를 추가할 수 없음: 이미 존재함",
+"Saved" => "저장됨",
 "Refresh" => "새로 고침",
 "by" => "작성:",
 "from" => "원본 사이트",

@@ -3,6 +3,7 @@
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "ফিড যুক্ত করা যাবে না:URL টি উপস্থিত না,SSL সার্টিফিকেট যাচাই করা যাবে না বা ফিডে অবৈধ XML আছে",
 "Articles without feed" => "ফিড ছাড়া প্রবন্ধ",
 "Can not add folder: Exists already" => "ফোল্ডার যুক্ত করা যাবে না:আগে থেকেই আছে",
+"Saved" => "সংরক্ষিত",
 "by" => "দ্বারা",
 "from" => "থেকে",
 "Download" => "ডাউনলোড করুন",
