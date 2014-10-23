@@ -414,14 +414,15 @@ class Application extends App {
             $appConfig = $c->query('AppConfig');
             $proxy =  $c->query('ProxyConfigParser');
 
+            $userAgent = 'ownCloud News/' . $appConfig->getConfig('version') .
+                         ' (+https://owncloud.org/; 1 subscriber;)';
+
             $pico = new PicoFeedConfig();
-            $pico->setClientUserAgent(
-                    'ownCloud News/' . $appConfig->getConfig('version') .
-                    ' (+https://owncloud.org/; 1 subscriber;)'
-                )
+            $pico->setClientUserAgent($userAgent)
                 ->setClientTimeout($config->getFeedFetcherTimeout())
                 ->setMaxRedirections($config->getMaxRedirects())
-                ->setContentFiltering(false);
+                ->setContentFiltering(false)
+                ->setParserHashAlgo('md5');
 
             // proxy settings
             $proxySettings = $proxy->parse();

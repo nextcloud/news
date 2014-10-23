@@ -132,7 +132,8 @@ class FeedFetcher implements IFeedFetcher {
 
         // purification is done in the service layer
         $body = $parsedItem->getContent();
-        $body = mb_convert_encoding($body, 'HTML-ENTITIES', 'UTF-8');
+        $body = mb_convert_encoding($body, 'HTML-ENTITIES',
+            mb_detect_encoding($body));
         $item->setBody($body);
 
         // pubdate is not required. if not given use the current date
