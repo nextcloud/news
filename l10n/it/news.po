@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-10-23 01:01-0400\n"
-"PO-Revision-Date: 2014-10-23 05:01+0000\n"
-"Last-Translator: I Robot\n"
+"POT-Creation-Date: 2014-10-24 01:01-0400\n"
+"PO-Revision-Date: 2014-10-23 19:10+0000\n"
+"Last-Translator: Vincenzo Reale <vinx.reale@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/owncloud/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,13 +42,13 @@ msgstr "Impossibile aggiungere la cartella: esiste già"
 
 #: templates/admin.php:12
 msgid "Use ownCloud cron for updates"
-msgstr ""
+msgstr "Utilizza il cron di ownCloud per gli aggiornamenti"
 
 #: templates/admin.php:17
 msgid ""
 "Disable this if you run a custom updater such as the Python updater included"
 " in the app"
-msgstr ""
+msgstr "Disabilita questa opzione se esegui uno strumento di aggiornamento personalizzato come quello Python incluso nell'applicazione"
 
 #: templates/admin.php:25
 msgid "Purge interval"
@@ -73,11 +73,11 @@ msgstr ""
 
 #: templates/admin.php:59
 msgid "Maximum redirects"
-msgstr ""
+msgstr "Numero massimo di redizioni"
 
 #: templates/admin.php:65
 msgid "How many redirects the feed fetcher should follow"
-msgstr ""
+msgstr "Quante redirezioni può seguire lo strumento di recupero delle fonti"
 
 #: templates/admin.php:75
 msgid "Feed fetcher timeout"
@@ -87,7 +87,7 @@ msgstr ""
 msgid ""
 "Maximum number of seconds to wait for an RSS or Atom feed to load; if it "
 "takes longer the update will be aborted"
-msgstr ""
+msgstr "Numero massimo di secondi di attesa per il caricamento di una fonte RSS o Atom; se richiede troppo tempo l'aggiornamento sarà interrotto"
 
 #: templates/admin.php:89
 msgid "Saved"
@@ -147,7 +147,7 @@ msgstr "Scarica"
 
 #: templates/part.content.shortcuts.php:5
 msgid "Keyboard shortcut"
-msgstr ""
+msgstr "Scorciatoia da tastiera"
 
 #: templates/part.content.shortcuts.php:6
 msgid "Description"
@@ -159,7 +159,7 @@ msgstr "destra"
 
 #: templates/part.content.shortcuts.php:10
 msgid "Jump to next article"
-msgstr ""
+msgstr "Salta all'articolo successivo"
 
 #: templates/part.content.shortcuts.php:13
 msgid "left"
@@ -167,7 +167,7 @@ msgstr "sinistra"
 
 #: templates/part.content.shortcuts.php:14
 msgid "Jump to previous article"
-msgstr ""
+msgstr "Salta all'articolo precedente"
 
 #: templates/part.content.shortcuts.php:18
 msgid "Toggle star article"
@@ -175,7 +175,7 @@ msgstr ""
 
 #: templates/part.content.shortcuts.php:23
 msgid "Star article and jump to next one"
-msgstr ""
+msgstr "Aggiungi l'articolo ai preferiti e salta al successivo"
 
 #: templates/part.content.shortcuts.php:29
 msgid "Toggle keep current article unread"
@@ -183,7 +183,7 @@ msgstr ""
 
 #: templates/part.content.shortcuts.php:34
 msgid "Open article in new tab"
-msgstr ""
+msgstr "Apri articolo in una nuova scheda"
 
 #: templates/part.content.shortcuts.php:39
 msgid "Toggle expand article in compact view"
@@ -191,19 +191,19 @@ msgstr ""
 
 #: templates/part.content.shortcuts.php:48
 msgid "Load next feed"
-msgstr ""
+msgstr "Carica la fonte successiva"
 
 #: templates/part.content.shortcuts.php:52
 msgid "Load previous feed"
-msgstr ""
+msgstr "Carica la fonte precendente"
 
 #: templates/part.content.shortcuts.php:56
 msgid "Load next folder"
-msgstr ""
+msgstr "Carica la cartella successiva"
 
 #: templates/part.content.shortcuts.php:60
 msgid "Load previous folder"
-msgstr ""
+msgstr "Carica la cartella precedente"
 
 #: templates/part.navigation.addfeed.php:5
 #: templates/part.navigation.addfeed.php:77

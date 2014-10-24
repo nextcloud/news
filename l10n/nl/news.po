@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-10-23 01:01-0400\n"
-"PO-Revision-Date: 2014-10-23 05:01+0000\n"
-"Last-Translator: I Robot\n"
+"POT-Creation-Date: 2014-10-24 01:01-0400\n"
+"PO-Revision-Date: 2014-10-23 21:20+0000\n"
+"Last-Translator: André Koot <meneer@tken.net>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/owncloud/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,7 +43,7 @@ msgstr "Kan map niet toevoegen, bestaat al"
 
 #: templates/admin.php:12
 msgid "Use ownCloud cron for updates"
-msgstr ""
+msgstr "Gebruik ownCloud cron voor updates"
 
 #: templates/admin.php:17
 msgid ""
@@ -88,7 +88,7 @@ msgstr "Feed ophaler timeout"
 msgid ""
 "Maximum number of seconds to wait for an RSS or Atom feed to load; if it "
 "takes longer the update will be aborted"
-msgstr ""
+msgstr "Maximum aantal seconden om te wachten op een RSS of Atom feed te laden; als het langer duurt, zal het bijwerken worden afgebroken."
 
 #: templates/admin.php:89
 msgid "Saved"

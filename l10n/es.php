@@ -4,6 +4,7 @@
 "Articles without feed" => "Artículos sin fuente",
 "Can not add folder: Exists already" => "No se puede agregar carpeta: ya existe",
 "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored" => "Número mínimo de segundos antes de que las fuentes y carpetas eliminadas sean eliminadas definitivamente de la base de datos; valores por debajo de 60 segundos serán ignorados.",
+"Maximum redirects" => "Máximo número de desvíos",
 "Saved" => "Guardado",
 "Add a feed" => "Añadir fuente",
 "There are no feeds yet. Go ahead and add some" => "Aún no hay fuentes. Continúe y agregue algunas",

@@ -22,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-10-23 01:01-0400\n"
-"PO-Revision-Date: 2014-10-23 05:01+0000\n"
-"Last-Translator: I Robot\n"
+"POT-Creation-Date: 2014-10-24 01:01-0400\n"
+"PO-Revision-Date: 2014-10-23 18:51+0000\n"
+"Last-Translator: Raydiation <nukeawhale@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/owncloud/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -52,7 +52,7 @@ msgstr "Ordner kann nicht hinzgefügt werden: Existiert bereits"
 
 #: templates/admin.php:12
 msgid "Use ownCloud cron for updates"
-msgstr ""
+msgstr "ownCloud-Cron für Updates nutzen"
 
 #: templates/admin.php:17
 msgid ""
@@ -62,7 +62,7 @@ msgstr "Deaktiviere dies, wenn Du einen eigenen Updater sowie den Python-Updater
 
 #: templates/admin.php:25
 msgid "Purge interval"
-msgstr "Säuberungssintervall"
+msgstr "Aufräum-Intervall"
 
 #: templates/admin.php:30
 msgid ""
@@ -79,25 +79,25 @@ msgid ""
 "Defines the maximum amount of articles that can be read per feed which won't"
 " be deleted by the cleanup job; if old articles reappear after being read, "
 "increase this value"
-msgstr "Definiert die maximale Anzahl an Artikeln, die pro Feed eingelesen und bei einem Säuberungsauftrag nicht aus der Datenbank gelöscht werden; wenn ältere Artikel nach dem Lesen erhalten bleiben sollen, erhöhe diesen Wert"
+msgstr "Definiert die maximale Anzahl an Artikeln, die pro Feed gelesen sein dürfen und bei einem Aufräumauftrag nicht aus der Datenbank gelöscht werden; wenn ältere Artikel nach dem Lesen wieder aufscheinen, erhöhe diesen Wert"
 
 #: templates/admin.php:59
 msgid "Maximum redirects"
-msgstr "Maximale Anzahl Weiterleitungen"
+msgstr "Maximale Anzahl der HTTP Redirects"
 
 #: templates/admin.php:65
 msgid "How many redirects the feed fetcher should follow"
-msgstr "Anzahl Weiterleitungen die der Feed-Sammler folgen soll"
+msgstr "Maximale Anzahl der HTTP Redirects, die der Feed-Updater folgen soll"
 
 #: templates/admin.php:75
 msgid "Feed fetcher timeout"
-msgstr "Zeitüberschreitung Feed-Sammler"
+msgstr "Feed Updater maximum Timeout"
 
 #: templates/admin.php:81
 msgid ""
 "Maximum number of seconds to wait for an RSS or Atom feed to load; if it "
 "takes longer the update will be aborted"
-msgstr ""
+msgstr "Maximale Anzahl an Sekunden zum Laden eines RSS- oder Atom-Feeds; wenn dies länger dauert, wird die Aktualisierung abgebrochen."
 
 #: templates/admin.php:89
 msgid "Saved"

@@ -8,6 +8,7 @@
 # Efstathios Iosifidis <iefstathios@gmail.com>, 2012
 # Efstathios Iosifidis <iefstathios@gmail.com>, 2013-2014
 # Efstathios Iosifidis <iosifidis@opensuse.org>, 2012
+# evigiannakou <evigian@in.gr>, 2014
 # Marios Bekatoros <>, 2012-2013
 # Spyros Melissovas <peppe@cs.uoi.gr>, 2014
 # Vassilis Kehayas <vkehayas@gmail.com>, 2013-2014
@@ -18,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-10-23 01:01-0400\n"
-"PO-Revision-Date: 2014-10-23 05:01+0000\n"
-"Last-Translator: I Robot\n"
+"POT-Creation-Date: 2014-10-24 01:01-0400\n"
+"PO-Revision-Date: 2014-10-23 21:40+0000\n"
+"Last-Translator: evigiannakou <evigian@in.gr>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/owncloud/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -189,7 +190,7 @@ msgstr ""
 
 #: templates/part.content.shortcuts.php:34
 msgid "Open article in new tab"
-msgstr ""
+msgstr "Άνοιγμα άρθρου σε νέα καρτέλα"
 
 #: templates/part.content.shortcuts.php:39
 msgid "Toggle expand article in compact view"
@@ -197,19 +198,19 @@ msgstr ""
 
 #: templates/part.content.shortcuts.php:48
 msgid "Load next feed"
-msgstr ""
+msgstr "Φόρτωση επόμενης ροής"
 
 #: templates/part.content.shortcuts.php:52
 msgid "Load previous feed"
-msgstr ""
+msgstr "Φόρτωση προηγούμενης ροής"
 
 #: templates/part.content.shortcuts.php:56
 msgid "Load next folder"
-msgstr ""
+msgstr "Φόρτωση επόμενου φακέλου"
 
 #: templates/part.content.shortcuts.php:60
 msgid "Load previous folder"
-msgstr ""
+msgstr "Φόρτωση προηγούμενου φακέλου"
 
 #: templates/part.navigation.addfeed.php:5
 #: templates/part.navigation.addfeed.php:77
@@ -347,7 +348,7 @@ msgstr "Εμφάνιση όλων των άρθρων"
 
 #: templates/part.settings.php:35
 msgid "Reverse ordering"
-msgstr ""
+msgstr "Αναστροφή ταξινόμησης"
 
 #: templates/part.settings.php:44
 msgid "Disable mark read through scrolling"

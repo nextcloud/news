@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-10-23 01:01-0400\n"
-"PO-Revision-Date: 2014-10-23 05:01+0000\n"
-"Last-Translator: I Robot\n"
+"POT-Creation-Date: 2014-10-24 01:01-0400\n"
+"PO-Revision-Date: 2014-10-23 09:12+0000\n"
+"Last-Translator: Aputsiaĸ Niels Janussen <aj@isit.gl>\n"
 "Language-Team: Danish (http://www.transifex.com/projects/p/owncloud/language/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -47,52 +47,52 @@ msgstr "Kan ike tilføje mappe: Den findes allerede"
 
 #: templates/admin.php:12
 msgid "Use ownCloud cron for updates"
-msgstr ""
+msgstr "Brug ownCloud cron til opdateringer"
 
 #: templates/admin.php:17
 msgid ""
 "Disable this if you run a custom updater such as the Python updater included"
 " in the app"
-msgstr ""
+msgstr "Slå denne fra, hvis du kører en brugerdefineret opdateringsfunktion såsom Pythons opdateringsfunktion som indgår i app'en"
 
 #: templates/admin.php:25
 msgid "Purge interval"
-msgstr ""
+msgstr "Oprydningsinterval"
 
 #: templates/admin.php:30
 msgid ""
 "Minimum amount of seconds after deleted feeds and folders are removed from "
 "the database; values below 60 seconds are ignored"
-msgstr ""
+msgstr "Den korteste varighed i sekunder før slettede feeds og mapper bliver fjernet fra databasen; værdier under 60 sekunder bliver ignoreret"
 
 #: templates/admin.php:41
 msgid "Maximum read count per feed"
-msgstr ""
+msgstr "Det maksimale antal læsninger per feed"
 
 #: templates/admin.php:47
 msgid ""
 "Defines the maximum amount of articles that can be read per feed which won't"
 " be deleted by the cleanup job; if old articles reappear after being read, "
 "increase this value"
-msgstr ""
+msgstr "Definerer det maksimale antal artikler, der kan blive læst per feed, der ikke bliver slettet af oprydningskørslen; hvis gamle artikler vises påny efter at være blevet læst, så forøg værdien"
 
 #: templates/admin.php:59
 msgid "Maximum redirects"
-msgstr ""
+msgstr "Maksimum for videredirigeringer"
 
 #: templates/admin.php:65
 msgid "How many redirects the feed fetcher should follow"
-msgstr ""
+msgstr "Hvor mange videredirigeringer som feed-indhenteren skal følge"
 
 #: templates/admin.php:75
 msgid "Feed fetcher timeout"
-msgstr ""
+msgstr "Tidsudløb for feed-indhenter"
 
 #: templates/admin.php:81
 msgid ""
 "Maximum number of seconds to wait for an RSS or Atom feed to load; if it "
 "takes longer the update will be aborted"
-msgstr ""
+msgstr "Det maksimale antal ventetid målt i sekunder for indlæsning af et RSS- eller Atom-feed; hvis det tager længere tid, så afbrydees opdateringen"
 
 #: templates/admin.php:89
 msgid "Saved"
@@ -152,7 +152,7 @@ msgstr "Download"
 
 #: templates/part.content.shortcuts.php:5
 msgid "Keyboard shortcut"
-msgstr ""
+msgstr "Tastaturgenvej"
 
 #: templates/part.content.shortcuts.php:6
 msgid "Description"
@@ -164,7 +164,7 @@ msgstr "højre"
 
 #: templates/part.content.shortcuts.php:10
 msgid "Jump to next article"
-msgstr ""
+msgstr "Gå til næste artikel"
 
 #: templates/part.content.shortcuts.php:13
 msgid "left"
@@ -172,43 +172,43 @@ msgstr "venstre"
 
 #: templates/part.content.shortcuts.php:14
 msgid "Jump to previous article"
-msgstr ""
+msgstr "Gå til forrige artikel"
 
 #: templates/part.content.shortcuts.php:18
 msgid "Toggle star article"
-msgstr ""
+msgstr "Slå stjerne for artikel til/fra"
 
 #: templates/part.content.shortcuts.php:23
 msgid "Star article and jump to next one"
-msgstr ""
+msgstr "Stjernemarkér artikel og få til den næste"
 
 #: templates/part.content.shortcuts.php:29
 msgid "Toggle keep current article unread"
-msgstr ""
+msgstr "Slå \"bevar nuværende artikel ulæst\" til/fra"
 
 #: templates/part.content.shortcuts.php:34
 msgid "Open article in new tab"
-msgstr ""
+msgstr "Åbn artikel i en ny fane"
 
 #: templates/part.content.shortcuts.php:39
 msgid "Toggle expand article in compact view"
-msgstr ""
+msgstr "Slå \"udvid artikel i kompakt visning\" til/fra"
 
 #: templates/part.content.shortcuts.php:48
 msgid "Load next feed"
-msgstr ""
+msgstr "Indlæs næste feed"
 
 #: templates/part.content.shortcuts.php:52
 msgid "Load previous feed"
-msgstr ""
+msgstr "Indlæs forrige feed"
 
 #: templates/part.content.shortcuts.php:56
 msgid "Load next folder"
-msgstr ""
+msgstr "Indlæs næste mappe"
 
 #: templates/part.content.shortcuts.php:60
 msgid "Load previous folder"
-msgstr ""
+msgstr "Indlæs forrige mappe"
 
 #: templates/part.navigation.addfeed.php:5
 #: templates/part.navigation.addfeed.php:77

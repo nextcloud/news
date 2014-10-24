@@ -3,6 +3,7 @@
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Syötteen lisääminen ei onnistu: osoitetta ei ole olemassa, SSL-varmennetta ei voi varmentaa tai syöte sisältää virheellistä xml:ää",
 "Articles without feed" => "Vailla syötettä olevat artikkelit",
 "Can not add folder: Exists already" => "Kansiota ei voi lisätä: se on jo olemassa",
+"Use ownCloud cron for updates" => "Käytä ownCloudin cronia päivityksille",
 "Purge interval" => "Hävitysväli",
 "Maximum redirects" => "Uudelleenohjausten enimmäismäärä",
 "How many redirects the feed fetcher should follow" => "Kuinka montaa uudelleenohjausta noutajan tulisi seurata",
