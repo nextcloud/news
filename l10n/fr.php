@@ -3,6 +3,8 @@
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Vous ne pouvez pas l'ajouter ce flux: l'URL n'existe pas, le Certificat SSL n'a pas été validé ou alors le fichier XML du flux est invalide.",
 "Articles without feed" => "Articles sans flux",
 "Can not add folder: Exists already" => "Impossible d'ajouter le dossier : déjà présent",
+"Use ownCloud cron for updates" => "Utiliser la tâche cron ownCloud pour les mises à jours",
+"Disable this if you run a custom updater such as the Python updater included in the app" => "Désactiver ceci si vous utilisez un logiciel de mise à jour particulier tel que le logiciel de mise à jour Python inclus dans l'application",
 "Saved" => "Sauvegardé",
 "Add a feed" => "Ajouter un flux",
 "There are no feeds yet. Go ahead and add some" => "Il n'y a pas encore de flux. Ajoutez-en un!",
