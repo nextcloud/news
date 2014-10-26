@@ -17,6 +17,7 @@
 # Mael <maelvstyle@gmail.com>, 2013
 # Marc Sokolovitch <sokolovitch@yahoo.com>, 2013
 # MathieuP, 2012
+# MrAttila76 <mrattila76@gmail.com>, 2014
 # Nadley-Nahir Mohamed <nahirmoha@gmail.com>, 2013
 # Nicolas Roudninski <nicolas@tycho.fr>, 2013
 # Ogre Sympathique, 2013-2014
@@ -28,9 +29,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-10-25 01:01-0400\n"
-"PO-Revision-Date: 2014-10-24 15:30+0000\n"
-"Last-Translator: Etienne <etiess@gmail.com>\n"
+"POT-Creation-Date: 2014-10-26 01:01-0400\n"
+"PO-Revision-Date: 2014-10-25 17:30+0000\n"
+"Last-Translator: MrAttila76 <mrattila76@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/owncloud/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -68,42 +69,42 @@ msgstr "Désactiver ceci si vous utilisez un logiciel de mise à jour particulie
 
 #: templates/admin.php:25
 msgid "Purge interval"
-msgstr ""
+msgstr "Intervalle de purge"
 
 #: templates/admin.php:30
 msgid ""
 "Minimum amount of seconds after deleted feeds and folders are removed from "
 "the database; values below 60 seconds are ignored"
-msgstr ""
+msgstr "Durée minimum en secondes pour la suppression définitive des flux et des dossiers supprimés de la base de données  ; les valeurs inférieures à 60 secondes sont ignorés"
 
 #: templates/admin.php:41
 msgid "Maximum read count per feed"
-msgstr ""
+msgstr "Nombre maximum de lecture par flux"
 
 #: templates/admin.php:47
 msgid ""
 "Defines the maximum amount of articles that can be read per feed which won't"
 " be deleted by the cleanup job; if old articles reappear after being read, "
 "increase this value"
-msgstr ""
+msgstr "Définit la quantité maximale d'articles qui peut être lu par flux qui ne sera pas supprimé par le travail de nettoyage; si d'anciens articles réapparaissent après avoir été lu, augmenter cette valeur"
 
 #: templates/admin.php:59
 msgid "Maximum redirects"
-msgstr ""
+msgstr "Nombre maximal de redirections"
 
 #: templates/admin.php:65
 msgid "How many redirects the feed fetcher should follow"
-msgstr ""
+msgstr "Combien de redirections les récupérateurs de flux doivent suivre"
 
 #: templates/admin.php:75
 msgid "Feed fetcher timeout"
-msgstr ""
+msgstr "Délai du récupérateur de flux"
 
 #: templates/admin.php:81
 msgid ""
 "Maximum number of seconds to wait for an RSS or Atom feed to load; if it "
 "takes longer the update will be aborted"
-msgstr ""
+msgstr "Nombre maximal de secondes à attendre pour un flux RSS ou Atom à charger; si cela prend trop de temps, la mise à jour sera annulée"
 
 #: templates/admin.php:89
 msgid "Saved"
@@ -115,7 +116,7 @@ msgstr "Ajouter un flux"
 
 #: templates/part.content.firstrun.php:7
 msgid "There are no feeds yet. Go ahead and add some"
-msgstr "Il n'y a pas encore de flux. Ajoutez-en un!"
+msgstr "Il n'y a pas encore de flux. Ajoutez-en un !"
 
 #: templates/part.content.firstrun.php:12
 msgid "Import feeds and articles"
@@ -127,23 +128,23 @@ msgstr "Rafraîchir"
 
 #: templates/part.content.php:31
 msgid "Open website"
-msgstr "Ouvrir le site web"
+msgstr "Ouvrir le site internet"
 
 #: templates/part.content.php:63
 msgid "Star article"
-msgstr "Epingler l'article"
+msgstr "Article en vedette"
 
 #: templates/part.content.php:67
 msgid "Unstar article"
-msgstr "Désépingler l'article"
+msgstr "Enlever l'article en vedette"
 
 #: templates/part.content.php:75
 msgid "Keep article unread"
-msgstr "Garder l'article non lu"
+msgstr "Marquer l'article en non lu"
 
 #: templates/part.content.php:81
 msgid "Remove keep article unread"
-msgstr "Supprimer garder l'article non-lu"
+msgstr "Marquer l'article comme lu"
 
 #: templates/part.content.php:110
 msgid "by"
@@ -175,7 +176,7 @@ msgstr "droite"
 
 #: templates/part.content.shortcuts.php:10
 msgid "Jump to next article"
-msgstr ""
+msgstr "Aller au prochain article"
 
 #: templates/part.content.shortcuts.php:13
 msgid "left"
@@ -183,19 +184,19 @@ msgstr "gauche"
 
 #: templates/part.content.shortcuts.php:14
 msgid "Jump to previous article"
-msgstr ""
+msgstr "aller à l'article précédent"
 
 #: templates/part.content.shortcuts.php:18
 msgid "Toggle star article"
-msgstr ""
+msgstr "Basculer vers les articles en vedette"
 
 #: templates/part.content.shortcuts.php:23
 msgid "Star article and jump to next one"
-msgstr ""
+msgstr "Mettre l'article en vedette puis aller au suivant"
 
 #: templates/part.content.shortcuts.php:29
 msgid "Toggle keep current article unread"
-msgstr ""
+msgstr "Mettre l'article comme non lu"
 
 #: templates/part.content.shortcuts.php:34
 msgid "Open article in new tab"
@@ -203,7 +204,7 @@ msgstr "Ouvrir l'article dans un nouvel onglet"
 
 #: templates/part.content.shortcuts.php:39
 msgid "Toggle expand article in compact view"
-msgstr ""
+msgstr "Réduire l'article en vue compacte"
 
 #: templates/part.content.shortcuts.php:48
 msgid "Load next feed"
@@ -329,7 +330,7 @@ msgstr "Supprimer le répertoire"
 
 #: templates/part.navigation.starredfeed.php:8
 msgid "Starred"
-msgstr "Épinglé"
+msgstr "En vedette"
 
 #: templates/part.navigation.unreadfeed.php:8
 msgid "Unread articles"
@@ -382,7 +383,7 @@ msgstr "Erreur lors de l'import : le fichier spécifié n'est pas un fichier OP
 
 #: templates/part.settings.php:85
 msgid "Unread/Starred Articles"
-msgstr "Articles non lus / épinglés"
+msgstr "Articles non lus / en vedettes"
 
 #: templates/part.settings.php:116
 msgid "Error when importing: file does not contain valid JSON"

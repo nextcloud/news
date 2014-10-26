@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-10-24 01:01-0400\n"
-"PO-Revision-Date: 2014-10-23 10:40+0000\n"
+"POT-Creation-Date: 2014-10-26 01:01-0400\n"
+"PO-Revision-Date: 2014-10-25 15:01+0000\n"
 "Last-Translator: Flávio Veras <flaviove@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/owncloud/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -71,7 +71,7 @@ msgid ""
 "Defines the maximum amount of articles that can be read per feed which won't"
 " be deleted by the cleanup job; if old articles reappear after being read, "
 "increase this value"
-msgstr "Define a quantidade máxima de artigos que podem ser lidos por alimentação que não serão apagados pelo trabalho de limpeza; se artigos antigos reaparecem depois de lida, aumentar este valor"
+msgstr "Define a quantidade máxima de artigos que podem ser lidos por alimentação que não serão apagados pelo trabalho de limpeza; se artigos antigos reaparecem depois de lidos, aumentar este valor"
 
 #: templates/admin.php:59
 msgid "Maximum redirects"
@@ -89,7 +89,7 @@ msgstr "Tempo limite do alimentador de busca"
 msgid ""
 "Maximum number of seconds to wait for an RSS or Atom feed to load; if it "
 "takes longer the update will be aborted"
-msgstr "O número máximo de segundos para esperar por um alimentador RSS ou Atom para carregar; se ele demorar mais a atualização será abortada"
+msgstr "O número máximo de segundos para esperar por um alimentador RSS ou Atom para carregar; se ele demorar muito a atualização será abortada"
 
 #: templates/admin.php:89
 msgid "Saved"
@@ -177,7 +177,7 @@ msgstr "Definir estrela no arquivo"
 
 #: templates/part.content.shortcuts.php:23
 msgid "Star article and jump to next one"
-msgstr "Artigo Estrela e salte para próximo"
+msgstr "Por Estrela no Artigo e salte para próximo"
 
 #: templates/part.content.shortcuts.php:29
 msgid "Toggle keep current article unread"

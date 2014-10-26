@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# daznix <daznix@gmail.com>, 2014
 # Denis <reg.transifex.net@demitel.ru>, 2013
 # Denis <reg.transifex.net@demitel.ru>, 2012
 # Evgenij Spitsyn <evgeniy@spitsyn.net>, 2013
@@ -25,9 +26,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-10-23 01:01-0400\n"
-"PO-Revision-Date: 2014-10-23 05:01+0000\n"
-"Last-Translator: I Robot\n"
+"POT-Creation-Date: 2014-10-26 01:01-0400\n"
+"PO-Revision-Date: 2014-10-25 17:21+0000\n"
+"Last-Translator: daznix <daznix@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/owncloud/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -61,7 +62,7 @@ msgstr ""
 msgid ""
 "Disable this if you run a custom updater such as the Python updater included"
 " in the app"
-msgstr ""
+msgstr "Отключите, если собираетесь использовать другой механизм обновлений, например, Python updater, включенный в поставку этого приложения"
 
 #: templates/admin.php:25
 msgid "Purge interval"
@@ -86,7 +87,7 @@ msgstr ""
 
 #: templates/admin.php:59
 msgid "Maximum redirects"
-msgstr ""
+msgstr "Максимум перенаправлений"
 
 #: templates/admin.php:65
 msgid "How many redirects the feed fetcher should follow"
@@ -160,7 +161,7 @@ msgstr "Скачать"
 
 #: templates/part.content.shortcuts.php:5
 msgid "Keyboard shortcut"
-msgstr ""
+msgstr "Горячие клавиши"
 
 #: templates/part.content.shortcuts.php:6
 msgid "Description"
@@ -172,7 +173,7 @@ msgstr "направо"
 
 #: templates/part.content.shortcuts.php:10
 msgid "Jump to next article"
-msgstr ""
+msgstr "Перейти на следующую статью"
 
 #: templates/part.content.shortcuts.php:13
 msgid "left"
@@ -180,7 +181,7 @@ msgstr "налево"
 
 #: templates/part.content.shortcuts.php:14
 msgid "Jump to previous article"
-msgstr ""
+msgstr "Перейти на предыдущую статью"
 
 #: templates/part.content.shortcuts.php:18
 msgid "Toggle star article"
@@ -196,7 +197,7 @@ msgstr ""
 
 #: templates/part.content.shortcuts.php:34
 msgid "Open article in new tab"
-msgstr ""
+msgstr "Открыть статью в новой вкладке"
 
 #: templates/part.content.shortcuts.php:39
 msgid "Toggle expand article in compact view"
@@ -204,19 +205,19 @@ msgstr ""
 
 #: templates/part.content.shortcuts.php:48
 msgid "Load next feed"
-msgstr ""
+msgstr "Загрузить следующий feed"
 
 #: templates/part.content.shortcuts.php:52
 msgid "Load previous feed"
-msgstr ""
+msgstr "Загрузить предыдущий feed"
 
 #: templates/part.content.shortcuts.php:56
 msgid "Load next folder"
-msgstr ""
+msgstr "Загрузить следующую папку"
 
 #: templates/part.content.shortcuts.php:60
 msgid "Load previous folder"
-msgstr ""
+msgstr "Загрузить предыдущую папку"
 
 #: templates/part.navigation.addfeed.php:5
 #: templates/part.navigation.addfeed.php:77

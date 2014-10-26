@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-10-23 01:01-0400\n"
-"PO-Revision-Date: 2014-10-23 05:01+0000\n"
-"Last-Translator: I Robot\n"
+"POT-Creation-Date: 2014-10-26 01:01-0400\n"
+"PO-Revision-Date: 2014-10-25 09:20+0000\n"
+"Last-Translator: Ivo\n"
 "Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/projects/p/owncloud/language/bg_BG/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -40,52 +40,52 @@ msgstr "Неможа да добави папката: Вече съществу
 
 #: templates/admin.php:12
 msgid "Use ownCloud cron for updates"
-msgstr ""
+msgstr "Използвай ownCloud cron за обновяване"
 
 #: templates/admin.php:17
 msgid ""
 "Disable this if you run a custom updater such as the Python updater included"
 " in the app"
-msgstr ""
+msgstr "Изключи тази функция ако използваш свое собствено приложение за обновяване като Python приложението включено в тази програма"
 
 #: templates/admin.php:25
 msgid "Purge interval"
-msgstr ""
+msgstr "Интервал за изтриване"
 
 #: templates/admin.php:30
 msgid ""
 "Minimum amount of seconds after deleted feeds and folders are removed from "
 "the database; values below 60 seconds are ignored"
-msgstr ""
+msgstr "Минимално време в секунди, след което изтрити потоци и папки биват премахвани от базата данни; стойности под 60 секунди ще бъдат игнорирани"
 
 #: templates/admin.php:41
 msgid "Maximum read count per feed"
-msgstr ""
+msgstr "Максимален брой прочитания на поток"
 
 #: templates/admin.php:47
 msgid ""
 "Defines the maximum amount of articles that can be read per feed which won't"
 " be deleted by the cleanup job; if old articles reappear after being read, "
 "increase this value"
-msgstr ""
+msgstr "Задава максималния брой статии, които могат да бъдат проченеи за всеки поток, които няма да бъдат изтрити от автоматичната програма за почистване; ако стари статии се появят отново след като са били прочетени, увеличи тази стойност"
 
 #: templates/admin.php:59
 msgid "Maximum redirects"
-msgstr ""
+msgstr "Максимлен брой пренасочвания"
 
 #: templates/admin.php:65
 msgid "How many redirects the feed fetcher should follow"
-msgstr ""
+msgstr "Колко пренасочвания да последва автоматичната програма за потоци"
 
 #: templates/admin.php:75
 msgid "Feed fetcher timeout"
-msgstr ""
+msgstr "Максимално време за автоматичната програма за потоци"
 
 #: templates/admin.php:81
 msgid ""
 "Maximum number of seconds to wait for an RSS or Atom feed to load; if it "
 "takes longer the update will be aborted"
-msgstr ""
+msgstr "Максималното време в секунди за изчакване на зареждане на RSS или Atom; ако отнема по-дълго обновлението ще бъде преустановено"
 
 #: templates/admin.php:89
 msgid "Saved"
@@ -145,7 +145,7 @@ msgstr "Изтегли"
 
 #: templates/part.content.shortcuts.php:5
 msgid "Keyboard shortcut"
-msgstr ""
+msgstr "Клавишни комбинации"
 
 #: templates/part.content.shortcuts.php:6
 msgid "Description"
@@ -157,7 +157,7 @@ msgstr "дясно"
 
 #: templates/part.content.shortcuts.php:10
 msgid "Jump to next article"
-msgstr ""
+msgstr "Отиди на следващата статия"
 
 #: templates/part.content.shortcuts.php:13
 msgid "left"
@@ -165,43 +165,43 @@ msgstr "ляво"
 
 #: templates/part.content.shortcuts.php:14
 msgid "Jump to previous article"
-msgstr ""
+msgstr "Отиди на предната статия"
 
 #: templates/part.content.shortcuts.php:18
 msgid "Toggle star article"
-msgstr ""
+msgstr "Промяна отбелязване на статия"
 
 #: templates/part.content.shortcuts.php:23
 msgid "Star article and jump to next one"
-msgstr ""
+msgstr "Маркирай като любим и се премести на следващата статия"
 
 #: templates/part.content.shortcuts.php:29
 msgid "Toggle keep current article unread"
-msgstr ""
+msgstr "Промяна запазва статуса на статията като непрочетена"
 
 #: templates/part.content.shortcuts.php:34
 msgid "Open article in new tab"
-msgstr ""
+msgstr "Отвори статия в нов таб"
 
 #: templates/part.content.shortcuts.php:39
 msgid "Toggle expand article in compact view"
-msgstr ""
+msgstr "Промяна разширява статията в комапктен изглед"
 
 #: templates/part.content.shortcuts.php:48
 msgid "Load next feed"
-msgstr ""
+msgstr "Зареди следващ поток"
 
 #: templates/part.content.shortcuts.php:52
 msgid "Load previous feed"
-msgstr ""
+msgstr "Зареди преден поток"
 
 #: templates/part.content.shortcuts.php:56
 msgid "Load next folder"
-msgstr ""
+msgstr "Зареди следваща папка"
 
 #: templates/part.content.shortcuts.php:60
 msgid "Load previous folder"
-msgstr ""
+msgstr "Зареди предна папка"
 
 #: templates/part.navigation.addfeed.php:5
 #: templates/part.navigation.addfeed.php:77

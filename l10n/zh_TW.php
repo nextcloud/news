@@ -7,6 +7,8 @@
 "from" => "從",
 "Download" => "下載",
 "Description" => "描述",
+"right" => "右邊",
+"left" => "左邊",
 "Subscribe" => "訂閱",
 "Web address" => "網頁位址",
 "Feed exists already!" => "訂閱已經存在！",
