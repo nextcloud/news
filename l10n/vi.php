@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Refresh" => "Làm mới",
 "by" => "bởi",
 "from" => "từ",
@@ -26,3 +27,4 @@
 "Import" => "Nhập vào",
 "Export" => "Xuất ra"
 );
+$PLURAL_FORMS = "nplurals=1; plural=0;";

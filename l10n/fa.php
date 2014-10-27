@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Can not add feed: Exists already" => "خوراک خوان را نمی تواند اضافه کند: در حال حاضر موجود است.",
 "Can not add folder: Exists already" => "پوشه را نمی تواند اضافه کند: در حال حاضر وجود دارد.",
 "Saved" => "ذخیره شد",
@@ -29,3 +30,4 @@
 "Error when importing: file does not contain valid OPML" => "خطا هنگام وارد کردن: فایل حاوی OPML  معتبر نیست.",
 "Error when importing: file does not contain valid JSON" => "خطا هنگام وارد کردن: فایل حاوی JSON معتبر نیست."
 );
+$PLURAL_FORMS = "nplurals=1; plural=0;";

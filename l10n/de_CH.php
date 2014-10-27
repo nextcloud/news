@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Can not add feed: Exists already" => "Feed konnte nicht hinzugefügt werden:  Existiert bereits",
 "Can not add folder: Exists already" => "Ordner kann nicht hinzgefügt werden: Existiert bereits",
 "Saved" => "Gespeichert",
@@ -26,3 +27,4 @@
 "Error when importing: file does not contain valid OPML" => "Fehler beim Importieren: Datei enthält kein gültiges OPML",
 "Error when importing: file does not contain valid JSON" => "Fehler beim Importieren: Datei enthält kein gültiges JSON"
 );
+$PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Refresh" => "නැවුම් කරන්න",
 "by" => "විසින්",
 "from" => "වෙතින්",
@@ -19,3 +20,4 @@
 "Import" => "ආයාත කරන්න",
 "Export" => "නිර්යාත කරන්න"
 );
+$PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

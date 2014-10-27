@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Can not add feed: Exists already" => "لا يمكن اضافة هذا الملقم:هو موجود بالفعل",
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "لا يمكن إضافة هذا الملقم: عنوان URL غير موجود, شهادة SSL لايمكن التحقق منه أو الملقم لديه xml غير صالح",
 "Articles without feed" => "مقالات بدون ملقم",
@@ -34,3 +35,4 @@
 "Unread/Starred Articles" => "مقالات غير مقروءه/نجمة ",
 "Error when importing: file does not contain valid JSON" => "خطا عند الاستيراد: الملف لايحتوي على OPML صالح"
 );
+$PLURAL_FORMS = "nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;";

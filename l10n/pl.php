@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Can not add feed: Exists already" => "Nie można dodać kanału: istnieje już",
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Nie można dodać kanału: URL nie istnieje, certyfikat SSL nie może zostać uwierzytelniony lub kanał ma niewłaściwy xml",
 "Articles without feed" => "Artykuły nie z kanałów",
@@ -60,3 +61,4 @@
 "Unread/Starred Articles" => "Nieprzeczytane/Oznaczone Artykuły",
 "Error when importing: file does not contain valid JSON" => "Błąd podczas importowania: plik nie zawiera prawidłowego JSON"
 );
+$PLURAL_FORMS = "nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);";

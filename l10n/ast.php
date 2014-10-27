@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Can not add feed: Exists already" => "Nun pue amestase'l feed: Yá esiste",
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Nun pue amestase'l feed: la URL nun esiste, el certificáu SSL nun pue validase o'l feed tien un xml inválidu",
 "Articles without feed" => "Artículos ensin fonte",
@@ -32,3 +33,4 @@
 "Unread/Starred Articles" => "Artículos Non lleíos y Favoritos",
 "Error when importing: file does not contain valid JSON" => "Fallu al importar: el ficheru nun contién JSON válidu"
 );
+$PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

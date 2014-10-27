@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Can not add feed: Exists already" => "Impossible d'ajouter le flux : déjà présent",
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Vous ne pouvez pas l'ajouter ce flux: l'URL n'existe pas, le Certificat SSL n'a pas été validé ou alors le fichier XML du flux est invalide.",
 "Articles without feed" => "Articles sans flux",
@@ -8,7 +9,6 @@
 "Purge interval" => "Intervalle de purge",
 "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored" => "Nombre minimum de secondes après lequel les flux et dossiers supprimés seront effacés de la base de données. Les valeurs inférieures à 60 secondes seront ignorées.",
 "Maximum read count per feed" => "Nombre maximum de lecture par flux",
-"Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value" => "Définit la quantité maximale d'articles qui peut être lu par flux qui ne sera pas supprimé par le travail de nettoyage; si d'anciens articles réapparaissent après avoir été lu, augmenter cette valeur",
 "Maximum redirects" => "Nombre maximal de redirections",
 "How many redirects the feed fetcher should follow" => "Le nombre de redirections que le récupérateur de flux suivra",
 "Feed fetcher timeout" => "Délai d'attente maximum du récupérateur de flux",
@@ -82,3 +82,4 @@
 "Unread/Starred Articles" => "Articles non lus / en vedettes",
 "Error when importing: file does not contain valid JSON" => "Erreur lors de l'import : le fichier spécifié n'est pas un fichier JSON valide"
 );
+$PLURAL_FORMS = "nplurals=2; plural=(n > 1);";

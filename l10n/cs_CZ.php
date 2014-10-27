@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Can not add feed: Exists already" => "Nelze přidat kanál: již existuje",
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Nelze přidat kanál: URL neexistuje, SSL certifikát nelze ověřit nebo obsahuje neplatné xml",
 "Articles without feed" => "Články bez zdroje",
@@ -8,7 +9,6 @@
 "Purge interval" => "Vynulovat interval",
 "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored" => "Minimální časový interval v sekundách po kterém jsou smazány z databáze odstraněné zdroje novinek a adresáře; hodnoty kratší než 60 sekund jsou ignorovány",
 "Maximum read count per feed" => "Maximální počet novinek pro zdroj",
-"Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value" => "Určuje nejvyšší počet článků, které jsou dostupné ke čtení z jednotlivých zdrojů a nebudou smazány při čištění; pokud se staré články po přečtení znovu objevují, navyšte tuto hodnotu",
 "Maximum redirects" => "Nejvyšší počet přesměrování",
 "How many redirects the feed fetcher should follow" => "Kolik přesměrování se má sledovat při stahování článků",
 "Feed fetcher timeout" => "Interval vypršení pro stahování článků",
@@ -82,3 +82,4 @@
 "Unread/Starred Articles" => "Články nepřečtené a s hvězdičkou",
 "Error when importing: file does not contain valid JSON" => "Chyba při importování: soubor neobsahuje platná data JSON"
 );
+$PLURAL_FORMS = "nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;";

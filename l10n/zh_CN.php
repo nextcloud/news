@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Can not add feed: Exists already" => "无法增加反馈：已经存在",
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "无法增加源：URL 不存在，SSL 证书无法验证或者源包括无效的 xml",
 "Articles without feed" => "没有订阅的文章",
@@ -35,3 +36,4 @@
 "Unread/Starred Articles" => "未读/已加星标文章",
 "Error when importing: file does not contain valid JSON" => "导入出错：文件包含非法的JSON数据"
 );
+$PLURAL_FORMS = "nplurals=1; plural=0;";

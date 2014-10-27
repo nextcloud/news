@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Refresh" => "Oppfrisk",
 "by" => "av",
 "from" => "frå",
@@ -16,3 +17,4 @@
 "Import" => "Importer",
 "Export" => "Eksporter"
 );
+$PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

@@ -1,16 +1,16 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Can not add feed: Exists already" => "Feed konnte nicht hinzugefügt werden:  Existiert bereits",
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Feed konnte nicht hinzugefügt werden: URL existiert nicht, SSL-Zertifikat kann nicht überprüft werden oder der Feed enthält ungültiges XML",
 "Articles without feed" => "Artikel ohne Feed",
 "Can not add folder: Exists already" => "Ordner kann nicht hinzgefügt werden: Existiert bereits",
 "Use ownCloud cron for updates" => "ownCloud-Cron für Updates nutzen",
-"Disable this if you run a custom updater such as the Python updater included in the app" => "Deaktiviere dies, wenn Du einen eigenen Updater sowie den Python-Updater aus der App laufen lässt",
+"Disable this if you run a custom updater such as the Python updater included in the app" => "Deaktiviere dies, wenn Du einen eigenen Updater wie z.B. den in der App mitgelieferten Python-Updater nutzt",
 "Purge interval" => "Aufräum-Intervall",
 "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored" => "Minimum an Sekunden nachdem gelöschte Feeds und Ordner aus der Datenbank entfernt werden; Werte unter 60 Sekunden werden ignoriert",
-"Maximum read count per feed" => "Maximale Anzahl an einzulesende Feeds",
-"Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value" => "Definiert die maximale Anzahl an Artikeln, die pro Feed gelesen sein dürfen und bei einem Aufräumauftrag nicht aus der Datenbank gelöscht werden; wenn ältere Artikel nach dem Lesen wieder aufscheinen, erhöhe diesen Wert",
+"Maximum read count per feed" => "Maximale Anzahl an gelesenen Artikeln pro Feed",
 "Maximum redirects" => "Maximale Anzahl der HTTP Redirects",
-"How many redirects the feed fetcher should follow" => "Maximale Anzahl der HTTP Redirects, die der Feed-Updater folgen soll",
+"How many redirects the feed fetcher should follow" => "Maximale Anzahl der HTTP Redirects, denen der Feed-Updater folgen soll",
 "Feed fetcher timeout" => "Feed Updater maximum Timeout",
 "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted" => "Maximale Anzahl an Sekunden zum Laden eines RSS- oder Atom-Feeds; wenn dies länger dauert, wird die Aktualisierung abgebrochen.",
 "Saved" => "Gespeichert",
@@ -82,3 +82,4 @@
 "Unread/Starred Articles" => "Ungelese/Markierte Artikel",
 "Error when importing: file does not contain valid JSON" => "Fehler beim Importieren: Datei enthält kein gültiges JSON"
 );
+$PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

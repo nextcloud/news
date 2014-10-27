@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Can not add feed: Exists already" => "Не удаётся добавить ленту: уже существует",
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Не удаётся добавить ленту: адрес не существует, SSL-сертификат не может быть проверен или ресурс содержит неверный xml",
 "Articles without feed" => "Статьи без новостной ленты",
@@ -70,3 +71,4 @@
 "Unread/Starred Articles" => "Непрочтенные/Отмеченные статьи",
 "Error when importing: file does not contain valid JSON" => "Ошибка при импорте: файл не содержит правильный JSON"
 );
+$PLURAL_FORMS = "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);";

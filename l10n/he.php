@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Saved" => "נשמר",
 "Refresh" => "רענון",
 "by" => "על ידי",
@@ -20,3 +21,4 @@
 "Import" => "יבוא",
 "Export" => "ייצוא"
 );
+$PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

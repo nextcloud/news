@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Can not add feed: Exists already" => "Не можам да додадам фид: Веќе постои",
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Не можам да додадам фид: URL-то не постои, SSL сертификатот не може да биде валидиран или фидот има невалиден xml",
 "Articles without feed" => "Статии без фид",
@@ -32,3 +33,4 @@
 "Unread/Starred Articles" => "Непрочитани/Означени статии",
 "Error when importing: file does not contain valid JSON" => "Грешка при импортирање: датотеката не содржи валиден JSON"
 );
+$PLURAL_FORMS = "nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;";

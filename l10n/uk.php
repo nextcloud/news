@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Can not add feed: Exists already" => "Неможливо додати стрічку: вона вже існує",
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Неможливо додати стрічку: URL не існує, SSL-сертифікат не можна перевірити, або ресурс має неприпустимий XML",
 "Articles without feed" => "Статті без стрічки",
@@ -72,3 +73,4 @@
 "Unread/Starred Articles" => "Непрочитані/Вибрані статті",
 "Error when importing: file does not contain valid JSON" => "Помилка при імпорті: файл не містить дійсний JSON"
 );
+$PLURAL_FORMS = "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);";

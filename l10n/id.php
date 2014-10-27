@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Can not add feed: Exists already" => "Tidak dapat menambah feed: Sudah ada",
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Tidak dapat menambahkan feed: URL tidak ada, Sertifikat SSL tidak tervalidasi atau feed memiliki xml yang tidak sah",
 "Articles without feed" => "Artikel tanpa feed",
@@ -8,7 +9,6 @@
 "Purge interval" => "Singkirkan interval",
 "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored" => "Jumlah detik minimum setelah feed dan folder yang terhapus akan dihapus dari basis data; nilai di bawah 60 detik akan diabaikan",
 "Maximum read count per feed" => "Jumlah baca maksimum per feed",
-"Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value" => "Tentukan jumlah maksimum artikel yang dapat dibaca per feed yang tidak ingin dihapus oleh pekerjaan pembersih; jika artikel lama muncul kembali setelah dibaca, tingkatkan nilai ini",
 "Maximum redirects" => "Pengalihan maksimum",
 "How many redirects the feed fetcher should follow" => "Berapa banyak pengalihan yang pengambil feed harus ikuti",
 "Feed fetcher timeout" => "Pengambil feed kehabisan waktu",
@@ -82,3 +82,4 @@
 "Unread/Starred Articles" => "Artikel dibintangi/belum dibaca",
 "Error when importing: file does not contain valid JSON" => "Terjadi kesalahan saat mengimor: berkas tidak berisi JSON yang sah"
 );
+$PLURAL_FORMS = "nplurals=1; plural=0;";

@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Can not add feed: Exists already" => "Nem sikerült hozzáadni a hírcsatornát: már létezik",
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "A hírcsatorna nem hozható létre: vagy a cím nem létezik, vagy érvénytelen a kiszolgáló SSL tanúsítványa, vagy hibás a csatorna XML állománya",
 "Articles without feed" => "Cikkek folyam(feed) nélkül",
@@ -39,3 +40,4 @@
 "Unread/Starred Articles" => "Olvastlan/Csillagozott cikkek",
 "Error when importing: file does not contain valid JSON" => "Hiba az importálás során: az állomány nem tartalmaz érvényes JSON adatokat"
 );
+$PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

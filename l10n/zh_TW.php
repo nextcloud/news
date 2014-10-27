@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Can not add feed: Exists already" => "無法新增反饋: 已經存在",
 "Can not add folder: Exists already" => "無法新增目錄: 目錄已存在",
 "Saved" => "已儲存",
@@ -33,3 +34,4 @@
 "Error when importing: file does not contain valid OPML" => "匯入時出錯: 該檔案不包含有效的OPML",
 "Error when importing: file does not contain valid JSON" => "匯入錯誤: 檔案包含非法的JSON數據"
 );
+$PLURAL_FORMS = "nplurals=1; plural=0;";

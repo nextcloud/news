@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Can not add feed: Exists already" => "Syötettä ei voi lisätä: se on jo olemassa",
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Syötteen lisääminen ei onnistu: osoitetta ei ole olemassa, SSL-varmennetta ei voi varmentaa tai syöte sisältää virheellistä xml:ää",
 "Articles without feed" => "Vailla syötettä olevat artikkelit",
@@ -77,3 +78,4 @@
 "Unread/Starred Articles" => "Lukemattomat/tähdellä varustetut artikkelit",
 "Error when importing: file does not contain valid JSON" => "Virhe tuotaessa: tiedosto ei sisällä kelvollista JSONia"
 );
+$PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

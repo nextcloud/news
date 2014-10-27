@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Folder" => "సంచయం",
 "New folder" => "కొత్త సంచయం",
 "Folder name" => "సంచయం పేరు",
@@ -10,3 +11,4 @@
 "Import" => "దిగుమతించు",
 "Export" => "ఎగుమతించు"
 );
+$PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

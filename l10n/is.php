@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "by" => "af",
 "from" => "frá",
 "Download" => "Niðurhal",
@@ -16,3 +17,4 @@
 "Import" => "Flytja inn",
 "Export" => "Flytja út"
 );
+$PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

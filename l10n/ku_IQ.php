@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "by" => "له‌لایه‌ن",
 "Download" => "داگرتن",
 "Description" => "پێناسه",
@@ -14,3 +15,4 @@
 "Import" => "هێنان",
 "Export" => "هه‌ناردن"
 );
+$PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

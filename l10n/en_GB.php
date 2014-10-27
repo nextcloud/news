@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Can not add feed: Exists already" => "Can not add feed: Exists already",
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid XML",
 "Articles without feed" => "Articles without feed",
@@ -8,7 +9,6 @@
 "Purge interval" => "Purge interval",
 "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored" => "Minimum number of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored",
 "Maximum read count per feed" => "Maximum read count per feed",
-"Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value" => "Defines the maximum number of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value",
 "Maximum redirects" => "Maximum redirects",
 "How many redirects the feed fetcher should follow" => "How many redirects the feed fetcher should follow",
 "Feed fetcher timeout" => "Feed fetcher timeout",
@@ -82,3 +82,4 @@
 "Unread/Starred Articles" => "Unread/Starred Articles",
 "Error when importing: file does not contain valid JSON" => "Error when importing: file does not contain valid JSON"
 );
+$PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

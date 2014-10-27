@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Can not add feed: Exists already" => "Ezin da iturburua gehitu: Dagoeneko existitzen da",
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Ezin da jarioa gehitu: URLa ez da existitzen, SSL Ziurtagiria ezin da balioztatu edo jarioak xml baliogabea du",
 "Articles without feed" => "Iturbururik gabeko artikuluak",
@@ -37,3 +38,4 @@
 "Unread/Starred Articles" => "Irakurri gabeko/markatutako artikuluak",
 "Error when importing: file does not contain valid JSON" => "Errorea inportatzean: fitxategiak ez du baliozko JSON"
 );
+$PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

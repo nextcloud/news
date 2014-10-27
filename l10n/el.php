@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Can not add feed: Exists already" => "Αδυναμία προσθήκης ροής: Υπάρχει ήδη",
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Η ροή δεν ήταν δυνατό να προστεθεί: Το URL δεν υπάρχει, το πιστοποιητικό SSL δεν είναι δυνατό να επικυρωθεί ή περιέχει άκυρο xml",
 "Articles without feed" => "Άρθρα χωρίς ροές",
@@ -64,3 +65,4 @@
 "Unread/Starred Articles" => "Με αστέρι/Μη αναγνωσμένα Άρθρα",
 "Error when importing: file does not contain valid JSON" => "Σφάλμα κατά την εισαγωγή: το αρχείο δεν περιέχει έγκυρο JSON"
 );
+$PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

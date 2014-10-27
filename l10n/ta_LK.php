@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Refresh" => "மீள் ஏற்றுக",
 "by" => "மூலம்",
 "from" => "இலிருந்து",
@@ -17,3 +18,4 @@
 "Import" => "இறக்குமதி",
 "Export" => "ஏற்றுமதி"
 );
+$PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

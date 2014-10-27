@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Can not add feed: Exists already" => "Vira ni mogoče dodati: ta že obstaja",
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Ni mogoče dodati vira: naslov URL ne obstaja, potrdila SSL ni mogoče overiti ali pa je neveljaven zapis XML vira.",
 "Articles without feed" => "Članki brez virov",
@@ -72,3 +73,4 @@
 "Unread/Starred Articles" => "Neprebrani/Označeni prispevki",
 "Error when importing: file does not contain valid JSON" => "Napaka uvoza: datoteka ne vsebuje veljavnih podatkov JSON."
 );
+$PLURAL_FORMS = "nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);";

@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Refresh" => "يېڭىلا",
 "by" => "سەنئەتكار",
 "Download" => "چۈشۈر",
@@ -16,3 +17,4 @@
 "Import" => "ئەكىر",
 "Export" => "چىقار"
 );
+$PLURAL_FORMS = "nplurals=1; plural=0;";

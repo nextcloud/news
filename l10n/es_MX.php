@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Can not add feed: Exists already" => "No se puede agregar fuente: ya existe",
 "Articles without feed" => "Artículos sin fuente",
 "Can not add folder: Exists already" => "No se puede agregar carpeta: ya existe",
@@ -28,3 +29,4 @@
 "Unread/Starred Articles" => "Artículos no leídos y favoritos",
 "Error when importing: file does not contain valid JSON" => "Error al importar: el archivo no contiene JSON válido"
 );
+$PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

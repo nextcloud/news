@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Can not add feed: Exists already" => "Voogu ei saa lisada:  on juba olemas",
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Voogu ei saa lisada: URL-i pole olemas, ei suuda kontrollida SSL sertifikaati või voog sisaldab vigast XML-i",
 "Articles without feed" => "Artiklid ilma voota",
@@ -7,7 +8,6 @@
 "Purge interval" => "Puhastuse intervall",
 "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored" => "Maksimaalne aeg sekundites peale mida voog ja kataloogid eemaldatakse andmebaasist; väärtusi alla 60 sekundi ignoreeritakse",
 "Maximum read count per feed" => "Maksimaalne lugemiste arv voo kohta",
-"Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value" => "Määrab maksimaalse loetavate artiklite koguse voo kohta mida ei kustutata puhastus toimingute poolt; kui vanad artiklid tekivad uuesti peale lugemist, suurenda seda väärtust",
 "Maximum redirects" => "Maksimaalsed ümbersuunamised",
 "How many redirects the feed fetcher should follow" => "Kui palju ümbersuunamisi peaks voo uuendaja järgima",
 "Feed fetcher timeout" => "Voo ühenduse aegumine",
@@ -80,3 +80,4 @@
 "Unread/Starred Articles" => "Lugemata/Märgitud artiklid",
 "Error when importing: file does not contain valid JSON" => "Viga importimisel: fail ei sisalda korrektset JSON-i"
 );
+$PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

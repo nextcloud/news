@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Refresh" => "Atsvaidzināt",
 "by" => "līdz",
 "Download" => "Lejupielādēt",
@@ -25,3 +26,4 @@
 "Import" => "Importēt",
 "Export" => "Eksportēt"
 );
+$PLURAL_FORMS = "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);";

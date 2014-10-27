@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Refresh" => "รีเฟรช",
 "by" => "โดย",
 "from" => "จาก",
@@ -25,3 +26,4 @@
 "Import" => "นำเข้า",
 "Export" => "ส่งออก"
 );
+$PLURAL_FORMS = "nplurals=1; plural=0;";

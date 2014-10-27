@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Can not add feed: Exists already" => "Besleme eklenemiyor: Zaten mevcut",
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Besleme eklenemiyor: Adres mevcut değil, SSL Sertifikası doğrulanamadı veya besleme geçersiz XML içeriyor",
 "Articles without feed" => "Beslemesiz makaleler",
@@ -8,7 +9,6 @@
 "Purge interval" => "Temizleme aralığı",
 "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored" => "Silinen besleme ve klasörlerin, veritabanından kaldırılacağı asgari süre; 60 altındaki saniyeler yoksayılır",
 "Maximum read count per feed" => "Besleme başına azami okuma sayısı",
-"Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value" => "Temizleme görevinde silinmeyecek, besleme başına okunabilecek azami makale sayısını tanımlar. Eski makaleler okunduktan sonra yeniden görülüyorsa, bu değeri arttırın",
 "Maximum redirects" => "En fazla yeniden yönlendirme",
 "How many redirects the feed fetcher should follow" => "Besleme getirici kaç yönlendirmeyi takip etmeli",
 "Feed fetcher timeout" => "Besleme getirici zaman aşımı",
@@ -82,3 +82,4 @@
 "Unread/Starred Articles" => "Okunmamış/Yıldızlı Makaleler",
 "Error when importing: file does not contain valid JSON" => "İçe alınırken hata: dosya geçerli JSON içermiyor"
 );
+$PLURAL_FORMS = "nplurals=2; plural=(n > 1);";

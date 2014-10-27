@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Can not add feed: Exists already" => "Nepavyko pridėti srauto: Jau yra",
 "Articles without feed" => "Straipsniai be sklaidos kanalų",
 "Can not add folder: Exists already" => "Nepavyko pridėti aplanko: Jau yra",
@@ -31,3 +32,4 @@
 "Unread/Starred Articles" => "Neskaityti/Paryškinti straipsniai",
 "Error when importing: file does not contain valid JSON" => "Klaida importuojant: failas neturi tinkamo JSON"
 );
+$PLURAL_FORMS = "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);";

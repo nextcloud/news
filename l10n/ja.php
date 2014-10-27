@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Can not add feed: Exists already" => "フィードを追加できません: すでに存在します",
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "フィードを追加できません：URLが存在しないか、SSL認証が正しくない、もしくはフィードが不正なXMLです。",
 "Articles without feed" => "フィードなし記事",
@@ -40,3 +41,4 @@
 "Unread/Starred Articles" => "未読/注目記事",
 "Error when importing: file does not contain valid JSON" => "インポート中のエラー: ファイルは有効なJSONを含んでいません"
 );
+$PLURAL_FORMS = "nplurals=1; plural=0;";

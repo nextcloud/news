@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Can not add feed: Exists already" => "Nemožno pridať kanál: Už existuje",
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Nemožno pridať kanál: URL neexistuje, SSL certifikát nemožno overiť alebo obsahuje neplatné xml",
 "Articles without feed" => "Články bez zdroja",
@@ -39,3 +40,4 @@
 "Unread/Starred Articles" => "Neprečítané články s hviezdičkou",
 "Error when importing: file does not contain valid JSON" => "Chyba pri importe: súbor neobsahuje platný JSON"
 );
+$PLURAL_FORMS = "nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;";

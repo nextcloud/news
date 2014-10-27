@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Can not add feed: Exists already" => "피드를 추가할 수 없음: 이미 존재함",
 "Articles without feed" => "피드가 없는 글",
 "Can not add folder: Exists already" => "폴더를 추가할 수 없음: 이미 존재함",
@@ -34,3 +35,4 @@
 "Unread/Starred Articles" => "읽지 않은/별표한 글",
 "Error when importing: file does not contain valid JSON" => "가져오기 오류: 파일이 올바른 JSON을 포함하지 않음"
 );
+$PLURAL_FORMS = "nplurals=1; plural=0;";

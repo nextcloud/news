@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Can not add feed: Exists already" => "Неможа да се добави потока: Вече съществува",
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Неуспешно добавяне на поток: интернет адресът не съществува, SSL сертификатът не може да бъде проверен или потокът има невалиден xml.",
 "Articles without feed" => "Статии без свързан поток",
@@ -8,7 +9,6 @@
 "Purge interval" => "Интервал за изтриване",
 "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored" => "Минимално време в секунди, след което изтрити потоци и папки биват премахвани от базата данни; стойности под 60 секунди ще бъдат игнорирани",
 "Maximum read count per feed" => "Максимален брой прочитания на поток",
-"Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value" => "Задава максималния брой статии, които могат да бъдат проченеи за всеки поток, които няма да бъдат изтрити от автоматичната програма за почистване; ако стари статии се появят отново след като са били прочетени, увеличи тази стойност",
 "Maximum redirects" => "Максимлен брой пренасочвания",
 "How many redirects the feed fetcher should follow" => "Колко пренасочвания да последва автоматичната програма за потоци",
 "Feed fetcher timeout" => "Максимално време за автоматичната програма за потоци",
@@ -82,3 +82,4 @@
 "Unread/Starred Articles" => "Непрочетени/Отбелязани статии",
 "Error when importing: file does not contain valid JSON" => "Грешка при внасяне: файлът няма валиден JSON"
 );
+$PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

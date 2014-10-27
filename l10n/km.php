@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Can not add feed: Exists already" => "មិន​អាច​បន្ថែម​ព័ត៌មាន៖ មាន​រួច​ហើយ",
 "Articles without feed" => "អត្ថបទគ្មាន feed",
 "Can not add folder: Exists already" => "មិន​អាច​បន្ថែម​ថត៖ មាន​រួច​ហើយ",
@@ -27,3 +28,4 @@
 "Unread/Starred Articles" => "អត្ថបទ​ដែល​មិន​បាន​អាន ឬ​បាន​ដាក់​ផ្កាយ",
 "Error when importing: file does not contain valid JSON" => "កំហុស​ពេល​នាំ​ចូល៖ ឯកសារ​មិន​មាន JSON ត្រឹម​ត្រូវ"
 );
+$PLURAL_FORMS = "nplurals=1; plural=0;";

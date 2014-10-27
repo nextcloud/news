@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Download" => "Descargar",
 "New folder" => "Nuevo directorio",
 "Folder name" => "Nombre del directorio",
@@ -7,3 +8,4 @@
 "Import" => "Importar",
 "Export" => "Exportar"
 );
+$PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

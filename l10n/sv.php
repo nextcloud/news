@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Can not add feed: Exists already" => "Kan inte lägga till: flödet existerar redan",
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Kan inte lägga till flödet: URL existerar inte, SSL certifikatet kan inte valideras eller så innehåller flödet icke giltig xml",
 "Articles without feed" => "Artiklar utan flöde",
@@ -36,3 +37,4 @@
 "Unread/Starred Articles" => "Olästa/Stjärnmärkta artiklar",
 "Error when importing: file does not contain valid JSON" => "Fel vid import: filen innehåller ej giltig JSON"
 );
+$PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

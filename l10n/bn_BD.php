@@ -1,4 +1,5 @@
-<?php $TRANSLATIONS = array(
+<?php
+$TRANSLATIONS = array(
 "Can not add feed: Exists already" => "ফিড যুক্ত করা যাবেনা: এটি আপনার রয়েছে",
 "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "ফিড যুক্ত করা যাবেনা: URL নেই, SSL প্রত্যয়নপত্র নিশ্চিত করা যাবেনা অথবা ফিডের xml সঠিক নয়",
 "Articles without feed" => "ফিডবিহীন লেখা",
@@ -40,3 +41,4 @@
 "Unread/Starred Articles" => "অপঠিত/তারকাচিহ্নিত লেখা",
 "Error when importing: file does not contain valid JSON" => "আমদানীজণিত সমস্যা: ফাইলের JSON সঠিক নয়"
 );
+$PLURAL_FORMS = "nplurals=2; plural=(n != 1);";
