@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-10-25 01:01-0400\n"
-"PO-Revision-Date: 2014-10-24 21:10+0000\n"
+"POT-Creation-Date: 2014-10-27 01:01-0400\n"
+"PO-Revision-Date: 2014-10-27 04:21+0000\n"
 "Last-Translator: Matej Urbančič <>\n"
 "Language-Team: Slovenian (http://www.transifex.com/projects/p/owncloud/language/sl/)\n"
 "MIME-Version: 1.0\n"
@@ -41,7 +41,7 @@ msgstr "Ni mogoče dodati mape: mapa že obstaja."
 
 #: templates/admin.php:12
 msgid "Use ownCloud cron for updates"
-msgstr ""
+msgstr "Za posodobitve uporabi ownCloud cron."
 
 #: templates/admin.php:17
 msgid ""
@@ -72,7 +72,7 @@ msgstr ""
 
 #: templates/admin.php:59
 msgid "Maximum redirects"
-msgstr ""
+msgstr "Največje število preusmeritev"
 
 #: templates/admin.php:65
 msgid "How many redirects the feed fetcher should follow"
@@ -170,7 +170,7 @@ msgstr "Skoči na predhodni posnetek"
 
 #: templates/part.content.shortcuts.php:18
 msgid "Toggle star article"
-msgstr ""
+msgstr "Preklopi označevanje z zvezdico"
 
 #: templates/part.content.shortcuts.php:23
 msgid "Star article and jump to next one"
@@ -178,15 +178,15 @@ msgstr ""
 
 #: templates/part.content.shortcuts.php:29
 msgid "Toggle keep current article unread"
-msgstr ""
+msgstr "Preklopi ohranjanje prispevka kot neprebranega"
 
 #: templates/part.content.shortcuts.php:34
 msgid "Open article in new tab"
-msgstr ""
+msgstr "Odpri prispevek v novem zavihku"
 
 #: templates/part.content.shortcuts.php:39
 msgid "Toggle expand article in compact view"
-msgstr ""
+msgstr "Preklopi razširitev prispevka v skrčenem pogledu"
 
 #: templates/part.content.shortcuts.php:48
 msgid "Load next feed"

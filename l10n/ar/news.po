@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-10-23 01:01-0400\n"
-"PO-Revision-Date: 2014-10-23 05:01+0000\n"
+"POT-Creation-Date: 2014-10-27 01:01-0400\n"
+"PO-Revision-Date: 2014-10-27 04:21+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: Arabic (http://www.transifex.com/projects/p/owncloud/language/ar/)\n"
 "MIME-Version: 1.0\n"
@@ -152,7 +152,7 @@ msgstr "وصف"
 
 #: templates/part.content.shortcuts.php:9
 msgid "right"
-msgstr ""
+msgstr "يمين"
 
 #: templates/part.content.shortcuts.php:10
 msgid "Jump to next article"
@@ -160,7 +160,7 @@ msgstr ""
 
 #: templates/part.content.shortcuts.php:13
 msgid "left"
-msgstr ""
+msgstr "يسار"
 
 #: templates/part.content.shortcuts.php:14
 msgid "Jump to previous article"

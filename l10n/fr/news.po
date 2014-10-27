@@ -25,13 +25,14 @@
 # Robert Di Rosa <>, 2012
 # Romain DEP. <rom1dep@gmail.com>, 2012-2013
 # Thomas Imbreckx <zinks@member.fsf.org>, 2014
+# Thomas Imbreckx <zinks@member.fsf.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-10-26 01:01-0400\n"
-"PO-Revision-Date: 2014-10-25 17:30+0000\n"
-"Last-Translator: MrAttila76 <mrattila76@gmail.com>\n"
+"POT-Creation-Date: 2014-10-27 01:01-0400\n"
+"PO-Revision-Date: 2014-10-27 04:21+0000\n"
+"Last-Translator: Thomas Imbreckx <zinks@member.fsf.org>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/owncloud/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -59,7 +60,7 @@ msgstr "Impossible d'ajouter le dossier : déjà présent"
 
 #: templates/admin.php:12
 msgid "Use ownCloud cron for updates"
-msgstr "Utiliser la tâche cron ownCloud pour les mises à jours"
+msgstr "Utiliser la tâche cron ownCloud pour les mises à jour"
 
 #: templates/admin.php:17
 msgid ""
@@ -75,7 +76,7 @@ msgstr "Intervalle de purge"
 msgid ""
 "Minimum amount of seconds after deleted feeds and folders are removed from "
 "the database; values below 60 seconds are ignored"
-msgstr "Durée minimum en secondes pour la suppression définitive des flux et des dossiers supprimés de la base de données  ; les valeurs inférieures à 60 secondes sont ignorés"
+msgstr "Nombre minimum de secondes après lequel les flux et dossiers supprimés seront effacés de la base de données. Les valeurs inférieures à 60 secondes seront ignorées."
 
 #: templates/admin.php:41
 msgid "Maximum read count per feed"
@@ -94,17 +95,17 @@ msgstr "Nombre maximal de redirections"
 
 #: templates/admin.php:65
 msgid "How many redirects the feed fetcher should follow"
-msgstr "Combien de redirections les récupérateurs de flux doivent suivre"
+msgstr "Le nombre de redirections que le récupérateur de flux suivra"
 
 #: templates/admin.php:75
 msgid "Feed fetcher timeout"
-msgstr "Délai du récupérateur de flux"
+msgstr "Délai d'attente maximum du récupérateur de flux"
 
 #: templates/admin.php:81
 msgid ""
 "Maximum number of seconds to wait for an RSS or Atom feed to load; if it "
 "takes longer the update will be aborted"
-msgstr "Nombre maximal de secondes à attendre pour un flux RSS ou Atom à charger; si cela prend trop de temps, la mise à jour sera annulée"
+msgstr "Nombre maximal de secondes que peut prendre un flux RSS ou Atom pour être chargé; si le délai est dépassé, la mise à jour sera annulée"
 
 #: templates/admin.php:89
 msgid "Saved"
@@ -128,7 +129,7 @@ msgstr "Rafraîchir"
 
 #: templates/part.content.php:31
 msgid "Open website"
-msgstr "Ouvrir le site internet"
+msgstr "Ouvrir le site web"
 
 #: templates/part.content.php:63
 msgid "Star article"
@@ -140,7 +141,7 @@ msgstr "Enlever l'article en vedette"
 
 #: templates/part.content.php:75
 msgid "Keep article unread"
-msgstr "Marquer l'article en non lu"
+msgstr "Marquer l'article comme non lu"
 
 #: templates/part.content.php:81
 msgid "Remove keep article unread"
@@ -184,19 +185,19 @@ msgstr "gauche"
 
 #: templates/part.content.shortcuts.php:14
 msgid "Jump to previous article"
-msgstr "aller à l'article précédent"
+msgstr "Aller à l'article précédent"
 
 #: templates/part.content.shortcuts.php:18
 msgid "Toggle star article"
-msgstr "Basculer vers les articles en vedette"
+msgstr "Mettre / Enlever l'article en vedette"
 
 #: templates/part.content.shortcuts.php:23
 msgid "Star article and jump to next one"
-msgstr "Mettre l'article en vedette puis aller au suivant"
+msgstr "Mettre l'article en vedette et aller au suivant"
 
 #: templates/part.content.shortcuts.php:29
 msgid "Toggle keep current article unread"
-msgstr "Mettre l'article comme non lu"
+msgstr "Marquer l'article comme lu/non lu"
 
 #: templates/part.content.shortcuts.php:34
 msgid "Open article in new tab"

@@ -9,6 +9,8 @@
 "from" => "من",
 "Download" => "تحميل",
 "Description" => "وصف",
+"right" => "يمين",
+"left" => "يسار",
 "Web address" => "عنوان ويب",
 "Folder" => "مجلد",
 "New folder" => "مجلد جديد",
