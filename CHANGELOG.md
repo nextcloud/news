@@ -3,6 +3,7 @@ owncloud-news (4.001)
 * **Enhancement**: Get rid SimplePie feed parser library and switch to PicoFeed because SimplePie is unmaintained and full of bugs
 * **Enhancement**: Use ownCloud internal proxy settings
 * **Enhancement**: Also provide feed last modified and etag headers over API
+* **Enhancement**: Allow to turn off article purging by setting a negative number
 
 owncloud-news (3.406)
 * **Enhancement**: Make config.ini editable in the admin interface

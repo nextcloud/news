@@ -109,9 +109,10 @@ class FeedService extends Service {
             } catch(DoesNotExistException $ex){}
 
             // insert feed
+            $itemCount = count($items);
             $feed->setFolderId($folderId);
             $feed->setUserId($userId);
-            $feed->setArticlesPerUpdate(count($items));
+            $feed->setArticlesPerUpdate($itemCount);
 
             if ($title) {
                 $feed->setTitle($title);
@@ -122,7 +123,7 @@ class FeedService extends Service {
             // insert items in reverse order because the first one is usually
             // the newest item
             $unreadCount = 0;
-            for($i=count($items)-1; $i>=0; $i--){
+            for($i=$itemCount-1; $i>=0; $i--){
                 $item = $items[$i];
                 $item->setFeedId($feed->getId());
 
@@ -205,16 +206,24 @@ class FeedService extends Service {
                 }
 
                 // update number of articles on every feed update
-                if($existingFeed->getArticlesPerUpdate() !== count($items)) {
-                    $existingFeed->setArticlesPerUpdate(count($items));
+                $itemCount = count($items);
+
+                // this is needed to adjust to updates that add more items
+                // than when the feed was created. You can't update the count
+                // if it's lower because it may be due to the caching headers
+                // that were sent as the request and it might cause unwanted
+                // deletion and reappearing of feeds
+                if ($itemCount > $existingFeed->getArticlesPerUpdate()) {
+                    $existingFeed->setArticlesPerUpdate($itemCount);
                 }
+
                 $existingFeed->setLastModified($fetchedFeed->getLastModified());
                 $existingFeed->setEtag($fetchedFeed->getEtag());
                 $this->feedMapper->update($existingFeed);
 
                 // insert items in reverse order because the first one is
                 // usually the newest item
-                for($i=count($items)-1; $i>=0; $i--){
+                for($i=$itemCount-1; $i>=0; $i--){
                     $item = $items[$i];
                     $item->setFeedId($existingFeed->getId());
 
