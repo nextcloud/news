@@ -1,9 +1,12 @@
-owncloud-news (4.001)
+owncloud-news (4.0.0)
+* **Enhancement**: Calculate item ids differently which leads to unpreventable readding of read articles
 * **Enhancement**: Get rid of cacheCuration setting and add maxRedirects setting in config.ini
 * **Enhancement**: Get rid SimplePie feed parser library and switch to PicoFeed because SimplePie is unmaintained and full of bugs
+* **Enhancement**: Faster feed updates due to proper HTTP cache headers thanks to picoFeed
 * **Enhancement**: Use ownCloud internal proxy settings
 * **Enhancement**: Also provide feed last modified and etag headers over API
 * **Enhancement**: Allow to turn off article purging by setting a negative number
+* **Enhancement**: Switch to semantic versioning
 
 owncloud-news (3.406)
 * **Enhancement**: Make config.ini editable in the admin interface

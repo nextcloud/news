@@ -96,6 +96,11 @@
                 <notnull>true</notnull>
             </field>
             <field>
+                <name>location</name>
+                <type>clob</type>
+                <notnull>false</notnull>
+            </field>
+            <field>
                 <name>title</name>
                 <type>clob</type>
                 <notnull>true</notnull>

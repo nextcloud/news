@@ -22,6 +22,8 @@ use \OCP\AppFramework\Db\Entity;
  * @method void setUserId(string $value)
  * @method string getUrlHash()
  * @method void setUrlHash(string $value)
+ * @method string getLocation()
+ * @method void setLocation(string $value)
  * @method string getUrl()
  * @method string getTitle()
  * @method void setTitle(string $value)
@@ -63,6 +65,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
     protected $articlesPerUpdate;
     protected $lastModified;
     protected $etag;
+    protected $location;
 
     public function __construct(){
         $this->addType('parentId', 'integer');
