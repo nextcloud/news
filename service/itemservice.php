@@ -24,7 +24,7 @@ use \OCA\News\Config\Config;
 class ItemService extends Service {
 
     private $statusFlag;
-    private $autoPurgeCount;
+    private $config;
     private $timeFactory;
     private $itemMapper;
 
@@ -34,7 +34,7 @@ class ItemService extends Service {
                                 Config $config){
         parent::__construct($itemMapper);
         $this->statusFlag = $statusFlag;
-        $this->autoPurgeCount = $config->getAutoPurgeCount();
+        $this->config = $config;
         $this->timeFactory = $timeFactory;
         $this->itemMapper = $itemMapper;
     }
@@ -197,7 +197,10 @@ class ItemService extends Service {
      * old, the id is taken
      */
     public function autoPurgeOld(){
-        $this->itemMapper->deleteReadOlderThanThreshold($this->autoPurgeCount);
+        $count = $this->config->getAutoPurgeCount();
+        if ($count >= 0) {
+            $this->itemMapper->deleteReadOlderThanThreshold($count);
+        }
     }
 
 

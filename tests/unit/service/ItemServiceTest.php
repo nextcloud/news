@@ -29,34 +29,31 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
     private $status;
     private $time;
     private $newestItemId;
+    private $config;
 
 
     protected function setUp(){
         $this->time = 222;
-        $timeFactory = $this->getMock('TimeFactory', ['getTime']);
-        $timeFactory->expects($this->any())
+        $this->timeFactory = $this->getMock('TimeFactory', ['getTime']);
+        $this->timeFactory->expects($this->any())
             ->method('getTime')
             ->will($this->returnValue($this->time));
         $this->mapper = $this->getMockBuilder('\OCA\News\Db\ItemMapper')
             ->disableOriginalConstructor()
             ->getMock();
-        $statusFlag = $this->getMockBuilder('\OCA\News\Db\StatusFlag')
+        $this->statusFlag = $this->getMockBuilder('\OCA\News\Db\StatusFlag')
             ->disableOriginalConstructor()
             ->getMock();
         $this->status = StatusFlag::STARRED;
-        $statusFlag->expects($this->any())
+        $this->statusFlag->expects($this->any())
             ->method('typeToStatus')
             ->will($this->returnValue($this->status));
-        $this->threshold = 2;
-        $config = $this->getMockBuilder(
+        $this->config = $this->getMockBuilder(
             '\OCA\News\Config\Config')
             ->disableOriginalConstructor()
             ->getMock();
-        $config->expects($this->any())
-            ->method('getAutoPurgeCount')
-            ->will($this->returnValue($this->threshold));
         $this->itemService = new ItemService($this->mapper,
-            $statusFlag, $timeFactory, $config);
+            $this->statusFlag, $this->timeFactory, $this->config);
         $this->user = 'jack';
         $this->id = 3;
         $this->updatedSince = 20333;
@@ -356,9 +353,22 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
 
 
     public function testAutoPurgeOldWillPurgeOld(){
+        $this->config->expects($this->once())
+            ->method('getAutoPurgeCount')
+            ->will($this->returnValue(2));
         $this->mapper->expects($this->once())
             ->method('deleteReadOlderThanThreshold')
-            ->with($this->equalTo($this->threshold));
+            ->with($this->equalTo(2));
+
+        $this->itemService->autoPurgeOld();
+    }
+
+    public function testAutoPurgeOldWontPurgeOld(){
+        $this->config->expects($this->once())
+            ->method('getAutoPurgeCount')
+            ->will($this->returnValue(-1));
+        $this->mapper->expects($this->never())
+            ->method('deleteReadOlderThanThreshold');
 
         $this->itemService->autoPurgeOld();
     }
