@@ -47,8 +47,8 @@ style('news', 'admin');
                 'Defines the maximum amount of articles that can be read per ' .
                 "feed which won't be deleted by the cleanup job; ".
                 'if old articles reappear after being read, increase ' .
-                'this value; negative values will turn this feature off ' .
-                'completely'
+                'this value; negative values such as -1 will turn this ' .
+                'feature off completely'
             )); ?></em>
         </p>
         <p><input type="text" name="news-auto-purge-count"
