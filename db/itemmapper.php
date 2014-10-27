@@ -242,7 +242,7 @@ class ItemMapper extends NewsMapper {
             'FROM `*PREFIX*news_items` `items` ' .
             'JOIN `*PREFIX*news_feeds` `feeds` ' .
                 'ON `feeds`.`id` = `items`.`feed_id` ' .
-            'WHERE NOT ((`items`.`status` & ?) > 0) ' .
+                'AND NOT ((`items`.`status` & ?) > 0) ' .
             'GROUP BY `items`.`feed_id`, `feeds`.`articles_per_update` ' .
             'HAVING COUNT(*) > ?';
         $params = [$status, $threshold];
