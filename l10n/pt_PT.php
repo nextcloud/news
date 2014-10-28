@@ -9,6 +9,7 @@ $TRANSLATIONS = array(
 "Purge interval" => "Intervalo de Purgar",
 "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored" => "Número mínimo de segundos após remover feeds e pastas da base de dados; valores abaixo de 60 segundos são ignorados",
 "Maximum read count per feed" => "Número máximo de leituras por feed",
+"Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off completely" => "Define o número máximo de artigos que podem ser lidos por feed que não serão apagados pela limpeza; se artigos antigos reaparecerem após lidos, aumente este valor; valores negativos como -1 desactivarão esta funcionalidade por completo",
 "Maximum redirects" => "Máximo de redireccionamentos",
 "How many redirects the feed fetcher should follow" => "Quantos redireccionamentos é que o feed fetcher deve seguir",
 "Feed fetcher timeout" => "Timeout do feed fetcher",

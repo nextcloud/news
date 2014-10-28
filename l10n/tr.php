@@ -9,6 +9,7 @@ $TRANSLATIONS = array(
 "Purge interval" => "Temizleme aralığı",
 "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored" => "Silinen besleme ve klasörlerin, veritabanından kaldırılacağı asgari süre; 60 altındaki saniyeler yoksayılır",
 "Maximum read count per feed" => "Besleme başına azami okuma sayısı",
+"Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off completely" => "Temizleme görevinde silinmeyecek, besleme başına okunabilecek azami makale sayısını tanımlar. Eski makaleler okunduktan sonra yeniden görülüyorsa, bu değeri arttırın. -1 gibi negatif değerler bu özelliği tamamen kapatacaktır.",
 "Maximum redirects" => "En fazla yeniden yönlendirme",
 "How many redirects the feed fetcher should follow" => "Besleme getirici kaç yönlendirmeyi takip etmeli",
 "Feed fetcher timeout" => "Besleme getirici zaman aşımı",
