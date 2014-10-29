@@ -6,6 +6,7 @@ $TRANSLATIONS = array(
 "Can not add folder: Exists already" => "Kansiota ei voi lisätä: se on jo olemassa",
 "Use ownCloud cron for updates" => "Käytä ownCloudin cronia päivityksille",
 "Purge interval" => "Hävitysväli",
+"Maximum read count per feed" => "Syötekohtaisten lukukertojen enimmäismäärä",
 "Maximum redirects" => "Uudelleenohjausten enimmäismäärä",
 "How many redirects the feed fetcher should follow" => "Kuinka montaa uudelleenohjausta noutajan tulisi seurata",
 "Feed fetcher timeout" => "Syötteen hakemisen aikakatkaisu",
