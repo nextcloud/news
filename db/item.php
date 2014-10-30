@@ -204,7 +204,9 @@ class Item extends Entity implements IAPI, \JsonSerializable {
 
     public function setGuid($guid) {
         parent::setGuid($guid);
-        $this->setGuidHash(md5($guid));
+
+        // not needed to hash again because picofeed hashes the id anyways
+        $this->setGuidHash($guid);
     }
 
 

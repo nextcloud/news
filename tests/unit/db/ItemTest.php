@@ -263,7 +263,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
     public function testSetGuidUpdatesHash() {
         $item = new Item();
         $item->setGuid('http://test');
-        $this->assertEquals(md5('http://test'), $item->getGuidHash());
+        $this->assertEquals('http://test', $item->getGuidHash());
     }
 
 
