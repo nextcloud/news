@@ -63,6 +63,7 @@ class FeedFetcher implements IFeedFetcher {
 
         $modified = $resource->getLastModified();
         $etag = $resource->getEtag();
+        $location = $resource->getUrl();
 
         if (!$resource->isModified()) {
             return [null, null];
@@ -85,14 +86,12 @@ class FeedFetcher implements IFeedFetcher {
             }
 
             $items = [];
-
-            $link = $parsedFeed->getUrl();
             foreach($parsedFeed->getItems() as $item) {
                 $items[] = $this->buildItem($item);
             }
 
             $feed = $this->buildFeed(
-                $parsedFeed, $url, $getFavicon, $modified, $etag
+                $parsedFeed, $url, $getFavicon, $modified, $etag, $location
             );
 
             return [$feed, $items];
@@ -120,14 +119,15 @@ class FeedFetcher implements IFeedFetcher {
 
     protected function buildItem($parsedItem) {
         $item = new Item();
-        $item->setStatus(0);
         $item->setUnread();
         $item->setUrl($parsedItem->getUrl());
+        $item->setGuid($parsedItem->getId());
+        $item->setPubDate($parsedItem->getDate());
+        $item->setLastModified($this->time->getTime());
 
         // unescape content because angularjs helps against XSS
         $item->setTitle($this->decodeTwice($parsedItem->getTitle()));
-        $guid = $parsedItem->getId();
-        $item->setGuid($guid);
+        $item->setAuthor($this->decodeTwice($parsedItem->getAuthor()));
 
         // purification is done in the service layer
         $body = $parsedItem->getContent();
@@ -135,17 +135,6 @@ class FeedFetcher implements IFeedFetcher {
             mb_detect_encoding($body));
         $item->setBody($body);
 
-        // pubdate is not required. if not given use the current date
-        $date = $parsedItem->getDate();
-
-        $item->setPubDate($date);
-
-        $item->setLastModified($this->time->getTime());
-
-        $author = $parsedItem->getAuthor();
-        $item->setAuthor($this->decodeTwice($author));
-
-        // TODO: make it work for video files also
         $enclosureUrl = $parsedItem->getEnclosureUrl();
         if($enclosureUrl) {
             $enclosureType = $parsedItem->getEnclosureType();
@@ -161,28 +150,23 @@ class FeedFetcher implements IFeedFetcher {
 
 
     protected function buildFeed($parsedFeed, $url, $getFavicon, $modified,
-                                 $etag) {
+                                 $etag, $location) {
         $feed = new Feed();
+
+        $link = $parsedFeed->getUrl();
+
+        if (!$link) {
+            $link = $location;
+        }
 
         // unescape content because angularjs helps against XSS
         $title = strip_tags($this->decodeTwice($parsedFeed->getTitle()));
-
-        // if there is no title use the url
-        if(!$title) {
-            $title = $url;
-        }
-
         $feed->setTitle($title);
-        $feed->setUrl($url);
+        $feed->setUrl($url);  // the url used to add the feed
+        $feed->setLocation($location);  // the url where the feed was found
+        $feed->setLink($link);  // <link> attribute in the feed
         $feed->setLastModified($modified);
         $feed->setEtag($etag);
-
-        $link = $parsedFeed->getUrl();
-        if (!$link) {
-            $link = $url;
-        }
-        $feed->setLink($link);
-
         $feed->setAdded($this->time->getTime());
 
         if ($getFavicon) {

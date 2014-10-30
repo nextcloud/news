@@ -219,6 +219,7 @@ class FeedService extends Service {
 
                 $existingFeed->setLastModified($fetchedFeed->getLastModified());
                 $existingFeed->setEtag($fetchedFeed->getEtag());
+                $existingFeed->setLocation($fetchedFeed->getLocation());
                 $this->feedMapper->update($existingFeed);
 
                 // insert items in reverse order because the first one is

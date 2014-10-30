@@ -47,6 +47,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
     private $webFavicon;
     private $modified;
     private $etag;
+    private $location;
 
     protected function setUp(){
         $this->reader = $this->getMockBuilder(
@@ -133,6 +134,9 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $this->client->expects($this->once())
             ->method('getEtag')
             ->will($this->returnValue($this->etag));
+        $this->client->expects($this->once())
+            ->method('getUrl')
+            ->will($this->returnValue($this->location));
 
         if (!$modified) {
             $this->reader->expects($this->never())
@@ -211,7 +215,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 
     private function createFeed($hasFavicon=false) {
         $this->expectFeed('getTitle', $this->feedTitle);
-        $this->expectFeed('getUrl', $this->feedLink, 2);
+        $this->expectFeed('getUrl', $this->feedLink);
 
         $feed = new Feed();
         $feed->setTitle('&its a title');
@@ -220,6 +224,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $feed->setAdded($this->time);
         $feed->setLastModified($this->modified);
         $feed->setEtag($this->etag);
+        $feed->setLocation($this->location);
 
         if($hasFavicon) {
             $this->faviconFactory->expects($this->once())
@@ -260,28 +265,6 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $this->setUpReader($this->url);
         $item = $this->createItem();
         $feed = $this->createFeed();
-        $this->expectFeed('getItems', [$this->item]);
-        $result = $this->fetcher->fetch($this->url, false);
-
-        $this->assertEquals([$feed, [$item]], $result);
-    }
-
-
-    public function testNoTitleUsesUrl(){
-        $this->setUpReader($this->url);
-        $this->expectFeed('getTitle', '');
-        $this->expectFeed('getUrl', $this->feedLink, 2);
-
-        $feed = new Feed();
-        $feed->setTitle($this->url);
-        $feed->setUrl($this->url);
-        $feed->setLink($this->feedLink);
-        $feed->setAdded($this->time);
-        $feed->setFaviconLink(null);
-        $feed->setLastModified($this->modified);
-        $feed->setEtag($this->etag);
-
-        $item = $this->createItem();
         $this->expectFeed('getItems', [$this->item]);
         $result = $this->fetcher->fetch($this->url, false);
 
