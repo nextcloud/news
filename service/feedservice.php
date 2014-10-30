@@ -192,9 +192,16 @@ class FeedService extends Service {
                 return $existingFeed;
             }
 
+            // for backwards compability it can be that the location is not set
+            // yet, if so use the url
+            $location = $existingFeed->getLocation();
+            if (!$location) {
+                $location = $existingFeed->getUrl();
+            }
+
             try {
                 list($fetchedFeed, $items) = $this->feedFetcher->fetch(
-                    $existingFeed->getUrl(),
+                    $location,
                     false,
                     $existingFeed->getLastModified(),
                     $existingFeed->getEtag()
