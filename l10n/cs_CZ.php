@@ -9,6 +9,7 @@ $TRANSLATIONS = array(
 "Purge interval" => "Vynulovat interval",
 "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored" => "Minimální časový interval v sekundách po kterém jsou smazány z databáze odstraněné zdroje novinek a adresáře; hodnoty kratší než 60 sekund jsou ignorovány",
 "Maximum read count per feed" => "Maximální počet novinek pro zdroj",
+"Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off completely" => "Určuje nejvyšší počet článků, které jsou dostupné ke čtení z jednotlivých zdrojů a nebudou smazány při čištění; pokud se staré články po přečtení znovu objevují, navyšte tuto hodnotu; negativní hodnoty jako -1 tuto funkci úplně vypnou",
 "Maximum redirects" => "Nejvyšší počet přesměrování",
 "How many redirects the feed fetcher should follow" => "Kolik přesměrování se má sledovat při stahování článků",
 "Feed fetcher timeout" => "Interval vypršení pro stahování článků",
