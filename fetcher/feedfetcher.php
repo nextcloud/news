@@ -122,8 +122,7 @@ class FeedFetcher implements IFeedFetcher {
         $item = new Item();
         $item->setStatus(0);
         $item->setUnread();
-        $url = $this->decodeTwice($parsedItem->getUrl());
-        $item->setUrl($url);
+        $item->setUrl($parsedItem->getUrl());
 
         // unescape content because angularjs helps against XSS
         $item->setTitle($this->decodeTwice($parsedItem->getTitle()));
