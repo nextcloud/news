@@ -58,6 +58,10 @@ check if:
 
 ### When reporting bugs
 
+* Enable debug mode by putting this at the bottom of **config/config.php**
+
+      DEFINE('DEBUG', true);
+
 * Turn on debug level debug by adding **"loglevel" => 0,** to your **config/config.php** and reproduce the problem
 * check **data/owncloud.log**
 
