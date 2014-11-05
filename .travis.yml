@@ -51,7 +51,7 @@ before_script:
 
 script:
     # php unit tests
-    - phpunit --coverage-clover=coverage.clover tests/unit
+    - phpunit --coverage-clover=coverage.clover -c phpunit.xml
     - wget https://scrutinizer-ci.com/ocular.phar
     - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
     - cd js/

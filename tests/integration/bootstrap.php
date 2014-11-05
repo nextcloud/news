@@ -3,6 +3,10 @@ namespace OCA\News\Tests\Integration;
 
 require_once __DIR__ . '/../../../../lib/base.php';
 
+\OC_App::loadApps();
+\OC_User::setupBackends();
+\OC_Util::setupFS();
+
 
 class NewsIntegrationTest extends \PHPUnit_Framework_TestCase {
 

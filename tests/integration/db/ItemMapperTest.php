@@ -2,8 +2,6 @@
 
 namespace OCA\News\Db;
 
-require_once __DIR__ . '/../bootstrap.php';
-
 use \OCA\News\AppInfo\Application;
 use \OCA\News\Tests\Integration\NewsIntegrationTest;
 
