@@ -19,7 +19,7 @@ class NewsIntegrationTest extends \PHPUnit_Framework_TestCase {
         ];
 
         foreach ($sql as $query) {
-            $this->db->prepareQuery($query)->execute($user);
+            $this->db->prepareQuery($query)->execute([$user]);
         }
     }
 
@@ -38,7 +38,7 @@ class NewsIntegrationTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    protected function setUp($user='test', $password='test') {
+    protected function setUpOwnCloud($user='test', $password='test') {
         $this->db = \OC::$server->getDb();
         $this->setupUser($user, $password);
         $this->setupNewsDatabase($user);
