@@ -172,6 +172,7 @@ The configuration is in **INI** format and looks like this:
 autoPurgeMinimumInterval = 60
 autoPurgeCount = 200
 maxRedirects = 10
+maxSize = 104857600
 feedFetcherTimeout = 60
 useCronUpdates = true
 ```
