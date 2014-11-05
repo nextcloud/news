@@ -23,12 +23,15 @@ class ItemMapperTest extends NewsIntegrationTest {
     public function testInsert() {
         $item = new Item();
         $item->setTitle('my title');
+        $item->setGuid('test');
 
         $created = $this->itemMapper->insert($item);
 
         $fetched = $this->itemMapper->find($created->getId(), $this->userId);
 
         $this->assertEquals($item->getTitle(), $fetched->getTitle());
+        $this->assertEquals($item->getGuid(), $fetched->getGuid());
+        $this->assertEquals($item->getGuidHash(), $fetched->getGuidHash());
     }
 
 }

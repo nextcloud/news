@@ -7,6 +7,7 @@ require_once __DIR__ . '/../../../../lib/base.php';
 class NewsIntegrationTest extends \PHPUnit_Framework_TestCase {
 
     protected $userId = 'test';
+    protected $userPassword = 'test';
 
     protected function setupNewsDatabase($user='test') {
         $db = \OC::$server->getDb();
@@ -23,22 +24,22 @@ class NewsIntegrationTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    protected function setupUser($user='test') {
+    protected function setupUser($user='test', $password='test') {
         $userManager = \OC::$server->getUserManager();
 
         if ($userManager->userExists($user)) {
-            $userManager->delete($user);
+            $userManager->get($user)->delete();
         }
 
-        $userManager->createUser('test', 'test');
+        $userManager->createUser($user, $password);
 
         $session = \OC::$server->getUserSession();
-        $session->setUser($userManager->get($user));
+        $session->login($user, $password);
     }
 
 
-    protected function setUp($user='test') {
-        $this->setupUser($user);
+    protected function setUp($user='test', $password='test') {
+        $this->setupUser($user, $password);
         $this->setupNewsDatabase($user);
     }
 
