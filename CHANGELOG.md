@@ -10,6 +10,7 @@ owncloud-news (4.0.0)
 * **Enhancement**: Also provide feed last modified and etag headers over API
 * **Enhancement**: Allow to turn off article purging by setting a negative number
 * **Enhancement**: Make article cleanup faster
+* **Bugfix**: Set the correct header for the FirefoxOS manifest.webapp
 
 owncloud-news (3.406)
 * **Enhancement**: Make config.ini editable in the admin interface
