@@ -50,7 +50,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 
             if(preg_match($regex, $item->getUrl())) {
                 list($body, $contentType) = $this->getFile($item->getUrl());
-                if(preg_match('/(?<=charset=)[^;]*/', $contentType, $matches)) {
+                if(preg_match('/(?<=charset=)[^;]*/', $body, $matches)) {
                     $encoding = $matches[0];
                     $body = mb_convert_encoding($body, 'HTML-ENTITIES',
                                                 strtoupper($encoding));
