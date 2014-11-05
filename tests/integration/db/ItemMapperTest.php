@@ -24,6 +24,8 @@ class ItemMapperTest extends NewsIntegrationTest {
         $item = new Item();
         $item->setTitle('my title');
         $item->setGuid('test');
+        $item->setFeedId(3);
+        $item->setUnread();
 
         $created = $this->itemMapper->insert($item);
 
@@ -32,6 +34,8 @@ class ItemMapperTest extends NewsIntegrationTest {
         $this->assertEquals($item->getTitle(), $fetched->getTitle());
         $this->assertEquals($item->getGuid(), $fetched->getGuid());
         $this->assertEquals($item->getGuidHash(), $fetched->getGuidHash());
+        $this->assertEquals($item->getFeedId(), $fetched->getFeedId());
+        $this->assertEquals($item->isRead(), $fetched->isRead());
     }
 
 }
