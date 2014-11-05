@@ -67,7 +67,7 @@ class FeedFetcher implements IFeedFetcher {
      * @param string $etag an etag from an http header.
      * If lastModified matches the http header from the feed
      * no results are fetched
-     * @throws FetcherException if simple pie fails
+     * @throws FetcherException if fails
      * @return array an array containing the new feed and its items, first
      * element being the Feed and second element being an array of Items
      */
