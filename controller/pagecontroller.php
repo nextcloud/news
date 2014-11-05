@@ -14,6 +14,7 @@
 namespace OCA\News\Controller;
 
 use \OCP\AppFramework\Http\TemplateResponse;
+use \OCP\AppFramework\Http\JSONResponse;
 use \OCP\IRequest;
 use \OCP\IConfig;
 use \OCP\IL10N;
@@ -129,7 +130,7 @@ class PageController extends Controller {
             $authors[] = $author['name'];
         }
 
-        return [
+        $data = [
             "name" => $config['name'],
             "type" => 'web',
             "default_locale" => $locale,
@@ -142,6 +143,12 @@ class PageController extends Controller {
                 "url" => $config['homepage']
             ]
         ];
+
+        $response = new JSONResponse($data);
+        $response->addHeader('Content-Type',
+            'application/x-web-app-manifest+json');
+
+        return $response;
     }
 
 }

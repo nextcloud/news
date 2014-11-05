@@ -156,7 +156,7 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
             ->method('getLanguageCode')
             ->will($this->returnValue('de_DE'));
 
-        $result = $this->controller->manifest();
+        $result = $this->controller->manifest()->getData();
         $this->assertEquals($this->configData['name'], $result['name']);
         $this->assertEquals('web', $result['type']);
         $this->assertEquals(
