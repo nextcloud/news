@@ -12,7 +12,6 @@ class NewsIntegrationTest extends \PHPUnit_Framework_TestCase {
 
     protected $userId = 'test';
     protected $userPassword = 'test';
-    protected $db;
 
     protected function setupNewsDatabase($user='test') {
         $sql = [
@@ -22,8 +21,9 @@ class NewsIntegrationTest extends \PHPUnit_Framework_TestCase {
             'DELETE FROM *PREFIX*news_folders WHERE user_id = ?'
         ];
 
+        $db = \OC::$server->getDb();
         foreach ($sql as $query) {
-            $this->db->prepareQuery($query)->execute([$user]);
+            $db->prepareQuery($query)->execute([$user]);
         }
     }
 
@@ -43,7 +43,6 @@ class NewsIntegrationTest extends \PHPUnit_Framework_TestCase {
 
 
     protected function setUpOwnCloud($user='test', $password='test') {
-        $this->db = \OC::$server->getDb();
         $this->setupUser($user, $password);
         $this->setupNewsDatabase($user);
     }
