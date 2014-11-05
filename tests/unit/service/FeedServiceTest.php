@@ -102,8 +102,6 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
     public function testCreateDoesNotFindFeed(){
         $ex = new FetcherException('hi');
         $url = 'test';
-        $this->l10n->expects($this->once())
-            ->method('t');
         $this->fetcher->expects($this->once())
             ->method('fetch')
             ->with($this->equalTo($url))

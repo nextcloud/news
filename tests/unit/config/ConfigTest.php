@@ -50,6 +50,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(null, $this->config->getProxyAuth());
         $this->assertEquals('', $this->config->getProxyUser());
         $this->assertEquals('', $this->config->getProxyPassword());
+        $this->assertEquals(1024*1024*100, $this->config->getMaxSize());
     }
 
 
@@ -129,6 +130,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
         $json = 'autoPurgeMinimumInterval = 60' . "\n" .
             'autoPurgeCount = 3' . "\n" .
             'maxRedirects = 10' . "\n" .
+            'maxSize = 399' . "\n" .
             'feedFetcherTimeout = 60' . "\n" .
             'useCronUpdates = true';
         $this->config->setAutoPurgeCount(3);
@@ -136,6 +138,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
         $this->config->setProxyPort(12);
         $this->config->setProxyUser('this is a test');
         $this->config->setProxyPassword('se');
+        $this->config->setMaxSize(399);
 
         $this->fileSystem->expects($this->once())
             ->method('file_put_contents')
@@ -162,6 +165,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
         $json = 'autoPurgeMinimumInterval = 60' . "\n" .
             'autoPurgeCount = 200' . "\n" .
             'maxRedirects = 10' . "\n" .
+            'maxSize = 104857600' . "\n" .
             'feedFetcherTimeout = 60' . "\n" .
             'useCronUpdates = false';
 

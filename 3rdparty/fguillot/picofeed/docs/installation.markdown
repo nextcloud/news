@@ -1,23 +1,38 @@
 Installation
 ============
 
-Installation with Composer and AutoLoading
-------------------------------------------
+Versions
+--------
+
+- Development version: branch master
+- Available versions:
+    - v0.1.0 (stable)
+    - v0.0.2
+    - v0.0.1
+
+Installation with Composer
+--------------------------
 
 Configure your `composer.json`:
 
 ```json
 {
     "require": {
-        "fguillot/picofeed": "dev-master"
+        "fguillot/picofeed": "0.1.0"
     }
 }
+```
+
+Or simply:
+
+```bash
+composer require fguillot/picofeed:0.1.0
 ```
 
 And download the code:
 
 ```bash
-php composer.phar install # or update
+composer install # or update
 ```
 
 Usage example with the Composer autoloading:
@@ -27,48 +42,24 @@ Usage example with the Composer autoloading:
 
 require 'vendor/autoload.php';
 
-use PicoFeed\Reader;
+use PicoFeed\Reader\Reader;
 
-$reader = new Reader;
-$reader->download('http://linuxfr.org/news.atom');
+try {
 
-$parser = $reader->getParser();
+    $reader = new Reader;
+    $resource = $reader->download('https://linuxfr.org/news.atom');
 
-if ($parser !== false) {
+    $parser = $reader->getParser(
+        $resource->getUrl(),
+        $resource->getContent(),
+        $resource->getEncoding()
+    );
 
     $feed = $parser->execute();
 
-    if ($feed !== false) {
-        echo $feed->title;
-    }
+    echo $feed;
 }
-```
-
-Installation without AutoLoading
---------------------------------
-
-If you don't want to use an autoloader, you can include the file `PicoFeed.php`.
-
-Example:
-
-```php
-<?php
-
-require 'path/to/PicoFeed.php';
-
-use PicoFeed\Reader;
-
-$reader = new Reader;
-$reader->download('http://linuxfr.org/news.atom');
-
-$parser = $reader->getParser();
-
-if ($parser !== false) {
-
-    $feed = $parser->execute();
-
-    if ($feed !== false) {
-        echo $feed->title;
-    }
+catch (Exception $e) {
+    // Do something...
 }
 ```

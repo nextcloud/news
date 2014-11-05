@@ -147,13 +147,7 @@ class FeedService extends Service {
             return $feed;
         } catch(FetcherException $ex){
             $this->logger->debug($ex->getMessage(), $this->loggerParams);
-            throw new ServiceNotFoundException(
-                $this->l10n->t(
-                    'Can not add feed: URL does not exist, ' .
-                    'SSL Certificate can not be validated ' .
-                    'or feed has invalid xml'
-                )
-            );
+            throw new ServiceNotFoundException($ex->getMessage());
         }
     }
 

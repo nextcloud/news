@@ -3,6 +3,7 @@ owncloud-news (4.0.0)
 * **Backwards incompatible change**: Get rid of cacheCuration setting
 * **Backwards incompatible change**: Use three numbers for versioning because core bug with versions seems fixed
 * **Enhancement**: Add maxRedirects setting in config.ini
+* **Enhancement**: Add maxSize setting in config.ini
 * **Enhancement**: Get rid SimplePie feed parser library and switch to PicoFeed because SimplePie is unmaintained and full of bugs
 * **Enhancement**: Faster feed updates due to proper HTTP cache headers thanks to picoFeed
 * **Enhancement**: Use ownCloud internal proxy settings

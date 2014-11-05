@@ -26,10 +26,12 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
     private $faviconFetcher;
     private $parsedFeed;
     private $faviconFactory;
-    private $readerFactory;
+    private $l10n;
     private $url;
     private $time;
     private $item;
+    private $content;
+    private $encoding;
 
     // items
     private $permalink;
@@ -50,32 +52,32 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
     private $location;
 
     protected function setUp(){
+        $this->l10n = $this->getMockBuilder(
+            '\OCP\IL10N')
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->reader = $this->getMockBuilder(
-            '\PicoFeed\Reader')
+            '\PicoFeed\Reader\Reader')
             ->disableOriginalConstructor()
             ->getMock();
         $this->parser = $this->getMockBuilder(
-            '\PicoFeed\Parser')
+            '\PicoFeed\Parser\Parser')
             ->disableOriginalConstructor()
             ->getMock();
         $this->client = $this->getMockBuilder(
-            '\PicoFeed\Client')
+            '\PicoFeed\Client\Client')
             ->disableOriginalConstructor()
             ->getMock();
         $this->parsedFeed = $this->getMockBuilder(
-            '\PicoFeed\Feed')
+            '\PicoFeed\Parser\Feed')
             ->disableOriginalConstructor()
             ->getMock();
         $this->item = $this->getMockBuilder(
-            '\PicoFeed\Item')
+            '\PicoFeed\Parser\Item')
             ->disableOriginalConstructor()
             ->getMock();
         $this->faviconFetcher = $this->getMockBuilder(
-            '\PicoFeed\Favicon')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $this->readerFactory = $this->getMockBuilder(
-            '\OCA\News\Utility\PicoFeedReaderFactory')
+            '\PicoFeed\Client\Favicon')
             ->disableOriginalConstructor()
             ->getMock();
         $this->faviconFactory = $this->getMockBuilder(
@@ -88,9 +90,11 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $timeFactory->expects($this->any())
             ->method('getTime')
             ->will($this->returnValue($this->time));
-        $this->fetcher = new FeedFetcher($this->readerFactory,
-                         $this->faviconFactory,
-                         $timeFactory);
+        $this->fetcher = new FeedFetcher(
+                        $this->reader,
+                        $this->faviconFactory,
+                        $this->l10n,
+                        $timeFactory);
         $this->url = 'http://tests';
 
         $this->permalink = 'http://permalink';
@@ -110,6 +114,8 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $this->authorMail = 'doe@joes.com';
         $this->modified = 3;
         $this->etag = 'yo';
+        $this->content = 'some content';
+        $this->encoding = 'UTF-8';
     }
 
 
@@ -119,51 +125,57 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($this->fetcher->canHandle($url));
     }
 
-    private function setUpReader($url='', $modified=true, $noParser=false,
-                                 $noFeed=false) {
-        $this->readerFactory->expects($this->once())
-            ->method('build')
-            ->will($this->returnValue($this->reader));
+    private function setUpReader($url='', $modified=true, $noParser=false) {
         $this->reader->expects($this->once())
-            ->method('download')
+            ->method('discover')
             ->with($this->equalTo($url))
             ->will($this->returnValue($this->client));
         $this->client->expects($this->once())
-            ->method('getLastModified')
-            ->will($this->returnValue($this->modified));
-        $this->client->expects($this->once())
-            ->method('getEtag')
-            ->will($this->returnValue($this->etag));
-        $this->client->expects($this->once())
-            ->method('getUrl')
-            ->will($this->returnValue($this->location));
+            ->method('isModified')
+            ->will($this->returnValue($modified));
 
         if (!$modified) {
             $this->reader->expects($this->never())
                 ->method('getParser');
-        } else if ($noParser) {
-            $this->reader->expects($this->once())
-                ->method('getParser')
-                ->will($this->returnValue(false));
         } else {
-            $this->reader->expects($this->once())
-                ->method('getParser')
-                ->will($this->returnValue($this->parser));
+            $this->client->expects($this->once())
+                ->method('getLastModified')
+                ->will($this->returnValue($this->modified));
+            $this->client->expects($this->once())
+                ->method('getEtag')
+                ->will($this->returnValue($this->etag));
+            $this->client->expects($this->once())
+                ->method('getUrl')
+                ->will($this->returnValue($this->location));
+            $this->client->expects($this->once())
+                ->method('getContent')
+                ->will($this->returnValue($this->content));
+            $this->client->expects($this->once())
+                ->method('getEncoding')
+                ->will($this->returnValue($this->encoding));
 
-            if ($noFeed) {
-                $this->parser->expects($this->once())
-                    ->method('execute')
-                    ->will($this->returnValue(false));
+            if ($noParser) {
+                $this->reader->expects($this->once())
+                    ->method('getParser')
+                    ->will($this->throwException(
+                        new \PicoFeed\Reader\SubscriptionNotFoundException()
+                    ));
             } else {
-                $this->parser->expects($this->once())
-                    ->method('execute')
-                    ->will($this->returnValue($this->parsedFeed));
+                $this->reader->expects($this->once())
+                    ->method('getParser')
+                    ->with(
+                        $this->equalTo($this->location),
+                        $this->equalTo($this->content),
+                        $this->equalTo($this->encoding)
+                    )
+                    ->will($this->returnValue($this->parser));
             }
+
+            $this->parser->expects($this->once())
+                ->method('execute')
+                ->will($this->returnValue($this->parsedFeed));
         }
 
-        $this->client->expects($this->once())
-            ->method('isModified')
-            ->will($this->returnValue($modified));
     }
 
 
@@ -248,13 +260,6 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $this->fetcher->fetch($this->url, false);
     }
 
-
-    public function testFetchThrowsExceptionWhenParsingFailed() {
-        $this->setUpReader($this->url, true, true, false);
-
-        $this->setExpectedException('\OCA\News\Fetcher\FetcherException');
-        $this->fetcher->fetch($this->url, false);
-    }
 
     public function testNoFetchIfNotModified(){
         $this->setUpReader($this->url, false);;

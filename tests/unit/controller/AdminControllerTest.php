@@ -47,7 +47,8 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase {
             'autoPurgeCount' => 2,
             'maxRedirects' => 3,
             'feedFetcherTimeout' => 4,
-            'useCronUpdates' => 5
+            'useCronUpdates' => 5,
+            'maxSize' => 7
         ];
         $this->config->expects($this->once())
             ->method('getAutoPurgeMinimumInterval')
@@ -64,6 +65,9 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase {
         $this->config->expects($this->once())
             ->method('getUseCronUpdates')
             ->will($this->returnValue($expected['useCronUpdates']));
+        $this->config->expects($this->once())
+            ->method('getMaxSize')
+            ->will($this->returnValue($expected['maxSize']));
 
         $response = $this->controller->index();
         $data = $response->getParams();
@@ -82,7 +86,8 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase {
             'autoPurgeCount' => 2,
             'maxRedirects' => 3,
             'feedFetcherTimeout' => 4,
-            'useCronUpdates' => 5
+            'useCronUpdates' => 5,
+            'maxSize' => 7,
         ];
 
         $this->config->expects($this->once())
@@ -119,12 +124,16 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase {
         $this->config->expects($this->once())
             ->method('getUseCronUpdates')
             ->will($this->returnValue($expected['useCronUpdates']));
+        $this->config->expects($this->once())
+            ->method('getMaxSize')
+            ->will($this->returnValue($expected['maxSize']));
 
         $response = $this->controller->update(
             $expected['autoPurgeMinimumInterval'],
             $expected['autoPurgeCount'],
             $expected['maxRedirects'],
             $expected['feedFetcherTimeout'],
+            $expected['maxSize'],
             $expected['useCronUpdates']
         );
 

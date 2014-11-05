@@ -29,6 +29,7 @@ class Config {
     private $useCronUpdates;  // turn off updates run by owncloud cronjob
     private $logger;
     private $loggerParams;
+    private $maxSize;
 
 
     public function __construct($fileSystem, ILogger $logger, $loggerParams) {
@@ -36,6 +37,7 @@ class Config {
         $this->autoPurgeMinimumInterval = 60;
         $this->autoPurgeCount = 200;
         $this->maxRedirects = 10;
+        $this->maxSize = 100*1024*1024; // 100Mb
         $this->feedFetcherTimeout = 60;
         $this->useCronUpdates = true;
         $this->logger = $logger;
@@ -99,6 +101,11 @@ class Config {
     }
 
 
+    public function getMaxSize() {
+        return $this->maxSize;
+    }
+
+
     public function setAutoPurgeMinimumInterval($value) {
         $this->autoPurgeMinimumInterval = $value;
     }
@@ -128,16 +135,24 @@ class Config {
         $this->proxyPort = $value;
     }
 
+
     public function setProxyHost($value) {
         $this->proxyHost = $value;
     }
+
 
     public function setProxyUser($value) {
         $this->proxyUser = $value;
     }
 
+
     public function setProxyPassword($value) {
         $this->proxyPassword = $value;
+    }
+
+
+    public function setMaxSize($value) {
+        $this->maxSize = $value;
     }
 
 
@@ -185,6 +200,8 @@ class Config {
                 $this->autoPurgeCount . "\n" .
             'maxRedirects = ' .
                 $this->maxRedirects . "\n" .
+            'maxSize = ' .
+                $this->maxSize . "\n" .
             'feedFetcherTimeout = ' .
                 $this->feedFetcherTimeout . "\n" .
             'useCronUpdates = ' .

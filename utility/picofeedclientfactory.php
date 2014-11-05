@@ -14,8 +14,8 @@
 
 namespace OCA\News\Utility;
 
-use \PicoFeed\Config;
-use \PicoFeed\Client;
+use \PicoFeed\Config\Config;
+use \PicoFeed\Client\Client;
 
 class PicoFeedClientFactory {
 

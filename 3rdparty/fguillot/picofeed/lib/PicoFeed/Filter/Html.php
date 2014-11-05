@@ -2,15 +2,14 @@
 
 namespace PicoFeed\Filter;
 
-use \PicoFeed\Url;
-use \PicoFeed\Filter;
-use \PicoFeed\XmlParser;
+use \PicoFeed\Client\Url;
+use \PicoFeed\Parser\XmlParser;
 
 /**
  * HTML Filter class
  *
  * @author  Frederic Guillot
- * @package filter
+ * @package Filter
  */
 class Html
 {
@@ -18,9 +17,9 @@ class Html
      * Config object
      *
      * @access private
-     * @var \PicoFeed\Config
+     * @var \PicoFeed\Config\Config
      */
-    private $config = null;
+    private $config;
 
     /**
      * Unfiltered XML data
@@ -89,8 +88,8 @@ class Html
      * Set config object
      *
      * @access public
-     * @param  \PicoFeed\Config  $config   Config instance
-     * @return \PicoFeed\Html
+     * @param  \PicoFeed\Config\Config  $config   Config instance
+     * @return \PicoFeed\Filter\Html
      */
     public function setConfig($config)
     {

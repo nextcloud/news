@@ -1,10 +1,10 @@
 #!/usr/bin/env php
 <?php
 
-require 'lib/PicoFeed/PicoFeed.php';
+require_once './vendor/autoload.php';
 
-use PicoFeed\Reader;
-use PicoFeed\Logging;
+use PicoFeed\Reader\Reader;
+use PicoFeed\Logging\Logging;
 
 function get_feed($url, $disable_filtering = false)
 {

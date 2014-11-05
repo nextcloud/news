@@ -6,7 +6,7 @@ namespace PicoFeed\Filter;
  * Tag Filter class
  *
  * @author  Frederic Guillot
- * @package filter
+ * @package Filter
  */
 class Tag
 {

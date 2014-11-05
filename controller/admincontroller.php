@@ -41,6 +41,7 @@ class AdminController extends Controller {
             'maxRedirects' => $this->config->getMaxRedirects(),
             'feedFetcherTimeout' => $this->config->getFeedFetcherTimeout(),
             'useCronUpdates' => $this->config->getUseCronUpdates(),
+            'maxSize' => $this->config->getMaxSize(),
         ];
         return new TemplateResponse($this->appName, 'admin', $data, 'blank');
     }
@@ -51,15 +52,17 @@ class AdminController extends Controller {
      * @param int $autoPurgeCount
      * @param int $maxRedirects
      * @param int $feedFetcherTimeout
+     * @param int $maxSize
      * @param bool $useCronUpdates
      * @return array with the updated values
      */
     public function update($autoPurgeMinimumInterval, $autoPurgeCount,
-                           $maxRedirects, $feedFetcherTimeout,
+                           $maxRedirects, $feedFetcherTimeout, $maxSize,
                            $useCronUpdates) {
         $this->config->setAutoPurgeMinimumInterval($autoPurgeMinimumInterval);
         $this->config->setAutoPurgeCount($autoPurgeCount);
         $this->config->setMaxRedirects($maxRedirects);
+        $this->config->setMaxSize($maxSize);
         $this->config->setFeedFetcherTimeout($feedFetcherTimeout);
         $this->config->setUseCronUpdates($useCronUpdates);
         $this->config->write($this->configPath);
@@ -69,6 +72,7 @@ class AdminController extends Controller {
                 $this->config->getAutoPurgeMinimumInterval(),
             'autoPurgeCount' => $this->config->getAutoPurgeCount(),
             'maxRedirects' => $this->config->getMaxRedirects(),
+            'maxSize' => $this->config->getMaxSize(),
             'feedFetcherTimeout' => $this->config->getFeedFetcherTimeout(),
             'useCronUpdates' => $this->config->getUseCronUpdates(),
         ];

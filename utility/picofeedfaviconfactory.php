@@ -14,8 +14,8 @@
 
 namespace OCA\News\Utility;
 
-use \PicoFeed\Config;
-use \PicoFeed\Favicon;
+use \PicoFeed\Config\Config;
+use \PicoFeed\Client\Favicon;
 
 class PicoFeedFaviconFactory {
 

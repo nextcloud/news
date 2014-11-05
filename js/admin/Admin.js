@@ -25,6 +25,8 @@
             $('#news input[name="news-max-redirects"]');
         var feedFetcherTimeoutInput =
             $('#news input[name="news-feed-fetcher-timeout"]');
+        var maxSizeInput =
+            $('#news input[name="news-max-size"]');
         var savedMessage = $('#news-saved-message');
 
         var saved = function () {
@@ -44,6 +46,7 @@
             var autoPurgeCount = autoPurgeCountInput.val();
             var maxRedirects = maxRedirectsInput.val();
             var feedFetcherTimeout = feedFetcherTimeoutInput.val();
+            var maxSize = maxSizeInput.val();
             var useCronUpdates = useCronUpdatesInput.is(':checked');
 
             var data = {
@@ -52,6 +55,7 @@
                 autoPurgeCount: parseInt(autoPurgeCount, 10),
                 maxRedirects: parseInt(maxRedirects, 10),
                 feedFetcherTimeout: parseInt(feedFetcherTimeout, 10),
+                maxSize: parseInt(maxSize, 10),
                 useCronUpdates: useCronUpdates
             };
 
@@ -69,6 +73,7 @@
                     .val(data.autoPurgeMinimumInterval);
                 autoPurgeCountInput.val(data.autoPurgeCount);
                 maxRedirectsInput.val(data.maxRedirects);
+                maxSizeInput.val(data.maxSize);
                 feedFetcherTimeoutInput.val(data.feedFetcherTimeout);
                 useCronUpdatesInput.prop('checked', data.useCronUpdates);
             });

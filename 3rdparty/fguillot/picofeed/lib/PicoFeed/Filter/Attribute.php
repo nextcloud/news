@@ -2,14 +2,13 @@
 
 namespace PicoFeed\Filter;
 
-use \PicoFeed\Url;
-use \PicoFeed\Filter;
+use \PicoFeed\Client\Url;
 
 /**
  * Attribute Filter class
  *
  * @author  Frederic Guillot
- * @package filter
+ * @package Filter
  */
 class Attribute
 {
@@ -215,15 +214,15 @@ class Attribute
      * Add attributes to specified tags
      *
      * @access private
-     * @var \PicoFeed\Url
+     * @var \PicoFeed\Client\Url
      */
-    private $website = null;
+    private $website;
 
     /**
      * Constructor
      *
      * @access public
-     * @param  \PicoFeed\Url    $website    Website url instance
+     * @param  \PicoFeed\Client\Url    $website    Website url instance
      */
     public function __construct(Url $website)
     {
@@ -489,7 +488,7 @@ class Attribute
      *
      * @access public
      * @param  array   $values   List of tags: ['video' => ['src', 'cover'], 'img' => ['src']]
-     * @return \PicoFeed\Filter
+     * @return \PicoFeed\Filter\Filter
      */
     public function setWhitelistedAttributes(array $values)
     {
@@ -502,7 +501,7 @@ class Attribute
      *
      * @access public
      * @param  array   $values   List of scheme: ['http://', 'ftp://']
-     * @return \PicoFeed\Filter
+     * @return \PicoFeed\Filter\Filter
      */
     public function setSchemeWhitelist(array $values)
     {
@@ -515,7 +514,7 @@ class Attribute
      *
      * @access public
      * @param  array   $values   List of values: ['src', 'href']
-     * @return \PicoFeed\Filter
+     * @return \PicoFeed\Filter\Filter
      */
     public function setMediaAttributes(array $values)
     {
@@ -528,7 +527,7 @@ class Attribute
      *
      * @access public
      * @param  array   $values   List of tags: ['http://google.com/', '...']
-     * @return \PicoFeed\Filter
+     * @return \PicoFeed\Filter\Filter
      */
     public function setMediaBlacklist(array $values)
     {
@@ -541,7 +540,7 @@ class Attribute
      *
      * @access public
      * @param  array   $values   List of tags: ['img' => 'src']
-     * @return \PicoFeed\Filter
+     * @return \PicoFeed\Filter\Filter
      */
     public function setRequiredAttributes(array $values)
     {
@@ -554,7 +553,7 @@ class Attribute
      *
      * @access public
      * @param  array   $values   List of tags: ['a' => 'target="_blank"']
-     * @return \PicoFeed\Filter
+     * @return \PicoFeed\Filter\Filter
      */
     public function setAttributeOverrides(array $values)
     {
@@ -567,7 +566,7 @@ class Attribute
      *
      * @access public
      * @param  array   $values   List of tags: ['width', 'height']
-     * @return \PicoFeed\Filter
+     * @return \PicoFeed\Filter\Filter
      */
     public function setIntegerAttributes(array $values)
     {
@@ -580,7 +579,7 @@ class Attribute
      *
      * @access public
      * @param  array   $values   List of tags: ['http://www.youtube.com']
-     * @return \PicoFeed\Filter
+     * @return \PicoFeed\Filter\Filter
      */
     public function setIframeWhitelist(array $values)
     {

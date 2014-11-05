@@ -72,6 +72,23 @@ style('news', 'admin');
     </div>
     <div class="form-line">
         <p>
+            <label for="news-max-size">
+                <?php p($l->t('Maximum feed page size')); ?>
+            </label>
+        </p>
+        <p>
+            <em>
+                <?php p($l->t(
+                    'Maximum feed size in bytes. If the RSS/Atom page is ' .
+                    'bigger than this value, the update will be aborted'
+                )); ?>
+            </em>
+        </p>
+        <p><input type="text" name="news-max-size"
+               value="<?php p($_['maxSize']); ?>"></p>
+    </div>
+    <div class="form-line">
+        <p>
             <label for="news-feed-fetcher-timeout">
                 <?php p($l->t('Feed fetcher timeout')); ?>
             </label>

@@ -38,17 +38,20 @@ Authors
 -------
 
 - Original author: [Frédéric Guillot](http://fredericguillot.com/)
-- Contributors: See pull-requests, issues tracker and commit history
+- Major Contributors:
+    - [Bernhard Posselt](https://github.com/Raydiation)
+    - [David Pennington](https://github.com/Xeoncross)
 
 Documentation
 -------------
 
 - [Installation](docs/installation.markdown)
-- [OPML file importation](docs/opml-import.markdown)
-- [OPML file exportation](docs/opml-export.markdown)
+- [Running unit tests](docs/tests.markdown)
 - [Feed parsing](docs/feed-parsing.markdown)
 - [Feed creation](docs/feed-creation.markdown)
 - [Favicon fetcher](docs/favicon.markdown)
+- [OPML file importation](docs/opml-import.markdown)
+- [OPML file exportation](docs/opml-export.markdown)
 - [Web scraping](docs/grabber.markdown)
 - [Debugging](docs/debugging.markdown)
 - [Configuration](docs/config.markdown)

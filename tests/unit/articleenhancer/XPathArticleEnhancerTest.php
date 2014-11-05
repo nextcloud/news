@@ -29,7 +29,7 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
             ->disableOriginalConstructor()
             ->getMock();
         $this->client = $this
-            ->getMockBuilder('\PicoFeed\Client')
+            ->getMockBuilder('\PicoFeed\Client\Client')
             ->disableOriginalConstructor()
             ->getMock();
 

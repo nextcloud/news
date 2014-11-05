@@ -15,7 +15,8 @@ namespace OCA\News\AppInfo;
 
 require_once __DIR__ . '/autoload.php';
 
-use \PicoFeed\Config as PicoFeedConfig;
+use \PicoFeed\Config\Config as PicoFeedConfig;
+use \PicoFeed\Reader\Reader as PicoFeedReader;
 
 use \OC\Files\View;
 use \OCP\AppFramework\App;
@@ -48,7 +49,6 @@ use \OCA\News\Db\MapperFactory;
 use \OCA\News\Utility\OPMLExporter;
 use \OCA\News\Utility\Updater;
 use \OCA\News\Utility\PicoFeedClientFactory;
-use \OCA\News\Utility\PicoFeedReaderFactory;
 use \OCA\News\Utility\PicoFeedFaviconFactory;
 use \OCA\News\Utility\ProxyConfigParser;
 
@@ -421,6 +421,7 @@ class Application extends App {
             $pico->setClientUserAgent($userAgent)
                 ->setClientTimeout($config->getFeedFetcherTimeout())
                 ->setMaxRedirections($config->getMaxRedirects())
+                ->setMaxBodySize($config->getMaxSize())
                 ->setContentFiltering(false)
                 ->setParserHashAlgo('md5');
 
@@ -447,8 +448,8 @@ class Application extends App {
             return $pico;
         });
 
-        $container->registerService('PicoFeedReaderFactory', function($c) {
-            return new PicoFeedReaderFactory($c->query('PicoFeedConfig'));
+        $container->registerService('PicoFeedReader', function($c) {
+            return new PicoFeedReader($c->query('PicoFeedConfig'));
         });
 
         $container->registerService('PicoFeedClientFactory', function($c) {
@@ -471,8 +472,9 @@ class Application extends App {
 
         $container->registerService('FeedFetcher', function($c) {
             return new FeedFetcher(
-                $c->query('PicoFeedReaderFactory'),
+                $c->query('PicoFeedReader'),
                 $c->query('PicoFeedFaviconFactory'),
+                $c->query('L10N'),
                 $c->query('TimeFactory')
             );
         });
