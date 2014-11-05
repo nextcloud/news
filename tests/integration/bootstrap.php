@@ -8,9 +8,9 @@ class NewsIntegrationTest extends \PHPUnit_Framework_TestCase {
 
     protected $userId = 'test';
     protected $userPassword = 'test';
+    protected $db;
 
     protected function setupNewsDatabase($user='test') {
-        $db = \OC::$server->getDb();
         $sql = [
             'DELETE FROM *PREFIX*news_items WHERE feed_id IN ' .
                 '(SELECT id FROM *PREFIX*news_feeds WHERE user_id = ?)',
@@ -19,7 +19,7 @@ class NewsIntegrationTest extends \PHPUnit_Framework_TestCase {
         ];
 
         foreach ($sql as $query) {
-            $db->prepareQuery($query)->execute($user);
+            $this->db->prepareQuery($query)->execute($user);
         }
     }
 
@@ -39,6 +39,7 @@ class NewsIntegrationTest extends \PHPUnit_Framework_TestCase {
 
 
     protected function setUp($user='test', $password='test') {
+        $this->db = \OC::$server->getDb();
         $this->setupUser($user, $password);
         $this->setupNewsDatabase($user);
     }
