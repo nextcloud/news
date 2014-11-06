@@ -45,10 +45,8 @@ before_script:
     # fill owncloud with default configs and enable news
     - cd owncloud
     - mkdir apps2
-    - sudo chown -R www-data:www-data data/
     - ocdev ci $DB
     - php -f console.php app:enable news
-    - sudo chown -R travis:travis data/
     - cd apps/news/js
     # install test deps
     - npm install --deps # npm install needs to run before sudo npm install because otherwise it fails because a tmp file exists in the home dir
