@@ -50,6 +50,11 @@ class ItemMapperTest extends NewsIntegrationTest {
     private function deleteReadOlderThanThreshold() {
         $this->itemMapper->deleteReadOlderThanThreshold(1);
 
+        $this->itemMapper->find($this->items['a title1']->getId(),
+                                $this->userId);
+        $this->itemMapper->find($this->items['a title2']->getId(),
+                                $this->userId);
+        $this->itemMapper->find($this->items['a title3']->getId(), $this->userId);
         $this->itemMapper->find($this->items['del3']->getId(), $this->userId);
         $this->itemMapper->find($this->items['del4']->getId(), $this->userId);
     }
