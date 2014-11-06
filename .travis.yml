@@ -1,13 +1,13 @@
 language: php
 php:
     - 5.4
-    #- 5.5
-    #- 5.6
+    - 5.5
+    - 5.6
 
 env:
     - DB=sqlite
-    #- DB=postgresql
-    #- DB=mysql
+    - DB=postgresql
+    - DB=mysql
 
 before_install:
     # get a newer node.js version
@@ -48,7 +48,6 @@ before_script:
     - sudo chown -R www-data:www-data data/
     - ocdev ci $DB
     - php -f console.php app:enable news
-    - curl http://admin:admin@localhost/owncloud/index.php
     - sudo chown -R travis:travis data/
     - cd apps/news/js
     # install test deps
