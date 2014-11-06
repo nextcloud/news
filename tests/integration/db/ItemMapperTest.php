@@ -11,7 +11,7 @@ class ItemMapperTest extends NewsIntegrationTest {
     private $itemMapper;
 
     protected function setUp() {
-        parent::setUpOwnCloud();
+        parent::setUp();
         $app = new Application();
         $this->container = $app->getContainer();
         $this->itemMapper = $this->container->query('ItemMapper');

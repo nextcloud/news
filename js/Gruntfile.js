@@ -152,7 +152,7 @@ module.exports = function (grunt) {
                 files: [
                     '../**/*.php'
                 ],
-                tasks: ['phpunit']
+                tasks: ['phpunit:unit']
             }
         },
         karma: {
@@ -167,13 +167,25 @@ module.exports = function (grunt) {
             }
         },
         phpunit: {
-            classes: {
-                dir: '../tests'
+            unit: {
+                options: {
+                    colors: true,
+                    configuration: '../phpunit.xml'
+                }
             },
-            options: {
-                colors: true,
-                configuration: '../phpunit.xml'
-            }
+            coverageUnit: {
+                options: {
+                    colors: true,
+                    configuration: '../phpunit.xml',
+                    coverageClover: '../coverage.clover'
+                }
+            },
+            integration: {
+                options: {
+                    colors: true,
+                    configuration: '../phpunit.integration.xml'
+                }
+            },
         },
         /* jshint camelcase: false */
         protractor_webdriver: {
@@ -211,11 +223,14 @@ module.exports = function (grunt) {
     grunt.registerTask('default', ['jshint', 'concat',  'wrap', 'ngAnnotate',
                                    'uglify', 'cssmin']);
     grunt.registerTask('dev', ['watch:concat']);
-    grunt.registerTask('unit-js', ['karma:unit']);
-    grunt.registerTask('unit-php', ['watch:phpunit']);
-    grunt.registerTask('e2e', ['protractor_webdriver', 'connect',
-                               'protractor']);
-    grunt.registerTask('ci-unit', ['default', 'karma:continuous']);
-    grunt.registerTask('ci-e2e', ['protractor_webdriver', 'connect',
-                                  'protractor']);
+    grunt.registerTask('dev-js-unit', ['karma:unit']);
+    grunt.registerTask('dev-php-unit', ['watch:phpunit']);
+
+    grunt.registerTask('js-unit', ['default', 'karma:continuous']);
+    grunt.registerTask('php-unit', ['phpunit:coverageUnit']);
+    grunt.registerTask('php-integration', ['phpunit:integration']);
+
+    grunt.registerTask('acceptance', ['protractor_webdriver', 'connect',
+                                      'protractor']);
+
 };

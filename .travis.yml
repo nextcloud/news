@@ -47,22 +47,22 @@ before_script:
     - cd owncloud
     - ocdev ci $DB
     - php -f console.php app:enable news
-    - cd apps/news
-
-script:
-    # php unit tests
-    - phpunit --coverage-clover=coverage.clover -c phpunit.xml
-    - wget https://scrutinizer-ci.com/ocular.phar
-    - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
-    - cd js/
-    # install javascript deps (putting it into install section fails often)
+    - cd apps/news/js
+    # install test deps
     - npm install --deps # npm install needs to run before sudo npm install because otherwise it fails because a tmp file exists in the home dir
     - sudo npm -g install grunt-cli protractor
-    # js unit tests
-    - grunt ci-unit
+    - wget https://scrutinizer-ci.com/ocular.phar
+
+script:
+    # unit tests
+    - grunt php-unit
+    - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+    - grunt js-unit
+    # integration tests
+    - grunt php-integration
     # acceptance tests
-    #- webdriver-manager update
-    #- grunt ci-e2e --verbose
+    - webdriver-manager update
+    #- grunt acceptance --verbose
     # debug section to check what went wrong
     - sudo apt-get install curl
     - curl http://admin:admin@localhost/owncloud/index.php
