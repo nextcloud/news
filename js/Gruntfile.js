@@ -153,6 +153,12 @@ module.exports = function (grunt) {
                     '../**/*.php'
                 ],
                 tasks: ['phpunit:unit']
+            },
+            phpintegration: {
+                files: [
+                    '../**/*.php'
+                ],
+                tasks: ['phpunit:integration']
             }
         },
         karma: {
@@ -225,6 +231,7 @@ module.exports = function (grunt) {
     grunt.registerTask('dev', ['watch:concat']);
     grunt.registerTask('dev-js-unit', ['karma:unit']);
     grunt.registerTask('dev-php-unit', ['watch:phpunit']);
+    grunt.registerTask('dev-php-integration', ['watch:phpintegration']);
 
     grunt.registerTask('js-unit', ['default', 'karma:continuous']);
     grunt.registerTask('php-unit', ['phpunit:coverageUnit']);
