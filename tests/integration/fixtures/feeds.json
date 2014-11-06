@@ -10,7 +10,7 @@
             "added": 3000,
             "link": "http://feed.com/rss",
             "preventUpdate": false,
-            "articlesPerUpdate": 40,
+            "articlesPerUpdate": 1,
             "lastModified": "",
             "etag": ""
         },
@@ -44,7 +44,7 @@
             "etag": ""
         },
         {
-            "title": "fifth feed",
+            "title": "sixth feed",
             "url": "http://gremlins.de",
             "deletedAt": 999999999,
             "location": "http://feed.com/rss",

@@ -78,7 +78,7 @@ class NewsIntegrationTest extends \PHPUnit_Framework_TestCase {
                     if (array_key_exists($feed['title'], $items)) {
                         foreach ($items[$feed['title']] as $item) {
                             $item['feedId'] = $newFeed->getId();
-                            $this->items[$item->getTitle()] =
+                            $this->items[$item['title']] =
                                 $this->createItem($item);
                         }
                     }
@@ -95,7 +95,7 @@ class NewsIntegrationTest extends \PHPUnit_Framework_TestCase {
                 if (array_key_exists($feed['title'], $items)) {
                     foreach ($items[$feed['title']] as $item) {
                         $item['feedId'] = $newFeed->getId();
-                        $this->items[$item->getTitle()] =
+                        $this->items[$item['title']] =
                                 $this->createItem($item);
                     }
                 }
@@ -147,13 +147,13 @@ class NewsIntegrationTest extends \PHPUnit_Framework_TestCase {
         $newItem->setLastModified($item['lastModified']);
         $newItem->setEnclosureMime($item['enclosureMime']);
         $newItem->setEnclosureLink($item['enclosureLink']);
-        return $this->itemMapper->insert($item);
+        return $this->itemMapper->insert($newItem);
     }
 
 
     protected function whenOlderThan($olderThan, $callback) {
         $ocVersion = $this->ownCloudVersion;
-        if (version_compare(implode('.', $ocVersion), $olderThan, '<=')) {
+        if (version_compare(implode('.', $ocVersion), $olderThan, '<')) {
             $callback();
         }
     }

@@ -28,4 +28,40 @@ class ItemMapperTest extends NewsIntegrationTest {
         $this->assertEquals('Döner', $fetched->getBody());
     }
 
+
+    /**
+     * @expectedException OCP\AppFramework\Db\DoesNotExistException
+     */
+    public function testFindNotFoundWhenDeletedFeed() {
+        $id = $this->items['not found feed']->getId();
+        $this->itemMapper->find($id, $this->userId);
+    }
+
+
+    /**
+     * @expectedException OCP\AppFramework\Db\DoesNotExistException
+     */
+    public function testFindNotFoundWhenDeletedFolder() {
+        $id = $this->items['not found folder']->getId();
+        $this->itemMapper->find($id, $this->userId);
+    }
+
+
+    public function testDeleteOlderThanThreshold() {
+        $this->itemMapper->deleteReadOlderThanThreshold(1);
+        $item1 = $this->items['del1'];
+        $item2 = $this->items['del2'];
+        $item3 = $this->items['del3'];
+        $item4 = $this->items['del4'];
+
+        $this->itemMapper->find($item3->getId(), $this->userId);
+        $this->itemMapper->find($item4->getId(), $this->userId);
+
+        //$this->setExpectedException(
+        //    'OCP\AppFramework\Db\DoesNotExistException');
+        $this->itemMapper->find($item1->getId(), $this->userId);
+        $this->itemMapper->find($item2->getId(), $this->userId);
+    }
+
+
 }
