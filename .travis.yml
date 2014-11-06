@@ -25,7 +25,7 @@ install:
     - sudo easy_install3 pip  # ubuntu 12.04 only
     - sudo pip3 install ocdev
     # clone core
-    - ocdev setup core --dir owncloud
+    - ocdev setup core --dir owncloud --branch stable7
     - mv news owncloud/apps/
 
 before_script:
@@ -44,11 +44,12 @@ before_script:
     - sudo service apache2 restart
     # fill owncloud with default configs and enable news
     - cd owncloud
-    - chown -R www-data:www-data data/
+    - mkdir apps2
+    - sudo chown -R www-data:www-data data/
     - ocdev ci $DB
     - php -f console.php app:enable news
     - curl http://admin:admin@localhost/owncloud/index.php
-    - chmod -R travis:travis data/
+    - sudo chmod -R travis:travis data/
     - cd apps/news/js
     # install test deps
     - npm install --deps # npm install needs to run before sudo npm install because otherwise it fails because a tmp file exists in the home dir
