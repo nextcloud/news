@@ -1,7 +1,6 @@
 <?php
 $TRANSLATIONS = array(
 "Can not add feed: Exists already" => "Неможливо додати стрічку: вона вже існує",
-"Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" => "Неможливо додати стрічку: URL не існує, SSL-сертифікат не можна перевірити, або ресурс має неприпустимий XML",
 "Articles without feed" => "Статті без стрічки",
 "Can not add folder: Exists already" => "Неможливо додати теку: вона вже існує",
 "Saved" => "Збереженно",

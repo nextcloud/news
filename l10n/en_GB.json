@@ -1,6 +1,5 @@
 { "translations": {
     "Can not add feed: Exists already" : "Can not add feed: Exists already",
-    "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" : "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid XML",
     "Articles without feed" : "Articles without feed",
     "Can not add folder: Exists already" : "Can not add folder: Exists already",
     "Use ownCloud cron for updates" : "Use ownCloud cron for updates",

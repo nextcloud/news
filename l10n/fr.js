@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Can not add feed: Exists already" : "Impossible d'ajouter le flux : Déjà présent",
-    "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" : "Vous ne pouvez pas l'ajouter ce flux: l'URL n'existe pas, le Certificat SSL n'a pas été validé ou alors le fichier XML du flux est invalide.",
     "Articles without feed" : "Articles sans flux",
     "Can not add folder: Exists already" : "Impossible d'ajouter le dossier : Déjà présent",
     "Use ownCloud cron for updates" : "Utiliser la tâche cron ownCloud pour les mises à jour",

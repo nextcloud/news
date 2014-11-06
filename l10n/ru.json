@@ -1,6 +1,5 @@
 { "translations": {
     "Can not add feed: Exists already" : "Не удаётся добавить ленту: уже существует",
-    "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" : "Не удаётся добавить ленту: адрес не существует, SSL-сертификат не может быть проверен или ресурс содержит неверный xml",
     "Articles without feed" : "Статьи без новостной ленты",
     "Can not add folder: Exists already" : "Не удаётся добавить папку: уже существует",
     "Use ownCloud cron for updates" : "Использовать стандартный cron от ownCloud для обновлений",

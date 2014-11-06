@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Can not add feed: Exists already" : "Não é possível adicionar alimentação: já existe",
-    "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" : "Não é possível fazer alimentação: URL não existe, Certificado SSL não pode ser validado ou alimentação tem xml inválido",
     "Articles without feed" : "Artigos sem alimentação",
     "Can not add folder: Exists already" : "Não é possível adicionar pasta: já existe",
     "Use ownCloud cron for updates" : "Use ownCloud cron para atualizações",

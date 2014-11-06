@@ -1,6 +1,5 @@
 { "translations": {
     "Can not add feed: Exists already" : "フィードを追加できません: すでに存在します",
-    "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" : "フィードを追加できません：URLが存在しないか、SSL認証が正しくない、もしくはフィードが不正なXMLです。",
     "Articles without feed" : "フィードなし記事",
     "Can not add folder: Exists already" : "フォルダーを追加できません: すでに存在します",
     "Use ownCloud cron for updates" : "ownCloud cron をアップデートに使用",
@@ -20,6 +19,7 @@
     "Star article" : "スター付きの記事",
     "Unstar article" : "スター無しの記事",
     "Keep article unread" : "記事を未読のままにする",
+    "Remove keep article unread" : "記事の未読保持を解除",
     "by" : "により",
     "from" : "開始",
     "Browser can not play media type" : "ブラウザで再生できないメディアタイプです。",

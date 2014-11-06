@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Can not add feed: Exists already" : "Tidak dapat menambah feed: Sudah ada",
-    "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" : "Tidak dapat menambahkan feed: URL tidak ada, Sertifikat SSL tidak tervalidasi atau feed memiliki xml yang tidak sah",
     "Articles without feed" : "Artikel tanpa feed",
     "Can not add folder: Exists already" : "Tidak dapat menambah folder: Sudah ada",
     "Use ownCloud cron for updates" : "Gunakan cron ownCloud untuk pembaruan",

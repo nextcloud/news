@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Can not add feed: Exists already" : "Kan feed niet toevoegen: bestaat al",
-    "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" : "Kan feed niet toevoegen: URL bestaat niet, het SSL certificaat ka niet worden geverifieerd of de feed bevat geen geldige xml",
     "Articles without feed" : "Artikelen zonder feed",
     "Can not add folder: Exists already" : "Kan map niet toevoegen, bestaat al",
     "Use ownCloud cron for updates" : "Gebruik ownCloud cron voor updates",

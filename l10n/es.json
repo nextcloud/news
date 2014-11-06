@@ -1,6 +1,5 @@
 { "translations": {
     "Can not add feed: Exists already" : "No se puede agregar fuente: ya existe",
-    "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" : "No se puede agregar fuente: el URL no existe, el certificado SSL no puede ser validado o la fuente contiene XML inválido",
     "Articles without feed" : "Artículos sin fuente",
     "Can not add folder: Exists already" : "No se puede agregar carpeta: ya existe",
     "Use ownCloud cron for updates" : "Utilizar el programador de tareas de ownCloud para las actualizaciones",

@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Can not add feed: Exists already" : "Besleme eklenemiyor: Zaten mevcut",
-    "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" : "Besleme eklenemiyor: Adres mevcut değil, SSL Sertifikası doğrulanamadı veya besleme geçersiz XML içeriyor",
     "Articles without feed" : "Beslemesiz makaleler",
     "Can not add folder: Exists already" : "Klasör eklenemiyor: Zaten mevcut",
     "Use ownCloud cron for updates" : "Güncellemeler için ownCloud cron'u kullan",

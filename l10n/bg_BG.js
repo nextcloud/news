@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Can not add feed: Exists already" : "Неможа да се добави потока: Вече съществува",
-    "Can not add feed: URL does not exist, SSL Certificate can not be validated or feed has invalid xml" : "Неуспешно добавяне на поток: интернет адресът не съществува, SSL сертификатът не може да бъде проверен или потокът има невалиден xml.",
     "Articles without feed" : "Статии без свързан поток",
     "Can not add folder: Exists already" : "Неможа да добави папката: Вече съществува",
     "Use ownCloud cron for updates" : "Използвай ownCloud cron за обновяване",
