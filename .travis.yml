@@ -1,13 +1,13 @@
 language: php
 php:
     - 5.4
-    - 5.5
-    - 5.6
+    #- 5.5
+    #- 5.6
 
 env:
     - DB=sqlite
-    - DB=postgresql
-    - DB=mysql
+    #- DB=postgresql
+    #- DB=mysql
 
 before_install:
     # get a newer node.js version
@@ -44,9 +44,11 @@ before_script:
     - sudo service apache2 restart
     # fill owncloud with default configs and enable news
     - cd owncloud
+    - chown -R www-data:www-data data/
     - ocdev ci $DB
     - php -f console.php app:enable news
     - curl http://admin:admin@localhost/owncloud/index.php
+    - chmod -R travis:travis data/
     - cd apps/news/js
     # install test deps
     - npm install --deps # npm install needs to run before sudo npm install because otherwise it fails because a tmp file exists in the home dir
