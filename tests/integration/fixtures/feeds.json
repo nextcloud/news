@@ -2,7 +2,6 @@
     "first folder": [
         {
             "title": "first feed",
-            "folderName": "first folder",
             "url": "http://google.de",
             "deletedAt": 0,
             "location": "http://feed.com/rss",
@@ -16,7 +15,6 @@
         },
         {
             "title": "second feed",
-            "folderName": "first folder",
             "url": "http://golem.de",
             "deletedAt": 0,
             "location": "http://feed.com/rss",

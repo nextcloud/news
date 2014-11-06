@@ -24,7 +24,6 @@ class NewsIntegrationTest extends \PHPUnit_Framework_TestCase {
     protected function setUp() {
         $this->ownCloudVersion = \OCP\Util::getVersion();
         $this->cleanUp();
-        $this->setupUser($this->userId, $this->userPassword);
 
         $app = new Application();
         $this->container = $app->getContainer();
@@ -67,13 +66,13 @@ class NewsIntegrationTest extends \PHPUnit_Framework_TestCase {
         // feeds in folders
         foreach($folders as $folder) {
             $newFolder = $this->createFolder($folder);
-            $this->folders[$newFolder->getName()] = $newFolder;
+            $this->folders[$folder['name']] = $newFolder;
 
             if (array_key_exists($folder['name'], $feeds)) {
                 foreach ($feeds[$folder['name']] as $feed) {
                     $feed['folderId'] = $newFolder->getId();
                     $newFeed = $this->createFeed($feed);
-                    $this->feeds[$newFeed->getTitle()] = $newFeed;
+                    $this->feeds[$feed['title']] = $newFeed;
 
                     if (array_key_exists($feed['title'], $items)) {
                         foreach ($items[$feed['title']] as $item) {
@@ -159,7 +158,7 @@ class NewsIntegrationTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    protected function setupUser($user='test', $password='test') {
+    protected function setupUser($user, $password) {
         $userManager = \OC::$server->getUserManager();
 
         if ($userManager->userExists($user)) {
@@ -176,12 +175,15 @@ class NewsIntegrationTest extends \PHPUnit_Framework_TestCase {
         $session->login($user, $password);
     }
 
+
     private function cleanUp() {
+        $this->setupUser($this->userId, $this->userPassword);
         $this->clearNewsDatabase($this->userId);
         $this->folders = [];
         $this->feeds = [];
         $this->items = [];
     }
+
 
     protected function tearDown() {
         $this->cleanUp();

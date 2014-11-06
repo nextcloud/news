@@ -237,15 +237,17 @@ class ItemMapper extends NewsMapper {
      */
     public function deleteReadOlderThanThreshold($threshold){
         $status = StatusFlag::STARRED | StatusFlag::UNREAD;
-        $sql = 'SELECT COUNT(*) - `feeds`.`articles_per_update` AS `size`, ' .
-        '`items`.`feed_id` AS `feed_id` ' .
+        $params = [$status, $threshold];
+
+        $sql = 'SELECT (COUNT(*) - `feeds`.`articles_per_update`) AS `size`, ' .
+        '`feeds`.`id` AS `feed_id`, `feeds`.`articles_per_update` ' .
             'FROM `*PREFIX*news_items` `items` ' .
             'JOIN `*PREFIX*news_feeds` `feeds` ' .
                 'ON `feeds`.`id` = `items`.`feed_id` ' .
                 'AND NOT ((`items`.`status` & ?) > 0) ' .
-            'GROUP BY `items`.`feed_id`, `feeds`.`articles_per_update` ' .
+            'GROUP BY `feeds`.`id`, `feeds`.`articles_per_update` ' .
             'HAVING COUNT(*) > ?';
-        $params = [$status, $threshold];
+
         $result = $this->execute($sql, $params);
 
         while($row = $result->fetch()) {
@@ -254,16 +256,21 @@ class ItemMapper extends NewsMapper {
             $limit = $size - $threshold;
 
             if($limit > 0) {
-                $params = [$status, $row['feed_id']];
+                $params = [$status, $row['feed_id'], $limit];
 
                 $sql = 'DELETE FROM `*PREFIX*news_items` ' .
-                'WHERE NOT ((`status` & ?) > 0) ' .
-                'AND `feed_id` = ? ' .
-                'ORDER BY `id` ASC';
+                'WHERE `id` IN (' .
+                    'SELECT `id` FROM `*PREFIX*news_items` ' .
+                    'WHERE NOT ((`status` & ?) > 0) ' .
+                    'AND `feed_id` = ? ' .
+                    'ORDER BY `id` ASC ' .
+                    'LIMIT ?' .
+                ')';
 
-                $this->execute($sql, $params, $limit);
+                $this->execute($sql, $params);
             }
         }
+
     }
 
 

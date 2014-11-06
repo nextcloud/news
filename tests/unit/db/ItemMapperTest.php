@@ -361,13 +361,13 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
 
     public function testDeleteReadOlderThanThresholdDoesNotDelete(){
         $status = StatusFlag::STARRED | StatusFlag::UNREAD;
-        $sql =  'SELECT COUNT(*) - `feeds`.`articles_per_update` AS `size`, ' .
-        '`items`.`feed_id` AS `feed_id` ' .
+        $sql =  'SELECT (COUNT(*) - `feeds`.`articles_per_update`) AS `size`' .
+        ', `feeds`.`id` AS `feed_id`, `feeds`.`articles_per_update` ' .
             'FROM `*PREFIX*news_items` `items` ' .
             'JOIN `*PREFIX*news_feeds` `feeds` ' .
                 'ON `feeds`.`id` = `items`.`feed_id` ' .
             'AND NOT ((`items`.`status` & ?) > 0) ' .
-            'GROUP BY `items`.`feed_id`, `feeds`.`articles_per_update` ' .
+            'GROUP BY `feeds`.`id`, `feeds`.`articles_per_update` ' .
             'HAVING COUNT(*) > ?';
 
         $threshold = 10;
@@ -385,25 +385,27 @@ class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
         $threshold = 10;
         $status = StatusFlag::STARRED | StatusFlag::UNREAD;
 
-        $sql1 = 'SELECT COUNT(*) - `feeds`.`articles_per_update` AS `size`, ' .
-        '`items`.`feed_id` AS `feed_id` ' .
+        $sql1 = 'SELECT (COUNT(*) - `feeds`.`articles_per_update`) AS `size`' .
+        ', `feeds`.`id` AS `feed_id`, `feeds`.`articles_per_update` ' .
             'FROM `*PREFIX*news_items` `items` ' .
             'JOIN `*PREFIX*news_feeds` `feeds` ' .
                 'ON `feeds`.`id` = `items`.`feed_id` ' .
                 'AND NOT ((`items`.`status` & ?) > 0) ' .
-            'GROUP BY `items`.`feed_id`, `feeds`.`articles_per_update` ' .
+            'GROUP BY `feeds`.`id`, `feeds`.`articles_per_update` ' .
             'HAVING COUNT(*) > ?';
         $params1 = [$status, $threshold];
 
+        $sql2 = 'DELETE FROM `*PREFIX*news_items` ' .
+                'WHERE `id` IN (' .
+                    'SELECT `id` FROM `*PREFIX*news_items` ' .
+                    'WHERE NOT ((`status` & ?) > 0) ' .
+                    'AND `feed_id` = ? ' .
+                    'ORDER BY `id` ASC ' .
+                    'LIMIT ?' .
+                ')';
+        $params2 = [$status, 30, 1];
 
         $row = ['feed_id' => 30, 'size' => 11];
-
-        $sql2 = 'DELETE FROM `*PREFIX*news_items` ' .
-                'WHERE NOT ((`status` & ?) > 0) ' .
-                'AND `feed_id` = ? ' .
-                'ORDER BY `id` ASC';
-        $params2 = [$status, 30];
-
         $this->setMapperResult($sql1, $params1, [$row]);
         $this->setMapperResult($sql2, $params2);
 

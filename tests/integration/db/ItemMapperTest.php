@@ -47,20 +47,28 @@ class ItemMapperTest extends NewsIntegrationTest {
     }
 
 
-    public function testDeleteOlderThanThreshold() {
+    private function deleteReadOlderThanThreshold() {
         $this->itemMapper->deleteReadOlderThanThreshold(1);
-        $item1 = $this->items['del1'];
-        $item2 = $this->items['del2'];
-        $item3 = $this->items['del3'];
-        $item4 = $this->items['del4'];
 
-        $this->itemMapper->find($item3->getId(), $this->userId);
-        $this->itemMapper->find($item4->getId(), $this->userId);
+        $this->itemMapper->find($this->items['del3']->getId(), $this->userId);
+        $this->itemMapper->find($this->items['del4']->getId(), $this->userId);
+    }
 
-        //$this->setExpectedException(
-        //    'OCP\AppFramework\Db\DoesNotExistException');
-        $this->itemMapper->find($item1->getId(), $this->userId);
-        $this->itemMapper->find($item2->getId(), $this->userId);
+
+    public function testDeleteOlderThanThresholdOne() {
+        $this->deleteReadOlderThanThreshold();
+
+        $this->setExpectedException(
+            'OCP\AppFramework\Db\DoesNotExistException');
+        $this->itemMapper->find($this->items['del1']->getId(), $this->userId);
+    }
+
+
+    public function testDeleteOlderThanThresholdTwo() {
+        $this->deleteReadOlderThanThreshold();
+        $this->setExpectedException(
+            'OCP\AppFramework\Db\DoesNotExistException');
+        $this->itemMapper->find($this->items['del2']->getId(), $this->userId);
     }
 
 
