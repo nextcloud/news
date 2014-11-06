@@ -27,7 +27,10 @@ class ItemMapperTest extends NewsIntegrationTest {
 
         $created = $this->itemMapper->insert($item);
 
+        var_dump($created);
+
         $fetched = $this->itemMapper->find($created->getId(), $this->userId);
+
 
         $this->assertEquals($item->getTitle(), $fetched->getTitle());
         $this->assertEquals($item->getGuid(), $fetched->getGuid());

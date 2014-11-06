@@ -11,6 +11,7 @@ module.exports = function (grunt) {
     'use strict';
 
     // load needed modules
+    grunt.loadNpmTasks('grunt-php');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-connect');
@@ -193,6 +194,16 @@ module.exports = function (grunt) {
                     base: 'tests/static/'
                 }
             }
+        },
+        php: {
+            dist: {
+                options: {
+                    port: 8080,
+                    keepalive: true,
+                    open: true,
+                    base: '../../../'
+                }
+            }
         }
     });
 
@@ -200,8 +211,8 @@ module.exports = function (grunt) {
     grunt.registerTask('default', ['jshint', 'concat',  'wrap', 'ngAnnotate',
                                    'uglify', 'cssmin']);
     grunt.registerTask('dev', ['watch:concat']);
-    grunt.registerTask('test', ['karma:unit']);
-    grunt.registerTask('php', ['watch:phpunit']);
+    grunt.registerTask('unit-js', ['karma:unit']);
+    grunt.registerTask('unit-php', ['watch:phpunit']);
     grunt.registerTask('e2e', ['protractor_webdriver', 'connect',
                                'protractor']);
     grunt.registerTask('ci-unit', ['default', 'karma:continuous']);
