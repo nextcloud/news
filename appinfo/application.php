@@ -44,6 +44,7 @@ use \OCA\News\Service\ItemService;
 use \OCA\News\Db\FolderMapper;
 use \OCA\News\Db\FeedMapper;
 use \OCA\News\Db\ItemMapper;
+use \OCA\News\Db\MapperFactory;
 use \OCA\News\Db\StatusFlag;
 
 use \OCA\News\Utility\OPMLExporter;
@@ -230,6 +231,13 @@ class Application extends App {
         /**
          * Mappers
          */
+        $container->registerService('MapperFactory', function($c) {
+            return new MapperFactory(
+                $c->query('DatabaseType'),
+                $c->query('Db')
+            );
+        });
+
         $container->registerService('FolderMapper', function($c) {
             return new FolderMapper(
                 $c->query('Db')
@@ -243,7 +251,7 @@ class Application extends App {
         });
 
         $container->registerService('ItemMapper', function($c) {
-            return new ItemMapper(
+            return $c->query('MapperFactory')->getItemMapper(
                 $c->query('Db')
             );
         });
