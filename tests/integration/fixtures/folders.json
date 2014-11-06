@@ -1,0 +1,17 @@
+[
+    {
+        "name": "first folder",
+        "deletedAt": 0,
+        "opened": true
+    },
+    {
+        "name": "second folder",
+        "deletedAt": 0,
+        "opened": false
+    },
+    {
+        "name": "third folder",
+        "deletedAt": 9999999999,
+        "opened": true
+    }
+]
