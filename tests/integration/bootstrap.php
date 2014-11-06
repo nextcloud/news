@@ -86,10 +86,12 @@ class NewsIntegrationTest extends \PHPUnit_Framework_TestCase {
         }
 
         // feeds in no folders
-        if (array_key_exists('no feed', $feeds)) {
-            foreach ($feeds['no feed'] as $feed) {
+        if (array_key_exists('no folder', $feeds)) {
+            foreach ($feeds['no folder'] as $feed) {
+
                 $feed['folderId'] = 0;
-                $this->feeds[] = $this->createFeed($feed);
+                $newFeed = $this->createFeed($feed);
+                $this->feeds[] = $newFeed;
 
                 if (array_key_exists($feed['title'], $items)) {
                     foreach ($items[$feed['title']] as $item) {
@@ -186,7 +188,7 @@ class NewsIntegrationTest extends \PHPUnit_Framework_TestCase {
 
 
     protected function tearDown() {
-        $this->cleanUp();
+        //$this->cleanUp();
     }
 
 

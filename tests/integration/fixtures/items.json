@@ -85,6 +85,34 @@
             "enclosureLink": "http://google.de/web.webm"
         }
     ],
+    "third feed": [
+        {
+            "status": 2,
+            "body": "this is a body",
+            "title": "a title9",
+            "author": "my author",
+            "guid": "a title9",
+            "url": "http://google.de",
+            "pubDate": 2323,
+            "lastModified": 113,
+            "enclosureMime": "video/mpeg",
+            "enclosureLink": "http://google.de/web.webm"
+        }
+    ],
+    "fourth feed": [
+        {
+            "status": 0,
+            "body": "this is a body",
+            "title": "no folder",
+            "author": "my author",
+            "guid": "no folder",
+            "url": "http://google.de",
+            "pubDate": 2323,
+            "lastModified": 113,
+            "enclosureMime": "video/mpeg",
+            "enclosureLink": "http://google.de/web.webm"
+        }
+    ],
     "fifth feed": [
         {
             "status": 2,
