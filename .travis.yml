@@ -20,7 +20,7 @@ before_install:
 
 install:
     - cd ..
-    - sudo apt-get -y install nodejs python3-jinja2 python3-setuptools apache2 libapache2-mod-fastcgi firefox chromium-browser
+    - sudo apt-get -y install nodejs python3-jinja2 python3-setuptools apache2 libapache2-mod-fastcgi firefox chromium-browser curl
     - export CHROME_BIN=/usr/bin/chromium-browser
     - sudo easy_install3 pip  # ubuntu 12.04 only
     - sudo pip3 install ocdev
@@ -45,6 +45,7 @@ before_script:
     # fill owncloud with default configs and enable news
     - cd owncloud
     - mkdir apps2
+    - ls -la
     - sudo chown -R www-data:www-data data/
     - ocdev ci $DB
     - php -f console.php app:enable news
@@ -65,9 +66,9 @@ script:
     - grunt php-integration
     # acceptance tests
     - webdriver-manager update
+    - sudo chown -R www-data:www-data ../../../data/
     #- grunt acceptance --verbose
     # debug section to check what went wrong
-    - sudo apt-get install curl
     - curl http://admin:admin@localhost/owncloud/index.php
     - curl http://admin:admin@localhost/owncloud/index.php/apps/news/
     - sudo cat ../../../data/owncloud.log
