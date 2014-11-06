@@ -66,6 +66,7 @@ class ItemMapperTest extends NewsIntegrationTest {
 
     public function testDeleteOlderThanThresholdTwo() {
         $this->deleteReadOlderThanThreshold();
+
         $this->setExpectedException(
             'OCP\AppFramework\Db\DoesNotExistException');
         $this->itemMapper->find($this->items['del2']->getId(), $this->userId);

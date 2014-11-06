@@ -46,6 +46,7 @@ before_script:
     - cd owncloud
     - ocdev ci $DB
     - php -f console.php app:enable news
+    - curl http://admin:admin@localhost/owncloud/index.php
     - cd apps/news/js
     # install test deps
     - npm install --deps # npm install needs to run before sudo npm install because otherwise it fails because a tmp file exists in the home dir
