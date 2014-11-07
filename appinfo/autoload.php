@@ -16,7 +16,7 @@
  */
 
 // composer libs
-require_once __DIR__ . '/../3rdparty/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 // non composer libs
 $thirdPartyLibs = [
@@ -25,6 +25,6 @@ $thirdPartyLibs = [
 
 foreach ($thirdPartyLibs as $class => $path) {
     if (!class_exists($class)) {
-        require_once __DIR__ . '/../3rdparty/' . $path;
+        require_once __DIR__ . '/../vendor/' . $path;
     }
 }

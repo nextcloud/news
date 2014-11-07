@@ -29,9 +29,6 @@
         "wiki": "https://github.com/owncloud/news/wiki",
         "source": "https://github.com/owncloud/news/"
     },
-    "config": {
-        "vendor-dir": "3rdparty"
-    },
     "require": {
         "pear/net_url2": "~2.1",
         "ezyang/htmlpurifier": "~4.6",

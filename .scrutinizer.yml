@@ -1,6 +1,6 @@
 filter:
     excluded_paths:
-        - '3rdparty/*'
+        - 'vendor/*'
         - 'js/vendor/*'
         - 'js/build/*'
         - 'l10n/*'
