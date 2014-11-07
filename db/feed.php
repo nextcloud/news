@@ -120,8 +120,6 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
             'added',
             'folderId',
             'unreadCount',
-            'lastModified',
-            'etag',
             'link'
         ]);
     }
