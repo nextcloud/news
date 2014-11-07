@@ -91,7 +91,7 @@ You can remove the line after a page reload
 
 ## App Store
 
-* Go to the ownCloud apps page
+* Go to the [ownCloud News app store page](http://apps.owncloud.com/content/show.php/News?content=158434&PHPSESSID=f9375ade883d805812e6daee3ddb0430)
 * Activate the **News** app in the apps menu
 * If the app fails to install, add this at the bottom of the file **config/config.php**:
 
