@@ -49,16 +49,6 @@ appstore: clean
 	--exclude=$(project_dir)/phpunit.xml \
 	--exclude=$(project_dir)/Makefile \
 	--exclude=$(project_dir)/tests \
-	--exclude=$(project_dir)/3rdparty/simplepie/README.markdown \
-	--exclude=$(project_dir)/3rdparty/simplepie/tests \
-	--exclude=$(project_dir)/3rdparty/simplepie/build \
-	--exclude=$(project_dir)/3rdparty/simplepie/compatibility_test \
-	--exclude=$(project_dir)/3rdparty/simplepie/demo \
-	--exclude=$(project_dir)/3rdparty/simplepie/idn \
-	--exclude=$(project_dir)/3rdparty/simplepie/.travis.yml \
-	--exclude=$(project_dir)/3rdparty/simplepie/composer.json \
-	--exclude=$(project_dir)/3rdparty/simplepie/db.sql \
-	--exclude=$(project_dir)/3rdparty/simplepie/phpunit.xml.dist \
 	--exclude=$(project_dir)/3rdparty/ezyang/htmlpurifier/.gitattributes \
 	--exclude=$(project_dir)/3rdparty/ezyang/htmlpurifier/composer.json \
 	--exclude=$(project_dir)/3rdparty/ezyang/htmlpurifier/Doxyfile \
@@ -81,4 +71,6 @@ appstore: clean
 	--exclude=$(project_dir)/3rdparty/ezyang/htmlpurifier/smoketests \
 	--exclude=$(project_dir)/3rdparty/ezyang/htmlpurifier/tests \
 	--exclude=$(project_dir)/3rdparty/fguillot/picofeed/docs \
-	--exclude=$(project_dir)/3rdparty/fguillot/picofeed/tests
+	--exclude=$(project_dir)/3rdparty/fguillot/picofeed/tests \
+	--exclude=$(project_dir)/3rdparty/pear/net_url2/docs \
+	--exclude=$(project_dir)/3rdparty/pear/net_url2/tests
