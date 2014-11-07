@@ -17,6 +17,8 @@ use \DOMDocument;
 use \DOMXpath;
 
 use \ZendXml\Security;
+use \PicoFeed\Encoding\Encoding;
+
 use \OCA\News\Utility\PicoFeedClientFactory;
 
 use \OCA\News\Db\Item;
@@ -49,9 +51,10 @@ class XPathArticleEnhancer implements ArticleEnhancer {
         foreach($this->regexXPathPair as $regex => $search) {
 
             if(preg_match($regex, $item->getUrl())) {
-                list($body, $contentType) = $this->getFile($item->getUrl());
+                list($body, $httpEncoding) = $this->getFile($item->getUrl());
                 if(preg_match('/(?<=charset=)[^;]*/', $body, $matches)) {
                     $encoding = $matches[0];
+                    $body = Encoding::convert($body, $encoding);
                     $body = mb_convert_encoding($body, 'HTML-ENTITIES',
                                                 strtoupper($encoding));
                 }
