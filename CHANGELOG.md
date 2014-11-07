@@ -10,7 +10,6 @@ owncloud-news (4.0.0)
 * **Enhancement**: Get rid SimplePie feed parser library and switch to PicoFeed because SimplePie is unmaintained and full of bugs
 * **Enhancement**: Faster feed updates due to proper HTTP cache headers thanks to picoFeed
 * **Enhancement**: Use ownCloud internal proxy settings
-* **Enhancement**: Also provide feed last modified and etag headers over API
 * **Enhancement**: Allow to turn off article purging by setting a negative number
 * **Enhancement**: Make article cleanup faster
 * **Bugfix**: Set the correct header for the FirefoxOS manifest.webapp
