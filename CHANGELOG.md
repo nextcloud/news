@@ -1,3 +1,6 @@
+owncloud-news (4.0.1)
+* **Bugfix**: Fix heise.de encoding issues
+
 owncloud-news (4.0.0)
 * **Backwards incompatible change**: Calculate item ids differently which leads to unpreventable readding of read articles
 * **Backwards incompatible change**: Get rid of cacheCuration setting

@@ -59,9 +59,6 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
         $this->client->expects($this->once())
             ->method('getContent')
             ->will($this->returnValue($body));
-        $this->client->expects($this->once())
-            ->method('getEncoding')
-            ->will($this->returnValue($encoding));
     }
 
 

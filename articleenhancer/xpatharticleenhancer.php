@@ -51,13 +51,9 @@ class XPathArticleEnhancer implements ArticleEnhancer {
         foreach($this->regexXPathPair as $regex => $search) {
 
             if(preg_match($regex, $item->getUrl())) {
-                list($body, $httpEncoding) = $this->getFile($item->getUrl());
-                if(preg_match('/(?<=charset=)[^;]*/', $body, $matches)) {
-                    $encoding = $matches[0];
-                    $body = Encoding::convert($body, $encoding);
-                    $body = mb_convert_encoding($body, 'HTML-ENTITIES',
-                                                strtoupper($encoding));
-                }
+                $body = $this->getFile($item->getUrl());
+                $body = mb_convert_encoding($body, 'HTML-ENTITIES',
+                    mb_detect_encoding($body));
 
                 $dom = new DOMDocument();
 
@@ -95,10 +91,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
         $client = $this->clientFactory->build();
         $client->execute($url);
         $client->setUserAgent('Mozilla/5.0 AppleWebKit');
-        return [
-            $client->getContent(),
-            $client->getEncoding()
-        ];
+        return $client->getContent();
     }
 
 
