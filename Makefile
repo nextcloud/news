@@ -46,7 +46,7 @@ appstore: clean
 	--exclude=$(project_dir)/js/vendor/angular-mocks \
 	--exclude=$(project_dir)/.travis.yml \
 	--exclude=$(project_dir)/.scrutinizer.yml \
-	--exclude=$(project_dir)/phpunit.xml \
+	--exclude=$(project_dir)/phpunit*xml \
 	--exclude=$(project_dir)/Makefile \
 	--exclude=$(project_dir)/tests \
 	--exclude=$(project_dir)/3rdparty/ezyang/htmlpurifier/.gitattributes \
