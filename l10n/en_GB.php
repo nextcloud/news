@@ -1,5 +1,13 @@
 <?php
 $TRANSLATIONS = array(
+"Feed contains invalid XML" => "Feed contains invalid XML",
+"Could not find a feed" => "Could not find a feed",
+"Detected feed format is not supported" => "Detected feed format is not supported",
+"SSL Certificate is invalid" => "SSL Certificate is invalid",
+"Website not found" => "Website not found",
+"More redirects than allowed, aborting" => "More redirects than allowed, aborting",
+"Bigger than maximum allowed size" => "Bigger than maximum allowed size",
+"Request timed out" => "Request timed out",
 "Can not add feed: Exists already" => "Can not add feed: Exists already",
 "Articles without feed" => "Articles without feed",
 "Can not add folder: Exists already" => "Can not add folder: Exists already",
@@ -11,6 +19,8 @@ $TRANSLATIONS = array(
 "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off completely" => "Defines the maximum number of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off completely",
 "Maximum redirects" => "Maximum redirects",
 "How many redirects the feed fetcher should follow" => "How many redirects the feed fetcher should follow",
+"Maximum feed page size" => "Maximum feed page size",
+"Maximum feed size in bytes. If the RSS/Atom page is bigger than this value, the update will be aborted" => "Maximum feed size in bytes. If the RSS/Atom page is bigger than this value, the update will be aborted",
 "Feed fetcher timeout" => "Feed fetcher timeout",
 "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted" => "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted",
 "Saved" => "Saved",

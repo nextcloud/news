@@ -1,5 +1,13 @@
 <?php
 $TRANSLATIONS = array(
+"Feed contains invalid XML" => "Le flux contient un XML non valide",
+"Could not find a feed" => "Impossible de trouver un flux",
+"Detected feed format is not supported" => "Format de flux détecté non compatible",
+"SSL Certificate is invalid" => "Le certificat SSL n'est pas valable",
+"Website not found" => "Site internet non trouvé",
+"More redirects than allowed, aborting" => "Nombre de redirections maximum dépassé, abandon",
+"Bigger than maximum allowed size" => "Taille supérieure au maximum autorisé",
+"Request timed out" => "Temps de réponse de la requete dépassé",
 "Can not add feed: Exists already" => "Impossible d'ajouter le flux : Déjà présent",
 "Articles without feed" => "Articles sans flux",
 "Can not add folder: Exists already" => "Impossible d'ajouter le dossier : Déjà présent",
@@ -11,6 +19,8 @@ $TRANSLATIONS = array(
 "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off completely" => "Définit la quantité maximale d'articles pouvant être lus par flux qui ne seront pas supprimés par la tâche de nettoyage; si d'ancients articles réapparaissent après avoir été lus, augmentez cette valeur; une valeur négative comme -1 désactivera complètement cette fonctionnalité",
 "Maximum redirects" => "Nombre maximal de redirections",
 "How many redirects the feed fetcher should follow" => "Nombre de redirections que le récupérateur de flux doit suivre",
+"Maximum feed page size" => "Taille maximum de page de flux",
+"Maximum feed size in bytes. If the RSS/Atom page is bigger than this value, the update will be aborted" => "Taille maximum de flux en octets. Si la taille de la page RSS/Atom dépasse cette valeur, la mise à jour sera abandonnée.",
 "Feed fetcher timeout" => "Délai d'attente maximum du récupérateur de flux",
 "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted" => "Nombre maximal de secondes que peut prendre un flux RSS ou Atom pour être chargé; si le délai est dépassé, la mise à jour sera annulée",
 "Saved" => "Sauvegardé",

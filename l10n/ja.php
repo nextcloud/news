@@ -1,5 +1,12 @@
 <?php
 $TRANSLATIONS = array(
+"Feed contains invalid XML" => "無効なXMLを含むフィードです。",
+"Could not find a feed" => "フィードが見つかりませんでした。",
+"SSL Certificate is invalid" => "無効なSSL証明書です。",
+"Website not found" => "Webサイトが見つかりませんでした。",
+"More redirects than allowed, aborting" => "リダイレクト数が許可数より多いです､中止します。",
+"Bigger than maximum allowed size" => "最大許容サイズより大きいです。",
+"Request timed out" => "リクエストがタイムアウトしました。",
 "Can not add feed: Exists already" => "フィードを追加できません: すでに存在します",
 "Articles without feed" => "フィードなし記事",
 "Can not add folder: Exists already" => "フォルダーを追加できません: すでに存在します",
@@ -9,6 +16,7 @@ $TRANSLATIONS = array(
 "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored" => "削除されたフィードとフォルダがデータベースから削除されるまでの秒数；60秒以下の値は無視されます",
 "Maximum read count per feed" => "フィード当たりの最大閲覧数",
 "Maximum redirects" => "最大リダイレクト数",
+"Maximum feed page size" => "最大フィードページサイズ",
 "Feed fetcher timeout" => "フィードフェッチャーのタイムアウト",
 "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted" => "RSS / Atom フィードの読み込み待機秒数の制限;設定時間より長くかかる場合はアップデートが中止されます。",
 "Saved" => "保存されました",

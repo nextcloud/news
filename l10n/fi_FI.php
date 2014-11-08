@@ -1,9 +1,18 @@
 <?php
 $TRANSLATIONS = array(
+"Feed contains invalid XML" => "Syöte sisältää virheellistä XML:ää",
+"Could not find a feed" => "Syötettä ei löytynyt",
+"Detected feed format is not supported" => "Havaittu syötemuoto ei ole tuettu",
+"SSL Certificate is invalid" => "SSL-varmenne on virheellinen",
+"Website not found" => "Verkkosivustoa ei löytynyt",
+"More redirects than allowed, aborting" => "Sallittua enemmän uudelleenohjauksia, perutaan",
+"Bigger than maximum allowed size" => "Sallittua enimmäiskokoa suurempi",
+"Request timed out" => "Pyyntö aikakatkaistiin",
 "Can not add feed: Exists already" => "Syötettä ei voi lisätä: se on jo olemassa",
 "Articles without feed" => "Vailla syötettä olevat artikkelit",
 "Can not add folder: Exists already" => "Kansiota ei voi lisätä: se on jo olemassa",
 "Use ownCloud cron for updates" => "Käytä ownCloudin cronia päivityksille",
+"Disable this if you run a custom updater such as the Python updater included in the app" => "Poista käytöstä, jos käytät omavalintaista päivitystapaa, kuten sovelluksen mukana tullutta Python-päivitystapaa",
 "Purge interval" => "Hävitysväli",
 "Maximum read count per feed" => "Syötekohtaisten lukukertojen enimmäismäärä",
 "Maximum redirects" => "Uudelleenohjausten enimmäismäärä",

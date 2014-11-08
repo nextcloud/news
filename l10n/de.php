@@ -1,5 +1,13 @@
 <?php
 $TRANSLATIONS = array(
+"Feed contains invalid XML" => "Feed beinhaltet ungültiges XML",
+"Could not find a feed" => "Feed kann nicht gefunden werden",
+"Detected feed format is not supported" => "Format des Feeds ermitteln wird nicht unterstützt",
+"SSL Certificate is invalid" => "SSL-Zertifikat ist ungültig",
+"Website not found" => "Webseite nicht gefunden",
+"More redirects than allowed, aborting" => "Mehr Weiterleitungen als erlaubt, Abbruch",
+"Bigger than maximum allowed size" => "Größer als die maximal erlaubte Größe",
+"Request timed out" => "Zeitüberschreitung bei der Anfrage",
 "Can not add feed: Exists already" => "Feed konnte nicht hinzugefügt werden:  Existiert bereits",
 "Articles without feed" => "Artikel ohne Feed",
 "Can not add folder: Exists already" => "Ordner kann nicht hinzgefügt werden: Existiert bereits",
@@ -11,6 +19,8 @@ $TRANSLATIONS = array(
 "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off completely" => "Definiert die maximale Anzahl an Artikeln, die pro Feed gelesen und bei einem Aufräumauftrag nicht aus der Datenbank gelöscht werden; wenn ältere Artikel nach dem Lesen erhalten bleiben sollen, erhöhen Sie diesen Wert; negative Werte sowie -1 deaktivieren diese Funktion komplett",
 "Maximum redirects" => "Maximale Anzahl der HTTP Redirects",
 "How many redirects the feed fetcher should follow" => "Maximale Anzahl der HTTP Redirects, denen der Feed-Updater folgen soll",
+"Maximum feed page size" => "Maximale Seitengröße des Feeds",
+"Maximum feed size in bytes. If the RSS/Atom page is bigger than this value, the update will be aborted" => "Maximale Feedgröße in Bytes. Wenn die RSS/Atom-Seite größer als dieser Wert ist, wird die Aktualisierung abgebrochen",
 "Feed fetcher timeout" => "Feed Updater maximum Timeout",
 "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted" => "Maximale Anzahl an Sekunden zum Laden eines RSS- oder Atom-Feeds; wenn dies länger dauert, wird die Aktualisierung abgebrochen.",
 "Saved" => "Gespeichert",

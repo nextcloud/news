@@ -1,5 +1,13 @@
 <?php
 $TRANSLATIONS = array(
+"Feed contains invalid XML" => "Feed bevat ongeldige XML",
+"Could not find a feed" => "Kon geen feed vinden",
+"Detected feed format is not supported" => "Gevonden feed formaat wordt niet ondersteund",
+"SSL Certificate is invalid" => "SSL certificaat is ongeldig",
+"Website not found" => "Website niet gevonden",
+"More redirects than allowed, aborting" => "Meer doorverwijzingen dan toegestaan, afgebroken",
+"Bigger than maximum allowed size" => "Groter dan maximaal toegestane omvang",
+"Request timed out" => "Aanvraag time-out",
 "Can not add feed: Exists already" => "Kan feed niet toevoegen: bestaat al",
 "Articles without feed" => "Artikelen zonder feed",
 "Can not add folder: Exists already" => "Kan map niet toevoegen, bestaat al",
@@ -11,6 +19,8 @@ $TRANSLATIONS = array(
 "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off completely" => "Bepaalt het maximale aantal artikelen dat per feed kan worden gelezen voordat ze door de schoonmaak job worden verwijderd. Als oude artikelen opnieuw verschijnen na het lezen, verhoog dan de waarde; een negatieve waarde, zoals -1, schakelt deze functie uit",
 "Maximum redirects" => "Maximum redirects",
 "How many redirects the feed fetcher should follow" => "Hoeveel redirects de feed ophaler moet volgen",
+"Maximum feed page size" => "Maximum feed paginagrootte",
+"Maximum feed size in bytes. If the RSS/Atom page is bigger than this value, the update will be aborted" => "Maximale feed-omvang in bytes. Als de RSS/Atom pagina groter is, dan zal bijwerken worden afgebroken",
 "Feed fetcher timeout" => "Feed ophaler timeout",
 "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted" => "Maximum aantal seconden om te wachten op een RSS of Atom feed te laden; als het langer duurt, zal het bijwerken worden afgebroken.",
 "Saved" => "Bewaard",

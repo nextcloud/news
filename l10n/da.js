@@ -1,6 +1,14 @@
 OC.L10N.register(
     "news",
     {
+    "Feed contains invalid XML" : "Feed'et indeholder ugyldig XML",
+    "Could not find a feed" : "Kunne ikke finde et feed",
+    "Detected feed format is not supported" : "Det registrerede feed-format understøttes ikke",
+    "SSL Certificate is invalid" : "SSL-certifikatet er ugyldigt",
+    "Website not found" : "Hjemmesiden blev ikke fundet",
+    "More redirects than allowed, aborting" : "Flere videredirigeringer end tilladt - afbryder",
+    "Bigger than maximum allowed size" : "Større end maksimalt tilladt størrelse",
+    "Request timed out" : "Forespørgslen nåede tidsudløb",
     "Can not add feed: Exists already" : "Kan ikke tilføje feed: Det eksisterer allerede",
     "Articles without feed" : "Artikler uden feed",
     "Can not add folder: Exists already" : "Kan ike tilføje mappe: Den findes allerede",
@@ -12,6 +20,8 @@ OC.L10N.register(
     "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off completely" : "Definerer det maksimale antal artikler, der kan blive læst per feed, der ikke bliver slettet af oprydningskørslen; hvis gamle artikler vises påny efter at være blevet læst, så forøg værdien; negative værdier såsom -1 vil slå denne funktion helt fra",
     "Maximum redirects" : "Maksimum for videredirigeringer",
     "How many redirects the feed fetcher should follow" : "Hvor mange videredirigeringer som feed-indhenteren skal følge",
+    "Maximum feed page size" : "Maksimal størrelse for feed-side",
+    "Maximum feed size in bytes. If the RSS/Atom page is bigger than this value, the update will be aborted" : "Maksimum for feed-størrelse i bytes. Hvis RSS/Atom-siden er større end denne værdi, så afbrydes opdateringen",
     "Feed fetcher timeout" : "Tidsudløb for feed-indhenter",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted" : "Det maksimale antal ventetid målt i sekunder for indlæsning af et RSS- eller Atom-feed; hvis det tager længere tid, så afbrydees opdateringen",
     "Saved" : "Gemt",

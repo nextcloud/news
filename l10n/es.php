@@ -1,5 +1,12 @@
 <?php
 $TRANSLATIONS = array(
+"Feed contains invalid XML" => "La fuente contiene XML inválido",
+"Could not find a feed" => "No se pudo encontrar una fuente",
+"Detected feed format is not supported" => "El formato de fuente detectado no está soportado",
+"SSL Certificate is invalid" => "El certificado SSL es inválido",
+"Website not found" => "Sitio web no encontrado",
+"More redirects than allowed, aborting" => "Hay más desvíos que el máximo permitido, cancelando",
+"Bigger than maximum allowed size" => "Mayor tamaño que el máximo permitido",
 "Can not add feed: Exists already" => "No se puede agregar fuente: ya existe",
 "Articles without feed" => "Artículos sin fuente",
 "Can not add folder: Exists already" => "No se puede agregar carpeta: ya existe",
@@ -11,6 +18,8 @@ $TRANSLATIONS = array(
 "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off completely" => "Define el máximo número de artículos que se pueden leer por fuente que no serán eliminados por la tarea de limpieza; si los artículos antiguos reaparecen tras la lectura, incremente este valor; los valor negativos, como -1, deshabilitan esta funcionalidad por completo.",
 "Maximum redirects" => "Máximo número de desvíos",
 "How many redirects the feed fetcher should follow" => "¿ Cuantas redirecciones debería soportar el descargador de fuentes ?",
+"Maximum feed page size" => "Máximo tamaño de página de la fuente",
+"Maximum feed size in bytes. If the RSS/Atom page is bigger than this value, the update will be aborted" => "Máximo tamaño de la fuente en bytes. Si la página RSS/Atom es más grande que este valor, la actualización será cancelada",
 "Feed fetcher timeout" => "Tiempo de espera agotado para la descarga de la fuente",
 "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted" => "Número máximo de segundos para esperar a que cargue una fuente de RSS o Atom; si toma más tiempo, la actualización será cancelada.",
 "Saved" => "Guardado",

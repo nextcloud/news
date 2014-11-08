@@ -1,6 +1,14 @@
 OC.L10N.register(
     "news",
     {
+    "Feed contains invalid XML" : "Alimentação contém XML inválido",
+    "Could not find a feed" : "Não foi possível encontrar uma alimentação",
+    "Detected feed format is not supported" : "Formato de alimentação detectado não é suportado",
+    "SSL Certificate is invalid" : "Certificado SSL é inválido",
+    "Website not found" : "Site não encontrado",
+    "More redirects than allowed, aborting" : "Mais redirecionamentos do que o permitido, abortando",
+    "Bigger than maximum allowed size" : "Maior do que o tamanho máximo permitido",
+    "Request timed out" : "Solicitação expirou",
     "Can not add feed: Exists already" : "Não é possível adicionar alimentação: já existe",
     "Articles without feed" : "Artigos sem alimentação",
     "Can not add folder: Exists already" : "Não é possível adicionar pasta: já existe",
@@ -12,6 +20,8 @@ OC.L10N.register(
     "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off completely" : "Define a quantidade máxima de artigos que podem ser lidos por alimentação que não serão apagados pelo trabalho de limpeza; se artigos antigos reaparecem depois de lidos, aumente este valor; valores negativos, como -1 irá desativar esse recurso completamente",
     "Maximum redirects" : "Redirecionamentos máximos",
     "How many redirects the feed fetcher should follow" : "Quantos redirecionamentos o alimentador de busca deve seguir",
+    "Maximum feed page size" : "Tamanho máximo da página de alimentação",
+    "Maximum feed size in bytes. If the RSS/Atom page is bigger than this value, the update will be aborted" : "Tamanho máximo de alimentação em bytes. Se a página de RSS/Atom é maior do que esse valor, a atualização será abortada",
     "Feed fetcher timeout" : "Tempo limite do alimentador de busca",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted" : "O número máximo de segundos para esperar por um alimentador RSS ou Atom para carregar; se ele demorar muito a atualização será abortada",
     "Saved" : "Salvo",

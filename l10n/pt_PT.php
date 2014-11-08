@@ -1,5 +1,6 @@
 <?php
 $TRANSLATIONS = array(
+"SSL Certificate is invalid" => "O certificado SSL é inválido",
 "Can not add feed: Exists already" => "Não é possível adicionar o feed: Já existe",
 "Articles without feed" => "Artigos sem feed",
 "Can not add folder: Exists already" => "Não é possivel adicionar a pasta: Já existe",
