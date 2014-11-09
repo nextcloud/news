@@ -1,5 +1,13 @@
 <?php
 $TRANSLATIONS = array(
+"Feed contains invalid XML" => "La fonte contiene XML non valido",
+"Could not find a feed" => "Impossibile trovare una fonte",
+"Detected feed format is not supported" => "Il formato della fonte rilevato non è supportato",
+"SSL Certificate is invalid" => "Il certificato SSL non è valido",
+"Website not found" => "Sito web non trovato",
+"More redirects than allowed, aborting" => "Più redirezioni di quelle consentite, interruzione in corso",
+"Bigger than maximum allowed size" => "Più grande della dimensione massima consentita",
+"Request timed out" => "Richiesta scaduta",
 "Can not add feed: Exists already" => "Impossible aggiungere la fonte: esiste già",
 "Articles without feed" => "Articoli senza fonte",
 "Can not add folder: Exists already" => "Impossibile aggiungere la cartella: esiste già",
@@ -11,6 +19,8 @@ $TRANSLATIONS = array(
 "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off completely" => "Definisce la quantità massima di articoli che possono essere letti per ogni fonte che non saranno eliminati dall'operazione di pulitura; se vecchi articoli riappaiono dopo essere stati letti, incrementa questo valore; valori negativi come -1 disattiveranno completamente questa funzionalità",
 "Maximum redirects" => "Numero massimo di redizioni",
 "How many redirects the feed fetcher should follow" => "Quante redirezioni può seguire lo strumento di recupero delle fonti",
+"Maximum feed page size" => "Dimensione massima della pagina della fonte",
+"Maximum feed size in bytes. If the RSS/Atom page is bigger than this value, the update will be aborted" => "Dimensione massima in byte della fonte. Se la pagina RSS/Atom è più grande di questo valore, l'aggiornamento sarà interrotto",
 "Feed fetcher timeout" => "Ritardo massimo di attesa per il recupero della fonte",
 "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted" => "Numero massimo di secondi di attesa per il caricamento di una fonte RSS o Atom; se richiede troppo tempo l'aggiornamento sarà interrotto",
 "Saved" => "Salvato",
