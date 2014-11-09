@@ -59,12 +59,11 @@ script:
     - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
     - grunt js-unit
     # integration tests
-    - cd ..
-    - phpunit -c phpunit.integration.xml
-    - cd js
+    - grunt php-integration
     # acceptance tests
     - webdriver-manager update
-    - sudo chown -R www-data:www-data ../../../data/
+    - sudo chown -R www-data:www-data ../../../data
+    - sudo chmod -R a+rwx ../../../data
     #- grunt acceptance --verbose
     # debug section to check what went wrong
     - curl http://admin:admin@localhost/owncloud/index.php
