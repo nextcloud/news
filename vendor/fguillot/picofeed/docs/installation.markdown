@@ -4,11 +4,13 @@ Installation
 Versions
 --------
 
-- Development version: branch master
+- Development version: master
 - Available versions:
     - v0.1.0 (stable)
     - v0.0.2
     - v0.0.1
+
+Note: The public API has changed between 0.0.x and 0.1.0
 
 Installation with Composer
 --------------------------
@@ -35,7 +37,7 @@ And download the code:
 composer install # or update
 ```
 
-Usage example with the Composer autoloading:
+Usage example with the Composer autoloader:
 
 ```php
 <?php
@@ -47,7 +49,7 @@ use PicoFeed\Reader\Reader;
 try {
 
     $reader = new Reader;
-    $resource = $reader->download('https://linuxfr.org/news.atom');
+    $resource = $reader->download('http://linuxfr.org/news.atom');
 
     $parser = $reader->getParser(
         $resource->getUrl(),

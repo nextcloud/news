@@ -132,6 +132,11 @@ class Html
         return $this->output;
     }
 
+    /**
+     * Called after XML parsing
+     *
+     * @access public
+     */
     public function postFilter()
     {
         $this->output = $this->tag->removeEmptyTags($this->output);

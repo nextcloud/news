@@ -11,7 +11,7 @@ use DateTimeZone;
  * @author  Frederic Guillot
  * @package Logging
  */
-class Logging
+class Logger
 {
     /**
      * List of messages

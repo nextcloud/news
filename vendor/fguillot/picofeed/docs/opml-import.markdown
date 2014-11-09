@@ -4,7 +4,7 @@ Import OPML file
 Importing a list of subscriptions is pretty straightforward:
 
 ```php
-use PicoFeed\Import;
+use PicoFeed\Serialization\Import;
 
 $opml = file_get_contents('mySubscriptions.opml');
 $import = new Import($opml);

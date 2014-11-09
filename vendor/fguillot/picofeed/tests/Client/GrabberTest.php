@@ -1,10 +1,9 @@
 <?php
+
 namespace PicoFeed\Client;
 
 use PHPUnit_Framework_TestCase;
-
 use PicoFeed\Reader\Reader;
-use PicoFeed\Logging\Logging;
 
 class GrabberTest extends PHPUnit_Framework_TestCase
 {

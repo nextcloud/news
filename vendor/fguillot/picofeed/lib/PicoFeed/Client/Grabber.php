@@ -5,7 +5,7 @@ namespace PicoFeed\Client;
 use DOMXPath;
 
 use PicoFeed\Encoding\Encoding;
-use PicoFeed\Logging\Logging;
+use PicoFeed\Logging\Logger;
 use PicoFeed\Filter\Filter;
 use PicoFeed\Parser\XmlParser;
 
@@ -147,7 +147,7 @@ class Grabber
      * Set config object
      *
      * @access public
-     * @param  \PicoFeed\Config  $config   Config instance
+     * @param  \PicoFeed\Config\Config   $config    Config instance
      * @return \PicoFeed\Grabber
      */
     public function setConfig($config)
@@ -188,30 +188,30 @@ class Grabber
     {
         if ($this->html) {
 
-            Logging::setMessage(get_called_class().' Fix encoding');
-            Logging::setMessage(get_called_class().': HTTP Encoding "'.$this->encoding.'"');
+            Logger::setMessage(get_called_class().' Fix encoding');
+            Logger::setMessage(get_called_class().': HTTP Encoding "'.$this->encoding.'"');
 
             $this->html = Filter::stripHeadTags($this->html);
             $this->html = Encoding::convert($this->html, $this->encoding);
 
-            Logging::setMessage(get_called_class().' Content length: '.strlen($this->html).' bytes');
+            Logger::setMessage(get_called_class().' Content length: '.strlen($this->html).' bytes');
             $rules = $this->getRules();
 
             if (is_array($rules)) {
-                Logging::setMessage(get_called_class().' Parse content with rules');
+                Logger::setMessage(get_called_class().' Parse content with rules');
                 $this->parseContentWithRules($rules);
             }
             else {
-                Logging::setMessage(get_called_class().' Parse content with candidates');
+                Logger::setMessage(get_called_class().' Parse content with candidates');
                 $this->parseContentWithCandidates();
             }
         }
         else {
-            Logging::setMessage(get_called_class().' No content fetched');
+            Logger::setMessage(get_called_class().' No content fetched');
         }
 
-        Logging::setMessage(get_called_class().' Content length: '.strlen($this->content).' bytes');
-        Logging::setMessage(get_called_class().' Grabber done');
+        Logger::setMessage(get_called_class().' Content length: '.strlen($this->content).' bytes');
+        Logger::setMessage(get_called_class().' Grabber done');
 
         return $this->content !== '';
     }
@@ -260,14 +260,12 @@ class Grabber
             $files[] = substr($hostname, 0, $pos);
         }
 
-        // Logging::setMessage(var_export($files, true));
-
         foreach ($files as $file) {
 
             $filename = __DIR__.'/../Rules/'.$file.'.php';
 
             if (file_exists($filename)) {
-                Logging::setMessage(get_called_class().' Load rule: '.$file);
+                Logger::setMessage(get_called_class().' Load rule: '.$file);
                 return include $filename;
             }
         }
@@ -283,7 +281,7 @@ class Grabber
      */
     public function parseContentWithRules(array $rules)
     {
-        // Logging::setMessage($this->html);
+        // Logger::setMessage($this->html);
         $dom = XmlParser::getHtmlDocument('<?xml version="1.0" encoding="UTF-8">'.$this->html);
         $xpath = new DOMXPath($dom);
 
@@ -329,13 +327,13 @@ class Grabber
         // Try to lookup in each tag
         foreach ($this->candidatesAttributes as $candidate) {
 
-            Logging::setMessage(get_called_class().' Try this candidate: "'.$candidate.'"');
+            Logger::setMessage(get_called_class().' Try this candidate: "'.$candidate.'"');
 
             $nodes = $xpath->query('//*[(contains(@class, "'.$candidate.'") or @id="'.$candidate.'") and not (contains(@class, "nav") or contains(@class, "page"))]');
 
             if ($nodes !== false && $nodes->length > 0) {
                 $this->content = $dom->saveXML($nodes->item(0));
-                Logging::setMessage(get_called_class().' Find candidate "'.$candidate.'" ('.strlen($this->content).' bytes)');
+                Logger::setMessage(get_called_class().' Find candidate "'.$candidate.'" ('.strlen($this->content).' bytes)');
                 break;
             }
         }
@@ -347,16 +345,16 @@ class Grabber
 
             if ($nodes !== false && $nodes->length > 0) {
                 $this->content = $dom->saveXML($nodes->item(0));
-                Logging::setMessage(get_called_class().' Find <article/> tag ('.strlen($this->content).' bytes)');
+                Logger::setMessage(get_called_class().' Find <article/> tag ('.strlen($this->content).' bytes)');
             }
         }
 
         if (strlen($this->content) < 50) {
-            Logging::setMessage(get_called_class().' No enought content fetched, get the full body');
+            Logger::setMessage(get_called_class().' No enought content fetched, get the full body');
             $this->content = $dom->saveXML($dom->firstChild);
         }
 
-        Logging::setMessage(get_called_class().' Strip garbage');
+        Logger::setMessage(get_called_class().' Strip garbage');
         $this->stripGarbage();
     }
 
@@ -378,7 +376,7 @@ class Grabber
                 $nodes = $xpath->query('//'.$tag);
 
                 if ($nodes !== false && $nodes->length > 0) {
-                    Logging::setMessage(get_called_class().' Strip tag: "'.$tag.'"');
+                    Logger::setMessage(get_called_class().' Strip tag: "'.$tag.'"');
                     foreach ($nodes as $node) {
                         $node->parentNode->removeChild($node);
                     }
@@ -390,7 +388,7 @@ class Grabber
                 $nodes = $xpath->query('//*[contains(@class, "'.$attribute.'") or contains(@id, "'.$attribute.'")]');
 
                 if ($nodes !== false && $nodes->length > 0) {
-                    Logging::setMessage(get_called_class().' Strip attribute: "'.$attribute.'"');
+                    Logger::setMessage(get_called_class().' Strip attribute: "'.$attribute.'"');
                     foreach ($nodes as $node) {
                         $node->parentNode->removeChild($node);
                     }

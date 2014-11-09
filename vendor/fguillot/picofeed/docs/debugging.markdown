@@ -1,13 +1,18 @@
 Debugging
 =========
 
-Get log messages
-----------------
+Logging
+-------
 
 PicoFeed log in memory the execution flow, if a feed doesn't work correctly it's easy to see what is wrong.
 
+### Reading messages
+
 ```php
-print_r(PicoFeed\Logging::getMessages());
+use PicoFeed\Logging\Logger;
+
+// All messages are stored inside an Array
+print_r(Logger::getMessages());
 ```
 
 You will got an output like that:
@@ -36,11 +41,46 @@ Array
 )
 ```
 
-Remove messages
----------------
+### Remove messages
 
-All messages are stored in memory, if you need to clear them just call the method `Logging::deleteMessages()`:
+All messages are stored in memory, if you need to clear them just call the method `Logger::deleteMessages()`:
 
 ```php
-PicoFeed\Logging::deleteMessages();
+Logger::deleteMessages();
+```
+
+Command line utility
+====================
+
+PicoFeed provides a basic command line tool to debug feeds quickly.
+The tool is located in the root directory project.
+
+### Usage
+
+```bash
+$ ./picofeed
+Usage:
+./picofeed feed <feed-url>                   # Parse a feed a dump the ouput on stdout
+./picofeed debug <feed-url>                  # Display all logging messages for a feed
+./picofeed item <feed-url> <item-id>         # Fetch only one item
+./picofeed nofilter <feed-url> <item-id>     # Fetch an item but with no content filtering
+```
+
+### Example
+
+```bash
+$ ./picofeed debug https://linuxfr.org/
+Exception thrown ===> "Invalid SSL certificate"
+Array
+(
+    [0] => [2014-11-08 14:04:14] PicoFeed\Client\Curl Fetch URL: https://linuxfr.org/
+    [1] => [2014-11-08 14:04:14] PicoFeed\Client\Curl Etag provided:
+    [2] => [2014-11-08 14:04:14] PicoFeed\Client\Curl Last-Modified provided:
+    [3] => [2014-11-08 14:04:16] PicoFeed\Client\Curl cURL total time: 1.850634
+    [4] => [2014-11-08 14:04:16] PicoFeed\Client\Curl cURL dns lookup time: 0.00093
+    [5] => [2014-11-08 14:04:16] PicoFeed\Client\Curl cURL connect time: 0.115213
+    [6] => [2014-11-08 14:04:16] PicoFeed\Client\Curl cURL speed download: 0
+    [7] => [2014-11-08 14:04:16] PicoFeed\Client\Curl cURL effective url: https://linuxfr.org/
+    [8] => [2014-11-08 14:04:16] PicoFeed\Client\Curl cURL error: SSL certificate problem: Invalid certificate chain
+)
 ```

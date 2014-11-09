@@ -8,7 +8,7 @@ use DateTimeZone;
 
 use PicoFeed\Encoding\Encoding;
 use PicoFeed\Filter\Filter;
-use PicoFeed\Logging\Logging;
+use PicoFeed\Logging\Logger;
 use PicoFeed\Client\Url;
 use PicoFeed\Client\Grabber;
 
@@ -109,7 +109,7 @@ abstract class Parser
         $this->content = Filter::stripXmlTag($content);
 
         // Encode everything in UTF-8
-        Logging::setMessage(get_called_class().': HTTP Encoding "'.$http_encoding.'" ; XML Encoding "'.$xml_encoding.'"');
+        Logger::setMessage(get_called_class().': HTTP Encoding "'.$http_encoding.'" ; XML Encoding "'.$xml_encoding.'"');
         $this->content = Encoding::convert($this->content, $xml_encoding ?: $http_encoding);
 
         // Workarounds
@@ -124,13 +124,13 @@ abstract class Parser
      */
     public function execute()
     {
-        Logging::setMessage(get_called_class().': begin parsing');
+        Logger::setMessage(get_called_class().': begin parsing');
 
         $xml = XmlParser::getSimpleXml($this->content);
 
         if ($xml === false) {
-            Logging::setMessage(get_called_class().': XML parsing error');
-            Logging::setMessage(XmlParser::getErrors());
+            Logger::setMessage(get_called_class().': XML parsing error');
+            Logger::setMessage(XmlParser::getErrors());
             throw new MalformedXmlException('XML parsing error');
         }
 
@@ -172,7 +172,7 @@ abstract class Parser
             $feed->items[] = $item;
         }
 
-        Logging::setMessage(get_called_class().PHP_EOL.$feed);
+        Logger::setMessage(get_called_class().PHP_EOL.$feed);
 
         return $feed;
     }
@@ -243,7 +243,7 @@ abstract class Parser
             $item->content = $filter->execute();
         }
         else {
-            Logging::setMessage(get_called_class().': Content filtering disabled');
+            Logger::setMessage(get_called_class().': Content filtering disabled');
         }
     }
 

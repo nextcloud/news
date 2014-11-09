@@ -42,6 +42,13 @@ Authors
     - [Bernhard Posselt](https://github.com/Raydiation)
     - [David Pennington](https://github.com/Xeoncross)
 
+Real world usage
+----------------
+
+- [AnythingNew](http://anythingnew.co)
+- [Miniflux](http://miniflux.net)
+- [Owncloud News](https://github.com/owncloud/news)
+
 Documentation
 -------------
 
@@ -53,5 +60,6 @@ Documentation
 - [OPML file importation](docs/opml-import.markdown)
 - [OPML file exportation](docs/opml-export.markdown)
 - [Web scraping](docs/grabber.markdown)
+- [Exceptions](docs/exceptions.markdown)
 - [Debugging](docs/debugging.markdown)
 - [Configuration](docs/config.markdown)

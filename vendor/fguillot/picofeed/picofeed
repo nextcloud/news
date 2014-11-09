@@ -1,32 +1,35 @@
 #!/usr/bin/env php
 <?php
 
-require_once './vendor/autoload.php';
+require_once 'vendor/autoload.php';
 
 use PicoFeed\Reader\Reader;
-use PicoFeed\Logging\Logging;
+use PicoFeed\Logging\Logger;
+use PicoFeed\PicoFeedException;
 
 function get_feed($url, $disable_filtering = false)
 {
-    $reader = new Reader;
-    $reader->download($url);
+    try {
 
-    $parser = $reader->getParser();
+        $reader = new Reader;
+        $resource = $reader->discover($url);
 
-    if ($disable_filtering) {
-        $parser->disableContentFiltering();
-    }
+        $parser = $reader->getParser(
+            $resource->getUrl(),
+            $resource->getContent(),
+            $resource->getEncoding()
+        );
 
-    if ($parser !== false) {
-
-        $feed = $parser->execute();
-
-        if ($feed !== false) {
-            return $feed;
+        if ($disable_filtering) {
+            $parser->disableContentFiltering();
         }
-    }
 
-    return false;
+        return $parser->execute();
+    }
+    catch (PicoFeedException $e) {
+        echo 'Exception thrown ===> "'.$e->getMessage().'"'.PHP_EOL;
+        return false;
+    }
 }
 
 function get_item($feed, $item_id)
@@ -45,42 +48,34 @@ function get_item($feed, $item_id)
 function dump_feed($url)
 {
     $feed = get_feed($url);
-
-    if ($feed === false) {
-        die("Unable to fetch the feed\n");
-    }
-
     echo $feed;
 }
 
 function debug_feed($url)
 {
     get_feed($url);
-    print_r(Logging::getMessages());
+    print_r(Logger::getMessages());
 }
 
 function dump_item($url, $item_id)
 {
     $feed = get_feed($url);
 
-    if ($feed === false) {
-        die("Unable to fetch the feed\n");
+    if ($feed !== false) {
+        get_item($feed, $item_id);
     }
-
-    get_item($feed, $item_id);
 }
 
 function nofilter_item($url, $item_id)
 {
     $feed = get_feed($url, true);
 
-    if ($feed === false) {
-        die("Unable to fetch the feed\n");
+    if ($feed !== false) {
+        get_item($feed, $item_id);
     }
-
-    get_item($feed, $item_id);
 }
 
+// Parse command line arguments
 if ($argc === 4) {
     switch ($argv[1]) {
         case 'item':

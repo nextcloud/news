@@ -2,7 +2,7 @@
 
 namespace PicoFeed\Client;
 
-use PicoFeed\Logging\Logging;
+use PicoFeed\Logging\Logger;
 
 /**
  * Stream context HTTP client
@@ -63,16 +63,16 @@ class Stream extends Client
 
         if ($this->proxy_hostname) {
 
-            Logging::setMessage(get_called_class().' Proxy: '.$this->proxy_hostname.':'.$this->proxy_port);
+            Logger::setMessage(get_called_class().' Proxy: '.$this->proxy_hostname.':'.$this->proxy_port);
 
             $context['http']['proxy'] = 'tcp://'.$this->proxy_hostname.':'.$this->proxy_port;
             $context['http']['request_fulluri'] = true;
 
             if ($this->proxy_username) {
-                Logging::setMessage(get_called_class().' Proxy credentials: Yes');
+                Logger::setMessage(get_called_class().' Proxy credentials: Yes');
             }
             else {
-                Logging::setMessage(get_called_class().' Proxy credentials: No');
+                Logger::setMessage(get_called_class().' Proxy credentials: No');
             }
         }
 

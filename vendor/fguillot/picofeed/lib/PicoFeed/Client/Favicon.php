@@ -5,7 +5,7 @@ namespace PicoFeed\Client;
 use DOMXpath;
 
 use PicoFeed\Config\Config;
-use PicoFeed\Logging\Logging;
+use PicoFeed\Logging\Logger;
 use PicoFeed\Parser\XmlParser;
 
 /**
@@ -67,7 +67,7 @@ class Favicon
     {
         try {
 
-            Logging::setMessage(get_called_class().' Download => '.$url);
+            Logger::setMessage(get_called_class().' Download => '.$url);
 
             $client = Client::getInstance();
             $client->setConfig($this->config);

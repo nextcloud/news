@@ -3,7 +3,6 @@
 namespace PicoFeed\Parser;
 
 use SimpleXMLElement;
-use PicoFeed\Logging\Logging;
 use PicoFeed\Filter\Filter;
 use PicoFeed\Client\Url;
 

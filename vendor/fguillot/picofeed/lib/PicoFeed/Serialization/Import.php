@@ -5,7 +5,7 @@ namespace PicoFeed\Serialization;
 use SimpleXmlElement;
 use StdClass;
 
-use PicoFeed\Logging\Logging;
+use PicoFeed\Logging\Logger;
 use PicoFeed\Parser\XmlParser;
 
 /**
@@ -51,17 +51,17 @@ class Import
      */
     public function execute()
     {
-        Logging::setMessage(get_called_class().': start importation');
+        Logger::setMessage(get_called_class().': start importation');
 
         $xml = XmlParser::getSimpleXml(trim($this->content));
 
         if ($xml === false || $xml->getName() !== 'opml' || ! isset($xml->body)) {
-            Logging::setMessage(get_called_class().': OPML tag not found or malformed XML document');
+            Logger::setMessage(get_called_class().': OPML tag not found or malformed XML document');
             return false;
         }
 
         $this->parseEntries($xml->body);
-        Logging::setMessage(get_called_class().': '.count($this->items).' subscriptions found');
+        Logger::setMessage(get_called_class().': '.count($this->items).' subscriptions found');
 
         return $this->items;
     }

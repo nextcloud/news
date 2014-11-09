@@ -8,8 +8,8 @@ To change the default parameters, you have to use the Config class.
 Create a new instance and pass it to the Reader object like that:
 
 ```php
-use PicoFeed\Reader;
-use PicoFeed\Config;
+use PicoFeed\Reader\Reader;
+use PicoFeed\Config\Config;
 
 $config = new Config;
 $config->setClientUserAgent('My custom RSS Reader')
@@ -80,7 +80,7 @@ $config->setProxyHostname('proxy.example.org');
 - Argument value: port number (integer)
 
 ```php
-$config->getProxyPort(8118);
+$config->setProxyPort(8118);
 ```
 
 ### Proxy username
@@ -132,7 +132,7 @@ Parser
 ### Hash algorithm used for item id generation
 
 - Method name: `setParserHashAlgo()`
-- Default value: `crc32b`
+- Default value: `sha256`
 - Argument value: any value returned by the function `hash_algos()` (string)
 - See: http://php.net/hash_algos
 
@@ -147,7 +147,7 @@ $config->setParserHashAlgo('sha1');
 - Argument value: boolean
 
 ```php
-$config->setContentFiltering();
+$config->setContentFiltering(false);
 ```
 
 ### Timezone

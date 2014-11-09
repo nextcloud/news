@@ -70,7 +70,7 @@ class Rss20 extends Writer
 
         // <description/>
         $description = $this->dom->createElement('description');
-        $description->appendChild($this->dom->createTextNode(isset($this->description) ? $this->description : $this->title));
+        $description->appendChild($this->dom->createTextNode($this->description ?: $this->title));
         $channel->appendChild($description);
 
         // <pubDate/>

@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a50b15fc49d316cb5b2db3e9e7ea78b3",
+    "hash": "3cbce8173a1c93656be80baf11715718",
     "packages": [
         {
             "name": "ezyang/htmlpurifier",
@@ -53,16 +53,16 @@
         },
         {
             "name": "fguillot/picofeed",
-            "version": "dev-0.1.0-dev",
+            "version": "v0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fguillot/picoFeed.git",
-                "reference": "e7e32522b487256c3164eeece30203313b09456a"
+                "reference": "d36a878e912a04c15f49da97e8d627280ae6918c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/e7e32522b487256c3164eeece30203313b09456a",
-                "reference": "e7e32522b487256c3164eeece30203313b09456a",
+                "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/d36a878e912a04c15f49da97e8d627280ae6918c",
+                "reference": "d36a878e912a04c15f49da97e8d627280ae6918c",
                 "shasum": ""
             },
             "require": {
@@ -86,7 +86,7 @@
             ],
             "description": "Modern library to write or read feeds (RSS/Atom)",
             "homepage": "http://fguillot.github.io/picoFeed",
-            "time": "2014-11-05 01:21:29"
+            "time": "2014-11-08 14:43:27"
         },
         {
             "name": "pear/net_url2",
@@ -156,9 +156,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "fguillot/picofeed": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "platform": [],
     "platform-dev": []

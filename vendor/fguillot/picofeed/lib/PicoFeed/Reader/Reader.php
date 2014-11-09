@@ -7,7 +7,7 @@ use DOMXPath;
 use PicoFeed\Config\Config;
 use PicoFeed\Client\Client;
 use PicoFeed\Client\Url;
-use PicoFeed\Logging\Logging;
+use PicoFeed\Logging\Logger;
 use PicoFeed\Filter\Filter;
 use PicoFeed\Parser\XmlParser;
 
@@ -50,7 +50,7 @@ class Reader
     public function __construct(Config $config = null)
     {
         $this->config = $config ?: new Config;
-        Logging::setTimezone($this->config->getTimezone());
+        Logger::setTimezone($this->config->getTimezone());
     }
 
     /**
@@ -111,7 +111,7 @@ class Reader
      */
     public function find($url, $html)
     {
-        Logging::setMessage(get_called_class().': Try to discover subscriptions');
+        Logger::setMessage(get_called_class().': Try to discover subscriptions');
 
         $dom = XmlParser::getHtmlDocument($html);
         $xpath = new DOMXPath($dom);
@@ -140,7 +140,7 @@ class Reader
             }
         }
 
-        Logging::setMessage(get_called_class().': '.implode(', ', $links));
+        Logger::setMessage(get_called_class().': '.implode(', ', $links));
 
         return $links;
     }
@@ -183,7 +183,7 @@ class Reader
     {
         $first_tag = Filter::getFirstTag($content);
 
-        Logging::setMessage(get_called_class().': DetectFormat(): '.$first_tag);
+        Logger::setMessage(get_called_class().': DetectFormat(): '.$first_tag);
 
         foreach ($this->formats as $parser => $needles) {
 

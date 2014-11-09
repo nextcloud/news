@@ -9,7 +9,6 @@ use RuntimeException;
  *
  * @author    Frederic Guillot
  * @package   Syndication
- * @property  string   $description  Feed description
  */
 abstract class Writer
 {
@@ -60,6 +59,14 @@ abstract class Writer
      * @var string
      */
     public $title = '';
+
+    /**
+     * Feed description
+     *
+     * @access public
+     * @var string
+     */
+    public $description = '';
 
     /**
      * Feed modification date (timestamp)

@@ -5,7 +5,7 @@ Example with no categories
 --------------------------
 
 ```php
-use PicoFeed\Export;
+use PicoFeed\Serialization\Export;
 
 $feeds = array(
     array(
@@ -26,7 +26,7 @@ Example with categories
 -----------------------
 
 ```php
-use PicoFeed\Export;
+use PicoFeed\Serialization\Export;
 
 $feeds = array(
     'my category' => array(

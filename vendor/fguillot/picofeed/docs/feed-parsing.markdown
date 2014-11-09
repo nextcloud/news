@@ -13,7 +13,7 @@ try {
     $reader = new Reader;
 
     // Return a resource
-    $resource = $reader->download('https://linuxfr.org/news.atom');
+    $resource = $reader->download('http://linuxfr.org/news.atom');
 
     // Return the right parser instance according to the feed format
     $parser = $reader->getParser(
@@ -59,16 +59,6 @@ Item::author = Syvolc
 Item::enclosure_url =
 Item::enclosure_type =
 Item::content = 18307 bytes
-----
-Item::id = d0ebddc90bfc3f109f9be00a3bb0b4a770af7a647cdc88454fe15d79168e0dea
-Item::title = Fuzix OS, parce que les petites choses sont belles
-Item::url = http://linuxfr.org/news/fuzix-os-parce-que-les-petites-choses-sont-belles
-Item::date = 1415112167
-Item::language = en-US
-Item::author = Thomas DEBESSE
-Item::enclosure_url =
-Item::enclosure_type =
-Item::content = 6104 bytes
 ....
 ```
 
@@ -134,7 +124,54 @@ catch (PicoFeedException $e) {
 HTTP caching
 ------------
 
-TODO
+PicoFeed supports HTTP caching to avoid unnecessary processing.
+
+1. After the first download, save in your database the values of the Etag and LastModified HTTP headers
+2. For the next requests, provide those values to the `download()` method and check if the feed was modified or not
+
+Here an example:
+
+```php
+try {
+
+    // Fetch from your database the previous values of the Etag and LastModified headers
+    $etag = '...';
+    $last_modified = '...';
+
+    $reader = new Reader;
+
+    // Provide those values to the download method
+    $resource = $reader->download('http://linuxfr.org/news.atom', $last_modified, $etag);
+
+    // Return true if the remote content has changed
+    if ($resource->isModified()) {
+
+        $parser = $reader->getParser(
+            $resource->getUrl(),
+            $resource->getContent(),
+            $resource->getEncoding()
+        );
+
+        $feed = $parser->execute();
+
+        // Save your feed in your database
+        // ...
+
+        // Store the Etag and the LastModified headers in your database for the next requests
+        $etag = $resource->getEtag();
+        $last_modified = $resource->getLastModified();
+
+        // ...
+    }
+    else {
+
+        echo 'Not modified, nothing to do!';
+    }
+}
+catch (PicoFeedException $e) {
+    // Do something...
+}
+```
 
 
 Feed and item properties
@@ -162,3 +199,24 @@ $feed->items[0]->getEnclosureUrl();            // Enclosure url
 $feed->items[0]->getEnclosureType();           // Enclosure mime-type (audio/mp3, image/png...)
 $feed->items[0]->getContent();                 // Item content (filtered or raw)
 ```
+
+RTL language detection
+----------------------
+
+There is an utility method to determine if a language code is Right-To-Left or not:
+
+```php
+// Return true if RTL
+Parser::isLanguageRTL($item->getLanguage());
+```
+
+Known RTL languages are:
+
+- Arabic (ar-**)
+- Farsi (fa-**)
+- Urdu (ur-**)
+- Pashtu (ps-**)
+- Syriac (syr-**)
+- Divehi (dv-**)
+- Hebrew (he-**)
+- Yiddish (yi-**)

@@ -3,7 +3,7 @@
 namespace PicoFeed\Client;
 
 use LogicException;
-use PicoFeed\Logging\Logging;
+use PicoFeed\Logging\Logger;
 
 /**
  * Client class
@@ -166,9 +166,9 @@ abstract class Client
             $this->url = $url;
         }
 
-        Logging::setMessage(get_called_class().' Fetch URL: '.$this->url);
-        Logging::setMessage(get_called_class().' Etag provided: '.$this->etag);
-        Logging::setMessage(get_called_class().' Last-Modified provided: '.$this->last_modified);
+        Logger::setMessage(get_called_class().' Fetch URL: '.$this->url);
+        Logger::setMessage(get_called_class().' Etag provided: '.$this->etag);
+        Logger::setMessage(get_called_class().' Last-Modified provided: '.$this->last_modified);
 
         $response = $this->doRequest();
 
@@ -204,7 +204,7 @@ abstract class Client
         }
 
         if ($this->is_modified === false) {
-            Logging::setMessage(get_called_class().' Resource not modified');
+            Logger::setMessage(get_called_class().' Resource not modified');
         }
     }
 
@@ -297,10 +297,10 @@ abstract class Client
             }
         }
 
-        Logging::setMessage(get_called_class().' HTTP status code: '.$status);
+        Logger::setMessage(get_called_class().' HTTP status code: '.$status);
 
         foreach ($headers as $name => $value) {
-            Logging::setMessage(get_called_class().' HTTP header: '.$name.' => '.$value);
+            Logger::setMessage(get_called_class().' HTTP header: '.$name.' => '.$value);
         }
 
         return array($status, $headers);
