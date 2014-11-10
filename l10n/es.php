@@ -7,6 +7,7 @@ $TRANSLATIONS = array(
 "Website not found" => "Sitio web no encontrado",
 "More redirects than allowed, aborting" => "Hay más desvíos que el máximo permitido, cancelando",
 "Bigger than maximum allowed size" => "Mayor tamaño que el máximo permitido",
+"Request timed out" => "Tiempo de espera agotado",
 "Can not add feed: Exists already" => "No se puede agregar fuente: ya existe",
 "Articles without feed" => "Artículos sin fuente",
 "Can not add folder: Exists already" => "No se puede agregar carpeta: ya existe",
