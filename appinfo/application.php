@@ -55,6 +55,7 @@ use \OCA\News\Utility\ProxyConfigParser;
 
 use \OCA\News\Fetcher\Fetcher;
 use \OCA\News\Fetcher\FeedFetcher;
+use \OCA\News\Fetcher\YoutubeFetcher;
 
 use \OCA\News\ArticleEnhancer\Enhancer;
 use \OCA\News\ArticleEnhancer\GlobalArticleEnhancer;
@@ -466,6 +467,7 @@ class Application extends App {
 
             // register fetchers in order
             // the most generic fetcher should be the last one
+            $fetcher->registerFetcher($c->query('YoutubeFetcher'));
             $fetcher->registerFetcher($c->query('FeedFetcher'));
 
             return $fetcher;
@@ -477,6 +479,12 @@ class Application extends App {
                 $c->query('PicoFeedFaviconFactory'),
                 $c->query('L10N'),
                 $c->query('TimeFactory')
+            );
+        });
+
+        $container->registerService('YoutubeFetcher', function($c) {
+            return new YoutubeFetcher(
+                $c->query('FeedFetcher')
             );
         });
 

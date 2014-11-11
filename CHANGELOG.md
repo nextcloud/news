@@ -1,3 +1,6 @@
+owncloud-news (4.0.2)
+* **Enhancement**: Transform YouTube urls to allow subscribing to channels and playlists
+
 owncloud-news (4.0.1)
 * **Bugfix**: Fix heise.de encoding issues
 
