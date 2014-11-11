@@ -1,6 +1,6 @@
 {
     "name": "ownCloud-news",
-    "version": "4.0.1",
+    "version": "4.0.2",
     "homepage": "https://github.com/owncloud/news",
     "authors": [
         "Bernhard Posselt <dev@bernhard-posselt.com>"
