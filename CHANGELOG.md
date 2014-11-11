@@ -1,4 +1,5 @@
 owncloud-news (4.0.2)
+* **Bugfix**: Fix CORS headers for getting the version via the API
 * **Enhancement**: Transform YouTube urls to allow subscribing to channels and playlists
 
 owncloud-news (4.0.1)

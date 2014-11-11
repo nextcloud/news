@@ -39,7 +39,7 @@ class UtilityApiController extends ApiController {
     /**
      * @NoAdminRequired
      * @NoCSRFRequired
-     * @API
+     * @CORS
      */
     public function version() {
         $version = $this->settings->getAppValue($this->appName,
