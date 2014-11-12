@@ -1,8 +1,17 @@
 <?php
 $TRANSLATIONS = array(
+"Feed contains invalid XML" => "Стрічка містить недійсний XML",
+"Could not find a feed" => "Не вдалося знайти стрічку",
+"Detected feed format is not supported" => "Формат знайденої стрічки не підтримується",
+"SSL Certificate is invalid" => "SSL Сертифікат не вірний",
+"Website not found" => "Сайт не знайдено",
+"More redirects than allowed, aborting" => "Більше перенаправлень ніж дозволено, відміна",
+"Bigger than maximum allowed size" => "Більший ніж максимальний розмір",
+"Request timed out" => "Вичерпано час на запит",
 "Can not add feed: Exists already" => "Неможливо додати стрічку: вона вже існує",
 "Articles without feed" => "Статті без стрічки",
 "Can not add folder: Exists already" => "Неможливо додати теку: вона вже існує",
+"Use ownCloud cron for updates" => "Використовуйте ownCloud cron для оновлень",
 "Saved" => "Збереженно",
 "Add a feed" => "Додати стрічку",
 "There are no feeds yet. Go ahead and add some" => "Поки що не має жодної стрічки новин. Додайте щось",
