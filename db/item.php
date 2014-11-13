@@ -162,6 +162,7 @@ class Item extends Entity implements IAPI, \JsonSerializable {
     public static function fromImport($import) {
         $item = new static();
         $item->setGuid($import['guid']);
+        $item->setGuidHash($import['guid']);
         $item->setUrl($import['url']);
         $item->setTitle($import['title']);
         $item->setAuthor($import['author']);
@@ -199,14 +200,6 @@ class Item extends Entity implements IAPI, \JsonSerializable {
         if(strpos($url, 'http') === 0 || strpos($url, 'magnet') === 0) {
             parent::setUrl($url);
         }
-    }
-
-
-    public function setGuid($guid) {
-        parent::setGuid($guid);
-
-        // not needed to hash again because picofeed hashes the id anyways
-        $this->setGuidHash($guid);
     }
 
 

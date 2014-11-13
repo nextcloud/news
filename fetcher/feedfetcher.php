@@ -147,6 +147,7 @@ class FeedFetcher implements IFeedFetcher {
         $item->setUnread();
         $item->setUrl($parsedItem->getUrl());
         $item->setGuid($parsedItem->getId());
+        $item->setGuidHash($item->getGuid());
         $item->setPubDate($parsedItem->getDate());
         $item->setLastModified($this->time->getTime());
 

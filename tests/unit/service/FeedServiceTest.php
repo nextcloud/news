@@ -548,6 +548,7 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
         $item->setFeedId(3);
         $item->setAuthor('john');
         $item->setGuid('s');
+        $item->setGuidHash('s');
         $item->setTitle('hey');
         $item->setPubDate(333);
         $item->setBody('come over');
@@ -603,6 +604,7 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
         $item->setFeedId(3);
         $item->setAuthor('john');
         $item->setGuid('s');
+        $item->setGuidHash('s');
         $item->setTitle('hey');
         $item->setPubDate(333);
         $item->setBody('come over');

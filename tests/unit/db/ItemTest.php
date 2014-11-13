@@ -166,6 +166,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
     private function createImportItem($isRead) {
         $item = new Item();
         $item->setGuid('guid');
+        $item->setGuidHash('guid');
         $item->setUrl('https://google');
         $item->setTitle('title');
         $item->setAuthor('author');
@@ -257,13 +258,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
         $item = new Item();
         $item->setUrl('magnet://link.com');
         $this->assertEquals('magnet://link.com', $item->getUrl());
-    }
-
-
-    public function testSetGuidUpdatesHash() {
-        $item = new Item();
-        $item->setGuid('http://test');
-        $this->assertEquals('http://test', $item->getGuidHash());
     }
 
 

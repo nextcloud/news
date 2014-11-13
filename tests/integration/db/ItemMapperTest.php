@@ -13,6 +13,7 @@ class ItemMapperTest extends NewsIntegrationTest {
         $item = new Item();
         $item->setTitle('my title thats long');
         $item->setGuid('a doner');
+        $item->setGuidHash('a doner');
         $item->setFeedId($feedId);
         $item->setUnread();
         $item->setBody('Döner');

@@ -143,6 +143,7 @@ class NewsIntegrationTest extends \PHPUnit_Framework_TestCase {
         $newItem->setTitle($item['title']);
         $newItem->setAuthor($item['author']);
         $newItem->setGuid($item['guid']);
+        $newItem->setGuidHash($item['guid']);
         $newItem->setUrl($item['url']);
         $newItem->setPubDate($item['pubDate']);
         $newItem->setLastModified($item['lastModified']);
