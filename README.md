@@ -73,7 +73,9 @@ Please provide the following details so that your problem can be fixed:
 * PHP version
 * Distribution
 
-## Before you install/update the News app
+## Installation/Update
+
+### Before you install/update the News app
 Before you install the app do the following:
 * Check that your **owncloud/data/** directory is owned by your webserver user and that it is write/readable
 * Check that your installation fullfills the [requirements listed in the README section](https://github.com/owncloud/news#dependencies)
