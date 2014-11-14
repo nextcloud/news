@@ -7,7 +7,7 @@ owncloud-news (4.0.1)
 
 owncloud-news (4.0.0)
 * **Backwards incompatible change**: Calculate item ids differently which leads to unpreventable readding of read articles
-* **Backwards incompatible change**: Get rid of cacheCuration setting
+* **Backwards incompatible change**: Get rid of simplePieCacheDuration setting, remove this setting from your data/news/config/config.ini after upgrading to 4.\*.*
 * **Backwards incompatible change**: Use three numbers for versioning because core bug with versions seems fixed
 * **Enhancement**: Add maxRedirects setting in config.ini
 * **Enhancement**: Add maxSize setting in config.ini
