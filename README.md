@@ -131,7 +131,7 @@ To update the News app use:
 
 You need to do the following:
 
-* Get rid of simplePieCacheDuration setting by removing this setting from your **owncloud/data/news/config/config.ini**. 
+* Get rid of **simplePieCacheDuration** setting by removing this setting from your **owncloud/data/news/config/config.ini**. 
 
 ### After updating to 4.x all my read articles reappear as unread
 We switched to a different feed parsing library which creates article ids differently than before. This means that the same article is not found in the database because it was generated with a different id. This should happen only once after the upgrade and there is no data loss. Unfortunately there is no fix for this since the id is a hash which can not be reversed, so a smooth transition is not possible.
