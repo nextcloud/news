@@ -86,16 +86,11 @@ Before you install the app do the following:
 Then proceed to install the app either from an archive (zip/tar.gz) or clone it from the repository using git
 
 ### Archive	 
-* Go to the [ownCloud News GitHub releases page](https://github.com/owncloud/news/releases)
-* Check if there is a folder called **owncloud/apps/news**. If there is one, delete it.
-* Download and extract the app to the **owncloud/apps/** folder. 
+* Go to the [ownCloud News GitHub releases page](https://github.com/owncloud/news/releases) and download the latest release/archive to your server
+* On your server, check if there is a folder called **owncloud/apps/news**. If there is one, delete it.
+* Extract the downloaded archive to the **owncloud/apps/** folder. 
 * Remove the version from the extracted folder (e.g. rename **owncloud/apps/news-4.0.3/** to **owncloud/apps/news/**
 * Activate the **News** app in the apps menu
-
-* [Set up ownCloud Background Jobs](http://doc.owncloud.org/server/7.0/admin_manual/configuration/background_jobs.html) to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
-
-The **News** App can be updated through the ownCloud apps page.
-
 
 ### Git (development version)
 * The master branch will always be stable in conjunction with the latest master branch from ownCloud
@@ -114,7 +109,9 @@ To update the News app use change into the **owncloud/apps/news/** directory usi
 * Use the [updater script to thread and speed up the update](https://github.com/owncloud/news/wiki/Cron-1.2)
 * Feed updates on plattforms using **php-fpm are significantly slower** due to workarounds which are needed to deal with [libxml not being threadsafe](https://bugs.php.net/bug.php?id=64938)
 
-## Updating to version 4.x
+## Update notices
+
+### Updating to version 4.x
 
 You need to do the following:
 
