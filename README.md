@@ -89,13 +89,21 @@ Should you have upgraded from a prior version, disable the CSS and JavaScript ca
 You can remove the line after a page reload
 
 
-## App Store
-
-* Go to the [ownCloud News app store page](http://apps.owncloud.com/content/show.php/News?content=158434&PHPSESSID=f9375ade883d805812e6daee3ddb0430)
-* Activate the **News** app in the apps menu
-* If the app fails to install, add this at the bottom of the file **config/config.php**:
+## Installation
+* Check if your installation fullfills the [requirements listed in the README section](https://github.com/owncloud/news#dependencies)
+* [Set up ownCloud Background Jobs](http://doc.owncloud.org/server/7.0/admin_manual/configuration/background_jobs.html) to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
+* Disable the codechecker by adding this at the bottom of the file **owncloud/config/config.php**:
 
 	  $CONFIG["appcodechecker"] = false;
+	 
+Then proceed to install the app either from an archive (zip/tar.gz) or cloning it from the repository using git
+
+### Archive	 
+* Go to the [ownCloud News GitHub releases page](https://github.com/owncloud/news/releases)
+* Check if there is a folder called **owncloud/apps/news**. If there is one, delete it.
+* Download and extract the app to the **owncloud/apps/** folder. 
+* Remove the version from the extracted folder (e.g. rename **owncloud/apps/news-4.0.3/** to **owncloud/apps/news/**
+* Activate the **News** app in the apps menu
 
 * [Set up ownCloud Background Jobs](http://doc.owncloud.org/server/7.0/admin_manual/configuration/background_jobs.html) to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
 
@@ -104,23 +112,15 @@ The **News** App can be updated through the ownCloud apps page.
 
 ### Git (development version)
 * The master branch will always be stable in conjunction with the latest master branch from ownCloud
-* Clone the **News** app into the **/var/www/owncloud/apps/** directory:
-
+* In your terminal go into the **owncloud/apps/** directory and then run the following command:
+        
 	git clone https://github.com/owncloud/news.git
-
-* If the app fails to install, add this at the bottom of the file **config/config.php**:
-
-	  $CONFIG["appcodechecker"] = false;
 
 * Activate the **News** app in the apps menu
 
-* [Set up ownCloud Background Jobs](http://doc.owncloud.org/server/7.0/admin_manual/configuration/background_jobs.html) to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
+To update the News app use change into the **owncloud/apps/news/** directory using your terminal and then run:
 
-To update the News app use:
-
-    cd /var/www/owncloud/apps/news
     git pull --rebase origin master
-
 
 ## Performance Notices
 * Use MySQL or PostgreSQL for better database performance
