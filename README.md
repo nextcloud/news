@@ -127,10 +127,16 @@ To update the News app use:
 * Use the [updater script to thread and speed up the update](https://github.com/owncloud/news/wiki/Cron-1.2)
 * Feed updates on plattforms using **php-fpm are significantly slower** due to workarounds which are needed to deal with [libxml not being threadsafe](https://bugs.php.net/bug.php?id=64938)
 
-## FAQ
+## Updating to from 3.x to 4.x
+
+You need to do the following:
+
+* Get rid of simplePieCacheDuration setting by removing this setting from your **owncloud/data/news/config/config.ini**. 
 
 ### After updating to 4.x all my read articles reappear as unread
 We switched to a different feed parsing library which creates article ids differently than before. This means that the same article is not found in the database because it was generated with a different id. This should happen only once after the upgrade and there is no data loss. Unfortunately there is no fix for this since the id is a hash which can not be reversed, so a smooth transition is not possible.
+
+## FAQ
 
 ### How do I reset the News app
 Delete the folder **owncloud/apps/news/** and **owncloud/data/news/**, then connect to your database and run the following commands where **oc\_** is your table prefix (defaults to oc\_)
