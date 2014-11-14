@@ -75,10 +75,10 @@ Please provide the following details so that your problem can be fixed:
 
 ## Before you install the News app
 Before you install the app do the following:
-
 * Check that your **owncloud/data/** directory is owned by your webserver user and that it is write/readable
 * Check that your installation fullfills the [requirements listed in the README section](https://github.com/owncloud/news#dependencies)
 * [Set up ownCloud Background Jobs](http://doc.owncloud.org/server/7.0/admin_manual/configuration/background_jobs.html) to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
+* If you are updating from a previous version read the [Update Notices](https://github.com/owncloud/news/blob/master/README.md#updating-notices)
 * Disable the codechecker by adding this at the bottom of the file **owncloud/config/config.php**:
 
 	  $CONFIG["appcodechecker"] = false;
@@ -109,7 +109,7 @@ To update the News app use change into the **owncloud/apps/news/** directory usi
 * Use the [updater script to thread and speed up the update](https://github.com/owncloud/news/wiki/Cron-1.2)
 * Feed updates on plattforms using **php-fpm are significantly slower** due to workarounds which are needed to deal with [libxml not being threadsafe](https://bugs.php.net/bug.php?id=64938)
 
-## Update notices
+## Updating Notices
 
 ### Updating to version 4.x
 
