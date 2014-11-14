@@ -19,6 +19,8 @@ use \OCP\AppFramework\Db\Entity;
 /**
  * @method integer getId()
  * @method void setId(integer $value)
+ * @method string getGuid()
+ * @method void setGuid(string $value)
  * @method string getGuidHash()
  * @method void setGuidHash(string $value)
  * @method string getGuid()
