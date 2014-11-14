@@ -85,14 +85,14 @@ Before you install the app do the following:
 	 
 Then proceed to install the app either from an archive (zip/tar.gz) or clone it from the repository using git
 
-### Archive	 
+### Installing from archive	 
 * Go to the [ownCloud News GitHub releases page](https://github.com/owncloud/news/releases) and download the latest release/archive to your server
 * On your server, check if there is a folder called **owncloud/apps/news**. If there is one, delete it.
 * Extract the downloaded archive to the **owncloud/apps/** folder. 
 * Remove the version from the extracted folder (e.g. rename **owncloud/apps/news-4.0.3/** to **owncloud/apps/news/**
 * Activate the **News** app in the apps menu
 
-### Git (development version)
+### Installing from Git (development version)
 * The master branch will always be stable in conjunction with the latest master branch from ownCloud
 * In your terminal go into the **owncloud/apps/** directory and then run the following command:
         
