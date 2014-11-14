@@ -75,28 +75,16 @@ Please provide the following details so that your problem can be fixed:
 * Distribution
 
 ## Before you install the News app
-Before you install the app check that the following requirements are met:
+Before you install the app do the following:
 
-* You can use a cron or webcron to call Background Jobs in ownCloud
-* Your **data/** directory is owned by your webserver user and write/readable
-* You have installed **php-curl** and activated it in the **php.ini**
-* You run **ownCloud 7**
-
-Should you have upgraded from a prior version, disable the CSS and JavaScript caching by adding this to **owncloud/config/config.php**:
-
-    DEFINE('DEBUG', true);
-
-You can remove the line after a page reload
-
-
-## Installation
-* Check if your installation fullfills the [requirements listed in the README section](https://github.com/owncloud/news#dependencies)
+* Check that your **owncloud/data/** directory is owned by your webserver user and that it is write/readable
+* Check that your installation fullfills the [requirements listed in the README section](https://github.com/owncloud/news#dependencies)
 * [Set up ownCloud Background Jobs](http://doc.owncloud.org/server/7.0/admin_manual/configuration/background_jobs.html) to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
 * Disable the codechecker by adding this at the bottom of the file **owncloud/config/config.php**:
 
 	  $CONFIG["appcodechecker"] = false;
 	 
-Then proceed to install the app either from an archive (zip/tar.gz) or cloning it from the repository using git
+Then proceed to install the app either from an archive (zip/tar.gz) or clone it from the repository using git
 
 ### Archive	 
 * Go to the [ownCloud News GitHub releases page](https://github.com/owncloud/news/releases)
