@@ -127,7 +127,7 @@ To update the News app use:
 * Use the [updater script to thread and speed up the update](https://github.com/owncloud/news/wiki/Cron-1.2)
 * Feed updates on plattforms using **php-fpm are significantly slower** due to workarounds which are needed to deal with [libxml not being threadsafe](https://bugs.php.net/bug.php?id=64938)
 
-## Updating to from 3.x to 4.x
+## Updating to version 4.x
 
 You need to do the following:
 
