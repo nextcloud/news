@@ -20,6 +20,7 @@ $TRANSLATIONS = array(
 "Maximum redirects" => "Največje število preusmeritev",
 "How many redirects the feed fetcher should follow" => "Koliko preusmeritev naj bralnik virov sledi",
 "Maximum feed page size" => "Največja velikost strani vira",
+"Maximum feed size in bytes. If the RSS/Atom page is bigger than this value, the update will be aborted" => "Največja dovoljena velikost vira v bajtih. Če je vir RSS/ATOM večji od te vrednosti, bo posodobitev prekinjena.",
 "Feed fetcher timeout" => "Čas nalaganja vira",
 "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted" => "Čas, ki je namenjen za nalaganje virov RSS ali Atom. Po tem času je nalaganje virov prekinjeno.",
 "Saved" => "Shranjeno",
