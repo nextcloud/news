@@ -829,8 +829,7 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
             feed.unreadCount = 0;
         });
 
-        this.unreadCount = 0;
-        this.folderUnreadCount = {};
+        this.updateUnreadCache();
     };
 
 
