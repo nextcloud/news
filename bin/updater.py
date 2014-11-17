@@ -18,6 +18,7 @@ import argparse
 import threading
 import requests
 import urllib
+import configparser
 
 def check_status_code(response):
     if response.status_code != 200:
@@ -88,6 +89,8 @@ class Updater:
 
     def run(self):
         while True:
+            self.start_time = time.time()  # reset clock
+
             try:
                 # run the cleanup request and get all the feeds to update
                 auth = (self.user, self.password)
@@ -118,8 +121,11 @@ class Updater:
                 if self.run_once:
                     return
 
-                # wait until the interval finished to run again
-                time.sleep(self.interval)
+                # wait until the interval finished to run again and subtract
+                # the update run time from the interval
+                timeout = self.interval - int((time.time() - self.start_time))
+                if timeout > 0:
+                    time.sleep(timeout)
 
             except (Exception) as e:
                 print('%s: %s' % (self.base_url, e))
@@ -132,27 +138,62 @@ def main():
     parser.add_argument('--testrun',
         help='Run update only once, DO NOT use this in a cron job, only \
               recommended for testing', action='store_true')
-    parser.add_argument('--threads',
+    parser.add_argument('--threads', '-t',
         help='How many feeds should be fetched in paralell, defaults to 10',
         default=10,
         type=int)
-    parser.add_argument('--timeout',
+    parser.add_argument('--timeout', '-s',
         help='Maximum number of seconds for updating a feed, \
               defaults to 5 minutes',
         default=5*60,
         type=int)
-    parser.add_argument('--interval',
+    parser.add_argument('--interval', '-i',
         help='Update interval between fetching the next round of \
-            updates in minutes, defaults to 30 minutes',
+            updates in minutes, defaults to 30 minutes. The update timespan \
+            will be subtracted from the interval.',
         default=30,
         type=int)
-    parser.add_argument('--user',
-        help='Admin username to log into ownCloud', required=True)
-    parser.add_argument('--password',
-        help='Admin password to log into ownCloud', required=True)
+    parser.add_argument('--config', '-c',
+        help='Path to config file where all parameters except can be defined \
+        as key values pair. An example is in bin/example_config.ini')
+    parser.add_argument('--user', '-u',
+        help='Admin username to log into ownCloud')
+    parser.add_argument('--password', '-p',
+        help='Admin password to log into ownCloud')
     parser.add_argument('url',
-        help='The URL where owncloud is installed')
+        help='The URL where owncloud is installed. Must be specified on the \
+        command line or in the config file.',
+        nargs='?')
     args = parser.parse_args()
+
+    # read config file if given
+    if args.config:
+        config = configparser.ConfigParser()
+        files = config.read(args.config)
+
+        if len(files) <= 0:
+            print('Error: could not find config file %s' % args.config)
+            exit(1)
+
+        config_values = config['updater']
+        if 'user' in config_values:
+            args.user = config_values['user']
+        if 'password' in config_values:
+            args.password = config_values['password']
+        if 'testrun' in config_values:
+            args.testrun = config_values.getboolean('testrun')
+        if 'threads' in config_values:
+            args.threads = int(config_values['threads'])
+        if 'interval' in config_values:
+            args.interval = int(config_values['interval'])
+        if 'url' in config_values:
+            args.url = config_values['url']
+
+    # url and user must be specified either from the command line or in the
+    # config file
+    if not args.url or not args.user:
+        parser.print_help()
+        exit(1)
 
     # create the updater and run the threads
     updater = Updater(args.url, args.threads, args.interval, args.user,

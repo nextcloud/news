@@ -1,3 +1,12 @@
+owncloud-news (4.1.0)
+* **Backwards incompatible change**: Time used for updating using the Python updater is now subtracted from the given interval meaning: if you specify 30 seconds as interval and the update takes 25 seconds, it will sleep for 5 seconds before running the next update
+* **Enhancement**: Allow to specify configuration file for Python updater
+* **Enhancement**: Add short command line options for the Python updater
+ * -u, --user
+ * -p, --password
+ * -i, --interval
+ * -s, --timeout
+
 owncloud-news (4.0.4)
 * **Bugfix**: Do not indent slashdot.org italic elements
 * **Bugfix**: Hide folders when only showing unread articles after marking all articles as read
