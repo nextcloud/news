@@ -31,7 +31,6 @@ class PageController extends Controller {
     private $userId;
     private $appConfig;
     private $urlGenerator;
-    private $adminConfig;
     private $config;
 
     public function __construct($appName,
