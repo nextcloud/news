@@ -59,6 +59,10 @@
                 <td>v</td>
                 <td><?php p($l->t('Load previous folder')); ?></td>
             </tr>
+            <tr>
+                <td>a</td>
+                <td><?php p($l->t('Scroll to active navigation entry')); ?></td>
+            </tr>
         </table>
     </div>
 </div>

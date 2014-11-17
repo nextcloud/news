@@ -1767,14 +1767,25 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
         );
     };
 
-    /*var showShortcuts = function () {
-        $('*[data-apps-slide-toggle="#app-shortcuts"]').trigger('click');
-    };*/
+    var scrollToNavigationElement = function (elem, scrollArea) {
+        scrollArea.scrollTop(
+            elem.offset().top - scrollArea.offset().top + scrollArea.scrollTop()
+        );
+    };
+
+    var scrollToActiveNavigationEntry = function (navigationArea) {
+        var element = navigationArea.find('.active');
+        scrollToNavigationElement(element, navigationArea.children('ul'));
+    };
 
     var reloadFeed = function (navigationArea) {
         navigationArea.find('.active > a:visible').trigger('click');
     };
 
+    var activateNavigationEntry = function (element, navigationArea) {
+        element.children('a:visible').trigger('click');
+        scrollToNavigationElement(element, navigationArea.children('ul'));
+    };
 
     var nextFeed = function (navigationArea) {
         var current = navigationArea.find('.active');
@@ -1786,7 +1797,7 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
             while (current.length > 0) {
                 var subfeeds = current.find('.feed:visible');
                 if (subfeeds.length > 0) {
-                    $(subfeeds[0]).children('a:visible').trigger('click');
+                    activateNavigationEntry($(subfeeds[0]), navigationArea);
                     return;
                 }
                 current = current.next('.folder');
@@ -1803,7 +1814,7 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
 
             if (element === current[0]) {
                 var next = elements[i+1];
-                $(next).children('a:visible').trigger('click');
+                activateNavigationEntry($(next), navigationArea);
                 break;
             }
         }
@@ -1824,7 +1835,7 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
         }
 
         if (folders.length > 0) {
-            $(folders[index]).children('a').trigger('click');
+            activateNavigationEntry($(folders[index]), navigationArea);
         }
     };
 
@@ -1833,13 +1844,13 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
 
         // cases: folder active, subfeed active, feed active, none active
         if (current.hasClass('folder')) {
-            current.prevAll('.folder:visible').first()
-                .children('a').trigger('click');
+            activateNavigationEntry(current.prevAll('.folder:visible').first(),
+                navigationArea);
         } else if (current.hasClass('feed')) {
             var parentFolder = getParentFolder(current);
             if (parentFolder.length > 0) {
                 // first go to previous folder should select the parent folder
-                parentFolder.children('a').trigger('click');
+                activateNavigationEntry(parentFolder, navigationArea);
             } else {
                 selectFirstOrLastFolder(navigationArea, true);
             }
@@ -1853,13 +1864,15 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
 
         // cases: folder active, subfeed active, feed active, none active
         if (current.hasClass('folder')) {
-            current.nextAll('.folder:visible').first()
-                .children('a').trigger('click');
+            activateNavigationEntry(current.nextAll('.folder:visible').first(),
+                navigationArea);
         } else if (current.hasClass('feed')) {
             var parentFolder = getParentFolder(current);
             if (parentFolder.length > 0) {
-                parentFolder.nextAll('.folder:visible').first()
-                    .children('a').trigger('click');
+                activateNavigationEntry(
+                    parentFolder.nextAll('.folder:visible').first(),
+                    navigationArea
+                );
             } else {
                 selectFirstOrLastFolder(navigationArea);
             }
@@ -1881,8 +1894,8 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
             while (previousFolder.length > 0) {
                 var subfeeds = previousFolder.find('.feed:visible');
                 if (subfeeds.length > 0) {
-                    $(subfeeds[subfeeds.length-1])
-                        .children('a:visible').trigger('click');
+                    activateNavigationEntry($(subfeeds[subfeeds.length-1]),
+                        navigationArea);
                     return;
                 }
                 previousFolder = previousFolder.prev('.folder');
@@ -1892,8 +1905,8 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
             var feeds = current.siblings('.feed');
 
             if (feeds.length > 0) {
-                (feeds[feeds.length-1])
-                    .children('a:visible').trigger('click');
+                activateNavigationEntry($(feeds[feeds.length-1]),
+                    navigationArea);
                 return;
             }
 
@@ -1901,7 +1914,7 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
             // no feed found, go to starred
             var starred = $('.starred-feed:visible');
             if (starred.length > 0) {
-                starred.children('a:visible').trigger('click');
+                activateNavigationEntry(starred, navigationArea);
             }
 
             return;
@@ -1914,7 +1927,7 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
 
             if (element === current[0]) {
                 var previous = elements[i-1];
-                $(previous).children('a:visible').trigger('click');
+                activateNavigationEntry($(previous), navigationArea);
                 break;
             }
         }
@@ -2102,6 +2115,12 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
 
                 event.preventDefault();
                 previousFolder(navigationArea);
+
+            // a
+            } else if ([65].indexOf(keyCode) >= 0) {
+
+                event.preventDefault();
+                scrollToActiveNavigationEntry(navigationArea);
 
             // v
             } else if ([86].indexOf(keyCode) >= 0) {
