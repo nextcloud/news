@@ -1,6 +1,8 @@
 OC.L10N.register(
     "news",
     {
+    "SSL Certificate is invalid" : "SSL сертификат недействительный ",
+    "Website not found" : "Сайт не найден",
     "Can not add feed: Exists already" : "Не удаётся добавить ленту: уже существует",
     "Articles without feed" : "Статьи без новостной ленты",
     "Can not add folder: Exists already" : "Не удаётся добавить папку: уже существует",
