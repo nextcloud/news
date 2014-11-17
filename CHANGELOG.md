@@ -1,5 +1,5 @@
 owncloud-news (4.1.0)
-* **Backwards incompatible change**: Time used for updating using the Python updater is now subtracted from the given interval meaning: if you specify 30 seconds as interval and the update takes 25 seconds, it will sleep for 5 seconds before running the next update
+* **Backwards incompatible change**: Time used for updating when using the Python updater is now subtracted from the given interval meaning: if you specify 30 seconds as interval and the update takes 25 seconds, it will sleep for 5 seconds before running the next update
 * **Enhancement**: Show a message if ajax cron is used to inform people of improperly configured cron
 * **Enhancement**: Allow to specify configuration file for Python updater
 * **Enhancement**: Add short command line options for the Python updater
