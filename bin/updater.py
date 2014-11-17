@@ -157,7 +157,8 @@ def main():
         help='Path to config file where all parameters except can be defined \
         as key values pair. An example is in bin/example_config.ini')
     parser.add_argument('--user', '-u',
-        help='Admin username to log into ownCloud')
+        help='Admin username to log into ownCloud. Must be specified on the \
+        command line or in the config file.')
     parser.add_argument('--password', '-p',
         help='Admin password to log into ownCloud')
     parser.add_argument('url',
