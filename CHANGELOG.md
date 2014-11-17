@@ -1,3 +1,7 @@
+owncloud-news (4.0.4)
+* **Bugfix**: Do not indent slashdot.org italic elements
+* **Bugfix**: Hide folders when only showing unread articles after marking all articles as read
+
 owncloud-news (4.0.3)
 * **Bugfix**: Fix unstarring and starring articles added before 4.x
 
