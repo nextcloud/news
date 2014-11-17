@@ -1,4 +1,5 @@
 <?php print_unescaped($this->inc('part.content.firstrun')) ?>
+<?php print_unescaped($this->inc('part.content.cronwarning')) ?>
 
 <div news-auto-focus="#app-content"
     id="articles"

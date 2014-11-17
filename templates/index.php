@@ -16,7 +16,8 @@ script('news', [
 ]);
 ?>
 
-<div id="app" ng-app="News" ng-cloak ng-strict-di ng-controller="AppController as App">
+<div id="app" ng-app="News" ng-cloak ng-strict-di
+    ng-controller="AppController as App">
 
     <div id="global-loading"
         class="icon-loading"

@@ -20,8 +20,10 @@ use \OCP\IConfig;
 use \OCP\IL10N;
 use \OCP\IURLGenerator;
 use \OCP\AppFramework\Controller;
+use \OCP\IAppConfig as AdminConfig;
 
 use \OCA\News\Config\AppConfig;
+use \OCA\News\Config\Config;
 
 class PageController extends Controller {
 
@@ -30,12 +32,16 @@ class PageController extends Controller {
     private $userId;
     private $appConfig;
     private $urlGenerator;
+    private $adminConfig;
+    private $config;
 
     public function __construct($appName,
                                 IRequest $request,
                                 IConfig $settings,
                                 IURLGenerator $urlGenerator,
                                 AppConfig $appConfig,
+                                AdminConfig $adminConfig,
+                                Config $config,
                                 IL10N $l10n,
                                 $userId){
         parent::__construct($appName, $request);
@@ -44,6 +50,8 @@ class PageController extends Controller {
         $this->appConfig = $appConfig;
         $this->l10n = $l10n;
         $this->userId = $userId;
+        $this->adminConfig = $adminConfig;
+        $this->config = $config;
     }
 
 
@@ -52,7 +60,18 @@ class PageController extends Controller {
      * @NoCSRFRequired
      */
     public function index() {
-        return new TemplateResponse($this->appName, 'index');
+        $cronWarning = '';
+        $cronMode = $this->adminConfig->getValue('core', 'backgroundjobs_mode');
+        $cronOn = $this->config->getUseCronUpdates();
+
+        // check for cron modes which may lead to problems
+        if ($cronMode === 'ajax' && $cronOn) {
+            $cronWarning = 'ajaxCron';
+        }
+
+        return new TemplateResponse($this->appName, 'index', [
+            'cronWarning' => $cronWarning
+        ]);
     }
 
 

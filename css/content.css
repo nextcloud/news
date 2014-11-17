@@ -8,6 +8,31 @@
  * @copyright Bernhard Posselt 2014
  */
 
+
+/**
+ * cron warning styles
+ */
+#cron-warning {
+    background-color: #ffcc00;
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+    font-size: 13pt;
+}
+
+    #cron-warning p,
+    #cron-warning li {
+        line-height: 1.5;
+    }
+
+    #cron-warning a {
+        color: #0000ff;
+    }
+
+    #cron-warning a:hover {
+        text-decoration: underline;
+    }
+
 /**
  * First run styles
  */

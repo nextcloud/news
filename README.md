@@ -108,7 +108,7 @@ To update the News app use change into the **owncloud/apps/news/** directory usi
 
 ## Performance Notices
 * Use MySQL or PostgreSQL for better database performance
-* Use the [updater script to thread and speed up the update](https://github.com/owncloud/news/wiki/Cron-1.2)
+* Use the [updater script to thread and speed up the update](https://github.com/owncloud/news/wiki/Custom-Updater)
 * Feed updates on plattforms using **php-fpm are significantly slower** due to workarounds which are needed to deal with [libxml not being threadsafe](https://bugs.php.net/bug.php?id=64938)
 
 ## Updating Notices
@@ -148,7 +148,7 @@ Check the **owncloud/data/owncloud.log** for hints why it failed. After the issu
 ### All feeds are not updated anymore
 [This is a bug in the core backgroundjob system](https://github.com/owncloud/core/issues/3221) deleting the **owncloud/data/cron.lock** file gets the cron back up running
 
-Another way to fix this is to run a custom [updater script](https://github.com/owncloud/news/wiki/Cron-1.2)
+Another way to fix this is to run a custom [updater script](https://github.com/owncloud/news/wiki/Custom-Updater)
 
 ### All feeds are not updated and theres no cron.lock
 * Check if the cronjob exists with **crontab -u www-data -e** (replace www-data with your httpd user)
@@ -156,7 +156,7 @@ Another way to fix this is to run a custom [updater script](https://github.com/o
 * Check if the cronjob is ever executed by placing an **error_log('updating')** in the [background job file](https://github.com/owncloud/news/blob/master/backgroundjob/task.php#L37). If the cronjob runs, there should be an updating log statement in your httpd log.
 * If there is no **updating** statement in your logs check if your cronjob is executed by executing a different script
 * If your cron works fine but owncloud's cronjobs are never executed, file a bug in [core](https://github.com/owncloud/core/)
-* Try the [updater script](https://github.com/owncloud/news/wiki/Cron-1.2)
+* Try the [updater script](https://github.com/owncloud/news/wiki/Custom-Updater)
 
 
 Configuration
