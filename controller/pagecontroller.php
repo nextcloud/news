@@ -20,7 +20,6 @@ use \OCP\IConfig;
 use \OCP\IL10N;
 use \OCP\IURLGenerator;
 use \OCP\AppFramework\Controller;
-use \OCP\IAppConfig as AdminConfig;
 
 use \OCA\News\Config\AppConfig;
 use \OCA\News\Config\Config;
@@ -40,7 +39,6 @@ class PageController extends Controller {
                                 IConfig $settings,
                                 IURLGenerator $urlGenerator,
                                 AppConfig $appConfig,
-                                AdminConfig $adminConfig,
                                 Config $config,
                                 IL10N $l10n,
                                 $userId){
@@ -50,7 +48,6 @@ class PageController extends Controller {
         $this->appConfig = $appConfig;
         $this->l10n = $l10n;
         $this->userId = $userId;
-        $this->adminConfig = $adminConfig;
         $this->config = $config;
     }
 
@@ -61,7 +58,7 @@ class PageController extends Controller {
      */
     public function index() {
         $cronWarning = '';
-        $cronMode = $this->adminConfig->getValue('core', 'backgroundjobs_mode');
+        $cronMode = $this->settings->getAppValue('core', 'backgroundjobs_mode');
         $cronOn = $this->config->getUseCronUpdates();
 
         // check for cron modes which may lead to problems

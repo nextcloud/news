@@ -82,7 +82,6 @@ class Application extends App {
                 $c->query('CoreConfig'),
                 $c->query('URLGenerator'),
                 $c->query('AppConfig'),
-                $c->query('AdminConfig'),
                 $c->query('Config'),
                 $c->query('L10N'),
                 $c->query('UserId')
@@ -316,10 +315,6 @@ class Application extends App {
 
         $container->registerService('CoreConfig', function($c) {
             return $c->query('ServerContainer')->getConfig();
-        });
-
-        $container->registerService('AdminConfig', function($c) {
-            return $c->query('ServerContainer')->getAppConfig();
         });
 
         $container->registerService('DatabaseType', function($c) {

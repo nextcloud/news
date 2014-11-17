@@ -26,7 +26,6 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
     private $appConfig;
     private $configData;
     private $config;
-    private $adminConfig;
 
     /**
      * Gets run before each test
@@ -60,10 +59,6 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
             '\OCP\IURLGenerator')
             ->disableOriginalConstructor()
             ->getMock();
-        $this->adminConfig = $this->getMockBuilder(
-            '\OCP\IAppConfig')
-            ->disableOriginalConstructor()
-            ->getMock();
         $this->appConfig = $this->getMockBuilder(
             '\OCA\News\Config\AppConfig')
             ->disableOriginalConstructor()
@@ -74,7 +69,7 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
             ->getMock();
         $this->controller = new PageController($this->appName, $this->request,
             $this->settings, $this->urlGenerator, $this->appConfig,
-            $this->adminConfig, $this->config, $this->l10n, $this->user);
+            $this->config, $this->l10n, $this->user);
     }
 
 
@@ -83,8 +78,8 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
             ->method('getUseCronUpdates')
             ->will($this->returnValue(true));
 
-        $this->adminConfig->expects($this->once())
-            ->method('getValue')
+        $this->settings->expects($this->once())
+            ->method('getAppValue')
             ->with(
                 $this->equalTo('core'),
                 $this->equalTo('backgroundjobs_mode')
@@ -102,8 +97,8 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
             ->method('getUseCronUpdates')
             ->will($this->returnValue(true));
 
-        $this->adminConfig->expects($this->once())
-            ->method('getValue')
+        $this->settings->expects($this->once())
+            ->method('getAppValue')
             ->with(
                 $this->equalTo('core'),
                 $this->equalTo('backgroundjobs_mode')
@@ -120,8 +115,8 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
             ->method('getUseCronUpdates')
             ->will($this->returnValue(false));
 
-        $this->adminConfig->expects($this->once())
-            ->method('getValue')
+        $this->settings->expects($this->once())
+            ->method('getAppValue')
             ->with(
                 $this->equalTo('core'),
                 $this->equalTo('backgroundjobs_mode')
