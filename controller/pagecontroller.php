@@ -65,7 +65,7 @@ class PageController extends Controller {
         $cronOn = $this->config->getUseCronUpdates();
 
         // check for cron modes which may lead to problems
-        if ($cronMode === 'ajax' && $cronOn) {
+        if ($cronMode !== 'cron' && $cronMode !== 'webcron' && $cronOn) {
             $cronWarning = 'ajaxCron';
         }
 
