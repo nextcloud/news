@@ -139,7 +139,7 @@ def main():
         help='Run update only once, DO NOT use this in a cron job, only \
               recommended for testing', action='store_true')
     parser.add_argument('--threads', '-t',
-        help='How many feeds should be fetched in paralell, defaults to 10',
+        help='How many feeds should be fetched in parallel, defaults to 10',
         default=10,
         type=int)
     parser.add_argument('--timeout', '-s',
