@@ -14,12 +14,12 @@
         </button>
     </div>
     <ul>
-        <li class="item {{ Content.getFeed(item.feedId).cssClass }}"
+        <li class="item {{ ::Content.getFeed(item.feedId).cssClass }}"
             ng-repeat="item in Content.getItems() |
                 orderBy:[Content.orderBy()] track by item.id"
             ng-click="Content.markRead(item.id)"
             ng-class="{read: !item.unread, open: item.show}"
-            data-id="{{ item.id }}">
+            data-id="{{ ::item.id }}">
 
             <div class="utils" ng-click="Content.toggleItem(item)">
                 <ul>
@@ -27,13 +27,13 @@
                     <li class="util only-in-compact">
                         <a class="external icon-link"
                             target="_blank"
-                            ng-href="{{ item.url }}"
+                            ng-href="{{ ::item.url }}"
                             title="<?php p($l->t('Open website')) ?>"
                             news-stop-propagation>
                         </a>
                     </li>
                     <li class="title only-in-compact"
-                        title="{{ item.title }}"
+                        title="{{ ::item.title }}"
                         ng-class="{
                             'icon-rss':
                                 !Content.getFeed(item.feedId).faviconLink
@@ -44,7 +44,7 @@
                                     + Content.getFeed(item.feedId).faviconLink +
                                 ')'
                             }">
-                        <h1><a>{{ item.title }}</a></h1>
+                        <h1><a>{{ ::item.title }}</a></h1>
                     </li>
                     <li class="only-in-compact">
                         <time class="date"
@@ -98,20 +98,20 @@
                     <h1>
                         <a class="external"
                             target="_blank"
-                            ng-href="{{ item.url }}"
-                            title="{{ item.title }}">
-                            {{ item.title }}
+                            ng-href="{{ ::item.url }}"
+                            title="{{ ::item.title }}">
+                            {{ ::item.title }}
                         </a>
                     </h1>
                 </div>
 
                 <div class="subtitle">
                     <span class="author" ng-show="item.author">
-                        <?php p($l->t('by')) ?> {{ item.author }}
+                        <?php p($l->t('by')) ?> {{ ::item.author }}
                     </span>
                     <span class="source"><?php p($l->t('from')) ?>
-                        <a ng-href="#/items/feeds/{{ item.feedId }}/">
-                            {{ Content.getFeed(item.feedId).title }}
+                        <a ng-href="#/items/feeds/{{ ::item.feedId }}/">
+                            {{ ::Content.getFeed(item.feedId).title }}
                         </a>
                     </span>
                 </div>
@@ -119,15 +119,15 @@
 
 
                 <div class="enclosure" ng-if="item.enclosureLink">
-                    <news-enclosure type="{{ item.enclosureMime }}"
-                                link="{{ item.enclosureLink }}">
+                    <news-enclosure type="{{ ::item.enclosureMime }}"
+                                link="{{ ::item.enclosureLink }}">
                         <p class="enclosure-error">
                             <?php
                                 p($l->t('Browser can not play media type'))
-                            ?>: {{ item.enclosureMime }}
+                            ?>: {{ ::item.enclosureMime }}
                         </p>
                         <a class="button"
-                           ng-href="{{ item.enclosureLink | trustUrl }}"
+                           ng-href="{{ ::item.enclosureLink | trustUrl }}"
                            target="_blank">
                             <?php p($l->t('Download')) ?>
                         </a>
