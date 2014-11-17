@@ -84,20 +84,20 @@ Before you install the app do the following:
 * Disable the codechecker by adding this at the bottom of the file **owncloud/config/config.php**:
 
 	  $CONFIG["appcodechecker"] = false;
-	 
+
 Then proceed to install the app either from an archive (zip/tar.gz) or clone it from the repository using git
 
-### Installing from archive	 
+### Installing from archive
 * Go to the [ownCloud News GitHub releases page](https://github.com/owncloud/news/releases) and download the latest release/archive to your server
 * On your server, check if there is a folder called **owncloud/apps/news**. If there is one, delete it.
-* Extract the downloaded archive to the **owncloud/apps/** folder. 
+* Extract the downloaded archive to the **owncloud/apps/** folder.
 * Remove the version from the extracted folder (e.g. rename **owncloud/apps/news-4.0.3/** to **owncloud/apps/news/**
 * Activate the **News** app in the apps menu
 
 ### Installing from Git (development version)
 * The master branch will always be stable in conjunction with the latest master branch from ownCloud
 * In your terminal go into the **owncloud/apps/** directory and then run the following command:
-        
+
 	git clone https://github.com/owncloud/news.git
 
 * Activate the **News** app in the apps menu
@@ -113,11 +113,16 @@ To update the News app use change into the **owncloud/apps/news/** directory usi
 
 ## Updating Notices
 
+To receive notifications when a new News app version was released, simply add the following Atom feed in your currently installed News app:
+
+    https://github.com/owncloud/news/releases.atom
+
+
 ### Updating to version 4.x
 
 You need to do the following:
 
-* Get rid of **simplePieCacheDuration** setting by removing this setting from your **owncloud/data/news/config/config.ini**. 
+* Get rid of **simplePieCacheDuration** setting by removing this setting from your **owncloud/data/news/config/config.ini**.
 
 ### After updating to 4.x all my read articles reappear as unread
 We switched to a different feed parsing library which creates article ids differently than before. This means that the same article is not found in the database because it was generated with a different id. This should happen only once after the upgrade and there is no data loss. Unfortunately there is no fix for this since the id is a hash which can not be reversed, so a smooth transition is not possible.
