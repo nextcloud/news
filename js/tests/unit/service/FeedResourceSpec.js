@@ -102,7 +102,7 @@ describe('FeedResource', function () {
         expect(FeedResource.getFolderUnreadCount(3)).toBe(0);
 
         FeedResource.markRead();
-        expect(FeedResource.getFolderUnreadCount(4)).toBe(undefined);
+        expect(FeedResource.getFolderUnreadCount(4)).toBe(0);
     }));
 
 
