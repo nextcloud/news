@@ -103,13 +103,14 @@ app.config(["$routeProvider", "$provide", "$httpProvider", function ($routeProvi
 }]);
 
 
-app.run(["$rootScope", "$location", "$http", "$q", "$interval", "Loading", "ItemResource", "FeedResource", "FolderResource", "SettingsResource", "Publisher", "BASE_URL", "FEED_TYPE", "REFRESH_RATE", function ($rootScope, $location, $http, $q, $interval, Loading,
+app.run(["$rootScope", "$location", "$http", "$q", "$interval", "Loading", "ItemResource", "FeedResource", "FolderResource", "SettingsResource", "Publisher", "BASE_URL", "FEED_TYPE", "REFRESH_RATE", "$animate", function ($rootScope, $location, $http, $q, $interval, Loading,
          ItemResource, FeedResource, FolderResource, SettingsResource,
-          Publisher, BASE_URL, FEED_TYPE, REFRESH_RATE) {
+          Publisher, BASE_URL, FEED_TYPE, REFRESH_RATE, $animate) {
     'use strict';
 
     // show Loading screen
     Loading.setLoading('global', true);
+    $animate.enable(false);
 
     // listen to keys in returned queries to automatically distribute the
     // incoming values to models
@@ -179,6 +180,7 @@ app.run(["$rootScope", "$location", "$http", "$q", "$interval", "Loading", "Item
         ]
     )
         .then(function () {
+            $animate.enable(true);
             Loading.setLoading('global', false);
         });
 
