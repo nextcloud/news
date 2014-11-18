@@ -9,7 +9,7 @@
             || Navigation.isFeedActive(feed.id)
             || !feed.id"
     data-id="{{ feed.id }}"
-    class="feed with-counter with-menu"
+    class="feed with-counter with-menu animate-show"
     news-draggable-disable="{{
         feed.error.length > 0 ||
         !feed.id ||

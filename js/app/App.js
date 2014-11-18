@@ -9,4 +9,4 @@
  */
 
 /* jshint unused: false */
-var app = angular.module('News', ['ngRoute', 'ngSanitize']);
+var app = angular.module('News', ['ngRoute', 'ngSanitize', 'ngAnimate']);

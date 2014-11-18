@@ -4,7 +4,7 @@
 
 
 /* jshint unused: false */
-var app = angular.module('News', ['ngRoute', 'ngSanitize']);
+var app = angular.module('News', ['ngRoute', 'ngSanitize', 'ngAnimate']);
 app.config(["$routeProvider", "$provide", "$httpProvider", function ($routeProvider, $provide, $httpProvider) {
     'use strict';
 

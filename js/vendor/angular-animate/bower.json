@@ -1,7 +1,7 @@
 {
-  "name": "angular-sanitize",
+  "name": "angular-animate",
   "version": "1.3.3",
-  "main": "./angular-sanitize.js",
+  "main": "./angular-animate.js",
   "ignore": [],
   "dependencies": {
     "angular": "1.3.3"

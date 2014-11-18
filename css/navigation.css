@@ -155,3 +155,19 @@
 #app-navigation .error-message button:hover {
     opacity: 1;
 }
+
+#app-navigation .animate-show.ng-hide-add.ng-hide-add-active,
+#app-navigation .animate-show.ng-hide-remove.ng-hide-remove-active {
+  -webkit-transition: all linear .3s;
+  -moz-transition: all linear .3s;
+  -o-transition: all linear .3s;
+  transition: all linear .3s;
+}
+
+#app-navigation .animate-show {
+  opacity: 1;
+}
+
+#app-navigation .animate-show.ng-hide {
+    opacity: 0;
+}

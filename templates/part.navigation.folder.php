@@ -12,7 +12,7 @@
             || !folder.id
             || folder.getsFeed
             || !Navigation.hasFeeds(folder.id)"
-    class="folder with-counter with-menu"
+    class="folder with-counter with-menu animate-show"
     data-id="{{ folder.id }}"
     news-droppable>
     <button class="collapse"

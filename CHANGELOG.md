@@ -1,3 +1,6 @@
+owncloud-news (4.1.3)
+* **Enhancement**: Fade out folders and feeds instead of just hiding them
+
 owncloud-news (4.1.2)
 * **Enhancement**: Order feeds and folder sorting by title and name rather than by id
 
