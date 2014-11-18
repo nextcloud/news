@@ -14,6 +14,7 @@ app.run(function ($rootScope, $location, $http, $q, $interval, Loading,
 
     // show Loading screen
     Loading.setLoading('global', true);
+    $animate.enabled(false);
 
     // listen to keys in returned queries to automatically distribute the
     // incoming values to models
@@ -83,7 +84,6 @@ app.run(function ($rootScope, $location, $http, $q, $interval, Loading,
         ]
     )
         .then(function () {
-            $animate.enable(true);
             Loading.setLoading('global', false);
         });
 
