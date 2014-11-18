@@ -9,12 +9,11 @@
  */
 app.run(function ($rootScope, $location, $http, $q, $interval, Loading,
          ItemResource, FeedResource, FolderResource, SettingsResource,
-          Publisher, BASE_URL, FEED_TYPE, REFRESH_RATE, $animate) {
+          Publisher, BASE_URL, FEED_TYPE, REFRESH_RATE) {
     'use strict';
 
     // show Loading screen
     Loading.setLoading('global', true);
-    $animate.enabled(false);
 
     // listen to keys in returned queries to automatically distribute the
     // incoming values to models

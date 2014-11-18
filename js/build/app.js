@@ -361,8 +361,8 @@ app.controller('ContentController',
 
 }]);
 app.controller('NavigationController',
-["$route", "FEED_TYPE", "FeedResource", "FolderResource", "ItemResource", "SettingsResource", "Publisher", "$rootScope", "$location", "$q", "$animate", function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
-    SettingsResource, Publisher, $rootScope, $location, $q, $animate) {
+["$route", "FEED_TYPE", "FeedResource", "FolderResource", "ItemResource", "SettingsResource", "Publisher", "$rootScope", "$location", "$q", function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
+    SettingsResource, Publisher, $rootScope, $location, $q) {
     'use strict';
 
     this.feedError = '';
@@ -426,7 +426,6 @@ app.controller('NavigationController',
     };
 
     this.getFolderUnreadCount= function (folderId) {
-        $animate.enabled(true);
         return FeedResource.getFolderUnreadCount(folderId);
     };
 
