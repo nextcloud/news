@@ -158,10 +158,10 @@
 
 #app-navigation .animate-show.ng-hide-add.ng-hide-add-active,
 #app-navigation .animate-show.ng-hide-remove.ng-hide-remove-active {
-  -webkit-transition: all linear .3s;
-  -moz-transition: all linear .3s;
-  -o-transition: all linear .3s;
-  transition: all linear .3s;
+  -webkit-transition: all linear .2s;
+  -moz-transition: all linear .2s;
+  -o-transition: all linear .2s;
+  transition: all linear .2s;
 }
 
 #app-navigation .animate-show {
