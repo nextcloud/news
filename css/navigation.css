@@ -165,7 +165,8 @@
 }
 
 #app-navigation .animate-show {
-  opacity: 1;
+    opacity: 1;
+    transition: all linear 0s;
 }
 
 #app-navigation .animate-show.ng-hide {
