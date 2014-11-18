@@ -172,3 +172,7 @@
 #app-navigation .animate-show.ng-hide {
     opacity: 0;
 }
+
+#app-navigation .folder {
+    display: none;
+}
