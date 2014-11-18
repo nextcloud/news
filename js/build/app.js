@@ -157,16 +157,25 @@ app.run(["$rootScope", "$location", "$http", "$q", "$interval", "Loading", "Item
         activeFeedDeferred.resolve();
     });
 
+    var feedDeferred = $q.defer();
+    var folders, feeds;
+    $http.get(BASE_URL + '/feeds').success(function (data) {
+        feeds = data;
+        feedDeferred.resolve();
+    });
+
     var folderDeferred = $q.defer();
     $http.get(BASE_URL + '/folders').success(function (data) {
-        Publisher.publishAll(data);
+        folders = data;
         folderDeferred.resolve();
     });
 
-    var feedDeferred = $q.defer();
-    $http.get(BASE_URL + '/feeds').success(function (data) {
-        Publisher.publishAll(data);
-        feedDeferred.resolve();
+    $q.all([
+        feedDeferred.promise,
+        folderDeferred.promise
+    ]).then(function () {
+        Publisher.publishAll(feeds);
+        Publisher.publishAll(folders);
     });
 
     // disable loading if all initial requests finished
