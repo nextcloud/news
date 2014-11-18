@@ -167,12 +167,9 @@
 #app-navigation .animate-show {
     opacity: 1;
     transition: all linear 0s;
+    display: none;
 }
 
 #app-navigation .animate-show.ng-hide {
     opacity: 0;
-}
-
-#app-navigation .folder {
-    display: none;
 }
