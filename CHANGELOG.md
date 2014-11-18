@@ -1,3 +1,6 @@
+owncloud-news (4.1.2)
+* **Enhancement**: Order feeds and folder sorting by title and name rather than by id
+
 owncloud-news (4.1.1)
 * **Enhancement**: shortcut **a** scrolls to the currently active feed in the navigation
 * **Enhancement**: next/previous feed/folder shortcuts now scroll to the active entry if it is not fully in view
