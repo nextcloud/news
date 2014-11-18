@@ -174,6 +174,8 @@ app.run(["$rootScope", "$location", "$http", "$q", "$interval", "Loading", "Item
         feedDeferred.promise,
         folderDeferred.promise
     ]).then(function () {
+        // first publish feeds to correctly update the folder resource unread
+        // cache
         Publisher.publishAll(feeds);
         Publisher.publishAll(folders);
     });
