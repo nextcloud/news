@@ -9,7 +9,7 @@
  */
 app.controller('NavigationController',
 function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
-    SettingsResource, Publisher, $rootScope, $location, $q) {
+    SettingsResource, Publisher, $rootScope, $location, $q, $animate) {
     'use strict';
 
     this.feedError = '';
@@ -73,6 +73,7 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
     };
 
     this.getFolderUnreadCount= function (folderId) {
+        $animate.enabled(true);
         return FeedResource.getFolderUnreadCount(folderId);
     };
 

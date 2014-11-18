@@ -110,7 +110,6 @@ app.run(["$rootScope", "$location", "$http", "$q", "$interval", "Loading", "Item
 
     // show Loading screen
     Loading.setLoading('global', true);
-    $animate.enabled(false);
 
     // listen to keys in returned queries to automatically distribute the
     // incoming values to models
@@ -180,7 +179,7 @@ app.run(["$rootScope", "$location", "$http", "$q", "$interval", "Loading", "Item
         ]
     )
         .then(function () {
-            $animate.enabled(true);
+            $animate.enable(true);
             Loading.setLoading('global', false);
         });
 
@@ -362,8 +361,8 @@ app.controller('ContentController',
 
 }]);
 app.controller('NavigationController',
-["$route", "FEED_TYPE", "FeedResource", "FolderResource", "ItemResource", "SettingsResource", "Publisher", "$rootScope", "$location", "$q", function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
-    SettingsResource, Publisher, $rootScope, $location, $q) {
+["$route", "FEED_TYPE", "FeedResource", "FolderResource", "ItemResource", "SettingsResource", "Publisher", "$rootScope", "$location", "$q", "$animate", function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
+    SettingsResource, Publisher, $rootScope, $location, $q, $animate) {
     'use strict';
 
     this.feedError = '';
@@ -427,6 +426,7 @@ app.controller('NavigationController',
     };
 
     this.getFolderUnreadCount= function (folderId) {
+        $animate.enabled(true);
         return FeedResource.getFolderUnreadCount(folderId);
     };
 
