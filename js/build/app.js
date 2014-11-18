@@ -5,7 +5,7 @@
 
 /* jshint unused: false */
 var app = angular.module('News', ['ngRoute', 'ngSanitize', 'ngAnimate']);
-app.config(function ($routeProvider, $provide, $httpProvider) {
+app.config(["$routeProvider", "$provide", "$httpProvider", function ($routeProvider, $provide, $httpProvider) {
     'use strict';
 
     var feedType = {
@@ -27,7 +27,7 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
     $provide.constant('SCROLL_TIMEOUT', 0.1);
 
     // make sure that the CSRF header is only sent to the ownCloud domain
-    $provide.factory('CSRFInterceptor', function ($q, BASE_URL) {
+    $provide.factory('CSRFInterceptor', ["$q", "BASE_URL", function ($q, BASE_URL) {
         return {
             request: function (config) {
                 if (config.url.indexOf(BASE_URL) === 0) {
@@ -37,14 +37,14 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
                 return config || $q.when(config);
             }
         };
-    });
+    }]);
     $httpProvider.interceptors.push('CSRFInterceptor');
 
     // routing
     var getResolve = function (type) {
         return {
             // request to items also returns feeds
-            data: /* @ngInject */ function (
+            data: /* @ngInject */ ["$http", "$route", "$q", "BASE_URL", "ITEM_BATCH_SIZE", function (
                 $http, $route, $q, BASE_URL, ITEM_BATCH_SIZE) {
 
                 var parameters = {
@@ -67,7 +67,7 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
                 });
 
                 return deferred.promise;
-            }
+            }]
         };
     };
 
@@ -100,10 +100,10 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
             type: -1
         });
 
-});
+}]);
 
 
-app.run(function ($rootScope, $location, $http, $q, $interval, Loading,
+app.run(["$rootScope", "$location", "$http", "$q", "$interval", "Loading", "ItemResource", "FeedResource", "FolderResource", "SettingsResource", "Publisher", "BASE_URL", "FEED_TYPE", "REFRESH_RATE", function ($rootScope, $location, $http, $q, $interval, Loading,
          ItemResource, FeedResource, FolderResource, SettingsResource,
           Publisher, BASE_URL, FEED_TYPE, REFRESH_RATE) {
     'use strict';
@@ -206,9 +206,9 @@ app.run(function ($rootScope, $location, $http, $q, $interval, Loading,
         $location.path('/items');
     });
 
-});
+}]);
 app.controller('AppController',
-function (Loading, FeedResource, FolderResource) {
+["Loading", "FeedResource", "FolderResource", function (Loading, FeedResource, FolderResource) {
     'use strict';
 
     this.loading = Loading;
@@ -217,9 +217,9 @@ function (Loading, FeedResource, FolderResource) {
         return FeedResource.size() === 0 && FolderResource.size() === 0;
     };
 
-});
+}]);
 app.controller('ContentController',
-function (Publisher, FeedResource, ItemResource, SettingsResource, data,
+["Publisher", "FeedResource", "ItemResource", "SettingsResource", "data", "$route", "$routeParams", "FEED_TYPE", function (Publisher, FeedResource, ItemResource, SettingsResource, data,
     $route, $routeParams, FEED_TYPE) {
     'use strict';
 
@@ -358,9 +358,9 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data,
         $route.reload();
     };
 
-});
+}]);
 app.controller('NavigationController',
-function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
+["$route", "FEED_TYPE", "FeedResource", "FolderResource", "ItemResource", "SettingsResource", "Publisher", "$rootScope", "$location", "$q", function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
     SettingsResource, Publisher, $rootScope, $location, $q) {
     'use strict';
 
@@ -666,9 +666,9 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
         setSelectedFolderForRoute();
     });
 
-});
+}]);
 app.controller('SettingsController',
-function ($route, $q, SettingsResource, ItemResource, OPMLParser,
+["$route", "$q", "SettingsResource", "ItemResource", "OPMLParser", "OPMLImporter", "Publisher", function ($route, $q, SettingsResource, ItemResource, OPMLParser,
           OPMLImporter, Publisher) {
     'use strict';
 
@@ -740,14 +740,14 @@ function ($route, $q, SettingsResource, ItemResource, OPMLParser,
         }
     };
 
-});
-app.filter('trustUrl', function ($sce) {
+}]);
+app.filter('trustUrl', ["$sce", function ($sce) {
     'use strict';
 
     return function (url) {
         return $sce.trustAsResourceUrl(url);
     };
-});
+}]);
 app.filter('unreadCountFormatter', function () {
     'use strict';
 
@@ -758,7 +758,7 @@ app.filter('unreadCountFormatter', function () {
         return unreadCount;
     };
 });
-app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
+app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Resource, $http, BASE_URL, $q) {
     'use strict';
 
     var FeedResource = function ($http, BASE_URL, $q) {
@@ -1056,8 +1056,8 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
 
 
     return new FeedResource($http, BASE_URL, $q);
-});
-app.factory('FolderResource', function (Resource, $http, BASE_URL, $q) {
+}]);
+app.factory('FolderResource', ["Resource", "$http", "BASE_URL", "$q", function (Resource, $http, BASE_URL, $q) {
     'use strict';
 
     var FolderResource = function ($http, BASE_URL, $q) {
@@ -1179,8 +1179,8 @@ app.factory('FolderResource', function (Resource, $http, BASE_URL, $q) {
 
 
     return new FolderResource($http, BASE_URL, $q);
-});
-app.factory('ItemResource', function (Resource, $http, BASE_URL,
+}]);
+app.factory('ItemResource', ["Resource", "$http", "BASE_URL", "ITEM_BATCH_SIZE", function (Resource, $http, BASE_URL,
                                       ITEM_BATCH_SIZE) {
     'use strict';
 
@@ -1383,7 +1383,7 @@ app.factory('ItemResource', function (Resource, $http, BASE_URL,
 
 
     return new ItemResource($http, BASE_URL, ITEM_BATCH_SIZE);
-});
+}]);
 app.service('Loading', function () {
     'use strict';
 
@@ -1402,7 +1402,7 @@ app.service('Loading', function () {
     };
 
 });
-app.service('OPMLImporter', function (FeedResource, FolderResource, Publisher,
+app.service('OPMLImporter', ["FeedResource", "FolderResource", "Publisher", "$q", function (FeedResource, FolderResource, Publisher,
                                       $q) {
     'use strict';
     var startFeedJob = function (queue) {
@@ -1500,7 +1500,7 @@ app.service('OPMLImporter', function (FeedResource, FolderResource, Publisher,
         return deferred.promise;
     };
 
-});
+}]);
 app.service('OPMLParser', function () {
     'use strict';
 
@@ -1680,7 +1680,7 @@ app.factory('Resource', function () {
     return Resource;
 });
 /*jshint unused:false*/
-app.service('SettingsResource', function ($http, BASE_URL) {
+app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL) {
     'use strict';
 
     this.settings = {
@@ -1740,7 +1740,7 @@ app.service('SettingsResource', function ($http, BASE_URL) {
         return languageCode;
     };
 
-});
+}]);
 /**
  * Code in here acts only as a click shortcut mechanism. That's why its not
  * being put into a directive since it has to be tested with protractor
@@ -2147,12 +2147,12 @@ app.service('SettingsResource', function ($http, BASE_URL) {
     });
 
 }(window, document, $));
-app.run(function ($document, $rootScope) {
+app.run(["$document", "$rootScope", function ($document, $rootScope) {
     'use strict';
     $document.click(function (event) {
         $rootScope.$broadcast('documentClicked', event);
     });
-});
+}]);
 
 app.directive('appNavigationEntryUtils', function () {
     'use strict';
@@ -2175,7 +2175,7 @@ app.directive('appNavigationEntryUtils', function () {
         }
     };
 });
-app.directive('newsAutoFocus', function ($timeout) {
+app.directive('newsAutoFocus', ["$timeout", function ($timeout) {
     'use strict';
     return function (scope, elem, attrs) {
         var toFocus = elem;
@@ -2189,7 +2189,7 @@ app.directive('newsAutoFocus', function ($timeout) {
             toFocus.focus();
         }, 0);
     };
-});
+}]);
 app.directive('newsBindHtmlUnsafe', function () {
     'use strict';
 
@@ -2220,7 +2220,7 @@ app.directive('newsDraggable', function () {
         });
     };
 });
-app.directive('newsDroppable', function ($rootScope) {
+app.directive('newsDroppable', ["$rootScope", function ($rootScope) {
     'use strict';
 
     return function (scope, elem, attr) {
@@ -2244,7 +2244,7 @@ app.directive('newsDroppable', function ($rootScope) {
 
         elem.droppable(details);
     };
-});
+}]);
 app.directive('newsEnclosure', function () {
     'use strict';
     return {
@@ -2289,7 +2289,7 @@ app.directive('newsEnclosure', function () {
         }
     };
 });
-app.directive('newsFocus', function ($timeout, $interpolate) {
+app.directive('newsFocus', ["$timeout", "$interpolate", function ($timeout, $interpolate) {
     'use strict';
 
     return function (scope, elem, attrs) {
@@ -2301,8 +2301,8 @@ app.directive('newsFocus', function ($timeout, $interpolate) {
         });
     };
 
-});
-app.directive('newsPullToRefresh', function ($rootScope) {
+}]);
+app.directive('newsPullToRefresh', ["$rootScope", function ($rootScope) {
     'use strict';
 
     var scrolled = false;
@@ -2329,7 +2329,7 @@ app.directive('newsPullToRefresh', function ($rootScope) {
             });
         }
     };
-});
+}]);
 app.directive('newsReadFile', function () {
     'use strict';
 
@@ -2351,7 +2351,7 @@ app.directive('newsReadFile', function () {
         });
     };
 });
-app.directive('newsScroll', function ($timeout, ITEM_AUTO_PAGE_SIZE,
+app.directive('newsScroll', ["$timeout", "ITEM_AUTO_PAGE_SIZE", "MARK_READ_TIMEOUT", "SCROLL_TIMEOUT", function ($timeout, ITEM_AUTO_PAGE_SIZE,
     MARK_READ_TIMEOUT, SCROLL_TIMEOUT) {
     'use strict';
     var timer;
@@ -2455,7 +2455,7 @@ app.directive('newsScroll', function ($timeout, ITEM_AUTO_PAGE_SIZE,
             });
         }
     };
-});
+}]);
 app.directive('newsStopPropagation', function () {
     'use strict';
     return {
@@ -2467,7 +2467,7 @@ app.directive('newsStopPropagation', function () {
         }
     };
 });
-app.directive('newsTimeout', function ($timeout, $rootScope) {
+app.directive('newsTimeout', ["$timeout", "$rootScope", function ($timeout, $rootScope) {
     'use strict';
 
     return {
@@ -2502,8 +2502,8 @@ app.directive('newsTimeout', function ($timeout, $rootScope) {
             });
         }
     };
-});
-app.directive('newsTitleUnreadCount', function ($window) {
+}]);
+app.directive('newsTitleUnreadCount', ["$window", function ($window) {
     'use strict';
 
     var baseTitle = $window.document.title;
@@ -2528,7 +2528,7 @@ app.directive('newsTitleUnreadCount', function ($window) {
         }
     };
 
-});
+}]);
 app.directive('newsTriggerClick', function () {
     'use strict';
 
