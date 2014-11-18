@@ -17,7 +17,7 @@ OC.L10N.register(
     "Purge interval" : "Aufräum-Intervall",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored" : "Minimum an Sekunden nachdem gelöschte Feeds und Ordner aus der Datenbank entfernt werden; Werte unter 60 Sekunden werden ignoriert",
     "Maximum read count per feed" : "Maximale Anzahl an gelesenen Artikeln pro Feed",
-    "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off completely" : "Definiert die maximale Anzahl an Artikeln, die pro Feed gelesen und bei einem Aufräumauftrag nicht aus der Datenbank gelöscht werden; wenn ältere Artikel nach dem Lesen erhalten bleiben sollen, erhöhen Sie diesen Wert; negative Werte sowie -1 deaktivieren diese Funktion komplett",
+    "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off completely" : "Definiert die maximale Anzahl an Artikeln, die pro Feed gelesen und bei einem Aufräumauftrag nicht aus der Datenbank gelöscht werden; wenn ältere Artikel nach dem Lesen erhalten bleiben sollen, erhöhen diesen Wert; negative Werte sowie -1 deaktivieren diese Funktion komplett",
     "Maximum redirects" : "Maximale Anzahl der HTTP Redirects",
     "How many redirects the feed fetcher should follow" : "Maximale Anzahl der HTTP Redirects, denen der Feed-Updater folgen soll",
     "Maximum feed page size" : "Maximale Seitengröße des Feeds",
