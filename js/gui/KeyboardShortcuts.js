@@ -34,7 +34,20 @@
         );
     };
 
-    var scrollToNavigationElement = function (elem, scrollArea) {
+    var isInScrollView = function (elem, scrollArea) {
+        // offset().top adds the navigation bar too so we have to subract it
+        var elemTop = elem.offset().top - scrollArea.offset().top;
+        var elemBottom = elemTop + elem.height();
+
+        var areaBottom = scrollArea.height();
+
+        return elemTop >= 0 && elemBottom < areaBottom;
+    };
+
+    var scrollToNavigationElement = function (elem, scrollArea, toTop) {
+        if (elem.length === 0 || (!toTop && isInScrollView(elem, scrollArea))) {
+            return;
+        }
         scrollArea.scrollTop(
             elem.offset().top - scrollArea.offset().top + scrollArea.scrollTop()
         );
@@ -42,7 +55,7 @@
 
     var scrollToActiveNavigationEntry = function (navigationArea) {
         var element = navigationArea.find('.active');
-        scrollToNavigationElement(element, navigationArea.children('ul'));
+        scrollToNavigationElement(element, navigationArea.children('ul'), true);
     };
 
     var reloadFeed = function (navigationArea) {

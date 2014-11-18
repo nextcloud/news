@@ -1,19 +1,38 @@
 <?php
-// backports
-if (version_compare(implode('.', \OCP\Util::getVersion()), '7.8', '<=')) {
-    style('news', 'news-owncloud7.min');
-} else {
-    style('news', 'news.min');
-}
-
 script('news', [
     'vendor/es6-shim/es6-shim.min',
     'vendor/angular/angular.min',
     'vendor/angular-route/angular-route.min',
     'vendor/angular-sanitize/angular-sanitize.min',
-    'vendor/momentjs/min/moment-with-locales.min',
-    'build/app.min',
+    'vendor/momentjs/min/moment-with-locales.min'
 ]);
+
+if (defined('DEBUG') && DEBUG === true) {
+    if (version_compare(implode('.', \OCP\Util::getVersion()), '7.8', '<=')) {
+        style('news', '7');
+    }
+
+    style('news', [
+        'app',
+        'custom',
+        'content',
+        'mobile',
+        'navigation',
+        'settings',
+        'shortcuts'
+    ]);
+
+    script('news', 'build/app');
+
+} else {
+    if (version_compare(implode('.', \OCP\Util::getVersion()), '7.8', '<=')) {
+        style('news', 'news-owncloud7.min');
+    } else {
+        style('news', 'news.min');
+    }
+
+    script('news', 'build/app.min');
+}
 ?>
 
 <div id="app" ng-app="News" ng-cloak ng-strict-di

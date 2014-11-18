@@ -1,6 +1,6 @@
 owncloud-news (4.1.1)
 * **Enhancement**: shortcut **a** scrolls to the currently active feed in the navigation
-* **Enhancement**: next/previous feed/folder shortcuts now scroll to the active entry
+* **Enhancement**: next/previous feed/folder shortcuts now scroll to the active entry if it is not fully in view
 
 owncloud-news (4.1.0)
 * **Backwards incompatible change**: Time used for updating when using the Python updater is now subtracted from the given interval meaning: if you specify 30 seconds as interval and the update takes 25 seconds, it will sleep for 5 seconds before running the next update
