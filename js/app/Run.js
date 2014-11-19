@@ -58,7 +58,8 @@ app.run(function ($rootScope, $location, $http, $q, $interval, Loading,
         }
 
         // only redirect if url is empty or faulty
-        if (!/^\/items(\/(starred|feeds\/\d+|folders\/\d+))?\/?$/.test(path)) {
+        if (!/^\/items(\/(starred|explore|feeds\/\d+|folders\/\d+))?\/?$/
+            .test(path)) {
             $location.path(url);
         }
 
@@ -86,6 +87,9 @@ app.run(function ($rootScope, $location, $http, $q, $interval, Loading,
         // cache
         Publisher.publishAll(feeds);
         Publisher.publishAll(folders);
+        if (feeds.feeds.length === 0 && folders.folders.length === 0) {
+            $location.path('/explore');
+        }
     });
 
     // disable loading if all initial requests finished

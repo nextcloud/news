@@ -8,6 +8,24 @@
  * @copyright Bernhard Posselt 2014
  */
 
+#app-content .no-feeds-available {
+    text-align: center;
+    color: #333;
+    font-size: 16pt;
+    min-height: 100%;
+    height: 100%;
+    width: 100%;
+    display: table;
+}
+
+#app-content .no-feeds-available p {
+    vertical-align: middle;
+    display: table-cell;
+}
+
+#articles, #app-content-wrapper {
+    height: 100%;
+}
 
 /**
  * cron warning styles

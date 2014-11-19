@@ -9,12 +9,8 @@
  */
 app.controller('ContentController',
 function (Publisher, FeedResource, ItemResource, SettingsResource, data,
-    $route, $routeParams, FEED_TYPE, $location, FolderResource) {
+    $route, $routeParams, FEED_TYPE) {
     'use strict';
-
-    if (FeedResource.size() === 0 && FolderResource.size() === 0) {
-        $location.path('/explore');
-    }
 
     // dont cache items across multiple route changes
     ItemResource.clear();
@@ -38,6 +34,10 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data,
         if (this.isCompactView()) {
             item.show = !item.show;
         }
+    };
+
+    this.isShowAll = function () {
+        return SettingsResource.get('showAll');
     };
 
     this.markRead = function (itemId) {

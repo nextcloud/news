@@ -164,7 +164,8 @@ app.run(["$rootScope", "$location", "$http", "$q", "$interval", "Loading", "Item
         }
 
         // only redirect if url is empty or faulty
-        if (!/^\/items(\/(starred|feeds\/\d+|folders\/\d+))?\/?$/.test(path)) {
+        if (!/^\/items(\/(starred|explore|feeds\/\d+|folders\/\d+))?\/?$/
+            .test(path)) {
             $location.path(url);
         }
 
@@ -192,6 +193,9 @@ app.run(["$rootScope", "$location", "$http", "$q", "$interval", "Loading", "Item
         // cache
         Publisher.publishAll(feeds);
         Publisher.publishAll(folders);
+        if (feeds.feeds.length === 0 && folders.folders.length === 0) {
+            $location.path('/explore');
+        }
     });
 
     // disable loading if all initial requests finished
@@ -244,13 +248,9 @@ app.controller('AppController',
 
 }]);
 app.controller('ContentController',
-["Publisher", "FeedResource", "ItemResource", "SettingsResource", "data", "$route", "$routeParams", "FEED_TYPE", "$location", "FolderResource", function (Publisher, FeedResource, ItemResource, SettingsResource, data,
-    $route, $routeParams, FEED_TYPE, $location, FolderResource) {
+["Publisher", "FeedResource", "ItemResource", "SettingsResource", "data", "$route", "$routeParams", "FEED_TYPE", function (Publisher, FeedResource, ItemResource, SettingsResource, data,
+    $route, $routeParams, FEED_TYPE) {
     'use strict';
-
-    if (FeedResource.size() === 0 && FolderResource.size() === 0) {
-        $location.path('/explore');
-    }
 
     // dont cache items across multiple route changes
     ItemResource.clear();
@@ -274,6 +274,10 @@ app.controller('ContentController',
         if (this.isCompactView()) {
             item.show = !item.show;
         }
+    };
+
+    this.isShowAll = function () {
+        return SettingsResource.get('showAll');
     };
 
     this.markRead = function (itemId) {
