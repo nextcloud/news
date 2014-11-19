@@ -1,0 +1,18 @@
+{
+    "Tech": [
+        {
+            "title": "ownCloud Planet",
+            "favicon": "http://owncloud.org/wp-content/themes/owncloudorgnew/assets/img/common/favicon.png",
+            "url": "http://owncloud.org/news/",
+            "description": "ownCloud Planet is a blog feed aggregator",
+            "votes": 1000
+        },
+        {
+            "title": "Slashdot",
+            "favicon": "http://slashdot.org/favicon.ico",
+            "url": "http://slashdot.org",
+            "description": "Slashdot: News for nerds, stuff that matters",
+            "votes": 500
+        }
+    ]
+}

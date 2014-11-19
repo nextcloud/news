@@ -23,6 +23,7 @@ use \OCP\AppFramework\Controller;
 
 use \OCA\News\Config\AppConfig;
 use \OCA\News\Config\Config;
+use \OCA\News\RecommendedSites\RecommendedSites;
 
 class PageController extends Controller {
 
@@ -32,6 +33,7 @@ class PageController extends Controller {
     private $appConfig;
     private $urlGenerator;
     private $config;
+    private $recommendedSites;
 
     public function __construct($appName,
                                 IRequest $request,
@@ -40,6 +42,7 @@ class PageController extends Controller {
                                 AppConfig $appConfig,
                                 Config $config,
                                 IL10N $l10n,
+                                RecommendedSites $recommendedSites,
                                 $userId){
         parent::__construct($appName, $request);
         $this->settings = $settings;
@@ -48,6 +51,7 @@ class PageController extends Controller {
         $this->l10n = $l10n;
         $this->userId = $userId;
         $this->config = $config;
+        $this->recommendedSites = $recommendedSites;
     }
 
 
@@ -165,5 +169,17 @@ class PageController extends Controller {
 
         return $response;
     }
+
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     */
+    public function recommended() {
+        $languageCode = $this->l10n->getLanguageCode();
+        $default = 'en';
+
+        return $this->recommendedSites->forLanguage($languageCode, $default);
+    }
+
 
 }

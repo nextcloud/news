@@ -22,6 +22,7 @@ $application->registerRoutes($this, ['routes' => [
 ['name' => 'page#settings', 'url' => '/settings', 'verb' => 'GET'],
 ['name' => 'page#update_settings', 'url' => '/settings', 'verb' => 'PUT'],
 ['name' => 'page#manifest', 'url' => '/manifest.webapp', 'verb' => 'GET'],
+['name' => 'page#recommended', 'url' => '/recommended', 'verb' => 'GET'],
 
 // admin
 ['name' => 'admin#update', 'url' => '/admin', 'verb' => 'PUT'],

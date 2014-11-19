@@ -62,6 +62,7 @@ use \OCA\News\ArticleEnhancer\GlobalArticleEnhancer;
 use \OCA\News\ArticleEnhancer\XPathArticleEnhancer;
 use \OCA\News\ArticleEnhancer\RegexArticleEnhancer;
 
+use \OCA\News\RecommendedSites\RecommendedSites;
 
 
 class Application extends App {
@@ -84,6 +85,7 @@ class Application extends App {
                 $c->query('AppConfig'),
                 $c->query('Config'),
                 $c->query('L10N'),
+                $c->query('RecommendedSites'),
                 $c->query('UserId')
             );
         });
@@ -511,7 +513,9 @@ class Application extends App {
             );
         });
 
-
+        $container->registerService('RecommendedSites', function($c) {
+            return new RecommendedSites(__DIR__ . '/../recommendedsites');
+        });
     }
 
     public function getAppConfig() {

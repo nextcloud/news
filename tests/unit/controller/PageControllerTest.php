@@ -26,6 +26,7 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
     private $appConfig;
     private $configData;
     private $config;
+    private $recommended;
 
     /**
      * Gets run before each test
@@ -67,9 +68,13 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
             '\OCA\News\Config\Config')
             ->disableOriginalConstructor()
             ->getMock();
+        $this->recommended = $this->getMockBuilder(
+            '\OCA\News\RecommendedSites\RecommendedSites')
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->controller = new PageController($this->appName, $this->request,
             $this->settings, $this->urlGenerator, $this->appConfig,
-            $this->config, $this->l10n, $this->user);
+            $this->config, $this->l10n, $this->recommended, $this->user);
     }
 
 
@@ -223,5 +228,22 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals('john, test', $result['developer']['name']);
     }
 
+
+    public function testRecommended(){
+        $in = 'test';
+        $this->l10n->expects($this->once())
+            ->method('getLanguageCode')
+            ->will($this->returnValue('de_DE'));
+
+        $this->recommended->expects($this->once())
+            ->method('forLanguage')
+            ->with($this->equalTo('de_DE'), $this->equalTo('en'))
+            ->will($this->returnValue($in));
+
+
+        $out = $this->controller->recommended();
+
+        $this->assertEquals($in, $out);
+    }
 
 }
