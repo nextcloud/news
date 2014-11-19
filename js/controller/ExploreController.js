@@ -10,7 +10,7 @@
 app.controller('ExploreController', function (sites, $rootScope) {
     'use strict';
 
-    this.sites = sites.data;
+    this.sites = sites;
 
 
     this.subscribeTo = function (url) {

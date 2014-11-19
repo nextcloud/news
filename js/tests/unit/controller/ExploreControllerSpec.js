@@ -30,7 +30,7 @@ describe('ExploreController', function () {
 
 
     it('should expose sites', inject(function () {
-        expect(controller.sites).toBe(sites.data);
+        expect(controller.sites).toBe(sites);
     }));
 
 

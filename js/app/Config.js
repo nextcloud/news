@@ -30,10 +30,13 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
     $provide.constant('SCROLL_TIMEOUT', 0.1);
 
     // make sure that the CSRF header is only sent to the ownCloud domain
-    $provide.factory('CSRFInterceptor', function ($q, BASE_URL) {
+    $provide.factory('CSRFInterceptor', function ($q, BASE_URL, $window) {
         return {
             request: function (config) {
-                if (config.url.indexOf(BASE_URL) === 0) {
+                var domain =
+                    $window.location.href.split($window.location.pathname)[0];
+                if (config.url.indexOf(BASE_URL) === 0 ||
+                    config.url.indexOf(domain) === 0) {
                     config.headers.requesttoken = csrfToken;
                 }
 
@@ -102,8 +105,31 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
             controller: 'ExploreController as Explore',
             templateUrl: 'explore.html',
             resolve: {
-                sites: /* @ngInject */ function ($http, BASE_URL) {
-                    return $http.get(BASE_URL + '/explore');
+                sites: /* @ngInject */ function (
+                $http, $q, BASE_URL, Publisher, SettingsResource) {
+                    var deferred = $q.defer();
+
+                    $http.get(BASE_URL + '/settings').then(function (data) {
+                        Publisher.publishAll(data);
+
+                        var url = SettingsResource.get('exploreUrl');
+                        var language = SettingsResource.get('language');
+                        return $http({
+                            url: url,
+                            method: 'GET',
+                            params: {
+                                lang: language
+                            }
+                        });
+
+                    }).then(function (data) {
+                        console.log(data);
+                        deferred.resolve(data.data);
+                    }, function () {
+                        deferred.reject();
+                    });
+
+                    return deferred.promise;
                 }
             },
             type: feedType.EXPLORE

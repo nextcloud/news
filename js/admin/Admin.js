@@ -27,6 +27,8 @@
             $('#news input[name="news-feed-fetcher-timeout"]');
         var maxSizeInput =
             $('#news input[name="news-max-size"]');
+        var exploreUrlInput =
+            $('#news input[name="news-explore-url"]');
         var savedMessage = $('#news-saved-message');
 
         var saved = function () {
@@ -47,6 +49,7 @@
             var maxRedirects = maxRedirectsInput.val();
             var feedFetcherTimeout = feedFetcherTimeoutInput.val();
             var maxSize = maxSizeInput.val();
+            var exploreUrl = exploreUrlInput.val();
             var useCronUpdates = useCronUpdatesInput.is(':checked');
 
             var data = {
@@ -56,7 +59,8 @@
                 maxRedirects: parseInt(maxRedirects, 10),
                 feedFetcherTimeout: parseInt(feedFetcherTimeout, 10),
                 maxSize: parseInt(maxSize, 10),
-                useCronUpdates: useCronUpdates
+                useCronUpdates: useCronUpdates,
+                exploreUrl: exploreUrl
             };
 
             var url = OC.generateUrl('/apps/news/admin');
@@ -76,6 +80,7 @@
                 maxSizeInput.val(data.maxSize);
                 feedFetcherTimeoutInput.val(data.feedFetcherTimeout);
                 useCronUpdatesInput.prop('checked', data.useCronUpdates);
+                exploreUrlInput.val(data.exploreUrl);
             });
 
         };
