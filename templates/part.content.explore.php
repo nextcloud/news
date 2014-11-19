@@ -15,7 +15,9 @@
                     <img ng-src="{{ entry.image }}" ng-if="entry.image">
                 </div>
                 <div class="explore-subscribe">
-                    <button><?php p($l->t('Subscribe')) ?></button>
+                    <button ng-click="Explore.subscribeTo(entry.url)">
+                        <?php p($l->t('Subscribe')) ?>
+                    </button>
                 </div>
             </li>
         </ul>

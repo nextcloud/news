@@ -39,7 +39,7 @@
 
 #explore .explore-section li {
     padding: 30px;
-    margin-right: 20px;
+    margin: 0 20px 20px 0;
     display: inline-block;
     vertical-align: top;
     width: 300px;

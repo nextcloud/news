@@ -388,10 +388,15 @@ app.controller('ContentController',
     };
 
 }]);
-app.controller('ExploreController', ["sites", function (sites) {
+app.controller('ExploreController', ["sites", "$rootScope", function (sites, $rootScope) {
     'use strict';
 
     this.sites = sites.data;
+
+
+    this.subscribeTo = function (url) {
+        $rootScope.$broadcast('addFeed', url);
+    };
 
 }]);
 app.controller('NavigationController',
@@ -2215,6 +2220,29 @@ app.directive('appNavigationEntryUtils', function () {
         }
     };
 });
+app.directive('newsAddFeed', ["$rootScope", "$timeout", function ($rootScope, $timeout) {
+    'use strict';
+
+    return {
+        restrict: 'A',
+        link: function (scope, elem) {
+            $rootScope.$on('addFeed', function (_, url) {
+
+                $timeout(function () {
+                    if (elem.is(':animated')) {
+                        elem.stop(true, true);
+                        elem.show();
+                    } else if (!elem.is(':visible')) {
+                        elem.slideDown();
+                    }
+                    elem.find('[ng-model="Navigation.feed.url"]').focus();
+                });
+
+                scope.Navigation.feed.url = url;
+            });
+        }
+    };
+}]);
 app.directive('newsAutoFocus', ["$timeout", function ($timeout) {
     'use strict';
     return function (scope, elem, attrs) {

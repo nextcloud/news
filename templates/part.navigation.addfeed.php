@@ -5,7 +5,7 @@
             news-focus="[name='address']"><?php p($l->t('Subscribe'))?></button>
     </div>
 
-    <div class="add-new-popup" id="new-feed">
+    <div class="add-new-popup" id="new-feed" news-add-feed="Navigation.feed">
 
         <form ng-submit="Navigation.createFeed(Navigation.feed)"
               name="feedform">

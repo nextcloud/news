@@ -7,9 +7,14 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.controller('ExploreController', function (sites) {
+app.controller('ExploreController', function (sites, $rootScope) {
     'use strict';
 
     this.sites = sites.data;
+
+
+    this.subscribeTo = function (url) {
+        $rootScope.$broadcast('addFeed', url);
+    };
 
 });
