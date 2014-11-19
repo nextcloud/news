@@ -13,7 +13,7 @@
             <?php p($l->t('Refresh')) ?> (r)
         </button>
     </div>
-    <div ng-if="Content.getItems().length == 0" class="no-feeds-available">
+    <div ng-show="Content.getItems().length == 0" class="no-feeds-available">
         <p ng-show="Content.isShowAll()"><?php p($l->t('No articles available')) ?></p>
         <p ng-show="!Content.isShowAll()"><?php p($l->t('No unread articles available')) ?></p>
     </div>

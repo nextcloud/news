@@ -91,7 +91,10 @@ if (defined('DEBUG') && DEBUG === true) {
         tabindex="-1"
         news-pull-to-refresh="showPullToRefresh">
         <div id="app-content-wrapper"
-            ng-class="{'autopaging': App.loading.isLoading('autopaging')}"
+            ng-class="{
+                'autopaging': App.loading.isLoading('autopaging'),
+                'finished-auto-paging': Content.isNothingMoreToAutoPage
+            }"
             ng-hide="App.loading.isLoading('global')"
             ng-view
             news-scroll="#app-content"

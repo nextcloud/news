@@ -285,6 +285,7 @@ app.controller('ContentController',
 
 
     this.isAutoPagingEnabled = true;
+    this.isNothingMoreToAutoPage = false;
 
     this.getItems = function () {
         return ItemResource.getAll();
@@ -391,6 +392,8 @@ app.controller('ContentController',
 
             if (data.items.length > 0) {
                 self.isAutoPagingEnabled = true;
+            } else {
+                self.isNothingMoreToAutoPage = true;
             }
 
             if (self.isAutoPagingEnabled && self.autoPageAgain) {

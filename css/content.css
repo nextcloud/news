@@ -23,7 +23,8 @@
     display: table-cell;
 }
 
-#articles, #app-content-wrapper {
+#articles,
+#app-content-wrapper {
     height: 100%;
 }
 
@@ -64,16 +65,23 @@
     display: none;
 }
 
-#app-content:not(.explore):after {
+#app-content:not(.explore) #articles:after {
     content: '';
     display: block;
     height: 100%;
+    background-repeat: no-repeat;
 }
 
-#app-content-wrapper.autopaging:after {
+#app-content .autopaging: #articles:after {
     content: '';
-    background-image: url('../img/loading.gif') no-repeat;
+    background-image: url('../img/loading.gif');
     background-position: calc(50% - 16px) calc(50% - 16px);
+}
+
+#app-content .finished-auto-paging #articles:after {
+    background-image: url('../img/rss.svg');
+    background-size: 26px;
+    background-position: calc(50% - 13px) calc(50% - 13px);
 }
 
 /**
