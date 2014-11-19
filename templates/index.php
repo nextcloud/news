@@ -20,7 +20,8 @@ if (defined('DEBUG') && DEBUG === true) {
         'mobile',
         'navigation',
         'settings',
-        'shortcuts'
+        'shortcuts',
+        'explore'
     ]);
 
     script('news', 'build/app');
@@ -55,6 +56,7 @@ if (defined('DEBUG') && DEBUG === true) {
         <ul class="with-icon" data-id="0" news-droppable>
             <?php print_unescaped($this->inc('part.navigation.addfeed')) ?>
             <?php print_unescaped($this->inc('part.navigation.addfolder')) ?>
+            <?php print_unescaped($this->inc('part.navigation.explore')) ?>
             <?php print_unescaped($this->inc('part.navigation.unreadfeed')) ?>
             <?php print_unescaped($this->inc('part.navigation.starredfeed')) ?>
             <?php print_unescaped($this->inc(
@@ -76,12 +78,15 @@ if (defined('DEBUG') && DEBUG === true) {
     <script type="text/ng-template" id="shortcuts.html">
         <?php print_unescaped($this->inc('part.content.shortcuts')) ?>
     </script>
+    <script type="text/ng-template" id="explore.html">
+        <?php print_unescaped($this->inc('part.content.explore')) ?>
+    </script>
 
     <div id="app-content"
         ng-class="{
             'loading-content': App.loading.isLoading('content') &&
                                !App.loading.isLoading('global'),
-            'first-run': App.isFirstRun()
+            'explore': App.isFirstRun()
         }"
         tabindex="-1"
         news-pull-to-refresh="showPullToRefresh">

@@ -15,7 +15,8 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
         FOLDER: 1,
         STARRED: 2,
         SUBSCRIPTIONS: 3,
-        SHARED: 4
+        SHARED: 4,
+        EXPLORE: 5
     };
 
     // constants
@@ -97,6 +98,15 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
             templateUrl: 'content.html',
             resolve: getResolve(feedType.FOLDER),
             type: feedType.FOLDER
+        }).when('/explore', {
+            controller: 'ExploreController as Explore',
+            templateUrl: 'explore.html',
+            resolve: {
+                sites: /* @ngInject */ function ($http, BASE_URL) {
+                    return $http.get(BASE_URL + '/explore');
+                }
+            },
+            type: feedType.EXPLORE
         }).when('/shortcuts', {
             templateUrl: 'shortcuts.html',
             type: -1

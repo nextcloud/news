@@ -23,7 +23,8 @@ use \OCP\AppFramework\Controller;
 
 use \OCA\News\Config\AppConfig;
 use \OCA\News\Config\Config;
-use \OCA\News\RecommendedSites\RecommendedSites;
+use \OCA\News\Explore\RecommendedSites;
+use \OCA\News\Db\FeedType;
 
 class PageController extends Controller {
 
@@ -174,9 +175,14 @@ class PageController extends Controller {
      * @NoAdminRequired
      * @NoCSRFRequired
      */
-    public function recommended() {
+    public function explore() {
         $languageCode = $this->l10n->getLanguageCode();
         $default = 'en';
+
+        $this->settings->setUserValue($this->userId, $this->appName,
+            'lastViewedFeedId', 0);
+        $this->settings->setUserValue($this->userId, $this->appName,
+            'lastViewedFeedType', FeedType::EXPLORE);
 
         return $this->recommendedSites->forLanguage($languageCode, $default);
     }

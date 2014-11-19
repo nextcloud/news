@@ -49,6 +49,10 @@ app.run(function ($rootScope, $location, $http, $q, $interval, Loading,
             url = '/items/starred';
             break;
 
+        case FEED_TYPE.EXPLORE:
+            url = '/explore';
+            break;
+
         default:
             url = '/items';
         }

@@ -225,7 +225,7 @@ describe('NavigationController', function () {
     }));
 
 
-    it('should check if a starred is active', inject(function (FeedResource,
+    it('should check if starred is active', inject(function (FeedResource,
         FEED_TYPE, $controller) {
         var ctrl = $controller('NavigationController', {
             FeedResource: FeedResource,
@@ -241,6 +241,22 @@ describe('NavigationController', function () {
         expect(ctrl.isStarredActive()).toBe(true);
     }));
 
+
+    it('should check if explore is active', inject(function (FeedResource,
+        FEED_TYPE, $controller) {
+        var ctrl = $controller('NavigationController', {
+            FeedResource: FeedResource,
+            $route: {
+                current: {
+                    $$route: {
+                        type: FEED_TYPE.EXPLORE
+                    }
+                }
+            }
+        });
+
+        expect(ctrl.isExploreActive()).toBe(true);
+    }));
 
 
     it('should check if a feed is active', inject(function (FeedResource,

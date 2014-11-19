@@ -10,14 +10,21 @@
 describe('AppController', function () {
     'use strict';
 
-    var controller;
+    var controller,
+        location;
 
     beforeEach(module('News', function ($provide) {
         $provide.value('BASE_URL', 'base');
     }));
 
     beforeEach(inject(function ($controller) {
-        controller = $controller('AppController');
+        location = {
+            path: jasmine.createSpy('path')
+        };
+
+        controller = $controller('AppController', {
+            $location: location
+        });
     }));
 
 
@@ -43,6 +50,7 @@ describe('AppController', function () {
         FolderResource.add({name: 'test'});
 
         expect(controller.isFirstRun()).toBe(false);
+        expect(location.path).not.toHaveBeenCalled();
     }));
 
 });

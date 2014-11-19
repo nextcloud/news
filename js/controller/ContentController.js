@@ -9,8 +9,12 @@
  */
 app.controller('ContentController',
 function (Publisher, FeedResource, ItemResource, SettingsResource, data,
-    $route, $routeParams, FEED_TYPE) {
+    $route, $routeParams, FEED_TYPE, $location, FolderResource) {
     'use strict';
+
+    if (FeedResource.size() === 0 && FolderResource.size() === 0) {
+        $location.path('/explore');
+    }
 
     // dont cache items across multiple route changes
     ItemResource.clear();

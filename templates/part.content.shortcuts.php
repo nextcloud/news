@@ -1,3 +1,5 @@
+<?php print_unescaped($this->inc('part.content.cronwarning')) ?>
+
 <div id="app-shortcuts">
     <div>
         <table>

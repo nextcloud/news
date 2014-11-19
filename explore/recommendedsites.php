@@ -11,7 +11,7 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 
-namespace OCA\News\RecommendedSites;
+namespace OCA\News\Explore;
 
 class RecommendedSites {
 
@@ -33,7 +33,12 @@ class RecommendedSites {
             $file = $this->directory . '/sites.' . $default . '.json';
         }
 
-        return json_decode(file_get_contents($file), true);
+        if (file_exists($file)) {
+            return json_decode(file_get_contents($file), true);
+        } else {
+            return [];
+        }
+
     }
 
 

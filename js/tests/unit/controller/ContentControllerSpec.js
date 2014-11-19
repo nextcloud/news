@@ -481,4 +481,47 @@ describe('ContentController', function () {
 
     }));
 
+
+    it('should redirect to the explore page if there are no feeds and folders',
+    inject(function ($controller) {
+        var location = {
+            path: jasmine.createSpy('reload')
+        };
+        $controller('ContentController', {
+            data: {},
+            $location: location
+        });
+
+        expect(location.path).toHaveBeenCalledWith('/explore');
+    }));
+
+    it('should not redirect to the explore page if there are feeds and folders',
+    inject(function ($controller, FolderResource, FeedResource) {
+
+        FolderResource.add({id: 3, name: 'test'});
+
+        var location = {
+            path: jasmine.createSpy('reload')
+        };
+        $controller('ContentController', {
+            data: {},
+            $location: location
+        });
+
+        expect(location.path).not.toHaveBeenCalledWith('/explore');
+
+        FolderResource.clear({id: 3, name: 'test'});
+        FeedResource.add({id: 3, url: 'test'});
+
+        location = {
+            path: jasmine.createSpy('reload')
+        };
+        $controller('ContentController', {
+            data: {},
+            $location: location
+        });
+
+        expect(location.path).not.toHaveBeenCalledWith('/explore');
+    }));
+
 });

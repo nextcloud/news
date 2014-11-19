@@ -13,7 +13,8 @@ app.config(["$routeProvider", "$provide", "$httpProvider", function ($routeProvi
         FOLDER: 1,
         STARRED: 2,
         SUBSCRIPTIONS: 3,
-        SHARED: 4
+        SHARED: 4,
+        EXPLORE: 5
     };
 
     // constants
@@ -95,6 +96,15 @@ app.config(["$routeProvider", "$provide", "$httpProvider", function ($routeProvi
             templateUrl: 'content.html',
             resolve: getResolve(feedType.FOLDER),
             type: feedType.FOLDER
+        }).when('/explore', {
+            controller: 'ExploreController as Explore',
+            templateUrl: 'explore.html',
+            resolve: {
+                sites: /* @ngInject */ ["$http", "BASE_URL", function ($http, BASE_URL) {
+                    return $http.get(BASE_URL + '/explore');
+                }]
+            },
+            type: feedType.EXPLORE
         }).when('/shortcuts', {
             templateUrl: 'shortcuts.html',
             type: -1
@@ -143,6 +153,10 @@ app.run(["$rootScope", "$location", "$http", "$q", "$interval", "Loading", "Item
 
         case FEED_TYPE.STARRED:
             url = '/items/starred';
+            break;
+
+        case FEED_TYPE.EXPLORE:
+            url = '/explore';
             break;
 
         default:
@@ -230,9 +244,13 @@ app.controller('AppController',
 
 }]);
 app.controller('ContentController',
-["Publisher", "FeedResource", "ItemResource", "SettingsResource", "data", "$route", "$routeParams", "FEED_TYPE", function (Publisher, FeedResource, ItemResource, SettingsResource, data,
-    $route, $routeParams, FEED_TYPE) {
+["Publisher", "FeedResource", "ItemResource", "SettingsResource", "data", "$route", "$routeParams", "FEED_TYPE", "$location", "FolderResource", function (Publisher, FeedResource, ItemResource, SettingsResource, data,
+    $route, $routeParams, FEED_TYPE, $location, FolderResource) {
     'use strict';
+
+    if (FeedResource.size() === 0 && FolderResource.size() === 0) {
+        $location.path('/explore');
+    }
 
     // dont cache items across multiple route changes
     ItemResource.clear();
@@ -370,6 +388,12 @@ app.controller('ContentController',
     };
 
 }]);
+app.controller('ExploreController', ["sites", function (sites) {
+    'use strict';
+
+    this.sites = sites.data;
+
+}]);
 app.controller('NavigationController',
 ["$route", "FEED_TYPE", "FeedResource", "FolderResource", "ItemResource", "SettingsResource", "Publisher", "$rootScope", "$location", "$q", function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
     SettingsResource, Publisher, $rootScope, $location, $q) {
@@ -473,6 +497,11 @@ app.controller('NavigationController',
     this.isStarredActive = function () {
         return $route.current &&
             $route.current.$$route.type === FEED_TYPE.STARRED;
+    };
+
+    this.isExploreActive = function () {
+        return $route.current &&
+            $route.current.$$route.type === FEED_TYPE.EXPLORE;
     };
 
     this.isFolderActive = function (folderId) {

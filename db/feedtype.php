@@ -20,4 +20,5 @@ class FeedType {
     const STARRED       = 2;
     const SUBSCRIPTIONS = 3;
     const SHARED        = 4;
+    const EXPLORE       = 5;
 };

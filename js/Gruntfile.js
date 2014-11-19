@@ -77,7 +77,8 @@ module.exports = function (grunt) {
                     '../css/mobile.css',
                     '../css/shortcuts.css',
                     '../css/navigation.css',
-                    '../css/settings.css'
+                    '../css/settings.css',
+                    '../css/explore.css'
                 ]}
             },
             news: {
@@ -88,7 +89,8 @@ module.exports = function (grunt) {
                     '../css/shortcuts.css',
                     '../css/mobile.css',
                     '../css/navigation.css',
-                    '../css/settings.css'
+                    '../css/settings.css',
+                    '../css/explore.css'
                 ]}
             }
         },

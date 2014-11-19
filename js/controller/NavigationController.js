@@ -112,6 +112,11 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
             $route.current.$$route.type === FEED_TYPE.STARRED;
     };
 
+    this.isExploreActive = function () {
+        return $route.current &&
+            $route.current.$$route.type === FEED_TYPE.EXPLORE;
+    };
+
     this.isFolderActive = function (folderId) {
         return $route.current &&
             $route.current.$$route.type === FEED_TYPE.FOLDER &&

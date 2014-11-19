@@ -62,7 +62,7 @@ use \OCA\News\ArticleEnhancer\GlobalArticleEnhancer;
 use \OCA\News\ArticleEnhancer\XPathArticleEnhancer;
 use \OCA\News\ArticleEnhancer\RegexArticleEnhancer;
 
-use \OCA\News\RecommendedSites\RecommendedSites;
+use \OCA\News\Explore\RecommendedSites;
 
 
 class Application extends App {
@@ -514,7 +514,7 @@ class Application extends App {
         });
 
         $container->registerService('RecommendedSites', function($c) {
-            return new RecommendedSites(__DIR__ . '/../recommendedsites');
+            return new RecommendedSites(__DIR__ . '/../explore');
         });
     }
 

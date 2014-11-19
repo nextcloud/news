@@ -13,6 +13,8 @@
 
 namespace OCA\News\Controller;
 
+use \OCA\News\Db\FeedType;
+
 
 class PageControllerTest extends \PHPUnit_Framework_TestCase {
 
@@ -69,7 +71,7 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
             ->disableOriginalConstructor()
             ->getMock();
         $this->recommended = $this->getMockBuilder(
-            '\OCA\News\RecommendedSites\RecommendedSites')
+            '\OCA\News\Explore\RecommendedSites')
             ->disableOriginalConstructor()
             ->getMock();
         $this->controller = new PageController($this->appName, $this->request,
@@ -229,8 +231,21 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testRecommended(){
+    public function testExplore(){
         $in = 'test';
+        $this->settings->expects($this->at(0))
+            ->method('setUserValue')
+            ->with($this->equalTo($this->user),
+                $this->equalTo($this->appName),
+                $this->equalTo('lastViewedFeedId'),
+                $this->equalTo(0));
+
+        $this->settings->expects($this->at(1))
+            ->method('setUserValue')
+            ->with($this->equalTo($this->user),
+                $this->equalTo($this->appName),
+                $this->equalTo('lastViewedFeedType'),
+                $this->equalTo(FeedType::EXPLORE));
         $this->l10n->expects($this->once())
             ->method('getLanguageCode')
             ->will($this->returnValue('de_DE'));
@@ -241,7 +256,7 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
             ->will($this->returnValue($in));
 
 
-        $out = $this->controller->recommended();
+        $out = $this->controller->explore();
 
         $this->assertEquals($in, $out);
     }
