@@ -38,8 +38,9 @@
 }
 
 #explore .explore-section li {
-    padding: 30px;
+    padding: 20px 30px;
     margin: 0 20px 20px 0;
+    min-height: 300px;
     display: inline-block;
     vertical-align: top;
     width: 300px;
@@ -56,12 +57,22 @@
     padding: 0 0 15px 35px;
 }
 
-#explore .explore-section img {
-    width: 100%;
+#explore .explore-logo {
+    text-align: center;
     margin-top: 25px;
+}
+
+#explore .explore-logo img {
+    width: 100%;
 }
 
 #explore .explore-subscribe {
     padding-top: 15px;
     text-align: right;
 }
+
+#explore .explore-content {
+    min-height: 100px;
+    /*overflow: auto;*/
+}
+

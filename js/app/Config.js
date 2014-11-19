@@ -123,9 +123,8 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
                         });
 
                     }).then(function (data) {
-                        console.log(data);
                         deferred.resolve(data.data);
-                    }, function () {
+                    }).catch(function () {
                         deferred.reject();
                     });
 

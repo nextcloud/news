@@ -5,7 +5,7 @@
             "favicon": "http://owncloud.org/wp-content/themes/owncloudorgnew/assets/img/common/favicon.png",
             "url": "http://owncloud.org/news/",
             "description": "ownCloud Planet is a blog feed aggregator",
-            "image": "http://tuxanddroid.de/wp-content/uploads/2013/08/owncloud_logo.png",
+            "image": "https://raw.githubusercontent.com/owncloud/promo/master/ownCloud%20sticker%20A8.jpg",
             "votes": 1000
         },
         {
@@ -13,6 +13,51 @@
             "favicon": "http://slashdot.org/favicon.ico",
             "url": "http://slashdot.org",
             "description": "Slashdot: News for nerds, stuff that matters",
+            "votes": 500
+        }
+    ],
+    "UX": [
+        {
+            "title": "Mozilla UX blog",
+            "favicon": "https://blog.mozilla.org/ux/wp-content/themes/OneMozilla/img/favicon.ico",
+            "url": "https://blog.mozilla.org/ux/",
+            "description": "Designing great products that make sense & bring joy",
+            "votes": 500
+        },
+        {
+            "title": "Little Big Details",
+            "url": "http://littlebigdetails.com/",
+            "favicon": "http://33.media.tumblr.com/avatar_21babec3285d_128.png",
+            "description": "",
+            "votes": 1000
+        },
+        {
+            "title": "Ignore the code",
+            "favicon": "http://ignorethecode.net/blog_images/iphone.png",
+            "url": "http://ignorethecode.net/blog/",
+            "description": "A blog about usability",
+            "votes": 500
+        },
+        {
+            "title": "Elezea",
+            "url": "http://www.elezea.com",
+            "description": "Links and articles about technology, design, and sociology. Written by Rian van der Merwe.",
+            "votes": 500
+        }
+    ],
+    "Food": [
+        {
+            "title": "Smitten Kitchen",
+            "favicon": "http://smittenkitchen.com/uploads/favicon.ico",
+            "url": "http://smittenkitchen.com/",
+            "description": "A home cooking weblog from a tiny kitchen in New York City. The place to find all of your new favorite things to cook",
+            "votes": 500
+        },
+        {
+            "title": "Food in Jars",
+            "favicon": "http://foodinjars.com.s164546.gridserver.com/arugulapesto/wp-content/uploads/2013/05/jar-favicon.png",
+            "url": "http://foodinjars.com/",
+            "description": "A blog dedicated to canning, preserving, and pantry staples made from scratch.",
             "votes": 500
         }
     ]
