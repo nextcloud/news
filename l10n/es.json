@@ -23,6 +23,7 @@
     "Feed fetcher timeout" : "Tiempo de espera agotado para la descarga de la fuente",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted" : "Número máximo de segundos para esperar a que cargue una fuente de RSS o Atom; si toma más tiempo, la actualización será cancelada.",
     "Saved" : "Guardado",
+    "How to set up the operating system cron" : "Cómo configurar el cron del sistema operativo",
     "Add a feed" : "Añadir fuente",
     "There are no feeds yet. Go ahead and add some" : "Aún no hay fuentes. Continúe y agregue algunas",
     "Import feeds and articles" : "Importar fuentes y artículos",

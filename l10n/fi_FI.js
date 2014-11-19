@@ -18,6 +18,7 @@ OC.L10N.register(
     "Maximum read count per feed" : "Syötekohtaisten lukukertojen enimmäismäärä",
     "Maximum redirects" : "Uudelleenohjausten enimmäismäärä",
     "How many redirects the feed fetcher should follow" : "Kuinka montaa uudelleenohjausta noutajan tulisi seurata",
+    "Maximum feed page size" : "Syötteen sivun enimmäiskoko",
     "Feed fetcher timeout" : "Syötteen hakemisen aikakatkaisu",
     "Saved" : "Tallennettu",
     "Add a feed" : "Lisää syöte",
