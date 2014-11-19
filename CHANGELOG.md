@@ -1,3 +1,6 @@
+owncloud-news (4.1.4)
+* **Enhancement**: Add explore button and show explore button on startup
+
 owncloud-news (4.1.3)
 * **Enhancement**: Fade out folders and feeds instead of just hiding them when the unread count drops to 0 and only unread articles should be shown
 
