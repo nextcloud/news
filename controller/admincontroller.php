@@ -42,6 +42,7 @@ class AdminController extends Controller {
             'feedFetcherTimeout' => $this->config->getFeedFetcherTimeout(),
             'useCronUpdates' => $this->config->getUseCronUpdates(),
             'maxSize' => $this->config->getMaxSize(),
+            'exploreUrl' => $this->config->getExploreUrl(),
         ];
         return new TemplateResponse($this->appName, 'admin', $data, 'blank');
     }
@@ -54,17 +55,19 @@ class AdminController extends Controller {
      * @param int $feedFetcherTimeout
      * @param int $maxSize
      * @param bool $useCronUpdates
+     * @param string $exploreUrl
      * @return array with the updated values
      */
     public function update($autoPurgeMinimumInterval, $autoPurgeCount,
                            $maxRedirects, $feedFetcherTimeout, $maxSize,
-                           $useCronUpdates) {
+                           $useCronUpdates, $exploreUrl) {
         $this->config->setAutoPurgeMinimumInterval($autoPurgeMinimumInterval);
         $this->config->setAutoPurgeCount($autoPurgeCount);
         $this->config->setMaxRedirects($maxRedirects);
         $this->config->setMaxSize($maxSize);
         $this->config->setFeedFetcherTimeout($feedFetcherTimeout);
         $this->config->setUseCronUpdates($useCronUpdates);
+        $this->config->setExploreUrl($exploreUrl);
         $this->config->write($this->configPath);
 
         return [
@@ -75,6 +78,7 @@ class AdminController extends Controller {
             'maxSize' => $this->config->getMaxSize(),
             'feedFetcherTimeout' => $this->config->getFeedFetcherTimeout(),
             'useCronUpdates' => $this->config->getUseCronUpdates(),
+            'exploreUrl' => $this->config->getExploreUrl(),
         ];
     }
 

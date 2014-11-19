@@ -48,7 +48,8 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase {
             'maxRedirects' => 3,
             'feedFetcherTimeout' => 4,
             'useCronUpdates' => 5,
-            'maxSize' => 7
+            'maxSize' => 7,
+            'exploreUrl' => 'test'
         ];
         $this->config->expects($this->once())
             ->method('getAutoPurgeMinimumInterval')
@@ -68,6 +69,9 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase {
         $this->config->expects($this->once())
             ->method('getMaxSize')
             ->will($this->returnValue($expected['maxSize']));
+        $this->config->expects($this->once())
+            ->method('getExploreUrl')
+            ->will($this->returnValue($expected['exploreUrl']));
 
         $response = $this->controller->index();
         $data = $response->getParams();
@@ -88,6 +92,7 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase {
             'feedFetcherTimeout' => 4,
             'useCronUpdates' => 5,
             'maxSize' => 7,
+            'exploreUrl' => 'test'
         ];
 
         $this->config->expects($this->once())
@@ -105,6 +110,9 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase {
         $this->config->expects($this->once())
             ->method('setUseCronUpdates')
             ->with($this->equalTo($expected['useCronUpdates']));
+        $this->config->expects($this->once())
+            ->method('setExploreUrl')
+            ->with($this->equalTo($expected['exploreUrl']));
         $this->config->expects($this->once())
             ->method('write')
             ->with($this->equalTo($this->configPath));
@@ -127,6 +135,9 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase {
         $this->config->expects($this->once())
             ->method('getMaxSize')
             ->will($this->returnValue($expected['maxSize']));
+        $this->config->expects($this->once())
+            ->method('getExploreUrl')
+            ->will($this->returnValue($expected['exploreUrl']));
 
         $response = $this->controller->update(
             $expected['autoPurgeMinimumInterval'],
@@ -134,7 +145,8 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase {
             $expected['maxRedirects'],
             $expected['feedFetcherTimeout'],
             $expected['maxSize'],
-            $expected['useCronUpdates']
+            $expected['useCronUpdates'],
+            $expected['exploreUrl']
         );
 
         $this->assertEquals($expected, $response);

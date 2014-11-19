@@ -50,6 +50,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(null, $this->config->getProxyAuth());
         $this->assertEquals('', $this->config->getProxyUser());
         $this->assertEquals('', $this->config->getProxyPassword());
+        $this->assertEquals('', $this->config->getExploreUrl());
         $this->assertEquals(1024*1024*100, $this->config->getMaxSize());
     }
 
@@ -131,6 +132,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
             'autoPurgeCount = 3' . "\n" .
             'maxRedirects = 10' . "\n" .
             'maxSize = 399' . "\n" .
+            'exploreUrl = http://google.de' . "\n" .
             'feedFetcherTimeout = 60' . "\n" .
             'useCronUpdates = true';
         $this->config->setAutoPurgeCount(3);
@@ -139,6 +141,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
         $this->config->setProxyUser('this is a test');
         $this->config->setProxyPassword('se');
         $this->config->setMaxSize(399);
+        $this->config->setExploreUrl('http://google.de');
 
         $this->fileSystem->expects($this->once())
             ->method('file_put_contents')
@@ -166,6 +169,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
             'autoPurgeCount = 200' . "\n" .
             'maxRedirects = 10' . "\n" .
             'maxSize = 104857600' . "\n" .
+            'exploreUrl = ' . "\n" .
             'feedFetcherTimeout = 60' . "\n" .
             'useCronUpdates = false';
 

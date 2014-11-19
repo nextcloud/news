@@ -172,6 +172,7 @@ maxRedirects = 10
 maxSize = 104857600
 feedFetcherTimeout = 60
 useCronUpdates = true
+exploreUrl =
 ```
 
 
@@ -181,6 +182,7 @@ useCronUpdates = true
 * **maxSize**: Maximum feed size in bytes. If the RSS/Atom page is bigger than this value, the update will be aborted
 * **feedFetcherTimeout**: Maximum number of seconds to wait for an RSS or Atom feed to load. If a feed takes longer than that number of seconds to update, the update will be aborted
 * **useCronUpdates**: To use a custom update/cron script you need to disable the cronjob which is run by ownCloud by default by setting this to false
+* **exploreUrl**: If given that url will be contacted for fetching content for the explore feed
 
 Translations
 ------------

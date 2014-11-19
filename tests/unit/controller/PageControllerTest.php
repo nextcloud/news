@@ -143,6 +143,7 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
                 'preventReadOnScroll' => true,
                 'oldestFirst' => true,
                 'language' => 'de',
+                'exploreUrl' => 'test'
             ]
         ];
 
@@ -173,11 +174,69 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
                 $this->equalTo($this->appName),
                 $this->equalTo('oldestFirst'))
             ->will($this->returnValue('1'));
+        $this->config->expects($this->once())
+            ->method('getExploreUrl')
+            ->will($this->returnValue(' '));
+        $this->urlGenerator->expects($this->once())
+            ->method('getAbsoluteURL')
+            ->with($this->equalTo('/index.php/apps/news/explore'))
+            ->will($this->returnValue('test'));
+
 
         $response = $this->controller->settings();
         $this->assertEquals($result, $response);
     }
 
+
+    public function testSettingsExploreUrlSet() {
+        $result = [
+            'settings' => [
+                'showAll' => true,
+                'compact' => true,
+                'preventReadOnScroll' => true,
+                'oldestFirst' => true,
+                'language' => 'de',
+                'exploreUrl' => 'abc'
+            ]
+        ];
+
+        $this->l10n->expects($this->once())
+            ->method('getLanguageCode')
+            ->will($this->returnValue('de'));
+        $this->settings->expects($this->at(0))
+            ->method('getUserValue')
+            ->with($this->equalTo($this->user),
+                $this->equalTo($this->appName),
+                $this->equalTo('showAll'))
+            ->will($this->returnValue('1'));
+        $this->settings->expects($this->at(1))
+            ->method('getUserValue')
+            ->with($this->equalTo($this->user),
+                $this->equalTo($this->appName),
+                $this->equalTo('compact'))
+            ->will($this->returnValue('1'));
+        $this->settings->expects($this->at(2))
+            ->method('getUserValue')
+            ->with($this->equalTo($this->user),
+                $this->equalTo($this->appName),
+                $this->equalTo('preventReadOnScroll'))
+            ->will($this->returnValue('1'));
+        $this->settings->expects($this->at(3))
+            ->method('getUserValue')
+            ->with($this->equalTo($this->user),
+                $this->equalTo($this->appName),
+                $this->equalTo('oldestFirst'))
+            ->will($this->returnValue('1'));
+        $this->config->expects($this->once())
+            ->method('getExploreUrl')
+            ->will($this->returnValue('abc'));
+        $this->urlGenerator->expects($this->never())
+            ->method('getAbsoluteURL');
+
+
+        $response = $this->controller->settings();
+        $this->assertEquals($result, $response);
+    }
 
     public function testUpdateSettings() {
         $this->settings->expects($this->at(0))
@@ -246,9 +305,6 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
                 $this->equalTo($this->appName),
                 $this->equalTo('lastViewedFeedType'),
                 $this->equalTo(FeedType::EXPLORE));
-        $this->l10n->expects($this->once())
-            ->method('getLanguageCode')
-            ->will($this->returnValue('de_DE'));
 
         $this->recommended->expects($this->once())
             ->method('forLanguage')
@@ -256,7 +312,7 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
             ->will($this->returnValue($in));
 
 
-        $out = $this->controller->explore();
+        $out = $this->controller->explore('de_DE');
 
         $this->assertEquals($in, $out);
     }

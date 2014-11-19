@@ -30,6 +30,7 @@ class Config {
     private $logger;
     private $loggerParams;
     private $maxSize;
+    private $exploreUrl;
 
 
     public function __construct($fileSystem, ILogger $logger, $loggerParams) {
@@ -45,6 +46,7 @@ class Config {
         $this->proxyPort = 8080;
         $this->proxyUser = '';
         $this->proxyPassword = '';
+        $this->exploreUrl = '';
         $this->loggerParams = $loggerParams;
     }
 
@@ -106,6 +108,11 @@ class Config {
     }
 
 
+    public function getExploreUrl() {
+        return $this->exploreUrl;
+    }
+
+
     public function setAutoPurgeMinimumInterval($value) {
         $this->autoPurgeMinimumInterval = $value;
     }
@@ -156,6 +163,11 @@ class Config {
     }
 
 
+    public function setExploreUrl($value) {
+        $this->exploreUrl = $value;
+    }
+
+
     public function read($configPath, $createIfNotExists=false) {
         if($createIfNotExists && !$this->fileSystem->file_exists($configPath)) {
 
@@ -202,6 +214,8 @@ class Config {
                 $this->maxRedirects . "\n" .
             'maxSize = ' .
                 $this->maxSize . "\n" .
+            'exploreUrl = ' .
+                $this->exploreUrl . "\n" .
             'feedFetcherTimeout = ' .
                 $this->feedFetcherTimeout . "\n" .
             'useCronUpdates = ' .

@@ -81,13 +81,23 @@ class PageController extends Controller {
      */
     public function settings() {
         $settings = [
-          'showAll',
-          'compact',
-          'preventReadOnScroll',
-          'oldestFirst'
+            'showAll',
+            'compact',
+            'preventReadOnScroll',
+            'oldestFirst'
         ];
 
-        $result = ['language' => $this->l10n->getLanguageCode()];
+        $exploreUrl = $this->config->getExploreUrl();
+        if (trim($exploreUrl) === '') {
+            $exploreUrl = $this->urlGenerator->getAbsoluteURL(
+                '/index.php/apps/news/explore'
+            );
+        }
+
+        $result = [
+            'language' => $this->l10n->getLanguageCode(),
+            'exploreUrl' => $exploreUrl
+        ];
 
         foreach ($settings as $setting) {
             $result[$setting] = $this->settings->getUserValue(
@@ -173,10 +183,10 @@ class PageController extends Controller {
 
     /**
      * @NoAdminRequired
-     * @NoCSRFRequired
+     *
+     * @param string $lang
      */
-    public function explore() {
-        $languageCode = $this->l10n->getLanguageCode();
+    public function explore($lang='en') {
         $default = 'en';
 
         $this->settings->setUserValue($this->userId, $this->appName,
@@ -184,7 +194,7 @@ class PageController extends Controller {
         $this->settings->setUserValue($this->userId, $this->appName,
             'lastViewedFeedType', FeedType::EXPLORE);
 
-        return $this->recommendedSites->forLanguage($languageCode, $default);
+        return $this->recommendedSites->forLanguage($lang, $default);
     }
 
 

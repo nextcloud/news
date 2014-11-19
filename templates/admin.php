@@ -103,6 +103,25 @@ style('news', 'admin');
         <p><input type="text" name="news-feed-fetcher-timeout"
                value="<?php p($_['feedFetcherTimeout']); ?>"></p>
     </div>
+    <div class="form-line">
+        <p>
+            <label for="news-explore-url">
+                <?php p($l->t('Explore Service URL')); ?>
+            </label>
+        </p>
+        <p>
+            <em>
+                <?php p($l->t(
+                    'If given, this service\'s URL will be queried for ' .
+                    'displaying the feeds in the explore feed section. To ' .
+                    'fall back to the built in explore service, leave this ' .
+                    'input empty'
+                )); ?>
+            </em>
+        </p>
+        <p><input type="text" name="news-explore-url"
+               value="<?php p($_['exploreUrl']); ?>"></p>
+    </div>
     <div id="news-saved-message">
         <span class="msg success"><?php p($l->t('Saved')); ?></span>
     </div>
