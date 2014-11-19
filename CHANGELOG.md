@@ -2,6 +2,7 @@ owncloud-news (4.1.4)
 * **Enhancement**: Add admin setting to set a custom explore service URL
 * **Enhancement**: Add explore button and show explore button on startup
 * **Enhancement**: Show a hint when no articles are available
+* **Enhancement**: Show an RSS icon at the bottom of the article list if there are no more articles to autpage
 
 owncloud-news (4.1.3)
 * **Enhancement**: Fade out folders and feeds instead of just hiding them when the unread count drops to 0 and only unread articles should be shown
