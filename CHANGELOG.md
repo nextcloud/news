@@ -1,4 +1,4 @@
-owncloud-news (4.1.4)
+owncloud-news (4.2.0)
 * **Enhancement**: Add admin setting to set a custom explore service URL
 * **Enhancement**: Add explore button and show explore button on startup
 * **Enhancement**: Show a hint when no articles are available
