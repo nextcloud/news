@@ -2,7 +2,6 @@ owncloud-news (4.2.0)
 * **Enhancement**: Add admin setting to set a custom explore service URL
 * **Enhancement**: Add explore button and show explore button on startup
 * **Enhancement**: Show a hint when no articles are available
-* **Enhancement**: Show an RSS icon at the bottom of the article list if there are no more articles to autpage
 * **Bugfix**: Show spinner when autopaging
 * **Bugfix**: Remove race condition when fetching articles that sometimes shows read articles if the user clicks show on only unread and the article request finishes first before the settings request is finished
 
