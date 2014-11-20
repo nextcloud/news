@@ -1924,6 +1924,7 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
         var current = navigationArea.find('.active');
         var elements = navigationArea.find('.subscriptions-feed:visible,' +
                                            '.starred-feed:visible,' +
+                                           '.explore-feed:visible,' +
                                            '.feed:visible');
 
         if (current.hasClass('folder')) {
@@ -2018,6 +2019,7 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
         var current = navigationArea.find('.active');
         var elements = navigationArea.find('.subscriptions-feed:visible,' +
                                            '.starred-feed:visible,' +
+                                           '.explore-feed:visible,' +
                                            '.feed:visible');
 
         // special case: folder selected

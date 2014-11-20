@@ -71,6 +71,7 @@
         var current = navigationArea.find('.active');
         var elements = navigationArea.find('.subscriptions-feed:visible,' +
                                            '.starred-feed:visible,' +
+                                           '.explore-feed:visible,' +
                                            '.feed:visible');
 
         if (current.hasClass('folder')) {
@@ -165,6 +166,7 @@
         var current = navigationArea.find('.active');
         var elements = navigationArea.find('.subscriptions-feed:visible,' +
                                            '.starred-feed:visible,' +
+                                           '.explore-feed:visible,' +
                                            '.feed:visible');
 
         // special case: folder selected
