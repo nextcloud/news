@@ -247,6 +247,7 @@ class FeedService extends Service {
                 // failed updating is not really a problem, so only log it
                 $this->logger->debug(
                     'Can not update feed with url ' . $existingFeed->getUrl() .
+                    ' and location ' . $existingFeed->getLocation() .
                     ': ' . $ex->getMessage(),
                     $this->loggerParams
                 );
