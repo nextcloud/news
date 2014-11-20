@@ -454,10 +454,14 @@ app.controller('ContentController',
     };
 
 }]);
-app.controller('ExploreController', ["sites", "$rootScope", function (sites, $rootScope) {
+app.controller('ExploreController', ["sites", "$rootScope", "FeedResource", function (sites, $rootScope, FeedResource) {
     'use strict';
 
     this.sites = sites;
+
+    this.feedExists = function (url) {
+    	return FeedResource.get(url) !== undefined;
+    };
 
     this.subscribeTo = function (url) {
         $rootScope.$broadcast('addFeed', url);

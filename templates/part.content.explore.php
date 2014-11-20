@@ -5,7 +5,7 @@
         <h2>{{ category }}</h2>
 
         <ul>
-            <li ng-repeat="entry in data | orderBy:'-votes'">
+            <li ng-repeat="entry in data | orderBy:'-votes'" ng-if="!Explore.feedExists(entry.url)">
                 <h3 ng-show="entry.favicon"
                     ng-style="{ backgroundImage: 'url(' + entry.favicon + ')'}">
                     {{ entry.title }}

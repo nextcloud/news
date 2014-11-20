@@ -14,7 +14,18 @@ describe('ExploreController', function () {
         scope,
         sites;
 
-    beforeEach(module('News'));
+    beforeEach(module('News', function ($provide) {
+        $provide.constant('BASE_URL', 'base');
+        $provide.constant('ITEM_BATCH_SIZE', 5);
+        $provide.constant('ITEM_AUTO_PAGE_SIZE', 1);
+        $provide.constant('FEED_TYPE', {
+            FEED: 0,
+            FOLDER: 1,
+            STARRED: 2,
+            SUBSCRIPTIONS: 3,
+            SHARED: 4
+        });
+    }));
 
     beforeEach(inject(function ($controller, $rootScope) {
         scope = $rootScope.$new();
@@ -39,6 +50,14 @@ describe('ExploreController', function () {
 
         controller.subscribeTo('test');
         expect(scope.$broadcast).toHaveBeenCalledWith('addFeed', 'test');
+    }));
+
+
+    it('should check if a feed is available sites', inject(
+    function (FeedResource) {
+        FeedResource.add({id: 3, url: 'test'});
+        expect(controller.feedExists('test')).toBe(true);
+        expect(controller.feedExists('amen')).toBe(false);
     }));
 
 });
