@@ -69,9 +69,9 @@
 
     var nextFeed = function (navigationArea) {
         var current = navigationArea.find('.active');
-        var elements = navigationArea.find('.subscriptions-feed:visible,' +
+        var elements = navigationArea.find('.explore-feed,' +
+                                           '.subscriptions-feed:visible,' +
                                            '.starred-feed:visible,' +
-                                           '.explore-feed:visible,' +
                                            '.feed:visible');
 
         if (current.hasClass('folder')) {
@@ -164,9 +164,9 @@
 
     var previousFeed = function (navigationArea) {
         var current = navigationArea.find('.active');
-        var elements = navigationArea.find('.subscriptions-feed:visible,' +
+        var elements = navigationArea.find('.explore-feed,' +
+                                           '.subscriptions-feed:visible,' +
                                            '.starred-feed:visible,' +
-                                           '.explore-feed:visible,' +
                                            '.feed:visible');
 
         // special case: folder selected
