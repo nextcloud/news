@@ -1,5 +1,5 @@
-<li ng-class="{active: Navigation.isExploreActive()}">
-    <a class="icon-link" ng-href="#/explore/" class="explore-feed">
+<li ng-class="{active: Navigation.isExploreActive()}" class="explore-feed">
+    <a class="icon-link" ng-href="#/explore/">
        <?php p($l->t('Explore')) ?>
     </a>
 </li>

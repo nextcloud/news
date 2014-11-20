@@ -11,7 +11,6 @@ app.controller('ExploreController', function (sites, $rootScope) {
     'use strict';
 
     this.sites = sites;
-    console.log(sites);
 
     this.subscribeTo = function (url) {
         $rootScope.$broadcast('addFeed', url);
