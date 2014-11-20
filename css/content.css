@@ -79,9 +79,9 @@
 }
 
 #app-content .finished-auto-paging #articles:after {
-    background-image: url('../img/rss.svg');
-    background-size: 26px;
-    background-position: calc(50% - 13px) calc(50% - 13px);
+    background-image: url('../img/logo-icon.svg');
+    background-size: 62px 34px;
+    background-position: calc(50% - 31px) calc(50% - 17px);
 }
 
 /**

@@ -7,7 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.run(function ($rootScope, $location, $http, $q, $interval, Loading,
+app.run(function ($rootScope, $location, $http, $q, $interval, $route, Loading,
          ItemResource, FeedResource, FolderResource, SettingsResource,
           Publisher, BASE_URL, FEED_TYPE, REFRESH_RATE) {
     'use strict';
@@ -67,13 +67,14 @@ app.run(function ($rootScope, $location, $http, $q, $interval, Loading,
     });
 
     var feedDeferred = $q.defer();
-    var folders, feeds;
+    var feeds;
     $http.get(BASE_URL + '/feeds').success(function (data) {
         feeds = data;
         feedDeferred.resolve();
     });
 
     var folderDeferred = $q.defer();
+    var folders;
     $http.get(BASE_URL + '/folders').success(function (data) {
         folders = data;
         folderDeferred.resolve();
@@ -102,6 +103,7 @@ app.run(function ($rootScope, $location, $http, $q, $interval, Loading,
         ]
     )
         .then(function () {
+            $route.reload();
             Loading.setLoading('global', false);
         });
 

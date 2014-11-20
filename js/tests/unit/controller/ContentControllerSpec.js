@@ -14,6 +14,7 @@ describe('ContentController', function () {
     beforeEach(module('News', function ($provide) {
         $provide.constant('BASE_URL', 'base');
         $provide.constant('ITEM_BATCH_SIZE', 5);
+        $provide.constant('ITEM_AUTO_PAGE_SIZE', 1);
         $provide.constant('FEED_TYPE', {
             FEED: 0,
             FOLDER: 1,
@@ -270,8 +271,9 @@ describe('ContentController', function () {
 
 
     it('should not autopage if less than 0 elements', inject(function (
-        $controller, ItemResource, Publisher, SettingsResource) {
+        $controller, ItemResource, Publisher, SettingsResource, Loading) {
         SettingsResource.set('oldestFirst', true);
+        SettingsResource.set('showAll', false);
 
         var $route = {
             current: {
@@ -295,7 +297,13 @@ describe('ContentController', function () {
                     });
 
                     return {
-                        error: function () {}
+                        error: function () {
+                            return {
+                                finally: function (callback) {
+                                    callback();
+                                }
+                            };
+                        }
                     };
                 }
             };
@@ -307,7 +315,7 @@ describe('ContentController', function () {
             Publisher: Publisher,
             ItemResource: ItemResource,
             SettingsResource: SettingsResource,
-            data: {},
+            data: {'items': [{id: 3}, {id: 4}]},
         });
 
         expect(ctrl.autoPagingEnabled()).toBe(true);
@@ -316,7 +324,8 @@ describe('ContentController', function () {
 
         expect(ctrl.autoPagingEnabled()).toBe(false);
 
-        expect(ItemResource.autoPage).toHaveBeenCalledWith(3, 2, true);
+        expect(Loading.isLoading('autopaging')).toBe(false);
+        expect(ItemResource.autoPage).toHaveBeenCalledWith(3, 2, true, false);
 
     }));
 
@@ -346,7 +355,11 @@ describe('ContentController', function () {
                     });
 
                     return {
-                        error: function () {}
+                        error: function () {
+                            return {
+                                finally: function () {}
+                            };
+                        }
                     };
                 }
             };
@@ -357,7 +370,7 @@ describe('ContentController', function () {
             $route: $route,
             Publisher: Publisher,
             ItemResource: ItemResource,
-            data: {},
+            data: {'items': [{id: 3}, {id: 4}]},
         });
 
         expect(ctrl.autoPagingEnabled()).toBe(true);
@@ -365,7 +378,7 @@ describe('ContentController', function () {
         ctrl.autoPage();
 
         expect(ctrl.autoPagingEnabled()).toBe(true);
-        expect(ItemResource.size()).toBe(1);
+        expect(ItemResource.size()).toBe(3);
     }));
 
 
@@ -396,6 +409,9 @@ describe('ContentController', function () {
                     return {
                         error: function (callback) {
                             callback();
+                            return {
+                                finally: function () {}
+                            };
                         }
                     };
                 }
@@ -407,7 +423,7 @@ describe('ContentController', function () {
             $route: $route,
             Publisher: Publisher,
             ItemResource: ItemResource,
-            data: {},
+            data: {'items': [{id: 3}, {id: 4}]},
         });
 
         expect(ctrl.autoPagingEnabled()).toBe(true);

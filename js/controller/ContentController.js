@@ -9,10 +9,9 @@
  */
 app.controller('ContentController',
 function (Publisher, FeedResource, ItemResource, SettingsResource, data,
-    $route, $routeParams, FEED_TYPE) {
+    $route, $routeParams, FEED_TYPE, ITEM_AUTO_PAGE_SIZE, Loading) {
     'use strict';
 
-    // dont cache items across multiple route changes
     ItemResource.clear();
 
     // distribute data to models based on key
@@ -20,7 +19,14 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data,
 
 
     this.isAutoPagingEnabled = true;
-    this.isNothingMoreToAutoPage = false;
+
+    // the interface should show a hint if there are not enough items sent so
+    // it's assumed that theres nothing to autpage
+    if (ItemResource.size() >= ITEM_AUTO_PAGE_SIZE) {
+        this.isNothingMoreToAutoPage = false;
+    } else {
+        this.isNothingMoreToAutoPage = true;
+    }
 
     this.getItems = function () {
         return ItemResource.getAll();
@@ -107,6 +113,10 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data,
     };
 
     this.autoPage = function () {
+        if (this.isNothingMoreToAutoPage) {
+            return;
+        }
+
         // in case a subsequent autopage request comes in wait until
         // the current one finished and execute a request immediately afterwards
         if (!this.isAutoPagingEnabled) {
@@ -120,12 +130,16 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data,
         var type = $route.current.$$route.type;
         var id = $routeParams.id;
         var oldestFirst = SettingsResource.get('oldestFirst');
+        var showAll = SettingsResource.get('showAll');
         var self = this;
 
-        ItemResource.autoPage(type, id, oldestFirst).success(function (data) {
+        Loading.setLoading('autopaging', true);
+
+        ItemResource.autoPage(type, id, oldestFirst, showAll)
+        .success(function (data) {
             Publisher.publishAll(data);
 
-            if (data.items.length > 0) {
+            if (data.items.length >= ITEM_AUTO_PAGE_SIZE) {
                 self.isAutoPagingEnabled = true;
             } else {
                 self.isNothingMoreToAutoPage = true;
@@ -136,6 +150,8 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data,
             }
         }).error(function () {
             self.isAutoPagingEnabled = true;
+        }).finally(function () {
+            Loading.setLoading('autopaging', false);
         });
     };
 

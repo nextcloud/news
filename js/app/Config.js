@@ -47,29 +47,71 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
     $httpProvider.interceptors.push('CSRFInterceptor');
 
     // routing
-    var getResolve = function (type) {
+    var getItemResolve = function (type) {
         return {
             // request to items also returns feeds
             data: /* @ngInject */ function (
-                $http, $route, $q, BASE_URL, ITEM_BATCH_SIZE) {
+            $http, $route, $q, BASE_URL, ITEM_BATCH_SIZE, SettingsResource) {
 
-                var parameters = {
-                    type: type,
-                    limit: ITEM_BATCH_SIZE
-                };
-
-                if ($route.current.params.id !== undefined) {
-                    parameters.id = $route.current.params.id;
-                }
+                var showAll = SettingsResource.get('showAll');
+                var oldestFirst = SettingsResource.get('oldestFirst');
 
                 var deferred = $q.defer();
 
-                $http({
-                    url:  BASE_URL + '/items',
-                    method: 'GET',
-                    params: parameters
-                }).success(function (data) {
-                    deferred.resolve(data);
+                // if those two values are null it means we did not receive
+                // the settings request from the server so dont query the server
+                if (showAll === null || oldestFirst === null) {
+                    deferred.resolve({});
+                } else {
+                    var parameters = {
+                        type: type,
+                        limit: ITEM_BATCH_SIZE,
+                        showAll: showAll,
+                        oldestFirst: oldestFirst
+                    };
+
+                    if ($route.current.params.id !== undefined) {
+                        parameters.id = $route.current.params.id;
+                    }
+
+
+                    $http({
+                        url:  BASE_URL + '/items',
+                        method: 'GET',
+                        params: parameters
+                    }).success(function (data) {
+                        deferred.resolve(data);
+                    });
+                }
+
+                return deferred.promise;
+            }
+        };
+    };
+
+    var getExploreResolve = function () {
+        return {
+            sites: /* @ngInject */ function (
+            $http, $q, BASE_URL, Publisher, SettingsResource) {
+                var deferred = $q.defer();
+
+                $http.get(BASE_URL + '/settings').then(function (data) {
+                    Publisher.publishAll(data);
+
+                    var url = SettingsResource.get('exploreUrl');
+                    var language = SettingsResource.get('language');
+                    return $http({
+                        url: url,
+                        method: 'GET',
+                        params: {
+                            lang: language
+                        }
+                    });
+
+                }).then(function (data) {
+                    deferred.resolve(data.data);
+                }).catch(function () {
+                    deferred.reject();
                 });
 
                 return deferred.promise;
@@ -81,56 +123,30 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
         .when('/items', {
             controller: 'ContentController as Content',
             templateUrl: 'content.html',
-            resolve: getResolve(feedType.SUBSCRIPTIONS),
+            resolve: getItemResolve(feedType.SUBSCRIPTIONS),
             type: feedType.SUBSCRIPTIONS
         })
         .when('/items/starred', {
             controller: 'ContentController as Content',
             templateUrl: 'content.html',
-            resolve: getResolve(feedType.STARRED),
+            resolve: getItemResolve(feedType.STARRED),
             type: feedType.STARRED
         })
         .when('/items/feeds/:id', {
             controller: 'ContentController as Content',
             templateUrl: 'content.html',
-            resolve: getResolve(feedType.FEED),
+            resolve: getItemResolve(feedType.FEED),
             type: feedType.FEED
         })
         .when('/items/folders/:id', {
             controller: 'ContentController as Content',
             templateUrl: 'content.html',
-            resolve: getResolve(feedType.FOLDER),
+            resolve: getItemResolve(feedType.FOLDER),
             type: feedType.FOLDER
         }).when('/explore', {
             controller: 'ExploreController as Explore',
             templateUrl: 'explore.html',
-            resolve: {
-                sites: /* @ngInject */ function (
-                $http, $q, BASE_URL, Publisher, SettingsResource) {
-                    var deferred = $q.defer();
-
-                    $http.get(BASE_URL + '/settings').then(function (data) {
-                        Publisher.publishAll(data);
-
-                        var url = SettingsResource.get('exploreUrl');
-                        var language = SettingsResource.get('language');
-                        return $http({
-                            url: url,
-                            method: 'GET',
-                            params: {
-                                lang: language
-                            }
-                        });
-
-                    }).then(function (data) {
-                        deferred.resolve(data.data);
-                    }).catch(function () {
-                        deferred.reject();
-                    });
-
-                    return deferred.promise;
-                }
-            },
+            resolve: getExploreResolve(),
             type: feedType.EXPLORE
         }).when('/shortcuts', {
             templateUrl: 'shortcuts.html',

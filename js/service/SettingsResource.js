@@ -14,9 +14,9 @@ app.service('SettingsResource', function ($http, BASE_URL) {
 
     this.settings = {
         language: 'en',
-        showAll: false,
+        showAll: null,
         compact: false,
-        oldestFirst: false,
+        oldestFirst: null,
         preventReadOnScroll: false,
         exploreUrl: ''
     };
@@ -52,7 +52,13 @@ app.service('SettingsResource', function ($http, BASE_URL) {
         return $http({
             url: BASE_URL + '/settings',
             method: 'PUT',
-            data: this.settings
+            data: {
+                language: this.settings.language,
+                showAll: this.settings.showAll,
+                compact: this.settings.compact,
+                oldestFirst: this.settings.oldestFirst,
+                preventReadOnScroll: this.settings.preventReadOnScroll
+            }
         });
     };
 

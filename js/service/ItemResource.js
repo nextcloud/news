@@ -175,7 +175,8 @@ app.factory('ItemResource', function (Resource, $http, BASE_URL,
     };
 
 
-    ItemResource.prototype.autoPage = function (type, id, oldestFirst) {
+    ItemResource.prototype.autoPage = function (type, id, oldestFirst,
+    showAll) {
         var offset;
 
         if (oldestFirst) {
@@ -192,7 +193,8 @@ app.factory('ItemResource', function (Resource, $http, BASE_URL,
                 id: id,
                 offset: offset,
                 limit: this.batchSize,
-                oldestFirst: oldestFirst
+                oldestFirst: oldestFirst,
+                showAll: showAll
             }
         });
     };

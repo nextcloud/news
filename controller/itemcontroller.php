@@ -54,13 +54,26 @@ class ItemController extends Controller {
      * @param int $id
      * @param int $limit
      * @param int $offset
+     * @param bool $showAll
+     * @param bool $oldestFirst
      * @return array
      */
-    public function index($type, $id, $limit=50, $offset=0) {
-        $showAll = $this->settings->getUserValue($this->userId, $this->appName,
-            'showAll') === '1';
-        $oldestFirst = $this->settings->getUserValue($this->userId,
-            $this->appName, 'oldestFirst') === '1';
+    public function index($type, $id, $limit=50, $offset=0, $showAll=null,
+        $oldestFirst=null) {
+
+        // in case this is called directly and not from the website use the
+        // internal state
+        if ($showAll === null) {
+            $showAll = $this->settings->getUserValue(
+                $this->userId, $this->appName,'showAll'
+            ) === '1';
+        }
+
+        if ($oldestFirst === null) {
+            $oldestFirst = $this->settings->getUserValue(
+                $this->userId, $this->appName, 'oldestFirst'
+            ) === '1';
+        }
 
         $this->settings->setUserValue($this->userId, $this->appName,
             'lastViewedFeedId', $id);

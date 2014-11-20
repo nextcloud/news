@@ -45,29 +45,71 @@ app.config(["$routeProvider", "$provide", "$httpProvider", function ($routeProvi
     $httpProvider.interceptors.push('CSRFInterceptor');
 
     // routing
-    var getResolve = function (type) {
+    var getItemResolve = function (type) {
         return {
             // request to items also returns feeds
-            data: /* @ngInject */ ["$http", "$route", "$q", "BASE_URL", "ITEM_BATCH_SIZE", function (
-                $http, $route, $q, BASE_URL, ITEM_BATCH_SIZE) {
+            data: /* @ngInject */ ["$http", "$route", "$q", "BASE_URL", "ITEM_BATCH_SIZE", "SettingsResource", function (
+            $http, $route, $q, BASE_URL, ITEM_BATCH_SIZE, SettingsResource) {
 
-                var parameters = {
-                    type: type,
-                    limit: ITEM_BATCH_SIZE
-                };
-
-                if ($route.current.params.id !== undefined) {
-                    parameters.id = $route.current.params.id;
-                }
+                var showAll = SettingsResource.get('showAll');
+                var oldestFirst = SettingsResource.get('oldestFirst');
 
                 var deferred = $q.defer();
 
-                $http({
-                    url:  BASE_URL + '/items',
-                    method: 'GET',
-                    params: parameters
-                }).success(function (data) {
-                    deferred.resolve(data);
+                // if those two values are null it means we did not receive
+                // the settings request from the server so dont query the server
+                if (showAll === null || oldestFirst === null) {
+                    deferred.resolve({});
+                } else {
+                    var parameters = {
+                        type: type,
+                        limit: ITEM_BATCH_SIZE,
+                        showAll: showAll,
+                        oldestFirst: oldestFirst
+                    };
+
+                    if ($route.current.params.id !== undefined) {
+                        parameters.id = $route.current.params.id;
+                    }
+
+
+                    $http({
+                        url:  BASE_URL + '/items',
+                        method: 'GET',
+                        params: parameters
+                    }).success(function (data) {
+                        deferred.resolve(data);
+                    });
+                }
+
+                return deferred.promise;
+            }]
+        };
+    };
+
+    var getExploreResolve = function () {
+        return {
+            sites: /* @ngInject */ ["$http", "$q", "BASE_URL", "Publisher", "SettingsResource", function (
+            $http, $q, BASE_URL, Publisher, SettingsResource) {
+                var deferred = $q.defer();
+
+                $http.get(BASE_URL + '/settings').then(function (data) {
+                    Publisher.publishAll(data);
+
+                    var url = SettingsResource.get('exploreUrl');
+                    var language = SettingsResource.get('language');
+                    return $http({
+                        url: url,
+                        method: 'GET',
+                        params: {
+                            lang: language
+                        }
+                    });
+
+                }).then(function (data) {
+                    deferred.resolve(data.data);
+                }).catch(function () {
+                    deferred.reject();
                 });
 
                 return deferred.promise;
@@ -79,56 +121,30 @@ app.config(["$routeProvider", "$provide", "$httpProvider", function ($routeProvi
         .when('/items', {
             controller: 'ContentController as Content',
             templateUrl: 'content.html',
-            resolve: getResolve(feedType.SUBSCRIPTIONS),
+            resolve: getItemResolve(feedType.SUBSCRIPTIONS),
             type: feedType.SUBSCRIPTIONS
         })
         .when('/items/starred', {
             controller: 'ContentController as Content',
             templateUrl: 'content.html',
-            resolve: getResolve(feedType.STARRED),
+            resolve: getItemResolve(feedType.STARRED),
             type: feedType.STARRED
         })
         .when('/items/feeds/:id', {
             controller: 'ContentController as Content',
             templateUrl: 'content.html',
-            resolve: getResolve(feedType.FEED),
+            resolve: getItemResolve(feedType.FEED),
             type: feedType.FEED
         })
         .when('/items/folders/:id', {
             controller: 'ContentController as Content',
             templateUrl: 'content.html',
-            resolve: getResolve(feedType.FOLDER),
+            resolve: getItemResolve(feedType.FOLDER),
             type: feedType.FOLDER
         }).when('/explore', {
             controller: 'ExploreController as Explore',
             templateUrl: 'explore.html',
-            resolve: {
-                sites: /* @ngInject */ ["$http", "$q", "BASE_URL", "Publisher", "SettingsResource", function (
-                $http, $q, BASE_URL, Publisher, SettingsResource) {
-                    var deferred = $q.defer();
-
-                    $http.get(BASE_URL + '/settings').then(function (data) {
-                        Publisher.publishAll(data);
-
-                        var url = SettingsResource.get('exploreUrl');
-                        var language = SettingsResource.get('language');
-                        return $http({
-                            url: url,
-                            method: 'GET',
-                            params: {
-                                lang: language
-                            }
-                        });
-
-                    }).then(function (data) {
-                        deferred.resolve(data.data);
-                    }).catch(function () {
-                        deferred.reject();
-                    });
-
-                    return deferred.promise;
-                }]
-            },
+            resolve: getExploreResolve(),
             type: feedType.EXPLORE
         }).when('/shortcuts', {
             templateUrl: 'shortcuts.html',
@@ -138,7 +154,7 @@ app.config(["$routeProvider", "$provide", "$httpProvider", function ($routeProvi
 }]);
 
 
-app.run(["$rootScope", "$location", "$http", "$q", "$interval", "Loading", "ItemResource", "FeedResource", "FolderResource", "SettingsResource", "Publisher", "BASE_URL", "FEED_TYPE", "REFRESH_RATE", function ($rootScope, $location, $http, $q, $interval, Loading,
+app.run(["$rootScope", "$location", "$http", "$q", "$interval", "$route", "Loading", "ItemResource", "FeedResource", "FolderResource", "SettingsResource", "Publisher", "BASE_URL", "FEED_TYPE", "REFRESH_RATE", function ($rootScope, $location, $http, $q, $interval, $route, Loading,
          ItemResource, FeedResource, FolderResource, SettingsResource,
           Publisher, BASE_URL, FEED_TYPE, REFRESH_RATE) {
     'use strict';
@@ -198,13 +214,14 @@ app.run(["$rootScope", "$location", "$http", "$q", "$interval", "Loading", "Item
     });
 
     var feedDeferred = $q.defer();
-    var folders, feeds;
+    var feeds;
     $http.get(BASE_URL + '/feeds').success(function (data) {
         feeds = data;
         feedDeferred.resolve();
     });
 
     var folderDeferred = $q.defer();
+    var folders;
     $http.get(BASE_URL + '/folders').success(function (data) {
         folders = data;
         folderDeferred.resolve();
@@ -233,6 +250,7 @@ app.run(["$rootScope", "$location", "$http", "$q", "$interval", "Loading", "Item
         ]
     )
         .then(function () {
+            $route.reload();
             Loading.setLoading('global', false);
         });
 
@@ -273,11 +291,10 @@ app.controller('AppController',
 
 }]);
 app.controller('ContentController',
-["Publisher", "FeedResource", "ItemResource", "SettingsResource", "data", "$route", "$routeParams", "FEED_TYPE", function (Publisher, FeedResource, ItemResource, SettingsResource, data,
-    $route, $routeParams, FEED_TYPE) {
+["Publisher", "FeedResource", "ItemResource", "SettingsResource", "data", "$route", "$routeParams", "FEED_TYPE", "ITEM_AUTO_PAGE_SIZE", "Loading", function (Publisher, FeedResource, ItemResource, SettingsResource, data,
+    $route, $routeParams, FEED_TYPE, ITEM_AUTO_PAGE_SIZE, Loading) {
     'use strict';
 
-    // dont cache items across multiple route changes
     ItemResource.clear();
 
     // distribute data to models based on key
@@ -285,7 +302,14 @@ app.controller('ContentController',
 
 
     this.isAutoPagingEnabled = true;
-    this.isNothingMoreToAutoPage = false;
+
+    // the interface should show a hint if there are not enough items sent so
+    // it's assumed that theres nothing to autpage
+    if (ItemResource.size() >= ITEM_AUTO_PAGE_SIZE) {
+        this.isNothingMoreToAutoPage = false;
+    } else {
+        this.isNothingMoreToAutoPage = true;
+    }
 
     this.getItems = function () {
         return ItemResource.getAll();
@@ -372,6 +396,10 @@ app.controller('ContentController',
     };
 
     this.autoPage = function () {
+        if (this.isNothingMoreToAutoPage) {
+            return;
+        }
+
         // in case a subsequent autopage request comes in wait until
         // the current one finished and execute a request immediately afterwards
         if (!this.isAutoPagingEnabled) {
@@ -385,12 +413,16 @@ app.controller('ContentController',
         var type = $route.current.$$route.type;
         var id = $routeParams.id;
         var oldestFirst = SettingsResource.get('oldestFirst');
+        var showAll = SettingsResource.get('showAll');
         var self = this;
 
-        ItemResource.autoPage(type, id, oldestFirst).success(function (data) {
+        Loading.setLoading('autopaging', true);
+
+        ItemResource.autoPage(type, id, oldestFirst, showAll)
+        .success(function (data) {
             Publisher.publishAll(data);
 
-            if (data.items.length > 0) {
+            if (data.items.length >= ITEM_AUTO_PAGE_SIZE) {
                 self.isAutoPagingEnabled = true;
             } else {
                 self.isNothingMoreToAutoPage = true;
@@ -401,6 +433,8 @@ app.controller('ContentController',
             }
         }).error(function () {
             self.isAutoPagingEnabled = true;
+        }).finally(function () {
+            Loading.setLoading('autopaging', false);
         });
     };
 
@@ -1425,7 +1459,8 @@ app.factory('ItemResource', ["Resource", "$http", "BASE_URL", "ITEM_BATCH_SIZE",
     };
 
 
-    ItemResource.prototype.autoPage = function (type, id, oldestFirst) {
+    ItemResource.prototype.autoPage = function (type, id, oldestFirst,
+    showAll) {
         var offset;
 
         if (oldestFirst) {
@@ -1442,7 +1477,8 @@ app.factory('ItemResource', ["Resource", "$http", "BASE_URL", "ITEM_BATCH_SIZE",
                 id: id,
                 offset: offset,
                 limit: this.batchSize,
-                oldestFirst: oldestFirst
+                oldestFirst: oldestFirst,
+                showAll: showAll
             }
         });
     };
@@ -1762,9 +1798,9 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
 
     this.settings = {
         language: 'en',
-        showAll: false,
+        showAll: null,
         compact: false,
-        oldestFirst: false,
+        oldestFirst: null,
         preventReadOnScroll: false,
         exploreUrl: ''
     };
@@ -1800,7 +1836,13 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
         return $http({
             url: BASE_URL + '/settings',
             method: 'PUT',
-            data: this.settings
+            data: {
+                language: this.settings.language,
+                showAll: this.settings.showAll,
+                compact: this.settings.compact,
+                oldestFirst: this.settings.oldestFirst,
+                preventReadOnScroll: this.settings.preventReadOnScroll
+            }
         });
     };
 

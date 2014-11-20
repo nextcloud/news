@@ -41,7 +41,7 @@ describe('SettingsResource', function () {
             'language':'en',
             'showAll':true,
             'compact':false,
-            'oldestFirst':false,
+            'oldestFirst':null,
             'preventReadOnScroll':false
         }).respond(200, {});
 
