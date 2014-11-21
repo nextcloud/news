@@ -165,6 +165,10 @@
     height: auto;
 }
 
+    #app-content .utils ul > li {
+        min-width: 0;
+    }
+
     #app-content .util-spacer {
         width: 20px;
     }
