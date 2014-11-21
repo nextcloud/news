@@ -13,6 +13,7 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
     var FeedResource = function ($http, BASE_URL, $q) {
         Resource.call(this, $http, BASE_URL, 'url');
         this.ids = {};
+        this.locations = {};
         this.unreadCount = 0;
         this.folderUnreadCount = {};
         this.folderIds = {};
@@ -33,6 +34,7 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
         this.folderUnreadCount = {};
         this.folderIds = {};
         this.ids = {};
+        this.locations = {};
     };
 
     FeedResource.prototype.updateUnreadCache = function () {
@@ -69,6 +71,9 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
         Resource.prototype.add.call(this, value);
         if (value.id !== undefined) {
             this.ids[value.id] = this.hashMap[value.url];
+        }
+        if (value.location !== undefined) {
+            this.locations[value.location] = this.hashMap[value.url];
         }
     };
 
@@ -140,6 +145,10 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
         return this.ids[feedId];
     };
 
+
+    FeedResource.prototype.getByLocation = function (location) {
+        return this.locations[location];
+    };
 
     FeedResource.prototype.rename = function (id, title) {
         return this.http({
@@ -250,6 +259,10 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
         var feed = this.get(url);
         if (feed !== undefined && feed.id) {
             delete this.ids[feed.id];
+        }
+
+        if (feed !== undefined && feed.location) {
+            delete this.locations[feed.location];
         }
 
         Resource.prototype.delete.call(this, url);

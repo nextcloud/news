@@ -4,6 +4,7 @@
             "title": "ownCloud Planet",
             "favicon": "http://owncloud.org/wp-content/themes/owncloudorgnew/assets/img/common/favicon.png",
             "url": "http://owncloud.org/news/",
+            "feed": "http://owncloud.org/feed/",
             "description": "ownCloud Planet is a blog feed aggregator",
             "image": "https://raw.githubusercontent.com/owncloud/promo/master/ownCloud%20sticker%20A8.jpg",
             "votes": 1000
@@ -12,6 +13,7 @@
             "title": "Slashdot",
             "favicon": "http://slashdot.org/favicon.ico",
             "url": "http://slashdot.org",
+            "feed": "http://rss.slashdot.org/Slashdot/slashdot",
             "description": "Slashdot: News for nerds, stuff that matters",
             "votes": 500
         }
@@ -21,12 +23,14 @@
             "title": "Mozilla UX blog",
             "favicon": "https://blog.mozilla.org/ux/wp-content/themes/OneMozilla/img/favicon.ico",
             "url": "https://blog.mozilla.org/ux/",
+            "feed": "https://blog.mozilla.org/ux/feed/",
             "description": "Designing great products that make sense & bring joy",
             "votes": 500
         },
         {
             "title": "Little Big Details",
             "url": "http://littlebigdetails.com/",
+            "feed": "http://littlebigdetails.com/rss",
             "favicon": "http://33.media.tumblr.com/avatar_21babec3285d_128.png",
             "description": "",
             "votes": 1000
@@ -35,12 +39,14 @@
             "title": "Ignore the code",
             "favicon": "http://ignorethecode.net/blog_images/iphone.png",
             "url": "http://ignorethecode.net/blog/",
+            "feed": "http://feeds.feedburner.com/IgnoreTheCode",
             "description": "A blog about usability",
             "votes": 500
         },
         {
             "title": "Elezea",
             "url": "http://www.elezea.com",
+            "feed": "http://feedpress.me/elezea",
             "description": "Links and articles about technology, design, and sociology. Written by Rian van der Merwe.",
             "votes": 500
         }
@@ -50,6 +56,7 @@
             "title": "Smitten Kitchen",
             "favicon": "http://smittenkitchen.com/uploads/favicon.ico",
             "url": "http://smittenkitchen.com/",
+            "feed": "http://feeds.feedburner.com/smittenkitchen",
             "description": "A home cooking weblog from a tiny kitchen in New York City. The place to find all of your new favorite things to cook",
             "votes": 500
         },
@@ -57,6 +64,7 @@
             "title": "Food in Jars",
             "favicon": "http://foodinjars.com.s164546.gridserver.com/arugulapesto/wp-content/uploads/2013/05/jar-favicon.png",
             "url": "http://foodinjars.com/",
+            "feed": "http://feedpress.me/FIJ",
             "description": "A blog dedicated to canning, preserving, and pantry staples made from scratch.",
             "votes": 500
         }

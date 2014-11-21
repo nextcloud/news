@@ -140,6 +140,11 @@ class AtomParserTest extends PHPUnit_Framework_TestCase
         $feed = $parser->execute();
         $this->assertNotEmpty($feed->items);
         $this->assertEquals(1071340202, $feed->items[0]->getDate());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/youtube.xml'));
+        $feed = $parser->execute();
+        $this->assertNotEmpty($feed->items);
+        $this->assertEquals(1336825342, $feed->items[1]->getDate()); // Should return the published date
     }
 
     public function testItemLanguage()

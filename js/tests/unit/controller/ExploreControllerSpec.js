@@ -55,7 +55,7 @@ describe('ExploreController', function () {
 
     it('should check if a feed is available sites', inject(
     function (FeedResource) {
-        FeedResource.add({id: 3, url: 'test'});
+        FeedResource.add({id: 3, location: 'test', url: 'a'});
         expect(controller.feedExists('test')).toBe(true);
         expect(controller.feedExists('amen')).toBe(false);
     }));
@@ -63,10 +63,10 @@ describe('ExploreController', function () {
 
     it('should hide categories without unadded sites', inject(
     function (FeedResource) {
-        FeedResource.add({id: 3, url: 'test'});
+        FeedResource.add({id: 3, location: 'test', url: 'a'});
 
-        var data1 = [{url: 'test'}, {url: 'test2'}];
-        var data2 = [{url: 'test'}];
+        var data1 = [{feed: 'test'}, {feed: 'test2'}];
+        var data2 = [{feed: 'test'}];
 
         expect(controller.isCategoryShown(data1)).toBe(true);
         expect(controller.isCategoryShown(data2)).toBe(false);

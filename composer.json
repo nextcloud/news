@@ -32,6 +32,6 @@
     "require": {
         "pear/net_url2": "~2.1",
         "ezyang/htmlpurifier": "~4.6",
-        "fguillot/picofeed": "~0.1.0"
+        "fguillot/picofeed": "dev-master"
     }
 }

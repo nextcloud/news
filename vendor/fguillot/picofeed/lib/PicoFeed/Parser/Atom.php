@@ -119,7 +119,10 @@ class Atom extends Parser
      */
     public function findItemDate(SimpleXMLElement $entry, Item $item)
     {
-        $item->date = $this->parseDate((string) $entry->updated);
+        $published = isset($entry->published) ? $this->parseDate((string) $entry->published) : 0;
+        $updated = isset($entry->updated) ? $this->parseDate((string) $entry->updated) : 0;
+
+        $item->date = max($published, $updated) ?: time();
     }
 
     /**

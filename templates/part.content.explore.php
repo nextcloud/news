@@ -7,10 +7,10 @@
         <h2>{{ category }}</h2>
 
         <ul>
-            <li ng-repeat="entry in data | orderBy:'-votes'" ng-if="!Explore.feedExists(entry.url)">
+            <li ng-repeat="entry in data | orderBy:'-votes'" ng-if="!Explore.feedExists(entry.feed)">
                 <h3 ng-show="entry.favicon"
                     ng-style="{ backgroundImage: 'url(' + entry.favicon + ')'}">
-                    {{ entry.title }}
+                    <a target="_blank" ng-href="{{ entry.url }}">{{ entry.title }}</a>
                 </h3>
                 <h3 ng-hide="entry.favicon" class="icon-rss">
                     {{ entry.title }}
@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="explore-subscribe">
-                    <button ng-click="Explore.subscribeTo(entry.feed || entry.url)">
+                    <button ng-click="Explore.subscribeTo(entry.feed)">
                         <?php p($l->t('Subscribe')) ?>
                     </button>
                 </div>

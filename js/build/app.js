@@ -459,17 +459,17 @@ app.controller('ExploreController', ["sites", "$rootScope", "FeedResource", func
 
     this.sites = sites;
 
-    this.feedExists = function (url) {
-    	return FeedResource.get(url) !== undefined;
+    this.feedExists = function (location) {
+    	return FeedResource.getByLocation(location) !== undefined;
     };
 
-    this.subscribeTo = function (url) {
-        $rootScope.$broadcast('addFeed', url);
+    this.subscribeTo = function (location) {
+        $rootScope.$broadcast('addFeed', location);
     };
 
     this.isCategoryShown = function (data) {
         return data.filter(function (element) {
-            return FeedResource.get(element.url) === undefined;
+            return FeedResource.getByLocation(element.feed) === undefined;
         }).length > 0;
     };
 
@@ -884,6 +884,7 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
     var FeedResource = function ($http, BASE_URL, $q) {
         Resource.call(this, $http, BASE_URL, 'url');
         this.ids = {};
+        this.locations = {};
         this.unreadCount = 0;
         this.folderUnreadCount = {};
         this.folderIds = {};
@@ -904,6 +905,7 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
         this.folderUnreadCount = {};
         this.folderIds = {};
         this.ids = {};
+        this.locations = {};
     };
 
     FeedResource.prototype.updateUnreadCache = function () {
@@ -940,6 +942,9 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
         Resource.prototype.add.call(this, value);
         if (value.id !== undefined) {
             this.ids[value.id] = this.hashMap[value.url];
+        }
+        if (value.location !== undefined) {
+            this.locations[value.location] = this.hashMap[value.url];
         }
     };
 
@@ -1011,6 +1016,10 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
         return this.ids[feedId];
     };
 
+
+    FeedResource.prototype.getByLocation = function (location) {
+        return this.locations[location];
+    };
 
     FeedResource.prototype.rename = function (id, title) {
         return this.http({
@@ -1121,6 +1130,10 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
         var feed = this.get(url);
         if (feed !== undefined && feed.id) {
             delete this.ids[feed.id];
+        }
+
+        if (feed !== undefined && feed.location) {
+            delete this.locations[feed.location];
         }
 
         Resource.prototype.delete.call(this, url);

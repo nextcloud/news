@@ -86,8 +86,8 @@ class Reader
     {
         $client = $this->download($url, $last_modified, $etag);
 
-        // It's already a feed
-        if ($this->detectFormat($client->getContent())) {
+        // It's already a feed or the feed was not modified
+        if (!$client->isModified() || $this->detectFormat($client->getContent())) {
             return $client;
         }
 

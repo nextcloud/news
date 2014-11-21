@@ -27,8 +27,8 @@ describe('FeedResource', function () {
         resource = FeedResource;
         http = $httpBackend;
         FeedResource.receive([
-            {id: 1, folderId: 3, url: 'ye', unreadCount: 45},
-            {id: 2, folderId: 4, url: 'sye', unreadCount: 25},
+            {id: 1, folderId: 3,  url: 'ye', unreadCount: 45},
+            {id: 2, folderId: 4, location: 'test', url: 'sye', unreadCount: 25},
             {id: 3, folderId: 3, title: 'hore', url: '1sye', unreadCount: 0}
         ]);
     }));
@@ -121,6 +121,7 @@ describe('FeedResource', function () {
         http.flush();
 
         expect(FeedResource.getById(2).deleted).toBe(true);
+        expect(FeedResource.getByLocation('test').deleted).toBe(true);
         expect(FeedResource.getUnreadCount()).toBe(70);
     }));
 

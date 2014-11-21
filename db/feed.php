@@ -96,6 +96,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
             'preventUpdate',
             'deletedAt',
             'articlesPerUpdate',
+            'location'
         ]);
 
         $url = parse_url($this->link)['host'];

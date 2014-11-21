@@ -12,17 +12,17 @@ app.controller('ExploreController', function (sites, $rootScope, FeedResource) {
 
     this.sites = sites;
 
-    this.feedExists = function (url) {
-    	return FeedResource.get(url) !== undefined;
+    this.feedExists = function (location) {
+    	return FeedResource.getByLocation(location) !== undefined;
     };
 
-    this.subscribeTo = function (url) {
-        $rootScope.$broadcast('addFeed', url);
+    this.subscribeTo = function (location) {
+        $rootScope.$broadcast('addFeed', location);
     };
 
     this.isCategoryShown = function (data) {
         return data.filter(function (element) {
-            return FeedResource.get(element.url) === undefined;
+            return FeedResource.getByLocation(element.feed) === undefined;
         }).length > 0;
     };
 

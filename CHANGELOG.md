@@ -5,6 +5,8 @@ owncloud-news (4.2.0)
 * **Bugfix**: Fix compact view in firefox 34
 * **Bugfix**: Show spinner when autopaging
 * **Bugfix**: Remove race condition when fetching articles that sometimes shows read articles if the user clicks show on only unread and the article request finishes first before the settings request is finished
+* **Bugfix**: Ignore Atom updated tag if it is earlier than the published tag
+* **Bugfix**: Do not log errors that a subscription could not be found when http cache says nothing changed
 
 owncloud-news (4.1.3)
 * **Enhancement**: Fade out folders and feeds instead of just hiding them when the unread count drops to 0 and only unread articles should be shown
