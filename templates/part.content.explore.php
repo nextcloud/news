@@ -1,7 +1,9 @@
 <?php print_unescaped($this->inc('part.content.cronwarning')) ?>
 
 <div id="explore">
-    <div ng-repeat="(category, data) in Explore.sites | orderBy:'category.toLowerCase()'" class="explore-section">
+    <div ng-repeat="(category, data) in Explore.sites | orderBy:'category.toLowerCase()'"
+         ng-if="Explore.isCategoryShown(data)"
+         class="explore-section">
         <h2>{{ category }}</h2>
 
         <ul>
@@ -21,7 +23,7 @@
                     </div>
                 </div>
                 <div class="explore-subscribe">
-                    <button ng-click="Explore.subscribeTo(entry.url)">
+                    <button ng-click="Explore.subscribeTo(entry.feed || entry.url)">
                         <?php p($l->t('Subscribe')) ?>
                     </button>
                 </div>

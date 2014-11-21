@@ -20,4 +20,10 @@ app.controller('ExploreController', function (sites, $rootScope, FeedResource) {
         $rootScope.$broadcast('addFeed', url);
     };
 
+    this.isCategoryShown = function (data) {
+        return data.filter(function (element) {
+            return FeedResource.get(element.url) === undefined;
+        }).length > 0;
+    };
+
 });

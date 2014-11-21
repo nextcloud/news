@@ -467,6 +467,12 @@ app.controller('ExploreController', ["sites", "$rootScope", "FeedResource", func
         $rootScope.$broadcast('addFeed', url);
     };
 
+    this.isCategoryShown = function (data) {
+        return data.filter(function (element) {
+            return FeedResource.get(element.url) === undefined;
+        }).length > 0;
+    };
+
 }]);
 app.controller('NavigationController',
 ["$route", "FEED_TYPE", "FeedResource", "FolderResource", "ItemResource", "SettingsResource", "Publisher", "$rootScope", "$location", "$q", function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,

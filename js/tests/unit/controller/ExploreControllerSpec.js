@@ -60,4 +60,15 @@ describe('ExploreController', function () {
         expect(controller.feedExists('amen')).toBe(false);
     }));
 
+
+    it('should hide categories without unadded sites', inject(
+    function (FeedResource) {
+        FeedResource.add({id: 3, url: 'test'});
+
+        var data1 = [{url: 'test'}, {url: 'test2'}];
+        var data2 = [{url: 'test'}];
+
+        expect(controller.isCategoryShown(data1)).toBe(true);
+        expect(controller.isCategoryShown(data2)).toBe(false);
+    }));
 });
