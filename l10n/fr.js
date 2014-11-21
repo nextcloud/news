@@ -27,6 +27,8 @@ OC.L10N.register(
     "Saved" : "Sauvegardé",
     "Subscribe" : "S'abonner",
     "Refresh" : "Rafraîchir",
+    "No articles available" : "Aucun article disponible",
+    "No unread articles available" : "Aucun article non-lu disponible",
     "Open website" : "Ouvrir le site web",
     "Star article" : "Épingler l'article",
     "Unstar article" : "Désépingler l'article",
