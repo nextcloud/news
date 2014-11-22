@@ -122,5 +122,8 @@
     },
     "satwcomic.com": {
         "%feedproxy.google.com/~r/satwcomic%": "//div[@class=\"comicmid\"]/center/a/img"
+    },
+    "androidpolice.com": {
+        "%rss.feedsportal.com/c/33941/f/615677/p/1/s/%": "//div[@class=\"post_content\"]"
     }
 }
