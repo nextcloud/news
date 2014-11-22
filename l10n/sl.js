@@ -27,6 +27,8 @@ OC.L10N.register(
     "Saved" : "Shranjeno",
     "Subscribe" : "Naročilo",
     "Refresh" : "Osveži",
+    "No articles available" : "Ni prispevkov",
+    "No unread articles available" : "Ni neprebranih prispevkov",
     "Open website" : "Odpri spletišče",
     "Star article" : "Označi prispevek z zvezdico",
     "Unstar article" : "Odstrani oznako prispevka",
