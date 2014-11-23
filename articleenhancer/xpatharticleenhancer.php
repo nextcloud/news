@@ -53,19 +53,19 @@ class XPathArticleEnhancer implements ArticleEnhancer {
             if(preg_match($regex, $item->getUrl())) {
                 $body = $this->getFile($item->getUrl());
 
-                // Determine document encoding.
                 // First check if either <meta charset="..."> or
-                // <meta http-equiv="Content-Type" ...> is specified and use that
+                // <meta http-equiv="Content-Type" ...> is specified and use it
                 // If this fails use mb_detect_encoding()
-                // Use UTF-8 if mb_detect_encoding does not return anything (or the HTML page is messed up)
-                $encregex = "/<meta\s+[^>]*(?:charset\s*=\s*['\"]([^>'\"]*)['\"]" .
-                            "|http-equiv\s*=\s*['\"]content-type['\"]\s+[^>]*content\s*=\s*['\"][^>]*charset=([^>]*)['\"])[^>]*>/i";
-                if(preg_match($encregex, $body, $matches)) {
+                $regex = '/<meta\s+[^>]*(?:charset\s*=\s*[\'"]([^>\'"]*)[\'"]' .
+                         '|http-equiv\s*=\s*[\'"]content-type[\'"]\s+[^>]*' .
+                         'content\s*=\s*[\'"][^>]*charset=([^>]*)[\'"])[^>]*>' .
+                         '/i';
+                if(preg_match($regex, $body, $matches)) {
                     $enc = strtoupper($matches[sizeof($matches) - 1]);
                 } else {
                     $enc = mb_detect_encoding($body);
                 }
-                $enc = $enc ? $enc : "UTF-8";
+                $enc = $enc ? $enc : 'UTF-8';
                 $body = mb_convert_encoding($body, 'HTML-ENTITIES', $enc);
 
                 $dom = new DOMDocument();
