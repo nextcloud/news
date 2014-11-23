@@ -1,3 +1,6 @@
+owncloud-news (4.2.1)
+* **Bugfix**: Rewrite relative URLs
+
 owncloud-news (4.2.0)
 * **Security**: Fix [XEE](https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Processing) vulnerability in picoFeed RSS library. All versions starting from 4.0.0 are affected
 * **Enhancement**: Add admin setting to set a custom explore service URL
