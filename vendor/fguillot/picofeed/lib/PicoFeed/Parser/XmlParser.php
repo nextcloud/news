@@ -2,6 +2,7 @@
 
 namespace PicoFeed\Parser;
 
+use Closure;
 use DomDocument;
 use DOMXPath;
 use SimpleXmlElement;
@@ -43,14 +44,16 @@ class XmlParser
     }
 
     /**
-     * Get a DomDocument instance or return false
+     * Scan the input for XXE attacks
      *
-     * @static
-     * @access public
-     * @param  string   $input   XML content
-     * @return mixed
+     * @param string    $input       Unsafe input
+     * @param Closure   $callback    Callback called to build the dom.
+     *                               Must be an instance of DomDocument and receives the input as argument
+     *
+     * @return bool|DomDocument      False if an XXE attack was discovered,
+     *                               otherwise the return of the callback
      */
-    public static function getDomDocument($input)
+    private static function scanInput($input, Closure $callback)
     {
         if (substr(php_sapi_name(), 0, 3) === 'fpm') {
 
@@ -67,13 +70,7 @@ class XmlParser
 
         libxml_use_internal_errors(true);
 
-        $dom = new DomDocument;
-        $dom->loadXml($input, LIBXML_NONET);
-
-        // The document is empty, there is probably some parsing errors
-        if ($dom->childNodes->length === 0) {
-            return false;
-        }
+        $dom = $callback($input);
 
         // Scan for potential XEE attacks using ENTITY
         foreach ($dom->childNodes as $child) {
@@ -82,6 +79,30 @@ class XmlParser
                     return false;
                 }
             }
+        }
+
+        return $dom;
+    }
+
+    /**
+     * Get a DomDocument instance or return false
+     *
+     * @static
+     * @access public
+     * @param  string   $input   XML content
+     * @return mixed
+     */
+    public static function getDomDocument($input)
+    {
+        $dom = self::scanInput($input, function ($in) {
+            $dom = new DomDocument;
+            $dom->loadXml($in, LIBXML_NONET);
+            return $dom;
+        });
+
+        // The document is empty, there is probably some parsing errors
+        if ($dom && $dom->childNodes->length === 0) {
+            return false;
         }
 
         return $dom;
@@ -97,18 +118,22 @@ class XmlParser
      */
     public static function getHtmlDocument($input)
     {
-        libxml_use_internal_errors(true);
-
-        $dom = new DomDocument;
-
         if (version_compare(PHP_VERSION, '5.4.0', '>=')) {
-            $dom->loadHTML($input, LIBXML_NONET);
+            $callback = function ($in) {
+                $dom = new DomDocument;
+                $dom->loadHTML($in, LIBXML_NONET);
+                return $dom;
+            };
         }
         else {
-            $dom->loadHTML($input);
+            $callback = function ($in) {
+                $dom = new DomDocument;
+                $dom->loadHTML($in);
+                return $dom;
+            };
         }
 
-        return $dom;
+        return self::scanInput($input, $callback);
     }
 
     /**

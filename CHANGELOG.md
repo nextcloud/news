@@ -1,4 +1,5 @@
 owncloud-news (4.2.0)
+* **Security**: Fix [XEE](https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Processing) vulnerability in picoFeed RSS library
 * **Enhancement**: Add admin setting to set a custom explore service URL
 * **Enhancement**: Add explore button and show explore button on startup
 * **Enhancement**: Show a hint when no articles are available
