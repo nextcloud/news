@@ -94,7 +94,7 @@
         "%heise.de%": "//*[@class='meldung_wrapper']/*[not(contains(@class, 'dossier'))]"
     },
     "spiegel.de": {
-        "%spiegel.de/(?!.*video).*%": "//p[@class='article-intro'] | //*[@itemprop='description' and not(ancestor::*[contains( normalize-space( @class ), 'article-section' )]) ] | //*[(@class='spPanoImageTeaserPic' or @class='spPanoGalleryTeaserPic' or @class='spPanoPlayerTeaserPic') and not(ancestor::*[contains( normalize-space( @class ), 'article-section' )])] | //*[@class='image-buttons-panel' and not(ancestor::*[contains( normalize-space( @class ), 'article-section' )])]/*[1]/img | //*[@class='article-image-description' and not(ancestor::*[contains( normalize-space( @class ), 'article-section' )]) ]/p | //*[@id='content-main']/*[@id='js-article-column']/div[contains( normalize-space( @class ), 'article-section' )]"
+        "%spiegel.de/(?!.*video).*%": "//p[@class='article-intro'] | //*[@itemprop='description' and not(ancestor::*[contains( normalize-space( @class ), 'article-section' )]) ] | //*[(@class='spPanoImageTeaserPic' or @class='spPanoGalleryTeaserPic' or @class='spPanoPlayerTeaserPic') and not(ancestor::*[contains( normalize-space( @class ), 'article-section' )])] | //*[@class='image-buttons-panel' and not(ancestor::*[contains( normalize-space( @class ), 'article-section' )])]/*[1]/img | //*[@class='article-image-description' and not(ancestor::*[contains( normalize-space( @class ), 'article-section' )]) ]/p | //*[@id='content-main']/*[@id='js-article-column']/div[contains( normalize-space( @class ), 'article-section' )]/*[not( contains( normalize-space( @class ), 'article-function-social-media' ))] | //*[@id='content-main']/*[@id='js-article-column']/p"
     },
     "eqcomics.com": {
         "%feedproxy.google.com/~r/eqcomics%": "//div[@id=\"comic\"]/div/a/img"
@@ -122,5 +122,8 @@
     },
     "satwcomic.com": {
         "%feedproxy.google.com/~r/satwcomic%": "//div[@class=\"comicmid\"]/center/a/img"
+    },
+    "androidpolice.com": {
+        "%rss.feedsportal.com/c/33941/f/615677/p/1/s/%": "//div[@class=\"post_content\"]"
     }
 }
