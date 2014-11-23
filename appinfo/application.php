@@ -427,7 +427,9 @@ class Application extends App {
                 ->setClientTimeout($config->getFeedFetcherTimeout())
                 ->setMaxRedirections($config->getMaxRedirects())
                 ->setMaxBodySize($config->getMaxSize())
-                ->setContentFiltering(false)
+                // enable again if we can distinguish between security and
+                // content filtering
+                //->setContentFiltering(false)
                 ->setParserHashAlgo('md5');
 
             // proxy settings
