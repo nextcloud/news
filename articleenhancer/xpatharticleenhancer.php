@@ -54,20 +54,16 @@ class XPathArticleEnhancer implements ArticleEnhancer {
                 $body = $this->getFile($item->getUrl());
 
                 // Determine document encoding.
-                // First check if <meta charset="..."> is specified and use that
-                // If this fails look for charset in <meta http-equiv="Content-Type" ...>
-                // As a last resort use mb_detect_encoding()
+                // First check if either <meta charset="..."> or
+                // <meta http-equiv="Content-Type" ...> is specified and use that
+                // If this fails use mb_detect_encoding()
                 // Use UTF-8 if mb_detect_encoding does not return anything (or the HTML page is messed up)
-                $csregex = "/<meta\s+[^>]*charset\s*=\s*['\"]([^>]*)['\"][^>]*>/i";
-                if(preg_match($csregex, $body, $matches)) {
-                    $enc = strtoupper($matches[1]);
+                $encregex = "/<meta\s+[^>]*(?:charset\s*=\s*['\"]([^>'\"]*)['\"]" .
+                            "|http-equiv\s*=\s*['\"]content-type['\"]\s+[^>]*content\s*=\s*['\"][^>]*charset=([^>]*)['\"])[^>]*>/i";
+                if(preg_match($encregex, $body, $matches)) {
+                    $enc = strtoupper($matches[sizeof($matches) - 1]);
                 } else {
-                    $ctregex = "/<meta\s+[^>]*http-equiv\s*=\s*['\"]content-type['\"]\s+[^>]*content\s*=\s*['\"][^>]*charset=([^>]*)['\"][^>]*>/i";
-                    if(preg_match($ctregex, $body, $matches)) {
-                        $enc = strtoupper($matches[1]);
-                    } else {
-                        $enc = mb_detect_encoding($body);
-                    }
+                    $enc = mb_detect_encoding($body);
                 }
                 $enc = $enc ? $enc : "UTF-8";
                 $body = mb_convert_encoding($body, 'HTML-ENTITIES', $enc);
