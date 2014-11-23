@@ -3,7 +3,7 @@ owncloud-news (4.2.0)
 * **Enhancement**: Add explore button and show explore button on startup
 * **Enhancement**: Show a hint when no articles are available
 * **Enhancement**: Add spiegel.de enhancer
-* **Bugfix**: Fix compact view in firefox 34
+* **Bugfix**: Fix compact view in firefox 34 and browsers using the new flexbox model
 * **Bugfix**: Show spinner when autopaging
 * **Bugfix**: Remove race condition when fetching articles that sometimes shows read articles if the user clicks show on only unread and the article request finishes first before the settings request is finished
 * **Bugfix**: Ignore Atom updated tag if it is earlier than the published tag
