@@ -33,17 +33,12 @@ class Security
      *
      * @param   string $xml
      * @param   DomDocument $dom
-     * @param   Callable(
-     *     @param $xml
-     *     @param $dom
-     *     @return DomDocument|boolean
-     * ) $loadCallback if given allows to customize the load command e.g.:
-     * function ($xml, $dom) { return $dom->loadHTML($xml, LIBXML_NONET); }
+     * @param   int $libXmlConstants additional libxml constants to pass in
+     * @param   Callable $callback the callback to use to create the dom element
      * @throws  Exception\RuntimeException
      * @return  SimpleXMLElement|DomDocument|boolean
      */
-    public static function scan($xml, DOMDocument $dom = null,
-                                $loadCallback = null)
+    private static function scanString($xml, $dom, $libXmlConstants, $callback)
     {
         // If running with PHP-FPM we perform an heuristic scan
         // We cannot use libxml_disable_entity_loader because of this bug
@@ -71,11 +66,7 @@ class Security
             return false;
         }, E_WARNING);
 
-        if ($loadCallback) {
-            $result = $loadCallback($xml, $dom);
-        } else {
-            $result = $dom->loadXml($xml, LIBXML_NONET);
-        }
+        $result = $callback($xml, $dom, LIBXML_NONET | $libXmlConstants);
 
         restore_error_handler();
 
@@ -108,6 +99,40 @@ class Security
             return $result;
         }
         return $dom;
+    }
+
+    /**
+     * Scan HTML string for potential XXE and XEE attacks
+     *
+     * @param   string $xml
+     * @param   DomDocument $dom
+     * @param   int $libXmlConstants additional libxml constants to pass in
+     * @throws  Exception\RuntimeException
+     * @return  SimpleXMLElement|DomDocument|boolean
+     */
+    public static function scanHtml($html, DOMDocument $dom = null, $libXmlConstants = 0)
+    {
+        $callback = function ($html, $dom, $constants) {
+            return $dom->loadHtml($html, $constants);
+        };
+        return self::scanString($html, $dom, $libXmlConstants, $callback);
+    }
+
+    /**
+     * Scan XML string for potential XXE and XEE attacks
+     *
+     * @param   string $xml
+     * @param   DomDocument $dom
+     * @param   int $libXmlConstants additional libxml constants to pass in
+     * @throws  Exception\RuntimeException
+     * @return  SimpleXMLElement|DomDocument|boolean
+     */
+    public static function scan($xml, DOMDocument $dom = null, $libXmlConstants = 0)
+    {
+        $callback = function ($xml, $dom, $constants) {
+            return $dom->loadXml($xml, $constants);
+        };
+        return self::scanString($xml, $dom, $libXmlConstants, $callback);
     }
 
     /**

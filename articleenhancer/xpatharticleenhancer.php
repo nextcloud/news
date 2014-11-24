@@ -70,9 +70,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
 
                 $dom = new DOMDocument();
 
-                Security::scan($body, $dom, function ($xml, $dom) {
-                    return @$dom->loadHTML($xml, LIBXML_NONET);
-                });
+                $isOk = Security::scanHtml($body, $dom);
 
                 $xpath = new DOMXpath($dom);
                 $xpathResult = $xpath->evaluate($search);
@@ -121,14 +119,16 @@ class XPathArticleEnhancer implements ArticleEnhancer {
         $dom = new DOMDocument();
         $dom->preserveWhiteSpace = false;
 
-        $isOk = Security::scan($xmlString, $dom, function ($xml, $dom) {
-            // wrap in div to prevent loadHTML from inserting weird elements
-            $xml = '<div>' . $xml . '</div>';
-            return @$dom->loadHTML($xml, LIBXML_NONET | LIBXML_HTML_NODEFDTD
-                | LIBXML_HTML_NOIMPLIED);
-        });
+        if($xmlString === '') {
+            return false;
+        }
 
-        if($xmlString === '' || !$isOk) {
+        $xmlString = '<div>' . $xmlString . '</div>';
+        $isOk = Security::scanHtml(
+            $xmlString, $dom, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
+        );
+
+        if(!$isOk) {
             return false;
         }
 
