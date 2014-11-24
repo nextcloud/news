@@ -1,6 +1,14 @@
 OC.L10N.register(
     "news",
     {
+    "Feed contains invalid XML" : "Zdroj obsahuje nefunkčné XML",
+    "Could not find a feed" : "Nepodarilo sa nájsť zdroj",
+    "Detected feed format is not supported" : "Detekovaný formát zdroja nieje podporovaný",
+    "SSL Certificate is invalid" : "SSL certifikát je nesprávny",
+    "Website not found" : "Webstránka nebola nájdená",
+    "More redirects than allowed, aborting" : "Viac presmerovaní ako je povolené, rušenie.",
+    "Bigger than maximum allowed size" : "Väčšie ako maximálna povolená veľkosť",
+    "Request timed out" : "Požiadavka vypršala",
     "Can not add feed: Exists already" : "Nemožno pridať kanál: Už existuje",
     "Articles without feed" : "Články bez zdroja",
     "Can not add folder: Exists already" : "Nemožno pridať priečinok: Už existuje",
@@ -12,6 +20,7 @@ OC.L10N.register(
     "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off completely" : "Určuje najvyšší počet článkov, ktoré sú dostupné na prečítanie z jednotlivých kanálov a nebudú zmazané pri čistení; ak sa staré články po prečítaní znovu objavia, navýšte túto hodnotu; záporné hodnoty ako napr. -1 túto funkciu úplne vypnú",
     "Maximum redirects" : "Maximum presmerovaní",
     "How many redirects the feed fetcher should follow" : "Koľko presmerovaní sa má sledovať pri sťahovaní článkov",
+    "Maximum feed size in bytes. If the RSS/Atom page is bigger than this value, the update will be aborted" : "Maximálna veľkosť zdroja v bajtoch. Aj je RSS/Atom stránka väčšia ako táto hodnota, potom bude tento update zastavený",
     "Feed fetcher timeout" : "Vypršal čas pre sťahovanie článkov",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted" : "Maximálna hodnota v sekundách pre aktualizáciu RSS alebo Atom zdroja; ak sa prekročí, aktualizácia sa ukončí",
     "Saved" : "Uložené",
