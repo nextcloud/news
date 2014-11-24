@@ -78,13 +78,14 @@
     background-position: calc(50% - 16px) calc(50% - 16px);
 }
 
-/*
 #app-content .finished-auto-paging #articles:after {
-    background-image: url('../img/logo-icon.svg');
-    background-size: 62px 34px;
-    background-position: calc(50% - 31px) calc(50% - 17px);
+    background-image: -o-linear-gradient(top, #eee 0%, #FEFEFE 100%);
+    background-image: -moz-linear-gradient(top, #eee 0%, #FEFEFE 100%);
+    background-image: -webkit-linear-gradient(top, #eee 0%, #FEFEFE 100%);
+    background-image: -ms-linear-gradient(top, #eee 0%, #FEFEFE 100%);
+    background-image: linear-gradient(to top, #eee 0%, #FEFEFE 100%);
 }
-*/
+
 
 /**
  *
