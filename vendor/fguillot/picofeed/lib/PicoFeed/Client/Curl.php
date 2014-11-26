@@ -160,7 +160,6 @@ class Curl extends Client
         curl_setopt($ch, CURLOPT_URL, $this->url);
         curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this->timeout);
-        curl_setopt($ch, CURLOPT_TIMEOUT, $this->timeout);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $this->prepareHeaders());
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, ini_get('open_basedir') === '');
         curl_setopt($ch, CURLOPT_MAXREDIRS, $this->max_redirects);
