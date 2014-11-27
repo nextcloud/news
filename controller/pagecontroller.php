@@ -155,10 +155,6 @@ class PageController extends Controller {
             }
         }
 
-        $authors = [];
-        foreach ($config['authors'] as $author) {
-            $authors[] = $author['name'];
-        }
 
         $data = [
             "name" => $config['name'],
@@ -166,10 +162,10 @@ class PageController extends Controller {
             "default_locale" => $locale,
             "description" => $config['description'],
             "launch_path" => $this->urlGenerator->linkToRoute(
-                $config['id'] . '.page.index'),
+                $config['navigation']['route']),
             "icons" => $icons,
             "developer" => [
-                "name" => implode(', ', $authors),
+                "name" => $config['author'],
                 "url" => $config['homepage']
             ]
         ];

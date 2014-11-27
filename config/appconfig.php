@@ -13,6 +13,8 @@
 
 namespace OCA\News\Config;
 
+use SimpleXMLElement;
+
 use \OCP\INavigationManager;
 use \OCP\IURLGenerator;
 use \OCP\Backgroundjob;
@@ -25,10 +27,6 @@ class AppConfig {
     private $config;
     private $navigationManager;
     private $urlGenerator;
-    private $phpVersion;
-    private $ownCloudVersion;
-    private $installedExtensions;
-    private $databaseType;
 
     /**
      * TODO: External deps that are needed:
@@ -36,18 +34,20 @@ class AppConfig {
      * - connect to hooks
      */
     public function __construct(INavigationManager $navigationManager,
-                                IURLGenerator $urlGenerator,
-                                $phpVersion,
-                                $ownCloudVersion,
-                                $installedExtensions,
-                                $databaseType) {
+                                IURLGenerator $urlGenerator) {
         $this->navigationManager = $navigationManager;
         $this->urlGenerator = $urlGenerator;
-        $this->ownCloudVersion = $ownCloudVersion;
-        $this->phpVersion = $phpVersion;
-        $this->installedExtensions = $installedExtensions;
-        $this->databaseType = $databaseType;
         $this->config = [];
+    }
+
+
+    /**
+     * Parse an xml config
+     */
+    private function parseConfig($string) {
+        // no need to worry about XXE since local file
+        $xml = simplexml_load_string($string, 'SimpleXMLElement');
+        return json_decode(json_encode((array)$xml), TRUE);
     }
 
 
@@ -59,30 +59,11 @@ class AppConfig {
         if(is_array($data)) {
             $this->config = $data;
         } else {
-            $json = file_get_contents($data);
-            $this->config = json_decode($json, true);
-        }
-
-        // fill config with default values if no navigation is added
-        if(array_key_exists('navigation', $this->config)) {
-            $nav =& $this->config['navigation'];
-
-            // add defaults
-            $defaults = [
-                'id' => $this->config['id'],
-                'route' => $this->config['id'] . '.page.index',
-                'order' => 10,
-                'icon' => 'app.svg',
-                'name' => $this->config['name']
-            ];
-
-            foreach($defaults as $key => $value) {
-                if(!array_key_exists($key, $nav)) {
-                    $nav[$key] = $value;
-                }
-            }
+            $xml = file_get_contents($data);
+            $this->config = $this->parseConfig($xml);
         }
     }
+
 
     /**
      * @param string $key if given returns the value of the config at index $key
@@ -103,9 +84,10 @@ class AppConfig {
      */
     public function registerAll() {
         $this->registerNavigation();
-        $this->registerBackgroundJobs();
         $this->registerHooks();
-        $this->registerAdmin();
+        // Fuck it lets just do this quick and dirty until core supports this
+        Backgroundjob::addRegularTask($job['cron'][0]['job'], 'run');
+        App::registerAdmin($this->config['id'], $this->config['admin']);
     }
 
 
@@ -113,8 +95,7 @@ class AppConfig {
      * Parses the navigation and creates a navigation entry if needed
      */
     public function registerNavigation() {
-        // if key is missing, don't create a navigation
-        if(array_key_exists('navigation', $this->config)) {
+        if (array_key_exists('navigation', $this->config)) {
             $nav =& $this->config['navigation'];
 
             $navConfig = [
@@ -130,28 +111,6 @@ class AppConfig {
 
             $this->navigationManager->add($navConfig);
         }
-
-    }
-
-    /**
-     * Registers admin pages
-     */
-    public function registerAdmin() {
-        if ($this->config['admin']) {
-            App::registerAdmin($this->config['id'], 'admin/admin');
-        }
-    }
-
-
-    /**
-     * Registers all jobs in the config
-     */
-    public function registerBackgroundJobs() {
-        // FIXME: this is temporarily static because core jobs are not public
-        // yet, therefore legacy code
-        foreach ($this->config['jobs'] as $job) {
-            Backgroundjob::addRegularTask($job, 'run');
-        }
     }
 
 
@@ -161,139 +120,14 @@ class AppConfig {
     public function registerHooks() {
         // FIXME: this is temporarily static because core emitters are not
         // future proof, therefore legacy code in here
-        foreach ($this->config['hooks'] as $listen => $react) {
-            $listener = explode('::', $listen);
-            $reaction = explode('::', $react);
+        foreach ($this->config['hooks'] as $hook) {
+            $listener = explode('::', $hook['channel']);
+            $reaction = explode('::', $hook['subscriber']);
 
             // config is written like HookNamespace::method => Class::method
             Util::connectHook($listener[0], $listener[1], $reaction[0],
                                    $reaction[1]);
         }
-    }
-
-
-    private function testDatabaseDependencies($deps) {
-        if(array_key_exists('databases', $deps)) {
-            $databases = $deps['databases'];
-            $databaseType = $this->databaseType;
-
-            if(!in_array($databaseType, $databases)) {
-            return 'Database ' . $databaseType . ' not supported.' .
-                'App is only compatible with ' .
-                implode(', ', $databases);
-            }
-        }
-
-        return '';
-    }
-
-
-    private function testPHPDependencies($deps) {
-        if (array_key_exists('php', $deps)) {
-            return $this->requireVersion($this->phpVersion, $deps['php'],
-                'PHP');
-        }
-
-        return '';
-    }
-
-
-    private function testLibraryDependencies($deps) {
-        if (array_key_exists('libs', $deps)) {
-            foreach ($deps['libs'] as $lib => $versions) {
-                if(array_key_exists($lib, $this->installedExtensions)) {
-                    return $this->requireVersion(
-                        $this->installedExtensions[$lib],
-                        $versions, 'PHP extension ' . $lib
-                    );
-                } else {
-                    return 'PHP extension ' . $lib .
-                           ' required but not installed';
-                }
-            }
-        }
-
-        return '';
-    }
-
-
-    /**
-     * Validates all dependencies that the app has
-     * @throws DependencyException if one version is not satisfied
-     */
-    public function testDependencies() {
-        if(array_key_exists('dependencies', $this->config)) {
-            $deps = $this->config['dependencies'];
-
-            $msg = $this->testDatabaseDependencies($deps);
-            $msg .= $this->testPHPDependencies($deps);
-            $msg .= $this->testLibraryDependencies($deps);
-
-            if($msg !== '') {
-                throw new DependencyException($msg);
-            }
-        }
-    }
-
-
-    /**
-     * Compares a version with a version requirement string
-     * @param string $actual the actual version that is there
-     * @param string $required a version requirement in the form of
-     * <=5.3,>4.5 versions are separated with a comma
-     * @param string $versionType a description of the string that is prepended
-     * to the error message
-     * @return string an error message if the version is not met,
-     * empty string if ok
-     */
-    private function requireVersion($actual, $required, $versionType) {
-        $requiredVersions = $this->splitVersions($required);
-
-        foreach($requiredVersions as $version) {
-            // accept * as wildcard for any version
-            if($version['version'] === '*') {
-                continue;
-            }
-            $operator = $version['operator'];
-            $requiredVersion = $version['version'];
-            if(!version_compare($actual, $requiredVersion, $operator)) {
-                return $versionType . ' Version not satisfied: ' . $operator .
-                    $requiredVersion . ' required but found ' . $actual . '\n';
-            }
-        }
-
-        return '';
-    }
-
-
-    /**
-     * Versions can be separated by a comma so split them
-     * @param string $versions a version requirement in the form of
-     * <=5.3,>4.5 versions are separated with a comma
-     * @return array of arrays with key=version value=operator
-     */
-    private function splitVersions($versions) {
-        $result = [];
-        $versions = explode(',', $versions);
-
-        foreach($versions as $version) {
-            preg_match('/^(?<operator><|<=|>=|>|<>)?(?<version>.*)$/', $version,
-                       $matches);
-            if($matches['operator'] !== '') {
-                $required = [
-                    'version' => $matches['version'],
-                    'operator' => $matches['operator'],
-                ];
-            } else {
-                $required = [
-                    'version' => $matches['version'],
-                    'operator' => '==',
-                ];
-            }
-            $result[] = $required;
-        }
-
-        return $result;
     }
 
 

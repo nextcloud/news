@@ -27,4 +27,3 @@ $container = new Application();
 
 $config = $container->getAppConfig();
 $config->registerAll();
-$config->testDependencies();

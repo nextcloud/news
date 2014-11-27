@@ -39,10 +39,10 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
         $this->configData = [
             'name' => 'AppTest',
             'id' => 'apptest',
-            'authors' => [
-                ['name' => 'john'],
-                ['name' => 'test']
+            'navigation' => [
+                'route' => 'apptest.index.php'
             ],
+            'author' => 'john, test',
             'description' => 'This is a test app',
             'homepage' => 'https://github.com/owncloud/test'
         ];

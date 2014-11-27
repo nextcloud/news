@@ -265,25 +265,12 @@ class Application extends App {
          * App config parser
          */
         $container->registerService('AppConfig', function($c) {
-            // order extensions in name => version
-            $loadedExtensions = get_loaded_extensions();
-            $extensions = [];
-            foreach ($loadedExtensions as $extension) {
-                $extensions[$extension] = phpversion($extension);
-            }
-
-            $extensions['libxml'] = LIBXML_DOTTED_VERSION;
-
             $config = new AppConfig(
                 $c->query('ServerContainer')->getNavigationManager(),
-                $c->query('URLGenerator'),
-                phpversion(),
-                implode('.', Util::getVersion()),
-                $extensions,
-                $c->query('DatabaseType')
+                $c->query('URLGenerator')
             );
 
-            $config->loadConfig(__DIR__ . '/app.json');
+            $config->loadConfig(__DIR__ . '/info.xml');
 
             return $config;
         });

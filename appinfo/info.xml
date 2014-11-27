@@ -1,10 +1,63 @@
 <?xml version="1.0"?>
 <info>
+    <!-- metadata -->
     <id>news</id>
     <name>News</name>
     <description>An RSS/Atom feed reader. Requires ownCloud backgroundjobs or an updater script to be enabled to update your feeds. See the README.md in the apps top directory</description>
+    <author>Bernhard Posselt, Alessandro Cosentino, Jan-Christoph Borchardt</author>
+    <categories>
+        <category>Multimedia</category>
+    </categories>
     <licence>AGPL</licence>
     <version>4.2.1</version>
+
+    <!-- resources -->
+    <documentation>
+        <user>https://github.com/owncloud/news/wiki#user-documentation</user>
+        <admin>https://github.com/owncloud/news#readme</admin>
+        <developer>https://github.com/owncloud/news/wiki#developer-documentation</developer>
+    </documentation>
+    <homepage>https://github.com/owncloud/news</homepage>
+    <bugs>https://github.com/owncloud/news/issues</bugs>
+    <repository type="git">https://github.com/owncloud/news.git</repository>
+
+    <!-- dependencies -->
     <requiremin>7.0.3</requiremin>
-    <author>Bernhard Posselt, Alessandro Cosentino, Jan-Christoph Borchardt</author>
+    <php version=">=5.4" />
+    <databases>
+        <database>pgsql</database>
+        <database>sqlite3</database>
+        <database>mysql</database>
+    </databases>
+    <libs>
+        <lib version=">=2.7.8">libxml</lib>
+        <lib>curl</lib>
+        <lib>SimpleXML</lib>
+    </libs>
+
+    <!-- navigation -->
+    <navigation>
+        <id>news</id>
+        <route>news.page.index</route>
+        <order>10</order>
+        <icon>app.svg</icon>
+        <name>News</name>
+    </navigation>
+
+    <!-- admin -->
+    <admin>admin/admin</admin>
+
+    <!-- cron jobs -->
+    <cron>
+        <job>OCA\News\Cron\Updater</job>
+    </cron>
+
+    <!-- hooks -->
+    <hooks>
+        <hook>
+            <channel>OC_User::pre_deleteUser</channel>
+            <subscriber>OCA\News\Hooks\User::deleteUser</subscriber>
+        </hook>
+    </hooks>
+
 </info>

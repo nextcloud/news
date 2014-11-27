@@ -37,5 +37,15 @@ spl_autoload_register(function ($className){
         if(file_exists($relPath)){
             require_once $relPath;
         }
+    } else if(strpos($className, 'Test\\') === 0) {
+        $path = strtolower(
+            str_replace('\\', '/', substr($className, 4)) . '.php'
+        );
+        echo $path;
+        $relPath = __DIR__ . '/../../../tests/lib' . $path;
+
+        if(file_exists($relPath)){
+            require_once $relPath;
+        }
     }
 });
