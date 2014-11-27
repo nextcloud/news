@@ -3,7 +3,7 @@
     <!-- metadata -->
     <id>news</id>
     <name>News</name>
-    <description>An RSS/Atom feed reader. Requires ownCloud backgroundjobs or an updater script to be enabled to update your feeds. See the README.md in the apps top directory</description>
+    <description>An RSS/Atom feed reader</description>
     <author>Bernhard Posselt, Alessandro Cosentino, Jan-Christoph Borchardt</author>
     <categories>
         <category>Multimedia</category>

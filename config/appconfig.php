@@ -47,7 +47,7 @@ class AppConfig {
     private function parseConfig($string) {
         // no need to worry about XXE since local file
         $xml = simplexml_load_string($string, 'SimpleXMLElement');
-        return json_decode(json_encode((array)$xml), TRUE);
+        return json_decode(json_encode((array)$xml), true);
     }
 
 
