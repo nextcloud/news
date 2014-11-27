@@ -128,5 +128,8 @@
     },
     "neustadt-ticker.de": {
 	"%neustadt-ticker.de%": "//div[@class='Post-inner article']/div[@class='PostContent']/*[not(contains(@class, 'yarpp-related') or contains(@class, 'navigation') or contains(@class, 'social_share') or contains(@class, 'twoclick-js'))]"
+    },
+    "thecodinglove.com": {
+        "%thecodinglove.com%": "//div[@class='bodytype']"
     }
 }
