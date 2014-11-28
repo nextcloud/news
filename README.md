@@ -81,7 +81,7 @@ Before you install the app do the following:
 * Check that your installation fullfills the [requirements listed in the README section](https://github.com/owncloud/news#dependencies)
 * [Set up ownCloud Background Jobs](http://doc.owncloud.org/server/7.0/admin_manual/configuration/background_jobs.html) to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
 * If you are updating from a previous version read the [Update Notices](https://github.com/owncloud/news/blob/master/README.md#updating-notices)
-* Disable the codechecker by adding this at the bottom of the file **owncloud/config/config.php**:
+* If you are using ownCloud 7, disable the codechecker by adding this at the bottom of the file **owncloud/config/config.php**:
 
 	  $CONFIG["appcodechecker"] = false;
 
