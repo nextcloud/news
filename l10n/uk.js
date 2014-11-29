@@ -16,6 +16,7 @@ OC.L10N.register(
     "Saved" : "Збереженно",
     "Subscribe" : "Підписатися",
     "Refresh" : "Оновити",
+    "No articles available" : "Немає доступних статей",
     "Open website" : "Відкрити веб-сайт",
     "Star article" : "Позначити статтю",
     "Unstar article" : "Зняти позначку статті",
