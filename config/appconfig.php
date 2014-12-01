@@ -86,7 +86,7 @@ class AppConfig {
         $this->registerNavigation();
         $this->registerHooks();
         // Fuck it lets just do this quick and dirty until core supports this
-        Backgroundjob::addRegularTask($job['cron'][0]['job'], 'run');
+        Backgroundjob::addRegularTask($this->config['cron']['job'], 'run');
         App::registerAdmin($this->config['id'], $this->config['admin']);
     }
 
