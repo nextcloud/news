@@ -1,3 +1,6 @@
+owncloud-news (4.2.3)
+* **Bugfix**: Fix cron update
+
 owncloud-news (4.2.2)
 * **Enhancement**: Use a light gradient at the bottom of the feed when no items are left to autopage
 
