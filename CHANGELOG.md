@@ -1,3 +1,6 @@
+owncloud-news (4.2.5)
+* **Bugfix**: Fix keep unread shortcut in compact view
+
 owncloud-news (4.2.4)
 * **Bugfix**: Clicking the button to open a website in compact view now marks the article read
 * **Bugfix**: Make read on scroll more sensitive in compact view to mark it read without having to completely scroll over the entry
