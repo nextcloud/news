@@ -30,7 +30,7 @@
     <div class="app-navigation-entry-menu">
         <ul>
             <li><button class="icon-checkmark"
-                        title="<?php p($l->t('Read all')); ?>"
+                        title="<?php p($l->t('Mark all articles read')); ?>"
                         ng-click="Navigation.markRead()"></button>
             </li>
         </ul>

@@ -123,7 +123,7 @@
             <li ng-show="Navigation.getFolderUnreadCount(folder.id) > 0">
                 <button class="icon-checkmark"
                         ng-click="Navigation.markFolderRead(folder.id)"
-                        title="<?php p($l->t('Read all')); ?>">
+                        title="<?php p($l->t('Mark all articles read')); ?>">
                 </button>
             </li>
         </ul>

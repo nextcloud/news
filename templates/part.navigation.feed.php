@@ -98,7 +98,7 @@
             <li ng-show="Navigation.getFeedUnreadCount(feed.id) > 0">
                 <button class="icon-checkmark"
                         ng-click="Navigation.markFeedRead(feed.id)"
-                        title="<?php p($l->t('Read all')); ?>">
+                        title="<?php p($l->t('Mark all articles read')); ?>">
                 </button>
             </li>
         </ul>

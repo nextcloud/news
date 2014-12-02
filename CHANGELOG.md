@@ -1,3 +1,6 @@
+owncloud-news (4.2.6)
+* **Bugfix**: Wording fixes
+
 owncloud-news (4.2.5)
 * **Bugfix**: Fix keep unread shortcut in compact view
 
