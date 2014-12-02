@@ -49,7 +49,7 @@ app.directive('newsScroll', function ($timeout, ITEM_AUTO_PAGE_SIZE,
             articles.each(function(index, article) {
                 var item = $(article);
 
-                if (item.position().top <= -50) {
+                if (item.position().top <= -10) {
                     ids.push(parseInt(item.data('id'), 10));
                 } else {
                     return false;

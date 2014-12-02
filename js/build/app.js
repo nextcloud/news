@@ -2131,23 +2131,15 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
         });
     };
 
-    var scrollToItem = function (scrollArea, item, isCompactMode) {
+    var scrollToItem = function (scrollArea, item) {
         // if you go to the next article in compact view, it should
         // expand the current one
         scrollArea.scrollTop(
             item.offset().top - scrollArea.offset().top + scrollArea.scrollTop()
         );
-
-        if (isCompactMode) {
-            onActiveItem(scrollArea, function (item) {
-                if (!item.hasClass('open')) {
-                    item.find('.utils').trigger('click');
-                }
-            });
-        }
     };
 
-    var scrollToNextItem = function (scrollArea, isCompactMode) {
+    var scrollToNextItem = function (scrollArea) {
         var items = scrollArea.find('.item');
         var jumped = false;
 
@@ -2155,7 +2147,7 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
             item = $(item);
 
             if (item.position().top > 1) {
-                scrollToItem(scrollArea, item, isCompactMode);
+                scrollToItem(scrollArea, item);
 
                 jumped = true;
 
@@ -2170,7 +2162,7 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
 
     };
 
-    var scrollToPreviousItem = function (scrollArea, isCompactMode) {
+    var scrollToPreviousItem = function (scrollArea) {
         var items = scrollArea.find('.item');
         var jumped = false;
 
@@ -2182,7 +2174,7 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
 
                 // if there are no items before the current one
                 if (previous.length > 0) {
-                    scrollToItem(scrollArea, previous, isCompactMode);
+                    scrollToItem(scrollArea, previous);
                 }
 
                 jumped = true;
@@ -2204,19 +2196,18 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
             var keyCode = event.keyCode;
             var scrollArea = $('#app-content');
             var navigationArea = $('#app-navigation');
-            var isCompactMode = $('#app-content-wrapper > .compact').length > 0;
 
             // j, n, right arrow
             if ([74, 78, 39].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
-                scrollToNextItem(scrollArea, isCompactMode);
+                scrollToNextItem(scrollArea);
 
             // k, p, left arrow
             } else if ([75, 80, 37].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
-                scrollToPreviousItem(scrollArea, isCompactMode);
+                scrollToPreviousItem(scrollArea);
 
             // u
             } else if ([85].indexOf(keyCode) >= 0) {
@@ -2560,7 +2551,7 @@ app.directive('newsScroll', ["$timeout", "ITEM_AUTO_PAGE_SIZE", "MARK_READ_TIMEO
             articles.each(function(index, article) {
                 var item = $(article);
 
-                if (item.position().top <= -50) {
+                if (item.position().top <= -10) {
                     ids.push(parseInt(item.data('id'), 10));
                 } else {
                     return false;
