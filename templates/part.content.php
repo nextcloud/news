@@ -73,14 +73,14 @@
                         </button>
                     </li>
                     <li ng-click="Content.toggleKeepUnread(item.id)"
-                        class="util"
+                        class="util toggle-keep-unread"
                         news-stop-propagation>
-                        <button class="icon-toggle toggle-keep-unread"
+                        <button class="icon-toggle"
                             ng-hide="item.keepUnread"
                             title="<?php p($l->t('Keep article unread')); ?>">
                         </button>
                         <button
-                            class="icon-toggle toggle-keep-unread keep-unread"
+                            class="icon-toggle keep-unread"
                             ng-show="item.keepUnread"
                             title="<?php
                                 p($l->t('Remove keep article unread'));
