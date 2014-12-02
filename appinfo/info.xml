@@ -23,7 +23,7 @@
 
     <!-- dependencies -->
     <requiremin>7.0.3</requiremin>
-    <php version=">=5.4" />
+    <php min-version="5.4" />
     <databases>
         <database>pgsql</database>
         <database>sqlite3</database>
