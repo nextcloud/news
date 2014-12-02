@@ -30,6 +30,7 @@
                     <li class="util-spacer"></li>
                     <li class="util only-in-compact">
                         <a class="external icon-link"
+                            ng-click="Content.markRead(item.id)"
                             target="_blank"
                             ng-href="{{ ::item.url }}"
                             title="<?php p($l->t('Open website')) ?>"

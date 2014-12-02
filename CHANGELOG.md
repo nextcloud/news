@@ -1,4 +1,5 @@
 owncloud-news (4.2.4)
+* **Bugfix**: Clicking the button to open a website in compact view now marks the article read
 * **Enhancement**: Do not expand entries in compact view when using the jump to next/previous article shortcuts since this makes it harder to keep an overview and the exact same behavior is available in expanded view anyways
 
 owncloud-news (4.2.3)
