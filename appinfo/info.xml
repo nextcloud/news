@@ -23,17 +23,15 @@
 
     <!-- dependencies -->
     <requiremin>7.0.3</requiremin>
-    <php min-version="5.4" />
-    <databases>
+    <dependencies>
+        <php min-version="5.4" />
         <database>pgsql</database>
         <database>sqlite3</database>
         <database>mysql</database>
-    </databases>
-    <libs>
         <lib version=">=2.7.8">libxml</lib>
         <lib>curl</lib>
         <lib>SimpleXML</lib>
-    </libs>
+    </dependencies>
 
     <!-- navigation -->
     <navigation>
