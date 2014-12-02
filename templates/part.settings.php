@@ -32,7 +32,7 @@
             <input type="checkbox"
                     ng-checked="Settings.getSetting('oldestFirst')"
                    name="oldestFirst">
-            <?php p($l->t('Reverse ordering')); ?>
+            <?php p($l->t('Reverse ordering (oldest on top)')); ?>
         </label>
     </p>
 
