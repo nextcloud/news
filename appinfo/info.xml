@@ -28,7 +28,7 @@
         <database>pgsql</database>
         <database>sqlite3</database>
         <database>mysql</database>
-        <lib version=">=2.7.8">libxml</lib>
+        <lib min-version="2.7.8">libxml</lib>
         <lib>curl</lib>
         <lib>SimpleXML</lib>
     </dependencies>
