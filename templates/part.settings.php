@@ -25,7 +25,7 @@
                    ng-checked="Settings.getSetting('compactExpand')"
                    name="compactExpand">
             <?php p($l->t('Expand articles in compact view ' .
-                          'when navigating using keyboard shortcuts')); ?>
+                          'when navigating with keyboard shortcuts')); ?>
         </label>
     </p>
 
