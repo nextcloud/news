@@ -14,7 +14,7 @@
 namespace OCA\News\Db;
 
 
-class FolderMapperTest extends \Test\AppFramework\Db\MapperTestUtility {
+class FolderMapperTest extends \OCA\News\Tests\Unit\Db\MapperTestUtility {
 
     private $folderMapper;
     private $folders;

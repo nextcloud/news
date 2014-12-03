@@ -14,7 +14,7 @@
 namespace OCA\News\Db;
 
 
-class ItemMapperTest extends  \Test\AppFramework\Db\MapperTestUtility {
+class ItemMapperTest extends  \OCA\News\Tests\Unit\Db\MapperTestUtility {
 
     private $mapper;
     private $items;

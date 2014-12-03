@@ -5,7 +5,8 @@
      ng-class="{
         compact: Content.isCompactView(),
         'feed-view': Content.isFeed()
-    }">
+    }"
+    news-compact-expand="{{ Content.isCompactExpand() }}">
     <div class="pull-to-refresh" ng-class="{
         'show-pull-to-refresh': showPullToRefresh
     }">

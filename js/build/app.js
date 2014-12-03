@@ -365,6 +365,10 @@ app.controller('ContentController',
         return SettingsResource.get('compact');
     };
 
+    this.isCompactExpand = function () {
+        return SettingsResource.get('compactExpand');
+    };
+
     this.autoPagingEnabled = function () {
         return this.isAutoPagingEnabled;
     };
@@ -1824,6 +1828,7 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
         compact: false,
         oldestFirst: null,
         preventReadOnScroll: false,
+        compactExpand: false,
         exploreUrl: ''
     };
     this.defaultLanguageCode = 'en';
@@ -1863,6 +1868,7 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
                 showAll: this.settings.showAll,
                 compact: this.settings.compact,
                 oldestFirst: this.settings.oldestFirst,
+                compactExpand: this.settings.compactExpand,
                 preventReadOnScroll: this.settings.preventReadOnScroll
             }
         });
@@ -2131,15 +2137,23 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
         });
     };
 
-    var scrollToItem = function (scrollArea, item) {
+    var scrollToItem = function (scrollArea, item, expandItemInCompact) {
         // if you go to the next article in compact view, it should
         // expand the current one
         scrollArea.scrollTop(
             item.offset().top - scrollArea.offset().top + scrollArea.scrollTop()
         );
+
+        if (expandItemInCompact) {
+            onActiveItem(scrollArea, function (item) {
+                if (!item.hasClass('open')) {
+                    item.find('.utils').trigger('click');
+                }
+            });
+        }
     };
 
-    var scrollToNextItem = function (scrollArea) {
+    var scrollToNextItem = function (scrollArea, expandItemInCompact) {
         var items = scrollArea.find('.item');
         var jumped = false;
 
@@ -2147,7 +2161,7 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
             item = $(item);
 
             if (item.position().top > 1) {
-                scrollToItem(scrollArea, item);
+                scrollToItem(scrollArea, item, expandItemInCompact);
 
                 jumped = true;
 
@@ -2162,7 +2176,7 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
 
     };
 
-    var scrollToPreviousItem = function (scrollArea) {
+    var scrollToPreviousItem = function (scrollArea, expandItemInCompact) {
         var items = scrollArea.find('.item');
         var jumped = false;
 
@@ -2174,7 +2188,7 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
 
                 // if there are no items before the current one
                 if (previous.length > 0) {
-                    scrollToItem(scrollArea, previous);
+                    scrollToItem(scrollArea, previous, expandItemInCompact);
                 }
 
                 jumped = true;
@@ -2196,18 +2210,22 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
             var keyCode = event.keyCode;
             var scrollArea = $('#app-content');
             var navigationArea = $('#app-navigation');
+            var isCompactView = $('#articles.compact').length > 0;
+            var isExpandItem = $('#articles')
+                .attr('news-compact-expand') === 'true';
+            var expandItemInCompact = isCompactView && isExpandItem;
 
             // j, n, right arrow
             if ([74, 78, 39].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
-                scrollToNextItem(scrollArea);
+                scrollToNextItem(scrollArea, expandItemInCompact);
 
             // k, p, left arrow
             } else if ([75, 80, 37].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
-                scrollToPreviousItem(scrollArea);
+                scrollToPreviousItem(scrollArea, expandItemInCompact);
 
             // u
             } else if ([85].indexOf(keyCode) >= 0) {

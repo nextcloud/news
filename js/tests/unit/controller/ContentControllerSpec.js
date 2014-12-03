@@ -213,6 +213,19 @@ describe('ContentController', function () {
     }));
 
 
+    it('should publish compact expand setting', inject(function ($controller,
+    SettingsResource) {
+
+        SettingsResource.set('compactExpand', true);
+
+        var ctrl = $controller('ContentController', {
+            SettingsResource: SettingsResource,
+            data: {},
+        });
+
+        expect(ctrl.isCompactExpand()).toBe(true);
+    }));
+
     it('should publish markread', inject(function ($controller,
     SettingsResource) {
 

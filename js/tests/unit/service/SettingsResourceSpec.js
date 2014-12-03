@@ -38,11 +38,12 @@ describe('SettingsResource', function () {
 
     it('should set values', inject(function (SettingsResource) {
         http.expectPUT('base/settings',  {
-            'language':'en',
-            'showAll':true,
-            'compact':false,
-            'oldestFirst':null,
-            'preventReadOnScroll':false
+            'language': 'en',
+            'showAll': true,
+            'compact': false,
+            'oldestFirst': null,
+            'compactExpand': false,
+            'preventReadOnScroll': false
         }).respond(200, {});
 
         SettingsResource.set('showAll', true);

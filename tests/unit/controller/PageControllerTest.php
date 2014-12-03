@@ -142,6 +142,7 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
                 'compact' => true,
                 'preventReadOnScroll' => true,
                 'oldestFirst' => true,
+                'compactExpand' => true,
                 'language' => 'de',
                 'exploreUrl' => 'test'
             ]
@@ -174,6 +175,12 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
                 $this->equalTo($this->appName),
                 $this->equalTo('oldestFirst'))
             ->will($this->returnValue('1'));
+        $this->settings->expects($this->at(4))
+            ->method('getUserValue')
+            ->with($this->equalTo($this->user),
+                $this->equalTo($this->appName),
+                $this->equalTo('compactExpand'))
+            ->will($this->returnValue('1'));
         $this->config->expects($this->once())
             ->method('getExploreUrl')
             ->will($this->returnValue(' '));
@@ -196,6 +203,7 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
                 'preventReadOnScroll' => true,
                 'oldestFirst' => true,
                 'language' => 'de',
+                'compactExpand' => true,
                 'exploreUrl' => 'abc'
             ]
         ];
@@ -226,6 +234,12 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
             ->with($this->equalTo($this->user),
                 $this->equalTo($this->appName),
                 $this->equalTo('oldestFirst'))
+            ->will($this->returnValue('1'));
+        $this->settings->expects($this->at(4))
+            ->method('getUserValue')
+            ->with($this->equalTo($this->user),
+                $this->equalTo($this->appName),
+                $this->equalTo('compactExpand'))
             ->will($this->returnValue('1'));
         $this->config->expects($this->once())
             ->method('getExploreUrl')
@@ -263,7 +277,13 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
                 $this->equalTo($this->appName),
                 $this->equalTo('oldestFirst'),
                 $this->equalTo(true));
-        $this->controller->updateSettings(true, true, false, true);
+        $this->settings->expects($this->at(4))
+            ->method('setUserValue')
+            ->with($this->equalTo($this->user),
+                $this->equalTo($this->appName),
+                $this->equalTo('compactExpand'),
+                $this->equalTo(true));
+        $this->controller->updateSettings(true, true, false, true, true);
 
     }
 

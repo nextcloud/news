@@ -256,15 +256,23 @@
         });
     };
 
-    var scrollToItem = function (scrollArea, item) {
+    var scrollToItem = function (scrollArea, item, expandItemInCompact) {
         // if you go to the next article in compact view, it should
         // expand the current one
         scrollArea.scrollTop(
             item.offset().top - scrollArea.offset().top + scrollArea.scrollTop()
         );
+
+        if (expandItemInCompact) {
+            onActiveItem(scrollArea, function (item) {
+                if (!item.hasClass('open')) {
+                    item.find('.utils').trigger('click');
+                }
+            });
+        }
     };
 
-    var scrollToNextItem = function (scrollArea) {
+    var scrollToNextItem = function (scrollArea, expandItemInCompact) {
         var items = scrollArea.find('.item');
         var jumped = false;
 
@@ -272,7 +280,7 @@
             item = $(item);
 
             if (item.position().top > 1) {
-                scrollToItem(scrollArea, item);
+                scrollToItem(scrollArea, item, expandItemInCompact);
 
                 jumped = true;
 
@@ -287,7 +295,7 @@
 
     };
 
-    var scrollToPreviousItem = function (scrollArea) {
+    var scrollToPreviousItem = function (scrollArea, expandItemInCompact) {
         var items = scrollArea.find('.item');
         var jumped = false;
 
@@ -299,7 +307,7 @@
 
                 // if there are no items before the current one
                 if (previous.length > 0) {
-                    scrollToItem(scrollArea, previous);
+                    scrollToItem(scrollArea, previous, expandItemInCompact);
                 }
 
                 jumped = true;
@@ -321,18 +329,22 @@
             var keyCode = event.keyCode;
             var scrollArea = $('#app-content');
             var navigationArea = $('#app-navigation');
+            var isCompactView = $('#articles.compact').length > 0;
+            var isExpandItem = $('#articles')
+                .attr('news-compact-expand') === 'true';
+            var expandItemInCompact = isCompactView && isExpandItem;
 
             // j, n, right arrow
             if ([74, 78, 39].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
-                scrollToNextItem(scrollArea);
+                scrollToNextItem(scrollArea, expandItemInCompact);
 
             // k, p, left arrow
             } else if ([75, 80, 37].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
-                scrollToPreviousItem(scrollArea);
+                scrollToPreviousItem(scrollArea, expandItemInCompact);
 
             // u
             } else if ([85].indexOf(keyCode) >= 0) {

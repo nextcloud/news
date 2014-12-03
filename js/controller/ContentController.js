@@ -82,6 +82,10 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data,
         return SettingsResource.get('compact');
     };
 
+    this.isCompactExpand = function () {
+        return SettingsResource.get('compactExpand');
+    };
+
     this.autoPagingEnabled = function () {
         return this.isAutoPagingEnabled;
     };

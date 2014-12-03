@@ -19,6 +19,16 @@
         </label>
     </p>
 
+    <p ng-click="Settings.toggleSetting('compactExpand')">
+        <label for="compactExpand">
+            <input type="checkbox"
+                   ng-checked="Settings.getSetting('compactExpand')"
+                   name="compactExpand">
+            <?php p($l->t('Automatically expand articles in compact ' .
+                          'after j/n/left was pressed')); ?>
+        </label>
+    </p>
+
     <p ng-click="Settings.toggleSetting('showAll')">
         <label for="showAll">
             <input type="checkbox" ng-checked="Settings.getSetting('showAll')"

@@ -84,7 +84,8 @@ class PageController extends Controller {
             'showAll',
             'compact',
             'preventReadOnScroll',
-            'oldestFirst'
+            'oldestFirst',
+            'compactExpand'
         ];
 
         $exploreUrl = $this->config->getExploreUrl();
@@ -117,11 +118,12 @@ class PageController extends Controller {
      * @param bool $oldestFirst
      */
     public function updateSettings($showAll, $compact, $preventReadOnScroll,
-                                   $oldestFirst) {
+                                   $oldestFirst, $compactExpand) {
         $settings = ['showAll',
             'compact',
             'preventReadOnScroll',
-            'oldestFirst'
+            'oldestFirst',
+            'compactExpand'
         ];
 
         foreach ($settings as $setting) {
