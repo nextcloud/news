@@ -24,7 +24,7 @@
             <input type="checkbox"
                    ng-checked="Settings.getSetting('compactExpand')"
                    name="compactExpand">
-            <?php p($l->t('Automatically expand articles in compact ' .
+            <?php p($l->t('Expand articles in compact view ' .
                           'after j/n/left was pressed')); ?>
         </label>
     </p>
