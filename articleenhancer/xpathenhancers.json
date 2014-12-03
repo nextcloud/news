@@ -131,5 +131,8 @@
     },
     "linuxtoday.com/": {
         "%linuxtoday.com%": "//div[@class='article']/p | //div[@class='article']/ul"
+    },
+    "metronieuws.nl": {
+        "%metronieuws.nl%": "//div[contains(@class,'article-top')]/div[contains(@class,'image-component')] | //div[@class='article-full-width']/div[1]"
     }
 }

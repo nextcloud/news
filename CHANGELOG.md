@@ -1,3 +1,6 @@
+owncloud-news (4.2.7)
+* **Enhancement**: Add metronieuws.nl article enhancer
+
 owncloud-news (4.2.6)
 * **Bugfix**: Wording fixes
 * **Enhancement**: Add linuxtoday.com article enhancer
