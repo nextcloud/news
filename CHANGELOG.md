@@ -1,9 +1,7 @@
-owncloud-news (4.2.7)
-* **Enhancement**: Add linuxtoday.com article enhancer
-* **Enhancement**: Make expand entries in compact view after jumping to next/previous feed optional with a setting
-
 owncloud-news (4.2.6)
 * **Bugfix**: Wording fixes
+* **Enhancement**: Add linuxtoday.com article enhancer
+* **Enhancement**: Make expand entries in compact view after jumping to next/previous feed optional with a setting
 
 owncloud-news (4.2.5)
 * **Bugfix**: Fix keep unread shortcut in compact view
