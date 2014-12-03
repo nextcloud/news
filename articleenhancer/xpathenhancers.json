@@ -127,6 +127,9 @@
         "%rss.feedsportal.com/c/33941/f/615677/p/1/s/%": "//div[@class=\"post_content\"]"
     },
     "neustadt-ticker.de": {
-	"%neustadt-ticker.de%": "//div[@class='Post-inner article']/div[@class='PostContent']/*[not(contains(@class, 'yarpp-related') or contains(@class, 'navigation') or contains(@class, 'social_share') or contains(@class, 'twoclick-js'))]"
+    "%neustadt-ticker.de%": "//div[@class='Post-inner article']/div[@class='PostContent']/*[not(contains(@class, 'yarpp-related') or contains(@class, 'navigation') or contains(@class, 'social_share') or contains(@class, 'twoclick-js'))]"
+    },
+    "linuxtoday.com/": {
+        "%linuxtoday.com%": "//div[@class='article']/p | //div[@class='article']/ul"
     }
 }
