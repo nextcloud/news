@@ -19,7 +19,7 @@ for element in tree.findall('version'):
     version = element.text
 
 setup (
-    name = 'owncloud-news-updater',
+    name = 'owncloud_news_updater',
     version = version,
     description = 'ownCloud news updater',
     long_description = long_description,

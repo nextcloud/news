@@ -60,6 +60,15 @@ Installation: SysVinit
 
 TBD
 
+
+Uninstallation
+--------------
+
+To uninstall the script make sure that pip3 is installed (usually called python3-pip) and run::
+
+    make uninstall
+
+
 Self signed certificates
 ------------------------
 
