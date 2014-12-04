@@ -1,6 +1,8 @@
 all: install
 
+
 install: install-systemd
+
 
 clean:
 	rm -rf dist
@@ -8,9 +10,11 @@ clean:
 	rm -rf build
 	rm -rf owncloud_news_updater.egg-info
 
+
 update: clean
 	pip3 uninstall owncloud_news_updater
 	python3 setup.py install
+
 
 preinitsetup: clean
 	mkdir -p /etc/owncloud/news
