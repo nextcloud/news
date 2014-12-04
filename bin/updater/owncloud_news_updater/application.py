@@ -14,7 +14,7 @@ import sys
 import argparse
 import configparser
 
-from owncloud_news.updater import Updater
+from owncloud_news_updater.updater import Updater
 
 
 def main():
