@@ -59,7 +59,23 @@ If you make changes to the **updater.ini** file don't forget to reload the servi
 Installation: SysVinit
 ----------------------
 
-TBD
+.. note:: Debian 7 (wheezy) is the only supported Linux distribution for SysVinit and support will be dropped once Debian 8.1 is released
+
+To install the script for systemd run::
+
+    sudo make install-sysvinit
+
+Then edit the config in **/etc/owncloud/news/updater.ini** with your details and run::
+
+    owncloud-news-updater -c /etc/owncloud/news/updater.ini
+
+to test your settings. If everything worked out fine, enable the init script with::
+
+    sudo start /etc/init.d/owncloud-news-updater
+
+If you make changes to the **updater.ini** file don't forget to reload the service with::
+
+    sudo /etc/init.d/owncloud-news-updater restart
 
 
 Uninstallation
