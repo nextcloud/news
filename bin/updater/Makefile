@@ -28,7 +28,7 @@ install-systemd: preinitsetup
 
 
 install-sysvinit: preinitsetup
-	cp $(CURDIR)/sysvinit/owncloud-news-updater /etc/rc.d/
+	cp $(CURDIR)/sysvinit/owncloud-news-updater /etc/init.d/
 
 	@echo ""
 	@echo "Installed files. Please edit your config in /etc/owncloud/news/updater.ini and run:"
