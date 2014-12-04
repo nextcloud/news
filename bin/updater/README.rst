@@ -71,6 +71,7 @@ Then edit the config in **/etc/owncloud/news/updater.ini** with your details and
 
 to test your settings. If everything worked out fine, enable the init script with::
 
+    sudo update-rc.d /etc/init.d/owncloud-news-updater defaults
     sudo /etc/init.d/owncloud-news-updater start
 
 If you make changes to the **updater.ini** file don't forget to reload the service with::
