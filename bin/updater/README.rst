@@ -31,6 +31,9 @@ or if you are using a config file::
     owncloud-news-updater -c /path/to/config
 
 
+To see all config options run::
+
+    owncloud-news-updater -h
 
 Installation: SystemD
 ---------------------
