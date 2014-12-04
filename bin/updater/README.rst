@@ -6,14 +6,12 @@ ownCloud does not require people to install threading or multiprocessing librari
 Preinstallation
 ---------------
 
-To run the updates via an external threaded script the cron updater has to be disabled. To do that go to the admin section an uncheck the "Use ownCloud cron" checkbox or open **owncloud/data/news/config/config.ini** set:
+To run the updates via an external threaded script the cron updater has to be disabled. To do that go to the admin section an uncheck the "Use ownCloud cron" checkbox or open **owncloud/data/news/config/config.ini** set::
 
-::
     useCronUpdates = true
 
-to
+to::
 
-::
     useCronUpdates = false
 
 
