@@ -1,5 +1,10 @@
-from sys import exit
+from platform import python_version
+from sys import exit, version_info
 from xml.etree import ElementTree
+
+if version_info < (3, ):
+    print('Error: Python 3 required but found %s' % python_version())
+    exit(1)
 
 try:
     from setuptools import setup, find_packages
