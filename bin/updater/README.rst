@@ -125,6 +125,14 @@ Should you use a self signed certificate over SSL, first consider getting a free
 The directories might vary depending on your distribution and Python version.
 
 
+Debugging
+---------
+
+If you are using JournalD which is included in SystemD you can read the error log using::
+
+    journalctl -u owncloud-news-updater.service
+
+
 Development
 -----------
 
