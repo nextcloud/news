@@ -19,7 +19,7 @@ update: clean
 preinitsetup: clean
 	mkdir -p /etc/owncloud/news
 	cp $(CURDIR)/example-config.ini /etc/owncloud/news/updater.ini
-	python3 setup.py install
+	python3 setup.py install --install-scripts=/usr/bin
 
 
 install-systemd: preinitsetup
