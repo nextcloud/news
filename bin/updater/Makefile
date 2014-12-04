@@ -2,7 +2,14 @@ all: install
 
 install: install-systemd
 
-preinitsetup:
+clean:
+	sudo rm -rf dist
+	sudo rm -rf MANIFEST
+	sudo rm -rf build
+	sudo rm -rf owncloud_news_updater.egg-info
+
+
+preinitsetup: clean
 	mkdir -p /etc/owncloud/news
 	cp $(CURDIR)/example-config.ini /etc/owncloud/news/updater.ini
 	python3 setup.py install
