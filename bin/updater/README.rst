@@ -112,9 +112,9 @@ If you make changes to the **updater.ini** file don't forget to reload the servi
 Uninstallation
 --------------
 
-To uninstall the script make sure that pip3 is installed (usually called python3-pip) and run::
+To uninstall the updater run::
 
-    make uninstall
+    sudo make uninstall
 
 
 Self signed certificates
