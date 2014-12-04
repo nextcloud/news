@@ -47,11 +47,12 @@ Then edit the config in **/etc/owncloud/news/updater.ini** with your details and
 
 to test your settings. If everything worked out fine, enable the systemd unit with::
 
-    sudo systemctl enable owncloud-news
-    sudo systemctl start owncloud-news
+    sudo systemctl enable owncloud-news-updater.service
+    sudo systemctl start owncloud-news-updater.service
 
-Finally turn off the cron updates in the owncloud admin interface
+If you make changes to the **updater.ini** file don't forget to reload the service with::
 
+    sudo systemctl restart owncloud-news-updater.service
 
 Self signed certificates
 ------------------------
