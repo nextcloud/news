@@ -11,8 +11,7 @@
 ### END INIT INFO
  
 # Change the next 3 lines to suit where you install your script and what you want to call it
-DIR=/usr/bin/
-DAEMON=$DIR/owncloud-news-updater
+DAEMON=/usr/bin/owncloud-news-updater
 DAEMON_NAME=owncloud-news-updater
  
 # Add any command line options for your Update Script here. I suggest loading an config file which holds user, pass etc.
