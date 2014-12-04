@@ -1,7 +1,8 @@
 owncloud-news (4.3.0)
-* **Backwards incompatible change**: Move updater.py from bin/ to bin/updater
+* **Backwards incompatible change**: Refactor the Python updater into a Python package. To stay with the old behavior without installing the package use **python3 -m bin/updater/owncloud_news_updater YOUROPTIONS**
+* **Enhancement**: Ship a systemd and sysvinit script + installer for the Python updater to run the updater in the background
+* **Enhancement**: Log errors from Python updater to stderr
 * **Enhancement**: Add metronieuws.nl article enhancer
-* **Enhancement**: Ship a systemd unit file and makefile to run the updater on boot
 
 owncloud-news (4.2.6)
 * **Bugfix**: Wording fixes
