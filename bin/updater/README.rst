@@ -31,7 +31,7 @@ If you have installed the updater on your system you can update it by running::
 
     make update
 
-The **init and config files won't be updated** and you need to update them manually in case there is a change.
+The **init and config files won't be updated** and you need to update them manually in case there is a breaking change. Read the `CHANGELOG.md <https://github.com/owncloud/news/blob/master/CHANGELOG.md>`_ to stay up to date with the updater changes
 
 Finally reload the systemd service::
 
