@@ -4,7 +4,6 @@ Updater script for the news app which allows multiple feeds to be updated at
 once to speed up the update process. Built in cron has to be disabled in the
 news config, see the README.rst file in the top directory for more information.
 """
-
 __author__ = 'Bernhard Posselt'
 __copyright__ = 'Copyright 2012-2014, Bernhard Posselt'
 __license__ = 'AGPL3+'

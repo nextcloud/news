@@ -1,5 +1,7 @@
-owncloud-news (4.2.7)
+owncloud-news (4.3.0)
+* **Backwards incompatible change**: Move updater.py from bin/ to bin/updater
 * **Enhancement**: Add metronieuws.nl article enhancer
+* **Enhancement**: Ship a systemd unit file and makefile to run the updater on boot
 
 owncloud-news (4.2.6)
 * **Bugfix**: Wording fixes

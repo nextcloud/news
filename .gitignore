@@ -7,6 +7,14 @@ js/*.xml
 .rvm
 *.clover
 
+# python
+PKG-INFO
+*pyc
+*~
+__pycache__
+dist/
+ocdev.egg-info
+
 # just sane ignores
 .*.sw[po]
 *.bak
