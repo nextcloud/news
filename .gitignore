@@ -14,7 +14,7 @@ PKG-INFO
 __pycache__
 dist/
 owncloud_news_updater.egg-info
-updater/build
+bin/updater/build
 
 # just sane ignores
 .*.sw[po]
