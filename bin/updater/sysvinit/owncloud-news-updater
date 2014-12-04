@@ -11,12 +11,12 @@
 ### END INIT INFO
  
 # Change the next 3 lines to suit where you install your script and what you want to call it
-DIR=/var/www/owncloud/apps/news/bin
+DIR=/usr/bin/owncloud-news-updater
 DAEMON=$DIR/updater.py
-DAEMON_NAME=owncloud-news-update
+DAEMON_NAME=owncloud-news-updater
  
 # Add any command line options for your Update Script here. I suggest loading an config file which holds user, pass etc.
-DAEMON_OPTS="--config $DIR/config.ini"
+DAEMON_OPTS="--config /etc/owncloud/news/updater.ini"
  
 # This next line determines what user the script runs as.
 DAEMON_USER=nobody
@@ -28,7 +28,7 @@ PIDFILE=/var/run/$DAEMON_NAME.pid
  
 do_start () {
     log_daemon_msg "Starting system $DAEMON_NAME daemon"
-    start-stop-daemon --start --background --pidfile $PIDFILE --make-pidfile --user $DAEMON_USER --$
+    start-stop-daemon --start --background --pidfile $PIDFILE --make-pidfile --user $DAEMON_USER --chuid $DAEMON_USER --startas $DAEMON -- $DAEMON_OPTS
     log_end_msg $?
 }
 do_stop () {
@@ -36,7 +36,6 @@ do_stop () {
     start-stop-daemon --stop --pidfile $PIDFILE --retry 10
     log_end_msg $?
 }
-
  
 case "$1" in
  
