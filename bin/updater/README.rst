@@ -61,7 +61,7 @@ Installation: SysVinit
 
 .. note:: Debian 7 (wheezy) is the only supported Linux distribution for SysVinit and support will be dropped once Debian 8.1 is released
 
-To install the script for systemd run::
+To install the script for SysVinit run::
 
     sudo make install-sysvinit
 
