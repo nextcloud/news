@@ -1,5 +1,6 @@
 owncloud-news (4.3.0)
 * **Backwards incompatible change**: Refactor the Python updater into a Python package. To stay with the old behavior without installing the package use **python3 -m bin/updater/owncloud_news_updater YOUROPTIONS**
+* **Backwards incompatible change**: Use seconds instead of minutes for the Python updater interval
 * **New dependency**: Require requests 2.5.0 for the Python updater
 * **Enhancement**: Ship a systemd and sysvinit script + installer for the Python updater to run the updater in the background
 * **Enhancement**: Log errors from Python updater to stderr
