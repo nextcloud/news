@@ -2,13 +2,13 @@ all: install
 
 install: install-systemd
 
-preinstall:
+preinit:
 	mkdir -p /etc/owncloud/news
-
-install-systemd: preinstall
 	cp $(CURDIR)/example-config.ini /etc/owncloud/news/updater.ini
-	cp $(CURDIR)/systemd/owncloud-news-updater.service /etc/systemd/system/
 	python3 setup.py install
+
+install-systemd: preinit
+	cp $(CURDIR)/systemd/owncloud-news-updater.service /etc/systemd/system/
 
 	@echo "Installed files. Please edit your config in /etc/owncloud/news/updater.ini and run:"
 	@echo "    systemctl enable owncloud-news-updater"
@@ -18,10 +18,8 @@ install-systemd: preinstall
 	@echo "to reload the changes if you change the config in /etc/owncloud/news/updater.ini"
 
 
-install-sysvinit: preinstall
-	cp $(CURDIR)/example-config.ini /etc/owncloud/news/updater.ini
+install-sysvinit: preinit
 	cp $(CURDIR)/sysvinit/owncloud-news-updater /etc/rc.d/
-	python3 setup.py install
 
 	@echo "Installed files. Please edit your config in /etc/owncloud/news/updater.ini and run:"
 	@echo "    TBD"
@@ -31,8 +29,9 @@ install-sysvinit: preinstall
 	@echo "to reload the changes if you change the config in /etc/owncloud/news/updater.ini"
 
 make uninstall:
-	rm -rf /etc/owncloud/news
+	rm -rf /etc/owncloud/news/updater.ini
 	rm -rf /etc/systemd/systemd/owncloud-news-updater.service
+	# TBD uninstall sysvinit
 	python3 setup.py uninstall
 
 	@echo "Uninstalled files. Please run: "

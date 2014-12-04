@@ -54,6 +54,12 @@ If you make changes to the **updater.ini** file don't forget to reload the servi
 
     sudo systemctl restart owncloud-news-updater.service
 
+
+Installation: SysVinit
+----------------------
+
+TBD
+
 Self signed certificates
 ------------------------
 
