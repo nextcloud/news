@@ -32,7 +32,7 @@ Updating
 
 If you have installed the updater on your system you can update it by running::
 
-    make update
+    sudo make update
 
 The **init and config files won't be updated** and you need to update them manually in case there is a breaking change therefore follow the `CHANGELOG.md <https://github.com/owncloud/news/blob/master/CHANGELOG.md>`_ to stay up to date with the updater changes.
 
