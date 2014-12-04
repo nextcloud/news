@@ -33,7 +33,7 @@ setup (
     keywords = ['owncloud', 'news', 'updater'],
     entry_points = {
         'console_scripts': [
-            'owncloud-news-updater = owncloud_news.application:main'
+            'owncloud-news-updater = owncloud_news_updater.application:main'
         ]
     }
 )
