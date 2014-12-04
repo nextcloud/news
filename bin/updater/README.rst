@@ -20,7 +20,7 @@ Then install the following packages (my vary depending on your distribution):
 * python3-setuptools
 * make
 
-If you are **on Debian 7** you want to create a symlink for pip to make use of the makefile::
+If you are **on Debian 7** you want to create a symlink for pip to make use of the Makefile::
 
     sudo ln -s /usr/bin/pip-3.2 /usr/bin/pip3
 
