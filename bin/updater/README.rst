@@ -24,6 +24,7 @@ If you are **on Debian 7** you want to create a symlink for pip to make use of t
 
     sudo ln -s /usr/bin/pip-3.2 /usr/bin/pip3
 
+
 Updating
 --------
 
