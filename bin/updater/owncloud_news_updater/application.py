@@ -33,9 +33,9 @@ def main():
         type=int)
     parser.add_argument('--interval', '-i',
         help='Update interval between fetching the next round of \
-            updates in minutes, defaults to 30 minutes. The update timespan \
+            updates in seconds, defaults to 15 minutes. The update timespan \
             will be subtracted from the interval.',
-        default=30,
+        default=15*60,
         type=int)
     parser.add_argument('--config', '-c',
         help='Path to config file where all parameters except can be defined \
