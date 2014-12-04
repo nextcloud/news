@@ -1,0 +1,16 @@
+LICENSE.txt
+MANIFEST.in
+README.rst
+example-config.ini
+requirements.txt
+setup.py
+owncloud_news/__init__.py
+owncloud_news/__main__.py
+owncloud_news/application.py
+owncloud_news/updater.py
+owncloud_news_updater.egg-info/PKG-INFO
+owncloud_news_updater.egg-info/SOURCES.txt
+owncloud_news_updater.egg-info/dependency_links.txt
+owncloud_news_updater.egg-info/entry_points.txt
+owncloud_news_updater.egg-info/requires.txt
+owncloud_news_updater.egg-info/top_level.txt

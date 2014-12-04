@@ -1,4 +1,4 @@
-from os import exit
+from sys import exit
 from xml.etree import ElementTree
 
 try:

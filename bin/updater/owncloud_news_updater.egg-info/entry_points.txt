@@ -1,0 +1,3 @@
+[console_scripts]
+owncloud-news-updater = owncloud_news.application:main
+

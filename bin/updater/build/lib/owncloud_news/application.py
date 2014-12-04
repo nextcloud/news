@@ -12,6 +12,7 @@ __email__ = 'dev@bernhard-posselt.com'
 
 import sys
 import argparse
+import urllib
 import configparser
 
 from owncloud_news.updater import Updater

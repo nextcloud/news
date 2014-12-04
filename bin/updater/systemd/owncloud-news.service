@@ -3,6 +3,7 @@ After=default.target
 
 [Service]
 Type=simple
+User=nobody
 ExecStart=/usr/bin/python3 /usr/local/bin/owncloud-news-updater -c /etc/owncloud/news/config.ini
 
 [Install]
