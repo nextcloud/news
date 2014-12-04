@@ -32,7 +32,7 @@ install-sysvinit: preinitsetup
 
 	@echo ""
 	@echo "Installed files. Please edit your config in /etc/owncloud/news/updater.ini and run:"
-	@echo "    TBD"
+	@echo "    sudo update-rc.d /etc/init.d/owncloud-news-updater defaults"
 	@echo "    sudo /etc/init.d/owncloud-news-updater start"
 	@echo "to run the updater on startup and:"
 	@echo "    sudo /etc/init.d/owncloud-news-updater restart"
