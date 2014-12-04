@@ -28,6 +28,8 @@ If you are **on Debian 7** you want to create a symlink for pip to make use of t
 Updating
 --------
 
+.. note:: In general it is recommended to update the updater after every News app update
+
 If you have installed the updater on your system you can update it by running::
 
     make update
