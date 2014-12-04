@@ -14,6 +14,33 @@ to::
 
     useCronUpdates = false
 
+Then install the following packages (my vary depending on your distribution):
+
+* python3-pip
+* python3-setuptools
+* make
+
+If you are **on Debian 7** you want to create a symlink for pip to make use of the makefile::
+
+    sudo ln -s /usr/bin/pip-3.2 /usr/bin/pip3
+
+Updating
+--------
+
+If you have installed the updater on your system you can update it by running
+
+    make update
+
+The **init and config files won't be updated** and you need to update them manually in case there is a change.
+
+Finally reload the systemd service::
+
+    sudo systemctl restart owncloud-news-updater
+
+or SysVinit script::
+
+    sudo /etc/init.d/owncloud-news-updater restart
+
 
 Installation: No init system
 ----------------------------

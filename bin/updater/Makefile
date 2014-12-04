@@ -3,11 +3,14 @@ all: install
 install: install-systemd
 
 clean:
-	sudo rm -rf dist
-	sudo rm -rf MANIFEST
-	sudo rm -rf build
-	sudo rm -rf owncloud_news_updater.egg-info
+	rm -rf dist
+	rm -rf MANIFEST
+	rm -rf build
+	rm -rf owncloud_news_updater.egg-info
 
+update: clean
+	pip3 uninstall owncloud_news_updater
+	python3 setup.py install
 
 preinitsetup: clean
 	mkdir -p /etc/owncloud/news
@@ -42,7 +45,7 @@ install-sysvinit: preinitsetup
 make uninstall: clean
 	rm -rf /etc/owncloud/news/updater.ini
 	rm -rf /etc/systemd/systemd/owncloud-news-updater.service
-	# TBD uninstall sysvinit
+	rm -rf /etc/init.d/owncloud-news-updater
 	pip3 uninstall owncloud_news_updater
 
 	@echo ""
