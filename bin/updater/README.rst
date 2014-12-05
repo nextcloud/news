@@ -45,6 +45,16 @@ or SysVinit script::
     sudo /etc/init.d/owncloud-news-updater restart
 
 
+No installation
+---------------
+
+If you do not want to install the script at all you can call it directly using::
+
+    python3 -m owncloud_news -c /path/to/config.ini
+
+.. note:: Keep in mind that you need to restart the script if you want to run a new version
+
+
 Installation: No init system
 ----------------------------
 
@@ -64,6 +74,9 @@ or if you are using a config file::
 To see all config options run::
 
     owncloud-news-updater -h
+
+.. note:: Keep in mind that you need to restart the script if you want to run a new version
+
 
 Installation: SystemD
 ---------------------
