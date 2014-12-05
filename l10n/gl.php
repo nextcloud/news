@@ -88,6 +88,7 @@ $TRANSLATIONS = array(
 "Settings" => "Axustes",
 "Keyboard shortcuts" => "Atallos de teclado",
 "Compact view" => "Vista compacta",
+"Expand articles in compact view when navigating with keyboard shortcuts" => "Expandir os artigos en vista compacta cando se navega cos atallos de teclado",
 "Show all articles" => "Mostrar todos os artigos",
 "Reverse ordering (oldest on top)" => "Ordenado inverso (máis vellos enrriba)",
 "Disable mark read through scrolling" => "Deshabilitar marcar como lido co desplazamento",

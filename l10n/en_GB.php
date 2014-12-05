@@ -88,6 +88,7 @@ $TRANSLATIONS = array(
 "Settings" => "Settings",
 "Keyboard shortcuts" => "Keyboard shortcuts",
 "Compact view" => "Compact view",
+"Expand articles in compact view when navigating with keyboard shortcuts" => "Expand articles in compact view when navigating with keyboard shortcuts",
 "Show all articles" => "Show all articles",
 "Reverse ordering (oldest on top)" => "Reverse ordering (oldest on top)",
 "Disable mark read through scrolling" => "Disable mark read through scrolling",
