@@ -55,5 +55,5 @@
             <subscriber>OCA\News\Hooks\User::deleteUser</subscriber>
         </hook>
     </hooks>
-
+    <ocsid>168040</ocsid>
 </info>
