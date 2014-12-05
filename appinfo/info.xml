@@ -5,9 +5,7 @@
     <name>News</name>
     <description>An RSS/Atom feed reader</description>
     <author>Bernhard Posselt, Alessandro Cosentino, Jan-Christoph Borchardt</author>
-    <categories>
-        <category>Multimedia</category>
-    </categories>
+    <category>Multimedia</category>
     <licence>AGPL</licence>
     <version>4.3.0</version>
 
