@@ -127,12 +127,18 @@
         "%rss.feedsportal.com/c/33941/f/615677/p/1/s/%": "//div[@class=\"post_content\"]"
     },
     "neustadt-ticker.de": {
-    "%neustadt-ticker.de%": "//div[@class='Post-inner article']/div[@class='PostContent']/*[not(contains(@class, 'yarpp-related') or contains(@class, 'navigation') or contains(@class, 'social_share') or contains(@class, 'twoclick-js'))]"
+	"%neustadt-ticker.de%": "//div[contains(@class,'article')]/div[@class='PostContent' and *[not(contains(@class, 'navigation'))]]"
     },
     "linuxtoday.com/": {
         "%linuxtoday.com%": "//div[@class='article']/p | //div[@class='article']/ul"
     },
     "metronieuws.nl": {
         "%metronieuws.nl%": "//div[contains(@class,'article-top')]/div[contains(@class,'image-component')] | //div[@class='article-full-width']/div[1]"
+    },
+    "thecodinglove.com": {
+        "%thecodinglove.com%": "//div[@class='bodytype']"
+    },
+    "der-postillon.com": {
+        "%der-postillon.com%": "//div[contains(@class,'post-body')]"
     }
 }
