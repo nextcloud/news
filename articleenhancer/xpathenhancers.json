@@ -5,9 +5,9 @@
     "slashdot.org/": {
         "%slashdot.feedsportal.com%": "//article/div[@class='body'] | //article[@class='layout-article']/div[@class='elips']"
     },
-    "explosm.net": {
-        "%explosm.net/comics%": "//*[@id='maincontent']/div[2]/div/img",
-        "%explosm.net/show%": "//*[@id='videoPlayer']/iframe"
+    "explosm.net/rss.php": {
+        "%explosm.net/comics%": "//*[@id='main-comic']",
+        "%explosm.net/show%": "//*[@id='player']/*"
     },
     "themerepublic.net": {
         "%feedproxy.google.com/~r/blogspot/DngUJ%": "//*[@class='post hentry']"
