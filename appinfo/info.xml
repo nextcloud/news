@@ -20,13 +20,13 @@
     <repository type="git">https://github.com/owncloud/news.git</repository>
 
     <!-- dependencies -->
-    <requiremin>7.0.3</requiremin>
     <dependencies>
+        <owncloud min-version="8" />
         <php min-version="5.4" />
         <database>pgsql</database>
         <database>sqlite3</database>
         <database>mysql</database>
-        <lib min-version="2.7.8">libxml</lib>
+        <lib min-version="2.7.8">xml</lib>
         <lib>curl</lib>
         <lib>SimpleXML</lib>
     </dependencies>
