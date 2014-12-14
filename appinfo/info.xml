@@ -15,7 +15,7 @@
         <admin>https://github.com/owncloud/news#readme</admin>
         <developer>https://github.com/owncloud/news/wiki#developer-documentation</developer>
     </documentation>
-    <homepage>https://github.com/owncloud/news</homepage>
+    <website>https://github.com/owncloud/news</website>
     <bugs>https://github.com/owncloud/news/issues</bugs>
     <repository type="git">https://github.com/owncloud/news.git</repository>
 
