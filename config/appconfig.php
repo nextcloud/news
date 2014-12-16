@@ -99,15 +99,17 @@ class AppConfig {
             $nav =& $this->config['navigation'];
 
             $navConfig = [
-                'id' => $nav['id'],
+                'id' => $this->config['id'],
                 'order' => $nav['order'],
                 'name' => $nav['name']
             ];
 
-            $navConfig['href'] =
-                $this->urlGenerator->linkToRoute($nav['route']);
-            $navConfig['icon'] = $this->urlGenerator->imagePath($nav['id'],
-                $nav['icon']);
+            $navConfig['href'] = $this->urlGenerator->linkToRoute(
+                $nav['route']
+            );
+            $navConfig['icon'] = $this->urlGenerator->imagePath(
+                $this->config['id'], $nav['icon']
+            );
 
             $this->navigationManager->add($navConfig);
         }

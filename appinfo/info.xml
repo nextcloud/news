@@ -21,7 +21,7 @@
 
     <!-- dependencies -->
     <dependencies>
-        <owncloud min-version="8" />
+        <owncloud min-version="7.6" />
         <php min-version="5.4" />
         <database>pgsql</database>
         <database>sqlite</database>
@@ -33,7 +33,6 @@
 
     <!-- navigation -->
     <navigation>
-        <id>news</id>
         <route>news.page.index</route>
         <order>10</order>
         <icon>app.svg</icon>
