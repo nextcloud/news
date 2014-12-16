@@ -23,6 +23,7 @@
     "Feed fetcher timeout" : "Tiempo de espera agotado para la descarga de la fuente",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted" : "Número máximo de segundos para esperar a que cargue una fuente de RSS o Atom; si toma más tiempo, la actualización será cancelada.",
     "Explore Service URL" : "Explorar URL del Servicio",
+    "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty" : "En caso de haberse rellenado, la URL de este servicio será consultada para mostrar los \"feeds\" de la sección explorar feeds. Para volver al servicio de exploración integrado, deje este campo vacío",
     "Saved" : "Guardado",
     "Ajax cron mode detected! Your feeds will not be updated correctly. It is recommended to either use the operating system cron or a custom updater." : "Modo de cron Ajax detecta! Sus noticias no se actualizarán correctamente. Se recomienda utilizar el cron del sistema operativo o un programa de actualización personalizada.",
     "How to set up the operating system cron" : "Cómo configurar el cron del sistema operativo",
