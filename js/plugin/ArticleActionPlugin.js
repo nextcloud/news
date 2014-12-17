@@ -1,4 +1,4 @@
-window.News = News || {};
+window.News = window.News || {};
 
 
 (function (window, document, $, exports, undefined) {
@@ -31,5 +31,5 @@ window.News = News || {};
         return articleActionPluginsById[id];
     };
 
-})(window, document, jQuery, News);
+})(window, document, jQuery, window.News);
 

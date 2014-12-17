@@ -2300,7 +2300,7 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
     });
 
 }(window, document, $));
-window.News = News || {};
+window.News = window.News || {};
 
 
 (function (window, document, $, exports, undefined) {
