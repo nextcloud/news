@@ -1,4 +1,5 @@
-var News = News || {};
+window.News = News || {};
+
 
 (function (window, document, $, exports, undefined) {
     'use strict';
