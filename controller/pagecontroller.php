@@ -36,7 +36,7 @@ class PageController extends Controller {
     private $config;
     private $recommendedSites;
 
-    public function __construct($appName,
+    public function __construct($AppName,
                                 IRequest $request,
                                 IConfig $settings,
                                 IURLGenerator $urlGenerator,
@@ -44,13 +44,13 @@ class PageController extends Controller {
                                 Config $config,
                                 IL10N $l10n,
                                 RecommendedSites $recommendedSites,
-                                $userId){
-        parent::__construct($appName, $request);
+                                $UserId){
+        parent::__construct($AppName, $request);
         $this->settings = $settings;
         $this->urlGenerator = $urlGenerator;
         $this->appConfig = $appConfig;
         $this->l10n = $l10n;
-        $this->userId = $userId;
+        $this->userId = $UserId;
         $this->config = $config;
         $this->recommendedSites = $recommendedSites;
     }

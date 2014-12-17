@@ -33,7 +33,8 @@ class Config {
     private $exploreUrl;
 
 
-    public function __construct($fileSystem, ILogger $logger, $loggerParams) {
+    public function __construct($fileSystem, ILogger $logger,
+                                $LoggerParameters) {
         $this->fileSystem = $fileSystem;
         $this->autoPurgeMinimumInterval = 60;
         $this->autoPurgeCount = 200;
@@ -47,7 +48,7 @@ class Config {
         $this->proxyUser = '';
         $this->proxyPassword = '';
         $this->exploreUrl = '';
-        $this->loggerParams = $loggerParams;
+        $this->loggerParams = $LoggerParameters;
     }
 
     public function getProxyPort() {

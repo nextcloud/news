@@ -33,15 +33,15 @@ class FolderApiController extends ApiController {
     private $userId;
     private $serializer;
 
-    public function __construct($appName,
+    public function __construct($AppName,
                                 IRequest $request,
                                 FolderService $folderService,
                                 ItemService $itemService,
-                                $userId){
-        parent::__construct($appName, $request);
+                                $UserId){
+        parent::__construct($AppName, $request);
         $this->folderService = $folderService;
         $this->itemService = $itemService;
-        $this->userId = $userId;
+        $this->userId = $UserId;
         $this->serializer = new EntityApiSerializer('folders');
     }
 

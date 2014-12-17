@@ -11,12 +11,7 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 
-namespace OCA\News\AppInfo;
-
-use \OCA\News\AppInfo\Application;
-
-$application = new Application();
-$application->registerRoutes($this, ['routes' => [
+return ['routes' => [
 // page
 ['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
 ['name' => 'page#settings', 'url' => '/settings', 'verb' => 'GET'],
@@ -97,4 +92,4 @@ $application->registerRoutes($this, ['routes' => [
 ['name' => 'item_api#star_multiple', 'url' => '/api/v1-2/items/star/multiple', 'verb' => 'PUT'], // FIXME: POST would be more correct
 ['name' => 'item_api#unstar_multiple', 'url' => '/api/v1-2/items/unstar/multiple', 'verb' => 'PUT'], // FIXME: POST would be more correct
 
-]]);
+]];

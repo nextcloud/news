@@ -27,10 +27,10 @@ class Updater {
 
         // make it possible to turn off cron updates if you use an external
         // script to execute updates in parallel
-        if ($container->query('Config')->getUseCronUpdates()) {
-            $container->query('Updater')->beforeUpdate();
-            $container->query('Updater')->update();
-            $container->query('Updater')->afterUpdate();
+        if ($container->query('OCA\News\Config\Config')->getUseCronUpdates()) {
+            $container->query('OCA\News\Utility\Updater')->beforeUpdate();
+            $container->query('OCA\News\Utility\Updater')->update();
+            $container->query('OCA\News\Utility\Updater')->afterUpdate();
         }
     }
 

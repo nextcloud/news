@@ -32,19 +32,19 @@ class ExportController extends Controller {
     private $itemService;
     private $userId;
 
-    public function __construct($appName,
+    public function __construct($AppName,
                                 IRequest $request,
                                 FolderService $folderService,
                                 FeedService $feedService,
                                 ItemService $itemService,
                                 OPMLExporter $opmlExporter,
-                                $userId){
-        parent::__construct($appName, $request);
+                                $UserId){
+        parent::__construct($AppName, $request);
         $this->feedService = $feedService;
         $this->folderService = $folderService;
         $this->opmlExporter = $opmlExporter;
         $this->itemService = $itemService;
-        $this->userId = $userId;
+        $this->userId = $UserId;
     }
 
 

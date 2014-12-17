@@ -33,16 +33,16 @@ class ItemController extends Controller {
     private $userId;
     private $settings;
 
-    public function __construct($appName,
+    public function __construct($AppName,
                                 IRequest $request,
                                 FeedService $feedService,
                                 ItemService $itemService,
                                 IConfig $settings,
-                                $userId){
-        parent::__construct($appName, $request);
+                                $UserId){
+        parent::__construct($AppName, $request);
         $this->itemService = $itemService;
         $this->feedService = $feedService;
-        $this->userId = $userId;
+        $this->userId = $UserId;
         $this->settings = $settings;
     }
 

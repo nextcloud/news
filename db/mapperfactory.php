@@ -21,8 +21,8 @@ class MapperFactory {
 	private $dbType;
 	private $db;
 
-	public function __construct($dbType, IDb $db) {
-		$this->dbType = $dbType;
+	public function __construct($DatabaseType, IDb $db) {
+		$this->dbType = $DatabaseType;
 		$this->db = $db;
 	}
 

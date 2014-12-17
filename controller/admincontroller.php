@@ -24,11 +24,11 @@ class AdminController extends Controller {
     private $config;
     private $configPath;
 
-    public function __construct($appName, IRequest $request, Config $config,
-                                $configPath){
-        parent::__construct($appName, $request);
+    public function __construct($AppName, IRequest $request, Config $config,
+                                $ConfigPath){
+        parent::__construct($AppName, $request);
         $this->config = $config;
-        $this->configPath = $configPath;
+        $this->configPath = $ConfigPath;
     }
 
     // There are no checks for the index method since the output is rendered

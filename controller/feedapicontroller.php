@@ -35,19 +35,19 @@ class FeedApiController extends ApiController {
     private $loggerParams;
     private $serializer;
 
-    public function __construct($appName,
+    public function __construct($AppName,
                                 IRequest $request,
                                 FeedService $feedService,
                                 ItemService $itemService,
                                 ILogger $logger,
-                                $userId,
-                                $loggerParams){
-        parent::__construct($appName, $request);
+                                $UserId,
+                                $LoggerParameters){
+        parent::__construct($AppName, $request);
         $this->feedService = $feedService;
         $this->itemService = $itemService;
-        $this->userId = $userId;
+        $this->userId = $UserId;
         $this->logger = $logger;
-        $this->loggerParams = $loggerParams;
+        $this->loggerParams = $LoggerParameters;
         $this->serializer = new EntityApiSerializer('feeds');
     }
 

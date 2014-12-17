@@ -14,7 +14,7 @@
 namespace OCA\News\Service;
 
 use \OCP\IL10N;
-
+use \OCP\AppFramework\Utility\ITimeFactory;
 use \OCA\News\Db\Folder;
 use \OCA\News\Db\FolderMapper;
 use \OCA\News\Config\Config;
@@ -29,7 +29,7 @@ class FolderService extends Service {
 
     public function __construct(FolderMapper $folderMapper,
                                 IL10N $l10n,
-                                $timeFactory,
+                                ITimeFactory $timeFactory,
                                 Config $config){
         parent::__construct($folderMapper);
         $this->l10n = $l10n;

@@ -14,6 +14,7 @@
 namespace OCA\News\Service;
 
 use \OCP\AppFramework\Db\DoesNotExistException;
+use \OCP\AppFramework\Utility\ITimeFactory;
 
 use \OCA\News\Db\ItemMapper;
 use \OCA\News\Db\StatusFlag;
@@ -30,7 +31,7 @@ class ItemService extends Service {
 
     public function __construct(ItemMapper $itemMapper,
                                 StatusFlag $statusFlag,
-                                $timeFactory,
+                                ITimeFactory $timeFactory,
                                 Config $config){
         parent::__construct($itemMapper);
         $this->statusFlag = $statusFlag;

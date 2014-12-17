@@ -34,7 +34,9 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
 
     protected function setUp(){
         $this->time = 222;
-        $this->timeFactory = $this->getMock('TimeFactory', ['getTime']);
+        $this->timeFactory = $this->getMockBuilder('\OCP\AppFramework\Utility\ITimeFactory')
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->timeFactory->expects($this->any())
             ->method('getTime')
             ->will($this->returnValue($this->time));

@@ -48,7 +48,9 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
         $this->loggerParams = ['hi'];
         $this->time = 222;
         $this->autoPurgeMinimumInterval = 10;
-        $timeFactory = $this->getMock('TimeFactory', ['getTime']);
+        $timeFactory = $this->getMockBuilder('\OCP\AppFramework\Utility\ITimeFactory')
+            ->disableOriginalConstructor()
+            ->getMock();
         $timeFactory->expects($this->any())
             ->method('getTime')
             ->will($this->returnValue($this->time));
@@ -71,7 +73,11 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
             ->getMockBuilder('\OCA\News\ArticleEnhancer\Enhancer')
             ->disableOriginalConstructor()
             ->getMock();
-        $this->purifier = $this->getMock('purifier', ['purify']);
+
+        $this->purifier = $this
+            ->getMockBuilder('\HTMLPurifier')
+            ->disableOriginalConstructor()
+            ->getMock();
         $config = $this->getMockBuilder(
             '\OCA\News\Config\Config')
             ->disableOriginalConstructor()

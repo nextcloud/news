@@ -26,11 +26,11 @@ class UtilityApiController extends ApiController {
     private $updater;
     private $settings;
 
-    public function __construct($appName,
+    public function __construct($AppName,
                                 IRequest $request,
                                 Updater $updater,
                                 IConfig $settings){
-        parent::__construct($appName, $request);
+        parent::__construct($AppName, $request);
         $this->updater = $updater;
         $this->settings = $settings;
     }

@@ -13,9 +13,12 @@
 
 namespace OCA\News\Service;
 
+use HTMLPurifier;
+
 use \OCP\ILogger;
 use \OCP\IL10N;
 use \OCP\AppFramework\Db\DoesNotExistException;
+use \OCP\AppFramework\Utility\ITimeFactory;
 
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\Item;
@@ -45,11 +48,11 @@ class FeedService extends Service {
                                 ItemMapper $itemMapper,
                                 ILogger $logger,
                                 IL10N $l10n,
-                                $timeFactory,
+                                ITimeFactory $timeFactory,
                                 Config $config,
                                 Enhancer $enhancer,
-                                $purifier,
-                                $loggerParams){
+                                HTMLPurifier $purifier,
+                                $LoggerParameters){
         parent::__construct($feedMapper);
         $this->feedFetcher = $feedFetcher;
         $this->itemMapper = $itemMapper;
@@ -61,7 +64,7 @@ class FeedService extends Service {
         $this->enhancer = $enhancer;
         $this->purifier = $purifier;
         $this->feedMapper = $feedMapper;
-        $this->loggerParams = $loggerParams;
+        $this->loggerParams = $LoggerParameters;
     }
 
     /**

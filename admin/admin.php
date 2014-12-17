@@ -17,6 +17,6 @@ use OCA\News\AppInfo\Application;
 
 $app = new Application();
 $container = $app->getContainer();
-$response = $container->query('AdminController')->index();
+$response = $container->query('OCA\News\Controller\AdminController')->index();
 
 return $response->render();
