@@ -48,7 +48,15 @@ class Feed
      * @access public
      * @var string
      */
-    public $url = '';
+    public $feed_url = '';
+
+    /**
+     * Site url
+     *
+     * @access public
+     * @var string
+     */
+    public $site_url = '';
 
     /**
      * Feed date
@@ -84,7 +92,7 @@ class Feed
     {
         $output = '';
 
-        foreach (array('id', 'title', 'url', 'date', 'language', 'description', 'logo') as $property) {
+        foreach (array('id', 'title', 'feed_url', 'site_url', 'date', 'language', 'description', 'logo') as $property) {
             $output .= 'Feed::'.$property.' = '.$this->$property.PHP_EOL;
         }
 
@@ -132,14 +140,25 @@ class Feed
     }
 
     /**
-     * Get url
+     * Get feed url
      *
      * @access public
      * $return string
      */
-    public function getUrl()
+    public function getFeedUrl()
     {
-        return $this->url;
+        return $this->feed_url;
+    }
+
+    /**
+     * Get site url
+     *
+     * @access public
+     * $return string
+     */
+    public function getSiteUrl()
+    {
+        return $this->site_url;
     }
 
     /**

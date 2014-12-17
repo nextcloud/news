@@ -2,6 +2,8 @@
 
 namespace PicoFeed\Filter;
 
+use PicoFeed\Parser\XmlParser;
+
 /**
  * Filter class
  *
@@ -136,35 +138,5 @@ class Filter
         }
 
         return $data;
-    }
-
-    /**
-     * Get the first XML tag
-     *
-     * @static
-     * @access public
-     * @param  string  $data  Feed content
-     * @return string
-     */
-    public static function getFirstTag($data)
-    {
-        // Strip HTML comments (max of 5,000 characters long to prevent crashing)
-        $data = preg_replace('/<!--(.{0,5000}?)-->/Uis', '', $data);
-
-        /* Strip Doctype:
-         * Doctype needs to be within the first 100 characters. (Ideally the first!)
-         * If it's not found by then, we need to stop looking to prevent PREG
-         * from reaching max backtrack depth and crashing.
-         */
-        $data = preg_replace('/^.{0,100}<!DOCTYPE([^>]*)>/Uis', '', $data);
-
-        // Strip <?xml version....
-        $data = self::stripXmlTag($data);
-
-        // Find the first tag
-        $open_tag = strpos($data, '<');
-        $close_tag = strpos($data, '>');
-
-        return substr($data, $open_tag, $close_tag);
     }
 }

@@ -59,6 +59,7 @@ Documentation
 - [Favicon fetcher](docs/favicon.markdown)
 - [OPML file importation](docs/opml-import.markdown)
 - [OPML file exportation](docs/opml-export.markdown)
+- [Image proxy](docs/image-proxy.markdown) (avoid SSL mixed content warnings)
 - [Web scraping](docs/grabber.markdown)
 - [Exceptions](docs/exceptions.markdown)
 - [Debugging](docs/debugging.markdown)

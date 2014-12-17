@@ -1,9 +1,12 @@
 <?php
 
-namespace PicoFeed\Client;
+namespace PicoFeed\Reader;
 
 use DOMXpath;
 
+use PicoFeed\Client\Client;
+use PicoFeed\Client\ClientException;
+use PicoFeed\Client\Url;
 use PicoFeed\Config\Config;
 use PicoFeed\Logging\Logger;
 use PicoFeed\Parser\XmlParser;
@@ -14,7 +17,7 @@ use PicoFeed\Parser\XmlParser;
  * https://en.wikipedia.org/wiki/Favicon
  *
  * @author  Frederic Guillot
- * @package Client
+ * @package Reader
  */
 class Favicon
 {
@@ -27,12 +30,20 @@ class Favicon
     private $config;
 
     /**
-     * Icon content
+     * Icon binary content
      *
      * @access private
      * @var string
      */
     private $content = '';
+
+    /**
+     * Icon content type
+     *
+     * @access private
+     * @var string
+     */
+    private $content_type = '';
 
     /**
      * Constructor
@@ -57,27 +68,53 @@ class Favicon
     }
 
     /**
+     * Get the icon file type (available only after the download)
+     *
+     * @access public
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->content_type;
+    }
+
+    /**
+     * Get data URI (http://en.wikipedia.org/wiki/Data_URI_scheme)
+     *
+     * @access public
+     * @return string
+     */
+    public function getDataUri()
+    {
+        return sprintf(
+            'data:%s;base64,%s',
+            $this->content_type,
+            base64_encode($this->content)
+        );
+    }
+
+    /**
      * Download and check if a resource exists
      *
      * @access public
-     * @param  string    $url    URL
-     * @return string            Resource content
+     * @param  string               $url    URL
+     * @return \PicoFeed\Client             Client instance
      */
     public function download($url)
     {
+        $client = Client::getInstance();
+        $client->setConfig($this->config);
+
+        Logger::setMessage(get_called_class().' Download => '.$url);
+
         try {
-
-            Logger::setMessage(get_called_class().' Download => '.$url);
-
-            $client = Client::getInstance();
-            $client->setConfig($this->config);
             $client->execute($url);
-
-            return $client->getContent();
         }
         catch (ClientException $e) {
-            return '';
+            Logger::setMessage(get_called_class().' Download Failed => '.$e->getMessage());
         }
+
+        return $client;
     }
 
     /**
@@ -89,7 +126,7 @@ class Favicon
      */
     public function exists($url)
     {
-        return $this->download($url) !== '';
+        return $this->download($url)->getContent() !== '';
     }
 
     /**
@@ -103,13 +140,15 @@ class Favicon
     {
         $website = new Url($website_link);
 
-        $icons = $this->extract($this->download($website->getBaseUrl('/')));
+        $icons = $this->extract($this->download($website->getBaseUrl('/'))->getContent());
         $icons[] = $website->getBaseUrl('/favicon.ico');
 
         foreach ($icons as $icon_link) {
 
             $icon_link = $this->convertLink($website, new Url($icon_link));
-            $this->content = $this->download($icon_link);
+            $resource = $this->download($icon_link);
+            $this->content = $resource->getContent();
+            $this->content_type = $resource->getContentType();
 
             if ($this->content !== '') {
                 return $icon_link;

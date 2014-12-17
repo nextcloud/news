@@ -22,6 +22,14 @@ abstract class Client
     private $is_modified = true;
 
     /**
+     * HTTP Content-Type
+     *
+     * @access private
+     * @var string
+     */
+    private $content_type = '';
+
+    /**
      * HTTP encoding
      *
      * @access private
@@ -231,7 +239,8 @@ abstract class Client
     {
         if ($response['status'] == 200) {
             $this->content = $response['body'];
-            $this->encoding = $this->findCharset($response);
+            $this->content_type = $this->findContentType($response);
+            $this->encoding = $this->findCharset();
         }
     }
 
@@ -249,14 +258,26 @@ abstract class Client
     }
 
     /**
-     * Find charset from response headers
+     * Find content type from response headers
      *
      * @access public
      * @param  array      $response     Client response
+     * @return string
      */
-    public function findCharset(array $response)
+    public function findContentType(array $response)
     {
-        $result = explode('charset=', strtolower($this->getHeader($response, 'Content-Type')));
+        return strtolower($this->getHeader($response, 'Content-Type'));
+    }
+
+    /**
+     * Find charset from response headers
+     *
+     * @access public
+     * @return string
+     */
+    public function findCharset()
+    {
+        $result = explode('charset=', $this->content_type);
         return isset($result[1]) ? $result[1] : '';
     }
 
@@ -387,6 +408,17 @@ abstract class Client
     public function getContent()
     {
         return $this->content;
+    }
+
+    /**
+     * Get the content type value from HTTP headers
+     *
+     * @access public
+     * @return string
+     */
+    public function getContentType()
+    {
+        return $this->content_type;
     }
 
     /**

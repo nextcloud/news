@@ -52,15 +52,38 @@ class AtomParserTest extends PHPUnit_Framework_TestCase
     {
         $parser = new Atom(file_get_contents('tests/fixtures/atom.xml'));
         $feed = $parser->execute();
-        $this->assertEquals('http://googleblog.blogspot.com/', $feed->getUrl());
+        $this->assertEquals('', $feed->getFeedUrl());
 
-        $parser = new Atom(file_get_contents('tests/fixtures/atomsample.xml'));
+        $parser = new Atom(file_get_contents('tests/fixtures/atomsample.xml'), '', 'http://example.org/');
         $feed = $parser->execute();
-        $this->assertEquals('http://example.org/', $feed->getUrl());
+        $this->assertEquals('http://example.org/', $feed->getFeedUrl());
 
         $parser = new Atom(file_get_contents('tests/fixtures/lagrange.xml'));
         $feed = $parser->execute();
-        $this->assertEquals('http://www.la-grange.net/', $feed->getUrl());
+        $this->assertEquals('http://www.la-grange.net/feed.atom', $feed->getFeedUrl());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/groovehq.xml'), '', 'http://groovehq.com/');
+        $feed = $parser->execute();
+        $this->assertEquals('http://groovehq.com/articles.xml', $feed->getFeedUrl());
+    }
+
+    public function testSiteUrl()
+    {
+        $parser = new Atom(file_get_contents('tests/fixtures/atom.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('http://googleblog.blogspot.com/', $feed->getSiteUrl());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atomsample.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('http://example.org/', $feed->getSiteUrl());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/lagrange.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('http://www.la-grange.net/', $feed->getSiteUrl());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/groovehq.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('', $feed->getSiteUrl());
     }
 
     public function testFeedId()

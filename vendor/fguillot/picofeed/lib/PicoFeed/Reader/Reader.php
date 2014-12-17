@@ -26,11 +26,11 @@ class Reader
      * @var array
      */
     private $formats = array(
-        'Atom' => array('<feed'),
-        'Rss20' => array('<rss', '2.0'),
-        'Rss92' => array('<rss', '0.92'),
-        'Rss91' => array('<rss', '0.91'),
-        'Rss10' => array('<rdf:'),
+        'Atom' => '//feed',
+        'Rss20' => '//rss[@version="2.0"]',
+        'Rss92' => '//rss[@version="0.92"]',
+        'Rss91' => '//rss[@version="0.91"]',
+        'Rss10' => '//rdf',
     );
 
     /**
@@ -87,7 +87,7 @@ class Reader
         $client = $this->download($url, $last_modified, $etag);
 
         // It's already a feed or the feed was not modified
-        if (!$client->isModified() || $this->detectFormat($client->getContent())) {
+        if (! $client->isModified() || $this->detectFormat($client->getContent())) {
             return $client;
         }
 
@@ -181,37 +181,18 @@ class Reader
      */
     public function detectFormat($content)
     {
-        $first_tag = Filter::getFirstTag($content);
+        $dom = XmlParser::getHtmlDocument($content);
+        $xpath = new DOMXPath($dom);
 
-        Logger::setMessage(get_called_class().': DetectFormat(): '.$first_tag);
+        foreach ($this->formats as $parser_name => $query) {
+            $nodes = $xpath->query($query);
 
-        foreach ($this->formats as $parser => $needles) {
-
-            if ($this->contains($first_tag, $needles)) {
-                return $parser;
+            if ($nodes->length === 1) {
+                return $parser_name;
             }
         }
 
         return '';
-    }
-
-    /**
-     * Return true if all needles are found in the haystack
-     *
-     * @access private
-     * @param  string    $haystack    Haystack
-     * @param  string    $needles     Needles to find
-     * @return boolean
-     */
-    private function contains($haystack, array $needles)
-    {
-        $results = array();
-
-        foreach ($needles as $needle) {
-            $results[] = strpos($haystack, $needle) !== false;
-        }
-
-        return ! in_array(false, $results, true);
     }
 
     /**

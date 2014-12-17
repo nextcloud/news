@@ -1,8 +1,9 @@
 <?php
-namespace PicoFeed\Client;
+
+namespace PicoFeed\Reader;
 
 use PHPUnit_Framework_TestCase;
-
+use PicoFeed\Client\Url;
 
 class FaviconTest extends PHPUnit_Framework_TestCase
 {
@@ -139,5 +140,19 @@ class FaviconTest extends PHPUnit_Framework_TestCase
         );
 
         $this->assertEmpty($favicon->getContent());
+    }
+
+    public function testDataUri()
+    {
+        $favicon = new Favicon;
+
+        $this->assertEquals(
+            'http://miniflux.net/assets/img/favicon.png',
+            $favicon->find('http://miniflux.net')
+        );
+
+        $expected = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAGJwAABicBTVTYxwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAALMSURBVHic7Zo7a1RRFIW/I8YXaBBEJRJEU8RqQBBBQRBEWxHBwlZUsLRWUFBsA4L4G4IY0TaF2PhEEQwmhuADJIkRUUOMr2RZ3Em8mcxkzrkPtjhnwS7msveadT/Ofc44SbSyllkHsFYEYB3AWhGAdQBrRQDWAawVAVgHsFYEYB3AWhGAdQBrLS/L2Dm3CdgFbK3WDPC6Wi8kjWX03QBUgG3AdmAN8LFaT4CnCnjEdbW9zrk+YL3n/AVJd2vmDwKngMNAW4O538BNoEfSfa+gzu0DzgBHl/AFGAN6gcuSPjQ1lrSggHFAnnUsNdcO3AiYnas7wNraHCnfLcC9DL6TwNlGvvP+RQAAdgIjGULO1XOgs06WQ8BEDl8BPVRXeikAgK4CQgp4B7SnchwnOW/k9RVwviwAp4HBgkIKuJ5aUd8K9P0JVMoA8LnAkAJmgSPA24J9BfTXA1DvKjAObOT/k4BuScPpjWXcCM0Co8CnErynSFbHTIZZB5xYtDXnIZCuCeAkqUsa0AlcyeiXrtvAnpTvamA/8CbQ50HR54C5egV0LHEtv5hj588t4dsBvA/wmgbaigbwneTYanyzkayELDvf2/RGBi4FelaKBnC1Wciq70Cg7y+gy8O3O9D3QHq+iJPgNc++R4G+/ZJGPPqGSU68vlqX/pAXwKCkl569XwK9b/k0SZoleRL0VaEAngX0TgZ6Pw7obf7U91cr0x/yAhgK6A0BIMB3ZUFyq5tJeQGELL2vAb1TkqYD+lcF9C5QXgAhO/WjJF/I8WYrL4CQnfoXfBep5V+KRgDWAawVAVgHsFYEYB3AWhGAdQBrRQDWAawVAVgHsFYEYB3AWi0PoN6Po3uBFZ7zA5ImvL7Iuc3ADk/faUkPPXtxzu0m+a+Qj4Ykjc7P1gJoNbX8IRABWAewVgRgHcBaEYB1AGtFANYBrBUBWAewVssD+AMBy6wzsaDiAwAAAABJRU5ErkJggg==';
+
+        $this->assertEquals($expected, $favicon->getDataUri());
     }
 }

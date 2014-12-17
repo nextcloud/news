@@ -179,7 +179,7 @@ class FeedFetcher implements IFeedFetcher {
                                  $etag, $location) {
         $feed = new Feed();
 
-        $link = $parsedFeed->getUrl();
+        $link = $parsedFeed->getSiteUrl();
 
         if (!$link) {
             $link = $location;

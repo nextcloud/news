@@ -5,7 +5,7 @@ Find and download the favicon
 -----------------------------
 
 ```php
-use PicoFeed\Client\Favicon;
+use PicoFeed\Reader\Favicon;
 
 $favicon = new Favicon;
 
@@ -21,11 +21,42 @@ PicoFeed will try first to find the favicon from the meta tags and fallback to t
 
 When the HTML page is parsed, relative links and protocol relative links are converted to absolute url.
 
+Get Favicon file type
+---------------------
+
+It's possible to fetch the image type, this information come from the Content-Type HTTP header:
+
+```php
+$favicon = new Favicon;
+$favicon->find('http://example.net/');
+
+echo $favicon->getType();
+
+// Will output the content type, by example "image/png"
+```
+
+Get the Favicon as Data URI
+---------------------------
+
+You can also get the whole image as Data URI.
+It's useful if you want to store the icon in your database and avoid too many HTTP requests.
+
+```php
+$favicon = new Favicon;
+$favicon->find('http://example.net/');
+
+echo $favicon->getDataUri();
+
+// Output something like that: data:image/png;base64,iVBORw0KGgoAAAANSUh.....
+```
+
+See: http://en.wikipedia.org/wiki/Data_URI_scheme
+
 Check if a favicon link exists
 ------------------------------
 
 ```php
-use PicoFeed\Client\Favicon;
+use PicoFeed\Reader\Favicon;
 
 $favicon = new Favicon;
 
@@ -40,7 +71,7 @@ Like other classes, the Favicon class support the Config object as constructor a
 
 ```php
 use PicoFeed\Config\Config;
-use PicoFeed\Client\Favicon;
+use PicoFeed\Reader\Favicon;
 
 $config = new Config;
 $config->setClientUserAgent('My RSS Reader');

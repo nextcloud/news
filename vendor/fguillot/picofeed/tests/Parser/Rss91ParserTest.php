@@ -15,8 +15,9 @@ class Rss91ParserTest extends PHPUnit_Framework_TestCase
         $this->assertNotEmpty($feed->items);
 
         $this->assertEquals('WriteTheWeb', $feed->getTitle());
-        $this->assertEquals('http://writetheweb.com', $feed->getUrl());
-        $this->assertEquals('http://writetheweb.com', $feed->getId());
+        $this->assertEquals('', $feed->getFeedUrl());
+        $this->assertEquals('http://writetheweb.com/', $feed->getSiteUrl());
+        $this->assertEquals('http://writetheweb.com/', $feed->getId());
         $this->assertEquals(time(), $feed->getDate());
         $this->assertEquals(6, count($feed->items));
 

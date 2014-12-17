@@ -13,6 +13,22 @@ use \PicoFeed\Client\Url;
 class Attribute
 {
     /**
+     * Image proxy url
+     *
+     * @access private
+     * @var string
+     */
+    private $image_proxy_url = '';
+
+    /**
+     * Image proxy callback
+     *
+     * @access private
+     * @var \Closure|null
+     */
+    private $image_proxy_callback = null;
+
+    /**
      * Tags and attribute whitelist
      *
      * @access private
@@ -204,10 +220,11 @@ class Attribute
         'filterEmptyAttribute',
         'filterAllowedAttribute',
         'filterIntegerAttribute',
-        'filterAbsoluteUrlAttribute',
+        'rewriteAbsoluteUrl',
         'filterIframeAttribute',
         'filterBlacklistResourceAttribute',
         'filterProtocolUrlAttribute',
+        'rewriteImageProxyUrl',
     );
 
     /**
@@ -349,10 +366,34 @@ class Attribute
      * @param  string    $value         Atttribute value
      * @return boolean
      */
-    public function filterAbsoluteUrlAttribute($tag, $attribute, &$value)
+    public function rewriteAbsoluteUrl($tag, $attribute, &$value)
     {
         if ($this->isResource($attribute)) {
             $value = Url::resolve($value, $this->website);
+        }
+
+        return true;
+    }
+
+    /**
+     * Rewrite image url to use with a proxy
+     *
+     * @access public
+     * @param  string    $tag           Tag name
+     * @param  string    $attribute     Atttribute name
+     * @param  string    $value         Atttribute value
+     * @return boolean
+     */
+    public function rewriteImageProxyUrl($tag, $attribute, &$value)
+    {
+        if ($tag === 'img' && $attribute === 'src') {
+
+            if ($this->image_proxy_url) {
+                $value = sprintf($this->image_proxy_url, urlencode($value));
+            }
+            else if (is_callable($this->image_proxy_callback)) {
+                $value = call_user_func($this->image_proxy_callback, $value);
+            }
         }
 
         return true;
@@ -484,7 +525,7 @@ class Attribute
     }
 
     /**
-     * Set whitelisted tags adn attributes for each tag
+     * Set whitelisted tags and attributes for each tag
      *
      * @access public
      * @param  array   $values   List of tags: ['video' => ['src', 'cover'], 'img' => ['src']]
@@ -584,6 +625,34 @@ class Attribute
     public function setIframeWhitelist(array $values)
     {
         $this->iframe_whitelist = $values ?: $this->iframe_whitelist;
+        return $this;
+    }
+
+    /**
+     * Set image proxy URL
+     *
+     * The original image url will be urlencoded
+     *
+     * @access public
+     * @param  string    $url      Proxy URL
+     * @return \PicoFeed\Filter\Filter
+     */
+    public function setImageProxyUrl($url)
+    {
+        $this->image_proxy_url = $url ?: $this->image_proxy_url;
+        return $this;
+    }
+
+    /**
+     * Set image proxy callback
+     *
+     * @access public
+     * @param  \Closure     $callback
+     * @return \PicoFeed\Filter\Filter
+     */
+    public function setImageProxyCallback($callback)
+    {
+        $this->image_proxy_callback = $callback ?: $this->image_proxy_callback;
         return $this;
     }
 }

@@ -1,8 +1,8 @@
 <?php
+
 namespace PicoFeed\Client;
 
 use PHPUnit_Framework_TestCase;
-
 
 class ClientTest extends PHPUnit_Framework_TestCase
 {
@@ -17,7 +17,6 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->assertNotEmpty($client->getEtag());
         $this->assertNotEmpty($client->getLastModified());
     }
-
 
     public function testCacheEtag()
     {
@@ -34,7 +33,6 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($client->isModified());
     }
 
-
     public function testCacheLastModified()
     {
         $client = Client::getInstance();
@@ -49,7 +47,6 @@ class ClientTest extends PHPUnit_Framework_TestCase
 
         $this->assertFalse($client->isModified());
     }
-
 
     public function testCacheBoth()
     {
@@ -79,5 +76,18 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $client->setUrl('http://php.net/robots.txt');
         $client->execute();
         $this->assertEquals('', $client->getEncoding());
+    }
+
+    public function testContentType()
+    {
+        $client = Client::getInstance();
+        $client->setUrl('http://miniflux.net/assets/img/favicon.png');
+        $client->execute();
+        $this->assertEquals('image/png', $client->getContentType());
+
+        $client = Client::getInstance();
+        $client->setUrl('http://miniflux.net/');
+        $client->execute();
+        $this->assertEquals('text/html; charset=utf-8', $client->getContentType());
     }
 }

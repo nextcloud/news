@@ -43,35 +43,70 @@ class AttributeFilterTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('src' => 'http://www.youtube.com/test'), $filter->filter('iframe', array('width' => 'test', 'src' => 'http://www.youtube.com/test')));
     }
 
-    public function testFilterAbsoluteUrlAttribute()
+    public function testRewriteProxyImageUrl()
     {
         $filter = new Attribute(new Url('http://www.la-grange.net'));
         $url = '/2014/08/03/4668-noisettes';
-        $this->assertTrue($filter->filterAbsoluteUrlAttribute('a', 'href', $url));
+        $this->assertTrue($filter->rewriteImageProxyUrl('a', 'href', $url));
+        $this->assertEquals('/2014/08/03/4668-noisettes', $url);
+
+        $filter = new Attribute(new Url('http://www.la-grange.net'));
+        $url = '/2014/08/03/4668-noisettes';
+        $this->assertTrue($filter->rewriteImageProxyUrl('img', 'alt', $url));
+        $this->assertEquals('/2014/08/03/4668-noisettes', $url);
+
+        $filter = new Attribute(new Url('http://www.la-grange.net'));
+        $url = '/2014/08/03/4668-noisettes';
+        $this->assertTrue($filter->rewriteImageProxyUrl('img', 'src', $url));
+        $this->assertEquals('/2014/08/03/4668-noisettes', $url);
+
+        $filter = new Attribute(new Url('http://www.la-grange.net'));
+        $filter->setImageProxyUrl('https://myproxy/?u=%s');
+        $url = 'http://example.net/image.png';
+        $this->assertTrue($filter->rewriteImageProxyUrl('img', 'src', $url));
+        $this->assertEquals('https://myproxy/?u='.urlencode('http://example.net/image.png'), $url);
+
+        $filter = new Attribute(new Url('http://www.la-grange.net'));
+
+        $filter->setImageProxyCallback(function ($image_url) {
+            $key = hash_hmac('sha1', $image_url, 'secret');
+            return 'https://mypublicproxy/'.$key.'/'.urlencode($image_url);
+        });
+
+        $url = 'http://example.net/image.png';
+        $this->assertTrue($filter->rewriteImageProxyUrl('img', 'src', $url));
+        $this->assertEquals('https://mypublicproxy/d9701029b054f6e178ef88fcd3c789365e52a26d/'.urlencode('http://example.net/image.png'), $url);
+    }
+
+    public function testRewriteAbsoluteUrl()
+    {
+        $filter = new Attribute(new Url('http://www.la-grange.net'));
+        $url = '/2014/08/03/4668-noisettes';
+        $this->assertTrue($filter->rewriteAbsoluteUrl('a', 'href', $url));
         $this->assertEquals('http://www.la-grange.net/2014/08/03/4668-noisettes', $url);
 
         $filter = new Attribute(new Url('http://google.com'));
 
         $url = 'test';
-        $this->assertTrue($filter->filterAbsoluteUrlAttribute('a', 'href', $url));
+        $this->assertTrue($filter->rewriteAbsoluteUrl('a', 'href', $url));
         $this->assertEquals('http://google.com/test', $url);
 
         $url = 'http://127.0.0.1:8000/test';
-        $this->assertTrue($filter->filterAbsoluteUrlAttribute('img', 'src', $url));
+        $this->assertTrue($filter->rewriteAbsoluteUrl('img', 'src', $url));
         $this->assertEquals('http://127.0.0.1:8000/test', $url);
 
         $url = '//example.com';
-        $this->assertTrue($filter->filterAbsoluteUrlAttribute('a', 'href', $url));
+        $this->assertTrue($filter->rewriteAbsoluteUrl('a', 'href', $url));
         $this->assertEquals('http://example.com/', $url);
 
         $filter = new Attribute(new Url('https://google.com'));
         $url = '//example.com/?youpi';
-        $this->assertTrue($filter->filterAbsoluteUrlAttribute('a', 'href', $url));
+        $this->assertTrue($filter->rewriteAbsoluteUrl('a', 'href', $url));
         $this->assertEquals('https://example.com/?youpi', $url);
 
         $filter = new Attribute(new Url('https://127.0.0.1:8000/here/'));
         $url = 'image.png?v=2';
-        $this->assertTrue($filter->filterAbsoluteUrlAttribute('a', 'href', $url));
+        $this->assertTrue($filter->rewriteAbsoluteUrl('a', 'href', $url));
         $this->assertEquals('https://127.0.0.1:8000/here/image.png?v=2', $url);
 
         $filter = new Attribute(new Url('https://truc/'));

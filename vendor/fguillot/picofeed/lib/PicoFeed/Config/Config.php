@@ -30,6 +30,8 @@ namespace PicoFeed\Config;
  * @method  \PicoFeed\Config\Config setFilterSchemeWhitelist(array $value)
  * @method  \PicoFeed\Config\Config setFilterWhitelistedTags(array $value)
  * @method  \PicoFeed\Config\Config setFilterBlacklistedTags(array $value)
+ * @method  \PicoFeed\Config\Config setFilterImageProxyUrl($value)
+ * @method  \PicoFeed\Config\Config setFilterImageProxyCallback($closure)
  *
  * @method  integer    getClientTimeout()
  * @method  string     getClientUserAgent()
@@ -53,6 +55,8 @@ namespace PicoFeed\Config;
  * @method  array      getFilterSchemeWhitelist(array $default_value)
  * @method  array      getFilterWhitelistedTags(array $default_value)
  * @method  array      getFilterBlacklistedTags(array $default_value)
+ * @method  string     getFilterImageProxyUrl($default_value)
+ * @method  string     getFilterImageProxyCallback($default_value)
  */
 class Config
 {

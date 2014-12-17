@@ -56,11 +56,26 @@ class Rss20ParserTest extends PHPUnit_Framework_TestCase
     {
         $parser = new Rss20(file_get_contents('tests/fixtures/rss20.xml'));
         $feed = $parser->execute();
-        $this->assertEquals('http://wordpress.org/news', $feed->getUrl());
+        $this->assertEquals('', $feed->getFeedUrl());
+
+        $parser = new Rss20(file_get_contents('tests/fixtures/rss20.xml'), '', 'http://example.com/feed');
+        $feed = $parser->execute();
+        $this->assertEquals('http://example.com/feed', $feed->getFeedUrl());
 
         $parser = new Rss20(file_get_contents('tests/fixtures/pcinpact.xml'));
         $feed = $parser->execute();
-        $this->assertEquals('http://www.pcinpact.com/', $feed->getUrl());
+        $this->assertEquals('', $feed->getFeedUrl());
+    }
+
+    public function testSiteUrl()
+    {
+        $parser = new Rss20(file_get_contents('tests/fixtures/rss20.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('http://wordpress.org/news', $feed->getSiteUrl());
+
+        $parser = new Rss20(file_get_contents('tests/fixtures/pcinpact.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('http://www.pcinpact.com/', $feed->getSiteUrl());
     }
 
     public function testFeedId()
@@ -231,7 +246,7 @@ class Rss20ParserTest extends PHPUnit_Framework_TestCase
         $parser = new Rss20(file_get_contents('tests/fixtures/geekstammtisch.de_episodes.mp3.rss'));
         $feed = $parser->execute();
         $this->assertNotEmpty($feed->items);
-        $this->assertEquals('http://geekstammtisch.de#GST001', $feed->items[1]->getUrl());
+        $this->assertEquals('http://geekstammtisch.de/#GST001', $feed->items[1]->getUrl());
 
         $parser = new Rss20(file_get_contents('tests/fixtures/lincoln_loop.xml'));
         $feed = $parser->execute();

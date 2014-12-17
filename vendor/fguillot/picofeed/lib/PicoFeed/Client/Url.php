@@ -80,6 +80,20 @@ class Url
     }
 
     /**
+     * Shortcut method to get a base url
+     *
+     * @static
+     * @access public
+     * @param  string   $url
+     * @return string
+     */
+    public static function base($url)
+    {
+        $link = new Url($url);
+        return $link->getBaseUrl();
+    }
+
+    /**
      * Get the base URL
      *
      * @access public

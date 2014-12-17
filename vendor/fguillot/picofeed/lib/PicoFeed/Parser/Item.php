@@ -11,6 +11,23 @@ namespace PicoFeed\Parser;
 class Item
 {
     /**
+     * List of known RTL languages
+     *
+     * @access public
+     * @var public
+     */
+    public $rtl = array(
+        'ar',  // Arabic (ar-**)
+        'fa',  // Farsi (fa-**)
+        'ur',  // Urdu (ur-**)
+        'ps',  // Pashtu (ps-**)
+        'syr', // Syriac (syr-**)
+        'dv',  // Divehi (dv-**)
+        'he',  // Hebrew (he-**)
+        'yi',  // Yiddish (yi-**)
+    );
+
+    /**
      * Item id
      *
      * @access public
@@ -96,6 +113,7 @@ class Item
             $output .= 'Item::'.$property.' = '.$this->$property.PHP_EOL;
         }
 
+        $output .= 'Item::isRTL() = '.($this->isRTL() ? 'true' : 'false').PHP_EOL;
         $output .= 'Item::content = '.strlen($this->content).' bytes'.PHP_EOL;
 
         return $output;
@@ -198,5 +216,24 @@ class Item
     public function getAuthor()
     {
         return $this->author;
+    }
+
+    /**
+     * Return true if the item is "Right to Left"
+     *
+     * @access public
+     * @return bool
+     */
+    public function isRTL()
+    {
+        $language = strtolower($this->language);
+
+        foreach ($this->rtl as $prefix) {
+            if (strpos($language, $prefix) === 0) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

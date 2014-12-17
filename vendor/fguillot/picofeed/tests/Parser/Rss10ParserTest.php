@@ -26,14 +26,21 @@ class Rss10ParserTest extends PHPUnit_Framework_TestCase
     {
         $parser = new Rss10(file_get_contents('tests/fixtures/planete-jquery.xml'));
         $feed = $parser->execute();
-        $this->assertEquals('http://planete-jquery.fr', $feed->getUrl());
+        $this->assertEquals('', $feed->getFeedUrl());
+    }
+
+    public function testSiteUrl()
+    {
+        $parser = new Rss10(file_get_contents('tests/fixtures/planete-jquery.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('http://planete-jquery.fr/', $feed->getSiteUrl());
     }
 
     public function testFeedId()
     {
         $parser = new Rss10(file_get_contents('tests/fixtures/planete-jquery.xml'));
         $feed = $parser->execute();
-        $this->assertEquals('http://planete-jquery.fr', $feed->getId());
+        $this->assertEquals('http://planete-jquery.fr/', $feed->getId());
     }
 
     public function testFeedDate()

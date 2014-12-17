@@ -30,34 +30,31 @@ class Rss20 extends Parser
      * Find the feed url
      *
      * @access public
-     * @param  SimpleXMLElement   $xml     Feed xml
+     * @param  SimpleXMLElement          $xml     Feed xml
      * @param  \PicoFeed\Parser\Feed     $feed    Feed object
      */
     public function findFeedUrl(SimpleXMLElement $xml, Feed $feed)
     {
-        if ($xml->channel->link && $xml->channel->link->count() > 1) {
+        $feed->feed_url = '';
+    }
 
-            foreach ($xml->channel->link as $xml_link) {
-
-                $link = (string) $xml_link;
-
-                if ($link !== '') {
-                    $feed->url = $link;
-                    break;
-                }
-            }
-        }
-        else {
-
-            $feed->url = (string) $xml->channel->link;
-        }
+    /**
+     * Find the site url
+     *
+     * @access public
+     * @param  SimpleXMLElement          $xml     Feed xml
+     * @param  \PicoFeed\Parser\Feed     $feed    Feed object
+     */
+    public function findSiteUrl(SimpleXMLElement $xml, Feed $feed)
+    {
+        $feed->site_url = (string) $xml->channel->link;
     }
 
     /**
      * Find the feed description
      *
      * @access public
-     * @param  SimpleXMLElement   $xml     Feed xml
+     * @param  SimpleXMLElement          $xml     Feed xml
      * @param  \PicoFeed\Parser\Feed     $feed    Feed object
      */
     public function findFeedDescription(SimpleXMLElement $xml, Feed $feed)
@@ -69,7 +66,7 @@ class Rss20 extends Parser
      * Find the feed logo url
      *
      * @access public
-     * @param  SimpleXMLElement   $xml     Feed xml
+     * @param  SimpleXMLElement          $xml     Feed xml
      * @param  \PicoFeed\Parser\Feed     $feed    Feed object
      */
     public function findFeedLogo(SimpleXMLElement $xml, Feed $feed)
@@ -83,19 +80,19 @@ class Rss20 extends Parser
      * Find the feed title
      *
      * @access public
-     * @param  SimpleXMLElement   $xml     Feed xml
+     * @param  SimpleXMLElement          $xml     Feed xml
      * @param  \PicoFeed\Parser\Feed     $feed    Feed object
      */
     public function findFeedTitle(SimpleXMLElement $xml, Feed $feed)
     {
-        $feed->title = Filter::stripWhiteSpace((string) $xml->channel->title) ?: $feed->url;
+        $feed->title = Filter::stripWhiteSpace((string) $xml->channel->title) ?: $feed->getSiteUrl();
     }
 
     /**
      * Find the feed language
      *
      * @access public
-     * @param  SimpleXMLElement   $xml     Feed xml
+     * @param  SimpleXMLElement          $xml     Feed xml
      * @param  \PicoFeed\Parser\Feed     $feed    Feed object
      */
     public function findFeedLanguage(SimpleXMLElement $xml, Feed $feed)
@@ -107,19 +104,19 @@ class Rss20 extends Parser
      * Find the feed id
      *
      * @access public
-     * @param  SimpleXMLElement   $xml     Feed xml
+     * @param  SimpleXMLElement          $xml     Feed xml
      * @param  \PicoFeed\Parser\Feed     $feed    Feed object
      */
     public function findFeedId(SimpleXMLElement $xml, Feed $feed)
     {
-        $feed->id = $feed->url;
+        $feed->id = $feed->getFeedUrl() ?: $feed->getSiteUrl();
     }
 
     /**
      * Find the feed date
      *
      * @access public
-     * @param  SimpleXMLElement   $xml     Feed xml
+     * @param  SimpleXMLElement          $xml     Feed xml
      * @param  \PicoFeed\Parser\Feed     $feed    Feed object
      */
     public function findFeedDate(SimpleXMLElement $xml, Feed $feed)
@@ -132,7 +129,7 @@ class Rss20 extends Parser
      * Find the item date
      *
      * @access public
-     * @param  SimpleXMLElement   $entry   Feed item
+     * @param  SimpleXMLElement          $entry   Feed item
      * @param  \PicoFeed\Parser\Item     $item    Item object
      */
     public function findItemDate(SimpleXMLElement $entry, Item $item)
@@ -154,7 +151,7 @@ class Rss20 extends Parser
      * Find the item title
      *
      * @access public
-     * @param  SimpleXMLElement   $entry   Feed item
+     * @param  SimpleXMLElement          $entry   Feed item
      * @param  \PicoFeed\Parser\Item     $item    Item object
      */
     public function findItemTitle(SimpleXMLElement $entry, Item $item)
@@ -170,8 +167,8 @@ class Rss20 extends Parser
      * Find the item author
      *
      * @access public
-     * @param  SimpleXMLElement   $xml     Feed
-     * @param  SimpleXMLElement   $entry   Feed item
+     * @param  SimpleXMLElement          $xml     Feed
+     * @param  SimpleXMLElement          $entry   Feed item
      * @param  \PicoFeed\Parser\Item     $item    Item object
      */
     public function findItemAuthor(SimpleXMLElement $xml, SimpleXMLElement $entry, Item $item)
@@ -192,7 +189,7 @@ class Rss20 extends Parser
      * Find the item content
      *
      * @access public
-     * @param  SimpleXMLElement   $entry   Feed item
+     * @param  SimpleXMLElement          $entry   Feed item
      * @param  \PicoFeed\Parser\Item     $item    Item object
      */
     public function findItemContent(SimpleXMLElement $entry, Item $item)
@@ -210,7 +207,7 @@ class Rss20 extends Parser
      * Find the item URL
      *
      * @access public
-     * @param  SimpleXMLElement   $entry   Feed item
+     * @param  SimpleXMLElement          $entry   Feed item
      * @param  \PicoFeed\Parser\Item     $item    Item object
      */
     public function findItemUrl(SimpleXMLElement $entry, Item $item)
@@ -234,7 +231,7 @@ class Rss20 extends Parser
      * Genereate the item id
      *
      * @access public
-     * @param  SimpleXMLElement   $entry   Feed item
+     * @param  SimpleXMLElement          $entry   Feed item
      * @param  \PicoFeed\Parser\Item     $item    Item object
      * @param  \PicoFeed\Parser\Feed     $feed    Feed object
      */
@@ -256,7 +253,7 @@ class Rss20 extends Parser
      * Find the item enclosure
      *
      * @access public
-     * @param  SimpleXMLElement   $entry   Feed item
+     * @param  SimpleXMLElement          $entry   Feed item
      * @param  \PicoFeed\Parser\Item     $item    Item object
      * @param  \PicoFeed\Parser\Feed     $feed    Feed object
      */
@@ -271,7 +268,7 @@ class Rss20 extends Parser
             }
 
             $item->enclosure_type = isset($entry->enclosure['type']) ? (string) $entry->enclosure['type'] : '';
-            $item->enclosure_url = Url::resolve($item->enclosure_url, $feed->url);
+            $item->enclosure_url = Url::resolve($item->enclosure_url, $feed->getSiteUrl());
         }
     }
 

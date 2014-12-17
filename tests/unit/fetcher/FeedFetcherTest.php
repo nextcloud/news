@@ -77,7 +77,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
             ->disableOriginalConstructor()
             ->getMock();
         $this->faviconFetcher = $this->getMockBuilder(
-            '\PicoFeed\Client\Favicon')
+            '\PicoFeed\Reader\Favicon')
             ->disableOriginalConstructor()
             ->getMock();
         $this->faviconFactory = $this->getMockBuilder(
@@ -228,7 +228,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 
     private function createFeed($hasFavicon=false) {
         $this->expectFeed('getTitle', $this->feedTitle);
-        $this->expectFeed('getUrl', $this->feedLink);
+        $this->expectFeed('getSiteUrl', $this->feedLink);
 
         $feed = new Feed();
         $feed->setTitle('&its a title');

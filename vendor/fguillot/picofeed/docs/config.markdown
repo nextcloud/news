@@ -261,3 +261,26 @@ $config->setFilterSchemeWhitelist(['http://', 'ftp://']);
 ```php
 $config->setFilterWhitelistedTags(['a' => ['href'], 'img' => ['src', 'title']]);
 ```
+
+### Define a image proxy url
+
+- Method name: `setFilterImageProxyUrl()`
+- Default value: Empty
+- Argument value: string
+
+```php
+$config->setFilterImageProxyUrl('http://myproxy.example.org/?url=%s');
+```
+
+### Define a image proxy callback
+
+- Method name: `setFilterImageProxyCallback()`
+- Default value: null
+- Argument value: Closure
+
+```php
+$config->setFilterImageProxyCallback(function ($image_url) {
+    $key = hash_hmac('sha1', $image_url, 'secret');
+    return 'https://mypublicproxy/'.$key.'/'.urlencode($image_url);
+});
+```

@@ -1,8 +1,8 @@
 <?php
+
 namespace PicoFeed\Parser;
 
 use PHPUnit_Framework_TestCase;
-
 
 class ParserTest extends PHPUnit_Framework_TestCase
 {
@@ -22,6 +22,7 @@ class ParserTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1364234797, $parser->parseDate('Mon, 25 Mar 2013 19:06:37 +0100'));
         $this->assertEquals(1360054941, $parser->parseDate('2013-02-05T09:02:21.880-08:00'));
         $this->assertEquals(1286834400, $parser->parseDate('Tue, 12 Oct 2010 00:00:00 IST'));
+        $this->assertEquals('2014-12-15 19:49', date('Y-m-d H:i', $parser->parseDate('15 Dec 2014 19:49:07 +0100')));
         $this->assertEquals('2012-05-15', date('Y-m-d', $parser->parseDate('Tue, 15 May 2012 24:05:00 UTC')));
         $this->assertEquals('2013-09-12', date('Y-m-d', $parser->parseDate('Thu, 12 Sep 2013 7:00:00 UTC')));
         $this->assertEquals('2012-01-31', date('Y-m-d', $parser->parseDate('01.31.2012')));
@@ -52,14 +53,6 @@ class ParserTest extends PHPUnit_Framework_TestCase
 
         $parser->setHashAlgo('sha1');
         $this->assertEquals('da23614e02469a0d7c7bd1bdab5c9c474b1904dc', $parser->generateId('a', 'b'));
-    }
-
-    public function testLangRTL()
-    {
-        $this->assertFalse(Parser::isLanguageRTL('fr-FR'));
-        $this->assertTrue(Parser::isLanguageRTL('ur'));
-        $this->assertTrue(Parser::isLanguageRTL('syr-**'));
-        $this->assertFalse(Parser::isLanguageRTL('ru'));
     }
 
     public function testNamespaceValue()

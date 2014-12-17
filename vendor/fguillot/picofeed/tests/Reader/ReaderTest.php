@@ -15,14 +15,12 @@ class ReaderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('https://google.com', $reader->prependScheme('https://google.com'));
     }
 
-
     public function testDownload()
     {
         $reader = new Reader;
         $feed = $reader->download('http://wordpress.org/news/feed/')->getContent();
         $this->assertNotEmpty($feed);
     }
-
 
     public function testDownloadWithCache()
     {
@@ -38,9 +36,11 @@ class ReaderTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($resource->isModified());
     }
 
-
     public function testDetectFormat()
     {
+        $reader = new Reader;
+        $this->assertEquals('Rss20', $reader->detectFormat(file_get_contents('tests/fixtures/podbean.xml')));
+
         $reader = new Reader;
         $this->assertEquals('Rss20', $reader->detectFormat(file_get_contents('tests/fixtures/jeux-linux.fr.xml')));
 
@@ -78,7 +78,6 @@ class ReaderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Rss20', $reader->detectFormat($content));
     }
 
-
     public function testFind()
     {
         $reader = new Reader;
@@ -105,7 +104,6 @@ class ReaderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('http://rss.cnn.com/rss/cnn_world.rss', $feeds[1]);
     }
 
-
     public function testDiscover()
     {
         $reader = new Reader;
@@ -128,7 +126,6 @@ class ReaderTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('PicoFeed\Parser\Atom', $reader->getParser($client->getUrl(), $client->getContent(), $client->getEncoding()));
     }
 
-
     public function testFeedsReportedAsNotWorking()
     {
         $reader = new Reader;
@@ -149,7 +146,7 @@ class ReaderTest extends PHPUnit_Framework_TestCase
         $feed = $parser->execute();
 
         $this->assertEquals('http://www.groovehq.com/blog/feed', $client->getUrl());
-        $this->assertEquals('http://www.groovehq.com/blog/feed', $feed->getUrl());
+        $this->assertEquals('http://www.groovehq.com/blog/feed', $feed->getFeedUrl());
         $this->assertNotEquals('http://www.groovehq.com/blog/feed', $feed->items[0]->getUrl());
         $this->assertTrue(strpos($feed->items[0]->getUrl(), 'http://') === 0);
         $this->assertTrue(strpos($feed->items[0]->getUrl(), 'feed') === false);
