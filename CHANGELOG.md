@@ -1,4 +1,5 @@
 owncloud-news (4.3.1)
+* **Bugfix**: Update picoFeed to fix feed format detection, e.g. http://aroundthebloc.podbean.com/feed/ was previously not recognized as a valid feed
 * **Enhancement**: Add thecodinglove.com and der-postilion.com enhancers
 
 owncloud-news (4.3.0)
