@@ -45,6 +45,7 @@ module.exports = function (grunt) {
                     'filter/**/*.js',
                     'service/**/*.js',
                     'gui/**/*.js',
+                    'plugin/**/*.js',
                     'utility/**/*.js',
                     'directive/**/*.js'
                 ],
@@ -122,6 +123,7 @@ module.exports = function (grunt) {
                     'directive/**/*.js',
                     'tests/**/*.js',
                     'gui/**/*.js',
+                    'plugin/**/*.js',
                     'admin/**/*.js'
                 ]
             },
@@ -143,6 +145,7 @@ module.exports = function (grunt) {
                     'filter/**/*.js',
                     'service/**/*.js',
                     'gui/**/*.js',
+                    'plugin/**/*.js',
                     '../templates/**/*.php'
                 ],
                 tasks: ['default'],

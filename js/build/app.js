@@ -2300,6 +2300,41 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
     });
 
 }(window, document, $));
+var News = News || {};
+
+(function (window, document, $, exports, undefined) {
+    'use strict';
+
+    var articleActionPlugins = [];
+    var articleActionPluginsById = {};
+
+
+    /**
+     * @param function action An article action plugin should look like this:
+     * function (article, baseUrl) {
+     *     this.title = 'A title that is displayed on hover';
+     *     this.iconUrl = 'An url for the icon';
+     *     this.onClick = function (event, element) {
+     *
+     *     };
+     * }
+     */
+    exports.addArticleAction = function (action) {
+        articleActionPlugins.push(action);
+        articleActionPluginsById[action.id] = action;
+    };
+
+    exports.getArticleActionPlugins = function () {
+        return articleActionPlugins;
+    };
+
+    exports.getArticleActionPluginById = function (id) {
+        return articleActionPluginsById[id];
+    };
+
+})(window, document, jQuery, News);
+
+
 app.run(["$document", "$rootScope", function ($document, $rootScope) {
     'use strict';
     $document.click(function (event) {
@@ -2351,6 +2386,24 @@ app.directive('newsAddFeed', ["$rootScope", "$timeout", function ($rootScope, $t
         }
     };
 }]);
+app.directive('newsArticleActions', function () {
+    'use strict';
+    return {
+        restrict: 'E',
+        templateUrl: 'articleaction.html',
+        scope: {
+            'article': '='
+        },
+        replace: true,
+        link: function (scope) {
+            scope.plugins = News.getArticleActionPlugins();
+            scope.pluginClick = function (pluginId, event, article) {
+                News.getArticleActionPluginById(pluginId)
+                    .onClick(event, article);
+            };
+        }
+    };
+});
 app.directive('newsAutoFocus', ["$timeout", function ($timeout) {
     'use strict';
     return function (scope, elem, attrs) {

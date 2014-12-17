@@ -43,6 +43,7 @@
         "exports": true,
         "reverse": true,
         "items": true,
-        "enumerate": true
+        "enumerate": true,
+        "News": true
     }
 }

@@ -72,6 +72,9 @@ if (defined('DEBUG') && DEBUG === true) {
     </div>
 
     <!-- content -->
+    <script type="text/ng-template" id="articleaction.html">
+        <?php print_unescaped($this->inc('part.content.articleaction')) ?>
+    </script>
     <script type="text/ng-template" id="content.html">
         <?php print_unescaped($this->inc('part.content')) ?>
     </script>

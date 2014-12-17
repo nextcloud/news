@@ -88,6 +88,7 @@
                             ?>">
                         </button>
                     </li>
+                    <li><news-article-actions article="item" /></li>
                 </ul>
             </div>
 

@@ -1,6 +1,7 @@
 owncloud-news (4.3.1)
 * **Bugfix**: Update picoFeed to fix feed format detection, e.g. http://aroundthebloc.podbean.com/feed/ was previously not recognized as a valid feed
 * **Enhancement**: Add thecodinglove.com and der-postilion.com enhancers
+* **Enhancement**: Make it possible to define your own article actions by adding article action plugins
 
 owncloud-news (4.3.0)
 * **Backwards incompatible change**: Refactor the Python updater into a Python package. To stay with the old behavior without installing the package use **python3 -m bin/updater/owncloud_news_updater YOUROPTIONS**
