@@ -221,15 +221,6 @@ class Application extends App {
             return $fetcher;
         });
 
-        $container->registerService('OCA\News\Fetcher\FeedFetcher', function($c) {
-            return new FeedFetcher(
-                $c->query('PicoFeed\Reader\Reader'),
-                $c->query('OCA\News\Utility\PicoFeedFaviconFactory'),
-                $c->query('OCP\IL10N'),
-                $c->query('OCP\AppFramework\Utility\ITimeFactory')
-            );
-        });
-
         $container->registerService('OCA\News\Explore\RecommendedSites', function($c) {
             return new RecommendedSites(__DIR__ . '/../explore');
         });

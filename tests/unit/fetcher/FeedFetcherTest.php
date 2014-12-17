@@ -86,7 +86,10 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
             ->getMock();
 
         $this->time = 2323;
-        $timeFactory = $this->getMock('TimeFactory', ['getTime']);
+        $timeFactory = $this->getMockBuilder(
+            '\OCP\AppFramework\Utility\ITimeFactory')
+            ->disableOriginalConstructor()
+            ->getMock();
         $timeFactory->expects($this->any())
             ->method('getTime')
             ->will($this->returnValue($this->time));

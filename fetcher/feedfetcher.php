@@ -24,6 +24,7 @@ use \PicoFeed\Client\MaxSizeException;
 use \PicoFeed\Client\TimeoutException;
 
 use \OCP\IL10N;
+use \OCP\AppFramework\Utility\ITimeFactory;
 
 use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
@@ -40,7 +41,7 @@ class FeedFetcher implements IFeedFetcher {
     public function __construct(Reader $reader,
                                 PicoFeedFaviconFactory $faviconFactory,
                                 IL10N $l10n,
-                                $time){
+                                ITimeFactory $time){
         $this->faviconFactory = $faviconFactory;
         $this->reader = $reader;
         $this->time = $time;
