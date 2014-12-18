@@ -50,7 +50,7 @@ No installation
 
 If you do not want to install the script at all you can call it directly using::
 
-    python3 -m owncloud_news -c /path/to/config.ini
+    python3 -m owncloud_news_updater -c /path/to/config.ini
 
 .. note:: Keep in mind that you need to restart the script if you want to run a new version
 
