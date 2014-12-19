@@ -151,11 +151,11 @@ describe('FeedResource', function () {
     }));
 
 
-    it ('should create a feed and prepend http if not given', inject(function (
+    it ('should create a feed and prepend https if not given', inject(function (
     FeedResource) {
         http.expectPOST('base/feeds', {
             parentFolderId: 5,
-            url: 'http://hey',
+            url: 'https://hey',
             title: 'abc'
         }).respond(200, {});
 
@@ -163,7 +163,7 @@ describe('FeedResource', function () {
 
         http.flush();
 
-        expect(FeedResource.get('http://hey').folderId).toBe(5);
+        expect(FeedResource.get('https://hey').folderId).toBe(5);
     }));
 
 
@@ -201,15 +201,15 @@ describe('FeedResource', function () {
     it ('should create a feed with no folder', inject(function (FeedResource) {
         http.expectPOST('base/feeds', {
             parentFolderId: 0,
-            url: 'http://hey',
+            url: 'https://hey',
         }).respond(200, {});
 
         FeedResource.create('hey', undefined);
 
-        expect(FeedResource.get('http://hey').title).toBe('http://hey');
+        expect(FeedResource.get('https://hey').title).toBe('https://hey');
         http.flush();
 
-        expect(FeedResource.get('http://hey').folderId).toBe(0);
+        expect(FeedResource.get('https://hey').folderId).toBe(0);
     }));
 
 
