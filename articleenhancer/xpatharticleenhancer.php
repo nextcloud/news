@@ -67,6 +67,9 @@ class XPathArticleEnhancer implements ArticleEnhancer {
                 }
                 $enc = $enc ? $enc : 'UTF-8';
                 $body = mb_convert_encoding($body, 'HTML-ENTITIES', $enc);
+                if (trim($body) === '') {
+                    return $item;
+                }
 
                 $dom = new DOMDocument();
 
