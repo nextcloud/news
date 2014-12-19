@@ -1,3 +1,6 @@
+owncloud-news (4.3.2)
+* **Enhancement**: If a feed is added without the protocol, prepend https:// instead of http:// (e.g. adding cnn.com would result in https://cnn.com being added)
+
 owncloud-news (4.3.1)
 * **Bugfix**: Update picoFeed to fix feed format detection, e.g. http://aroundthebloc.podbean.com/feed/ was previously not recognized as a valid feed
 * **Enhancement**: Add thecodinglove.com and der-postilion.com enhancers
