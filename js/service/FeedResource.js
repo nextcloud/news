@@ -182,7 +182,7 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
     FeedResource.prototype.create = function (url, folderId, title) {
         url = url.trim();
         if (!url.startsWith('http')) {
-            url = 'http://' + url;
+            url = 'https://' + url;
         }
 
         if (title !== undefined) {

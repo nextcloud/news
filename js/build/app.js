@@ -1057,7 +1057,7 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
     FeedResource.prototype.create = function (url, folderId, title) {
         url = url.trim();
         if (!url.startsWith('http')) {
-            url = 'http://' + url;
+            url = 'https://' + url;
         }
 
         if (title !== undefined) {
@@ -2333,7 +2333,7 @@ window.News = window.News || {};
         return articleActionPluginsById[id];
     };
 
-})(window, document, jQuery, News);
+})(window, document, jQuery, window.News);
 
 
 app.run(["$document", "$rootScope", function ($document, $rootScope) {
