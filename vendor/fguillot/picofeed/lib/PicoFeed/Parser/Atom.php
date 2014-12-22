@@ -192,7 +192,7 @@ class Atom extends Parser
      */
     public function findItemUrl(SimpleXMLElement $entry, Item $item)
     {
-        $item->url = $this->getUrl($entry, 'alternate');
+        $item->url = $this->getUrl($entry, 'alternate', true);
     }
 
     /**
@@ -245,7 +245,13 @@ class Atom extends Parser
      */
     public function findItemLanguage(SimpleXMLElement $entry, Item $item, Feed $feed)
     {
-        $item->language = $feed->language;
+        $language = (string) $entry->attributes('xml', true)->{'lang'};
+
+        if ($language === '') {
+            $language = $feed->language;
+        }
+
+        $item->language = $language;
     }
 
     /**
@@ -283,7 +289,7 @@ class Atom extends Parser
     private function findLink(SimpleXMLElement $xml, $rel)
     {
         foreach ($xml->link as $link) {
-            if (empty($rel) || $rel === (string) $link['rel']) {
+            if ($rel === (string) $link['rel']) {
                 return $link;
             }
         }

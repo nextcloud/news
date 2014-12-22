@@ -163,7 +163,7 @@ class Tag
      *
      * @access public
      * @param  array   $values   List of tags: ['video' => ['src', 'cover'], 'img' => ['src']]
-     * @return \PicoFeed\Filter
+     * @return Tag
      */
     public function setWhitelistedTags(array $values)
     {

@@ -121,7 +121,7 @@ class Export
      * @access public
      * @param  SimpleXMLElement    $parent      Parent Element
      * @param  string              $category    Category
-     * @param  array               $feed        Feed properties
+     * @param  array               $feeds       Feed properties
      */
     public function createCategory(SimpleXMLElement $parent, $category, array $feeds)
     {

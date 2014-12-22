@@ -41,6 +41,7 @@ Authors
 - Major Contributors:
     - [Bernhard Posselt](https://github.com/Raydiation)
     - [David Pennington](https://github.com/Xeoncross)
+    - [Mathias Kresin](https://github.com/mkresin)
 
 Real world usage
 ----------------

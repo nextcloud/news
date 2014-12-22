@@ -199,16 +199,9 @@ abstract class Client
             $this->is_modified = false;
         }
         else if ($response['status'] == 200) {
-
-            $etag = $this->getHeader($response, 'ETag');
-            $last_modified = $this->getHeader($response, 'Last-Modified');
-
-            if ($this->isPropertyEquals('etag', $etag) || $this->isPropertyEquals('last_modified', $last_modified)) {
-                $this->is_modified = false;
-            }
-
-            $this->etag = $etag;
-            $this->last_modified = $last_modified;
+            $this->is_modified = $this->hasBeenModified($response, $this->etag, $this->last_modified);
+            $this->etag = $this->getHeader($response, 'ETag');
+            $this->last_modified = $this->getHeader($response, 'Last-Modified');
         }
 
         if ($this->is_modified === false) {
@@ -245,16 +238,39 @@ abstract class Client
     }
 
     /**
-     * Check if a class property equals to a value
+     * Check if a request has been modified according to the parameters
      *
      * @access public
-     * @param  string   $property    Class property
-     * @param  string   $value       Value
+     * @param  array    $response
+     * @param  string   $etag
+     * @param  string   $lastModified
      * @return boolean
      */
-    private function isPropertyEquals($property, $value)
+    private function hasBeenModified($response, $etag, $lastModified)
     {
-        return $this->$property && $this->$property === $value;
+        $headers = array(
+            'Etag' => $etag,
+            'Last-Modified' => $lastModified
+        );
+
+        // Compare the values for each header that is present
+        $presentCacheHeaderCount = 0;
+        foreach ($headers as $key => $value) {
+            if (isset($response['headers'][$key])) {
+                if ($response['headers'][$key] !== $value) {
+                    return true;
+                }
+                $presentCacheHeaderCount++;
+            }
+        }
+
+        // If at least one header is present and the values match, the response
+        // was not modified
+        if ($presentCacheHeaderCount > 0) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -324,7 +340,7 @@ abstract class Client
             Logger::setMessage(get_called_class().' HTTP header: '.$name.' => '.$value);
         }
 
-        return array($status, $headers);
+        return array($status, new HttpHeaders($headers));
     }
 
     /**
@@ -552,7 +568,7 @@ abstract class Client
      *
      * @access public
      * @param  \PicoFeed\Config\Config  $config   Config instance
-     * @return \PicoFeed\Config\Config
+     * @return \PicoFeed\Client\Client
      */
     public function setConfig($config)
     {

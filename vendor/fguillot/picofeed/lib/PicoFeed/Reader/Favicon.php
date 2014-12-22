@@ -3,7 +3,6 @@
 namespace PicoFeed\Reader;
 
 use DOMXpath;
-
 use PicoFeed\Client\Client;
 use PicoFeed\Client\ClientException;
 use PicoFeed\Client\Url;

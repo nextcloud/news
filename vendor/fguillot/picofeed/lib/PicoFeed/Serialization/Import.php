@@ -4,7 +4,6 @@ namespace PicoFeed\Serialization;
 
 use SimpleXmlElement;
 use StdClass;
-
 use PicoFeed\Logging\Logger;
 use PicoFeed\Parser\XmlParser;
 

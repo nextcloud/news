@@ -3,7 +3,6 @@ namespace PicoFeed\Parser;
 
 use PHPUnit_Framework_TestCase;
 
-
 class AtomParserTest extends PHPUnit_Framework_TestCase
 {
     /**
@@ -65,6 +64,10 @@ class AtomParserTest extends PHPUnit_Framework_TestCase
         $parser = new Atom(file_get_contents('tests/fixtures/groovehq.xml'), '', 'http://groovehq.com/');
         $feed = $parser->execute();
         $this->assertEquals('http://groovehq.com/articles.xml', $feed->getFeedUrl());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/hamakor.xml'), '', 'http://planet.hamakor.org.il');
+        $feed = $parser->execute();
+        $this->assertEquals('http://planet.hamakor.org.il/atom.xml', $feed->getFeedUrl());
     }
 
     public function testSiteUrl()
@@ -84,6 +87,10 @@ class AtomParserTest extends PHPUnit_Framework_TestCase
         $parser = new Atom(file_get_contents('tests/fixtures/groovehq.xml'));
         $feed = $parser->execute();
         $this->assertEquals('', $feed->getSiteUrl());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/hamakor.xml'), '', 'http://planet.hamakor.org.il');
+        $feed = $parser->execute();
+        $this->assertEquals('http://planet.hamakor.org.il/', $feed->getSiteUrl());
     }
 
     public function testFeedId()
@@ -126,6 +133,10 @@ class AtomParserTest extends PHPUnit_Framework_TestCase
         $this->assertNotEmpty($feed->items);
         $this->assertEquals('fr', $feed->getLanguage());
         $this->assertEquals('fr', $feed->items[0]->getLanguage());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/hamakor.xml'), '', 'http://planet.hamakor.org.il');
+        $feed = $parser->execute();
+        $this->assertEquals('he', $feed->getLanguage());
     }
 
     public function testItemId()
@@ -138,6 +149,23 @@ class AtomParserTest extends PHPUnit_Framework_TestCase
 
     public function testItemUrl()
     {
+        $parser = new Atom(file_get_contents('tests/fixtures/hamakor.xml'), '', 'http://planet.hamakor.org.il');
+        $feed = $parser->execute();
+        $this->assertNotEmpty($feed->items);
+        $this->assertEquals('http://idkn.wordpress.com/2014/12/20/modular-sinatra/', $feed->items[0]->getUrl());
+        $this->assertEquals('http://www.guyrutenberg.com/2014/12/20/kindle-paperwhite-unable-to-open-item/', $feed->items[1]->getUrl());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atomsample.xml'));
+        $feed = $parser->execute();
+        $this->assertNotEmpty($feed->items);
+        $this->assertEquals('http://example.org/2003/12/13/atom03', $feed->items[0]->getUrl());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/bbc_urdu.xml'));
+        $feed = $parser->execute();
+        $this->assertNotEmpty($feed->items);
+        $this->assertEquals('http://www.bbc.co.uk/urdu/world/2014/03/140316_missing_malaysia_plane_pilot_mb.shtml', $feed->items[0]->getUrl());
+        $this->assertEquals('http://www.bbc.co.uk/urdu/pakistan/2014/03/140316_taliban_talks_pro_ibrahim_zs.shtml', $feed->items[1]->getUrl());
+
         $parser = new Atom(file_get_contents('tests/fixtures/atom.xml'));
         $feed = $parser->execute();
         $this->assertNotEmpty($feed->items);
@@ -176,6 +204,14 @@ class AtomParserTest extends PHPUnit_Framework_TestCase
         $feed = $parser->execute();
         $this->assertNotEmpty($feed->items);
         $this->assertEquals('', $feed->items[1]->getLanguage());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/hamakor.xml'), '', 'http://planet.hamakor.org.il');
+        $feed = $parser->execute();
+        $this->assertNotEmpty($feed->items);
+        $this->assertEquals('he', $feed->items[0]->getLanguage());
+        $this->assertTrue($feed->items[0]->isRTL());
+        $this->assertEquals('en-US', $feed->items[1]->getLanguage());
+        $this->assertFalse($feed->items[1]->isRTL());
     }
 
     public function testItemAuthor()

@@ -145,7 +145,7 @@ class ReaderTest extends PHPUnit_Framework_TestCase
 
         $feed = $parser->execute();
 
-        $this->assertEquals('http://www.groovehq.com/blog/feed', $client->getUrl());
+        $this->assertEquals('https://www.groovehq.com/blog/feed', $client->getUrl());
         $this->assertEquals('http://www.groovehq.com/blog/feed', $feed->getFeedUrl());
         $this->assertNotEquals('http://www.groovehq.com/blog/feed', $feed->items[0]->getUrl());
         $this->assertTrue(strpos($feed->items[0]->getUrl(), 'http://') === 0);

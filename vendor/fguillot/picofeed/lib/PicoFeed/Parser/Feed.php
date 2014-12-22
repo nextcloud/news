@@ -96,6 +96,7 @@ class Feed
             $output .= 'Feed::'.$property.' = '.$this->$property.PHP_EOL;
         }
 
+        $output .= 'Feed::isRTL() = '.($this->isRTL() ? 'true' : 'false').PHP_EOL;
         $output .= 'Feed::items = '.count($this->items).' items'.PHP_EOL;
 
         foreach ($this->items as $item) {
@@ -203,5 +204,16 @@ class Feed
     public function getItems()
     {
         return $this->items;
+    }
+
+    /**
+     * Return true if the feed is "Right to Left"
+     *
+     * @access public
+     * @return bool
+     */
+    public function isRTL()
+    {
+        return Parser::isLanguageRTL($this->language);
     }
 }

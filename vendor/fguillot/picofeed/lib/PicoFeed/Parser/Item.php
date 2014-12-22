@@ -226,14 +226,6 @@ class Item
      */
     public function isRTL()
     {
-        $language = strtolower($this->language);
-
-        foreach ($this->rtl as $prefix) {
-            if (strpos($language, $prefix) === 0) {
-                return true;
-            }
-        }
-
-        return false;
+        return Parser::isLanguageRTL($this->language);
     }
 }

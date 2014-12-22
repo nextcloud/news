@@ -2,8 +2,6 @@
 
 namespace PicoFeed\Filter;
 
-use PicoFeed\Parser\XmlParser;
-
 /**
  * Filter class
  *
@@ -19,7 +17,7 @@ class Filter
      * @access public
      * @param  string  $html      HTML content
      * @param  string  $website   Site URL (used to build absolute URL)
-     * @return PicoFeed\Filter\Html
+     * @return Html
      */
     public static function html($html, $website)
     {
@@ -88,16 +86,7 @@ class Filter
      */
     public static function stripHeadTags($data)
     {
-        $start = strpos($data, '<head>');
-        $end = strpos($data, '</head>');
-
-        if ($start !== false && $end !== false) {
-            $before = substr($data, 0, $start);
-            $after = substr($data, $end + 7);
-            $data = $before.$after;
-        }
-
-        return $data;
+        return preg_replace('@<head[^>]*?>.*?</head>@siu','', $data );
     }
 
     /**

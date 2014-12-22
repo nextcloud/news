@@ -152,20 +152,16 @@ class Encoding
         return $cc1.$cc2;
     }
 
-    public static function convert_CP_1251($input)
-    {
-        return iconv('CP1251', 'UTF-8//TRANSLIT', $input);
-    }
-
     public static function convert($input, $encoding)
     {
-        if ($encoding === 'windows-1251') {
-            return self::convert_CP_1251($input);
+        switch ($encoding) {
+            case 'utf-8':
+                return $input;
+            case 'windows-1251':
+            case 'windows-1255':
+                return iconv($encoding, 'UTF-8//TRANSLIT', $input);
+            default:
+                return self::toUTF8($input);
         }
-        else if ($encoding === '' || $encoding !== 'utf-8') {
-            return self::toUTF8($input);
-        }
-
-        return $input;
     }
 }

@@ -3,6 +3,7 @@
 
 require_once 'vendor/autoload.php';
 
+use PicoFeed\Client\Grabber;
 use PicoFeed\Reader\Reader;
 use PicoFeed\Logging\Logger;
 use PicoFeed\PicoFeedException;
@@ -75,6 +76,19 @@ function nofilter_item($url, $item_id)
     }
 }
 
+function grabber($url)
+{
+    $grabber = new Grabber($url);
+    $grabber->download();
+    $grabber->parse();
+
+    print_r(Logger::getMessages());
+    echo "============= CONTENT ================\n";
+    echo $grabber->getContent().PHP_EOL;
+    echo "============= FILTERED ================\n";
+    echo $grabber->getFilteredContent().PHP_EOL;
+}
+
 // Parse command line arguments
 if ($argc === 4) {
     switch ($argv[1]) {
@@ -94,6 +108,9 @@ else if ($argc === 3) {
         case 'debug':
             debug_feed($argv[2]);
             die;
+        case 'grabber':
+            grabber($argv[2]);
+            die;
     }
 }
 
@@ -102,3 +119,4 @@ printf("%s feed <feed-url>\n", $argv[0]);
 printf("%s debug <feed-url>\n", $argv[0]);
 printf("%s item <feed-url> <item-id>\n", $argv[0]);
 printf("%s nofilter <feed-url> <item-id>\n", $argv[0]);
+printf("%s grabber <url>\n", $argv[0]);

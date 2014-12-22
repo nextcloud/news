@@ -55,8 +55,8 @@ namespace PicoFeed\Config;
  * @method  array      getFilterSchemeWhitelist(array $default_value)
  * @method  array      getFilterWhitelistedTags(array $default_value)
  * @method  array      getFilterBlacklistedTags(array $default_value)
- * @method  string     getFilterImageProxyUrl($default_value)
- * @method  string     getFilterImageProxyCallback($default_value)
+ * @method  string     getFilterImageProxyUrl()
+ * @method  \Closure   getFilterImageProxyCallback()
  */
 class Config
 {

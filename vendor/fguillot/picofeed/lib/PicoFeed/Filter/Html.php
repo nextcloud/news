@@ -150,7 +150,7 @@ class Html
      *
      * @access public
      * @param  resource  $parser       XML parser
-     * @param  string    $name         Tag name
+     * @param  string    $tag          Tag name
      * @param  array     $attributes   Tag attributes
      */
     public function startTag($parser, $tag, array $attributes)
@@ -178,7 +178,7 @@ class Html
      *
      * @access public
      * @param  resource  $parser    XML parser
-     * @param  string    $name      Tag name
+     * @param  string    $tag       Tag name
      */
     public function endTag($parser, $tag)
     {

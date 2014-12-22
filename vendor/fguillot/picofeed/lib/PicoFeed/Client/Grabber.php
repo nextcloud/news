@@ -3,7 +3,6 @@
 namespace PicoFeed\Client;
 
 use DOMXPath;
-
 use PicoFeed\Encoding\Encoding;
 use PicoFeed\Logging\Logger;
 use PicoFeed\Filter\Filter;
@@ -148,7 +147,7 @@ class Grabber
      *
      * @access public
      * @param  \PicoFeed\Config\Config   $config    Config instance
-     * @return \PicoFeed\Grabber
+     * @return Grabber
      */
     public function setConfig($config)
     {
@@ -179,6 +178,19 @@ class Grabber
     }
 
     /**
+     * Get filtered relevant content
+     *
+     * @access public
+     * @return string
+     */
+    public function getFilteredContent()
+    {
+        $filter = Filter::html($this->content, $this->url);
+        $filter->setConfig($this->config);
+        return $filter->execute();
+    }
+
+    /**
      * Parse the HTML content
      *
      * @access public
@@ -191,8 +203,8 @@ class Grabber
             Logger::setMessage(get_called_class().' Fix encoding');
             Logger::setMessage(get_called_class().': HTTP Encoding "'.$this->encoding.'"');
 
-            $this->html = Filter::stripHeadTags($this->html);
             $this->html = Encoding::convert($this->html, $this->encoding);
+            $this->html = Filter::stripHeadTags($this->html);
 
             Logger::setMessage(get_called_class().' Content length: '.strlen($this->html).' bytes');
             $rules = $this->getRules();
@@ -228,6 +240,7 @@ class Grabber
         $client->setConfig($this->config);
         $client->execute($this->url);
 
+        $this->url = $client->getUrl();
         $this->html = $client->getContent();
         $this->encoding = $client->getEncoding();
 

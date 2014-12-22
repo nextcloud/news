@@ -16,7 +16,7 @@ class Stream extends Client
      * Prepare HTTP headers
      *
      * @access private
-     * @return array
+     * @return string[]
      */
     private function prepareHeaders()
     {
@@ -128,11 +128,11 @@ class Stream extends Client
      * Decode body response according to the HTTP headers
      *
      * @access public
-     * @param  string    $body      Raw body
-     * @param  array     $headers   HTTP headers
+     * @param  string          $body      Raw body
+     * @param  HttpHeaders     $headers   HTTP headers
      * @return string
      */
-    public function decodeBody($body, array $headers)
+    public function decodeBody($body, HttpHeaders $headers)
     {
         if (isset($headers['Transfer-Encoding']) && $headers['Transfer-Encoding'] === 'chunked') {
             $body = $this->decodeChunked($body);

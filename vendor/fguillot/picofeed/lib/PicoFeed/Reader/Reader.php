@@ -3,12 +3,10 @@
 namespace PicoFeed\Reader;
 
 use DOMXPath;
-
 use PicoFeed\Config\Config;
 use PicoFeed\Client\Client;
 use PicoFeed\Client\Url;
 use PicoFeed\Logging\Logger;
-use PicoFeed\Filter\Filter;
 use PicoFeed\Parser\XmlParser;
 
 /**
@@ -45,7 +43,7 @@ class Reader
      * Constructor
      *
      * @access public
-     * @param  \PicoFeed\Config   $config   Config class instance
+     * @param  \PicoFeed\Config\Config   $config   Config class instance
      */
     public function __construct(Config $config = null)
     {

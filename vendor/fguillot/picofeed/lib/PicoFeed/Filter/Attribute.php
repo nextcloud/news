@@ -460,7 +460,7 @@ class Attribute
      * Check if an attribute name is an external resource
      *
      * @access public
-     * @param  string  $data  Attribute name
+     * @param  string  $attribute  Attribute name
      * @return boolean
      */
     public function isResource($attribute)
@@ -491,7 +491,7 @@ class Attribute
      * Detect if an url is blacklisted
      *
      * @access public
-     * @param  string  $resouce  Attribute value (URL)
+     * @param  string  $resource  Attribute value (URL)
      * @return boolean
      */
     public function isBlacklistedMedia($resource)
@@ -529,7 +529,7 @@ class Attribute
      *
      * @access public
      * @param  array   $values   List of tags: ['video' => ['src', 'cover'], 'img' => ['src']]
-     * @return \PicoFeed\Filter\Filter
+     * @return Attribute
      */
     public function setWhitelistedAttributes(array $values)
     {
@@ -542,7 +542,7 @@ class Attribute
      *
      * @access public
      * @param  array   $values   List of scheme: ['http://', 'ftp://']
-     * @return \PicoFeed\Filter\Filter
+     * @return Attribute
      */
     public function setSchemeWhitelist(array $values)
     {
@@ -555,7 +555,7 @@ class Attribute
      *
      * @access public
      * @param  array   $values   List of values: ['src', 'href']
-     * @return \PicoFeed\Filter\Filter
+     * @return Attribute
      */
     public function setMediaAttributes(array $values)
     {
@@ -568,7 +568,7 @@ class Attribute
      *
      * @access public
      * @param  array   $values   List of tags: ['http://google.com/', '...']
-     * @return \PicoFeed\Filter\Filter
+     * @return Attribute
      */
     public function setMediaBlacklist(array $values)
     {
@@ -581,7 +581,7 @@ class Attribute
      *
      * @access public
      * @param  array   $values   List of tags: ['img' => 'src']
-     * @return \PicoFeed\Filter\Filter
+     * @return Attribute
      */
     public function setRequiredAttributes(array $values)
     {
@@ -594,7 +594,7 @@ class Attribute
      *
      * @access public
      * @param  array   $values   List of tags: ['a' => 'target="_blank"']
-     * @return \PicoFeed\Filter\Filter
+     * @return Attribute
      */
     public function setAttributeOverrides(array $values)
     {
@@ -607,7 +607,7 @@ class Attribute
      *
      * @access public
      * @param  array   $values   List of tags: ['width', 'height']
-     * @return \PicoFeed\Filter\Filter
+     * @return Attribute
      */
     public function setIntegerAttributes(array $values)
     {
@@ -620,7 +620,7 @@ class Attribute
      *
      * @access public
      * @param  array   $values   List of tags: ['http://www.youtube.com']
-     * @return \PicoFeed\Filter\Filter
+     * @return Attribute
      */
     public function setIframeWhitelist(array $values)
     {
@@ -635,7 +635,7 @@ class Attribute
      *
      * @access public
      * @param  string    $url      Proxy URL
-     * @return \PicoFeed\Filter\Filter
+     * @return Attribute
      */
     public function setImageProxyUrl($url)
     {
@@ -648,7 +648,7 @@ class Attribute
      *
      * @access public
      * @param  \Closure     $callback
-     * @return \PicoFeed\Filter\Filter
+     * @return Attribute
      */
     public function setImageProxyCallback($callback)
     {

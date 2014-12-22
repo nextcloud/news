@@ -50,6 +50,7 @@ Feed::language = en-US
 Feed::description =
 Feed::logo =
 Feed::items = 15 items
+Feed::isRTL() = false
 ----
 Item::id = 38d8f48284fb03940cbb3aff9101089b81e44efb1281641bdd7c3e7e4bf3b0cd
 Item::title = openSUSE 13.2 : nouvelle version du caméléon disponible !

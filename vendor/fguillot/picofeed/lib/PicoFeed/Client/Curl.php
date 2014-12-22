@@ -99,7 +99,7 @@ class Curl extends Client
      * Prepare HTTP headers
      *
      * @access private
-     * @return array
+     * @return string[]
      */
     private function prepareHeaders()
     {
@@ -123,7 +123,7 @@ class Curl extends Client
      * Prepare curl proxy context
      *
      * @access private
-     * @return resource
+     * @return resource $ch
      */
     private function prepareProxyContext($ch)
     {
@@ -199,6 +199,9 @@ class Curl extends Client
             $this->handleError($curl_errno);
         }
 
+        // Update the url if there where redirects
+        $this->url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
+
         curl_close($ch);
     }
 
@@ -215,7 +218,7 @@ class Curl extends Client
 
         list($status, $headers) = $this->parseHeaders(explode("\r\n", $this->headers[$this->headers_counter - 1]));
 
-        // When resticted with open_basedir
+        // When restricted with open_basedir
         if ($this->needToHandleRedirection($follow_location, $status)) {
             return $this->handleRedirection($headers['Location']);
         }

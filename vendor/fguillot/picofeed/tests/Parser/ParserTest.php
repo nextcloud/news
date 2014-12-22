@@ -55,6 +55,14 @@ class ParserTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('da23614e02469a0d7c7bd1bdab5c9c474b1904dc', $parser->generateId('a', 'b'));
     }
 
+    public function testLangRTL()
+    {
+        $this->assertFalse(Parser::isLanguageRTL('fr-FR'));
+        $this->assertTrue(Parser::isLanguageRTL('ur'));
+        $this->assertTrue(Parser::isLanguageRTL('syr-**'));
+        $this->assertFalse(Parser::isLanguageRTL('ru'));
+    }
+
     public function testNamespaceValue()
     {
         $xml = XmlParser::getSimpleXml(file_get_contents('tests/fixtures/rue89.xml'));

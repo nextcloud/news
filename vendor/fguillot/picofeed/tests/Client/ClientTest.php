@@ -18,7 +18,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->assertNotEmpty($client->getLastModified());
     }
 
-    public function testCacheEtag()
+    public function testCacheBothHaveToMatch()
     {
         $client = Client::getInstance();
         $client->setUrl('http://php.net/robots.txt');
@@ -28,6 +28,23 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $client = Client::getInstance();
         $client->setUrl('http://php.net/robots.txt');
         $client->setEtag($etag);
+        $client->execute();
+
+        $this->assertTrue($client->isModified());
+    }
+
+    public function testCacheEtag()
+    {
+        $client = Client::getInstance();
+        $client->setUrl('http://php.net/robots.txt');
+        $client->execute();
+        $etag = $client->getEtag();
+        $lastModified = $client->getLastModified();
+
+        $client = Client::getInstance();
+        $client->setUrl('http://php.net/robots.txt');
+        $client->setEtag($etag);
+        $client->setLastModified($lastModified);
         $client->execute();
 
         $this->assertFalse($client->isModified());

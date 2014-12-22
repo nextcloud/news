@@ -90,7 +90,7 @@ class XmlParser
      * @static
      * @access public
      * @param  string   $input   XML content
-     * @return mixed
+     * @return \DOMNode
      */
     public static function getDomDocument($input)
     {
@@ -114,7 +114,7 @@ class XmlParser
      * @static
      * @access public
      * @param  string   $input   XML content
-     * @return mixed
+     * @return \DOMDocument
      */
     public static function getHtmlDocument($input)
     {
@@ -226,7 +226,7 @@ class XmlParser
      *
      * @static
      * @access public
-     * @param  SimpleXMLElement     $xml           XML element
+     * @param  \SimpleXMLElement    $xml           XML element
      * @param  array                $namespaces    XML namespaces
      * @param  string               $property      XML tag name
      * @param  string               $attribute     XML attribute name
