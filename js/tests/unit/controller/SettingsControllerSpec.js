@@ -56,7 +56,7 @@ describe('SettingsController', function () {
 
         expect(SettingsResource.set).toHaveBeenCalledWith('showAll', false);
         expect(route.reload).toHaveBeenCalled();
-        expect(route.reload.callCount).toBe(2);
+        expect(route.reload.calls.count()).toBe(2);
     }));
 
 
@@ -64,7 +64,7 @@ describe('SettingsController', function () {
     Publisher) {
         var data = 1;
         ItemResource.importArticles = jasmine.createSpy('importArticles')
-        .andCallFake(function () {
+        .and.callFake(function () {
             return {
                 success: function (callback) {
                     callback(data);
@@ -112,10 +112,10 @@ describe('SettingsController', function () {
     OPMLParser) {
         var queue = 4;
 
-        OPMLParser.parse = jasmine.createSpy('parse').andReturn(2);
+        OPMLParser.parse = jasmine.createSpy('parse').and.returnValue(2);
 
         OPMLImporter.importFolders = jasmine.createSpy('importFolders')
-        .andReturn({
+        .and.returnValue({
             then: function (callback) {
                 callback(queue, 5);
                 return {
@@ -147,7 +147,7 @@ describe('SettingsController', function () {
 
     it('should display import opml error', inject(function (
     $controller, OPMLParser) {
-        OPMLParser.parse = jasmine.createSpy('parse').andCallFake(function () {
+        OPMLParser.parse = jasmine.createSpy('parse').and.callFake(function () {
             throw 1;
         });
 

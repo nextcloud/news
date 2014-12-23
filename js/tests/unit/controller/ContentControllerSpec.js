@@ -108,8 +108,8 @@ describe('ContentController', function () {
 
         expect(ItemResource.markItemRead).toHaveBeenCalledWith(3);
         expect(FeedResource.markItemOfFeedRead).toHaveBeenCalledWith(4);
-        expect(ItemResource.markItemRead.callCount).toBe(1);
-        expect(FeedResource.markItemOfFeedRead.callCount).toBe(1);
+        expect(ItemResource.markItemRead.calls.count()).toBe(1);
+        expect(FeedResource.markItemOfFeedRead.calls.count()).toBe(1);
     }));
 
 
@@ -302,7 +302,7 @@ describe('ContentController', function () {
 
         Publisher.subscribe(ItemResource).toChannels(['items']);
         ItemResource.autoPage = jasmine.createSpy('autoPage')
-        .andCallFake(function () {
+        .and.callFake(function () {
             return {
                 success: function (callback) {
                     callback({
@@ -360,7 +360,7 @@ describe('ContentController', function () {
 
         Publisher.subscribe(ItemResource).toChannels(['items']);
         ItemResource.autoPage = jasmine.createSpy('autoPage')
-        .andCallFake(function () {
+        .and.callFake(function () {
             return {
                 success: function (callback) {
                     callback({
@@ -412,7 +412,7 @@ describe('ContentController', function () {
 
         Publisher.subscribe(ItemResource).toChannels(['items']);
         ItemResource.autoPage = jasmine.createSpy('autoPage')
-        .andCallFake(function () {
+        .and.callFake(function () {
             return {
                 success: function (callback) {
                     callback({

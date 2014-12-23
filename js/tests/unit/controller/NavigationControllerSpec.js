@@ -70,7 +70,7 @@ describe('NavigationController', function () {
         controller.markFolderRead(3);
 
         expect(FeedResource.markFolderRead).toHaveBeenCalledWith(3);
-        expect(ItemResource.markFeedRead.callCount).toBe(2);
+        expect(ItemResource.markFeedRead.calls.count()).toBe(2);
     }));
 
 
@@ -317,7 +317,7 @@ describe('NavigationController', function () {
 
     it('should create a feed with a folderId', inject(function ($controller) {
         var FeedResource = {
-            create: jasmine.createSpy('create').andCallFake(
+            create: jasmine.createSpy('create').and.callFake(
             function (url, folderId) {
                 return {
                     then: function (callback) {
@@ -378,7 +378,7 @@ describe('NavigationController', function () {
     it('should create a feed with a foldername', inject(function ($controller) {
 
         var FeedResource = {
-            create: jasmine.createSpy('create').andCallFake(
+            create: jasmine.createSpy('create').and.callFake(
             function (url, folderId) {
                 return {
                     then: function (callback) {
@@ -398,7 +398,7 @@ describe('NavigationController', function () {
         };
 
         var FolderResource = {
-            create: jasmine.createSpy('create').andCallFake(function (folder) {
+            create: jasmine.createSpy('create').and.callFake(function (folder) {
                 return {
                     then: function (callback) {
                         callback({
@@ -410,7 +410,7 @@ describe('NavigationController', function () {
                     }
                 };
             }),
-            get: jasmine.createSpy('get').andCallFake(function (name) {
+            get: jasmine.createSpy('get').and.callFake(function (name) {
                 return {
                     name: name,
                     id: 19
@@ -459,7 +459,7 @@ describe('NavigationController', function () {
 
     it('should create a folder', inject(function ($controller) {
         var FolderResource = {
-            create: jasmine.createSpy('create').andCallFake(
+            create: jasmine.createSpy('create').and.callFake(
             function (folder) {
                 return {
                     then: function (callback) {
@@ -633,7 +633,7 @@ describe('NavigationController', function () {
 
     it('should rename a folder', inject(function ($controller, FolderResource) {
         FolderResource.rename = jasmine.createSpy('rename')
-        .andCallFake(function () {
+        .and.callFake(function () {
             return {
                 then: function (success) {
                     success();
@@ -668,7 +668,7 @@ describe('NavigationController', function () {
     it('should handle rename folder error', inject(function ($controller,
     FolderResource) {
         FolderResource.rename = jasmine.createSpy('rename')
-        .andCallFake(function () {
+        .and.callFake(function () {
             return {
                 then: function (success, error) {
                     error('no');
@@ -728,7 +728,7 @@ describe('NavigationController', function () {
     $controller, FeedResource, $q, $rootScope) {
         var deferred = $q.defer();
         FeedResource.reversiblyDelete = jasmine.createSpy('reversiblyDelete')
-            .andReturn(deferred.promise);
+            .and.returnValue(deferred.promise);
         var route = {
             reload: jasmine.createSpy('reload')
         };
@@ -759,7 +759,7 @@ describe('NavigationController', function () {
     $controller, FeedResource, $q, $rootScope) {
         var deferred = $q.defer();
         FeedResource.undoDelete = jasmine.createSpy('undoDelete')
-        .andReturn(deferred.promise);
+        .and.returnValue(deferred.promise);
         var route = {
             reload: jasmine.createSpy('reload')
         };
@@ -810,10 +810,10 @@ describe('NavigationController', function () {
         var deferredFolder = $q.defer();
 
         FolderResource.reversiblyDelete = jasmine.createSpy('reversiblyDelete')
-        .andReturn(deferredFolder.promise);
+        .and.returnValue(deferredFolder.promise);
         FeedResource.reversiblyDeleteFolder =
             jasmine.createSpy('reversiblyDelete')
-            .andReturn(deferredFolder.promise);
+            .and.returnValue(deferredFolder.promise);
 
         var route = {
             reload: jasmine.createSpy('reload')
@@ -849,9 +849,9 @@ describe('NavigationController', function () {
         var deferredFeed = $q.defer();
         var deferredFolder = $q.defer();
         FolderResource.undoDelete = jasmine.createSpy('undoDelete')
-        .andReturn(deferredFolder.promise);
+        .and.returnValue(deferredFolder.promise);
         FeedResource.undoDeleteFolder = jasmine.createSpy('undoDelete')
-        .andReturn(deferredFeed.promise);
+        .and.returnValue(deferredFeed.promise);
         var route = {
             reload: jasmine.createSpy('reload')
         };
