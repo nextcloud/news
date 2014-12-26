@@ -25,7 +25,7 @@ ownCloud does not require people to install threading or multiprocessing librari
 python setup.py build
 
 %install
-python setup.py install --prefix=%{_prefix} --install-scripts=/usr/bin --root=%{buildroot}
+python setup.py install --prefix=%{_prefix} --install-scripts=/usr/bin
 mkdir -p /etc/owncloud/news
 install -D -m 0644 %{buildroot}/example-config.ini /etc/owncloud/news/updater.ini
 install -D -m 0644 %{buildroot}/systemd/owncloud-news-updater.service %{_unitdir}
