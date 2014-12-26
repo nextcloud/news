@@ -29,7 +29,7 @@ python setup.py build
 python setup.py install --prefix=%{_prefix} --install-scripts=/usr/bin --root=%{buildroot}
 mkdir -p /etc/owncloud/news
 install -D -m 0644 %{buildroot}/example-config.ini /etc/owncloud/news/updater.ini
-install -D -m 0644 %{buildroot}/systemd/owncloud-news-updater.service /etc/systemd/system/
+install -D -m 0644 %{buildroot}/systemd/owncloud-news-updater.service %{_unitdir}
 
 %pre
 %service_add_pre %{name}.service
