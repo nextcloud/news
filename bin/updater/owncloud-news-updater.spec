@@ -31,14 +31,19 @@ mkdir -p /etc/owncloud/news
 install -D -m 0644 %{buildroot}/example-config.ini /etc/owncloud/news/updater.ini
 install -D -m 0644 %{buildroot}/systemd/owncloud-news-updater.service /etc/systemd/system/
 
+%pre
+%service_add_pre %{name}.service
+
 %post
-systemctl enable owncloud-news-updater.service
-systemctl start owncloud-news-updater.service
+%service_add_post %{name}.service
 
 %preun
-systemctl disable owncloud-news-updater.service
-systemctl stop owncloud-news-updater.service
+%service_del_preun %{name}.service
 
+%postun
+%service_del_postun %{name}.service
+
+%files
 %config %attr(0644,root,root) /etc/owncloud/news/updater.ini
 
 
