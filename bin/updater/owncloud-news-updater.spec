@@ -8,6 +8,7 @@ License:        AGPL-3.0
 Group:          Productivity/Networking/Web/Utilities
 Source:         https://github.com/owncloud/news/tree/master/bin/updater
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
+BuildRequires:  pkgconfig(systemd)
 BuildRequires:  python-devel
 BuildRequires:  python-setuptools
 Requires:       python > 3.2
