@@ -9,12 +9,12 @@ Group:          Productivity/Networking/Web/Utilities
 Source:         https://github.com/owncloud/news/tree/master/bin/updater
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  pkgconfig(systemd)
-BuildRequires:  python-devel
-BuildRequires:  python-setuptools
-Requires:       python > 3.2
-Requires:       python-requests
-Requires:       python-argparse
-Requires:       python-xml
+BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
+Requires:       python3 >= 3.2
+Requires:       python3-requests
+Requires:       python3-argparse
+Requires:       python3-xml
 BuildArch:      noarch
 
 %description
