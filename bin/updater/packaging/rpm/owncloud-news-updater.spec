@@ -13,8 +13,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 Requires:       python3 >= 3.2
 Requires:       python3-requests
-Requires:       python3-argparse
-Requires:       python3-xml
 BuildArch:      noarch
 
 %description
