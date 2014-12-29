@@ -60,6 +60,7 @@ $TRANSLATIONS = array(
 "Folder exists already!" => "A pasta já existe!",
 "New Folder" => "Nova Pasta",
 "Create" => "Criar",
+"Explore" => "Explorar",
 "Deleted feed" => "Apagar feed",
 "Undo delete feed" => "Desfazer apagar a feed",
 "Rename" => "Renomear",
