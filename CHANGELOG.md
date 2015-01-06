@@ -1,3 +1,6 @@
+owncloud-news (4.3.3)
+* **Enhancement**: Set the rel="noreferrer" attribute for all links that point to external articles to enhance privacy
+
 owncloud-news (4.3.2)
 * **Bugfix**: Update picoFeed to fix an HTTP cache problem where only one match (Etag or Last-Modified) was required to mark a feed as not modified. This can cause some feeds to not update if one cache parameter is always the same
 * **Enhancement**: If a feed is added without the protocol, prepend https:// instead of http:// (e.g. adding cnn.com would result in https://cnn.com being added)
