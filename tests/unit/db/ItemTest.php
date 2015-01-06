@@ -264,7 +264,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
     public function testMakeLinksInBodyOpenNewTab() {
         $item = new Item();
         $item->setBody("<a href=\"test\">ha</a>");
-        $this->assertEquals("<a target=\"_blank\" href=\"test\">ha</a>",
+        $this->assertEquals("<a target=\"_blank\" rel=\"noreferrer\" href=\"test\">ha</a>",
             $item->getBody());
     }
 

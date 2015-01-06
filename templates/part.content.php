@@ -33,6 +33,7 @@
                         <a class="external icon-link"
                             ng-click="Content.markRead(item.id)"
                             target="_blank"
+                            rel="noreferrer"
                             ng-href="{{ ::item.url }}"
                             title="<?php p($l->t('Open website')) ?>"
                             news-stop-propagation>
@@ -105,6 +106,7 @@
                     <h1>
                         <a class="external"
                             target="_blank"
+                            rel="noreferrer"
                             ng-href="{{ ::item.url }}"
                             title="{{ ::item.title }}">
                             {{ ::item.title }}
@@ -135,7 +137,9 @@
                         </p>
                         <a class="button"
                            ng-href="{{ ::item.enclosureLink | trustUrl }}"
-                           target="_blank">
+                           target="_blank"
+                           rel="noreferrer"
+                           >
                             <?php p($l->t('Download')) ?>
                         </a>
                     </news-enclosure>

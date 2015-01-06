@@ -181,10 +181,10 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
 
         $result = $this->testEnhancer->enhance($item);
         $this->assertEquals('<div>' .
-            '<a target="_blank" ' .
+            '<a target="_blank" rel="noreferrer" ' .
                 'href="https://www.explosm.net/a/relative/url.html?a=1#b">' .
                 'link</a>' .
-            '<a target="_blank" ' .
+            '<a target="_blank" rel="noreferrer" ' .
                 'href="https://www.explosm.net/all/b/relative/url.html">' .
                 'link2</a>' .
             '<img src="https://www.explosm.net/another/relative/link.jpg">' .
@@ -230,7 +230,7 @@ class XPathArticleEnhancerTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(
             '<div>' .
             '<img src="http://www.url.com/absolute/url.png">' .
-            '<a target="_blank" href="mailto:test@testsite.com">mail</a>' .
+            '<a target="_blank" rel="noreferrer" href="mailto:test@testsite.com">mail</a>' .
             '</div>',
             $result->getBody()
         );
