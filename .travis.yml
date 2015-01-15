@@ -45,6 +45,7 @@ before_script:
     # fill owncloud with default configs and enable news
     - cd owncloud
     - mkdir apps2
+    - mkdir data
     - ocdev ci $DB
     - php -f console.php app:enable news
     - cd apps/news/js
