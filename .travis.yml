@@ -25,7 +25,7 @@ install:
     - sudo easy_install3 pip  # ubuntu 12.04 only
     - sudo pip3 install ocdev
     # clone core
-    - ocdev setup core --dir owncloud --branch stable7
+    - ocdev setup core --dir owncloud --branch master
     - mv news owncloud/apps/
 
 before_script:
