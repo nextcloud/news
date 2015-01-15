@@ -13,6 +13,7 @@ OC.L10N.register(
     "Articles without feed" : "Статті без стрічки",
     "Can not add folder: Exists already" : "Неможливо додати теку: вона вже існує",
     "Use ownCloud cron for updates" : "Використовуйте ownCloud cron для оновлень",
+    "Purge interval" : "Очистити оновлення",
     "Saved" : "Збереженно",
     "Subscribe" : "Підписатися",
     "Refresh" : "Оновити",
