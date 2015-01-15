@@ -21,6 +21,7 @@
     <repository type="git">https://github.com/owncloud/news.git</repository>
 
     <!-- dependencies -->
+    <requiremin>7.6</requiremin>
     <dependencies>
         <owncloud min-version="7.6" />
         <php min-version="5.4" />
