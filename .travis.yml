@@ -23,7 +23,7 @@ install:
     - sudo apt-get -y install nodejs python3-jinja2 python3-setuptools apache2 libapache2-mod-fastcgi firefox chromium-browser curl
     - export CHROME_BIN=/usr/bin/chromium-browser
     - sudo easy_install3 pip  # ubuntu 12.04 only
-    - sudo pip3 install -H --pre ocdev
+    - pip3 install --pre ocdev
     # clone core
     - ocdev setup core --dir owncloud --branch master
     - mv news owncloud/apps/
