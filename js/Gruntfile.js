@@ -69,19 +69,6 @@ module.exports = function (grunt) {
             }
         },
         cssmin: {
-            newsBackport: {
-                files: {'../css/news-owncloud7.min.css': [
-                    '../css/7.css',
-                    '../css/app.css',
-                    '../css/content.css',
-                    '../css/custom.css',
-                    '../css/mobile.css',
-                    '../css/shortcuts.css',
-                    '../css/navigation.css',
-                    '../css/settings.css',
-                    '../css/explore.css'
-                ]}
-            },
             news: {
                 files: {'../css/news.min.css': [
                     '../css/app.css',

@@ -11,10 +11,6 @@ script('news', [
 ]);
 
 if (defined('DEBUG') && DEBUG === true) {
-    if (version_compare(implode('.', \OCP\Util::getVersion()), '7.8', '<=')) {
-        style('news', '7');
-    }
-
     style('news', [
         'app',
         'custom',
@@ -29,12 +25,7 @@ if (defined('DEBUG') && DEBUG === true) {
     script('news', 'build/app');
 
 } else {
-    if (version_compare(implode('.', \OCP\Util::getVersion()), '7.8', '<=')) {
-        style('news', 'news-owncloud7.min');
-    } else {
-        style('news', 'news.min');
-    }
-
+    style('news', 'news.min');
     script('news', 'build/app.min');
 }
 
