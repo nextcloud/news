@@ -27,9 +27,9 @@ class NewsIntegrationTest extends \PHPUnit_Framework_TestCase {
 
         $app = new Application();
         $this->container = $app->getContainer();
-        $this->itemMapper = $this->container->query('ItemMapper');
-        $this->feedMapper = $this->container->query('FeedMapper');
-        $this->folderMapper = $this->container->query('FolderMapper');
+        $this->itemMapper = $this->container->query('OCA\News\Db\ItemMapper');
+        $this->feedMapper = $this->container->query('OCA\News\Db\FeedMapper');
+        $this->folderMapper = $this->container->query('OCA\News\Db\FolderMapper');
 
         $this->loadFixtures(
             $this->folderMapper,
