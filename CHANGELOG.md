@@ -1,4 +1,4 @@
-owncloud-news (5.0)
+owncloud-news (5.0.0)
 * **New dependency**: Bump required ownCloud version to 8
 * **Enhancement**: Set the rel="noreferrer" attribute for all links that point to external articles to enhance privacy
 
