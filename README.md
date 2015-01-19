@@ -17,7 +17,7 @@ For further developer and user documentation please visit [the wiki](https://git
 are listed on the [ownCloud apps overview](https://github.com/owncloud/core/wiki/Apps)
 
 ## Dependencies
-* ownCloud >= 7.0.3
+* ownCloud >= 8.0.0 beta1
 * PHP >= 5.4
 * libxml >= 2.7.8 (2.9 recommended)
 * php-curl
@@ -79,11 +79,8 @@ Please provide the following details so that your problem can be fixed:
 Before you install the app do the following:
 * Check that your **owncloud/data/** directory is owned by your webserver user and that it is write/readable
 * Check that your installation fullfills the [requirements listed in the README section](https://github.com/owncloud/news#dependencies)
-* [Set up ownCloud Background Jobs](http://doc.owncloud.org/server/7.0/admin_manual/configuration/background_jobs.html) to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
+* [Set up ownCloud Background Jobs](http://doc.owncloud.org/server/8.0/admin_manual/configuration/background_jobs.html) to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
 * If you are updating from a previous version read the [Update Notices](https://github.com/owncloud/news/blob/master/README.md#updating-notices)
-* If you are using ownCloud 7, disable the codechecker by adding this at the bottom of the file **owncloud/config/config.php**:
-
-	  $CONFIG["appcodechecker"] = false;
 
 Then proceed to install the app either from an archive (zip/tar.gz) or clone it from the repository using git
 
