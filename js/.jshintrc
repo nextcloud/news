@@ -44,6 +44,7 @@
         "reverse": true,
         "items": true,
         "enumerate": true,
-        "News": true
+        "News": true,
+        "t": true
     }
 }
