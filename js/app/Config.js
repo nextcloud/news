@@ -57,7 +57,9 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
                                    'Try to reload the page!'),
                     500: t('news', 'Internal server error! Please check your ' +
                                    'data/owncloud.log file for additional ' +
-                                   'information!')
+                                   'information!'),
+                    503: t('news', 'Request failed, ownCloud is in currently ' +
+                                   'in maintenance mode!'),
                 };
                 // status 0 is a network error
                 if (response.status in messages) {
