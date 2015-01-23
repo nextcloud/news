@@ -84,6 +84,23 @@
     <div class="app-navigation-entry-menu">
         <ul>
             <li>
+                <button ng-click="Navigation.setOrdering(feed, 1)"
+                        ng-show="feed.ordering == 0"
+                        class="icon-caret-dark feed-no-ordering"
+                        title="<?php p($l->t('No feed ordering')); ?>">
+                </button>
+                <button ng-click="Navigation.setOrdering(feed, 2)"
+                        ng-show="feed.ordering == 1"
+                        class="icon-caret-dark feed-reverse-ordering"
+                        title="<?php p($l->t('Reversed feed ordering')); ?>">
+                </button>
+                <button ng-click="Navigation.setOrdering(feed, 0)"
+                        ng-show="feed.ordering == 2"
+                        class="icon-caret-dark feed-normal-ordering"
+                        title="<?php p($l->t('Normal feed ordering')); ?>">
+                </button>
+            </li>
+            <li>
                 <button ng-click="feed.editing=true"
                         class="icon-rename"
                         title="<?php p($l->t('Rename feed')); ?>">

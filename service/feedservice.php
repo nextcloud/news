@@ -182,86 +182,80 @@ class FeedService extends Service {
      * @return Feed the updated feed entity
      */
     public function update($feedId, $userId){
-        try {
-            $existingFeed = $this->feedMapper->find($feedId, $userId);
+        $existingFeed = $this->find($feedId, $userId);
 
-            if($existingFeed->getPreventUpdate() === true) {
+        if($existingFeed->getPreventUpdate() === true) {
+            return $existingFeed;
+        }
+
+        // for backwards compability it can be that the location is not set
+        // yet, if so use the url
+        $location = $existingFeed->getLocation();
+        if (!$location) {
+            $location = $existingFeed->getUrl();
+        }
+
+        try {
+            list($fetchedFeed, $items) = $this->feedFetcher->fetch(
+                $location,
+                false,
+                $existingFeed->getLastModified(),
+                $existingFeed->getEtag()
+            );
+
+            // if there is no feed it means that no update took place
+            if (!$fetchedFeed) {
                 return $existingFeed;
             }
 
-            // for backwards compability it can be that the location is not set
-            // yet, if so use the url
-            $location = $existingFeed->getLocation();
-            if (!$location) {
-                $location = $existingFeed->getUrl();
+            // update number of articles on every feed update
+            $itemCount = count($items);
+
+            // this is needed to adjust to updates that add more items
+            // than when the feed was created. You can't update the count
+            // if it's lower because it may be due to the caching headers
+            // that were sent as the request and it might cause unwanted
+            // deletion and reappearing of feeds
+            if ($itemCount > $existingFeed->getArticlesPerUpdate()) {
+                $existingFeed->setArticlesPerUpdate($itemCount);
             }
 
-            try {
-                list($fetchedFeed, $items) = $this->feedFetcher->fetch(
-                    $location,
-                    false,
-                    $existingFeed->getLastModified(),
-                    $existingFeed->getEtag()
-                );
+            $existingFeed->setLastModified($fetchedFeed->getLastModified());
+            $existingFeed->setEtag($fetchedFeed->getEtag());
+            $existingFeed->setLocation($fetchedFeed->getLocation());
+            $this->feedMapper->update($existingFeed);
 
-                // if there is no feed it means that no update took place
-                if (!$fetchedFeed) {
-                    return $existingFeed;
+            // insert items in reverse order because the first one is
+            // usually the newest item
+            for($i=$itemCount-1; $i>=0; $i--){
+                $item = $items[$i];
+                $item->setFeedId($existingFeed->getId());
+
+                try {
+                    $this->itemMapper->findByGuidHash(
+                        $item->getGuidHash(), $feedId, $userId
+                    );
+                } catch(DoesNotExistException $ex){
+                    $item = $this->enhancer->enhance($item,
+                        $existingFeed->getLink());
+                    $item->setBody(
+                        $this->purifier->purify($item->getBody())
+                    );
+                    $this->itemMapper->insert($item);
                 }
-
-                // update number of articles on every feed update
-                $itemCount = count($items);
-
-                // this is needed to adjust to updates that add more items
-                // than when the feed was created. You can't update the count
-                // if it's lower because it may be due to the caching headers
-                // that were sent as the request and it might cause unwanted
-                // deletion and reappearing of feeds
-                if ($itemCount > $existingFeed->getArticlesPerUpdate()) {
-                    $existingFeed->setArticlesPerUpdate($itemCount);
-                }
-
-                $existingFeed->setLastModified($fetchedFeed->getLastModified());
-                $existingFeed->setEtag($fetchedFeed->getEtag());
-                $existingFeed->setLocation($fetchedFeed->getLocation());
-                $this->feedMapper->update($existingFeed);
-
-                // insert items in reverse order because the first one is
-                // usually the newest item
-                for($i=$itemCount-1; $i>=0; $i--){
-                    $item = $items[$i];
-                    $item->setFeedId($existingFeed->getId());
-
-                    try {
-                        $this->itemMapper->findByGuidHash(
-                            $item->getGuidHash(), $feedId, $userId
-                        );
-                    } catch(DoesNotExistException $ex){
-                        $item = $this->enhancer->enhance($item,
-                            $existingFeed->getLink());
-                        $item->setBody(
-                            $this->purifier->purify($item->getBody())
-                        );
-                        $this->itemMapper->insert($item);
-                    }
-                }
-
-            } catch(FetcherException $ex){
-                // failed updating is not really a problem, so only log it
-                $this->logger->debug(
-                    'Can not update feed with url ' . $existingFeed->getUrl() .
-                    ' and location ' . $existingFeed->getLocation() .
-                    ': ' . $ex->getMessage(),
-                    $this->loggerParams
-                );
             }
 
-            return $this->feedMapper->find($feedId, $userId);
-
-        } catch (DoesNotExistException $ex){
-            throw new ServiceNotFoundException('Feed does not exist');
+        } catch(FetcherException $ex){
+            // failed updating is not really a problem, so only log it
+            $this->logger->debug(
+                'Can not update feed with url ' . $existingFeed->getUrl() .
+                ' and location ' . $existingFeed->getLocation() .
+                ': ' . $ex->getMessage(),
+                $this->loggerParams
+            );
         }
 
+        return $this->find($feedId, $userId);
     }
 
 
@@ -418,6 +412,19 @@ class FeedService extends Service {
      */
     public function deleteUser($userId) {
         $this->feedMapper->deleteUser($userId);
+    }
+
+
+    /**
+     * Sets the feed ordering
+     * @param int $id the id of the feed
+     * @param int $ordering 0 for no ordering, 1 for reverse, 2 for normal
+     * @param string $userId the id of the user
+     */
+    public function setOrdering ($id, $ordering, $userId) {
+        $feed = $this->find($id, $userId);
+        $feed->setOrdering($ordering);
+        $this->feedMapper->update($feed);
     }
 
 

@@ -507,4 +507,31 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
     }
 
+
+    public function testOrdering() {
+        $this->feedService->expects($this->once())
+            ->method('setOrdering')
+            ->with($this->equalTo(4),
+                    $this->equalTo(2),
+                    $this->equalTo($this->user));
+
+        $this->controller->ordering(4, 2);
+    }
+
+
+    public function testOrderingDoesNotExist(){
+        $msg = 'hehe';
+
+        $this->feedService->expects($this->once())
+            ->method('setOrdering')
+            ->will($this->throwException(new ServiceNotFoundException($msg)));
+
+        $response = $this->controller->ordering(4, 2);
+        $params = json_decode($response->render(), true);
+
+        $this->assertEquals($msg, $params['message']);
+        $this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
+    }
+
+
 }

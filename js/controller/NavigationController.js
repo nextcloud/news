@@ -281,6 +281,11 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
         FolderResource.delete(folder.name);
     };
 
+    this.setOrdering = function (feed, ordering) {
+        FeedResource.setOrdering(feed.id, ordering);
+        $route.reload();
+    };
+
     var self = this;
 
     $rootScope.$on('moveFeedToFolder', function (scope, data) {

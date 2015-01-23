@@ -777,5 +777,36 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
     }
 
 
+    public function testOrdering () {
+        $feed = Feed::fromRow(['id' => 3]);
+        $this->feedMapper->expects($this->once())
+            ->method('find')
+            ->with($this->equalTo($feed->getId()),
+                   $this->equalTo($this->user))
+            ->will($this->returnValue($feed));
+
+        $feed->setOrdering(2);
+        $this->feedMapper->expects($this->once())
+            ->method('update')
+            ->with($this->equalTo($feed));
+
+        $this->feedService->setOrdering(3, 2, $this->user);
+    }
+
+
+    /**
+     * @expectedException OCA\News\Service\ServiceNotFoundException
+     */
+    public function testOrderingDoesNotExist () {
+        $feed = Feed::fromRow(['id' => 3]);
+        $this->feedMapper->expects($this->once())
+            ->method('find')
+            ->will($this->throwException(new DoesNotExistException('')));
+
+        $this->feedService->setOrdering(3, 2, $this->user);
+    }
+
+
+
 }
 

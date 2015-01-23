@@ -58,14 +58,48 @@ describe('ContentController', function () {
 
 
     it('should return order by', inject(function ($controller,
-        SettingsResource) {
+        SettingsResource, FEED_TYPE) {
+        var route = {
+            current: {
+                $$route: {
+                    type: FEED_TYPE.FOLDER
+                }
+            }
+        };
 
         var ctrl = $controller('ContentController', {
-            SettingsResource: SettingsResource,
             data: {},
+            $route: route
         });
 
         expect(ctrl.orderBy()).toBe('-id');
+
+        SettingsResource.set('oldestFirst', true);
+
+        expect(ctrl.orderBy()).toBe('id');
+    }));
+
+    it('should return order if custom ordering', inject(function ($controller,
+        SettingsResource, FeedResource, FEED_TYPE) {
+        var route = {
+            current: {
+                $$route: {
+                    type: FEED_TYPE.FEED
+                }
+            }
+        };
+        FeedResource.receive([
+            {id: 1, folderId: 3,  url: 'ye', unreadCount: 45, ordering: 1},
+        ]);
+        var ctrl = $controller('ContentController', {
+            data: {},
+            $route: route,
+            $routeParams: {
+                id: 1
+            }
+        });
+
+        expect(ctrl.orderBy()).toBe('id');
 
         SettingsResource.set('oldestFirst', true);
 

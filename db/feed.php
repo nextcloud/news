@@ -20,6 +20,8 @@ use \OCP\AppFramework\Db\Entity;
  * @method void setId(integer $value)
  * @method string getUserId()
  * @method void setUserId(string $value)
+ * @method int getOrdering()
+ * @method void setOrdering(int $value)
  * @method string getUrlHash()
  * @method void setUrlHash(string $value)
  * @method string getLocation()
@@ -66,6 +68,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
     protected $lastModified;
     protected $etag;
     protected $location;
+    protected $ordering;
 
     public function __construct(){
         $this->addType('parentId', 'integer');
@@ -75,6 +78,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
         $this->addType('preventUpdate', 'boolean');
         $this->addType('deletedAt', 'integer');
         $this->addType('articlesPerUpdate', 'integer');
+        $this->addType('ordering', 'integer');
     }
 
 
@@ -96,7 +100,8 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
             'preventUpdate',
             'deletedAt',
             'articlesPerUpdate',
-            'location'
+            'location',
+            'ordering'
         ]);
 
         $url = parse_url($this->link)['host'];

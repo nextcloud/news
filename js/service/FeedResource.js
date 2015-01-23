@@ -317,5 +317,18 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
     };
 
 
+    FeedResource.prototype.setOrdering = function (feedId, ordering) {
+        var feed = this.getById(feedId);
+
+        if (feed) {
+            feed.ordering = ordering;
+            var url = this.BASE_URL + '/feeds/' + feedId + '/ordering';
+            return this.http.post(url, {
+                ordering: ordering
+            });
+        }
+    };
+
+
     return new FeedResource($http, BASE_URL, $q);
 });

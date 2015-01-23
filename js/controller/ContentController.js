@@ -70,8 +70,24 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data,
         item.keepUnread = !item.keepUnread;
     };
 
+    var self = this;
+    var getOrdering = function () {
+        var ordering = SettingsResource.get('oldestFirst');
+
+        if (self.isFeed()) {
+            var feed = FeedResource.getById($routeParams.id);
+            if (feed && feed.ordering === 1) {
+                ordering = true;
+            } else if (feed && feed.ordering === 2) {
+                ordering = false;
+            }
+        }
+
+        return ordering;
+    };
+
     this.orderBy = function () {
-        if (SettingsResource.get('oldestFirst')) {
+        if (getOrdering()) {
             return 'id';
         } else {
             return '-id';
@@ -133,7 +149,7 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data,
 
         var type = $route.current.$$route.type;
         var id = $routeParams.id;
-        var oldestFirst = SettingsResource.get('oldestFirst');
+        var oldestFirst = getOrdering();
         var showAll = SettingsResource.get('showAll');
         var self = this;
 

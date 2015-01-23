@@ -294,4 +294,21 @@ class FeedController extends Controller {
     }
 
 
+    /**
+     * @NoAdminRequired
+     *
+     * @param int $feedId
+     * @param int $ordering
+     */
+    public function ordering ($feedId, $ordering) {
+        try {
+            $this->feedService->setOrdering($feedId, $ordering, $this->userId);
+        } catch(ServiceNotFoundException $ex) {
+            return $this->error($ex, Http::STATUS_NOT_FOUND);
+        }
+
+        return [];
+    }
+
+
 }

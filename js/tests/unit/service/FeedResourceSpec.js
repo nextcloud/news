@@ -29,7 +29,8 @@ describe('FeedResource', function () {
         FeedResource.receive([
             {id: 1, folderId: 3,  url: 'ye', unreadCount: 45},
             {id: 2, folderId: 4, location: 'test', url: 'sye', unreadCount: 25},
-            {id: 3, folderId: 3, title: 'hore', url: '1sye', unreadCount: 0}
+            {id: 3, folderId: 3, title: 'hore', url: '1sye', unreadCount: 0,
+             ordering: 0}
         ]);
     }));
 
@@ -285,6 +286,19 @@ describe('FeedResource', function () {
         expect(FeedResource.getById(1).deleted).toBe(false);
         expect(FeedResource.getById(3).deleted).toBe(false);
         expect(FeedResource.getUnreadCount()).toBe(70);
+    }));
+
+
+    it ('should set the feed ordering', inject(function (FeedResource) {
+        http.expectPOST('base/feeds/3/ordering', {
+            ordering: 2
+        }).respond(200, {});
+
+        FeedResource.setOrdering(3, 2);
+
+        http.flush();
+
+        expect(FeedResource.getById(3).ordering).toBe(2);
     }));
 
 });

@@ -1012,4 +1012,30 @@ describe('NavigationController', function () {
     }));
 
 
+    it ('should set the feed ordering',
+        inject(function ($controller, FeedResource) {
+
+        FeedResource.add({
+            id: 2,
+            url: 'http://test.com',
+            folderId: 3,
+            ordering: 0
+        });
+
+        FeedResource.setOrdering = jasmine.createSpy('ordering');
+
+        var route = {
+            reload: jasmine.createSpy('reload')
+        };
+        var ctrl = $controller('NavigationController', {
+            $route: route
+        });
+
+        ctrl.setOrdering(FeedResource.getById(2), 2);
+
+        expect(FeedResource.setOrdering).toHaveBeenCalledWith(2, 2);
+        expect(route.reload).toHaveBeenCalled();
+    }));
+
+
 });

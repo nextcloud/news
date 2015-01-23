@@ -81,8 +81,9 @@ app.config(["$routeProvider", "$provide", "$httpProvider", function ($routeProvi
     var getItemResolve = function (type) {
         return {
             // request to items also returns feeds
-            data: /* @ngInject */ ["$http", "$route", "$q", "BASE_URL", "ITEM_BATCH_SIZE", "SettingsResource", function (
-            $http, $route, $q, BASE_URL, ITEM_BATCH_SIZE, SettingsResource) {
+            data: /* @ngInject */ ["$http", "$route", "$q", "BASE_URL", "ITEM_BATCH_SIZE", "FEED_TYPE", "SettingsResource", "FeedResource", function (
+            $http, $route, $q, BASE_URL, ITEM_BATCH_SIZE, FEED_TYPE,
+            SettingsResource, FeedResource) {
 
                 var showAll = SettingsResource.get('showAll');
                 var oldestFirst = SettingsResource.get('oldestFirst');
@@ -105,6 +106,15 @@ app.config(["$routeProvider", "$provide", "$httpProvider", function ($routeProvi
                         parameters.id = $route.current.params.id;
                     }
 
+                    // check if a custom ordering is set
+                    if (type === FEED_TYPE.FEED) {
+                        var feed = FeedResource.getById(parameters.id);
+                        if (feed.ordering === 1) {
+                            parameters.oldestFirst = true;
+                        } else if (feed.ordering === 2) {
+                            parameters.oldestFirst = false;
+                        }
+                    }
 
                     $http({
                         url:  BASE_URL + '/items',
@@ -386,8 +396,24 @@ app.controller('ContentController',
         item.keepUnread = !item.keepUnread;
     };
 
+    var self = this;
+    var getOrdering = function () {
+        var ordering = SettingsResource.get('oldestFirst');
+
+        if (self.isFeed()) {
+            var feed = FeedResource.getById($routeParams.id);
+            if (feed && feed.ordering === 1) {
+                ordering = true;
+            } else if (feed && feed.ordering === 2) {
+                ordering = false;
+            }
+        }
+
+        return ordering;
+    };
+
     this.orderBy = function () {
-        if (SettingsResource.get('oldestFirst')) {
+        if (getOrdering()) {
             return 'id';
         } else {
             return '-id';
@@ -449,7 +475,7 @@ app.controller('ContentController',
 
         var type = $route.current.$$route.type;
         var id = $routeParams.id;
-        var oldestFirst = SettingsResource.get('oldestFirst');
+        var oldestFirst = getOrdering();
         var showAll = SettingsResource.get('showAll');
         var self = this;
 
@@ -783,6 +809,11 @@ app.controller('NavigationController',
     this.deleteFolder = function (folder) {
         FeedResource.deleteFolder(folder.id);
         FolderResource.delete(folder.name);
+    };
+
+    this.setOrdering = function (feed, ordering) {
+        FeedResource.setOrdering(feed.id, ordering);
+        $route.reload();
     };
 
     var self = this;
@@ -1222,6 +1253,19 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
 
         var deferred = this.$q.all(promises);
         return deferred.promise;
+    };
+
+
+    FeedResource.prototype.setOrdering = function (feedId, ordering) {
+        var feed = this.getById(feedId);
+
+        if (feed) {
+            feed.ordering = ordering;
+            var url = this.BASE_URL + '/feeds/' + feedId + '/ordering';
+            return this.http.post(url, {
+                ordering: ordering
+            });
+        }
     };
 
 

@@ -84,7 +84,8 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
         return {
             // request to items also returns feeds
             data: /* @ngInject */ function (
-            $http, $route, $q, BASE_URL, ITEM_BATCH_SIZE, SettingsResource) {
+            $http, $route, $q, BASE_URL, ITEM_BATCH_SIZE, FEED_TYPE,
+            SettingsResource, FeedResource) {
 
                 var showAll = SettingsResource.get('showAll');
                 var oldestFirst = SettingsResource.get('oldestFirst');
@@ -107,6 +108,15 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
                         parameters.id = $route.current.params.id;
                     }
 
+                    // check if a custom ordering is set
+                    if (type === FEED_TYPE.FEED) {
+                        var feed = FeedResource.getById(parameters.id);
+                        if (feed.ordering === 1) {
+                            parameters.oldestFirst = true;
+                        } else if (feed.ordering === 2) {
+                            parameters.oldestFirst = false;
+                        }
+                    }
 
                     $http({
                         url:  BASE_URL + '/items',

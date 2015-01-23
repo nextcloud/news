@@ -175,3 +175,14 @@
 #app-navigation .animate-show.ng-hide {
     opacity: 0;
 }
+
+#app-navigation .feed-no-ordering {
+    transform: rotate(270deg);
+}
+
+#app-navigation .feed-reverse-ordering {
+    transform: rotate(180deg);
+}
+
+#app-navigation .feed-normal-ordering {
+}

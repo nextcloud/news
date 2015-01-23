@@ -30,6 +30,7 @@ class FeedTest extends \PHPUnit_Framework_TestCase {
         $feed->setUnreadCount(321);
         $feed->setLink('https://www.google.com/some/weird/path');
         $feed->setLocation('http://google.at');
+        $feed->setOrdering(2);
         return $feed;
     }
 
@@ -67,7 +68,8 @@ class FeedTest extends \PHPUnit_Framework_TestCase {
             'deletedAt' => null,
             'articlesPerUpdate' => null,
             'cssClass' => 'custom-google-com',
-            'location' => 'http://google.at'
+            'location' => 'http://google.at',
+            'ordering' => 2
         ], $feed->jsonSerialize());
     }
 

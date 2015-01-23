@@ -160,6 +160,12 @@
                 <default>false</default>
                 <notnull>true</notnull>
             </field>
+            <field>
+                <name>ordering</name>
+                <type>integer</type>
+                <default>0</default>
+                <notnull>true</notnull>
+            </field>
 
             <index>
                 <name>news_feeds_user_id_index</name>

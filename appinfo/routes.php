@@ -42,6 +42,7 @@ return ['routes' => [
 ['name' => 'feed#update', 'url' => '/feeds/{feedId}/update', 'verb' => 'POST'],
 ['name' => 'feed#active', 'url' => '/feeds/active', 'verb' => 'GET'],
 ['name' => 'feed#import', 'url' => '/feeds/import/articles', 'verb' => 'POST'],
+['name' => 'feed#ordering', 'url' => '/feeds/{feedId}/ordering', 'verb' => 'POST'],
 
 // items
 ['name' => 'item#index', 'url' => '/items', 'verb' => 'GET'],
