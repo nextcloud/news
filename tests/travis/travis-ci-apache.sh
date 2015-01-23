@@ -1,5 +1,6 @@
 # set up php under apache
 if [[ $(phpenv version-name) == 'hhvm' ]]; then
+    sudo a2enmod rewrite actions fastcgi alias
     sudo cp -f owncloud/apps/news/tests/travis/travis-ci-apache-hhvm.conf /etc/apache2/sites-available/default
     sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
     sudo service apache2 restart
