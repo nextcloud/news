@@ -1976,6 +1976,17 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
         navigationArea.find('.active > a:visible').trigger('click');
     };
 
+    var tryReload = function (navigationArea, scrollArea) {
+        if (navigationArea.scrollTop() === 0) {
+            var pullToRefresh = scrollArea.find('.pull-to-refresh');
+            if (!pullToRefresh.hasClass('show-pull-to-refresh')) {
+                pullToRefresh.addClass('show-pull-to-refresh');
+            } else if (pullToRefresh.hasClass('done')) {
+                reloadFeed(navigationArea);
+            }
+        }
+    };
+
     var activateNavigationEntry = function (element, navigationArea) {
         element.children('a:visible').trigger('click');
         scrollToNavigationElement(element, navigationArea.children('ul'));
@@ -2209,7 +2220,8 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
 
     };
 
-    var scrollToPreviousItem = function (scrollArea, expandItemInCompact) {
+    var scrollToPreviousItem = function (navigationArea, scrollArea,
+                                         expandItemInCompact) {
         var items = scrollArea.find('.item');
         var jumped = false;
 
@@ -2222,6 +2234,8 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
                 // if there are no items before the current one
                 if (previous.length > 0) {
                     scrollToItem(scrollArea, previous, expandItemInCompact);
+                } else {
+                    tryReload(navigationArea, scrollArea);
                 }
 
                 jumped = true;
@@ -2258,7 +2272,8 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
             } else if ([75, 80, 37].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
-                scrollToPreviousItem(scrollArea, expandItemInCompact);
+                scrollToPreviousItem(navigationArea, scrollArea,
+                                     expandItemInCompact);
 
             // u
             } else if ([85].indexOf(keyCode) >= 0) {
@@ -2327,6 +2342,9 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
                 event.preventDefault();
                 nextFolder(navigationArea);
 
+            // page up
+            } else if ([33].indexOf(keyCode) >= 0) {
+                tryReload(navigationArea, scrollArea);
             }
 
         }
@@ -2551,6 +2569,16 @@ app.directive('newsEnclosure', function () {
             });
         }
     };
+});
+app.directive('newsFinishedTransition', function () {
+    'use strict';
+
+    return function (scope, elem, attrs) {
+        elem.on('transitionend', function () {
+            elem.addClass(attrs.newsFinishedTransition);
+        });
+    };
+
 });
 app.directive('newsFocus', ["$timeout", "$interpolate", function ($timeout, $interpolate) {
     'use strict';

@@ -1,5 +1,7 @@
 owncloud-news (5.0.1)
 * **Enhancement**: Show error messages when authentication or network related errors appear
+* **Enhancement**: Show a pull to refresh area if you are at the very top and jump to the previous article using either page up or a jump to previous article shortcut. If this area is already visible reload the page
+
 
 owncloud-news (5.0.0)
 * **New dependency**: Bump required ownCloud version to 8
