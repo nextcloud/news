@@ -15,6 +15,7 @@ OC.L10N.register(
     "Internal server error! Please check your " : "Sisäinen palvelinvirhe! Tarkista",
     "Request failed, ownCloud is in currently " : "Pyyntö epäonnistui, ownCloud on",
     "Request failed, network connection unavailable!" : "Pyyntö epäonnistui, verkkoyhteyttä ei ole käytettävissä!",
+    "Internal server error! Please check your data/owncloud.log file for additional information!" : "Sisäinen palvelinvirhe! Lisätietoja tiedostossa data/owncloud.log.",
     "Request failed, ownCloud is in currently in maintenance mode!" : "Pyyntö epäonnistui, ownCloud on parhaillaan huoltotilassa!",
     "Can not add feed: Exists already" : "Syötettä ei voi lisätä: se on jo olemassa",
     "Articles without feed" : "Vailla syötettä olevat artikkelit",
