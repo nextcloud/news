@@ -16,12 +16,14 @@ app.directive('newsArticleActions', function () {
             'article': '='
         },
         replace: true,
-        link: function (scope) {
-            scope.plugins = News.getArticleActionPlugins();
-            scope.pluginClick = function (pluginId, event, article) {
-                News.getArticleActionPluginById(pluginId)
-                    .onClick(event, article);
-            };
+        link: function (scope, elem) {
+            var plugins = News.getArticleActionPlugins();
+            scope.plugins = [];
+
+            for (var i=0; i<plugins.length; i+=1) {
+                var plugin = new plugins[i](elem, scope.article);
+                scope.plugins.push(plugin);
+            }
         }
     };
 });

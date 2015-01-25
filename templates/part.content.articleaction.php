@@ -1,8 +1,6 @@
-<ul class="article-action-plugins">
-    <li ng-repeat="plugin in ::plugins" class="util"
-        id="article-plugin-{{ plugin.id }}"
-        ng-click="pluginClick(plugin.id, $event, article)"
-        news-stop-propagation>
+<ul class="article-action-plugins" news-stop-propagation>
+    <li ng-repeat="plugin in ::plugins"
+        class="util article-plugin-{{ plugin.id }}">
         <button title="{{ plugin.title }}"></button>
     </li>
 </ul>
