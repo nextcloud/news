@@ -1,3 +1,6 @@
+owncloud-news (5.0.2)
+* **Enhancement**: Expose feed ordering parameter in API
+
 owncloud-news (5.0.1)
 * **Enhancement**: Show error messages when authentication or network related errors appear
 * **Enhancement**: Show a pull to refresh area if you are at the very top and jump to the previous article using either page up or a jump to previous article shortcut. If this area is already visible reload the page
