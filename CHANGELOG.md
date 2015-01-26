@@ -1,5 +1,6 @@
 owncloud-news (5.1.0)
 * **Backwards incompatible change**: Break client side plugin API to combat limitations that make it hard to impossible to get the DOM element
+* **New dependency**: Bump required ownCloud version to 8 beta 2
 * **Enhancement**: Expose feed ordering parameter in API
 
 owncloud-news (5.0.1)
