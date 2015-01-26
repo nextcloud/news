@@ -2021,7 +2021,7 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
     };
 
     var tryReload = function (navigationArea, scrollArea) {
-        if (navigationArea.scrollTop() === 0) {
+        if (scrollArea.scrollTop() === 0) {
             var pullToRefresh = scrollArea.find('.pull-to-refresh');
             if (!pullToRefresh.hasClass('show-pull-to-refresh')) {
                 pullToRefresh.addClass('show-pull-to-refresh');
