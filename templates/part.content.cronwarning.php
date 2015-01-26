@@ -6,7 +6,7 @@
         )); ?>
             <ul>
                 <li>
-                    <a href="http://doc.owncloud.org/server/7.0/admin_manual/configuration/background_jobs.html#cron"
+                    <a href="http://doc.owncloud.org/server/8.0/admin_manual/configuration/background_jobs_configuration.html#cron"
                        target="_blank">
                     <?php
                         p($l->t('How to set up the operating system cron'));
