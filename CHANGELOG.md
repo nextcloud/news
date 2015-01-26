@@ -1,3 +1,6 @@
+owncloud-news (5.1.1)
+* **Bugfix**: Use the correct scrolltop position for pull to refresh to not reload the feed when jumping back to an article using keyboard shortcuts
+
 owncloud-news (5.1.0)
 * **Backwards incompatible change**: Break client side plugin API to combat limitations that make it hard to impossible to get the DOM element
 * **New dependency**: Bump required ownCloud version to 8 beta 2
