@@ -79,7 +79,7 @@ Please provide the following details so that your problem can be fixed:
 Before you install the app do the following:
 * Check that your **owncloud/data/** directory is owned by your webserver user and that it is write/readable
 * Check that your installation fullfills the [requirements listed in the README section](https://github.com/owncloud/news#dependencies)
-* [Set up ownCloud Background Jobs](http://doc.owncloud.org/server/8.0/admin_manual/configuration/background_jobs.html) to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
+* [Set up ownCloud Background Jobs](http://doc.owncloud.org/server/8.0/admin_manual/configuration/background_jobs_configuration.html) to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
 * If you are updating from a previous version read the [Update Notices](https://github.com/owncloud/news/blob/master/README.md#updating-notices)
 
 Then proceed to install the app either from an archive (zip/tar.gz) or clone it from the repository using git
