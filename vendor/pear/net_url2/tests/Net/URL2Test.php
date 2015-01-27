@@ -839,6 +839,9 @@ class Net_URL2Test extends PHPUnit_Framework_TestCase
 
             // Bug #20161: URLs with "0" as host fail to normalize with empty path
             array('http://0/', 'http://0'),
+
+            // Bug #20473: Normalize query and fragment broken
+            array('foo:///?%66%6f%6f#%62%61%72', 'foo:///?foo#bar'),
         );
     }
 

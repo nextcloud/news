@@ -1,71 +1,5 @@
 [
     {
-        "name": "pear/net_url2",
-        "version": "v2.1.0",
-        "version_normalized": "2.1.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/pear/Net_URL2.git",
-            "reference": "a124592fbc24d6f20a3138f39458a6002d1f1443"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/pear/Net_URL2/zipball/a124592fbc24d6f20a3138f39458a6002d1f1443",
-            "reference": "a124592fbc24d6f20a3138f39458a6002d1f1443",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.1.4"
-        },
-        "require-dev": {
-            "phpunit/phpunit": ">=3.3.0"
-        },
-        "time": "2014-10-21 18:17:20",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.0.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Net": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "include-path": [
-            "./"
-        ],
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "authors": [
-            {
-                "name": "David Coallier",
-                "email": "davidc@php.net"
-            },
-            {
-                "name": "Tom Klingenberg",
-                "email": "tkli@php.net"
-            },
-            {
-                "name": "Christian Schmidt",
-                "email": "chmidt@php.net"
-            }
-        ],
-        "description": "Class for parsing and handling URL. Provides parsing of URLs into their constituent parts (scheme, host, path etc.), URL generation, and resolving of relative URLs.",
-        "homepage": "https://github.com/pear/Net_URL2",
-        "keywords": [
-            "PEAR",
-            "net",
-            "networking",
-            "rfc3986",
-            "uri",
-            "url"
-        ]
-    },
-    {
         "name": "ezyang/htmlpurifier",
         "version": "v4.6.0",
         "version_normalized": "4.6.0.0",
@@ -119,20 +53,20 @@
         "source": {
             "type": "git",
             "url": "https://github.com/fguillot/picoFeed.git",
-            "reference": "11589851f91cc3f04c84ba873484486d1457e638"
+            "reference": "0a1d0d3950f7f047dc8fb1d80aa6296e15f306d0"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/11589851f91cc3f04c84ba873484486d1457e638",
-            "reference": "11589851f91cc3f04c84ba873484486d1457e638",
+            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/0a1d0d3950f7f047dc8fb1d80aa6296e15f306d0",
+            "reference": "0a1d0d3950f7f047dc8fb1d80aa6296e15f306d0",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.0"
         },
-        "time": "2014-12-22 03:23:04",
+        "time": "2015-01-27 01:56:40",
         "type": "library",
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-0": {
                 "PicoFeed": "lib/"
@@ -150,5 +84,71 @@
         ],
         "description": "Modern library to write or read feeds (RSS/Atom)",
         "homepage": "http://fguillot.github.io/picoFeed"
+    },
+    {
+        "name": "pear/net_url2",
+        "version": "v2.1.1",
+        "version_normalized": "2.1.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/pear/Net_URL2.git",
+            "reference": "cfd234e8484400a122cec44a9d801e71186915ac"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/pear/Net_URL2/zipball/cfd234e8484400a122cec44a9d801e71186915ac",
+            "reference": "cfd234e8484400a122cec44a9d801e71186915ac",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.1.4"
+        },
+        "require-dev": {
+            "phpunit/phpunit": ">=3.3.0"
+        },
+        "time": "2014-12-27 14:00:16",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Net": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "include-path": [
+            "./"
+        ],
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "David Coallier",
+                "email": "davidc@php.net"
+            },
+            {
+                "name": "Tom Klingenberg",
+                "email": "tkli@php.net"
+            },
+            {
+                "name": "Christian Schmidt",
+                "email": "chmidt@php.net"
+            }
+        ],
+        "description": "Class for parsing and handling URL. Provides parsing of URLs into their constituent parts (scheme, host, path etc.), URL generation, and resolving of relative URLs.",
+        "homepage": "https://github.com/pear/Net_URL2",
+        "keywords": [
+            "PEAR",
+            "net",
+            "networking",
+            "rfc3986",
+            "uri",
+            "url"
+        ]
     }
 ]

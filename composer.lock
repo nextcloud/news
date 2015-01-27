@@ -57,12 +57,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fguillot/picoFeed.git",
-                "reference": "11589851f91cc3f04c84ba873484486d1457e638"
+                "reference": "0a1d0d3950f7f047dc8fb1d80aa6296e15f306d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/11589851f91cc3f04c84ba873484486d1457e638",
-                "reference": "11589851f91cc3f04c84ba873484486d1457e638",
+                "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/0a1d0d3950f7f047dc8fb1d80aa6296e15f306d0",
+                "reference": "0a1d0d3950f7f047dc8fb1d80aa6296e15f306d0",
                 "shasum": ""
             },
             "require": {
@@ -86,20 +86,20 @@
             ],
             "description": "Modern library to write or read feeds (RSS/Atom)",
             "homepage": "http://fguillot.github.io/picoFeed",
-            "time": "2014-12-22 03:23:04"
+            "time": "2015-01-27 01:56:40"
         },
         {
             "name": "pear/net_url2",
-            "version": "v2.1.0",
+            "version": "v2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pear/Net_URL2.git",
-                "reference": "a124592fbc24d6f20a3138f39458a6002d1f1443"
+                "reference": "cfd234e8484400a122cec44a9d801e71186915ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pear/Net_URL2/zipball/a124592fbc24d6f20a3138f39458a6002d1f1443",
-                "reference": "a124592fbc24d6f20a3138f39458a6002d1f1443",
+                "url": "https://api.github.com/repos/pear/Net_URL2/zipball/cfd234e8484400a122cec44a9d801e71186915ac",
+                "reference": "cfd234e8484400a122cec44a9d801e71186915ac",
                 "shasum": ""
             },
             "require": {
@@ -150,7 +150,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2014-10-21 18:17:20"
+            "time": "2014-12-27 14:00:16"
         }
     ],
     "packages-dev": [],

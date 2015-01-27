@@ -32,10 +32,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <active>no</active>
   </lead>
 
-  <date>2014-10-21</date>
-  <time>18:09:00</time>
+  <date>2014-12-27</date>
+  <time>14:00:00</time>
   <version>
-    <release>2.1.0</release>
+    <release>2.1.1</release>
     <api>2.1.0</api>
   </version>
   <stability>
@@ -44,7 +44,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
   </stability>
   <license uri="https://spdx.org/licenses/BSD-3-Clause">BSD-3-Clause</license>
   <notes>
-    * New: OPTION_DROP_SEQUENCE
+    * Fixed #20473: Normalize query and fragment broken
   </notes>
 
   <contents>
@@ -83,6 +83,22 @@ http://pear.php.net/dtd/package-2.0.xsd">
   </dependencies>
   <phprelease />
   <changelog>
+    <release>
+      <date>2014-12-27</date>
+      <time>14:00:00</time>
+      <version>
+        <release>2.1.1</release>
+        <api>2.1.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <license uri="https://spdx.org/licenses/BSD-3-Clause">BSD-3-Clause</license>
+      <notes>
+        * Fixed #20473: Normalize query and fragment broken
+      </notes>
+    </release>
     <release>
       <date>2014-10-21</date>
       <time>18:09:00</time>

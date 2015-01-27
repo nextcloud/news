@@ -801,7 +801,8 @@ class Net_URL2
 
         // Normalize case of %XX percentage-encodings (RFC 3986, section 6.2.2.1)
         // Normalize percentage-encoded unreserved characters (section 6.2.2.2)
-        $fields = array(&$this->_userinfo, &$this->_host, &$this->_path);
+        $fields = array(&$this->_userinfo, &$this->_host, &$this->_path,
+                        &$this->_query, &$this->_fragment);
         foreach ($fields as &$field) {
             if ($field !== false) {
                 $field = $this->_normalize("$field");
