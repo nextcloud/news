@@ -1,5 +1,75 @@
 # es6-shim x.x.x (not yet released)
 
+# es6-shim 0.23.0 (26 Jan 2015)
+* Use Symbol.species when available, else fall back to "@@species" (renamed from "@@create")
+* Fix `npm run test-native`
+* Correct broken Math implementations: `log1p`, `exmp1`, `tanh`, `acosh`, `cosh`, `sinh`, `round` (#314)
+* Update `jscs`, `grunt-saucelabs`, `jshint`
+
+# es6-shim 0.22.2 (4 Jan 2015)
+* Faster travis-ci builds
+* Better ES3 support: quoting/avoiding reserved words
+* Update `mocha`, `jscs`, `jshint`, `grunt-saucelabs`, `uglify-js`
+
+# es6-shim 0.22.1 (13 Dec 2014)
+* Make RegExp#flags generic, per spec (#310)
+
+# es6-shim 0.22.0 (12 Dec 2014)
+* Add RegExp#flags
+* Make `new RegExp` work with both a regex and a flags string
+* Remove non-spec `Object.{getPropertyNames,getPropertyDescriptor}`
+
+# es6-shim 0.21.1 (4 Dec 2014)
+* Promise/Promise.prototype methods, and String#{startsWith,endsWith} are now not enumerable
+* Array#{keys, values, entries} should all be @@unscopeable in browsers that support that
+* Ensure that tampering with Function#{call,apply} won’t break internal methods
+* Add Math.clz32, RegExp tests
+* Update es6-sham UMD
+* Update `chai`, `es5-shim`, `grunt-saucelabs`, `jscs`
+
+# es6-shim 0.21.0 (21 Nov 2014)
+* String#contains → String#includes per 2014-11-19 TC39 meeting
+* Use an invalid identifier as the es6-shim iterator key, so it doesn’t show up in the console as easily.
+
+# es6-shim 0.20.4 (20 Nov 2014)
+* Performance improvements: avoid slicing arguments, avoid `Function#call` when possible
+* Name `String.{fromCodePoint,raw}` for debugging
+* Fix `String.raw` to match spec
+* Ensure Chrome’s excess Promise methods are purged
+* Ensure `Set#keys === Set#values`, per spec
+
+# es6-shim 0.20.3 (19 Nov 2014)
+* Fix Set#add and Map#set to always return "this" (#302)
+* Clarify TypeError messages thrown by Map/Set
+* Fix Chrome 38 bug with Array#values
+
+# es6-shim 0.20.2 (28 Oct 2014)
+* Fix AMD (#299)
+
+# es6-shim 0.20.1 (27 Oct 2014)
+* Set#delete and Map#delete should return false unless a deletion occurred. (#298)
+
+# es6-shim 0.20.0 (26 Oct 2014)
+* Use a more reliable UMD
+* export the global object rather than undefined
+
+# es6-shim 0.19.2 (25 Oct 2014)
+* Set#delete and Map#delete should return a boolean indicating success. (#298)
+* Make style consistent; add jscs
+
+# es6-shim 0.19.1 (14 Oct 2014)
+* Fix Map#set and Set#add to be chainable (#295)
+* Update mocha
+
+# es6-shim 0.19.0 (9 Oct 2014)
+* Detect and override noncompliant Map in Firefox 32 (#294)
+* Fix Map and Set for engines that don’t preserve numeric key order (#292, #290)
+* Detect and override noncompliant Safari 7.1 Promises (#289)
+* Fix Array#keys and Array#entries in Safari 7.1
+* General style and whitespace cleanup
+* Update dependencies
+* Clean up tests for ES3 by removing reserved words
+
 # es6-shim 0.18.0 (6 Sep 2014)
 * Speed up String#trim replacement (#284)
 * named Array#find and Array#findIndex for easier debugging
@@ -30,9 +100,9 @@
 
 # es6-shim 0.14.0 (20 Jul 2014)
 * Properly recognize Symbol.iterator when it is present (#277)
-* Fix Math.clz's improper handling of values that coerce to NaN (#269)
+* Fix Math.clz’s improper handling of values that coerce to NaN (#269)
 * Fix incorrect handling of negative end index on Array#fill (#270)
-* Removed Object.getOwnPropertyKeys, which shouldn't be anywhere (#267)
+* Removed Object.getOwnPropertyKeys, which shouldn’t be anywhere (#267)
 * Fixed arity of Map and Set constructors, per 2014.04.27 draft spec (rev 24)
 * Added a full additional suite of ES6 promise tests (thanks to @smikes!) (#265)
 * Make Number.isInteger a bit more efficient (#266)
@@ -65,7 +135,7 @@
 # es6-shim 0.10.1 (13 Mar 2014)
 * Update bower.json, component.json, and .npmignore (#229, #230, #233)
 * Minor updates to `Promise` implementation and test suite.
-* Workaround lack of 'strict mode' in IE9. (#232)
+* Workaround lack of "strict mode" in IE9. (#232)
 
 # es6-shim 0.10.0 (1 March 2014)
 * Implement `Promise`, per spec. (#209, #215, #224, #225)

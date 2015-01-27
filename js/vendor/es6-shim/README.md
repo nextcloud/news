@@ -36,7 +36,11 @@ details.
     * `repeat()` ([a standalone shim is also available](http://mths.be/repeat))
     * `startsWith()` ([a standalone shim is also available](http://mths.be/startswith))
     * `endsWith()` ([a standalone shim is also available](http://mths.be/endswith))
-    * `contains()` ([a standalone shim is also available](http://mths.be/contains))
+    * `includes()` ([a standalone shim is also available](http://mths.be/includes))
+* `RegExp`:
+    * `new RegExp`, when given a RegExp as the pattern, will no longer throw when given a "flags" string argument. (requires ES5)
+* `RegExp.prototype`:
+    * `flags` (requires ES5) ([a standalone shim is also available](https://github.com/es-shims/RegExp.prototype.flags))
 * `Number`:
     * `MAX_SAFE_INTEGER`
     * `MIN_SAFE_INTEGER`
@@ -59,10 +63,7 @@ details.
     * `entries()`
     * `values()`
 * `Object`:
-    * `getPropertyDescriptor()` (ES5)
-    * `getPropertyNames()` (ES5)
-    * `getPropertyKeys()` (ES5)
-    * `keys()` (ES5, but no longer throws on non-object non-null/undefined values in ES6)
+    * `keys()` (in ES5, but no longer throws on non-object non-null/undefined values in ES6)
     * `is()` ([a standalone shim is also available](https://github.com/ljharb/object-is))
     * `assign()` ([a standalone shim is also available](https://github.com/ljharb/object.assign))
     * `setPrototypeOf()` (IE >= 11)
@@ -126,7 +127,7 @@ WeakMap has a very unusual use-case so you probably won't need it at all
 ```javascript
 'abc'.startsWith('a') // true
 'abc'.endsWith('a') // false
-'john alice'.contains('john') // true
+'john alice'.includes('john') // true
 '123'.repeat(2)     // '123123'
 
 Object.is(NaN, NaN) // Fixes ===. 0 isnt -0, NaN is NaN
@@ -140,8 +141,8 @@ Number.isInteger(2.4) // false.
 
 Math.sign(400) // 1, 0 or -1 depending on sign. In this case 1.
 
-[5, 10, 15, 10].find(function(item) {return item / 2 === 5;}) // 10
-[5, 10, 15, 10].findIndex(function(item) {return item / 2 === 5;}) // 1
+[5, 10, 15, 10].find(function (item) {return item / 2 === 5;}) // 10
+[5, 10, 15, 10].findIndex(function (item) {return item / 2 === 5;}) // 1
 
 // Replacement for `{}` key-value storage.
 // Keys can be anything.
@@ -166,19 +167,14 @@ set.delete(5)
 // Promises, see
 // http://www.slideshare.net/domenicdenicola/callbacks-promises-and-coroutines-oh-my-the-evolution-of-asynchronicity-in-javascript
 // https://github.com/petkaantonov/bluebird/#what-are-promises-and-why-should-i-use-them
-Promise.resolve(5).then(function(value) {
+Promise.resolve(5).then(function (value) {
   if ( ... ) throw new Error("whoops!");
   // do some stuff
   return anotherPromise();
-}).catch(function(e) {
+}).catch(function (e) {
   // any errors thrown asynchronously end up here
 });
 ```
-
-Note that the ES6 `Promise` specification includes very few methods.
-For a more useful set of utility methods
-(`map`/`reduce`/`bind`/`guard`/etc), you might want to look into the
-[`prfun`](https://github.com/cscott/prfun) package.
 
 Other stuff:
 
