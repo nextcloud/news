@@ -13,8 +13,10 @@
 
 namespace OCA\News\Config;
 
+use PHPUnit_Framework_TestCase;
 
-class ConfigTest extends \PHPUnit_Framework_TestCase {
+
+class ConfigTest extends PHPUnit_Framework_TestCase {
 
     private $fileSystem;
     private $config;
@@ -23,14 +25,10 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 
     public function setUp() {
         $this->logger = $this->getMockBuilder(
-            '\OCP\ILogger')
+            'OCP\ILogger')
             ->disableOriginalConstructor()
             ->getMock();
-        $this->fileSystem = $this->getMock('FileSystem', [
-            'file_get_contents',
-            'file_put_contents',
-            'file_exists'
-        ]);
+        $this->fileSystem = $this->getMockBuilder('OCP\Files\Folder')->getMock();
         $this->loggerParams = ['hi'];
         $this->config = new Config(
             $this->fileSystem, $this->logger, $this->loggerParams
@@ -56,12 +54,17 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 
 
     public function testRead () {
+        $file = $this->getMockBuilder('OCP\Files\File')->getMock();
         $this->fileSystem->expects($this->once())
-            ->method('file_get_contents')
+            ->method('get')
             ->with($this->equalTo($this->configPath))
+            ->will($this->returnValue($file));
+        $file->expects($this->once())
+            ->method('getContent')
             ->will($this->returnValue(
-                'autoPurgeCount = 3' . "\n" . 'useCronUpdates = true')
-            );
+                'autoPurgeCount = 3' . "\n" . 'useCronUpdates = true'
+            ));
+
 
         $this->config->read($this->configPath);
 
@@ -71,9 +74,13 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 
 
     public function testReadIgnoresVeryLowPurgeInterval () {
+        $file = $this->getMockBuilder('OCP\Files\File')->getMock();
         $this->fileSystem->expects($this->once())
-            ->method('file_get_contents')
+            ->method('get')
             ->with($this->equalTo($this->configPath))
+            ->will($this->returnValue($file));
+        $file->expects($this->once())
+            ->method('getContent')
             ->will($this->returnValue('autoPurgeMinimumInterval = 59'));
 
         $this->config->read($this->configPath);
@@ -84,9 +91,13 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 
 
     public function testReadBool () {
+        $file = $this->getMockBuilder('OCP\Files\File')->getMock();
         $this->fileSystem->expects($this->once())
-            ->method('file_get_contents')
+            ->method('get')
             ->with($this->equalTo($this->configPath))
+            ->will($this->returnValue($file));
+        $file->expects($this->once())
+            ->method('getContent')
             ->will($this->returnValue(
                 'autoPurgeCount = 3' . "\n" . 'useCronUpdates = false')
             );
@@ -99,9 +110,13 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 
 
     public function testReadLogsInvalidValue() {
+        $file = $this->getMockBuilder('OCP\Files\File')->getMock();
         $this->fileSystem->expects($this->once())
-            ->method('file_get_contents')
+            ->method('get')
             ->with($this->equalTo($this->configPath))
+            ->will($this->returnValue($file));
+        $file->expects($this->once())
+            ->method('getContent')
             ->will($this->returnValue('autoPurgeCounts = 3'));
         $this->logger->expects($this->once())
             ->method('warning')
@@ -114,9 +129,13 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 
 
     public function testReadLogsInvalidINI() {
+        $file = $this->getMockBuilder('OCP\Files\File')->getMock();
         $this->fileSystem->expects($this->once())
-            ->method('file_get_contents')
+            ->method('get')
             ->with($this->equalTo($this->configPath))
+            ->will($this->returnValue($file));
+        $file->expects($this->once())
+            ->method('getContent')
             ->will($this->returnValue(''));
         $this->logger->expects($this->once())
             ->method('warning')
@@ -143,10 +162,14 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
         $this->config->setMaxSize(399);
         $this->config->setExploreUrl('http://google.de');
 
+        $file = $this->getMockBuilder('OCP\Files\File')->getMock();
         $this->fileSystem->expects($this->once())
-            ->method('file_put_contents')
-            ->with($this->equalTo($this->configPath),
-                $this->equalTo($json));
+            ->method('get')
+            ->with($this->equalTo($this->configPath))
+            ->will($this->returnValue($file));
+        $file->expects($this->once())
+            ->method('putContent')
+            ->with($this->equalTo($json));
 
         $this->config->write($this->configPath);
     }
@@ -159,7 +182,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 
     public function testReadingNonExistentConfigWillWriteDefaults() {
         $this->fileSystem->expects($this->once())
-            ->method('file_exists')
+            ->method('nodeExists')
             ->with($this->equalTo($this->configPath))
             ->will($this->returnValue(false));
 
@@ -174,9 +197,16 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
             'useCronUpdates = false';
 
         $this->fileSystem->expects($this->once())
-            ->method('file_put_contents')
-            ->with($this->equalTo($this->configPath),
-                $this->equalTo($json));
+            ->method('newFile')
+            ->with($this->equalTo($this->configPath));
+        $file = $this->getMockBuilder('OCP\Files\File')->getMock();
+        $this->fileSystem->expects($this->once())
+            ->method('get')
+            ->with($this->equalTo($this->configPath))
+            ->will($this->returnValue($file));
+        $file->expects($this->once())
+            ->method('putContent')
+            ->with($this->equalTo($json));
 
         $this->config->read($this->configPath, true);
     }

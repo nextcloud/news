@@ -18,27 +18,26 @@ require_once __DIR__ . '/autoload.php';
 use HTMLPurifier;
 use HTMLPurifier_Config;
 
-use \PicoFeed\Config\Config as PicoFeedConfig;
-use \PicoFeed\Reader\Reader as PicoFeedReader;
+use PicoFeed\Config\Config as PicoFeedConfig;
+use PicoFeed\Reader\Reader as PicoFeedReader;
 
-use \OC\Files\View;
-use \OCP\AppFramework\App;
+use OCP\AppFramework\App;
 
-use \OCA\News\Config\AppConfig;
-use \OCA\News\Config\Config;
+use OCA\News\Config\AppConfig;
+use OCA\News\Config\Config;
 
-use \OCA\News\Service\FeedService;
+use OCA\News\Service\FeedService;
 
-use \OCA\News\Db\MapperFactory;
+use OCA\News\Db\MapperFactory;
 
-use \OCA\News\Fetcher\Fetcher;
-use \OCA\News\Fetcher\FeedFetcher;
+use OCA\News\Fetcher\Fetcher;
+use OCA\News\Fetcher\FeedFetcher;
 
-use \OCA\News\ArticleEnhancer\Enhancer;
-use \OCA\News\ArticleEnhancer\XPathArticleEnhancer;
-use \OCA\News\ArticleEnhancer\RegexArticleEnhancer;
+use OCA\News\ArticleEnhancer\Enhancer;
+use OCA\News\ArticleEnhancer\XPathArticleEnhancer;
+use OCA\News\ArticleEnhancer\RegexArticleEnhancer;
 
-use \OCA\News\Explore\RecommendedSites;
+use OCA\News\Explore\RecommendedSites;
 
 
 class Application extends App {
@@ -80,25 +79,23 @@ class Application extends App {
         });
 
         $container->registerService('DatabaseType', function($c) {
-            return $c->query('OCP\\IConfig')->getSystemValue('dbtype');
+            return $c->query('OCP\IConfig')->getSystemValue('dbtype');
         });
 
 
         /**
          * Utility
          */
-        $container->registerService('ConfigView', function() {
-            $view = new View('/news/config');
-            if (!$view->file_exists('')) {
-                $view->mkdir('');
+        $container->registerService('ConfigView', function($c) {
+            $fs = $c->query('OCP\Files\IRootFolder');
+            $path = '/news/config';
+            if ($fs->nodeExists($path)) {
+                return $fs->get($path);
+            } else {
+                return $fs->newFolder($path);
             }
-
-            return $view;
         });
 
-        $container->registerService('ConfigPath', function() {
-            return 'config.ini';
-        });
 
         $container->registerService('OCA\News\Config\Config', function($c) {
             $config = new Config(
@@ -106,7 +103,7 @@ class Application extends App {
                 $c->query('OCP\ILogger'),
                 $c->query('LoggerParameters')
             );
-            $config->read($c->query('ConfigPath'), true);
+            $config->read('config.ini', true);
             return $config;
         });
 

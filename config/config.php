@@ -13,7 +13,8 @@
 
 namespace OCA\News\Config;
 
-use \OCP\ILogger;
+use OCP\ILogger;
+use OCP\Files\Folder;
 
 
 class Config {
@@ -33,7 +34,8 @@ class Config {
     private $exploreUrl;
 
 
-    public function __construct($fileSystem, ILogger $logger,
+    public function __construct(Folder $fileSystem,
+                                ILogger $logger,
                                 $LoggerParameters) {
         $this->fileSystem = $fileSystem;
         $this->autoPurgeMinimumInterval = 60;
@@ -170,13 +172,13 @@ class Config {
 
 
     public function read($configPath, $createIfNotExists=false) {
-        if($createIfNotExists && !$this->fileSystem->file_exists($configPath)) {
-
+        if($createIfNotExists && !$this->fileSystem->nodeExists($configPath)) {
+            $this->fileSystem->newFile($configPath);
             $this->write($configPath);
 
         } else {
 
-            $content = $this->fileSystem->file_get_contents($configPath);
+            $content = $this->fileSystem->get($configPath)->getContent();
             $configValues = parse_ini_string($content);
 
             if($configValues === false || count($configValues) === 0) {
@@ -223,7 +225,7 @@ class Config {
                 var_export($this->useCronUpdates, true);
         ;
 
-        $this->fileSystem->file_put_contents($configPath, $ini);
+        $this->fileSystem->get($configPath)->putContent($ini);
     }
 
 
