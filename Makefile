@@ -12,6 +12,11 @@ all: dist
 clean:
 	rm -rf $(build_dir)
 
+update-composer:
+	rm -f composer.lock
+	git rm -r vendor
+	composer install --prefer-dist
+
 dist: clean
 	mkdir -p $(source_dir)
 	tar cvzf $(source_dir)/$(package_name).tar.gz $(project_dir) \

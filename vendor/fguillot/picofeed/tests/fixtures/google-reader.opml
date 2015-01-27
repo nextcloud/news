@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opml version="1.0">
+    <head>
+        <title>Abonnements dans Google Reader</title>
+    </head>
+    <body>
+        <outline title="Presse" text="Presse">
+            <outline text="Reflets" title="Reflets" type="rss"
+                xmlUrl="http://reflets.info/feed/" htmlUrl="http://reflets.info"/>
+        </outline>
+        <outline title="Culture" text="Culture">
+            <outline text="Omnilogismes du jour"
+                title="Omnilogismes du jour" type="rss"
+                xmlUrl="http://omnilogie.fr/flux.rss" htmlUrl="http://omnilogie.fr"/>
+            <outline text="Pourquoi Comment Combien"
+                title="Pourquoi Comment Combien" type="rss"
+                xmlUrl="http://viewtext.org/article?url=http%3A%2F%2Ffeeds.feedburner.com%2Fdrgoulu&amp;rl=false" htmlUrl="http://drgoulu.com"/>
+            <outline text="Science étonnante" title="Science étonnante"
+                type="rss"
+                xmlUrl="http://sciencetonnante.wordpress.com/feed/" htmlUrl="http://sciencetonnante.wordpress.com"/>
+            <outline text="Se Coucher Moins Bête"
+                title="Se Coucher Moins Bête" type="rss"
+                xmlUrl="http://viewtext.org/article?url=http%3A%2F%2Fwww.secouchermoinsbete.fr%2Frss%2Fanecdotes.rss.xml&amp;rl=false" htmlUrl="http://www.secouchermoinsbete.fr"/>
+        </outline>
+        <outline title="Droits du net" text="Droits du net">
+            <outline text="La Quadrature du Net"
+                title="La Quadrature du Net" type="rss"
+                xmlUrl="http://www.laquadrature.net/fr/rss.xml" htmlUrl="http://www.laquadrature.net"/>
+        </outline>
+        <outline title="Bloggers" text="Bloggers">
+            <outline text="Bluetouff" title="Bluetouff" type="rss"
+                xmlUrl="http://bluetouff.com/feed/" htmlUrl="http://bluetouff.com"/>
+            <outline text="Fredzone" title="Fredzone" type="rss"
+                xmlUrl="http://www.fredzone.org/feed/" htmlUrl="http://www.fredzone.org"/>
+            <outline text="HTeuMeuLeu" title="HTeuMeuLeu" type="rss"
+                xmlUrl="http://viewtext.org/article?url=www.hteumeuleu.fr%2Ffeed%2F&amp;rl=false" htmlUrl="http://www.hteumeuleu.fr"/>
+            <outline text="Korben" title="Korben" type="rss"
+                xmlUrl="https://korben.info/feed/atom" htmlUrl="https://korben.info/"/>
+            <outline text="Le Hollandais Volant"
+                title="Le Hollandais Volant" type="rss"
+                xmlUrl="http://lehollandaisvolant.net/rss.php?full" htmlUrl="http://lehollandaisvolant.net/"/>
+            <outline text="SebSauvage" title="SebSauvage" type="rss"
+                xmlUrl="http://sebsauvage.net/rhaa/rss_fulltext.php" htmlUrl="http://sebsauvage.net/rhaa/"/>
+        </outline>
+        <outline title="Tech" text="Tech">
+            <outline text="gHacks Technology News"
+                title="gHacks Technology News" type="rss"
+                xmlUrl="http://www.ghacks.net/feed/atom/" htmlUrl="http://www.ghacks.net/"/>
+        </outline>
+        <outline title="Officiel" text="Officiel">
+            <outline text="Gandi" title="Gandi" type="rss"
+                xmlUrl="https://www.gandi.net/feed/news/en/block/hp/" htmlUrl="http://www.gandi.net:80/news/block/en/hp"/>
+            <outline text="GitHub - Engineering"
+                title="GitHub - Engineering" type="rss"
+                xmlUrl="https://github.com/blog/engineering.atom" htmlUrl="https://github.com/blog"/>
+            <outline text="GitHub - New Features"
+                title="GitHub - New Features" type="rss"
+                xmlUrl="https://github.com/blog/ship.atom" htmlUrl="https://github.com/blog"/>
+            <outline text="jQuery" title="jQuery" type="rss"
+                xmlUrl="http://blog.jquery.com/feed/" htmlUrl="http://blog.jquery.com"/>
+        </outline>
+        <outline title="Code" text="Code">
+            <outline text="Alsacreations" title="Alsacreations"
+                type="rss"
+                xmlUrl="http://www.alsacreations.com/rss/actualites.xml" htmlUrl="http://www.alsacreations.com/"/>
+            <outline text="CodingSpot" title="CodingSpot" type="rss"
+                xmlUrl="http://codingspot.com/feed/" htmlUrl="http://codingspot.com"/>
+            <outline text="Fabien Sanglard" title="Fabien Sanglard"
+                type="rss" xmlUrl="http://fabiensanglard.net/rss.xml" htmlUrl="http://fabiensanglard.net"/>
+            <outline text="Ray Wenderlich" title="Ray Wenderlich"
+                type="rss"
+                xmlUrl="http://viewtext.org/article?url=http%3A%2F%2Ffeeds.feedburner.com%2FRayWenderlich&amp;rl=false" htmlUrl="http://www.raywenderlich.com"/>
+            <outline text="Vimeo / CocoaheadsRNS"
+                title="Vimeo / CocoaheadsRNS" type="rss"
+                xmlUrl="http://vimeo.com/cocoaheadsrns/videos/rss" htmlUrl="http://vimeo.com/cocoaheadsrns/videos"/>
+        </outline>
+    </body>
+</opml>

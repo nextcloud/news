@@ -1,0 +1,924 @@
+<?xml
+version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+>
+
+<channel xml:lang="fr">
+
+	<title>Jeuxlinux - Le site des jeux pour linux</title>
+	<link>http://www.jeuxlinux.fr/</link>
+	<description></description>
+	<language>fr</language>
+	<generator>SPIP - www.spip.net</generator>
+
+
+
+
+	<item xml:lang="fr">
+		<title>Le renouveau de LinuxConsole</title>
+		<link>http://www.jeuxlinux.fr/spip.php?breve1342</link>
+		<guid isPermaLink="true">http://www.jeuxlinux.fr/spip.php?breve1342</guid>
+		<dc:date>2013-12-30T12:16:44Z</dc:date>
+		<dc:format>text/html</dc:format>
+		<dc:language>fr</dc:language>
+
+
+		<description>LinuxConsole est une distribution qui a pour but de transformer votre PC en console de jeux tournant sur Linux (les plus perspicaces devraient avoir compris l'origine du nom maintenant). Apr&#232;s des ann&#233;es de silence, la verson 2.0 vient de sortir. Vous voulez en savoir plus ? Alors lisez la suite (...)
+
+-
+&lt;a href="http://www.jeuxlinux.fr/spip.php?rubrique8" rel="directory"&gt;Jeux natifs&lt;/a&gt;
+
+
+		</description>
+
+
+ <content:encoded>&lt;div class='rss_texte'&gt;&lt;p&gt;LinuxConsole est une distribution qui a pour but de transformer votre PC en console de jeux tournant sur Linux (les plus perspicaces devraient avoir compris l'origine du nom maintenant). Apr&#232;s des ann&#233;es de silence, la verson 2.0 vient de sortir. Vous voulez en savoir plus ? Alors lisez la suite par Yann LeDoar&#233; de LinuxConsole :
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;strong&gt;Sommaire&lt;/strong&gt;
+&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt; &lt;ul class=&quot;spip&quot;&gt;&lt;li&gt; * Pourquoi une si longue attente ?&lt;/li&gt;&lt;li&gt; * LinuxConsole 2.0 : ce qui a chang&#233;&lt;/li&gt;&lt;li&gt; * Les jeux&lt;/li&gt;&lt;li&gt; * Liste des jeux de cette premi&#232;re ISO&lt;/li&gt;&lt;li&gt; * Fonctionnalit&#233;s &#224; r&#233;aliser&lt;/li&gt;&lt;li&gt; * Remerciements
+&lt;br /&gt;
+&lt;br /&gt;
+Trois ans apr&#232;s la derni&#232;re version de LinuxConsole 1.0 la version 2.0 est donc pr&#234;te !
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;strong&gt;Pourquoi une si longue attente ?&lt;/strong&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+Un petit historique de LinuxConsole pour commencer (attention, &#231;a remonte loin !)
+&lt;br /&gt;
+&lt;br /&gt;
+Les plus jeunes l'ignorent sans doute : &#224; la fin des ann&#233;es 1990 (!) il &#233;tait possible de jouer sous Linux, avec des jeux commerciaux r&#233;cents gr&#226;ce &#224; Loki Games.
+&lt;br /&gt;
+&lt;br /&gt;
+J'ai eu l'occasion d'acheter Myth2 et &#231;a fonctionnait vraiment bien
+&lt;br /&gt;
+&lt;br /&gt;
+Le d&#233;veloppement de linuxConsole a commenc&#233; d&#233;but 2001, l'id&#233;e &#233;tant de faire un CD bootable, inspir&#233; par DemoLinux, mais avec une acc&#233;l&#233;ration 3D pour les jeux compatibles OpenGL
+&lt;br /&gt;
+&lt;br /&gt;
+LinuxConsole 0.3 sortait en 2003. Cette version re&#231;ut un prix dans la cat&#233;gorie &quot;Grand public&quot; des troph&#233;es du libre 2003 (je n'ai pas trouv&#233; de d&#233;p&#234;che linuxfr.org l&#224; dessus)
+&lt;br /&gt;
+&lt;br /&gt;
+La version 1.0 est sortie en 2007 et n'&#233;tait plus seulement orient&#233;e &quot;jeux&quot; mais g&#233;n&#233;raliste (on y trouvait gimp, blender, openoffice, cups, gnome, kde, &#8230;)
+&lt;br /&gt;
+&lt;br /&gt;
+Cette version 1.0 a connu plusieurs sous-version, et le bureau lxde a progessivement rempla&#231;&#233; icewm
+&lt;br /&gt;
+&lt;br /&gt;
+Le probl&#232;me de la version 1.0, c'est que le processus de compilation &#233;tait trop primitif pour pouvoir facilement faire des mises &#224; jour, c'est comme cela qu'est n&#233; le projet &lt;a href=&quot;http://code.google.com/p/dibab/&quot; class='spip_out' rel='external'&gt;dibab&lt;/a&gt;, dont l'utilit&#233; primitive &#233;tait de compiler une distribution enti&#232;re, from scratch.
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;strong&gt;LinuxConsole 2.0 : ce qui a chang&#233;&lt;/strong&gt;
+&lt;br /&gt;
+&lt;br /&gt; * Le d&#233;veloppement a repris &#224; z&#233;ro * Les pilotes propri&#233;taires ne sont plus support&#233;s * Multiple-architectures (x86, x86_64, arm) * Respect du principe KISS : &quot;ligne directrice de conception qui pr&#233;conise de rechercher la simplicit&#233; dans la conception et que toute complexit&#233; non n&#233;cessaire devrait &#234;tre &#233;vit&#233;e&quot; * Volont&#233; d'ouverture : toutes les personnes d&#233;sirant participer &#224; ce projet sont les bienvenues
+&lt;br /&gt;
+&lt;br /&gt;
+En effet, avec LinuxConsole 1.0, je prenais trop de temps pour d&#233;velopper des choses pas forc&#233;ment indispensables.
+&lt;br /&gt;
+&lt;br /&gt;
+Du coup, le mode d'utilisation a &#233;t&#233; aussi simplifi&#233; :
+&lt;br /&gt;
+&lt;br /&gt; * LiveCD * LiveUSB * Installation &#224; c&#244;t&#233; de windows (j'ai patch&#233; Wubi pour cela)
+&lt;br /&gt;
+&lt;br /&gt;
+Dans cette version, il n'y a donc pas :
+&lt;br /&gt;
+&lt;br /&gt; * la persistance des donn&#233;es (quand m&#234;me possible, mais pas officiellement support&#233;e) * l'installation sur un disque vierge * la possibilit&#233; d'installer de nouveau jeux
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;strong&gt;Les jeux&lt;/strong&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+Je me suis associ&#233; &#224; l'association &lt;a href=&quot;http://asso.lanpower.free.fr/&quot; class='spip_out' rel='external'&gt;Lanpower&lt;/a&gt;pour s&#233;lectionner une suite de jeux qui tient sur une CD (700Mo)
+&lt;br /&gt;
+&lt;br /&gt;
+Le point de vue de Patrice de l'association LanPower :
+&lt;br /&gt;
+&lt;br /&gt;
+L'association fait la promotion des jeux libres depuis 2006 et produit des CD de jeux libres depuis 2007. Ceux-ci sont en version Windows, et cela faisait un moment que l'on r&#233;fl&#233;chissait &#224; en faire une d&#233;clinaison sous Linux sans toutefois faire la m&#234;me chose que ce que l'on peut d&#233;j&#224; trouver. Mais sur quelle distribution se baser ? Il fallait une petite distribution de base. Plusieurs candidates &#233;taient envisag&#233;es : Slitaz, ToutouLinux et LinuxConsole. Ces r&#233;flexions &#233;taient en suspens lorsqu'en septembre 2013 Yann LeDoar&#233; de LinuxConsole a contact&#233; l'association pour nous proposer une coop&#233;ration. Nous avons bien volontiers accept&#233; et le travail commen&#231;a.
+&lt;br /&gt;
+&lt;br /&gt;
+Pourquoi avoir choisi LinuxConsole ? En premier lieu, parce qu'elle est rapide &#224; d&#233;marrer(il y a longtemps qu'on l'avait rep&#233;r&#233;) et les premiers tests ont montr&#233; que l'acc&#233;l&#233;ration graphique est tr&#232;s bien support&#233;e (avec des pilotes libres pourtant). De surcro&#238;t, on peut la personnaliser, personnaliser les d&#233;pannages (modes Benchmark et Fixme). Nous avons donc commenc&#233; &#224; compiler nos premi&#232;res distributions gr&#226;ce &#224; Yann LeDoar&#233; (sans avoir la connaissance ni la comp&#233;tence pour cela).
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;strong&gt;Liste des jeux de cette premi&#232;re ISO&lt;/strong&gt;
+&lt;br /&gt;
+__ &lt;/li&gt;&lt;li&gt; 2H4U : m&#233;lange de Tetris et Arkanoid&lt;/li&gt;&lt;li&gt; Cultivation : un jeu de la vie par Jason Rohrer&lt;/li&gt;&lt;li&gt; Danger Deep : guerre sous-marine pendant la seconde guerre mondiale&lt;/li&gt;&lt;li&gt; FooBillard : un jeu de billard 3D&lt;/li&gt;&lt;li&gt; Do'SsiZo'la : le jeu de plateau Izzola&lt;/li&gt;&lt;li&gt; Freecraft : un clone de Warcraft 1 (ne pas confondre avec Minecraft) qui a donn&#233; BOSWar et le moteur Stratagus&lt;/li&gt;&lt;li&gt; Frozen Bubble : une reprise de Puzzle Bobble ou Bust-a-Move&lt;/li&gt;&lt;li&gt; Neverball : d&#233;placez la balle en inclinant le plateau&lt;/li&gt;&lt;li&gt; ExtremTuxRacer : Tux s'amuse&lt;/li&gt;&lt;li&gt; OpenTTD : une reprise de Transport Tycoon Deluxe avec des media libres.&lt;/li&gt;&lt;li&gt; BzFlag : du FPS 3D avec des tanks&lt;/li&gt;&lt;li&gt; Teeworlds : du FPS rapide et fun en 2D&lt;/li&gt;&lt;li&gt; Xmoto : jeu d'adresse avec une moto assez instable&lt;/li&gt;&lt;li&gt; TuxPaint dessin pour les petits&lt;/li&gt;&lt;li&gt; SupertuxKart : jeu de Kart avec les mascottes du libre
+&lt;br /&gt;
+&lt;br /&gt;
+Tous les jeux sont libres sauf Danger Deep qui l'est partiellement : media sous licence cc-nc-nd.
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;strong&gt;Fonctionnalit&#233;s &#224; r&#233;aliser&lt;/strong&gt;
+&lt;br /&gt;
+&lt;br /&gt;&lt;/li&gt;&lt;li&gt; * Persistance des donn&#233;es.&lt;/li&gt;&lt;li&gt; * Gestionnaire de paquets&lt;/li&gt;&lt;li&gt; * Variante 'xbmc' &#224; la place de lxde&lt;/li&gt;&lt;li&gt; * Version pour le 'Raspberry pi'
+&lt;br /&gt;
+&lt;br /&gt;
+Si vous avez d'autres suggestions, vous pouvez me contacter via le &lt;a href=&quot;http://www.linuxconsole.org/contact/&quot; class='spip_out' rel='external'&gt;formulaire de contact&lt;/a&gt; o&#249; sur &lt;a href=&quot;https://twitter.com/yledoare&quot; class='spip_out' rel='external'&gt;twitter&lt;/a&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+Une liste de diffusion (en fran&#231;ais) est mise en place, vous pouvez aussi me demander de vous y inscrire
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;strong&gt;Remerciements&lt;/strong&gt;&lt;/li&gt;&lt;li&gt; * Patches de debian, arch et gentoo&lt;/li&gt;&lt;li&gt; * Documentation Linux From Scratch&lt;/li&gt;&lt;li&gt; * Phillip Lougher pour Squashfs&lt;/li&gt;&lt;li&gt; * Junjiro Okajima pour aufs&lt;/li&gt;&lt;li&gt; * Geza Kovacs pour unetbootin&lt;/li&gt;&lt;li&gt; * Agostino Russo et Ubuntu pour Wubi&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
+
+		</content:encoded>
+
+	</item>
+
+	<item xml:lang="fr">
+		<title>Landes Eternelles 1.8.0 et 1.8.1</title>
+		<link>http://www.jeuxlinux.fr/spip.php?breve1341</link>
+		<guid isPermaLink="true">http://www.jeuxlinux.fr/spip.php?breve1341</guid>
+		<dc:date>2013-12-16T01:18:16Z</dc:date>
+		<dc:format>text/html</dc:format>
+		<dc:language>fr</dc:language>
+
+<dc:subject>Mmog - mmorpg</dc:subject>
+
+		<description>Avec beaucoup de retard voici les derni&#232;res nouveaut&#233;s sur ce MMORPG natif linux. Fin ao&#251;t dernier sortait une grosse mise &#224; jour baptis&#233;e 1.8.0 Nexus. Elle a permis aux joueurs de redistribuer leurs points, une premi&#232;re. De nombreuses nouveaut&#233;s, en particulier : La refonte d'un m&#233;canisme au (...)
+
+-
+&lt;a href="http://www.jeuxlinux.fr/spip.php?rubrique8" rel="directory"&gt;Jeux natifs&lt;/a&gt;
+
+/
+&lt;a href="http://www.jeuxlinux.fr/spip.php?mot14" rel="tag"&gt;Mmog - mmorpg&lt;/a&gt;
+
+		</description>
+
+
+ <content:encoded>&lt;img class='spip_logos' alt=&quot;&quot; align=&quot;right&quot; src=&quot;http://www.jeuxlinux.fr/local/cache-vignettes/L140xH90/breveon1341-f6c16.png&quot; width='140' height='90' style='height:90px;width:140px;' /&gt;
+		&lt;div class='rss_texte'&gt;&lt;p&gt;Avec beaucoup de retard voici les derni&#232;res nouveaut&#233;s sur ce MMORPG natif linux.
+&lt;br /&gt;
+&lt;br /&gt;
+Fin ao&#251;t dernier sortait une grosse mise &#224; jour baptis&#233;e 1.8.0 Nexus. Elle a permis aux joueurs de redistribuer leurs points, une premi&#232;re.
+&lt;br /&gt;
+&lt;br /&gt;
+De nombreuses nouveaut&#233;s, en particulier :
+&lt;br /&gt;&lt;/p&gt; &lt;ul class=&quot;spip&quot;&gt;&lt;li&gt; La refonte d'un m&#233;canisme au coeur du gameplay
+Le syst&#232;me de sp&#233;cialisations &#224; la carte (les &quot;nexus&quot;) a &#233;t&#233; enti&#232;rement revu, afin d'&#234;tre plus simple &#224; comprendre et d'offrir des choix plus int&#233;ressants (mais toujours aussi d&#233;chirants).
+&lt;br /&gt;
+&lt;br /&gt;&lt;/li&gt;&lt;li&gt; Une nouvelle &#233;quip&#233;e (comprendre : une instance) : l'&#238;le des pirates
+&lt;br /&gt;
+&lt;br /&gt;&lt;/li&gt;&lt;li&gt; Une nouvelle qu&#234;te, &#233;galement autour du th&#232;me des pirates
+&lt;br /&gt;
+&lt;br /&gt;&lt;/li&gt;&lt;li&gt; Des am&#233;liorations graphiques
+&lt;br /&gt;
+&lt;br /&gt;&lt;/li&gt;&lt;li&gt; Des nouveaux objets &lt;br /&gt;
+&lt;br /&gt;
+La liste compl&#232;te des changements est disponible &lt;a href=&quot;http://www.landes-eternelles.com/phpBB/viewtopic.php?f=48&amp;t=26868&quot; class='spip_out' rel='external'&gt;ici&lt;/a&gt;.
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+Fin octobre sortait la 1.8.1. En plus des traditionnelles et &#233;ph&#233;m&#232;res animations d'Halloween, une nouvelle mise &#224; jour importante.
+&lt;br /&gt;
+&lt;br /&gt;&lt;/li&gt;&lt;li&gt; Projets des joueurs&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;Plusieurs dizaines de nouveaux v&#234;tements
+Plusieurs cartes g&#233;r&#233;es par les peuples de joueurs ont &#233;t&#233; modifi&#233;es &#224; leur initiative
+&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt; &lt;ul class=&quot;spip&quot;&gt;&lt;li&gt; Projets de l'&#233;quipe d'animation&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;D&#233;p&#244;ts des peuples (PNJ pour aider aux projets collectifs des joueurs en centralisant leurs ressources)
+Nouveaux PNJ
+Constructions sur plusieurs cartes
+&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt; &lt;ul class=&quot;spip&quot;&gt;&lt;li&gt; Divers am&#233;liorations et correctifs.
+&lt;br /&gt;
+&lt;br /&gt;
+La liste compl&#232;te des changements est disponible &lt;a href=&quot;http://www.landes-eternelles.com/phpBB/viewtopic.php?f=48&amp;t=27379&quot; class='spip_out' rel='external'&gt;ici&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
+
+		</content:encoded>
+
+	</item>
+
+	<item xml:lang="fr">
+		<title>Metro : Last Light</title>
+		<link>http://www.jeuxlinux.fr/spip.php?breve1340</link>
+		<guid isPermaLink="true">http://www.jeuxlinux.fr/spip.php?breve1340</guid>
+		<dc:date>2013-11-04T22:14:34Z</dc:date>
+		<dc:format>text/html</dc:format>
+		<dc:language>fr</dc:language>
+
+<dc:subject>Jeux de tir</dc:subject>
+<dc:subject>Jerhum</dc:subject>
+
+		<description>Sorti en mai 2013 sur Windows et console, Metro : Last Light est maintenant disponible sur la plateforme steam pour linux. Metro : Last Light est un FPS post-apocalyptique
+
+-
+&lt;a href="http://www.jeuxlinux.fr/spip.php?rubrique8" rel="directory"&gt;Jeux natifs&lt;/a&gt;
+
+/
+&lt;a href="http://www.jeuxlinux.fr/spip.php?mot9" rel="tag"&gt;Jeux de tir&lt;/a&gt;,
+&lt;a href="http://www.jeuxlinux.fr/spip.php?mot36" rel="tag"&gt;Jerhum&lt;/a&gt;
+
+		</description>
+
+
+ <content:encoded>&lt;img class='spip_logos' alt=&quot;&quot; align=&quot;right&quot; src=&quot;http://www.jeuxlinux.fr/local/cache-vignettes/L150xH100/breveon1340-ad87e.jpg&quot; width='150' height='100' style='height:100px;width:150px;' /&gt;
+		&lt;div class='rss_texte'&gt;&lt;p&gt;Sorti en mai 2013 sur Windows et console, Metro : Last Light est maintenant disponible sur la plateforme steam pour linux.
+&lt;br /&gt;
+&lt;br /&gt; Metro : Last Light est un FPS post-apocalyptique &lt;br /&gt;
+&lt;br /&gt;
+&lt;span class='spip_document_3674 spip_documents'&gt;
+&lt;a href=&quot;http://mll-cms-live.5x5digital.com/img/uploads/276_crop890x507.jpg?12345678&quot; class=&quot;spip_out&quot;&gt;&lt;img src='http://www.jeuxlinux.fr/IMG/jpg/287_crop120x90.jpg' width=&quot;120&quot; height=&quot;90&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/span&gt;&lt;span class='spip_document_3673 spip_documents'&gt;
+&lt;a href=&quot;http://mll-cms-live.5x5digital.com/img/uploads/129_crop890x507.jpg?12345678&quot; class=&quot;spip_out&quot;&gt;&lt;img src='http://www.jeuxlinux.fr/IMG/jpg/129_crop120x90.jpg' width=&quot;120&quot; height=&quot;90&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/span&gt;&lt;span class='spip_document_3675 spip_documents'&gt;
+&lt;a href=&quot;http://mll-cms-live.5x5digital.com/img/uploads/280_crop890x507.jpg?12345678&quot; class=&quot;spip_out&quot;&gt;&lt;img src='http://www.jeuxlinux.fr/IMG/jpg/280_crop120x90.jpg' width=&quot;120&quot; height=&quot;90&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;&lt;/div&gt;
+
+		</content:encoded>
+
+	</item>
+
+	<item xml:lang="fr">
+		<title>No More Room in Hell</title>
+		<link>http://www.jeuxlinux.fr/spip.php?breve1339</link>
+		<guid isPermaLink="true">http://www.jeuxlinux.fr/spip.php?breve1339</guid>
+		<dc:date>2013-11-03T10:04:21Z</dc:date>
+		<dc:format>text/html</dc:format>
+		<dc:language>fr</dc:language>
+
+<dc:subject>Jeux de tir</dc:subject>
+<dc:subject>Jerhum</dc:subject>
+
+		<description>No More Room in Hell est un jeu de survival horror, ou l'on affronte des hordes de zombie. jouable jusqu'&#224; 8 en coop&#233;ration. Le jeu est bas&#233; sur le moteur de half-life2, et viens de sortir gratuitement sur la plateforme Steam.
+
+-
+&lt;a href="http://www.jeuxlinux.fr/spip.php?rubrique8" rel="directory"&gt;Jeux natifs&lt;/a&gt;
+
+/
+&lt;a href="http://www.jeuxlinux.fr/spip.php?mot9" rel="tag"&gt;Jeux de tir&lt;/a&gt;,
+&lt;a href="http://www.jeuxlinux.fr/spip.php?mot36" rel="tag"&gt;Jerhum&lt;/a&gt;
+
+		</description>
+
+
+ <content:encoded>&lt;img class='spip_logos' alt=&quot;&quot; align=&quot;right&quot; src=&quot;http://www.jeuxlinux.fr/local/cache-vignettes/L150xH71/breveon1339-96706.jpg&quot; width='150' height='71' style='height:71px;width:150px;' /&gt;
+		&lt;div class='rss_texte'&gt;&lt;p&gt;No More Room in Hell est un jeu de survival horror, ou l'on affronte des hordes de zombie. jouable jusqu'&#224; 8 en coop&#233;ration.
+&lt;br /&gt;
+&lt;br /&gt;
+Le jeu est bas&#233; sur le moteur de half-life2, et viens de sortir gratuitement sur la plateforme Steam.
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;span class='spip_document_3671 spip_documents'&gt;
+&lt;img src='http://www.jeuxlinux.fr/IMG/jpg/ss_4269bce6c8d9ac6fec892dd9853cd812a18fdc59-600x338.jpg' width=&quot;300&quot; height=&quot;169&quot; alt=&quot;&quot; /&gt;&lt;/span&gt;&lt;span class='spip_document_3672 spip_documents'&gt;
+&lt;img src='http://www.jeuxlinux.fr/IMG/jpg/ss_9d025db9a94c1c5252890336e4541d3297be94d7-600x338.jpg' width=&quot;300&quot; height=&quot;169&quot; alt=&quot;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;&lt;/div&gt;
+
+		</content:encoded>
+
+	</item>
+
+	<item xml:lang="fr">
+		<title>AssaultCube passe en version 1.2 apr&#232;s 1060 jours !</title>
+		<link>http://www.jeuxlinux.fr/spip.php?breve1338</link>
+		<guid isPermaLink="true">http://www.jeuxlinux.fr/spip.php?breve1338</guid>
+		<dc:date>2013-10-23T11:08:31Z</dc:date>
+		<dc:format>text/html</dc:format>
+		<dc:language>fr</dc:language>
+
+<dc:subject>Jeux de tir</dc:subject>
+<dc:subject>cacatoes</dc:subject>
+
+		<description>C'est le 9 octobre 2013 qu'est sortie la version 1.2 d'AssaultCube. Le projet s'&#233;tait retenu de pondre pendant 1060 jours et 1703 modifications (commits). Pour rappel, Assaultcube est un FPS inspir&#233; de CounterStrike, utilisant un moteur &#224; la sauce Cube/Sauerbraten, et disponible pour Linux/Mac OS (...)
+
+-
+&lt;a href="http://www.jeuxlinux.fr/spip.php?rubrique18" rel="directory"&gt;jeuvinux art&lt;/a&gt;
+
+/
+&lt;a href="http://www.jeuxlinux.fr/spip.php?mot9" rel="tag"&gt;Jeux de tir&lt;/a&gt;,
+&lt;a href="http://www.jeuxlinux.fr/spip.php?mot58" rel="tag"&gt;cacatoes&lt;/a&gt;
+
+		</description>
+
+
+ <content:encoded>&lt;img class='spip_logos' alt=&quot;&quot; align=&quot;right&quot; src=&quot;http://www.jeuxlinux.fr/local/cache-vignettes/L140xH90/breveon1338-98897.png&quot; width='140' height='90' style='height:90px;width:140px;' /&gt;
+		&lt;div class='rss_texte'&gt;&lt;p&gt;C'est le 9 octobre 2013 qu'est sortie la version 1.2 d'AssaultCube. Le projet s'&#233;tait retenu de pondre pendant 1060 jours et 1703 modifications (commits).
+&lt;br /&gt;
+&lt;br /&gt;
+Pour rappel, Assaultcube est un FPS inspir&#233; de CounterStrike, utilisant un moteur &#224; la sauce Cube/Sauerbraten, et disponible pour Linux/Mac OS X/Windows.
+&lt;br /&gt;
+&lt;br /&gt;
+Le changelog (voir : &lt;a href=&quot;http://forum.cubers.net/thread-7188.html&quot; class='spip_out' rel='external'&gt;annonce de la sortie&lt;/a&gt;) est un peu long mais finalement pas tant que &#231;a, on r&#233;sumera :
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;&lt;img src=&quot;http://www.jeuxlinux.fr/squelettes-dist/puce.gif&quot; width=&quot;8&quot; height=&quot;11&quot; class=&quot;puce&quot; alt=&quot;-&quot; /&gt; &#201;quilibrage des armes
+&lt;br /&gt;&lt;img src=&quot;http://www.jeuxlinux.fr/squelettes-dist/puce.gif&quot; width=&quot;8&quot; height=&quot;11&quot; class=&quot;puce&quot; alt=&quot;-&quot; /&gt; Nouveaux modes de jeu : Team Last Swiss Standing / Team Pistol Frenzy
+&lt;br /&gt;&lt;img src=&quot;http://www.jeuxlinux.fr/squelettes-dist/puce.gif&quot; width=&quot;8&quot; height=&quot;11&quot; class=&quot;puce&quot; alt=&quot;-&quot; /&gt; Possibilit&#233; d'envoi de messages priv&#233;s (avec /pm cn message)
+&lt;br /&gt;&lt;img src=&quot;http://www.jeuxlinux.fr/squelettes-dist/puce.gif&quot; width=&quot;8&quot; height=&quot;11&quot; class=&quot;puce&quot; alt=&quot;-&quot; /&gt; Possibilit&#233; d'entrer le mot de passe pour se connecter directement depuis la liste des serveurs
+&lt;br /&gt;&lt;img src=&quot;http://www.jeuxlinux.fr/squelettes-dist/puce.gif&quot; width=&quot;8&quot; height=&quot;11&quot; class=&quot;puce&quot; alt=&quot;-&quot; /&gt; T&#233;l&#233;chargement &#224; la vol&#233;e de cartes et textures si elles manquent
+&lt;br /&gt;&lt;img src=&quot;http://www.jeuxlinux.fr/squelettes-dist/puce.gif&quot; width=&quot;8&quot; height=&quot;11&quot; class=&quot;puce&quot; alt=&quot;-&quot; /&gt; De nouvelles cartes : ac_avenue, ac_cavern, ac_edifice, ac_industrial, ac_stellar, ac_lainio, ac_swamp, ac_terros, ac_venison, ac_wasteland
+&lt;br /&gt;&lt;img src=&quot;http://www.jeuxlinux.fr/squelettes-dist/puce.gif&quot; width=&quot;8&quot; height=&quot;11&quot; class=&quot;puce&quot; alt=&quot;-&quot; /&gt; Passage des mod&#232;les du format MD2 vers MD3
+&lt;br /&gt;&lt;img src=&quot;http://www.jeuxlinux.fr/squelettes-dist/puce.gif&quot; width=&quot;8&quot; height=&quot;11&quot; class=&quot;puce&quot; alt=&quot;-&quot; /&gt; Tableau des scores am&#233;lior&#233;
+&lt;br /&gt;&lt;img src=&quot;http://www.jeuxlinux.fr/squelettes-dist/puce.gif&quot; width=&quot;8&quot; height=&quot;11&quot; class=&quot;puce&quot; alt=&quot;-&quot; /&gt; Am&#233;lioration des bots
+&lt;br /&gt;&lt;img src=&quot;http://www.jeuxlinux.fr/squelettes-dist/puce.gif&quot; width=&quot;8&quot; height=&quot;11&quot; class=&quot;puce&quot; alt=&quot;-&quot; /&gt; Un paquet de nouvelles commandes pour le langage script du jeu
+&lt;br /&gt;&lt;img src=&quot;http://www.jeuxlinux.fr/squelettes-dist/puce.gif&quot; width=&quot;8&quot; height=&quot;11&quot; class=&quot;puce&quot; alt=&quot;-&quot; /&gt; D'autres am&#233;liorations et corrections de bugs.
+&lt;br /&gt;
+&lt;br /&gt;
+Note : le &lt;a href=&quot;http://assault.cubers.net/&quot; class='spip_out' rel='external'&gt;site officiel&lt;/a&gt; semble en partie en panne au moment de la r&#233;daction de cette news.
+&lt;br /&gt;
+&lt;br /&gt;
+Vous pourrez quand m&#234;me t&#233;l&#233;charger le jeu depuis &lt;a href=&quot;http://sourceforge.net/projects/actiongame/files/AssaultCube%20Version%201.2.0.0/&quot; class='spip_out' rel='external'&gt;la page sourceforge&lt;/a&gt;.
+&lt;br /&gt;
+&lt;br /&gt;
+Le moteur est libre, mais les donn&#233;es ne le sont point, voyez notamment le &lt;a href=&quot;http://ftp-master.metadata.debian.org/changelogs/non-free/a/assaultcube-data/assaultcube-data_1.1.0.4+repack1-2.1_copyright&quot; class='spip_out' rel='external'&gt;fichier licence&lt;/a&gt; du paquet &lt;a href=&quot;http://packages.debian.org/testing/assaultcube&quot; class='spip_out' rel='external'&gt;assaultcube&lt;/a&gt;-data de Debian pour des infos.
+&lt;br /&gt;
+&lt;br /&gt;
+Pensez &#224; prendre garde aux ours polaires qui se cachent, carabine &#224; la main, derri&#232;re buissons et tonneaux.
+&lt;br /&gt;
+&lt;br /&gt;
+Une &lt;a href=&quot;http://www.youtube.com/watch?v=51QDk31OjsA&quot; class='spip_out' rel='external'&gt;video de gameplay&lt;/a&gt; datant de fin ao&#251;t qui illustre cette version 1.2&lt;/p&gt;&lt;/div&gt;
+
+		</content:encoded>
+
+	</item>
+
+	<item xml:lang="fr">
+		<title>Exit Doom3, Amen TheDarkMod v2.0</title>
+		<link>http://www.jeuxlinux.fr/spip.php?breve1337</link>
+		<guid isPermaLink="true">http://www.jeuxlinux.fr/spip.php?breve1337</guid>
+		<dc:date>2013-10-09T21:39:26Z</dc:date>
+		<dc:format>text/html</dc:format>
+		<dc:language>fr</dc:language>
+
+<dc:subject>Jeux de tir</dc:subject>
+<dc:subject>cacatoes</dc:subject>
+
+		<description>&#171; Hello les poilus, Poilus, car c'est ainsi que vous perfectionnez votre camouflage facial. Nous savons cela. Cela ainsi que la souplesse du chat, avec laquelle vous tirez discr&#232;tement la version 2.0 de The Dark Mod de votre carquois. Il est temps de lancer la fl&#234;che. &#187; The Dark Mod est un FPS, &#224; (...)
+
+-
+&lt;a href="http://www.jeuxlinux.fr/spip.php?rubrique18" rel="directory"&gt;jeuvinux art&lt;/a&gt;
+
+/
+&lt;a href="http://www.jeuxlinux.fr/spip.php?mot9" rel="tag"&gt;Jeux de tir&lt;/a&gt;,
+&lt;a href="http://www.jeuxlinux.fr/spip.php?mot58" rel="tag"&gt;cacatoes&lt;/a&gt;
+
+		</description>
+
+
+ <content:encoded>&lt;img class='spip_logos' alt=&quot;&quot; align=&quot;right&quot; src=&quot;http://www.jeuxlinux.fr/local/cache-vignettes/L140xH90/breveon1337-03db0.png&quot; width='140' height='90' style='height:90px;width:140px;' /&gt;
+		&lt;div class='rss_texte'&gt;&lt;p&gt;&#171; Hello les poilus,&lt;/p&gt; &lt;p&gt;Poilus, car c'est ainsi que vous perfectionnez votre camouflage facial. Nous savons cela.
+Cela ainsi que la souplesse du chat, avec laquelle vous tirez discr&#232;tement la version 2.0 de The Dark Mod de votre carquois.
+Il est temps de lancer la fl&#234;che. &#187;
+&lt;br /&gt;
+&lt;br /&gt;
+The Dark Mod est un FPS, &#224; l'origine un mod de Doom 3, qui utilise donc le moteur iodoom3, et apporte son propre contenu graphique ainsi que sa propre histoire. L'id&#233;e de The Dark Mod (TDM) est de proposer une exp&#233;rience de jeu d'infiltration similaire &#224; celle que l'on trouve dans la s&#233;rie de jeux Thief.
+La fra&#238;che et bonne nouvelle, c'est que le jeu vient de franchir l'&#233;tape de pouvoir &#234;tre utilis&#233; ind&#233;pendemment de Doom 3. Vous n'avez donc plus &#224; poss&#233;der Doom 3 pour jouer &#224; TDM. C'&#233;tait en effet la direction suivie depuis la lib&#233;ration du moteur iodoom3.
+&lt;br /&gt;
+&lt;br /&gt;
+La licence retenue pour les donn&#233;es artistiques est la Creative Commons BY-NC-SA 3.0.
+Le code est quant &#224; lui sous licence GPLv3+.
+&lt;br /&gt;
+&lt;br /&gt;
+Maintenant, les liens...
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;a href=&quot;http://www.thedarkmod.com/posts/free-standalone-tdm-2-0-now-available&quot; class='spip_out' rel='external'&gt;L'annonce de la sortie de la version 2.0&lt;/a&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;a href=&quot;http://www.youtube.com/watch?feature=player_embedded&amp;v=hNtUQ32eeRM&quot; class='spip_out' rel='external'&gt;Une video qui pr&#233;sente le jeu (en anglais)&lt;/a&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;a href=&quot;http://wiki.thedarkmod.com/index.php?title=What%27s_new_in_TDM_2.00&quot; class='spip_out' rel='external'&gt;Le changelog d&#233;taill&#233; se situe par ici&lt;/a&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+Retirez vos godillots le temps du t&#233;l&#233;chargement...&lt;/p&gt;&lt;/div&gt;
+
+		</content:encoded>
+
+	</item>
+
+	<item xml:lang="fr">
+		<title>Les jeux libres sur Radio Laser</title>
+		<link>http://www.jeuxlinux.fr/spip.php?breve1336</link>
+		<guid isPermaLink="true">http://www.jeuxlinux.fr/spip.php?breve1336</guid>
+		<dc:date>2013-10-02T06:38:20Z</dc:date>
+		<dc:format>text/html</dc:format>
+		<dc:language>fr</dc:language>
+
+<dc:subject>lanpower</dc:subject>
+
+		<description>Restez &#224; l'&#233;coute et d&#233;couvrez chaque semaine un nouveau jeu libre sur Radio Laser 95.9. Chaque mercredi un nouveau jeu est propos&#233; &#224; l'antenne puis est mis en podcast sur le site. Tous les jeux sont compatibles Windows et Linux au moins. Une &#233;mission sera diffus&#233;e chaque semaine pendant toute la (...)
+
+-
+&lt;a href="http://www.jeuxlinux.fr/spip.php?rubrique12" rel="directory"&gt;Liens&lt;/a&gt;
+
+/
+&lt;a href="http://www.jeuxlinux.fr/spip.php?mot54" rel="tag"&gt;lanpower&lt;/a&gt;
+
+		</description>
+
+
+ <content:encoded>&lt;div class='rss_texte'&gt;&lt;p&gt;Restez &#224; l'&#233;coute et d&#233;couvrez chaque semaine un nouveau jeu libre sur &lt;a href=&quot;http://www.radiolaser.fr/&quot; class='spip_out' rel='external'&gt;Radio Laser 95.9&lt;/a&gt;. Chaque mercredi un nouveau jeu est propos&#233; &#224; l'antenne puis est mis en podcast sur le site. Tous les jeux sont compatibles Windows et Linux au moins. Une &#233;mission sera diffus&#233;e chaque semaine pendant toute la saison. Les premiers jeux d&#233;crits sont &lt;a href=&quot;http://jeuxlibres.net/showgame/alien_blaster.html&quot; class='spip_out' rel='external'&gt;Alien Blaster&lt;/a&gt; et &lt;a href=&quot;http://jeuxlibres.net/showgame/battle_tanks.html&quot; class='spip_out' rel='external'&gt;Battle Tanks&lt;/a&gt;.
+&lt;br /&gt;
+&lt;br /&gt;
+Une r&#233;alisation de l'association &lt;a href=&quot;http://asso.lanpower.free.fr/&quot; class='spip_out' rel='external'&gt;LanPower&lt;/a&gt; (Patrice et Quentin) et d'Antoine l'animateur de &lt;a href=&quot;http://www.radiolaser.fr/&quot; class='spip_out' rel='external'&gt;Radio Laser&lt;/a&gt; bien s&#251;r.
+&lt;a href=&quot;http://www.radiolaser.fr/&quot; class='spip_out' rel='external'&gt;Radio Laser&lt;/a&gt; est une radio participative qui &#233;met sur la bande FM 95.9Mhz au Sud de Rennes dans un rayon de 50km.&lt;/p&gt;&lt;/div&gt;
+
+		</content:encoded>
+
+	</item>
+
+	<item xml:lang="fr">
+		<title>Steam OS et Steam machine</title>
+		<link>http://www.jeuxlinux.fr/spip.php?breve1335</link>
+		<guid isPermaLink="true">http://www.jeuxlinux.fr/spip.php?breve1335</guid>
+		<dc:date>2013-09-26T19:01:31Z</dc:date>
+		<dc:format>text/html</dc:format>
+		<dc:language>fr</dc:language>
+
+<dc:subject>Jerhum</dc:subject>
+
+		<description>Valve vient de d&#233;voiler son nouveau syst&#232;me d'exploitation Steam OS bas&#233; sur une architecture linux. Steam veut s'imposer contre les consoles, une fois le syst&#232;me install&#233; sur un PC et branch&#233; sur une t&#233;l&#233;vision, cela vous permettra de retrouver : Des centaines de jeux fonctionnent d&#233;j&#224; en natif sur (...)
+
+-
+&lt;a href="http://www.jeuxlinux.fr/spip.php?rubrique18" rel="directory"&gt;jeuvinux art&lt;/a&gt;
+
+/
+&lt;a href="http://www.jeuxlinux.fr/spip.php?mot36" rel="tag"&gt;Jerhum&lt;/a&gt;
+
+		</description>
+
+
+ <content:encoded>&lt;img class='spip_logos' alt=&quot;&quot; align=&quot;right&quot; src=&quot;http://www.jeuxlinux.fr/local/cache-vignettes/L150xH98/breveon1335-64f8c.jpg&quot; width='150' height='98' style='height:98px;width:150px;' /&gt;
+		&lt;div class='rss_texte'&gt;&lt;p&gt;Valve vient de d&#233;voiler son nouveau syst&#232;me d'exploitation Steam OS bas&#233; sur une architecture linux.
+&lt;br /&gt;
+&lt;br /&gt;
+Steam veut s'imposer contre les consoles, une fois le syst&#232;me install&#233; sur un PC et branch&#233; sur une t&#233;l&#233;vision, cela vous permettra de retrouver :
+&lt;br /&gt;&lt;img src=&quot;http://www.jeuxlinux.fr/squelettes-dist/puce.gif&quot; width=&quot;8&quot; height=&quot;11&quot; class=&quot;puce&quot; alt=&quot;-&quot; /&gt; Des centaines de jeux fonctionnent d&#233;j&#224; en natif sur SteamOS et Acc&#233;dez aux 3000 titres du catalogue complet Steam par le biais du streaming local (sur un autre Pc windows ou mac par exemple)
+&lt;br /&gt;
+&lt;br /&gt;&lt;img src=&quot;http://www.jeuxlinux.fr/squelettes-dist/puce.gif&quot; width=&quot;8&quot; height=&quot;11&quot; class=&quot;puce&quot; alt=&quot;-&quot; /&gt; Un cloud multi-plateforme
+&lt;br /&gt;
+&lt;br /&gt;&lt;img src=&quot;http://www.jeuxlinux.fr/squelettes-dist/puce.gif&quot; width=&quot;8&quot; height=&quot;11&quot; class=&quot;puce&quot; alt=&quot;-&quot; /&gt; Optimisation des performances graphiques et r&#233;duction de latence des p&#233;riph&#233;riques
+&lt;br /&gt;
+&lt;br /&gt;&lt;img src=&quot;http://www.jeuxlinux.fr/squelettes-dist/puce.gif&quot; width=&quot;8&quot; height=&quot;11&quot; class=&quot;puce&quot; alt=&quot;-&quot; /&gt; ainsi que les classiques multim&#233;dia (Musiques, TV, Films)
+&lt;br /&gt;
+&lt;br /&gt;
+SteamOS sera bient&#244;t disponible et sera gratuit.
+&lt;br /&gt;
+&lt;br /&gt;
+Steam a aussi annonc&#233; la sortie en 2014 d'une &quot;Steam Machine&quot; : un pc de salon d&#233;di&#233; pour Steam OS&lt;/p&gt;&lt;/div&gt;
+
+		</content:encoded>
+
+	</item>
+
+	<item xml:lang="fr">
+		<title>OpenRA - Release 20130915</title>
+		<link>http://www.jeuxlinux.fr/spip.php?breve1334</link>
+		<guid isPermaLink="true">http://www.jeuxlinux.fr/spip.php?breve1334</guid>
+		<dc:date>2013-09-14T14:20:29Z</dc:date>
+		<dc:format>text/html</dc:format>
+		<dc:language>fr</dc:language>
+
+<dc:subject>Strat&#233;gie</dc:subject>
+
+		<description>Une nouvelle version officielle de OpenRA vient de para&#238;tre ! Cette version comporte son lot de nouveaut&#233;s : plus de 1100 changements et am&#233;liorations ont &#233;t&#233; effectu&#233;s par 17 contributeurs. Les principaux changements de cette version sont : Nouveau comportement du brouillard de guerre (les (...)
+
+-
+&lt;a href="http://www.jeuxlinux.fr/spip.php?rubrique8" rel="directory"&gt;Jeux natifs&lt;/a&gt;
+
+/
+&lt;a href="http://www.jeuxlinux.fr/spip.php?mot10" rel="tag"&gt;Strat&#233;gie&lt;/a&gt;
+
+		</description>
+
+
+ <content:encoded>&lt;img class='spip_logos' alt=&quot;&quot; align=&quot;right&quot; src=&quot;http://www.jeuxlinux.fr/local/cache-vignettes/L128xH128/breveon1334-03633.png&quot; width='128' height='128' style='height:128px;width:128px;' /&gt;
+		&lt;div class='rss_texte'&gt;&lt;p&gt;Une nouvelle version officielle de OpenRA vient de para&#238;tre !
+Cette version comporte son lot de nouveaut&#233;s : plus de 1100 changements et am&#233;liorations ont &#233;t&#233; effectu&#233;s par 17 contributeurs.
+&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt; &lt;p&gt;Les principaux changements de cette version sont :
+&lt;br /&gt;&lt;/p&gt; &lt;ul class=&quot;spip&quot;&gt;&lt;li&gt; Nouveau comportement du brouillard de guerre (les b&#226;timents ainsi que les minerais/tiberium/&#233;pices sont maintenant montr&#233;s tels qu'ils ont &#233;t&#233; aper&#231;us la derni&#232;re fois par le joueur).&lt;/li&gt;&lt;li&gt; L'admin peut maintenant choisir certaines options de d&#233;but de partie : avec quelles unit&#233;s commencer, combien d'argent, permettre d'installer sa base pr&#232;s d'un co&#233;quipier, afficher ou non le voile et/ou le brouillard de guerre.&lt;/li&gt;&lt;li&gt; L'ing&#233;nieur adopte maintenant le comportement des anciens jeux CnC, la capture d'un b&#226;timent de l'ext&#233;rieur (comme dans C&amp;C General).&lt;/li&gt;&lt;li&gt; R&#233;vision des tirs, projectiles et explosions pour tous les mods.&lt;/li&gt;&lt;li&gt; Support natif des fichiers D2K, ce qui accroit le r&#233;alisme graphique et sonore de ce mod.&lt;/li&gt;&lt;li&gt; Probl&#232;mes d'installation sous Windows r&#233;gl&#233;s.&lt;/li&gt;&lt;li&gt; De nombreux bugs, crashs, et probl&#232;mes de performance r&#233;gl&#233;s.&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;Veuillez noter que ce OpenRA utilise maintenant l'acc&#233;l&#233;ration graphique (GPU). Ceci ne devait poser aucun probl&#232;me pour les ordinateurs r&#233;cents (de plus de 5-7 ans), par contre, pour les plus anciens...
+&lt;br /&gt;
+&lt;br /&gt;
+La liste des changements est trop longue pour &#234;tre affich&#233;e ici, mais vous pouvez la consulter ici (plus lisible) ou ici (toutes les modifs du code sur github).
+Si vous souhaitez aider, ou contacter les d&#233;veloppeurs, vous pouvez les joindre sur le canal IRC #openra (webchat).
+&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt; &lt;p&gt;Cette version comprend &#233;galement le support exp&#233;rimental de Tiberian Sun et Red Alert 2. Le travail a d&#233;but&#233; sur un mod Tiberian Sun, mais rien ne sera vraiment jouable avant plusieurs mois. Entre temps, les auteurs de mods peuvent tester le support des unit&#233;s et b&#226;timents en voxel et shp(ts).
+&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt; &lt;p&gt;D2K utilise d&#233;sormais les effets d'explosion semi-transparents.
+&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt; &lt;p&gt;L'interface a &#233;t&#233; am&#233;lior&#233;e, ainsi que certaines options du jeu.
+&lt;br /&gt;
+&lt;br /&gt;
+Il est maintenant possible d'ajouter des unit&#233;s en &quot;voxel&quot; dans OpenRA.&lt;/p&gt; &lt;p&gt;Le site web a &#233;galement &#233;t&#233; modifi&#233;. &lt;a href=&quot;http://openra.res0l.net/&quot; class='spip_url spip_out' rel='nofollow external'&gt;http://openra.res0l.net/&lt;/a&gt;&lt;/p&gt;&lt;/div&gt;
+
+		</content:encoded>
+
+	</item>
+
+	<item xml:lang="fr">
+		<title>0 a.d. Alpha 14 Naukratis</title>
+		<link>http://www.jeuxlinux.fr/spip.php?breve1333</link>
+		<guid isPermaLink="true">http://www.jeuxlinux.fr/spip.php?breve1333</guid>
+		<dc:date>2013-09-06T04:38:36Z</dc:date>
+		<dc:format>text/html</dc:format>
+		<dc:language>fr</dc:language>
+
+<dc:subject>Strat&#233;gie</dc:subject>
+
+		<description>Plus besoin de pr&#233;senter le jeux de strat&#233;gie open source qu'est 0 a.d. Tr&#232;s bon projet de la part de Wildfire Games, ceux ci nous gates avec une mise &#224; jour sortit le 4 septembre et nomm&#233; Alpha 14 Naukratis. En plus de nouveaut&#233;s sur le jeux que je citerais plus tard, il est important de souligner le (...)
+
+-
+&lt;a href="http://www.jeuxlinux.fr/spip.php?rubrique8" rel="directory"&gt;Jeux natifs&lt;/a&gt;
+
+/
+&lt;a href="http://www.jeuxlinux.fr/spip.php?mot10" rel="tag"&gt;Strat&#233;gie&lt;/a&gt;
+
+		</description>
+
+
+ <content:encoded>&lt;img class='spip_logos' alt=&quot;&quot; align=&quot;right&quot; src=&quot;http://www.jeuxlinux.fr/local/cache-vignettes/L140xH90/breveon1333-93fca.png&quot; width='140' height='90' style='height:90px;width:140px;' /&gt;
+		&lt;div class='rss_texte'&gt;&lt;p&gt;Plus besoin de pr&#233;senter le jeux de strat&#233;gie open source qu'est 0 a.d. Tr&#232;s bon projet de la part de Wildfire Games, ceux ci nous gates avec une mise &#224; jour sortit le 4 septembre et nomm&#233; Alpha 14 Naukratis.
+En plus de nouveaut&#233;s sur le jeux que je citerais plus tard, il est important de souligner le fait que 0 a.d. a lanc&#233; un crowdfunding pour son jeux. Celui-ci &#233;tant d'une valeur de 160.000 euro &#224; r&#233;unir en 47 jours au total. Bien sur Wildfire pr&#233;cise plusieurs chose concernant son crowfunding. Son jeux restera gratuit et open source ce qui est une tr&#232;s bonne nouvelle et deuxi&#232;mement les don seront non profitable &#224; l'&#233;diteur (Tout l'argent donn&#233; sera utilis&#233; pour le jeux et pas autre chose).
+&lt;br /&gt;
+&lt;br /&gt;
+Passons maintenant aux nouveaut&#233;s qui vous int&#233;resses, celle du jeux en lui m&#234;me.
+Concernant le gameplay on peut not&#233; diverse ajouts et am&#233;liorations.
+L'arriv&#233; de nouveaux b&#226;timents, les forges&#178;.
+Modification concernant les fermes, celle-ci produisant maintenant de la nouriture &#224; l'infini. Vous n'aurez donc plus besoin de reconstruire celles-ci mais en contre-parti celles-ci produiront moins de nourriture par rapport &#224; avant. La limite de r&#233;colteur passant elle &#224; 5 sur chaque ferme.
+Vos unit&#233;s peuvent maintenant entrer en garnisons dans plus de b&#226;timents.
+Vous gagnez &#224; commercer avec vos alli&#233;s plutot qu'avec vous m&#234;me (le bonus &#233;tant de 25%).
+Les unit&#233;s &#224; distance tirent plus loin si elles sont en hauteur.
+Il n'y a plus besoin d'une distance minimum pour que vos unit&#233;s &#224; distance se mettent &#224; tirer.
+&lt;br /&gt;
+&lt;br /&gt;
+Concernant les am&#233;liorations graphique, sonore et interface.
+L'ajout d'un bouton permanent permettant de situer votre h&#233;ro peut importe ou il est sur la map.
+En mode solo vous pouvez changez la vitesse du jeux.
+L'ajout de raccourcis concernant les vues de cam&#233;ras (permettre de revenir &#224; une vue sauvegard&#233; en appuyant sur un raccourci d&#233;fini je crois).
+L'am&#233;lioration du Gui permettant une interaction plus rapide.
+Quelque am&#233;liorations sonore, comme le fait que maintenant plusieurs se joue pendant votre partie, ainsi que l'ajout de sons pour votre interface.
+Terrain anchoring : Units now move more realistically on hills. (pas compris d&#233;sol&#233;)
+Vous pouvez maintenant rajouter une description pour vos sauvegarde en jeux ainsi qu'&#233;craser et supprimer vos sauvegarde en jeux.
+Quelques maps ont &#233;t&#233; am&#233;lior&#233; afin d'avoir un meilleur rendu visuel ainsi que d'&#234;tre plus jouable.
+Le rendu de l'eau est maintenant am&#233;lior&#233; et plus rapide.
+Le rendu de vos bateaux quand ceux-ci coule est am&#233;lior&#233;.
+&lt;br /&gt;
+&lt;br /&gt;
+Et pour finir la r&#233;solutions de quelque bug, et diverse optimisation (je vous invite &#224; voir le site officiel pour cela).
+&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt; &lt;p&gt;*&lt;a href=&quot;http://www.indiegogo.com/projects/support-0-a-d-an-open-source-strategy-game/&quot; class='spip_url spip_out' rel='nofollow external'&gt;http://www.indiegogo.com/projects/s...&lt;/a&gt;
+&lt;br /&gt;
+&#178;&lt;a href=&quot;http://wildfiregames.com/0ad/images/news_images/alpha-14-blacksmiths-small.jpg&quot; class='spip_url spip_out' rel='nofollow external'&gt;http://wildfiregames.com/0ad/images...&lt;/a&gt;&lt;/p&gt;&lt;/div&gt;
+
+		</content:encoded>
+
+	</item>
+
+	<item xml:lang="fr">
+		<title>Bient&#244;t 3000 r&#233;f&#233;rences sur &#171; Le Bottin des Jeux Linux &#187; qui s'offre un nouveau look.</title>
+		<link>http://www.jeuxlinux.fr/spip.php?breve1332</link>
+		<guid isPermaLink="true">http://www.jeuxlinux.fr/spip.php?breve1332</guid>
+		<dc:date>2013-08-29T07:47:20Z</dc:date>
+		<dc:format>text/html</dc:format>
+		<dc:language>fr</dc:language>
+
+
+		<description>Depuis le 16 ao&#251;t 2013, le site Le Bottin des Jeux Linux adopte un nouvel habillage. Le site &#233;volue vers un rendu plus clair : pour les &#233;crans classiques mais aussi consultable sur de petits &#233;crans, de type tablettes et t&#233;l&#233;phones. &#171; Le Bottin des Jeux Linux &#187; est aussi un annuaire &#224; t&#233;l&#233;charger, il (...)
+
+-
+&lt;a href="http://www.jeuxlinux.fr/spip.php?rubrique12" rel="directory"&gt;Liens&lt;/a&gt;
+
+
+		</description>
+
+
+ <content:encoded>&lt;div class='rss_texte'&gt;&lt;p&gt;Depuis le 16 ao&#251;t 2013, le site &lt;a href=&quot;http://www.lebottindesjeuxlinux.tuxfamily.org/&quot; class='spip_out' rel='external'&gt;Le Bottin des Jeux Linux&lt;/a&gt; adopte un nouvel habillage. Le site &#233;volue vers un rendu plus clair : pour les &#233;crans classiques mais aussi consultable sur de petits &#233;crans, de type tablettes et t&#233;l&#233;phones.
+&lt;br /&gt;
+&lt;br /&gt;
+&#171; &lt;a href=&quot;http://www.lebottindesjeuxlinux.tuxfamily.org/&quot; class='spip_out' rel='external'&gt;Le Bottin des Jeux Linux&lt;/a&gt; &#187; est aussi un annuaire &#224; t&#233;l&#233;charger, il vous pr&#233;sente pr&#232;s de 3000 jeux Linux, libres, non-libres et commerciaux ou non (sauf ceux qui n'ont pas de lien p&#233;renne). Des &#233;mulateurs, des moteurs de jeux, ainsi que des jeux Windows jouables via &lt;a href=&quot;http://www.winehq.org/&quot; class='spip_out' rel='external'&gt;Wine&lt;/a&gt;, sont &#233;galement r&#233;f&#233;renc&#233;s.
+&lt;br /&gt;
+&lt;br /&gt;
+Cet annuaire &#8211; dont la mise &#224; jour est bimensuelle &#8211; vous est livr&#233; sous la forme d'une archive initiale de 340 Mo o&#249; vous trouverez &#171; Le Bottin des Jeux Linux &#187; au format &lt;a href=&quot;http://tellico-project.org/&quot; class='spip_out' rel='external'&gt;Tellico&lt;/a&gt;. Tellico est v&#233;loce, agr&#233;able et dispose de fonctionnalit&#233;s avanc&#233;es de tris et de recherches. De plus, ce format a prouv&#233; son efficacit&#233; pour la rapidit&#233; de cr&#233;ation des fiches et son ergonomie. Enfin, il existe des passerelles pour la cr&#233;ation de pages HTML. C'est pourquoi &#171; Le Bottin des Jeux Linux &#187; l'a choisi pour sa distribution. Tellico facilite ainsi recherche et consultation de la base de donn&#233;e du Bottin.
+&lt;br /&gt;
+&lt;br /&gt;
+&#171; Le Bottin des Jeux Linux &#187; constitue une importante ressource d'informations relatives aux jeux sous Linux en s'appuyant non seulement sur l'exp&#233;rience acquise au fil de l'eau mais aussi sur l'expertise de sites reconnus (plus de 44 000 liens vers les points clefs des jeux et des ressources externes telles que des trailers, des revues &amp; interviews d'autres sites, des pages Wikip&#233;dia, &#8230;). Tenu depuis 2007 par Serge Le Tyrant et son fils Louis, il repr&#233;sente actuellement 6 ans de travail. &lt;br /&gt;
+&lt;br /&gt;
+Initialement sous licence GFDL, depuis le 24 ao&#251;t 2013, le Bottin est pass&#233; sous licence CC BY 2.0 FR (plus clairement libre). Le site est donc libre et ouvert aux am&#233;liorations. Tellico n'est pas en reste du fait de sa licence (GPL).
+&lt;br /&gt;
+&lt;br /&gt;
+Comme de nombreux autres projets, ce site manque de contributeurs, alors n'h&#233;sitez pas &#224; participer : en r&#233;alisant une fiche de jeu, en envoyant un petit mot ou des encouragements par quelques dons. Toujours pour s'am&#233;liorer, le site entreprend actuellement de s'internationaliser en traduisant certaines pages en anglais.&lt;/p&gt; &lt;p&gt;Alors, il n'y a pas de jeux sous Linux ?
+&lt;br /&gt;
+&lt;br /&gt;
+(d'apr&#232;s &lt;a href=&quot;http://linuxfr.org/news/le-bottin-des-jeux-linux-bientot-3000-references-et-un-nouveau-look&quot; class='spip_out' rel='external'&gt;l'article d'origine sur Linuxfr&lt;/a&gt;)&lt;/p&gt;&lt;/div&gt;
+
+		</content:encoded>
+
+	</item>
+
+	<item xml:lang="fr">
+		<title>Dota 2</title>
+		<link>http://www.jeuxlinux.fr/spip.php?breve1331</link>
+		<guid isPermaLink="true">http://www.jeuxlinux.fr/spip.php?breve1331</guid>
+		<dc:date>2013-08-08T09:43:47Z</dc:date>
+		<dc:format>text/html</dc:format>
+		<dc:language>fr</dc:language>
+
+<dc:subject>Jerhum</dc:subject>
+
+		<description>Dota a tout d'abord &#233;t&#233; une modification faite par des joueurs de Warcraft 3 et a fini par &#234;tre un des jeux les plus jou&#233;s au monde. Dota 2 est le fruit du recrutement des d&#233;veloppeurs de la communaut&#233; qui a construit cette modification et de leur chance de d&#233;velopper un jeu complet d'apr&#232;s leurs (...)
+
+-
+&lt;a href="http://www.jeuxlinux.fr/spip.php?rubrique8" rel="directory"&gt;Jeux natifs&lt;/a&gt;
+
+/
+&lt;a href="http://www.jeuxlinux.fr/spip.php?mot36" rel="tag"&gt;Jerhum&lt;/a&gt;
+
+		</description>
+
+
+ <content:encoded>&lt;img class='spip_logos' alt=&quot;&quot; align=&quot;right&quot; src=&quot;http://www.jeuxlinux.fr/local/cache-vignettes/L150xH85/breveon1331-aed74.jpg&quot; width='150' height='85' style='height:85px;width:150px;' /&gt;
+		&lt;div class='rss_texte'&gt;&lt;p&gt;Dota a tout d'abord &#233;t&#233; une modification faite par des joueurs de Warcraft 3 et a fini par &#234;tre un des jeux les plus jou&#233;s au monde. &lt;br /&gt;
+Dota 2 est le fruit du recrutement des d&#233;veloppeurs de la communaut&#233; qui a construit cette modification et de leur chance de d&#233;velopper un jeu complet d'apr&#232;s leurs id&#233;es avec l'aide de l'&#233;quipe de d&#233;veloppeurs et d'artistes professionnels de Valve.
+&lt;br /&gt;
+&lt;br /&gt;
+Dota 2 est disponible gratuitement sur la plateforme Steam&lt;/p&gt;&lt;/div&gt;
+
+		</content:encoded>
+
+	</item>
+
+	<item xml:lang="fr">
+		<title>Un DVD de jeux FPS libres pour Windows et Linux</title>
+		<link>http://www.jeuxlinux.fr/spip.php?breve1330</link>
+		<guid isPermaLink="true">http://www.jeuxlinux.fr/spip.php?breve1330</guid>
+		<dc:date>2013-08-01T10:48:22Z</dc:date>
+		<dc:format>text/html</dc:format>
+		<dc:language>fr</dc:language>
+
+<dc:subject>Jeux de tir</dc:subject>
+
+		<description>Cher(e) joueur(se), cher gamer, Tu aimes les jeux en r&#233;seau n'est-ce pas ? Tu aimes aussi les FPS, jeux de tir en vue subjective ? Tu voudrais &#233;galement ne pas perdre tes amis qui sont sous Windows ou Linux ? Et tu penses que tes souhaits ne sont pas r&#233;alisables ? Tu en as r&#234;v&#233;, l'association (...)
+
+-
+&lt;a href="http://www.jeuxlinux.fr/spip.php?rubrique9" rel="directory"&gt;Mat&#233;riel / Logiciel&lt;/a&gt;
+
+/
+&lt;a href="http://www.jeuxlinux.fr/spip.php?mot9" rel="tag"&gt;Jeux de tir&lt;/a&gt;
+
+		</description>
+
+
+ <content:encoded>&lt;img class='spip_logos' alt=&quot;&quot; align=&quot;right&quot; src=&quot;http://www.jeuxlinux.fr/local/cache-vignettes/L150xH60/breveon1330-e773a.png&quot; width='150' height='60' style='height:60px;width:150px;' /&gt;
+		&lt;div class='rss_texte'&gt;&lt;p&gt;Cher(e) joueur(se), cher gamer,
+&lt;br /&gt;
+&lt;br /&gt;
+Tu aimes les jeux en r&#233;seau n'est-ce pas ? Tu aimes aussi les FPS, jeux de tir en vue subjective ? Tu voudrais &#233;galement ne pas perdre tes amis qui sont sous Windows ou Linux ? Et tu penses que tes souhaits ne sont pas r&#233;alisables ? Tu en as r&#234;v&#233;, l'association &lt;a href=&quot;http://asso.lanpower.free.fr/&quot; class='spip_out' rel='external'&gt;LanPower&lt;/a&gt; l'a fait. Pour toi, voici donc un &lt;a href=&quot;http://asso.lanpower.free.fr/index.php?option=com_content&amp;view=article&amp;id=167&quot; class='spip_out' rel='external'&gt;DVD de jeux FPS libres&lt;/a&gt; et compatible Windows et Linux (gr&#226;ce &#224; Wine).
+C'est du lourd, du vrai, du pur FPS bien bourrin pour fragguer entre amis. Et c'est libre, mais &#231;a tu ne sais pas vraiment ce que &#231;a veut dire ; peu importe, on t'expliquera.
+&lt;br /&gt;
+&lt;br /&gt;
+Voici le contenu de &lt;a href=&quot;http://asso.lanpower.free.fr/index.php?option=com_content&amp;view=article&amp;id=167&quot; class='spip_out' rel='external'&gt;ce DVD&lt;/a&gt; &#224; partager sans compter :
+&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt; &lt;ul class=&quot;spip&quot;&gt;&lt;li&gt; &lt;a href=&quot;http://jeuxlibres.net/showgame/freedoom.html&quot; class='spip_out' rel='external'&gt;Freedoom&lt;/a&gt;, la version libre de l'anc&#234;tre Doom 1 et 2 ;&lt;/li&gt;&lt;li&gt; &lt;a href=&quot;http://openarena.tuxfamily.org/wiki/index.php&quot; class='spip_out' rel='external'&gt;Open Arena&lt;/a&gt;, pour revivre le non moins connu Quake 3 Arena ;&lt;/li&gt;&lt;li&gt; &lt;a href=&quot;http://www.redeclipse.net/&quot; class='spip_out' rel='external'&gt;Red Eclipse&lt;/a&gt;, issu du travail sur Cube et Cube 2 (Sauerbraten) ;&lt;/li&gt;&lt;li&gt; &lt;a href=&quot;http://www.alientrap.org/games/nexuiz&quot; class='spip_out' rel='external'&gt;Nexuiz Classique&lt;/a&gt; et son fils &lt;a href=&quot;http://www.xonotic.org/&quot; class='spip_out' rel='external'&gt;Xonotic&lt;/a&gt; bas&#233;s sur le moteur Darkplace (un d&#233;riv&#233; du moteur de Quake 1) compl&#232;tent la collection.
+&lt;br /&gt;
+&lt;br /&gt;
+Joueur acharn&#233;, tu ne diras plus &#171; il n'y a pas de jeux libres assez bien pour moi &#187;, ni de FPS pour Linux. Que &lt;a href=&quot;http://asso.lanpower.free.fr/index.php?option=com_content&amp;view=article&amp;id=167&quot; class='spip_out' rel='external'&gt;ce DVD&lt;/a&gt; devienne ta bible, te serve d'oreiller et ne te quitte jamais !
+&lt;br /&gt;
+&lt;br /&gt;
+Tu n'en n'as pas assez et tu en veux d'autres (pas seulement des FPS j'esp&#232;re), c'est &lt;a href=&quot;http://asso.lanpower.free.fr/&quot; class='spip_out' rel='external'&gt;ici&lt;/a&gt; et sur &lt;a href=&quot;http://www.enventelibre.org/catalog/par-type-de-produit/cddvd/jeux&quot; class='spip_out' rel='external'&gt;En Vente Libre&lt;/a&gt; rubrique jeux.&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
+
+		</content:encoded>
+
+	</item>
+
+	<item xml:lang="fr">
+		<title>Appel aux financements pour Plee the Bear</title>
+		<link>http://www.jeuxlinux.fr/spip.php?breve1329</link>
+		<guid isPermaLink="true">http://www.jeuxlinux.fr/spip.php?breve1329</guid>
+		<dc:date>2013-07-10T19:51:26Z</dc:date>
+		<dc:format>text/html</dc:format>
+		<dc:language>fr</dc:language>
+
+<dc:subject>Jeux de plateau / plateforme</dc:subject>
+
+		<description>L'&#233;quipe de Plee the Bear lance un appel aux financements pour reprendre le d&#233;veloppement de ce super jeu de plate-forme. Vous y contr&#244;lez un ours en col&#232;re parti &#224; la recherche de son fils pour le gifler, car il a mang&#233; tout le miel des r&#233;serves. Pas de veine, il a &#233;t&#233; kidnapp&#233; par dieu, du coup il va (...)
+
+-
+&lt;a href="http://www.jeuxlinux.fr/spip.php?rubrique12" rel="directory"&gt;Liens&lt;/a&gt;
+
+/
+&lt;a href="http://www.jeuxlinux.fr/spip.php?mot16" rel="tag"&gt;Jeux de plateau / plateforme&lt;/a&gt;
+
+		</description>
+
+
+ <content:encoded>&lt;img class='spip_logos' alt=&quot;&quot; align=&quot;right&quot; src=&quot;http://www.jeuxlinux.fr/local/cache-vignettes/L126xH150/breveon1329-82b40.png&quot; width='126' height='150' style='height:150px;width:126px;' /&gt;
+		&lt;div class='rss_texte'&gt;&lt;p&gt;L'&#233;quipe de &lt;a href=&quot;http://www.stuff-o-matic.com/ptb/&quot; class='spip_out' rel='external'&gt;Plee the Bear&lt;/a&gt; lance un appel aux financements pour reprendre le d&#233;veloppement de ce super jeu de plate-forme. Vous y contr&#244;lez un ours en col&#232;re parti &#224; la recherche de son fils pour le gifler, car il a mang&#233; tout le miel des r&#233;serves. Pas de veine, il a &#233;t&#233; kidnapp&#233; par dieu, du coup il va falloir le sauver&#8230;&lt;/p&gt; &lt;p&gt;Apr&#232;s avoir r&#233;dig&#233; la &lt;a href=&quot;http://www.stuff-o-matic.com/ptb/files/game-bible.pdf&quot; class='spip_out' rel='external'&gt;bible du jeu&lt;/a&gt;, &#233;crit &lt;a href=&quot;http://www.stuff-o-matic.com/ptb/files/script.pdf&quot; class='spip_out' rel='external'&gt;un sc&#233;nario&lt;/a&gt; et estim&#233; &lt;a href=&quot;http://www.stuff-o-matic.com/ptb/files/time-cost.ods&quot; class='spip_out' rel='external'&gt;la charge de travail&lt;/a&gt;, l'&#233;quipe a propos&#233; le projet sur OpenFunding, plate-forme de financement d&#233;di&#233;e aux logiciels libres.&lt;/p&gt; &lt;p&gt;&lt;a href=&quot;http://funding.openinitiative.com/funding/1702/&quot; class='spip_out' rel='external'&gt;Le premier appel&lt;/a&gt; concerne le rafra&#238;chissement de la version existante du jeu afin de coller &#224; la bible et la rendre pour agr&#233;able. L'&#233;quipe entamera ensuite la production des niveaux restants.&lt;/p&gt;&lt;/div&gt;
+
+		</content:encoded>
+
+	</item>
+
+	<item xml:lang="fr">
+		<title>Sortie de Xonotic 0.7</title>
+		<link>http://www.jeuxlinux.fr/spip.php?breve1328</link>
+		<guid isPermaLink="true">http://www.jeuxlinux.fr/spip.php?breve1328</guid>
+		<dc:date>2013-06-13T18:50:57Z</dc:date>
+		<dc:format>text/html</dc:format>
+		<dc:language>fr</dc:language>
+
+<dc:subject>Jeux de tir</dc:subject>
+
+		<description>Il y a un peu moins d'une semaine est sorti la release 0.7 de Xonotic, le fork libre de Nexuiz. Cette version est consid&#233;r&#233;e par les d&#233;veloppeurs comme un immense bon en avant pour le projet. Ils ont chang&#233;s la structure de l'&#233;quipe pour faire de la place &#224; des nouveaux talents, et le r&#233;sultat est (...)
+
+-
+&lt;a href="http://www.jeuxlinux.fr/spip.php?rubrique8" rel="directory"&gt;Jeux natifs&lt;/a&gt;
+
+/
+&lt;a href="http://www.jeuxlinux.fr/spip.php?mot9" rel="tag"&gt;Jeux de tir&lt;/a&gt;
+
+		</description>
+
+
+ <content:encoded>&lt;img class='spip_logos' alt=&quot;&quot; align=&quot;right&quot; src=&quot;http://www.jeuxlinux.fr/local/cache-vignettes/L150xH85/breveon1328-5919f.jpg&quot; width='150' height='85' style='height:85px;width:150px;' /&gt;
+		&lt;div class='rss_texte'&gt;&lt;p&gt;Il y a un peu moins d'une semaine est sorti la release 0.7 de Xonotic, le fork libre de Nexuiz. Cette version est consid&#233;r&#233;e par les d&#233;veloppeurs comme un immense bon en avant pour le projet.
+&lt;br /&gt;
+&lt;br /&gt;
+Ils ont chang&#233;s la structure de l'&#233;quipe pour faire de la place &#224; des nouveaux talents, et le r&#233;sultat est une meilleure plateforme avec laquelle travailler. &lt;br /&gt;
+&lt;br /&gt;
+Ils ont travaill&#233; dur depuis la version pr&#233;c&#233;dente pour faire &#233;voluer le jeu vers quelque chose que tout le monde puisse appr&#233;cier. Des &#233;volutions sont visibles pour les joueurs occasionnels comme pour les joueurs plus comp&#233;titifs. &lt;br /&gt;
+&lt;br /&gt;
+L'&#233;quipe se dit tr&#232;s fi&#232;re du travail accompli en collaboration avec leur communaut&#233; active et diversifi&#233;e et esp&#232;re que vous allez l'appr&#233;cier vous aussi !&lt;/p&gt;&lt;/div&gt;
+
+		</content:encoded>
+
+	</item>
+
+	<item xml:lang="fr">
+		<title>OpenRA - release 20130514 </title>
+		<link>http://www.jeuxlinux.fr/spip.php?breve1327</link>
+		<guid isPermaLink="true">http://www.jeuxlinux.fr/spip.php?breve1327</guid>
+		<dc:date>2013-05-13T18:59:31Z</dc:date>
+		<dc:format>text/html</dc:format>
+		<dc:language>fr</dc:language>
+
+<dc:subject>Strat&#233;gie</dc:subject>
+
+		<description>Si vous aimez les jeux de strat&#233;gie (RTS) et que l'envie vous prend de rejouer &#224; ces anciens titres phares qui ont marqu&#233; votre enfance, OpenRA est fait pour vous. OpenRA est un logiciel qui vous permet de jouer en multijoueur &#224; d'anciens jeux cr&#233;&#233;s par feu le studio Westwood comme Red Alert, Command (...)
+
+-
+&lt;a href="http://www.jeuxlinux.fr/spip.php?rubrique21" rel="directory"&gt;Previews&lt;/a&gt;
+
+/
+&lt;a href="http://www.jeuxlinux.fr/spip.php?mot10" rel="tag"&gt;Strat&#233;gie&lt;/a&gt;
+
+		</description>
+
+
+ <content:encoded>&lt;img class='spip_logos' alt=&quot;&quot; align=&quot;right&quot; src=&quot;http://www.jeuxlinux.fr/local/cache-vignettes/L128xH128/breveon1327-86029.png&quot; width='128' height='128' style='height:128px;width:128px;' /&gt;
+		&lt;div class='rss_texte'&gt;&lt;p&gt;Si vous aimez les jeux de strat&#233;gie (RTS) et que l'envie vous prend de rejouer &#224; ces anciens titres phares qui ont marqu&#233; votre enfance, OpenRA est fait pour vous.
+&lt;br /&gt;
+&lt;br /&gt;
+OpenRA est un logiciel qui vous permet de jouer en multijoueur &#224; d'anciens jeux cr&#233;&#233;s par feu le studio Westwood comme Red Alert, Command and Conquer et Dune2000.
+&lt;br /&gt;
+&lt;br /&gt;
+En outre, il n'est pas n&#233;cessaire de disposer des CDs originaux car un bouton permet de r&#233;cup&#233;rer le contenu de ces jeux, directement depuis OpenRA. En effet EA a publi&#233; ces jeux sous forme de freeware il y a quelques ann&#233;es de &#231;a.
+&lt;br /&gt;
+&lt;br /&gt;
+OpenRA est en constante &#233;volution et si certains d&#233;veloppeurs travaillent sur les bugs, d'autres s'occupent de la balance des mods et jeux.&lt;/p&gt; &lt;p&gt;Disponible sur Windows, Mac et surtout sous Linux, OpenRA vous promet de nombreuses heures de fun.&lt;/p&gt;&lt;/div&gt;
+
+		</content:encoded>
+
+	</item>
+
+	<item xml:lang="fr">
+		<title>Ubuntu Party et Jeuxlinux</title>
+		<link>http://www.jeuxlinux.fr/spip.php?breve1326</link>
+		<guid isPermaLink="true">http://www.jeuxlinux.fr/spip.php?breve1326</guid>
+		<dc:date>2013-05-13T13:46:48Z</dc:date>
+		<dc:format>text/html</dc:format>
+		<dc:language>fr</dc:language>
+
+<dc:subject>Kazuky Akayashi</dc:subject>
+
+		<description>Les 1er et 2 juin 2013 arrivent et la Ubuntu Party de Paris aussi, Jeuxlinux ne sera pas pr&#233;sent &#224; cette &#233;dition &#224; proprement parl&#233;, car il n'y aura malheureusement pas de stand Jeuxlinux pour cette &#233;dition. En revanche, la conf&#233;rence de S&#233;bastien Bernery, sur le jeu vid&#233;o sous GNU/linux, est (...)
+
+-
+&lt;a href="http://www.jeuxlinux.fr/spip.php?rubrique21" rel="directory"&gt;Previews&lt;/a&gt;
+
+/
+&lt;a href="http://www.jeuxlinux.fr/spip.php?mot50" rel="tag"&gt;Kazuky Akayashi&lt;/a&gt;
+
+		</description>
+
+
+ <content:encoded>&lt;img class='spip_logos' alt=&quot;&quot; align=&quot;right&quot; src=&quot;http://www.jeuxlinux.fr/local/cache-vignettes/L140xH90/breveon1326-c6242.png&quot; width='140' height='90' style='height:90px;width:140px;' /&gt;
+		&lt;div class='rss_texte'&gt;&lt;p&gt;Les 1er et 2 juin 2013 arrivent et la &lt;a href=&quot;http://ubuntu-party.org/paris-1er-juin-2013/&quot; class='spip_out' rel='external'&gt;Ubuntu Party&lt;/a&gt; de Paris aussi, Jeuxlinux ne sera pas pr&#233;sent &#224; cette &#233;dition &#224; proprement parl&#233;, car il n'y aura malheureusement pas de stand Jeuxlinux pour cette &#233;dition.
+&lt;br /&gt;
+&lt;br /&gt;
+En revanche, la conf&#233;rence de S&#233;bastien Bernery, sur le jeu vid&#233;o sous GNU/linux, est maintenue et une autre conf&#233;rence est pr&#233;vue avec des d&#233;monstrations et pr&#233;sentations de jeux vid&#233;o par des membres de Jeuxlinux.fr.
+&lt;br /&gt;
+&lt;br /&gt;
+Pour les conf&#233;rences des &#233;ditions pr&#233;c&#233;dentes &lt;a href=&quot;http://www.jeuxlinux.fr/a322-Conferences_audio_et_video.html#up1111&quot; class='spip_out'&gt;par ici&lt;/a&gt;.&lt;/p&gt;&lt;/div&gt;
+
+		</content:encoded>
+
+	</item>
+
+	<item xml:lang="fr">
+		<title>The Linux Game Tome s'est &#233;teint </title>
+		<link>http://www.jeuxlinux.fr/spip.php?breve1325</link>
+		<guid isPermaLink="true">http://www.jeuxlinux.fr/spip.php?breve1325</guid>
+		<dc:date>2013-04-22T06:52:40Z</dc:date>
+		<dc:format>text/html</dc:format>
+		<dc:language>fr</dc:language>
+
+<dc:subject>Action / aventure</dc:subject>
+
+		<description>La disparition in&#233;luctable de The Happy Penguin le 13 avril 2013 nous a tous attrist&#233;. Ouvert en 1995 par Tessa Lau (source Wikipedia en), ce site f&#251;t l'une des premi&#232;res r&#233;f&#233;rences des jeux disponibles sous Linux et f&#251;t largement utilis&#233; notamment par Le bottin des jeux Linux. Apr&#232;s 18 ans de service, (...)
+
+-
+&lt;a href="http://www.jeuxlinux.fr/spip.php?rubrique12" rel="directory"&gt;Liens&lt;/a&gt;
+
+/
+&lt;a href="http://www.jeuxlinux.fr/spip.php?mot15" rel="tag"&gt;Action / aventure&lt;/a&gt;
+
+		</description>
+
+
+ <content:encoded>&lt;img class='spip_logos' alt=&quot;&quot; align=&quot;right&quot; src=&quot;http://www.jeuxlinux.fr/local/cache-vignettes/L150xH75/breveon1325-8a422.jpg&quot; width='150' height='75' style='height:75px;width:150px;' /&gt;
+		&lt;div class='rss_texte'&gt;&lt;p&gt;La disparition in&#233;luctable de &lt;a href=&quot;http://www.happypenguin.org/&quot; class='spip_out' rel='external'&gt;The Happy Penguin&lt;/a&gt; le 13 avril 2013 nous a tous attrist&#233;. Ouvert en 1995 par Tessa Lau (source Wikipedia en), ce site f&#251;t l'une des premi&#232;res r&#233;f&#233;rences des jeux disponibles sous Linux et f&#251;t largement utilis&#233; notamment par &lt;a href=&quot;http://www.lebottindesjeuxlinux.tuxfamily.org/&quot; class='spip_out' rel='external'&gt;Le bottin des jeux Linux&lt;/a&gt;. Apr&#232;s 18 ans de service, ce site important a quitt&#233; le paysage libriste (m&#234;me s'il ne recense pas seulement les jeux libres).
+&lt;br /&gt;
+&lt;br /&gt;
+Apr&#232;s &lt;a href=&quot;http://linuxfr.org/news/ikarios-nest-plus&quot; class='spip_out' rel='external'&gt;la disparition d'Ikarios en 2010&lt;/a&gt;, cette perte montre la fragilit&#233; du b&#233;n&#233;volat dans le monde du libre. N'oublions pas que &lt;a href=&quot;http://jeuxlibres.net/main.html&quot; class='spip_out' rel='external'&gt;jeuxlibres.net&lt;/a&gt; f&#251;t menac&#233; un temps &#233;galement et que &lt;a href=&quot;http://www.lebottindesjeuxlinux.tuxfamily.org/&quot; class='spip_out' rel='external'&gt;Le Bottin des jeux Linux&lt;/a&gt; reposant principalement sur une seule personne, est aussi tr&#232;s fragile. Si vous avez du temps libre disponible, n'oubliez pas ses sites.
+Des tentatives de cr&#233;er des suites sont discut&#233;s &lt;a href=&quot;http://happypenguin.onkoistudios.com/&quot; class='spip_out' rel='external'&gt;ici&lt;/a&gt; et &lt;a href=&quot;http://linuxtimes.net/&quot; class='spip_out' rel='external'&gt;l&#224;.&lt;/a&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+Le 13 avril 2013 f&#251;t donc une journ&#233;e de deuil pour tous les amoureux des jeux libres et des jeux sous Linux.&lt;/p&gt;&lt;/div&gt;
+
+		</content:encoded>
+
+	</item>
+
+	<item xml:lang="fr">
+		<title>Humble Bundle for android 5</title>
+		<link>http://www.jeuxlinux.fr/spip.php?breve1324</link>
+		<guid isPermaLink="true">http://www.jeuxlinux.fr/spip.php?breve1324</guid>
+		<dc:date>2013-03-14T12:54:12Z</dc:date>
+		<dc:format>text/html</dc:format>
+		<dc:language>fr</dc:language>
+
+
+		<description>Sortie il y a quelques jours, ce nouvel humble bundle propose 9 jeux disponibles sur linux, android, windows et mac : Beat Hazard Ultra Solar 2 Dynamite jack Nightsky hd Splice Super hexagon Dungeon defenders Crayon physics deluxe Sword &amp; sworcery Le tout au prix que vous (...)
+
+-
+&lt;a href="http://www.jeuxlinux.fr/spip.php?rubrique21" rel="directory"&gt;Previews&lt;/a&gt;
+
+
+		</description>
+
+
+ <content:encoded>&lt;div class='rss_texte'&gt;&lt;p&gt;Sortie il y a quelques jours, ce nouvel humble bundle propose 9 jeux disponibles sur linux, android, windows et mac :
+&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt; &lt;ul class=&quot;spip&quot;&gt;&lt;li&gt; &lt;a href=&quot;http://www.coldbeamgames.com/&quot; class='spip_out' rel='external'&gt;Beat Hazard Ultra&lt;/a&gt;&lt;/li&gt;&lt;li&gt; &lt;a href=&quot;http://murudai.com/solar/&quot; class='spip_out' rel='external'&gt;Solar 2&lt;/a&gt;&lt;/li&gt;&lt;li&gt; &lt;a href=&quot;http://www.galcon.com/games/?action=game&amp;name=dynamitejack&quot; class='spip_out' rel='external'&gt;Dynamite jack&lt;/a&gt;&lt;/li&gt;&lt;li&gt; &lt;a href=&quot;http://www.nicalis.com/nightsky/&quot; class='spip_out' rel='external'&gt;Nightsky hd&lt;/a&gt;&lt;/li&gt;&lt;li&gt; &lt;a href=&quot;http://www.cipherprime.com/games/splice/&quot; class='spip_out' rel='external'&gt;Splice&lt;/a&gt;&lt;/li&gt;&lt;li&gt; &lt;a href=&quot;http://www.jeuxlinux.fr/superhexagon.com&quot; class='spip_out'&gt;Super hexagon&lt;/a&gt;&lt;/li&gt;&lt;li&gt; &lt;a href=&quot;http://dungeondefenders.com/&quot; class='spip_out' rel='external'&gt;Dungeon defenders&lt;/a&gt;&lt;/li&gt;&lt;li&gt; &lt;a href=&quot;http://www.crayonphysics.com/&quot; class='spip_out' rel='external'&gt;Crayon physics deluxe&lt;/a&gt;&lt;/li&gt;&lt;li&gt; &lt;a href=&quot;http://www.swordandsworcery.com/&quot; class='spip_out' rel='external'&gt;Sword &amp; sworcery&lt;/a&gt;
+&lt;br /&gt;
+&lt;br /&gt;&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;Le tout au prix que vous voulez. N&#233;anmoins pour avoir acc&#232;s &#224; splice, super hexagon, dungeon defenders, crayon physics deluxe et sword &amp; sworcery, vous devrez faire un paiement sup&#233;rieur &#224; la moyenne pour en profiter. Le bundle est accompagn&#233; des bandes-son originales des diff&#233;rents jeux.
+&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt; &lt;div class=&quot;centrer&quot;&gt;&lt;iframe style=&quot;margin: 0pt auto; border: medium none;&quot; src=&quot;http://www.humblebundle.com/_widget/html&quot; width=&quot;410&quot; height=&quot;150&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;/div&gt;
+
+		</content:encoded>
+
+	</item>
+
+	<item xml:lang="fr">
+		<title>Wargame EE sur Steam</title>
+		<link>http://www.jeuxlinux.fr/spip.php?breve1323</link>
+		<guid isPermaLink="true">http://www.jeuxlinux.fr/spip.php?breve1323</guid>
+		<dc:date>2013-03-06T01:33:57Z</dc:date>
+		<dc:format>text/html</dc:format>
+		<dc:language>fr</dc:language>
+
+<dc:subject>Strat&#233;gie</dc:subject>
+
+		<description>L'excellent jeu de strat&#233;gie Wargame European Escalation est maintenant disponible sur Linux, au travers de la plateforme Steam. Le mode multijoueur est compatible entre les diff&#233;rentes versions du jeu Windows, Mac et Linux. Wargame European Escalation est un jeu de strat&#233;gie en temps r&#233;el se (...)
+
+-
+&lt;a href="http://www.jeuxlinux.fr/spip.php?rubrique21" rel="directory"&gt;Previews&lt;/a&gt;
+
+/
+&lt;a href="http://www.jeuxlinux.fr/spip.php?mot10" rel="tag"&gt;Strat&#233;gie&lt;/a&gt;
+
+		</description>
+
+
+ <content:encoded>&lt;img class='spip_logos' alt=&quot;&quot; align=&quot;right&quot; src=&quot;http://www.jeuxlinux.fr/local/cache-vignettes/L150xH53/breveon1323-93d6c.jpg&quot; width='150' height='53' style='height:53px;width:150px;' /&gt;
+		&lt;div class='rss_texte'&gt;&lt;p&gt;L'excellent jeu de strat&#233;gie Wargame European Escalation est maintenant disponible sur Linux, au travers de la plateforme Steam.
+Le mode multijoueur est compatible entre les diff&#233;rentes versions du jeu Windows, Mac et Linux.
+&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt; &lt;p&gt;Wargame European Escalation est un jeu de strat&#233;gie en temps r&#233;el se d&#233;roulant pendant l'&#233;poque de la guerre froide. Les unit&#233;s sont fid&#233;lement mod&#233;lis&#233;es, avec un grand r&#233;alisme apport&#233; aux armes, protection, performances et autonomie. Le zoom permet de passer de l'ensemble du champ de bataille &#224; l'unit&#233; s&#233;lectionn&#233;e.
+&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt; &lt;p&gt;Pour ma part, il est compl&#232;tement fonctionnel sur Linux Mint 14 32bits, Intel Core 2 Quad Q8400, Nvidia GTX 560 avec drivers experimental-310. Le driver Nouveau offrait de mauvaises performances.&lt;/p&gt;&lt;/div&gt;
+
+		</content:encoded>
+
+	</item>
+
+
+</channel>
+
+</rss>

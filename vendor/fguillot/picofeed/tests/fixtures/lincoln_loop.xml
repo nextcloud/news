@@ -1,0 +1,1150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Lincoln Loop Blog</title><link>http://lincolnloop.com/blog/</link><description>Lincoln Loop Blog</description><atom:link href="http://lincolnloop.com/blog/feeds/latest/" rel="self"></atom:link><language>en-us</language><lastBuildDate>Tue, 13 May 2014 11:51:13 -0500</lastBuildDate><item><title>High Performance Django Kickstarter Project</title><link>http://lincolnloop.com/blog/high-performance-django-kickstarter-project/</link><description>
+&lt;p&gt;&lt;strong&gt;Please update to our new feed url: &lt;a href="http://lincolnloop.com/blog/feed/"&gt;lincolnloop.com/blog/feed/&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;hr/&gt;
+&lt;p&gt;&lt;a href="https://www.kickstarter.com/projects/1704706557/high-performance-django" style="float:left;display:inline-block; margin: 0 2em 1em 0"&gt;&lt;img src="http://lincolnloop.com/uploads/uploads/hpd_cover.jpg" alt=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I&amp;#39;m really excited to (finally) announce that we are writing a book! We&amp;#39;ve been working with Django professionally for a long time (over 7 years now). During that time, we&amp;#39;ve learned &lt;em&gt;a lot&lt;/em&gt; about how to use the framework to build fast and scalable websites. We&amp;#39;re bundling up all that knowledge into an e-book called &lt;strong&gt;&lt;em&gt;High Performance Django&lt;/em&gt;&lt;/strong&gt; and it is up on &lt;a href="https://www.kickstarter.com/projects/1704706557/high-performance-django"&gt;Kickstarter&lt;/a&gt; today.&lt;/p&gt;
+
+&lt;p&gt;We&amp;#39;re already well into the writing process, so we can tell you a little about what you&amp;#39;ll get. The book is heavy on Django tips, but also reaches far beyond Python, showing you how to architect and tune the rest of your stack. It gives you an opinionated battle-tested blueprint utilizing many of the same techniques as high-profile Django sites like Disqus, Instagram, and Pintrest.&lt;/p&gt;
+
+&lt;p&gt;We hope to get the first edition out in July, but we need your help to make that happen. Writing and editing the book is going to be a massive undertaking and you can help support our effort. &lt;a href="https://www.kickstarter.com/projects/1704706557/high-performance-django"&gt;Give us your vote of confidence by backing the project today&lt;/a&gt;!&lt;/p&gt;</description><pubDate>Tue, 13 May 2014 11:51:13 -0500</pubDate><guid>http://lincolnloop.com/blog/high-performance-django-kickstarter-project/</guid></item><item><title>A Look at CSS Rule Organization</title><link>http://lincolnloop.com/blog/look-css-rule-organization/</link><description>
+&lt;p&gt;&lt;strong&gt;Please update to our new feed url: &lt;a href="http://lincolnloop.com/blog/feed/"&gt;lincolnloop.com/blog/feed/&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;hr/&gt;
+&lt;p&gt;CSS preprocessors have given us a handful of tools to re-architect our front-end code. We can keep things DRY with includes and extends or perhaps use nesting for code organization. All of these features allow a CSS rule to grow in complexity, but few people ever talk about managing that problem.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;#39;s take a look at a modern CSS rule. We&amp;#39;ll talk about how they&amp;#39;re structured and why we do what we do. Perhaps this will help you organize your own CSS!&lt;/p&gt;
+
+&lt;p&gt;Here&amp;#39;s a very standard box. It is one of many box styles in our pretend design. It&amp;#39;s sole purpose is to feature and highlight content and it can live almost anywhere in our UI.&lt;/p&gt;
+
+&lt;p&gt;(Note, we use SCSS primarily so all our demo code will as well.)&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="scss"&gt;&lt;span class="nc"&gt;.featured-box&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;@extend&lt;/span&gt; &lt;span class="err"&gt;%&lt;/span&gt;&lt;span class="nt"&gt;center-box&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="o"&gt;//&lt;/span&gt; &lt;span class="nt"&gt;Placeholder&lt;/span&gt; &lt;span class="nt"&gt;selectors&lt;/span&gt; &lt;span class="nt"&gt;first&lt;/span&gt;
+  &lt;span class="o"&gt;@&lt;/span&gt;&lt;span class="nt"&gt;extend&lt;/span&gt; &lt;span class="nc"&gt;.info-box&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="o"&gt;//&lt;/span&gt; &lt;span class="nt"&gt;Modifier&lt;/span&gt; &lt;span class="nt"&gt;classes&lt;/span&gt; &lt;span class="nt"&gt;second&lt;/span&gt;
+
+  &lt;span class="o"&gt;//&lt;/span&gt; &lt;span class="nt"&gt;All&lt;/span&gt; &lt;span class="nt"&gt;of&lt;/span&gt; &lt;span class="nt"&gt;the&lt;/span&gt; &lt;span class="nt"&gt;regular&lt;/span&gt; &lt;span class="nt"&gt;properties&lt;/span&gt;&lt;span class="nc"&gt;.&lt;/span&gt; 
+    &lt;span class="o"&gt;//&lt;/span&gt; &lt;span class="nt"&gt;Remember&lt;/span&gt; &lt;span class="nt"&gt;your&lt;/span&gt; &lt;span class="nt"&gt;grouping&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;
+  &lt;span class="nt"&gt;width&lt;/span&gt;&lt;span class="nd"&gt;:&lt;/span&gt; &lt;span class="nt"&gt;90&lt;/span&gt;&lt;span class="err"&gt;%&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+    &lt;span class="nt"&gt;height&lt;/span&gt;&lt;span class="nd"&gt;:&lt;/span&gt; &lt;span class="nt"&gt;100px&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+
+  &lt;span class="nt"&gt;background&lt;/span&gt;&lt;span class="nd"&gt;:&lt;/span&gt; &lt;span class="nt"&gt;blue&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+
+    &lt;span class="o"&gt;@&lt;/span&gt;&lt;span class="nt"&gt;include&lt;/span&gt; &lt;span class="nt"&gt;fadeIn&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;1&lt;/span&gt;&lt;span class="nc"&gt;.5s&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
+
+  &lt;span class="o"&gt;//&lt;/span&gt; &lt;span class="nt"&gt;Sub-selectors&lt;/span&gt; &lt;span class="nt"&gt;specific&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;this&lt;/span&gt; &lt;span class="nt"&gt;selector&lt;/span&gt;
+  &lt;span class="o"&gt;//&lt;/span&gt; &lt;span class="nt"&gt;Compiles&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nc"&gt;.featured-box&lt;/span&gt; &lt;span class="nc"&gt;.title&lt;/span&gt;
+  &lt;span class="k"&gt;&amp;&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="nc"&gt;.title&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="na"&gt;font-weight&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="no"&gt;bold&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+
+  &lt;span class="c1"&gt;// Handle state. e.g. active, inactive, selected, etc.&lt;/span&gt;
+  &lt;span class="c1"&gt;// Compiles to .featured-box.is-active&lt;/span&gt;
+  &lt;span class="k"&gt;&amp;&lt;/span&gt;&lt;span class="nc"&gt;.is-active&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="na"&gt;border&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="kt"&gt;px&lt;/span&gt; &lt;span class="no"&gt;solid&lt;/span&gt; &lt;span class="no"&gt;dotted&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+
+  &lt;span class="c1"&gt;// Any actions. Mostly standard interactivity&lt;/span&gt;
+  &lt;span class="c1"&gt;// Compiles to .featured-box:hover&lt;/span&gt;
+  &lt;span class="k"&gt;&amp;&lt;/span&gt;&lt;span class="nd"&gt;:hover&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="na"&gt;background&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;green&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+
+  &lt;span class="c1"&gt;// Context specific styles&lt;/span&gt;
+  &lt;span class="c1"&gt;// Compiles to .sidebar .featured-box&lt;/span&gt;
+  &lt;span class="nc"&gt;.sidebar&lt;/span&gt; &lt;span class="k"&gt;&amp;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="na"&gt;width&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="kt"&gt;%&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="na"&gt;height&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="no"&gt;auto&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="na"&gt;background&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="ni"&gt;whitesmoke&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+
+  &lt;span class="c1"&gt;// Lastly, media queries!&lt;/span&gt;
+  &lt;span class="k"&gt;@media&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;min-width&lt;/span&gt;&lt;span class="nd"&gt;:&lt;/span&gt; &lt;span class="nt"&gt;600px&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="na"&gt;width&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="kt"&gt;%&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="na"&gt;margin&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="no"&gt;auto&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It helps to think that rules tell a story. Our rule has a name. It has &amp;quot;parents&amp;quot; via @extend. It has a few properties and when you interact with it, it will do something (change its background color to green). When put in different situations via media queries or in &lt;code data-syntax="text-only"&gt;.sidebar&lt;/code&gt;, it will change its appearance.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;#39;s step through some of the best practices we use to build &lt;code data-syntax="text-only"&gt;.featured-box&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2&gt;Extends First&lt;/h2&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="scss"&gt;&lt;span class="nc"&gt;.featured-box&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;@extend&lt;/span&gt; &lt;span class="err"&gt;%&lt;/span&gt;&lt;span class="nt"&gt;center-box&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="o"&gt;//&lt;/span&gt; &lt;span class="nt"&gt;Placeholder&lt;/span&gt; &lt;span class="nt"&gt;selectors&lt;/span&gt; &lt;span class="nt"&gt;first&lt;/span&gt;
+  &lt;span class="o"&gt;@&lt;/span&gt;&lt;span class="nt"&gt;extend&lt;/span&gt; &lt;span class="nc"&gt;.info-box&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="o"&gt;//&lt;/span&gt; &lt;span class="nt"&gt;Modifier&lt;/span&gt; &lt;span class="nt"&gt;classes&lt;/span&gt; &lt;span class="nt"&gt;second&lt;/span&gt;
+    &lt;span class="nc"&gt;...&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Similar to includes, imports, or inheritance in other languages, we handle dependencies &lt;em&gt;first&lt;/em&gt; by putting every @extend at the top. This cuts down on debug time later as we always know where to look for dependency problems.&lt;/p&gt;
+
+&lt;p&gt;&lt;code data-syntax="text-only"&gt;%center-box&lt;/code&gt; is a &lt;a href="http://sass-lang.com/documentation/file.SASS_REFERENCE.html#placeholder_selectors_"&gt;placeholder selector&lt;/a&gt;, which means its name does not get compiled in our output CSS. Instead, its properties appear wherever we call them.&lt;/p&gt;
+
+&lt;p&gt;If you want to learn more about placeholder selectors, there are several &lt;a href="http://www.sitepoint.com/sass-mixin-placeholder/"&gt;good articles&lt;/a&gt; &lt;a href="http://css-tricks.com/the-extend-concept/"&gt;on the topic&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;@extend can be a tricky feature, as it can tinker with the ordering of our output CSS. All the more reason to put them early in our rule. Every bit of organization helps!&lt;/p&gt;
+
+&lt;p&gt;Utility or modifier classes like &lt;code data-syntax="text-only"&gt;.info-box&lt;/code&gt; come next for similar reasons. I&amp;#39;ll talk more about these in a moment.&lt;/p&gt;
+
+&lt;p&gt;Another advantage to putting external dependencies first is that it clarifies what the final output will be for a rule, as anything in a dependency would be overridden.&lt;/p&gt;
+
+&lt;h2&gt;Modifier Classes&lt;/h2&gt;
+
+&lt;p&gt;It&amp;#39;s not uncommon to have a base class with a few other classes that change the meaning of an element. You&amp;#39;ll see this a lot with buttons or boxes, especially in frameworks:&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="html"&gt;&lt;span class="nt"&gt;&amp;lt;section&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;box partner-content hidden-phone featured-box no-borders&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;/section&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this example, &lt;code data-syntax="text-only"&gt;.box&lt;/code&gt; is a base class that gives us some starting structure. We then inherit other styles through a series of modifier classes in an effort to nudge our box into place. This gets messy over time as we end up using a growing number of modifier classes to define what is essentially an unique element. This is where extends help again:&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="scss"&gt;&lt;span class="nc"&gt;.featured-partner&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;@extend&lt;/span&gt; &lt;span class="nc"&gt;.partner-content&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+    &lt;span class="o"&gt;@&lt;/span&gt;&lt;span class="nt"&gt;extend&lt;/span&gt; &lt;span class="nc"&gt;.featured-box&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+    &lt;span class="o"&gt;@&lt;/span&gt;&lt;span class="nt"&gt;extend&lt;/span&gt; &lt;span class="nc"&gt;.no-borders&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+    &lt;span class="o"&gt;@&lt;/span&gt;&lt;span class="nt"&gt;extend&lt;/span&gt; &lt;span class="nc"&gt;.hidden-phone&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We can then use this to new rule to write a more semantic class attribute:&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="html"&gt;&lt;span class="nt"&gt;&amp;lt;section&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;**box featured-partner**&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;/section&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To get this effect without a CSS pre-processor we&amp;#39;d have to write really long rules. This quickly becomes difficult to manage:&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="css"&gt;&lt;span class="nc"&gt;.featured-box&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;
+&lt;span class="nc"&gt;.info-box&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;
+&lt;span class="nc"&gt;.help-box&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;
+&lt;span class="nc"&gt;.notification-box&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;
+&lt;span class="nc"&gt;.user-info-box&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;padding&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;10px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="k"&gt;font-size&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;20px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It&amp;#39;s important to note that using extends or includes creates a dependency, so be careful!  Also, as a rule of thumb, you should try to stick to one base class, one modifier, and one state:&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="scss"&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;section&lt;/span&gt; &lt;span class="nt"&gt;class&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;**box featured-box is-selected**&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;section&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That&amp;#39;s much cleaner!&lt;/p&gt;
+
+&lt;h2&gt;Basic Properties&lt;/h2&gt;
+
+&lt;p&gt;Everyone seems to have a preferred order for properties. Some prefer alphabetical. Those who prefer grouping can almost never decide on the correct order. For example, I&amp;#39;m a huge fan of defining components starting with the outside first, then working inward: &lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Where is the box? (position, z-index, margins/padding)&lt;/li&gt;
+&lt;li&gt;What kind of a box is it? (display, box-sizing)&lt;/li&gt;
+&lt;li&gt;How big is the box? (width, height)&lt;/li&gt;
+&lt;li&gt;Box shadows, borders, etc&lt;/li&gt;
+&lt;li&gt;Backgrounds&lt;/li&gt;
+&lt;li&gt;Typography&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Intelligent grouping of properties will do a lot to ensure your CSS is accessible to other developers. Another common standard is &amp;quot;one rule per line.&amp;quot; As always, the most important guideline is &lt;strong&gt;be consistent&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2&gt;Mixins&lt;/h2&gt;
+
+&lt;p&gt;Here&amp;#39;s where things get a little weird! You&amp;#39;ll notice that we include a mixin in our rule:&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="scss"&gt;&lt;span class="k"&gt;@include&lt;/span&gt;&lt;span class="nd"&gt; fadeIn&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="mf"&gt;.5&lt;/span&gt;&lt;span class="kt"&gt;s&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Technically, &lt;code data-syntax="text-only"&gt;fadeIn()&lt;/code&gt; is a dependency. So why isn&amp;#39;t it at the top? Mixins perform operations and inject the resulting CSS into the rule. This means that they are often dependent upon property ordering defined within the same rule. Grouping them near related properties helps make sense of output CSS. In simpler cases, I recommend putting mixins right after basic properties but before  sub-selectors, which we&amp;#39;ll discuss next.&lt;/p&gt;
+
+&lt;h2&gt;Sub-Selectors (or &amp;quot;Think of the Children&amp;quot;)&lt;/h2&gt;
+
+&lt;p&gt;The next section of &lt;code data-syntax="text-only"&gt;.featured-box&lt;/code&gt; deals with specific styles for its children. In our example above we&amp;#39;re targeting the &lt;code data-syntax="text-only"&gt;.title&lt;/code&gt; class specifically:&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="scss"&gt;&lt;span class="c1"&gt;// Sub-selectors specific to this selector&lt;/span&gt;
+&lt;span class="c1"&gt;// Compiles to .featured-box .title&lt;/span&gt;
+&lt;span class="k"&gt;&amp;&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="nc"&gt;.title&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="na"&gt;font-weight&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="no"&gt;bold&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Notice that I didn&amp;#39;t use a H3 or any other headline for that matter. Doing so restricts &lt;code data-syntax="text-only"&gt;.featured-box&lt;/code&gt; to a specific HTML structure, which may not always be best for accessibility or accurate with regard to the hierarchy of content. For example, &lt;code data-syntax="text-only"&gt;.featured-box&lt;/code&gt; could be used in a sidebar with a H4, or at the top of the page with a big H2.&lt;/p&gt;
+
+&lt;p&gt;Complex objects could call for dozens of sub-selectors. When this happens, consider putting common styles in a base rule, and meatier objects (that may exist on their own) into their own rules. Expanding on our original example, let&amp;#39;s pretend we have a stylized list within &lt;code data-syntax="text-only"&gt;.featured-box&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="scss"&gt;&lt;span class="nc"&gt;.featured-box&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="c1"&gt;// Lots of styles for &lt;/span&gt;
+  &lt;span class="nc"&gt;.tab-list&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;// 50 lines of styles for tabs!&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is less ideal than:&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="scss"&gt;&lt;span class="nc"&gt;.featured-box&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="c1"&gt;// Everything in our original example&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="nc"&gt;.featured-box&lt;/span&gt; &lt;span class="nc"&gt;.tab-list&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="c1"&gt;// 50 lines of styles for tabs!&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this way we aren&amp;#39;t losing the &lt;em&gt;special case&lt;/em&gt; that is a &lt;code data-syntax="text-only"&gt;.tab-list&lt;/code&gt; inside of a &lt;code data-syntax="text-only"&gt;.featured-box&lt;/code&gt; amongst all the other styles.&lt;/p&gt;
+
+&lt;h2&gt;State and Actions&lt;/h2&gt;
+
+&lt;p&gt;CSS gives us a few actions to work with specific to our selected element. Most elements have :focus or :hover. Anchors have :visited and radio buttons have :checked. Often we shim these with classes or data attributes for use in richer interfaces:&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="html"&gt;&lt;span class="nt"&gt;&amp;lt;button&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;submit&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;btn **is-sending**&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;Sending...&lt;span class="nt"&gt;&amp;lt;/button&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Actions and state are usually dependent upon basic properties, but are often overridden depending on context. For example, the animation we may associate with &lt;code data-syntax="text-only"&gt;.is-sending&lt;/code&gt; may be different on desktop than on mobile, or we may have to override a color on hover of an anchor&amp;#39;s default :link state.&lt;/p&gt;
+
+&lt;p&gt;As a side note, notice that I am using &lt;code data-syntax="text-only"&gt;.is-sending&lt;/code&gt; instead of &lt;code data-syntax="text-only"&gt;.sending&lt;/code&gt;. I always append &lt;code data-syntax="text-only"&gt;.is-&lt;/code&gt; to state classes to more clearly convey what they are.&lt;/p&gt;
+
+&lt;h2&gt;Context Specific Styles&lt;/h2&gt;
+
+&lt;p&gt;Context related styles always come last because they often have radical changes to appearance and layout. This fits well with a mobile first strategy, as you can clearly denote the &lt;em&gt;evolution&lt;/em&gt; of a rule as you gain screen space.&lt;/p&gt;
+
+&lt;p&gt;In our example above, we&amp;#39;re noting two different context changes:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;When &lt;code data-syntax="text-only"&gt;.featured-box&lt;/code&gt; is in &lt;code data-syntax="text-only"&gt;.sidebar&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;When &lt;code data-syntax="text-only"&gt;.featured-box&lt;/code&gt; is on a larger display.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="scss"&gt;&lt;span class="c1"&gt;// Context specific styles&lt;/span&gt;
+&lt;span class="c1"&gt;// Compiles to .sidebar .featured-box&lt;/span&gt;
+&lt;span class="nc"&gt;.sidebar&lt;/span&gt; &lt;span class="k"&gt;&amp;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="na"&gt;width&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="kt"&gt;%&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="na"&gt;height&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="no"&gt;auto&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="na"&gt;background&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="ni"&gt;whitesmoke&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Lastly, media queries!&lt;/span&gt;
+&lt;span class="k"&gt;@media&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;min-width&lt;/span&gt;&lt;span class="nd"&gt;:&lt;/span&gt; &lt;span class="nt"&gt;600px&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="na"&gt;width&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="kt"&gt;%&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="na"&gt;margin&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="no"&gt;auto&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this scenario, we want &lt;code data-syntax="text-only"&gt;.featured-box&lt;/code&gt; to be full width and have a subtle appearance when in &lt;code data-syntax="text-only"&gt;.sidebar&lt;/code&gt;. On larger screens, we want it to be 50% of the available width and ensure that no matter what it is center aligned regardless of other styles. The ordering doesn&amp;#39;t matter here due to the specificity of the two changes. &lt;code data-syntax="text-only"&gt;.sidebar &amp;&lt;/code&gt; will trump the media query change.&lt;/p&gt;
+
+&lt;p&gt;However, we put media queries last in rules because they most often deal with layout related changes, and putting those sort of changes in a predictable place in the same way we handled extends helps with debugging.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://filamentgroup.com/lab/element_query_workarounds/"&gt;Per element media queries&lt;/a&gt; could alleviate some of the pain here, but at the time of this writing we do not have a clean CSS-only solution. Though &lt;a href="https://github.com/Snugug/eq.js"&gt;many people&lt;/a&gt; have put together &lt;a href="http://www.smashingmagazine.com/2013/06/25/media-queries-are-not-the-answer-element-query-polyfill/"&gt;workable solutions&lt;/a&gt;. Things can get out of hand when you have to consider an element&amp;#39;s appearance not only across browsers and devices, but location in the UI and relation to other elements. &lt;/p&gt;
+
+&lt;h2&gt;That&amp;#39;s It!&lt;/h2&gt;
+
+&lt;p&gt;This just scratches the surface of what it takes to write clean, maintainable CSS architecture. In the wild, our &lt;code data-syntax="text-only"&gt;.featured-box&lt;/code&gt; rule would likely be more complicated, with more dependencies, basic properties, and context changes. What best practices does your team follow to help keep complexity at bay?&lt;/p&gt;
+</description><pubDate>Thu, 08 May 2014 12:11:41 -0500</pubDate><guid>http://lincolnloop.com/blog/look-css-rule-organization/</guid></item><item><title>Speedy Browserifying with Multiple Bundles</title><link>http://lincolnloop.com/blog/speedy-browserifying-multiple-bundles/</link><description>
+&lt;p&gt;&lt;strong&gt;Please update to our new feed url: &lt;a href="http://lincolnloop.com/blog/feed/"&gt;lincolnloop.com/blog/feed/&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;hr/&gt;
+&lt;p&gt;Last month I talked about one of my favorite tools for JavaScript on the front end, &lt;a href="http://lincolnloop.com/blog/untangle-your-javascript-browserify/"&gt;Browserify&lt;/a&gt;, which allows you to create modular code for the browser using CommonJS modules and npm. It does this by combining the dependencies into an all-in-one bundle. In development, typically you will watch your JavaScript files for changes and then recompile the bundle.&lt;/p&gt;
+
+&lt;p&gt;If you&amp;#39;re including some large dependencies in your bundle, though, you may have noticed that it can take several seconds to regenerate that bundle each time you edit a module. This usually isn&amp;#39;t a big problem, but when you want to rapidly hack on a UI feature and frequently refresh to see your changes this several second display can end up seriously slowing you down.&lt;/p&gt;
+
+&lt;p&gt;One of the most effective things you can do to speed up this process is build multiple bundles - one for your application code and one for your dependencies. When your application code changes you only have to recompile that bundle, not all of your dependencies.&lt;/p&gt;
+
+&lt;h2&gt;On the command line&lt;/h2&gt;
+
+&lt;p&gt;If you&amp;#39;re using the command line interface, creating an additional bundle is as easy as invoking &lt;em&gt;browserify&lt;/em&gt; with the &lt;em&gt;--require&lt;/em&gt; option. You don&amp;#39;t have to point it at a source file, you can simply pass &lt;em&gt;-r my-module&lt;/em&gt; for each module you want to include in the bundle. This will pull the requirement into the bundle and make that requirement available from outside the bundle with &lt;code data-syntax="text-only"&gt;require(&amp;#39;my-module&amp;#39;)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="text-only"&gt;$ browserify -r react -r q -r loglevel &amp;gt; build/vendor.js&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you include &lt;em&gt;vendor.js&lt;/em&gt; from the example in your HTML, you can then &lt;code data-syntax="text-only"&gt;require(&amp;#39;react&amp;#39;)&lt;/code&gt; or &lt;code data-syntax="text-only"&gt;require(&amp;#39;q&amp;#39;)&lt;/code&gt; from anywhere. You may notice, however, that your application bundle is still pulling these requirements in, defeating the whole purpose. This brings us to the next command line option we need to use, &lt;em&gt;--external&lt;/em&gt;. &lt;/p&gt;
+
+&lt;p&gt;The &lt;em&gt;--external&lt;/em&gt; option tells browserify that the given module will be provided externally and doesn&amp;#39;t need to be included in this bundle. When used with your application bundle, it will filter out the dependencies that you will be compiling into your vendor bundle.&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="text-only"&gt;$ browserify -x react -x q -x loglevel src/index.js &amp;gt; build/app.js&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Make sure to include the &lt;em&gt;vendor.js&lt;/em&gt; file &lt;strong&gt;before&lt;/strong&gt; &lt;em&gt;app.js&lt;/em&gt; in your HTML, so that the dependencies will be available when &lt;em&gt;app.js&lt;/em&gt; is loaded.&lt;/p&gt;
+
+&lt;h2&gt;With Gulp&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href="https://github.com/gulpjs/gulp"&gt;Gulp&lt;/a&gt; has recently overtaken &lt;a href="http://gruntjs.com/"&gt;Grunt&lt;/a&gt; as our task manager of choice. We typically set Gulp up with our major tasks in a &lt;em&gt;gulp/&lt;/em&gt; subfolder, and then we require each of those modules in our &lt;em&gt;gulpfile.js&lt;/em&gt;:&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="text-only"&gt;&amp;#39;use strict&amp;#39;;
+var gulp = require(&amp;#39;gulp&amp;#39;);
+
+require(&amp;#39;./gulp/app&amp;#39;);
+require(&amp;#39;./gulp/serve&amp;#39;);
+require(&amp;#39;./gulp/vendor&amp;#39;);
+require(&amp;#39;./gulp/watch&amp;#39;);
+
+gulp.task(&amp;#39;build&amp;#39;, [
+  &amp;#39;app&amp;#39;,
+  &amp;#39;vendor&amp;#39;,
+]);
+
+gulp.task(&amp;#39;default&amp;#39;, [&amp;#39;build&amp;#39;], function() {
+  return gulp.start(&amp;#39;serve&amp;#39;, &amp;#39;watch&amp;#39;);
+});&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;The vendor bundle&lt;/h3&gt;
+
+&lt;p&gt;I&amp;#39;ll start with our vendor bundle, and break it up to explain a few things.&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="text-only"&gt;&amp;#39;use strict&amp;#39;;
+var browserify = require(&amp;#39;gulp-browserify&amp;#39;);
+var gulp = require(&amp;#39;gulp&amp;#39;);
+var rename = require(&amp;#39;gulp-rename&amp;#39;);
+var uglify = require(&amp;#39;gulp-uglify&amp;#39;);
+
+var libs = [
+  &amp;#39;react&amp;#39;,
+  &amp;#39;react/lib/ReactCSSTransitionGroup&amp;#39;,
+  &amp;#39;react/lib/cx&amp;#39;,
+  &amp;#39;q&amp;#39;,
+  &amp;#39;underscore&amp;#39;,
+  &amp;#39;loglevel&amp;#39;
+];&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I assign an array of dependency names to a variable, because we&amp;#39;ll be using this in a couple of places.&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="text-only"&gt;gulp.task(&amp;#39;vendor&amp;#39;, function() {
+  var production = (process.env.NODE_ENV === &amp;#39;production&amp;#39;);&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I&amp;#39;m using the NODE_ENV environment variable to determine whether this is a production build or not.&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="text-only"&gt;// A dummy entry point for browserify
+  var stream = gulp.src(&amp;#39;./gulp/noop.js&amp;#39;, {read: false})&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Since Gulp is a file-based build system, it needs a file to open the stream with. We don&amp;#39;t really need this on the vendor bundle, so my workaround is to point it to an empty file called &lt;em&gt;noop.js&lt;/em&gt;.&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="text-only"&gt;// Browserify it
+    .pipe(browserify({
+      debug: false,  // Don&amp;#39;t provide source maps for vendor libs
+    }))
+
+    .on(&amp;#39;prebundle&amp;#39;, function(bundle) {
+      // Require vendor libraries and make them available outside the bundle.
+      libs.forEach(function(lib) {
+        bundle.require(lib);
+      });
+    });&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is where the magic happens. The &lt;a href="https://github.com/deepak1556/gulp-browserify"&gt;gulp-browserify&lt;/a&gt; plugin doesn&amp;#39;t have an option to handle the &lt;em&gt;--require&lt;/em&gt; command, so I simply listen for the &amp;quot;prebundle&amp;quot; event that it sends, and interact with browserify&amp;#39;s API directly. The &lt;code data-syntax="text-only"&gt;bundle.require()&lt;/code&gt; method is documented &lt;a href="https://github.com/substack/node-browserify#brequirefile-opts"&gt;here&lt;/a&gt;. I iterate over the list of dependencies, and call &lt;code data-syntax="text-only"&gt;bundle.require()&lt;/code&gt; for each one.&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="text-only"&gt;if (production) {
+    // If this is a production build, minify it
+    stream.pipe(uglify());
+  }
+
+  // Give the destination file a name, adding &amp;#39;.min&amp;#39; if this is production
+  stream.pipe(rename(&amp;#39;vendor&amp;#39; + (production ? &amp;#39;.min&amp;#39; : &amp;#39;&amp;#39;) + &amp;#39;.js&amp;#39;))
+
+    // Save to the build directory
+    .pipe(gulp.dest(&amp;#39;build/&amp;#39;));
+
+  return stream;
+
+});
+
+exports.libs = libs;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The rest of the task is pretty basic. I minify it if this is a production build, give the bundle an appropriate name, and save it to the build directory. I assign the list of dependencies to &lt;code data-syntax="text-only"&gt;exports.libs&lt;/code&gt; so that it will be available to other modules, like our application bundle.&lt;/p&gt;
+
+&lt;h3&gt;The application bundle&lt;/h3&gt;
+
+&lt;p&gt;The application bundle follows a very similar pattern:&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="text-only"&gt;&amp;#39;use strict&amp;#39;;
+var browserify = require(&amp;#39;gulp-browserify&amp;#39;);
+var gulp = require(&amp;#39;gulp&amp;#39;);
+var libs = require(&amp;#39;./vendor&amp;#39;).libs;
+var pkg = require(&amp;#39;../package.json&amp;#39;);
+var rename = require(&amp;#39;gulp-rename&amp;#39;);
+var uglify = require(&amp;#39;gulp-uglify&amp;#39;);&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I import the list of dependencies that I exported from the vendor bundle with &lt;code data-syntax="text-only"&gt;require(&amp;#39;./vendor&amp;#39;).libs&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="text-only"&gt;gulp.task(&amp;#39;app&amp;#39;, function() {
+  var production = (process.env.NODE_ENV === &amp;#39;production&amp;#39;);
+
+  var stream = gulp.src(&amp;#39;src/index.js&amp;#39;, {read: false})
+
+    // Browserify it
+    .pipe(browserify({
+      debug: !production,  // If not production, add source maps
+      transform: [&amp;#39;reactify&amp;#39;],
+      extensions: [&amp;#39;.jsx&amp;#39;]
+    }))&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I include some settings for browserify, including a transform and additional extension definition for working with &amp;quot;.jsx&amp;quot; modules from React.&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="text-only"&gt;.on(&amp;#39;prebundle&amp;#39;, function(bundle) {
+      // The following requirements are loaded from the vendor bundle
+      libs.forEach(function(lib) {
+        bundle.external(lib);
+      });
+    });&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Just as I did with the vendor bundle, I iterate over the list of dependencies. This time, however, I use &lt;code data-syntax="text-only"&gt;bundle.external()&lt;/code&gt;. It&amp;#39;s documented (briefly) &lt;a href="https://github.com/substack/node-browserify#bexternalfile"&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="text-only"&gt;if (production) {
+    // If this is a production build, minify it
+    stream.pipe(uglify());
+  }
+
+  // Give the destination file a name, adding &amp;#39;.min&amp;#39; if this is production
+  stream.pipe(rename(pkg.name + (production ? &amp;#39;.min&amp;#39; : &amp;#39;&amp;#39;) + &amp;#39;.js&amp;#39;))
+
+    // Save to the build directory
+    .pipe(gulp.dest(&amp;#39;build/&amp;#39;));
+
+  return stream;
+});&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The rest of the task is identical to the vendor bundle.&lt;/p&gt;
+
+&lt;h3&gt;Watching for changes&lt;/h3&gt;
+
+&lt;p&gt;Now, when something changes I can rebuild only the affected bundle. Here&amp;#39;s an example of my &lt;em&gt;watch.js&lt;/em&gt;:&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="text-only"&gt;&amp;#39;use strict&amp;#39;;
+var gulp = require(&amp;#39;gulp&amp;#39;);
+var gutil = require(&amp;#39;gulp-util&amp;#39;);
+var livereload = require(&amp;#39;gulp-livereload&amp;#39;);
+
+gulp.task(&amp;#39;watch&amp;#39;, function() {
+  var reloadServer = livereload();
+
+  var app = gulp.watch(&amp;#39;src/**/{*.js,*.jsx}&amp;#39;);
+  app.on(&amp;#39;change&amp;#39;, function(event) {
+    gulp.start(&amp;#39;app&amp;#39;, function() {
+      gutil.log(gutil.colors.bgGreen(&amp;#39;Reloading...&amp;#39;));
+      reloadServer.changed(event.path);
+    });
+  });
+
+  var vendor = gulp.watch(&amp;#39;node_modules/**/*.js&amp;#39;);
+  vendor.on(&amp;#39;change&amp;#39;, function(event) {
+    gulp.start(&amp;#39;vendor&amp;#39;, function() {
+      gutil.log(gutil.colors.bgGreen(&amp;#39;Reloading...&amp;#39;));
+      reloadServer.changed(event.path);
+    });
+  });
+
+  gutil.log(gutil.colors.bgGreen(&amp;#39;Watching for changes...&amp;#39;));
+});&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It&amp;#39;s a little verbose, because I&amp;#39;m using the &amp;quot;change&amp;quot; event in order to start the task and then trigger a liveReload as a callback. It works great, though! On one of our applications, the vendor bundle takes 5 or 6 seconds to compile, but the app bundle takes less than a second. This makes active development quite speedy!&lt;/p&gt;
+
+&lt;h2&gt;With Grunt&lt;/h2&gt;
+
+&lt;p&gt;For Grunt, we like the &lt;em&gt;load-grunt-config&lt;/em&gt; plugin that loads configuration blocks from modules in a &lt;em&gt;grunt/&lt;/em&gt; folder, similar to how we&amp;#39;re handling Gulp above.&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="text-only"&gt;&amp;#39;use strict&amp;#39;;
+module.exports = function(grunt) {
+
+  // Look for grunt config files in the &amp;#39;grunt&amp;#39; directory
+  require(&amp;#39;load-grunt-config&amp;#39;)(grunt);
+
+  grunt.registerTask(&amp;#39;default&amp;#39;, [
+    &amp;#39;browserify:vendor&amp;#39;,
+    &amp;#39;browserify:app&amp;#39;,
+    &amp;#39;watch&amp;#39;
+  ]);
+};&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;The browserify task&lt;/h3&gt;
+
+&lt;p&gt;Both the app and vendor bundles are configured inside the &lt;em&gt;browserify.js&lt;/em&gt; task file:&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="text-only"&gt;&amp;#39;use strict&amp;#39;;
+
+module.exports = {
+  options: {
+    debug: true,
+    transform: [&amp;#39;reactify&amp;#39;],
+    extensions: [&amp;#39;.jsx&amp;#39;],
+    external: [
+      &amp;#39;react&amp;#39;,
+      &amp;#39;react/lib/ReactCSSTransitionGroup&amp;#39;,
+      &amp;#39;react/lib/cx&amp;#39;,
+      &amp;#39;q&amp;#39;,
+      &amp;#39;underscore&amp;#39;,
+      &amp;#39;loglevel&amp;#39;
+    ]
+  },
+  app: {
+    files: {
+      &amp;#39;build/app.js&amp;#39;: [&amp;#39;src/app.js&amp;#39;]
+    }
+  },&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The app bundle uses the &amp;quot;external&amp;quot; config option from &lt;a href="https://github.com/jmreidy/grunt-browserify"&gt;grunt-browserify&lt;/a&gt;. I add the app bundle settings as the default, top-level options because I sometimes have more than one bundle that uses very similar settings. I don&amp;#39;t add the dependencies to an array, because - as you&amp;#39;ll see in the next step - I can&amp;#39;t reuse the array.&lt;/p&gt;
+
+&lt;p&gt;Here&amp;#39;s the configuration for the vendor bundle:&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="text-only"&gt;vendor: {
+    // External modules that don&amp;#39;t need to be constantly re-compiled
+    src: [&amp;#39;.&amp;#39;],
+    dest: &amp;#39;build/vendor.js&amp;#39;,
+    options: {
+      debug: false,
+      alias: [
+        &amp;#39;react:&amp;#39;,
+        &amp;#39;react/lib/ReactCSSTransitionGroup:&amp;#39;,
+        &amp;#39;react/lib/cx:&amp;#39;,
+        &amp;#39;q:&amp;#39;,
+        &amp;#39;underscore:&amp;#39;,
+        &amp;#39;loglevel:&amp;#39;
+      ],
+      external: null  // Reset this here because it&amp;#39;s not needed
+    }
+  }
+};&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code data-syntax="text-only"&gt;bundle.require()&lt;/code&gt; API is exposed through &lt;em&gt;grunt-browserify&lt;/em&gt;&amp;#39;s &amp;quot;alias&amp;quot; configuration. The reason I can&amp;#39;t reuse the array is because the plugin uses a colon to separate the module name from an optional alias (which corresponds to the &amp;quot;expose&amp;quot; property from browserify&amp;#39;s &lt;code data-syntax="text-only"&gt;bundle.require()&lt;/code&gt; method).&lt;/p&gt;
+
+&lt;h3&gt;The watch task&lt;/h3&gt;
+
+&lt;p&gt;The watch task uses &lt;a href="https://github.com/gruntjs/grunt-contrib-watch"&gt;grunt-contrib-watch&lt;/a&gt;, and the configuration is quite simple:&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="text-only"&gt;module.exports = {
+  options: {livereload: true},
+  app: {
+    files: [&amp;#39;src/**/*.js&amp;#39;, &amp;#39;src/**/*.jsx&amp;#39;],
+    tasks: [&amp;#39;browserify:app&amp;#39;]
+  },
+  test: {
+    files: [&amp;#39;node_modules/**/*.js&amp;#39;],
+    tasks: [&amp;#39;browserify:vendor&amp;#39;]
+  }
+};&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now you&amp;#39;re ready to hack away, and your app bundle can be regenerated in a fraction of the time it took before!&lt;/p&gt;
+</description><pubDate>Tue, 08 Apr 2014 14:45:23 -0500</pubDate><guid>http://lincolnloop.com/blog/speedy-browserifying-multiple-bundles/</guid></item><item><title>Architecting Your App with React - Part 1</title><link>http://lincolnloop.com/blog/architecting-your-app-react-part-1/</link><description>
+&lt;p&gt;&lt;strong&gt;Please update to our new feed url: &lt;a href="http://lincolnloop.com/blog/feed/"&gt;lincolnloop.com/blog/feed/&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;hr/&gt;
+&lt;p&gt;In May of last year, Facebook released an open source library for building frontend components called &lt;a href="http://facebook.github.io/react/"&gt;React&lt;/a&gt;. It&amp;#39;s built around some rather unorthodox philosophies about the browser and application structure, but over time it has gained quite a bit of steam as many developers see the advantages it offers. One of the most striking distinctives of React is the virtual DOM that it provides in order to minimize changes to the actual browser DOM and provide impressive rendering performance.&lt;/p&gt;
+
+&lt;p&gt;React is not a full MVC framework, and this is actually one of its strengths. Many who adopt React choose to do so alongside their favorite MVC framework, like Backbone. React has no opinions about routing or syncing data, so you can easily use your favorite tools to handle those aspects of your frontend application. You&amp;#39;ll often see React used to manage specific parts of an application&amp;#39;s UI and not others. React really shines, however, when you fully embrace its strategies and make it the core of your application&amp;#39;s interface.&lt;/p&gt;
+
+&lt;h2&gt;Avoid the DOM wherever possible&lt;/h2&gt;
+
+&lt;p&gt;React provides a virtual DOM implemented entirely as JavaScript classes. This is so that you can make numerous updates to your applications element tree without actually incurring the overhead of browser DOM manipulations. With modern engines such as V8, JavaScript is extremely fast. So fast, in fact, that it&amp;#39;s entirely possible for you to render your entire application every time your data changes, eliminating the need for you to manipulate elements in place or manage two-way binding. React will periodically diff the virtual DOM against the browser DOM, and make the minimal set of changes needed to bring the browser DOM into sync.&lt;/p&gt;
+
+&lt;h2&gt;One-way data flow&lt;/h2&gt;
+
+&lt;p&gt;When the cost of rendering is so dramatically reduced, you are now free to take a much more declarative approach to managing your interface. Instead of implementing complex manipulations to update your elements in place and keep multiple sources of state in sync as data changes, you can keep your state in one place and describe your interface based on that. As things change, your component reacts by re-rendering.&lt;/p&gt;
+
+&lt;p&gt;When your whole application is build around this, you can pass immutable data from the top level down to various child components and then re-render your whole application from the top down when anything changes. It changes how you think about your application and often ends up simplifying things a great deal.&lt;/p&gt;
+
+&lt;h2&gt;The browser as a rendering engine&lt;/h2&gt;
+
+&lt;p&gt;This is a pretty radical departure from the strategy of most frontend MVC frameworks, which strive to reduce re-rendering as much as possible by automatically manipulating data in place with two-way binding. When I first started looking into React, I wasn&amp;#39;t convinced. The turning point for me was when I watched a video where &lt;a href="https://www.youtube.com/watch?v=DgVS-zXgMTk#t=1432"&gt;Pete Hunt compared React to the Doom 3 rendering engine&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="https://lincolnloop.com/uploads/uploads/Screen_Shot_2014-01-27_at_9.14.01_AM.png" alt="The Doom 3 rendering engine"&gt;&lt;/p&gt;
+
+&lt;p&gt;In the diagram, the game state is fed into a &amp;quot;frontend&amp;quot; layer of logic and abstraction over the lower-level graphics code. This leads to the creation of a &amp;quot;scene intermediate representation&amp;quot; which describes what the user should see. This is given to the &amp;quot;backend&amp;quot;, which takes that representation and turns it into OpenGL operations, which renders the scene with the graphics card. React works in a very similar way.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="https://lincolnloop.com/uploads/uploads/Screen_Shot_2014-01-27_at_9.14.21_AM.png" alt="React compared to Doom 3"&gt;&lt;/p&gt;
+
+&lt;p&gt;When something changes in the application state due to browser or realtime events, your application takes that state and passes it down to your components to create an intermediate representation of your user interface using the virtual DOM. No actual changes are made to the browser DOM right away, however. React periodically takes the virtual DOM and calculates the DOM operations needed, similar to how the game engine takes the scene IR and determines what OpenGL operations are needed. The browser takes the DOM and renders it to the screen.&lt;/p&gt;
+
+&lt;p&gt;In both the browser and game engine, the slow part is actually rendering the intermediate representation to the screen. You can make many small changes to the virtual DOM very quickly.  React optimizes the part that matters, so you don&amp;#39;t have to sacrifice performance for code quality.&lt;/p&gt;
+
+&lt;h2&gt;More resources&lt;/h2&gt;
+
+&lt;p&gt;In Part 2, I&amp;#39;ll demonstrate how we use React to put these philosophies into practice. I&amp;#39;ll share how we set up a top-level application component that renders an interface composed of smaller components with different responsibilities, and I&amp;#39;ll describe how we integrate routing and data syncing into this structure.&lt;/p&gt;
+
+&lt;p&gt;In the meantime, take a look at the resources below if you would like to know more about React and how it works.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://facebook.github.io/react/"&gt;The React homepage&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://facebook.github.io/react/docs/videos.html"&gt;Videos&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://facebook.github.io/react/docs/examples.html"&gt;Examples&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://groups.google.com/forum/#!forum/reactjs"&gt;The React Google Group&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="irc://chat.freenode.net/reactjs"&gt;#reactjs on Freenode&lt;/a&gt; - the official IRC channel, which is quite active.&lt;/li&gt;
+&lt;/ul&gt;
+</description><pubDate>Tue, 11 Mar 2014 07:46:09 -0500</pubDate><guid>http://lincolnloop.com/blog/architecting-your-app-react-part-1/</guid></item><item><title>Untangle Your JavaScript with Browserify</title><link>http://lincolnloop.com/blog/untangle-your-javascript-browserify/</link><description>
+&lt;p&gt;&lt;strong&gt;Please update to our new feed url: &lt;a href="http://lincolnloop.com/blog/feed/"&gt;lincolnloop.com/blog/feed/&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;hr/&gt;
+&lt;p&gt;We&amp;#39;ve all been there. You&amp;#39;re working on an project with a lot of JavaScript, and you need to add a new widget that depends on some libraries. You have a complex template structure and you don&amp;#39;t know which libraries have been added as &amp;lt;script&amp;gt; tags already, or where they might be. You can&amp;#39;t just add them to the template you&amp;#39;re working on, because that would add redundant HTTP requests. Furthermore, you might end up overwriting a library that had plugins added to it, breaking other widgets that relied on those plugins. So, you end up putting all your &amp;lt;script&amp;gt; tags in your base template in a monolithic block and making sure you have them listed in the correct order.&lt;/p&gt;
+
+&lt;p&gt;Some time later, you realize you need to clean up your script block, but you have no idea which ones are still being used and which aren&amp;#39;t. You remove some tags you think are unneeded and the site seems fine when you click around, but later you get a bug report about a broken widget that was actually using that library. &lt;/p&gt;
+
+&lt;h2&gt;It doesn&amp;#39;t have to be this way&lt;/h2&gt;
+
+&lt;p&gt;As we do increasingly amazing things with the web, the size and complexity of our JavaScript code has exploded! In many cases we&amp;#39;re not building &amp;quot;sites&amp;quot; any more, we are truly building &amp;quot;apps&amp;quot; - highly interactive and responsive tools that look less and less like the hyperlinked pages of the original web. To move forward in this environment it&amp;#39;s vital to keep your code clean, well structured, and maintainable.&lt;/p&gt;
+
+&lt;p&gt;It&amp;#39;s time to embrace modularity in our client-side code. Instead of writing tightly integrated code that depends on everything being in the global scope, we should strive to create decoupled, discrete components that clearly define their dependencies and the functionality that they export. There are many tools to help with this, but two of the most popular are &lt;a href="http://browserify.org/"&gt;Browserify&lt;/a&gt; and &lt;a href="http://requirejs.org/"&gt;RequireJS&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2&gt;Browserify and transforms&lt;/h2&gt;
+
+&lt;p&gt;Though we used RequireJS briefly, in the end we chose Browserify for its simplicity, easy extension through transforms, and its focus on npm and the Node.js module system. It is an astoundingly flexible system that implements a &amp;quot;require&amp;quot; function on the browser and cleanly encapsulates modules so that they don&amp;#39;t pollute the global scope.&lt;/p&gt;
+
+&lt;p&gt;Transforms allow Browserify to become incredibly versatile. You can consume AMD packages with &lt;a href="https://github.com/jaredhanson/deamdify"&gt;deAMDify&lt;/a&gt;, or use &lt;a href="https://github.com/thlorenz/browserify-shim"&gt;browserify-shim&lt;/a&gt; to consume libraries that attach themselves to the window. You can take advantage of alternate package management systems, like Bower with &lt;a href="https://github.com/eugeneware/debowerify"&gt;debowerify&lt;/a&gt; or Component with &lt;a href="https://github.com/eugeneware/decomponentify"&gt;decomponentify&lt;/a&gt;. You can smoothly handle code that needs to be precompiled, like &lt;a href="https://github.com/jnordberg/coffeeify"&gt;CoffeeScript&lt;/a&gt; and &lt;a href="https://github.com/andreypopp/reactify"&gt;JSX&lt;/a&gt;. You can even precompile things like &lt;a href="https://github.com/epeli/node-hbsfy"&gt;Handlebars templates&lt;/a&gt; so that you can &amp;quot;require&amp;quot; them in your modules.&lt;/p&gt;
+
+&lt;h2&gt;Let&amp;#39;s get to work!&lt;/h2&gt;
+
+&lt;p&gt;So, enough talk about &lt;em&gt;why&lt;/em&gt;. Let&amp;#39;s move on to &lt;em&gt;how&lt;/em&gt;! Browserify is built with Node.js, so you will need to &lt;a href="https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager"&gt;have it installed&lt;/a&gt; on your system. To take your first steps with Browserify, you&amp;#39;ll probably want to install it globally so that you can use it as a command-line script.&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="text-only"&gt;$ npm install -g browserify&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;Writing modules&lt;/h2&gt;
+
+&lt;p&gt;Now, let&amp;#39;s write a simple module that requires something:&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="javascript"&gt;&lt;span class="s1"&gt;&amp;#39;use strict&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;_&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;underscore&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;logUnderscoreVersion&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;_&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;VERSION&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="nx"&gt;module&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;exports&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;logUnderscoreVersion&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There are a few things you&amp;#39;ll notice here. First, some of you will immediately point out that I&amp;#39;m using &lt;code data-syntax="text-only"&gt;&amp;#39;use strict&amp;#39;&lt;/code&gt; outside of a function, and chastise me because that will apply strict mode to the entire global scope and break all the things! Thankfully, that&amp;#39;s not the case here. Browserify encapsulates every module in it&amp;#39;s own scope, so strict mode will only apply to the current module.&lt;/p&gt;
+
+&lt;p&gt;To use the Underscore library, I&amp;#39;m calling &amp;quot;require&amp;quot; and assigning it to the familiar &amp;quot;_&amp;quot; variable. At the moment, however, this will fail because we haven&amp;#39;t installed it yet. Remedy this with npm:&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="text-only"&gt;$ npm install underscore&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;By calling the &amp;quot;install&amp;quot; command without the &amp;quot;-g&amp;quot; flag, you&amp;#39;re telling npm to install your dependency in the local &amp;quot;node_modules&amp;quot; folder, which it will create for you if needed. Browserify will use that folder to find Underscore and make it available to your module.&lt;/p&gt;
+
+&lt;p&gt;Finally, at the end of the module I&amp;#39;m &amp;quot;exporting&amp;quot; the function that I defined. This means that I am making that function available outside of my module. When another module requires my module, the result will be whatever I assigned to &amp;quot;module.exports&amp;quot;. This is how Node.js modules work. Anything I don&amp;#39;t export stays private to my module.&lt;/p&gt;
+
+&lt;h2&gt;Building a bundle&lt;/h2&gt;
+
+&lt;p&gt;Now, let&amp;#39;s use the command-line script to build a bundle for the browser. This will include all the required modules in one file. If you saved your module above as &amp;quot;logunderscore.js&amp;quot;, browserify it like this:&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="text-only"&gt;$ browserify logunderscore.js &amp;gt; bundle.js&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now you can include bundle.js in an HTML file using a single script tag, and you&amp;#39;re ready to use your JavaScript! Code that is outside of a function will be executed immediately, so a common pattern is to use a &amp;quot;main.js&amp;quot; or an &amp;quot;index.js&amp;quot; as an entry point that requires whatever you need to initialize your app and kicks it off immediately.&lt;/p&gt;
+
+&lt;h2&gt;Requiring your own modules&lt;/h2&gt;
+
+&lt;p&gt;When you need to require one of your own modules, use the relative path. You don&amp;#39;t need to add the &amp;quot;.js&amp;quot; at the end of the path.&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="javascript"&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;logUnderscoreVersion&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;./logunderscore&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="nx"&gt;logUnderscoreVersion&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;Exporting multiple things&lt;/h2&gt;
+
+&lt;p&gt;If you need to export multiple functions or objects, you can use the &amp;quot;exports&amp;quot; shortcut from Node.js.&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="javascript"&gt;&lt;span class="s1"&gt;&amp;#39;use strict&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;logDate&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nb"&gt;Date&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="nx"&gt;getDate&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;logMonth&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nb"&gt;Date&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="nx"&gt;getMonth&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="nx"&gt;exports&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;logDate&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;logDate&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="nx"&gt;exports&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;logMonth&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;logMonth&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then, you can use it like this:&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="javascript"&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;dateUtils&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;./dateutils&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="nx"&gt;dateUtils&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;logDate&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="nx"&gt;dateUtils&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;logMonth&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or like this:&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="javascript"&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;logDate&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;./dateutils&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;logDate&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="nx"&gt;logDate&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;Integrating Browserify with build tools&lt;/h2&gt;
+
+&lt;p&gt;Once you&amp;#39;re comfortable with Browserify, you&amp;#39;ll probably want to integrate it with your favorite build tool. &lt;/p&gt;
+
+&lt;h3&gt;Browserify and Grunt&lt;/h3&gt;
+
+&lt;p&gt;In Grunt, you&amp;#39;ll use &lt;a href="https://github.com/jmreidy/grunt-browserify"&gt;grunt-browserify&lt;/a&gt;. Here&amp;#39;s a config snippet that builds the bundle, and then watches for changes:&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="javascript"&gt;&lt;span class="s1"&gt;&amp;#39;browserify&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="nx"&gt;options&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;debug&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nx"&gt;transform&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;reactify&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+    &lt;span class="nx"&gt;extensions&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;.jsx&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+  &lt;span class="p"&gt;},&lt;/span&gt;
+  &lt;span class="nx"&gt;dev&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;options&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="nx"&gt;alias&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;react:&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;  &lt;span class="c1"&gt;// Make React available externally for dev tools&lt;/span&gt;
+    &lt;span class="p"&gt;},&lt;/span&gt;
+    &lt;span class="nx"&gt;src&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;client/index.js&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+    &lt;span class="nx"&gt;dest&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;build/bundle.js&amp;#39;&lt;/span&gt;
+  &lt;span class="p"&gt;},&lt;/span&gt;
+  &lt;span class="nx"&gt;production&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;options&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="nx"&gt;debug&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;
+    &lt;span class="p"&gt;},&lt;/span&gt;
+    &lt;span class="nx"&gt;src&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&amp;lt;%= browserify.dev.src %&amp;gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nx"&gt;dest&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;build/bundle.js&amp;#39;&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;},&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This config takes advantage of several features, some of which I haven&amp;#39;t mentioned yet. It&amp;#39;s using the &lt;a href="https://github.com/andreypopp/reactify"&gt;reactify&lt;/a&gt; transform to precompile JSX files for use with &lt;a href="http://facebook.github.io/react/"&gt;React&lt;/a&gt;. It instructs browserify to look for &amp;quot;.jsx&amp;quot; extensions so that you don&amp;#39;t have to include them in your require path. It sets the debug flag so that Browserify will generate source maps for effective debugging in development, but overrides that flag in the production target to keep the build lean.&lt;/p&gt;
+
+&lt;p&gt;The &amp;quot;alias&amp;quot; option makes a reqirement available through a global &amp;quot;require&amp;quot; function. This allows you to work with multiple bundles, if you&amp;#39;d like. Here, though, it&amp;#39;s being done so that the React dev tools extension can find React and enable a tab in Chrome. The &amp;quot;alias&amp;quot; setting in the Grunt plugin uses the &lt;code data-syntax="text-only"&gt;bundle.require()&lt;/code&gt; method from Browserify&amp;#39;s API, which is also available with the &amp;quot;-r&amp;quot; flag on the command-line script.&lt;/p&gt;
+
+&lt;h3&gt;Browserify and Gulp&lt;/h3&gt;
+
+&lt;p&gt;The &lt;a href="https://github.com/deepak1556/gulp-browserify"&gt;gulp-browserify&lt;/a&gt; plugin is currently a bit more minimal than its Grunt counterpart, but you can still do everything that you&amp;#39;d like to do by listening for the &amp;quot;prebundle&amp;quot; event and interacting with the bundler API directly.&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="javascript"&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;browserify&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;gulp-browserify&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;gulp&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;gulp&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;gutil&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;gulp-util&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;rename&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;gulp-rename&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+
+&lt;span class="nx"&gt;gulp&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;task&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;browserify&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;production&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;gutil&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;env&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;type&lt;/span&gt; &lt;span class="o"&gt;===&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;production&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+  &lt;span class="nx"&gt;gulp&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;src&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;index.js&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;read&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// Browserify, and add source maps if this isn&amp;#39;t a production build&lt;/span&gt;
+    &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;pipe&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;browserify&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
+      &lt;span class="nx"&gt;debug&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="nx"&gt;production&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+      &lt;span class="nx"&gt;transform&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;reactify&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+      &lt;span class="nx"&gt;extensions&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;.jsx&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="p"&gt;}))&lt;/span&gt;
+
+    &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;on&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;prebundle&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;bundler&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="c1"&gt;// Make React available externally for dev tools&lt;/span&gt;
+      &lt;span class="nx"&gt;bundler&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;react&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;})&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// Rename the destination file&lt;/span&gt;
+    &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;pipe&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;rename&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;bundle.js&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// Output to the build directory&lt;/span&gt;
+    &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;pipe&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;gulp&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;dest&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;build/&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="p"&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;You, too, can Browserify today!&lt;/h2&gt;
+
+&lt;p&gt;Hopefully this guide has illustrated the usefulness of Browserify and helped you get it up and running yourself. If you&amp;#39;ve got questions or comments, let me know below or find me on Twitter &lt;a href="https://twitter.com/bkonkle"&gt;@bkonkle&lt;/a&gt;. Happy coding!&lt;/p&gt;
+</description><pubDate>Mon, 03 Mar 2014 13:10:59 -0600</pubDate><guid>http://lincolnloop.com/blog/untangle-your-javascript-browserify/</guid></item><item><title>Varnish Saint Mode</title><link>http://lincolnloop.com/blog/varnish-saint-mode/</link><description>
+&lt;p&gt;&lt;strong&gt;Please update to our new feed url: &lt;a href="http://lincolnloop.com/blog/feed/"&gt;lincolnloop.com/blog/feed/&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;hr/&gt;
+&lt;p&gt;Varnish &lt;strong&gt;Saint Mode&lt;/strong&gt; is a lesser known gem inside &lt;a href="https://www.varnish-cache.org/docs/3.0/"&gt;varnish&lt;/a&gt; that lets you serve stale content from cache, even when your backend servers are unavailable.&lt;/p&gt;
+
+&lt;p&gt;This article explains how to configure varnish to take advantage of this feature. If you want to follow along,  create a directory and add an &lt;code data-syntax="text-only"&gt;index.html&lt;/code&gt;. I am going to use a poor man&amp;#39;s Python web server &lt;code data-syntax="text-only"&gt;python -m SimpleHTTPServer&lt;/code&gt; to serve this directory.&lt;/p&gt;
+
+&lt;p&gt;Here is a simple Varnish config to take advantage of this feature:&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="perl"&gt;&lt;span class="c1"&gt;# /etc/varnish/default.vcl&lt;/span&gt;
+
+&lt;span class="n"&gt;backend&lt;/span&gt; &lt;span class="n"&gt;default&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;host&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;127.0.0.1&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;port&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;8000&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;saintmode_threshold&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;probe&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;/&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;interval&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;timeout&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+               &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;window&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;threshold&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="k"&gt;sub &lt;/span&gt;&lt;span class="nf"&gt;vcl_recv&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;req&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;backend&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;healthy&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="n"&gt;req&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;grace&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="n"&gt;h&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="n"&gt;req&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ttl&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;# Accept serving stale object (extend TTL by 6h)&lt;/span&gt;
+    &lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="n"&gt;req&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;grace&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="n"&gt;h&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="k"&gt;sub &lt;/span&gt;&lt;span class="nf"&gt;vcl_fetch&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="c1"&gt;# keep all objects for 6h beyond their TTL&lt;/span&gt;
+  &lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="n"&gt;beresp&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;grace&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="n"&gt;h&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+  &lt;span class="c1"&gt;# If we fetch a 500, serve stale content instead&lt;/span&gt;
+  &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;beresp&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;status&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;500&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="n"&gt;beresp&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;status&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;502&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="n"&gt;beresp&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;status&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;503&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="n"&gt;beresp&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;saintmode&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;30&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;restart&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The following scenario will let you test the saint mode:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Kick-off the Python web server in the directory you created with &lt;code data-syntax="text-only"&gt;python -m SimpleHTTPServer&lt;/code&gt;. &lt;em&gt;Note: Every 1s varnish is going to probe your backend to determine if it is healthy.&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="text-only"&gt;Serving HTTP on 0.0.0.0 port 8000 ... 
+127.0.0.1 - - [17/Feb/2014 11:51:02] &amp;quot;GET / HTTP/1.1&amp;quot; 200 -
+127.0.0.1 - - [17/Feb/2014 11:51:02] &amp;quot;GET / HTTP/1.1&amp;quot; 200 -&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Fetch the &lt;code data-syntax="text-only"&gt;index.html&lt;/code&gt; you created earlier through Varnish&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="bash"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;curl -I http://127.0.0.1:6081
+HTTP/1.1 200 OK
+Server: SimpleHTTP/0.6 Python/2.7.5+
+Content-type: text/html
+Last-Modified: Mon, 17 Feb 2014 10:19:03 GMT
+Content-Length: 146
+Accept-Ranges: bytes
+Date: Mon, 17 Feb 2014 10:53:07 GMT
+X-Varnish: 976346109
+Age: 0
+Via: 1.1 varnish
+Connection: keep-alive&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Now kill the Python web server process and confirm it is down&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="bash"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;curl -I http://127.0.0.1:8000
+curl: &lt;span class="o"&gt;(&lt;/span&gt;7&lt;span class="o"&gt;)&lt;/span&gt; Failed connect to 127.0.0.1:8000; Connection refused&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Fetch &lt;code data-syntax="text-only"&gt;index.html&lt;/code&gt; through Varnish again&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="bash"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;curl -I http://127.0.0.1:6081
+HTTP/1.1 200 OK
+Server: SimpleHTTP/0.6 Python/2.7.5+
+Content-type: text/html
+Last-Modified: Mon, 17 Feb 2014 10:19:03 GMT
+Content-Length: 146
+Accept-Ranges: bytes
+Date: Mon, 17 Feb 2014 10:55:14 GMT
+X-Varnish: 976346113 976346109
+Age: 127
+Via: 1.1 varnish
+Connection: keep-alive&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note the &lt;code data-syntax="text-only"&gt;Age: 127&lt;/code&gt; header. This tells you the number of seconds since Varnish fetched this page from your web server.&lt;/p&gt;
+
+&lt;p&gt;Congratulations, you&amp;#39;re now serving pages without your webserver! Varnish&amp;#39;s saint mode can be a nice safety net when the unexpected (but inevitable) happens and buy you some time to get things back into working order.&lt;/p&gt;
+</description><pubDate>Thu, 20 Feb 2014 03:00:39 -0600</pubDate><guid>http://lincolnloop.com/blog/varnish-saint-mode/</guid></item><item><title>Lessons Learned Architecting Realtime Applications</title><link>http://lincolnloop.com/blog/architecting-realtime-applications/</link><description>
+&lt;p&gt;&lt;strong&gt;Please update to our new feed url: &lt;a href="http://lincolnloop.com/blog/feed/"&gt;lincolnloop.com/blog/feed/&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;hr/&gt;
+&lt;p&gt;Building realtime applications is a big change from how we&amp;#39;ve built websites in the past. Typically, realtime websites require each client holding open a long-running connection to the server so updates can be pushed down to the client immediately. This is in stark contrast to traditional websites where the aim of the server is to serve a page and quickly free up the connection for the next request. Taking a server or application that is optimized for short-lived connections and slapping on a realtime component simply doesn&amp;#39;t work (for reasons I&amp;#39;ll explain below).&lt;/p&gt;
+
+&lt;p&gt;We built and maintain two real world realtime websites, our IRC logger, &lt;a href="https://botbot.me"&gt;BotBot.me&lt;/a&gt; and our team discussion tool, &lt;a href="https://gingerhq.com"&gt;Ginger&lt;/a&gt;. We intentionally took two very different approaches in building them. The first site, Ginger, was built using a two-process approach. One process handles all of the long-running connections while another serves the API and pages that require server-generated HTML. BotBot.me, on the other hand, does everything using one Django process. After having them both in production for a while, we&amp;#39;ve learned a few things about what works and what doesn&amp;#39;t.&lt;/p&gt;
+
+&lt;h2&gt;The Single Server Approach&lt;/h2&gt;
+
+&lt;p&gt;I&amp;#39;ll start with the simpler approach. BotBot.me&amp;#39;s realtime connections are handled from the same process which generates the server-side HTML pages. We&amp;#39;re using Server Sent Events via &lt;a href="https://github.com/niwibe/django-sse"&gt;django-sse&lt;/a&gt;. SSE is a standardized approach to long-polling and part of the HTML5 spec. Native support in browsers is very good and unsupported browsers can use it via a JavaScript polyfill. Coupled with XHR, SSE gives you a realtime bi-directional communication channel without having to mess with websockets. There are a number reasons why you might &lt;em&gt;not&lt;/em&gt; want to use websockets (see notes below).&lt;/p&gt;
+
+&lt;p&gt;This setup is beautiful because it makes development simple. Only one process to start-up and only one code-base to maintain. You start running into problems, however, when you try to take this app from toy code on your laptop to production-ready. If you&amp;#39;re thinking about taking this approach, here&amp;#39;s a few issues you&amp;#39;ll encounter.&lt;/p&gt;
+
+&lt;h3&gt;You&amp;#39;re Going to Run out of Workers&lt;/h3&gt;
+
+&lt;p&gt;A common way to serve dynamic applications is with Nginx proxying to a few workers (WSGI, Rack, etc) serving your application. Common practice is to only run 4-8 workers behind the proxy. Those workers are often capable of serving a surprising number of requests because they are constantly being freed up and re-used. That all changes when you introduce long-running connections. Now you can handle 4-8 clients using your app at any given time. Not exactly a high-traffic setup.&lt;/p&gt;
+
+&lt;p&gt;&amp;quot;No problem&amp;quot; you might say, &amp;quot;I&amp;#39;ll use &amp;lt;insert async framework here&amp;gt;!&amp;quot;. Something like Gevent or EventMachine will let you serve more requests with that handful of workers, but introduces new problems.&lt;/p&gt;
+
+&lt;h3&gt;You&amp;#39;re Going to Run out of Database Connections&lt;/h3&gt;
+
+&lt;p&gt;You&amp;#39;ve now blown past 4-8 clients and, because most of these connections just sit idle, you can now handle more than 100 at any given time. Is your app ready for that though? Can your database handle 100 simultaneous connections? Probably not. Now you need to setup a database connection pool. Hopefully you&amp;#39;ve done that before. If not maybe you can pull one off of PyPI that works (we&amp;#39;ve had good luck with &lt;a href="https://pypi.python.org/pypi/django-db-geventpool"&gt;django-db-geventpool&lt;/a&gt;).&lt;/p&gt;
+
+&lt;h3&gt;Going Async isn&amp;#39;t Free&lt;/h3&gt;
+
+&lt;p&gt;In Python, switching to gevent is a pip install and gunicorn flag away. It seems so simple on the surface. But wait, our database driver, &lt;a href="http://initd.org/psycopg/docs/advanced.html#support-for-coroutine-libraries"&gt;psycopg2, isn&amp;#39;t green thread-safe&lt;/a&gt;. If you want to reuse connections, now you need to add &lt;a href="https://pypi.python.org/pypi/psycogreen/1.0"&gt;psycogreen&lt;/a&gt; into your stack and make sure it does its monkey-patching early on. Are you sure the rest of your stack works seamlessly with gevent? By going async, you&amp;#39;ve also made debugging considerably more difficult. I think everybody I&amp;#39;ve met with real world gevent experience has a war story about trying to solve some strange deadlock or traceback being swallowed somewhere in the stack.&lt;/p&gt;
+
+&lt;h3&gt;Your Processes Need to Know the Difference&lt;/h3&gt;
+
+&lt;p&gt;On a traditional web server, you want to kill connections that don&amp;#39;t finish within a certain amount of time. This keeps your worker pool available to respond to other requests and protects you from &lt;a href="http://en.wikipedia.org/wiki/Slowloris"&gt;Slowloris&lt;/a&gt; attacks. Your realtime connections are exactly the opposite. They need to be held open indefinitely. If they drop, they should be re-opened immediately. This means, even though your code is all in the same package, you need to manage different configurations in Nginx and possibly in your application server as well to make sure they are served to clients correctly.&lt;/p&gt;
+
+&lt;h3&gt;You&amp;#39;re Putting a Square Peg in a Round Hole&lt;/h3&gt;
+
+&lt;p&gt;There are lots of great ways to handle many concurrent long-running connections. Node.js and Go were built from the ground-up with this scenario in mind. In the Python world, we have Tornado, Twisted, and others that are much better suited for this role. Django, Rails, and other traditional web frameworks weren&amp;#39;t built for this type of workload. While it may seem like the easy route at first, it tends to make your life harder later.&lt;/p&gt;
+
+&lt;p&gt;How about the alternative?&lt;/p&gt;
+
+&lt;h2&gt;A Separate Realtime Process&lt;/h2&gt;
+
+&lt;p&gt;The approach we took with Ginger separates concerns. Traditional web requests are routed to our Django server while long-running realtime connections are routed to a small Node.js script which holds those connections open. They communicate over a Redis pub/sub channel. This approach is great because it solves most of the issues presented in the single-process approach. Our realtime endpoint is optimized to handle lots of long connections, it doesn&amp;#39;t need to talk to the main database, and it uses software designed to make this sort of stuff easy. Unfortunately, it too has a few issues.&lt;/p&gt;
+
+&lt;h3&gt;You Need to Do More Work Upfront&lt;/h3&gt;
+
+&lt;p&gt;If you&amp;#39;re just building a toy app for yourself, this is going to be overkill. Splitting the components up requires a little more thought and planning upfront. It also means getting your development environment up-and-running is more of a hassle. Tools like &lt;a href="http://ddollar.github.io/foreman/"&gt;foreman&lt;/a&gt; or its Python counterpart &lt;a href="https://github.com/nickstenning/honcho"&gt;honcho&lt;/a&gt; make this easier, but, again it&amp;#39;s one more thing to manage.&lt;/p&gt;
+
+&lt;h3&gt;You (Might) Need to Learn Something New&lt;/h3&gt;
+
+&lt;p&gt;If you&amp;#39;ve been building traditional websites, chances are you&amp;#39;ll be picking up a new framework, or even a new language to build your realtime endpoint. It will require a basic understanding of programming in an asynchronous manner (callbacks, co-routines, etc). Choosing the right toolkit can make this an easy transition, but it will still be more than the &amp;quot;just throw gevent at it&amp;quot; solution. For inspiration, read how &lt;a href="http://blog.disqus.com/post/51155103801/trying-out-this-go-thing"&gt;Disqus replaced 4 maxed out Python/gevent servers with one mostly idle Go server in one week&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3&gt;Your Auth Story Just Got More Complicated&lt;/h3&gt;
+
+&lt;p&gt;With one process all your sessions are in the same place. Knowing which requests are coming from authenticated clients and what resources those clients have access to is all baked in. When you add a different process to the mix, it may not have access to your session storage or even talk directly to the primary database to check permissions. You either need to do the work to make those happen or come up with an alternate authentication scheme. For Ginger, we generate short-lived tokens in Redis and pass them securely from the server to the client. The client passes the token back to the realtime endpoint for authentication. See &lt;a href="http://pusher.com/docs/authenticating_users"&gt;Pusher&amp;#39;s docs&lt;/a&gt; for another example of how to handle this.&lt;/p&gt;
+
+&lt;h2&gt;What About Single Process, Realtime First?&lt;/h2&gt;
+
+&lt;p&gt;There&amp;#39;s another option here which basically flips the option we used for BotBot.me on its head. Instead of trying to cram asynchronous bits (the realtime stuff) into your synchronous framework, you could put your synchronous bits in your asynchronous framework. Options here include Node.js (frameworks: Express, Meteor, Hapi) or Go (frameworks: Revel, Gorilla).&lt;/p&gt;
+
+&lt;p&gt;I&amp;#39;m excited about the possibilities here, but the maturity and usability of these libraries isn&amp;#39;t anywhere near what you get with a framework like Django or Rails. In addition, their ecosystem is years behind more mature languages. You&amp;#39;ll be writing more code from scratch and not get the benefit of the massive open source ecosystem built around Python, Ruby, etc. I don&amp;#39;t doubt they&amp;#39;ll get to that place eventually, but for now, I think the trade-off is too great.&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;If you made it this far, it&amp;#39;s probably clear which option I prefer. If I had to do it again, I would take the approach we used on Ginger. Separate processes optimized for separate concerns. It may be more work upfront, but it makes everything easier down the road. Especially when you need to grow from one server (in the physical or VPS sense) to multiple servers.&lt;/p&gt;
+
+&lt;p&gt;How about you? If you&amp;#39;re running sites with realtime components in production, I&amp;#39;d love to hear your thoughts and how you manage the processes.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Thanks to &lt;a href="http://lucumr.pocoo.org/about/"&gt;Armin Ronacher&lt;/a&gt; for reviewing this post for me.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Recommending Reading&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Arnout Kazemier&amp;#39;s talk, &lt;a href="http://lanyrd.com/2013/realtime-conf-europe/sccpxf/"&gt;Websuckets&lt;/a&gt; for some reasons you should not rely solely on websockets.&lt;/li&gt;
+&lt;li&gt;Armin Ronacher&amp;#39;s post, &lt;a href="http://lucumr.pocoo.org/2012/8/5/stateless-and-proud/"&gt;Stateless and Proud in the Realtime World&lt;/a&gt; which recommends a similar approach.&lt;/li&gt;
+&lt;li&gt;Aymeric Augstin&amp;#39;s talk, &lt;a href="http://lanyrd.com/2013/djangocon/scmqyy/"&gt;State of Realtime with Django&lt;/a&gt;. TL;DW: The tools are there, but the Python ecosystem isn&amp;#39;t built for an async world (yet).&lt;/li&gt;
+&lt;/ul&gt;
+</description><pubDate>Tue, 18 Feb 2014 10:55:46 -0600</pubDate><guid>http://lincolnloop.com/blog/architecting-realtime-applications/</guid></item><item><title>2013 Year in Review</title><link>http://lincolnloop.com/blog/2013-year-review/</link><description>
+&lt;p&gt;&lt;strong&gt;Please update to our new feed url: &lt;a href="http://lincolnloop.com/blog/feed/"&gt;lincolnloop.com/blog/feed/&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;hr/&gt;
+&lt;p&gt;&lt;img src="http://lincolnloop.com/uploads/uploads/greece.jpg" alt="Grecian Retreat"&gt;&lt;/p&gt;
+
+&lt;p&gt;2013 was an amazing roller coaster year at Lincoln Loop. This is a long post, so I&amp;#39;ll skip the intro and dive right in.&lt;/p&gt;
+
+&lt;h2&gt;Company Accomplishments&lt;/h2&gt;
+
+&lt;p&gt;Of all the things we did and built, I&amp;#39;m most proud of what we accomplished with our charitable giving program. &lt;a href="http://lincolnloop.com/about/giving/"&gt;We donated $12,000 dollars&lt;/a&gt; to charities we feel strongly about including Doctors without Borders, charity: water, Wikipedia, and the Ada Initiative. Each month, a different Looper chooses a charity that is near and dear to them. Although many of the donations were to global charity, our program lets us give back to the communities where our team lives.&lt;/p&gt;
+
+&lt;p&gt;We also became &lt;a href="https://www.gittip.com/Lincoln%20Loop/"&gt;Gittip patrons&lt;/a&gt;, donating another $200-300 per month to open source developers who make the tools we rely on everyday.&lt;/p&gt;
+
+&lt;p&gt;In May, we closed up shop and packed our bags for a week-long &lt;a href="http://lincolnloop.com/blog/lincoln-loop-retreat-2013/"&gt;company retreat in Greece&lt;/a&gt;. Working remotely, most of our interactions take place via a computer, so having a week together to relax, hang-out, hack, and discuss the future of Lincoln Loop was incredible. On top of that the location was almost perfect. After a quick stop-over in Athens, we convened at a secluded house on a Grecian Island with breathtaking ocean views. It&amp;#39;s going to be tough to top it this year, but that won&amp;#39;t stop us from trying.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://37signals.com/svn/posts/3652-remote-works-lincoln-loop"&gt;We were featured on 37signals&amp;#39; blog, Signal vs. Noise&lt;/a&gt; in October as part of the promotion of their latest book, &lt;a href="http://37signals.com/remote/"&gt;Remote&lt;/a&gt;. We received a mention in the book as well! We&amp;#39;ve always looked up to 37signals (now renamed Basecamp) as a company. They are bootstrapped, successful and strive to create a sustainable workplace for their team. Having them take notice of what we&amp;#39;re doing was an almost surreal event.&lt;/p&gt;
+
+&lt;h2&gt;Consulting and Development&lt;/h2&gt;
+
+&lt;p&gt;Our highest-profile project of the year and one I&amp;#39;m immensely honored to be a part of was the relaunch of &lt;a href="http://www.smithsonian.com"&gt;Smithsonian.com&lt;/a&gt;. We worked with them to migrate from multiple different platforms and some proprietary vendor locked-in software to a solution built entirely on Django and open source software. The project was a huge undertaking, including architecture, legacy content migration, responsive design, accessibility, performance tuning, deployment, and more. We&amp;#39;ll be pushing more sites to their new platform and look forward to continuing our work with the great team at Smithsonian in 2014.&lt;/p&gt;
+
+&lt;p&gt;In addition to Smithsonian, our team had the opportunity to work with some great people on the following sites and services:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://www.awarnys.com/"&gt;Awarnys&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.postmark.com/"&gt;Evite Postmark&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.gamesradar.com"&gt;GamesRadar&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.hukkster.com/"&gt;Hukkster&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.redbeacon.com/"&gt;Redbeacon&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.smithsonian.com"&gt;Smithsonian&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.voteguide.com"&gt;VoteGuide&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;Products&lt;/h2&gt;
+
+&lt;p&gt;Our client work is usually focused on design, development, and deployment. We work closely with technical and business teams, but often don&amp;#39;t get full insight into the level of effort it takes to make a product profitable. Our products have been a huge step forward for us in that regard and have given us a crash course in sales, marketing, and what it takes to support a project long-term. We didn&amp;#39;t get to invest as much time as we&amp;#39;d like in our products, but hit some big milestones nonetheless. Our recently &lt;a href="https://github.com/BotBotMe"&gt;open sourced&lt;/a&gt; IRC logger, &lt;a href="https://botbot.me"&gt;BotBot.me&lt;/a&gt;, saw steady growth and logged just under 8 million lines in 2013.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://lincolnloop.com/uploads/uploads/Riv3EAbv1z.jpg" alt="BotBot.me Stats"&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://gingerhq.com"&gt;Ginger&lt;/a&gt; is not just a product of ours, but the glue that holds our distributed team together. Quite frankly, sales were abysmal for much of the year. We decided to make a drastic move and change our pricing model from &amp;quot;freemium&amp;quot; to all paid plans with a free trial. Sales in the last 2.5 months of 2013 were almost &lt;em&gt;double&lt;/em&gt; what we had done over the previous 1.5 years. It has been an incredible breath of fresh air and has us eager to continue to improve the platform and our sales effort.&lt;/p&gt;
+
+&lt;h2&gt;Moving On&lt;/h2&gt;
+
+&lt;p&gt;No doubt, 2013 was an incredible year for us. I&amp;#39;d love to say it was all as amazing as portrayed here, but this is only our highlight reel. Like any good team, we had our fair share of disagreements, failures, and disappointments as well. Perhaps I&amp;#39;ll share our lessons learned and lumps taken in another post, but for now, our sights are focused forward. We&amp;#39;ve got some exciting new stuff planned for 2014... stay tuned.&lt;/p&gt;
+</description><pubDate>Mon, 10 Feb 2014 13:34:32 -0600</pubDate><guid>http://lincolnloop.com/blog/2013-year-review/</guid></item><item><title>Simplifying your Django Frontend Tasks with Grunt</title><link>http://lincolnloop.com/blog/simplifying-your-django-frontend-tasks-grunt/</link><description>
+&lt;p&gt;&lt;strong&gt;Please update to our new feed url: &lt;a href="http://lincolnloop.com/blog/feed/"&gt;lincolnloop.com/blog/feed/&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;hr/&gt;
+&lt;p&gt;&lt;a href="http://gruntjs.com/"&gt;Grunt&lt;/a&gt; is a powerful task runner with an amazing assortment of plugins. It&amp;#39;s not limited to the frontend, but there are many frontend-oriented plugins that you can take advantage of to combine and minify your static media, compile sass and less files, watch for changes during development and reload your browser automatically, and much more.&lt;/p&gt;
+
+&lt;p&gt;In the last several years, the amount of tooling around frontend development has expanded dramatically. Frameworks, libraries, preprocessors and postprocessors, transpilers, template languages, module systems, and more! Wiring everything together has become a significant challenge, and a variety of build tools have emerged to help ease this burden. Grunt is the current leader because of its fantastic plugin community, and it contains a wide array of plugins that can be very valuable to a Django developer. Today I&amp;#39;m going to talk about an easy way to integrate Grunt with Django&amp;#39;s runserver, and highlight a few plugins to handle common frontend tasks that Django developers often deal with.&lt;/p&gt;
+
+&lt;h3&gt;Installing Grunt&lt;/h3&gt;
+
+&lt;p&gt;Grunt uses Node.js, so you&amp;#39;ll need to have that installed and configured on your system. This process will vary depending on your platform, but once it&amp;#39;s done you&amp;#39;ll need to install Grunt. From &lt;a href="http://gruntjs.com/getting-started"&gt;the documentation&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="c"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;npm&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;g&lt;/span&gt; &lt;span class="n"&gt;grunt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;cli&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;This will put the grunt command in your system path, allowing it to be run from any directory.&lt;/p&gt;
+
+&lt;p&gt;Note that installing grunt-cli does not install the Grunt task runner! The job of the Grunt CLI is simple: run the version of Grunt which has been installed next to a Gruntfile. This allows multiple versions of Grunt to be installed on the same machine simultaneously.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Next, you&amp;#39;ll want to install the Grunt task runner locally, along with a few plugins that I&amp;#39;ll demonstrate:&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="c"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;npm&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;save&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt; &lt;span class="n"&gt;grunt&lt;/span&gt; &lt;span class="n"&gt;grunt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;contrib&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;concat&lt;/span&gt; &lt;span class="n"&gt;grunt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;contrib&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;uglify&lt;/span&gt; &lt;span class="n"&gt;grunt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;sass&lt;/span&gt; &lt;span class="n"&gt;grunt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;contrib&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;less&lt;/span&gt; &lt;span class="n"&gt;grunt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;contrib&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;watch&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;Managing Grunt with runserver&lt;/h3&gt;
+
+&lt;p&gt;There are a few different ways to get Grunt running alongside Django on your local development environment. The method I&amp;#39;ll focus on here is by extending the &lt;em&gt;runserver&lt;/em&gt; command. To do this, create a &lt;em&gt;gruntserver&lt;/em&gt; command inside one of your project&amp;#39;s apps. I commonly have a &amp;quot;core&amp;quot; app that I use for things like this. Create the &amp;quot;management/command&amp;quot; folders in your &amp;quot;myproject/apps/core/&amp;quot; directory (adjusting that path to your own preferred structure), and make sure to drop an &lt;code data-syntax="text-only"&gt;__init__.py&lt;/code&gt; in both of them. Then create a &amp;quot;gruntserver.py&amp;quot; inside &amp;quot;command&amp;quot; to extend the built-in.&lt;/p&gt;
+
+&lt;p&gt;In your new &amp;quot;gruntserver.py&amp;quot; extend the built-in and override a few methods so that you can automatically manage the Grunt process:&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="python"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;subprocess&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;atexit&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;signal&lt;/span&gt;
+
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.conf&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;settings&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.contrib.staticfiles.management.commands.runserver&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Command&lt;/span&gt;\
+    &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;StaticfilesRunserverCommand&lt;/span&gt;
+
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Command&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;StaticfilesRunserverCommand&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;inner_run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;options&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;start_grunt&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;super&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Command&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;inner_run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;options&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;start_grunt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;stdout&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;&amp;gt;&amp;gt;&amp;gt; Starting grunt&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;grunt_process&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;subprocess&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Popen&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+            &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;grunt --gruntfile={0}/Gruntfile.js --base=.&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;settings&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;PROJECT_PATH&lt;/span&gt;&lt;span class="p"&gt;)],&lt;/span&gt;
+            &lt;span class="n"&gt;shell&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+            &lt;span class="n"&gt;stdin&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;subprocess&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;PIPE&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+            &lt;span class="n"&gt;stdout&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;stdout&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+            &lt;span class="n"&gt;stderr&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;stderr&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="p"&gt;)&lt;/span&gt;
+
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;stdout&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;&amp;gt;&amp;gt;&amp;gt; Grunt process on pid {0}&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;grunt_process&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pid&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+
+        &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;kill_grunt_process&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pid&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+            &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;stdout&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;&amp;gt;&amp;gt;&amp;gt; Closing grunt process&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+            &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;kill&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;signal&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;SIGTERM&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+        &lt;span class="n"&gt;atexit&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;register&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;kill_grunt_process&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;grunt_process&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pid&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;A barebones grunt config&lt;/h3&gt;
+
+&lt;p&gt;To get started with Grunt, you&amp;#39;ll need a barebones &amp;quot;Gruntfile.js&amp;quot; at the root of your project to serve as your config.&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="javascript"&gt;&lt;span class="nx"&gt;module&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;exports&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;grunt&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+
+  &lt;span class="c1"&gt;// Project configuration.&lt;/span&gt;
+  &lt;span class="nx"&gt;grunt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;initConfig&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
+    &lt;span class="nx"&gt;pkg&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;grunt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;file&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;readJSON&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;package.json&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// Task configuration goes here.&lt;/span&gt;
+
+  &lt;span class="p"&gt;});&lt;/span&gt;
+
+  &lt;span class="c1"&gt;// Load plugins here.&lt;/span&gt;
+  &lt;span class="nx"&gt;grunt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;loadNpmTasks&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;grunt-contrib-concat&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="nx"&gt;grunt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;loadNpmTasks&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;grunt-contrib-uglify&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="nx"&gt;grunt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;loadNpmTasks&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;grunt-sass&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="nx"&gt;grunt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;loadNpmTasks&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;grunt-contrib-less&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="nx"&gt;grunt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;loadNpmTasks&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;grunt-contrib-watch&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+  &lt;span class="c1"&gt;// Register tasks here.&lt;/span&gt;
+  &lt;span class="nx"&gt;grunt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;registerTask&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;default&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;[]);&lt;/span&gt;
+
+&lt;span class="p"&gt;};&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;Combining static media&lt;/h3&gt;
+
+&lt;p&gt;A common task for the frontend, and one that we often use complex apps for in Django, is combining and minifying static media. This can all be handled by Grunt if you like, avoiding difficulties sometimes encountered when using an integrated Django app.&lt;/p&gt;
+
+&lt;p&gt;To combine files, use the &lt;a href="https://github.com/gruntjs/grunt-contrib-concat"&gt;concat plugin&lt;/a&gt;. Add some configuration to the &amp;quot;grunt.initConfig&amp;quot; call, using the name of the task as the key for the configuration data:&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="javascript"&gt;&lt;span class="nx"&gt;grunt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;initConfig&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
+    &lt;span class="nx"&gt;pkg&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;grunt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;file&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;readJSON&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;package.json&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// Task configuration goes here.&lt;/span&gt;
+
+    &lt;span class="nx"&gt;concat&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="nx"&gt;app&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;src&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;myproject/static/js/app/**/*.js&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+        &lt;span class="nx"&gt;dest&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;build/static/js/app.js&amp;#39;&lt;/span&gt;
+      &lt;span class="p"&gt;},&lt;/span&gt;
+      &lt;span class="nx"&gt;vendor&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;src&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;myproject/static/js/vendor/**/*.js&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+        &lt;span class="nx"&gt;dest&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;build/static/js/lib.js&amp;#39;&lt;/span&gt;
+      &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="p"&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will combine all Javascript files under &amp;quot;myproject/static/app/js&amp;quot; into one file called &amp;quot;myproject/build/static/js/app.js&amp;quot;. It will also combine all Javascript files under &amp;quot;myproject/static/vendor&amp;quot; into one file called &amp;quot;myproject/build/static/js/lib.js&amp;quot;. You&amp;#39;ll likely want to refine this quite a bit to pick up only the files you want, and possibly build different bundles for different sections of your site. This will also work for CSS or any other type of file, though you may be using a preprocessor to combine your CSS and won&amp;#39;t need this.&lt;/p&gt;
+
+&lt;p&gt;You&amp;#39;ll probably want to use this along with the &amp;quot;watch&amp;quot; plugin for local development, but you&amp;#39;ll use the &amp;quot;uglify&amp;quot; plugin for deployment.&lt;/p&gt;
+
+&lt;h3&gt;Minifying static media&lt;/h3&gt;
+
+&lt;p&gt;Once your app is ready for production, you can use Grunt to minify the JavaScript with the &lt;a href="https://github.com/gruntjs/grunt-contrib-uglify"&gt;uglify plugin&lt;/a&gt;. As with concatenation, minification of your CSS will likely be handled by your preprocessor.&lt;/p&gt;
+
+&lt;p&gt;This task should be run as part of your deploy process, or part of a pre-deploy build process. The uglify config will probably be very similar to your concat config:&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="javascript"&gt;&lt;span class="nx"&gt;uglify&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;app&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="nx"&gt;files&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;build/static/js/app.min.js&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;myproject/static/js/app/**/*.js&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]}&lt;/span&gt;
+    &lt;span class="p"&gt;},&lt;/span&gt;
+    &lt;span class="nx"&gt;vendor&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="nx"&gt;files&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;build/static/js/lib.min.js&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;myproject/static/js/vendor/**/*.js&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The main difference is that uglify takes the new-style &amp;quot;files&amp;quot; option instead of the classic &amp;quot;src&amp;quot; and &amp;quot;dest&amp;quot; options that concat uses.&lt;/p&gt;
+
+&lt;h3&gt;Compiling Sass&lt;/h3&gt;
+
+&lt;p&gt;You can compile Sass with Compass using the &lt;a href="https://github.com/gruntjs/grunt-contrib-compass"&gt;compass plugin&lt;/a&gt;, but I prefer to use the speedier &lt;a href="https://github.com/sindresorhus/grunt-sass"&gt;sass plugin&lt;/a&gt; that uses &lt;a href="https://github.com/hcatlin/libsass"&gt;libsass&lt;/a&gt;. Here&amp;#39;s an example that includes the Foundation library:&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="javascript"&gt;&lt;span class="nx"&gt;sass&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="nx"&gt;dev&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;options&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+          &lt;span class="nx"&gt;includePaths&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;bower_components/foundation/scss&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+        &lt;span class="p"&gt;},&lt;/span&gt;
+        &lt;span class="nx"&gt;files&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+          &lt;span class="s1"&gt;&amp;#39;build/static/css/screen.css&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;myproject/static/scss/screen.scss&amp;#39;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+      &lt;span class="p"&gt;},&lt;/span&gt;
+      &lt;span class="nx"&gt;deploy&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;options&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+          &lt;span class="nx"&gt;includePaths&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;bower_components/foundation/scss&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+          &lt;span class="nx"&gt;outputStyle&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;compressed&amp;#39;&lt;/span&gt;
+        &lt;span class="p"&gt;},&lt;/span&gt;
+        &lt;span class="nx"&gt;files&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+          &lt;span class="s1"&gt;&amp;#39;build/static/css/screen.min.css&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;myproject/static/scss/screen.scss&amp;#39;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+      &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;},&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;Compiling Less&lt;/h3&gt;
+
+&lt;p&gt;Less is compiled using the &lt;a href=""&gt;less plugin&lt;/a&gt;.&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="javascript"&gt;&lt;span class="nx"&gt;less&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="nx"&gt;dev&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+                &lt;span class="nx"&gt;options&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+                    &lt;span class="nx"&gt;paths&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;myproject/static/less&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+                &lt;span class="p"&gt;},&lt;/span&gt;
+                &lt;span class="nx"&gt;files&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+                    &lt;span class="s1"&gt;&amp;#39;build/static/css/screen.css&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;myproject/static/less/screen.less&amp;#39;&lt;/span&gt;
+                &lt;span class="p"&gt;}&lt;/span&gt;
+            &lt;span class="p"&gt;}&lt;/span&gt;
+            &lt;span class="nx"&gt;deploy&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+                &lt;span class="nx"&gt;options&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+                    &lt;span class="nx"&gt;paths&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;myproject/static/less&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+                    &lt;span class="nx"&gt;compress&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt;
+                &lt;span class="p"&gt;},&lt;/span&gt;
+                &lt;span class="nx"&gt;files&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+                    &lt;span class="s1"&gt;&amp;#39;build/static/css/screen.min.css&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;myproject/static/less/screen.less&amp;#39;&lt;/span&gt;
+                &lt;span class="p"&gt;}&lt;/span&gt;
+            &lt;span class="p"&gt;}&lt;/span&gt;
+        &lt;span class="p"&gt;},&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;Watching for changes and live reloading&lt;/h3&gt;
+
+&lt;p&gt;Now that you&amp;#39;ve got your initial operations configured, you can use the &lt;a href="https://github.com/gruntjs/grunt-contrib-watch"&gt;watch plugin&lt;/a&gt; to watch for changes and keep the files up to date. It also will send livereload signals, which you can use to automatically refresh your browser window.&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="javascript"&gt;&lt;span class="nx"&gt;watch&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="nx"&gt;options&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;livereload&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+            &lt;span class="nx"&gt;javascript&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+                &lt;span class="nx"&gt;files&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;myproject/static/js/app/**/*.js&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+                &lt;span class="nx"&gt;tasks&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;concat&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+            &lt;span class="p"&gt;},&lt;/span&gt;
+            &lt;span class="nx"&gt;sass&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+                &lt;span class="nx"&gt;files&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;myproject/static/scss/**/*.scss&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                &lt;span class="nx"&gt;tasks&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;sass:dev&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+            &lt;span class="p"&gt;}&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note the way the task is specified in the &amp;quot;sass&amp;quot; watch config. Calling &amp;quot;sass:dev&amp;quot; instructs it to use the &amp;quot;dev&amp;quot; config block from the &amp;quot;sass&amp;quot; task.  Using &amp;quot;sass&amp;quot; by itself as the name of the task would have invoked both &amp;quot;sass:dev&amp;quot; and &amp;quot;sass:deploy&amp;quot; from our configuration above.&lt;/p&gt;
+
+&lt;p&gt;Also note how we&amp;#39;re using a top-level &amp;quot;options&amp;quot; definition here to make livereload the default. You can then override that for an individual watch definition if you don&amp;#39;t need livereload for that one.&lt;/p&gt;
+
+&lt;p&gt;In order for the browser to make use of the livereload signals, we&amp;#39;ll need to add a &amp;lt;script&amp;gt; tag that retrieves code from the livereload server that Grunt starts in the background. In Django, you&amp;#39;ll want to hide this tag behind a DEBUG check.&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="text-only"&gt;{% if debug %}
+    &amp;lt;script src=&amp;quot;//localhost:35729/livereload.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+{% endif %}&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can also use a &lt;a href="http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-"&gt;LiveReload browser extension&lt;/a&gt; instead.&lt;/p&gt;
+
+&lt;h3&gt;More to come&lt;/h3&gt;
+
+&lt;p&gt;Grunt is a fantastic tool and one that makes it easier to work with the growing set of frontend tools that are emerging. There&amp;#39;s a vibrant plugin ecosystem, and its capabilities are growing all the time. I&amp;#39;ll be covering more of those tools in the future, and I&amp;#39;ll be sure to include Grunt configuration for each one. Enjoy!&lt;/p&gt;
+</description><pubDate>Mon, 27 Jan 2014 14:43:42 -0600</pubDate><guid>http://lincolnloop.com/blog/simplifying-your-django-frontend-tasks-grunt/</guid></item><item><title>Installing Node.js and npm into a Python Virtualenv</title><link>http://lincolnloop.com/blog/installing-nodejs-and-npm-python-virtualenv/</link><description>
+&lt;p&gt;&lt;strong&gt;Please update to our new feed url: &lt;a href="http://lincolnloop.com/blog/feed/"&gt;lincolnloop.com/blog/feed/&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;hr/&gt;
+&lt;p&gt;With things like &lt;a href="http://lesscss.org/"&gt;LESS&lt;/a&gt; and &lt;a href="http://requirejs.org/"&gt;RequireJS&lt;/a&gt;, we&amp;#39;re starting to use Node.js&amp;#39;s &lt;code data-syntax="text-only"&gt;npm&lt;/code&gt; (think &lt;code data-syntax="text-only"&gt;pip&lt;/code&gt; for JavaScript) on every other project. However, installing Node.js globally means some dependencies are also installed globally, which might be a problem if different projects use different versions of the same packages. One solution is to install Node.js/npm inside your virtualenv, so here are the steps to get there:&lt;/p&gt;
+
+&lt;p&gt;First off, activate your virtualenv, and:&lt;/p&gt;
+
+&lt;pre class="highlight"&gt;&lt;code data-syntax="bash"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;curl http://nodejs.org/dist/node-latest.tar.gz | tar xvz
+&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;cd &lt;/span&gt;node-v*
+&lt;span class="nv"&gt;$ &lt;/span&gt;./configure --prefix&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$VIRTUAL_ENV&lt;/span&gt;
+&lt;span class="nv"&gt;$ &lt;/span&gt;make install&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That&amp;#39;s it! Now you can install npm packages directly to your virtualenv path with &lt;code data-syntax="text-only"&gt;npm install -g {package}&lt;/code&gt;.&lt;/p&gt;
+</description><pubDate>Thu, 08 Aug 2013 10:45:01 -0500</pubDate><guid>http://lincolnloop.com/blog/installing-nodejs-and-npm-python-virtualenv/</guid></item></channel></rss>

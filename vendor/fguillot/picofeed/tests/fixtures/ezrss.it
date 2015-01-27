@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE torrent PUBLIC "-//bitTorrent//DTD torrent 0.1//EN" "http://xmlns.ezrss.it/0.1/dtd/">
+<rss version="2.0">
+	<channel>
+		<title>ezRSS - Latest torrent releases</title>
+		<ttl>15</ttl>
+		<link>http://ezrss.it/feed/</link>
+		<image>
+			<title>ezRSS - Latest torrent releases</title>
+			<url>http://ezrss.it/images/ezrssit.png</url>
+			<link>http://ezrss.it/feed/</link>
+		</image>
+		<description>The latest 30 torrent releases.</description>
+		<item>
+			<title><![CDATA[National Geographic Access - Great Barrier Reef 3x60 [PDTV - MVGROUP]]]></title>
+			<link>http://torrent.zoink.it/National.Geographic.Access.360.Great.Barrier.Reef.PDTV.x264.AAC.[MVGroup.org].torrent</link>
+			<category domain="http://eztv.it/shows/187/mv-group-documentaries/"><![CDATA[TV Show / MV Group Documentaries]]></category>
+			<pubDate>Wed, 29 May 2013 17:09:52 -0500</pubDate>
+			<description><![CDATA[Show Name: National Geographic Access; Episode Title: Great Barrier Reef; Season: 3; Episode: 60]]></description>
+			<enclosure url="http://torrent.zoink.it/National.Geographic.Access.360.Great.Barrier.Reef.PDTV.x264.AAC.[MVGroup.org].torrent" length="721366766" type="application/x-bittorrent" />
+			<comments>http://eztv.it/forum/discuss/45237/</comments>
+			<guid>http://eztv.it/ep/45237/national-geographic-access-360-great-barrier-reef-pdtv-x264-aac-mvgroup/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<fileName><![CDATA[National.Geographic.Access.360.Great.Barrier.Reef.PDTV.x264.AAC-MVGroup.[MVGroup.org].torrent]]></fileName>
+				<contentLength>721366766</contentLength>
+				<infoHash>81E21C0A53B138A349FE4AFDC10A56086B7CBD15</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:81E21C0A53B138A349FE4AFDC10A56086B7CBD15&dn=National.Geographic.Access.360.Great.Barrier.Reef.PDTV.x264.AAC-MVGroup]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[The Valleys 2x5 [HDTV - C4TV]]]></title>
+			<link>http://torrent.zoink.it/The.Valleys.S02E05.HDTV.x264-C4TV.[eztv].torrent</link>
+			<category domain="http://eztv.it/shows/726/the-valleys/"><![CDATA[TV Show / The Valleys]]></category>
+			<pubDate>Wed, 29 May 2013 16:13:51 -0500</pubDate>
+			<description><![CDATA[Show Name: The Valleys; Episode Title: N/A; Season: 2; Episode: 5]]></description>
+			<enclosure url="http://torrent.zoink.it/The.Valleys.S02E05.HDTV.x264-C4TV.[eztv].torrent" length="344393593" type="application/x-bittorrent" />
+			<comments>http://eztv.it/forum/discuss/45236/</comments>
+			<guid>http://eztv.it/ep/45236/the-valleys-s02e05-hdtv-x264-c4tv/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<fileName><![CDATA[The.Valleys.S02E05.HDTV.x264-C4TV.[eztv].torrent]]></fileName>
+				<contentLength>344393593</contentLength>
+				<infoHash>B4E86B2E26B7A22191092B2BC3E683E77CED0F5F</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:WTUGWLRGW6RCDEIJFMV4HZUD456O2D27&dn=The.Valleys.S02E05.HDTV.x264-C4TV]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[BBC Trawlermen Series 1 - The Storm 1x2 [DVDRIP - MVGROUP]]]></title>
+			<link>http://torrent.zoink.it/BBC.Trawlermen.Series.1.2of5.The.Storm.DVDRip.x264.AAC.[MVGroup.org].torrent</link>
+			<category domain="http://eztv.it/shows/187/mv-group-documentaries/"><![CDATA[TV Show / MV Group Documentaries]]></category>
+			<pubDate>Wed, 29 May 2013 15:13:54 -0500</pubDate>
+			<description><![CDATA[Show Name: BBC Trawlermen Series 1; Episode Title: The Storm; Season: 1; Episode: 2]]></description>
+			<enclosure url="http://torrent.zoink.it/BBC.Trawlermen.Series.1.2of5.The.Storm.DVDRip.x264.AAC.[MVGroup.org].torrent" length="373884323" type="application/x-bittorrent" />
+			<comments>http://eztv.it/forum/discuss/45235/</comments>
+			<guid>http://eztv.it/ep/45235/bbc-trawlermen-series-1-2of5-the-storm-dvdrip-x264-aac-mvgroup/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<fileName><![CDATA[BBC.Trawlermen.Series.1.2of5.The.Storm.DVDRip.x264.AAC-MVGroup.[MVGroup.org].torrent]]></fileName>
+				<contentLength>373884323</contentLength>
+				<infoHash>90776630AA06E87F5C717C2A1CFCF2F216A7B8CB</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:90776630AA06E87F5C717C2A1CFCF2F216A7B8CB&dn=BBC.Trawlermen.Series.1.2of5.The.Storm.DVDRip.x264.AAC-MVGroup]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[Thames Television The Life and Times of Lord Mountbatten - Full Circle 1x11]]></title>
+			<link>http://torrent.zoink.it/Thames.Television.The.Life.and.Times.of.Lord.Mountbatten.11of12.Full.Circle.XviD.AC3.[MVGroup.org].torrent</link>
+			<category domain="http://eztv.it/shows/187/mv-group-documentaries/"><![CDATA[TV Show / MV Group Documentaries]]></category>
+			<pubDate>Wed, 29 May 2013 14:13:53 -0500</pubDate>
+			<description><![CDATA[Show Name: Thames Television The Life and Times of Lord Mountbatten; Episode Title: Full Circle; Season: 1; Episode: 11]]></description>
+			<enclosure url="http://torrent.zoink.it/Thames.Television.The.Life.and.Times.of.Lord.Mountbatten.11of12.Full.Circle.XviD.AC3.[MVGroup.org].torrent" length="823406592" type="application/x-bittorrent" />
+			<comments>http://eztv.it/forum/discuss/45234/</comments>
+			<guid>http://eztv.it/ep/45234/thames-television-the-life-and-times-of-lord-mountbatten-11of12-full-circle-xvid-ac3-mvgroup/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<fileName><![CDATA[Thames.Television.The.Life.and.Times.of.Lord.Mountbatten.11of12.Full.Circle.XviD.AC3-MVGroup.[MVGroup.org].torrent]]></fileName>
+				<contentLength>823406592</contentLength>
+				<infoHash>67EE2926109A2B557CD7DB65E6E945EA7296FA79</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:67EE2926109A2B557CD7DB65E6E945EA7296FA79&dn=Thames.Television.The.Life.and.Times.of.Lord.Mountbatten.11of12.Full.Circle.XviD.AC3-MVGroup]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[BBC Trawlermen Series 1 - The Great Prawn Hunt 1x1 [DVDRIP - MVGROUP]]]></title>
+			<link>http://torrent.zoink.it/BBC.Trawlermen.Series.1.1of5.The.Great.Prawn.Hunt.DVDRip.x264.AAC.[MVGroup.org].torrent</link>
+			<category domain="http://eztv.it/shows/187/mv-group-documentaries/"><![CDATA[TV Show / MV Group Documentaries]]></category>
+			<pubDate>Wed, 29 May 2013 11:32:46 -0500</pubDate>
+			<description><![CDATA[Show Name: BBC Trawlermen Series 1; Episode Title: The Great Prawn Hunt; Season: 1; Episode: 1]]></description>
+			<enclosure url="http://torrent.zoink.it/BBC.Trawlermen.Series.1.1of5.The.Great.Prawn.Hunt.DVDRip.x264.AAC.[MVGroup.org].torrent" length="388242999" type="application/x-bittorrent" />
+			<comments>http://eztv.it/forum/discuss/45232/</comments>
+			<guid>http://eztv.it/ep/45232/bbc-trawlermen-series-1-1of5-the-great-prawn-hunt-dvdrip-x264-aac-mvgroup/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<fileName><![CDATA[BBC.Trawlermen.Series.1.1of5.The.Great.Prawn.Hunt.DVDRip.x264.AAC-MVGroup.[MVGroup.org].torrent]]></fileName>
+				<contentLength>388242999</contentLength>
+				<infoHash>5C975B193279707E71D7942154F64A862B9145CA</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:5C975B193279707E71D7942154F64A862B9145CA&dn=BBC.Trawlermen.Series.1.1of5.The.Great.Prawn.Hunt.DVDRip.x264.AAC-MVGroup]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[National Geographic Meet the Natives USA - The Big Apple 1x2 [PDTV - MVGROUP]]]></title>
+			<link>http://torrent.zoink.it/National.Geographic.Meet.the.Natives.USA.2of5.The.Big.Apple.PDTV.x264.AAC.[MVGroup.org].torrent</link>
+			<category domain="http://eztv.it/shows/187/mv-group-documentaries/"><![CDATA[TV Show / MV Group Documentaries]]></category>
+			<pubDate>Wed, 29 May 2013 09:53:11 -0500</pubDate>
+			<description><![CDATA[Show Name: National Geographic Meet the Natives USA; Episode Title: The Big Apple; Season: 1; Episode: 2]]></description>
+			<enclosure url="http://torrent.zoink.it/National.Geographic.Meet.the.Natives.USA.2of5.The.Big.Apple.PDTV.x264.AAC.[MVGroup.org].torrent" length="513588301" type="application/x-bittorrent" />
+			<comments>http://eztv.it/forum/discuss/45229/</comments>
+			<guid>http://eztv.it/ep/45229/national-geographic-meet-the-natives-usa-2of5-the-big-apple-pdtv-x264-aac-mvgroup/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<fileName><![CDATA[National.Geographic.Meet.the.Natives.USA.2of5.The.Big.Apple.PDTV.x264.AAC-MVGroup.[MVGroup.org].torrent]]></fileName>
+				<contentLength>513588301</contentLength>
+				<infoHash>16C719F7983D8303A3A5EF32111B6A8A6B24BE87</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:16C719F7983D8303A3A5EF32111B6A8A6B24BE87&dn=National.Geographic.Meet.the.Natives.USA.2of5.The.Big.Apple.PDTV.x264.AAC-MVGroup]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[Thames Television The Life and Times of Lord Mountbatten - Fresh Fields 1x10]]></title>
+			<link>http://torrent.zoink.it/Thames.Television.The.Life.and.Times.of.Lord.Mountbatten.10of12.Fresh.Fields.XviD.AC3.[MVGroup.org].torrent</link>
+			<category domain="http://eztv.it/shows/187/mv-group-documentaries/"><![CDATA[TV Show / MV Group Documentaries]]></category>
+			<pubDate>Wed, 29 May 2013 04:58:32 -0500</pubDate>
+			<description><![CDATA[Show Name: Thames Television The Life and Times of Lord Mountbatten; Episode Title: Fresh Fields; Season: 1; Episode: 10]]></description>
+			<enclosure url="http://torrent.zoink.it/Thames.Television.The.Life.and.Times.of.Lord.Mountbatten.10of12.Fresh.Fields.XviD.AC3.[MVGroup.org].torrent" length="824440832" type="application/x-bittorrent" />
+			<comments>http://eztv.it/forum/discuss/45227/</comments>
+			<guid>http://eztv.it/ep/45227/thames-television-the-life-and-times-of-lord-mountbatten-10of12-fresh-fields-xvid-ac3-mvgroup/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<fileName><![CDATA[Thames.Television.The.Life.and.Times.of.Lord.Mountbatten.10of12.Fresh.Fields.XviD.AC3-MVGroup.[MVGroup.org].torrent]]></fileName>
+				<contentLength>824440832</contentLength>
+				<infoHash>AC5CB1F0E6E213CAB237EFF2301EC881E6793646</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:AC5CB1F0E6E213CAB237EFF2301EC881E6793646&dn=Thames.Television.The.Life.and.Times.of.Lord.Mountbatten.10of12.Fresh.Fields.XviD.AC3-MVGroup]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[BBS The Documentary - Baud 1x1 [DVDRIP - MVGROUP]]]></title>
+			<link>http://torrent.zoink.it/BBS.The.Documentary.1of8.Baud.DVDRip.x264.AAC.[MVGroup.org].torrent</link>
+			<category domain="http://eztv.it/shows/187/mv-group-documentaries/"><![CDATA[TV Show / MV Group Documentaries]]></category>
+			<pubDate>Wed, 29 May 2013 03:46:02 -0500</pubDate>
+			<description><![CDATA[Show Name: BBS The Documentary; Episode Title: Baud; Season: 1; Episode: 1]]></description>
+			<enclosure url="http://torrent.zoink.it/BBS.The.Documentary.1of8.Baud.DVDRip.x264.AAC.[MVGroup.org].torrent" length="343630179" type="application/x-bittorrent" />
+			<comments>http://eztv.it/forum/discuss/45226/</comments>
+			<guid>http://eztv.it/ep/45226/bbs-the-documentary-1of8-baud-dvdrip-x264-aac-mvgroup/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<fileName><![CDATA[BBS.The.Documentary.1of8.Baud.DVDRip.x264.AAC-MVGroup.[MVGroup.org].torrent]]></fileName>
+				<contentLength>343630179</contentLength>
+				<infoHash>405271D5BC3A84A76885591031EB9CEEDD84918E</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:405271D5BC3A84A76885591031EB9CEEDD84918E&dn=BBS.The.Documentary.1of8.Baud.DVDRip.x264.AAC-MVGroup]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[Some Assembly Required Series 2 - Tennis Balls 1x11 [DVDRIP - MVGROUP]]]></title>
+			<link>http://torrent.zoink.it/Some.Assembly.Required.Series.2.11of12.Tennis.Balls.DVDRip.x264.AAC.[MVGroup.org].torrent</link>
+			<category domain="http://eztv.it/shows/187/mv-group-documentaries/"><![CDATA[TV Show / MV Group Documentaries]]></category>
+			<pubDate>Wed, 29 May 2013 01:44:05 -0500</pubDate>
+			<description><![CDATA[Show Name: Some Assembly Required Series 2; Episode Title: Tennis Balls; Season: 1; Episode: 11]]></description>
+			<enclosure url="http://torrent.zoink.it/Some.Assembly.Required.Series.2.11of12.Tennis.Balls.DVDRip.x264.AAC.[MVGroup.org].torrent" length="253700799" type="application/x-bittorrent" />
+			<comments>http://eztv.it/forum/discuss/45224/</comments>
+			<guid>http://eztv.it/ep/45224/some-assembly-required-series-2-11of12-tennis-balls-dvdrip-x264-aac-mvgroup/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<fileName><![CDATA[Some.Assembly.Required.Series.2.11of12.Tennis.Balls.DVDRip.x264.AAC-MVGroup.[MVGroup.org].torrent]]></fileName>
+				<contentLength>253700799</contentLength>
+				<infoHash>865132710EDD6151EF4C69A06DE309FF893864C6</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:865132710EDD6151EF4C69A06DE309FF893864C6&dn=Some.Assembly.Required.Series.2.11of12.Tennis.Balls.DVDRip.x264.AAC-MVGroup]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[Body of Proof 3x13 [HDTV - LOL]]]></title>
+			<link>http://torrent.zoink.it/Body.of.Proof.S03E13.HDTV.x264-LOL.[eztv].torrent</link>
+			<category domain="http://eztv.it/shows/472/body-of-proof/"><![CDATA[TV Show / Body of Proof]]></category>
+			<pubDate>Tue, 28 May 2013 21:09:43 -0500</pubDate>
+			<description><![CDATA[Show Name: Body of Proof; Episode Title: N/A; Season: 3; Episode: 13]]></description>
+			<enclosure url="http://torrent.zoink.it/Body.of.Proof.S03E13.HDTV.x264-LOL.[eztv].torrent" length="213910002" type="application/x-bittorrent" />
+			<comments>http://eztv.it/forum/discuss/45223/</comments>
+			<guid>http://eztv.it/ep/45223/body-of-proof-s03e13-hdtv-x264-lol/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<fileName><![CDATA[Body.of.Proof.S03E13.HDTV.x264-LOL.[eztv].torrent]]></fileName>
+				<contentLength>213910002</contentLength>
+				<infoHash>B0224ED14632F2A1EB6C14D8542FE672E434D426</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:WARE5UKGGLZKD23MCTMFIL7GOLSDJVBG&dn=Body.of.Proof.S03E13.HDTV.x264-LOL]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[Awkward 3x8 [HDTV - 2HD]]]></title>
+			<link>http://torrent.zoink.it/Awkward.S03E08.HDTV.x264-2HD.[eztv].torrent</link>
+			<category domain="http://eztv.it/shows/508/awkward/"><![CDATA[TV Show / Awkward]]></category>
+			<pubDate>Tue, 28 May 2013 20:44:21 -0500</pubDate>
+			<description><![CDATA[Show Name: Awkward; Episode Title: N/A; Season: 3; Episode: 8]]></description>
+			<enclosure url="http://torrent.zoink.it/Awkward.S03E08.HDTV.x264-2HD.[eztv].torrent" length="153665671" type="application/x-bittorrent" />
+			<comments>http://eztv.it/forum/discuss/45222/</comments>
+			<guid>http://eztv.it/ep/45222/awkward-s03e08-hdtv-x264-2hd/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<fileName><![CDATA[Awkward.S03E08.HDTV.x264-2HD.[eztv].torrent]]></fileName>
+				<contentLength>153665671</contentLength>
+				<infoHash>C063116FC299E6E5476058CDE3302E393F4CC587</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:YBRRC36CTHTOKR3ALDG6GMBOHE7UZRMH&dn=Awkward.S03E08.HDTV.x264-2HD]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[Deadliest Catch 9x7 [HDTV - KILLERS]]]></title>
+			<link>http://torrent.zoink.it/Deadliest.Catch.S09E07.HDTV.x264-KILLERS.[eztv].torrent</link>
+			<category domain="http://eztv.it/shows/72/deadliest-catch/"><![CDATA[TV Show / Deadliest Catch]]></category>
+			<pubDate>Tue, 28 May 2013 20:23:24 -0500</pubDate>
+			<description><![CDATA[Show Name: Deadliest Catch; Episode Title: N/A; Season: 9; Episode: 7]]></description>
+			<enclosure url="http://torrent.zoink.it/Deadliest.Catch.S09E07.HDTV.x264-KILLERS.[eztv].torrent" length="459832370" type="application/x-bittorrent" />
+			<comments>http://eztv.it/forum/discuss/45221/</comments>
+			<guid>http://eztv.it/ep/45221/deadliest-catch-s09e07-hdtv-x264-killers/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<fileName><![CDATA[Deadliest.Catch.S09E07.HDTV.x264-KILLERS.[eztv].torrent]]></fileName>
+				<contentLength>459832370</contentLength>
+				<infoHash>6832DAE0AE55D9291734AE70A3ED68B95887354F</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:NAZNVYFOKXMSSFZUVZYKH3LIXFMIONKP&dn=Deadliest.Catch.S09E07.HDTV.x264-KILLERS]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[The Voice 4x22 [HDTV - 2HD]]]></title>
+			<link>http://torrent.zoink.it/The.Voice.S04E22.HDTV.x264-2HD.[eztv].torrent</link>
+			<category domain="http://eztv.it/shows/490/the-voice/"><![CDATA[TV Show / The Voice]]></category>
+			<pubDate>Tue, 28 May 2013 20:20:29 -0500</pubDate>
+			<description><![CDATA[Show Name: The Voice; Episode Title: N/A; Season: 4; Episode: 22]]></description>
+			<enclosure url="http://torrent.zoink.it/The.Voice.S04E22.HDTV.x264-2HD.[eztv].torrent" length="405384450" type="application/x-bittorrent" />
+			<comments>http://eztv.it/forum/discuss/45220/</comments>
+			<guid>http://eztv.it/ep/45220/the-voice-s04e22-hdtv-x264-2hd/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<fileName><![CDATA[The.Voice.S04E22.HDTV.x264-2HD.[eztv].torrent]]></fileName>
+				<contentLength>405384450</contentLength>
+				<infoHash>2102F479672BAEC3CA47F011A6703BAFF2613236</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:EEBPI6LHFOXMHSSH6AI2M4B3V7ZGCMRW&dn=The.Voice.S04E22.HDTV.x264-2HD]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[Some Assembly Required Series 2 - Honda ATV factory 1x10 [DVDRIP - MVGROUP]]]></title>
+			<link>http://torrent.zoink.it/Some.Assembly.Required.Series.2.10of12.Honda.ATV.factory.DVDRip.x264.AAC.[MVGroup.org].torrent</link>
+			<category domain="http://eztv.it/shows/187/mv-group-documentaries/"><![CDATA[TV Show / MV Group Documentaries]]></category>
+			<pubDate>Tue, 28 May 2013 17:13:11 -0500</pubDate>
+			<description><![CDATA[Show Name: Some Assembly Required Series 2; Episode Title: Honda ATV factory; Season: 1; Episode: 10]]></description>
+			<enclosure url="http://torrent.zoink.it/Some.Assembly.Required.Series.2.10of12.Honda.ATV.factory.DVDRip.x264.AAC.[MVGroup.org].torrent" length="247036226" type="application/x-bittorrent" />
+			<comments>http://eztv.it/forum/discuss/45219/</comments>
+			<guid>http://eztv.it/ep/45219/some-assembly-required-series-2-10of12-honda-atv-factory-dvdrip-x264-aac-mvgroup/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<fileName><![CDATA[Some.Assembly.Required.Series.2.10of12.Honda.ATV.factory.DVDRip.x264.AAC-MVGroup.[MVGroup.org].torrent]]></fileName>
+				<contentLength>247036226</contentLength>
+				<infoHash>4DA1A3D40B38FACBD2A8CDEF02EE273E8AD4343D</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:4DA1A3D40B38FACBD2A8CDEF02EE273E8AD4343D&dn=Some.Assembly.Required.Series.2.10of12.Honda.ATV.factory.DVDRip.x264.AAC-MVGroup]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[The Wright Way 1x6 [HDTV - RIVER]]]></title>
+			<link>http://torrent.zoink.it/The.Wright.Way.S01E06.HDTV.x264-RiVER.[eztv].torrent</link>
+			<category domain="http://eztv.it/shows/840/the-wright-way/"><![CDATA[TV Show / The Wright Way]]></category>
+			<pubDate>Tue, 28 May 2013 16:34:37 -0500</pubDate>
+			<description><![CDATA[Show Name: The Wright Way; Episode Title: N/A; Season: 1; Episode: 6]]></description>
+			<enclosure url="http://torrent.zoink.it/The.Wright.Way.S01E06.HDTV.x264-RiVER.[eztv].torrent" length="265597160" type="application/x-bittorrent" />
+			<comments>http://eztv.it/forum/discuss/45218/</comments>
+			<guid>http://eztv.it/ep/45218/the-wright-way-s01e06-hdtv-x264-river/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<fileName><![CDATA[The.Wright.Way.S01E06.HDTV.x264-RiVER.[eztv].torrent]]></fileName>
+				<contentLength>265597160</contentLength>
+				<infoHash>22B0D5F2EF4E2D8A7DB9934B1AC4F236AF51635C</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:EKYNL4XPJYWYU7NZSNFRVRHSG2XVCY24&dn=The.Wright.Way.S01E06.HDTV.x264-RiVER]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[The Apprentice UK 9x5 [HDTV - ANGELIC]]]></title>
+			<link>http://torrent.zoink.it/The.Apprentice.UK.S09E05.HDTV.x264-ANGELiC.[eztv].torrent</link>
+			<category domain="http://eztv.it/shows/14/the-apprentice-uk/"><![CDATA[TV Show / The Apprentice (UK)]]></category>
+			<pubDate>Tue, 28 May 2013 15:52:44 -0500</pubDate>
+			<description><![CDATA[Show Name: The Apprentice UK; Episode Title: N/A; Season: 9; Episode: 5]]></description>
+			<enclosure url="http://torrent.zoink.it/The.Apprentice.UK.S09E05.HDTV.x264-ANGELiC.[eztv].torrent" length="309110658" type="application/x-bittorrent" />
+			<comments>http://eztv.it/forum/discuss/45216/</comments>
+			<guid>http://eztv.it/ep/45216/the-apprentice-uk-s09e05-hdtv-x264-angelic/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<fileName><![CDATA[The.Apprentice.UK.S09E05.HDTV.x264-ANGELiC.[eztv].torrent]]></fileName>
+				<contentLength>309110658</contentLength>
+				<infoHash>ECC009BF4B403F1676898836A8F9B57B013DFC21</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:5TAATP2LIA7RM5UJRA3KR6NVPMAT37BB&dn=The.Apprentice.UK.S09E05.HDTV.x264-ANGELiC]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[Thames Television The Life and Times of Lord Mountbatten - The Last Viceroy 1x9]]></title>
+			<link>http://torrent.zoink.it/Thames.Television.The.Life.and.Times.of.Lord.Mountbatten.09of12.The.Last.Viceroy.XviD.AC3.[MVGroup.org].torrent</link>
+			<category domain="http://eztv.it/shows/187/mv-group-documentaries/"><![CDATA[TV Show / MV Group Documentaries]]></category>
+			<pubDate>Tue, 28 May 2013 15:10:45 -0500</pubDate>
+			<description><![CDATA[Show Name: Thames Television The Life and Times of Lord Mountbatten; Episode Title: The Last Viceroy; Season: 1; Episode: 9]]></description>
+			<enclosure url="http://torrent.zoink.it/Thames.Television.The.Life.and.Times.of.Lord.Mountbatten.09of12.The.Last.Viceroy.XviD.AC3.[MVGroup.org].torrent" length="824094720" type="application/x-bittorrent" />
+			<comments>http://eztv.it/forum/discuss/45215/</comments>
+			<guid>http://eztv.it/ep/45215/thames-television-the-life-and-times-of-lord-mountbatten-09of12-the-last-viceroy-xvid-ac3-mvgroup/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<fileName><![CDATA[Thames.Television.The.Life.and.Times.of.Lord.Mountbatten.09of12.The.Last.Viceroy.XviD.AC3-MVGroup.[MVGroup.org].torrent]]></fileName>
+				<contentLength>824094720</contentLength>
+				<infoHash>C768C6BE484B688B9BF3C3F07CC03BF5F6D24F7A</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:C768C6BE484B688B9BF3C3F07CC03BF5F6D24F7A&dn=Thames.Television.The.Life.and.Times.of.Lord.Mountbatten.09of12.The.Last.Viceroy.XviD.AC3-MVGroup]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[Zero Hour US 1x9 [HDTV - SKGTV]]]></title>
+			<link>http://torrent.zoink.it/Zero.Hour.US.S01E09.HDTV.X264-SKGTV.[eztv].torrent</link>
+			<category domain="http://eztv.it/shows/786/zero-hour-us/"><![CDATA[TV Show / Zero Hour (US)]]></category>
+			<pubDate>Tue, 28 May 2013 14:31:39 -0500</pubDate>
+			<description><![CDATA[Show Name: Zero Hour US; Episode Title: N/A; Season: 1; Episode: 9]]></description>
+			<enclosure url="http://torrent.zoink.it/Zero.Hour.US.S01E09.HDTV.X264-SKGTV.[eztv].torrent" length="269843422" type="application/x-bittorrent" />
+			<comments>http://eztv.it/forum/discuss/45214/</comments>
+			<guid>http://eztv.it/ep/45214/zero-hour-us-s01e09-hdtv-x264-skgtv/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<fileName><![CDATA[Zero.Hour.US.S01E09.HDTV.X264-SKGTV.[eztv].torrent]]></fileName>
+				<contentLength>269843422</contentLength>
+				<infoHash>41E01EA7C07E9C5251D1AA5A3D34E20A177FB746</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:IHQB5J6AP2OFEUORVJND2NHCBILX7N2G&dn=Zero.Hour.US.S01E09.HDTV.X264-SKGTV]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[Some Assembly Required Series 2 - Making Bread 1x9 [DVDRIP - MVGROUP]]]></title>
+			<link>http://torrent.zoink.it/Some.Assembly.Required.Series.2.09of12.Making.Bread.DVDRip.x264.AAC.[MVGroup.org].torrent</link>
+			<category domain="http://eztv.it/shows/187/mv-group-documentaries/"><![CDATA[TV Show / MV Group Documentaries]]></category>
+			<pubDate>Tue, 28 May 2013 13:58:54 -0500</pubDate>
+			<description><![CDATA[Show Name: Some Assembly Required Series 2; Episode Title: Making Bread; Season: 1; Episode: 9]]></description>
+			<enclosure url="http://torrent.zoink.it/Some.Assembly.Required.Series.2.09of12.Making.Bread.DVDRip.x264.AAC.[MVGroup.org].torrent" length="247696085" type="application/x-bittorrent" />
+			<comments>http://eztv.it/forum/discuss/45213/</comments>
+			<guid>http://eztv.it/ep/45213/some-assembly-required-series-2-09of12-making-bread-dvdrip-x264-aac-mvgroup/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<fileName><![CDATA[Some.Assembly.Required.Series.2.09of12.Making.Bread.DVDRip.x264.AAC-MVGroup.[MVGroup.org].torrent]]></fileName>
+				<contentLength>247696085</contentLength>
+				<infoHash>F177745F2B3F16F336CF6F0155D7C6CD42DC6FBD</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:F177745F2B3F16F336CF6F0155D7C6CD42DC6FBD&dn=Some.Assembly.Required.Series.2.09of12.Making.Bread.DVDRip.x264.AAC-MVGroup]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[BBC Archaeology A Secret History - The Search for Civilisation 1x2 [PDTV - MVGROUP]]]></title>
+			<link>http://torrent.zoink.it/BBC.Archaeology.A.Secret.History.2of3.The.Search.for.Civilisation.PDTV.x264.AAC.[MVGroup.org].torrent</link>
+			<category domain="http://eztv.it/shows/187/mv-group-documentaries/"><![CDATA[TV Show / MV Group Documentaries]]></category>
+			<pubDate>Tue, 28 May 2013 12:58:41 -0500</pubDate>
+			<description><![CDATA[Show Name: BBC Archaeology A Secret History; Episode Title: The Search for Civilisation; Season: 1; Episode: 2]]></description>
+			<enclosure url="http://torrent.zoink.it/BBC.Archaeology.A.Secret.History.2of3.The.Search.for.Civilisation.PDTV.x264.AAC.[MVGroup.org].torrent" length="776705361" type="application/x-bittorrent" />
+			<comments>http://eztv.it/forum/discuss/45212/</comments>
+			<guid>http://eztv.it/ep/45212/bbc-archaeology-a-secret-history-2of3-the-search-for-civilisation-pdtv-x264-aac-mvgroup/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<fileName><![CDATA[BBC.Archaeology.A.Secret.History.2of3.The.Search.for.Civilisation.PDTV.x264.AAC-MVGroup.[MVGroup.org].torrent]]></fileName>
+				<contentLength>776705361</contentLength>
+				<infoHash>0B852C511FD6D5F6D3EB15930D2B2F37DC4324C6</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:0B852C511FD6D5F6D3EB15930D2B2F37DC4324C6&dn=BBC.Archaeology.A.Secret.History.2of3.The.Search.for.Civilisation.PDTV.x264.AAC-MVGroup]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[BBC Blackadder Rides Again [576P - HDTV - MVGROUP]]]></title>
+			<link>http://torrent.zoink.it/BBC.Blackadder.Rides.Again.576p.x264.AAC.HDTV.[MVGroup.org].torrent</link>
+			<category domain="http://eztv.it/shows/187/mv-group-documentaries/"><![CDATA[TV Show / MV Group Documentaries]]></category>
+			<pubDate>Tue, 28 May 2013 11:29:18 -0500</pubDate>
+			<description><![CDATA[Show Name: BBC Blackadder Rides Again; Episode Title: N/A; Episode Date: ]]></description>
+			<enclosure url="http://torrent.zoink.it/BBC.Blackadder.Rides.Again.576p.x264.AAC.HDTV.[MVGroup.org].torrent" length="663622048" type="application/x-bittorrent" />
+			<comments>http://eztv.it/forum/discuss/45211/</comments>
+			<guid>http://eztv.it/ep/45211/bbc-blackadder-rides-again-576p-x264-aac-hdtv-mvgroup/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<fileName><![CDATA[BBC.Blackadder.Rides.Again.576p.x264.AAC.HDTV-MVGroup.[MVGroup.org].torrent]]></fileName>
+				<contentLength>663622048</contentLength>
+				<infoHash>84B793AA94AD8A752F661BD4CBC0460DA494E397</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:84B793AA94AD8A752F661BD4CBC0460DA494E397&dn=BBC.Blackadder.Rides.Again.576p.x264.AAC.HDTV-MVGroup]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[BBC Soillse - 20 in the Med 20x13 [PDTV - MVGROUP]]]></title>
+			<link>http://torrent.zoink.it/BBC.Soillse.2013.20.in.the.Med.PDTV.x264.AAC.[MVGroup.org].torrent</link>
+			<category domain="http://eztv.it/shows/187/mv-group-documentaries/"><![CDATA[TV Show / MV Group Documentaries]]></category>
+			<pubDate>Tue, 28 May 2013 10:13:57 -0500</pubDate>
+			<description><![CDATA[Show Name: BBC Soillse; Episode Title: 20 in the Med; Season: 20; Episode: 13]]></description>
+			<enclosure url="http://torrent.zoink.it/BBC.Soillse.2013.20.in.the.Med.PDTV.x264.AAC.[MVGroup.org].torrent" length="705438782" type="application/x-bittorrent" />
+			<comments>http://eztv.it/forum/discuss/45210/</comments>
+			<guid>http://eztv.it/ep/45210/bbc-soillse-2013-20-in-the-med-pdtv-x264-aac-mvgroup/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<fileName><![CDATA[BBC.Soillse.2013.20.in.the.Med.PDTV.x264.AAC-MVGroup.[MVGroup.org].torrent]]></fileName>
+				<contentLength>705438782</contentLength>
+				<infoHash>961E91A4C404E7F039E512E32BCE7C4F6BCED3C8</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:961E91A4C404E7F039E512E32BCE7C4F6BCED3C8&dn=BBC.Soillse.2013.20.in.the.Med.PDTV.x264.AAC-MVGroup]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[Revolution 2012 1x19 [720P - HDTV - DIMENSION]]]></title>
+			<link>http://torrent.zoink.it/Revolution.2012.S01E19.720p.HDTV.X264-DIMENSION.[eztv].torrent</link>
+			<category domain="http://eztv.it/shows/681/revolution-2012/"><![CDATA[TV Show / Revolution (2012)]]></category>
+			<pubDate>Tue, 28 May 2013 08:54:50 -0500</pubDate>
+			<description><![CDATA[Show Name: Revolution 2012; Episode Title: N/A; Season: 1; Episode: 19]]></description>
+			<enclosure url="http://torrent.zoink.it/Revolution.2012.S01E19.720p.HDTV.X264-DIMENSION.[eztv].torrent" length="789642929" type="application/x-bittorrent" />
+			<comments>http://eztv.it/forum/discuss/45208/</comments>
+			<guid>http://eztv.it/ep/45208/revolution-2012-s01e19-720p-hdtv-x264-dimension/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<fileName><![CDATA[Revolution.2012.S01E19.720p.HDTV.X264-DIMENSION.[eztv].torrent]]></fileName>
+				<contentLength>789642929</contentLength>
+				<infoHash>E4B13D1FC3EAC17A713E9E70A3C4A60B417BEE2B</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:4SYT2H6D5LAXU4J6TZYKHRFGBNAXX3RL&dn=Revolution.2012.S01E19.720p.HDTV.X264-DIMENSION]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[5 inch Floppy - Blade Symphony And Assault Android Cactus 4x12 [HDTV - 5IF]]]></title>
+			<link>http://torrent.zoink.it/5.inch.Floppy.S04E12.Blade.Symphony.And.Assault.Android.Cactus.HDTV.H264-5IF.[eztv].torrent</link>
+			<category domain="http://eztv.it/shows/482/5-inch-floppy/"><![CDATA[TV Show / 5 inch Floppy]]></category>
+			<pubDate>Tue, 28 May 2013 08:47:28 -0500</pubDate>
+			<description><![CDATA[Show Name: 5 inch Floppy; Episode Title: Blade Symphony And Assault Android Cactus; Season: 4; Episode: 12]]></description>
+			<enclosure url="http://torrent.zoink.it/5.inch.Floppy.S04E12.Blade.Symphony.And.Assault.Android.Cactus.HDTV.H264-5IF.[eztv].torrent" length="113188270" type="application/x-bittorrent" />
+			<comments>http://eztv.it/forum/discuss/45207/</comments>
+			<guid>http://eztv.it/ep/45207/5-inch-floppy-s04e12-blade-symphony-and-assault-android-cactus-hdtv-h264-5if/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<fileName><![CDATA[5.inch.Floppy.S04E12.Blade.Symphony.And.Assault.Android.Cactus.HDTV.H264-5IF.[eztv].torrent]]></fileName>
+				<contentLength>113188270</contentLength>
+				<infoHash>18A1997F0AFBE26F2F9F28C1E3BD52F2032DAB58</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:DCQZS7YK7PRG6L47FDA6HPKS6IBS3K2Y&dn=5.inch.Floppy.S04E12.Blade.Symphony.And.Assault.Android.Cactus.HDTV.H264-5IF]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[Craig Ferguson - Sir Ben Kingsley 2013-05-27 [HDTV - 2HD]]]></title>
+			<link>http://torrent.zoink.it/Craig.Ferguson.2013.05.27.Sir.Ben.Kingsley.HDTV.x264-2HD.[eztv].torrent</link>
+			<category domain="http://eztv.it/shows/358/craig-ferguson/"><![CDATA[TV Show / Craig Ferguson]]></category>
+			<pubDate>Tue, 28 May 2013 08:36:11 -0500</pubDate>
+			<description><![CDATA[Show Name: Craig Ferguson; Episode Title: Sir Ben Kingsley; Episode Date: 2013-05-27]]></description>
+			<enclosure url="http://torrent.zoink.it/Craig.Ferguson.2013.05.27.Sir.Ben.Kingsley.HDTV.x264-2HD.[eztv].torrent" length="324366904" type="application/x-bittorrent" />
+			<comments>http://eztv.it/forum/discuss/45205/</comments>
+			<guid>http://eztv.it/ep/45205/craig-ferguson-2013-05-27-sir-ben-kingsley-hdtv-x264-2hd/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<fileName><![CDATA[Craig.Ferguson.2013.05.27.Sir.Ben.Kingsley.HDTV.x264-2HD.[eztv].torrent]]></fileName>
+				<contentLength>324366904</contentLength>
+				<infoHash>22598950F3E656BD975F7C3CB9A5F3B8159AD908</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:EJMYSUHT4ZLL3F27PQ6LTJPTXAKZVWII&dn=Craig.Ferguson.2013.05.27.Sir.Ben.Kingsley.HDTV.x264-2HD]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[National Geographic Meet the Natives USA - The Cowboy People 1x1 [PDTV - MVGROUP]]]></title>
+			<link>http://torrent.zoink.it/National.Geographic.Meet.the.Natives.USA.1of5.The.Cowboy.People.PDTV.x264.AAC.[MVGroup.org].torrent</link>
+			<category domain="http://eztv.it/shows/187/mv-group-documentaries/"><![CDATA[TV Show / MV Group Documentaries]]></category>
+			<pubDate>Tue, 28 May 2013 08:09:06 -0500</pubDate>
+			<description><![CDATA[Show Name: National Geographic Meet the Natives USA; Episode Title: The Cowboy People; Season: 1; Episode: 1]]></description>
+			<enclosure url="http://torrent.zoink.it/National.Geographic.Meet.the.Natives.USA.1of5.The.Cowboy.People.PDTV.x264.AAC.[MVGroup.org].torrent" length="485301890" type="application/x-bittorrent" />
+			<comments>http://eztv.it/forum/discuss/45204/</comments>
+			<guid>http://eztv.it/ep/45204/national-geographic-meet-the-natives-usa-1of5-the-cowboy-people-pdtv-x264-aac-mvgroup/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<fileName><![CDATA[National.Geographic.Meet.the.Natives.USA.1of5.The.Cowboy.People.PDTV.x264.AAC-MVGroup.[MVGroup.org].torrent]]></fileName>
+				<contentLength>485301890</contentLength>
+				<infoHash>7B0A99439B49837874E17A83C5260A6216D4ADBC</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:7B0A99439B49837874E17A83C5260A6216D4ADBC&dn=National.Geographic.Meet.the.Natives.USA.1of5.The.Cowboy.People.PDTV.x264.AAC-MVGroup]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[BSkyB Ladyboys Series 2 1x5 [PDTV - MVGROUP]]]></title>
+			<link>http://torrent.zoink.it/BSkyB.Ladyboys.Series.2.5of5.PDTV.x264.AAC.[MVGroup.org].torrent</link>
+			<category domain="http://eztv.it/shows/187/mv-group-documentaries/"><![CDATA[TV Show / MV Group Documentaries]]></category>
+			<pubDate>Tue, 28 May 2013 06:15:01 -0500</pubDate>
+			<description><![CDATA[Show Name: BSkyB Ladyboys Series 2; Episode Title: N/A; Season: 1; Episode: 5]]></description>
+			<enclosure url="http://torrent.zoink.it/BSkyB.Ladyboys.Series.2.5of5.PDTV.x264.AAC.[MVGroup.org].torrent" length="703038026" type="application/x-bittorrent" />
+			<comments>http://eztv.it/forum/discuss/45203/</comments>
+			<guid>http://eztv.it/ep/45203/bskyb-ladyboys-series-2-5of5-pdtv-x264-aac-mvgroup/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<fileName><![CDATA[BSkyB.Ladyboys.Series.2.5of5.PDTV.x264.AAC-MVGroup.[MVGroup.org].torrent]]></fileName>
+				<contentLength>703038026</contentLength>
+				<infoHash>1CBBA05C502482BDA5DB8C4D417C11750B6E8590</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:1CBBA05C502482BDA5DB8C4D417C11750B6E8590&dn=BSkyB.Ladyboys.Series.2.5of5.PDTV.x264.AAC-MVGroup]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[Thames Television The Life and Times of Lord Mountbatten - The Meaning of Victory 1x8]]></title>
+			<link>http://torrent.zoink.it/Thames.Television.The.Life.and.Times.of.Lord.Mountbatten.08of12.The.Meaning.of.Victory.XviD.AC3.[MVGroup.org].torrent</link>
+			<category domain="http://eztv.it/shows/187/mv-group-documentaries/"><![CDATA[TV Show / MV Group Documentaries]]></category>
+			<pubDate>Tue, 28 May 2013 04:57:21 -0500</pubDate>
+			<description><![CDATA[Show Name: Thames Television The Life and Times of Lord Mountbatten; Episode Title: The Meaning of Victory; Season: 1; Episode: 8]]></description>
+			<enclosure url="http://torrent.zoink.it/Thames.Television.The.Life.and.Times.of.Lord.Mountbatten.08of12.The.Meaning.of.Victory.XviD.AC3.[MVGroup.org].torrent" length="824188928" type="application/x-bittorrent" />
+			<comments>http://eztv.it/forum/discuss/45202/</comments>
+			<guid>http://eztv.it/ep/45202/thames-television-the-life-and-times-of-lord-mountbatten-08of12-the-meaning-of-victory-xvid-ac3-mvgroup/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<fileName><![CDATA[Thames.Television.The.Life.and.Times.of.Lord.Mountbatten.08of12.The.Meaning.of.Victory.XviD.AC3-MVGroup.[MVGroup.org].torrent]]></fileName>
+				<contentLength>824188928</contentLength>
+				<infoHash>0AD782B37724BD8F8988FE277CE7103752BB7EC4</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:0AD782B37724BD8F8988FE277CE7103752BB7EC4&dn=Thames.Television.The.Life.and.Times.of.Lord.Mountbatten.08of12.The.Meaning.of.Victory.XviD.AC3-MVGroup]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[Some Assembly Required Series 2 - Peterbilt Trucks 1x8 [DVDRIP - MVGROUP]]]></title>
+			<link>http://torrent.zoink.it/Some.Assembly.Required.Series.2.08of12.Peterbilt.Trucks.DVDRip.x264.AAC.[MVGroup.org].torrent</link>
+			<category domain="http://eztv.it/shows/187/mv-group-documentaries/"><![CDATA[TV Show / MV Group Documentaries]]></category>
+			<pubDate>Tue, 28 May 2013 03:55:43 -0500</pubDate>
+			<description><![CDATA[Show Name: Some Assembly Required Series 2; Episode Title: Peterbilt Trucks; Season: 1; Episode: 8]]></description>
+			<enclosure url="http://torrent.zoink.it/Some.Assembly.Required.Series.2.08of12.Peterbilt.Trucks.DVDRip.x264.AAC.[MVGroup.org].torrent" length="247606900" type="application/x-bittorrent" />
+			<comments>http://eztv.it/forum/discuss/45201/</comments>
+			<guid>http://eztv.it/ep/45201/some-assembly-required-series-2-08of12-peterbilt-trucks-dvdrip-x264-aac-mvgroup/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<fileName><![CDATA[Some.Assembly.Required.Series.2.08of12.Peterbilt.Trucks.DVDRip.x264.AAC-MVGroup.[MVGroup.org].torrent]]></fileName>
+				<contentLength>247606900</contentLength>
+				<infoHash>C1A7AB6E61A1BD0E5B6FD1274AA07A1A5CC63038</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:C1A7AB6E61A1BD0E5B6FD1274AA07A1A5CC63038&dn=Some.Assembly.Required.Series.2.08of12.Peterbilt.Trucks.DVDRip.x264.AAC-MVGroup]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[BBC Secret Knowledge - The Art of the Vikings 810p 20x13 [HDTV - MVGROUP]]]></title>
+			<link>http://torrent.zoink.it/BBC.Secret.Knowledge.2013.The.Art.of.the.Vikings.810p.x264.AAC.HDTV.[MVGroup.org].torrent</link>
+			<category domain="http://eztv.it/shows/187/mv-group-documentaries/"><![CDATA[TV Show / MV Group Documentaries]]></category>
+			<pubDate>Tue, 28 May 2013 02:55:47 -0500</pubDate>
+			<description><![CDATA[Show Name: BBC Secret Knowledge; Episode Title: The Art of the Vikings 810p; Season: 20; Episode: 13]]></description>
+			<enclosure url="http://torrent.zoink.it/BBC.Secret.Knowledge.2013.The.Art.of.the.Vikings.810p.x264.AAC.HDTV.[MVGroup.org].torrent" length="508772179" type="application/x-bittorrent" />
+			<comments>http://eztv.it/forum/discuss/45200/</comments>
+			<guid>http://eztv.it/ep/45200/bbc-secret-knowledge-2013-the-art-of-the-vikings-810p-x264-aac-hdtv-mvgroup/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<fileName><![CDATA[BBC.Secret.Knowledge.2013.The.Art.of.the.Vikings.810p.x264.AAC.HDTV-MVGroup.[MVGroup.org].torrent]]></fileName>
+				<contentLength>508772179</contentLength>
+				<infoHash>52635B9BAA1EF90FD070E78317DDBE29603AD7A1</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:52635B9BAA1EF90FD070E78317DDBE29603AD7A1&dn=BBC.Secret.Knowledge.2013.The.Art.of.the.Vikings.810p.x264.AAC.HDTV-MVGroup]]></magnetURI>
+			</torrent>
+		</item>
+	</channel>
+</rss>
+<!-- live  -->
