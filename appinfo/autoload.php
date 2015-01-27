@@ -17,14 +17,3 @@
 
 // composer libs
 require_once __DIR__ . '/../vendor/autoload.php';
-
-// non composer libs
-$thirdPartyLibs = [
-    '\ZendXML\Security' => 'ZendXml/vendor/autoload.php',
-];
-
-foreach ($thirdPartyLibs as $class => $path) {
-    if (!class_exists($class)) {
-        require_once __DIR__ . '/../vendor/' . $path;
-    }
-}

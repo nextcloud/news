@@ -13,7 +13,8 @@
 
 namespace OCA\News\ArticleEnhancer;
 
-use \ZendXml\Security;
+use DomDocument;
+use DOMXpath;
 
 use \OCA\News\Db\Item;
 
@@ -26,17 +27,15 @@ class GlobalArticleEnhancer implements ArticleEnhancer {
      */
     public function enhance(Item $item) {
 
-        $dom = new \DOMDocument();
+        $dom = new DOMDocument();
 
         // wrap it inside a div if there is none to prevent invalid wrapping
         // inside <p> tags
         $body = '<div>' . $item->getBody() . '</div>';
 
-        $isOk = Security::scanHtml(
-            $body, $dom, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
-        );
+        @$dom->loadHTML($body, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
-        $xpath = new \DOMXpath($dom);
+        $xpath = new DOMXpath($dom);
 
         // remove youtube autoplay
         // NOTE: PHP supports only XPath 1.0 so no matches() function :(

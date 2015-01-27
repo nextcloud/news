@@ -13,15 +13,15 @@
 
 namespace OCA\News\ArticleEnhancer;
 
-use \DOMDocument;
-use \DOMXpath;
+use DOMDocument;
+use DOMXpath;
 
-use \ZendXml\Security;
-use \PicoFeed\Encoding\Encoding;
+use PicoFeed\Encoding\Encoding;
 
-use \OCA\News\Utility\PicoFeedClientFactory;
+use OCA\News\Utility\PicoFeedClientFactory;
 
-use \OCA\News\Db\Item;
+use OCA\News\Db\Item;
+
 
 class XPathArticleEnhancer implements ArticleEnhancer {
 
@@ -72,8 +72,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
                 }
 
                 $dom = new DOMDocument();
-
-                $isOk = Security::scanHtml($body, $dom);
+                @$dom->loadHTML($body);
 
                 $xpath = new DOMXpath($dom);
                 $xpathResult = $xpath->evaluate($search);
@@ -127,9 +126,8 @@ class XPathArticleEnhancer implements ArticleEnhancer {
         }
 
         $xmlString = '<div>' . $xmlString . '</div>';
-        $isOk = Security::scanHtml(
-            $xmlString, $dom, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
-        );
+        $isOk = @$dom->loadHTML($xmlString, LIBXML_HTML_NOIMPLIED |
+                                           LIBXML_HTML_NODEFDTD);
 
         if(!$isOk) {
             return false;
