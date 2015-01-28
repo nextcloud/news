@@ -7,7 +7,7 @@
     <author>Bernhard Posselt, Alessandro Cosentino, Jan-Christoph Borchardt</author>
     <category>multimedia</category>
     <licence>AGPL</licence>
-    <version>5.1.1</version>
+    <version>5.2.0</version>
     <namespace>News</namespace>
 
     <!-- resources -->
@@ -31,6 +31,7 @@
         <lib min-version="2.7.8">libxml</lib>
         <lib>curl</lib>
         <lib>SimpleXML</lib>
+        <lib>iconv</lib>
     </dependencies>
 
     <!-- navigation -->

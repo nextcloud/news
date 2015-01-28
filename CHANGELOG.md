@@ -1,3 +1,6 @@
+owncloud-news (5.2.0)
+* **New dependency**: Require iconv php module (which is required by picoFeed)
+
 owncloud-news (5.1.1)
 * **Bugfix**: Use the correct scrolltop position for pull to refresh to not reload the feed when jumping back to an article using keyboard shortcuts
 
