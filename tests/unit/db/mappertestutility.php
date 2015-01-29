@@ -69,7 +69,7 @@ abstract class MapperTestUtility extends \PHPUnit_Framework_TestCase {
      * will be called on the result
      */
     protected function setMapperResult($sql, $arguments=array(), $returnRows=array(),
-        $limit=null, $offset=null){
+        $limit=null, $offset=null, $expectClose=false){
 
         $this->iterators[] = new ArgumentIterator($returnRows);
 
@@ -90,7 +90,12 @@ abstract class MapperTestUtility extends \PHPUnit_Framework_TestCase {
                     return $result;
                 }
             ));
-        $this->pdoResult->expects($this->any())
+        if ($expectClose) {
+            $closing = $this->once();
+        } else {
+            $closing = $this->any();
+        }
+        $this->pdoResult->expects($closing)
             ->method('closeCursor');
 
         $index = 1;
