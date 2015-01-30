@@ -9,6 +9,8 @@ OC.L10N.register(
     "More redirects than allowed, aborting" : "İzin verilenden daha fazla yeniden yönlendirme. İptal ediliyor",
     "Bigger than maximum allowed size" : "İzin verilen boyuttan daha büyük",
     "Request timed out" : "İstek zaman aşımına uğradı",
+    "Internal server error! Please check your " : "Dahili sunucu hatası! Lütfen denetleyin",
+    "Token expired or app not enabled! Try to reload the page!" : "Jetonun süresi geçti veya uygulama etkin değil! Sayfayı yeniden yüklemeyi dene!",
     "Can not add feed: Exists already" : "Besleme eklenemiyor: Zaten mevcut",
     "Articles without feed" : "Beslemesiz makaleler",
     "Can not add folder: Exists already" : "Klasör eklenemiyor: Zaten mevcut",
