@@ -87,7 +87,7 @@ class Application extends App {
          * Utility
          */
         $container->registerService('ConfigPath', function($c) {
-            return '/news/config';
+            return 'news/config';
         });
 
         $container->registerService('ConfigView', function($c) {
