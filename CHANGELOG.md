@@ -1,3 +1,6 @@
+owncloud-news (5.2.1)
+* **Bugfix**: Fix admin settings by using the correct config path
+
 owncloud-news (5.2.0)
 * **New dependency**: Require iconv php module (which is required by picoFeed)
 
