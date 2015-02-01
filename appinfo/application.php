@@ -87,12 +87,12 @@ class Application extends App {
          * Utility
          */
         $container->registerService('ConfigPath', function($c) {
-            return 'news/config/';
+            return 'config.ini';
         });
 
         $container->registerService('ConfigView', function($c) {
             $fs = $c->query('OCP\Files\IRootFolder');
-            $path = $c->query('ConfigPath');
+            $path = 'news/config';
             if ($fs->nodeExists($path)) {
                 return $fs->get($path);
             } else {
@@ -107,7 +107,7 @@ class Application extends App {
                 $c->query('OCP\ILogger'),
                 $c->query('LoggerParameters')
             );
-            $config->read('config.ini', true);
+            $config->read($c->query('ConfigPath'), true);
             return $config;
         });
 
