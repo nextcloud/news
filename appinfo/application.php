@@ -86,9 +86,13 @@ class Application extends App {
         /**
          * Utility
          */
+        $container->registerService('ConfigPath', function($c) {
+            return '/news/config';
+        });
+
         $container->registerService('ConfigView', function($c) {
             $fs = $c->query('OCP\Files\IRootFolder');
-            $path = '/news/config';
+            $path = $c->query('ConfigPath');
             if ($fs->nodeExists($path)) {
                 return $fs->get($path);
             } else {
