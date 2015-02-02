@@ -124,8 +124,8 @@ class Application extends App {
             $config->set('Cache.SerializerPath', $directory);
             $config->set('HTML.SafeIframe', true);
             $config->set('URI.SafeIframeRegexp',
-                '%^(?:https?:)?//(' .
-                'www.youtube(?:-nocookie)?.com/embed/|' .
+                '%^https://(?:www\.)?(' .
+                'youtube(?:-nocookie)?.com/embed/|' .
                 'player.vimeo.com/video/)%'); //allow YouTube and Vimeo
             return new HTMLPurifier($config);
         });

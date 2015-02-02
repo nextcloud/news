@@ -1,3 +1,6 @@
+owncloud-news (5.2.2)
+* **Security**: Only allow YouTube and Vimeo to embed iframes if they use HTTPS to prevent mixed active content iframe attacks
+
 owncloud-news (5.2.1)
 * **Bugfix**: Fix admin settings by using the correct config path
 
