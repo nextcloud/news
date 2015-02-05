@@ -68,7 +68,7 @@ OC.L10N.register(
     "Load previous feed" : "Önceki beslemeyi yükle",
     "Load next folder" : "Sonraki klasörü yükle",
     "Load previous folder" : "Önceki klasörü yükle",
-    "Scroll to active navigation entry" : "Gezinti girdisini etkinleştirmek için kaydırın",
+    "Scroll to active navigation entry" : "Gezinti girdisini etkinleştirmek için kaydır",
     "Web address" : "Web adresi",
     "Feed exists already!" : "Besleme zaten mevcut!",
     "Folder" : "Klasör",
