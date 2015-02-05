@@ -44,30 +44,28 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
             }
         };
     });
+    var errorMessages = {
+        0: t('news', 'Request failed, network connection unavailable!'),
+        401: t('news', 'Request unauthorized. Are you logged in?'),
+        403: t('news', 'Request forbidden. Are you an admin?'),
+        412: t('news', 'Token expired or app not enabled! Reload the page!'),
+        500: t('news', 'Internal server error! Please check your ' +
+                       'data/owncloud.log file for additional ' +
+                       'information!'),
+        503: t('news', 'Request failed, ownCloud is in currently ' +
+                       'in maintenance mode!'),
+    };
     $provide.factory('ConnectionErrorInterceptor', function ($q, $timeout) {
         var timer;
         return {
             responseError: function (response) {
-                var messages = {
-                    0: t('news', 'Request failed, network connection ' +
-                                 'unavailable!'),
-                    401: t('news', 'Request unauthorized. Are you logged in?'),
-                    403: t('news', 'Request forbidden. Are you an admin?'),
-                    412: t('news', 'Token expired or app not enabled! ' +
-                                   'Try to reload the page!'),
-                    500: t('news', 'Internal server error! Please check your ' +
-                                   'data/owncloud.log file for additional ' +
-                                   'information!'),
-                    503: t('news', 'Request failed, ownCloud is in currently ' +
-                                   'in maintenance mode!'),
-                };
                 // status 0 is a network error
-                if (response.status in messages) {
+                if (response.status in errorMessages) {
                     if (timer) {
                         $timeout.cancel(timer);
                     }
                     OC.Notification.hide();
-                    OC.Notification.showHtml(messages[response.status]);
+                    OC.Notification.showHtml(errorMessages[response.status]);
                     timer = $timeout(function () {
                         OC.Notification.hide();
                     }, 5000);
