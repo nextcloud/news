@@ -12,6 +12,7 @@ OC.L10N.register(
     "Request failed, network connection unavailable!" : "A solicitação falhou, conexão de rede indisponível!",
     "Request unauthorized. Are you logged in?" : "Solicitação não autorizada. Você está logado?",
     "Request forbidden. Are you an admin?" : "Solicitação proibida. Você é um administrador?",
+    "Token expired or app not enabled! Reload the page!" : "Token expirado ou app não habilitado! Atualizar a página!",
     "Internal server error! Please check your " : "Erro interno do Servidor! Por favor, verifique o seu",
     "Request failed, ownCloud is in currently " : "Falha na solicitação, ownCloud está atualmente em",
     "Internal server error! Please check your data/owncloud.log file for additional information!" : "Erro interno do Servidor! Por favor, verifique seus dados/arquivo owncloud.log para obter mais informações!",

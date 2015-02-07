@@ -11,6 +11,7 @@ $TRANSLATIONS = array(
 "Request failed, network connection unavailable!" => "İstek başarısız, ağ bağlantısı kullanılamıyor!",
 "Request unauthorized. Are you logged in?" => "İstek yetkisiz. Oturumunuz açık mı?",
 "Request forbidden. Are you an admin?" => "İsteğe izin verilmedi. Bir yönetici misiniz?",
+"Token expired or app not enabled! Reload the page!" => "Belirteç süresi doldu ya da uygulama etkinleştirilmedi! Sayfayı yenile!",
 "Internal server error! Please check your " => "Dahili sunucu hatası! Lütfen denetleyin:",
 "Request failed, ownCloud is in currently " => "İstek başarısız, ownCloud şu anda",
 "Internal server error! Please check your data/owncloud.log file for additional information!" => "Dahili sunucu hatası! Lütfen ek bilgi için data/owncloud.log dosyasına bakın!",

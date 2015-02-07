@@ -12,6 +12,7 @@ OC.L10N.register(
     "Request failed, network connection unavailable!" : "Požadavek selhal, síťové připojení není dostupné!",
     "Request unauthorized. Are you logged in?" : "Neautorizovaný požadavek. Jste přihlášeni?",
     "Request forbidden. Are you an admin?" : "Zakázaný požadavek. Jste administrátor?",
+    "Token expired or app not enabled! Reload the page!" : "Token vypršel nebo aplikace není povolena! Obnovte stránku!",
     "Internal server error! Please check your " : "Interní chyba serveru! Ověřte svůj",
     "Request failed, ownCloud is in currently " : "Požadavek selhal, ownCloud je momentálně v",
     "Internal server error! Please check your data/owncloud.log file for additional information!" : "Interní chyba serveru! Zkontrolujte soubor owncloud.log pro více informací!",
