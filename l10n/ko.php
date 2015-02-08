@@ -11,6 +11,7 @@ $TRANSLATIONS = array(
 "Request failed, network connection unavailable!" => "요청을 실패하였습니다. 네트워크 연결을 사용할 수 없습니다.",
 "Request unauthorized. Are you logged in?" => "요청이 인증되지 않았습니다. 로그인 되어 있습니까?",
 "Request forbidden. Are you an admin?" => "요청이 금지되었습니다. 관리자 권한을 갖고 있습니까?",
+"Token expired or app not enabled! Reload the page!" => "토큰이 만료되었거나 앱이 활성화되어 있지 않습니다. 페이지를 새로 고치십시오.",
 "Internal server error! Please check your " => "내부 서버 오류입니다. 추가 정보를 보려면 data/owncloud.log 파일을 확인하십시오.",
 "Request failed, ownCloud is in currently " => "요청을 실패하였습니다. ownCloud가 현재 유지 보수 모드로 동작 중입니다.",
 "Internal server error! Please check your data/owncloud.log file for additional information!" => "내부 서버 오류입니다. 추가 정보를 보려면 data/owncloud.log 파일을 확인하십시오.",

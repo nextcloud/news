@@ -11,6 +11,7 @@ $TRANSLATIONS = array(
 "Request failed, network connection unavailable!" => "Request failed, network connection unavailable!",
 "Request unauthorized. Are you logged in?" => "Request unauthorised. Are you logged in?",
 "Request forbidden. Are you an admin?" => "Request forbidden. Are you an admin?",
+"Token expired or app not enabled! Reload the page!" => "Token expired or app not enabled! Reload the page!",
 "Internal server error! Please check your " => "Internal server error! Please check your ",
 "Request failed, ownCloud is in currently " => "Request failed, ownCloud is in currently ",
 "Internal server error! Please check your data/owncloud.log file for additional information!" => "Internal server error! Please check your data/owncloud.log file for additional information!",
