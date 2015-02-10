@@ -11,6 +11,7 @@ $TRANSLATIONS = array(
 "Request failed, network connection unavailable!" => "Požiadavka zlyhala, sieťové pripojenie nie je dostupné!",
 "Request unauthorized. Are you logged in?" => "Neautorizovaná požiadavka. Ste prihlásený?",
 "Request forbidden. Are you an admin?" => "Požiadavka zakázaná. Ste admin?",
+"Token expired or app not enabled! Reload the page!" => "Tokenu vypršala platnosť alebo app nie je povolená! Obnovte prosím stránku!",
 "Internal server error! Please check your " => "Vnútorná chyba servera! Overte svoj",
 "Request failed, ownCloud is in currently " => "Požiadavka zlyhala, ownCloud je momentálne v",
 "Internal server error! Please check your data/owncloud.log file for additional information!" => "Vnútorná chyba servera! Overte váš data/owncloud.log súbor pre ďalšie informácie!",
