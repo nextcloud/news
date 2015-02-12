@@ -19,7 +19,7 @@ OC.L10N.register(
     "Request failed, ownCloud is in currently in maintenance mode!" : "La petición ha fallado: ownCloud ya está en modo mantenimiento.",
     "Can not add feed: Exists already" : "No se puede agregar fuente: ya existe",
     "Articles without feed" : "Artículos sin fuente",
-    "Can not add folder: Exists already" : "No se puede agregar carpeta: ya existe",
+    "Can not add folder: Exists already" : "No se puede agregar la carpeta: ya existe",
     "Use ownCloud cron for updates" : "Utilizar el programador de tareas de ownCloud para las actualizaciones",
     "Disable this if you run a custom updater such as the Python updater included in the app" : "Deshabilita esto si ejecutas un actualizador personalizado como el actualizador Python incluido en la aplicación",
     "Purge interval" : "Intervalo de purgado",
