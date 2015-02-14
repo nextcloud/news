@@ -100,7 +100,7 @@ OC.L10N.register(
     "Settings" : "Paramètres",
     "Keyboard shortcuts" : "Raccourcis clavier",
     "Compact view" : "Vue compacte",
-    "Expand articles in compact view when navigating with keyboard shortcuts" : "Étendre les articles dans la vue compacte quand la navigation avec les raccourcis claviers est utilisée",
+    "Expand articles in compact view when navigating with keyboard shortcuts" : "Étendre les articles lors du parcours des listes en vue compacte avec le clavier",
     "Show all articles" : "Montrer tous les articles",
     "Reverse ordering (oldest on top)" : "Ordre inverse (les plus anciens en haut)",
     "Disable mark read through scrolling" : "Ne pas marquer les articles comme lus lors du parcours des listes",
