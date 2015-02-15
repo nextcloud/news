@@ -140,5 +140,38 @@
     },
     "der-postillon.com": {
         "%der-postillon.com%": "//div[contains(@class,'post-body')]"
+    },
+    "areadvd.de": {
+        "%areadvd.de%": "//div[contains(@class,'entry')]"
+    },
+    "engadget.com": {
+        "%engadget.com%": "//div[@class='article-content']/p[not(@class='read-more')] | //div[@class='article-content']/div[@style='text-align: center;']"
+    },
+    "mydealz.de": {
+        "%http://feedproxy.google.com/~r/myDealZ%": "//div[@class='section-hub'] | //div[contains(@class,'thread-deal')]"
+    },
+    "scrumalliance.org": {
+        "%scrumalliance.org/rss?%": "//div[@class='article_content']"
+    },
+    "smarthomewelt.de": {
+        "%smarthomewelt.de%": "//div[@class='entry-inner']/p | //div[@class='entry-inner']/div[contains(@class,'wp-caption')]"
+    },
+    "elegantthemes.com": {
+        "%elegantthemes.com%": "//article[contains(@class,'post')]/p"
+    },
+    "smashingmagazine.com": {
+        "%smashingmagazine.com%": "//article[contains(@class,'post')]/p"
+    },
+    "sueddeutsche.de": {
+        "%sz.de%": "//article[@id='sitecontent']/section[@class='body']/p"
+    },
+    "lifehacker.com": {
+        "%lifehacker.com%": "//div[contains(@class,'entry-content')]"
+    },
+    "travel-dealz.de": {
+        "%travel-dealz.de/blog/%": "//div[@class='post-entry']"
+    },
+    "outdoordeals.de": {
+        "%outdoordeals.de%": "//article[contains(@class,'blogpost')]/div[@class='inner']"
     }
 }
