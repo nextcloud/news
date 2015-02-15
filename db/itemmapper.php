@@ -172,6 +172,16 @@ class ItemMapper extends NewsMapper {
     }
 
 
+    private function findEntitiesIgnoringNegativeLimit($sql, $params, $limit) {
+        // ignore limit if negative to offer a way to return all feeds
+        if ($limit >= 0) {
+            return $this->findEntities($sql, $params, $limit);
+        } else {
+            return $this->findEntities($sql, $params);
+        }
+    }
+
+
     public function findAllFeed($id, $limit, $offset, $status, $oldestFirst,
                                 $userId){
         $params = [$userId, $id];
@@ -182,7 +192,7 @@ class ItemMapper extends NewsMapper {
             $params[] = $offset;
         }
         $sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst);
-        return $this->findEntities($sql, $params, $limit);
+        return $this->findEntitiesIgnoringNegativeLimit($sql, $params, $limit);
     }
 
 
@@ -196,7 +206,7 @@ class ItemMapper extends NewsMapper {
             $params[] = $offset;
         }
         $sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst);
-        return $this->findEntities($sql, $params, $limit);
+        return $this->findEntitiesIgnoringNegativeLimit($sql, $params, $limit);
     }
 
 
@@ -209,7 +219,8 @@ class ItemMapper extends NewsMapper {
             $params[] = $offset;
         }
         $sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst);
-        return $this->findEntities($sql, $params, $limit);
+
+        return $this->findEntitiesIgnoringNegativeLimit($sql, $params, $limit);
     }
 
 

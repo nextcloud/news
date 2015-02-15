@@ -1,3 +1,7 @@
+owncloud-news (5.2.3)
+* **Enhancement**: Push explore button at the bottom of the feed list
+* **Enhancement**: When passing a negative batchSizes to the item API, all items will be returned
+
 owncloud-news (5.2.2)
 * **Security**: Only allow YouTube and Vimeo to embed iframes if they use HTTPS to prevent mixed active content iframe attacks
 

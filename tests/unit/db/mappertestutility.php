@@ -68,7 +68,7 @@ abstract class MapperTestUtility extends \PHPUnit_Framework_TestCase {
      * of the database query. If not provided, it wont be assumed that fetch
      * will be called on the result
      */
-    protected function setMapperResult($sql, $arguments=array(), $returnRows=array(),
+    protected function setMapperResult($sql, $arguments=[], $returnRows=[],
         $limit=null, $offset=null, $expectClose=false){
 
         $this->iterators[] = new ArgumentIterator($returnRows);
@@ -135,12 +135,16 @@ abstract class MapperTestUtility extends \PHPUnit_Framework_TestCase {
         if($limit === null && $offset === null) {
             $this->db->expects($this->at($this->prepareAt))
                 ->method('prepareQuery')
-                ->with($this->equalTo($sql))
+                ->with($this->equalTo($sql),
+                        $this->equalTo(null),
+                        $this->equalTo(null))
                 ->will(($this->returnValue($this->query)));
         } elseif($limit !== null && $offset === null) {
             $this->db->expects($this->at($this->prepareAt))
                 ->method('prepareQuery')
-                ->with($this->equalTo($sql), $this->equalTo($limit))
+                ->with($this->equalTo($sql),
+                        $this->equalTo($limit),
+                        $this->equalTo(null))
                 ->will(($this->returnValue($this->query)));
         } elseif($limit === null && $offset !== null) {
             $this->db->expects($this->at($this->prepareAt))
