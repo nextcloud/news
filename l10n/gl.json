@@ -14,7 +14,7 @@
     "Internal server error! Please check your " : "Produciuse un erro interno no servidor! Comprobe o seu",
     "Request failed, ownCloud is in currently " : "Non se realizou a petición, ownCloud está agora con iso",
     "Internal server error! Please check your data/owncloud.log file for additional information!" : "Produciuse un erro interno no servidor! Comprobe o seu ficheiro data/owncloud.log para obter máis información!",
-    "Request failed, ownCloud is in currently in maintenance mode!" : "A petición non se realizou, ownCloud está neste momento en tarefas de mantemento!",
+    "Request failed, ownCloud is in currently in maintenance mode!" : "A petición non se realizou, ownCloud atopase neste momento en tarefas de mantemento!",
     "Can not add feed: Exists already" : "Non é posíbel engadir a fonte: xa existe",
     "Articles without feed" : "Artigos sen fonte",
     "Can not add folder: Exists already" : "Non é posíbel engadir o cartafol: xa existe",
