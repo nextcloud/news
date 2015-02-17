@@ -2,8 +2,8 @@
   * https://github.com/paulmillr/es6-shim
   * @license es6-shim Copyright 2013-2014 by Paul Miller (http://paulmillr.com)
   *   and contributors,  MIT License
-  * es6-shim: v0.23.0
-  * see https://github.com/paulmillr/es6-shim/blob/0.22.2/LICENSE
+  * es6-shim: v0.25.0
+  * see https://github.com/paulmillr/es6-shim/blob/0.25.0/LICENSE
   * Details and documentation:
   * https://github.com/paulmillr/es6-shim/
   */
@@ -206,7 +206,18 @@
     return result;
   };
 
+  var safeApply = Function.call.bind(Function.apply);
+
   var ES = {
+    // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-call-f-v-args
+    Call: function Call(F, V) {
+      var args = arguments.length > 2 ? arguments[2] : [];
+      if (!ES.IsCallable(F)) {
+        throw new TypeError(F + ' is not a function');
+      }
+      return safeApply(F, V, args);
+    },
+
     RequireObjectCoercible: function (x, optMessage) {
       /* jshint eqnull:true */
       if (x == null) {
@@ -315,7 +326,7 @@
       // (see emulateES6construct)
       defineProperties(obj, { _es6construct: true });
       // Call the constructor.
-      var result = C.apply(obj, args);
+      var result = ES.Call(C, obj, args);
       return ES.TypeIsObject(result) ? result : obj;
     }
   };
@@ -532,27 +543,26 @@
     defineProperty(String, 'fromCodePoint', function fromCodePoint(codePoints) { return originalFromCodePoint(this, arguments); }, true);
   }
 
-  var StringShims = {
-    // Fast repeat, uses the `Exponentiation by squaring` algorithm.
-    // Perf: http://jsperf.com/string-repeat2/2
-    repeat: (function () {
-      var repeat = function (s, times) {
-        if (times < 1) { return ''; }
-        if (times % 2) { return repeat(s, times - 1) + s; }
-        var half = repeat(s, times / 2);
-        return half + half;
-      };
+  // Fast repeat, uses the `Exponentiation by squaring` algorithm.
+  // Perf: http://jsperf.com/string-repeat2/2
+  var stringRepeat = function repeat(s, times) {
+    if (times < 1) { return ''; }
+    if (times % 2) { return repeat(s, times - 1) + s; }
+    var half = repeat(s, times / 2);
+    return half + half;
+  };
+  var stringMaxLength = Infinity;
 
-      return function (times) {
-        ES.RequireObjectCoercible(this);
-        var thisStr = String(this);
-        times = ES.ToInteger(times);
-        if (times < 0 || times === Infinity) {
-          throw new RangeError('Invalid String#repeat value');
-        }
-        return repeat(thisStr, times);
-      };
-    }()),
+  var StringShims = {
+    repeat: function repeat(times) {
+      ES.RequireObjectCoercible(this);
+      var thisStr = String(this);
+      times = ES.ToInteger(times);
+      if (times < 0 || times >= stringMaxLength) {
+        throw new RangeError('repeat count must be less than infinity and not overflow maximum string size');
+      }
+      return stringRepeat(thisStr, times);
+    },
 
     startsWith: function (searchStr) {
       ES.RequireObjectCoercible(this);
@@ -653,10 +663,8 @@
 
   if (!startsWithIsCompliant) {
     // Firefox has a noncompliant startsWith implementation
-    defineProperties(String.prototype, {
-      startsWith: StringShims.startsWith,
-      endsWith: StringShims.endsWith
-    });
+    defineProperty(String.prototype, 'startsWith', StringShims.startsWith, true);
+    defineProperty(String.prototype, 'endsWith', StringShims.endsWith, true);
   }
 
   var ArrayShims = {
@@ -733,6 +741,13 @@
     defineProperty(Array, 'from', ArrayShims.from, true);
   }
 
+  // Given an argument x, it will return an IteratorResult object,
+  // with value set to x and done to false.
+  // Given no arguments, it will return an iterator completion object.
+  var iterator_result = function (x) {
+    return { value: x, done: arguments.length === 0 };
+  };
+
   // Our ArrayIterator is private; see
   // https://github.com/paulmillr/es6-shim/issues/252
   ArrayIterator = function (array, kind) {
@@ -768,6 +783,61 @@
     }
   });
   addIterator(ArrayIterator.prototype);
+
+  var ObjectIterator = function (object, kind) {
+    this.object = object;
+    // Don't generate keys yet.
+    this.array = null;
+    this.kind = kind;
+  };
+
+  function getAllKeys(object) {
+    var keys = [];
+
+    for (var key in object) {
+      keys.push(key);
+    }
+
+    return keys;
+  }
+
+  defineProperties(ObjectIterator.prototype, {
+    next: function () {
+      var key, array = this.array;
+
+      if (!(this instanceof ObjectIterator)) {
+        throw new TypeError('Not an ObjectIterator');
+      }
+
+      // Keys not generated
+      if (array === null) {
+        array = this.array = getAllKeys(this.object);
+      }
+
+      // Find next key in the object
+      while (ES.ToLength(array.length) > 0) {
+        key = array.shift();
+
+        // The candidate key isn't defined on object.
+        // Must have been deleted, or object[[Prototype]]
+        // has been modified.
+        if (!(key in this.object)) {
+          continue;
+        }
+
+        if (this.kind === 'key') {
+          return iterator_result(key);
+        } else if (this.kind === 'value') {
+          return iterator_result(this.object[key]);
+        } else {
+          return iterator_result([key, this.object[key]]);
+        }
+      }
+
+      return iterator_result();
+    }
+  });
+  addIterator(ObjectIterator.prototype);
 
   var ArrayPrototypeShims = {
     copyWithin: function (target, start) {
@@ -1028,13 +1098,36 @@
     }());
   }
 
-  try {
-    Object.keys('foo');
-  } catch (e) {
+  var objectKeysAcceptsPrimitives = (function () {
+    try {
+      Object.keys('foo');
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }());
+  if (!objectKeysAcceptsPrimitives) {
     var originalObjectKeys = Object.keys;
-    Object.keys = function (obj) {
-      return originalObjectKeys(ES.ToObject(obj));
-    };
+    defineProperty(Object, 'keys', function keys(value) {
+      return originalObjectKeys(ES.ToObject(value));
+    }, true);
+  }
+
+  if (Object.getOwnPropertyNames) {
+    var objectGOPNAcceptsPrimitives = (function () {
+      try {
+        Object.getOwnPropertyNames('foo');
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }());
+    if (!objectGOPNAcceptsPrimitives) {
+      var originalObjectGetOwnPropertyNames = Object.getOwnPropertyNames;
+      defineProperty(Object, 'getOwnPropertyNames', function getOwnPropertyNames(value) {
+        return originalObjectGetOwnPropertyNames(ES.ToObject(value));
+      }, true);
+    }
   }
 
   if (!RegExp.prototype.flags && supportsDescriptors) {
@@ -1284,6 +1377,11 @@
   defineProperty(Math, 'tanh', MathShims.tanh, Math.tanh(-2e-17) !== -2e-17);
   // Chrome 40 loses Math.acosh precision with high numbers
   defineProperty(Math, 'acosh', MathShims.acosh, Math.acosh(Number.MAX_VALUE) === Infinity);
+  // node 0.11 has an imprecise Math.sinh with very small numbers
+  defineProperty(Math, 'sinh', MathShims.sinh, Math.sinh(-2e-17) !== -2e-17);
+  // FF 35 on Linux reports 22025.465794806725 for Math.expm1(10)
+  var expm1OfTen = Math.expm1(10);
+  defineProperty(Math, 'expm1', MathShims.expm1, expm1OfTen > 22025.465794806719 || expm1OfTen < 22025.4657948067165168);
 
   var roundHandlesBoundaryConditions = Math.round(0.5 - Number.EPSILON / 4) === 0 && Math.round(-0.5 + Number.EPSILON / 3.99) === 1;
   var origMathRound = Math.round;
@@ -2130,6 +2228,264 @@
     // Shim incomplete iterator implementations.
     addIterator(Object.getPrototypeOf((new globals.Map()).keys()));
     addIterator(Object.getPrototypeOf((new globals.Set()).keys()));
+  }
+
+  // Reflect
+  if (!globals.Reflect) {
+    defineProperty(globals, 'Reflect', {});
+  }
+  var Reflect = globals.Reflect;
+
+  var throwUnlessTargetIsObject = function throwUnlessTargetIsObject(target) {
+    if (!ES.TypeIsObject(target)) {
+      throw new TypeError('target must be an object');
+    }
+  };
+
+  // Some Reflect methods are basically the same as
+  // those on the Object global, except that a TypeError is thrown if
+  // target isn't an object. As well as returning a boolean indicating
+  // the success of the operation.
+  defineProperties(globals.Reflect, {
+    // Apply method in a functional form.
+    apply: function apply() {
+      return ES.Call.apply(null, arguments);
+    },
+
+    // New operator in a functional form.
+    construct: function construct(constructor, args) {
+      if (!ES.IsCallable(constructor)) {
+        throw new TypeError('First argument must be callable.');
+      }
+
+      return ES.Construct(constructor, args);
+    },
+
+    // When deleting a non-existent or configurable property,
+    // true is returned.
+    // When attempting to delete a non-configurable property,
+    // it will return false.
+    deleteProperty: function deleteProperty(target, key) {
+      throwUnlessTargetIsObject(target);
+      if (supportsDescriptors) {
+        var desc = Object.getOwnPropertyDescriptor(target, key);
+
+        if (desc && !desc.configurable) {
+          return false;
+        }
+      }
+
+      // Will return true.
+      return delete target[key];
+    },
+
+    enumerate: function enumerate(target) {
+      throwUnlessTargetIsObject(target);
+      return new ObjectIterator(target, 'key');
+    },
+
+    has: function has(target, key) {
+      throwUnlessTargetIsObject(target);
+      return key in target;
+    }
+  });
+
+  if (Object.getOwnPropertyNames) {
+    defineProperties(globals.Reflect, {
+      // Basically the result of calling the internal [[OwnPropertyKeys]].
+      // Concatenating propertyNames and propertySymbols should do the trick.
+      // This should continue to work together with a Symbol shim
+      // which overrides Object.getOwnPropertyNames and implements
+      // Object.getOwnPropertySymbols.
+      ownKeys: function ownKeys(target) {
+        throwUnlessTargetIsObject(target);
+        var keys = Object.getOwnPropertyNames(target);
+
+        if (ES.IsCallable(Object.getOwnPropertySymbols)) {
+          keys.push.apply(keys, Object.getOwnPropertySymbols(target));
+        }
+
+        return keys;
+      }
+    });
+  }
+
+  if (Object.preventExtensions) {
+    defineProperties(globals.Reflect, {
+      isExtensible: function isExtensible(target) {
+        throwUnlessTargetIsObject(target);
+        return Object.isExtensible(target);
+      },
+      preventExtensions: function preventExtensions(target) {
+        throwUnlessTargetIsObject(target);
+        return callAndCatchException(function () {
+          Object.preventExtensions(target);
+        });
+      }
+    });
+  }
+
+  if (supportsDescriptors) {
+    var internal_get = function get(target, key, receiver) {
+      var desc = Object.getOwnPropertyDescriptor(target, key);
+
+      if (!desc) {
+        var parent = Object.getPrototypeOf(target);
+
+        if (parent === null) {
+          return undefined;
+        }
+
+        return internal_get(parent, key, receiver);
+      }
+
+      if ('value' in desc) {
+        return desc.value;
+      }
+
+      if (desc.get) {
+        return desc.get.call(receiver);
+      }
+
+      return undefined;
+    };
+
+    var internal_set = function set(target, key, value, receiver) {
+      var desc = Object.getOwnPropertyDescriptor(target, key);
+
+      if (!desc) {
+        var parent = Object.getPrototypeOf(target);
+
+        if (parent !== null) {
+          return internal_set(parent, key, value, receiver);
+        }
+
+        desc = {
+          value: void 0,
+          writable: true,
+          enumerable: true,
+          configurable: true
+        };
+      }
+
+      if ('value' in desc) {
+        if (!desc.writable) {
+          return false;
+        }
+
+        if (!ES.TypeIsObject(receiver)) {
+          return false;
+        }
+
+        var existingDesc = Object.getOwnPropertyDescriptor(receiver, key);
+
+        if (existingDesc) {
+          return Reflect.defineProperty(receiver, key, {
+            value: value
+          });
+        } else {
+          return Reflect.defineProperty(receiver, key, {
+            value: value,
+            writable: true,
+            enumerable: true,
+            configurable: true
+          });
+        }
+      }
+
+      if (desc.set) {
+        desc.set.call(receiver, value);
+        return true;
+      }
+
+      return false;
+    };
+
+    var callAndCatchException = function ConvertExceptionToBoolean(func) {
+      try { func(); } catch (_) { return false; }
+      return true;
+    };
+
+    defineProperties(globals.Reflect, {
+      defineProperty: function defineProperty(target, propertyKey, attributes) {
+        throwUnlessTargetIsObject(target);
+        return callAndCatchException(function () {
+          Object.defineProperty(target, propertyKey, attributes);
+        });
+      },
+
+      getOwnPropertyDescriptor: function getOwnPropertyDescriptor(target, propertyKey) {
+        throwUnlessTargetIsObject(target);
+        return Object.getOwnPropertyDescriptor(target, propertyKey);
+      },
+
+      // Syntax in a functional form.
+      get: function get(target, key) {
+        throwUnlessTargetIsObject(target);
+        var receiver = arguments.length > 2 ? arguments[2] : target;
+
+        return internal_get(target, key, receiver);
+      },
+
+      set: function set(target, key, value) {
+        throwUnlessTargetIsObject(target);
+        var receiver = arguments.length > 3 ? arguments[3] : target;
+
+        return internal_set(target, key, value, receiver);
+      }
+    });
+  }
+
+  if (Object.getPrototypeOf) {
+    var objectDotGetPrototypeOf = Object.getPrototypeOf;
+    defineProperties(globals.Reflect, {
+      getPrototypeOf: function getPrototypeOf(target) {
+        throwUnlessTargetIsObject(target);
+        return objectDotGetPrototypeOf(target);
+      }
+    });
+  }
+
+  if (Object.setPrototypeOf) {
+    var willCreateCircularPrototype = function (object, proto) {
+      while (proto) {
+        if (object === proto) {
+          return true;
+        }
+        proto = Reflect.getPrototypeOf(proto);
+      }
+      return false;
+    };
+
+    defineProperties(globals.Reflect, {
+      // Sets the prototype of the given object.
+      // Returns true on success, otherwise false.
+      setPrototypeOf: function setPrototypeOf(object, proto) {
+        throwUnlessTargetIsObject(object);
+        if (proto !== null && !ES.TypeIsObject(proto)) {
+          throw new TypeError('proto must be an object or null');
+        }
+
+        // If they already are the same, we're done.
+        if (proto === Reflect.getPrototypeOf(object)) {
+          return true;
+        }
+
+        // Cannot alter prototype if object not extensible.
+        if (Reflect.isExtensible && !Reflect.isExtensible(object)) {
+          return false;
+        }
+
+        // Ensure that we do not create a circular prototype chain.
+        if (willCreateCircularPrototype(object, proto)) {
+          return false;
+        }
+
+        Object.setPrototypeOf(object, proto);
+
+        return true;
+      }
+    });
   }
 
   return globals;

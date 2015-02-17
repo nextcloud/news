@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.4.0-build.3807+sha.b3a9bd3
+ * @license AngularJS v1.4.0-build.3834+sha.75725b4
  * (c) 2010-2015 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -1333,8 +1333,7 @@ angular.module('ngAnimate', ['ng'])
           } else if (lastAnimation.event == 'setClass') {
             animationsToCancel.push(lastAnimation);
             cleanup(element, className);
-          }
-          else if (runningAnimations[className]) {
+          } else if (runningAnimations[className]) {
             var current = runningAnimations[className];
             if (current.event == animationEvent) {
               skipAnimation = true;
