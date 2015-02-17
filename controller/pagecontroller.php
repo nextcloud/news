@@ -13,18 +13,19 @@
 
 namespace OCA\News\Controller;
 
-use \OCP\AppFramework\Http\TemplateResponse;
-use \OCP\AppFramework\Http\JSONResponse;
-use \OCP\IRequest;
-use \OCP\IConfig;
-use \OCP\IL10N;
-use \OCP\IURLGenerator;
-use \OCP\AppFramework\Controller;
+use OCP\AppFramework\Http\TemplateResponse;
+use OCP\AppFramework\Http\JSONResponse;
+use OCP\IRequest;
+use OCP\IConfig;
+use OCP\IL10N;
+use OCP\IURLGenerator;
+use OCP\AppFramework\Controller;
 
-use \OCA\News\Config\AppConfig;
-use \OCA\News\Config\Config;
-use \OCA\News\Explore\RecommendedSites;
-use \OCA\News\Db\FeedType;
+use OCA\News\Service\StatusService;
+use OCA\News\Config\AppConfig;
+use OCA\News\Config\Config;
+use OCA\News\Explore\RecommendedSites;
+use OCA\News\Db\FeedType;
 
 class PageController extends Controller {
 
@@ -35,6 +36,7 @@ class PageController extends Controller {
     private $urlGenerator;
     private $config;
     private $recommendedSites;
+    private $statusService;
 
     public function __construct($AppName,
                                 IRequest $request,
@@ -44,6 +46,7 @@ class PageController extends Controller {
                                 Config $config,
                                 IL10N $l10n,
                                 RecommendedSites $recommendedSites,
+                                StatusService $statusService,
                                 $UserId){
         parent::__construct($AppName, $request);
         $this->settings = $settings;
@@ -53,6 +56,7 @@ class PageController extends Controller {
         $this->userId = $UserId;
         $this->config = $config;
         $this->recommendedSites = $recommendedSites;
+        $this->statusService = $statusService;
     }
 
 
@@ -61,17 +65,10 @@ class PageController extends Controller {
      * @NoCSRFRequired
      */
     public function index() {
-        $cronWarning = '';
-        $cronMode = $this->settings->getAppValue('core', 'backgroundjobs_mode');
-        $cronOn = $this->config->getUseCronUpdates();
-
-        // check for cron modes which may lead to problems
-        if ($cronMode !== 'cron' && $cronMode !== 'webcron' && $cronOn) {
-            $cronWarning = 'ajaxCron';
-        }
+        $status = $this->statusService->getStatus();
 
         return new TemplateResponse($this->appName, 'index', [
-            'cronWarning' => $cronWarning
+            'cronWarning' => $status['warnings']['improperlyConfiguredCron']
         ]);
     }
 

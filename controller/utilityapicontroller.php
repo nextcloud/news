@@ -19,20 +19,24 @@ use \OCP\AppFramework\ApiController;
 use \OCP\AppFramework\Http;
 
 use \OCA\News\Utility\Updater;
+use \OCA\News\Service\StatusService;
 
 
 class UtilityApiController extends ApiController {
 
     private $updater;
     private $settings;
+    private $statusService;
 
     public function __construct($AppName,
                                 IRequest $request,
                                 Updater $updater,
-                                IConfig $settings){
+                                IConfig $settings,
+                                StatusService $statusService){
         parent::__construct($AppName, $request);
         $this->updater = $updater;
         $this->settings = $settings;
+        $this->statusService = $statusService;
     }
 
 
@@ -50,6 +54,7 @@ class UtilityApiController extends ApiController {
 
     /**
      * @NoCSRFRequired
+     * @CORS
      */
     public function beforeUpdate() {
         $this->updater->beforeUpdate();
@@ -58,9 +63,20 @@ class UtilityApiController extends ApiController {
 
     /**
      * @NoCSRFRequired
+     * @CORS
      */
     public function afterUpdate() {
         $this->updater->afterUpdate();
+    }
+
+
+    /**
+     * @CORS
+     * @NoCSRFRequired
+     * @NoAdminRequired
+     */
+    public function status() {
+        return $this->statusService->getStatus();
     }
 
 

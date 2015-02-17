@@ -21,6 +21,7 @@ class UtilityApiControllerTest extends \PHPUnit_Framework_TestCase {
     private $newsAPI;
     private $updater;
     private $appName;
+    private $status;
 
     protected function setUp() {
         $this->appName = 'news';
@@ -36,8 +37,13 @@ class UtilityApiControllerTest extends \PHPUnit_Framework_TestCase {
             '\OCA\News\Utility\Updater')
             ->disableOriginalConstructor()
             ->getMock();
+        $this->status = $this->getMockBuilder(
+            '\OCA\News\Service\StatusService')
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->newsAPI = new UtilityApiController(
-            $this->appName, $this->request, $this->updater, $this->settings
+            $this->appName, $this->request, $this->updater, $this->settings,
+            $this->status
         );
     }
 
@@ -67,6 +73,17 @@ class UtilityApiControllerTest extends \PHPUnit_Framework_TestCase {
         $this->updater->expects($this->once())
             ->method('afterUpdate');
         $this->newsAPI->afterUpdate();
+    }
+
+
+    public function testStatus(){
+        $in = 'hi';
+        $this->status->expects($this->once())
+            ->method('getStatus')
+            ->will($this->returnValue($in));
+        $result = $this->newsAPI->status();
+
+        $this->assertEquals($in, $result);
     }
 
 

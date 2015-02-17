@@ -29,6 +29,7 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
     private $configData;
     private $config;
     private $recommended;
+    private $status;
 
     /**
      * Gets run before each test
@@ -74,64 +75,44 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
             '\OCA\News\Explore\RecommendedSites')
             ->disableOriginalConstructor()
             ->getMock();
+        $this->status = $this->getMockBuilder(
+            '\OCA\News\Service\StatusService')
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->controller = new PageController($this->appName, $this->request,
             $this->settings, $this->urlGenerator, $this->appConfig,
-            $this->config, $this->l10n, $this->recommended, $this->user);
+            $this->config, $this->l10n, $this->recommended, $this->status,
+            $this->user);
     }
 
 
     public function testIndex(){
-        $this->config->expects($this->once())
-            ->method('getUseCronUpdates')
-            ->will($this->returnValue(true));
-
-        $this->settings->expects($this->once())
-            ->method('getAppValue')
-            ->with(
-                $this->equalTo('core'),
-                $this->equalTo('backgroundjobs_mode')
-            )
-            ->will($this->returnValue('webcron'));
+        $this->status->expects($this->once())
+            ->method('getStatus')
+            ->will($this->returnValue([
+                'warnings' => [
+                    'improperlyConfiguredCron' => false
+                ]
+            ]));
 
         $response = $this->controller->index();
         $this->assertEquals('index', $response->getTemplateName());
-        $this->assertSame('', $response->getParams()['cronWarning']);
+        $this->assertSame(false, $response->getParams()['cronWarning']);
     }
 
 
     public function testIndexNoCorrectCronAjax(){
-        $this->config->expects($this->once())
-            ->method('getUseCronUpdates')
-            ->will($this->returnValue(true));
+        $this->status->expects($this->once())
+            ->method('getStatus')
+            ->will($this->returnValue([
+                'warnings' => [
+                    'improperlyConfiguredCron' => true
+                ]
+            ]));
 
-        $this->settings->expects($this->once())
-            ->method('getAppValue')
-            ->with(
-                $this->equalTo('core'),
-                $this->equalTo('backgroundjobs_mode')
-            )
-            ->will($this->returnValue('ajax'));
 
         $response = $this->controller->index();
-        $this->assertEquals('ajaxCron', $response->getParams()['cronWarning']);
-    }
-
-
-    public function testIndexNoCorrectCronTurnedOff(){
-        $this->config->expects($this->once())
-            ->method('getUseCronUpdates')
-            ->will($this->returnValue(false));
-
-        $this->settings->expects($this->once())
-            ->method('getAppValue')
-            ->with(
-                $this->equalTo('core'),
-                $this->equalTo('backgroundjobs_mode')
-            )
-            ->will($this->returnValue('ajax'));
-
-        $response = $this->controller->index();
-        $this->assertSame('', $response->getParams()['cronWarning']);
+        $this->assertEquals(true, $response->getParams()['cronWarning']);
     }
 
 

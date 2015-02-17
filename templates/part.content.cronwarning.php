@@ -1,4 +1,4 @@
-<?php if ($_['cronWarning'] === 'ajaxCron') { ?>
+<?php if ($_['cronWarning']) { ?>
     <div id="cron-warning">
         <p><?php p($l->t('Ajax cron mode detected! Your feeds will ' .
             'not be updated correctly. It is recommended to either use ' .

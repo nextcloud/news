@@ -58,6 +58,7 @@ return ['routes' => [
 
 // API 1.2
 ['name' => 'utility_api#version', 'url' => '/api/v1-2/version', 'verb' => 'GET'],
+['name' => 'utility_api#status', 'url' => '/api/v1-2/status', 'verb' => 'GET'],
 ['name' => 'utility_api#before_update', 'url' => '/api/v1-2/cleanup/before-update', 'verb' => 'GET'],
 ['name' => 'utility_api#after_update', 'url' => '/api/v1-2/cleanup/after-update', 'verb' => 'GET'],
 ['name' => 'utility_api#preflighted_cors', 'url' => '/api/v1-2/{path}', 'verb' => 'OPTIONS', 'requirements' => ['path' => '.+']],

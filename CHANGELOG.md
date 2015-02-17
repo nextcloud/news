@@ -1,3 +1,6 @@
+owncloud-news (5.2.4)
+* **Enhancement**: Add a new API route to check for the status and possible problems
+
 owncloud-news (5.2.3)
 * **Enhancement**: Push explore button at the bottom of the feed list
 * **Enhancement**: When passing a negative batchSizes to the item API, all items will be returned
