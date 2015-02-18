@@ -9,6 +9,7 @@ $TRANSLATIONS = array(
 "Bigger than maximum allowed size" => "最大許容サイズより大きいです。",
 "Request timed out" => "リクエストがタイムアウトしました。",
 "Request failed, network connection unavailable!" => "リクエストに失敗しました。ネットワーク接続が利用できません！",
+"Request unauthorized. Are you logged in?" => "リクエストは認証されていません。ログインしていますか？",
 "Request forbidden. Are you an admin?" => "リクエストは禁止されています。あなたは管理者でしょうか?",
 "Token expired or app not enabled! Reload the page!" => "トークンもしくはアプリが無効になりました！ページを再読込してください！",
 "Internal server error! Please check your data/owncloud.log file for additional information!" => "インターナルサーバエラー！追加情報 はdata/owncloud.logを確認してください！",
