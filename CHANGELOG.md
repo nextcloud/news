@@ -1,3 +1,8 @@
+owncloud-news (5.2.5)
+* **Bugfix**: Fix flying loading icon since snap.js does not seem to want to fix it
+* **Bugfix**: Turn all http iframes into https iframes
+* **Bugfix**: Set a CSP to display external media on master
+
 owncloud-news (5.2.4)
 * **Enhancement**: Add a new API route to check for the status and possible problems
 
