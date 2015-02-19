@@ -18,13 +18,13 @@ class Rss91ParserTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('', $feed->getFeedUrl());
         $this->assertEquals('http://writetheweb.com/', $feed->getSiteUrl());
         $this->assertEquals('http://writetheweb.com/', $feed->getId());
-        $this->assertEquals(time(), $feed->getDate());
+        $this->assertEquals(time(), $feed->getDate(), '', 1);
         $this->assertEquals(6, count($feed->items));
 
         $this->assertEquals('Giving the world a pluggable Gnutella', $feed->items[0]->getTitle());
         $this->assertEquals('http://writetheweb.com/read.php?item=24', $feed->items[0]->getUrl());
         $this->assertEquals('085a9133a75542f878fa73ee2afbb6a2350b6c4fb125e6d8ca09478c47702111', $feed->items[0]->getId());
-        $this->assertEquals(time(), $feed->items[0]->getDate());
+        $this->assertEquals(time(), $feed->items[0]->getDate(), '', 1);
         $this->assertEquals('webmaster@writetheweb.com', $feed->items[0]->getAuthor());
         $this->assertTrue(strpos($feed->items[1]->getContent(), '<p>After a period of dormancy') === 0);
     }

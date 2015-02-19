@@ -66,10 +66,23 @@ class PageController extends Controller {
      */
     public function index() {
         $status = $this->statusService->getStatus();
-
-        return new TemplateResponse($this->appName, 'index', [
+        $response = new TemplateResponse($this->appName, 'index', [
             'cronWarning' => $status['warnings']['improperlyConfiguredCron']
         ]);
+
+        // set csp rules for ownCloud 8.1
+        if (class_exists('OCP\AppFramework\Http\ContentSecurityPolicy')) {
+            $csp = new \OCP\AppFramework\Http\ContentSecurityPolicy();
+            $csp->addAllowedImageDomain('*');
+            $csp->addAllowedMediaDomain('*');
+            $csp->addAllowedFrameDomain('https://youtube.com');
+            $csp->addAllowedFrameDomain('https://www.youtube.com');
+            $csp->addAllowedFrameDomain('https://player.vimeo.com');
+            $csp->addAllowedFrameDomain('https://www.player.vimeo.com');
+            $response->setContentSecurityPolicy($csp);
+        }
+
+        return $response;
     }
 
 

@@ -25,7 +25,9 @@ class Stream extends Client
             'User-Agent: '.$this->user_agent,
         );
 
-        if (function_exists('gzdecode')) {
+        // disable compression in passthrough mode. It could result in double
+        // compressed content which isn't decodeable by browsers
+        if (function_exists('gzdecode') && ! $this->isPassthroughEnabled()) {
             $headers[] = 'Accept-Encoding: gzip';
         }
 
@@ -49,6 +51,23 @@ class Stream extends Client
     }
 
     /**
+     * Construct the final URL from location headers
+     *
+     * @access private
+     * @param  array $headers List of HTTP response header
+     */
+    private function setEffectiveUrl($headers)
+    {
+        foreach($headers as $header) {
+            if (stripos($header, 'Location') === 0) {
+                list($name, $value) = explode(': ', $header);
+
+                $this->url = Url::resolve($value, $this->url);
+            }
+        }
+    }
+
+    /**
      * Prepare stream context
      *
      * @access private
@@ -61,7 +80,7 @@ class Stream extends Client
                 'method' => 'GET',
                 'protocol_version' => 1.1,
                 'timeout' => $this->timeout,
-                'follow_location' => 0,
+                'max_redirects' => $this->max_redirects,
             )
         );
 
@@ -89,11 +108,12 @@ class Stream extends Client
      * Do the HTTP request
      *
      * @access public
-     * @param  bool    $follow_location    Flag used when there is an open_basedir restriction
-     * @return array                       HTTP response ['body' => ..., 'status' => ..., 'headers' => ...]
+     * @return array   HTTP response ['body' => ..., 'status' => ..., 'headers' => ...]
      */
-    public function doRequest($follow_location = false)
+    public function doRequest()
     {
+        $body = '';
+
         // Create context
         $context = stream_context_create($this->prepareContext());
 
@@ -103,30 +123,36 @@ class Stream extends Client
             throw new InvalidUrlException('Unable to establish a connection');
         }
 
-        // Get the entire body until the max size
-        $body = stream_get_contents($stream, $this->max_body_size + 1);
-
-        // If the body size is too large abort everything
-        if (strlen($body) > $this->max_body_size) {
-            throw new MaxSizeException('Content size too large');
-        }
-
         // Get HTTP headers response
         $metadata = stream_get_meta_data($stream);
-
-        if ($metadata['timed_out']) {
-            throw new TimeoutException('Operation timeout');
-        }
-
         list($status, $headers) = HttpHeaders::parse($metadata['wrapper_data']);
+
+        if ($this->isPassthroughEnabled()) {
+            header(':', true, $status);
+
+            if (isset($headers['Content-Type'])) {
+                header('Content-Type: '.$headers['Content-Type']);
+            }
+
+            fpassthru($stream);
+        }
+        else {
+            // Get the entire body until the max size
+            $body = stream_get_contents($stream, $this->max_body_size + 1);
+
+            // If the body size is too large abort everything
+            if (strlen($body) > $this->max_body_size) {
+                throw new MaxSizeException('Content size too large');
+            }
+
+            if ($metadata['timed_out']) {
+                throw new TimeoutException('Operation timeout');
+            }
+        }
 
         fclose($stream);
 
-        // Do redirect manual to get only the headers of the last request and
-        // the final url
-        if ($status == 301 || $status == 302) {
-            return $this->handleRedirection($headers['Location']);
-        }
+        $this->setEffectiveUrl($metadata['wrapper_data']);
 
         return array(
             'status' => $status,

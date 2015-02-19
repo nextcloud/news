@@ -33,6 +33,7 @@ Requirements
 - libxml >= 2.7
 - XML PHP extensions: DOM and SimpleXML
 - cURL or Stream Context (`allow_url_fopen=On`)
+- iconv extension
 
 Authors
 -------

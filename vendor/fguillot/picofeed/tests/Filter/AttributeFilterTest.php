@@ -39,8 +39,8 @@ class AttributeFilterTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($filter->filterIntegerAttribute('iframe', 'width', '450'));
         $this->assertFalse($filter->filterIntegerAttribute('iframe', 'width', 'test'));
 
-        $this->assertEquals(array('width' => '10', 'src' => 'http://www.youtube.com/test'), $filter->filter('iframe', array('width' => '10', 'src' => 'http://www.youtube.com/test')));
-        $this->assertEquals(array('src' => 'http://www.youtube.com/test'), $filter->filter('iframe', array('width' => 'test', 'src' => 'http://www.youtube.com/test')));
+        $this->assertEquals(array('width' => '10', 'src' => 'https://www.youtube.com/test'), $filter->filter('iframe', array('width' => '10', 'src' => 'http://www.youtube.com/test')));
+        $this->assertEquals(array('src' => 'https://www.youtube.com/test'), $filter->filter('iframe', array('width' => 'test', 'src' => 'http://www.youtube.com/test')));
     }
 
     public function testRewriteProxyImageUrl()
@@ -125,7 +125,7 @@ class AttributeFilterTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($filter->filterIframeAttribute('iframe', 'src', '//www.youtube.com/test'));
         $this->assertFalse($filter->filterIframeAttribute('iframe', 'src', '//www.bidule.com/test'));
 
-        $this->assertEquals(array('src' => 'http://www.youtube.com/test'), $filter->filter('iframe', array('src' => '//www.youtube.com/test')));
+        $this->assertEquals(array('src' => 'https://www.youtube.com/test'), $filter->filter('iframe', array('src' => '//www.youtube.com/test')));
     }
 
     public function testFilterBlacklistAttribute()

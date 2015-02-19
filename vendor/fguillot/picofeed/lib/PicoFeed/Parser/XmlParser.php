@@ -198,8 +198,10 @@ class XmlParser
             $p1 = strpos($data, 'encoding=');
             $p2 = strpos($data, '"', $p1 + 10);
 
-            $encoding = substr($data, $p1 + 10, $p2 - $p1 - 10);
-            $encoding = strtolower($encoding);
+            if ($p1 !== false && $p2 !== false) {
+                $encoding = substr($data, $p1 + 10, $p2 - $p1 - 10);
+                $encoding = strtolower($encoding);
+            }
         }
 
         return $encoding;

@@ -53,12 +53,13 @@ class HttpHeaders implements ArrayAccess
      */
     public static function parse(array $lines)
     {
-        $status = 200;
+        $status = 0;
         $headers = array();
 
         foreach ($lines as $line) {
 
             if (strpos($line, 'HTTP') === 0) {
+                $headers = array();
                 $status = (int) substr($line, 9, 3);
             }
             else if (strpos($line, ':') !== false) {

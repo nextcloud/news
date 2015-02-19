@@ -284,3 +284,13 @@ $config->setFilterImageProxyCallback(function ($image_url) {
     return 'https://mypublicproxy/'.$key.'/'.urlencode($image_url);
 });
 ```
+
+### Define image proxy protocol restriction
+
+- Method name: `setFilterImageProxyProtocol()`
+- Default value: Empty (all protocols)
+- Argument value: string
+
+```php
+$config->setFilterImageProxyProtocol('http');
+```

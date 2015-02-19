@@ -158,46 +158,21 @@ abstract class Client
     protected $status_code = 0;
 
     /**
-     * HTTP response body
+     * Enables direct passthrough to requesting client
      *
      * @access protected
-     * @var string
+     * @var bool
      */
-    protected $body = '';
-
-    /**
-     * Body size
-     *
-     * @access protected
-     * @var integer
-     */
-    protected $body_length = 0;
-
-    /**
-     * HTTP response headers
-     *
-     * @access protected
-     * @var array
-     */
-    protected $headers = array();
-
-    /**
-     * Counter on the number of header received
-     *
-     * @access protected
-     * @var integer
-     */
-    protected $headers_counter = 0;
+    protected $passthrough = false;
 
     /**
      * Do the HTTP request
      *
      * @abstract
      * @access public
-     * @param  bool      $follow_location    Flag used when there is an open_basedir restriction
      * @return array
      */
-    abstract public function doRequest($follow_location = true);
+    abstract public function doRequest();
 
     /**
      * Get client instance: curl or stream driver
@@ -293,48 +268,6 @@ abstract class Client
             $this->content_type = $this->findContentType($response);
             $this->encoding = $this->findCharset();
         }
-    }
-
-     /**
-     * Handle manually redirections when there is an open base dir restriction
-     *
-     * @access private
-     * @param  string     $location       Redirected URL
-     * @return array
-     */
-    public function handleRedirection($location)
-    {
-        $nb_redirects = 0;
-        $result = array();
-        $this->url = Url::resolve($location, $this->url);
-        $this->body = '';
-        $this->body_length = 0;
-        $this->headers = array();
-        $this->headers_counter = 0;
-
-        while (true) {
-
-            $nb_redirects++;
-
-            if ($nb_redirects >= $this->max_redirects) {
-                throw new MaxRedirectException('Maximum number of redirections reached');
-            }
-
-            $result = $this->doRequest(false);
-
-            if ($result['status'] == 301 || $result['status'] == 302) {
-                $this->url = $result['headers']['Location'];
-                $this->body = '';
-                $this->body_length = 0;
-                $this->headers = array();
-                $this->headers_counter = 0;
-            }
-            else {
-                break;
-            }
-        }
-
-        return $result;
     }
 
     /**
@@ -538,6 +471,17 @@ abstract class Client
     }
 
     /**
+     * return true if passthrough mode is enabled
+     *
+     * @access public
+     * @return bool
+     */
+    public function isPassthroughEnabled()
+    {
+        return $this->passthrough;
+    }
+
+    /**
      * Set connection timeout
      *
      * @access public
@@ -664,6 +608,30 @@ abstract class Client
     public function setPassword($password)
     {
         $this->password = $password ?: $this->password;
+        return $this;
+    }
+
+    /**
+     * Enable the passthrough mode
+     *
+     * @access public
+     * @return \PicoFeed\Client\Client
+     */
+    public function enablePassthroughMode()
+    {
+        $this->passthrough = true;
+        return $this;
+    }
+
+    /**
+     * Disable the passthrough mode
+     *
+     * @access public
+     * @return \PicoFeed\Client\Client
+     */
+    public function disablePassthroughMode()
+    {
+        $this->passthrough = false;
         return $this;
     }
 

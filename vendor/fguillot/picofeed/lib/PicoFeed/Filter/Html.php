@@ -2,8 +2,8 @@
 
 namespace PicoFeed\Filter;
 
-use \PicoFeed\Client\Url;
-use \PicoFeed\Parser\XmlParser;
+use PicoFeed\Client\Url;
+use PicoFeed\Parser\XmlParser;
 
 /**
  * HTML Filter class
@@ -98,6 +98,7 @@ class Html
         if ($this->config !== null) {
             $this->attribute->setImageProxyCallback($this->config->getFilterImageProxyCallback());
             $this->attribute->setImageProxyUrl($this->config->getFilterImageProxyUrl());
+            $this->attribute->setImageProxyProtocol($this->config->getFilterImageProxyProtocol());
             $this->attribute->setIframeWhitelist($this->config->getFilterIframeWhitelist(array()));
             $this->attribute->setIntegerAttributes($this->config->getFilterIntegerAttributes(array()));
             $this->attribute->setAttributeOverrides($this->config->getFilterAttributeOverrides(array()));

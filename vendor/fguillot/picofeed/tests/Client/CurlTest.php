@@ -18,18 +18,31 @@ class CurlTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('text/html; charset=utf-8', $result['headers']['Content-Type']);
     }
 
+//    // disabled due to https://github.com/sebastianbergmann/phpunit/issues/1452
+//    /**
+//     * @runInSeparateProcess
+//     */
+//    public function testPassthrough()
+//    {
+//        $client = new Curl;
+//        $client->setUrl('http://miniflux.net/favicon.ico');
+//        $client->enablePassthroughMode();
+//        $client->doRequest();
+//
+//        $this->expectOutputString('no_to_be_defined');
+//    }
 
     public function testRedirect()
     {
         $client = new Curl;
-        $client->setUrl('http://www.miniflux.net/index.html');
+        $client->setUrl('http://rss.feedsportal.com/c/629/f/502199/s/42e50391/sc/44/l/0L0S0A1net0N0Ceditorial0C6437220Candroid0Egoogle0Enow0Es0Eouvre0Eaux0Eapplications0Etierces0C0T0Dxtor0FRSS0E16/story01.htm');
         $result = $client->doRequest();
 
         $this->assertTrue(is_array($result));
         $this->assertEquals(200, $result['status']);
         $this->assertEquals('<!DOCTYPE', substr($result['body'], 0, 9));
-        $this->assertEquals('text/html; charset=utf-8', $result['headers']['Content-Type']);
-        $this->assertEquals('http://miniflux.net/', $client->getUrl());
+        $this->assertEquals('text/html', $result['headers']['Content-Type']);
+        $this->assertEquals('http://www.01net.com/editorial/643722/android-google-now-s-ouvre-aux-applications-tierces/', str_replace('#?xtor=RSS-16', '', $client->getUrl()));
     }
 
     /**

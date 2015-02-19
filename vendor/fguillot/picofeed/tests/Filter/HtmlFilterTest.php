@@ -25,9 +25,10 @@ class HtmlFilterTest extends PHPUnit_Framework_TestCase
         $this->assertEmpty($f->execute());
 
         $data = '<iframe src="http://www.youtube.com/bla" height="480" width="640" frameborder="0"></iframe>';
+        $expected = '<iframe src="https://www.youtube.com/bla" height="480" width="640" frameborder="0"></iframe>';
 
         $f = new Html($data, 'http://blabla');
-        $this->assertEquals($data, $f->execute());
+        $this->assertEquals($expected, $f->execute());
     }
 
     public function testEmptyTags()
@@ -50,7 +51,7 @@ EOD;
         $data = '<iframe src="http://www.youtube.com/bla" height="480px" width="100%" frameborder="0"></iframe>';
 
         $f = new Html($data, 'http://blabla');
-        $this->assertEquals('<iframe src="http://www.youtube.com/bla" frameborder="0"></iframe>', $f->execute());
+        $this->assertEquals('<iframe src="https://www.youtube.com/bla" frameborder="0"></iframe>', $f->execute());
     }
 
     public function testRelativeScheme()

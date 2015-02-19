@@ -32,17 +32,17 @@ class DateParserTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('2010-08-20', date('Y-m-d', $parser->getTimestamp('2010-08-20Thh:08:ssZ')));
         $this->assertEquals(1288648057, $parser->getTimestamp('Mon, 01 Nov 2010 21:47:37 UT'));
         $this->assertEquals(1346069615, $parser->getTimestamp('Mon Aug 27 2012 12:13:35 GMT-0700 (PDT)'));
-        $this->assertEquals(time(), $parser->getTimestamp('Tue, 3 Febuary 2010 00:00:00 IST'));
-        $this->assertEquals(time(), $parser->getTimestamp('############# EST'));
-        $this->assertEquals(time(), $parser->getTimestamp('Wed, 30 Nov -0001 00:00:00 +0000'));
-        $this->assertEquals(time(), $parser->getTimestamp('čet, 24 maj 2012 00:00:00'));
-        $this->assertEquals(time(), $parser->getTimestamp('-0-0T::Z'));
-        $this->assertEquals(time(), $parser->getTimestamp('Wed, 18 2012'));
-        $this->assertEquals(time(), $parser->getTimestamp("'2009-09-30 CDT16:09:54"));
-        $this->assertEquals(time(), $parser->getTimestamp('ary 8 Jan 2013 00:00:00 GMT'));
-        $this->assertEquals(time(), $parser->getTimestamp('Sat, 11 00:00:01 GMT'));
+        $this->assertEquals(time(), $parser->getTimestamp('Tue, 3 Febuary 2010 00:00:00 IST'), '', 1);
+        $this->assertEquals(time(), $parser->getTimestamp('############# EST'), '', 1);
+        $this->assertEquals(time(), $parser->getTimestamp('Wed, 30 Nov -0001 00:00:00 +0000'), '', 1);
+        $this->assertEquals(time(), $parser->getTimestamp('čet, 24 maj 2012 00:00:00'), '', 1);
+        $this->assertEquals(time(), $parser->getTimestamp('-0-0T::Z'), '', 1);
+        $this->assertEquals(time(), $parser->getTimestamp('Wed, 18 2012'), '', 1);
+        $this->assertEquals(time(), $parser->getTimestamp("'2009-09-30 CDT16:09:54"), '', 1);
+        $this->assertEquals(time(), $parser->getTimestamp('ary 8 Jan 2013 00:00:00 GMT'), '', 1);
+        $this->assertEquals(time(), $parser->getTimestamp('Sat, 11 00:00:01 GMT'), '', 1);
         $this->assertEquals(1370631743, $parser->getTimestamp('Fri Jun 07 2013 19:02:23 GMT+0000 (UTC)'));
         $this->assertEquals(1377412225, $parser->getTimestamp('25/08/2013 06:30:25 م'));
-        $this->assertEquals(time(), $parser->getTimestamp('+0400'));
+        $this->assertEquals(time(), $parser->getTimestamp('+0400'), '', 1);
     }
 }

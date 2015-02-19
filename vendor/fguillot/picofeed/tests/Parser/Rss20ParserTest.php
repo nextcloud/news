@@ -93,7 +93,7 @@ class Rss20ParserTest extends PHPUnit_Framework_TestCase
 
         $parser = new Rss20(file_get_contents('tests/fixtures/fulltextrss.xml'));
         $feed = $parser->execute();
-        $this->assertEquals(time(), $feed->getDate());
+        $this->assertEquals(time(), $feed->getDate(), '', 1);
     }
 
     public function testFeedLanguage()
@@ -257,10 +257,6 @@ class Rss20ParserTest extends PHPUnit_Framework_TestCase
         $this->assertNotEmpty($feed->items);
 
         $parser = new Rss20(file_get_contents('tests/fixtures/jeux-linux.fr.xml'));
-        $feed = $parser->execute();
-        $this->assertNotEmpty($feed->items);
-
-        $parser = new Rss20(file_get_contents('tests/fixtures/cercle.psy.xml'));
         $feed = $parser->execute();
         $this->assertNotEmpty($feed->items);
     }
