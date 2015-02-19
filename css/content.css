@@ -59,6 +59,10 @@
 #app-content.loading-content {
     background: url('../img/loading.gif') no-repeat;
     background-position: calc(50% - 16px) calc(50% - 16px);
+    /* Overrides the snap.js animation making the loading icon to fly in app-content. */
+    transition:none !important;
+    -webkit-transition: none !important;
+    -moz-webkit-transition: none !important;
 }
 
 #app-content.loading-content > * {
@@ -76,6 +80,10 @@
     content: '';
     background-image: url('../img/loading.gif');
     background-position: calc(50% - 16px) calc(50% - 16px);
+    /* Overrides the snap.js animation making the loading icon to fly in app-content. */
+    transition:none !important;
+    -webkit-transition: none !important;
+    -moz-webkit-transition: none !important;
 }
 
 #app-content .finished-auto-paging #articles:after {
