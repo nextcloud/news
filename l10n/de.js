@@ -15,8 +15,6 @@ OC.L10N.register(
     "Token expired or app not enabled! Reload the page!" : "Token abgelaufen oder App nicht aktiviert! Bitte lade die Seite neu!",
     "Internal server error! Please check your " : "Interner Serverfehler! Bitte überprüfe Dein",
     "Request failed, ownCloud is in currently " : "Anfrage fehlgeschlagen, ownCloud ist derzeit",
-    "Internal server error! Please check your data/owncloud.log file for additional information!" : "Interner Serverfehler! Bitte überprüfe Deine data/owncloud.log-Datei, um weitere Informationen zu erhalten!",
-    "Request failed, ownCloud is in currently in maintenance mode!" : "Anfrage fehlgeschlagen, ownCloud befindet sich derzeit im Wartungszustand!",
     "Can not add feed: Exists already" : "Feed konnte nicht hinzugefügt werden:  Existiert bereits",
     "Articles without feed" : "Artikel ohne Feed",
     "Can not add folder: Exists already" : "Ordner kann nicht hinzgefügt werden: Existiert bereits",

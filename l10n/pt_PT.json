@@ -13,8 +13,6 @@
     "Token expired or app not enabled! Reload the page!" : "Token expirou ou aplicação não ativa! Recarregue a página!",
     "Internal server error! Please check your " : "Erro interno do servidor! Verifique o seu",
     "Request failed, ownCloud is in currently " : "Pedido falhou, ownCloud está atualmente",
-    "Internal server error! Please check your data/owncloud.log file for additional information!" : "Erro interno do servidor! Por favor verifique o seu ficheiro data/owncloud.log para informação adicional!",
-    "Request failed, ownCloud is in currently in maintenance mode!" : "Pedido falhou, ownCloud está atualmente em modo de manutenção!",
     "Can not add feed: Exists already" : "Não é possível adicionar o feed: Já existe",
     "Articles without feed" : "Artigos sem feed",
     "Can not add folder: Exists already" : "Não é possível adicionar a pasta: Já existe",

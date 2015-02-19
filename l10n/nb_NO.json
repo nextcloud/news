@@ -13,8 +13,6 @@
     "Token expired or app not enabled! Reload the page!" : "Nøkkel utløpt eller app ikke aktivert! Last siden på nytt!",
     "Internal server error! Please check your " : "Intern serverfeil! Vennligst sjekk",
     "Request failed, ownCloud is in currently " : "Forespørsel feilet, ownCloud er for øyeblikket",
-    "Internal server error! Please check your data/owncloud.log file for additional information!" : "Intern serverfeil! Sjekk loggfilen data/owncloud.log for mer informasjon!",
-    "Request failed, ownCloud is in currently in maintenance mode!" : "Forespørsel feilet, ownCloud er for øyeblikket i vedlikeholdsmodus!",
     "Can not add feed: Exists already" : "Kan ikke legge til nyhetskilde: Finnes allerede",
     "Articles without feed" : "Artikler uten nyhetskilde",
     "Can not add folder: Exists already" : "Kan ikke legge til mappe: Finnes allerede",

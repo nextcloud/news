@@ -15,8 +15,6 @@ OC.L10N.register(
     "Token expired or app not enabled! Reload the page!" : "토큰이 만료되었거나 앱이 활성화되어 있지 않습니다. 페이지를 새로 고치십시오.",
     "Internal server error! Please check your " : "내부 서버 오류입니다. 추가 정보를 보려면 data/owncloud.log 파일을 확인하십시오.",
     "Request failed, ownCloud is in currently " : "요청을 실패하였습니다. ownCloud가 현재 유지 보수 모드로 동작 중입니다.",
-    "Internal server error! Please check your data/owncloud.log file for additional information!" : "내부 서버 오류입니다. 추가 정보를 보려면 data/owncloud.log 파일을 확인하십시오.",
-    "Request failed, ownCloud is in currently in maintenance mode!" : "요청을 실패하였습니다. ownCloud가 현재 유지 보수 모드로 동작 중입니다.",
     "Can not add feed: Exists already" : "피드를 추가할 수 없음: 이미 존재함",
     "Articles without feed" : "피드가 없는 글",
     "Can not add folder: Exists already" : "폴더를 추가할 수 없음: 이미 존재함",

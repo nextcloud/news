@@ -13,8 +13,6 @@
     "Token expired or app not enabled! Reload the page!" : "Token vypršel nebo aplikace není povolena! Obnovte stránku!",
     "Internal server error! Please check your " : "Interní chyba serveru! Ověřte svůj",
     "Request failed, ownCloud is in currently " : "Požadavek selhal, ownCloud je momentálně v",
-    "Internal server error! Please check your data/owncloud.log file for additional information!" : "Interní chyba serveru! Zkontrolujte soubor owncloud.log pro více informací!",
-    "Request failed, ownCloud is in currently in maintenance mode!" : "Požadavek selhal, ownCloud je právě ve stavu údržby!",
     "Can not add feed: Exists already" : "Nelze přidat kanál: již existuje",
     "Articles without feed" : "Články bez kanálu",
     "Can not add folder: Exists already" : "Nelze přidat složku: již existuje",
