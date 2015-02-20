@@ -7,27 +7,11 @@ script('news', [
     'vendor/angular-animate/angular-animate.min',
     'vendor/angular-route/angular-route.min',
     'vendor/angular-sanitize/angular-sanitize.min',
-    'vendor/momentjs/min/moment-with-locales.min'
+    'vendor/momentjs/min/moment-with-locales.min',
+    'build/app.min'
 ]);
 
-if (defined('DEBUG') && DEBUG === true) {
-    style('news', [
-        'app',
-        'custom',
-        'content',
-        'mobile',
-        'navigation',
-        'settings',
-        'shortcuts',
-        'explore'
-    ]);
-
-    script('news', 'build/app');
-
-} else {
-    style('news', 'news.min');
-    script('news', 'build/app.min');
-}
+style('news', 'news.min');
 
 // load plugin scripts and styles
 foreach (Plugin::getStyles() as $appName => $fileName) {
