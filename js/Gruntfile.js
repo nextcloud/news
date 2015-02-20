@@ -70,6 +70,9 @@ module.exports = function (grunt) {
             }
         },
         cssmin: {
+            options: {
+                sourceMap: true
+            },
             news: {
                 files: {'../css/news.min.css': [
                     '../css/app.css',
