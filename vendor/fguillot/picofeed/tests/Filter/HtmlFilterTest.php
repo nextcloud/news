@@ -1,8 +1,8 @@
 <?php
+
 namespace PicoFeed\Filter;
 
 use PHPUnit_Framework_TestCase;
-
 
 class HtmlFilterTest extends PHPUnit_Framework_TestCase
 {
@@ -28,6 +28,24 @@ class HtmlFilterTest extends PHPUnit_Framework_TestCase
         $expected = '<iframe src="https://www.youtube.com/bla" height="480" width="640" frameborder="0"></iframe>';
 
         $f = new Html($data, 'http://blabla');
+        $this->assertEquals($expected, $f->execute());
+    }
+
+    public function testClearScriptAttributes()
+    {
+        $data = '<div><script>this is the content</script><script>blubb content</script><p>something</p></div><p>hi</p>';
+
+        $f = new Html($data, 'http://blabla');
+        $expected = '<p>something</p><p>hi</p>';
+        $this->assertEquals($expected, $f->execute());
+    }
+
+    public function testClearStyleAttributes()
+    {
+        $data = '<div><style>this is the content</style><style>blubb content</style><p>something</p></div><p>hi</p>';
+
+        $f = new Html($data, 'http://blabla');
+        $expected = '<p>something</p><p>hi</p>';
         $this->assertEquals($expected, $f->execute());
     }
 
@@ -124,46 +142,4 @@ x-amz-id-2: DDjqfqz2ZJufzqRAcj1mh+9XvSogrPohKHwXlo8IlkzH67G6w4wnjn9HYgbs4uI0
         $f = new Html('<table><tr></tr></table>', 'http://blabla');
         $this->assertEquals('', $f->execute());
     }
-/*
-    public function testFilter()
-    {
-        $input = <<<EOD
-<div xmlns="http://www.w3.org/1999/xhtml"><article>
-<figure>
-    <img src="/2014/08/06/4694-pluie" alt="Flaque de pluie"/>
-    <figcaption>La Saussaye, France, 6 août 2014</figcaption>
-</figure>
-
-<div lang="en" class="extrait">
-    <blockquote cite="urn:isbn:978-0-8248-3742-6">
-    <p>Spring had truly arrived. Countless streams suddenly materialized all over the roads, fields, grasslands, and thickets; flowing as if the melting snow's waters were spilling over. </p>
-    </blockquote>
-    <p class="source"><span class="auteur">Takiji Kobayashi</span>, <cite class="titre">Yasuko</cite>.</p>
-</div>
-
-<p>La pluie abonde. La forêt humide resplendit. L'eau monte, l'eau déborde. Il reste pourtant notre humanité. Toute entière, resplendissante.</p>
-
-</article>
-</div>
-EOD;
-
-        $expected = <<<EOD
-<figure>
-    <img src="http://www.la-grange.net/2014/08/06/4694-pluie" alt="Flaque de pluie"/>
-    <figcaption>La Saussaye, France, 6 août 2014</figcaption>
-</figure>
-
-
-    <blockquote>
-    <p>Spring had truly arrived. Countless streams suddenly materialized all over the roads, fields, grasslands, and thickets; flowing as if the melting snow&#039;s waters were spilling over. </p>
-    </blockquote>
-    <p>Takiji Kobayashi, <cite>Yasuko</cite>.</p>
-
-
-<p>La pluie abonde. La forêt humide resplendit. L&#039;eau monte, l&#039;eau déborde. Il reste pourtant notre humanité. Toute entière, resplendissante.</p>
-EOD;
-
-        $f = new Html($input, 'http://www.la-grange.net/');
-        $this->assertEquals($expected, $f->execute());
-    }*/
 }
