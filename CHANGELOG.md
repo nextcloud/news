@@ -1,3 +1,6 @@
+owncloud-news (5.2.6)
+* **Bugfix**: Update picoFeed to strip out contents of script and style tags which were previously converted into plain text, #723
+
 owncloud-news (5.2.5)
 * **Bugfix**: Fix flying loading icon since snap.js does not seem to want to fix it
 * **Bugfix**: Turn all http iframes into https iframes
