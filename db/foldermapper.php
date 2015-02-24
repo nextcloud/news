@@ -58,12 +58,14 @@ class FolderMapper extends NewsMapper {
         // we needz CASCADE + FKs please
         $sql = 'DELETE FROM `*PREFIX*news_feeds` WHERE `folder_id` = ?';
         $params = [$entity->getId()];
-        $this->execute($sql, $params);
+        $stmt = $this->execute($sql, $params);
+        $stmt->closeCursor();
 
         $sql = 'DELETE FROM `*PREFIX*news_items` WHERE `feed_id` NOT IN '.
             '(SELECT `feeds`.`id` FROM `*PREFIX*news_feeds` `feeds`)';
 
-        $this->execute($sql);
+        $stmt = $this->execute($sql);
+        $stmt->closeCursor();
     }
 
 

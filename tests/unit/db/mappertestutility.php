@@ -31,7 +31,6 @@ namespace OCA\News\Tests\Unit\Db;
 abstract class MapperTestUtility extends \PHPUnit_Framework_TestCase {
     protected $db;
     private $query;
-    private $pdoResult;
     private $queryAt;
     private $prepareAt;
     private $fetchAt;
@@ -50,11 +49,10 @@ abstract class MapperTestUtility extends \PHPUnit_Framework_TestCase {
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->query = $this->getMock('Query', array('execute', 'bindValue'));
-        $this->pdoResult = $this->getMock('Result', array('fetch', 'closeCursor'));
+        $this->query = $this->getMock('\PDOStatement');
         $this->queryAt = 0;
         $this->prepareAt = 0;
-        $this->iterators = array();
+        $this->iterators = [];
         $this->fetchAt = 0;
     }
 
@@ -68,15 +66,40 @@ abstract class MapperTestUtility extends \PHPUnit_Framework_TestCase {
      * of the database query. If not provided, it wont be assumed that fetch
      * will be called on the result
      */
-    protected function setMapperResult($sql, $arguments=[], $returnRows=[],
+    protected function setMapperResult($sql, $arguments=array(), $returnRows=array(),
         $limit=null, $offset=null, $expectClose=false){
+        if($limit === null && $offset === null) {
+            $this->db->expects($this->at($this->prepareAt))
+                ->method('prepare')
+                ->with($this->equalTo($sql))
+                ->will(($this->returnValue($this->query)));
+        } elseif($limit !== null && $offset === null) {
+            $this->db->expects($this->at($this->prepareAt))
+                ->method('prepare')
+                ->with($this->equalTo($sql), $this->equalTo($limit))
+                ->will(($this->returnValue($this->query)));
+        } elseif($limit === null && $offset !== null) {
+            $this->db->expects($this->at($this->prepareAt))
+                ->method('prepare')
+                ->with($this->equalTo($sql),
+                    $this->equalTo(null),
+                    $this->equalTo($offset))
+                ->will(($this->returnValue($this->query)));
+        } else  {
+            $this->db->expects($this->at($this->prepareAt))
+                ->method('prepare')
+                ->with($this->equalTo($sql),
+                    $this->equalTo($limit),
+                    $this->equalTo($offset))
+                ->will(($this->returnValue($this->query)));
+        }
 
         $this->iterators[] = new ArgumentIterator($returnRows);
 
         $iterators = $this->iterators;
         $fetchAt = $this->fetchAt;
 
-        $this->pdoResult->expects($this->any())
+        $this->query->expects($this->any())
             ->method('fetch')
             ->will($this->returnCallback(
                 function() use ($iterators, $fetchAt){
@@ -87,16 +110,11 @@ abstract class MapperTestUtility extends \PHPUnit_Framework_TestCase {
                         $fetchAt++;
                     }
 
+                    $this->queryAt++;
+
                     return $result;
                 }
             ));
-        if ($expectClose) {
-            $closing = $this->once();
-        } else {
-            $closing = $this->any();
-        }
-        $this->pdoResult->expects($closing)
-            ->method('closeCursor');
 
         $index = 1;
         foreach($arguments as $argument) {
@@ -128,42 +146,23 @@ abstract class MapperTestUtility extends \PHPUnit_Framework_TestCase {
 
         $this->query->expects($this->at($this->queryAt))
             ->method('execute')
-            ->with()
-            ->will($this->returnValue($this->pdoResult));
+            ->will($this->returnCallback(function($sql, $p=null, $o=null, $s=null) {
+
+            }));
         $this->queryAt++;
 
-        if($limit === null && $offset === null) {
-            $this->db->expects($this->at($this->prepareAt))
-                ->method('prepareQuery')
-                ->with($this->equalTo($sql),
-                        $this->equalTo(null),
-                        $this->equalTo(null))
-                ->will(($this->returnValue($this->query)));
-        } elseif($limit !== null && $offset === null) {
-            $this->db->expects($this->at($this->prepareAt))
-                ->method('prepareQuery')
-                ->with($this->equalTo($sql),
-                        $this->equalTo($limit),
-                        $this->equalTo(null))
-                ->will(($this->returnValue($this->query)));
-        } elseif($limit === null && $offset !== null) {
-            $this->db->expects($this->at($this->prepareAt))
-                ->method('prepareQuery')
-                ->with($this->equalTo($sql),
-                    $this->equalTo(null),
-                    $this->equalTo($offset))
-                ->will(($this->returnValue($this->query)));
-        } else  {
-            $this->db->expects($this->at($this->prepareAt))
-                ->method('prepareQuery')
-                ->with($this->equalTo($sql),
-                    $this->equalTo($limit),
-                    $this->equalTo($offset))
-                ->will(($this->returnValue($this->query)));
+
+
+        if ($expectClose) {
+            $closing = $this->at($this->queryAt);
+        } else {
+            $closing = $this->any();
         }
+        $this->query->expects($closing)->method('closeCursor');
+        $this->queryAt++;
+
         $this->prepareAt++;
         $this->fetchAt++;
-
     }
 
 

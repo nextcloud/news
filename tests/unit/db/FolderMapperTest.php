@@ -125,14 +125,14 @@ class FolderMapperTest extends \OCA\News\Tests\Unit\Db\MapperTestUtility {
         $arguments = [$folder->getId()];
 
         $sql2 = 'DELETE FROM `*PREFIX*news_feeds` WHERE `folder_id` = ?';
+        $arguments2 = [$folder->getId()];
 
         $sql3 = 'DELETE FROM `*PREFIX*news_items` WHERE `feed_id` NOT IN '.
             '(SELECT `feeds`.`id` FROM `*PREFIX*news_feeds` `feeds`)';
-        $arguments2 = [$folder->getId()];
 
-        $this->setMapperResult($sql, $arguments);
-        $this->setMapperResult($sql2, $arguments2);
-        $this->setMapperResult($sql3);
+        $this->setMapperResult($sql, $arguments, [], null, null, true);
+        $this->setMapperResult($sql2, $arguments2, [], null, null, true);
+        $this->setMapperResult($sql3, [], [], null, null, true);
 
         $this->folderMapper->delete($folder);
     }
