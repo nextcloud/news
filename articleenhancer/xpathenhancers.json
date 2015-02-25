@@ -163,7 +163,7 @@
         "%smashingmagazine.com%": "//article[contains(@class,'post')]/p"
     },
     "sueddeutsche.de": {
-        "%sz.de%": "//article[@id='sitecontent']/section[@class='body']/p"
+        "%sz.de%": "//article[@id='sitecontent']/section[@class='body']/*[not(contains(@class, 'ad'))]"
     },
     "lifehacker.com": {
         "%lifehacker.com%": "//div[contains(@class,'entry-content')]"
