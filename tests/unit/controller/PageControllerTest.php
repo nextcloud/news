@@ -166,8 +166,8 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
             ->method('getExploreUrl')
             ->will($this->returnValue(' '));
         $this->urlGenerator->expects($this->once())
-            ->method('getAbsoluteURL')
-            ->with($this->equalTo('/index.php/apps/news/explore'))
+            ->method('linkToRoute')
+            ->with($this->equalTo('news.page.explore'))
             ->will($this->returnValue('test'));
 
 

@@ -100,9 +100,7 @@ class PageController extends Controller {
 
         $exploreUrl = $this->config->getExploreUrl();
         if (trim($exploreUrl) === '') {
-            $exploreUrl = $this->urlGenerator->getAbsoluteURL(
-                '/index.php/apps/news/explore'
-            );
+            $exploreUrl = $this->urlGenerator->linkToRoute('news.page.explore');
         }
 
         $result = [
