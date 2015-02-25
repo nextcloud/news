@@ -430,7 +430,7 @@
     }
 
     #app-content .body > div > img:first-child,
-    #app-content .body > div :first-child > img:first-child {
+    #app-content .body > div > :first-child > img:first-child {
         padding: 0 14px 0 0;
         float: left;
     }
