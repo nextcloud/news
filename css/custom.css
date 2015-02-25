@@ -14,3 +14,12 @@
     margin: 25px 0;
     padding: 0 0 0 15px;
 }
+
+#app-content .custom-sueddeutsche-de img + span {
+    display: block;
+}
+
+
+#app-content .custom-sueddeutsche-de a + a {
+    display: block;
+}
