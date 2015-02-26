@@ -87,7 +87,7 @@ OC.L10N.register(
     "Delete feed" : "Eliminar fonte de novas",
     "Mark all articles read" : "Marcar todos os artigos como lidos",
     "Dismiss" : "Desbotar",
-    "Collapse" : "Repregar",
+    "Collapse" : "Contraer",
     "Deleted folder" : "Eliminar cartafol",
     "Undo delete folder" : "Desfacer a eliminación do cartafol",
     "Rename folder" : "Renomear o cartafol",
