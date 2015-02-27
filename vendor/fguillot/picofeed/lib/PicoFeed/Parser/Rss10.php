@@ -33,7 +33,7 @@ class Rss10 extends Rss20
      */
     public function findFeedDate(SimpleXMLElement $xml, Feed $feed)
     {
-        $feed->date = $this->date->getTimestamp(XmlParser::getNamespaceValue($xml->channel, $this->namespaces, 'date'));
+        $feed->date = $this->date->getDateTime(XmlParser::getNamespaceValue($xml->channel, $this->namespaces, 'date'));
     }
 
     /**

@@ -18,19 +18,18 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->assertNotEmpty($client->getLastModified());
     }
 
-//    // disabled due to https://github.com/sebastianbergmann/phpunit/issues/1452
-//    /**
-//     * @runInSeparateProcess
-//     */
-//    public function testPassthrough()
-//    {
-//        $client = Client::getInstance();
-//        $client->setUrl('http://miniflux.net/favicon.ico');
-//        $client->enablePassthroughMode();
-//        $client->execute();
-//
-//        $this->expectOutputString('no_to_be_defined');
-//    }
+    /**
+     * @runInSeparateProcess
+     */
+    public function testPassthrough()
+    {
+        $client = Client::getInstance();
+        $client->setUrl('http://miniflux.net/favicon.ico');
+        $client->enablePassthroughMode();
+        $client->execute();
+
+        $this->expectOutputString(file_get_contents('tests/fixtures/miniflux_favicon.ico'));
+    }
 
     public function testCacheBothHaveToMatch()
     {

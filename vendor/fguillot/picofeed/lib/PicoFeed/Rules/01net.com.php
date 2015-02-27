@@ -5,7 +5,6 @@ return array(
         '//div[@class="article_ventre_box"]',
     ),
     'strip' => array(
-        '//script',
         '//link',
         '//*[contains(@class, "article_navigation")]',
         '//h1',

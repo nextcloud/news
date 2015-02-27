@@ -5,8 +5,6 @@ return array(
          '//div[@id="storytext"]',
     ),
     'strip' => array(
-        '//script',
-        '//style',
         '//*[@class="bucket img"]',
         '//*[@class="creditwrap"]',
         '//*[@class="captionwrap"]',

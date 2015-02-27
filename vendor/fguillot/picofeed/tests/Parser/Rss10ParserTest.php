@@ -47,7 +47,7 @@ class Rss10ParserTest extends PHPUnit_Framework_TestCase
     {
         $parser = new Rss10(file_get_contents('tests/fixtures/planete-jquery.xml'));
         $feed = $parser->execute();
-        $this->assertEquals(1363752990, $feed->getDate());
+        $this->assertEquals(1363752990, $feed->getDate()->getTimestamp(), '', 1);
     }
 
     public function testFeedLanguage()
@@ -90,7 +90,7 @@ class Rss10ParserTest extends PHPUnit_Framework_TestCase
         $parser = new Rss10(file_get_contents('tests/fixtures/planete-jquery.xml'));
         $feed = $parser->execute();
         $this->assertNotEmpty($feed->items);
-        $this->assertEquals(1362647700, $feed->items[1]->getDate());
+        $this->assertEquals(1362647700, $feed->items[1]->getDate()->getTimestamp(), '', 1);
     }
 
     public function testItemLanguage()

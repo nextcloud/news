@@ -8,6 +8,19 @@ use PHPUnit_Framework_TestCase;
 
 class XmlParserTest extends PHPUnit_Framework_TestCase
 {
+    public function testEmpty()
+    {
+        $this->assertFalse(XmlParser::getDomDocument(''));
+        $this->assertFalse(XmlParser::getSimpleXml(''));
+        $this->assertNotFalse(XmlParser::getHtmlDocument(''));
+    }
+
+    public function testGetEncodingFromMetaTag()
+    {
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<html><head><meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type"/></head></html>'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<html><head><meta charset="iso-8859-1"></head></html>'));
+    }
+
     public function testGetEncodingFromXmlTag()
     {
         $this->assertEquals('utf-8', XmlParser::getEncodingFromXmlTag("<?xml version='1.0' encoding='UTF-8'?><?xml-stylesheet"));

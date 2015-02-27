@@ -6,9 +6,7 @@ return array(
         '//div[@class="indPost"]'
     ),
     'strip' => array(
-        '//script',
         '//form',
-        '//style',
         '//*[@class="warning"]',
         '//*[@class="story-date"]',
         '//*[@class="story-header"]',

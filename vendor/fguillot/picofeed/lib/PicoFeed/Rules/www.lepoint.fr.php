@@ -5,8 +5,6 @@ return array(
         '//article',
     ),
     'strip' => array(
-        '//script',
-        '//style',
         '//*[contains(@class, "info_article")]',
         '//*[contains(@class, "fildariane_titre")]',
         '//*[contains(@class, "entete2_article")]',

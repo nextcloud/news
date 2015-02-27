@@ -27,19 +27,18 @@ class StreamTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('</html>', substr(trim($result['body']), -7));
     }
 
-//    // disabled due to https://github.com/sebastianbergmann/phpunit/issues/1452
-//    /**
-//     * @runInSeparateProcess
-//     */
-//    public function testPassthrough()
-//    {
-//        $client = new Stream;
-//        $client->setUrl('http://miniflux.net/favicon.ico');
-//        $client->enablePassthroughMode();
-//        $client->doRequest();
-//
-//        $this->expectOutputString('no_to_be_defined');
-//    }
+    /**
+     * @runInSeparateProcess
+     */
+    public function testPassthrough()
+    {
+        $client = new Stream;
+        $client->setUrl('http://miniflux.net/favicon.ico');
+        $client->enablePassthroughMode();
+        $client->doRequest();
+
+        $this->expectOutputString(file_get_contents('tests/fixtures/miniflux_favicon.ico'));
+    }
 
     public function testRedirect()
     {

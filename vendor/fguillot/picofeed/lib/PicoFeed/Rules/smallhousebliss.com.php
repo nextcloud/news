@@ -5,8 +5,6 @@ return array(
         '//div[@class="post-content"]',
     ),
     'strip' => array(
-        '//style',
-        '//script',
         '//*[contains(@class, "gallery")]',
         '//*[contains(@class, "share")]',
         '//*[contains(@class, "wpcnt")]',

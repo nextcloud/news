@@ -63,9 +63,9 @@ class Item
      * Item date
      *
      * @access public
-     * @var integer
+     * @var \DateTime
      */
-    public $date = 0;
+    public $date = null;
 
     /**
      * Item content
@@ -109,10 +109,11 @@ class Item
     {
         $output = '';
 
-        foreach (array('id', 'title', 'url', 'date', 'language', 'author', 'enclosure_url', 'enclosure_type') as $property) {
+        foreach (array('id', 'title', 'url', 'language', 'author', 'enclosure_url', 'enclosure_type') as $property) {
             $output .= 'Item::'.$property.' = '.$this->$property.PHP_EOL;
         }
 
+        $output .= 'Item::date = '.$this->date->format(DATE_RFC822).PHP_EOL;
         $output .= 'Item::isRTL() = '.($this->isRTL() ? 'true' : 'false').PHP_EOL;
         $output .= 'Item::content = '.strlen($this->content).' bytes'.PHP_EOL;
 

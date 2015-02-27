@@ -6,8 +6,6 @@ return array(
         '//div[@class="body-copy"]',
     ),
     'strip' => array(
-        '//script',
-        '//style',
         '//*[contains(@class, "module-crunchbase")]'
     )
 );

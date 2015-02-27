@@ -5,8 +5,6 @@ return array(
          '//div[@class="entry"]',
     ),
     'strip' => array(
-        '//script',
-        '//style',
         '//*[@id="linker_widget"]',
         '//*[contains(@class, "bio")]',
         '//*[contains(@class, "entry-footer")]',

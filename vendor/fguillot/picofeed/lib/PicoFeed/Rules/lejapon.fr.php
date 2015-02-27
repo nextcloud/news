@@ -5,7 +5,6 @@ return array(
         '//div[@class="entry"]'
     ),
     'strip' => array(
-        '//script',
         '//*[contains(@class, "addthis_toolbox")]',
         '//*[contains(@class, "addthis_default_style")]',
         '//*[@class="navigation small"]',

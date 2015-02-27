@@ -21,7 +21,7 @@ class DateParser
      */
     public $timezone = 'UTC';
 
-    /** 
+    /**
      * Supported formats [ 'format' => length ]
      *
      * @access public
@@ -60,9 +60,9 @@ class DateParser
      *
      * @access public
      * @param  string  $value  Original date format
-     * @return integer         Timestamp
+     * @return DateTime
      */
-    public function getTimestamp($value)
+    public function getDateTime($value)
     {
         $value = trim($value);
 
@@ -73,14 +73,13 @@ class DateParser
                 $truncated_value = substr($truncated_value, 0, $length);
             }
 
-            $timestamp = $this->getValidDate($format, $truncated_value);
-            if ($timestamp > 0) {
-                return $timestamp;
+            $date = $this->getValidDate($format, $truncated_value);
+            if ($date !== false) {
+                return $date;
             }
         }
 
-        $date = new DateTime('now', new DateTimeZone($this->timezone));
-        return $date->getTimestamp();
+        return $this->getCurrentDateTime();
     }
 
     /**
@@ -89,7 +88,7 @@ class DateParser
      * @access public
      * @param  string  $format   Date format
      * @param  string  $value    Original date value
-     * @return integer           Timestamp
+     * @return DateTime
      */
     public function getValidDate($format, $value)
     {
@@ -100,10 +99,21 @@ class DateParser
             $errors = DateTime::getLastErrors();
 
             if ($errors['error_count'] === 0 && $errors['warning_count'] === 0) {
-                return $date->getTimestamp();
+                return $date;
             }
         }
 
-        return 0;
+        return false;
+    }
+
+    /**
+     * Get the current datetime
+     *
+     * @access public
+     * @return DateTime
+     */
+    public function getCurrentDateTime()
+    {
+        return new DateTime('now', new DateTimeZone($this->timezone));
     }
 }

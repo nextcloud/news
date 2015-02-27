@@ -5,8 +5,6 @@ return array(
         '//div[@class="article_content"]',
     ),
     'strip' => array(
-        '//script',
-        '//style',
         '//*[@id="slate_associated_bn"]',
         '//*[@id="ligatus-article"]',
         '//*[@id="article_sidebar"]',

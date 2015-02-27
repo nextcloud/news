@@ -90,10 +90,14 @@ class XmlParser
      * @static
      * @access public
      * @param  string   $input   XML content
-     * @return \DOMNode
+     * @return \DOMNDocument
      */
     public static function getDomDocument($input)
     {
+        if (empty($input)) {
+            return false;
+        }
+
         $dom = self::scanInput($input, function ($in) {
             $dom = new DomDocument;
             $dom->loadXml($in, LIBXML_NONET);
@@ -202,6 +206,49 @@ class XmlParser
                 $encoding = substr($data, $p1 + 10, $p2 - $p1 - 10);
                 $encoding = strtolower($encoding);
             }
+        }
+
+        return $encoding;
+    }
+
+    /**
+     * Extract charset from meta tag
+     *
+     * @static
+     * @access public
+     * @param  string  $data  meta tag content
+     * @return string
+     */
+    public static function findCharset($data)
+    {
+        $result = explode('charset=', $data);
+        return isset($result[1]) ? $result[1] : $data;
+    }
+
+    /**
+     * Get the encoding from a xml tag
+     *
+     * @static
+     * @access public
+     * @param  string  $data  Input data
+     * @return string
+     */
+    public static function getEncodingFromMetaTag($data)
+    {
+        $encoding = '';
+
+        $dom = static::getHtmlDocument($data);
+        $xpath = new DOMXPath($dom);
+
+        $tags = array(
+            '/html/head/meta[translate(@http-equiv, "CENOPTY", "cenopty")="content-type"]/@content', //HTML4, convert upper to lower-case
+            '/html/head/meta/@charset', //HTML5
+        );
+
+        $nodes = $xpath->query(implode(' | ', $tags));
+
+        foreach ($nodes as $node) {
+            $encoding = static::findCharset($node->nodeValue);
         }
 
         return $encoding;

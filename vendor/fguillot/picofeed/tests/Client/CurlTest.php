@@ -18,19 +18,18 @@ class CurlTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('text/html; charset=utf-8', $result['headers']['Content-Type']);
     }
 
-//    // disabled due to https://github.com/sebastianbergmann/phpunit/issues/1452
-//    /**
-//     * @runInSeparateProcess
-//     */
-//    public function testPassthrough()
-//    {
-//        $client = new Curl;
-//        $client->setUrl('http://miniflux.net/favicon.ico');
-//        $client->enablePassthroughMode();
-//        $client->doRequest();
-//
-//        $this->expectOutputString('no_to_be_defined');
-//    }
+    /**
+     * @runInSeparateProcess
+     */
+    public function testPassthrough()
+    {
+        $client = new Curl;
+        $client->setUrl('http://miniflux.net/favicon.ico');
+        $client->enablePassthroughMode();
+        $client->doRequest();
+
+        $this->expectOutputString(file_get_contents('tests/fixtures/miniflux_favicon.ico'));
+    }
 
     public function testRedirect()
     {

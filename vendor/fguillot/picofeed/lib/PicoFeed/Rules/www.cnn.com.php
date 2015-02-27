@@ -5,8 +5,6 @@ return array(
         '//div[@class="cnn_strycntntlft"]',
     ),
     'strip' => array(
-        '//script',
-        '//style',
         '//div[@class="cnn_stryshrwdgtbtm"]',
         '//div[@class="cnn_strybtmcntnt"]',
         '//div[@class="cnn_strylftcntnt"]',

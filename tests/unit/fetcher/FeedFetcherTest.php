@@ -203,7 +203,10 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 
         $item = new Item();
 
-        $this->expectItem('getDate', $this->pub);
+        date_default_timezone_set('America/Los_Angeles');
+        $date = new \DateTime();
+        $date->setTimestamp($this->pub);
+        $this->expectItem('getDate', $date);
         $item->setPubDate($this->pub);
 
         $item->setStatus(0);

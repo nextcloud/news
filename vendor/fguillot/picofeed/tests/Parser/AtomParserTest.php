@@ -119,11 +119,11 @@ class AtomParserTest extends PHPUnit_Framework_TestCase
     {
         $parser = new Atom(file_get_contents('tests/fixtures/atom.xml'));
         $feed = $parser->execute();
-        $this->assertEquals(1360148333, $feed->getDate());
+        $this->assertEquals(1360148333, $feed->getDate()->getTimestamp(), '', 1);
 
         $parser = new Atom(file_get_contents('tests/fixtures/atomsample.xml'));
         $feed = $parser->execute();
-        $this->assertEquals(1071340202, $feed->getDate());
+        $this->assertEquals(1071340202, $feed->getDate()->getTimestamp(), '', 1);
     }
 
     public function testFeedLanguage()
@@ -196,17 +196,17 @@ class AtomParserTest extends PHPUnit_Framework_TestCase
         $parser = new Atom(file_get_contents('tests/fixtures/atom.xml'));
         $feed = $parser->execute();
         $this->assertNotEmpty($feed->items);
-        $this->assertEquals(1360011661, $feed->items[1]->getDate());
+        $this->assertEquals(1360011661, $feed->items[1]->getDate()->getTimestamp(), '', 1);
 
         $parser = new Atom(file_get_contents('tests/fixtures/atomsample.xml'));
         $feed = $parser->execute();
         $this->assertNotEmpty($feed->items);
-        $this->assertEquals(1071340202, $feed->items[0]->getDate());
+        $this->assertEquals(1071340202, $feed->items[0]->getDate()->getTimestamp(), '', 1);
 
         $parser = new Atom(file_get_contents('tests/fixtures/youtube.xml'));
         $feed = $parser->execute();
         $this->assertNotEmpty($feed->items);
-        $this->assertEquals(1336825342, $feed->items[1]->getDate()); // Should return the published date
+        $this->assertEquals(1336825342, $feed->items[1]->getDate()->getTimestamp(), '', 1); // Should return the published date
     }
 
     public function testItemLanguage()

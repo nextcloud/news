@@ -158,6 +158,11 @@ class Tag
     public function removeBlacklistedTags($data)
     {
         $dom = XmlParser::getDomDocument($data);
+
+        if ($dom === false) {
+            return '';
+        }
+
         $xpath = new DOMXpath($dom);
 
         $nodes = $xpath->query(implode(' | ', $this->tag_blacklist));

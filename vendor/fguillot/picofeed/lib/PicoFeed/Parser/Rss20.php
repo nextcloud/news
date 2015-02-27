@@ -134,7 +134,7 @@ class Rss20 extends Parser
     public function findFeedDate(SimpleXMLElement $xml, Feed $feed)
     {
         $date = isset($xml->channel->pubDate) ? $xml->channel->pubDate : $xml->channel->lastBuildDate;
-        $feed->date = $this->date->getTimestamp((string) $date);
+        $feed->date = $this->date->getDateTime((string) $date);
     }
 
     /**
@@ -156,7 +156,7 @@ class Rss20 extends Parser
             $date = (string) $entry->pubDate;
         }
 
-        $item->date = $this->date->getTimestamp($date);
+        $item->date = $this->date->getDateTime($date);
     }
 
     /**

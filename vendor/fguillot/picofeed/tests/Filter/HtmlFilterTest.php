@@ -6,6 +6,12 @@ use PHPUnit_Framework_TestCase;
 
 class HtmlFilterTest extends PHPUnit_Framework_TestCase
 {
+    public function testEmpty()
+    {
+        $filter = new Html('', 'http://www.google.ca/');
+        $this->assertEquals('', $filter->execute());
+    }
+
     public function testExecute()
     {
         $html = '<!DOCTYPE html><html><head>
