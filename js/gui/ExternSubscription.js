@@ -28,7 +28,7 @@
             if (registered) {
                 return registered(mime, url) !== 'new';
             } else {
-                return storage.getItem('registeredHandler') !== url;
+                return storage.getItem('registeredHandler') === url;
             }
         };
 

@@ -1984,7 +1984,7 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
             if (registered) {
                 return registered(mime, url) !== 'new';
             } else {
-                return storage.getItem('registeredHandler') !== url;
+                return storage.getItem('registeredHandler') === url;
             }
         };
 
