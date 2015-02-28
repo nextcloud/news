@@ -1,9 +1,9 @@
  /*!
   * https://github.com/paulmillr/es6-shim
-  * @license es6-shim Copyright 2013-2014 by Paul Miller (http://paulmillr.com)
+  * @license es6-shim Copyright 2013-2015 by Paul Miller (http://paulmillr.com)
   *   and contributors,  MIT License
-  * es6-shim: v0.25.0
-  * see https://github.com/paulmillr/es6-shim/blob/0.25.0/LICENSE
+  * es6-shim: v0.27.0
+  * see https://github.com/paulmillr/es6-shim/blob/0.27.0/LICENSE
   * Details and documentation:
   * https://github.com/paulmillr/es6-shim/
   */
@@ -85,10 +85,12 @@
   var _hasOwnProperty = Function.call.bind(Object.prototype.hasOwnProperty);
   var ArrayIterator; // make our implementation private
   var noop = function () {};
+  var arraySlice = Array.prototype.slice;
 
   var Symbol = globals.Symbol || {};
   var symbolSpecies = Symbol.species || '@@species';
   var Type = {
+    object: function (x) { return x !== null && typeof x === 'object'; },
     string: function (x) { return _toString(x) === '[object String]'; },
     regex: function (x) { return _toString(x) === '[object RegExp]'; },
     symbol: function (x) {
@@ -143,6 +145,9 @@
       } else {
         object[property] = newValue;
       }
+    },
+    preserveToString: function (target, source) {
+      defineProperty(target, 'toString', source.toString.bind(source), true);
     }
   };
 
@@ -328,6 +333,19 @@
       // Call the constructor.
       var result = ES.Call(C, obj, args);
       return ES.TypeIsObject(result) ? result : obj;
+    },
+
+    CreateHTML: function (string, tag, attribute, value) {
+      var S = String(string);
+      var p1 = '<' + tag;
+      if (attribute !== '') {
+        var V = String(value);
+        var escapedV = V.replace(/"/g, '&quot;');
+        p1 += ' ' + attribute + '="' + escapedV + '"';
+      }
+      var p2 = p1 + '>';
+      var p3 = p2 + S;
+      return p3 + '</' + tag + '>';
     }
   };
 
@@ -668,7 +686,7 @@
   }
 
   var ArrayShims = {
-    from: function (iterable) {
+    from: function from(iterable) {
       var mapFn = arguments.length > 1 ? arguments[1] : void 0;
 
       var list = ES.ToObject(iterable, 'bad iterable');
@@ -722,8 +740,8 @@
       return result;
     },
 
-    of: function () {
-      return Array.from(arguments);
+    of: function of() {
+      return Array.from.call(this, arguments);
     }
   };
   defineProperties(Array, ArrayShims);
@@ -840,7 +858,7 @@
   addIterator(ObjectIterator.prototype);
 
   var ArrayPrototypeShims = {
-    copyWithin: function (target, start) {
+    copyWithin: function copyWithin(target, start) {
       var end = arguments[2]; // copyWithin.length must be 2
       var o = ES.ToObject(this);
       var len = ES.ToLength(o.length);
@@ -870,7 +888,7 @@
       return o;
     },
 
-    fill: function (value) {
+    fill: function fill(value) {
       var start = arguments.length > 1 ? arguments[1] : void 0;
       var end = arguments.length > 2 ? arguments[2] : void 0;
       var O = ES.ToObject(this);
@@ -921,15 +939,15 @@
       return -1;
     },
 
-    keys: function () {
+    keys: function keys() {
       return new ArrayIterator(this, 'key');
     },
 
-    values: function () {
+    values: function values() {
       return new ArrayIterator(this, 'value');
     },
 
-    entries: function () {
+    entries: function entries() {
       return new ArrayIterator(this, 'entry');
     }
   };
@@ -951,7 +969,42 @@
       Array.prototype[Symbol.unscopables].values = true;
     }
   }
+  // Chrome 40 defines Array#values with the incorrect name, although Array#{keys,entries} have the correct name
+  if (Array.prototype.values && Array.prototype.values.name !== 'values') {
+    var originalArrayPrototypeValues = Array.prototype.values;
+    defineProperty(Array.prototype, 'values', function values() { return originalArrayPrototypeValues.call(this); }, true);
+    defineProperty(Array.prototype, $iterator$, Array.prototype.values, true);
+    Value.preserveToString(Array.prototype.values, originalArrayPrototypeValues);
+  }
   defineProperties(Array.prototype, ArrayPrototypeShims);
+
+  var Empty = function Empty() {};
+  if (!(Array.prototype.slice.call(new Empty()) instanceof Empty)) {
+    defineProperty(Array.prototype, 'slice', function slice(start, end) {
+      if (this instanceof Array || isArguments(this)) {
+        return arraySlice.apply(this, arguments);
+      }
+      var O = ES.ToObject(this);
+      var len = ES.ToLength(this.length);
+      var relativeStart = ES.ToInteger(start);
+      var k = relativeStart < 0 ? Math.max(len + relativeStart, 0) : Math.min(relativeStart, len);
+      var relativeEnd = typeof end === 'undefined' ? len : ES.ToInteger(end);
+      var finalEnd = relativeEnd < 0 ? Math.max(len + relativeEnd, 0) : Math.min(relativeEnd, len);
+      var count = Math.max(finalEnd - k, 0);
+      var A = ES.Construct(O.constructor, [count]);
+      var n = 0;
+      while (k < finalEnd) {
+        if (_hasOwnProperty(O, k)) {
+          A[n] = O[k];
+        }
+        k += 1;
+        n += 1;
+      }
+      A.length = n;
+      return A;
+    }, true);
+    Value.preserveToString(Array.prototype.slice, arraySlice);
+  }
 
   addIterator(Array.prototype, function () { return this.values(); });
   // Chrome defines keys/values/entries on Array, but doesn't give us
@@ -1111,6 +1164,7 @@
     defineProperty(Object, 'keys', function keys(value) {
       return originalObjectKeys(ES.ToObject(value));
     }, true);
+    Value.preserveToString(Object.keys, originalObjectKeys);
   }
 
   if (Object.getOwnPropertyNames) {
@@ -1127,6 +1181,149 @@
       defineProperty(Object, 'getOwnPropertyNames', function getOwnPropertyNames(value) {
         return originalObjectGetOwnPropertyNames(ES.ToObject(value));
       }, true);
+      Value.preserveToString(Object.getOwnPropertyNames, originalObjectGetOwnPropertyNames);
+    }
+  }
+  if (Object.getOwnPropertyDescriptor) {
+    var objectGOPDAcceptsPrimitives = (function () {
+      try {
+        Object.getOwnPropertyDescriptor('foo', 'bar');
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }());
+    if (!objectGOPDAcceptsPrimitives) {
+      var originalObjectGetOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+      defineProperty(Object, 'getOwnPropertyDescriptor', function getOwnPropertyDescriptor(value, property) {
+        return originalObjectGetOwnPropertyDescriptor(ES.ToObject(value), property);
+      }, true);
+      Value.preserveToString(Object.getOwnPropertyDescriptor, originalObjectGetOwnPropertyDescriptor);
+    }
+  }
+  if (Object.seal) {
+    var objectSealAcceptsPrimitives = (function () {
+      try {
+        Object.seal('foo');
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }());
+    if (!objectSealAcceptsPrimitives) {
+      var originalObjectSeal = Object.seal;
+      defineProperty(Object, 'seal', function seal(value) {
+        if (!Type.object(value)) { return value; }
+        return originalObjectSeal(value);
+      }, true);
+      Value.preserveToString(Object.seal, originalObjectSeal);
+    }
+  }
+  if (Object.isSealed) {
+    var objectIsSealedAcceptsPrimitives = (function () {
+      try {
+        Object.isSealed('foo');
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }());
+    if (!objectIsSealedAcceptsPrimitives) {
+      var originalObjectIsSealed = Object.isSealed;
+      defineProperty(Object, 'isSealed', function isSealed(value) {
+        if (!Type.object(value)) { return true; }
+        return originalObjectIsSealed(value);
+      }, true);
+      Value.preserveToString(Object.isSealed, originalObjectIsSealed);
+    }
+  }
+  if (Object.freeze) {
+    var objectFreezeAcceptsPrimitives = (function () {
+      try {
+        Object.freeze('foo');
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }());
+    if (!objectFreezeAcceptsPrimitives) {
+      var originalObjectFreeze = Object.freeze;
+      defineProperty(Object, 'freeze', function freeze(value) {
+        if (!Type.object(value)) { return value; }
+        return originalObjectFreeze(value);
+      }, true);
+      Value.preserveToString(Object.freeze, originalObjectFreeze);
+    }
+  }
+  if (Object.isFrozen) {
+    var objectIsFrozenAcceptsPrimitives = (function () {
+      try {
+        Object.isFrozen('foo');
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }());
+    if (!objectIsFrozenAcceptsPrimitives) {
+      var originalObjectIsFrozen = Object.isFrozen;
+      defineProperty(Object, 'isFrozen', function isFrozen(value) {
+        if (!Type.object(value)) { return true; }
+        return originalObjectIsFrozen(value);
+      }, true);
+      Value.preserveToString(Object.isFrozen, originalObjectIsFrozen);
+    }
+  }
+  if (Object.preventExtensions) {
+    var objectPreventExtensionsAcceptsPrimitives = (function () {
+      try {
+        Object.preventExtensions('foo');
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }());
+    if (!objectPreventExtensionsAcceptsPrimitives) {
+      var originalObjectPreventExtensions = Object.preventExtensions;
+      defineProperty(Object, 'preventExtensions', function preventExtensions(value) {
+        if (!Type.object(value)) { return value; }
+        return originalObjectPreventExtensions(value);
+      }, true);
+      Value.preserveToString(Object.preventExtensions, originalObjectPreventExtensions);
+    }
+  }
+  if (Object.isExtensible) {
+    var objectIsExtensibleAcceptsPrimitives = (function () {
+      try {
+        Object.isExtensible('foo');
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }());
+    if (!objectIsExtensibleAcceptsPrimitives) {
+      var originalObjectIsExtensible = Object.isExtensible;
+      defineProperty(Object, 'isExtensible', function isExtensible(value) {
+        if (!Type.object(value)) { return false; }
+        return originalObjectIsExtensible(value);
+      }, true);
+      Value.preserveToString(Object.isExtensible, originalObjectIsExtensible);
+    }
+  }
+  if (Object.getPrototypeOf) {
+    var objectGetProtoAcceptsPrimitives = (function () {
+      try {
+        Object.getPrototypeOf('foo');
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }());
+    if (!objectGetProtoAcceptsPrimitives) {
+      var originalGetProto = Object.getPrototypeOf;
+      defineProperty(Object, 'getPrototypeOf', function getPrototypeOf(value) {
+        return originalGetProto(ES.ToObject(value));
+      }, true);
+      Value.preserveToString(Object.getPrototypeOf, originalGetProto);
     }
   }
 
@@ -1173,7 +1370,7 @@
       }
       return new OrigRegExp(pattern, flags);
     };
-    defineProperty(RegExpShim, 'toString', OrigRegExp.toString.bind(OrigRegExp), true);
+    Value.preserveToString(RegExpShim, OrigRegExp);
     if (Object.setPrototypeOf) {
       // sets up proper prototype chain where possible
       Object.setPrototypeOf(OrigRegExp, RegExpShim);
@@ -1869,7 +2066,7 @@
         function Map(iterable) {
           var map = this;
           if (!ES.TypeIsObject(map)) {
-            throw new TypeError('Map does not accept arguments when called as a function');
+            throw new TypeError("Constructor Map requires 'new'");
           }
           map = emulateES6construct(map);
           if (!map._es6map) {
@@ -2059,7 +2256,7 @@
         var SetShim = function Set(iterable) {
           var set = this;
           if (!ES.TypeIsObject(set)) {
-            throw new TypeError('Set does not accept arguments when called as a function');
+            throw new TypeError("Constructor Set requires 'new'");
           }
           set = emulateES6construct(set);
           if (!set._es6set) {
@@ -2487,6 +2684,52 @@
       }
     });
   }
+
+  if (String(new Date(NaN)) !== 'Invalid Date') {
+    var dateToString = Date.prototype.toString;
+    var shimmedDateToString = function toString() {
+      var valueOf = +this;
+      if (valueOf !== valueOf) {
+        return 'Invalid Date';
+      }
+      return dateToString.call(this);
+    };
+    defineProperty(shimmedDateToString, 'toString', dateToString.toString, true);
+    defineProperty(Date.prototype, 'toString', shimmedDateToString, true);
+  }
+
+  // Annex B HTML methods
+  // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-additional-properties-of-the-string.prototype-object
+  var stringHTMLshims = {
+    anchor: function anchor(name) { return ES.CreateHTML(this, 'a', 'name', name); },
+    big: function big() { return ES.CreateHTML(this, 'big', '', ''); },
+    blink: function blink() { return ES.CreateHTML(this, 'blink', '', ''); },
+    bold: function bold() { return ES.CreateHTML(this, 'b', '', ''); },
+    fixed: function fixed() { return ES.CreateHTML(this, 'tt', '', ''); },
+    fontcolor: function fontcolor(color) { return ES.CreateHTML(this, 'font', 'color', color); },
+    fontsize: function fontsize(size) { return ES.CreateHTML(this, 'font', 'size', size); },
+    italics: function italics() { return ES.CreateHTML(this, 'i', '', ''); },
+    link: function link(url) { return ES.CreateHTML(this, 'a', 'href', url); },
+    small: function small() { return ES.CreateHTML(this, 'small', '', ''); },
+    strike: function strike() { return ES.CreateHTML(this, 'strike', '', ''); },
+    sub: function sub() { return ES.CreateHTML(this, 'sub', '', ''); },
+    sup: function sub() { return ES.CreateHTML(this, 'sup', '', ''); }
+  };
+  defineProperties(String.prototype, stringHTMLshims);
+  Object.keys(stringHTMLshims).forEach(function (key) {
+    var method = String.prototype[key];
+    var shouldOverwrite = false;
+    if (ES.IsCallable(method)) {
+      var output = method.call('', ' " ');
+      var quotesCount = [].concat(output.match(/"/g)).length;
+      shouldOverwrite = output !== output.toLowerCase() || quotesCount > 2;
+    } else {
+      shouldOverwrite = true;
+    }
+    if (shouldOverwrite) {
+      defineProperty(String.prototype, key, stringHTMLshims[key], true);
+    }
+  });
 
   return globals;
 }));

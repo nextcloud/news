@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.4.0-build.3834+sha.75725b4
+ * @license AngularJS v1.4.0-build.3861+sha.2c4ffd6
  * (c) 2010-2015 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -241,16 +241,18 @@ var svgAttrs = makeMap('accent-height,accumulate,additive,alphabetic,arabic-form
     'underline-position,underline-thickness,unicode,unicode-range,units-per-em,values,version,' +
     'viewBox,visibility,width,widths,x,x-height,x1,x2,xlink:actuate,xlink:arcrole,xlink:role,' +
     'xlink:show,xlink:title,xlink:type,xml:base,xml:lang,xml:space,xmlns,xmlns:xlink,y,y1,y2,' +
-    'zoomAndPan');
+    'zoomAndPan', true);
 
 var validAttrs = angular.extend({},
                                 uriAttrs,
                                 svgAttrs,
                                 htmlAttrs);
 
-function makeMap(str) {
+function makeMap(str, lowercaseKeys) {
   var obj = {}, items = str.split(','), i;
-  for (i = 0; i < items.length; i++) obj[items[i]] = true;
+  for (i = 0; i < items.length; i++) {
+    obj[lowercaseKeys ? angular.lowercase(items[i]) : items[i]] = true;
+  }
   return obj;
 }
 

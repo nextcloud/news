@@ -1,8 +1,8 @@
 {
   "name": "angular",
-  "version": "1.4.0-build.3834+sha.75725b4",
+  "version": "1.4.0-build.3861+sha.2c4ffd6",
   "description": "HTML enhanced for web apps",
-  "main": "angular.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

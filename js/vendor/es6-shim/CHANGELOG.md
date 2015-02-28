@@ -1,5 +1,36 @@
 # es6-shim x.x.x (not yet released)
 
+# es6-shim 0.27.0 (26 Feb 2015)
+* Overwrite `Array#slice` so that it supports Array subclasses.
+* Improve `Map`/`Set` `TypeError` messages when called as a function. (#321)
+
+# es6-shim 0.26.1 (25 Feb 2015)
+* Ensure `Array`/`Array.prototype` functions have the correct name.
+* Chrome 40 defines the incorrect name for `Array#values`
+* Make sure that `Array.of` works when subclassed.
+
+# es6-shim 0.26.0 (24 Feb 2015)
+* Ensure that remaining Object static methods accept primitives.
+* Update `chai`
+* Document `String.prototype` HTML methods and `Reflect` methods in README
+
+# es6-shim 0.25.3 (22 Feb 2015)
+* Removing nonexistent arguments from some String.prototype HTML methods
+* All grade A-supported `node`/`iojs` versions now ship with an `npm` that understands `^`.
+* Test on `iojs-v1.3`
+* Update `chai`
+* Add a LICENSE file
+
+# es6-shim 0.25.2 (18 Feb 2015)
+* If someone (looking at you, chalk) has previously modified String.prototype with a non-function “bold”, don‘t break. (#315)
+
+# es6-shim 0.25.1 (18 Feb 2015)
+* Add Annex B String.prototype HTML methods.
+* Overwriting Annex B String.prototype HTML methods in IE 9, which both uppercases the tag names, and fails to escape double quotes.
+* Overwriting Annex B String.prototype HTML methods in Safari 4-5, which fails to escape double quotes.
+* Ensuring that Date#toString returns “Invalid Date” when the date‘s value is NaN.
+* Test on `iojs-v1.2`
+
 # es6-shim 0.25.0 (16 Feb 2015)
 * Ensure Object.getOwnPropertyNames accepts primitives.
 * Make sure the replaced `Object.keys` is non-enumerable.

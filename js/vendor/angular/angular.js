@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.4.0-build.3834+sha.75725b4
+ * @license AngularJS v1.4.0-build.3861+sha.2c4ffd6
  * (c) 2010-2015 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -57,7 +57,7 @@ function minErr(module, ErrorConstructor) {
       return match;
     });
 
-    message += '\nhttp://errors.angularjs.org/1.4.0-build.3834+sha.75725b4/' +
+    message += '\nhttp://errors.angularjs.org/1.4.0-build.3861+sha.2c4ffd6/' +
       (module ? module + '/' : '') + code;
 
     for (i = SKIP_INDEXES, paramPrefix = '?'; i < templateArgs.length; i++, paramPrefix = '&') {
@@ -2195,7 +2195,7 @@ function toDebugString(obj) {
  * - `codeName` – `{string}` – Code name of the release, such as "jiggling-armfat".
  */
 var version = {
-  full: '1.4.0-build.3834+sha.75725b4',    // all of these placeholder strings will be replaced by grunt's
+  full: '1.4.0-build.3861+sha.2c4ffd6',    // all of these placeholder strings will be replaced by grunt's
   major: 1,    // package task
   minor: 4,
   dot: 0,
@@ -7464,7 +7464,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
 
         if (!directive.templateUrl && directive.controller) {
           directiveValue = directive.controller;
-          controllerDirectives = controllerDirectives || {};
+          controllerDirectives = controllerDirectives || createMap();
           assertNoDuplicate("'" + directiveName + "' controller",
               controllerDirectives[directiveName], directive, $compileNode);
           controllerDirectives[directiveName] = directive;
@@ -7670,6 +7670,36 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
         return value || null;
       }
 
+      function setupControllers($element, attrs, transcludeFn, controllerDirectives, isolateScope, scope) {
+        var elementControllers = createMap();
+        for (var controllerKey in controllerDirectives) {
+          var directive = controllerDirectives[controllerKey];
+          var locals = {
+            $scope: directive === newIsolateScopeDirective || directive.$$isolateScope ? isolateScope : scope,
+            $element: $element,
+            $attrs: attrs,
+            $transclude: transcludeFn
+          };
+
+          var controller = directive.controller;
+          if (controller == '@') {
+            controller = attrs[directive.name];
+          }
+
+          var controllerInstance = $controller(controller, locals, true, directive.controllerAs);
+
+          // For directives with element transclusion the element is a comment,
+          // but jQuery .data doesn't support attaching data to comment nodes as it's hard to
+          // clean up (http://bugs.jquery.com/ticket/8335).
+          // Instead, we save the controllers for the element in a local hash and attach to .data
+          // later, once we have the actual element.
+          elementControllers[directive.name] = controllerInstance;
+          if (!hasElementTranscludeDirective) {
+            $element.data('$' + directive.name + 'Controller', controllerInstance.instance);
+          }
+        }
+        return elementControllers;
+      }
 
       function nodeLinkFn(childLinkFn, scope, linkNode, $rootElement, boundTranscludeFn,
                           thisLinkFn) {
@@ -7696,32 +7726,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
         }
 
         if (controllerDirectives) {
-          elementControllers = {};
-          forEach(controllerDirectives, function(directive) {
-            var locals = {
-              $scope: directive === newIsolateScopeDirective || directive.$$isolateScope ? isolateScope : scope,
-              $element: $element,
-              $attrs: attrs,
-              $transclude: transcludeFn
-            }, controllerInstance;
-
-            controller = directive.controller;
-            if (controller == '@') {
-              controller = attrs[directive.name];
-            }
-
-            controllerInstance = $controller(controller, locals, true, directive.controllerAs);
-
-            // For directives with element transclusion the element is a comment,
-            // but jQuery .data doesn't support attaching data to comment nodes as it's hard to
-            // clean up (http://bugs.jquery.com/ticket/8335).
-            // Instead, we save the controllers for the element in a local hash and attach to .data
-            // later, once we have the actual element.
-            elementControllers[directive.name] = controllerInstance;
-            if (!hasElementTranscludeDirective) {
-              $element.data('$' + directive.name + 'Controller', controllerInstance.instance);
-            }
-          });
+          elementControllers = setupControllers($element, attrs, transcludeFn, controllerDirectives, isolateScope, scope);
         }
 
         if (newIsolateScopeDirective) {
@@ -7751,17 +7756,18 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
                                               bindings, scopeDirective);
             }
           }
-          forEach(elementControllers, function(controller) {
-            var result = controller();
-            if (result !== controller.instance &&
+          for (i in elementControllers) {
+            controller = elementControllers[i];
+            var controllerResult = controller();
+            if (controllerResult !== controller.instance &&
                 controller === controllerForBindings) {
               // Remove and re-install bindToController bindings
               thisLinkFn.$$destroyBindings();
               thisLinkFn.$$destroyBindings =
-                  initializeDirectiveBindings(scope, attrs, result,
+                  initializeDirectiveBindings(scope, attrs, controllerResult,
                                               bindings, scopeDirective);
             }
-          });
+          }
         }
 
         // PRELINKING
@@ -8772,19 +8778,24 @@ function isJsonLike(str) {
  * @returns {Object} Parsed headers as key value object
  */
 function parseHeaders(headers) {
-  var parsed = createMap(), key, val, i;
+  var parsed = createMap(), i;
 
-  if (!headers) return parsed;
-
-  forEach(headers.split('\n'), function(line) {
-    i = line.indexOf(':');
-    key = lowercase(trim(line.substr(0, i)));
-    val = trim(line.substr(i + 1));
-
+  function fillInParsed(key, val) {
     if (key) {
       parsed[key] = parsed[key] ? parsed[key] + ', ' + val : val;
     }
-  });
+  }
+
+  if (isString(headers)) {
+    forEach(headers.split('\n'), function(line) {
+      i = line.indexOf(':');
+      fillInParsed(lowercase(trim(line.substr(0, i))), trim(line.substr(i + 1)));
+    });
+  } else if (isObject(headers)) {
+    forEach(headers, function(headerVal, headerKey) {
+      fillInParsed(lowercase(headerKey), trim(headerVal));
+    });
+  }
 
   return parsed;
 }
@@ -8803,7 +8814,7 @@ function parseHeaders(headers) {
  *   - if called with no arguments returns an object containing all headers.
  */
 function headersGetter(headers) {
-  var headersObj = isObject(headers) ? headers : undefined;
+  var headersObj;
 
   return function(name) {
     if (!headersObj) headersObj =  parseHeaders(headers);
@@ -16496,7 +16507,7 @@ function $SceProvider() {
      * escaping.
      *
      * @param {string} type The kind of context in which this value is safe for use.  e.g. url,
-     *   resource_url, html, js and css.
+     *   resourceUrl, html, js and css.
      * @param {*} value The value that that should be considered trusted/safe.
      * @returns {*} A value that can be used to stand in for the provided `value` in places
      * where Angular expects a $sce.trustAs() return value.
@@ -16874,7 +16885,7 @@ function $TemplateRequestProvider() {
       };
 
       return $http.get(tpl, httpOptions)
-        .finally(function() {
+        ['finally'](function() {
           handleRequestFn.totalPendingRequests--;
         })
         .then(function(response) {
@@ -17588,8 +17599,8 @@ function createPredicateFn(expression, comparator, matchAgainstAnyProp) {
 }
 
 function deepCompare(actual, expected, comparator, matchAgainstAnyProp, dontMatchWholeObject) {
-  var actualType = typeof actual;
-  var expectedType = typeof expected;
+  var actualType = (actual !== null) ? typeof actual : 'null';
+  var expectedType = (expected !== null) ? typeof expected : 'null';
 
   if ((expectedType === 'string') && (expected.charAt(0) === '!')) {
     return !deepCompare(actual, expected.substring(1), comparator, matchAgainstAnyProp);
@@ -18029,7 +18040,9 @@ var DATE_FORMATS_SPLIT = /((?:[^yMdHhmsaZEw']+)|(?:'(?:[^']|'')*')|(?:E+|y+|M+|d
  *    specified in the string input, the time is considered to be in the local timezone.
  * @param {string=} format Formatting rules (see Description). If not specified,
  *    `mediumDate` is used.
- * @param {string=} timezone Timezone to be used for formatting. Right now, only `'UTC'` is supported.
+ * @param {string=} timezone Timezone to be used for formatting. It understands UTC/GMT and the
+ *    continental US time zone abbreviations, but for general use, use a time zone offset, for
+ *    example, `'+0430'` (4 hours, 30 minutes east of the Greenwich meridian)
  *    If not specified, the timezone of the browser will be used.
  * @returns {string} Formatted string or the input if input is not recognized as date/millis.
  *
@@ -18219,6 +18232,8 @@ var uppercaseFilter = valueFn(uppercase);
  *     If the number is negative, `limit` number  of items from the end of the source array/string
  *     are copied. The `limit` will be trimmed if it exceeds `array.length`. If `limit` is undefined,
  *     the input will be returned unchanged.
+ * @param {(string|number)=} begin Index at which to begin limitation. As a negative index, `begin`
+ *     indicates an offset from the end of `input`. Defaults to `0`.
  * @returns {Array|string} A new sub-array or substring of length `limit` or less if input array
  *     had less than `limit` elements.
  *
@@ -18290,7 +18305,7 @@ var uppercaseFilter = valueFn(uppercase);
    </example>
 */
 function limitToFilter() {
-  return function(input, limit) {
+  return function(input, limit, begin) {
     if (Math.abs(Number(limit)) === Infinity) {
       limit = Number(limit);
     } else {
@@ -18301,7 +18316,18 @@ function limitToFilter() {
     if (isNumber(input)) input = input.toString();
     if (!isArray(input) && !isString(input)) return input;
 
-    return limit >= 0 ? input.slice(0, limit) : input.slice(limit);
+    begin = (!begin || isNaN(begin)) ? 0 : toInt(begin);
+    begin = (begin < 0 && begin >= -input.length) ? input.length + begin : begin;
+
+    if (limit >= 0) {
+      return input.slice(begin, begin + limit);
+    } else {
+      if (begin === 0) {
+        return input.slice(limit, input.length);
+      } else {
+        return input.slice(Math.max(0, begin + limit), begin);
+      }
+    }
   };
 }
 
@@ -18713,20 +18739,23 @@ var htmlAnchorDirective = valueFn({
  *
  * @description
  *
- * We shouldn't do this, because it will make the button enabled on Chrome/Firefox but not on IE8 and older IEs:
+ * This directive sets the `disabled` attribute on the element if the
+ * {@link guide/expression expression} inside `ngDisabled` evaluates to truthy.
+ *
+ * A special directive is necessary because we cannot use interpolation inside the `disabled`
+ * attribute.  The following example would make the button enabled on Chrome/Firefox
+ * but not on older IEs:
+ *
  * ```html
- * <div ng-init="scope = { isDisabled: false }">
- *  <button disabled="{{scope.isDisabled}}">Disabled</button>
+ * <div ng-init="isDisabled = false">
+ *  <button disabled="{{isDisabled}}">Disabled</button>
  * </div>
  * ```
  *
- * The HTML specification does not require browsers to preserve the values of boolean attributes
- * such as disabled. (Their presence means true and their absence means false.)
+ * This is because the HTML specification does not require browsers to preserve the values of
+ * boolean attributes such as `disabled` (Their presence means true and their absence means false.)
  * If we put an Angular interpolation expression into such an attribute then the
  * binding information would be lost when the browser removes the attribute.
- * The `ngDisabled` directive solves this problem for the `disabled` attribute.
- * This complementary directive is not removed by the browser and so provides
- * a permanent reliable place to store the binding information.
  *
  * @example
     <example>
@@ -18745,7 +18774,7 @@ var htmlAnchorDirective = valueFn({
  *
  * @element INPUT
  * @param {expression} ngDisabled If the {@link guide/expression expression} is truthy,
- *     then special attribute "disabled" will be set on the element
+ *     then the `disabled` attribute will be set on the element
  */
 
 
@@ -24798,14 +24827,19 @@ var ngOptionsMinErr = minErr('ngOptions');
  *     * `label` **`for`** `value` **`in`** `array`
  *     * `select` **`as`** `label` **`for`** `value` **`in`** `array`
  *     * `label` **`group by`** `group` **`for`** `value` **`in`** `array`
+ *     * `label` **`disable when`** `disable` **`for`** `value` **`in`** `array`
  *     * `label` **`group by`** `group` **`for`** `value` **`in`** `array` **`track by`** `trackexpr`
+ *     * `label` **`disable when`** `disable` **`for`** `value` **`in`** `array` **`track by`** `trackexpr`
  *     * `label` **`for`** `value` **`in`** `array` | orderBy:`orderexpr` **`track by`** `trackexpr`
  *        (for including a filter with `track by`)
  *   * for object data sources:
  *     * `label` **`for (`**`key` **`,`** `value`**`) in`** `object`
  *     * `select` **`as`** `label` **`for (`**`key` **`,`** `value`**`) in`** `object`
  *     * `label` **`group by`** `group` **`for (`**`key`**`,`** `value`**`) in`** `object`
+ *     * `label` **`disable when`** `disable` **`for (`**`key`**`,`** `value`**`) in`** `object`
  *     * `select` **`as`** `label` **`group by`** `group`
+ *         **`for` `(`**`key`**`,`** `value`**`) in`** `object`
+ *     * `select` **`as`** `label` **`disable when`** `disable`
  *         **`for` `(`**`key`**`,`** `value`**`) in`** `object`
  *
  * Where:
@@ -24820,6 +24854,8 @@ var ngOptionsMinErr = minErr('ngOptions');
  *      element. If not specified, `select` expression will default to `value`.
  *   * `group`: The result of this expression will be used to group options using the `<optgroup>`
  *      DOM element.
+ *   * `disable`: The result of this expression will be used to disable the rendered `<option>`
+ *      element. Return `true` to disable.
  *   * `trackexpr`: Used when working with an array of objects. The result of this expression will be
  *      used to identify the objects in the array. The `trackexpr` will most likely refer to the
  *     `value` variable (e.g. `value.propertyName`). With this the selection is preserved
@@ -24833,10 +24869,10 @@ var ngOptionsMinErr = minErr('ngOptions');
           .controller('ExampleController', ['$scope', function($scope) {
             $scope.colors = [
               {name:'black', shade:'dark'},
-              {name:'white', shade:'light'},
+              {name:'white', shade:'light', notAnOption: true},
               {name:'red', shade:'dark'},
-              {name:'blue', shade:'dark'},
-              {name:'yellow', shade:'light'}
+              {name:'blue', shade:'dark', notAnOption: true},
+              {name:'yellow', shade:'light', notAnOption: false}
             ];
             $scope.myColor = $scope.colors[2]; // red
           }]);
@@ -24845,6 +24881,7 @@ var ngOptionsMinErr = minErr('ngOptions');
           <ul>
             <li ng-repeat="color in colors">
               Name: <input ng-model="color.name">
+              <input type="checkbox" ng-model="color.notAnOption"> Disabled?
               [<a href ng-click="colors.splice($index, 1)">X</a>]
             </li>
             <li>
@@ -24865,6 +24902,12 @@ var ngOptionsMinErr = minErr('ngOptions');
           Color grouped by shade:
           <select ng-model="myColor" ng-options="color.name group by color.shade for color in colors">
           </select><br/>
+
+          Color grouped by shade, with some disabled:
+          <select ng-model="myColor"
+                  ng-options="color.name group by color.shade disable when color.notAnOption for color in colors">
+          </select><br/>
+
 
 
           Select <a href ng-click="myColor = { name:'not in list', shade: 'other' }">bogus</a>.<br>
@@ -24890,16 +24933,17 @@ var ngOptionsMinErr = minErr('ngOptions');
  */
 
 // jshint maxlen: false
-                         //000011111111110000000000022222222220000000000000000000003333333333000000000000004444444444444440000000005555555555555550000000666666666666666000000000000000777777777700000000000000000008888888888
-var NG_OPTIONS_REGEXP = /^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+group\s+by\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+([\s\S]+?)(?:\s+track\s+by\s+([\s\S]+?))?$/;
+//                     //00001111111111000000000002222222222000000000000000000000333333333300000000000000000000000004444444444400000000000005555555555555550000000006666666666666660000000777777777777777000000000000000888888888800000000000000000009999999999
+var NG_OPTIONS_REGEXP = /^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+group\s+by\s+([\s\S]+?))?(?:\s+disable\s+when\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+([\s\S]+?)(?:\s+track\s+by\s+([\s\S]+?))?$/;
                         // 1: value expression (valueFn)
                         // 2: label expression (displayFn)
                         // 3: group by expression (groupByFn)
-                        // 4: array item variable name
-                        // 5: object item key variable name
-                        // 6: object item value variable name
-                        // 7: collection expression
-                        // 8: track by expression
+                        // 4: disable when expression (disableWhenFn)
+                        // 5: array item variable name
+                        // 6: object item key variable name
+                        // 7: object item value variable name
+                        // 8: collection expression
+                        // 9: track by expression
 // jshint maxlen: 100
 
 
@@ -24919,14 +24963,14 @@ var ngOptionsDirective = ['$compile', '$parse', function($compile, $parse) {
     // Extract the parts from the ngOptions expression
 
     // The variable name for the value of the item in the collection
-    var valueName = match[4] || match[6];
+    var valueName = match[5] || match[7];
     // The variable name for the key of the item in the collection
-    var keyName = match[5];
+    var keyName = match[6];
 
     // An expression that generates the viewValue for an option if there is a label expression
     var selectAs = / as /.test(match[0]) && match[1];
     // An expression that is used to track the id of each object in the options collection
-    var trackBy = match[8];
+    var trackBy = match[9];
     // An expression that generates the viewValue for an option if there is no label expression
     var valueFn = $parse(match[2] ? match[1] : valueName);
     var selectAsFn = selectAs && $parse(selectAs);
@@ -24941,7 +24985,8 @@ var ngOptionsDirective = ['$compile', '$parse', function($compile, $parse) {
                               function getHashOfValue(viewValue) { return hashKey(viewValue); };
     var displayFn = $parse(match[2] || match[1]);
     var groupByFn = $parse(match[3] || '');
-    var valuesFn = $parse(match[7]);
+    var disableWhenFn = $parse(match[4] || '');
+    var valuesFn = $parse(match[8]);
 
     var locals = {};
     var getLocals = keyName ? function(value, key) {
@@ -24954,11 +24999,12 @@ var ngOptionsDirective = ['$compile', '$parse', function($compile, $parse) {
     };
 
 
-    function Option(selectValue, viewValue, label, group) {
+    function Option(selectValue, viewValue, label, group, disabled) {
       this.selectValue = selectValue;
       this.viewValue = viewValue;
       this.label = label;
       this.group = group;
+      this.disabled = disabled;
     }
 
     return {
@@ -24978,6 +25024,12 @@ var ngOptionsDirective = ['$compile', '$parse', function($compile, $parse) {
           if (match[2]) {
             var label = displayFn(scope, locals);
             watchedArray.push(label);
+          }
+
+          // Only need to watch the disableWhenFn if there is a specific disable expression
+          if (match[4]) {
+            var disableWhen = disableWhenFn(scope, locals);
+            watchedArray.push(disableWhen);
           }
         });
         return watchedArray;
@@ -25004,7 +25056,8 @@ var ngOptionsDirective = ['$compile', '$parse', function($compile, $parse) {
           var selectValue = getTrackByValue(viewValue, locals);
           var label = displayFn(scope, locals);
           var group = groupByFn(scope, locals);
-          var optionItem = new Option(selectValue, viewValue, label, group);
+          var disabled = disableWhenFn(scope, locals);
+          var optionItem = new Option(selectValue, viewValue, label, group, disabled);
 
           optionItems.push(optionItem);
           selectValueMap[selectValue] = optionItem;
@@ -25081,7 +25134,7 @@ var ngOptionsDirective = ['$compile', '$parse', function($compile, $parse) {
       selectCtrl.writeValue = function writeNgOptionsValue(value) {
         var option = options.getOptionFromViewValue(value);
 
-        if (option) {
+        if (option && !option.disabled) {
           if (selectElement[0].value !== option.selectValue) {
             removeUnknownOption();
             removeEmptyOption();
@@ -25105,7 +25158,7 @@ var ngOptionsDirective = ['$compile', '$parse', function($compile, $parse) {
 
         var selectedOption = options.selectValueMap[selectElement.val()];
 
-        if (selectedOption) {
+        if (selectedOption && !selectedOption.disabled) {
           removeEmptyOption();
           removeUnknownOption();
           return selectedOption.viewValue;
@@ -25130,18 +25183,22 @@ var ngOptionsDirective = ['$compile', '$parse', function($compile, $parse) {
           if (value) {
             value.forEach(function(item) {
               var option = options.getOptionFromViewValue(item);
-              if (option) option.element.selected = true;
+              if (option && !option.disabled) option.element.selected = true;
             });
           }
         };
 
 
         selectCtrl.readValue = function readNgOptionsMultiple() {
-          var selectedValues = selectElement.val() || [];
-          return selectedValues.map(function(selectedKey) {
-            var option = options.selectValueMap[selectedKey];
-            return option.viewValue;
+          var selectedValues = selectElement.val() || [],
+              selections = [];
+
+          forEach(selectedValues, function(value) {
+            var option = options.selectValueMap[value];
+            if (!option.disabled) selections.push(option.viewValue);
           });
+
+          return selections;
         };
       }
 
@@ -25174,6 +25231,7 @@ var ngOptionsDirective = ['$compile', '$parse', function($compile, $parse) {
 
       function updateOptionElement(option, element) {
         option.element = element;
+        element.disabled = option.disabled;
         if (option.value !== element.value) element.value = option.selectValue;
         if (option.label !== element.label) {
           element.label = option.label;
@@ -25607,6 +25665,55 @@ var ngPluralizeDirective = ['$locale', '$interpolate', '$log', function($locale,
  * or implement a `$watch` on the object yourself.
  *
  *
+ * # Tracking and Duplicates
+ *
+ * When the contents of the collection change, `ngRepeat` makes the corresponding changes to the DOM:
+ *
+ * * When an item is added, a new instance of the template is added to the DOM.
+ * * When an item is removed, its template instance is removed from the DOM.
+ * * When items are reordered, their respective templates are reordered in the DOM.
+ *
+ * By default, `ngRepeat` does not allow duplicate items in arrays. This is because when
+ * there are duplicates, it is not possible to maintain a one-to-one mapping between collection
+ * items and DOM elements.
+ *
+ * If you do need to repeat duplicate items, you can substitute the default tracking behavior
+ * with your own using the `track by` expression.
+ *
+ * For example, you may track items by the index of each item in the collection, using the
+ * special scope property `$index`:
+ * ```html
+ *    <div ng-repeat="n in [42, 42, 43, 43] track by $index">
+ *      {{n}}
+ *    </div>
+ * ```
+ *
+ * You may use arbitrary expressions in `track by`, including references to custom functions
+ * on the scope:
+ * ```html
+ *    <div ng-repeat="n in [42, 42, 43, 43] track by myTrackingFunction(n)">
+ *      {{n}}
+ *    </div>
+ * ```
+ *
+ * If you are working with objects that have an identifier property, you can track
+ * by the identifier instead of the whole object. Should you reload your data later, `ngRepeat`
+ * will not have to rebuild the DOM elements for items it has already rendered, even if the
+ * JavaScript objects in the collection have been substituted for new ones:
+ * ```html
+ *    <div ng-repeat="model in collection track by model.id">
+ *      {{model.name}}
+ *    </div>
+ * ```
+ *
+ * When no `track by` expression is provided, it is equivalent to tracking by the built-in
+ * `$id` function, which tracks items by their identity:
+ * ```html
+ *    <div ng-repeat="obj in collection track by $id(obj)">
+ *      {{obj.prop}}
+ *    </div>
+ * ```
+ *
  * # Special repeat start and end points
  * To repeat a series of elements instead of just one parent element, ngRepeat (as well as other ng directives) supports extending
  * the range of the repeater by defining explicit start and end points by using **ng-repeat-start** and **ng-repeat-end** respectively.
@@ -25674,12 +25781,12 @@ var ngPluralizeDirective = ['$locale', '$interpolate', '$log', function($locale,
  *
  *     For example: `(name, age) in {'adam':10, 'amalie':12}`.
  *
- *   * `variable in expression track by tracking_expression` – You can also provide an optional tracking function
- *     which can be used to associate the objects in the collection with the DOM elements. If no tracking function
- *     is specified the ng-repeat associates elements by identity in the collection. It is an error to have
- *     more than one tracking function to resolve to the same key. (This would mean that two distinct objects are
- *     mapped to the same DOM element, which is not possible.)  Filters should be applied to the expression,
- *     before specifying a tracking expression.
+ *   * `variable in expression track by tracking_expression` – You can also provide an optional tracking expression
+ *     which can be used to associate the objects in the collection with the DOM elements. If no tracking expression
+ *     is specified, ng-repeat associates elements by identity. It is an error to have
+ *     more than one tracking expression value resolve to the same key. (This would mean that two distinct objects are
+ *     mapped to the same DOM element, which is not possible.)  If filters are used in the expression, they should be
+ *     applied before the tracking expression.
  *
  *     For example: `item in items` is equivalent to `item in items track by $id(item)`. This implies that the DOM elements
  *     will be associated by item identity in the array.
@@ -25702,6 +25809,11 @@ var ngPluralizeDirective = ['$locale', '$interpolate', '$log', function($locale,
  *
  *     For example: `item in items | filter:x as results` will store the fragment of the repeated items as `results`, but only after
  *     the items have been processed through the filter.
+ *
+ *     Please note that `as [variable name] is not an operator but rather a part of ngRepeat micro-syntax so it can be used only at the end
+ *     (and not as operator, inside an expression).
+ *
+ *     For example: `item in items | filter : x | orderBy : order | limitTo : limit as results` .
  *
  * @example
  * This example initializes the scope to a list of names and
@@ -26542,7 +26654,6 @@ var ngStyleDirective = ngDirective(function(scope, element, attr) {
  */
 var ngSwitchDirective = ['$animate', function($animate) {
   return {
-    restrict: 'EA',
     require: 'ngSwitch',
 
     // asks for $scope to fool the BC controller module
@@ -26810,6 +26921,7 @@ var SelectController =
       if (value === '') self.emptyOption.prop('selected', true); // to make IE9 happy
     } else {
       if (isUndefined(value) && self.emptyOption) {
+        self.removeUnknownOption();
         $element.val('');
       } else {
         self.renderUnknownOption(value);
