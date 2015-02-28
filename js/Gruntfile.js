@@ -92,11 +92,12 @@ module.exports = function (grunt) {
                 dest: '<%= meta.production %>app.js',
                 options: {
                     wrapper: [
-                        '(function(window, document, angular, $, OC, ' +
-                        'csrfToken, url, undefined){\n\n\'use strict\';\n\n',
+                        '(function(navigator, window, document, angular, $, ' +
+                        'OC, csrfToken, url, undefined){' +
+                        '\n\n\'use strict\';\n\n',
 
-                        '\n})(window, document, angular, jQuery, OC, ' +
-                        'oc_requesttoken, url);'
+                        '\n})(navigator, window, document, angular, jQuery, ' +
+                        ' OC, oc_requesttoken, url);'
                     ]
                 }
             }

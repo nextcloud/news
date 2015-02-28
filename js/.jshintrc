@@ -46,6 +46,7 @@
         "enumerate": true,
         "News": true,
         "t": true,
-        "url": true
+        "url": true,
+        "navigator": true
     }
 }
