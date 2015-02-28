@@ -2,6 +2,7 @@
 use OCA\News\Plugin\Client\Plugin;
 
 script('news', [
+    'vendor/js-url/url.min',
     'vendor/es6-shim/es6-shim.min',
     'vendor/angular/angular.min',
     'vendor/angular-animate/angular-animate.min',

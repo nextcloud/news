@@ -1,0 +1,15 @@
+{
+  "name": "js-url",
+  "homepage": "https://github.com/websanova/js-url",
+  "version": "1.8.6",
+  "_release": "1.8.6",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.8.6",
+    "commit": "ccc5961533b9d0e145dfe352c9c1707dfd2180e1"
+  },
+  "_source": "git://github.com/websanova/js-url.git",
+  "_target": "~1.8.6",
+  "_originalSource": "js-url",
+  "_direct": true
+}

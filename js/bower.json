@@ -30,6 +30,7 @@
     "angular-animate": "~1.4.*",
     "jquery": "~2.*",
     "momentjs": "~2.9.*",
-    "es6-shim": "~0.*"
+    "es6-shim": "~0.*",
+    "js-url": "~1.8.*"
   }
 }

@@ -19,7 +19,8 @@
                     placeholder="<?php p($l->t('Web address')); ?>"
                     name="address"
                     pattern="[^\s]+"
-                    required>
+                    required
+                    autofocus>
 
                 <p class="error"
                     ng-show="!Navigation.addingFeed &&

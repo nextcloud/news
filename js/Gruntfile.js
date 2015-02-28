@@ -93,10 +93,10 @@ module.exports = function (grunt) {
                 options: {
                     wrapper: [
                         '(function(window, document, angular, $, OC, ' +
-                            'csrfToken, undefined){\n\n\'use strict\';\n\n',
+                        'csrfToken, url, undefined){\n\n\'use strict\';\n\n',
 
                         '\n})(window, document, angular, jQuery, OC, ' +
-                            'oc_requesttoken);'
+                        'oc_requesttoken, url);'
                     ]
                 }
             }

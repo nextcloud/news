@@ -21,6 +21,7 @@ module.exports = function (config) {
 
         // list of files / patterns to load in the browser
         files: [
+            'vendor/js-url/url.min.js',
             'vendor/es6-shim/es6-shim.min.js',
             'vendor/jquery/dist/jquery.js',
             'vendor/momentjs/min/moment-with-locales.js',

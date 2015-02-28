@@ -1,4 +1,4 @@
-(function(window, document, angular, $, OC, csrfToken, undefined){
+(function(window, document, angular, $, OC, csrfToken, url, undefined){
 
 'use strict';
 
@@ -1965,6 +1965,33 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
 
 }]);
 /**
+ * This prefills the add feed section if an external link has ?subsribe_to
+ * filled out
+ */
+(function (document, url, $, undefined) {
+    'use strict';
+
+    $(document).ready(function () {
+        var subscription = url('?subscribe_to');
+
+        if (subscription) {
+            $('#new-feed').show();
+
+            var input = $('input[ng-model="Navigation.feed.url"]');
+            input.val(subscription);
+
+            // hacky way to focus because initial loading of a feed
+            // steals the focus
+            setTimeout(function() {
+                input.focus();
+            }, 1000);
+        }
+    });
+
+})(document, url, $);
+
+
+/**
  * Code in here acts only as a click shortcut mechanism. That's why its not
  * being put into a directive since it has to be tested with protractor
  * anyways and theres no benefit from wiring it into the angular app
@@ -2854,4 +2881,4 @@ app.directive('newsTriggerClick', function () {
 
 });
 
-})(window, document, angular, jQuery, OC, oc_requesttoken);
+})(window, document, angular, jQuery, OC, oc_requesttoken, url);
