@@ -1989,13 +1989,10 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
         };
 
         if (navigator.registerContentHandler && !isRegistered(mime, url)) {
-            console.log('registering');
             navigator.registerContentHandler(mime, subscribeUrl, title);
             if (!registered) {
                 storage.setItem('registeredHandler', url);
             }
-        } else {
-            console.log(mime, url, title);
         }
     };
 
