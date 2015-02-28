@@ -38,6 +38,8 @@
             if (!registered) {
                 storage.setItem('registeredHandler', url);
             }
+        } else {
+            console.log(mime, url, title);
         }
     };
 

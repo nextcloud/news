@@ -1994,6 +1994,8 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
             if (!registered) {
                 storage.setItem('registeredHandler', url);
             }
+        } else {
+            console.log(mime, url, title);
         }
     };
 
