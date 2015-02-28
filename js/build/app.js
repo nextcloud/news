@@ -1978,9 +1978,10 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
     // if isContentHandlerRegistered is not implemented (Firefox I'm looking
     // at you) we use localstorage to prevent registering the feed reader twice
     var registerHandler = function (mime, url, title) {
+        var registered = navigator.isContentHandlerRegistered;
+
         var isRegistered = function (mime, url) {
-            if (navigator.isContentHandlerRegistered) {
-                var registered = navigator.isContentHandlerRegistered;
+            if (registered) {
                 return registered(mime, url) !== 'new';
             } else {
                 return storage.getItem('registeredHandler') !== url;
@@ -1988,8 +1989,9 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
         };
 
         if (navigator.registerContentHandler && !isRegistered(mime, url)) {
+            console.log('registering');
             navigator.registerContentHandler(mime, subscribeUrl, title);
-            if (!navigator.isContentHandlerRegistered) {
+            if (!registered) {
                 storage.setItem('registeredHandler', url);
             }
         }
