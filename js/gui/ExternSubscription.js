@@ -21,17 +21,18 @@
 
     // if isContentHandlerRegistered is not implemented (Firefox I'm looking
     // at you) we use localstorage to prevent registering the feed reader twice
-    var isRegistered = function (mime, url) {
-        if (navigator.isContentHandlerRegistered) {
-            return navigator.isContentHandlerRegistered(mime, url) === 'new';
-        } else {
-            return storage.getItem('registeredHandler') !== url;
-        }
-    };
-
     var registerHandler = function (mime, url, title) {
+        var isRegistered = function (mime, url) {
+            if (navigator.isContentHandlerRegistered) {
+                var registered = navigator.isContentHandlerRegistered;
+                return registered(mime, url) !== 'new';
+            } else {
+                return storage.getItem('registeredHandler') !== url;
+            }
+        };
+
         if (navigator.registerContentHandler && !isRegistered(mime, url)) {
-            navigator.registerContentHandler(mimeType, subscribeUrl, title);
+            navigator.registerContentHandler(mime, subscribeUrl, title);
             if (!navigator.isContentHandlerRegistered) {
                 storage.setItem('registeredHandler', url);
             }
@@ -49,8 +50,6 @@
 
     $(document).ready(function () {
         var subscription = window.decodeURIComponent(url('?subscribe_to'));
-
-        console.log(subscription);
 
         if (subscription && subscription !== 'null') {
             $('#new-feed').show();
