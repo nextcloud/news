@@ -1,5 +1,6 @@
 owncloud-news (5.2.7)
 * **Enhancement**: If the app is called with the subscribe\_to url parameter (e.g. **?subscribe_to=http://path.to/feed**) the feed input is prefilled with the address
+* **Enhancement**: Register the app as feed reader in Firefox
 
 owncloud-news (5.2.6)
 * **Bugfix**: Update picoFeed to strip out contents of script and style tags which were previously converted into plain text, #723
