@@ -55,7 +55,6 @@ appstore: clean
 	--exclude=$(project_dir)/Makefile \
 	--exclude=$(project_dir)/tests \
 	--exclude=$(project_dir)/vendor/ezyang/htmlpurifier/.gitattributes \
-	--exclude=$(project_dir)/vendor/ezyang/htmlpurifier/composer.json \
 	--exclude=$(project_dir)/vendor/ezyang/htmlpurifier/Doxyfile \
 	--exclude=$(project_dir)/vendor/ezyang/htmlpurifier/FOCUS \
 	--exclude=$(project_dir)/vendor/ezyang/htmlpurifier/INSTALL* \
