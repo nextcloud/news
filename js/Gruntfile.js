@@ -239,6 +239,7 @@ module.exports = function (grunt) {
                     '!../css/**',
                     '../css/*.min.css',
                     '!../**/*.md',
+                    '!../**/*.rst',
                     '!../appinfo/checksum.json',
                     '!../build/**',
                     '!../**/phpunit*',
