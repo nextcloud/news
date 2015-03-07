@@ -2,3 +2,5 @@
 
 cd js
 grunt cachebuster
+cd ..
+git add appinfo/checksum.json
