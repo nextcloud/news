@@ -172,12 +172,12 @@ class Rss20ParserTest extends PHPUnit_Framework_TestCase
         $parser = new Rss20(file_get_contents('tests/fixtures/rss20.xml'));
         $feed = $parser->execute();
         $this->assertNotEmpty($feed->items);
-        $this->assertEquals(1357006940, $feed->items[1]->getDate()->getTimestamp());
+        $this->assertEquals('2013-01-01', $feed->items[1]->getDate()->format('Y-m-d'));
 
         $parser = new Rss20(file_get_contents('tests/fixtures/fulltextrss.xml'));
         $feed = $parser->execute();
         $this->assertNotEmpty($feed->items);
-        $this->assertEquals(1365781095, $feed->items[0]->getDate()->getTimestamp());
+        $this->assertEquals('2013-04-12', $feed->items[0]->getDate()->format('Y-m-d'));
     }
 
     public function testItemLanguage()
@@ -203,6 +203,14 @@ class Rss20ParserTest extends PHPUnit_Framework_TestCase
 
     public function testItemContent()
     {
+        $parser = new Rss20(file_get_contents('tests/fixtures/allgemeine-zeitung.xml'));
+        $feed = $parser->execute();
+        $this->assertNotEmpty($feed->items);
+        $this->assertEquals(
+            '<p>OBER-FLÖRSHEIM - (red). Sein erheblich beschädigtes Fahrzeug hat ein Fahrer in der Nacht von Donnerstag auf Freitag mitten auf der Ober-Flörsheimer Hauptstraße stehen lassen. Beim Verlassen des Autos in Richtung ...</p>',
+            $feed->items[2]->getContent()
+        );
+
         $parser = new Rss20(file_get_contents('tests/fixtures/rss20.xml'));
         $feed = $parser->execute();
         $this->assertNotEmpty($feed->items);

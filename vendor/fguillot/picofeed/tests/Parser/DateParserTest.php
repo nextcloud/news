@@ -12,6 +12,7 @@ class DateParserTest extends PHPUnit_Framework_TestCase
 
         date_default_timezone_set('UTC');
 
+        $this->assertEquals('2013-04-12', $parser->getDateTime('Fri, 12 Apr 2013 15:38:15 +0000')->format('Y-m-d'));
         $this->assertEquals(1359066183, $parser->getDateTime('Thu, 24 Jan 2013 22:23:03 +0000')->getTimestamp(), '', 1);
         $this->assertEquals(1362992761, $parser->getDateTime('2013-03-11T09:06:01+00:00')->getTimestamp(), '', 1);
         $this->assertEquals(1363752990, $parser->getDateTime('2013-03-20T04:16:30+00:00')->getTimestamp(), '', 1);

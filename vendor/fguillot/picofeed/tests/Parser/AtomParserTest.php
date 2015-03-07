@@ -124,6 +124,10 @@ class AtomParserTest extends PHPUnit_Framework_TestCase
         $parser = new Atom(file_get_contents('tests/fixtures/atomsample.xml'));
         $feed = $parser->execute();
         $this->assertEquals(1071340202, $feed->getDate()->getTimestamp(), '', 1);
+
+        $parser = new Atom(file_get_contents('tests/fixtures/duesseldorf_lokalzeit.rdf'));
+        $feed = $parser->execute();
+        $this->assertEquals('2015-01-05', $feed->getDate()->format('Y-m-d'));
     }
 
     public function testFeedLanguage()
@@ -193,6 +197,11 @@ class AtomParserTest extends PHPUnit_Framework_TestCase
 
     public function testItemDate()
     {
+        $parser = new Atom(file_get_contents('tests/fixtures/duesseldorf_lokalzeit.rdf'));
+        $feed = $parser->execute();
+        $this->assertNotEmpty($feed->items);
+        $this->assertEquals('2015-01-05', $feed->items[4]->getDate()->format('Y-m-d'));
+
         $parser = new Atom(file_get_contents('tests/fixtures/atom.xml'));
         $feed = $parser->execute();
         $this->assertNotEmpty($feed->items);

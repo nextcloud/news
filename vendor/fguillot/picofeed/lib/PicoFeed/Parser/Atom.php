@@ -138,16 +138,20 @@ class Atom extends Parser
      * Find the item date
      *
      * @access public
-     * @param  SimpleXMLElement   $entry   Feed item
-     * @param  Item               $item    Item object
+     * @param  SimpleXMLElement          $entry   Feed item
+     * @param  Item                      $item    Item object
+     * @param  \PicoFeed\Parser\Feed     $feed    Feed object
      */
-    public function findItemDate(SimpleXMLElement $entry, Item $item)
+    public function findItemDate(SimpleXMLElement $entry, Item $item, Feed $feed)
     {
         $published = isset($entry->published) ? $this->date->getDateTime((string) $entry->published) : null;
         $updated = isset($entry->updated) ? $this->date->getDateTime((string) $entry->updated) : null;
 
-        if ($published !== null && $updated !== null) {
-            $item->date = max($published, $updated);
+        if ($published === null && $updated === null) {
+            $item->date = $feed->getDate();          // We use the feed date if there is no date for the item
+        }
+        else if ($published !== null && $updated !== null) {
+            $item->date = max($published, $updated); // We use the most recent date between published and updated
         }
         else {
             $item->date = $updated ?: $published;

@@ -142,9 +142,10 @@ class Rss20 extends Parser
      *
      * @access public
      * @param  SimpleXMLElement          $entry   Feed item
-     * @param  \PicoFeed\Parser\Item     $item    Item object
+     * @param  Item                      $item    Item object
+     * @param  \PicoFeed\Parser\Feed     $feed    Feed object
      */
-    public function findItemDate(SimpleXMLElement $entry, Item $item)
+    public function findItemDate(SimpleXMLElement $entry, Item $item, Feed $feed)
     {
         $date = XmlParser::getNamespaceValue($entry, $this->namespaces, 'date');
 
@@ -156,7 +157,7 @@ class Rss20 extends Parser
             $date = (string) $entry->pubDate;
         }
 
-        $item->date = $this->date->getDateTime($date);
+        $item->date = empty($date) ? $feed->getDate() : $this->date->getDateTime($date);
     }
 
     /**
@@ -208,7 +209,7 @@ class Rss20 extends Parser
     {
         $content = XmlParser::getNamespaceValue($entry, $this->namespaces, 'encoded');
 
-        if (empty($content) && $entry->description->count() > 0) {
+        if (trim($content) === '' && $entry->description->count() > 0) {
             $content = (string) $entry->description;
         }
 
