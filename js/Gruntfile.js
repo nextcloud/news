@@ -24,6 +24,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-ng-annotate');
     grunt.loadNpmTasks('grunt-protractor-runner');
     grunt.loadNpmTasks('grunt-protractor-webdriver');
+    grunt.loadNpmTasks('grunt-cachebuster');
 
     grunt.initConfig({
         meta: {
@@ -218,6 +219,44 @@ module.exports = function (grunt) {
                     open: true,
                     base: '../../../'
                 }
+            }
+        },
+        cachebuster: {
+            build: {
+                options: {
+                    format: 'json',
+                    basedir: '..'
+                },
+                src: [
+                    '../**',
+                    '!../js/**',
+                    '!../tests/**',
+                    '!../l10n/**',
+                    '../js/build/*.min.js',
+                    '../js/vendor/**/*.min.js',
+                    '!../js/vendor/jquery/**',
+                    '!../js/vendor/js-url/lib/**',
+                    '!../css/**',
+                    '../css/*.min.css',
+                    '!../**/*.md',
+                    '!../appinfo/checksum.json',
+                    '!../build/**',
+                    '!../**/phpunit*',
+                    '!../vendor/**/tests/**',
+                    '!../vendor/**/docs/**',
+                    '!../**/*.log',
+                    '!../**/*.sw',
+                    '!../**/composer.*',
+                    '!../vendor/ezyang/htmlpurifier/configdoc/**',
+                    '!../vendor/ezyang/htmlpurifier/smoketests/**',
+                    '!../vendor/ezyang/htmlpurifier/maintenance/**',
+                    '!../vendor/ezyang/htmlpurifier/benchmarks/**',
+                    '!../**/*.pyc',
+                    '!../**/PKG_INFO',
+                    '!../**/__pycache__',
+                    '!../bin/updater/dist',
+                ],
+                dest: '../appinfo/checksum.json'
             }
         }
     });

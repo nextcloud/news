@@ -1,3 +1,6 @@
+owncloud-news (5.2.8)
+* **Enhancement**: Provide checksums for all files
+
 owncloud-news (5.2.7)
 * **Enhancement**: If the app is called with the subscribe\_to url parameter (e.g. **?subscribe_to=http://path.to/feed**) the feed input is prefilled with the address
 * **Enhancement**: Register the app as feed reader in Firefox
