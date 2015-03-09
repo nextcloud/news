@@ -109,10 +109,12 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
                     // check if a custom ordering is set
                     if (type === FEED_TYPE.FEED) {
                         var feed = FeedResource.getById(parameters.id);
-                        if (feed.ordering === 1) {
-                            parameters.oldestFirst = true;
-                        } else if (feed.ordering === 2) {
+
+                        // on intial load, the feed ordering is undefined
+                        if (feed === undefined || feed.ordering === 2) {
                             parameters.oldestFirst = false;
+                        } else if (feed.ordering === 1) {
+                            parameters.oldestFirst = true;
                         }
                     }
 

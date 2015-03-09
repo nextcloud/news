@@ -57,6 +57,7 @@
 
             var input = $('input[ng-model="Navigation.feed.url"]');
             input.val(subscription);
+            input.trigger('input');
 
             // hacky way to focus because initial loading of a feed
             // steals the focus

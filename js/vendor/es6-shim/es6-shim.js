@@ -2,8 +2,8 @@
   * https://github.com/paulmillr/es6-shim
   * @license es6-shim Copyright 2013-2015 by Paul Miller (http://paulmillr.com)
   *   and contributors,  MIT License
-  * es6-shim: v0.27.0
-  * see https://github.com/paulmillr/es6-shim/blob/0.27.0/LICENSE
+  * es6-shim: v0.27.1
+  * see https://github.com/paulmillr/es6-shim/blob/0.27.1/LICENSE
   * Details and documentation:
   * https://github.com/paulmillr/es6-shim/
   */
@@ -85,7 +85,6 @@
   var _hasOwnProperty = Function.call.bind(Object.prototype.hasOwnProperty);
   var ArrayIterator; // make our implementation private
   var noop = function () {};
-  var arraySlice = Array.prototype.slice;
 
   var Symbol = globals.Symbol || {};
   var symbolSpecies = Symbol.species || '@@species';
@@ -977,34 +976,6 @@
     Value.preserveToString(Array.prototype.values, originalArrayPrototypeValues);
   }
   defineProperties(Array.prototype, ArrayPrototypeShims);
-
-  var Empty = function Empty() {};
-  if (!(Array.prototype.slice.call(new Empty()) instanceof Empty)) {
-    defineProperty(Array.prototype, 'slice', function slice(start, end) {
-      if (this instanceof Array || isArguments(this)) {
-        return arraySlice.apply(this, arguments);
-      }
-      var O = ES.ToObject(this);
-      var len = ES.ToLength(this.length);
-      var relativeStart = ES.ToInteger(start);
-      var k = relativeStart < 0 ? Math.max(len + relativeStart, 0) : Math.min(relativeStart, len);
-      var relativeEnd = typeof end === 'undefined' ? len : ES.ToInteger(end);
-      var finalEnd = relativeEnd < 0 ? Math.max(len + relativeEnd, 0) : Math.min(relativeEnd, len);
-      var count = Math.max(finalEnd - k, 0);
-      var A = ES.Construct(O.constructor, [count]);
-      var n = 0;
-      while (k < finalEnd) {
-        if (_hasOwnProperty(O, k)) {
-          A[n] = O[k];
-        }
-        k += 1;
-        n += 1;
-      }
-      A.length = n;
-      return A;
-    }, true);
-    Value.preserveToString(Array.prototype.slice, arraySlice);
-  }
 
   addIterator(Array.prototype, function () { return this.values(); });
   // Chrome defines keys/values/entries on Array, but doesn't give us
