@@ -1,4 +1,5 @@
 owncloud-news (5.2.8)
+* **Bugfix**: Fix feed subscribe to URL
 * **Enhancement**: Provide checksums for all files
 
 owncloud-news (5.2.7)
