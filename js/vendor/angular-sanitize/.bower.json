@@ -1,17 +1,17 @@
 {
   "name": "angular-sanitize",
-  "version": "1.4.0-build.3887+sha.41fdb3d",
+  "version": "1.4.0-build.3911+sha.e57138d",
   "main": "./angular-sanitize.js",
   "ignore": [],
   "dependencies": {
-    "angular": "1.4.0-build.3887+sha.41fdb3d"
+    "angular": "1.4.0-build.3911+sha.e57138d"
   },
   "homepage": "https://github.com/angular/bower-angular-sanitize",
-  "_release": "1.4.0-build.3887+sha.41fdb3d",
+  "_release": "1.4.0-build.3911+sha.e57138d",
   "_resolution": {
     "type": "version",
-    "tag": "v1.4.0-build.3887+sha.41fdb3d",
-    "commit": "04da02845b41f357b0757261ee9ec1d98f77814b"
+    "tag": "v1.4.0-build.3911+sha.e57138d",
+    "commit": "3845428a031eb28f942344c7c9ea1b051d774d8d"
   },
   "_source": "git://github.com/angular/bower-angular-sanitize.git",
   "_target": "~1.4.*",
