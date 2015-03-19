@@ -15,6 +15,7 @@ OC.L10N.register(
     "Can not add feed: Exists already" : "Не могу да додам довод. Већ постоји",
     "Articles without feed" : "Чланци без довода",
     "Can not add folder: Exists already" : "Не могу да додам фасциклу. Већ постоји",
+    "Purge interval" : "Интервал чишћења",
     "Maximum redirects" : "Највише преусмеравања",
     "How many redirects the feed fetcher should follow" : "Колико ће се преусмеравања следити",
     "Maximum feed page size" : "Највећа страница довода",
