@@ -188,12 +188,12 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 
     public function testSearchIndex() {
         $item = new Item();
-        $item->setBody('<a>somEthing</a>');
+        $item->setBody('<a>somEth&auml;ng</a>');
         $item->setUrl('http://link');
-        $item->setAuthor('author');
-        $item->setTitle('<a>title</a>');
+        $item->setAuthor('&auml;uthor');
+        $item->setTitle('<a>t&auml;tle</a>');
         $item->generateSearchIndex();
-        $expected = 'somethingauthortitlehttp://link';
+        $expected = 'somethängäuthortätlehttp://link';
         $this->assertEquals($expected, $item->getSearchIndex());
     }
 
