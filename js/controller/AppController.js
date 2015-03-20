@@ -16,5 +16,4 @@ function (Loading, FeedResource, FolderResource) {
     this.isFirstRun = function () {
         return FeedResource.size() === 0 && FolderResource.size() === 0;
     };
-
 });

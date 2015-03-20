@@ -1038,4 +1038,19 @@ describe('NavigationController', function () {
     }));
 
 
+    it ('should set location on search', inject(function ($controller) {
+        var location = {
+            search: jasmine.createSpy('search')
+        };
+        var ctrl = $controller('NavigationController', {
+            $location: location
+        });
+
+        ctrl.search('');
+        expect(location.search).toHaveBeenCalledWith('search', null);
+
+        ctrl.search('ab');
+        expect(location.search).toHaveBeenCalledWith('search', 'ab');
+    }));
+
 });

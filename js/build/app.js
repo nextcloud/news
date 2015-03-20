@@ -79,12 +79,13 @@ app.config(["$routeProvider", "$provide", "$httpProvider", function ($routeProvi
     var getItemResolve = function (type) {
         return {
             // request to items also returns feeds
-            data: /* @ngInject */ ["$http", "$route", "$q", "BASE_URL", "ITEM_BATCH_SIZE", "FEED_TYPE", "SettingsResource", "FeedResource", function (
-            $http, $route, $q, BASE_URL, ITEM_BATCH_SIZE, FEED_TYPE,
+            data: /* @ngInject */ ["$http", "$route", "$q", "$location", "BASE_URL", "ITEM_BATCH_SIZE", "FEED_TYPE", "SettingsResource", "FeedResource", function (
+            $http, $route, $q, $location, BASE_URL, ITEM_BATCH_SIZE, FEED_TYPE,
             SettingsResource, FeedResource) {
 
                 var showAll = SettingsResource.get('showAll');
                 var oldestFirst = SettingsResource.get('oldestFirst');
+                var search = $location.search().search || '';
 
                 var deferred = $q.defer();
 
@@ -97,7 +98,8 @@ app.config(["$routeProvider", "$provide", "$httpProvider", function ($routeProvi
                         type: type,
                         limit: ITEM_BATCH_SIZE,
                         showAll: showAll,
-                        oldestFirst: oldestFirst
+                        oldestFirst: oldestFirst,
+                        search: search
                     };
 
                     if ($route.current.params.id !== undefined) {
@@ -331,7 +333,6 @@ app.controller('AppController',
     this.isFirstRun = function () {
         return FeedResource.size() === 0 && FolderResource.size() === 0;
     };
-
 }]);
 app.controller('ContentController',
 ["Publisher", "FeedResource", "ItemResource", "SettingsResource", "data", "$route", "$routeParams", "FEED_TYPE", "ITEM_AUTO_PAGE_SIZE", "Loading", function (Publisher, FeedResource, ItemResource, SettingsResource, data,
@@ -814,6 +815,14 @@ app.controller('NavigationController',
     this.setOrdering = function (feed, ordering) {
         FeedResource.setOrdering(feed.id, ordering);
         $route.reload();
+    };
+
+    this.search = function (value) {
+        if (value === '') {
+            $location.search('search', null);
+        } else {
+            $location.search('search', value);
+        }
     };
 
     var self = this;
@@ -2830,6 +2839,32 @@ app.directive('newsScroll', ["$timeout", "ITEM_AUTO_PAGE_SIZE", "MARK_READ_TIMEO
             // remove scroll handler if element is destroyed
             scope.$on('$destroy', function () {
                 scrollArea.off('scroll', scrollHandler);
+            });
+        }
+    };
+}]);
+app.directive('newsSearch', ["$timeout", function ($timeout) {
+    'use strict';
+
+    var timer;
+
+    return {
+        restrict: 'E',
+        scope: {
+            'onSearch': '='
+        },
+        link: function (scope) {
+            $('#searchbox').on('search keyup', function () {
+                var value = $(this).val();
+                if (timer) {
+                    $timeout.cancel(timer);
+                }
+
+                timer = $timeout(function () {
+                    scope.$apply(function () {
+                        scope.onSearch(value);
+                    });
+                }, 500);
             });
         }
     };

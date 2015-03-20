@@ -26,6 +26,7 @@ foreach (Plugin::getScripts() as $appName => $fileName) {
 <div id="app" ng-app="News" ng-cloak ng-strict-di
     ng-controller="AppController as App">
 
+
     <div id="global-loading"
         class="icon-loading"
         ng-show="App.loading.isLoading('global')"></div>
@@ -35,6 +36,7 @@ foreach (Plugin::getScripts() as $appName => $fileName) {
         ng-controller="NavigationController as Navigation"
         ng-hide="App.loading.isLoading('global')">
 
+        <news-search on-search="Navigation.search" />
         <news-title-unread-count
             unread-count="{{ Navigation.getUnreadCount() }}">
         </news-title-unread-count>

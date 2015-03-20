@@ -82,11 +82,12 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
         return {
             // request to items also returns feeds
             data: /* @ngInject */ function (
-            $http, $route, $q, BASE_URL, ITEM_BATCH_SIZE, FEED_TYPE,
+            $http, $route, $q, $location, BASE_URL, ITEM_BATCH_SIZE, FEED_TYPE,
             SettingsResource, FeedResource) {
 
                 var showAll = SettingsResource.get('showAll');
                 var oldestFirst = SettingsResource.get('oldestFirst');
+                var search = $location.search().search || '';
 
                 var deferred = $q.defer();
 
@@ -99,7 +100,8 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
                         type: type,
                         limit: ITEM_BATCH_SIZE,
                         showAll: showAll,
-                        oldestFirst: oldestFirst
+                        oldestFirst: oldestFirst,
+                        search: search
                     };
 
                     if ($route.current.params.id !== undefined) {
