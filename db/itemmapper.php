@@ -13,12 +13,12 @@
 
 namespace OCA\News\Db;
 
-use \OCP\IDb;
+use \OCP\IDBConnection;
 
 
 class ItemMapper extends NewsMapper {
 
-    public function __construct(IDb $db){
+    public function __construct(IDBConnection $db){
         parent::__construct($db, 'news_items', '\OCA\News\Db\Item');
     }
 

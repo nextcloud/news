@@ -52,7 +52,7 @@ class Application extends App {
          */
         $container->registerService('OCA\News\Db\ItemMapper', function($c) {
             return $c->query('OCA\News\Db\MapperFactory')->getItemMapper(
-                $c->query('OCP\IDb')
+                $c->query('OCP\IDBConnection')
             );
         });
 

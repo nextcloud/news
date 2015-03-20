@@ -13,7 +13,7 @@
 
 namespace OCA\News\Db;
 
-use \OCP\IDb;
+use \OCP\IDBConnection;
 use \OCA\News\Db\Mysql\ItemMapper as MysqlItemMapper;
 
 class MapperFactory {
@@ -21,7 +21,7 @@ class MapperFactory {
 	private $dbType;
 	private $db;
 
-	public function __construct($DatabaseType, IDb $db) {
+	public function __construct($DatabaseType, IDBConnection $db) {
 		$this->dbType = $DatabaseType;
 		$this->db = $db;
 	}

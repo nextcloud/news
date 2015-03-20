@@ -45,7 +45,7 @@ abstract class MapperTestUtility extends \PHPUnit_Framework_TestCase {
         parent::setUp();
 
         $this->db = $this->getMockBuilder(
-            '\OCP\IDb')
+            '\OCP\IDBConnection')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -56,6 +56,30 @@ abstract class MapperTestUtility extends \PHPUnit_Framework_TestCase {
         $this->fetchAt = 0;
     }
 
+    /**
+     * Checks if an array is associative
+     * @param array $array
+     * @return bool true if associative
+     */
+    private function isAssocArray(array $array) {
+        return array_values($array) !== $array;
+    }
+
+    /**
+     * Returns the correct PDO constant based on the value type
+     * @param $value
+     * @return PDO constant
+     */
+    private function getPDOType($value) {
+        switch (gettype($value)) {
+            case 'integer':
+                return \PDO::PARAM_INT;
+            case 'boolean':
+                return \PDO::PARAM_BOOL;
+            default:
+                return \PDO::PARAM_STR;
+        }
+    }
 
     /**
      * Create mocks and set expected results for database queries
@@ -116,32 +140,28 @@ abstract class MapperTestUtility extends \PHPUnit_Framework_TestCase {
                 }
             ));
 
-        $index = 1;
-        foreach($arguments as $argument) {
-            switch (gettype($argument)) {
-                case 'integer':
-                    $pdoConstant = \PDO::PARAM_INT;
-                    break;
-
-                case 'NULL':
-                    $pdoConstant = \PDO::PARAM_NULL;
-                    break;
-
-                case 'boolean':
-                    $pdoConstant = \PDO::PARAM_BOOL;
-                    break;
-
-                default:
-                    $pdoConstant = \PDO::PARAM_STR;
-                    break;
+        if ($this->isAssocArray($arguments)) {
+            foreach($arguments as $key => $argument) {
+                $pdoConstant = $this->getPDOType($argument);
+                $this->query->expects($this->at($this->queryAt))
+                    ->method('bindValue')
+                    ->with($this->equalTo($key),
+                        $this->equalTo($argument),
+                        $this->equalTo($pdoConstant));
+                $this->queryAt++;
             }
-            $this->query->expects($this->at($this->queryAt))
-                ->method('bindValue')
-                ->with($this->equalTo($index),
-                    $this->equalTo($argument),
-                    $this->equalTo($pdoConstant));
-            $index++;
-            $this->queryAt++;
+        } else {
+            $index = 1;
+            foreach($arguments as $argument) {
+                $pdoConstant = $this->getPDOType($argument);
+                $this->query->expects($this->at($this->queryAt))
+                    ->method('bindValue')
+                    ->with($this->equalTo($index),
+                        $this->equalTo($argument),
+                        $this->equalTo($pdoConstant));
+                $index++;
+                $this->queryAt++;
+            }
         }
 
         $this->query->expects($this->at($this->queryAt))
@@ -186,4 +206,3 @@ class ArgumentIterator {
         }
     }
 }
-

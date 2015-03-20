@@ -172,6 +172,8 @@ class FeedFetcher implements IFeedFetcher {
             }
         }
 
+        $item->generateSearchIndex();
+
         return $item;
     }
 

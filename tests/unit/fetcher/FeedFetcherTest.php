@@ -217,6 +217,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $item->setGuidHash($this->guid);
         $item->setBody($this->body);
         $item->setLastModified($this->time);
+        $item->generateSearchIndex();
 
         $this->expectItem('getAuthor', $this->author);
         $item->setAuthor(html_entity_decode($this->author));

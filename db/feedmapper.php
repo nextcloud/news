@@ -13,14 +13,14 @@
 
 namespace OCA\News\Db;
 
-use \OCP\IDb;
-use \OCP\AppFramework\Db\Entity;
+use OCP\IDBConnection;
+use OCP\AppFramework\Db\Entity;
 
 
 class FeedMapper extends NewsMapper {
 
 
-    public function __construct(IDb $db) {
+    public function __construct(IDBConnection $db) {
         parent::__construct($db, 'news_feeds', '\OCA\News\Db\Feed');
     }
 

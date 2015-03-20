@@ -57,6 +57,7 @@ class Item extends Entity implements IAPI, \JsonSerializable {
     protected $feedId;
     protected $status = 0;
     protected $lastModified;
+    protected $searchIndex;
 
     public function __construct(){
         $this->addType('pubDate', 'integer');
@@ -196,6 +197,16 @@ class Item extends Entity implements IAPI, \JsonSerializable {
         parent::setTitle(strip_tags($title));
     }
 
+    public function generateSearchIndex() {
+        $this->setSearchIndex(
+            strtolower(
+                strip_tags($this->getBody()) .
+                $this->getAuthor() .
+                $this->getTitle() .
+                $this->getUrl()
+            )
+        );
+    }
 
     public function setUrl($url) {
         $url = trim($url);
