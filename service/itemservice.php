@@ -80,24 +80,28 @@ class ItemService extends Service {
      * @param boolean $showAll if unread items should also be returned
      * @param boolean $oldestFirst if it should be ordered by oldest first
      * @param string $userId the name of the user
+     * @param string[] $search an array of keywords that the result should
+     * contain in either the author, title, link or body
      * @return array of items
      */
     public function findAll($id, $type, $limit, $offset, $showAll, $oldestFirst,
-                            $userId){
+                            $userId, $search=[]){
         $status = $this->statusFlag->typeToStatus($type, $showAll);
 
         switch($type){
             case FeedType::FEED:
                 return $this->itemMapper->findAllFeed(
-                    $id, $limit, $offset, $status, $oldestFirst, $userId
+                    $id, $limit, $offset, $status, $oldestFirst, $userId,
+                    $search
                 );
             case FeedType::FOLDER:
                 return $this->itemMapper->findAllFolder(
-                    $id, $limit, $offset, $status, $oldestFirst, $userId
+                    $id, $limit, $offset, $status, $oldestFirst, $userId,
+                    $search
                 );
             default:
                 return $this->itemMapper->findAll(
-                    $limit, $offset, $status, $oldestFirst, $userId
+                    $limit, $offset, $status, $oldestFirst, $userId, $search
                 );
         }
     }

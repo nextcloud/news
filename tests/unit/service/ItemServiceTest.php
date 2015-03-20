@@ -125,7 +125,8 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
                     $this->equalTo($this->offset),
                     $this->equalTo($this->status),
                     $this->equalTo(false),
-                    $this->equalTo($this->user))
+                    $this->equalTo($this->user),
+                    $this->equalTo([]))
             ->will($this->returnValue($this->response));
 
         $result = $this->itemService->findAll(
@@ -145,7 +146,8 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
                     $this->equalTo($this->offset),
                     $this->equalTo($this->status),
                     $this->equalTo(true),
-                    $this->equalTo($this->user))
+                    $this->equalTo($this->user),
+                    $this->equalTo([]))
             ->will($this->returnValue($this->response));
 
         $result = $this->itemService->findAll(
@@ -164,7 +166,8 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
                     $this->equalTo($this->offset),
                     $this->equalTo($this->status),
                     $this->equalTo(true),
-                    $this->equalTo($this->user))
+                    $this->equalTo($this->user),
+                    $this->equalTo([]))
             ->will($this->returnValue($this->response));
 
         $result = $this->itemService->findAll(
@@ -173,6 +176,28 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
         );
         $this->assertEquals($this->response, $result);
     }
+
+
+    public function testFindAllSearch(){
+        $type = FeedType::STARRED;
+        $search = ['test'];
+        $this->mapper->expects($this->once())
+            ->method('findAll')
+            ->with( $this->equalTo($this->limit),
+                    $this->equalTo($this->offset),
+                    $this->equalTo($this->status),
+                    $this->equalTo(true),
+                    $this->equalTo($this->user),
+                    $this->equalTo($search))
+            ->will($this->returnValue($this->response));
+
+        $result = $this->itemService->findAll(
+            $this->id, $type, $this->limit, $this->offset,
+            $this->showAll, true, $this->user, $search
+        );
+        $this->assertEquals($this->response, $result);
+    }
+
 
 
     public function testStar(){
