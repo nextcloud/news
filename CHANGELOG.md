@@ -1,3 +1,7 @@
+owncloud-news (5.3.0)
+* **Enhancement**: Make it possible to search articles in the search field
+* **New dependency**: Bump required ownCloud version to 8.1
+
 owncloud-news (5.2.8)
 * **Bugfix**: Fix feed subscribe to URL
 * **Enhancement**: Provide checksums for all files
