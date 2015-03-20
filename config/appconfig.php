@@ -96,22 +96,24 @@ class AppConfig {
      */
     public function registerNavigation() {
         if (array_key_exists('navigation', $this->config)) {
-            $nav =& $this->config['navigation'];
+            $this->navigationManager->add(function () {
+                $nav =& $this->config['navigation'];
 
-            $navConfig = [
-                'id' => $this->config['id'],
-                'order' => $nav['order'],
-                'name' => $nav['name']
-            ];
+                $navConfig = [
+                    'id' => $this->config['id'],
+                    'order' => $nav['order'],
+                    'name' => $nav['name']
+                ];
 
-            $navConfig['href'] = $this->urlGenerator->linkToRoute(
-                $nav['route']
-            );
-            $navConfig['icon'] = $this->urlGenerator->imagePath(
-                $this->config['id'], $nav['icon']
-            );
+                $navConfig['href'] = $this->urlGenerator->linkToRoute(
+                    $nav['route']
+                );
+                $navConfig['icon'] = $this->urlGenerator->imagePath(
+                    $this->config['id'], $nav['icon']
+                );
 
-            $this->navigationManager->add($navConfig);
+                return $navConfig;
+            });
         }
     }
 
