@@ -380,7 +380,7 @@ class ItemMapperTest extends  \OCA\News\Tests\Unit\Db\MapperTestUtility {
 
     public function testFindAllSearch(){
         $sql = 'AND `items`.`id` < ? ';
-        $search = ['%test_\\', 'a'];
+        $search = ['%tEst_\\', 'a'];
         $params = [$this->user, '%\%test\\_\\\\%', '%a%', $this->offset];
         $sql = $this->makeSelectQueryStatus($sql, $this->status, false, $search);
         $this->setMapperResult($sql, $params, $this->rows, $this->limit);

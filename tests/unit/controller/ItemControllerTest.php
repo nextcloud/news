@@ -275,7 +275,7 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
             ->will($this->returnValue($result['items']));
 
         $response = $this->controller->index(FeedType::FEED, 2, 3,
-            0, null, null, 'test%20search');
+            0, null, null, 'test%20%20search%20');
         $this->assertEquals($result, $response);
     }
 
