@@ -36,7 +36,7 @@ foreach (Plugin::getScripts() as $appName => $fileName) {
         ng-controller="NavigationController as Navigation"
         ng-hide="App.loading.isLoading('global')">
 
-        <news-search on-search="Navigation.search" />
+        <news-search on-search="Navigation.search" class="ng-hide"></news-search>
         <news-title-unread-count
             unread-count="{{ Navigation.getUnreadCount() }}">
         </news-title-unread-count>

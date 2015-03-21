@@ -2845,7 +2845,7 @@ app.directive('newsScroll', ["$timeout", "ITEM_AUTO_PAGE_SIZE", "MARK_READ_TIMEO
         }
     };
 }]);
-app.directive('newsSearch', ["$timeout", function ($timeout) {
+app.directive('newsSearch', ["$document", "$timeout", "$location", function ($document, $timeout, $location) {
     'use strict';
 
     var timer;
@@ -2856,7 +2856,10 @@ app.directive('newsSearch', ["$timeout", function ($timeout) {
             'onSearch': '='
         },
         link: function (scope) {
-            $('#searchbox').on('search keyup', function () {
+            var box = $('#searchbox');
+            box.val($location.search().search);
+
+            box.on('search keyup', function () {
                 var value = $(this).val();
                 if (timer) {
                     $timeout.cancel(timer);
@@ -2867,6 +2870,17 @@ app.directive('newsSearch', ["$timeout", function ($timeout) {
                         scope.onSearch(value);
                     });
                 }, 500);
+            });
+
+            // carry over search on route change
+            scope.$watch(function () {
+                return $location.search();
+            }, function (search) {
+                if (search && search.search) {
+                    box.val(search.search);
+                } else {
+                    box.val('');
+                }
             });
         }
     };
