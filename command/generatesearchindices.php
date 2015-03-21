@@ -34,7 +34,9 @@ class GenerateSearchIndices extends Command {
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
-        $output->writeln("\nCreating search indices, this could take a while...\n");
+        $output->writeln(
+            "\nCreating search indices, this could take a while...\n"
+        );
         $progressbar = function ($steps) use ($output) {
             return new ProgressBar($output, $steps);
         };

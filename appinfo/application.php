@@ -228,7 +228,7 @@ class Application extends App {
         });
 
         $container->registerService('OCA\News\Explore\RecommendedSites',
-        function($c) {
+        function() {
             return new RecommendedSites(__DIR__ . '/../explore');
         });
     }

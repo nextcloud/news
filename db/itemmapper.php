@@ -200,7 +200,8 @@ class ItemMapper extends NewsMapper {
                 $this->getOperator($oldestFirst) . ' ? ';
             $params[] = $offset;
         }
-        $sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst, $search);
+        $sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst,
+                                            $search);
         return $this->findEntitiesIgnoringNegativeLimit($sql, $params, $limit);
     }
 
@@ -217,7 +218,8 @@ class ItemMapper extends NewsMapper {
                 $this->getOperator($oldestFirst) . ' ? ';
             $params[] = $offset;
         }
-        $sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst, $search);
+        $sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst,
+                                            $search);
         return $this->findEntitiesIgnoringNegativeLimit($sql, $params, $limit);
     }
 
@@ -232,7 +234,8 @@ class ItemMapper extends NewsMapper {
                 $this->getOperator($oldestFirst) . ' ? ';
             $params[] = $offset;
         }
-        $sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst, $search);
+        $sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst,
+                                            $search);
 
         return $this->findEntitiesIgnoringNegativeLimit($sql, $params, $limit);
     }

@@ -20,7 +20,7 @@ use \OCA\News\AppInfo\Application;
 class Updater {
 
 
-    static public function run() {
+    public static function run() {
         $app = new Application();
 
         $container = $app->getContainer();

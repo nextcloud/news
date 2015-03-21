@@ -85,7 +85,7 @@ class ItemController extends Controller {
 
         // split search parameter on url space
         $search = trim(urldecode($search));
-        $search = preg_replace('/\s+/', ' ', $search);  // remove multiple whitespace
+        $search = preg_replace('/\s+/', ' ', $search);  // remove multiple ws
         if ($search === '') {
             $search = [];
         } else {

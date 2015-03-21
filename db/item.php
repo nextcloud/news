@@ -219,7 +219,9 @@ class Item extends Entity implements IAPI, \JsonSerializable {
     public function setBody($body) {
         // FIXME: this should not happen if the target="_blank" is already
         // on the link
-        parent::setBody(str_replace('<a', '<a target="_blank" rel="noreferrer"', $body));
+        parent::setBody(str_replace(
+            '<a', '<a target="_blank" rel="noreferrer"', $body
+        ));
     }
 
 }
