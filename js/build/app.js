@@ -335,8 +335,8 @@ app.controller('AppController',
     };
 }]);
 app.controller('ContentController',
-["Publisher", "FeedResource", "ItemResource", "SettingsResource", "data", "$route", "$routeParams", "FEED_TYPE", "ITEM_AUTO_PAGE_SIZE", "Loading", function (Publisher, FeedResource, ItemResource, SettingsResource, data,
-    $route, $routeParams, FEED_TYPE, ITEM_AUTO_PAGE_SIZE, Loading) {
+["Publisher", "FeedResource", "ItemResource", "SettingsResource", "data", "$route", "$routeParams", "$location", "FEED_TYPE", "ITEM_AUTO_PAGE_SIZE", "Loading", function (Publisher, FeedResource, ItemResource, SettingsResource, data,
+    $route, $routeParams, $location, FEED_TYPE, ITEM_AUTO_PAGE_SIZE, Loading) {
     'use strict';
 
     ItemResource.clear();
@@ -479,10 +479,11 @@ app.controller('ContentController',
         var oldestFirst = getOrdering();
         var showAll = SettingsResource.get('showAll');
         var self = this;
+        var search = $location.search().search;
 
         Loading.setLoading('autopaging', true);
 
-        ItemResource.autoPage(type, id, oldestFirst, showAll)
+        ItemResource.autoPage(type, id, oldestFirst, showAll, search)
         .success(function (data) {
             Publisher.publishAll(data);
 
@@ -1572,7 +1573,7 @@ app.factory('ItemResource', ["Resource", "$http", "BASE_URL", "ITEM_BATCH_SIZE",
 
 
     ItemResource.prototype.autoPage = function (type, id, oldestFirst,
-    showAll) {
+    showAll, search) {
         var offset;
 
         if (oldestFirst) {
@@ -1590,7 +1591,8 @@ app.factory('ItemResource', ["Resource", "$http", "BASE_URL", "ITEM_BATCH_SIZE",
                 offset: offset,
                 limit: this.batchSize,
                 oldestFirst: oldestFirst,
-                showAll: showAll
+                showAll: showAll,
+                search: search
             }
         });
     };
