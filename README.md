@@ -123,6 +123,12 @@ You need to do the following:
 ### After updating from a version prior to 4 all my read articles reappear as unread and there are duplicates
 We switched to a different feed parsing library which creates article ids differently than before. This means that the same article is not found in the database because it was generated with a different id and is thus readded. This should happen only once for each feed after the upgrade and there is no data loss. Unfortunately there is no fix for this since the id is a hash which can not be reversed, so a smooth transition is not possible.
 
+### Updating from versions prior to 5.3.0
+
+5.3.0 adds the possibility to search your articles. To do this efficiently however, the News app needs to generate an index. This is done automatically for new articles, but older articles need to be migrated. Because large installations have millions of articles, generating the search index has been offloaded to a separate command to prevent timeouts when upgrading the app. To make your old articles searchable run this command in your ownCloud top directory:
+
+    php -f console.php news:create-search-indices
+
 ## FAQ
 
 ### How do I reset the News app

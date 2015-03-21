@@ -13,7 +13,7 @@
 
 namespace OCA\News\Db;
 
-use \OCP\IDBConnection;
+use OCP\IDBConnection;
 
 
 class ItemMapper extends NewsMapper {
@@ -325,6 +325,18 @@ class ItemMapper extends NewsMapper {
                 ')';
 
         $this->execute($sql, [$userId]);
+    }
+
+
+    /**
+     * Returns a list of ids and userid of all items
+     */
+    public function findAllItemIdsAndUsers() {
+        $sql = 'SELECT `items`.`id`, `feeds`.`user_id` ' .
+                'FROM `*PREFIX*news_items` `items` ' .
+                'JOIN `*PREFIX*news_feeds` `feeds` ' .
+                    'ON `items`.`feed_id` = `feeds`.`id`';
+        return $this->execute($sql)->fetchAll();
     }
 
 

@@ -13,13 +13,14 @@
 
 namespace OCA\News\Service;
 
-use \OCP\AppFramework\Db\DoesNotExistException;
-use \OCP\AppFramework\Utility\ITimeFactory;
+use OCP\IConfig;
+use OCP\AppFramework\Db\DoesNotExistException;
+use OCP\AppFramework\Utility\ITimeFactory;
 
-use \OCA\News\Db\ItemMapper;
-use \OCA\News\Db\StatusFlag;
-use \OCA\News\Db\FeedType;
-use \OCA\News\Config\Config;
+use OCA\News\Db\ItemMapper;
+use OCA\News\Db\StatusFlag;
+use OCA\News\Db\FeedType;
+use OCA\News\Config\Config;
 
 
 class ItemService extends Service {
@@ -28,16 +29,19 @@ class ItemService extends Service {
     private $config;
     private $timeFactory;
     private $itemMapper;
+    private $systemConfig;
 
     public function __construct(ItemMapper $itemMapper,
                                 StatusFlag $statusFlag,
                                 ITimeFactory $timeFactory,
-                                Config $config){
+                                Config $config,
+                                IConfig $systemConfig){
         parent::__construct($itemMapper);
         $this->statusFlag = $statusFlag;
         $this->config = $config;
         $this->timeFactory = $timeFactory;
         $this->itemMapper = $itemMapper;
+        $this->systemConfig = $systemConfig;
     }
 
 
@@ -251,5 +255,27 @@ class ItemService extends Service {
         $this->itemMapper->deleteUser($userId);
     }
 
+
+    /**
+     * Regenerates the search index for all items
+     */
+    public function generateSearchIndicies($progressbar) {
+        $this->systemConfig->setSystemValue('maintenance', true);
+
+        $rows = $this->itemMapper->findAllItemIdsAndUsers();
+        $progressbar = $progressbar(count($rows));
+        $progressbar->setFormat('verbose');
+
+        foreach ($rows as $row) {
+            $item = $this->find($row['id'], $row['user_id']);
+            $item->generateSearchIndex();
+            $this->itemMapper->update($item);
+            $progressbar->advance();
+        }
+
+        $progressbar->finish();
+
+        $this->systemConfig->setSystemValue('maintenance', false);
+    }
 
 }

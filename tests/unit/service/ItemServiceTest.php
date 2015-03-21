@@ -30,7 +30,7 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
     private $time;
     private $newestItemId;
     private $config;
-
+    private $systemConfig;
 
     protected function setUp(){
         $this->time = 222;
@@ -54,8 +54,13 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
             '\OCA\News\Config\Config')
             ->disableOriginalConstructor()
             ->getMock();
+        $this->systemConfig = $this->getMockBuilder(
+            'OCP\IConfig')
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->itemService = new ItemService($this->mapper,
-            $this->statusFlag, $this->timeFactory, $this->config);
+            $this->statusFlag, $this->timeFactory, $this->config,
+            $this->systemConfig);
         $this->user = 'jack';
         $this->id = 3;
         $this->updatedSince = 20333;
