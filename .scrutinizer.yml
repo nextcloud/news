@@ -9,16 +9,15 @@ filter:
         - 'css/*'
         - 'bin/*'
         - 'tmp/*'
-        - 'appinfo/application.php'
 
 imports:
     #- javascript  disabled because of es6 producing tons of errors
     - php
     - javascript
 
-tools:
-    external_code_coverage:
-        timeout: 600
+#tools:
+#    external_code_coverage:
+#        timeout: 600
 
 checks:
     php:
