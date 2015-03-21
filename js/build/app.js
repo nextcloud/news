@@ -2845,10 +2845,8 @@ app.directive('newsScroll', ["$timeout", "ITEM_AUTO_PAGE_SIZE", "MARK_READ_TIMEO
         }
     };
 }]);
-app.directive('newsSearch', ["$document", "$timeout", "$location", function ($document, $timeout, $location) {
+app.directive('newsSearch', ["$document", "$location", function ($document, $location) {
     'use strict';
-
-    var timer;
 
     return {
         restrict: 'E',
@@ -2859,17 +2857,13 @@ app.directive('newsSearch', ["$document", "$timeout", "$location", function ($do
             var box = $('#searchbox');
             box.val($location.search().search);
 
-            box.on('search keyup', function () {
-                var value = $(this).val();
-                if (timer) {
-                    $timeout.cancel(timer);
-                }
-
-                timer = $timeout(function () {
+            box.on('keyup', function (e) {
+                if (e.keyCode === 13) {
+                    var value = $(this).val();
                     scope.$apply(function () {
                         scope.onSearch(value);
                     });
-                }, 500);
+                }
             });
 
             // carry over search on route change
