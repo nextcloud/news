@@ -15,7 +15,7 @@ For further developer and user documentation please visit [the wiki](https://git
 are listed on the [ownCloud apps overview](https://github.com/owncloud/core/wiki/Apps)
 
 ## Dependencies
-* ownCloud >= 8.0.0
+* ownCloud >= 8.1
 * PHP >= 5.4
 * libxml >= 2.7.8 (2.9 recommended)
 * php-curl
