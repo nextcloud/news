@@ -2459,6 +2459,12 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
                 event.preventDefault();
                 nextFolder(navigationArea);
 
+            // q
+            } else if ([81].indexOf(keyCode) >= 0) {
+
+                event.preventDefault();
+                $('#searchbox').focus();
+
             // page up
             } else if ([33].indexOf(keyCode) >= 0) {
                 tryReload(navigationArea, scrollArea);

@@ -65,6 +65,10 @@
                 <td>a</td>
                 <td><?php p($l->t('Scroll to active navigation entry')); ?></td>
             </tr>
+            <tr>
+                <td>q</td>
+                <td><?php p($l->t('Focus search field')); ?></td>
+            </tr>
         </table>
     </div>
 </div>
