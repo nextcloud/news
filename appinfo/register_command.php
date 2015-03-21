@@ -10,6 +10,7 @@
  */
 
 $newsApp = new OCA\News\AppInfo\Application();
-$newsCmd = $newsApp->getContainer()->query('OCA\News\Command\GenerateSearchIndices');
+$newsContainer = $newsApp->getContainer();
+$newsCmd = $newsContainer->query('OCA\News\Command\GenerateSearchIndices');
 
 $application->add($newsCmd);

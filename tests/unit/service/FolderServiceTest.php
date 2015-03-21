@@ -54,7 +54,7 @@ class FolderServiceTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    function testFindAll(){
+    public function testFindAll(){
         $userId = 'jack';
         $return = 'hi';
         $this->folderMapper->expects($this->once())

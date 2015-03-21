@@ -52,14 +52,15 @@ class EnhancerTest extends \PHPUnit_Framework_TestCase {
             'http://test.com/',
             'http://www.test.com'
         ];
-        for ($i=0; $i < count($urls); $i++) {
+        $count = count($urls);
+        for ($i=0; $i < $count; $i++) {
             $this->articleEnhancer->expects($this->at($i))
                 ->method('enhance')
                 ->with($this->equalTo($item))
                 ->will($this->returnValue($item));
         }
 
-        for ($i=0; $i < count($urls); $i++) {
+        for ($i=0; $i < $count; $i++) {
             $url = $urls[$i];
             $result = $this->enhancer->enhance($item, $url);
             $this->assertEquals($item, $result);

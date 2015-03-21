@@ -9,6 +9,8 @@ filter:
         - 'css/*'
         - 'bin/*'
         - 'tmp/*'
+        - 'appinfo/routes.php'
+        - 'tests/*'
 
 imports:
     #- javascript  disabled because of es6 producing tons of errors
