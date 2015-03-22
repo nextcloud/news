@@ -33,7 +33,9 @@ class GlobalArticleEnhancer implements ArticleEnhancer {
         // inside <p> tags
         $body = '<div>' . $item->getBody() . '</div>';
 
-        @$dom->loadHTML($body, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $isOk = @$dom->loadHTML(
+            $body, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
+        );
 
         $xpath = new DOMXpath($dom);
 
@@ -57,7 +59,9 @@ class GlobalArticleEnhancer implements ArticleEnhancer {
         }
 
         // save all changes back to the item
-        $item->setBody(trim($dom->saveHTML()));
+        if ($isOk) {
+            $item->setBody(trim($dom->saveHTML()));
+        }
 
         return $item;
     }

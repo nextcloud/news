@@ -525,7 +525,7 @@ app.controller('ExploreController', ["sites", "$rootScope", "FeedResource", func
     this.sites = sites;
 
     this.feedExists = function (location) {
-    	return FeedResource.getByLocation(location) !== undefined;
+        return FeedResource.getByLocation(location) !== undefined;
     };
 
     this.subscribeTo = function (location) {

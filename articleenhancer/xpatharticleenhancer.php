@@ -25,7 +25,6 @@ use OCA\News\Db\Item;
 
 class XPathArticleEnhancer implements ArticleEnhancer {
 
-    private $maximumTimeout;
     private $clientFactory;
     private $regexXPathPair;
 
@@ -72,7 +71,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
                 }
 
                 $dom = new DOMDocument();
-                @$dom->loadHTML($body);
+                $isOk = @$dom->loadHTML($body);
 
                 $xpath = new DOMXpath($dom);
                 $xpathResult = $xpath->evaluate($search);
@@ -90,7 +89,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
                     $xpathResult, $item->getUrl()
                 );
 
-                if($xpathResult) {
+                if($isOk && $xpathResult !== false && $xpathResult !== '') {
                     $item->setBody($xpathResult);
                 }
             }
@@ -122,7 +121,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
         $dom->preserveWhiteSpace = false;
 
         if($xmlString === '') {
-            return false;
+            return '';
         }
 
         $xmlString = '<div>' . $xmlString . '</div>';
@@ -130,7 +129,7 @@ class XPathArticleEnhancer implements ArticleEnhancer {
                                            LIBXML_HTML_NODEFDTD);
 
         if(!$isOk) {
-            return false;
+            return '';
         }
 
         foreach (['href', 'src'] as $attribute) {
