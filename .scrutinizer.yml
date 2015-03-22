@@ -10,6 +10,7 @@ filter:
         - 'bin/*'
         - 'tmp/*'
         - 'appinfo/routes.php'
+        - 'appinfo/application.php'
         - 'tests/*'
 
 imports:

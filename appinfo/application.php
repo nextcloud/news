@@ -13,8 +13,6 @@
 
 namespace OCA\News\AppInfo;
 
-require_once __DIR__ . '/autoload.php';
-
 use HTMLPurifier;
 use HTMLPurifier_Config;
 
