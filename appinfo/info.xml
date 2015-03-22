@@ -21,9 +21,9 @@
     <repository type="git">https://github.com/owncloud/news.git</repository>
 
     <!-- dependencies -->
-    <requiremin>8</requiremin>
+    <requiremin>8.1</requiremin>
     <dependencies>
-        <owncloud min-version="8" />
+        <owncloud min-version="8.1" />
         <php min-version="5.4" />
         <database>pgsql</database>
         <database>sqlite</database>
