@@ -13,13 +13,14 @@
 
 namespace OCA\News\Controller;
 
-use OCP\AppFramework\Http\TemplateResponse;
-use OCP\AppFramework\Http\JSONResponse;
 use OCP\IRequest;
 use OCP\IConfig;
 use OCP\IL10N;
 use OCP\IURLGenerator;
 use OCP\AppFramework\Controller;
+use OCP\AppFramework\Http\TemplateResponse;
+use OCP\AppFramework\Http\JSONResponse;
+use OCP\AppFramework\Http\ContentSecurityPolicy;
 
 use OCA\News\Service\StatusService;
 use OCA\News\Config\AppConfig;
@@ -70,17 +71,14 @@ class PageController extends Controller {
             'cronWarning' => $status['warnings']['improperlyConfiguredCron']
         ]);
 
-        // set csp rules for ownCloud 8.1
-        if (class_exists('OCP\AppFramework\Http\ContentSecurityPolicy')) {
-            $csp = new \OCP\AppFramework\Http\ContentSecurityPolicy();
-            $csp->addAllowedImageDomain('*');
-            $csp->addAllowedMediaDomain('*');
-            $csp->addAllowedFrameDomain('https://youtube.com');
-            $csp->addAllowedFrameDomain('https://www.youtube.com');
-            $csp->addAllowedFrameDomain('https://player.vimeo.com');
-            $csp->addAllowedFrameDomain('https://www.player.vimeo.com');
-            $response->setContentSecurityPolicy($csp);
-        }
+        $csp = new ContentSecurityPolicy();
+        $csp->addAllowedImageDomain('*');
+        $csp->addAllowedMediaDomain('*');
+        $csp->addAllowedFrameDomain('https://youtube.com');
+        $csp->addAllowedFrameDomain('https://www.youtube.com');
+        $csp->addAllowedFrameDomain('https://player.vimeo.com');
+        $csp->addAllowedFrameDomain('https://www.player.vimeo.com');
+        $response->setContentSecurityPolicy($csp);
 
         return $response;
     }
