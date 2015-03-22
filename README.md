@@ -186,6 +186,15 @@ exploreUrl =
 * **useCronUpdates**: To use a custom update/cron script you need to disable the cronjob which is run by ownCloud by default by setting this to false
 * **exploreUrl**: If given that url will be contacted for fetching content for the explore feed
 
+
+Commands
+--------
+The following commands are available when calling php -f console.php in the top directory:
+
+* **Generate search indices**:
+
+  php -f console.php news:create-search-indices
+
 Translations
 ------------
 For translations in other languages than English, we rely on the [Transifex](https://www.transifex.com/) platform.
