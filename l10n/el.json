@@ -10,6 +10,7 @@
     "Request failed, network connection unavailable!" : "Το αίτημα απέτυχε, η σύνδεση στο δίκτυο δεν είναι διαθέσιμη!",
     "Request unauthorized. Are you logged in?" : "Το αίτημα δεν είναι εξουσιοδοτημένο. Είστε συνδεδεμένοι;",
     "Request forbidden. Are you an admin?" : "Το αίτημα δεν επιτράπει. Είστε διαχειριστής;",
+    "Token expired or app not enabled! Reload the page!" : "Η διαδικασία αναγνώρισης τερματίστηκε ή η εφαρμογή δεν είναι ενεργοποιημένη! Επαναφορτώστε τη σελίδα! ",
     "Internal server error! Please check your " : "Εσωτερικό σφάλμα διακομιστή! Παρακαλώ ελέγξτε ",
     "Request failed, ownCloud is in currently " : "Το αίτημα απέτυχε, το ownCloud είναι επί της παρούσης",
     "Can not add feed: Exists already" : "Αδυναμία προσθήκης ροής: Υπάρχει ήδη",
