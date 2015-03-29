@@ -14,7 +14,7 @@ OC.L10N.register(
     "Request forbidden. Are you an admin?" : "Requête interdite. Avez-vous les droits admin ?",
     "Token expired or app not enabled! Reload the page!" : "Le jeton a expiré ou l'application n'est pas activée ! Veuillez recharger la page !",
     "Internal server error! Please check your " : "Erreur interne du serveur ! Veuillez vérifier votre",
-    "Request failed, ownCloud is in currently " : "Échec de la requêtes, ownCloud est en cours de",
+    "Request failed, ownCloud is in currently " : "Échec de la requêtes, ownCloud est",
     "Can not add feed: Exists already" : "Impossible d'ajouter le flux : déjà présent",
     "Articles without feed" : "Articles sans flux",
     "Can not add folder: Exists already" : "Impossible d'ajouter le dossier : déjà présent",
