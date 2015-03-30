@@ -16,4 +16,8 @@ function (Loading, FeedResource, FolderResource) {
     this.isFirstRun = function () {
         return FeedResource.size() === 0 && FolderResource.size() === 0;
     };
+
+    this.play = function (item) {
+        this.playingItem = item;
+    };
 });

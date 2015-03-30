@@ -60,6 +60,9 @@ foreach (Plugin::getScripts() as $appName => $fileName) {
     </div>
 
     <!-- content -->
+    <script type="text/ng-template" id="audio.html">
+        <?php print_unescaped($this->inc('part.content.audio')) ?>
+    </script>
     <script type="text/ng-template" id="articleaction.html">
         <?php print_unescaped($this->inc('part.content.articleaction')) ?>
     </script>
@@ -81,6 +84,14 @@ foreach (Plugin::getScripts() as $appName => $fileName) {
         }"
         tabindex="-1"
         news-pull-to-refresh="showPullToRefresh">
+        <div class="podcast" news-sticky-menu="#app-content" ng-if="App.playingItem">
+            <audio controls autoplay ng-src="{{ App.playingItem.enclosureLink|trustUrl }}" news-play-one></audio>
+            <a class="button podcast-download" title="<?php p($l->t('Download')) ?>"
+                ng-href="{{ App.playingItem.enclosureLink|trustUrl }}"
+                target="_blank"></a>
+            <button class="podcast-close" title="<?php p($l->t('Close')) ?>"
+                ng-click="App.playingItem = false"></button>
+        </div>
         <div id="app-content-wrapper"
             ng-class="{
                 'autopaging': App.loading.isLoading('autopaging'),

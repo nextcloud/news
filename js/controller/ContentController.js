@@ -191,4 +191,14 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data,
         $route.reload();
     };
 
+    this.getMediaType = function (type) {
+        if (type && type.indexOf('audio') === 0) {
+            return 'audio';
+        } else if (type && type.indexOf('video') === 0) {
+            return 'video';
+        } else {
+            return undefined;
+        }
+    };
+
 });

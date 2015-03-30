@@ -565,4 +565,16 @@ describe('ContentController', function () {
         expect(ctrl.isShowAll()).toBe(true);
     }));
 
+
+    it('should return the correct media type', inject(function ($controller) {
+
+        var ctrl = $controller('ContentController', {
+            data: {},
+        });
+
+        expect(ctrl.getMediaType('audio/test')).toBe('audio');
+        expect(ctrl.getMediaType('video/test')).toBe('video');
+        expect(ctrl.getMediaType('vides/test')).toBe(undefined);
+    }));
+
 });

@@ -1,5 +1,7 @@
 owncloud-news (5.3.0)
-* **Enhancement**: Make it possible to search articles in the search field. To migrate older articles to this functionality, check the README section "Updating from versions prior to 5.3.0"
+* **Enhancement**: Make it possible to search articles in the search field. To migrate older articles to this functionality, check the README section "Updating from versions prior to 5.3.0", #185
+* **Enhancement**: Stop video and audio playback if a new video or audio file is being played
+* **Enhancement**: Do not stop playing podcasts when the feed is being reloaded or changed, #156
 * **New dependency**: Bump required ownCloud version to 8.1
 
 owncloud-news (5.2.8)

@@ -72,12 +72,13 @@ class PageController extends Controller {
         ]);
 
         $csp = new ContentSecurityPolicy();
-        $csp->addAllowedImageDomain('*');
-        $csp->addAllowedMediaDomain('*');
-        $csp->addAllowedFrameDomain('https://youtube.com');
-        $csp->addAllowedFrameDomain('https://www.youtube.com');
-        $csp->addAllowedFrameDomain('https://player.vimeo.com');
-        $csp->addAllowedFrameDomain('https://www.player.vimeo.com');
+        $csp->addAllowedImageDomain('*')
+            ->addAllowedMediaDomain('*')
+            ->addAllowedConnectDomain('*')  // chrome breaks on audio elements
+            ->addAllowedFrameDomain('https://youtube.com')
+            ->addAllowedFrameDomain('https://www.youtube.com')
+            ->addAllowedFrameDomain('https://player.vimeo.com')
+            ->addAllowedFrameDomain('https://www.player.vimeo.com');
         $response->setContentSecurityPolicy($csp);
 
         return $response;
