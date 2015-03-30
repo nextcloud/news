@@ -30,7 +30,7 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
     private $time;
     private $newestItemId;
     private $config;
-
+    private $systemConfig;
 
     protected function setUp(){
         $this->time = 222;
@@ -54,8 +54,13 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
             '\OCA\News\Config\Config')
             ->disableOriginalConstructor()
             ->getMock();
+        $this->systemConfig = $this->getMockBuilder(
+            'OCP\IConfig')
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->itemService = new ItemService($this->mapper,
-            $this->statusFlag, $this->timeFactory, $this->config);
+            $this->statusFlag, $this->timeFactory, $this->config,
+            $this->systemConfig);
         $this->user = 'jack';
         $this->id = 3;
         $this->updatedSince = 20333;
@@ -125,7 +130,8 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
                     $this->equalTo($this->offset),
                     $this->equalTo($this->status),
                     $this->equalTo(false),
-                    $this->equalTo($this->user))
+                    $this->equalTo($this->user),
+                    $this->equalTo([]))
             ->will($this->returnValue($this->response));
 
         $result = $this->itemService->findAll(
@@ -145,7 +151,8 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
                     $this->equalTo($this->offset),
                     $this->equalTo($this->status),
                     $this->equalTo(true),
-                    $this->equalTo($this->user))
+                    $this->equalTo($this->user),
+                    $this->equalTo([]))
             ->will($this->returnValue($this->response));
 
         $result = $this->itemService->findAll(
@@ -164,7 +171,8 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
                     $this->equalTo($this->offset),
                     $this->equalTo($this->status),
                     $this->equalTo(true),
-                    $this->equalTo($this->user))
+                    $this->equalTo($this->user),
+                    $this->equalTo([]))
             ->will($this->returnValue($this->response));
 
         $result = $this->itemService->findAll(
@@ -173,6 +181,28 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
         );
         $this->assertEquals($this->response, $result);
     }
+
+
+    public function testFindAllSearch(){
+        $type = FeedType::STARRED;
+        $search = ['test'];
+        $this->mapper->expects($this->once())
+            ->method('findAll')
+            ->with( $this->equalTo($this->limit),
+                    $this->equalTo($this->offset),
+                    $this->equalTo($this->status),
+                    $this->equalTo(true),
+                    $this->equalTo($this->user),
+                    $this->equalTo($search))
+            ->will($this->returnValue($this->response));
+
+        $result = $this->itemService->findAll(
+            $this->id, $type, $this->limit, $this->offset,
+            $this->showAll, true, $this->user, $search
+        );
+        $this->assertEquals($this->response, $result);
+    }
+
 
 
     public function testStar(){

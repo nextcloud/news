@@ -267,6 +267,35 @@ describe('ItemResource', function () {
     }));
 
 
+    it ('should auto page all', inject(function (ItemResource) {
+        http.expectGET(
+            'base/items?id=4&limit=5&offset=5&oldestFirst=true' +
+            '&search=some+string&showAll=true&type=3')
+            .respond(200, {});
+
+        ItemResource.receive([
+            {
+                id: 3,
+                feedId: 4,
+                unread: true
+            },
+            {
+                id: 5,
+                feedId: 3,
+                unread: true
+            },
+            {
+                id: 4,
+                feedId: 4,
+                unread: true
+            }
+        ], 'items');
+
+        ItemResource.autoPage(3, 4, true, true, 'some string');
+
+        http.flush();
+    }));
+
 
     it ('should clear all state', inject(function (ItemResource) {
         ItemResource.receive([

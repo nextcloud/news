@@ -7,7 +7,6 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-
 #app-content .no-feeds-available {
     text-align: center;
     color: #333;
@@ -26,6 +25,59 @@
 #articles,
 #app-content-wrapper {
     height: 100%;
+}
+
+/**
+ * Podcast settings
+ */
+#app-content .podcast {
+    height: 30px;
+    z-index: 10000;
+    background-color: #111;
+}
+
+#app-content .podcast audio {
+    display: block;
+    float: left;
+    width: calc(100% - 60px);
+    height: 30px;
+    border-radius: 0;
+}
+
+#app-content .podcast button,
+#app-content .podcast a {
+    display: block;
+    float: left;
+    height: 30px;
+    width: 30px;
+    border: 0;
+    border-radius: 0;
+    margin: 0;
+    background-color: #111;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#app-content .podcast-close {
+    background-size: 25px;
+    background-image: url('../img/close.svg');
+}
+
+#app-content .podcast-download {
+    transform: rotate(270deg);
+    background-size: 20px;
+    background-image: url('../img/arrow-white.svg');
+}
+
+#app-content .podcast audio::-webkit-media-controls-enclosure {
+    max-width: inherit;
+}
+
+#app-content .podcast.fixed {
+    position: absolute;
+    right: 0;
+    left: 0;
 }
 
 /**
@@ -65,7 +117,7 @@
     -moz-webkit-transition: none !important;
 }
 
-#app-content.loading-content > * {
+#app-content.loading-content #app-content-wrapper {
     display: none;
 }
 
@@ -385,7 +437,6 @@
  */
 #app-content .enclosure {
     padding: 20px 0;
-    text-align: center;
     max-width: 770px;
     margin-bottom: 15px;
 }
@@ -398,6 +449,7 @@
 
 #app-content .enclosure video {
     background-color: #000;
+    margin-bottom: 20px;
 }
 
 #app-content .enclosure-error {

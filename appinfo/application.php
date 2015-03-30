@@ -13,8 +13,6 @@
 
 namespace OCA\News\AppInfo;
 
-require_once __DIR__ . '/autoload.php';
-
 use HTMLPurifier;
 use HTMLPurifier_Config;
 
@@ -52,7 +50,7 @@ class Application extends App {
          */
         $container->registerService('OCA\News\Db\ItemMapper', function($c) {
             return $c->query('OCA\News\Db\MapperFactory')->getItemMapper(
-                $c->query('OCP\IDb')
+                $c->query('OCP\IDBConnection')
             );
         });
 
@@ -86,7 +84,7 @@ class Application extends App {
         /**
          * Utility
          */
-        $container->registerService('ConfigPath', function($c) {
+        $container->registerService('ConfigPath', function() {
             return 'config.ini';
         });
 
@@ -130,7 +128,8 @@ class Application extends App {
             return new HTMLPurifier($config);
         });
 
-        $container->registerService('OCA\News\ArticleEnhancer\Enhancer', function($c) {
+        $container->registerService('OCA\News\ArticleEnhancer\Enhancer',
+        function($c) {
             $enhancer = new Enhancer();
 
             // register simple enhancers from config json file
@@ -216,13 +215,18 @@ class Application extends App {
 
             // register fetchers in order
             // the most generic fetcher should be the last one
-            $fetcher->registerFetcher($c->query('OCA\News\Fetcher\YoutubeFetcher'));
-            $fetcher->registerFetcher($c->query('OCA\News\Fetcher\FeedFetcher'));
+            $fetcher->registerFetcher(
+                $c->query('OCA\News\Fetcher\YoutubeFetcher')
+            );
+            $fetcher->registerFetcher(
+                $c->query('OCA\News\Fetcher\FeedFetcher')
+            );
 
             return $fetcher;
         });
 
-        $container->registerService('OCA\News\Explore\RecommendedSites', function($c) {
+        $container->registerService('OCA\News\Explore\RecommendedSites',
+        function() {
             return new RecommendedSites(__DIR__ . '/../explore');
         });
     }

@@ -21,4 +21,4 @@ class FeedType {
     const SUBSCRIPTIONS = 3;
     const SHARED        = 4;
     const EXPLORE       = 5;
-};
+}

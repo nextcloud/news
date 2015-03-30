@@ -286,6 +286,14 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
         $route.reload();
     };
 
+    this.search = function (value) {
+        if (value === '') {
+            $location.search('search', null);
+        } else {
+            $location.search('search', value);
+        }
+    };
+
     var self = this;
 
     $rootScope.$on('moveFeedToFolder', function (scope, data) {

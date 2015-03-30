@@ -11,7 +11,7 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 
-require_once __DIR__ . '/../appinfo/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 // to execute without owncloud, we need to create our own classloader
 spl_autoload_register(function ($className){

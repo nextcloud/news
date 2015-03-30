@@ -7,7 +7,7 @@
     <author>Bernhard Posselt, Alessandro Cosentino, Jan-Christoph Borchardt</author>
     <category>multimedia</category>
     <licence>AGPL</licence>
-    <version>5.2.8</version>
+    <version>5.2.9</version>
     <namespace>News</namespace>
 
     <!-- resources -->
@@ -21,9 +21,9 @@
     <repository type="git">https://github.com/owncloud/news.git</repository>
 
     <!-- dependencies -->
-    <requiremin>8</requiremin>
+    <requiremin>8.1</requiremin>
     <dependencies>
-        <owncloud min-version="8" />
+        <owncloud min-version="8.1" />
         <php min-version="5.4" />
         <database>pgsql</database>
         <database>sqlite</database>

@@ -226,10 +226,56 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
                 $this->equalTo(0),
                 $this->equalTo(true),
                 $this->equalTo(false),
-                $this->equalTo($this->user))
+                $this->equalTo($this->user),
+                $this->equalTo([]))
             ->will($this->returnValue($result['items']));
 
         $response = $this->controller->index(FeedType::FEED, 2, 3);
+        $this->assertEquals($result, $response);
+    }
+
+
+    public function testIndexSearch(){
+        $feeds = [new Feed()];
+        $result = [
+            'items' => [new Item()],
+            'feeds' => $feeds,
+            'newestItemId' => $this->newestItemId,
+            'starred' => 3111
+        ];
+
+        $this->itemsApiExpects(2, FeedType::FEED, '0');
+
+        $this->feedService->expects($this->once())
+            ->method('findAll')
+            ->with($this->equalTo($this->user))
+            ->will($this->returnValue($feeds));
+
+        $this->itemService->expects($this->once())
+            ->method('getNewestItemId')
+            ->with($this->equalTo($this->user))
+            ->will($this->returnValue($this->newestItemId));
+
+        $this->itemService->expects($this->once())
+            ->method('starredCount')
+            ->with($this->equalTo($this->user))
+            ->will($this->returnValue(3111));
+
+        $this->itemService->expects($this->once())
+            ->method('findAll')
+            ->with(
+                $this->equalTo(2),
+                $this->equalTo(FeedType::FEED),
+                $this->equalTo(3),
+                $this->equalTo(0),
+                $this->equalTo(true),
+                $this->equalTo(false),
+                $this->equalTo($this->user),
+                $this->equalTo(['test', 'search']))
+            ->will($this->returnValue($result['items']));
+
+        $response = $this->controller->index(FeedType::FEED, 2, 3,
+            0, null, null, 'test%20%20search%20');
         $this->assertEquals($result, $response);
     }
 

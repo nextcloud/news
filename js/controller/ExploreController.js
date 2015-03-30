@@ -13,7 +13,7 @@ app.controller('ExploreController', function (sites, $rootScope, FeedResource) {
     this.sites = sites;
 
     this.feedExists = function (location) {
-    	return FeedResource.getByLocation(location) !== undefined;
+        return FeedResource.getByLocation(location) !== undefined;
     };
 
     this.subscribeTo = function (location) {

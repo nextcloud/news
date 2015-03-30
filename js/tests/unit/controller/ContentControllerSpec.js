@@ -322,6 +322,12 @@ describe('ContentController', function () {
         SettingsResource.set('oldestFirst', true);
         SettingsResource.set('showAll', false);
 
+        var $location = {
+            search: jasmine.createSpy('search').and.returnValue({
+                search: 'some+string'
+            })
+        };
+
         var $route = {
             current: {
                 $$route: {
@@ -363,6 +369,7 @@ describe('ContentController', function () {
             ItemResource: ItemResource,
             SettingsResource: SettingsResource,
             data: {'items': [{id: 3}, {id: 4}]},
+            $location: $location
         });
 
         expect(ctrl.autoPagingEnabled()).toBe(true);
@@ -372,7 +379,8 @@ describe('ContentController', function () {
         expect(ctrl.autoPagingEnabled()).toBe(false);
 
         expect(Loading.isLoading('autopaging')).toBe(false);
-        expect(ItemResource.autoPage).toHaveBeenCalledWith(3, 2, true, false);
+        expect(ItemResource.autoPage).toHaveBeenCalledWith(3, 2, true, false,
+            'some+string');
 
     }));
 
@@ -555,6 +563,18 @@ describe('ContentController', function () {
         });
 
         expect(ctrl.isShowAll()).toBe(true);
+    }));
+
+
+    it('should return the correct media type', inject(function ($controller) {
+
+        var ctrl = $controller('ContentController', {
+            data: {},
+        });
+
+        expect(ctrl.getMediaType('audio/test')).toBe('audio');
+        expect(ctrl.getMediaType('video/test')).toBe('video');
+        expect(ctrl.getMediaType('vides/test')).toBe(undefined);
     }));
 
 });

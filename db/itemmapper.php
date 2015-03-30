@@ -13,12 +13,12 @@
 
 namespace OCA\News\Db;
 
-use \OCP\IDb;
+use OCP\IDBConnection;
 
 
 class ItemMapper extends NewsMapper {
 
-    public function __construct(IDb $db){
+    public function __construct(IDBConnection $db){
         parent::__construct($db, 'news_items', '\OCA\News\Db\Item');
     }
 
@@ -44,24 +44,30 @@ class ItemMapper extends NewsMapper {
     }
 
     private function makeSelectQueryStatus($prependTo, $status,
-                                           $oldestFirst=false) {
-        // Hi this is Ray and you're watching Jack Ass
-        // Now look closely: this is how we adults handle weird bugs in our
-        // code: we take them variables and we cast the shit out of them
+                                           $oldestFirst=false, $search=[]) {
         $status = (int) $status;
 
-        // now im gonna slowly stick them in the query, be careful!
-        return $this->makeSelectQuery(
+        // WARNING: Potential SQL injection if you change this carelessly
+        $sql = 'AND ((`items`.`status` & ' . $status . ') = ' . $status . ') ';
 
-            // WARNING: this is a desperate attempt at making this query work
-            // because prepared statements dont work. This is a possible
-            // SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
-            // think twice when changing this
-            'AND ((`items`.`status` & ' . $status . ') = ' . $status . ') ' .
-            $prependTo, $oldestFirst
-        );
+        foreach ($search as $_) {
+            $sql .= 'AND `items`.`search_index` LIKE ? ';
+        }
+
+        $sql .= $prependTo;
+
+        return $this->makeSelectQuery($sql, $oldestFirst);
     }
 
+    /**
+     * wrap and escape search parameters in a like statement
+     */
+    private function buildLikeParameters($search=[]) {
+        return array_map(function ($param) {
+            $param = addcslashes($param, '\\_%');
+            return '%' . strtolower($param) . '%';
+        }, $search);
+    }
 
     public function find($id, $userId){
         $sql = $this->makeSelectQuery('AND `items`.`id` = ? ');
@@ -183,42 +189,53 @@ class ItemMapper extends NewsMapper {
 
 
     public function findAllFeed($id, $limit, $offset, $status, $oldestFirst,
-                                $userId){
-        $params = [$userId, $id];
+                                $userId, $search=[]){
+        $params = [$userId];
+        $params = array_merge($params, $this->buildLikeParameters($search));
+        $params[] = $id;
+
         $sql = 'AND `items`.`feed_id` = ? ';
         if($offset !== 0){
             $sql .= 'AND `items`.`id` ' .
                 $this->getOperator($oldestFirst) . ' ? ';
             $params[] = $offset;
         }
-        $sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst);
+        $sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst,
+                                            $search);
         return $this->findEntitiesIgnoringNegativeLimit($sql, $params, $limit);
     }
 
 
     public function findAllFolder($id, $limit, $offset, $status, $oldestFirst,
-                                  $userId){
-        $params = [$userId, $id];
+                                  $userId, $search=[]){
+        $params = [$userId];
+        $params = array_merge($params, $this->buildLikeParameters($search));
+        $params[] = $id;
+
         $sql = 'AND `feeds`.`folder_id` = ? ';
         if($offset !== 0){
             $sql .= 'AND `items`.`id` ' .
                 $this->getOperator($oldestFirst) . ' ? ';
             $params[] = $offset;
         }
-        $sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst);
+        $sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst,
+                                            $search);
         return $this->findEntitiesIgnoringNegativeLimit($sql, $params, $limit);
     }
 
 
-    public function findAll($limit, $offset, $status, $oldestFirst, $userId){
+    public function findAll($limit, $offset, $status, $oldestFirst, $userId,
+                            $search=[]){
         $params = [$userId];
+        $params = array_merge($params, $this->buildLikeParameters($search));
         $sql = '';
         if($offset !== 0){
             $sql .= 'AND `items`.`id` ' .
                 $this->getOperator($oldestFirst) . ' ? ';
             $params[] = $offset;
         }
-        $sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst);
+        $sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst,
+                                            $search);
 
         return $this->findEntitiesIgnoringNegativeLimit($sql, $params, $limit);
     }
@@ -311,6 +328,18 @@ class ItemMapper extends NewsMapper {
                 ')';
 
         $this->execute($sql, [$userId]);
+    }
+
+
+    /**
+     * Returns a list of ids and userid of all items
+     */
+    public function findAllItemIdsAndUsers() {
+        $sql = 'SELECT `items`.`id`, `feeds`.`user_id` ' .
+                'FROM `*PREFIX*news_items` `items` ' .
+                'JOIN `*PREFIX*news_feeds` `feeds` ' .
+                    'ON `items`.`feed_id` = `feeds`.`id`';
+        return $this->execute($sql)->fetchAll();
     }
 
 

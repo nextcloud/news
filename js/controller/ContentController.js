@@ -9,7 +9,7 @@
  */
 app.controller('ContentController',
 function (Publisher, FeedResource, ItemResource, SettingsResource, data,
-    $route, $routeParams, FEED_TYPE, ITEM_AUTO_PAGE_SIZE, Loading) {
+    $route, $routeParams, $location, FEED_TYPE, ITEM_AUTO_PAGE_SIZE, Loading) {
     'use strict';
 
     ItemResource.clear();
@@ -152,10 +152,11 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data,
         var oldestFirst = getOrdering();
         var showAll = SettingsResource.get('showAll');
         var self = this;
+        var search = $location.search().search;
 
         Loading.setLoading('autopaging', true);
 
-        ItemResource.autoPage(type, id, oldestFirst, showAll)
+        ItemResource.autoPage(type, id, oldestFirst, showAll, search)
         .success(function (data) {
             Publisher.publishAll(data);
 
@@ -188,6 +189,16 @@ function (Publisher, FeedResource, ItemResource, SettingsResource, data,
 
     this.refresh = function () {
         $route.reload();
+    };
+
+    this.getMediaType = function (type) {
+        if (type && type.indexOf('audio') === 0) {
+            return 'audio';
+        } else if (type && type.indexOf('video') === 0) {
+            return 'video';
+        } else {
+            return undefined;
+        }
     };
 
 });

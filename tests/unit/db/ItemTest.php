@@ -186,6 +186,18 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
     }
 
 
+    public function testSearchIndex() {
+        $item = new Item();
+        $item->setBody('<a>somEth&auml;ng</a>');
+        $item->setUrl('http://link');
+        $item->setAuthor('&auml;uthor');
+        $item->setTitle('<a>t&auml;tle</a>');
+        $item->generateSearchIndex();
+        $expected = 'somethängäuthortätlehttp://link';
+        $this->assertEquals($expected, $item->getSearchIndex());
+    }
+
+
     public function testFromImport() {
         $item = $this->createImportItem(false);
 

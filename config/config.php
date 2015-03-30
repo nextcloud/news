@@ -32,6 +32,10 @@ class Config {
     private $loggerParams;
     private $maxSize;
     private $exploreUrl;
+    private $proxyHost;
+    private $proxyPort;
+    private $proxyUser;
+    private $proxyPassword;
 
 
     public function __construct(Folder $fileSystem,

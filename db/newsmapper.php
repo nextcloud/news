@@ -13,13 +13,13 @@
 
 namespace OCA\News\Db;
 
-use \OCP\IDb;
-use \OCP\AppFramework\Db\Entity;
-use \OCP\AppFramework\Db\Mapper;
+use OCP\IDBConnection;
+use OCP\AppFramework\Db\Entity;
+use OCP\AppFramework\Db\Mapper;
 
 abstract class NewsMapper extends Mapper {
 
-    public function __construct(IDb $db, $table, $entity) {
+    public function __construct(IDBConnection $db, $table, $entity) {
         parent::__construct($db, $table, $entity);
     }
 
@@ -28,7 +28,7 @@ abstract class NewsMapper extends Mapper {
      * @param string $userId the id of the user
      * @return \OCP\AppFramework\Db\Entity
      */
-    public abstract function find($id, $userId);
+    abstract public function find($id, $userId);
 
 
 }

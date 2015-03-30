@@ -56,10 +56,11 @@ class ItemController extends Controller {
      * @param int $offset
      * @param bool $showAll
      * @param bool $oldestFirst
+     * @param string $search
      * @return array
      */
     public function index($type, $id, $limit=50, $offset=0, $showAll=null,
-        $oldestFirst=null) {
+        $oldestFirst=null, $search='') {
 
         // in case this is called directly and not from the website use the
         // internal state
@@ -82,6 +83,15 @@ class ItemController extends Controller {
 
         $params = [];
 
+        // split search parameter on url space
+        $search = trim(urldecode($search));
+        $search = preg_replace('/\s+/', ' ', $search);  // remove multiple ws
+        if ($search === '') {
+            $search = [];
+        } else {
+            $search = explode(' ', $search);
+        }
+
         try {
 
             // the offset is 0 if the user clicks on a new feed
@@ -97,7 +107,7 @@ class ItemController extends Controller {
 
             $params['items'] = $this->itemService->findAll(
                 $id, $type, $limit, $offset, $showAll, $oldestFirst,
-                $this->userId
+                $this->userId, $search
             );
 
         // this gets thrown if there are no items

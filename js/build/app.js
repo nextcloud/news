@@ -79,12 +79,13 @@ app.config(["$routeProvider", "$provide", "$httpProvider", function ($routeProvi
     var getItemResolve = function (type) {
         return {
             // request to items also returns feeds
-            data: /* @ngInject */ ["$http", "$route", "$q", "BASE_URL", "ITEM_BATCH_SIZE", "FEED_TYPE", "SettingsResource", "FeedResource", function (
-            $http, $route, $q, BASE_URL, ITEM_BATCH_SIZE, FEED_TYPE,
+            data: /* @ngInject */ ["$http", "$route", "$q", "$location", "BASE_URL", "ITEM_BATCH_SIZE", "FEED_TYPE", "SettingsResource", "FeedResource", function (
+            $http, $route, $q, $location, BASE_URL, ITEM_BATCH_SIZE, FEED_TYPE,
             SettingsResource, FeedResource) {
 
                 var showAll = SettingsResource.get('showAll');
                 var oldestFirst = SettingsResource.get('oldestFirst');
+                var search = $location.search().search || '';
 
                 var deferred = $q.defer();
 
@@ -97,7 +98,8 @@ app.config(["$routeProvider", "$provide", "$httpProvider", function ($routeProvi
                         type: type,
                         limit: ITEM_BATCH_SIZE,
                         showAll: showAll,
-                        oldestFirst: oldestFirst
+                        oldestFirst: oldestFirst,
+                        search: search
                     };
 
                     if ($route.current.params.id !== undefined) {
@@ -332,10 +334,13 @@ app.controller('AppController',
         return FeedResource.size() === 0 && FolderResource.size() === 0;
     };
 
+    this.play = function (item) {
+        this.playingItem = item;
+    };
 }]);
 app.controller('ContentController',
-["Publisher", "FeedResource", "ItemResource", "SettingsResource", "data", "$route", "$routeParams", "FEED_TYPE", "ITEM_AUTO_PAGE_SIZE", "Loading", function (Publisher, FeedResource, ItemResource, SettingsResource, data,
-    $route, $routeParams, FEED_TYPE, ITEM_AUTO_PAGE_SIZE, Loading) {
+["Publisher", "FeedResource", "ItemResource", "SettingsResource", "data", "$route", "$routeParams", "$location", "FEED_TYPE", "ITEM_AUTO_PAGE_SIZE", "Loading", function (Publisher, FeedResource, ItemResource, SettingsResource, data,
+    $route, $routeParams, $location, FEED_TYPE, ITEM_AUTO_PAGE_SIZE, Loading) {
     'use strict';
 
     ItemResource.clear();
@@ -478,10 +483,11 @@ app.controller('ContentController',
         var oldestFirst = getOrdering();
         var showAll = SettingsResource.get('showAll');
         var self = this;
+        var search = $location.search().search;
 
         Loading.setLoading('autopaging', true);
 
-        ItemResource.autoPage(type, id, oldestFirst, showAll)
+        ItemResource.autoPage(type, id, oldestFirst, showAll, search)
         .success(function (data) {
             Publisher.publishAll(data);
 
@@ -516,6 +522,16 @@ app.controller('ContentController',
         $route.reload();
     };
 
+    this.getMediaType = function (type) {
+        if (type && type.indexOf('audio') === 0) {
+            return 'audio';
+        } else if (type && type.indexOf('video') === 0) {
+            return 'video';
+        } else {
+            return undefined;
+        }
+    };
+
 }]);
 app.controller('ExploreController', ["sites", "$rootScope", "FeedResource", function (sites, $rootScope, FeedResource) {
     'use strict';
@@ -523,7 +539,7 @@ app.controller('ExploreController', ["sites", "$rootScope", "FeedResource", func
     this.sites = sites;
 
     this.feedExists = function (location) {
-    	return FeedResource.getByLocation(location) !== undefined;
+        return FeedResource.getByLocation(location) !== undefined;
     };
 
     this.subscribeTo = function (location) {
@@ -814,6 +830,14 @@ app.controller('NavigationController',
     this.setOrdering = function (feed, ordering) {
         FeedResource.setOrdering(feed.id, ordering);
         $route.reload();
+    };
+
+    this.search = function (value) {
+        if (value === '') {
+            $location.search('search', null);
+        } else {
+            $location.search('search', value);
+        }
     };
 
     var self = this;
@@ -1563,7 +1587,7 @@ app.factory('ItemResource', ["Resource", "$http", "BASE_URL", "ITEM_BATCH_SIZE",
 
 
     ItemResource.prototype.autoPage = function (type, id, oldestFirst,
-    showAll) {
+    showAll, search) {
         var offset;
 
         if (oldestFirst) {
@@ -1581,7 +1605,8 @@ app.factory('ItemResource', ["Resource", "$http", "BASE_URL", "ITEM_BATCH_SIZE",
                 offset: offset,
                 limit: this.batchSize,
                 oldestFirst: oldestFirst,
-                showAll: showAll
+                showAll: showAll,
+                search: search
             }
         });
     };
@@ -2448,6 +2473,12 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
                 event.preventDefault();
                 nextFolder(navigationArea);
 
+            // q
+            } else if ([81].indexOf(keyCode) >= 0) {
+
+                event.preventDefault();
+                $('#searchbox').focus();
+
             // page up
             } else if ([33].indexOf(keyCode) >= 0) {
                 tryReload(navigationArea, scrollArea);
@@ -2613,50 +2644,6 @@ app.directive('newsDroppable', ["$rootScope", function ($rootScope) {
         elem.droppable(details);
     };
 }]);
-app.directive('newsEnclosure', function () {
-    'use strict';
-    return {
-        restrict: 'E',
-        scope: {
-            link: '@',
-            type: '@'
-        },
-        transclude: true,
-        template: '<div>' +
-            '<video controls preload="none" ' +
-                'ng-show="mediaType==\'video\' && !cantPlay()">' +
-                '<source ng-src="{{ link|trustUrl }}" type="{{ type }}">' +
-            '</video>' +
-            '<audio controls preload="none" ' +
-                'ng-show="mediaType==\'audio\' && !cantPlay()">' +
-                '<source ng-src="{{ link|trustUrl }}" type="{{ type }}">' +
-            '</audio>' +
-            '<div ng-transclude ng-show="cantPlay()"></div>' +
-        '</div>',
-        link: function (scope, elem) {
-            if (scope.type.indexOf('audio') === 0) {
-                scope.mediaType = 'audio';
-            } else {
-                scope.mediaType = 'video';
-            }
-            var source = elem.children()
-                .children(scope.mediaType)
-                .children('source')[0];
-
-            var cantPlay = false;
-
-            scope.cantPlay = function () {
-                return cantPlay;
-            };
-
-            source.addEventListener('error', function () {
-                scope.$apply(function () {
-                    cantPlay = true;
-                });
-            });
-        }
-    };
-});
 app.directive('newsFinishedTransition', function () {
     'use strict';
 
@@ -2679,6 +2666,26 @@ app.directive('newsFocus', ["$timeout", "$interpolate", function ($timeout, $int
         });
     };
 
+}]);
+/**
+ * Pause playback on elements other than the current one
+ */
+app.directive('newsPlayOne', ["$rootScope", function ($rootScope) {
+    'use strict';
+    return {
+        restrict: 'A',
+        link: function (scope, elem) {
+            elem.on('play', function () {
+                $rootScope.$broadcast('playing', elem);
+            });
+
+            $rootScope.$on('playing', function (scope, args) {
+                if (args[0] !== elem[0]) {
+                    elem[0].pause();
+                }
+            });
+        }
+    };
 }]);
 app.directive('newsPullToRefresh', ["$rootScope", function ($rootScope) {
     'use strict';
@@ -2834,6 +2841,58 @@ app.directive('newsScroll', ["$timeout", "ITEM_AUTO_PAGE_SIZE", "MARK_READ_TIMEO
         }
     };
 }]);
+app.directive('newsSearch', ["$document", "$location", function ($document, $location) {
+    'use strict';
+
+    return {
+        restrict: 'E',
+        scope: {
+            'onSearch': '='
+        },
+        link: function (scope) {
+            var box = $('#searchbox');
+            box.val($location.search().search);
+
+            box.on('keyup', function (e) {
+                if (e.keyCode === 13) {
+                    var value = $(this).val();
+                    scope.$apply(function () {
+                        scope.onSearch(value);
+                    });
+                }
+            });
+
+            // carry over search on route change
+            scope.$watch(function () {
+                return $location.search();
+            }, function (search) {
+                if (search && search.search) {
+                    box.val(search.search);
+                } else {
+                    box.val('');
+                }
+            });
+        }
+    };
+}]);
+app.directive('newsStickyMenu', function () {
+    'use strict';
+
+    return function (scope, elem, attr) {
+        var height = 40;
+
+        $(attr.newsStickyMenu).scroll(function () {
+            var scrollHeight = $(this).scrollTop();
+
+            if (scrollHeight > height) {
+                elem.addClass('fixed');
+                elem.css('top', scrollHeight);
+            } else {
+                elem.removeClass('fixed');
+            }
+        });
+    };
+});
 app.directive('newsStopPropagation', function () {
     'use strict';
     return {

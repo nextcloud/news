@@ -26,6 +26,7 @@ foreach (Plugin::getScripts() as $appName => $fileName) {
 <div id="app" ng-app="News" ng-cloak ng-strict-di
     ng-controller="AppController as App">
 
+
     <div id="global-loading"
         class="icon-loading"
         ng-show="App.loading.isLoading('global')"></div>
@@ -35,6 +36,7 @@ foreach (Plugin::getScripts() as $appName => $fileName) {
         ng-controller="NavigationController as Navigation"
         ng-hide="App.loading.isLoading('global')">
 
+        <news-search on-search="Navigation.search" class="ng-hide"></news-search>
         <news-title-unread-count
             unread-count="{{ Navigation.getUnreadCount() }}">
         </news-title-unread-count>
@@ -58,6 +60,9 @@ foreach (Plugin::getScripts() as $appName => $fileName) {
     </div>
 
     <!-- content -->
+    <script type="text/ng-template" id="audio.html">
+        <?php print_unescaped($this->inc('part.content.audio')) ?>
+    </script>
     <script type="text/ng-template" id="articleaction.html">
         <?php print_unescaped($this->inc('part.content.articleaction')) ?>
     </script>
@@ -79,6 +84,14 @@ foreach (Plugin::getScripts() as $appName => $fileName) {
         }"
         tabindex="-1"
         news-pull-to-refresh="showPullToRefresh">
+        <div class="podcast" news-sticky-menu="#app-content" ng-if="App.playingItem">
+            <audio controls autoplay ng-src="{{ App.playingItem.enclosureLink|trustUrl }}" news-play-one></audio>
+            <a class="button podcast-download" title="<?php p($l->t('Download')) ?>"
+                ng-href="{{ App.playingItem.enclosureLink|trustUrl }}"
+                target="_blank"></a>
+            <button class="podcast-close" title="<?php p($l->t('Close')) ?>"
+                ng-click="App.playingItem = false"></button>
+        </div>
         <div id="app-content-wrapper"
             ng-class="{
                 'autopaging': App.loading.isLoading('autopaging'),

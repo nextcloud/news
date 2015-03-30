@@ -209,6 +209,10 @@
                 <length>32</length>
             </field>
             <field>
+                <name>search_index</name>
+                <type>clob</type>
+            </field>
+            <field>
                 <name>guid</name>
                 <type>clob</type>
                 <notnull>true</notnull>

@@ -29,7 +29,7 @@ class YoutubeFetcher implements IFeedFetcher {
             $id = $matches[1];
             return 'http://gdata.youtube.com/feeds/api/playlists/' . $id;
         } else {
-            return false;
+            return $url;
         }
     }
 
@@ -38,7 +38,7 @@ class YoutubeFetcher implements IFeedFetcher {
      * This fetcher handles all the remaining urls therefore always returns true
      */
     public function canHandle($url){
-        return $this->buildUrl($url) !== false;
+        return $this->buildUrl($url) !== $url;
     }
 
 

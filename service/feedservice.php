@@ -117,7 +117,7 @@ class FeedService extends Service {
             $feed->setUserId($userId);
             $feed->setArticlesPerUpdate($itemCount);
 
-            if ($title) {
+            if ($title !== null && $title !== '') {
                 $feed->setTitle($title);
             }
 

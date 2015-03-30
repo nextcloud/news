@@ -57,6 +57,7 @@ class Item extends Entity implements IAPI, \JsonSerializable {
     protected $feedId;
     protected $status = 0;
     protected $lastModified;
+    protected $searchIndex;
 
     public function __construct(){
         $this->addType('pubDate', 'integer');
@@ -196,6 +197,16 @@ class Item extends Entity implements IAPI, \JsonSerializable {
         parent::setTitle(strip_tags($title));
     }
 
+    public function generateSearchIndex() {
+        $this->setSearchIndex(
+            strtolower(
+                html_entity_decode(strip_tags($this->getBody())) .
+                html_entity_decode($this->getAuthor()) .
+                html_entity_decode($this->getTitle()) .
+                $this->getUrl()
+            )
+        );
+    }
 
     public function setUrl($url) {
         $url = trim($url);
@@ -208,7 +219,9 @@ class Item extends Entity implements IAPI, \JsonSerializable {
     public function setBody($body) {
         // FIXME: this should not happen if the target="_blank" is already
         // on the link
-        parent::setBody(str_replace('<a', '<a target="_blank" rel="noreferrer"', $body));
+        parent::setBody(str_replace(
+            '<a', '<a target="_blank" rel="noreferrer"', $body
+        ));
     }
 
 }
