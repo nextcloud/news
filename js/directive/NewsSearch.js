@@ -19,13 +19,11 @@ app.directive('newsSearch', function ($document, $location) {
             var box = $('#searchbox');
             box.val($location.search().search);
 
-            box.on('keyup', function (e) {
-                if (e.keyCode === 13) {
-                    var value = $(this).val();
-                    scope.$apply(function () {
-                        scope.onSearch(value);
-                    });
-                }
+            box.on('search', function () {
+                var value = $(this).val();
+                scope.$apply(function () {
+                    scope.onSearch(value);
+                });
             });
 
             // carry over search on route change
