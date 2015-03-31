@@ -15,11 +15,6 @@
     padding: 0 0 0 15px;
 }
 
-#app-content .custom-sueddeutsche-de img + span {
-    display: block;
-}
-
-
-#app-content .custom-sueddeutsche-de a + a {
-    display: block;
+#app-content .custom-sueddeutsche-de .body img {
+    float: none !important;
 }
