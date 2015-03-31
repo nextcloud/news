@@ -57,12 +57,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fguillot/picoFeed.git",
-                "reference": "a006fc10642fbdc5414bebd6542aeabd35f8c98b"
+                "reference": "7c28753d5936ba635435a8e0e941dcabee67b243"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/a006fc10642fbdc5414bebd6542aeabd35f8c98b",
-                "reference": "a006fc10642fbdc5414bebd6542aeabd35f8c98b",
+                "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/7c28753d5936ba635435a8e0e941dcabee67b243",
+                "reference": "7c28753d5936ba635435a8e0e941dcabee67b243",
                 "shasum": ""
             },
             "require": {
@@ -73,6 +73,12 @@
                 "ext-xml": "*",
                 "php": ">=5.3.0"
             },
+            "suggest": {
+                "ext-curl": "PicoFeed will use cURL if present"
+            },
+            "bin": [
+                "picofeed"
+            ],
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -91,7 +97,7 @@
             ],
             "description": "Modern library to write or read feeds (RSS/Atom)",
             "homepage": "http://fguillot.github.io/picoFeed",
-            "time": "2015-03-03 03:14:01"
+            "time": "2015-03-30 23:34:59"
         },
         {
             "name": "pear/net_url2",

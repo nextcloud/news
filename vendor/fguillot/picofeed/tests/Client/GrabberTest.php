@@ -7,6 +7,9 @@ use PicoFeed\Reader\Reader;
 
 class GrabberTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @group online
+     */
     public function testGrabContentWithCandidates()
     {
         $grabber = new Grabber('http://theonion.com.feedsportal.com/c/34529/f/632231/s/309a7fe4/sc/20/l/0L0Stheonion0N0Carticles0Cobama0Ethrows0Eup0Eright0Ethere0Eduring0Esyria0Emeeting0H336850C/story01.htm');
@@ -37,6 +40,9 @@ class GrabberTest extends PHPUnit_Framework_TestCase
     }
 
     // 01net.com - https://github.com/fguillot/miniflux/issues/267
+    /**
+     * @group online
+     */
     public function testGetRules_afterRedirection()
     {
         $grabber = new Grabber('http://rss.feedsportal.com/c/629/f/502199/s/422f8c8a/sc/44/l/0L0S0A1net0N0Ceditorial0C640A3130Cces0E20A150Eimprimer0Eune0Epizza0Eet0Edes0Ebiscuits0Evideo0C0T0Dxtor0FRSS0E16/story01.htm');
@@ -44,6 +50,9 @@ class GrabberTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(is_array($grabber->getRules()));
     }
 
+    /**
+     * @group online
+     */
     public function testGrabContent()
     {
         $grabber = new Grabber('http://www.egscomics.com/index.php?id=1690');
@@ -53,6 +62,9 @@ class GrabberTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('<img title="2013-08-22" src="comics/../comics/1377151029-2013-08-22.png" id="comic" border="0" />', $grabber->getContent());
     }
 
+    /**
+     * @group online
+     */
     public function testRssGrabContent()
     {
         $reader = new Reader;

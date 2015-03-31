@@ -100,6 +100,47 @@ class Item
     public $language = '';
 
     /**
+     * Raw XML
+     *
+     * @access public
+     * @var \SimpleXMLElement
+     */
+    public $xml;
+
+    /**
+     * List of namespaces
+     *
+     * @access public
+     * @var array
+     */
+    public $namespaces = array();
+
+    /**
+     * Get specific XML tag or attribute value
+     *
+     * @access public
+     * @param  string  $tag           Tag name (examples: guid, media:content)
+     * @param  string  $attribute     Tag attribute
+     * @return string
+     */
+    public function getTag($tag, $attribute = '')
+    {
+        // Get namespaced value
+        if (strpos($tag, ':') !== false) {
+            list(,$tag) = explode(':', $tag);
+            return XmlParser::getNamespaceValue($this->xml, $this->namespaces, $tag, $attribute);
+        }
+
+        // Return attribute value
+        if (! empty($attribute)) {
+            return (string) $this->xml->{$tag}[$attribute];
+        }
+
+        // Return tag content
+        return (string) $this->xml->$tag;
+    }
+
+    /**
      * Return item information
      *
      * @access public

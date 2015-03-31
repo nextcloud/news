@@ -176,6 +176,44 @@ catch (PicoFeedException $e) {
 }
 ```
 
+HTTP basic auth
+---------------
+If a feed requires basic auth headers, you can pass them as parameters to the **download** method, e.g.:
+
+```php
+try {
+    $reader = new Reader;
+
+    $user = 'john';
+    $password = 'doe';
+
+    // Provide those values to the download method
+    $resource = $reader->download('http://linuxfr.org/news.atom', '', '', $user, $password);
+
+    // Return true if the remote content has changed
+    if ($resource->isModified()) {
+
+        $parser = $reader->getParser(
+            $resource->getUrl(),
+            $resource->getContent(),
+            $resource->getEncoding()
+        );
+
+        $feed = $parser->execute();
+
+        // Save your feed in your database
+        // ...
+
+    }
+    else {
+
+        echo 'Not modified, nothing to do!';
+    }
+}
+catch (PicoFeedException $e) {
+    // Do something...
+}
+```
 
 Feed and item properties
 ------------------------
@@ -203,6 +241,45 @@ $feed->items[0]->getEnclosureUrl();            // Enclosure url
 $feed->items[0]->getEnclosureType();           // Enclosure mime-type (audio/mp3, image/png...)
 $feed->items[0]->getContent();                 // Item content (filtered or raw)
 $feed->items[0]->isRTL();                      // Return true if the item language is Right-To-Left
+```
+
+Get raw XML tags/attributes or non standard tags for items
+----------------------------------------------------------
+
+Get the original `guid` tag for RSS 2.0 feeds:
+
+```php
+echo $feed->items[0]->getTag('guid');
+```
+
+Get a specific attribute value:
+
+```php
+echo $feed->items[1]->getTag('category', 'term');
+```
+
+Get value of namespaced tag:
+
+```php
+echo $feed->items[1]->getTag('wfw:commentRss');
+```
+
+Get attribute value of a namespaced tag:
+
+```php
+echo $feed->items[0]->getTag('media:content', 'url');
+```
+
+Get the xml of the item (returns a SimpleXMLElement instance):
+
+```php
+$simplexml = $feed->items[0]->xml;
+```
+
+Get the list of namespaces:
+
+```php
+print_r($feed->items[0]->namespaces);
 ```
 
 RTL language detection

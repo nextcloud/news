@@ -6,6 +6,9 @@ use PHPUnit_Framework_TestCase;
 
 class ClientTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @group online
+     */
     public function testDownload()
     {
         $client = Client::getInstance();
@@ -20,6 +23,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
 
     /**
      * @runInSeparateProcess
+     * @group online
      */
     public function testPassthrough()
     {
@@ -31,6 +35,9 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->expectOutputString(file_get_contents('tests/fixtures/miniflux_favicon.ico'));
     }
 
+    /**
+     * @group online
+     */
     public function testCacheBothHaveToMatch()
     {
         $client = Client::getInstance();
@@ -46,6 +53,9 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($client->isModified());
     }
 
+    /**
+     * @group online
+     */
     public function testCacheEtag()
     {
         $client = Client::getInstance();
@@ -63,6 +73,9 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($client->isModified());
     }
 
+    /**
+     * @group online
+     */
     public function testCacheLastModified()
     {
         $client = Client::getInstance();
@@ -78,6 +91,9 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($client->isModified());
     }
 
+    /**
+     * @group online
+     */
     public function testCacheBoth()
     {
         $client = Client::getInstance();
@@ -95,6 +111,9 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($client->isModified());
     }
 
+    /**
+     * @group online
+     */
     public function testCharset()
     {
         $client = Client::getInstance();
@@ -108,6 +127,9 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('', $client->getEncoding());
     }
 
+    /**
+     * @group online
+     */
     public function testContentType()
     {
         $client = Client::getInstance();

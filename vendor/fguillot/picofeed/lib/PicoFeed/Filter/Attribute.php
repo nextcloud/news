@@ -215,7 +215,8 @@ class Attribute
      * @var array
      */
     private $add_attributes = array(
-        'a' => array('rel' => 'noreferrer', 'target' => '_blank')
+        'a' => array('rel' => 'noreferrer', 'target' => '_blank'),
+        'video' => array('controls' => 'true'),
     );
 
     /**

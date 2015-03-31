@@ -77,6 +77,9 @@ class FaviconTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array(), $favicon->extract($html));
     }
 
+    /**
+     * @group online
+     */
     public function testExists()
     {
         $favicon = new Favicon;
@@ -87,6 +90,9 @@ class FaviconTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($favicon->exists(''));
     }
 
+    /**
+     * @group online
+     */
     public function testFind_inMeta()
     {
         $favicon = new Favicon;
@@ -123,6 +129,9 @@ class FaviconTest extends PHPUnit_Framework_TestCase
         $this->assertEmpty($favicon->getContent());
     }
 
+    /**
+     * @group online
+     */
     public function testFind_directLinkFirst()
     {
         $favicon = new Favicon;
@@ -135,6 +144,9 @@ class FaviconTest extends PHPUnit_Framework_TestCase
         $this->assertNotEmpty($favicon->getContent());
     }
 
+    /**
+     * @group online
+     */
     public function testFind_fallsBackToExtract()
     {
         $favicon = new Favicon;
@@ -146,6 +158,9 @@ class FaviconTest extends PHPUnit_Framework_TestCase
         $this->assertNotEmpty($favicon->getContent());
     }
 
+    /**
+     * @group online
+     */
     public function testDataUri()
     {
         $favicon = new Favicon;
@@ -160,6 +175,9 @@ class FaviconTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $favicon->getDataUri());
     }
 
+    /**
+     * @group online
+     */
     public function testDataUri_withBadContentType()
     {
         $favicon = new Favicon;

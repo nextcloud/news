@@ -6,6 +6,9 @@ use PHPUnit_Framework_TestCase;
 
 class CurlTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @group online
+     */
     public function testDownload()
     {
         $client = new Curl;
@@ -20,6 +23,7 @@ class CurlTest extends PHPUnit_Framework_TestCase
 
     /**
      * @runInSeparateProcess
+     * @group online
      */
     public function testPassthrough()
     {
@@ -31,6 +35,9 @@ class CurlTest extends PHPUnit_Framework_TestCase
         $this->expectOutputString(file_get_contents('tests/fixtures/miniflux_favicon.ico'));
     }
 
+    /**
+     * @group online
+     */
     public function testRedirect()
     {
         $client = new Curl;
@@ -46,6 +53,7 @@ class CurlTest extends PHPUnit_Framework_TestCase
 
     /**
      * @expectedException PicoFeed\Client\InvalidCertificateException
+     * @group online
      */
     public function testSSL()
     {

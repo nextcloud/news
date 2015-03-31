@@ -153,6 +153,9 @@ abstract class Parser
         foreach ($this->getItemsTree($xml) as $entry) {
 
             $item = new Item;
+            $item->xml = $entry;
+            $item->namespaces = $this->namespaces;
+
             $this->findItemAuthor($xml, $entry, $item);
 
             $this->findItemUrl($entry, $item);

@@ -18,7 +18,13 @@
         "ext-libxml": "*",
         "ext-SimpleXML": "*"
     },
+    "suggest": {
+        "ext-curl": "PicoFeed will use cURL if present"
+    },
     "autoload": {
         "psr-0": {"PicoFeed": "lib/"}
-    }
+    },
+    "bin" : [
+        "picofeed"
+    ]
 }

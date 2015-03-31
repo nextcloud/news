@@ -15,6 +15,9 @@ class ReaderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('https://google.com', $reader->prependScheme('https://google.com'));
     }
 
+    /**
+     * @group online
+     */
     public function testDownload_withHTTP()
     {
         $reader = new Reader;
@@ -22,6 +25,9 @@ class ReaderTest extends PHPUnit_Framework_TestCase
         $this->assertNotEmpty($feed);
     }
 
+    /**
+     * @group online
+     */
     public function testDownload_withHTTPS()
     {
         $reader = new Reader;
@@ -29,6 +35,9 @@ class ReaderTest extends PHPUnit_Framework_TestCase
         $this->assertNotEmpty($feed);
     }
 
+    /**
+     * @group online
+     */
     public function testDownload_withCache()
     {
         $reader = new Reader;
@@ -210,6 +219,9 @@ class ReaderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array(), $feeds);
     }
 
+    /**
+     * @group online
+     */
     public function testDiscover()
     {
         $reader = new Reader;

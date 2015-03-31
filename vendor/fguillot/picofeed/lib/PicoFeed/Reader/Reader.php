@@ -58,9 +58,11 @@ class Reader
      * @param  string            $url              Feed url
      * @param  string            $last_modified    Last modified HTTP header
      * @param  string            $etag             Etag HTTP header
+     * @param  string            $username         HTTP basic auth username
+     * @param  string            $password         HTTP basic auth password
      * @return \PicoFeed\Client\Client
      */
-    public function download($url, $last_modified = '', $etag = '')
+    public function download($url, $last_modified = '', $etag = '', $username = '', $password = '')
     {
         $url = $this->prependScheme($url);
 
@@ -68,6 +70,8 @@ class Reader
                         ->setConfig($this->config)
                         ->setLastModified($last_modified)
                         ->setEtag($etag)
+                        ->setUsername($username)
+                        ->setPassword($password)
                         ->execute($url);
     }
 
@@ -78,11 +82,13 @@ class Reader
      * @param  string            $url              Feed or website url
      * @param  string            $last_modified    Last modified HTTP header
      * @param  string            $etag             Etag HTTP header
+     * @param  string            $username         HTTP basic auth username
+     * @param  string            $password         HTTP basic auth password
      * @return \PicoFeed\Client\Client
      */
-    public function discover($url, $last_modified = '', $etag = '')
+    public function discover($url, $last_modified = '', $etag = '', $username = '', $password = '')
     {
-        $client = $this->download($url, $last_modified, $etag);
+        $client = $this->download($url, $last_modified, $etag, $username, $password);
 
         // It's already a feed or the feed was not modified
         if (! $client->isModified() || $this->detectFormat($client->getContent())) {
@@ -96,7 +102,7 @@ class Reader
             throw new SubscriptionNotFoundException('Unable to find a subscription');
         }
 
-        return $this->download($links[0], $last_modified, $etag);
+        return $this->download($links[0], $last_modified, $etag, $username, $password);
     }
 
     /**

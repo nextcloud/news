@@ -212,21 +212,7 @@ class XmlParser
     }
 
     /**
-     * Extract charset from meta tag
-     *
-     * @static
-     * @access public
-     * @param  string  $data  meta tag content
-     * @return string
-     */
-    public static function findCharset($data)
-    {
-        $result = explode('charset=', $data);
-        return isset($result[1]) ? $result[1] : $data;
-    }
-
-    /**
-     * Get the encoding from a xml tag
+     * Get the charset from a meta tag
      *
      * @static
      * @access public
@@ -237,18 +223,8 @@ class XmlParser
     {
         $encoding = '';
 
-        $dom = static::getHtmlDocument($data);
-        $xpath = new DOMXPath($dom);
-
-        $tags = array(
-            '/html/head/meta[translate(@http-equiv, "CENOPTY", "cenopty")="content-type"]/@content', //HTML4, convert upper to lower-case
-            '/html/head/meta/@charset', //HTML5
-        );
-
-        $nodes = $xpath->query(implode(' | ', $tags));
-
-        foreach ($nodes as $node) {
-            $encoding = static::findCharset($node->nodeValue);
+        if (preg_match('/<meta.*?charset\s*=\s*["\']?\s*([^"\'\s\/>;]+)/i', $data, $match) === 1) {
+            $encoding = strtolower($match[1]);
         }
 
         return $encoding;

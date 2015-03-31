@@ -17,8 +17,68 @@ class XmlParserTest extends PHPUnit_Framework_TestCase
 
     public function testGetEncodingFromMetaTag()
     {
-        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<html><head><meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type"/></head></html>'));
-        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<html><head><meta charset="iso-8859-1"></head></html>'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1" />'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta http-equiv=\'Content-Type\' content=\'text/html;charset=iso-8859-1\'/>'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta http-equiv=\'Content-Type\' content=\'text/html;charset=iso-8859-1\' />'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta http-equiv=Content-Type content=text/html;charset=iso-8859-1/>'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta http-equiv=Content-Type content=text/html;charset=iso-8859-1 />'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1" >'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta http-equiv=\'Content-Type\' content=\'text/html;charset=iso-8859-1\'>'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta http-equiv=\'Content-Type\' content=\'text/html;charset=iso-8859-1\' >'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta http-equiv=Content-Type content=text/html;charset=iso-8859-1>'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta http-equiv=Content-Type content=text/html;charset=iso-8859-1 >'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta http-equiv="Content-Type" content="text/html;charset=\'iso-8859-1\'">'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta http-equiv="Content-Type" content="\'text/html;charset=iso-8859-1\'">'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta http-equiv="Content-Type" content="\'text/html\';charset=\'iso-8859-1\'">'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta http-equiv=\'Content-Type\' content=\'text/html;charset="iso-8859-1"\'>'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta http-equiv=\'Content-Type\' content=\'"text/html;charset=iso-8859-1"\'>'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta http-equiv=\'Content-Type\' content=\'"text/html";charset="iso-8859-1"\'>'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta http-equiv="Content-Type" content="text/html;;;charset=iso-8859-1">'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta http-equiv="Content-Type" content="text/html;;;charset=\'iso-8859-1\'">'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta http-equiv="Content-Type" content="\'text/html;;;charset=iso-8859-1\'">'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta http-equiv="Content-Type" content="\'text/html\';;;charset=\'iso-8859-1\'">'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta http-equiv=\'Content-Type\' content=\'text/html;;;charset=iso-8859-1\'>'));
+        $this->assertEquals('windows-1251', XmlParser::getEncodingFromMetaTag('<meta http-equiv=\'Content-Type\' content=\'text/html;;;charset="windows-1251"\'>'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta http-equiv=\'Content-Type\' content=\'"text/html;;;charset=iso-8859-1"\'>'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta http-equiv=\'Content-Type\' content=\'"text/html";;;charset="iso-8859-1"\'>'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta  http-equiv  =  Content-Type  content  =  text/html;charset=iso-8859-1  >'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta  content  =  text/html;charset=iso-8859-1  http-equiv  =  Content-Type  >'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta  http-equiv  =  Content-Type  content  =  text/html  ;  charset  =  iso-8859-1  >'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta  content  =  text/html  ;  charset  =  iso-8859-1  http-equiv  =  Content-Type  >'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta  http-equiv  =  Content-Type  content  =  text/html  ;;;  charset  =  iso-8859-1  >'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta  content  =  text/html  ;;;  charset  =  iso-8859-1  http-equiv  =  Content-Type  >'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta  http-equiv  =  Content-Type  content  =  text/html  ;  ;  ;  charset  =  iso-8859-1  >'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta  content  =  text/html  ;  ;  ;  charset  =  iso-8859-1  http-equiv  =  Content-Type  >'));
+        $this->assertEquals('utf-8', XmlParser::getEncodingFromMetaTag('<meta charset="uTf-8"/>'));
+        $this->assertEquals('utf-8', XmlParser::getEncodingFromMetaTag('<meta charset="utf-8" />'));
+        $this->assertEquals('utf-8', XmlParser::getEncodingFromMetaTag('<meta charset=\'Utf-8\'/>'));
+        $this->assertEquals('utf-8', XmlParser::getEncodingFromMetaTag('<meta charset=\'utf-8\' />'));
+        $this->assertEquals('utf-8', XmlParser::getEncodingFromMetaTag('<meta charset=utf-8/>'));
+        $this->assertEquals('utf-8', XmlParser::getEncodingFromMetaTag('<meta charset=utf-8 />'));
+        $this->assertEquals('utf-8', XmlParser::getEncodingFromMetaTag('<meta charset="utf-8">'));
+        $this->assertEquals('utf-8', XmlParser::getEncodingFromMetaTag('<meta charset="utf-8" >'));
+        $this->assertEquals('utf-8', XmlParser::getEncodingFromMetaTag('<meta charset=\'utf-8\'>'));
+        $this->assertEquals('utf-8', XmlParser::getEncodingFromMetaTag('<meta charset=\'utf-8\' >'));
+        $this->assertEquals('utf-8', XmlParser::getEncodingFromMetaTag('<meta charset=utf-8>'));
+        $this->assertEquals('utf-8', XmlParser::getEncodingFromMetaTag('<meta charset=utf-8 >'));
+        $this->assertEquals('utf-8', XmlParser::getEncodingFromMetaTag('<meta  charset  =  "  utf-8  "  >'));
+        $this->assertEquals('utf-8', XmlParser::getEncodingFromMetaTag('<meta  charset  =  \'  utf-8  \'  >'));
+        $this->assertEquals('utf-8', XmlParser::getEncodingFromMetaTag('<meta  charset  =  "  utf-8  \'  >'));
+        $this->assertEquals('utf-8', XmlParser::getEncodingFromMetaTag('<meta  charset  =  \'  utf-8  "  >'));
+        $this->assertEquals('utf-8', XmlParser::getEncodingFromMetaTag('<meta  charset  =  "  utf-8     >'));
+        $this->assertEquals('utf-8', XmlParser::getEncodingFromMetaTag('<meta  charset  =  \'  utf-8     >'));
+        $this->assertEquals('utf-8', XmlParser::getEncodingFromMetaTag('<meta  charset  =     utf-8  \'  >'));
+        $this->assertEquals('utf-8', XmlParser::getEncodingFromMetaTag('<meta  charset  =     utf-8  "  >'));
+        $this->assertEquals('utf-8', XmlParser::getEncodingFromMetaTag('<meta  charset  =     utf-8     >'));
+        $this->assertEquals('utf-8', XmlParser::getEncodingFromMetaTag('<meta  charset  =     utf-8    />'));
+        $this->assertEquals('utf-8', XmlParser::getEncodingFromMetaTag('<meta name="title" value="charset=utf-8 — is it really useful (yep)?">'));
+        $this->assertEquals('utf-8', XmlParser::getEncodingFromMetaTag('<meta value="charset=utf-8 — is it really useful (yep)?" name="title">'));
+        $this->assertEquals('utf-8', XmlParser::getEncodingFromMetaTag('<meta name="title" content="charset=utf-8 — is it really useful (yep)?">'));
+        $this->assertEquals('utf-8', XmlParser::getEncodingFromMetaTag('<meta name="charset=utf-8" content="charset=utf-8 — is it really useful (yep)?">'));
+        $this->assertEquals('utf-8', XmlParser::getEncodingFromMetaTag('<meta content="charset=utf-8 — is it really useful (nope, not here, but gotta admit pretty robust otherwise)?" name="title">'));
+        $this->assertEquals('iso-8859-1', XmlParser::getEncodingFromMetaTag('<meta http-equiv="Content-Type" content="text/html;charset=iSo-8859-1"/><meta charset="invalid" />'));
     }
 
     public function testGetEncodingFromXmlTag()
