@@ -98,8 +98,8 @@ Then proceed to install the app either from an archive (zip/tar.gz) or clone it 
 
         git clone https://github.com/owncloud/news.git
 
-* If you are using a stable ownCloud release, stay with the [latest git tag release](https://github.com/owncloud/news/releases). To get an overview over all existing tags run:
- 
+* If you are using a stable ownCloud release, stay with the [latest git tag release which is running on your version](https://github.com/owncloud/news/releases). To get an overview over all existing tags run:
+
         git tag
 
  You can switch to a release which will be supported on your installation by running:
