@@ -100,7 +100,7 @@ Then proceed to install the app either from an archive (zip/tar.gz) or clone it 
 
 * If you are using a stable ownCloud release, stay with the [latest git tag release](https://github.com/owncloud/news/releases). To get an overview over all existing tags run:
 
-     git tag
+      git tag
 
  You can switch to a release which will be supported on your installation by running:
 
