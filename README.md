@@ -114,7 +114,7 @@ Then proceed to install the app either from an archive (zip/tar.gz) or clone it 
 
 To update the News app use change into the **owncloud/apps/news/** directory using your terminal and then run:
 
-     git pull --rebase origin master
+    git pull --rebase origin master
 
 ## Performance Notices
 * Use MySQL or PostgreSQL for better database performance
