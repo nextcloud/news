@@ -34,6 +34,7 @@ OC.L10N.register(
     "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty" : "Wanneer opgegeven zal de URL van deze service worden geraadpleegd om feeds in de verken feed sectie te tonen. Laat dit blanco om terug te vallen op de ingebouwde verkenner service.",
     "Saved" : "Bewaard",
     "Download" : "Downloaden",
+    "Close" : "Sluiten",
     "Ajax cron mode detected! Your feeds will not be updated correctly. It is recommended to either use the operating system cron or a custom updater." : "Ajax cron modus geïdentificeerd! Uw feeds worden niet correct bijgewerkt. Geadviseerd wordt om ofwel de cron-service van het platform zelf te gebruiken of een eigen maatwerk updater.",
     "How to set up the operating system cron" : "Hoe wordt de cron-service van het operating system ingesteld",
     "How to set up a custom updater (faster and no possible deadlock) " : "Hoe wordt een maarwerk update ingesteld (sneller en geen deadlock)",

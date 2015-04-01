@@ -34,6 +34,7 @@ OC.L10N.register(
     "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty" : "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built-in explore service, leave this input empty",
     "Saved" : "Saved",
     "Download" : "Download",
+    "Close" : "Close",
     "Ajax cron mode detected! Your feeds will not be updated correctly. It is recommended to either use the operating system cron or a custom updater." : "Ajax cron mode detected! Your feeds will not be updated correctly. It is recommended to either use the operating system cron or a custom updater.",
     "How to set up the operating system cron" : "How to set up the operating system cron",
     "How to set up a custom updater (faster and no possible deadlock) " : "How to set up a custom updater (faster and no possible deadlock) ",

@@ -27,6 +27,7 @@ OC.L10N.register(
     "Explore Service URL" : "Razišči spletni naslov storitve",
     "Saved" : "Shranjeno",
     "Download" : "Prejmi",
+    "Close" : "Zapri",
     "Subscribe" : "Naročilo",
     "Refresh" : "Osveži",
     "No articles available" : "Ni prispevkov",

@@ -32,6 +32,7 @@
     "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty" : "Ако је дато, ова сервисна адреса ће бити упитана за приказивање у секцији за истраживање емисије. За повратак за коришћење уграђеног сервис за истраживање, оставите ово празна",
     "Saved" : "Сачувано",
     "Download" : "Преузми",
+    "Close" : "Затвори",
     "Ajax cron mode detected! Your feeds will not be updated correctly. It is recommended to either use the operating system cron or a custom updater." : "Откривен је режим Ајакс крона! Ваше емисије неће бити ажуриране коректно. Препоручено је да користите системски крон или прилагођени програм за ажурирање.",
     "How to set up the operating system cron" : "Како подестити крон оперативног система",
     "How to set up a custom updater (faster and no possible deadlock) " : "Како подесити прилагођени систем за ажурирање (брже и без застоја)",

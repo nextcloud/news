@@ -33,6 +33,7 @@ $TRANSLATIONS = array(
 "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty" => "Ak je zadané, bude táto URL služba dopytovať pre zobrazenie kanálov v sekcii prehľadávania kanálu. Pre návrat k prednastavenej službe prehľadávania ponechajte toto pole prázdne",
 "Saved" => "Uložené",
 "Download" => "Sťahovanie",
+"Close" => "Zavrieť",
 "Ajax cron mode detected! Your feeds will not be updated correctly. It is recommended to either use the operating system cron or a custom updater." => "Zistený Ajax cron režim! Vaše kanály nebudú správne aktualizované. Odporúča sa použiť buď cron operačného systému alebo vlastné aktualizácie.",
 "How to set up the operating system cron" => "Ako nastaviť cron v operačnom systéme",
 "How to set up a custom updater (faster and no possible deadlock) " => "Ako nastaviť vlastné aktualizácie (rýchlejšie a bez prípadného zablokovania)",

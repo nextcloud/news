@@ -33,6 +33,7 @@ $TRANSLATIONS = array(
 "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty" => "Hvis oppgitt, vil denne tjenestens URL bli forespurt for vising av nyhetskilder i seksjonen for utforsking av nyhetskilder. La stå tomt for å falle tilbake på den innebygde utforsker-tjenesten.",
 "Saved" => "Lagret",
 "Download" => "Last ned",
+"Close" => "Lukk",
 "Ajax cron mode detected! Your feeds will not be updated correctly. It is recommended to either use the operating system cron or a custom updater." => "Ajax cron-modus påvist! Nyhetskildene dine vil ikke bli oppdatert på rett måte. Det anbefales å enten bruke operativsystemets cron eller en tilpasset oppdaterer",
 "How to set up the operating system cron" => "Hvordan sette opp operativsystemets cron",
 "How to set up a custom updater (faster and no possible deadlock) " => "Hvordan sette opp en tilpasset opdaterer (raskere og ikke mulighet for vranglås)",

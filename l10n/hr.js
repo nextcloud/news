@@ -28,6 +28,7 @@ OC.L10N.register(
     "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty" : "Ako je dano, URL servisa bit će upitan za prikaz unosa u selekciji odkrivanja unosa. Da bi ste vratili na \"ugrađenu\" vrijednost servisa odkrivanja, ostavite polje za unos prazno",
     "Saved" : "Spremljeno",
     "Download" : "Preuzimanje",
+    "Close" : "Zatvorite",
     "Ajax cron mode detected! Your feeds will not be updated correctly. It is recommended to either use the operating system cron or a custom updater." : "Ajax radnik načina rada odkriven! Tvoji unosi neće biti ažurirani pravilno. Preporuka je da se koristi radnik operativnog sustava ili neki prilagođeni.",
     "How to set up the operating system cron" : "Kako postaviti radnika operativnog sustava",
     "How to set up a custom updater (faster and no possible deadlock) " : "Kako postaviti prilagođenu nadogradnju (brža i nema mogučnosti zastoja )",

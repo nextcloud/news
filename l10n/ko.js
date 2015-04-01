@@ -34,6 +34,7 @@ OC.L10N.register(
     "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty" : "여기에 URL을 입력하면 피드 탐색 목록에 표시할 피드를 이 URL에서 가져옵니다. 내장 탐색 서비스를 사용하려면 이 항목을 비워 두십시오",
     "Saved" : "저장됨",
     "Download" : "다운로드",
+    "Close" : "닫기",
     "Ajax cron mode detected! Your feeds will not be updated correctly. It is recommended to either use the operating system cron or a custom updater." : "AJAX cron 모드를 감지하였습니다! 피드 업데이트가 올바르게 진행되지 않을 수도 있습니다. 운영 체제의 cron이나 사용자 정의 업데이터를 사용하십시오.",
     "How to set up the operating system cron" : "운영 체제 cron 설정 방법",
     "How to set up a custom updater (faster and no possible deadlock) " : "사용자 정의 업데이터 설정 방법(더 빠르고 데드록을 줄일 수 있음)",

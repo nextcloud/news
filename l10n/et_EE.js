@@ -26,6 +26,7 @@ OC.L10N.register(
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted" : "Maksimaalne aeg sekundites RSS või Atom voo laadimiseks; kui see võtab kauem, siis uuendus katkestatakse",
     "Saved" : "Salvestatud",
     "Download" : "Lae alla",
+    "Close" : "Sulge",
     "Subscribe" : "Telli",
     "Refresh" : "Värskenda",
     "Open website" : "Ava veebisait",

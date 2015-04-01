@@ -33,6 +33,7 @@ $TRANSLATIONS = array(
 "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty" => "Якщо зазначено, то URL сервісу опитуватиметься з метою відображення стрічок в секції дослідження. Для повернення до вбудованого сервісу, залиште поле порожнім.",
 "Saved" => "Збереженно",
 "Download" => "Завантажити",
+"Close" => "Закрити",
 "Ajax cron mode detected! Your feeds will not be updated correctly. It is recommended to either use the operating system cron or a custom updater." => "Виявлена настройка синхронізації по Ajax cron! Ваші новинні стрічки не будуть коректно оновлюватися. Рекомендується використовувати cron операційної системи або власний механізм оновлення.",
 "How to set up the operating system cron" => "Як налаштувати cron операційної системи",
 "How to set up a custom updater (faster and no possible deadlock) " => "Як налаштувати інший спосіб оновлення (швидше і без ризику взаємного блокування)",
