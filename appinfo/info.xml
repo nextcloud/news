@@ -23,7 +23,7 @@
     <!-- dependencies -->
     <requiremin>8.1</requiremin>
     <dependencies>
-        <owncloud min-version="8.1" />
+        <owncloud min-version="8.1" max-version="8.1"/>
         <php min-version="5.4" />
         <database>pgsql</database>
         <database>sqlite</database>
