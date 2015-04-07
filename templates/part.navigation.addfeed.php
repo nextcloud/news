@@ -1,6 +1,7 @@
 <li class="add-new">
-    <div class="heading icon-add">
+    <div class="heading">
         <button
+            class="icon-add"
             data-apps-slide-toggle="#new-feed"
             news-focus="[name='address']"><?php p($l->t('Subscribe'))?></button>
     </div>

@@ -1,6 +1,7 @@
 <li class="add-new">
-    <div class="heading icon-add">
+    <div class="heading">
         <button
+            class="icon-add"
             data-apps-slide-toggle="#new-folder"
             news-focus="#new-folder [name='folderName']">
                 <?php p($l->t('New Folder'))?>
