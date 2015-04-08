@@ -50,6 +50,7 @@ $TRANSLATIONS = array(
 "from" => "de",
 "Play audio" => "Lire le fichier audio",
 "Download video" => "Télécharger la vidéo",
+"Download audio" => "Télécharger le son",
 "Keyboard shortcut" => "Raccourcis clavier",
 "Description" => "Description",
 "right" => "droite",
