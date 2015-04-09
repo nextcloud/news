@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.4.0-build.3937+sha.171b9f7
+ * @license AngularJS v1.4.0-build.3954+sha.9dfa949
  * (c) 2010-2015 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -57,7 +57,7 @@ function minErr(module, ErrorConstructor) {
       return match;
     });
 
-    message += '\nhttp://errors.angularjs.org/1.4.0-build.3937+sha.171b9f7/' +
+    message += '\nhttp://errors.angularjs.org/1.4.0-build.3954+sha.9dfa949/' +
       (module ? module + '/' : '') + code;
 
     for (i = SKIP_INDEXES, paramPrefix = '?'; i < templateArgs.length; i++, paramPrefix = '&') {
@@ -1150,8 +1150,8 @@ function toJsonReplacer(key, value) {
  * stripped since angular uses this notation internally.
  *
  * @param {Object|Array|Date|string|number} obj Input to be serialized into JSON.
- * @param {boolean|number=} pretty If set to true, the JSON output will contain newlines and whitespace.
- *    If set to an integer, the JSON output will contain that many spaces per indentation (the default is 2).
+ * @param {boolean|number} [pretty=2] If set to true, the JSON output will contain newlines and whitespace.
+ *    If set to an integer, the JSON output will contain that many spaces per indentation.
  * @returns {string|undefined} JSON-ified string representing `obj`.
  */
 function toJson(obj, pretty) {
@@ -2244,6 +2244,8 @@ function toDebugString(obj) {
   $IntervalProvider,
   $$HashMapProvider,
   $HttpProvider,
+  $HttpParamSerializerProvider,
+  $HttpParamSerializerJQLikeProvider,
   $HttpBackendProvider,
   $LocationProvider,
   $LogProvider,
@@ -2282,7 +2284,7 @@ function toDebugString(obj) {
  * - `codeName` – `{string}` – Code name of the release, such as "jiggling-armfat".
  */
 var version = {
-  full: '1.4.0-build.3937+sha.171b9f7',    // all of these placeholder strings will be replaced by grunt's
+  full: '1.4.0-build.3954+sha.9dfa949',    // all of these placeholder strings will be replaced by grunt's
   major: 1,    // package task
   minor: 4,
   dot: 0,
@@ -2401,6 +2403,8 @@ function publishExternalAPI(angular) {
         $interpolate: $InterpolateProvider,
         $interval: $IntervalProvider,
         $http: $HttpProvider,
+        $httpParamSerializer: $HttpParamSerializerProvider,
+        $httpParamSerializerJQLike: $HttpParamSerializerJQLikeProvider,
         $httpBackend: $HttpBackendProvider,
         $location: $LocationProvider,
         $log: $LogProvider,
@@ -4433,9 +4437,10 @@ function $AnchorScrollProvider() {
    * @requires $rootScope
    *
    * @description
-   * When called, it checks the current value of {@link ng.$location#hash $location.hash()} and
-   * scrolls to the related element, according to the rules specified in the
-   * [Html5 spec](http://dev.w3.org/html5/spec/Overview.html#the-indicated-part-of-the-document).
+   * When called, it scrolls to the element related to the specified `hash` or (if omitted) to the
+   * current value of {@link ng.$location#hash $location.hash()}, according to the rules specified
+   * in the
+   * [HTML5 spec](http://dev.w3.org/html5/spec/Overview.html#the-indicated-part-of-the-document).
    *
    * It also watches the {@link ng.$location#hash $location.hash()} and automatically scrolls to
    * match any anchor whenever it changes. This can be disabled by calling
@@ -4443,6 +4448,9 @@ function $AnchorScrollProvider() {
    *
    * Additionally, you can use its {@link ng.$anchorScroll#yOffset yOffset} property to specify a
    * vertical scroll-offset (either fixed or dynamic).
+   *
+   * @param {string=} hash The hash specifying the element to scroll to. If omitted, the value of
+   *                       {@link ng.$location#hash $location.hash()} will be used.
    *
    * @property {(number|function|jqLite)} yOffset
    * If set, specifies a vertical scroll-offset. This is often useful when there are fixed
@@ -4627,8 +4635,9 @@ function $AnchorScrollProvider() {
       }
     }
 
-    function scroll() {
-      var hash = $location.hash(), elm;
+    function scroll(hash) {
+      hash = isString(hash) ? hash : $location.hash();
+      var elm;
 
       // empty hash, scroll to the top of the page
       if (!hash) scrollTo(null);
@@ -5305,6 +5314,16 @@ function Browser(window, document, $log, $sniffer) {
 
     urlChangeListeners.push(callback);
     return callback;
+  };
+
+  /**
+   * @private
+   * Remove popstate and hashchange handler from window.
+   *
+   * NOTE: this api is intended for use only by $rootScope.
+   */
+  self.$$applicationDestroyed = function() {
+    jqLite(window).off('hashchange popstate', cacheStateAndFireUrlChange);
   };
 
   /**
@@ -8773,6 +8792,65 @@ var JSON_ENDS = {
 };
 var JSON_PROTECTION_PREFIX = /^\)\]\}',?\n/;
 
+function paramSerializerFactory(jQueryMode) {
+
+  function serializeValue(v) {
+    if (isObject(v)) {
+      return isDate(v) ? v.toISOString() : toJson(v);
+    }
+    return v;
+  }
+
+  return function paramSerializer(params) {
+    if (!params) return '';
+    var parts = [];
+    forEachSorted(params, function(value, key) {
+      if (value === null || isUndefined(value)) return;
+      if (isArray(value) || isObject(value) && jQueryMode) {
+        forEach(value, function(v, k) {
+          var keySuffix = jQueryMode ? '[' + (!isArray(value) ? k : '') + ']' : '';
+          parts.push(encodeUriQuery(key + keySuffix)  + '=' + encodeUriQuery(serializeValue(v)));
+        });
+      } else {
+        parts.push(encodeUriQuery(key) + '=' + encodeUriQuery(serializeValue(value)));
+      }
+    });
+
+    return parts.length > 0 ? parts.join('&') : '';
+  };
+}
+
+function $HttpParamSerializerProvider() {
+  /**
+   * @ngdoc service
+   * @name $httpParamSerializer
+   * @description
+   *
+   * Default $http params serializer that converts objects to a part of a request URL
+   * according to the following rules:
+   * * `{'foo': 'bar'}` results in `foo=bar`
+   * * `{'foo': Date.now()}` results in `foo=2015-04-01T09%3A50%3A49.262Z` (`toISOString()` and encoded representation of a Date object)
+   * * `{'foo': ['bar', 'baz']}` results in `foo=bar&foo=baz` (repeated key for each array element)
+   * * `{'foo': {'bar':'baz'}}` results in `foo=%7B%22bar%22%3A%22baz%22%7D"` (stringified and encoded representation of an object)
+   * */
+  this.$get = function() {
+    return paramSerializerFactory(false);
+  };
+}
+
+function $HttpParamSerializerJQLikeProvider() {
+  /**
+   * @ngdoc service
+   * @name $httpParamSerializerJQLike
+   * @description
+   *
+   * Alternative $http params serializer that follows jQuerys `param()` method {http://api.jquery.com/jquery.param/} logic.
+   * */
+  this.$get = function() {
+    return paramSerializerFactory(true);
+  };
+}
+
 function defaultHttpResponseTransform(data, headers) {
   if (isString(data)) {
     // Strip json vulnerability protection prefix and trim whitespace
@@ -8917,6 +8995,11 @@ function $HttpProvider() {
    *     - **`defaults.headers.put`**
    *     - **`defaults.headers.patch`**
    *
+   * - **`defaults.paramSerializer`** - {string|function(Object<string,string>):string} - A function used to prepare string representation
+   * of request parameters (specified as an object).
+   * Is specified as string, it is interpreted as function registered in with the {$injector}.
+   * Defaults to {$httpParamSerializer}.
+   *
    **/
   var defaults = this.defaults = {
     // transform incoming response data
@@ -8938,7 +9021,9 @@ function $HttpProvider() {
     },
 
     xsrfCookieName: 'XSRF-TOKEN',
-    xsrfHeaderName: 'X-XSRF-TOKEN'
+    xsrfHeaderName: 'X-XSRF-TOKEN',
+
+    paramSerializer: '$httpParamSerializer'
   };
 
   var useApplyAsync = false;
@@ -8952,7 +9037,7 @@ function $HttpProvider() {
    * significant performance improvement for bigger applications that make many HTTP requests
    * concurrently (common during application bootstrap).
    *
-   * Defaults to false. If no value is specifed, returns the current configured value.
+   * Defaults to false. If no value is specified, returns the current configured value.
    *
    * @param {boolean=} value If true, when requests are loaded, they will schedule a deferred
    *    "apply" on the next tick, giving time for subsequent requests in a roughly ~10ms window
@@ -8988,6 +9073,12 @@ function $HttpProvider() {
       function($httpBackend, $$cookieReader, $cacheFactory, $rootScope, $q, $injector) {
 
     var defaultCache = $cacheFactory('$http');
+
+    /**
+     * Make sure that default param serializer is exposed as a function
+     */
+    defaults.paramSerializer = isString(defaults.paramSerializer) ?
+      $injector.get(defaults.paramSerializer) : defaults.paramSerializer;
 
     /**
      * Interceptors stored in reverse order. Inner interceptors before outer interceptors.
@@ -9400,6 +9491,9 @@ function $HttpProvider() {
      *      response body, headers and status and returns its transformed (typically deserialized) version.
      *      See {@link ng.$http#overriding-the-default-transformations-per-request
      *      Overriding the Default Transformations}
+     *    - **paramSerializer** - {string|function(Object<string,string>):string} - A function used to prepare string representation
+     *      of request parameters (specified as an object).
+     *      Is specified as string, it is interpreted as function registered in with the {$injector}.
      *    - **cache** – `{boolean|Cache}` – If true, a default $http cache will be used to cache the
      *      GET request, otherwise if a cache instance built with
      *      {@link ng.$cacheFactory $cacheFactory}, this cache will be used for
@@ -9528,11 +9622,14 @@ function $HttpProvider() {
       var config = extend({
         method: 'get',
         transformRequest: defaults.transformRequest,
-        transformResponse: defaults.transformResponse
+        transformResponse: defaults.transformResponse,
+        paramSerializer: defaults.paramSerializer
       }, requestConfig);
 
       config.headers = mergeHeaders(requestConfig);
       config.method = uppercase(config.method);
+      config.paramSerializer = isString(config.paramSerializer) ?
+        $injector.get(config.paramSerializer) : config.paramSerializer;
 
       var serverRequest = function(config) {
         var headers = config.headers;
@@ -9796,7 +9893,7 @@ function $HttpProvider() {
           cache,
           cachedResp,
           reqHeaders = config.headers,
-          url = buildUrl(config.url, config.params);
+          url = buildUrl(config.url, config.paramSerializer(config.params));
 
       $http.pendingRequests.push(config);
       promise.then(removePendingReq, removePendingReq);
@@ -9903,27 +10000,9 @@ function $HttpProvider() {
     }
 
 
-    function buildUrl(url, params) {
-      if (!params) return url;
-      var parts = [];
-      forEachSorted(params, function(value, key) {
-        if (value === null || isUndefined(value)) return;
-        if (!isArray(value)) value = [value];
-
-        forEach(value, function(v) {
-          if (isObject(v)) {
-            if (isDate(v)) {
-              v = v.toISOString();
-            } else {
-              v = toJson(v);
-            }
-          }
-          parts.push(encodeUriQuery(key) + '=' +
-                     encodeUriQuery(v));
-        });
-      });
-      if (parts.length > 0) {
-        url += ((url.indexOf('?') == -1) ? '?' : '&') + parts.join('&');
+    function buildUrl(url, serializedParams) {
+      if (serializedParams.length > 0) {
+        url += ((url.indexOf('?') == -1) ? '?' : '&') + serializedParams;
       }
       return url;
     }
@@ -12636,7 +12715,7 @@ ASTCompiler.prototype = {
       self.state.computing = fnKey;
       var intoId = self.nextId();
       self.recurse(watch, intoId);
-      self.return(intoId);
+      self.return_(intoId);
       self.state.inputs.push(fnKey);
       watch.watchId = key;
     });
@@ -12723,7 +12802,7 @@ ASTCompiler.prototype = {
     recursionFn = recursionFn || noop;
     if (!skipWatchIdCheck && isDefined(ast.watchId)) {
       intoId = intoId || this.nextId();
-      this.if('i',
+      this.if_('i',
         this.lazyAssign(intoId, this.computedMember('i', ast.watchId)),
         this.lazyRecurse(ast, intoId, nameId, recursionFn, create, true)
       );
@@ -12736,7 +12815,7 @@ ASTCompiler.prototype = {
         if (pos !== ast.body.length - 1) {
           self.current().body.push(right, ';');
         } else {
-          self.return(right);
+          self.return_(right);
         }
       });
       break;
@@ -12767,13 +12846,13 @@ ASTCompiler.prototype = {
     case AST.LogicalExpression:
       intoId = intoId || this.nextId();
       self.recurse(ast.left, intoId);
-      self.if(ast.operator === '&&' ? intoId : self.not(intoId), self.lazyRecurse(ast.right, intoId));
+      self.if_(ast.operator === '&&' ? intoId : self.not(intoId), self.lazyRecurse(ast.right, intoId));
       recursionFn(intoId);
       break;
     case AST.ConditionalExpression:
       intoId = intoId || this.nextId();
       self.recurse(ast.test, intoId);
-      self.if(intoId, self.lazyRecurse(ast.alternate, intoId), self.lazyRecurse(ast.consequent, intoId));
+      self.if_(intoId, self.lazyRecurse(ast.alternate, intoId), self.lazyRecurse(ast.consequent, intoId));
       recursionFn(intoId);
       break;
     case AST.Identifier:
@@ -12784,11 +12863,11 @@ ASTCompiler.prototype = {
         nameId.name = ast.name;
       }
       ensureSafeMemberName(ast.name);
-      self.if(self.stage === 'inputs' || self.not(self.getHasOwnProperty('l', ast.name)),
+      self.if_(self.stage === 'inputs' || self.not(self.getHasOwnProperty('l', ast.name)),
         function() {
-          self.if(self.stage === 'inputs' || 's', function() {
+          self.if_(self.stage === 'inputs' || 's', function() {
             if (create && create !== 1) {
-              self.if(
+              self.if_(
                 self.not(self.nonComputedMember('s', ast.name)),
                 self.lazyAssign(self.nonComputedMember('s', ast.name), '{}'));
             }
@@ -12805,13 +12884,13 @@ ASTCompiler.prototype = {
       left = nameId && (nameId.context = this.nextId()) || this.nextId();
       intoId = intoId || this.nextId();
       self.recurse(ast.object, left, undefined, function() {
-        self.if(self.notNull(left), function() {
+        self.if_(self.notNull(left), function() {
           if (ast.computed) {
             right = self.nextId();
             self.recurse(ast.property, right);
             self.addEnsureSafeMemberName(right);
             if (create && create !== 1) {
-              self.if(self.not(self.computedMember(left, right)), self.lazyAssign(self.computedMember(left, right), '{}'));
+              self.if_(self.not(self.computedMember(left, right)), self.lazyAssign(self.computedMember(left, right), '{}'));
             }
             expression = self.ensureSafeObject(self.computedMember(left, right));
             self.assign(intoId, expression);
@@ -12822,7 +12901,7 @@ ASTCompiler.prototype = {
           } else {
             ensureSafeMemberName(ast.property.name);
             if (create && create !== 1) {
-              self.if(self.not(self.nonComputedMember(left, ast.property.name)), self.lazyAssign(self.nonComputedMember(left, ast.property.name), '{}'));
+              self.if_(self.not(self.nonComputedMember(left, ast.property.name)), self.lazyAssign(self.nonComputedMember(left, ast.property.name), '{}'));
             }
             expression = self.nonComputedMember(left, ast.property.name);
             if (self.state.expensiveChecks || isPossiblyDangerousMemberName(ast.property.name)) {
@@ -12856,7 +12935,7 @@ ASTCompiler.prototype = {
         left = {};
         args = [];
         self.recurse(ast.callee, right, left, function() {
-          self.if(self.notNull(right), function() {
+          self.if_(self.notNull(right), function() {
             self.addEnsureSafeFunction(right);
             forEach(ast.arguments, function(expr) {
               self.recurse(expr, self.nextId(), undefined, function(argument) {
@@ -12885,7 +12964,7 @@ ASTCompiler.prototype = {
         throw $parseMinErr('lval', 'Trying to assing a value to a non l-value');
       }
       this.recurse(ast.left, undefined, left, function() {
-        self.if(self.notNull(left.context), function() {
+        self.if_(self.notNull(left.context), function() {
           self.recurse(ast.right, right);
           self.addEnsureSafeObject(self.member(left.context, left.name, left.computed));
           expression = self.member(left.context, left.name, left.computed) + ast.operator + right;
@@ -12960,11 +13039,11 @@ ASTCompiler.prototype = {
     return 'plus(' + left + ',' + right + ')';
   },
 
-  'return': function(id) {
+  return_: function(id) {
     this.current().body.push('return ', id, ';');
   },
 
-  'if': function(test, alternate, consequent) {
+  if_: function(test, alternate, consequent) {
     if (test === true) {
       alternate();
     } else {
@@ -15234,6 +15313,11 @@ function $RootScopeProvider() {
         this.$broadcast('$destroy');
         this.$$destroyed = true;
 
+        if (this === $rootScope) {
+          //Remove handlers attached to window when $rootScope is removed
+          $browser.$$applicationDestroyed();
+        }
+
         incrementWatchersCount(this, -this.$$watchersCount);
         for (var eventName in this.$$listenerCount) {
           decrementListenerCount(this, this.$$listenerCount[eventName], eventName);
@@ -17346,7 +17430,7 @@ function $WindowProvider() {
  * @return {Object} a key/value map of the current cookies
  */
 function $$CookieReader($document) {
-  var rawDocument = $document[0];
+  var rawDocument = $document[0] || {};
   var lastCookies = {};
   var lastCookieString = '';
 
@@ -17360,9 +17444,10 @@ function $$CookieReader($document) {
 
   return function() {
     var cookieArray, cookie, i, index, name;
+    var currentCookieString = rawDocument.cookie || '';
 
-    if (rawDocument.cookie !== lastCookieString) {
-      lastCookieString = rawDocument.cookie;
+    if (currentCookieString !== lastCookieString) {
+      lastCookieString = currentCookieString;
       cookieArray = lastCookieString.split('; ');
       lastCookies = {};
 
@@ -17687,14 +17772,16 @@ function filterFilter() {
       }
     }
 
+    var expressionType = getTypeForFilter(expression);
     var predicateFn;
     var matchAgainstAnyProp;
 
-    switch (typeof expression) {
+    switch (expressionType) {
       case 'function':
         predicateFn = expression;
         break;
       case 'boolean':
+      case 'null':
       case 'number':
       case 'string':
         matchAgainstAnyProp = true;
@@ -17724,6 +17811,14 @@ function createPredicateFn(expression, comparator, matchAgainstAnyProp) {
     comparator = equals;
   } else if (!isFunction(comparator)) {
     comparator = function(actual, expected) {
+      if (isUndefined(actual)) {
+        // No substring matching against `undefined`
+        return false;
+      }
+      if ((actual === null) || (expected === null)) {
+        // No substring matching against `null`; only match against `null`
+        return actual === expected;
+      }
       if (isObject(expected) || (isObject(actual) && !hasCustomToString(actual))) {
         // Should not compare primitives against objects, unless they have custom `toString` method
         return false;
@@ -17746,8 +17841,8 @@ function createPredicateFn(expression, comparator, matchAgainstAnyProp) {
 }
 
 function deepCompare(actual, expected, comparator, matchAgainstAnyProp, dontMatchWholeObject) {
-  var actualType = (actual !== null) ? typeof actual : 'null';
-  var expectedType = (expected !== null) ? typeof expected : 'null';
+  var actualType = getTypeForFilter(actual);
+  var expectedType = getTypeForFilter(expected);
 
   if ((expectedType === 'string') && (expected.charAt(0) === '!')) {
     return !deepCompare(actual, expected.substring(1), comparator, matchAgainstAnyProp);
@@ -17792,6 +17887,11 @@ function deepCompare(actual, expected, comparator, matchAgainstAnyProp, dontMatc
     default:
       return comparator(actual, expected);
   }
+}
+
+// Used for easily differentiating between `null` and actual `object`
+function getTypeForFilter(val) {
+  return (val === null) ? 'null' : typeof val;
 }
 
 /**
@@ -24393,7 +24493,10 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
 
     // if scope model value and ngModel value are out of sync
     // TODO(perf): why not move this to the action fn?
-    if (modelValue !== ctrl.$modelValue) {
+    if (modelValue !== ctrl.$modelValue &&
+       // checks for NaN is needed to allow setting the model to NaN when there's an asyncValidator
+       (ctrl.$modelValue === ctrl.$modelValue || modelValue === modelValue)
+    ) {
       ctrl.$modelValue = ctrl.$$rawModelValue = modelValue;
       parserValid = undefined;
 
@@ -26749,12 +26852,12 @@ var ngHideDirective = ['$animate', function($animate) {
    </example>
  */
 var ngStyleDirective = ngDirective(function(scope, element, attr) {
-  scope.$watchCollection(attr.ngStyle, function ngStyleWatchAction(newStyles, oldStyles) {
+  scope.$watch(attr.ngStyle, function ngStyleWatchAction(newStyles, oldStyles) {
     if (oldStyles && (newStyles !== oldStyles)) {
       forEach(oldStyles, function(val, style) { element.css(style, '');});
     }
     if (newStyles) element.css(newStyles);
-  });
+  }, true);
 });
 
 /**
