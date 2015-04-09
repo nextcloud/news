@@ -1,5 +1,6 @@
 owncloud-news (5.3.1)
 * **Enhancement**: Make entire area for adding feeds and folders clickable
+* **Enhancement**: Do not use as much space for longer headings in compact mode
 
 owncloud-news (5.3.0)
 * **Enhancement**: Make it possible to search articles in the search field. To migrate older articles to this functionality, check the README section "Updating from versions prior to 5.3.0", #185
