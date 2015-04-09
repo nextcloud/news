@@ -322,11 +322,13 @@
         white-space: nowrap;
         overflow: hidden;
         width: 100%;
-        line-height: 40px;
         display: inline-block;
         color: #222;
         font-weight: bold;
         font-size: 16px;
+        line-height: 1.5;
+        padding-top: 8px;
+        min-height: 40px;
     }
 
     #app-content .open .utils .title h1 a {
