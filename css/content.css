@@ -329,6 +329,7 @@
         line-height: 1.5;
         padding-top: 8px;
         min-height: 40px;
+        transition: color .3s linear;
     }
 
     #app-content .open .utils .title h1 a {
@@ -362,7 +363,8 @@
 
     #app-content .heading a {
         font-weight: bold;
-        color: #000;
+        color: #222;
+        transition: all .3s linear;
     }
         #app-content .heading a:hover {
             text-decoration: underline;
