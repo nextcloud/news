@@ -38,6 +38,14 @@ abstract class Client
     private $encoding = '';
 
     /**
+     * HTTP request headers
+     *
+     * @access protected
+     * @var array
+     */
+    protected $request_headers = array();
+
+    /**
      * HTTP Etag header
      *
      * @access protected
@@ -191,6 +199,16 @@ abstract class Client
         }
 
         throw new LogicException('You must have "allow_url_fopen=1" or curl extension installed');
+    }
+
+    /**
+     * Add HTTP Header to the request
+     *
+     * @access public
+     * @param array $headers
+     */
+    public function setHeaders($headers) {
+        $this->request_headers = $headers;
     }
 
     /**
@@ -645,8 +663,8 @@ abstract class Client
     public function setConfig($config)
     {
         if ($config !== null) {
-            $this->setTimeout($config->getGrabberTimeout());
-            $this->setUserAgent($config->getGrabberUserAgent());
+            $this->setTimeout($config->getClientTimeout());
+            $this->setUserAgent($config->getClientUserAgent());
             $this->setMaxRedirections($config->getMaxRedirections());
             $this->setMaxBodySize($config->getMaxBodySize());
             $this->setProxyHostname($config->getProxyHostname());

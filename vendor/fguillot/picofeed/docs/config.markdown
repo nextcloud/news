@@ -126,6 +126,16 @@ $config->setGrabberTimeout(20); // 20 seconds
 $config->setGrabberUserAgent('My content scraper');
 ```
 
+### Add a rules folder
+
+- Method name: `setGrabberRulesFolder()`
+- Default value: `null`
+- Argument value: string
+
+```php
+$config->setGrabberRulesFolder('/path/to/my/grabber/rules');
+```
+
 Parser
 ------
 

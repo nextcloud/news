@@ -120,6 +120,7 @@ class Filter
             "\x10",
             "\xc3\x20",
             "&#x1F;",
+            "\xe2\x80\x9c\x08",
         );
 
         foreach ($invalid_chars as $needle) {

@@ -47,6 +47,8 @@ class Stream extends Client
             $headers[] = 'Authorization: Basic '.base64_encode($this->username.':'.$this->password);
         }
 
+        $headers = array_merge($headers, $this->request_headers);
+
         return $headers;
     }
 

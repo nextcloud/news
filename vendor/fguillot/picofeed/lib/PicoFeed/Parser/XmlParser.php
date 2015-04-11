@@ -55,7 +55,9 @@ class XmlParser
      */
     private static function scanInput($input, Closure $callback)
     {
-        if (substr(php_sapi_name(), 0, 3) === 'fpm') {
+        $isRunningFpm = substr(php_sapi_name(), 0, 3) === 'fpm';
+
+        if ($isRunningFpm) {
 
             // If running with PHP-FPM and an entity is detected we refuse to parse the feed
             // @see https://bugs.php.net/bug.php?id=64938
@@ -64,8 +66,7 @@ class XmlParser
             }
         }
         else {
-
-            libxml_disable_entity_loader(true);
+            $entityLoaderDisabled = libxml_disable_entity_loader(true);
         }
 
         libxml_use_internal_errors(true);
@@ -79,6 +80,10 @@ class XmlParser
                     return false;
                 }
             }
+        }
+
+        if ($isRunningFpm === false) {
+            libxml_disable_entity_loader($entityLoaderDisabled);
         }
 
         return $dom;

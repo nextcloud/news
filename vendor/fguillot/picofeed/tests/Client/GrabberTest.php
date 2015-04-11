@@ -4,9 +4,89 @@ namespace PicoFeed\Client;
 
 use PHPUnit_Framework_TestCase;
 use PicoFeed\Reader\Reader;
+use PicoFeed\Config\Config;
 
 class GrabberTest extends PHPUnit_Framework_TestCase
 {
+    public function testGetRulesFolders()
+    {
+        // No custom path
+        $grabber = new Grabber('');
+        $dirs = $grabber->getRulesFolders();
+        $this->assertNotEmpty($dirs);
+        $this->assertCount(1, $dirs);
+        $this->assertTrue(strpos($dirs[0], '/../Rules') !== false);
+
+        // Custom path
+        $config = new Config;
+        $config->setGrabberRulesFolder('/foobar/rules');
+
+        $grabber = new Grabber('');
+        $grabber->setConfig($config);
+
+        $dirs = $grabber->getRulesFolders();
+
+        $this->assertNotEmpty($dirs);
+        $this->assertCount(2, $dirs);
+        $this->assertTrue(strpos($dirs[0], '/../Rules') !== false);
+        $this->assertEquals('/foobar/rules', $dirs[1]);
+
+        // No custom path with empty config object
+        $grabber = new Grabber('');
+        $grabber->setConfig(new Config);
+
+        $dirs = $grabber->getRulesFolders();
+
+        $this->assertNotEmpty($dirs);
+        $this->assertCount(1, $dirs);
+        $this->assertTrue(strpos($dirs[0], '/../Rules') !== false);
+    }
+
+    public function testLoadRuleFile()
+    {
+        $grabber = new Grabber('');
+        $dirs = $grabber->getRulesFolders();
+
+        $this->assertEmpty($grabber->loadRuleFile($dirs[0], array('test')));
+        $this->assertNotEmpty($grabber->loadRuleFile($dirs[0], array('test', 'xkcd.com')));
+    }
+
+    public function testGetRulesFileList()
+    {
+        $grabber = new Grabber('');
+        $this->assertEquals(
+            array('www.google.ca', 'google.ca', '.google.ca', 'www'),
+            $grabber->getRulesFileList('www.google.ca')
+        );
+
+        $grabber = new Grabber('');
+        $this->assertEquals(
+            array('google.ca', '.google.ca', 'google'),
+            $grabber->getRulesFileList('google.ca')
+        );
+
+        $grabber = new Grabber('');
+        $this->assertEquals(
+            array('a.b.c.d', 'b.c.d', '.b.c.d', 'a'),
+            $grabber->getRulesFileList('a.b.c.d')
+        );
+
+        $grabber = new Grabber('');
+        $this->assertEquals(
+            array('localhost'),
+            $grabber->getRulesFileList('localhost')
+        );
+    }
+
+    public function testGetRules()
+    {
+        $grabber = new Grabber('http://www.egscomics.com/index.php?id=1690');
+        $this->assertNotEmpty($grabber->getRules());
+
+        $grabber = new Grabber('http://localhost/foobar');
+        $this->assertEmpty($grabber->getRules());
+    }
+
     /**
      * @group online
      */
@@ -33,13 +113,6 @@ class GrabberTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($grabber->parse());
     }
 
-    public function testGetRules()
-    {
-        $grabber = new Grabber('http://www.egscomics.com/index.php?id=1690');
-        $this->assertTrue(is_array($grabber->getRules()));
-    }
-
-    // 01net.com - https://github.com/fguillot/miniflux/issues/267
     /**
      * @group online
      */
