@@ -363,7 +363,6 @@
     #app-content .heading a {
         font-weight: bold;
         color: #222;
-        transition: all .3s linear;
     }
         #app-content .heading a:hover {
             text-decoration: underline;
