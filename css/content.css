@@ -329,7 +329,6 @@
         line-height: 1.5;
         padding-top: 8px;
         min-height: 40px;
-        transition: color .3s linear;
     }
 
     #app-content .open .utils .title h1 a {
