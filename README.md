@@ -46,14 +46,15 @@ All of the listed stable Linux distributions will be supported until their next 
 ### Before reporting bugs
 
 * We do not support Internet Explorer and Safari (Patches accepted though, except for IE < 10)
-* get the newest version of the News app
-* [check if they have already been reported](https://github.com/owncloud/news/issues?state=open)
+* Get the newest version of the News app
+* Clear your PHP opcode cache if you use any by restarting your webserver. This affects any version of PHP >=5.5
+* [Check if they have already been reported](https://github.com/owncloud/news/issues?state=open)
 
 If you are not able to add a feed because its XML *does not validate* (see [this issue](https://github.com/owncloud/news/issues/133) for an example),
 check if:
 
-* it is a valid RSS by running it through the [W3C validator](http://validator.w3.org/feed/)
-* you are able to add the feed in other feed readers
+* It is a valid RSS by running it through the [W3C validator](http://validator.w3.org/feed/)
+* You are able to add the feed in other feed readers
 
 
 ### When reporting bugs
