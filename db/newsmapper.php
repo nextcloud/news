@@ -14,7 +14,6 @@
 namespace OCA\News\Db;
 
 use OCP\IDBConnection;
-use OCP\AppFramework\Db\Entity;
 use OCP\AppFramework\Db\Mapper;
 
 abstract class NewsMapper extends Mapper {

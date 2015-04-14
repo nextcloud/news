@@ -28,6 +28,7 @@ class ItemMapper extends \OCA\News\Db\ItemMapper {
     /**
      * Delete all items for feeds that have over $threshold unread and not
      * starred items
+	 * @param int $threshold the number of items that should be deleted
      */
     public function deleteReadOlderThanThreshold($threshold){
         $status = StatusFlag::STARRED | StatusFlag::UNREAD;

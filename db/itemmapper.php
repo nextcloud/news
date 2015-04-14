@@ -49,19 +49,18 @@ class ItemMapper extends NewsMapper {
 
         // WARNING: Potential SQL injection if you change this carelessly
         $sql = 'AND ((`items`.`status` & ' . $status . ') = ' . $status . ') ';
-
-        foreach ($search as $_) {
-            $sql .= 'AND `items`.`search_index` LIKE ? ';
-        }
-
+        $sql .= str_repeat('AND `items`.`search_index` LIKE ? ', count($search));
         $sql .= $prependTo;
 
         return $this->makeSelectQuery($sql, $oldestFirst);
     }
 
-    /**
-     * wrap and escape search parameters in a like statement
-     */
+	/**
+	 * wrap and escape search parameters in a like statement
+	 *
+	 * @param string[] $search an array of strings that should be searched
+	 * @return array with like parameters
+	 */
     private function buildLikeParameters($search=[]) {
         return array_map(function ($param) {
             $param = addcslashes($param, '\\_%');
@@ -262,6 +261,7 @@ class ItemMapper extends NewsMapper {
     /**
      * Delete all items for feeds that have over $threshold unread and not
      * starred items
+	 * @param int $threshold the number of items that should be deleted
      */
     public function deleteReadOlderThanThreshold($threshold){
         $status = StatusFlag::STARRED | StatusFlag::UNREAD;

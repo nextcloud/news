@@ -20,9 +20,13 @@ class StatusFlag {
     const UPDATED   = 0x16;
 
 
-    /**
-     * Get status for query
-     */
+	/**
+	 * Get status for query
+	 *
+	 * @param int $type the type that should be turned into the status
+	 * @param bool $showAll true if it should return all read items
+	 * @return int the status for the database
+	 */
     public function typeToStatus($type, $showAll){
         if($type === FeedType::STARRED){
             return self::STARRED;
