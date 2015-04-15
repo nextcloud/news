@@ -128,6 +128,24 @@ class AttributeFilterTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('src' => 'https://www.youtube.com/test'), $filter->filter('iframe', array('src' => '//www.youtube.com/test')));
     }
 
+    public function testRemoveYouTubeAutoplay()
+    {
+        $filter = new Attribute(new Url('http://google.com'));
+        $urls = array(
+            'https://www.youtube.com/something/?autoplay=1' => 'https://www.youtube.com/something/?autoplay=0',
+            'https://www.youtube.com/something/?test=s&autoplay=1&a=2' => 'https://www.youtube.com/something/?test=s&autoplay=0&a=2',
+            'https://www.youtube.com/something/?test=s' => 'https://www.youtube.com/something/?test=s',
+            'https://youtube.com/something/?autoplay=1' => 'https://youtube.com/something/?autoplay=0',
+            'https://youtube.com/something/?test=s&autoplay=1&a=2' => 'https://youtube.com/something/?test=s&autoplay=0&a=2',
+            'https://youtube.com/something/?test=s' => 'https://youtube.com/something/?test=s',
+        );
+
+        foreach ($urls as $before => $after) {
+            $filter->removeYouTubeAutoplay('iframe', 'src', $before);
+            $this->assertEquals($after, $before);
+        }
+    }
+
     public function testFilterBlacklistAttribute()
     {
         $filter = new Attribute(new Url('http://google.com'));

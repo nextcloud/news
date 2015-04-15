@@ -158,10 +158,6 @@ class Application extends App {
                 }
             }
 
-            $enhancer->registerGlobalEnhancer(
-                $c->query('OCA\News\ArticleEnhancer\GlobalArticleEnhancer')
-            );
-
             return $enhancer;
         });
 

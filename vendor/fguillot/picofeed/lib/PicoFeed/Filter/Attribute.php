@@ -235,6 +235,7 @@ class Attribute
         'filterProtocolUrlAttribute',
         'rewriteImageProxyUrl',
         'secureIframeSrc',
+        'removeYouTubeAutoplay'
     );
 
     /**
@@ -399,6 +400,25 @@ class Attribute
     {
         if ($tag === 'iframe' && $attribute === 'src' && strpos($value, 'http://') === 0) {
             $value = substr_replace($value, 's', 4, 0);
+        }
+
+        return true;
+    }
+
+    /**
+     * Removes YouTube autoplay from iframes
+     *
+     * @access public
+     * @param  string    $tag            Tag name
+     * @param  array     $attribute      Atttributes name
+     * @param  string    $value          Attribute value
+     * @return boolean
+     */
+    public function removeYouTubeAutoplay($tag, $attribute, &$value)
+    {
+        $regex = '%^(https://(?:www\.)?youtube.com/.*\?.*autoplay=)(1)(.*)%i';
+        if ($tag === 'iframe' && $attribute === 'src' && preg_match($regex, $value)) {
+            $value = preg_replace($regex, '${1}0$3', $value);
         }
 
         return true;

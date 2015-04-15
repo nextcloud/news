@@ -24,7 +24,7 @@ Features
 - Content grabber: download from the original website the full content
 - Enclosure detection
 - RTL languages support
-- License: Unlicense <http://unlicense.org/>
+- License: MIT
 
 Requirements
 ------------

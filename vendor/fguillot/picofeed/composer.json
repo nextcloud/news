@@ -3,7 +3,7 @@
     "description": "Modern library to write or read feeds (RSS/Atom)",
     "homepage": "http://fguillot.github.io/picoFeed",
     "type": "library",
-    "license": "Unlicense",
+    "license": "MIT",
     "authors": [
         {
             "name": "Frédéric Guillot",
