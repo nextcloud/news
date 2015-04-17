@@ -49,7 +49,7 @@ OC.L10N.register(
     "Remove keep article unread" : "Marquer l'article comme lu",
     "by" : "par",
     "from" : "de",
-    "Play audio" : "Lire le fichier audio",
+    "Play audio" : "Ecouter le son",
     "Download video" : "Télécharger la vidéo",
     "Download audio" : "Télécharger le son",
     "Keyboard shortcut" : "Raccourcis clavier",
