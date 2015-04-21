@@ -11,6 +11,15 @@
         <a href="#/shortcuts"><?php p($l->t('Keyboard shortcuts')); ?></a>
     </p>
 
+    <p ng-click="Settings.toggleSetting('preventReadOnScroll')">
+        <label for="preventReadOnScroll">
+            <input type="checkbox"
+                   ng-checked="Settings.getSetting('preventReadOnScroll')"
+                   name="preventReadOnScroll">
+            <?php p($l->t('Disable mark read through scrolling')); ?>
+        </label>
+    </p>
+
     <p ng-click="Settings.toggleSetting('compact')">
         <label for="compact">
             <input type="checkbox" ng-checked="Settings.getSetting('compact')"
@@ -43,15 +52,6 @@
                     ng-checked="Settings.getSetting('oldestFirst')"
                    name="oldestFirst">
             <?php p($l->t('Reverse ordering (oldest on top)')); ?>
-        </label>
-    </p>
-
-    <p ng-click="Settings.toggleSetting('preventReadOnScroll')">
-        <label for="preventReadOnScroll">
-            <input type="checkbox"
-                   ng-checked="Settings.getSetting('preventReadOnScroll')"
-                   name="preventReadOnScroll">
-            <?php p($l->t('Disable mark read through scrolling')); ?>
         </label>
     </p>
 
