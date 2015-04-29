@@ -2367,6 +2367,7 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
                     scrollToItem(scrollArea, previous, expandItemInCompact);
                 } else {
                     tryReload(navigationArea, scrollArea);
+                    scrollArea.scrollTop(0);
                 }
 
                 jumped = true;
@@ -2379,7 +2380,6 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
         if (!jumped && items.length > 0) {
             scrollToItem(scrollArea, items.last());
         }
-
     };
 
 

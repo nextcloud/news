@@ -11,7 +11,7 @@ matrix:
 
 env:
     - DB=sqlite
-    - DB=postgresql
+    - DB=pgsql
     - DB=mysql
 
 before_install:

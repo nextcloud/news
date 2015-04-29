@@ -322,6 +322,7 @@
                     scrollToItem(scrollArea, previous, expandItemInCompact);
                 } else {
                     tryReload(navigationArea, scrollArea);
+                    scrollArea.scrollTop(0);
                 }
 
                 jumped = true;
@@ -334,7 +335,6 @@
         if (!jumped && items.length > 0) {
             scrollToItem(scrollArea, items.last());
         }
-
     };
 
 
