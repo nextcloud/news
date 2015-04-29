@@ -46,8 +46,8 @@ before_script:
     - cd owncloud
     - mkdir apps2
     - mkdir data
-    - ocdev ci $DB
-    - php -f console.php app:enable news
+    - ./occ maintenance:install --database-name oc_autotest --database-user oc_autotest --admin-user admin --admin-pass admin --database $DB
+    - ./occ app:enable news
     - cd apps/news/js
     # install test deps
     - npm install --deps # npm install needs to run before sudo npm install because otherwise it fails because a tmp file exists in the home dir
