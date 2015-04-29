@@ -162,12 +162,7 @@ Check the **owncloud/data/owncloud.log** for hints why it failed. After the issu
 
     "maintenance" => false,
 
-### All feeds are not updated anymore
-[This is a bug in the core backgroundjob system](https://github.com/owncloud/core/issues/3221) deleting the **owncloud/data/cron.lock** file gets the cron back up running
-
-Another way to fix this is to run a custom [updater script](https://github.com/owncloud/news/wiki/Custom-Updater)
-
-### All feeds are not updated and theres no cron.lock
+### Feeds are not updated
 * Check if the cronjob exists with **crontab -u www-data -e** (replace www-data with your httpd user)
 * Check the file permissions of the **cron.php** file and if **www-data** (or whatever your httpd user is called like) can read and execute that script
 * Check if the cronjob is ever executed by placing an **error_log('updating')** in the [background job file](https://github.com/owncloud/news/blob/master/backgroundjob/task.php#L37). If the cronjob runs, there should be an updating log statement in your httpd log.
