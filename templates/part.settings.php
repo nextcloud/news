@@ -11,45 +11,52 @@
         <a href="#/shortcuts"><?php p($l->t('Keyboard shortcuts')); ?></a>
     </p>
 
-    <p ng-click="Settings.toggleSetting('preventReadOnScroll')">
-        <label for="preventReadOnScroll">
+    <p>
+        <label>
             <input type="checkbox"
+                   ng-click="Settings.toggleSetting('preventReadOnScroll')"
                    ng-checked="Settings.getSetting('preventReadOnScroll')"
                    name="preventReadOnScroll">
             <?php p($l->t('Disable mark read through scrolling')); ?>
         </label>
     </p>
 
-    <p ng-click="Settings.toggleSetting('compact')">
-        <label for="compact">
-            <input type="checkbox" ng-checked="Settings.getSetting('compact')"
+    <p>
+        <label>
+            <input type="checkbox"
+                   ng-click="Settings.toggleSetting('compact')"
+                   ng-checked="Settings.getSetting('compact')"
                    name="compact">
             <?php p($l->t('Compact view')); ?>
         </label>
     </p>
 
-    <p ng-click="Settings.toggleSetting('compactExpand')">
-        <label for="compactExpand">
+    <p ng-class="{disabled: !Settings.getSetting('compact')}">
+        <label>
             <input type="checkbox"
+                   ng-click="Settings.toggleSetting('compactExpand')"
+                   ng-disabled="!Settings.getSetting('compact')"
                    ng-checked="Settings.getSetting('compactExpand')"
                    name="compactExpand">
-            <?php p($l->t('Expand articles in compact view ' .
-                          'when navigating with keyboard shortcuts')); ?>
+            <?php p($l->t('Expand on key navigation')); ?>
         </label>
     </p>
 
-    <p ng-click="Settings.toggleSetting('showAll')">
-        <label for="showAll">
-            <input type="checkbox" ng-checked="Settings.getSetting('showAll')"
+    <p>
+        <label>
+            <input type="checkbox"
+                   ng-click="Settings.toggleSetting('showAll')"
+                   ng-checked="Settings.getSetting('showAll')"
                    name="showAll">
             <?php p($l->t('Show all articles')); ?>
         </label>
     </p>
 
-    <p ng-click="Settings.toggleSetting('oldestFirst')">
-        <label for="oldestFirst">
+    <p>
+        <label>
             <input type="checkbox"
-                    ng-checked="Settings.getSetting('oldestFirst')"
+                   ng-click="Settings.toggleSetting('oldestFirst')"
+                   ng-checked="Settings.getSetting('oldestFirst')"
                    name="oldestFirst">
             <?php p($l->t('Reverse ordering (oldest on top)')); ?>
         </label>

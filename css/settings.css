@@ -58,3 +58,7 @@
 #app-settings .import-export a {
     display: inline-block;
 }
+
+#app-settings .disabled {
+    color: #aaa;
+}
