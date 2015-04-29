@@ -12,7 +12,7 @@
        <?php p($l->t('All articles'))?>
     </a>
 
-    <div class="app-navigation-entry-utils">
+    <div class="app-navigation-entry-utils" ng-show="Navigation.getUnreadCount() > 0">
         <ul>
             <li class="app-navigation-entry-utils-counter"
                 ng-show="Navigation.getUnreadCount() > 0"
