@@ -73,3 +73,4 @@ script:
 
 addons:
     postgresql: "9.3"
+
