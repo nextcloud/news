@@ -38,7 +38,7 @@
                    ng-disabled="!Settings.getSetting('compact')"
                    ng-checked="Settings.getSetting('compactExpand')"
                    name="compactExpand">
-            <?php p($l->t('Expand on key navigation')); ?>
+            <?php p($l->t('Expand articles on key navigation')); ?>
         </label>
     </p>
 
