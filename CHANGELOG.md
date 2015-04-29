@@ -1,12 +1,14 @@
-owncloud-news (5.3.1)
-* **Enhancement**: Make entire area for adding feeds and folders clickable
-* **Enhancement**: Do not use as much space for longer headings in compact mode
+owncloud-news (5.3.2)
 * **Enhancement**: Disable expand on key navigation setting if compact view is not enabled, #774
-* **Bugfix**: Also use the set curl timeout in addition to the connect timeout to react to timeouts after connections which is important for slow feeds, #763
 * **Bugfix**: Update picoFeed to the latest version to fix a bug that would cause the fetcher timeout setting to be ignored
 * **Bugfix**: Make settings checkboxes clickable by themselves
 * **Bugfix**: Hide menu (which only contains the mark read button) for all articles feed if all articles are read, #775
 * **Bugfix**: Fix issue that would make it impossible to refresh by jumping to previous article once jump to next shortcut was used after the refresh drop down became visible, #770
+
+owncloud-news (5.3.1)
+* **Enhancement**: Make entire area for adding feeds and folders clickable
+* **Enhancement**: Do not use as much space for longer headings in compact mode
+* **Bugfix**: Also use the set curl timeout in addition to the connect timeout to react to timeouts after connections which is important for slow feeds, #763
 
 owncloud-news (5.3.0)
 * **Enhancement**: Make it possible to search articles in the search field. To migrate older articles to this functionality, check the README section "Updating from versions prior to 5.3.0", #185
