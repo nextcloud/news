@@ -38,7 +38,7 @@ before_script:
     # set up databases and users for postgres and mysql
     - createuser -U travis -s oc_autotest
     - mysql -e 'create database oc_autotest;'
-    - mysql -u root -e "CREATE USER 'oc_autotest'@'localhost';"
+    - mysql -u root -e "CREATE USER 'oc_autotest'@'localhost' IDENTIFIED BY '';"
     - mysql -u root -e "grant all on oc_autotest.* to 'oc_autotest'@'localhost';"
     # set up php under apache
     - bash owncloud/apps/news/tests/travis/travis-ci-apache.sh
@@ -57,7 +57,7 @@ before_script:
 script:
     # unit tests
     - grunt php-unit
-    #- php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+    - php ocular.phar code-coverage:upload --format=php-clover ../coverage.clover
     - grunt js-unit
     # integration tests
     - grunt php-integration

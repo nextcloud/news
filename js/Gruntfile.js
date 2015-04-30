@@ -177,7 +177,7 @@ module.exports = function (grunt) {
                     configuration: '../phpunit.xml'
                 }
             },
-            coverageUnit: {
+            coverage: {
                 options: {
                     colors: true,
                     configuration: '../phpunit.xml',
@@ -291,7 +291,7 @@ module.exports = function (grunt) {
     grunt.registerTask('dev-php-integration', ['watch:phpintegration']);
 
     grunt.registerTask('js-unit', ['default', 'karma:continuous']);
-    grunt.registerTask('php-unit', ['phpunit:coverageUnit']);
+    grunt.registerTask('php-unit', ['phpunit:coverage']);
     grunt.registerTask('php-integration', ['phpunit:integration']);
 
     grunt.registerTask('acceptance', ['protractor_webdriver', 'connect',

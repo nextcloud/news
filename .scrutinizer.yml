@@ -18,9 +18,9 @@ imports:
     - php
     - javascript
 
-#tools:
-#    external_code_coverage:
-#        timeout: 600
+tools:
+    external_code_coverage:
+        timeout: 300
 
 checks:
     php:
