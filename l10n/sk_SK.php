@@ -98,7 +98,6 @@ $TRANSLATIONS = array(
 "Keyboard shortcuts" => "Klávesové skratky",
 "Disable mark read through scrolling" => "Vypnúť označovanie ako prečítané pri posune",
 "Compact view" => "Kompaktný náhľad",
-"Expand articles in compact view when navigating with keyboard shortcuts" => "Rozbaľte články v kompaktnom zobrazení počas prechádzania pomocou s klávesových skratiek",
 "Show all articles" => "Zobraziť všetky články",
 "Reverse ordering (oldest on top)" => "Opačné zoradenie (od najstarších)",
 "Subscriptions (OPML)" => "Odber (OPML)",

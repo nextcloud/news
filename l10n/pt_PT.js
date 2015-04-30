@@ -103,7 +103,6 @@ OC.L10N.register(
     "Keyboard shortcuts" : "Atalhos de teclado",
     "Disable mark read through scrolling" : "Desativar marcar ler através de movimento",
     "Compact view" : "Visualização Compacta",
-    "Expand articles in compact view when navigating with keyboard shortcuts" : "Expandir artigos no modo compacto quando navegando com os atalhos do teclado",
     "Show all articles" : "Mostrar todos os artigos",
     "Reverse ordering (oldest on top)" : "Ordem inversa (antigos no topo)",
     "Subscriptions (OPML)" : "Subscrições (OPML)",

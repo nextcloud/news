@@ -103,7 +103,6 @@ OC.L10N.register(
     "Keyboard shortcuts" : "Tastaturgenveje",
     "Disable mark read through scrolling" : "Slå markér som læst fra når der rulles",
     "Compact view" : "Kompakt visning",
-    "Expand articles in compact view when navigating with keyboard shortcuts" : "Udvid artikler i kompakt visning, når der navigeres med tastaturgenveje",
     "Show all articles" : "Vis alle artikler",
     "Reverse ordering (oldest on top)" : "Vend om på rækkefølgen (ældste øverst)",
     "Subscriptions (OPML)" : "Abonnementer (OPML)",

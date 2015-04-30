@@ -98,7 +98,6 @@ $TRANSLATIONS = array(
 "Keyboard shortcuts" => "키보드 단축키",
 "Disable mark read through scrolling" => "스크롤 시 읽은 상태로 표시 비활성화",
 "Compact view" => "축소된 보기",
-"Expand articles in compact view when navigating with keyboard shortcuts" => "키보드 단축키로 탐색할 때 축소된 보기에서 글 확장",
 "Show all articles" => "모든 글 보기",
 "Reverse ordering (oldest on top)" => "순서 뒤집기(오래된 항목 먼저)",
 "Subscriptions (OPML)" => "구독(OPML)",

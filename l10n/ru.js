@@ -103,7 +103,6 @@ OC.L10N.register(
     "Keyboard shortcuts" : "Горячие клавиши",
     "Disable mark read through scrolling" : "Отключить установку отметок о прочтении при прокручивании",
     "Compact view" : "Компактный вид",
-    "Expand articles in compact view when navigating with keyboard shortcuts" : "Открывать статьи в компактном режиме при навигации клавиатурой.",
     "Show all articles" : "Показать все статьи",
     "Reverse ordering (oldest on top)" : "Обратный порядок (самые старые сверху)",
     "Subscriptions (OPML)" : "Подписки (OPML)",

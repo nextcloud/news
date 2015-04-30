@@ -102,7 +102,6 @@ $TRANSLATIONS = array(
 "Keyboard shortcuts" => "Συντομεύσεις πλητρολογίου",
 "Disable mark read through scrolling" => "Απενεργοποίηση σημείωσης ως διαβασμένων κατά τη κύλιση",
 "Compact view" => "Συμπαγής προβολή",
-"Expand articles in compact view when navigating with keyboard shortcuts" => "Επέκταση άρθρων στη συμπαγή προβολή κατά την πλοήγηση με συντομεύσεις πληκτρολογίου",
 "Show all articles" => "Εμφάνιση όλων των άρθρων",
 "Reverse ordering (oldest on top)" => "Ανεστραμμένη ταξινόμηση (παλαιότερα στην κορυφή)",
 "Subscriptions (OPML)" => "Συνδρομές (OPML)",

@@ -102,7 +102,6 @@ $TRANSLATIONS = array(
 "Keyboard shortcuts" => "Atalhos do teclado",
 "Disable mark read through scrolling" => "Desativar a marca de lido durante a rolagem",
 "Compact view" => "Versão reduzida",
-"Expand articles in compact view when navigating with keyboard shortcuts" => "Expandir artigos na visão compacta ao navegar com atalhos de teclado",
 "Show all articles" => "Mostrar todos os arquivos",
 "Reverse ordering (oldest on top)" => "Ordem inversa (o mais antigo no topo)",
 "Subscriptions (OPML)" => "Assinaturas (OPML) ",

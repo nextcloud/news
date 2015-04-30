@@ -98,7 +98,6 @@ OC.L10N.register(
     "Keyboard shortcuts" : "Pintasan keyboard",
     "Disable mark read through scrolling" : "Menonaktifkan tandai baca melalui pengguliran",
     "Compact view" : "Tampilan kompak",
-    "Expand articles in compact view when navigating with keyboard shortcuts" : "Lebarkan artikel dalam tampilan kompak saat bernavigasi dengan pintasan keyboard",
     "Show all articles" : "Tampilkan semua artikel",
     "Reverse ordering (oldest on top)" : "Pengurutan terbalik (yang lama diatas)",
     "Subscriptions (OPML)" : "Berlangganan (OPML)",

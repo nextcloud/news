@@ -103,7 +103,6 @@ OC.L10N.register(
     "Keyboard shortcuts" : "Klavye kısayolları",
     "Disable mark read through scrolling" : "Kaydırma sırasında okundu olarak işaretlemeyi kapat",
     "Compact view" : "Sıkışık görünüm",
-    "Expand articles in compact view when navigating with keyboard shortcuts" : "Klavye kısayolları ile gezinirken sıkışık görünümde makaleleri genişlet",
     "Show all articles" : "Tüm makaleleri göster",
     "Reverse ordering (oldest on top)" : "Sıralamayı tersine çevir (en eski üstte)",
     "Subscriptions (OPML)" : "Abonelikler (OPML)",

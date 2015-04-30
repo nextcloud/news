@@ -103,7 +103,6 @@ OC.L10N.register(
     "Keyboard shortcuts" : "Tastaturkürzel",
     "Disable mark read through scrolling" : "Keine Artikel während des Scrollens als gelesen markieren",
     "Compact view" : "Kompakte Ansicht",
-    "Expand articles in compact view when navigating with keyboard shortcuts" : "Artikel in der Kompaktansicht erweitern, wenn mit Tastenkürzeln navigiert wird",
     "Show all articles" : "Alle Artikel anzeigen",
     "Reverse ordering (oldest on top)" : "Umgekehrte Sortierreihenfolge (älteste oben)",
     "Subscriptions (OPML)" : "Abonnements (OPML)",

@@ -103,7 +103,6 @@ OC.L10N.register(
     "Keyboard shortcuts" : "Сполучення клавіш",
     "Disable mark read through scrolling" : "Вимкнути читання поміток при прокрутці",
     "Compact view" : "Компактний вигляд",
-    "Expand articles in compact view when navigating with keyboard shortcuts" : "Відкривати статті в компактному режимі при навігації клавіатурою.",
     "Show all articles" : "Показати всі статті",
     "Reverse ordering (oldest on top)" : "Зворотний порядок (найстаріші зверху)",
     "Subscriptions (OPML)" : "Підписки (OPML)",

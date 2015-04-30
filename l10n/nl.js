@@ -103,7 +103,6 @@ OC.L10N.register(
     "Keyboard shortcuts" : "Sneltoetsen",
     "Disable mark read through scrolling" : "Niet als gelezen markeren door scrollen",
     "Compact view" : "Compact overzicht",
-    "Expand articles in compact view when navigating with keyboard shortcuts" : "Breid artikelen in het compacte overzicht uit bij navigeren met de sneltoetsen",
     "Show all articles" : "Toon alle artikelen",
     "Reverse ordering (oldest on top)" : "Omgekeerde volgorde (oudste boven)",
     "Subscriptions (OPML)" : "Abonnementen (OPML)",

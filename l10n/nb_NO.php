@@ -102,7 +102,6 @@ $TRANSLATIONS = array(
 "Keyboard shortcuts" => "Tastatur snarveier",
 "Disable mark read through scrolling" => "Slå av merk som lest ved blading",
 "Compact view" => "Kompakt visning",
-"Expand articles in compact view when navigating with keyboard shortcuts" => "Ekspander artikler i komakt visning når navigering skjer med hurtigtaster",
 "Show all articles" => "Vis alle artikler",
 "Reverse ordering (oldest on top)" => "Omvendt sortering (elste øverst)",
 "Subscriptions (OPML)" => "Abonnement (OPML)",

@@ -102,7 +102,6 @@ $TRANSLATIONS = array(
 "Keyboard shortcuts" => "Scorciatoie da tastiera",
 "Disable mark read through scrolling" => "Disabilita la marcatura come letto durante lo scorrimento",
 "Compact view" => "Visualizzazione compatta",
-"Expand articles in compact view when navigating with keyboard shortcuts" => "Espandi gli articoli nella vista compatta durante la navigazione con le scorciatoie da tastiera",
 "Show all articles" => "Mostra tutti gli articoli",
 "Reverse ordering (oldest on top)" => "Ordine inverso (più vecchio in alto)",
 "Subscriptions (OPML)" => "Sottoscrizioni (OPML)",
