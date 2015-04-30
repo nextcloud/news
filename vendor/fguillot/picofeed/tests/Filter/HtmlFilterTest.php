@@ -23,6 +23,22 @@ class HtmlFilterTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('<p>boo<br/><strong>foo</strong>.</p>', $filter->execute());
     }
 
+    public function testFilterRules()
+    {
+        $html = '<p><a href="http://www.twogag.com/archives/3455" title="559 &#8211; The Cookie">' .
+                '<img src="http://www.twogag.com/comics-rss/2015-04-17-TGAG_559_The_Cookie.jpg" alt="559 &#8211; The Cookie" class="comicthumbnail" title="559 &#8211; The Cookie" /></a></p>'.
+                'I always throw up in hindsight if I find out something I ate was vegan. Twogag&#8217;s super free but if you want to support the comic look no further than the Twogag patreon!';
+
+        $filter = new Html($html, 'http://www.twogag.com/');
+
+        $expected = '<p><a href="http://www.twogag.com/archives/3455" rel="noreferrer" target="_blank">' .
+                '<img src="http://www.twogag.com/comics/2015-04-17-TGAG_559_The_Cookie.jpg" alt="559 – The Cookie" title="559 – The Cookie"/></a></p>'.
+                'I always throw up in hindsight if I find out something I ate was vegan. Twogag’s super free but if you want to support the comic look no further than the Twogag patreon!';
+
+        $this->assertEquals($expected, $filter->execute());
+    }
+
+
     public function testIframe()
     {
         $data = '<iframe src="http://www.kickstarter.com/projects/lefnire/habitrpg-mobile/widget/video.html" height="480" width="640" frameborder="0"></iframe>';
@@ -147,5 +163,11 @@ x-amz-id-2: DDjqfqz2ZJufzqRAcj1mh+9XvSogrPohKHwXlo8IlkzH67G6w4wnjn9HYgbs4uI0
 
         $f = new Html('<table><tr></tr></table>', 'http://blabla');
         $this->assertEquals('', $f->execute());
+    }
+
+    public function testRemoveMultipleTags()
+    {
+        $f = new Html('<br/><br/><p>toto</p><br/><br/><br/><p>momo</p><br/><br/><br/><br/>', 'http://blabla');
+        $this->assertEquals('<br/><p>toto</p><br/><p>momo</p><br/>', $f->execute());
     }
 }

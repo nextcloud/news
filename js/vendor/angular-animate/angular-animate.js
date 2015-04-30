@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.4.0-rc.0
+ * @license AngularJS v1.4.0-rc.1
  * (c) 2010-2015 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -25,6 +25,13 @@ var NG_ANIMATE_CHILDREN_DATA = '$$ngAnimateChildren';
 
 var isPromiseLike = function(p) {
   return p && p.then ? true : false;
+}
+
+function assertArg(arg, name, reason) {
+  if (!arg) {
+    throw ngMinErr('areq', "Argument '{0}' is {1}", (name || '?'), (reason || "required"));
+  }
+  return arg;
 }
 
 function mergeClasses(a,b) {
@@ -115,7 +122,6 @@ function applyAnimationClassesFactory($$jqLite) {
     }
     if (options.removeClass) {
       $$removeClass($$jqLite, element, options.removeClass);
-      element.removeClass(options.removeClass);
       options.removeClass = null;
     }
   }
@@ -417,19 +423,7 @@ var $$AnimateChildrenDirective = [function() {
  *   start: Function,
  *
  *   // ends (aborts) the animation
- *   end: Function,
- *
- *   // the total number of seconds that the animation will run for
- *   duration: Number,
- *
- *   // the total number of seconds that the animation will delay for before starting
- *   delay: Number,
- *
- *   // whether or not transitions were detected and will therefore be used for the animation
- *   transitions: Boolean,
- *
- *   // whether or not keyframe animations were detected and will therefore be used for the animation
- *   keyframes: Boolean
+ *   end: Function
  * }
  * ```
  *
@@ -481,6 +475,7 @@ var $$AnimateChildrenDirective = [function() {
  * ({@link ngAnimate#css-staggering-animations Click here to learn how CSS-based staggering works in ngAnimate.})
  * * `staggerIndex` - The numeric index representing the stagger item (e.g. a value of 5 is equal to the sixth item in the stagger; therefore when a
  * `stagger` option value of `0.1` is used then there will be a stagger delay of `600ms`)
+ * `applyClassesEarly` - Whether or not the classes being added or removed will be used when detecting the animation. This is set by `$animate` when enter/leave/move animations are fired to ensure that the CSS classes are resolved in time. (Note that this will prevent any transitions from occuring on the classes being added and removed.)
  *
  * @return {null|object} an object with a start method and details about the animation. If no animation is detected then a value of `null` will be returned.
  *
@@ -753,9 +748,12 @@ var $AnimateCssProvider = ['$animateProvider', function($animateProvider) {
         //WILL RESULT IN AN UNPREDICTABLE BUG THAT IS VERY HARD TO TRACK DOWN AND
         //WILL TAKE YEARS AWAY FROM YOUR LIFE.
         var width = bod.offsetWidth + 1;
-        forEach(rafWaitQueue, function(cb) {
-          cb(width);
-        });
+
+        // we use a for loop to ensure that if the queue is changed
+        // during this looping then it will consider new requests
+        for (var i = 0; i < rafWaitQueue.length; i++) {
+          rafWaitQueue[i](width);
+        }
         rafWaitQueue.length = 0;
       });
     }
@@ -821,6 +819,17 @@ var $AnimateCssProvider = ['$animateProvider', function($animateProvider) {
           addRemoveClassName += ' ';
         }
         addRemoveClassName += pendClasses(options.removeClass, '-remove');
+      }
+
+      // there may be a situation where a structural animation is combined together
+      // with CSS classes that need to resolve before the animation is computed.
+      // However this means that there is no explicit CSS code to block the animation
+      // from happening (by setting 0s none in the class name). If this is the case
+      // we need to apply the classes before the first rAF so we know to continue if
+      // there actually is a detected transition or keyframe animation
+      if (options.applyClassesEarly && addRemoveClassName.length) {
+        applyAnimationClasses(element, options);
+        addRemoveClassName = '';
       }
 
       var setupClasses = [structuralClassName, addRemoveClassName].join(' ').trim();
@@ -904,10 +913,10 @@ var $AnimateCssProvider = ['$animateProvider', function($animateProvider) {
       flags.applyTransitionDuration = hasToStyles && (
                                         (flags.hasTransitions && !flags.hasTransitionAll)
                                          || (flags.hasAnimations && !flags.hasTransitions));
-      flags.applyAnimationDuration   = options.duration && flags.hasAnimations;
-      flags.applyTransitionDelay     = truthyTimingValue(options.delay) && (flags.applyTransitionDuration || flags.hasTransitions);
-      flags.applyAnimationDelay      = truthyTimingValue(options.delay) && flags.hasAnimations;
-      flags.recalculateTimingStyles  = addRemoveClassName.length > 0;
+      flags.applyAnimationDuration  = options.duration && flags.hasAnimations;
+      flags.applyTransitionDelay    = truthyTimingValue(options.delay) && (flags.applyTransitionDuration || flags.hasTransitions);
+      flags.applyAnimationDelay     = truthyTimingValue(options.delay) && flags.hasAnimations;
+      flags.recalculateTimingStyles = addRemoveClassName.length > 0;
 
       if (flags.applyTransitionDuration || flags.applyAnimationDuration) {
         maxDuration = options.duration ? parseFloat(options.duration) : maxDuration;
@@ -924,42 +933,6 @@ var $AnimateCssProvider = ['$animateProvider', function($animateProvider) {
           timings.animationDuration = maxDuration;
           temporaryStyles.push(getCssKeyframeDurationStyle(maxDuration));
         }
-      }
-
-      flags.transitionClassBlock = timings.transitionProperty === 'none' &&
-                                   timings.transitionDuration === 0;
-
-      // there may be a situation where a structural animation is combined together
-      // with CSS classes that need to resolve before the animation is computed.
-      // However this means that there is no explicit CSS code to block the animation
-      // from happening (by setting 0s none in the class name). If this is the case
-      // we need to apply the classes before the first rAF so we know to continue if
-      // there actually is a detected transition or keyframe animation
-      var applyClassesEarly = maxDuration === 0
-                               && isStructural
-                               && addRemoveClassName.length > 0
-                               && !flags.transitionClassBlock;
-
-      // this is an early check to avoid having to do another call to getComputedStyle
-      // call which is expensive. GCS calls are cached to speed things up.
-      if (!applyClassesEarly && maxDuration === 0 && !flags.recalculateTimingStyles) {
-        close();
-        return false;
-      }
-
-      if (applyClassesEarly) {
-        applyAnimationClasses(element, options);
-
-        // no need to calculate this anymore
-        flags.recalculateTimingStyles = false;
-
-        fullClassName = node.className + ' ' + setupClasses;
-        cacheKey = gcsHashFn(node, fullClassName);
-
-        timings = computeTimings(node, fullClassName, cacheKey);
-        relativeDelay = timings.maxDelay;
-        maxDelay = Math.max(relativeDelay, 0);
-        maxDuration = timings.maxDuration;
       }
 
       if (maxDuration === 0 && !flags.recalculateTimingStyles) {
@@ -983,9 +956,8 @@ var $AnimateCssProvider = ['$animateProvider', function($animateProvider) {
                                        stagger.animationDuration === 0;
       }
 
-      if (flags.blockTransition) {
-        applyAnimationFromStyles(element, options);
-      } else {
+      applyAnimationFromStyles(element, options);
+      if (!flags.blockTransition) {
         blockTransitions(node, false);
       }
 
@@ -1300,27 +1272,39 @@ var $$AnimateCssDriverProvider = ['$$animationProvider', function($$animationPro
 
       rootBodyElement.append(clone);
 
-      var animatorOut = prepareOutAnimation();
+      var animatorIn, animatorOut = prepareOutAnimation();
+
+      // the user may not end up using the `out` animation and
+      // only making use of the `in` animation or vice-versa.
+      // In either case we should allow this and not assume the
+      // animation is over unless both animations are not used.
       if (!animatorOut) {
-        return end();
+        animatorIn = prepareInAnimation();
+        if (!animatorIn) {
+          return end();
+        }
       }
+
+      var startingAnimator = animatorOut || animatorIn;
 
       return {
         start: function() {
           var runner;
 
-          var currentAnimation = animatorOut.start();
+          var currentAnimation = startingAnimator.start();
           currentAnimation.done(function() {
             currentAnimation = null;
-            var animatorIn = prepareInAnimation();
-            if (animatorIn) {
-              currentAnimation = animatorIn.start();
-              currentAnimation.done(function() {
-                currentAnimation = null;
-                end();
-                runner.complete();
-              });
-              return currentAnimation;
+            if (!animatorIn) {
+              animatorIn = prepareInAnimation();
+              if (animatorIn) {
+                currentAnimation = animatorIn.start();
+                currentAnimation.done(function() {
+                  currentAnimation = null;
+                  end();
+                  runner.complete();
+                });
+                return currentAnimation;
+              }
             }
             // in the event that there is no `in` animation
             end();
@@ -1446,7 +1430,12 @@ var $$AnimateCssDriverProvider = ['$$animationProvider', function($$animationPro
     function prepareRegularAnimation(animationDetails) {
       var element = animationDetails.element;
       var options = animationDetails.options || {};
+
       options.structural = animationDetails.structural;
+
+      // structural animations ensure that the CSS classes are always applied
+      // before the detection starts.
+      options.applyClassesEarly = options.structural;
 
       // we special case the leave animation since we want to ensure that
       // the element is removed as soon as the animation is over. Otherwise
@@ -1771,6 +1760,7 @@ var $$AnimateJsDriverProvider = ['$$animationProvider', function($$animationProv
 }];
 
 var NG_ANIMATE_ATTR_NAME = 'data-ng-animate';
+var NG_ANIMATE_PIN_DATA = '$ngAnimatePin';
 var $$AnimateQueueProvider = ['$animateProvider', function($animateProvider) {
   var PRE_DIGEST_STATE = 1;
   var RUNNING_STATE = 2;
@@ -1937,6 +1927,12 @@ var $$AnimateQueueProvider = ['$animateProvider', function($animateProvider) {
         }
       },
 
+      pin: function(element, parentElement) {
+        assertArg(isElement(element), 'element', 'not an element');
+        assertArg(isElement(parentElement), 'parentElement', 'not an element');
+        element.data(NG_ANIMATE_PIN_DATA, parentElement);
+      },
+
       push: function(element, event, options, domOperation) {
         options = options || {};
         options.domOperation = domOperation;
@@ -2020,7 +2016,7 @@ var $$AnimateQueueProvider = ['$animateProvider', function($animateProvider) {
 
       var className = [node.className, options.addClass, options.removeClass].join(' ');
       if (!isAnimatableClassName(className)) {
-        runner.end();
+        close();
         return runner;
       }
 
@@ -2151,6 +2147,7 @@ var $$AnimateQueueProvider = ['$animateProvider', function($animateProvider) {
           // it, otherwise if it's the same then the end result will be the same too
           if (animationCancelled || (isStructural && animationDetails.event !== event)) {
             options.domOperation();
+            runner.end();
           }
 
           return;
@@ -2245,7 +2242,7 @@ var $$AnimateQueueProvider = ['$animateProvider', function($animateProvider) {
       // animations to properly function (otherwise any CSS selectors may not work)
       function examineParentAnimation(node, animationDetails) {
         // enter/leave/move always have priority
-        if (animationDetails.structural) return;
+        if (animationDetails.structural || !hasAnimationClasses(animationDetails.options)) return;
 
         if (animationDetails.state === RUNNING_STATE) {
           animationDetails.runner.end();
@@ -2260,7 +2257,18 @@ var $$AnimateQueueProvider = ['$animateProvider', function($animateProvider) {
       var parentAnimationDetected = false;
       var animateChildren;
 
+      var parentHost = element.data(NG_ANIMATE_PIN_DATA);
+      if (parentHost) {
+        parent = parentHost;
+      }
+
       while (parent && parent.length) {
+        if (!rootElementDetected) {
+          // angular doesn't want to attempt to animate elements outside of the application
+          // therefore we need to ensure that the rootElement is an ancestor of the current element
+          rootElementDetected = isMatchingElement(parent, $rootElement);
+        }
+
         var parentNode = parent[0];
         if (parentNode.nodeType !== ELEMENT_NODE) {
           // no point in inspecting the #document element
@@ -2289,6 +2297,12 @@ var $$AnimateQueueProvider = ['$animateProvider', function($animateProvider) {
           // angular doesn't want to attempt to animate elements outside of the application
           // therefore we need to ensure that the rootElement is an ancestor of the current element
           rootElementDetected = isMatchingElement(parent, $rootElement);
+          if (!rootElementDetected) {
+            parentHost = parent.data(NG_ANIMATE_PIN_DATA);
+            if (parentHost) {
+              parent = parentHost;
+            }
+          }
         }
 
         if (!bodyElementDetected) {
@@ -3149,6 +3163,207 @@ var $$AnimationProvider = ['$animateProvider', function($animateProvider) {
  *
  * To learn more about what's possible be sure to visit the {@link ngAnimate.$animateCss $animateCss service}.
  *
+ * ## Animation Anchoring (via `ng-animate-ref`)
+ *
+ * ngAnimate in AngularJS 1.4 comes packed with the ability to cross-animate elements between
+ * structural areas of an application (like views) by pairing up elements using an attribute
+ * called `ng-animate-ref`.
+ *
+ * Let's say for example we have two views that are managed by `ng-view` and we want to show
+ * that there is a relationship between two components situated in different views. By using the
+ * `ng-animate-ref` attribute we can identify that the two components are paired together and we
+ * can then attach an animation, which is triggered when the view changes.
+ *
+ * ```html
+ * <!-- index.html -->
+ * <div ng-view class="view-animation">
+ * </div>
+ *
+ * <!-- home.html -->
+ * <a href="#/banner-page">
+ *   <img src="./banner.jpg" ng-animate-ref="banner">
+ * </a>
+ *
+ * <!-- banner-page.html -->
+ * <img src="./banner.jpg" ng-animate-ref="banner">
+ * ```
+ *
+ * Now, when the view changes (once the link is clicked), ngAnimate will examine the
+ * HTML contents to see if there is a match reference between any components in the view
+ * that is leaving and the view that is entering. It will then attempt to trigger a CSS
+ * animation on the `.view-animation-anchor` CSS class (notice how `.view-animation` is
+ * a shared CSS class on the ng-view element? This means that view-animation will apply to
+ * both the enter and leave animations).
+ *
+ * The two images match since they share the same ref value. ngAnimate will now apply a
+ * suffixed version of each of the shared CSS classes with `-anchor`. Therefore we will
+ * have a shared class of `view-animation-anchor` which we can use to setup our transition animation.
+ *
+ * We can now attach a transition onto the `.view-animation-anchor` CSS class and then
+ * ngAnimate will handle the entire transition for us as well as the addition and removal of
+ * any changes of CSS classes between the elements:
+ *
+ * ```css
+ * .view-animation-anchor {
+ *   /&#42; this animation will last for 1 second since there are
+ *          two phases to the animation (an `in` and an `out` phase) &#42;/
+ *   transition:0.5s linear all;
+ * }
+ * ```
+ *
+ * There are two stages for an anchor animation: `out` and `in`. The `out` stage happens first and that
+ * is when the element is animated away from its origin. Once that animation is over then the `in` stage
+ * occurs which animates the element to its destination. The reason why there are two animations is to
+ * give enough time for the enter animation on the new element to be ready.
+ *
+ * The example above sets up a transition for both the in and out phases, but we can also target the out or
+ * in phases directly via `ng-anchor-out` and `ng-anchor-in`.
+ *
+ * ```css
+ * .view-animation-anchor.ng-anchor-out {
+ *   transition: 0.5s linear all;
+ *
+ *   /&#42; the scale will be applied during the out animation,
+ *          but will be animated away when the in animation runs &#42;/
+ *   transform: scale(1.2);
+ * }
+ *
+ * .view-animation-anchor.ng-anchor-in {
+ *   transition: 1s linear all;
+ * }
+ * ```
+ *
+ *
+ *
+ *
+ * ### Anchoring Demo
+ *
+  <example module="anchoringExample"
+           name="anchoringExample"
+           id="anchoringExample"
+           deps="angular-animate.js;angular-route.js"
+           animations="true">
+    <file name="index.html">
+      <a href="#/">Home</a>
+      <hr />
+      <div class="view-container">
+        <div ng-view class="view"></div>
+      </div>
+    </file>
+    <file name="script.js">
+      angular.module('anchoringExample', ['ngAnimate', 'ngRoute'])
+        .config(['$routeProvider', function($routeProvider) {
+          $routeProvider.when('/', {
+            templateUrl: 'home.html',
+            controller: 'HomeController as home'
+          });
+          $routeProvider.when('/profile/:id', {
+            templateUrl: 'profile.html',
+            controller: 'ProfileController as profile'
+          });
+        }])
+        .run(['$rootScope', function($rootScope) {
+          $rootScope.records = [
+            { id:1, title: "Miss Beulah Roob" },
+            { id:2, title: "Trent Morissette" },
+            { id:3, title: "Miss Ava Pouros" },
+            { id:4, title: "Rod Pouros" },
+            { id:5, title: "Abdul Rice" },
+            { id:6, title: "Laurie Rutherford Sr." },
+            { id:7, title: "Nakia McLaughlin" },
+            { id:8, title: "Jordon Blanda DVM" },
+            { id:9, title: "Rhoda Hand" },
+            { id:10, title: "Alexandrea Sauer" }
+          ];
+        }])
+        .controller('HomeController', [function() {
+          //empty
+        }])
+        .controller('ProfileController', ['$rootScope', '$routeParams', function($rootScope, $routeParams) {
+          var index = parseInt($routeParams.id, 10);
+          var record = $rootScope.records[index - 1];
+
+          this.title = record.title;
+          this.id = record.id;
+        }]);
+    </file>
+    <file name="home.html">
+      <h2>Welcome to the home page</h1>
+      <p>Please click on an element</p>
+      <a class="record"
+         ng-href="#/profile/{{ record.id }}"
+         ng-animate-ref="{{ record.id }}"
+         ng-repeat="record in records">
+        {{ record.title }}
+      </a>
+    </file>
+    <file name="profile.html">
+      <div class="profile record" ng-animate-ref="{{ profile.id }}">
+        {{ profile.title }}
+      </div>
+    </file>
+    <file name="animations.css">
+      .record {
+        display:block;
+        font-size:20px;
+      }
+      .profile {
+        background:black;
+        color:white;
+        font-size:100px;
+      }
+      .view-container {
+        position:relative;
+      }
+      .view-container > .view.ng-animate {
+        position:absolute;
+        top:0;
+        left:0;
+        width:100%;
+        min-height:500px;
+      }
+      .view.ng-enter {
+        transition:0.5s linear all;
+        transform:translateX(100%);
+      }
+      .view.ng-enter.ng-enter-active {
+        transform:translateX(0%);
+      }
+      .view.ng-leave {
+        transition:0.5s linear all;
+      }
+      .view.ng-leave.ng-leave-active {
+        transform:translateX(-100%);
+      }
+      .view-anchor {
+        transition:0.5s linear all;
+      }
+    </file>
+  </example>
+ *
+ * ### How is the element transported?
+ *
+ * When an anchor animation occurs, ngAnimate will clone the starting element and position it exactly where the starting
+ * element is located on screen via absolute positioning. The cloned element will be placed inside of the root element
+ * of the application (where ng-app was defined) and all of the CSS classes of the starting element will be applied. The
+ * element will then animate into the `out` and `in` animations and will eventually reach the coordinates and match
+ * the dimensions of the destination element. During the entire animation a CSS class of `.ng-animate-shim` will be applied
+ * to both the starting and destination elements in order to hide them from being visible (the CSS styling for the class
+ * is: `visibility:hidden`). Once the anchor reaches its destination then it will be removed and the destination element
+ * will become visible since the shim class will be removed.
+ *
+ * ### How is the morphing handled?
+ *
+ * CSS Anchoring relies on transitions and keyframes and the internal code is intelligent enough to figure out
+ * what CSS classes differ between the starting element and the destination element. These different CSS classes
+ * will be added/removed on the anchor element and a transition will be applied (the transition that is provided
+ * in the anchor class). Long story short, ngAnimate will figure out what classes to add and remove which will
+ * make the transition of the element as smooth and automatic as possible. Be sure to use simple CSS classes that
+ * do not rely on DOM nesting structure so that the anchor element appears the same as the starting element (since
+ * the cloned element is placed inside of root element which is likely close to the body element).
+ *
+ * Note that if the root element is on the `<html>` element then the cloned node will be placed inside of body.
+ *
  *
  * ## Using $animate in your directive code
  *
@@ -3224,12 +3439,12 @@ var $$AnimationProvider = ['$animateProvider', function($animateProvider) {
  * anymore.)
  *
  * In addition to the animation promise, we can also make use of animation-related callbacks within our directives and controller code by registering
- * an event listener using the `$animate` service. Let's say for example that an animation was triggered on our `ng-view` element and we wanted our
+ * an event listener using the `$animate` service. Let's say for example that an animation was triggered on our view
  * routing controller to hook into that:
  *
  * ```js
  * ngModule.controller('HomePageController', ['$animate', function($animate) {
- *   $animate.on('enter', '[ng-view]', function(element) {
+ *   $animate.on('enter', ngViewElement, function(element) {
  *     // the animation for this route has completed
  *   }]);
  * }])

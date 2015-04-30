@@ -3,7 +3,8 @@
 
 require_once 'vendor/autoload.php';
 
-use PicoFeed\Client\Grabber;
+use PicoFeed\Config\Config;
+use PicoFeed\Scraper\Scraper;
 use PicoFeed\Reader\Reader;
 use PicoFeed\Logging\Logger;
 use PicoFeed\PicoFeedException;
@@ -80,13 +81,13 @@ function nofilter_item($url, $item_id)
 
 function grabber($url)
 {
-    $grabber = new Grabber($url);
-    $grabber->download();
-    $grabber->parse();
+    $grabber = new Scraper(new Config);
+    $grabber->setUrl($url);
+    $grabber->execute();
 
     print_r(Logger::getMessages());
     echo "============= CONTENT ================\n";
-    echo $grabber->getContent().PHP_EOL;
+    echo $grabber->getRelevantContent().PHP_EOL;
     echo "============= FILTERED ================\n";
     echo $grabber->getFilteredContent().PHP_EOL;
 }

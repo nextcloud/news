@@ -47,7 +47,6 @@ Authors
 Real world usage
 ----------------
 
-- [AnythingNew](http://anythingnew.co)
 - [Miniflux](http://miniflux.net)
 - [Owncloud News](https://github.com/owncloud/news)
 

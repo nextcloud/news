@@ -194,7 +194,7 @@ class Tag
      * @param  string  $data  Input data
      * @return string
      */
-    public function removeMultipleTags($data)
+    public function removeMultipleBreakTags($data)
     {
         return preg_replace("/(<br\s*\/?>\s*)+/", "<br/>", $data);
     }

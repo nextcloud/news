@@ -215,6 +215,27 @@ catch (PicoFeedException $e) {
 }
 ```
 
+Custom regex filters
+--------------------
+In case you want modify the content with a simple regex, you can create a rule file named after the domain of the feed's link attribute. For the feed pointing to **http://www.twogag.com/** the file is stored under **Rules/twogag.com.php**
+
+For filtering, only the array with the key **filter** will be considered. The first level key is a preg_match regex that will match the sub url, e.g. to only match a feed whose link attribute points to **twogag.com/test**, the regex could look like **%/test.*%**. The second level array contains a list of search and replace strings, which will be passed to the preg\_replace function. The first string is the argument that should be matched, the second is the replacement.
+
+To replace all occurences of links to smaller images for twogag, the following rule can be used:
+
+
+```php
+<?php
+return array(
+    'filter' => array(
+        '%.*%' => array(
+            "%http://www.twogag.com/comics-rss/([^.]+)\\.jpg%" =>
+            "http://www.twogag.com/comics/$1.jpg"
+        )
+    )
+);
+```
+
 Feed and item properties
 ------------------------
 

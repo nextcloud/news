@@ -47,6 +47,46 @@
   };
 
   var isCallableWithoutNew = not(throwsError);
+  var arePropertyDescriptorsSupported = function () {
+    // if Object.defineProperty exists but throws, it's IE 8
+    return !throwsError(function () { Object.defineProperty({}, 'x', {}); });
+  };
+  var supportsDescriptors = !!Object.defineProperty && arePropertyDescriptorsSupported();
+
+  var defineProperty = function (object, name, value, force) {
+    if (!force && name in object) { return; }
+    if (supportsDescriptors) {
+      Object.defineProperty(object, name, {
+        configurable: true,
+        enumerable: false,
+        writable: true,
+        value: value
+      });
+    } else {
+      object[name] = value;
+    }
+  };
+
+  // Define configurable, writable and non-enumerable props
+  // if they don’t exist.
+  var defineProperties = function (object, map) {
+    Object.keys(map).forEach(function (name) {
+      var method = map[name];
+      defineProperty(object, name, method, false);
+    });
+  };
+
+  // Simple shim for Object.create on ES3 browsers
+  // (unlike real shim, no attempt to support `prototype === null`)
+  var create = Object.create || function (prototype, properties) {
+    function Prototype() {}
+    Prototype.prototype = prototype;
+    var object = new Prototype();
+    if (typeof properties !== 'undefined') {
+      defineProperties(object, properties);
+    }
+    return object;
+  };
 
   var supportsSubclassing = function (C, f) {
     if (!Object.setPrototypeOf) { return false; /* skip test on IE < 11 */ }
@@ -61,11 +101,6 @@
       });
       return f(Sub);
     });
-  };
-
-  var arePropertyDescriptorsSupported = function () {
-    // if Object.defineProperty exists but throws, it's IE 8
-    return !throwsError(function () { Object.defineProperty({}, 'x', {}); });
   };
 
   var startsWithRejectsRegex = function () {
@@ -84,7 +119,6 @@
 
   var globals = getGlobal();
   var globalIsFinite = globals.isFinite;
-  var supportsDescriptors = !!Object.defineProperty && arePropertyDescriptorsSupported();
   var hasStrictMode = (function () { return this === null; }.call(null));
   var startsWithIsCompliant = startsWithRejectsRegex() && startsWithHandlesInfinity;
   var _indexOf = Function.call.bind(String.prototype.indexOf);
@@ -114,20 +148,6 @@
   };
   var numberIsFinite = Number.isFinite || function isFinite(value) {
     return typeof value === 'number' && globalIsFinite(value);
-  };
-
-  var defineProperty = function (object, name, value, force) {
-    if (!force && name in object) { return; }
-    if (supportsDescriptors) {
-      Object.defineProperty(object, name, {
-        configurable: true,
-        enumerable: false,
-        writable: true,
-        value: value
-      });
-    } else {
-      object[name] = value;
-    }
   };
 
   var Value = {
@@ -167,25 +187,10 @@
     }
   };
 
-  // Define configurable, writable and non-enumerable props
-  // if they don’t exist.
-  var defineProperties = function (object, map) {
-    Object.keys(map).forEach(function (name) {
-      var method = map[name];
-      defineProperty(object, name, method, false);
-    });
-  };
-
-  // Simple shim for Object.create on ES3 browsers
-  // (unlike real shim, no attempt to support `prototype === null`)
-  var create = Object.create || function (prototype, properties) {
-    function Prototype() {}
-    Prototype.prototype = prototype;
-    var object = new Prototype();
-    if (typeof properties !== 'undefined') {
-      defineProperties(object, properties);
-    }
-    return object;
+  var overrideNative = function overrideNative(object, property, replacement) {
+    var original = object[property];
+    defineProperty(object, property, replacement, true);
+    Value.preserveToString(object[property], original);
   };
 
   // This is a private name in the es6 spec, equal to '[Symbol.iterator]'
@@ -201,13 +206,13 @@
     $iterator$ = '@@iterator';
   }
   var addIterator = function (prototype, impl) {
-    if (!impl) { impl = function iterator() { return this; }; }
+    var implementation = impl || function iterator() { return this; };
     var o = {};
-    o[$iterator$] = impl;
+    o[$iterator$] = implementation;
     defineProperties(prototype, o);
     if (!prototype[$iterator$] && Type.symbol($iterator$)) {
       // implementations are buggy when $iterator$ is a Symbol
-      prototype[$iterator$] = impl;
+      prototype[$iterator$] = implementation;
     }
   };
 
@@ -367,24 +372,25 @@
 
   var emulateES6construct = function (o) {
     if (!ES.TypeIsObject(o)) { throw new TypeError('bad object'); }
+    var object = o;
     // es5 approximation to es6 subclass semantics: in es6, 'new Foo'
     // would invoke Foo.@@species to allocation/initialize the new object.
     // In es5 we just get the plain object.  So if we detect an
     // uninitialized object, invoke o.constructor.@@species
-    if (!o._es6construct) {
-      if (o.constructor && ES.IsCallable(o.constructor[symbolSpecies])) {
-        o = o.constructor[symbolSpecies](o);
+    if (!object._es6construct) {
+      if (object.constructor && ES.IsCallable(object.constructor[symbolSpecies])) {
+        object = object.constructor[symbolSpecies](object);
       }
-      defineProperties(o, { _es6construct: true });
+      defineProperties(object, { _es6construct: true });
     }
-    return o;
+    return object;
   };
 
   // Firefox 31 reports this function's length as 0
   // https://bugzilla.mozilla.org/show_bug.cgi?id=1062484
   if (String.fromCodePoint && String.fromCodePoint.length !== 1) {
     var originalFromCodePoint = Function.apply.bind(String.fromCodePoint);
-    defineProperty(String, 'fromCodePoint', function fromCodePoint(codePoints) { return originalFromCodePoint(this, arguments); }, true);
+    overrideNative(String, 'fromCodePoint', function fromCodePoint(codePoints) { return originalFromCodePoint(this, arguments); });
   }
 
   var StringShims = {
@@ -438,9 +444,7 @@
   defineProperties(String, StringShims);
   if (String.raw({ raw: { 0: 'x', 1: 'y', length: 2 } }) !== 'xy') {
     // IE 11 TP has a broken String.raw implementation
-    var origStringRaw = String.raw;
-    defineProperty(String, 'raw', StringShims.raw, true);
-    Value.preserveToString(String.raw, origStringRaw);
+    overrideNative(String, 'raw', StringShims.raw);
   }
 
   // Fast repeat, uses the `Exponentiation by squaring` algorithm.
@@ -457,32 +461,32 @@
     repeat: function repeat(times) {
       ES.RequireObjectCoercible(this);
       var thisStr = String(this);
-      times = ES.ToInteger(times);
-      if (times < 0 || times >= stringMaxLength) {
+      var numTimes = ES.ToInteger(times);
+      if (numTimes < 0 || numTimes >= stringMaxLength) {
         throw new RangeError('repeat count must be less than infinity and not overflow maximum string size');
       }
-      return stringRepeat(thisStr, times);
+      return stringRepeat(thisStr, numTimes);
     },
 
-    startsWith: function startsWith(searchStr) {
+    startsWith: function startsWith(searchString) {
       ES.RequireObjectCoercible(this);
       var thisStr = String(this);
-      if (Type.regex(searchStr)) {
+      if (Type.regex(searchString)) {
         throw new TypeError('Cannot call method "startsWith" with a regex');
       }
-      searchStr = String(searchStr);
+      var searchStr = String(searchString);
       var startArg = arguments.length > 1 ? arguments[1] : void 0;
       var start = Math.max(ES.ToInteger(startArg), 0);
       return thisStr.slice(start, start + searchStr.length) === searchStr;
     },
 
-    endsWith: function endsWith(searchStr) {
+    endsWith: function endsWith(searchString) {
       ES.RequireObjectCoercible(this);
       var thisStr = String(this);
-      if (Type.regex(searchStr)) {
+      if (Type.regex(searchString)) {
         throw new TypeError('Cannot call method "endsWith" with a regex');
       }
-      searchStr = String(searchStr);
+      var searchStr = String(searchString);
       var thisLen = thisStr.length;
       var posArg = arguments.length > 1 ? arguments[1] : void 0;
       var pos = typeof posArg === 'undefined' ? thisLen : ES.ToInteger(posArg);
@@ -514,9 +518,7 @@
   defineProperties(String.prototype, StringPrototypeShims);
 
   if ('a'.includes('a', Infinity) !== false) {
-    var origIncludes = String.prototype.includes;
-    defineProperty(String.prototype, 'includes', StringPrototypeShims.includes, true);
-    Value.preserveToString(String.prototype.includes, origIncludes);
+    overrideNative(String.prototype, 'includes', StringPrototypeShims.includes);
   }
 
   var hasStringTrimBug = '\u0085'.trim().length !== 1;
@@ -569,8 +571,8 @@
 
   if (!startsWithIsCompliant) {
     // Firefox (< 37?) and IE 11 TP have a noncompliant startsWith implementation
-    defineProperty(String.prototype, 'startsWith', StringPrototypeShims.startsWith, true);
-    defineProperty(String.prototype, 'endsWith', StringPrototypeShims.endsWith, true);
+    overrideNative(String.prototype, 'startsWith', StringPrototypeShims.startsWith);
+    overrideNative(String.prototype, 'endsWith', StringPrototypeShims.endsWith);
   }
 
   var ArrayShims = {
@@ -741,9 +743,7 @@
     return fooArr instanceof Foo && fooArr.length === 2;
   }());
   if (!arrayOfSupportsSubclassing) {
-    var origArrayOf = Array.of;
-    defineProperty(Array, 'of', ArrayShims.of, true);
-    Value.preserveToString(Array.of, origArrayOf);
+    overrideNative(Array, 'of', ArrayShims.of);
   }
 
   var ArrayPrototypeShims = {
@@ -751,10 +751,10 @@
       var end = arguments[2]; // copyWithin.length must be 2
       var o = ES.ToObject(this);
       var len = ES.ToLength(o.length);
-      target = ES.ToInteger(target);
-      start = ES.ToInteger(start);
-      var to = target < 0 ? Math.max(len + target, 0) : Math.min(target, len);
-      var from = start < 0 ? Math.max(len + start, 0) : Math.min(start, len);
+      var relativeTarget = ES.ToInteger(target);
+      var relativeStart = ES.ToInteger(start);
+      var to = relativeTarget < 0 ? Math.max(len + relativeTarget, 0) : Math.min(relativeTarget, len);
+      var from = relativeStart < 0 ? Math.max(len + relativeStart, 0) : Math.min(relativeStart, len);
       end = typeof end === 'undefined' ? len : ES.ToInteger(end);
       var fin = end < 0 ? Math.max(len + end, 0) : Math.min(end, len);
       var count = Math.min(fin - from, len - to);
@@ -861,9 +861,8 @@
   // Chrome 40 defines Array#values with the incorrect name, although Array#{keys,entries} have the correct name
   if (Array.prototype.values && Array.prototype.values.name !== 'values') {
     var originalArrayPrototypeValues = Array.prototype.values;
-    defineProperty(Array.prototype, 'values', function values() { return originalArrayPrototypeValues.call(this); }, true);
+    overrideNative(Array.prototype, 'values', function values() { return originalArrayPrototypeValues.call(this); });
     defineProperty(Array.prototype, $iterator$, Array.prototype.values, true);
-    Value.preserveToString(Array.prototype.values, originalArrayPrototypeValues);
   }
   defineProperties(Array.prototype, ArrayPrototypeShims);
 
@@ -875,20 +874,18 @@
   }
 
   // note: this is positioned here because it relies on Array#entries
-  var arrayFromSwallowsNegativeLengths = function () {
+  var arrayFromSwallowsNegativeLengths = (function () {
     // Detects a Firefox bug in v32
     // https://bugzilla.mozilla.org/show_bug.cgi?id=1063993
     return valueOrFalseIfThrows(function () { return Array.from({ length: -1 }).length === 0; });
-  };
+  }());
   var arrayFromHandlesIterables = (function () {
     // Detects a bug in Webkit nightly r181886
     var arr = Array.from([0].entries());
     return arr.length === 1 && arr[0][0] === 0 && arr[0][1] === 1;
   }());
-  if (!arrayFromSwallowsNegativeLengths() || !arrayFromHandlesIterables) {
-    var origArrayFrom = Array.from;
-    defineProperty(Array, 'from', ArrayShims.from, true);
-    Value.preserveToString(Array.from, origArrayFrom);
+  if (!arrayFromSwallowsNegativeLengths || !arrayFromHandlesIterables) {
+    overrideNative(Array, 'from', ArrayShims.from);
   }
 
   var maxSafeInteger = Math.pow(2, 53) - 1;
@@ -912,6 +909,8 @@
 
     isNaN: numberIsNaN
   });
+  // Firefox 37 has a conforming Number.parseInt, but it's not === to the global parseInt (fixed in v40)
+  defineProperty(Number, 'parseInt', globals.parseInt, Number.parseInt !== globals.parseInt);
 
   // Work around bugs in Array#find and Array#findIndex -- early
   // implementations skipped holes in sparse arrays. (Note that the
@@ -919,41 +918,72 @@
   // methods of Number, so this test has to happen down here.)
   /*jshint elision: true */
   if (![, 1].find(function (item, idx) { return idx === 0; })) {
-    defineProperty(Array.prototype, 'find', ArrayPrototypeShims.find, true);
+    overrideNative(Array.prototype, 'find', ArrayPrototypeShims.find);
   }
   if ([, 1].findIndex(function (item, idx) { return idx === 0; }) !== 0) {
-    defineProperty(Array.prototype, 'findIndex', ArrayPrototypeShims.findIndex, true);
+    overrideNative(Array.prototype, 'findIndex', ArrayPrototypeShims.findIndex);
   }
   /*jshint elision: false */
 
-  defineProperties(Object, {
+  var isEnumerableOn = Function.bind.call(Function.bind, Object.prototype.propertyIsEnumerable);
+  var sliceArgs = function sliceArgs() {
+    // per https://github.com/petkaantonov/bluebird/wiki/Optimization-killers#32-leaking-arguments
+    // and https://gist.github.com/WebReflection/4327762cb87a8c634a29
+    var initial = Number(this);
+    var len = arguments.length;
+    var desiredArgCount = len - initial;
+    var args = new Array(desiredArgCount < 0 ? 0 : desiredArgCount);
+    for (var i = initial; i < len; ++i) {
+      args[i - initial] = arguments[i];
+    }
+    return args;
+  };
+  var assignTo = function assignTo(source) {
+    return function assignToSource(target, key) {
+      target[key] = source[key];
+      return target;
+    };
+  };
+  var assignReducer = function (target, source) {
+    var keys = Object.keys(Object(source));
+    var symbols;
+    if (ES.IsCallable(Object.getOwnPropertySymbols)) {
+      symbols = Object.getOwnPropertySymbols(Object(source)).filter(isEnumerableOn(source));
+    }
+    return keys.concat(symbols || []).reduce(assignTo(source), target);
+  };
+
+  var ObjectShims = {
+    // 19.1.3.1
+    assign: function (target, source) {
+      if (!ES.TypeIsObject(target)) {
+        throw new TypeError('target must be an object');
+      }
+      return Array.prototype.reduce.call(sliceArgs.apply(0, arguments), assignReducer);
+    },
+
+    // Added in WebKit in https://bugs.webkit.org/show_bug.cgi?id=143865
     is: function is(a, b) {
       return ES.SameValue(a, b);
     }
-  });
+  };
+  var assignHasPendingExceptions = Object.assign && Object.preventExtensions && (function () {
+    // Firefox 37 still has "pending exception" logic in its Object.assign implementation,
+    // which is 72% slower than our shim, and Firefox 40's native implementation.
+    var thrower = Object.preventExtensions({ 1: 2 });
+    try {
+      Object.assign(thrower, 'xy');
+    } catch (e) {
+      return thrower[1] === 'y';
+    }
+  }());
+  if (assignHasPendingExceptions) {
+    overrideNative(Object, 'assign', ObjectShims.assign);
+  }
+  defineProperties(Object, ObjectShims);
 
   if (supportsDescriptors) {
-    var isEnumerableOn = Function.bind.call(Function.bind, Object.prototype.propertyIsEnumerable);
-    var assignReducer = function (target, source) {
-      var keys = Object.keys(Object(source));
-      var symbols;
-      if (ES.IsCallable(Object.getOwnPropertySymbols)) {
-        symbols = Object.getOwnPropertySymbols(Object(source)).filter(isEnumerableOn(source));
-      }
-      return keys.concat(symbols || []).reduce(function (target, key) {
-        target[key] = source[key];
-        return target;
-      }, target);
-    };
-    var ObjectShims = {
-      // 19.1.3.1
-      assign: function (target, source) {
-        if (!ES.TypeIsObject(target)) {
-          throw new TypeError('target must be an object');
-        }
-        return Array.prototype.reduce.call(arguments, assignReducer);
-      },
-
+    var ES5ObjectShims = {
       // 19.1.3.9
       // shim from https://gist.github.com/WebReflection/5593554
       setPrototypeOf: (function (Object, magic) {
@@ -1008,22 +1038,7 @@
       }(Object, '__proto__'))
     };
 
-    var assignHasPendingExceptions = Object.assign && Object.preventExtensions && (function () {
-      // Firefox 37 still has "pending exception" logic in its Object.assign implementation,
-      // which is 72% slower than our shim, and Firefox 40's native implementation.
-      var thrower = Object.preventExtensions({ 1: 2 });
-      try {
-        Object.assign(thrower, 'xy');
-      } catch (e) {
-        return thrower[1] === 'y';
-      }
-    }());
-    if (assignHasPendingExceptions) {
-      var origAssign = Object.assign;
-      defineProperty(Object, 'assign', ObjectShims.assign, true);
-      Value.preserveToString(Object.assign, origAssign);
-    }
-    defineProperties(Object, ObjectShims);
+    defineProperties(Object, ES5ObjectShims);
   }
 
   // Workaround bug in Opera 12 where setPrototypeOf(x, null) doesn't work,
@@ -1039,8 +1054,8 @@
         return result === FAKENULL ? null : result;
       };
       Object.setPrototypeOf = function (o, p) {
-        if (p === null) { p = FAKENULL; }
-        return spo(o, p);
+        var proto = p === null ? FAKENULL : p;
+        return spo(o, proto);
       };
       Object.setPrototypeOf.polyfill = false;
     }());
@@ -1049,106 +1064,96 @@
   var objectKeysAcceptsPrimitives = !throwsError(function () { Object.keys('foo'); });
   if (!objectKeysAcceptsPrimitives) {
     var originalObjectKeys = Object.keys;
-    defineProperty(Object, 'keys', function keys(value) {
+    overrideNative(Object, 'keys', function keys(value) {
       return originalObjectKeys(ES.ToObject(value));
-    }, true);
-    Value.preserveToString(Object.keys, originalObjectKeys);
+    });
   }
 
   if (Object.getOwnPropertyNames) {
     var objectGOPNAcceptsPrimitives = !throwsError(function () { Object.getOwnPropertyNames('foo'); });
     if (!objectGOPNAcceptsPrimitives) {
       var originalObjectGetOwnPropertyNames = Object.getOwnPropertyNames;
-      defineProperty(Object, 'getOwnPropertyNames', function getOwnPropertyNames(value) {
+      overrideNative(Object, 'getOwnPropertyNames', function getOwnPropertyNames(value) {
         return originalObjectGetOwnPropertyNames(ES.ToObject(value));
-      }, true);
-      Value.preserveToString(Object.getOwnPropertyNames, originalObjectGetOwnPropertyNames);
+      });
     }
   }
   if (Object.getOwnPropertyDescriptor) {
     var objectGOPDAcceptsPrimitives = !throwsError(function () { Object.getOwnPropertyDescriptor('foo', 'bar'); });
     if (!objectGOPDAcceptsPrimitives) {
       var originalObjectGetOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
-      defineProperty(Object, 'getOwnPropertyDescriptor', function getOwnPropertyDescriptor(value, property) {
+      overrideNative(Object, 'getOwnPropertyDescriptor', function getOwnPropertyDescriptor(value, property) {
         return originalObjectGetOwnPropertyDescriptor(ES.ToObject(value), property);
-      }, true);
-      Value.preserveToString(Object.getOwnPropertyDescriptor, originalObjectGetOwnPropertyDescriptor);
+      });
     }
   }
   if (Object.seal) {
     var objectSealAcceptsPrimitives = !throwsError(function () { Object.seal('foo'); });
     if (!objectSealAcceptsPrimitives) {
       var originalObjectSeal = Object.seal;
-      defineProperty(Object, 'seal', function seal(value) {
+      overrideNative(Object, 'seal', function seal(value) {
         if (!Type.object(value)) { return value; }
         return originalObjectSeal(value);
-      }, true);
-      Value.preserveToString(Object.seal, originalObjectSeal);
+      });
     }
   }
   if (Object.isSealed) {
     var objectIsSealedAcceptsPrimitives = !throwsError(function () { Object.isSealed('foo'); });
     if (!objectIsSealedAcceptsPrimitives) {
       var originalObjectIsSealed = Object.isSealed;
-      defineProperty(Object, 'isSealed', function isSealed(value) {
+      overrideNative(Object, 'isSealed', function isSealed(value) {
         if (!Type.object(value)) { return true; }
         return originalObjectIsSealed(value);
-      }, true);
-      Value.preserveToString(Object.isSealed, originalObjectIsSealed);
+      });
     }
   }
   if (Object.freeze) {
     var objectFreezeAcceptsPrimitives = !throwsError(function () { Object.freeze('foo'); });
     if (!objectFreezeAcceptsPrimitives) {
       var originalObjectFreeze = Object.freeze;
-      defineProperty(Object, 'freeze', function freeze(value) {
+      overrideNative(Object, 'freeze', function freeze(value) {
         if (!Type.object(value)) { return value; }
         return originalObjectFreeze(value);
-      }, true);
-      Value.preserveToString(Object.freeze, originalObjectFreeze);
+      });
     }
   }
   if (Object.isFrozen) {
     var objectIsFrozenAcceptsPrimitives = !throwsError(function () { Object.isFrozen('foo'); });
     if (!objectIsFrozenAcceptsPrimitives) {
       var originalObjectIsFrozen = Object.isFrozen;
-      defineProperty(Object, 'isFrozen', function isFrozen(value) {
+      overrideNative(Object, 'isFrozen', function isFrozen(value) {
         if (!Type.object(value)) { return true; }
         return originalObjectIsFrozen(value);
-      }, true);
-      Value.preserveToString(Object.isFrozen, originalObjectIsFrozen);
+      });
     }
   }
   if (Object.preventExtensions) {
     var objectPreventExtensionsAcceptsPrimitives = !throwsError(function () { Object.preventExtensions('foo'); });
     if (!objectPreventExtensionsAcceptsPrimitives) {
       var originalObjectPreventExtensions = Object.preventExtensions;
-      defineProperty(Object, 'preventExtensions', function preventExtensions(value) {
+      overrideNative(Object, 'preventExtensions', function preventExtensions(value) {
         if (!Type.object(value)) { return value; }
         return originalObjectPreventExtensions(value);
-      }, true);
-      Value.preserveToString(Object.preventExtensions, originalObjectPreventExtensions);
+      });
     }
   }
   if (Object.isExtensible) {
     var objectIsExtensibleAcceptsPrimitives = !throwsError(function () { Object.isExtensible('foo'); });
     if (!objectIsExtensibleAcceptsPrimitives) {
       var originalObjectIsExtensible = Object.isExtensible;
-      defineProperty(Object, 'isExtensible', function isExtensible(value) {
+      overrideNative(Object, 'isExtensible', function isExtensible(value) {
         if (!Type.object(value)) { return false; }
         return originalObjectIsExtensible(value);
-      }, true);
-      Value.preserveToString(Object.isExtensible, originalObjectIsExtensible);
+      });
     }
   }
   if (Object.getPrototypeOf) {
     var objectGetProtoAcceptsPrimitives = !throwsError(function () { Object.getPrototypeOf('foo'); });
     if (!objectGetProtoAcceptsPrimitives) {
       var originalGetProto = Object.getPrototypeOf;
-      defineProperty(Object, 'getPrototypeOf', function getPrototypeOf(value) {
+      overrideNative(Object, 'getPrototypeOf', function getPrototypeOf(value) {
         return originalGetProto(ES.ToObject(value));
-      }, true);
-      Value.preserveToString(Object.getPrototypeOf, originalGetProto);
+      });
     }
   }
 
@@ -1236,6 +1241,8 @@
   var BINARY_32_EPSILON = Math.pow(2, -23);
   var BINARY_32_MAX_VALUE = Math.pow(2, 127) * (2 - BINARY_32_EPSILON);
   var BINARY_32_MIN_VALUE = Math.pow(2, -126);
+  var numberCLZ = Number.prototype.clz;
+  delete Number.prototype.clz; // Safari 8 has Number#clz
 
   var MathShims = {
     acosh: function acosh(value) {
@@ -1247,57 +1254,63 @@
     },
 
     asinh: function asinh(value) {
-      value = Number(value);
-      if (value === 0 || !globalIsFinite(value)) {
-        return value;
+      var x = Number(value);
+      if (x === 0 || !globalIsFinite(x)) {
+        return x;
       }
-      return value < 0 ? -Math.asinh(-value) : Math.log(value + Math.sqrt(value * value + 1));
+      return x < 0 ? -Math.asinh(-x) : Math.log(x + Math.sqrt(x * x + 1));
     },
 
     atanh: function atanh(value) {
-      value = Number(value);
-      if (Number.isNaN(value) || value < -1 || value > 1) {
+      var x = Number(value);
+      if (Number.isNaN(x) || x < -1 || x > 1) {
         return NaN;
       }
-      if (value === -1) { return -Infinity; }
-      if (value === 1) { return Infinity; }
-      if (value === 0) { return value; }
-      return 0.5 * Math.log((1 + value) / (1 - value));
+      if (x === -1) { return -Infinity; }
+      if (x === 1) { return Infinity; }
+      if (x === 0) { return x; }
+      return 0.5 * Math.log((1 + x) / (1 - x));
     },
 
     cbrt: function cbrt(value) {
-      value = Number(value);
-      if (value === 0) { return value; }
-      var negate = value < 0, result;
-      if (negate) { value = -value; }
-      result = Math.pow(value, 1 / 3);
+      var x = Number(value);
+      if (x === 0) { return x; }
+      var negate = x < 0, result;
+      if (negate) { x = -x; }
+      if (x === Infinity) {
+        result = Infinity;
+      } else {
+        result = Math.exp(Math.log(x) / 3);
+        // from http://en.wikipedia.org/wiki/Cube_root#Numerical_methods
+        result = (x / (result * result) + (2 * result)) / 3;
+      }
       return negate ? -result : result;
     },
 
     clz32: function clz32(value) {
       // See https://bugs.ecmascript.org/show_bug.cgi?id=2465
-      value = Number(value);
-      var number = ES.ToUint32(value);
+      var x = Number(value);
+      var number = ES.ToUint32(x);
       if (number === 0) {
         return 32;
       }
-      return 31 - Math.floor(Math.log(number + 0.5) * Math.LOG2E);
+      return numberCLZ ? numberCLZ.call(number) : 31 - Math.floor(Math.log(number + 0.5) * Math.LOG2E);
     },
 
     cosh: function cosh(value) {
-      value = Number(value);
-      if (value === 0) { return 1; } // +0 or -0
-      if (Number.isNaN(value)) { return NaN; }
-      if (!globalIsFinite(value)) { return Infinity; }
-      if (value < 0) { value = -value; }
-      if (value > 21) { return Math.exp(value) / 2; }
-      return (Math.exp(value) + Math.exp(-value)) / 2;
+      var x = Number(value);
+      if (x === 0) { return 1; } // +0 or -0
+      if (Number.isNaN(x)) { return NaN; }
+      if (!globalIsFinite(x)) { return Infinity; }
+      if (x < 0) { x = -x; }
+      if (x > 21) { return Math.exp(x) / 2; }
+      return (Math.exp(x) + Math.exp(-x)) / 2;
     },
 
     expm1: function expm1(value) {
       var x = Number(value);
       if (x === -Infinity) { return -1; }
-      if (!globalIsFinite(x) || value === 0) { return x; }
+      if (!globalIsFinite(x) || x === 0) { return x; }
       if (Math.abs(x) > 0.5) {
         return Math.exp(x) - 1;
       }
@@ -1363,7 +1376,7 @@
     },
 
     sign: function sign(value) {
-      var number = +value;
+      var number = Number(value);
       if (number === 0) { return number; }
       if (Number.isNaN(number)) { return number; }
       return number < 0 ? -1 : 1;
@@ -1371,7 +1384,7 @@
 
     sinh: function sinh(value) {
       var x = Number(value);
-      if (!globalIsFinite(value) || value === 0) { return value; }
+      if (!globalIsFinite(x) || x === 0) { return x; }
 
       if (Math.abs(x) < 1) {
         return (Math.expm1(x) - Math.expm1(-x)) / 2;
@@ -1381,7 +1394,7 @@
 
     tanh: function tanh(value) {
       var x = Number(value);
-      if (Number.isNaN(value) || x === 0) { return x; }
+      if (Number.isNaN(x) || x === 0) { return x; }
       if (x === Infinity) { return 1; }
       if (x === -Infinity) { return -1; }
       var a = Math.expm1(x);
@@ -1392,18 +1405,18 @@
     },
 
     trunc: function trunc(value) {
-      var number = Number(value);
-      return number < 0 ? -Math.floor(-number) : Math.floor(number);
+      var x = Number(value);
+      return x < 0 ? -Math.floor(-x) : Math.floor(x);
     },
 
     imul: function imul(x, y) {
       // taken from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/imul
-      x = ES.ToUint32(x);
-      y = ES.ToUint32(y);
-      var ah = (x >>> 16) & 0xffff;
-      var al = x & 0xffff;
-      var bh = (y >>> 16) & 0xffff;
-      var bl = y & 0xffff;
+      var a = ES.ToUint32(x);
+      var b = ES.ToUint32(y);
+      var ah = (a >>> 16) & 0xffff;
+      var al = a & 0xffff;
+      var bh = (b >>> 16) & 0xffff;
+      var bl = b & 0xffff;
       // the shift by 0 fixes the sign on the high part
       // the final |0 converts the unsigned value into a signed value
       return ((al * bl) + (((ah * bl + al * bh) << 16) >>> 0) | 0);
@@ -1437,6 +1450,8 @@
   defineProperty(Math, 'tanh', MathShims.tanh, Math.tanh(-2e-17) !== -2e-17);
   // Chrome 40 loses Math.acosh precision with high numbers
   defineProperty(Math, 'acosh', MathShims.acosh, Math.acosh(Number.MAX_VALUE) === Infinity);
+  // Firefox 38 on Windows
+  defineProperty(Math, 'cbrt', MathShims.cbrt, Math.abs(1 - Math.cbrt(1e-300) / 1e-100) / Number.EPSILON > 8);
   // node 0.11 has an imprecise Math.sinh with very small numbers
   defineProperty(Math, 'sinh', MathShims.sinh, Math.sinh(-2e-17) !== -2e-17);
   // FF 35 on Linux reports 22025.465794806725 for Math.expm1(10)
@@ -1470,11 +1485,11 @@
     Value.preserveToString(Math.imul, origImul);
   }
   if (Math.imul.length !== 2) {
-    // Safari 8 has a length of 1
-    defineProperty(Math, 'imul', function imul(x, y) {
+    // Safari 8.0.4 has a length of 1
+    // fixed in https://bugs.webkit.org/show_bug.cgi?id=143658
+    overrideNative(Math, 'imul', function imul(x, y) {
       return origImul.apply(Math, arguments);
-    }, true);
-    Value.preserveToString(Math.imul, origImul);
+    });
   }
 
   // Promises
@@ -1684,16 +1699,16 @@
       // The `obj` parameter is a hack we use for es5
       // compatibility.
       var prototype = constructor.prototype || Promise$prototype;
-      obj = obj || create(prototype);
-      defineProperties(obj, {
+      var object = obj || create(prototype);
+      defineProperties(object, {
         _status: void 0,
         _result: void 0,
         _resolveReactions: void 0,
         _rejectReactions: void 0,
         _promiseConstructor: void 0
       });
-      obj._promiseConstructor = constructor;
-      return obj;
+      object._promiseConstructor = constructor;
+      return object;
     });
     defineProperties(Promise, {
       all: function all(iterable) {
@@ -1777,6 +1792,9 @@
       }
     });
 
+    var Identity = function (x) { return x; };
+    var Thrower = function (e) { throw e; };
+
     defineProperties(Promise$prototype, {
       'catch': function (onRejected) {
         return this.then(void 0, onRejected);
@@ -1790,10 +1808,10 @@
         var C = this.constructor;
         var capability = new PromiseCapability(C);
         if (!ES.IsCallable(onRejected)) {
-          onRejected = function (e) { throw e; };
+          onRejected = Thrower;
         }
         if (!ES.IsCallable(onFulfilled)) {
-          onFulfilled = function (x) { return x; };
+          onFulfilled = Identity;
         }
         var resolutionHandler = promiseResolutionHandler(promise, onFulfilled, onRejected);
         var resolveReaction = { capability: capability, handler: resolutionHandler };
@@ -1840,7 +1858,7 @@
     /*globals Promise: true */
     Promise = PromiseShim;
     /*globals Promise: false */
-    defineProperty(globals, 'Promise', PromiseShim, true);
+    overrideNative(globals, 'Promise', PromiseShim);
   }
 
   // Map and Set require a true ES5 environment
@@ -1897,7 +1915,18 @@
           return this.key === empty;
         };
 
+        var isMap = function isMap(map) {
+          return !!map._es6map;
+        };
+
+        var requireMapSlot = function requireMapSlot(map, method) {
+          if (!ES.TypeIsObject(map) || !isMap(map)) {
+            throw new TypeError('Method Map.prototype.' + method + ' called on incompatible receiver ' + String(map));
+          }
+        };
+
         function MapIterator(map, kind) {
+          requireMapSlot(map, '[[MapIterator]]');
           this.head = map._head;
           this.i = this.head;
           this.kind = kind;
@@ -1976,9 +2005,9 @@
         defineProperty(Map, symbolSpecies, function (obj) {
           var constructor = this;
           var prototype = constructor.prototype || Map$prototype;
-          obj = obj || create(prototype);
-          defineProperties(obj, { _es6map: true });
-          return obj;
+          var object = obj || create(prototype);
+          defineProperties(object, { _es6map: true });
+          return object;
         });
 
         Value.getter(Map.prototype, 'size', function () {
@@ -1990,6 +2019,7 @@
 
         defineProperties(Map.prototype, {
           get: function (key) {
+		    requireMapSlot(this, 'get');
             var fkey = fastkey(key);
             if (fkey !== null) {
               // fast O(1) path
@@ -2009,6 +2039,7 @@
           },
 
           has: function (key) {
+            requireMapSlot(this, 'has');
             var fkey = fastkey(key);
             if (fkey !== null) {
               // fast O(1) path
@@ -2024,6 +2055,7 @@
           },
 
           set: function (key, value) {
+		    requireMapSlot(this, 'set');
             var head = this._head, i = head, entry;
             var fkey = fastkey(key);
             if (fkey !== null) {
@@ -2056,6 +2088,7 @@
           },
 
           'delete': function (key) {
+		    requireMapSlot(this, 'delete');
             var head = this._head, i = head;
             var fkey = fastkey(key);
             if (fkey !== null) {
@@ -2080,6 +2113,7 @@
           },
 
           clear: function clear() {
+		    requireMapSlot(this, 'clear');
             this._size = 0;
             this._storage = emptyObject();
             var head = this._head, i = head, p = i.next;
@@ -2092,18 +2126,22 @@
           },
 
           keys: function keys() {
+		    requireMapSlot(this, 'keys');
             return new MapIterator(this, 'key');
           },
 
           values: function values() {
+		    requireMapSlot(this, 'values');
             return new MapIterator(this, 'value');
           },
 
           entries: function entries() {
+		    requireMapSlot(this, 'entries');
             return new MapIterator(this, 'key+value');
           },
 
           forEach: function forEach(callback) {
+		    requireMapSlot(this, 'forEach');
             var context = arguments.length > 1 ? arguments[1] : null;
             var it = this.entries();
             for (var entry = it.next(); !entry.done; entry = it.next()) {
@@ -2121,6 +2159,16 @@
       }()),
 
       Set: (function () {
+        var isSet = function isSet(set) {
+          return set._es6set && typeof set._storage !== 'undefined';
+        };
+        var requireSetSlot = function requireSetSlot(set, method) {
+          if (!ES.TypeIsObject(set) || !isSet(set)) {
+            // https://github.com/paulmillr/es6-shim/issues/176
+            throw new TypeError('Set.prototype.' + method + ' called on incompatible receiver ' + String(set));
+          }
+        };
+
         // Creating a Map is expensive.  To speed up the common case of
         // Sets containing only string or numeric keys, we use an object
         // as backing storage and lazily create a full Map only when
@@ -2140,9 +2188,10 @@
             _storage: emptyObject()
           });
 
-          // Optionally initialize map from iterable
+          // Optionally initialize Set from iterable
           if (arguments.length > 0 && typeof arguments[0] !== 'undefined' && arguments[0] !== null) {
-            var it = ES.GetIterator(arguments[0]);
+            var iterable = arguments[0];
+            var it = ES.GetIterator(iterable);
             var adder = set.add;
             if (!ES.IsCallable(adder)) { throw new TypeError('bad set'); }
             while (true) {
@@ -2158,9 +2207,9 @@
         defineProperty(SetShim, symbolSpecies, function (obj) {
           var constructor = this;
           var prototype = constructor.prototype || Set$prototype;
-          obj = obj || create(prototype);
-          defineProperties(obj, { _es6set: true });
-          return obj;
+          var object = obj || create(prototype);
+          defineProperties(object, { _es6set: true });
+          return object;
         });
 
         // Switch from the object backing storage to a full Map.
@@ -2183,16 +2232,14 @@
         };
 
         Value.getter(SetShim.prototype, 'size', function () {
-          if (typeof this._storage === 'undefined') {
-            // https://github.com/paulmillr/es6-shim/issues/176
-            throw new TypeError('size method called on incompatible Set');
-          }
+          requireSetSlot(this, 'size');
           ensureMap(this);
           return this['[[SetData]]'].size;
         });
 
         defineProperties(SetShim.prototype, {
           has: function (key) {
+            requireSetSlot(this, 'has');
             var fkey;
             if (this._storage && (fkey = fastkey(key)) !== null) {
               return !!this._storage[fkey];
@@ -2202,6 +2249,7 @@
           },
 
           add: function (key) {
+            requireSetSlot(this, 'add');
             var fkey;
             if (this._storage && (fkey = fastkey(key)) !== null) {
               this._storage[fkey] = true;
@@ -2213,6 +2261,7 @@
           },
 
           'delete': function (key) {
+            requireSetSlot(this, 'delete');
             var fkey;
             if (this._storage && (fkey = fastkey(key)) !== null) {
               var hasFKey = _hasOwnProperty(this._storage, fkey);
@@ -2223,6 +2272,7 @@
           },
 
           clear: function clear() {
+            requireSetSlot(this, 'clear');
             if (this._storage) {
               this._storage = emptyObject();
             } else {
@@ -2231,16 +2281,19 @@
           },
 
           values: function values() {
+            requireSetSlot(this, 'values');
             ensureMap(this);
             return this['[[SetData]]'].values();
           },
 
           entries: function entries() {
+            requireSetSlot(this, 'entries');
             ensureMap(this);
             return this['[[SetData]]'].entries();
           },
 
           forEach: function forEach(callback) {
+            requireSetSlot(this, 'forEach');
             var context = arguments.length > 1 ? arguments[1] : null;
             var entireSet = this;
             ensureMap(entireSet);
@@ -2302,11 +2355,10 @@
       var mapSupportsChaining = m.set(1, 2) === m;
       if (!mapUsesSameValueZero || !mapSupportsChaining) {
         var origMapSet = Map.prototype.set;
-        defineProperty(Map.prototype, 'set', function set(k, v) {
+        overrideNative(Map.prototype, 'set', function set(k, v) {
           origMapSet.call(this, k === 0 ? 0 : k, v);
           return this;
-        }, true);
-        Value.preserveToString(Map.prototype.set, origMapSet);
+        });
       }
       if (!mapUsesSameValueZero) {
         var origMapGet = Map.prototype.get;
@@ -2375,7 +2427,7 @@
           defineProperty(m, 'constructor', Map, true);
           return m;
         };
-        globals.Map.prototype = create(OrigMap.prototype);
+        globals.Map.prototype = OrigMap.prototype;
         Value.preserveToString(globals.Map, OrigMap);
       }
       var setSupportsSubclassing = supportsSubclassing(globals.Set, function (S) {
@@ -2402,7 +2454,7 @@
           defineProperty(s, 'constructor', Set, true);
           return s;
         };
-        globals.Set.prototype = create(OrigSet.prototype);
+        globals.Set.prototype = OrigSet.prototype;
         Value.preserveToString(globals.Set, OrigSet);
       }
       var mapIterationThrowsStopIterator = !valueOrFalseIfThrows(function () {
@@ -2438,6 +2490,7 @@
       }
     }
     if (globals.Set.prototype.keys !== globals.Set.prototype.values) {
+      // Fixed in WebKit with https://bugs.webkit.org/show_bug.cgi?id=144190
       defineProperty(globals.Set.prototype, 'keys', globals.Set.prototype.values, true);
     }
     // Shim incomplete iterator implementations.
@@ -2524,6 +2577,10 @@
       }
     });
   }
+
+  var callAndCatchException = function ConvertExceptionToBoolean(func) {
+    return !throwsError(func);
+  };
 
   if (Object.preventExtensions) {
     defineProperties(globals.Reflect, {
@@ -2614,10 +2671,6 @@
       }
 
       return false;
-    };
-
-    var callAndCatchException = function ConvertExceptionToBoolean(func) {
-      return !throwsError(func);
     };
 
     defineProperties(globals.Reflect, {
@@ -2711,8 +2764,7 @@
       }
       return dateToString.call(this);
     };
-    defineProperty(shimmedDateToString, 'toString', dateToString.toString, true);
-    defineProperty(Date.prototype, 'toString', shimmedDateToString, true);
+    overrideNative(Date.prototype, 'toString', shimmedDateToString);
   }
 
   // Annex B HTML methods

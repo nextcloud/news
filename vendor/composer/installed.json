@@ -48,17 +48,17 @@
     },
     {
         "name": "pear/net_url2",
-        "version": "v2.1.1",
-        "version_normalized": "2.1.1.0",
+        "version": "v2.2.0",
+        "version_normalized": "2.2.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/pear/Net_URL2.git",
-            "reference": "cfd234e8484400a122cec44a9d801e71186915ac"
+            "reference": "fa9b1ecb3c3e640d4a54d58d681a4cb7524f209e"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/pear/Net_URL2/zipball/cfd234e8484400a122cec44a9d801e71186915ac",
-            "reference": "cfd234e8484400a122cec44a9d801e71186915ac",
+            "url": "https://api.github.com/repos/pear/Net_URL2/zipball/fa9b1ecb3c3e640d4a54d58d681a4cb7524f209e",
+            "reference": "fa9b1ecb3c3e640d4a54d58d681a4cb7524f209e",
             "shasum": ""
         },
         "require": {
@@ -67,23 +67,20 @@
         "require-dev": {
             "phpunit/phpunit": ">=3.3.0"
         },
-        "time": "2014-12-27 14:00:16",
+        "time": "2015-04-18 17:36:57",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "2.0.x-dev"
+                "dev-master": "2.2.x-dev"
             }
         },
         "installation-source": "dist",
         "autoload": {
-            "psr-0": {
-                "Net": ""
-            }
+            "classmap": [
+                "Net/URL2.php"
+            ]
         },
         "notification-url": "https://packagist.org/downloads/",
-        "include-path": [
-            "./"
-        ],
         "license": [
             "BSD-3-Clause"
         ],
@@ -119,12 +116,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/fguillot/picoFeed.git",
-            "reference": "6ac3334f272478257d3e4486164bc4e84046f784"
+            "reference": "a6087e8264550891c1b8a6da77eca0cab9328709"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/6ac3334f272478257d3e4486164bc4e84046f784",
-            "reference": "6ac3334f272478257d3e4486164bc4e84046f784",
+            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/a6087e8264550891c1b8a6da77eca0cab9328709",
+            "reference": "a6087e8264550891c1b8a6da77eca0cab9328709",
             "shasum": ""
         },
         "require": {
@@ -138,7 +135,7 @@
         "suggest": {
             "ext-curl": "PicoFeed will use cURL if present"
         },
-        "time": "2015-04-15 00:10:14",
+        "time": "2015-04-27 22:22:06",
         "bin": [
             "picofeed"
         ],

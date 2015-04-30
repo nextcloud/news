@@ -1,8 +1,8 @@
 <?php
+
 namespace PicoFeed\Reader;
 
 use PHPUnit_Framework_TestCase;
-
 
 class ReaderTest extends PHPUnit_Framework_TestCase
 {

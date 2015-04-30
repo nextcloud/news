@@ -3,11 +3,11 @@
 namespace PicoFeed\Parser;
 
 use SimpleXMLElement;
+use PicoFeed\Client\Url;
 use PicoFeed\Encoding\Encoding;
 use PicoFeed\Filter\Filter;
 use PicoFeed\Logging\Logger;
-use PicoFeed\Client\Url;
-use PicoFeed\Client\Grabber;
+use PicoFeed\Scraper\Scraper;
 
 /**
  * Base parser class
@@ -80,6 +80,14 @@ abstract class Parser
      * @var bool
      */
     private $enable_grabber = false;
+
+    /**
+     * Enable the content grabber on all pages
+     *
+     * @access private
+     * @var bool
+     */
+    private $grabber_needs_rule_file = false;
 
     /**
      * Ignore those urls for the content scraper
@@ -237,11 +245,16 @@ abstract class Parser
     {
         if ($this->enable_grabber && ! in_array($item->getUrl(), $this->grabber_ignore_urls)) {
 
-            $grabber = new Grabber($item->getUrl());
-            $grabber->setConfig($this->config);
-            $grabber->download();
+            $grabber = new Scraper($this->config);
+            $grabber->setUrl($item->getUrl());
 
-            if ($grabber->parse()) {
+            if ($this->grabber_needs_rule_file) {
+                $grabber->disableCandidateParser();
+            }
+
+            $grabber->execute();
+
+            if ($grabber->hasRelevantContent()) {
                 $item->content = $grabber->getFilteredContent();
             }
         }
@@ -270,7 +283,6 @@ abstract class Parser
      * Generate a unique id for an entry (hash all arguments)
      *
      * @access public
-     * @param  string  $args  Pieces of data to hash
      * @return string
      */
     public function generateId()
@@ -383,11 +395,14 @@ abstract class Parser
      * Enable the content grabber
      *
      * @access public
+     * @param bool $needs_rule_file true if only pages with rule files should be
+     * scraped
      * @return \PicoFeed\Parser\Parser
      */
-    public function enableContentGrabber()
+    public function enableContentGrabber($needs_rule_file = false)
     {
         $this->enable_grabber = true;
+        $this->grabber_needs_rule_file = $needs_rule_file;
     }
 
     /**

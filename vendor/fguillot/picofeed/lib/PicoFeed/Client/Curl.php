@@ -80,7 +80,7 @@ class Curl extends Client
     {
         $length = strlen($buffer);
 
-        if ($buffer === "\r\n") {
+        if ($buffer === "\r\n" || $buffer === "\n") {
             $this->response_headers_count++;
         }
         else {
@@ -162,6 +162,7 @@ class Curl extends Client
      * Prepare curl proxy context
      *
      * @access private
+     * @param  resource $ch
      * @return resource $ch
      */
     private function prepareProxyContext($ch)
@@ -190,6 +191,7 @@ class Curl extends Client
      * Prepare curl auth context
      *
      * @access private
+     * @param  resource $ch
      * @return resource $ch
      */
     private function prepareAuthContext($ch)
@@ -205,6 +207,7 @@ class Curl extends Client
      * Set write/header functions
      *
      * @access private
+     * @param  resource $ch
      * @return resource $ch
      */
     private function prepareDownloadMode($ch)
@@ -305,7 +308,7 @@ class Curl extends Client
     {
         $this->executeContext();
 
-        list($status, $headers) = HttpHeaders::parse(explode("\r\n", $this->response_headers[$this->response_headers_count - 1]));
+        list($status, $headers) = HttpHeaders::parse(explode("\n", $this->response_headers[$this->response_headers_count - 1]));
 
         // When restricted with open_basedir
         if ($this->needToHandleRedirection($follow_location, $status)) {

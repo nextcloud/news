@@ -2,7 +2,9 @@
 
 namespace PicoFeed\Filter;
 
+use PicoFeed\Config\Config;
 use PicoFeed\Client\Url;
+use PicoFeed\Scraper\RuleLoader;
 use PicoFeed\Parser\XmlParser;
 
 /**
@@ -70,6 +72,14 @@ class Html
     public $attribute = '';
 
     /**
+     * The website to filter
+     *
+     * @access private
+     * @var string
+     */
+    private $website;
+
+    /**
      * Initialize the filter, all inputs data must be encoded in UTF-8 before
      *
      * @access public
@@ -81,6 +91,7 @@ class Html
         $this->input = XmlParser::HtmlToXml($html);
         $this->output = '';
         $this->tag = new Tag;
+        $this->website = $website;
         $this->attribute = new Attribute(new Url($website));
     }
 
@@ -155,7 +166,43 @@ class Html
     public function postFilter()
     {
         $this->output = $this->tag->removeEmptyTags($this->output);
+        $this->output = $this->filterRules($this->output);
+        $this->output = $this->tag->removeMultipleBreakTags($this->output);
         $this->output = trim($this->output);
+    }
+
+    /**
+     * Called after XML parsing
+     * @param string $content the content that should be filtered
+     *
+     * @access public
+     */
+    public function filterRules($content)
+    {
+        // the constructor should require a config, then this if can be removed
+        if ($this->config === null) {
+            $config = new Config;
+        } else {
+            $config = $this->config;
+        }
+
+        $loader = new RuleLoader($config);
+        $rules = $loader->getRules($this->website);
+
+        $url = new Url($this->website);
+        $sub_url = $url->getFullPath();
+
+        if (isset($rules['filter'])) {
+            foreach ($rules['filter'] as $pattern => $rule) {
+                if (preg_match($pattern, $sub_url)) {
+                    foreach($rule as $search => $replace) {
+                        $content = preg_replace($search, $replace, $content);
+                    }
+                }
+            }
+        }
+
+        return $content;
     }
 
     /**

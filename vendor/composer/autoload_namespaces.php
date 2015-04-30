@@ -7,6 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'PicoFeed' => array($vendorDir . '/fguillot/picofeed/lib'),
-    'Net' => array($vendorDir . '/pear/net_url2'),
     'HTMLPurifier' => array($vendorDir . '/ezyang/htmlpurifier/library'),
 );
