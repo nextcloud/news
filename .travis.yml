@@ -13,6 +13,7 @@ matrix:
           env: DB=sqlite
         - php: 5.4
           env: DB=pgsql
+    fast_finish: true
 
 env:
     matrix:
