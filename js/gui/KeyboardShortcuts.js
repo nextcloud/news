@@ -34,6 +34,14 @@
         );
     };
 
+    var markAllRead = function (navigationArea) {
+        var selector = '.active > .app-navigation-entry-menu .mark-read button';
+        var button = navigationArea.find(selector);
+        if (button.length > 0) {
+            button.trigger('click');
+        }
+    };
+
     var isInScrollView = function (elem, scrollArea) {
         // offset().top adds the navigation bar too so we have to subract it
         var elemTop = elem.offset().top - scrollArea.offset().top;
@@ -339,15 +347,15 @@
 
 
     $(document).keyup(function (event) {
-        if (noInputFocused($(':focus')) && noModifierKey(event)) {
-            var keyCode = event.keyCode;
-            var scrollArea = $('#app-content');
-            var navigationArea = $('#app-navigation');
-            var isCompactView = $('#articles.compact').length > 0;
-            var isExpandItem = $('#articles')
-                .attr('news-compact-expand') === 'true';
-            var expandItemInCompact = isCompactView && isExpandItem;
+        var keyCode = event.keyCode;
+        var scrollArea = $('#app-content');
+        var navigationArea = $('#app-navigation');
+        var isCompactView = $('#articles.compact').length > 0;
+        var isExpandItem = $('#articles')
+            .attr('news-compact-expand') === 'true';
+        var expandItemInCompact = isCompactView && isExpandItem;
 
+        if (noInputFocused($(':focus')) && noModifierKey(event)) {
             // j, n, right arrow
             if ([74, 78, 39].indexOf(keyCode) >= 0) {
 
@@ -436,9 +444,21 @@
 
             // page up
             } else if ([33].indexOf(keyCode) >= 0) {
+
                 tryReload(navigationArea, scrollArea);
+
             }
 
+        // everything with shift
+        } else if (noInputFocused($(':focus')) && event.shiftKey) {
+
+            // shift + a
+            if ([65].indexOf(keyCode) >= 0) {
+
+                event.preventDefault();
+                markAllRead(navigationArea);
+
+            }
         }
     });
 

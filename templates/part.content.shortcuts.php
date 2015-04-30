@@ -69,6 +69,10 @@
                 <td>q</td>
                 <td><?php p($l->t('Focus search field')); ?></td>
             </tr>
+            <tr>
+                <td>shift + a</td>
+                <td><?php p($l->t('Mark current article\'s feed/folder read')); ?></td>
+            </tr>
         </table>
     </div>
 </div>

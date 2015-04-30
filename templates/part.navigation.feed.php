@@ -112,7 +112,7 @@
                         title="<?php p($l->t('Delete feed')); ?>">
                 </button>
             </li>
-            <li ng-show="Navigation.getFeedUnreadCount(feed.id) > 0">
+            <li ng-show="Navigation.getFeedUnreadCount(feed.id) > 0" class="mark-read">
                 <button class="icon-checkmark"
                         ng-click="Navigation.markFeedRead(feed.id)"
                         title="<?php p($l->t('Mark all articles read')); ?>">

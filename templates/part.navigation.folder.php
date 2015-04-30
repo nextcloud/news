@@ -120,7 +120,7 @@
                         title="<?php p($l->t('Delete folder')); ?>">
                 </button>
             </li>
-            <li ng-show="Navigation.getFolderUnreadCount(folder.id) > 0">
+            <li ng-show="Navigation.getFolderUnreadCount(folder.id) > 0" class="mark-read">
                 <button class="icon-checkmark"
                         ng-click="Navigation.markFolderRead(folder.id)"
                         title="<?php p($l->t('Mark all articles read')); ?>">
