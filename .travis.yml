@@ -46,7 +46,7 @@ before_script:
     - cd owncloud
     - mkdir apps2
     - mkdir data
-    - ./occ maintenance:install --database-name oc_autotest --database-user oc_autotest --admin-user admin --admin-pass admin --database $DB --database-pass=''
+    - ./occ maintenance:install --database-name oc_autotest --database-user oc_autotest --admin-user admin --admin-pass admin --database $DB --database-pass
     - ./occ app:enable news
     - cd apps/news/js
     # install test deps
