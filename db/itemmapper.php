@@ -46,10 +46,11 @@ class ItemMapper extends NewsMapper {
     private function makeSelectQueryStatus($prependTo, $status,
                                            $oldestFirst=false, $search=[]) {
         $status = (int) $status;
+        $count = count($search);
 
         // WARNING: Potential SQL injection if you change this carelessly
         $sql = 'AND ((`items`.`status` & ' . $status . ') = ' . $status . ') ';
-        $sql .= str_repeat('AND `items`.`search_index` LIKE ? ', count($search));
+        $sql .= str_repeat('AND `items`.`search_index` LIKE ? ', $count);
         $sql .= $prependTo;
 
         return $this->makeSelectQuery($sql, $oldestFirst);
