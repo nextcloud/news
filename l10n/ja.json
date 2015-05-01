@@ -11,6 +11,7 @@
     "Request unauthorized. Are you logged in?" : "リクエストは認証されていません。ログインしていますか？",
     "Request forbidden. Are you an admin?" : "リクエストは禁止されています。あなたは管理者でしょうか?",
     "Token expired or app not enabled! Reload the page!" : "トークンもしくはアプリが無効になりました！ページを再読込してください！",
+    "Internal server error! Please check your " : "内部サーバーエラー! 以下をチェック:",
     "Can not add feed: Exists already" : "フィードを追加できません: すでに存在します",
     "Articles without feed" : "フィードなし記事",
     "Can not add folder: Exists already" : "フォルダーを追加できません: すでに存在します",

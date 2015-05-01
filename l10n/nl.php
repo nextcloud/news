@@ -102,6 +102,7 @@ $TRANSLATIONS = array(
 "Keyboard shortcuts" => "Sneltoetsen",
 "Disable mark read through scrolling" => "Niet als gelezen markeren door scrollen",
 "Compact view" => "Compact overzicht",
+"Expand articles on key navigation" => "Artikelen uitbreiden bij navigatie",
 "Show all articles" => "Toon alle artikelen",
 "Reverse ordering (oldest on top)" => "Omgekeerde volgorde (oudste boven)",
 "Subscriptions (OPML)" => "Abonnementen (OPML)",
