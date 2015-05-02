@@ -53,6 +53,11 @@
   };
   var supportsDescriptors = !!Object.defineProperty && arePropertyDescriptorsSupported();
 
+  var _forEach = Function.call.bind(Array.prototype.forEach);
+  var _map = Function.call.bind(Array.prototype.map);
+  var _reduce = Function.call.bind(Array.prototype.reduce);
+  var _filter = Function.call.bind(Array.prototype.filter);
+
   var defineProperty = function (object, name, value, force) {
     if (!force && name in object) { return; }
     if (supportsDescriptors) {
@@ -70,7 +75,7 @@
   // Define configurable, writable and non-enumerable props
   // if they don’t exist.
   var defineProperties = function (object, map) {
-    Object.keys(map).forEach(function (name) {
+    _forEach(Object.keys(map), function (name) {
       var method = map[name];
       defineProperty(object, name, method, false);
     });
@@ -888,6 +893,60 @@
     overrideNative(Array, 'from', ArrayShims.from);
   }
 
+  var toLengthsCorrectly = function (method, reversed) {
+    var obj = { length: -1 };
+    obj[reversed ? ((-1 >>> 0) - 1) : 0] = true;
+    return valueOrFalseIfThrows(function () {
+      method.call(obj, function () {
+        // note: in nonconforming browsers, this will be called
+        // -1 >>> 0 times, which is 4294967295, so the throw matters.
+        throw new RangeError('should not reach here');
+      }, []);
+    });
+  };
+  if (!toLengthsCorrectly(Array.prototype.forEach)) {
+    var originalForEach = Array.prototype.forEach;
+    overrideNative(Array.prototype, 'forEach', function forEach(callbackFn) {
+      if (this.length >= 0) { return originalForEach.apply(this, arguments); }
+    }, true);
+  }
+  if (!toLengthsCorrectly(Array.prototype.map)) {
+    var originalMap = Array.prototype.map;
+    overrideNative(Array.prototype, 'map', function map(callbackFn) {
+      if (this.length >= 0) { return originalMap.apply(this, arguments); }
+    }, true);
+  }
+  if (!toLengthsCorrectly(Array.prototype.filter)) {
+    var originalFilter = Array.prototype.filter;
+    overrideNative(Array.prototype, 'filter', function filter(callbackFn) {
+      if (this.length >= 0) { return originalFilter.apply(this, arguments); }
+    }, true);
+  }
+  if (!toLengthsCorrectly(Array.prototype.some)) {
+    var originalSome = Array.prototype.some;
+    overrideNative(Array.prototype, 'some', function some(callbackFn) {
+      if (this.length >= 0) { return originalSome.apply(this, arguments); }
+    }, true);
+  }
+  if (!toLengthsCorrectly(Array.prototype.every)) {
+    var originalEvery = Array.prototype.every;
+    overrideNative(Array.prototype, 'every', function every(callbackFn) {
+      if (this.length >= 0) { return originalEvery.apply(this, arguments); }
+    }, true);
+  }
+  if (!toLengthsCorrectly(Array.prototype.reduce)) {
+    var originalReduce = Array.prototype.reduce;
+    overrideNative(Array.prototype, 'reduce', function reduce(callbackFn) {
+      if (this.length >= 0) { return originalReduce.apply(this, arguments); }
+    }, true);
+  }
+  if (!toLengthsCorrectly(Array.prototype.reduceRight, true)) {
+    var originalReduceRight = Array.prototype.reduceRight;
+    overrideNative(Array.prototype, 'reduceRight', function reduceRight(callbackFn) {
+      if (this.length >= 0) { return originalReduceRight.apply(this, arguments); }
+    }, true);
+  }
+
   var maxSafeInteger = Math.pow(2, 53) - 1;
   defineProperties(Number, {
     MAX_SAFE_INTEGER: maxSafeInteger,
@@ -948,9 +1007,9 @@
     var keys = Object.keys(Object(source));
     var symbols;
     if (ES.IsCallable(Object.getOwnPropertySymbols)) {
-      symbols = Object.getOwnPropertySymbols(Object(source)).filter(isEnumerableOn(source));
+      symbols = _filter(Object.getOwnPropertySymbols(Object(source)), isEnumerableOn(source));
     }
-    return keys.concat(symbols || []).reduce(assignTo(source), target);
+    return _reduce(keys.concat(symbols || []), assignTo(source), target);
   };
 
   var ObjectShims = {
@@ -959,7 +1018,7 @@
       if (!ES.TypeIsObject(target)) {
         throw new TypeError('target must be an object');
       }
-      return Array.prototype.reduce.call(sliceArgs.apply(0, arguments), assignReducer);
+      return _reduce(sliceArgs.apply(0, arguments), assignReducer);
     },
 
     // Added in WebKit in https://bugs.webkit.org/show_bug.cgi?id=143865
@@ -1201,7 +1260,7 @@
       // sets up proper prototype chain where possible
       Object.setPrototypeOf(OrigRegExp, RegExpShim);
     }
-    Object.getOwnPropertyNames(OrigRegExp).forEach(function (key) {
+    _forEach(Object.getOwnPropertyNames(OrigRegExp), function (key) {
       if (key === '$input') { return; } // Chrome < v39 & Opera < 26 have a nonstandard "$input" property
       if (key in noop) { return; }
       Value.proxy(OrigRegExp, key, RegExpShim);
@@ -1222,7 +1281,7 @@
       leftContext: '$`',
       rightContext: '$\''
     };
-    Object.keys(regexGlobals).forEach(function (prop) {
+    _forEach(Object.keys(regexGlobals), function (prop) {
       if (prop in RegExp && !(regexGlobals[prop] in RegExp)) {
         Value.getter(RegExp, regexGlobals[prop], function get() {
           return RegExp[prop];
@@ -1353,8 +1412,8 @@
       if (allZero) { return 0; }
 
       var largest = Math.max.apply(Math, numbers);
-      var divided = numbers.map(function (number) { return number / largest; });
-      var sum = divided.map(square).reduce(add);
+      var divided = _map(numbers, function (number) { return number / largest; });
+      var sum = _reduce(_map(divided, square), add);
       return largest * Math.sqrt(sum);
     },
 
@@ -1595,7 +1654,7 @@
     };
 
     var triggerPromiseReactions = function (reactions, x) {
-      reactions.forEach(function (reaction) {
+      _forEach(reactions, function (reaction) {
         enqueue(function () {
           // PromiseReactionTask
           var handler = reaction.handler;
@@ -1865,7 +1924,7 @@
   // Their fast path also requires that the environment preserve
   // property insertion order, which is not guaranteed by the spec.
   var testOrder = function (a) {
-    var b = Object.keys(a.reduce(function (o, k) {
+    var b = Object.keys(_reduce(a, function (o, k) {
       o[k] = true;
       return o;
     }, {}));
@@ -2216,7 +2275,7 @@
         var ensureMap = function ensureMap(set) {
           if (!set['[[SetData]]']) {
             var m = set['[[SetData]]'] = new collectionShims.Map();
-            Object.keys(set._storage).forEach(function (k) {
+            _forEach(Object.keys(set._storage), function (k) {
               // fast check for leading '$'
               if (k.charCodeAt(0) === 36) {
                 k = k.slice(1);
@@ -2329,7 +2388,7 @@
             iterable = arguments[0];
           }
           if (Array.isArray(iterable) || Type.string(iterable)) {
-            Array.prototype.forEach.call(iterable, function (entry) {
+            _forEach(iterable, function (entry) {
               m.set(entry[0], entry[1]);
             });
           } else if (iterable instanceof Map) {
@@ -2785,7 +2844,7 @@
     sup: function sub() { return ES.CreateHTML(this, 'sup', '', ''); }
   };
   defineProperties(String.prototype, stringHTMLshims);
-  Object.keys(stringHTMLshims).forEach(function (key) {
+  _forEach(Object.keys(stringHTMLshims), function (key) {
     var method = String.prototype[key];
     var shouldOverwrite = false;
     if (ES.IsCallable(method)) {
