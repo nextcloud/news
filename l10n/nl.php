@@ -68,6 +68,7 @@ $TRANSLATIONS = array(
 "Load previous folder" => "Laad voorgaande map",
 "Scroll to active navigation entry" => "Scrollen naar actieve navigatie regel",
 "Focus search field" => "Focus zoekveld",
+"Mark current article's feed/folder read" => "Markeer feed/map van huidige artikel als gelezen",
 "Web address" => "Webadres",
 "Feed exists already!" => "Feed bestaat al!",
 "Folder" => "Map",

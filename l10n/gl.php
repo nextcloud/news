@@ -68,6 +68,7 @@ $TRANSLATIONS = array(
 "Load previous folder" => "Cargar o cartafol anterior",
 "Scroll to active navigation entry" => "Desprazar ata a entrada de navegación activa",
 "Focus search field" => "Campo de busca en foco",
+"Mark current article's feed/folder read" => "Marcar o actual artigo de fonte/cartafol como lido",
 "Web address" => "Enderezo web",
 "Feed exists already!" => "Esta fonte de novas xa existe!",
 "Folder" => "Cartafol",

@@ -69,6 +69,7 @@ OC.L10N.register(
     "Load previous folder" : "Carregar pasta anterior",
     "Scroll to active navigation entry" : "Vá até a entrada de navegação ativa",
     "Focus search field" : "Campo de pesquisa Foco",
+    "Mark current article's feed/folder read" : "Marque o artigo corrente alimentador/pasta como lido",
     "Web address" : "Endereço Web",
     "Feed exists already!" : "Este feed já existe!",
     "Folder" : "Pasta",

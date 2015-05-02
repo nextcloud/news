@@ -46,6 +46,7 @@ OC.L10N.register(
     "Remove keep article unread" : "記事の未読保持を解除",
     "by" : "by",
     "from" : "開始",
+    "Download video" : "動画をダウンロード",
     "Keyboard shortcut" : "キーボードショートカット",
     "Description" : "説明",
     "right" : "右",
