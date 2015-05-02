@@ -1,5 +1,5 @@
 <?php if ($_['cronWarning']) { ?>
-    <div id="cron-warning">
+    <news-instant-notification id="cron-warning">
         <p><?php p($l->t('Ajax cron mode detected! Your feeds will ' .
             'not be updated correctly. It is recommended to either use ' .
             'the operating system cron or a custom updater.'
@@ -25,5 +25,5 @@
                 </li>
             </ul>
         </p>
-    </div>
+    </news-instant-notification>
 <?php }; ?>

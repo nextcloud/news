@@ -2687,6 +2687,20 @@ app.directive('newsFocus', ["$timeout", "$interpolate", function ($timeout, $int
     };
 
 }]);
+app.directive('newsInstantNotification', function () {
+    'use strict';
+
+    return {
+        restrict: 'E',
+        link: function (scope, elem) {
+            elem.hide();
+
+            var notification = elem.html();
+            OC.Notification.showHtml(notification);
+        }
+    };
+
+});
 /**
  * Pause playback on elements other than the current one
  */
