@@ -46,7 +46,7 @@ OC.L10N.register(
     "Star article" : "Artikel zu Favoriten hinzufügen",
     "Unstar article" : "Artikel aus Favoriten entfernen",
     "Keep article unread" : "Artikel als ungelesen behalten",
-    "Remove keep article unread" : "Artikel als ungelesen behalten entfernen",
+    "Remove keep article unread" : "„Artikel ungelesenen lassen“ entfernen",
     "by" : "von",
     "from" : "von",
     "Play audio" : "Audio wiedergeben",

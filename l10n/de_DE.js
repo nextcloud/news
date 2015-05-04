@@ -46,7 +46,7 @@ OC.L10N.register(
     "Star article" : "Artikel markieren",
     "Unstar article" : "Markierung aufheben",
     "Keep article unread" : "Artikel ungelesenen lassen",
-    "Remove keep article unread" : "»Artikel ungelesenen lassen« entfernen",
+    "Remove keep article unread" : "„Artikel ungelesenen lassen“ entfernen",
     "by" : "von",
     "from" : "von",
     "Play audio" : "Audio wiedergeben",
