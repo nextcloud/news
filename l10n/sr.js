@@ -69,6 +69,7 @@ OC.L10N.register(
     "Load previous folder" : "Учитај претходну фасциклу",
     "Scroll to active navigation entry" : "Отклизај до активног уноса",
     "Focus search field" : "Фокусирај на поље за претрагу",
+    "Mark current article's feed/folder read" : "Означи доводе/фасцикле тренутног чланка прочитаним",
     "Web address" : "Веб адреса",
     "Feed exists already!" : "Довод већ постоји!",
     "Folder" : "фасцикла",
