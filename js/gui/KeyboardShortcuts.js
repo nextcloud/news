@@ -298,7 +298,12 @@
         items.each(function (index, item) {
             item = $(item);
 
-            if (item.position().top > 1) {
+            // special treatment for items that have expand enabled:
+            // if you click next and the first item has not been expaned and
+            // is on the top, it should be expanded instead of the next one
+            if ((item.position().top === 0 && expandItemInCompact &&
+                 !item.hasClass('open')) ||
+                item.position().top > 1) {
                 scrollToItem(scrollArea, item, expandItemInCompact);
 
                 jumped = true;
