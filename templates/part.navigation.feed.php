@@ -58,6 +58,7 @@
                 type="text"
                 ng-model="feed.title"
                 news-auto-focus
+                ng-model-options="{updateOn:'submit'}"
                 required>
             <input type="submit"
                 value=""

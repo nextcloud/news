@@ -51,6 +51,7 @@
                             Navigation.folderNameExists(folderName)
                     }"
                     ng-model="folderName"
+                    ng-model-options="{updateOn:'submit'}"
                     required
                     news-auto-focus>
                 <input type="submit"

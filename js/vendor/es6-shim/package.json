@@ -1,6 +1,6 @@
 {
   "name": "es6-shim",
-  "version": "0.31.0",
+  "version": "0.31.1",
   "author": "Paul Miller (http://paulmillr.com)",
   "description": "ECMAScript 6 (Harmony) compatibility shims for legacy JavaScript engines",
   "keywords": [
@@ -69,11 +69,11 @@
     "grunt-contrib-connect": "^0.10.1",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-saucelabs": "^8.6.1",
-    "jscs": "^1.13.0",
+    "jscs": "^1.13.1",
     "jshint": "^2.7.0",
     "mocha": "^2.2.4",
     "promises-aplus-tests": "^2.1.0",
     "promises-es6-tests": "^0.5.0",
-    "uglify-js": "^2.4.20"
+    "uglify-js": "^2.4.21"
   }
 }
