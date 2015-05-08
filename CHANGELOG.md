@@ -1,5 +1,6 @@
 owncloud-news (5.3.3)
 * **Enhancement**: Add shortcut for marking the current article's feed/folder read, #635
+* **Bugfix**: When collapsing an article in compact view, remove content to stop playing audio/video from iframes, #787
 
 owncloud-news (5.3.2)
 * **Enhancement**: Disable expand on key navigation setting if compact view is not enabled, #774

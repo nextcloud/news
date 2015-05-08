@@ -93,7 +93,7 @@
                 </ul>
             </div>
 
-            <div class="article">
+            <div class="article" ng-if="!Content.isCompactView() || item.show">
 
                 <div class="heading only-in-expanded">
                     <time class="date"
