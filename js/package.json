@@ -28,7 +28,7 @@
     "grunt-cachebuster": "^0.1.5",
     "grunt-contrib-concat": "^0.5.1",
     "grunt-contrib-connect": "^0.10.1",
-    "grunt-contrib-cssmin": "^0.12.2",
+    "grunt-contrib-cssmin": "^0.12.3",
     "grunt-contrib-jshint": "^0.11.2",
     "grunt-contrib-uglify": "^0.9.1",
     "grunt-contrib-watch": "^0.6.1",
@@ -40,9 +40,9 @@
     "grunt-protractor-webdriver": "^0.2.0",
     "grunt-wrap": "^0.3.0",
     "karma": "^0.12.31",
-    "karma-chrome-launcher": "^0.1.8",
+    "karma-chrome-launcher": "^0.1.12",
     "karma-coverage": "^0.3.1",
-    "karma-firefox-launcher": "^0.1.4",
+    "karma-firefox-launcher": "^0.1.6",
     "karma-jasmine": "^0.3.5"
   },
   "dependencies": {}
