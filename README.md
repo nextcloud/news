@@ -46,6 +46,7 @@ All of the listed stable Linux distributions will be supported until their next 
 ### Before reporting bugs
 
 * We do not support Internet Explorer and Safari (Patches accepted though, except for IE < 10)
+* We do not support the server-side encryption app (use client side encryption instead)
 * Get the newest version of the News app
 * Clear your PHP opcode cache if you use any by restarting your webserver. This affects any version of PHP >=5.5
 * [Check if they have already been reported](https://github.com/owncloud/news/issues?state=open)
