@@ -1,3 +1,6 @@
+owncloud-news (5.3.5)
+* **Bugfix**: Fix video playback for certain videos
+
 owncloud-news (5.3.4)
 * **Bugfix**: Do not reorder feeds and folders when their names are edited, #790
 * **Bugfix**: Update links in cron warning notice
