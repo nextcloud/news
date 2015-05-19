@@ -1,5 +1,6 @@
 owncloud-news (5.3.4)
 * **Bugfix**: Do not reorder feeds and folders when their names are edited, #790
+* **Bugfix**: Update links in cron warning notice
 
 owncloud-news (5.3.3)
 * **Enhancement**: Add shortcut for marking the current article's feed/folder read, #635
