@@ -1,10 +1,10 @@
 <li ng-class="{
         active: Navigation.isFeedActive(feed.id),
-        unread: Navigation.getFeedUnreadCount(feed.id) > 0
+        unread: Navigation.isFeedUnread(feed.id)
     }"
     ng-repeat="feed in Navigation.getFeedsOfFolder(<?php p($_['folderId']); ?>)
         | orderBy:'title.toLowerCase()' track by feed.url"
-    ng-show="Navigation.getFeedUnreadCount(feed.id) > 0
+    ng-show="Navigation.isFeedUnread(feed.id)
             || Navigation.isShowAll()
             || Navigation.isFeedActive(feed.id)
             || !feed.id"
@@ -71,7 +71,7 @@
          ng-show="feed.id && !feed.editing && !feed.error && !feed.deleted">
         <ul>
             <li class="app-navigation-entry-utils-counter"
-                ng-show="feed.id && Navigation.getFeedUnreadCount(feed.id) > 0"
+                ng-show="feed.id && Navigation.isFeedUnread(feed.id)"
                 title="{{ Navigation.getFeedUnreadCount(feed.id) }}">
                 {{ Navigation.getFeedUnreadCount(feed.id) |
                     unreadCountFormatter }}
@@ -113,7 +113,7 @@
                         title="<?php p($l->t('Delete feed')); ?>">
                 </button>
             </li>
-            <li ng-show="Navigation.getFeedUnreadCount(feed.id) > 0" class="mark-read">
+            <li ng-show="Navigation.isFeedUnread(feed.id)" class="mark-read">
                 <button class="icon-checkmark"
                         ng-click="Navigation.markFeedRead(feed.id)"
                         title="<?php p($l->t('Mark all articles read')); ?>">

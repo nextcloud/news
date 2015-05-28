@@ -1,6 +1,6 @@
 <li ng-class="{
         active: Navigation.isStarredActive(),
-        unread: Navigation.getStarredCount() > 0
+        unread: Navigation.isStarredUnread()
     }"
     class="with-counter starred-feed">
 
@@ -11,7 +11,7 @@
     <div class="app-navigation-entry-utils">
         <ul>
             <li class="app-navigation-entry-utils-counter"
-                ng-show="Navigation.getStarredCount() > 0"
+                ng-show="Navigation.isStarredUnread()"
                 title="{{ Navigation.getStarredCount() }}">
                 {{ Navigation.getStarredCount() | unreadCountFormatter }}
             </li>

@@ -609,6 +609,10 @@ app.controller('NavigationController',
         return FeedResource.getUnreadCount();
     };
 
+    this.isUnread = function () {
+        return this.getUnreadCount() > 0;
+    };
+
     this.getFeedUnreadCount = function (feedId) {
         var feed = FeedResource.getById(feedId);
         if (feed !== undefined) {
@@ -618,12 +622,24 @@ app.controller('NavigationController',
         }
     };
 
+    this.isFeedUnread = function (feedId) {
+        return this.getFeedUnreadCount(feedId) > 0;
+    };
+
     this.getFolderUnreadCount= function (folderId) {
         return FeedResource.getFolderUnreadCount(folderId);
     };
 
+    this.isFolderUnread = function (folderId) {
+        return this.getFolderUnreadCount(folderId) > 0;
+    };
+
     this.getStarredCount = function () {
         return ItemResource.getStarredCount();
+    };
+
+    this.isStarredUnread = function () {
+        return this.getStarredCount() > 0;
     };
 
     this.toggleFolder = function (folderName) {

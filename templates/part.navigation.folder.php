@@ -2,10 +2,10 @@
         active: Navigation.isFolderActive(folder.id),
         open: folder.opened || folder.getsFeed,
         collapsible: Navigation.hasFeeds(folder.id) || folder.getsFeed,
-        unread: Navigation.getFolderUnreadCount(folder.id) > 0
+        unread: Navigation.isFolderUnread(folder.id)
     }"
     ng-repeat="folder in Navigation.getFolders() | orderBy:'name.toLowerCase()'"
-    ng-show="Navigation.getFolderUnreadCount(folder.id) > 0
+    ng-show="Navigation.isFolderUnread(folder.id)
             || Navigation.isShowAll()
             || Navigation.isFolderActive(folder.id)
             || Navigation.subFeedActive(folder.id)
@@ -96,7 +96,7 @@
         <ul>
             <li class="app-navigation-entry-utils-counter"
                 ng-show="folder.id &&
-                     Navigation.getFolderUnreadCount(folder.id) > 0"
+                     Navigation.isFolderUnread(folder.id)"
                 title="{{ Navigation.getFolderUnreadCount(folder.id) }}">
                 {{ Navigation.getFolderUnreadCount(folder.id) |
                     unreadCountFormatter }}
@@ -121,7 +121,7 @@
                         title="<?php p($l->t('Delete folder')); ?>">
                 </button>
             </li>
-            <li ng-show="Navigation.getFolderUnreadCount(folder.id) > 0" class="mark-read">
+            <li ng-show="Navigation.isFolderUnread(folder.id)" class="mark-read">
                 <button class="icon-checkmark"
                         ng-click="Navigation.markFolderRead(folder.id)"
                         title="<?php p($l->t('Mark all articles read')); ?>">
