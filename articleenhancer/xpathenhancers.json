@@ -163,7 +163,7 @@
         "%smashingmagazine.com%": "//article[contains(@class,'post')]/p"
     },
     "sueddeutsche.de": {
-        "%sz.de%": "//article[@id='sitecontent']/section[@class='topenrichment']//img | //article[@id='sitecontent']/section[@class='body']/section[@class='authors']/preceding-sibling::*[not(contains(@class, 'ad'))]"
+        "%sz.de%": "//article[@id='sitecontent']/section[@class='topenrichment']//img | //article[@id='sitecontent']/section[@class='body']/section[@class='authors']/preceding-sibling::*[not(contains(@class, 'ad') or contains(@class, 'article-sidebar-wrapper'))]"
     },
     "lifehacker.com": {
         "%lifehacker.com%": "//div[contains(@class,'entry-content')]"
