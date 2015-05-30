@@ -50,5 +50,10 @@
 	"%xkcd.com/\\d+/%": {
 	    "%alt=\"(.+)\" */>%": "/><br/>$1"
 	}
+    },
+    "www.treelobsters.com": {
+	"%www.treelobsters.com%": {
+	    "%title=\"(.+)\" */>%": "/><br/>$1"
+	}
     }
 }
