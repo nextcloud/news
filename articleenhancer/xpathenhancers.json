@@ -173,5 +173,8 @@
     },
     "buttersafe.com": {
 	"%buttersafe.com%": "//div[@id='comic'] | //div[@class='post-comic']"
+    },
+    "www.pixelbeat.org": {
+	"%www.pixelbeat.org%": "//div[@class='contentText']"
     }
 }
