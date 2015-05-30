@@ -173,5 +173,8 @@
     },
     "outdoordeals.de": {
         "%outdoordeals.de%": "//article[contains(@class,'blogpost')]/div[@class='inner']"
+    },
+    "buttersafe.com": {
+	"%buttersafe.com%": "//div[@id='comic'] | //div[@class='post-comic']"
     }
 }

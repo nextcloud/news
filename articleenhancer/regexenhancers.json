@@ -4,11 +4,6 @@
             "%http://www.twogag.com/comics-rss/([^.]+)\\.jpg%": "http://www.twogag.com/comics/$1.jpg"
         }
     },
-    "buttersafe.com": {
-        "%(?:buttersafe.com)|(feedproxy.google.com/~r/Buttersafe)%": {
-            "%buttersafe.com/comics/rss/([^.]+)RSS([^.]+)?.jpg%": "buttersafe.com/comics/$1$2.jpg"
-        }
-    },
     "nichtlustig.de": {
         "%nichtlustig.de%": {
             "%.*static.nichtlustig.de/comics/full/(\\d+).*%s": "<img src=\"http://static.nichtlustig.de/comics/full/$1.jpg\" />"
