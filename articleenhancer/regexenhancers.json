@@ -27,5 +27,11 @@
             "%-\\d+x\\d+%": "",
             "%(width|height)=\"\\d+\"%" : ""
         }
+    "extrafabulouscomics.com": {
+	"%extrafabulouscomics.com/comic/%": {
+            "%-\\d+x\\d+%": "",
+            "%(width|height)=\"\\d+\"%" : ""
+	}
+    },
     }
 }
