@@ -39,5 +39,11 @@
             "%-\\d+x\\d+%": "",
             "%(width|height)=\"\\d+\"%" : ""
 	}
+    },
+    "www.loadingartist.com": {
+	"%www.loadingartist.com/comic/%": {
+            "%-\\d+x\\d+%": "",
+            "%(width|height)=\"\\d+\"%" : ""
+	}
     }
 }
