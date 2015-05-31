@@ -179,5 +179,8 @@
     },
     "gocomics.com/pearlsbeforeswine": {
 	"%gocomics.com/pearlsbeforeswine%": "//div[1]/p[1]/a[1]/img"
+    },
+    "marriedtothesea.com": {
+	"%marriedtothesea.com%": "//div[@align]/a/img"
     }
 }
