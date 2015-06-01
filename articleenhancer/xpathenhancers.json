@@ -99,9 +99,6 @@
     "eqcomics.com": {
         "%feedproxy.google.com/~r/eqcomics%": "//div[@id=\"comic\"]/div/a/img"
     },
-    "loadingartist.com": {
-        "%feedproxy.google.com/~r/LoadingArtist%": "//div[@id=\"comic\"]"
-    },
     "thegamercat.com": {
         "%thegamercat.com%": "//div[@id=\"comic\"] | //div[@class=\"post-content\"]/div[@class=\"entry\"]/p"
     },
@@ -173,5 +170,17 @@
     },
     "outdoordeals.de": {
         "%outdoordeals.de%": "//article[contains(@class,'blogpost')]/div[@class='inner']"
+    },
+    "buttersafe.com": {
+	"%buttersafe.com%": "//div[@id='comic'] | //div[@class='post-comic']"
+    },
+    "www.pixelbeat.org": {
+	"%www.pixelbeat.org%": "//div[@class='contentText']"
+    },
+    "gocomics.com/pearlsbeforeswine": {
+	"%gocomics.com/pearlsbeforeswine%": "//div[1]/p[1]/a[1]/img"
+    },
+    "marriedtothesea.com": {
+	"%marriedtothesea.com%": "//div[@align]/a/img"
     }
 }
