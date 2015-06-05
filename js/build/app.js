@@ -2070,6 +2070,22 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
 
 
 /**
+ * This prefills the add feed section if an external link has ?subsribe_to
+ * filled out
+ */
+(function (window, document) {
+    'use strict';
+
+    // If F5 is used to reload the page in Firefox, the content will sometimes
+    // be scrolled back to the position where it was before the reload which
+    // will cause new articles being marked as read
+    window.addEventListener('beforeunload', function () {
+        var content = document.querySelector('#app-content');
+        content.scrollTo(0, 0);
+    });
+
+})(window, document);
+/**
  * Code in here acts only as a click shortcut mechanism. That's why its not
  * being put into a directive since it has to be tested with protractor
  * anyways and theres no benefit from wiring it into the angular app

@@ -1,5 +1,6 @@
 owncloud-news (5.3.6)
 * **Bugfix**: Firefox: Mark article as read if middle click on the title is performed
+* **Bugfix**: Firefox: Scroll to top before refresh to prevent accidentally marking articles as read
 
 owncloud-news (5.3.5)
 * **Bugfix**: Downgrade Angular from 1.4 to 1.3 due to several regressions
