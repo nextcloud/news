@@ -23,6 +23,7 @@
             ng-repeat="item in Content.getItems() |
                 orderBy:[Content.orderBy()] track by item.id"
             ng-mouseup="Content.markRead(item.id)"
+            ng-click="Content.markRead(item.id)"
             ng-class="{read: !item.unread, open: item.show}"
             data-id="{{ ::item.id }}">
 
