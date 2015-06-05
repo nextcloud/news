@@ -9,8 +9,7 @@
  */
 
 /**
- * This prefills the add feed section if an external link has ?subsribe_to
- * filled out
+ * Various fixes
  */
 (function (window, document) {
     'use strict';

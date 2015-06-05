@@ -2070,8 +2070,7 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
 
 
 /**
- * This prefills the add feed section if an external link has ?subsribe_to
- * filled out
+ * Various fixes
  */
 (function (window, document) {
     'use strict';
