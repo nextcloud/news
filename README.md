@@ -28,7 +28,7 @@ are listed on the [ownCloud apps overview](https://github.com/owncloud/core/wiki
 All of the listed stable Linux distributions will be supported until their next stable version's first bugfix release is released (e.g. Debian 7 is supported until Debian 8.1 is released):
 
 * Ubuntu 14.04
-* Debian 7 (Wheezy)
+* Debian 8 (Jessie)
 * CentOS 7
 * Arch Linux
 
