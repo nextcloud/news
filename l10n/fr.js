@@ -31,7 +31,7 @@ OC.L10N.register(
     "Feed fetcher timeout" : "Délai d'attente maximum du récupérateur de flux",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted" : "Nombre maximal de secondes que peut prendre un flux RSS ou Atom pour être chargé. Si le délai est dépassé, la mise à jour sera annulée",
     "Explore Service URL" : "URL du service d'exploration",
-    "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty" : "Si indiquée, l'URL de ce service sera interrogée pour afficher les flux dans la section \"Explorer\". Pour revenir au service d'exploration par défaut, laisser ce champ vide.",
+    "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty" : "Si indiquée, l'URL de ce service sera interrogée pour afficher les flux dans la section \"Explorer\". Pour revenir au service d'exploration par défaut, laissez ce champ vide.",
     "Saved" : "Sauvegardé",
     "Download" : "Télécharger",
     "Close" : "Fermer",
