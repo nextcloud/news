@@ -18,11 +18,11 @@ are listed on the [ownCloud apps overview](https://github.com/owncloud/core/wiki
 
 ## Dependencies
 * ownCloud >= 8.1
-* PHP >= 5.4
 * libxml >= 2.7.8 (2.9 recommended)
 * php-curl
 * iconv
 * SimpleXML
+* PHP >= 5.4
 
 ## Supported Operating Systems
 All of the listed stable Linux distributions will be supported until their next stable version's first bugfix release is released (e.g. Debian 7 is supported until Debian 8.1 is released):
@@ -31,6 +31,9 @@ All of the listed stable Linux distributions will be supported until their next 
 * Debian 8 (Jessie)
 * CentOS 7
 * Arch Linux
+
+## Supported PHP versions
+The minimum PHP version will be the [lowest supported version that still receives security fixes](http://php.net/supported-versions.php). The currently supported lowest version is **5.4** which will be dropped in favor of **5.5** on **14th September 2015**. An exception to this rule will be made if one or more supported operating systems still ship this PHP version by default.
 
 ## Supported Browsers
 * Newest Firefox (Desktop, Android, Firefox OS)
