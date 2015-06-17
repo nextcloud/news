@@ -174,7 +174,7 @@ Check the **owncloud/data/owncloud.log** for hints why it failed. After the issu
 * If your cron works fine but owncloud's cronjobs are never executed, file a bug in [core](https://github.com/owncloud/core/)
 * Try the [updater script](https://github.com/owncloud/news/wiki/Custom-Updater)
 
-### Reading feeds that use self-signed Certificates
+### Adding feeds that use self-signed Certificates
 If you want to add a feed that uses a self-signed certificate that is not signed by a trusted CA the request will fail with "SSL certficate is invalid". A common solution is to turn off the certificate verification **which is wrong** and **makes your installation vulnerable to MITM attacks**. Therefore **turning off certificate verification is not supported**.
 
 If you have control over the feed in question, consider signing your certificate for free using [StartSSL](https://www.startssl.com/) or wait until September when [letsencrypt.com](http://letsencrypt.com/) goes online.
