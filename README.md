@@ -179,7 +179,7 @@ If you want to add a feed that uses a self-signed certificate that is not signed
 
 If you have control over the feed in question, consider signing your certificate for free using [StartSSL](https://www.startssl.com/) or wait until September when [letsencrypt.com](http://letsencrypt.com/) goes online.
 
-If you do not have control over the chosen feed, you should [add each self-signed and trusted certificate to your trusted certificates](https://turboflash.wordpress.com/2009/06/23/curl-adding-installing-trusting-new-self-signed-certificate/). The exact procedure however may vary depending on your distribution.
+If you do not have control over the chosen feed, you should [download the certificate from the feed's website](http://superuser.com/questions/97201/how-to-save-a-remote-server-ssl-certificate-locally-as-a-file) and [add it to your server's trusted certificates](https://turboflash.wordpress.com/2009/06/23/curl-adding-installing-trusting-new-self-signed-certificate/). The exact procedure however may vary depending on your distribution.
 
 
 Configuration
