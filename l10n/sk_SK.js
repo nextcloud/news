@@ -49,6 +49,7 @@ OC.L10N.register(
     "Remove keep article unread" : "Odstrániť označenie ako neprečítaný",
     "by" : "od",
     "from" : "z",
+    "Play audio" : "Prehrávanie audia",
     "Keyboard shortcut" : "Klávesová skratka",
     "Description" : "Popis",
     "right" : "vpravo",
