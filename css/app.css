@@ -40,3 +40,7 @@
     #undo a:hover {
         text-decoration: underline;
     }
+
+#searchbox {
+    display: block !important;
+}
