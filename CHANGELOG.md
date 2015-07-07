@@ -1,3 +1,9 @@
+owncloud-news (5.3.8)
+* **Bugfix**: Make the searchbox reappear in 8.1
+
+owncloud-news (5.3.7)
+* Skipped because of wrong git tag
+
 owncloud-news (5.3.6)
 * **Bugfix**: Firefox: Mark article as read if middle click on the title is performed
 * **Bugfix**: Firefox: Scroll to top before refresh to prevent accidentally marking articles as read
