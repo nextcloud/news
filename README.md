@@ -45,7 +45,7 @@ The minimum PHP version will be the [lowest supported version that still receive
 * MySql
 
 ## Bugs
-Please read the [appropriate section in the contributing notices](https://github.com/owncloud/news/blob/master/CONTRIBUTING.md#bugs)
+Please read the [appropriate section in the contributing notices](https://github.com/owncloud/news/blob/master/CONTRIBUTING.md#issues)
 
 ## Installation/Update
 

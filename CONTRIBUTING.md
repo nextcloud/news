@@ -1,7 +1,15 @@
 # Contributing
-Please read carefully ;)
+Read this when you want to:
 
-## Bugs
+* file an issue (bug or feature request)
+* help translate the News file to your language
+* start programming and change the way the News app works
+
+## Issues
+This section is split into two section:
+
+* Everything that has to do with bugs
+* How to request features
 
 ### Before reporting bugs
 
@@ -37,8 +45,22 @@ Please provide the following details so that your problem can be fixed:
 * PHP version
 * Distribution
 
+### When requesting features
+
+Please always provide the usecase in addition solution, e.g.:
+
+* "If I read feed that has comics, the newest first ordering does not work well because I have to read from the bottom up"
+
+is much more helpful than just writing:
+
+* "Please add reverse ordering".
+
 
 ## Development
+
+In general it's a good idea to **first create an issue where you explain why, what and how** you want to make a change **before writing any code**.
+
+That way we can talk about the problem first and discuss the implementation (and of course help you with your code)
 
 ### Contact us!
 
@@ -47,7 +69,7 @@ We usually hang out on **irc.freenode.net** in the **#owncloud-news** and **#own
 You can also send a mail to the [owncloud-devel mailing list](https://mailman.owncloud.org/mailman/listinfo/devel).
 
 ### Project structure
-
+The project is structured in the following way:
 
 * **admin/**: Admin related parts which hook up the News app in the admin area. The HTML is in **templates/admin.php** folder, the JavaScript is in **js/admin/Admin.js**, CSS in **css/admin.css**. Both CSS and JavaScript don't need to be recompiled unlike everything else. The controller that hooks up the template is located in **controller/admincontroller.php**. **admin/admin.php** is just there to wire up the controllers on the admin page which does not support the App Framework.
 
