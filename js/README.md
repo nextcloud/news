@@ -1,5 +1,5 @@
 # JavaScript && CSS Development
-Before starting, install nodejs 0.10 and grunt-cli:
+Before starting, install nodejs and grunt-cli:
 
 	sudo npm -g install grunt-cli
 
@@ -9,11 +9,11 @@ then run:
 
 
 ## Building
-Watch mode:
+This sets up a watcher on file change and compiles CSS and JS:
 
 	grunt dev
 
-Single run mode:
+If you don't want a watcher, just run:
 
 	grunt
 
