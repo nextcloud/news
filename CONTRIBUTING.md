@@ -107,7 +107,7 @@ The project is structured in the following way:
 
 * **css/**: All the CSS used in the project. Except the admin.css file everything needs to be minified first using Grunt, see the **js/README.md** file for more information
 
-* **db/**: SQL queries and data objects.
+* **db/**: SQL queries and data objects. The database schema is stored in **appinfo/database.xml**
 
 * **explore/**: Code that allows you to hook up custom explore pages and JSON configuration files what is displayed on the default explore page
 
