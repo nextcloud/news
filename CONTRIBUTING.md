@@ -70,7 +70,7 @@ You can also send a mail to the [owncloud-devel mailing list](https://mailman.ow
 
 ### Coding Style Guidelines
 
-* Use 4 spaces for indention
+* Use 4 spaces for indention. Why spaces? Because it looks the same on every machine and on the web where you can't normally control the tab width.
 * Place the open curly braces on the same line as the parameter block, e.g.:
   ```php
   if (condition) {
