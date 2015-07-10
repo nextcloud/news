@@ -82,6 +82,7 @@ You can also send a mail to the [owncloud-devel mailing list](https://mailman.ow
 
 * Place a space before and after the parameter block for if, else, for, foreach, function
 * Everything should be in pascalCase except classes which should be in CamelCase
+* For linting JavaScript, a [jshint file](https://github.com/owncloud/news/blob/master/js/.jshintrc) is used that is run before compiling the JavaScript
 
 ### Project Structure
 The project is structured in the following way:
