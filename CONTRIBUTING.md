@@ -40,7 +40,7 @@ Please provide the following details so that your problem can be fixed:
 
 ## Development
 
-We usually hang out on **irc.freenode.net** in the **#owncloud-dev** chat room. Just ping [Raydiation](https://github.com/Raydiation/) or [cosenal](https://github.com/cosenal) or write us a mail directly. Mail addresses are listed on our GitHub profiles.
+We usually hang out on **irc.freenode.net** in the **#owncloud-news** and **#owncloud-dev** chat room. Just ping [Raydiation](https://github.com/Raydiation/) or [cosenal](https://github.com/cosenal) or write us a mail directly. Mail addresses are listed on our GitHub profiles.
 
 ### Project structure
 
