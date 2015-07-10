@@ -11,7 +11,7 @@ This section is split into two section:
 * Everything that has to do with bugs
 * How to request features
 
-### Before reporting bugs
+### Before Reporting Bugs
 
 * We do not support Internet Explorer and Safari (Patches accepted though, except for IE < 10)
 * We do **not support the server-side encryption app** (use client side encryption instead)
@@ -62,7 +62,7 @@ In general it's a good idea to **first create an issue where you explain why, wh
 
 That way we can talk about the problem first and discuss the implementation (and of course help you with your code)
 
-### Contact us!
+### Contact Us!
 
 We usually hang out on **irc.freenode.net** in the **#owncloud-news** and **#owncloud-dev** chat room. Just ping [Raydiation](https://github.com/Raydiation/) or [cosenal](https://github.com/cosenal) or write us a mail directly. Mail addresses are listed on our GitHub profiles.
 
@@ -82,7 +82,7 @@ You can also send a mail to the [owncloud-devel mailing list](https://mailman.ow
 
 * Place a space before and after the parameter block for if, else, for, foreach, function
 
-### Project structure
+### Project Structure
 The project is structured in the following way:
 
 * **admin/**: Admin related parts which hook up the News app in the admin area. The HTML is in **templates/admin.php** folder, the JavaScript is in **js/admin/Admin.js**, CSS in **css/admin.css**. Both CSS and JavaScript don't need to be recompiled unlike everything else. The controller that hooks up the template is located in **controller/admincontroller.php**. **admin/admin.php** is just there to wire up the controllers on the admin page which does not support the App Framework.
