@@ -68,6 +68,15 @@ We usually hang out on **irc.freenode.net** in the **#owncloud-news** and **#own
 
 You can also send a mail to the [owncloud-devel mailing list](https://mailman.owncloud.org/mailman/listinfo/devel).
 
+### Coding Style Guidelines
+
+* Use 4 spaces for indention
+* Place the open curly braces on the same line as the parameter block, e.g.:
+
+  if (condition) {
+
+* place a space before and after the parameter block for if, else, for, foreach, function
+
 ### Project structure
 The project is structured in the following way:
 
