@@ -84,7 +84,7 @@ class FaviconTest extends PHPUnit_Framework_TestCase
     {
         $favicon = new Favicon;
 
-        $this->assertTrue($favicon->exists('https://en.wikipedia.org/favicon.ico'));
+        $this->assertTrue($favicon->exists('https://miniflux.net/favicon.ico'));
         $this->assertFalse($favicon->exists('http://minicoders.com/favicon.ico'));
         $this->assertFalse($favicon->exists('http://blabla'));
         $this->assertFalse($favicon->exists(''));

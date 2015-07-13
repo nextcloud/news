@@ -14,249 +14,450 @@ class AtomParserTest extends PHPUnit_Framework_TestCase
         $parser->execute();
     }
 
-    public function testFeedTitle()
+    public function testGetItemsTree()
     {
         $parser = new Atom(file_get_contents('tests/fixtures/atom.xml'));
         $feed = $parser->execute();
-        $this->assertEquals('The Official Google Blog', $feed->getTitle());
+        $this->assertCount(4, $feed->items);
 
-        $parser = new Atom(file_get_contents('tests/fixtures/atomsample.xml'));
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_no_default_namespace.xml'));
         $feed = $parser->execute();
-        $this->assertEquals('Example Feed', $feed->getTitle());
+        $this->assertCount(4, $feed->items);
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_prefixed.xml'));
+        $feed = $parser->execute();
+        $this->assertCount(4, $feed->items);
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_empty_feed.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals(array(), $feed->items);
     }
 
-    public function testFeedDescription()
+    public function testFindFeedTitle()
     {
         $parser = new Atom(file_get_contents('tests/fixtures/atom.xml'));
         $feed = $parser->execute();
-        $this->assertEquals('Insights from Googlers into our products, technology, and the Google culture.', $feed->getDescription());
+        $this->assertEquals('литература на   русском языке,  либо написанная русскими авторами', $feed->getTitle());
 
-        $parser = new Atom(file_get_contents('tests/fixtures/atomsample.xml'));
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_no_default_namespace.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('литература на   русском языке,  либо написанная русскими авторами', $feed->getTitle());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_prefixed.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('литература на   русском языке,  либо написанная русскими авторами', $feed->getTitle());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_fallback_on_invalid_feed_values.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('https://en.wikipedia.org/wiki/Category:Russian-language_literature', $feed->getTitle());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_empty_feed.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('', $feed->getTitle());
+    }
+
+    public function testFindFeedDescription()
+    {
+        $parser = new Atom(file_get_contents('tests/fixtures/atom.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals("Зародилась во второй половине   X века, однако до XIX века,\nкогда начался её «золотой век», была практически неизвестна\nв мире.", $feed->getDescription());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_no_default_namespace.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals("Зародилась во второй половине   X века, однако до XIX века,\nкогда начался её «золотой век», была практически неизвестна\nв мире.", $feed->getDescription());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_prefixed.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals("Зародилась во второй половине   X века, однако до XIX века,\nкогда начался её «золотой век», была практически неизвестна\nв мире.", $feed->getDescription());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_empty_feed.xml'));
         $feed = $parser->execute();
         $this->assertEquals('', $feed->getDescription());
     }
 
-    public function testFeedLogo()
+    public function testFindFeedLogo()
     {
         $parser = new Atom(file_get_contents('tests/fixtures/atom.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('https://ru.wikipedia.org/static/images/project-logos/ruwiki.png', $feed->getLogo());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_no_default_namespace.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('https://ru.wikipedia.org/static/images/project-logos/ruwiki.png', $feed->getLogo());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_prefixed.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('https://ru.wikipedia.org/static/images/project-logos/ruwiki.png', $feed->getLogo());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_empty_feed.xml'));
         $feed = $parser->execute();
         $this->assertEquals('', $feed->getLogo());
-
-        $parser = new Atom(file_get_contents('tests/fixtures/bbc_urdu.xml'));
-        $feed = $parser->execute();
-        $this->assertEquals('http://www.bbc.co.uk/urdu/images/gel/rss_logo.gif', $feed->getLogo());
     }
 
-    public function testFeedIcon()
+    public function testFindFeedIcon()
     {
         $parser = new Atom(file_get_contents('tests/fixtures/atom.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('https://ru.wikipedia.org/static/favicon/wikipedia.ico', $feed->getIcon());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_no_default_namespace.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('https://ru.wikipedia.org/static/favicon/wikipedia.ico', $feed->getIcon());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_prefixed.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('https://ru.wikipedia.org/static/favicon/wikipedia.ico', $feed->getIcon());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_empty_feed.xml'));
         $feed = $parser->execute();
         $this->assertEquals('', $feed->getIcon());
-
-        $parser = new Atom(file_get_contents('tests/fixtures/lagrange.xml'));
-        $feed = $parser->execute();
-        $this->assertEquals('http://www.la-grange.net/favicon.png', $feed->getIcon());
     }
 
-    public function testFeedUrl()
+    public function testFindFeedUrl()
     {
         $parser = new Atom(file_get_contents('tests/fixtures/atom.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('https://feeds.wikipedia.org/category/Russian-language_literature.xml', $feed->getFeedUrl());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_extra.xml'), '', 'https://feeds.wikipedia.org/category/Russian-language_literature.xml'); // relative url
+        $feed = $parser->execute();
+        $this->assertEquals('https://feeds.wikipedia.org/category/Russian-language_literature.xml', $feed->getFeedUrl());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_no_default_namespace.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('https://feeds.wikipedia.org/category/Russian-language_literature.xml', $feed->getFeedUrl());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_prefixed.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('https://feeds.wikipedia.org/category/Russian-language_literature.xml', $feed->getFeedUrl());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_empty_feed.xml'));
         $feed = $parser->execute();
         $this->assertEquals('', $feed->getFeedUrl());
-
-        $parser = new Atom(file_get_contents('tests/fixtures/atomsample.xml'), '', 'http://example.org/');
-        $feed = $parser->execute();
-        $this->assertEquals('http://example.org/', $feed->getFeedUrl());
-
-        $parser = new Atom(file_get_contents('tests/fixtures/lagrange.xml'));
-        $feed = $parser->execute();
-        $this->assertEquals('http://www.la-grange.net/feed.atom', $feed->getFeedUrl());
-
-        $parser = new Atom(file_get_contents('tests/fixtures/groovehq.xml'), '', 'http://groovehq.com/');
-        $feed = $parser->execute();
-        $this->assertEquals('http://groovehq.com/articles.xml', $feed->getFeedUrl());
-
-        $parser = new Atom(file_get_contents('tests/fixtures/hamakor.xml'), '', 'http://planet.hamakor.org.il');
-        $feed = $parser->execute();
-        $this->assertEquals('http://planet.hamakor.org.il/atom.xml', $feed->getFeedUrl());
     }
 
-    public function testSiteUrl()
+    public function testFindSiteUrl()
     {
-        $parser = new Atom(file_get_contents('tests/fixtures/atom.xml'));
+        $parser = new Atom(file_get_contents('tests/fixtures/atom.xml')); // rel="alternate"
         $feed = $parser->execute();
-        $this->assertEquals('http://googleblog.blogspot.com/', $feed->getSiteUrl());
+        $this->assertEquals('https://en.wikipedia.org/wiki/Category:Russian-language_literature', $feed->getSiteUrl());
 
-        $parser = new Atom(file_get_contents('tests/fixtures/atomsample.xml'));
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_extra.xml'), '', 'https://feeds.wikipedia.org/category/Russian-language_literature.xml'); // no rel + relative url
         $feed = $parser->execute();
-        $this->assertEquals('http://example.org/', $feed->getSiteUrl());
+        $this->assertEquals('https://feeds.wikipedia.org/wiki/Category:Russian-language_literature', $feed->getSiteUrl());
 
-        $parser = new Atom(file_get_contents('tests/fixtures/lagrange.xml'));
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_no_default_namespace.xml'));
         $feed = $parser->execute();
-        $this->assertEquals('http://www.la-grange.net/', $feed->getSiteUrl());
+        $this->assertEquals('https://en.wikipedia.org/wiki/Category:Russian-language_literature', $feed->getSiteUrl());
 
-        $parser = new Atom(file_get_contents('tests/fixtures/groovehq.xml'));
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_prefixed.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('https://en.wikipedia.org/wiki/Category:Russian-language_literature', $feed->getSiteUrl());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_empty_feed.xml'));
         $feed = $parser->execute();
         $this->assertEquals('', $feed->getSiteUrl());
-
-        $parser = new Atom(file_get_contents('tests/fixtures/hamakor.xml'), '', 'http://planet.hamakor.org.il');
-        $feed = $parser->execute();
-        $this->assertEquals('http://planet.hamakor.org.il/', $feed->getSiteUrl());
     }
 
-    public function testFeedId()
+    public function testFindFeedId()
     {
         $parser = new Atom(file_get_contents('tests/fixtures/atom.xml'));
         $feed = $parser->execute();
-        $this->assertEquals('tag:blogger.com,1999:blog-10861780', $feed->getId());
+        $this->assertEquals('urn:uuid:bd0b2c90-35a3-44e9-a491-4e15508f6d83', $feed->getId());
 
-        $parser = new Atom(file_get_contents('tests/fixtures/atomsample.xml'));
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_no_default_namespace.xml'));
         $feed = $parser->execute();
-        $this->assertEquals('urn:uuid:60a76c80-d399-11d9-b93C-0003939e0af6', $feed->getId());
+        $this->assertEquals('urn:uuid:bd0b2c90-35a3-44e9-a491-4e15508f6d83', $feed->getId());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_prefixed.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('urn:uuid:bd0b2c90-35a3-44e9-a491-4e15508f6d83', $feed->getId());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_empty_feed.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('', $feed->getId());
     }
 
-    public function testFeedDate()
+    public function testFindFeedDate()
     {
         $parser = new Atom(file_get_contents('tests/fixtures/atom.xml'));
         $feed = $parser->execute();
-        $this->assertEquals(1360148333, $feed->getDate()->getTimestamp(), '', 1);
+        $this->assertEquals(1433451900, $feed->getDate()->getTimestamp());
 
-        $parser = new Atom(file_get_contents('tests/fixtures/atomsample.xml'));
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_no_default_namespace.xml'));
         $feed = $parser->execute();
-        $this->assertEquals(1071340202, $feed->getDate()->getTimestamp(), '', 1);
+        $this->assertEquals(1433451900, $feed->getDate()->getTimestamp());
 
-        $parser = new Atom(file_get_contents('tests/fixtures/duesseldorf_lokalzeit.rdf'));
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_prefixed.xml'));
         $feed = $parser->execute();
-        $this->assertEquals('2015-01-05', $feed->getDate()->format('Y-m-d'));
+        $this->assertEquals(1433451900, $feed->getDate()->getTimestamp());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_empty_feed.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals(time(), $feed->getDate()->getTimestamp(), 1);
     }
 
-    public function testFeedLanguage()
+    public function testFindFeedLanguage()
     {
         $parser = new Atom(file_get_contents('tests/fixtures/atom.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('ru', $feed->getLanguage());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_extra.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('ru', $feed->getLanguage());
+
+        // do not use lang from entry or descendant of entry
+        $parser = new Atom('<feed xmlns="http://www.w3.org/2005/Atom"><entry xml:lang="ru"><title xml:lang="ru"/></entry></feed>');
         $feed = $parser->execute();
         $this->assertEquals('', $feed->getLanguage());
-        $this->assertEquals('', $feed->items[0]->getLanguage());
 
-        $parser = new Atom(file_get_contents('tests/fixtures/bbc_urdu.xml'));
+        // do not use lang from entry or descendant of entry (prefixed)
+        $parser = new Atom('<feed xmlns:atom="http://www.w3.org/2005/Atom"><atom:entry xml:lang="ru"><atom:title xml:lang="ru"/></atom:entry></feed>');
         $feed = $parser->execute();
-        $this->assertNotEmpty($feed->items);
-        $this->assertEquals('ur', $feed->getLanguage());
-        $this->assertEquals('ur', $feed->items[0]->getLanguage());
+        $this->assertEquals('', $feed->getLanguage());
 
-        $parser = new Atom(file_get_contents('tests/fixtures/lagrange.xml'));
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_no_default_namespace.xml'));
         $feed = $parser->execute();
-        $this->assertNotEmpty($feed->items);
-        $this->assertEquals('fr', $feed->getLanguage());
-        $this->assertEquals('fr', $feed->items[0]->getLanguage());
+        $this->assertEquals('ru', $feed->getLanguage());
 
-        $parser = new Atom(file_get_contents('tests/fixtures/hamakor.xml'), '', 'http://planet.hamakor.org.il');
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_prefixed.xml'));
         $feed = $parser->execute();
-        $this->assertEquals('he', $feed->getLanguage());
+        $this->assertEquals('ru', $feed->getLanguage());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_empty_feed.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('', $feed->getLanguage());
     }
 
-    public function testItemId()
+    public function testFindItemId()
     {
-        $parser = new Atom(file_get_contents('tests/fixtures/atomsample.xml'));
-        $feed = $parser->execute();
-        $this->assertNotEmpty($feed->items);
-        $this->assertEquals('3841e5cf232f5111fc5841e9eba5f4b26d95e7d7124902e0f7272729d65601a6', $feed->items[0]->getId());
-    }
-
-    public function testItemUrl()
-    {
-        $parser = new Atom(file_get_contents('tests/fixtures/hamakor.xml'), '', 'http://planet.hamakor.org.il');
-        $feed = $parser->execute();
-        $this->assertNotEmpty($feed->items);
-        $this->assertEquals('http://idkn.wordpress.com/2014/12/20/modular-sinatra/', $feed->items[0]->getUrl());
-        $this->assertEquals('http://www.guyrutenberg.com/2014/12/20/kindle-paperwhite-unable-to-open-item/', $feed->items[1]->getUrl());
-
-        $parser = new Atom(file_get_contents('tests/fixtures/atomsample.xml'));
-        $feed = $parser->execute();
-        $this->assertNotEmpty($feed->items);
-        $this->assertEquals('http://example.org/2003/12/13/atom03', $feed->items[0]->getUrl());
-
-        $parser = new Atom(file_get_contents('tests/fixtures/bbc_urdu.xml'));
-        $feed = $parser->execute();
-        $this->assertNotEmpty($feed->items);
-        $this->assertEquals('http://www.bbc.co.uk/urdu/world/2014/03/140316_missing_malaysia_plane_pilot_mb.shtml', $feed->items[0]->getUrl());
-        $this->assertEquals('http://www.bbc.co.uk/urdu/pakistan/2014/03/140316_taliban_talks_pro_ibrahim_zs.shtml', $feed->items[1]->getUrl());
-
+        // items[0] === alternate generation
+        // items[1] === id element
         $parser = new Atom(file_get_contents('tests/fixtures/atom.xml'));
         $feed = $parser->execute();
-        $this->assertNotEmpty($feed->items);
-        $this->assertEquals('http://feedproxy.google.com/~r/blogspot/MKuf/~3/S_hccisqTW8/a-chrome-experiment-made-with-some.html', $feed->items[0]->getUrl());
+        $this->assertEquals('eb6f2d388a77e1f7d067a924970622d630031365fd444abe776d974d95b21990', $feed->items[0]->getId());
+        $this->assertEquals('b64b5e0ce422566fa768e8c66da61ab5759c00b2289adbe8fe2f35ecfe211184', $feed->items[1]->getId());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_no_default_namespace.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('eb6f2d388a77e1f7d067a924970622d630031365fd444abe776d974d95b21990', $feed->items[0]->getId());
+        $this->assertEquals('b64b5e0ce422566fa768e8c66da61ab5759c00b2289adbe8fe2f35ecfe211184', $feed->items[1]->getId());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_prefixed.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('eb6f2d388a77e1f7d067a924970622d630031365fd444abe776d974d95b21990', $feed->items[0]->getId());
+        $this->assertEquals('b64b5e0ce422566fa768e8c66da61ab5759c00b2289adbe8fe2f35ecfe211184', $feed->items[1]->getId());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_empty_item.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', $feed->items[0]->getId());
     }
 
-    public function testItemTitle()
+    public function testFindItemUrl()
+    {
+        // items[0] === rel="alternate"
+        // items[1] === no rel
+        $parser = new Atom(file_get_contents('tests/fixtures/atom.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('https://en.wikipedia.org/wiki/War_and_Peace', $feed->items[0]->getUrl());
+        $this->assertEquals('https://en.wikipedia.org/wiki/Crime_and_Punishment', $feed->items[1]->getUrl());
+
+        // relative url
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_extra.xml'), '', 'https://feeds.wikipedia.org/category/Russian-language_literature.xml');
+        $feed = $parser->execute();
+        $this->assertEquals('https://feeds.wikipedia.org/wiki/War_and_Peace', $feed->items[0]->getUrl());
+        $this->assertEquals('https://feeds.wikipedia.org/wiki/Crime_and_Punishment', $feed->items[1]->getUrl());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_no_default_namespace.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('https://en.wikipedia.org/wiki/War_and_Peace', $feed->items[0]->getUrl());
+        $this->assertEquals('https://en.wikipedia.org/wiki/Crime_and_Punishment', $feed->items[1]->getUrl());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_prefixed.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('https://en.wikipedia.org/wiki/War_and_Peace', $feed->items[0]->getUrl());
+        $this->assertEquals('https://en.wikipedia.org/wiki/Crime_and_Punishment', $feed->items[1]->getUrl());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_empty_item.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('', $feed->items[0]->getUrl());
+    }
+
+    public function testFindItemTitle()
     {
         $parser = new Atom(file_get_contents('tests/fixtures/atom.xml'));
         $feed = $parser->execute();
-        $this->assertNotEmpty($feed->items);
-        $this->assertEquals('Safer Internet Day: How we help you stay secure online', $feed->items[1]->getTitle());
+        $this->assertEquals('Война  и мир', $feed->items[0]->getTitle());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_no_default_namespace.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('Война  и мир', $feed->items[0]->getTitle());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_prefixed.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('Война  и мир', $feed->items[0]->getTitle());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_fallback_on_invalid_item_values.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('https://en.wikipedia.org/wiki/Doctor_Zhivago_(novel)', $feed->items[2]->getTitle());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_empty_item.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('', $feed->items[0]->getTitle());
     }
 
     public function testItemDate()
     {
-        $parser = new Atom(file_get_contents('tests/fixtures/duesseldorf_lokalzeit.rdf'));
-        $feed = $parser->execute();
-        $this->assertNotEmpty($feed->items);
-        $this->assertEquals('2015-01-05', $feed->items[4]->getDate()->format('Y-m-d'));
-
+        // items[0] === updated element
+        // items[1] === published element
+        // items[2] === fallback to feed date
         $parser = new Atom(file_get_contents('tests/fixtures/atom.xml'));
         $feed = $parser->execute();
-        $this->assertNotEmpty($feed->items);
-        $this->assertEquals(1360011661, $feed->items[1]->getDate()->getTimestamp(), '', 1);
+        $this->assertEquals(1433451720, $feed->items[0]->getDate()->getTimestamp());
+        $this->assertEquals(1433451720, $feed->items[1]->getDate()->getTimestamp());
+        $this->assertEquals(1433451900, $feed->items[2]->getDate()->getTimestamp());
 
-        $parser = new Atom(file_get_contents('tests/fixtures/atomsample.xml'));
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_no_default_namespace.xml'));
         $feed = $parser->execute();
-        $this->assertNotEmpty($feed->items);
-        $this->assertEquals(1071340202, $feed->items[0]->getDate()->getTimestamp(), '', 1);
+        $this->assertEquals(1433451720, $feed->items[0]->getDate()->getTimestamp());
+        $this->assertEquals(1433451720, $feed->items[1]->getDate()->getTimestamp());
+        $this->assertEquals(1433451900, $feed->items[2]->getDate()->getTimestamp());
 
-        $parser = new Atom(file_get_contents('tests/fixtures/youtube.xml'));
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_prefixed.xml'));
         $feed = $parser->execute();
-        $this->assertNotEmpty($feed->items);
-        $this->assertEquals(1336825342, $feed->items[1]->getDate()->getTimestamp(), '', 1); // Should return the published date
+        $this->assertEquals(1433451720, $feed->items[0]->getDate()->getTimestamp());
+        $this->assertEquals(1433451720, $feed->items[1]->getDate()->getTimestamp());
+        $this->assertEquals(1433451900, $feed->items[2]->getDate()->getTimestamp());
+
+        // prefer most recent date and not a particular date element
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_element_preference.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals(1433455500, $feed->items[0]->getDate()->getTimestamp());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_empty_item.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals(time(), $feed->getDate()->getTimestamp(), '', 1);
     }
 
     public function testItemLanguage()
     {
+        // items[0] === language tag on Language-Sensitive element (title)
+        // items[1] === language tag on root node
+        // items[2] === fallback to feed language
         $parser = new Atom(file_get_contents('tests/fixtures/atom.xml'));
         $feed = $parser->execute();
-        $this->assertNotEmpty($feed->items);
-        $this->assertEquals('', $feed->items[1]->getLanguage());
+        $this->assertEquals('bg', $feed->items[0]->getLanguage());
+        $this->assertEquals('bg', $feed->items[1]->getLanguage());
+        $this->assertEquals('ru', $feed->items[2]->getLanguage());
 
-        $parser = new Atom(file_get_contents('tests/fixtures/hamakor.xml'), '', 'http://planet.hamakor.org.il');
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_no_default_namespace.xml'));
         $feed = $parser->execute();
-        $this->assertNotEmpty($feed->items);
-        $this->assertEquals('he', $feed->items[0]->getLanguage());
-        $this->assertTrue($feed->items[0]->isRTL());
-        $this->assertEquals('en-US', $feed->items[1]->getLanguage());
-        $this->assertFalse($feed->items[1]->isRTL());
+        $this->assertEquals('bg', $feed->items[0]->getLanguage());
+        $this->assertEquals('bg', $feed->items[1]->getLanguage());
+        $this->assertEquals('ru', $feed->items[2]->getLanguage());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_prefixed.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('bg', $feed->items[0]->getLanguage());
+        $this->assertEquals('bg', $feed->items[1]->getLanguage());
+        $this->assertEquals('ru', $feed->items[2]->getLanguage());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_empty_item.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('', $feed->items[0]->getLanguage());
     }
 
     public function testItemAuthor()
     {
+        // items[0] === item author
+        // items[1] === feed author via empty fallback
         $parser = new Atom(file_get_contents('tests/fixtures/atom.xml'));
         $feed = $parser->execute();
-        $this->assertNotEmpty($feed->items);
-        $this->assertEquals('Emily Wood', $feed->items[1]->getAuthor());
+        $this->assertEquals('Лев  Николаевич Толсто́й', $feed->items[0]->getAuthor());
+        $this->assertEquals('Вики  педии - свободной энциклопедии', $feed->items[1]->getAuthor());
 
-        $parser = new Atom(file_get_contents('tests/fixtures/atomsample.xml'));
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_no_default_namespace.xml'));
         $feed = $parser->execute();
-        $this->assertNotEmpty($feed->items);
-        $this->assertEquals('John Doe', $feed->items[0]->getAuthor());
+        $this->assertEquals('Лев  Николаевич Толсто́й', $feed->items[0]->getAuthor());
+        $this->assertEquals('Вики  педии - свободной энциклопедии', $feed->items[1]->getAuthor());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_prefixed.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('Лев  Николаевич Толсто́й', $feed->items[0]->getAuthor());
+        $this->assertEquals('Вики  педии - свободной энциклопедии', $feed->items[1]->getAuthor());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_empty_item.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('', $feed->items[0]->getAuthor());
     }
 
     public function testItemContent()
     {
+        // items[0] === <summary>
+        // items[1] === <content> CDATA raw html
+        // items[2] === <content> escaped html
+        // items[3] === <content> raw html
+        $parser = new Atom(file_get_contents('tests/fixtures/atom.xml'));
+        $parser->disableContentFiltering();
+        $feed = $parser->execute();
+        $this->assertTrue(strpos($feed->items[0]->getContent(), "В наброске  предисловия к «Войне и миру» Толстой\nписал, что в 1856 г.") === 0);
+        $this->assertTrue(strpos($feed->items[1]->getContent(), "<h1>\nИстория  создания\n</h1>\n<p>\nОсенью \n<a href=\"/wiki/1865_%D0%B3%D0%BE%D0%B4\"") === 0);
+        $this->assertTrue(strpos($feed->items[2]->getContent(), "<h1>\nДоктор Живаго\n</h1>\n<p>\n<b>«До́ктор Жива́го»</b> ") === 0);
+        $this->assertTrue(strpos($feed->items[3]->getContent(), "<h1>\nГерой нашего времени\n</h1><p>\n<b>«Геро́й на́шего вре́мени»</b> \n(написан в 1838—1840) — знаменитый роман \n<a href=\"/wiki/%D0%9B") === 0);
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_no_default_namespace.xml'));
+        $parser->disableContentFiltering();
+        $feed = $parser->execute();
+        $this->assertTrue(strpos($feed->items[0]->getContent(), "В наброске  предисловия к «Войне и миру» Толстой\nписал, что в 1856 г.") === 0);
+        $this->assertTrue(strpos($feed->items[1]->getContent(), "<h1>\nИстория  создания\n</h1>\n<p>\nОсенью \n<a href=\"/wiki/1865_%D0%B3%D0%BE%D0%B4\"") === 0);
+        $this->assertTrue(strpos($feed->items[2]->getContent(), "<h1>\nДоктор Живаго\n</h1>\n<p>\n<b>«До́ктор Жива́го»</b> ") === 0);
+        $this->assertTrue(strpos($feed->items[3]->getContent(), "<h1>\nГерой нашего времени\n</h1><p>\n<b>«Геро́й на́шего вре́мени»</b> \n(написан в 1838—1840) — знаменитый роман \n<a href=\"/wiki/%D0%9B") === 0);
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_prefixed.xml'));
+        $parser->disableContentFiltering();
+        $feed = $parser->execute();
+        $this->assertTrue(strpos($feed->items[0]->getContent(), "В наброске  предисловия к «Войне и миру» Толстой\nписал, что в 1856 г.") === 0);
+        $this->assertTrue(strpos($feed->items[1]->getContent(), "<h1>\nИстория  создания\n</h1>\n<p>\nОсенью \n<a href=\"/wiki/1865_%D0%B3%D0%BE%D0%B4\"") === 0);
+        $this->assertTrue(strpos($feed->items[2]->getContent(), "<h1>\nДоктор Живаго\n</h1>\n<p>\n<b>«До́ктор Жива́го»</b> ") === 0);
+        $this->assertTrue(strpos($feed->items[3]->getContent(), "<h1>\nГерой нашего времени\n</h1><p>\n<b>«Геро́й на́шего вре́мени»</b> \n(написан в 1838—1840) — знаменитый роман \n<a href=\"/wiki/%D0%9B") === 0);
+
+        // <content> is preferred over <summary>
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_element_preference.xml'));
+        $parser->disableContentFiltering();
+        $feed = $parser->execute();
+        $this->assertTrue(strpos($feed->items[1]->getContent(), "<h1>\nИстория  создания\n</h1>\n<p>\nОсенью \n<a href=\"/wiki/1865_%D0%B3%D0%BE%D0%B4\"") === 0);
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_fallback_on_invalid_item_values.xml'));
+        $parser->disableContentFiltering();
+        $feed = $parser->execute();
+        $this->assertTrue(strpos($feed->items[1]->getContent(), "Осенью 1865 года, потеряв  все свои\nденьги в казино") === 0); // <content> => <summary>
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_empty_item.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('', $feed->items[0]->getContent());
+    }
+
+    public function testFindItemEnclosure()
+    {
         $parser = new Atom(file_get_contents('tests/fixtures/atom.xml'));
         $feed = $parser->execute();
-        $this->assertNotEmpty($feed->items);
-        $this->assertTrue(strpos($feed->items[1]->getContent(), '<p>Technology can') === 0);
+        $this->assertEquals('https://upload.wikimedia.org/wikipedia/commons/4/41/War-and-peace_1873.gif', $feed->items[0]->getEnclosureUrl());
+        $this->assertEquals('image/gif', $feed->items[0]->getEnclosureType());
 
-        $parser = new Atom(file_get_contents('tests/fixtures/atomsample.xml'));
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_no_default_namespace.xml'));
         $feed = $parser->execute();
-        $this->assertNotEmpty($feed->items);
-        $this->assertTrue(strpos($feed->items[0]->getContent(), '<p>Some text.') === 0);
+        $this->assertEquals('https://upload.wikimedia.org/wikipedia/commons/4/41/War-and-peace_1873.gif', $feed->items[0]->getEnclosureUrl());
+        $this->assertEquals('image/gif', $feed->items[0]->getEnclosureType());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_prefixed.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('https://upload.wikimedia.org/wikipedia/commons/4/41/War-and-peace_1873.gif', $feed->items[0]->getEnclosureUrl());
+        $this->assertEquals('image/gif', $feed->items[0]->getEnclosureType());
+
+        $parser = new Atom(file_get_contents('tests/fixtures/atom_empty_item.xml'));
+        $feed = $parser->execute();
+        $this->assertEquals('', $feed->items[0]->getEnclosureUrl());
+        $this->assertEquals('', $feed->items[0]->getEnclosureType());
     }
 }

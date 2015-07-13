@@ -121,23 +121,24 @@ class Item
      * @access public
      * @param  string  $tag           Tag name (examples: guid, media:content)
      * @param  string  $attribute     Tag attribute
-     * @return string
+     * @return array|false            Tag values or error
      */
     public function getTag($tag, $attribute = '')
     {
-        // Get namespaced value
-        if (strpos($tag, ':') !== false) {
-            list(,$tag) = explode(':', $tag);
-            return XmlParser::getNamespaceValue($this->xml, $this->namespaces, $tag, $attribute);
+        // convert to xPath attribute query
+        if ($attribute !== '') {
+            $attribute = '/@'.$attribute;
         }
 
-        // Return attribute value
-        if (! empty($attribute)) {
-            return (string) $this->xml->{$tag}[$attribute];
+        // construct query
+        $query = './/'.$tag.$attribute;
+        $elements = XmlParser::getXPathResult($this->xml, $query, $this->namespaces);
+
+        if ($elements === false) { // xPath error
+            return false;
         }
 
-        // Return tag content
-        return (string) $this->xml->$tag;
+        return array_map(function ($element) { return (string) $element;}, $elements);
     }
 
     /**
@@ -198,7 +199,7 @@ class Item
      * Get date
      *
      * @access public
-     * $return integer
+     * $return \DateTime
      */
     public function getDate()
     {

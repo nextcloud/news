@@ -35,7 +35,12 @@ return array(
             'body' => array('//*[@class="body"]'),
             'test_url' => 'http://www.escapistmagazine.com/articles/view/comicsandcosplay/comics/fraughtwithperil/12166-The-Escapist-Presents-Escapist-Comics-Critical-Miss-B-lyeh-Fhlop?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=articles',
             'strip' => array()
-        )
+        ),
+        '%/articles/view/video-games/columns/.*%' => array(
+            'body' => array('//*[@id="article_content"]'),
+            'test_url' => 'http://www.escapistmagazine.com/articles/view/video-games/columns/experienced-points/13971-What-50-Shades-and-Batman-Have-in-Common.2',
+            'strip' => array()
+        ),
     )
 );
 

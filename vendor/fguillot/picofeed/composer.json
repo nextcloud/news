@@ -1,13 +1,12 @@
 {
     "name": "fguillot/picofeed",
-    "description": "Modern library to write or read feeds (RSS/Atom)",
-    "homepage": "http://fguillot.github.io/picoFeed",
+    "description": "Modern library to handle RSS/Atom feeds",
+    "homepage": "https://github.com/fguillot/picoFeed",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
-            "name": "Frédéric Guillot",
-            "homepage": "http://fredericguillot.com"
+            "name": "Frédéric Guillot"
         }
     ],
     "require": {

@@ -266,29 +266,38 @@ $feed->items[0]->isRTL();                      // Return true if the item langua
 
 Get raw XML tags/attributes or non standard tags for items
 ----------------------------------------------------------
+The getTag function returns an array with all values of matching tags. If nothing can be found, an empty array is returned. In case of errors, the return value is false.
 
 Get the original `guid` tag for RSS 2.0 feeds:
 
 ```php
-echo $feed->items[0]->getTag('guid');
+$values = $feed->items[0]->getTag('guid');
+print_r ($values);
 ```
 
 Get a specific attribute value:
 
 ```php
-echo $feed->items[1]->getTag('category', 'term');
+$values = $feed->items[1]->getTag('category', 'term');
+print_r ($values);
 ```
 
 Get value of namespaced tag:
 
 ```php
-echo $feed->items[1]->getTag('wfw:commentRss');
+if (array_key_exists('wfw', $feed->items[0]->namespaces)) {
+    $values = $feed->items[1]->getTag('wfw:commentRss');
+    print_r ($values);
+}
 ```
 
 Get attribute value of a namespaced tag:
 
 ```php
-echo $feed->items[0]->getTag('media:content', 'url');
+if (array_key_exists('media', $feed->items[0]->namespaces)) {
+    $values = $feed->items[0]->getTag('media:content', 'url');
+    print_r ($values);
+}
 ```
 
 Get the xml of the item (returns a SimpleXMLElement instance):

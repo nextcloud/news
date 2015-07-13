@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+         xmlns:admin="http://webns.net/mvcb/"
+         xmlns:cc="http://web.resource.org/cc/"
+         xmlns:content="http://purl.org/rss/1.0/modules/content/"
+         xmlns:atom="http://www.w3.org/2005/Atom"
+         xmlns:feedburner="http://rssnamespace.org/feedburner/ext/1.0"
+         xmlns="http://purl.org/rss/1.0/">
+
+    <channel>
+        <link>/wiki/Category:Russian-language_literature</link>
+    </channel>
+    <item>
+        <link>
+	    	/wiki/War_and_Peace
+        </link>
+    </item>
+    <item>
+        <feedburner:origLink>
+	    	/wiki/Crime_and_Punishment
+        </feedburner:origLink>
+    </item>
+</rdf:RDF>

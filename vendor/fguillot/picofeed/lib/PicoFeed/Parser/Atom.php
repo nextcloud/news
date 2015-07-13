@@ -15,6 +15,13 @@ use PicoFeed\Client\Url;
 class Atom extends Parser
 {
     /**
+     * Supported namespaces
+     */
+    protected $namespaces = array(
+        'atom' => 'http://www.w3.org/2005/Atom',
+    );
+
+    /**
      * Get the path to the items XML tree
      *
      * @access public
@@ -23,7 +30,8 @@ class Atom extends Parser
      */
     public function getItemsTree(SimpleXMLElement $xml)
     {
-        return $xml->entry;
+        return XmlParser::getXPathResult($xml, 'atom:entry', $this->namespaces)
+               ?: XmlParser::getXPathResult($xml, 'entry');
     }
 
     /**
@@ -59,7 +67,10 @@ class Atom extends Parser
      */
     public function findFeedDescription(SimpleXMLElement $xml, Feed $feed)
     {
-        $feed->description = (string) $xml->subtitle;
+        $description = XmlParser::getXPathResult($xml, 'atom:subtitle', $this->namespaces)
+                       ?: XmlParser::getXPathResult($xml, 'subtitle');
+
+        $feed->description = (string) current($description);
     }
 
     /**
@@ -71,7 +82,10 @@ class Atom extends Parser
      */
     public function findFeedLogo(SimpleXMLElement $xml, Feed $feed)
     {
-        $feed->logo = (string) $xml->logo;
+        $logo = XmlParser::getXPathResult($xml, 'atom:logo', $this->namespaces)
+                ?: XmlParser::getXPathResult($xml, 'logo');
+
+        $feed->logo = (string) current($logo);
     }
 
     /**
@@ -83,7 +97,10 @@ class Atom extends Parser
      */
     public function findFeedIcon(SimpleXMLElement $xml, Feed $feed)
     {
-        $feed->icon = (string) $xml->icon;
+        $icon = XmlParser::getXPathResult($xml, 'atom:icon', $this->namespaces)
+                ?: XmlParser::getXPathResult($xml, 'icon');
+
+        $feed->icon = (string) current($icon);
     }
 
     /**
@@ -95,7 +112,10 @@ class Atom extends Parser
      */
     public function findFeedTitle(SimpleXMLElement $xml, Feed $feed)
     {
-        $feed->title = Filter::stripWhiteSpace((string) $xml->title) ?: $feed->getSiteUrl();
+        $title = XmlParser::getXPathResult($xml, 'atom:title', $this->namespaces)
+                ?: XmlParser::getXPathResult($xml, 'title');
+
+        $feed->title = Filter::stripWhiteSpace((string) current($title)) ?: $feed->getSiteUrl();
     }
 
     /**
@@ -107,7 +127,10 @@ class Atom extends Parser
      */
     public function findFeedLanguage(SimpleXMLElement $xml, Feed $feed)
     {
-        $feed->language = XmlParser::getXmlLang($this->content);
+        $language = XmlParser::getXPathResult($xml, '*[not(self::atom:entry)]/@xml:lang', $this->namespaces)
+                    ?: XmlParser::getXPathResult($xml, '@xml:lang');
+
+        $feed->language = (string) current($language);
     }
 
     /**
@@ -119,7 +142,10 @@ class Atom extends Parser
      */
     public function findFeedId(SimpleXMLElement $xml, Feed $feed)
     {
-        $feed->id = (string) $xml->id;
+        $id = XmlParser::getXPathResult($xml, 'atom:id', $this->namespaces)
+              ?: XmlParser::getXPathResult($xml, 'id');
+
+        $feed->id = (string) current($id);
     }
 
     /**
@@ -131,7 +157,10 @@ class Atom extends Parser
      */
     public function findFeedDate(SimpleXMLElement $xml, Feed $feed)
     {
-        $feed->date = $this->date->getDateTime((string) $xml->updated);
+        $updated = XmlParser::getXPathResult($xml, 'atom:updated', $this->namespaces)
+                   ?: XmlParser::getXPathResult($xml, 'updated');
+
+        $feed->date = $this->date->getDateTime((string) current($updated));
     }
 
     /**
@@ -144,11 +173,17 @@ class Atom extends Parser
      */
     public function findItemDate(SimpleXMLElement $entry, Item $item, Feed $feed)
     {
-        $published = isset($entry->published) ? $this->date->getDateTime((string) $entry->published) : null;
-        $updated = isset($entry->updated) ? $this->date->getDateTime((string) $entry->updated) : null;
+        $published = XmlParser::getXPathResult($entry, 'atom:published', $this->namespaces)
+                     ?: XmlParser::getXPathResult($entry, 'published');
+
+        $updated = XmlParser::getXPathResult($entry, 'atom:updated', $this->namespaces)
+                   ?: XmlParser::getXPathResult($entry, 'updated');
+
+        $published = ! empty($published) ? $this->date->getDateTime((string) current($published)) : null;
+        $updated = ! empty($updated) ? $this->date->getDateTime((string) current($updated)) : null;
 
         if ($published === null && $updated === null) {
-            $item->date = $feed->getDate();          // We use the feed date if there is no date for the item
+            $item->date = $feed->getDate(); // We use the feed date if there is no date for the item
         }
         else if ($published !== null && $updated !== null) {
             $item->date = max($published, $updated); // We use the most recent date between published and updated
@@ -167,11 +202,10 @@ class Atom extends Parser
      */
     public function findItemTitle(SimpleXMLElement $entry, Item $item)
     {
-        $item->title = Filter::stripWhiteSpace((string) $entry->title);
+        $title = XmlParser::getXPathResult($entry, 'atom:title', $this->namespaces)
+                 ?: XmlParser::getXPathResult($entry, 'title');
 
-        if (empty($item->title)) {
-            $item->title = $item->url;
-        }
+        $item->title = Filter::stripWhiteSpace((string) current($title)) ?: $item->url;
     }
 
     /**
@@ -184,12 +218,12 @@ class Atom extends Parser
      */
     public function findItemAuthor(SimpleXMLElement $xml, SimpleXMLElement $entry, Item $item)
     {
-        if (isset($entry->author->name)) {
-            $item->author = (string) $entry->author->name;
-        }
-        else {
-            $item->author = (string) $xml->author->name;
-        }
+        $author = XmlParser::getXPathResult($entry, 'atom:author/atom:name', $this->namespaces)
+                  ?: XmlParser::getXPathResult($entry, 'author/name')
+                  ?: XmlParser::getXPathResult($xml, 'atom:author/atom:name', $this->namespaces)
+                  ?: XmlParser::getXPathResult($xml, 'author/name');
+
+        $item->author = (string) current($author);
     }
 
     /**
@@ -226,10 +260,11 @@ class Atom extends Parser
      */
     public function findItemId(SimpleXMLElement $entry, Item $item, Feed $feed)
     {
-        $id = (string) $entry->id;
+        $id = XmlParser::getXPathResult($entry, 'atom:id', $this->namespaces)
+                  ?: XmlParser::getXPathResult($entry, 'id');
 
-        if ($id) {
-            $item->id = $this->generateId($id);
+        if (! empty($id)) {
+            $item->id = $this->generateId((string) current($id));
         }
         else {
             $item->id = $this->generateId(
@@ -266,13 +301,9 @@ class Atom extends Parser
      */
     public function findItemLanguage(SimpleXMLElement $entry, Item $item, Feed $feed)
     {
-        $language = (string) $entry->attributes('xml', true)->{'lang'};
+        $language = XmlParser::getXPathResult($entry, './/@xml:lang');
 
-        if ($language === '') {
-            $language = $feed->language;
-        }
-
-        $item->language = $language;
+        $item->language = (string) current($language) ?: $feed->language;
     }
 
     /**
@@ -309,7 +340,10 @@ class Atom extends Parser
      */
     private function findLink(SimpleXMLElement $xml, $rel)
     {
-        foreach ($xml->link as $link) {
+        $links = XmlParser::getXPathResult($xml, 'atom:link', $this->namespaces)
+                ?: XmlParser::getXPathResult($xml, 'link');
+
+        foreach ($links as $link) {
             if ($rel === (string) $link['rel']) {
                 return $link;
             }
@@ -327,19 +361,27 @@ class Atom extends Parser
      */
     private function getContent(SimpleXMLElement $entry)
     {
-        if (isset($entry->content) && ! empty($entry->content)) {
+        $content = current(
+            XmlParser::getXPathResult($entry, 'atom:content', $this->namespaces)
+            ?: XmlParser::getXPathResult($entry, 'content')
+        );
 
-            if (count($entry->content->children())) {
-                return (string) $entry->content->asXML();
+        if (! empty($content) && count($content->children())) {
+            $xml_string = '';
+
+            foreach($content->children() as $child) {
+                $xml_string .= $child->asXML();
             }
-            else {
-                return (string) $entry->content;
-            }
+
+            return $xml_string;
         }
-        else if (isset($entry->summary) && ! empty($entry->summary)) {
-            return (string) $entry->summary;
+        else if (trim((string) $content) !== '') {
+            return (string) $content;
         }
 
-        return '';
+        $summary = XmlParser::getXPathResult($entry, 'atom:summary', $this->namespaces)
+                   ?: XmlParser::getXPathResult($entry, 'summary');
+
+        return (string) current($summary);
     }
 }

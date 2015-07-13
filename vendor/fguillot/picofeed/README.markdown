@@ -38,7 +38,7 @@ Requirements
 Authors
 -------
 
-- Original author: [Frédéric Guillot](http://fredericguillot.com/)
+- Original author: Frédéric Guillot
 - Major Contributors:
     - [Bernhard Posselt](https://github.com/Raydiation)
     - [David Pennington](https://github.com/Xeoncross)

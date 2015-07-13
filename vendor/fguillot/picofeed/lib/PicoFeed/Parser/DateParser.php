@@ -88,7 +88,7 @@ class DateParser
      * @access public
      * @param  string  $format   Date format
      * @param  string  $value    Original date value
-     * @return DateTime
+     * @return DateTime|boolean
      */
     public function getValidDate($format, $value)
     {

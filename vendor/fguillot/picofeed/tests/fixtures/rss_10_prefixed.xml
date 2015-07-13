@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+         xmlns:admin="http://webns.net/mvcb/"
+         xmlns:cc="http://web.resource.org/cc/"
+         xmlns:content="http://purl.org/rss/1.0/modules/content/"
+         xmlns:atom="http://www.w3.org/2005/Atom"
+         xmlns:feedburner="http://rssnamespace.org/feedburner/ext/1.0"
+         xmlns:rss="http://purl.org/rss/1.0/">
+
+    <rss:channel>
+        <rss:title>
+	    	литература на   русском языке, 
+либо написанная русскими авторами
+        </rss:title>
+        <rss:description>Зародилась во второй половине   X века, однако до XIX века,
+когда начался её «золотой век», была практически неизвестна
+в мире.</rss:description>
+        <rss:link>https://en.wikipedia.org/wiki/Category:Russian-language_literature</rss:link>
+        <dc:date>2015-06-05T00:05:00+03:00</dc:date>
+        <dc:language>ru</dc:language>
+    </rss:channel>
+    <rss:image>
+        <rss:title>Википедия — свободная энциклопедия</rss:title>
+        <rss:link>https://ru.wikipedia.org</rss:link>
+        <rss:url>https://ru.wikipedia.org/static/images/project-logos/ruwiki.png</rss:url>
+    </rss:image>
+    <rss:item>
+        <rss:title>
+	    	Война  и
+мир
+        </rss:title>
+        <rss:link>
+	    	https://en.wikipedia.org/wiki/War_and_Peace
+        </rss:link>
+        <rss:description>В наброске  предисловия к «Войне и миру» Толстой
+писал, что в 1856 г. начал писать повесть, «герой
+которой должен был быть декабрист, возвращающийся
+с семейством в Россию.</rss:description>
+    </rss:item>
+</rdf:RDF>

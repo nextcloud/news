@@ -176,4 +176,22 @@ XML;
         $this->assertTrue($result instanceof DOMDocument);
         $this->assertTrue($result->validate());
     }
+
+    public function testReplaceXPathPrefixWithNamespaceURI()
+    {
+        $ns = array('lorem' => 'https://en.wikipedia.org/wiki/Lorem');
+        $query = '//lorem:title';
+        $expected = '//*[namespace-uri()="https://en.wikipedia.org/wiki/Lorem" and local-name()="title"]';
+        $this->assertEquals($expected, XmlParser::replaceXPathPrefixWithNamespaceURI($query, $ns));
+
+        $ns = array('lorem' => 'https://en.wikipedia.org/wiki/Lorem', 'ipsum' => 'https://en.wikipedia.org/wiki/Ipsum');
+        $query = '//lorem:title/ipsum:name';
+        $expected = '//*[namespace-uri()="https://en.wikipedia.org/wiki/Lorem" and local-name()="title"]/*[namespace-uri()="https://en.wikipedia.org/wiki/Ipsum" and local-name()="name"]';
+        $this->assertEquals($expected, XmlParser::replaceXPathPrefixWithNamespaceURI($query, $ns));
+
+        $ns = array('lorem' => 'https://en.wikipedia.org/wiki/Lorem', 'ipsum' => 'https://en.wikipedia.org/wiki/Ipsum');
+        $query = '//lorem:title/ipsum:name/@xml:lang';
+        $expected = '//*[namespace-uri()="https://en.wikipedia.org/wiki/Lorem" and local-name()="title"]/*[namespace-uri()="https://en.wikipedia.org/wiki/Ipsum" and local-name()="name"]/@xml:lang';
+        $this->assertEquals($expected, XmlParser::replaceXPathPrefixWithNamespaceURI($query, $ns));
+    }
 }

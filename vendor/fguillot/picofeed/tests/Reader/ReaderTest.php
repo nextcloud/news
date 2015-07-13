@@ -18,7 +18,7 @@ class ReaderTest extends PHPUnit_Framework_TestCase
     /**
      * @group online
      */
-    public function testDownload_withHTTP()
+    public function testDownloadHTTP()
     {
         $reader = new Reader;
         $feed = $reader->download('http://wordpress.org/news/feed/')->getContent();
@@ -28,7 +28,7 @@ class ReaderTest extends PHPUnit_Framework_TestCase
     /**
      * @group online
      */
-    public function testDownload_withHTTPS()
+    public function testDownloadHTTPS()
     {
         $reader = new Reader;
         $feed = $reader->download('https://wordpress.org/news/feed/')->getContent();
@@ -38,7 +38,7 @@ class ReaderTest extends PHPUnit_Framework_TestCase
     /**
      * @group online
      */
-    public function testDownload_withCache()
+    public function testDownloadCache()
     {
         $reader = new Reader;
         $resource = $reader->download('http://linuxfr.org/robots.txt');
@@ -84,9 +84,6 @@ class ReaderTest extends PHPUnit_Framework_TestCase
         $reader = new Reader;
         $this->assertEquals('Rss20', $reader->detectFormat(file_get_contents('tests/fixtures/ezrss.it')));
 
-        $reader = new Reader;
-        $this->assertEquals('Rss20', $reader->detectFormat(file_get_contents('tests/fixtures/grotte_barbu.xml')));
-
         $content = '<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" media="screen" href="/~d/styles/rss2titles.xsl"?><?xml-stylesheet type="text/css" media="screen" href="http://feeds.feedburner.com/~d/styles/itemtitles.css"?><rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:media="http://search.yahoo.com/mrss/" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:feedburner="http://rssnamespace.org/feedburner/ext/1.0" version="2.0">';
 
@@ -94,7 +91,7 @@ class ReaderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Rss20', $reader->detectFormat($content));
     }
 
-    public function testFind_rssFeed()
+    public function testFindRssFeed()
     {
         $reader = new Reader;
 
@@ -106,7 +103,7 @@ class ReaderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('http://miniflux.net/feed'), $feeds);
     }
 
-    public function testFind_atomFeed()
+    public function testFindAtomFeed()
     {
         $reader = new Reader;
 
@@ -118,7 +115,7 @@ class ReaderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('http://miniflux.net/feed'), $feeds);
     }
 
-    public function testFind_feedNotInHead()
+    public function testFindFeedNotInHead()
     {
         $reader = new Reader;
 
@@ -131,7 +128,7 @@ class ReaderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('http://miniflux.net/feed'), $feeds);
     }
 
-    public function testFind_noFeedPresent()
+    public function testFindNoFeedPresent()
     {
         $reader = new Reader;
 
@@ -142,7 +139,7 @@ class ReaderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array(), $feeds);
     }
 
-    public function testFind_ignoreUnknownType()
+    public function testFindIgnoreUnknownType()
     {
         $reader = new Reader;
 
@@ -154,7 +151,7 @@ class ReaderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array(), $feeds);
     }
 
-    public function testFind_ignoreTypeInOtherAttribute()
+    public function testFindIgnoreTypeInOtherAttribute()
     {
         $reader = new Reader;
 
@@ -166,7 +163,7 @@ class ReaderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array(), $feeds);
     }
 
-    public function testFind_withOtherAttributesPresent()
+    public function testFindWithOtherAttributesPresent()
     {
         $reader = new Reader;
 
@@ -178,7 +175,7 @@ class ReaderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('http://miniflux.net/feed'), $feeds);
     }
 
-    public function testFind_multipleFeeds()
+    public function testFindMultipleFeeds()
     {
         $reader = new Reader;
 
@@ -199,7 +196,7 @@ class ReaderTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testFind_withInvalidHTML()
+    public function testFindWithInvalidHTML()
     {
         $reader = new Reader;
 
@@ -211,7 +208,7 @@ class ReaderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array(), $feeds);
     }
 
-    public function testFind_withHtmlParamEmptyString()
+    public function testFindWithHtmlParamEmptyString()
     {
         $reader = new Reader;
 
@@ -231,7 +228,7 @@ class ReaderTest extends PHPUnit_Framework_TestCase
 
         $reader = new Reader;
         $client = $reader->discover('http://planete-jquery.fr');
-        $this->assertInstanceOf('PicoFeed\Parser\Rss20', $reader->getParser($client->getUrl(), $client->getContent(), $client->getEncoding()));
+        $this->assertInstanceOf('PicoFeed\Parser\Rss10', $reader->getParser($client->getUrl(), $client->getContent(), $client->getEncoding()));
 
         $reader = new Reader;
         $client = $reader->discover('http://cabinporn.com/');
@@ -244,15 +241,29 @@ class ReaderTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('PicoFeed\Parser\Atom', $reader->getParser($client->getUrl(), $client->getContent(), $client->getEncoding()));
     }
 
+    public function testGetParserUsesHTTPEncoding()
+    {
+        $reader = new Reader;
+        $parser = $reader->getParser('http://blah', file_get_contents('tests/fixtures/cercle.psy.xml'), 'iso-8859-1');
+        $feed = $parser->execute();
+        $this->assertInstanceOf('PicoFeed\Parser\Rss20', $parser);
+        $this->assertNotEmpty($feed->items);
+
+    }
+
+    public function testGetParserUsesSiteURL()
+    {
+        $reader = new Reader;
+        $parser = $reader->getParser('http://groovehq.com/', file_get_contents('tests/fixtures/groovehq.xml'), '');
+        $feed = $parser->execute();
+        $this->assertEquals('http://groovehq.com/articles.xml', $feed->getFeedUrl());
+    }
+
     public function testFeedsReportedAsNotWorking()
     {
         $reader = new Reader;
-        $this->assertInstanceOf('PicoFeed\Parser\Rss20', $reader->getParser('http://blah', file_get_contents('tests/fixtures/cercle.psy.xml'), 'utf-8'));
-
-        $reader = new Reader;
-        $this->assertInstanceOf('PicoFeed\Parser\Rss20', $reader->getParser('http://blah', file_get_contents('tests/fixtures/ezrss.it'), 'utf-8'));
-
-        $reader = new Reader;
-        $this->assertInstanceOf('PicoFeed\Parser\Rss20', $reader->getParser('http://blah', file_get_contents('tests/fixtures/grotte_barbu.xml'), 'utf-8'));
+        $parser = $reader->getParser('http://blah', file_get_contents('tests/fixtures/ezrss.it'), '');
+        $feed = $parser->execute();
+        $this->assertNotEmpty($feed->items);
     }
 }

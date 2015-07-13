@@ -62,7 +62,7 @@ class Stream extends Client
     {
         foreach($headers as $header) {
             if (stripos($header, 'Location') === 0) {
-                list($name, $value) = explode(': ', $header);
+                list(, $value) = explode(': ', $header);
 
                 $this->url = Url::resolve($value, $this->url);
             }

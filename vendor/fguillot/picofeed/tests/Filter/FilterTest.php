@@ -37,9 +37,6 @@ class FilterTest extends PHPUnit_Framework_TestCase
         $data = file_get_contents('tests/fixtures/sametmax.xml');
         $this->assertEquals('<rss', substr(Filter::stripXmlTag($data), 0, 4));
 
-        $data = file_get_contents('tests/fixtures/grotte_barbu.xml');
-        $this->assertEquals('<rss', substr(Filter::stripXmlTag($data), 0, 4));
-
         $data = file_get_contents('tests/fixtures/ibash.ru.xml');
         $this->assertEquals('<rss', substr(Filter::stripXmlTag($data), 0, 4));
 
@@ -58,7 +55,7 @@ class FilterTest extends PHPUnit_Framework_TestCase
         $data = file_get_contents('tests/fixtures/lagrange.xml');
         $this->assertEquals('<feed', substr(Filter::stripXmlTag($data), 0, 5));
 
-        $data = file_get_contents('tests/fixtures/atom.xml');
+        $data = file_get_contents('tests/fixtures/googleblog.xml');
         $this->assertEquals('<feed', substr(trim(Filter::stripXmlTag($data)), 0, 5));
 
         $data = file_get_contents('tests/fixtures/atomsample.xml');
@@ -91,133 +88,35 @@ class FilterTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('<p>Testboo</p>', $f->execute());
     }
 
-    public function testNoImageProxySet()
+    public function testNormalizeData()
     {
-        $f = Filter::html('<p>Image <img src="/image.png" alt="My Image"/></p>', 'http://foo');
+        // invalid data link escape control character
+        $this->assertEquals('<xml>random text</xml>', Filter::normalizeData("<xml>random\x10 text</xml>"));
+        $this->assertEquals('<xml>random text</xml>', Filter::normalizeData("<xml>random&#x10; text</xml>"));
+        $this->assertEquals('<xml>random text</xml>', Filter::normalizeData("<xml>random&#16; text</xml>"));
 
-        $this->assertEquals(
-            '<p>Image <img src="http://foo/image.png" alt="My Image"/></p>',
-            $f->execute()
-        );
-    }
+        // invalid unit seperator control character (lower and upper case)
+        $this->assertEquals('<xml>random text</xml>', Filter::normalizeData("<xml>random\x1f text</xml>"));
+        $this->assertEquals('<xml>random text</xml>', Filter::normalizeData("<xml>random\x1F text</xml>"));
+        $this->assertEquals('<xml>random text</xml>', Filter::normalizeData("<xml>random&#x1f; text</xml>"));
+        $this->assertEquals('<xml>random text</xml>', Filter::normalizeData("<xml>random&#x1F; text</xml>"));
+        $this->assertEquals('<xml>random text</xml>', Filter::normalizeData("<xml>random&#31; text</xml>"));
 
-    public function testImageProxyWithHTTPLink()
-    {
-        $config = new Config;
-        $config->setFilterImageProxyUrl('http://myproxy/?url=%s');
+        /*
+         * Do not test invalid multibyte characters. The output depends on php
+         * version and character.
+         *
+         * php 5.3: always null
+         * php >5.3: sometime null, sometimes the stripped string
+         */
 
-        $f = Filter::html('<p>Image <img src="http://localhost/image.png" alt="My Image"/></p>', 'http://foo');
-        $f->setConfig($config);
+        // invalid backspace control character + valid multibyte character
+        $this->assertEquals('<xml>“random“ text</xml>', Filter::normalizeData("<xml>\xe2\x80\x9crandom\xe2\x80\x9c\x08 text</xml>"));
+        $this->assertEquals('<xml>&#x201C;random&#x201C; text</xml>', Filter::normalizeData("<xml>&#x201C;random&#x201C;&#x08; text</xml>"));
+        $this->assertEquals('<xml>&#8220;random&#8220; text</xml>', Filter::normalizeData("<xml>&#8220;random&#8220;&#08; text</xml>"));
 
-        $this->assertEquals(
-            '<p>Image <img src="http://myproxy/?url='.rawurlencode('http://localhost/image.png').'" alt="My Image"/></p>',
-            $f->execute()
-        );
-    }
-
-    public function testImageProxyWithHTTPSLink()
-    {
-        $config = new Config;
-        $config->setFilterImageProxyUrl('http://myproxy/?url=%s');
-
-        $f = Filter::html('<p>Image <img src="https://localhost/image.png" alt="My Image"/></p>', 'http://foo');
-        $f->setConfig($config);
-
-        $this->assertEquals(
-            '<p>Image <img src="http://myproxy/?url='.rawurlencode('https://localhost/image.png').'" alt="My Image"/></p>',
-            $f->execute()
-        );
-    }
-
-    public function testImageProxyLimitedToUnknownProtocol()
-    {
-        $config = new Config;
-        $config->setFilterImageProxyUrl('http://myproxy/?url=%s');
-        $config->setFilterImageProxyProtocol('tripleX');
-
-        $f = Filter::html('<p>Image <img src="http://localhost/image.png" alt="My Image"/></p>', 'http://foo');
-        $f->setConfig($config);
-
-        $this->assertEquals(
-            '<p>Image <img src="http://localhost/image.png" alt="My Image"/></p>',
-            $f->execute()
-        );
-    }
-
-    public function testImageProxyLimitedToHTTPwithHTTPLink()
-    {
-        $config = new Config;
-        $config->setFilterImageProxyUrl('http://myproxy/?url=%s');
-        $config->setFilterImageProxyProtocol('http');
-
-        $f = Filter::html('<p>Image <img src="http://localhost/image.png" alt="My Image"/></p>', 'http://foo');
-        $f->setConfig($config);
-
-        $this->assertEquals(
-            '<p>Image <img src="http://myproxy/?url='.rawurlencode('http://localhost/image.png').'" alt="My Image"/></p>',
-            $f->execute()
-        );
-    }
-
-    public function testImageProxyLimitedToHTTPwithHTTPSLink()
-    {
-        $config = new Config;
-        $config->setFilterImageProxyUrl('http://myproxy/?url=%s');
-        $config->setFilterImageProxyProtocol('http');
-
-        $f = Filter::html('<p>Image <img src="https://localhost/image.png" alt="My Image"/></p>', 'http://foo');
-        $f->setConfig($config);
-
-        $this->assertEquals(
-            '<p>Image <img src="https://localhost/image.png" alt="My Image"/></p>',
-            $f->execute()
-        );
-    }
-
-    public function testImageProxyLimitedToHTTPSwithHTTPLink()
-    {
-        $config = new Config;
-        $config->setFilterImageProxyUrl('http://myproxy/?url=%s');
-        $config->setFilterImageProxyProtocol('https');
-
-        $f = Filter::html('<p>Image <img src="http://localhost/image.png" alt="My Image"/></p>', 'http://foo');
-        $f->setConfig($config);
-
-        $this->assertEquals(
-            '<p>Image <img src="http://localhost/image.png" alt="My Image"/></p>',
-            $f->execute()
-        );
-    }
-
-    public function testImageProxyLimitedToHTTPSwithHTTPSLink()
-    {
-        $config = new Config;
-        $config->setFilterImageProxyUrl('http://myproxy/?url=%s');
-        $config->setFilterImageProxyProtocol('https');
-
-        $f = Filter::html('<p>Image <img src="https://localhost/image.png" alt="My Image"/></p>', 'http://foo');
-        $f->setConfig($config);
-
-        $this->assertEquals(
-            '<p>Image <img src="http://myproxy/?url='.rawurlencode('https://localhost/image.png').'" alt="My Image"/></p>',
-            $f->execute()
-        );
-    }
-
-    public function testsetFilterImageProxyCallback()
-    {
-        $config = new Config;
-        $config->setFilterImageProxyCallback(function ($image_url) {
-            $key = hash_hmac('sha1', $image_url, 'secret');
-            return 'https://mypublicproxy/'.$key.'/'.rawurlencode($image_url);
-        });
-
-        $f = Filter::html('<p>Image <img src="/image.png" alt="My Image"/></p>', 'http://foo');
-        $f->setConfig($config);
-
-        $this->assertEquals(
-            '<p>Image <img src="https://mypublicproxy/4924964043f3119b3cf2b07b1922d491bcc20092/'.rawurlencode('http://foo/image.png').'" alt="My Image"/></p>',
-            $f->execute()
-        );
+        // do not convert valid entities to utf-8 character
+        $this->assertEquals('<xml attribute="&#34;value&#34;">random text</xml>', Filter::normalizeData('<xml attribute="&#34;value&#34;">random text</xml>'));
+        $this->assertEquals('<xml attribute="&#x22;value&#x22;">random text</xml>', Filter::normalizeData('<xml attribute="&#x22;value&#x22;">random text</xml>'));
     }
 }

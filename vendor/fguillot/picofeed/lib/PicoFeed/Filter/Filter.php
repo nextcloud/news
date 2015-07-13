@@ -107,7 +107,7 @@ class Filter
     }
 
     /**
-     * Dirty quickfixes before XML parsing
+     * Fixes before XML parsing
      *
      * @static
      * @access public
@@ -116,17 +116,37 @@ class Filter
      */
     public static function normalizeData($data)
     {
-        $invalid_chars = array(
-            "\x10",
-            "\xc3\x20",
-            "&#x1F;",
-            "\xe2\x80\x9c\x08",
+        $entities = array(
+            '/(&#)(\d+);/m', // decimal encoded
+            '/(&#x)([a-f0-9]+);/mi', // hex encoded
         );
 
-        foreach ($invalid_chars as $needle) {
-            $data = str_replace($needle, '', $data);
-        }
+        // strip invalid XML 1.0 characters which are encoded as entities
+        $data = preg_replace_callback($entities, function($matches) {
+            $code_point = $matches[2];
 
-        return $data;
+            // convert hex entity to decimal
+            if (strtolower($matches[1]) === '&#x') {
+                $code_point = hexdec($code_point);
+            }
+
+            $code_point = (int) $code_point;
+
+            // replace invalid characters
+            if ($code_point < 9
+                || ($code_point > 10 && $code_point < 13)
+                || ($code_point > 13 && $code_point < 32)
+                || ($code_point > 55295 && $code_point < 57344)
+                || ($code_point > 65533 && $code_point < 65536)
+                || $code_point > 1114111
+            ) {
+                return '';
+            };
+
+            return $matches[0];
+        }, $data);
+
+        // strip every utf-8 character than isn't in the range of valid XML 1.0 characters
+        return (string) preg_replace('/[^\x{0009}\x{000A}\x{000D}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}\x{10000}-\x{10FFFF}]/u', '', $data);
     }
 }

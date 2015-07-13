@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/"
+    xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+    xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+    xmlns:feedburner="http://rssnamespace.org/feedburner/ext/1.0">
+
+    <channel>
+        <title>
+	    	литература на   русском языке, 
+либо написанная русскими авторами
+        </title>
+        <description>Зародилась во второй половине   X века, однако до XIX века,
+когда начался её «золотой век», была практически неизвестна
+в мире.</description>
+        <image>
+            <url>https://ru.wikipedia.org/static/images/project-logos/ruwiki.png</url>
+            <title>Википедия — свободная энциклопедия</title>
+            <link>https://ru.wikipedia.org</link>
+        </image>
+        <link>https://en.wikipedia.org/wiki/Category:Russian-language_literature</link>
+        <pubDate>Fri, 05 Jun 2015 00:05:00 +0300</pubDate>
+        <language>ru</language>
+        <managingEditor>Вики  педии - свободной энциклопедии</managingEditor>
+        <item>
+            <link>
+	        	https://en.wikipedia.org/wiki/War_and_Peace
+            </link>
+            <dc:language>bg</dc:language>
+            <title>
+	        	Война  и
+мир
+            </title>
+            <pubDate>Fri, 05 Jun 2015 00:02:00 +0300</pubDate>
+            <author>Лев  Николаевич Толсто́й</author>
+            <description>В наброске  предисловия к «Войне и миру» Толстой
+писал, что в 1856 г. начал писать повесть, «герой
+которой должен был быть декабрист, возвращающийся
+с семейством в Россию.</description>
+            <enclosure url="https://upload.wikimedia.org/wikipedia/commons/4/41/War-and-peace_1873.gif" type="image/gif" length="10889"/>
+        </item>
+        <item>
+            <guid>https://guid.wikipedia.org/wiki/Crime_and_Punishment</guid>
+            <atom:link type="text/html" rel="https://wikipedia.org/deep-link" href="
+	        	https://en.wikipedia.org/wiki/Crime_and_Punishment
+	    	"/>
+            <content:encoded><![CDATA[<h1>
+История  создания
+</h1>
+<p>
+Осенью 
+<a href="/wiki/1865_%D0%B3%D0%BE%D0%B4" title="1865 год">
+1865
+года
+</a>
+, потеряв все свои деньги в 
+<a href="/wiki/%D0%9A%D0%B0%D0%B7%D0%B8%D0%BD%D0%BE" title="Казино">
+казино
+</a>
+, не в состоянии оплатить долги кредиторам, и стараясь помочь семье своего брата Михаила, который умер в июле 
+<a href="/wiki/1864_%D0%B3%D0%BE%D0%B4" title="1864 год">
+1864 года
+</a>
+, Достоевский планирует создание романа с центральным образом семьи Мармеладовых под названием «Пьяненькая».
+</p>]]></content:encoded>
+            <enclosure url="https://www.github.com/picofeed/link/atomenclosure.png" type="image/png" length="10889"/>
+            <feedburner:origEnclosureLink>https://upload.wikimedia.org/wikipedia/commons/7/7b/Crime_and_Punishment-1.png</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <feedburner:origLink>
+	        	https://en.wikipedia.org/wiki/Doctor_Zhivago_(novel)
+            </feedburner:origLink>
+        </item>
+        <item>
+            <guid>https://guid.wikipedia.org/wiki/A_Hero_of_Our_Time</guid>
+        </item>
+    </channel>
+</rss>

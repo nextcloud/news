@@ -236,56 +236,38 @@ class XmlParser
     }
 
     /**
-     * Get xml:lang value
+     * Rewrite XPath query to use namespace-uri and local-name derived from prefix
      *
-     * @static
-     * @access public
-     * @param  string  $xml  XML string
-     * @return string        Language
+     * @param string               $query                   XPath query
+     * @param array                $ns                      Prefix to namespace URI mapping
+     * @return string
      */
-    public static function getXmlLang($xml)
-    {
-        $dom = self::getDomDocument($xml);
+    public static function replaceXPathPrefixWithNamespaceURI($query, array $ns) {
+        return preg_replace_callback('/([A-Z0-9]+):([A-Z0-9]+)/iu', function($matches) use($ns) {
+            // don't try to map the special prefix XML
+            if (strtolower($matches[1]) === 'xml') {
+                return $matches[0];
+            }
 
-        if ($dom === false) {
-            return '';
-        }
-
-        $xpath = new DOMXPath($dom);
-        return $xpath->evaluate('string(//@xml:lang[1])') ?: '';
+            return '*[namespace-uri()="'.$ns[$matches[1]].'" and local-name()="'.$matches[2].'"]';
+        },
+        $query);
     }
 
     /**
-     * Get a value from a XML namespace
+     * Get the result elements of a XPath query
      *
-     * @static
-     * @access public
-     * @param  \SimpleXMLElement    $xml           XML element
-     * @param  array                $namespaces    XML namespaces
-     * @param  string               $property      XML tag name
-     * @param  string               $attribute     XML attribute name
-     * @return string
+     * @param \SimpleXMLElement    $xml                     XML element
+     * @param string               $query                   XPath query
+     * @param array                $ns                      Prefix to namespace URI mapping
+     * @return \SimpleXMLElement
      */
-    public static function getNamespaceValue(SimpleXMLElement $xml, array $namespaces, $property, $attribute = '')
+    public static function getXPathResult(SimpleXMLElement $xml, $query, array $ns = array())
     {
-        foreach ($namespaces as $name => $url) {
-            $namespace = $xml->children($namespaces[$name]);
-
-            if (isset($namespace->$property) && $namespace->$property->count() > 0) {
-
-                if ($attribute) {
-
-                    foreach ($namespace->$property->attributes() as $xml_attribute => $xml_value) {
-                        if ($xml_attribute === $attribute && $xml_value) {
-                            return (string) $xml_value;
-                        }
-                    }
-                }
-
-                return (string) $namespace->$property;
-            }
+        if (! empty($ns)) {
+            $query = static::replaceXPathPrefixWithNamespaceURI($query, $ns);
         }
 
-        return '';
+        return $xml->xpath($query);
     }
 }
