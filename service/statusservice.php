@@ -43,7 +43,7 @@ class StatusService {
         $cronOn = $this->config->getUseCronUpdates();
 
         // check for cron modes which may lead to problems
-        if ($cronMode !== 'cron' && $cronMode !== 'webcron' && $cronOn) {
+        if ($cronMode !== 'cron' && $cronOn) {
             $improperlyConfiguredCron = true;
         }
 

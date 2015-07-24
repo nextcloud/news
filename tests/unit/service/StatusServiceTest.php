@@ -37,7 +37,7 @@ class StatusServiceTest extends \PHPUnit_Framework_TestCase {
             $this->appName);
     }
 
-    private function beforeStatus($cronMode='webcron', $cronEnabled=true,
+    private function beforeStatus($cronMode='cron', $cronEnabled=true,
                                   $version='1.0') {
         $this->settings->expects($this->at(0))
             ->method('getAppValue')
