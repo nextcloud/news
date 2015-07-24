@@ -1,3 +1,6 @@
+owncloud-news (5.3.9)
+* **Bugfix**: Also warn when webcron is enabled since it is possible that the update will time out or only work sporadically, #828
+
 owncloud-news (5.3.8)
 * **Bugfix**: Make the searchbox reappear in 8.1
 
