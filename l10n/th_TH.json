@@ -33,7 +33,6 @@
     "Saved" : "บันทึกแล้ว",
     "Download" : "ดาวน์โหลด",
     "Close" : "ปิด",
-    "Ajax cron mode detected! Your feeds will not be updated correctly. It is recommended to either use the operating system cron or a custom updater." : "ตรวจพบ Ajax cron mode! ฟีดของคุณจะไม่ได้รับการอัพเดทอย่างถูกต้อง แนะนำให้ใช้ทั้งระบบปฏิบัติการ cron หรืออัพเดทที่กำหนดเอง",
     "How to set up the operating system cron" : "วิธีการตั้งค่าระบบปฏิบัติการ cron",
     "How to set up a custom updater (faster and no possible deadlock) " : "วิธีการติดตั้งการอัพเดทที่กำหนดเอง (ได้เร็วขึ้นและไม่มีการหยุดชะงัก)",
     "Subscribe" : "สมัครรับข้อมูล",

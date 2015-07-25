@@ -35,7 +35,6 @@ OC.L10N.register(
     "Saved" : "Saved",
     "Download" : "Download",
     "Close" : "Close",
-    "Ajax cron mode detected! Your feeds will not be updated correctly. It is recommended to either use the operating system cron or a custom updater." : "Ajax cron mode detected! Your feeds will not be updated correctly. It is recommended to either use the operating system cron or a custom updater.",
     "How to set up the operating system cron" : "How to set up the operating system cron",
     "How to set up a custom updater (faster and no possible deadlock) " : "How to set up a custom updater (faster and no possible deadlock) ",
     "Subscribe" : "Subscribe",

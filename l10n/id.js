@@ -35,7 +35,6 @@ OC.L10N.register(
     "Saved" : "Disimpan",
     "Download" : "Unduh",
     "Close" : "Tutup",
-    "Ajax cron mode detected! Your feeds will not be updated correctly. It is recommended to either use the operating system cron or a custom updater." : "Mode cron ajax terdeteksi! Feed ANda tidak akan terunggah dengan benar. Direkomendasikan untuk menggunakan cron sistem operasi atau pengupdate kostum.",
     "How to set up the operating system cron" : "Bagaimana cara menyetel cron sistem operasi",
     "How to set up a custom updater (faster and no possible deadlock) " : "Bagaimana cara menyetel pengupdate kostum (lebih cepat dan tidak mungkin mogok)",
     "Subscribe" : "Berlangganan",

@@ -35,7 +35,6 @@ OC.L10N.register(
     "Saved" : "저장됨",
     "Download" : "다운로드",
     "Close" : "닫기",
-    "Ajax cron mode detected! Your feeds will not be updated correctly. It is recommended to either use the operating system cron or a custom updater." : "AJAX cron 모드를 감지하였습니다! 피드 업데이트가 올바르게 진행되지 않을 수도 있습니다. 운영 체제의 cron이나 사용자 정의 업데이터를 사용하십시오.",
     "How to set up the operating system cron" : "운영 체제 cron 설정 방법",
     "How to set up a custom updater (faster and no possible deadlock) " : "사용자 정의 업데이터 설정 방법(더 빠르고 데드록을 줄일 수 있음)",
     "Subscribe" : "구독",

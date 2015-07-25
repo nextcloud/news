@@ -34,7 +34,6 @@ $TRANSLATIONS = array(
 "Saved" => "Uloženo",
 "Download" => "Stáhnout",
 "Close" => "Zavřít",
-"Ajax cron mode detected! Your feeds will not be updated correctly. It is recommended to either use the operating system cron or a custom updater." => "Detekován ajax cron mód! Vaše kanály nebudou aktualizovány správně. Doporučuje se použít buď službu cron operačního systému nebo vlastní systém aktualizace.",
 "How to set up the operating system cron" => "Jak nastavit službu cron operačního systému",
 "How to set up a custom updater (faster and no possible deadlock) " => "Jak nastavit vlastní systém aktualizace (rychlejší, bez možných blokování)",
 "Subscribe" => "Odebírat",

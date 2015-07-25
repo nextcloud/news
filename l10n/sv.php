@@ -28,7 +28,6 @@ $TRANSLATIONS = array(
 "Saved" => "Sparad",
 "Download" => "Ladda ner",
 "Close" => "Stäng",
-"Ajax cron mode detected! Your feeds will not be updated correctly. It is recommended to either use the operating system cron or a custom updater." => "Ajax cron-metod detekterad! Dina flöden kommer inte att uppdateras korrekt. Det rekommenderas att du använder cron från ditt operativsystem eller en skräddarsydd uppdaterare.",
 "How to set up the operating system cron" => "Hur man ställer in cron från operativsystemet",
 "How to set up a custom updater (faster and no possible deadlock) " => "Hur man ställer in en skräddarsydd uppdaterare (snabbare och ingen risk för låsningar)",
 "Subscribe" => "Prenumerera",

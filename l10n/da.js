@@ -35,7 +35,6 @@ OC.L10N.register(
     "Saved" : "Gemt",
     "Download" : "Download",
     "Close" : "Luk",
-    "Ajax cron mode detected! Your feeds will not be updated correctly. It is recommended to either use the operating system cron or a custom updater." : "Ajax cron-tilstand er registeret! Dine feeds vil ikke blive opdateret korrekt. Det anbefales at du enten bruger operativsystemets cron eller en brugerdefineret opdateringsfunktion.",
     "How to set up the operating system cron" : "Sådan opsætter du cron i operativsystemet",
     "How to set up a custom updater (faster and no possible deadlock) " : "Sådan opsætter du en brugerdefineret opdateringsfunktion (hurtigere og ingen mulighed for hårdknuder)",
     "Subscribe" : "Abonner",

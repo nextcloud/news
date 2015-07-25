@@ -31,7 +31,6 @@ $TRANSLATIONS = array(
 "Saved" => "Запазено",
 "Download" => "Изтегли",
 "Close" => "Затваряне",
-"Ajax cron mode detected! Your feeds will not be updated correctly. It is recommended to either use the operating system cron or a custom updater." => "Засечен ajax cron режим! Вашите потоци няма да се обновяват правилно. Препоръчва се използавне на работещия системен cron или свой обновител.",
 "How to set up the operating system cron" => "Как се настройва работещия системен cron",
 "How to set up a custom updater (faster and no possible deadlock) " => "Как се настройва свой обновител (по-бътрзо и без блокиране)",
 "Subscribe" => "Абонирай ме",
