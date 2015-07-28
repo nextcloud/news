@@ -35,6 +35,7 @@ OC.L10N.register(
     "Saved" : "Kaydedildi",
     "Download" : "İndir",
     "Close" : "Kapat",
+    "Ajax or webcron cron mode detected! Your feeds will not be updated correctly. It is recommended to either use the operating system cron or a custom updater." : "Ajax veya webcron modu tespit edildi. Beslemeleriniz düzgün olarak güncellenemeyecektir. Özel bir güncelleyeci yada işletim sistemi cron kullanmanız önerilir.",
     "How to set up the operating system cron" : "İşletim sistemi cron görevi nasıl ayarlanır",
     "How to set up a custom updater (faster and no possible deadlock) " : "Özel bir güncelleyici nasıl ayarlanır (daha hızlı ve kördüğüm ihtimali yok)",
     "Subscribe" : "Abone ol",
