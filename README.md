@@ -22,7 +22,7 @@ are listed on the [ownCloud apps overview](https://github.com/owncloud/core/wiki
 * php-curl
 * iconv
 * SimpleXML
-* PHP >= 5.4
+* PHP >= 5.5
 
 ## Supported Operating Systems
 All of the listed stable Linux distributions will be supported until their next stable version's first bugfix release is released (e.g. Debian 7 is supported until Debian 8.1 is released):
@@ -191,5 +191,3 @@ For translations in other languages than English, we rely on the [Transifex](htt
 If you want to help with translating the app, please do not create a pull request. Instead, head over to https://www.transifex.com/projects/p/owncloud/resource/news/ and join the team of your native language.
 
 If approved, the translation will be automatically ported to the code within 24 hours.
-
-
