@@ -1,18 +1,17 @@
 language: php
 php:
-    - 5.4
     - 5.5
     - 5.6
-    - hhvm
     - 7
+    - hhvm
 
 matrix:
     allow_failures:
         - php: hhvm
     include:
-        - php: 5.4
+        - php: 5.5
           env: DB=sqlite
-        - php: 5.4
+        - php: 5.5
           env: DB=pgsql
     fast_finish: true
 
@@ -79,4 +78,3 @@ script:
 
 addons:
     postgresql: "9.3"
-
