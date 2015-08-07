@@ -18,6 +18,7 @@ matrix:
 env:
     matrix:
         - DB=mysql
+        - CORE_BRANCH=stable8.1
 
 before_install:
     # get a newer node.js version
@@ -35,7 +36,7 @@ install:
     - sudo easy_install3 requests
     - sudo easy_install3 ocdev
     # clone core
-    - ocdev setup core --dir owncloud --branch stable8.1 --no-history
+    - ocdev setup core --dir owncloud --branch $CORE_BRANCH --no-history
     - mv news owncloud/apps/
 
 before_script:
