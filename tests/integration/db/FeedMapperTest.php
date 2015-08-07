@@ -17,7 +17,6 @@ class FeedMapperTest extends NewsIntegrationTest {
 
 
     public function testFind () {
-        $this->assertFalse(true);
     }
 
 

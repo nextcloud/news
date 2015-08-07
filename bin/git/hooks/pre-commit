@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# exit if any test fails
+set -e
+
 phpunit -c phpunit.xml
 phpunit -c phpunit.integration.xml
 cd js

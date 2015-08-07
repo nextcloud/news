@@ -17,8 +17,7 @@ matrix:
 
 env:
     matrix:
-        - DB=mysql
-        - CORE_BRANCH=stable8.1
+        - DB=mysql CORE_BRANCH=stable8.1
 
 before_install:
     # get a newer node.js version
