@@ -4,6 +4,11 @@ php:
     - 5.6
     - 7
     - hhvm
+env:
+    global:
+        - CORE_BRANCH=stable8.1
+    matrix:
+        - DB=pgsql
 
 matrix:
     allow_failures:
@@ -15,10 +20,6 @@ matrix:
         - php: 5.5
           env: DB=mysql
     fast_finish: true
-
-env:
-    matrix:
-        - DB=pgsql CORE_BRANCH=stable8.1
 
 before_install:
     # get a newer node.js version
