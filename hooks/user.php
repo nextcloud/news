@@ -14,10 +14,11 @@
 namespace OCA\News\Hooks;
 
 use OCA\News\AppInfo\Application;
-
+use OCA\News\Service\ItemService;
+use OCA\News\Service\FeedService;
+use OCA\News\Service\FolderService;
 
 class User {
-
 
     public static function deleteUser($params) {
         $userId = $params['uid'];
@@ -26,10 +27,9 @@ class User {
         $container = $app->getContainer();
 
         // order is important!
-        $container->query(\OCA\News\Service\ItemService::class)->deleteUser($userId);
-        $container->query(\OCA\News\Service\FeedService::class)->deleteUser($userId);
-        $container->query(\OCA\News\Service\FolderService::class)->deleteUser($userId);
+        $container->query(ItemService::class)->deleteUser($userId);
+        $container->query(FeedService::class)->deleteUser($userId);
+        $container->query(FolderService::class)->deleteUser($userId);
     }
-
 
 }

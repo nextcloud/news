@@ -15,7 +15,8 @@
 namespace OCA\News\Cron;
 
 use OCA\News\AppInfo\Application;
-
+use OCA\News\Config\Config;
+use \OCA\News\Utility\Updater as UpdaterService;
 
 class Updater {
 
@@ -27,10 +28,10 @@ class Updater {
 
         // make it possible to turn off cron updates if you use an external
         // script to execute updates in parallel
-        if ($container->query(\OCA\News\Config\Config::class)->getUseCronUpdates()) {
-            $container->query(\OCA\News\Utility\Updater::class)->beforeUpdate();
-            $container->query(\OCA\News\Utility\Updater::class)->update();
-            $container->query(\OCA\News\Utility\Updater::class)->afterUpdate();
+        if ($container->query(Config::class)->getUseCronUpdates()) {
+            $container->query(UpdaterService::class)->update();
+            $container->query(UpdaterService::class)->beforeUpdate();
+            $container->query(UpdaterService::class)->afterUpdate();
         }
     }
 

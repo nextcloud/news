@@ -14,9 +14,10 @@
 namespace OCA\News\Admin;
 
 use OCA\News\AppInfo\Application;
+use OCA\News\Controller\AdminController;
 
 $app = new Application();
 $container = $app->getContainer();
-$response = $container->query(\OCA\News\Controller\AdminController::class)->index();
+$response = $container->query(AdminController::class)->index();
 
 return $response->render();
