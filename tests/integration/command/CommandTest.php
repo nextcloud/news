@@ -11,7 +11,11 @@
 
 class CommandTest extends \PHPUnit_Framework_TestCase {
 
-    private $corePath = __DIR__ . '/../../../../../';
+    private $corePath;
+
+    public function setUp() {
+        $this->corePath = __DIR__ . '/../../../../../';
+    }
 
     public function testGenerateIndices() {
         $command = $this->corePath . 'occ news:create-search-indices';
