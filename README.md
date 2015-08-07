@@ -40,9 +40,9 @@ The minimum PHP version will be the [lowest supported version that still receive
 * Newest Chrome/Chromium (Desktop, Android)
 
 ## Supported Databases
-* PostgreSQL
-* SQLite
+* PostgreSQL (recommended)
 * MySql
+* SQLite (discouraged)
 
 ## Bugs
 Please read the [appropriate section in the contributing notices](https://github.com/owncloud/news/blob/master/CONTRIBUTING.md#issues)

@@ -13,12 +13,12 @@ matrix:
         - php: 5.5
           env: DB=sqlite
         - php: 5.5
-          env: DB=pgsql
+          env: DB=mysql
     fast_finish: true
 
 env:
     matrix:
-        - DB=mysql CORE_BRANCH=stable8.1
+        - DB=pgsql CORE_BRANCH=stable8.1
 
 before_install:
     # get a newer node.js version
