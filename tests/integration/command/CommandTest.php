@@ -11,8 +11,17 @@
 
 class CommandTest extends \PHPUnit_Framework_TestCase {
 
-    public function testCommandOk() {
-        $command = __DIR__ . '/../../../../../occ news:create-search-indices';
+    private $corePath = __DIR__ . '/../../../../../';
+
+    public function testGenerateIndices() {
+        $command = $this->corePath . 'occ news:create-search-indices';
+        exec($command, $_, $success);
+
+        $this->assertSame(0, $success);
+    }
+
+    public function testCronUpdate() {
+        $command = 'php -f ' . $this->corePath . 'cron.php';
         exec($command, $_, $success);
 
         $this->assertSame(0, $success);
