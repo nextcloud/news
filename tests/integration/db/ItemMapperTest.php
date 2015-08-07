@@ -8,7 +8,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2015
  */
- 
+
 namespace OCA\News\Db;
 
 use \OCA\News\Tests\Integration\NewsIntegrationTest;
@@ -183,7 +183,7 @@ class ItemMapperTest extends NewsIntegrationTest {
 
     public function testDeleteUser () {
         $this->itemMapper->deleteUser($this->userId);
-        $id = $this->itemMapper->getNewestItemId();
+        $id = $this->itemMapper->getNewestItemId($this->userId);
 
         $this->assertEquals(0, $id);
     }
