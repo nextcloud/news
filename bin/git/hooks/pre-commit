@@ -1,6 +1,9 @@
 #!/bin/bash
 
+phpunit -c phpunit.xml
+phpunit -c phpunit.integration.xml
 cd js
+grunt js-unit
 grunt cachebuster
 cd ..
 git add appinfo/checksum.json
