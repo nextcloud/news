@@ -224,9 +224,10 @@ class Application extends App {
         });
     }
 
-    public function getAppConfig() {
-        return $this->getContainer()->query(\OCA\News\Config\AppConfig::class);
+    public function registerConfig() {
+        $this->getContainer()
+            ->query(\OCA\News\Config\AppConfig::class)
+            ->registerAll();
     }
-
 
 }
