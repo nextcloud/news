@@ -1,3 +1,7 @@
+owncloud-news (5.4.0)
+* **New dependency**: Require PHP 5.5
+* **Bugfix**: Fix bug that would not delete a user's table entries after deletion
+
 owncloud-news (5.3.9)
 * **Bugfix**: Also warn when webcron is enabled since it is possible that the update will time out or only work sporadically, #828
 
