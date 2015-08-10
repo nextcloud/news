@@ -33,7 +33,7 @@ All of the listed stable Linux distributions will be supported until their next 
 * Arch Linux
 
 ## Supported PHP versions
-The minimum PHP version will be the [lowest supported version that still receives security fixes](http://php.net/supported-versions.php). The currently supported lowest version is **5.4** which will be dropped in favor of **5.5** on **14th September 2015**. An exception to this rule will be made if one or more supported operating systems still ship this PHP version by default.
+The minimum PHP version will be the [lowest supported version that still receives security fixes](http://php.net/supported-versions.php). The currently supported lowest version is **5.5** which will be dropped in favor of **5.6** on **10th July 2016**. An exception to this rule will be made if one or more supported operating systems still ship this PHP version by default.
 
 ## Supported Browsers
 * Newest Firefox (Desktop, Android, Firefox OS)
