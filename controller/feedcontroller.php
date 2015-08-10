@@ -13,17 +13,17 @@
 
 namespace OCA\News\Controller;
 
-use \OCP\IRequest;
-use \OCP\IConfig;
-use \OCP\AppFramework\Controller;
-use \OCP\AppFramework\Http;
+use OCP\IRequest;
+use OCP\IConfig;
+use OCP\AppFramework\Controller;
+use OCP\AppFramework\Http;
 
-use \OCA\News\Service\ItemService;
-use \OCA\News\Service\FeedService;
-use \OCA\News\Service\FolderService;
-use \OCA\News\Service\ServiceNotFoundException;
-use \OCA\News\Service\ServiceConflictException;
-use \OCA\News\Db\FeedType;
+use OCA\News\Service\ItemService;
+use OCA\News\Service\FeedService;
+use OCA\News\Service\FolderService;
+use OCA\News\Service\ServiceNotFoundException;
+use OCA\News\Service\ServiceConflictException;
+use OCA\News\Db\FeedType;
 
 
 class FeedController extends Controller {
@@ -300,7 +300,7 @@ class FeedController extends Controller {
      * @param int $feedId
      * @param int $ordering
      */
-    public function ordering ($feedId, $ordering) {
+    public function ordering($feedId, $ordering) {
         try {
             $this->feedService->setOrdering($feedId, $ordering, $this->userId);
         } catch(ServiceNotFoundException $ex) {
@@ -310,5 +310,22 @@ class FeedController extends Controller {
         return [];
     }
 
+
+    /**
+     * @NoAdminRequired
+     *
+     * @param int $feedId
+     * @param bool $fullTextEnabled
+     */
+    public function enableFullText($feedId, $fullTextEnabled=false) {
+        try {
+            $this->feedService->enableFullText($feedId, $fullTextEnabled,
+                                               $this->userId);
+        } catch(ServiceNotFoundException $ex) {
+            return $this->error($ex, Http::STATUS_NOT_FOUND);
+        }
+
+        return [];
+    }
 
 }

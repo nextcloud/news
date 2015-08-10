@@ -319,6 +319,17 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals([$feed, [$item]], $result);
     }
 
+    public function testFullText() {
+        $this->setUpReader($this->url);
+
+        $feed = $this->createFeed();
+        $item = $this->createItem();
+        $this->parser->expects($this->once())
+            ->method('enableContentGrabber');
+        $this->expectFeed('getItems', [$this->item]);
+        $this->fetcher->fetch($this->url, false, null, null, true);
+    }
+
 
     public function testNoFavicon() {
         $this->setUpReader($this->url);

@@ -42,15 +42,18 @@ class Fetcher {
      * @param string $etag an etag from an http header.
      * If lastModified matches the http header from the feed
      * no results are fetched
+     * @param bool fullTextEnabled if true tells the fetcher to enhance the
+     * articles by fetching custom enhanced content
      * @throws FetcherException if simple pie fails
      * @return array an array containing the new feed and its items, first
      * element being the Feed and second element being an array of Items
      */
     public function fetch($url, $getFavicon=true, $lastModified=null,
-                          $etag=null) {
+                          $etag=null, $fullTextEnabled=false) {
         foreach($this->fetchers as $fetcher){
             if($fetcher->canHandle($url)){
-                return $fetcher->fetch($url, $getFavicon, $lastModified, $etag);
+                return $fetcher->fetch($url, $getFavicon, $lastModified, $etag,
+                                       $fullTextEnabled);
             }
         }
 

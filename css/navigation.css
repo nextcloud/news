@@ -1,4 +1,4 @@
-/**
+-/**
  * ownCloud - News
  *
  * This file is licensed under the Affero General Public License version 3 or
@@ -88,6 +88,19 @@
 
 .icon-rss {
     background-image: url('../img/rss.svg') !important;
+}
+
+.icon-full-text-enabled {
+    background-image: url('../img/fulltext.svg');
+    background-size: 50%;
+    opacity: .5;
+}
+
+
+.icon-full-text-disabled {
+    background-image: url('../img/nonfulltext.svg');
+    background-size: 50%;
+    opacity: .5;
 }
 
 #app-navigation .unread > a {

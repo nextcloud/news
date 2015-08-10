@@ -13,23 +13,23 @@
 
 namespace OCA\News\Fetcher;
 
-use \PicoFeed\Parser\MalFormedXmlException;
-use \PicoFeed\Reader\Reader;
-use \PicoFeed\Reader\SubscriptionNotFoundException;
-use \PicoFeed\Reader\UnsupportedFeedFormatException;
-use \PicoFeed\Client\InvalidCertificateException;
-use \PicoFeed\Client\InvalidUrlException;
-use \PicoFeed\Client\MaxRedirectException;
-use \PicoFeed\Client\MaxSizeException;
-use \PicoFeed\Client\TimeoutException;
+use PicoFeed\Parser\MalFormedXmlException;
+use PicoFeed\Reader\Reader;
+use PicoFeed\Reader\SubscriptionNotFoundException;
+use PicoFeed\Reader\UnsupportedFeedFormatException;
+use PicoFeed\Client\InvalidCertificateException;
+use PicoFeed\Client\InvalidUrlException;
+use PicoFeed\Client\MaxRedirectException;
+use PicoFeed\Client\MaxSizeException;
+use PicoFeed\Client\TimeoutException;
 
-use \OCP\IL10N;
-use \OCP\AppFramework\Utility\ITimeFactory;
+use OCP\IL10N;
+use OCP\AppFramework\Utility\ITimeFactory;
 
-use \OCA\News\Db\Item;
-use \OCA\News\Db\Feed;
-use \OCA\News\Utility\PicoFeedFaviconFactory;
-use \OCA\News\Utility\PicoFeedReaderFactory;
+use OCA\News\Db\Item;
+use OCA\News\Db\Feed;
+use OCA\News\Utility\PicoFeedFaviconFactory;
+use OCA\News\Utility\PicoFeedReaderFactory;
 
 class FeedFetcher implements IFeedFetcher {
 
@@ -68,12 +68,14 @@ class FeedFetcher implements IFeedFetcher {
      * @param string $etag an etag from an http header.
      * If lastModified matches the http header from the feed
      * no results are fetched
+     * @param bool fullTextEnabled if true tells the fetcher to enhance the
+     * articles by fetching custom enhanced content
      * @throws FetcherException if it fails
      * @return array an array containing the new feed and its items, first
      * element being the Feed and second element being an array of Items
      */
     public function fetch($url, $getFavicon=true, $lastModified=null,
-                          $etag=null) {
+                          $etag=null, $fullTextEnabled=false) {
         try {
             $resource = $this->reader->discover($url, $lastModified, $etag);
 
@@ -88,6 +90,10 @@ class FeedFetcher implements IFeedFetcher {
             $lastModified = $resource->getLastModified();
 
             $parser = $this->reader->getParser($location, $content, $encoding);
+
+            if ($fullTextEnabled) {
+                $parser->enableContentGrabber();
+            }
 
             $parsedFeed = $parser->execute();
 

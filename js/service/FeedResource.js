@@ -330,5 +330,17 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
     };
 
 
+    FeedResource.prototype.toggleFullText = function (feedId) {
+        var feed = this.getById(feedId);
+
+        feed.fullTextEnabled = !feed.fullTextEnabled;
+
+        var url = this.BASE_URL + '/feeds/' + feedId + '/fulltext';
+        return this.http.post(url, {
+            fullTextEnabled: feed.fullTextEnabled
+        });
+    };
+
+
     return new FeedResource($http, BASE_URL, $q);
 });

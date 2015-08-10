@@ -301,4 +301,18 @@ describe('FeedResource', function () {
         expect(FeedResource.getById(3).ordering).toBe(2);
     }));
 
+
+    it ('should toggle full text', inject(function (FeedResource) {
+        http.expectPOST('base/feeds/3/fulltext', {
+            fullTextEnabled: true
+        }).respond(200, {});
+
+        FeedResource.getById(3).fullTextEnabled = false;
+        FeedResource.toggleFullText(3);
+
+        expect(FeedResource.getById(3).fullTextEnabled).toBe(true);
+        http.flush();
+
+    }));
+
 });

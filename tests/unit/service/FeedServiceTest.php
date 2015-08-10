@@ -14,12 +14,12 @@
 
 namespace OCA\News\Service;
 
-use \OCP\AppFramework\Db\DoesNotExistException;
+use OCP\AppFramework\Db\DoesNotExistException;
 
-use \OCA\News\Db\Feed;
-use \OCA\News\Db\Item;
-use \OCA\News\Fetcher\Fetcher;
-use \OCA\News\Fetcher\FetcherException;
+use OCA\News\Db\Feed;
+use OCA\News\Db\Item;
+use OCA\News\Fetcher\Fetcher;
+use OCA\News\Fetcher\FetcherException;
 
 
 class FeedServiceTest extends \PHPUnit_Framework_TestCase {
@@ -34,7 +34,6 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
     private $time;
     private $importParser;
     private $autoPurgeMinimumInterval;
-    private $enhancer;
     private $purifier;
     private $l10n;
     private $logger;
@@ -69,11 +68,6 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
             ->getMockBuilder('\OCA\News\Db\ItemMapper')
             ->disableOriginalConstructor()
             ->getMock();
-        $this->enhancer = $this
-            ->getMockBuilder('\OCA\News\ArticleEnhancer\Enhancer')
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->purifier = $this
             ->getMockBuilder('\HTMLPurifier')
             ->disableOriginalConstructor()
@@ -88,8 +82,7 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
 
         $this->feedService = new FeedService($this->feedMapper,
             $this->fetcher, $this->itemMapper, $this->logger, $this->l10n,
-            $timeFactory, $config, $this->enhancer, $this->purifier,
-            $this->loggerParams);
+            $timeFactory, $config, $this->purifier, $this->loggerParams);
         $this->user = 'jack';
     }
 
@@ -158,11 +151,6 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
                 $this->equalTo($item2->getFeedId()),
                 $this->equalTo($this->user))
             ->will($this->throwException($ex));
-        $this->enhancer->expects($this->at(0))
-            ->method('enhance')
-            ->with($this->equalTo($return[1][1]),
-                $this->equalTo($url))
-            ->will($this->returnValue($return[1][1]));
         $this->purifier->expects($this->at(0))
             ->method('purify')
             ->with($this->equalTo($return[1][1]->getBody()))
@@ -177,11 +165,6 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
                 $this->equalTo($item1->getFeedId()),
                 $this->equalTo($this->user))
             ->will($this->throwException($ex));
-        $this->enhancer->expects($this->at(1))
-            ->method('enhance')
-            ->with($this->equalTo($return[1][0]),
-                $this->equalTo($url))
-            ->will($this->returnValue($return[1][0]));
         $this->purifier->expects($this->at(1))
             ->method('purify')
             ->with($this->equalTo($return[1][0]->getBody()))
@@ -235,11 +218,6 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
                 $this->equalTo($item2->getFeedId()),
                 $this->equalTo($this->user))
             ->will($this->throwException($ex));
-        $this->enhancer->expects($this->at(0))
-            ->method('enhance')
-            ->with($this->equalTo($return[1][1]),
-                $this->equalTo($url))
-            ->will($this->returnValue($return[1][1]));
         $this->purifier->expects($this->at(0))
             ->method('purify')
             ->with($this->equalTo($return[1][1]->getBody()))
@@ -304,11 +282,6 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
                     $this->equalTo($items[0]->getFeedId()),
                     $this->equalTo($this->user))
             ->will($this->throwException($ex));
-        $this->enhancer->expects($this->at(0))
-            ->method('enhance')
-            ->with($this->equalTo($items[0]),
-                $this->equalTo($feed->getUrl()))
-            ->will($this->returnValue($items[0]));
         $this->purifier->expects($this->at(0))
             ->method('purify')
             ->with($this->equalTo($items[0]->getBody()))
@@ -327,6 +300,68 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
 
         $this->assertEquals($return, $feed);
     }
+
+    public function testForceUpdateUpdatesEntry(){
+        $feed = new Feed();
+        $feed->setId(3);
+        $feed->setArticlesPerUpdate(1);
+        $feed->setLink('http://test');
+        $feed->setUrl('http://test');
+        $feed->setUrlHash('yo');
+        $feed->setLastModified(3);
+        $feed->setEtag(4);
+
+        $item = new Item();
+        $item->setGuidHash(md5('hi'));
+        $item->setFeedId(3);
+        $items = [$item];
+
+        $ex = new DoesNotExistException('hi');
+
+        $fetchReturn = [$feed, $items];
+
+        $this->feedMapper->expects($this->at(0))
+            ->method('find')
+            ->with($this->equalTo($feed->getId()),
+                    $this->equalTo($this->user))
+            ->will($this->returnValue($feed));
+        $this->fetcher->expects($this->once())
+            ->method('fetch')
+            ->with(
+                $this->equalTo('http://test'),
+                $this->equalTo(false),
+                $this->equalTo(3),
+                $this->equalTo(4)
+            )
+            ->will($this->returnValue($fetchReturn));
+        $this->feedMapper->expects($this->at(1))
+            ->method('update')
+            ->with($this->equalTo($feed));
+        $this->itemMapper->expects($this->once())
+            ->method('findByGuidHash')
+            ->with($this->equalTo($items[0]->getGuidHash()),
+                    $this->equalTo($items[0]->getFeedId()),
+                    $this->equalTo($this->user))
+            ->will($this->returnValue($items[0]));
+        $this->purifier->expects($this->at(0))
+            ->method('purify')
+            ->with($this->equalTo($items[0]->getBody()))
+            ->will($this->returnValue($items[0]->getBody()));
+        $this->itemMapper->expects($this->once())
+            ->method('update')
+            ->with($this->equalTo($items[0]));
+
+        $this->feedMapper->expects($this->at(2))
+            ->method('find')
+            ->with($feed->getId(), $this->user)
+            ->will($this->returnValue($feed));
+
+
+        $return = $this->feedService->update($feed->getId(), $this->user, true);
+
+        $this->assertEquals($return, $feed);
+    }
+
 
 
     public function testUpdateUpdatesArticlesPerFeedCount() {
@@ -399,6 +434,38 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
 
         $this->setExpectedException(
             '\OCA\News\Service\ServiceNotFoundException'
+        );
+        $this->feedService->update($feed->getId(), $this->user);
+    }
+
+
+    public function testUpdatePassesFullText() {
+        $feed = new Feed();
+        $feed->setId(3);
+        $feed->setUrl('https://goo.com');
+        $feed->setEtag('abc');
+        $feed->setLastModified(123);
+        $feed->setFullTextEnabled(true);
+
+        $ex = new DoesNotExistException('');
+
+        $this->feedMapper->expects($this->at(0))
+            ->method('find')
+            ->with($this->equalTo($feed->getId()),
+                    $this->equalTo($this->user))
+            ->will($this->returnValue($feed));
+
+        $this->fetcher->expects($this->once())
+            ->method('fetch')
+            ->with($this->equalTo($feed->getUrl()),
+                   $this->equalTo(false),
+                   $this->equalTo($feed->getLastModified()),
+                   $this->equalTo($feed->getEtag()),
+                   $this->equalTo($feed->getFullTextEnabled()))
+            ->will($this->throwException($ex));
+
+        $this->setExpectedException(
+            'OCP\AppFramework\Db\DoesNotExistException'
         );
         $this->feedService->update($feed->getId(), $this->user);
     }
@@ -794,6 +861,37 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
     }
 
 
+    public function testEnableFullText() {
+        $feed = Feed::fromRow(['id' => 3, 'etag' => 'a', 'last_modified' => 1,
+                               'full_text_enabled' => false]);
+        $feed2 = Feed::fromRow(['id' => 3]);
+        $this->feedMapper->expects($this->at(0))
+            ->method('find')
+            ->with($this->equalTo($feed->getId()),
+                   $this->equalTo($this->user))
+            ->will($this->returnValue($feed));
+
+        $feed2->setFullTextEnabled(true);
+        $feed2->setEtag('');
+        $feed2->setLastModified(0);
+        $this->feedMapper->expects($this->at(1))
+            ->method('update')
+            ->with($this->equalTo($feed2));
+
+        $this->feedMapper->expects($this->at(2))
+            ->method('find')
+            ->with($this->equalTo($feed->getId()),
+                    $this->equalTo($this->user))
+            ->will($this->throwException(new DoesNotExistException('')));
+
+        $this->setExpectedException(
+            '\OCA\News\Service\ServiceNotFoundException'
+        );
+
+        $this->feedService->enableFullText(3, true, $this->user);
+    }
+
+
     /**
      * @expectedException OCA\News\Service\ServiceNotFoundException
      */
@@ -809,4 +907,3 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
 
 
 }
-

@@ -198,7 +198,6 @@ app.config(["$routeProvider", "$provide", "$httpProvider", function ($routeProvi
 
 }]);
 
-
 app.run(["$rootScope", "$location", "$http", "$q", "$interval", "$route", "Loading", "ItemResource", "FeedResource", "FolderResource", "SettingsResource", "Publisher", "BASE_URL", "FEED_TYPE", "REFRESH_RATE", function ($rootScope, $location, $http, $q, $interval, $route, Loading,
          ItemResource, FeedResource, FolderResource, SettingsResource,
           Publisher, BASE_URL, FEED_TYPE, REFRESH_RATE) {
@@ -848,6 +847,14 @@ app.controller('NavigationController',
         $route.reload();
     };
 
+    this.toggleFullText = function (feed) {
+        $rootScope.$broadcast('$routeChangeStart');
+        FeedResource.toggleFullText(feed.id).finally(function () {
+            $rootScope.$broadcast('$routeChangeSuccess');
+            $route.reload();
+        });
+    };
+
     this.search = function (value) {
         if (value === '') {
             $location.search('search', null);
@@ -895,6 +902,7 @@ app.controller('NavigationController',
     });
 
 }]);
+
 app.controller('SettingsController',
 ["$route", "$q", "SettingsResource", "ItemResource", "OPMLParser", "OPMLImporter", "Publisher", function ($route, $q, SettingsResource, ItemResource, OPMLParser,
           OPMLImporter, Publisher) {
@@ -1309,8 +1317,21 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
     };
 
 
+    FeedResource.prototype.toggleFullText = function (feedId) {
+        var feed = this.getById(feedId);
+
+        feed.fullTextEnabled = !feed.fullTextEnabled;
+
+        var url = this.BASE_URL + '/feeds/' + feedId + '/fulltext';
+        return this.http.post(url, {
+            fullTextEnabled: feed.fullTextEnabled
+        });
+    };
+
+
     return new FeedResource($http, BASE_URL, $q);
 }]);
+
 app.factory('FolderResource', ["Resource", "$http", "BASE_URL", "$q", function (Resource, $http, BASE_URL, $q) {
     'use strict';
 
