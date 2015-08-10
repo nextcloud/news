@@ -44,6 +44,10 @@ class Application extends App {
         parent::__construct('news', $urlParams);
 
         $container = $this->getContainer();
+        $container->registerParameter('fileChecksums', file_get_contents(
+            __DIR__ . '/checksum.json'
+        ));
+
 
         /**
          * Mappers

@@ -24,6 +24,13 @@ class CommandTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame(0, $success);
     }
 
+    public function testValidateInstall() {
+        $command = $this->corePath . 'occ news:validate-install';
+        exec($command, $_, $success);
+
+        $this->assertSame(0, $success);
+    }
+
     public function testCronUpdate() {
         $command = 'php -f ' . $this->corePath . 'cron.php';
         exec($command, $_, $success);

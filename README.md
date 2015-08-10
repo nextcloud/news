@@ -114,9 +114,14 @@ We switched to a different feed parsing library which creates article ids differ
 
 5.3.0 adds the possibility to search your articles. To do this efficiently however, the News app needs to generate an index. This is done automatically for new articles, but older articles need to be migrated. Because large installations have millions of articles, generating the search index has been offloaded to a separate command to prevent timeouts when upgrading the app. To make your old articles searchable run this command in your ownCloud top directory:
 
-    php -f console.php news:create-search-indices
+    ./occ news:create-search-indices
 
 ## FAQ
+
+### I am getting Exception: Some\\Class does not exist erros in my owncloud.log
+This is very often caused by missing or old files, e.g. by failing to upload all of the News app' files or errors during installation. Before you report a bug, please run the diagnostic tool to check which files are missing or out of date:
+
+    ./occ news:verify-install
 
 ### How do I reset the News app
 Delete the folder **owncloud/apps/news/** and **owncloud/data/news/**, then connect to your database and run the following commands where **oc\_** is your table prefix (defaults to oc\_)
@@ -178,11 +183,19 @@ exploreUrl =
 
 Commands
 --------
-The following commands are available when calling php -f console.php in the top directory:
+The following commands are available when using the **occ** file in the top directory:
+
+* **Show help and available commands**:
+
+  ./occ
+
+* **Verify installation**:
+
+  ./occ news:verify-install
 
 * **Generate search indices**:
 
-  php -f console.php news:create-search-indices
+  ./occ news:create-search-indices
 
 Translations
 ------------
