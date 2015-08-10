@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "20b66066a8d4a6802ecf6399590ef15b",
+    "hash": "da49f0b59831699fcbb03749d146f00a",
     "packages": [
         {
             "name": "ezyang/htmlpurifier",
@@ -61,7 +61,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/1e89a3fd579cf3d83cc65c09047f92f81ce6a923",
+                "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/8ed3f1a9f777938611645d523ddc707a7cd0e7d7",
                 "reference": "1e89a3fd579cf3d83cc65c09047f92f81ce6a923",
                 "shasum": ""
             },
@@ -158,6 +158,32 @@
                 "url"
             ],
             "time": "2015-04-18 17:36:57"
+        },
+        {
+            "name": "plasmaconduit/path",
+            "version": "0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/JosephMoniz/php-path.git",
+                "reference": "7c19ff02615defcf0b56968589aa1b53b0ee7ebe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JosephMoniz/php-path/zipball/7c19ff02615defcf0b56968589aa1b53b0ee7ebe",
+                "reference": "7c19ff02615defcf0b56968589aa1b53b0ee7ebe",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpspec/phpspec2": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "time": "2013-01-23 06:47:38"
         }
     ],
     "packages-dev": [],

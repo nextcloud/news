@@ -120,7 +120,7 @@
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/1e89a3fd579cf3d83cc65c09047f92f81ce6a923",
+            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/8ed3f1a9f777938611645d523ddc707a7cd0e7d7",
             "reference": "1e89a3fd579cf3d83cc65c09047f92f81ce6a923",
             "shasum": ""
         },
@@ -157,5 +157,33 @@
         ],
         "description": "Modern library to handle RSS/Atom feeds",
         "homepage": "https://github.com/fguillot/picoFeed"
+    },
+    {
+        "name": "plasmaconduit/path",
+        "version": "0.1.1",
+        "version_normalized": "0.1.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/JosephMoniz/php-path.git",
+            "reference": "7c19ff02615defcf0b56968589aa1b53b0ee7ebe"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/JosephMoniz/php-path/zipball/7c19ff02615defcf0b56968589aa1b53b0ee7ebe",
+            "reference": "7c19ff02615defcf0b56968589aa1b53b0ee7ebe",
+            "shasum": ""
+        },
+        "require-dev": {
+            "phpspec/phpspec2": "*"
+        },
+        "time": "2013-01-23 06:47:38",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/"
     }
 ]

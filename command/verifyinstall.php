@@ -15,6 +15,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
+use PlasmaConduit\Path;
 
 use OCA\News\Utility\FileChecksumValidator;
 
@@ -43,7 +44,7 @@ class VerifyInstall extends Command {
 
         foreach($checksums as $file => $checksum) {
             $progressbar->advance();
-            $absPath = realpath($root . $file);
+            $absPath = Path::normalize($root . $file);
 
             if (!file_exists($absPath)) {
                 $missing[] = $absPath;
@@ -55,14 +56,11 @@ class VerifyInstall extends Command {
         $output->writeln("\n");
 
         if (count($errors) > 0 || count($missing) > 0) {
-            $output->writeln('<error>Installation verified, encountered ' .
-                             'multiple errors: </error>');
             foreach ($missing as $path) {
-                $output->writeln('<error>' . $path . ' is missing!</error>');
+                $output->writeln('<error>Missing file:</error> ' . $path);
             }
             foreach ($errors as $path) {
-                $output->writeln('<error>' . $path . ' does not match the ' .
-                                 'recorded checksum!</error>');
+                $output->writeln('<error>Invalid checksum:</error> ' . $path);
             }
             $output->writeln("\nYour News installation does not " .
                              'match the recorded files and versions. This ' .
