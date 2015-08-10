@@ -25,7 +25,7 @@ class CommandTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testValidateInstall() {
-        $command = $this->corePath . 'occ news:validate-install';
+        $command = $this->corePath . 'occ news:verify-install';
         exec($command, $_, $success);
 
         $this->assertSame(0, $success);

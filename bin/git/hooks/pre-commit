@@ -3,10 +3,12 @@
 # exit if any test fails
 set -e
 
-phpunit -c phpunit.xml
-phpunit -c phpunit.integration.xml
+# update checksums
 cd js
 grunt js-unit
 grunt cachebuster
 cd ..
+
+phpunit -c phpunit.xml
+phpunit -c phpunit.integration.xml
 git add appinfo/checksum.json

@@ -52,11 +52,11 @@ class VerifyInstall extends Command {
             }
         }
 
-        $output->writeln("\n\n");
+        $output->writeln("\n");
 
         if (count($errors) > 0 || count($missing) > 0) {
-            $output->writeln('Installation verified, encountered multiple ' .
-                             'errors: ');
+            $output->writeln('<error>Installation verified, encountered ' .
+                             'multiple errors: </error>');
             foreach ($missing as $path) {
                 $output->writeln('<error>' . $path . ' is missing!</error>');
             }
