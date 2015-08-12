@@ -91,8 +91,6 @@ The project is structured in the following way:
 
 * **appinfo/**: Contains metadata related things, like names, versions, database structure, routes and the container that tells ownCloud how the app is assembled
 
-* **articleenhancer/**: All the code that deals with fetching additional content from websites and transforming RSS/Atom content. Keep in mind that some stuff is done by picoFeed, the feed library that is used in ownCloud News.
-
 * **bin/**: Git hooks and the custom Python updater
 
 * **build/**: The folder where complete archives are saved when running make appstore
