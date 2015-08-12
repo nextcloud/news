@@ -15,19 +15,18 @@ namespace OCA\News\Service;
 
 use HTMLPurifier;
 
-use \OCP\ILogger;
-use \OCP\IL10N;
-use \OCP\AppFramework\Db\DoesNotExistException;
-use \OCP\AppFramework\Utility\ITimeFactory;
+use OCP\ILogger;
+use OCP\IL10N;
+use OCP\AppFramework\Db\DoesNotExistException;
+use OCP\AppFramework\Utility\ITimeFactory;
 
-use \OCA\News\Db\Feed;
-use \OCA\News\Db\Item;
-use \OCA\News\Db\FeedMapper;
-use \OCA\News\Db\ItemMapper;
-use \OCA\News\Fetcher\Fetcher;
-use \OCA\News\Fetcher\FetcherException;
-use \OCA\News\ArticleEnhancer\Enhancer;
-use \OCA\News\Config\Config;
+use OCA\News\Db\Feed;
+use OCA\News\Db\Item;
+use OCA\News\Db\FeedMapper;
+use OCA\News\Db\ItemMapper;
+use OCA\News\Fetcher\Fetcher;
+use OCA\News\Fetcher\FetcherException;
+use OCA\News\Config\Config;
 
 
 class FeedService extends Service {
@@ -39,7 +38,6 @@ class FeedService extends Service {
     private $l10n;
     private $timeFactory;
     private $autoPurgeMinimumInterval;
-    private $enhancer;
     private $purifier;
     private $loggerParams;
 
@@ -50,7 +48,6 @@ class FeedService extends Service {
                                 IL10N $l10n,
                                 ITimeFactory $timeFactory,
                                 Config $config,
-                                Enhancer $enhancer,
                                 HTMLPurifier $purifier,
                                 $LoggerParameters){
         parent::__construct($feedMapper);
@@ -61,7 +58,6 @@ class FeedService extends Service {
         $this->timeFactory = $timeFactory;
         $this->autoPurgeMinimumInterval =
             $config->getAutoPurgeMinimumInterval();
-        $this->enhancer = $enhancer;
         $this->purifier = $purifier;
         $this->feedMapper = $feedMapper;
         $this->loggerParams = $LoggerParameters;
@@ -138,7 +134,6 @@ class FeedService extends Service {
                     continue;
                 } catch(DoesNotExistException $ex){
                     $unreadCount += 1;
-                    $item = $this->enhancer->enhance($item, $feed->getLink());
                     $item->setBody($this->purifier->purify($item->getBody()));
                     $this->itemMapper->insert($item);
                 }
@@ -178,10 +173,11 @@ class FeedService extends Service {
      * Updates a single feed
      * @param int $feedId the id of the feed that should be updated
      * @param string $userId the id of the user
+     * @param bool $forceUpdate update even if the article exists already
      * @throws ServiceNotFoundException if the feed does not exist
      * @return Feed the updated feed entity
      */
-    public function update($feedId, $userId){
+    public function update($feedId, $userId, $forceUpdate=false){
         $existingFeed = $this->find($feedId, $userId);
 
         if($existingFeed->getPreventUpdate() === true) {
@@ -200,7 +196,8 @@ class FeedService extends Service {
                 $location,
                 false,
                 $existingFeed->getLastModified(),
-                $existingFeed->getEtag()
+                $existingFeed->getEtag(),
+                $existingFeed->getFullTextEnabled()
             );
 
             // if there is no feed it means that no update took place
@@ -232,12 +229,17 @@ class FeedService extends Service {
                 $item->setFeedId($existingFeed->getId());
 
                 try {
-                    $this->itemMapper->findByGuidHash(
+                    $existingItem = $this->itemMapper->findByGuidHash(
                         $item->getGuidHash(), $feedId, $userId
                     );
+
+                    if ($forceUpdate) {
+                        $existingItem->setBody(
+                            $this->purifier->purify($item->getBody())
+                        );
+                        $this->itemMapper->update($existingItem);
+                    }
                 } catch(DoesNotExistException $ex){
-                    $item = $this->enhancer->enhance($item,
-                        $existingFeed->getLink());
                     $item->setBody(
                         $this->purifier->purify($item->getBody())
                     );
@@ -421,11 +423,27 @@ class FeedService extends Service {
      * @param int $ordering 0 for no ordering, 1 for reverse, 2 for normal
      * @param string $userId the id of the user
      */
-    public function setOrdering ($id, $ordering, $userId) {
+    public function setOrdering($id, $ordering, $userId) {
         $feed = $this->find($id, $userId);
         $feed->setOrdering($ordering);
         $this->feedMapper->update($feed);
     }
 
+
+    /**
+     * Enable/Disable full text feed and update the feed
+     * @param int $id feed id
+     * @param bool $enableFullText
+     * @param string $userId
+     */
+    public function enableFullText($id, $enableFullText=false, $userId) {
+        $feed = $this->find($id, $userId);
+        // disable caching for the next update
+        $feed->setEtag('');
+        $feed->setLastModified(0);
+        $feed->setFullTextEnabled($enableFullText);
+        $this->feedMapper->update($feed);
+        return $this->update($id, $userId, true);
+    }
 
 }

@@ -102,6 +102,18 @@
                 </button>
             </li>
             <li>
+                <button ng-click="Navigation.toggleFullText(feed)"
+                        class="icon-full-text-disabled"
+                        ng-hide="feed.fullTextEnabled"
+                        title="<?php p($l->t('Enable full text feed fetching')); ?>">
+                </button>
+                <button ng-click="Navigation.toggleFullText(feed)"
+                        class="icon-full-text-enabled"
+                        ng-show="feed.fullTextEnabled"
+                        title="<?php p($l->t('Disable full text feed fetching')); ?>">
+                </button>
+            </li>
+            <li>
                 <button ng-click="feed.editing=true"
                         class="icon-rename"
                         title="<?php p($l->t('Rename feed')); ?>">
@@ -130,4 +142,3 @@
                 ng-click="Navigation.deleteFeed(feed)"></button>
     </div>
 </li>
-

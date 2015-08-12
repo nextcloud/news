@@ -161,6 +161,12 @@
                 <notnull>true</notnull>
             </field>
             <field>
+                <name>full_text_enabled</name>
+                <type>boolean</type>
+                <default>false</default>
+                <notnull>true</notnull>
+            </field>
+            <field>
                 <name>ordering</name>
                 <type>integer</type>
                 <default>0</default>

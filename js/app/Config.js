@@ -199,4 +199,3 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
         });
 
 });
-

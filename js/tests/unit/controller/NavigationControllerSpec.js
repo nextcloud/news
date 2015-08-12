@@ -1038,6 +1038,44 @@ describe('NavigationController', function () {
     }));
 
 
+    it ('should set the full text feed',
+        inject(function ($controller, FeedResource, $rootScope) {
+
+        FeedResource.add({
+            id: 2,
+            url: 'http://test.com',
+            folderId: 3,
+            fullTextEnabled: false
+        });
+
+        $rootScope.$broadcast = jasmine.createSpy('broadcast');
+
+        FeedResource.toggleFullText = jasmine.createSpy('ordering');
+        FeedResource.toggleFullText.and.callFake(function () {
+            return {
+                finally: function (cb) {
+                    cb();
+                }
+            };
+        });
+
+        var route = {
+            reload: jasmine.createSpy('reload')
+        };
+        var ctrl = $controller('NavigationController', {
+            $route: route
+        });
+
+        ctrl.toggleFullText(FeedResource.getById(2));
+
+        expect($rootScope.$broadcast).toHaveBeenCalledWith('$routeChangeStart');
+        expect($rootScope.$broadcast).
+            toHaveBeenCalledWith('$routeChangeSuccess');
+        expect(FeedResource.toggleFullText).toHaveBeenCalledWith(2);
+        expect(route.reload).toHaveBeenCalled();
+    }));
+
+
     it ('should set location on search', inject(function ($controller) {
         var location = {
             search: jasmine.createSpy('search')

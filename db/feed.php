@@ -39,6 +39,8 @@ use \OCP\AppFramework\Db\Entity;
  * @method void setAdded(integer $value)
  * @method integer getFolderId()
  * @method void setFolderId(integer $value)
+ * @method integer getFullTextEnabled()
+ * @method void setFullTextEnabled(bool $value)
  * @method integer getUnreadCount()
  * @method void setUnreadCount(integer $value)
  * @method string getLink()
@@ -69,6 +71,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
     protected $etag;
     protected $location;
     protected $ordering;
+    protected $fullTextEnabled;
 
     public function __construct(){
         $this->addType('parentId', 'integer');
@@ -79,6 +82,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
         $this->addType('deletedAt', 'integer');
         $this->addType('articlesPerUpdate', 'integer');
         $this->addType('ordering', 'integer');
+        $this->addType('fullTextEnabled', 'boolean');
     }
 
 

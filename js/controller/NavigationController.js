@@ -302,6 +302,14 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
         $route.reload();
     };
 
+    this.toggleFullText = function (feed) {
+        $rootScope.$broadcast('$routeChangeStart');
+        FeedResource.toggleFullText(feed.id).finally(function () {
+            $rootScope.$broadcast('$routeChangeSuccess');
+            $route.reload();
+        });
+    };
+
     this.search = function (value) {
         if (value === '') {
             $location.search('search', null);

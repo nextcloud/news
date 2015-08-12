@@ -31,10 +31,6 @@ use OCA\News\Db\MapperFactory;
 use OCA\News\Fetcher\Fetcher;
 use OCA\News\Fetcher\FeedFetcher;
 
-use OCA\News\ArticleEnhancer\Enhancer;
-use OCA\News\ArticleEnhancer\XPathArticleEnhancer;
-use OCA\News\ArticleEnhancer\RegexArticleEnhancer;
-
 use OCA\News\Explore\RecommendedSites;
 
 
@@ -130,39 +126,6 @@ class Application extends App {
                 'youtube(?:-nocookie)?.com/embed/|' .
                 'player.vimeo.com/video/)%'); //allow YouTube and Vimeo
             return new HTMLPurifier($config);
-        });
-
-        $container->registerService(\OCA\News\ArticleEnhancer\Enhancer::class,
-        function($c) {
-            $enhancer = new Enhancer();
-
-            // register simple enhancers from config json file
-            $xpathEnhancerConfig = file_get_contents(
-                __DIR__ . '/../articleenhancer/xpathenhancers.json'
-            );
-
-            $xpathEnhancerConfig = json_decode($xpathEnhancerConfig, true);
-            foreach($xpathEnhancerConfig as $feed => $config) {
-                $articleEnhancer = new XPathArticleEnhancer(
-                    $c->query(\OCA\News\Utility\PicoFeedClientFactory::class),
-                    $config
-                );
-                $enhancer->registerEnhancer($feed, $articleEnhancer);
-            }
-
-            $regexEnhancerConfig = file_get_contents(
-                __DIR__ . '/../articleenhancer/regexenhancers.json'
-            );
-            $regexEnhancerConfig = json_decode($regexEnhancerConfig, true);
-            foreach($regexEnhancerConfig as $feed => $config) {
-                foreach ($config as $matchArticleUrl => $regex) {
-                    $articleEnhancer =
-                        new RegexArticleEnhancer($matchArticleUrl, $regex);
-                    $enhancer->registerEnhancer($feed, $articleEnhancer);
-                }
-            }
-
-            return $enhancer;
         });
 
         /**

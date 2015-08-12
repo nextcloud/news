@@ -13,12 +13,12 @@
 
 namespace OCA\News\Controller;
 
-use \OCP\AppFramework\Http;
+use OCP\AppFramework\Http;
 
-use \OCA\News\Db\Feed;
-use \OCA\News\Db\FeedType;
-use \OCA\News\Service\ServiceNotFoundException;
-use \OCA\News\Service\ServiceConflictException;
+use OCA\News\Db\Feed;
+use OCA\News\Db\FeedType;
+use OCA\News\Service\ServiceNotFoundException;
+use OCA\News\Service\ServiceConflictException;
 
 
 class FeedControllerTest extends \PHPUnit_Framework_TestCase {
@@ -518,6 +518,17 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
         $this->controller->ordering(4, 2);
     }
 
+
+    public function testEnableFullText() {
+        $this->feedService->expects($this->once())
+            ->method('enableFullText')
+            ->with($this->equalTo(4),
+                    $this->equalTo(true),
+                    $this->equalTo($this->user))
+            ->will($this->returnValue(1));
+
+        $this->controller->enableFullText(4, true);
+    }
 
     public function testOrderingDoesNotExist(){
         $msg = 'hehe';

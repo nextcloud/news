@@ -1,7 +1,8 @@
-owncloud-news (5.4.0)
+owncloud-news (6.0.0)
 * **New dependency**: Require PHP 5.5
 * **Bugfix**: Fix bug that would not delete a user's table entries after deletion
 * **Enhancement**: Add **news:verify-install** command to help diagnosing missing or out of date files
+* **Enhancement**: Rather than always enhancing feeds based on rules, use picoFeeds full text feed capability that has to be turned on per feed and can deal with more feeds
 
 owncloud-news (5.3.9)
 * **Bugfix**: Also warn when webcron is enabled since it is possible that the update will time out or only work sporadically, #828

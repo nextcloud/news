@@ -44,9 +44,16 @@ class FetcherTest extends \PHPUnit_Framework_TestCase {
             ->method('canHandle')
             ->with($this->equalTo($url))
             ->will($this->returnValue(true));
+        $mockFetcher->expects($this->once())
+            ->method('fetch')
+            ->with($this->equalTo($url),
+                   $this->equalTo(true),
+                   $this->equalTo(1),
+                   $this->equalTo(2),
+                   $this->equalTo(3));
         $this->fetcher->registerFetcher($mockFetcher);
 
-        $this->fetcher->fetch($url);
+        $this->fetcher->fetch($url, true, 1, 2, 3);
     }
 
 

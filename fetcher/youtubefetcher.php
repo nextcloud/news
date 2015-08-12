@@ -53,16 +53,18 @@ class YoutubeFetcher implements IFeedFetcher {
      * @param string $etag an etag from an http header.
      * If lastModified matches the http header from the feed
      * no results are fetched
+     * @param bool fullTextEnabled if true tells the fetcher to enhance the
+     * articles by fetching custom enhanced content
      * @throws FetcherException if it fails
      * @return array an array containing the new feed and its items, first
      * element being the Feed and second element being an array of Items
      */
     public function fetch($url, $getFavicon=true, $lastModified=null,
-                          $etag=null) {
+                          $etag=null, $fullTextEnabled=false) {
         $transformedUrl = $this->buildUrl($url);
 
         $result = $this->feedFetcher->fetch(
-            $transformedUrl, $getFavicon, $lastModified, $etag
+            $transformedUrl, $getFavicon, $lastModified, $etag, $fullTextEnabled
         );
 
         // reset feed url so we know the correct added url for the feed
