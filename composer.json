@@ -30,7 +30,7 @@
         "source": "https://github.com/owncloud/news/"
     },
     "require": {
-        "ezyang/htmlpurifier": "~4.6",
+        "ezyang/htmlpurifier": "~4.7",
         "fguillot/picofeed": "dev-master",
         "plasmaconduit/path": "^0.1.1"
     }
