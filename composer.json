@@ -30,7 +30,6 @@
         "source": "https://github.com/owncloud/news/"
     },
     "require": {
-        "pear/net_url2": "~2.1",
         "ezyang/htmlpurifier": "~4.6",
         "fguillot/picofeed": "dev-master",
         "plasmaconduit/path": "^0.1.1"

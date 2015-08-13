@@ -28,7 +28,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
     public function testPassthrough()
     {
         $client = Client::getInstance();
-        $client->setUrl('http://miniflux.net/favicon.ico');
+        $client->setUrl('https://miniflux.net/favicon.ico');
         $client->enablePassthroughMode();
         $client->execute();
 

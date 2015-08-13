@@ -288,5 +288,11 @@ AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
             '',
             Url::resolve('', '')
         );
+
+        // Test no-ascii paths
+        $this->assertEquals(
+            'http://lesjoiesducode.fr/post/125336534020/quand-la-page-doit-%C3%AAtre-pixel-perfect',
+            Url::resolve('http://lesjoiesducode.fr/post/125336534020/quand-la-page-doit-être-pixel-perfect', 'http://lesjoiesducode.fr/post/125336534020')
+        );
     }
 }

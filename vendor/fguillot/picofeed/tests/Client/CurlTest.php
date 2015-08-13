@@ -28,7 +28,7 @@ class CurlTest extends PHPUnit_Framework_TestCase
     public function testPassthrough()
     {
         $client = new Curl;
-        $client->setUrl('http://miniflux.net/favicon.ico');
+        $client->setUrl('https://miniflux.net/favicon.ico');
         $client->enablePassthroughMode();
         $client->doRequest();
 

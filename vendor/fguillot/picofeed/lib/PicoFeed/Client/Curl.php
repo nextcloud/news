@@ -243,8 +243,7 @@ class Curl extends Client
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this->timeout);
         curl_setopt($ch, CURLOPT_USERAGENT, $this->user_agent);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $this->prepareHeaders());
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, ini_get('open_basedir') === '');
-        curl_setopt($ch, CURLOPT_MAXREDIRS, $this->max_redirects);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
         curl_setopt($ch, CURLOPT_ENCODING, '');
         curl_setopt($ch, CURLOPT_COOKIEJAR, 'php://memory');
         curl_setopt($ch, CURLOPT_COOKIEFILE, 'php://memory');
@@ -310,8 +309,7 @@ class Curl extends Client
 
         list($status, $headers) = HttpHeaders::parse(explode("\n", $this->response_headers[$this->response_headers_count - 1]));
 
-        // When restricted with open_basedir
-        if ($this->needToHandleRedirection($follow_location, $status)) {
+        if ($follow_location && ($status == 301 || $status == 302)) {
             return $this->handleRedirection($headers['Location']);
         }
 
@@ -320,19 +318,6 @@ class Curl extends Client
             'body' => $this->body,
             'headers' => $headers
         );
-    }
-
-    /**
-     * Check if the redirection have to be handled manually
-     *
-     * @access private
-     * @param  boolean    $follow_location    Flag
-     * @param  integer    $status             HTTP status code
-     * @return boolean
-     */
-    private function needToHandleRedirection($follow_location, $status)
-    {
-        return $follow_location && ini_get('open_basedir') !== '' && ($status == 301 || $status == 302);
     }
 
     /**

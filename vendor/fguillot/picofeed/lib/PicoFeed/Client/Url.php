@@ -149,6 +149,24 @@ class Url
     }
 
     /**
+     * Filters the path of a URI
+     *
+     * Imported from Guzzle library: https://github.com/guzzle/psr7/blob/master/src/Uri.php#L568-L582
+     *
+     * @access public
+     * @param $path
+     * @return string
+     */
+    public function filterPath($path, $charUnreserved = 'a-zA-Z0-9_\-\.~', $charSubDelims = '!\$&\'\(\)\*\+,;=')
+    {
+        return preg_replace_callback(
+            '/(?:[^' . $charUnreserved . $charSubDelims . ':@\/%]+|%(?![A-Fa-f0-9]{2}))/',
+            function (array $matches) { return rawurlencode($matches[0]); },
+            $path
+        );
+    }
+
+    /**
      * Get the path
      *
      * @access public
@@ -156,7 +174,7 @@ class Url
      */
     public function getPath()
     {
-        return empty($this->components['path']) ? '' : $this->components['path'];
+        return $this->filterPath(empty($this->components['path']) ? '' : $this->components['path']);
     }
 
     /**

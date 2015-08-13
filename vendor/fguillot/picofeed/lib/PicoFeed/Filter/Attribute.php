@@ -149,6 +149,7 @@ class Attribute
         'feeds.feedburner.com',
         'share.feedsportal.com',
         'da.feedsportal.com',
+        'rc.feedsportal.com',
         'rss.feedsportal.com',
         'res.feedsportal.com',
         'res1.feedsportal.com',

@@ -179,7 +179,7 @@ class Rss20 extends Writer
     {
         $xml->appendChild($this->dom->createElement(
             'pubDate',
-            date(DATE_RFC822, $value ?: time())
+            date(DATE_RSS, $value ?: time())
         ));
     }
 
