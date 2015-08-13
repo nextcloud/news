@@ -32,6 +32,7 @@
     "require": {
         "ezyang/htmlpurifier": "~4.7",
         "fguillot/picofeed": "dev-master",
-        "plasmaconduit/path": "^0.1.1"
+        "plasmaconduit/path": "^0.1.1",
+        "pear/net_url2": "~2.2"
     }
 }
