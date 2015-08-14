@@ -31,6 +31,7 @@ class FeedTest extends \PHPUnit_Framework_TestCase {
         $feed->setLink('https://www.google.com/some/weird/path');
         $feed->setLocation('http://google.at');
         $feed->setOrdering(2);
+        $feed->setFullTextEnabled(true);
         return $feed;
     }
 
@@ -46,7 +47,7 @@ class FeedTest extends \PHPUnit_Framework_TestCase {
             'folderId' => 1,
             'unreadCount' => 321,
             'ordering' => 2,
-            'link' => 'https://www.google.com/some/weird/path'
+            'link' => 'https://www.google.com/some/weird/path',
         ], $feed->toAPI());
     }
 
@@ -70,7 +71,8 @@ class FeedTest extends \PHPUnit_Framework_TestCase {
             'articlesPerUpdate' => null,
             'cssClass' => 'custom-google-com',
             'location' => 'http://google.at',
-            'ordering' => 2
+            'ordering' => 2,
+            'fullTextEnabled' => true
         ], $feed->jsonSerialize());
     }
 
