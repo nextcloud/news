@@ -86,6 +86,8 @@
     "No feed ordering" : "Не указан порядок новостных лент",
     "Reversed feed ordering" : "Обратный порядок новостной ленты",
     "Normal feed ordering" : "Обычный порядок новостной ленты",
+    "Enable full text feed fetching" : "Включить загрузку полного текста новостной ленты",
+    "Disable full text feed fetching" : "Выключить загрузку полного текста новостной ленты",
     "Rename feed" : "Переименовать ленту",
     "Delete feed" : "Удалить ленту",
     "Mark all articles read" : "Пометить все статьи как прочитанные",

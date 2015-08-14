@@ -88,6 +88,8 @@ OC.L10N.register(
     "No feed ordering" : "Καμμία ταξινόμηση ροής",
     "Reversed feed ordering" : "Ανεστραμμένη ταξινόμηση ροής",
     "Normal feed ordering" : "Κανονική ταξινόμηση ροής",
+    "Enable full text feed fetching" : "Ενεργοποίηση λήψης ροής πλήρους κειμένου",
+    "Disable full text feed fetching" : "Απενεργοποίηση λήψης ροής πλήρους κειμένου",
     "Rename feed" : "Μετονομασία ροής",
     "Delete feed" : "Διαγραφή ροής",
     "Mark all articles read" : "Σημείωση όλων των άρθρων ως ανεγνωσμένων",
