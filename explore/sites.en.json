@@ -10,6 +10,15 @@
             "votes": 1000
         },
         {
+            "title": "News app releases",
+            "favicon": "http://owncloud.org/wp-content/themes/owncloudorgnew/assets/img/common/favicon.png",
+            "url": "https://github.com/owncloud/news/releases",
+            "feed": "https://github.com/owncloud/news/releases.atom",
+            "description": "ownCloud News app releases page. Get notified when a new release comes out",
+            "image": "https://raw.githubusercontent.com/owncloud/promo/master/ownCloud%20sticker%20A8.jpg",
+            "votes": 900
+        },
+        {
             "title": "Slashdot",
             "favicon": "http://slashdot.org/favicon.ico",
             "url": "http://slashdot.org",
