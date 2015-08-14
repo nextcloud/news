@@ -59,8 +59,8 @@ class StreamTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(is_array($result));
         $this->assertEquals(200, $result['status']);
         $this->assertEquals('<!DOCTYPE', substr($result['body'], 0, 9));
-        $this->assertEquals('text/html', $result['headers']['Content-Type']);
-        $this->assertEquals('http://www.01net.com/editorial/643722/android-google-now-s-ouvre-aux-applications-tierces/#?xtor=RSS-16', $client->getUrl());
+        $this->assertEquals('text/html; charset=utf-8', $result['headers']['Content-Type']);
+        $this->assertEquals('http://www.01net.com/actualites/android-google-now-s-ouvre-aux-applications-tierces-643722.html', $client->getUrl());
     }
 
     /**
