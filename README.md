@@ -29,7 +29,6 @@ All of the listed stable Linux distributions will be supported until their next 
 
 * Ubuntu 14.04
 * Debian 8 (Jessie)
-* CentOS 7
 * Arch Linux
 
 ## Supported PHP versions
