@@ -24,15 +24,14 @@ are listed on the [ownCloud apps overview](https://github.com/owncloud/core/wiki
 * SimpleXML
 * PHP >= 5.5
 
-## Supported Operating Systems
-All of the listed stable Linux distributions will be supported until their next stable version's first bugfix release is released (e.g. Debian 7 is supported until Debian 8.1 is released):
+## Supported Linux Distributions
+Supported means that the distribution's default repository packages will work in conjunction with the News app and you won't have to add any 3rdparty repositories.
+
+The following distros are supported:
 
 * Ubuntu 14.04
 * Debian 8 (Jessie)
 * Arch Linux
-
-## Supported PHP versions
-The minimum PHP version will be the [lowest supported version that still receives security fixes](http://php.net/supported-versions.php). The currently supported lowest version is **5.5** which will be dropped in favor of **5.6** on **10th July 2016**. An exception to this rule will be made if one or more supported operating systems still ship this PHP version by default.
 
 ## Supported Browsers
 * Newest Firefox (Desktop, Android, Firefox OS)
