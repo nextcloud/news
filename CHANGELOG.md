@@ -1,5 +1,6 @@
 owncloud-news (6.0.0)
 * **New dependency**: Require PHP 5.5
+* **Support**: Drop CentOS support
 * **Bugfix**: Fix bug that would not delete a user's table entries after deletion
 * **Enhancement**: Add **news:verify-install** command to help diagnosing missing or out of date files
 * **Enhancement**: Rather than always enhancing feeds based on rules, use picoFeeds full text feed capability
