@@ -70,11 +70,11 @@ class VerifyInstall extends Command {
             $output->writeln('Either way, please make sure that the contents ' .
                              'of the News app\'s directory match the contents ' .
                              'of the installed tarball.');
+            exit(1);
         } else {
             $output->writeln('<info>Installation verified, everything OK!' .
                              '</info>');
         }
-        exit(1);
     }
 
 }
