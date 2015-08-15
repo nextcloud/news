@@ -86,6 +86,8 @@
     "No feed ordering" : "ไม่มีรายการฟีด",
     "Reversed feed ordering" : "ย้อนกลับรายการฟีด",
     "Normal feed ordering" : "รายการฟีดปกติ",
+    "Enable full text feed fetching" : "เปิดการใช้งานการเรียกข้อความฟีดแบบเต็ม",
+    "Disable full text feed fetching" : "ปิดการใช้งานการเรียกข้อความฟีดแบบเต็ม",
     "Rename feed" : "เปลี่ยนชื่อฟีด",
     "Delete feed" : "ลบ feed",
     "Mark all articles read" : "ทำเครื่องหมายอ่านบทความทั้งหมด",

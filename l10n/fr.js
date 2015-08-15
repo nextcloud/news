@@ -88,6 +88,8 @@ OC.L10N.register(
     "No feed ordering" : "Aucun tri du flux",
     "Reversed feed ordering" : "Tri inversé du flux",
     "Normal feed ordering" : "Tri normal du flux",
+    "Enable full text feed fetching" : "Activer le chargement du corps des articles",
+    "Disable full text feed fetching" : "Désactiver le chargement du corps des articles",
     "Rename feed" : "Renommer le flux",
     "Delete feed" : "Supprimer le flux",
     "Mark all articles read" : "Marquer tous les articles comme lus",
