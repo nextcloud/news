@@ -6,4 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Riimu\\Kit\\PathJoin\\' => array($vendorDir . '/riimu/kit-pathjoin/src'),
 );

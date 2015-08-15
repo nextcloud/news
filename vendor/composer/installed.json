@@ -1,33 +1,5 @@
 [
     {
-        "name": "plasmaconduit/path",
-        "version": "0.1.1",
-        "version_normalized": "0.1.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/JosephMoniz/php-path.git",
-            "reference": "7c19ff02615defcf0b56968589aa1b53b0ee7ebe"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/JosephMoniz/php-path/zipball/7c19ff02615defcf0b56968589aa1b53b0ee7ebe",
-            "reference": "7c19ff02615defcf0b56968589aa1b53b0ee7ebe",
-            "shasum": ""
-        },
-        "require-dev": {
-            "phpspec/phpspec2": "*"
-        },
-        "time": "2013-01-23 06:47:38",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "": "src"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/"
-    },
-    {
         "name": "ezyang/htmlpurifier",
         "version": "v4.7.0",
         "version_normalized": "4.7.0.0",
@@ -184,5 +156,52 @@
         ],
         "description": "Modern library to handle RSS/Atom feeds",
         "homepage": "https://github.com/fguillot/picoFeed"
+    },
+    {
+        "name": "riimu/kit-pathjoin",
+        "version": "v1.1.1",
+        "version_normalized": "1.1.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Riimu/Kit-PathJoin.git",
+            "reference": "a107e81d26f805dd905f1e92ef4e4a8629e19bbc"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Riimu/Kit-PathJoin/zipball/a107e81d26f805dd905f1e92ef4e4a8629e19bbc",
+            "reference": "a107e81d26f805dd905f1e92ef4e4a8629e19bbc",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0"
+        },
+        "time": "2015-08-09 07:49:38",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Riimu\\Kit\\PathJoin\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Riikka Kalliomäki",
+                "email": "riikka.kalliomaki@gmail.com",
+                "homepage": "http://riimu.net"
+            }
+        ],
+        "description": "Cross-platform library for normalizing and joining file system paths",
+        "homepage": "http://kit.riimu.net",
+        "keywords": [
+            "file",
+            "join",
+            "normalize",
+            "path",
+            "system"
+        ]
     }
 ]

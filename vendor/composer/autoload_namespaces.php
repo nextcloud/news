@@ -8,5 +8,4 @@ $baseDir = dirname($vendorDir);
 return array(
     'PicoFeed' => array($vendorDir . '/fguillot/picofeed/lib'),
     'HTMLPurifier' => array($vendorDir . '/ezyang/htmlpurifier/library'),
-    '' => array($vendorDir . '/plasmaconduit/path/src'),
 );

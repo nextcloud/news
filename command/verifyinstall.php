@@ -15,7 +15,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
-use PlasmaConduit\Path;
+use Riimu\Kit\PathJoin\Path;
 
 use OCA\News\Utility\FileChecksumValidator;
 
@@ -74,7 +74,7 @@ class VerifyInstall extends Command {
             $output->writeln('<info>Installation verified, everything OK!' .
                              '</info>');
         }
-
+        exit(1);
     }
 
 }

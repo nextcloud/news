@@ -1,3 +1,6 @@
+owncloud-news (6.0.1)
+* **Enhancement**: Replace unlicensed PHP library with a licensed alternative
+
 owncloud-news (6.0.0)
 * **New dependency**: Require PHP 5.5
 * **Support**: Drop CentOS support
