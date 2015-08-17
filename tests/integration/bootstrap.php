@@ -120,7 +120,6 @@ class NewsIntegrationTest extends PHPUnit_Framework_TestCase {
         }
     }
 
-
     private function createFolder($folder) {
         $newFolder = new Folder();
         $newFolder->setName($folder['name']);
@@ -130,7 +129,6 @@ class NewsIntegrationTest extends PHPUnit_Framework_TestCase {
         $newFolder->setDeletedAt($folder['deletedAt']);
         return $this->folderMapper->insert($newFolder);
     }
-
 
     private function createFeed($feed) {
         $newFeed = new Feed();
@@ -150,7 +148,6 @@ class NewsIntegrationTest extends PHPUnit_Framework_TestCase {
         return $this->feedMapper->insert($newFeed);
     }
 
-
     private function createItem($item) {
         $newItem = new Item();
         $newItem->setFeedId($item['feedId']);
@@ -167,7 +164,6 @@ class NewsIntegrationTest extends PHPUnit_Framework_TestCase {
         $newItem->setEnclosureLink($item['enclosureLink']);
         return $this->itemMapper->insert($newItem);
     }
-
 
     protected function whenOlderThan($olderThan, $callback) {
         $ocVersion = $this->ownCloudVersion;
