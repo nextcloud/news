@@ -88,6 +88,8 @@ OC.L10N.register(
     "No feed ordering" : "Bez řazení zdrojů",
     "Reversed feed ordering" : "Opačné řazení zdrojů",
     "Normal feed ordering" : "Normální řazení zdrojů",
+    "Enable full text feed fetching" : "Povolit stahování kompletních textů",
+    "Disable full text feed fetching" : "Vypnout stahování kompletních textů",
     "Rename feed" : "Přejmenovat kanál",
     "Delete feed" : "Smazat kanál",
     "Mark all articles read" : "Označit všechny články jako přečtené",
