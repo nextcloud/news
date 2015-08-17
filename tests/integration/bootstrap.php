@@ -13,16 +13,23 @@ namespace OCA\News\Tests\Integration;
 
 require_once __DIR__ . '/../../../../lib/base.php';
 
-use \OCA\News\AppInfo\Application;
-use \OCA\News\Db\Folder;
-use \OCA\News\Db\Feed;
-use \OCA\News\Db\Item;
+use PHPUnit_Framework_TestCase;
+use OCP\IDb;
+use OCP\IUserSession;
+use OCP\IUserManager;
 
-class NewsIntegrationTest extends \PHPUnit_Framework_TestCase {
+use OCA\News\AppInfo\Application;
+use OCA\News\Db\Folder;
+use OCA\News\Db\Feed;
+use OCA\News\Db\Item;
+use OCA\News\Db\FeedMapper;
+use OCA\News\Db\ItemMapper;
+use OCA\News\Db\FolderMapper;
+
+class NewsIntegrationTest extends PHPUnit_Framework_TestCase {
 
     protected $userId = 'test';
     protected $userPassword = 'test';
-    protected $ownCloudVersion;
     protected $container;
     protected $folderMapper;
     protected $feedMapper;
@@ -32,14 +39,13 @@ class NewsIntegrationTest extends \PHPUnit_Framework_TestCase {
     protected $items = [];
 
     protected function setUp() {
-        $this->ownCloudVersion = \OCP\Util::getVersion();
-        $this->cleanUp();
-
         $app = new Application();
         $this->container = $app->getContainer();
-        $this->itemMapper = $this->container->query(\OCA\News\Db\ItemMapper::class);
-        $this->feedMapper = $this->container->query(\OCA\News\Db\FeedMapper::class);
-        $this->folderMapper = $this->container->query(\OCA\News\Db\FolderMapper::class);
+        $this->itemMapper = $this->container->query(ItemMapper::class);
+        $this->feedMapper = $this->container->query(FeedMapper::class);
+        $this->folderMapper = $this->container->query(FolderMapper::class);
+
+        $this->cleanUp();
 
         $this->loadFixtures(
             $this->folderMapper,
@@ -57,7 +63,7 @@ class NewsIntegrationTest extends \PHPUnit_Framework_TestCase {
             'DELETE FROM *PREFIX*news_folders WHERE user_id = ?'
         ];
 
-        $db = \OC::$server->getDb();
+        $db = $this->container->query(IDb::class);
         foreach ($sql as $query) {
             $db->prepareQuery($query)->execute([$user]);
         }
@@ -172,19 +178,15 @@ class NewsIntegrationTest extends \PHPUnit_Framework_TestCase {
 
 
     protected function setupUser($user, $password) {
-        $userManager = \OC::$server->getUserManager();
+        $userManager = $this->container->query(IUserManager::class);
 
         if ($userManager->userExists($user)) {
             $userManager->get($user)->delete();
-
-            $this->whenOlderThan('7.8', function () use ($user, $userManager) {
-                $userManager->delete($user);
-            });
         }
 
         $userManager->createUser($user, $password);
 
-        $session = \OC::$server->getUserSession();
+        $session = $this->container->query(IUserSession::class);
         $session->login($user, $password);
     }
 
