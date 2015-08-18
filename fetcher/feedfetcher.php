@@ -114,7 +114,10 @@ class FeedFetcher implements IFeedFetcher {
             if ($ex instanceof MalFormedXmlException) {
                 $msg = $this->l10n->t('Feed contains invalid XML');
             } else if ($ex instanceof SubscriptionNotFoundException) {
-                $msg = $this->l10n->t('Could not find a feed');
+                $msg = $this->l10n->t('Feed not found: either the website ' .
+                'does not provide a feed or blocks access. To rule out ' .
+                'blocking, curl the feed on your server, e.g.: curl ' .
+                'http://the-feed.tld');
             } else if ($ex instanceof UnsupportedFeedFormatException) {
                 $msg = $this->l10n->t('Detected feed format is not supported');
             } else if ($ex instanceof InvalidCertificateException) {
