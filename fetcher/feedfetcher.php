@@ -116,8 +116,8 @@ class FeedFetcher implements IFeedFetcher {
             } else if ($ex instanceof SubscriptionNotFoundException) {
                 $msg = $this->l10n->t('Feed not found: either the website ' .
                 'does not provide a feed or blocks access. To rule out ' .
-                'blocking, curl the feed on your server, e.g.: curl ' .
-                'http://the-feed.tld');
+                'blocking, try to download the feed on your server\'s ' .
+                'command line using curl: curl http://the-feed.tld');
             } else if ($ex instanceof UnsupportedFeedFormatException) {
                 $msg = $this->l10n->t('Detected feed format is not supported');
             } else if ($ex instanceof InvalidCertificateException) {
