@@ -68,9 +68,9 @@ class VerifyInstall extends Command {
                              'invalid or out of date appinfo/checksum.json ' .
                              'file.');
             $output->writeln('Either way, please make sure that the contents ' .
-                             'of the News app\'s directory match the contents ' .
-                             'of the installed tarball.');
-            exit(1);
+                             'of the News app\'s directory match the ' .
+                             'contents of the installed tarball.');
+            return 1;
         } else {
             $output->writeln('<info>Installation verified, everything OK!' .
                              '</info>');
