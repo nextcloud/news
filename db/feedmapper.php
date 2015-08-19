@@ -38,11 +38,7 @@ class FeedMapper extends NewsMapper {
                 StatusFlag::UNREAD . ' ' .
             'WHERE `feeds`.`id` = ? ' .
                 'AND `feeds`.`user_id` = ? ' .
-            'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`, '.
-                '`feeds`.`url`, `feeds`.`title`, `feeds`.`link`, '.
-                '`feeds`.`favicon_link`, `feeds`.`added`, ' .
-                '`feeds`.`articles_per_update`, `feeds`.`folder_id`, ' .
-                '`feeds`.`prevent_update`, `feeds`.`deleted_at`';
+            'GROUP BY `feeds`.`id`';
         $params = [$id, $userId];
 
         return $this->findEntity($sql, $params);
@@ -67,11 +63,7 @@ class FeedMapper extends NewsMapper {
                 'OR `folders`.`deleted_at` = 0' .
             ')' .
             'AND `feeds`.`deleted_at` = 0 ' .
-            'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`,'.
-                '`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
-                '`feeds`.`favicon_link`, `feeds`.`added`, ' .
-                '`feeds`.`articles_per_update`, `feeds`.`folder_id`, ' .
-                '`feeds`.`prevent_update`, `feeds`.`deleted_at`';
+            'GROUP BY `feeds`.`id`';
         $params = [$userId];
 
         return $this->findEntities($sql, $params);
@@ -95,11 +87,7 @@ class FeedMapper extends NewsMapper {
                 'OR `folders`.`deleted_at` = 0' .
             ')' .
             'AND `feeds`.`deleted_at` = 0 ' .
-            'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`,'.
-                '`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
-                '`feeds`.`favicon_link`, `feeds`.`added`, ' .
-                '`feeds`.`articles_per_update`, `feeds`.`folder_id`, ' .
-                '`feeds`.`prevent_update`, `feeds`.`deleted_at`';
+            'GROUP BY `feeds`.`id`';
 
         return $this->findEntities($sql);
     }
@@ -118,11 +106,7 @@ class FeedMapper extends NewsMapper {
                 StatusFlag::UNREAD . ' ' .
             'WHERE `feeds`.`url_hash` = ? ' .
                 'AND `feeds`.`user_id` = ? ' .
-            'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`,'.
-                '`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
-                '`feeds`.`favicon_link`, `feeds`.`added`, ' .
-                '`feeds`.`articles_per_update`, `feeds`.`folder_id`, ' .
-                '`feeds`.`prevent_update`, `feeds`.`deleted_at`';
+            'GROUP BY `feeds`.`id`';
         $params = [$hash, $userId];
 
         return $this->findEntity($sql, $params);

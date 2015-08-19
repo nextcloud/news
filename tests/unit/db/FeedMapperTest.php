@@ -47,12 +47,7 @@ class FeedMapperTest extends \OCA\News\Tests\Unit\Db\MapperTestUtility {
                 StatusFlag::UNREAD . ' ' .
             'WHERE `feeds`.`id` = ? ' .
                 'AND `feeds`.`user_id` = ? ' .
-                'GROUP BY `feeds`.`id`, `feeds`.`user_id`, ' .
-                    '`feeds`.`url_hash`, '.
-                    '`feeds`.`url`, `feeds`.`title`, `feeds`.`link`, '.
-                    '`feeds`.`favicon_link`, `feeds`.`added`, ' .
-                    '`feeds`.`articles_per_update`, `feeds`.`folder_id`, ' .
-                    '`feeds`.`prevent_update`, `feeds`.`deleted_at`';
+                'GROUP BY `feeds`.`id`';
         $params = [$id, $userId];
         $this->setMapperResult($sql, $params, $rows);
 
@@ -73,12 +68,7 @@ class FeedMapperTest extends \OCA\News\Tests\Unit\Db\MapperTestUtility {
                 StatusFlag::UNREAD . ' ' .
             'WHERE `feeds`.`id` = ? ' .
                 'AND `feeds`.`user_id` = ? ' .
-                'GROUP BY `feeds`.`id`, `feeds`.`user_id`, ' .
-                    '`feeds`.`url_hash`, '.
-                    '`feeds`.`url`, `feeds`.`title`, `feeds`.`link`, '.
-                    '`feeds`.`favicon_link`, `feeds`.`added`, ' .
-                    '`feeds`.`articles_per_update`, `feeds`.`folder_id`, ' .
-                    '`feeds`.`prevent_update`, `feeds`.`deleted_at`';
+                'GROUP BY `feeds`.`id`';
         $params = [$id, $userId];
         $this->setMapperResult($sql, $params);
 
@@ -104,12 +94,7 @@ class FeedMapperTest extends \OCA\News\Tests\Unit\Db\MapperTestUtility {
                 StatusFlag::UNREAD . ' ' .
             'WHERE `feeds`.`id` = ? ' .
                 'AND `feeds`.`user_id` = ? ' .
-                'GROUP BY `feeds`.`id`, `feeds`.`user_id`, ' .
-                    '`feeds`.`url_hash`, '.
-                    '`feeds`.`url`, `feeds`.`title`, `feeds`.`link`, '.
-                    '`feeds`.`favicon_link`, `feeds`.`added`, ' .
-                    '`feeds`.`articles_per_update`, `feeds`.`folder_id`, ' .
-                    '`feeds`.`prevent_update`, `feeds`.`deleted_at`';
+                'GROUP BY `feeds`.`id`';
         $params = [$id, $userId];
         $this->setMapperResult($sql, $params, $rows);
 
@@ -137,11 +122,7 @@ class FeedMapperTest extends \OCA\News\Tests\Unit\Db\MapperTestUtility {
                 'OR `folders`.`deleted_at` = 0' .
             ')' .
             'AND `feeds`.`deleted_at` = 0 ' .
-            'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`,'.
-                '`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
-                '`feeds`.`favicon_link`, `feeds`.`added`, ' .
-                '`feeds`.`articles_per_update`, `feeds`.`folder_id`, ' .
-                '`feeds`.`prevent_update`, `feeds`.`deleted_at`';
+            'GROUP BY `feeds`.`id`';
 
         $this->setMapperResult($sql, [], $rows);
 
@@ -169,11 +150,7 @@ class FeedMapperTest extends \OCA\News\Tests\Unit\Db\MapperTestUtility {
                 'OR `folders`.`deleted_at` = 0' .
             ')' .
             'AND `feeds`.`deleted_at` = 0 ' .
-            'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`,'.
-                '`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
-                '`feeds`.`favicon_link`, `feeds`.`added`, ' .
-                '`feeds`.`articles_per_update`, `feeds`.`folder_id`, ' .
-                '`feeds`.`prevent_update`, `feeds`.`deleted_at`';
+            'GROUP BY `feeds`.`id`';
         $this->setMapperResult($sql, [$userId], $rows);
 
         $result = $this->mapper->findAllFromUser($userId);
@@ -192,11 +169,7 @@ class FeedMapperTest extends \OCA\News\Tests\Unit\Db\MapperTestUtility {
                 StatusFlag::UNREAD . ' ' .
             'WHERE `feeds`.`url_hash` = ? ' .
                 'AND `feeds`.`user_id` = ? ' .
-                'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`,'.
-                    '`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
-                    '`feeds`.`favicon_link`, `feeds`.`added`, ' .
-                    '`feeds`.`articles_per_update`, `feeds`.`folder_id`, ' .
-                    '`feeds`.`prevent_update`, `feeds`.`deleted_at`';
+                'GROUP BY `feeds`.`id`';
         $this->setMapperResult($sql, [$urlHash, $this->user], $row);
 
         $result = $this->mapper->findByUrlHash($urlHash, $this->user);
@@ -214,11 +187,7 @@ class FeedMapperTest extends \OCA\News\Tests\Unit\Db\MapperTestUtility {
                 StatusFlag::UNREAD . ' ' .
             'WHERE `feeds`.`url_hash` = ? ' .
                 'AND `feeds`.`user_id` = ? ' .
-                'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`,'.
-                    '`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
-                    '`feeds`.`favicon_link`, `feeds`.`added`, ' .
-                    '`feeds`.`articles_per_update`, `feeds`.`folder_id`, ' .
-                    '`feeds`.`prevent_update`, `feeds`.`deleted_at`';
+                'GROUP BY `feeds`.`id`';
         $this->setMapperResult($sql, [$urlHash, $this->user]);
 
         $this->setExpectedException(
@@ -242,11 +211,7 @@ class FeedMapperTest extends \OCA\News\Tests\Unit\Db\MapperTestUtility {
                 StatusFlag::UNREAD . ' ' .
             'WHERE `feeds`.`url_hash` = ? ' .
                 'AND `feeds`.`user_id` = ? ' .
-                'GROUP BY `feeds`.`id`, `feeds`.`user_id`, `feeds`.`url_hash`,'.
-                    '`feeds`.`url`, `feeds`.`title`, `feeds`.`link`,'.
-                    '`feeds`.`favicon_link`, `feeds`.`added`, ' .
-                    '`feeds`.`articles_per_update`, `feeds`.`folder_id`, ' .
-                    '`feeds`.`prevent_update`, `feeds`.`deleted_at`';
+                'GROUP BY `feeds`.`id`';
         $this->setMapperResult($sql, [$urlHash, $this->user], $rows);
 
         $this->setExpectedException(
