@@ -1,7 +1,6 @@
 <?php
 $TRANSLATIONS = array(
 "Feed contains invalid XML" => "A fonte contén XML incorrecto",
-"Could not find a feed" => "Non foi posíbel atopar ningunha fonte",
 "Detected feed format is not supported" => "O formato detectado da fonte non está admitido",
 "SSL Certificate is invalid" => "Certificado SSL incorrecto",
 "Website not found" => "Non foi atopado o sitio web",

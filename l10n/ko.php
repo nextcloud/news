@@ -1,7 +1,6 @@
 <?php
 $TRANSLATIONS = array(
 "Feed contains invalid XML" => "피드에 올바르지 않은 XML이 포함되어 있음",
-"Could not find a feed" => "피드를 찾을 수 없음",
 "Detected feed format is not supported" => "감지한 피드 포맷을 지원하지 않음",
 "SSL Certificate is invalid" => "SSL 인증서가 잘못됨",
 "Website not found" => "웹 사이트를 찾을 수 없음",

@@ -1,7 +1,6 @@
 <?php
 $TRANSLATIONS = array(
 "Feed contains invalid XML" => "Voog sisaldab vigast XML-i",
-"Could not find a feed" => "Ei suuda leida voogu",
 "Detected feed format is not supported" => "Voo tuvastus pole toetatud",
 "SSL Certificate is invalid" => "SSL sertifikaat on vigane",
 "Website not found" => "Veebilehte ei leitud",

@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Feed contains invalid XML" : "Unos sadrži pogrešan XML",
-    "Could not find a feed" : "Ne mogu naći unos",
     "Detected feed format is not supported" : "Ponađeni format unosa nije podržan",
     "SSL Certificate is invalid" : "SSL certifikat nije ispravan",
     "Website not found" : "Web stranica nije nađena",

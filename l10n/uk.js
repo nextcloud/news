@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Feed contains invalid XML" : "Стрічка містить недійсний XML",
-    "Could not find a feed" : "Не вдалося знайти стрічку",
     "Detected feed format is not supported" : "Формат знайденої стрічки не підтримується",
     "SSL Certificate is invalid" : "SSL Сертифікат не вірний",
     "Website not found" : "Сайт не знайдено",

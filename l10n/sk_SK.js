@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Feed contains invalid XML" : "Zdroj obsahuje nefunkčné XML",
-    "Could not find a feed" : "Nepodarilo sa nájsť zdroj",
     "Detected feed format is not supported" : "Detekovaný formát zdroja nieje podporovaný",
     "SSL Certificate is invalid" : "SSL certifikát je nesprávny",
     "Website not found" : "Webstránka nebola nájdená",

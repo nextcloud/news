@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Feed contains invalid XML" : "Η ροή περιέχει μη έγχυρο XML",
-    "Could not find a feed" : "Αδυναμία εύρεσης ροής",
     "Detected feed format is not supported" : "Η μορφοποίηση ροής που ανιχνεύτηκε δεν υποστηρίζεται",
     "SSL Certificate is invalid" : "Μη έγκυρο Πιστοποιητικό SSL",
     "Website not found" : "Δεν βρέθηκε ιστοσελίδα",

@@ -1,7 +1,6 @@
 <?php
 $TRANSLATIONS = array(
 "Feed contains invalid XML" => "Flödet innehåller ogiltig XML",
-"Could not find a feed" => "Kunde inte htta ett flöde",
 "Detected feed format is not supported" => "Detekterat flödesformat stödjs ej",
 "SSL Certificate is invalid" => "SSL-certifikatet är ogiltigt",
 "Website not found" => "Webbplats hittades ej",

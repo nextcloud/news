@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Feed contains invalid XML" : "Потокът съдържа невалидно XML съдържание",
-    "Could not find a feed" : "Неуспешно намиране на поток",
     "Detected feed format is not supported" : "Форматът на намереният поток не е поддържан",
     "SSL Certificate is invalid" : "Невалиден SSL Сертификат",
     "Website not found" : "Страницата не е открита",

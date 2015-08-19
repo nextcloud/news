@@ -1,7 +1,6 @@
 <?php
 $TRANSLATIONS = array(
 "Feed contains invalid XML" => "Nyhetskilden inneholder ugyldig XML",
-"Could not find a feed" => "Fant ikke en nyhetskilde",
 "Detected feed format is not supported" => "Påvist nyhetskilde-format støttes ikke",
 "SSL Certificate is invalid" => "Ugylidg SSL-sertifikat",
 "Website not found" => "Nettsted ikke funnet",

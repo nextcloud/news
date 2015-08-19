@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Feed contains invalid XML" : "ฟีดประกอบด้วย XML ที่ไม่ถูกต้อง",
-    "Could not find a feed" : "ไม่สามารถค้นหาฟีด",
     "Detected feed format is not supported" : "รูปแบบฟีดที่ตรวจพบไม่ได้รับการสนับสนุน",
     "SSL Certificate is invalid" : "ใบรับรองความปลอดภัย SSL ไม่ถูกต้อง",
     "Website not found" : "ไม่พบเว็บไซต์",

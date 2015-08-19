@@ -1,7 +1,6 @@
 <?php
 $TRANSLATIONS = array(
 "Feed contains invalid XML" => "В ленте присутствует недействительный XML",
-"Could not find a feed" => "Не удалось найти ленту RSS",
 "Detected feed format is not supported" => "Обнаруженный формат ленты не поддерживается",
 "SSL Certificate is invalid" => "SSL сертификат недействительный ",
 "Website not found" => "Сайт не найден",

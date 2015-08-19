@@ -1,6 +1,5 @@
 { "translations": {
     "Feed contains invalid XML" : "Le flux contient un XML non valide",
-    "Could not find a feed" : "Impossible de trouver un flux",
     "Detected feed format is not supported" : "Format de flux détecté non compatible",
     "SSL Certificate is invalid" : "Le certificat SSL n'est pas valable",
     "Website not found" : "Site web non trouvé",

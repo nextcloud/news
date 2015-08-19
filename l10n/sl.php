@@ -1,7 +1,6 @@
 <?php
 $TRANSLATIONS = array(
 "Feed contains invalid XML" => "Vir vsebuje neveljaven zapis XML.",
-"Could not find a feed" => "Vira ni mogoče najti.",
 "Detected feed format is not supported" => "Zaznan zapis vira ni podprt.",
 "SSL Certificate is invalid" => "Potrdilo SSL ni veljavno.",
 "Website not found" => "Spletišča ni mogoče najti.",

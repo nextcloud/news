@@ -1,7 +1,6 @@
 <?php
 $TRANSLATIONS = array(
 "Feed contains invalid XML" => "Довод садржи неисправан ИксМЛ",
-"Could not find a feed" => "Не могу да нађем довод",
 "Detected feed format is not supported" => "Откривени формат довода није подржан",
 "SSL Certificate is invalid" => "ССЛ сертификат није исправан",
 "Website not found" => "Веб сајт није пронађен",

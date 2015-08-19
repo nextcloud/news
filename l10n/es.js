@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Feed contains invalid XML" : "La fuente contiene XML inválido",
-    "Could not find a feed" : "No se pudo encontrar una fuente",
     "Detected feed format is not supported" : "El formato de fuente detectado no está soportado",
     "SSL Certificate is invalid" : "El certificado SSL es inválido",
     "Website not found" : "Sitio web no encontrado",

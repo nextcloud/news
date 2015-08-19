@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Feed contains invalid XML" : "Feed bevat ongeldige XML",
-    "Could not find a feed" : "Kon geen feed vinden",
     "Detected feed format is not supported" : "Gevonden feed formaat wordt niet ondersteund",
     "SSL Certificate is invalid" : "SSL certificaat is ongeldig",
     "Website not found" : "Website niet gevonden",

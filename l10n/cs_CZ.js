@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Feed contains invalid XML" : "Kanál obsahuje neplatné XML",
-    "Could not find a feed" : "Kanál nenalezen",
     "Detected feed format is not supported" : "Detekovaný formát kanálu není podporován",
     "SSL Certificate is invalid" : "SSL certifikát je neplatný",
     "Website not found" : "Webová stránka nenalezena",

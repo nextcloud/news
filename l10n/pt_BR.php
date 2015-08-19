@@ -1,7 +1,6 @@
 <?php
 $TRANSLATIONS = array(
 "Feed contains invalid XML" => "Alimentação contém XML inválido",
-"Could not find a feed" => "Não foi possível encontrar uma alimentação",
 "Detected feed format is not supported" => "Formato de alimentação detectado não é suportado",
 "SSL Certificate is invalid" => "Certificado SSL é inválido",
 "Website not found" => "Site não encontrado",

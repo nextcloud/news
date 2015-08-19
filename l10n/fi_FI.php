@@ -1,7 +1,6 @@
 <?php
 $TRANSLATIONS = array(
 "Feed contains invalid XML" => "Syöte sisältää virheellistä XML:ää",
-"Could not find a feed" => "Syötettä ei löytynyt",
 "Detected feed format is not supported" => "Havaittu syötemuoto ei ole tuettu",
 "SSL Certificate is invalid" => "SSL-varmenne on virheellinen",
 "Website not found" => "Verkkosivustoa ei löytynyt",

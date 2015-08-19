@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Feed contains invalid XML" : "Besleme, geçersiz XML içeriyor",
-    "Could not find a feed" : "Bir besleme bulunamadı",
     "Detected feed format is not supported" : "Tespit edilen biçim desteklenmiyor",
     "SSL Certificate is invalid" : "SSL Sertifikası geçersiz",
     "Website not found" : "Web sitesi bulunamadı",

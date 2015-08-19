@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Feed contains invalid XML" : "無効なXMLを含むフィードです。",
-    "Could not find a feed" : "フィードが見つかりませんでした。",
     "Detected feed format is not supported" : "検出したフィードのフォーマットはサポートされません。",
     "SSL Certificate is invalid" : "無効なSSL証明書です。",
     "Website not found" : "Webサイトが見つかりませんでした。",
@@ -37,7 +36,7 @@ OC.L10N.register(
     "Close" : "閉じる",
     "Ajax or webcron cron mode detected! Your feeds will not be updated correctly. It is recommended to either use the operating system cron or a custom updater." : "Ajax または webcron cron モードが検出されました！フィードは正しく更新されません。オペレーティングシステムの cron か、カスタムアップデーターの使用をお勧めします。",
     "How to set up the operating system cron" : "OSのcronのやり方",
-    "How to set up a custom updater (faster and no possible deadlock) " : "カストムアップデータのセットアップ（早いと行き詰まりにくい）",
+    "How to set up a custom updater (faster and no possible deadlock) " : "カスタムアップデーターのセットアップ方法（より高速でデッドロックしない）",
     "Subscribe" : "購読",
     "Refresh" : "同期",
     "No articles available" : "記事がありません",
