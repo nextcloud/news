@@ -33,7 +33,7 @@ class CommandTest extends \PHPUnit_Framework_TestCase {
 
     public function testCronUpdate() {
         $command = 'php -f ' . $this->corePath . 'cron.php';
-        exec($command, $_, $success);
+        exec($command, $output, $success);
 
         $this->assertSame(0, $success);
     }
