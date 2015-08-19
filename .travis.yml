@@ -18,7 +18,11 @@ matrix:
           env: DB=sqlite
         - php: 5.5
           env: DB=mysql
+        # experimental PHP 7 features
         - php: 7
+          env: DB=pgsql CORE_BRANCH=master
+        # master branch
+        - php: 5.5
           env: DB=pgsql CORE_BRANCH=master
     fast_finish: true
 
