@@ -21,7 +21,7 @@ class FeedMapper extends NewsMapper {
 
 
     public function __construct(IDBConnection $db) {
-        parent::__construct($db, 'news_feeds', '\OCA\News\Db\Feed');
+        parent::__construct($db, 'news_feeds', Feed::class);
     }
 
 

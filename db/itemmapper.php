@@ -19,7 +19,7 @@ use OCP\IDBConnection;
 class ItemMapper extends NewsMapper {
 
     public function __construct(IDBConnection $db){
-        parent::__construct($db, 'news_items', '\OCA\News\Db\Item');
+        parent::__construct($db, 'news_items', Item::class);
     }
 
 

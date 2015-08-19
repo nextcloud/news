@@ -19,7 +19,7 @@ use OCP\AppFramework\Db\Entity;
 class FolderMapper extends NewsMapper {
 
     public function __construct(IDBConnection $db) {
-        parent::__construct($db, 'news_folders', '\OCA\News\Db\Folder');
+        parent::__construct($db, 'news_folders', Folder::class);
     }
 
     public function find($id, $userId){
