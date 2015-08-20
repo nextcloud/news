@@ -2,6 +2,7 @@ OC.L10N.register(
     "news",
     {
     "Feed contains invalid XML" : "Η ροή περιέχει μη έγχυρο XML",
+    "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" : "Η ροή δεν βρέθηκε: είτε ο ιστότοπος δε διαθέτει ροή ή εμποδίζει την πρόσβαση. Για να αποκλείσετε το ενδεχόμενο να εμποδίζεται η πρόσβαση, προσπαθήστε να κάνετε λήψη της ροής στη γραμμή εντολών του διακομιστή μας με χρήση του curl: curl http://the-feed.tld",
     "Detected feed format is not supported" : "Η μορφοποίηση ροής που ανιχνεύτηκε δεν υποστηρίζεται",
     "SSL Certificate is invalid" : "Μη έγκυρο Πιστοποιητικό SSL",
     "Website not found" : "Δεν βρέθηκε ιστοσελίδα",

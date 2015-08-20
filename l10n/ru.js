@@ -2,6 +2,7 @@ OC.L10N.register(
     "news",
     {
     "Feed contains invalid XML" : "В ленте присутствует недействительный XML",
+    "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" : "Новостная лента не найдена: либо веб-сайт не предоставляет новостную ленту, либо он блокирует доступ к ней. Чтобы обойти блокировку, попробуйте скачать новостную ленту в командную строку своего сервера, используя curl: curl http://the-feed.tld",
     "Detected feed format is not supported" : "Обнаруженный формат ленты не поддерживается",
     "SSL Certificate is invalid" : "SSL сертификат недействительный ",
     "Website not found" : "Сайт не найден",
