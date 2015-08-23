@@ -1,6 +1,7 @@
 <?php
 $TRANSLATIONS = array(
 "Feed contains invalid XML" => "Feed bevat ongeldige XML",
+"Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" => "Feed niet gevonden: ofwel de website levert geen feed, of de toegang is geblokkeerd. Om te zien of geblokkeerd wordt: probeer de feed via de commandoregel van uw server op te halen met curl: curl http://de-feed.tld",
 "Detected feed format is not supported" => "Gevonden feed formaat wordt niet ondersteund",
 "SSL Certificate is invalid" => "SSL certificaat is ongeldig",
 "Website not found" => "Website niet gevonden",
@@ -86,6 +87,8 @@ $TRANSLATIONS = array(
 "No feed ordering" => "Geen feed sortering",
 "Reversed feed ordering" => "Omgekeerde feedvolgorde",
 "Normal feed ordering" => "Normale feedvolgorde",
+"Enable full text feed fetching" => "Inschakelen ophalen volledige tekst",
+"Disable full text feed fetching" => "Uitschakelen ophalen volledige tekst",
 "Rename feed" => "Hernoemen feed",
 "Delete feed" => "Verwijder feed",
 "Mark all articles read" => "Markeer alle artikelen als gelezen",

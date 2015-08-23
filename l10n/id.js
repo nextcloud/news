@@ -2,6 +2,7 @@ OC.L10N.register(
     "news",
     {
     "Feed contains invalid XML" : "Feed berisi XML yang tidak sah",
+    "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" : "Feed tidak ditemukan: bisa karena website tidak menyediakan feed atau akses diblokir. Untuk menyingkirkan pemblokiran, cobalah dengan mengunduh feed pada server Anda dengan baris perintah menggunakan curl: curl http://the-feed.tld",
     "Detected feed format is not supported" : "Ditemukan format feed yang tidak didukung",
     "SSL Certificate is invalid" : "Sertifikat SSL tidak sah",
     "Website not found" : "Situs web tidak ditemukan",
@@ -18,7 +19,7 @@ OC.L10N.register(
     "Articles without feed" : "Artikel tanpa feed",
     "Can not add folder: Exists already" : "Tidak dapat menambah folder: Sudah ada",
     "Use ownCloud cron for updates" : "Gunakan cron ownCloud untuk pembaruan",
-    "Disable this if you run a custom updater such as the Python updater included in the app" : "Nonaktifkan ini jika ANda menjalankan updater kostum seperti updater Python didalam aplikasi",
+    "Disable this if you run a custom updater such as the Python updater included in the app" : "Nonaktifkan ini jika Anda menjalankan updater kostum seperti updater Python didalam aplikasi",
     "Purge interval" : "Singkirkan interval",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored" : "Jumlah detik minimum setelah feed dan folder yang terhapus akan dihapus dari basis data; nilai di bawah 60 detik akan diabaikan",
     "Maximum read count per feed" : "Jumlah baca maksimum per feed",
