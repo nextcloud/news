@@ -1,6 +1,7 @@
 <?php
 $TRANSLATIONS = array(
 "Feed contains invalid XML" => "Feed'et indeholder ugyldig XML",
+"Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" => "Feedet blev ikke fundet: webstedet tilbyder enten ikke et feed eller blokerer adgangen. For at tjekke om der blokeres, så prøv at hente feedet på din gennem din servers kommandolinje med curl: curl http://the-feed.tld",
 "Detected feed format is not supported" => "Det registrerede feed-format understøttes ikke",
 "SSL Certificate is invalid" => "SSL-certifikatet er ugyldigt",
 "Website not found" => "Hjemmesiden blev ikke fundet",
