@@ -15,6 +15,7 @@ namespace OCA\News\Fetcher;
 
 use PicoFeed\Parser\MalFormedXmlException;
 use PicoFeed\Reader\Reader;
+use PicoFeed\Parser\Parser;
 use PicoFeed\Reader\SubscriptionNotFoundException;
 use PicoFeed\Reader\UnsupportedFeedFormatException;
 use PicoFeed\Client\InvalidCertificateException;
@@ -103,7 +104,7 @@ class FeedFetcher implements IFeedFetcher {
 
             $items = [];
             foreach($parsedFeed->getItems() as $item) {
-                $items[] = $this->buildItem($item);
+                $items[] = $this->buildItem($item, $parsedFeed);
             }
 
             return [$feed, $items];
@@ -152,7 +153,13 @@ class FeedFetcher implements IFeedFetcher {
     }
 
 
-    protected function buildItem($parsedItem) {
+    protected function determineRtl($parsedItem, $parsedFeed) {
+        return Parser::isLanguageRTL($parsedItem->getLanguage()) || 
+               Parser::isLanguageRTL($parsedFeed->getLanguage());
+    }
+
+
+    protected function buildItem($parsedItem, $parsedFeed) {
         $item = new Item();
         $item->setUnread();
         $item->setUrl($parsedItem->getUrl());
@@ -160,6 +167,7 @@ class FeedFetcher implements IFeedFetcher {
         $item->setGuidHash($item->getGuid());
         $item->setPubDate($parsedItem->getDate()->getTimestamp());
         $item->setLastModified($this->time->getTime());
+        $item->setRtl($this->determineRtl($parsedItem, $parsedFeed));
 
         // unescape content because angularjs helps against XSS
         $item->setTitle($this->decodeTwice($parsedItem->getTitle()));

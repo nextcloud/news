@@ -139,7 +139,7 @@
                 </div>
 
 
-                <div class="body" news-bind-html-unsafe="item.body"></div>
+                <div class="body" news-bind-html-unsafe="item.body" ng-attr-dir="{{item.rtl && 'rtl'}}"></div>
 
             </div>
         </li>

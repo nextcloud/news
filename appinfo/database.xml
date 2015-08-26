@@ -215,6 +215,12 @@
                 <length>32</length>
             </field>
             <field>
+                <name>rtl</name>
+                <type>boolean</type>
+                <notnull>true</notnull>
+                <default>false</default>
+            </field>
+            <field>
                 <name>search_index</name>
                 <type>clob</type>
             </field>

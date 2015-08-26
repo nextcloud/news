@@ -121,10 +121,11 @@ class ExportControllerTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals('[{"guid":null,"url":null,"title":null,' .
             '"author":null,"pubDate":null,"body":null,"enclosureMime":null,' .
             '"enclosureLink":null,"unread":false,"starred":false,' .
-            '"feedLink":"http:\/\/goo"},{"guid":null,"url":null,"title":null,' .
-            '"author":null,"pubDate":null,"body":null,"enclosureMime":null,' .
-            '"enclosureLink":null,"unread":false,"starred":false,' .
-            '"feedLink":"http:\/\/gee"}]', $return->render());
+            '"feedLink":"http:\/\/goo","rtl":null},{"guid":null,"url":null,' .
+            '"title":null,"author":null,"pubDate":null,"body":null,' .
+            '"enclosureMime":null,"enclosureLink":null,"unread":false,' .
+            '"starred":false,"feedLink":"http:\/\/gee","rtl":null}]',
+            $return->render());
     }
 
 }

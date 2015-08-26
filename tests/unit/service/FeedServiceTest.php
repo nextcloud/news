@@ -630,6 +630,7 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
         $item->setUnread();
         $item->setUnstarred();
         $item->setLastModified($this->time);
+        $item->generateSearchIndex();
 
         $json = $item->toExport(['feed3' => $feed]);
 
@@ -686,6 +687,7 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
         $item->setUnread();
         $item->setUnstarred();
         $item->setLastModified($this->time);
+        $item->generateSearchIndex();
 
         $json = $item->toExport(['feed3' => $feed]);
         $json2 = $json;

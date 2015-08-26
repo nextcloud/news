@@ -64,6 +64,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
         $item->setBody('body');
         $item->setEnclosureMime('audio/ogg');
         $item->setEnclosureLink('enclink');
+        $item->setRtl(true);
         $item->setFeedId(1);
         $item->setStatus(0);
         $item->setUnread();
@@ -84,7 +85,8 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
             'feedId' => 1,
             'unread' => true,
             'starred' => true,
-            'lastModified' => 321
+            'lastModified' => 321,
+            'rtl' => true
             ], $item->toAPI());
     }
 
@@ -103,6 +105,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
         $item->setEnclosureLink('enclink');
         $item->setFeedId(1);
         $item->setStatus(0);
+        $item->setRtl(true);
         $item->setUnread();
         $item->setStarred();
         $item->setLastModified(321);
@@ -121,7 +124,8 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
             'feedId' => 1,
             'unread' => true,
             'starred' => true,
-            'lastModified' => 321
+            'lastModified' => 321,
+            'rtl' => true
             ], $item->jsonSerialize());
     }
 
@@ -138,6 +142,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
         $item->setEnclosureMime('audio/ogg');
         $item->setEnclosureLink('enclink');
         $item->setFeedId(1);
+        $item->setRtl(true);
         $item->setStatus(0);
         $item->setRead();
         $item->setStarred();
@@ -158,7 +163,8 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
             'enclosureLink' => 'enclink',
             'unread' => false,
             'starred' => true,
-            'feedLink' => 'http://test'
+            'feedLink' => 'http://test',
+            'rtl' => true
             ], $item->toExport($feeds));
     }
 
@@ -175,6 +181,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
         $item->setEnclosureMime('audio/ogg');
         $item->setEnclosureLink('enclink');
         $item->setStarred();
+        $item->setRtl(true);
 
         if ($isRead) {
             $item->setUnread();
@@ -212,6 +219,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
             'enclosureLink' => $item->getEnclosureLink(),
             'unread' => $item->isUnread(),
             'starred' => $item->isStarred(),
+            'rtl' => $item->getRtl()
         ];
 
         $compareWith = Item::fromImport($import);
@@ -234,6 +242,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
             'enclosureLink' => $item->getEnclosureLink(),
             'unread' => $item->isUnread(),
             'starred' => $item->isStarred(),
+            'rtl' => $item->getRtl()
         ];
 
         $compareWith = Item::fromImport($import);

@@ -346,6 +346,7 @@ class FeedService extends Service {
                 $this->itemMapper->update($existingItem);
             } catch(DoesNotExistException $ex){
                 $item->setBody($this->purifier->purify($item->getBody()));
+                $item->generateSearchIndex();
                 $this->itemMapper->insert($item);
             }
         }

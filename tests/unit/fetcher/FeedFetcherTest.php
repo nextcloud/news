@@ -41,6 +41,8 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
     private $body;
     private $author;
     private $enclosureLink;
+    private $rtl;
+    private $language;
 
     // feed
     private $feedTitle;
@@ -50,6 +52,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
     private $modified;
     private $etag;
     private $location;
+    private $feedLanguage;
 
     protected function setUp(){
         $this->l10n = $this->getMockBuilder(
@@ -119,6 +122,8 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $this->etag = 'yo';
         $this->content = 'some content';
         $this->encoding = 'UTF-8';
+        $this->language = 'de-DE';
+        $this->feedLanguage = 'de-DE';
     }
 
 
@@ -218,6 +223,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $item->setBody($this->body);
         $item->setLastModified($this->time);
         $item->generateSearchIndex();
+        $item->setRtl(false);
 
         $this->expectItem('getAuthor', $this->author);
         $item->setAuthor(html_entity_decode($this->author));
@@ -347,4 +353,28 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
     }
 
 
+    public function testRtl() {
+        $this->setUpReader($this->url);
+        $this->expectFeed('getLanguage', 'he-IL');
+        $feed = $this->createFeed();
+        $item = $this->createItem(null);
+        $this->expectFeed('getItems', [$this->item]);
+        list($feed, $items) = $this->fetcher->fetch($this->url, false, null,
+                                                    null, true);
+        $this->assertTrue($items[0]->getRtl());
+    }
+
+
+    public function testRtlItem() {
+        $this->setUpReader($this->url);
+        $this->expectFeed('getLanguage', 'de-DE', 0);
+        $this->expectItem('getLanguage', 'he-IL');
+
+        $feed = $this->createFeed();
+        $item = $this->createItem(null);
+        $this->expectFeed('getItems', [$this->item]);
+        list($feed, $items) = $this->fetcher->fetch($this->url, false, null,
+                                                    null, true);
+        $this->assertTrue($items[0]->getRtl());
+    }
 }

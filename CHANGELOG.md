@@ -1,3 +1,7 @@
+owncloud-news (6.0.2)
+* **Bugfix**: Generate search index when importing articles0
+* **Enhancement**: Add RTL support
+
 owncloud-news (6.0.1)
 * **Enhancement**: Replace unlicensed PHP library with a licensed alternative
 

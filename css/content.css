@@ -561,5 +561,6 @@
         opacity: 1;
     }
 
-
-
+    #app-content *[dir=rtl] {
+        text-align: right;
+    }

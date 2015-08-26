@@ -27,6 +27,7 @@ use \OCP\AppFramework\Db\Entity;
  * @method string getUrl()
  * @method string getTitle()
  * @method string getAuthor()
+ * @method string getRtl()
  * @method integer getPubDate()
  * @method void setPubDate(integer $value)
  * @method string getBody()
@@ -38,6 +39,7 @@ use \OCP\AppFramework\Db\Entity;
  * @method void setFeedId(integer $value)
  * @method integer getStatus()
  * @method void setStatus(integer $value)
+ * @method void setRtl(boolean $value)
  * @method integer getLastModified()
  * @method void setLastModified(integer $value)
  */
@@ -58,12 +60,14 @@ class Item extends Entity implements IAPI, \JsonSerializable {
     protected $status = 0;
     protected $lastModified;
     protected $searchIndex;
+    protected $rtl;
 
     public function __construct(){
         $this->addType('pubDate', 'integer');
         $this->addType('feedId', 'integer');
         $this->addType('status', 'integer');
         $this->addType('lastModified', 'integer');
+        $this->addType('rtl', 'boolean');
     }
 
 
@@ -121,7 +125,8 @@ class Item extends Entity implements IAPI, \JsonSerializable {
             'feedId' => $this->getFeedId(),
             'unread' => $this->isUnread(),
             'starred' => $this->isStarred(),
-            'lastModified' => $this->getLastModified()
+            'lastModified' => $this->getLastModified(),
+            'rtl' => $this->getRtl()
         ];
     }
 
@@ -140,7 +145,8 @@ class Item extends Entity implements IAPI, \JsonSerializable {
             'feedId' => $this->getFeedId(),
             'unread' => $this->isUnread(),
             'starred' => $this->isStarred(),
-            'lastModified' => $this->getLastModified()
+            'lastModified' => $this->getLastModified(),
+            'rtl' => $this->getRtl()
         ];
     }
 
@@ -157,7 +163,8 @@ class Item extends Entity implements IAPI, \JsonSerializable {
             'enclosureLink' => $this->getEnclosureLink(),
             'unread' => $this->isUnread(),
             'starred' => $this->isStarred(),
-            'feedLink' => $feeds['feed'. $this->getFeedId()]->getLink()
+            'feedLink' => $feeds['feed'. $this->getFeedId()]->getLink(),
+            'rtl' => $this->getRtl()
         ];
     }
 
@@ -173,6 +180,7 @@ class Item extends Entity implements IAPI, \JsonSerializable {
         $item->setBody($import['body']);
         $item->setEnclosureMime($import['enclosureMime']);
         $item->setEnclosureLink($import['enclosureLink']);
+        $item->setRtl($import['rtl']);
         if($import['unread']) {
             $item->setUnread();
         } else {
@@ -225,4 +233,3 @@ class Item extends Entity implements IAPI, \JsonSerializable {
     }
 
 }
-
