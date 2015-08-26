@@ -154,8 +154,14 @@ class FeedFetcher implements IFeedFetcher {
 
 
     protected function determineRtl($parsedItem, $parsedFeed) {
-        return Parser::isLanguageRTL($parsedItem->getLanguage()) || 
-               Parser::isLanguageRTL($parsedFeed->getLanguage());
+        $itemLang = $parsedItem->getLanguage();
+        $feedLang = $parsedFeed->getLanguage();
+
+        if ($itemLang) {
+            return Parser::isLanguageRTL($itemLang);
+        } else {
+            return Parser::isLanguageRTL($feedLang);
+        }
     }
 
 

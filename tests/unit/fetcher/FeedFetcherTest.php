@@ -356,6 +356,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
     public function testRtl() {
         $this->setUpReader($this->url);
         $this->expectFeed('getLanguage', 'he-IL');
+        $this->expectItem('getLanguage', '');
         $feed = $this->createFeed();
         $item = $this->createItem(null);
         $this->expectFeed('getItems', [$this->item]);
@@ -365,9 +366,9 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testRtlItem() {
+    public function testRtlItemPrecedence() {
         $this->setUpReader($this->url);
-        $this->expectFeed('getLanguage', 'de-DE', 0);
+        $this->expectFeed('getLanguage', 'de-DE');
         $this->expectItem('getLanguage', 'he-IL');
 
         $feed = $this->createFeed();
@@ -377,4 +378,18 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
                                                     null, true);
         $this->assertTrue($items[0]->getRtl());
     }
+
+    public function testNegativeRtlItemPrecedence() {
+        $this->setUpReader($this->url);
+        $this->expectFeed('getLanguage', 'he-IL');
+        $this->expectItem('getLanguage', 'de-DE');
+
+        $feed = $this->createFeed();
+        $item = $this->createItem(null);
+        $this->expectFeed('getItems', [$this->item]);
+        list($feed, $items) = $this->fetcher->fetch($this->url, false, null,
+                                                    null, true);
+        $this->assertFalse($items[0]->getRtl());
+    }
+
 }
