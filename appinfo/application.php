@@ -19,19 +19,24 @@ use HTMLPurifier_Config;
 use PicoFeed\Config\Config as PicoFeedConfig;
 use PicoFeed\Reader\Reader as PicoFeedReader;
 
+use OCP\ILogger;
+use OCP\INavigationManager;
+use OCP\IURLGenerator;
+use OCP\IConfig;
+use OCP\IDBConnection;
 use OCP\AppFramework\App;
+use OCP\Files\IRootFolder;
 
 use OCA\News\Config\AppConfig;
 use OCA\News\Config\Config;
-
 use OCA\News\Service\FeedService;
-
 use OCA\News\Db\MapperFactory;
-
+use OCA\News\Db\ItemMapper;
 use OCA\News\Fetcher\Fetcher;
 use OCA\News\Fetcher\FeedFetcher;
-
+use OCA\News\Fetcher\YoutubeFetcher;
 use OCA\News\Explore\RecommendedSites;
+use OCA\News\Utility\ProxyConfigParser;
 
 
 class Application extends App {
@@ -39,32 +44,27 @@ class Application extends App {
     public function __construct(array $urlParams=[]) {
         parent::__construct('news', $urlParams);
 
-        $container = $this->getContainer();
-        $container->registerParameter('fileChecksums', file_get_contents(
-            __DIR__ . '/checksum.json'
-        ));
+        // files
+        $this->registerFileContents('checksums', 'checksum.json');
+        $this->registerFileContents('info', 'info.xml');
 
+        // parameters
+        $this->registerParameter('exploreDir', __DIR__ . '/../explore');
 
-        /**
-         * Mappers
-         */
-        $container->registerService(\OCA\News\Db\ItemMapper::class, function($c) {
-            return $c->query(\OCA\News\Db\MapperFactory::class)->getItemMapper(
-                $c->query(\OCP\IDBConnection::class)
-            );
-        });
+        // factories
+        $this->registerFactory(ItemMapper::class, MapperFactory::class);
 
 
         /**
          * App config parser
          */
-        $container->registerService(\OCA\News\Config\AppConfig::class, function($c) {
+        $this->registerService(AppConfig::class, function($c) {
             $config = new AppConfig(
-                $c->query(\OCP\INavigationManager::class),
-                $c->query(\OCP\IURLGenerator::class)
+                $c->query(INavigationManager::class),
+                $c->query(IURLGenerator::class)
             );
 
-            $config->loadConfig(__DIR__ . '/info.xml');
+            $config->loadConfig($c->query('info'));
 
             return $config;
         });
@@ -72,24 +72,16 @@ class Application extends App {
         /**
          * Core
          */
-        $container->registerService('LoggerParameters', function($c) {
+        $this->registerService('LoggerParameters', function($c) {
             return ['app' => $c->query('AppName')];
         });
 
-        $container->registerService('DatabaseType', function($c) {
-            return $c->query(\OCP\IConfig::class)->getSystemValue('dbtype');
+        $this->registerService('databaseType', function($c) {
+            return $c->query(IConfig::class)->getSystemValue('dbtype');
         });
 
-
-        /**
-         * Utility
-         */
-        $container->registerService('ConfigPath', function() {
-            return 'config.ini';
-        });
-
-        $container->registerService('ConfigView', function($c) {
-            $fs = $c->query(\OCP\Files\IRootFolder::class);
+        $this->registerService('ConfigView', function($c) {
+            $fs = $c->query(IRootFolder::class);
             $path = 'news/config';
             if ($fs->nodeExists($path)) {
                 return $fs->get($path);
@@ -99,18 +91,18 @@ class Application extends App {
         });
 
 
-        $container->registerService(\OCA\News\Config\Config::class, function($c) {
+        $this->registerService(Config::class, function($c) {
             $config = new Config(
                 $c->query('ConfigView'),
-                $c->query(\OCP\ILogger::class),
+                $c->query(ILogger::class),
                 $c->query('LoggerParameters')
             );
-            $config->read($c->query('ConfigPath'), true);
+            $config->read('config.ini', true);
             return $config;
         });
 
-        $container->registerService(\HTMLPurifier::class, function($c) {
-            $directory = $c->query(\OCP\IConfig::class)
+        $this->registerService(HTMLPurifier::class, function($c) {
+            $directory = $c->query(IConfig::class)
                 ->getSystemValue('datadirectory') . '/news/cache/purifier';
 
             if(!is_dir($directory)) {
@@ -131,11 +123,11 @@ class Application extends App {
         /**
          * Fetchers
          */
-        $container->registerService(\PicoFeed\Config\Config::class, function($c) {
+        $this->registerService(PicoFeedConfig::class, function($c) {
             // FIXME: move this into a separate class for testing?
-            $config = $c->query(\OCA\News\Config\Config::class);
-            $appConfig = $c->query(\OCA\News\Config\AppConfig::class);
-            $proxy =  $c->query(\OCA\News\Utility\ProxyConfigParser::class);
+            $config = $c->query(Config::class);
+            $appConfig = $c->query(AppConfig::class);
+            $proxy =  $c->query(ProxyConfigParser::class);
 
             $userAgent = 'ownCloud News/' . $appConfig->getConfig('version') .
                          ' (+https://owncloud.org/; 1 subscriber;)';
@@ -170,31 +162,67 @@ class Application extends App {
             return $pico;
         });
 
-        $container->registerService(\OCA\News\Fetcher\Fetcher::class, function($c) {
+        $this->registerService(Fetcher::class, function($c) {
             $fetcher = new Fetcher();
 
-            // register fetchers in order
-            // the most generic fetcher should be the last one
-            $fetcher->registerFetcher(
-                $c->query(\OCA\News\Fetcher\YoutubeFetcher::class)
-            );
-            $fetcher->registerFetcher(
-                $c->query(\OCA\News\Fetcher\FeedFetcher::class)
-            );
+            // register fetchers in order, the most generic fetcher should be
+            // the last one
+            $fetcher->registerFetcher($c->query(YoutubeFetcher::class));
+            $fetcher->registerFetcher($c->query(FeedFetcher::class));
 
             return $fetcher;
         });
 
-        $container->registerService(\OCA\News\Explore\RecommendedSites::class,
-        function() {
-            return new RecommendedSites(__DIR__ . '/../explore');
+
+    }
+
+    /**
+     * Registers the content of a file under a key
+     * @param string $key
+     * @param string $file path relative to this file, __DIR__ will be prepended
+     */
+    private function registerFileContents($key, $file) {
+        $this->registerService($key, function () {
+            return file_get_contents(__DIR__ . '/' . $file);
         });
     }
 
+    /**
+     * Shortcut for registering a service
+     * @param string $key
+     * @param closure $factory
+     * @param boolean $shared
+     */
+    private function registerService($key, $factory, $shared=true) {
+        $this->getContainer()->registerService($key, $factory, $shared);
+    }
+
+    /**
+     * Shortcut for registering a parameter
+     * @param string $key
+     * @param mixed $value
+     */
+    private function registerParameter($key, $value) {
+        $this->getContainer()->registerParameter($key, $value);
+    }
+
+    /**
+     * Register a class containing the app construction logic instead of the
+     * inlining everything in this class to enhance testability
+     * @param string $key fully qualified class name
+     * @param string $factory fully qualified factory class name
+     */
+    private function registerFactory($key, $factory) {
+        $this->registerService($key, function ($c) use ($factory) {
+            return $c->query($factory)->build();
+        });
+    }
+
+    /**
+     * Register the additional config parameters found in the info.xml
+     */
     public function registerConfig() {
-        $this->getContainer()
-            ->query(\OCA\News\Config\AppConfig::class)
-            ->registerAll();
+        $this->getContainer()->query(AppConfig::class)->registerAll();
     }
 
 }

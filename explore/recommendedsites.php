@@ -21,8 +21,8 @@ class RecommendedSites {
      * @param string $directory the absolute path to where the recommendation
      * config files lie without a trailing slash
      */
-    public function __construct($directory) {
-        $this->directory = $directory;
+    public function __construct($exploreDir) {
+        $this->directory = $exploreDir;
     }
 
 

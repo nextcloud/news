@@ -24,9 +24,9 @@ class VerifyInstall extends Command {
 
     private $fileChecksums;
 
-    public function __construct($fileChecksums) {
+    public function __construct($checksums) {
         parent::__construct();
-        $this->fileChecksums = $fileChecksums;
+        $this->fileChecksums = $checksums;
     }
 
     protected function configure() {

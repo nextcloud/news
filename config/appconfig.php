@@ -59,8 +59,7 @@ class AppConfig {
         if(is_array($data)) {
             $this->config = $data;
         } else {
-            $xml = file_get_contents($data);
-            $this->config = $this->parseConfig($xml);
+            $this->config = $this->parseConfig($data);
         }
     }
 
