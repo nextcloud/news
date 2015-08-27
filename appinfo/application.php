@@ -50,6 +50,7 @@ class Application extends App {
 
         // parameters
         $this->registerParameter('exploreDir', __DIR__ . '/../explore');
+        $this->registerParameter('configFile', 'config.ini');
 
         // factories
         $this->registerFactory(ItemMapper::class, MapperFactory::class);
@@ -97,7 +98,7 @@ class Application extends App {
                 $c->query(ILogger::class),
                 $c->query('LoggerParameters')
             );
-            $config->read('config.ini', true);
+            $config->read($c->query('configFile'), true);
             return $config;
         });
 
@@ -182,7 +183,7 @@ class Application extends App {
      * @param string $file path relative to this file, __DIR__ will be prepended
      */
     private function registerFileContents($key, $file) {
-        $this->registerService($key, function () {
+        $this->registerService($key, function () use ($file) {
             return file_get_contents(__DIR__ . '/' . $file);
         });
     }

@@ -25,10 +25,10 @@ class AdminController extends Controller {
     private $configPath;
 
     public function __construct($AppName, IRequest $request, Config $config,
-                                $ConfigPath){
+                                $configFile){
         parent::__construct($AppName, $request);
         $this->config = $config;
-        $this->configPath = $ConfigPath;
+        $this->configPath = $configFile;
     }
 
     // There are no checks for the index method since the output is rendered
