@@ -340,7 +340,7 @@
 
 #app-content .heading h1 {
     font-size: 19px;
-    margin-right: 182px;
+    max-width: 770px;
     word-wrap: break-word;
 }
 
@@ -356,6 +356,7 @@
     float: right;
     display: inline-block;
     font-size: 15px;
+    padding: 0 10px;
 }
 
 #app-content .read .heading a {
@@ -389,7 +390,7 @@
 #app-content .subtitle {
     color: #aaa;
     font-size: 15px;
-    width: 100%;
+    max-width: 770px;
     padding-bottom: 25px;
 }
 

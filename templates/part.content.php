@@ -52,7 +52,7 @@
                                     + Content.getFeed(item.feedId).faviconLink +
                                 ')'
                             }">
-                        <h1><a>{{ ::item.title }}</a></h1>
+                        <h1 ng-attr-dir="{{item.rtl && 'rtl'}}"><a>{{ ::item.title }}</a></h1>
                     </li>
                     <li class="only-in-compact">
                         <time class="date"
@@ -104,7 +104,7 @@
                             date:'yyyy-MM-ddTHH:mm:ssZ' }}">
                         {{ Content.getRelativeDate(item.pubDate) }}
                     </time>
-                    <h1>
+                    <h1 ng-attr-dir="{{item.rtl && 'rtl'}}">
                         <a class="external"
                             target="_blank"
                             rel="noreferrer"
@@ -115,7 +115,7 @@
                     </h1>
                 </div>
 
-                <div class="subtitle">
+                <div class="subtitle" ng-attr-dir="{{item.rtl && 'rtl'}}">
                     <span class="author" ng-show="item.author">
                         <?php p($l->t('by')) ?> {{ ::item.author }}
                     </span>
