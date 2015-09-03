@@ -303,7 +303,7 @@
             // is on the top, it should be expanded instead of the next one
             if ((item.position().top === 0 && expandItemInCompact &&
                  !item.hasClass('open')) ||
-                item.position().top > 1) {
+                item.position().top > 10) {
                 scrollToItem(scrollArea, item, expandItemInCompact);
 
                 jumped = true;
