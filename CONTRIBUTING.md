@@ -64,7 +64,7 @@ That way we can talk about the problem first and discuss the implementation (and
 
 ### Contact Us!
 
-We usually hang out on **irc.freenode.net** in the **#owncloud-news** and **#owncloud-dev** chat room. Just ping [Raydiation](https://github.com/Raydiation/) or [cosenal](https://github.com/cosenal) or write us a mail directly. Mail addresses are listed on our GitHub profiles.
+We usually hang out on **irc.freenode.net** in the **#owncloud-news** and **#owncloud-dev** chat room. Just ping [BernhardPosselt](https://github.com/BernhardPosselt/) or [cosenal](https://github.com/cosenal) or write us a mail directly. Mail addresses are listed on our GitHub profiles.
 
 You can also send a mail to the [owncloud-devel mailing list](https://mailman.owncloud.org/mailman/listinfo/devel).
 

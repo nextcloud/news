@@ -1,12 +1,12 @@
 # Authors
 * [Alessandro Cosentino](https://github.com/cosenal): <cosenal@gmail.com>
-* [Bernhard Posselt](https://github.com/Raydiation): <dev@bernhard-posselt.com>
+* [Bernhard Posselt](https://github.com/BernhardPosselt): <dev@bernhard-posselt.com>
 
 ## Designers
 
 * [Jan-Christoph Borchardt](https://github.com/jancborchardt): <hey@jancborchardt.net>
 * [Raghu Nayyar](https://github.com/raghunayyar): <me@iraghu.com>
-* [Bernhard Posselt](https://github.com/Raydiation): <dev@bernhard-posselt.com>
+* [Bernhard Posselt](https://github.com/BernhardPosselt): <dev@bernhard-posselt.com>
 
 
 ## Contributors
@@ -15,8 +15,8 @@
 * [Morris Jobke](https://github.com/kabum): <morris.jobke@gmail.com>
 * [Lukas Reschke](https://github.com/LukasReschke): <lukas@statuscode.ch>
 * [bluehaze](https://github.com/bluehaze)
-* [Dave Hou Qingping](https://github.com/houqp): <dave2008713@gmail.com> 
-* [David Kleuker](https://github.com/davidak): <info@davidak.de> 
+* [Dave Hou Qingping](https://github.com/houqp): <dave2008713@gmail.com>
+* [David Kleuker](https://github.com/davidak): <info@davidak.de>
 * [bastei](https://github.com/bastei)
 * [Peter Hedlund](https://github.com/phedlund): <support@peterandlinda.com>
 * [benediktb](https://github.com/benediktb)
