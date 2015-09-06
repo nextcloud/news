@@ -35,7 +35,7 @@ header = '# Authors'
 contents = '%s\n%s' % (header, authors)
 
 # write contents into contributors file
-base_dir_diff = 3
+base_dir_diff = 2
 current_dir = os.path.dirname(os.path.realpath(__file__))
 base_dir = current_dir
 
@@ -45,3 +45,6 @@ for x in range(base_dir_diff):
 contributors_file = os.path.join(base_dir, 'AUTHORS.md')
 with open(contributors_file, 'w') as f:
     f.write(contents)
+
+
+print(contents)
