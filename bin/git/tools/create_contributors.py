@@ -4,7 +4,7 @@ import subprocess
 import re
 import os.path
 
-contribs = subprocess.check_output(['git', 'shortlog', '-e', '-s', '-n'])
+contribs = subprocess.check_output(['git', '--no-pager', 'shortlog', '-nse', 'HEAD'])
 contrib_lines = contribs.decode('utf-8').split('\n')
 
 format_regex = r'^\s*(?P<commit_count>\d+)\s*(?P<name>.*\w)\s*<(?P<email>[^\s]+)>$'
