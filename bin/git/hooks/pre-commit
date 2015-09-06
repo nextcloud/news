@@ -12,6 +12,3 @@ cd ..
 phpunit -c phpunit.xml
 phpunit -c phpunit.integration.xml
 git add appinfo/checksum.json
-
-python3 bin/git/tools/create_contributors.py
-git add AUTHORS.md
