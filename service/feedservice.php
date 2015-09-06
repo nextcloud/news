@@ -432,6 +432,19 @@ class FeedService extends Service {
 
 
     /**
+     * Pin or unpin a feed from the top
+     * @param int $id the id of the feed
+     * @param boolean $isPinned if the feed should be pinned
+     * @param string $userId the id of the user
+     */
+    public function setPinned($id, $isPinned, $userId) {
+        $feed = $this->find($id, $userId);
+        $feed->setPinned($isPinned);
+        return $this->feedMapper->update($feed);
+    }
+
+
+    /**
      * Enable/Disable full text feed and update the feed
      * @param int $id feed id
      * @param bool $enableFullText

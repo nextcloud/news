@@ -37,6 +37,8 @@ use \OCP\AppFramework\Db\Entity;
  * @method void setFaviconLink(string $value)
  * @method integer getAdded()
  * @method void setAdded(integer $value)
+ * @method boolean getPinned()
+ * @method void setPinned(boolean $value)
  * @method integer getFolderId()
  * @method void setFolderId(integer $value)
  * @method integer getFullTextEnabled()
@@ -72,6 +74,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
     protected $location;
     protected $ordering;
     protected $fullTextEnabled;
+    protected $pinned;
 
     public function __construct(){
         $this->addType('parentId', 'integer');
@@ -79,6 +82,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
         $this->addType('folderId', 'integer');
         $this->addType('unreadCount', 'integer');
         $this->addType('preventUpdate', 'boolean');
+        $this->addType('pinned', 'boolean');
         $this->addType('deletedAt', 'integer');
         $this->addType('articlesPerUpdate', 'integer');
         $this->addType('ordering', 'integer');
@@ -106,7 +110,8 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
             'articlesPerUpdate',
             'location',
             'ordering',
-            'fullTextEnabled'
+            'fullTextEnabled',
+            'pinned'
         ]);
 
         $url = parse_url($this->link)['host'];
@@ -132,7 +137,8 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
             'folderId',
             'unreadCount',
             'ordering',
-            'link'
+            'link',
+            'pinned'
         ]);
     }
 

@@ -3,7 +3,7 @@
         unread: Navigation.isFeedUnread(feed.id)
     }"
     ng-repeat="feed in Navigation.getFeedsOfFolder(<?php p($_['folderId']); ?>)
-        | orderBy:'title.toLowerCase()' track by feed.url"
+        | orderBy:['-pinned', 'title.toLowerCase()'] track by feed.url"
     ng-show="Navigation.isFeedUnread(feed.id)
             || Navigation.isShowAll()
             || Navigation.isFeedActive(feed.id)
@@ -85,6 +85,16 @@
     <div class="app-navigation-entry-menu">
         <ul>
             <li>
+                <button ng-click="Navigation.togglePinned(feed.id)"
+                        ng-show="feed.pinned"
+                        class="icon-pinned"
+                        title="<?php p($l->t('Unpin feed from the top')); ?>">
+                </button>
+                <button ng-click="Navigation.togglePinned(feed.id)"
+                        ng-hide="feed.pinned"
+                        class="icon-unpinned"
+                        title="<?php p($l->t('Pin feed to the top')); ?>">
+                </button>
                 <button ng-click="Navigation.setOrdering(feed, 1)"
                         ng-show="feed.ordering == 0"
                         class="icon-caret-dark feed-no-ordering"

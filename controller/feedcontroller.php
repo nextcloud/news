@@ -328,4 +328,21 @@ class FeedController extends Controller {
         return [];
     }
 
+
+    /**
+     * @NoAdminRequired
+     *
+     * @param int $feedId
+     * @param bool $isPinned
+     */
+    public function pinned($feedId, $isPinned=false) {
+        try {
+            $this->feedService->setPinned($feedId, $isPinned, $this->userId);
+        } catch(ServiceNotFoundException $ex) {
+            return $this->error($ex, Http::STATUS_NOT_FOUND);
+        }
+
+        return [];
+    }
+
 }

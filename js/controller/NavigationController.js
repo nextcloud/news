@@ -302,6 +302,13 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
         $route.reload();
     };
 
+    this.togglePinned = function (feedId) {
+        var feed = FeedResource.getById(feedId);
+        if (feed) {
+            return FeedResource.setPinned(feedId, !feed.pinned);
+        }
+    };
+
     this.toggleFullText = function (feed) {
         $rootScope.$broadcast('$routeChangeStart');
         FeedResource.toggleFullText(feed.id).finally(function () {

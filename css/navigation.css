@@ -202,3 +202,11 @@
 
 #app-navigation .feed-normal-ordering {
 }
+
+#app-navigation .icon-pinned {
+    background-image: url('../img/pinned.svg');
+}
+
+#app-navigation .icon-unpinned {
+    background-image: url('../img/unpinned.svg');
+}

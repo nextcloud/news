@@ -1038,6 +1038,27 @@ describe('NavigationController', function () {
     }));
 
 
+    it ('should set the feed pinning',
+        inject(function ($controller, FeedResource) {
+
+        FeedResource.add({
+            id: 2,
+            url: 'http://test.com',
+            folderId: 3,
+            ordering: 0,
+            pinned: false
+        });
+
+        FeedResource.setPinned = jasmine.createSpy('pinned');
+
+        var ctrl = $controller('NavigationController');
+
+        ctrl.togglePinned(2);
+
+        expect(FeedResource.setPinned).toHaveBeenCalledWith(2, true);
+    }));
+
+
     it ('should set the full text feed',
         inject(function ($controller, FeedResource, $rootScope) {
 

@@ -907,5 +907,21 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
     }
 
 
+    public function testSetPinned () {
+        $feed = Feed::fromRow(['id' => 3, 'pinned' => false]);
+        $this->feedMapper->expects($this->once())
+            ->method('find')
+            ->with($this->equalTo($feed->getId()),
+                   $this->equalTo($this->user))
+            ->will($this->returnValue($feed));
+
+        $feed->setPinned(true);
+        $this->feedMapper->expects($this->once())
+            ->method('update')
+            ->with($this->equalTo($feed));
+
+        $this->feedService->setPinned(3, true, $this->user);
+    }
+
 
 }

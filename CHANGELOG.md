@@ -1,3 +1,6 @@
+owncloud-news (6.0.3)
+* **Enhancement**: Allow to pin feeds, #848
+
 owncloud-news (6.0.2)
 * **Bugfix**: Generate search index when importing articles0
 * **Enhancement**: Be less precise when jumping to the next article using a keyboard shortcut to prevent tiny jumps which are sometimes caused by re-rendering hiccups, #847

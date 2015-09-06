@@ -330,6 +330,19 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
     };
 
 
+    FeedResource.prototype.setPinned = function (feedId, isPinned) {
+        var feed = this.getById(feedId);
+
+        if (feed) {
+            feed.pinned = isPinned;
+            var url = this.BASE_URL + '/feeds/' + feedId + '/pinned';
+            return this.http.post(url, {
+                isPinned: isPinned
+            });
+        }
+    };
+
+
     FeedResource.prototype.toggleFullText = function (feedId) {
         var feed = this.getById(feedId);
 

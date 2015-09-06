@@ -530,6 +530,19 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
         $this->controller->enableFullText(4, true);
     }
 
+
+    public function testPinned() {
+        $this->feedService->expects($this->once())
+            ->method('setPinned')
+            ->with($this->equalTo(4),
+                    $this->equalTo(true),
+                    $this->equalTo($this->user))
+            ->will($this->returnValue(1));
+
+        $this->controller->pinned(4, true);
+    }
+
+
     public function testOrderingDoesNotExist(){
         $msg = 'hehe';
 

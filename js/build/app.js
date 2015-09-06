@@ -847,6 +847,13 @@ app.controller('NavigationController',
         $route.reload();
     };
 
+    this.togglePinned = function (feedId) {
+        var feed = FeedResource.getById(feedId);
+        if (feed) {
+            return FeedResource.setPinned(feedId, !feed.pinned);
+        }
+    };
+
     this.toggleFullText = function (feed) {
         $rootScope.$broadcast('$routeChangeStart');
         FeedResource.toggleFullText(feed.id).finally(function () {
@@ -1312,6 +1319,19 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
             var url = this.BASE_URL + '/feeds/' + feedId + '/ordering';
             return this.http.post(url, {
                 ordering: ordering
+            });
+        }
+    };
+
+
+    FeedResource.prototype.setPinned = function (feedId, isPinned) {
+        var feed = this.getById(feedId);
+
+        if (feed) {
+            feed.pinned = isPinned;
+            var url = this.BASE_URL + '/feeds/' + feedId + '/pinned';
+            return this.http.post(url, {
+                isPinned: isPinned
             });
         }
     };

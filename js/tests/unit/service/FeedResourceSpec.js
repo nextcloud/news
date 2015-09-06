@@ -302,6 +302,19 @@ describe('FeedResource', function () {
     }));
 
 
+    it ('should set the feed pinning', inject(function (FeedResource) {
+        http.expectPOST('base/feeds/3/pinned', {
+            isPinned: true
+        }).respond(200, {});
+
+        FeedResource.setPinned(3, true);
+
+        http.flush();
+
+        expect(FeedResource.getById(3).pinned).toBe(true);
+    }));
+
+
     it ('should toggle full text', inject(function (FeedResource) {
         http.expectPOST('base/feeds/3/fulltext', {
             fullTextEnabled: true
@@ -312,7 +325,6 @@ describe('FeedResource', function () {
 
         expect(FeedResource.getById(3).fullTextEnabled).toBe(true);
         http.flush();
-
     }));
 
 });
