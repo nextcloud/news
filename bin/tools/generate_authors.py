@@ -26,7 +26,7 @@ def line_to_tuple(line):
 tuples = map(line_to_tuple, contrib_lines)
 tuples = filter(lambda x: len(x) > 0, tuples)  # filter out empty results
 tuples = filter(lambda x: 'Jenkins' not in x[1], tuples) # filter out jenkins
-tuples = sorted(tuples, key=lambda x: x[0], reverse=True)
+#tuples = sorted(tuples, key=lambda x: x[0], reverse=True)
 tuples = map(lambda x: (x[1], x[2]), tuples)
 authors = map(tuple_to_markdown, tuples)
 authors = '\n'.join(authors)
@@ -45,6 +45,3 @@ for x in range(base_dir_diff):
 contributors_file = os.path.join(base_dir, 'AUTHORS.md')
 with open(contributors_file, 'w') as f:
     f.write(contents)
-
-
-print(contents)
