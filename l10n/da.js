@@ -85,6 +85,8 @@ OC.L10N.register(
     "Undo delete feed" : "Fortryd sletning af feed",
     "Rename" : "Omdøb",
     "Menu" : "Menu",
+    "Unpin feed from the top" : "Frigør feed fra toppen",
+    "Pin feed to the top" : "Fastgør feed til toppen",
     "No feed ordering" : "Ingen feedrækkefølge",
     "Reversed feed ordering" : "Omvendt feedrækkefølge",
     "Normal feed ordering" : "Normal feedrækkefølge",

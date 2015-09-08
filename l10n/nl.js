@@ -85,6 +85,8 @@ OC.L10N.register(
     "Undo delete feed" : "Maak verwijderen feed ongedaan",
     "Rename" : "Naam wijzigen",
     "Menu" : "Menu",
+    "Unpin feed from the top" : "Feed losmaken van boven",
+    "Pin feed to the top" : "Feed bovenaan vastzetten",
     "No feed ordering" : "Geen feed sortering",
     "Reversed feed ordering" : "Omgekeerde feedvolgorde",
     "Normal feed ordering" : "Normale feedvolgorde",
