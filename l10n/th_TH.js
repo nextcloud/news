@@ -85,6 +85,8 @@ OC.L10N.register(
     "Undo delete feed" : "ยกเลิกการลบฟีด",
     "Rename" : "เปลี่ยนชื่อ",
     "Menu" : "เมนู",
+    "Unpin feed from the top" : "ยกเลิกการปักหมุดฟีดจากด้านบน",
+    "Pin feed to the top" : "ปักหมุดฟีดจากด้านบน",
     "No feed ordering" : "ไม่มีรายการฟีด",
     "Reversed feed ordering" : "ย้อนกลับรายการฟีด",
     "Normal feed ordering" : "รายการฟีดปกติ",
