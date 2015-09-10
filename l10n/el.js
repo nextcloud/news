@@ -85,6 +85,8 @@ OC.L10N.register(
     "Undo delete feed" : "Αναίρεση διαγραφής ροής",
     "Rename" : "Μετονομασία",
     "Menu" : "Μενού",
+    "Unpin feed from the top" : "Απαγκίστρωση της ροής από την κορυφή",
+    "Pin feed to the top" : "Αγκίστρωση της ροής στην κορυφή",
     "No feed ordering" : "Καμμία ταξινόμηση ροής",
     "Reversed feed ordering" : "Ανεστραμμένη ταξινόμηση ροής",
     "Normal feed ordering" : "Κανονική ταξινόμηση ροής",
