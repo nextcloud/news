@@ -2,6 +2,7 @@ OC.L10N.register(
     "news",
     {
     "Feed contains invalid XML" : "O feed contém XML inválido",
+    "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" : "Feed não encontrado: o sítio web ou não possui feed ou bloqueia-lhe o acesso. Para contornar o bloqueio, tente transferir o feed usando na linha de comando do servidor: curl http://the-feed.tld",
     "Detected feed format is not supported" : "O formato da feed detetado não é suportado",
     "SSL Certificate is invalid" : "O certificado SSL é inválido",
     "Website not found" : "O site da web não foi encontrado",

@@ -85,6 +85,8 @@ OC.L10N.register(
     "Undo delete feed" : "Annulla l'eliminazione della fonte",
     "Rename" : "Rinomina",
     "Menu" : "Menu",
+    "Unpin feed from the top" : "Rimuovi fonte dalla cima",
+    "Pin feed to the top" : "Appunta la fonte in cima",
     "No feed ordering" : "Nessun ordine delle fonti",
     "Reversed feed ordering" : "Ordine inverso delle fonti",
     "Normal feed ordering" : "Ordine normale delle fonti",
