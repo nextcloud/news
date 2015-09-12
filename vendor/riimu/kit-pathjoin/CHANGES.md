@@ -1,5 +1,9 @@
 # Changelog #
 
+## v1.1.2 (2015-08-22) ##
+
+  * Slightly reworked how the paths are built
+
 ## v1.1.1 (2015-08-09) ##
 
   * Maintenance release that simply addresses some coding standards issues

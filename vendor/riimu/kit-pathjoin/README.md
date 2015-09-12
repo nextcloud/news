@@ -61,7 +61,7 @@ the installation.
 ### Manual installation ###
 
 You can also install this library manually without using Composer. In order to
-do this, you must download the [latest release](https://github.com/Riimu/Kit-PHPEncoder/releases/latest)
+do this, you must download the [latest release](https://github.com/Riimu/Kit-PathJoin/releases/latest)
 and extract the `src` folder from the archive to your project folder. To load
 the library, you can simply include the `src/autoload.php` file that was
 provided in the archive.

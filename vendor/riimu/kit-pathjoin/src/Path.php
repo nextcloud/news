@@ -61,37 +61,29 @@ class Path
      */
     public static function join($paths)
     {
-        $paths = self::getPaths(func_get_args());
+        $paths = array_map('strval', is_array($paths) ? $paths : func_get_args());
         $parts = self::getParts($paths);
 
         $absolute = self::isAbsolute($paths[0]);
         $root = $absolute ? array_shift($parts) . DIRECTORY_SEPARATOR : '';
         $parts = self::resolve($parts, $absolute);
 
-        if ($parts === []) {
-            return $root ?: '.';
-        }
-
-        return $root . implode(DIRECTORY_SEPARATOR, $parts);
+        return self::buildPath($root, $parts);
     }
 
     /**
-     * Returns the paths from the arguments list.
-     * @param array $args The arguments list
-     * @return string[] Paths from the arguments list
-     * @throws \InvalidArgumentException If the path array is empty
+     * Builds the final path from the root and path parts.
+     * @param string $root Root path
+     * @param string[] $parts The path parts
+     * @return string The final built path
      */
-    private static function getPaths($args)
+    private static function buildPath($root, array $parts)
     {
-        if (is_array($args[0])) {
-            $args = $args[0];
-
-            if ($args === []) {
-                throw new \InvalidArgumentException('You must provide at least one path');
-            }
+        if ($parts === []) {
+            return $root === '' ? '.' : $root;
         }
 
-        return $args;
+        return $root . implode(DIRECTORY_SEPARATOR, $parts);
     }
 
     /**
@@ -101,6 +93,10 @@ class Path
      */
     private static function getParts(array $paths)
     {
+        if ($paths === []) {
+            throw new \InvalidArgumentException('You must provide at least one path');
+        }
+
         return array_map('trim', explode('/', str_replace('\\', '/', implode('/', $paths))));
     }
 

@@ -79,7 +79,7 @@ class Attribute
         'cite' => array(),
         'time' => array('datetime'),
         'abbr' => array('title'),
-        'iframe' => array('width', 'height', 'frameborder', 'src'),
+        'iframe' => array('width', 'height', 'frameborder', 'src', 'allowfullscreen'),
         'q' => array('cite')
     );
 
@@ -227,7 +227,6 @@ class Attribute
      * @var array
      */
     private $filters = array(
-        'filterEmptyAttribute',
         'filterAllowedAttribute',
         'filterIntegerAttribute',
         'rewriteAbsoluteUrl',
@@ -278,20 +277,6 @@ class Attribute
         }
 
         return $attributes;
-    }
-
-    /**
-     * Return true if the value is not empty (remove empty attributes)
-     *
-     * @access public
-     * @param  string    $tag           Tag name
-     * @param  string    $attribute     Attribute name
-     * @param  string    $value         Attribute value
-     * @return boolean
-     */
-    public function filterEmptyAttribute($tag, $attribute, $value)
-    {
-        return $value !== '';
     }
 
     /**

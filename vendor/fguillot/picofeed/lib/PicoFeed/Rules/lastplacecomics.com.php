@@ -2,7 +2,7 @@
 return array(
     'filter' => array(
         '%.*%' => array(
-             '%-\\d+x\\d+%' => "",
+             '%-150x150%' => '',
         )
     )
 );
