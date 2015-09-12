@@ -327,7 +327,7 @@
         items.each(function (index, item) {
             item = $(item);
 
-            if ((item.position().top + 10) >= 0) {
+            if (item.position().top >= 0) {
                 var previous = item.prev();
 
                 // if there are no items before the current one

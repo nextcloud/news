@@ -111,21 +111,13 @@ class Application extends App {
             }
 
             $config = HTMLPurifier_Config::createDefault();
-
-            $config->set('Cache.SerializerPath', $directory);
             $config->set('HTML.ForbiddenAttributes', 'class');
-            $config->set('HTML.AllowedAttributes', '*.allowfullscreen');
+            $config->set('Cache.SerializerPath', $directory);
             $config->set('HTML.SafeIframe', true);
             $config->set('URI.SafeIframeRegexp',
                 '%^https://(?:www\.)?(' .
                 'youtube(?:-nocookie)?.com/embed/|' .
                 'player.vimeo.com/video/)%'); //allow YouTube and Vimeo
-
-            $config->set('HTML.DefinitionID', 'News');
-            $config->set('HTML.DefinitionRev', 1);
-            $def = $config->getHTMLDefinition(true);
-            $def->addAttribute('iframe', 'allowfullscreen', 'Bool');
-
             return new HTMLPurifier($config);
         });
 
