@@ -1,6 +1,7 @@
 <?php
 $TRANSLATIONS = array(
 "Feed contains invalid XML" => "피드에 올바르지 않은 XML이 포함되어 있음",
+"Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" => "피드를 찾을 수 없습니다. 웹 사이트에서 피드를 제공하지 않거나 접근을 차단하고 있습니다. 차단 여부를 확인하려면 서버의 명령줄에서 curl 명령을 사용하여 피드를 다운로드해 보십시오: curl http://the-feed.tld",
 "Detected feed format is not supported" => "감지한 피드 포맷을 지원하지 않음",
 "SSL Certificate is invalid" => "SSL 인증서가 잘못됨",
 "Website not found" => "웹 사이트를 찾을 수 없음",
@@ -83,9 +84,13 @@ $TRANSLATIONS = array(
 "Undo delete feed" => "피드 삭제 취소",
 "Rename" => "이름 바꾸기",
 "Menu" => "메뉴",
+"Unpin feed from the top" => "피드를 위쪽에서 고정 해제",
+"Pin feed to the top" => "피드를 위쪽에 고정",
 "No feed ordering" => "피드 정렬 없음",
 "Reversed feed ordering" => "피드 역순 정렬",
 "Normal feed ordering" => "피드 일반 정렬",
+"Enable full text feed fetching" => "피드 전문 가져오기 사용",
+"Disable full text feed fetching" => "피드 전문 가져오기 사용 안 함",
 "Rename feed" => "피드 이름 바꾸기",
 "Delete feed" => "피드 삭제",
 "Mark all articles read" => "모두 읽은 것으로 표시",

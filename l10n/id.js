@@ -85,6 +85,8 @@ OC.L10N.register(
     "Undo delete feed" : "Batalkan hapus feed",
     "Rename" : "Ubah nama",
     "Menu" : "Menu",
+    "Unpin feed from the top" : "Lepas feed dari posisi teratas",
+    "Pin feed to the top" : "Pasang feed pada posisi teratas",
     "No feed ordering" : "Tidak ada feed yang pesan",
     "Reversed feed ordering" : "Pemesanan feed terbalik",
     "Normal feed ordering" : "Pemesanan feed normal",
