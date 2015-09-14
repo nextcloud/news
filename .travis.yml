@@ -59,6 +59,7 @@ before_script:
     - mkdir data
     - ./occ maintenance:install --database-name oc_autotest --database-user oc_autotest --admin-user admin --admin-pass admin --database $DB --database-pass=''
     - ./occ app:enable news
+    - ./occ news:verify-install
     - ./occ background:cron  # enable default cron
     - cd apps/news/js
     # install test deps
