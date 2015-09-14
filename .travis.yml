@@ -73,9 +73,6 @@ script:
     - grunt js-unit
     # integration tests
     - grunt php-integration
-    - cd ../../../
-    - ./occ news:verify-install
-    - cd apps/news/js
     # acceptance tests
     - webdriver-manager update
     - sudo chown -R www-data:www-data ../../../data

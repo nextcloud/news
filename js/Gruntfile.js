@@ -290,7 +290,7 @@ module.exports = function (grunt) {
     grunt.registerTask('dev-php-unit', ['watch:phpunit']);
     grunt.registerTask('dev-php-integration', ['watch:phpintegration']);
 
-    grunt.registerTask('js-unit', ['default', 'karma:continuous']);
+    grunt.registerTask('js-unit', ['karma:continuous']);
     grunt.registerTask('php-unit', ['phpunit:coverage']);
     grunt.registerTask('php-integration', ['phpunit:integration']);
 
