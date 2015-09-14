@@ -59,7 +59,6 @@ before_script:
     - mkdir data
     - ./occ maintenance:install --database-name oc_autotest --database-user oc_autotest --admin-user admin --admin-pass admin --database $DB --database-pass=''
     - ./occ app:enable news
-    - ./occ news:verify-install
     - ./occ background:cron  # enable default cron
     - cd apps/news/js
     # install test deps
@@ -74,6 +73,9 @@ script:
     - grunt js-unit
     # integration tests
     - grunt php-integration
+    - cd ../../../
+    - ./occ news:verify-install
+    - cd apps/news/js
     # acceptance tests
     - webdriver-manager update
     - sudo chown -R www-data:www-data ../../../data
