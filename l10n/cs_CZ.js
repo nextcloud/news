@@ -84,6 +84,8 @@ OC.L10N.register(
     "Undo delete feed" : "Vzít zpět smazání kanálu",
     "Rename" : "Přejmenovat",
     "Menu" : "Menu",
+    "Unpin feed from the top" : "Kanál odepnut z prvního místa",
+    "Pin feed to the top" : "Připnout kanál na první místo",
     "No feed ordering" : "Bez řazení zdrojů",
     "Reversed feed ordering" : "Opačné řazení zdrojů",
     "Normal feed ordering" : "Normální řazení zdrojů",
