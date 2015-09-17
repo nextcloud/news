@@ -48,6 +48,8 @@ OC.L10N.register(
     "by" : "od",
     "from" : "z",
     "Play audio" : "Prehrávanie audia",
+    "Download video" : "Stiahnuť video",
+    "Download audio" : "Stiahnuť audio",
     "Keyboard shortcut" : "Klávesová skratka",
     "Description" : "Popis",
     "right" : "vpravo",
