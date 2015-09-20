@@ -118,6 +118,8 @@ class Application extends App {
                 '%^https://(?:www\.)?(' .
                 'youtube(?:-nocookie)?.com/embed/|' .
                 'player.vimeo.com/video/)%'); //allow YouTube and Vimeo
+            $def = $config->getHTMLDefinition(true);
+            $def->addAttribute('iframe', 'allowfullscreen', 'Bool');
             return new HTMLPurifier($config);
         });
 
