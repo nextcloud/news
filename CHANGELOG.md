@@ -1,3 +1,6 @@
+owncloud-news (6.0.5)
+* **Enhancement**: Add user information API route
+
 owncloud-news (6.0.4)
 * **Bugfix**: Allow YouTube videos to go fullscreen, #857
 * **Enhancement**: Group plugins in menu, #718

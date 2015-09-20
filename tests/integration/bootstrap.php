@@ -11,7 +11,7 @@
 
 namespace OCA\News\Tests\Integration;
 
-require_once __DIR__ . '/../../../../tests/bootstrap.php';
+require_once __DIR__ . '/../bootstrap.php';
 
 use PHPUnit_Framework_TestCase;
 use OCP\IDb;

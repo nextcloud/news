@@ -59,6 +59,8 @@ return ['routes' => [
 ['name' => 'export#articles', 'url' => '/export/articles', 'verb' => 'GET'],
 
 // API 1.2
+['name' => 'user_api#index', 'url' => '/api/v1-2/user', 'verb' => 'GET'],
+['name' => 'user_api#avatar', 'url' => '/api/v1-2/user/avatar', 'verb' => 'GET'],
 ['name' => 'utility_api#version', 'url' => '/api/v1-2/version', 'verb' => 'GET'],
 ['name' => 'utility_api#status', 'url' => '/api/v1-2/status', 'verb' => 'GET'],
 ['name' => 'utility_api#before_update', 'url' => '/api/v1-2/cleanup/before-update', 'verb' => 'GET'],
