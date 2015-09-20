@@ -90,10 +90,10 @@
                             ?>">
                         </button>
                     </li>
-                    <li class="util more" news-stop-propagation>
+                    <li class="util more" news-stop-propagation ng-hide="noPlugins">
                         <button class="icon-more" news-toggle-show="#actions-{{item.id}}"></button>
                         <div class="article-actions" id="actions-{{item.id}}">
-                            <ul news-article-actions="item"><ul>
+                            <ul news-article-actions="item" no-plugins="noPlugins"><ul>
                         </div>
                     </li>
                 </ul>

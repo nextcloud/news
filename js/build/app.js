@@ -2661,7 +2661,8 @@ app.directive('newsArticleActions', function () {
     return {
         restrict: 'A',
         scope: {
-            newsArticleActions: '='
+            newsArticleActions: '=',
+            noPlugins: '='
         },
         link: function (scope, elem) {
             var plugins = News.getArticleActionPlugins();
@@ -2670,9 +2671,7 @@ app.directive('newsArticleActions', function () {
                 plugins[i](elem, scope.newsArticleActions);
             }
 
-            if (plugins.length === 0) {
-                $('#app-content .more').hide();
-            }
+            scope.noPlugins = plugins.length === 0;
         }
     };
 });
