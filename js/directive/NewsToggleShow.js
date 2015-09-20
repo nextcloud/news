@@ -7,23 +7,18 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsArticleActions', function () {
+app.directive('newsToggleShow', function () {
     'use strict';
     return {
         restrict: 'A',
         scope: {
-            newsArticleActions: '='
+            'newsToggleShow': '@'
         },
         link: function (scope, elem) {
-            var plugins = News.getArticleActionPlugins();
-
-            for (var i=0; i<plugins.length; i+=1) {
-                plugins[i](elem, scope.newsArticleActions);
-            }
-
-            if (plugins.length === 0) {
-                $('#app-content .more').hide();
-            }
+            elem.click(function () {
+                var target = $(scope.newsToggleShow);
+                target.toggle();
+            });
         }
     };
 });

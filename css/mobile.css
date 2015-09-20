@@ -10,6 +10,10 @@
 }
 
 @media (max-width: 600px) {
+    #app-content .article-actions ul {
+        max-width: 164px;
+    }
+
     #app-content .heading .date {
         display: none;
     }
@@ -25,5 +29,11 @@
     #app-content .article {
         padding-right: 15px;
         padding-left: 44px;
+    }
+}
+
+@media (max-width: 340px) {
+    #app-content .article-actions  {
+        max-width: 82px;
     }
 }

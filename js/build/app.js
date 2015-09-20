@@ -2659,19 +2659,24 @@ app.directive('newsAddFeed', ["$rootScope", "$timeout", function ($rootScope, $t
 app.directive('newsArticleActions', function () {
     'use strict';
     return {
-        restrict: 'E',
+        restrict: 'A',
         scope: {
-            'article': '='
+            newsArticleActions: '='
         },
         link: function (scope, elem) {
             var plugins = News.getArticleActionPlugins();
 
             for (var i=0; i<plugins.length; i+=1) {
-                plugins[i](elem, scope.article);
+                plugins[i](elem, scope.newsArticleActions);
+            }
+
+            if (plugins.length === 0) {
+                $('#app-content .more').hide();
             }
         }
     };
 });
+
 app.directive('newsAutoFocus', ["$timeout", function ($timeout) {
     'use strict';
     return function (scope, elem, attrs) {
@@ -3076,6 +3081,22 @@ app.directive('newsTitleUnreadCount', ["$window", function ($window) {
     };
 
 }]);
+app.directive('newsToggleShow', function () {
+    'use strict';
+    return {
+        restrict: 'A',
+        scope: {
+            'newsToggleShow': '@'
+        },
+        link: function (scope, elem) {
+            elem.click(function () {
+                var target = $(scope.newsToggleShow);
+                target.toggle();
+            });
+        }
+    };
+});
+
 app.directive('newsTriggerClick', function () {
     'use strict';
 

@@ -1,5 +1,6 @@
 owncloud-news (6.0.4)
 * **Bugfix**: Allow YouTube videos to go fullscreen, #857
+* **Enhancement**: Group plugins in menu, #718
 
 owncloud-news (6.0.3)
 * **Enhancement**: Allow to pin feeds, #848

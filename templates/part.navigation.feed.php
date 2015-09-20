@@ -95,6 +95,8 @@
                         class="icon-unpinned"
                         title="<?php p($l->t('Pin feed to the top')); ?>">
                 </button>
+            </li>
+            <li>
                 <button ng-click="Navigation.setOrdering(feed, 1)"
                         ng-show="feed.ordering == 0"
                         class="icon-caret-dark feed-no-ordering"

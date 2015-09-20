@@ -285,6 +285,85 @@
         background-image: url('../img/active_star.svg');
     }
 
+    #app-content .utils .more button {
+        opacity: .3;
+    }
+
+    #app-content .utils .more button:hover {
+        opacity: 1;
+    }
+
+    #app-content .utils .more {
+        position: relative;
+    }
+
+    #app-content .article-actions {
+        display: none;
+        filter: drop-shadow(0 0 5px rgba(150, 150, 150, 0.75));
+        -webkit-filter: drop-shadow(0 0 5px rgba(150, 150, 150, 0.75));
+        -moz-filter: drop-shadow(0 0 5px rgba(150, 150, 150, 0.75));
+        position: absolute;
+        top: 40px;
+        border-radius: 3px;
+        z-index: 1000;
+        border: 1px solid transparent;
+        background-color: #fff;
+        margin: 0;
+        padding: 0;
+    }
+
+    #app-content .article-actions ul {
+        display: flex;
+        float: left;
+    }
+
+    #app-content .article-actions li {
+        float: left;
+        width: 38px !important;
+    }
+
+    #app-content #articles:not(.compact) .article-actions {
+        left: 6px;
+    }
+
+    #app-content #articles:not(.compact) .article-actions:after,
+    #app-content #articles:not(.compact) .article-actions:before {
+        left: 20px;
+    }
+
+    #app-content #articles.compact .article-actions {
+        right: -10px;
+    }
+
+    #app-content #articles.compact .article-actions:after,
+    #app-content #articles.compact .article-actions:before {
+        right: 9px;
+    }
+
+    #app-content .article-actions:after,
+    #app-content .article-actions:before {
+    	bottom: 100%;
+    	border: solid transparent;
+    	content: " ";
+    	height: 0;
+    	width: 0;
+    	position: absolute;
+    	pointer-events: none;
+    }
+
+    #app-content .article-actions:after {
+    	border-color: rgba(255, 255, 255, 0);
+    	border-bottom-color: #fff;
+    	border-width: 5px;
+    	margin-left: -5px;
+    }
+    #app-content .article-actions:before {
+    	border-color: rgba(255, 255, 255, 0);
+    	border-bottom-color: #fff;
+    	border-width: 9px;
+    	margin-left: -9px;
+    }
+
     /**
      * Article title
      */

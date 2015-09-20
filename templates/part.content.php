@@ -90,7 +90,12 @@
                             ?>">
                         </button>
                     </li>
-                    <li><news-article-actions article="item" /></li>
+                    <li class="util more" news-stop-propagation>
+                        <button class="icon-more" news-toggle-show="#actions-{{item.id}}"></button>
+                        <div class="article-actions" id="actions-{{item.id}}">
+                            <ul news-article-actions="item"><ul>
+                        </div>
+                    </li>
                 </ul>
             </div>
 
