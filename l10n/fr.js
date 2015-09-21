@@ -2,7 +2,7 @@ OC.L10N.register(
     "news",
     {
     "Feed contains invalid XML" : "Le flux contient un XML non valide",
-    "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" : "Flux introuvable : le site n'en propose peut-être pas, ou en bloque l'accès. Pour vérifier si l'accès au flux est possible, vous pouvez essayer de le télécharger en ligne de commande avec curl : curl http://addresse-du/flux",
+    "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" : "Flux introuvable : le site n'en propose peut-être pas, ou en bloque l'accès. Pour vérifier si l'accès au flux est possible, vous pouvez essayer de le télécharger depuis votre serveur en ligne de commande avec curl : curl http://addresse-du/flux",
     "Detected feed format is not supported" : "Format de flux détecté non compatible",
     "SSL Certificate is invalid" : "Le certificat SSL n'est pas valable",
     "Website not found" : "Site web non trouvé",
