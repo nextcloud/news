@@ -52,7 +52,7 @@ class ItemApiController extends ApiController {
      * @param bool $oldestFirst
      * @return array|mixed
      */
-    public function index($type, $id, $getRead, $batchSize=20, $offset=0,
+    public function index($type=3, $id=0, $getRead=true, $batchSize=-1, $offset=0,
                           $oldestFirst=false) {
         return $this->serializer->serialize(
             $this->itemService->findAll(
@@ -73,7 +73,7 @@ class ItemApiController extends ApiController {
      * @param int $lastModified
      * @return array|mixed
      */
-    public function updated($type, $id, $lastModified=0) {
+    public function updated($type=3, $id=0, $lastModified=0) {
         return $this->serializer->serialize(
             $this->itemService->findAllNew($id, $type, $lastModified,
                                            true, $this->userId)

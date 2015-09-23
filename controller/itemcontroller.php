@@ -59,7 +59,7 @@ class ItemController extends Controller {
      * @param string $search
      * @return array
      */
-    public function index($type, $id, $limit=50, $offset=0, $showAll=null,
+    public function index($type=3, $id=0, $limit=50, $offset=0, $showAll=null,
         $oldestFirst=null, $search='') {
 
         // in case this is called directly and not from the website use the

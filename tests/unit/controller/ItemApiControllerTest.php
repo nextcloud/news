@@ -81,7 +81,7 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
             ->with(
                 $this->equalTo(2),
                 $this->equalTo(1),
-                $this->equalTo(20),
+                $this->equalTo(-1),
                 $this->equalTo(0),
                 $this->equalTo(false),
                 $this->equalTo(false),
