@@ -52,7 +52,7 @@ class ItemApiController extends ApiController {
      * @param bool $oldestFirst
      * @return array|mixed
      */
-    public function index($type=3, $id=0, $getRead=false, $batchSize=-1, $offset=0,
+    public function index($type=3, $id=0, $getRead=true, $batchSize=-1, $offset=0,
                           $oldestFirst=false) {
         return $this->serializer->serialize(
             $this->itemService->findAll(
