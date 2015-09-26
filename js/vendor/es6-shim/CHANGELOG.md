@@ -1,5 +1,78 @@
 # es6-shim x.x.x (not yet released)
 
+# es6-shim 0.33.3 (31 Aug 2015)
+* [Fix] Handle Firefox Nightly's broken `construct` method
+* [Tests] Add `JSON.stringify` tests for handling `Symbol`s
+
+# es6-shim 0.33.2 (26 Aug 2015)
+* [Fix] Make sure that minified code preserves function names.
+* [Fix] Skip the `Promise` shim when `setTimeout` is not available ([#301](https://github.com/paulmillr/es6-shim/issues/301#issuecomment-126566703))
+* [Docs] Add note about `setPrototypeOf` on null objects
+
+# es6-shim 0.33.1 (20 Aug 2015)
+* [New] Add support for binary and octal literals in strings to the `Number` constructor (#358)
+* [Docs] Update spec link to final spec
+* [Fix] `Reflect.enumerate`: does not necessarily wait until the first `next()` to determine keys.
+* [Refactors] split up some tests; name some functions; remove unnecessary code
+* {Refactors] make ObjectIterator properties non-enumerable
+* [Refactors] Refactor `RegExp` wrapping code so most of it can be reused.
+* [Tests] up to `io.js` `v3.1`
+* [Dev Deps] update `grunt-contrib-connect`, `jscs`
+
+# es6-shim 0.33.0 (30 Jul 2015)
+* [Breaking] Avoid CSP errors in Chrome apps by using global var detection (#301)
+* [Performance] Rearranging some of the Map/Set runtime shim clobberings to be more efficient.
+* [Refactor] Implement `Array.of` directly, rather than in terms of `Array.from`
+* [Dev Deps] Update `chai`, `es5-shim`, `promises-aplus-tests`, `uglify-js`
+* [Tests] Add test for `Object.getPrototypeOf` accepting primitives.
+* [Tests] Bail out of individual `Reflect` tests when the methods don’t exist
+* [Tests] Test on latest `io.js`
+
+# es6-shim 0.32.3 (21 Jun 2015)
+* [Fix] Override or wrap native `Reflect` methods in Microsoft Edge v0.11 as required.
+* [Fix] Edge v0.11: `Array.from([], undefined)` should not throw
+* [Fix] Fix a bug in `Array.from handles iterables` runtime clobbering, which would always replace the native function
+* [Fix] Ensure that `Set#has` has the correct name in Edge v0.11
+* [Tests] Add `Map`/`Set` error messages for Edge v0.11
+* [Tests] Fix `Math.fround` test value for Edge v0.11
+* [Tests] Bail out of `Map`/`Set` test blocks if they don't exist
+* [Docs] Update ES5 subclassing instructions in the README.
+* [Dev Deps] Update `es5-shim`
+
+# es6-shim 0.32.2 (17 Jun 2015)
+* [Fix] `Object.assign` with no sources should coerce to an object (#348)
+* [Fix] `String#includes` should throw when given a `RegExp` (#349)
+* [Fix] `RegExp()` should not throw (#350)
+* [Fix] Create `Value.defineByDescriptor`, fix `create` when `Object.create` is unavailable.
+* [Compliance] Update `Promise.reject` to match official ECMA-262 spec.
+* [Dev Deps] Update `es5-shim`
+
+# es6-shim 0.32.1 (13 Jun 2015)
+* [Fix] Make sure that all `Map`/`Set` shim forms properly add an iterable to the collection instance.
+* [Tests] Make sure none of the `Array` ToLength tests throw *any* error (#347)
+
+# es6-shim 0.32.0 (7 Jun 2015)
+* [Spec compliance] Update Promises to match finalized ES6 spec (#345, #344, #239)
+* [Fix] Ensure `Map`, `Set`, and `Promise` shims all throw when used without "new".
+* [Tests] Fix the pending exceptions test for Safari 5.1
+* [Refactor] Since the String HTML shims will be iterated anyways, no need to defineProperties them twice.
+* [Deps] Update `chai`, `es5-shim`
+
+# es6-shim 0.31.3 (2 Jun 2015)
+* [Fix] Properly name more shim functions
+* [Fix] Fix an IE bug where the layout engine internally calls the userland `Object.getOwnPropertyNames`
+* [Fix] Ensure `Map.prototype[Symbol.iterator] === Map.prototype.entries`
+* [Fix] Ensure `Set.prototype[Symbol.iterator] === Set.prototype.values`
+* [Tests] `Object.assign` pending exceptions: IE 9 `preventExtensions` doesn't throw, even in strict mode
+* [Security] Cache more native methods in case they're overwritten later
+* [Tests] IE 11 has native `Map`/`Set`, but it takes an optional *function*, not an optional iterable, in the constructor
+* [Tests] Add more "exists" early bailouts, to declutter native test results
+* [Docs] Alphabetize shim lists in the README
+* [Perf] Add more `Map`/`Set` fast paths for more primitives: boolean, null, undefined
+* [Tests] Test up to `io.js` `v2.2`
+* [Deps] Update `mocha`, `es5-shim`, `uglify-js`, `jshint`
+* [Refactor] Style cleanups
+
 # es6-shim 0.31.2 (9 May 2015)
 * Fix ES5 `Array.prototype` method wrappers to return the correct value. (#341)
 

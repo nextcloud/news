@@ -1,6 +1,5 @@
 {
   "name": "es6-shim",
-  "version": "0.31.2",
   "repo": "paulmillr/es6-shim",
   "description": "ECMAScript 6 (Harmony) compatibility shims for legacy JavaScript engines",
   "keywords": [
@@ -28,11 +27,12 @@
     "test"
   ],
   "homepage": "https://github.com/paulmillr/es6-shim",
-  "_release": "0.31.2",
+  "version": "0.33.3",
+  "_release": "0.33.3",
   "_resolution": {
     "type": "version",
-    "tag": "0.31.2",
-    "commit": "c4ef3981849dfdf68357cdeda494d9de6422f737"
+    "tag": "0.33.3",
+    "commit": "616eee62ceed6f1e988abab4e49d6d682702be1b"
   },
   "_source": "git://github.com/paulmillr/es6-shim.git",
   "_target": "~0.*",
