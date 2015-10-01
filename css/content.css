@@ -319,7 +319,7 @@
 
     #app-content .article-actions li {
         float: left;
-        width: 38px !important;
+        width: 52px !important;
     }
 
     #app-content #articles:not(.compact) .article-actions {
