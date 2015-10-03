@@ -2969,11 +2969,17 @@ app.directive('newsSearch', ["$document", "$location", function ($document, $loc
             var box = $('#searchbox');
             box.val($location.search().search);
 
-            box.on('search', function () {
-                var value = $(this).val();
+            var doSearch = function () {
+                var value = box.val();
                 scope.$apply(function () {
                     scope.onSearch(value);
                 });
+            };
+
+            box.on('search keyup', function (event) {
+                if (event.type === 'search' || event.keyCode === 13) {
+                    doSearch();
+                }
             });
 
             // carry over search on route change
@@ -2989,6 +2995,7 @@ app.directive('newsSearch', ["$document", "$location", function ($document, $loc
         }
     };
 }]);
+
 app.directive('newsStickyMenu', function () {
     'use strict';
 

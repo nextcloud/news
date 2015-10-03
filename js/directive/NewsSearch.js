@@ -19,11 +19,17 @@ app.directive('newsSearch', function ($document, $location) {
             var box = $('#searchbox');
             box.val($location.search().search);
 
-            box.on('search', function () {
-                var value = $(this).val();
+            var doSearch = function () {
+                var value = box.val();
                 scope.$apply(function () {
                     scope.onSearch(value);
                 });
+            };
+
+            box.on('search keyup', function (event) {
+                if (event.type === 'search' || event.keyCode === 13) {
+                    doSearch();
+                }
             });
 
             // carry over search on route change

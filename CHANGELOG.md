@@ -1,4 +1,6 @@
 owncloud-news (6.0.5)
+* **Bugfix**: Fix icon width for article action plugins
+* **Bugfix**: Submit search on Firefox when hitting enter, #863
 * **Enhancement**: Add user information API route
 
 owncloud-news (6.0.4)
