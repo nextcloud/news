@@ -36,6 +36,7 @@
 * [s17t.net](mailto:mail+github@s17t.net)
 * [Alessandro](mailto:cosenal@gmail.com)
 * [Andrea Boero](mailto:mail@tsumi.it)
+* [Bernhard Posselt](mailto:BernhardPosselt@users.noreply.github.com)
 * [Florian Hülsmann](mailto:fh@cbix.de)
 * [Frank Karlitschek](mailto:frank@owncloud.org)
 * [Matthias Blümel](mailto:user@inanna.local)
