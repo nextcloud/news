@@ -266,15 +266,6 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         return $feed;
     }
 
-
-    public function testFetchThrowsExceptionWhenFetchingFailed() {
-        $this->setUpReader($this->url, true, false);
-
-        $this->setExpectedException('\OCA\News\Fetcher\FetcherException');
-        $this->fetcher->fetch($this->url, false);
-    }
-
-
     public function testNoFetchIfNotModified(){
         $this->setUpReader($this->url, false);;
         $result = $this->fetcher->fetch($this->url, false);
