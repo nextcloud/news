@@ -1,6 +1,7 @@
 <?php
 $TRANSLATIONS = array(
 "Feed contains invalid XML" => "Feed beinhaltet ungültiges XML",
+"Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" => "Feed nicht gefunden: entweder die Webseite unterstützt keine Feeds oder blockiert den Zugriff. Um das Blockieren auszuschließen, versuche den Feed mittels Serverkonsole runterzuladen: curl http://the-feed.tld",
 "Detected feed format is not supported" => "Das Ermitteln des Feedformats wird nicht unterstützt",
 "SSL Certificate is invalid" => "SSL-Zertifikat ist ungültig",
 "Website not found" => "Webseite nicht gefunden",
@@ -83,9 +84,13 @@ $TRANSLATIONS = array(
 "Undo delete feed" => "Gelöschten Feed wieder herstellen",
 "Rename" => "Umbenennen",
 "Menu" => "Menü",
+"Unpin feed from the top" => "Feed von der Spitze entfernen",
+"Pin feed to the top" => "Feed an der Spitze anheften",
 "No feed ordering" => "Keine Feed-Sortierung",
 "Reversed feed ordering" => "Umgekehrte Feed-Sortierung",
 "Normal feed ordering" => "Normale Feed-Sortierung",
+"Enable full text feed fetching" => "Aktiviere Volltextfeedfetching",
+"Disable full text feed fetching" => "Deaktviere Volltextfeedfetching",
 "Rename feed" => "Feed umbenennen",
 "Delete feed" => "Feed löschen",
 "Mark all articles read" => "Alle Artikel als gelesen markieren",
