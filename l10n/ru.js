@@ -85,6 +85,8 @@ OC.L10N.register(
     "Undo delete feed" : "Отменить удаление ленты",
     "Rename" : "Переименовать",
     "Menu" : "Меню",
+    "Unpin feed from the top" : "Отсоединить фид сверху",
+    "Pin feed to the top" : "Прикрепить фид наверх",
     "No feed ordering" : "Не указан порядок новостных лент",
     "Reversed feed ordering" : "Обратный порядок новостной ленты",
     "Normal feed ordering" : "Обычный порядок новостной ленты",
