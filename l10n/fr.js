@@ -85,6 +85,8 @@ OC.L10N.register(
     "Undo delete feed" : "Annuler la suppression du flux",
     "Rename" : "Renommer",
     "Menu" : "Menu",
+    "Unpin feed from the top" : "Désépingler le flux du haut de liste",
+    "Pin feed to the top" : "Epingler le flux en haut de liste",
     "No feed ordering" : "Ordre actuel du flux: ordre original",
     "Reversed feed ordering" : "Ordre actuel du flux: antichronologique",
     "Normal feed ordering" : "Ordre actuel du flux: chronologique",
