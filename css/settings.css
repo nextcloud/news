@@ -37,11 +37,12 @@
 
 #app-settings-content label {
     display: block;
-    padding-left: 20px;
+    padding-left: 18px;
 }
 
 #app-settings-content label input[type="checkbox"] {
-    margin-left: -20px;
+    margin-left: -18px;
+    max-width: 16px; 
 }
 
 .button-icon-label {
