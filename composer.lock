@@ -56,12 +56,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fguillot/picoFeed.git",
-                "reference": "a2cc36244278afbfb9578037b1700ca3cd5a87d7"
+                "reference": "cd72fe816d799a05dd0533f92270efc111306342"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/a2cc36244278afbfb9578037b1700ca3cd5a87d7",
-                "reference": "a2cc36244278afbfb9578037b1700ca3cd5a87d7",
+                "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/cd72fe816d799a05dd0533f92270efc111306342",
+                "reference": "cd72fe816d799a05dd0533f92270efc111306342",
                 "shasum": ""
             },
             "require": {
@@ -95,7 +95,7 @@
             ],
             "description": "Modern library to handle RSS/Atom feeds",
             "homepage": "https://github.com/fguillot/picoFeed",
-            "time": "2015-09-12 11:05:28"
+            "time": "2015-10-16 00:28:29"
         },
         {
             "name": "pear/net_url2",

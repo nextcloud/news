@@ -88,9 +88,10 @@ class Html
      */
     public function __construct($html, $website)
     {
+        $this->config = new Config;
         $this->input = XmlParser::HtmlToXml($html);
         $this->output = '';
-        $this->tag = new Tag;
+        $this->tag = new Tag($this->config);
         $this->website = $website;
         $this->attribute = new Attribute(new Url($website));
     }

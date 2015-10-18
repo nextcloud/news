@@ -3,7 +3,9 @@
 namespace PicoFeed\Filter;
 
 use DOMXpath;
+
 use PicoFeed\Parser\XmlParser;
+use PicoFeed\Config\Config;
 
 /**
  * Tag Filter class
@@ -13,6 +15,14 @@ use PicoFeed\Parser\XmlParser;
  */
 class Tag
 {
+    /**
+     * Config object
+     *
+     * @access private
+     * @var \PicoFeed\Config\Config
+     */
+    private $config;
+
     /**
      * Tags blacklist (Xpath expressions)
      *
@@ -70,6 +80,11 @@ class Tag
         'iframe',
         'q',
     );
+
+    public function __construct(Config $config)
+    {
+        $this->config = $config;
+    }
 
     /**
      * Check if the tag is allowed and is not a pixel tracker
@@ -130,7 +145,10 @@ class Tag
      */
     public function isAllowedTag($tag)
     {
-        return in_array($tag, $this->tag_whitelist);
+        return in_array($tag, array_merge(
+            $this->tag_whitelist,
+            array_keys($this->config->getFilterWhitelistedTags(array()))
+        ));
     }
 
     /**

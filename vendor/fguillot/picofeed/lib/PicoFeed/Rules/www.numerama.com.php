@@ -2,13 +2,13 @@
 return array(
     'grabber' => array(
         '%.*%' => array(
-            'test_url' => 'http://www.numerama.com/magazine/26857-bientot-des-robots-dans-les-cuisines-de-mcdo.html',
+            'test_url' => 'http://www.numerama.com/sciences/125959-recherches-ladn-recompensees-nobel-de-chimie.html',
             'body' => array(
-                '//div[@class="col_left"]//div[@class="content"]',
+                '//article',
             ),
             'strip' => array(
-                '//div[@class="news_social"]',
-                '//div[@id="newssuiv"]',
+                '//footer',
+                '//section[@class="related-article"]',
             )
         )
     )
