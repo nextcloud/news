@@ -1,3 +1,6 @@
+owncloud-news (6.0.6)
+* **Enhancement**: Align settings text properly, #829
+
 owncloud-news (6.0.5)
 * **Bugfix**: Fix icon width for article action plugins
 * **Bugfix**: Submit search on Firefox when hitting enter, #863
