@@ -1,5 +1,6 @@
 owncloud-news (6.0.6)
 * **Enhancement**: Align settings text properly, #829
+* **Enhancement**: Update picoFeed to include additional feed rules
 
 owncloud-news (6.0.5)
 * **Bugfix**: Fix icon width for article action plugins
