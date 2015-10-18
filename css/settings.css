@@ -35,6 +35,16 @@
     padding: 2px 2px 2px 10px;
 }
 
+#app-settings-content label {
+    display: block;
+    padding-left: 18px;
+}
+
+#app-settings-content label input[type="checkbox"] {
+    margin-left: -18px;
+    max-width: 16px; 
+}
+
 .button-icon-label {
     background-position: 10px center;
     background-size: 16px;
