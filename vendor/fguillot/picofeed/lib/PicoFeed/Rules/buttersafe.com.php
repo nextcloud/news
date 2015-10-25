@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'grabber' => array(
         '%.*%' => array(
@@ -7,7 +8,7 @@ return array(
                 '//div[@id="comic"]',
                 '//div[@class="post-comic"]',
             ),
-            'strip' => array()
-        )
-    )
+            'strip' => array(),
+        ),
+    ),
 );

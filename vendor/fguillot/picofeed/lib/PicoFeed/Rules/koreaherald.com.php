@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'grabber' => array(
         '%.*%' => array(
@@ -6,6 +7,6 @@ return array(
             'body' => array(
             '//div[@class="content_view"]',
             ),
-        )
-    )
+        ),
+    ),
 );

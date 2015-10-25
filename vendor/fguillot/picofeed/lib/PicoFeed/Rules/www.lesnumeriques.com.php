@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'grabber' => array(
         '%.*%' => array(
@@ -19,7 +20,7 @@ return array(
                 '//div[@id="product-reviews"]',
                 '//div[@id="publication-breadcrumbs-and-date"]',
                 '//div[@id="publication-breadcrumbs-and-date"]',
-            )
-        )
-    )
+            ),
+        ),
+    ),
 );

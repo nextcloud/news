@@ -6,11 +6,10 @@ use ArrayAccess;
 use PicoFeed\Logging\Logger;
 
 /**
- * Class to handle HTTP headers case insensitivity
+ * Class to handle HTTP headers case insensitivity.
  *
  * @author  Bernhard Posselt
  * @author  Frederic Guillot
- * @package Client
  */
 class HttpHeaders implements ArrayAccess
 {
@@ -44,11 +43,12 @@ class HttpHeaders implements ArrayAccess
     }
 
     /**
-     * Parse HTTP headers
+     * Parse HTTP headers.
      *
      * @static
-     * @access public
-     * @param  array   $lines   List of headers
+     *
+     * @param array $lines List of headers
+     *
      * @return array
      */
     public static function parse(array $lines)
@@ -57,15 +57,14 @@ class HttpHeaders implements ArrayAccess
         $headers = array();
 
         foreach ($lines as $line) {
-
-            if (strpos($line, 'HTTP') === 0) {
+            if (strpos($line, 'HTTP/1') === 0) {
                 $headers = array();
                 $status = (int) substr($line, 9, 3);
-            }
-            else if (strpos($line, ':') !== false) {
-
-                @list($name, $value) = explode(': ', $line);
-                if ($value) $headers[trim($name)] = trim($value);
+            } elseif (strpos($line, ': ') !== false) {
+                list($name, $value) = explode(': ', $line);
+                if ($value) {
+                    $headers[trim($name)] = trim($value);
+                }
             }
         }
 

@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'grabber' => array(
         '%.*%' => array(
@@ -7,8 +8,8 @@ return array(
                 '//article[contains(@class, "entry-content")]',
             ),
             'strip' => array(
-                '//h1'
-            )
-        )
-    )
+                '//h1',
+            ),
+        ),
+    ),
 );

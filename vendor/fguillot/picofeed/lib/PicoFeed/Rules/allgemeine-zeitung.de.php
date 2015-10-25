@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'grabber' => array(
         '%.*%' => array(
@@ -16,8 +17,8 @@ return array(
                 '//*[@class="skip"]',
                 '//*[@class="funcs"]',
                 '//span[@class="nd address"]',
-                '//a[contains(@href, "abo-und-services")]'
-            )
-        )
-    )
+                '//a[contains(@href, "abo-und-services")]',
+            ),
+        ),
+    ),
 );

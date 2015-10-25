@@ -3,98 +3,84 @@
 namespace PicoFeed\Parser;
 
 /**
- * Feed
+ * Feed.
  *
  * @author  Frederic Guillot
- * @package Parser
  */
 class Feed
 {
     /**
-     * Feed items
+     * Feed items.
      *
-     * @access public
      * @var array
      */
     public $items = array();
 
     /**
-     * Feed id
+     * Feed id.
      *
-     * @access public
      * @var string
      */
     public $id = '';
 
     /**
-     * Feed title
+     * Feed title.
      *
-     * @access public
      * @var string
      */
     public $title = '';
 
     /**
-     * Feed description
+     * Feed description.
      *
-     * @access public
      * @var string
      */
     public $description = '';
 
     /**
-     * Feed url
+     * Feed url.
      *
-     * @access public
      * @var string
      */
     public $feed_url = '';
 
     /**
-     * Site url
+     * Site url.
      *
-     * @access public
      * @var string
      */
     public $site_url = '';
 
     /**
-     * Feed date
+     * Feed date.
      *
-     * @access public
      * @var \DateTime
      */
     public $date = null;
 
     /**
-     * Feed language
+     * Feed language.
      *
-     * @access public
      * @var string
      */
     public $language = '';
 
     /**
-     * Feed logo URL
+     * Feed logo URL.
      *
-     * @access public
      * @var string
      */
     public $logo = '';
 
     /**
-     * Feed icon URL
+     * Feed icon URL.
      *
-     * @access public
      * @var string
      */
     public $icon = '';
 
     /**
-     * Return feed information
-     *
-     * @access public
-     * $return string
+     * Return feed information.
      */
     public function __toString()
     {
@@ -117,10 +103,7 @@ class Feed
     }
 
     /**
-     * Get title
-     *
-     * @access public
-     * $return string
+     * Get title.
      */
     public function getTitle()
     {
@@ -128,10 +111,7 @@ class Feed
     }
 
     /**
-     * Get description
-     *
-     * @access public
-     * $return string
+     * Get description.
      */
     public function getDescription()
     {
@@ -139,10 +119,7 @@ class Feed
     }
 
     /**
-     * Get the logo url
-     *
-     * @access public
-     * $return string
+     * Get the logo url.
      */
     public function getLogo()
     {
@@ -150,10 +127,7 @@ class Feed
     }
 
     /**
-     * Get the icon url
-     *
-     * @access public
-     * $return string
+     * Get the icon url.
      */
     public function getIcon()
     {
@@ -161,10 +135,7 @@ class Feed
     }
 
     /**
-     * Get feed url
-     *
-     * @access public
-     * $return string
+     * Get feed url.
      */
     public function getFeedUrl()
     {
@@ -172,10 +143,7 @@ class Feed
     }
 
     /**
-     * Get site url
-     *
-     * @access public
-     * $return string
+     * Get site url.
      */
     public function getSiteUrl()
     {
@@ -183,10 +151,7 @@ class Feed
     }
 
     /**
-     * Get date
-     *
-     * @access public
-     * $return integer
+     * Get date.
      */
     public function getDate()
     {
@@ -194,10 +159,7 @@ class Feed
     }
 
     /**
-     * Get language
-     *
-     * @access public
-     * $return string
+     * Get language.
      */
     public function getLanguage()
     {
@@ -205,10 +167,7 @@ class Feed
     }
 
     /**
-     * Get id
-     *
-     * @access public
-     * $return string
+     * Get id.
      */
     public function getId()
     {
@@ -216,10 +175,7 @@ class Feed
     }
 
     /**
-     * Get feed items
-     *
-     * @access public
-     * $return array
+     * Get feed items.
      */
     public function getItems()
     {
@@ -227,9 +183,8 @@ class Feed
     }
 
     /**
-     * Return true if the feed is "Right to Left"
+     * Return true if the feed is "Right to Left".
      *
-     * @access public
      * @return bool
      */
     public function isRTL()

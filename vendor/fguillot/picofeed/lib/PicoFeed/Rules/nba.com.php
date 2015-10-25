@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'grabber' => array(
         '%.*%' => array(
@@ -10,6 +11,6 @@ return array(
             '//div[@id="nbaArticleSocialWrapper_bot"]',
             '//h5',
             ),
-         )
-    )
+         ),
+    ),
 );

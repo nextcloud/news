@@ -6,45 +6,43 @@ use DateTime;
 use DateTimeZone;
 
 /**
- * Logging class
+ * Logging class.
  *
  * @author  Frederic Guillot
- * @package Logging
  */
 class Logger
 {
     /**
-     * List of messages
+     * List of messages.
      *
      * @static
-     * @access private
+     *
      * @var array
      */
     private static $messages = array();
 
     /**
-     * Default timezone
+     * Default timezone.
      *
      * @static
-     * @access private
+     *
      * @var string
      */
     private static $timezone = 'UTC';
 
     /**
-     * Enable or disable logging
+     * Enable or disable logging.
      *
      * @static
-     * @access public
-     * @var boolean
+     *
+     * @var bool
      */
     public static $enable = false;
 
     /**
-     * Enable logging
+     * Enable logging.
      *
      * @static
-     * @access public
      */
     public static function enable()
     {
@@ -52,11 +50,11 @@ class Logger
     }
 
     /**
-     * Add a new message
+     * Add a new message.
      *
      * @static
-     * @access public
-     * @param  string   $message   Message
+     *
+     * @param string $message Message
      */
     public static function setMessage($message)
     {
@@ -67,10 +65,10 @@ class Logger
     }
 
     /**
-     * Get all logged messages
+     * Get all logged messages.
      *
      * @static
-     * @access public
+     *
      * @return array
      */
     public static function getMessages()
@@ -79,10 +77,9 @@ class Logger
     }
 
     /**
-     * Remove all logged messages
+     * Remove all logged messages.
      *
      * @static
-     * @access public
      */
     public static function deleteMessages()
     {
@@ -90,12 +87,13 @@ class Logger
     }
 
     /**
-     * Set a different timezone
+     * Set a different timezone.
      *
      * @static
+     *
      * @see    http://php.net/manual/en/timezones.php
-     * @access public
-     * @param  string   $timezone   Timezone
+     *
+     * @param string $timezone Timezone
      */
     public static function setTimeZone($timezone)
     {
@@ -103,10 +101,10 @@ class Logger
     }
 
     /**
-     * Get all messages serialized into a string
+     * Get all messages serialized into a string.
      *
      * @static
-     * @access public
+     *
      * @return string
      */
     public static function toString()

@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'grabber' => array(
         '%.*%' => array(
@@ -10,6 +11,6 @@ return array(
             '//h2',
             '//div[@id="article_info"]',
             ),
-        )
-    )
+        ),
+    ),
 );

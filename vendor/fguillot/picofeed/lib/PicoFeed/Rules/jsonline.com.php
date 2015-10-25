@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'grabber' => array(
         '%.*%' => array(
@@ -22,6 +23,6 @@ return array(
             '//div[contains(@class, "footer-pkg")]',
             '//img[contains(@src,"analytics")]',
             ),
-        )
-    )
+        ),
+    ),
 );

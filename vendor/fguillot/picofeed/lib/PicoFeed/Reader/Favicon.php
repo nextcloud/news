@@ -11,19 +11,17 @@ use PicoFeed\Logging\Logger;
 use PicoFeed\Parser\XmlParser;
 
 /**
- * Favicon class
+ * Favicon class.
  *
  * https://en.wikipedia.org/wiki/Favicon
  *
  * @author  Frederic Guillot
- * @package Reader
  */
 class Favicon
 {
     /**
-     * Valid types for favicon (supported by browsers)
+     * Valid types for favicon (supported by browsers).
      *
-     * @access private
      * @var array
      */
     private $types = array(
@@ -35,44 +33,39 @@ class Favicon
     );
 
     /**
-     * Config class instance
+     * Config class instance.
      *
-     * @access private
      * @var \PicoFeed\Config\Config
      */
     private $config;
 
     /**
-     * Icon binary content
+     * Icon binary content.
      *
-     * @access private
      * @var string
      */
     private $content = '';
 
     /**
-     * Icon content type
+     * Icon content type.
      *
-     * @access private
      * @var string
      */
     private $content_type = '';
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @access public
-     * @param  \PicoFeed\Config\Config   $config   Config class instance
+     * @param \PicoFeed\Config\Config $config Config class instance
      */
     public function __construct(Config $config = null)
     {
-        $this->config = $config ?: new Config;
+        $this->config = $config ?: new Config();
     }
 
     /**
-     * Get the icon file content (available only after the download)
+     * Get the icon file content (available only after the download).
      *
-     * @access public
      * @return string
      */
     public function getContent()
@@ -81,9 +74,8 @@ class Favicon
     }
 
     /**
-     * Get the icon file type (available only after the download)
+     * Get the icon file type (available only after the download).
      *
-     * @access public
      * @return string
      */
     public function getType()
@@ -98,9 +90,8 @@ class Favicon
     }
 
     /**
-     * Get data URI (http://en.wikipedia.org/wiki/Data_URI_scheme)
+     * Get data URI (http://en.wikipedia.org/wiki/Data_URI_scheme).
      *
-     * @access public
      * @return string
      */
     public function getDataUri()
@@ -117,11 +108,11 @@ class Favicon
     }
 
     /**
-     * Download and check if a resource exists
+     * Download and check if a resource exists.
      *
-     * @access public
-     * @param  string               $url    URL
-     * @return \PicoFeed\Client             Client instance
+     * @param string $url URL
+     *
+     * @return \PicoFeed\Client Client instance
      */
     public function download($url)
     {
@@ -132,8 +123,7 @@ class Favicon
 
         try {
             $client->execute($url);
-        }
-        catch (ClientException $e) {
+        } catch (ClientException $e) {
             Logger::setMessage(get_called_class().' Download Failed => '.$e->getMessage());
         }
 
@@ -141,11 +131,11 @@ class Favicon
     }
 
     /**
-     * Check if a remote file exists
+     * Check if a remote file exists.
      *
-     * @access public
-     * @param  string    $url    URL
-     * @return boolean
+     * @param string $url URL
+     *
+     * @return bool
      */
     public function exists($url)
     {
@@ -153,11 +143,11 @@ class Favicon
     }
 
     /**
-     * Get the icon link for a website
+     * Get the icon link for a website.
      *
-     * @access public
-     * @param  string    $website_link    URL
-     * @param  string    $favicon_link    optional URL
+     * @param string $website_link URL
+     * @param string $favicon_link optional URL
+     *
      * @return string
      */
     public function find($website_link, $favicon_link = '')
@@ -188,10 +178,10 @@ class Favicon
     }
 
     /**
-     * Extract the icon links from the HTML
+     * Extract the icon links from the HTML.
      *
-     * @access public
-     * @param  string     $html     HTML
+     * @param string $html HTML
+     *
      * @return array
      */
     public function extract($html)
@@ -207,7 +197,7 @@ class Favicon
         $xpath = new DOMXpath($dom);
         $elements = $xpath->query("//link[contains(@rel, 'icon') and not(contains(@rel, 'apple'))]");
 
-        for ($i = 0; $i < $elements->length; $i++) {
+        for ($i = 0; $i < $elements->length; ++$i) {
             $icons[] = $elements->item($i)->getAttribute('href');
         }
 

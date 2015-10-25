@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'grabber' => array(
         '%.*%' => array(
@@ -6,8 +7,8 @@ return array(
             'body' => array('//div[contains(@class,"article")]/div[@class="PostContent" and *[not(contains(@class, "navigation"))]]'),
             'strip' => array(
                 '//*[@id="wp_rp_first"]',
-                '//*[@class="yarpp-related"]'
+                '//*[@class="yarpp-related"]',
             ),
-        )
-    )
+        ),
+    ),
 );

@@ -3,10 +3,9 @@
 namespace PicoFeed\Client;
 
 /**
- * MaxSizeException Exception
+ * MaxSizeException Exception.
  *
  * @author  Frederic Guillot
- * @package Client
  */
 class MaxSizeException extends ClientException
 {

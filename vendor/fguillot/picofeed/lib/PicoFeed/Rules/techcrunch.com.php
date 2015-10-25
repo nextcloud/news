@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'grabber' => array(
         '%.*%' => array(
@@ -8,8 +9,8 @@ return array(
                 '//div[@class="body-copy"]',
             ),
             'strip' => array(
-                '//*[contains(@class, "module-crunchbase")]'
-            )
-        )
-    )
+                '//*[contains(@class, "module-crunchbase")]',
+            ),
+        ),
+    ),
 );

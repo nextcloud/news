@@ -11,7 +11,7 @@ return array(
                 '//*[@id="linker_widget"]',
                 '//*[@class="credit"]',
                 '//div[@data-js="slideCount"]',
-                '//span[@class="visually-hidden"]',
+                '//*[contains(@class="visually-hidden")]',
                 '//*[@data-slide-number="_endslate"]',
                 '//*[@id="related"]',
                 '//*[contains(@class, "bio")]',
@@ -22,7 +22,7 @@ return array(
                 '//img[contains(@src, "1x1")]',
                 '//a[contains(@href, "creativecommons")]',
                 '//a[@href="#start-of-content"]',
-                '//ul[@id="article-tags"],
+                '//ul[@id="article-tags"]',
             ),
         )
     )

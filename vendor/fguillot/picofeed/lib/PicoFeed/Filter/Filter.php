@@ -3,45 +3,46 @@
 namespace PicoFeed\Filter;
 
 /**
- * Filter class
+ * Filter class.
  *
  * @author  Frederic Guillot
- * @package Filter
  */
 class Filter
 {
     /**
-     * Get the Html filter instance
+     * Get the Html filter instance.
      *
      * @static
-     * @access public
-     * @param  string  $html      HTML content
-     * @param  string  $website   Site URL (used to build absolute URL)
+     *
+     * @param string $html    HTML content
+     * @param string $website Site URL (used to build absolute URL)
+     *
      * @return Html
      */
     public static function html($html, $website)
     {
         $filter = new Html($html, $website);
+
         return $filter;
     }
 
     /**
-     * Escape HTML content
+     * Escape HTML content.
      *
      * @static
-     * @access public
+     *
      * @return string
      */
     public static function escape($content)
     {
-        return @htmlspecialchars($content, ENT_QUOTES, 'UTF-8', false);
+        return htmlspecialchars($content, ENT_QUOTES, 'UTF-8', false);
     }
 
     /**
-     * Remove HTML tags
+     * Remove HTML tags.
      *
-     * @access public
-     * @param  string  $data  Input data
+     * @param string $data Input data
+     *
      * @return string
      */
     public function removeHTMLTags($data)
@@ -50,11 +51,12 @@ class Filter
     }
 
     /**
-     * Remove the XML tag from a document
+     * Remove the XML tag from a document.
      *
      * @static
-     * @access public
-     * @param  string  $data  Input data
+     *
+     * @param string $data Input data
+     *
      * @return string
      */
     public static function stripXmlTag($data)
@@ -64,38 +66,38 @@ class Filter
         }
 
         do {
-
             $pos = strpos($data, '<?xml-stylesheet ');
 
             if ($pos !== false) {
                 $data = ltrim(substr($data, strpos($data, '?>') + 2));
             }
-
         } while ($pos !== false && $pos < 200);
 
         return $data;
     }
 
     /**
-     * Strip head tag from the HTML content
+     * Strip head tag from the HTML content.
      *
      * @static
-     * @access public
-     * @param  string  $data  Input data
+     *
+     * @param string $data Input data
+     *
      * @return string
      */
     public static function stripHeadTags($data)
     {
-        return preg_replace('@<head[^>]*?>.*?</head>@siu','', $data );
+        return preg_replace('@<head[^>]*?>.*?</head>@siu', '', $data);
     }
 
     /**
-     * Trim whitespace from the begining, the end and inside a string and don't break utf-8 string
+     * Trim whitespace from the begining, the end and inside a string and don't break utf-8 string.
      *
      * @static
-     * @access public
-     * @param  string  $value  Raw data
-     * @return string          Normalized data
+     *
+     * @param string $value Raw data
+     *
+     * @return string Normalized data
      */
     public static function stripWhiteSpace($value)
     {
@@ -107,12 +109,13 @@ class Filter
     }
 
     /**
-     * Fixes before XML parsing
+     * Fixes before XML parsing.
      *
      * @static
-     * @access public
-     * @param  string  $data Raw data
-     * @return string        Normalized data
+     *
+     * @param string $data Raw data
+     *
+     * @return string Normalized data
      */
     public static function normalizeData($data)
     {
@@ -122,7 +125,7 @@ class Filter
         );
 
         // strip invalid XML 1.0 characters which are encoded as entities
-        $data = preg_replace_callback($entities, function($matches) {
+        $data = preg_replace_callback($entities, function ($matches) {
             $code_point = $matches[2];
 
             // convert hex entity to decimal

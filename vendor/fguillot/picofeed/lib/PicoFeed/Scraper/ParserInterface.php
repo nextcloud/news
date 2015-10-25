@@ -5,7 +5,7 @@ namespace PicoFeed\Scraper;
 interface ParserInterface
 {
     /**
-     * Execute the parser and return the contents
+     * Execute the parser and return the contents.
      *
      * @return string
      */

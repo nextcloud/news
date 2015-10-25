@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'grabber' => array(
         '%.*%' => array(
@@ -13,6 +14,6 @@ return array(
             '//h1',
             '//div[@class="autor"]',
             ),
-        )
-    )
+        ),
+    ),
 );

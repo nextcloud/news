@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'grabber' => array(
         '%.*%' => array(
@@ -14,6 +15,6 @@ return array(
             '//sharebar',
             '//related-topics',
             ),
-        )
-    )
+        ),
+    ),
 );

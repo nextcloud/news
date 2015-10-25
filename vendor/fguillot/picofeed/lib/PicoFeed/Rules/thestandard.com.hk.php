@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'grabber' => array(
         '%.*%' => array(
@@ -15,8 +16,8 @@ return array(
             '//span[@class="bodyHeadline"]',
             '//i',
             '//b',
-            '//table'
+            '//table',
             ),
-        )
-    )
+        ),
+    ),
 );

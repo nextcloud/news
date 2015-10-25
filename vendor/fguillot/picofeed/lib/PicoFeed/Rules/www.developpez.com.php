@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'grabber' => array(
         '%.*%' => array(
@@ -15,7 +16,7 @@ return array(
                 '//*[contains(@class,"inlineimg")]',
                 '//*[@id="signaler"]',
                 '//*[@id="signalerFrame"]',
-            )
-        )
-    )
+            ),
+        ),
+    ),
 );

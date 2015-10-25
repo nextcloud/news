@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'grabber' => array(
         '%.*%' => array(
@@ -9,8 +10,8 @@ return array(
             'strip' => array(
                 '//*[contains(@class, "inlineimg")]',
                 '//*[contains(@class, "comment-respond")]',
-                '//header'
-            )
-        )
-    )
+                '//header',
+            ),
+        ),
+    ),
 );

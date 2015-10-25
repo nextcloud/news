@@ -6,10 +6,9 @@ use DOMXPath;
 use PicoFeed\Parser\XmlParser;
 
 /**
- * Rule Parser
+ * Rule Parser.
  *
  * @author  Frederic Guillot
- * @package Scraper
  */
 class RuleParser implements ParserInterface
 {
@@ -18,11 +17,10 @@ class RuleParser implements ParserInterface
     private $rules = array();
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @access public
-     * @param  string   $html
-     * @param  array    $rules
+     * @param string $html
+     * @param array  $rules
      */
     public function __construct($html, array $rules)
     {
@@ -32,28 +30,24 @@ class RuleParser implements ParserInterface
     }
 
     /**
-     * Get the relevant content with predefined rules
+     * Get the relevant content with predefined rules.
      *
-     * @access public
      * @return string
      */
     public function execute()
     {
         $this->stripTags();
+
         return $this->findContent();
     }
 
     /**
-     * Remove HTML tags
-     *
-     * @access public
+     * Remove HTML tags.
      */
     public function stripTags()
     {
         if (isset($this->rules['strip']) && is_array($this->rules['strip'])) {
-
             foreach ($this->rules['strip'] as $pattern) {
-
                 $nodes = $this->xpath->query($pattern);
 
                 if ($nodes !== false && $nodes->length > 0) {
@@ -66,18 +60,14 @@ class RuleParser implements ParserInterface
     }
 
     /**
-     * Fetch content based on Xpath rules
-     *
-     * @access public
+     * Fetch content based on Xpath rules.
      */
     public function findContent()
     {
         $content = '';
 
         if (isset($this->rules['body']) && is_array($this->rules['body'])) {
-
             foreach ($this->rules['body'] as $pattern) {
-
                 $nodes = $this->xpath->query($pattern);
 
                 if ($nodes !== false && $nodes->length > 0) {

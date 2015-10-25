@@ -7,17 +7,15 @@ use DomElement;
 use DomAttr;
 
 /**
- * Atom writer class
+ * Atom writer class.
  *
  * @author  Frederic Guillot
- * @package Syndication
  */
 class Atom extends Writer
 {
     /**
-     * List of required properties for each feed
+     * List of required properties for each feed.
      *
-     * @access private
      * @var array
      */
     private $required_feed_properties = array(
@@ -27,9 +25,8 @@ class Atom extends Writer
     );
 
     /**
-     * List of required properties for each item
+     * List of required properties for each item.
      *
-     * @access private
      * @var array
      */
     private $required_item_properties = array(
@@ -38,10 +35,10 @@ class Atom extends Writer
     );
 
     /**
-     * Get the Atom document
+     * Get the Atom document.
      *
-     * @access public
-     * @param  string   $filename   Optional filename
+     * @param string $filename Optional filename
+     *
      * @return string
      */
     public function execute($filename = '')
@@ -80,7 +77,9 @@ class Atom extends Writer
         $this->addLink($feed, $this->feed_url, 'self', 'application/atom+xml');
 
         // <author/>
-        if (isset($this->author)) $this->addAuthor($feed, $this->author);
+        if (isset($this->author)) {
+            $this->addAuthor($feed, $this->author);
+        }
 
         // <entry/>
         foreach ($this->items as $item) {
@@ -92,17 +91,16 @@ class Atom extends Writer
 
         if ($filename) {
             $this->dom->save($filename);
-        }
-        else {
+        } else {
             return $this->dom->saveXML();
         }
     }
 
     /**
-     * Create item entry
+     * Create item entry.
      *
-     * @access public
-     * @param  arrray    $item    Item properties
+     * @param arrray $item Item properties
+     *
      * @return DomElement
      */
     public function createEntry(array $item)
@@ -154,13 +152,12 @@ class Atom extends Writer
     }
 
     /**
-     * Add Link
+     * Add Link.
      *
-     * @access public
-     * @param  DomElement   $xml     XML node
-     * @param  string       $url     URL
-     * @param  string       $rel     Link rel attribute
-     * @param  string       $type    Link type attribute
+     * @param DomElement $xml  XML node
+     * @param string     $url  URL
+     * @param string     $rel  Link rel attribute
+     * @param string     $type Link type attribute
      */
     public function addLink(DomElement $xml, $url, $rel = 'alternate', $type = 'text/html')
     {
@@ -172,11 +169,10 @@ class Atom extends Writer
     }
 
     /**
-     * Add publication date
+     * Add publication date.
      *
-     * @access public
-     * @param  DomElement   $xml     XML node
-     * @param  integer      $value   Timestamp
+     * @param DomElement $xml   XML node
+     * @param int        $value Timestamp
      */
     public function addUpdated(DomElement $xml, $value = 0)
     {
@@ -187,11 +183,10 @@ class Atom extends Writer
     }
 
     /**
-     * Add author
+     * Add author.
      *
-     * @access public
-     * @param  DomElement   $xml     XML node
-     * @param  array        $values  Author name and email
+     * @param DomElement $xml    XML node
+     * @param array      $values Author name and email
      */
     public function addAuthor(DomElement $xml, array $values)
     {

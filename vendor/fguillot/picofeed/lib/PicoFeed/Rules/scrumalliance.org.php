@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'grabber' => array(
         '%.*%' => array(
@@ -6,7 +7,7 @@ return array(
             'body' => array(
                 '//div[@class="article_content"]',
             ),
-            'strip' => array()
-        )
-    )
+            'strip' => array(),
+        ),
+    ),
 );

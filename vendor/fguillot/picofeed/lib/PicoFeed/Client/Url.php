@@ -3,34 +3,30 @@
 namespace PicoFeed\Client;
 
 /**
- * URL class
+ * URL class.
  *
  * @author  Frederic Guillot
- * @package Client
  */
 class Url
 {
     /**
-     * URL
+     * URL.
      *
-     * @access private
      * @var string
      */
     private $url = '';
 
     /**
-     * URL components
+     * URL components.
      *
-     * @access private
      * @var array
      */
     private $components = array();
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @access public
-     * @param  string   $url    URL
+     * @param string $url URL
      */
     public function __construct($url)
     {
@@ -51,28 +47,27 @@ class Url
     }
 
     /**
-     * Shortcut method to get an absolute url from relative url
+     * Shortcut method to get an absolute url from relative url.
      *
      * @static
-     * @access public
-     * @param  mixed    $item_url      Unknown url (can be relative or not)
-     * @param  mixed    $website_url   Website url
+     *
+     * @param mixed $item_url    Unknown url (can be relative or not)
+     * @param mixed $website_url Website url
+     *
      * @return string
      */
     public static function resolve($item_url, $website_url)
     {
-        $link = is_string($item_url) ? new Url($item_url) : $item_url;
-        $website = is_string($website_url) ? new Url($website_url) : $website_url;
+        $link = is_string($item_url) ? new self($item_url) : $item_url;
+        $website = is_string($website_url) ? new self($website_url) : $website_url;
 
         if ($link->isRelativeUrl()) {
-
             if ($link->isRelativePath()) {
                 return $link->getAbsoluteUrl($website->getBaseUrl($website->getBasePath()));
             }
 
             return $link->getAbsoluteUrl($website->getBaseUrl());
-        }
-        else if ($link->isProtocolRelative()) {
+        } elseif ($link->isProtocolRelative()) {
             $link->setScheme($website->getScheme());
         }
 
@@ -80,24 +75,26 @@ class Url
     }
 
     /**
-     * Shortcut method to get a base url
+     * Shortcut method to get a base url.
      *
      * @static
-     * @access public
-     * @param  string   $url
+     *
+     * @param string $url
+     *
      * @return string
      */
     public static function base($url)
     {
-        $link = new Url($url);
+        $link = new self($url);
+
         return $link->getBaseUrl();
     }
 
     /**
-     * Get the base URL
+     * Get the base URL.
      *
-     * @access public
-     * @param  string   $suffix    Add a suffix to the url
+     * @param string $suffix Add a suffix to the url
+     *
      * @return string
      */
     public function getBaseUrl($suffix = '')
@@ -106,19 +103,18 @@ class Url
     }
 
     /**
-     * Get the absolute URL
+     * Get the absolute URL.
      *
-     * @access public
-     * @param  string   $base_url    Use this url as base url
+     * @param string $base_url Use this url as base url
+     *
      * @return string
      */
     public function getAbsoluteUrl($base_url = '')
     {
         if ($base_url) {
-            $base = new Url($base_url);
+            $base = new self($base_url);
             $url = $base->getAbsoluteUrl().substr($this->getFullPath(), 1);
-        }
-        else {
+        } else {
             $url = $this->hasHost() ? $this->getBaseUrl().$this->getFullPath() : '';
         }
 
@@ -126,50 +122,49 @@ class Url
     }
 
     /**
-     * Return true if the url is relative
+     * Return true if the url is relative.
      *
-     * @access public
-     * @return boolean
+     * @return bool
      */
     public function isRelativeUrl()
     {
-        return ! $this->hasScheme() && ! $this->isProtocolRelative();
+        return !$this->hasScheme() && !$this->isProtocolRelative();
     }
 
     /**
-     * Return true if the path is relative
+     * Return true if the path is relative.
      *
-     * @access public
-     * @return boolean
+     * @return bool
      */
     public function isRelativePath()
     {
         $path = $this->getPath();
-        return empty($path) || $path{0} !== '/';
+
+        return empty($path) || $path{0}
+        !== '/';
     }
 
     /**
-     * Filters the path of a URI
+     * Filters the path of a URI.
      *
      * Imported from Guzzle library: https://github.com/guzzle/psr7/blob/master/src/Uri.php#L568-L582
      *
-     * @access public
      * @param $path
+     *
      * @return string
      */
     public function filterPath($path, $charUnreserved = 'a-zA-Z0-9_\-\.~', $charSubDelims = '!\$&\'\(\)\*\+,;=')
     {
         return preg_replace_callback(
-            '/(?:[^' . $charUnreserved . $charSubDelims . ':@\/%]+|%(?![A-Fa-f0-9]{2}))/',
+            '/(?:[^'.$charUnreserved.$charSubDelims.':@\/%]+|%(?![A-Fa-f0-9]{2}))/',
             function (array $matches) { return rawurlencode($matches[0]); },
             $path
         );
     }
 
     /**
-     * Get the path
+     * Get the path.
      *
-     * @access public
      * @return string
      */
     public function getPath()
@@ -178,9 +173,8 @@ class Url
     }
 
     /**
-     * Get the base path
+     * Get the base path.
      *
-     * @access public
      * @return string
      */
     public function getBasePath()
@@ -194,9 +188,8 @@ class Url
     }
 
     /**
-     * Get the full path (path + querystring + fragment)
+     * Get the full path (path + querystring + fragment).
      *
-     * @access public
      * @return string
      */
     public function getFullPath()
@@ -210,9 +203,8 @@ class Url
     }
 
     /**
-     * Get the hostname
+     * Get the hostname.
      *
-     * @access public
      * @return string
      */
     public function getHost()
@@ -221,21 +213,20 @@ class Url
     }
 
     /**
-     * Return true if the url has a hostname
+     * Return true if the url has a hostname.
      *
-     * @access public
-     * @return boolean
+     * @return bool
      */
     public function hasHost()
     {
-        return ! empty($this->components['host']);
+        return !empty($this->components['host']);
     }
 
     /**
-     * Get the scheme
+     * Get the scheme.
      *
-     * @access public
-     * @param  string    $suffix   Suffix to add when there is a scheme
+     * @param string $suffix Suffix to add when there is a scheme
+     *
      * @return string
      */
     public function getScheme($suffix = '')
@@ -244,10 +235,10 @@ class Url
     }
 
     /**
-     * Set the scheme
+     * Set the scheme.
      *
-     * @access public
-     * @param  string    $scheme    Set a scheme
+     * @param string $scheme Set a scheme
+     *
      * @return string
      */
     public function setScheme($scheme)
@@ -256,21 +247,20 @@ class Url
     }
 
     /**
-     * Return true if the url has a scheme
+     * Return true if the url has a scheme.
      *
-     * @access public
-     * @return boolean
+     * @return bool
      */
     public function hasScheme()
     {
-        return ! empty($this->components['scheme']);
+        return !empty($this->components['scheme']);
     }
 
     /**
-     * Get the port
+     * Get the port.
      *
-     * @access public
-     * @param  string    $prefix   Prefix to add when there is a port
+     * @param string $prefix Prefix to add when there is a port
+     *
      * @return string
      */
     public function getPort($prefix = '')
@@ -279,21 +269,19 @@ class Url
     }
 
     /**
-     * Return true if the url has a port
+     * Return true if the url has a port.
      *
-     * @access public
-     * @return boolean
+     * @return bool
      */
     public function hasPort()
     {
-        return ! empty($this->components['port']);
+        return !empty($this->components['port']);
     }
 
     /**
-     * Return true if the url is protocol relative (start with //)
+     * Return true if the url is protocol relative (start with //).
      *
-     * @access public
-     * @return boolean
+     * @return bool
      */
     public function isProtocolRelative()
     {

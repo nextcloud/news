@@ -3,10 +3,9 @@
 namespace PicoFeed\Parser;
 
 /**
- * MalformedXmlException Exception
+ * MalformedXmlException Exception.
  *
  * @author  Frederic Guillot
- * @package Parser
  */
 class MalformedXmlException extends ParserException
 {

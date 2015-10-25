@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'grabber' => array(
         '%.*%' => array(
@@ -17,6 +18,6 @@ return array(
             '//div[contains(@class,"ad")]',
             '//a[contains(@class,"social-icon")]',
             ),
-        )
-    )
+        ),
+    ),
 );

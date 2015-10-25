@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'grabber' => array(
         '%^/blog.*%' => array(
@@ -10,6 +11,6 @@ return array(
                 '//*[@class="post-data"]',
                 '//*[@id="author-meta"]',
             ),
-        )
-    )
+        ),
+    ),
 );

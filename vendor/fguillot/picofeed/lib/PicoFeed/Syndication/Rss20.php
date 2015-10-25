@@ -7,17 +7,15 @@ use DomAttr;
 use DomElement;
 
 /**
- * Rss 2.0 writer class
+ * Rss 2.0 writer class.
  *
  * @author  Frederic Guillot
- * @package Syndication
  */
 class Rss20 extends Writer
 {
     /**
-     * List of required properties for each feed
+     * List of required properties for each feed.
      *
-     * @access private
      * @var array
      */
     private $required_feed_properties = array(
@@ -27,9 +25,8 @@ class Rss20 extends Writer
     );
 
     /**
-     * List of required properties for each item
+     * List of required properties for each item.
      *
-     * @access private
      * @var array
      */
     private $required_item_properties = array(
@@ -38,10 +35,10 @@ class Rss20 extends Writer
     );
 
     /**
-     * Get the Rss 2.0 document
+     * Get the Rss 2.0 document.
      *
-     * @access public
-     * @param  string   $filename   Optional filename
+     * @param string $filename Optional filename
+     *
      * @return string
      */
     public function execute($filename = '')
@@ -89,7 +86,9 @@ class Rss20 extends Writer
         $channel->appendChild($link);
 
         // <webMaster/>
-        if (isset($this->author)) $this->addAuthor($channel, 'webMaster', $this->author);
+        if (isset($this->author)) {
+            $this->addAuthor($channel, 'webMaster', $this->author);
+        }
 
         // <item/>
         foreach ($this->items as $item) {
@@ -102,17 +101,16 @@ class Rss20 extends Writer
 
         if ($filename) {
             $this->dom->save($filename);
-        }
-        else {
+        } else {
             return $this->dom->saveXML();
         }
     }
 
     /**
-     * Create item entry
+     * Create item entry.
      *
-     * @access public
-     * @param  arrray    $item    Item properties
+     * @param arrray $item Item properties
+     *
      * @return DomElement
      */
     public function createEntry(array $item)
@@ -135,8 +133,7 @@ class Rss20 extends Writer
             $guid->setAttribute('isPermaLink', 'false');
             $guid->appendChild($this->dom->createTextNode($item['id']));
             $entry->appendChild($guid);
-        }
-        else {
+        } else {
             $guid = $this->dom->createElement('guid');
             $guid->setAttribute('isPermaLink', 'true');
             $guid->appendChild($this->dom->createTextNode($item['url']));
@@ -169,11 +166,10 @@ class Rss20 extends Writer
     }
 
     /**
-     * Add publication date
+     * Add publication date.
      *
-     * @access public
-     * @param  DomElement   $xml     XML node
-     * @param  integer      $value   Timestamp
+     * @param DomElement $xml   XML node
+     * @param int        $value Timestamp
      */
     public function addPubDate(DomElement $xml, $value = 0)
     {
@@ -184,19 +180,22 @@ class Rss20 extends Writer
     }
 
     /**
-     * Add author
+     * Add author.
      *
-     * @access public
-     * @param  DomElement   $xml     XML node
-     * @param  string       $tag     Tag name
-     * @param  array        $values  Author name and email
+     * @param DomElement $xml    XML node
+     * @param string     $tag    Tag name
+     * @param array      $values Author name and email
      */
     public function addAuthor(DomElement $xml, $tag, array $values)
     {
         $value = '';
 
-        if (isset($values['email'])) $value .= $values['email'];
-        if ($value && isset($values['name'])) $value .= ' ('.$values['name'].')';
+        if (isset($values['email'])) {
+            $value .= $values['email'];
+        }
+        if ($value && isset($values['name'])) {
+            $value .= ' ('.$values['name'].')';
+        }
 
         if ($value) {
             $author = $this->dom->createElement($tag);

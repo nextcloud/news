@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'grabber' => array(
         '%.*%' => array(
@@ -12,6 +13,6 @@ return array(
             '//div[@class="story-advertisement"]',
             '//iframe',
             ),
-        )
-    )
+        ),
+    ),
 );

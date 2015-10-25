@@ -3,10 +3,9 @@
 namespace PicoFeed\Client;
 
 /**
- * InvalidCertificateException Exception
+ * InvalidCertificateException Exception.
  *
  * @author  Frederic Guillot
- * @package Client
  */
 class InvalidCertificateException extends ClientException
 {

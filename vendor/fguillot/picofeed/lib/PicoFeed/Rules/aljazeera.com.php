@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'grabber' => array(
         '%.*%' => array(
@@ -13,8 +14,8 @@ return array(
             '//ul',
             '//a[@target="_self"]',
             '//div[@data-embed-type="Brightcove"]',
-            '//div[@class="QuoteContainer"]'
+            '//div[@class="QuoteContainer"]',
             ),
-        )
-    )
+        ),
+    ),
 );

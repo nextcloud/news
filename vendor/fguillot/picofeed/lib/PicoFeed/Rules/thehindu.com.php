@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'grabber' => array(
         '%.*%' => array(
@@ -12,8 +13,8 @@ return array(
             ),
             'strip' => array(
             '//div[@id="articleKeywords"]',
-            '//div[@class="photo-source"]'
+            '//div[@class="photo-source"]',
             ),
-        )
-    )
+        ),
+    ),
 );

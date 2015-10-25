@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'grabber' => array(
         '%.*%' => array(
@@ -8,6 +9,6 @@ return array(
             '//figure/div/a/img',
             '//p[@class="content__segment"]',
             ),
-        )
-    )
+        ),
+    ),
 );

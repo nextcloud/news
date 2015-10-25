@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'grabber' => array(
         '%.*%' => array(
@@ -9,6 +10,6 @@ return array(
             'strip' => array(
             '//aside',
             ),
-        )
-    )
+        ),
+    ),
 );

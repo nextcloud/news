@@ -4,7 +4,7 @@ return array(
         '%^/zeit-magazin.*%' => array(
             'test_url' => 'http://www.zeit.de/zeit-magazin/2015/15/pegida-kathrin-oertel-lutz-bachmann',
             'body' => array(
-                '//article[@class="article"]'
+                '//article[@class="article"]',
             ),
             'strip' => array(
                 '//header/div/h1',
@@ -19,13 +19,13 @@ return array(
                 '//div[@id="iq-artikelanker"]',
                 '//div[@id="js-social-services"]',
                 '//section[@id="js-comments"]',
-                '//aside'
-            )
+                '//aside',
+            ),
         ),
         '%.*%' => array(
             'test_url' => 'http://www.zeit.de/politik/ausland/2015-04/thessaloniki-krise-griechenland-yannis-boutaris/',
             'body' => array(
-                '//div[@class="article-body"]'
+                '//div[@class="article-body"]',
             ),
             'strip' => array(
                 '//*[@class="articleheader"]',
@@ -34,8 +34,8 @@ return array(
                 '//div[@itemprop="video"]',
                 '//*[@class="articlemeta"]',
                 '//*[@class="articlemeta-clear"]',
-                '//*[@class="zol_inarticletools"]'
-            )
-        )
-    )
-); 
+                '//*[@class="zol_inarticletools"]',
+            ),
+        ),
+    ),
+);

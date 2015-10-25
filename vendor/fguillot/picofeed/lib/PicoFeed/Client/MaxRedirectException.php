@@ -3,10 +3,9 @@
 namespace PicoFeed\Client;
 
 /**
- * MaxRedirectException Exception
+ * MaxRedirectException Exception.
  *
  * @author  Frederic Guillot
- * @package Client
  */
 class MaxRedirectException extends ClientException
 {

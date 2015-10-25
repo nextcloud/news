@@ -6,27 +6,24 @@ use PicoFeed\Logging\Logger;
 use PicoFeed\Config\Config;
 
 /**
- * RuleLoader class
+ * RuleLoader class.
  *
  * @author  Frederic Guillot
  * @author  Bernhard Posselt
- * @package Scraper
  */
 class RuleLoader
 {
     /**
-     * Config object
+     * Config object.
      *
-     * @access private
      * @var \PicoFeed\Config\Config
      */
     private $config;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @access public
-     * @param  \PicoFeed\Config\Config   $config   Config class instance
+     * @param \PicoFeed\Config\Config $config Config class instance
      */
     public function __construct(Config $config)
     {
@@ -34,10 +31,10 @@ class RuleLoader
     }
 
     /**
-     * Get the rules for an URL
+     * Get the rules for an URL.
      *
-     * @access public
      * @param string $url the URL that should be looked up
+     *
      * @return array the array containing the rules
      */
     public function getRules($url)
@@ -45,13 +42,12 @@ class RuleLoader
         $hostname = parse_url($url, PHP_URL_HOST);
 
         if ($hostname !== false) {
-
             $files = $this->getRulesFileList($hostname);
 
             foreach ($this->getRulesFolders() as $folder) {
                 $rule = $this->loadRuleFile($folder, $files);
 
-                if (! empty($rule)) {
+                if (!empty($rule)) {
                     return $rule;
                 }
             }
@@ -61,10 +57,10 @@ class RuleLoader
     }
 
     /**
-     * Get the list of possible rules file names for a given hostname
+     * Get the list of possible rules file names for a given hostname.
      *
-     * @access public
-     * @param  string  $hostname  Hostname
+     * @param string $hostname Hostname
+     *
      * @return array
      */
     public function getRulesFileList($hostname)
@@ -78,8 +74,7 @@ class RuleLoader
             $files[] = implode('.', $parts);       // domain.tld
             $files[] = '.'.implode('.', $parts);   // .domain.tld
             $files[] = $subdomain;                 // subdomain
-        }
-        else if ($len === 2) {
+        } elseif ($len === 2) {
             $files[] = '.'.implode('.', $parts);    // .domain.tld
             $files[] = $parts[0];                   // domain
         }
@@ -88,11 +83,11 @@ class RuleLoader
     }
 
     /**
-     * Load a rule file from the defined folder
+     * Load a rule file from the defined folder.
      *
-     * @access public
-     * @param  string   $folder     Rule directory
-     * @param  array    $files      List of possible file names
+     * @param string $folder Rule directory
+     * @param array  $files  List of possible file names
+     *
      * @return array
      */
     public function loadRuleFile($folder, array $files)
@@ -101,6 +96,7 @@ class RuleLoader
             $filename = $folder.'/'.$file.'.php';
             if (file_exists($filename)) {
                 Logger::setMessage(get_called_class().' Load rule: '.$file);
+
                 return include $filename;
             }
         }
@@ -109,9 +105,8 @@ class RuleLoader
     }
 
     /**
-     * Get the list of folders that contains rules
+     * Get the list of folders that contains rules.
      *
-     * @access public
      * @return array
      */
     public function getRulesFolders()

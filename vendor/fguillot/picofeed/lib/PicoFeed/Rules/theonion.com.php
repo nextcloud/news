@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'grabber' => array(
         '%.*%' => array(
@@ -7,6 +8,6 @@ return array(
             '//div[@class="content-masthead"]/figure/div/noscript/img',
             '//div[@class="content-text"]',
             ),
-         )
-    )
+         ),
+    ),
 );

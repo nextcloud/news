@@ -8,34 +8,30 @@ use PicoFeed\Logging\Logger;
 use PicoFeed\Parser\XmlParser;
 
 /**
- * OPML Import
+ * OPML Import.
  *
  * @author  Frederic Guillot
- * @package Serialization
  */
 class Import
 {
     /**
-     * OPML file content
+     * OPML file content.
      *
-     * @access private
      * @var string
      */
     private $content = '';
 
     /**
-     * Subscriptions
+     * Subscriptions.
      *
-     * @access private
      * @var array
      */
     private $items = array();
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @access public
-     * @param  string  $content   OPML file content
+     * @param string $content OPML file content
      */
     public function __construct($content)
     {
@@ -43,9 +39,8 @@ class Import
     }
 
     /**
-     * Parse the OPML file
+     * Parse the OPML file.
      *
-     * @access public
      * @return array|false
      */
     public function execute()
@@ -54,8 +49,9 @@ class Import
 
         $xml = XmlParser::getSimpleXml(trim($this->content));
 
-        if ($xml === false || $xml->getName() !== 'opml' || ! isset($xml->body)) {
+        if ($xml === false || $xml->getName() !== 'opml' || !isset($xml->body)) {
             Logger::setMessage(get_called_class().': OPML tag not found or malformed XML document');
+
             return false;
         }
 
@@ -66,23 +62,18 @@ class Import
     }
 
     /**
-     * Parse each entries of the subscription list
+     * Parse each entries of the subscription list.
      *
-     * @access public
-     * @param  SimpleXMLElement   $tree   XML node
+     * @param SimpleXMLElement $tree XML node
      */
-    public function parseEntries($tree)
+    public function parseEntries(SimpleXMLElement $tree)
     {
         if (isset($tree->outline)) {
-
             foreach ($tree->outline as $item) {
-
                 if (isset($item->outline)) {
                     $this->parseEntries($item);
-                }
-                else if ((isset($item['text']) || isset($item['title'])) && isset($item['xmlUrl'])) {
-
-                    $entry = new StdClass;
+                } elseif ((isset($item['text']) || isset($item['title'])) && isset($item['xmlUrl'])) {
+                    $entry = new StdClass();
                     $entry->category = $this->findCategory($tree);
                     $entry->title = $this->findTitle($item);
                     $entry->feed_url = $this->findFeedUrl($item);
@@ -96,10 +87,10 @@ class Import
     }
 
     /**
-     * Find category
+     * Find category.
      *
-     * @access public
-     * @param  SimpleXmlElement    $tree    XML tree
+     * @param SimpleXmlElement $tree XML tree
+     *
      * @return string
      */
     public function findCategory(SimpleXmlElement $tree)
@@ -108,10 +99,10 @@ class Import
     }
 
     /**
-     * Find title
+     * Find title.
      *
-     * @access public
-     * @param  SimpleXmlElement    $item    XML tree
+     * @param SimpleXmlElement $item XML tree
+     *
      * @return string
      */
     public function findTitle(SimpleXmlElement $item)
@@ -120,10 +111,10 @@ class Import
     }
 
     /**
-     * Find feed url
+     * Find feed url.
      *
-     * @access public
-     * @param  SimpleXmlElement    $item    XML tree
+     * @param SimpleXmlElement $item XML tree
+     *
      * @return string
      */
     public function findFeedUrl(SimpleXmlElement $item)
@@ -132,11 +123,11 @@ class Import
     }
 
     /**
-     * Find site url
+     * Find site url.
      *
-     * @access public
-     * @param  SimpleXmlElement    $item    XML tree
-     * @param  StdClass            $entry   Feed entry
+     * @param SimpleXmlElement $item  XML tree
+     * @param StdClass         $entry Feed entry
+     *
      * @return string
      */
     public function findSiteUrl(SimpleXmlElement $item, StdClass $entry)
@@ -145,10 +136,10 @@ class Import
     }
 
     /**
-     * Find type
+     * Find type.
      *
-     * @access public
-     * @param  SimpleXmlElement    $item    XML tree
+     * @param SimpleXmlElement $item XML tree
+     *
      * @return string
      */
     public function findType(SimpleXmlElement $item)
@@ -157,11 +148,11 @@ class Import
     }
 
     /**
-     * Find description
+     * Find description.
      *
-     * @access public
-     * @param  SimpleXmlElement    $item    XML tree
-     * @param  StdClass            $entry   Feed entry
+     * @param SimpleXmlElement $item  XML tree
+     * @param StdClass         $entry Feed entry
+     *
      * @return string
      */
     public function findDescription(SimpleXmlElement $item, StdClass $entry)

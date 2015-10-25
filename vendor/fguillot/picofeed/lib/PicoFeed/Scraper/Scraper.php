@@ -12,66 +12,58 @@ use PicoFeed\Logging\Logger;
 use PicoFeed\Parser\XmlParser;
 
 /**
- * Scraper class
+ * Scraper class.
  *
  * @author  Frederic Guillot
- * @package Scraper
  */
 class Scraper
 {
     /**
-     * URL
+     * URL.
      *
-     * @access private
      * @var string
      */
     private $url = '';
 
     /**
-     * Relevant content
+     * Relevant content.
      *
-     * @access private
      * @var string
      */
     private $content = '';
 
     /**
-     * HTML content
+     * HTML content.
      *
-     * @access private
      * @var string
      */
     private $html = '';
 
     /**
-     * HTML content encoding
+     * HTML content encoding.
      *
-     * @access private
      * @var string
      */
     private $encoding = '';
 
     /**
-     * Flag to enable candidates parsing
+     * Flag to enable candidates parsing.
      *
-     * @access private
-     * @var boolean
+     * @var bool
      */
     private $enableCandidateParser = true;
 
     /**
-     * Config object
+     * Config object.
      *
-     * @access private
      * @var \PicoFeed\Config\Config
      */
     private $config;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @access public
-     * @param  \PicoFeed\Config\Config   $config   Config class instance
+     * @param \PicoFeed\Config\Config $config Config class instance
      */
     public function __construct(Config $config)
     {
@@ -80,22 +72,21 @@ class Scraper
     }
 
     /**
-     * Disable candidates parsing
+     * Disable candidates parsing.
      *
-     * @access  public
-     * @return  Scraper
+     * @return Scraper
      */
     public function disableCandidateParser()
     {
         $this->enableCandidateParser = false;
+
         return $this;
     }
 
     /**
-     * Get encoding
+     * Get encoding.
      *
-     * @access  public
-     * @return  string
+     * @return string
      */
     public function getEncoding()
     {
@@ -103,23 +94,23 @@ class Scraper
     }
 
     /**
-     * Set encoding
+     * Set encoding.
      *
-     * @access  public
-     * @param   string   $encoding
-     * @return  Scraper
+     * @param string $encoding
+     *
+     * @return Scraper
      */
     public function setEncoding($encoding)
     {
         $this->encoding = $encoding;
+
         return $this;
     }
 
     /**
-     * Get URL to download
+     * Get URL to download.
      *
-     * @access  public
-     * @return  string
+     * @return string
      */
     public function getUrl()
     {
@@ -127,33 +118,32 @@ class Scraper
     }
 
     /**
-     * Set URL to download
+     * Set URL to download.
      *
-     * @access  public
-     * @param   string  $url    URL
-     * @return  Scraper
+     * @param string $url URL
+     *
+     * @return Scraper
      */
     public function setUrl($url)
     {
         $this->url = $url;
+
         return $this;
     }
 
     /**
-     * Return true if the scraper found relevant content
+     * Return true if the scraper found relevant content.
      *
-     * @access public
-     * @return boolean
+     * @return bool
      */
     public function hasRelevantContent()
     {
-        return ! empty($this->content);
+        return !empty($this->content);
     }
 
     /**
-     * Get relevant content
+     * Get relevant content.
      *
-     * @access public
      * @return string
      */
     public function getRelevantContent()
@@ -162,9 +152,8 @@ class Scraper
     }
 
     /**
-     * Get raw content (unfiltered)
+     * Get raw content (unfiltered).
      *
-     * @access public
      * @return string
      */
     public function getRawContent()
@@ -173,40 +162,40 @@ class Scraper
     }
 
     /**
-     * Set raw content (unfiltered)
+     * Set raw content (unfiltered).
      *
-     * @access public
-     * @param  string   $html
+     * @param string $html
+     *
      * @return Scraper
      */
     public function setRawContent($html)
     {
         $this->html = $html;
+
         return $this;
     }
 
     /**
-     * Get filtered relevant content
+     * Get filtered relevant content.
      *
-     * @access public
      * @return string
      */
     public function getFilteredContent()
     {
         $filter = Filter::html($this->content, $this->url);
         $filter->setConfig($this->config);
+
         return $filter->execute();
     }
 
     /**
-     * Download the HTML content
+     * Download the HTML content.
      *
-     * @access public
-     * @return boolean
+     * @return bool
      */
     public function download()
     {
-        if (! empty($this->url)) {
+        if (!empty($this->url)) {
 
             // Clear everything
             $this->html = '';
@@ -214,7 +203,6 @@ class Scraper
             $this->encoding = '';
 
             try {
-
                 $client = Client::getInstance();
                 $client->setConfig($this->config);
                 $client->setTimeout($this->config->getGrabberTimeout());
@@ -226,8 +214,7 @@ class Scraper
                 $this->encoding = $client->getEncoding();
 
                 return true;
-            }
-            catch (ClientException $e) {
+            } catch (ClientException $e) {
                 Logger::setMessage(get_called_class().': '.$e->getMessage());
             }
         }
@@ -236,15 +223,13 @@ class Scraper
     }
 
     /**
-     * Execute the scraper
-     *
-     * @access public
+     * Execute the scraper.
      */
     public function execute()
     {
         $this->download();
 
-        if (! $this->skipProcessing()) {
+        if (!$this->skipProcessing()) {
             $this->prepareHtml();
 
             $parser = $this->getParser();
@@ -257,10 +242,9 @@ class Scraper
     }
 
     /**
-     * Returns true if the parsing must be skipped
+     * Returns true if the parsing must be skipped.
      *
-     * @access public
-     * @return boolean
+     * @return bool
      */
     public function skipProcessing()
     {
@@ -277,6 +261,7 @@ class Scraper
 
         if (empty($this->html)) {
             Logger::setMessage(get_called_class().': Raw HTML is empty');
+
             return true;
         }
 
@@ -284,9 +269,8 @@ class Scraper
     }
 
     /**
-     * Get the parser
+     * Get the parser.
      *
-     * @access public
      * @return ParserInterface
      */
     public function getParser()
@@ -294,33 +278,30 @@ class Scraper
         $ruleLoader = new RuleLoader($this->config);
         $rules = $ruleLoader->getRules($this->url);
 
-        if (! empty($rules['grabber'])) {
-
+        if (!empty($rules['grabber'])) {
             Logger::setMessage(get_called_class().': Parse content with rules');
 
             foreach ($rules['grabber'] as $pattern => $rule) {
-
                 $url = new Url($this->url);
                 $sub_url = $url->getFullPath();
 
                 if (preg_match($pattern, $sub_url)) {
                     Logger::setMessage(get_called_class().': Matched url '.$sub_url);
+
                     return new RuleParser($this->html, $rule);
                 }
             }
-        }
-        else if ($this->enableCandidateParser) {
+        } elseif ($this->enableCandidateParser) {
             Logger::setMessage(get_called_class().': Parse content with candidates');
+
             return new CandidateParser($this->html);
         }
 
-        return null;
+        return;
     }
 
     /**
-     * Normalize encoding and strip head tag
-     *
-     * @access public
+     * Normalize encoding and strip head tag.
      */
     public function prepareHtml()
     {
@@ -333,15 +314,15 @@ class Scraper
     }
 
     /**
-     * Return the Youtube embed player and skip processing
+     * Return the Youtube embed player and skip processing.
      *
-     * @access public
-     * @return boolean
+     * @return bool
      */
     public function detectStreamingVideos()
     {
         if (preg_match("#(?<=v=|v\/|vi=|vi\/|youtu.be\/)[a-zA-Z0-9_-]{11}#", $this->url, $matches)) {
             $this->content = '<iframe width="560" height="315" src="//www.youtube.com/embed/'.$matches[0].'" frameborder="0"></iframe>';
+
             return true;
         }
 
@@ -349,10 +330,9 @@ class Scraper
     }
 
     /**
-     * Skip processing for PDF documents
+     * Skip processing for PDF documents.
      *
-     * @access public
-     * @return boolean
+     * @return bool
      */
     public function detectPdfFiles()
     {

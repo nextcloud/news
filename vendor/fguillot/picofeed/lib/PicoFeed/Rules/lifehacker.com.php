@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'grabber' => array(
         '%.*%' => array(
@@ -12,7 +13,7 @@ return array(
                 '//span[contains(@class, "icon")]',
                 '//h1',
                 '//aside',
-            )
-        )
-    )
+            ),
+        ),
+    ),
 );

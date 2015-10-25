@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'grabber' => array(
         '%.*%' => array(
@@ -13,6 +14,6 @@ return array(
             '//p/a[contains(@href, "/article.php?id=")]',
             '//div[@class="disqus_wrap"]',
             ),
-        )
-    )
+        ),
+    ),
 );

@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'grabber' => array(
         '%.*%' => array(
@@ -16,6 +17,6 @@ return array(
             '//div[@class="article_footer_ad"]',
             '//div[@id="disqus_thread"]',
             ),
-        )
-    )
+        ),
+    ),
 );

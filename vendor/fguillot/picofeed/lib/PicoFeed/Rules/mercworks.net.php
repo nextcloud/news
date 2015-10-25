@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'grabber' => array(
         '%.*%' => array(
@@ -7,11 +8,11 @@ return array(
                            ),
             'strip' => array(),
             'test_url' => 'http://mercworks.net/comicland/healthy-choice/',
-        )
+        ),
     ),
     'filter' => array(
         '%.*%' => array(
-            '%title="(.+)" */>%' => "/><br/>$1"
-        )
-    )
+            '%title="(.+)" */>%' => '/><br/>$1',
+        ),
+    ),
 );

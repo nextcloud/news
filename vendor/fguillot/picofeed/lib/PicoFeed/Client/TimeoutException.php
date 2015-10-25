@@ -3,10 +3,9 @@
 namespace PicoFeed\Client;
 
 /**
- * TimeoutException Exception
+ * TimeoutException Exception.
  *
  * @author  Frederic Guillot
- * @package Client
  */
 class TimeoutException extends ClientException
 {

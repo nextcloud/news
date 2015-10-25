@@ -5,25 +5,22 @@ namespace PicoFeed\Serialization;
 use SimpleXMLElement;
 
 /**
- * OPML export class
+ * OPML export class.
  *
  * @author  Frederic Guillot
- * @package Serialization
  */
 class Export
 {
     /**
-     * List of feeds to exports
+     * List of feeds to exports.
      *
-     * @access private
      * @var array
      */
     private $content = array();
 
     /**
-     * List of required properties for each feed
+     * List of required properties for each feed.
      *
-     * @access private
      * @var array
      */
     private $required_fields = array(
@@ -33,10 +30,9 @@ class Export
     );
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @access public
-     * @param  array   $content   List of feeds
+     * @param array $content List of feeds
      */
     public function __construct(array $content)
     {
@@ -44,9 +40,8 @@ class Export
     }
 
     /**
-     * Get the OPML document
+     * Get the OPML document.
      *
-     * @access public
      * @return string
      */
     public function execute()
@@ -59,11 +54,9 @@ class Export
         $body = $xml->addChild('body');
 
         foreach ($this->content as $category => $values) {
-
             if (is_string($category)) {
                 $this->createCategory($body, $category, $values);
-            }
-            else {
+            } else {
                 $this->createEntry($body, $values);
             }
         }
@@ -72,18 +65,17 @@ class Export
     }
 
     /**
-     * Create a feed entry
+     * Create a feed entry.
      *
-     * @access public
-     * @param  SimpleXMLElement    $parent      Parent Element
-     * @param  array               $feed        Feed properties
+     * @param SimpleXMLElement $parent Parent Element
+     * @param array            $feed   Feed properties
      */
     public function createEntry(SimpleXMLElement $parent, array $feed)
     {
         $valid = true;
 
         foreach ($this->required_fields as $field) {
-            if (! isset($feed[$field])) {
+            if (!isset($feed[$field])) {
                 $valid = false;
                 break;
             }
@@ -102,11 +94,10 @@ class Export
     }
 
     /**
-     * Create entries for a feed list
+     * Create entries for a feed list.
      *
-     * @access public
-     * @param  SimpleXMLElement    $parent      Parent Element
-     * @param  array               $feeds       Feed list
+     * @param SimpleXMLElement $parent Parent Element
+     * @param array            $feeds  Feed list
      */
     public function createEntries(SimpleXMLElement $parent, array $feeds)
     {
@@ -116,12 +107,11 @@ class Export
     }
 
     /**
-     * Create a category entry
+     * Create a category entry.
      *
-     * @access public
-     * @param  SimpleXMLElement    $parent      Parent Element
-     * @param  string              $category    Category
-     * @param  array               $feeds       Feed properties
+     * @param SimpleXMLElement $parent   Parent Element
+     * @param string           $category Category
+     * @param array            $feeds    Feed properties
      */
     public function createCategory(SimpleXMLElement $parent, $category, array $feeds)
     {
