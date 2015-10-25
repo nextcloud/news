@@ -229,15 +229,27 @@ class FeedService extends Service {
                 $item->setFeedId($existingFeed->getId());
 
                 try {
-                    $existingItem = $this->itemMapper->findByGuidHash(
+                    $dbItem = $this->itemMapper->findByGuidHash(
                         $item->getGuidHash(), $feedId, $userId
                     );
 
-                    if ($forceUpdate) {
-                        $existingItem->setBody(
+                    // in case of update
+                    if ($forceUpdate ||
+                        $item->getPubDate() > $dbItem->getPubDate()) {
+
+                        $dbItem->setTitle($item->getTitle());
+                        $dbItem->setUrl($item->getUrl());
+                        $dbItem->setAuthor($item->getAuthor());
+                        $dbItem->setSearchIndex($item->getSearchIndex());
+                        $dbItem->setRtl($item->getRtl());
+                        $dbItem->setLastModified($item->getLastModified());
+                        $dbItem->setPubDate($item->getPubDate());
+                        $dbItem->setEnclosureMime($item->getEnclosureMime());
+                        $dbItem->setEnclosureLink($item->getEnclosureLink());
+                        $dbItem->setBody(
                             $this->purifier->purify($item->getBody())
                         );
-                        $this->itemMapper->update($existingItem);
+                        $this->itemMapper->update($dbItem);
                     }
                 } catch(DoesNotExistException $ex){
                     $item->setBody(

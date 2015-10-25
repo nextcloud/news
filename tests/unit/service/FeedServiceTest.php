@@ -362,7 +362,78 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($return, $feed);
     }
 
+    public function testUpdateUpdatesWhenPubdateIsNewer() {
+        $feed = new Feed();
+        $feed->setId(3);
+        $feed->setArticlesPerUpdate(1);
+        $feed->setLink('http://test');
+        $feed->setUrl('http://test');
+        $feed->setUrlHash('yo');
+        $feed->setLastModified(3);
+        $feed->setEtag(4);
 
+        $item = new Item();
+        $item->setGuidHash(md5('hi'));
+        $item->setFeedId(3);
+        $item->setPubDate(2);
+        $item->setTitle('hey');
+        $item->setAuthor('aut');
+        $item->setBody('new');
+        $item2 = new Item();
+        $item2->setGuidHash(md5('hi'));
+        $item2->setFeedId(3);
+        $item2->setPubDate(1);
+        $item->setTitle('ho');
+        $item->setAuthor('auto');
+        $item->setBody('old');
+        $items = [$item];
+
+        $ex = new DoesNotExistException('hi');
+
+        $fetchReturn = [$feed, $items];
+
+        $this->feedMapper->expects($this->at(0))
+            ->method('find')
+            ->with($this->equalTo($feed->getId()),
+                    $this->equalTo($this->user))
+            ->will($this->returnValue($feed));
+        $this->fetcher->expects($this->once())
+            ->method('fetch')
+            ->with(
+                $this->equalTo('http://test'),
+                $this->equalTo(false),
+                $this->equalTo(3),
+                $this->equalTo(4)
+            )
+            ->will($this->returnValue($fetchReturn));
+        $this->feedMapper->expects($this->at(1))
+            ->method('update')
+            ->with($this->equalTo($feed));
+        $this->itemMapper->expects($this->once())
+            ->method('findByGuidHash')
+            ->with($this->equalTo($items[0]->getGuidHash()),
+                    $this->equalTo($items[0]->getFeedId()),
+                    $this->equalTo($this->user))
+            ->will($this->returnValue($item2));
+        $this->purifier->expects($this->at(0))
+            ->method('purify')
+            ->with($this->equalTo($items[0]->getBody()))
+            ->will($this->returnValue($items[0]->getBody()));
+        $this->itemMapper->expects($this->once())
+            ->method('update')
+            ->with($this->equalTo($items[0]));
+
+        $this->feedMapper->expects($this->at(2))
+            ->method('find')
+            ->with($feed->getId(), $this->user)
+            ->will($this->returnValue($feed));
+
+
+        $return = $this->feedService->update($feed->getId(), $this->user);
+
+        $this->assertEquals($return, $feed);
+
+    }
 
     public function testUpdateUpdatesArticlesPerFeedCount() {
         $feed = new Feed();
@@ -389,6 +460,9 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
             ->method('update')
             ->with($this->equalTo($existingFeed));
 
+        $this->itemMapper->expects($this->any())
+            ->method('findByGuidHash')
+            ->will($this->returnValue($item));
 
         $this->feedService->update($feed->getId(), $this->user);
     }
