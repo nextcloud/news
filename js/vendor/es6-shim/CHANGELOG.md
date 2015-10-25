@@ -1,5 +1,40 @@
 # es6-shim x.x.x (not yet released)
 
+# es6-shim 0.33.8 (23 Oct 2015)
+* [Fix] IE 8: `Promise.resolve(2)` was throwing. More named function expression madness.
+* [Tests] Reflect: Don't attempt to define properties on this test object unless we're in true ES5.
+
+# es6-shim 0.33.7 (23 Oct 2015)
+* [Fix] Ensure `preserveToString` does not throw when the original does not exist (#359)
+* [Fix] `Promise`: properly handle named function expressions in IE 8.
+* [Fix] `Number`: `wrapConstructor` now works in ES3 (#365)
+* [Docs] Document `Number` supporting string binary and octal literals.
+* [Tests] add commented-out test for `typeof Number.call(Object(3), 3) === 'number'`, which fails atm.
+* [Tests] Fix browser tests sans-`npm install`
+* [Dev Deps] update `es5-shim`, `jscs`, `uglify-js`, `chai`
+
+# es6-shim 0.33.6 (29 Sep 2015)
+* [Fix] In IE 6-8, of course, `typeof setTimeout` is "object"
+* [Tests] Upgrade jQuery on the test HTML pages
+
+# es6-shim 0.33.5 (28 Sep 2015)
+* [Fix] IE 6-8 have wacky scoping issues with named function expressions.
+* [Fix] Apparently in IE 8, RegExp#test is an own property of regexes, not a prototype method
+* [Fix] Make sure to treat `es5-sham`'s `Object.defineProperty` as unsupported, in IE 8
+
+# es6-shim 0.33.4 (27 Sep 2015)
+* [Fix] Add test, and fix, for `JSON.stringify(Object(Symbol()))` throwing on Chrome 45
+* [Fix] Wrap `JSON.stringify` when `Symbol` exists and it fails to serialize them correctly
+* [Fix] fix `Reflect.defineProperty` on edge v0.12
+* [Robustness] Cache `Array.isArray` internally
+* [Refactor] Use internal `overrideNative` helper for String.prototype HTML methods
+* [Refactor] Update `is-arguments` implementation; don't call down legacy code path in modern engines
+* [Tests] Add `evalmd` to verify that example code blocks are valid
+* [Tests] Adding a test for Safari 7.1 and later (runtime check added in 8a8ddd36186cdc1fcb3fcc259ec9ecef1e141901)
+* [Tests] Add additional `JSON.stringify` test for `Symbol` and object `Symbol` values
+* [Tests] up to `io.js` `v3.3`, `node` `v4.1`
+* [Dev Deps] update `es5-shim`, `mocha`, `chai`
+
 # es6-shim 0.33.3 (31 Aug 2015)
 * [Fix] Handle Firefox Nightly's broken `construct` method
 * [Tests] Add `JSON.stringify` tests for handling `Symbol`s

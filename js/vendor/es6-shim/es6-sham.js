@@ -2,8 +2,8 @@
   * https://github.com/paulmillr/es6-shim
   * @license es6-shim Copyright 2013-2015 by Paul Miller (http://paulmillr.com)
   *   and contributors,  MIT License
-  * es6-sham: v0.33.3
-  * see https://github.com/paulmillr/es6-shim/blob/0.33.3/LICENSE
+  * es6-sham: v0.33.8
+  * see https://github.com/paulmillr/es6-shim/blob/0.33.8/LICENSE
   * Details and documentation:
   * https://github.com/paulmillr/es6-shim/
   */
@@ -106,11 +106,14 @@
           // Safari, old Firefox, many others
           setPrototypeOf = function (origin, proto) {
             // if proto is not null
-            return getPrototypeOf(origin) ?
+            if (getPrototypeOf(origin)) {
               // use __proto__ to promote
-              ((origin.__proto__ = proto), origin) :
+              origin.__proto__ = proto;
+              return origin;
+            } else {
               // otherwise unable to promote: fallback
-              createAndCopy(origin, proto);
+              return createAndCopy(origin, proto);
+            }
           };
         }
       }

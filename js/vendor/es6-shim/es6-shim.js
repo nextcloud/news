@@ -2,8 +2,8 @@
   * https://github.com/paulmillr/es6-shim
   * @license es6-shim Copyright 2013-2015 by Paul Miller (http://paulmillr.com)
   *   and contributors,  MIT License
-  * es6-shim: v0.33.3
-  * see https://github.com/paulmillr/es6-shim/blob/0.33.3/LICENSE
+  * es6-shim: v0.33.8
+  * see https://github.com/paulmillr/es6-shim/blob/0.33.8/LICENSE
   * Details and documentation:
   * https://github.com/paulmillr/es6-shim/
   */
@@ -29,6 +29,7 @@
 
   var _apply = Function.call.bind(Function.apply);
   var _call = Function.call.bind(Function.call);
+  var isArray = Array.isArray;
 
   var not = function notThunker(func) {
     return function notThunk() { return !_apply(func, this, arguments); };
@@ -52,7 +53,7 @@
   var isCallableWithoutNew = not(throwsError);
   var arePropertyDescriptorsSupported = function () {
     // if Object.defineProperty exists but throws, it's IE 8
-    return !throwsError(function () { Object.defineProperty({}, 'x', {}); });
+    return !throwsError(function () { Object.defineProperty({}, 'x', { get: function () {} }); });
   };
   var supportsDescriptors = !!Object.defineProperty && arePropertyDescriptorsSupported();
   var functionsHaveNames = (function foo() {}).name === 'foo';
@@ -133,30 +134,19 @@
     });
   };
 
-  var startsWithRejectsRegex = function () {
-    return String.prototype.startsWith && throwsError(function () {
-      /* throws if spec-compliant */
-      '/a/'.startsWith(/a/);
-    });
-  };
-  var startsWithHandlesInfinity = (function () {
-    return String.prototype.startsWith && 'abc'.startsWith('a', Infinity) === false;
-  }());
-
   var getGlobal = function () {
-	// the only reliable means to get the global object is
-	// `Function('return this')()`
-	// However, this causes CSP violations in Chrome apps.
+    // the only reliable means to get the global object is
+    // `Function('return this')()`
+    // However, this causes CSP violations in Chrome apps.
     if (typeof self !== 'undefined') { return self; }
     if (typeof window !== 'undefined') { return window; }
     if (typeof global !== 'undefined') { return global; }
-	throw new Error('unable to locate global object');
+    throw new Error('unable to locate global object');
   };
 
   var globals = getGlobal();
   var globalIsFinite = globals.isFinite;
   var hasStrictMode = (function () { return this === null; }.call(null));
-  var startsWithIsCompliant = startsWithRejectsRegex() && startsWithHandlesInfinity;
   var _indexOf = Function.call.bind(String.prototype.indexOf);
   var _toString = Function.call.bind(Object.prototype.toString);
   var _concat = Function.call.bind(Array.prototype.concat);
@@ -217,7 +207,9 @@
       }
     },
     preserveToString: function (target, source) {
-      defineProperty(target, 'toString', source.toString.bind(source), true);
+      if (source && ES.IsCallable(source.toString)) {
+        defineProperty(target, 'toString', source.toString.bind(source), true);
+      }
     }
   };
 
@@ -227,10 +219,17 @@
       // sets up proper prototype chain where possible
       Object.setPrototypeOf(original, replacement);
     }
-    _forEach(Object.getOwnPropertyNames(original), function (key) {
-      if (key in noop || keysToSkip[key]) { return; }
-      Value.proxy(original, key, replacement);
-    });
+    if (supportsDescriptors) {
+      _forEach(Object.getOwnPropertyNames(original), function (key) {
+        if (key in noop || keysToSkip[key]) { return; }
+        Value.proxy(original, key, replacement);
+      });
+    } else {
+      _forEach(Object.keys(original), function (key) {
+        if (key in noop || keysToSkip[key]) { return; }
+        replacement[key] = original[key];
+      });
+    }
     replacement.prototype = original.prototype;
     Value.redefine(original.prototype, 'constructor', replacement);
   };
@@ -292,19 +291,18 @@
 
   // taken directly from https://github.com/ljharb/is-arguments/blob/master/index.js
   // can be replaced with require('is-arguments') if we ever use a build process instead
-  var isArguments = function isArguments(value) {
-    var str = _toString(value);
-    var result = str === '[object Arguments]';
-    if (!result) {
-      result = str !== '[object Array]' &&
-        value !== null &&
-        typeof value === 'object' &&
-        typeof value.length === 'number' &&
-        value.length >= 0 &&
-        _toString(value.callee) === '[object Function]';
-    }
-    return result;
+  var isStandardArguments = function isArguments(value) {
+    return _toString(value) === '[object Arguments]';
   };
+  var isLegacyArguments = function isArguments(value) {
+    return value !== null &&
+      typeof value === 'object' &&
+      typeof value.length === 'number' &&
+      value.length >= 0 &&
+      _toString(value) !== '[object Array]' &&
+      _toString(value.callee) === '[object Function]';
+  };
+  var isArguments = isStandardArguments(arguments) ? isStandardArguments : isLegacyArguments;
 
   var ES = {
     // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-call-f-v-args
@@ -598,11 +596,11 @@
       return stringElements.join('');
     }
   };
-  defineProperties(String, StringShims);
-  if (String.raw({ raw: { 0: 'x', 1: 'y', length: 2 } }) !== 'xy') {
+  if (String.raw && String.raw({ raw: { 0: 'x', 1: 'y', length: 2 } }) !== 'xy') {
     // IE 11 TP has a broken String.raw implementation
     overrideNative(String, 'raw', StringShims.raw);
   }
+  defineProperties(String, StringShims);
 
   // Fast repeat, uses the `Exponentiation by squaring` algorithm.
   // Perf: http://jsperf.com/string-repeat2/2
@@ -678,11 +676,24 @@
       }
     }
   };
-  defineProperties(String.prototype, StringPrototypeShims);
-
-  if ('a'.includes('a', Infinity) !== false) {
+  if (String.prototype.includes && 'a'.includes('a', Infinity) !== false) {
     overrideNative(String.prototype, 'includes', StringPrototypeShims.includes);
   }
+
+  if (String.prototype.startsWith && String.prototype.endsWith) {
+    var startsWithRejectsRegex = throwsError(function () {
+      /* throws if spec-compliant */
+      '/a/'.startsWith(/a/);
+    });
+    var startsWithHandlesInfinity = 'abc'.startsWith('a', Infinity) === false;
+    if (!startsWithRejectsRegex || !startsWithHandlesInfinity) {
+      // Firefox (< 37?) and IE 11 TP have a noncompliant startsWith implementation
+      overrideNative(String.prototype, 'startsWith', StringPrototypeShims.startsWith);
+      overrideNative(String.prototype, 'endsWith', StringPrototypeShims.endsWith);
+    }
+  }
+
+  defineProperties(String.prototype, StringPrototypeShims);
 
   var hasStringTrimBug = '\u0085'.trim().length !== 1;
   if (hasStringTrimBug) {
@@ -731,12 +742,6 @@
   addIterator(String.prototype, function () {
     return new StringIterator(this);
   });
-
-  if (!startsWithIsCompliant) {
-    // Firefox (< 37?) and IE 11 TP have a noncompliant startsWith implementation
-    overrideNative(String.prototype, 'startsWith', StringPrototypeShims.startsWith);
-    overrideNative(String.prototype, 'endsWith', StringPrototypeShims.endsWith);
-  }
 
   var ArrayShims = {
     from: function from(items) {
@@ -803,7 +808,7 @@
     of: function of() {
       var len = arguments.length;
       var C = this;
-      var A = Array.isArray(C) || !ES.IsCallable(C) ? new Array(len) : ES.Construct(C, [len]);
+      var A = isArray(C) || !ES.IsCallable(C) ? new Array(len) : ES.Construct(C, [len]);
       for (var k = 0; k < len; ++k) {
         createDataPropertyOrThrow(A, k, arguments[k]);
       }
@@ -1057,7 +1062,7 @@
   var arrayFromHandlesIterables = (function () {
     // Detects a bug in Webkit nightly r181886
     var arr = Array.from([0].entries());
-    return arr.length === 1 && Array.isArray(arr[0]) && arr[0][0] === 0 && arr[0][1] === 0;
+    return arr.length === 1 && isArray(arr[0]) && arr[0][0] === 0 && arr[0][1] === 0;
   }());
   if (!arrayFromSwallowsNegativeLengths || !arrayFromHandlesIterables) {
     overrideNative(Array, 'from', ArrayShims.from);
@@ -1134,8 +1139,11 @@
 
   if (Number('0o10') !== 8 || Number('0b10') !== 2) {
     var OrigNumber = Number;
-    var isBinary = Function.bind.call(Function.call, RegExp.prototype.test, /^0b/i);
-    var isOctal = Function.bind.call(Function.call, RegExp.prototype.test, /^0o/i);
+    var binaryRegex = /^0b/i;
+    var octalRegex = /^0o/i;
+    // Note that in IE 8, RegExp.prototype.test doesn't seem to exist: ie, "test" is an own property of regexes. wtf.
+    var isBinary = binaryRegex.test.bind(binaryRegex);
+    var isOctal = octalRegex.test.bind(octalRegex);
     var toPrimitive = function (O) { // need to replace this with `es-to-primitive/es6`
       var result;
       if (typeof O.valueOf === 'function') {
@@ -1152,22 +1160,30 @@
       }
       throw new TypeError('No default value');
     };
-    var NumberShim = function Number(value) {
-      var primValue = Type.primitive(value) ? value : toPrimitive(value, 'number');
-      if (typeof primValue === 'string') {
-        if (isBinary(primValue)) {
-          primValue = parseInt(_strSlice(primValue, 2), 2);
-        } else if (isOctal(primValue)) {
-          primValue = parseInt(_strSlice(primValue, 2), 8);
+    var NumberShim = (function () {
+      // this is wrapped in an IIFE because of IE 6-8's wacky scoping issues with named function expressions.
+      return function Number(value) {
+        var primValue = Type.primitive(value) ? value : toPrimitive(value, 'number');
+        if (typeof primValue === 'string') {
+          if (isBinary(primValue)) {
+            primValue = parseInt(_strSlice(primValue, 2), 2);
+          } else if (isOctal(primValue)) {
+            primValue = parseInt(_strSlice(primValue, 2), 8);
+          }
         }
-      }
-      if (this instanceof Number) {
-        return new OrigNumber(primValue);
-      }
-      /* jshint newcap: false */
-      return OrigNumber(primValue);
-      /* jshint newcap: true */
-    };
+        var receiver = this;
+        var valueOfSucceeds = valueOrFalseIfThrows(function () {
+          Number.prototype.valueOf.call(receiver);
+          return true;
+        });
+        if (receiver instanceof Number && !valueOfSucceeds) {
+          return new OrigNumber(primValue);
+        }
+        /* jshint newcap: false */
+        return OrigNumber(primValue);
+        /* jshint newcap: true */
+      };
+    }());
     wrapConstructor(OrigNumber, NumberShim, {});
     /*globals Number: true */
     Number = NumberShim;
@@ -1772,7 +1788,7 @@
   var PromiseShim = (function () {
     var setTimeout = globals.setTimeout;
     // some environments don't have setTimeout - no way to shim here.
-    if (typeof setTimeout !== 'function') { return; }
+    if (typeof setTimeout !== 'function' && typeof setTimeout !== 'object') { return; }
 
     ES.IsPromise = function (promise) {
       if (!ES.TypeIsObject(promise)) {
@@ -1839,12 +1855,14 @@
       };
     };
     /*global process */
+    /* jscs:disable disallowMultiLineTernary */
     var enqueue = ES.IsCallable(globals.setImmediate) ?
       globals.setImmediate.bind(globals) :
       typeof process === 'object' && process.nextTick ? process.nextTick :
       makePromiseAsap() ||
       (ES.IsCallable(makeZeroTimeout) ? makeZeroTimeout() :
       function (task) { setTimeout(task, 0); }); // fallback
+    /* jscs:enable disallowMultiLineTernary */
 
     // Constants for Promise implementation
     var PROMISE_IDENTITY = 1;
@@ -1957,34 +1975,37 @@
       return C;
     };
 
-    var Promise = function Promise(resolver) {
-      if (!(this instanceof Promise)) {
-        throw new TypeError('Constructor Promise requires "new"');
-      }
-      if (this && this._promise) {
-        throw new TypeError('Bad construction');
-      }
-      // see https://bugs.ecmascript.org/show_bug.cgi?id=2482
-      if (!ES.IsCallable(resolver)) {
-        throw new TypeError('not a valid resolver');
-      }
-      var promise = emulateES6construct(this, Promise, Promise$prototype, {
-        _promise: {
-          result: void 0,
-          state: PROMISE_PENDING,
-          fulfillReactions: [],
-          rejectReactions: []
+    var Promise = (function () {
+      var PromiseShim = function Promise(resolver) {
+        if (!(this instanceof PromiseShim)) {
+          throw new TypeError('Constructor Promise requires "new"');
         }
-      });
-      var resolvingFunctions = createResolvingFunctions(promise);
-      var reject = resolvingFunctions.reject;
-      try {
-        resolver(resolvingFunctions.resolve, reject);
-      } catch (e) {
-        reject(e);
-      }
-      return promise;
-    };
+        if (this && this._promise) {
+          throw new TypeError('Bad construction');
+        }
+        // see https://bugs.ecmascript.org/show_bug.cgi?id=2482
+        if (!ES.IsCallable(resolver)) {
+          throw new TypeError('not a valid resolver');
+        }
+        var promise = emulateES6construct(this, PromiseShim, Promise$prototype, {
+          _promise: {
+            result: void 0,
+            state: PROMISE_PENDING,
+            fulfillReactions: [],
+            rejectReactions: []
+          }
+        });
+        var resolvingFunctions = createResolvingFunctions(promise);
+        var reject = resolvingFunctions.reject;
+        try {
+          resolver(resolvingFunctions.resolve, reject);
+        } catch (e) {
+          reject(e);
+        }
+        return promise;
+      };
+      return PromiseShim;
+    }());
     var Promise$prototype = Promise.prototype;
 
     var _promiseAllResolver = function (index, values, capability, remaining) {
@@ -2248,7 +2269,7 @@
     };
 
     var addIterableToMap = function addIterableToMap(MapConstructor, map, iterable) {
-      if (Array.isArray(iterable) || Type.string(iterable)) {
+      if (isArray(iterable) || Type.string(iterable)) {
         _forEach(iterable, function (entry) {
           map.set(entry[0], entry[1]);
         });
@@ -2282,7 +2303,7 @@
       }
     };
     var addIterableToSet = function addIterableToSet(SetConstructor, set, iterable) {
-      if (Array.isArray(iterable) || Type.string(iterable)) {
+      if (isArray(iterable) || Type.string(iterable)) {
         _forEach(iterable, function (value) {
           set.add(value);
         });
@@ -3184,9 +3205,11 @@
     }
   }
   if (globals.Reflect.defineProperty) {
-    if (valueOrFalseIfThrows(function () {
-      globals.Reflect.defineProperty(1, 'test', { value: 1 });
-      return true;
+    if (!valueOrFalseIfThrows(function () {
+      var basic = !globals.Reflect.defineProperty(1, 'test', { value: 1 });
+      // "extensible" fails on Edge 0.12
+      var extensible = typeof Object.preventExtensions !== 'function' || !globals.Reflect.defineProperty(Object.preventExtensions({}), 'test', {});
+      return basic && extensible;
     })) {
       overrideNative(globals.Reflect, 'defineProperty', ReflectShims.defineProperty);
     }
@@ -3240,9 +3263,59 @@
       shouldOverwrite = true;
     }
     if (shouldOverwrite) {
-      defineProperty(String.prototype, key, stringHTMLshims[key], true);
+      overrideNative(String.prototype, key, stringHTMLshims[key]);
     }
   });
+
+  var JSONstringifiesSymbols = (function () {
+    // Microsoft Edge v0.12 stringifies Symbols incorrectly
+    if (!Type.symbol(Symbol.iterator)) { return false; } // Symbols are not supported
+    var stringify = typeof JSON === 'object' && typeof JSON.stringify === 'function' ? JSON.stringify : null;
+    if (!stringify) { return false; } // JSON.stringify is not supported
+    if (typeof stringify(Symbol()) !== 'undefined') { return true; } // Symbols should become `undefined`
+    if (stringify([Symbol()]) !== '[null]') { return true; } // Symbols in arrays should become `null`
+    var obj = { a: Symbol() };
+    obj[Symbol()] = true;
+    if (stringify(obj) !== '{}') { return true; } // Symbol-valued keys *and* Symbol-valued properties should be omitted
+    return false;
+  }());
+  var JSONstringifyAcceptsObjectSymbol = valueOrFalseIfThrows(function () {
+    // Chrome 45 throws on stringifying object symbols
+    if (!Type.symbol(Symbol.iterator)) { return true; } // Symbols are not supported
+    return JSON.stringify(Object(Symbol())) === '{}' && JSON.stringify([Object(Symbol())]) === '[{}]';
+  });
+  if (JSONstringifiesSymbols || !JSONstringifyAcceptsObjectSymbol) {
+    var origStringify = JSON.stringify;
+    overrideNative(JSON, 'stringify', function stringify(value) {
+      if (typeof value === 'symbol') { return; }
+      var replacer;
+      if (arguments.length > 1) {
+        replacer = arguments[1];
+      }
+      var args = [value];
+      if (!isArray(replacer)) {
+        var replaceFn = ES.IsCallable(replacer) ? replacer : null;
+        var wrappedReplacer = function (key, val) {
+          var parsedValue = replacer ? _call(replacer, this, key, val) : val;
+          if (typeof parsedValue !== 'symbol') {
+            if (Type.symbol(parsedValue)) {
+              return assignTo({})(parsedValue);
+            } else {
+              return parsedValue;
+            }
+          }
+        };
+        args.push(wrappedReplacer);
+      } else {
+        // create wrapped replacer that handles an array replacer?
+        args.push(replacer);
+      }
+      if (arguments.length > 2) {
+        args.push(arguments[2]);
+      }
+      return origStringify.apply(this, args);
+    });
+  }
 
   return globals;
 }));
