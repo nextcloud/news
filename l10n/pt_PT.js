@@ -84,6 +84,8 @@ OC.L10N.register(
     "Undo delete feed" : "Desfazer apagar a feed",
     "Rename" : "Renomear",
     "Menu" : "Menu",
+    "Unpin feed from the top" : "Desafixar feed do topo",
+    "Pin feed to the top" : "Afixar feed no topo",
     "No feed ordering" : "Sem ordenação de feeds",
     "Reversed feed ordering" : "Ordem de feeds inversa",
     "Normal feed ordering" : "Ordem de feeds normal",
