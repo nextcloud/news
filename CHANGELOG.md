@@ -1,4 +1,5 @@
-owncloud-news (6.0.7)
+owncloud-news (6.1.0)
+* **Backwards incompatible change**: Removed several web routes and feed service methods by generalizing feed object changes using a patch method
 * **Enhancement**: Update articles if the pubdate is newer than the current one, #877
 * **Enhancement**: Add feed setting to mark updated articles as unread, #882
 * **Enhancement**: Made app compatible with ownCloud 9
