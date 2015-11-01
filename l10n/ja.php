@@ -1,6 +1,7 @@
 <?php
 $TRANSLATIONS = array(
 "Feed contains invalid XML" => "無効なXMLを含むフィードです。",
+"Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" => "フィードがありません: サイトがフィードを提供していないか、アクセスをブロックしています。ブロッキングを取り除くためには、次の様にcurl コマンドをサーバー上で実行してフィードをダウンロードしてみてください: curl http://the-feed.tld",
 "Detected feed format is not supported" => "検出したフィードのフォーマットはサポートされません。",
 "SSL Certificate is invalid" => "無効なSSL証明書です。",
 "Website not found" => "Webサイトが見つかりませんでした。",
@@ -83,9 +84,13 @@ $TRANSLATIONS = array(
 "Undo delete feed" => "削除したフィードを元に戻す",
 "Rename" => "名前の変更",
 "Menu" => "メニュー",
+"Unpin feed from the top" => "フィードをトップから外す",
+"Pin feed to the top" => "フィードをトップに固定",
 "No feed ordering" => "フィードの順序なし",
 "Reversed feed ordering" => "逆のフィードの順序",
 "Normal feed ordering" => "通常のフィードの順序",
+"Enable full text feed fetching" => "全文取得を有効化",
+"Disable full text feed fetching" => "全文取得を無効化",
 "Rename feed" => "フィードの名前を変更",
 "Delete feed" => "フィードを削除",
 "Mark all articles read" => "すべて既読にする",
