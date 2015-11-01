@@ -152,7 +152,7 @@ class FeedApiController extends ApiController {
      */
     public function move($feedId, $folderId) {
         try {
-            $this->feedService->move($feedId, $folderId, $this->userId);
+            $this->feedService->patch($feedId, $this->userId, ['folderId' => $folderId]);
         } catch(ServiceNotFoundException $ex) {
             return $this->error($ex, Http::STATUS_NOT_FOUND);
         }
@@ -172,7 +172,7 @@ class FeedApiController extends ApiController {
      */
     public function rename($feedId, $feedTitle) {
         try {
-            $this->feedService->rename($feedId, $feedTitle, $this->userId);
+            $this->feedService->patch($feedId, $this->userId, ['title' => $feedTitle]);
         } catch(ServiceNotFoundException $ex) {
             return $this->error($ex, Http::STATUS_NOT_FOUND);
         }

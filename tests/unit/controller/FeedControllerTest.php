@@ -365,63 +365,6 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testMove(){
-        $this->feedService->expects($this->once())
-            ->method('move')
-            ->with($this->equalTo(4),
-                $this->equalTo(3),
-                $this->equalTo($this->user));
-
-        $this->controller->move(4, 3);
-
-    }
-
-
-    public function testMoveDoesNotExist(){
-        $msg = 'john';
-
-        $this->feedService->expects($this->once())
-            ->method('move')
-            ->will($this->throwException(new ServiceNotFoundException($msg)));
-
-        $response = $this->controller->move(4, 3);
-        $params = json_decode($response->render(), true);
-
-        $this->assertEquals($msg, $params['message']);
-        $this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
-    }
-
-
-    public function testRename(){
-        $this->feedService->expects($this->once())
-            ->method('rename')
-            ->with($this->equalTo(4),
-                $this->equalTo('title'),
-                $this->equalTo($this->user));
-
-        $this->controller->rename(4, 'title');
-    }
-
-
-    public function testRenameDoesNotExist(){
-        $msg = 'hi';
-
-        $this->feedService->expects($this->once())
-            ->method('rename')
-            ->with($this->equalTo(4),
-                $this->equalTo('title'),
-                $this->equalTo($this->user))
-            ->will($this->throwException(new ServiceNotFoundException($msg)));
-
-        $response = $this->controller->rename(4, 'title');
-
-        $params = $response->getData();
-
-        $this->assertEquals($msg, $params['message']);
-        $this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
-    }
-
-
     public function testImport() {
         $feed = new Feed();
 

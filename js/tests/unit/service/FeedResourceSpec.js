@@ -128,19 +128,19 @@ describe('FeedResource', function () {
 
 
     it ('should rename a feed', inject(function (FeedResource) {
-        http.expectPOST('base/feeds/3/rename', {
-            feedTitle: 'heho'
+        http.expectPATCH('base/feeds/3', {
+            title: 'heho'
         }).respond(200, {});
 
-        FeedResource.rename(3, 'heho');
+        FeedResource.patch(3, {title: 'heho'});
 
         http.flush();
     }));
 
 
     it ('should move a feed', inject(function (FeedResource) {
-        http.expectPOST('base/feeds/2/move', {
-            parentFolderId: 5
+        http.expectPATCH('base/feeds/2', {
+            folderId: 5
         }).respond(200, {});
 
         FeedResource.move(2, 5);

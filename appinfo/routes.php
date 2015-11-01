@@ -36,8 +36,6 @@ return ['routes' => [
 ['name' => 'feed#create', 'url' => '/feeds', 'verb' => 'POST'],
 ['name' => 'feed#delete', 'url' => '/feeds/{feedId}', 'verb' => 'DELETE'],
 ['name' => 'feed#restore', 'url' => '/feeds/{feedId}/restore', 'verb' => 'POST'],
-['name' => 'feed#move', 'url' => '/feeds/{feedId}/move', 'verb' => 'POST'],
-['name' => 'feed#rename', 'url' => '/feeds/{feedId}/rename', 'verb' => 'POST'],
 ['name' => 'feed#read', 'url' => '/feeds/{feedId}/read', 'verb' => 'POST'],
 ['name' => 'feed#update', 'url' => '/feeds/{feedId}/update', 'verb' => 'POST'],
 ['name' => 'feed#active', 'url' => '/feeds/active', 'verb' => 'GET'],

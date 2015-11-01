@@ -150,16 +150,6 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
         return this.locations[location];
     };
 
-    FeedResource.prototype.rename = function (id, title) {
-        return this.http({
-            method: 'POST',
-            url: this.BASE_URL + '/feeds/' + id + '/rename',
-            data: {
-                feedTitle: title
-            }
-        });
-    };
-
 
     FeedResource.prototype.move = function (feedId, folderId) {
         var feed = this.getById(feedId);
@@ -168,13 +158,7 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
         this.updateFolderCache();
         this.updateUnreadCache();
 
-        return this.http({
-            method: 'POST',
-            url: this.BASE_URL + '/feeds/' + feed.id + '/move',
-            data: {
-                parentFolderId: folderId
-            }
-        });
+        return this.patch(feedId, {folderId: folderId});
 
     };
 

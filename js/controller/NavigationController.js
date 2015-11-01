@@ -232,7 +232,7 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
     };
 
     this.renameFeed = function (feed) {
-        FeedResource.rename(feed.id, feed.title);
+        FeedResource.patch(feed.id, {title: feed.title});
         feed.editing = false;
     };
 

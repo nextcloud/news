@@ -777,7 +777,7 @@ app.controller('NavigationController',
     };
 
     this.renameFeed = function (feed) {
-        FeedResource.rename(feed.id, feed.title);
+        FeedResource.patch(feed.id, {title: feed.title});
         feed.editing = false;
     };
 
@@ -1148,16 +1148,6 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
         return this.locations[location];
     };
 
-    FeedResource.prototype.rename = function (id, title) {
-        return this.http({
-            method: 'POST',
-            url: this.BASE_URL + '/feeds/' + id + '/rename',
-            data: {
-                feedTitle: title
-            }
-        });
-    };
-
 
     FeedResource.prototype.move = function (feedId, folderId) {
         var feed = this.getById(feedId);
@@ -1166,13 +1156,7 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
         this.updateFolderCache();
         this.updateUnreadCache();
 
-        return this.http({
-            method: 'POST',
-            url: this.BASE_URL + '/feeds/' + feed.id + '/move',
-            data: {
-                parentFolderId: folderId
-            }
-        });
+        return this.patch(feedId, {folderId: folderId});
 
     };
 

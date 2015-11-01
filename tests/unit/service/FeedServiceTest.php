@@ -687,7 +687,7 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
             ->method('update')
             ->with($this->equalTo($feed));
 
-        $this->feedService->move($feedId, $folderId, $this->user);
+        $this->feedService->patch($feedId, $this->user, ['folderId' => $folderId]);
 
         $this->assertEquals($folderId, $feed->getFolderId());
     }
@@ -709,7 +709,7 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
             ->method('update')
             ->with($this->equalTo($feed));
 
-        $this->feedService->rename($feedId, $feedTitle, $this->user);
+        $this->feedService->patch($feedId, $this->user, ['title' => $feedTitle]);
 
         $this->assertEquals($feedTitle, $feed->getTitle());
     }

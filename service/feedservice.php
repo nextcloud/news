@@ -278,36 +278,6 @@ class FeedService extends Service {
         return $this->find($feedId, $userId);
     }
 
-
-    /**
-     * Moves a feed into a different folder
-     * @param int $feedId the id of the feed that should be moved
-     * @param int $folderId the id of the folder where the feed should be moved
-     * to
-     * @param string $userId the name of the user whose feed should be moved
-     * @throws ServiceNotFoundException if the feed does not exist
-     */
-    public function move($feedId, $folderId, $userId){
-        $feed = $this->find($feedId, $userId);
-        $feed->setFolderId($folderId);
-        $this->feedMapper->update($feed);
-    }
-
-
-    /**
-     * Rename a feed
-     * @param int $feedId the id of the feed that should be moved
-     * @param string $feedTitle the new title of the feed
-     * @param string $userId the name of the user whose feed should be renamed
-     * @throws ServiceNotFoundException if the feed does not exist
-     */
-    public function rename($feedId, $feedTitle, $userId) {
-        $feed = $this->find($feedId, $userId);
-        $feed->setTitle($feedTitle);
-        $this->feedMapper->update($feed);
-    }
-
-
     /**
      * Import articles
      * @param array $json the array with json
@@ -443,15 +413,16 @@ class FeedService extends Service {
      *      'ordering' => 1,
      *      'fullTextEnabled' => true,
      *      'pinned' => true,
-     *      'updateMode' => 0
+     *      'updateMode' => 0,
+     *      'title' => 'title'
      * ]
      * @throws ServiceNotFoundException if feed does not exist
      */
-    public function patch($feedId, $userId, $diff) {
+    public function patch($feedId, $userId, $diff=[]) {
         $feed = $this->find($feedId, $userId);
 
         // these attributes just map onto the feed object without extra logic
-        $simplePatches = ['ordering', 'pinned', 'updateMode'];
+        $simplePatches = ['ordering', 'pinned', 'updateMode', 'title', 'folderId'];
         foreach ($simplePatches as $attribute) {
             if (array_key_exists($attribute, $diff)) {
                 $method = 'set' . ucfirst($attribute);

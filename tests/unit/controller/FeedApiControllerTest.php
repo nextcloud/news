@@ -246,11 +246,11 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 
     public function testMove() {
         $this->feedService->expects($this->once())
-            ->method('move')
+            ->method('patch')
             ->with(
                 $this->equalTo(3),
-                $this->equalTo(30),
-                $this->equalTo($this->user));
+                $this->equalTo($this->user),
+                $this->equalTo(['folderId' => 30]));
 
         $this->feedAPI->move(3, 30);
     }
@@ -258,7 +258,7 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 
     public function testMoveDoesNotExist() {
         $this->feedService->expects($this->once())
-            ->method('move')
+            ->method('patch')
             ->will(
                 $this->throwException(new ServiceNotFoundException($this->msg))
             );
@@ -276,11 +276,11 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
         $feedTitle = 'test';
 
         $this->feedService->expects($this->once())
-            ->method('rename')
+            ->method('patch')
             ->with(
                 $this->equalTo($feedId),
-                $this->equalTo($feedTitle),
-                $this->equalTo($this->user));
+                $this->equalTo($this->user),
+                $this->equalTo(['title' => $feedTitle]));
 
         $this->feedAPI->rename($feedId, $feedTitle);
     }
@@ -291,11 +291,11 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
         $feedTitle = 'test';
 
         $this->feedService->expects($this->once())
-            ->method('rename')
+            ->method('patch')
             ->with(
                 $this->equalTo($feedId),
-                $this->equalTo($feedTitle),
-                $this->equalTo($this->user))
+                $this->equalTo($this->user),
+                $this->equalTo(['title' => $feedTitle]))
             ->will($this->throwException(new ServiceNotFoundException('hi')));
 
         $result = $this->feedAPI->rename($feedId, $feedTitle);

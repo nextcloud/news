@@ -612,7 +612,7 @@ describe('NavigationController', function () {
 
 
     it('should rename a feed', inject(function ($controller, FeedResource) {
-        FeedResource.rename = jasmine.createSpy('rename');
+        FeedResource.patch = jasmine.createSpy('patch');
 
         var ctrl = $controller('NavigationController', {
             FeedResource: FeedResource,
@@ -626,7 +626,7 @@ describe('NavigationController', function () {
 
         ctrl.renameFeed(feed);
 
-        expect(FeedResource.rename).toHaveBeenCalledWith(3, 'test');
+        expect(FeedResource.patch).toHaveBeenCalledWith(3, {title: 'test'});
         expect(feed.editing).toBe(false);
     }));
 

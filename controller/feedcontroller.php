@@ -203,41 +203,6 @@ class FeedController extends Controller {
     /**
      * @NoAdminRequired
      *
-     * @param int $feedId
-     * @param int $parentFolderId
-     * @return array|\OCP\AppFramework\Http\JSONResponse
-     */
-    public function move($feedId, $parentFolderId){
-        try {
-            $this->feedService->move($feedId, $parentFolderId, $this->userId);
-        } catch(ServiceNotFoundException $ex) {
-            return $this->error($ex, Http::STATUS_NOT_FOUND);
-        }
-
-        return [];
-    }
-
-    /**
-     * @NoAdminRequired
-     *
-     * @param int $feedId
-     * @param string $feedTitle
-     * @return array|\OCP\AppFramework\Http\JSONResponse
-     */
-    public function rename($feedId, $feedTitle) {
-        try {
-            $this->feedService->rename($feedId, $feedTitle, $this->userId);
-        } catch(ServiceNotFoundException $ex) {
-            return $this->error($ex, Http::STATUS_NOT_FOUND);
-        }
-
-        return [];
-    }
-
-
-    /**
-     * @NoAdminRequired
-     *
      * @param array $json
      * @return array
      */
@@ -301,13 +266,19 @@ class FeedController extends Controller {
      * @param bool $fullTextEnabled
      * @param int $updateMode
      * @param int $ordering
+     * @param int $folderId
+     * @param string $title
      */
-    public function patch($feedId, $pinned=null, $fullTextEnabled=null, $updateMode=null, $ordering=null) {
+    public function patch($feedId, $pinned=null, $fullTextEnabled=null,
+                          $updateMode=null, $ordering=null, $title=null,
+                          $folderId=null) {
         $attributes = [
             'pinned' => $pinned,
             'fullTextEnabled' => $fullTextEnabled,
             'updateMode' => $updateMode,
-            'ordering' => $ordering
+            'ordering' => $ordering,
+            'title' => $title,
+            'folderId' => $folderId
         ];
 
         $diff = array_filter($attributes, function ($value) {
