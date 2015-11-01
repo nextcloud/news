@@ -75,6 +75,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
     protected $ordering;
     protected $fullTextEnabled;
     protected $pinned;
+    protected $updateMode;
 
     public function __construct(){
         $this->addType('parentId', 'integer');
@@ -87,6 +88,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
         $this->addType('articlesPerUpdate', 'integer');
         $this->addType('ordering', 'integer');
         $this->addType('fullTextEnabled', 'boolean');
+        $this->addType('updateMode', 'integer');
     }
 
 
@@ -111,7 +113,8 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
             'location',
             'ordering',
             'fullTextEnabled',
-            'pinned'
+            'pinned',
+            'updateMode'
         ]);
 
         $url = parse_url($this->link)['host'];

@@ -126,6 +126,18 @@
                 </button>
             </li>
             <li>
+                <button ng-click="Navigation.setUpdateMode(feed.id, 1)"
+                        class="icon-updatemode-default"
+                        ng-hide="feed.updateMode == 1"
+                        title="<?php p($l->t('Keep updated articles as is')); ?>">
+                </button>
+                <button ng-click="Navigation.setUpdateMode(feed.id, 0)"
+                        class="icon-updatemode-unread"
+                        ng-show="feed.updateMode == 1"
+                        title="<?php p($l->t('Mark updated articles unread')); ?>">
+                </button>
+            </li>
+            <li>
                 <button ng-click="feed.editing=true"
                         class="icon-rename"
                         title="<?php p($l->t('Rename feed')); ?>">

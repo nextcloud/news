@@ -1022,7 +1022,7 @@ describe('NavigationController', function () {
             ordering: 0
         });
 
-        FeedResource.setOrdering = jasmine.createSpy('ordering');
+        FeedResource.patch = jasmine.createSpy('patch');
 
         var route = {
             reload: jasmine.createSpy('reload')
@@ -1033,7 +1033,7 @@ describe('NavigationController', function () {
 
         ctrl.setOrdering(FeedResource.getById(2), 2);
 
-        expect(FeedResource.setOrdering).toHaveBeenCalledWith(2, 2);
+        expect(FeedResource.patch).toHaveBeenCalledWith(2, {ordering:2});
         expect(route.reload).toHaveBeenCalled();
     }));
 
@@ -1049,13 +1049,13 @@ describe('NavigationController', function () {
             pinned: false
         });
 
-        FeedResource.setPinned = jasmine.createSpy('pinned');
+        FeedResource.patch = jasmine.createSpy('patch');
 
         var ctrl = $controller('NavigationController');
 
         ctrl.togglePinned(2);
 
-        expect(FeedResource.setPinned).toHaveBeenCalledWith(2, true);
+        expect(FeedResource.patch).toHaveBeenCalledWith(2, {pinned: true});
     }));
 
 
@@ -1095,6 +1095,28 @@ describe('NavigationController', function () {
         expect(FeedResource.toggleFullText).toHaveBeenCalledWith(2);
         expect(route.reload).toHaveBeenCalled();
     }));
+
+
+    it ('should toggle updateModes',
+        inject(function ($controller, FeedResource) {
+
+            FeedResource.add({
+                id: 2,
+                url: 'http://test.com',
+                folderId: 3,
+                ordering: 0,
+                pinned: false,
+                updateMode: 1
+            });
+
+            FeedResource.patch = jasmine.createSpy('patch');
+
+            var ctrl = $controller('NavigationController');
+
+            ctrl.setUpdateMode(2, 0);
+
+            expect(FeedResource.patch).toHaveBeenCalledWith(2, {updateMode: 0});
+        }));
 
 
     it ('should set location on search', inject(function ($controller) {

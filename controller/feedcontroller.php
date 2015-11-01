@@ -293,51 +293,29 @@ class FeedController extends Controller {
         return [];
     }
 
-
-    /**
+    /*
      * @NoAdminRequired
      *
      * @param int $feedId
+     * @param bool $pinned
+     * @param bool $fullTextEnabled
+     * @param int $updateMode
      * @param int $ordering
      */
-    public function ordering($feedId, $ordering) {
+    public function patch($feedId, $pinned=null, $fullTextEnabled=null, $updateMode=null, $ordering=null) {
+        $attributes = [
+            'pinned' => $pinned,
+            'fullTextEnabled' => $fullTextEnabled,
+            'updateMode' => $updateMode,
+            'ordering' => $ordering
+        ];
+
+        $diff = array_filter($attributes, function ($value) {
+            return $value !== null;
+        });
+
         try {
-            $this->feedService->setOrdering($feedId, $ordering, $this->userId);
-        } catch(ServiceNotFoundException $ex) {
-            return $this->error($ex, Http::STATUS_NOT_FOUND);
-        }
-
-        return [];
-    }
-
-
-    /**
-     * @NoAdminRequired
-     *
-     * @param int $feedId
-     * @param bool $fullTextEnabled
-     */
-    public function enableFullText($feedId, $fullTextEnabled=false) {
-        try {
-            $this->feedService->enableFullText($feedId, $fullTextEnabled,
-                                               $this->userId);
-        } catch(ServiceNotFoundException $ex) {
-            return $this->error($ex, Http::STATUS_NOT_FOUND);
-        }
-
-        return [];
-    }
-
-
-    /**
-     * @NoAdminRequired
-     *
-     * @param int $feedId
-     * @param bool $isPinned
-     */
-    public function pinned($feedId, $isPinned=false) {
-        try {
-            $this->feedService->setPinned($feedId, $isPinned, $this->userId);
+            $this->feedService->patch($feedId, $this->userId, $diff);
         } catch(ServiceNotFoundException $ex) {
             return $this->error($ex, Http::STATUS_NOT_FOUND);
         }

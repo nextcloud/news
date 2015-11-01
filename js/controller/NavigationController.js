@@ -298,15 +298,19 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
     };
 
     this.setOrdering = function (feed, ordering) {
-        FeedResource.setOrdering(feed.id, ordering);
+        FeedResource.patch(feed.id, {ordering: ordering});
         $route.reload();
     };
 
     this.togglePinned = function (feedId) {
         var feed = FeedResource.getById(feedId);
         if (feed) {
-            return FeedResource.setPinned(feedId, !feed.pinned);
+            return FeedResource.patch(feedId, {pinned: !feed.pinned});
         }
+    };
+
+    this.setUpdateMode = function (feedId, updateMode) {
+        return FeedResource.patch(feedId, {updateMode: updateMode});
     };
 
     this.toggleFullText = function (feed) {

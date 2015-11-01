@@ -290,11 +290,11 @@ describe('FeedResource', function () {
 
 
     it ('should set the feed ordering', inject(function (FeedResource) {
-        http.expectPOST('base/feeds/3/ordering', {
+        http.expectPATCH('base/feeds/3', {
             ordering: 2
         }).respond(200, {});
 
-        FeedResource.setOrdering(3, 2);
+        FeedResource.patch(3, {ordering: 2});
 
         http.flush();
 
@@ -303,11 +303,11 @@ describe('FeedResource', function () {
 
 
     it ('should set the feed pinning', inject(function (FeedResource) {
-        http.expectPOST('base/feeds/3/pinned', {
-            isPinned: true
+        http.expectPATCH('base/feeds/3', {
+            pinned: true
         }).respond(200, {});
 
-        FeedResource.setPinned(3, true);
+        FeedResource.patch(3, {pinned: true});
 
         http.flush();
 
@@ -316,7 +316,7 @@ describe('FeedResource', function () {
 
 
     it ('should toggle full text', inject(function (FeedResource) {
-        http.expectPOST('base/feeds/3/fulltext', {
+        http.expectPATCH('base/feeds/3', {
             fullTextEnabled: true
         }).respond(200, {});
 

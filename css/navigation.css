@@ -210,3 +210,11 @@
 #app-navigation .icon-unpinned {
     background-image: url('../img/unpinned.svg');
 }
+
+#app-navigation .icon-updatemode-default {
+    background-image: url('../img/updatemodedefault.svg');
+}
+
+#app-navigation .icon-updatemode-unread {
+    background-image: url('../img/updatemodeunread.svg');
+}

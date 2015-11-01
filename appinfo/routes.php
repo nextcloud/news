@@ -42,9 +42,7 @@ return ['routes' => [
 ['name' => 'feed#update', 'url' => '/feeds/{feedId}/update', 'verb' => 'POST'],
 ['name' => 'feed#active', 'url' => '/feeds/active', 'verb' => 'GET'],
 ['name' => 'feed#import', 'url' => '/feeds/import/articles', 'verb' => 'POST'],
-['name' => 'feed#ordering', 'url' => '/feeds/{feedId}/ordering', 'verb' => 'POST'],
-['name' => 'feed#pinned', 'url' => '/feeds/{feedId}/pinned', 'verb' => 'POST'],
-['name' => 'feed#enable_full_text', 'url' => '/feeds/{feedId}/fulltext', 'verb' => 'POST'],
+['name' => 'feed#patch', 'url' => '/feeds/{feedId}', 'verb' => 'PATCH'],
 
 // items
 ['name' => 'item#index', 'url' => '/items', 'verb' => 'GET'],

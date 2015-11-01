@@ -249,6 +249,12 @@ class FeedService extends Service {
                         $dbItem->setBody(
                             $this->purifier->purify($item->getBody())
                         );
+
+                        // update modes: 0 nothing, 1 set unread
+                        if ($existingFeed->getUpdateMode() === 1) {
+                            $dbItem->setUnread();
+                        }
+
                         $this->itemMapper->update($dbItem);
                     }
                 } catch(DoesNotExistException $ex){
@@ -429,47 +435,41 @@ class FeedService extends Service {
         $this->feedMapper->deleteUser($userId);
     }
 
-
     /**
-     * Sets the feed ordering
-     * @param int $id the id of the feed
-     * @param int $ordering 0 for no ordering, 1 for reverse, 2 for normal
-     * @param string $userId the id of the user
+     * @param $feedId
+     * @param $userId
+     * @param $diff an array containing the fields to update, e.g.:
+     *  [
+     *      'ordering' => 1,
+     *      'fullTextEnabled' => true,
+     *      'pinned' => true,
+     *      'updateMode' => 0
+     * ]
+     * @throws ServiceNotFoundException if feed does not exist
      */
-    public function setOrdering($id, $ordering, $userId) {
-        $feed = $this->find($id, $userId);
-        $feed->setOrdering($ordering);
-        $this->feedMapper->update($feed);
-    }
+    public function patch($feedId, $userId, $diff) {
+        $feed = $this->find($feedId, $userId);
 
+        // these attributes just map onto the feed object without extra logic
+        $simplePatches = ['ordering', 'pinned', 'updateMode'];
+        foreach ($simplePatches as $attribute) {
+            if (array_key_exists($attribute, $diff)) {
+                $method = 'set' . ucfirst($attribute);
+                $feed->$method($diff[$attribute]);
+            }
+        }
 
-    /**
-     * Pin or unpin a feed from the top
-     * @param int $id the id of the feed
-     * @param boolean $isPinned if the feed should be pinned
-     * @param string $userId the id of the user
-     */
-    public function setPinned($id, $isPinned, $userId) {
-        $feed = $this->find($id, $userId);
-        $feed->setPinned($isPinned);
+        // special feed updates
+        if (array_key_exists('fullTextEnabled', $diff)) {
+            // disable caching for the next update
+            $feed->setEtag('');
+            $feed->setLastModified(0);
+            $feed->setFullTextEnabled($diff['fullTextEnabled']);
+            $this->feedMapper->update($feed);
+            return $this->update($feedId, $userId, true);
+        }
+
         return $this->feedMapper->update($feed);
-    }
-
-
-    /**
-     * Enable/Disable full text feed and update the feed
-     * @param int $id feed id
-     * @param bool $enableFullText
-     * @param string $userId
-     */
-    public function enableFullText($id, $enableFullText=false, $userId) {
-        $feed = $this->find($id, $userId);
-        // disable caching for the next update
-        $feed->setEtag('');
-        $feed->setLastModified(0);
-        $feed->setFullTextEnabled($enableFullText);
-        $this->feedMapper->update($feed);
-        return $this->update($id, $userId, true);
     }
 
 }

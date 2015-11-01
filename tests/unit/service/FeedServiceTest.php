@@ -362,7 +362,7 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($return, $feed);
     }
 
-    public function testUpdateUpdatesWhenPubdateIsNewer() {
+    private function createUpdateFeed() {
         $feed = new Feed();
         $feed->setId(3);
         $feed->setArticlesPerUpdate(1);
@@ -371,7 +371,10 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
         $feed->setUrlHash('yo');
         $feed->setLastModified(3);
         $feed->setEtag(4);
+        return $feed;
+    }
 
+    private function createUpdateItem() {
         $item = new Item();
         $item->setGuidHash(md5('hi'));
         $item->setFeedId(3);
@@ -379,55 +382,91 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
         $item->setTitle('hey');
         $item->setAuthor('aut');
         $item->setBody('new');
-        $item2 = new Item();
-        $item2->setGuidHash(md5('hi'));
-        $item2->setFeedId(3);
-        $item2->setPubDate(1);
+        $item->setRead();
+        return $item;
+    }
+
+    private function createUpdateItem2() {
+        $item = new Item();
+        $item->setGuidHash(md5('hi'));
+        $item->setFeedId(3);
+        $item->setPubDate(1);
         $item->setTitle('ho');
         $item->setAuthor('auto');
         $item->setBody('old');
-        $items = [$item];
+        $item->setRead();
+        return $item;
+    }
 
-        $ex = new DoesNotExistException('hi');
+    public function testUpdateUpdatesWhenPubdateIsNewer() {
+        $feed = $this->createUpdateFeed();
+        $item = $this->createUpdateItem();
+        $item2 = $this->createUpdateItem2();
+
+        $items = [$item];
 
         $fetchReturn = [$feed, $items];
 
         $this->feedMapper->expects($this->at(0))
             ->method('find')
-            ->with($this->equalTo($feed->getId()),
-                    $this->equalTo($this->user))
             ->will($this->returnValue($feed));
         $this->fetcher->expects($this->once())
             ->method('fetch')
-            ->with(
-                $this->equalTo('http://test'),
-                $this->equalTo(false),
-                $this->equalTo(3),
-                $this->equalTo(4)
-            )
             ->will($this->returnValue($fetchReturn));
         $this->feedMapper->expects($this->at(1))
-            ->method('update')
-            ->with($this->equalTo($feed));
+            ->method('update');
         $this->itemMapper->expects($this->once())
             ->method('findByGuidHash')
-            ->with($this->equalTo($items[0]->getGuidHash()),
-                    $this->equalTo($items[0]->getFeedId()),
-                    $this->equalTo($this->user))
             ->will($this->returnValue($item2));
         $this->purifier->expects($this->at(0))
             ->method('purify')
-            ->with($this->equalTo($items[0]->getBody()))
             ->will($this->returnValue($items[0]->getBody()));
         $this->itemMapper->expects($this->once())
             ->method('update')
-            ->with($this->equalTo($items[0]));
-
+            ->with($this->equalTo($item2));
         $this->feedMapper->expects($this->at(2))
             ->method('find')
-            ->with($feed->getId(), $this->user)
             ->will($this->returnValue($feed));
 
+
+        $return = $this->feedService->update($feed->getId(), $this->user);
+
+        $this->assertEquals($return, $feed);
+    }
+
+
+    public function testUpdateSetsUnreadIfModeIsOne() {
+        $feed = $this->createUpdateFeed();
+        $feed->setUpdateMode(1);
+        $item = $this->createUpdateItem();
+        $item2 = $this->createUpdateItem2();
+        $item3 = $this->createUpdateItem();
+        $item3->setUnread();
+
+        $items = [$item];
+
+        $fetchReturn = [$feed, $items];
+
+        $this->feedMapper->expects($this->at(0))
+            ->method('find')
+            ->will($this->returnValue($feed));
+        $this->fetcher->expects($this->once())
+            ->method('fetch')
+            ->will($this->returnValue($fetchReturn));
+        $this->feedMapper->expects($this->at(1))
+            ->method('update');
+        $this->itemMapper->expects($this->once())
+            ->method('findByGuidHash')
+            ->will($this->returnValue($item2));
+        $this->purifier->expects($this->at(0))
+            ->method('purify')
+            ->will($this->returnValue($items[0]->getBody()));
+        $this->itemMapper->expects($this->once())
+            ->method('update')
+            ->with($this->equalTo($item3));
+        $this->feedMapper->expects($this->at(2))
+            ->method('find')
+            ->will($this->returnValue($feed));
 
         $return = $this->feedService->update($feed->getId(), $this->user);
 
@@ -933,13 +972,17 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
             ->method('update')
             ->with($this->equalTo($feed));
 
-        $this->feedService->setOrdering(3, 2, $this->user);
+        $this->feedService->patch(3, $this->user, ['ordering' => 2]);
     }
 
 
-    public function testEnableFullText() {
-        $feed = Feed::fromRow(['id' => 3, 'etag' => 'a', 'last_modified' => 1,
-                               'full_text_enabled' => false]);
+    public function testPatchEnableFullText() {
+        $feed = Feed::fromRow([
+            'id' => 3,
+            'etag' => 'a',
+            'last_modified' => 1,
+            'full_text_enabled' => false
+        ]);
         $feed2 = Feed::fromRow(['id' => 3]);
         $this->feedMapper->expects($this->at(0))
             ->method('find')
@@ -964,20 +1007,20 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
             '\OCA\News\Service\ServiceNotFoundException'
         );
 
-        $this->feedService->enableFullText(3, true, $this->user);
+        $this->feedService->patch(3, $this->user, ['fullTextEnabled' => true]);
     }
 
 
     /**
      * @expectedException OCA\News\Service\ServiceNotFoundException
      */
-    public function testOrderingDoesNotExist () {
+    public function testPatchDoesNotExist () {
         $feed = Feed::fromRow(['id' => 3]);
         $this->feedMapper->expects($this->once())
             ->method('find')
             ->will($this->throwException(new DoesNotExistException('')));
 
-        $this->feedService->setOrdering(3, 2, $this->user);
+        $this->feedService->patch(3, $this->user);
     }
 
 
@@ -994,7 +1037,7 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
             ->method('update')
             ->with($this->equalTo($feed));
 
-        $this->feedService->setPinned(3, true, $this->user);
+        $this->feedService->patch(3, $this->user, ['pinned' => true]);
     }
 
 

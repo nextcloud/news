@@ -1,5 +1,6 @@
 owncloud-news (6.0.7)
 * **Enhancement**: Update articles if the pubdate is newer than the current one, #877
+* **Enhancement**: Add feed setting to mark updated articles as unread, #882
 
 owncloud-news (6.0.6)
 * **Enhancement**: Align settings text properly, #829

@@ -843,15 +843,19 @@ app.controller('NavigationController',
     };
 
     this.setOrdering = function (feed, ordering) {
-        FeedResource.setOrdering(feed.id, ordering);
+        FeedResource.patch(feed.id, {ordering: ordering});
         $route.reload();
     };
 
     this.togglePinned = function (feedId) {
         var feed = FeedResource.getById(feedId);
         if (feed) {
-            return FeedResource.setPinned(feedId, !feed.pinned);
+            return FeedResource.patch(feedId, {pinned: !feed.pinned});
         }
+    };
+
+    this.setUpdateMode = function (feedId, updateMode) {
+        return FeedResource.patch(feedId, {updateMode: updateMode});
     };
 
     this.toggleFullText = function (feed) {
@@ -1316,8 +1320,8 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
 
         if (feed) {
             feed.ordering = ordering;
-            var url = this.BASE_URL + '/feeds/' + feedId + '/ordering';
-            return this.http.post(url, {
+            var url = this.BASE_URL + '/feeds/' + feedId;
+            return this.http.patch(url, {
                 ordering: ordering
             });
         }
@@ -1329,10 +1333,23 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
 
         if (feed) {
             feed.pinned = isPinned;
-            var url = this.BASE_URL + '/feeds/' + feedId + '/pinned';
-            return this.http.post(url, {
-                isPinned: isPinned
+            var url = this.BASE_URL + '/feeds/' + feedId;
+            return this.http.patch(url, {
+                pinned: isPinned
             });
+        }
+    };
+
+
+    FeedResource.prototype.patch = function (feedId, diff) {
+        var feed = this.getById(feedId);
+
+        if (feed) {
+            Object.keys(diff).forEach(function(key) {
+                feed[key] = diff[key];
+            });
+            var url = this.BASE_URL + '/feeds/' + feedId;
+            return this.http.patch(url, diff);
         }
     };
 
@@ -1340,12 +1357,7 @@ app.factory('FeedResource', ["Resource", "$http", "BASE_URL", "$q", function (Re
     FeedResource.prototype.toggleFullText = function (feedId) {
         var feed = this.getById(feedId);
 
-        feed.fullTextEnabled = !feed.fullTextEnabled;
-
-        var url = this.BASE_URL + '/feeds/' + feedId + '/fulltext';
-        return this.http.post(url, {
-            fullTextEnabled: feed.fullTextEnabled
-        });
+        return this.patch(feedId, {fullTextEnabled: !feed.fullTextEnabled});
     };
 
 

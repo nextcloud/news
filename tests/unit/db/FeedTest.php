@@ -33,6 +33,7 @@ class FeedTest extends \PHPUnit_Framework_TestCase {
         $feed->setOrdering(2);
         $feed->setFullTextEnabled(true);
         $feed->setPinned(true);
+        $feed->setUpdateMode(1);
         return $feed;
     }
 
@@ -75,7 +76,8 @@ class FeedTest extends \PHPUnit_Framework_TestCase {
             'location' => 'http://google.at',
             'ordering' => 2,
             'fullTextEnabled' => true,
-            'pinned' => true
+            'pinned' => true,
+            'updateMode' => 1
         ], $feed->jsonSerialize());
     }
 

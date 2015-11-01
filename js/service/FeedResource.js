@@ -322,8 +322,8 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
 
         if (feed) {
             feed.ordering = ordering;
-            var url = this.BASE_URL + '/feeds/' + feedId + '/ordering';
-            return this.http.post(url, {
+            var url = this.BASE_URL + '/feeds/' + feedId;
+            return this.http.patch(url, {
                 ordering: ordering
             });
         }
@@ -335,10 +335,23 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
 
         if (feed) {
             feed.pinned = isPinned;
-            var url = this.BASE_URL + '/feeds/' + feedId + '/pinned';
-            return this.http.post(url, {
-                isPinned: isPinned
+            var url = this.BASE_URL + '/feeds/' + feedId;
+            return this.http.patch(url, {
+                pinned: isPinned
             });
+        }
+    };
+
+
+    FeedResource.prototype.patch = function (feedId, diff) {
+        var feed = this.getById(feedId);
+
+        if (feed) {
+            Object.keys(diff).forEach(function(key) {
+                feed[key] = diff[key];
+            });
+            var url = this.BASE_URL + '/feeds/' + feedId;
+            return this.http.patch(url, diff);
         }
     };
 
@@ -346,12 +359,7 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
     FeedResource.prototype.toggleFullText = function (feedId) {
         var feed = this.getById(feedId);
 
-        feed.fullTextEnabled = !feed.fullTextEnabled;
-
-        var url = this.BASE_URL + '/feeds/' + feedId + '/fulltext';
-        return this.http.post(url, {
-            fullTextEnabled: feed.fullTextEnabled
-        });
+        return this.patch(feedId, {fullTextEnabled: !feed.fullTextEnabled});
     };
 
 

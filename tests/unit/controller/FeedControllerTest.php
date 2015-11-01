@@ -507,50 +507,30 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
     }
 
-
-    public function testOrdering() {
+    public function testPatch() {
+        $expected = [
+            'pinned' => true,
+            'fullTextEnabled' => true,
+            'updateMode' => 1
+        ];
         $this->feedService->expects($this->once())
-            ->method('setOrdering')
+            ->method('patch')
             ->with($this->equalTo(4),
-                    $this->equalTo(2),
-                    $this->equalTo($this->user));
-
-        $this->controller->ordering(4, 2);
-    }
-
-
-    public function testEnableFullText() {
-        $this->feedService->expects($this->once())
-            ->method('enableFullText')
-            ->with($this->equalTo(4),
-                    $this->equalTo(true),
-                    $this->equalTo($this->user))
+                    $this->equalTo($this->user),
+                    $this->equalTo($expected))
             ->will($this->returnValue(1));
 
-        $this->controller->enableFullText(4, true);
+        $this->controller->patch(4, true, true, 1);
     }
 
-
-    public function testPinned() {
-        $this->feedService->expects($this->once())
-            ->method('setPinned')
-            ->with($this->equalTo(4),
-                    $this->equalTo(true),
-                    $this->equalTo($this->user))
-            ->will($this->returnValue(1));
-
-        $this->controller->pinned(4, true);
-    }
-
-
-    public function testOrderingDoesNotExist(){
+    public function testPatchDoesNotExist(){
         $msg = 'hehe';
 
         $this->feedService->expects($this->once())
-            ->method('setOrdering')
+            ->method('patch')
             ->will($this->throwException(new ServiceNotFoundException($msg)));
 
-        $response = $this->controller->ordering(4, 2);
+        $response = $this->controller->patch(4, 2);
         $params = json_decode($response->render(), true);
 
         $this->assertEquals($msg, $params['message']);
