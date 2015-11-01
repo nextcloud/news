@@ -421,13 +421,9 @@ class FeedService extends Service {
     public function patch($feedId, $userId, $diff=[]) {
         $feed = $this->find($feedId, $userId);
 
-        // these attributes just map onto the feed object without extra logic
-        $simplePatches = ['ordering', 'pinned', 'updateMode', 'title', 'folderId'];
-        foreach ($simplePatches as $attribute) {
-            if (array_key_exists($attribute, $diff)) {
-                $method = 'set' . ucfirst($attribute);
-                $feed->$method($diff[$attribute]);
-            }
+        foreach ($diff as $attribute => $value) {
+            $method = 'set' . ucfirst($attribute);
+            $feed->$method($value);
         }
 
         // special feed updates
@@ -435,7 +431,6 @@ class FeedService extends Service {
             // disable caching for the next update
             $feed->setEtag('');
             $feed->setLastModified(0);
-            $feed->setFullTextEnabled($diff['fullTextEnabled']);
             $this->feedMapper->update($feed);
             return $this->update($feedId, $userId, true);
         }
