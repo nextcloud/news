@@ -6,12 +6,10 @@ set -e
 # update checksums
 cd js
 grunt js-unit
-grunt cachebuster
 cd ..
 
 phpunit -c phpunit.xml
 phpunit -c phpunit.integration.xml
-git add appinfo/checksum.json
 
 python3 bin/tools/generate_authors.py
 git add AUTHORS.md

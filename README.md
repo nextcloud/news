@@ -117,9 +117,7 @@ We switched to a different feed parsing library which creates article ids differ
 ## FAQ
 
 ### I am getting Exception: Some\\Class does not exist erros in my owncloud.log
-This is very often caused by missing or old files, e.g. by failing to upload all of the News app' files or errors during installation. Before you report a bug, please run the diagnostic tool to check which files are missing or out of date:
-
-    ./occ news:verify-install
+This is very often caused by missing or old files, e.g. by failing to upload all of the News app' files or errors during installation. Before you report a bug, please recheck if all files from the archive are in place and accessible.
 
 ### How do I reset the News app
 Delete the folder **owncloud/apps/news/** and **owncloud/data/news/**, then connect to your database and run the following commands where **oc\_** is your table prefix (defaults to oc\_)
@@ -186,10 +184,6 @@ The following commands are available when using the **occ** file in the top dire
 * **Show help and available commands**:
 
   ./occ
-
-* **Verify installation**:
-
-  ./occ news:verify-install
 
 * **Generate search indices**:
 

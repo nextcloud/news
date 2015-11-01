@@ -24,7 +24,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-ng-annotate');
     grunt.loadNpmTasks('grunt-protractor-runner');
     grunt.loadNpmTasks('grunt-protractor-webdriver');
-    grunt.loadNpmTasks('grunt-cachebuster');
 
     grunt.initConfig({
         meta: {
@@ -62,8 +61,7 @@ module.exports = function (grunt) {
         uglify: {
             app: {
                 files: {
-                    '<%= meta.production %>app.min.js':
-                        ['<%= meta.production %>app.js']
+                    '<%= meta.production %>app.min.js': ['<%= meta.production %>app.js']
                 }
             },
             options: {
@@ -75,16 +73,18 @@ module.exports = function (grunt) {
                 sourceMap: true
             },
             news: {
-                files: {'../css/news.min.css': [
-                    '../css/app.css',
-                    '../css/content.css',
-                    '../css/custom.css',
-                    '../css/shortcuts.css',
-                    '../css/mobile.css',
-                    '../css/navigation.css',
-                    '../css/settings.css',
-                    '../css/explore.css'
-                ]}
+                files: {
+                    '../css/news.min.css': [
+                        '../css/app.css',
+                        '../css/content.css',
+                        '../css/custom.css',
+                        '../css/shortcuts.css',
+                        '../css/mobile.css',
+                        '../css/navigation.css',
+                        '../css/settings.css',
+                        '../css/explore.css'
+                    ]
+                }
             }
         },
         wrap: {
@@ -193,9 +193,7 @@ module.exports = function (grunt) {
         },
         /* jshint camelcase: false */
         protractor_webdriver: {
-            app: {
-
-            }
+            app: {}
         },
         protractor: {
             firefox: {
@@ -219,65 +217,6 @@ module.exports = function (grunt) {
                     open: true,
                     base: '../../../'
                 }
-            }
-        },
-        cachebuster: {
-            build: {
-                options: {
-                    format: 'json',
-                    basedir: '..'
-                },
-                src: [
-                    '../**',
-                    // js
-                    '!../js/**',
-                    '../js/build/*.min.js',
-                    '../js/vendor/**/*.min.js',
-                    '!../js/vendor/jquery/**',
-                    '!../js/vendor/js-url/lib/**',
-                    '!../js/vendor/angular-mocks/**',
-                    // css
-                    '!../css/**',
-                    '../css/*.min.css',
-                    // l10n
-                    '!../l10n/**',
-                    // appinfo
-                    '!../appinfo/checksum.json',
-                    // build
-                    '!../build/**',
-                    // vendor
-                    '!../vendor/ezyang/htmlpurifier/**',
-                    '../vendor/ezyang/htmlpurifier/**/*.php',
-                    '../vendor/ezyang/htmlpurifier/**/*.json',
-                    '!../vendor/ezyang/htmlpurifier/extras/**',
-                    '!../vendor/ezyang/htmlpurifier/maintenance/**',
-                    '!../vendor/ezyang/htmlpurifier/plugins/**',
-                    '!../vendor/ezyang/htmlpurifier/maintenance/**',
-                    '!../vendor/ezyang/htmlpurifier/configdoc/**',
-                    '!../vendor/ezyang/htmlpurifier/benchmarks/**',
-                    '!../vendor/ezyang/htmlpurifier/smoketests/**',
-                    '!../vendor/fguillot/picofeed/**',
-                    '../vendor/fguillot/picofeed/**/*.php',
-                    '../vendor/fguillot/picofeed/**/*.json',
-                    '!../vendor/pear/net_url2/**',
-                    '../vendor/pear/net_url2/**/*.php',
-                    '../vendor/pear/net_url2/**/*.json',
-                    // bin
-                    '!../bin/updater/dist',
-                    '!../**/*.pyc',
-                    '!../**/PKG_INFO',
-                    '!../**/__pycache__',
-                    '!../bin/git/**',
-                    // generic
-                    '!../**/*.md',
-                    '!../**/phpunit*',
-                    '!../**/*.log',
-                    '!../**/*.sw',
-                    '!../**/Makefile',
-                    '!../**/docs/**',
-                    '!../**/tests/**',
-                ],
-                dest: '../appinfo/checksum.json'
             }
         }
     });
