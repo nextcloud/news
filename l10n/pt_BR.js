@@ -92,6 +92,8 @@ OC.L10N.register(
     "Normal feed ordering" : "Ordenação de alimentação normal",
     "Enable full text feed fetching" : "Habilitar recuperação completa de texto de alimentação",
     "Disable full text feed fetching" : "Desabilitar recuperação completa de texto de alimentação",
+    "Keep updated articles as is" : "Mantenha artigos atualizados como são",
+    "Mark updated articles unread" : "Marcar artigos atualizados como não lidos",
     "Rename feed" : "Renomear alimentação",
     "Delete feed" : "Excluir feed",
     "Mark all articles read" : "Marcar todos os artigos lidos",
