@@ -90,6 +90,8 @@
     "Normal feed ordering" : "Triada normala del flux",
     "Enable full text feed fetching" : "Activar lo cargament del còs dels articles",
     "Disable full text feed fetching" : "Desactivar lo cargament del còs dels articles",
+    "Keep updated articles as is" : "Marcar los articles meses a jorn tals coma",
+    "Mark updated articles unread" : "Marcar los articles meses a jorn coma pas legits",
     "Rename feed" : "Renomenar lo flux",
     "Delete feed" : "Suprimir lo flux",
     "Mark all articles read" : "Marcar totes los articles coma legits",
