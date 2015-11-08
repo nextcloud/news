@@ -92,6 +92,8 @@ OC.L10N.register(
     "Normal feed ordering" : "Normale feedvolgorde",
     "Enable full text feed fetching" : "Inschakelen ophalen volledige tekst",
     "Disable full text feed fetching" : "Uitschakelen ophalen volledige tekst",
+    "Keep updated articles as is" : "Hou de bijgewerkte artkelen zoals ze zijn",
+    "Mark updated articles unread" : "Markeer bijgewerkte artikelen als ongelezen",
     "Rename feed" : "Hernoemen feed",
     "Delete feed" : "Verwijder feed",
     "Mark all articles read" : "Markeer alle artikelen als gelezen",

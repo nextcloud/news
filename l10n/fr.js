@@ -92,7 +92,7 @@ OC.L10N.register(
     "Normal feed ordering" : "Ordre actuel du flux: chronologique",
     "Enable full text feed fetching" : "Activer le chargement intégral du corps des articles",
     "Disable full text feed fetching" : "Désactiver le chargement intégral du corps des articles",
-    "Keep updated articles as is" : "Marquer les articles mis à jour tels quels",
+    "Keep updated articles as is" : "Garder les articles mis à jour tels quels",
     "Mark updated articles unread" : "Marquer les articles mis à jour comme non lus",
     "Rename feed" : "Renommer le flux",
     "Delete feed" : "Supprimer le flux",
