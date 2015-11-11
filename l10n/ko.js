@@ -92,6 +92,8 @@ OC.L10N.register(
     "Normal feed ordering" : "피드 일반 정렬",
     "Enable full text feed fetching" : "피드 전문 가져오기 사용",
     "Disable full text feed fetching" : "피드 전문 가져오기 사용 안 함",
+    "Keep updated articles as is" : "업데이트된 글을 그대로 유지",
+    "Mark updated articles unread" : "업데이트된 글을 읽지 않은 것으로 표시",
     "Rename feed" : "피드 이름 바꾸기",
     "Delete feed" : "피드 삭제",
     "Mark all articles read" : "모두 읽은 것으로 표시",
