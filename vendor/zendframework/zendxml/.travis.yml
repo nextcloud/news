@@ -1,0 +1,23 @@
+language: php
+php:
+  - 5.3
+  - 5.4
+  - 5.5
+  - 5.6
+  - hhvm
+ 
+matrix:
+    allow_failures:
+        - php: hhvm
+
+before_script:
+  - composer self-update
+  - composer install --dev
+
+script:
+  - ./vendor/bin/phpunit -c ./tests
+  - ./vendor/bin/phpcs --standard=PSR2 --ignore=tests/Bootstrap.php library tests
+  
+notifications:
+  irc: "irc.freenode.org#zftalk.dev"
+  email: false

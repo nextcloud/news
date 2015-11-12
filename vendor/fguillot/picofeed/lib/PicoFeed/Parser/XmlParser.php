@@ -2,9 +2,11 @@
 
 namespace PicoFeed\Parser;
 
-use Closure;
 use DomDocument;
 use SimpleXmlElement;
+use Exception;
+
+use ZendXml\Security;
 
 /**
  * XML parser class.
@@ -26,64 +28,7 @@ class XmlParser
      */
     public static function getSimpleXml($input)
     {
-        $dom = self::getDomDocument($input);
-
-        if ($dom !== false) {
-            $simplexml = simplexml_import_dom($dom);
-
-            if (!$simplexml instanceof SimpleXmlElement) {
-                return false;
-            }
-
-            return $simplexml;
-        }
-
-        return false;
-    }
-
-    /**
-     * Scan the input for XXE attacks.
-     *
-     * @param string  $input    Unsafe input
-     * @param Closure $callback Callback called to build the dom.
-     *                          Must be an instance of DomDocument and receives the input as argument
-     *
-     * @return bool|DomDocument False if an XXE attack was discovered,
-     *                          otherwise the return of the callback
-     */
-    private static function scanInput($input, Closure $callback)
-    {
-        $isRunningFpm = substr(php_sapi_name(), 0, 3) === 'fpm';
-
-        if ($isRunningFpm) {
-
-            // If running with PHP-FPM and an entity is detected we refuse to parse the feed
-            // @see https://bugs.php.net/bug.php?id=64938
-            if (strpos($input, '<!ENTITY') !== false) {
-                return false;
-            }
-        } else {
-            $entityLoaderDisabled = libxml_disable_entity_loader(true);
-        }
-
-        libxml_use_internal_errors(true);
-
-        $dom = $callback($input);
-
-        // Scan for potential XEE attacks using ENTITY
-        foreach ($dom->childNodes as $child) {
-            if ($child->nodeType === XML_DOCUMENT_TYPE_NODE) {
-                if ($child->entities->length > 0) {
-                    return false;
-                }
-            }
-        }
-
-        if ($isRunningFpm === false) {
-            libxml_disable_entity_loader($entityLoaderDisabled);
-        }
-
-        return $dom;
+        return self::scan($input);
     }
 
     /**
@@ -101,12 +46,7 @@ class XmlParser
             return false;
         }
 
-        $dom = self::scanInput($input, function ($in) {
-            $dom = new DomDocument();
-            $dom->loadXml($in, LIBXML_NONET);
-
-            return $dom;
-        });
+        $dom = self::scan($input, new DOMDocument());
 
         // The document is empty, there is probably some parsing errors
         if ($dom && $dom->childNodes->length === 0) {
@@ -114,6 +54,22 @@ class XmlParser
         }
 
         return $dom;
+    }
+
+    /**
+     * Small wrapper around ZendXml to turn their exceptions into picoFeed
+     * exceptions
+     * @param $input the xml to load
+     * @param $dom pass in a dom document or use null/omit if simpleXml should
+     * be used
+     */
+    private static function scan($input, $dom=null)
+    {
+        try {
+            return Security::scan($input, $dom);
+        } catch(\ZendXml\Exception\RuntimeException $e) {
+            throw new XmlEntityException($e->getMessage());
+        }
     }
 
     /**
@@ -127,27 +83,21 @@ class XmlParser
      */
     public static function getHtmlDocument($input)
     {
+        $dom = new DomDocument();
+
         if (empty($input)) {
-            return new DomDocument();
+            return $dom;
         }
+
+        libxml_use_internal_errors(true);
 
         if (version_compare(PHP_VERSION, '5.4.0', '>=')) {
-            $callback = function ($in) {
-                $dom = new DomDocument();
-                $dom->loadHTML($in, LIBXML_NONET);
-
-                return $dom;
-            };
+            $dom->loadHTML($input, LIBXML_NONET);
         } else {
-            $callback = function ($in) {
-                $dom = new DomDocument();
-                $dom->loadHTML($in);
-
-                return $dom;
-            };
+            $dom->loadHTML($input);
         }
 
-        return self::scanInput($input, $callback);
+        return $dom;
     }
 
     /**

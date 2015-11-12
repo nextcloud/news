@@ -3,11 +3,13 @@
 return array(
     'grabber' => array(
         '%.*%' => array(
-            'test_url' => 'http://www.neustadt-ticker.de/36480/aktuell/nachrichten/buergerbuero-neustadt-ab-heute-wieder-geoeffnet',
-            'body' => array('//div[contains(@class,"article")]/div[@class="PostContent" and *[not(contains(@class, "navigation"))]]'),
+            'test_url' => 'http://www.neustadt-ticker.de/41302/alltag/kultur/demo-auf-der-boehmischen',
+            'body' => array(
+                '//div[@class="entry-content"]',
+            ),
             'strip' => array(
-                '//*[@id="wp_rp_first"]',
-                '//*[@class="yarpp-related"]',
+                '//*[contains(@class, "sharedaddy")]',
+                '//*[contains(@class, "yarpp-related")]',
             ),
         ),
     ),
