@@ -49,6 +49,7 @@ appstore: clean
 	--exclude=$(project_dir)/js/tests \
 	--exclude=$(project_dir)/js/vendor/jquery \
 	--exclude=$(project_dir)/js/vendor/angular-mocks \
+	--exclude=$(project_dir)/.idea \
 	--exclude=$(project_dir)/.travis.yml \
 	--exclude=$(project_dir)/.scrutinizer.yml \
 	--exclude=$(project_dir)/phpunit*xml \
