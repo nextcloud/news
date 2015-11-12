@@ -1,5 +1,35 @@
 # es6-shim x.x.x (not yet released)
 
+# es6-shim 0.33.12 (11 Nov 2015)
+* [Fix] IE 8: more NFE madness.
+* [Dev Deps] update `es5-shim`
+* [Docs] removing now-fixed `Number` caveat
+* [Docs] use assertions so `evalmd` will test the readme better.
+* [Docs] fix incorrect isFinite note (#373)
+
+# es6-shim 0.33.11 (9 Nov 2015)
+* [Fix] handle future change of RegExp.prototype not being a regex (#370, #371)
+* [Fix] disallow invalid hex strings in `Number` (#369)
+* [Tests] Tweak "polluted prototype" approach
+* [Dev Deps] update `chai`, `es5-shim`, `eslint`, `@ljharb/eslint-config`, `jscs`
+
+# es6-shim 0.33.10 (2 Nov 2015)
+* [Fix] the `Number` constructor properly trims (or not) whitespace characters (#368)
+* [Fix] `Number('0b12')` and `Number('0o18')` should both be `NaN` (#366)
+* [Tests] Fix npm upgrades in older nodes
+* [Tests] add `npm run tests-only`
+* [Tests] on `node` `v5.0`
+* [Tests] ensure `JSON.stringify` has the right name
+* [Tests] add `npm run eslint`
+* [Dev Deps] update `es5-shim`, `jscs`
+* [Cleanup] Rearrange things so that they’re defined before they’re used
+* [Cleanup] Don't reassign to function or catch parameters
+* [Cleanup] Remove unused variables
+* [Refactor] String#trim shim should use `defineProperty`, and check more non-whitespace chars
+
+# es6-shim 0.33.9 (29 Oct 2015)
+* [Fix] IE 8: `Number(new Number(1))` was throwing. More NFE madness. (#365)
+
 # es6-shim 0.33.8 (23 Oct 2015)
 * [Fix] IE 8: `Promise.resolve(2)` was throwing. More named function expression madness.
 * [Tests] Reflect: Don't attempt to define properties on this test object unless we're in true ES5.
