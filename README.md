@@ -6,6 +6,8 @@
 
 The News app is an RSS/Atom feed aggregator. It offers a [RESTful API](https://github.com/owncloud/news/wiki/API-1.2) for app developers. The source code is [available on GitHub](https://github.com/owncloud/news)
 
+![](https://apps.owncloud.com/CONTENT/content-pre1/168040-1.png)
+
 For further developer and user documentation please visit [the wiki](https://github.com/owncloud/news/wiki)
 
 ## Maintainers

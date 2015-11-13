@@ -61,7 +61,9 @@ module.exports = function (grunt) {
         uglify: {
             app: {
                 files: {
-                    '<%= meta.production %>app.min.js': ['<%= meta.production %>app.js']
+                    '<%= meta.production %>app.min.js': [
+                        '<%= meta.production %>app.js'
+                    ]
                 }
             },
             options: {
