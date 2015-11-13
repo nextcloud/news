@@ -92,7 +92,6 @@ To update the News app use change into the **owncloud/apps/news/** directory usi
 ## Performance Notices
 * Use MySQL or PostgreSQL for better database performance
 * Use the [updater script to thread and speed up the update](https://github.com/owncloud/news/wiki/Custom-Updater)
-* Feed updates on plattforms using **php-fpm are significantly slower** due to workarounds which are needed to deal with [libxml not being threadsafe](https://bugs.php.net/bug.php?id=64938)
 
 ## Updating Notices
 
