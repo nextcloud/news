@@ -1,13 +1,15 @@
 <li ng-class="{
         active: Navigation.isFeedActive(feed.id),
-        unread: Navigation.isFeedUnread(feed.id)
+        unread: Navigation.isFeedUnread(feed.id),
+        updateerror: feed.updateErrorCount>10
     }"
     ng-repeat="feed in Navigation.getFeedsOfFolder(<?php p($_['folderId']); ?>)
         | orderBy:['-pinned', 'title.toLowerCase()'] track by feed.url"
     ng-show="Navigation.isFeedUnread(feed.id)
             || Navigation.isShowAll()
             || Navigation.isFeedActive(feed.id)
-            || !feed.id"
+            || !feed.id
+            || feed.updateErrorCount>10"
     data-id="{{ feed.id }}"
     class="feed with-counter with-menu animate-show"
     news-draggable-disable="{{
@@ -31,7 +33,7 @@
         ng-href="#/items/feeds/{{ feed.id }}/"
         class="title"
         ng-class="{'icon-rss': !feed.faviconLink}"
-        title="{{ feed.title }}">
+        title="{{ feed.updateErrorCount > 10 ? '<?php p($l->t('Feed failed to update more than 10 times')); ?>': feed.title }}">
        {{ feed.title }}
     </a>
 

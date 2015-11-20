@@ -160,8 +160,9 @@ class FeedService extends Service {
             try {
                 $this->update($feed->getId(), $feed->getUserId());
             } catch(\Exception $ex){
-                $this->logger->debug(
-                    'Could not update feed ' . $ex->getMessage(),
+                // something is really wrong here, log it
+                $this->logger->error(
+                    'Unexpected error when updating feed ' . $ex->getMessage(),
                     $this->loggerParams
                 );
             }
@@ -220,7 +221,6 @@ class FeedService extends Service {
             $existingFeed->setLastModified($fetchedFeed->getLastModified());
             $existingFeed->setEtag($fetchedFeed->getEtag());
             $existingFeed->setLocation($fetchedFeed->getLocation());
-            $this->feedMapper->update($existingFeed);
 
             // insert items in reverse order because the first one is
             // usually the newest item
@@ -265,15 +265,16 @@ class FeedService extends Service {
                 }
             }
 
+            // mark feed as successfully updated
+            $existingFeed->setUpdateErrorCount(0);
+
         } catch(FetcherException $ex){
-            // failed updating is not really a problem, so only log it
-            $this->logger->debug(
-                'Can not update feed with url ' . $existingFeed->getUrl() .
-                ' and location ' . $existingFeed->getLocation() .
-                ': ' . $ex->getMessage(),
-                $this->loggerParams
+            $existingFeed->setUpdateErrorCount(
+                $existingFeed->getUpdateErrorCount()+1
             );
         }
+
+        $this->feedMapper->update($existingFeed);
 
         return $this->find($feedId, $userId);
     }

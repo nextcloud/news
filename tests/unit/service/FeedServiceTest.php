@@ -509,6 +509,12 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
     public function testUpdateFails(){
         $feed = new Feed();
         $feed->setId(3);
+        $feed->setUpdateErrorCount(0);
+
+        $exptectedFeed = new Feed();
+        $exptectedFeed->setId(3);
+        $exptectedFeed->setUpdateErrorCount(1);
+
         $ex = new FetcherException('');
 
         $this->feedMapper->expects($this->at(0))
@@ -523,13 +529,18 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
             ->method('debug');
 
         $this->feedMapper->expects($this->at(1))
+            ->method('update')
+            ->with($exptectedFeed)
+            ->will($this->returnValue($exptectedFeed));
+
+        $this->feedMapper->expects($this->at(2))
             ->method('find')
             ->with($feed->getId(), $this->user)
-            ->will($this->returnValue($feed));
+            ->will($this->returnValue($exptectedFeed));
 
         $return = $this->feedService->update($feed->getId(), $this->user);
 
-        $this->assertEquals($return, $feed);
+        $this->assertEquals($return, $exptectedFeed);
     }
 
 

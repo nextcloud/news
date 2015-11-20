@@ -34,6 +34,7 @@ class FeedTest extends \PHPUnit_Framework_TestCase {
         $feed->setFullTextEnabled(true);
         $feed->setPinned(true);
         $feed->setUpdateMode(1);
+        $feed->setUpdateErrorCount(2);
         return $feed;
     }
 
@@ -77,7 +78,8 @@ class FeedTest extends \PHPUnit_Framework_TestCase {
             'ordering' => 2,
             'fullTextEnabled' => true,
             'pinned' => true,
-            'updateMode' => 1
+            'updateMode' => 1,
+            'updateErrorCount' => 2
         ], $feed->jsonSerialize());
     }
 

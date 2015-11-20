@@ -28,6 +28,7 @@ use \OCP\AppFramework\Db\Entity;
  * @method string getTitle()
  * @method string getAuthor()
  * @method string getRtl()
+ * @method string getFingerprint()
  * @method integer getPubDate()
  * @method void setPubDate(integer $value)
  * @method string getBody()
@@ -42,6 +43,7 @@ use \OCP\AppFramework\Db\Entity;
  * @method void setRtl(boolean $value)
  * @method integer getLastModified()
  * @method void setLastModified(integer $value)
+ * @method void setFingerprint(string $value)
  */
 class Item extends Entity implements IAPI, \JsonSerializable {
 

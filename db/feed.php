@@ -52,6 +52,8 @@ use \OCP\AppFramework\Db\Entity;
  * @method void setDeletedAt(integer $value)
  * @method integer getArticlesPerUpdate()
  * @method void setArticlesPerUpdate(integer $value)
+ * @method integer getUpdateErrorCount()
+ * @method void setUpdateErrorCount(integer $value)
  */
 class Feed extends Entity implements IAPI, \JsonSerializable {
 
@@ -76,6 +78,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
     protected $fullTextEnabled;
     protected $pinned;
     protected $updateMode;
+    protected $updateErrorCount;
 
     public function __construct(){
         $this->addType('parentId', 'integer');
@@ -89,6 +92,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
         $this->addType('ordering', 'integer');
         $this->addType('fullTextEnabled', 'boolean');
         $this->addType('updateMode', 'integer');
+        $this->addType('updateErrorCount', 'integer');
     }
 
 
@@ -114,7 +118,8 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
             'ordering',
             'fullTextEnabled',
             'pinned',
-            'updateMode'
+            'updateMode',
+            'updateErrorCount'
         ]);
 
         $url = parse_url($this->link)['host'];

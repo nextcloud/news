@@ -218,3 +218,7 @@
 #app-navigation .icon-updatemode-unread {
     background-image: url('../img/updatemodeunread.svg');
 }
+
+#app-navigation .updateerror a {
+    background-color: orange !important;
+}
