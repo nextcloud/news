@@ -61,6 +61,7 @@ class Item extends Entity implements IAPI, \JsonSerializable {
     protected $lastModified;
     protected $searchIndex;
     protected $rtl;
+    protected $fingerprint;
 
     public function __construct(){
         $this->addType('pubDate', 'integer');
@@ -214,6 +215,11 @@ class Item extends Entity implements IAPI, \JsonSerializable {
                 $this->getUrl()
             )
         );
+        $this->setFingerprint($this->computeFingerprint());
+    }
+
+    private function computeFingerprint() {
+        return md5($this->getTitle() . $this->getUrl() . $this->getBody());
     }
 
     public function setUrl($url) {

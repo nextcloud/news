@@ -289,5 +289,14 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
             $item->getBody());
     }
 
+    public function testComputeFingerPrint() {
+        $item = new Item();
+        $item->setBody($body);
+        $item->setTitle($title);
+        $item->setUrl($url);
+        $item->generateSearchIndex();
+
+        $this->assertEquals(md5($title . $url . $body), $item->getFingerprint());
+    }
 
 }

@@ -227,6 +227,12 @@
                 <length>32</length>
             </field>
             <field>
+                <name>fingerprint</name>
+                <type>text</type>
+                <notnull>false</notnull>
+                <length>32</length>
+            </field>
+            <field>
                 <name>rtl</name>
                 <type>boolean</type>
                 <notnull>true</notnull>
@@ -302,6 +308,13 @@
                 <name>news_items_feed_id_index</name>
                 <field>
                     <name>feed_id</name>
+                </field>
+            </index>
+
+            <index>
+                <name>news_items_fingerprint_index</name>
+                <field>
+                    <name>fingerprint</name>
                 </field>
             </index>
 
