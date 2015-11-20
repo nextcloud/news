@@ -290,6 +290,9 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testComputeFingerPrint() {
+        $title = 'a';
+        $body = 'b';
+        $url = 'http://google.com';
         $item = new Item();
         $item->setBody($body);
         $item->setTitle($title);
