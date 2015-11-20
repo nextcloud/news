@@ -1,5 +1,7 @@
 # README
 
+[![Join the chat at https://gitter.im/owncloud/news](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/owncloud/news?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build Status](https://travis-ci.org/owncloud/news.svg?branch=master)](https://travis-ci.org/owncloud/news)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/owncloud/news/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/owncloud/news/?branch=master)
 
