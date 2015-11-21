@@ -496,7 +496,7 @@ abstract class Client
     }
 
     /**
-     * Set the mximum number of HTTP redirections.
+     * Set the maximum number of HTTP redirections.
      *
      * @param int $max Maximum
      *

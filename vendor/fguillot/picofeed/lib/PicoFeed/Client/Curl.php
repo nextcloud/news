@@ -89,27 +89,6 @@ class Curl extends Client
     }
 
     /**
-     * cURL callback to passthrough the HTTP status header to the client.
-     *
-     * @param resource $ch     cURL handler
-     * @param string   $buffer Header line
-     *
-     * @return int Length of the buffer
-     */
-    public function passthroughHeaders($ch, $buffer)
-    {
-        list($status, $headers) = HttpHeaders::parse(array($buffer));
-
-        if ($status !== 0) {
-            header(':', true, $status);
-        } elseif (isset($headers['Content-Type'])) {
-            header($buffer);
-        }
-
-        return $this->readHeaders($ch, $buffer);
-    }
-
-    /**
      * cURL callback to passthrough the HTTP body to the client.
      *
      * If the function return -1, curl stop to read the HTTP response
@@ -121,9 +100,27 @@ class Curl extends Client
      */
     public function passthroughBody($ch, $buffer)
     {
+        // do it only at the beginning of a transmission
+        if ($this->body_length === 0) {
+            list($status, $headers) = HttpHeaders::parse(explode("\n", $this->response_headers[$this->response_headers_count - 1]));
+
+            if ($this->isRedirection($status)) {
+                return $this->handleRedirection($headers['Location']);
+            }
+
+            header($status);
+
+            if (isset($headers['Content-Type'])) {
+                header('Content-Type:' .$headers['Content-Type']);
+            }
+        }
+
+        $length = strlen($buffer);
+        $this->body_length += $length;
+
         echo $buffer;
 
-        return strlen($buffer);
+        return $length;
     }
 
     /**
@@ -207,7 +204,6 @@ class Curl extends Client
 
         if ($this->isPassthroughEnabled()) {
             $write_function = 'passthroughBody';
-            $header_function = 'passthroughHeaders';
         }
 
         curl_setopt($ch, CURLOPT_WRITEFUNCTION, array($this, $write_function));
@@ -285,17 +281,15 @@ class Curl extends Client
     /**
      * Do the HTTP request.
      *
-     * @param bool $follow_location Flag used when there is an open_basedir restriction
-     *
      * @return array HTTP response ['body' => ..., 'status' => ..., 'headers' => ...]
      */
-    public function doRequest($follow_location = true)
+    public function doRequest()
     {
         $this->executeContext();
 
         list($status, $headers) = HttpHeaders::parse(explode("\n", $this->response_headers[$this->response_headers_count - 1]));
 
-        if ($follow_location && $this->isRedirection($status)) {
+        if ($this->isRedirection($status)) {
             return $this->handleRedirection($headers['Location']);
         }
 
@@ -307,7 +301,7 @@ class Curl extends Client
     }
 
     /**
-     * Handle manually redirections when there is an open base dir restriction.
+     * Handle HTTP redirects
      *
      * @param string $location Redirected URL
      *
@@ -330,7 +324,7 @@ class Curl extends Client
                 throw new MaxRedirectException('Maximum number of redirections reached');
             }
 
-            $result = $this->doRequest(false);
+            $result = $this->doRequest();
 
             if ($this->isRedirection($result['status'])) {
                 $this->url = Url::resolve($result['headers']['Location'], $this->url);

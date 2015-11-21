@@ -7,10 +7,13 @@ return array(
             'body' => array(
             '//figure/img[@class="hero-img"]',
             '//section[@class="deck"]',
-            '//div[@itemprop="articleBody"]',
+            '//div[@itemprop="articleBody"] || //div[@itemprop="reviewBody"]',
+            '//div[@class="carousel-inside-crop"]',
             ),
             'strip' => array(
             '//aside',
+            '//div[@class="credit"]',
+            '//div[@class="view-large"]',
             ),
         ),
     ),
