@@ -23,6 +23,7 @@ OC.L10N.register(
     "Maximum redirects" : "Uudelleenohjausten enimmäismäärä",
     "How many redirects the feed fetcher should follow" : "Kuinka montaa uudelleenohjausta noutajan tulisi seurata",
     "Maximum feed page size" : "Syötteen sivun enimmäiskoko",
+    "Maximum feed size in bytes. If the RSS/Atom page is bigger than this value, the update will be aborted" : "Syötteen enimmäiskoko tavuissa. Jos RSS-/Atom-sivu on tätä arvoa suurempi, päivitys perutaan",
     "Feed fetcher timeout" : "Syötteen hakemisen aikakatkaisu",
     "Saved" : "Tallennettu",
     "Download" : "Lataa",

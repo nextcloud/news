@@ -80,6 +80,7 @@ $TRANSLATIONS = array(
 "New Folder" => "Nová složka",
 "Create" => "Vytvořit",
 "Explore" => "Prohledat",
+"Feed failed to update more than 10 times" => "Aktualizace dat kanálu selhala více než 10krát ",
 "Deleted feed" => "Smazaný kanál",
 "Undo delete feed" => "Vzít zpět smazání kanálu",
 "Rename" => "Přejmenovat",
