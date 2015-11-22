@@ -227,8 +227,8 @@
  * Fixes for owncloud/core#20208
  */
 #app-navigation li a {
-    opacity: 1 !important; 
+    opacity: 1 !important;
 }
 #app-navigation .active, #app-navigation .active a {
-    background-color: #ccc !important;
+    background-color: #ccc;
 }
