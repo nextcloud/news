@@ -226,9 +226,11 @@
 /**
  * Fixes for owncloud/core#20208
  */
-#app-navigation li a {
+#app-navigation li a,
+#app-navigation .add-new button {
     opacity: 1 !important;
+    color: #000 !important;
 }
 #app-navigation .active, #app-navigation .active a {
-    background-color: #ccc;
+    background-color: #ddd;
 }
