@@ -231,6 +231,8 @@
     opacity: 1 !important;
     color: #000 !important;
 }
-#app-navigation .active, #app-navigation .active a {
+#app-navigation .active,
+#app-navigation .active a,
+#app-navigation li > a:hover {
     background-color: #ddd;
 }
