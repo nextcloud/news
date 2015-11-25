@@ -23,7 +23,8 @@ class ItemMapper extends NewsMapper {
     }
 
 
-    private function makeSelectQuery($prependTo, $oldestFirst=false){
+    private function makeSelectQuery($prependTo, $oldestFirst=false,
+                                     $distinctFingerprint=false){
         if($oldestFirst) {
             $ordering = 'ASC';
         } else {
@@ -44,7 +45,8 @@ class ItemMapper extends NewsMapper {
     }
 
     private function makeSelectQueryStatus($prependTo, $status,
-                                           $oldestFirst=false, $search=[]) {
+                                           $oldestFirst=false, $search=[],
+                                           $distinctFingerprint=false) {
         $status = (int) $status;
         $count = count($search);
 
@@ -53,7 +55,7 @@ class ItemMapper extends NewsMapper {
         $sql .= str_repeat('AND `items`.`search_index` LIKE ? ', $count);
         $sql .= $prependTo;
 
-        return $this->makeSelectQuery($sql, $oldestFirst);
+        return $this->makeSelectQuery($sql, $oldestFirst, $distinctFingerprint);
     }
 
 	/**
