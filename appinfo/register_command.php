@@ -9,12 +9,12 @@
  * @copyright Bernhard Posselt 2015
  */
 
-use OCA\News\Command\GenerateSearchIndices;
+use OCA\News\Command\Migrate;
 use OCA\News\Command\VerifyInstall;
 
 $newsApp = new OCA\News\AppInfo\Application();
 $newsContainer = $newsApp->getContainer();
-$newsCmd = $newsContainer->query(GenerateSearchIndices::class);
+$newsCmd = $newsContainer->query(Migrate::class);
 $verifyCmd = $newsContainer->query(VerifyInstall::class);
 
 $application->add($newsCmd);

@@ -235,7 +235,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
             $item->setEnclosureLink($this->enclosureLink);
         }
         $item->generateSearchIndex();
-        
+
         return $item;
     }
 

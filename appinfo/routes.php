@@ -21,6 +21,7 @@ return ['routes' => [
 
 // admin
 ['name' => 'admin#update', 'url' => '/admin', 'verb' => 'PUT'],
+['name' => 'admin#migrate', 'url' => '/admin/migrate', 'verb' => 'POST'],
 
 // folders
 ['name' => 'folder#index', 'url' => '/folders', 'verb' => 'GET'],

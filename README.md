@@ -115,7 +115,13 @@ We switched to a different feed parsing library which creates article ids differ
 
 5.3.0 adds the possibility to search your articles. To do this efficiently however, the News app needs to generate an index. This is done automatically for new articles, but older articles need to be migrated. Because large installations have millions of articles, generating the search index has been offloaded to a separate command to prevent timeouts when upgrading the app. To make your old articles searchable run this command in your ownCloud top directory:
 
-    ./occ news:create-search-indices
+    ./occ news:migrate
+
+### Updating from versions prior to 7
+
+Version 7 adds article deduplication. In order for this to work properly, database columns need to be generated. Since this can time out
+
+    ./occ news:migrate
 
 ## FAQ
 
@@ -188,9 +194,9 @@ The following commands are available when using the **occ** file in the top dire
 
   ./occ
 
-* **Generate search indices**:
+* **Migrate older data (only needed for certain versions, see Updating section)**:
 
-  ./occ news:create-search-indices
+  ./occ news:migrate
 
 Translations
 ------------

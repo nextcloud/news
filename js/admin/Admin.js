@@ -87,6 +87,17 @@
 
         $('#news input[type="text"]').blur(submit);
         $('#news input[type="checkbox"]').change(submit);
+        $('#news-migrate').click(function () {
+            var button = $(this);
+            button.addClass('loading');
+
+            $.post(OC.generateUrl('/apps/news/admin/migrate'))
+            .always(function (data) {
+                button.removeClass('loading');
+            });
+
+            return false;
+        });
     });
 
 

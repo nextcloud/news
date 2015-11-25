@@ -259,23 +259,30 @@ class ItemService extends Service {
     /**
      * Regenerates the search index for all items
      */
-    public function generateSearchIndicies($progressbar) {
-        $this->systemConfig->setSystemValue('maintenance', true);
-
+    public function generateSearchIndices($progressbar=null) {
+        if ($progressbar) {
+            $this->systemConfig->setSystemValue('maintenance', true);
+            $progressbar = $progressbar(count($rows));
+            $progressbar->setFormat('verbose');
+        }
+        
         $rows = $this->itemMapper->findAllItemIdsAndUsers();
-        $progressbar = $progressbar(count($rows));
-        $progressbar->setFormat('verbose');
 
         foreach ($rows as $row) {
             $item = $this->find($row['id'], $row['user_id']);
             $item->generateSearchIndex();
             $this->itemMapper->update($item);
-            $progressbar->advance();
+
+            if ($progressbar) {
+                $progressbar->advance();
+            }
         }
 
-        $progressbar->finish();
+        if ($progressbar) {
+            $progressbar->finish();
+            $this->systemConfig->setSystemValue('maintenance', false);
+        }
 
-        $this->systemConfig->setSystemValue('maintenance', false);
     }
 
 }

@@ -21,6 +21,7 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase {
     private $controller;
     private $config;
     private $configPath;
+    private $itemService;
 
     /**
      * Gets run before each test
@@ -35,9 +36,14 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase {
             '\OCA\News\Config\Config')
             ->disableOriginalConstructor()
             ->getMock();
+        $this->itemService = $this->getMockBuilder(
+            '\OCA\News\Service\ItemService')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->configPath = 'my.ini';
         $this->controller = new AdminController($this->appName, $this->request,
-            $this->config, $this->configPath);
+            $this->config, $this->itemService, $this->configPath);
     }
 
 
@@ -151,4 +157,12 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase {
 
         $this->assertEquals($expected, $response);
     }
+
+    public function testMigrate() {
+        $this->itemService->expects($this->once())
+            ->method('generateSearchIndices');
+        $this->controller->migrate();
+    }
+
+
 }

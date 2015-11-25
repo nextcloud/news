@@ -17,8 +17,8 @@ class CommandTest extends \PHPUnit_Framework_TestCase {
         $this->corePath = __DIR__ . '/../../../../../';
     }
 
-    public function testGenerateIndices() {
-        $command = $this->corePath . 'occ news:create-search-indices';
+    public function testMigrate() {
+        $command = $this->corePath . 'occ news:migrate';
         exec($command, $_, $success);
 
         $this->assertSame(0, $success);

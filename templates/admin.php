@@ -122,6 +122,19 @@ style('news', 'admin');
         <p><input type="text" name="news-explore-url"
                value="<?php p($_['exploreUrl']); ?>"></p>
     </div>
+    <div class="form-line">
+        <p>
+            <label for="news-migrate">
+                <?php p($l->t('Migrate data')); ?>
+            </label>
+        </p>
+        <p><em><?php p($l->t('Migrates existing data after updating from versions prior to 7.0.0')); ?></em></p>
+        <p><em class="notice"><?php p($l->t(
+            'This takes about 1 minute per user. For bigger installations use ' .
+            'this console command to prevent timeouts:')); ?> php -f owncloud/occ news:migrate
+        </em></p>
+        <p><button type="button" name="news-migrate" id="news-migrate"><?php p($l->t('Migrate data')); ?></button></p>
+    </div>
     <div id="news-saved-message">
         <span class="msg success"><?php p($l->t('Saved')); ?></span>
     </div>

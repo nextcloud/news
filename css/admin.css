@@ -6,3 +6,7 @@
 #news .form-line {
     margin: 25px 0 15px 0;
 }
+
+#news .notice {
+    color: red;
+}

@@ -13,22 +13,25 @@
 
 namespace OCA\News\Controller;
 
-use \OCP\AppFramework\Http\TemplateResponse;
-use \OCP\IRequest;
-use \OCP\AppFramework\Controller;
+use OCP\AppFramework\Http\TemplateResponse;
+use OCP\IRequest;
+use OCP\AppFramework\Controller;
 
-use \OCA\News\Config\Config;
+use OCA\News\Config\Config;
+use OCA\News\Service\itemService;
 
 class AdminController extends Controller {
 
     private $config;
     private $configPath;
+    private $itemService;
 
     public function __construct($AppName, IRequest $request, Config $config,
-                                $configFile){
+                                ItemService $itemService, $configFile){
         parent::__construct($AppName, $request);
         $this->config = $config;
         $this->configPath = $configFile;
+        $this->itemService = $itemService;
     }
 
     // There are no checks for the index method since the output is rendered
@@ -82,5 +85,12 @@ class AdminController extends Controller {
         ];
     }
 
+    /**
+     * Generates indices
+     */
+    public function migrate() {
+        $this->itemService->generateSearchIndices();
+        return [];
+    }
 
 }
