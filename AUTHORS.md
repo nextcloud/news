@@ -38,6 +38,7 @@
 * [s17t.net](mailto:mail+github@s17t.net)
 * [Alessandro](mailto:cosenal@gmail.com)
 * [Andrea Boero](mailto:mail@tsumi.it)
+* [Bernhard Posselt](mailto:bernhard@posselt.at)
 * [Florian Hülsmann](mailto:fh@cbix.de)
 * [Frank Karlitschek](mailto:frank@owncloud.org)
 * [Hendrik Leppelsack](mailto:hendrik@leppelsack.de)
