@@ -293,13 +293,17 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
         $title = 'a';
         $body = 'b';
         $url = 'http://google.com';
+        $link = 'ho';
+
         $item = new Item();
         $item->setBody($body);
         $item->setTitle($title);
         $item->setUrl($url);
+        $item->setEnclosureLink($link);
         $item->generateSearchIndex();
 
-        $this->assertEquals(md5($title . $url . $body), $item->getFingerprint());
+        $this->assertEquals(md5($title . $url . $body . $link),
+                            $item->getFingerprint());
     }
 
 }

@@ -221,7 +221,8 @@ class Item extends Entity implements IAPI, \JsonSerializable {
     }
 
     private function computeFingerprint() {
-        return md5($this->getTitle() . $this->getUrl() . $this->getBody());
+        return md5($this->getTitle() . $this->getUrl() . $this->getBody() .
+                   $this->getEnclosureLink());
     }
 
     public function setUrl($url) {

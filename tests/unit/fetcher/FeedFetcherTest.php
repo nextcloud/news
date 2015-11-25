@@ -222,7 +222,6 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $item->setGuidHash($this->guid);
         $item->setBody($this->body);
         $item->setLastModified($this->time);
-        $item->generateSearchIndex();
         $item->setRtl(false);
 
         $this->expectItem('getAuthor', $this->author);
@@ -235,6 +234,8 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
             $item->setEnclosureMime($enclosureType);
             $item->setEnclosureLink($this->enclosureLink);
         }
+        $item->generateSearchIndex();
+        
         return $item;
     }
 
