@@ -44,6 +44,7 @@ use \OCP\AppFramework\Db\Entity;
  * @method integer getLastModified()
  * @method void setLastModified(integer $value)
  * @method void setFingerprint(string $value)
+ * @method void setSearchIndex(string $value)
  */
 class Item extends Entity implements IAPI, \JsonSerializable {
 

@@ -85,12 +85,4 @@ class AdminController extends Controller {
         ];
     }
 
-    /**
-     * Generates indices
-     */
-    public function migrate() {
-        $this->itemService->generateSearchIndices();
-        return [];
-    }
-
 }

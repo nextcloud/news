@@ -158,11 +158,4 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($expected, $response);
     }
 
-    public function testMigrate() {
-        $this->itemService->expects($this->once())
-            ->method('generateSearchIndices');
-        $this->controller->migrate();
-    }
-
-
 }

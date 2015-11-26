@@ -1,8 +1,6 @@
 owncloud-news (7.0.0)
-* **Backwards incompatible change**: Rename **./occ news:create-search-indices** to **./occ news:migrate**
-* **Backwards incompatible change**: News data needs to be migrated, otherwise an incorrect amount of articles will show up in the web interface **./occ news:migrate**
+* **Backwards incompatible change**: Remove console commands and instead run them after specific updates
 * **Enhancement**: If a feed failed to update more than 10 times, show a hint in the web interface
-* **Enhancement**: Add a button in the admin section to run the **news:migrate** command through the web interface
 
 owncloud-news (6.1.1)
 * **Security**: Update picoFeed to add an [XXE fix for php-fpm](http://framework.zend.com/security/advisory/ZF2015-06) on systems with PHP <5.5.22 or >5.6 and <5.6.6. This issue allows any user with access to the News app to read abitrary files from the server. For more information read up on the [Zend advisory](http://framework.zend.com/security/advisory/ZF2015-06) and the [OWASP page](https://www.owasp.org/index.php/XML_External_Entity_%28XXE%29_Processing). Affected supported distributions include [Ubuntu 14.04](https://bugs.launchpad.net/ubuntu/trusty/+source/php5/+bug/1509817)
