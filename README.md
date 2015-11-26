@@ -101,28 +101,6 @@ To receive notifications when a new News app version was released, simply add th
 
     https://github.com/owncloud/news/releases.atom
 
-
-### Updating from versions prior to 4
-
-You need to do the following:
-
-* Get rid of **simplePieCacheDuration** setting by removing this setting from your **owncloud/data/news/config/config.ini**.
-
-### After updating from a version prior to 4 all my read articles reappear as unread and there are duplicates
-We switched to a different feed parsing library which creates article ids differently than before. This means that the same article is not found in the database because it was generated with a different id and is thus readded. This should happen only once for each feed after the upgrade and there is no data loss. Unfortunately there is no fix for this since the id is a hash which can not be reversed, so a smooth transition is not possible.
-
-### Updating from versions prior to 5.3.0
-
-5.3.0 adds the possibility to search your articles. To do this efficiently however, the News app needs to generate an index. This is done automatically for new articles, but older articles need to be migrated. Because large installations have millions of articles, generating the search index has been offloaded to a separate command to prevent timeouts when upgrading the app. To make your old articles searchable run this command in your ownCloud top directory:
-
-    ./occ news:migrate
-
-### Updating from versions prior to 7
-
-Version 7 adds article deduplication. In order for this to work properly, database columns need to be generated. Since this can time out
-
-    ./occ news:migrate
-
 ## FAQ
 
 ### I am getting Exception: Some\\Class does not exist erros in my owncloud.log
@@ -184,19 +162,6 @@ exploreUrl =
 * **feedFetcherTimeout**: Maximum number of seconds to wait for an RSS or Atom feed to load. If a feed takes longer than that number of seconds to update, the update will be aborted
 * **useCronUpdates**: To use a custom update/cron script you need to disable the cronjob which is run by ownCloud by default by setting this to false
 * **exploreUrl**: If given that url will be contacted for fetching content for the explore feed
-
-
-Commands
---------
-The following commands are available when using the **occ** file in the top directory:
-
-* **Show help and available commands**:
-
-  ./occ
-
-* **Migrate older data (only needed for certain versions, see Updating section)**:
-
-  ./occ news:migrate
 
 Translations
 ------------
