@@ -81,6 +81,7 @@ OC.L10N.register(
     "New Folder" : "Nouveau dossier",
     "Create" : "Créer",
     "Explore" : "Explorer",
+    "Feed failed to update more than 10 times" : "L'actualisation du flux a échoué plus de 10 fois",
     "Deleted feed" : "Flux supprimé",
     "Undo delete feed" : "Annuler la suppression du flux",
     "Rename" : "Renommer",

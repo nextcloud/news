@@ -80,6 +80,7 @@ $TRANSLATIONS = array(
 "New Folder" => "โฟลเดอร์ใหม่",
 "Create" => "สร้าง",
 "Explore" => "สำรวจ",
+"Feed failed to update more than 10 times" => "ฟีดล้มเหลวในการอัพเดทมากกว่า 10 ครั้ง",
 "Deleted feed" => "ฟีดที่ถูกลบ",
 "Undo delete feed" => "ยกเลิกการลบฟีด",
 "Rename" => "เปลี่ยนชื่อ",
