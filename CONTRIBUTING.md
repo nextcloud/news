@@ -30,7 +30,7 @@ check if:
 ### When reporting bugs
 
 * Enable debug mode in your **config/config.php**:
- * ownCloud >=8.2: Add this attribute to config array:
+ * ownCloud >=8.2: Add the **debug** attribute to config array (if not already present) and set it to **true**:
  ```php
  <?php
  $CONFIG = array(
@@ -39,7 +39,7 @@ check if:
     'debug' => true,
  );
  ```
- * ownCloud < 8.2: Add **DEFINE('DEBUG', true);** this at the end of the file
+ * ownCloud < 8.2: Add **DEFINE('DEBUG', true);** at the end of the file
  ```php
  <?php
  $CONFIG = array(
