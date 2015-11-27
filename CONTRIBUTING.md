@@ -29,7 +29,17 @@ check if:
 
 ### When reporting bugs
 
-* Enable debug mode by putting this at the bottom of **config/config.php**
+* Enable debug mode in your **config/config.php**:
+ * ownCloud >=8.2: Add this attribute to config array:
+ ```php
+ <?php
+ $CONFIG = array(
+    // other options
+    // ...
+    'debug' => true,
+ );
+ ```
+ * ownCloud < 8.2: Add this at the end of the file
 
       DEFINE('DEBUG', true);
 
@@ -95,8 +105,6 @@ The project is structured in the following way:
 
 * **build/**: The folder where complete archives are saved when running make appstore
 
-* **command/**: occ commands that can be called like ./occ news:my_command
-
 * **config/**: The code that reads the news config.ini file which is located in the data directory and can also be edited in the admin interface
 
 * **controller/**: The stuff that reacts when a request comes in to a certain URL. URLs are defined in **appinfo/routes.php** and link to controllers.
@@ -126,6 +134,8 @@ The project is structured in the following way:
 * **service/**: The most important part. Contains the app logic and validation, like what happens when you add or update a feed.
 
 * **templates/**: All the HTML that is used in the app
+
+* **upgrade/**: Migrations and hooks that are run when upgrading the app to a newer version
 
 * **utility/**: Stuff that did not fit anywhere, mostly factories that are needed to deal with 3rdparty libraries like picoFeed, but also OPML exporters and updater classes
 
