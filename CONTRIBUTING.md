@@ -48,7 +48,9 @@ check if:
  DEFINE('DEBUG', true);
  ```
 
-* check **data/owncloud.log**
+* Reproduce the Problem
+* Check **data/owncloud.log**
+* Check your [error on the client side](http://ggnome.com/wiki/Using_The_Browser_Error_Console) if it's a client-side issue
 
 Please provide the following details so that your problem can be fixed:
 
