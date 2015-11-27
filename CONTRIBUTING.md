@@ -39,7 +39,7 @@ check if:
     'debug' => true,
  );
  ```
- * ownCloud < 8.2: Add this at the end of the file
+ * ownCloud < 8.2: Add **DEFINE('DEBUG', true);** this at the end of the file
  ```php
  <?php
  $CONFIG = array(
