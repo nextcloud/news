@@ -50,7 +50,7 @@ check if:
 
 * Reproduce the Problem
 * Check **data/owncloud.log**
-* Check your [error on the client side](http://ggnome.com/wiki/Using_The_Browser_Error_Console) if it's a client-side issue
+* Check your [browser's JavaScript console for errors](http://ggnome.com/wiki/Using_The_Browser_Error_Console) if it's a client-side issue
 
 Please provide the following details so that your problem can be fixed:
 
