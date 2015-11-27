@@ -1,7 +1,7 @@
 <li ng-class="{
         active: Navigation.isFeedActive(feed.id),
         unread: Navigation.isFeedUnread(feed.id),
-        updateerror: feed.updateErrorCount>10
+        updateerror: feed.updateErrorCount>50
     }"
     ng-repeat="feed in Navigation.getFeedsOfFolder(<?php p($_['folderId']); ?>)
         | orderBy:['-pinned', 'title.toLowerCase()'] track by feed.url"
@@ -9,7 +9,7 @@
             || Navigation.isShowAll()
             || Navigation.isFeedActive(feed.id)
             || !feed.id
-            || feed.updateErrorCount>10"
+            || feed.updateErrorCount>50"
     data-id="{{ feed.id }}"
     class="feed with-counter with-menu animate-show"
     news-draggable-disable="{{
@@ -33,7 +33,7 @@
         ng-href="#/items/feeds/{{ feed.id }}/"
         class="title"
         ng-class="{'icon-rss': !feed.faviconLink}"
-        title="{{ feed.updateErrorCount > 10 ? '<?php p($l->t('Feed failed to update more than 10 times')); ?>: ' + feed.lastUpdateError : feed.title }}">
+        title="{{ feed.updateErrorCount>50 ? '<?php p($l->t('Update failed more than 50 times')); ?>: ' + feed.lastUpdateError : feed.title }}">
        {{ feed.title }}
     </a>
 
