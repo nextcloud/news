@@ -40,8 +40,13 @@ check if:
  );
  ```
  * ownCloud < 8.2: Add this at the end of the file
-
-      DEFINE('DEBUG', true);
+ ```php
+ <?php
+ $CONFIG = array(
+    // options
+ );
+ DEFINE('DEBUG', true);
+ ```
 
 * Turn on debug level debug by adding **"loglevel" => 0,** to your **config/config.php** and reproduce the problem
 * check **data/owncloud.log**
