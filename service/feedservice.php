@@ -267,11 +267,13 @@ class FeedService extends Service {
 
             // mark feed as successfully updated
             $existingFeed->setUpdateErrorCount(0);
+            $existingFeed->setLastUpdateError('');
 
         } catch(FetcherException $ex){
             $existingFeed->setUpdateErrorCount(
                 $existingFeed->getUpdateErrorCount()+1
             );
+            $existingFeed->setLastUpdateError($ex->getMessage());
         }
 
         $this->feedMapper->update($existingFeed);

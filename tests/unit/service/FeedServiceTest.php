@@ -510,12 +510,14 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
         $feed = new Feed();
         $feed->setId(3);
         $feed->setUpdateErrorCount(0);
+        $feed->setLastUpdateError('');
 
         $exptectedFeed = new Feed();
         $exptectedFeed->setId(3);
         $exptectedFeed->setUpdateErrorCount(1);
+        $exptectedFeed->setLastUpdateError('hi');
 
-        $ex = new FetcherException('');
+        $ex = new FetcherException('hi');
 
         $this->feedMapper->expects($this->at(0))
             ->method('find')

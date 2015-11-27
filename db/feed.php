@@ -54,6 +54,8 @@ use \OCP\AppFramework\Db\Entity;
  * @method void setArticlesPerUpdate(integer $value)
  * @method integer getUpdateErrorCount()
  * @method void setUpdateErrorCount(integer $value)
+ * @method string getLastUpdateError()
+ * @method void setLastUpdateError(string $value)
  */
 class Feed extends Entity implements IAPI, \JsonSerializable {
 
@@ -79,6 +81,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
     protected $pinned;
     protected $updateMode;
     protected $updateErrorCount;
+    protected $lastUpdateError;
 
     public function __construct(){
         $this->addType('parentId', 'integer');
@@ -119,7 +122,8 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
             'fullTextEnabled',
             'pinned',
             'updateMode',
-            'updateErrorCount'
+            'updateErrorCount',
+            'lastUpdateError'
         ]);
 
         $url = parse_url($this->link)['host'];
