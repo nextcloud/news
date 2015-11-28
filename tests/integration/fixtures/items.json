@@ -101,6 +101,18 @@
     ],
     "fourth feed": [
         {
+            "status": 2,
+            "body": "this is a body",
+            "title": "a title9",
+            "author": "my author",
+            "guid": "a title9",
+            "url": "http://google.de",
+            "pubDate": 1234,
+            "lastModified": 1234,
+            "enclosureMime": "video/mpeg",
+            "enclosureLink": "http://google.de/web.webm"
+        },
+        {
             "status": 0,
             "body": "this is a body",
             "title": "no folder",

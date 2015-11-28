@@ -166,24 +166,6 @@ class ItemMapperTest extends  \OCA\News\Tests\Unit\Db\MapperTestUtility {
     }
 
 
-    public function testReadFeed(){
-        $sql = 'UPDATE `*PREFIX*news_items` ' .
-            'SET `status` = `status` & ? ' .
-            ', `last_modified` = ? ' .
-                'WHERE `feed_id` = ? ' .
-                'AND `id` <= ? ' .
-                'AND EXISTS (' .
-                    'SELECT * FROM `*PREFIX*news_feeds` ' .
-                    'WHERE `user_id` = ? ' .
-                    'AND `id` = ? ) ';
-        $params = [
-            ~StatusFlag::UNREAD, $this->updatedSince, 3, 6, $this->user, 3
-        ];
-        $this->setMapperResult($sql, $params);
-        $this->mapper->readFeed(3, 6, $this->updatedSince, $this->user);
-    }
-
-
     public function testFindAllNew(){
         $sql = 'AND `items`.`last_modified` >= ? ';
         $sql = $this->makeSelectQueryStatus($sql, $this->status);

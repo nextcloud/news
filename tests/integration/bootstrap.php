@@ -162,6 +162,7 @@ class NewsIntegrationTest extends PHPUnit_Framework_TestCase {
         $newItem->setLastModified($item['lastModified']);
         $newItem->setEnclosureMime($item['enclosureMime']);
         $newItem->setEnclosureLink($item['enclosureLink']);
+        $newItem->generateSearchIndex();
         return $this->itemMapper->insert($newItem);
     }
 
