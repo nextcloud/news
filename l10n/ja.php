@@ -80,7 +80,6 @@ $TRANSLATIONS = array(
 "New Folder" => "フォルダーを作成する",
 "Create" => "作成",
 "Explore" => "探索",
-"Feed failed to update more than 10 times" => "フィードの更新に10回以上失敗しました",
 "Deleted feed" => "削除されたフィード",
 "Undo delete feed" => "削除したフィードを元に戻す",
 "Rename" => "名前の変更",

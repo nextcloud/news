@@ -80,7 +80,6 @@ $TRANSLATIONS = array(
 "New Folder" => "Dosje e Re",
 "Create" => "Krijoje",
 "Explore" => "Eksploroni",
-"Feed failed to update more than 10 times" => "Përditësimi i prurjes dështoi për më shumë se 10 herë",
 "Deleted feed" => "Prurja u fshi",
 "Undo delete feed" => "Zhbëje fshirjen e prurjes",
 "Rename" => "Riemërtojeni",

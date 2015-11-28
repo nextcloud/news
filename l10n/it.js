@@ -81,7 +81,6 @@ OC.L10N.register(
     "New Folder" : "Nuova cartella",
     "Create" : "Crea",
     "Explore" : "Esplora",
-    "Feed failed to update more than 10 times" : "L'aggiornamento della fonte non è riuscito più di 10 volte",
     "Deleted feed" : "Elimina la fonte",
     "Undo delete feed" : "Annulla l'eliminazione della fonte",
     "Rename" : "Rinomina",

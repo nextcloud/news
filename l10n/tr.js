@@ -81,7 +81,6 @@ OC.L10N.register(
     "New Folder" : "Yeni Klasör",
     "Create" : "Oluştur",
     "Explore" : "Keşfet",
-    "Feed failed to update more than 10 times" : "İlerleme 10 defadan fazla güncellemeyi başaramadı",
     "Deleted feed" : "Beslemeyi sil",
     "Undo delete feed" : "Beslemeyi geri al",
     "Rename" : "Yeniden adlandır",
