@@ -129,21 +129,15 @@ class ItemMapper extends NewsMapper {
 
 
     public function readFeed($feedId, $highestItemId, $time, $userId){
-        $sql = 'UPDATE `*PREFIX*news_items`
-            SET `status` = `status` & ?,
-                `last_modified` = ?
-            WHERE `id` IN (
-              SELECT `b`.`id` FROM `*PREFIX*news_items` `a`,
-                                   `*PREFIX*news_items` `b`
-              WHERE   `a`.`feed_id` = ?
-                  AND `a`.`id` <= ?
-                  AND `a`.`fingerprint` = `b`.`fingerprint`
-                  AND EXISTS (
-                      SELECT `id` FROM `*PREFIX*news_feeds`
-                      WHERE `user_id` = ?
-                          AND `id` = ?
-                  )
-            )';
+        $sql = 'UPDATE `*PREFIX*news_items` ' .
+            'SET `status` = `status` & ? ' .
+            ', `last_modified` = ? ' .
+                'WHERE `feed_id` = ? ' .
+                'AND `id` <= ? ' .
+                'AND EXISTS (' .
+                    'SELECT * FROM `*PREFIX*news_feeds` ' .
+                    'WHERE `user_id` = ? ' .
+                    'AND `id` = ? ) ';
         $params = [~StatusFlag::UNREAD, $time, $feedId, $highestItemId,
             $userId, $feedId];
 

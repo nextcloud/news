@@ -133,7 +133,7 @@ class ItemMapperTest extends NewsIntegrationTest {
             30, 0, $status, false, $this->userId
         );
 
-        $this->assertEquals(2, count($items));
+        $this->assertEquals(1, count($items));
 
         $item = $this->items['a title1'];
         $item = $this->itemMapper->find($item->getId(), $this->userId);
@@ -210,7 +210,7 @@ class ItemMapperTest extends NewsIntegrationTest {
 
     public function testFindAllUnreadOrStarred () {
         $items = $this->itemMapper->findAllUnreadOrStarred($this->userId);
-        $this->assertEquals(5, count($items));
+        $this->assertEquals(4, count($items));
     }
 
 
