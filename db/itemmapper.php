@@ -138,14 +138,13 @@ class ItemMapper extends NewsMapper {
               WHERE   `a`.`feed_id` = ?
                   AND `a`.`id` <= ?
                   AND `a`.`fingerprint` = `b`.`fingerprint`
-                  AND EXISTS (
+                  AND `b`.`feed_id` IN (
                       SELECT `id` FROM `*PREFIX*news_feeds`
                       WHERE `user_id` = ?
-                          AND `id` = ?
                   )
             )';
         $params = [~StatusFlag::UNREAD, $time, $feedId, $highestItemId,
-            $userId, $feedId];
+            $userId];
 
         $this->execute($sql, $params);
     }
