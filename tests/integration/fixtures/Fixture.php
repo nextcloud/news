@@ -13,7 +13,7 @@
 namespace OCA\News\Tests\Integration\Fixtures;
 
 
-trait Fixture {
+trait Entity {
 
     public function fillDefaults(array $defaults=[]) {
         foreach ($defaults as $key => $value) {

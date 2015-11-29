@@ -44,6 +44,7 @@ class FeedFixture extends Feed {
             'updateErrorCount' => 0,
             'lastUpdateError' => 'lastUpdateError',
         ], $defaults);
+        unset($defaults['items']);
         $this->fillDefaults($defaults);
     }
 

@@ -19,7 +19,7 @@ use OCP\IUserSession;
 use OCP\IUserManager;
 
 use OCA\News\AppInfo\Application;
-use OCA\News\Tests\Integration\Fixtures\Fixture;
+use OCA\News\Tests\Integration\Fixtures\Entity;
 use OCA\News\Tests\Integration\Fixtures\ItemFixture;
 use OCA\News\Tests\Integration\Fixtures\FeedFixture;
 use OCA\News\Tests\Integration\Fixtures\FolderFixture;
@@ -56,17 +56,53 @@ abstract class IntegrationTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Saves a fixture in a database and returns the saved result
-     * @param Fixture $fixture
-     * @return \OCP\AppFramework\Db\Entity
+     * @param $name loads fixtures from a given file
      */
-    protected function loadFixture(Fixture $fixture) {
+    protected function loadFixtures($name) {
+        $fixtures = include __DIR__ . '/data/' . $name . '.php';
+        if (array_key_exists('folders', $fixtures)) {
+            $this->loadFolderFixtures($fixtures['folders']);
+        }
+        if (array_key_exists('feeds', $fixtures)) {
+            $this->loadFeedFixtures($fixtures['feeds']);
+        }
+    }
+
+    protected function loadFolderFixtures(array $folderFixtures=[]) {
+        foreach ($folderFixtures as $folderFixture) {
+            $folder = new FolderFixture($folderFixture);
+            $folderId = $this->loadFixture($folder);
+            $this->loadFeedFixtures($folderFixture['feeds'], $folderId);
+        }
+    }
+
+    protected function loadFeedFixtures(array $feedFixtures=[], $folderId=0) {
+        foreach ($feedFixtures as $feedFixture) {
+            $feed = new FeedFixture($feedFixture);
+            $feedId = $this->loadFixture($feed);
+            $this->loadItemFixtures($feedFixture['items'], $feedId);
+        }
+    }
+
+    protected function loadItemFixtures(array $itemFixtures=[], $feedId) {
+        foreach ($itemFixtures as $itemFixture) {
+            $item = new ItemFixture($itemFixture);
+            $this->loadFixture($item);
+        }
+    }
+
+    /**
+     * Saves a fixture in a database and returns the saved result
+     * @param Entity $fixture
+     * @return int the id
+     */
+    protected function loadFixture(Entity $fixture) {
         if ($fixture instanceof FeedFixture) {
-            return $this->feedMapper->insert($fixture);
+            return $this->feedMapper->insert($fixture)->getId();
         } elseif ($fixture instanceof ItemFixture) {
-            return $this->itemMapper->insert($fixture);
+            return $this->itemMapper->insert($fixture)->getId();
         } elseif ($fixture instanceof FolderFixture) {
-            return $this->folderMapper->insert($fixture);
+            return $this->folderMapper->insert($fixture)->getId();
         }
 
         throw new \InvalidArgumentException('Invalid fixture class given');
