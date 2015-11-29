@@ -29,5 +29,31 @@ abstract class NewsMapper extends Mapper {
      */
     abstract public function find($id, $userId);
 
+    /**
+     * Performs a SELECT query with all arguments appened to the WHERE clause
+     * The SELECT will be performed on the current table and take the entity
+     * that is related for transforming the properties into column names
+     * @param array $search an assoc array from property to filter value
+     * @return array
+     */
+    public function where(array $search) {
+        $entity = new $this->entityClass;
+
+        // turn keys into sql query filter, e.g. feedId -> feed_id = :feedId
+        $filter = array_map(function ($property) use ($entity) {
+            $column = $entity->propertyToColumn($property);
+            return $column . ' = :' . $property;
+        }, array_keys($search));
+
+        $andStatement = implode(' AND ', $filter);
+
+        $sql = 'SELECT * FROM `' . $this->getTableName() . '`';
+
+        if (count($search) > 0) {
+            $sql .= 'WHERE ' . $andStatement;
+        }
+
+        return $this->findEntities($sql, $search);
+    }
 
 }
