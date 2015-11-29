@@ -73,6 +73,7 @@ OC.L10N.register(
     "New Folder" : "Uusi kansio",
     "Create" : "Luo",
     "Explore" : "Selaa",
+    "Update failed more than 50 times" : "Päivitys epäonnistui yli 50 kertaa",
     "Deleted feed" : "Syöte poistettu",
     "Undo delete feed" : "Kumoa syötteen poistaminen",
     "Rename" : "Nimeä uudelleen",

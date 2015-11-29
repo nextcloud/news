@@ -81,6 +81,7 @@ OC.L10N.register(
     "New Folder" : "Nová složka",
     "Create" : "Vytvořit",
     "Explore" : "Prohledat",
+    "Update failed more than 50 times" : "Aktualizace selhala více než 50krát",
     "Deleted feed" : "Smazaný kanál",
     "Undo delete feed" : "Vzít zpět smazání kanálu",
     "Rename" : "Přejmenovat",

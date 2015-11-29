@@ -81,6 +81,7 @@ OC.L10N.register(
     "New Folder" : "Dosje e Re",
     "Create" : "Krijoje",
     "Explore" : "Eksploroni",
+    "Update failed more than 50 times" : "Përditësimi dështoi më shumë se 50 herë",
     "Deleted feed" : "Prurja u fshi",
     "Undo delete feed" : "Zhbëje fshirjen e prurjes",
     "Rename" : "Riemërtojeni",

@@ -80,6 +80,7 @@ $TRANSLATIONS = array(
 "New Folder" => "Nuova cartella",
 "Create" => "Crea",
 "Explore" => "Esplora",
+"Update failed more than 50 times" => "L'aggiornamento non è riuscito più di 50 volte",
 "Deleted feed" => "Elimina la fonte",
 "Undo delete feed" => "Annulla l'eliminazione della fonte",
 "Rename" => "Rinomina",
