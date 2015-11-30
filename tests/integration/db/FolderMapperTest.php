@@ -11,9 +11,9 @@
  
 namespace OCA\News\Db;
 
-use \OCA\News\Tests\Integration\NewsIntegrationTest;
+use \OCA\News\Tests\Integration\IntegrationTest;
 
-class FolderMapperTest extends NewsIntegrationTest {
+class FolderMapperTest extends IntegrationTest {
 
 
     public function testFind () {

@@ -11,40 +11,37 @@
 
 namespace OCA\News\Db;
 
-use \OCA\News\Tests\Integration\NewsIntegrationTest;
+use OCA\News\Tests\Integration\Fixtures\ItemFixture;
+use OCA\News\Tests\Integration\IntegrationTest;
 
-class ItemMapperTest extends NewsIntegrationTest {
-
+class ItemMapperTest extends IntegrationTest {
 
     public function testFind() {
-        $feedId = $this->feeds['first feed']->getId();
-
-        $item = new Item();
-        $item->setTitle('my title thats long');
-        $item->setGuid('a doner');
-        $item->setGuidHash('a doner');
-        $item->setFeedId($feedId);
-        $item->setUnread();
-        $item->setBody('Döner');
+        $item = new ItemFixture();
 
         $created = $this->itemMapper->insert($item);
-        $fetched = $this->itemMapper->find($created->getId(), $this->userId);
+        $fetched = $this->itemMapper->find($created->getId(), $this->user);
 
         $this->assertEquals($item->getTitle(), $fetched->getTitle());
-        $this->assertEquals($item->getGuid(), $fetched->getGuid());
-        $this->assertEquals($item->getGuidHash(), $fetched->getGuidHash());
-        $this->assertEquals($item->getFeedId(), $fetched->getFeedId());
-        $this->assertEquals($item->isRead(), $fetched->isRead());
-        $this->assertEquals('Döner', $fetched->getBody());
     }
 
+    /**
+     * Same as whereId with easier title search
+     * @param $title
+     * @return mixed
+     */
+    private function whereTitleId($title) {
+        return $this->findItemByTitle($title)->getId();
+    }
 
     /**
      * @expectedException OCP\AppFramework\Db\DoesNotExistException
      */
     public function testFindNotFoundWhenDeletedFeed() {
-        $id = $this->items['not found feed']->getId();
-        $this->itemMapper->find($id, $this->userId);
+        $this->loadFixtures('default');
+
+        $id = $this->whereTitleId('not found feed');
+        $this->itemMapper->find($id, $this->user);
     }
 
 
@@ -52,164 +49,170 @@ class ItemMapperTest extends NewsIntegrationTest {
      * @expectedException OCP\AppFramework\Db\DoesNotExistException
      */
     public function testFindNotFoundWhenDeletedFolder() {
-        $id = $this->items['not found folder']->getId();
-        $this->itemMapper->find($id, $this->userId);
+        $this->loadFixtures('default');
+
+        $id = $this->whereTitleId('not found folder');
+        $this->itemMapper->find($id, $this->user);
     }
 
 
     private function deleteReadOlderThanThreshold() {
+        $this->loadFixtures('default');
+
         $this->itemMapper->deleteReadOlderThanThreshold(1);
 
-        $this->itemMapper->find($this->items['a title1']->getId(),
-                                $this->userId);
-        $this->itemMapper->find($this->items['a title2']->getId(),
-                                $this->userId);
-        $this->itemMapper->find($this->items['a title3']->getId(),
-                                $this->userId);
-        $this->itemMapper->find($this->items['del3']->getId(), $this->userId);
-        $this->itemMapper->find($this->items['del4']->getId(), $this->userId);
+        $this->itemMapper->find($this->whereTitleId('a title1'), $this->user);
+        $this->itemMapper->find($this->whereTitleId('a title2'), $this->user);
+        $this->itemMapper->find($this->whereTitleId('a title3'), $this->user);
+        $this->itemMapper->find($this->whereTitleId('del3'), $this->user);
+        $this->itemMapper->find($this->whereTitleId('del4'), $this->user);
     }
 
-
+    /**
+     * @expectedException OCP\AppFramework\Db\DoesNotExistException
+     */
     public function testDeleteOlderThanThresholdOne() {
+        $this->loadFixtures('default');
+
         $this->deleteReadOlderThanThreshold();
 
-        $this->setExpectedException(
-            'OCP\AppFramework\Db\DoesNotExistException');
-        $this->itemMapper->find($this->items['del1']->getId(), $this->userId);
+        $this->itemMapper->find($this->whereTitleId('del1'), $this->user);
     }
 
-
+    /**
+     * @expectedException OCP\AppFramework\Db\DoesNotExistException
+     */
     public function testDeleteOlderThanThresholdTwo() {
+        $this->loadFixtures('default');
+
         $this->deleteReadOlderThanThreshold();
 
-        $this->setExpectedException(
-            'OCP\AppFramework\Db\DoesNotExistException');
-        $this->itemMapper->find($this->items['del2']->getId(), $this->userId);
+        $this->itemMapper->find($this->whereTitleId('del2'), $this->user);
     }
 
 
     public function testStarredCount () {
-        $count = $this->itemMapper->starredCount($this->userId);
+        $this->loadFixtures('default');
+
+        $count = $this->itemMapper->starredCount($this->user);
         $this->assertEquals(2, $count);
     }
 
 
     public function testReadAll () {
-        $this->itemMapper->readAll(PHP_INT_MAX, 10, $this->userId);
+        $this->loadFixtures('default');
+
+        $this->itemMapper->readAll(PHP_INT_MAX, 10, $this->user);
 
         $status = StatusFlag::UNREAD;
         $items = $this->itemMapper->findAll(
-            30, 0, $status, false, $this->userId
+            30, 0, $status, false, $this->user
         );
 
         $this->assertEquals(0, count($items));
 
-        $item = $this->items['a title1'];
-        $item = $this->itemMapper->find($item->getId(), $this->userId);
+        $itemId = $this->whereTitleId('a title1');
+        $item = $this->itemMapper->find($itemId, $this->user);
 
         $this->assertEquals(10, $item->getLastModified());
 
-        $item = $this->items['a title3'];
-        $item = $this->itemMapper->find($item->getId(), $this->userId);
+        $itemId = $this->whereTitleId('a title3');
+        $item = $this->itemMapper->find($itemId, $this->user);
 
         $this->assertEquals(10, $item->getLastModified());
 
-        $item = $this->items['a title9'];
-        $item = $this->itemMapper->find($item->getId(), $this->userId);
+        $itemId = $this->whereTitleId('a title9');
+        $item = $this->itemMapper->find($itemId, $this->user);
 
         $this->assertEquals(10, $item->getLastModified());
     }
 
 
     public function testReadFolder () {
+        $this->loadFixtures('default');
+
         $folderId = $this->folders['first folder']->getId();
         $this->itemMapper->readFolder(
-            $folderId, PHP_INT_MAX, 10, $this->userId
+            $folderId, PHP_INT_MAX, 10, $this->user
         );
 
         $status = StatusFlag::UNREAD;
         $items = $this->itemMapper->findAll(
-            30, 0, $status, false, $this->userId
+            30, 0, $status, false, $this->user
         );
 
         $this->assertEquals(1, count($items));
 
         $item = $this->items['a title1'];
-        $item = $this->itemMapper->find($item->getId(), $this->userId);
+        $item = $this->itemMapper->find($item->getId(), $this->user);
 
         $this->assertEquals(10, $item->getLastModified());
 
         $item = $this->items['a title3'];
-        $item = $this->itemMapper->find($item->getId(), $this->userId);
+        $item = $this->itemMapper->find($item->getId(), $this->user);
 
         $this->assertEquals(10, $item->getLastModified());
 
         $item = $this->items['a title9'];
-        $item = $this->itemMapper->find($item->getId(), $this->userId);
+        $item = $this->itemMapper->find($item->getId(), $this->user);
 
         $this->assertTrue($item->isUnread());
     }
 
 
     public function testReadFeed () {
+        $this->loadFixtures('default');
+
         $feedId = $this->feeds['third feed']->getId();
         $this->itemMapper->readFeed(
-            $feedId, PHP_INT_MAX, 10, $this->userId
+            $feedId, PHP_INT_MAX, 10, $this->user
         );
 
         $status = StatusFlag::UNREAD;
         $items = $this->itemMapper->findAll(
-            30, 0, $status, false, $this->userId
+            30, 0, $status, false, $this->user
         );
 
         $this->assertEquals(2, count($items));
 
         $item = $this->items['a title9'];
-        $item = $this->itemMapper->find($item->getId(), $this->userId);
+        $item = $this->itemMapper->find($item->getId(), $this->user);
 
         $this->assertEquals(10, $item->getLastModified());
 
         $item = $this->items['a title3'];
-        $item = $this->itemMapper->find($item->getId(), $this->userId);
+        $item = $this->itemMapper->find($item->getId(), $this->user);
         $this->assertTrue($item->isUnread());
 
 
         $item = $this->items['a title1'];
-        $item = $this->itemMapper->find($item->getId(), $this->userId);
+        $item = $this->itemMapper->find($item->getId(), $this->user);
         $this->assertTrue($item->isUnread());
     }
 
 
     public function testDeleteUser () {
-        $this->itemMapper->deleteUser($this->userId);
-        $id = $this->itemMapper->getNewestItemId($this->userId);
+        $this->loadFixtures('default');
+
+        $this->itemMapper->deleteUser($this->user);
+        $id = $this->itemMapper->getNewestItemId($this->user);
 
         $this->assertEquals(0, $id);
     }
 
-
     public function testGetNewestItemId () {
-        $id = $this->itemMapper->getNewestItemId($this->userId);
+        $this->loadFixtures('default');
 
-        $item = $this->items['no folder'];
-        $this->assertEquals($item->getId(), $id);
+        $id = $this->itemMapper->getNewestItemId($this->user);
+
+        $itemId = $this->whereTitleId('no folder');
+        $this->assertEquals($itemId, $id);
     }
-
-
-    public function testFindByGuidHash () {
-        $item = $this->items['no folder'];
-
-        $fetchedItem = $this->itemMapper->findByGuidHash(
-            'no folder', $item->getFeedId(), $this->userId
-        );
-
-        $this->assertEquals($item->getId(), $fetchedItem->getId());
-    }
-
 
     public function testFindAllUnreadOrStarred () {
-        $items = $this->itemMapper->findAllUnreadOrStarred($this->userId);
+        $this->loadFixtures('default');
+
+        $items = $this->itemMapper->findAllUnreadOrStarred($this->user);
         $this->assertEquals(4, count($items));
     }
 

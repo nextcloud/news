@@ -19,12 +19,12 @@ return [
                     'url' => 'http://google.de',
                     'items' => [
                         ['title' => 'a title1'],
-                        ['title' => 'a title2', 'status' => 4],
-                        ['title' => 'a title3', 'status' => 6],
-                        ['title' => 'del1', 'status' => 0],
-                        ['title' => 'del2', 'status' => 0],
-                        ['title' => 'del3', 'status' => 0],
-                        ['title' => 'del4', 'status' => 0]
+                        ['title' => 'a title2', 'starred' => true],
+                        ['title' => 'a title3', 'starred' => true],
+                        ['title' => 'del1', 'read' => true],
+                        ['title' => 'del2', 'read' => true],
+                        ['title' => 'del3', 'read' => true],
+                        ['title' => 'del4', 'read' => true]
                     ]
                 ],
                 [
@@ -67,7 +67,7 @@ return [
             'title' => 'fourth feed',
             'url' => 'http://blog.fefe.de',
             'items' => [
-                ['title' => 'no folder', 'status' => 0]
+                ['title' => 'no folder', 'read' => true]
             ]
         ]
     ]

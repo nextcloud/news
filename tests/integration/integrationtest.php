@@ -14,12 +14,16 @@ namespace OCA\News\Tests\Integration;
 
 use PHPUnit_Framework_TestCase;
 
+use OCA\News\Db\Feed;
+use OCA\News\Db\Item;
+use OCP\AppFramework\Db\Entity;
+use OCP\AppFramework\IAppContainer;
+
 use OCP\IDb;
 use OCP\IUserSession;
 use OCP\IUserManager;
 
 use OCA\News\AppInfo\Application;
-use OCA\News\Tests\Integration\Fixtures\Entity;
 use OCA\News\Tests\Integration\Fixtures\ItemFixture;
 use OCA\News\Tests\Integration\Fixtures\FeedFixture;
 use OCA\News\Tests\Integration\Fixtures\FolderFixture;
@@ -42,6 +46,9 @@ abstract class IntegrationTest extends PHPUnit_Framework_TestCase {
     /** @var FolderMapper */
     protected $folderMapper;
 
+    /** @var IAppContainer */
+    protected $container;
+
     protected function setUp() {
         parent::setUp();
         $app = new Application();
@@ -55,8 +62,38 @@ abstract class IntegrationTest extends PHPUnit_Framework_TestCase {
         $this->folderMapper = $this->container->query(FolderMapper::class);
     }
 
+    protected function findItemByTitle($title) {
+        // db logic in app code, negligible since its a test
+        $items = $this->itemMapper->where();
+        $feeds = $this->feedMapper->where(['userId' => $this->user]);
+
+        $feedIds = array_map(function (Feed $feed) {
+            return $feed->getId();
+        }, $feeds);
+
+        return array_filter($items, function (Item $item) use ($title, $feedIds) {
+            return $item->getTitle() === $title &&
+                in_array($item->getFeedId(), $feedIds);
+
+        })[0];
+    }
+
+    protected function findFolderByName($name) {
+        return $this->folderMapper->where([
+            'userId' => $this->user,
+            'name' => $name
+        ])[0];
+    }
+
+    protected function findFeedByTitle($title) {
+        return $this->feedMapper->where([
+            'userId' => $this->user,
+            'title' => $title
+        ])[0];
+    }
+
     /**
-     * @param $name loads fixtures from a given file
+     * @param string $name loads fixtures from a given file
      */
     protected function loadFixtures($name) {
         $fixtures = include __DIR__ . '/data/' . $name . '.php';
@@ -132,7 +169,7 @@ abstract class IntegrationTest extends PHPUnit_Framework_TestCase {
             $userManager->get($user)->delete();
         }
 
-        $this->clearNewsDatabase($user);
+        $this->clearUserNewsDatabase($user);
     }
 
     /**
@@ -141,10 +178,10 @@ abstract class IntegrationTest extends PHPUnit_Framework_TestCase {
      */
     protected function clearUserNewsDatabase($user) {
         $sql = [
-            'DELETE FROM *PREFIX*news_items WHERE feed_id IN ' .
-            '(SELECT id FROM *PREFIX*news_feeds WHERE user_id = ?)',
-            'DELETE FROM *PREFIX*news_feeds WHERE user_id = ?',
-            'DELETE FROM *PREFIX*news_folders WHERE user_id = ?'
+            'DELETE FROM `*PREFIX*news_items` WHERE `feed_id` IN
+              (SELECT `id` FROM `*PREFIX*news_feeds` WHERE `user_id` = ?)',
+            'DELETE FROM `*PREFIX*news_feeds` WHERE `user_id` = ?',
+            'DELETE FROM `*PREFIX*news_folders` WHERE `user_id` = ?'
         ];
 
         $db = $this->container->query(IDb::class);

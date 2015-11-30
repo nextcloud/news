@@ -35,9 +35,16 @@ class ItemFixture extends Item {
             'rtl' => false,
         ], $defaults);
         $this->fillDefaults($defaults);
+
+        if (!array_key_exists('guid', $defaults)) {
+            $this->setGuid($this->getTitle());
+        }
+
+        if (!array_key_exists('guidHash', $defaults)) {
+            $this->setGuidHash($this->getGuid());
+        }
+
         $this->generateSearchIndex();
-        $this->setGuid($this->getTitle());
-        $this->setGuidHash($this->getGuid());
     }
 
 }

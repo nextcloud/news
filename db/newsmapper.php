@@ -33,14 +33,27 @@ abstract class NewsMapper extends Mapper {
      * Performs a SELECT query with all arguments appened to the WHERE clause
      * The SELECT will be performed on the current table and take the entity
      * that is related for transforming the properties into column names
+     *
+     * Important: This method does not filter marked as deleted rows!
+     *
      * @param array $search an assoc array from property to filter value
+     * @param int $limit
+     * @paran int $offset
      * @return array
      */
-    public function where(array $search) {
+    public function where(array $search=[], $limit=null, $offset=null) {
         $entity = new $this->entityClass;
 
         // turn keys into sql query filter, e.g. feedId -> feed_id = :feedId
         $filter = array_map(function ($property) use ($entity) {
+            // check if the property actually exists on the entity to prevent
+            // accidental Sql injection
+            if (!property_exists($entity, $property)) {
+                $msg = 'Property ' . $property . ' does not exist on '
+                    . $this->entityClass;
+                throw new \BadFunctionCallException($msg);
+            }
+
             $column = $entity->propertyToColumn($property);
             return $column . ' = :' . $property;
         }, array_keys($search));
@@ -53,7 +66,7 @@ abstract class NewsMapper extends Mapper {
             $sql .= 'WHERE ' . $andStatement;
         }
 
-        return $this->findEntities($sql, $search);
+        return $this->findEntities($sql, $search, $limit, $offset);
     }
 
 }
