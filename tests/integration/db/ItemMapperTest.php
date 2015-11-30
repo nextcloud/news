@@ -131,7 +131,7 @@ class ItemMapperTest extends IntegrationTest {
     public function testReadFolder () {
         $this->loadFixtures('default');
 
-        $folderId = $this->folders['first folder']->getId();
+        $folderId = $this->findFolderByName('first folder')->getId();
         $this->itemMapper->readFolder(
             $folderId, PHP_INT_MAX, 10, $this->user
         );
@@ -143,17 +143,17 @@ class ItemMapperTest extends IntegrationTest {
 
         $this->assertEquals(1, count($items));
 
-        $item = $this->items['a title1'];
+        $item = $this->findItemByTitle('a title1');
         $item = $this->itemMapper->find($item->getId(), $this->user);
 
         $this->assertEquals(10, $item->getLastModified());
 
-        $item = $this->items['a title3'];
+        $item = $this->findItemByTitle('a title3');
         $item = $this->itemMapper->find($item->getId(), $this->user);
 
         $this->assertEquals(10, $item->getLastModified());
 
-        $item = $this->items['a title9'];
+        $item = $this->findItemByTitle('a title9');
         $item = $this->itemMapper->find($item->getId(), $this->user);
 
         $this->assertTrue($item->isUnread());
@@ -163,7 +163,7 @@ class ItemMapperTest extends IntegrationTest {
     public function testReadFeed () {
         $this->loadFixtures('default');
 
-        $feedId = $this->feeds['third feed']->getId();
+        $feedId = $this->findFeedByTitle('third feed')->getId();
         $this->itemMapper->readFeed(
             $feedId, PHP_INT_MAX, 10, $this->user
         );
@@ -175,17 +175,17 @@ class ItemMapperTest extends IntegrationTest {
 
         $this->assertEquals(2, count($items));
 
-        $item = $this->items['a title9'];
+        $item = $this->findItemByTitle('a title9');
         $item = $this->itemMapper->find($item->getId(), $this->user);
 
         $this->assertEquals(10, $item->getLastModified());
 
-        $item = $this->items['a title3'];
+        $item = $this->findItemByTitle('a title3');
         $item = $this->itemMapper->find($item->getId(), $this->user);
         $this->assertTrue($item->isUnread());
 
 
-        $item = $this->items['a title1'];
+        $item = $this->findItemByTitle('a title1');
         $item = $this->itemMapper->find($item->getId(), $this->user);
         $this->assertTrue($item->isUnread());
     }
