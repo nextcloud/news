@@ -81,6 +81,7 @@ OC.L10N.register(
     "New Folder" : "Nieuwe map",
     "Create" : "Aanmaken",
     "Explore" : "Verkennen",
+    "Update failed more than 50 times" : "Update mislukte meer dan 50 keer",
     "Deleted feed" : "Verwijderde feed",
     "Undo delete feed" : "Maak verwijderen feed ongedaan",
     "Rename" : "Naam wijzigen",
