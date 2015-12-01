@@ -80,6 +80,7 @@ $TRANSLATIONS = array(
 "New Folder" => "Nova Pasta",
 "Create" => "Criar",
 "Explore" => "Explorar",
+"Update failed more than 50 times" => "A atualização falhou mais de 50 vezes",
 "Deleted feed" => "Eliminar feed",
 "Undo delete feed" => "Desfazer exclusão de feed",
 "Rename" => "Renomear",
