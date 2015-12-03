@@ -79,6 +79,7 @@
     "New Folder" : "โฟลเดอร์ใหม่",
     "Create" : "สร้าง",
     "Explore" : "สำรวจ",
+    "Update failed more than 50 times" : "อัพเดทล้มเหลวมากกว่า 50 ครั้ง",
     "Deleted feed" : "ฟีดที่ถูกลบ",
     "Undo delete feed" : "ยกเลิกการลบฟีด",
     "Rename" : "เปลี่ยนชื่อ",

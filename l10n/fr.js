@@ -81,6 +81,7 @@ OC.L10N.register(
     "New Folder" : "Nouveau dossier",
     "Create" : "Créer",
     "Explore" : "Explorer",
+    "Update failed more than 50 times" : "La tentative de mise à jour a échoué plus de 50 fois",
     "Deleted feed" : "Flux supprimé",
     "Undo delete feed" : "Annuler la suppression du flux",
     "Rename" : "Renommer",
