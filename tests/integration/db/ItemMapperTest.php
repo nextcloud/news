@@ -11,16 +11,21 @@
 
 namespace OCA\News\Db;
 
+use OCA\News\Tests\Integration\Fixtures\FeedFixture;
 use OCA\News\Tests\Integration\Fixtures\ItemFixture;
 use OCA\News\Tests\Integration\IntegrationTest;
 
 class ItemMapperTest extends IntegrationTest {
 
     public function testFind() {
-        $item = new ItemFixture();
+        $feed = new FeedFixture();
+        $feed = $this->feedMapper->insert($feed);
 
-        $created = $this->itemMapper->insert($item);
-        $fetched = $this->itemMapper->find($created->getId(), $this->user);
+        $item = new ItemFixture(['feedId' => $feed->getId()]);
+
+        $item = $this->itemMapper->insert($item);
+
+        $fetched = $this->itemMapper->find($item->getId(), $this->user);
 
         $this->assertEquals($item->getTitle(), $fetched->getTitle());
     }
@@ -50,6 +55,7 @@ class ItemMapperTest extends IntegrationTest {
      */
     public function testFindNotFoundWhenDeletedFolder() {
         $this->loadFixtures('default');
+
 
         $id = $this->whereTitleId('not found folder');
         $this->itemMapper->find($id, $this->user);

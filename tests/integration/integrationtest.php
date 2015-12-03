@@ -64,18 +64,24 @@ abstract class IntegrationTest extends PHPUnit_Framework_TestCase {
 
     protected function findItemByTitle($title) {
         // db logic in app code, negligible since its a test
-        $items = $this->itemMapper->where();
+        $items = $this->itemMapper->where(['title' => $title]);
         $feeds = $this->feedMapper->where(['userId' => $this->user]);
 
-        $feedIds = array_map(function (Feed $feed) {
-            return $feed->getId();
-        }, $feeds);
+        $feedIds = [];
+        foreach ($feeds as $feed) {
+            $feedIds[$feed->getId()] = true;
+        }
 
-        return array_filter($items, function (Item $item) use ($title, $feedIds) {
-            return $item->getTitle() === $title &&
-                in_array($item->getFeedId(), $feedIds);
+        $result = array_filter($items,
+            function (Item $item) use ($feedIds) {
+            return array_key_exists($item->getFeedId(), $feedIds);
+        });
 
-        })[0];
+        // ok so this is funny: array_filter preserves indices, meaning that
+        // you can't use 0 as key for the first element return from it :D
+        $result = array_values($result)[0];
+
+        return $result;
     }
 
     protected function findFolderByName($name) {
@@ -96,7 +102,7 @@ abstract class IntegrationTest extends PHPUnit_Framework_TestCase {
      * @param string $name loads fixtures from a given file
      */
     protected function loadFixtures($name) {
-        $fixtures = include __DIR__ . '/data/' . $name . '.php';
+        $fixtures = include __DIR__ . '/fixtures/data/' . $name . '.php';
         if (array_key_exists('folders', $fixtures)) {
             $this->loadFolderFixtures($fixtures['folders']);
         }
@@ -116,6 +122,7 @@ abstract class IntegrationTest extends PHPUnit_Framework_TestCase {
     protected function loadFeedFixtures(array $feedFixtures=[], $folderId=0) {
         foreach ($feedFixtures as $feedFixture) {
             $feed = new FeedFixture($feedFixture);
+            $feed->setFolderId($folderId);
             $feedId = $this->loadFixture($feed);
             $this->loadItemFixtures($feedFixture['items'], $feedId);
         }
@@ -124,6 +131,7 @@ abstract class IntegrationTest extends PHPUnit_Framework_TestCase {
     protected function loadItemFixtures(array $itemFixtures=[], $feedId) {
         foreach ($itemFixtures as $itemFixture) {
             $item = new ItemFixture($itemFixture);
+            $item->setFeedId($feedId);
             $this->loadFixture($item);
         }
     }

@@ -20,8 +20,7 @@ class ItemFixture extends Item {
 
     public function __construct(array $defaults=[])  {
         parent::__construct();
-        $defaults = array_combine([
-            'guid' => 'guid',
+        $defaults = array_merge([
             'url' => 'http://google.de',
             'title' => 'title',
             'author' => 'author',
@@ -34,17 +33,18 @@ class ItemFixture extends Item {
             'lastModified' => 113,
             'rtl' => false,
         ], $defaults);
-        $this->fillDefaults($defaults);
 
         if (!array_key_exists('guid', $defaults)) {
-            $this->setGuid($this->getTitle());
+            $defaults['guid'] = $defaults['title'];
         }
 
         if (!array_key_exists('guidHash', $defaults)) {
-            $this->setGuidHash($this->getGuid());
+            $defaults['guidHash'] = $defaults['guid'];
         }
 
         $this->generateSearchIndex();
+
+        $this->fillDefaults($defaults);
     }
 
 }

@@ -21,7 +21,7 @@ class FeedFixture extends Feed {
 
     public function __construct(array $defaults=[])  {
         parent::__construct();
-        $defaults = array_combine([
+        $defaults = array_merge([
             'userId' => 'test',
             'urlHash' => 'urlHash',
             'url' => 'http://the.url.com',
@@ -29,7 +29,6 @@ class FeedFixture extends Feed {
             'faviconLink' => 'http://the.faviconLink.com',
             'added' => 9,
             'folderId' => 0,
-            'unreadCount' => 0,
             'link' => 'http://thelink.com',
             'preventUpdate' => false,
             'deletedAt' => 0,

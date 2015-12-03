@@ -15,12 +15,11 @@ namespace OCA\News\Tests\Integration\Fixtures;
 
 trait Fixture {
 
-    public function fillDefaults(array $defaults=[]) {
+    protected function fillDefaults(array $defaults=[]) {
         foreach ($defaults as $key => $value) {
             $method = 'set' . ucfirst($key);
             $this->$method($value);
         }
-        $this->resetUpdatedFields();
     }
 
 }
