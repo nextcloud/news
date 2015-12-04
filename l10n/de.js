@@ -81,6 +81,7 @@ OC.L10N.register(
     "New Folder" : "Neuer Ordner",
     "Create" : "Erstellen",
     "Explore" : "Entdecken",
+    "Update failed more than 50 times" : "Das Update ist über 50 mal fehlgeschlagen",
     "Deleted feed" : "Feed gelöscht",
     "Undo delete feed" : "Gelöschten Feed wieder herstellen",
     "Rename" : "Umbenennen",
