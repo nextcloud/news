@@ -37,7 +37,7 @@ OC.L10N.register(
     "Close" : "Sluiten",
     "Ajax or webcron cron mode detected! Your feeds will not be updated correctly. It is recommended to either use the operating system cron or a custom updater." : "Ajax- of webcron modus gedetecteerd! Uw feeds worden niet correct bijgewerkt. Geadviseerd wordt om ofwel de cron-service van het platform zelf te gebruiken of een eigen maatwerk updater.",
     "How to set up the operating system cron" : "Hoe wordt de cron-service van het operating system ingesteld",
-    "How to set up a custom updater (faster and no possible deadlock) " : "Hoe wordt een maarwerk update ingesteld (sneller en geen deadlock)",
+    "How to set up a custom updater (faster and no possible deadlock) " : "Hoe wordt een maatwerk update ingesteld (sneller en geen deadlock)",
     "Subscribe" : "Abonneren",
     "Refresh" : "Vernieuwen",
     "No articles available" : "Geen artikelen beschikbaar",
