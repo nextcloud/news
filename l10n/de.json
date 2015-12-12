@@ -91,6 +91,7 @@
     "Normal feed ordering" : "Normale Feed-Sortierung",
     "Enable full text feed fetching" : "Aktiviere Volltextfeedfetching",
     "Disable full text feed fetching" : "Deaktviere Volltextfeedfetching",
+    "Mark updated articles unread" : "Die ausgewählten Artikel als ungelesen markieren",
     "Rename feed" : "Feed umbenennen",
     "Delete feed" : "Feed löschen",
     "Mark all articles read" : "Alle Artikel als gelesen markieren",
