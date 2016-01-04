@@ -13,7 +13,7 @@
 
 namespace OCA\News\Db;
 
-use OCP\AppFramework\Db\DoesNotExistException;
+use Exception;
 use OCP\IDBConnection;
 
 
@@ -342,11 +342,8 @@ class ItemMapper extends NewsMapper {
     /**
      * Returns a list of ids and userid of all items
      */
-    public function findAllItemIdsAndUsers($limit=null, $offset=null) {
-        $sql = 'SELECT `items`.`id`, `feeds`.`user_id` ' .
-                'FROM `*PREFIX*news_items` `items` ' .
-                'JOIN `*PREFIX*news_feeds` `feeds` ' .
-                    'ON `items`.`feed_id` = `feeds`.`id`';
+    public function findAllIds($limit=null, $offset=null) {
+        $sql = 'SELECT `id` FROM `*PREFIX*news_items`';
         return $this->execute($sql, [], $limit, $offset)->fetchAll();
     }
 
@@ -361,7 +358,7 @@ class ItemMapper extends NewsMapper {
 
         // stop condition if there are no previously fetched items
         while ($itemCount > 0) {
-            $items = $this->findAllItemIdsAndUsers($step, $offset);
+            $items = $this->findAllIds($step, $offset);
             $itemCount = count($items);
             $this->updateSearchIndex($items);
             $offset += $step;
@@ -370,15 +367,15 @@ class ItemMapper extends NewsMapper {
 
     private function updateSearchIndex(array $items=[]) {
         foreach ($items as $row) {
-            // ignore items of deleted rows
             try {
-                $item = $this->find($row['id'], $row['user_id']);
-            } catch(\Exception $e) {
+                $sql = 'SELECT * FROM `*PREFIX*news_items` WHERE `id` = ?';
+                $params = [$row['id']];
+                $item = $this->findEntity($sql, $params);
+                $item->generateSearchIndex();
+                $this->update($item);
+            } catch (Exception $e) {
                 continue;
             }
-
-            $item->generateSearchIndex();
-            $this->update($item);
         }
     }
 
