@@ -13,6 +13,7 @@
 
 namespace OCA\News\Db;
 
+use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\IDBConnection;
 
 
@@ -369,7 +370,13 @@ class ItemMapper extends NewsMapper {
 
     private function updateSearchIndex(array $items=[]) {
         foreach ($items as $row) {
-            $item = $this->find($row['id'], $row['user_id']);
+            // ignore items of deleted rows
+            try {
+                $item = $this->find($row['id'], $row['user_id']);
+            } catch(\Exception $e) {
+                continue;
+            }
+
             $item->generateSearchIndex();
             $this->update($item);
         }
