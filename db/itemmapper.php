@@ -23,7 +23,7 @@ class ItemMapper extends NewsMapper {
     }
 
 
-    private function makeSelectQuery($prependTo, $oldestFirst=false,
+    private function makeSelectQuery($prependTo='', $oldestFirst=false,
                                      $distinctFingerprint=false){
         if($oldestFirst) {
             $ordering = 'ASC';
@@ -71,11 +71,15 @@ class ItemMapper extends NewsMapper {
         }, $search);
     }
 
+    /**
+     * @param int $id
+     * @param string $userId
+     * @return \OCA\News\Db\Item
+     */
     public function find($id, $userId){
         $sql = $this->makeSelectQuery('AND `items`.`id` = ? ');
         return $this->findEntity($sql, [$userId, $id]);
     }
-
 
     public function starredCount($userId){
         $sql = 'SELECT COUNT(*) AS size FROM `*PREFIX*news_items` `items` '.
@@ -337,12 +341,38 @@ class ItemMapper extends NewsMapper {
     /**
      * Returns a list of ids and userid of all items
      */
-    public function findAllItemIdsAndUsers() {
+    public function findAllItemIdsAndUsers($limit=null, $offset=null) {
         $sql = 'SELECT `items`.`id`, `feeds`.`user_id` ' .
                 'FROM `*PREFIX*news_items` `items` ' .
                 'JOIN `*PREFIX*news_feeds` `feeds` ' .
                     'ON `items`.`feed_id` = `feeds`.`id`';
-        return $this->execute($sql)->fetchAll();
+        return $this->execute($sql, [], $limit, $offset)->fetchAll();
+    }
+
+    /**
+     * Update search indices of all items
+     */
+    public function updateSearchIndices() {
+        // update indices in steps to prevent memory issues on larger systems
+        $step = 1000;  // update 1000 items at a time
+        $itemCount = 1;
+        $offset = 0;
+
+        // stop condition if there are no previously fetched items
+        while ($itemCount > 0) {
+            $items = $this->findAllItemIdsAndUsers($step, $offset);
+            $itemCount = count($items);
+            $this->updateSearchIndex($items);
+            $offset += $step;
+        }
+    }
+
+    private function updateSearchIndex(array $items=[]) {
+        foreach ($items as $row) {
+            $item = $this->find($row['id'], $row['user_id']);
+            $item->generateSearchIndex();
+            $this->update($item);
+        }
     }
 
 

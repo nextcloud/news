@@ -260,14 +260,7 @@ class ItemService extends Service {
      * Regenerates the search index for all items
      */
     public function generateSearchIndices() {
-        $rows = $this->itemMapper->findAllItemIdsAndUsers();
-
-        foreach ($rows as $row) {
-            $item = $this->find($row['id'], $row['user_id']);
-            $item->generateSearchIndex();
-            $this->itemMapper->update($item);
-        }
-
+        $this->itemMapper->updateSearchIndices();
     }
 
 }
