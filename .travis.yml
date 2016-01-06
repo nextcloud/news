@@ -2,6 +2,7 @@ language: php
 php:
     - 5.5
     - 5.6
+    - 7
     - hhvm
 env:
     global:
@@ -12,8 +13,7 @@ env:
 matrix:
     allow_failures:
         - php: hhvm
-        - php: 7
-        - env: DB=pgsql CORE_BRANCH=master 
+        - env: DB=pgsql CORE_BRANCH=master
     include:
         - php: 5.5
           env: DB=sqlite
@@ -21,9 +21,6 @@ matrix:
           env: DB=mysql
         - php: 5.5
           env: DB=pgsql CORE_BRANCH=stable8.2
-        # experimental PHP 7 features
-        - php: 7
-          env: DB=pgsql CORE_BRANCH=master
         # master branch
         - php: 5.5
           env: DB=pgsql CORE_BRANCH=master
