@@ -1,6 +1,7 @@
 owncloud-news (7.0.0)
-* **Bugfix**: Fix bug that prevented non admin users from changing feed parameters
+* **New dependency**: Bump required ownCloud version to 8.2
 * **Backwards incompatible change**: Remove console commands and instead run them after specific updates
+* **Bugfix**: Fix bug that prevented non admin users from changing feed parameters
 * **Enhancement**: If a feed failed to update more than 100 times, show a hint in the web interface
 
 owncloud-news (6.1.1)

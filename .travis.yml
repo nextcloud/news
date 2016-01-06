@@ -6,7 +6,7 @@ php:
     - hhvm
 env:
     global:
-        - CORE_BRANCH=stable8.1
+        - CORE_BRANCH=stable8.2
     matrix:
         - DB=pgsql
 
@@ -19,8 +19,6 @@ matrix:
           env: DB=sqlite
         - php: 5.5
           env: DB=mysql
-        - php: 5.5
-          env: DB=pgsql CORE_BRANCH=stable8.2
         # master branch
         - php: 5.5
           env: DB=pgsql CORE_BRANCH=master
