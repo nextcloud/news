@@ -258,7 +258,7 @@ class FeedController extends Controller {
         return [];
     }
 
-    /*
+    /**
      * @NoAdminRequired
      *
      * @param int $feedId

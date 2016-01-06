@@ -92,7 +92,7 @@
             button.addClass('loading');
 
             $.post(OC.generateUrl('/apps/news/admin/migrate'))
-            .always(function (data) {
+            .always(function () {
                 button.removeClass('loading');
             });
 
