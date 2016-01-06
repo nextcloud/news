@@ -8,14 +8,14 @@ return array(
             ),
             'strip' => array(
                 '//p[@id="mobile-signature"]',
-		'//article/div[4]',
+                '//article/div[4]',
                 '//article/ul[1]',
                 '//div[@class="clr"]',
                 '//p[@class="small"]',
                 '//p[@style="font-weight: bold; font-size: 14px;"]',
                 '//div[@class="author"]',
-	    )
+                '//div[@class="ad_container"]',
+        )
         )
     )
 );
-
