@@ -30,6 +30,7 @@ class Favicon
         'image/x-icon',
         'image/jpeg',
         'image/jpg',
+        'image/svg+xml'
     );
 
     /**
@@ -195,7 +196,7 @@ class Favicon
         $dom = XmlParser::getHtmlDocument($html);
 
         $xpath = new DOMXpath($dom);
-        $elements = $xpath->query("//link[contains(@rel, 'icon') and not(contains(@rel, 'apple'))]");
+        $elements = $xpath->query('//link[@rel="icon" or @rel="shortcut icon" or @rel="icon shortcut"]');
 
         for ($i = 0; $i < $elements->length; ++$i) {
             $icons[] = $elements->item($i)->getAttribute('href');
