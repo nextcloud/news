@@ -126,4 +126,4 @@ Development
 
 If you want to edit the python code and test it run::
 
-    python3 -m owncloud_news -c /path/to/config.ini
+    python3 -m owncloud_news_updater -c /path/to/config.ini
