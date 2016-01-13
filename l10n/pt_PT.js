@@ -81,6 +81,7 @@ OC.L10N.register(
     "New Folder" : "Nova Pasta",
     "Create" : "Criar",
     "Explore" : "Explorar",
+    "Update failed more than 50 times" : "A atualização falhou mais de 50 vezes",
     "Deleted feed" : "Apagar feed",
     "Undo delete feed" : "Desfazer apagar a feed",
     "Rename" : "Renomear",
