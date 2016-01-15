@@ -87,6 +87,7 @@ $TRANSLATIONS = array(
 "No feed ordering" => "Fuentes no ordenadas",
 "Reversed feed ordering" => "Fuentes en orden inverso",
 "Normal feed ordering" => "Fuentes en orden normal",
+"Mark updated articles unread" => "Marcar artículos actualizados como no leídos",
 "Rename feed" => "Renombrar fuente",
 "Delete feed" => "Eliminar fuente",
 "Mark all articles read" => "Marcar todos los artículos como leídos",
