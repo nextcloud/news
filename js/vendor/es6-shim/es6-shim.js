@@ -2,8 +2,8 @@
   * https://github.com/paulmillr/es6-shim
   * @license es6-shim Copyright 2013-2015 by Paul Miller (http://paulmillr.com)
   *   and contributors,  MIT License
-  * es6-shim: v0.33.12
-  * see https://github.com/paulmillr/es6-shim/blob/0.33.12/LICENSE
+  * es6-shim: v0.34.1
+  * see https://github.com/paulmillr/es6-shim/blob/0.34.1/LICENSE
   * Details and documentation:
   * https://github.com/paulmillr/es6-shim/
   */
@@ -17,7 +17,7 @@
     define(factory);
   } else if (typeof exports === 'object') {
     // Node. Does not work with strict CommonJS, but
-    // only CommonJS-like enviroments that support module.exports,
+    // only CommonJS-like environments that support module.exports,
     // like Node.
     module.exports = factory();
   } else {
@@ -30,6 +30,7 @@
   var _apply = Function.call.bind(Function.apply);
   var _call = Function.call.bind(Function.call);
   var isArray = Array.isArray;
+  var keys = Object.keys;
 
   var not = function notThunker(func) {
     return function notThunk() { return !_apply(func, this, arguments); };
@@ -79,11 +80,63 @@
 
   // Define configurable, writable and non-enumerable props
   // if they don’t exist.
-  var defineProperties = function (object, map) {
-    _forEach(Object.keys(map), function (name) {
+  var defineProperties = function (object, map, forceOverride) {
+    _forEach(keys(map), function (name) {
       var method = map[name];
-      defineProperty(object, name, method, false);
+      defineProperty(object, name, method, !!forceOverride);
     });
+  };
+
+  var _toString = Function.call.bind(Object.prototype.toString);
+  var isCallable = typeof /abc/ === 'function' ? function IsCallableSlow(x) {
+    // Some old browsers (IE, FF) say that typeof /abc/ === 'function'
+    return typeof x === 'function' && _toString(x) === '[object Function]';
+  } : function IsCallableFast(x) { return typeof x === 'function'; };
+
+  var Value = {
+    getter: function (object, name, getter) {
+      if (!supportsDescriptors) {
+        throw new TypeError('getters require true ES5 support');
+      }
+      Object.defineProperty(object, name, {
+        configurable: true,
+        enumerable: false,
+        get: getter
+      });
+    },
+    proxy: function (originalObject, key, targetObject) {
+      if (!supportsDescriptors) {
+        throw new TypeError('getters require true ES5 support');
+      }
+      var originalDescriptor = Object.getOwnPropertyDescriptor(originalObject, key);
+      Object.defineProperty(targetObject, key, {
+        configurable: originalDescriptor.configurable,
+        enumerable: originalDescriptor.enumerable,
+        get: function getKey() { return originalObject[key]; },
+        set: function setKey(value) { originalObject[key] = value; }
+      });
+    },
+    redefine: function (object, property, newValue) {
+      if (supportsDescriptors) {
+        var descriptor = Object.getOwnPropertyDescriptor(object, property);
+        descriptor.value = newValue;
+        Object.defineProperty(object, property, descriptor);
+      } else {
+        object[property] = newValue;
+      }
+    },
+    defineByDescriptor: function (object, property, descriptor) {
+      if (supportsDescriptors) {
+        Object.defineProperty(object, property, descriptor);
+      } else if ('value' in descriptor) {
+        object[property] = descriptor.value;
+      }
+    },
+    preserveToString: function (target, source) {
+      if (source && isCallable(source.toString)) {
+        defineProperty(target, 'toString', source.toString.bind(source), true);
+      }
+    }
   };
 
   // Simple shim for Object.create on ES3 browsers
@@ -93,7 +146,7 @@
     Prototype.prototype = prototype;
     var object = new Prototype();
     if (typeof properties !== 'undefined') {
-      Object.keys(properties).forEach(function (key) {
+      keys(properties).forEach(function (key) {
         Value.defineByDescriptor(object, key, properties[key]);
       });
     }
@@ -130,8 +183,8 @@
   var globals = getGlobal();
   var globalIsFinite = globals.isFinite;
   var _indexOf = Function.call.bind(String.prototype.indexOf);
-  var _toString = Function.call.bind(Object.prototype.toString);
   var _concat = Function.call.bind(Array.prototype.concat);
+  var _sort = Function.call.bind(Array.prototype.sort);
   var _strSlice = Function.call.bind(String.prototype.slice);
   var _push = Function.call.bind(Array.prototype.push);
   var _pushApply = Function.apply.bind(Array.prototype.push);
@@ -186,6 +239,14 @@
     }
   };
 
+  var overrideNative = function overrideNative(object, property, replacement) {
+    var original = object[property];
+    defineProperty(object, property, replacement, true);
+    Value.preserveToString(object[property], original);
+  };
+
+  var hasSymbols = typeof Symbol === 'function' && typeof Symbol['for'] === 'function' && Type.symbol(Symbol());
+
   // This is a private name in the es6 spec, equal to '[Symbol.iterator]'
   // we're going to use an arbitrary _-prefixed name to make our shims
   // work properly with each other, even though we don't have full Iterator
@@ -205,6 +266,8 @@
   }
   var Reflect = globals.Reflect;
 
+  var $String = String;
+
   var ES = {
     // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-call-f-v-args
     Call: function Call(F, V) {
@@ -220,24 +283,30 @@
       if (x == null) {
         throw new TypeError(optMessage || 'Cannot call method on ' + x);
       }
+      return x;
     },
 
+    // This might miss the "(non-standard exotic and does not implement
+    // [[Call]])" case from
+    // http://www.ecma-international.org/ecma-262/6.0/#sec-typeof-operator-runtime-semantics-evaluation
+    // but we can't find any evidence these objects exist in practice.
+    // If we find some in the future, you could test `Object(x) === x`,
+    // which is reliable according to
+    // http://www.ecma-international.org/ecma-262/6.0/#sec-toobject
+    // but is not well optimized by runtimes and creates an object
+    // whenever it returns false, and thus is very slow.
     TypeIsObject: function (x) {
-      /* jshint eqnull:true */
-      // this is expensive when it returns false; use this function
-      // when you expect it to return true in the common case.
-      return x != null && Object(x) === x;
+      if (x === void 0 || x === null || x === true || x === false) {
+        return false;
+      }
+      return typeof x === 'function' || typeof x === 'object';
     },
 
     ToObject: function (o, optMessage) {
-      ES.RequireObjectCoercible(o, optMessage);
-      return Object(o);
+      return Object(ES.RequireObjectCoercible(o, optMessage));
     },
 
-    IsCallable: function (x) {
-      // some versions of IE say that typeof /abc/ === 'function'
-      return typeof x === 'function' && _toString(x) === '[object Function]';
-    },
+    IsCallable: isCallable,
 
     IsConstructor: function (x) {
       // We can't tell callables from constructors in ES5
@@ -301,7 +370,7 @@
         // Better diagnostics if itFn is null or undefined
         throw new TypeError('value is not an iterable');
       }
-      var it = _call(itFn, o);
+      var it = ES.Call(itFn, o);
       if (!ES.TypeIsObject(it)) {
         throw new TypeError('bad iterator');
       }
@@ -330,7 +399,7 @@
       }
       var innerResult, innerException;
       try {
-        innerResult = _call(returnMethod, iterator);
+        innerResult = ES.Call(returnMethod, iterator);
       } catch (e) {
         innerException = e;
       }
@@ -362,7 +431,7 @@
     Construct: function (C, args, newTarget, isES6internal) {
       var target = typeof newTarget === 'undefined' ? C : newTarget;
 
-      if (!isES6internal) {
+      if (!isES6internal && Reflect.construct) {
         // Try to use Reflect.construct if available
         return Reflect.construct(C, args, target);
       }
@@ -400,64 +469,132 @@
     },
 
     CreateHTML: function (string, tag, attribute, value) {
-      var S = String(string);
+      var S = ES.ToString(string);
       var p1 = '<' + tag;
       if (attribute !== '') {
-        var V = String(value);
+        var V = ES.ToString(value);
         var escapedV = V.replace(/"/g, '&quot;');
         p1 += ' ' + attribute + '="' + escapedV + '"';
       }
       var p2 = p1 + '>';
       var p3 = p2 + S;
       return p3 + '</' + tag + '>';
+    },
+
+    IsRegExp: function IsRegExp(argument) {
+      if (!ES.TypeIsObject(argument)) {
+        return false;
+      }
+      var isRegExp = argument[Symbol.match];
+      if (typeof isRegExp !== 'undefined') {
+        return !!isRegExp;
+      }
+      return Type.regex(argument);
+    },
+
+    ToString: function ToString(string) {
+      return $String(string);
     }
   };
 
-  var Value = {
-    getter: function (object, name, getter) {
-      if (!supportsDescriptors) {
-        throw new TypeError('getters require true ES5 support');
+  // Well-known Symbol shims
+  if (supportsDescriptors && hasSymbols) {
+    var defineWellKnownSymbol = function defineWellKnownSymbol(name) {
+      if (Type.symbol(Symbol[name])) {
+        return Symbol[name];
       }
-      Object.defineProperty(object, name, {
-        configurable: true,
+      var sym = Symbol['for']('Symbol.' + name);
+      Object.defineProperty(Symbol, name, {
+        configurable: false,
         enumerable: false,
-        get: getter
+        writable: false,
+        value: sym
       });
-    },
-    proxy: function (originalObject, key, targetObject) {
-      if (!supportsDescriptors) {
-        throw new TypeError('getters require true ES5 support');
-      }
-      var originalDescriptor = Object.getOwnPropertyDescriptor(originalObject, key);
-      Object.defineProperty(targetObject, key, {
-        configurable: originalDescriptor.configurable,
-        enumerable: originalDescriptor.enumerable,
-        get: function getKey() { return originalObject[key]; },
-        set: function setKey(value) { originalObject[key] = value; }
+      return sym;
+    };
+    if (!Type.symbol(Symbol.search)) {
+      var symbolSearch = defineWellKnownSymbol('search');
+      var originalSearch = String.prototype.search;
+      defineProperty(RegExp.prototype, symbolSearch, function search(string) {
+        return ES.Call(originalSearch, string, [this]);
       });
-    },
-    redefine: function (object, property, newValue) {
-      if (supportsDescriptors) {
-        var descriptor = Object.getOwnPropertyDescriptor(object, property);
-        descriptor.value = newValue;
-        Object.defineProperty(object, property, descriptor);
-      } else {
-        object[property] = newValue;
-      }
-    },
-    defineByDescriptor: function (object, property, descriptor) {
-      if (supportsDescriptors) {
-        Object.defineProperty(object, property, descriptor);
-      } else if ('value' in descriptor) {
-        object[property] = descriptor.value;
-      }
-    },
-    preserveToString: function (target, source) {
-      if (source && ES.IsCallable(source.toString)) {
-        defineProperty(target, 'toString', source.toString.bind(source), true);
-      }
+      var searchShim = function search(regexp) {
+        var O = ES.RequireObjectCoercible(this);
+        if (regexp !== null && typeof regexp !== 'undefined') {
+          var searcher = ES.GetMethod(regexp, symbolSearch);
+          if (typeof searcher !== 'undefined') {
+            return ES.Call(searcher, regexp, [O]);
+          }
+        }
+        return ES.Call(originalSearch, O, [ES.ToString(regexp)]);
+      };
+      overrideNative(String.prototype, 'search', searchShim);
     }
-  };
+    if (!Type.symbol(Symbol.replace)) {
+      var symbolReplace = defineWellKnownSymbol('replace');
+      var originalReplace = String.prototype.replace;
+      defineProperty(RegExp.prototype, symbolReplace, function replace(string, replaceValue) {
+        return ES.Call(originalReplace, string, [this, replaceValue]);
+      });
+      var replaceShim = function replace(searchValue, replaceValue) {
+        var O = ES.RequireObjectCoercible(this);
+        if (searchValue !== null && typeof searchValue !== 'undefined') {
+          var replacer = ES.GetMethod(searchValue, symbolReplace);
+          if (typeof replacer !== 'undefined') {
+            return ES.Call(replacer, searchValue, [O, replaceValue]);
+          }
+        }
+        return ES.Call(originalReplace, O, [ES.ToString(searchValue), replaceValue]);
+      };
+      overrideNative(String.prototype, 'replace', replaceShim);
+    }
+    if (!Type.symbol(Symbol.split)) {
+      var symbolSplit = defineWellKnownSymbol('split');
+      var originalSplit = String.prototype.split;
+      defineProperty(RegExp.prototype, symbolSplit, function split(string, limit) {
+        return ES.Call(originalSplit, string, [this, limit]);
+      });
+      var splitShim = function split(separator, limit) {
+        var O = ES.RequireObjectCoercible(this);
+        if (separator !== null && typeof separator !== 'undefined') {
+          var splitter = ES.GetMethod(separator, symbolSplit);
+          if (typeof splitter !== 'undefined') {
+            return ES.Call(splitter, separator, [O, limit]);
+          }
+        }
+        return ES.Call(originalSplit, O, [ES.ToString(separator), limit]);
+      };
+      overrideNative(String.prototype, 'split', splitShim);
+    }
+    var symbolMatchExists = Type.symbol(Symbol.match);
+    var stringMatchIgnoresSymbolMatch = symbolMatchExists && (function () {
+      // Firefox 41, through Nightly 45 has Symbol.match, but String#match ignores it.
+      // Firefox 40 and below have Symbol.match but String#match works fine.
+      var o = {};
+      o[Symbol.match] = function () { return 42; };
+      return 'a'.match(o) !== 42;
+    }());
+    if (!symbolMatchExists || stringMatchIgnoresSymbolMatch) {
+      var symbolMatch = defineWellKnownSymbol('match');
+
+      var originalMatch = String.prototype.match;
+      defineProperty(RegExp.prototype, symbolMatch, function match(string) {
+        return ES.Call(originalMatch, string, [this]);
+      });
+
+      var matchShim = function match(regexp) {
+        var O = ES.RequireObjectCoercible(this);
+        if (regexp !== null && typeof regexp !== 'undefined') {
+          var matcher = ES.GetMethod(regexp, symbolMatch);
+          if (typeof matcher !== 'undefined') {
+            return ES.Call(matcher, regexp, [O]);
+          }
+        }
+        return ES.Call(originalMatch, O, [ES.ToString(regexp)]);
+      };
+      overrideNative(String.prototype, 'match', matchShim);
+    }
+  }
 
   var wrapConstructor = function wrapConstructor(original, replacement, keysToSkip) {
     Value.preserveToString(replacement, original);
@@ -485,12 +622,6 @@
     if (supportsDescriptors && !_hasOwnProperty(C, symbolSpecies)) {
       Value.getter(C, symbolSpecies, defaultSpeciesGetter);
     }
-  };
-
-  var overrideNative = function overrideNative(object, property, replacement) {
-    var original = object[property];
-    defineProperty(object, property, replacement, true);
-    Value.preserveToString(object[property], original);
   };
 
   var addIterator = function (prototype, impl) {
@@ -553,7 +684,7 @@
   // https://bugzilla.mozilla.org/show_bug.cgi?id=1062484
   if (String.fromCodePoint && String.fromCodePoint.length !== 1) {
     var originalFromCodePoint = String.fromCodePoint;
-    overrideNative(String, 'fromCodePoint', function fromCodePoint(codePoints) { return _apply(originalFromCodePoint, this, arguments); });
+    overrideNative(String, 'fromCodePoint', function fromCodePoint(codePoints) { return ES.Call(originalFromCodePoint, this, arguments); });
   }
 
   var StringShims = {
@@ -590,14 +721,14 @@
       var nextIndex = 0;
       var nextKey, next, nextSeg, nextSub;
       while (nextIndex < literalsegments) {
-        nextKey = String(nextIndex);
-        nextSeg = String(rawString[nextKey]);
+        nextKey = ES.ToString(nextIndex);
+        nextSeg = ES.ToString(rawString[nextKey]);
         _push(stringElements, nextSeg);
         if (nextIndex + 1 >= literalsegments) {
           break;
         }
         next = nextIndex + 1 < arguments.length ? arguments[nextIndex + 1] : '';
-        nextSub = String(next);
+        nextSub = ES.ToString(next);
         _push(stringElements, nextSub);
         nextIndex += 1;
       }
@@ -622,8 +753,7 @@
 
   var StringPrototypeShims = {
     repeat: function repeat(times) {
-      ES.RequireObjectCoercible(this);
-      var thisStr = String(this);
+      var thisStr = ES.ToString(ES.RequireObjectCoercible(this));
       var numTimes = ES.ToInteger(times);
       if (numTimes < 0 || numTimes >= stringMaxLength) {
         throw new RangeError('repeat count must be less than infinity and not overflow maximum string size');
@@ -632,46 +762,50 @@
     },
 
     startsWith: function startsWith(searchString) {
-      ES.RequireObjectCoercible(this);
-      var thisStr = String(this);
-      if (Type.regex(searchString)) {
+      var S = ES.ToString(ES.RequireObjectCoercible(this));
+      if (ES.IsRegExp(searchString)) {
         throw new TypeError('Cannot call method "startsWith" with a regex');
       }
-      var searchStr = String(searchString);
-      var startArg = arguments.length > 1 ? arguments[1] : void 0;
-      var start = _max(ES.ToInteger(startArg), 0);
-      return _strSlice(thisStr, start, start + searchStr.length) === searchStr;
+      var searchStr = ES.ToString(searchString);
+      var position;
+      if (arguments.length > 1) {
+        position = arguments[1];
+      }
+      var start = _max(ES.ToInteger(position), 0);
+      return _strSlice(S, start, start + searchStr.length) === searchStr;
     },
 
     endsWith: function endsWith(searchString) {
-      ES.RequireObjectCoercible(this);
-      var thisStr = String(this);
-      if (Type.regex(searchString)) {
+      var S = ES.ToString(ES.RequireObjectCoercible(this));
+      if (ES.IsRegExp(searchString)) {
         throw new TypeError('Cannot call method "endsWith" with a regex');
       }
-      var searchStr = String(searchString);
-      var thisLen = thisStr.length;
-      var posArg = arguments.length > 1 ? arguments[1] : void 0;
-      var pos = typeof posArg === 'undefined' ? thisLen : ES.ToInteger(posArg);
-      var end = _min(_max(pos, 0), thisLen);
-      return _strSlice(thisStr, end - searchStr.length, end) === searchStr;
+      var searchStr = ES.ToString(searchString);
+      var len = S.length;
+      var endPosition;
+      if (arguments.length > 1) {
+        endPosition = arguments[1];
+      }
+      var pos = typeof endPosition === 'undefined' ? len : ES.ToInteger(endPosition);
+      var end = _min(_max(pos, 0), len);
+      return _strSlice(S, end - searchStr.length, end) === searchStr;
     },
 
     includes: function includes(searchString) {
-      if (Type.regex(searchString)) {
+      if (ES.IsRegExp(searchString)) {
         throw new TypeError('"includes" does not accept a RegExp');
       }
+      var searchStr = ES.ToString(searchString);
       var position;
       if (arguments.length > 1) {
         position = arguments[1];
       }
       // Somehow this trick makes method 100% compat with the spec.
-      return _indexOf(this, searchString, position) !== -1;
+      return _indexOf(this, searchStr, position) !== -1;
     },
 
     codePointAt: function codePointAt(pos) {
-      ES.RequireObjectCoercible(this);
-      var thisStr = String(this);
+      var thisStr = ES.ToString(ES.RequireObjectCoercible(this));
       var position = ES.ToInteger(pos);
       var length = thisStr.length;
       if (position >= 0 && position < length) {
@@ -700,6 +834,32 @@
       overrideNative(String.prototype, 'endsWith', StringPrototypeShims.endsWith);
     }
   }
+  if (hasSymbols) {
+    var startsWithSupportsSymbolMatch = valueOrFalseIfThrows(function () {
+      var re = /a/;
+      re[Symbol.match] = false;
+      return '/a/'.startsWith(re);
+    });
+    if (!startsWithSupportsSymbolMatch) {
+      overrideNative(String.prototype, 'startsWith', StringPrototypeShims.startsWith);
+    }
+    var endsWithSupportsSymbolMatch = valueOrFalseIfThrows(function () {
+      var re = /a/;
+      re[Symbol.match] = false;
+      return '/a/'.endsWith(re);
+    });
+    if (!endsWithSupportsSymbolMatch) {
+      overrideNative(String.prototype, 'endsWith', StringPrototypeShims.endsWith);
+    }
+    var includesSupportsSymbolMatch = valueOrFalseIfThrows(function () {
+      var re = /a/;
+      re[Symbol.match] = false;
+      return '/a/'.includes(re);
+    });
+    if (!includesSupportsSymbolMatch) {
+      overrideNative(String.prototype, 'includes', StringPrototypeShims.includes);
+    }
+  }
 
   defineProperties(String.prototype, StringPrototypeShims);
 
@@ -712,10 +872,7 @@
   ].join('');
   var trimRegexp = new RegExp('(^[' + ws + ']+)|([' + ws + ']+$)', 'g');
   var trimShim = function trim() {
-    if (typeof this === 'undefined' || this === null) {
-      throw new TypeError("can't convert " + this + ' to object');
-    }
-    return String(this).replace(trimRegexp, '');
+    return ES.ToString(ES.RequireObjectCoercible(this)).replace(trimRegexp, '');
   };
   var nonWS = ['\u0085', '\u200b', '\ufffe'].join('');
   var nonWSregex = new RegExp('[' + nonWS + ']', 'g');
@@ -726,7 +883,7 @@
   // see https://people.mozilla.org/~jorendorff/es6-draft.html#sec-string.prototype-@@iterator
   var StringIterator = function (s) {
     ES.RequireObjectCoercible(s);
-    this._s = String(s);
+    this._s = ES.ToString(s);
     this._i = 0;
   };
   StringIterator.prototype.next = function () {
@@ -753,15 +910,20 @@
   var ArrayShims = {
     from: function from(items) {
       var C = this;
-      var mapFn = arguments.length > 1 ? arguments[1] : void 0;
+      var mapFn;
+      if (arguments.length > 1) {
+        mapFn = arguments[1];
+      }
       var mapping, T;
-      if (mapFn === void 0) {
+      if (typeof mapFn === 'undefined') {
         mapping = false;
       } else {
         if (!ES.IsCallable(mapFn)) {
           throw new TypeError('Array.from: when provided, the second argument must be a function');
         }
-        T = arguments.length > 2 ? arguments[2] : void 0;
+        if (arguments.length > 2) {
+          T = arguments[2];
+        }
         mapping = true;
       }
 
@@ -784,7 +946,7 @@
           nextValue = next.value;
           try {
             if (mapping) {
-              nextValue = T === undefined ? mapFn(nextValue, i) : _call(mapFn, T, nextValue, i);
+              nextValue = typeof T === 'undefined' ? mapFn(nextValue, i) : _call(mapFn, T, nextValue, i);
             }
             result[i] = nextValue;
           } catch (e) {
@@ -802,7 +964,7 @@
         for (i = 0; i < length; ++i) {
           value = arrayLike[i];
           if (mapping) {
-            value = T !== undefined ? _call(mapFn, T, value, i) : mapFn(value, i);
+            value = typeof T === 'undefined' ? mapFn(value, i) : _call(mapFn, T, value, i);
           }
           result[i] = value;
         }
@@ -869,14 +1031,30 @@
   });
   addIterator(ArrayIterator.prototype);
 
+  var orderKeys = function orderKeys(a, b) {
+    var aNumeric = String(ES.ToInteger(a)) === a;
+    var bNumeric = String(ES.ToInteger(b)) === b;
+    if (aNumeric && bNumeric) {
+      return b - a;
+    } else if (aNumeric && !bNumeric) {
+      return -1;
+    } else if (!aNumeric && bNumeric) {
+      return 1;
+    } else {
+      return a.localeCompare(b);
+    }
+  };
   var getAllKeys = function getAllKeys(object) {
+    var ownKeys = [];
     var keys = [];
 
     for (var key in object) {
-      _push(keys, key);
+      _push(_hasOwnProperty(object, key) ? ownKeys : keys, key);
     }
+    _sort(ownKeys, orderKeys);
+    _sort(keys, orderKeys);
 
-    return keys;
+    return _concat(ownKeys, keys);
   };
 
   var ObjectIterator = function (object, kind) {
@@ -935,16 +1113,19 @@
 
   var ArrayPrototypeShims = {
     copyWithin: function copyWithin(target, start) {
-      var end = arguments[2]; // copyWithin.length must be 2
       var o = ES.ToObject(this);
       var len = ES.ToLength(o.length);
       var relativeTarget = ES.ToInteger(target);
       var relativeStart = ES.ToInteger(start);
       var to = relativeTarget < 0 ? _max(len + relativeTarget, 0) : _min(relativeTarget, len);
       var from = relativeStart < 0 ? _max(len + relativeStart, 0) : _min(relativeStart, len);
-      end = typeof end === 'undefined' ? len : ES.ToInteger(end);
-      var fin = end < 0 ? _max(len + end, 0) : _min(end, len);
-      var count = _min(fin - from, len - to);
+      var end;
+      if (arguments.length > 2) {
+        end = arguments[2];
+      }
+      var relativeEnd = typeof end === 'undefined' ? len : ES.ToInteger(end);
+      var finalItem = relativeEnd < 0 ? _max(len + relativeEnd, 0) : _min(relativeEnd, len);
+      var count = _min(finalItem - from, len - to);
       var direction = 1;
       if (from < to && to < (from + count)) {
         direction = -1;
@@ -965,8 +1146,14 @@
     },
 
     fill: function fill(value) {
-      var start = arguments.length > 1 ? arguments[1] : void 0;
-      var end = arguments.length > 2 ? arguments[2] : void 0;
+      var start;
+      if (arguments.length > 1) {
+        start = arguments[1];
+      }
+      var end;
+      if (arguments.length > 2) {
+        end = arguments[2];
+      }
       var O = ES.ToObject(this);
       var len = ES.ToLength(O.length);
       start = ES.ToInteger(typeof start === 'undefined' ? 0 : start);
@@ -1048,7 +1235,7 @@
   // Chrome 40 defines Array#values with the incorrect name, although Array#{keys,entries} have the correct name
   if (functionsHaveNames && Array.prototype.values && Array.prototype.values.name !== 'values') {
     var originalArrayPrototypeValues = Array.prototype.values;
-    overrideNative(Array.prototype, 'values', function values() { return _call(originalArrayPrototypeValues, this); });
+    overrideNative(Array.prototype, 'values', function values() { return ES.Call(originalArrayPrototypeValues, this, arguments); });
     defineProperty(Array.prototype, $iterator$, Array.prototype.values, true);
   }
   defineProperties(Array.prototype, ArrayPrototypeShims);
@@ -1077,70 +1264,72 @@
   var arrayFromHandlesUndefinedMapFunction = (function () {
     // Microsoft Edge v0.11 throws if the mapFn argument is *provided* but undefined,
     // but the spec doesn't care if it's provided or not - undefined doesn't throw.
-    return valueOrFalseIfThrows(function () { return Array.from([0], undefined); });
+    return valueOrFalseIfThrows(function () { return Array.from([0], void 0); });
   }());
   if (!arrayFromHandlesUndefinedMapFunction) {
     var origArrayFrom = Array.from;
     overrideNative(Array, 'from', function from(items) {
-      if (arguments.length > 0 && typeof arguments[1] !== 'undefined') {
-        return _apply(origArrayFrom, this, arguments);
+      if (arguments.length > 1 && typeof arguments[1] !== 'undefined') {
+        return ES.Call(origArrayFrom, this, arguments);
       } else {
         return _call(origArrayFrom, this, items);
       }
     });
   }
 
+  var int32sAsOne = -(Math.pow(2, 32) - 1);
   var toLengthsCorrectly = function (method, reversed) {
-    var obj = { length: -1 };
-    obj[reversed ? ((-1 >>> 0) - 1) : 0] = true;
+    var obj = { length: int32sAsOne };
+    obj[reversed ? ((obj.length >>> 0) - 1) : 0] = true;
     return valueOrFalseIfThrows(function () {
       _call(method, obj, function () {
         // note: in nonconforming browsers, this will be called
         // -1 >>> 0 times, which is 4294967295, so the throw matters.
         throw new RangeError('should not reach here');
       }, []);
+      return true;
     });
   };
   if (!toLengthsCorrectly(Array.prototype.forEach)) {
     var originalForEach = Array.prototype.forEach;
     overrideNative(Array.prototype, 'forEach', function forEach(callbackFn) {
-      return _apply(originalForEach, this.length >= 0 ? this : [], arguments);
+      return ES.Call(originalForEach, this.length >= 0 ? this : [], arguments);
     }, true);
   }
   if (!toLengthsCorrectly(Array.prototype.map)) {
     var originalMap = Array.prototype.map;
     overrideNative(Array.prototype, 'map', function map(callbackFn) {
-      return _apply(originalMap, this.length >= 0 ? this : [], arguments);
+      return ES.Call(originalMap, this.length >= 0 ? this : [], arguments);
     }, true);
   }
   if (!toLengthsCorrectly(Array.prototype.filter)) {
     var originalFilter = Array.prototype.filter;
     overrideNative(Array.prototype, 'filter', function filter(callbackFn) {
-      return _apply(originalFilter, this.length >= 0 ? this : [], arguments);
+      return ES.Call(originalFilter, this.length >= 0 ? this : [], arguments);
     }, true);
   }
   if (!toLengthsCorrectly(Array.prototype.some)) {
     var originalSome = Array.prototype.some;
     overrideNative(Array.prototype, 'some', function some(callbackFn) {
-      return _apply(originalSome, this.length >= 0 ? this : [], arguments);
+      return ES.Call(originalSome, this.length >= 0 ? this : [], arguments);
     }, true);
   }
   if (!toLengthsCorrectly(Array.prototype.every)) {
     var originalEvery = Array.prototype.every;
     overrideNative(Array.prototype, 'every', function every(callbackFn) {
-      return _apply(originalEvery, this.length >= 0 ? this : [], arguments);
+      return ES.Call(originalEvery, this.length >= 0 ? this : [], arguments);
     }, true);
   }
   if (!toLengthsCorrectly(Array.prototype.reduce)) {
     var originalReduce = Array.prototype.reduce;
     overrideNative(Array.prototype, 'reduce', function reduce(callbackFn) {
-      return _apply(originalReduce, this.length >= 0 ? this : [], arguments);
+      return ES.Call(originalReduce, this.length >= 0 ? this : [], arguments);
     }, true);
   }
   if (!toLengthsCorrectly(Array.prototype.reduceRight, true)) {
     var originalReduceRight = Array.prototype.reduceRight;
     overrideNative(Array.prototype, 'reduceRight', function reduceRight(callbackFn) {
-      return _apply(originalReduceRight, this.length >= 0 ? this : [], arguments);
+      return ES.Call(originalReduceRight, this.length >= 0 ? this : [], arguments);
     }, true);
   }
 
@@ -1177,16 +1366,20 @@
     var NumberShim = (function () {
       // this is wrapped in an IIFE because of IE 6-8's wacky scoping issues with named function expressions.
       var NumberShim = function Number(value) {
-        var primValue = Type.primitive(value) ? value : toPrimitive(value, 'number');
+        var primValue;
+        if (arguments.length > 0) {
+          primValue = Type.primitive(value) ? value : toPrimitive(value, 'number');
+        } else {
+          primValue = 0;
+        }
         if (typeof primValue === 'string') {
+          primValue = ES.Call(trimShim, primValue);
           if (isBinary(primValue)) {
             primValue = parseInt(_strSlice(primValue, 2), 2);
           } else if (isOctal(primValue)) {
             primValue = parseInt(_strSlice(primValue, 2), 8);
           } else if (hasNonWS(primValue) || isBadHex(primValue)) {
             primValue = NaN;
-          } else {
-            primValue = _call(trimShim, primValue);
           }
         }
         var receiver = this;
@@ -1252,6 +1445,11 @@
   /*jshint elision: false */
 
   var isEnumerableOn = Function.bind.call(Function.bind, Object.prototype.propertyIsEnumerable);
+  var ensureEnumerable = function ensureEnumerable(obj, prop) {
+    if (supportsDescriptors && isEnumerableOn(obj, prop)) {
+      Object.defineProperty(obj, prop, { enumerable: false });
+    }
+  };
   var sliceArgs = function sliceArgs() {
     // per https://github.com/petkaantonov/bluebird/wiki/Optimization-killers#32-leaking-arguments
     // and https://gist.github.com/WebReflection/4327762cb87a8c634a29
@@ -1271,19 +1469,19 @@
     };
   };
   var assignReducer = function (target, source) {
-    var keys = Object.keys(Object(source));
+    var sourceKeys = keys(Object(source));
     var symbols;
     if (ES.IsCallable(Object.getOwnPropertySymbols)) {
       symbols = _filter(Object.getOwnPropertySymbols(Object(source)), isEnumerableOn(source));
     }
-    return _reduce(_concat(keys, symbols || []), assignTo(source), target);
+    return _reduce(_concat(sourceKeys, symbols || []), assignTo(source), target);
   };
 
   var ObjectShims = {
     // 19.1.3.1
     assign: function (target, source) {
       var to = ES.ToObject(target, 'Cannot convert undefined or null to object');
-      return _reduce(_apply(sliceArgs, 1, arguments), assignReducer, to);
+      return _reduce(ES.Call(sliceArgs, 1, arguments), assignReducer, to);
     },
 
     // Added in WebKit in https://bugs.webkit.org/show_bug.cgi?id=143865
@@ -1391,6 +1589,7 @@
     overrideNative(Object, 'keys', function keys(value) {
       return originalObjectKeys(ES.ToObject(value));
     });
+    keys = Object.keys;
   }
 
   if (Object.getOwnPropertyNames) {
@@ -1522,20 +1721,40 @@
     Value.getter(RegExp.prototype, 'flags', regExpFlagsGetter);
   }
 
-  var regExpSupportsFlagsWithRegex = valueOrFalseIfThrows(function () {
+  var regExpSupportsFlagsWithRegex = supportsDescriptors && valueOrFalseIfThrows(function () {
     return String(new RegExp(/a/g, 'i')) === '/a/i';
   });
+  var regExpNeedsToSupportSymbolMatch = hasSymbols && supportsDescriptors && (function () {
+    // Edge 0.12 supports flags fully, but does not support Symbol.match
+    var regex = /./;
+    regex[Symbol.match] = false;
+    return RegExp(regex) === regex;
+  }());
 
-  if (!regExpSupportsFlagsWithRegex && supportsDescriptors) {
+  if (supportsDescriptors && (!regExpSupportsFlagsWithRegex || regExpNeedsToSupportSymbolMatch)) {
+    var flagsGetter = Object.getOwnPropertyDescriptor(RegExp.prototype, 'flags').get;
+    var sourceDesc = Object.getOwnPropertyDescriptor(RegExp.prototype, 'source') || {};
+    var legacySourceGetter = function () { return this.source; }; // prior to it being a getter, it's own + nonconfigurable
+    var sourceGetter = ES.IsCallable(sourceDesc.get) ? sourceDesc.get : legacySourceGetter;
+
     var OrigRegExp = RegExp;
     var RegExpShim = (function () {
       return function RegExp(pattern, flags) {
+        var patternIsRegExp = ES.IsRegExp(pattern);
         var calledWithNew = this instanceof RegExp;
-        if (!calledWithNew && (Type.regex(pattern) || (pattern && pattern.constructor === RegExp))) {
+        if (!calledWithNew && patternIsRegExp && typeof flags === 'undefined' && pattern.constructor === RegExp) {
           return pattern;
         }
-        if (Type.regex(pattern) && Type.string(flags)) {
-          return new RegExp(pattern.source, flags);
+
+        var P = pattern;
+        var F = flags;
+        if (Type.regex(pattern)) {
+          P = ES.Call(sourceGetter, pattern);
+          F = typeof flags === 'undefined' ? ES.Call(flagsGetter, pattern) : flags;
+          return new RegExp(P, F);
+        } else if (patternIsRegExp) {
+          P = pattern.source;
+          F = typeof flags === 'undefined' ? pattern.flags : flags;
         }
         return new OrigRegExp(pattern, flags);
       };
@@ -1559,7 +1778,7 @@
       leftContext: '$`',
       rightContext: '$\''
     };
-    _forEach(Object.keys(regexGlobals), function (prop) {
+    _forEach(keys(regexGlobals), function (prop) {
       if (prop in RegExp && !(regexGlobals[prop] in RegExp)) {
         Value.getter(RegExp, regexGlobals[prop], function get() {
           return RegExp[prop];
@@ -1630,7 +1849,7 @@
       if (number === 0) {
         return 32;
       }
-      return numberCLZ ? _call(numberCLZ, number) : 31 - _floor(_log(number + 0.5) * Math.LOG2E);
+      return numberCLZ ? ES.Call(numberCLZ, number) : 31 - _floor(_log(number + 0.5) * Math.LOG2E);
     },
 
     cosh: function cosh(value) {
@@ -1809,7 +2028,7 @@
     // Safari 8.0.4 has a length of 1
     // fixed in https://bugs.webkit.org/show_bug.cgi?id=143658
     overrideNative(Math, 'imul', function imul(x, y) {
-      return _apply(origImul, Math, arguments);
+      return ES.Call(origImul, Math, arguments);
     });
   }
 
@@ -1845,6 +2064,9 @@
         capability.resolve = resolve;
         capability.reject = reject;
       };
+      // Initialize fields to inform optimizers about the object shape.
+      capability.resolve = void 0;
+      capability.reject = void 0;
       capability.promise = new C(resolver);
       if (!(ES.IsCallable(capability.resolve) && ES.IsCallable(capability.reject))) {
         throw new TypeError('Bad promise constructor');
@@ -1881,14 +2103,15 @@
       // global Promise below (in order to workaround bugs)
       // https://github.com/Raynos/observ-hash/issues/2#issuecomment-35857671
       var P = globals.Promise;
-      return P && P.resolve && function (task) {
-        return P.resolve().then(task);
+      var pr = P && P.resolve && P.resolve();
+      return pr && function (task) {
+        return pr.then(task);
       };
     };
     /*global process */
     /* jscs:disable disallowMultiLineTernary */
     var enqueue = ES.IsCallable(globals.setImmediate) ?
-      globals.setImmediate.bind(globals) :
+      globals.setImmediate :
       typeof process === 'object' && process.nextTick ? process.nextTick :
       makePromiseAsap() ||
       (ES.IsCallable(makeZeroTimeout) ? makeZeroTimeout() :
@@ -1896,59 +2119,99 @@
     /* jscs:enable disallowMultiLineTernary */
 
     // Constants for Promise implementation
-    var PROMISE_IDENTITY = 1;
-    var PROMISE_THROWER = 2;
-    var PROMISE_PENDING = 3;
-    var PROMISE_FULFILLED = 4;
-    var PROMISE_REJECTED = 5;
+    var PROMISE_IDENTITY = function (x) { return x; };
+    var PROMISE_THROWER = function (e) { throw e; };
+    var PROMISE_PENDING = 0;
+    var PROMISE_FULFILLED = 1;
+    var PROMISE_REJECTED = 2;
+    // We store fulfill/reject handlers and capabilities in a single array.
+    var PROMISE_FULFILL_OFFSET = 0;
+    var PROMISE_REJECT_OFFSET = 1;
+    var PROMISE_CAPABILITY_OFFSET = 2;
+    // This is used in an optimization for chaining promises via then.
+    var PROMISE_FAKE_CAPABILITY = {};
 
-    var promiseReactionJob = function (reaction, argument) {
-      var promiseCapability = reaction.capabilities;
-      var handler = reaction.handler;
-      var handlerResult, handlerException = false, f;
-      if (handler === PROMISE_IDENTITY) {
-        handlerResult = argument;
-      } else if (handler === PROMISE_THROWER) {
-        handlerResult = argument;
-        handlerException = true;
-      } else {
-        try {
-          handlerResult = handler(argument);
-        } catch (e) {
-          handlerResult = e;
-          handlerException = true;
-        }
-      }
-      f = handlerException ? promiseCapability.reject : promiseCapability.resolve;
-      f(handlerResult);
+    var enqueuePromiseReactionJob = function (handler, capability, argument) {
+      enqueue(function () {
+        promiseReactionJob(handler, capability, argument);
+      });
     };
 
-    var triggerPromiseReactions = function (reactions, argument) {
-      _forEach(reactions, function (reaction) {
-        enqueue(function () {
-          promiseReactionJob(reaction, argument);
-        });
-      });
+    var promiseReactionJob = function (handler, promiseCapability, argument) {
+      var handlerResult, f;
+      if (promiseCapability === PROMISE_FAKE_CAPABILITY) {
+        // Fast case, when we don't actually need to chain through to a
+        // (real) promiseCapability.
+        return handler(argument);
+      }
+      try {
+        handlerResult = handler(argument);
+        f = promiseCapability.resolve;
+      } catch (e) {
+        handlerResult = e;
+        f = promiseCapability.reject;
+      }
+      f(handlerResult);
     };
 
     var fulfillPromise = function (promise, value) {
       var _promise = promise._promise;
-      var reactions = _promise.fulfillReactions;
+      var length = _promise.reactionLength;
+      if (length > 0) {
+        enqueuePromiseReactionJob(
+          _promise.fulfillReactionHandler0,
+          _promise.reactionCapability0,
+          value
+        );
+        _promise.fulfillReactionHandler0 = void 0;
+        _promise.rejectReactions0 = void 0;
+        _promise.reactionCapability0 = void 0;
+        if (length > 1) {
+          for (var i = 1, idx = 0; i < length; i++, idx += 3) {
+            enqueuePromiseReactionJob(
+              _promise[idx + PROMISE_FULFILL_OFFSET],
+              _promise[idx + PROMISE_CAPABILITY_OFFSET],
+              value
+            );
+            promise[idx + PROMISE_FULFILL_OFFSET] = void 0;
+            promise[idx + PROMISE_REJECT_OFFSET] = void 0;
+            promise[idx + PROMISE_CAPABILITY_OFFSET] = void 0;
+          }
+        }
+      }
       _promise.result = value;
-      _promise.fulfillReactions = void 0;
-      _promise.rejectReactions = void 0;
       _promise.state = PROMISE_FULFILLED;
-      triggerPromiseReactions(reactions, value);
+      _promise.reactionLength = 0;
     };
 
     var rejectPromise = function (promise, reason) {
       var _promise = promise._promise;
-      var reactions = _promise.rejectReactions;
+      var length = _promise.reactionLength;
+      if (length > 0) {
+        enqueuePromiseReactionJob(
+          _promise.rejectReactionHandler0,
+          _promise.reactionCapability0,
+          reason
+        );
+        _promise.fulfillReactionHandler0 = void 0;
+        _promise.rejectReactions0 = void 0;
+        _promise.reactionCapability0 = void 0;
+        if (length > 1) {
+          for (var i = 1, idx = 0; i < length; i++, idx += 3) {
+            enqueuePromiseReactionJob(
+              _promise[idx + PROMISE_REJECT_OFFSET],
+              _promise[idx + PROMISE_CAPABILITY_OFFSET],
+              reason
+            );
+            promise[idx + PROMISE_FULFILL_OFFSET] = void 0;
+            promise[idx + PROMISE_REJECT_OFFSET] = void 0;
+            promise[idx + PROMISE_CAPABILITY_OFFSET] = void 0;
+          }
+        }
+      }
       _promise.result = reason;
-      _promise.fulfillReactions = void 0;
-      _promise.rejectReactions = void 0;
       _promise.state = PROMISE_REJECTED;
-      triggerPromiseReactions(reactions, reason);
+      _promise.reactionLength = 0;
     };
 
     var createResolvingFunctions = function (promise) {
@@ -1983,30 +2246,29 @@
       return { resolve: resolve, reject: reject };
     };
 
+    var optimizedThen = function (then, thenable, resolve, reject) {
+      // Optimization: since we discard the result, we can pass our
+      // own then implementation a special hint to let it know it
+      // doesn't have to create it.  (The PROMISE_FAKE_CAPABILITY
+      // object is local to this implementation and unforgeable outside.)
+      if (then === Promise$prototype$then) {
+        _call(then, thenable, resolve, reject, PROMISE_FAKE_CAPABILITY);
+      } else {
+        _call(then, thenable, resolve, reject);
+      }
+    };
     var promiseResolveThenableJob = function (promise, thenable, then) {
       var resolvingFunctions = createResolvingFunctions(promise);
       var resolve = resolvingFunctions.resolve;
       var reject = resolvingFunctions.reject;
       try {
-        _call(then, thenable, resolve, reject);
+        optimizedThen(then, thenable, resolve, reject);
       } catch (e) {
         reject(e);
       }
     };
 
-    // This is a common step in many Promise methods
-    var getPromiseSpecies = function (C) {
-      if (!ES.TypeIsObject(C)) {
-        throw new TypeError('Promise is not object');
-      }
-      var S = C[symbolSpecies];
-      if (S !== void 0 && S !== null) {
-        return S;
-      }
-      return C;
-    };
-
-    var Promise$prototype;
+    var Promise$prototype, Promise$prototype$then;
     var Promise = (function () {
       var PromiseShim = function Promise(resolver) {
         if (!(this instanceof PromiseShim)) {
@@ -2023,8 +2285,15 @@
           _promise: {
             result: void 0,
             state: PROMISE_PENDING,
-            fulfillReactions: [],
-            rejectReactions: []
+            // The first member of the "reactions" array is inlined here,
+            // since most promises only have one reaction.
+            // We've also exploded the 'reaction' object to inline the
+            // "handler" and "capability" fields, since both fulfill and
+            // reject reactions share the same capability.
+            reactionLength: 0,
+            fulfillReactionHandler0: void 0,
+            rejectReactionHandler0: void 0,
+            reactionCapability0: void 0
           }
         });
         var resolvingFunctions = createResolvingFunctions(promise);
@@ -2075,7 +2344,7 @@
           index, values, resultCapability, remaining
         );
         remaining.count += 1;
-        nextPromise.then(resolveElement, resultCapability.reject);
+        optimizedThen(nextPromise.then, nextPromise, resolveElement, resultCapability.reject);
         index += 1;
       }
       if ((--remaining.count) === 0) {
@@ -2104,14 +2373,17 @@
           throw e;
         }
         nextPromise = C.resolve(nextValue);
-        nextPromise.then(resultCapability.resolve, resultCapability.reject);
+        optimizedThen(nextPromise.then, nextPromise, resultCapability.resolve, resultCapability.reject);
       }
       return resultCapability.promise;
     };
 
     defineProperties(Promise, {
       all: function all(iterable) {
-        var C = getPromiseSpecies(this);
+        var C = this;
+        if (!ES.TypeIsObject(C)) {
+          throw new TypeError('Promise is not object');
+        }
         var capability = new PromiseCapability(C);
         var iterator, iteratorRecord;
         try {
@@ -2134,7 +2406,10 @@
       },
 
       race: function race(iterable) {
-        var C = getPromiseSpecies(this);
+        var C = this;
+        if (!ES.TypeIsObject(C)) {
+          throw new TypeError('Promise is not object');
+        }
         var capability = new PromiseCapability(C);
         var iterator, iteratorRecord;
         try {
@@ -2158,6 +2433,9 @@
 
       reject: function reject(reason) {
         var C = this;
+        if (!ES.TypeIsObject(C)) {
+          throw new TypeError('Bad promise constructor');
+        }
         var capability = new PromiseCapability(C);
         var rejectFunc = capability.reject;
         rejectFunc(reason); // call with this===undefined
@@ -2167,6 +2445,9 @@
       resolve: function resolve(v) {
         // See https://esdiscuss.org/topic/fixing-promise-resolve for spec
         var C = this;
+        if (!ES.TypeIsObject(C)) {
+          throw new TypeError('Bad promise constructor');
+        }
         if (ES.IsPromise(v)) {
           var constructor = v.constructor;
           if (constructor === C) { return v; }
@@ -2180,44 +2461,60 @@
 
     defineProperties(Promise$prototype, {
       'catch': function (onRejected) {
-        return this.then(void 0, onRejected);
+        return this.then(null, onRejected);
       },
 
       then: function then(onFulfilled, onRejected) {
         var promise = this;
         if (!ES.IsPromise(promise)) { throw new TypeError('not a promise'); }
         var C = ES.SpeciesConstructor(promise, Promise);
-        var resultCapability = new PromiseCapability(C);
+        var resultCapability;
+        var returnValueIsIgnored = arguments.length > 2 && arguments[2] === PROMISE_FAKE_CAPABILITY;
+        if (returnValueIsIgnored && C === Promise) {
+          resultCapability = PROMISE_FAKE_CAPABILITY;
+        } else {
+          resultCapability = new PromiseCapability(C);
+        }
         // PerformPromiseThen(promise, onFulfilled, onRejected, resultCapability)
-        var fulfillReaction = {
-          capabilities: resultCapability,
-          handler: ES.IsCallable(onFulfilled) ? onFulfilled : PROMISE_IDENTITY
-        };
-        var rejectReaction = {
-          capabilities: resultCapability,
-          handler: ES.IsCallable(onRejected) ? onRejected : PROMISE_THROWER
-        };
+        // Note that we've split the 'reaction' object into its two
+        // components, "capabilities" and "handler"
+        // "capabilities" is always equal to `resultCapability`
+        var fulfillReactionHandler = ES.IsCallable(onFulfilled) ? onFulfilled : PROMISE_IDENTITY;
+        var rejectReactionHandler = ES.IsCallable(onRejected) ? onRejected : PROMISE_THROWER;
         var _promise = promise._promise;
         var value;
         if (_promise.state === PROMISE_PENDING) {
-          _push(_promise.fulfillReactions, fulfillReaction);
-          _push(_promise.rejectReactions, rejectReaction);
+          if (_promise.reactionLength === 0) {
+            _promise.fulfillReactionHandler0 = fulfillReactionHandler;
+            _promise.rejectReactionHandler0 = rejectReactionHandler;
+            _promise.reactionCapability0 = resultCapability;
+          } else {
+            var idx = 3 * (_promise.reactionLength - 1);
+            _promise[idx + PROMISE_FULFILL_OFFSET] = fulfillReactionHandler;
+            _promise[idx + PROMISE_REJECT_OFFSET] = rejectReactionHandler;
+            _promise[idx + PROMISE_CAPABILITY_OFFSET] = resultCapability;
+          }
+          _promise.reactionLength += 1;
         } else if (_promise.state === PROMISE_FULFILLED) {
           value = _promise.result;
-          enqueue(function () {
-            promiseReactionJob(fulfillReaction, value);
-          });
+          enqueuePromiseReactionJob(
+            fulfillReactionHandler, resultCapability, value
+          );
         } else if (_promise.state === PROMISE_REJECTED) {
           value = _promise.result;
-          enqueue(function () {
-            promiseReactionJob(rejectReaction, value);
-          });
+          enqueuePromiseReactionJob(
+            rejectReactionHandler, resultCapability, value
+          );
         } else {
           throw new TypeError('unexpected Promise state');
         }
         return resultCapability.promise;
       }
     });
+    // This helps the optimizer by ensuring that methods which take
+    // capabilities aren't polymorphic.
+    PROMISE_FAKE_CAPABILITY = new PromiseCapability(Promise);
+    Promise$prototype$then = Promise$prototype.then;
 
     return Promise;
   }());
@@ -2251,8 +2548,31 @@
       var p2 = Promise.resolve(p);
       return (p === p2); // This *should* be false!
     }(globals.Promise));
+
+    // Chrome 46 (probably older too) does not retrieve a thenable's .then synchronously
+    var getsThenSynchronously = supportsDescriptors && (function () {
+      var count = 0;
+      var thenable = Object.defineProperty({}, 'then', { get: function () { count += 1; } });
+      Promise.resolve(thenable);
+      return count === 1;
+    }());
+
+    var BadResolverPromise = function BadResolverPromise(executor) {
+      var p = new Promise(executor);
+      executor(3, function () {});
+      this.then = p.then;
+      this.constructor = BadResolverPromise;
+    };
+    BadResolverPromise.prototype = Promise.prototype;
+    BadResolverPromise.all = Promise.all;
+    // Chrome Canary 49 (probably older too) has some implementation bugs
+    var hasBadResolverPromise = valueOrFalseIfThrows(function () {
+      return !!BadResolverPromise.all([1, 2]);
+    });
+
     if (!promiseSupportsSubclassing || !promiseIgnoresNonFunctionThenCallbacks ||
-        !promiseRequiresObjectContext || promiseResolveBroken) {
+        !promiseRequiresObjectContext || promiseResolveBroken ||
+        !getsThenSynchronously || hasBadResolverPromise) {
       /*globals Promise: true */
       /* eslint-disable no-undef */
       Promise = PromiseShim;
@@ -2260,6 +2580,34 @@
       /*globals Promise: false */
       overrideNative(globals, 'Promise', PromiseShim);
     }
+    if (Promise.all.length !== 1) {
+      var origAll = Promise.all;
+      overrideNative(Promise, 'all', function all(iterable) {
+        return ES.Call(origAll, this, arguments);
+      });
+    }
+    if (Promise.race.length !== 1) {
+      var origRace = Promise.race;
+      overrideNative(Promise, 'race', function race(iterable) {
+        return ES.Call(origRace, this, arguments);
+      });
+    }
+    if (Promise.resolve.length !== 1) {
+      var origResolve = Promise.resolve;
+      overrideNative(Promise, 'resolve', function resolve(x) {
+        return ES.Call(origResolve, this, arguments);
+      });
+    }
+    if (Promise.reject.length !== 1) {
+      var origReject = Promise.reject;
+      overrideNative(Promise, 'reject', function reject(r) {
+        return ES.Call(origReject, this, arguments);
+      });
+    }
+    ensureEnumerable(Promise, 'all');
+    ensureEnumerable(Promise, 'race');
+    ensureEnumerable(Promise, 'resolve');
+    ensureEnumerable(Promise, 'reject');
     addDefaultSpecies(Promise);
   }
 
@@ -2267,7 +2615,7 @@
   // Their fast path also requires that the environment preserve
   // property insertion order, which is not guaranteed by the spec.
   var testOrder = function (a) {
-    var b = Object.keys(_reduce(a, function (o, k) {
+    var b = keys(_reduce(a, function (o, k) {
       o[k] = true;
       return o;
     }, {}));
@@ -2285,7 +2633,7 @@
       }
       var type = typeof key;
       if (type === 'undefined' || key === null) {
-        return '^' + String(key);
+        return '^' + ES.ToString(key);
       } else if (type === 'string') {
         return '$' + key;
       } else if (type === 'number') {
@@ -2308,6 +2656,9 @@
     var addIterableToMap = function addIterableToMap(MapConstructor, map, iterable) {
       if (isArray(iterable) || Type.string(iterable)) {
         _forEach(iterable, function (entry) {
+          if (!ES.TypeIsObject(entry)) {
+            throw new TypeError('Iterator value ' + entry + ' is not an entry object');
+          }
           map.set(entry[0], entry[1]);
         });
       } else if (iterable instanceof MapConstructor) {
@@ -2328,7 +2679,7 @@
             var nextItem = next.value;
             try {
               if (!ES.TypeIsObject(nextItem)) {
-                throw new TypeError('expected iterable of pairs');
+                throw new TypeError('Iterator value ' + nextItem + ' is not an entry object');
               }
               _call(adder, map, nextItem[0], nextItem[1]);
             } catch (e) {
@@ -2393,7 +2744,7 @@
 
         var requireMapSlot = function requireMapSlot(map, method) {
           if (!ES.TypeIsObject(map) || !isMap(map)) {
-            throw new TypeError('Method Map.prototype.' + method + ' called on incompatible receiver ' + String(map));
+            throw new TypeError('Method Map.prototype.' + method + ' called on incompatible receiver ' + ES.ToString(map));
           }
         };
 
@@ -2619,7 +2970,7 @@
         var requireSetSlot = function requireSetSlot(set, method) {
           if (!ES.TypeIsObject(set) || !isSet(set)) {
             // https://github.com/paulmillr/es6-shim/issues/176
-            throw new TypeError('Set.prototype.' + method + ' called on incompatible receiver ' + String(set));
+            throw new TypeError('Set.prototype.' + method + ' called on incompatible receiver ' + ES.ToString(set));
           }
         };
 
@@ -2652,36 +3003,42 @@
         };
         Set$prototype = SetShim.prototype;
 
+        var decodeKey = function (key) {
+          var k = key;
+          if (k === '^null') {
+            return null;
+          } else if (k === '^undefined') {
+            return void 0;
+          } else {
+            var first = k.charAt(0);
+            if (first === '$') {
+              return _strSlice(k, 1);
+            } else if (first === 'n') {
+              return +_strSlice(k, 1);
+            } else if (first === 'b') {
+              return k === 'btrue';
+            }
+          }
+          return +k;
+        };
         // Switch from the object backing storage to a full Map.
         var ensureMap = function ensureMap(set) {
           if (!set['[[SetData]]']) {
             var m = set['[[SetData]]'] = new collectionShims.Map();
-            _forEach(Object.keys(set._storage), function (key) {
-              var k = key;
-              if (k === '^null') {
-                k = null;
-              } else if (k === '^undefined') {
-                k = void 0;
-              } else {
-                var first = k.charAt(0);
-                if (first === '$') {
-                  k = _strSlice(k, 1);
-                } else if (first === 'n') {
-                  k = +_strSlice(k, 1);
-                } else if (first === 'b') {
-                  k = k === 'btrue';
-                } else {
-                  k = +k;
-                }
-              }
+            _forEach(keys(set._storage), function (key) {
+              var k = decodeKey(key);
               m.set(k, k);
             });
-            set._storage = null; // free old backing storage
+            set['[[SetData]]'] = m;
           }
+          set._storage = null; // free old backing storage
         };
 
         Value.getter(SetShim.prototype, 'size', function () {
           requireSetSlot(this, 'size');
+          if (this._storage) {
+            return keys(this._storage).length;
+          }
           ensureMap(this);
           return this['[[SetData]]'].size;
         });
@@ -2724,7 +3081,8 @@
             requireSetSlot(this, 'clear');
             if (this._storage) {
               this._storage = emptyObject();
-            } else {
+            }
+            if (this['[[SetData]]']) {
               this['[[SetData]]'].clear();
             }
           },
@@ -2775,21 +3133,21 @@
           if (arguments.length > 0) {
             addIterableToMap(Map, m, arguments[0]);
           }
+          delete m.constructor;
           Object.setPrototypeOf(m, globals.Map.prototype);
-          defineProperty(m, 'constructor', Map, true);
           return m;
         };
         globals.Map.prototype = create(OrigMapNoArgs.prototype);
+        defineProperty(globals.Map.prototype, 'constructor', globals.Map, true);
         Value.preserveToString(globals.Map, OrigMapNoArgs);
       }
       var testMap = new Map();
-      var mapUsesSameValueZero = (function (m) {
-        m['delete'](0);
-        m['delete'](-0);
-        m.set(0, 3);
-        m.get(-0, 4);
-        return m.get(0) === 3 && m.get(-0) === 4;
-      }(testMap));
+      var mapUsesSameValueZero = (function () {
+        // Chrome 38-42, node 0.11/0.12, iojs 1/2 also have a bug when the Map has a size > 4
+        var m = new Map([[1, 0], [2, 0], [3, 0], [4, 0]]);
+        m.set(-0, m);
+        return m.get(0) === m && m.get(-0) === m && m.has(0) && m.has(-0);
+      }());
       var mapSupportsChaining = testMap.set(1, 2) === testMap;
       if (!mapUsesSameValueZero || !mapSupportsChaining) {
         var origMapSet = Map.prototype.set;
@@ -2864,11 +3222,12 @@
           if (arguments.length > 0) {
             addIterableToMap(Map, m, arguments[0]);
           }
+          delete m.constructor;
           Object.setPrototypeOf(m, Map.prototype);
-          defineProperty(m, 'constructor', Map, true);
           return m;
         };
         globals.Map.prototype = OrigMap.prototype;
+        defineProperty(globals.Map.prototype, 'constructor', globals.Map, true);
         Value.preserveToString(globals.Map, OrigMap);
       }
       var setSupportsSubclassing = supportsSubclassing(globals.Set, function (S) {
@@ -2894,11 +3253,12 @@
           if (arguments.length > 0) {
             addIterableToSet(Set, s, arguments[0]);
           }
+          delete s.constructor;
           Object.setPrototypeOf(s, Set.prototype);
-          defineProperty(s, 'constructor', Set, true);
           return s;
         };
         globals.Set.prototype = OrigSet.prototype;
+        defineProperty(globals.Set.prototype, 'constructor', globals.Set, true);
         Value.preserveToString(globals.Set, OrigSet);
       }
       var mapIterationThrowsStopIterator = !valueOrFalseIfThrows(function () {
@@ -2925,8 +3285,6 @@
         mapIterationThrowsStopIterator || // Firefox 25
         !mapSupportsSubclassing
       ) {
-        delete globals.Map; // necessary to overwrite in Safari 8
-        delete globals.Set; // necessary to overwrite in Safari 8
         defineProperties(globals, {
           Map: collectionShims.Map,
           Set: collectionShims.Set
@@ -2968,7 +3326,7 @@
   var ReflectShims = {
     // Apply method in a functional form.
     apply: function apply() {
-      return _apply(ES.Call, null, arguments);
+      return ES.Call(ES.Call, null, arguments);
     },
 
     // New operator in a functional form.
@@ -2976,7 +3334,7 @@
       if (!ES.IsConstructor(constructor)) {
         throw new TypeError('First argument must be a constructor.');
       }
-      var newTarget = arguments.length < 3 ? constructor : arguments[2];
+      var newTarget = arguments.length > 2 ? arguments[2] : constructor;
       if (!ES.IsConstructor(newTarget)) {
         throw new TypeError('new.target must be a constructor.');
       }
@@ -3059,7 +3417,7 @@
         var parent = Object.getPrototypeOf(target);
 
         if (parent === null) {
-          return undefined;
+          return void 0;
         }
 
         return internalGet(parent, key, receiver);
@@ -3070,10 +3428,10 @@
       }
 
       if (desc.get) {
-        return _call(desc.get, receiver);
+        return ES.Call(desc.get, receiver);
       }
 
-      return undefined;
+      return void 0;
     };
 
     var internalSet = function set(target, key, value, receiver) {
@@ -3265,7 +3623,7 @@
       if (valueOf !== valueOf) {
         return 'Invalid Date';
       }
-      return _call(dateToString, this);
+      return ES.Call(dateToString, this);
     };
     overrideNative(Date.prototype, 'toString', shimmedDateToString);
   }
@@ -3304,7 +3662,7 @@
 
   var JSONstringifiesSymbols = (function () {
     // Microsoft Edge v0.12 stringifies Symbols incorrectly
-    if (!Type.symbol(Symbol.iterator)) { return false; } // Symbols are not supported
+    if (!hasSymbols) { return false; } // Symbols are not supported
     var stringify = typeof JSON === 'object' && typeof JSON.stringify === 'function' ? JSON.stringify : null;
     if (!stringify) { return false; } // JSON.stringify is not supported
     if (typeof stringify(Symbol()) !== 'undefined') { return true; } // Symbols should become `undefined`
@@ -3316,7 +3674,7 @@
   }());
   var JSONstringifyAcceptsObjectSymbol = valueOrFalseIfThrows(function () {
     // Chrome 45 throws on stringifying object symbols
-    if (!Type.symbol(Symbol.iterator)) { return true; } // Symbols are not supported
+    if (!hasSymbols) { return true; } // Symbols are not supported
     return JSON.stringify(Object(Symbol())) === '{}' && JSON.stringify([Object(Symbol())]) === '[{}]';
   });
   if (JSONstringifiesSymbols || !JSONstringifyAcceptsObjectSymbol) {

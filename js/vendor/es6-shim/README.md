@@ -21,7 +21,7 @@ For `node.js`, `io.js`, or any `npm`-managed workflow (this is the recommended m
     npm install es6-shim
 
 Alternative methods:
-* `component install paulmillr/es6-shim` if you’re using [component(1)](https://github.com/component/component).
+* `component install paulmillr/es6-shim` if you’re using [component(1)](https://github.com/componentjs/component).
 * `bower install es6-shim` if you’re using [Bower](http://bower.io/).
 
 In both browser and node you may also want to include `unorm`; see the [`String.prototype.normalize`](#stringprototypenormalize) section for details.
@@ -43,20 +43,24 @@ In both browser and node you may also want to include `unorm`; see the [`String.
     * `new RegExp`, when given a RegExp as the pattern, will no longer throw when given a "flags" string argument. (requires ES5)
 * `RegExp.prototype`:
     * `flags` (requires ES5) ([a standalone shim is also available](https://github.com/es-shims/RegExp.prototype.flags))
+    * `[Symbol.match]` (requires native `Symbol`s)
+    * `[Symbol.replace]` (requires native `Symbol`s)
+    * `[Symbol.search]` (requires native `Symbol`s)
+    * `[Symbol.split]` (requires native `Symbol`s)
 * `Number`:
     * binary and octal literals: `Number('0b1')` and `Number('0o7')`
     * `EPSILON`
     * `MAX_SAFE_INTEGER`
     * `MIN_SAFE_INTEGER`
-    * `isNaN()`([a standalone shim is also available](https://npmjs.org/package/is-nan))
+    * `isNaN()`([a standalone shim is also available](https://www.npmjs.com/package/is-nan))
     * `isInteger()`
     * `isSafeInteger()`
     * `isFinite()`
     * `parseInt()`
     * `parseFloat()`
 * `Array`:
-    * `from()` ([a standalone shim is also available](https://npmjs.org/package/array.from))
-    * `of()` ([a standalone shim is also available](https://npmjs.org/package/array.of))
+    * `from()` ([a standalone shim is also available](https://www.npmjs.com/package/array.from))
+    * `of()` ([a standalone shim is also available](https://www.npmjs.com/package/array.of))
 * `Array.prototype`:
     * `copyWithin()`
     * `entries()`
@@ -107,8 +111,15 @@ Math functions’ accuracy is 1e-11.
     * `set()`
     * `setPrototypeOf()`
 
+* `Symbol` (only if it already exists)
+    * `match` (and corresponding `String#match`, `String#startsWith`, `String#endsWith`, `String#includes`, `RegExp` support)
+    * `replace` (and corresponding `String#replace` support)
+    * `search` (and corresponding `String#search` support)
+    * `split` (and corresponding `String#split` support)
+
+Well-known symbols will only be provided if the engine already has `Symbol` support.
+
 * `String.prototype` Annex B HTML methods
-These methods are part of "Annex B", which means that although they are a defacto standard, you shouldn't use them. None the less, the `es6-shim` provides them:
     * `anchor()`
     * `big()`
     * `blink()`
@@ -122,6 +133,8 @@ These methods are part of "Annex B", which means that although they are a defact
     * `strike()`
     * `sub()`
     * `sup()`
+
+These methods are part of "Annex B", which means that although they are a defacto standard, you shouldn't use them. None the less, the `es6-shim` provides them and normalizes their behavior across browsers.
 
 ## Subclassing
 The `Map`, `Set`, and `Promise` implementations are subclassable.
@@ -237,6 +250,8 @@ Promise.resolve(5).then(function (value) {
 
  - `Object.setPrototypeOf` / `Reflect.setPrototypeOf`
    - Note that null objects (`Object.create(null)`, eg, an object with `null` as its `[[Prototype]]`) can not have their `[[Prototype]]` changed except via a native `Object.setPrototypeOf`.
+ - Well-known `Symbol`s
+   - In order to make them work cross-realm, these are created with the global `Symbol` registry via `Symbol.for`. This does not violate the spec, but it does mean that `Symbol.for('Symbol.search') === Symbol.search` will be `true`, which it would not by default in a fresh compliant realm.
 
 ## [License][license-url]
 
