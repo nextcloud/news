@@ -209,12 +209,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/fguillot/picoFeed.git",
-            "reference": "0551e86dbaa77b997d08df9c3fc456875df6efa0"
+            "reference": "502c2b740fee15e67e047ebe169965689eff1331"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/0551e86dbaa77b997d08df9c3fc456875df6efa0",
-            "reference": "0551e86dbaa77b997d08df9c3fc456875df6efa0",
+            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/502c2b740fee15e67e047ebe169965689eff1331",
+            "reference": "502c2b740fee15e67e047ebe169965689eff1331",
             "shasum": ""
         },
         "require": {
@@ -229,7 +229,7 @@
         "suggest": {
             "ext-curl": "PicoFeed will use cURL if present"
         },
-        "time": "2016-01-08 20:39:51",
+        "time": "2016-01-14 13:06:11",
         "bin": [
             "picofeed"
         ],

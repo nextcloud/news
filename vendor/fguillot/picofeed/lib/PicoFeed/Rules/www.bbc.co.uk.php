@@ -14,6 +14,7 @@ return array(
                 '//*[@class="warning"]',
                 '//span[@class="off-screen"]',
                 '//span[@class="story-image-copyright"]',
+                '//ul[@class="story-body__unordered-list"]',
                 '//div[@class="ad_wrapper"]',
                 '//div[@id="article-sidebar"]',
         '//div[@class="data-table-outer"]',

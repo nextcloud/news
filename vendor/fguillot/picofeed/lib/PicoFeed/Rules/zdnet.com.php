@@ -17,6 +17,7 @@ return array(
             '//div[contains(@class,"loader")]',
             '//p[@class="photoDetails"]',
             '//div[@class="thumbnailSlider"]',
+            '//div[@class="shortcodeGalleryWrapper"]',
             ),
         ),
     ),

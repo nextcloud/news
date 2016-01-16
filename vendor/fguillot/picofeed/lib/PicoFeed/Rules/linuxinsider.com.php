@@ -4,14 +4,15 @@ return array(
     'grabber' => array(
         '%.*%' => array(
             'test_url' => 'http://www.linuxinsider.com/story/82526.html?rss=1',
-            'body' => array(
-            '//div[@id="story-graphic-xlarge"]',
-            '//div[@id="story-body"]',
-            ),
+            'body' => '//div[@id="story"]',
             'strip' => array(
-            '//script',
-            '//div[@class="story-advertisement"]',
-            '//iframe',
+                '//script',
+                '//h1]',
+                '//div[@id="story-toolbox1"]',
+                '//div[@id="story-byline"]',
+                '//div[@id="story"]/p',
+                '//div[@class="story-advertisement"]',
+                '//iframe',
             ),
         ),
     ),
