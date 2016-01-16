@@ -79,6 +79,10 @@ In general it's a good idea to **first create an issue where you explain why, wh
 
 That way we can talk about the problem first and discuss the implementation (and of course help you with your code)
 
+### Stuff To Work On
+
+Check [the plugin section on the wiki](https://github.com/owncloud/news/wiki#requested-and-needs-contributors) for finding ideas to work on which should be realized separately via a plugin or app.
+
 ### Contact Us!
 
 We usually hang out on **irc.freenode.net** in the **#owncloud-news** and **#owncloud-dev** chat room. Just ping [BernhardPosselt](https://github.com/BernhardPosselt/) or [cosenal](https://github.com/cosenal) or write us a mail directly. Mail addresses are listed on our GitHub profiles.
