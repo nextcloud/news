@@ -79,10 +79,11 @@ class ItemMapperTest extends IntegrationTest {
      */
     public function testDeleteOlderThanThresholdOne() {
         $this->loadFixtures('default');
+        $id = $this->whereTitleId('del1');
 
         $this->deleteReadOlderThanThreshold();
 
-        $this->itemMapper->find($this->whereTitleId('del1'), $this->user);
+        $this->itemMapper->find($id, $this->user);
     }
 
     /**
@@ -90,10 +91,11 @@ class ItemMapperTest extends IntegrationTest {
      */
     public function testDeleteOlderThanThresholdTwo() {
         $this->loadFixtures('default');
+        $id = $this->whereTitleId('del2');
 
         $this->deleteReadOlderThanThreshold();
 
-        $this->itemMapper->find($this->whereTitleId('del2'), $this->user);
+        $this->itemMapper->find($id, $this->user);
     }
 
 
