@@ -23,7 +23,7 @@ class ItemFixture extends Item {
         $defaults = array_merge([
             'url' => 'http://google.de',
             'title' => 'title',
-            'author' => 'author',
+            'author' => 'my author',
             'pubDate' => 2323,
             'body' => 'this is a body',
             'enclosureMime' => 'video/mpeg',

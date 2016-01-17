@@ -17,14 +17,15 @@ return [
                 [
                     'title' => 'first feed',
                     'url' => 'http://google.de',
+                    'articlesPerUpdate' => 1,
                     'items' => [
-                        ['title' => 'a title1'],
-                        ['title' => 'a title2', 'starred' => true],
-                        ['title' => 'a title3', 'starred' => true],
-                        ['title' => 'del1', 'read' => true],
-                        ['title' => 'del2', 'read' => true],
-                        ['title' => 'del3', 'read' => true],
-                        ['title' => 'del4', 'read' => true]
+                        ['title' => 'a title1', 'guid' => 'abc'],
+                        ['title' => 'a title2', 'status' => 4, 'guid' => 'def'],
+                        ['title' => 'a title3', 'status' => 6, 'guid' => 'gih'],
+                        ['title' => 'del1', 'status' => 0],
+                        ['title' => 'del2', 'status' => 0],
+                        ['title' => 'del3', 'status' => 0],
+                        ['title' => 'del4', 'status' => 0]
                     ]
                 ],
                 [
@@ -36,17 +37,18 @@ return [
         ],
         [
             'name' => 'second folder',
+            'opened' => false,
             'feeds' => [
                 [
                     'title' => 'third feed',
                     'url' => 'http://heise.de',
-                    'items' => [['title' => 'the title9']]
+                    'items' => [['title' => 'a title9']]
                 ],
                 [
                     'title' => 'sixth feed',
                     'url' => 'http://gremlins.de',
                     'deletedAt' => 999999999,
-                    'items' => [['title' => 'not found feed']]
+                    'items' => [['title' => 'not found feed', 'guid' => 'not found']]
                 ]
             ],
         ],
@@ -57,7 +59,7 @@ return [
                 [
                     'title' => 'fifth feed',
                     'url' => 'http://prolinux.de',
-                    'items' => [['title' => 'not found folder']]
+                    'items' => [['title' => 'not found folder', 'guid' => 'not found']]
                 ]
             ],
         ]
@@ -67,7 +69,7 @@ return [
             'title' => 'fourth feed',
             'url' => 'http://blog.fefe.de',
             'items' => [
-                ['title' => 'no folder', 'read' => true]
+                ['title' => 'no folder', 'status' => 0]
             ]
         ]
     ]
