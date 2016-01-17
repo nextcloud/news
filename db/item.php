@@ -130,7 +130,8 @@ class Item extends Entity implements IAPI, \JsonSerializable {
             'unread' => $this->isUnread(),
             'starred' => $this->isStarred(),
             'lastModified' => $this->getLastModified(),
-            'rtl' => $this->getRtl()
+            'rtl' => $this->getRtl(),
+            'intro' => $this->getIntro()
         ];
     }
 
@@ -172,6 +173,10 @@ class Item extends Entity implements IAPI, \JsonSerializable {
         ];
     }
 
+
+    public function getIntro() {
+        return strip_tags($this->getBody());
+    }
 
     public static function fromImport($import) {
         $item = new static();

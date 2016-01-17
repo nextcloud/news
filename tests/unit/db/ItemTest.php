@@ -100,7 +100,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
         $item->setTitle('title');
         $item->setAuthor('author');
         $item->setPubDate(123);
-        $item->setBody('body');
+        $item->setBody('<body><div>this is a test</body>');
         $item->setEnclosureMime('audio/ogg');
         $item->setEnclosureLink('enclink');
         $item->setFeedId(1);
@@ -118,14 +118,15 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
             'title' => 'title',
             'author' => 'author',
             'pubDate' => 123,
-            'body' => 'body',
+            'body' => '<body><div>this is a test</body>',
             'enclosureMime' => 'audio/ogg',
             'enclosureLink' => 'enclink',
             'feedId' => 1,
             'unread' => true,
             'starred' => true,
             'lastModified' => 321,
-            'rtl' => true
+            'rtl' => true,
+            'intro' => 'this is a test'
             ], $item->jsonSerialize());
     }
 

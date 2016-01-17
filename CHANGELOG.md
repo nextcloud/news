@@ -1,3 +1,6 @@
+owncloud-news (7.0.1)
+* **Enhancement**: Show text preview in compact mode
+
 owncloud-news (7.0.0)
 * **New dependency**: Bump required ownCloud version to 8.2
 * **Backwards incompatible change**: Remove console commands and instead run them after specific updates

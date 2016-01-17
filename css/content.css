@@ -381,7 +381,7 @@
     }
 
     #app-content .utils .title h1 a {
-        text-overflow: ellipsis;
+        /*text-overflow: ellipsis;*/
         white-space: nowrap;
         overflow: hidden;
         width: 100%;
@@ -392,6 +392,17 @@
         line-height: 1.5;
         padding-top: 8px;
         min-height: 40px;
+    }
+
+    #app-content .open .title .intro {
+        display: none;
+    }
+
+    #app-content .title .intro {
+        color: #777;
+        font-size: 10pt;
+        font-weight: normal;
+        margin-left: 20px;
     }
 
     #app-content .open .utils .title h1 a {

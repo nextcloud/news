@@ -52,7 +52,7 @@
                                     + Content.getFeed(item.feedId).faviconLink +
                                 ')'
                             }">
-                        <h1 ng-attr-dir="{{item.rtl && 'rtl'}}"><a>{{ ::item.title }}</a></h1>
+                        <h1 ng-attr-dir="{{item.rtl && 'rtl'}}"><a>{{ ::item.title }} <span class="intro">{{ ::item.intro }}</span></a></h1>
                     </li>
                     <li class="only-in-compact">
                         <time class="date"
