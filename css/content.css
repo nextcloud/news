@@ -412,7 +412,7 @@
 
     #app-content .read .utils .title h1 a {
         font-weight: normal;
-        color: #888;
+        color: #777;
     }
 
     #app-content .utils .date {
@@ -451,7 +451,7 @@
 
 #app-content .read .heading a {
     font-weight: normal !important;
-    color: #888;
+    color: #777;
 }
 
 #app-content .feed-view .source {
@@ -478,14 +478,14 @@
  * Timestamp
  */
 #app-content .subtitle {
-    color: #aaa;
+    color: #777;
     font-size: 15px;
     max-width: 770px;
     padding-bottom: 25px;
 }
 
 #app-content .subtitle a {
-    color: #aaa;
+    color: #777;
 }
 
 #app-content .subtitle a:hover {
@@ -493,7 +493,7 @@
 }
 
 #app-content .date {
-    color: #aaa;
+    color: #777;
     white-space: nowrap;
 }
 
@@ -501,7 +501,7 @@
  * Author
  */
 #app-content .author {
-    color: #aaa;
+    color: #777;
     font-size: 15px;
 }
 
