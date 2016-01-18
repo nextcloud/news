@@ -126,11 +126,13 @@ This allows a possible attacker to perform a MITM (man-in-the-middle) attack by 
 
 The News app fully prevents mixed **active** content by only allowing HTTPS iframes from known locations; other possible mixed active content elements such as \<script> are stripped from the feed. Because images and audio/video are an integral part of a feed, we can not simply strip them.
 
-Since an attacker can not execute code in contrast to mixed active content, but can only replace images in your feed reader, this is **not considered to be a security issue**. If, for whatever reason, this is a security problem for you, contact the specific feed provider and ask him to serve his feed content over HTTPS.
+Since an attacker can not execute code in contrast to mixed active content, but only replace images/audio/video in your feed reader, this is **not considered to be a security issue**. If, for whatever reason (e.g. feed which would allow fishing), this is a security problem for you, contact the specific feed provider and ask him to serve his feed content over HTTPS.
 
 #### Why don't you simply use an HTTPS image/audio/video proxy
 
-For the same reason that we don't add an HTTPS proxy for websites: It does not fix the underlying issue but only silences it. If you are using an image HTTPS proxy, an attacker can  simply MITM your image proxy. **Even worse**: if your image proxy serves these images from the same domain as your ownCloud installation you [are vulnerable to XSS via SVG images](https://www.owasp.org/images/0/03/Mario_Heiderich_OWASP_Sweden_The_image_that_called_me.pdf). Since most people don't understand mixed content and don't have two domains and a standalone server for the image proxy, it is very likely that by offering the image proxy option we will actually make people's installation more insecure than before.
+For the same reason that we can't fix non HTTPS websites: It does not fix the underlying issue but only silences it. If you are using an image HTTPS proxy, an attacker can simply attack your image proxy since the proxy fetches insecure content. **Even worse**: if your image proxy serves these images from the same domain as your ownCloud installation you [are vulnerable to XSS via SVG images](https://www.owasp.org/images/0/03/Mario_Heiderich_OWASP_Sweden_The_image_that_called_me.pdf). In addition people feel save when essentially they are not.
+
+Since most people don't understand mixed content and don't have two domains and a standalone server for the image proxy, it is very likely they will choose to host it under the same domain.
 
 The only fix for this issue is that feed providers serve their content over HTTPS.
 
