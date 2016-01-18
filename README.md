@@ -134,6 +134,8 @@ For the same reason that we can't fix non HTTPS websites: It does not fix the un
 
 Since most people don't understand mixed content and don't have two domains and a standalone server for the image proxy, it is very likely they will choose to host it under the same domain.
 
+Because we care about our users' security and don't want to hide security warnings, we won't fix (aka silence) this issue.
+
 The only fix for this issue is that feed providers serve their content over HTTPS.
 
 
