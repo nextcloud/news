@@ -62,7 +62,7 @@ Please provide the following details so that your problem can be fixed:
 * PHP version
 * Distribution
 
-### When requesting features
+### When Requesting Features
 
 Please always provide the usecase in addition solution, e.g.:
 
@@ -72,6 +72,14 @@ is much more helpful than just writing:
 
 * "Please add reverse ordering".
 
+
+## Translation
+
+For translations in other languages than English, we rely on the [Transifex](https://www.transifex.com/) platform.
+
+If you want to help with translating the app, please do not create a pull request. Instead, head over to https://www.transifex.com/projects/p/owncloud/resource/news/ and join the team of your native language.
+
+If approved, the translation will be automatically ported to the code within 24 hours.
 
 ## Development
 
