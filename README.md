@@ -114,19 +114,22 @@ Note that this warning **is not red and won't block the page like the following 
 ![Untrusted Cert](http://www.inmotionhosting.com/support/images/stories/website/errors/ssl/chrome-self-signed-ssl-warning.png)
 ![Mixed Active Content](http://www.howtogeek.com/wp-content/uploads/2014/02/650x367xchrome-mixed-content-https-problem.png.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.r_lQiZiq38.png)
 
-**What is the cause of the (yellow) error message**
+#### What is the cause of the (yellow) error message
+
 This warning is caused by [mixed passive content](https://developer.mozilla.org/en/docs/Security/MixedContent) and means that your page loads resources from non HTTPS resources, such as:
 * Images
 * Video/Audio
 
 This allows a possible attacker to perform a MITM (man-in-the-middle) attack by serving you different images or audio/video.
 
-**Why doesn't the News app fix it**
+#### Why doesn't the News app fix it
+
 The News app fully prevents mixed **active** content by only allowing HTTPS iframes from known locations; other possible mixed active content elements such as \<script> are stripped from the feed. Because images and audio/video are an integral part of a feed, we can not simply strip them.
 
 Since an attacker can not execute code in contrast to mixed active content, but can only replace images in your feed reader, this is **not considered to be a security issue**. If, for whatever reason, this is a security problem for you, contact the specific feed provider and ask him to serve his feed content over HTTPS.
 
-**Why don't you simply use an HTTPS image/audio/video proxy**
+#### Why don't you simply use an HTTPS image/audio/video proxy
+
 For the same reason that we don't add an HTTPS proxy for websites: It does not fix the underlying issue but only silences it. If you are using an image HTTPS proxy, an attacker can  simply MITM your image proxy. **Even worse**: if your image proxy serves these images from the same domain as your ownCloud installation you [are vulnerable to XSS via SVG images](https://www.owasp.org/images/0/03/Mario_Heiderich_OWASP_Sweden_The_image_that_called_me.pdf). Since most people don't understand mixed content and don't have two domains and a standalone server for the image proxy, it is very likely that by offering the image proxy option we will actually make people's installation more insecure than before.
 
 The only fix for this issue is that feed providers serve their content over HTTPS.
