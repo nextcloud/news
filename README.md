@@ -116,7 +116,7 @@ Note that this warning **is not red and won't block the page like the following 
 
 #### What is the cause of the (yellow) error message
 
-This warning is caused by [mixed passive content](https://developer.mozilla.org/en/docs/Security/MixedContent) and means that your page loads resources from non HTTPS resources, such as:
+This warning is caused by [mixed passive content](https://developer.mozilla.org/en/docs/Security/MixedContent) and means that your page loads passive resources from non HTTPS resources, such as:
 * Images
 * Video/Audio
 
