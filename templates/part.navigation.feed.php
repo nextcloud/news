@@ -33,7 +33,7 @@
         ng-href="#/items/feeds/{{ feed.id }}/"
         class="title"
         ng-class="{'icon-rss': !feed.faviconLink}"
-        title="{{ feed.updateErrorCount>50 ? '<?php p($l->t('Update failed more than 50 times')); ?>: ' + feed.lastUpdateError : feed.title }}">
+        title="{{ feed.updateErrorCount>50 ? '<?php p(addslashes($l->t('Update failed more than 50 times'))); ?>: ' + feed.lastUpdateError : feed.title }}">
        {{ feed.title }}
     </a>
 

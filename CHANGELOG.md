@@ -1,5 +1,6 @@
 owncloud-news (7.0.1)
 * **Enhancement**: Show text preview in compact mode
+* **Bugfix**: Fix bug that broke the app when using Italian translations 
 
 owncloud-news (7.0.0)
 * **New dependency**: Bump required ownCloud version to 8.2
