@@ -1,13 +1,13 @@
 owncloud-news (7.0.1)
 * **Enhancement**: Show text preview in compact mode
-* **Bugfix**: Fix bug that broke the app when using Italian translations 
+* **Bugfix**: Fix bug that broke the app when using Italian translations , #913
 
 owncloud-news (7.0.0)
 * **New dependency**: Bump required ownCloud version to 8.2
 * **Backwards incompatible change**: Remove console commands and instead run them after specific updates
-* **Bugfix**: Fix bug that prevented non admin users from changing feed parameters
+* **Bugfix**: Fix bug that prevented non admin users from changing feed parameters, #903
 * **Enhancement**: If a feed failed to update more than 100 times, show a hint in the web interface
-* **Enhancement**: Overwrite active feed styling to make it look like in ownCloud 8.1
+* **Enhancement**: Overwrite active feed styling to make it look like in ownCloud 8.1, #897
 
 owncloud-news (6.1.1)
 * **Security**: Update picoFeed to add an [XXE fix for php-fpm](http://framework.zend.com/security/advisory/ZF2015-06) on systems with PHP <5.5.22 or >5.6 and <5.6.6. This issue allows any user with access to the News app to read abitrary files from the server. For more information read up on the [Zend advisory](http://framework.zend.com/security/advisory/ZF2015-06) and the [OWASP page](https://www.owasp.org/index.php/XML_External_Entity_%28XXE%29_Processing). Affected supported distributions include [Ubuntu 14.04](https://bugs.launchpad.net/ubuntu/trusty/+source/php5/+bug/1509817)
