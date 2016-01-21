@@ -30,7 +30,9 @@ describe('ExploreController', function () {
     beforeEach(inject(function ($controller, $rootScope) {
         scope = $rootScope.$new();
         sites = {
-            data: 'hi'
+            data: [
+                
+            ]
         };
 
         controller = $controller('ExploreController', {
@@ -39,10 +41,6 @@ describe('ExploreController', function () {
         });
     }));
 
-
-    it('should expose sites', inject(function () {
-        expect(controller.sites).toBe(sites);
-    }));
 
 
     it('should broadcast add feed', inject(function () {
