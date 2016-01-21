@@ -10,6 +10,7 @@ return array(
             'strip' => array(
                 '//*[@class="bucket img"]',
                 '//*[@class="creditwrap"]',
+                '//div[@class="credit-caption"]',
                 '//*[@class="credit"]',
                 '//*[@class="captionwrap"]',
                 '//*[@class="toggle-caption"]',

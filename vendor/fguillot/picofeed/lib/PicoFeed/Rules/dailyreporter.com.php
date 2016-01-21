@@ -8,6 +8,7 @@ return array(
                 '//div[contains(@class, "entry-content")]',
             ),
             'strip' => array(
+                '//div[@class="dmcss_login_form"]',
                 '//*[contains(@class, "sharedaddy")]',
             ),
         ),

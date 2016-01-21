@@ -5,7 +5,7 @@ return array(
         '%.*%' => array(
             'test_url' => 'http://international.thenewslens.com/post/255032/',
             'body' => array(
-            '//article/main[contains(@class, "content-post")]',
+                '//article/main[contains(@class, "content-post")]',
             ),
             'strip' => array(
                 '//div[@class="photo-credit"]',

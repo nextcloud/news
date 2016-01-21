@@ -4,7 +4,9 @@ return array(
     'grabber' => array(
         '%.*%' => array(
             'test_url' => 'http://www.soundandvision.com/content/james-guthrie-mixing-roger-waters-and-pink-floyd-51',
-            'body' => '//div[@id="left"]',
+            'body' => array(
+                '//div[@id="left"]',
+            ),
             'strip' => array(
                 '//div[@class="meta"]',
                 '//div[@class="ratingsbox"]',

@@ -13,6 +13,7 @@ return array(
             '//script',
             '//div[contains(@class,"sharedaddy")]',
             '//div[@class="post-send-off"]',
+            '//div[@class="large-12 columns"]',
             '//div[contains(@class,"inner-related-article")]',
             ),
         ),
