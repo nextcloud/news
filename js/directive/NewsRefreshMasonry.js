@@ -9,9 +9,9 @@
  */
 app.directive('newsRefreshMasonry', function ($timeout) {
 	'use strict';
-	var refresh = function (elem) {
+	var refresh = function () {
 		$timeout(function () {
-			elem.parent().masonry({
+			$('.grid').masonry({
 				itemSelector: '.grid-item',
 				gutter: 25,
 				columnWidth: 300
@@ -20,11 +20,11 @@ app.directive('newsRefreshMasonry', function ($timeout) {
 		});
 	};
 
-	return function (scope, elem) {
+	return function (scope) {
 		console.log('loading');
 		console.log(scope);
 		if (scope.$last) {
-			refresh(elem);
+			refresh();
 		}
 	};
 });
