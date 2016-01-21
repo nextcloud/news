@@ -2859,16 +2859,16 @@ app.directive('newsReadFile', function () {
         });
     };
 });
-app.directive('newsRefreshMasonry', ["$timeout", function ($timeout) {
+app.directive('newsRefreshMasonry', function () {
 	'use strict';
 	var refresh = function (elem) {
-		$timeout(function () {
+
 			elem.parent().masonry({
 				itemSelector: '.grid-item',
 				gutter: 25,
 				columnWidth: 300
 			});
-		});
+
 	};
 
 	return function (scope, elem) {
@@ -2876,7 +2876,7 @@ app.directive('newsRefreshMasonry', ["$timeout", function ($timeout) {
 			refresh(elem);
 		}
 	};
-}]);
+});
 app.directive('newsScroll', ["$timeout", "ITEM_AUTO_PAGE_SIZE", "MARK_READ_TIMEOUT", "SCROLL_TIMEOUT", function ($timeout, ITEM_AUTO_PAGE_SIZE,
     MARK_READ_TIMEOUT, SCROLL_TIMEOUT) {
     'use strict';

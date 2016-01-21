@@ -7,16 +7,16 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsRefreshMasonry', function ($timeout) {
+app.directive('newsRefreshMasonry', function () {
 	'use strict';
 	var refresh = function (elem) {
-		$timeout(function () {
+
 			elem.parent().masonry({
 				itemSelector: '.grid-item',
 				gutter: 25,
 				columnWidth: 300
 			});
-		});
+
 	};
 
 	return function (scope, elem) {

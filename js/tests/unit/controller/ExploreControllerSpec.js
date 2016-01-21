@@ -31,7 +31,7 @@ describe('ExploreController', function () {
         scope = $rootScope.$new();
         sites = {
             data: [
-                
+
             ]
         };
 
