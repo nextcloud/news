@@ -6,6 +6,9 @@
             <input ng-model="Explore.filter" type="search" placeholder="<?php p(addslashes($l->t('filter'))) ?>" news-auto-focus>
         </label>
     </div>-->
+    <div class="explore-header">
+        <a href="https://github.com/owncloud/news/wiki/Explore-Feed-Section"><?php p($l->t('Got more awesome feeds? Share them with us!')) ?></a>
+    </div>
     <div class="grid">
         <div ng-repeat="entry in Explore.feeds | filter:Explore.filter | orderBy:'-votes'" ng-show="!Explore.feedExists(entry.feed)" class="explore-feed grid-item" news-refresh-masonry>
             <span class="category">{{ entry.category }}</span>

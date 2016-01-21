@@ -74,11 +74,16 @@
 	padding-top: 25px;
 }
 
-#explore .explore-filter {
-	margin: 0 45px 45px 0;
-	text-align: right;
-}
-
 #explore .explore-filter input {
 	width: 200px;
+}
+
+#explore .explore-header {
+	margin: 0 45px 45px 0;
+	text-align: center;
+}
+
+#explore .explore-header a {
+	color: #0000AA;
+	text-decoration: underline;
 }
