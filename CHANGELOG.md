@@ -1,3 +1,7 @@
+owncloud-news (7.0.2)
+* **Enhancement**: Improve explore feeds page design
+* **Enhancement**: Add more feeds on the explore feeds page
+
 owncloud-news (7.0.1)
 * **Enhancement**: Show text preview in compact mode
 * **Bugfix**: Fix bug that broke the app when using Italian translations , #913

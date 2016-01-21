@@ -8,75 +8,83 @@
  * @copyright Bernhard Posselt 2014
  */
 
-
 /**
  * Explore styles
  */
 .explore #app-content-wrapper {
-    height: 100%;
+	height: 100%;
 }
 
 #explore {
-    height: 100%;
-    width: 100%;
+	height: 100%;
+	width: 100%;
+	padding: 45px;
+	padding-right: 0;
+}
+
+#explore ul {
+	margin: 0;
+	padding: 0;
+}
+
+#explore li {
+	padding: 30px;
+	display: block;
+	float: left;
+	max-width: 300px;
+	border-collapse: collapse;
+	border: 1px solid #ccc;
+	margin: 0 25px 25px 0;
 }
 
 #explore h1 {
-    font-size: 16pt;
-    padding: 30px 0;
-    text-align: center;
+	font-size: 13pt;
+	background-repeat: no-repeat;
+	background-position: 0 center;
+	background-size: 24px 24px;
+	padding: 5px 0 0 35px;
+	background-position: 0 center;
 }
 
-#explore .explore-section {
-    padding: 20px 45px;
+#explore h1 a:hover {
+	text-decoration: underline;
 }
 
-#explore .explore-section h2 {
-    color: #333;
-    font-size: 14pt;
-    padding-bottom: 10px;
-}
-
-#explore .explore-section li {
-    padding: 20px 30px;
-    margin: 0 20px 20px 0;
-    display: inline-block;
-    vertical-align: top;
-    width: 300px;
-    background-color: #f5f5f5;
-    border: 1px solid #ccc;
-}
-
-#explore .explore-section h3 {
-    line-height: 45px;
-    height: 45px;
-    font-size: 13pt;
-    background-repeat: no-repeat;
-    background-position: 0 center;
-    background-size: 24px 24px;
-    padding: 0 0 15px 35px;
-}
-
-#explore .explore-section h3 a:hover {
-    text-decoration: underline;
+#explore .category {
+	display: inline-block;
+	font-weight: normal;
+	font-size: 10pt;
+	color: #fff;
+	background-color: #1d2d44;
+	padding: 5px;
+	float: right;
+	border-radius: 3px;
+	font-weight: bold;
 }
 
 #explore .explore-logo {
-    text-align: center;
-    margin-top: 25px;
+	text-align: center;
+	margin-top: 25px;
 }
 
 #explore .explore-logo img {
-    width: 100%;
+	width: 100%;
 }
 
 #explore .explore-subscribe {
-    padding-top: 15px;
-    text-align: right;
+	padding-top: 15px;
+	text-align: right;
 }
 
 #explore .explore-content {
-    min-height: 100px;
-    /*overflow: auto;*/
+	padding-top: 25px;
 }
 
+#explore .explore-filter {
+	margin: 0 45px 45px 0;
+	text-align: right;
+}
+
+#explore .explore-filter input {
+	width: 200px;
+}

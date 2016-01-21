@@ -4,6 +4,8 @@ Read this when you want to:
 * file an issue (bug or feature request)
 * help translate the News file to your language
 * start programming and change the way the News app works
+* add cool new feeds to the feed explore section
+* want to provide additional full text feed rules
 
 ## Issues
 This section is split into two section:
@@ -80,6 +82,14 @@ For translations in other languages than English, we rely on the [Transifex](htt
 If you want to help with translating the app, please do not create a pull request. Instead, head over to https://www.transifex.com/projects/p/owncloud/resource/news/ and join the team of your native language.
 
 If approved, the translation will be automatically ported to the code within 24 hours.
+
+
+## Explore feeds section
+You can help to improve our explore feeds section by [providing more feeds](https://github.com/owncloud/news/wiki/Explore-Feed-Section)
+
+## Fulltext configurations
+
+ownCloud News uses [picoFeed web scrapers](https://github.com/fguillot/picoFeed/blob/master/docs/grabber.markdown). Simply create a new configuration file if needed and open a pull request on their repository. The News app syncs regularely with the most recent changes.
 
 ## Development
 

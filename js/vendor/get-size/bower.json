@@ -1,0 +1,37 @@
+{
+  "name": "get-size",
+  "version": "2.0.2",
+  "main": "get-size.js",
+  "description": "measures element size",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "qunit": "~1.10"
+  },
+  "ignore": [
+    "test/",
+    "**/.*",
+    "package.json",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "sandbox.html"
+  ],
+  "homepage": "https://github.com/desandro/get-size",
+  "authors": [
+    "David DeSandro <desandrocodes@gmail.com>"
+  ],
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "size",
+    "dom",
+    "width",
+    "height"
+  ],
+  "license": "MIT"
+}
