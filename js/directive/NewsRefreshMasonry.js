@@ -22,6 +22,7 @@ app.directive('newsRefreshMasonry', function ($timeout) {
 
 	return function (scope, elem) {
 		console.log('loading');
+		console.log(scope);
 		if (scope.$last) {
 			refresh(elem);
 		}
