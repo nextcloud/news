@@ -2868,7 +2868,6 @@ app.directive('newsRefreshMasonry', ["$timeout", function ($timeout) {
 				gutter: 25,
 				columnWidth: 300
 			});
-			console.log('fresh');
 		});
 	};
 
