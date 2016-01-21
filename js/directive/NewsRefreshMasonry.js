@@ -16,13 +16,10 @@ app.directive('newsRefreshMasonry', function ($timeout) {
 				gutter: 25,
 				columnWidth: 300
 			});
-			console.log('bubb');
 		});
 	};
 
 	return function (scope) {
-		console.log('loading');
-		console.log(scope);
 		if (scope.$last) {
 			refresh();
 		}
