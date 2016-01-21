@@ -12,7 +12,7 @@ PKG-INFO
 *pyc
 *~
 __pycache__
-dist/
+bin/updater/dist/
 owncloud_news_updater.egg-info
 bin/updater/build
 
