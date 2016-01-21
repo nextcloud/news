@@ -7,19 +7,22 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsRefreshMasonry', function () {
+app.directive('newsRefreshMasonry', function ($timeout) {
 	'use strict';
-	return function (scope, elem) {
-		if (scope.$last) {
-			var $grid = elem.parent().masonry({
-				itemSelector: '.explore-feed',
+	var refresh = function (elem) {
+		$timeout(function () {
+			elem.parent().masonry({
+				itemSelector: '.grid-item',
 				gutter: 25,
 				columnWidth: 300
 			});
+			console.log('fresh');
+		});
+	};
 
-			$grid.imagesLoaded().progress( function() {
-				$grid.masonry('layout');
-			});
+	return function (scope, elem) {
+		if (scope.$last) {
+			refresh(elem);
 		}
 	};
 });

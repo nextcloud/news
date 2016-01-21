@@ -1,13 +1,13 @@
 <?php print_unescaped($this->inc('part.content.cronwarning')) ?>
 
 <div id="explore">
-    <div class="explore-filter">
+    <!--<div class="explore-filter">
         <label>
             <input ng-model="Explore.filter" type="search" placeholder="<?php p(addslashes($l->t('filter'))) ?>" news-auto-focus>
         </label>
-    </div>
-    <ul news-refresh-masonry>
-        <li ng-repeat="entry in Explore.feeds | filter:Explore.filter | orderBy:'-votes'" ng-if="!Explore.feedExists(entry.feed)" class="explore-feed">
+    </div>-->
+    <div class="grid">
+        <div ng-repeat="entry in Explore.feeds | filter:Explore.filter | orderBy:'-votes'" ng-if="!Explore.feedExists(entry.feed)" class="explore-feed grid-item" news-refresh-masonry>
             <span class="category">{{ entry.category }}</span>
             <h1 ng-show="entry.favicon"
                 ng-style="{ backgroundImage: 'url(' + entry.favicon + ')'}">
@@ -29,6 +29,6 @@
                     <?php p($l->t('Subscribe')) ?>
                 </button>
             </div>
-        </li>
-    </ul>
+        </div>
+    </div>
 </div>

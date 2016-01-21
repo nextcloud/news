@@ -2859,22 +2859,25 @@ app.directive('newsReadFile', function () {
         });
     };
 });
-app.directive('newsRefreshMasonry', function () {
+app.directive('newsRefreshMasonry', ["$timeout", function ($timeout) {
 	'use strict';
-	return function (scope, elem) {
-		if (scope.$last) {
-			var $grid = elem.parent().masonry({
-				itemSelector: '.explore-feed',
+	var refresh = function (elem) {
+		$timeout(function () {
+			elem.parent().masonry({
+				itemSelector: '.grid-item',
 				gutter: 25,
 				columnWidth: 300
 			});
+			console.log('fresh');
+		});
+	};
 
-			$grid.imagesLoaded().progress( function() {
-				$grid.masonry('layout');
-			});
+	return function (scope, elem) {
+		if (scope.$last) {
+			refresh(elem);
 		}
 	};
-});
+}]);
 app.directive('newsScroll', ["$timeout", "ITEM_AUTO_PAGE_SIZE", "MARK_READ_TIMEOUT", "SCROLL_TIMEOUT", function ($timeout, ITEM_AUTO_PAGE_SIZE,
     MARK_READ_TIMEOUT, SCROLL_TIMEOUT) {
     'use strict';

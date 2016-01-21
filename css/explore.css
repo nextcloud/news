@@ -22,16 +22,10 @@
 	padding-right: 0;
 }
 
-#explore ul {
-	margin: 0;
-	padding: 0;
-}
 
-#explore li {
+#explore .grid-item {
+	width: 300px;
 	padding: 30px;
-	display: block;
-	float: left;
-	max-width: 300px;
 	border-collapse: collapse;
 	border: 1px solid #ccc;
 	margin: 0 25px 25px 0;
