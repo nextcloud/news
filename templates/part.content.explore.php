@@ -7,7 +7,7 @@
         </label>
     </div>-->
     <div class="grid">
-        <div ng-repeat="entry in Explore.feeds | filter:Explore.filter | orderBy:'-votes'" ng-if="!Explore.feedExists(entry.feed)" class="explore-feed grid-item" news-refresh-masonry>
+        <div ng-repeat="entry in Explore.feeds | filter:Explore.filter | orderBy:'-votes'" ng-show="!Explore.feedExists(entry.feed)" class="explore-feed grid-item" news-refresh-masonry>
             <span class="category">{{ entry.category }}</span>
             <h1 ng-show="entry.favicon"
                 ng-style="{ backgroundImage: 'url(' + entry.favicon + ')'}">
