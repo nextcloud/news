@@ -24,6 +24,7 @@
 
 
 #explore .grid-item {
+	float: left;
 	width: 300px;
 	padding: 30px;
 	border-collapse: collapse;
