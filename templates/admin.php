@@ -116,7 +116,7 @@ style('news', 'admin');
                     'displaying the feeds in the explore feed section. To ' .
                     'fall back to the built in explore service, leave this ' .
                     'input empty'
-                )); ?>
+                )); ?>.
             </em>
             <a href="https://github.com/owncloud/news/wiki/How-to-write-an-explore-service"><?php p($l->t(
                 'For more information check the Wiki'
