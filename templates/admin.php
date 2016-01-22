@@ -118,6 +118,9 @@ style('news', 'admin');
                     'input empty'
                 )); ?>
             </em>
+            <a href="https://github.com/owncloud/news/wiki/How-to-write-an-explore-service"><?php p($l->t(
+                'For more information check the Wiki'
+            )); ?></a>
         </p>
         <p><input type="text" name="news-explore-url"
                value="<?php p($_['exploreUrl']); ?>"></p>

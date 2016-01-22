@@ -26,19 +26,16 @@ class RecommendedSites {
     }
 
 
-    public function forLanguage($languageCode, $default='en') {
+    public function forLanguage($languageCode) {
         $file = $this->directory . '/sites.' . $languageCode . '.json';
-
-        if (!file_exists($file)) {
-            $file = $this->directory . '/sites.' . $default . '.json';
-        }
 
         if (file_exists($file)) {
             return json_decode(file_get_contents($file), true);
         } else {
-            return [];
+            $msg = 'No recommended sites found for language code ' .
+                $languageCode;
+            throw new RecommendedSiteNotFoundException($msg);
         }
-
     }
 
 

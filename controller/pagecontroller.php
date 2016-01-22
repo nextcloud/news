@@ -20,12 +20,14 @@ use OCP\IURLGenerator;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\JSONResponse;
+use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 
 use OCA\News\Service\StatusService;
 use OCA\News\Config\AppConfig;
 use OCA\News\Config\Config;
 use OCA\News\Explore\RecommendedSites;
+use OCA\News\Explore\RecommendedSiteNotFoundException;
 use OCA\News\Db\FeedType;
 
 class PageController extends Controller {
@@ -38,6 +40,8 @@ class PageController extends Controller {
     private $config;
     private $recommendedSites;
     private $statusService;
+
+    use JSONHttpError;
 
     public function __construct($AppName,
                                 IRequest $request,
@@ -99,7 +103,11 @@ class PageController extends Controller {
 
         $exploreUrl = $this->config->getExploreUrl();
         if (trim($exploreUrl) === '') {
-            $exploreUrl = $this->urlGenerator->linkToRoute('news.page.explore');
+            // default url should not feature the sites.en.json
+            $exploreUrl = $this->urlGenerator->linkToRoute(
+                'news.page.explore', ['lang' => 'en']
+            );
+            $exploreUrl = preg_replace('/sites\.en\.json$/', '', $exploreUrl);
         }
 
         $result = [
@@ -191,15 +199,17 @@ class PageController extends Controller {
      *
      * @param string $lang
      */
-    public function explore($lang='en') {
-        $default = 'en';
-
+    public function explore($lang) {
         $this->settings->setUserValue($this->userId, $this->appName,
             'lastViewedFeedId', 0);
         $this->settings->setUserValue($this->userId, $this->appName,
             'lastViewedFeedType', FeedType::EXPLORE);
 
-        return $this->recommendedSites->forLanguage($lang, $default);
+        try {
+            return $this->recommendedSites->forLanguage($lang);
+        } catch (RecommendedSiteNotFoundException $ex) {
+            return $this->error($ex, Http::STATUS_NOT_FOUND);
+        }
     }
 
 

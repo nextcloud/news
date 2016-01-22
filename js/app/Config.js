@@ -143,15 +143,18 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
                 $http.get(BASE_URL + '/settings').then(function (data) {
                     Publisher.publishAll(data);
 
-                    var url = SettingsResource.get('exploreUrl');
+                    // get url and strip trailing slashes
+                    var url = SettingsResource.get('exploreUrl')
+                        .replace(/\/+$/, '');
                     var language = SettingsResource.get('language');
-                    return $http({
-                        url: url,
-                        method: 'GET',
-                        params: {
-                            lang: language
-                        }
-                    });
+
+                    var exploreUrl = url + '/sites.' + language + '.json';
+                    var defaultExploreUrl = url + '/sites.en.json';
+                    return $http
+                        .get(exploreUrl)
+                        .catch(function () {
+                            return $http.get(defaultExploreUrl);
+                        });
 
                 }).then(function (data) {
                     deferred.resolve(data.data);

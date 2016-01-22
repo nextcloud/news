@@ -167,7 +167,8 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
             ->will($this->returnValue(' '));
         $this->urlGenerator->expects($this->once())
             ->method('linkToRoute')
-            ->with($this->equalTo('news.page.explore'))
+            ->with($this->equalTo('news.page.explore'),
+                    $this->equalTo(['lang' => 'en']))
             ->will($this->returnValue('test'));
 
 
@@ -309,11 +310,11 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
 
         $this->recommended->expects($this->once())
             ->method('forLanguage')
-            ->with($this->equalTo('de_DE'), $this->equalTo('en'))
+            ->with($this->equalTo('en'))
             ->will($this->returnValue($in));
 
 
-        $out = $this->controller->explore('de_DE');
+        $out = $this->controller->explore('en');
 
         $this->assertEquals($in, $out);
     }
