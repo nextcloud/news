@@ -1,6 +1,7 @@
-owncloud-news (7.0.2)
+owncloud-news (7.1.0)
 * **Enhancement**: Improve explore feeds page design
 * **Enhancement**: Add more feeds on the explore feeds page
+* **Backwards incompatible change**: Change explore URL API to request a file instead of URL parameter
 
 owncloud-news (7.0.1)
 * **Enhancement**: Show text preview in compact mode
