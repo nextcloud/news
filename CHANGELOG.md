@@ -2,7 +2,7 @@ owncloud-news (7.1.0)
 * **Backwards incompatible change**: Change explore URL API to request a file instead of URL parameter
 * **Enhancement**: Improve explore feeds page design
 * **Enhancement**: Add more feeds on the explore feeds page
-* **Enhancement**: Add a list of german feeds for the explore page
+* **Enhancement**: Add a list of German feeds for the explore page
 * **Enhancement**: Allow to select other languages than the currently set language
 
 owncloud-news (7.0.1)
