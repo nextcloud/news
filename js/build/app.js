@@ -134,9 +134,15 @@ app.config(["$routeProvider", "$provide", "$httpProvider", function ($routeProvi
 
     var getExploreResolve = function () {
         return {
-            sites: /* @ngInject */ ["$http", "$q", "BASE_URL", "Publisher", "SettingsResource", function (
-            $http, $q, BASE_URL, Publisher, SettingsResource) {
+            sites: /* @ngInject */ ["$http", "$q", "BASE_URL", "$location", "Publisher", "SettingsResource", function (
+            $http, $q, BASE_URL, $location, Publisher, SettingsResource) {
                 var deferred = $q.defer();
+
+                // always use the code from the url
+                var language = $location.search().lang;
+                if (!language) {
+                    language = SettingsResource.get('language');
+                }
 
                 $http.get(BASE_URL + '/settings').then(function (data) {
                     Publisher.publishAll(data);
@@ -144,7 +150,6 @@ app.config(["$routeProvider", "$provide", "$httpProvider", function ($routeProvi
                     // get url and strip trailing slashes
                     var url = SettingsResource.get('exploreUrl')
                         .replace(/\/+$/, '');
-                    var language = SettingsResource.get('language');
 
                     var exploreUrl = url + '/feeds.' + language + '.json';
                     var defaultExploreUrl = url + '/feeds.en.json';
@@ -535,7 +540,8 @@ app.controller('ContentController',
     };
 
 }]);
-app.controller('ExploreController', ["sites", "$rootScope", "FeedResource", function (sites, $rootScope, FeedResource) {
+app.controller('ExploreController',
+["sites", "$rootScope", "FeedResource", "SettingsResource", "$location", function (sites, $rootScope, FeedResource, SettingsResource, $location) {
 	'use strict';
 
 	this.sites = sites;
@@ -565,7 +571,25 @@ app.controller('ExploreController', ["sites", "$rootScope", "FeedResource", func
 			}).length > 0;
 	};
 
+	this.getSupportedLanguageCodes = function () {
+		return SettingsResource.getSupportedLanguageCodes();
+	};
+
+	this.getCurrentLanguageCode = function () {
+		var language = $location.search().lang;
+		if (!language) {
+			language = SettingsResource.get('language');
+		}
+		return language;
+	};
+
+	this.showLanguage = function (languageCode) {
+		$location.url('/explore/?lang=' + languageCode);
+	};
+
+	this.selectedLanguageCode = this.getCurrentLanguageCode();
 }]);
+
 app.controller('NavigationController',
 ["$route", "FEED_TYPE", "FeedResource", "FolderResource", "ItemResource", "SettingsResource", "Publisher", "$rootScope", "$location", "$q", function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
     SettingsResource, Publisher, $rootScope, $location, $q) {
@@ -582,6 +606,10 @@ app.controller('NavigationController',
 
     var getRouteId = function () {
         return parseInt($route.current.params.id, 10);
+    };
+
+    this.getLanguageCode = function () {
+        return SettingsResource.get('language');
     };
 
     this.getFeeds = function () {
@@ -2002,12 +2030,16 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
     };
     this.defaultLanguageCode = 'en';
     this.supportedLanguageCodes = [
-        'ar-ma', 'ar', 'bg', 'ca', 'cs', 'cv', 'da', 'de', 'el', 'en-ca',
+        'ar-ma', 'ar', 'bg', 'ca', 'cs', 'cv', 'da', 'de', 'el', 'en', 'en-ca',
         'en-gb', 'eo', 'es', 'et', 'eu', 'fi', 'fr-ca', 'fr', 'gl', 'he', 'hi',
         'hu', 'id', 'is', 'it', 'ja', 'ka', 'ko', 'lv', 'ms-my', 'nb', 'ne',
         'nl', 'pl', 'pt-br', 'pt', 'ro', 'ru', 'sk', 'sl', 'sv', 'th', 'tr',
         'tzm-la', 'tzm', 'uk', 'zh-cn', 'zh-tw'
     ];
+
+    this.getSupportedLanguageCodes = function () {
+        return this.supportedLanguageCodes;
+    };
 
     this.receive = function (data) {
         var self = this;
@@ -2058,6 +2090,7 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
     };
 
 }]);
+
 /**
  * This prefills the add feed section if an external link has ?subsribe_to
  * filled out

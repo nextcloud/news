@@ -26,7 +26,6 @@
 #explore .grid-item {
 	float: left;
 	width: 300px;
-	padding: 30px;
 	border-collapse: collapse;
 	border: 1px solid #ccc;
 	margin: 0 25px 25px 0;
@@ -41,20 +40,29 @@
 	background-position: 0 center;
 }
 
+#explore h1 a {
+	word-wrap: break-word;
+}
+
 #explore h1 a:hover {
 	text-decoration: underline;
 }
 
+#explore .category-wrapper {
+	text-align: center;
+}
+
 #explore .category {
-	display: inline-block;
 	font-weight: normal;
 	font-size: 10pt;
 	color: #fff;
 	background-color: #1d2d44;
-	padding: 5px;
-	float: right;
-	border-radius: 3px;
+	padding: 10px;
 	font-weight: bold;
+}
+
+#explore .grid-item-content {
+	padding: 30px;
 }
 
 #explore .explore-logo {
@@ -73,6 +81,17 @@
 
 #explore .explore-content {
 	padding-top: 25px;
+}
+
+#explore .explore-filter {
+	text-align: right;
+	padding: 30px;
+}
+
+#explore .explore-filter input,
+#explore .explore-filter select {
+	margin-left: 10px;
+	display: inline-block;
 }
 
 #explore .explore-filter input {

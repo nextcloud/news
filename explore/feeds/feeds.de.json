@@ -1,0 +1,57 @@
+{
+    "Technologie": [{
+        "title": "ComputerBase",
+        "favicon": "https:\/\/computerbase.de\/favicon.ico",
+        "url": "http:\/\/www.computerbase.de\/",
+        "feed": "http:\/\/www.computerbase.de\/rss\/news.xml",
+        "description": "Unabh\u00e4ngiges Tech-Magazin",
+        "votes": 100
+    }, {
+        "title": "Golem.de",
+        "favicon": "http:\/\/golem.de\/favicon.ico",
+        "url": "http:\/\/www.golem.de\/",
+        "feed": "http:\/\/golem.de.dynamic.feedsportal.com\/pf\/578068\/http:\/\/rss.golem.de\/rss.php?feed=RSS1.0",
+        "description": "IT-News fuer Profis",
+        "votes": 100,
+        "image": "http:\/\/www.golem.de\/staticrl\/images\/golem-rss.png"
+    }, {
+        "title": "derStandard.at \u203a Web",
+        "favicon": "https:\/\/derstandard.at\/img\/derstandard.at.ico",
+        "url": "http:\/\/derstandard.at\/Web",
+        "feed": "http:\/\/derstandard.at\/?page=rss&ressort=web",
+        "description": "Nachrichten in Echtzeit. derStandard.at: Permanent aktualisierte Nachrichten aus aller Welt vom Online-Newsroom der f\u00fchrenden Qualit\u00e4tszeitung \u00d6sterreichs. Plus die ganze Tageszeitung gratis im WWW. News in German, brought to you by the leading quality newspaper from Austria.",
+        "votes": 100
+    }, {
+        "title": "Pro-Linux News",
+        "favicon": "http:\/\/www.pro-linux.de\/favicon.ico",
+        "url": "http:\/\/www.pro-linux.de\/",
+        "feed": "http:\/\/www.pro-linux.de\/rss\/index1.xml",
+        "description": "Wir geben Ihrem Computer das Leben zur\u00fcck",
+        "votes": 100,
+        "image": "http:\/\/www.pro-linux.de\/images\/NB3\/base\/global\/pl-logo_i70.png"
+    }, {
+        "title": "heise online News",
+        "favicon": "https:\/\/www.heise.de\/favicon.ico",
+        "url": "http:\/\/www.heise.de\/newsticker\/",
+        "feed": "http:\/\/heise.de.feedsportal.com\/c\/35207\/f\/653901\/index.rss",
+        "description": "Nachrichten nicht nur aus der Welt der Computer",
+        "votes": 100
+    }],
+    "FOSS": [{
+            "title": "heise open news",
+            "favicon": "https:\/\/www.heise.de\/favicon.ico",
+            "url": "http:\/\/www.heise.de\/open\/news\/",
+            "feed": "http:\/\/heise.de.open.feedsportal.com\/c\/32509\/f\/480599\/index.rss",
+            "description": "Nachrichten zu Open Source",
+            "votes": 100
+        }
+    ],
+    "Nachrichten": [{
+        "title": "derStandard.at",
+        "favicon": "https:\/\/derstandard.at\/img\/derstandard.at.ico",
+        "url": "http:\/\/derstandard.at\/",
+        "feed": "http:\/\/derstandard.at\/?page=rss&ressort=seite1",
+        "description": "Nachrichten in Echtzeit. derStandard.at: Permanent aktualisierte Nachrichten aus aller Welt vom Online-Newsroom der f\u00fchrenden Qualit\u00e4tszeitung \u00d6sterreichs. Plus die ganze Tageszeitung gratis im WWW. News in German, brought to you by the leading quality newspaper from Austria.",
+        "votes": 100
+    }]
+}

@@ -137,8 +137,14 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
     var getExploreResolve = function () {
         return {
             sites: /* @ngInject */ function (
-            $http, $q, BASE_URL, Publisher, SettingsResource) {
+            $http, $q, BASE_URL, $location, Publisher, SettingsResource) {
                 var deferred = $q.defer();
+
+                // always use the code from the url
+                var language = $location.search().lang;
+                if (!language) {
+                    language = SettingsResource.get('language');
+                }
 
                 $http.get(BASE_URL + '/settings').then(function (data) {
                     Publisher.publishAll(data);
@@ -146,7 +152,6 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
                     // get url and strip trailing slashes
                     var url = SettingsResource.get('exploreUrl')
                         .replace(/\/+$/, '');
-                    var language = SettingsResource.get('language');
 
                     var exploreUrl = url + '/feeds.' + language + '.json';
                     var defaultExploreUrl = url + '/feeds.en.json';

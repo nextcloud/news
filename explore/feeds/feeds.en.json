@@ -1,145 +1,146 @@
 {
-  "ownCloud": [
-    {
-      "title": "ownCloud Planet",
-      "favicon": "https://owncloud.org/wp-content/themes/owncloudorgnew/assets/img/common/favicon.png",
-      "url": "https://owncloud.org/news/",
-      "feed": "https://owncloud.org/feed/",
-      "description": "ownCloud Planet is a blog feed aggregator",
-      "votes": 1000
-    },
-    {
-      "title": "News app releases",
-      "favicon": "https://owncloud.org/wp-content/themes/owncloudorgnew/assets/img/common/favicon.png",
-      "url": "https://github.com/owncloud/news/releases",
-      "feed": "https://github.com/owncloud/news/releases.atom",
-      "description": "ownCloud News app releases page. Get notified when a new release comes out",
-      "votes": 900
-    }
-  ],
-  "FOSS": [
-    {
-      "title": "Planet GNOME",
-      "favicon": "http:\/\/planet.gnome.org\/img\/gnome-16.png",
-      "url": "http:\/\/planet.gnome.org\/",
-      "feed": "http:\/\/planet.gnome.org\/rss20.xml",
-      "description": "Planet GNOME - http:\/\/planet.gnome.org\/",
-      "votes": 100
-    },
-    {
-      "title": "Planet KDE",
-      "favicon": "https:\/\/planetkde.org\/favicon.ico",
-      "url": "http:\/\/planetKDE.org\/",
-      "feed": "http:\/\/planetKDE.org\/rss20.xml",
-      "description": "Planet KDE - http:\/\/planetKDE.org\/",
-      "votes": 100
-    }
-  ],
-  "Tech": [
-    {
-      "title": "Slashdot",
-      "favicon": "https://slashdot.org/favicon.ico",
-      "url": "https://slashdot.org",
-      "feed": "https://rss.slashdot.org/Slashdot/slashdot",
-      "description": "Slashdot: News for nerds, stuff that matters",
-      "votes": 500
-    }
-  ],
-  "UX": [
-    {
-      "title": "Mozilla UX blog",
-      "favicon": "https://blog.mozilla.org/ux/wp-content/themes/OneMozilla/img/favicon.ico",
-      "url": "https://blog.mozilla.org/ux/",
-      "feed": "https://blog.mozilla.org/ux/feed/",
-      "description": "Designing great products that make sense & bring joy",
-      "votes": 500
-    },
-    {
-      "title": "Little Big Details",
-      "url": "http://littlebigdetails.com/",
-      "feed": "http://littlebigdetails.com/rss",
-      "favicon": "http://33.media.tumblr.com/avatar_21babec3285d_128.png",
-      "description": "UX eastereggs and goodies",
-      "votes": 1000
-    },
-    {
-      "title": "Ignore the code",
-      "favicon": "http://ignorethecode.net/blog_images/iphone.png",
-      "url": "http://ignorethecode.net/blog/",
-      "feed": "http://feeds.feedburner.com/IgnoreTheCode",
-      "description": "A blog about usability",
-      "votes": 500
-    },
-    {
-      "title": "Elezea",
-      "url": "http://www.elezea.com",
-      "feed": "http://feedpress.me/elezea",
-      "description": "Links and articles about technology, design, and sociology. Written by Rian van der Merwe.",
-      "votes": 500
-    }
-  ],
-  "Music": [
-    {
-      "title": "Pebber Brown",
-      "favicon": "https:\/\/s.ytimg.com\/yts\/img\/favicon-vflz7uhzw.ico",
-      "url": "http:\/\/www.youtube.com\/channel\/UCbA-Tt8ELg8v0d7RdieeZyA",
-      "feed": "http:\/\/www.youtube.com\/feeds\/videos.xml?channel_id=UCbA-Tt8ELg8v0d7RdieeZyA",
-      "description": "Videos about music theory and scales",
-      "votes": 100
-    }
-  ],
-  "Science": [
-    {
-      "title": "Numberphile",
-      "favicon": "https:\/\/s.ytimg.com\/yts\/img\/favicon-vflz7uhzw.ico",
-      "url": "http:\/\/www.youtube.com\/channel\/UCoxcjq-8xIDTYp3uz647V5A",
-      "feed": "http:\/\/www.youtube.com\/feeds\/videos.xml?channel_id=UCoxcjq-8xIDTYp3uz647V5A",
-      "description": "Awesome mathematics videos",
-      "votes": 500
-    },
-    {
-      "title": "Periodic Videos",
-      "favicon": "https:\/\/s.ytimg.com\/yts\/img\/favicon-vflz7uhzw.ico",
-      "url": "http:\/\/www.youtube.com\/channel\/UCtESv1e7ntJaLJYKIO1FoYw",
-      "feed": "http:\/\/www.youtube.com\/feeds\/videos.xml?channel_id=UCtESv1e7ntJaLJYKIO1FoYw",
-      "description": "Videos about elements and chemistry",
-      "votes": 1000
-    }
-  ],
-  "Food": [
-    {
-      "title": "Smitten Kitchen",
-      "favicon": "http://smittenkitchen.com/uploads/favicon.ico",
-      "url": "http://smittenkitchen.com/",
-      "feed": "http://feeds.feedburner.com/smittenkitchen",
-      "description": "A home cooking weblog from a tiny kitchen in New York City. The place to find all of your new favorite things to cook",
-      "votes": 500
-    },
-    {
-      "title": "Food in Jars",
-      "favicon": "http://foodinjars.com.s164546.gridserver.com/arugulapesto/wp-content/uploads/2013/05/jar-favicon.png",
-      "url": "http://foodinjars.com/",
-      "feed": "http://feedpress.me/FIJ",
-      "description": "A blog dedicated to canning, preserving, and pantry staples made from scratch.",
-      "votes": 500
-    }
-  ],
-  "Comics": [
-    {
-      "title": "Explosm.net",
-      "favicon": "http://explosm.net/favicons/favicon.ico",
-      "url": "http:\/\/www.explosm.net\/rss.php",
-      "feed": "http:\/\/feeds.feedburner.com\/Explosm",
-      "description": "Flash Animations, Daily Comics and more!",
-      "votes": 100
-    },
-    {
-      "title": "The Oatmeal - Comics, Quizzes, & Stories",
-      "favicon": "http:\/\/theoatmeal.com\/favicon.ico",
-      "url": "http:\/\/theoatmeal.com\/",
-      "feed": "http:\/\/feeds.feedburner.com\/oatmealfeed",
-      "description": "The oatmeal tastes better than stale skittles found under the couch cushions",
-      "votes": 100
-    }
-  ]
+    "ownCloud": [{
+        "title": "ownCloud Planet",
+        "favicon": "https://owncloud.org/wp-content/themes/owncloudorgnew/assets/img/common/favicon.png",
+        "url": "https://owncloud.org/news/",
+        "feed": "https://owncloud.org/feed/",
+        "description": "ownCloud Planet is a blog feed aggregator",
+        "votes": 1000
+    }, {
+        "title": "News app releases",
+        "favicon": "https://owncloud.org/wp-content/themes/owncloudorgnew/assets/img/common/favicon.png",
+        "url": "https://github.com/owncloud/news/releases",
+        "feed": "https://github.com/owncloud/news/releases.atom",
+        "description": "ownCloud News app releases page. Get notified when a new release comes out",
+        "votes": 900
+    }],
+    "FOSS": [{
+            "title": "Planet GNOME",
+            "favicon": "http:\/\/planet.gnome.org\/img\/gnome-16.png",
+            "url": "http:\/\/planet.gnome.org\/",
+            "feed": "http:\/\/planet.gnome.org\/rss20.xml",
+            "description": "Planet GNOME - http:\/\/planet.gnome.org\/",
+            "votes": 100
+        }, {
+            "title": "Planet KDE",
+            "favicon": "https:\/\/planetkde.org\/favicon.ico",
+            "url": "http:\/\/planetKDE.org\/",
+            "feed": "http:\/\/planetKDE.org\/rss20.xml",
+            "description": "Planet KDE - http:\/\/planetKDE.org\/",
+            "votes": 100
+        }, {
+            "title": "Planet Mozilla",
+            "favicon": "https:\/\/planet.mozilla.org\/img\/mozilla-16.png",
+            "url": "http:\/\/planet.mozilla.org\/",
+            "feed": "http:\/\/planet.mozilla.org\/atom.xml",
+            "description": "Planet Mozilla - Mozilla Blogs",
+            "votes": 100
+        }
+
+    ],
+    "Tech": [{
+        "title": "Slashdot",
+        "favicon": "https://slashdot.org/favicon.ico",
+        "url": "https://slashdot.org",
+        "feed": "https://rss.slashdot.org/Slashdot/slashdot",
+        "description": "Slashdot: News for nerds, stuff that matters",
+        "votes": 500
+    }],
+    "Gaming": [{
+            "title": "TotalBiscuit, The Cynical Brit",
+            "favicon": "https:\/\/s.ytimg.com\/yts\/img\/favicon-vflz7uhzw.ico",
+            "url": "http:\/\/www.youtube.com\/channel\/UCy1Ms_5qBTawC-k7PVjHXKQ",
+            "feed": "http:\/\/www.youtube.com\/feeds\/videos.xml?channel_id=UCy1Ms_5qBTawC-k7PVjHXKQ",
+            "description": "",
+            "votes": 100
+        }, {
+            "title": "Force Gaming",
+            "favicon": "https:\/\/s.ytimg.com\/yts\/img\/favicon-vflz7uhzw.ico",
+            "url": "http:\/\/www.youtube.com\/channel\/UCGhs9S33RAeT5DEuKTO4Oew",
+            "feed": "http:\/\/www.youtube.com\/feeds\/videos.xml?channel_id=UCGhs9S33RAeT5DEuKTO4Oew",
+            "description": "",
+            "votes": 100
+        }
+    ],
+    "UX": [{
+        "title": "Mozilla UX blog",
+        "favicon": "https://blog.mozilla.org/ux/wp-content/themes/OneMozilla/img/favicon.ico",
+        "url": "https://blog.mozilla.org/ux/",
+        "feed": "https://blog.mozilla.org/ux/feed/",
+        "description": "Designing great products that make sense & bring joy",
+        "votes": 500
+    }, {
+        "title": "Little Big Details",
+        "url": "http://littlebigdetails.com/",
+        "feed": "http://littlebigdetails.com/rss",
+        "favicon": "http://33.media.tumblr.com/avatar_21babec3285d_128.png",
+        "description": "UX eastereggs and goodies",
+        "votes": 1000
+    }, {
+        "title": "Ignore the code",
+        "favicon": "http://ignorethecode.net/blog_images/iphone.png",
+        "url": "http://ignorethecode.net/blog/",
+        "feed": "http://feeds.feedburner.com/IgnoreTheCode",
+        "description": "A blog about usability",
+        "votes": 500
+    }, {
+        "title": "Elezea",
+        "url": "http://www.elezea.com",
+        "feed": "http://feedpress.me/elezea",
+        "description": "Links and articles about technology, design, and sociology. Written by Rian van der Merwe.",
+        "votes": 500
+    }],
+    "Music": [{
+        "title": "Pebber Brown",
+        "favicon": "https:\/\/s.ytimg.com\/yts\/img\/favicon-vflz7uhzw.ico",
+        "url": "http:\/\/www.youtube.com\/channel\/UCbA-Tt8ELg8v0d7RdieeZyA",
+        "feed": "http:\/\/www.youtube.com\/feeds\/videos.xml?channel_id=UCbA-Tt8ELg8v0d7RdieeZyA",
+        "description": "Videos about music theory and scales",
+        "votes": 100
+    }],
+    "Science": [{
+        "title": "Numberphile",
+        "favicon": "https:\/\/s.ytimg.com\/yts\/img\/favicon-vflz7uhzw.ico",
+        "url": "http:\/\/www.youtube.com\/channel\/UCoxcjq-8xIDTYp3uz647V5A",
+        "feed": "http:\/\/www.youtube.com\/feeds\/videos.xml?channel_id=UCoxcjq-8xIDTYp3uz647V5A",
+        "description": "Awesome mathematics videos",
+        "votes": 500
+    }, {
+        "title": "Periodic Videos",
+        "favicon": "https:\/\/s.ytimg.com\/yts\/img\/favicon-vflz7uhzw.ico",
+        "url": "http:\/\/www.youtube.com\/channel\/UCtESv1e7ntJaLJYKIO1FoYw",
+        "feed": "http:\/\/www.youtube.com\/feeds\/videos.xml?channel_id=UCtESv1e7ntJaLJYKIO1FoYw",
+        "description": "Videos about elements and chemistry",
+        "votes": 1000
+    }],
+    "Food": [{
+        "title": "Smitten Kitchen",
+        "favicon": "http://smittenkitchen.com/uploads/favicon.ico",
+        "url": "http://smittenkitchen.com/",
+        "feed": "http://feeds.feedburner.com/smittenkitchen",
+        "description": "A home cooking weblog from a tiny kitchen in New York City. The place to find all of your new favorite things to cook",
+        "votes": 500
+    }, {
+        "title": "Food in Jars",
+        "favicon": "http://foodinjars.com.s164546.gridserver.com/arugulapesto/wp-content/uploads/2013/05/jar-favicon.png",
+        "url": "http://foodinjars.com/",
+        "feed": "http://feedpress.me/FIJ",
+        "description": "A blog dedicated to canning, preserving, and pantry staples made from scratch.",
+        "votes": 500
+    }],
+    "Comics": [{
+        "title": "Explosm.net",
+        "favicon": "http://explosm.net/favicons/favicon.ico",
+        "url": "http:\/\/www.explosm.net\/rss.php",
+        "feed": "http:\/\/feeds.feedburner.com\/Explosm",
+        "description": "Flash Animations, Daily Comics and more!",
+        "votes": 100
+    }, {
+        "title": "The Oatmeal - Comics, Quizzes, & Stories",
+        "favicon": "http:\/\/theoatmeal.com\/favicon.ico",
+        "url": "http:\/\/theoatmeal.com\/",
+        "feed": "http:\/\/feeds.feedburner.com\/oatmealfeed",
+        "description": "The oatmeal tastes better than stale skittles found under the couch cushions",
+        "votes": 100
+    }]
 }

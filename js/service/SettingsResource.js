@@ -23,12 +23,16 @@ app.service('SettingsResource', function ($http, BASE_URL) {
     };
     this.defaultLanguageCode = 'en';
     this.supportedLanguageCodes = [
-        'ar-ma', 'ar', 'bg', 'ca', 'cs', 'cv', 'da', 'de', 'el', 'en-ca',
+        'ar-ma', 'ar', 'bg', 'ca', 'cs', 'cv', 'da', 'de', 'el', 'en', 'en-ca',
         'en-gb', 'eo', 'es', 'et', 'eu', 'fi', 'fr-ca', 'fr', 'gl', 'he', 'hi',
         'hu', 'id', 'is', 'it', 'ja', 'ka', 'ko', 'lv', 'ms-my', 'nb', 'ne',
         'nl', 'pl', 'pt-br', 'pt', 'ro', 'ru', 'sk', 'sl', 'sv', 'th', 'tr',
         'tzm-la', 'tzm', 'uk', 'zh-cn', 'zh-tw'
     ];
+
+    this.getSupportedLanguageCodes = function () {
+        return this.supportedLanguageCodes;
+    };
 
     this.receive = function (data) {
         var self = this;

@@ -25,6 +25,10 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
         return parseInt($route.current.params.id, 10);
     };
 
+    this.getLanguageCode = function () {
+        return SettingsResource.get('language');
+    };
+
     this.getFeeds = function () {
         return FeedResource.getAll();
     };

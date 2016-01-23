@@ -7,7 +7,8 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.controller('ExploreController', function (sites, $rootScope, FeedResource) {
+app.controller('ExploreController',
+function (sites, $rootScope, FeedResource, SettingsResource, $location) {
 	'use strict';
 
 	this.sites = sites;
@@ -37,4 +38,21 @@ app.controller('ExploreController', function (sites, $rootScope, FeedResource) {
 			}).length > 0;
 	};
 
+	this.getSupportedLanguageCodes = function () {
+		return SettingsResource.getSupportedLanguageCodes();
+	};
+
+	this.getCurrentLanguageCode = function () {
+		var language = $location.search().lang;
+		if (!language) {
+			language = SettingsResource.get('language');
+		}
+		return language;
+	};
+
+	this.showLanguage = function (languageCode) {
+		$location.url('/explore/?lang=' + languageCode);
+	};
+
+	this.selectedLanguageCode = this.getCurrentLanguageCode();
 });
