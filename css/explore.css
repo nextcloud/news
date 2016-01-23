@@ -86,6 +86,7 @@
 #explore .explore-filter {
 	text-align: right;
 	padding: 30px;
+	padding-top: 0;
 }
 
 #explore .explore-filter input,
@@ -98,12 +99,14 @@
 	width: 200px;
 }
 
-#explore .explore-header {
-	margin: 0 45px 45px 0;
+#explore .explore-footer {
+	clear: both;
+	margin: 75px 0;
 	text-align: center;
 }
 
-#explore .explore-header a {
+#explore .explore-footer a {
+	font-size: 11pt;
 	color: #0000AA;
 	text-decoration: underline;
 }

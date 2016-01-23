@@ -7,9 +7,6 @@
         </label>
     </div>-->
 
-    <div class="explore-header">
-        <a href="https://github.com/owncloud/news/wiki/Explore-Feed-Section"><?php p($l->t('Got more awesome feeds? Share them with us!')) ?></a>
-    </div>
 
     <div class="explore-filter">
         <label for="explorelanguagecode"><?php p($l->t('Language')) ?>: </label>
@@ -48,5 +45,9 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="explore-footer">
+        <a target="_blank" href="https://github.com/owncloud/news/wiki/Explore-Feed-Section"><?php p($l->t('Got more awesome feeds? Share them with us!')) ?></a>
     </div>
 </div>
