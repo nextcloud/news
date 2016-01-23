@@ -148,8 +148,8 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
                         .replace(/\/+$/, '');
                     var language = SettingsResource.get('language');
 
-                    var exploreUrl = url + '/sites.' + language + '.json';
-                    var defaultExploreUrl = url + '/sites.en.json';
+                    var exploreUrl = url + '/feeds.' + language + '.json';
+                    var defaultExploreUrl = url + '/feeds.en.json';
                     return $http
                         .get(exploreUrl)
                         .catch(function () {

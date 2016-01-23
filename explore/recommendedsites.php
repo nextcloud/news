@@ -27,7 +27,7 @@ class RecommendedSites {
 
 
     public function forLanguage($languageCode) {
-        $file = $this->directory . '/sites.' . $languageCode . '.json';
+        $file = $this->directory . '/feeds.' . $languageCode . '.json';
 
         if (file_exists($file)) {
             return json_decode(file_get_contents($file), true);

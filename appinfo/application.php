@@ -49,7 +49,7 @@ class Application extends App {
         $this->registerFileContents('info', 'info.xml');
 
         // parameters
-        $this->registerParameter('exploreDir', __DIR__ . '/../explore');
+        $this->registerParameter('exploreDir', __DIR__ . '/../explore/feeds');
         $this->registerParameter('configFile', 'config.ini');
 
         // factories

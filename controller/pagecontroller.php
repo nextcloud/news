@@ -107,7 +107,7 @@ class PageController extends Controller {
             $exploreUrl = $this->urlGenerator->linkToRoute(
                 'news.page.explore', ['lang' => 'en']
             );
-            $exploreUrl = preg_replace('/sites\.en\.json$/', '', $exploreUrl);
+            $exploreUrl = preg_replace('/feeds\.en\.json$/', '', $exploreUrl);
         }
 
         $result = [
