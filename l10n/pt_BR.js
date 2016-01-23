@@ -38,6 +38,8 @@ OC.L10N.register(
     "Ajax or webcron cron mode detected! Your feeds will not be updated correctly. It is recommended to either use the operating system cron or a custom updater." : "Modo cron Ajax ou webcron detectado! Seus alimentadores não serão atualizados corretamente. Recomenda-se usar o cron do sistema operacional ou um atualizador customizado.",
     "How to set up the operating system cron" : "Como configurar o cron do sistema operacional",
     "How to set up a custom updater (faster and no possible deadlock) " : "Como configurar um atualizador de costume (mais rápido e sem possível impasse)",
+    "filter" : "filtro",
+    "Got more awesome feeds? Share them with us!" : "Conseguiu notícias de alimentadores mais interessantes? Compartilhe com a gente!",
     "Subscribe" : "Assinar",
     "Refresh" : "Atualizar",
     "No articles available" : "Não há artigos disponíveis",

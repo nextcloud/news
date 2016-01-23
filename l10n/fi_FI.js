@@ -2,6 +2,7 @@ OC.L10N.register(
     "news",
     {
     "Feed contains invalid XML" : "Syöte sisältää virheellistä XML:ää",
+    "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" : "Syötettä ei löytynyt: joko sivusto ei tarjoa syötettä tai sivusto estää pääsyn syötteeseen. Voit rajata eston pois lataamalla syötteen palvelimen komentoriviä käyttäen curlilla: curl http://the-feed.tld",
     "Detected feed format is not supported" : "Havaittu syötemuoto ei ole tuettu",
     "SSL Certificate is invalid" : "SSL-varmenne on virheellinen",
     "Website not found" : "Verkkosivustoa ei löytynyt",
@@ -31,6 +32,8 @@ OC.L10N.register(
     "Close" : "Sulje",
     "How to set up the operating system cron" : "Käyttöjärjestelmän cronin asettaminen",
     "How to set up a custom updater (faster and no possible deadlock) " : "Mukautetun päivitysohjelman asettaminen (nopeampi ja toimintavarmempi)",
+    "filter" : "suodatin",
+    "Got more awesome feeds? Share them with us!" : "Onko sinulla lisää erinomaisia syötteitä? Jaa ne kanssamme!",
     "Subscribe" : "Tilaa",
     "Refresh" : "Päivitä",
     "No articles available" : "Artikkeleja ei ole saatavilla",
