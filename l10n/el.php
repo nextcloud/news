@@ -37,6 +37,7 @@ $TRANSLATIONS = array(
 "Ajax or webcron cron mode detected! Your feeds will not be updated correctly. It is recommended to either use the operating system cron or a custom updater." => "Ανιχνεύτηκε κατάσταση λειτουργίας cron του webcron ή Ajax! Οι ροές σας δεν θα ενημερωθούν σωστά. Προτείνεται είτε να χρησιμοποιήσετε το cron του λειτουργικού συστήματος ή μια προσαρμοσμένη υπηρεσία ενημέρωσης.",
 "How to set up the operating system cron" => "Πώς να ρυθμίσετε την υπηρεσία cron του λειτουργικού συστήματος",
 "How to set up a custom updater (faster and no possible deadlock) " => "Πώς να ρυθμίσετε μια προσαρμοσμένη υπηρεσία ενημέρωσης (γρηγορότερη και αποφυγή πιθανού αδιεξόδου)",
+"Language" => "Γλώσσα",
 "Subscribe" => "Συνδρομή",
 "Refresh" => "Ανανέωση ",
 "No articles available" => "Δεν υπάρχουν διαθέσιμα άρθρα",

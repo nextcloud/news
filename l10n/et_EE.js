@@ -31,6 +31,7 @@ OC.L10N.register(
     "Saved" : "Salvestatud",
     "Download" : "Lae alla",
     "Close" : "Sulge",
+    "Language" : "Keel",
     "Subscribe" : "Telli",
     "Refresh" : "Värskenda",
     "No articles available" : "Ühtegi artiklit pole saadaval",

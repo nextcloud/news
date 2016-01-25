@@ -39,6 +39,7 @@ $TRANSLATIONS = array(
 "How to set up the operating system cron" => "Jak nastavit službu cron operačního systému",
 "How to set up a custom updater (faster and no possible deadlock) " => "Jak nastavit vlastní systém aktualizace (rychlejší, bez možných blokování)",
 "filter" => "filtr",
+"Language" => "Jazyk",
 "Subscribe" => "Odebírat",
 "Got more awesome feeds? Share them with us!" => "Víš o dalších úžasných kanálech? Poděl se o ně s námi!",
 "Refresh" => "Obnovit",

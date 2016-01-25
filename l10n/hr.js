@@ -30,6 +30,7 @@ OC.L10N.register(
     "Close" : "Zatvorite",
     "How to set up the operating system cron" : "Kako postaviti radnika operativnog sustava",
     "How to set up a custom updater (faster and no possible deadlock) " : "Kako postaviti prilagođenu nadogradnju (brža i nema mogučnosti zastoja )",
+    "Language" : "Jezik",
     "Subscribe" : "Preplata",
     "Refresh" : "Osvježi",
     "No articles available" : "Nema dostupnih članaka",

@@ -39,6 +39,7 @@ OC.L10N.register(
     "How to set up the operating system cron" : "OSのcronのやり方",
     "How to set up a custom updater (faster and no possible deadlock) " : "カスタムアップデーターのセットアップ方法（より高速でデッドロックしない）",
     "filter" : "フィルター",
+    "Language" : "言語",
     "Subscribe" : "購読",
     "Refresh" : "同期",
     "No articles available" : "記事がありません",

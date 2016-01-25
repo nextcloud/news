@@ -37,6 +37,7 @@ $TRANSLATIONS = array(
 "Ajax or webcron cron mode detected! Your feeds will not be updated correctly. It is recommended to either use the operating system cron or a custom updater." => "ตรวจพบโหมด Ajax หรือ webcron! ฟีดของคุณจะไม่ได้รับการปรับปรุงอย่างถูกต้อง แนะนำให้ใช้ระบบ cron หรืออัพเดทด้วยตนเอง",
 "How to set up the operating system cron" => "วิธีการตั้งค่าระบบปฏิบัติการ cron",
 "How to set up a custom updater (faster and no possible deadlock) " => "วิธีการติดตั้งการอัพเดทที่กำหนดเอง (ได้เร็วขึ้นและไม่มีการหยุดชะงัก)",
+"Language" => "ภาษา",
 "Subscribe" => "สมัครรับข้อมูล",
 "Refresh" => "รีเฟรช",
 "No articles available" => "ไม่มีบทความที่",

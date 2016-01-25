@@ -35,6 +35,7 @@ $TRANSLATIONS = array(
 "Close" => "Zavrieť",
 "How to set up the operating system cron" => "Ako nastaviť cron v operačnom systéme",
 "How to set up a custom updater (faster and no possible deadlock) " => "Ako nastaviť vlastné aktualizácie (rýchlejšie a bez prípadného zablokovania)",
+"Language" => "Jazyk",
 "Subscribe" => "Prihlásiť odber",
 "Refresh" => "Obnoviť",
 "No articles available" => "Žiadne články nie sú dostupné",

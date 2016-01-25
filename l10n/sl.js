@@ -33,6 +33,7 @@ OC.L10N.register(
     "Saved" : "Shranjeno",
     "Download" : "Prejmi",
     "Close" : "Zapri",
+    "Language" : "Jezik",
     "Subscribe" : "Naročilo",
     "Refresh" : "Osveži",
     "No articles available" : "Ni prispevkov",

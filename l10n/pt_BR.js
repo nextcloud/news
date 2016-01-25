@@ -40,6 +40,7 @@ OC.L10N.register(
     "How to set up the operating system cron" : "Como configurar o cron do sistema operacional",
     "How to set up a custom updater (faster and no possible deadlock) " : "Como configurar um atualizador de costume (mais rápido e sem possível impasse)",
     "filter" : "filtro",
+    "Language" : "Idioma",
     "Subscribe" : "Assinar",
     "Got more awesome feeds? Share them with us!" : "Conseguiu notícias de alimentadores mais interessantes? Compartilhe com a gente!",
     "Refresh" : "Atualizar",

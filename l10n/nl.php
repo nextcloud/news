@@ -39,6 +39,7 @@ $TRANSLATIONS = array(
 "How to set up the operating system cron" => "Hoe wordt de cron-service van het operating system ingesteld",
 "How to set up a custom updater (faster and no possible deadlock) " => "Hoe wordt een maatwerk update ingesteld (sneller en geen deadlock)",
 "filter" => "filter",
+"Language" => "Taal",
 "Subscribe" => "Abonneren",
 "Got more awesome feeds? Share them with us!" => "Weet u meer mooie feeds? Deel ze met ons!",
 "Refresh" => "Vernieuwen",

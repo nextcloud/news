@@ -28,6 +28,7 @@ OC.L10N.register(
     "Saved" : "נשמר",
     "Download" : "הורדה",
     "Close" : "סגירה",
+    "Language" : "שפה",
     "Subscribe" : "רישום",
     "Refresh" : "רענון",
     "No articles available" : "אין מאמרים זמינים",

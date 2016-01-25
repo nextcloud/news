@@ -36,6 +36,7 @@ OC.L10N.register(
     "Close" : "Close",
     "How to set up the operating system cron" : "How to set up the operating system cron",
     "How to set up a custom updater (faster and no possible deadlock) " : "How to set up a custom updater (faster and no possible deadlock) ",
+    "Language" : "Language",
     "Subscribe" : "Subscribe",
     "Refresh" : "Refresh",
     "No articles available" : "No articles available",

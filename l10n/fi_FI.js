@@ -34,6 +34,7 @@ OC.L10N.register(
     "How to set up the operating system cron" : "Käyttöjärjestelmän cronin asettaminen",
     "How to set up a custom updater (faster and no possible deadlock) " : "Mukautetun päivitysohjelman asettaminen (nopeampi ja toimintavarmempi)",
     "filter" : "suodatin",
+    "Language" : "Kieli",
     "Subscribe" : "Tilaa",
     "Got more awesome feeds? Share them with us!" : "Onko sinulla lisää erinomaisia syötteitä? Jaa ne kanssamme!",
     "Refresh" : "Päivitä",

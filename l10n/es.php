@@ -37,6 +37,7 @@ $TRANSLATIONS = array(
 "Ajax or webcron cron mode detected! Your feeds will not be updated correctly. It is recommended to either use the operating system cron or a custom updater." => "¡Ajax o modo cron webcron detectadas! Sus noticias no se actualizarán correctamente. Se recomienda utilizar el cron del sistema operativo o un programa de actualización personalizado.",
 "How to set up the operating system cron" => "Cómo configurar el cron del sistema operativo",
 "How to set up a custom updater (faster and no possible deadlock) " => "Cómo configurar un actualizador personalizado (más rápido y sin estancamiento)",
+"Language" => "Idioma",
 "Subscribe" => "Subscribirse",
 "Refresh" => "Actualizar",
 "No articles available" => "No hay artículos disponibles",
