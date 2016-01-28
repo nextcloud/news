@@ -82,7 +82,9 @@ class PageController extends Controller {
             ->addAllowedFrameDomain('https://youtube.com')
             ->addAllowedFrameDomain('https://www.youtube.com')
             ->addAllowedFrameDomain('https://player.vimeo.com')
-            ->addAllowedFrameDomain('https://www.player.vimeo.com');
+            ->addAllowedFrameDomain('https://www.player.vimeo.com')
+            ->addAllowedFrameDomain('https://vk.com')
+            ->addAllowedFrameDomain('https://www.vk.com');
         $response->setContentSecurityPolicy($csp);
 
         return $response;
