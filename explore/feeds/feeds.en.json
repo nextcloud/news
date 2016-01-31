@@ -51,14 +51,21 @@
             "favicon": "https:\/\/s.ytimg.com\/yts\/img\/favicon-vflz7uhzw.ico",
             "url": "http:\/\/www.youtube.com\/channel\/UCy1Ms_5qBTawC-k7PVjHXKQ",
             "feed": "http:\/\/www.youtube.com\/feeds\/videos.xml?channel_id=UCy1Ms_5qBTawC-k7PVjHXKQ",
-            "description": "",
+            "description": "General gaming news and reviews",
             "votes": 100
         }, {
             "title": "Force Gaming",
             "favicon": "https:\/\/s.ytimg.com\/yts\/img\/favicon-vflz7uhzw.ico",
             "url": "http:\/\/www.youtube.com\/channel\/UCGhs9S33RAeT5DEuKTO4Oew",
             "feed": "http:\/\/www.youtube.com\/feeds\/videos.xml?channel_id=UCGhs9S33RAeT5DEuKTO4Oew",
-            "description": "",
+            "description": "General gaming news and reviews",
+            "votes": 100
+        }, {
+            "title": "Trump",
+            "favicon": "https:\/\/s.ytimg.com\/yts\/img\/favicon-vflz7uhzw.ico",
+            "url": "http:\/\/www.youtube.com\/channel\/UCsQnAt5I56M-qx4OgCoVmeA",
+            "feed": "http:\/\/www.youtube.com\/feeds\/videos.xml?channel_id=UCsQnAt5I56M-qx4OgCoVmeA",
+            "description": "Hearthstone focused let's plays",
             "votes": 100
         }
     ],
