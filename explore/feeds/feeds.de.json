@@ -38,11 +38,19 @@
         "votes": 100
     }],
     "FOSS": [{
-            "title": "heise open news",
-            "favicon": "https:\/\/www.heise.de\/favicon.ico",
-            "url": "http:\/\/www.heise.de\/open\/news\/",
-            "feed": "http:\/\/heise.de.open.feedsportal.com\/c\/32509\/f\/480599\/index.rss",
-            "description": "Nachrichten zu Open Source",
+        "title": "heise open news",
+        "favicon": "https:\/\/www.heise.de\/favicon.ico",
+        "url": "http:\/\/www.heise.de\/open\/news\/",
+        "feed": "http:\/\/heise.de.open.feedsportal.com\/c\/32509\/f\/480599\/index.rss",
+        "description": "Nachrichten zu Open Source",
+        "votes": 100
+    }],
+    "Blogs": [{
+            "title": "Fefes Blog",
+            "favicon": "http:\/\/blog.fefe.de\/favicon.ico",
+            "url": "http:\/\/blog.fefe.de\/",
+            "feed": "http:\/\/blog.fefe.de\/rss.xml?html",
+            "description": "Verschw\u00f6rungen und Obskures aus aller Welt",
             "votes": 100
         }
     ],

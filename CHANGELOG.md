@@ -1,5 +1,6 @@
 owncloud-news (7.1.1)
 * **Enhancement**: Add vk.com to allowed iframe sources
+* **Enhancement**: Add blog.fefe.de to German explore feeds
 
 owncloud-news (7.1.0)
 * **Backwards incompatible change**: Change explore URL API to request a file instead of URL parameter
