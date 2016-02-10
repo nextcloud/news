@@ -2133,9 +2133,8 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
 
 
     $(document).ready(function () {
-        var subscription = window.decodeURIComponent(url('?subscribe_to'));
-
-        if (subscription && subscription !== 'null') {
+        var subscription = url('?subscribe_to');
+        if (subscription && subscription !== 'undefined') {
             $('#new-feed').show();
 
             var input = $('input[ng-model="Navigation.feed.url"]');
@@ -2151,7 +2150,6 @@ app.service('SettingsResource', ["$http", "BASE_URL", function ($http, BASE_URL)
     });
 
 })(window, document, navigator, url, $);
-
 
 /**
  * Various fixes

@@ -50,9 +50,8 @@
 
 
     $(document).ready(function () {
-        var subscription = window.decodeURIComponent(url('?subscribe_to'));
-
-        if (subscription && subscription !== 'null') {
+        var subscription = url('?subscribe_to');
+        if (subscription && subscription !== 'undefined') {
             $('#new-feed').show();
 
             var input = $('input[ng-model="Navigation.feed.url"]');
@@ -68,4 +67,3 @@
     });
 
 })(window, document, navigator, url, $);
-
