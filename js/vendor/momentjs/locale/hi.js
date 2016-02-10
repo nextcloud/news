@@ -1,16 +1,15 @@
-// moment.js locale configuration
-// locale : hindi (hi)
-// author : Mayank Singhal : https://github.com/mayanksinghal
+//! moment.js locale configuration
+//! locale : hindi (hi)
+//! author : Mayank Singhal : https://github.com/mayanksinghal
 
-(function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        define(['moment'], factory); // AMD
-    } else if (typeof exports === 'object') {
-        module.exports = factory(require('../moment')); // Node
-    } else {
-        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
-    }
-}(function (moment) {
+;(function (global, factory) {
+   typeof exports === 'object' && typeof module !== 'undefined'
+       && typeof require === 'function' ? factory(require('../moment')) :
+   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   factory(global.moment)
+}(this, function (moment) { 'use strict';
+
+
     var symbolMap = {
         '1': '१',
         '2': '२',
@@ -36,7 +35,7 @@
         '०': '0'
     };
 
-    return moment.defineLocale('hi', {
+    var hi = moment.defineLocale('hi', {
         months : 'जनवरी_फ़रवरी_मार्च_अप्रैल_मई_जून_जुलाई_अगस्त_सितम्बर_अक्टूबर_नवम्बर_दिसम्बर'.split('_'),
         monthsShort : 'जन._फ़र._मार्च_अप्रै._मई_जून_जुल._अग._सित._अक्टू._नव._दिस.'.split('_'),
         weekdays : 'रविवार_सोमवार_मंगलवार_बुधवार_गुरूवार_शुक्रवार_शनिवार'.split('_'),
@@ -47,8 +46,8 @@
             LTS : 'A h:mm:ss बजे',
             L : 'DD/MM/YYYY',
             LL : 'D MMMM YYYY',
-            LLL : 'D MMMM YYYY, LT',
-            LLLL : 'dddd, D MMMM YYYY, LT'
+            LLL : 'D MMMM YYYY, A h:mm बजे',
+            LLLL : 'dddd, D MMMM YYYY, A h:mm बजे'
         },
         calendar : {
             sameDay : '[आज] LT',
@@ -118,4 +117,7 @@
             doy : 6  // The week that contains Jan 1st is the first week of the year.
         }
     });
+
+    return hi;
+
 }));

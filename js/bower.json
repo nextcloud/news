@@ -29,7 +29,7 @@
     "angular-sanitize": "~1.5.*",
     "angular-animate": "~1.5.*",
     "jquery": "~2.*",
-    "momentjs": "~2.9.*",
+    "momentjs": "~2.11.*",
     "es6-shim": "~0.*",
     "js-url": "~1.8.*",
     "masonry": "~4.0.0"

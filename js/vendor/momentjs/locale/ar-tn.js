@@ -1,16 +1,15 @@
-// moment.js locale configuration
-// locale  : Tunisian Arabic (ar-tn)
+//! moment.js locale configuration
+//! locale  : Tunisian Arabic (ar-tn)
 
-(function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        define(['moment'], factory); // AMD
-    } else if (typeof exports === 'object') {
-        module.exports = factory(require('../moment')); // Node
-    } else {
-        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
-    }
-}(function (moment) {
-    return moment.defineLocale('ar-tn', {
+;(function (global, factory) {
+   typeof exports === 'object' && typeof module !== 'undefined'
+       && typeof require === 'function' ? factory(require('../moment')) :
+   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   factory(global.moment)
+}(this, function (moment) { 'use strict';
+
+
+    var ar_tn = moment.defineLocale('ar-tn', {
         months: 'جانفي_فيفري_مارس_أفريل_ماي_جوان_جويلية_أوت_سبتمبر_أكتوبر_نوفمبر_ديسمبر'.split('_'),
         monthsShort: 'جانفي_فيفري_مارس_أفريل_ماي_جوان_جويلية_أوت_سبتمبر_أكتوبر_نوفمبر_ديسمبر'.split('_'),
         weekdays: 'الأحد_الإثنين_الثلاثاء_الأربعاء_الخميس_الجمعة_السبت'.split('_'),
@@ -18,11 +17,11 @@
         weekdaysMin: 'ح_ن_ث_ر_خ_ج_س'.split('_'),
         longDateFormat: {
             LT: 'HH:mm',
-            LTS: 'LT:ss',
+            LTS: 'HH:mm:ss',
             L: 'DD/MM/YYYY',
             LL: 'D MMMM YYYY',
-            LLL: 'D MMMM YYYY LT',
-            LLLL: 'dddd D MMMM YYYY LT'
+            LLL: 'D MMMM YYYY HH:mm',
+            LLLL: 'dddd D MMMM YYYY HH:mm'
         },
         calendar: {
             sameDay: '[اليوم على الساعة] LT',
@@ -52,4 +51,7 @@
             doy: 4 // The week that contains Jan 4th is the first week of the year.
         }
     });
+
+    return ar_tn;
+
 }));
