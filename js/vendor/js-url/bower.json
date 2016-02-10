@@ -23,15 +23,5 @@
     "tests.js",
     "url.jquery.json"
   ],
-  "dependencies": {},
-  "version": "2.1.0",
-  "_release": "2.1.0",
-  "_resolution": {
-    "type": "version",
-    "tag": "v2.1.0",
-    "commit": "eeb6ac8a86f6762e04c0a8b76ae444e6f8d57809"
-  },
-  "_source": "git://github.com/websanova/js-url.git",
-  "_target": "~2.*",
-  "_originalSource": "js-url"
+  "dependencies": {}
 }
