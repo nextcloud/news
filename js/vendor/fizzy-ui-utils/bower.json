@@ -1,13 +1,12 @@
 {
   "name": "fizzy-ui-utils",
-  "version": "2.0.0",
   "authors": [
     "David DeSandro"
   ],
   "description": "UI utilities",
   "main": "utils.js",
   "dependencies": {
-    "matches-selector": "~2.0.0"
+    "desandro-matches-selector": "~2.0.0"
   },
   "moduleType": [
     "amd",

@@ -1,6 +1,5 @@
 {
   "name": "outlayer",
-  "version": "2.0.0",
   "description": "the brains and guts of a layout library",
   "main": "outlayer.js",
   "dependencies": {

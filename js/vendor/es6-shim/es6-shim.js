@@ -1,9 +1,9 @@
  /*!
   * https://github.com/paulmillr/es6-shim
-  * @license es6-shim Copyright 2013-2015 by Paul Miller (http://paulmillr.com)
+  * @license es6-shim Copyright 2013-2016 by Paul Miller (http://paulmillr.com)
   *   and contributors,  MIT License
-  * es6-shim: v0.34.1
-  * see https://github.com/paulmillr/es6-shim/blob/0.34.1/LICENSE
+  * es6-shim: v0.34.4
+  * see https://github.com/paulmillr/es6-shim/blob/0.34.4/LICENSE
   * Details and documentation:
   * https://github.com/paulmillr/es6-shim/
   */
@@ -827,7 +827,9 @@
       /* throws if spec-compliant */
       '/a/'.startsWith(/a/);
     });
-    var startsWithHandlesInfinity = 'abc'.startsWith('a', Infinity) === false;
+    var startsWithHandlesInfinity = valueOrFalseIfThrows(function () {
+      return 'abc'.startsWith('a', Infinity) === false;
+    });
     if (!startsWithRejectsRegex || !startsWithHandlesInfinity) {
       // Firefox (< 37?) and IE 11 TP have a noncompliant startsWith implementation
       overrideNative(String.prototype, 'startsWith', StringPrototypeShims.startsWith);
@@ -1133,10 +1135,10 @@
         to += count - 1;
       }
       while (count > 0) {
-        if (_hasOwnProperty(o, from)) {
+        if (from in o) {
           o[to] = o[from];
         } else {
-          delete o[from];
+          delete o[to];
         }
         from += direction;
         to += direction;
@@ -1397,12 +1399,22 @@
       return NumberShim;
     }());
     wrapConstructor(OrigNumber, NumberShim, {});
-    /*globals Number: true */
+    // this is necessary for ES3 browsers, where these properties are non-enumerable.
+    defineProperties(NumberShim, {
+      NaN: OrigNumber.NaN,
+      MAX_VALUE: OrigNumber.MAX_VALUE,
+      MIN_VALUE: OrigNumber.MIN_VALUE,
+      NEGATIVE_INFINITY: OrigNumber.NEGATIVE_INFINITY,
+      POSITIVE_INFINITY: OrigNumber.POSITIVE_INFINITY
+    });
+    /* globals Number: true */
     /* eslint-disable no-undef */
+    /* jshint -W020 */
     Number = NumberShim;
     Value.redefine(globals, 'Number', NumberShim);
+    /* jshint +W020 */
     /* eslint-enable no-undef */
-    /*globals Number: false */
+    /* globals Number: false */
   }
 
   var maxSafeInteger = Math.pow(2, 53) - 1;
@@ -1762,12 +1774,14 @@
     wrapConstructor(OrigRegExp, RegExpShim, {
       $input: true // Chrome < v39 & Opera < 26 have a nonstandard "$input" property
     });
-    /*globals RegExp: true */
+    /* globals RegExp: true */
     /* eslint-disable no-undef */
+    /* jshint -W020 */
     RegExp = RegExpShim;
     Value.redefine(globals, 'RegExp', RegExpShim);
+    /* jshint +W020 */
     /* eslint-enable no-undef */
-    /*globals RegExp: false */
+    /* globals RegExp: false */
   }
 
   if (supportsDescriptors) {
@@ -2546,7 +2560,12 @@
       var p = Promise.resolve(5);
       p.constructor = {};
       var p2 = Promise.resolve(p);
-      return (p === p2); // This *should* be false!
+      try {
+        p2.then(null, noop).then(null, noop); // avoid "uncaught rejection" warnings in console
+      } catch (e) {
+        return true; // v8 native Promises break here https://code.google.com/p/chromium/issues/detail?id=575314
+      }
+      return p === p2; // This *should* be false!
     }(globals.Promise));
 
     // Chrome 46 (probably older too) does not retrieve a thenable's .then synchronously
@@ -2573,11 +2592,13 @@
     if (!promiseSupportsSubclassing || !promiseIgnoresNonFunctionThenCallbacks ||
         !promiseRequiresObjectContext || promiseResolveBroken ||
         !getsThenSynchronously || hasBadResolverPromise) {
-      /*globals Promise: true */
+      /* globals Promise: true */
       /* eslint-disable no-undef */
+      /* jshint -W020 */
       Promise = PromiseShim;
+      /* jshint +W020 */
       /* eslint-enable no-undef */
-      /*globals Promise: false */
+      /* globals Promise: false */
       overrideNative(globals, 'Promise', PromiseShim);
     }
     if (Promise.all.length !== 1) {
@@ -2631,18 +2652,17 @@
       if (!preservesInsertionOrder) {
         return null;
       }
-      var type = typeof key;
-      if (type === 'undefined' || key === null) {
+      if (typeof key === 'undefined' || key === null) {
         return '^' + ES.ToString(key);
-      } else if (type === 'string') {
+      } else if (typeof key === 'string') {
         return '$' + key;
-      } else if (type === 'number') {
+      } else if (typeof key === 'number') {
         // note that -0 will get coerced to "0" when used as a property key
         if (!preservesNumericInsertionOrder) {
           return 'n' + key;
         }
         return key;
-      } else if (type === 'boolean') {
+      } else if (typeof key === 'boolean') {
         return 'b' + key;
       }
       return null;
@@ -3689,7 +3709,7 @@
       if (!isArray(replacer)) {
         var replaceFn = ES.IsCallable(replacer) ? replacer : null;
         var wrappedReplacer = function (key, val) {
-          var parsedValue = replacer ? _call(replacer, this, key, val) : val;
+          var parsedValue = replaceFn ? _call(replaceFn, this, key, val) : val;
           if (typeof parsedValue !== 'symbol') {
             if (Type.symbol(parsedValue)) {
               return assignTo({})(parsedValue);
