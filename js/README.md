@@ -1,9 +1,11 @@
-# JavaScript
-Before starting, install nodejs and gulp-cli:
+# JavaScript Development
+JavaScript is built and minified using gulp.
+
+Therefore you need to install nodejs 5.6+ and npm. Then use npm to install **gulp-cli**:
 
 	sudo npm -g install gulp-cli
 
-then run:
+Then install the local dependencies by running:
 
 	npm install
 
