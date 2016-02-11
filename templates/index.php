@@ -13,7 +13,16 @@ script('news', [
     'build/app.min',
 ]);
 
-style('news', 'news.min');
+style('news', [
+    'app',
+    'content',
+    'custom',
+    'explore',
+    'mobile',
+    'navigation',
+    'settings',
+    'shortcuts'
+]);
 
 // load plugin scripts and styles
 foreach (Plugin::getStyles() as $appName => $fileName) {

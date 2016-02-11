@@ -47,6 +47,7 @@
         "News": true,
         "t": true,
         "url": true,
-        "navigator": true
+        "navigator": true,
+        "oc_requesttoken": true
     }
 }

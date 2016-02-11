@@ -61,18 +61,19 @@ before_script:
     - cd apps/news/js
     # install test deps
     - npm install --deps # npm install needs to run before sudo npm install because otherwise it fails because a tmp file exists in the home dir
-    - sudo npm -g install grunt-cli protractor
+    - sudo npm -g install gulp-cli protractor
+    - cd ..
     - wget https://scrutinizer-ci.com/ocular.phar
 
 script:
     # unit tests
-    - grunt php-unit
+    - phpunit
     - php ocular.phar code-coverage:upload --format=php-clover ../coverage.clover
-    - grunt js-unit
-    # integration tests
-    - grunt php-integration
+    - phpunit -c phpunit.integration.xml
+    - cd js
+    - gulp karma
     # acceptance tests
-    - webdriver-manager update
+    # - webdriver-manager update
     - sudo chown -R www-data:www-data ../../../data
     - sudo chmod -R a+rwx ../../../data
     #- grunt acceptance --verbose

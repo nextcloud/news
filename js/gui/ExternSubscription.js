@@ -33,7 +33,7 @@
         };
 
         if (navigator.registerContentHandler && !isRegistered(mime, url)) {
-            navigator.registerContentHandler(mime, subscribeUrl, title);
+            navigator.registerContentHandler(mime, url, title);
             if (!registered) {
                 storage.setItem('registeredHandler', url);
             }

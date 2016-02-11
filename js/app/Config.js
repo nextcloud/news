@@ -37,7 +37,8 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
                     $window.location.href.split($window.location.pathname)[0];
                 if (config.url.indexOf(BASE_URL) === 0 ||
                     config.url.indexOf(domain) === 0) {
-                    config.headers.requesttoken = csrfToken;
+                    /*jshint camelcase: false */
+                    config.headers.requesttoken = oc_requesttoken;
                 }
 
                 return config || $q.when(config);
