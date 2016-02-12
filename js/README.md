@@ -14,20 +14,20 @@ The following tasks are available:
 
 * **Build the JavaScript**: 
 
-    gulp
+        gulp
   
 * **Watch for changes and build JavaScript**: 
 
-    gulp watch
+        gulp watch
   
 * **Run JavaScript unit tests**: 
 
-    gulp karma
+        gulp karma
 
 * **Watch for changes and run JavaScript unit tests**: 
-
-    gulp watch-karma
-  
+ 
+        gulp watch-karma
+   
 * **Watch for changes and run PHP unit tests**: 
 
-    gulp watch-phpuni
+        gulp watch-phpuni
