@@ -48,8 +48,6 @@
         "t": true,
         "url": true,
         "navigator": true,
-        "oc_requesttoken": true,
-        "__dirname": true,
-        "require": true
+        "oc_requesttoken": true
     }
 }

@@ -8,6 +8,7 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 
+/*jslint node: true */
 'use strict';
 
 const gulp = require('gulp'),
@@ -22,7 +23,7 @@ const gulp = require('gulp'),
 /**
  * Configuration
  */
-const buildName = 'app.min.js';
+const buildTarget = 'app.min.js';
 const phpunitConfig = __dirname + '/../phpunit.xml';
 const karmaConfig = __dirname + '/karma.conf.js';
 const destinationFolder = __dirname + '/build/';
@@ -45,7 +46,7 @@ gulp.task('default', ['lint'], () => {
     return gulp.src(sources)
         .pipe(ngAnnotate())
         .pipe(sourcemaps.init())
-        .pipe(concat(buildName))
+        .pipe(concat(buildTarget))
         .pipe(uglify())
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(destinationFolder));
@@ -67,14 +68,14 @@ gulp.task('karma', (done) => {
         configFile: karmaConfig,
         singleRun: true
     }, done).start();
-})
+});
 
 gulp.task('watch-karma', (done) => {
     new KarmaServer({
         configFile: karmaConfig,
         autoWatch: true
     }, done).start();
-})
+});
 
 gulp.task('phpunit', () => {
     gulp.src(phpSources)
