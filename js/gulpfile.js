@@ -10,7 +10,7 @@
 
 'use strict';
 
-let gulp = require('gulp'),
+const gulp = require('gulp'),
     ngAnnotate = require('gulp-ng-annotate'),
     uglify = require('gulp-uglify'),
     jshint = require('gulp-jshint'),
@@ -22,10 +22,11 @@ let gulp = require('gulp'),
 /**
  * Configuration
  */
-let phpunitConfig = __dirname + '/../phpunit.xml';
-let karmaConfig = __dirname + '/karma.conf.js';
-let destinationFolder = __dirname + '/build/';
-let sources = [
+const buildName = 'app.min.js';
+const phpunitConfig = __dirname + '/../phpunit.xml';
+const karmaConfig = __dirname + '/karma.conf.js';
+const destinationFolder = __dirname + '/build/';
+const sources = [
     'app/App.js', 'app/Config.js', 'app/Run.js',
     'controller/**/*.js',
     'filter/**/*.js',
@@ -35,36 +36,30 @@ let sources = [
     'utility/**/*.js',
     'directive/**/*.js'
 ];
-
-let testSources = [
-    'tests/**/*.js'
-];
-
-let phpSources = [
-    '../*/**.php',
-    '!../js/*/**',
-    '!../vendor/*/**'
-];
+const testSources = ['tests/**/*.js'];
+const phpSources = ['../*/**.php', '!../js/**', '!../vendor/*/**'];
+const watchSources = sources.concat(testSources).concat('*.js');
+const lintSources = watchSources;
 
 gulp.task('default', ['lint'], () => {
     return gulp.src(sources)
         .pipe(ngAnnotate())
         .pipe(sourcemaps.init())
-        .pipe(concat('app.min.js'))
+        .pipe(concat(buildName))
         .pipe(uglify())
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(destinationFolder));
 });
 
 gulp.task('lint', () => {
-    return gulp.src('*/**.js')
+    return gulp.src(lintSources)
         .pipe(jshint())
-        .pipe(jshint.reporter('jshint-stylish'))
+        .pipe(jshint.reporter('default'))
         .pipe(jshint.reporter('fail'));
 });
 
 gulp.task('watch', () => {
-    gulp.watch(sources.concat(testSources).concat('*.js'), ['default']);
+    gulp.watch(watchSources, ['default']);
 });
 
 gulp.task('karma', (done) => {

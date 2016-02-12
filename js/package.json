@@ -1,9 +1,9 @@
 {
   "name": "ownCloud-news",
   "description": "An RSS/Atom feed reader",
-  "main": "build/app.js",
+  "main": "build/app.min.js",
   "scripts": {
-    "test": "grunt js-unit"
+    "test": "gulp karma"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
   "bugs": {
     "url": "https://github.com/owncloud/news/issues"
   },
+  "private": true,
   "homepage": "https://github.com/owncloud/news",
   "devDependencies": {
     "gulp": "^3.9.1",
