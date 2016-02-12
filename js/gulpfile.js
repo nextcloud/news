@@ -38,7 +38,7 @@ const sources = [
     'directive/**/*.js'
 ];
 const testSources = ['tests/**/*.js'];
-const phpSources = ['../*/**.php', '!../js/**', '!../vendor/*/**'];
+const phpSources = ['../**/*.php', '!../js/**', '!../vendor/**'];
 const watchSources = sources.concat(testSources).concat('*.js');
 const lintSources = watchSources;
 
