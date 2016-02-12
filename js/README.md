@@ -30,4 +30,4 @@ The following tasks are available:
    
 * **Watch for changes and run PHP unit tests**: 
 
-        gulp watch-phpuni
+        gulp watch-phpunit
