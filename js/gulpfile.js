@@ -20,9 +20,7 @@ const gulp = require('gulp'),
     concat = require('gulp-concat'),
     sourcemaps = require('gulp-sourcemaps');
 
-/**
- * Configuration
- */
+// Configuration
 const buildTarget = 'app.min.js';
 const phpunitConfig = __dirname + '/../phpunit.xml';
 const karmaConfig = __dirname + '/karma.conf.js';
@@ -39,9 +37,10 @@ const sources = [
 ];
 const testSources = ['tests/**/*.js'];
 const phpSources = ['../**/*.php', '!../js/**', '!../vendor/**'];
-const watchSources = sources.concat(testSources).concat('*.js');
+const watchSources = sources.concat(testSources).concat(['*.js']);
 const lintSources = watchSources;
 
+// tasks
 gulp.task('default', ['lint'], () => {
     return gulp.src(sources)
         .pipe(ngAnnotate())
