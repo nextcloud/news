@@ -12,8 +12,22 @@ Then install the local dependencies by running:
 ## Tasks
 The following tasks are available:
 
-* **Build the JavaScript**: gulp
-* **Watch for changes and build JavaScript**: gulp watch
-* **Run JavaScript unit tests**: gulp karma
-* **Watch for changes and run JavaScript unit tests**: gulp watch-karma
-* **Watch for changes and run PHP unit tests**: gulp watch-phpuni
+* **Build the JavaScript**: 
+
+    gulp
+  
+* **Watch for changes and build JavaScript**: 
+
+    gulp watch
+  
+* **Run JavaScript unit tests**: 
+
+    gulp karma
+
+* **Watch for changes and run JavaScript unit tests**: 
+
+    gulp watch-karma
+  
+* **Watch for changes and run PHP unit tests**: 
+
+    gulp watch-phpuni
