@@ -31,6 +31,8 @@ before_install:
     - sudo apt-get update
     - sudo apt-get install -o DPkg::Options::="--force-confold" -y libxml2 libxml2-dev libxml2-utils
     - npm install -g npm@latest
+    - nvm install 5.0
+    - nvm use 5.0
 
 install:
     - cd ..
@@ -60,9 +62,7 @@ before_script:
     - cd apps/news/js
     # install test deps
     - npm install --deps # npm install needs to run before sudo npm install because otherwise it fails because a tmp file exists in the home dir
-    - npm -g install gulp-cli protractor n
-    - which node
-    - n latest
+    - npm -g install gulp-cli protractor
     - cd ..
     - wget https://scrutinizer-ci.com/ocular.phar
 
