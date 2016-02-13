@@ -29,7 +29,7 @@ before_install:
     - "export DISPLAY=:99.0"
     - "sh -e /etc/init.d/xvfb start"
     - sudo apt-get update
-    - sudo apt-get install -o DPkg::Options::="--force-confold" -y libxml2 libxml2-dev libxml2-utils node
+    - sudo apt-get install -o DPkg::Options::="--force-confold" -y libxml2 libxml2-dev libxml2-utils node npm
     - npm install -g npm@latest
 
 install:
