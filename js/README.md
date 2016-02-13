@@ -1,7 +1,7 @@
 # JavaScript Development
 JavaScript is built and minified using gulp.
 
-Therefore you need to install nodejs 5.6+ and npm. Then use npm to install **gulp-cli**:
+Therefore you need to install **Node.js 5.6+ and npm**. Then use npm to install **gulp-cli**:
 
 	sudo npm -g install gulp-cli
 
@@ -12,22 +12,22 @@ Then install the local dependencies by running:
 ## Tasks
 The following tasks are available:
 
-* **Build the JavaScript**: 
+* **Build the JavaScript**:
 
         gulp
-  
-* **Watch for changes and build JavaScript**: 
+
+* **Watch for changes and build JavaScript**:
 
         gulp watch
-  
-* **Run JavaScript unit tests**: 
+
+* **Run JavaScript unit tests**:
 
         gulp karma
 
-* **Watch for changes and run JavaScript unit tests**: 
- 
+* **Watch for changes and run JavaScript unit tests**:
+
         gulp watch-karma
-   
-* **Watch for changes and run PHP unit tests**: 
+
+* **Watch for changes and run PHP unit tests**:
 
         gulp watch-phpunit
