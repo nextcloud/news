@@ -33,7 +33,6 @@ install:
     - sudo apt-get install -o DPkg::Options::="--force-confold" -y libxml2 libxml2-dev libxml2-utils python3-jinja2 python3-setuptools apache2 libapache2-mod-fastcgi firefox curl
     - sudo easy_install3 requests ocdev
     - nvm install 5.0
-    - nvm use 5.0
     - npm install -g npm@latest
     # clone core
     - cd ..
