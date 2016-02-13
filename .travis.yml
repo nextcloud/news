@@ -29,7 +29,7 @@ before_install:
     - "export DISPLAY=:99.0"
     - "sh -e /etc/init.d/xvfb start"
     - sudo apt-get update
-    - sudo apt-get install -o DPkg::Options::="--force-confold" -y libxml2 libxml2-dev libxml2-utils node npm
+    - sudo apt-get install -o DPkg::Options::="--force-confold" -y libxml2 libxml2-dev libxml2-utils
     - npm install -g npm@latest
 
 install:
@@ -60,8 +60,9 @@ before_script:
     - cd apps/news/js
     # install test deps
     - npm install --deps # npm install needs to run before sudo npm install because otherwise it fails because a tmp file exists in the home dir
-    - sudo npm -g install gulp-cli protractor n
-    - sudo n latest
+    - npm -g install gulp-cli protractor n
+    - which node
+    - n latest
     - cd ..
     - wget https://scrutinizer-ci.com/ocular.phar
 
