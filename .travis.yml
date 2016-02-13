@@ -64,9 +64,9 @@ before_script:
 
 script:
     # unit tests
-    - phpunit
-    - php ocular.phar code-coverage:upload --format=php-clover ../coverage.clover
+    - phpunit -c phpunit.xml --coverage-clover coverage.clover
     - phpunit -c phpunit.integration.xml
+    - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
     - cd js
     - gulp karma
     # acceptance tests
