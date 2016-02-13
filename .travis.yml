@@ -60,7 +60,7 @@ before_script:
     - cd apps/news/js
     # install test deps
     - npm install --deps # npm install needs to run before sudo npm install because otherwise it fails because a tmp file exists in the home dir
-    - sudo npm -g install gulp-cli protractor n
+    - npm -g install gulp-cli protractor n
     - n latest
     - cd ..
     - wget https://scrutinizer-ci.com/ocular.phar
