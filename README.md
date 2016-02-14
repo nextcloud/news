@@ -139,7 +139,7 @@ Because we care about our users' security and don't want to hide security warnin
 The only fix for this issue is that feed providers serve their content over HTTPS.
 
 ### I am getting: Doctrine DBAL Exception InvalidFieldNameException: Column not found: 1054 Unknown column some_column Or BadFunctionCallException: someColumn is not a valid attribute
-This error usually means that your database was not properly migrated which can either be due to timeouts or bug in Doctrine or core. To prevent future timeouts use
+This error usually means that your database schema was not properly migrated which can either be due to timeouts or bugs in Doctrine/ownCloud core. To prevent future timeouts use
 
     php -f owncloud/occ upgrade
 
