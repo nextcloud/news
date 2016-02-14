@@ -29,13 +29,18 @@ before_install:
     - "sh -e /etc/init.d/xvfb start"
 
 install:
+    # install dependencies
     - sudo apt-get update
     - sudo apt-get install -o DPkg::Options::="--force-confold" -y libxml2 libxml2-dev libxml2-utils python3-jinja2 python3-setuptools apache2 libapache2-mod-fastcgi firefox curl
     - sudo easy_install3 requests ocdev
     - nvm install 5.0
     - npm install -g npm@latest
-    # clone core
-    - cd ..
+    # install node modules
+    - cd js
+    - npm -g install gulp-cli protractor
+    - npm install --deps
+    # install core
+    - cd ../../
     - ocdev setup core --dir owncloud --branch $CORE_BRANCH --no-history
     - mv news owncloud/apps/
 
@@ -54,11 +59,7 @@ before_script:
     - ./occ maintenance:install --database-name oc_autotest --database-user oc_autotest --admin-user admin --admin-pass admin --database $DB --database-pass=''
     - ./occ app:enable news
     - ./occ background:cron  # enable default cron
-    - cd apps/news/js
-    # install test deps
-    - npm install --deps # npm install needs to run before sudo npm install because otherwise it fails because a tmp file exists in the home dir
-    - npm -g install gulp-cli protractor
-    - cd ..
+    - cd apps/news
     - wget https://scrutinizer-ci.com/ocular.phar
 
 script:
