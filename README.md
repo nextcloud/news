@@ -139,16 +139,16 @@ Because we care about our users' security and don't want to hide security warnin
 The only fix for this issue is that feed providers serve their content over HTTPS.
 
 ### I am getting: Doctrine DBAL Exception InvalidFieldNameException: Column not found: 1054 Unknown column some_column Or BadFunctionCallException: column is not a valid attribute
-This error usually means that your database was not properly migrated which can either be due to timeouts or bug in Doctrine or core. To prevent timeouts use
+This error usually means that your database was not properly migrated which can either be due to timeouts or bug in Doctrine or core. To prevent future timeouts use
 
     php -f owncloud/occ upgrade
 
 instead of clicking the upgrade button on the web interface.
 
-You can fix this issue by adding/removing the column, either manually or through triggering another database migration.
+To fix this issue either manually add/remove the offending columns or trigger another database migration.
 
 #### Triggering a database migration
-Databases are migrated when a newer version is found in **appinfo/info.xml** than in the database. To trigger a migration you can therefore simply increase that version number and run an update:
+Databases are migrated when a newer version is found in **appinfo/info.xml** than in the database. To trigger a migration you can therefore simply increase that version number and refresh the web interface to run an update:
 
 First, get the current version by executing the following Sql query:
 
@@ -160,7 +160,7 @@ This will output something like this:
 
     7.1.1
 
-Then edit the **appinfo/info.xml** and increase the number on the farthest left in the version field by 1, e.g.:
+Then edit the **appinfo/info.xml** and increase the number on the farthest right in the version field by 1, e.g.:
 
 ```xml
 <?xml version="1.0"?>
@@ -173,7 +173,7 @@ Then edit the **appinfo/info.xml** and increase the number on the farthest left 
 
 Now run the update in the web interface by reloading the page.
 
-Finally reduce the version number in the database to the previous value, so the next News app update will be handled propery, e.g.:
+Finally set back the old version number in the database, so the next News app update will be handled propery, e.g.:
 
 ```sql
 UPDATE oc_appconfig SET configvalue = '7.1.1' WHERE appid = 'news' and configkey = 'installed_version';
