@@ -138,8 +138,63 @@ Because we care about our users' security and don't want to hide security warnin
 
 The only fix for this issue is that feed providers serve their content over HTTPS.
 
+### I am getting: Doctrine DBAL Exception InvalidFieldNameException: Column not found: 1054 Unknown column some_column Or BadFunctionCallException: column is not a valid attribute
+This error usually means that your database was not properly migrated which can either be due to timeouts or bug in Doctrine or core. To prevent timeouts use
 
-### I am getting Exception: Some\\Class does not exist erros in my owncloud.log
+    php -f owncloud/occ upgrade
+
+instead of clicking the upgrade button on the web interface.
+
+You can fix this issue by adding/removing the column, either manually or through triggering another database migration.
+
+#### Triggering a database migration
+Databases are migrated when a newer version is found in **appinfo/info.xml** than in the database. To trigger a migration you can therefore simply increase that version number and run an update:
+
+First, get the current version by executing the following Sql query:
+
+```sql
+SELECT configvalue FROM oc_appconfig WHERE appid = 'news' and configkey = 'installed_version';
+```
+
+This will output something like this:
+
+    7.1.1
+
+Then edit the **appinfo/info.xml** and increase the number on the farthest left in the version field by 1, e.g.:
+
+```xml
+<?xml version="1.0"?>
+<info>
+    <!-- etc -->
+    <version>7.1.2</version>
+    <!-- etc -->
+</info>
+```
+
+Now run the update in the web interface by reloading the page.
+
+Finally reduce the version number in the database to the previous value, so the next News app update will be handled propery, e.g.:
+
+```sql
+UPDATE oc_appconfig SET configvalue = '7.1.1' WHERE appid = 'news' and configkey = 'installed_version';
+```
+
+#### Manually adding/removing the field
+Instead of triggering an automatic migration, you can of course also add or remove the offending columns manually.
+
+The exception name itself will give you a hint about what is wrong:
+* **BadFunctionCallException**: Is usually thrown when there are more columns in the database than the code
+* **InvalidFieldNameException**: Is usually thrown when there are more columns in the code than the database
+
+To find out what you need to add or remove, check the current **appinfo/database.xml** and compare it to your tables in the database and add/remove the appropriate fields.
+
+Some hints:
+* type text is usually an Sql VARCHAR
+* type clob is usually an Sql TEXT
+* length for integer fields means bytes, so an integer with length 8 means its 64bit
+
+
+### I am getting: Exception: Some\\Class does not exist erros in my owncloud.log
 This is very often caused by missing or old files, e.g. by failing to upload all of the News app' files or errors during installation. Before you report a bug, please recheck if all files from the archive are in place and accessible.
 
 ### How do I reset the News app
