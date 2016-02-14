@@ -35,6 +35,8 @@ install:
     - sudo easy_install3 requests ocdev
     - nvm install 5.0
     - npm install -g npm@latest
+    # install php modules
+    - wget https://scrutinizer-ci.com/ocular.phar
     # install node modules
     - cd js
     - npm -g install gulp-cli protractor
@@ -60,7 +62,6 @@ before_script:
     - ./occ app:enable news
     - ./occ background:cron  # enable default cron
     - cd apps/news
-    - wget https://scrutinizer-ci.com/ocular.phar
 
 script:
     # unit tests
