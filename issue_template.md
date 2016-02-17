@@ -1,6 +1,6 @@
 # IMPORTANT
 
-Tick the following checkbox after you have created the issue or place an x inside the brackets ;)
+Read and tick the following checkbox after you have created the issue or place an x inside the brackets ;)
 
 * [ ] I have read the [CONTRIBUTING.md](https://github.com/owncloud/news/blob/master/CONTRIBUTING.md) and followed the provided tips
 
