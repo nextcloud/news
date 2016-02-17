@@ -4,16 +4,17 @@ Tick the following checkbox after you have created the issue or place an x insid
 
 * [ ] I have read the [CONTRIBUTING.md](https://github.com/owncloud/news/blob/master/CONTRIBUTING.md) and followed the provided tips
 
-# Explain the Problem
+
+## Explain the Problem
 What problem did you encounter?
 
-# Steps to Reproduce
+## Steps to Reproduce
 Explain what you did to encounter the issue
 1.
 2.
 3.
 
-# System Information
+## System Information
 * News app version:
 * ownCloud version:
 * PHP version:
@@ -21,7 +22,7 @@ Explain what you did to encounter the issue
 * Browser and version:
 * Distribution and version:
 
-# Contents of owncloud/data/owncloud.log
+## Contents of owncloud/data/owncloud.log
 
 ```json
 
@@ -29,8 +30,8 @@ Paste output here
 
 ```
 
-# Contents of Browser Error Console
-Read http://ggnome.com/wiki/Using_The_Browser_Error_Console if you are unsure
+## Contents of Browser Error Console
+Read http://ggnome.com/wiki/Using_The_Browser_Error_Console if you are unsure what to put here
 
 ```
 
