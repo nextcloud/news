@@ -2,7 +2,8 @@
 
 * [] I have read the CONTRIBUTING.md and followed the provided tips
 
-# What Went Wrong
+# Explain the Problem
+What problem did you encounter?
 
 # Steps to Reproduce
 Explain what you did to encounter the issue
