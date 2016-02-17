@@ -25,9 +25,15 @@ Explain what you did to encounter the issue
 
 ```json
 
-Log entry data goes here
+Paste output here
 
 ```
 
 # Contents of Browser Error Console
 Read http://ggnome.com/wiki/Using_The_Browser_Error_Console if you are unsure
+
+```
+
+Paste output here
+
+```
