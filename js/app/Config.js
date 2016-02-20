@@ -105,7 +105,9 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
                         search: search
                     };
 
-                    if ($route.current.params.id !== undefined) {
+                    if ($route.current !== undefined &&
+                        $route.current.params !== undefined &&
+                        $route.current.params.id !== undefined) {
                         parameters.id = $route.current.params.id;
                     }
 
