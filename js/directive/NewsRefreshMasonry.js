@@ -17,7 +17,7 @@ app.directive('newsRefreshMasonry', function ($timeout) {
 					gutter: 25,
 					columnWidth: 300
 				});
-			});
+			}, 100);
 		});
 	};
 
