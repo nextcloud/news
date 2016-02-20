@@ -4,9 +4,9 @@ return array(
     'grabber' => array(
         '%.*%' => array(
             'body' => array(
-                '//img[@id="cc-comic"]',
+                '//img[@class="img-responsive img-comic"]',
             ),
-            'test_url' => 'http://www.threepanelsoul.com/comic/uncloaking',
+            'test_url' => 'http://dilbert.com/strip/2016-01-28',
         ),
     ),
 );

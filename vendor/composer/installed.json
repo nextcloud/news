@@ -157,27 +157,27 @@
     },
     {
         "name": "zendframework/zendxml",
-        "version": "1.0.1",
-        "version_normalized": "1.0.1.0",
+        "version": "1.0.2",
+        "version_normalized": "1.0.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/zendframework/ZendXml.git",
-            "reference": "54edb3875aba5b45f02824f65f311c9fb2743a38"
+            "reference": "7b64507bc35d841c9c5802d67f6f87ef8e1a58c9"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/54edb3875aba5b45f02824f65f311c9fb2743a38",
-            "reference": "54edb3875aba5b45f02824f65f311c9fb2743a38",
+            "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/7b64507bc35d841c9c5802d67f6f87ef8e1a58c9",
+            "reference": "7b64507bc35d841c9c5802d67f6f87ef8e1a58c9",
             "shasum": ""
         },
         "require": {
-            "php": ">=5.3.3"
+            "php": "^5.3.3 || ^7.0"
         },
         "require-dev": {
-            "phpunit/phpunit": "~3.7",
-            "squizlabs/php_codesniffer": "~1.5"
+            "phpunit/phpunit": "^3.7 || ^4.0",
+            "squizlabs/php_codesniffer": "^1.5"
         },
-        "time": "2015-08-03 14:50:10",
+        "time": "2016-02-04 21:02:08",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -209,12 +209,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/fguillot/picoFeed.git",
-            "reference": "3486412c07260f9db9f87c3f4e8d9e8d3e8b2793"
+            "reference": "c270ef4474a2460d857f99c84612025c5f9975f2"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/3486412c07260f9db9f87c3f4e8d9e8d3e8b2793",
-            "reference": "3486412c07260f9db9f87c3f4e8d9e8d3e8b2793",
+            "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/c270ef4474a2460d857f99c84612025c5f9975f2",
+            "reference": "c270ef4474a2460d857f99c84612025c5f9975f2",
             "shasum": ""
         },
         "require": {
@@ -229,7 +229,7 @@
         "suggest": {
             "ext-curl": "PicoFeed will use cURL if present"
         },
-        "time": "2016-01-26 14:43:55",
+        "time": "2016-02-11 19:52:02",
         "bin": [
             "picofeed"
         ],

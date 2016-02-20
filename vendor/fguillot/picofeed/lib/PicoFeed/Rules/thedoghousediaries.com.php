@@ -8,7 +8,7 @@ return array(
                 '//div[@class="entry"]',
             ),
             'strip' => array(),
-            'test_url' => 'http://sentfromthemoon.com/archives/1417',
+            'test_url' => 'http://thedoghousediaries.com/6023',
         ),
     ),
     'filter' => array(
