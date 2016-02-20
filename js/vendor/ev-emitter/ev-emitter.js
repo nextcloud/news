@@ -1,5 +1,5 @@
 /**
- * EvEmitter v1.0.1
+ * EvEmitter v1.0.2
  * Lil' event emitter
  * MIT License
  */
@@ -53,8 +53,8 @@ proto.once = function( eventName, listener ) {
   // set once flag
   // set onceEvents hash
   var onceEvents = this._onceEvents = this._onceEvents || {};
-  // set onceListeners array
-  var onceListeners = onceEvents[ eventName ] = onceEvents[ eventName ] || [];
+  // set onceListeners object
+  var onceListeners = onceEvents[ eventName ] = onceEvents[ eventName ] || {};
   // set flag
   onceListeners[ listener ] = true;
 
