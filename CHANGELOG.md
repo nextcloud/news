@@ -1,3 +1,10 @@
+owncloud-news (7.1.2)
+* **Enhancement**: Major JavaScript library updates:
+  * Update from Angular 1.3 to 1.5
+  * Use Gulp instead of Grunt
+  * CSS is not minified anymore to make CSS contributions easier
+* **Enhancement**: Update picoFeed
+
 owncloud-news (7.1.1)
 * **Enhancement**: Add vk.com to allowed iframe sources
 * **Enhancement**: Add blog.fefe.de to German explore feeds
