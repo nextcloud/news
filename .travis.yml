@@ -25,11 +25,10 @@ matrix:
     fast_finish: true
 
 before_install:
-    - env
     - export DISPLAY=:99.0
     - sh -e /etc/init.d/xvfb start
     - sudo apt-get update
-    - sudo apt-get install python3-setuptools
+    - sudo apt-get install -y python3-setuptools
     - sudo easy_install3 requests ocdev
     - phpenv install $TRAVIS_PHP_VERSION  # can be removed once php is supported out of the box
     - nvm install 5.6
@@ -52,14 +51,13 @@ before_script:
     - mysql -e 'create database oc_autotest;'
     - mysql -u root -e "CREATE USER 'oc_autotest'@'localhost' IDENTIFIED BY '';"
     - mysql -u root -e "grant all on oc_autotest.* to 'oc_autotest'@'localhost';"
-    # set up php under apache
-    - bash owncloud/apps/news/tests/travis/travis-ci-apache.sh
     # fill owncloud with default configs and enable news
     - cd owncloud
     - mkdir data
     - ./occ maintenance:install --database-name oc_autotest --database-user oc_autotest --admin-user admin --admin-pass admin --database $DB --database-pass=''
     - ./occ app:enable news
     - ./occ background:cron  # enable default cron
+    - ocdev server &
     - cd apps/news
 
 script:
