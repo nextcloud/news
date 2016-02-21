@@ -27,7 +27,7 @@
         <php min-version="5.5" />
         <database min-version="9.4">pgsql</database>
         <database>sqlite</database>
-        <database>mysql</database>
+        <database min-version="5.5">mysql</database>
         <lib min-version="2.7.8">libxml</lib>
         <lib>curl</lib>
         <lib>SimpleXML</lib>
