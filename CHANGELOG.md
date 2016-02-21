@@ -1,3 +1,6 @@
+owncloud-news (7.2.0)
+* **New dependency**: Bump required PostgreSQL version to 9.4
+
 owncloud-news (7.1.2)
 * **Enhancement**: Major JavaScript library updates:
   * Update from Angular 1.3 to 1.5
