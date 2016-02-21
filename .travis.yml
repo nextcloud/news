@@ -1,9 +1,10 @@
+sudo: required
+dist: trusty
 language: php
 php:
     - 5.5
     - 5.6
     - 7
-    #- hhvm
 env:
     global:
         - CORE_BRANCH=stable8.2
@@ -12,26 +13,22 @@ env:
 
 matrix:
     allow_failures:
-        - php: hhvm
         - env: DB=pgsql CORE_BRANCH=master
     include:
-        - php: 5.5
+        - php: 5.6
           env: DB=sqlite
-        - php: 5.5
+        - php: 5.6
           env: DB=mysql
         # master branch
-        - php: 5.5
+        - php: 5.6
           env: DB=pgsql CORE_BRANCH=master
     fast_finish: true
 
 before_install:
-    - "export DISPLAY=:99.0"
-    - "sh -e /etc/init.d/xvfb start"
-
-install:
-    # install dependencies
+    - export DISPLAY=:99.0
+    - sh -e /etc/init.d/xvfb start
     - sudo apt-get update
-    - sudo apt-get install -o DPkg::Options::="--force-confold" -y libxml2 libxml2-dev libxml2-utils python3-jinja2 python3-setuptools apache2 libapache2-mod-fastcgi firefox curl
+    - sudo apt-get -y install python3-setuptools firefox mariadb-server
     - sudo easy_install3 requests ocdev
     - nvm install 5.6
     - npm install -g npm@latest
@@ -47,20 +44,17 @@ install:
     - mv news owncloud/apps/
 
 before_script:
-    - phpenv config-add owncloud/apps/news/tests/travis/php.ini
-    # set up databases and users for postgres and mysql
     - createuser -U travis -s oc_autotest
-    - mysql -e 'create database oc_autotest;'
+    - mysql -u root -e 'create database oc_autotest;'
     - mysql -u root -e "CREATE USER 'oc_autotest'@'localhost' IDENTIFIED BY '';"
     - mysql -u root -e "grant all on oc_autotest.* to 'oc_autotest'@'localhost';"
-    # set up php under apache
-    - bash owncloud/apps/news/tests/travis/travis-ci-apache.sh
     # fill owncloud with default configs and enable news
     - cd owncloud
     - mkdir data
     - ./occ maintenance:install --database-name oc_autotest --database-user oc_autotest --admin-user admin --admin-pass admin --database $DB --database-pass=''
     - ./occ app:enable news
     - ./occ background:cron  # enable default cron
+    - ocdev server &
     - cd apps/news
 
 script:
@@ -71,14 +65,6 @@ script:
     - cd js
     - gulp karma
     # acceptance tests
-    # - webdriver-manager update
-    - sudo chown -R www-data:www-data ../../../data
-    - sudo chmod -R a+rwx ../../../data
-    #- grunt acceptance --verbose
+    #- webdriver-manager update
     # debug section to check what went wrong
-    - curl http://admin:admin@localhost/owncloud/index.php
-    - curl http://admin:admin@localhost/owncloud/index.php/apps/news/
     - sudo cat ../../../data/owncloud.log
-
-addons:
-    postgresql: "9.3"
