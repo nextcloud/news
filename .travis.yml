@@ -46,7 +46,7 @@ before_script:
     - phpenv config-add owncloud/apps/news/tests/travis/php.ini
     # set up databases and users for postgres and mysql
     - createuser -U travis -s oc_autotest
-    - mysql -e 'create database oc_autotest;'
+    - mysql -u root -e 'create database oc_autotest;'
     - mysql -u root -e "CREATE USER 'oc_autotest'@'localhost' IDENTIFIED BY '';"
     - mysql -u root -e "grant all on oc_autotest.* to 'oc_autotest'@'localhost';"
     # fill owncloud with default configs and enable news
