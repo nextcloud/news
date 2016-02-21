@@ -28,6 +28,8 @@ before_install:
     - env
     - export DISPLAY=:99.0
     - sh -e /etc/init.d/xvfb start
+    - apt-cache search libapache2-mod-fastcgi
+    - grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/*
     - sudo apt-get update
     - sudo apt-get install python3-setuptools apache2 libapache2-mod-fastcgi
     - sudo easy_install3 requests ocdev
