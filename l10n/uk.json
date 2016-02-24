@@ -29,6 +29,7 @@
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted" : "Максимальна кількість секунд очікування завантаження стрічки RSS або Atom; якщо оновлення займає більше часу, то воно буде скасовано",
     "Explore Service URL" : "URL сервісу дослідження",
     "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty" : "Якщо зазначено, то URL сервісу опитуватиметься з метою відображення стрічок в секції дослідження. Для повернення до вбудованого сервісу, залиште поле порожнім.",
+    "For more information check the Wiki" : "Щоб отримати більше інформації перевірте Wiki",
     "Saved" : "Збереженно",
     "Download" : "Завантажити",
     "Close" : "Закрити",

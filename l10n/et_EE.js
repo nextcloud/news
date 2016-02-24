@@ -31,6 +31,8 @@ OC.L10N.register(
     "Saved" : "Salvestatud",
     "Download" : "Lae alla",
     "Close" : "Sulge",
+    "How to set up the operating system cron" : "Kuidas seadistada operatsioonisüsteemi ajastatud tegevust",
+    "filter" : "filter",
     "Language" : "Keel",
     "Subscribe" : "Telli",
     "Refresh" : "Värskenda",

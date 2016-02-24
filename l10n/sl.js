@@ -34,7 +34,7 @@ OC.L10N.register(
     "Download" : "Prejmi",
     "Close" : "Zapri",
     "filter" : "filter",
-    "Language" : "Language",
+    "Language" : "Jezik",
     "Subscribe" : "Naročilo",
     "Refresh" : "Osveži",
     "No articles available" : "Ni prispevkov",
