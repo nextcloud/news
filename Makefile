@@ -7,7 +7,7 @@ appstore_dir=$(build_dir)/appstore
 source_dir=$(build_dir)/source
 package_name=$(app_name)
 
-all: dist
+all: appstore
 
 clean:
 	rm -rf $(build_dir)
@@ -33,7 +33,8 @@ appstore: clean
 	--exclude=$(project_dir)/js/node_modules \
 	--exclude=$(project_dir)/js/.bowerrc \
 	--exclude=$(project_dir)/js/.jshintrc \
-	--exclude=$(project_dir)/js/Gruntfile.js \
+	--exclude=$(project_dir)/js/.jshintignore \
+	--exclude=$(project_dir)/js/gulpfile.js \
 	--exclude=$(project_dir)/js/*.json \
 	--exclude=$(project_dir)/js/*.conf.js \
 	--exclude=$(project_dir)/js/*.log \
@@ -45,14 +46,15 @@ appstore: clean
 	--exclude=$(project_dir)/js/directive \
 	--exclude=$(project_dir)/js/filter \
 	--exclude=$(project_dir)/js/gui \
+	--exclude=$(project_dir)/js/plugin \
 	--exclude=$(project_dir)/js/service \
 	--exclude=$(project_dir)/js/tests \
 	--exclude=$(project_dir)/js/vendor/jquery \
 	--exclude=$(project_dir)/js/vendor/angular-mocks \
-	--exclude=$(project_dir)/.idea \
-	--exclude=$(project_dir)/.travis.yml \
-	--exclude=$(project_dir)/.scrutinizer.yml \
+	--exclude=$(project_dir)/\.* \
 	--exclude=$(project_dir)/phpunit*xml \
+	--exclude=$(project_dir)/composer* \
+	--exclude=$(project_dir)/issue_template.md \
 	--exclude=$(project_dir)/Makefile \
 	--exclude=$(project_dir)/tests \
 	--exclude=$(project_dir)/vendor/ezyang/htmlpurifier/.gitattributes \
