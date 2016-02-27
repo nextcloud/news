@@ -42,8 +42,8 @@ The following distros are supported:
 * Newest Chrome/Chromium (Desktop, Android)
 
 ## Supported Databases
-* PostgreSQL (recommended)
-* MySql
+* PostgreSQL >= 9.4 (recommended)
+* MariaDb >= 5.5
 * SQLite (discouraged)
 
 ## Bugs
