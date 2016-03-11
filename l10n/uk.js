@@ -37,6 +37,7 @@ OC.L10N.register(
     "Close" : "Закрити",
     "How to set up the operating system cron" : "Як налаштувати cron операційної системи",
     "How to set up a custom updater (faster and no possible deadlock) " : "Як налаштувати інший спосіб оновлення (швидше і без ризику взаємного блокування)",
+    "filter" : "фільтр",
     "Language" : "Мова",
     "Subscribe" : "Підписатися",
     "Refresh" : "Оновити",
