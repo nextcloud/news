@@ -68,7 +68,7 @@ class ItemMapper extends NewsMapper {
     private function buildLikeParameters($search=[]) {
         return array_map(function ($param) {
             $param = addcslashes($param, '\\_%');
-            return '%' . mb_strtolower($param) . '%';
+            return '%' . mb_strtolower($param, 'UTF-8') . '%';
         }, $search);
     }
 
