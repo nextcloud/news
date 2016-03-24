@@ -1,6 +1,7 @@
 owncloud-news (7.2.0)
 * **New dependency**: Bump required PostgreSQL version to 9.4
 * **New dependency**: Bump required MySql/MariaDB version to 5.5
+* **Bugfix**: Fix bug that would not lowercase non ASCII characters when searching, #944
 
 owncloud-news (7.1.2)
 * **Enhancement**: Major JavaScript library updates:
