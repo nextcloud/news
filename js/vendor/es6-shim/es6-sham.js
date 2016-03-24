@@ -2,8 +2,8 @@
   * https://github.com/paulmillr/es6-shim
   * @license es6-shim Copyright 2013-2016 by Paul Miller (http://paulmillr.com)
   *   and contributors,  MIT License
-  * es6-sham: v0.34.4
-  * see https://github.com/paulmillr/es6-shim/blob/0.34.4/LICENSE
+  * es6-sham: v0.35.0
+  * see https://github.com/paulmillr/es6-shim/blob/0.35.0/LICENSE
   * Details and documentation:
   * https://github.com/paulmillr/es6-shim/
   */
@@ -35,6 +35,23 @@
 
   var globals = getGlobal();
   var Object = globals.Object;
+  var _call = Function.call.bind(Function.call);
+  var functionToString = Function.toString;
+  var _strMatch = String.prototype.match;
+
+  var throwsError = function (func) {
+    try {
+      func();
+      return false;
+    } catch (e) {
+      return true;
+    }
+  };
+  var arePropertyDescriptorsSupported = function () {
+    // if Object.defineProperty exists but throws, it's IE 8
+    return !throwsError(function () { Object.defineProperty({}, 'x', { get: function () {} }); });
+  };
+  var supportsDescriptors = !!Object.defineProperty && arePropertyDescriptorsSupported();
 
   // NOTE:  This versions needs object ownership
   //        because every promoted object needs to be reassigned
@@ -129,4 +146,23 @@
     Object.setPrototypeOf = setPrototypeOf;
   }());
 
+  if (supportsDescriptors && function foo() {}.name !== 'foo') {
+    /* eslint no-extend-native: 1 */
+    Object.defineProperty(Function.prototype, 'name', {
+      configurable: true,
+      enumerable: false,
+      get: function () {
+        var str = _call(functionToString, this);
+        var match = _call(_strMatch, str, /\s*function\s+([^\(\s]*)\s*/);
+        var name = match && match[1];
+        Object.defineProperty(this, 'name', {
+          configurable: true,
+          enumerable: false,
+          writable: false,
+          value: name
+        });
+        return name;
+      }
+    });
+  }
 }));

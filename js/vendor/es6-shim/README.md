@@ -47,6 +47,7 @@ In both browser and node you may also want to include `unorm`; see the [`String.
     * `[Symbol.replace]` (requires native `Symbol`s)
     * `[Symbol.search]` (requires native `Symbol`s)
     * `[Symbol.split]` (requires native `Symbol`s)
+    * `toString`
 * `Number`:
     * binary and octal literals: `Number('0b1')` and `Number('0o7')`
     * `EPSILON`
@@ -69,11 +70,14 @@ In both browser and node you may also want to include `unorm`; see the [`String.
     * `findIndex()` ([a standalone shim is also available](https://github.com/paulmillr/Array.prototype.findIndex))
     * `keys()` (note: keys/values/entries return an `ArrayIterator` object)
     * `values()`
+    * `indexOf()` (ES6 errata)
 * `Object`:
     * `assign()` ([a standalone shim is also available](https://github.com/ljharb/object.assign))
     * `is()` ([a standalone shim is also available](https://github.com/ljharb/object-is))
     * `keys()` (in ES5, but no longer throws on non-object non-null/undefined values in ES6)
     * `setPrototypeOf()` (IE >= 11)
+* `Function.prototype`:
+    * `name` (es6-sham, covers IE 9-11)
 * `Math`:
     * `acosh()`
     * `asinh()`
@@ -100,7 +104,6 @@ Math functions’ accuracy is 1e-11.
     * `construct()`
     * `defineProperty()`
     * `deleteProperty()`
-    * `enumerate()`
     * `get()`
     * `getOwnPropertyDescriptor()`
     * `getPrototypeOf()`
