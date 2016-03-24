@@ -216,7 +216,7 @@ class Item extends Entity implements IAPI, \JsonSerializable {
 
     public function generateSearchIndex() {
         $this->setSearchIndex(
-            strtolower(
+            mb_strtolower(
                 html_entity_decode(strip_tags($this->getBody())) .
                 html_entity_decode($this->getAuthor()) .
                 html_entity_decode($this->getTitle()) .
