@@ -3,18 +3,44 @@
 # @author Bernhard Posselt <dev@bernhard-posselt.com>
 # @copyright Bernhard Posselt 2012, 2014
 
-# Generic Makefile for building and packaging an ownCloud app
+# Generic Makefile for building and packaging an ownCloud app which uses npm and
+# Composer.
 #
 # Dependencies:
 # * make
-# * curl: if phpunit and composer are not installed to fetch the files from the web
+# * curl: used if phpunit and composer are not installed to fetch them from the web
 # * tar: for building the archive
 # * npm: for building and testing everything JS
-
+#
+# If no composer.json is in the app root directory, the Composer step
+# will be skipped. The same goes for the package.json which can be located in
+# app root or the js/ directory.
+#
+# The npm command by launches the npm build script:
+#
+#   npm run build
+#
+# The npm test command launches the npm test script:
+#
+#	npm run test
+#
+# The idea behind this is to be completely testing and build tool agnostic. All
+# build tools and additional package managers should be installed locally in
+# your project, since this won't pollute people's global namespace.
+#
+# The following npm scripts in your package.json install and update the bower
+# and npm dependencies and use gulp as build system (notice how everything is
+# run from the node_modules folder):
+#
+#	"scripts": {
+#	    "test": "node node_modules/gulp-cli/bin/gulp.js karma",
+#	    "prebuild": "npm install && node_modules/bower/bin/bower install && node_modules/bower/bin/bower update",
+#		"build": "node node_modules/gulp-cli/bin/gulp.js"
+#	},
 app_name=$(notdir $(CURDIR))
 build_directory=$(CURDIR)/build/artifacts/source
 package_name=$(build_directory)/$(app_name)
-npm=$(shell which npm)
+npm=$(shell which npm 2> /dev/null)
 
 all: build
 
