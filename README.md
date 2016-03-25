@@ -65,6 +65,10 @@ Then proceed to install the app either from an archive (zip/tar.gz) or clone it 
 * On your server, check if there is a folder called **owncloud/apps/news**. If there is one, delete it.
 * Extract the downloaded archive to the **owncloud/apps/** folder.
 * Remove the version from the extracted folder (e.g. rename **owncloud/apps/news-4.0.3/** to **owncloud/apps/news/**
+* Change to the directory and run the following command to install the libaries and compile the JavaScript (requires node >5.6, npm, curl, make and which):
+
+    make
+
 * Activate the **News** app in the apps menu
 
 ### Installing from Git (development version)
