@@ -97,6 +97,22 @@ In general it's a good idea to **first create an issue where you explain why, wh
 
 That way we can talk about the problem first and discuss the implementation (and of course help you with your code)
 
+To get started after cloning the repository, install the [development dependencies](https://github.com/owncloud/news#development-dependencies) and run:
+
+    make
+
+in the app directory to fetch all dependencies and compile the JavaScript. The News app uses Composer for PHP dependencies, Gulp for building the JavaScript "binary" and Bower/npm as JavaScript package manager. For more information on JavaScript development [check out the README.md in the js folder](https://github.com/owncloud/news/blob/master/js/README.md)
+
+For running all tests suites you can run:
+
+    make test
+
+Packaging is done via:
+
+    make dist
+
+The packages are inside the top level **build/artifacts** folder
+
 ### Stuff To Work On
 
 Check [the plugin section on the wiki](https://github.com/owncloud/news/wiki#requested-and-needs-contributors) for finding ideas to work on which should be realized separately via a plugin or app.
