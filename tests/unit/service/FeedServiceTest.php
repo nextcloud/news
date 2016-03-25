@@ -120,6 +120,8 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
         $createdFeed->setUrlHash('hsssi');
         $createdFeed->setLink($url);
         $createdFeed->setTitle('hehoy');
+        $createdFeed->setBasicAuthUser('user');
+        $createdFeed->setBasicAuthPassword('pass');
         $item1 = new Item();
         $item1->setGuidHash('hi');
         $item2 = new Item();
@@ -173,11 +175,14 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
             ->method('insert')
             ->with($this->equalTo($return[1][0]));
 
-        $feed = $this->feedService->create($url, $folderId, $this->user);
+        $feed = $this->feedService->create($url, $folderId, $this->user, null,
+                                            'user', 'pass');
 
         $this->assertEquals($feed->getFolderId(), $folderId);
         $this->assertEquals($feed->getUrl(), $url);
         $this->assertEquals($feed->getArticlesPerUpdate(), 2);
+        $this->assertEquals($feed->getBasicAuthUser(), 'user');
+        $this->assertEquals($feed->getBasicAuthPassword(), 'pass');
     }
 
 

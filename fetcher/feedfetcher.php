@@ -23,6 +23,8 @@ use PicoFeed\Client\InvalidUrlException;
 use PicoFeed\Client\MaxRedirectException;
 use PicoFeed\Client\MaxSizeException;
 use PicoFeed\Client\TimeoutException;
+use PicoFeed\Client\ForbiddenException;
+use PicoFeed\Client\UnauthorizedException;
 
 use OCP\IL10N;
 use OCP\AppFramework\Utility\ITimeFactory;
@@ -71,14 +73,24 @@ class FeedFetcher implements IFeedFetcher {
      * no results are fetched
      * @param bool fullTextEnabled if true tells the fetcher to enhance the
      * articles by fetching custom enhanced content
+     * @param string $basicAuthUser if given, basic auth is set for this feed
+     * @param string $basicAuthPassword if given, basic auth is set for this
+     * feed. Ignored if user is null or an empty string
      * @throws FetcherException if it fails
      * @return array an array containing the new feed and its items, first
      * element being the Feed and second element being an array of Items
      */
     public function fetch($url, $getFavicon=true, $lastModified=null,
-                          $etag=null, $fullTextEnabled=false) {
+                          $etag=null, $fullTextEnabled=false,
+                          $basicAuthUser=null, $basicAuthPassword=null) {
         try {
-            $resource = $this->reader->discover($url, $lastModified, $etag);
+            if ($basicAuthUser !== null && trim($basicAuthUser) !== '') {
+                $resource = $this->reader->discover($url, $lastModified, $etag,
+                                                    $basicAuthUser,
+                                                    $basicAuthPassword);
+            } else {
+                $resource = $this->reader->discover($url, $lastModified, $etag);
+            }
 
             if (!$resource->isModified()) {
                 return [null, null];
@@ -131,6 +143,11 @@ class FeedFetcher implements IFeedFetcher {
                 $msg = $this->l10n->t('Bigger than maximum allowed size');
             } else if ($ex instanceof TimeoutException) {
                 $msg = $this->l10n->t('Request timed out');
+            } else if ($ex instanceof UnauthorizedException) {
+                $msg = $this->l10n->t('Required credentials for feed were ' .
+                                       'either missing or incorrect');
+            } else if ($ex instanceof ForbiddenException) {
+                $msg = $this->l10n->t('Forbidden to access feed');
             }
 
             throw new FetcherException($msg);

@@ -163,7 +163,8 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
     };
 
 
-    FeedResource.prototype.create = function (url, folderId, title) {
+    FeedResource.prototype.create = function (url, folderId, title, user,
+                                              password) {
         url = url.trim();
         if (!url.startsWith('http')) {
             url = 'https://' + url;
@@ -191,7 +192,9 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
             data: {
                 url: url,
                 parentFolderId: folderId || 0,
-                title: title
+                title: title,
+                user: user || null,
+                password: password || null
             }
         }).success(function (data) {
             deferred.resolve(data);

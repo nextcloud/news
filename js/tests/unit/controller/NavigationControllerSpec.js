@@ -324,7 +324,7 @@ describe('NavigationController', function () {
                         callback({feeds: [{
                             id: 3,
                             url: url,
-                            folderId: folderId
+                            folderId: folderId,
                         }]});
                         return {
                             finally: function (callback) {
@@ -361,13 +361,15 @@ describe('NavigationController', function () {
 
         expect(ctrl.showNewFolder).toBe(false);
         expect(FeedResource.create).toHaveBeenCalledWith('test', 3,
-            undefined);
+            undefined, undefined, undefined);
         expect(Publisher.publishAll).toHaveBeenCalledWith({feeds: [{
             id: 3,
             url: 'test',
             folderId: 3
         }]});
         expect(feed.url).toBe('');
+        expect(feed.user).toBe('');
+        expect(feed.password).toBe('');
         expect(feed.existingFolder.getsFeed).toBe(undefined);
         expect(ctrl.addingFeed).toBe(false);
         expect(feed.existingFolder.id).toBe(3);
@@ -430,14 +432,16 @@ describe('NavigationController', function () {
 
         var feed = {
             url: 'test',
-            newFolder: 'john'
+            newFolder: 'john',
+            user: 'user',
+            password: 'password'
         };
 
         ctrl.createFeed(feed);
 
         expect(ctrl.showNewFolder).toBe(false);
         expect(FeedResource.create).toHaveBeenCalledWith('test', 19,
-            undefined);
+            undefined, 'user', 'password');
         expect(FolderResource.create).toHaveBeenCalledWith('john');
         expect(Publisher.publishAll).toHaveBeenCalledWith({
             folders: [{

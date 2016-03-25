@@ -77,7 +77,7 @@ gulp.task('watch-karma', (done) => {
 });
 
 gulp.task('phpunit', () => {
-    gulp.src(phpSources)
+    return gulp.src(phpSources)
         .pipe(phpunit('phpunit', {
             configurationFile: phpunitConfig
         }));

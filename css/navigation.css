@@ -76,6 +76,18 @@
     margin-right: 0;
 }
 
+#app-navigation .add-new-popup .add-feed-advanced {
+    width: 100%;
+}
+
+#app-navigation .add-new-popup .add-feed-advanced-area {
+    padding: 10px 0;
+}
+
+#app-navigation .add-new-popup .add-feed-advanced-area h2 {
+    font-size: 11pt;
+    font-weight: bold;
+}
 
 #app-navigation .add-new-popup .error {
     padding: 0 0 10px 0;
