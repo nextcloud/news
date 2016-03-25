@@ -97,7 +97,9 @@ In general it's a good idea to **first create an issue where you explain why, wh
 
 That way we can talk about the problem first and discuss the implementation (and of course help you with your code)
 
-To get started after cloning the repository, install the [development dependencies](https://github.com/owncloud/news#development-dependencies) and run:
+### How to set up a development environment
+
+To get started after [cloning the repository](https://github.com/owncloud/news#installing-from-git-development-version), install the [development dependencies](https://github.com/owncloud/news#development-dependencies) and run:
 
     make
 
