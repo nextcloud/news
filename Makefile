@@ -19,11 +19,11 @@
 #
 # The npm command by launches the npm build script:
 #
-#   npm run build
+#    npm run build
 #
 # The npm test command launches the npm test script:
 #
-#   npm run test
+#    npm run test
 #
 # The idea behind this is to be completely testing and build tool agnostic. All
 # build tools and additional package managers should be installed locally in
@@ -33,11 +33,11 @@
 # and npm dependencies and use gulp as build system (notice how everything is
 # run from the node_modules folder):
 #
-#	"scripts": {
-#	    "test": "node node_modules/gulp-cli/bin/gulp.js karma",
-#	    "prebuild": "npm install && node_modules/bower/bin/bower install && node_modules/bower/bin/bower update",
-#		"build": "node node_modules/gulp-cli/bin/gulp.js"
-#	},
+#    "scripts": {
+#        "test": "node node_modules/gulp-cli/bin/gulp.js karma",
+#        "prebuild": "npm install && node_modules/bower/bin/bower install && node_modules/bower/bin/bower update",
+#        "build": "node node_modules/gulp-cli/bin/gulp.js"
+#    },
 
 app_name=$(notdir $(CURDIR))
 build_tools_directory=$(CURDIR)/build/tools
