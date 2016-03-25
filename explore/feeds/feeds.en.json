@@ -47,28 +47,27 @@
         "votes": 500
     }],
     "Gaming": [{
-            "title": "TotalBiscuit, The Cynical Brit",
-            "favicon": "https:\/\/s.ytimg.com\/yts\/img\/favicon-vflz7uhzw.ico",
-            "url": "http:\/\/www.youtube.com\/channel\/UCy1Ms_5qBTawC-k7PVjHXKQ",
-            "feed": "http:\/\/www.youtube.com\/feeds\/videos.xml?channel_id=UCy1Ms_5qBTawC-k7PVjHXKQ",
-            "description": "General gaming news and reviews",
-            "votes": 100
-        }, {
-            "title": "Force Gaming",
-            "favicon": "https:\/\/s.ytimg.com\/yts\/img\/favicon-vflz7uhzw.ico",
-            "url": "http:\/\/www.youtube.com\/channel\/UCGhs9S33RAeT5DEuKTO4Oew",
-            "feed": "http:\/\/www.youtube.com\/feeds\/videos.xml?channel_id=UCGhs9S33RAeT5DEuKTO4Oew",
-            "description": "General gaming news and reviews",
-            "votes": 100
-        }, {
-            "title": "Trump",
-            "favicon": "https:\/\/s.ytimg.com\/yts\/img\/favicon-vflz7uhzw.ico",
-            "url": "http:\/\/www.youtube.com\/channel\/UCsQnAt5I56M-qx4OgCoVmeA",
-            "feed": "http:\/\/www.youtube.com\/feeds\/videos.xml?channel_id=UCsQnAt5I56M-qx4OgCoVmeA",
-            "description": "Hearthstone focused let's plays",
-            "votes": 100
-        }
-    ],
+        "title": "TotalBiscuit, The Cynical Brit",
+        "favicon": "https:\/\/s.ytimg.com\/yts\/img\/favicon-vflz7uhzw.ico",
+        "url": "http:\/\/www.youtube.com\/channel\/UCy1Ms_5qBTawC-k7PVjHXKQ",
+        "feed": "http:\/\/www.youtube.com\/feeds\/videos.xml?channel_id=UCy1Ms_5qBTawC-k7PVjHXKQ",
+        "description": "General gaming news and reviews",
+        "votes": 100
+    }, {
+        "title": "Force Gaming",
+        "favicon": "https:\/\/s.ytimg.com\/yts\/img\/favicon-vflz7uhzw.ico",
+        "url": "http:\/\/www.youtube.com\/channel\/UCGhs9S33RAeT5DEuKTO4Oew",
+        "feed": "http:\/\/www.youtube.com\/feeds\/videos.xml?channel_id=UCGhs9S33RAeT5DEuKTO4Oew",
+        "description": "General gaming news and reviews",
+        "votes": 100
+    }, {
+        "title": "Trump",
+        "favicon": "https:\/\/s.ytimg.com\/yts\/img\/favicon-vflz7uhzw.ico",
+        "url": "http:\/\/www.youtube.com\/channel\/UCsQnAt5I56M-qx4OgCoVmeA",
+        "feed": "http:\/\/www.youtube.com\/feeds\/videos.xml?channel_id=UCsQnAt5I56M-qx4OgCoVmeA",
+        "description": "Hearthstone focused let's plays",
+        "votes": 100
+    }],
     "UX": [{
         "title": "Mozilla UX blog",
         "favicon": "https://blog.mozilla.org/ux/wp-content/themes/OneMozilla/img/favicon.ico",
@@ -119,6 +118,20 @@
         "feed": "http:\/\/www.youtube.com\/feeds\/videos.xml?channel_id=UCtESv1e7ntJaLJYKIO1FoYw",
         "description": "Videos about elements and chemistry",
         "votes": 1000
+    }, {
+        "title": "Sixty Symbols",
+        "favicon": "https:\/\/s.ytimg.com\/yts\/img\/favicon-vflz7uhzw.ico",
+        "url": "http:\/\/www.youtube.com\/channel\/UCvBqzzvUBLCs8Y7Axb-jZew",
+        "feed": "http:\/\/www.youtube.com\/feeds\/videos.xml?channel_id=UCvBqzzvUBLCs8Y7Axb-jZew",
+        "description": "Well explained Physics videos",
+        "votes": 100
+    }, {
+        "title": "Computerphile",
+        "favicon": "https:\/\/s.ytimg.com\/yts\/img\/favicon-vflz7uhzw.ico",
+        "url": "http:\/\/www.youtube.com\/channel\/UC9-y-6csu5WGm29I7JiwpnA",
+        "feed": "http:\/\/www.youtube.com\/feeds\/videos.xml?channel_id=UC9-y-6csu5WGm29I7JiwpnA",
+        "description": "Great source of computer science videos",
+        "votes": 100
     }],
     "Food": [{
         "title": "Smitten Kitchen",
