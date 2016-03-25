@@ -58,6 +58,7 @@ before_script:
     - ./occ background:cron  # enable default cron
     - ocdev server &
     - cd apps/news
+    - make
 
 script:
     # unit tests
