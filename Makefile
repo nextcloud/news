@@ -100,12 +100,19 @@ clean:
 .PHONY: distclean
 distclean: clean
 	rm -rf vendor
+	rm -rf node_modules
 	rm -rf js/vendor
 	rm -rf js/node_modules
 
-# Builds the source package
+# Builds the source and appstore package
 .PHONY: dist
 dist:
+	make source
+	make appstore
+
+# Builds the source package
+.PHONY: source
+source:
 	make build
 	make test
 	rm -rf $(source_build_directory)
