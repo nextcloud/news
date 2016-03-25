@@ -54,11 +54,13 @@ before_script:
     - cd owncloud
     - mkdir data
     - ./occ maintenance:install --database-name oc_autotest --database-user oc_autotest --admin-user admin --admin-pass admin --database $DB --database-pass=''
+    - cd apps/news
+    - make
+    - cd ../../
     - ./occ app:enable news
     - ./occ background:cron  # enable default cron
     - ocdev server &
     - cd apps/news
-    - make
 
 script:
     # unit tests
