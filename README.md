@@ -95,6 +95,7 @@ This is the easiest solution: Simply go the the apps page and enable the News ap
 * In your terminal go into the **owncloud/apps/** directory and then run the following command:
 
         git clone https://github.com/owncloud/news.git
+        cd news
         make
 
 * If you are using a stable ownCloud release, stay with the [latest git tag release which is running on your version](https://github.com/owncloud/news/releases). To get an overview over all existing tags run:
