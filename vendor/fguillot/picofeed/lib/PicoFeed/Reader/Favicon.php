@@ -2,11 +2,11 @@
 
 namespace PicoFeed\Reader;
 
-use DOMXpath;
+use DOMXPath;
+use PicoFeed\Base;
 use PicoFeed\Client\Client;
 use PicoFeed\Client\ClientException;
 use PicoFeed\Client\Url;
-use PicoFeed\Config\Config;
 use PicoFeed\Logging\Logger;
 use PicoFeed\Parser\XmlParser;
 
@@ -17,7 +17,7 @@ use PicoFeed\Parser\XmlParser;
  *
  * @author  Frederic Guillot
  */
-class Favicon
+class Favicon extends Base
 {
     /**
      * Valid types for favicon (supported by browsers).
@@ -34,13 +34,6 @@ class Favicon
     );
 
     /**
-     * Config class instance.
-     *
-     * @var \PicoFeed\Config\Config
-     */
-    private $config;
-
-    /**
      * Icon binary content.
      *
      * @var string
@@ -53,16 +46,6 @@ class Favicon
      * @var string
      */
     private $content_type = '';
-
-    /**
-     * Constructor.
-     *
-     * @param \PicoFeed\Config\Config $config Config class instance
-     */
-    public function __construct(Config $config = null)
-    {
-        $this->config = $config ?: new Config();
-    }
 
     /**
      * Get the icon file content (available only after the download).

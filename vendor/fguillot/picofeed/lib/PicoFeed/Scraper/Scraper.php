@@ -2,10 +2,10 @@
 
 namespace PicoFeed\Scraper;
 
+use PicoFeed\Base;
 use PicoFeed\Client\Client;
 use PicoFeed\Client\ClientException;
 use PicoFeed\Client\Url;
-use PicoFeed\Config\Config;
 use PicoFeed\Encoding\Encoding;
 use PicoFeed\Filter\Filter;
 use PicoFeed\Logging\Logger;
@@ -16,7 +16,7 @@ use PicoFeed\Parser\XmlParser;
  *
  * @author  Frederic Guillot
  */
-class Scraper
+class Scraper extends Base
 {
     /**
      * URL.
@@ -54,24 +54,6 @@ class Scraper
     private $enableCandidateParser = true;
 
     /**
-     * Config object.
-     *
-     * @var \PicoFeed\Config\Config
-     */
-    private $config;
-
-    /**
-     * Constructor.
-     *
-     * @param \PicoFeed\Config\Config $config Config class instance
-     */
-    public function __construct(Config $config)
-    {
-        $this->config = $config;
-        Logger::setTimezone($this->config->getTimezone());
-    }
-
-    /**
      * Disable candidates parsing.
      *
      * @return Scraper
@@ -79,7 +61,6 @@ class Scraper
     public function disableCandidateParser()
     {
         $this->enableCandidateParser = false;
-
         return $this;
     }
 
@@ -227,45 +208,19 @@ class Scraper
      */
     public function execute()
     {
+        $this->content = '';
+        $this->html = '';
+        $this->encoding = '';
+
         $this->download();
+        $this->prepareHtml();
 
-        if (!$this->skipProcessing()) {
-            $this->prepareHtml();
+        $parser = $this->getParser();
 
-            $parser = $this->getParser();
-
-            if ($parser !== null) {
-                $this->content = $parser->execute();
-                Logger::setMessage(get_called_class().': Content length: '.strlen($this->content).' bytes');
-            }
+        if ($parser !== null) {
+            $this->content = $parser->execute();
+            Logger::setMessage(get_called_class().': Content length: '.strlen($this->content).' bytes');
         }
-    }
-
-    /**
-     * Returns true if the parsing must be skipped.
-     *
-     * @return bool
-     */
-    public function skipProcessing()
-    {
-        $handlers = array(
-            'detectStreamingVideos',
-            'detectPdfFiles',
-        );
-
-        foreach ($handlers as $handler) {
-            if ($this->$handler()) {
-                return true;
-            }
-        }
-
-        if (empty($this->html)) {
-            Logger::setMessage(get_called_class().': Raw HTML is empty');
-
-            return true;
-        }
-
-        return false;
     }
 
     /**
@@ -287,17 +242,14 @@ class Scraper
 
                 if (preg_match($pattern, $sub_url)) {
                     Logger::setMessage(get_called_class().': Matched url '.$sub_url);
-
                     return new RuleParser($this->html, $rule);
                 }
             }
         } elseif ($this->enableCandidateParser) {
             Logger::setMessage(get_called_class().': Parse content with candidates');
-
-            return new CandidateParser($this->html);
         }
 
-        return;
+        return new CandidateParser($this->html);
     }
 
     /**
@@ -311,31 +263,5 @@ class Scraper
         $this->html = Filter::stripHeadTags($this->html);
 
         Logger::setMessage(get_called_class().': HTTP Encoding "'.$this->encoding.'" ; HTML Encoding "'.$html_encoding.'"');
-    }
-
-    /**
-     * Return the Youtube embed player and skip processing.
-     *
-     * @return bool
-     */
-    public function detectStreamingVideos()
-    {
-        if (preg_match("#(?<=v=|v\/|vi=|vi\/|youtu.be\/)[a-zA-Z0-9_-]{11}#", $this->url, $matches)) {
-            $this->content = '<iframe width="560" height="315" src="//www.youtube.com/embed/'.$matches[0].'" frameborder="0"></iframe>';
-
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Skip processing for PDF documents.
-     *
-     * @return bool
-     */
-    public function detectPdfFiles()
-    {
-        return substr($this->url, -3) === 'pdf';
     }
 }

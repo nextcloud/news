@@ -38,7 +38,7 @@ class XmlParser
      *
      * @param string $input XML content
      *
-     * @return \DOMNDocument
+     * @return \DOMDocument
      */
     public static function getDomDocument($input)
     {
@@ -60,10 +60,10 @@ class XmlParser
      * Small wrapper around ZendXml to turn their exceptions into picoFeed
      * exceptions
      * @param $input the xml to load
-     * @param $dom pass in a dom document or use null/omit if simpleXml should
+     * @param $dom   pass in a dom document or use null/omit if simpleXml should
      * be used
      */
-    private static function scan($input, $dom=null)
+    private static function scan($input, $dom = null)
     {
         try {
             return Security::scan($input, $dom);

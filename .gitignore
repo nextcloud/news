@@ -1,4 +1,5 @@
 #specific to news app
+composer.phar
 node_modules/
 *.log
 /build/

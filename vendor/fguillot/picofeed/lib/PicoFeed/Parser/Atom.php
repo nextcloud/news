@@ -150,7 +150,7 @@ class Atom extends Parser
         $updated = XmlParser::getXPathResult($xml, 'atom:updated', $this->namespaces)
                    ?: XmlParser::getXPathResult($xml, 'updated');
 
-        $feed->date = $this->date->getDateTime((string) current($updated));
+        $feed->date = $this->getDateParser()->getDateTime((string) current($updated));
     }
 
     /**
@@ -168,8 +168,8 @@ class Atom extends Parser
         $updated = XmlParser::getXPathResult($entry, 'atom:updated', $this->namespaces)
                    ?: XmlParser::getXPathResult($entry, 'updated');
 
-        $published = !empty($published) ? $this->date->getDateTime((string) current($published)) : null;
-        $updated = !empty($updated) ? $this->date->getDateTime((string) current($updated)) : null;
+        $published = !empty($published) ? $this->getDateParser()->getDateTime((string) current($published)) : null;
+        $updated = !empty($updated) ? $this->getDateParser()->getDateTime((string) current($updated)) : null;
 
         if ($published === null && $updated === null) {
             $item->date = $feed->getDate(); // We use the feed date if there is no date for the item

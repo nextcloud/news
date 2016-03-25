@@ -103,6 +103,18 @@ class Item
     public $namespaces = array();
 
     /**
+     * Check if a XML namespace exists
+     *
+     * @access public
+     * @param  string $namespace
+     * @return bool
+     */
+    public function hasNamespace($namespace)
+    {
+        return array_key_exists($namespace, $this->namespaces);
+    }
+
+    /**
      * Get specific XML tag or attribute value.
      *
      * @param string $tag       Tag name (examples: guid, media:content)
@@ -112,12 +124,10 @@ class Item
      */
     public function getTag($tag, $attribute = '')
     {
-        // convert to xPath attribute query
         if ($attribute !== '') {
             $attribute = '/@'.$attribute;
         }
 
-        // construct query
         $query = './/'.$tag.$attribute;
         $elements = XmlParser::getXPathResult($this->xml, $query, $this->namespaces);
 
@@ -155,11 +165,27 @@ class Item
     }
 
     /**
-     * Get url.
+     * Get URL
+     *
+     * @access public
+     * @return string
      */
     public function getUrl()
     {
         return $this->url;
+    }
+
+    /**
+     * Set URL
+     *
+     * @access public
+     * @param  string $url
+     * @return Item
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+        return $this;
     }
 
     /**
@@ -184,6 +210,19 @@ class Item
     public function getContent()
     {
         return $this->content;
+    }
+
+    /**
+     * Set content
+     *
+     * @access public
+     * @param  string $value
+     * @return Item
+     */
+    public function setContent($value)
+    {
+        $this->content = $value;
+        return $this;
     }
 
     /**

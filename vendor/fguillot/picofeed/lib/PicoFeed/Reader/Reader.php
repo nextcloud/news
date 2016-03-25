@@ -3,7 +3,7 @@
 namespace PicoFeed\Reader;
 
 use DOMXPath;
-use PicoFeed\Config\Config;
+use PicoFeed\Base;
 use PicoFeed\Client\Client;
 use PicoFeed\Client\Url;
 use PicoFeed\Logging\Logger;
@@ -14,7 +14,7 @@ use PicoFeed\Parser\XmlParser;
  *
  * @author  Frederic Guillot
  */
-class Reader
+class Reader extends Base
 {
     /**
      * Feed formats for detection.
@@ -28,24 +28,6 @@ class Reader
         'Rss91' => '//rss[@version="0.91"]',
         'Rss10' => '//rdf',
     );
-
-    /**
-     * Config class instance.
-     *
-     * @var \PicoFeed\Config\Config
-     */
-    private $config;
-
-    /**
-     * Constructor.
-     *
-     * @param \PicoFeed\Config\Config $config Config class instance
-     */
-    public function __construct(Config $config = null)
-    {
-        $this->config = $config ?: new Config();
-        Logger::setTimezone($this->config->getTimezone());
-    }
 
     /**
      * Download a feed (no discovery).
@@ -163,7 +145,6 @@ class Reader
 
         $parser = new $className($content, $encoding, $url);
         $parser->setHashAlgo($this->config->getParserHashAlgo());
-        $parser->setTimezone($this->config->getTimezone());
         $parser->setConfig($this->config);
 
         return $parser;

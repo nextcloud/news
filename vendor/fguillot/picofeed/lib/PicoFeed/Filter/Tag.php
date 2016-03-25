@@ -2,24 +2,17 @@
 
 namespace PicoFeed\Filter;
 
-use DOMXpath;
+use DOMXPath;
+use PicoFeed\Base;
 use PicoFeed\Parser\XmlParser;
-use PicoFeed\Config\Config;
 
 /**
  * Tag Filter class.
  *
  * @author  Frederic Guillot
  */
-class Tag
+class Tag extends Base
 {
-    /**
-     * Config object.
-     *
-     * @var \PicoFeed\Config\Config
-     */
-    private $config;
-
     /**
      * Tags blacklist (Xpath expressions).
      *
@@ -75,11 +68,6 @@ class Tag
         'iframe',
         'q',
     );
-
-    public function __construct(Config $config)
-    {
-        $this->config = $config;
-    }
 
     /**
      * Check if the tag is allowed and is not a pixel tracker.

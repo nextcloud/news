@@ -149,7 +149,7 @@ class Rss10 extends Parser
         $date = XmlParser::getXPathResult($xml, 'rss:channel/dc:date', $this->namespaces)
                 ?: XmlParser::getXPathResult($xml, 'channel/dc:date', $this->namespaces);
 
-        $feed->date = $this->date->getDateTime((string) current($date));
+        $feed->date = $this->getDateParser()->getDateTime((string) current($date));
     }
 
     /**
@@ -163,7 +163,7 @@ class Rss10 extends Parser
     {
         $date = XmlParser::getXPathResult($entry, 'dc:date', $this->namespaces);
 
-        $item->date = empty($date) ? $feed->getDate() : $this->date->getDateTime((string) current($date));
+        $item->date = empty($date) ? $feed->getDate() : $this->getDateParser()->getDateTime((string) current($date));
     }
 
     /**

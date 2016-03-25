@@ -139,11 +139,11 @@ class Rss20 extends Parser
         $publish_date = XmlParser::getXPathResult($xml, 'channel/pubDate');
         $update_date = XmlParser::getXPathResult($xml, 'channel/lastBuildDate');
 
-        $published = !empty($publish_date) ? $this->date->getDateTime((string) current($publish_date)) : null;
-        $updated = !empty($update_date) ? $this->date->getDateTime((string) current($update_date)) : null;
+        $published = !empty($publish_date) ? $this->getDateParser()->getDateTime((string) current($publish_date)) : null;
+        $updated = !empty($update_date) ? $this->getDateParser()->getDateTime((string) current($update_date)) : null;
 
         if ($published === null && $updated === null) {
-            $feed->date = $this->date->getCurrentDateTime(); // We use the current date if there is no date for the feed
+            $feed->date = $this->getDateParser()->getCurrentDateTime(); // We use the current date if there is no date for the feed
         } elseif ($published !== null && $updated !== null) {
             $feed->date = max($published, $updated); // We use the most recent date between published and updated
         } else {
@@ -162,7 +162,7 @@ class Rss20 extends Parser
     {
         $date = XmlParser::getXPathResult($entry, 'pubDate');
 
-        $item->date = empty($date) ? $feed->getDate() : $this->date->getDateTime((string) current($date));
+        $item->date = empty($date) ? $feed->getDate() : $this->getDateParser()->getDateTime((string) current($date));
     }
 
     /**

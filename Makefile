@@ -1,83 +1,43 @@
 # Makefile for building the project
+app_name=$(notdir $(CURDIR))
+build_directory=$(CURDIR)/build/artifacts/source
+package_name=$(build_directory)/$(app_name)
 
-app_name=news
-project_dir=$(CURDIR)/../$(app_name)
-build_dir=$(CURDIR)/build/artifacts
-appstore_dir=$(build_dir)/appstore
-source_dir=$(build_dir)/source
-package_name=$(app_name)
+all: build
 
-all: appstore
+.PHONY: build
+build:
+	make composer
+	make npm
 
+.PHONY: composer
+composer:
+	curl -sS https://getcomposer.org/installer | php
+	php composer.phar install --prefer-dist
+	php composer.phar update --prefer-dist
+	rm -f composer.phar
+
+.PHONY: npm
+npm:
+	cd js && npm run build
+
+.PHONY: clean
 clean:
-	rm -rf $(build_dir)
+	rm -rf ./build
 
-update-composer:
-	rm -f composer.lock
-	git rm -r vendor
-	composer install --prefer-dist
-
-dist: clean
-	mkdir -p $(source_dir)
-	tar cvzf $(source_dir)/$(package_name).tar.gz $(project_dir) \
+.PHONY: dist
+dist:
+	make clean
+	make build
+	make test
+	mkdir -p $(build_directory)
+	tar cvzf $(package_name).tar.gz ../$(app_name) \
 	--exclude-vcs \
-	--exclude=$(project_dir)/build/artifacts \
-	--exclude=$(project_dir)/js/node_modules \
-	--exclude=$(project_dir)/js/coverage
+	--exclude=../$(app_name)/build \
+	--exclude=../$(app_name)/js/node_modules \
 
-appstore: clean
-	mkdir -p $(appstore_dir)
-	tar cvzf $(appstore_dir)/$(package_name).tar.gz $(project_dir) \
-	--exclude-vcs \
-	--exclude=$(project_dir)/build/artifacts \
-	--exclude=$(project_dir)/js/node_modules \
-	--exclude=$(project_dir)/js/.bowerrc \
-	--exclude=$(project_dir)/js/.jshintrc \
-	--exclude=$(project_dir)/js/.jshintignore \
-	--exclude=$(project_dir)/js/gulpfile.js \
-	--exclude=$(project_dir)/js/*.json \
-	--exclude=$(project_dir)/js/*.conf.js \
-	--exclude=$(project_dir)/js/*.log \
-	--exclude=$(project_dir)/js/README.md \
-	--exclude=$(project_dir)/js/.bowerrc \
-	--exclude=$(project_dir)/js/app \
-	--exclude=$(project_dir)/js/controller \
-	--exclude=$(project_dir)/js/coverage \
-	--exclude=$(project_dir)/js/directive \
-	--exclude=$(project_dir)/js/filter \
-	--exclude=$(project_dir)/js/gui \
-	--exclude=$(project_dir)/js/plugin \
-	--exclude=$(project_dir)/js/service \
-	--exclude=$(project_dir)/js/tests \
-	--exclude=$(project_dir)/js/vendor/jquery \
-	--exclude=$(project_dir)/js/vendor/angular-mocks \
-	--exclude=$(project_dir)/\.* \
-	--exclude=$(project_dir)/phpunit*xml \
-	--exclude=$(project_dir)/composer* \
-	--exclude=$(project_dir)/issue_template.md \
-	--exclude=$(project_dir)/Makefile \
-	--exclude=$(project_dir)/tests \
-	--exclude=$(project_dir)/vendor/ezyang/htmlpurifier/.gitattributes \
-	--exclude=$(project_dir)/vendor/ezyang/htmlpurifier/Doxyfile \
-	--exclude=$(project_dir)/vendor/ezyang/htmlpurifier/FOCUS \
-	--exclude=$(project_dir)/vendor/ezyang/htmlpurifier/INSTALL* \
-	--exclude=$(project_dir)/vendor/ezyang/htmlpurifier/NEWS \
-	--exclude=$(project_dir)/vendor/ezyang/htmlpurifier/phpdoc.ini \
-	--exclude=$(project_dir)/vendor/ezyang/htmlpurifier/README \
-	--exclude=$(project_dir)/vendor/ezyang/htmlpurifier/TODO \
-	--exclude=$(project_dir)/vendor/ezyang/htmlpurifier/VERSION \
-	--exclude=$(project_dir)/vendor/ezyang/htmlpurifier/WHATSNEW \
-	--exclude=$(project_dir)/vendor/ezyang/htmlpurifier/WYSIWYG \
-	--exclude=$(project_dir)/vendor/ezyang/htmlpurifier/art \
-	--exclude=$(project_dir)/vendor/ezyang/htmlpurifier/benchmarks \
-	--exclude=$(project_dir)/vendor/ezyang/htmlpurifier/configdoc \
-	--exclude=$(project_dir)/vendor/ezyang/htmlpurifier/docs \
-	--exclude=$(project_dir)/vendor/ezyang/htmlpurifier/extras \
-	--exclude=$(project_dir)/vendor/ezyang/htmlpurifier/maintenance \
-	--exclude=$(project_dir)/vendor/ezyang/htmlpurifier/plugins \
-	--exclude=$(project_dir)/vendor/ezyang/htmlpurifier/smoketests \
-	--exclude=$(project_dir)/vendor/ezyang/htmlpurifier/tests \
-	--exclude=$(project_dir)/vendor/fguillot/picofeed/docs \
-	--exclude=$(project_dir)/vendor/fguillot/picofeed/tests \
-	--exclude=$(project_dir)/vendor/pear/net_url2/docs \
-	--exclude=$(project_dir)/vendor/pear/net_url2/tests
+.PHONY: test
+test:
+	cd js && npm run test
+	phpunit -c phpunit.xml
+	phpunit -c phpunit.integration.xml

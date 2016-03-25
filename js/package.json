@@ -3,7 +3,9 @@
   "description": "An RSS/Atom feed reader",
   "main": "build/app.min.js",
   "scripts": {
-    "test": "gulp karma"
+    "test": "node node_modules/gulp-cli/bin/gulp.js karma",
+    "prebuild": "npm install && node_modules/bower/bin/bower install && node_modules/bower/bin/bower update",
+    "build": "node node_modules/gulp-cli/bin/gulp.js"
   },
   "repository": {
     "type": "git",
@@ -23,12 +25,14 @@
     "url": "https://github.com/owncloud/news/issues"
   },
   "engines": {
-    "node": ">=5.6"  
+    "node": ">=5.6"
   },
   "private": true,
   "homepage": "https://github.com/owncloud/news",
   "devDependencies": {
+    "bower": "^1.7.7",
     "gulp": "^3.9.1",
+    "gulp-cli": "^1.2.1",
     "gulp-concat": "^2.6.0",
     "gulp-jshint": "^2.0.0",
     "gulp-ng-annotate": "^2.0.0",

@@ -4,20 +4,22 @@ namespace PicoFeed\Parser;
 
 use DateTime;
 use DateTimeZone;
+use PicoFeed\Base;
 
 /**
  * Date Parser.
  *
  * @author  Frederic Guillot
  */
-class DateParser
+class DateParser extends Base
 {
     /**
      * Timezone used to parse feed dates.
      *
+     * @access private
      * @var string
      */
-    public $timezone = 'UTC';
+    private $timezone = 'UTC';
 
     /**
      * Supported formats [ 'format' => length ].
@@ -88,7 +90,7 @@ class DateParser
      */
     public function getValidDate($format, $value)
     {
-        $date = DateTime::createFromFormat($format, $value, new DateTimeZone($this->timezone));
+        $date = DateTime::createFromFormat($format, $value, $this->getTimeZone());
 
         if ($date !== false) {
             $errors = DateTime::getLastErrors();
@@ -108,6 +110,17 @@ class DateParser
      */
     public function getCurrentDateTime()
     {
-        return new DateTime('now', new DateTimeZone($this->timezone));
+        return new DateTime('now', $this->getTimeZone());
+    }
+
+    /**
+     * Get DateTimeZone instance
+     *
+     * @access public
+     * @return DateTimeZone
+     */
+    public function getTimeZone()
+    {
+        return new DateTimeZone($this->config->getTimezone() ?: $this->timezone);
     }
 }
