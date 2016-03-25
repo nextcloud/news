@@ -67,9 +67,11 @@ Before you install the app do the following:
 * Check that your **owncloud/data/** directory is owned by your webserver user and that it is write/readable
 * Check that your installation fullfills the [requirements listed in the README section](https://github.com/owncloud/news#dependencies)
 * [Set up ownCloud Background Jobs](https://doc.owncloud.org/server/8.0/admin_manual/configuration_server/background_jobs_configuration.html) to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
-* If you are updating from a previous version read the [Update Notices](https://github.com/owncloud/news/blob/master/README.md#updating-notices)
 
 Then proceed to install the app either from an archive (zip/tar.gz) or clone it from the repository using git
+
+### Installing from the app store
+This is the easiest solution: Simply go the the apps page and enable the News app
 
 ### Installing from archive
 * Go to the [ownCloud News GitHub releases page](https://github.com/owncloud/news/releases) and download the latest release/archive to your server
@@ -79,7 +81,11 @@ Then proceed to install the app either from an archive (zip/tar.gz) or clone it 
 * Remove the version from the extracted folder (e.g. rename **owncloud/apps/news-4.0.3/** to **owncloud/apps/news/**
 * If you are a version greater than or equal to 7.2.0 and downloaded the **Source code** zip or tar.gz, you need to install the JavaScript and PHP dependencies and compile the JavaScript first. On your terminal, change into the **owncloud/apps/news/** directory and run the following command (requires node >5.6, npm, curl, make and which):
 
-    make
+    sudo -u www-data make  # www-data might vary depending on your distribution
+
+* Finally make sure that the **owncloud/apps/news** directory is owned by the web server user
+
+    sudo chown -R www-data:www-data make  # www-data:www-data might vary depending on your distribution
 
 * Activate the **News** app in the apps menu
 
