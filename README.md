@@ -85,7 +85,7 @@ This is the easiest solution: Simply go the the apps page and enable the News ap
 
 * Finally make sure that the **owncloud/apps/news** directory is owned by the web server user
 
-        sudo chown -R www-data:www-data make  # www-data:www-data might vary depending on your distribution
+        sudo chown -R www-data:www-data owncloud/apps/news  # www-data:www-data might vary depending on your distribution
 
 * Activate the **News** app in the apps menu
 
