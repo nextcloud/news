@@ -8,6 +8,7 @@
 #
 # Dependencies:
 # * make
+# * which
 # * curl: used if phpunit and composer are not installed to fetch them from the web
 # * tar: for building the archive
 # * npm: for building and testing everything JS
@@ -44,20 +45,30 @@ source_package_name=$(source_build_directory)/$(app_name)
 appstore_build_directory=$(CURDIR)/build/artifacts/appstore
 appstore_package_name=$(appstore_build_directory)/$(app_name)
 npm=$(shell which npm 2> /dev/null)
+composer=$(shell which composer 2> /dev/null)
 
 all: build
 
-# Fetches the PHP and JS dependencies and compiles the JS
+# Fetches the PHP and JS dependencies and compiles the JS. If no composer.json
+# is present, the composer step is skipped, if no package.json or js/package.json
+# is present, the npm step is skipped
 .PHONY: build
 build:
+ifneq (,$(wildcard $(CURDIR)/composer.json))
 	make composer
+endif
+ifneq (,$(wildcard $(CURDIR)/package.json))
 	make npm
+endif
+ifneq (,$(wildcard $(CURDIR)/js/package.json))
+	make npm
+endif
 
 # Installs and updates the composer dependencies. If composer is not installed
 # a copy is fetched from the web
 .PHONY: composer
 composer:
-ifeq (, $(shell which composer 2> /dev/null))
+ifeq (, $(composer))
 	@echo "No composer command available, downloading a copy from the web"
 	mkdir -p $(build_tools_directory)
 	curl -sS https://getcomposer.org/installer | php
@@ -100,8 +111,10 @@ dist:
 	mkdir -p $(source_build_directory)
 	tar cvzf $(source_package_name).tar.gz ../$(app_name) \
 	--exclude-vcs \
-	--exclude=../$(app_name)/build \
-	--exclude=../$(app_name)/js/node_modules \
+	--exclude="../$(app_name)/build" \
+	--exclude="../$(app_name)/js/node_modules" \
+	--exclude="../$(app_name)/*.log" \
+	--exclude="../$(app_name)/js/*.log" \
 
 # Builds the source package for the app store, ignores php and js tests
 .PHONY: appstore
@@ -112,22 +125,26 @@ appstore:
 	mkdir -p $(appstore_build_directory)
 	tar cvzf $(appstore_package_name).tar.gz ../$(app_name) \
 	--exclude-vcs \
-	--exclude=../$(app_name)/build \
-	--exclude=../$(app_name)/tests \
-	--exclude=../$(app_name)/Makefile \
-	--exclude=../$(app_name)/\.* \
-	--exclude=../$(app_name)/*\.log \
-	--exclude=../$(app_name)/phpunit*xml \
-	--exclude=../$(app_name)/composer\.* \
-	--exclude=../$(app_name)/js/node_modules \
-	--exclude=../$(app_name)/js/tests \
-	--exclude=../$(app_name)/js/test \
-	--exclude=../$(app_name)/js/*\.log
-	--exclude=../$(app_name)/js/\.* \
-	--exclude=../$(app_name)/js/package.json \
-	--exclude=../$(app_name)/js/bower.json \
-	--exclude=../$(app_name)/js/karma\.* \
-	--exclude=../$(app_name)/js/protractor\.* \
+	--exclude="../$(app_name)/build" \
+	--exclude="../$(app_name)/tests" \
+	--exclude="../$(app_name)/Makefile" \
+	--exclude="../$(app_name)/*.log" \
+	--exclude="../$(app_name)/phpunit*xml" \
+	--exclude="../$(app_name)/composer.*" \
+	--exclude="../$(app_name)/js/node_modules" \
+	--exclude="../$(app_name)/js/tests" \
+	--exclude="../$(app_name)/js/test" \
+	--exclude="../$(app_name)/js/*.log" \
+	--exclude="../$(app_name)/js/package.json" \
+	--exclude="../$(app_name)/js/bower.json" \
+	--exclude="../$(app_name)/js/karma.*" \
+	--exclude="../$(app_name)/js/protractor.*" \
+	--exclude="../$(app_name)/package.json" \
+	--exclude="../$(app_name)/bower.json" \
+	--exclude="../$(app_name)/karma.*" \
+	--exclude="../$(app_name)/protractor\.*" \
+	--exclude="../$(app_name)/.*" \
+	--exclude="../$(app_name)/js/.*" \
 
 # Command for running JS and PHP tests. Works for package.json files in the js/
 # and root directory. If phpunit is not installed systemwide, a copy is fetched
