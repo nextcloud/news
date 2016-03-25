@@ -81,11 +81,11 @@ This is the easiest solution: Simply go the the apps page and enable the News ap
 * Remove the version from the extracted folder (e.g. rename **owncloud/apps/news-4.0.3/** to **owncloud/apps/news/**
 * If you are a version greater than or equal to 7.2.0 and downloaded the **Source code** zip or tar.gz, you need to install the JavaScript and PHP dependencies and compile the JavaScript first. On your terminal, change into the **owncloud/apps/news/** directory and run the following command (requires node >5.6, npm, curl, make and which):
 
-    sudo -u www-data make  # www-data might vary depending on your distribution
+        sudo -u www-data make  # www-data might vary depending on your distribution
 
 * Finally make sure that the **owncloud/apps/news** directory is owned by the web server user
 
-    sudo chown -R www-data:www-data make  # www-data:www-data might vary depending on your distribution
+        sudo chown -R www-data:www-data make  # www-data:www-data might vary depending on your distribution
 
 * Activate the **News** app in the apps menu
 
