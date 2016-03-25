@@ -4,7 +4,7 @@
   "main": "build/app.min.js",
   "scripts": {
     "test": "node node_modules/gulp-cli/bin/gulp.js karma",
-    "prebuild": "npm install && node_modules/bower/bin/bower install && node_modules/bower/bin/bower update",
+    "prebuild": "npm install && npm update && node_modules/bower/bin/bower install && node_modules/bower/bin/bower update",
     "build": "node node_modules/gulp-cli/bin/gulp.js"
   },
   "repository": {
