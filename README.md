@@ -82,12 +82,11 @@ Then proceed to install the app either from an archive (zip/tar.gz) or clone it 
  You can switch to a release which will be supported on your installation by running:
 
       git checkout tags/TAG
-      make
+      make  # if News version >= 7.2.0
 
  For instance to use the 5.2.8 release, run:
 
       git checkout tags/5.2.8
-      make
 
 * Activate the **News** app in the apps menu
 
