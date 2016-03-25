@@ -28,6 +28,17 @@ are listed on the [ownCloud apps overview](https://github.com/owncloud/core/wiki
 * SimpleXML
 * PHP >= 5.5
 
+## Development Dependencies
+These Dependencies are only relevant if you want to work on the source code:
+* make
+* which
+* Node.js >= 5.6
+* npm
+* curl
+* phpunit (optional)
+* composer (optional)
+* gulp-cli (optional)
+
 ## Supported Linux Distributions
 Supported means that the distribution's default repository packages will work in conjunction with the News app and you won't have to add any 3rdparty repositories.
 
@@ -62,10 +73,11 @@ Then proceed to install the app either from an archive (zip/tar.gz) or clone it 
 
 ### Installing from archive
 * Go to the [ownCloud News GitHub releases page](https://github.com/owncloud/news/releases) and download the latest release/archive to your server
+* Starting with 7.2.0, there are two different releases: **news.tar.gz** and **Source code**. The first one requires no additional steps, the second one requires you to install the dependencies and compile the JavaScript. Choose the first one if you don't want to work on the code.
 * On your server, check if there is a folder called **owncloud/apps/news**. If there is one, delete it.
 * Extract the downloaded archive to the **owncloud/apps/** folder.
 * Remove the version from the extracted folder (e.g. rename **owncloud/apps/news-4.0.3/** to **owncloud/apps/news/**
-* Change to the directory and run the following command to install the libaries and compile the JavaScript (requires node >5.6, npm, curl, make and which):
+* If you are a version greater than or equal to 7.2.0 and downloaded the **Source code** zip or tar.gz, you need to install the JavaScript and PHP dependencies and compile the JavaScript first. On your terminal, change into the **owncloud/apps/news/** directory and run the following command (requires node >5.6, npm, curl, make and which):
 
     make
 
