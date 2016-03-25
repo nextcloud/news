@@ -368,6 +368,8 @@ describe('NavigationController', function () {
             folderId: 3
         }]});
         expect(feed.url).toBe('');
+        expect(feed.user).toBe('');
+        expect(feed.password).toBe('');
         expect(feed.existingFolder.getsFeed).toBe(undefined);
         expect(ctrl.addingFeed).toBe(false);
         expect(feed.existingFolder.id).toBe(3);
