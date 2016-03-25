@@ -2,6 +2,7 @@
 app_name=$(notdir $(CURDIR))
 build_directory=$(CURDIR)/build/artifacts/source
 package_name=$(build_directory)/$(app_name)
+npm=$(shell which npm)
 
 all: build
 
@@ -12,14 +13,20 @@ build:
 
 .PHONY: composer
 composer:
+ifeq (, $(shell which composer))
+	@echo "Using composer from website"
 	curl -sS https://getcomposer.org/installer | php
 	php composer.phar install --prefer-dist
 	php composer.phar update --prefer-dist
 	rm -f composer.phar
+else
+	composer install --prefer-dist
+	composer update --prefer-dist
+endif
 
 .PHONY: npm
 npm:
-	cd js && npm run build
+	cd js && $(npm) run build
 
 .PHONY: clean
 clean:
@@ -44,6 +51,6 @@ dist:
 
 .PHONY: test
 test:
-	cd js && npm run test
+	cd js && $(npm) run test
 	phpunit -c phpunit.xml
 	phpunit -c phpunit.integration.xml

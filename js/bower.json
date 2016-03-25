@@ -18,8 +18,7 @@
   "ignore": [
     "**/.*",
     "node_modules",
-    "bower_components",
-    "test",
+    "vendor",
     "tests"
   ],
   "dependencies": {
