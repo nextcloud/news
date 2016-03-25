@@ -69,9 +69,11 @@ Then proceed to install the app either from an archive (zip/tar.gz) or clone it 
 
 ### Installing from Git (development version)
 * The master branch will always be stable in conjunction with the latest master branch from ownCloud
+* JavaScript and PHP libraries are not included anymore since 7.2.0 and will require you to run **make** after updating/installing the app
 * In your terminal go into the **owncloud/apps/** directory and then run the following command:
 
         git clone https://github.com/owncloud/news.git
+        make
 
 * If you are using a stable ownCloud release, stay with the [latest git tag release which is running on your version](https://github.com/owncloud/news/releases). To get an overview over all existing tags run:
 
@@ -80,16 +82,19 @@ Then proceed to install the app either from an archive (zip/tar.gz) or clone it 
  You can switch to a release which will be supported on your installation by running:
 
       git checkout tags/TAG
+      make
 
  For instance to use the 5.2.8 release, run:
 
       git checkout tags/5.2.8
+      make
 
 * Activate the **News** app in the apps menu
 
 To update the News app use change into the **owncloud/apps/news/** directory using your terminal and then run:
 
     git pull --rebase origin master
+    make
 
 ## Performance Notices
 * Use MySQL or PostgreSQL for better database performance

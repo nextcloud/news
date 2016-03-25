@@ -1,6 +1,9 @@
 #specific to news app
 composer.phar
 node_modules/
+vendor/
+js/vendor/
+js/build
 *.log
 /build/
 /js/coverage/

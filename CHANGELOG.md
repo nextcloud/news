@@ -3,6 +3,7 @@ owncloud-news (7.2.0)
 * **New dependency**: Bump required MySql/MariaDB version to 5.5
 * **Bugfix**: Fix bug that would not lowercase non ASCII characters when searching, #944
 * **Enhancement**: Add HTTP basic auth, #938
+* **Enhancement**: The git repository does not bundle composer and bower libraries anymore, nor does it contain compiled JavaScript. If you are running the git version, you now need to run **make** after cloning and pulling from the repository to install the depenencies and compile the JavaScript
 
 owncloud-news (7.1.2)
 * **Enhancement**: Major JavaScript library updates:
