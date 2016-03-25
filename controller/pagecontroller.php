@@ -144,8 +144,13 @@ class PageController extends Controller {
         ];
 
         foreach ($settings as $setting) {
+            if (${$setting}) {
+                $value = '1';
+            } else {
+                $value = '0';
+            }
             $this->settings->setUserValue($this->userId, $this->appName,
-                                          $setting, ${$setting});
+                                          $setting, $value);
         }
     }
 

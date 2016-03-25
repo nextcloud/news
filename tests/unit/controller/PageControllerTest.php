@@ -240,31 +240,31 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
             ->with($this->equalTo($this->user),
                 $this->equalTo($this->appName),
                 $this->equalTo('showAll'),
-                $this->equalTo(true));
+                $this->equalTo('1'));
         $this->settings->expects($this->at(1))
             ->method('setUserValue')
             ->with($this->equalTo($this->user),
                 $this->equalTo($this->appName),
                 $this->equalTo('compact'),
-                $this->equalTo(true));
+                $this->equalTo('1'));
         $this->settings->expects($this->at(2))
             ->method('setUserValue')
             ->with($this->equalTo($this->user),
                 $this->equalTo($this->appName),
                 $this->equalTo('preventReadOnScroll'),
-                $this->equalTo(false));
+                $this->equalTo('0'));
         $this->settings->expects($this->at(3))
             ->method('setUserValue')
             ->with($this->equalTo($this->user),
                 $this->equalTo($this->appName),
                 $this->equalTo('oldestFirst'),
-                $this->equalTo(true));
+                $this->equalTo('1'));
         $this->settings->expects($this->at(4))
             ->method('setUserValue')
             ->with($this->equalTo($this->user),
                 $this->equalTo($this->appName),
                 $this->equalTo('compactExpand'),
-                $this->equalTo(true));
+                $this->equalTo('1'));
         $this->controller->updateSettings(true, true, false, true, true);
 
     }
