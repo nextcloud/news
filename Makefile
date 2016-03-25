@@ -13,7 +13,7 @@ build:
 
 .PHONY: composer
 composer:
-ifeq (, $(shell which composer))
+ifeq (, $(shell which composer 2> /dev/null))
 	@echo "Using composer from website"
 	curl -sS https://getcomposer.org/installer | php
 	php composer.phar install --prefer-dist
@@ -26,7 +26,11 @@ endif
 
 .PHONY: npm
 npm:
+ifeq (,$(wildcard $(CURDIR)/package.json))
 	cd js && $(npm) run build
+else
+	npm run build
+endif
 
 .PHONY: clean
 clean:
