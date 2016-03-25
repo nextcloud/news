@@ -15,7 +15,7 @@
 #
 # If no composer.json is in the app root directory, the Composer step
 # will be skipped. The same goes for the package.json which can be located in
-# app root or the js/ directory.
+# the app root or the js/ directory.
 #
 # The npm command by launches the npm build script:
 #
