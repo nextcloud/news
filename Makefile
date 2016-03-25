@@ -30,10 +30,11 @@ build:
 composer:
 ifeq (, $(shell which composer 2> /dev/null))
 	@echo "No composer command available, downloading a copy from the web"
+	mkdir -p build/tools
 	curl -sS https://getcomposer.org/installer | php
-	php composer.phar install --prefer-dist
-	php composer.phar update --prefer-dist
-	rm -f composer.phar
+	mv composer.phar build/tools/
+	php build/tools/composer.phar install --prefer-dist
+	php build/tools/composer.phar update --prefer-dist
 else
 	composer install --prefer-dist
 	composer update --prefer-dist
@@ -86,10 +87,10 @@ else
 endif
 ifeq (, $(shell which phpunit 2> /dev/null))
 	@echo "No phpunit command available, downloading a copy from the web"
-	curl -sSOL https://phar.phpunit.de/phpunit.phar
-	php phpunit.phar -c phpunit.xml
-	php phpunit.phar -c phpunit.integration.xml
-	rm -f phpunit.phar
+	mkdir -p build/tools
+	curl -sSL https://phar.phpunit.de/phpunit.phar -o build/tools/phpunit.phar
+	php build/tools/phpunit.phar -c phpunit.xml
+	php build/tools/phpunit.phar -c phpunit.integration.xml
 else
 	phpunit -c phpunit.xml
 	phpunit -c phpunit.integration.xml
