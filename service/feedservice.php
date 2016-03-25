@@ -89,14 +89,20 @@ class FeedService extends Service {
      * folder
      * @param string $userId for which user the feed should be created
      * @param string $title if given, this is used for the opml feed title
+     * @param string $basicAuthUser if given, basic auth is set for this feed
+     * @param string $basicAuthPassword if given, basic auth is set for this
+     * feed. Ignored if user is null or an empty string
      * @throws ServiceConflictException if the feed exists already
      * @throws ServiceNotFoundException if the url points to an invalid feed
      * @return Feed the newly created feed
      */
-    public function create($feedUrl, $folderId, $userId, $title=null){
+    public function create($feedUrl, $folderId, $userId, $title=null,
+                           $basicAuthUser=null, $basicAuthPassword=null){
         // first try if the feed exists already
         try {
-            list($feed, $items) = $this->feedFetcher->fetch($feedUrl);
+            list($feed, $items) = $this->feedFetcher->fetch($feedUrl, true,
+                                  null, null, false, $basicAuthUser,
+                                  $basicAuthPassword);
 
             // try again if feed exists depending on the reported link
             try {
@@ -109,6 +115,8 @@ class FeedService extends Service {
 
             // insert feed
             $itemCount = count($items);
+            $feed->setBasicAuthUser($basicAuthUser);
+            $feed->setBasicAuthPassword($basicAuthPassword);
             $feed->setFolderId($folderId);
             $feed->setUserId($userId);
             $feed->setArticlesPerUpdate($itemCount);
@@ -198,7 +206,9 @@ class FeedService extends Service {
                 false,
                 $existingFeed->getLastModified(),
                 $existingFeed->getEtag(),
-                $existingFeed->getFullTextEnabled()
+                $existingFeed->getFullTextEnabled(),
+                $existingFeed->getBasicAuthUser(),
+                $existingFeed->getBasicAuthPassword()
             );
 
             // if there is no feed it means that no update took place

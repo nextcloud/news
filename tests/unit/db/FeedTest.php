@@ -36,6 +36,8 @@ class FeedTest extends \PHPUnit_Framework_TestCase {
         $feed->setUpdateMode(1);
         $feed->setUpdateErrorCount(2);
         $feed->setLastUpdateError('hi');
+        $feed->setBasicAuthUser('user');
+        $feed->setBasicAuthPassword('password');
         return $feed;
     }
 
@@ -81,7 +83,9 @@ class FeedTest extends \PHPUnit_Framework_TestCase {
             'pinned' => true,
             'updateMode' => 1,
             'updateErrorCount' => 2,
-            'lastUpdateError' => 'hi'
+            'lastUpdateError' => 'hi',
+            'basicAuthUser' => 'user',
+            'basicAuthPassword' => 'password'
         ], $feed->jsonSerialize());
     }
 

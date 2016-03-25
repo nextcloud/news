@@ -75,6 +75,26 @@
                     <?php p($l->t('Folder exists already!')); ?>
                 </p>
 
+                <!-- basic auth -->
+                <button type="button" class="add-feed-advanced" ng-click="Navigation.showAddFeedAdvanced=!Navigation.showAddFeedAdvanced">
+                    <?php p($l->t('Advanced settings')); ?>
+                </button>
+                <div ng-if="Navigation.showAddFeedAdvanced" class="add-feed-advanced-area">
+                    <h2><?php p($l->t('Credentials')); ?></h2>
+                    <p class="warning"><?php p($l->t('HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!')); ?></p>
+                    <input type="text"
+                        ng-model="Navigation.feed.user"
+                        placeholder="<?php p($l->t('Username')); ?>"
+                        name="user"
+                        autofocus>
+
+                    <input type="password"
+                        ng-model="Navigation.feed.password"
+                        placeholder="<?php p($l->t('Password')); ?>"
+                        name="password">
+                </div>
+
+                <!-- submit -->
                 <input type="submit"
                     value="<?php p($l->t('Subscribe')); ?>"
                     class="primary"

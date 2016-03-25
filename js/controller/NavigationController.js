@@ -175,7 +175,8 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
             // is closed or has no unread articles
             existingFolder.getsFeed = true;
 
-            FeedResource.create(feed.url, existingFolder.id, undefined)
+            FeedResource.create(feed.url, existingFolder.id, undefined,
+                                feed.user, feed.password)
             .then(function (data) {
 
                 Publisher.publishAll(data);
@@ -186,6 +187,8 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
             }).finally(function () {
                 existingFolder.getsFeed = undefined;
                 feed.url = '';
+                feed.user = '';
+                feed.password = '';
                 self.addingFeed = false;
             });
 
@@ -202,6 +205,7 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
                 self.createFeed(feed);
             });
         }
+
     };
 
     this.createFolder = function (folder) {

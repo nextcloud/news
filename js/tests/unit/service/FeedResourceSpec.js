@@ -157,10 +157,12 @@ describe('FeedResource', function () {
         http.expectPOST('base/feeds', {
             parentFolderId: 5,
             url: 'https://hey',
-            title: 'abc'
+            title: 'abc',
+            user: 'john',
+            password: 'doe'
         }).respond(200, {});
 
-        FeedResource.create(' hey ', 5, ' abc');
+        FeedResource.create(' hey ', 5, ' abc', 'john', 'doe');
 
         http.flush();
 
@@ -172,7 +174,9 @@ describe('FeedResource', function () {
         http.expectPOST('base/feeds', {
             parentFolderId: 5,
             url: 'http://hey',
-            title: 'abc'
+            title: 'abc',
+            user: null,
+            password: null
         }).respond(200, {});
 
         FeedResource.create('http://hey', 5, 'abc');
@@ -187,7 +191,9 @@ describe('FeedResource', function () {
         http.expectPOST('base/feeds', {
             parentFolderId: 5,
             url: 'https://hey',
-            title: 'abc'
+            title: 'abc',
+            user: null,
+            password: null
         }).respond(400, {message: 'noo'});
 
         FeedResource.create('https://hey', 5, 'abc');
@@ -203,6 +209,8 @@ describe('FeedResource', function () {
         http.expectPOST('base/feeds', {
             parentFolderId: 0,
             url: 'https://hey',
+            user: null,
+            password: null
         }).respond(200, {});
 
         FeedResource.create('hey', undefined);

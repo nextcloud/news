@@ -124,16 +124,20 @@ class FeedController extends Controller {
      * @param string $url
      * @param int $parentFolderId
      * @param string $title
+     * @param string $user
+     * @param string $password
      * @return array|\OCP\AppFramework\Http\JSONResponse
      */
-    public function create($url, $parentFolderId, $title){
+    public function create($url, $parentFolderId, $title=null,
+                           $user=null, $password=null){
         try {
             // we need to purge deleted feeds if a feed is created to
             // prevent already exists exceptions
             $this->feedService->purgeDeleted($this->userId, false);
 
             $feed = $this->feedService->create($url, $parentFolderId,
-                                               $this->userId, $title);
+                                               $this->userId, $title,
+                                               $user, $password);
             $params = ['feeds' => [$feed]];
 
             try {

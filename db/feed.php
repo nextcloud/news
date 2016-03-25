@@ -56,6 +56,10 @@ use \OCP\AppFramework\Db\Entity;
  * @method void setUpdateErrorCount(integer $value)
  * @method string getLastUpdateError()
  * @method void setLastUpdateError(string $value)
+ * @method string getBasicAuthUser()
+ * @method void setBasicAuthUser(string $value)
+ * @method string getBasicAuthPassword()
+ * @method void setBasicAuthPassword(string $value)
  */
 class Feed extends Entity implements IAPI, \JsonSerializable {
 
@@ -82,6 +86,8 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
     protected $updateMode;
     protected $updateErrorCount;
     protected $lastUpdateError;
+    protected $basicAuthUser;
+    protected $basicAuthPassword;
 
     public function __construct(){
         $this->addType('parentId', 'integer');
@@ -123,7 +129,9 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
             'pinned',
             'updateMode',
             'updateErrorCount',
-            'lastUpdateError'
+            'lastUpdateError',
+            'basicAuthUser',
+            'basicAuthPassword'
         ]);
 
         $url = parse_url($this->link)['host'];

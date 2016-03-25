@@ -154,6 +154,18 @@
                 <notnull>false</notnull>
             </field>
             <field>
+                <name>basic_auth_user</name>
+                <type>clob</type>
+                <default></default>
+                <notnull>false</notnull>
+            </field>
+            <field>
+                <name>basic_auth_password</name>
+                <type>clob</type>
+                <default></default>
+                <notnull>false</notnull>
+            </field>
+            <field>
                 <name>deleted_at</name>
                 <type>integer</type>
                 <default>0</default>
