@@ -25,6 +25,12 @@ npm:
 clean:
 	rm -rf ./build
 
+.PHONY: distclean
+distclean: clean
+	rm -rf vendor
+	rm -rf js/vendor
+	rm -rf js/node_modules
+
 .PHONY: dist
 dist:
 	make clean
