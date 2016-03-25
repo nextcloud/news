@@ -106,9 +106,9 @@ distclean: clean
 # Builds the source package
 .PHONY: dist
 dist:
-	make clean
 	make build
 	make test
+	rm -rf $(source_build_directory)
 	mkdir -p $(source_build_directory)
 	tar cvzf $(source_package_name).tar.gz ../$(app_name) \
 	--exclude-vcs \
@@ -120,9 +120,9 @@ dist:
 # Builds the source package for the app store, ignores php and js tests
 .PHONY: appstore
 appstore:
-	make clean
 	make build
 	make test
+	rm -rf $(appstore_build_directory)
 	mkdir -p $(appstore_build_directory)
 	tar cvzf $(appstore_package_name).tar.gz ../$(app_name) \
 	--exclude-vcs \
