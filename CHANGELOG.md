@@ -1,5 +1,6 @@
 owncloud-news (8.0.0)
 * **Backwards incompatible change**: The git repository does not bundle composer and bower libraries anymore, nor does it contain compiled JavaScript. If you are running the git version, you now need to run **make** after cloning and pulling from the repository to install the depenencies and compile the JavaScript
+* **New dependency**: Bump required ownCloud version to 9.0
 * **New dependency**: Bump required PostgreSQL version to 9.4
 * **New dependency**: Bump required MySql/MariaDB version to 5.5
 * **New dependency**: Bump required PHP version to 5.6

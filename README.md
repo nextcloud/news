@@ -21,12 +21,12 @@ For further developer and user documentation please visit [the wiki](https://git
 are listed on the [ownCloud apps overview](https://github.com/owncloud/core/wiki/Apps)
 
 ## Dependencies
-* ownCloud >= 8.2
+* ownCloud >= 9.0
 * libxml >= 2.7.8 (2.9 recommended)
 * php-curl
 * iconv
 * SimpleXML
-* PHP >= 5.5
+* PHP >= 5.6
 
 ## Development Dependencies
 These Dependencies are only relevant if you want to work on the source code:
@@ -38,6 +38,7 @@ These Dependencies are only relevant if you want to work on the source code:
 * phpunit (optional)
 * composer (optional)
 * gulp-cli (optional)
+* bower (optional)
 
 ## Supported Linux Distributions
 Supported means that the distribution's default repository packages will work in conjunction with the News app and you won't have to add any 3rdparty repositories.
