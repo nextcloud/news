@@ -36,8 +36,7 @@ before_install:
     # install deps and compile js
     - make
     # install core
-    - cd ../../
-    - ls
+    - cd ../
     - ocdev setup core --dir owncloud --branch $CORE_BRANCH --no-history
     - mv news owncloud/apps/
 
