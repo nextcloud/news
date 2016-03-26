@@ -120,6 +120,7 @@ source:
 	--exclude-vcs \
 	--exclude="../$(app_name)/build" \
 	--exclude="../$(app_name)/js/node_modules" \
+	--exclude="../$(app_name)/node_modules" \
 	--exclude="../$(app_name)/*.log" \
 	--exclude="../$(app_name)/js/*.log" \
 
