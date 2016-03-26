@@ -72,3 +72,4 @@ deploy:
     file: 'build/artifacts/source/news.tar.gz'
     on:
         repo: owncloud/news
+        tags: true
