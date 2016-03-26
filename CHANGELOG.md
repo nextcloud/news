@@ -6,7 +6,7 @@ owncloud-news (8.0.0)
 * **New dependency**: Bump required PHP version to 5.6
 * **Bugfix**: Fix bug that would not lowercase non ASCII characters when searching, #944
 * **Bugfix**: Fix bug that would not persist settings like compact mode on PostgreSQL, #948
-* **Enhancement**: Add HTTP basic auth, #938
+* **Enhancement**: Add support for password protected feeds (HTTP basic auth), #938
 
 owncloud-news (7.1.2)
 * **Enhancement**: Major JavaScript library updates:
