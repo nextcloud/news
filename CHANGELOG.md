@@ -7,6 +7,7 @@ owncloud-news (8.0.0)
 * **Bugfix**: Fix bug that would not lowercase non ASCII characters when searching, #944
 * **Bugfix**: Fix bug that would not persist settings like compact mode on PostgreSQL, #948
 * **Enhancement**: Add support for password protected feeds (HTTP basic auth), #938
+* **Enhancement**: Follow semantic versioning better. Future releases which require newer depenencies will increment the most left number (MAJOR) instead of the number in the middle (MINOR), Enhancements will increase the number in the middle (MINOR)
 
 owncloud-news (7.1.2)
 * **Enhancement**: Major JavaScript library updates:
