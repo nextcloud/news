@@ -37,6 +37,7 @@ before_install:
     - make
     # install core
     - cd ../../
+    - ls
     - ocdev setup core --dir owncloud --branch $CORE_BRANCH --no-history
     - mv news owncloud/apps/
 
