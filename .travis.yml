@@ -66,7 +66,7 @@ deploy:
     skip_cleanup: true
     api_key:
         secure: ds45weacZfcM1kPEFMSBogc3KRxdb77O4V6OfDCWEZTvdCgq5AWY21Rc4fCRL+UYPGtHAWykL96xgoii81uuKEK+eqyJtOlrp53EGHsyYJLkSPg8Yjccj9W5WuAUymiuP/vilB8+L1HqpUQW9bXzlYbI/AICYAIQzv5UN4+sXKA=
-    file: 'build/artifacts/source/news.tar.gz'
+    file: 'build/artifacts/appstore/news.tar.gz'
     on:
         repo: owncloud/news
         tags: true
