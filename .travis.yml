@@ -52,16 +52,12 @@ before_script:
     - cd apps/news
 
 script:
-    # unit tests
-    - phpunit -c phpunit.xml --coverage-clover coverage.clover
-    - phpunit -c phpunit.integration.xml
-    - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
-    - cd js
-    - gulp karma
-    # acceptance tests
-    #- webdriver-manager update
-    # debug section to check what went wrong
-    - cd ..
+    - make test
+
+after_success:
+    - php ocular.phar code-coverage:upload --format=php-clover build/php-unit.clover
+
+after_failure:
     - sudo cat ../../data/owncloud.log
 
 deploy:

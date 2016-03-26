@@ -167,8 +167,8 @@ ifeq (, $(shell which phpunit 2> /dev/null))
 	@echo "No phpunit command available, downloading a copy from the web"
 	mkdir -p $(build_tools_directory)
 	curl -sSL https://phar.phpunit.de/phpunit.phar -o $(build_tools_directory)/phpunit.phar
-	php $(build_tools_directory)/phpunit.phar -c phpunit.xml
-	php $(build_tools_directory)/phpunit.phar -c phpunit.integration.xml
+	php $(build_tools_directory)/phpunit.phar -c phpunit.xml --coverage-clover build/php-unit.clover
+	php $(build_tools_directory)/phpunit.phar -c phpunit.integration.xml --coverage-clover build/php-integration.clover
 else
 	phpunit -c phpunit.xml
 	phpunit -c phpunit.integration.xml
