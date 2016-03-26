@@ -31,8 +31,9 @@ before_install:
     - sudo easy_install3 requests ocdev
     - nvm install 5.6
     - npm install -g npm@latest
-    - wget https://scrutinizer-ci.com/ocular.phar
     - make
+    - make dist
+    - wget https://scrutinizer-ci.com/ocular.phar
     # install core
     - cd ../
     - ocdev setup core --dir owncloud --branch $CORE_BRANCH --no-history
@@ -62,4 +63,14 @@ script:
     # acceptance tests
     #- webdriver-manager update
     # debug section to check what went wrong
-    - sudo cat ../../../data/owncloud.log
+    - cd ..
+    - sudo cat ../../data/owncloud.log
+
+deploy:
+    provider: releases
+    skip_cleanup: true
+    api_key:
+        secure: ds45weacZfcM1kPEFMSBogc3KRxdb77O4V6OfDCWEZTvdCgq5AWY21Rc4fCRL+UYPGtHAWykL96xgoii81uuKEK+eqyJtOlrp53EGHsyYJLkSPg8Yjccj9W5WuAUymiuP/vilB8+L1HqpUQW9bXzlYbI/AICYAIQzv5UN4+sXKA=
+    file: 'build/artifacts/source/news.tar.gz'
+    on:
+        repo: owncloud/news
