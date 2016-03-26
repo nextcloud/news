@@ -20,7 +20,7 @@ matrix:
         - php: 5.6
           env: DB=mysql
         - php: 5.6
-          env: CORE_BRANCH=master
+          env: CORE_BRANCH=master DB=pgsql
     fast_finish: true
 
 before_install:
@@ -31,9 +31,7 @@ before_install:
     - sudo easy_install3 requests ocdev
     - nvm install 5.6
     - npm install -g npm@latest
-    # install php modules
     - wget https://scrutinizer-ci.com/ocular.phar
-    # install deps and compile js
     - make
     # install core
     - cd ../
