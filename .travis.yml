@@ -26,7 +26,8 @@ before_install:
     - export DISPLAY=:99.0
     - sh -e /etc/init.d/xvfb start
     - sudo apt-get update
-    - sudo apt-get -y install python3-setuptools firefox mariadb-server
+    - sudo apt-get -y install python3-setuptools
+    - if [[ "$DB" == 'mysql' ]]; apt-get -y install mariadb-server; fi
     - sudo easy_install3 requests ocdev
     - nvm install 5.6
     - npm install -g npm@latest
@@ -37,10 +38,10 @@ before_install:
     - mv news owncloud/apps/
 
 before_script:
-    - createuser -U travis -s oc_autotest
-    - mysql -u root -e 'create database oc_autotest;'
-    - mysql -u root -e "CREATE USER 'oc_autotest'@'localhost' IDENTIFIED BY '';"
-    - mysql -u root -e "grant all on oc_autotest.* to 'oc_autotest'@'localhost';"
+    - if [[ "$DB" == 'pgsql' ]]; then createuser -U travis -s oc_autotest; fi
+    - if [[ "$DB" == 'mysql' ]]; then mysql -u root -e 'create database oc_autotest;'; fi
+    - if [[ "$DB" == 'mysql' ]]; then mysql -u root -e "CREATE USER 'oc_autotest'@'localhost' IDENTIFIED BY '';"; fi
+    - if [[ "$DB" == 'mysql' ]]; then mysql -u root -e "grant all on oc_autotest.* to 'oc_autotest'@'localhost';"; fi
     # fill owncloud with default configs and enable news
     - cd owncloud
     - mkdir data
@@ -69,3 +70,6 @@ deploy:
     on:
         repo: owncloud/news
         tags: true
+
+addons:
+    firefox: "latest"
