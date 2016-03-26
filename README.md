@@ -45,7 +45,7 @@ Supported means that the distribution's default repository packages will work in
 
 The following distros are supported:
 
-* Ubuntu 14.04
+* Ubuntu 16.04
 * Debian 8 (Jessie)
 * Arch Linux
 
