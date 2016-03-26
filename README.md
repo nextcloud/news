@@ -1,5 +1,5 @@
 # ownCloud News app
-
+[![irc](https://img.shields.io/badge/irc%20channel-%23owncloud--news%20on%20freenode-blue.svg)](https://webchat.freenode.net/?channels=owncloud-news)
 [![Join the chat at https://gitter.im/owncloud/news](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/owncloud/news?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 [![Build Status](https://travis-ci.org/owncloud/news.svg?branch=master)](https://travis-ci.org/owncloud/news)
