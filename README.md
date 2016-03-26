@@ -75,11 +75,11 @@ This is the easiest solution: Simply go the the apps page and enable the News ap
 
 ### Installing from archive
 * Go to the [ownCloud News GitHub releases page](https://github.com/owncloud/news/releases) and download the latest release/archive to your server
-* Starting with 7.2.0, there are two different releases: **news.tar.gz** and **Source code**. The first one requires no additional steps, the second one requires you to install the dependencies and compile the JavaScript. Choose the first one if you don't want to work on the code.
+* Starting with 8.0.0, there are two different releases: **news.tar.gz** and **Source code**. The first one requires no additional steps, the second one requires you to install the dependencies and compile the JavaScript. Choose the first one if you don't want to work on the code.
 * On your server, check if there is a folder called **owncloud/apps/news**. If there is one, delete it.
 * Extract the downloaded archive to the **owncloud/apps/** folder.
 * Remove the version from the extracted folder (e.g. rename **owncloud/apps/news-4.0.3/** to **owncloud/apps/news/**
-* If you are a version greater than or equal to 7.2.0 and downloaded the **Source code** zip or tar.gz, you need to install the JavaScript and PHP dependencies and compile the JavaScript first. On your terminal, change into the **owncloud/apps/news/** directory and run the following command (requires node >5.6, npm, curl, make and which):
+* If you are a version greater than or equal to 8.0.0 and downloaded the **Source code** zip or tar.gz, you need to install the JavaScript and PHP dependencies and compile the JavaScript first. On your terminal, change into the **owncloud/apps/news/** directory and run the following command (requires node >5.6, npm, curl, make and which):
 
         sudo -u www-data make  # www-data might vary depending on your distribution
 
@@ -91,7 +91,7 @@ This is the easiest solution: Simply go the the apps page and enable the News ap
 
 ### Installing from Git (development version)
 * The master branch will always be stable in conjunction with the latest master branch from ownCloud
-* JavaScript and PHP libraries are not included anymore since 7.2.0 and will require you to run **make** after updating/installing the app
+* JavaScript and PHP libraries are not included anymore since 8.0.0 and will require you to run **make** after updating/installing the app
 * In your terminal go into the **owncloud/apps/** directory and then run the following command:
 
         git clone https://github.com/owncloud/news.git
@@ -105,7 +105,7 @@ This is the easiest solution: Simply go the the apps page and enable the News ap
  You can switch to a release which will be supported on your installation by running:
 
       git checkout tags/TAG
-      make  # if News version >= 7.2.0
+      make  # if News version >= 8.0.0
 
  For instance to use the 5.2.8 release, run:
 
