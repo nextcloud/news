@@ -1,9 +1,9 @@
 owncloud-news (8.0.0)
 * **Backwards incompatible change**: The git repository does not bundle composer and bower libraries anymore, nor does it contain compiled JavaScript. If you are running the git version, you now need to run **make** after cloning and pulling from the repository to install the depenencies and compile the JavaScript
-* **New dependency**: Bump required ownCloud version to 9.0
-* **New dependency**: Bump required PostgreSQL version to 9.4
-* **New dependency**: Bump required MySql/MariaDB version to 5.5
-* **New dependency**: Bump required PHP version to 5.6
+* **New dependency**: Bump minimum ownCloud version to 9.0
+* **New dependency**: Bump minimum PostgreSQL version to 9.4
+* **New dependency**: Bump minimum MySql/MariaDB version to 5.5
+* **New dependency**: Bump minimum PHP version to 5.6
 * **Bugfix**: Fix bug that would not lowercase non ASCII characters when searching, #944
 * **Bugfix**: Fix bug that would not persist settings like compact mode on PostgreSQL, #948
 * **Enhancement**: Add support for password protected feeds (HTTP basic auth), #938
