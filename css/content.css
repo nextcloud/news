@@ -280,9 +280,12 @@
         background-image: url('../img/inactive_star.svg');
     }
 
-    #app-content .utils .starred,
-    #app-content .utils .star:hover {
+    #app-content .utils .starred {
         background-image: url('../img/active_star.svg');
+    }
+
+    #app-content .utils .star:hover {
+         background-image: url('../img/hover_star.svg');
     }
 
     #app-content .utils .more button {
