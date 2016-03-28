@@ -84,6 +84,8 @@ def main():
             args.interval = int(config_values['interval'])
         if 'url' in config_values:
             args.url = config_values['url']
+        if 'loglevel' in config_values:
+            args.loglevel = config_values['loglevel']
 
     if not args.url:
         self._exit('No url or directory given')
