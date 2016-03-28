@@ -40,8 +40,10 @@
 #    },
 
 app_name=$(notdir $(CURDIR))
+project_directory=../$(app_name)
 build_tools_directory=$(CURDIR)/build/tools
 source_build_directory=$(CURDIR)/build/artifacts/source
+updater_build_directory=$(CURDIR)/build/artifacts/updater
 source_package_name=$(source_build_directory)/$(app_name)
 appstore_build_directory=$(CURDIR)/build/artifacts/appstore
 appstore_package_name=$(appstore_build_directory)/$(app_name)
@@ -57,9 +59,6 @@ all: build
 build:
 ifneq (,$(wildcard $(CURDIR)/composer.json))
 	make composer
-endif
-ifneq (,$(wildcard $(CURDIR)/package.json))
-	make npm
 endif
 ifneq (,$(wildcard $(CURDIR)/js/package.json))
 	make npm
@@ -84,11 +83,7 @@ endif
 # Installs npm dependencies
 .PHONY: npm
 npm:
-ifeq (,$(wildcard $(CURDIR)/package.json))
 	cd js && $(npm) run build
-else
-	npm run build
-endif
 
 # Removes the appstore build
 .PHONY: clean
@@ -113,57 +108,60 @@ dist:
 # Builds the source package
 .PHONY: source
 source:
-	make build
 	rm -rf $(source_build_directory)
 	mkdir -p $(source_build_directory)
 	tar cvzf $(source_package_name).tar.gz ../$(app_name) \
 	--exclude-vcs \
 	--exclude="../$(app_name)/build" \
 	--exclude="../$(app_name)/js/node_modules" \
-	--exclude="../$(app_name)/node_modules" \
 	--exclude="../$(app_name)/*.log" \
 	--exclude="../$(app_name)/js/*.log" \
 
 # Builds the source package for the app store, ignores php and js tests
 .PHONY: appstore
 appstore:
-	make build
 	rm -rf $(appstore_build_directory)
 	mkdir -p $(appstore_build_directory)
-	tar cvzf $(appstore_package_name).tar.gz ../$(app_name) \
-	--exclude-vcs \
-	--exclude="../$(app_name)/build" \
-	--exclude="../$(app_name)/tests" \
-	--exclude="../$(app_name)/Makefile" \
-	--exclude="../$(app_name)/*.log" \
-	--exclude="../$(app_name)/phpunit*xml" \
-	--exclude="../$(app_name)/composer.*" \
-	--exclude="../$(app_name)/js/node_modules" \
-	--exclude="../$(app_name)/js/tests" \
-	--exclude="../$(app_name)/js/test" \
-	--exclude="../$(app_name)/js/*.log" \
-	--exclude="../$(app_name)/js/package.json" \
-	--exclude="../$(app_name)/js/bower.json" \
-	--exclude="../$(app_name)/js/karma.*" \
-	--exclude="../$(app_name)/js/protractor.*" \
-	--exclude="../$(app_name)/package.json" \
-	--exclude="../$(app_name)/bower.json" \
-	--exclude="../$(app_name)/karma.*" \
-	--exclude="../$(app_name)/protractor\.*" \
-	--exclude="../$(app_name)/.*" \
-	--exclude="../$(app_name)/js/.*" \
+	tar cvzf $(appstore_package_name).tar.gz \
+	$(project_directory)"/admin" \
+	$(project_directory)"/appinfo" \
+	$(project_directory)"/config" \
+	$(project_directory)"/controller" \
+	$(project_directory)"/cron" \
+	$(project_directory)"/css" \
+	$(project_directory)"/db" \
+	$(project_directory)"/dependencyinjection" \
+	$(project_directory)"/explore" \
+	$(project_directory)"/fetcher" \
+	$(project_directory)"/hooks" \
+	$(project_directory)"/http" \
+	$(project_directory)"/img" \
+	$(project_directory)"/l10n" \
+	$(project_directory)"/plugin" \
+	$(project_directory)"/service" \
+	$(project_directory)"/templates" \
+	$(project_directory)"/upgrade" \
+	$(project_directory)"/utility" \
+	$(project_directory)"/vendor" \
+	$(project_directory)"/COPYING" \
+	$(project_directory)"/README.md" \
+	$(project_directory)"/AUTHORS.md" \
+	$(project_directory)"/js/vendor/js-url/url.min.js" \
+	$(project_directory)"/js/vendor/es6-shim/es6-shim.min.js" \
+	$(project_directory)"/js/vendor/angular/angular.min.js" \
+	$(project_directory)"/js/vendor/angular-animate/angular-animate.min.js" \
+	$(project_directory)"/js/vendor/angular-route/angular-route.min.js" \
+	$(project_directory)"/js/vendor/angular-sanitize/angular-sanitize.min.js" \
+	$(project_directory)"/js/vendor/momentjs/min/moment-with-locales.min.js" \
+	$(project_directory)"/js/vendor/masonry/dist/masonry.pkgd.min.js" \
+	$(project_directory)"/js/build/app.min.js" \
 
 # Command for running JS and PHP tests. Works for package.json files in the js/
 # and root directory. If phpunit is not installed systemwide, a copy is fetched
 # from the internet
 .PHONY: test
 test:
-ifneq (,$(wildcard $(CURDIR)/js/package.json))
 	cd js && $(npm) run test
-endif
-ifneq (,$(wildcard $(CURDIR)/package.json))
-	$(npm) run test
-endif
 ifeq (, $(shell which phpunit 2> /dev/null))
 	@echo "No phpunit command available, downloading a copy from the web"
 	mkdir -p $(build_tools_directory)

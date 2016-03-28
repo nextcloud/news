@@ -46,7 +46,7 @@ install-sysvinit: preinitsetup
 	@echo "to reload the changes if you change the config in /etc/owncloud/news/updater.ini"
 
 
-make uninstall: clean
+uninstall: clean
 	rm -rf /etc/owncloud/news/updater.ini
 	rm -rf /etc/systemd/systemd/owncloud-news-updater.service
 	rm -rf /etc/init.d/owncloud-news-updater
