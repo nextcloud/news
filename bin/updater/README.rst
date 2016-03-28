@@ -1,7 +1,12 @@
 ownCloud News Updater
 =====================
 
-ownCloud does not require people to install threading or multiprocessing libraries. Because the feed update process is mainly limited by I/O, parallell fetching of RSS feed updates can speed up the updating process significantly. In addition the cronjob can get `into a deadlock <https://github.com/owncloud/core/issues/3221>`_ which will cause the updater to get stuck resulting in your feeds not to being updated anymore. This can be solved by using a script that uses the `updater API <https://github.com/owncloud/news/wiki/Cron-1.2>`_
+ownCloud does not require people to install threading or multiprocessing libraries.
+Because the feed update process is mainly limited by I/O,
+parallell fetching of RSS feed updates can speed up the updating process significantly.
+
+This can be done by using a script that uses the `updater REST API <https://github.com/owncloud/news/wiki/Cron-1.2>`_
+or (new in 8.1.0) the console based update API
 
 Preinstallation
 ---------------

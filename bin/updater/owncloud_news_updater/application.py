@@ -10,11 +10,12 @@ __license__ = 'AGPL3+'
 __maintainer__ = 'Bernhard Posselt'
 __email__ = 'dev@bernhard-posselt.com'
 
+import os
 import sys
 import argparse
 import configparser
 
-from owncloud_news_updater.updater import Updater
+from owncloud_news_updater.updater import WebUpdater, ConsoleUpdater
 
 
 def main():
@@ -37,17 +38,27 @@ def main():
             will be subtracted from the interval.',
         default=15*60,
         type=int)
+    parser.add_argument('--loglevel', '-l',
+        help='Log granularity, info will log all urls and received data, error \
+        will only log errors',
+        default='error',
+        choices=['info', 'error'])
     parser.add_argument('--config', '-c',
         help='Path to config file where all parameters except can be defined \
         as key values pair. An example is in bin/example_config.ini')
     parser.add_argument('--user', '-u',
         help='Admin username to log into ownCloud. Must be specified on the \
-        command line or in the config file.')
+        command line or in the config file if the updater should update over \
+        HTTP')
     parser.add_argument('--password', '-p',
-        help='Admin password to log into ownCloud')
+        help='Admin password to log into ownCloud if the updater should update \
+        over HTTP')
     parser.add_argument('url',
-        help='The URL where owncloud is installed. Must be specified on the \
-        command line or in the config file.',
+        help='The URL or absolute path to the directory where owncloud is \
+        installed. Must be specified on the command line or in the config \
+        file. If the URL starts with http:// or https://, a user and password \
+        are required. Otherwise updater tries to use the console based API \
+        which was added in 8.1.0',
         nargs='?')
     args = parser.parse_args()
 
@@ -74,22 +85,42 @@ def main():
         if 'url' in config_values:
             args.url = config_values['url']
 
+    if not args.url:
+        self._exit('No url or directory given')
+
+    # if url starts with a /, the console based API will be used
+    isWeb = args.url.startswith('http://') or args.url.startswith('https://')
+
     # url and user must be specified either from the command line or in the
     # config file
-    if not args.url or not args.user:
-        parser.print_help()
-        exit(1)
+    if isWeb and not args.user:
+        _exit(parser, 'Web API requires a user')
+
+    if not isWeb and not os.path.isabs(args.url):
+        _exit(parser, ('Absolute path to ownCloud installation required, given '
+                        '%s') % args.url)
+
+    if not isWeb and not os.path.isdir(args.url):
+        _exit(parser, '%s is not a directory' % args.url)
 
     # create the updater and run the threads
-    updater = Updater(args.url, args.threads, args.interval, args.user,
-                      args.password, args.timeout, args.testrun)
+    if isWeb:
+        updater = WebUpdater(args.url, args.threads, args.interval,
+                             args.testrun, args.user, args.password,
+                             args.timeout, args.loglevel)
+    else:
+        updater = ConsoleUpdater(args.url, args.threads, args.interval,
+                                 args.testrun, args.loglevel)
     updater.run()
 
+
+def _exit(parser, message):
+    print(message, file=sys.stderr)
+    parser.print_help()
+    exit(1)
 
 if __name__ == '__main__':
     if sys.version_info < (3, 0):
         print('Python 3.0 or higher is required to run this script')
     else:
         main()
-
-

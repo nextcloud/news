@@ -1,3 +1,9 @@
+owncloud-news (8.1.0)
+* **Backwards incompatible change**: URLs for the Python updater must now start with either http:// or https://
+* **Enhancement**: Add console API to update feeds in parallel
+* **Enhancement**: Add an additional parameter to specify the loglevel for the Python updater
+* **Enhancement**: Adjust Python updater to be able to use the console API. If you pass an absolute directory as url (path to your ownCloud), the updater will try to use **occ** updater commands using php. This requires no user or password arguments which makes running the updater on the same system as your ownCloud more secure
+
 owncloud-news (8.0.0)
 * **Backwards incompatible change**: The git repository does not bundle composer and bower libraries anymore, nor does it contain compiled JavaScript. If you are running the git version, you now need to run **make** after cloning and pulling from the repository to install the depenencies and compile the JavaScript
 * **New dependency**: Bump minimum ownCloud version to 9.0
