@@ -126,6 +126,7 @@ appstore:
 	$(project_directory)"/admin" \
 	$(project_directory)"/appinfo" \
 	$(project_directory)"/config" \
+	$(project_directory)"/command" \
 	$(project_directory)"/controller" \
 	$(project_directory)"/cron" \
 	$(project_directory)"/css" \
