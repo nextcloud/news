@@ -32,11 +32,6 @@ class Config {
     private $loggerParams;
     private $maxSize;
     private $exploreUrl;
-    private $proxyHost;
-    private $proxyPort;
-    private $proxyUser;
-    private $proxyPassword;
-
 
     public function __construct(Folder $fileSystem,
                                 ILogger $logger,
@@ -49,36 +44,8 @@ class Config {
         $this->feedFetcherTimeout = 60;
         $this->useCronUpdates = true;
         $this->logger = $logger;
-        $this->proxyHost = '';
-        $this->proxyPort = 8080;
-        $this->proxyUser = '';
-        $this->proxyPassword = '';
         $this->exploreUrl = '';
         $this->loggerParams = $LoggerParameters;
-    }
-
-    public function getProxyPort() {
-        return $this->proxyPort;
-    }
-
-    public function getProxyHost() {
-        return $this->proxyHost;
-    }
-
-    public function getProxyAuth() {
-        if($this->proxyUser === '') {
-            return null;
-        } else {
-            return $this->proxyUser . ':' . $this->proxyPassword;
-        }
-    }
-
-    public function getProxyUser() {
-        return $this->proxyUser;
-    }
-
-    public function getProxyPassword() {
-        return $this->proxyPassword;
     }
 
     public function getAutoPurgeMinimumInterval() {
@@ -88,7 +55,6 @@ class Config {
             return 60;
         }
     }
-
 
     public function getAutoPurgeCount() {
         return $this->autoPurgeCount;
@@ -143,27 +109,6 @@ class Config {
     public function setUseCronUpdates($value) {
         $this->useCronUpdates = $value;
     }
-
-
-    public function setProxyPort($value) {
-        $this->proxyPort = $value;
-    }
-
-
-    public function setProxyHost($value) {
-        $this->proxyHost = $value;
-    }
-
-
-    public function setProxyUser($value) {
-        $this->proxyUser = $value;
-    }
-
-
-    public function setProxyPassword($value) {
-        $this->proxyPassword = $value;
-    }
-
 
     public function setMaxSize($value) {
         $this->maxSize = $value;

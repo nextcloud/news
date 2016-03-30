@@ -43,11 +43,6 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(10, $this->config->getMaxRedirects());
         $this->assertEquals(60, $this->config->getFeedFetcherTimeout());
         $this->assertEquals(true, $this->config->getUseCronUpdates());
-        $this->assertEquals(8080, $this->config->getProxyPort());
-        $this->assertEquals('', $this->config->getProxyHost());
-        $this->assertEquals(null, $this->config->getProxyAuth());
-        $this->assertEquals('', $this->config->getProxyUser());
-        $this->assertEquals('', $this->config->getProxyPassword());
         $this->assertEquals('', $this->config->getExploreUrl());
         $this->assertEquals(1024*1024*100, $this->config->getMaxSize());
     }
@@ -155,10 +150,6 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
             'feedFetcherTimeout = 60' . "\n" .
             'useCronUpdates = true';
         $this->config->setAutoPurgeCount(3);
-        $this->config->setProxyHost('yo man');
-        $this->config->setProxyPort(12);
-        $this->config->setProxyUser('this is a test');
-        $this->config->setProxyPassword('se');
         $this->config->setMaxSize(399);
         $this->config->setExploreUrl('http://google.de');
 
@@ -174,10 +165,6 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
         $this->config->write($this->configPath);
     }
 
-
-    public function testNoProxyAuthReturnsNull() {
-        $this->assertNull($this->config->getProxyAuth());
-    }
 
 
     public function testReadingNonExistentConfigWillWriteDefaults() {
@@ -209,14 +196,6 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
             ->with($this->equalTo($json));
 
         $this->config->read($this->configPath, true);
-    }
-
-
-    public function testEncodesUserAndPasswordInHTTPBasicAuth() {
-        $this->config->setProxyUser('this is a test');
-        $this->config->setProxyPassword('se');
-
-        $this->assertEquals('this is a test:se', $this->config->getProxyAuth());
     }
 
 
