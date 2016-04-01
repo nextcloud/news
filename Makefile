@@ -156,6 +156,7 @@ appstore:
 	$(project_directory)"/js/vendor/momentjs/min/moment-with-locales.min.js" \
 	$(project_directory)"/js/vendor/masonry/dist/masonry.pkgd.min.js" \
 	$(project_directory)"/js/build/app.min.js" \
+	$(project_directory)"/js/admin/Admin.js" \
 
 # Command for running JS and PHP tests. Works for package.json files in the js/
 # and root directory. If phpunit is not installed systemwide, a copy is fetched
