@@ -26,14 +26,14 @@ for element in tree.findall('version'):
 setup (
     name = 'owncloud_news_updater',
     version = version,
-    description = 'ownCloud news updater',
+    description = 'ownCloud News updater - Fast updates for your RSS/Atom feeds',
     long_description = long_description,
     author = 'Bernhard Posselt',
     author_email = 'dev@bernhard-posselt.com',
     url = 'https://github.com/owncloud/news',
     packages = find_packages(),
     include_package_data = True,
-    license = 'AGPL',
+    license = 'GPL',
     install_requires = install_requires,
     keywords = ['owncloud', 'news', 'updater'],
     classifiers = [
