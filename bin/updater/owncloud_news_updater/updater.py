@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+import traceback
 import json
 import threading
 import requests
@@ -66,6 +66,7 @@ class Updater:
                     time.sleep(timeout)
             except (Exception) as e:
                 self.logger.error('%s: Trying again in 30 seconds' % e)
+                traceback.print_exc(file=sys.stderr)
                 time.sleep(30)
 
     def before_update(self):
@@ -103,6 +104,7 @@ class UpdateThread(threading.Thread):
                 self.update_feed(feed)
             except (Exception) as e:
                 self.logger.error(e)
+                traceback.print_exc(file=sys.stderr)
 
     def update_feed(self, feed):
         raise NotImplementedError
