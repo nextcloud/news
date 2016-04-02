@@ -88,7 +88,7 @@ def main():
             args.loglevel = config_values['loglevel']
 
     if not args.url:
-        self._exit('No url or directory given')
+        _exit('No url or directory given')
 
     # if url starts with a /, the console based API will be used
     isWeb = args.url.startswith('http://') or args.url.startswith('https://')
