@@ -36,6 +36,14 @@ setup (
     license = 'AGPL',
     install_requires = install_requires,
     keywords = ['owncloud', 'news', 'updater'],
+    classifiers = [
+        'Intended Audience :: System Administrators',
+        'Environment :: Console',
+        'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
+        'Operating System :: POSIX :: Linux',
+        'Programming Language :: Python :: 3 :: Only',
+        'Topic :: Utilities'
+    ],
     entry_points = {
         'console_scripts': [
             'owncloud-news-updater = owncloud_news_updater.application:main'
