@@ -3,13 +3,7 @@
 # exit if any test fails
 set -e
 
-# update checksums
-cd js
-grunt js-unit
-cd ..
+make test
 
-phpunit -c phpunit.xml
-phpunit -c phpunit.integration.xml
-
-python3 bin/tools/generate_authors.py
+php -f bin/tools/generate_authors.php
 git add AUTHORS.md
