@@ -264,9 +264,11 @@ Check the **owncloud/data/owncloud.log** for hints why it failed. After the issu
     "maintenance" => false,
 
 ### Feeds are not updated
+* Check if the config.ini in **owncloud/data/news/config/config.ini** contains **useCronUpdates = true**
 * Check if the cronjob exists with **crontab -u www-data -e** (replace www-data with your httpd user)
 * Check the file permissions of the **cron.php** file and if **www-data** (or whatever your httpd user is called like) can read and execute that script
-* Check if the cronjob is ever executed by placing an **error_log('updating')** in the [background job file](https://github.com/owncloud/news/blob/master/cron/updater.php#L27). If the cronjob runs, there should be an updating log statement in your httpd log.
+* Check if you can execute the cron with **sudo -u www-data php -f owncloud/cron.php** (replace www-data with your httpd user)
+* Check if the cronjob is ever executed by placing an **error_log('updating')** in the [background job file](https://github.com/owncloud/news/blob/master/cron/updater.php#L28). If the cronjob runs, there should be an updating log statement in your httpd log.
 * If there is no **updating** statement in your logs check if your cronjob is executed by executing a different script
 * If your cron works fine but owncloud's cronjobs are never executed, file a bug in [core](https://github.com/owncloud/core/)
 * Try the [updater script](https://github.com/owncloud/news-updater)
