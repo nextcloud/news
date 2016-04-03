@@ -121,7 +121,7 @@ To update the News app use change into the **owncloud/apps/news/** directory usi
 
 ## Performance Notices
 * Use MySQL or PostgreSQL for better database performance
-* Use the [updater script to thread and speed up the update](https://github.com/owncloud/news/wiki/Custom-Updater)
+* Use the [updater script to thread and speed up the update](https://github.com/owncloud/news-updater)
 
 ## Updating Notices
 
@@ -269,7 +269,7 @@ Check the **owncloud/data/owncloud.log** for hints why it failed. After the issu
 * Check if the cronjob is ever executed by placing an **error_log('updating')** in the [background job file](https://github.com/owncloud/news/blob/master/cron/updater.php#L27). If the cronjob runs, there should be an updating log statement in your httpd log.
 * If there is no **updating** statement in your logs check if your cronjob is executed by executing a different script
 * If your cron works fine but owncloud's cronjobs are never executed, file a bug in [core](https://github.com/owncloud/core/)
-* Try the [updater script](https://github.com/owncloud/news/wiki/Custom-Updater)
+* Try the [updater script](https://github.com/owncloud/news-updater)
 
 ### Adding feeds that use self-signed certificates
 If you want to add a feed that uses a self-signed certificate that is not signed by a trusted CA the request will fail with "SSL certficate is invalid". A common solution is to turn off the certificate verification **which is wrong** and **makes your installation vulnerable to MITM attacks**. Therefore **turning off certificate verification is not supported**.
