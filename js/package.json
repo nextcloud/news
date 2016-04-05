@@ -30,7 +30,7 @@
   "private": true,
   "homepage": "https://github.com/owncloud/news",
   "devDependencies": {
-    "bower": "~1.7.7",
+    "bower": "~1.7.9",
     "gulp": "~3.9.1",
     "gulp-cli": "~1.2.1",
     "gulp-concat": "~2.6.0",
