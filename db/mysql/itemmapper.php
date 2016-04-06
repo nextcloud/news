@@ -63,5 +63,22 @@ class ItemMapper extends \OCA\News\Db\ItemMapper {
 
     }
 
+    public function readItem($itemId, $isRead, $lastModified, $userId) {
+        if ($isRead) {
+            $sql = 'UPDATE `*PREFIX*news_items` `items`
+                JOIN `*PREFIX*news_feeds` `feeds`
+                    ON `feeds`.`id` = `items`.`feed_id`
+                SET `items`.`status` = `items`.`status` & ?
+                    AND `items`.`last_modified` = ?
+                WHERE `items`.`fingerprint` = ?
+                    AND `feeds`.`user_id` = ?';
+            $params = [~StatusFlag::UNREAD, $lastModified,
+                       $item->getFingerprint(), $userId];
+            $this->execute($sql, $params);
+        } else {
+            // no other behavior for mysql if should be marked unread
+            parent::readItem($itemId, $isRead, $lastModified, $userId);
+        }
+    }
 
 }

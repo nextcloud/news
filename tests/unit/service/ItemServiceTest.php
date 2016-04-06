@@ -272,34 +272,6 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($item->isUnstarred());
     }
 
-    public function testUnread(){
-        $itemId = 3;
-        $item = new Item();
-        $item->setStatus(128);
-        $item->setId($itemId);
-        $item->setRead();
-
-        $expectedItem = new Item();
-        $expectedItem->setStatus(128);
-        $expectedItem->setUnread();
-        $expectedItem->setId($itemId);
-        $expectedItem->setLastModified($this->time);
-
-        $this->mapper->expects($this->once())
-            ->method('find')
-            ->with($this->equalTo($itemId), $this->equalTo($this->user))
-            ->will($this->returnValue($item));
-
-        $this->mapper->expects($this->once())
-            ->method('update')
-            ->with($this->equalTo($expectedItem));
-
-        $this->itemService->read($itemId, false, $this->user);
-
-        $this->assertTrue($item->isUnread());
-    }
-
-
     public function testRead(){
         $itemId = 3;
         $item = new Item();
@@ -314,17 +286,14 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
         $expectedItem->setLastModified($this->time);
 
         $this->mapper->expects($this->once())
-            ->method('find')
-            ->with($this->equalTo($itemId), $this->equalTo($this->user))
+            ->method('readItem')
+            ->with($this->equalTo($itemId),
+            $this->equalTo(true),
+            $this->equalTo($this->time),
+            $this->equalTo($this->user))
             ->will($this->returnValue($item));
 
-        $this->mapper->expects($this->once())
-            ->method('update')
-            ->with($this->equalTo($expectedItem));
-
         $this->itemService->read($itemId, true, $this->user);
-
-        $this->assertTrue($item->isRead());
     }
 
 
@@ -471,5 +440,3 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
 
 
 }
-
-

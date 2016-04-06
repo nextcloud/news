@@ -148,14 +148,8 @@ class ItemService extends Service {
      * @throws ServiceNotFoundException if the item does not exist
      */
     public function read($itemId, $isRead, $userId){
-        $item = $this->find($itemId, $userId);
-        $item->setLastModified($this->timeFactory->getTime());
-        if($isRead){
-            $item->setRead();
-        } else {
-            $item->setUnread();
-        }
-        $this->itemMapper->update($item);
+        $lastModified = $this->timeFactory->getTime();
+        $this->itemMapper->readItem($itemId, $isRead, $lastModified, $userId);
     }
 
 

@@ -379,5 +379,29 @@ class ItemMapper extends NewsMapper {
         }
     }
 
+    public function readItem($itemId, $isRead, $lastModified, $userId) {
+        $item = $this->find($itemId, $userId);
+
+        // reading an item should set all of the same items as read, whereas
+        // marking an item as unread should only mark the selected instance
+        // as unread
+        if ($isRead) {
+            $sql = 'UPDATE `*PREFIX*news_items`
+                SET `status` = `status` & ?
+                    AND `last_modified` = ?
+                WHERE `fingerprint` = ?
+                    AND feed_id IN (
+                        SELECT `f`.`id` FROM `*PREFIX*news_feeds` `f`
+                            WHERE `f`.`user_id` = ?
+                    )';
+            $params = [~StatusFlag::UNREAD, $lastModified,
+                       $item->getFingerprint(), $userId];
+            $this->execute($sql, $params);
+        } else {
+            $item->setLastModified($lastModified);
+            $item->setUnread();
+            $this->update($item);
+        }
+    }
 
 }

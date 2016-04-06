@@ -42,9 +42,8 @@ class ItemFixture extends Item {
             $defaults['guidHash'] = $defaults['guid'];
         }
 
-        $this->generateSearchIndex();
-
         $this->fillDefaults($defaults);
+        $this->generateSearchIndex();
     }
 
 }

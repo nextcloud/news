@@ -225,30 +225,73 @@ class ItemMapperTest extends IntegrationTest {
     }
 
 
-    /* TBD
-    public function testFindAllFolder () {
+    public function testReadItem() {
+        $this->loadFixtures('readitem');
+        // assert that all items are unread
+        $feed = $this->feedMapper->where(['userId' => 'john'])[0];
+        $items = $this->itemMapper->where(['feedId' => $feed->getId()]);
+        foreach ($items as $item) {
+            $this->assertTrue($item->isUnread());
+        }
+        $feed = $this->feedMapper->where(['userId' => 'test'])[0];
+        $items = $this->itemMapper->where(['feedId' => $feed->getId()]);
+        foreach ($items as $item) {
+            $this->assertTrue($item->isUnread());
+        }
 
+        // read an item
+        $duplicateItem = $this->itemMapper->where(['feedId' => $feed->getId()])[0];
+        $this->itemMapper->readItem($duplicateItem->getId(), true, 1000, $this->user);
+
+        // assert that all test user's same items are read
+        $items = $this->itemMapper->where(['feedId' => $feed->getId(), 'title' => 'blubb']);
+        foreach ($items as $item) {
+            $this->assertTrue($item->isRead());
+        }
+
+        // assert that a different item is not read
+        $items = $this->itemMapper->where(['feedId' => $feed->getId(), 'title' => 'blubbs']);
+        foreach ($items as $item) {
+            $this->assertTrue($item->isUnread());
+        }
+
+        // assert that other user's same items stayed the same
+        $johnsFeed = $this->feedMapper->where(['userId' => 'john'])[0];
+        $items = $this->itemMapper->where(['feedId' => $johnsFeed->getId()]);
+        foreach ($items as $item) {
+            $this->assertTrue($item->isUnread());
+        }
     }
 
+    public function testUnreadItem() {
+        $this->loadFixtures('readitem');
+        // unread an item
+        $feed = $this->feedMapper->where(['userId' => 'test'])[0];
+        $duplicateItem = $this->itemMapper->where(['feedId' => $feed->getId()])[0];
+        $this->itemMapper->readItem($duplicateItem->getId(), true, 1000, $this->user);
+        $this->itemMapper->readItem($duplicateItem->getId(), false, 1000, $this->user);
 
-    public function testFindAllFeed () {
+        // assert that only one item is now unread
+        $items = $this->itemMapper->where(['feedId' => $feed->getId(), 'title' => 'blubb']);
+        foreach ($items as $item) {
+            if ($item->getId() === $duplicateItem->getId()) {
+                $this->assertTrue($item->isUnread());
+            } else {
+                $this->assertTrue($item->isRead());
+            }
+        }
 
+        // assert that other user's same items stayed the same
+        $johnsFeed = $this->feedMapper->where(['userId' => 'john'])[0];
+        $items = $this->itemMapper->where(['feedId' => $johnsFeed->getId()]);
+        foreach ($items as $item) {
+            $this->assertTrue($item->isUnread());
+        }
     }
 
-
-    public function testFindAllNew () {
-
+    protected function tearDown() {
+        parent::tearDown();
+        $this->clearUserNewsDatabase('john');
     }
 
-
-    public function testFindAllNewFolder () {
-
-    }
-
-
-    public function testFindAllNewFeed () {
-
-    }
-
-    */
 }
