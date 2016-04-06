@@ -64,6 +64,8 @@ class ItemMapper extends \OCA\News\Db\ItemMapper {
     }
 
     public function readItem($itemId, $isRead, $lastModified, $userId) {
+        $item = $this->find($itemId, $userId);
+
         if ($isRead) {
             $sql = 'UPDATE `*PREFIX*news_items` `items`
                 JOIN `*PREFIX*news_feeds` `feeds`
@@ -76,8 +78,9 @@ class ItemMapper extends \OCA\News\Db\ItemMapper {
                        $item->getFingerprint(), $userId];
             $this->execute($sql, $params);
         } else {
-            // no other behavior for mysql if should be marked unread
-            parent::readItem($itemId, $isRead, $lastModified, $userId);
+            $item->setLastModified($lastModified);
+            $item->setUnread();
+            $this->update($item);
         }
     }
 

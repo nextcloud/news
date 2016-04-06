@@ -1,7 +1,11 @@
+owncloud-news (8.2.0)
+* **Backwards incompatible change**: Move updater into separate repository at https://github.com/owncloud/news-updater and publish it at pypi
+* **Enhancement**: Marking an item as read will now mark all similar items of the same user as read, regardless of the feed, #465
+
 owncloud-news (8.1.0)
 * **Backwards incompatible change**: URLs for the Python updater must now start with either http:// or https://
-* **Bugfix**: Fix bug that would not package all JavaScript files for the app store zip, #959
 * **Enhancement**: Change Python updater License from AGPL3+ to GPL3+
+* **Bugfix**: Fix bug that would not package all JavaScript files for the app store zip, #959
 * **Enhancement**: Add console API to update feeds in parallel
 * **Enhancement**: Add an additional parameter to specify the loglevel for the Python updater
 * **Enhancement**: Adjust Python updater to be able to use the console API. If you pass an absolute directory as url (path to your ownCloud), the updater will try to use **occ** updater commands using php. This requires no user or password arguments which makes running the updater on the same system as your ownCloud more secure
