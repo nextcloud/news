@@ -11,8 +11,6 @@
     "Request unauthorized. Are you logged in?" : "คำขอไม่ได้รับอนุญาต คุณเข้าสู่ระบบ?",
     "Request forbidden. Are you an admin?" : "คำขอถูกปฏิเสธ คุณเป็นผู้ดูแลระบบ?",
     "Token expired or app not enabled! Reload the page!" : "โทเค็นหมดอายุหรือไม่เปิดใช้งานแอพพลิเคชัน! โหลดหน้าใหม่อีกครั้ง!",
-    "Internal server error! Please check your " : "ข้อผิดพลาดภายในเซิร์ฟเวอร์! กรุณาตรวจสอบบันทึกของคุณ",
-    "Request failed, ownCloud is in currently " : "คำขอล้มเหลว ownCloud อยู่ในขณะนี้",
     "Can not add feed: Exists already" : "ไม่สามารถเพิ่มฟีด: มีอยู่แล้ว",
     "Articles without feed" : "บทความไม่มีฟีด",
     "Can not add folder: Exists already" : "ไม่สามารถเพิ่มโฟลเดอร์: มีอยู่แล้ว",

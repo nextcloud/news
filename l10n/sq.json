@@ -13,8 +13,6 @@
     "Request unauthorized. Are you logged in?" : "Kërkesë e paautorizuar. Jeni i futur?",
     "Request forbidden. Are you an admin?" : "Kërkesë e ndaluar. Jeni një përgjegjës?",
     "Token expired or app not enabled! Reload the page!" : "Token-i ka skaduar ose s’është aktivizuar aplikacioni! Ringarkoni faqen!",
-    "Internal server error! Please check your " : "Gabimi brendshëm shërbyesi. Ju lutemi, kontrolloni ",
-    "Request failed, ownCloud is in currently " : "Kërkesa dështoi, ownCloud-i gjendet hëpërhë në ",
     "Can not add feed: Exists already" : "Prurja s’shtohet dot: ekziston tashmë",
     "Articles without feed" : "Artikuj pa prurje",
     "Can not add folder: Exists already" : "S’shtohet dot dosje: ekziston tashmë",

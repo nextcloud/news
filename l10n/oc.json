@@ -11,8 +11,6 @@
     "Request unauthorized. Are you logged in?" : "Requèsta pas autorizada. Sètz plan connectat amb vòstres identificants ?",
     "Request forbidden. Are you an admin?" : "Requèsta interdicha. Avètz los dreches admin ?",
     "Token expired or app not enabled! Reload the page!" : "Lo geton a expirat o l'aplicacion es pas activada ! Recargatz la pagina !",
-    "Internal server error! Please check your " : "Error intèrna del servidor ! Verificatz vòstre",
-    "Request failed, ownCloud is in currently " : "Fracàs de la requèsta, ownCloud es",
     "Can not add feed: Exists already" : "Impossible d'apondre lo flux : ja present",
     "Articles without feed" : "Articles sens flux",
     "Can not add folder: Exists already" : "Impossible d'apondre lo dorsièr : ja present",

@@ -14,8 +14,6 @@ OC.L10N.register(
     "Request unauthorized. Are you logged in?" : "Zahteva ni ustrezno overjena. Ali ste prijavljeni?",
     "Request forbidden. Are you an admin?" : "Zahteva je zavrnjena. Ali ste prijavljeni kot skrbnik?",
     "Token expired or app not enabled! Reload the page!" : "Ključ je potekel ali pa program ni omogočen! Poskusite osvežiti stran!",
-    "Internal server error! Please check your " : "Notranja napaka strežnika! Preverite ",
-    "Request failed, ownCloud is in currently " : "Zahteva je spodletela. OwnCloud je trenutno",
     "Can not add feed: Exists already" : "Vira ni mogoče dodati: ta že obstaja",
     "Articles without feed" : "Članki brez virov",
     "Can not add folder: Exists already" : "Ni mogoče dodati mape: mapa že obstaja.",

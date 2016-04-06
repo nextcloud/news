@@ -13,8 +13,6 @@
     "Request unauthorized. Are you logged in?" : "בקשה לא מורשת. האם הנך מחובר/ת?",
     "Request forbidden. Are you an admin?" : "בקשה אסורה. האם הנך מנהל/ת?",
     "Token expired or app not enabled! Reload the page!" : "אישור פג תוקף או יישום לא מופעל! יש לטעון את הדף שוב!",
-    "Internal server error! Please check your " : "שגיאת שרת פנימית! יש לבדוק את ה-",
-    "Request failed, ownCloud is in currently " : "בקשה נכשלה, ownCloud לפי שעה",
     "Can not add feed: Exists already" : "לא ניתן להוסיף הזנת ערוץ תוכן: כבר קיים",
     "Articles without feed" : "מאמרים ללא ערוץ הזנת תוכן",
     "Can not add folder: Exists already" : "לא ניתן להוסיף תיקייה: כבר קיימת",
