@@ -70,8 +70,8 @@ class ItemMapper extends \OCA\News\Db\ItemMapper {
             $sql = 'UPDATE `*PREFIX*news_items` `items`
                 JOIN `*PREFIX*news_feeds` `feeds`
                     ON `feeds`.`id` = `items`.`feed_id`
-                SET `items`.`status` = `items`.`status` & ?
-                    AND `items`.`last_modified` = ?
+                SET `items`.`status` = `items`.`status` & ?,
+                    `items`.`last_modified` = ?
                 WHERE `items`.`fingerprint` = ?
                     AND `feeds`.`user_id` = ?';
             $params = [~StatusFlag::UNREAD, $lastModified,
