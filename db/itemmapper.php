@@ -386,11 +386,11 @@ class ItemMapper extends NewsMapper {
         // marking an item as unread should only mark the selected instance
         // as unread
         if ($isRead) {
-            $sql = 'UPDATE `*PREFIX*news_items` AS `items`
-                SET `items`.`status` = `items`.`status` & ?
-                    AND `items`.`last_modified` = ?
-                WHERE `items`.`fingerprint` = ?
-                    AND `items`.`feed_id` IN (
+            $sql = 'UPDATE `*PREFIX*news_items`
+                SET `status` = `status` & ?
+                    AND `last_modified` = ?
+                WHERE `fingerprint` = ?
+                    AND `feed_id` IN (
                         SELECT `f`.`id` FROM `*PREFIX*news_feeds` AS `f`
                             WHERE `f`.`user_id` = ?
                     )';
