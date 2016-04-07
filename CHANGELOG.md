@@ -1,6 +1,8 @@
 owncloud-news (8.2.0)
 * **Backwards incompatible change**: Move updater into separate repository at https://github.com/owncloud/news-updater and publish it at pypi
+* **Bugfix**: Make the export/import buttons smaller so they fit in a line on ownCloud 9.0
 * **Enhancement**: Marking an item as read will now mark all similar items of the same user as read, regardless of the feed, #465
+* **Enhancement**: Add a link to the documentation and bugtracker in the settings area
 
 owncloud-news (8.1.0)
 * **Backwards incompatible change**: URLs for the Python updater must now start with either http:// or https://
