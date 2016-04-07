@@ -9,6 +9,7 @@ $TRANSLATIONS = array(
 "Bigger than maximum allowed size" => "Sallittua enimmäiskokoa suurempi",
 "Request timed out" => "Pyyntö aikakatkaistiin",
 "Required credentials for feed were either missing or incorrect" => "Vaaditut käyttäjätiedot syötteelle puuttuvat tai ovat väärin",
+"Forbidden to access feed" => "Syötteen käyttö on estetty",
 "Request failed, network connection unavailable!" => "Pyyntö epäonnistui, verkkoyhteyttä ei ole käytettävissä!",
 "Request unauthorized. Are you logged in?" => "Pyyntö ei ole valtutettu. Oletko sisäänkirjautuneena?",
 "Request forbidden. Are you an admin?" => "Pyyntö kielletty. Oletko ylläpitäjä?",
