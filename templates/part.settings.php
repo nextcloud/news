@@ -8,10 +8,6 @@
     <h3><?php p($l->t('Settings')); ?></h3>
 
     <p>
-        <a href="#/shortcuts"><?php p($l->t('Keyboard shortcuts')); ?></a>
-    </p>
-
-    <p>
         <label>
             <input type="checkbox"
                    ng-click="Settings.toggleSetting('preventReadOnScroll')"
@@ -60,6 +56,16 @@
                    name="oldestFirst">
             <?php p($l->t('Reverse ordering (oldest on top)')); ?>
         </label>
+    </p>
+
+    <h3><?php p($l->t('Help')); ?></h3>
+
+    <p>
+        <a href="#/shortcuts/"><?php p($l->t('Keyboard shortcuts')); ?></a>
+    </p>
+
+    <p>
+        <a target="_blank" href="https://github.com/owncloud/news/wiki"><?php p($l->t('Documentation')); ?></a>
     </p>
 
     <div class="import-export">

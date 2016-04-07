@@ -82,6 +82,8 @@ foreach (Plugin::getScripts() as $appName => $fileName) {
     <script type="text/ng-template" id="shortcuts.html">
         <?php print_unescaped($this->inc('part.content.shortcuts')) ?>
     </script>
+        <?php print_unescaped($this->inc('part.content.subscription')) ?>
+    </script>
     <script type="text/ng-template" id="explore.html">
         <?php print_unescaped($this->inc('part.content.explore')) ?>
     </script>

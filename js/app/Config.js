@@ -207,6 +207,9 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
         }).when('/shortcuts', {
             templateUrl: 'shortcuts.html',
             type: -1
+        }).when('/subscription-url', {
+            templateUrl: 'subscription.html',
+            type: -1
         });
 
 });

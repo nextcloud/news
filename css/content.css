@@ -11,6 +11,19 @@
     display: none;
 }
 
+#app-content #text-content {
+    padding: 20px;
+}
+
+#app-content #text-content h1 {
+    font-size: 18pt;
+    margin-bottom: 15px;
+}
+
+#app-content #text-content p {
+    font-size: 11pt;
+}
+
 #app-content .no-feeds-available {
     text-align: center;
     color: #333;
